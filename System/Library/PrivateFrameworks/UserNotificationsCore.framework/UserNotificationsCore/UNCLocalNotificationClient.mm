@@ -61,21 +61,19 @@
 
 - (void)_invalidatePendingNotificationRecordTimers
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = self->_bundleIdentifier;
-    v7 = 138543362;
-    v8 = bundleIdentifier;
-    _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidate persistent timer", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = bundleIdentifier;
+    _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidate persistent timer", &v6, 0xCu);
   }
 
   [(PCPersistentTimer *)self->_localNotificationTimer invalidate];
   localNotificationTimer = self->_localNotificationTimer;
   self->_localNotificationTimer = 0;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_dateFormatter
@@ -142,7 +140,7 @@ uint64_t __44__UNCLocalNotificationClient__dateFormatter__block_invoke()
 
 - (void)addPendingNotificationRecords:(id)records
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   dispatch_assert_queue_V2(self->_queue);
   v5 = MEMORY[0x1E6983378];
@@ -155,11 +153,11 @@ uint64_t __44__UNCLocalNotificationClient__dateFormatter__block_invoke()
     v10 = [recordsCopy valueForKey:@"identifier"];
     v11 = [v10 valueForKey:@"un_logDigest"];
     *buf = 138543874;
-    v32 = bundleIdentifier;
-    v33 = 2048;
-    v34 = v9;
-    v35 = 2114;
-    v36 = v11;
+    v31 = bundleIdentifier;
+    v32 = 2048;
+    v33 = v9;
+    v34 = 2114;
+    v35 = v11;
     _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Add %ld pending notifications: %{public}@", buf, 0x20u);
   }
 
@@ -179,33 +177,33 @@ uint64_t __44__UNCLocalNotificationClient__dateFormatter__block_invoke()
     [v14 addObjectsFromArray:_pendingNotificationRecords];
   }
 
-  v24 = _pendingNotificationRecords;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v23 = _pendingNotificationRecords;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v15 = recordsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v27;
+    v18 = *v26;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * i);
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __60__UNCLocalNotificationClient_addPendingNotificationRecords___block_invoke;
-        v25[3] = &unk_1E85D71A8;
-        v25[4] = v20;
-        v21 = [v14 indexesOfObjectsPassingTest:v25];
+        v20 = *(*(&v25 + 1) + 8 * i);
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __60__UNCLocalNotificationClient_addPendingNotificationRecords___block_invoke;
+        v24[3] = &unk_1E85D71A8;
+        v24[4] = v20;
+        v21 = [v14 indexesOfObjectsPassingTest:v24];
         if ([v21 count])
         {
           [v14 removeObjectsAtIndexes:v21];
@@ -214,7 +212,7 @@ uint64_t __44__UNCLocalNotificationClient__dateFormatter__block_invoke()
         [v14 addObject:v20];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v17);
@@ -225,8 +223,6 @@ uint64_t __44__UNCLocalNotificationClient__dateFormatter__block_invoke()
 
   [(UNCLocalNotificationClient *)self _setRequestDateForPendingNotificationRecords:v15];
   [(UNCLocalNotificationClient *)self _setPendingNotificationRecords:v14];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__UNCLocalNotificationClient_addPendingNotificationRecords___block_invoke(uint64_t a1, void *a2)
@@ -240,7 +236,7 @@ uint64_t __60__UNCLocalNotificationClient_addPendingNotificationRecords___block_
 
 - (void)setPendingNotificationRecords:(id)records
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   dispatch_assert_queue_V2(self->_queue);
   v5 = MEMORY[0x1E6983378];
@@ -252,13 +248,13 @@ uint64_t __60__UNCLocalNotificationClient_addPendingNotificationRecords___block_
     v9 = [recordsCopy count];
     v10 = [recordsCopy valueForKey:@"identifier"];
     v11 = [v10 valueForKey:@"un_logDigest"];
-    v15 = 138543874;
-    v16 = bundleIdentifier;
-    v17 = 2048;
-    v18 = v9;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %ld pending notifications: %{public}@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = bundleIdentifier;
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %ld pending notifications: %{public}@", &v14, 0x20u);
   }
 
   if (UNIsInternalInstall())
@@ -275,12 +271,11 @@ uint64_t __60__UNCLocalNotificationClient_addPendingNotificationRecords___block_
   [(UNCLocalNotificationClient *)self _setLastLocalNotificationFireDate:v13];
 
   [(UNCLocalNotificationClient *)self _setPendingNotificationRecords:recordsCopy];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePendingNotificationRecordsWithIdentifiers:(id)identifiers
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dispatch_assert_queue_V2(self->_queue);
   v5 = *MEMORY[0x1E6983378];
@@ -291,25 +286,23 @@ uint64_t __60__UNCLocalNotificationClient_addPendingNotificationRecords___block_
     v8 = [identifiersCopy count];
     v9 = [identifiersCopy valueForKey:@"un_logDigest"];
     *buf = 138543874;
-    v17 = bundleIdentifier;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v9;
+    v16 = bundleIdentifier;
+    v17 = 2048;
+    v18 = v8;
+    v19 = 2114;
+    v20 = v9;
     _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove %ld pending notifications by identifier: %{public}@", buf, 0x20u);
   }
 
   v10 = [(UNCPendingNotificationRepository *)self->_pendingNotificationRepository pendingNotificationRecordsForBundleIdentifier:self->_bundleIdentifier];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __78__UNCLocalNotificationClient_removePendingNotificationRecordsWithIdentifiers___block_invoke;
-  v14[3] = &unk_1E85D71D0;
-  v15 = identifiersCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __78__UNCLocalNotificationClient_removePendingNotificationRecordsWithIdentifiers___block_invoke;
+  v13[3] = &unk_1E85D71D0;
+  v14 = identifiersCopy;
   v11 = identifiersCopy;
-  v12 = [v10 bs_filter:v14];
+  v12 = [v10 bs_filter:v13];
   [(UNCLocalNotificationClient *)self _setPendingNotificationRecords:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __78__UNCLocalNotificationClient_removePendingNotificationRecordsWithIdentifiers___block_invoke(uint64_t a1, void *a2)
@@ -323,7 +316,7 @@ uint64_t __78__UNCLocalNotificationClient_removePendingNotificationRecordsWithId
 
 - (void)removePendingNotificationRecords:(id)records
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   dispatch_assert_queue_V2(self->_queue);
   v5 = MEMORY[0x1E6983378];
@@ -333,21 +326,21 @@ uint64_t __78__UNCLocalNotificationClient_removePendingNotificationRecordsWithId
     bundleIdentifier = self->_bundleIdentifier;
     v8 = v6;
     *buf = 138543618;
-    v26 = bundleIdentifier;
-    v27 = 2048;
-    v28 = [recordsCopy count];
+    v25 = bundleIdentifier;
+    v26 = 2048;
+    v27 = [recordsCopy count];
     _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove %ld pending notifications by match", buf, 0x16u);
   }
 
   v9 = [(UNCPendingNotificationRepository *)self->_pendingNotificationRepository pendingNotificationRecordsForBundleIdentifier:self->_bundleIdentifier];
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __63__UNCLocalNotificationClient_removePendingNotificationRecords___block_invoke;
-  v22 = &unk_1E85D71F8;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __63__UNCLocalNotificationClient_removePendingNotificationRecords___block_invoke;
+  v21 = &unk_1E85D71F8;
   v10 = recordsCopy;
-  v23 = v10;
+  v22 = v10;
   selfCopy = self;
-  v11 = [v9 bs_filter:&v19];
+  v11 = [v9 bs_filter:&v18];
   v12 = [v11 count];
   v13 = [v9 count];
   v14 = v13 - [v10 count];
@@ -359,7 +352,7 @@ uint64_t __78__UNCLocalNotificationClient_removePendingNotificationRecordsWithId
     {
       v17 = self->_bundleIdentifier;
       *buf = 138543362;
-      v26 = v17;
+      v25 = v17;
       _os_log_impl(&dword_1DA7A9000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove pending notifications succeeded", buf, 0xCu);
     }
   }
@@ -370,13 +363,11 @@ uint64_t __78__UNCLocalNotificationClient_removePendingNotificationRecordsWithId
   }
 
   [(UNCLocalNotificationClient *)self _setPendingNotificationRecords:v11];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__UNCLocalNotificationClient_removePendingNotificationRecords___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) uns_containsSimilarRecord:v3];
   if (v4)
@@ -388,38 +379,36 @@ uint64_t __63__UNCLocalNotificationClient_removePendingNotificationRecords___blo
       v7 = v5;
       v8 = [v3 identifier];
       v9 = [v8 un_logDigest];
-      v12 = 138543618;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v9;
-      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will remove notification %{public}@ by match", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v9;
+      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will remove notification %{public}@ by match", &v11, 0x16u);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4 ^ 1u;
 }
 
 - (void)removeAllPendingNotificationRecords
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = self->_bundleIdentifier;
-    v6 = 138543362;
-    v7 = bundleIdentifier;
-    _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove all pending notifications", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = bundleIdentifier;
+    _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove all pending notifications", &v5, 0xCu);
   }
 
   [(UNCLocalNotificationClient *)self _setPendingNotificationRecords:MEMORY[0x1E695E0F0]];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pendingNotificationRecords
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   _pendingNotificationRecords = [(UNCLocalNotificationClient *)self _pendingNotificationRecords];
   v4 = MEMORY[0x1E6983378];
@@ -428,11 +417,11 @@ uint64_t __63__UNCLocalNotificationClient_removePendingNotificationRecords___blo
   {
     bundleIdentifier = self->_bundleIdentifier;
     v7 = v5;
-    v11 = 138543618;
-    v12 = bundleIdentifier;
-    v13 = 2048;
-    v14 = [_pendingNotificationRecords count];
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Load pending %ld notifications", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = bundleIdentifier;
+    v12 = 2048;
+    v13 = [_pendingNotificationRecords count];
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Load pending %ld notifications", &v10, 0x16u);
   }
 
   if (UNIsInternalInstall())
@@ -443,8 +432,6 @@ uint64_t __63__UNCLocalNotificationClient_removePendingNotificationRecords___blo
       [(UNCLocalNotificationClient *)self pendingNotificationRecords];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return _pendingNotificationRecords;
 }
@@ -499,59 +486,57 @@ uint64_t __63__UNCLocalNotificationClient_removePendingNotificationRecords___blo
 
 - (void)_setRequestDateForPendingNotificationRecords:(id)records
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   date = [MEMORY[0x1E695DF00] date];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = recordsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setRequestDate:{date, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) setRequestDate:{date, v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setPendingNotificationRecords:(id)records
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   v5 = [(UNCLocalNotificationClient *)self _sanitizeNotificationRecords:recordsCopy];
   v6 = [v5 mutableCopy];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __61__UNCLocalNotificationClient__setPendingNotificationRecords___block_invoke;
-  v12[3] = &unk_1E85D7220;
-  v12[4] = &v13;
-  [v6 enumerateObjectsUsingBlock:v12];
-  v7 = v14[3];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __61__UNCLocalNotificationClient__setPendingNotificationRecords___block_invoke;
+  v11[3] = &unk_1E85D7220;
+  v11[4] = &v12;
+  [v6 enumerateObjectsUsingBlock:v11];
+  v7 = v13[3];
   if (v7 >= 0x15)
   {
     [v6 removeObjectsInRange:{20, v7 - 20}];
@@ -568,17 +553,15 @@ uint64_t __63__UNCLocalNotificationClient_removePendingNotificationRecords___blo
     bundleIdentifier = self->_bundleIdentifier;
     v10 = [v6 count];
     *buf = 138543618;
-    v18 = bundleIdentifier;
-    v19 = 2048;
-    v20 = v10;
+    v17 = bundleIdentifier;
+    v18 = 2048;
+    v19 = v10;
     _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Save pending %ld notifications to pending notification repository", buf, 0x16u);
   }
 
   [(UNCPendingNotificationRepository *)self->_pendingNotificationRepository setPendingNotificationRecords:v6 forBundleIdentifier:self->_bundleIdentifier];
   [(UNCLocalNotificationClient *)self _updateTimersAndRegionMonitorsForPendingNotificationRecords:v6];
-  _Block_object_dispose(&v13, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
 }
 
 void __61__UNCLocalNotificationClient__setPendingNotificationRecords___block_invoke(uint64_t a1, void *a2, uint64_t a3, char *a4)
@@ -602,34 +585,34 @@ void __61__UNCLocalNotificationClient__setPendingNotificationRecords___block_inv
 
 - (id)_sanitizeNotificationRecords:(id)records
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   selfCopy = self;
   _lastLocalNotificationFireDate = [(UNCLocalNotificationClient *)self _lastLocalNotificationFireDate];
-  v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
+  v37 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v6 = recordsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v40 objects:v50 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v41;
+    v10 = *v40;
     *&v8 = 138543618;
-    v36 = v8;
-    v37 = v6;
+    v35 = v8;
+    v36 = v6;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
+        v12 = *(*(&v39 + 1) + 8 * i);
         v13 = (*(UNSNotificationRecordToUNNotificationTrigger + 2))(UNSNotificationRecordToUNNotificationTrigger, v12);
         if (([v12 willNotifyUser] & 1) == 0)
         {
@@ -648,10 +631,10 @@ void __61__UNCLocalNotificationClient__setPendingNotificationRecords___block_inv
             v19 = v30;
             identifier = [v12 identifier];
             un_logDigest = [identifier un_logDigest];
-            *buf = v36;
-            v45 = bundleIdentifier;
-            v46 = 2114;
-            v47 = un_logDigest;
+            *buf = v35;
+            v44 = bundleIdentifier;
+            v45 = 2114;
+            v46 = un_logDigest;
             _os_log_impl(&dword_1DA7A9000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Filtering out notification %{public}@ as it will not notify user on delivery", buf, 0x16u);
 
             goto LABEL_18;
@@ -676,12 +659,12 @@ void __61__UNCLocalNotificationClient__setPendingNotificationRecords___block_inv
             un_logDigest2 = [identifier2 un_logDigest];
             date2 = [v12 date];
             *buf = 138543874;
-            v45 = v18;
-            v6 = v37;
-            v46 = 2114;
-            v47 = un_logDigest2;
-            v48 = 2114;
-            v49 = date2;
+            v44 = v18;
+            v6 = v36;
+            v45 = 2114;
+            v46 = un_logDigest2;
+            v47 = 2114;
+            v48 = date2;
             _os_log_impl(&dword_1DA7A9000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Expiring out non-repeating notification %{public}@ because it triggered at %{public}@", buf, 0x20u);
 
 LABEL_18:
@@ -694,7 +677,7 @@ LABEL_18:
 
         if (v24)
         {
-          [v38 addObject:v12];
+          [v37 addObject:v12];
         }
 
         else
@@ -707,12 +690,12 @@ LABEL_18:
             identifier3 = [v12 identifier];
             un_logDigest3 = [identifier3 un_logDigest];
             *buf = 138543874;
-            v45 = v26;
-            v6 = v37;
-            v46 = 2114;
-            v47 = un_logDigest3;
-            v48 = 2114;
-            v49 = _lastLocalNotificationFireDate;
+            v44 = v26;
+            v6 = v36;
+            v45 = 2114;
+            v46 = un_logDigest3;
+            v47 = 2114;
+            v48 = _lastLocalNotificationFireDate;
             _os_log_impl(&dword_1DA7A9000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Expiring out notification %{public}@ because it won't trigger after %{public}@", buf, 0x20u);
           }
         }
@@ -720,20 +703,18 @@ LABEL_18:
 LABEL_19:
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v9);
   }
 
-  v34 = *MEMORY[0x1E69E9840];
-
-  return v38;
+  return v37;
 }
 
 - (void)_fireNotification:(id)notification
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
@@ -746,11 +727,11 @@ LABEL_19:
     date = [MEMORY[0x1E695DF00] date];
     v12 = [_dateFormatter stringFromDate:date];
     *buf = 138543874;
-    v23 = bundleIdentifier;
-    v24 = 2114;
-    v25 = un_logDigest;
-    v26 = 2114;
-    v27 = v12;
+    v22 = bundleIdentifier;
+    v23 = 2114;
+    v24 = un_logDigest;
+    v25 = 2114;
+    v26 = v12;
     _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deliver local notification %{public}@ at %{public}@", buf, 0x20u);
   }
 
@@ -767,16 +748,14 @@ LABEL_19:
   [(NSMutableArray *)lazy_pendingNotificationsAwaitingDelivery addObject:notificationCopy];
   v17 = self->_bundleIdentifier;
   notificationRepository = self->_notificationRepository;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __48__UNCLocalNotificationClient__fireNotification___block_invoke;
-  v20[3] = &unk_1E85D7248;
-  v20[4] = self;
-  v21 = notificationCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __48__UNCLocalNotificationClient__fireNotification___block_invoke;
+  v19[3] = &unk_1E85D7248;
+  v19[4] = self;
+  v20 = notificationCopy;
   v18 = notificationCopy;
-  [(UNCNotificationRepository *)notificationRepository saveNotificationRecord:v18 shouldRepost:1 forBundleIdentifier:v17 withCompletionHandler:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(UNCNotificationRepository *)notificationRepository saveNotificationRecord:v18 shouldRepost:1 forBundleIdentifier:v17 withCompletionHandler:v19];
 }
 
 void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -819,7 +798,7 @@ void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t 
 
 - (void)_queue_triggerDidFireForTimer:(id)timer
 {
-  v28[4] = *MEMORY[0x1E69E9840];
+  v27[4] = *MEMORY[0x1E69E9840];
   UNCPowerLogUserNotificationTriggerEvent(self->_bundleIdentifier, 1u);
   date = [MEMORY[0x1E695DF00] date];
   v5 = MEMORY[0x1E6983378];
@@ -831,25 +810,25 @@ void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t 
     _dateFormatter = [(UNCLocalNotificationClient *)self _dateFormatter];
     v10 = [_dateFormatter stringFromDate:date];
     *buf = 138543618;
-    v22 = bundleIdentifier;
-    v23 = 2114;
-    v24 = v10;
+    v21 = bundleIdentifier;
+    v22 = 2114;
+    v23 = v10;
     _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Persistent timer fired at %{public}@", buf, 0x16u);
   }
 
   AssertionID = 0;
   v11 = self->_bundleIdentifier;
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.usernotifications.time.%@-%ld", v11, ++_queue_triggerDidFireForTimer__count];
-  v27[0] = @"AssertType";
-  v27[1] = @"AssertLevel";
-  v28[0] = @"NoIdleSleepAssertion";
-  v28[1] = &unk_1F5663590;
-  v27[2] = @"AssertName";
-  v27[3] = @"AssertionOnBehalfOfBundleID";
+  v26[0] = @"AssertType";
+  v26[1] = @"AssertLevel";
+  v27[0] = @"NoIdleSleepAssertion";
+  v27[1] = &unk_1F5663590;
+  v26[2] = @"AssertName";
+  v26[3] = @"AssertionOnBehalfOfBundleID";
   v13 = self->_bundleIdentifier;
-  v28[2] = v12;
-  v28[3] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:4];
+  v27[2] = v12;
+  v27[3] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
   v15 = IOPMAssertionCreateWithProperties(v14, &AssertionID);
   if (v15)
   {
@@ -857,13 +836,13 @@ void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t 
     v17 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      v19 = self->_bundleIdentifier;
+      v18 = self->_bundleIdentifier;
       *buf = 138543874;
-      v22 = v19;
-      v23 = 2114;
-      v24 = v12;
-      v25 = 1024;
-      v26 = v16;
+      v21 = v18;
+      v22 = 2114;
+      v23 = v12;
+      v24 = 1024;
+      v25 = v16;
       _os_log_error_impl(&dword_1DA7A9000, v17, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to take power assertion %{public}@: %#x", buf, 0x1Cu);
     }
   }
@@ -873,63 +852,61 @@ void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t 
   {
     IOPMAssertionRelease(AssertionID);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_triggerDidFireForDate:(id)date
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   _lastLocalNotificationFireDate = [(UNCLocalNotificationClient *)self _lastLocalNotificationFireDate];
   v5 = MEMORY[0x1E6983378];
   v6 = *MEMORY[0x1E6983378];
-  v64 = _lastLocalNotificationFireDate;
+  v63 = _lastLocalNotificationFireDate;
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = self->_bundleIdentifier;
     v8 = v6;
     _dateFormatter = [(UNCLocalNotificationClient *)self _dateFormatter];
-    v10 = [_dateFormatter stringFromDate:v64];
+    v10 = [_dateFormatter stringFromDate:v63];
     _dateFormatter2 = [(UNCLocalNotificationClient *)self _dateFormatter];
     v12 = [_dateFormatter2 stringFromDate:dateCopy];
     *buf = 138543874;
-    v79 = bundleIdentifier;
-    v80 = 2114;
-    v81 = v10;
-    v82 = 2114;
-    v83 = v12;
+    v78 = bundleIdentifier;
+    v79 = 2114;
+    v80 = v10;
+    v81 = 2114;
+    v82 = v12;
     _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Find notifications with current trigger date after last fire date %{public}@ and before %{public}@", buf, 0x20u);
 
     v5 = MEMORY[0x1E6983378];
-    _lastLocalNotificationFireDate = v64;
+    _lastLocalNotificationFireDate = v63;
   }
 
   selfCopy = self;
   _pendingNotificationRecords = [(UNCLocalNotificationClient *)self _pendingNotificationRecords];
-  v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   obj = _pendingNotificationRecords;
-  v68 = [obj countByEnumeratingWithState:&v73 objects:v86 count:16];
-  if (v68)
+  v67 = [obj countByEnumeratingWithState:&v72 objects:v85 count:16];
+  if (v67)
   {
-    v15 = *v74;
+    v15 = *v73;
     *&v14 = 138543874;
-    v53 = v14;
-    v63 = *v74;
+    v52 = v14;
+    v62 = *v73;
     do
     {
-      for (i = 0; i != v68; ++i)
+      for (i = 0; i != v67; ++i)
       {
-        if (*v74 != v15)
+        if (*v73 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v73 + 1) + 8 * i);
+        v17 = *(*(&v72 + 1) + 8 * i);
         v18 = (*(UNSNotificationRecordToUNNotificationTrigger + 2))(UNSNotificationRecordToUNNotificationTrigger, v17);
         requestDate = [v17 requestDate];
         v20 = [v18 nextTriggerDateAfterLastTriggerDate:_lastLocalNotificationFireDate withRequestedDate:requestDate];
@@ -949,18 +926,18 @@ void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t 
           _dateFormatter3 = [(UNCLocalNotificationClient *)selfCopy _dateFormatter];
           requestDate2 = [v17 requestDate];
           v36 = [_dateFormatter3 stringFromDate:requestDate2];
-          *buf = v53;
-          v79 = loga;
-          v80 = 2114;
-          v81 = un_logDigest;
-          v82 = 2114;
-          v83 = v36;
+          *buf = v52;
+          v78 = loga;
+          v79 = 2114;
+          v80 = un_logDigest;
+          v81 = 2114;
+          v82 = v36;
           _os_log_impl(&dword_1DA7A9000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification %{public}@ requested at %{public}@ has no trigger date", buf, 0x20u);
 
           v5 = MEMORY[0x1E6983378];
-          _lastLocalNotificationFireDate = v64;
+          _lastLocalNotificationFireDate = v63;
 
-          v15 = v63;
+          v15 = v62;
           goto LABEL_14;
         }
 
@@ -974,7 +951,7 @@ void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t 
             goto LABEL_18;
           }
 
-          v57 = selfCopy->_bundleIdentifier;
+          v56 = selfCopy->_bundleIdentifier;
           log = v22;
           identifier2 = [v17 identifier];
           un_logDigest2 = [identifier2 un_logDigest];
@@ -984,18 +961,18 @@ void __48__UNCLocalNotificationClient__fireNotification___block_invoke(uint64_t 
           _dateFormatter5 = [(UNCLocalNotificationClient *)selfCopy _dateFormatter];
           v29 = [_dateFormatter5 stringFromDate:v20];
           *buf = 138544130;
-          v79 = v57;
-          v80 = 2114;
-          v81 = un_logDigest2;
-          v82 = 2114;
-          v83 = v27;
-          v84 = 2114;
-          v85 = v29;
+          v78 = v56;
+          v79 = 2114;
+          v80 = un_logDigest2;
+          v81 = 2114;
+          v82 = v27;
+          v83 = 2114;
+          v84 = v29;
           v30 = log;
           _os_log_impl(&dword_1DA7A9000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification %{public}@ requested at %{public}@ has a late trigger date %{public}@", buf, 0x2Au);
 
-          v15 = v63;
-          _lastLocalNotificationFireDate = v64;
+          v15 = v62;
+          _lastLocalNotificationFireDate = v63;
 
           v5 = MEMORY[0x1E6983378];
 LABEL_14:
@@ -1005,8 +982,8 @@ LABEL_14:
 
         if (v23)
         {
-          v56 = selfCopy->_bundleIdentifier;
-          v58 = v22;
+          v55 = selfCopy->_bundleIdentifier;
+          v57 = v22;
           logb = [v17 identifier];
           un_logDigest3 = [logb un_logDigest];
           _dateFormatter6 = [(UNCLocalNotificationClient *)selfCopy _dateFormatter];
@@ -1015,56 +992,56 @@ LABEL_14:
           _dateFormatter7 = [(UNCLocalNotificationClient *)selfCopy _dateFormatter];
           v41 = [_dateFormatter7 stringFromDate:v20];
           *buf = 138544130;
-          v79 = v56;
-          v80 = 2114;
-          v81 = un_logDigest3;
-          v82 = 2114;
-          v83 = v39;
-          v84 = 2114;
-          v85 = v41;
-          _os_log_impl(&dword_1DA7A9000, v58, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification %{public}@ requested at %{public}@ has a current trigger date %{public}@", buf, 0x2Au);
+          v78 = v55;
+          v79 = 2114;
+          v80 = un_logDigest3;
+          v81 = 2114;
+          v82 = v39;
+          v83 = 2114;
+          v84 = v41;
+          _os_log_impl(&dword_1DA7A9000, v57, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification %{public}@ requested at %{public}@ has a current trigger date %{public}@", buf, 0x2Au);
 
-          v15 = v63;
+          v15 = v62;
           v5 = MEMORY[0x1E6983378];
 
-          _lastLocalNotificationFireDate = v64;
+          _lastLocalNotificationFireDate = v63;
         }
 
-        [v17 setDate:{v20, v53}];
-        [v59 addObject:v17];
+        [v17 setDate:{v20, v52}];
+        [v58 addObject:v17];
 LABEL_18:
       }
 
-      v68 = [obj countByEnumeratingWithState:&v73 objects:v86 count:16];
+      v67 = [obj countByEnumeratingWithState:&v72 objects:v85 count:16];
     }
 
-    while (v68);
+    while (v67);
   }
 
-  v42 = [v59 sortedArrayUsingComparator:&__block_literal_global_40];
+  v42 = [v58 sortedArrayUsingComparator:&__block_literal_global_40];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
-  v43 = v59;
-  v44 = [v43 countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v43 = v58;
+  v44 = [v43 countByEnumeratingWithState:&v68 objects:v76 count:16];
   if (v44)
   {
     v45 = v44;
-    v46 = *v70;
+    v46 = *v69;
     do
     {
       for (j = 0; j != v45; ++j)
       {
-        if (*v70 != v46)
+        if (*v69 != v46)
         {
           objc_enumerationMutation(v43);
         }
 
-        [(UNCLocalNotificationClient *)selfCopy _fireNotification:*(*(&v69 + 1) + 8 * j), v53];
+        [(UNCLocalNotificationClient *)selfCopy _fireNotification:*(*(&v68 + 1) + 8 * j), v52];
       }
 
-      v45 = [v43 countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v45 = [v43 countByEnumeratingWithState:&v68 objects:v76 count:16];
     }
 
     while (v45);
@@ -1080,10 +1057,8 @@ LABEL_18:
     v51 = date;
   }
 
-  [(UNCLocalNotificationClient *)selfCopy _setLastLocalNotificationFireDate:v51, v53];
+  [(UNCLocalNotificationClient *)selfCopy _setLastLocalNotificationFireDate:v51, v52];
   [(UNCLocalNotificationClient *)selfCopy _setPendingNotificationRecords:obj];
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1107,7 +1082,7 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
 
 - (void)_updateTimersForPendingNotificationRecords:(id)records
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   v5 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
@@ -1117,38 +1092,38 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
     v8 = [recordsCopy count];
     monitoringLocaleAndTimeChanges = self->_monitoringLocaleAndTimeChanges;
     *buf = 138543874;
-    v75 = bundleIdentifier;
-    v76 = 2048;
-    v77 = v8;
-    v78 = 1024;
-    LODWORD(v79) = monitoringLocaleAndTimeChanges;
+    v74 = bundleIdentifier;
+    v75 = 2048;
+    v76 = v8;
+    v77 = 1024;
+    LODWORD(v78) = monitoringLocaleAndTimeChanges;
     _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Update timers for %ld pending notifications (monitoring: %d)", buf, 0x1Cu);
   }
 
   [(UNCLocalNotificationClient *)self _invalidatePendingNotificationRecordTimers];
   array = [MEMORY[0x1E695DF70] array];
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   obj = recordsCopy;
-  v11 = [obj countByEnumeratingWithState:&v70 objects:v83 count:16];
+  v11 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
   selfCopy = self;
   if (v11)
   {
     v12 = v11;
-    v13 = *v71;
+    v13 = *v70;
     do
     {
       v14 = 0;
       do
       {
-        if (*v71 != v13)
+        if (*v70 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v70 + 1) + 8 * v14);
+        v15 = *(*(&v69 + 1) + 8 * v14);
         if (([v15 willNotifyUser] & 1) != 0 || (objc_msgSend(v15, "badge"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "integerValue"), v16, v17 >= 1))
         {
           [array addObject:v15];
@@ -1164,10 +1139,10 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
             identifier = [v15 identifier];
             un_logDigest = [identifier un_logDigest];
             *buf = 138543618;
-            v75 = v19;
+            v74 = v19;
             self = selfCopy;
-            v76 = 2114;
-            v77 = un_logDigest;
+            v75 = 2114;
+            v76 = un_logDigest;
             _os_log_impl(&dword_1DA7A9000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not scheduling notification %{public}@ that does nothing when fired", buf, 0x16u);
           }
         }
@@ -1176,7 +1151,7 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
       }
 
       while (v12 != v14);
-      v23 = [obj countByEnumeratingWithState:&v70 objects:v83 count:16];
+      v23 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
       v12 = v23;
     }
 
@@ -1192,41 +1167,41 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
     _dateFormatter = [(UNCLocalNotificationClient *)self _dateFormatter];
     v28 = [_dateFormatter stringFromDate:_lastLocalNotificationFireDate];
     *buf = 138543618;
-    v75 = v25;
-    v76 = 2114;
-    v77 = v28;
+    v74 = v25;
+    v75 = 2114;
+    v76 = v28;
     _os_log_impl(&dword_1DA7A9000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] Find next notification with current trigger date after last fire date %{public}@", buf, 0x16u);
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v29 = array;
-  v65 = [v29 countByEnumeratingWithState:&v66 objects:v82 count:16];
-  if (v65)
+  v64 = [v29 countByEnumeratingWithState:&v65 objects:v81 count:16];
+  if (v64)
   {
     v30 = 0;
-    v31 = *v67;
-    v55 = *v67;
-    v56 = v29;
+    v31 = *v66;
+    v54 = *v66;
+    v55 = v29;
     do
     {
-      for (i = 0; i != v65; ++i)
+      for (i = 0; i != v64; ++i)
       {
-        if (*v67 != v31)
+        if (*v66 != v31)
         {
           objc_enumerationMutation(v29);
         }
 
-        v33 = *(*(&v66 + 1) + 8 * i);
+        v33 = *(*(&v65 + 1) + 8 * i);
         v34 = (*(UNSNotificationRecordToUNNotificationTrigger + 2))(UNSNotificationRecordToUNNotificationTrigger, v33);
         requestDate = [v33 requestDate];
         v36 = [v34 nextTriggerDateAfterLastTriggerDate:_lastLocalNotificationFireDate withRequestedDate:requestDate];
         v37 = *MEMORY[0x1E6983378];
         if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
         {
-          v60 = selfCopy->_bundleIdentifier;
+          v59 = selfCopy->_bundleIdentifier;
           log = v37;
           identifier2 = [v33 identifier];
           un_logDigest2 = [identifier2 un_logDigest];
@@ -1235,21 +1210,21 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
           v40 = [_dateFormatter2 stringFromDate:requestDate2];
           _dateFormatter3 = [(UNCLocalNotificationClient *)selfCopy _dateFormatter];
           [_dateFormatter3 stringFromDate:v36];
-          v42 = v63 = v30;
+          v42 = v62 = v30;
           *buf = 138544130;
-          v75 = v60;
-          v76 = 2114;
-          v77 = un_logDigest2;
-          v78 = 2114;
-          v79 = v40;
-          v80 = 2114;
-          v81 = v42;
+          v74 = v59;
+          v75 = 2114;
+          v76 = un_logDigest2;
+          v77 = 2114;
+          v78 = v40;
+          v79 = 2114;
+          v80 = v42;
           _os_log_impl(&dword_1DA7A9000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification %{public}@ requested at %{public}@ has a trigger date %{public}@", buf, 0x2Au);
 
-          v29 = v56;
-          v31 = v55;
+          v29 = v55;
+          v31 = v54;
 
-          v30 = v63;
+          v30 = v62;
         }
 
         if (v36)
@@ -1268,10 +1243,10 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
         }
       }
 
-      v65 = [v29 countByEnumeratingWithState:&v66 objects:v82 count:16];
+      v64 = [v29 countByEnumeratingWithState:&v65 objects:v81 count:16];
     }
 
-    while (v65);
+    while (v64);
 
     self = selfCopy;
     if (v30)
@@ -1284,9 +1259,9 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
         _dateFormatter4 = [(UNCLocalNotificationClient *)selfCopy _dateFormatter];
         v48 = [_dateFormatter4 stringFromDate:v30];
         *buf = 138543618;
-        v75 = v45;
-        v76 = 2114;
-        v77 = v48;
+        v74 = v45;
+        v75 = 2114;
+        v76 = v48;
         _os_log_impl(&dword_1DA7A9000, v46, OS_LOG_TYPE_DEFAULT, "[%{public}@] Scheduling persistent timer for next local notification at %{public}@", buf, 0x16u);
       }
 
@@ -1311,7 +1286,7 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
   {
     v53 = self->_bundleIdentifier;
     *buf = 138543362;
-    v75 = v53;
+    v74 = v53;
     _os_log_impl(&dword_1DA7A9000, v52, OS_LOG_TYPE_DEFAULT, "[%{public}@] No upcoming local notifications", buf, 0xCu);
   }
 
@@ -1319,8 +1294,6 @@ uint64_t __59__UNCLocalNotificationClient__queue_triggerDidFireForDate___block_i
   v30 = 0;
 LABEL_39:
   self->_monitoringLocaleAndTimeChanges = v51;
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locationMonitor:(id)monitor triggerDidFireForRegion:(id)region forBundleIdentifier:(id)identifier
@@ -1339,7 +1312,7 @@ LABEL_39:
 
 - (void)_queue_triggerDidFireForRegion:(id)region
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   regionCopy = region;
   UNCPowerLogUserNotificationTriggerEvent(self->_bundleIdentifier, 2u);
   v5 = *MEMORY[0x1E6983378];
@@ -1350,37 +1323,37 @@ LABEL_39:
     identifier = [regionCopy identifier];
     un_logDigest = [identifier un_logDigest];
     *buf = 138543618;
-    v49 = bundleIdentifier;
-    v50 = 2114;
-    v51 = un_logDigest;
+    v48 = bundleIdentifier;
+    v49 = 2114;
+    v50 = un_logDigest;
     _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Location region fired: region=%{public}@", buf, 0x16u);
   }
 
   v10 = [(UNCLocationMonitor *)self->_locationMonitor isBundleIdentifierAuthorizedForRegionMonitoring:self->_bundleIdentifier];
-  v34 = regionCopy;
+  v33 = regionCopy;
   identifier2 = [regionCopy identifier];
-  v35 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v34 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   selfCopy = self;
   [(UNCLocalNotificationClient *)self _pendingNotificationRecords];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  obj = v45 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+  obj = v44 = 0u;
+  v11 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v43;
+    v13 = *v42;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v43 != v13)
+        if (*v42 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v42 + 1) + 8 * i);
+        v15 = *(*(&v41 + 1) + 8 * i);
         triggerType = [v15 triggerType];
         if ([triggerType isEqualToString:@"Location"])
         {
@@ -1393,7 +1366,7 @@ LABEL_39:
             date = [MEMORY[0x1E695DF00] date];
             [v15 setDate:date];
 
-            [v35 addObject:v15];
+            [v34 addObject:v15];
           }
         }
 
@@ -1402,89 +1375,86 @@ LABEL_39:
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v12 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v12);
   }
 
-  if ([v35 count])
+  if ([v34 count])
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v21 = v35;
-    v22 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v21 = v34;
+    v22 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
     selfCopy2 = selfCopy;
     if (v22)
     {
       v24 = v22;
-      v25 = *v39;
+      v25 = *v38;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v39 != v25)
+          if (*v38 != v25)
           {
             objc_enumerationMutation(v21);
           }
 
           if (v10)
           {
-            [(UNCLocalNotificationClient *)selfCopy _fireNotification:*(*(&v38 + 1) + 8 * j)];
+            [(UNCLocalNotificationClient *)selfCopy _fireNotification:*(*(&v37 + 1) + 8 * j)];
           }
         }
 
-        v24 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v24 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v24);
     }
 
-    v27 = v34;
+    v27 = v33;
   }
 
   else
   {
     v28 = *MEMORY[0x1E6983378];
     selfCopy2 = self;
-    v27 = v34;
+    v27 = v33;
     if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
     {
       v29 = v28;
-      identifier4 = [v34 identifier];
+      identifier4 = [v33 identifier];
       un_logDigest2 = [identifier4 un_logDigest];
       *buf = 138543362;
-      v49 = un_logDigest2;
+      v48 = un_logDigest2;
       _os_log_impl(&dword_1DA7A9000, v29, OS_LOG_TYPE_DEFAULT, "Region %{public}@ fired which isn't associated with a notification", buf, 0xCu);
     }
   }
 
   [(UNCLocalNotificationClient *)selfCopy2 _setPendingNotificationRecords:obj];
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidatePendingNotificationRecordRegionMonitors
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = self->_bundleIdentifier;
-    v6 = 138543362;
-    v7 = bundleIdentifier;
-    _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidate region monitors", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = bundleIdentifier;
+    _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidate region monitors", &v5, 0xCu);
   }
 
   [(UNCLocationMonitor *)self->_locationMonitor setMonitoredRegions:0 forBundleIdentifier:self->_bundleIdentifier withCompletionHandler:0];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateRegionMonitorsForPendingNotificationRecords:(id)records
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   v5 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
@@ -1492,33 +1462,33 @@ LABEL_39:
     bundleIdentifier = self->_bundleIdentifier;
     v7 = v5;
     *buf = 138543618;
-    v24 = bundleIdentifier;
-    v25 = 2048;
-    v26 = [recordsCopy count];
+    v23 = bundleIdentifier;
+    v24 = 2048;
+    v25 = [recordsCopy count];
     _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Update regions for %ld pending notifications", buf, 0x16u);
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = recordsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         triggerType = [v14 triggerType];
         if ([triggerType isEqualToString:@"Location"])
         {
@@ -1534,79 +1504,71 @@ LABEL_39:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   [(UNCLocalNotificationClient *)self _setMonitoredRegions:v8];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPendingNotificationRecords:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 8);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_0(&dword_1DA7A9000, a2, a3, "[%{public}@] Add pending notifications: notifications=%{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 8);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_0(&dword_1DA7A9000, a2, a3, "[%{public}@] Add pending notifications: notifications=%{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)setPendingNotificationRecords:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 8);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_0(&dword_1DA7A9000, a2, a3, "[%{public}@] Set pending notifications: notifications=%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 8);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_0(&dword_1DA7A9000, a2, a3, "[%{public}@] Set pending notifications: notifications=%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)removePendingNotificationRecords:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Did not remove all expected pending notifications", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Did not remove all expected pending notifications", &v3, 0xCu);
 }
 
 - (void)pendingNotificationRecords
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = *(self + 8);
   v5 = a2;
-  v7 = 138543874;
-  v8 = v4;
-  v9 = 2048;
-  v10 = [a3 count];
-  v11 = 2114;
-  v12 = a3;
-  _os_log_debug_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@] Load pending %ld notifications: notifications=%{public}@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543874;
+  v7 = v4;
+  v8 = 2048;
+  v9 = [a3 count];
+  v10 = 2114;
+  v11 = a3;
+  _os_log_debug_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@] Load pending %ld notifications: notifications=%{public}@", &v6, 0x20u);
 }
 
 void __48__UNCLocalNotificationClient__fireNotification___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 40);
   v5 = *(*(a1 + 32) + 8);
   v6 = a2;
   v7 = [v4 identifier];
   v8 = [v7 un_logDigest];
-  v10 = 138543874;
-  v11 = v5;
-  v12 = 2114;
-  v13 = v8;
-  v14 = 2114;
-  v15 = a3;
-  _os_log_error_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Not delivering user visible local notification %{public}@ [ error=%{public}@ ]", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138543874;
+  v10 = v5;
+  v11 = 2114;
+  v12 = v8;
+  v13 = 2114;
+  v14 = a3;
+  _os_log_error_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Not delivering user visible local notification %{public}@ [ error=%{public}@ ]", &v9, 0x20u);
 }
 
 @end

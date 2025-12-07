@@ -187,9 +187,9 @@ LABEL_13:
   {
     if (v8)
     {
-      v10 = [(__CFString *)v8 isEqualToString:@"success"];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if (v10)
+      if (isEqualToString)
       {
         goto LABEL_8;
       }
@@ -981,9 +981,9 @@ LABEL_14:
     goto LABEL_8;
   }
 
-  v4 = [(__CFString *)v2 isEqualToString:@"showVirtualCard"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  if ((v4 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     v6 = v3;
@@ -999,7 +999,7 @@ LABEL_8:
       v5 = 0;
       if (v3 && v7)
       {
-        v5 = [(__CFString *)v6 isEqualToString:v7];
+        v5 = objc_msgSend_isEqualToString_(v6);
       }
     }
 

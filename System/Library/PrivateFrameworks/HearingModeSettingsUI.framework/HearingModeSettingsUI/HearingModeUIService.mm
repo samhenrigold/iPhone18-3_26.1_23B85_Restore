@@ -208,7 +208,7 @@ LABEL_6:
 
 - (id)specifiers
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   shouldShowHearingAid = [(HearingModeUIService *)self shouldShowHearingAid];
   shouldShowHearingProtection = [(HearingModeUIService *)self shouldShowHearingProtection];
   shouldShowHearingTest = [(HearingModeUIService *)self shouldShowHearingTest];
@@ -262,8 +262,8 @@ LABEL_6:
   [v15 setProperty:v16 forKey:*MEMORY[0x277D3FF70]];
   v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v20 = [v19 localizedStringForKey:@"Learn more…" value:&stru_28643BDD8 table:0];
-  v50.location = [v16 rangeOfString:v20];
-  v21 = NSStringFromRange(v50);
+  v49.location = [v16 rangeOfString:v20];
+  v21 = NSStringFromRange(v49);
   [v15 setProperty:v21 forKey:*MEMORY[0x277D3FF58]];
 
   v22 = 0x277D3F000uLL;
@@ -275,17 +275,17 @@ LABEL_6:
   [v10 addObject:v15];
   if (shouldShowHearingProtection)
   {
-    v34 = MEMORY[0x277D3FAD8];
-    v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v36 = [v35 localizedStringForKey:@"Hearing Protection" value:&stru_28643BDD8 table:0];
-    v37 = [v34 preferenceSpecifierNamed:v36 target:self set:0 get:0 detail:objc_opt_class() cell:-1 edit:0];
+    v33 = MEMORY[0x277D3FAD8];
+    v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v35 = [v34 localizedStringForKey:@"Hearing Protection" value:&stru_28643BDD8 table:0];
+    v36 = [v33 preferenceSpecifierNamed:v35 target:self set:0 get:0 detail:objc_opt_class() cell:-1 edit:0];
 
-    [v37 setIdentifier:@"HEARING_PROTECTION_ID"];
-    [(HearingModeUIService *)self setTopLevelCellClass:v37];
-    v38 = [(HearingModeUIService *)self _getHearingProtectionPayload:self->_address device:self->_headphoneDevice inUsecase:1];
-    [v37 setUserInfo:v38];
+    [v36 setIdentifier:@"HEARING_PROTECTION_ID"];
+    [(HearingModeUIService *)self setTopLevelCellClass:v36];
+    v37 = [(HearingModeUIService *)self _getHearingProtectionPayload:self->_address device:self->_headphoneDevice inUsecase:1];
+    [v36 setUserInfo:v37];
 
-    [v10 addObject:v37];
+    [v10 addObject:v36];
     if (!shouldShowHearingAid)
     {
 LABEL_15:
@@ -304,40 +304,40 @@ LABEL_15:
   }
 
   hearingAidEnrolled = [(BluetoothDevice *)self->_device hearingAidEnrolled];
-  v40 = "NO";
+  v39 = "NO";
   if (hearingAidEnrolled)
   {
-    v40 = "YES";
+    v39 = "YES";
   }
 
-  NSLog(&cfstr_HearingAidEnro.isa, v40);
-  v41 = MEMORY[0x277D3FAD8];
-  v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v43 = [v42 localizedStringForKey:@"Hearing Assistance" value:&stru_28643BDD8 table:0];
+  NSLog(&cfstr_HearingAidEnro.isa, v39);
+  v40 = MEMORY[0x277D3FAD8];
+  v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v42 = [v41 localizedStringForKey:@"Hearing Assistance" value:&stru_28643BDD8 table:0];
   if (hearingAidEnrolled)
   {
     v22 = 0x277D3F000;
-    v44 = [v41 preferenceSpecifierNamed:v43 target:self set:0 get:sel_getHearingAidModeString detail:objc_opt_class() cell:-1 edit:0];
+    v43 = [v40 preferenceSpecifierNamed:v42 target:self set:0 get:sel_getHearingAidModeString detail:objc_opt_class() cell:-1 edit:0];
 
-    [(HearingModeUIService *)self setTopLevelCellClass:v44];
-    v45 = [(HearingModeUIService *)self _getHearingAssistPayload:self->_address device:self->_headphoneDevice inUsecase:3];
-    [v44 setUserInfo:v45];
+    [(HearingModeUIService *)self setTopLevelCellClass:v43];
+    v44 = [(HearingModeUIService *)self _getHearingAssistPayload:self->_address device:self->_headphoneDevice inUsecase:3];
+    [v43 setUserInfo:v44];
 
-    [v44 setIdentifier:@"HEARING_ASSIST_ID"];
+    [v43 setIdentifier:@"HEARING_ASSIST_ID"];
   }
 
   else
   {
-    v44 = [v41 preferenceSpecifierNamed:v43 target:self set:0 get:0 detail:0 cell:13 edit:0];
+    v43 = [v40 preferenceSpecifierNamed:v42 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-    [v44 setButtonAction:sel_presentHearingAssistWelcomeFlow];
-    [v44 setIdentifier:@"HEARING_ASSIST_ID"];
-    [(HearingModeUIService *)self setTopLevelCellClass:v44];
-    v46 = [(HearingModeUIService *)self _getHearingAssistPayload:self->_address device:self->_headphoneDevice inUsecase:2];
-    [v44 setUserInfo:v46];
+    [v43 setButtonAction:sel_presentHearingAssistWelcomeFlow];
+    [v43 setIdentifier:@"HEARING_ASSIST_ID"];
+    [(HearingModeUIService *)self setTopLevelCellClass:v43];
+    v45 = [(HearingModeUIService *)self _getHearingAssistPayload:self->_address device:self->_headphoneDevice inUsecase:2];
+    [v43 setUserInfo:v45];
   }
 
-  [v10 addObject:v44];
+  [v10 addObject:v43];
 
   [(HearingModeUIService *)self submitHADeviceAnalyticsWithEnrolled:hearingAidEnrolled];
   if (!v6)
@@ -363,9 +363,9 @@ LABEL_17:
     [v10 addObject:v28];
     v29 = [*(v22 + 2776) preferenceSpecifierNamed:@"Hearing Aid Internal" target:self set:0 get:0 detail:objc_opt_class() cell:-1 edit:0];
     address = self->_address;
-    v47 = @"bt-address";
-    v48[0] = address;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+    v46 = @"bt-address";
+    v47[0] = address;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
     [v29 setUserInfo:v31];
 
     [v29 setIdentifier:@"HEARING_INTERNAL_ID"];
@@ -375,7 +375,6 @@ LABEL_17:
   v11 = [(HearingModeUIService *)self decoratedSpecifiers:v10 device:self->_headphoneDevice];
 
 LABEL_21:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -562,7 +561,7 @@ LABEL_21:
   v6 = sub_2520047B0();
   deviceCopy = device;
   selfCopy = self;
-  HearingModeUIService.decoratedSpecifiers(_:device:)(v6);
+  HearingModeUIService.decoratedSpecifiers(_:device:)(v6, deviceCopy);
 
   v9 = sub_2520047A0();
 
@@ -640,13 +639,14 @@ LABEL_21:
 
 - (id)getHearingAidLink:(id)link
 {
-  sub_2520046E0();
+  v4 = sub_2520046E0();
+  v6 = v5;
   selfCopy = self;
-  _sSo20HearingModeUIServiceC0aB10SettingsUIE03getA7AidLinkyS2SF_0();
+  _sSo20HearingModeUIServiceC0aB10SettingsUIE03getA7AidLinkyS2SF_0(v4, v6);
 
-  v5 = sub_2520046B0();
+  v8 = sub_2520046B0();
 
-  return v5;
+  return v8;
 }
 
 - (void)setTopLevelCellClass:(id)class

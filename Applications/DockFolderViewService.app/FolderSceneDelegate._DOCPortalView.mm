@@ -10,11 +10,11 @@
 - (NSString)description
 {
   selfCopy = self;
-  sub_100071CF4();
+  sub_100071CF4(v3);
 
-  v3 = String._bridgeToObjectiveC()();
+  v4 = String._bridgeToObjectiveC()();
 
-  return v3;
+  return v4;
 }
 
 - (_TtCC21DockFolderViewService19FolderSceneDelegate14_DOCPortalView)initWithSourceView:(id)view

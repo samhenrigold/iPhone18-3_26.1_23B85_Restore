@@ -6,7 +6,7 @@
 
 + (void)gameCenterEnabledGameInstalled:(id)installed withCompletionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   installedCopy = installed;
   handlerCopy = handler;
   if (!os_log_GKGeneral)
@@ -22,20 +22,17 @@
 
   v9 = +[GKDaemonProxy daemonProxy];
   gameService = [v9 gameService];
-  v13[0] = installedCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = installedCopy;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [gameService storeGameForBundleIDs:v11 completion:handlerCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)gameCenterEnabledGameInstalled:(uint64_t)a1 withCompletionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_227904000, a2, OS_LOG_TYPE_DEBUG, "Game install notification for title: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_227904000, a2, OS_LOG_TYPE_DEBUG, "Game install notification for title: %@", &v2, 0xCu);
 }
 
 @end

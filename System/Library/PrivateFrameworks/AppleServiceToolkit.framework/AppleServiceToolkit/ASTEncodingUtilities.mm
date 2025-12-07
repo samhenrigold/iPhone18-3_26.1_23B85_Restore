@@ -47,7 +47,7 @@
 
 + (id)SHA256HashForString:(id)string
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = stringCopy;
   if (!stringCopy)
@@ -62,7 +62,7 @@
   }
 
   *md = 0u;
-  v13 = 0u;
+  v12 = 0u;
   uTF8String = [stringCopy UTF8String];
   v6 = [v4 lengthOfBytesUsingEncoding:4];
   if ((v6 - 0x80000000) <= 0xFFFFFFFF80000000)
@@ -99,14 +99,12 @@ LABEL_13:
 
 LABEL_14:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)MD5ForFileHandle:(id)handle
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   offsetInFile = [handleCopy offsetInFile];
   [handleCopy seekToFileOffset:0];
@@ -129,36 +127,17 @@ LABEL_14:
     [v8 appendFormat:@"%02x", md[i]];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
-}
-
-+ (void)jsonSerializeObject:error:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)SHA256HashForString:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_240F3C000, log, OS_LOG_TYPE_ERROR, "SHA256HashForString: Invalid stride length %lu for string %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)MD5ForFileHandle:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_240F3C000, log, OS_LOG_TYPE_ERROR, "SHA256HashForString: Invalid stride length %lu for string %@", &v3, 0x16u);
 }
 
 @end

@@ -184,9 +184,9 @@ LABEL_37:
       v20 = 0;
     }
 
-    v26 = v20;
-    v27 = v19;
-    if (!sub_10013EE38(v19, v26))
+    v28 = v20;
+    v29 = v19;
+    if (!sub_10013EE38(v19, v28))
     {
       v24 = 0;
       goto LABEL_36;
@@ -235,9 +235,9 @@ LABEL_36:
     }
 
     v5 = qword_100229480;
-    objc_opt_class();
-    objc_opt_class();
-    _NRLogWithArgs();
+    v25 = objc_opt_class();
+    v26 = objc_opt_class();
+    _NRLogWithArgs(v5, 0, "%s%.30s:%-4d mismatch in class. %@ != %@", ", "[NRDLDPairingInfo isEqual:]"", 294, v25, v26);
     v24 = 0;
     goto LABEL_40;
   }
@@ -274,9 +274,9 @@ LABEL_41:
 - (NRDLDPairingInfo)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v33.receiver = self;
-  v33.super_class = NRDLDPairingInfo;
-  v5 = [(NRDLDPairingInfo *)&v33 init];
+  v36.receiver = self;
+  v36.super_class = NRDLDPairingInfo;
+  v5 = [(NRDLDPairingInfo *)&v36 init];
   if (!v5)
   {
     v28 = sub_10015B480();
@@ -285,15 +285,15 @@ LABEL_41:
     if (IsLevelEnabled)
     {
       v30 = sub_10015B480();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v30, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDLDPairingInfo initWithCoder:]"", 267);
     }
 
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v31 = *__error();
-    v32 = _os_log_pack_fill();
-    *v32 = 136446210;
-    *(v32 + 4) = "[NRDLDPairingInfo initWithCoder:]";
+    v31 = _os_log_pack_size();
+    v32 = &v35 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v33 = __error();
+    v34 = _os_log_pack_fill(v32, v31, *v33, &_mh_execute_header, "%{public}s [super init] failed");
+    *v34 = 136446210;
+    *(v34 + 4) = "[NRDLDPairingInfo initWithCoder:]";
     sub_10015B480();
     _NRLogAbortWithPack();
   }

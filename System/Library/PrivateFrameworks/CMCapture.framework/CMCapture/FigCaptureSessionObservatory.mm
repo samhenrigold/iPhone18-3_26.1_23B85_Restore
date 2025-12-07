@@ -2,9 +2,9 @@
 + (id)sharedObservatory;
 + (void)initialize;
 - (FigCaptureSessionObservatory)init;
+- (dispatch_queue_t)_postMovieRecordingUpdateNotification:(const void *)notification forCaptureSession:;
+- (dispatch_queue_t)_registerObserver:(dispatch_queue_t *)result;
 - (id)osStatePropertyList;
-- (uint64_t)_postMovieRecordingUpdateNotification:(const void *)notification forCaptureSession:;
-- (uint64_t)_registerObserver:(uint64_t)result;
 - (unint64_t)_isSessionRecordingMovie:(unint64_t)result;
 - (void)_captureSessionDidReconfigureWhileRunning:(char)running containsVideoSource:(char)source containsStillImageSink:(char)sink containsMovieFileSink:;
 - (void)_resetFigAssetWriterRecordingsCountForCaptureSession:(uint64_t)session;
@@ -205,10 +205,10 @@ void __143__FigCaptureSessionObservatory__setStatus_clientAuditToken_containsVid
     *(v3 + 50) = *(a1 + 86);
     if (dword_1ED844070)
     {
-      v86 = 0;
+      v86[0] = 0;
       v85 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = v86;
+      v10 = v86[0];
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v85))
       {
         v11 = v10;
@@ -491,7 +491,7 @@ void __139__FigCaptureSessionObservatory__captureSessionDidReconfigureWhileRunni
   return dictionary;
 }
 
-- (uint64_t)_registerObserver:(uint64_t)result
+- (dispatch_queue_t)_registerObserver:(dispatch_queue_t *)result
 {
   if (result)
   {
@@ -499,61 +499,60 @@ void __139__FigCaptureSessionObservatory__captureSessionDidReconfigureWhileRunni
     if (!_FigIsCurrentDispatchQueue())
     {
       OUTLINED_FUNCTION_1_8();
-      LODWORD(v39) = 0;
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v45, v47, v49, v50, *(&v50 + 1), v51, v52);
     }
 
-    v4 = [*(v3 + 16) addObject:{a2, v39}];
-    v5 = *(v3 + 8);
-    result = OUTLINED_FUNCTION_13_27(v4, v6, v7, v8, v9, v10);
+    v4 = [v3[2] addObject:a2];
+    v5 = v3[1];
+    result = OUTLINED_FUNCTION_13_27(v4, v6, v7, v8, v9, v10, v11, v12, v43, v45, v47, v49);
     if (result)
     {
-      v11 = result;
-      v12 = MEMORY[0];
+      v13 = result;
+      v14 = MEMORY[0];
       do
       {
-        v13 = 0;
+        v15 = 0;
         do
         {
-          if (MEMORY[0] != v12)
+          if (MEMORY[0] != v14)
           {
             objc_enumerationMutation(v5);
           }
 
-          v14 = *(8 * v13);
-          v15 = *NSMapGet(*(v3 + 8), v14);
-          if (v15 == 2)
+          v16 = *(8 * v15);
+          v17 = *NSMapGet(v3[1], v16);
+          if (v17 == 2)
           {
-            v25 = [FigCaptureSessionProxy alloc];
-            v24 = OUTLINED_FUNCTION_6_46(v25, v26, v27, v28, v29, v30, v31, v32, v40, v41, v42, v43);
-            [a2 captureSessionDidStart:v24];
+            v27 = [FigCaptureSessionProxy alloc];
+            v26 = OUTLINED_FUNCTION_6_46(v27, v28, v29, v30, v31, v32, v33, v34, v44, v46, v48, v50);
+            [a2 captureSessionDidStart:v26];
           }
 
           else
           {
-            if (v15 != 1)
+            if (v17 != 1)
             {
               goto LABEL_14;
             }
 
-            v16 = [FigCaptureSessionProxy alloc];
-            v24 = OUTLINED_FUNCTION_6_46(v16, v17, v18, v19, v20, v21, v22, v23, v40, v41, v42, v43);
-            [a2 captureSessionWillStart:v24];
+            v18 = [FigCaptureSessionProxy alloc];
+            v26 = OUTLINED_FUNCTION_6_46(v18, v19, v20, v21, v22, v23, v24, v25, v44, v46, v48, v50);
+            [a2 captureSessionWillStart:v26];
           }
 
 LABEL_14:
-          v33 = [(FigCaptureSessionObservatory *)v3 _isSessionRecordingMovie:v14];
-          if (v33)
+          v35 = [(FigCaptureSessionObservatory *)v3 _isSessionRecordingMovie:v16];
+          if (v35)
           {
-            v33 = [(FigCaptureSessionObservatory *)v3 _postMovieRecordingUpdateNotification:v14 forCaptureSession:?];
+            v35 = [(FigCaptureSessionObservatory *)v3 _postMovieRecordingUpdateNotification:v16 forCaptureSession:?];
           }
 
-          ++v13;
+          v15 = (v15 + 1);
         }
 
-        while (v11 != v13);
-        result = OUTLINED_FUNCTION_13_27(v33, v34, v35, v36, v37, v38);
-        v11 = result;
+        while (v13 != v15);
+        result = OUTLINED_FUNCTION_13_27(v35, v36, v37, v38, v39, v40, v41, v42, v44, v46, v48, *(&v48 + 1));
+        v13 = result;
       }
 
       while (result);
@@ -573,25 +572,25 @@ LABEL_14:
     if (result)
     {
       v4 = result;
-      return [*(result + 56) count] || *(v4 + 64) > 0;
+      return [*(result + 56) count] || v4[8] > 0;
     }
   }
 
   return result;
 }
 
-- (uint64_t)_postMovieRecordingUpdateNotification:(const void *)notification forCaptureSession:
+- (dispatch_queue_t)_postMovieRecordingUpdateNotification:(const void *)notification forCaptureSession:
 {
   if (result)
   {
     v5 = result;
-    dispatch_assert_queue_V2(*(result + 24));
-    result = NSMapGet(*(v5 + 8), notification);
+    dispatch_assert_queue_V2(result[3]);
+    result = NSMapGet(v5[1], notification);
     if (result)
     {
       v13 = result;
-      v14 = *(v5 + 16);
-      result = OUTLINED_FUNCTION_0_0(result, v6, v7, v8, v9, v10, v11, v12, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, 0);
+      v14 = v5[2];
+      result = OUTLINED_FUNCTION_0_0(result, v6, v7, v8, v9, v10, v11, v12, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
       if (result)
       {
         v15 = result;
@@ -607,7 +606,7 @@ LABEL_14:
             }
 
             v18 = *(8 * v17);
-            v19 = *(v13 + 8);
+            v19 = v13[1];
             if (a2)
             {
               v20 = [v18 captureSessionDidStartMovieRecording:v19];
@@ -618,11 +617,11 @@ LABEL_14:
               v20 = [v18 captureSessionDidFinishMovieRecording:v19];
             }
 
-            ++v17;
+            v17 = (v17 + 1);
           }
 
           while (v15 != v17);
-          result = OUTLINED_FUNCTION_0_0(v20, v21, v22, v23, v24, v25, v26, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v60);
+          result = OUTLINED_FUNCTION_0_0(v20, v21, v22, v23, v24, v25, v26, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
           v15 = result;
         }
 
@@ -682,21 +681,21 @@ LABEL_14:
     {
       CFRetain(cf);
       v8 = *(self + 24);
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __89__FigCaptureSessionObservatory__setMovieFileOutputRecording_sectionID_forCaptureSession___block_invoke;
-      v9[3] = &unk_1E7998820;
-      v9[5] = recording;
-      v9[6] = cf;
-      v10 = a2;
-      v9[4] = self;
-      fig_dispatch_async_autoreleasepool(v8, v9);
+      v10 = MEMORY[0x1E69E9820];
+      v11 = 3221225472;
+      v12 = __89__FigCaptureSessionObservatory__setMovieFileOutputRecording_sectionID_forCaptureSession___block_invoke;
+      v13 = &unk_1E7998820;
+      recordingCopy = recording;
+      v16 = cf;
+      v17 = a2;
+      selfCopy = self;
+      fig_dispatch_async_autoreleasepool(v8, &v10);
     }
 
     else
     {
       OUTLINED_FUNCTION_1_8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v9, v10, v11, v12, v13, selfCopy, recordingCopy);
     }
   }
 }
@@ -788,21 +787,26 @@ void __78__FigCaptureSessionObservatory__setFigAssetWriterRecording_forCaptureSe
     }
 
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
+    v15 = 0;
+    v14 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v9 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v9, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/CameraViewfinder/FigCaptureSessionObserver.m", 614, @"LastShownDate:FigCaptureSessionObserver.m:614", @"LastShownBuild:FigCaptureSessionObserver.m:614", 0);
-    free(v9);
+    v9 = *(a1 + 40);
+    v12 = 134217984;
+    v13 = v9;
+    v10 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v10, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/CameraViewfinder/FigCaptureSessionObserver.m", 614, @"LastShownDate:FigCaptureSessionObserver.m:614", @"LastShownBuild:FigCaptureSessionObserver.m:614", 0);
+    free(v10);
     v6 = 0;
   }
 
   *(v3 + 8) = v6;
 LABEL_8:
-  v10 = [(FigCaptureSessionObservatory *)*(a1 + 32) _isSessionRecordingMovie:?];
-  if (v4 != v10)
+  v11 = [(FigCaptureSessionObservatory *)*(a1 + 32) _isSessionRecordingMovie:?];
+  if (v4 != v11)
   {
-    [(FigCaptureSessionObservatory *)*(a1 + 32) _postMovieRecordingUpdateNotification:v10 forCaptureSession:*(a1 + 40)];
+    [(FigCaptureSessionObservatory *)*(a1 + 32) _postMovieRecordingUpdateNotification:v11 forCaptureSession:*(a1 + 40)];
   }
 
 LABEL_10:

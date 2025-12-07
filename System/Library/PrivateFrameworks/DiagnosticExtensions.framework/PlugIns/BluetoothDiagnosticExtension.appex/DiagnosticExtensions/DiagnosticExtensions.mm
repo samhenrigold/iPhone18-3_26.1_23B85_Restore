@@ -130,7 +130,7 @@ uint64_t getIntValue(uint64_t *a1, uint64_t *a2, _DWORD *a3)
   return isKindOfClass & 1;
 }
 
-_BYTE *sub_100001B04(_BYTE *a1, char *__s)
+void *sub_100001B04(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -144,13 +144,13 @@ _BYTE *sub_100001B04(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 

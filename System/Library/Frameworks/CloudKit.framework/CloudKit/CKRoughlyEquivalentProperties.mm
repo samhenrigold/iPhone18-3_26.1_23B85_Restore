@@ -33,22 +33,22 @@
 
 - (CKRoughlyEquivalentProperties)initWithCoder:(id)coder
 {
-  v17[8] = *MEMORY[0x1E69E9840];
+  v16[8] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = CKRoughlyEquivalentProperties;
-  v5 = [(CKRoughlyEquivalentProperties *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = CKRoughlyEquivalentProperties;
+  v5 = [(CKRoughlyEquivalentProperties *)&v15 init];
   if (v5)
   {
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v17[2] = objc_opt_class();
-    v17[3] = objc_opt_class();
-    v17[4] = objc_opt_class();
-    v17[5] = objc_opt_class();
-    v17[6] = objc_opt_class();
-    v17[7] = objc_opt_class();
-    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v17, 8);
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v16[2] = objc_opt_class();
+    v16[3] = objc_opt_class();
+    v16[4] = objc_opt_class();
+    v16[5] = objc_opt_class();
+    v16[6] = objc_opt_class();
+    v16[7] = objc_opt_class();
+    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v16, 8);
     v9 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v8, v7);
     v10 = NSStringFromSelector(sel_dictionary);
     v12 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v11, v9, v10);
@@ -56,7 +56,6 @@
     v5->_dictionary = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

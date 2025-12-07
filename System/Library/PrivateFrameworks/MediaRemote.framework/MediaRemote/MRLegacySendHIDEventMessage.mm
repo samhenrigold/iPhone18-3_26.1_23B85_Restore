@@ -9,9 +9,9 @@
 
 - (MRLegacySendHIDEventMessage)initWithHIDEvent:(__IOHIDEvent *)event
 {
-  v10.receiver = self;
-  v10.super_class = MRLegacySendHIDEventMessage;
-  v5 = [(MRProtocolMessage *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = MRLegacySendHIDEventMessage;
+  v5 = [(MRProtocolMessage *)&v9 init];
   if (v5)
   {
     if (!event)
@@ -20,11 +20,10 @@
     }
 
     v5->_event = CFRetain(event);
-    v6 = *MEMORY[0x1E695E480];
     Data = IOHIDEventCreateData();
-    v8 = objc_alloc_init(_MRSendHIDEventMessageProtobuf);
-    [(_MRSendHIDEventMessageProtobuf *)v8 setHidEventData:Data];
-    [(MRProtocolMessage *)v5 setUnderlyingCodableMessage:v8];
+    v7 = objc_alloc_init(_MRSendHIDEventMessageProtobuf);
+    [(_MRSendHIDEventMessageProtobuf *)v7 setHidEventData:Data];
+    [(MRProtocolMessage *)v5 setUnderlyingCodableMessage:v7];
   }
 
   return v5;

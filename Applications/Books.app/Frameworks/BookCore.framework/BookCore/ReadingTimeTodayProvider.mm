@@ -19,7 +19,7 @@
 LABEL_3:
       sub_1EF444();
       swift_unknownObjectRelease();
-      sub_1927B4(v12, &qword_33F9D8);
+      sub_1927B4(v12, &qword_33F9D8, &qword_2A4800);
       goto LABEL_6;
     }
   }
@@ -35,10 +35,10 @@ LABEL_3:
     }
   }
 
-  sub_1927B4(v12, &qword_33F9D8);
+  sub_1927B4(v12, &qword_33F9D8, &qword_2A4800);
   memset(v11, 0, sizeof(v11));
 LABEL_6:
-  sub_1927B4(v11, &qword_33F9D8);
+  sub_1927B4(v11, &qword_33F9D8, &qword_2A4800);
   v9 = *(&self->super.isa + OBJC_IVAR____TtC8BookCore24ReadingTimeTodayProvider_dynamicProgress);
   swift_unknownObjectRetain();
 

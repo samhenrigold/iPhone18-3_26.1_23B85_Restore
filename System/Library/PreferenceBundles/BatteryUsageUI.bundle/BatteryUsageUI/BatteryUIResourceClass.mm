@@ -566,7 +566,7 @@ LABEL_24:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_115088(&state64);
+    sub_115088();
   }
 
   v10 = state64;

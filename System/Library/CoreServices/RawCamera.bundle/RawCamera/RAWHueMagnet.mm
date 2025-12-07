@@ -8,160 +8,160 @@
 
 + (id)customAttributes
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v61[0] = @"inputColorSpace";
-  v58 = *MEMORY[0x277CBF798];
-  v2 = v58;
+  v61 = *MEMORY[0x277D85DE8];
+  v52[0] = @"inputColorSpace";
+  v49 = *MEMORY[0x277CBF798];
+  v2 = v49;
   v3 = sub_2338F2BB4();
-  v59 = *MEMORY[0x277CBF7A0];
-  v4 = v59;
-  v60[0] = v3;
-  v60[1] = @"inputColorSpace";
-  v43 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, v60, &v58, 2);
-  v62 = v43;
-  v61[1] = @"inputVersion";
-  v56[0] = *MEMORY[0x277CBF790];
-  v6 = v56[0];
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = *MEMORY[0x277CBF7D0];
-  v37 = v8;
-  v57[0] = v8;
-  v57[1] = &unk_284958C08;
-  v10 = *MEMORY[0x277CBF7C8];
-  v56[1] = v9;
-  v56[2] = v10;
-  v57[2] = &unk_284958C18;
-  v57[3] = &unk_284958C28;
-  v11 = *MEMORY[0x277CBF7F0];
-  v56[3] = v2;
-  v56[4] = v11;
-  v12 = *MEMORY[0x277CBF850];
-  v56[5] = v4;
-  v57[4] = v12;
-  v57[5] = @"inputVersion";
-  v63 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v57, v56, 6);
-  v61[2] = @"inputHueMagMR";
-  v54[0] = v6;
-  v38 = v63;
-  v14 = objc_opt_class();
-  v42 = NSStringFromClass(v14);
-  v55[0] = v42;
-  v55[1] = &unk_284958C38;
-  v54[1] = v9;
-  v54[2] = v10;
-  v55[2] = &unk_284958C48;
-  v55[3] = &unk_284958C58;
-  v54[3] = v2;
-  v54[4] = v11;
-  v54[5] = v4;
-  v55[4] = v12;
-  v55[5] = @"inputHueMagMR";
-  v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v55, v54, 6);
-  v64 = v41;
-  v61[3] = @"inputHueMagRY";
-  v52[0] = v6;
-  v16 = objc_opt_class();
-  v40 = NSStringFromClass(v16);
-  v53[0] = v40;
-  v53[1] = &unk_284958C38;
-  v52[1] = v9;
-  v52[2] = v10;
-  v53[2] = &unk_284958C48;
-  v53[3] = &unk_284958C58;
-  v52[3] = v2;
-  v52[4] = v11;
-  v52[5] = v4;
-  v53[4] = v12;
-  v53[5] = @"inputHueMagRY";
-  v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v53, v52, 6);
-  v65 = v39;
-  v61[4] = @"inputHueMagYG";
-  v50[0] = v6;
-  v18 = objc_opt_class();
-  v35 = NSStringFromClass(v18);
-  v51[0] = v35;
-  v51[1] = &unk_284958C38;
-  v50[1] = v9;
-  v50[2] = v10;
-  v51[2] = &unk_284958C48;
-  v51[3] = &unk_284958C58;
-  v50[3] = v2;
-  v50[4] = v11;
-  v50[5] = v4;
-  v51[4] = v12;
-  v51[5] = @"inputHueMagYG";
-  v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v51, v50, 6);
-  v66 = v36;
-  v61[5] = @"inputHueMagGC";
-  v48[0] = v6;
-  v20 = objc_opt_class();
-  v33 = NSStringFromClass(v20);
-  v49[0] = v33;
-  v49[1] = &unk_284958C38;
-  v48[1] = v9;
-  v48[2] = v10;
-  v49[2] = &unk_284958C48;
-  v49[3] = &unk_284958C58;
-  v48[3] = v2;
+  v50 = *MEMORY[0x277CBF7A0];
+  v4 = v50;
+  v51[0] = v3;
+  v51[1] = @"inputColorSpace";
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v49 count:2];
+  v53 = v34;
+  v52[1] = @"inputVersion";
+  v47[0] = *MEMORY[0x277CBF790];
+  v5 = v47[0];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = *MEMORY[0x277CBF7D0];
+  v28 = v7;
+  v48[0] = v7;
+  v48[1] = &unk_284958C08;
+  v9 = *MEMORY[0x277CBF7C8];
+  v47[1] = v8;
+  v47[2] = v9;
+  v48[2] = &unk_284958C18;
+  v48[3] = &unk_284958C28;
+  v10 = *MEMORY[0x277CBF7F0];
+  v47[3] = v2;
+  v47[4] = v10;
+  v11 = *MEMORY[0x277CBF850];
+  v47[5] = v4;
   v48[4] = v11;
-  v48[5] = v4;
-  v49[4] = v12;
-  v49[5] = @"inputHueMagGC";
-  v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, v49, v48, 6);
-  v67 = v34;
-  v61[6] = @"inputHueMagCB";
-  v46[0] = v6;
-  v22 = objc_opt_class();
-  v23 = NSStringFromClass(v22);
-  v47[0] = v23;
-  v47[1] = &unk_284958C38;
-  v46[1] = v9;
-  v46[2] = v10;
-  v47[2] = &unk_284958C48;
-  v47[3] = &unk_284958C58;
-  v46[3] = v2;
+  v48[5] = @"inputVersion";
+  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:6];
+  v52[2] = @"inputHueMagMR";
+  v45[0] = v5;
+  v29 = v54;
+  v12 = objc_opt_class();
+  v33 = NSStringFromClass(v12);
+  v46[0] = v33;
+  v46[1] = &unk_284958C38;
+  v45[1] = v8;
+  v45[2] = v9;
+  v46[2] = &unk_284958C48;
+  v46[3] = &unk_284958C58;
+  v45[3] = v2;
+  v45[4] = v10;
+  v45[5] = v4;
   v46[4] = v11;
-  v46[5] = v4;
-  v47[4] = v12;
-  v47[5] = @"inputHueMagCB";
-  v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v24, v47, v46, 6);
-  v68 = v25;
-  v61[7] = @"inputHueMagBM";
-  v44[0] = v6;
-  v26 = objc_opt_class();
-  v27 = NSStringFromClass(v26);
-  v45[0] = v27;
-  v45[1] = &unk_284958C38;
-  v44[1] = v9;
-  v44[2] = v10;
-  v45[2] = &unk_284958C48;
-  v45[3] = &unk_284958C58;
-  v44[3] = v2;
+  v46[5] = @"inputHueMagMR";
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:6];
+  v55 = v32;
+  v52[3] = @"inputHueMagRY";
+  v43[0] = v5;
+  v13 = objc_opt_class();
+  v31 = NSStringFromClass(v13);
+  v44[0] = v31;
+  v44[1] = &unk_284958C38;
+  v43[1] = v8;
+  v43[2] = v9;
+  v44[2] = &unk_284958C48;
+  v44[3] = &unk_284958C58;
+  v43[3] = v2;
+  v43[4] = v10;
+  v43[5] = v4;
   v44[4] = v11;
-  v44[5] = v4;
-  v45[4] = v12;
-  v45[5] = @"inputHueMagBM";
-  v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v45, v44, 6);
-  v69 = v29;
-  v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, &v62, v61, 8);
+  v44[5] = @"inputHueMagRY";
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:6];
+  v56 = v30;
+  v52[4] = @"inputHueMagYG";
+  v41[0] = v5;
+  v14 = objc_opt_class();
+  v26 = NSStringFromClass(v14);
+  v42[0] = v26;
+  v42[1] = &unk_284958C38;
+  v41[1] = v8;
+  v41[2] = v9;
+  v42[2] = &unk_284958C48;
+  v42[3] = &unk_284958C58;
+  v41[3] = v2;
+  v41[4] = v10;
+  v41[5] = v4;
+  v42[4] = v11;
+  v42[5] = @"inputHueMagYG";
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:6];
+  v57 = v27;
+  v52[5] = @"inputHueMagGC";
+  v39[0] = v5;
+  v15 = objc_opt_class();
+  v24 = NSStringFromClass(v15);
+  v40[0] = v24;
+  v40[1] = &unk_284958C38;
+  v39[1] = v8;
+  v39[2] = v9;
+  v40[2] = &unk_284958C48;
+  v40[3] = &unk_284958C58;
+  v39[3] = v2;
+  v39[4] = v10;
+  v39[5] = v4;
+  v40[4] = v11;
+  v40[5] = @"inputHueMagGC";
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:6];
+  v58 = v25;
+  v52[6] = @"inputHueMagCB";
+  v37[0] = v5;
+  v16 = objc_opt_class();
+  v17 = NSStringFromClass(v16);
+  v38[0] = v17;
+  v38[1] = &unk_284958C38;
+  v37[1] = v8;
+  v37[2] = v9;
+  v38[2] = &unk_284958C48;
+  v38[3] = &unk_284958C58;
+  v37[3] = v2;
+  v37[4] = v10;
+  v37[5] = v4;
+  v38[4] = v11;
+  v38[5] = @"inputHueMagCB";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:6];
+  v59 = v18;
+  v52[7] = @"inputHueMagBM";
+  v35[0] = v5;
+  v19 = objc_opt_class();
+  v20 = NSStringFromClass(v19);
+  v36[0] = v20;
+  v36[1] = &unk_284958C38;
+  v35[1] = v8;
+  v35[2] = v9;
+  v36[2] = &unk_284958C48;
+  v36[3] = &unk_284958C58;
+  v35[3] = v2;
+  v35[4] = v10;
+  v35[5] = v4;
+  v36[4] = v11;
+  v36[5] = @"inputHueMagBM";
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:6];
+  v60 = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:v52 count:8];
 
-  return v31;
+  return v22;
 }
 
 - (id)customAttributes
 {
   v2 = objc_opt_class();
 
-  return MEMORY[0x2821F9670](v2, sel_customAttributes, v3, v4, v5);
+  return MEMORY[0x2821F9670](v2, sel_customAttributes);
 }
 
 - (id)outputImage
 {
-  v132[1] = *MEMORY[0x277D85DE8];
+  v63[1] = *MEMORY[0x277D85DE8];
   if (self->inputImage)
   {
-    v3 = sub_23378E104();
+    v3 = sub_23378E104(self);
     v4 = v3;
     if (&self->super.super.super.isa + 1 >= 2 && os_signpost_enabled(v3))
     {
@@ -169,115 +169,115 @@
       _os_signpost_emit_with_name_impl(&dword_23371F000, v4, OS_SIGNPOST_INTERVAL_BEGIN, self, "RAWHueMagnet", &unk_233945DBE, buf, 2u);
     }
 
-    v125[0] = MEMORY[0x277D85DD0];
-    v125[1] = 3221225472;
-    v125[2] = sub_233880218;
-    v125[3] = &unk_2789EE800;
-    v125[4] = self;
-    v5 = MEMORY[0x2383AC810](v125);
-    objc_msgSend_doubleValue(self->inputHueMagMR, v6, v7, v8, v9);
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = sub_233880218;
+    v56[3] = &unk_2789EE800;
+    v56[4] = self;
+    v5 = MEMORY[0x2383AC810](v56);
+    [(NSNumber *)self->inputHueMagMR doubleValue];
+    v7 = v6;
+    [(NSNumber *)self->inputHueMagRY doubleValue];
+    v9 = v8;
+    [(NSNumber *)self->inputHueMagYG doubleValue];
     v11 = v10;
-    objc_msgSend_doubleValue(self->inputHueMagRY, v12, v13, v14, v15);
-    v17 = v16;
-    objc_msgSend_doubleValue(self->inputHueMagYG, v18, v19, v20, v21);
-    v23 = v22;
-    objc_msgSend_doubleValue(self->inputHueMagGC, v24, v25, v26, v27);
-    v29 = v28;
-    objc_msgSend_doubleValue(self->inputHueMagCB, v30, v31, v32, v33);
-    v35 = v34;
-    objc_msgSend_doubleValue(self->inputHueMagBM, v36, v37, v38, v39);
-    v40 = fmin(fmax(v11, -0.2), 0.2);
-    v41 = fmin(fmax(v17, -0.2), 0.2);
-    v42 = fmin(fmax(v23, -0.2), 0.2);
-    v44 = fabs(v40);
-    v45 = fabs(v41);
-    v46 = fabs(v42);
-    v121 = fmin(fmax(v35, -0.2), 0.2);
-    v122 = fmin(fmax(v29, -0.2), 0.2);
-    v47 = fabs(v122);
-    v120 = fmin(fmax(v43, -0.2), 0.2);
-    v123 = fabs(v120);
-    v124 = fabs(v121);
-    v51 = self->inputImage;
-    if (v44 >= 0.001 || v45 >= 0.001 || v46 >= 0.001 || v47 >= 0.001 || (v52.n128_f64[0] = v124, v124 >= 0.001) || (v52.n128_f64[0] = v123, v123 >= 0.001))
+    [(NSNumber *)self->inputHueMagGC doubleValue];
+    v13 = v12;
+    [(NSNumber *)self->inputHueMagCB doubleValue];
+    v15 = v14;
+    [(NSNumber *)self->inputHueMagBM doubleValue];
+    v16 = fmin(fmax(v7, -0.2), 0.2);
+    v17 = fmin(fmax(v9, -0.2), 0.2);
+    v18 = fmin(fmax(v11, -0.2), 0.2);
+    v20 = fabs(v16);
+    v21 = fabs(v17);
+    v22 = fabs(v18);
+    v52 = fmin(fmax(v15, -0.2), 0.2);
+    v53 = fmin(fmax(v13, -0.2), 0.2);
+    v23 = fabs(v53);
+    v51 = fmin(fmax(v19, -0.2), 0.2);
+    v54 = fabs(v51);
+    v55 = fabs(v52);
+    v24 = self->inputImage;
+    if (v20 >= 0.001 || v21 >= 0.001 || v22 >= 0.001 || v23 >= 0.001 || (v25.n128_f64[0] = v55, v55 >= 0.001) || (v25.n128_f64[0] = v54, v54 >= 0.001))
     {
-      if (v44 >= 0.001)
+      if (v20 >= 0.001)
       {
-        v53 = objc_msgSend_kernelWithName_(HMKernels, v48, @"RAWHueMagnetMR", v49, v50, v52.n128_f64[0]);
-        v58 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v54, v55, v56, v57, v40);
-        v132[0] = v58;
-        v61 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v59, v132, 1, v60);
-        v63 = objc_msgSend_apply_image_arguments_inoutSpace_isPremultiplied_(self, v62, v53, v51, v61, self->inputColorSpace, 1);
+        v26 = [HMKernels kernelWithName:@"RAWHueMagnetMR", v25.n128_f64[0]];
+        v27 = [MEMORY[0x277CCABB0] numberWithDouble:v16];
+        v63[0] = v27;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:1];
+        v29 = [(RAWFilter *)self apply:v26 image:v24 arguments:v28 inoutSpace:self->inputColorSpace isPremultiplied:1];
 
-        v51 = v63;
+        v24 = v29;
       }
 
-      if (v45 >= 0.001)
+      if (v21 >= 0.001)
       {
-        v64 = objc_msgSend_kernelWithName_(HMKernels, v48, @"RAWHueMagnetRY", v49, v50);
-        v69 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v65, v66, v67, v68, v41);
-        v131 = v69;
-        v72 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v70, &v131, 1, v71);
-        v74 = objc_msgSend_apply_image_arguments_inoutSpace_isPremultiplied_(self, v73, v64, v51, v72, self->inputColorSpace, 1);
+        v30 = [HMKernels kernelWithName:@"RAWHueMagnetRY"];
+        v31 = [MEMORY[0x277CCABB0] numberWithDouble:v17];
+        v62 = v31;
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+        v33 = [(RAWFilter *)self apply:v30 image:v24 arguments:v32 inoutSpace:self->inputColorSpace isPremultiplied:1];
 
-        v51 = v74;
+        v24 = v33;
       }
 
-      if (v46 >= 0.001)
+      if (v22 >= 0.001)
       {
-        v75 = objc_msgSend_kernelWithName_(HMKernels, v48, @"RAWHueMagnetYG", v49, v50);
-        v80 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v76, v77, v78, v79, v42);
-        v130 = v80;
-        v83 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v81, &v130, 1, v82);
-        v85 = objc_msgSend_apply_image_arguments_inoutSpace_isPremultiplied_(self, v84, v75, v51, v83, self->inputColorSpace, 1);
+        v34 = [HMKernels kernelWithName:@"RAWHueMagnetYG"];
+        v35 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
+        v61 = v35;
+        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+        v37 = [(RAWFilter *)self apply:v34 image:v24 arguments:v36 inoutSpace:self->inputColorSpace isPremultiplied:1];
 
-        v51 = v85;
+        v24 = v37;
       }
 
-      if (v47 >= 0.001)
+      if (v23 >= 0.001)
       {
-        v86 = objc_msgSend_kernelWithName_(HMKernels, v48, @"RAWHueMagnetGC", v49, v50);
-        v91 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v87, v88, v89, v90, v122);
-        v129 = v91;
-        v94 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v92, &v129, 1, v93);
-        v96 = objc_msgSend_apply_image_arguments_inoutSpace_isPremultiplied_(self, v95, v86, v51, v94, self->inputColorSpace, 1);
+        v38 = [HMKernels kernelWithName:@"RAWHueMagnetGC"];
+        v39 = [MEMORY[0x277CCABB0] numberWithDouble:v53];
+        v60 = v39;
+        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+        v41 = [(RAWFilter *)self apply:v38 image:v24 arguments:v40 inoutSpace:self->inputColorSpace isPremultiplied:1];
 
-        v51 = v96;
+        v24 = v41;
       }
 
-      if (v124 >= 0.001)
+      if (v55 >= 0.001)
       {
-        v97 = objc_msgSend_kernelWithName_(HMKernels, v48, @"RAWHueMagnetCB", v49, v50, v124);
-        v102 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v98, v99, v100, v101, v121);
-        v128 = v102;
-        v105 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v103, &v128, 1, v104);
-        v107 = objc_msgSend_apply_image_arguments_inoutSpace_isPremultiplied_(self, v106, v97, v51, v105, self->inputColorSpace, 1);
+        v42 = [HMKernels kernelWithName:@"RAWHueMagnetCB", v55];
+        v43 = [MEMORY[0x277CCABB0] numberWithDouble:v52];
+        v59 = v43;
+        v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+        v45 = [(RAWFilter *)self apply:v42 image:v24 arguments:v44 inoutSpace:self->inputColorSpace isPremultiplied:1];
 
-        v51 = v107;
+        v24 = v45;
       }
 
-      v52.n128_f64[0] = v123;
-      if (v123 >= 0.001)
+      v25.n128_f64[0] = v54;
+      if (v54 >= 0.001)
       {
-        v108 = objc_msgSend_kernelWithName_(HMKernels, v48, @"RAWHueMagnetBM", v49, v50, v123);
-        v113 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v109, v110, v111, v112, v120);
-        v127 = v113;
-        v116 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v114, &v127, 1, v115);
-        v118 = objc_msgSend_apply_image_arguments_inoutSpace_isPremultiplied_(self, v117, v108, v51, v116, self->inputColorSpace, 1);
+        v46 = [HMKernels kernelWithName:@"RAWHueMagnetBM", v54];
+        v47 = [MEMORY[0x277CCABB0] numberWithDouble:v51];
+        v58 = v47;
+        v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+        v49 = [(RAWFilter *)self apply:v46 image:v24 arguments:v48 inoutSpace:self->inputColorSpace isPremultiplied:1];
 
-        v51 = v118;
+        v24 = v49;
       }
     }
 
-    v5[2](v5, v52);
+    v5[2](v5, v25);
   }
 
   else
   {
-    v51 = 0;
+    v24 = 0;
   }
 
-  return v51;
+  return v24;
 }
 
 @end

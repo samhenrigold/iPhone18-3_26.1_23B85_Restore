@@ -9,33 +9,33 @@
 
 - (void)processLogEventsWithSubmitter:(id)submitter
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   submitterCopy = submitter;
   os_unfair_lock_lock_with_options();
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_bufferedLogEvents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [submitterCopy submitLogEvent:{*(*(&v12 + 1) + 8 * v8++), v12}];
+        [submitterCopy submitLogEvent:{*(*(&v11 + 1) + 8 * v8++), v11}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -48,7 +48,6 @@
   self->_submitter = submitterCopy;
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitLogEvent:(id)event error:(id)error
@@ -60,7 +59,7 @@
 
 - (void)submitLogEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock_with_options();
   submitter = self->_submitter;
@@ -78,11 +77,11 @@
     {
       v9 = HMFGetLogIdentifier();
       bufferSize = self->_bufferSize;
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2048;
-      v15 = bufferSize;
-      _os_log_impl(&dword_22B074000, v8, OS_LOG_TYPE_ERROR, "%{public}@Log event not buffered. Buffer full, size: %ld", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2048;
+      v14 = bufferSize;
+      _os_log_impl(&dword_22B074000, v8, OS_LOG_TYPE_ERROR, "%{public}@Log event not buffered. Buffer full, size: %ld", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -94,8 +93,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMBufferingLogEventSubmitter)initWithBufferSize:(int64_t)size

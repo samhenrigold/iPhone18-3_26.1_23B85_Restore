@@ -42,9 +42,9 @@
 
 - (void)_copyUpdatedRecord
 {
-  v3 = objc_msgSend_rowID(self, a2, v2);
+  v4 = objc_msgSend_rowID(self, a2, v2, v3);
 
-  return IMDChatRecordCopyChatRecordUnlocked(v3);
+  return IMDChatRecordCopyChatRecordUnlocked(v4);
 }
 
 - (IMDChatRecord)initWithRecordRef:(_IMDChatRecordStruct *)ref
@@ -56,7 +56,6 @@
 
 + (IMDChatRecord)allocWithZone:(_NSZone *)zone
 {
-  v3 = *MEMORY[0x1E695E480];
   IMDChatRecordGetTypeID();
 
   return _CFRuntimeCreateInstance();
@@ -80,61 +79,61 @@
 
 - (IMDMessageRecord)lastMessageRecord
 {
-  v3 = objc_msgSend_cfChatRecord(self, a2, v2);
-  Message = IMDChatRecordCopyLastMessage(v3);
+  v4 = objc_msgSend_cfChatRecord(self, a2, v2, v3);
+  Message = IMDChatRecordCopyLastMessage(v4);
 
   return Message;
 }
 
 - (NSArray)handleRecords
 {
-  v3 = objc_msgSend_cfChatRecord(self, a2, v2);
-  v4 = IMDChatRecordCopyHandles(v3);
-
-  return v4;
-}
-
-- (NSDictionary)domainIdentifiers
-{
-  v3 = objc_msgSend_cfChatRecord(self, a2, v2);
-  v6 = IMDChatRecordCopyChatLookupRecords(v3, v4, v5);
-
-  return v6;
-}
-
-- (NSURL)transcriptBackgroundFileURL
-{
-  v3 = objc_msgSend_properties(self, a2, v2);
-  v5 = objc_msgSend_transcriptBackgroundFileURLFromProperties_(IMDChatRecord, v4, v3);
+  v4 = objc_msgSend_cfChatRecord(self, a2, v2, v3);
+  v5 = IMDChatRecordCopyHandles(v4);
 
   return v5;
 }
 
+- (NSDictionary)domainIdentifiers
+{
+  v4 = objc_msgSend_cfChatRecord(self, a2, v2, v3);
+  v8 = IMDChatRecordCopyChatLookupRecords(v4, v5, v6, v7);
+
+  return v8;
+}
+
+- (NSURL)transcriptBackgroundFileURL
+{
+  v4 = objc_msgSend_properties(self, a2, v2, v3);
+  v7 = objc_msgSend_transcriptBackgroundFileURLFromProperties_(IMDChatRecord, v5, v4, v6);
+
+  return v7;
+}
+
 + (id)transcriptBackgroundFileURLFromProperties:(id)properties
 {
-  v3 = objc_msgSend_objectForKey_(properties, a2, *MEMORY[0x1E69A6CC8]);
-  v5 = v3;
-  if (v3)
+  v4 = objc_msgSend_objectForKey_(properties, a2, *MEMORY[0x1E69A6CC8], v3);
+  v7 = v4;
+  if (v4)
   {
-    v6 = objc_msgSend__stringForKey_(v3, v4, *MEMORY[0x1E69A7D38]);
-    if (v6)
+    v8 = objc_msgSend__stringForKey_(v4, v5, *MEMORY[0x1E69A7D38], v6);
+    if (v8)
     {
-      v7 = IMTranscriptBackgroundDirectory();
-      v9 = objc_msgSend_URLByAppendingPathComponent_(v7, v8, v6);
+      v9 = IMTranscriptBackgroundDirectory();
+      v12 = objc_msgSend_URLByAppendingPathComponent_(v9, v10, v8, v11);
     }
 
     else
     {
-      v9 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  return v9;
+  return v12;
 }
 
 @end

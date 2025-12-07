@@ -11,6 +11,7 @@
 - (unint64_t)fileSize;
 - (void)dealloc;
 - (void)setFileSize:(unint64_t)size;
+- (void)setUseMailDrop:(BOOL)drop;
 @end
 
 @implementation MFAttachmentPlaceholder
@@ -88,6 +89,14 @@
   v2 = [(NSMutableDictionary *)self->_jsonDictionary objectForKeyedSubscript:@"mailDrop"];
 
   return [v2 BOOLValue];
+}
+
+- (void)setUseMailDrop:(BOOL)drop
+{
+  jsonDictionary = self->_jsonDictionary;
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:drop];
+
+  [(NSMutableDictionary *)jsonDictionary setValue:v4 forKey:@"mailDrop"];
 }
 
 + (id)placeholderFromSerializedRepresentation:(id)representation
@@ -224,11 +233,10 @@ uint64_t __46__MFAttachmentPlaceholder_dataForPlaceholder___block_invoke(uint64_
 
 + (void)dataForPlaceholder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#Attachments Attempted to resolve placeholder for non-existant file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#Attachments Attempted to resolve placeholder for non-existant file: %@", &v2, 0xCu);
 }
 
 @end

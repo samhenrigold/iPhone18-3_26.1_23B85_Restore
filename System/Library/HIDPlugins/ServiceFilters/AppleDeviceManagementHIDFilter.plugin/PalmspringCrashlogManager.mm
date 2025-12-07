@@ -8,6 +8,7 @@
 - (int)extractCrashlogsWithError:(id *)error;
 - (int)getPayloadSize:(unsigned int *)size error:(id *)error;
 - (int)setCommandForReportID:(int)d command:(unsigned __int8)command error:(id *)error;
+- (int)setPayloadSize:(unsigned int)size error:(id *)error;
 - (int)setReadOffset:(unsigned __int8)offset offset:(unsigned int)a4 error:(id *)error;
 - (void)dealloc;
 - (void)inputReportHandler:(id)handler timestamp:(unint64_t)timestamp type:(int64_t)type reportID:(int64_t)d report:(id)report;
@@ -24,9 +25,9 @@
     sub_467C(a2, self);
   }
 
-  v29.receiver = self;
-  v29.super_class = PalmspringCrashlogManager;
-  v7 = [(PalmspringCrashlogManager *)&v29 init];
+  v25.receiver = self;
+  v25.super_class = PalmspringCrashlogManager;
+  v7 = [(PalmspringCrashlogManager *)&v25 init];
   if (v7)
   {
     v8 = objc_opt_class();
@@ -44,24 +45,24 @@
 
     objc_storeStrong(&v7->_device, device);
     [(HIDDevice *)v7->_device open];
-    v28 = 0;
-    v14 = [(PalmspringCrashlogManager *)v7 getInfoReportWithError:&v28];
-    v15 = v28;
+    v24 = 0;
+    v14 = [(PalmspringCrashlogManager *)v7 getInfoReportWithError:&v24];
+    v15 = v24;
     v16 = v7->_log;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v24 = "supports";
+      v20 = "supports";
       *location = 136315650;
       if (!v14)
       {
-        v24 = "does not support";
+        v20 = "does not support";
       }
 
-      *&location[4] = v24;
-      v31 = 2112;
-      v32 = deviceCopy;
-      v33 = 2112;
-      v34 = v15;
+      *&location[4] = v20;
+      v27 = 2112;
+      v28 = deviceCopy;
+      v29 = 2112;
+      v30 = v15;
       _os_log_debug_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "device %s crashlogs: device %@, err %@", location, 0x20u);
       if (v14)
       {
@@ -73,20 +74,20 @@
     {
 LABEL_8:
       objc_initWeak(location, v7);
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_FE4;
-      v26[3] = &unk_C320;
-      objc_copyWeak(&v27, location);
-      [(HIDDevice *)v7->_device setInputReportHandler:v26];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_FE4;
+      v22[3] = &unk_C320;
+      objc_copyWeak(&v23, location);
+      [(HIDDevice *)v7->_device setInputReportHandler:v22];
       v7->_autoExtract = 1;
       v17 = objc_alloc_init(NSMutableArray);
       extractionHistory = v7->_extractionHistory;
       v7->_extractionHistory = v17;
 
-      crc16_init(v19, v20, v21, v22);
-      v23 = v7;
-      objc_destroyWeak(&v27);
+      crc16_init();
+      v19 = v7;
+      objc_destroyWeak(&v23);
       objc_destroyWeak(location);
 LABEL_14:
 
@@ -94,14 +95,14 @@ LABEL_14:
     }
 
     [(HIDDevice *)v7->_device close];
-    v23 = 0;
+    v19 = 0;
     goto LABEL_14;
   }
 
-  v23 = 0;
+  v19 = 0;
 LABEL_15:
 
-  return v23;
+  return v19;
 }
 
 - (id)getInfoReportWithError:(id *)error
@@ -126,7 +127,7 @@ LABEL_15:
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_4830(error);
+      sub_4830();
     }
 
     v10 = 0;
@@ -648,7 +649,7 @@ LABEL_3:
           v9 = -536870211;
           if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
           {
-            sub_4CF8((v12 + 1));
+            sub_4CF8();
           }
         }
       }
@@ -672,6 +673,32 @@ LABEL_3:
         sub_4C80();
       }
     }
+  }
+
+  return v9;
+}
+
+- (int)setPayloadSize:(unsigned int)size error:(id *)error
+{
+  v5 = *&size;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+  {
+    sub_4D80(log, a2);
+  }
+
+  v12 = 1036;
+  v13 = v5;
+  if (([(HIDDevice *)self->_device setReport:&v12 reportLength:6 withIdentifier:12 forType:2 error:error]& 1) != 0)
+  {
+    return 0;
+  }
+
+  v9 = -536870198;
+  v10 = self->_log;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    sub_4E34(error, v5, v10);
   }
 
   return v9;

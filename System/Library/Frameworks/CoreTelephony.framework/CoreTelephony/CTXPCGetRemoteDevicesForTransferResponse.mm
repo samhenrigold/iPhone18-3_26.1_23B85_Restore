@@ -8,27 +8,26 @@
 
 - (CTXPCGetRemoteDevicesForTransferResponse)initWithDevices:(id)devices
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   v5 = devicesCopy;
   if (devicesCopy)
   {
-    v12 = @"devices";
-    v13[0] = devicesCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    v10.receiver = self;
-    v10.super_class = CTXPCGetRemoteDevicesForTransferResponse;
-    v7 = [(CTXPCMessage *)&v10 initWithNamedArguments:v6];
+    v11 = @"devices";
+    v12[0] = devicesCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v9.receiver = self;
+    v9.super_class = CTXPCGetRemoteDevicesForTransferResponse;
+    v7 = [(CTXPCMessage *)&v9 initWithNamedArguments:v6];
   }
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = CTXPCGetRemoteDevicesForTransferResponse;
-    v7 = [(CTXPCMessage *)&v11 init];
+    v10.receiver = self;
+    v10.super_class = CTXPCGetRemoteDevicesForTransferResponse;
+    v7 = [(CTXPCMessage *)&v10 init];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

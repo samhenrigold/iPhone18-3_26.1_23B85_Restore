@@ -33,29 +33,29 @@
 
 - (MPSImageCopyToMatrix)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v29.receiver = self;
-  v29.super_class = MPSImageCopyToMatrix;
-  v5 = [(MPSKernel *)&v29 initWithCoder:aDecoder device:device];
-  v10 = v5;
+  v14.receiver = self;
+  v14.super_class = MPSImageCopyToMatrix;
+  v5 = [(MPSKernel *)&v14 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v5->super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    v5->_dataLayout = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSImageCopyToMatrix.dataLayout", v7, v8, v9);
-    v10->_destinationMatrixBatchIndex = objc_msgSend_decodeInt64ForKey_(aDecoder, v11, @"MPSImageCopyToMatrix.destinationMatrixBatchIndex", v12, v13, v14);
-    v10->_destinationMatrixOrigin.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v15, @"MPSImageCopyToMatrix.destinationMatrixOriginX", v16, v17, v18);
-    v10->_destinationMatrixOrigin.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v19, @"MPSImageCopyToMatrix.destinationMatrixOriginY", v20, v21, v22);
-    v10->_destinationMatrixOrigin.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v23, @"MPSImageCopyToMatrix.destinationMatrixOriginZ", v24, v25, v26);
-    return v10;
+    v5->_dataLayout = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSImageCopyToMatrix.dataLayout");
+    v7->_destinationMatrixBatchIndex = objc_msgSend_decodeInt64ForKey_(aDecoder, v8, @"MPSImageCopyToMatrix.destinationMatrixBatchIndex");
+    v7->_destinationMatrixOrigin.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v9, @"MPSImageCopyToMatrix.destinationMatrixOriginX");
+    v7->_destinationMatrixOrigin.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v10, @"MPSImageCopyToMatrix.destinationMatrixOriginY");
+    v7->_destinationMatrixOrigin.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v11, @"MPSImageCopyToMatrix.destinationMatrixOriginZ");
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v28 = objc_opt_class();
-    NSStringFromClass(v28);
+    v13 = objc_opt_class();
+    NSStringFromClass(v13);
     MTLReportFailure();
   }
 
@@ -66,15 +66,15 @@
 {
   selfCopy = self;
   *(&self->super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v20.receiver = self;
-  v20.super_class = MPSImageCopyToMatrix;
-  [(MPSKernel *)&v20 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, selfCopy[15], @"MPSImageCopyToMatrix.dataLayout", v6, v7);
-  objc_msgSend_encodeInt64_forKey_(coder, v8, selfCopy[14], @"MPSImageCopyToMatrix.destinationMatrixBatchIndex", v9, v10);
+  v10.receiver = self;
+  v10.super_class = MPSImageCopyToMatrix;
+  [(MPSKernel *)&v10 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, selfCopy[15], @"MPSImageCopyToMatrix.dataLayout");
+  objc_msgSend_encodeInt64_forKey_(coder, v6, selfCopy[14], @"MPSImageCopyToMatrix.destinationMatrixBatchIndex");
   selfCopy += 11;
-  objc_msgSend_encodeInt64_forKey_(coder, v11, *selfCopy, @"MPSImageCopyToMatrix.destinationMatrixOriginX", v12, v13);
-  objc_msgSend_encodeInt64_forKey_(coder, v14, selfCopy[1], @"MPSImageCopyToMatrix.destinationMatrixOriginY", v15, v16);
-  objc_msgSend_encodeInt64_forKey_(coder, v17, selfCopy[2], @"MPSImageCopyToMatrix.destinationMatrixOriginZ", v18, v19);
+  objc_msgSend_encodeInt64_forKey_(coder, v7, *selfCopy, @"MPSImageCopyToMatrix.destinationMatrixOriginX");
+  objc_msgSend_encodeInt64_forKey_(coder, v8, selfCopy[1], @"MPSImageCopyToMatrix.destinationMatrixOriginY");
+  objc_msgSend_encodeInt64_forKey_(coder, v9, selfCopy[2], @"MPSImageCopyToMatrix.destinationMatrixOriginZ");
 }
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
@@ -96,32 +96,32 @@
 - (id)debugDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = MPSImageCopyToMatrix;
-  v4 = [(MPSKernel *)&v10 debugDescription];
-  return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\tImageCopyToMatrix DataLayout:  %lu\n\tDestinationMatrixBatchIndex: %lu \n\tDestinationMatrixOrigin: %lu %lu %lu", v6, v7, v8, v4, self->_dataLayout, self->_destinationMatrixBatchIndex, self->_destinationMatrixOrigin.x, self->_destinationMatrixOrigin.y, self->_destinationMatrixOrigin.z);
+  v7.receiver = self;
+  v7.super_class = MPSImageCopyToMatrix;
+  v4 = [(MPSKernel *)&v7 debugDescription];
+  return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\tImageCopyToMatrix DataLayout:  %lu\n\tDestinationMatrixBatchIndex: %lu \n\tDestinationMatrixOrigin: %lu %lu %lu", v4, self->_dataLayout, self->_destinationMatrixBatchIndex, self->_destinationMatrixOrigin.x, self->_destinationMatrixOrigin.y, self->_destinationMatrixOrigin.z);
 }
 
 - (void)encodeToCommandBuffer:(id)commandBuffer sourceImage:(MPSImage *)sourceImage destinationMatrix:(MPSMatrix *)destinationMatrix
 {
   v9 = objc_alloc(MEMORY[0x277CD7210]);
-  v17 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v9, v10, commandBuffer, 0, v11, v12);
-  v32 = v17;
+  v12 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v9, v10, commandBuffer, 0);
+  v21 = v12;
   selfCopy = self;
   if ((*(&self->super.super.isa + *MEMORY[0x277CD7378]) & 0x18) != 0)
   {
-    v18 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-    if (v18 || (v19 = objc_opt_class(), v20 = NSStringFromClass(v19), objc_msgSend_setLabel_(self, v21, v20, v22, v23, v24), (v18 = v20) != 0))
+    v13 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+    if (v13 || (v14 = objc_opt_class(), v15 = NSStringFromClass(v14), objc_msgSend_setLabel_(self, v16, v15), (v13 = v15) != 0))
     {
-      objc_msgSend_setLabel_(v17, v13, v18, v14, v15, v16);
+      objc_msgSend_setLabel_(v12, v11, v13);
     }
   }
 
-  v30 = *&self->_destinationMatrixOrigin.x;
+  v19 = *&self->_destinationMatrixOrigin.x;
   z = self->_destinationMatrixOrigin.z;
-  sub_23997464C(self, v17, sourceImage, destinationMatrix, &v30, self->_dataLayout, self->_destinationMatrixBatchIndex);
+  sub_23997464C(self, v12, sourceImage, destinationMatrix, &v19, self->_dataLayout, self->_destinationMatrixBatchIndex, 1);
   MPSDecrementReadCount(sourceImage);
-  objc_msgSend_endEncoding(v17, v25, v26, v27, v28, v29);
+  objc_msgSend_endEncoding(v12, v17, v18);
 }
 
 - (void)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceImage:(id)image destinationMatrix:(id)matrix
@@ -129,7 +129,7 @@
   v7 = *&self->_destinationMatrixOrigin.x;
   z = self->_destinationMatrixOrigin.z;
   v8 = v7;
-  sub_23997464C(self, encoder, image, matrix, &v8, self->_dataLayout, self->_destinationMatrixBatchIndex);
+  sub_23997464C(self, encoder, image, matrix, &v8, self->_dataLayout, self->_destinationMatrixBatchIndex, 1);
 
   MPSDecrementReadCount(image);
 }
@@ -145,21 +145,21 @@
   else
   {
     x = self->_destinationMatrixOrigin.x;
-    v22 = *&self->_destinationMatrixOrigin.y;
-    if (objc_msgSend_count(images, a2, buffer, encoder, images, matrix))
+    v16 = *&self->_destinationMatrixOrigin.y;
+    if (objc_msgSend_count(images, a2, buffer))
     {
-      v15 = 0;
+      v12 = 0;
       do
       {
-        v16 = objc_msgSend_objectAtIndexedSubscript_(images, v11, v15, v12, v13, v14);
+        v13 = objc_msgSend_objectAtIndexedSubscript_(images, v11, v12);
         destinationMatrixOrigin.x = x;
-        *&destinationMatrixOrigin.y = v22;
-        sub_23997464C(self, encoder, v16, matrix, &destinationMatrixOrigin, self->_dataLayout, self->_destinationMatrixBatchIndex);
+        *&destinationMatrixOrigin.y = v16;
+        sub_23997464C(self, encoder, v13, matrix, &destinationMatrixOrigin, self->_dataLayout, self->_destinationMatrixBatchIndex, 1);
         ++x;
-        ++v15;
+        ++v12;
       }
 
-      while (v15 < objc_msgSend_count(images, v17, v18, v19, v20, v21));
+      while (v12 < objc_msgSend_count(images, v14, v15));
     }
   }
 }
@@ -167,21 +167,21 @@
 - (void)encodeBatchToCommandBuffer:(id)commandBuffer sourceImages:(MPSImageBatch *)sourceImages destinationMatrix:(MPSMatrix *)destinationMatrix
 {
   v9 = objc_alloc(MEMORY[0x277CD7210]);
-  v17 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v9, v10, commandBuffer, 0, v11, v12);
-  v30 = v17;
+  v12 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v9, v10, commandBuffer, 0);
+  v19 = v12;
   selfCopy = self;
   if ((*(&self->super.super.isa + *MEMORY[0x277CD7378]) & 0x18) != 0)
   {
-    v18 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-    if (v18 || (v19 = objc_opt_class(), v20 = NSStringFromClass(v19), objc_msgSend_setLabel_(self, v21, v20, v22, v23, v24, v17, self), (v18 = v20) != 0))
+    v13 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+    if (v13 || (v14 = objc_opt_class(), v15 = NSStringFromClass(v14), objc_msgSend_setLabel_(self, v16, v15, v12, self), (v13 = v15) != 0))
     {
-      objc_msgSend_setLabel_(v17, v13, v18, v14, v15, v16, v30, selfCopy);
+      objc_msgSend_setLabel_(v12, v11, v13, v19, selfCopy);
     }
   }
 
-  objc_msgSend_encodeBatchToCommandBuffer_encoder_sourceImages_destinationMatrix_(self, v13, commandBuffer, v17, sourceImages, destinationMatrix, v30, selfCopy);
+  objc_msgSend_encodeBatchToCommandBuffer_encoder_sourceImages_destinationMatrix_(self, v11, commandBuffer, v12, sourceImages, destinationMatrix, v19, selfCopy);
   MPSDecrementReadCount();
-  objc_msgSend_endEncoding(v17, v25, v26, v27, v28, v29);
+  objc_msgSend_endEncoding(v12, v17, v18);
 }
 
 - (void)encodeBatchToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceImages:(id)images destinationMatrix:(id)matrix

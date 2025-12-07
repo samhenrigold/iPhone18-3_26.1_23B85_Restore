@@ -238,7 +238,7 @@ uint64_t __117__SafariClearBrowsingDataController_clearDataAddedAfterDate_before
 - (void)_clearBrowsingDataAddedAfterDate:(id)date profileIdentifiers:(id)identifiers closeAllTabs:(BOOL)tabs
 {
   tabsCopy = tabs;
-  v86 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   identifiersCopy = identifiers;
   date = [MEMORY[0x277CBEAA8] date];
@@ -256,26 +256,26 @@ uint64_t __117__SafariClearBrowsingDataController_clearDataAddedAfterDate_before
   v13 = +[Application sharedApplication];
   historyController = [v13 historyController];
 
+  v83 = 0u;
+  v84 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
   obj = identifiersCopy;
-  v14 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
+  v14 = [obj countByEnumeratingWithState:&v81 objects:v87 count:16];
   if (v14)
   {
     v15 = v14;
-    v66 = *v80;
+    v68 = *v82;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v80 != v66)
+        if (*v82 != v68)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v79 + 1) + 8 * i);
+        v17 = *(*(&v81 + 1) + 8 * i);
         v18 = [MEMORY[0x277CE3868] safari_dataStoreForProfileWithIdentifierIfExists:v17];
         safari_allDataTypes = [MEMORY[0x277CE3868] safari_allDataTypes];
         [v18 removeDataOfTypes:safari_allDataTypes modifiedSince:dateCopy completionHandler:&__block_literal_global_69];
@@ -286,7 +286,7 @@ uint64_t __117__SafariClearBrowsingDataController_clearDataAddedAfterDate_before
         aBlock[2] = __102__SafariClearBrowsingDataController__clearBrowsingDataAddedAfterDate_profileIdentifiers_closeAllTabs___block_invoke_2;
         aBlock[3] = &unk_2781D4D40;
         v21 = v20;
-        v78 = v21;
+        v80 = v21;
         v22 = _Block_copy(aBlock);
         v23 = [historyController historyForProfileIdentifier:v17 loadIfNeeded:1];
         distantPast = [MEMORY[0x277CBEAA8] distantPast];
@@ -314,7 +314,7 @@ uint64_t __117__SafariClearBrowsingDataController_clearDataAddedAfterDate_before
         [mEMORY[0x277D49F90] removeIgnoredSiriSuggestedSitesInProfile:v17 afterDate:dateCopy];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
+      v15 = [obj countByEnumeratingWithState:&v81 objects:v87 count:16];
     }
 
     while (v15);
@@ -351,13 +351,14 @@ uint64_t __117__SafariClearBrowsingDataController_clearDataAddedAfterDate_before
       mEMORY[0x277D4A028] = [MEMORY[0x277D4A028] sharedController];
       [mEMORY[0x277D4A028] clearWithCompletionHandler:0];
 
-      v76 = 0;
-      if (!SecTrustFlushResponseCache())
+      v78 = 0;
+      v38 = SecTrustFlushResponseCache();
+      if (!v38)
       {
-        v38 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v40 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v38, v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          [SafariClearBrowsingDataController _clearBrowsingDataAddedAfterDate:v38 profileIdentifiers:v76 closeAllTabs:?];
+          [SafariClearBrowsingDataController _clearBrowsingDataAddedAfterDate:v40 profileIdentifiers:v78 closeAllTabs:?];
         }
       }
 
@@ -386,69 +387,69 @@ uint64_t __117__SafariClearBrowsingDataController_clearDataAddedAfterDate_before
     mEMORY[0x277CDB7A8] = [MEMORY[0x277CDB7A8] sharedManager];
     [mEMORY[0x277CDB7A8] removeDownloadsStartedAfterDate:dateCopy];
 
+    v76 = 0u;
+    v77 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v45 = +[Application sharedApplication];
-    browserControllers = [v45 browserControllers];
+    v47 = +[Application sharedApplication];
+    browserControllers = [v47 browserControllers];
 
-    v47 = [browserControllers countByEnumeratingWithState:&v72 objects:v84 count:16];
-    if (v47)
+    v49 = [browserControllers countByEnumeratingWithState:&v74 objects:v86 count:16];
+    if (v49)
     {
-      v48 = v47;
-      v49 = *v73;
+      v50 = v49;
+      v51 = *v75;
       do
       {
-        for (j = 0; j != v48; ++j)
+        for (j = 0; j != v50; ++j)
         {
-          if (*v73 != v49)
+          if (*v75 != v51)
           {
             objc_enumerationMutation(browserControllers);
           }
 
-          v51 = *(*(&v72 + 1) + 8 * j);
-          v68 = 0u;
-          v69 = 0u;
+          v53 = *(*(&v74 + 1) + 8 * j);
           v70 = 0u;
           v71 = 0u;
-          tabController = [v51 tabController];
+          v72 = 0u;
+          v73 = 0u;
+          tabController = [v53 tabController];
           allTabDocuments = [tabController allTabDocuments];
 
-          v54 = [allTabDocuments countByEnumeratingWithState:&v68 objects:v83 count:16];
-          if (v54)
+          v56 = [allTabDocuments countByEnumeratingWithState:&v70 objects:v85 count:16];
+          if (v56)
           {
-            v55 = v54;
-            v56 = *v69;
+            v57 = v56;
+            v58 = *v71;
             do
             {
-              for (k = 0; k != v55; ++k)
+              for (k = 0; k != v57; ++k)
               {
-                if (*v69 != v56)
+                if (*v71 != v58)
                 {
                   objc_enumerationMutation(allTabDocuments);
                 }
 
-                [*(*(&v68 + 1) + 8 * k) clearBackForwardListKeepingCurrentItem];
+                [*(*(&v70 + 1) + 8 * k) clearBackForwardListKeepingCurrentItem];
               }
 
-              v55 = [allTabDocuments countByEnumeratingWithState:&v68 objects:v83 count:16];
+              v57 = [allTabDocuments countByEnumeratingWithState:&v70 objects:v85 count:16];
             }
 
-            while (v55);
+            while (v57);
           }
 
-          undoManager = [v51 undoManager];
+          undoManager = [v53 undoManager];
           [undoManager removeAllActions];
 
-          browserWindowController = [v51 browserWindowController];
+          browserWindowController = [v53 browserWindowController];
           [browserWindowController saveCloudTabs];
         }
 
-        v48 = [browserControllers countByEnumeratingWithState:&v72 objects:v84 count:16];
+        v50 = [browserControllers countByEnumeratingWithState:&v74 objects:v86 count:16];
       }
 
-      while (v48);
+      while (v50);
     }
 
     mEMORY[0x277D49AD0] = [MEMORY[0x277D49AD0] sharedStore];

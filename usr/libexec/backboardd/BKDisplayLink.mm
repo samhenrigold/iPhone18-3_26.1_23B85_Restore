@@ -13,9 +13,9 @@
 
 - (void)_thread_startRunLoop
 {
-  v12 = 63;
+  v11 = 63;
   v3 = pthread_self();
-  v4 = pthread_setschedparam(v3, 2, &v12);
+  v4 = pthread_setschedparam(v3, 2, &v11);
   if (v4)
   {
     v5 = v4;
@@ -23,7 +23,7 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v14 = v5;
+      v13 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "cannot set event router thread priority (error %d)", buf, 8u);
     }
   }
@@ -36,7 +36,6 @@
   thread_displayLink = self->_thread_displayLink;
   self->_thread_displayLink = v9;
 
-  v11 = self->_thread_displayLink;
   if (objc_opt_respondsToSelector())
   {
     [(CADisplayLink *)self->_thread_displayLink setLocalEarlyWakeupOffset:0.0006];

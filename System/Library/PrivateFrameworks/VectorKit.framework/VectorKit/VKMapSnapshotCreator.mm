@@ -124,7 +124,7 @@
       v8 = std::unordered_map<gdc::TypeInfo,std::unique_ptr<gdc::BaseObjectHolder>>::find[abi:nn200100]((v6 + 16), 0xBEC1A12372CEEC00);
       if (v8)
       {
-        v8 = *(v8 + 5);
+        v8 = v8[5];
       }
 
       md::NavigationLogic::setRouteContext(v8, v20);
@@ -342,7 +342,7 @@ void __44__VKMapSnapshotCreator_willBecomeFullyDrawn__block_invoke(uint64_t a1)
   v3 = *(self->_mapEngine.__ptr_ + 5207);
   if (v3)
   {
-    [v3 bitmapData];
+    objc_msgSend_bitmapData(v3, a2);
     if (*buf)
     {
       v4 = (*(**buf + 24))(*buf);
@@ -602,7 +602,7 @@ void __42__VKMapSnapshotCreator_renderNextSnapshot__block_invoke(uint64_t a1)
         }
 
         v15 = [v11 activeCanvas];
-        v16 = [v15 vkCamera];
+        v16 = objc_msgSend_vkCamera(v15);
         [v16 pitch];
         if (v17 > 0.0 && [*(a1 + 32) _elevatedGroundIsEnabled])
         {
@@ -658,7 +658,7 @@ void __42__VKMapSnapshotCreator_renderNextSnapshot__block_invoke(uint64_t a1)
             v57 = v56;
             if (v56)
             {
-              [v56 camera];
+              objc_msgSend_camera(v56);
               v59 = *(&buf + 1);
               v58 = buf;
             }
@@ -722,13 +722,13 @@ void __42__VKMapSnapshotCreator_renderNextSnapshot__block_invoke(uint64_t a1)
                   v72 = [VKSnapshotElevationRaster alloc];
                   *(&buf + 4) = *(v69 + 60);
                   HIDWORD(v73) = DWORD2(buf);
-                  LOWORD(buf) = *(v69 + 56);
-                  v83 = *(v69 + 72);
+                  LOWORD(buf) = *(v69 + 28);
+                  v83 = v69[9];
                   v84 = *(v69 + 80);
-                  LODWORD(v73) = *(v69 + 48);
+                  LODWORD(v73) = *(v69 + 12);
                   LODWORD(v74) = *(v67 + 744);
-                  v75 = [(VKSnapshotElevationRaster *)v72 initWithQuadTile:&buf width:*(v69 + 32) height:*(v69 + 40) scale:*(v69 + 52) tileSizeInMeters:v73 minElevationInMeters:v74];
-                  v76 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:*v69 length:2 * *(v69 + 32) * *(v69 + 40)];
+                  v75 = [(VKSnapshotElevationRaster *)v72 initWithQuadTile:&buf width:*(v69 + 8) height:*(v69 + 10) scale:*(v69 + 26) tileSizeInMeters:v73 minElevationInMeters:v74];
+                  v76 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:*v69 length:2 * v69[4] * v69[5]];
                   [(VKSnapshotElevationRaster *)v75 setRasterData:v76];
 
                   [v81 addObject:v75];
@@ -788,7 +788,7 @@ void __42__VKMapSnapshotCreator_renderNextSnapshot__block_invoke(uint64_t a1)
         [v41 contentScale];
         v43 = v42;
         v44 = [*(a1 + 32) activeCanvas];
-        v45 = [v44 vkCamera];
+        v45 = objc_msgSend_vkCamera(v44);
         *&v46 = v33 * v32;
         *&v47 = v19;
         v48 = [(VKMapSnapshot *)v37 _initWithImages:v10 displayStyles:v39 displayStylesCount:v40 scale:v45 camera:v36 elevationScale:v43 targetPointElevation:v46 colorSpace:v47];
@@ -1832,7 +1832,7 @@ LABEL_22:
     objc_storeStrong(&self->_pointsOfInterestFilter, filter);
     if (v6)
     {
-      std::allocate_shared[abi:nn200100]<md::LabelCategoryFilter,std::allocator<md::LabelCategoryFilter>,GEOPOICategoryFilter * {__strong}&,0>();
+      std::allocate_shared[abi:nn200100]<md::LabelCategoryFilter,std::allocator<md::LabelCategoryFilter>,GEOPOICategoryFilter * {__strong}&,0>(v7, &v8);
     }
 
     v7[0] = 0;

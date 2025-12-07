@@ -1,9 +1,11 @@
 @interface SharingBTLESuggestedItem
 + (id)cornerActionBTLEItemWithPayload:(id)payload device:(id)device options:(id)options optionBits:(unsigned int)bits scanner:(id)scanner receiver:(id)receiver;
++ (id)cornerActionBTLEItemWithSFAdvertisement:(id)advertisement optionBits:(unsigned int)bits scanner:(id)scanner receiver:(id)receiver;
 + (id)statusString;
 - (BOOL)requestPayloadWithCompletionHandler:(id)handler;
 - (BOOL)updateFromSFAdvertisement:(id)advertisement;
 - (SharingBTLESuggestedItem)initWithPayload:(id)payload device:(id)device options:(id)options optionBits:(unsigned int)bits type:(unint64_t)type activityType:(id)activityType bundleIdentifier:(id)identifier teamIDs:(id)self0 advertisingOptions:(id)self1 scanner:(id)self2 receiver:(id)self3;
+- (SharingBTLESuggestedItem)initWithPayload:(id)payload device:(id)device options:(id)options optionBits:(unsigned int)bits type:(unint64_t)type activityType:(id)activityType bundleIdentifier:(id)identifier teamIDs:(id)self0 advertisingOptions:(id)self1 scanner:(id)self2 receiver:(id)self3 dynamicIdentifier:(id)self4;
 - (id)description;
 - (id)statusString;
 - (id)when;
@@ -13,6 +15,29 @@
 @end
 
 @implementation SharingBTLESuggestedItem
+
++ (id)cornerActionBTLEItemWithSFAdvertisement:(id)advertisement optionBits:(unsigned int)bits scanner:(id)scanner receiver:(id)receiver
+{
+  if (advertisement)
+  {
+    v7 = *&bits;
+    receiverCopy = receiver;
+    scannerCopy = scanner;
+    advertisementCopy = advertisement;
+    advertisementPayload = [advertisementCopy advertisementPayload];
+    device = [advertisementCopy device];
+    options = [advertisementCopy options];
+
+    v15 = [SharingBTLESuggestedItem cornerActionBTLEItemWithPayload:advertisementPayload device:device options:options optionBits:v7 scanner:scannerCopy receiver:receiverCopy];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
+}
 
 + (id)cornerActionBTLEItemWithPayload:(id)payload device:(id)device options:(id)options optionBits:(unsigned int)bits scanner:(id)scanner receiver:(id)receiver
 {
@@ -576,6 +601,20 @@ LABEL_109:
 LABEL_110:
 
   return v51;
+}
+
+- (SharingBTLESuggestedItem)initWithPayload:(id)payload device:(id)device options:(id)options optionBits:(unsigned int)bits type:(unint64_t)type activityType:(id)activityType bundleIdentifier:(id)identifier teamIDs:(id)self0 advertisingOptions:(id)self1 scanner:(id)self2 receiver:(id)self3 dynamicIdentifier:(id)self4
+{
+  v16 = *&bits;
+  dynamicIdentifierCopy = dynamicIdentifier;
+  v22 = [(SharingBTLESuggestedItem *)self initWithPayload:payload device:device options:options optionBits:v16 type:type activityType:activityType bundleIdentifier:identifier teamIDs:ds advertisingOptions:advertisingOptions scanner:scanner receiver:receiver];
+  v23 = v22;
+  if (v22)
+  {
+    [(SharingBTLESuggestedItem *)v22 setDynamicActivityType:dynamicIdentifierCopy];
+  }
+
+  return v23;
 }
 
 - (SharingBTLESuggestedItem)initWithPayload:(id)payload device:(id)device options:(id)options optionBits:(unsigned int)bits type:(unint64_t)type activityType:(id)activityType bundleIdentifier:(id)identifier teamIDs:(id)self0 advertisingOptions:(id)self1 scanner:(id)self2 receiver:(id)self3
@@ -1287,7 +1326,7 @@ LABEL_16:
   if ([(SharingBTLESuggestedItem *)self isPayloadAvailable])
   {
     v21 = [(SharingBTLESuggestedItem *)self payloadForIdentifier:UAUserActivityUserInfoPayload];
-    v22 = sub_1000021AC(v21, 0x40uLL);
+    v22 = sub_1000021AC(v21, 64);
     v23 = [NSString stringWithFormat:@" payload=$%@", v22];
     [v15 appendString:v23];
   }

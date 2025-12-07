@@ -230,7 +230,7 @@
 
 - (BOOL)_supportsGlobalSearchHosting
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_SVCGlobalSearchEnabled, @"SVCGlobalSearchEnabled", _UIInternalPreferenceUpdateBool) & 1) == 0 && !byte_1EA95E294)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_SVCGlobalSearchEnabled, @"SVCGlobalSearchEnabled", _UIInternalPreferenceUpdateBool) && !byte_1EA95E294)
   {
     return 0;
   }
@@ -2344,7 +2344,7 @@ LABEL_7:
 
 - (BOOL)_shouldUseSeparateStatusBarStyles
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISplitViewAutomaticStatusBarStyleSeparationMode, @"UISplitViewAutomaticStatusBarStyleSeparationMode", _UIInternalPreferenceUpdateInteger) & 1) != 0 || !qword_1ED48AC70)
+  if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISplitViewAutomaticStatusBarStyleSeparationMode, @"UISplitViewAutomaticStatusBarStyleSeparationMode", _UIInternalPreferenceUpdateInteger) || !qword_1ED48AC70)
   {
     if (![(UISplitViewController *)self _shouldUseNewStatusBarBehavior])
     {
@@ -2711,7 +2711,7 @@ LABEL_17:
 
 void __122__UISplitViewController__nextResponderUsingTargetActionStrategyFromChildViewController_didTraverseToParentViewController___block_invoke()
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISplitViewControllerSkipTargetActionBundleChecks, @"UISplitViewControllerSkipTargetActionBundleChecks", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1ED48AC7C)
+  if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISplitViewControllerSkipTargetActionBundleChecks, @"UISplitViewControllerSkipTargetActionBundleChecks", _UIInternalPreferenceUpdateBool) || !byte_1ED48AC7C)
   {
     v0 = [MEMORY[0x1E696AAE8] mainBundle];
     v3 = [v0 bundleIdentifier];

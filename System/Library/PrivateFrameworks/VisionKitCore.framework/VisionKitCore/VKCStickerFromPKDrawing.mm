@@ -66,36 +66,37 @@
   stickerPickerViewController3 = [(VKCStickerFromPKDrawing *)self stickerPickerViewController];
   [stickerPickerViewController3 setModalTransitionStyle:0];
 
-  v31.origin.x = x;
-  v31.origin.y = y;
-  v31.size.width = width;
-  v31.size.height = height;
-  v14 = CGRectGetMidX(v31) + -20.0;
-  v32.origin.x = x;
-  v32.origin.y = y;
-  v32.size.width = width;
-  v32.size.height = height;
-  v15 = CGRectGetMidY(v32) + -20.0;
+  v29.origin.x = x;
+  v29.origin.y = y;
+  v29.size.width = width;
+  v29.size.height = height;
+  CGRectGetMidX(v29);
+  v30.origin.x = x;
+  v30.origin.y = y;
+  v30.size.width = width;
+  v30.size.height = height;
+  CGRectGetMidY(v30);
   stickerPickerViewController4 = [(VKCStickerFromPKDrawing *)self stickerPickerViewController];
   [stickerPickerViewController4 setSourceView:self];
 
-  v18 = VKMRectWithOriginAndSize(v17, v14, v15, 40.0, 40.0);
+  VKMRectWithOriginAndSize();
+  v16 = v15;
+  v18 = v17;
   v20 = v19;
   v22 = v21;
-  v24 = v23;
   stickerPickerViewController5 = [(VKCStickerFromPKDrawing *)self stickerPickerViewController];
-  [stickerPickerViewController5 setSourceRect:{v18, v20, v22, v24}];
+  [stickerPickerViewController5 setSourceRect:{v16, v18, v20, v22}];
 
   currentView2 = [(VKCStickerFromPKDrawing *)self currentView];
   window = [currentView2 window];
   rootViewController = [window rootViewController];
   stickerPickerViewController6 = [(VKCStickerFromPKDrawing *)self stickerPickerViewController];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __62__VKCStickerFromPKDrawing_presentStickerPickerViewController___block_invoke;
-  v30[3] = &unk_1E7BE4208;
-  v30[4] = self;
-  [rootViewController presentViewController:stickerPickerViewController6 animated:0 completion:v30];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __62__VKCStickerFromPKDrawing_presentStickerPickerViewController___block_invoke;
+  v28[3] = &unk_1E7BE4208;
+  v28[4] = self;
+  [rootViewController presentViewController:stickerPickerViewController6 animated:0 completion:v28];
 }
 
 void __62__VKCStickerFromPKDrawing_presentStickerPickerViewController___block_invoke(uint64_t a1)

@@ -67,30 +67,28 @@
 
 - (id)description
 {
-  v32[4] = *MEMORY[0x1E69E9840];
+  v31[4] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v31[0] = @"begin";
+  v30[0] = @"begin";
   v6 = MEMORY[0x1E696AD98];
   objc_msgSend_begin(self, v7, v8);
-  v32[0] = objc_msgSend_numberWithDouble_(v6, v9, v10);
-  v31[1] = @"end";
+  v31[0] = objc_msgSend_numberWithDouble_(v6, v9, v10);
+  v30[1] = @"end";
   v11 = MEMORY[0x1E696AD98];
   objc_msgSend_end(self, v12, v13);
-  v32[1] = objc_msgSend_numberWithDouble_(v11, v14, v15);
-  v31[2] = @"state";
+  v31[1] = objc_msgSend_numberWithDouble_(v11, v14, v15);
+  v30[2] = @"state";
   v16 = MEMORY[0x1E696AD98];
   v19 = objc_msgSend_state(self, v17, v18);
-  v32[2] = objc_msgSend_numberWithInteger_(v16, v20, v19);
-  v31[3] = @"kValue";
+  v31[2] = objc_msgSend_numberWithInteger_(v16, v20, v19);
+  v30[3] = @"kValue";
   v21 = MEMORY[0x1E696AD98];
   objc_msgSend_kValue(self, v22, v23);
-  v32[3] = objc_msgSend_numberWithDouble_(v21, v24, v25);
-  v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v26, v32, v31, 4);
-  result = objc_msgSend_stringWithFormat_(v3, v28, @"%@,%@", v5, v27);
-  v30 = *MEMORY[0x1E69E9840];
-  return result;
+  v31[3] = objc_msgSend_numberWithDouble_(v21, v24, v25);
+  v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v26, v31, v30, 4);
+  return objc_msgSend_stringWithFormat_(v3, v28, @"%@,%@", v5, v27);
 }
 
 @end

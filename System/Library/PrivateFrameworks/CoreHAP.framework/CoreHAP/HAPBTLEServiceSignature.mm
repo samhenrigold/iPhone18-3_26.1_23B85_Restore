@@ -19,7 +19,7 @@
 
 - (HAPBTLEServiceSignature)initWithServiceType:(id)type serviceInstanceID:(id)d serviceProperties:(unint64_t)properties linkedServices:(id)services authenticated:(BOOL)authenticated
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dCopy = d;
   servicesCopy = services;
@@ -31,10 +31,10 @@
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v25;
-      v33 = 2112;
-      v34 = objc_opt_class();
-      v26 = v34;
+      v31 = v25;
+      v32 = 2112;
+      v33 = objc_opt_class();
+      v26 = v33;
       v27 = "%{public}@[%@] The service type is required";
 LABEL_10:
       _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, v27, buf, 0x16u);
@@ -55,10 +55,10 @@ LABEL_11:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v25;
-      v33 = 2112;
-      v34 = objc_opt_class();
-      v26 = v34;
+      v31 = v25;
+      v32 = 2112;
+      v33 = objc_opt_class();
+      v26 = v33;
       v27 = "%{public}@[%@] The service instance ID is required";
       goto LABEL_10;
     }
@@ -66,9 +66,9 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v30.receiver = self;
-  v30.super_class = HAPBTLEServiceSignature;
-  v15 = [(HAPBTLEServiceSignature *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = HAPBTLEServiceSignature;
+  v15 = [(HAPBTLEServiceSignature *)&v29 init];
   if (v15)
   {
     v16 = [typeCopy copy];
@@ -91,7 +91,6 @@ LABEL_11:
   selfCopy = self;
 LABEL_12:
 
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

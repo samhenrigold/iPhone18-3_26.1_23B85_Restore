@@ -32,6 +32,7 @@
 - (void)publishingServiceClientWasInvalidated:(id)invalidated;
 - (void)refreshAssertionsForPresenceIdentifier:(id)identifier existingChannelIdentifier:(id)channelIdentifier;
 - (void)service:(id)service didReceiveIncomingMessage:(id)message fromID:(id)d fromMergeID:(id)iD toID:(id)toID messageGuid:(id)guid;
+- (void)service:(id)service outgoingMessageWithIdentifier:(id)identifier fromID:(id)d toID:(id)iD didSendWithSuccess:(BOOL)success;
 - (void)shutdown;
 - (void)statusReceivingManager:(id)manager didReceiveStatusUpdate:(id)update onChannel:(id)channel;
 - (void)subscriptionServiceClientWasInvalidated:(id)invalidated;
@@ -235,28 +236,28 @@ uint64_t __33__SKAStatusServer_sharedInstance__block_invoke()
 
 - (id)_onQueue_clientForPresenceIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_presenceConnectionQueue);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   onQueue_presenceConnectedClientProxies = [(SKAStatusServer *)self onQueue_presenceConnectedClientProxies];
-  v5 = [onQueue_presenceConnectedClientProxies countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [onQueue_presenceConnectedClientProxies countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(onQueue_presenceConnectedClientProxies);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         underlyingClient = [v8 underlyingClient];
         presenceIdentifier = [underlyingClient presenceIdentifier];
         if (presenceIdentifier)
@@ -278,15 +279,13 @@ uint64_t __33__SKAStatusServer_sharedInstance__block_invoke()
         }
       }
 
-      v5 = [onQueue_presenceConnectedClientProxies countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [onQueue_presenceConnectedClientProxies countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -310,7 +309,7 @@ LABEL_12:
 
 void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke(id *a1)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v2 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -328,12 +327,12 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__3;
-  v58 = __Block_byref_object_dispose__3;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__3;
+  v57 = __Block_byref_object_dispose__3;
   v8 = [a1[5] presenceManager];
   v9 = a1 + 4;
-  v59 = [v8 activePresenceAssertionForPresenceIdentifier:a1[4] isPersonal:{objc_msgSend(v7, "isPersonal")}];
+  v58 = [v8 activePresenceAssertionForPresenceIdentifier:a1[4] isPersonal:{objc_msgSend(v7, "isPersonal")}];
 
   v10 = [a1[5] databaseManager];
   [v10 decommissionAllOldChannelsWithPresenceIdentifier:a1[4] isPersonal:objc_msgSend(v7 databaseContext:{"isPersonal"), v5}];
@@ -346,30 +345,30 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
     v13 = [a1[5] subscriptionManager];
     v14 = [v13 isSubscriptionPersistentForChannelIdentifier:a1[6]];
 
-    *&v50 = 0;
-    *(&v50 + 1) = &v50;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__3;
-    v53 = __Block_byref_object_dispose__3;
-    v54 = [a1[5] _onQueue_clientForPresenceIdentifier:a1[4]];
+    *&v49 = 0;
+    *(&v49 + 1) = &v49;
+    v50 = 0x3032000000;
+    v51 = __Block_byref_object_copy__3;
+    v52 = __Block_byref_object_dispose__3;
+    v53 = [a1[5] _onQueue_clientForPresenceIdentifier:a1[4]];
     v15 = [a1[5] presenceManager];
     v16 = *v9;
     v17 = [v7 isPersonal];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31;
-    v43[3] = &unk_27843F740;
-    v44 = a1[4];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31;
+    v42[3] = &unk_27843F740;
+    v43 = a1[4];
     v18 = a1[6];
-    v49 = v14;
+    v48 = v14;
     v19 = a1[5];
-    v45 = v18;
-    v46 = v19;
+    v44 = v18;
+    v45 = v19;
     p_buf = &buf;
-    v48 = &v50;
-    [v15 findPresenceChannelForPresenceIdentifier:v16 isPersonal:v17 databaseContext:v5 completion:v43];
+    v47 = &v49;
+    [v15 findPresenceChannelForPresenceIdentifier:v16 isPersonal:v17 databaseContext:v5 completion:v42];
 
-    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(&v49, 8);
   }
 
   else if (*(*(&buf + 1) + 40))
@@ -378,9 +377,9 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = *v9;
-      LODWORD(v50) = 138412290;
-      *(&v50 + 4) = v21;
-      _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Reasserting presence to handle change in underlying channel for presenceIdentifier %@", &v50, 0xCu);
+      LODWORD(v49) = 138412290;
+      *(&v49 + 4) = v21;
+      _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Reasserting presence to handle change in underlying channel for presenceIdentifier %@", &v49, 0xCu);
     }
 
     v22 = [*(*(&buf + 1) + 40) presenceOptions];
@@ -394,12 +393,12 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
       v27 = [*(*(&buf + 1) + 40) payload];
       v28 = [*(*(&buf + 1) + 40) assertionOptions];
       v29 = [*(*(&buf + 1) + 40) presenceOptions];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_42;
-      v41[3] = &unk_27843F3D0;
-      v42 = *v9;
-      [v25 retainPersistentPresenceAssertionForPresenceIdentifier:v26 withPresencePayload:v27 assertionOptions:v28 presenceOptions:v29 completion:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_42;
+      v40[3] = &unk_27843F3D0;
+      v41 = *v9;
+      [v25 retainPersistentPresenceAssertionForPresenceIdentifier:v26 withPresencePayload:v27 assertionOptions:v28 presenceOptions:v29 completion:v40];
     }
 
     else
@@ -413,14 +412,14 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
         v34 = [*(*(&buf + 1) + 40) assertionOptions];
         v35 = [*(*(&buf + 1) + 40) presenceOptions];
         v36 = [v30 underlyingClient];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_43;
-        v39[3] = &unk_27843F3D0;
-        v40 = *v9;
-        [v31 retainTransientPresenceAssertionForPresenceIdentifier:v32 withPresencePayload:v33 assertionOptions:v34 presenceOptions:v35 client:v36 completion:v39];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_43;
+        v38[3] = &unk_27843F3D0;
+        v39 = *v9;
+        [v31 retainTransientPresenceAssertionForPresenceIdentifier:v32 withPresencePayload:v33 assertionOptions:v34 presenceOptions:v35 client:v36 completion:v38];
 
-        v37 = v40;
+        v37 = v39;
       }
 
       else
@@ -428,20 +427,18 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
         v37 = +[SKAStatusServer logger];
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_cold_1(v9);
+          __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_cold_1();
         }
       }
     }
   }
 
   _Block_object_dispose(&buf, 8);
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31(uint64_t a1, void *a2, void *a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -450,7 +447,7 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
     v8 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_2(a1);
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_2();
     }
   }
 
@@ -467,11 +464,11 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
         v12 = *(a1 + 32);
         v13 = *(a1 + 40);
         *buf = 138412802;
-        v48 = v12;
-        v49 = 2112;
-        v50 = v13;
-        v51 = 2112;
-        v52 = v8;
+        v47 = v12;
+        v48 = 2112;
+        v49 = v13;
+        v50 = 2112;
+        v51 = v8;
         _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Not moving over to new channel for presence identifier %@. Old channel %@ is same as the new channel %@", buf, 0x20u);
       }
 
@@ -485,11 +482,11 @@ LABEL_17:
       v14 = *(a1 + 32);
       v15 = *(a1 + 40);
       *buf = 138412802;
-      v48 = v14;
-      v49 = 2112;
-      v50 = v15;
-      v51 = 2112;
-      v52 = v8;
+      v47 = v14;
+      v48 = 2112;
+      v49 = v15;
+      v50 = 2112;
+      v51 = v8;
       _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Moving over to new channel for presence identifier %@. Old channel %@ New channel %@", buf, 0x20u);
     }
 
@@ -497,27 +494,27 @@ LABEL_17:
     {
       v16 = [*(a1 + 48) subscriptionManager];
       v17 = *(a1 + 40);
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_32;
-      v42[3] = &unk_27843F6C8;
-      v18 = &v43;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_32;
+      v41[3] = &unk_27843F6C8;
+      v18 = &v42;
       v19 = v17;
-      v43 = v19;
-      v20 = v44;
+      v42 = v19;
+      v20 = v43;
       v21 = *(a1 + 32);
       v22 = *(a1 + 48);
-      v44[0] = v21;
-      v44[1] = v22;
-      v23 = &v45;
-      v45 = v8;
-      v24 = v46;
+      v43[0] = v21;
+      v43[1] = v22;
+      v23 = &v44;
+      v44 = v8;
+      v24 = v45;
       v25 = v5;
       v26 = *(a1 + 56);
-      v46[0] = v25;
-      v46[1] = v26;
+      v45[0] = v25;
+      v45[1] = v26;
       v27 = v8;
-      [v16 releasePersistentPresenceSubscriptionForChannelIdentifier:v19 completion:v42];
+      [v16 releasePersistentPresenceSubscriptionForChannelIdentifier:v19 completion:v41];
     }
 
     else
@@ -527,46 +524,204 @@ LABEL_17:
         v10 = +[SKAStatusServer logger];
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_1(a1);
+          __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_1();
         }
 
         goto LABEL_17;
       }
 
       v16 = [*(a1 + 48) subscriptionManager];
-      v36 = *(a1 + 40);
+      v35 = *(a1 + 40);
       v28 = [*(*(*(a1 + 64) + 8) + 40) underlyingClient];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37;
-      v37[3] = &unk_27843F718;
-      v18 = &v38;
-      v38 = *(a1 + 40);
-      v20 = v39;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37;
+      v36[3] = &unk_27843F718;
+      v18 = &v37;
+      v37 = *(a1 + 40);
+      v20 = v38;
       v29 = *(a1 + 32);
       v30 = *(a1 + 48);
-      v39[0] = v29;
-      v39[1] = v30;
-      v23 = &v40;
+      v38[0] = v29;
+      v38[1] = v30;
+      v23 = &v39;
       v31 = *(a1 + 64);
-      v40 = v8;
-      v41[1] = v31;
-      v24 = v41;
+      v39 = v8;
+      v40[1] = v31;
+      v24 = v40;
       v32 = v5;
       v33 = *(a1 + 56);
-      v41[0] = v32;
-      v41[2] = v33;
+      v40[0] = v32;
+      v40[2] = v33;
       v34 = v8;
-      [v16 releaseTransientPresenceSubscriptionForChannelIdentifier:v36 client:v28 completion:v37];
+      [v16 releaseTransientPresenceSubscriptionForChannelIdentifier:v35 client:v28 completion:v36];
     }
   }
 
 LABEL_18:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_32(uint64_t a1, void *a2)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = +[SKAStatusServer logger];
+  v5 = v4;
+  if (v3)
+  {
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_32_cold_1();
+    }
+  }
+
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    *buf = 138412546;
+    v24 = v6;
+    v25 = 2112;
+    v26 = v7;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released persistent presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
+  }
+
+  v8 = [*(a1 + 48) subscriptionManager];
+  v9 = *(a1 + 40);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33;
+  v18[3] = &unk_27843F6C8;
+  v19 = v3;
+  v10 = *(a1 + 56);
+  v11 = v10;
+  v12 = *(a1 + 40);
+  v17 = *(a1 + 48);
+  v13 = *(a1 + 64);
+  *&v14 = v17;
+  *(&v14 + 1) = v13;
+  *&v15 = v11;
+  *(&v15 + 1) = v12;
+  v20 = v15;
+  v21 = v14;
+  v22 = *(a1 + 72);
+  v16 = v3;
+  [v8 retainPersistentPresenceSubscriptionForPresenceIdentifier:v9 channelIdentifier:v10 completion:v18];
+}
+
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33(uint64_t a1, void *a2)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = *(a1 + 32);
+  v5 = +[SKAStatusServer logger];
+  v6 = v5;
+  if (v4)
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33_cold_1();
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      *buf = 138412546;
+      v27 = v7;
+      v28 = 2112;
+      v29 = v8;
+      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained persistent presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
+    }
+
+    v9 = +[SKAStatusServer logger];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Polling for current state as we've migrated channels", buf, 2u);
+    }
+
+    v10 = [*(a1 + 56) presenceManager];
+    v11 = *(a1 + 64);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34;
+    v22[3] = &unk_27843F678;
+    v23 = *(a1 + 32);
+    v24 = *(a1 + 40);
+    v25 = *(a1 + 48);
+    [v10 pollAndUpdatePresentDevicesForChannel:v11 completion:v22];
+
+    v6 = v23;
+  }
+
+  if (*(*(*(a1 + 72) + 8) + 40))
+  {
+    v12 = +[SKAStatusServer logger];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = *(a1 + 48);
+      *buf = 138412290;
+      v27 = v13;
+      _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Reasserting presence to handle change in underlying channel for presenceIdentifier %@", buf, 0xCu);
+    }
+
+    v14 = [*(a1 + 56) presenceManager];
+    v15 = *(a1 + 48);
+    v16 = [*(*(*(a1 + 72) + 8) + 40) payload];
+    v17 = [*(*(*(a1 + 72) + 8) + 40) assertionOptions];
+    v18 = [*(*(*(a1 + 72) + 8) + 40) presenceOptions];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36;
+    v19[3] = &unk_27843F6A0;
+    v20 = *(a1 + 32);
+    v21 = *(a1 + 48);
+    [v14 retainPersistentPresenceAssertionForPresenceIdentifier:v15 withPresencePayload:v16 assertionOptions:v17 presenceOptions:v18 completion:v19];
+  }
+}
+
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (*(a1 + 32))
+  {
+    v4 = +[SKAStatusServer logger];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34_cold_1();
+    }
+  }
+}
+
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36(uint64_t a1, void *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = *(a1 + 32);
+  v5 = +[SKAStatusServer logger];
+  v6 = v5;
+  if (v4)
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36_cold_1();
+    }
+  }
+
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = *(a1 + 40);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained presence assertion for presenceIdentifier: %@ (persistent)", &v8, 0xCu);
+  }
+}
+
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37(uint64_t a1, void *a2)
 {
   v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
@@ -576,7 +731,7 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_32_cold_1(a1);
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37_cold_1();
     }
   }
 
@@ -588,35 +743,34 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
     v25 = v6;
     v26 = 2112;
     v27 = v7;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released persistent presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released transient presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
   }
 
   v8 = [*(a1 + 48) subscriptionManager];
   v9 = *(a1 + 40);
+  v10 = *(a1 + 56);
+  v11 = [*(*(*(a1 + 72) + 8) + 40) underlyingClient];
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
-  v19[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33;
-  v19[3] = &unk_27843F6C8;
+  v19[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38;
+  v19[3] = &unk_27843F6F0;
   v20 = v3;
-  v10 = *(a1 + 56);
-  v11 = v10;
-  v12 = *(a1 + 40);
+  v12 = *(a1 + 56);
+  v13 = *(a1 + 40);
   v18 = *(a1 + 48);
-  v13 = *(a1 + 64);
-  *&v14 = v18;
-  *(&v14 + 1) = v13;
-  *&v15 = v11;
-  *(&v15 + 1) = v12;
-  v21 = v15;
-  v22 = v14;
-  v23 = *(a1 + 72);
-  v16 = v3;
-  [v8 retainPersistentPresenceSubscriptionForPresenceIdentifier:v9 channelIdentifier:v10 completion:v19];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *(a1 + 64);
+  *&v15 = v18;
+  *(&v15 + 1) = v14;
+  *&v16 = v12;
+  *(&v16 + 1) = v13;
+  v21 = v16;
+  v22 = v15;
+  v23 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
+  v17 = v3;
+  [v8 retainTransientPresenceSubscriptionForPresenceIdentifier:v9 channelIdentifier:v10 client:v11 completion:v19];
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33(uint64_t a1, void *a2)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38(uint64_t a1, void *a2)
 {
   v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
@@ -627,7 +781,7 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33_cold_1(a1);
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38_cold_1();
     }
   }
 
@@ -641,7 +795,7 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
       v28 = v7;
       v29 = 2112;
       v30 = v8;
-      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained persistent presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
+      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained transient presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
     }
 
     v9 = +[SKAStatusServer logger];
@@ -655,7 +809,7 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
     v11 = *(a1 + 64);
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34;
+    v23[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_39;
     v23[3] = &unk_27843F678;
     v24 = *(a1 + 32);
     v25 = *(a1 + 40);
@@ -681,184 +835,15 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
     v16 = [*(*(*(a1 + 72) + 8) + 40) payload];
     v17 = [*(*(*(a1 + 72) + 8) + 40) assertionOptions];
     v18 = [*(*(*(a1 + 72) + 8) + 40) presenceOptions];
+    v19 = [*(*(*(a1 + 80) + 8) + 40) underlyingClient];
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
-    v20[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36;
+    v20[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_40;
     v20[3] = &unk_27843F6A0;
     v21 = *(a1 + 32);
     v22 = *(a1 + 48);
-    [v14 retainPersistentPresenceAssertionForPresenceIdentifier:v15 withPresencePayload:v16 assertionOptions:v17 presenceOptions:v18 completion:v20];
+    [v14 retainTransientPresenceAssertionForPresenceIdentifier:v15 withPresencePayload:v16 assertionOptions:v17 presenceOptions:v18 client:v19 completion:v20];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (*(a1 + 32))
-  {
-    v4 = +[SKAStatusServer logger];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34_cold_1(a1);
-    }
-  }
-}
-
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36(uint64_t a1, void *a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = +[SKAStatusServer logger];
-  v6 = v5;
-  if (v4)
-  {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36_cold_1(a1);
-    }
-  }
-
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = *(a1 + 40);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained presence assertion for presenceIdentifier: %@ (persistent)", &v9, 0xCu);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37(uint64_t a1, void *a2)
-{
-  v29 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = +[SKAStatusServer logger];
-  v5 = v4;
-  if (v3)
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37_cold_1(a1);
-    }
-  }
-
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    *buf = 138412546;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v7;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released transient presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
-  }
-
-  v8 = [*(a1 + 48) subscriptionManager];
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 56);
-  v11 = [*(*(*(a1 + 72) + 8) + 40) underlyingClient];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38;
-  v20[3] = &unk_27843F6F0;
-  v21 = v3;
-  v12 = *(a1 + 56);
-  v13 = *(a1 + 40);
-  v19 = *(a1 + 48);
-  v14 = *(a1 + 64);
-  *&v15 = v19;
-  *(&v15 + 1) = v14;
-  *&v16 = v12;
-  *(&v16 + 1) = v13;
-  v22 = v16;
-  v23 = v15;
-  v24 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
-  v17 = v3;
-  [v8 retainTransientPresenceSubscriptionForPresenceIdentifier:v9 channelIdentifier:v10 client:v11 completion:v20];
-
-  v18 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38(uint64_t a1, void *a2)
-{
-  v32 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = +[SKAStatusServer logger];
-  v6 = v5;
-  if (v4)
-  {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38_cold_1(a1);
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 48);
-      *buf = 138412546;
-      v29 = v7;
-      v30 = 2112;
-      v31 = v8;
-      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained transient presence subscription for channelIdentifier: %@ presenceIdentifier: %@", buf, 0x16u);
-    }
-
-    v9 = +[SKAStatusServer logger];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Polling for current state as we've migrated channels", buf, 2u);
-    }
-
-    v10 = [*(a1 + 56) presenceManager];
-    v11 = *(a1 + 64);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_39;
-    v24[3] = &unk_27843F678;
-    v25 = *(a1 + 32);
-    v26 = *(a1 + 40);
-    v27 = *(a1 + 48);
-    [v10 pollAndUpdatePresentDevicesForChannel:v11 completion:v24];
-
-    v6 = v25;
-  }
-
-  if (*(*(*(a1 + 72) + 8) + 40))
-  {
-    v12 = +[SKAStatusServer logger];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v13 = *(a1 + 48);
-      *buf = 138412290;
-      v29 = v13;
-      _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Reasserting presence to handle change in underlying channel for presenceIdentifier %@", buf, 0xCu);
-    }
-
-    v14 = [*(a1 + 56) presenceManager];
-    v15 = *(a1 + 48);
-    v16 = [*(*(*(a1 + 72) + 8) + 40) payload];
-    v17 = [*(*(*(a1 + 72) + 8) + 40) assertionOptions];
-    v18 = [*(*(*(a1 + 72) + 8) + 40) presenceOptions];
-    v19 = [*(*(*(a1 + 80) + 8) + 40) underlyingClient];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_40;
-    v21[3] = &unk_27843F6A0;
-    v22 = *(a1 + 32);
-    v23 = *(a1 + 48);
-    [v14 retainTransientPresenceAssertionForPresenceIdentifier:v15 withPresencePayload:v16 assertionOptions:v17 presenceOptions:v18 client:v19 completion:v21];
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_39(uint64_t a1, void *a2)
@@ -869,14 +854,14 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
     v4 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34_cold_1(a1);
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34_cold_1();
     }
   }
 }
 
 void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_40(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = +[SKAStatusServer logger];
@@ -885,24 +870,22 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_40_cold_1(a1);
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_40_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 40);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained transient presence assertion for presenceIdentifier: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Successfully retained transient presence assertion for presenceIdentifier: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_42(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKAStatusServer logger];
   v5 = v4;
@@ -910,24 +893,22 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_42_cold_1(a1);
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_42_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained presence assertion for presenceIdentifier: %@ (persistent)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained presence assertion for presenceIdentifier: %@ (persistent)", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_43(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKAStatusServer logger];
   v5 = v4;
@@ -935,19 +916,17 @@ void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChanne
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_43_cold_1(a1);
+      __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_43_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained presence assertion for presenceIdentifier: %@ (transient)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained presence assertion for presenceIdentifier: %@ (transient)", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logger
@@ -971,7 +950,7 @@ uint64_t __25__SKAStatusServer_logger__block_invoke()
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   serviceName = [listenerCopy serviceName];
@@ -982,11 +961,11 @@ uint64_t __25__SKAStatusServer_logger__block_invoke()
     {
       processIdentifier = [connectionCopy processIdentifier];
       sk_applicationIdentifier = [connectionCopy sk_applicationIdentifier];
-      v24 = 134218242;
-      v25 = processIdentifier;
-      v26 = 2112;
-      v27 = sk_applicationIdentifier;
-      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Receiving XPC connection from PID %ld (%@) for publishing service", &v24, 0x16u);
+      v23 = 134218242;
+      v24 = processIdentifier;
+      v25 = 2112;
+      v26 = sk_applicationIdentifier;
+      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Receiving XPC connection from PID %ld (%@) for publishing service", &v23, 0x16u);
     }
 
     v12 = [(SKAStatusServer *)self _publishingServiceListener:listenerCopy shouldAcceptNewConnection:connectionCopy];
@@ -1002,11 +981,11 @@ LABEL_13:
     {
       processIdentifier2 = [connectionCopy processIdentifier];
       sk_applicationIdentifier2 = [connectionCopy sk_applicationIdentifier];
-      v24 = 134218242;
-      v25 = processIdentifier2;
-      v26 = 2112;
-      v27 = sk_applicationIdentifier2;
-      _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Receiving XPC connection from PID %ld (%@) for subscription service", &v24, 0x16u);
+      v23 = 134218242;
+      v24 = processIdentifier2;
+      v25 = 2112;
+      v26 = sk_applicationIdentifier2;
+      _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Receiving XPC connection from PID %ld (%@) for subscription service", &v23, 0x16u);
     }
 
     v12 = [(SKAStatusServer *)self _subscriptionServiceListener:listenerCopy shouldAcceptNewConnection:connectionCopy];
@@ -1022,11 +1001,11 @@ LABEL_13:
     {
       processIdentifier3 = [connectionCopy processIdentifier];
       sk_applicationIdentifier3 = [connectionCopy sk_applicationIdentifier];
-      v24 = 134218242;
-      v25 = processIdentifier3;
-      v26 = 2112;
-      v27 = sk_applicationIdentifier3;
-      _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Receiving XPC connection from PID %ld (%@) for presence service", &v24, 0x16u);
+      v23 = 134218242;
+      v24 = processIdentifier3;
+      v25 = 2112;
+      v26 = sk_applicationIdentifier3;
+      _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Receiving XPC connection from PID %ld (%@) for presence service", &v23, 0x16u);
     }
 
     v12 = [(SKAStatusServer *)self _presenceServiceListener:listenerCopy shouldAcceptNewConnection:connectionCopy];
@@ -1041,13 +1020,12 @@ LABEL_13:
   v21 = 0;
 LABEL_14:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)_publishingServiceListener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v6 = [SKAStatusPublishingServiceClientConnection clientIsEntitledForAtLeastOnePublishingServiceType:connectionCopy];
   v7 = +[SKAStatusServer logger];
@@ -1070,7 +1048,6 @@ LABEL_14:
     [SKAStatusServer _publishingServiceListener:connectionCopy shouldAcceptNewConnection:?];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1109,7 +1086,7 @@ LABEL_14:
 
 void __70__SKAStatusServer__presenceServiceListener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -1117,9 +1094,9 @@ void __70__SKAStatusServer__presenceServiceListener_shouldAcceptNewConnection___
     v4 = [*(a1 + 32) processIdentifier];
     v5 = [SKAPresenceClientConnection clientIDForConnection:*(a1 + 32)];
     *buf = 134218242;
-    v18 = v4;
-    v19 = 2112;
-    v20 = v5;
+    v17 = v4;
+    v18 = 2112;
+    v19 = v5;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Accepting XPC connection from PID %ld for presence service with client ID: %@", buf, 0x16u);
   }
 
@@ -1135,13 +1112,11 @@ void __70__SKAStatusServer__presenceServiceListener_shouldAcceptNewConnection___
 
   v15 = [WeakRetained onQueue_presenceConnectedClientProxies];
   [v15 addObject:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_subscriptionServiceListener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v6 = [SKAStatusSubscriptionServiceClientConnection clientIsEntitledForAtLeastOneSubscriptionServiceType:connectionCopy];
   v7 = +[SKAStatusServer logger];
@@ -1156,8 +1131,8 @@ void __70__SKAStatusServer__presenceServiceListener_shouldAcceptNewConnection___
     }
 
     v9 = [SKAStatusSubscriptionServiceClientProxy alloc];
-    LOBYTE(v12) = self->_trafficModeEnabled;
-    v8 = [(SKAStatusSubscriptionServiceClientProxy *)v9 initWithXPCConnection:connectionCopy queue:self->_subscriptionServiceConnectionQueue delegate:self databaseManager:self->_databaseManager subscriptionManager:self->_subscriptionManager encryptionManager:self->_encryptionManager inTrafficMode:v12];
+    LOBYTE(v11) = self->_trafficModeEnabled;
+    v8 = [(SKAStatusSubscriptionServiceClientProxy *)v9 initWithXPCConnection:connectionCopy queue:self->_subscriptionServiceConnectionQueue delegate:self databaseManager:self->_databaseManager subscriptionManager:self->_subscriptionManager encryptionManager:self->_encryptionManager inTrafficMode:v11];
     [(NSMutableArray *)self->_subscriptionServiceConnectedClientProxies addObject:v8];
   }
 
@@ -1166,7 +1141,6 @@ void __70__SKAStatusServer__presenceServiceListener_shouldAcceptNewConnection___
     [SKAStatusServer _subscriptionServiceListener:connectionCopy shouldAcceptNewConnection:?];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1190,23 +1164,23 @@ void __70__SKAStatusServer__presenceServiceListener_shouldAcceptNewConnection___
 
 void __59__SKAStatusServer_subscriptionServiceClientWasInvalidated___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v23 = v4;
+    v22 = v4;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Subscription service client was invalidated. Removing client: %@", buf, 0xCu);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = [WeakRetained subscriptionServiceConnectedClientProxies];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v6)
   {
     v8 = v5;
@@ -1215,17 +1189,17 @@ void __59__SKAStatusServer_subscriptionServiceClientWasInvalidated___block_invok
 
   v7 = v6;
   v8 = 0;
-  v9 = *v18;
+  v9 = *v17;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v18 != v9)
+      if (*v17 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v17 + 1) + 8 * i);
+      v11 = *(*(&v16 + 1) + 8 * i);
       v12 = [v11 underlyingClient];
       v13 = *(a1 + 32);
 
@@ -1237,7 +1211,7 @@ void __59__SKAStatusServer_subscriptionServiceClientWasInvalidated___block_invok
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v7);
@@ -1249,8 +1223,6 @@ void __59__SKAStatusServer_subscriptionServiceClientWasInvalidated___block_invok
 
 LABEL_15:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishingServiceClientWasInvalidated:(id)invalidated
@@ -1273,23 +1245,23 @@ LABEL_15:
 
 void __57__SKAStatusServer_publishingServiceClientWasInvalidated___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v23 = v4;
+    v22 = v4;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Publishing service client was invalidated. Removing client: %@", buf, 0xCu);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = [WeakRetained publishingServiceConnectedClientProxies];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v6)
   {
     v8 = v5;
@@ -1298,17 +1270,17 @@ void __57__SKAStatusServer_publishingServiceClientWasInvalidated___block_invoke(
 
   v7 = v6;
   v8 = 0;
-  v9 = *v18;
+  v9 = *v17;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v18 != v9)
+      if (*v17 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v17 + 1) + 8 * i);
+      v11 = *(*(&v16 + 1) + 8 * i);
       v12 = [v11 underlyingClient];
       v13 = *(a1 + 32);
 
@@ -1320,7 +1292,7 @@ void __57__SKAStatusServer_publishingServiceClientWasInvalidated___block_invoke(
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v7);
@@ -1332,8 +1304,6 @@ void __57__SKAStatusServer_publishingServiceClientWasInvalidated___block_invoke(
 
 LABEL_15:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presenceClientWasInvalidated:(id)invalidated
@@ -1356,23 +1326,23 @@ LABEL_15:
 
 void __48__SKAStatusServer_presenceClientWasInvalidated___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v23 = v4;
+    v22 = v4;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Presence client was invalidated. Removing client: %@", buf, 0xCu);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = [WeakRetained onQueue_presenceConnectedClientProxies];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v6)
   {
     v8 = v5;
@@ -1381,17 +1351,17 @@ void __48__SKAStatusServer_presenceClientWasInvalidated___block_invoke(uint64_t 
 
   v7 = v6;
   v8 = 0;
-  v9 = *v18;
+  v9 = *v17;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v18 != v9)
+      if (*v17 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v17 + 1) + 8 * i);
+      v11 = *(*(&v16 + 1) + 8 * i);
       v12 = [v11 underlyingClient];
       v13 = *(a1 + 32);
 
@@ -1403,7 +1373,7 @@ void __48__SKAStatusServer_presenceClientWasInvalidated___block_invoke(uint64_t 
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v7);
@@ -1415,19 +1385,17 @@ void __48__SKAStatusServer_presenceClientWasInvalidated___block_invoke(uint64_t 
 
 LABEL_15:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)drainUpdatesForPresenceIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = identifierCopy;
+    v13 = identifierCopy;
     _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Draining update queues for client with presenceIdentifier %@", buf, 0xCu);
   }
 
@@ -1437,50 +1405,49 @@ LABEL_15:
   block[1] = 3221225472;
   block[2] = __53__SKAStatusServer_drainUpdatesForPresenceIdentifier___block_invoke;
   block[3] = &unk_27843F768;
-  objc_copyWeak(&v12, buf);
-  v10 = identifierCopy;
+  objc_copyWeak(&v11, buf);
+  v9 = identifierCopy;
   selfCopy = self;
   v7 = identifierCopy;
   dispatch_async(presenceConnectionQueue, block);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SKAStatusServer_drainUpdatesForPresenceIdentifier___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v2 = [WeakRetained onQueue_pendingCompletionsByPresenceIdentifier];
   v3 = [v2 objectForKey:*(a1 + 32)];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = +[SKAStatusServer logger];
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           v11 = *(a1 + 32);
           *buf = 138412290;
-          v21 = v11;
+          v20 = v11;
           _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Processing an update for %@ now that StatusKitAgent is back online", buf, 0xCu);
         }
 
@@ -1488,7 +1455,7 @@ void __53__SKAStatusServer_drainUpdatesForPresenceIdentifier___block_invoke(uint
         (*(v9 + 16))(v9, v12);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v6);
@@ -1496,20 +1463,18 @@ void __53__SKAStatusServer_drainUpdatesForPresenceIdentifier___block_invoke(uint
 
   v13 = [WeakRetained onQueue_pendingCompletionsByPresenceIdentifier];
   [v13 removeObjectForKey:*(a1 + 32)];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumeratePresenceClientsWithIdentifier:(id)identifier usingBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   blockCopy = block;
   v8 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = identifierCopy;
+    v17 = identifierCopy;
     _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Attempting to connect to existing clients for presenceIdentifier: %@", buf, 0xCu);
   }
 
@@ -1519,37 +1484,36 @@ void __53__SKAStatusServer_drainUpdatesForPresenceIdentifier___block_invoke(uint
   block[1] = 3221225472;
   block[2] = __69__SKAStatusServer_enumeratePresenceClientsWithIdentifier_usingBlock___block_invoke;
   block[3] = &unk_27843E7A8;
-  objc_copyWeak(&v16, buf);
-  v14 = identifierCopy;
-  v15 = blockCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = identifierCopy;
+  v14 = blockCopy;
   v10 = blockCopy;
   v11 = identifierCopy;
   dispatch_async(presenceConnectionQueue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SKAStatusServer_enumeratePresenceClientsWithIdentifier_usingBlock___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [WeakRetained onQueue_presenceConnectedClientProxies];
     *buf = 138412290;
-    v32 = v4;
+    v31 = v4;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Current connected clients: %@", buf, 0xCu);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v5 = [WeakRetained onQueue_presenceConnectedClientProxies];
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (!v6)
   {
 
@@ -1559,7 +1523,7 @@ LABEL_17:
     {
       v19 = *(a1 + 32);
       *buf = 138412290;
-      v32 = v19;
+      v31 = v19;
       _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "No existing in memory client for presenceIdentifier: %@", buf, 0xCu);
     }
 
@@ -1584,19 +1548,19 @@ LABEL_17:
   }
 
   v7 = v6;
-  v26 = WeakRetained;
+  v25 = WeakRetained;
   v8 = 0;
-  v9 = *v28;
+  v9 = *v27;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v28 != v9)
+      if (*v27 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v27 + 1) + 8 * i);
+      v11 = *(*(&v26 + 1) + 8 * i);
       v12 = [v11 underlyingClient];
       v13 = [v12 presenceIdentifier];
       v14 = [v13 isEqualToString:*(a1 + 32)];
@@ -1609,9 +1573,9 @@ LABEL_17:
           v16 = [v11 underlyingClient];
           v17 = *(a1 + 32);
           *buf = 138412546;
-          v32 = v16;
-          v33 = 2112;
-          v34 = v17;
+          v31 = v16;
+          v32 = 2112;
+          v33 = v17;
           _os_log_impl(&dword_220099000, v15, OS_LOG_TYPE_DEFAULT, "Client: %@ for presenceIdentifier: %@ is already connected, directly calling block", buf, 0x16u);
         }
 
@@ -1620,49 +1584,46 @@ LABEL_17:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
   }
 
   while (v7);
 
-  WeakRetained = v26;
+  WeakRetained = v25;
   if ((v8 & 1) == 0)
   {
     goto LABEL_17;
   }
 
 LABEL_22:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)databaseDidReceiveRemoteChangesForChannels:(id)channels
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   v5 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = channelsCopy;
+    v12 = channelsCopy;
     _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Received remote database changes for channels: %@", buf, 0xCu);
   }
 
   [(SKAStatusSubscriptionManaging *)self->_subscriptionManager updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:&__block_literal_global_59];
   objc_initWeak(buf, self);
   subscriptionServiceConnectionQueue = self->_subscriptionServiceConnectionQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_invoke_60;
-  v9[3] = &unk_27843E820;
-  objc_copyWeak(&v11, buf);
-  v10 = channelsCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_invoke_60;
+  v8[3] = &unk_27843E820;
+  objc_copyWeak(&v10, buf);
+  v9 = channelsCopy;
   v7 = channelsCopy;
-  dispatch_async(subscriptionServiceConnectionQueue, v9);
+  dispatch_async(subscriptionServiceConnectionQueue, v8);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_invoke(uint64_t a1, void *a2)
@@ -1687,31 +1648,31 @@ void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_in
 
 void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_invoke_60(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v2 = [WeakRetained databaseManager];
   v3 = [v2 newBackgroundContext];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         v11 = [v2 existingChannelForSubscriptionIdentifier:v10 databaseContext:v3];
         if (v11)
         {
@@ -1724,13 +1685,13 @@ void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_in
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v32 = v10;
+            v31 = v10;
             _os_log_error_impl(&dword_220099000, v12, OS_LOG_TYPE_ERROR, "Could not find channel matching changed channelIdentifier: %@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
     }
 
     while (v7);
@@ -1738,31 +1699,31 @@ void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_in
 
   if ([v4 count])
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v13 = WeakRetained;
     v14 = [WeakRetained subscriptionServiceConnectedClientProxies];
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [*(*(&v22 + 1) + 8 * j) underlyingClient];
+          v19 = [*(*(&v21 + 1) + 8 * j) underlyingClient];
           [v19 handleRemoteDatabaseChangeForChannels:v4];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v16);
@@ -1778,8 +1739,6 @@ void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_in
       __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_invoke_60_cold_1();
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initialCloudKitImportReceived:(id)received
@@ -1799,36 +1758,36 @@ void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_in
 
 void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v3 = [WeakRetained onQueue_presenceConnectedClientProxies];
-  v4 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       v7 = 0;
       do
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v25 + 1) + 8 * v7) underlyingClient];
+        v8 = [*(*(&v24 + 1) + 8 * v7) underlyingClient];
         [v8 initialCloudKitImportReceived];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v5);
@@ -1839,41 +1798,39 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke(uint64_t
   v11 = [v10 newBackgroundContext];
   v12 = [v9 allExistingPresenceSubscriptionsForDatabaseContext:v11];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
         v18 = *(a1 + 32);
-        v19 = [*(*(&v21 + 1) + 8 * v17) presenceIdentifier];
+        v19 = [*(*(&v20 + 1) + 8 * v17) presenceIdentifier];
         [v18 enumeratePresenceClientsWithIdentifier:v19 usingBlock:&__block_literal_global_63];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64_t a1, void *a2)
@@ -1896,7 +1853,7 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
 
 - (void)service:(id)service didReceiveIncomingMessage:(id)message fromID:(id)d fromMergeID:(id)iD toID:(id)toID messageGuid:(id)guid
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   messageCopy = message;
   dCopy = d;
@@ -1906,20 +1863,20 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
   v20 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412802;
-    v28 = serviceCopy;
-    v29 = 2112;
-    v30 = dCopy;
-    v31 = 2112;
-    v32 = messageCopy;
-    _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Incoming message received. Service: %@ senderID: %@ guid: %@", &v27, 0x20u);
+    v26 = 138412802;
+    v27 = serviceCopy;
+    v28 = 2112;
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = messageCopy;
+    _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Incoming message received. Service: %@ senderID: %@ guid: %@", &v26, 0x20u);
   }
 
   v21 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v27) = 0;
-    _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Handling message as key invite", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Handling message as key invite", &v26, 2u);
   }
 
   v22 = IDSCopyRawAddressForDestination();
@@ -1928,8 +1885,19 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
   v24 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:v22];
   v25 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:v23];
   [(SKAInvitationManaging *)self->_invitationManager handleIncomingInvitationMessage:messageCopy fromHandle:v24 fromID:dCopy fromMergeID:iDCopy toHandle:v25 messageGuid:guidCopy];
+}
 
-  v26 = *MEMORY[0x277D85DE8];
+- (void)service:(id)service outgoingMessageWithIdentifier:(id)identifier fromID:(id)d toID:(id)iD didSendWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  iDCopy = iD;
+  identifierCopy = identifier;
+  v15 = IDSCopyRawAddressForDestination();
+  v12 = IDSCopyRawAddressForDestination();
+
+  v13 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:v15];
+  v14 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:v12];
+  [(SKAInvitationManaging *)self->_invitationManager outgoingMessageWithIdentifier:identifierCopy fromHandle:v13 toHandle:v14 didSendWithSuccess:successCopy];
 }
 
 - (void)networkBecameReachable
@@ -1946,7 +1914,7 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
 
 - (void)channelManager:(id)manager didReceiveData:(id)data onChannel:(id)channel identifier:(unint64_t)identifier dateReceived:(id)received dateExpired:(id)expired
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   channelCopy = channel;
   receivedCopy = received;
@@ -1955,8 +1923,8 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v33 = channelCopy;
-    v34 = 2048;
+    v32 = channelCopy;
+    v33 = 2048;
     identifierCopy = identifier;
     _os_log_impl(&dword_220099000, v17, OS_LOG_TYPE_DEFAULT, "Received data on channel: %@ identifier: %lu", buf, 0x16u);
   }
@@ -1971,7 +1939,7 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
   {
     if ([v21 channelType])
     {
-      v31 = expiredCopy;
+      v30 = expiredCopy;
       v22 = receivedCopy;
       channelType = [v21 channelType];
       v24 = +[SKAStatusServer logger];
@@ -1997,7 +1965,7 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
         }
       }
 
-      expiredCopy = v31;
+      expiredCopy = v30;
     }
 
     else
@@ -2038,8 +2006,6 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
       [SKAStatusServer channelManager:didReceiveData:onChannel:identifier:dateReceived:dateExpired:];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)channelManager:(id)manager failedToSubscribeToChannel:(id)channel withError:(id)error
@@ -2055,7 +2021,7 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
 
 - (void)statusReceivingManager:(id)manager didReceiveStatusUpdate:(id)update onChannel:(id)channel
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   updateCopy = update;
   channelCopy = channel;
@@ -2063,7 +2029,7 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = updateCopy;
+    v20 = updateCopy;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Server received status update: %@", buf, 0xCu);
   }
 
@@ -2073,63 +2039,59 @@ void __49__SKAStatusServer_initialCloudKitImportReceived___block_invoke_2(uint64
   block[1] = 3221225472;
   block[2] = __75__SKAStatusServer_statusReceivingManager_didReceiveStatusUpdate_onChannel___block_invoke;
   block[3] = &unk_27843F768;
-  objc_copyWeak(&v19, buf);
+  objc_copyWeak(&v18, buf);
   v13 = updateCopy;
-  v17 = v13;
+  v16 = v13;
   v14 = channelCopy;
-  v18 = v14;
+  v17 = v14;
   dispatch_async(subscriptionServiceConnectionQueue, block);
   [(SKAStatusServer *)self donateReceivedStatusToBiomeOnChannel:v14];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SKAStatusServer_statusReceivingManager_didReceiveStatusUpdate_onChannel___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [WeakRetained subscriptionServiceConnectedClientProxies];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) underlyingClient];
+        v8 = [*(*(&v9 + 1) + 8 * v7) underlyingClient];
         [v8 handleReceivedStatusUpdate:*(a1 + 32) onChannel:*(a1 + 40)];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donateReceivedStatusToBiomeOnChannel:(id)channel
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   statusType = [channelCopy statusType];
   if ([(SKAStatusServer *)self _shouldDonateToBiomeForStatusTypeIdentifier:statusType])
@@ -2139,11 +2101,11 @@ void __75__SKAStatusServer_statusReceivingManager_didReceiveStatusUpdate_onChann
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       allObjects = [v6 allObjects];
-      v17 = 138412546;
-      v18 = allObjects;
-      v19 = 2112;
-      v20 = statusType;
-      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Writing to Biome event with IDSHandle: %@, statusTypeIdentifier %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = allObjects;
+      v18 = 2112;
+      v19 = statusType;
+      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Writing to Biome event with IDSHandle: %@, statusTypeIdentifier %@", &v16, 0x16u);
     }
 
     v9 = BiomeLibrary();
@@ -2157,37 +2119,35 @@ void __75__SKAStatusServer_statusReceivingManager_didReceiveStatusUpdate_onChann
     source = [statusChange source];
     [source sendEvent:v14];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_senderHandlesForChannel:(id)channel
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
   v6 = [(SKADatabaseManaging *)self->_databaseManager receivedInvitationsForChannel:channelCopy databaseContext:newBackgroundContext];
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         senderHandle = [v13 senderHandle];
 
         if (senderHandle)
@@ -2197,14 +2157,13 @@ void __75__SKAStatusServer_statusReceivingManager_didReceiveStatusUpdate_onChann
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
   v16 = [v7 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2238,18 +2197,18 @@ void __75__SKAStatusServer_statusReceivingManager_didReceiveStatusUpdate_onChann
 
 - (void)databaseManager:(id)manager didCreateChannel:(id)channel
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   identifier = [channelCopy identifier];
   statusType = [channelCopy statusType];
   v8 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = identifier;
-    v14 = 2112;
-    v15 = statusType;
-    _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Channel created with identifier: %@ type: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = identifier;
+    v13 = 2112;
+    v14 = statusType;
+    _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Channel created with identifier: %@ type: %@", &v11, 0x16u);
   }
 
   if ([channelCopy isPersonal])
@@ -2257,15 +2216,13 @@ void __75__SKAStatusServer_statusReceivingManager_didReceiveStatusUpdate_onChann
     v9 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Updating registered subscription to allow self subscription to personal channel, if necessary", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Updating registered subscription to allow self subscription to personal channel, if necessary", &v11, 2u);
     }
 
     subscriptionManager = [(SKAStatusServer *)self subscriptionManager];
     [subscriptionManager updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:&__block_literal_global_76_0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SKAStatusServer_databaseManager_didCreateChannel___block_invoke(uint64_t a1, void *a2)
@@ -2290,14 +2247,14 @@ void __52__SKAStatusServer_databaseManager_didCreateChannel___block_invoke(uint6
 
 - (void)presenceManager:(id)manager didReceivePresentDevicesUpdate:(id)update forPresenceIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   identifierCopy = identifier;
   v9 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = identifierCopy;
+    v18 = identifierCopy;
     _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Server received present devices update on presence identifier: %@", buf, 0xCu);
   }
 
@@ -2307,16 +2264,15 @@ void __52__SKAStatusServer_databaseManager_didCreateChannel___block_invoke(uint6
   block[1] = 3221225472;
   block[2] = __88__SKAStatusServer_presenceManager_didReceivePresentDevicesUpdate_forPresenceIdentifier___block_invoke;
   block[3] = &unk_27843F768;
-  objc_copyWeak(&v17, buf);
-  v15 = identifierCopy;
-  v16 = updateCopy;
+  objc_copyWeak(&v16, buf);
+  v14 = identifierCopy;
+  v15 = updateCopy;
   v11 = updateCopy;
   v12 = identifierCopy;
   dispatch_async(presenceConnectionQueue, block);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SKAStatusServer_presenceManager_didReceivePresentDevicesUpdate_forPresenceIdentifier___block_invoke(id *a1)
@@ -2340,38 +2296,34 @@ void __88__SKAStatusServer_presenceManager_didReceivePresentDevicesUpdate_forPre
 
 - (void)presenceManager:(id)manager didCreateChannel:(id)channel
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   v6 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = channelCopy;
-    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "New presence channel created. Sending self invite for channel: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = channelCopy;
+    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "New presence channel created. Sending self invite for channel: %@", &v9, 0xCu);
   }
 
   invitationManager = [(SKAStatusServer *)self invitationManager];
   presenceIdentifier = [channelCopy presenceIdentifier];
   [invitationManager sendSelfInvitationForPresenceChannelWithPresenceIdentifier:presenceIdentifier isPersonal:objc_msgSend(channelCopy completion:{"isPersonal"), &__block_literal_global_79}];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SKAStatusServer_presenceManager_didCreateChannel___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Sent self-invite with success:%d and error:%@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Sent self-invite with success:%d and error:%@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presenceManager:(id)manager didRequestToRollChannel:(id)channel
@@ -2391,19 +2343,17 @@ void __52__SKAStatusServer_presenceManager_didCreateChannel___block_invoke(uint6
 
 void __59__SKAStatusServer_presenceManager_didRequestToRollChannel___block_invoke(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) identifier];
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Finished rolling to channel %@ with success %d", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Finished rolling to channel %@ with success %d", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invitationManager:(id)manager didRollChannelFromExistingChannel:(id)channel
@@ -2417,7 +2367,7 @@ void __59__SKAStatusServer_presenceManager_didRequestToRollChannel___block_invok
 
 - (void)invitationManager:(id)manager didReceiveInvitationWithType:(int64_t)type forChannel:(id)channel withExistingChannel:(id)existingChannel
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   channelCopy = channel;
   existingChannelCopy = existingChannel;
@@ -2425,7 +2375,7 @@ void __59__SKAStatusServer_presenceManager_didRequestToRollChannel___block_invok
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = channelCopy;
+    v30 = channelCopy;
     _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Received channel invitation on channel: %@", buf, 0xCu);
   }
 
@@ -2446,17 +2396,17 @@ void __59__SKAStatusServer_presenceManager_didRequestToRollChannel___block_invok
     v19 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v29 = 0;
-      _os_log_impl(&dword_220099000, v19, OS_LOG_TYPE_DEFAULT, "Handling invitation as presence invite, connecting to client", v29, 2u);
+      *v28 = 0;
+      _os_log_impl(&dword_220099000, v19, OS_LOG_TYPE_DEFAULT, "Handling invitation as presence invite, connecting to client", v28, 2u);
     }
 
     presenceIdentifier2 = [channelCopy presenceIdentifier];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __97__SKAStatusServer_invitationManager_didReceiveInvitationWithType_forChannel_withExistingChannel___block_invoke_81;
-    v24[3] = &unk_27843F820;
-    v25 = channelCopy;
-    [(SKAStatusServer *)self enumeratePresenceClientsWithIdentifier:presenceIdentifier2 usingBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __97__SKAStatusServer_invitationManager_didReceiveInvitationWithType_forChannel_withExistingChannel___block_invoke_81;
+    v23[3] = &unk_27843F820;
+    v24 = channelCopy;
+    [(SKAStatusServer *)self enumeratePresenceClientsWithIdentifier:presenceIdentifier2 usingBlock:v23];
   }
 
   else
@@ -2464,8 +2414,8 @@ void __59__SKAStatusServer_presenceManager_didRequestToRollChannel___block_invok
     v21 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      *v29 = 0;
-      _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Handling invitation as status invite", v29, 2u);
+      *v28 = 0;
+      _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Handling invitation as status invite", v28, 2u);
     }
 
     subscriptionServiceConnectionQueue = self->_subscriptionServiceConnectionQueue;
@@ -2473,56 +2423,52 @@ void __59__SKAStatusServer_presenceManager_didRequestToRollChannel___block_invok
     block[1] = 3221225472;
     block[2] = __97__SKAStatusServer_invitationManager_didReceiveInvitationWithType_forChannel_withExistingChannel___block_invoke;
     block[3] = &unk_27843E820;
-    objc_copyWeak(&v28, buf);
-    v27 = channelCopy;
+    objc_copyWeak(&v27, buf);
+    v26 = channelCopy;
     dispatch_async(subscriptionServiceConnectionQueue, block);
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
   }
 
   objc_destroyWeak(buf);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __97__SKAStatusServer_invitationManager_didReceiveInvitationWithType_forChannel_withExistingChannel___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [WeakRetained subscriptionServiceConnectedClientProxies];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) underlyingClient];
+        v8 = [*(*(&v9 + 1) + 8 * v7) underlyingClient];
         [v8 handleReceivedInvitationForChannel:*(a1 + 32)];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __97__SKAStatusServer_invitationManager_didReceiveInvitationWithType_forChannel_withExistingChannel___block_invoke_81(uint64_t a1, void *a2)
@@ -2534,13 +2480,13 @@ void __97__SKAStatusServer_invitationManager_didReceiveInvitationWithType_forCha
 
 - (void)invitationManager:(id)manager didRevokeInvitationOnChannel:(id)channel
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   v6 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = channelCopy;
+    v23 = channelCopy;
     _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Revoked invitation(s) on channel: %@. Republishing current status", buf, 0xCu);
   }
 
@@ -2590,26 +2536,22 @@ void __97__SKAStatusServer_invitationManager_didReceiveInvitationWithType_forCha
       _os_log_impl(&dword_220099000, rawData, OS_LOG_TYPE_DEFAULT, "No current status to republish", buf, 2u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SKAStatusServer_invitationManager_didRevokeInvitationOnChannel___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Finished republishing status.  ID:%@ error:%@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Finished republishing status.  ID:%@ error:%@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_inTextTrafficMode
@@ -2636,7 +2578,7 @@ void __66__SKAStatusServer_invitationManager_didRevokeInvitationOnChannel___bloc
 
 void __44__SKAStatusServer__setupMaintenanceActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   state = xpc_activity_get_state(v3);
@@ -2645,8 +2587,8 @@ void __44__SKAStatusServer__setupMaintenanceActivity__block_invoke(uint64_t a1, 
     v10 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Running maintenance activity", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Running maintenance activity", &v18, 2u);
     }
 
     v11 = [WeakRetained subscriptionManager];
@@ -2658,8 +2600,8 @@ void __44__SKAStatusServer__setupMaintenanceActivity__block_invoke(uint64_t a1, 
     v13 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Removing decommissioned channels", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Removing decommissioned channels", &v18, 2u);
     }
 
     v14 = [WeakRetained databaseManager];
@@ -2668,8 +2610,8 @@ void __44__SKAStatusServer__setupMaintenanceActivity__block_invoke(uint64_t a1, 
     v15 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_220099000, v15, OS_LOG_TYPE_DEFAULT, "Removing present devices with no active channel", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_220099000, v15, OS_LOG_TYPE_DEFAULT, "Removing present devices with no active channel", &v18, 2u);
     }
 
     v16 = [WeakRetained databaseManager];
@@ -2708,201 +2650,157 @@ LABEL_18:
     v9 = +[SKAStatusServer logger];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = v6;
-      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Scheduling maintenance XPC activity %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v6;
+      _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Scheduling maintenance XPC activity %@", &v18, 0xCu);
     }
 
     goto LABEL_17;
   }
 
 LABEL_19:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SKAStatusServer__setupMaintenanceActivity__block_invoke_93(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = +[SKAStatusServer logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Finished maintenance subscription update with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Finished maintenance subscription update with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_cold_1(uint64_t *a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_2(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_31_cold_2()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_32_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_32_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_33_cold_1()
 {
-  OUTLINED_FUNCTION_8_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_34_cold_1()
 {
-  OUTLINED_FUNCTION_8_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_36_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_37_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_38_cold_1()
 {
-  OUTLINED_FUNCTION_8_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_40_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_40_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_42_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_42_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_43_cold_1(uint64_t a1)
+void __84__SKAStatusServer_refreshAssertionsForPresenceIdentifier_existingChannelIdentifier___block_invoke_43_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)listener:(NSObject *)a3 shouldAcceptNewConnection:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [a1 processIdentifier];
   v7 = [a1 sk_applicationIdentifier];
-  v9 = 134218498;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2114;
-  v14 = a2;
-  _os_log_fault_impl(&dword_220099000, a3, OS_LOG_TYPE_FAULT, "Receiving XPC connection from PID %ld (%@) for unknown service name: %{public}@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 134218498;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2114;
+  v13 = a2;
+  _os_log_fault_impl(&dword_220099000, a3, OS_LOG_TYPE_FAULT, "Receiving XPC connection from PID %ld (%@) for unknown service name: %{public}@", &v8, 0x20u);
 }
 
 - (void)_publishingServiceListener:(void *)a1 shouldAcceptNewConnection:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 processIdentifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presenceServiceListener:(void *)a1 shouldAcceptNewConnection:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 processIdentifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_subscriptionServiceListener:(void *)a1 shouldAcceptNewConnection:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 processIdentifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_invoke_60_cold_1()
@@ -2931,22 +2829,6 @@ void __62__SKAStatusServer_databaseDidReceiveRemoteChangesForChannels___block_in
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)channelManager:failedToSubscribeToChannel:withError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __52__SKAStatusServer_databaseManager_didCreateChannel___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invitationManager:didRevokeInvitationOnChannel:.cold.1()

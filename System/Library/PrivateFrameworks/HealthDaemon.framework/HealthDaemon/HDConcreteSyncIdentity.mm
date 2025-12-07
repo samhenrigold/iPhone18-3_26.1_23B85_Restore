@@ -19,11 +19,11 @@
     self = objc_msgSendSuper2(&v14, sel_init);
     if (self)
     {
-      v9 = [v7 copy];
+      v9 = objc_msgSend_copy(v7);
       v10 = *(self + 2);
       *(self + 2) = v9;
 
-      v11 = [identityCopy copy];
+      v11 = objc_msgSend_copy(identityCopy);
       v12 = *(self + 3);
       *(self + 3) = v11;
 

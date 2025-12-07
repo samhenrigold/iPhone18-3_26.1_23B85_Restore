@@ -117,7 +117,7 @@
   [(VideoAttributes *)v4 setContentsRect:?];
   -[VideoAttributes setVideoSourceScreen:](v4, "setVideoSourceScreen:", [attributes videoSourceScreen]);
   -[VideoAttributes setVideoMirrored:](v4, "setVideoMirrored:", [attributes videoMirrored]);
-  [attributes framePresentationTime];
+  objc_msgSend_framePresentationTime(attributes);
   v6 = v8;
   v7 = v9;
   [(VideoAttributes *)v4 setFramePresentationTime:&v6];

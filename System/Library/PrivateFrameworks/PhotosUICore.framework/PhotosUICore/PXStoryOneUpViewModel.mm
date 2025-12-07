@@ -226,7 +226,7 @@ void __53__PXStoryOneUpViewModel__updateVisibleClipIdentifier__block_invoke(uint
   handlerCopy = handler;
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
     timeline = [(PXStoryOneUpViewModel *)self timeline];
     resourcesDataSourceManager = [(PXStoryOneUpViewModel *)self resourcesDataSourceManager];
     dataSource = [resourcesDataSourceManager dataSource];

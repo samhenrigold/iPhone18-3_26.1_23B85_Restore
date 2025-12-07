@@ -19,6 +19,7 @@
 - (void)_removeAppleID:(id)d;
 - (void)_setAccount:(id)account;
 - (void)_setIdentity:(id)identity forAppleID:(id)d;
+- (void)_setIdentityLinkedToCurrentUser:(BOOL)user forAppleID:(id)d;
 - (void)_setMetaInfo:(id)info;
 - (void)_updateAccountInfoPrefs;
 - (void)_updateMetaInfoPrefs;
@@ -30,6 +31,7 @@
 - (void)setCertificateToken:(id)token privateKeyPersistentReference:(id)reference forAppleID:(id)d;
 - (void)setContactInfo:(id)info validationRecord:(id)record forAppleID:(id)d;
 - (void)setIdentity:(id)identity forAppleID:(id)d;
+- (void)setIdentityLinkedToCurrentUser:(BOOL)user forAppleID:(id)d;
 - (void)setLastConnectionDate:(id)date;
 - (void)setLastSuccessfulConnectionDate:(id)date;
 - (void)setMetaInfo:(id)info;
@@ -115,7 +117,7 @@
         selfCopy = v7;
         if (dword_100971348 != -1 || _LogCategory_Initialize())
         {
-          sub_1001391C4();
+          sub_1001391C4(v13);
         }
 
         v35 = 0;
@@ -230,7 +232,7 @@ LABEL_21:
   {
     if (dword_100971348 <= 60 && (dword_100971348 != -1 || _LogCategory_Initialize()))
     {
-      sub_100139298();
+      sub_100139298(v13);
     }
 
 LABEL_30:
@@ -274,7 +276,7 @@ LABEL_31:
     {
       if (dword_100971348 <= 60 && (dword_100971348 != -1 || _LogCategory_Initialize()))
       {
-        sub_10013933C();
+        sub_10013933C(v13);
       }
 
       v14 = 0;
@@ -388,10 +390,13 @@ LABEL_62:
     }
 
     CFPreferencesSetValue(@"AppleIDAccount", value, @"com.apple.sharingd", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
-    CFPreferencesAppSynchronize(@"com.apple.sharingd");
-    if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
+    v9 = CFPreferencesAppSynchronize(@"com.apple.sharingd");
+    if (dword_100971348 <= 30)
     {
-      sub_10013940C();
+      if (dword_100971348 != -1 || (v9 = _LogCategory_Initialize(), v9))
+      {
+        sub_10013940C(v9, v10, v11);
+      }
     }
 
     v7 = value;
@@ -400,12 +405,15 @@ LABEL_62:
 
 - (void)_updateMetaInfoPrefs
 {
-  v2 = [NSKeyedArchiver archivedDataWithRootObject:self->_metaInfo requiringSecureCoding:1 error:0];
-  CFPreferencesSetValue(@"AppleIDAgentMetaInfo", v2, @"com.apple.sharingd", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
-  CFPreferencesAppSynchronize(@"com.apple.sharingd");
-  if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
+  v5 = [NSKeyedArchiver archivedDataWithRootObject:self->_metaInfo requiringSecureCoding:1 error:0];
+  CFPreferencesSetValue(@"AppleIDAgentMetaInfo", v5, @"com.apple.sharingd", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
+  v2 = CFPreferencesAppSynchronize(@"com.apple.sharingd");
+  if (dword_100971348 <= 30)
   {
-    sub_100139428();
+    if (dword_100971348 != -1 || (v2 = _LogCategory_Initialize(), v2))
+    {
+      sub_100139428(v2, v3, v4);
+    }
   }
 }
 
@@ -425,10 +433,13 @@ LABEL_62:
     value = [NSKeyedArchiver archivedDataWithRootObject:personInfoCache2 requiringSecureCoding:1 error:0];
 
     CFPreferencesSetValue(@"PersonInfoCache", value, @"com.apple.sharingd", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
-    CFPreferencesAppSynchronize(@"com.apple.sharingd");
-    if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
+    v6 = CFPreferencesAppSynchronize(@"com.apple.sharingd");
+    if (dword_100971348 <= 30)
     {
-      sub_100139444();
+      if (dword_100971348 != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        sub_100139444(v6, v7, v8);
+      }
     }
   }
 }
@@ -594,6 +605,16 @@ LABEL_62:
   objc_sync_exit(selfCopy);
 }
 
+- (void)setIdentityLinkedToCurrentUser:(BOOL)user forAppleID:(id)d
+{
+  userCopy = user;
+  dCopy = d;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  [(SDAppleIDDatabaseManager *)selfCopy _setIdentityLinkedToCurrentUser:userCopy forAppleID:dCopy];
+  objc_sync_exit(selfCopy);
+}
+
 - (void)setCertificateToken:(id)token privateKeyPersistentReference:(id)reference forAppleID:(id)d
 {
   tokenCopy = token;
@@ -728,24 +749,26 @@ LABEL_62:
 - (void)_addAppleID:(id)d
 {
   dCopy = d;
-  v7 = dCopy;
+  v8 = dCopy;
   if (dCopy)
   {
     v5 = [(SDAppleIDDatabaseManager *)self _accountForAppleID:dCopy];
     if (v5)
     {
       v6 = v5;
+      v7 = @"new";
     }
 
     else
     {
-      v6 = [[SFAppleIDAccount alloc] initWithAppleID:v7];
+      v6 = [[SFAppleIDAccount alloc] initWithAppleID:v8];
+      v7 = @"updated existing";
     }
 
     [(SDAppleIDDatabaseManager *)self _setAccount:v6];
     if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _addAppleID:]", 30, "Added account for Apple ID %{mask} (%@)\n", v8, v7);
     }
   }
 
@@ -769,7 +792,7 @@ LABEL_62:
       [(SDAppleIDDatabaseManager *)self _setAccount:0];
       if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _removeAppleID:]", 30, "Removed account for Apple ID %{mask} \n", dCopy);
       }
     }
   }
@@ -792,7 +815,7 @@ LABEL_62:
       if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
       {
         matchedValue3 = [cacheCopy matchedValue];
-        LogPrintF();
+        LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _addPersonInfoToCache:]", 30, "Added person info for %{mask} to cache\n", matchedValue3);
       }
     }
   }
@@ -848,7 +871,7 @@ LABEL_31:
   {
     if (dword_100971348 <= 90 && (dword_100971348 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _setIdentity:forAppleID:]", 90, "### No account for %{mask}\n");
     }
 
     goto LABEL_31;
@@ -877,7 +900,7 @@ LABEL_31:
       [v11 setIdentity:v23];
       if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _setIdentity:forAppleID:]", 30, "%s identity object for %{mask}. New identity object is %@\n");
       }
 
       [v7 _postNotificationWithName:SFAppleIDIdentityDidChangeNotification];
@@ -908,7 +931,7 @@ LABEL_31:
       [v11 setAltDSID:altDSID];
       if (dword_100971348 <= 30 && (dword_100971348 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _setIdentity:forAppleID:]", 30, "Updated AltDSDID for %{mask} to %@\n");
       }
     }
 
@@ -925,6 +948,55 @@ LABEL_23:
 LABEL_24:
 
   sub_100035D70();
+}
+
+- (void)_setIdentityLinkedToCurrentUser:(BOOL)user forAppleID:(id)d
+{
+  userCopy = user;
+  dCopy = d;
+  v11 = dCopy;
+  if (!dCopy)
+  {
+LABEL_16:
+    v10 = 0;
+    v8 = 0;
+    goto LABEL_6;
+  }
+
+  v7 = [(SDAppleIDDatabaseManager *)self _accountForAppleID:dCopy];
+  if (!v7)
+  {
+    if (dword_100971348 <= 90 && (dword_100971348 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _setIdentityLinkedToCurrentUser:forAppleID:]", 90, "### No account for %{mask}\n", v11);
+    }
+
+    goto LABEL_16;
+  }
+
+  v8 = v7;
+  identity = [v7 identity];
+  if (identity)
+  {
+    v10 = identity;
+    if ([identity linkedToCurrentUser] != userCopy)
+    {
+      [v10 setLinkedToCurrentUser:userCopy];
+      [(SDAppleIDDatabaseManager *)self _updateAccountInfoPrefs];
+    }
+  }
+
+  else
+  {
+    if (dword_100971348 <= 90 && (dword_100971348 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_100971348, "[SDAppleIDDatabaseManager _setIdentityLinkedToCurrentUser:forAppleID:]", 90, "### No identity for %@\n", 0);
+    }
+
+    v10 = 0;
+  }
+
+LABEL_6:
 }
 
 @end

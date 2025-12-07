@@ -43,7 +43,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFMultiSelectRemoteNotificationObservable.multiSelectRemoteNotificationService(_:didUpdateTrailingButtonState:)();
+  CAFMultiSelectRemoteNotificationObservable.multiSelectRemoteNotificationService(_:didUpdateTrailingButtonState:)(selfCopy, state);
 }
 
 - (void)multiSelectRemoteNotificationService:(id)service didUpdateSelectableNotificationEntries:(id)entries

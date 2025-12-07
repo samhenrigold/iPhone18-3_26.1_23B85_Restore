@@ -761,7 +761,7 @@ LABEL_5:
 
 void __70__KTLoggableData_loggableDataForDeviceID_application_completionBlock___block_invoke(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -775,9 +775,9 @@ void __70__KTLoggableData_loggableDataForDeviceID_application_completionBlock___
     v11 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_2;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_2, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v12, 0xCu);
     }
 
     (*(a1[6] + 16))();
@@ -795,17 +795,15 @@ void __70__KTLoggableData_loggableDataForDeviceID_application_completionBlock___
     {
       v9 = a1[4];
       v10 = a1[5];
-      v13 = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous fetch for device status for %@ device %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous fetch for device status for %@ device %@", &v12, 0x16u);
     }
 
     [v5 getLoggableDataForDeviceId:a1[5] application:a1[4] completionBlock:a1[6]];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __70__KTLoggableData_loggableDataForDeviceID_application_completionBlock___block_invoke_2()
@@ -824,38 +822,38 @@ uint64_t __70__KTLoggableData_loggableDataForDeviceID_application_completionBloc
 
 + (BOOL)isAccountKTCapable:(id)capable
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   capableCopy = capable;
   v4 = capableCopy;
   if (capableCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = capableCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          if (![*(*(&v13 + 1) + 8 * i) ktCapable])
+          if (![*(*(&v12 + 1) + 8 * i) ktCapable])
           {
             v10 = 0;
             goto LABEL_12;
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -874,34 +872,33 @@ LABEL_12:
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (void)combineLoggableDatasForUI:(id)i byAdding:(id)adding
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   iCopy = i;
   addingCopy = adding;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v7 = [addingCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [addingCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(addingCopy);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         deviceID = [v11 deviceID];
         v13 = [iCopy objectForKeyedSubscript:deviceID];
 
@@ -922,40 +919,38 @@ LABEL_12:
         }
       }
 
-      v8 = [addingCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [addingCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (KTLoggableData)ktLoggableDataWithKTIDSData:(id)data
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   identities = [dataCopy identities];
-  v6 = [identities countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [identities countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(identities);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [KTLoggableData alloc];
         ktLoggableData = [v10 ktLoggableData];
         v13 = [(KTLoggableData *)v11 initWithClientData:ktLoggableData];
@@ -969,13 +964,11 @@ LABEL_12:
         [array addObject:v13];
       }
 
-      v7 = [identities countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [identities countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }

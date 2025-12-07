@@ -36,7 +36,7 @@
 
 - (void)device:(id)device didUpdateProperty:(unint64_t)property
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   v7 = HCLogHearingAids();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -44,8 +44,8 @@
     updateDeviceBlocks = [(HUDeviceController *)self updateDeviceBlocks];
     *buf = 138412546;
     selfCopy = self;
-    v19 = 2112;
-    v20 = updateDeviceBlocks;
+    v18 = 2112;
+    v19 = updateDeviceBlocks;
     _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HUDeviceController: didUpdateProperty, UPDATING %@ - %@", buf, 0x16u);
   }
 
@@ -58,12 +58,10 @@
   block[2] = __47__HUDeviceController_device_didUpdateProperty___block_invoke;
   block[3] = &unk_1E85C9F88;
   block[4] = self;
-  v15 = v10;
+  v14 = v10;
   propertyCopy = property;
   v12 = v10;
   dispatch_async(deviceUpdatesQueue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __47__HUDeviceController_device_didUpdateProperty___block_invoke(uint64_t a1)
@@ -73,12 +71,12 @@ void __47__HUDeviceController_device_didUpdateProperty___block_invoke(uint64_t a
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v3 = [*(a1 + 32) sendPropertyUpdatesTimer];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __47__HUDeviceController_device_didUpdateProperty___block_invoke_2;
-    v22[3] = &unk_1E85C9F60;
-    v22[4] = *(a1 + 32);
-    [v3 afterDelay:v22 processBlock:1.0];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __47__HUDeviceController_device_didUpdateProperty___block_invoke_2;
+    v21[3] = &unk_1E85C9F60;
+    v21[4] = *(a1 + 32);
+    [v3 afterDelay:v21 processBlock:1.0];
   }
 
   v4 = *(a1 + 40);
@@ -100,22 +98,21 @@ void __47__HUDeviceController_device_didUpdateProperty___block_invoke(uint64_t a
   }
 
   v7 = [*(a1 + 32) hearingAidForDeviceID:v4];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
   v11 = MEMORY[0x1E69E9820];
   v12 = 3221225472;
   v13 = __47__HUDeviceController_device_didUpdateProperty___block_invoke_14;
   v14 = &unk_1E85CA290;
   v8 = v7;
-  v15 = *(a1 + 48);
   AXPerformSafeBlock();
-  v9 = v17[5];
+  v9 = v16[5];
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   if (v9)
   {
     objc_opt_class();
@@ -157,7 +154,7 @@ void __47__HUDeviceController_device_didUpdateProperty___block_invoke_2(uint64_t
 
 void __47__HUDeviceController_device_didUpdateProperty___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(a1 + 32) hearingAidForDeviceID:a2];
   if (v6 && [*(a1 + 32) representsLocalDevices])
@@ -179,15 +176,13 @@ void __47__HUDeviceController_device_didUpdateProperty___block_invoke_3(uint64_t
     {
       v12 = [v6 valueForProperty:0x4000000];
       v13 = [v6 valueForProperty:0x200000];
-      v15 = 138412546;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HUDeviceController: didUpdateProperty, Update Paired %@ Connected %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HUDeviceController: didUpdateProperty, Update Paired %@ Connected %@", &v14, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__HUDeviceController_device_didUpdateProperty___block_invoke_14(uint64_t a1)
@@ -197,7 +192,7 @@ uint64_t __47__HUDeviceController_device_didUpdateProperty___block_invoke_14(uin
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)registerForPropertyUpdates:(id)updates
@@ -249,12 +244,15 @@ void __41__HUDeviceController_stopPropertyUpdates__block_invoke(uint64_t a1)
 - (void)updateProperty:(unint64_t)property forDeviceID:(id)d
 {
   v6 = [(HUDeviceController *)self hearingAidForDeviceID:d];
+  v7 = v6;
   if (v6)
   {
-    [(HUDeviceController *)self device:v6 didUpdateProperty:property];
+    v8 = v6;
+    v6 = [(HUDeviceController *)self device:v6 didUpdateProperty:property];
+    v7 = v8;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v6, v7);
 }
 
 - (void)writeValue:(id)value forProperty:(unint64_t)property andDeviceID:(id)d

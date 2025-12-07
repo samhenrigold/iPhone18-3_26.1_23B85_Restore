@@ -1,4 +1,5 @@
 @interface RBSWrappedLSInfo
++ (id)infoWithBundleID:(id)d personaString:(id)string persistentJobLabel:(id)label platform:(int)platform bundleInode:(unint64_t)inode execInode:(unint64_t)execInode;
 - (id)_initWithBundleID:(id)d personaString:(id)string persistentJobLabel:(id)label platform:(int)platform bundleInode:(unint64_t)inode execInode:(unint64_t)execInode;
 @end
 
@@ -25,6 +26,17 @@
   }
 
   return v19;
+}
+
++ (id)infoWithBundleID:(id)d personaString:(id)string persistentJobLabel:(id)label platform:(int)platform bundleInode:(unint64_t)inode execInode:(unint64_t)execInode
+{
+  v10 = *&platform;
+  labelCopy = label;
+  stringCopy = string;
+  dCopy = d;
+  v16 = [[RBSWrappedLSInfo alloc] _initWithBundleID:dCopy personaString:stringCopy persistentJobLabel:labelCopy platform:v10 bundleInode:inode execInode:execInode];
+
+  return v16;
 }
 
 @end

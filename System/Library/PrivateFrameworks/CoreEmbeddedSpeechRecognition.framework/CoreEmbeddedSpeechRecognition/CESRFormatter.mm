@@ -7,32 +7,29 @@
 
 - (id)formatSpeechTokensWithAutoPunctuation:(id)punctuation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   punctuationCopy = punctuation;
   v5 = [CESRUtilities earTokensForAFTokens:punctuationCopy appendedAutoPunctuation:0];
-  formatter = self->_formatter;
   if (objc_opt_respondsToSelector())
   {
-    v7 = [(_EARFormatter *)self->_formatter formatWords:v5 task:@"Dictation" autoPunctuate:1 recognizeEmoji:1];
-    v8 = [CESRUtilities afTokensForEARTokens:v7 removeSpaceBefore:0];
+    v6 = [(_EARFormatter *)self->_formatter formatWords:v5 task:@"Dictation" autoPunctuate:1 recognizeEmoji:1];
+    v7 = [CESRUtilities afTokensForEARTokens:v6 removeSpaceBefore:0];
   }
 
   else
   {
-    v9 = *MEMORY[0x277CEF0E8];
+    v8 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CESRFormatter formatSpeechTokensWithAutoPunctuation:]";
-      _os_log_error_impl(&dword_225EEB000, v9, OS_LOG_TYPE_ERROR, "%s Method 'formatWords' not found in EARFormatter", &v12, 0xCu);
+      v10 = 136315138;
+      v11 = "[CESRFormatter formatSpeechTokensWithAutoPunctuation:]";
+      _os_log_error_impl(&dword_225EEB000, v8, OS_LOG_TYPE_ERROR, "%s Method 'formatWords' not found in EARFormatter", &v10, 0xCu);
     }
 
-    v8 = punctuationCopy;
+    v7 = punctuationCopy;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v7;
 }
 
 - (CESRFormatter)initWithAssetConfig:(id)config

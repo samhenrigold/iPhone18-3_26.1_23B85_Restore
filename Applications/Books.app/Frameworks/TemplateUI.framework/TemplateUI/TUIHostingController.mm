@@ -94,24 +94,24 @@
 
   if (v8)
   {
-    [(TUIHostingController *)self removeProviderForIdentifier:identifierCopy];
+    v9 = [(TUIHostingController *)self removeProviderForIdentifier:identifierCopy];
   }
 
-  v9 = TUIHostingLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUIHostingLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
-    v12 = 134218498;
-    v13 = uniqueIdentifier;
-    v14 = 2112;
-    v15 = providerCopy;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "[fid:%lu] adding provider=%@ for identifier=%@", &v12, 0x20u);
+    v13 = 134218498;
+    v14 = uniqueIdentifier;
+    v15 = 2112;
+    v16 = providerCopy;
+    v17 = 2112;
+    v18 = identifierCopy;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "[fid:%lu] adding provider=%@ for identifier=%@", &v13, 0x20u);
   }
 
-  v11 = [[_TUIHostedViewState alloc] initWithController:self provider:providerCopy identifier:identifierCopy];
-  [(NSMutableDictionary *)self->_statesMap setObject:v11 forKeyedSubscript:identifierCopy];
+  v12 = [[_TUIHostedViewState alloc] initWithController:self provider:providerCopy identifier:identifierCopy];
+  [(NSMutableDictionary *)self->_statesMap setObject:v12 forKeyedSubscript:identifierCopy];
   [(TUIHostingController *)self _notifyProviderObserversForIdentifier:identifierCopy notifyControllerObservers:1];
 }
 
@@ -143,7 +143,7 @@
 - (void)removeProviderForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = TUIHostingLog();
+  v5 = TUIHostingLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -212,90 +212,91 @@
     identifiers3 = [(TUIHostingMap *)*p_hostingMap identifiers];
     [v11 unionSet:identifiers3];
 
-    v28 = v9;
+    v29 = v9;
     [v11 minusSet:v9];
     identifiers4 = [(TUIHostingMap *)*p_hostingMap identifiers];
     v14 = [identifiers4 mutableCopy];
 
     [v14 minusSet:identifiers];
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
+    v35 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v33 objects:v44 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v34 objects:v45 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v35;
       do
       {
         v19 = 0;
         do
         {
-          if (*v34 != v18)
+          if (*v35 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [(NSMutableDictionary *)self->_geometryMap removeObjectForKey:*(*(&v33 + 1) + 8 * v19)];
+          [(NSMutableDictionary *)self->_geometryMap removeObjectForKey:*(*(&v34 + 1) + 8 * v19)];
           v19 = v19 + 1;
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v33 objects:v44 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v34 objects:v45 count:16];
       }
 
       while (v17);
     }
 
     objc_storeStrong(&self->_hostingMap, map);
-    if ([v11 count])
+    v20 = [v11 count];
+    if (v20)
     {
-      v20 = TUIHostingLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = TUIHostingLog(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         uniqueIdentifier = self->_feedId.uniqueIdentifier;
         identifiers5 = [(TUIHostingMap *)self->_hostingMap identifiers];
         *buf = 134218498;
-        v39 = uniqueIdentifier;
-        v40 = 2112;
-        v41 = identifiers5;
-        v42 = 2112;
-        v43 = v11;
-        _os_log_debug_impl(&dword_0, v20, OS_LOG_TYPE_DEBUG, "[fid:%lu] updated hosting map: identifiers=%@, differences=%@", buf, 0x20u);
+        v40 = uniqueIdentifier;
+        v41 = 2112;
+        v42 = identifiers5;
+        v43 = 2112;
+        v44 = v11;
+        _os_log_debug_impl(&dword_0, v21, OS_LOG_TYPE_DEBUG, "[fid:%lu] updated hosting map: identifiers=%@, differences=%@", buf, 0x20u);
       }
     }
 
-    v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v21 = self->_contentObservers;
-    v22 = [(NSHashTable *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
-    if (v22)
+    v31 = 0u;
+    v22 = self->_contentObservers;
+    v23 = [(NSHashTable *)v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    if (v23)
     {
-      v23 = v22;
-      v24 = *v30;
+      v24 = v23;
+      v25 = *v31;
       do
       {
-        v25 = 0;
+        v26 = 0;
         do
         {
-          if (*v30 != v24)
+          if (*v31 != v25)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v22);
           }
 
-          [*(*(&v29 + 1) + 8 * v25) hostingController:self didChangeContentIdentifiers:v11];
-          v25 = v25 + 1;
+          [*(*(&v30 + 1) + 8 * v26) hostingController:self didChangeContentIdentifiers:v11];
+          v26 = v26 + 1;
         }
 
-        while (v23 != v25);
-        v23 = [(NSHashTable *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        while (v24 != v26);
+        v24 = [(NSHashTable *)v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
-      while (v23);
+      while (v24);
     }
   }
 }
@@ -316,7 +317,7 @@
         if ((flags & 1) == 0)
         {
           delegateCopy = delegate;
-          v8 = TUIHostingLog();
+          v8 = TUIHostingLog(self);
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
             sub_19B118();
@@ -560,7 +561,7 @@ LABEL_16:
 {
   geomtryCopy = geomtry;
   identifierCopy = identifier;
-  v8 = TUIHostingLog();
+  v8 = TUIHostingLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -583,7 +584,7 @@ LABEL_16:
   {
     if ((*&self->_flags & 2) == 0)
     {
-      v3 = TUIHostingLog();
+      v3 = TUIHostingLog(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         sub_19B180();
@@ -595,7 +596,7 @@ LABEL_16:
 
   else if ((*&self->_flags & 1) == 0)
   {
-    v4 = TUIHostingLog();
+    v4 = TUIHostingLog(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_19B1E8();
@@ -649,33 +650,34 @@ LABEL_9:
 
 - (id)newGeometryMap
 {
-  if ([(NSMutableDictionary *)self->_geometryMap count])
+  v3 = [(NSMutableDictionary *)self->_geometryMap count];
+  if (v3)
   {
-    v3 = [TUIHostingGeometryMap alloc];
+    v4 = [TUIHostingGeometryMap alloc];
     geometryMap = self->_geometryMap;
     identifiers = [(TUIHostingMap *)self->_hostingMap identifiers];
-    v6 = [(TUIHostingGeometryMap *)v3 initWithMap:geometryMap identifiers:identifiers];
+    v7 = [(TUIHostingGeometryMap *)v4 initWithMap:geometryMap identifiers:identifiers];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = TUIHostingLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = TUIHostingLog(v3);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_19B250();
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)addProviderObserver:(id)observer forIdentifier:(id)identifier
 {
   observerCopy = observer;
   identifierCopy = identifier;
-  v8 = TUIHostingLog();
+  v8 = TUIHostingLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -702,7 +704,7 @@ LABEL_9:
 {
   observerCopy = observer;
   identifierCopy = identifier;
-  v8 = TUIHostingLog();
+  v8 = TUIHostingLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -727,7 +729,7 @@ LABEL_9:
 {
   observersCopy = observers;
   identifierCopy = identifier;
-  v7 = TUIHostingLog();
+  v7 = TUIHostingLog(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -828,17 +830,17 @@ LABEL_9:
 
       if (!v15 || v15 == sourceView)
       {
-        v27 = TUIHostingLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = TUIHostingLog(v19);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           uniqueIdentifier = self->_feedId.uniqueIdentifier;
           *buf = 134218498;
-          v33 = uniqueIdentifier;
-          v34 = 2112;
-          v35 = v15;
-          v36 = 2112;
-          v37 = sourceView;
-          _os_log_debug_impl(&dword_0, v27, OS_LOG_TYPE_DEBUG, "[fid:%lu] no need to update layout sourceView=%@ oldSourceView=%@", buf, 0x20u);
+          v34 = uniqueIdentifier;
+          v35 = 2112;
+          v36 = v15;
+          v37 = 2112;
+          v38 = sourceView;
+          _os_log_debug_impl(&dword_0, v28, OS_LOG_TYPE_DEBUG, "[fid:%lu] no need to update layout sourceView=%@ oldSourceView=%@", buf, 0x20u);
         }
       }
 
@@ -855,10 +857,10 @@ LABEL_9:
         popoverPresentationController3 = [viewController5 popoverPresentationController];
         [popoverPresentationController3 setSourceView:v15];
 
-        v24 = [(TUIHostingController *)self _popoverArrowDirectionFromProperties:v12];
+        v25 = [(TUIHostingController *)self _popoverArrowDirectionFromProperties:v12];
         viewController6 = [stateCopy viewController];
         popoverPresentationController4 = [viewController6 popoverPresentationController];
-        [popoverPresentationController4 setPermittedArrowDirections:v24];
+        [popoverPresentationController4 setPermittedArrowDirections:v25];
 
         if (!controllerCopy)
         {
@@ -867,14 +869,14 @@ LABEL_10:
           goto LABEL_11;
         }
 
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = sub_CB068;
-        v29[3] = &unk_25DCA0;
-        v30 = stateCopy;
+        v30[0] = _NSConcreteStackBlock;
+        v30[1] = 3221225472;
+        v30[2] = sub_CB068;
+        v30[3] = &unk_25DCA0;
+        v31 = stateCopy;
         selfCopy = self;
-        [(TUIHostingController *)self _finishOngoingModalTransitionAnimationsWithCompletion:v29];
-        v27 = v30;
+        [(TUIHostingController *)self _finishOngoingModalTransitionAnimationsWithCompletion:v30];
+        v28 = v31;
       }
 
       goto LABEL_10;
@@ -997,7 +999,7 @@ LABEL_11:
 
   layoutAttributes = [v8 layoutAttributes];
   refId = [layoutAttributes refId];
-  v12 = [refId isEqualToString:idCopy];
+  v12 = objc_msgSend_isEqualToString_(refId);
 
   if (v12)
   {
@@ -1091,8 +1093,7 @@ LABEL_15:
     view = [stateCopy view];
     if (([stateCopy previouslyAppeared] & 1) == 0)
     {
-      [stateCopy setPreviouslyAppeared:1];
-      v9 = TUIHostingLog();
+      v9 = TUIHostingLog([stateCopy setPreviouslyAppeared:1]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -1152,47 +1153,47 @@ LABEL_15:
 
       [viewController3 beginAppearanceTransition:0 animated:1];
 
-      v12 = TUIHostingLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = TUIHostingLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         uniqueIdentifier = self->_feedId.uniqueIdentifier;
         identifier = [stateCopy identifier];
         *buf = 134218498;
-        v36 = uniqueIdentifier;
-        v37 = 2112;
-        v38 = identifier;
-        v39 = 2048;
-        v40 = view;
-        _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "[fid:%lu] removing view for identifier=%@ view=%p", buf, 0x20u);
+        v37 = uniqueIdentifier;
+        v38 = 2112;
+        v39 = identifier;
+        v40 = 2048;
+        v41 = view;
+        _os_log_debug_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "[fid:%lu] removing view for identifier=%@ view=%p", buf, 0x20u);
       }
 
-      v13 = [UIViewPropertyAnimator alloc];
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_CC218;
-      v33[3] = &unk_25DE30;
-      v14 = view;
-      v34 = v14;
-      v15 = [v13 initWithDuration:v33 controlPoint1:0.2 controlPoint2:0.33 animations:{0.0, 0.67, 1.0}];
-      v16 = [UIViewPropertyAnimator alloc];
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_CC224;
-      v31[3] = &unk_25DE30;
-      v17 = v14;
-      v32 = v17;
-      v18 = [v16 initWithDuration:v31 controlPoint1:0.28 controlPoint2:0.33 animations:{0.0, 0.83, 0.76}];
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_CC27C;
-      v28[3] = &unk_2614B8;
-      v29 = v17;
-      v30 = stateCopy;
-      [v18 addCompletion:v28];
-      [v15 startAnimation];
-      [v18 startAnimation];
+      v14 = [UIViewPropertyAnimator alloc];
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_CC218;
+      v34[3] = &unk_25DE30;
+      v15 = view;
+      v35 = v15;
+      v16 = [v14 initWithDuration:v34 controlPoint1:0.2 controlPoint2:0.33 animations:{0.0, 0.67, 1.0}];
+      v17 = [UIViewPropertyAnimator alloc];
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_CC224;
+      v32[3] = &unk_25DE30;
+      v18 = v15;
+      v33 = v18;
+      v19 = [v17 initWithDuration:v32 controlPoint1:0.28 controlPoint2:0.33 animations:{0.0, 0.83, 0.76}];
+      v29[0] = _NSConcreteStackBlock;
+      v29[1] = 3221225472;
+      v29[2] = sub_CC27C;
+      v29[3] = &unk_2614B8;
+      v30 = v18;
+      v31 = stateCopy;
+      [v19 addCompletion:v29];
+      [v16 startAnimation];
+      [v19 startAnimation];
 
-      v19 = v34;
+      v20 = v35;
       goto LABEL_10;
     }
 
@@ -1204,13 +1205,13 @@ LABEL_15:
       identifier2 = [stateCopy identifier];
       [(TUIHostingController *)self updateVisible:0 forIdentifier:identifier2];
 
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_CC2D4;
-      v26[3] = &unk_25DE30;
-      v27 = stateCopy;
-      [(TUIHostingController *)self _finishOngoingModalTransitionAnimationsWithCompletion:v26];
-      v19 = v27;
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_CC2D4;
+      v27[3] = &unk_25DE30;
+      v28 = stateCopy;
+      [(TUIHostingController *)self _finishOngoingModalTransitionAnimationsWithCompletion:v27];
+      v20 = v28;
 LABEL_10:
     }
   }
@@ -1285,7 +1286,7 @@ LABEL_12:
   if (!presentation)
   {
     view = [stateCopy view];
-    v20 = TUIHostingLog();
+    v20 = TUIHostingLog(view);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       uniqueIdentifier = self->_feedId.uniqueIdentifier;

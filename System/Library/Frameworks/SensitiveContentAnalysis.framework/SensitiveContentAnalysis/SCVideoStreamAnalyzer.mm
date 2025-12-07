@@ -38,7 +38,7 @@
     v11 = v4 & 1;
     v5 = v3;
     v6 = v4;
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8968);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8968, qword_1AEAFFC90);
     Result.success.getter(v7, v10);
 
     sub_1AEA63A30(v5, v6);
@@ -90,12 +90,13 @@
   v6 = (*(&self->super.isa + OBJC_IVAR___SCVideoStreamAnalyzer_analyzer) + OBJC_IVAR____TtC24SensitiveContentAnalysis19VideoStreamAnalyzer_analysisChangedHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1AEA63D58(v4);
-  sub_1AEA438E0(v7);
-  sub_1AEA438E0(v4);
+  sub_1AEA63D58(v4, v5);
+  sub_1AEA438E0(v7, v8);
+  sub_1AEA438E0(v4, v5);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -209,13 +210,13 @@
 - (SCVideoStreamAnalyzer)initWithXPCObject:(id)object error:(id *)error
 {
   type metadata accessor for VideoStreamAnalyzer();
-  swift_unknownObjectRetain_n();
-  *(&self->super.isa + OBJC_IVAR___SCVideoStreamAnalyzer_analyzer) = VideoStreamAnalyzer.__allocating_init(xpcObject:)();
-  v7.receiver = self;
-  v7.super_class = SCVideoStreamAnalyzer;
-  v5 = [(SCVideoStreamAnalyzer *)&v7 init];
+  v5 = swift_unknownObjectRetain_n();
+  *(&self->super.isa + OBJC_IVAR___SCVideoStreamAnalyzer_analyzer) = VideoStreamAnalyzer.__allocating_init(xpcObject:)(v5);
+  v8.receiver = self;
+  v8.super_class = SCVideoStreamAnalyzer;
+  v6 = [(SCVideoStreamAnalyzer *)&v8 init];
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (void)analyzePixelBuffer:(__CVBuffer *)buffer

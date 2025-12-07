@@ -118,7 +118,7 @@
 
 + (id)entitlementsWithSecTask:(__SecTask *)task overrides:(id)overrides error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   overridesCopy = overrides;
   error = 0;
   v11 = objc_msgSend_allowedEntitlements(self, v9, v10);
@@ -131,26 +131,26 @@
   if (v18)
   {
     errorCopy2 = error;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v21 = v14;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v37, v42, 16);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v36, v41, 16);
     if (v23)
     {
       v25 = v23;
-      v26 = *v38;
+      v26 = *v37;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v38 != v26)
+          if (*v37 != v26)
           {
             objc_enumerationMutation(v21);
           }
 
-          v28 = *(*(&v37 + 1) + 8 * i);
+          v28 = *(*(&v36 + 1) + 8 * i);
           v30 = objc_msgSend_objectForKeyedSubscript_(overridesCopy, v24, v28);
           if (v30)
           {
@@ -158,7 +158,7 @@
           }
         }
 
-        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v37, v42, 16);
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v36, v41, 16);
       }
 
       while (v25);
@@ -175,28 +175,24 @@
     v33 = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v33;
 }
 
 + (id)allowedEntitlements
 {
-  v8[9] = *MEMORY[0x277D85DE8];
+  v7[9] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v8[0] = @"com.apple.private.ClassKit.register-dashboard";
-  v8[1] = @"com.apple.private.ClassKit.dashboard";
-  v8[2] = @"com.apple.private.ClassKit.search";
-  v8[3] = @"com.apple.private.contacts";
-  v8[4] = @"com.apple.private.contactsui";
-  v8[5] = @"application-identifier";
-  v8[6] = @"com.apple.private.ClassKit.internal";
-  v8[7] = @"com.apple.developer.ClassKit-environment";
-  v8[8] = @"com.apple.ClassKitUI.client";
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v8, 9);
+  v7[0] = @"com.apple.private.ClassKit.register-dashboard";
+  v7[1] = @"com.apple.private.ClassKit.dashboard";
+  v7[2] = @"com.apple.private.ClassKit.search";
+  v7[3] = @"com.apple.private.contacts";
+  v7[4] = @"com.apple.private.contactsui";
+  v7[5] = @"application-identifier";
+  v7[6] = @"com.apple.private.ClassKit.internal";
+  v7[7] = @"com.apple.developer.ClassKit-environment";
+  v7[8] = @"com.apple.ClassKitUI.client";
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v7, 9);
   v5 = objc_msgSend_setWithArray_(v2, v4, v3);
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -277,35 +273,35 @@
 
 - (CLSEntitlements)initWithEntitlements:(id)entitlements
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   entitlementsCopy = entitlements;
-  v28.receiver = self;
-  v28.super_class = CLSEntitlements;
-  v5 = [(CLSEntitlements *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = CLSEntitlements;
+  v5 = [(CLSEntitlements *)&v27 init];
   if (v5)
   {
     v6 = objc_opt_new();
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v7 = objc_opt_class();
     v10 = objc_msgSend_allowedEntitlements(v7, v8, v9);
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v24, v29, 16);
+    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v23, v28, 16);
     if (v12)
     {
       v14 = v12;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v10);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           v19 = objc_msgSend_objectForKeyedSubscript_(entitlementsCopy, v13, v17);
           if (v19)
           {
@@ -313,7 +309,7 @@
           }
         }
 
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v24, v29, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v23, v28, 16);
       }
 
       while (v14);
@@ -327,16 +323,15 @@
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (NSString)classKitEnvironment
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v2 = objc_msgSend_stringValueForEntitlement_error_(self, a2, @"com.apple.developer.ClassKit-environment", &v14);
-  v4 = v14;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v2 = objc_msgSend_stringValueForEntitlement_error_(self, a2, @"com.apple.developer.ClassKit-environment", &v13);
+  v4 = v13;
   if (v4)
   {
     if (qword_280B2A720 != -1)
@@ -348,17 +343,17 @@
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v17 = @"com.apple.developer.ClassKit-environment";
-      v18 = 2114;
-      v19 = v4;
+      v16 = @"com.apple.developer.ClassKit-environment";
+      v17 = 2114;
+      v18 = v4;
       _os_log_impl(&dword_236F71000, v5, OS_LOG_TYPE_INFO, "Failed to read %@ entitelment: %{public}@", buf, 0x16u);
     }
   }
 
   v6 = MEMORY[0x277CBEB98];
-  v15[0] = @"development";
-  v15[1] = @"production";
-  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v3, v15, 2);
+  v14[0] = @"development";
+  v14[1] = @"production";
+  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v3, v14, 2);
   v9 = objc_msgSend_setWithArray_(v6, v8, v7);
 
   if (v2 && objc_msgSend_containsObject_(v9, v10, v2))
@@ -370,8 +365,6 @@
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -386,10 +379,10 @@
 
 - (BOOL)isInternal
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.internal", &v7);
-  v3 = v7;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.internal", &v6);
+  v3 = v6;
   if (v3)
   {
     if (qword_280B2A720 != -1)
@@ -401,21 +394,20 @@
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = @"com.apple.private.ClassKit.internal";
+      v8 = @"com.apple.private.ClassKit.internal";
       _os_log_impl(&dword_236F71000, v4, OS_LOG_TYPE_INFO, "failed to read %@ entitlement.", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (BOOL)isUIClient
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.ClassKitUI.client", &v7);
-  v3 = v7;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.ClassKitUI.client", &v6);
+  v3 = v6;
   if (v3)
   {
     if (qword_280B2A720 != -1)
@@ -427,21 +419,20 @@
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = @"com.apple.ClassKitUI.client";
+      v8 = @"com.apple.ClassKitUI.client";
       _os_log_impl(&dword_236F71000, v4, OS_LOG_TYPE_INFO, "failed to read %@ entitlement.", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (BOOL)isDashboardAPIEnabled
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.dashboard", &v7);
-  v3 = v7;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.dashboard", &v6);
+  v3 = v6;
   if (v3)
   {
     if (qword_280B2A720 != -1)
@@ -453,21 +444,20 @@
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = @"com.apple.private.ClassKit.dashboard";
+      v8 = @"com.apple.private.ClassKit.dashboard";
       _os_log_impl(&dword_236F71000, v4, OS_LOG_TYPE_INFO, "failed to read %@ entitlement.", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (BOOL)isRegisterDashboardEnabled
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.register-dashboard", &v7);
-  v3 = v7;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.register-dashboard", &v6);
+  v3 = v6;
   if (v3)
   {
     if (qword_280B2A720 != -1)
@@ -479,76 +469,70 @@
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = @"com.apple.private.ClassKit.register-dashboard";
+      v8 = @"com.apple.private.ClassKit.register-dashboard";
       _os_log_impl(&dword_236F71000, v4, OS_LOG_TYPE_INFO, "failed to read %@ entitlement.", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (BOOL)isSearchAPIEnabled
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_isPrivateSearchAPIEnabled(self, a2, v2))
   {
+    return 1;
+  }
+
+  v14 = 0;
+  v6 = objc_msgSend_BOOLValueForEntitlement_error_(self, v4, @"com.apple.private.contacts", &v14);
+  v7 = v14;
+  v9 = v7;
+  if (v6)
+  {
     v5 = 1;
+    if (!v7)
+    {
+      return v5;
+    }
   }
 
   else
   {
-    v15 = 0;
-    v6 = objc_msgSend_BOOLValueForEntitlement_error_(self, v4, @"com.apple.private.contacts", &v15);
-    v7 = v15;
-    v9 = v7;
-    if (v6)
-    {
-      v5 = 1;
-      if (!v7)
-      {
-        goto LABEL_12;
-      }
-    }
+    v13 = v7;
+    v5 = objc_msgSend_BOOLValueForEntitlement_error_(self, v8, @"com.apple.private.contactsui", &v13);
+    v10 = v13;
 
-    else
+    v9 = v10;
+    if (!v10)
     {
-      v14 = v7;
-      v5 = objc_msgSend_BOOLValueForEntitlement_error_(self, v8, @"com.apple.private.contactsui", &v14);
-      v10 = v14;
-
-      v9 = v10;
-      if (!v10)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    if (qword_280B2A720 != -1)
-    {
-      dispatch_once(&qword_280B2A720, &unk_284A07B28);
-    }
-
-    v11 = CLSLogDefault;
-    if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412290;
-      v17 = @"searchAPI";
-      _os_log_impl(&dword_236F71000, v11, OS_LOG_TYPE_INFO, "failed to read %@ entitlement.", buf, 0xCu);
+      return v5;
     }
   }
 
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
+  if (qword_280B2A720 != -1)
+  {
+    dispatch_once(&qword_280B2A720, &unk_284A07B28);
+  }
+
+  v11 = CLSLogDefault;
+  if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v16 = @"searchAPI";
+    _os_log_impl(&dword_236F71000, v11, OS_LOG_TYPE_INFO, "failed to read %@ entitlement.", buf, 0xCu);
+  }
+
   return v5;
 }
 
 - (BOOL)isPrivateSearchAPIEnabled
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.search", &v7);
-  v3 = v7;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = objc_msgSend_BOOLValueForEntitlement_error_(self, a2, @"com.apple.private.ClassKit.search", &v6);
+  v3 = v6;
   if (v3)
   {
     if (qword_280B2A720 != -1)
@@ -560,12 +544,11 @@ LABEL_12:
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = @"searchAPI";
+      v8 = @"searchAPI";
       _os_log_impl(&dword_236F71000, v4, OS_LOG_TYPE_INFO, "failed to read %@ entitlement.", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

@@ -127,8 +127,7 @@
     v6 = ARVisionDataParametersForWorldTrackingOptions(_trackingOptions);
     if (v6)
     {
-      [imageSensorSettings setVisionDataOutputParameters:v6];
-      v7 = _ARLogGeneral_10();
+      v7 = _ARLogGeneral_10([imageSensorSettings setVisionDataOutputParameters:v6]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         v8 = objc_opt_class();
@@ -149,7 +148,7 @@ LABEL_7:
 
     else
     {
-      v7 = _ARLogGeneral_10();
+      v7 = _ARLogGeneral_10(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         v13 = objc_opt_class();
@@ -225,7 +224,7 @@ LABEL_7:
 
 - (void)createTechniques:(id)techniques
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   techniquesCopy = techniques;
   _trackingOptions = [(ARBodyTrackingConfiguration *)self _trackingOptions];
   imageSensorSettings = [(ARBodyTrackingConfiguration *)self imageSensorSettings];
@@ -249,60 +248,61 @@ LABEL_7:
   if ([_trackingOptions planeDetection])
   {
     v10 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.accuratePlaneExtentCheck"];
-    v11 = _ARLogGeneral_10();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v11 = v10;
+    v12 = _ARLogGeneral_10(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = @"disabled";
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = @"disabled";
       *buf = 138543874;
-      v79 = v13;
-      if (v10)
+      v84 = v14;
+      if (v11)
       {
-        v14 = @"enabled";
+        v15 = @"enabled";
       }
 
-      v80 = 2048;
+      v85 = 2048;
       selfCopy = self;
-      v82 = 2114;
-      v83 = v14;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ray-cast accurate extent check: %{public}@", buf, 0x20u);
+      v87 = 2114;
+      v88 = v15;
+      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ray-cast accurate extent check: %{public}@", buf, 0x20u);
     }
 
-    if (v10)
+    if (v11)
     {
       [_trackingOptions setPlaneDetection:{objc_msgSend(_trackingOptions, "planeDetection") | 0x200}];
     }
   }
 
-  v15 = [[ARWorldTrackingTechnique alloc] initWithOptions:_trackingOptions];
-  v16 = v15;
-  if (v15)
+  v16 = [[ARWorldTrackingTechnique alloc] initWithOptions:_trackingOptions];
+  v17 = v16;
+  if (v16)
   {
-    options = [(ARWorldTrackingTechnique *)v15 options];
+    options = [(ARWorldTrackingTechnique *)v16 options];
     planeDetection = [options planeDetection];
 
     if (planeDetection)
     {
-      v19 = [[ARPlaneEstimationTechnique alloc] initWithTrackingTechnique:v16];
-      [techniquesCopy addObject:v19];
+      v20 = [[ARPlaneEstimationTechnique alloc] initWithTrackingTechnique:v17];
+      [techniquesCopy addObject:v20];
     }
 
     if ([(ARBodyTrackingConfiguration *)self environmentTexturing])
     {
-      v20 = [[AREnvironmentTexturingTechnique alloc] initWithOptions:[(ARBodyTrackingConfiguration *)self environmentTexturing] wantsHDREnvironmentTextures:self->_wantsHDREnvironmentTextures];
-      [techniquesCopy addObject:v20];
+      v21 = [[AREnvironmentTexturingTechnique alloc] initWithOptions:[(ARBodyTrackingConfiguration *)self environmentTexturing] wantsHDREnvironmentTextures:self->_wantsHDREnvironmentTextures];
+      [techniquesCopy addObject:v21];
     }
 
-    v21 = [ARParentTechnique alloc];
-    v77 = v16;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
-    v23 = [(ARParentTechnique *)v21 initWithParallelTechniques:v22];
+    v22 = [ARParentTechnique alloc];
+    v82 = v17;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v82 count:1];
+    v24 = [(ARParentTechnique *)v22 initWithParallelTechniques:v23];
 
-    [techniquesCopy insertObject:v23 atIndex:0];
-    v74.receiver = self;
-    v74.super_class = ARBodyTrackingConfiguration;
-    [(ARConfiguration *)&v74 createTechniques:techniquesCopy];
+    [techniquesCopy insertObject:v24 atIndex:0];
+    v79.receiver = self;
+    v79.super_class = ARBodyTrackingConfiguration;
+    [(ARConfiguration *)&v79 createTechniques:techniquesCopy];
     if ([(ARBodyTrackingConfiguration *)self planeDetection])
     {
       _trackingOptions2 = [(ARBodyTrackingConfiguration *)self _trackingOptions];
@@ -310,122 +310,122 @@ LABEL_7:
 
       if (mlModelEnabled)
       {
-        v26 = ARDeviceSupportsJasper();
+        v29 = ARDeviceSupportsJasper(v27, v28);
         maxUltrawideImageForwardingFrameRate = [(ARConfiguration *)self maxUltrawideImageForwardingFrameRate];
-        if (v26)
+        if (v29)
         {
-          ARAddJasperTechniquesToParent(v23, techniquesCopy, 1, 0, maxUltrawideImageForwardingFrameRate);
+          ARAddJasperTechniquesToParent(v24, techniquesCopy, 1, 0, maxUltrawideImageForwardingFrameRate);
         }
 
         else
         {
-          ARAddNonJasperSemanticsToParent(v23, techniquesCopy, maxUltrawideImageForwardingFrameRate, 1);
+          ARAddNonJasperSemanticsToParent(v24, techniquesCopy, maxUltrawideImageForwardingFrameRate, 1);
         }
       }
     }
 
     if (([(ARConfiguration *)self frameSemantics]& 4) != 0)
     {
-      v71 = v23;
-      v28 = [ARParentTechnique parentTechniqueOfClass:objc_opt_class() inArray:techniquesCopy];
-      v29 = MEMORY[0x1E695DF70];
-      techniques = [v28 techniques];
-      v31 = [v29 arrayWithArray:techniques];
+      v76 = v24;
+      v31 = [ARParentTechnique parentTechniqueOfClass:objc_opt_class() inArray:techniquesCopy];
+      v32 = MEMORY[0x1E695DF70];
+      techniques = [v31 techniques];
+      v34 = [v32 arrayWithArray:techniques];
 
-      v32 = objc_opt_new();
-      v33 = objc_opt_new();
-      [v33 setAutomaticSkeletonScaleEstimationEnabled:{-[ARBodyTrackingConfiguration automaticSkeletonScaleEstimationEnabled](self, "automaticSkeletonScaleEstimationEnabled")}];
-      v34 = objc_opt_new();
-      v68 = v32;
-      [v31 addObject:v32];
-      v69 = v31;
-      v70 = v28;
-      [v28 setTechniques:v31];
-      v67 = v33;
-      [techniquesCopy addObject:v33];
-      [techniquesCopy addObject:v34];
-      v35 = MEMORY[0x1E695DFD8];
-      v76[0] = objc_opt_class();
-      v76[1] = objc_opt_class();
-      v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:2];
-      v37 = [v35 setWithArray:v36];
+      v35 = objc_opt_new();
+      v36 = objc_opt_new();
+      [v36 setAutomaticSkeletonScaleEstimationEnabled:{-[ARBodyTrackingConfiguration automaticSkeletonScaleEstimationEnabled](self, "automaticSkeletonScaleEstimationEnabled")}];
+      v37 = objc_opt_new();
+      v73 = v35;
+      [v34 addObject:v35];
+      v74 = v34;
+      v75 = v31;
+      [v31 setTechniques:v34];
+      v72 = v36;
+      [techniquesCopy addObject:v36];
+      [techniquesCopy addObject:v37];
+      v38 = MEMORY[0x1E695DFD8];
+      v81[0] = objc_opt_class();
+      v81[1] = objc_opt_class();
+      v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:2];
+      v40 = [v38 setWithArray:v39];
 
-      v66 = v37;
-      v38 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v37];
-      [techniquesCopy insertObject:v38 atIndex:{objc_msgSend(techniquesCopy, "indexOfObjectPassingTest:", &__block_literal_global_49)}];
-      v39 = objc_opt_new();
-      [v39 setDelegate:v38];
-      v75 = v39;
-      v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
-      v65 = v34;
-      [v34 setSplitTechniques:v40];
+      v71 = v40;
+      v41 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v40];
+      [techniquesCopy insertObject:v41 atIndex:{objc_msgSend(techniquesCopy, "indexOfObjectPassingTest:", &__block_literal_global_49)}];
+      v42 = objc_opt_new();
+      [v42 setDelegate:v41];
+      v80 = v42;
+      v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
+      v70 = v37;
+      [v37 setSplitTechniques:v43];
 
-      if (ARDeviceSupportsJasper())
+      if (ARDeviceSupportsJasper(v44, v45))
       {
-        v41 = objc_alloc(MEMORY[0x1E695DFD8]);
-        v42 = objc_opt_class();
-        v43 = [v41 initWithObjects:{v42, objc_opt_class(), 0}];
-        v44 = MEMORY[0x1E696AE18];
-        v72[0] = MEMORY[0x1E69E9820];
-        v72[1] = 3221225472;
-        v72[2] = __48__ARBodyTrackingConfiguration_createTechniques___block_invoke_2;
-        v72[3] = &unk_1E817CD68;
-        v45 = v43;
-        v73 = v45;
-        v46 = [v44 predicateWithBlock:v72];
-        v47 = [ARTechnique techniqueMatchingPredicate:v46 inArray:techniquesCopy];
+        v46 = objc_alloc(MEMORY[0x1E695DFD8]);
+        v47 = objc_opt_class();
+        v48 = [v46 initWithObjects:{v47, objc_opt_class(), 0}];
+        v49 = MEMORY[0x1E696AE18];
+        v77[0] = MEMORY[0x1E69E9820];
+        v77[1] = 3221225472;
+        v77[2] = __48__ARBodyTrackingConfiguration_createTechniques___block_invoke_2;
+        v77[3] = &unk_1E817CD68;
+        v50 = v48;
+        v78 = v50;
+        v51 = [v49 predicateWithBlock:v77];
+        v52 = [ARTechnique techniqueMatchingPredicate:v51 inArray:techniquesCopy];
 
-        if (!v47)
+        if (!v52)
         {
-          v64 = v9;
-          v63 = v45;
-          v48 = [ARParentTechnique parentTechniqueOfClass:objc_opt_class() inArray:techniquesCopy];
-          if (!v48)
+          v69 = v9;
+          v68 = v50;
+          v53 = [ARParentTechnique parentTechniqueOfClass:objc_opt_class() inArray:techniquesCopy];
+          if (!v53)
           {
-            v48 = [ARParentTechnique parentTechniqueOfClass:objc_opt_class() inArray:techniquesCopy];
+            v53 = [ARParentTechnique parentTechniqueOfClass:objc_opt_class() inArray:techniquesCopy];
           }
 
-          v62 = objc_opt_new();
-          splitTechniques = [v48 splitTechniques];
-          v50 = [splitTechniques arrayByAddingObject:v62];
-          v51 = v48;
-          [v48 setSplitTechniques:v50];
+          v67 = objc_opt_new();
+          splitTechniques = [v53 splitTechniques];
+          v55 = [splitTechniques arrayByAddingObject:v67];
+          v56 = v53;
+          [v53 setSplitTechniques:v55];
 
-          v52 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
-          v53 = v51;
-          [v51 setSplitTechniqueFowardingStrategy:v52];
+          v57 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
+          v58 = v56;
+          [v56 setSplitTechniqueFowardingStrategy:v57];
 
-          v45 = v63;
-          v54 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v63];
-          [v62 setDelegate:v54];
-          [techniquesCopy insertObject:v54 atIndex:0];
+          v50 = v68;
+          v59 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v68];
+          [v67 setDelegate:v59];
+          [techniquesCopy insertObject:v59 atIndex:0];
 
-          v9 = v64;
-          v47 = 0;
+          v9 = v69;
+          v52 = 0;
         }
       }
 
-      v23 = v71;
+      v24 = v76;
     }
 
     detectionImages = [(ARBodyTrackingConfiguration *)self detectionImages];
-    v56 = [detectionImages count];
+    v61 = [detectionImages count];
 
-    if (v56)
+    if (v61)
     {
-      v57 = [ARImageDetectionTechnique alloc];
+      v62 = [ARImageDetectionTechnique alloc];
       detectionImages2 = [(ARBodyTrackingConfiguration *)self detectionImages];
       allObjects = [detectionImages2 allObjects];
-      v60 = [(ARImageDetectionTechnique *)v57 initWithReferenceImages:allObjects maximumNumberOfTrackedImages:[(ARBodyTrackingConfiguration *)self maximumNumberOfTrackedImages]];
+      v65 = [(ARImageDetectionTechnique *)v62 initWithReferenceImages:allObjects maximumNumberOfTrackedImages:[(ARBodyTrackingConfiguration *)self maximumNumberOfTrackedImages]];
 
-      [(ARImageDetectionTechnique *)v60 setEnableAutomaticImageScaleEstimation:[(ARBodyTrackingConfiguration *)self automaticImageScaleEstimationEnabled]];
-      [techniquesCopy addObject:v60];
+      [(ARImageDetectionTechnique *)v65 setEnableAutomaticImageScaleEstimation:[(ARBodyTrackingConfiguration *)self automaticImageScaleEstimationEnabled]];
+      [techniquesCopy addObject:v65];
     }
 
     if ([(ARBodyTrackingConfiguration *)self appClipCodeTrackingEnabled])
     {
-      v61 = [[ARAppClipCodeTechnique alloc] initWithIgnoreURLLimitation:[(ARBodyTrackingConfiguration *)self ignoreAppClipCodeURLLimitation]];
-      [techniquesCopy addObject:v61];
+      v66 = [[ARAppClipCodeTechnique alloc] initWithIgnoreURLLimitation:[(ARBodyTrackingConfiguration *)self ignoreAppClipCodeURLLimitation]];
+      [techniquesCopy addObject:v66];
     }
   }
 }
@@ -474,7 +474,7 @@ uint64_t __48__ARBodyTrackingConfiguration_createTechniques___block_invoke_2(uin
   {
     occlusionCopy = occlusion;
     s_allowsParallelPersonOcclusion = occlusion;
-    v5 = _ARLogGeneral_10();
+    v5 = _ARLogGeneral_10(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = objc_opt_class();
@@ -497,7 +497,7 @@ uint64_t __48__ARBodyTrackingConfiguration_createTechniques___block_invoke_2(uin
   {
     depthCopy = depth;
     s_allowsParallelSceneDepth = depth;
-    v5 = _ARLogGeneral_10();
+    v5 = _ARLogGeneral_10(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = objc_opt_class();
@@ -743,81 +743,83 @@ uint64_t __48__ARBodyTrackingConfiguration_createTechniques___block_invoke_2(uin
 
 + (id)_querySupportedVideoFormatsForUltraWide
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6986948];
-  v31 = 0x1E000000280;
+  v34 = 0x1E000000280;
   v4 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imagesensor.back.ultrawide.videoBinned"];
-  if ([ARKitUserDefaults resolutionForKey:@"com.apple.arkit.imagesensor.back.ultrawide.resolution" resultingDimensions:&v31])
+  v5 = [ARKitUserDefaults resolutionForKey:@"com.apple.arkit.imagesensor.back.ultrawide.resolution" resultingDimensions:&v34];
+  if (v5)
   {
-    v5 = _ARLogSensor_7();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _ARLogSensor_7(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138544386;
-      v34 = v7;
-      v35 = 2048;
+      v37 = v8;
+      v38 = 2048;
       selfCopy5 = self;
-      v37 = 2112;
-      v38 = *&v3;
-      v39 = 1024;
-      v40 = v31;
-      v41 = 1024;
-      v42 = HIDWORD(v31);
-      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARVideoFormat resolution for %@ set to %i, %i by user defaults", buf, 0x2Cu);
+      v40 = 2112;
+      v41 = *&v3;
+      v42 = 1024;
+      v43 = v34;
+      v44 = 1024;
+      v45 = HIDWORD(v34);
+      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARVideoFormat resolution for %@ set to %i, %i by user defaults", buf, 0x2Cu);
     }
   }
 
-  v8 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.imagesensor.back.ultrawide.frameRate"];
-  v9 = v8;
-  if (v8)
+  v9 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.imagesensor.back.ultrawide.frameRate"];
+  v10 = v9;
+  if (v9)
   {
-    [v8 doubleValue];
-    v11 = v10;
-    v12 = _ARLogSensor_7();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    doubleValue = [v9 doubleValue];
+    v13 = v12;
+    v14 = _ARLogSensor_7(doubleValue);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138543874;
-      v34 = v14;
-      v35 = 2048;
+      v37 = v16;
+      v38 = 2048;
       selfCopy5 = self;
-      v37 = 2048;
-      v38 = v11;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARVideoFormat frame rate set to %f by user defaults", buf, 0x20u);
+      v40 = 2048;
+      v41 = v13;
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARVideoFormat frame rate set to %f by user defaults", buf, 0x20u);
     }
   }
 
   else
   {
-    v11 = 10.0;
+    v13 = 10.0;
   }
 
-  v15 = [ARVideoFormat bestVideoFormatForDevicePosition:1 deviceType:v3 resolution:v31 frameRate:v4 videoBinned:v11];
-  v16 = v15;
-  if (v15)
+  v17 = [ARVideoFormat bestVideoFormatForDevicePosition:1 deviceType:v3 resolution:v34 frameRate:v4 videoBinned:v13];
+  v18 = v17;
+  if (v17)
   {
-    [v15 imageResolution];
-    if ([ARWorldTrackingTechnique supportsVideoResolution:v3 forDeviceType:?])
+    [v17 imageResolution];
+    v19 = [ARWorldTrackingTechnique supportsVideoResolution:v3 forDeviceType:?];
+    if (v19)
     {
-      v32 = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+      v35 = v18;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
       goto LABEL_25;
     }
 
-    v18 = _ARLogGeneral_10();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v21 = _ARLogGeneral_10(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       *buf = 138543874;
-      v34 = v20;
-      v35 = 2048;
+      v37 = v23;
+      v38 = 2048;
       selfCopy5 = self;
-      v37 = 2114;
-      v38 = *&v16;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Not returning video format %{public}@ because world tracking technique does not support its video resolution on current device", buf, 0x20u);
+      v40 = 2114;
+      v41 = *&v18;
+      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Not returning video format %{public}@ because world tracking technique does not support its video resolution on current device", buf, 0x20u);
     }
   }
 
@@ -826,45 +828,45 @@ uint64_t __48__ARBodyTrackingConfiguration_createTechniques___block_invoke_2(uin
     +[ARBodyTrackingConfiguration _querySupportedVideoFormatsForUltraWide];
   }
 
-  v21 = ARShouldUseLogTypeError_internalOSVersion_22;
-  v22 = _ARLogGeneral_10();
-  v23 = v22;
-  if (v21 == 1)
+  v24 = ARShouldUseLogTypeError_internalOSVersion_22;
+  v25 = _ARLogGeneral_10(v17);
+  v26 = v25;
+  if (v24 == 1)
   {
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
       *buf = 138543618;
-      v34 = v25;
-      v35 = 2048;
+      v37 = v28;
+      v38 = 2048;
       selfCopy5 = self;
-      v26 = "%{public}@ <%p>: Video format not found for using ultra wide in world tracking";
-      v27 = v23;
-      v28 = OS_LOG_TYPE_ERROR;
+      v29 = "%{public}@ <%p>: Video format not found for using ultra wide in world tracking";
+      v30 = v26;
+      v31 = OS_LOG_TYPE_ERROR;
 LABEL_23:
-      _os_log_impl(&dword_1C241C000, v27, v28, v26, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v30, v31, v29, buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    v29 = objc_opt_class();
-    v25 = NSStringFromClass(v29);
+    v32 = objc_opt_class();
+    v28 = NSStringFromClass(v32);
     *buf = 138543618;
-    v34 = v25;
-    v35 = 2048;
+    v37 = v28;
+    v38 = 2048;
     selfCopy5 = self;
-    v26 = "Error: %{public}@ <%p>: Video format not found for using ultra wide in world tracking";
-    v27 = v23;
-    v28 = OS_LOG_TYPE_INFO;
+    v29 = "Error: %{public}@ <%p>: Video format not found for using ultra wide in world tracking";
+    v30 = v26;
+    v31 = OS_LOG_TYPE_INFO;
     goto LABEL_23;
   }
 
-  v17 = MEMORY[0x1E695E0F0];
+  v20 = MEMORY[0x1E695E0F0];
 LABEL_25:
 
-  return v17;
+  return v20;
 }
 
 + (id)supportedVideoFormatsForUltraWide
@@ -956,8 +958,7 @@ void __64__ARBodyTrackingConfiguration_supportedVideoFormatsForUltraWide__block_
       v9 = ARVisionDataParametersForWorldTrackingOptions(_trackingOptions);
       if (v9)
       {
-        [(ARImageSensorSettings *)v5 setVisionDataOutputParameters:v9];
-        v10 = _ARLogGeneral_10();
+        v10 = _ARLogGeneral_10([(ARImageSensorSettings *)v5 setVisionDataOutputParameters:v9]);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           v11 = objc_opt_class();
@@ -978,7 +979,7 @@ LABEL_11:
 
       else
       {
-        v10 = _ARLogGeneral_10();
+        v10 = _ARLogGeneral_10(0);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           v16 = objc_opt_class();
@@ -1008,19 +1009,21 @@ LABEL_14:
 
 - (BOOL)shouldUseUltraWide
 {
-  if (!ARDeviceSupportsUltraWideCamera())
+  v2 = ARDeviceSupportsUltraWideCamera(self, a2);
+  if (!v2)
   {
     return 0;
   }
 
-  if ((ARDeviceSupportsJasper() & 1) == 0)
+  if ((ARDeviceSupportsJasper(v2, v3) & 1) == 0)
   {
-    if (ARDeviceSupportsMulticamMode() && ARUserDefaultsMulticamModeEnabled())
+    v5 = ARDeviceSupportsMulticamMode();
+    if (v5 && ARUserDefaultsMulticamModeEnabled(v5, v6))
     {
       supportedVideoFormatsForUltraWide = [objc_opt_class() supportedVideoFormatsForUltraWide];
-      v2 = [supportedVideoFormatsForUltraWide count] != 0;
+      v4 = [supportedVideoFormatsForUltraWide count] != 0;
 
-      return v2;
+      return v4;
     }
 
     return 0;

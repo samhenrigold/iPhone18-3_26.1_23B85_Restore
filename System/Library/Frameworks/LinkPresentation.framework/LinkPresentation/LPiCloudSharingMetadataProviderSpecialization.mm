@@ -285,15 +285,15 @@ void __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_2(u
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_3(uint64_t a1)
+void __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ((*(*(a1 + 32) + 64) & 1) == 0)
   {
     if (*(a1 + 40))
     {
-      v2 = LPLogChannelFetching();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = LPLogChannelFetching(a1, a2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_3_cold_1();
       }
@@ -303,11 +303,11 @@ LABEL_13:
       return;
     }
 
-    v3 = *(a1 + 48);
-    if (!v3 || ([v3 containerIdentifier], v4 = objc_claimAutoreleasedReturnValue(), v4, !v4))
+    v4 = *(a1 + 48);
+    if (!v4 || ([v4 containerIdentifier], v5 = objc_claimAutoreleasedReturnValue(), v5, !v5))
     {
-      v13 = LPLogChannelFetching();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = LPLogChannelFetching(v4, a2);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_3_cold_3();
       }
@@ -315,29 +315,29 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v5 = LPLogChannelFetching();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = LPLogChannelFetching(v4, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = [*(a1 + 48) containerIdentifier];
-      __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_3_cold_2(v6, buf, v5);
+      v7 = [*(a1 + 48) containerIdentifier];
+      __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_3_cold_2(v7, buf, v6);
     }
 
-    v7 = MEMORY[0x1E695B888];
-    v8 = [*(a1 + 48) containerIdentifier];
-    v9 = [v7 containerWithIdentifier:v8];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 56);
-    *(v10 + 56) = v9;
+    v8 = MEMORY[0x1E695B888];
+    v9 = [*(a1 + 48) containerIdentifier];
+    v10 = [v8 containerWithIdentifier:v9];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 56);
+    *(v11 + 56) = v10;
 
-    v12 = objc_alloc_init(MEMORY[0x1E695B970]);
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_43;
-    v17 = &unk_1E7A373B0;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 48);
-    [v12 setFetchWhitelistedBundleIDsCompletionBlock:&v14];
-    [*(*(a1 + 32) + 56) addOperation:{v12, v14, v15, v16, v17, v18}];
+    v13 = objc_alloc_init(MEMORY[0x1E695B970]);
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_43;
+    v18 = &unk_1E7A373B0;
+    v19 = *(a1 + 32);
+    v20 = *(a1 + 48);
+    [v13 setFetchWhitelistedBundleIDsCompletionBlock:&v15];
+    [*(*(a1 + 32) + 56) addOperation:{v13, v15, v16, v17, v18, v19}];
   }
 }
 
@@ -359,32 +359,32 @@ void __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_43(
   dispatch_async(MEMORY[0x1E69E96A0], v10);
 }
 
-uint64_t __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_2_44(uint64_t result)
+void *__54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_2_44(void *result, uint64_t a2)
 {
-  if ((*(*(result + 32) + 64) & 1) == 0)
+  if ((*(result[4] + 64) & 1) == 0)
   {
-    v1 = result;
-    v2 = *(result + 40);
-    v3 = LPLogChannelFetching();
-    v4 = v3;
-    if (v2)
+    v2 = result;
+    v3 = result[5];
+    v4 = LPLogChannelFetching(result, a2);
+    v5 = v4;
+    if (v3)
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_2_44_cold_1();
       }
 
-      return [*(v1 + 32) fail];
+      return [v2[4] fail];
     }
 
     else
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_2_44_cold_2(v1, v4);
+        __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke_2_44_cold_2(v2, v5);
       }
 
-      return [*(v1 + 32) completeWithShareMetadata:*(v1 + 56) bundleIDs:*(v1 + 48)];
+      return [v2[4] completeWithShareMetadata:v2[7] bundleIDs:v2[6]];
     }
   }
 
@@ -395,39 +395,39 @@ uint64_t __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke
 {
   metadataCopy = metadata;
   dsCopy = ds;
-  v8 = LPLogChannelFetching();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = LPLogChannelFetching(dsCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [LPiCloudSharingMetadataProviderSpecialization completeWithShareMetadata:bundleIDs:];
   }
 
-  v9 = +[LPiCloudSharingMetadata _applicationNameMap];
-  v10 = [v9 objectForKeyedSubscript:self->_applicationFromURL];
+  v10 = +[LPiCloudSharingMetadata _applicationNameMap];
+  v11 = [v10 objectForKeyedSubscript:self->_applicationFromURL];
 
-  v11 = [objc_opt_class() normalizeKind:self->_kindFromURL forApplication:v10];
+  v12 = [objc_opt_class() normalizeKind:self->_kindFromURL forApplication:v11];
   share = [metadataCopy share];
-  v13 = [share objectForKeyedSubscript:*MEMORY[0x1E695B828]];
+  v14 = [share objectForKeyedSubscript:*MEMORY[0x1E695B828]];
 
   share2 = [metadataCopy share];
-  v15 = [(LPiCloudSharingMetadataProviderSpecialization *)self iconFromShare:share2];
+  v16 = [(LPiCloudSharingMetadataProviderSpecialization *)self iconFromShare:share2];
 
-  if (v10)
+  if (v11)
   {
-    if ([(LPiCloudSharingMetadataProviderSpecialization *)self canRetrieveThumbnailForApplication:v10])
+    if ([(LPiCloudSharingMetadataProviderSpecialization *)self canRetrieveThumbnailForApplication:v11])
     {
-      [(LPiCloudSharingMetadataProviderSpecialization *)self completeRetrievingThumbnailForShareMetadata:metadataCopy application:v10 kind:v11 title:v13 icon:v15];
+      [(LPiCloudSharingMetadataProviderSpecialization *)self completeRetrievingThumbnailForShareMetadata:metadataCopy application:v11 kind:v12 title:v14 icon:v16];
     }
 
     else
     {
-      [(LPiCloudSharingMetadataProviderSpecialization *)self completeUsingApplication:v10 kind:v11 title:v13 thumbnail:0 icon:v15];
+      [(LPiCloudSharingMetadataProviderSpecialization *)self completeUsingApplication:v11 kind:v12 title:v14 thumbnail:0 icon:v16];
     }
   }
 
   else
   {
     containerIdentifier = [metadataCopy containerIdentifier];
-    v17 = [(LPiCloudSharingMetadataProviderSpecialization *)self applicationFromBundleIdentifiers:dsCopy containerIdentifier:containerIdentifier];
+    v18 = [(LPiCloudSharingMetadataProviderSpecialization *)self applicationFromBundleIdentifiers:dsCopy containerIdentifier:containerIdentifier];
 
     if (self->_titleFromURL)
     {
@@ -436,10 +436,10 @@ uint64_t __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke
 
     else
     {
-      titleFromURL = v13;
+      titleFromURL = v14;
     }
 
-    [(LPiCloudSharingMetadataProviderSpecialization *)self completeUsingApplication:v17 kind:v11 title:titleFromURL thumbnail:0 icon:v15];
+    [(LPiCloudSharingMetadataProviderSpecialization *)self completeUsingApplication:v18 kind:v12 title:titleFromURL thumbnail:0 icon:v16];
   }
 }
 
@@ -450,21 +450,21 @@ uint64_t __54__LPiCloudSharingMetadataProviderSpecialization_start__block_invoke
   titleCopy = title;
   thumbnailCopy = thumbnail;
   iconCopy = icon;
-  v17 = LPLogChannelFetching();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = LPLogChannelFetching(iconCopy, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    [LPiCloudSharingMetadataProviderSpecialization completeUsingApplication:applicationCopy kind:titleCopy title:v17 thumbnail:? icon:?];
+    [LPiCloudSharingMetadataProviderSpecialization completeUsingApplication:applicationCopy kind:titleCopy title:v18 thumbnail:? icon:?];
   }
 
-  v18 = objc_alloc_init(LPiCloudSharingMetadata);
-  [(LPiCloudSharingMetadata *)v18 setApplication:applicationCopy];
-  [(LPiCloudSharingMetadata *)v18 setKind:kindCopy];
-  [(LPiCloudSharingMetadata *)v18 setTitle:titleCopy];
-  [(LPiCloudSharingMetadata *)v18 setThumbnail:thumbnailCopy];
-  [(LPiCloudSharingMetadata *)v18 setIcon:iconCopy];
-  v19 = [(LPMetadataProviderSpecialization *)self createMetadataWithSpecialization:v18];
+  v19 = objc_alloc_init(LPiCloudSharingMetadata);
+  [(LPiCloudSharingMetadata *)v19 setApplication:applicationCopy];
+  [(LPiCloudSharingMetadata *)v19 setKind:kindCopy];
+  [(LPiCloudSharingMetadata *)v19 setTitle:titleCopy];
+  [(LPiCloudSharingMetadata *)v19 setThumbnail:thumbnailCopy];
+  [(LPiCloudSharingMetadata *)v19 setIcon:iconCopy];
+  v20 = [(LPMetadataProviderSpecialization *)self createMetadataWithSpecialization:v19];
   delegate = [(LPMetadataProviderSpecialization *)self delegate];
-  [delegate metadataProviderSpecialization:self didCompleteWithMetadata:v19];
+  [delegate metadataProviderSpecialization:self didCompleteWithMetadata:v20];
 }
 
 - (void)fail
@@ -597,11 +597,11 @@ void __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThum
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v14 = LPLogChannelFetching();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = LPLogChannelFetching(v6, v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_cold_1();
     }
@@ -610,38 +610,38 @@ void __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThum
     block[1] = 3221225472;
     block[2] = __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_50;
     block[3] = &unk_1E7A37400;
-    v20 = *(a1 + 32);
-    v15 = *(&v20 + 1);
-    v16 = *(a1 + 48);
-    v17 = *(a1 + 56);
-    *&v18 = v16;
-    *(&v18 + 1) = v17;
-    v27 = v20;
-    v28 = v18;
-    v29 = *(a1 + 64);
+    v21 = *(a1 + 32);
+    v16 = *(&v21 + 1);
+    v17 = *(a1 + 48);
+    v18 = *(a1 + 56);
+    *&v19 = v17;
+    *(&v19 + 1) = v18;
+    v28 = v21;
+    v29 = v19;
+    v30 = *(a1 + 64);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
     [v5 startAccessingSecurityScopedResource];
-    v8 = [objc_alloc(MEMORY[0x1E697A0E0]) initWithFileAtURL:v5 size:4 scale:300.0 representationTypes:{600.0, 3.0}];
-    v9 = [MEMORY[0x1E697A0E8] sharedGenerator];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_2;
-    v21[3] = &unk_1E7A37450;
-    v22 = v5;
-    v19 = *(a1 + 32);
-    v10 = *(&v19 + 1);
-    v11 = *(a1 + 48);
-    v12 = *(a1 + 56);
-    *&v13 = v11;
-    *(&v13 + 1) = v12;
-    v23 = v19;
-    v24 = v13;
-    v25 = *(a1 + 64);
-    [v9 generateBestRepresentationForRequest:v8 completionHandler:v21];
+    v9 = [objc_alloc(MEMORY[0x1E697A0E0]) initWithFileAtURL:v5 size:4 scale:300.0 representationTypes:{600.0, 3.0}];
+    v10 = [MEMORY[0x1E697A0E8] sharedGenerator];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_2;
+    v22[3] = &unk_1E7A37450;
+    v23 = v5;
+    v20 = *(a1 + 32);
+    v11 = *(&v20 + 1);
+    v12 = *(a1 + 48);
+    v13 = *(a1 + 56);
+    *&v14 = v12;
+    *(&v14 + 1) = v13;
+    v24 = v20;
+    v25 = v14;
+    v26 = *(a1 + 64);
+    [v10 generateBestRepresentationForRequest:v9 completionHandler:v22];
   }
 }
 
@@ -649,11 +649,11 @@ void __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThum
 {
   v5 = a2;
   v6 = a3;
-  [*(a1 + 32) stopAccessingSecurityScopedResource];
+  v7 = [*(a1 + 32) stopAccessingSecurityScopedResource];
   if (v6)
   {
-    v7 = LPLogChannelFetching();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = LPLogChannelFetching(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_2_cold_1();
     }
@@ -661,87 +661,87 @@ void __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThum
 
   else if ([v5 CGImage])
   {
-    v8 = -[LPImage _initWithCGImage:]([LPImage alloc], "_initWithCGImage:", [v5 CGImage]);
+    v10 = -[LPImage _initWithCGImage:]([LPImage alloc], "_initWithCGImage:", [v5 CGImage]);
     goto LABEL_7;
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_7:
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_53;
   block[3] = &unk_1E7A37428;
-  v14 = *(a1 + 40);
-  v9 = *(&v14 + 1);
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  *&v12 = v10;
-  *(&v12 + 1) = v11;
-  v16 = v14;
-  v17 = v12;
-  v18 = v8;
-  v19 = *(a1 + 72);
-  v13 = v8;
+  v16 = *(a1 + 40);
+  v11 = *(&v16 + 1);
+  v12 = *(a1 + 56);
+  v13 = *(a1 + 64);
+  *&v14 = v12;
+  *(&v14 + 1) = v13;
+  v18 = v16;
+  v19 = v14;
+  v20 = v10;
+  v21 = *(a1 + 72);
+  v15 = v10;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
 void __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_2_57(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [*(a1 + 32) containerIdentifier];
   v4 = [v2 URLForUbiquityContainerIdentifier:v3];
 
   if (v4)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2050000000;
-    v5 = getBRShareCopyDocumentURLForRecordIDClass_softClass;
-    v24 = getBRShareCopyDocumentURLForRecordIDClass_softClass;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2050000000;
+    v7 = getBRShareCopyDocumentURLForRecordIDClass_softClass;
+    v26 = getBRShareCopyDocumentURLForRecordIDClass_softClass;
     if (!getBRShareCopyDocumentURLForRecordIDClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
-      v26 = 3221225472;
-      v27 = __getBRShareCopyDocumentURLForRecordIDClass_block_invoke;
-      v28 = &unk_1E7A35518;
-      v29 = &v21;
+      v28 = 3221225472;
+      v29 = __getBRShareCopyDocumentURLForRecordIDClass_block_invoke;
+      v30 = &unk_1E7A35518;
+      v31 = &v23;
       __getBRShareCopyDocumentURLForRecordIDClass_block_invoke(buf);
-      v5 = v22[3];
+      v7 = v24[3];
     }
 
-    v6 = v5;
-    _Block_object_dispose(&v21, 8);
-    v7 = [v5 alloc];
-    v8 = [*(a1 + 32) hierarchicalRootRecordID];
-    v9 = [v7 initWithRecordID:v8 fileURL:v4 withServerLookup:1];
+    v8 = v7;
+    _Block_object_dispose(&v23, 8);
+    v9 = [v7 alloc];
+    v10 = [*(a1 + 32) hierarchicalRootRecordID];
+    v11 = [v9 initWithRecordID:v10 fileURL:v4 withServerLookup:1];
 
-    [v9 setCopyDocumentURLCompletionBlock:*(a1 + 88)];
-    [*(a1 + 80) addOperation:v9];
+    [v11 setCopyDocumentURLCompletionBlock:*(a1 + 88)];
+    [*(a1 + 80) addOperation:v11];
   }
 
   else
   {
-    v10 = LPLogChannelFetching();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = LPLogChannelFetching(v5, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 32) containerIdentifier];
-      __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_2_57_cold_1(v11, buf, v10);
+      v13 = [*(a1 + 32) containerIdentifier];
+      __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_2_57_cold_1(v13, buf, v12);
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __121__LPiCloudSharingMetadataProviderSpecialization_completeRetrievingThumbnailForShareMetadata_application_kind_title_icon___block_invoke_59;
     block[3] = &unk_1E7A37400;
-    v16 = *(a1 + 40);
-    v12 = *(&v16 + 1);
-    v13 = *(a1 + 56);
-    v14 = *(a1 + 64);
-    *&v15 = v13;
-    *(&v15 + 1) = v14;
-    v18 = v16;
-    v19 = v15;
-    v20 = *(a1 + 72);
+    v18 = *(a1 + 40);
+    v14 = *(&v18 + 1);
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 64);
+    *&v17 = v15;
+    *(&v17 + 1) = v16;
+    v20 = v18;
+    v21 = v17;
+    v22 = *(a1 + 72);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 }

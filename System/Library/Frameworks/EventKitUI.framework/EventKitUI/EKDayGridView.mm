@@ -216,62 +216,64 @@
     v16 = v15;
     v18 = v17;
     [(EKCurrentTimeMarkerView *)self->_timeMarker setFrame:?];
-    if ([(EKDayGridView *)self timeMarkerTodayDay]< 1)
+    timeMarkerTodayDay = [(EKDayGridView *)self timeMarkerTodayDay];
+    if (timeMarkerTodayDay < 1)
     {
       [(EKCurrentTimeMarkerView *)self->_timeMarker setTodayStart:0.0];
     }
 
     else
     {
-      IsLeftToRight = CalTimeDirectionIsLeftToRight();
-      v20 = ([(EKDayGridView *)self timeMarkerTodayDay]- 1);
+      IsLeftToRight = CalTimeDirectionIsLeftToRight(timeMarkerTodayDay, v20);
+      v22 = ([(EKDayGridView *)self timeMarkerTodayDay]- 1);
       [(EKDayGridView *)self _dayWidth];
-      v22 = v21 * v20;
-      v23 = v16 - v20 * v21;
+      v24 = v23 * v22;
+      v25 = v16 - v22 * v23;
       if (IsLeftToRight)
       {
-        v23 = v22;
+        v25 = v24;
       }
 
-      [(EKCurrentTimeMarkerView *)self->_timeMarker setTodayStart:v23];
+      [(EKCurrentTimeMarkerView *)self->_timeMarker setTodayStart:v25];
       [(EKDayGridView *)self _dayWidth];
-      v9 = v24;
+      v9 = v26;
     }
 
     [(EKCurrentTimeMarkerView *)self->_timeMarker setTodayWidth:v9];
     [(EKCurrentTimeMarkerView *)self->_timeMarker setNeedsDisplay];
     CalRoundToScreenScale(8.0);
-    v26 = v25 * 0.5;
-    if ([(EKDayGridView *)self timeMarkerTodayDay]< 1)
+    v28 = v27 * 0.5;
+    timeMarkerTodayDay2 = [(EKDayGridView *)self timeMarkerTodayDay];
+    if (timeMarkerTodayDay2 < 1)
     {
-      v30 = 0.0;
+      v34 = 0.0;
     }
 
     else
     {
-      v27 = CalTimeDirectionIsLeftToRight();
-      v28 = ([(EKDayGridView *)self timeMarkerTodayDay]- 1);
+      v31 = CalTimeDirectionIsLeftToRight(timeMarkerTodayDay2, v30);
+      v32 = ([(EKDayGridView *)self timeMarkerTodayDay]- 1);
       [(EKDayGridView *)self _dayWidth];
-      if (v27)
+      if (v31)
       {
-        v30 = -(v26 - v28 * v29);
+        v34 = -(v28 - v32 * v33);
       }
 
       else
       {
-        v30 = v16 - v28 * v29 - v26;
+        v34 = v16 - v32 * v33 - v28;
       }
     }
 
-    v36.origin.x = v12;
-    v36.origin.y = v14;
-    v36.size.width = v16;
-    v36.size.height = v18;
-    v31 = CGRectGetMidY(v36) - v26;
+    v40.origin.x = v12;
+    v40.origin.y = v14;
+    v40.size.width = v16;
+    v40.size.height = v18;
+    v35 = CGRectGetMidY(v40) - v28;
     CalRoundToScreenScale(8.0);
-    v33 = v32;
+    v37 = v36;
     CalRoundToScreenScale(8.0);
-    [(UIImageView *)self->_timeDot setFrame:v30, v31, v33, v34];
+    [(UIImageView *)self->_timeDot setFrame:v34, v35, v37, v38];
 
     [(EKDayGridView *)self _updateMarkerAlpha];
   }
@@ -334,8 +336,8 @@ uint64_t __34__EKDayGridView__updateTimeMarker__block_invoke(uint64_t a1)
 
           v16 = objc_alloc_init(MEMORY[0x1E69DD250]);
           [v16 setAutoresizingMask:18];
-          contentView = [(EKUIVisualEffectView *)v14 contentView];
-          [contentView addSubview:v16];
+          v17 = objc_msgSend_contentView(v14);
+          [v17 addSubview:v16];
 
           [(NSMutableArray *)self->_gridPatternViews addObject:v16];
           gridParentViews = self->_gridParentViews;

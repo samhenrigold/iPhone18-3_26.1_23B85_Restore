@@ -400,8 +400,8 @@
     collectionViewManager = [(_UIKeyShortcutHUDToolbarViewController *)self collectionViewManager];
     [collectionViewManager client:self setCategoryVisibleForCellAtIndexPath:pathCopy];
 
-    menu = [(_UIKeyShortcutHUDToolbarViewController *)self menu];
-    children = [menu children];
+    v5 = objc_msgSend_menu(self);
+    children = [v5 children];
     v7 = [children objectAtIndexedSubscript:{objc_msgSend(pathCopy, "item")}];
 
     delegate = [(_UIKeyShortcutHUDToolbarViewController *)self delegate];
@@ -792,8 +792,8 @@ LABEL_11:
 - (void)categoriesPageControlCurrentPageChanged:(id)changed
 {
   changedCopy = changed;
-  menu = [(_UIKeyShortcutHUDToolbarViewController *)self menu];
-  children = [menu children];
+  v5 = objc_msgSend_menu(self);
+  children = [v5 children];
   v10 = [children objectAtIndexedSubscript:{objc_msgSend(changedCopy, "currentPage")}];
 
   v7 = [changedCopy interactionState] == 1;

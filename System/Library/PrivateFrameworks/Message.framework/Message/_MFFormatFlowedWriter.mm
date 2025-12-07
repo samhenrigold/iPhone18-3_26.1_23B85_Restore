@@ -214,9 +214,9 @@
 {
   length = range.length;
   location = range.location;
-  v76 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   str = paragraph;
-  v66 = length;
+  v63 = length;
   levelCopy = level;
   if (length)
   {
@@ -229,7 +229,7 @@
   }
 
   v10 = v9;
-  v57 = v10;
+  v54 = v10;
   if (*(self + 40))
   {
     v11 = @" \n";
@@ -240,7 +240,7 @@
     v11 = @"\n";
   }
 
-  v59 = v11;
+  v56 = v11;
   lineString = self->_lineString;
   if (lineString)
   {
@@ -272,9 +272,9 @@
     v16 = 72;
   }
 
-  if (v66 <= v16)
+  if (v63 <= v16)
   {
-    v60 = 0;
+    v57 = 0;
   }
 
   else
@@ -287,51 +287,51 @@
         [_MFFormatFlowedWriter _outputQuotedParagraph:range:withQuoteLevel:];
       }
 
-      v60 = [_weakDDURLifierClass_sDDURLifierClass urlMatchesForString:v17];
+      v57 = [_weakDDURLifierClass_sDDURLifierClass urlMatchesForString:v17];
     }
 
     else
     {
-      v60 = 0;
+      v57 = 0;
     }
   }
 
   outputString = self->_outputString;
   if (outputString)
   {
-    v68 = v66 + location;
-    if (location < v66 + location)
+    v65 = v63 + location;
+    if (location < v63 + location)
     {
-      v58 = ~location;
-      v65 = location;
-      v69 = location;
-      v63 = location;
+      v55 = ~location;
+      v62 = location;
+      v66 = location;
+      v60 = location;
       while (1)
       {
-        if (levelCopy || [(__CFString *)str rangeOfString:@" " options:8 range:v65, v66]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)str rangeOfString:@"From " options:8 range:v65, v66]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)str rangeOfString:@">" options:8 range:v65, v66]!= 0x7FFFFFFFFFFFFFFFLL)
+        if (levelCopy || [(__CFString *)str rangeOfString:@" " options:8 range:v62, v63]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)str rangeOfString:@"From " options:8 range:v62, v63]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)str rangeOfString:@">" options:8 range:v62, v63]!= 0x7FFFFFFFFFFFFFFFLL)
         {
           [(NSMutableString *)self->_lineString appendString:@" "];
         }
 
         v19 = [(NSMutableString *)self->_lineString length];
-        v20 = v60;
+        v20 = v57;
         *buf = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v73 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         v21 = v20;
-        v22 = [v21 countByEnumeratingWithState:buf objects:v74 count:16];
-        v62 = v69 - v19;
-        v23 = v69 - v19 + 72;
+        v22 = [v21 countByEnumeratingWithState:buf objects:v71 count:16];
+        v59 = v66 - v19;
+        v23 = v66 - v19 + 72;
         if (v22)
         {
-          v24 = v23 + v58;
-          v25 = *v71;
+          v24 = v23 + v55;
+          v25 = *v68;
           while (2)
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v71 != v25)
+              if (*v68 != v25)
               {
                 objc_enumerationMutation(v21);
               }
@@ -340,12 +340,12 @@
               range = [v27 range];
               if (range <= v24 && range + v29 > v24)
               {
-                v67 = v27;
+                v64 = v27;
                 goto LABEL_46;
               }
             }
 
-            v22 = [v21 countByEnumeratingWithState:buf objects:v74 count:16];
+            v22 = [v21 countByEnumeratingWithState:buf objects:v71 count:16];
             if (v22)
             {
               continue;
@@ -354,26 +354,26 @@
             break;
           }
 
-          v67 = 0;
+          v64 = 0;
 LABEL_46:
-          location = v63;
+          location = v60;
         }
 
         else
         {
-          v67 = 0;
+          v64 = 0;
         }
 
-        if (v67 && (v31 = [v67 range], v33 = v32 + location + v31, v33 > v23))
+        if (v64 && (v31 = [v64 range], v33 = v32 + location + v31, v33 > v23))
         {
-          if (v19 - v69 + v33 <= 0x3E6)
+          if (v19 - v66 + v33 <= 0x3E6)
           {
             v23 = v32 + location + v31;
           }
 
           else
           {
-            v23 = v62 + 998;
+            v23 = v59 + 998;
           }
 
           v34 = 1;
@@ -384,10 +384,10 @@ LABEL_46:
           v34 = 0;
         }
 
-        v35.location = v69;
-        if (v23 >= v68)
+        v35.location = v66;
+        if (v23 >= v65)
         {
-          v36 = v68;
+          v36 = v65;
         }
 
         else
@@ -395,17 +395,17 @@ LABEL_46:
           v36 = v23;
         }
 
-        v35.length = v36 - v69;
+        v35.length = v36 - v66;
         v37 = CFStringCreateWithSubstring(0, str, v35);
         [(NSMutableString *)self->_lineString appendString:v37];
         CFRelease(v37);
-        v75 = 0xAAAAAAAAAAAAAAAALL;
+        v72 = 0xAAAAAAAAAAAAAAAALL;
         *&v38 = 0xAAAAAAAAAAAAAAAALL;
         *(&v38 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v74[2] = v38;
-        v74[3] = v38;
-        v74[0] = v38;
-        v74[1] = v38;
+        v71[2] = v38;
+        v71[3] = v38;
+        v71[0] = v38;
+        v71[1] = v38;
         if ([(NSMutableString *)self->_lineString length]>= 0x49)
         {
           v39 = NSZoneMalloc(0, [(NSMutableString *)self->_lineString length]);
@@ -415,48 +415,47 @@ LABEL_46:
 
         else
         {
-          v39 = v74;
+          v39 = v71;
           v40 = 72;
         }
 
         [(NSMutableString *)self->_lineString length];
-        encoding = self->_encoding;
         Bytes = MFStringGetBytes();
         if (Bytes < [(NSMutableString *)self->_lineString length])
         {
           Bytes = [(NSMutableString *)self->_lineString rangeOfComposedCharacterSequenceAtIndex:Bytes];
         }
 
-        if (v39 != v74)
+        if (v39 != v71)
         {
           NSZoneFree(0, v39);
         }
 
         if (Bytes <= v19)
         {
-          v43 = self->_outputString;
+          v42 = self->_outputString;
           self->_outputString = 0;
 
-          location = v63;
+          location = v60;
           v36 = 0x7FFFFFFFFFFFFFFFLL;
-          v69 = v68;
+          v66 = v65;
           goto LABEL_70;
         }
 
-        if (Bytes == [(NSMutableString *)self->_lineString length]&& v68 <= v23)
+        if (Bytes == [(NSMutableString *)self->_lineString length]&& v65 <= v23)
         {
-          location = v63;
+          location = v60;
           goto LABEL_70;
         }
 
-        v45 = [(_MFFormatFlowedWriter *)self _findLineBreakInRange:v19 maxCharWidthCount:Bytes - v19 endIsURL:v40 - v19, v34];
-        location = v63;
-        if (v45 == 0x7FFFFFFFFFFFFFFFLL)
+        v44 = [(_MFFormatFlowedWriter *)self _findLineBreakInRange:v19 maxCharWidthCount:Bytes - v19 endIsURL:v40 - v19, v34];
+        location = v60;
+        if (v44 == 0x7FFFFFFFFFFFFFFFLL)
         {
           goto LABEL_83;
         }
 
-        if (v45 != v19)
+        if (v44 != v19)
         {
           break;
         }
@@ -466,33 +465,32 @@ LABEL_46:
           goto LABEL_83;
         }
 
-        v47 = [(__CFString *)str substringWithRange:v65, v66];
-        v48 = [v47 mf_nextWordFromIndex:0 forward:1];
-        if (v48 == 0x7FFFFFFFFFFFFFFFLL || v48 > 998 - v19)
+        v46 = [(__CFString *)str substringWithRange:v62, v63];
+        v47 = [v46 mf_nextWordFromIndex:0 forward:1];
+        if (v47 == 0x7FFFFFFFFFFFFFFFLL || v47 > 998 - v19)
         {
 
-          v36 = v62 + Bytes;
+          v36 = v59 + Bytes;
           goto LABEL_85;
         }
 
-        v49 = [(__CFString *)str substringWithRange:v65, v48];
+        v48 = [(__CFString *)str substringWithRange:v62, v47];
         [(NSMutableString *)self->_lineString deleteCharactersInRange:v19, [(NSMutableString *)self->_lineString length]- v19];
-        [(NSMutableString *)self->_lineString appendString:v49];
-        v50 = NSZoneMalloc(0, 0x3E6uLL);
+        [(NSMutableString *)self->_lineString appendString:v48];
+        v49 = NSZoneMalloc(0, 0x3E6uLL);
         [(NSMutableString *)self->_lineString length];
-        v51 = self->_encoding;
-        v52 = MFStringGetBytes();
-        v53 = [(NSMutableString *)self->_lineString length];
-        NSZoneFree(0, v50);
-        v54 = v52 == v53;
-        if (v52 == v53)
+        v50 = MFStringGetBytes();
+        v51 = [(NSMutableString *)self->_lineString length];
+        NSZoneFree(0, v49);
+        v52 = v50 == v51;
+        if (v50 == v51)
         {
-          Bytes = v52;
+          Bytes = v50;
         }
 
-        location = v63;
-        v36 = Bytes - v19 + v69;
-        if (!v54)
+        location = v60;
+        v36 = Bytes - v19 + v66;
+        if (!v52)
         {
           goto LABEL_85;
         }
@@ -500,17 +498,17 @@ LABEL_46:
 LABEL_70:
         if (self->_outputString)
         {
-          v44 = v36 - v69 + v19;
-          if (v44 < [(NSMutableString *)self->_lineString length])
+          v43 = v36 - v66 + v19;
+          if (v43 < [(NSMutableString *)self->_lineString length])
           {
-            [(NSMutableString *)self->_lineString deleteCharactersInRange:v44, [(NSMutableString *)self->_lineString length]- v44];
+            [(NSMutableString *)self->_lineString deleteCharactersInRange:v43, [(NSMutableString *)self->_lineString length]- v43];
           }
 
           [(NSMutableString *)self->_outputString appendString:self->_lineString];
-          v66 = v68 - v36;
-          if (v68 != v36)
+          v63 = v65 - v36;
+          if (v65 != v36)
           {
-            [(NSMutableString *)self->_outputString appendString:v59];
+            [(NSMutableString *)self->_outputString appendString:v56];
           }
 
           if ([(NSMutableString *)self->_lineString length]> levelCopy)
@@ -518,8 +516,8 @@ LABEL_70:
             [(NSMutableString *)self->_lineString deleteCharactersInRange:levelCopy, [(NSMutableString *)self->_lineString length]- levelCopy];
           }
 
-          v69 = v36;
-          v65 = v36;
+          v66 = v36;
+          v62 = v36;
         }
 
         outputString = self->_outputString;
@@ -528,51 +526,49 @@ LABEL_70:
           goto LABEL_102;
         }
 
-        v68 = v66 + v65;
-        if (v69 >= v66 + v65)
+        v65 = v63 + v62;
+        if (v66 >= v63 + v62)
         {
           goto LABEL_100;
         }
       }
 
-      if (v45 < v19)
+      if (v44 < v19)
       {
-        v55 = MFLogGeneral();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+        v53 = MFLogGeneral();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B0389000, v55, OS_LOG_TYPE_INFO, "Bad line break index", buf, 2u);
+          _os_log_impl(&dword_1B0389000, v53, OS_LOG_TYPE_INFO, "Bad line break index", buf, 2u);
         }
 
 LABEL_83:
-        v45 = Bytes;
+        v44 = Bytes;
       }
 
-      v36 = v62 + v45;
+      v36 = v59 + v44;
 LABEL_85:
       if ((*(self + 40) & 1) == 0)
       {
 
-        v46 = self->_outputString;
-        [(NSMutableString *)v46 length];
-        [NSMutableString replaceOccurrencesOfString:v46 withString:"replaceOccurrencesOfString:withString:options:range:" options:? range:?];
+        v45 = self->_outputString;
+        [(NSMutableString *)v45 length];
+        [NSMutableString replaceOccurrencesOfString:v45 withString:"replaceOccurrencesOfString:withString:options:range:" options:? range:?];
         *(self + 40) |= 1u;
-        v59 = @" \n";
+        v56 = @" \n";
       }
 
       goto LABEL_70;
     }
 
 LABEL_100:
-    if ((v57 & 1) == 0)
+    if ((v54 & 1) == 0)
     {
       [(NSMutableString *)outputString appendString:self->_lineString];
     }
   }
 
 LABEL_102:
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (id)outputString

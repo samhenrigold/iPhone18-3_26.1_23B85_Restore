@@ -13,14 +13,14 @@
 
 - (CUIMutableCatalog)initWithName:(id)name
 {
-  v12.receiver = self;
-  v12.super_class = CUIMutableCatalog;
-  v13 = 0;
-  v4 = [(CUICatalog *)&v12 init];
-  [(CUICatalog *)v4 setStorageRef:[CUIThemeFacet themeNamed:name forBundleIdentifier:kCUIMutableStructureThemeStoreBundlePrefix error:&v13]];
+  v6.receiver = self;
+  v6.super_class = CUIMutableCatalog;
+  v7 = 0;
+  v4 = [(CUICatalog *)&v6 init];
+  [(CUICatalog *)v4 setStorageRef:[CUIThemeFacet themeNamed:name forBundleIdentifier:kCUIMutableStructureThemeStoreBundlePrefix error:&v7]];
   if (![(CUICatalog *)v4 storageRef])
   {
-    _CUILog(4, "[CUIMutableCatalog init] got error: %@", v5, v6, v7, v8, v9, v10, v13);
+    _CUILog(4, "[CUIMutableCatalog init] got error: %@", v7);
 
     return 0;
   }
@@ -79,8 +79,8 @@
     if (!v11)
     {
       v13 = NSStringFromSelector(a2);
-      NSStringFromSelector(a2);
-      _CUILog(4, "[CUIMutableCatalog %@] themeStore doesn't respond to %@ ", v14, v15, v16, v17, v18, v19, v13);
+      v14 = NSStringFromSelector(a2);
+      _CUILog(4, "[CUIMutableCatalog %@] themeStore doesn't respond to %@ ", v13, v14);
     }
   }
 
@@ -103,8 +103,8 @@
     if (!v9)
     {
       v11 = NSStringFromSelector(a2);
-      NSStringFromSelector(a2);
-      _CUILog(4, "[CUIMutableCatalog %@] themeStore doesn't respond to %@ ", v12, v13, v14, v15, v16, v17, v11);
+      v12 = NSStringFromSelector(a2);
+      _CUILog(4, "[CUIMutableCatalog %@] themeStore doesn't respond to %@ ", v11, v12);
     }
   }
 
@@ -127,8 +127,8 @@
     if (!v7)
     {
       v9 = NSStringFromSelector(a2);
-      NSStringFromSelector(a2);
-      _CUILog(4, "[CUIMutableCatalog %@] themeStore doesn't respond to %@ ", v10, v11, v12, v13, v14, v15, v9);
+      v10 = NSStringFromSelector(a2);
+      _CUILog(4, "[CUIMutableCatalog %@] themeStore doesn't respond to %@ ", v9, v10);
     }
   }
 

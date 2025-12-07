@@ -12,10 +12,10 @@
 
 - (ISLayeredIcon)initWithTypeIdentifier:(id)identifier layerGroups:(id)groups
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   groupsCopy = groups;
-  v24 = identifierCopy;
+  v23 = identifierCopy;
   v7 = [MEMORY[0x1E696AFB0] _IF_UUIDWithString:identifierCopy];
   if ([groupsCopy count])
   {
@@ -30,9 +30,9 @@
       v14 = [v10 _IF_UUIDWithString:v13];
 
       v15 = MEMORY[0x1E696AFB0];
-      v26[0] = v7;
-      v26[1] = v14;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+      v25[0] = v7;
+      v25[1] = v14;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
       v17 = [v15 _IF_UUIDByXORingUUIDs:v16];
 
       ++v8;
@@ -47,9 +47,9 @@
     v17 = v7;
   }
 
-  v25.receiver = self;
-  v25.super_class = ISLayeredIcon;
-  v18 = [(ISConcreteIcon *)&v25 initWithDigest:v17];
+  v24.receiver = self;
+  v24.super_class = ISLayeredIcon;
+  v18 = [(ISConcreteIcon *)&v24 initWithDigest:v17];
   v19 = v18;
   if (v18)
   {
@@ -57,17 +57,16 @@
     objc_storeStrong(&v19->_layerGroups, groups);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (ISLayeredIcon)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = ISLayeredIcon;
-  v5 = [(ISConcreteIcon *)&v15 initWithCoder:coderCopy];
+  v14.receiver = self;
+  v14.super_class = ISLayeredIcon;
+  v5 = [(ISConcreteIcon *)&v14 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"typeIdentifier"];
@@ -75,16 +74,15 @@
     v5->_typeIdentifier = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"layerGroups"];
     layerGroups = v5->_layerGroups;
     v5->_layerGroups = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

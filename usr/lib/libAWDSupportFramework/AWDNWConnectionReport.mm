@@ -1,8 +1,21 @@
 @interface AWDNWConnectionReport
 - (BOOL)isEqual:(id)equal;
+- (id)appleAppAsString:(int)string;
+- (id)appleHostAsString:(int)string;
+- (id)connectedAddressFamilyAsString:(int)string;
+- (id)connectedInterfaceTypeAsString:(int)string;
+- (id)connectionModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)dnsProtocolAsString:(int)string;
+- (id)dnsProviderAsString:(int)string;
+- (id)failureReasonAsString:(int)string;
+- (id)firstAddressFamilyAsString:(int)string;
+- (id)stackLevelAsString:(int)string;
+- (id)tlsVersionAsString:(int)string;
+- (id)transportProtocolAsString:(int)string;
+- (id)usedProxyTypeAsString:(int)string;
 - (int)StringAsAppleApp:(id)app;
 - (int)StringAsAppleHost:(id)host;
 - (int)StringAsConnectedAddressFamily:(id)family;
@@ -194,6 +207,19 @@
   *&self->_has = *&self->_has & 0xFFFF7FFFFFFFFFFFLL | v3;
 }
 
+- (id)usedProxyTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE327B0[string];
+  }
+}
+
 - (int)StringAsUsedProxyType:(id)type
 {
   if ([type isEqualToString:@"NW_PROXY_TYPE_NONE"])
@@ -346,6 +372,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFFBFFFFFFFFFFLL | v3;
+}
+
+- (id)failureReasonAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE327D8[string];
+  }
 }
 
 - (int)StringAsFailureReason:(id)reason
@@ -501,6 +540,19 @@
   *&self->_has = *&self->_has & 0xFFFFF7FFFFFFFFFFLL | v3;
 }
 
+- (id)firstAddressFamilyAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32800[string];
+  }
+}
+
 - (int)StringAsFirstAddressFamily:(id)family
 {
   if ([family isEqualToString:@"NW_ADDRESS_FAMILY_OTHER"])
@@ -543,6 +595,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFFFDFFFFFFFFFLL | v3;
+}
+
+- (id)connectedAddressFamilyAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32800[string];
+  }
 }
 
 - (int)StringAsConnectedAddressFamily:(id)family
@@ -598,6 +663,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFFFBFFFFFFFFFLL | v3;
+}
+
+- (id)connectedInterfaceTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32818[string];
+  }
 }
 
 - (int)StringAsConnectedInterfaceType:(id)type
@@ -671,6 +749,19 @@
   *&self->_has = *&self->_has & 0xFFFFFF7FFFFFFFFFLL | v3;
 }
 
+- (id)connectionModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32838[string];
+  }
+}
+
 - (int)StringAsConnectionMode:(id)mode
 {
   if ([mode isEqualToString:@"NW_CONNECTION_MODE_NONE"])
@@ -718,6 +809,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFFFEFFFFFFFFFLL | v3;
+}
+
+- (id)appleHostAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32858[string];
+  }
 }
 
 - (int)StringAsAppleHost:(id)host
@@ -772,6 +876,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFFFF7FFFFFFFFLL | v3;
+}
+
+- (id)appleAppAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32880[string];
+  }
 }
 
 - (int)StringAsAppleApp:(id)app
@@ -853,6 +970,19 @@
   *&self->_has = *&self->_has & 0xFFFFDFFFFFFFFFFFLL | v3;
 }
 
+- (id)tlsVersionAsString:(int)string
+{
+  if (string >= 7)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE328D0[string];
+  }
+}
+
 - (int)StringAsTlsVersion:(id)version
 {
   if ([version isEqualToString:@"NW_TLS_VERSION_NONE"])
@@ -915,6 +1045,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFEFFFFFFFFFFFLL | v3;
+}
+
+- (id)stackLevelAsString:(int)string
+{
+  if (string >= 6)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32908[string];
+  }
 }
 
 - (int)StringAsStackLevel:(id)level
@@ -1348,6 +1491,19 @@
   *&self->_has = *&self->_has & 0xFFFFBFFFFFFFFFFFLL | v3;
 }
 
+- (id)transportProtocolAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32938[string];
+  }
+}
+
 - (int)StringAsTransportProtocol:(id)protocol
 {
   if ([protocol isEqualToString:@"NW_TRANSPORT_PROTOCOL_UNKNOWN"])
@@ -1395,6 +1551,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFFEFFFFFFFFFFLL | v3;
+}
+
+- (id)dnsProtocolAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32958[string];
+  }
 }
 
 - (int)StringAsDnsProtocol:(id)protocol
@@ -1449,6 +1618,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFFFDFFFFFFFFFFLL | v3;
+}
+
+- (id)dnsProviderAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32980[string];
+  }
 }
 
 - (int)StringAsDnsProvider:(id)provider
@@ -2520,30 +2702,27 @@ LABEL_165:
 
 - (void)writeTo:(id)to
 {
-  v95 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   p_has = &self->_has;
   if (*(&self->_has + 4))
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ((*(p_has + 8) & 0x10) != 0)
   {
-    triggeredPath = self->_triggeredPath;
     PBDataWriterWriteBOOLField();
   }
 
-  v7 = *p_has;
+  v5 = *p_has;
   if ((*p_has & 0x4000000000000000) != 0)
   {
-    systemProxyConfigured = self->_systemProxyConfigured;
     PBDataWriterWriteBOOLField();
-    v7 = *p_has;
+    v5 = *p_has;
     if ((*p_has & 0x1000000000000) == 0)
     {
 LABEL_7:
-      if ((v7 & 0x800000000000) == 0)
+      if ((v5 & 0x800000000000) == 0)
       {
         goto LABEL_8;
       }
@@ -2552,18 +2731,17 @@ LABEL_7:
     }
   }
 
-  else if ((v7 & 0x1000000000000) == 0)
+  else if ((v5 & 0x1000000000000) == 0)
   {
     goto LABEL_7;
   }
 
-  customProxyConfigured = self->_customProxyConfigured;
   PBDataWriterWriteBOOLField();
-  v7 = *p_has;
+  v5 = *p_has;
   if ((*p_has & 0x800000000000) == 0)
   {
 LABEL_8:
-    if ((v7 & 0x2000000000000) == 0)
+    if ((v5 & 0x2000000000000) == 0)
     {
       goto LABEL_10;
     }
@@ -2572,52 +2750,45 @@ LABEL_8:
   }
 
 LABEL_109:
-  usedProxyType = self->_usedProxyType;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x2000000000000) != 0)
   {
 LABEL_9:
-    fallbackEligible = self->_fallbackEligible;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_10:
-  v9 = *(p_has + 8);
-  if ((v9 & 0x40) != 0)
+  v6 = *(p_has + 8);
+  if ((v6 & 0x40) != 0)
   {
-    weakFallback = self->_weakFallback;
     PBDataWriterWriteBOOLField();
-    v9 = *(p_has + 8);
+    v6 = *(p_has + 8);
   }
 
-  if ((v9 & 0x20) != 0)
+  if ((v6 & 0x20) != 0)
   {
-    usedFallback = self->_usedFallback;
     PBDataWriterWriteBOOLField();
   }
 
   if ((*(p_has + 7) & 8) != 0)
   {
-    resolutionRequired = self->_resolutionRequired;
     PBDataWriterWriteBOOLField();
   }
 
   if ((*(p_has + 8) & 2) != 0)
   {
-    tlsConfigured = self->_tlsConfigured;
     PBDataWriterWriteBOOLField();
   }
 
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x8000000000000000) != 0)
   {
-    tfoConfigured = self->_tfoConfigured;
     PBDataWriterWriteBOOLField();
-    v14 = *p_has;
+    v7 = *p_has;
     if ((*p_has & 0x100000000000000) == 0)
     {
 LABEL_20:
-      if ((v14 & 0x400000000) == 0)
+      if ((v7 & 0x400000000) == 0)
       {
         goto LABEL_21;
       }
@@ -2626,18 +2797,17 @@ LABEL_20:
     }
   }
 
-  else if ((v14 & 0x100000000000000) == 0)
+  else if ((v7 & 0x100000000000000) == 0)
   {
     goto LABEL_20;
   }
 
-  multipathConfigured = self->_multipathConfigured;
   PBDataWriterWriteBOOLField();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x400000000) == 0)
   {
 LABEL_21:
-    if ((v14 & 0x40000000000) == 0)
+    if ((v7 & 0x40000000000) == 0)
     {
       goto LABEL_22;
     }
@@ -2646,13 +2816,12 @@ LABEL_21:
   }
 
 LABEL_143:
-  trafficClass = self->_trafficClass;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x40000000000) == 0)
   {
 LABEL_22:
-    if ((v14 & 0x2000000) == 0)
+    if ((v7 & 0x2000000) == 0)
     {
       goto LABEL_23;
     }
@@ -2661,13 +2830,12 @@ LABEL_22:
   }
 
 LABEL_144:
-  failureReason = self->_failureReason;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x2000000) == 0)
   {
 LABEL_23:
-    if ((v14 & 0x10000000) == 0)
+    if ((v7 & 0x10000000) == 0)
     {
       goto LABEL_24;
     }
@@ -2676,13 +2844,12 @@ LABEL_23:
   }
 
 LABEL_145:
-  pathTriggerMilliseconds = self->_pathTriggerMilliseconds;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x10000000) == 0)
   {
 LABEL_24:
-    if ((v14 & 0x4000000) == 0)
+    if ((v7 & 0x4000000) == 0)
     {
       goto LABEL_25;
     }
@@ -2691,13 +2858,12 @@ LABEL_24:
   }
 
 LABEL_146:
-  resolutionMilliseconds = self->_resolutionMilliseconds;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x4000000) == 0)
   {
 LABEL_25:
-    if ((v14 & 0x400) == 0)
+    if ((v7 & 0x400) == 0)
     {
       goto LABEL_26;
     }
@@ -2706,13 +2872,12 @@ LABEL_25:
   }
 
 LABEL_147:
-  proxyMilliseconds = self->_proxyMilliseconds;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x400) == 0)
   {
 LABEL_26:
-    if ((v14 & 0x200000000) == 0)
+    if ((v7 & 0x200000000) == 0)
     {
       goto LABEL_27;
     }
@@ -2721,13 +2886,12 @@ LABEL_26:
   }
 
 LABEL_148:
-  flowConnectMilliseconds = self->_flowConnectMilliseconds;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x200000000) == 0)
   {
 LABEL_27:
-    if ((v14 & 0x800) == 0)
+    if ((v7 & 0x800) == 0)
     {
       goto LABEL_28;
     }
@@ -2736,13 +2900,12 @@ LABEL_27:
   }
 
 LABEL_149:
-  tlsMilliseconds = self->_tlsMilliseconds;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x800) == 0)
   {
 LABEL_28:
-    if ((v14 & 0x1000) == 0)
+    if ((v7 & 0x1000) == 0)
     {
       goto LABEL_29;
     }
@@ -2751,13 +2914,12 @@ LABEL_28:
   }
 
 LABEL_150:
-  flowDurationMilliseconds = self->_flowDurationMilliseconds;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x1000) == 0)
   {
 LABEL_29:
-    if ((v14 & 0x4000) == 0)
+    if ((v7 & 0x4000) == 0)
     {
       goto LABEL_30;
     }
@@ -2766,13 +2928,12 @@ LABEL_29:
   }
 
 LABEL_151:
-  ipv4AddressCount = self->_ipv4AddressCount;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x4000) == 0)
   {
 LABEL_30:
-    if ((v14 & 0x2000000000000000) == 0)
+    if ((v7 & 0x2000000000000000) == 0)
     {
       goto LABEL_31;
     }
@@ -2781,13 +2942,12 @@ LABEL_30:
   }
 
 LABEL_152:
-  ipv6AddressCount = self->_ipv6AddressCount;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x2000000000000000) == 0)
   {
 LABEL_31:
-    if ((v14 & 0x80000000000) == 0)
+    if ((v7 & 0x80000000000) == 0)
     {
       goto LABEL_32;
     }
@@ -2796,13 +2956,12 @@ LABEL_31:
   }
 
 LABEL_153:
-  synthesizedIPv6Address = self->_synthesizedIPv6Address;
   PBDataWriterWriteBOOLField();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x80000000000) == 0)
   {
 LABEL_32:
-    if ((v14 & 0x2000000000) == 0)
+    if ((v7 & 0x2000000000) == 0)
     {
       goto LABEL_33;
     }
@@ -2811,13 +2970,12 @@ LABEL_32:
   }
 
 LABEL_154:
-  firstAddressFamily = self->_firstAddressFamily;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x2000000000) == 0)
   {
 LABEL_33:
-    if ((v14 & 0x40) == 0)
+    if ((v7 & 0x40) == 0)
     {
       goto LABEL_34;
     }
@@ -2826,13 +2984,12 @@ LABEL_33:
   }
 
 LABEL_155:
-  connectedAddressFamily = self->_connectedAddressFamily;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x40) == 0)
   {
 LABEL_34:
-    if ((v14 & 0x4000000000) == 0)
+    if ((v7 & 0x4000000000) == 0)
     {
       goto LABEL_35;
     }
@@ -2841,13 +2998,12 @@ LABEL_34:
   }
 
 LABEL_156:
-  connectedAddressIndex = self->_connectedAddressIndex;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x4000000000) == 0)
   {
 LABEL_35:
-    if ((v14 & 0x80) == 0)
+    if ((v7 & 0x80) == 0)
     {
       goto LABEL_36;
     }
@@ -2856,13 +3012,12 @@ LABEL_35:
   }
 
 LABEL_157:
-  connectedInterfaceType = self->_connectedInterfaceType;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x80) == 0)
   {
 LABEL_36:
-    if ((v14 & 0x200) == 0)
+    if ((v7 & 0x200) == 0)
     {
       goto LABEL_37;
     }
@@ -2871,13 +3026,12 @@ LABEL_36:
   }
 
 LABEL_158:
-  connectionReuseCount = self->_connectionReuseCount;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x200) == 0)
   {
 LABEL_37:
-    if ((v14 & 0x8000000000) == 0)
+    if ((v7 & 0x8000000000) == 0)
     {
       goto LABEL_38;
     }
@@ -2886,13 +3040,12 @@ LABEL_37:
   }
 
 LABEL_159:
-  dataStallCount = self->_dataStallCount;
   PBDataWriterWriteUint64Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x8000000000) == 0)
   {
 LABEL_38:
-    if ((v14 & 0x1000000000) == 0)
+    if ((v7 & 0x1000000000) == 0)
     {
       goto LABEL_39;
     }
@@ -2901,13 +3054,12 @@ LABEL_38:
   }
 
 LABEL_160:
-  connectionMode = self->_connectionMode;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x1000000000) == 0)
   {
 LABEL_39:
-    if ((v14 & 0x800000000) == 0)
+    if ((v7 & 0x800000000) == 0)
     {
       goto LABEL_40;
     }
@@ -2916,13 +3068,12 @@ LABEL_39:
   }
 
 LABEL_161:
-  appleHost = self->_appleHost;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x800000000) == 0)
   {
 LABEL_40:
-    if ((v14 & 0x200000000000) == 0)
+    if ((v7 & 0x200000000000) == 0)
     {
       goto LABEL_41;
     }
@@ -2931,13 +3082,12 @@ LABEL_40:
   }
 
 LABEL_162:
-  appleApp = self->_appleApp;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x200000000000) == 0)
   {
 LABEL_41:
-    if ((v14 & 0x100000000000) == 0)
+    if ((v7 & 0x100000000000) == 0)
     {
       goto LABEL_42;
     }
@@ -2946,13 +3096,12 @@ LABEL_41:
   }
 
 LABEL_163:
-  tlsVersion = self->_tlsVersion;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x100000000000) == 0)
   {
 LABEL_42:
-    if ((v14 & 0x8000000000000) == 0)
+    if ((v7 & 0x8000000000000) == 0)
     {
       goto LABEL_43;
     }
@@ -2961,13 +3110,12 @@ LABEL_42:
   }
 
 LABEL_164:
-  stackLevel = self->_stackLevel;
   PBDataWriterWriteInt32Field();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x8000000000000) == 0)
   {
 LABEL_43:
-    if ((v14 & 0x10000000000000) == 0)
+    if ((v7 & 0x10000000000000) == 0)
     {
       goto LABEL_44;
     }
@@ -2976,13 +3124,12 @@ LABEL_43:
   }
 
 LABEL_165:
-  ipv4Available = self->_ipv4Available;
   PBDataWriterWriteBOOLField();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x10000000000000) == 0)
   {
 LABEL_44:
-    if ((v14 & 0x2000) == 0)
+    if ((v7 & 0x2000) == 0)
     {
       goto LABEL_45;
     }
@@ -2991,13 +3138,12 @@ LABEL_44:
   }
 
 LABEL_166:
-  ipv6Available = self->_ipv6Available;
   PBDataWriterWriteBOOLField();
-  v14 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x2000) == 0)
   {
 LABEL_45:
-    if ((v14 & 0x8000) == 0)
+    if ((v7 & 0x8000) == 0)
     {
       goto LABEL_47;
     }
@@ -3006,32 +3152,28 @@ LABEL_45:
   }
 
 LABEL_167:
-  ipv4DNSServerCount = self->_ipv4DNSServerCount;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 0x8000) != 0)
   {
 LABEL_46:
-    ipv6DNSServerCount = self->_ipv6DNSServerCount;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_47:
   if ((*(p_has + 8) & 8) != 0)
   {
-    tlsVersionTimeout = self->_tlsVersionTimeout;
     PBDataWriterWriteBOOLField();
   }
 
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x1000000000000000) != 0)
   {
-    synthesizedExtraIPv6Address = self->_synthesizedExtraIPv6Address;
     PBDataWriterWriteBOOLField();
-    v17 = *p_has;
+    v8 = *p_has;
     if ((*p_has & 4) == 0)
     {
 LABEL_51:
-      if ((v17 & 8) == 0)
+      if ((v8 & 8) == 0)
       {
         goto LABEL_52;
       }
@@ -3040,18 +3182,17 @@ LABEL_51:
     }
   }
 
-  else if ((v17 & 4) == 0)
+  else if ((v8 & 4) == 0)
   {
     goto LABEL_51;
   }
 
-  bytesIn = self->_bytesIn;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 8) == 0)
   {
 LABEL_52:
-    if ((v17 & 2) == 0)
+    if ((v8 & 2) == 0)
     {
       goto LABEL_53;
     }
@@ -3060,13 +3201,12 @@ LABEL_52:
   }
 
 LABEL_113:
-  bytesOut = self->_bytesOut;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 2) == 0)
   {
 LABEL_53:
-    if ((v17 & 0x10) == 0)
+    if ((v8 & 0x10) == 0)
     {
       goto LABEL_54;
     }
@@ -3075,13 +3215,12 @@ LABEL_53:
   }
 
 LABEL_114:
-  bytesDuplicate = self->_bytesDuplicate;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x10) == 0)
   {
 LABEL_54:
-    if ((v17 & 0x20) == 0)
+    if ((v8 & 0x20) == 0)
     {
       goto LABEL_55;
     }
@@ -3090,13 +3229,12 @@ LABEL_54:
   }
 
 LABEL_115:
-  bytesOutOfOrder = self->_bytesOutOfOrder;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x20) == 0)
   {
 LABEL_55:
-    if ((v17 & 0x800000) == 0)
+    if ((v8 & 0x800000) == 0)
     {
       goto LABEL_56;
     }
@@ -3105,13 +3243,12 @@ LABEL_55:
   }
 
 LABEL_116:
-  bytesRetransmitted = self->_bytesRetransmitted;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x800000) == 0)
   {
 LABEL_56:
-    if ((v17 & 0x1000000) == 0)
+    if ((v8 & 0x1000000) == 0)
     {
       goto LABEL_57;
     }
@@ -3120,13 +3257,12 @@ LABEL_56:
   }
 
 LABEL_117:
-  packetsIn = self->_packetsIn;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x1000000) == 0)
   {
 LABEL_57:
-    if ((v17 & 0x100) == 0)
+    if ((v8 & 0x100) == 0)
     {
       goto LABEL_58;
     }
@@ -3135,13 +3271,12 @@ LABEL_57:
   }
 
 LABEL_118:
-  packetsOut = self->_packetsOut;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x100) == 0)
   {
 LABEL_58:
-    if ((v17 & 0x40000000) == 0)
+    if ((v8 & 0x40000000) == 0)
     {
       goto LABEL_59;
     }
@@ -3150,13 +3285,12 @@ LABEL_58:
   }
 
 LABEL_119:
-  currentRTT = self->_currentRTT;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x40000000) == 0)
   {
 LABEL_59:
-    if ((v17 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
       goto LABEL_60;
     }
@@ -3165,13 +3299,12 @@ LABEL_59:
   }
 
 LABEL_120:
-  smoothedRTT = self->_smoothedRTT;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 1) == 0)
   {
 LABEL_60:
-    if ((v17 & 0x8000000) == 0)
+    if ((v8 & 0x8000000) == 0)
     {
       goto LABEL_61;
     }
@@ -3180,13 +3313,12 @@ LABEL_60:
   }
 
 LABEL_121:
-  bestRTT = self->_bestRTT;
   PBDataWriterWriteUint64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x8000000) == 0)
   {
 LABEL_61:
-    if ((v17 & 0x80000000) == 0)
+    if ((v8 & 0x80000000) == 0)
     {
       goto LABEL_63;
     }
@@ -3195,32 +3327,28 @@ LABEL_61:
   }
 
 LABEL_122:
-  rTTvariance = self->_rTTvariance;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 0x80000000) != 0)
   {
 LABEL_62:
-    synRetransmissionCount = self->_synRetransmissionCount;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_63:
   if (*(p_has + 8))
   {
-    tfoUsed = self->_tfoUsed;
     PBDataWriterWriteBOOLField();
   }
 
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x400000) != 0)
   {
-    multipathServiceType = self->_multipathServiceType;
     PBDataWriterWriteUint64Field();
-    v20 = *p_has;
+    v9 = *p_has;
     if ((*p_has & 0x4000000000000) == 0)
     {
 LABEL_67:
-      if ((v20 & 0x10000) == 0)
+      if ((v9 & 0x10000) == 0)
       {
         goto LABEL_68;
       }
@@ -3229,18 +3357,17 @@ LABEL_67:
     }
   }
 
-  else if ((v20 & 0x4000000000000) == 0)
+  else if ((v9 & 0x4000000000000) == 0)
   {
     goto LABEL_67;
   }
 
-  firstParty = self->_firstParty;
   PBDataWriterWriteBOOLField();
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x10000) == 0)
   {
 LABEL_68:
-    if ((v20 & 0x80000) == 0)
+    if ((v9 & 0x80000) == 0)
     {
       goto LABEL_69;
     }
@@ -3249,13 +3376,12 @@ LABEL_68:
   }
 
 LABEL_126:
-  multipathBytesInCell = self->_multipathBytesInCell;
   PBDataWriterWriteUint64Field();
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x80000) == 0)
   {
 LABEL_69:
-    if ((v20 & 0x40000) == 0)
+    if ((v9 & 0x40000) == 0)
     {
       goto LABEL_70;
     }
@@ -3264,13 +3390,12 @@ LABEL_69:
   }
 
 LABEL_127:
-  multipathBytesOutCell = self->_multipathBytesOutCell;
   PBDataWriterWriteUint64Field();
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x40000) == 0)
   {
 LABEL_70:
-    if ((v20 & 0x200000) == 0)
+    if ((v9 & 0x200000) == 0)
     {
       goto LABEL_71;
     }
@@ -3279,13 +3404,12 @@ LABEL_70:
   }
 
 LABEL_128:
-  multipathBytesInWiFi = self->_multipathBytesInWiFi;
   PBDataWriterWriteUint64Field();
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x200000) == 0)
   {
 LABEL_71:
-    if ((v20 & 0x20000) == 0)
+    if ((v9 & 0x20000) == 0)
     {
       goto LABEL_72;
     }
@@ -3294,13 +3418,12 @@ LABEL_71:
   }
 
 LABEL_129:
-  multipathBytesOutWiFi = self->_multipathBytesOutWiFi;
   PBDataWriterWriteUint64Field();
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x20000) == 0)
   {
 LABEL_72:
-    if ((v20 & 0x100000) == 0)
+    if ((v9 & 0x100000) == 0)
     {
       goto LABEL_73;
     }
@@ -3309,13 +3432,12 @@ LABEL_72:
   }
 
 LABEL_130:
-  multipathBytesInInitial = self->_multipathBytesInInitial;
   PBDataWriterWriteUint64Field();
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x100000) == 0)
   {
 LABEL_73:
-    if ((v20 & 0x20000000) == 0)
+    if ((v9 & 0x20000000) == 0)
     {
       goto LABEL_74;
     }
@@ -3324,13 +3446,12 @@ LABEL_73:
   }
 
 LABEL_131:
-  multipathBytesOutInitial = self->_multipathBytesOutInitial;
   PBDataWriterWriteUint64Field();
-  v20 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x20000000) == 0)
   {
 LABEL_74:
-    if ((v20 & 0x20000000000000) == 0)
+    if ((v9 & 0x20000000000000) == 0)
     {
       goto LABEL_76;
     }
@@ -3339,12 +3460,10 @@ LABEL_74:
   }
 
 LABEL_132:
-  secondsSinceInterfaceChange = self->_secondsSinceInterfaceChange;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 0x20000000000000) != 0)
   {
 LABEL_75:
-    isDaemon = self->_isDaemon;
     PBDataWriterWriteBOOLField();
   }
 
@@ -3354,33 +3473,32 @@ LABEL_76:
     PBDataWriterWriteStringField();
   }
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   activities = self->_activities;
-  v23 = [(NSMutableArray *)activities countByEnumeratingWithState:&v90 objects:v94 count:16];
-  if (v23)
+  v11 = [(NSMutableArray *)activities countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
   {
-    v24 = v23;
-    v25 = *v91;
+    v12 = v11;
+    v13 = *v18;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v91 != v25)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(activities);
         }
 
-        v27 = *(*(&v90 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v24 = [(NSMutableArray *)activities countByEnumeratingWithState:&v90 objects:v94 count:16];
+      v12 = [(NSMutableArray *)activities countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v24);
+    while (v12);
   }
 
   if (self->_connectionUUID)
@@ -3390,20 +3508,18 @@ LABEL_76:
 
   if ((*(p_has + 8) & 4) != 0)
   {
-    tlsHandshakeTimedOut = self->_tlsHandshakeTimedOut;
     PBDataWriterWriteBOOLField();
   }
 
-  v29 = *p_has;
+  v15 = *p_has;
   if ((*p_has & 0x80000000000000) != 0)
   {
-    isPathExpensive = self->_isPathExpensive;
     PBDataWriterWriteBOOLField();
-    v29 = *p_has;
+    v15 = *p_has;
     if ((*p_has & 0x40000000000000) == 0)
     {
 LABEL_91:
-      if ((v29 & 0x400000000000000) == 0)
+      if ((v15 & 0x400000000000000) == 0)
       {
         goto LABEL_92;
       }
@@ -3412,18 +3528,17 @@ LABEL_91:
     }
   }
 
-  else if ((v29 & 0x40000000000000) == 0)
+  else if ((v15 & 0x40000000000000) == 0)
   {
     goto LABEL_91;
   }
 
-  isPathConstrained = self->_isPathConstrained;
   PBDataWriterWriteBOOLField();
-  v29 = *p_has;
+  v15 = *p_has;
   if ((*p_has & 0x400000000000000) == 0)
   {
 LABEL_92:
-    if ((v29 & 0x200000000000000) == 0)
+    if ((v15 & 0x200000000000000) == 0)
     {
       goto LABEL_94;
     }
@@ -3432,12 +3547,10 @@ LABEL_92:
   }
 
 LABEL_136:
-  prohibitsExpensive = self->_prohibitsExpensive;
   PBDataWriterWriteBOOLField();
   if ((*p_has & 0x200000000000000) != 0)
   {
 LABEL_93:
-    prohibitsConstrained = self->_prohibitsConstrained;
     PBDataWriterWriteBOOLField();
   }
 
@@ -3452,16 +3565,15 @@ LABEL_94:
     PBDataWriterWriteSubmessage();
   }
 
-  v31 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x400000000000) != 0)
   {
-    transportProtocol = self->_transportProtocol;
     PBDataWriterWriteInt32Field();
-    v31 = *p_has;
+    v16 = *p_has;
     if ((*p_has & 0x10000000000) == 0)
     {
 LABEL_100:
-      if ((v31 & 0x20000000000) == 0)
+      if ((v16 & 0x20000000000) == 0)
       {
         goto LABEL_102;
       }
@@ -3470,17 +3582,15 @@ LABEL_100:
     }
   }
 
-  else if ((v31 & 0x10000000000) == 0)
+  else if ((v16 & 0x10000000000) == 0)
   {
     goto LABEL_100;
   }
 
-  dnsProtocol = self->_dnsProtocol;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x20000000000) != 0)
   {
 LABEL_101:
-    dnsProvider = self->_dnsProvider;
     PBDataWriterWriteInt32Field();
   }
 
@@ -3494,8 +3604,6 @@ LABEL_102:
   {
     PBDataWriterWriteStringField();
   }
-
-  v33 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -4463,7 +4571,7 @@ LABEL_99:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   p_has = &self->_has;
@@ -5296,30 +5404,30 @@ LABEL_75:
 LABEL_76:
 
   *(v6 + 376) = [(NSString *)self->_processName copyWithZone:zone];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   activities = self->_activities;
-  v14 = [(NSMutableArray *)activities countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [(NSMutableArray *)activities countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(activities);
         }
 
-        v18 = [*(*(&v23 + 1) + 8 * i) copyWithZone:zone];
+        v18 = [*(*(&v22 + 1) + 8 * i) copyWithZone:zone];
         [v6 addActivities:v18];
       }
 
-      v15 = [(NSMutableArray *)activities countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [(NSMutableArray *)activities countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
@@ -5422,7 +5530,6 @@ LABEL_94:
 
   *(v6 + 304) = [(NSString *)self->_bundleID copyWithZone:zone];
   *(v6 + 352) = [(NSString *)self->_effectiveBundleID copyWithZone:zone];
-  v21 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -5449,7 +5556,6 @@ LABEL_94:
     goto LABEL_440;
   }
 
-  v8 = *(equal + 432);
   if ((*(&self->_has + 8) & 0x10) != 0)
   {
     if ((*(equal + 432) & 0x10) == 0)
@@ -5457,7 +5563,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v9 = *(equal + 420);
     if (self->_triggeredPath)
     {
       if ((*(equal + 420) & 1) == 0)
@@ -5484,7 +5589,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v10 = *(equal + 414);
     if (self->_systemProxyConfigured)
     {
       if ((*(equal + 414) & 1) == 0)
@@ -5511,7 +5615,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v11 = *(equal + 400);
     if (self->_customProxyConfigured)
     {
       if ((*(equal + 400) & 1) == 0)
@@ -5551,7 +5654,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v12 = *(equal + 401);
     if (self->_fallbackEligible)
     {
       if ((*(equal + 401) & 1) == 0)
@@ -5578,7 +5680,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v13 = *(equal + 422);
     if (self->_weakFallback)
     {
       if ((*(equal + 422) & 1) == 0)
@@ -5605,7 +5706,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v14 = *(equal + 421);
     if (self->_usedFallback)
     {
       if ((*(equal + 421) & 1) == 0)
@@ -5626,7 +5726,7 @@ LABEL_94:
   }
 
   p_has = &self->_has;
-  v48 = (equal + 424);
+  v22 = (equal + 424);
   if ((has & 0x800000000000000) != 0)
   {
     if ((v7 & 0x800000000000000) == 0)
@@ -5634,7 +5734,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v15 = *(equal + 411);
     if (self->_resolutionRequired)
     {
       if ((*(equal + 411) & 1) == 0)
@@ -5661,7 +5760,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v16 = *(equal + 417);
     if (self->_tlsConfigured)
     {
       if ((*(equal + 417) & 1) == 0)
@@ -5688,7 +5786,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v17 = *(equal + 415);
     if (self->_tfoConfigured)
     {
       if ((*(equal + 415) & 1) == 0)
@@ -5715,7 +5812,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v18 = *(equal + 408);
     if (self->_multipathConfigured)
     {
       if ((*(equal + 408) & 1) == 0)
@@ -5872,7 +5968,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v19 = *(equal + 413);
     if (self->_synthesizedIPv6Address)
     {
       if ((*(equal + 413) & 1) == 0)
@@ -6042,7 +6137,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v20 = *(equal + 403);
     if (self->_ipv4Available)
     {
       if ((*(equal + 403) & 1) == 0)
@@ -6069,7 +6163,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v21 = *(equal + 404);
     if (self->_ipv6Available)
     {
       if ((*(equal + 404) & 1) == 0)
@@ -6122,7 +6215,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v22 = *(equal + 419);
     if (self->_tlsVersionTimeout)
     {
       if ((*(equal + 419) & 1) == 0)
@@ -6149,7 +6241,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v23 = *(equal + 412);
     if (self->_synthesizedExtraIPv6Address)
     {
       if ((*(equal + 412) & 1) == 0)
@@ -6208,125 +6299,124 @@ LABEL_94:
     goto LABEL_440;
   }
 
-  v24 = *v48;
+  v8 = *v22;
   if ((has & 0x10) != 0)
   {
-    if ((v24 & 0x10) == 0 || self->_bytesOutOfOrder != *(equal + 5))
+    if ((v8 & 0x10) == 0 || self->_bytesOutOfOrder != *(equal + 5))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x10) != 0)
+  else if ((v8 & 0x10) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v24 & 0x20) == 0 || self->_bytesRetransmitted != *(equal + 6))
+    if ((v8 & 0x20) == 0 || self->_bytesRetransmitted != *(equal + 6))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x20) != 0)
+  else if ((v8 & 0x20) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x800000) != 0)
   {
-    if ((v24 & 0x800000) == 0 || self->_packetsIn != *(equal + 24))
+    if ((v8 & 0x800000) == 0 || self->_packetsIn != *(equal + 24))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x800000) != 0)
+  else if ((v8 & 0x800000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x1000000) != 0)
   {
-    if ((v24 & 0x1000000) == 0 || self->_packetsOut != *(equal + 25))
+    if ((v8 & 0x1000000) == 0 || self->_packetsOut != *(equal + 25))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x1000000) != 0)
+  else if ((v8 & 0x1000000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x100) != 0)
   {
-    if ((v24 & 0x100) == 0 || self->_currentRTT != *(equal + 9))
+    if ((v8 & 0x100) == 0 || self->_currentRTT != *(equal + 9))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x100) != 0)
+  else if ((v8 & 0x100) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x40000000) != 0)
   {
-    if ((v24 & 0x40000000) == 0 || self->_smoothedRTT != *(equal + 31))
+    if ((v8 & 0x40000000) == 0 || self->_smoothedRTT != *(equal + 31))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x40000000) != 0)
+  else if ((v8 & 0x40000000) != 0)
   {
     goto LABEL_440;
   }
 
   if (has)
   {
-    if ((v24 & 1) == 0 || self->_bestRTT != *(equal + 1))
+    if ((v8 & 1) == 0 || self->_bestRTT != *(equal + 1))
     {
       goto LABEL_440;
     }
   }
 
-  else if (v24)
+  else if (v8)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x8000000) != 0)
   {
-    if ((v24 & 0x8000000) == 0 || self->_rTTvariance != *(equal + 28))
+    if ((v8 & 0x8000000) == 0 || self->_rTTvariance != *(equal + 28))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x8000000) != 0)
+  else if ((v8 & 0x8000000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x80000000) != 0)
   {
-    if ((v24 & 0x80000000) == 0 || self->_synRetransmissionCount != *(equal + 32))
+    if ((v8 & 0x80000000) == 0 || self->_synRetransmissionCount != *(equal + 32))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x80000000) != 0)
+  else if ((v8 & 0x80000000) != 0)
   {
     goto LABEL_440;
   }
 
-  v25 = *(equal + 432);
   if (*(&self->_has + 8))
   {
     if ((*(equal + 432) & 1) == 0)
@@ -6334,7 +6424,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v26 = *(equal + 416);
     if (self->_tfoUsed)
     {
       if ((*(equal + 416) & 1) == 0)
@@ -6356,25 +6445,24 @@ LABEL_94:
 
   if ((has & 0x400000) != 0)
   {
-    if ((v24 & 0x400000) == 0 || self->_multipathServiceType != *(equal + 23))
+    if ((v8 & 0x400000) == 0 || self->_multipathServiceType != *(equal + 23))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x400000) != 0)
+  else if ((v8 & 0x400000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x4000000000000) != 0)
   {
-    if ((v24 & 0x4000000000000) == 0)
+    if ((v8 & 0x4000000000000) == 0)
     {
       goto LABEL_440;
     }
 
-    v27 = *(equal + 402);
     if (self->_firstParty)
     {
       if ((*(equal + 402) & 1) == 0)
@@ -6389,110 +6477,109 @@ LABEL_94:
     }
   }
 
-  else if ((v24 & 0x4000000000000) != 0)
+  else if ((v8 & 0x4000000000000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x10000) != 0)
   {
-    if ((v24 & 0x10000) == 0 || self->_multipathBytesInCell != *(equal + 17))
+    if ((v8 & 0x10000) == 0 || self->_multipathBytesInCell != *(equal + 17))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x10000) != 0)
+  else if ((v8 & 0x10000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x80000) != 0)
   {
-    if ((v24 & 0x80000) == 0 || self->_multipathBytesOutCell != *(equal + 20))
+    if ((v8 & 0x80000) == 0 || self->_multipathBytesOutCell != *(equal + 20))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x80000) != 0)
+  else if ((v8 & 0x80000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x40000) != 0)
   {
-    if ((v24 & 0x40000) == 0 || self->_multipathBytesInWiFi != *(equal + 19))
+    if ((v8 & 0x40000) == 0 || self->_multipathBytesInWiFi != *(equal + 19))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x40000) != 0)
+  else if ((v8 & 0x40000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x200000) != 0)
   {
-    if ((v24 & 0x200000) == 0 || self->_multipathBytesOutWiFi != *(equal + 22))
+    if ((v8 & 0x200000) == 0 || self->_multipathBytesOutWiFi != *(equal + 22))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x200000) != 0)
+  else if ((v8 & 0x200000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x20000) != 0)
   {
-    if ((v24 & 0x20000) == 0 || self->_multipathBytesInInitial != *(equal + 18))
+    if ((v8 & 0x20000) == 0 || self->_multipathBytesInInitial != *(equal + 18))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x20000) != 0)
+  else if ((v8 & 0x20000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x100000) != 0)
   {
-    if ((v24 & 0x100000) == 0 || self->_multipathBytesOutInitial != *(equal + 21))
+    if ((v8 & 0x100000) == 0 || self->_multipathBytesOutInitial != *(equal + 21))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x100000) != 0)
+  else if ((v8 & 0x100000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x20000000) != 0)
   {
-    if ((v24 & 0x20000000) == 0 || self->_secondsSinceInterfaceChange != *(equal + 30))
+    if ((v8 & 0x20000000) == 0 || self->_secondsSinceInterfaceChange != *(equal + 30))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v24 & 0x20000000) != 0)
+  else if ((v8 & 0x20000000) != 0)
   {
     goto LABEL_440;
   }
 
   if ((has & 0x20000000000000) != 0)
   {
-    if ((v24 & 0x20000000000000) == 0)
+    if ((v8 & 0x20000000000000) == 0)
     {
       goto LABEL_440;
     }
 
-    v28 = *(equal + 405);
     if (self->_isDaemon)
     {
       if ((*(equal + 405) & 1) == 0)
@@ -6507,7 +6594,7 @@ LABEL_94:
     }
   }
 
-  else if ((v24 & 0x20000000000000) != 0)
+  else if ((v8 & 0x20000000000000) != 0)
   {
     goto LABEL_440;
   }
@@ -6542,7 +6629,6 @@ LABEL_94:
     }
   }
 
-  v32 = *(equal + 432);
   if ((*(&self->_has + 8) & 4) != 0)
   {
     if ((*(equal + 432) & 4) == 0)
@@ -6550,7 +6636,6 @@ LABEL_94:
       goto LABEL_440;
     }
 
-    v33 = *(equal + 418);
     if (self->_tlsHandshakeTimedOut)
     {
       if ((*(equal + 418) & 1) == 0)
@@ -6570,16 +6655,15 @@ LABEL_94:
     goto LABEL_440;
   }
 
-  v34 = *p_has;
-  v35 = *v48;
+  v12 = *p_has;
+  v13 = *v22;
   if ((*p_has & 0x80000000000000) != 0)
   {
-    if ((v35 & 0x80000000000000) == 0)
+    if ((v13 & 0x80000000000000) == 0)
     {
       goto LABEL_440;
     }
 
-    v36 = *(equal + 407);
     if (self->_isPathExpensive)
     {
       if ((*(equal + 407) & 1) == 0)
@@ -6594,19 +6678,18 @@ LABEL_94:
     }
   }
 
-  else if ((v35 & 0x80000000000000) != 0)
+  else if ((v13 & 0x80000000000000) != 0)
   {
     goto LABEL_440;
   }
 
-  if ((v34 & 0x40000000000000) != 0)
+  if ((v12 & 0x40000000000000) != 0)
   {
-    if ((v35 & 0x40000000000000) == 0)
+    if ((v13 & 0x40000000000000) == 0)
     {
       goto LABEL_440;
     }
 
-    v37 = *(equal + 406);
     if (self->_isPathConstrained)
     {
       if ((*(equal + 406) & 1) == 0)
@@ -6621,19 +6704,18 @@ LABEL_94:
     }
   }
 
-  else if ((v35 & 0x40000000000000) != 0)
+  else if ((v13 & 0x40000000000000) != 0)
   {
     goto LABEL_440;
   }
 
-  if ((v34 & 0x400000000000000) != 0)
+  if ((v12 & 0x400000000000000) != 0)
   {
-    if ((v35 & 0x400000000000000) == 0)
+    if ((v13 & 0x400000000000000) == 0)
     {
       goto LABEL_440;
     }
 
-    v38 = *(equal + 410);
     if (self->_prohibitsExpensive)
     {
       if ((*(equal + 410) & 1) == 0)
@@ -6648,19 +6730,18 @@ LABEL_94:
     }
   }
 
-  else if ((v35 & 0x400000000000000) != 0)
+  else if ((v13 & 0x400000000000000) != 0)
   {
     goto LABEL_440;
   }
 
-  if ((v34 & 0x200000000000000) != 0)
+  if ((v12 & 0x200000000000000) != 0)
   {
-    if ((v35 & 0x200000000000000) == 0)
+    if ((v13 & 0x200000000000000) == 0)
     {
       goto LABEL_440;
     }
 
-    v39 = *(equal + 409);
     if (self->_prohibitsConstrained)
     {
       if ((*(equal + 409) & 1) == 0)
@@ -6675,7 +6756,7 @@ LABEL_94:
     }
   }
 
-  else if ((v35 & 0x200000000000000) != 0)
+  else if ((v13 & 0x200000000000000) != 0)
   {
     goto LABEL_440;
   }
@@ -6700,37 +6781,37 @@ LABEL_94:
     }
   }
 
-  v42 = *p_has;
-  v43 = *v48;
+  v16 = *p_has;
+  v17 = *v22;
   if ((*p_has & 0x400000000000) != 0)
   {
-    if ((v43 & 0x400000000000) == 0 || self->_transportProtocol != *(equal + 98))
+    if ((v17 & 0x400000000000) == 0 || self->_transportProtocol != *(equal + 98))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v43 & 0x400000000000) != 0)
+  else if ((v17 & 0x400000000000) != 0)
   {
     goto LABEL_440;
   }
 
-  if ((v42 & 0x10000000000) != 0)
+  if ((v16 & 0x10000000000) != 0)
   {
-    if ((v43 & 0x10000000000) == 0 || self->_dnsProtocol != *(equal + 86))
+    if ((v17 & 0x10000000000) == 0 || self->_dnsProtocol != *(equal + 86))
     {
       goto LABEL_440;
     }
   }
 
-  else if ((v43 & 0x10000000000) != 0)
+  else if ((v17 & 0x10000000000) != 0)
   {
     goto LABEL_440;
   }
 
-  if ((v42 & 0x20000000000) != 0)
+  if ((v16 & 0x20000000000) != 0)
   {
-    if ((v43 & 0x20000000000) == 0 || self->_dnsProvider != *(equal + 87))
+    if ((v17 & 0x20000000000) == 0 || self->_dnsProvider != *(equal + 87))
     {
       goto LABEL_440;
     }
@@ -6738,7 +6819,7 @@ LABEL_94:
     goto LABEL_436;
   }
 
-  if ((v43 & 0x20000000000) != 0)
+  if ((v17 & 0x20000000000) != 0)
   {
 LABEL_440:
     LOBYTE(v5) = 0;
@@ -7751,7 +7832,7 @@ LABEL_148:
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v5 = from + 424;
   if (*(from + 428))
   {
@@ -8585,29 +8666,29 @@ LABEL_76:
     [(AWDNWConnectionReport *)self setProcessName:?];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v11 = *(from + 36);
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(AWDNWConnectionReport *)self addActivities:*(*(&v23 + 1) + 8 * i)];
+        [(AWDNWConnectionReport *)self addActivities:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v13);
@@ -8744,8 +8825,6 @@ LABEL_167:
   {
     [(AWDNWConnectionReport *)self setEffectiveBundleID:?];
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -73,7 +73,7 @@
 
   sub_21D6BB93C();
 
-  sub_21D0CF7E0(v6, &qword_27CE5C690);
+  sub_21D0CF7E0(v6, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)infoButtonAction:(id)action
@@ -93,7 +93,7 @@
     selfCopy3 = self;
   }
 
-  v6 = sub_21D6BC22C();
+  sub_21D6BC22C();
   if (v6)
   {
     v7 = v6;
@@ -114,7 +114,7 @@
     selfCopy = v7;
   }
 
-  sub_21D0CF7E0(v11, &qword_27CE5C690);
+  sub_21D0CF7E0(v11, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)subtaskDisclosureAction:(id)action
@@ -147,7 +147,7 @@
   {
   }
 
-  sub_21D0CF7E0(v9, &qword_27CE5C690);
+  sub_21D0CF7E0(v9, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (_TtC15RemindersUICore47TTRIRemindersListReminderCellAccessoryStackView)initWithArrangedSubviews:(id)subviews

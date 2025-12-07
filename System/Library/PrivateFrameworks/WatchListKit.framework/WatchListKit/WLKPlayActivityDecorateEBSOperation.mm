@@ -22,7 +22,7 @@
   v11 = passthroughCopy;
   if (!passthroughCopy)
   {
-    v12 = WLKSystemLogObject();
+    v12 = WLKSystemLogObject(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WLKPlayActivityDecorateEBSOperation initWithChannelID:dCopy externalContentID:iDCopy playablePassthrough:v12];
@@ -57,13 +57,12 @@
 
 - (void)initWithChannelID:(uint64_t)a1 externalContentID:(uint64_t)a2 playablePassthrough:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_272A0F000, log, OS_LOG_TYPE_ERROR, "WLKPlayActivityDecorateEBSOperation - Playable passthrough is missing for channelID - %@ and externalContentID - %@, we can still proceed with decorate call", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_272A0F000, log, OS_LOG_TYPE_ERROR, "WLKPlayActivityDecorateEBSOperation - Playable passthrough is missing for channelID - %@ and externalContentID - %@, we can still proceed with decorate call", &v3, 0x16u);
 }
 
 @end

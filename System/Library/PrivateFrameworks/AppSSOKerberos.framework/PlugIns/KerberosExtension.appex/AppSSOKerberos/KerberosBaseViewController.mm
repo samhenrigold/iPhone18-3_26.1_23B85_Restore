@@ -87,7 +87,7 @@
 - (void)cancelAuthorizationWithRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_1000099B0();
+  v5 = sub_1000099B0(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B978(requestCopy, v5);
@@ -100,7 +100,7 @@
 - (void)handleKerberosOperations:(id)operations
 {
   operationsCopy = operations;
-  v5 = sub_1000099B0();
+  v5 = sub_1000099B0(operationsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B9F0(operationsCopy);
@@ -113,7 +113,7 @@
 - (void)handleChangePasswordWithRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_1000099B0();
+  v5 = sub_1000099B0(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10000BA78(requestCopy);
@@ -278,15 +278,15 @@ LABEL_13:
 {
   contextCopy = context;
   errorCopy = error;
-  v10 = sub_1000099B0();
+  v10 = sub_1000099B0(errorCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
     resultCopy = result;
-    v44 = 2112;
-    v45 = contextCopy;
-    v46 = 2112;
-    v47 = errorCopy;
+    v45 = 2112;
+    v46 = contextCopy;
+    v47 = 2112;
+    v48 = errorCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "handleResult: %lu, %@, %@", buf, 0x20u);
   }
 
@@ -322,13 +322,13 @@ LABEL_13:
         [keychainLAContext setOptionCallerName:@"Kerberos"];
 
         keychainLAContext2 = [contextCopy keychainLAContext];
-        v40[0] = _NSConcreteStackBlock;
-        v40[1] = 3221225472;
-        v40[2] = sub_10000A864;
-        v40[3] = &unk_100014450;
-        v40[4] = self;
-        v41 = contextCopy;
-        [keychainLAContext2 evaluatePolicy:4 localizedReason:v26 reply:v40];
+        v41[0] = _NSConcreteStackBlock;
+        v41[1] = 3221225472;
+        v41[2] = sub_10000A864;
+        v41[3] = &unk_100014450;
+        v41[4] = self;
+        v42 = contextCopy;
+        [keychainLAContext2 evaluatePolicy:4 localizedReason:v26 reply:v41];
 
         goto LABEL_32;
       }
@@ -363,9 +363,9 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v35 = [(KerberosBaseViewController *)self retrievePasswordFromKeychain:contextCopy];
+    v36 = [(KerberosBaseViewController *)self retrievePasswordFromKeychain:contextCopy];
 
-    if (v35)
+    if (v36)
     {
       goto LABEL_31;
     }
@@ -408,9 +408,9 @@ LABEL_25:
     block[2] = sub_10000A8FC;
     block[3] = &unk_100014738;
     block[4] = self;
-    v37 = contextCopy;
+    v38 = contextCopy;
     resultCopy2 = result;
-    v38 = errorCopy;
+    v39 = errorCopy;
     dispatch_async(&_dispatch_main_q, block);
 
     goto LABEL_33;
@@ -431,11 +431,11 @@ LABEL_25:
   {
   }
 
-  v34 = sub_1000099B0();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+  v35 = sub_1000099B0(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "allowPlatformSSOAuthFallback not enabled", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "allowPlatformSSOAuthFallback not enabled", buf, 2u);
   }
 
   [contextCopy completeRequestWithDoNotHandle];
@@ -446,7 +446,7 @@ LABEL_33:
 {
   keychainCopy = keychain;
   serviceName = [keychainCopy serviceName];
-  v6 = sub_1000099B0();
+  v6 = sub_1000099B0(serviceName);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -455,18 +455,18 @@ LABEL_33:
 
   keychainHelper = [(KerberosBaseViewController *)self keychainHelper];
   keychainLAContext = [keychainCopy keychainLAContext];
-  v14 = 0;
   v15 = 0;
-  v9 = [keychainHelper retrieveCredentialsFromKeychainWithContext:keychainLAContext service:serviceName returnedUsername:&v15 returnedPassword:&v14];
-  v10 = v15;
-  v11 = v14;
+  v16 = 0;
+  v9 = [keychainHelper retrieveCredentialsFromKeychainWithContext:keychainLAContext service:serviceName returnedUsername:&v16 returnedPassword:&v15];
+  v10 = v16;
+  v11 = v15;
 
-  v12 = sub_1000099B0();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_1000099B0(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v17 = v9;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "keychainErr returned %d", buf, 8u);
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "keychainErr returned %d", buf, 8u);
   }
 
   if (!v9)

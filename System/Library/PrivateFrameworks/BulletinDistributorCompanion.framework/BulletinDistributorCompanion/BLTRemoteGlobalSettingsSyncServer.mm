@@ -14,35 +14,33 @@
 
 - (BLTRemoteGlobalSettingsSyncServer)initWithLocalEndpoint:(id)endpoint remoteEndpoint:(id)remoteEndpoint initialSyncCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   remoteEndpointCopy = remoteEndpoint;
   completionCopy = completion;
-  v18.receiver = self;
-  v18.super_class = BLTRemoteGlobalSettingsSyncServer;
-  v11 = [(BLTRemoteGlobalSettingsSyncServer *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = BLTRemoteGlobalSettingsSyncServer;
+  v11 = [(BLTRemoteGlobalSettingsSyncServer *)&v17 init];
   v12 = v11;
   if (v11)
   {
     [(BLTRemoteGlobalSettingsSyncServer *)v11 setLocalEndpoint:endpointCopy];
     [(BLTRemoteGlobalSettingsSyncServer *)v12 setRemoteEndpoint:remoteEndpointCopy];
-    [(BLTRemoteGlobalSettingsSyncServer *)v12 sendInitialChangsetWithCompletion:completionCopy];
-    v13 = blt_global_settings_sync_log();
+    v13 = blt_global_settings_sync_log([(BLTRemoteGlobalSettingsSyncServer *)v12 sendInitialChangsetWithCompletion:completionCopy]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       localEndpoint = [(BLTRemoteGlobalSettingsSyncServer *)v12 localEndpoint];
       remoteEndpoint = [(BLTRemoteGlobalSettingsSyncServer *)v12 remoteEndpoint];
       *buf = 138412802;
-      v20 = v12;
-      v21 = 2112;
-      v22 = localEndpoint;
-      v23 = 2112;
-      v24 = remoteEndpoint;
+      v19 = v12;
+      v20 = 2112;
+      v21 = localEndpoint;
+      v22 = 2112;
+      v23 = remoteEndpoint;
       _os_log_impl(&dword_241FB3000, v13, OS_LOG_TYPE_DEFAULT, "%@ initWithLocalEndpoint: %@ remoteEndpoint: %@", buf, 0x20u);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -74,11 +72,12 @@
   v7 = [BLTRemoteGlobalSettingsChangeset remoteGlobalSettingsChangesetWithProvider:localEndpoint];
 
   v8 = [v5 isEqual:v7];
-  localEndpoint3 = blt_global_settings_sync_log();
-  v10 = os_log_type_enabled(localEndpoint3, OS_LOG_TYPE_DEFAULT);
-  if (v8)
+  v9 = v8;
+  localEndpoint3 = blt_global_settings_sync_log(v8);
+  v11 = os_log_type_enabled(localEndpoint3, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
       v13 = 138412802;
       selfCopy2 = self;
@@ -92,7 +91,7 @@
 
   else
   {
-    if (v10)
+    if (v11)
     {
       v13 = 138412802;
       selfCopy2 = self;
@@ -109,36 +108,33 @@
     localEndpoint3 = [(BLTRemoteGlobalSettingsSyncServer *)self localEndpoint];
     -[NSObject setEffectiveGlobalSummarizationSetting:](localEndpoint3, "setEffectiveGlobalSummarizationSetting:", [v5 globalSummarizationSetting]);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer updateGlobalSettings:(id)settings
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   settingsCopy = settings;
-  v8 = blt_global_settings_sync_log();
+  v8 = blt_global_settings_sync_log(settingsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412802;
+    v9 = 138412802;
     selfCopy = self;
-    v12 = 2112;
-    v13 = observerCopy;
-    v14 = 2112;
-    v15 = settingsCopy;
-    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "%@ observer: %@ updateGlobalSettings: %@ UPDATING", &v10, 0x20u);
+    v11 = 2112;
+    v12 = observerCopy;
+    v13 = 2112;
+    v14 = settingsCopy;
+    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "%@ observer: %@ updateGlobalSettings: %@ UPDATING", &v9, 0x20u);
   }
 
   [(BLTRemoteGlobalSettingsSyncServer *)self checkAndThenSendGlobalSettings:settingsCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInitialChangsetWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = blt_global_settings_sync_log();
+  v5 = blt_global_settings_sync_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -147,38 +143,36 @@
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion___block_invoke;
-  v9[3] = &unk_278D31980;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion___block_invoke;
+  v8[3] = &unk_278D31980;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(v6, v8);
 }
 
 void __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) localEndpoint];
   v4 = [BLTRemoteGlobalSettingsChangeset remoteGlobalSettingsChangesetWithProvider:v3];
 
   v5 = [v4 globalScheduledDeliverySetting];
-  v6 = blt_global_settings_sync_log();
+  v6 = blt_global_settings_sync_log(v5);
   v7 = v6;
   if (v5)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *v2;
-      v12 = 138412546;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v4;
-      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "%@ sendInitialChangsetWithCompletion: %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v4;
+      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "%@ sendInitialChangsetWithCompletion: %@", &v11, 0x16u);
     }
 
     v9 = [*(a1 + 32) remoteEndpoint];
@@ -200,8 +194,6 @@ void __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion__
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkAndThenSendGlobalSettings:(id)settings
@@ -209,17 +201,18 @@ void __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion__
   v14 = *MEMORY[0x277D85DE8];
   v4 = [BLTRemoteGlobalSettingsChangeset remoteGlobalSettingsChangesetWithProvider:settings];
   needsSend = [v4 needsSend];
-  v6 = blt_global_settings_sync_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (needsSend)
+  v6 = needsSend;
+  v7 = blt_global_settings_sync_log(needsSend);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       v10 = 138412546;
       selfCopy2 = self;
       v12 = 2112;
       v13 = v4;
-      _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "%@ checkAndThenSendGlobalSettings: %@ - sending", &v10, 0x16u);
+      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "%@ checkAndThenSendGlobalSettings: %@ - sending", &v10, 0x16u);
     }
 
     remoteEndpoint = [(BLTRemoteGlobalSettingsSyncServer *)self remoteEndpoint];
@@ -230,17 +223,15 @@ void __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion__
 
   else
   {
-    if (v7)
+    if (v8)
     {
       v10 = 138412546;
       selfCopy2 = self;
       v12 = 2112;
       v13 = v4;
-      _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "%@ checkAndThenSendGlobalSettings: %@ - not sending", &v10, 0x16u);
+      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "%@ checkAndThenSendGlobalSettings: %@ - not sending", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BLTRemoteGlobalSettingsSyncServerRemoteEndpoint)remoteEndpoint
@@ -259,14 +250,13 @@ void __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion__
 
 void __71__BLTRemoteGlobalSettingsSyncServer_sendInitialChangsetWithCompletion___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "%@ not sending DEFAULT received from BB: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "%@ not sending DEFAULT received from BB: %@", &v4, 0x16u);
 }
 
 @end

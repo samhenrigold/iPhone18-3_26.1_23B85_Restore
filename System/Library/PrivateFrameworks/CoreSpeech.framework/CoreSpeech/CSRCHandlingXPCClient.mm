@@ -5,6 +5,7 @@
 - (void)dealloc;
 - (void)getMitigationDecisionForRCIdWithCompletion:(unint64_t)completion requestId:(id)id completion:(id)a5;
 - (void)invalidate;
+- (void)processRCWithId:(unint64_t)id requestId:(id)requestId speechPackage:(id)package taskId:(id)taskId forceAccept:(BOOL)accept completionHandler:(id)handler;
 @end
 
 @implementation CSRCHandlingXPCClient
@@ -44,7 +45,7 @@
 
 void __48__CSRCHandlingXPCClient__createClientConnection__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
@@ -53,11 +54,11 @@ void __48__CSRCHandlingXPCClient__createClientConnection__block_invoke(uint64_t 
     v4 = [WeakRetained rcXPCConnection];
     v5 = [WeakRetained rcXPCConnection];
     *buf = 136315650;
-    v11 = "[CSRCHandlingXPCClient _createClientConnection]_block_invoke";
-    v12 = 2114;
-    v13 = v4;
-    v14 = 1026;
-    v15 = [v5 processIdentifier];
+    v10 = "[CSRCHandlingXPCClient _createClientConnection]_block_invoke";
+    v11 = 2114;
+    v12 = v4;
+    v13 = 1026;
+    v14 = [v5 processIdentifier];
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Interruption Handler: %{public}@, client PID: %{public}d)", buf, 0x1Cu);
   }
 
@@ -76,13 +77,11 @@ void __48__CSRCHandlingXPCClient__createClientConnection__block_invoke(uint64_t 
       dispatch_async(v7, block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CSRCHandlingXPCClient__createClientConnection__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
@@ -91,11 +90,11 @@ void __48__CSRCHandlingXPCClient__createClientConnection__block_invoke_2(uint64_
     v4 = [WeakRetained rcXPCConnection];
     v5 = [WeakRetained rcXPCConnection];
     *buf = 136315650;
-    v11 = "[CSRCHandlingXPCClient _createClientConnection]_block_invoke_2";
-    v12 = 2114;
-    v13 = v4;
-    v14 = 1026;
-    v15 = [v5 processIdentifier];
+    v10 = "[CSRCHandlingXPCClient _createClientConnection]_block_invoke_2";
+    v11 = 2114;
+    v12 = v4;
+    v13 = 1026;
+    v14 = [v5 processIdentifier];
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Invalidation Handler: %{public}@, client PID: %{public}d exited", buf, 0x1Cu);
   }
 
@@ -114,8 +113,6 @@ void __48__CSRCHandlingXPCClient__createClientConnection__block_invoke_2(uint64_
       dispatch_async(v7, block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__CSRCHandlingXPCClient__createClientConnection__block_invoke_10(uint64_t a1)
@@ -139,7 +136,7 @@ uint64_t __48__CSRCHandlingXPCClient__createClientConnection__block_invoke_8(uin
 
 - (id)_getRemoteServiceProxyObject
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   remoteObjectProxy = self->_remoteObjectProxy;
   if (!remoteObjectProxy || !self->_rcXPCConnection)
   {
@@ -148,31 +145,31 @@ uint64_t __48__CSRCHandlingXPCClient__createClientConnection__block_invoke_8(uin
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v15 = "[CSRCHandlingXPCClient _getRemoteServiceProxyObject]";
+      v14 = "[CSRCHandlingXPCClient _getRemoteServiceProxyObject]";
       _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Creating RemoteServiceProxy", buf, 0xCu);
     }
 
     rcXPCConnection = self->_rcXPCConnection;
     if (rcXPCConnection || ([(CSRCHandlingXPCClient *)self _createClientConnection], (rcXPCConnection = self->_rcXPCConnection) != 0))
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __53__CSRCHandlingXPCClient__getRemoteServiceProxyObject__block_invoke;
-      v13[3] = &unk_2784C51E0;
-      v13[4] = self;
-      v7 = [(NSXPCConnection *)rcXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __53__CSRCHandlingXPCClient__getRemoteServiceProxyObject__block_invoke;
+      v12[3] = &unk_2784C51E0;
+      v12[4] = self;
+      v7 = [(NSXPCConnection *)rcXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
       v8 = self->_remoteObjectProxy;
       self->_remoteObjectProxy = v7;
     }
 
     else
     {
-      v12 = *v4;
+      v11 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v15 = "[CSRCHandlingXPCClient _getRemoteServiceProxyObject]";
-        _os_log_error_impl(&dword_222E4D000, v12, OS_LOG_TYPE_ERROR, "%s ERR: RCProcessing rcProcConnection is nil", buf, 0xCu);
+        v14 = "[CSRCHandlingXPCClient _getRemoteServiceProxyObject]";
+        _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s ERR: RCProcessing rcProcConnection is nil", buf, 0xCu);
       }
 
       v8 = self->_remoteObjectProxy;
@@ -183,59 +180,78 @@ uint64_t __48__CSRCHandlingXPCClient__createClientConnection__block_invoke_8(uin
   }
 
   v9 = remoteObjectProxy;
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 void __53__CSRCHandlingXPCClient__getRemoteServiceProxyObject__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v8 = v4;
-      v9 = [v3 code];
-      v10 = [v3 localizedDescription];
-      v11 = 136315650;
-      v12 = "[CSRCHandlingXPCClient _getRemoteServiceProxyObject]_block_invoke";
-      v13 = 2050;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s ERR: RC Processing Remote Object Proxy returned error : %{public}ld (%{public}@)", &v11, 0x20u);
+      v7 = v4;
+      v8 = [v3 code];
+      v9 = [v3 localizedDescription];
+      v10 = 136315650;
+      v11 = "[CSRCHandlingXPCClient _getRemoteServiceProxyObject]_block_invoke";
+      v12 = 2050;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s ERR: RC Processing Remote Object Proxy returned error : %{public}ld (%{public}@)", &v10, 0x20u);
     }
 
     v5 = *(a1 + 32);
     v6 = *(v5 + 8);
     *(v5 + 8) = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMitigationDecisionForRCIdWithCompletion:(unint64_t)completion requestId:(id)id completion:(id)a5
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v9 = a5;
   v10 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315394;
-    v14 = "[CSRCHandlingXPCClient getMitigationDecisionForRCIdWithCompletion:requestId:completion:]";
-    v15 = 2048;
+    v12 = 136315394;
+    v13 = "[CSRCHandlingXPCClient getMitigationDecisionForRCIdWithCompletion:requestId:completion:]";
+    v14 = 2048;
     completionCopy = completion;
-    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEFAULT, "%s Getting mitigation decision for rdId: %lu", &v13, 0x16u);
+    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEFAULT, "%s Getting mitigation decision for rdId: %lu", &v12, 0x16u);
   }
 
   _getRemoteServiceProxyObject = [(CSRCHandlingXPCClient *)self _getRemoteServiceProxyObject];
   [_getRemoteServiceProxyObject getMitigationDecisionForRCIdWithCompletion:completion requestId:idCopy completion:v9];
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)processRCWithId:(unint64_t)id requestId:(id)requestId speechPackage:(id)package taskId:(id)taskId forceAccept:(BOOL)accept completionHandler:(id)handler
+{
+  acceptCopy = accept;
+  v26 = *MEMORY[0x277D85DE8];
+  requestIdCopy = requestId;
+  packageCopy = package;
+  taskIdCopy = taskId;
+  handlerCopy = handler;
+  v18 = *MEMORY[0x277D015D8];
+  if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = 136315650;
+    v21 = "[CSRCHandlingXPCClient processRCWithId:requestId:speechPackage:taskId:forceAccept:completionHandler:]";
+    v22 = 2048;
+    idCopy = id;
+    v24 = 1024;
+    v25 = acceptCopy;
+    _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_DEFAULT, "%s Received RC with id: %lu, forceAccept: %d", &v20, 0x1Cu);
+  }
+
+  _getRemoteServiceProxyObject = [(CSRCHandlingXPCClient *)self _getRemoteServiceProxyObject];
+  [_getRemoteServiceProxyObject processRCWithId:id requestId:requestIdCopy speechPackage:packageCopy taskId:taskIdCopy forceAccept:acceptCopy completionHandler:handlerCopy];
 }
 
 - (void)dealloc

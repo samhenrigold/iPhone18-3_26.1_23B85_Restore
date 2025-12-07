@@ -1108,9 +1108,9 @@ uint64_t __76__AXMAXElementDetectorNode__performCrossClassNMSForDetections_iouTh
                 v97 = v197 - (v89 + v88);
                 v98 = [ciImage imageByCroppingToRect:v87, v97, v89, v89];
                 v99 = [MEMORY[0x1E695F648] filterWithName:@"CIAffineTransform"];
-                transform = [MEMORY[0x1E696AA98] transform];
-                [transform translateXBy:-v87 yBy:-v97];
-                [v99 setValue:transform forKey:@"inputTransform"];
+                v100 = objc_msgSend_transform(MEMORY[0x1E696AA98]);
+                [v100 translateXBy:-v87 yBy:-v97];
+                [v99 setValue:v100 forKey:@"inputTransform"];
                 [v99 setValue:v98 forKey:@"inputImage"];
                 v193 = [v99 valueForKey:@"outputImage"];
 

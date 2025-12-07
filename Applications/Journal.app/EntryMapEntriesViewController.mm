@@ -15,13 +15,13 @@
 - (void)viewIsAppearing:(BOOL)appearing
 {
   selfCopy = self;
-  sub_1004CE410(appearing);
+  sub_1004CE410(appearing, v4);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1004CE4FC(disappear);
+  sub_1004CE4FC(disappear, v4);
 }
 
 @end

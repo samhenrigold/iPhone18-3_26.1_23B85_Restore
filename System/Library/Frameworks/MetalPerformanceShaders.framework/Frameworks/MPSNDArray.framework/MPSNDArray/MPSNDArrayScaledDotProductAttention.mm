@@ -48,9 +48,9 @@
 
 - (id)workloadStatisticsForSourceArrays:(id)arrays destArrays:(id)destArrays kernel:(id)kernel kernelDAGObject:(id)object sourceState:(id)state
 {
-  v67.receiver = self;
-  v67.super_class = MPSNDArrayScaledDotProductAttention;
-  object = [(MPSNDArrayMultiaryBase *)&v67 workloadStatisticsForSourceArrays:arrays destArrays:destArrays sourceState:state, object];
+  v60.receiver = self;
+  v60.super_class = MPSNDArrayScaledDotProductAttention;
+  object = [(MPSNDArrayMultiaryBase *)&v60 workloadStatisticsForSourceArrays:arrays destArrays:destArrays sourceState:state, object];
   if ([kernel layout] == 1)
   {
     v11 = 1;
@@ -79,73 +79,70 @@
   v18 = *(v13 + v15 + 48);
   v19 = *MEMORY[0x277CD73D8];
   v20 = *(v13 + v19);
-  v64 = *(v13 + v15 + 32);
-  v65 = v18;
-  v63[0] = v16;
-  v63[1] = v17;
-  v21 = *(v63 + (v20 & 0xF));
-  v60 = *(v14 + v19);
-  v22 = *(v14 + v15 + 4 * (*(&v60 | v12 & 0xF) & 0xF));
-  v59 = v20;
-  v62[2] = v64;
-  v62[3] = v18;
-  v62[0] = v16;
-  v62[1] = v17;
-  v23 = *(v62 + (*(&v59 | v12 & 0xF) & 0xF));
-  v61[2] = v64;
-  v61[3] = v18;
-  v61[0] = v16;
-  v61[1] = v17;
-  v24 = *(v61 + (*(&v59 | v11 & 0xF) & 0xF));
-  v66[2] = v64;
-  v66[3] = v18;
-  v66[0] = v16;
-  v66[1] = v17;
-  v25 = *(v66 + (BYTE3(v20) & 0xF));
-  v56 = v22;
-  v57 = v21;
-  v26 = MEMORY[0x277CD73C8];
-  destArraysCopy = destArrays;
-  v27 = (v25 * v24 * v23 * v22 * (2 * v21 + 10));
+  v57 = *(v13 + v15 + 32);
+  v58 = v18;
+  v56[0] = v16;
+  v56[1] = v17;
+  v21 = *(v56 + (v20 & 0xF));
+  v53 = *(v14 + v19);
+  v22 = *(v14 + v15 + 4 * (*(&v53 | v12 & 0xF) & 0xF));
+  v52 = v20;
+  v55[2] = v57;
+  v55[3] = v18;
+  v55[0] = v16;
+  v55[1] = v17;
+  v23 = *(v55 + (*(&v52 | v12 & 0xF) & 0xF));
+  v54[2] = v57;
+  v54[3] = v18;
+  v54[0] = v16;
+  v54[1] = v17;
+  v24 = *(v54 + (*(&v52 | v11 & 0xF) & 0xF));
+  v59[2] = v57;
+  v59[3] = v18;
+  v59[0] = v16;
+  v59[1] = v17;
+  v25 = *(v59 + (BYTE3(v20) & 0xF));
+  v50 = v22;
+  v51 = v21;
+  v26 = (v25 * v24 * v23 * v22 * (2 * v21 + 10));
   if ((*(destArrays + *MEMORY[0x277CD73C8]) & 0xFFF8) == 0x20)
   {
-    [object setFloat32Ops:v27];
+    [object setFloat32Ops:v26];
     [object setFloat16Ops:0.0];
   }
 
   else
   {
-    [object setFloat16Ops:v27];
+    [object setFloat16Ops:v26];
     [object setFloat32Ops:0.0];
   }
 
   [object float32Ops];
-  v29 = v28;
+  v28 = v27;
   [object float16Ops];
-  v31 = v29 + v30;
+  v30 = v28 + v29;
   [object deviceMemoryBytesRead];
-  v33 = v32;
+  v32 = v31;
   [object deviceMemoryBytesWrite];
-  v35 = v31 / (v33 + v34);
-  v36 = *([arrays objectAtIndexedSubscript:0] + *v26);
+  v34 = v30 / (v32 + v33);
+  [arrays objectAtIndexedSubscript:0];
+  v35 = MPSGetDataTypeName();
+  [arrays objectAtIndexedSubscript:1];
+  v36 = MPSGetDataTypeName();
+  [arrays objectAtIndexedSubscript:2];
   v37 = MPSGetDataTypeName();
-  v38 = *([arrays objectAtIndexedSubscript:1] + *v26);
+  [arrays objectAtIndexedSubscript:3];
+  v38 = MPSGetDataTypeName();
   v39 = MPSGetDataTypeName();
-  v40 = *([arrays objectAtIndexedSubscript:2] + *v26);
-  v41 = MPSGetDataTypeName();
-  v42 = *([arrays objectAtIndexedSubscript:3] + *v26);
-  v43 = MPSGetDataTypeName();
-  v44 = *&destArraysCopy[*v26];
-  v45 = MPSGetDataTypeName();
-  MPSKernel_LogInfo(kernel, v46, "SDPA: Batches=%lu, PromptSize=%lu, Contexts=%lu, Heads=%lu, Features=%lu, Q Datatype: %s, K Datatype: %s, V Datatype: %s, Mask Datatype: %s, Dest Datatype: %s\t", v25, v23, v56, v24, v57, v37, v39, v41, v43, v45);
+  MPSKernel_LogInfo(kernel, v40, "SDPA: Batches=%lu, PromptSize=%lu, Contexts=%lu, Heads=%lu, Features=%lu, Q Datatype: %s, K Datatype: %s, V Datatype: %s, Mask Datatype: %s, Dest Datatype: %s\t", v25, v23, v50, v24, v51, v35, v36, v37, v38, v39);
   [object float16Ops];
-  v48 = v47;
+  v42 = v41;
   [object float32Ops];
-  v50 = v49;
+  v44 = v43;
   [object deviceMemoryBytesRead];
-  v52 = v51;
+  v46 = v45;
   [object deviceMemoryBytesWrite];
-  MPSKernel_LogInfo(kernel, v53, "SDPA: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v48, v50, v52, v54, v35);
+  MPSKernel_LogInfo(kernel, v47, "SDPA: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v42, v44, v46, v48, v34);
   return object;
 }
 

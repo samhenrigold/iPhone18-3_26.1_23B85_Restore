@@ -74,7 +74,7 @@ void __15__EDServer_log__block_invoke(uint64_t a1)
 
 - (void)test_tearDown
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((EFIsRunningUnitTests() & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -84,30 +84,30 @@ void __15__EDServer_log__block_invoke(uint64_t a1)
   connectedClients = [(EDServer *)self connectedClients];
   getObject = [connectedClients getObject];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = getObject;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v13 + 1) + 8 * v9++) test_tearDown];
+        [*(*(&v12 + 1) + 8 * v9++) test_tearDown];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -117,35 +117,33 @@ void __15__EDServer_log__block_invoke(uint64_t a1)
   [daemonInterfaceFactory test_tearDown];
 
   [(NSXPCListener *)self->_listener invalidate];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[EDServer log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     listener = self->_listener;
-    v6 = 138412290;
-    v7 = listener;
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "starting listener %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = listener;
+    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "starting listener %@", &v5, 0xCu);
   }
 
   [(NSXPCListener *)self->_listener resume];
   notify_post([*MEMORY[0x1E699A718] UTF8String]);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v6 = +[EDServer log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v27 = connectionCopy;
+    v26 = connectionCopy;
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_INFO, "received a new connection request %@", buf, 0xCu);
   }
 
@@ -175,24 +173,24 @@ void __15__EDServer_log__block_invoke(uint64_t a1)
 
     [connectionCopy setExportedObject:v12];
     objc_initWeak(buf, v12);
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __47__EDServer_listener_shouldAcceptNewConnection___block_invoke;
-    v24[3] = &unk_1E8250098;
-    objc_copyWeak(&v25, buf);
-    v24[4] = self;
-    [connectionCopy setInterruptionHandler:v24];
-    v18 = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __47__EDServer_listener_shouldAcceptNewConnection___block_invoke_19;
-    v21 = &unk_1E8250098;
-    objc_copyWeak(&v23, buf);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __47__EDServer_listener_shouldAcceptNewConnection___block_invoke;
+    v23[3] = &unk_1E8250098;
+    objc_copyWeak(&v24, buf);
+    v23[4] = self;
+    [connectionCopy setInterruptionHandler:v23];
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __47__EDServer_listener_shouldAcceptNewConnection___block_invoke_19;
+    v20 = &unk_1E8250098;
+    objc_copyWeak(&v22, buf);
     selfCopy = self;
-    [connectionCopy setInvalidationHandler:&v18];
-    [(EDServer *)self addRemoteClient:v12, v18, v19, v20, v21];
+    [connectionCopy setInvalidationHandler:&v17];
+    [(EDServer *)self addRemoteClient:v12, v17, v18, v19, v20];
     [connectionCopy resume];
-    objc_destroyWeak(&v23);
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
 
     objc_autoreleasePoolPop(v9);
@@ -210,40 +208,37 @@ void __15__EDServer_log__block_invoke(uint64_t a1)
     v14 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 void __47__EDServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = +[EDServer log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = WeakRetained;
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Remote Client Interrupted %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = WeakRetained;
+    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Remote Client Interrupted %@", &v4, 0xCu);
   }
 
   [*(a1 + 32) removeRemoteClient:WeakRetained];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __47__EDServer_listener_shouldAcceptNewConnection___block_invoke_19(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = +[EDServer log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = WeakRetained;
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Remote Client Invalidated %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = WeakRetained;
+    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Remote Client Invalidated %@", &v4, 0xCu);
   }
 
   [*(a1 + 32) removeRemoteClient:WeakRetained];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRemoteClient:(id)client

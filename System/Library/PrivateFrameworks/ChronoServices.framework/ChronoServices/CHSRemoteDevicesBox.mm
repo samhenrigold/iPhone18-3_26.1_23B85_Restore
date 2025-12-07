@@ -34,16 +34,14 @@
 
   if (v4)
   {
-    v6 = CHSLogChronoServices();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CHSLogChronoServices(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      [(CHSWidgetExtensionsBox *)v8 prepareForEncoding:v4];
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      [(CHSWidgetExtensionsBox *)v9 prepareForEncoding:v4];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (CHSRemoteDevicesBox)initWithCoder:(id)coder

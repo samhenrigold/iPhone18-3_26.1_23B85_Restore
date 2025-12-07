@@ -20,15 +20,15 @@
     v3 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEBUG, "Clearing out _connection, we're disconnected", v9, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEBUG, "Clearing out _connection, we're disconnected", v19, 2u);
     }
 
     v4 = os_log_shim_legacy_logging_enabled();
     if (v4)
     {
-      sub_1A7CBDFD8(v4, v5, @"Clearing out _connection, we're disconnected");
-      sub_1A7CBE04C(v6, v7, @"Clearing out _connection, we're disconnected");
+      sub_1A7CBDFD8(v4, v5, @"Clearing out _connection, we're disconnected", v6, v7, v8, v9, v10, *v19);
+      sub_1A7CBE04C(v11, v12, @"Clearing out _connection, we're disconnected", v13, v14, v15, v16, v17, *v19);
       if (_IMWillLog())
       {
         _IMAlwaysLog();
@@ -48,15 +48,15 @@
     v3 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEBUG, "Forcing a disconnect, terminating connection", v10, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEBUG, "Forcing a disconnect, terminating connection", &v20, 2u);
     }
 
     v4 = os_log_shim_legacy_logging_enabled();
     if (v4)
     {
-      sub_1A7CBDFD8(v4, v5, @"Forcing a disconnect, terminating connection");
-      sub_1A7CBE04C(v6, v7, @"Forcing a disconnect, terminating connection");
+      sub_1A7CBDFD8(v4, v5, @"Forcing a disconnect, terminating connection", v6, v7, v8, v9, v10, v20);
+      sub_1A7CBE04C(v11, v12, @"Forcing a disconnect, terminating connection", v13, v14, v15, v16, v17, v20);
       if (_IMWillLog())
       {
         _IMAlwaysLog();
@@ -88,8 +88,8 @@
   v5 = os_log_shim_legacy_logging_enabled();
   if (v5)
   {
-    sub_1A7CBDFD8(v5, v6, @"Connecting to credential agent");
-    sub_1A7CBE04C(v7, v8, @"Connecting to credential agent");
+    sub_1A7CBDFD8(v5, v6, @"Connecting to credential agent", v7, v8, v9, v10, v11, v22);
+    sub_1A7CBE04C(v12, v13, @"Connecting to credential agent", v14, v15, v16, v17, v18, v23);
     if (_IMWillLog())
     {
       _IMAlwaysLog();
@@ -97,10 +97,10 @@
   }
 
   [@"com.apple.idscredentialsagent.embedded.auth" UTF8String];
-  v9 = im_primary_queue();
-  v10 = IMXPCCreateConnectionForServiceWithQueue();
+  v19 = im_primary_queue();
+  v20 = IMXPCCreateConnectionForServiceWithQueue();
   connection = self->_connection;
-  self->_connection = v10;
+  self->_connection = v20;
 
   IMXPCConfigureConnection();
   return self->_connection != 0;
@@ -127,23 +127,23 @@
   v6 = os_log_shim_legacy_logging_enabled();
   if (v6)
   {
-    sub_1A7CBDFD8(v6, v7, @"** SENDING remote fetch iMessage account info request:");
-    sub_1A7CBE04C(v8, v9, @"** SENDING remote fetch iMessage account info request:");
+    sub_1A7CBDFD8(v6, v7, @"** SENDING remote fetch iMessage account info request:", v8, v9, v10, v11, v12, v22);
+    sub_1A7CBE04C(v13, v14, @"** SENDING remote fetch iMessage account info request:", v15, v16, v17, v18, v19, v23);
     if (_IMWillLog())
     {
       _IMAlwaysLog();
     }
   }
 
-  v10 = xpc_dictionary_create(0, 0, 0);
+  v20 = xpc_dictionary_create(0, 0, 0);
   IMInsertIntsToXPCDictionary();
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1A7CBE5F0;
-  v12[3] = &unk_1E77E2AB0;
-  v13 = blockCopy;
-  v11 = blockCopy;
-  [(IDSRemoteCredential *)self _sendMessage:v10 withCompletionBlock:v12, 9, 0];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_1A7CBE5F0;
+  v24[3] = &unk_1E77E2AB0;
+  v25 = blockCopy;
+  v21 = blockCopy;
+  [(IDSRemoteCredential *)self _sendMessage:v20 withCompletionBlock:v24, 9, 0];
 }
 
 - (void)fetchRemoteAccountsOfServiceTypes:(id)types withCompletionBlock:(id)block
@@ -160,24 +160,24 @@
   v9 = os_log_shim_legacy_logging_enabled();
   if (v9)
   {
-    sub_1A7CBDFD8(v9, v10, @"** SENDING remote fetch remote accounts of Service Types info request:");
-    sub_1A7CBE04C(v11, v12, @"** SENDING remote fetch remote accounts of Service Types info request:");
+    sub_1A7CBDFD8(v9, v10, @"** SENDING remote fetch remote accounts of Service Types info request:", v11, v12, v13, v14, v15, v25);
+    sub_1A7CBE04C(v16, v17, @"** SENDING remote fetch remote accounts of Service Types info request:", v18, v19, v20, v21, v22, v26);
     if (_IMWillLog())
     {
       _IMAlwaysLog();
     }
   }
 
-  v13 = xpc_dictionary_create(0, 0, 0);
+  v23 = xpc_dictionary_create(0, 0, 0);
   IMInsertIntsToXPCDictionary();
   IMInsertArraysToXPCDictionary();
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1A7CBE994;
-  v15[3] = &unk_1E77E2AB0;
-  v16 = blockCopy;
-  v14 = blockCopy;
-  [(IDSRemoteCredential *)self _sendMessage:v13 withCompletionBlock:v15, typesCopy, 0];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = sub_1A7CBE994;
+  v27[3] = &unk_1E77E2AB0;
+  v28 = blockCopy;
+  v24 = blockCopy;
+  [(IDSRemoteCredential *)self _sendMessage:v23 withCompletionBlock:v27, typesCopy, 0];
 }
 
 - (void)sendIDSLocalDeviceInfoRequestWithCompletionBlock:(id)block
@@ -219,30 +219,30 @@
   v15 = os_log_shim_legacy_logging_enabled();
   if (v15)
   {
-    sub_1A7CBDFD8(v15, v16, @"** SENDING remote ID Query request V2 (New and Improved!!!) :");
-    sub_1A7CBE04C(v17, v18, @"** SENDING remote ID Query request V2 (New and Improved!!!) :");
+    sub_1A7CBDFD8(v15, v16, @"** SENDING remote ID Query request V2 (New and Improved!!!) :", v17, v18, v19, v20, v21, v33);
+    sub_1A7CBE04C(v22, v23, @"** SENDING remote ID Query request V2 (New and Improved!!!) :", v24, v25, v26, v27, v28, v34);
     if (_IMWillLog())
     {
       _IMAlwaysLog();
     }
   }
 
-  v19 = [isCopy __imArrayByApplyingBlock:&unk_1F1AABB80];
-  v20 = xpc_dictionary_create(0, 0, 0);
+  v29 = [isCopy __imArrayByApplyingBlock:&unk_1F1AABB80];
+  v30 = xpc_dictionary_create(0, 0, 0);
   IMInsertIntsToXPCDictionary();
   IMInsertArraysToXPCDictionary();
   IMInsertNSStringsToXPCDictionary();
   IMInsertBoolsToXPCDictionary();
   IMInsertBoolsToXPCDictionary();
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1A7CBEFE4;
-  v23[3] = &unk_1E77E2B68;
-  v24 = serviceCopy;
-  v25 = blockCopy;
-  v21 = blockCopy;
-  v22 = serviceCopy;
-  [(IDSRemoteCredential *)self _sendMessage:v20 withCompletionBlock:v23, allowQueryCopy, 0];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = sub_1A7CBEFE4;
+  v35[3] = &unk_1E77E2B68;
+  v36 = serviceCopy;
+  v37 = blockCopy;
+  v31 = blockCopy;
+  v32 = serviceCopy;
+  [(IDSRemoteCredential *)self _sendMessage:v30 withCompletionBlock:v35, allowQueryCopy, 0];
 }
 
 - (void)sendAccountSyncMessage:(id)message messageID:(id)d queueOneIdentifier:(id)identifier allowCloudFallback:(BOOL)fallback completionBlock:(id)block
@@ -278,7 +278,7 @@
 
 - (void)_sendMessage:(id)message withCompletionBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   blockCopy = block;
   if ([(IDSRemoteCredential *)self _connect])
@@ -288,15 +288,15 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v20 = v8;
+      v30 = v8;
       _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "Sending remote credential request %s", buf, 0xCu);
     }
 
     v10 = os_log_shim_legacy_logging_enabled();
     if (v10)
     {
-      sub_1A7CBDFD8(v10, v11, @"Sending remote credential request %s");
-      sub_1A7CBE04C(v12, v13, @"Sending remote credential request %s");
+      sub_1A7CBDFD8(v10, v11, @"Sending remote credential request %s", v12, v13, v14, v15, v16, v8);
+      sub_1A7CBE04C(v17, v18, @"Sending remote credential request %s", v19, v20, v21, v22, v23, v8);
       if (_IMWillLog())
       {
         _IMAlwaysLog();
@@ -305,15 +305,15 @@
 
     free(v8);
     connection = self->_connection;
-    v15 = im_primary_queue();
+    v25 = im_primary_queue();
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = sub_1A7CBFB60;
     handler[3] = &unk_1E77E2BE0;
-    v18 = blockCopy;
+    v28 = blockCopy;
     handler[4] = self;
-    v17 = messageCopy;
-    xpc_connection_send_message_with_reply(connection, v17, v15, handler);
+    v27 = messageCopy;
+    xpc_connection_send_message_with_reply(connection, v27, v25, handler);
   }
 }
 

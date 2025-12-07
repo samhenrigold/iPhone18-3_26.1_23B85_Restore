@@ -10,18 +10,18 @@ uint64_t ___OSLogUUIDMapAddFromFile_block_invoke(uint64_t a1, _DWORD *a2)
     return 1;
   }
 
-  v4 = _catalog_create_with_chunk(a2, 0);
-  if (v4)
+  v3 = _catalog_create_with_chunk(a2, 0);
+  if (v3)
   {
-    v11 = v4;
-    _OSLogUUIDMapAddFromCatalog(v4, *(a1 + 48));
-    _catalog_destroy(v11);
+    v4 = v3;
+    _OSLogUUIDMapAddFromCatalog(v3, *(a1 + 48));
+    _catalog_destroy(v4);
     return 1;
   }
 
   else
   {
-    _OSLogWarningMessage(*(a1 + 32), "failed to open catalog chunk", v5, v6, v7, v8, v9, v10, v2);
+    _OSLogWarningMessage(*(a1 + 32), "failed to open catalog chunk");
     result = 0;
     *(*(*(a1 + 40) + 8) + 24) = 22;
   }

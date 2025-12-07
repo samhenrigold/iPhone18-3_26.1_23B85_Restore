@@ -73,7 +73,7 @@
 {
   sub_10001CAF4(&v23);
   LOBYTE(v25) = 0;
-  v3 = sub_10001CB4C(v23, "CLGatheringScanEnabled", &v25);
+  v3 = sub_10001CB4C(v23, "CLGatheringScanEnabled", &v25, 0xFFFFFFFFLL);
   self->_scanEnabled = v3 & v25;
   if (v24)
   {
@@ -82,7 +82,7 @@
 
   sub_10001CAF4(&v23);
   LOBYTE(v25) = 0;
-  v4 = sub_10001CB4C(v23, "CLGatheringScanForceNoAopPolicy", &v25);
+  v4 = sub_10001CB4C(v23, "CLGatheringScanForceNoAopPolicy", &v25, 0xFFFFFFFFLL);
   self->_scanForceNoAopPolicy = v4 & v25;
   if (v24)
   {
@@ -92,7 +92,7 @@
   self->_scanForceScreenOffOnly = [(CLGatheringSettings *)self evalScanForceScreenOffOnly];
   sub_10001CAF4(&v23);
   v25 = 0;
-  v5 = sub_1004FBB50(v23, "CLGatheringScanDutyCyle", &v25);
+  v5 = sub_1004FBB50(v23, "CLGatheringScanDutyCyle", &v25, 0xFFFFFFFFLL);
   v6 = v25;
   if (!v5)
   {
@@ -107,7 +107,7 @@
 
   sub_10001CAF4(&v23);
   v25 = 0;
-  v7 = sub_1004FBB50(v23, "CLGatheringScanBackgroundDutyCyle", &v25);
+  v7 = sub_1004FBB50(v23, "CLGatheringScanBackgroundDutyCyle", &v25, 0xFFFFFFFFLL);
   v8 = v25;
   if (!v7)
   {
@@ -122,7 +122,7 @@
 
   sub_10001CAF4(&v23);
   v25 = 0;
-  v9 = sub_1004FBB50(v23, "CLGatheringScanBackoffTimeout", &v25);
+  v9 = sub_1004FBB50(v23, "CLGatheringScanBackoffTimeout", &v25, 0xFFFFFFFFLL);
   v10 = v25;
   if (!v9)
   {
@@ -137,7 +137,7 @@
 
   sub_10001CAF4(&v23);
   v25 = 0;
-  v11 = sub_1004FBB50(v23, "CLGatheringScanPeriodicInterval", &v25);
+  v11 = sub_1004FBB50(v23, "CLGatheringScanPeriodicInterval", &v25, 0xFFFFFFFFLL);
   v12 = v25;
   if (!v11)
   {
@@ -152,7 +152,7 @@
 
   sub_10001CAF4(&v23);
   LOBYTE(v25) = 0;
-  v13 = sub_10001CB4C(v23, "CLGatheringScanWithDuplicates", &v25);
+  v13 = sub_10001CB4C(v23, "CLGatheringScanWithDuplicates", &v25, 0xFFFFFFFFLL);
   self->_scanWithDuplicates = v13 & v25;
   if (v24)
   {
@@ -161,7 +161,7 @@
 
   sub_10001CAF4(&v23);
   LOBYTE(v25) = 0;
-  v14 = sub_10001CB4C(v23, "CLGatheringAdvertiseEnabled", &v25);
+  v14 = sub_10001CB4C(v23, "CLGatheringAdvertiseEnabled", &v25, 0xFFFFFFFFLL);
   self->_advertiseEnabled = v14 & v25;
   if (v24)
   {
@@ -170,7 +170,7 @@
 
   sub_10001CAF4(&v23);
   v25 = 0;
-  v15 = sub_1004FBB50(v23, "CLGatheringAdvertisePeriod", &v25);
+  v15 = sub_1004FBB50(v23, "CLGatheringAdvertisePeriod", &v25, 0xFFFFFFFFLL);
   v16 = v25;
   if (!v15)
   {
@@ -185,7 +185,7 @@
 
   sub_10001CAF4(&v23);
   v25 = 0;
-  v17 = sub_1004FBB50(v23, "CLGatheringLoggingVolatileMaxAge", &v25);
+  v17 = sub_1004FBB50(v23, "CLGatheringLoggingVolatileMaxAge", &v25, 0xFFFFFFFFLL);
   v18 = v25;
   if (!v17)
   {
@@ -200,7 +200,7 @@
 
   sub_10001CAF4(&v23);
   LOBYTE(v25) = 0;
-  v19 = sub_10001CB4C(v23, "CLGatheringLoggingPersistentEnabled", &v25);
+  v19 = sub_10001CB4C(v23, "CLGatheringLoggingPersistentEnabled", &v25, 0xFFFFFFFFLL);
   self->_loggingPersistentEnabled = v19 & v25;
   if (v24)
   {
@@ -209,7 +209,7 @@
 
   sub_10001CAF4(&v23);
   v25 = 0;
-  v20 = sub_1004FBB50(v23, "CLGatheringLoggingPersistentMaxAge", &v25);
+  v20 = sub_1004FBB50(v23, "CLGatheringLoggingPersistentMaxAge", &v25, 0xFFFFFFFFLL);
   v21 = v25;
   if (!v20)
   {
@@ -224,7 +224,7 @@
 
   sub_10001CAF4(&v23);
   LOBYTE(v25) = 0;
-  v22 = sub_10001CB4C(v23, "CLGatheringLoggingPersistentInTempFolder", &v25);
+  v22 = sub_10001CB4C(v23, "CLGatheringLoggingPersistentInTempFolder", &v25, 0xFFFFFFFFLL);
   self->_loggingPersistentInTempFolder = v25 & 1 | ((v22 & 1) == 0);
   if (v24)
   {
@@ -236,7 +236,7 @@
 {
   v12 = 0;
   sub_10001CAF4(&v10);
-  v7 = sub_10001CB4C(v10, [settings cStringUsingEncoding:1], &v12);
+  v7 = sub_10001CB4C(v10, [settings cStringUsingEncoding:1], &v12, 0xFFFFFFFFLL);
   if (v11)
   {
     sub_100008080(v11);
@@ -273,7 +273,7 @@
   {
     sub_10001CAF4(&v21);
     LOBYTE(v23) = 0;
-    v6 = sub_10001CB4C(v21, "CLGatheringAdvertiseEnabled", &v23);
+    v6 = sub_10001CB4C(v21, "CLGatheringAdvertiseEnabled", &v23, 0xFFFFFFFFLL);
     self->_advertiseEnabled = v23 & 1 | ((v6 & 1) == 0);
     if (v22)
     {
@@ -282,7 +282,7 @@
 
     sub_10001CAF4(&v21);
     v23 = 0;
-    v7 = sub_1004FBB50(v21, "CLGatheringAdvertisePeriod", &v23);
+    v7 = sub_1004FBB50(v21, "CLGatheringAdvertisePeriod", &v23, 0xFFFFFFFFLL);
     v8 = v23;
     if (!v7)
     {
@@ -301,7 +301,7 @@
 
     sub_10001CAF4(&v21);
     LOBYTE(v23) = 0;
-    v5 = sub_10001CB4C(v21, "CLGatheringAdvertiseEnabled", &v23);
+    v5 = sub_10001CB4C(v21, "CLGatheringAdvertiseEnabled", &v23, 0xFFFFFFFFLL);
     self->_advertiseEnabled = v5 & v23;
   }
 
@@ -315,7 +315,7 @@ LABEL_11:
   {
     sub_10001CAF4(&v21);
     LOBYTE(v23) = 0;
-    v17 = sub_10001CB4C(v21, "CLGatheringScanEnabled", &v23);
+    v17 = sub_10001CB4C(v21, "CLGatheringScanEnabled", &v23, 0xFFFFFFFFLL);
     self->_scanEnabled = v23 & 1 | ((v17 & 1) == 0);
     if (v22)
     {
@@ -324,7 +324,7 @@ LABEL_11:
 
     sub_10001CAF4(&v21);
     v23 = 0;
-    v18 = sub_1004FBB50(v21, "CLGatheringScanBackgroundDutyCyle", &v23);
+    v18 = sub_1004FBB50(v21, "CLGatheringScanBackgroundDutyCyle", &v23, 0xFFFFFFFFLL);
     v19 = v23;
     if (!v18)
     {
@@ -339,7 +339,7 @@ LABEL_11:
 
     sub_10001CAF4(&v21);
     v23 = 0;
-    v20 = sub_1004FBB50(v21, "CLGatheringScanDutyCyle", &v23);
+    v20 = sub_1004FBB50(v21, "CLGatheringScanDutyCyle", &v23, 0xFFFFFFFFLL);
     v14 = v23;
     v15 = v20 == 0;
     v16 = 30;
@@ -350,7 +350,7 @@ LABEL_11:
   {
     sub_10001CAF4(&v21);
     LOBYTE(v23) = 0;
-    v10 = sub_10001CB4C(v21, "CLGatheringScanEnabled", &v23);
+    v10 = sub_10001CB4C(v21, "CLGatheringScanEnabled", &v23, 0xFFFFFFFFLL);
     self->_scanEnabled = v23 & 1 | ((v10 & 1) == 0);
     if (v22)
     {
@@ -359,7 +359,7 @@ LABEL_11:
 
     sub_10001CAF4(&v21);
     v23 = 0;
-    v11 = sub_1004FBB50(v21, "CLGatheringScanBackgroundDutyCyle", &v23);
+    v11 = sub_1004FBB50(v21, "CLGatheringScanBackgroundDutyCyle", &v23, 0xFFFFFFFFLL);
     v12 = v23;
     if (!v11)
     {
@@ -374,7 +374,7 @@ LABEL_11:
 
     sub_10001CAF4(&v21);
     v23 = 0;
-    v13 = sub_1004FBB50(v21, "CLGatheringScanDutyCyle", &v23);
+    v13 = sub_1004FBB50(v21, "CLGatheringScanDutyCyle", &v23, 0xFFFFFFFFLL);
     v14 = v23;
     v15 = v13 == 0;
     v16 = 35;
@@ -395,7 +395,7 @@ LABEL_29:
 
   sub_10001CAF4(&v21);
   LOBYTE(v23) = 0;
-  v9 = sub_10001CB4C(v21, "CLGatheringScanEnabled", &v23);
+  v9 = sub_10001CB4C(v21, "CLGatheringScanEnabled", &v23, 0xFFFFFFFFLL);
   self->_scanEnabled = v9 & v23;
 LABEL_33:
   if (v22)

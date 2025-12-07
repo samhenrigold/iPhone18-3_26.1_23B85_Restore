@@ -1,7 +1,6 @@
 @interface VGModelPose
 - (BOOL)isEqual:(id)equal;
 - (VGModelPose)initWithCoder:(id)coder;
-- (__n128)modelPose;
 - (__n128)setModelPose:(__n128)pose;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -58,15 +57,6 @@
   }
 
   return v10;
-}
-
-- (__n128)modelPose
-{
-  result = *(self + 16);
-  v2 = *(self + 32);
-  v3 = *(self + 48);
-  v4 = *(self + 64);
-  return result;
 }
 
 - (__n128)setModelPose:(__n128)pose

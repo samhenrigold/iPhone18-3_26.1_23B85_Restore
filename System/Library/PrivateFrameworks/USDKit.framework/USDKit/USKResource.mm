@@ -66,7 +66,7 @@
     v18 = sub_270312588(&v21);
     pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v22, v18);
     pxrInternal__aapl__pxrReserved__::SdfComputeAssetPathRelativeToLayer();
-    sub_27036C0B4(&v24, &v23, v22, &v21);
+    sub_27036C0B4(&v24, v23, v22, &v21);
   }
 
   v16 = objc_alloc_init(USKResource);

@@ -19,7 +19,7 @@
   passCopy = pass;
   controllerCopy = controller;
   delegateCopy = delegate;
-  v12 = sub_1BD84BDF0(passCopy, style, controllerCopy);
+  v12 = sub_1BD84BDF0(passCopy, style, controllerCopy, delegate);
 
   return v12;
 }
@@ -56,11 +56,12 @@
 - (NSArray)sectionIdentifiers
 {
   selfCopy = self;
-  sub_1BD846650();
+  v3 = sub_1BD846650();
 
-  v3 = sub_1BE052724();
+  v4 = sub_1BE052724();
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3;
+  return v4;
 }
 
 + (BOOL)validForPaymentPass:(id)pass
@@ -75,17 +76,19 @@
 {
   v4 = _Block_copy(preflight);
   v5 = swift_allocObject();
-  *(v5 + 16) = v4;
+  v5[2] = v4;
   selfCopy = self;
   sub_1BD846708(sub_1BD166E88, v5);
+
+  v5, v7, v8, v9, v10, v11, v12, v13;
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path sectionIdentifier:(id)identifier
 {
   v7 = sub_1BE04B414();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BE04B3D4();
   viewCopy = view;
   selfCopy = self;
@@ -96,38 +99,38 @@
     goto LABEL_12;
   }
 
-  v15 = *(&selfCopy->super.super.isa + OBJC_IVAR___PKExpressTogglesPaymentPassDetailSectionController_rowTypes);
-  if (result >= *(v15 + 16))
+  v14 = *(&selfCopy->super.super.isa + OBJC_IVAR___PKExpressTogglesPaymentPassDetailSectionController_rowTypes);
+  if (result >= *(v14 + 16))
   {
 LABEL_12:
     __break(1u);
     return result;
   }
 
-  v16 = *(result + v15 + 32);
-  if (v16)
+  v15 = *(result + v14 + 32);
+  if (v15)
   {
-    if (v16 == 1)
+    if (v15 == 1)
     {
       sub_1BD847720(viewCopy);
     }
 
     else
     {
-      v17 = sub_1BD847C70(viewCopy);
+      v16 = sub_1BD847C70(viewCopy);
     }
   }
 
   else
   {
-    v17 = sub_1BD846FA4(viewCopy);
+    sub_1BD846FA4(viewCopy);
   }
 
-  v18 = v17;
+  v17 = v16;
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 
-  return v18;
+  return v17;
 }
 
 - (void)nfcExpressAccessSwitchChanged:(id)changed
@@ -148,14 +151,14 @@ LABEL_12:
 {
   v7 = sub_1BE04B414();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BE04B3D4();
   viewCopy = view;
   selfCopy = self;
   sub_1BD84C678(viewCopy);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 @end

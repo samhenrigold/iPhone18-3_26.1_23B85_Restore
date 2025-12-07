@@ -4,8 +4,8 @@
 - (OpaqueCMClock)masterClock;
 - (OpaqueCMClock)sourceClock;
 - (__n128)_updatePTSSyncHistoryWithSourceTime:(__n128 *)time syncedTime:;
-- (uint64_t)_synchronizeDetectedFaces:(uint64_t)faces metadata:(int32_t)metadata timescale:;
 - (void)_getSyncedTimeForSourceTime:(uint64_t)time@<X8>;
+- (void)_synchronizeDetectedFaces:(uint64_t)faces metadata:(int32_t)metadata timescale:;
 - (void)dealloc;
 - (void)handleDroppedSample:(id)sample forInput:(id)input;
 - (void)prepareForCurrentConfigurationToBecomeLive;
@@ -240,7 +240,7 @@ LABEL_13:
 
   else
   {
-    [BWSynchronizerNode renderSampleBuffer:forInput:];
+    [BWSynchronizerNode renderSampleBuffer:v7 forInput:?];
   }
 
   if (flags)
@@ -288,8 +288,8 @@ LABEL_13:
 LABEL_23:
       if (timingArrayOut.decodeTimeStamp.flags)
       {
-        v23 = *(v5 + 128);
-        v24 = *(v5 + 136);
+        v23 = *(v5 + 16);
+        v24 = *(v5 + 17);
         rhs = timingArrayOut.decodeTimeStamp;
         CMSyncConvertTime(&lhs, &rhs, v23, v24);
         timingArrayOut.decodeTimeStamp = lhs;
@@ -297,8 +297,8 @@ LABEL_23:
 
       if (timingArrayOut.duration.flags)
       {
-        v25 = *(v5 + 128);
-        v26 = *(v5 + 136);
+        v25 = *(v5 + 16);
+        v26 = *(v5 + 17);
         rhs = v76;
         CMSyncConvertTime(&lhs, &rhs, v25, v26);
         v76 = lhs;
@@ -411,14 +411,14 @@ LABEL_62:
 
     rhs = timingArrayOut.presentationTimeStamp;
     memset(&v73, 0, sizeof(v73));
-    v6 = *(v5 + 128);
-    v7 = *(v5 + 136);
+    v6 = *(v5 + 16);
+    v7 = *(v5 + 17);
     lhs = timingArrayOut.presentationTimeStamp;
     CMSyncConvertTime(&v73, &lhs, v6, v7);
     if ((*(v5 + 156) & 1) == 0)
     {
-      v8 = *(v5 + 128);
-      v9 = *(v5 + 136);
+      v8 = *(v5 + 16);
+      v9 = *(v5 + 17);
       time = rhs;
       CMSyncConvertTime(&lhs, &time, v8, v9);
 LABEL_20:
@@ -429,11 +429,11 @@ LABEL_20:
 
     if ((v73.flags & 1) == 0)
     {
-      if (FigCaptureIsCMClockFromTimeSyncMSGClock())
+      if (FigCaptureIsCMClockFromTimeSyncMSGClock(*(v5 + 17)))
       {
-        if (*(v5 + 168) == ++*(v5 + 952))
+        if (*(v5 + 21) == ++*(v5 + 238))
         {
-          v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TimeSync clock backed by MSG took too long to create, CMSyncConvertTime is not converting time.\n_sounceClock: %@\n_masterClock: %@\n", *(v5 + 128), *(v5 + 136)];
+          v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TimeSync clock backed by MSG took too long to create, CMSyncConvertTime is not converting time.\n_sounceClock: %@\n_masterClock: %@\n", *(v5 + 16), *(v5 + 17)];
           LODWORD(v69.value) = 0;
           LOBYTE(type.value) = 0;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -445,18 +445,18 @@ LABEL_20:
           free(v55);
           if (os_variant_has_internal_diagnostics())
           {
-            if (*(v5 + 176 + 48 * *(v5 + 948) + 32) != *(v5 + 152))
+            if (*(v5 + 12 * *(v5 + 237) + 52) != *(v5 + 38))
             {
               [BWSynchronizerNode _newRetimedVideoSampleBuffer:updatePTSSyncHistory:];
             }
           }
         }
 
-        [BWSynchronizerNode _newRetimedVideoSampleBuffer:updatePTSSyncHistory:];
+        [BWSynchronizerNode _newRetimedVideoSampleBuffer:&rhs updatePTSSyncHistory:?];
         goto LABEL_62;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CMSyncConvertTime failed to convert time, _sounceClock: %@, _masterClock: %@\n", *(v5 + 128), *(v5 + 136)];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CMSyncConvertTime failed to convert time, _sounceClock: %@, _masterClock: %@\n", *(v5 + 16), *(v5 + 17)];
       LODWORD(v69.value) = 0;
       LOBYTE(type.value) = 0;
       v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -466,32 +466,32 @@ LABEL_20:
       v12 = _os_log_send_and_compose_impl();
       FigCapturePleaseFileRadar(1, v12, v10, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWSynchronizerNode.m", 606, @"LastShownDate:BWSynchronizerNode.m:606", @"LastShownBuild:BWSynchronizerNode.m:606", 1);
       free(v12);
-      if (os_variant_has_internal_diagnostics() && *(v5 + 176 + 48 * *(v5 + 948) + 32) != *(v5 + 152))
+      if (os_variant_has_internal_diagnostics() && *(v5 + 12 * *(v5 + 237) + 52) != *(v5 + 38))
       {
         [BWSynchronizerNode _newRetimedVideoSampleBuffer:updatePTSSyncHistory:];
       }
     }
 
-    v13 = *(v5 + 948);
-    if ((v13 & 0x80000000) != 0 || (*(v5 + 176 + 48 * v13 + 12) & 1) == 0)
+    v13 = *(v5 + 237);
+    if ((v13 & 0x80000000) != 0 || (*(v5 + 48 * v13 + 188) & 1) == 0)
     {
-      v21 = *(v5 + 152);
+      v21 = *(v5 + 38);
       time = v73;
       CMTimeConvertScale(&lhs, &time, v21, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
       goto LABEL_20;
     }
 
     memset(&time, 0, sizeof(time));
-    v14 = *(v5 + 152);
+    v14 = *(v5 + 38);
     lhs = v73;
     CMTimeConvertScale(&time, &lhs, v14, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-    v15 = *(v5 + 948);
-    v16 = v5 + 176 + 48 * v15;
+    v15 = *(v5 + 237);
+    v16 = v5 + 48 * v15 + 176;
     v17 = *(v16 + 32);
-    v18 = *(v5 + 152);
+    v18 = *(v5 + 38);
     if (v17 != v18)
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"history {%lld/%d} and _quantizationFrameDuration {%lld/%d} don't have matching timescale", *(v16 + 24), v17, *(v5 + 144), v18];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"history {%lld/%d} and _quantizationFrameDuration {%lld/%d} don't have matching timescale", *(v16 + 24), v17, *(v5 + 18), v18];
       LODWORD(type.value) = 0;
       v70 = OS_LOG_TYPE_DEFAULT;
       v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -503,9 +503,9 @@ LABEL_20:
       free(v48);
       if (os_variant_has_internal_diagnostics())
       {
-        v15 = *(v5 + 948);
-        LODWORD(v17) = *(v5 + 176 + 48 * v15 + 32);
-        if (v17 != *(v5 + 152))
+        v15 = *(v5 + 237);
+        LODWORD(v17) = *(v5 + 12 * v15 + 52);
+        if (v17 != *(v5 + 38))
         {
           [BWSynchronizerNode _newRetimedVideoSampleBuffer:updatePTSSyncHistory:];
         }
@@ -513,21 +513,21 @@ LABEL_20:
 
       else
       {
-        v15 = *(v5 + 948);
-        LODWORD(v17) = *(v5 + 152);
+        v15 = *(v5 + 237);
+        LODWORD(v17) = *(v5 + 38);
       }
     }
 
     memset(&lhs, 0, sizeof(lhs));
-    CMTimeMake(&lhs, time.value - *(v5 + 176 + 48 * v15 + 24), v17);
+    CMTimeMake(&lhs, time.value - *(v5 + 6 * v15 + 25), v17);
     memset(&v69, 0, sizeof(v69));
-    v49 = *(v5 + 152);
+    v49 = *(v5 + 38);
     type = v73;
     CMTimeConvertScale(&v69, &type, v49, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-    v50 = *(v5 + 144);
+    v50 = *(v5 + 18);
     if (lhs.value >= v50)
     {
-      if (lhs.value <= *(v5 + 144))
+      if (lhs.value <= *(v5 + 18))
       {
         *&timingArrayOut.presentationTimeStamp.value = *&v69.value;
         epoch = v69.epoch;
@@ -543,14 +543,14 @@ LABEL_21:
         goto LABEL_23;
       }
 
-      v51 = *(v5 + 152);
-      v52 = *(v5 + 176 + 48 * *(v5 + 948) + 24) + lhs.value / v50 * v50;
+      v51 = *(v5 + 38);
+      v52 = *(v5 + 6 * *(v5 + 237) + 25) + lhs.value / v50 * v50;
     }
 
     else
     {
-      v51 = *(v5 + 152);
-      v52 = *(v5 + 176 + 48 * *(v5 + 948) + 24) + v50;
+      v51 = *(v5 + 38);
+      v52 = *(v5 + 6 * *(v5 + 237) + 25) + v50;
     }
 
     CMTimeMake(&type, v52, v51);
@@ -572,7 +572,7 @@ LABEL_21:
   memset(&v13, 0, sizeof(v13));
   if (sample)
   {
-    [sample pts];
+    objc_msgSend_pts(sample);
   }
 
   memset(&v12, 0, sizeof(v12));
@@ -748,24 +748,24 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_synchronizeDetectedFaces:(uint64_t)faces metadata:(int32_t)metadata timescale:
+- (void)_synchronizeDetectedFaces:(uint64_t)faces metadata:(int32_t)metadata timescale:
 {
   v37 = result;
   if (result)
   {
     v5 = a2;
     v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(a2, "count")}];
-    v56 = **&MEMORY[0x1E6960C70];
-    v55 = v56;
+    v55 = **&MEMORY[0x1E6960C70];
+    v54 = v55;
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v14 = OUTLINED_FUNCTION_1_101(v6, v7, v8, v9, v10, v11, v12, v13, v33, faces, v37, v39, v41, v43.value, *&v43.timescale, v43.epoch, time2.value, *&time2.timescale, time2.epoch, v45, time1.value, *&time1.timescale, time1.epoch, v47, time.value, *&time.timescale, time.epoch, v49.value, *&v49.timescale, v49.epoch, v50);
+    v14 = OUTLINED_FUNCTION_1_101(v6, v7, v8, v9, v10, v11, v12, v13, v33, faces, v37, v39, v41, v43.value, *&v43.timescale, v43.epoch, time2.value, *&time2.timescale, time2.epoch, v45, time1.value, *&time1.timescale, time1.epoch, v47, time.value, *&time.timescale, time.epoch, v49.value, *&v49.timescale, v49.epoch);
     if (v14)
     {
       v15 = v14;
-      v16 = *v52;
+      v16 = *v51;
       v17 = *off_1E798B780;
       v40 = *off_1E798ACF0;
       v42 = v5;
@@ -773,14 +773,14 @@ LABEL_7:
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v52 != v16)
+          if (*v51 != v16)
           {
             objc_enumerationMutation(v5);
           }
 
-          v19 = *(*(&v51 + 1) + 8 * i);
+          v19 = *(*(&v50 + 1) + 8 * i);
           v20 = [v19 objectForKeyedSubscript:v17];
-          if (v20 && (v21 = v20, memset(&v49, 0, sizeof(v49)), [v20 longLongValue], v22 = FigHostTimeToNanoseconds(), CMTimeMake(&time, v22, 1000000000), CMTimeConvertScale(&v49, &time, metadata, kCMTimeRoundingMethod_RoundHalfAwayFromZero), (v49.flags & 1) != 0) && ((memset(&time, 0, sizeof(time)), time1 = v56, time2 = v49, !CMTimeCompare(&time1, &time2)) ? (time = v55) : (time1 = v49, -[BWSynchronizerNode _getSyncedTimeForSourceTime:](v38, &time1, &time), v56 = v49, v55 = time), time1 = time, CMTimeConvertScale(&v43, &time1, 1000000000, kCMTimeRoundingMethod_RoundHalfAwayFromZero), v23 = objc_msgSend(MEMORY[0x1E696AD98], "numberWithLongLong:", FigNanosecondsToHostTime()), v24 = objc_msgSend(objc_alloc(MEMORY[0x1E695DF90]), "initWithCapacity:", objc_msgSend(v19, "count") + 1), objc_msgSend(v24, "addEntriesFromDictionary:", v19), objc_msgSend(v24, "setObject:forKeyedSubscript:", v23, v17), objc_msgSend(v24, "setObject:forKeyedSubscript:", v21, v40), v5 = v42, v24))
+          if (v20 && (v21 = v20, memset(&v49, 0, sizeof(v49)), [v20 longLongValue], v22 = FigHostTimeToNanoseconds(), CMTimeMake(&time, v22, 1000000000), CMTimeConvertScale(&v49, &time, metadata, kCMTimeRoundingMethod_RoundHalfAwayFromZero), (v49.flags & 1) != 0) && ((memset(&time, 0, sizeof(time)), time1 = v55, time2 = v49, !CMTimeCompare(&time1, &time2)) ? (time = v54) : (time1 = v49, -[BWSynchronizerNode _getSyncedTimeForSourceTime:](v38, &time1, &time), v55 = v49, v54 = time), time1 = time, CMTimeConvertScale(&v43, &time1, 1000000000, kCMTimeRoundingMethod_RoundHalfAwayFromZero), v23 = objc_msgSend(MEMORY[0x1E696AD98], "numberWithLongLong:", FigNanosecondsToHostTime()), v24 = objc_msgSend(objc_alloc(MEMORY[0x1E695DF90]), "initWithCapacity:", objc_msgSend(v19, "count") + 1), objc_msgSend(v24, "addEntriesFromDictionary:", v19), objc_msgSend(v24, "setObject:forKeyedSubscript:", v23, v17), objc_msgSend(v24, "setObject:forKeyedSubscript:", v21, v40), v5 = v42, v24))
           {
             [v6 addObject:v24];
           }
@@ -791,7 +791,7 @@ LABEL_7:
           }
         }
 
-        v15 = OUTLINED_FUNCTION_1_101(v25, v26, v27, v28, v29, v30, v31, v32, v34, v36, v38, v40, v42, v43.value, *&v43.timescale, v43.epoch, time2.value, *&time2.timescale, time2.epoch, v45, time1.value, *&time1.timescale, time1.epoch, v47, time.value, *&time.timescale, time.epoch, v49.value, *&v49.timescale, v49.epoch, v50);
+        v15 = OUTLINED_FUNCTION_1_101(v25, v26, v27, v28, v29, v30, v31, v32, v34, v36, v38, v40, v42, v43.value, *&v43.timescale, v43.epoch, time2.value, *&time2.timescale, time2.epoch, v45, time1.value, *&time1.timescale, time1.epoch, v47, time.value, *&time.timescale, time.epoch, v49.value, *&v49.timescale, v49.epoch);
       }
 
       while (v15);
@@ -801,48 +801,6 @@ LABEL_7:
   }
 
   return result;
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_newRetimedVideoSampleBuffer:updatePTSSyncHistory:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_newRetimedVideoSampleBuffer:updatePTSSyncHistory:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_newRetimedVideoSampleBuffer:updatePTSSyncHistory:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 - (void)_newRetimedVideoSampleBuffer:(const void *)a1 updatePTSSyncHistory:.cold.7(const void **a1)

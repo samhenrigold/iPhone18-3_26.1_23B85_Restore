@@ -12,7 +12,7 @@ uint64_t __74___WKElementAction__elementActionWithType_customTitle_assistant_dis
     v6 = [v4 absoluteString];
   }
 
-  v7 = [getSSReadingListClass() defaultReadingList];
+  v7 = [(objc_class *)getSSReadingListClass() defaultReadingList];
 
   return [v7 addReadingListItemWithURL:v4 title:v6 previewText:0 error:0];
 }

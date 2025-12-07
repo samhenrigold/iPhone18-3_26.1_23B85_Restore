@@ -32,10 +32,10 @@
 
 - (CMCameraWorkoutSession)initWithOptions:(id)options
 {
-  v64 = *MEMORY[0x1E69E9840];
-  v55.receiver = self;
-  v55.super_class = CMCameraWorkoutSession;
-  v4 = [(CMCameraWorkoutSession *)&v55 init];
+  v68 = *MEMORY[0x1E69E9840];
+  v59.receiver = self;
+  v59.super_class = CMCameraWorkoutSession;
+  v4 = [(CMCameraWorkoutSession *)&v59 init];
   v6 = v4;
   if (options && v4)
   {
@@ -61,7 +61,7 @@
     {
       v33 = objc_msgSend_description(options, v31, v32);
       *buf = 138412290;
-      *v61 = v33;
+      *v65 = v33;
       _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_DEFAULT, "[camera] options:%@", buf, 0xCu);
     }
 
@@ -74,14 +74,16 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
       }
 
-      v37 = objc_msgSend_description(options, v35, v36);
-      v56 = 138412290;
-      *v57 = v37;
-      v38 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession initWithOptions:]", "CoreLocation: %s\n", v38);
-      if (v38 != buf)
+      v37 = qword_1EAFE27B8;
+      v38 = objc_msgSend_description(options, v35, v36);
+      v60 = 138412290;
+      *v61 = v38;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v37, 0, "[camera] options:%@", &v60, 12);
+      v40 = v39;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession initWithOptions:]", "CoreLocation: %s\n", v39);
+      if (v40 != buf)
       {
-        free(v38);
+        free(v40);
       }
     }
 
@@ -90,7 +92,7 @@
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
     }
 
-    v39 = qword_1EAFE27B8;
+    v41 = qword_1EAFE27B8;
     if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
     {
       logAirpodsDM = v6->_logAirpodsDM;
@@ -98,18 +100,18 @@
       logAccel = v6->_logAccel;
       logGyro = v6->_logGyro;
       *buf = 67109888;
-      *v61 = logAirpodsDM;
-      *&v61[4] = 1024;
-      *&v61[6] = logDM;
-      LOWORD(v62) = 1024;
-      *(&v62 + 2) = logAccel;
-      HIWORD(v62) = 1024;
-      v63 = logGyro;
-      _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_DEFAULT, "[camera] Logging,airpodsDM,%d,DM,%d,accel,%d,gyro,%d", buf, 0x1Au);
+      *v65 = logAirpodsDM;
+      *&v65[4] = 1024;
+      *&v65[6] = logDM;
+      LOWORD(v66) = 1024;
+      *(&v66 + 2) = logAccel;
+      HIWORD(v66) = 1024;
+      v67 = logGyro;
+      _os_log_impl(&dword_19B41C000, v41, OS_LOG_TYPE_DEFAULT, "[camera] Logging,airpodsDM,%d,DM,%d,accel,%d,gyro,%d", buf, 0x1Au);
     }
 
-    v44 = sub_19B420058();
-    if (*(v44 + 160) > 1 || *(v44 + 164) > 1 || *(v44 + 168) > 1 || *(v44 + 152))
+    v46 = sub_19B420058();
+    if (*(v46 + 160) > 1 || *(v46 + 164) > 1 || *(v46 + 168) > 1 || *(v46 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2780 != -1)
@@ -117,23 +119,24 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
       }
 
-      v45 = v6->_logAirpodsDM;
-      v46 = v6->_logDM;
-      v47 = v6->_logAccel;
-      v48 = v6->_logGyro;
-      v56 = 67109888;
-      *v57 = v45;
-      *&v57[4] = 1024;
-      *&v57[6] = v46;
-      LOWORD(v58) = 1024;
-      *(&v58 + 2) = v47;
-      HIWORD(v58) = 1024;
-      v59 = v48;
-      v49 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession initWithOptions:]", "CoreLocation: %s\n", v49);
-      if (v49 != buf)
+      v47 = v6->_logAirpodsDM;
+      v48 = v6->_logDM;
+      v49 = v6->_logAccel;
+      v50 = v6->_logGyro;
+      v60 = 67109888;
+      *v61 = v47;
+      *&v61[4] = 1024;
+      *&v61[6] = v48;
+      LOWORD(v62) = 1024;
+      *(&v62 + 2) = v49;
+      HIWORD(v62) = 1024;
+      v63 = v50;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "[camera] Logging,airpodsDM,%d,DM,%d,accel,%d,gyro,%d", &v60, 26, LODWORD(v59.receiver), LODWORD(v59.super_class));
+      v52 = v51;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession initWithOptions:]", "CoreLocation: %s\n", v51);
+      if (v52 != buf)
       {
-        free(v49);
+        free(v52);
       }
     }
 
@@ -145,18 +148,18 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
       }
 
-      v50 = qword_1EAFE27B8;
+      v53 = qword_1EAFE27B8;
       if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136380931;
-        *v61 = v9;
-        *&v61[8] = 2081;
-        v62 = v13;
-        _os_log_impl(&dword_19B41C000, v50, OS_LOG_TYPE_DEFAULT, "[camera] Logging MSL prefix:%{private}s path:%{private}s", buf, 0x16u);
+        *v65 = v9;
+        *&v65[8] = 2081;
+        v66 = v13;
+        _os_log_impl(&dword_19B41C000, v53, OS_LOG_TYPE_DEFAULT, "[camera] Logging MSL prefix:%{private}s path:%{private}s", buf, 0x16u);
       }
 
-      v51 = sub_19B420058();
-      if (*(v51 + 160) > 1 || *(v51 + 164) > 1 || *(v51 + 168) > 1 || *(v51 + 152))
+      v54 = sub_19B420058();
+      if (*(v54 + 160) > 1 || *(v54 + 164) > 1 || *(v54 + 168) > 1 || *(v54 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2780 != -1)
@@ -164,15 +167,17 @@
           dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
         }
 
-        v56 = 136380931;
-        *v57 = v9;
-        *&v57[8] = 2081;
-        v58 = v13;
-        v52 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession initWithOptions:]", "CoreLocation: %s\n", v52);
-        if (v52 != buf)
+        v60 = 136380931;
+        *v61 = v9;
+        *&v61[8] = 2081;
+        v62 = v13;
+        LODWORD(v58) = 22;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "[camera] Logging MSL prefix:%{private}s path:%{private}s", &v60, v58);
+        v56 = v55;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession initWithOptions:]", "CoreLocation: %s\n", v55);
+        if (v56 != buf)
         {
-          free(v52);
+          free(v56);
         }
       }
 
@@ -180,7 +185,6 @@
     }
   }
 
-  v53 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -194,7 +198,7 @@
 
 - (void)start
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2780 != -1)
   {
     dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
@@ -216,12 +220,13 @@
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
     }
 
-    LOWORD(v36) = 0;
-    v7 = _os_log_send_and_compose_impl();
+    LOWORD(v40) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "[camera] Starting session]", &v40, 2);
+    v8 = v7;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession start]", "CoreLocation: %s\n", v7);
-    if (v7 != buf)
+    if (v8 != buf)
     {
-      free(v7);
+      free(v8);
     }
   }
 
@@ -232,15 +237,15 @@
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
     }
 
-    v8 = qword_1EAFE27B8;
+    v9 = qword_1EAFE27B8;
     if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEFAULT, "[camera] Starting source DM", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEFAULT, "[camera] Starting source DM", buf, 2u);
     }
 
-    v9 = sub_19B420058();
-    if (*(v9 + 160) > 1 || *(v9 + 164) > 1 || *(v9 + 168) > 1 || *(v9 + 152))
+    v10 = sub_19B420058();
+    if (*(v10 + 160) > 1 || *(v10 + 164) > 1 || *(v10 + 168) > 1 || *(v10 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2780 != -1)
@@ -248,17 +253,19 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
       }
 
-      LOWORD(v36) = 0;
-      v10 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession start]", "CoreLocation: %s\n", v10);
-      if (v10 != buf)
+      LOWORD(v40) = 0;
+      LODWORD(v37) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "[camera] Starting source DM", &v40, v37);
+      v12 = v11;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession start]", "CoreLocation: %s\n", v11);
+      if (v12 != buf)
       {
-        free(v10);
+        free(v12);
       }
     }
 
-    v11 = [CLDeviceMotionProperties alloc];
-    objc_msgSend_initWithMode_(v11, v12, 7);
+    v13 = [CLDeviceMotionProperties alloc];
+    objc_msgSend_initWithMode_(v13, v14, 7);
     operator new();
   }
 
@@ -281,15 +288,15 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
       }
 
-      v13 = qword_1EAFE27B8;
+      v15 = qword_1EAFE27B8;
       if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_DEFAULT, "[camera] Starting accessory DM", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEFAULT, "[camera] Starting accessory DM", buf, 2u);
       }
 
-      v14 = sub_19B420058();
-      if (*(v14 + 160) > 1 || *(v14 + 164) > 1 || *(v14 + 168) > 1 || *(v14 + 152))
+      v16 = sub_19B420058();
+      if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2780 != -1)
@@ -297,33 +304,35 @@
           dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
         }
 
-        LOWORD(v36) = 0;
-        v17 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession start]", "CoreLocation: %s\n", v17);
-        if (v17 != buf)
+        LOWORD(v40) = 0;
+        LODWORD(v37) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "[camera] Starting accessory DM", &v40, v37);
+        v20 = v19;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession start]", "CoreLocation: %s\n", v19);
+        if (v20 != buf)
         {
-          free(v17);
+          free(v20);
         }
       }
 
       audioAccessoryManager = self->_audioAccessoryManager;
-      v19 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v15, v16);
-      objc_msgSend__startAudioAccessoryDeviceMotionStatusUpdatesToQueue_withHandler_(audioAccessoryManager, v20, v19, &unk_1F0E28040);
-      objc_msgSend__setAudioAccessoryDeviceMotionUpdateInterval_(self->_audioAccessoryManager, v21, v22, 0.0199999996);
+      v22 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v17, v18);
+      objc_msgSend__startAudioAccessoryDeviceMotionStatusUpdatesToQueue_withHandler_(audioAccessoryManager, v23, v22, &unk_1F0E28040);
+      objc_msgSend__setAudioAccessoryDeviceMotionUpdateInterval_(self->_audioAccessoryManager, v24, v25, 0.0199999996);
       *buf = 0;
-      v38 = buf;
-      v39 = 0x3052000000;
-      v40 = sub_19B428B20;
-      v41 = sub_19B42908C;
+      v42 = buf;
+      v43 = 0x3052000000;
+      v44 = sub_19B428B20;
+      v45 = sub_19B42908C;
       selfCopy2 = self;
-      v23 = self->_audioAccessoryManager;
-      v26 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v24, v25);
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = sub_19B762DD0;
-      v35[3] = &unk_1E7535D00;
-      v35[4] = buf;
-      objc_msgSend__startAudioAccessoryDeviceMotionUpdatesToQueue_lowLatencyMode_withHandler_(v23, v27, v26, 0, v35);
+      v26 = self->_audioAccessoryManager;
+      v29 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v27, v28);
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = sub_19B762DD0;
+      v39[3] = &unk_1E7535D00;
+      v39[4] = buf;
+      objc_msgSend__startAudioAccessoryDeviceMotionUpdatesToQueue_lowLatencyMode_withHandler_(v26, v30, v29, 0, v39);
       _Block_object_dispose(buf, 8);
     }
 
@@ -334,15 +343,15 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
       }
 
-      v28 = qword_1EAFE27B8;
+      v31 = qword_1EAFE27B8;
       if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_ERROR, "[camera] audio accessory not available", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_ERROR, "[camera] audio accessory not available", buf, 2u);
       }
 
-      v29 = sub_19B420058();
-      if ((*(v29 + 160) & 0x80000000) == 0 || (*(v29 + 164) & 0x80000000) == 0 || (*(v29 + 168) & 0x80000000) == 0 || *(v29 + 152))
+      v32 = sub_19B420058();
+      if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2780 != -1)
@@ -350,25 +359,27 @@
           dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
         }
 
-        LOWORD(v36) = 0;
-        v30 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMCameraWorkoutSession start]", "CoreLocation: %s\n", v30);
-        if (v30 != buf)
+        LOWORD(v40) = 0;
+        LODWORD(v37) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 16, "[camera] audio accessory not available", &v40, v37);
+        v34 = v33;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMCameraWorkoutSession start]", "CoreLocation: %s\n", v33);
+        if (v34 != buf)
         {
-          free(v30);
+          free(v34);
         }
       }
     }
   }
 
-  v31 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
-  self->_logCountersTimer = v31;
-  dispatch_source_set_timer(v31, 0, 0x3B9ACA00uLL, 0x5F5E100uLL);
+  v35 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
+  self->_logCountersTimer = v35;
+  dispatch_source_set_timer(v35, 0, 0x3B9ACA00uLL, 0x5F5E100uLL);
   *buf = 0;
-  v38 = buf;
-  v39 = 0x3052000000;
-  v40 = sub_19B428B20;
-  v41 = sub_19B42908C;
+  v42 = buf;
+  v43 = 0x3052000000;
+  v44 = sub_19B428B20;
+  v45 = sub_19B42908C;
   selfCopy2 = self;
   logCountersTimer = self->_logCountersTimer;
   handler[0] = MEMORY[0x1E69E9820];
@@ -379,12 +390,11 @@
   dispatch_source_set_event_handler(logCountersTimer, handler);
   dispatch_activate(self->_logCountersTimer);
   _Block_object_dispose(buf, 8);
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCounters
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2780 != -1)
   {
     dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
@@ -403,34 +413,32 @@
     v11 = atomic_load(&self->_watchHeartRateCount.__a_.__a_value);
     v12 = atomic_load(&self->_heartRateReferenceCount.__a_.__a_value);
     v13 = atomic_load(&self->_fitnessMachineSampleCount.__a_.__a_value);
-    v15[0] = 68291586;
-    v15[1] = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 1026;
-    v19 = v4;
-    v20 = 1026;
-    v21 = v5;
-    v22 = 1026;
-    v23 = v6;
-    v24 = 1026;
-    v25 = v7;
-    v26 = 1026;
-    v27 = v8;
-    v28 = 1026;
-    v29 = v9;
-    v30 = 1026;
-    v31 = v10;
-    v32 = 1026;
-    v33 = v11;
-    v34 = 1026;
-    v35 = v12;
-    v36 = 1026;
-    v37 = v13;
-    _os_log_impl(&dword_19B41C000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:[camera] total count, accel:%{public}u, gyro:%{public}u, dm:%{public}u, airpodsDm:%{public}u, skeleton:%{public}u, facePose:%{public}u, watchActiveCalorie:%{public}u, watchHeartRate:%{public}u, heartRateReference:%{public}u, fitnessMachineSample:%{public}u}", v15, 0x4Eu);
+    v14[0] = 68291586;
+    v14[1] = 0;
+    v15 = 2082;
+    v16 = "";
+    v17 = 1026;
+    v18 = v4;
+    v19 = 1026;
+    v20 = v5;
+    v21 = 1026;
+    v22 = v6;
+    v23 = 1026;
+    v24 = v7;
+    v25 = 1026;
+    v26 = v8;
+    v27 = 1026;
+    v28 = v9;
+    v29 = 1026;
+    v30 = v10;
+    v31 = 1026;
+    v32 = v11;
+    v33 = 1026;
+    v34 = v12;
+    v35 = 1026;
+    v36 = v13;
+    _os_log_impl(&dword_19B41C000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:[camera] total count, accel:%{public}u, gyro:%{public}u, dm:%{public}u, airpodsDm:%{public}u, skeleton:%{public}u, facePose:%{public}u, watchActiveCalorie:%{public}u, watchHeartRate:%{public}u, heartRateReference:%{public}u, fitnessMachineSample:%{public}u}", v14, 0x4Eu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop
@@ -501,50 +509,48 @@
 
 - (id)stats
 {
-  v36[10] = *MEMORY[0x1E69E9840];
-  v35[0] = @"accelCount";
+  v35[10] = *MEMORY[0x1E69E9840];
+  v34[0] = @"accelCount";
   v3 = MEMORY[0x1E696AD98];
   v4 = atomic_load(&self->_accelCount.__a_.__a_value);
-  v36[0] = objc_msgSend_numberWithUnsignedInt_(v3, a2, v4);
-  v35[1] = @"gyroCount";
+  v35[0] = objc_msgSend_numberWithUnsignedInt_(v3, a2, v4);
+  v34[1] = @"gyroCount";
   v5 = MEMORY[0x1E696AD98];
   v6 = atomic_load(&self->_gyroCount.__a_.__a_value);
-  v36[1] = objc_msgSend_numberWithUnsignedInt_(v5, v7, v6);
-  v35[2] = @"dmCount";
+  v35[1] = objc_msgSend_numberWithUnsignedInt_(v5, v7, v6);
+  v34[2] = @"dmCount";
   v8 = MEMORY[0x1E696AD98];
   v9 = atomic_load(&self->_dmCount.__a_.__a_value);
-  v36[2] = objc_msgSend_numberWithUnsignedInt_(v8, v10, v9);
-  v35[3] = @"airpodsDmCount";
+  v35[2] = objc_msgSend_numberWithUnsignedInt_(v8, v10, v9);
+  v34[3] = @"airpodsDmCount";
   v11 = MEMORY[0x1E696AD98];
   v12 = atomic_load(&self->_airpodsDmCount.__a_.__a_value);
-  v36[3] = objc_msgSend_numberWithUnsignedInt_(v11, v13, v12);
-  v35[4] = @"skeletonCount";
+  v35[3] = objc_msgSend_numberWithUnsignedInt_(v11, v13, v12);
+  v34[4] = @"skeletonCount";
   v14 = MEMORY[0x1E696AD98];
   v15 = atomic_load(&self->_skeletonCount.__a_.__a_value);
-  v36[4] = objc_msgSend_numberWithUnsignedInt_(v14, v16, v15);
-  v35[5] = @"facePoseCount";
+  v35[4] = objc_msgSend_numberWithUnsignedInt_(v14, v16, v15);
+  v34[5] = @"facePoseCount";
   v17 = MEMORY[0x1E696AD98];
   v18 = atomic_load(&self->_facePoseCount.__a_.__a_value);
-  v36[5] = objc_msgSend_numberWithUnsignedInt_(v17, v19, v18);
-  v35[6] = @"watchCalorieCount";
+  v35[5] = objc_msgSend_numberWithUnsignedInt_(v17, v19, v18);
+  v34[6] = @"watchCalorieCount";
   v20 = MEMORY[0x1E696AD98];
   v21 = atomic_load(&self->_watchActiveCalorieCount.__a_.__a_value);
-  v36[6] = objc_msgSend_numberWithUnsignedInt_(v20, v22, v21);
-  v35[7] = @"watchHeartRateCount";
+  v35[6] = objc_msgSend_numberWithUnsignedInt_(v20, v22, v21);
+  v34[7] = @"watchHeartRateCount";
   v23 = MEMORY[0x1E696AD98];
   v24 = atomic_load(&self->_watchHeartRateCount.__a_.__a_value);
-  v36[7] = objc_msgSend_numberWithUnsignedInt_(v23, v25, v24);
-  v35[8] = @"heartRateReferenceCount";
+  v35[7] = objc_msgSend_numberWithUnsignedInt_(v23, v25, v24);
+  v34[8] = @"heartRateReferenceCount";
   v26 = MEMORY[0x1E696AD98];
   v27 = atomic_load(&self->_heartRateReferenceCount.__a_.__a_value);
-  v36[8] = objc_msgSend_numberWithUnsignedInt_(v26, v28, v27);
-  v35[9] = @"fitnessMachineSampleCount";
+  v35[8] = objc_msgSend_numberWithUnsignedInt_(v26, v28, v27);
+  v34[9] = @"fitnessMachineSampleCount";
   v29 = MEMORY[0x1E696AD98];
   v30 = atomic_load(&self->_fitnessMachineSampleCount.__a_.__a_value);
-  v36[9] = objc_msgSend_numberWithUnsignedInt_(v29, v31, v30);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, v36, v35, 10);
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
+  v35[9] = objc_msgSend_numberWithUnsignedInt_(v29, v31, v30);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, v35, v34, 10);
 }
 
 - (void)feedSkeleton:(id)skeleton
@@ -569,7 +575,7 @@
 
 - (void)_feed2DSkeleton:(id)skeleton localMachtime:(double)machtime globalMachtime:(double)globalMachtime
 {
-  v30[33] = *MEMORY[0x1E69E9840];
+  v29[33] = *MEMORY[0x1E69E9840];
   if (self->_logger.__ptr_)
   {
     if (objc_msgSend_count(skeleton, a2, skeleton, *&machtime, *&globalMachtime))
@@ -581,22 +587,20 @@
         v12 = objc_msgSend_type(v9, v10, v11);
         v14 = objc_msgSend_objectAtIndexedSubscript_(skeleton, v13, v8);
         objc_msgSend_position(v14, v15, v16);
-        v30[v12 + 2] = v17;
+        v29[v12 + 2] = v17;
         v19 = objc_msgSend_objectAtIndexedSubscript_(skeleton, v18, v8);
         objc_msgSend_confidence(v19, v20, v21);
-        *(&v30[21] + v12) = v22;
+        *(&v29[21] + v12) = v22;
         v24 = objc_msgSend_objectAtIndexedSubscript_(skeleton, v23, v8);
-        *(&v30[30] + v12 + 4) = objc_msgSend_visible(v24, v25, v26);
+        *(&v29[30] + v12 + 4) = objc_msgSend_visible(v24, v25, v26);
         ++v8;
       }
 
       while (objc_msgSend_count(skeleton, v27, v28) > v8);
     }
 
-    sub_19B5C6D58(self->_logger.__ptr_, v30);
+    sub_19B5C6D58(self->_logger.__ptr_, v29);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feed3DLiftedSkeleton:(id)skeleton localMachtime:(double)machtime globalMachtime:(double)globalMachtime
@@ -898,7 +902,7 @@
 
 - (void)feedWorkoutEvent:(id)event
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (self->_logger.__ptr_)
   {
     v5 = objc_msgSend_eventType(event, a2, event);
@@ -926,12 +930,15 @@
           dispatch_once(&qword_1EAFE2780, &unk_1F0E2A460);
         }
 
-        objc_msgSend_eventType(event, v13, v14);
-        v15 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession feedWorkoutEvent:]", "CoreLocation: %s\n", v15);
-        if (v15 != buf)
+        v15 = qword_1EAFE27B8;
+        v24[0] = 67109120;
+        v24[1] = objc_msgSend_eventType(event, v13, v14);
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v15, 0, "[camera] Received unsupported event: %d", v24);
+        v17 = v16;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCameraWorkoutSession feedWorkoutEvent:]", "CoreLocation: %s\n", v16);
+        if (v17 != buf)
         {
-          free(v15);
+          free(v17);
         }
       }
 
@@ -944,15 +951,13 @@
     }
 
     objc_msgSend_localMachtime(event, v6, v7);
-    *buf = v16;
-    objc_msgSend_localMachtime(event, v17, v18);
-    v25 = v19;
-    v26 = objc_msgSend_workoutType(event, v20, v21);
-    v24 = v8;
+    *buf = v18;
+    objc_msgSend_localMachtime(event, v19, v20);
+    v27 = v21;
+    v28 = objc_msgSend_workoutType(event, v22, v23);
+    v26 = v8;
     sub_19B5C9534(self->_logger.__ptr_, buf);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)feedBodyMetrics:(id)metrics

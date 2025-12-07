@@ -13,11 +13,11 @@
   v8 = [(HDObjectAuthorizationRequestContext *)&v14 init];
   if (v8)
   {
-    v9 = [samplesCopy copy];
+    v9 = objc_msgSend_copy(samplesCopy);
     samples = v8->_samples;
     v8->_samples = v9;
 
-    v11 = [metadataCopy copy];
+    v11 = objc_msgSend_copy(metadataCopy);
     metadata = v8->_metadata;
     v8->_metadata = v11;
   }

@@ -44,9 +44,7 @@ uint64_t EchoClient.echo(_:)(uint64_t a1, uint64_t a2)
   v3[4] = a1;
   v4 = type metadata accessor for Logger();
   v3[7] = v4;
-  v5 = *(v4 - 8);
-  v3[8] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3[8] = *(v4 - 8);
   v3[9] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](EchoClient.echo(_:), 0, 0);
@@ -54,78 +52,63 @@ uint64_t EchoClient.echo(_:)(uint64_t a1, uint64_t a2)
 
 uint64_t EchoClient.echo(_:)()
 {
-  v1 = v0[6];
-  v2 = v1[6];
-  __swift_project_boxed_opaque_existential_1(v1 + 2, v1[5]);
-  v3 = ClientSessionFactory.createSession()();
-  v0[10] = v3;
-  v4 = v3;
-  v6 = v0[4];
-  v5 = v0[5];
-  v7 = swift_task_alloc();
-  v0[11] = v7;
-  v7[2] = v4;
-  v7[3] = v6;
-  v7[4] = v5;
-  v8 = *(MEMORY[0x277D85A40] + 4);
+  __swift_project_boxed_opaque_existential_1((v0[6] + 16), *(v0[6] + 40));
+  v1 = ClientSessionFactory.createSession()();
+  v0[10] = v1;
+  v2 = v1;
+  v4 = v0[4];
+  v3 = v0[5];
+  v5 = swift_task_alloc();
+  v0[11] = v5;
+  v5[2] = v2;
+  v5[3] = v4;
+  v5[4] = v3;
 
-  v9 = swift_task_alloc();
-  v0[12] = v9;
-  *v9 = v0;
-  v9[1] = EchoClient.echo(_:);
-  v10 = MEMORY[0x277D837D0];
+  v6 = swift_task_alloc();
+  v0[12] = v6;
+  *v6 = v0;
+  v6[1] = EchoClient.echo(_:);
+  v7 = MEMORY[0x277D837D0];
 
-  return MEMORY[0x2822008A0](v0 + 2, 0, 0, 0x293A5F286F686365, 0xE800000000000000, partial apply for closure #1 in EchoClient.echo(_:), v7, v10);
+  return MEMORY[0x2822008A0](v0 + 2, 0, 0, 0x293A5F286F686365, 0xE800000000000000, partial apply for closure #1 in EchoClient.echo(_:), v5, v7);
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 96);
-  v8 = *v1;
   *(*v1 + 104) = v0;
 
   if (v0)
   {
-    v4 = EchoClient.echo(_:);
+    v2 = EchoClient.echo(_:);
   }
 
   else
   {
-    v5 = *(v2 + 80);
-    v6 = *(v2 + 88);
 
-    v4 = EchoClient.echo(_:);
+    v2 = EchoClient.echo(_:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  v1 = v0[9];
-  v2 = v0[10];
-  v3 = v0[2];
-  v4 = v0[3];
+  v1 = v0[2];
+  v2 = v0[3];
   OUTLINED_FUNCTION_0();
   dispatch thunk of XPCSession.cancel(reason:)();
 
-  v5 = v0[1];
+  v3 = v0[1];
 
-  return v5(v3, v4);
+  return v3(v1, v2);
 }
 
 {
-  v1 = v0[10];
-  v2 = v0[11];
 
   OUTLINED_FUNCTION_0();
   dispatch thunk of XPCSession.cancel(reason:)();
 
-  v3 = v0[13];
-  v4 = v0[9];
+  v1 = *(v0 + 8);
 
-  v5 = v0[1];
-
-  return v5();
+  return v1();
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -138,72 +121,70 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t closure #1 in EchoClient.echo(_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t closure #1 in EchoClient.echo(_:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v7 = type metadata accessor for Logger();
-  v39 = *(v7 - 8);
-  v40 = v7;
-  v8 = *(v39 + 64);
-  v9 = (MEMORY[0x28223BE20])();
-  v10 = MEMORY[0x28223BE20](v9);
-  v12 = &v34 - v11;
-  MEMORY[0x28223BE20](v10);
-  v14 = &v34 - v13;
-  v15 = type metadata accessor for XPCReceivedMessage();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  v19 = &v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v41 = a3;
-  v42 = a4;
+  v37 = *(v7 - 8);
+  v38 = v7;
+  v8 = MEMORY[0x28223BE20](v7);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v32 - v10;
+  MEMORY[0x28223BE20](v9);
+  v13 = &v32 - v12;
+  v14 = type metadata accessor for XPCReceivedMessage();
+  v15 = *(v14 - 8);
+  MEMORY[0x28223BE20](v14);
+  v17 = &v32 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = a3;
+  v40 = a4;
   dispatch thunk of XPCSession.sendSync<A>(_:)();
-  v35 = v12;
-  v36 = v15;
-  v37 = v16;
-  v38 = a1;
+  v33 = v11;
+  v34 = v14;
+  v35 = v15;
+  v36 = a1;
   static Logging.client.getter();
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v20, v21))
+  v18 = Logger.logObject.getter();
+  v19 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v18, v19))
   {
-    v22 = swift_slowAlloc();
-    *v22 = 0;
-    _os_log_impl(&dword_25E466000, v20, v21, "Sent message, waiting for reply...", v22, 2u);
-    MEMORY[0x25F8B3A30](v22, -1, -1);
+    v20 = swift_slowAlloc();
+    *v20 = 0;
+    _os_log_impl(&dword_25E466000, v18, v19, "Sent message, waiting for reply...", v20, 2u);
+    MEMORY[0x25F8B3A30](v20, -1, -1);
   }
 
-  v23 = *(v39 + 8);
-  v23(v14, v40);
+  v21 = *(v37 + 8);
+  v21(v13, v38);
   XPCReceivedMessage.decode<A>(as:)();
-  v25 = v41;
-  v24 = v42;
-  v26 = v35;
+  v23 = v39;
+  v22 = v40;
+  v24 = v33;
   static Logging.client.getter();
 
-  v27 = Logger.logObject.getter();
-  v28 = static os_log_type_t.info.getter();
+  v25 = Logger.logObject.getter();
+  v26 = static os_log_type_t.info.getter();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v25, v26))
   {
-    v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v41 = v30;
-    *v29 = 136315138;
-    *(v29 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v24, &v41);
-    _os_log_impl(&dword_25E466000, v27, v28, "Received response with result: %s", v29, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v30);
-    MEMORY[0x25F8B3A30](v30, -1, -1);
-    MEMORY[0x25F8B3A30](v29, -1, -1);
+    v27 = swift_slowAlloc();
+    v28 = swift_slowAlloc();
+    v39 = v28;
+    *v27 = 136315138;
+    *(v27 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v22, &v39);
+    _os_log_impl(&dword_25E466000, v25, v26, "Received response with result: %s", v27, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v28);
+    MEMORY[0x25F8B3A30](v28, -1, -1);
+    MEMORY[0x25F8B3A30](v27, -1, -1);
   }
 
-  v23(v26, v40);
-  v32 = v36;
-  v31 = v37;
-  v41 = v25;
-  v42 = v24;
+  v21(v24, v38);
+  v30 = v34;
+  v29 = v35;
+  v39 = v23;
+  v40 = v22;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySSs5Error_pGMd, &_sScCySSs5Error_pGMR);
   CheckedContinuation.resume(returning:)();
-  return (*(v31 + 8))(v19, v32);
+  return (*(v29 + 8))(v17, v30);
 }
 
 uint64_t EchoClient.__deallocating_deinit()
@@ -225,7 +206,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -235,35 +215,34 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 uint64_t dispatch thunk of EchoClient.echo(_:)(uint64_t a1, uint64_t a2)
 {
-  v6 = *(*v2 + 96);
-  v10 = (v6 + *v6);
-  v7 = v6[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = dispatch thunk of EchoClient.echo(_:);
+  v8 = (*(*v2 + 96) + **(*v2 + 96));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = dispatch thunk of EchoClient.echo(_:);
 
-  return v10(a1, a2);
+  return v8(a1, a2);
 }
 
 {
-  v5 = *(*v2 + 16);
-  v8 = *v2;
+  v7 = *v2;
 
-  v6 = *(v8 + 8);
+  v5 = *(v7 + 8);
 
-  return v6(a1, a2);
+  return v5(a1, a2);
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1Tm(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1Tm(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of ClientSessionFactory(uint64_t a1, uint64_t a2)
@@ -275,24 +254,16 @@ uint64_t outlined init with copy of ClientSessionFactory(uint64_t a1, uint64_t a
   return a2;
 }
 
-uint64_t key path setter for PersonalSearchClient.session : PersonalSearchClient(uint64_t *a1, uint64_t a2)
+uint64_t key path setter for PersonalSearchClient.session : PersonalSearchClient(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 104);
+  v2 = *(**a2 + 104);
 
-  return v3(v4);
-}
-
-uint64_t PersonalSearchClient.session.getter()
-{
-  OUTLINED_FUNCTION_17();
-  v1 = *(v0 + 56);
+  return v2(v3);
 }
 
 uint64_t PersonalSearchClient.session.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 56);
   *(v1 + 56) = a1;
 }
 
@@ -325,59 +296,58 @@ uint64_t PersonalSearchClient.connection()()
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   OUTLINED_FUNCTION_4();
-  v8 = (*(v7 + 96))();
-  if (v8)
+  v7 = (*(v6 + 96))();
+  if (v7)
   {
-    return v8;
+    return v7;
   }
 
-  v9 = v0[5];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v9);
+  v8 = v0[5];
+  __swift_project_boxed_opaque_existential_1(v0 + 2, v8);
   swift_allocObject();
   swift_weakInit();
 
-  v10 = dispatch thunk of ClientSessionFactory.createSession(cancellationHandler:)();
+  v9 = dispatch thunk of ClientSessionFactory.createSession(cancellationHandler:)();
   if (v1)
   {
 
     static Logging.client.getter();
     MEMORY[0x25F8B3980](v1);
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.error.getter();
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.error.getter();
     MEMORY[0x25F8B3970](v1);
-    if (os_log_type_enabled(v11, v12))
+    if (os_log_type_enabled(v10, v11))
     {
-      v9 = swift_slowAlloc();
-      v13 = swift_slowAlloc();
-      *v9 = 138412290;
+      v8 = swift_slowAlloc();
+      v12 = swift_slowAlloc();
+      *v8 = 138412290;
       MEMORY[0x25F8B3980](v1);
-      v14 = _swift_stdlib_bridgeErrorToNSError();
-      *(v9 + 4) = v14;
-      *v13 = v14;
-      _os_log_impl(&dword_25E466000, v11, v12, "Failed to connect to listener, error: %@", v9, 0xCu);
-      outlined destroy of NSObject?(v13);
-      MEMORY[0x25F8B3A30](v13, -1, -1);
-      MEMORY[0x25F8B3A30](v9, -1, -1);
+      v13 = _swift_stdlib_bridgeErrorToNSError();
+      *(v8 + 4) = v13;
+      *v12 = v13;
+      _os_log_impl(&dword_25E466000, v10, v11, "Failed to connect to listener, error: %@", v8, 0xCu);
+      outlined destroy of NSObject?(v12);
+      MEMORY[0x25F8B3A30](v12, -1, -1);
+      MEMORY[0x25F8B3A30](v8, -1, -1);
     }
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
     swift_willThrow();
   }
 
   else
   {
-    v9 = v10;
+    v8 = v9;
 
-    v15 = *(*v0 + 104);
+    v14 = *(*v0 + 104);
 
-    v15(v16);
+    v14(v15);
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t sub_25E4687C4()
@@ -391,49 +361,47 @@ uint64_t closure #1 in PersonalSearchClient.connection()(uint64_t a1, uint64_t a
 {
   v4 = type metadata accessor for XPCRichError();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for Logger();
-  v26 = *(v9 - 8);
-  v10 = *(v26 + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for Logger();
+  v24 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Logging.client.getter();
-  v13 = *(v5 + 16);
-  v13(v8, a1, v4);
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v14, v15))
+  v11 = *(v5 + 16);
+  v11(v7, a1, v4);
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v12, v13))
   {
-    v16 = swift_slowAlloc();
-    v25 = a2;
-    v17 = v16;
-    v23 = swift_slowAlloc();
-    *v17 = 138412290;
-    lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type XPCRichError and conformance XPCRichError, MEMORY[0x277D855E8]);
+    v14 = swift_slowAlloc();
+    v23 = a2;
+    v15 = v14;
+    v21 = swift_slowAlloc();
+    *v15 = 138412290;
+    lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type XPCRichError and conformance XPCRichError, MEMORY[0x277D855E8], MEMORY[0x277D855F0]);
     swift_allocError();
-    v24 = v9;
-    v13(v18, v8, v4);
-    v19 = _swift_stdlib_bridgeErrorToNSError();
-    (*(v5 + 8))(v8, v4);
-    *(v17 + 4) = v19;
-    v20 = v23;
-    *v23 = v19;
-    v9 = v24;
-    _os_log_impl(&dword_25E466000, v14, v15, "Session cancelled, error: %@", v17, 0xCu);
-    outlined destroy of NSObject?(v20);
-    MEMORY[0x25F8B3A30](v20, -1, -1);
-    MEMORY[0x25F8B3A30](v17, -1, -1);
+    v22 = v8;
+    v11(v16, v7, v4);
+    v17 = _swift_stdlib_bridgeErrorToNSError();
+    (*(v5 + 8))(v7, v4);
+    *(v15 + 4) = v17;
+    v18 = v21;
+    *v21 = v17;
+    v8 = v22;
+    _os_log_impl(&dword_25E466000, v12, v13, "Session cancelled, error: %@", v15, 0xCu);
+    outlined destroy of NSObject?(v18);
+    MEMORY[0x25F8B3A30](v18, -1, -1);
+    MEMORY[0x25F8B3A30](v15, -1, -1);
   }
 
   else
   {
 
-    (*(v5 + 8))(v8, v4);
+    (*(v5 + 8))(v7, v4);
   }
 
-  (*(v26 + 8))(v12, v9);
+  (*(v24 + 8))(v10, v8);
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
@@ -457,58 +425,55 @@ Swift::Void __swiftcall PersonalSearchClient.resetConnection()()
   v2(0);
 }
 
-uint64_t PersonalSearchClient.deinit()
+uint64_t PersonalSearchClient.deinit(uint64_t a1)
 {
-  OUTLINED_FUNCTION_17();
-  if (*(v0 + 56))
+  OUTLINED_FUNCTION_17(a1);
+  if (*(v1 + 56))
   {
 
     dispatch thunk of XPCSession.cancel(reason:)();
   }
 
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-  v1 = *(v0 + 56);
+  __swift_destroy_boxed_opaque_existential_1Tm((v1 + 16));
 
-  return v0;
+  return v1;
 }
 
-uint64_t PersonalSearchClient.__deallocating_deinit()
+uint64_t PersonalSearchClient.__deallocating_deinit(uint64_t a1)
 {
-  PersonalSearchClient.deinit();
+  PersonalSearchClient.deinit(a1);
 
-  return MEMORY[0x2821FE8D8](v0, 64, 7);
+  return MEMORY[0x2821FE8D8](v1, 64, 7);
 }
 
-uint64_t PersonalSearchClient.perform(_:)(uint64_t a1)
+uint64_t PersonalSearchClient.perform(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(v2 + 24) = a1;
-  *(v2 + 32) = v1;
+  *(v4 + 24) = a1;
+  *(v4 + 32) = v3;
   OUTLINED_FUNCTION_8();
-  return MEMORY[0x2822009F8](v3, v4, v5);
+  return MEMORY[0x2822009F8](v5, v6, v7);
 }
 
 uint64_t PersonalSearchClient.perform(_:)()
 {
   OUTLINED_FUNCTION_16();
-  v1 = *(v0 + 32);
   OUTLINED_FUNCTION_4();
-  v3 = (*(v2 + 128))();
-  *(v0 + 40) = v3;
-  v4 = v3;
-  v5 = swift_task_alloc();
-  *(v0 + 48) = v5;
-  v6 = *(v0 + 24);
-  *(v5 + 16) = v4;
-  *(v5 + 24) = v6;
-  v7 = *(MEMORY[0x277D85A40] + 4);
-  v8 = swift_task_alloc();
-  *(v0 + 56) = v8;
+  v2 = (*(v1 + 128))();
+  *(v0 + 40) = v2;
+  v3 = v2;
+  v4 = swift_task_alloc();
+  *(v0 + 48) = v4;
+  v5 = *(v0 + 24);
+  *(v4 + 16) = v3;
+  *(v4 + 24) = v5;
+  v6 = swift_task_alloc();
+  *(v0 + 56) = v6;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19PersonalSearchTypes0aB6ResultVGMd, &_sSay19PersonalSearchTypes0aB6ResultVGMR);
-  *v8 = v0;
-  v8[1] = PersonalSearchClient.perform(_:);
+  *v6 = v0;
+  v6[1] = PersonalSearchClient.perform(_:);
   OUTLINED_FUNCTION_8();
 
-  return MEMORY[0x2822008A0](v9, v10, v11, v12, v13, v14, v5, v15);
+  return MEMORY[0x2822008A0](v7, v8, v9, v10, v11, v12, v4, v13);
 }
 
 {
@@ -516,189 +481,178 @@ uint64_t PersonalSearchClient.perform(_:)()
   v2 = *v1;
   OUTLINED_FUNCTION_7();
   *v3 = v2;
-  v5 = *(v4 + 56);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_6();
-  *v7 = v6;
+  *v5 = v4;
   *(v2 + 64) = v0;
 
   if (!v0)
   {
-    v8 = *(v2 + 48);
   }
 
   OUTLINED_FUNCTION_8();
 
-  return MEMORY[0x2822009F8](v9, v10, v11);
+  return MEMORY[0x2822009F8](v6, v7, v8);
 }
 
 {
   OUTLINED_FUNCTION_3();
-  v1 = v0[5];
 
-  v2 = v0[2];
-  v3 = v0[1];
+  v1 = *(v0 + 16);
+  v2 = *(v0 + 8);
 
-  return v3(v2);
+  return v2(v1);
 }
 
 {
   OUTLINED_FUNCTION_3();
-  v1 = v0[5];
-  v2 = v0[6];
 
-  v3 = v0[8];
   OUTLINED_FUNCTION_12();
 
-  return v4();
+  return v0();
 }
 
 uint64_t closure #1 in PersonalSearchClient.perform(_:)(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v92 = a4;
-  v95 = a1;
+  v87 = a4;
+  v90 = a1;
   v4 = type metadata accessor for PersonalSearchError();
-  v88 = *(v4 - 8);
-  v89 = v4;
-  v5 = *(v88 + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v84 = &v79[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v6);
-  v86 = &v79[-v8];
-  v9 = type metadata accessor for Logger();
-  v93 = *(v9 - 8);
-  v94 = v9;
-  v10 = *(v93 + 64);
+  v83 = *(v4 - 8);
+  v84 = v4;
+  v5 = MEMORY[0x28223BE20](v4);
+  v79 = &v74[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v5);
+  v81 = &v74[-v7];
+  v8 = type metadata accessor for Logger();
+  v88 = *(v8 - 8);
+  v89 = v8;
+  v9 = MEMORY[0x28223BE20](v8);
+  v86 = &v74[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v11 = MEMORY[0x28223BE20](v9);
-  v91 = &v79[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v80 = &v74[-v12];
   v13 = MEMORY[0x28223BE20](v11);
-  v85 = &v79[-v14];
-  v15 = MEMORY[0x28223BE20](v13);
-  v17 = &v79[-v16];
-  MEMORY[0x28223BE20](v15);
-  v19 = &v79[-v18];
-  v20 = type metadata accessor for PersonalSearchResponse();
-  v87 = *(v20 - 8);
-  v21 = *(v87 + 64);
-  v22 = MEMORY[0x28223BE20](v20);
-  v24 = &v79[-((v23 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v22);
-  v26 = &v79[-v25];
-  v27 = type metadata accessor for XPCReceivedMessage();
-  v90 = *(v27 - 8);
-  v28 = *(v90 + 64);
-  MEMORY[0x28223BE20](v27);
-  v30 = &v79[-((v29 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = &v74[-v14];
+  MEMORY[0x28223BE20](v13);
+  v17 = &v74[-v16];
+  v18 = type metadata accessor for PersonalSearchResponse();
+  v82 = *(v18 - 8);
+  v19 = MEMORY[0x28223BE20](v18);
+  v21 = &v74[-((v20 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v19);
+  v23 = &v74[-v22];
+  v24 = type metadata accessor for XPCReceivedMessage();
+  v85 = *(v24 - 8);
+  MEMORY[0x28223BE20](v24);
+  v26 = &v74[-((v25 + 15) & 0xFFFFFFFFFFFFFFF0)];
   type metadata accessor for PersonalSearchRequest();
-  lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchRequest and conformance PersonalSearchRequest, MEMORY[0x277D3A2D0]);
+  lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchRequest and conformance PersonalSearchRequest, MEMORY[0x277D3A2D0], MEMORY[0x277D3A2D8]);
   dispatch thunk of XPCSession.sendSync<A>(_:)();
-  v82 = v19;
-  v83 = v27;
-  v31 = v88;
-  v32 = v89;
-  v33 = v87;
-  lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchResponse and conformance PersonalSearchResponse, MEMORY[0x277D3A2F8]);
+  v77 = v17;
+  v78 = v24;
+  v27 = v83;
+  v28 = v84;
+  v29 = v82;
+  lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchResponse and conformance PersonalSearchResponse, MEMORY[0x277D3A2F8], MEMORY[0x277D3A308]);
   XPCReceivedMessage.decode<A>(as:)();
-  v34 = v20;
-  v35 = v33;
-  v36 = v24;
-  (*(v33 + 16))(v24, v26, v34);
-  v37 = (*(v33 + 88))(v24, v34);
-  if (v37 == *MEMORY[0x277D3A2E8])
+  v30 = v18;
+  v31 = v29;
+  v32 = v21;
+  (*(v29 + 16))(v21, v23, v30);
+  v33 = (*(v29 + 88))(v21, v30);
+  if (v33 == *MEMORY[0x277D3A2E8])
   {
-    v92 = v30;
-    (*(v33 + 96))(v24, v34);
-    v38 = v34;
-    v39 = v86;
-    v40 = v32;
-    (*(v31 + 32))(v86, v36, v32);
-    v41 = v85;
+    v87 = v26;
+    (*(v29 + 96))(v21, v30);
+    v34 = v30;
+    v35 = v81;
+    v36 = v28;
+    (*(v27 + 32))(v81, v32, v28);
+    v37 = v80;
     static Logging.client.getter();
-    v42 = *(v31 + 16);
-    v43 = v84;
-    v91 = (v31 + 16);
-    v82 = v42;
-    v42(v84, v39, v40);
-    v44 = Logger.logObject.getter();
-    v45 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v44, v45))
+    v38 = *(v27 + 16);
+    v39 = v79;
+    v86 = (v27 + 16);
+    v77 = v38;
+    v38(v79, v35, v36);
+    v40 = Logger.logObject.getter();
+    v41 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v40, v41))
     {
-      v46 = swift_slowAlloc();
-      v81 = swift_slowAlloc();
-      v96 = v81;
-      *v46 = 136315138;
-      lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchError and conformance PersonalSearchError, MEMORY[0x277D3A298]);
-      v80 = v45;
-      v47 = Error.localizedDescription.getter();
-      v48 = v38;
-      v49 = v43;
-      v51 = v50;
-      v52 = *(v31 + 8);
-      v52(v49, v40);
-      v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v51, &v96);
-      v54 = v48;
+      v42 = swift_slowAlloc();
+      v76 = swift_slowAlloc();
+      v91[0] = v76;
+      *v42 = 136315138;
+      lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchError and conformance PersonalSearchError, MEMORY[0x277D3A298], MEMORY[0x277D3A2A0]);
+      v75 = v41;
+      v43 = Error.localizedDescription.getter();
+      v44 = v34;
+      v45 = v39;
+      v47 = v46;
+      v48 = *(v27 + 8);
+      v48(v45, v36);
+      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v47, v91);
+      v50 = v44;
 
-      *(v46 + 4) = v53;
-      _os_log_impl(&dword_25E466000, v44, v80, "Received error: %s", v46, 0xCu);
-      v55 = v81;
-      __swift_destroy_boxed_opaque_existential_1Tm(v81);
-      v35 = v33;
-      v56 = v52;
-      MEMORY[0x25F8B3A30](v55, -1, -1);
-      MEMORY[0x25F8B3A30](v46, -1, -1);
+      *(v42 + 4) = v49;
+      _os_log_impl(&dword_25E466000, v40, v75, "Received error: %s", v42, 0xCu);
+      v51 = v76;
+      __swift_destroy_boxed_opaque_existential_1Tm(v76);
+      v31 = v29;
+      v52 = v48;
+      MEMORY[0x25F8B3A30](v51, -1, -1);
+      MEMORY[0x25F8B3A30](v42, -1, -1);
 
-      (*(v93 + 8))(v85, v94);
-      v57 = v83;
+      (*(v88 + 8))(v80, v89);
+      v53 = v78;
     }
 
     else
     {
 
-      v56 = *(v31 + 8);
-      v56(v43, v40);
-      (*(v93 + 8))(v41, v94);
-      v57 = v83;
-      v54 = v38;
+      v52 = *(v27 + 8);
+      v52(v39, v36);
+      (*(v88 + 8))(v37, v89);
+      v53 = v78;
+      v50 = v34;
     }
 
-    lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchError and conformance PersonalSearchError, MEMORY[0x277D3A298]);
-    v68 = swift_allocError();
-    v69 = v86;
-    v82(v70, v86, v40);
-    v96 = v68;
+    lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(&lazy protocol witness table cache variable for type PersonalSearchError and conformance PersonalSearchError, MEMORY[0x277D3A298], MEMORY[0x277D3A2A0]);
+    v63 = swift_allocError();
+    v64 = v81;
+    v77(v65, v81, v36);
+    v91[0] = v63;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay19PersonalSearchTypes0aB6ResultVGs5Error_pGMd, &_sScCySay19PersonalSearchTypes0aB6ResultVGs5Error_pGMR);
     CheckedContinuation.resume(throwing:)();
-    v56(v69, v40);
-    (*(v35 + 8))(v26, v54);
-    return (*(v90 + 8))(v92, v57);
+    v52(v64, v36);
+    (*(v31 + 8))(v23, v50);
+    return (*(v85 + 8))(v87, v53);
   }
 
-  else if (v37 == *MEMORY[0x277D3A2F0])
+  else if (v33 == *MEMORY[0x277D3A2F0])
   {
-    v58 = *(v33 + 96);
-    v59 = v34;
-    v58(v24, v34);
-    v60 = *v24;
-    if (*v36)
+    v54 = *(v29 + 96);
+    v55 = v30;
+    v54(v21, v30);
+    v56 = *v21;
+    if (*v32)
     {
-      v61 = v17;
-      v62 = v26;
-      v63 = *v36;
+      v57 = v15;
+      v58 = v23;
 
       static Logging.client.getter();
 
-      v64 = Logger.logObject.getter();
-      v65 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v64, v65))
+      v59 = Logger.logObject.getter();
+      v60 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v59, v60))
       {
-        v66 = swift_slowAlloc();
-        *v66 = 134217984;
-        v67 = *(v60 + 16);
+        v61 = swift_slowAlloc();
+        *v61 = 134217984;
+        v62 = *(v56 + 16);
 
-        *(v66 + 4) = v67;
+        *(v61 + 4) = v62;
 
-        _os_log_impl(&dword_25E466000, v64, v65, "Received response with result: %ld", v66, 0xCu);
-        MEMORY[0x25F8B3A30](v66, -1, -1);
+        _os_log_impl(&dword_25E466000, v59, v60, "Received response with result: %ld", v61, 0xCu);
+        MEMORY[0x25F8B3A30](v61, -1, -1);
       }
 
       else
@@ -707,45 +661,45 @@ uint64_t closure #1 in PersonalSearchClient.perform(_:)(uint64_t a1, uint64_t a2
         swift_bridgeObjectRelease_n();
       }
 
-      v78 = v83;
-      v76 = v90;
-      (*(v93 + 8))(v61, v94);
+      v73 = v78;
+      v71 = v85;
+      (*(v88 + 8))(v57, v89);
     }
 
     else
     {
-      v62 = v26;
-      v72 = v82;
+      v58 = v23;
+      v67 = v77;
       static Logging.client.getter();
-      v73 = Logger.logObject.getter();
-      v74 = static os_log_type_t.info.getter();
-      v75 = os_log_type_enabled(v73, v74);
-      v76 = v90;
-      if (v75)
+      v68 = Logger.logObject.getter();
+      v69 = static os_log_type_t.info.getter();
+      v70 = os_log_type_enabled(v68, v69);
+      v71 = v85;
+      if (v70)
       {
-        v77 = swift_slowAlloc();
-        *v77 = 0;
-        _os_log_impl(&dword_25E466000, v73, v74, "Received response success", v77, 2u);
-        MEMORY[0x25F8B3A30](v77, -1, -1);
+        v72 = swift_slowAlloc();
+        *v72 = 0;
+        _os_log_impl(&dword_25E466000, v68, v69, "Received response success", v72, 2u);
+        MEMORY[0x25F8B3A30](v72, -1, -1);
 
-        (*(v93 + 8))(v72, v94);
+        (*(v88 + 8))(v67, v89);
       }
 
       else
       {
 
-        (*(v93 + 8))(v72, v94);
+        (*(v88 + 8))(v67, v89);
       }
 
-      v60 = MEMORY[0x277D84F90];
-      v78 = v83;
+      v56 = MEMORY[0x277D84F90];
+      v73 = v78;
     }
 
-    v96 = v60;
+    v91[0] = v56;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay19PersonalSearchTypes0aB6ResultVGs5Error_pGMd, &_sScCySay19PersonalSearchTypes0aB6ResultVGs5Error_pGMR);
     CheckedContinuation.resume(returning:)();
-    (*(v35 + 8))(v62, v59);
-    return (*(v76 + 8))(v30, v78);
+    (*(v31 + 8))(v58, v55);
+    return (*(v71 + 8))(v26, v73);
   }
 
   else
@@ -765,11 +719,10 @@ uint64_t PersonalSearchClient.preheat()()
   v1[3] = v2;
   OUTLINED_FUNCTION_5(v2);
   v1[4] = v3;
-  v5 = *(v4 + 64);
   v1[5] = OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_8();
 
-  return MEMORY[0x2822009F8](v6, v7, v8);
+  return MEMORY[0x2822009F8](v4, v5, v6);
 }
 
 {
@@ -780,26 +733,22 @@ uint64_t PersonalSearchClient.preheat()()
   *v1 = v0;
   v2 = OUTLINED_FUNCTION_2(v1);
 
-  return PersonalSearchClient.perform(_:)(v2);
+  return PersonalSearchClient.perform(_:)(v2, v3, v4);
 }
 
 {
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_7();
-  *v4 = v3;
-  v5 = v1[6];
-  *v4 = *v2;
-  *(v3 + 56) = v0;
+  *v3 = v2;
+  *v3 = *v1;
+  *(v2 + 56) = v0;
 
-  v6 = v1[5];
-  v7 = v1[4];
-  v8 = v1[3];
   if (!v0)
   {
 
-    v15 = OUTLINED_FUNCTION_0_0();
-    v16(v15);
+    v10 = OUTLINED_FUNCTION_0_0();
+    v11(v10);
 
     OUTLINED_FUNCTION_9();
     OUTLINED_FUNCTION_18();
@@ -807,12 +756,12 @@ uint64_t PersonalSearchClient.preheat()()
     __asm { BRAA            X1, X16 }
   }
 
-  v9 = OUTLINED_FUNCTION_0_0();
-  v10(v9);
+  v4 = OUTLINED_FUNCTION_0_0();
+  v5(v4);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2822009F8](v11, v12, v13);
+  return MEMORY[0x2822009F8](v6, v7, v8);
 }
 
 uint64_t PersonalSearchClient.activate()()
@@ -823,11 +772,10 @@ uint64_t PersonalSearchClient.activate()()
   v1[3] = v2;
   OUTLINED_FUNCTION_5(v2);
   v1[4] = v3;
-  v5 = *(v4 + 64);
   v1[5] = OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_8();
 
-  return MEMORY[0x2822009F8](v6, v7, v8);
+  return MEMORY[0x2822009F8](v4, v5, v6);
 }
 
 {
@@ -838,7 +786,7 @@ uint64_t PersonalSearchClient.activate()()
   *v1 = v0;
   v2 = OUTLINED_FUNCTION_2(v1);
 
-  return PersonalSearchClient.perform(_:)(v2);
+  return PersonalSearchClient.perform(_:)(v2, v3, v4);
 }
 
 uint64_t PersonalSearchClient.deactivate()()
@@ -849,11 +797,10 @@ uint64_t PersonalSearchClient.deactivate()()
   v1[3] = v2;
   OUTLINED_FUNCTION_5(v2);
   v1[4] = v3;
-  v5 = *(v4 + 64);
   v1[5] = OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_8();
 
-  return MEMORY[0x2822009F8](v6, v7, v8);
+  return MEMORY[0x2822009F8](v4, v5, v6);
 }
 
 {
@@ -864,26 +811,22 @@ uint64_t PersonalSearchClient.deactivate()()
   *v1 = v0;
   v2 = OUTLINED_FUNCTION_2(v1);
 
-  return PersonalSearchClient.perform(_:)(v2);
+  return PersonalSearchClient.perform(_:)(v2, v3, v4);
 }
 
 {
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_7();
-  *v4 = v3;
-  v5 = v1[6];
-  *v4 = *v2;
-  *(v3 + 56) = v0;
+  *v3 = v2;
+  *v3 = *v1;
+  *(v2 + 56) = v0;
 
-  v6 = v1[5];
-  v7 = v1[4];
-  v8 = v1[3];
   if (!v0)
   {
 
-    v15 = OUTLINED_FUNCTION_0_0();
-    v16(v15);
+    v10 = OUTLINED_FUNCTION_0_0();
+    v11(v10);
 
     OUTLINED_FUNCTION_9();
     OUTLINED_FUNCTION_18();
@@ -891,22 +834,20 @@ uint64_t PersonalSearchClient.deactivate()()
     __asm { BRAA            X1, X16 }
   }
 
-  v9 = OUTLINED_FUNCTION_0_0();
-  v10(v9);
+  v4 = OUTLINED_FUNCTION_0_0();
+  v5(v4);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2822009F8](v11, v12, v13);
+  return MEMORY[0x2822009F8](v6, v7, v8);
 }
 
 {
   OUTLINED_FUNCTION_3();
-  v1 = *(v0 + 40);
 
   OUTLINED_FUNCTION_12();
-  v3 = *(v0 + 56);
 
-  return v2();
+  return v0();
 }
 
 uint64_t PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:)()
@@ -918,19 +859,18 @@ uint64_t PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:)
   v1[5] = v4;
   v1[2] = v5;
   v1[3] = v6;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s19PersonalSearchTypes0aB12QueryOptionsVSgMd, &_s19PersonalSearchTypes0aB12QueryOptionsVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19PersonalSearchTypes0aB12QueryOptionsVSgMd, &_s19PersonalSearchTypes0aB12QueryOptionsVSgMR);
   v1[8] = OUTLINED_FUNCTION_13();
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s19PersonalSearchTypes15StructuredQueryVSgMd, &_s19PersonalSearchTypes15StructuredQueryVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19PersonalSearchTypes15StructuredQueryVSgMd, &_s19PersonalSearchTypes15StructuredQueryVSgMR);
   v1[9] = OUTLINED_FUNCTION_13();
-  v9 = type metadata accessor for PersonalSearchRequest();
-  v1[10] = v9;
-  OUTLINED_FUNCTION_5(v9);
-  v1[11] = v10;
-  v12 = *(v11 + 64);
+  v7 = type metadata accessor for PersonalSearchRequest();
+  v1[10] = v7;
+  OUTLINED_FUNCTION_5(v7);
+  v1[11] = v8;
   v1[12] = OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_8();
 
-  return MEMORY[0x2822009F8](v13, v14, v15);
+  return MEMORY[0x2822009F8](v9, v10, v11);
 }
 
 {
@@ -938,23 +878,19 @@ uint64_t PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:)
   v1 = v0[12];
   v3 = v0[10];
   v4 = v0[8];
-  v6 = v0[5];
   v5 = v0[6];
-  v7 = v0[3];
-  v8 = v0[2];
   outlined init with copy of StructuredQuery?(v0[4], v0[9], &_s19PersonalSearchTypes15StructuredQueryVSgMd, &_s19PersonalSearchTypes15StructuredQueryVSgMR);
   outlined init with copy of StructuredQuery?(v5, v4, &_s19PersonalSearchTypes0aB12QueryOptionsVSgMd, &_s19PersonalSearchTypes0aB12QueryOptionsVSgMR);
 
   PersonalSearchQuery.init(searchQuery:structuredQuery:typeIdentifiers:options:)();
   (*(v2 + 104))(v1, *MEMORY[0x277D3A2B8], v3);
-  v9 = swift_task_alloc();
-  v0[13] = v9;
-  *v9 = v0;
-  v9[1] = PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:);
-  v10 = v0[12];
-  v11 = v0[7];
+  v6 = swift_task_alloc();
+  v0[13] = v6;
+  *v6 = v0;
+  v6[1] = PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:);
+  v9 = v0[12];
 
-  return PersonalSearchClient.perform(_:)(v10);
+  return PersonalSearchClient.perform(_:)(v9, v7, v8);
 }
 
 {
@@ -963,43 +899,33 @@ uint64_t PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:)
   v3 = *v1;
   OUTLINED_FUNCTION_6();
   *v4 = v3;
-  v5 = v2[13];
-  v6 = *v1;
   *v4 = *v1;
   v3[14] = v0;
 
-  v7 = v2[12];
-  v8 = v2[11];
-  v9 = v2[10];
+  v5 = v2[11];
+  v6 = v2[10];
   if (!v0)
   {
-    v15 = v3[8];
-    v14 = v3[9];
-    (*(v8 + 8))(v2[12], v9);
+    (*(v5 + 8))(v2[12], v6);
 
-    v16 = v6[1];
     OUTLINED_FUNCTION_18();
 
     __asm { BRAA            X2, X16 }
   }
 
-  (*(v8 + 8))(v2[12], v9);
+  (*(v5 + 8))(v2[12], v6);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2822009F8](v10, v11, v12);
+  return MEMORY[0x2822009F8](v7, v8, v9);
 }
 
 {
   OUTLINED_FUNCTION_3();
-  v1 = v0[12];
-  v2 = v0[8];
-  v3 = v0[9];
 
   OUTLINED_FUNCTION_12();
-  v5 = v0[14];
 
-  return v4();
+  return v0();
 }
 
 uint64_t outlined init with copy of StructuredQuery?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
@@ -1009,12 +935,11 @@ uint64_t outlined init with copy of StructuredQuery?(uint64_t a1, uint64_t a2, u
   return a2;
 }
 
-uint64_t sub_25E46A738@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_25E46A738@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   OUTLINED_FUNCTION_4();
-  result = (*(v4 + 96))();
-  *a2 = result;
+  result = (*(v2 + 96))();
+  *a1 = result;
   return result;
 }
 
@@ -1022,88 +947,78 @@ uint64_t dispatch thunk of PersonalSearchClient.preheat()()
 {
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_4();
-  v1 = *(v0 + 152);
-  v16 = v0 + 152;
-  v17 = v1 + *v1;
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  v4 = OUTLINED_FUNCTION_15(v3);
-  *v4 = v5;
-  v13 = OUTLINED_FUNCTION_11(v4, v6, v7, v8, v9, v10, v11, v12, v15, v16, v17);
+  v14 = v0 + 152;
+  v15 = *(v0 + 152) + **(v0 + 152);
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_15(v1);
+  *v2 = v3;
+  v11 = OUTLINED_FUNCTION_11(v2, v4, v5, v6, v7, v8, v9, v10, v13, v14, v15);
 
-  return v13();
+  return v11();
 }
 
 uint64_t dispatch thunk of PersonalSearchClient.activate()()
 {
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_4();
-  v1 = *(v0 + 160);
-  v16 = v0 + 160;
-  v17 = v1 + *v1;
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  v4 = OUTLINED_FUNCTION_15(v3);
-  *v4 = v5;
-  v13 = OUTLINED_FUNCTION_11(v4, v6, v7, v8, v9, v10, v11, v12, v15, v16, v17);
+  v14 = v0 + 160;
+  v15 = *(v0 + 160) + **(v0 + 160);
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_15(v1);
+  *v2 = v3;
+  v11 = OUTLINED_FUNCTION_11(v2, v4, v5, v6, v7, v8, v9, v10, v13, v14, v15);
 
-  return v13();
+  return v11();
 }
 
 uint64_t dispatch thunk of PersonalSearchClient.deactivate()()
 {
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_4();
-  v1 = *(v0 + 168);
-  v16 = v0 + 168;
-  v17 = v1 + *v1;
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  v4 = OUTLINED_FUNCTION_15(v3);
-  *v4 = v5;
-  v13 = OUTLINED_FUNCTION_11(v4, v6, v7, v8, v9, v10, v11, v12, v15, v16, v17);
+  v14 = v0 + 168;
+  v15 = *(v0 + 168) + **(v0 + 168);
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_15(v1);
+  *v2 = v3;
+  v11 = OUTLINED_FUNCTION_11(v2, v4, v5, v6, v7, v8, v9, v10, v13, v14, v15);
 
-  return v13();
+  return v11();
 }
 
 {
   OUTLINED_FUNCTION_3();
-  v1 = *(*v0 + 16);
-  v2 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_6();
-  *v3 = v2;
+  *v2 = v1;
 
   OUTLINED_FUNCTION_12();
 
-  return v4();
+  return v3();
 }
 
 uint64_t dispatch thunk of PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_4();
-  v11 = *(v10 + 176);
-  v17 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  v14 = OUTLINED_FUNCTION_15(v13);
-  *v14 = v15;
-  v14[1] = dispatch thunk of PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:);
+  v15 = (*(v10 + 176) + **(v10 + 176));
+  v11 = swift_task_alloc();
+  v12 = OUTLINED_FUNCTION_15(v11);
+  *v12 = v13;
+  v12[1] = dispatch thunk of PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:);
 
-  return v17(a1, a2, a3, a4, a5);
+  return v15(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of PersonalSearchClient.search(_:structuredQuery:typeIdentifiers:options:)()
 {
   OUTLINED_FUNCTION_3();
   v2 = v1;
-  v3 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
   OUTLINED_FUNCTION_6();
-  *v5 = v4;
+  *v4 = v3;
 
-  v6 = *(v4 + 8);
+  v5 = *(v3 + 8);
 
-  return v6(v2);
+  return v5(v2);
 }
 
 uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
@@ -1200,11 +1115,9 @@ LABEL_8:
 
 uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
 uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -1312,21 +1225,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v8, 1, v3);
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -1341,15 +1253,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1358,12 +1270,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -1478,7 +1390,7 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type PersonalSearchRequest and conformance PersonalSearchRequest(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1491,34 +1403,13 @@ uint64_t lazy protocol witness table accessor for type PersonalSearchRequest and
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_2(uint64_t a1)
-{
-  *(a1 + 8) = v1;
-  v3 = *(v2 + 16);
-  return *(v2 + 40);
-}
-
-uint64_t OUTLINED_FUNCTION_9()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_12()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_13()
 {
 
   return swift_task_alloc();
 }
 
-uint64_t OUTLINED_FUNCTION_17()
+uint64_t OUTLINED_FUNCTION_17(uint64_t a1, ...)
 {
 
   return swift_beginAccess();

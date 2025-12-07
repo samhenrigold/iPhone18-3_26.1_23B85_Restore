@@ -19,70 +19,65 @@
 
 - (id)_initWithContext:(LSContext *)context bundleData:(const LSBundleData *)data
 {
-  v44.receiver = self;
-  v44.super_class = LSiTunesMetadata;
-  v6 = [(LSiTunesMetadata *)&v44 init];
+  v37.receiver = self;
+  v37.super_class = LSiTunesMetadata;
+  v6 = [(LSiTunesMetadata *)&v37 init];
   v7 = v6;
   if (v6)
   {
     v6->_storeItemIdentifier = *(&data->compatibilityState + 4);
-    installFailureReason_high = HIDWORD(data->installFailureReason);
     [(_LSDatabase *)context->db store];
-    v9 = _CSStringCopyCFString();
+    v8 = _CSStringCopyCFString();
     artistName = v7->_artistName;
-    v7->_artistName = v9;
+    v7->_artistName = v8;
 
-    familyID_high = HIDWORD(data->familyID);
     [(_LSDatabase *)context->db store];
-    v12 = _CSStringCopyCFString();
+    v10 = _CSStringCopyCFString();
     itemName = v7->_itemName;
-    v7->_itemName = v12;
+    v7->_itemName = v10;
 
-    v14 = 64;
+    v12 = 64;
     if ((*(&data->_clas + 1) & 0x200000) == 0)
     {
-      v14 = 56;
+      v12 = 56;
     }
 
-    *(&v7->super.isa + v14) = data->storefront;
+    *(&v7->super.isa + v12) = data->storefront;
     v7->_storeFront = *&data->itemName;
-    versionIdentifier_high = HIDWORD(data->versionIdentifier);
     [(_LSDatabase *)context->db store];
-    v16 = _CSStringCopyCFString();
+    v13 = _CSStringCopyCFString();
     variantID = v7->_variantID;
-    v7->_variantID = v16;
+    v7->_variantID = v13;
 
-    sourceAppBundleID = data->sourceAppBundleID;
     [(_LSDatabase *)context->db store];
-    v19 = _CSStringCopyCFString();
+    v15 = _CSStringCopyCFString();
     managementDeclarationIdentifier = v7->_managementDeclarationIdentifier;
-    v7->_managementDeclarationIdentifier = v19;
+    v7->_managementDeclarationIdentifier = v15;
 
     v7->_deviceBasedVPP = (*(&data->_clas + 1) & 0x8000000000000) != 0;
-    ratingLabel = data->ratingLabel;
     [(_LSDatabase *)context->db store];
-    v22 = _CSStringCopyCFString();
+    v17 = _CSStringCopyCFString();
     genre = v7->_genre;
-    v7->_genre = v22;
+    v7->_genre = v17;
 
     v7->_genreIdentifier = data->ratingRank;
-    v24 = [_LSLazyPropertyList lazyPropertyListWithContext:context unit:data->base.infoDictionary];
+    v19 = [_LSLazyPropertyList lazyPropertyListWithContext:context unit:data->base.infoDictionary];
     bundleFlags_high = HIDWORD(data->_bundleFlags);
     if ((bundleFlags_high & 0x4000) != 0)
     {
-      v26 = [v24 objectForKey:@"storeCohort" ofClass:objc_opt_class()];
+      v21 = [v19 objectForKey:@"storeCohort" ofClass:objc_opt_class()];
       storeCohort = v7->_storeCohort;
-      v7->_storeCohort = v26;
+      v7->_storeCohort = v21;
 
       bundleFlags_high = HIDWORD(data->_bundleFlags);
     }
 
     if ((bundleFlags_high & 0x20000) != 0)
     {
-      v28 = objc_opt_class();
-      v29 = [v24 objectForKey:@"subgenres" ofClass:v28 valuesOfClass:objc_opt_class()];
+      v23 = objc_opt_class();
+      v24 = [v19 objectForKey:@"subgenres" ofClass:v23 valuesOfClass:objc_opt_class()];
       subgenres = v7->_subgenres;
-      v7->_subgenres = v29;
+      v7->_subgenres = v24;
     }
 
     if (!v7->_subgenres)
@@ -91,34 +86,32 @@
     }
 
     v7->_ratingRank = *&data->appVariant;
-    v31 = *(&data->managementDeclarationIdentifier + 1);
     [(_LSDatabase *)context->db store];
-    v32 = _CSStringCopyCFString();
-    v33 = v7->_ratingLabel;
-    v7->_ratingLabel = v32;
+    v26 = _CSStringCopyCFString();
+    ratingLabel = v7->_ratingLabel;
+    v7->_ratingLabel = v26;
 
-    versionIdentifier_low = LODWORD(data->versionIdentifier);
     [(_LSDatabase *)context->db store];
-    v35 = _CSStringCopyCFString();
+    v28 = _CSStringCopyCFString();
     sourceApp = v7->_sourceApp;
-    v7->_sourceApp = v35;
+    v7->_sourceApp = v28;
 
-    v37 = *(&data->_clas + 1);
-    v7->_purchasedRedownload = (v37 & 0x400000) != 0;
-    v7->_gameCenterEnabled = (v37 & 0x2000000000000) != 0;
-    v7->_gameCenterEverEnabled = (v37 & 0x4000000000000) != 0;
-    v38 = objc_autoreleasePoolPush();
-    v39 = _LSPlistGet(context->db, *(&data->ratingLabel + 1));
-    v40 = _LSPlistDataGetDictionary(v39, 0);
+    v30 = *(&data->_clas + 1);
+    v7->_purchasedRedownload = (v30 & 0x400000) != 0;
+    v7->_gameCenterEnabled = (v30 & 0x2000000000000) != 0;
+    v7->_gameCenterEverEnabled = (v30 & 0x4000000000000) != 0;
+    v31 = objc_autoreleasePoolPush();
+    v32 = _LSPlistGet(context->db, *(&data->ratingLabel + 1));
+    v33 = _LSPlistDataGetDictionary(v32, 0);
 
-    if (v40)
+    if (v33)
     {
-      v41 = [objc_alloc(MEMORY[0x1E69A8DC0]) initWithDictionary:v40];
+      v34 = [objc_alloc(MEMORY[0x1E69A8DC0]) initWithDictionary:v33];
       distributorInfo = v7->_distributorInfo;
-      v7->_distributorInfo = v41;
+      v7->_distributorInfo = v34;
     }
 
-    objc_autoreleasePoolPop(v38);
+    objc_autoreleasePoolPop(v31);
   }
 
   return v7;
@@ -182,47 +175,48 @@
     genre = v4->_genre;
     v4->_genre = v13;
 
-    v4->_genreIdentifier = [coder decodeInt64ForKey:@"genreIdentifier"];
-    v15 = XNSGetPropertyListClasses();
-    v16 = [coder ls_decodeObjectOfClasses:v15 forKey:@"subgenres"];
+    v15 = [coder decodeInt64ForKey:@"genreIdentifier"];
+    v4->_genreIdentifier = v15;
+    v16 = XNSGetPropertyListClasses(v15);
+    v17 = [coder ls_decodeObjectOfClasses:v16 forKey:@"subgenres"];
 
-    v17 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{objc_opt_class(), 0}];
-    v18 = _LSIsArrayWithValuesOfClasses(v16, v17);
+    v18 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{objc_opt_class(), 0}];
+    v19 = _LSIsArrayWithValuesOfClasses(v17, v18);
 
-    if (v18)
+    if (v19)
     {
-      v19 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{objc_opt_class(), 0}];
+      v20 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{objc_opt_class(), 0}];
       v36 = 0u;
       v37 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v20 = v16;
-      v21 = [v20 countByEnumeratingWithState:&v34 objects:v39 count:16];
-      if (v21)
+      v21 = v17;
+      v22 = [v21 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      if (v22)
       {
-        v22 = *v35;
+        v23 = *v35;
         while (2)
         {
-          v23 = 0;
+          v24 = 0;
           do
           {
-            if (*v35 != v22)
+            if (*v35 != v23)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v21);
             }
 
-            if ((_LSIsDictionaryWithKeysAndValuesOfClasses(*(*(&v34 + 1) + 8 * v23), v19, 0) & 1) == 0)
+            if ((_LSIsDictionaryWithKeysAndValuesOfClasses(*(*(&v34 + 1) + 8 * v24), v20, 0) & 1) == 0)
             {
 
               goto LABEL_13;
             }
 
-            ++v23;
+            ++v24;
           }
 
-          while (v21 != v23);
-          v21 = [v20 countByEnumeratingWithState:&v34 objects:v39 count:16];
-          if (v21)
+          while (v22 != v24);
+          v22 = [v21 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          if (v22)
           {
             continue;
           }
@@ -231,9 +225,9 @@
         }
       }
 
-      v24 = v20;
+      v25 = v21;
       subgenres = v4->_subgenres;
-      v4->_subgenres = v24;
+      v4->_subgenres = v25;
     }
 
     else
@@ -244,23 +238,22 @@ LABEL_13:
     }
 
     v4->_ratingRank = [coder decodeInt64ForKey:@"ratingRank"];
-    v26 = [coder ls_decodeObjectOfClass:objc_opt_class() forKey:@"ratingLabel"];
+    v27 = [coder ls_decodeObjectOfClass:objc_opt_class() forKey:@"ratingLabel"];
     ratingLabel = v4->_ratingLabel;
-    v4->_ratingLabel = v26;
+    v4->_ratingLabel = v27;
 
-    v28 = [coder ls_decodeObjectOfClass:objc_opt_class() forKey:@"sourceApp"];
+    v29 = [coder ls_decodeObjectOfClass:objc_opt_class() forKey:@"sourceApp"];
     sourceApp = v4->_sourceApp;
-    v4->_sourceApp = v28;
+    v4->_sourceApp = v29;
 
     v4->_purchasedRedownload = [coder decodeBoolForKey:@"purchasedRedownload"];
     v4->_gameCenterEnabled = [coder decodeBoolForKey:@"gameCenterEnabled"];
     v4->_gameCenterEverEnabled = [coder decodeBoolForKey:@"gameCenterEverEnabled"];
-    v30 = [coder ls_decodeObjectOfClass:objc_opt_class() forKey:@"distributorInfo"];
+    v31 = [coder ls_decodeObjectOfClass:objc_opt_class() forKey:@"distributorInfo"];
     distributorInfo = v4->_distributorInfo;
-    v4->_distributorInfo = v30;
+    v4->_distributorInfo = v31;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -287,9 +280,9 @@ LABEL_13:
 
 - (NSString)storeCohort
 {
-  v9 = 0;
-  v2 = [(LSiTunesMetadata *)self storeCohortWithError:&v9];
-  v3 = v9;
+  v10 = 0;
+  v2 = [(LSiTunesMetadata *)self storeCohortWithError:&v10];
+  v3 = v10;
   v4 = v3;
   if (!v2)
   {
@@ -308,8 +301,8 @@ LABEL_13:
     {
     }
 
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _LSDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(LSiTunesMetadata *)v4 storeCohort];
     }
@@ -322,11 +315,10 @@ LABEL_9:
 
 - (void)storeCohort
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Because a caller called the deprecated method storeCohort, the error %@ is being dropped on the floor. That caller should use storeCohortWithError: instead.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Because a caller called the deprecated method storeCohort, the error %@ is being dropped on the floor. That caller should use storeCohortWithError: instead.", &v2, 0xCu);
 }
 
 @end

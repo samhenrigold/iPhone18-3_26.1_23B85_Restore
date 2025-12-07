@@ -5,7 +5,6 @@
 + (RBDevice)sharedDefaultDevice;
 + (id)sharedDefaultDevice;
 + (id)sharedDevice:(id)device;
-+ (uint64_t)purgeResources;
 + (unint64_t)defaultBackgroundGPUPriority;
 + (unint64_t)defaultGPUPriority;
 + (void)allDevices;
@@ -117,7 +116,7 @@
 
 - (void)compileShader:(id)shader completionQueue:(id)queue handler:(id)handler
 {
-  if ((atomic_load_explicit(&qword_1ED6D5388, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6D5388, memory_order_acquire) & 1) == 0)
   {
     [RBDevice(RBShader) compileShader:completionQueue:handler:];
   }
@@ -355,16 +354,35 @@ void __60__RBDevice_RBShader__compileShader_completionQueue_handler___block_invo
 
 + (void)purgeResources
 {
-  v7 = *MEMORY[0x1E69E9840];
-  allDevices = [self allDevices];
-  v3 = [allDevices countByEnumeratingWithState:&v5 objects:v6 count:16];
-  if (v3)
+  v8 = **(self + 16);
+  do
   {
-    v3 = [(RBDevice *)&v5 purgeResources:allDevices];
+    v9 = 0;
+    do
+    {
+      if (**(self + 16) != v8)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v10 = *(self + 8);
+      if (*(v10 + 8 * v9))
+      {
+        [*(v10 + 8 * v9) queue];
+        OUTLINED_FUNCTION_0_1();
+        dispatch_sync_f(v11, v12, v13);
+      }
+
+      v9 = v9 + 1;
+    }
+
+    while (a3 != v9);
+    result = [obj countByEnumeratingWithState:self objects:a4 count:16];
+    a3 = result;
   }
 
-  v4 = RB::SurfacePool::shared(v3);
-  RB::SurfacePool::collect(v4, 1);
+  while (result);
+  return result;
 }
 
 + (void)didEnterBackground:(id)background
@@ -561,7 +579,7 @@ uint64_t __37__RBDevice_setBackgroundGPUPriority___block_invoke(uint64_t result)
   if ([descriptions countByEnumeratingWithState:v15 objects:v21 count:16])
   {
     RB::FormattedRenderState::ID::ID(&v19, [**(&v15[0] + 1) UTF8String]);
-    std::__hash_table<RB::FormattedRenderState,std::hash<RB::FormattedRenderState>,std::equal_to<RB::FormattedRenderState>,std::allocator<RB::FormattedRenderState>>::__emplace_unique_impl<RB::FormattedRenderState::ID>();
+    std::__hash_table<RB::FormattedRenderState,std::hash<RB::FormattedRenderState>,std::equal_to<RB::FormattedRenderState>,std::allocator<RB::FormattedRenderState>>::__emplace_unique_impl<RB::FormattedRenderState::ID>(&v16, &v19);
   }
 
   if (!*(&v17 + 1))
@@ -577,7 +595,7 @@ uint64_t __37__RBDevice_setBackgroundGPUPriority___block_invoke(uint64_t result)
     {
       v19 = i[2];
       v20 = *(i + 6);
-      RB::FormattedRenderState::description(&v19, &v13);
+      RB::FormattedRenderState::description(&v13, &v19);
       if (v13)
       {
         [descriptionsCopy addObject:?];
@@ -653,39 +671,6 @@ LABEL_8:
   v5 = RB::SurfacePool::shared(self);
 
   RB::SurfacePool::collect(v5, 1);
-}
-
-+ (uint64_t)purgeResources
-{
-  v8 = **(self + 16);
-  do
-  {
-    v9 = 0;
-    do
-    {
-      if (**(self + 16) != v8)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v10 = *(self + 8);
-      if (*(v10 + 8 * v9))
-      {
-        [*(v10 + 8 * v9) queue];
-        OUTLINED_FUNCTION_0_1();
-        dispatch_sync_f(v11, v12, v13);
-      }
-
-      ++v9;
-    }
-
-    while (a3 != v9);
-    result = [obj countByEnumeratingWithState:self objects:a4 count:16];
-    a3 = result;
-  }
-
-  while (result);
-  return result;
 }
 
 @end

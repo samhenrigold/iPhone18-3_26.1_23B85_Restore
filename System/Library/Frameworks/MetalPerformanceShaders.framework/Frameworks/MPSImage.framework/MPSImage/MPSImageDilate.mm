@@ -29,12 +29,12 @@
 - (id)debugDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v22.receiver = self;
-  v22.super_class = MPSImageDilate;
-  v4 = [(MPSUnaryImageKernel *)&v22 debugDescription];
-  v10 = objc_msgSend_kernelWidth(self, v5, v6, v7, v8, v9);
-  v16 = objc_msgSend_kernelHeight(self, v11, v12, v13, v14, v15);
-  return objc_msgSend_stringWithFormat_(v3, v17, @"%@\n\tkernelWidth: %lu\n\tkernelHeight: %lu", v18, v19, v20, v4, v10, v16);
+  v13.receiver = self;
+  v13.super_class = MPSImageDilate;
+  v4 = [(MPSUnaryImageKernel *)&v13 debugDescription];
+  v7 = objc_msgSend_kernelWidth(self, v5, v6);
+  v10 = objc_msgSend_kernelHeight(self, v8, v9);
+  return objc_msgSend_stringWithFormat_(v3, v11, @"%@\n\tkernelWidth: %lu\n\tkernelHeight: %lu", v4, v7, v10);
 }
 
 - (BOOL)initKernelValues:(const float *)values
@@ -46,8 +46,8 @@
   self->valuesOffset = v6 & 0xFFFC;
   self->headerSize = (v6 & 0xFFFFFFFC) + v7;
   memcpy(rleValues + (v6 & 0xFFFFFFFFFFFFFFFCLL), values, v7);
-  v12 = self->_kernelHeight;
-  if (!v12)
+  v11 = self->_kernelHeight;
+  if (!v11)
   {
     if (rleValues->var2 <= 1u)
     {
@@ -60,181 +60,181 @@
     }
 
 LABEL_45:
-    v31 = 1;
-    v33 = var2;
+    v30 = 1;
+    v32 = var2;
     goto LABEL_46;
   }
 
   kernelWidth = self->_kernelWidth;
   if (kernelWidth)
   {
-    v14 = 0;
-    LODWORD(v11) = 1.0;
+    v13 = 0;
+    LODWORD(v10) = 1.0;
     do
     {
-      v16 = 0;
-      while (values[v16] == 1.0)
+      v15 = 0;
+      while (values[v15] == 1.0)
       {
-        if (kernelWidth == ++v16)
+        if (kernelWidth == ++v15)
         {
-          v15 = &rleValues[v14];
-          v15->var1 = kernelWidth;
-          v15->var0 = kernelWidth;
+          v14 = &rleValues[v13];
+          v14->var1 = kernelWidth;
+          v14->var0 = kernelWidth;
           goto LABEL_4;
         }
       }
 
-      v17 = &rleValues[v14];
-      v17->var0 = v16;
-      if (v16 >= kernelWidth - 1)
+      v16 = &rleValues[v13];
+      v16->var0 = v15;
+      if (v15 >= kernelWidth - 1)
       {
-        v18 = kernelWidth - 1;
+        v17 = kernelWidth - 1;
       }
 
       else
       {
-        v18 = v16;
+        v17 = v15;
       }
 
-      v19 = v18 + 1;
-      v20 = kernelWidth - 1;
-      while (v20 > v16)
+      v18 = v17 + 1;
+      v19 = kernelWidth - 1;
+      while (v19 > v15)
       {
-        v21 = values[v20--];
-        if (v21 != 1.0)
+        v20 = values[v19--];
+        if (v20 != 1.0)
         {
-          v19 = v20 + 2;
+          v18 = v19 + 2;
           break;
         }
       }
 
-      v22 = 0;
-      v17->var1 = v19;
-      v17->var2 = 1;
+      v21 = 0;
+      v16->var1 = v18;
+      v16->var2 = 1;
       v9 = &values[kernelWidth >> 1];
-      v23 = kernelWidth >> 1;
+      v22 = kernelWidth >> 1;
       do
       {
-        if (values[v23] != 0.0)
+        if (values[v22] != 0.0)
         {
           break;
         }
 
-        if (*&v9[4 * v22] != 0.0)
+        if (*&v9[4 * v21] != 0.0)
         {
           break;
         }
 
-        v17->var2 = (2 * v22++) | 1;
-        --v23;
+        v16->var2 = (2 * v21++) | 1;
+        --v22;
       }
 
-      while (v23 != -1);
+      while (v22 != -1);
 LABEL_4:
-      ++v14;
+      ++v13;
       values += kernelWidth;
     }
 
-    while (v14 != v12);
+    while (v13 != v11);
   }
 
   else
   {
-    if (v12 == 1)
+    if (v11 == 1)
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v25 = v12 & 0xFFFFFFFFFFFFFFFELL;
-      v26 = rleValues + 1;
-      v27 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      v24 = v11 & 0xFFFFFFFFFFFFFFFELL;
+      v25 = rleValues + 1;
+      v26 = v11 & 0xFFFFFFFFFFFFFFFELL;
       do
       {
-        v26[-1].var1 = 0;
-        v26->var1 = 0;
-        v26[-1].var0 = 0;
-        v26->var0 = 0;
-        v26 += 2;
-        v27 -= 2;
+        v25[-1].var1 = 0;
+        v25->var1 = 0;
+        v25[-1].var0 = 0;
+        v25->var0 = 0;
+        v25 += 2;
+        v26 -= 2;
       }
 
-      while (v27);
-      if (v12 == v25)
+      while (v26);
+      if (v11 == v24)
       {
         goto LABEL_31;
       }
     }
 
-    v28 = v12 - v25;
-    p_var1 = &rleValues[v25].var1;
+    v27 = v11 - v24;
+    p_var1 = &rleValues[v24].var1;
     do
     {
       *p_var1 = 0;
       *(p_var1 - 1) = 0;
       p_var1 += 3;
-      --v28;
+      --v27;
     }
 
-    while (v28);
+    while (v27);
   }
 
 LABEL_31:
-  v30 = v12 >> 1;
-  if (rleValues[v12 >> 1].var2 <= 1u)
+  v29 = v11 >> 1;
+  if (rleValues[v11 >> 1].var2 <= 1u)
   {
     var2 = 1;
   }
 
   else
   {
-    var2 = rleValues[v12 >> 1].var2;
+    var2 = rleValues[v11 >> 1].var2;
   }
 
-  if (v12 < 3)
+  if (v11 < 3)
   {
     goto LABEL_45;
   }
 
-  v31 = 1;
-  v32 = 5;
+  v30 = 1;
+  v31 = 5;
+  v32 = var2;
   v33 = var2;
-  v34 = var2;
   do
   {
-    v35 = v32 - 2;
-    v36 = (v32 - 2) >> 1;
-    if (v34 >= rleValues[v30 - v36].var2)
+    v34 = v31 - 2;
+    v35 = (v31 - 2) >> 1;
+    if (v33 >= rleValues[v29 - v35].var2)
     {
-      v34 = rleValues[v30 - v36].var2;
+      v33 = rleValues[v29 - v35].var2;
     }
 
-    v37 = rleValues[v30 + v36].var2;
-    if (v34 >= v37)
+    v36 = rleValues[v29 + v35].var2;
+    if (v33 >= v36)
     {
-      v34 = v37;
+      v33 = v36;
     }
 
-    if (v34 * v35 > var2)
+    if (v33 * v34 > var2)
     {
-      var2 = v34 * v35;
-      v31 = v32 - 2;
-      v33 = v34;
+      var2 = v33 * v34;
+      v30 = v31 - 2;
+      v32 = v33;
     }
 
-    if (v32 > v12)
+    if (v31 > v11)
     {
       break;
     }
 
-    v32 += 2;
+    v31 += 2;
   }
 
-  while (v34);
+  while (v33);
 LABEL_46:
-  self->centerWidth = v33;
-  self->centerHeight = v31;
+  self->centerWidth = v32;
+  self->centerHeight = v30;
   self->_rleValues = rleValues;
   rleBuf = self->_rleBuf;
   if (rleBuf)
@@ -243,17 +243,17 @@ LABEL_46:
     rleValues = self->_rleValues;
   }
 
-  v39 = *MEMORY[0x277CD7350];
-  self->_rleBuf = objc_msgSend_newBufferWithBytes_length_options_((*(&self->super.super.super.isa + v39))[2], v9, rleValues, self->headerSize, 0, v10, v11);
+  v38 = *MEMORY[0x277CD7350];
+  self->_rleBuf = objc_msgSend_newBufferWithBytes_length_options_((*(&self->super.super.super.isa + v38))[2], v9, rleValues, self->headerSize, 0, v10);
   outerMax = self->_outerMax;
   if (outerMax)
   {
   }
 
-  v41 = objc_alloc(self->_maxClass);
-  v44 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v41, v42, (*(&self->super.super.super.isa + v39))[2], self->_kernelWidth, self->_kernelHeight, v43);
-  self->_outerMax = v44;
-  if (v44)
+  v40 = objc_alloc(self->_maxClass);
+  v42 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v40, v41, (*(&self->super.super.super.isa + v38))[2], self->_kernelWidth, self->_kernelHeight);
+  self->_outerMax = v42;
+  if (v42)
   {
     if (self->_rleBuf)
     {
@@ -272,33 +272,33 @@ LABEL_46:
 
       else
       {
-        v46 = objc_alloc(self->_maxClass);
-        v44 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v46, v47, (*(&self->super.super.super.isa + v39))[2], self->centerWidth, self->centerHeight, v48);
-        self->_innerMax = v44;
-        if (!v44)
+        v44 = objc_alloc(self->_maxClass);
+        v42 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v44, v45, (*(&self->super.super.super.isa + v38))[2], self->centerWidth, self->centerHeight);
+        self->_innerMax = v42;
+        if (!v42)
         {
-          return v44;
+          return v42;
         }
       }
 
-      LOBYTE(v44) = 1;
+      LOBYTE(v42) = 1;
     }
 
     else
     {
-      LOBYTE(v44) = 0;
+      LOBYTE(v42) = 0;
     }
   }
 
-  return v44;
+  return v42;
 }
 
 - (MPSImageDilate)initWithDevice:(id)device kernelWidth:(NSUInteger)kernelWidth kernelHeight:(NSUInteger)kernelHeight values:(const float *)values
 {
-  v28.receiver = self;
-  v28.super_class = MPSImageDilate;
-  v9 = [(MPSUnaryImageKernel *)&v28 initWithDevice:device];
-  v15 = v9;
+  v18.receiver = self;
+  v18.super_class = MPSImageDilate;
+  v9 = [(MPSUnaryImageKernel *)&v18 initWithDevice:device];
+  v12 = v9;
   if (v9)
   {
     v9->_rleValues = 0;
@@ -306,97 +306,84 @@ LABEL_46:
     v9->_kernelHeight = kernelHeight;
     v9->_kernelWidth = kernelWidth;
     v9->kernel = 0;
-    v9->_maxClass = objc_msgSend_maxClass(v9, v10, v11, v12, v13, v14);
-    v15->super._encode = sub_23994DF48;
-    v15->super._encodeData = v15;
-    if (!values)
+    v9->_maxClass = objc_msgSend_maxClass(v9, v10, v11);
+    v12->super._encode = sub_23994DF48;
+    v12->super._encodeData = v12;
+    if (values)
     {
-      if (!MTLReportFailureTypeEnabled())
+      v14 = v12->_kernelHeight;
+      if (v14)
       {
-        goto LABEL_25;
-      }
-
-      goto LABEL_23;
-    }
-
-    v20 = v15->_kernelHeight;
-    if (v20)
-    {
-      v21 = v15->_kernelWidth;
-      if ((v21 & 1) == 0)
-      {
-        if (!MTLReportFailureTypeEnabled())
+        v15 = v12->_kernelWidth;
+        if (v15)
         {
-          goto LABEL_25;
+          if (v14 >= 0x10000)
+          {
+            if (!MTLReportFailureTypeEnabled())
+            {
+              goto LABEL_24;
+            }
+          }
+
+          else if (v15 >= 0x10000)
+          {
+            if (!MTLReportFailureTypeEnabled())
+            {
+              goto LABEL_24;
+            }
+          }
+
+          else
+          {
+            if ((4 * v15 + 6) * v14 < 0xFFFD)
+            {
+              if (objc_msgSend_initKernelValues_(v12, v13, values))
+              {
+                return v12;
+              }
+
+              if (MTLReportFailureTypeEnabled())
+              {
+                goto LABEL_23;
+              }
+
+LABEL_24:
+
+              return 0;
+            }
+
+            if (!MTLReportFailureTypeEnabled())
+            {
+              goto LABEL_24;
+            }
+          }
         }
 
-LABEL_15:
-        v24 = objc_opt_class();
-        NSStringFromClass(v24);
-        v27 = v15->_kernelWidth;
-        goto LABEL_24;
-      }
-
-      if (v20 < 0x10000)
-      {
-        if (v21 < 0x10000)
+        else if (!MTLReportFailureTypeEnabled())
         {
-          if ((4 * v21 + 6) * v20 < 0xFFFD)
-          {
-            if (objc_msgSend_initKernelValues_(v15, v16, values, v17, v18, v19))
-            {
-              return v15;
-            }
-
-            if (MTLReportFailureTypeEnabled())
-            {
-              goto LABEL_23;
-            }
-
-LABEL_25:
-
-            return 0;
-          }
-
-          if (!MTLReportFailureTypeEnabled())
-          {
-            goto LABEL_25;
-          }
-
-LABEL_23:
-          v25 = objc_opt_class();
-          NSStringFromClass(v25);
           goto LABEL_24;
         }
-
-        if (!MTLReportFailureTypeEnabled())
-        {
-          goto LABEL_25;
-        }
-
-        goto LABEL_15;
       }
 
-      if (!MTLReportFailureTypeEnabled())
+      else if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_25;
+        goto LABEL_24;
       }
     }
 
     else if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_25;
+      goto LABEL_24;
     }
 
-    v23 = objc_opt_class();
-    NSStringFromClass(v23);
-    v26 = v15->_kernelHeight;
-LABEL_24:
+LABEL_23:
+    v17 = objc_opt_class();
+    NSStringFromClass(v17);
     MTLReportFailure();
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
-  return v15;
+  return v12;
 }
 
 - (MPSImageDilate)initWithDevice:(id)device
@@ -406,61 +393,21 @@ LABEL_24:
     MTLReportFailure();
   }
 
-  return MEMORY[0x2821F9670](self, sel_initWithDevice_kernelWidth_kernelHeight_values_, device, 0, 0, self);
+  return MEMORY[0x2821F9670](self, sel_initWithDevice_kernelWidth_kernelHeight_values_, device);
 }
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
 {
-  v21.receiver = self;
-  v21.super_class = MPSImageDilate;
+  v18.receiver = self;
+  v18.super_class = MPSImageDilate;
   v7 = [MPSUnaryImageKernel copyWithZone:sel_copyWithZone_device_ device:?];
   v8 = v7;
   if (v7)
   {
-    v7[35] = self->_kernelHeight;
-    v7[34] = self->_kernelWidth;
-    *(v7 + 60) = self->kernel;
-    v7[31] = self->_maxClass;
-    *(v7 + 64) = self->headerSize;
-    *(v7 + 65) = self->valuesOffset;
-    *(v7 + 132) = self->centerWidth;
-    *(v7 + 133) = self->centerHeight;
-    v7[28] = 0;
-    v7[29] = 0;
-    v7[27] = 0;
-    v7[26] = 0;
-    v9 = malloc_type_malloc(self->headerSize, 0x1000040274DC3F3uLL);
-    if (!v9)
+    if ((v7[35] = self->_kernelHeight, v7[34] = self->_kernelWidth, *(v7 + 60) = self->kernel, v7[31] = self->_maxClass, *(v7 + 64) = self->headerSize, *(v7 + 65) = self->valuesOffset, *(v7 + 132) = self->centerWidth, *(v7 + 133) = self->centerHeight, v7[28] = 0, v7[29] = 0, v7[27] = 0, v7[26] = 0, (v9 = malloc_type_malloc(self->headerSize, 0x1000040274DC3F3uLL)) == 0) || (v10 = v9, memcpy(v9, self->_rleValues, self->headerSize), v8[26] = v10, v8[27] = objc_msgSend_newBufferWithBytes_length_options_((*(&self->super.super.super.isa + *MEMORY[0x277CD7350]))[2], v11, v10, self->headerSize, 0), (outerMax = self->_outerMax) != 0) && (v14 = objc_msgSend_copyWithZone_device_(outerMax, v12, zone, device), (v8[28] = v14) == 0) || (innerMax = self->_innerMax) != 0 && (v16 = objc_msgSend_copyWithZone_device_(innerMax, v12, zone, device), (v8[29] = v16) == 0))
     {
-      goto LABEL_7;
-    }
 
-    v10 = v9;
-    memcpy(v9, self->_rleValues, self->headerSize);
-    v8[26] = v10;
-    v8[27] = objc_msgSend_newBufferWithBytes_length_options_((*(&self->super.super.super.isa + *MEMORY[0x277CD7350]))[2], v11, v10, self->headerSize, 0, v12);
-    outerMax = self->_outerMax;
-    if (outerMax)
-    {
-      v17 = objc_msgSend_copyWithZone_device_(outerMax, v13, zone, device, v14, v15);
-      v8[28] = v17;
-      if (!v17)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    innerMax = self->_innerMax;
-    if (innerMax)
-    {
-      v19 = objc_msgSend_copyWithZone_device_(innerMax, v13, zone, device, v14, v15);
-      v8[29] = v19;
-      if (!v19)
-      {
-LABEL_7:
-
-        return 0;
-      }
+      return 0;
     }
   }
 
@@ -470,41 +417,38 @@ LABEL_7:
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v20.receiver = self;
-  v20.super_class = MPSImageDilate;
-  [(MPSUnaryImageKernel *)&v20 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_kernelWidth, @"MPSDilateErode.kernelWidth", v6, v7);
-  objc_msgSend_encodeInt64_forKey_(coder, v8, self->_kernelHeight, @"MPSDilateErode.kernelHeight", v9, v10);
-  v11 = 4 * self->_kernelWidth * self->_kernelHeight;
-  v12 = malloc_type_malloc(v11, 0x100004052888210uLL);
-  if (v12)
+  v12.receiver = self;
+  v12.super_class = MPSImageDilate;
+  [(MPSUnaryImageKernel *)&v12 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_kernelWidth, @"MPSDilateErode.kernelWidth");
+  objc_msgSend_encodeInt64_forKey_(coder, v6, self->_kernelHeight, @"MPSDilateErode.kernelHeight");
+  v7 = 4 * self->_kernelWidth * self->_kernelHeight;
+  v8 = malloc_type_malloc(v7, 0x100004052888210uLL);
+  if (v8)
   {
-    kernelHeight = self->_kernelHeight;
-    rleValues = self->_rleValues;
-    kernelWidth = self->_kernelWidth;
-    v16 = v12;
+    v9 = v8;
     MPSCopyToFromNetworkByteOrder32();
-    objc_msgSend_encodeBytes_length_forKey_(coder, v17, v16, v11, @"MPSDilateErode.kernel", v18);
-    free(v16);
+    objc_msgSend_encodeBytes_length_forKey_(coder, v10, v9, v7, @"MPSDilateErode.kernel");
+    free(v9);
   }
 
   else if (MTLReportFailureTypeEnabled())
   {
-    v19 = objc_opt_class();
-    NSStringFromClass(v19);
+    v11 = objc_opt_class();
+    NSStringFromClass(v11);
     MTLReportFailure();
   }
 }
 
 - (MPSImageDilate)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v42.receiver = self;
-  v42.super_class = MPSImageDilate;
-  v5 = [(MPSUnaryImageKernel *)&v42 initWithCoder:aDecoder device:device];
-  v10 = v5;
+  v23.receiver = self;
+  v23.super_class = MPSImageDilate;
+  v5 = [(MPSUnaryImageKernel *)&v23 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 != 0x10000)
@@ -515,22 +459,24 @@ LABEL_7:
     }
 
 LABEL_11:
-    v36 = objc_opt_class();
-    NSStringFromClass(v36);
-    goto LABEL_14;
+    v19 = objc_opt_class();
+    NSStringFromClass(v19);
+LABEL_14:
+    MTLReportFailure();
+    goto LABEL_15;
   }
 
-  v5->_kernelWidth = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSDilateErode.kernelWidth", v7, v8, v9);
-  v10->_kernelHeight = objc_msgSend_decodeInt64ForKey_(aDecoder, v11, @"MPSDilateErode.kernelHeight", v12, v13, v14);
-  v10->kernel = 0;
-  v10->_maxClass = objc_msgSend_maxClass(v10, v15, v16, v17, v18, v19);
-  v10->super._encode = sub_23994DF48;
-  v10->super._encodeData = v10;
-  v10->_rleValues = 0;
-  v10->_rleBuf = 0;
-  kernelHeight = v10->_kernelHeight;
-  v24 = 4 * kernelHeight * v10->_kernelWidth;
-  if (v24 + 6 * kernelHeight + 3 >= 0x10000)
+  v5->_kernelWidth = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSDilateErode.kernelWidth");
+  v7->_kernelHeight = objc_msgSend_decodeInt64ForKey_(aDecoder, v8, @"MPSDilateErode.kernelHeight");
+  v7->kernel = 0;
+  v7->_maxClass = objc_msgSend_maxClass(v7, v9, v10);
+  v7->super._encode = sub_23994DF48;
+  v7->super._encodeData = v7;
+  v7->_rleValues = 0;
+  v7->_rleBuf = 0;
+  kernelHeight = v7->_kernelHeight;
+  v13 = 4 * kernelHeight * v7->_kernelWidth;
+  if (v13 + 6 * kernelHeight + 3 >= 0x10000)
   {
     if (!MTLReportFailureTypeEnabled())
     {
@@ -540,41 +486,16 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v41 = 0;
-  v25 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v20, @"MPSDilateErode.kernel", &v41, v21, v22);
-  if (v41 != v24)
+  v22 = 0;
+  v14 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v11, @"MPSDilateErode.kernel", &v22);
+  if (v22 != v13)
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v37 = objc_opt_class();
-      NSStringFromClass(v37);
-      v40 = v10->_kernelHeight;
-      kernelWidth = v10->_kernelWidth;
+LABEL_13:
+      v20 = objc_opt_class();
+      NSStringFromClass(v20);
       goto LABEL_14;
-    }
-
-    goto LABEL_15;
-  }
-
-  v26 = v25;
-  v27 = malloc_type_malloc(v24, 0x100004052888210uLL);
-  v28 = v10->_kernelWidth;
-  v29 = v10->_kernelHeight;
-  MPSCopyToFromNetworkByteOrder32();
-  inited = objc_msgSend_initKernelValues_(v10, v30, v27, v31, v32, v33);
-  if (v27 != v26)
-  {
-    free(v27);
-  }
-
-  if ((inited & 1) == 0)
-  {
-    if (MTLReportFailureTypeEnabled())
-    {
-      v35 = objc_opt_class();
-      NSStringFromClass(v35);
-LABEL_14:
-      MTLReportFailure();
     }
 
 LABEL_15:
@@ -582,7 +503,26 @@ LABEL_15:
     return 0;
   }
 
-  return v10;
+  v15 = v14;
+  v16 = malloc_type_malloc(v13, 0x100004052888210uLL);
+  MPSCopyToFromNetworkByteOrder32();
+  inited = objc_msgSend_initKernelValues_(v7, v17, v16);
+  if (v16 != v15)
+  {
+    free(v16);
+  }
+
+  if ((inited & 1) == 0)
+  {
+    if (MTLReportFailureTypeEnabled())
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_15;
+  }
+
+  return v7;
 }
 
 - (MPSRegion)sourceRegionForDestinationSize:(SEL)size

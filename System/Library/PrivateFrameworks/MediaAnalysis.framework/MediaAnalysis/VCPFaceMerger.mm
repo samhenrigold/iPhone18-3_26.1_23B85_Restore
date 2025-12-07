@@ -92,7 +92,7 @@
 
 - (id)_alignFaceObservations:(id)observations withRequestHandler:(id)handler error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v8 = MEMORY[0x1E69843F8];
   observationsCopy = observations;
@@ -102,43 +102,43 @@
   {
     [v10 setRevision:1];
     [v10 setMetalContextPriority:1];
-    [v10 setPreferBackgroundProcessing:1];
-    if (DeviceHasANE() && [objc_opt_class() _allowANE])
+    v11 = [v10 setPreferBackgroundProcessing:1];
+    if (DeviceHasANE(v11, v12) && [objc_opt_class() _allowANE])
     {
       defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
       [v10 setProcessingDevice:defaultANEDevice];
     }
 
-    v26 = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
-    v23 = 0;
-    v13 = [handlerCopy performRequests:v12 error:&v23];
-    v14 = v23;
+    v28 = v10;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+    v25 = 0;
+    v15 = [handlerCopy performRequests:v14 error:&v25];
+    v16 = v25;
 
-    if (v13)
+    if (v15)
     {
       results = [v10 results];
       goto LABEL_10;
     }
 
-    v19 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A768];
-    v24 = *MEMORY[0x1E696A578];
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to exercise Vision request - %@", v14];
-    v25 = v18;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    *error = [v19 errorWithDomain:v20 code:-18 userInfo:v21];
+    v21 = MEMORY[0x1E696ABC0];
+    v22 = *MEMORY[0x1E696A768];
+    v26 = *MEMORY[0x1E696A578];
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to exercise Vision request - %@", v16];
+    v27 = v20;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    *error = [v21 errorWithDomain:v22 code:-18 userInfo:v23];
   }
 
   else
   {
-    v16 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A768];
-    v27 = *MEMORY[0x1E696A578];
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create VNAlignFaceRectangleRequest"];
-    v28[0] = v14;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    *error = [v16 errorWithDomain:v17 code:-18 userInfo:v18];
+    v18 = MEMORY[0x1E696ABC0];
+    v19 = *MEMORY[0x1E696A768];
+    v29 = *MEMORY[0x1E696A578];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create VNAlignFaceRectangleRequest"];
+    v30[0] = v16;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    *error = [v18 errorWithDomain:v19 code:-18 userInfo:v20];
   }
 
   results = 0;

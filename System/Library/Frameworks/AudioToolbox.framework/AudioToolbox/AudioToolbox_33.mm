@@ -1,9 +1,9 @@
-float *AUTweakaLeakIR::CalcPeakingShelfCoeffs(float *this, float a2, float a3, float a4)
+float32x4_t *AUTweakaLeakIR::CalcPeakingShelfCoeffs(float32x4_t *this, float a2, float a3, float a4)
 {
   v4 = this;
   if (a2 == 0.0)
   {
-    v5 = *(this + 114);
+    v5 = this[57].i64[0];
     *v5 = DspLib::Biquad::kBypassSection;
     *(v5 + 16) = 0;
   }
@@ -27,19 +27,19 @@ float *AUTweakaLeakIR::CalcPeakingShelfCoeffs(float *this, float a2, float a3, f
     }
 
     v14 = *(v4 + 912);
-    *v14 = v9;
-    v14[1] = v12;
-    v14[2] = v10;
-    v14[3] = v11;
-    v14[4] = v10;
+    v14->f32[0] = v9;
+    v14->f32[1] = v12;
+    v14->f32[2] = v10;
+    v14->f32[3] = v11;
+    v14[1].f32[0] = v10;
     HIDWORD(v15) = 1074340347;
     LODWORD(v15) = *(v4 + 544);
     v16 = a3 * 3.14159265 / v15;
     v17 = tanf(v16);
-    this = DspLib::Biquad::Design::bilinearTransformStoZUnwarped(v14, v17 * 0.5);
-    v18 = *(v4 + 912);
-    *(v18 + 4) = -*(v18 + 4);
-    *(v18 + 12) = -*(v18 + 12);
+    this = DspLib::Biquad::Design::bilinearTransformStoZUnwarped(v14, v18, v17 * 0.5);
+    v19 = *(v4 + 912);
+    *(v19 + 4) = -*(v19 + 4);
+    *(v19 + 12) = -*(v19 + 12);
   }
 
   return this;
@@ -2506,14 +2506,14 @@ LABEL_72:
   v108 = *(this + 2);
   if ((v4 & 1) == 0)
   {
-    v109 = v108[67].i32[1];
+    v109 = *(v108 + 1076);
     if (*(this + 71) != v109)
     {
       goto LABEL_117;
     }
 
     v109 = *(this + 71);
-    if (((*(this + 72) == v108[66].i32[3]) & ~v34) == 0)
+    if (((*(this + 72) == *(v108 + 1068)) & ~v34) == 0)
     {
       goto LABEL_117;
     }
@@ -2523,10 +2523,10 @@ LABEL_131:
     goto LABEL_132;
   }
 
-  v109 = v108[67].i32[1];
+  v109 = *(v108 + 1076);
 LABEL_117:
   *(this + 71) = v109;
-  *(this + 72) = v108[66].i32[3];
+  *(this + 72) = *(v108 + 1068);
   if (v107 == 3)
   {
     v110 = 1.0;
@@ -2534,7 +2534,7 @@ LABEL_117:
 
   else
   {
-    v110 = v108[27].f32[3];
+    v110 = *(v108 + 444);
   }
 
   if (v110 <= 0.001)
@@ -2555,8 +2555,8 @@ LABEL_117:
     v117 = _PromotedConst_36212;
     if (v116 < 0.999 || v107 == 3)
     {
-      v118 = v108[33];
-      v119 = v108[30];
+      v118 = *(v108 + 528);
+      v119 = *(v108 + 480);
       v120 = vnegq_f32(v119);
       v121 = vtrn2q_s32(v119, vtrn1q_s32(v119, v120));
       v122 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v119, v120, 8uLL), *v118.f32, 1), vextq_s8(v121, v121, 8uLL), v118.f32[0]);
@@ -2568,11 +2568,11 @@ LABEL_117:
       {
         v125 = vmulq_f32(v124, xmmword_1DE097CE0);
         v126 = vextq_s8(v125, v125, 8uLL);
-        *v125.f32 = vadd_f32(*v125.f32, *v126.f32);
-        v125.f32[0] = vaddv_f32(*v125.f32);
+        *v125.i8 = vadd_f32(*v125.i8, *v126.f32);
+        *v125.i32 = vaddv_f32(*v125.i8);
         v126.i64[0] = 0;
         v149 = v115;
-        _simd_slerp_internal(v124, vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v125, v126)), 0), _PromotedConst, _PromotedConst_36212), v108[26].f32[3]);
+        _simd_slerp_internal(v124, vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v125, v126)), 0), _PromotedConst, _PromotedConst_36212), *(v108 + 428));
         v115 = v149;
         v117 = _PromotedConst_36212;
       }
@@ -2587,8 +2587,8 @@ LABEL_117:
 
     v130 = vmulq_f32(v115, xmmword_1DE097CE0);
     v131 = vextq_s8(v130, v130, 8uLL);
-    *v130.f32 = vadd_f32(*v130.f32, *v131.f32);
-    v130.f32[0] = vaddv_f32(*v130.f32);
+    *v130.i8 = vadd_f32(*v130.i8, *v131.f32);
+    *v130.i32 = vaddv_f32(*v130.i8);
     v131.i64[0] = 0;
     _simd_slerp_internal(v117, vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v130, v131)), 0), vnegq_f32(v115), v115), v110);
   }
@@ -3834,19 +3834,19 @@ float32x2_t BCMBypassedStereo::panWithSize(float *a1)
   }
 
   v21 = 0;
-  v22 = (v2 - v10.f32[0]) / (v9.f32[0] - v10.f32[0]);
-  v23 = (v3 - v10.f32[1]) / (v9.f32[1] - v10.f32[1]);
-  v24 = (v7 - v10.f32[2]) / (v9.f32[2] - v10.f32[2]);
-  v25 = (v8 - v10.f32[3]) / (v9.f32[3] - v10.f32[3]);
+  v22 = (v2 - *v10.i32) / (*v9.i32 - *v10.i32);
+  v23 = (v3 - *&v10.i32[1]) / (*&v9.i32[1] - *&v10.i32[1]);
+  v24 = (v7 - *&v10.i32[2]) / (*&v9.i32[2] - *&v10.i32[2]);
+  v25 = (v8 - *&v10.i32[3]) / (*&v9.i32[3] - *&v10.i32[3]);
   v26 = 0;
   do
   {
     v27 = v48[v21];
     v28 = 0.5;
     v29 = 0.5;
-    if ((v9.f32[0] - v10.f32[0]) > 0.0)
+    if ((*v9.i32 - *v10.i32) > 0.0)
     {
-      if (v27->f32[0] == v10.f32[0])
+      if (v27->f32[0] == *v10.i32)
       {
         v30 = 1.0 - v22;
       }
@@ -3877,9 +3877,9 @@ float32x2_t BCMBypassedStereo::panWithSize(float *a1)
       }
     }
 
-    if ((v9.f32[1] - v10.f32[1]) > 0.0)
+    if ((*&v9.i32[1] - *&v10.i32[1]) > 0.0)
     {
-      if (v27->f32[1] == v10.f32[1])
+      if (v27->f32[1] == *&v10.i32[1])
       {
         v32 = 1.0 - v23;
       }
@@ -3912,9 +3912,9 @@ float32x2_t BCMBypassedStereo::panWithSize(float *a1)
 
     v34 = 0.5;
     v35 = 0.5;
-    if ((v9.f32[2] - v10.f32[2]) > 0.0)
+    if ((*&v9.i32[2] - *&v10.i32[2]) > 0.0)
     {
-      if (v27[1].f32[0] == v10.f32[2])
+      if (v27[1].f32[0] == *&v10.i32[2])
       {
         v36 = 1.0 - v24;
       }
@@ -3945,9 +3945,9 @@ float32x2_t BCMBypassedStereo::panWithSize(float *a1)
       }
     }
 
-    if ((v9.f32[3] - v10.f32[3]) > 0.0)
+    if ((*&v9.i32[3] - *&v10.i32[3]) > 0.0)
     {
-      if (v27[1].f32[1] == v10.f32[3])
+      if (v27[1].f32[1] == *&v10.i32[3])
       {
         v38 = 1.0 - v25;
       }
@@ -4660,27 +4660,52 @@ uint64_t SpatialProbabilityBase::SpatialProbabilityBase(uint64_t a1, unsigned in
   *(a1 + 48) = a3;
   *(a1 + 52) = a6;
   *(a1 + 56) = a7;
-  std::vector<float>::vector[abi:ne200100]((a1 + 64), a2);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 64), a2, &v31);
   *(a1 + 88) = a5;
-  std::vector<float>::vector[abi:ne200100]((a1 + 96), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 120), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 144), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 168), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 192), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 216), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 240), *(a1 + 8));
+  v18 = *(a1 + 8);
+  v31 = 1065353216;
+  std::vector<float>::vector[abi:ne200100]((a1 + 96), v18, &v31);
+  v19 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 120), v19, &v31);
+  v20 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 144), v20, &v31);
+  v21 = *(a1 + 8);
+  v31 = 1065353216;
+  std::vector<float>::vector[abi:ne200100]((a1 + 168), v21, &v31);
+  v22 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 192), v22, &v31);
+  v23 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 216), v23, &v31);
+  v24 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 240), v24, &v31);
   *(a1 + 264) = a4;
   *(a1 + 268) = 0;
   *(a1 + 272) = 0;
-  std::vector<float>::vector[abi:ne200100]((a1 + 280), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 304), *(a1 + 8));
-  std::vector<float>::vector[abi:ne200100]((a1 + 328), *(a1 + 8));
+  v25 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 280), v25, &v31);
+  v26 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 304), v26, &v31);
+  v27 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 328), v27, &v31);
   *(a1 + 352) = 0;
   *(a1 + 360) = 0;
-  std::vector<float>::vector[abi:ne200100]((a1 + 368), *(a1 + 8));
+  v28 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 368), v28, &v31);
   *(a1 + 392) = xmmword_1DE095670;
   *(a1 + 408) = 1092616192;
-  std::vector<float>::vector[abi:ne200100]((a1 + 416), *(a1 + 8));
+  v29 = *(a1 + 8);
+  v31 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 416), v29, &v31);
   SpatialProbabilityBase::SetPriorProbabilities(a1, a8, a9);
   *(a1 + 392) = a10;
   *(a1 + 396) = a11;
@@ -5623,7 +5648,7 @@ void SmartFIR::Reset(void **this)
 
 void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   *this = a3;
   *(this + 1) = a2;
   *(this + 2) = a4;
@@ -5632,8 +5657,8 @@ void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  v90 = this + 32;
-  v91 = 0;
+  v91 = this + 32;
+  v92 = 0;
   if (a4)
   {
     if (a4 < 0x186186186186187)
@@ -5644,52 +5669,52 @@ void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
     std::vector<std::complex<float>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (v88)
+  if (v89)
   {
-    v89 = v88;
-    operator delete(v88);
+    v90 = v89;
+    operator delete(v89);
   }
 
   if (__p)
   {
-    v87 = __p;
+    v88 = __p;
     operator delete(__p);
   }
 
-  if (v84)
+  if (v85)
   {
-    if (v85 != v84)
+    if (v86 != v85)
     {
-      v85 += (v84 - v85 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      v86 += (v85 - v86 + 3) & 0xFFFFFFFFFFFFFFFCLL;
     }
 
-    operator delete(v84);
-    v84 = 0;
+    operator delete(v85);
     v85 = 0;
+    v86 = 0;
   }
 
-  if (v82)
+  if (v83)
   {
-    if (v83 != v82)
+    if (v84 != v83)
     {
-      v83 += (v82 - v83 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      v84 += (v83 - v84 + 3) & 0xFFFFFFFFFFFFFFFCLL;
     }
 
-    operator delete(v82);
-    v82 = 0;
+    operator delete(v83);
     v83 = 0;
+    v84 = 0;
   }
 
-  if (*&v80[2])
+  if (*&v81[2])
   {
-    if (v81 != *&v80[2])
+    if (v82 != *&v81[2])
     {
-      v81 += (*&v80[2] - v81 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      v82 += (*&v81[2] - v82 + 3) & 0xFFFFFFFFFFFFFFFCLL;
     }
 
-    operator delete(*&v80[2]);
-    *&v80[2] = 0;
-    v81 = 0;
+    operator delete(*&v81[2]);
+    *&v81[2] = 0;
+    v82 = 0;
   }
 
   if (*&buf[8])
@@ -5707,8 +5732,8 @@ void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
   *(this + 9) = 0u;
   *(this + 10) = 0u;
   v7 = *this;
-  LODWORD(v90) = 0;
-  std::vector<float>::vector[abi:ne200100](buf, v7);
+  LODWORD(v91) = 0;
+  std::vector<float>::vector[abi:ne200100](buf, v7, &v91);
   std::vector<std::vector<float>>::vector[abi:ne200100](this + 22, 0);
   if (*buf)
   {
@@ -5737,15 +5762,15 @@ void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(&v90, v9);
+      CAX4CCString::CAX4CCString(&v91, v9);
       *buf = 136315906;
       *&buf[4] = "SmartFIR.mm";
       *&buf[12] = 1024;
       *&buf[14] = 54;
-      v77 = 2080;
-      v78 = &v90;
-      v79 = 2080;
-      *v80 = "Filter length must be power of 2";
+      v78 = 2080;
+      v79 = &v91;
+      v80 = 2080;
+      *v81 = "Filter length must be power of 2";
       _os_log_impl(&dword_1DDB85000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
@@ -5760,15 +5785,15 @@ void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(&v90, v11);
+      CAX4CCString::CAX4CCString(&v91, v11);
       *buf = 136315906;
       *&buf[4] = "SmartFIR.mm";
       *&buf[12] = 1024;
       *&buf[14] = 55;
-      v77 = 2080;
-      v78 = &v90;
-      v79 = 2080;
-      *v80 = "Block size must be power of 2";
+      v78 = 2080;
+      v79 = &v91;
+      v80 = 2080;
+      *v81 = "Block size must be power of 2";
       _os_log_impl(&dword_1DDB85000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
@@ -5781,15 +5806,15 @@ void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(&v90, v12);
+      CAX4CCString::CAX4CCString(&v91, v12);
       *buf = 136315906;
       *&buf[4] = "SmartFIR.mm";
       *&buf[12] = 1024;
       *&buf[14] = 56;
-      v77 = 2080;
-      v78 = &v90;
-      v79 = 2080;
-      *v80 = "FFT initialization failed";
+      v78 = 2080;
+      v79 = &v91;
+      v80 = 2080;
+      *v81 = "FFT initialization failed";
       _os_log_impl(&dword_1DDB85000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
@@ -5952,7 +5977,8 @@ void SmartFIR::SmartFIR(SmartFIR *this, uint64_t a2, uint64_t a3, unint64_t a4)
     v36 = v34;
   }
 
-  std::vector<float>::vector[abi:ne200100](buf, v36);
+  v76 = 0;
+  std::vector<float>::vector[abi:ne200100](buf, v36, &v76);
   v37 = *buf;
   if (*&buf[8] == *buf)
   {
@@ -6054,7 +6080,7 @@ LABEL_94:
           v60 = 0.0;
         }
 
-        *&v90 = 1.0 / v60;
+        *&v91 = 1.0 / v60;
         v61 = *(this + 13);
         if (0xAAAAAAAAAAAAAAABLL * ((*(this + 14) - v61) >> 3) <= v38)
         {
@@ -6068,7 +6094,7 @@ LABEL_94:
           goto LABEL_95;
         }
 
-        MEMORY[0x1E12BE940](*(v62 + 16 * v48), 1, &v90, *(v62 + 16 * v48), 1, *this);
+        MEMORY[0x1E12BE940](*(v62 + 16 * v48), 1, &v91, *(v62 + 16 * v48), 1, *this);
         v64 = *(this + 13);
         if (0xAAAAAAAAAAAAAAABLL * ((*(this + 14) - v64) >> 3) <= v38)
         {
@@ -6084,7 +6110,7 @@ LABEL_95:
           std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();
         }
 
-        MEMORY[0x1E12BE940](*(v65 + 16 * v48 + 8), 1, &v90, *(v65 + 16 * v48 + 8), 1, *this);
+        MEMORY[0x1E12BE940](*(v65 + 16 * v48 + 8), 1, &v91, *(v65 + 16 * v48 + 8), 1, *this);
         v68 = *(this + 13);
         if (0xAAAAAAAAAAAAAAABLL * ((*(this + 14) - v68) >> 3) <= v38)
         {

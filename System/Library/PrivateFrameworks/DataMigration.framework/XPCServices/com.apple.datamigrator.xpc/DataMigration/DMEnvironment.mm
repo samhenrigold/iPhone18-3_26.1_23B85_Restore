@@ -13,7 +13,7 @@
 
 - (id)lockdownModeManager
 {
-  shared = sub_10000BDEC();
+  shared = sub_10000BDEC(0);
   if (shared)
   {
     v7 = 0;

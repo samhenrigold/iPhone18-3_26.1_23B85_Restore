@@ -7,19 +7,18 @@ _BYTE *___NETRBClientNewInterface_block_invoke(uint64_t a1)
 {
   if (__NETRBClientValidateClient(*(a1 + 48)))
   {
-    v9 = *(a1 + 48);
-    return NETRBErrorLog();
+    return NETRBErrorLog("invalid client %p", *(a1 + 48));
   }
 
-  else if (*(*(a1 + 48) + 545) == 1)
+  if (*(*(a1 + 48) + 545) == 1)
   {
 
-    return NETRBErrorLog();
+    return NETRBErrorLog("client already requested interface");
   }
 
   else
   {
-    NETRBDebugLog();
+    NETRBDebugLog("building xpc request");
     xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), netrbXPCKey, 0x3F6uLL);
     xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), netrbXPCOpMode, *(a1 + 80));
     v3 = *(a1 + 56);
@@ -73,24 +72,51 @@ _BYTE *___NETRBClientNewInterface_block_invoke(uint64_t a1)
       xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), netrbXPCInterfaceMTU, v4);
     }
 
-    *(a1 + 89);
-    *(a1 + 92);
-    *(a1 + 93);
-    *(a1 + 91);
-    v10 = *(a1 + 48);
-    NETRBInfoLog();
-    v5 = *(a1 + 48);
-    *(v5 + 545) = 1;
-    v6 = *(a1 + 72);
-    v7 = *(*(*(a1 + 32) + 8) + 24);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 0x40000000;
-    v11[2] = ___NETRBClientNewInterface_block_invoke_2;
-    v11[3] = &__block_descriptor_tmp_160;
-    v11[4] = v5;
-    v8 = NETRBXPCSetupAndSend(v6, v7, v11);
+    v5 = "";
+    v6 = " TSO";
+    if (!*(a1 + 89))
+    {
+      v6 = "";
+    }
+
+    if (*(a1 + 92))
+    {
+      v7 = " Isolated";
+    }
+
+    else
+    {
+      v7 = "";
+    }
+
+    if (*(a1 + 93))
+    {
+      v8 = " CSUM";
+    }
+
+    else
+    {
+      v8 = "";
+    }
+
+    if (*(a1 + 91))
+    {
+      v5 = " MAC-NAT";
+    }
+
+    NETRBInfoLog("client %p xpc send -> create interface [%s%s%s%s ]", *(a1 + 48), v6, v7, v8, v5);
+    v9 = *(a1 + 48);
+    *(v9 + 545) = 1;
+    v10 = *(a1 + 72);
+    v11 = *(*(*(a1 + 32) + 8) + 24);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 0x40000000;
+    v13[2] = ___NETRBClientNewInterface_block_invoke_2;
+    v13[3] = &__block_descriptor_tmp_160;
+    v13[4] = v9;
+    v12 = NETRBXPCSetupAndSend(v10, v11, v13);
     result = *(a1 + 48);
-    *(*(*(a1 + 40) + 8) + 24) = v8;
+    *(*(*(a1 + 40) + 8) + 24) = v12;
     if (*(*(*(a1 + 40) + 8) + 24) == 1)
     {
       return CFRetain(result);

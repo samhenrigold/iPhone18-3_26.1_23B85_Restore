@@ -1,566 +1,3 @@
-void VendorLogger::openNewLogFile(VendorLogger *this)
-{
-  VendorLogger::ensureDirectoryExists(this);
-  if (*(this + 868) == 1)
-  {
-    VendorLogger::closeLogFile(this);
-    VendorLogger::pruneLogFiles(this);
-  }
-
-  VendorLogger::initCompression(this);
-  VendorLogger::generateFilename(this, &v5);
-  v2 = (this + 824);
-  if (*(this + 847) < 0)
-  {
-    operator delete(*v2);
-  }
-
-  *v2 = v5;
-  *(this + 105) = v6;
-  std::ofstream::open();
-  v3 = GpsdLogObjectGeneral;
-  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(this + 847) < 0)
-    {
-      v2 = *v2;
-    }
-
-    LODWORD(v5) = 136446210;
-    *(&v5 + 4) = v2;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "VendorLogger,opening,%{public}s", &v5, 0xCu);
-  }
-
-  if (!*(this + 48))
-  {
-    v4 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v5) = 0;
-      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "VendorLogger,failed to open", &v5, 2u);
-    }
-  }
-
-  *(this + 868) = 1;
-}
-
-void VendorLogger::ensureLogFileIsClosed(VendorLogger *this)
-{
-  if (*(this + 868) == 1)
-  {
-    VendorLogger::closeLogFile(this);
-
-    VendorLogger::pruneLogFiles(this);
-  }
-}
-
-void VendorLogger::ensureDirectoryExists(VendorLogger *this)
-{
-  v2 = this + 112;
-  v3 = *(this + 135);
-  v4 = this + 112;
-  if (v3 < 0)
-  {
-    v4 = *v2;
-  }
-
-  if (mkdir(v4, 0x1F8u))
-  {
-    v5 = *__error();
-    if (v5 != 17)
-    {
-      v13 = GpsdLogObjectGeneral;
-      if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-      {
-        return;
-      }
-
-      if (*(this + 135) < 0)
-      {
-        v2 = *v2;
-      }
-
-      v14 = 136446466;
-      v15 = v2;
-      v16 = 1026;
-      v17 = v5;
-      v9 = "VendorLogger,could not create directory,%{public}s,%{public}d";
-      v10 = v13;
-      v11 = 18;
-      goto LABEL_18;
-    }
-
-    if (*(this + 135) < 0)
-    {
-      v2 = *v2;
-    }
-
-    v6 = chmod(v2, 0x1F8u);
-    v7 = GpsdLogObjectGeneral;
-    if (v6)
-    {
-      if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-      {
-        return;
-      }
-
-      v8 = *__error();
-      v14 = 67240192;
-      LODWORD(v15) = v8;
-      v9 = "VendorLogger,chmod failed,%{public}d";
-      v10 = v7;
-      v11 = 8;
-LABEL_18:
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v9, &v14, v11);
-      return;
-    }
-
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
-    {
-      v14 = 67240192;
-      LODWORD(v15) = 504;
-      _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "VendorLogger,directory exists,permissions,%{public}x", &v14, 8u);
-    }
-  }
-
-  else
-  {
-    v12 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
-    {
-      if (*(this + 135) < 0)
-      {
-        v2 = *v2;
-      }
-
-      v14 = 136446466;
-      v15 = v2;
-      v16 = 1026;
-      v17 = 504;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "VendorLogger,created directory,%{public}s,permissions,%{public}x", &v14, 0x12u);
-    }
-  }
-}
-
-void VendorLogger::initCompression(VendorLogger *this)
-{
-  if (*(this + 244) == 1)
-  {
-    v10 = v1;
-    v11 = v2;
-    *(this + 31) = 0;
-    v4 = *(this + 22);
-    v5 = *(this + 23) - v4;
-    if (v5 >> 15)
-    {
-      if (v5 != 0x8000)
-      {
-        *(this + 23) = v4 + 0x8000;
-      }
-    }
-
-    else
-    {
-      std::vector<unsigned char>::__append(this + 22, 0x8000 - v5);
-    }
-
-    v6 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "VendorLogger,initCompression", buf, 2u);
-    }
-
-    if (compression_stream_init(this + 5, COMPRESSION_STREAM_ENCODE, *(this + 60)))
-    {
-      v7 = GpsdLogObjectGeneral;
-      if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-      {
-        *v8 = 0;
-        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "VendorLogger,initCompression,Could not init stream", v8, 2u);
-      }
-
-      *(this + 244) = 0;
-      *(this + 23) = *(this + 22);
-    }
-
-    else
-    {
-      *(this + 245) = 1;
-    }
-  }
-}
-
-void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
-{
-  snprintf(__str, 8uLL, "%03d", *(this + 216));
-  ++*(this + 216);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  VendorLogger::isoTimestampString(&v50);
-  std::string::basic_string[abi:ne200100]<0>(&v49, __str);
-  if (*GpsdPreferences::instance(0) == 3)
-  {
-    std::string::assign(&v50, "unittest");
-    std::string::assign(&v49, "000");
-  }
-
-  if (*(this + 135) >= 0)
-  {
-    v4 = *(this + 135);
-  }
-
-  else
-  {
-    v4 = *(this + 15);
-  }
-
-  v5 = &v42;
-  std::string::basic_string[abi:ne200100](&v42, v4 + 1);
-  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v5 = v42.__r_.__value_.__r.__words[0];
-  }
-
-  if (v4)
-  {
-    if (*(this + 135) >= 0)
-    {
-      v6 = this + 112;
-    }
-
-    else
-    {
-      v6 = *(this + 14);
-    }
-
-    memmove(v5, v6, v4);
-  }
-
-  *(&v5->__r_.__value_.__l.__data_ + v4) = 47;
-  v7 = *(this + 39);
-  if (v7 >= 0)
-  {
-    v8 = this + 16;
-  }
-
-  else
-  {
-    v8 = *(this + 2);
-  }
-
-  if (v7 >= 0)
-  {
-    v9 = *(this + 39);
-  }
-
-  else
-  {
-    v9 = *(this + 3);
-  }
-
-  v10 = std::string::append(&v42, v8, v9);
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  v43.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v43.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v12 = &v50;
-  }
-
-  else
-  {
-    v12 = v50.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v50.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v50.__r_.__value_.__l.__size_;
-  }
-
-  v14 = std::string::append(&v43, v12, size);
-  v15 = *&v14->__r_.__value_.__l.__data_;
-  v44.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-  *&v44.__r_.__value_.__l.__data_ = v15;
-  v14->__r_.__value_.__l.__size_ = 0;
-  v14->__r_.__value_.__r.__words[2] = 0;
-  v14->__r_.__value_.__r.__words[0] = 0;
-  v16 = std::string::append(&v44, "_");
-  v17 = *&v16->__r_.__value_.__l.__data_;
-  v45.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v45.__r_.__value_.__l.__data_ = v17;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v18 = &v49;
-  }
-
-  else
-  {
-    v18 = v49.__r_.__value_.__r.__words[0];
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, v18);
-  if ((v41 & 0x80u) == 0)
-  {
-    v19 = __p;
-  }
-
-  else
-  {
-    v19 = __p[0];
-  }
-
-  if ((v41 & 0x80u) == 0)
-  {
-    v20 = v41;
-  }
-
-  else
-  {
-    v20 = __p[1];
-  }
-
-  v21 = std::string::append(&v45, v19, v20);
-  v22 = *&v21->__r_.__value_.__l.__data_;
-  v46.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
-  *&v46.__r_.__value_.__l.__data_ = v22;
-  v21->__r_.__value_.__l.__size_ = 0;
-  v21->__r_.__value_.__r.__words[2] = 0;
-  v21->__r_.__value_.__r.__words[0] = 0;
-  v23 = std::string::append(&v46, ".");
-  v24 = *&v23->__r_.__value_.__l.__data_;
-  v47.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-  *&v47.__r_.__value_.__l.__data_ = v24;
-  v23->__r_.__value_.__l.__size_ = 0;
-  v23->__r_.__value_.__r.__words[2] = 0;
-  v23->__r_.__value_.__r.__words[0] = 0;
-  v25 = *(this + 63);
-  if (v25 >= 0)
-  {
-    v26 = this + 40;
-  }
-
-  else
-  {
-    v26 = *(this + 5);
-  }
-
-  if (v25 >= 0)
-  {
-    v27 = *(this + 63);
-  }
-
-  else
-  {
-    v27 = *(this + 6);
-  }
-
-  v28 = std::string::append(&v47, v26, v27);
-  v29 = *&v28->__r_.__value_.__l.__data_;
-  v48.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-  *&v48.__r_.__value_.__l.__data_ = v29;
-  v28->__r_.__value_.__l.__size_ = 0;
-  v28->__r_.__value_.__r.__words[2] = 0;
-  v28->__r_.__value_.__r.__words[0] = 0;
-  v30 = *(this + 111);
-  if (v30 >= 0)
-  {
-    v31 = this + 88;
-  }
-
-  else
-  {
-    v31 = *(this + 11);
-  }
-
-  if (v30 >= 0)
-  {
-    v32 = *(this + 111);
-  }
-
-  else
-  {
-    v32 = *(this + 12);
-  }
-
-  v33 = std::string::append(&v48, v31, v32);
-  v34 = v33->__r_.__value_.__r.__words[0];
-  v51[0] = v33->__r_.__value_.__l.__size_;
-  *(v51 + 7) = *(&v33->__r_.__value_.__r.__words[1] + 7);
-  v35 = HIBYTE(v33->__r_.__value_.__r.__words[2]);
-  v33->__r_.__value_.__l.__size_ = 0;
-  v33->__r_.__value_.__r.__words[2] = 0;
-  v33->__r_.__value_.__r.__words[0] = 0;
-  v36 = SHIBYTE(v48.__r_.__value_.__r.__words[2]);
-  *(a2 + 15) = *(v51 + 7);
-  v37 = v51[0];
-  *a2 = v34;
-  *(a2 + 8) = v37;
-  *(a2 + 23) = v35;
-  if (v36 < 0)
-  {
-    operator delete(v48.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v47.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  if (v41 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v45.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v44.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v43.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v42.__r_.__value_.__l.__data_);
-  }
-
-  if (*(this + 244) == 1)
-  {
-    std::string::append(a2, ".");
-    v38 = *(this + 60);
-    if (v38 > 773)
-    {
-      if (v38 == 774)
-      {
-        v39 = "lzma";
-        goto LABEL_73;
-      }
-
-      if (v38 == 2049)
-      {
-        v39 = "lzfse";
-        goto LABEL_73;
-      }
-    }
-
-    else
-    {
-      if (v38 == 256)
-      {
-        v39 = "lz4";
-        goto LABEL_73;
-      }
-
-      if (v38 == 517)
-      {
-        v39 = "zlib";
-LABEL_73:
-        std::string::append(a2, v39);
-        goto LABEL_74;
-      }
-    }
-
-    v39 = "unk";
-    goto LABEL_73;
-  }
-
-LABEL_74:
-  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v49.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v50.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_10010BCE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, void *__p, uint64_t a52, int a53, __int16 a54, char a55, char a56)
-{
-  if (*(v57 - 137) < 0)
-  {
-    operator delete(*(v57 - 160));
-  }
-
-  if (a56 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a49 < 0)
-  {
-    operator delete(a44);
-  }
-
-  if (a16 < 0)
-  {
-    operator delete(a11);
-  }
-
-  if (a42 < 0)
-  {
-    operator delete(a37);
-  }
-
-  if (a35 < 0)
-  {
-    operator delete(a30);
-  }
-
-  if (a28 < 0)
-  {
-    operator delete(a23);
-  }
-
-  if (a22 < 0)
-  {
-    operator delete(a17);
-  }
-
-  if (*(v57 - 105) < 0)
-  {
-    operator delete(*(v57 - 128));
-  }
-
-  if (*(v57 - 81) < 0)
-  {
-    operator delete(*(v57 - 104));
-  }
-
-  if (*(v56 + 23) < 0)
-  {
-    operator delete(*v56);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 VendorLogger::MemoryStat *VendorLogger::notifyStop(VendorLogger *this)
 {
   v2 = GpsdLogObjectGeneral;
@@ -664,13 +101,13 @@ void ___ZN12VendorLogger21prepareForTerminationEv_block_invoke(uint64_t a1)
   }
 }
 
-void VendorLogger::log()
+void VendorLogger::log(uint64_t a1, uint64_t a2)
 {
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x3002000000;
-  v0[3] = __Block_byref_object_copy__1;
-  v0[4] = __Block_byref_object_dispose__1;
+  v2[0] = 0;
+  v2[1] = v2;
+  v2[2] = 0x3002000000;
+  v2[3] = __Block_byref_object_copy__1;
+  v2[4] = __Block_byref_object_dispose__1;
   operator new();
 }
 
@@ -702,10 +139,10 @@ void sub_10010C358(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VendorLogger::logBounce(uint64_t a1, uint64_t *a2)
+void VendorLogger::logBounce(unint64_t **a1, uint64_t *a2)
 {
   VendorLogger::ensureMemoryStatExists(a1);
-  shouldPauseLogging = VendorLogger::MemoryStat::shouldPauseLogging(*(a1 + 888), a2);
+  shouldPauseLogging = VendorLogger::MemoryStat::shouldPauseLogging(a1[111], a2);
   if (!shouldPauseLogging)
   {
     v10[0] = 0;
@@ -717,7 +154,7 @@ void VendorLogger::logBounce(uint64_t a1, uint64_t *a2)
     v10[4] = __Block_byref_object_dispose__1;
     v11 = v5;
     v6 = gpsd::util::getMachContinuousTimeNs(shouldPauseLogging) * 0.000000001;
-    v7 = *(a1 + 856);
+    v7 = a1[107];
     block[0] = _NSConcreteStackBlock;
     block[1] = 0x40000000;
     block[2] = ___ZN12VendorLogger9logBounceENSt3__110unique_ptrINS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_14default_deleteIS7_EEEE_block_invoke;
@@ -736,7 +173,7 @@ void VendorLogger::logBounce(uint64_t a1, uint64_t *a2)
   }
 }
 
-void sub_10010C490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_10010C490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   _Block_object_dispose(&a17, 8);
   v24 = a22;
@@ -749,9 +186,9 @@ void sub_10010C490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t VendorLogger::ensureMemoryStatExists(uint64_t this)
+VendorLogger::MemoryStat *VendorLogger::ensureMemoryStatExists(VendorLogger::MemoryStat *this)
 {
-  if (!*(this + 888))
+  if (!*(this + 111))
   {
     operator new();
   }
@@ -941,12 +378,6 @@ void VendorLogger::binaryLogWorker(uint64_t a1, const unsigned __int8 **a2, doub
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((a1 + 256), __str, v12);
     }
 
-    if (((*a2)[23] & 0x8000000000000000) != 0)
-    {
-      v13 = **a2;
-      v14 = *(*a2 + 1);
-    }
-
     std::ostream::write();
   }
 }
@@ -1026,18 +457,18 @@ void VendorLogger::MemoryStat::~MemoryStat(VendorLogger::MemoryStat *this)
   }
 }
 
-_BYTE *VendorLogger::isoTimestampString@<X0>(_BYTE *a1@<X8>)
+uint64_t *VendorLogger::isoTimestampString@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v5 = time(0);
-  v3 = localtime(&v5);
-  if (v5 < 0 || !v3)
+  v4 = time(0);
+  v2 = localtime(&v4);
+  if (v4 < 0 || !v2)
   {
     strcpy(__s, "unknown_time");
   }
 
   else
   {
-    strftime(__s, 0x20uLL, "%Y%m%dT_%H-%M-%S%z", v3);
+    strftime(__s, 0x20uLL, "%Y%m%dT_%H-%M-%S%z", v2);
   }
 
   return std::string::basic_string[abi:ne200100]<0>(a1, __s);
@@ -1072,14 +503,14 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(__int128 *a1, __int128 *a2, uint64_t a3, char a4)
 {
   while (2)
   {
-    v6 = a2 - 24;
-    v7 = a2 - 48;
+    v6 = a2 - 3;
+    v7 = (a2 - 3);
     v191 = a2;
-    v8 = a2 - 72;
+    v8 = a2 - 9;
     v9 = a1;
     while (1)
     {
@@ -1122,11 +553,11 @@ void std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,
                   v193 = v131;
                   v132 = *(v9 + 40);
                   v194 = v132;
-                  v188 = *(v6 + 16);
+                  v188 = v6[2];
                   *(v9 + 24) = *v6;
                   *(v9 + 40) = v188;
 LABEL_116:
-                  *(v6 + 16) = v132;
+                  v6[2] = v132;
                   *v6 = v131;
                   return;
                 }
@@ -1140,10 +571,10 @@ LABEL_116:
                 v177 = v193;
                 v194 = *(v9 + 40);
                 v178 = v194;
-                v179 = *(v6 + 16);
+                v179 = v6[2];
                 *(v9 + 24) = *v6;
                 *(v9 + 40) = v179;
-                *(v6 + 16) = v178;
+                v6[2] = v178;
                 *v6 = v177;
 LABEL_172:
                 if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 24), v9))
@@ -1173,10 +604,10 @@ LABEL_172:
                 v119 = v193;
                 v194 = *(v9 + 88);
                 v120 = v194;
-                v121 = *(v6 + 16);
+                v121 = v6[2];
                 *(v9 + 72) = *v6;
                 *(v9 + 88) = v121;
-                *(v6 + 16) = v120;
+                v6[2] = v120;
                 *v6 = v119;
                 if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 72), (v9 + 48)))
                 {
@@ -1223,7 +654,7 @@ LABEL_115:
               v194 = *(v9 + 16);
               v193 = v129;
               v130 = *v6;
-              *(v9 + 16) = *(v6 + 16);
+              *(v9 + 16) = v6[2];
               *v9 = v130;
               v131 = v193;
               v132 = v194;
@@ -1285,7 +716,7 @@ LABEL_135:
                   v136 += 24;
                 }
 
-                while (v137 + 24 != v191);
+                while ((v137 + 24) != v191);
               }
             }
 
@@ -1299,10 +730,10 @@ LABEL_135:
                 if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v133, v182))
                 {
                   v183 = *a1;
-                  v194 = *(a1 + 16);
+                  v194 = *(a1 + 2);
                   v193 = v183;
-                  *(a1 + 8) = 0;
-                  *(a1 + 16) = 0;
+                  *(a1 + 1) = 0;
+                  *(a1 + 2) = 0;
                   *a1 = 0;
                   v184 = v181;
                   do
@@ -1321,11 +752,11 @@ LABEL_135:
                   *(v184 + 48) = v186;
                 }
 
-                v133 = (a1 + 24);
+                v133 = a1 + 3;
                 v181 += 24;
               }
 
-              while (a1 + 24 != v191);
+              while ((a1 + 24) != v191);
             }
 
             return;
@@ -1343,27 +774,27 @@ LABEL_135:
                 if (v144 >= v145)
                 {
                   v147 = (2 * v145) | 1;
-                  v148 = a1 + 24 * v147;
-                  if (2 * v145 + 2 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v147), (v148 + 24)))
+                  v148 = (a1 + 24 * v147);
+                  if (2 * v145 + 2 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v147, v148 + 3))
                   {
-                    v148 += 24;
+                    v148 = (v148 + 24);
                     v147 = 2 * v146 + 2;
                   }
 
-                  v149 = a1 + 24 * v146;
+                  v149 = (a1 + 24 * v146);
                   if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v148, v149))
                   {
                     v150 = *v149;
-                    v194 = *(v149 + 16);
+                    v194 = *(v149 + 2);
                     v193 = v150;
-                    *(v149 + 8) = 0;
-                    *(v149 + 16) = 0;
+                    *(v149 + 1) = 0;
+                    *(v149 + 2) = 0;
                     *v149 = 0;
                     do
                     {
                       v151 = v148;
                       v152 = *v148;
-                      *(v149 + 16) = *(v148 + 16);
+                      *(v149 + 2) = *(v148 + 2);
                       *v149 = v152;
                       *(v148 + 23) = 0;
                       *v148 = 0;
@@ -1373,11 +804,11 @@ LABEL_135:
                       }
 
                       v153 = (2 * v147) | 1;
-                      v148 = a1 + 24 * v153;
+                      v148 = (a1 + 24 * v153);
                       v154 = 2 * v147 + 2;
-                      if (v154 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v153), (v148 + 24)))
+                      if (v154 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v153, v148 + 3))
                       {
-                        v148 += 24;
+                        v148 = (v148 + 24);
                         v153 = v154;
                       }
 
@@ -1387,7 +818,7 @@ LABEL_135:
 
                     while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v148, &v193));
                     v155 = v193;
-                    *(v151 + 16) = v194;
+                    *(v151 + 2) = v194;
                     *v151 = v155;
                     v10 = v191;
                   }
@@ -1403,11 +834,11 @@ LABEL_135:
                 v157 = 0;
                 v158 = v10;
                 v190 = *a1;
-                *&v195 = *(a1 + 8);
+                *&v195 = *(a1 + 1);
                 *(&v195 + 7) = *(a1 + 15);
                 v192 = *(a1 + 23);
-                *(a1 + 8) = 0;
-                *(a1 + 16) = 0;
+                *(a1 + 1) = 0;
+                *(a1 + 2) = 0;
                 *a1 = 0;
                 v159 = a1;
                 do
@@ -1460,7 +891,7 @@ LABEL_135:
                   if (v168 >= 25)
                   {
                     v169 = (-2 - 0x5555555555555555 * (v168 >> 3)) >> 1;
-                    v170 = a1 + 24 * v169;
+                    v170 = (a1 + 24 * v169);
                     if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v170, v161))
                     {
                       v171 = *v161;
@@ -1473,7 +904,7 @@ LABEL_135:
                       {
                         v172 = v170;
                         v173 = *v170;
-                        *(v161 + 16) = *(v170 + 16);
+                        *(v161 + 16) = *(v170 + 2);
                         *v161 = v173;
                         *(v170 + 23) = 0;
                         *v170 = 0;
@@ -1483,7 +914,7 @@ LABEL_135:
                         }
 
                         v169 = (v169 - 1) >> 1;
-                        v170 = a1 + 24 * v169;
+                        v170 = (a1 + 24 * v169);
                         v161 = v172;
                       }
 
@@ -1506,32 +937,32 @@ LABEL_135:
           v15 = v9 + 24 * v14;
           if (v11 >= 0xC01)
           {
-            v16 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v14), a1);
-            v17 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (a1 + 24 * v14));
+            v16 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v14, a1);
+            v17 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1 + 3 * v14);
             if (v16)
             {
               if (v17)
               {
                 v18 = *a1;
-                v194 = *(a1 + 16);
+                v194 = *(a1 + 2);
                 v193 = v18;
                 v19 = *v6;
-                *(a1 + 16) = *(v6 + 16);
+                *(a1 + 2) = v6[2];
                 *a1 = v19;
               }
 
               else
               {
                 v36 = *a1;
-                v194 = *(a1 + 16);
+                v194 = *(a1 + 2);
                 v193 = v36;
                 v37 = *v15;
-                *(a1 + 16) = *(v15 + 16);
+                *(a1 + 2) = *(v15 + 16);
                 *a1 = v37;
                 v38 = v193;
                 *(v15 + 16) = v194;
                 *v15 = v38;
-                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (a1 + 24 * v14)))
+                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1 + 3 * v14))
                 {
                   goto LABEL_27;
                 }
@@ -1540,12 +971,12 @@ LABEL_135:
                 v194 = *(v15 + 16);
                 v193 = v39;
                 v40 = *v6;
-                *(v15 + 16) = *(v6 + 16);
+                *(v15 + 16) = v6[2];
                 *v15 = v40;
               }
 
               v41 = v193;
-              *(v6 + 16) = v194;
+              v6[2] = v194;
               *v6 = v41;
             }
 
@@ -1555,18 +986,18 @@ LABEL_135:
               v194 = *(v15 + 16);
               v193 = v24;
               v25 = *v6;
-              *(v15 + 16) = *(v6 + 16);
+              *(v15 + 16) = v6[2];
               *v15 = v25;
               v26 = v193;
-              *(v6 + 16) = v194;
+              v6[2] = v194;
               *v6 = v26;
-              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v14), a1))
+              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v14, a1))
               {
                 v27 = *a1;
-                v194 = *(a1 + 16);
+                v194 = *(a1 + 2);
                 v193 = v27;
                 v28 = *v15;
-                *(a1 + 16) = *(v15 + 16);
+                *(a1 + 2) = *(v15 + 16);
                 *a1 = v28;
                 v29 = v193;
                 *(v15 + 16) = v194;
@@ -1576,7 +1007,7 @@ LABEL_135:
 
 LABEL_27:
             v42 = a1 + 24 * v14 - 24;
-            v43 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, (a1 + 24));
+            v43 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, a1 + 3);
             v44 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v7, v42);
             if (v43)
             {
@@ -1584,23 +1015,23 @@ LABEL_27:
               {
                 v45 = *(a1 + 24);
                 v193 = v45;
-                v46 = *(a1 + 40);
+                v46 = *(a1 + 5);
                 v194 = v46;
-                v47 = *(v7 + 16);
+                v47 = v7[2];
                 *(a1 + 24) = *v7;
-                *(a1 + 40) = v47;
+                *(a1 + 5) = v47;
               }
 
               else
               {
                 v193 = *(a1 + 24);
                 v60 = v193;
-                v194 = *(a1 + 40);
+                v194 = *(a1 + 5);
                 v61 = v194;
-                v62 = *(a1 + 24 * v14 - 8);
+                v62 = *(a1 + 3 * v14 - 1);
                 *(a1 + 24) = *v42;
-                *(a1 + 40) = v62;
-                *(a1 + 24 * v14 - 8) = v61;
+                *(a1 + 5) = v62;
+                *(a1 + 3 * v14 - 1) = v61;
                 *v42 = v60;
                 if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v7, v42))
                 {
@@ -1608,47 +1039,47 @@ LABEL_27:
                 }
 
                 v63 = *v42;
-                v194 = *(a1 + 24 * v14 - 8);
+                v194 = *(a1 + 3 * v14 - 1);
                 v193 = v63;
                 v64 = *v7;
-                *(a1 + 24 * v14 - 8) = *(v7 + 16);
+                *(a1 + 3 * v14 - 1) = v7[2];
                 *v42 = v64;
                 v45 = v193;
                 v46 = v194;
               }
 
-              *(v7 + 16) = v46;
+              v7[2] = v46;
               *v7 = v45;
             }
 
             else if (v44)
             {
               v48 = *v42;
-              v194 = *(a1 + 24 * v14 - 8);
+              v194 = *(a1 + 3 * v14 - 1);
               v193 = v48;
               v49 = *v7;
-              *(a1 + 24 * v14 - 8) = *(v7 + 16);
+              *(a1 + 3 * v14 - 1) = v7[2];
               *v42 = v49;
               v50 = v193;
-              *(v7 + 16) = v194;
+              v7[2] = v194;
               *v7 = v50;
-              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, (a1 + 24)))
+              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, a1 + 3))
               {
                 v193 = *(a1 + 24);
                 v51 = v193;
-                v194 = *(a1 + 40);
+                v194 = *(a1 + 5);
                 v52 = v194;
-                v53 = *(a1 + 24 * v14 - 8);
+                v53 = *(a1 + 3 * v14 - 1);
                 *(a1 + 24) = *v42;
-                *(a1 + 40) = v53;
-                *(a1 + 24 * v14 - 8) = v52;
+                *(a1 + 5) = v53;
+                *(a1 + 3 * v14 - 1) = v52;
                 *v42 = v51;
               }
             }
 
 LABEL_39:
             v65 = a1 + 24 * v14;
-            v66 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), (a1 + 48));
+            v66 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), a1 + 6);
             v67 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v8, (v65 + 24));
             if (!v66)
             {
@@ -1658,20 +1089,20 @@ LABEL_39:
                 v194 = *(v65 + 40);
                 v193 = v71;
                 v72 = *v8;
-                *(v65 + 40) = *(v8 + 16);
+                *(v65 + 40) = v8[2];
                 *(v65 + 24) = v72;
                 v73 = v193;
-                *(v8 + 16) = v194;
+                v8[2] = v194;
                 *v8 = v73;
-                if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), (a1 + 48)))
+                if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), a1 + 6))
                 {
-                  v193 = *(a1 + 48);
+                  v193 = a1[3];
                   v74 = v193;
-                  v194 = *(a1 + 64);
+                  v194 = *(a1 + 8);
                   v75 = v194;
                   v76 = *(v65 + 40);
-                  *(a1 + 48) = *(v65 + 24);
-                  *(a1 + 64) = v76;
+                  a1[3] = *(v65 + 24);
+                  *(a1 + 8) = v76;
                   *(v65 + 40) = v75;
                   *(v65 + 24) = v74;
                 }
@@ -1682,24 +1113,24 @@ LABEL_39:
 
             if (v67)
             {
-              v68 = *(a1 + 48);
+              v68 = a1[3];
               v193 = v68;
-              v69 = *(a1 + 64);
+              v69 = *(a1 + 8);
               v194 = v69;
-              v70 = *(v8 + 16);
-              *(a1 + 48) = *v8;
-              *(a1 + 64) = v70;
+              v70 = v8[2];
+              a1[3] = *v8;
+              *(a1 + 8) = v70;
             }
 
             else
             {
-              v193 = *(a1 + 48);
+              v193 = a1[3];
               v77 = v193;
-              v194 = *(a1 + 64);
+              v194 = *(a1 + 8);
               v78 = v194;
               v79 = *(v65 + 40);
-              *(a1 + 48) = *(v65 + 24);
-              *(a1 + 64) = v79;
+              a1[3] = *(v65 + 24);
+              *(a1 + 8) = v79;
               *(v65 + 40) = v78;
               *(v65 + 24) = v77;
               if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v8, (v65 + 24)))
@@ -1775,10 +1206,10 @@ LABEL_48:
                 }
 
                 v94 = *a1;
-                v194 = *(a1 + 16);
+                v194 = *(a1 + 2);
                 v193 = v94;
                 v95 = *v15;
-                *(a1 + 16) = *(v15 + 16);
+                *(a1 + 2) = *(v15 + 16);
                 *a1 = v95;
                 v96 = v193;
                 *(v15 + 16) = v194;
@@ -1790,18 +1221,18 @@ LABEL_48:
               v194 = *(v65 + 40);
               v193 = v80;
               v81 = *v8;
-              *(v65 + 40) = *(v8 + 16);
+              *(v65 + 40) = v8[2];
               *(v65 + 24) = v81;
               v68 = v193;
               v69 = v194;
             }
 
-            *(v8 + 16) = v69;
+            v8[2] = v69;
             *v8 = v68;
             goto LABEL_48;
           }
 
-          v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, (a1 + 24 * v14));
+          v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, a1 + 3 * v14);
           v21 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1);
           if (v20)
           {
@@ -1811,7 +1242,7 @@ LABEL_48:
               v194 = *(v15 + 16);
               v193 = v22;
               v23 = *v6;
-              *(v15 + 16) = *(v6 + 16);
+              *(v15 + 16) = v6[2];
               *v15 = v23;
             }
 
@@ -1821,10 +1252,10 @@ LABEL_48:
               v194 = *(v15 + 16);
               v193 = v54;
               v55 = *a1;
-              *(v15 + 16) = *(a1 + 16);
+              *(v15 + 16) = *(a1 + 2);
               *v15 = v55;
               v56 = v193;
-              *(a1 + 16) = v194;
+              *(a1 + 2) = v194;
               *a1 = v56;
               if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1))
               {
@@ -1832,15 +1263,15 @@ LABEL_48:
               }
 
               v57 = *a1;
-              v194 = *(a1 + 16);
+              v194 = *(a1 + 2);
               v193 = v57;
               v58 = *v6;
-              *(a1 + 16) = *(v6 + 16);
+              *(a1 + 2) = v6[2];
               *a1 = v58;
             }
 
             v59 = v193;
-            *(v6 + 16) = v194;
+            v6[2] = v194;
             *v6 = v59;
             goto LABEL_57;
           }
@@ -1848,40 +1279,40 @@ LABEL_48:
           if (v21)
           {
             v30 = *a1;
-            v194 = *(a1 + 16);
+            v194 = *(a1 + 2);
             v193 = v30;
             v31 = *v6;
-            *(a1 + 16) = *(v6 + 16);
+            *(a1 + 2) = v6[2];
             *a1 = v31;
             v32 = v193;
-            *(v6 + 16) = v194;
+            v6[2] = v194;
             *v6 = v32;
-            if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, (a1 + 24 * v14)))
+            if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, a1 + 3 * v14))
             {
               v33 = *v15;
               v194 = *(v15 + 16);
               v193 = v33;
               v34 = *a1;
-              *(v15 + 16) = *(a1 + 16);
+              *(v15 + 16) = *(a1 + 2);
               *v15 = v34;
               v35 = v193;
-              *(a1 + 16) = v194;
+              *(a1 + 2) = v194;
               *a1 = v35;
             }
           }
 
 LABEL_57:
           --a3;
-          if ((a4 & 1) != 0 || std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 - 24), a1))
+          if ((a4 & 1) != 0 || std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 - 3, a1))
           {
             break;
           }
 
           v109 = *a1;
-          v196 = *(a1 + 16);
+          v196 = *(a1 + 2);
           v195 = v109;
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
+          *(a1 + 1) = 0;
+          *(a1 + 2) = 0;
           *a1 = 0;
           if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v6))
           {
@@ -1896,7 +1327,7 @@ LABEL_57:
 
           else
           {
-            v110 = (a1 + 24);
+            v110 = a1 + 3;
             do
             {
               v9 = v110;
@@ -1950,7 +1381,7 @@ LABEL_57:
           }
 
           v116 = (v9 - 24);
-          if (v9 - 24 == a1)
+          if ((v9 - 24) == a1)
           {
             if (*(v9 - 1) < 0)
             {
@@ -1966,7 +1397,7 @@ LABEL_57:
             }
 
             v117 = *v116;
-            *(a1 + 16) = *(v9 - 8);
+            *(a1 + 2) = *(v9 - 8);
             *a1 = v117;
             *(v9 - 1) = 0;
             *(v9 - 24) = 0;
@@ -1980,17 +1411,17 @@ LABEL_57:
 
         v97 = 0;
         v98 = *a1;
-        v196 = *(a1 + 16);
+        v196 = *(a1 + 2);
         v195 = v98;
-        *(a1 + 8) = 0;
-        *(a1 + 16) = 0;
+        *(a1 + 1) = 0;
+        *(a1 + 2) = 0;
         *a1 = 0;
         do
         {
           v97 += 24;
         }
 
-        while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v97 + a1), &v195));
+        while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + v97), &v195));
         v99 = a1 + v97;
         v100 = v10;
         if (v97 == 24)
@@ -2052,7 +1483,7 @@ LABEL_57:
         }
 
         v105 = (v9 - 24);
-        if (v9 - 24 == a1)
+        if ((v9 - 24) == a1)
         {
           if (*(v9 - 1) < 0)
           {
@@ -2068,7 +1499,7 @@ LABEL_57:
           }
 
           v106 = *v105;
-          *(a1 + 16) = *(v9 - 8);
+          *(a1 + 2) = *(v9 - 8);
           *a1 = v106;
           *(v9 - 1) = 0;
           *(v9 - 24) = 0;
@@ -2083,11 +1514,11 @@ LABEL_57:
         }
 
 LABEL_82:
-        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(a1, v9 - 24, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(a1, (v9 - 24), a3, a4 & 1);
         a4 = 0;
       }
 
-      v108 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(a1, v9 - 24);
+      v108 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(a1, (v9 - 24));
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(v9, v191))
       {
         break;
@@ -2099,7 +1530,7 @@ LABEL_82:
       }
     }
 
-    a2 = v9 - 24;
+    a2 = (v9 - 24);
     if (!v108)
     {
       continue;
@@ -2268,7 +1699,7 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(__int128 *a1, __int128 *a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v4 > 2)
@@ -2276,41 +1707,41 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     switch(v4)
     {
       case 3:
-        v5 = a2 - 24;
-        v14 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1);
-        v15 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, (a1 + 24));
+        v5 = a2 - 3;
+        v14 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1);
+        v15 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, a1 + 3);
         if (v14)
         {
           if (!v15)
           {
-            v33 = *(a1 + 16);
+            v33 = *(a1 + 2);
             v34 = *a1;
             *a1 = *(a1 + 24);
-            *(a1 + 16) = *(a1 + 40);
+            *(a1 + 2) = *(a1 + 5);
             *(a1 + 24) = v34;
-            *(a1 + 40) = v33;
-            if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, (a1 + 24)))
+            *(a1 + 5) = v33;
+            if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, a1 + 3))
             {
               return 1;
             }
 
-            v16 = *(a1 + 40);
+            v16 = *(a1 + 5);
             v17 = *(a1 + 24);
-            v35 = *(v5 + 16);
+            v35 = v5[2];
             *(a1 + 24) = *v5;
-            *(a1 + 40) = v35;
+            *(a1 + 5) = v35;
             goto LABEL_16;
           }
 
 LABEL_15:
-          v16 = *(a1 + 16);
+          v16 = *(a1 + 2);
           v17 = *a1;
-          v18 = *(v5 + 16);
+          v18 = v5[2];
           *a1 = *v5;
-          *(a1 + 16) = v18;
+          *(a1 + 2) = v18;
 LABEL_16:
           *v5 = v17;
-          *(v5 + 16) = v16;
+          v5[2] = v16;
           return 1;
         }
 
@@ -2319,67 +1750,67 @@ LABEL_16:
           return 1;
         }
 
-        v24 = *(a1 + 40);
+        v24 = *(a1 + 5);
         v25 = *(a1 + 24);
-        v26 = *(v5 + 16);
+        v26 = v5[2];
         *(a1 + 24) = *v5;
-        *(a1 + 40) = v26;
+        *(a1 + 5) = v26;
         *v5 = v25;
-        *(v5 + 16) = v24;
+        v5[2] = v24;
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24));
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a2 - 24));
         return 1;
       case 5:
         v6 = a2 - 24;
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72));
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (a1 + 72)))
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a1 + 72));
+        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1 + 9))
         {
           return 1;
         }
 
-        v7 = *(a1 + 88);
+        v7 = *(a1 + 11);
         v8 = *(a1 + 72);
         v9 = *(v6 + 16);
         *(a1 + 72) = *v6;
-        *(a1 + 88) = v9;
+        *(a1 + 11) = v9;
         *v6 = v8;
         *(v6 + 16) = v7;
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 72), (a1 + 48)))
+        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 9, a1 + 6))
         {
           return 1;
         }
 
-        v10 = *(a1 + 64);
-        v11 = *(a1 + 48);
-        *(a1 + 48) = *(a1 + 72);
-        *(a1 + 64) = *(a1 + 88);
+        v10 = *(a1 + 8);
+        v11 = a1[3];
+        a1[3] = *(a1 + 72);
+        *(a1 + 8) = *(a1 + 11);
         *(a1 + 72) = v11;
-        *(a1 + 88) = v10;
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 48), (a1 + 24)))
+        *(a1 + 11) = v10;
+        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 6, a1 + 3))
         {
           return 1;
         }
 
-        v12 = *(a1 + 40);
+        v12 = *(a1 + 5);
         v13 = *(a1 + 24);
-        *(a1 + 24) = *(a1 + 48);
-        *(a1 + 40) = *(a1 + 64);
-        *(a1 + 48) = v13;
-        *(a1 + 64) = v12;
+        *(a1 + 24) = a1[3];
+        *(a1 + 5) = *(a1 + 8);
+        a1[3] = v13;
+        *(a1 + 8) = v12;
         break;
       default:
         goto LABEL_17;
     }
 
-    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1))
+    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1))
     {
-      v27 = *(a1 + 16);
+      v27 = *(a1 + 2);
       v28 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v28;
-      *(a1 + 40) = v27;
+      *(a1 + 5) = v27;
     }
 
     return 1;
@@ -2392,8 +1823,8 @@ LABEL_16:
 
   if (v4 == 2)
   {
-    v5 = a2 - 24;
-    if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a2 - 24), a1))
+    v5 = a2 - 3;
+    if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a2 - 3, a1))
     {
       return 1;
     }
@@ -2402,64 +1833,64 @@ LABEL_16:
   }
 
 LABEL_17:
-  v19 = (a1 + 48);
-  v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1);
-  v21 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 48), (a1 + 24));
+  v19 = (a1 + 3);
+  v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1);
+  v21 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 6, a1 + 3);
   if (v20)
   {
     if (v21)
     {
-      v22 = *(a1 + 16);
+      v22 = *(a1 + 2);
       v23 = *a1;
       *a1 = *v19;
-      *(a1 + 16) = *(a1 + 64);
+      *(a1 + 2) = *(a1 + 8);
     }
 
     else
     {
-      v36 = *(a1 + 16);
+      v36 = *(a1 + 2);
       v37 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v37;
-      *(a1 + 40) = v36;
-      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 48), (a1 + 24)))
+      *(a1 + 5) = v36;
+      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 6, a1 + 3))
       {
         goto LABEL_33;
       }
 
-      v22 = *(a1 + 40);
+      v22 = *(a1 + 5);
       v23 = *(a1 + 24);
       *(a1 + 24) = *v19;
-      *(a1 + 40) = *(a1 + 64);
+      *(a1 + 5) = *(a1 + 8);
     }
 
     *v19 = v23;
-    *(a1 + 64) = v22;
+    *(a1 + 8) = v22;
   }
 
   else if (v21)
   {
-    v29 = *(a1 + 40);
+    v29 = *(a1 + 5);
     v30 = *(a1 + 24);
     *(a1 + 24) = *v19;
-    *(a1 + 40) = *(a1 + 64);
+    *(a1 + 5) = *(a1 + 8);
     *v19 = v30;
-    *(a1 + 64) = v29;
-    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1))
+    *(a1 + 8) = v29;
+    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1))
     {
-      v31 = *(a1 + 16);
+      v31 = *(a1 + 2);
       v32 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v32;
-      *(a1 + 40) = v31;
+      *(a1 + 5) = v31;
     }
   }
 
 LABEL_33:
-  v38 = a1 + 72;
-  if (a1 + 72 == a2)
+  v38 = (a1 + 72);
+  if ((a1 + 72) == a2)
   {
     return 1;
   }
@@ -2471,9 +1902,9 @@ LABEL_33:
     if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v38, v19))
     {
       v45 = *v38;
-      v46 = *(v38 + 16);
-      *(v38 + 8) = 0;
-      *(v38 + 16) = 0;
+      v46 = *(v38 + 2);
+      *(v38 + 1) = 0;
+      *(v38 + 2) = 0;
       *v38 = 0;
       v41 = v39;
       while (1)
@@ -2502,13 +1933,13 @@ LABEL_41:
       *(v43 + 16) = v46;
       if (++v40 == 8)
       {
-        return v38 + 24 == a2;
+        return (v38 + 24) == a2;
       }
     }
 
     v19 = v38;
     v39 += 24;
-    v38 += 24;
+    v38 = (v38 + 24);
     if (v38 == a2)
     {
       return 1;
@@ -2522,7 +1953,7 @@ void GnssQueueWatchdog::GnssQueueWatchdog(GnssQueueWatchdog *this, dispatch_queu
   *(this + 1) = 0;
   *(this + 6) = 0;
   *(this + 2) = 0;
-  v2 = *(GpsdRuntime::instance(this) + 8);
+  GpsdRuntime::instance(this);
   operator new();
 }
 
@@ -2623,52 +2054,22 @@ void gnss::Exception::instanceDelete(gnss::Exception *this)
   }
 }
 
-void gnss::Exception::set(uint64_t *a1, int a2)
+void gnss::Exception::set(uint64_t *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = *a1 | (1 << a2);
   *a1 = v3;
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446722;
-    v6 = gnss::Exception::toString(a2);
+    v6 = gnss::Exception::toString(v2);
     v7 = 1026;
-    v8 = a2;
+    v8 = v2;
     v9 = 2050;
     v10 = v3;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Exception::Type,set,type,%{public}s,%{public}d,%{public}llx", &v5, 0x1Cu);
   }
-}
-
-{
-  gnss::Exception::set(a1, a2);
-  if (!a1[4])
-  {
-    v3 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v4) = 0;
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Exception::set,fSendIndication,nullptr", &v4, 2u);
-    }
-  }
-
-  v4 = off_100179D00;
-  v5 = 0u;
-  v6 = 0u;
-  v7 = 0u;
-  v8 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0;
-  v13 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  memset(v17, 0, sizeof(v17));
-  LODWORD(v5) = 23;
-  v18 = 0x400100000000;
-  operator new();
 }
 
 const char *gnss::Exception::toString(int a1)
@@ -2682,6 +2083,38 @@ const char *gnss::Exception::toString(int a1)
   {
     return off_10017BBF8[(a1 - 1)];
   }
+}
+
+void gnss::Exception::set(uint64_t *a1, uint64_t a2, int a3)
+{
+  gnss::Exception::set(a1, a2);
+  if (!a1[4])
+  {
+    v4 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v5) = 0;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Exception::set,fSendIndication,nullptr", &v5, 2u);
+    }
+  }
+
+  v5 = off_100179D00;
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0;
+  v14 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  memset(v18, 0, sizeof(v18));
+  LODWORD(v6) = 23;
+  v19 = 0x400100000000;
+  operator new();
 }
 
 int64_t getNmeaType(uint64_t *a1, uint64_t *a2)
@@ -2894,15 +2327,9 @@ LABEL_74:
       {
         if (v5 <= 1262900051)
         {
-          if ((v5 - 1262899249) <= 0x1E)
+          if ((v5 - 1262899249) <= 0x1E && ((1 << (*(v2 + 10) - 49)) & 0x40000003) != 0)
           {
-            *(v2 + 8);
-            *(v2 + 7);
-            *(v2 + 9);
-            if (((1 << (*(v2 + 10) - 49)) & 0x40000003) != 0)
-            {
-              goto LABEL_6;
-            }
+            goto LABEL_6;
           }
 
           goto LABEL_151;
@@ -3528,7 +2955,7 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-void gnss::stringify(int a1@<W0>, uint64_t a2@<X8>)
+void gnss::stringify(int a1@<W0>, void *a2@<X8>)
 {
   if (a1 <= 3)
   {
@@ -3597,7 +3024,7 @@ LABEL_23:
   std::to_string(&v6, a1);
   v4 = std::string::insert(&v6, 0, "unknown ");
   v5 = *&v4->__r_.__value_.__l.__data_;
-  *(a2 + 16) = *(&v4->__r_.__value_.__l + 2);
+  a2[2] = *(&v4->__r_.__value_.__l + 2);
   *a2 = v5;
   v4->__r_.__value_.__l.__size_ = 0;
   v4->__r_.__value_.__r.__words[2] = 0;
@@ -4350,35 +3777,34 @@ LABEL_13:
   }
 }
 
-void gpsd::util::charToHex(gpsd::util *this@<X0>, const unsigned __int8 *a2@<X1>, int __c@<W2>, std::string *a4@<X8>)
+void gpsd::util::charToHex(std::string *__return_ptr a1@<X8>, gpsd::util *this@<X0>, const unsigned __int8 *a3@<X1>, int __c@<W2>)
 {
-  if (a2)
+  if (a3)
   {
     v8 = 0;
-    a4->__r_.__value_.__r.__words[0] = 0;
-    a4->__r_.__value_.__l.__size_ = 0;
-    a4->__r_.__value_.__r.__words[2] = 0;
+    *&a1->__r_.__value_.__l.__data_ = 0uLL;
+    a1->__r_.__value_.__r.__words[2] = 0;
     do
     {
       if (__c)
       {
         if (v8)
         {
-          std::string::push_back(a4, __c);
+          std::string::push_back(a1, __c);
         }
       }
 
-      std::string::push_back(a4, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[v8[this] >> 4]);
-      std::string::push_back(a4, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[(v8++)[this] & 0xF]);
+      std::string::push_back(a1, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[v8[this] >> 4]);
+      std::string::push_back(a1, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[(v8++)[this] & 0xF]);
     }
 
-    while (a2 != v8);
+    while (a3 != v8);
   }
 
   else
   {
 
-    std::string::basic_string[abi:ne200100]<0>(a4, "EmptyBuffer");
+    std::string::basic_string[abi:ne200100]<0>(a1, "EmptyBuffer");
   }
 }
 
@@ -4399,7 +3825,7 @@ void gpsd::util::charToHex(gpsd::util *this@<X0>, const unsigned __int8 *a2@<X1>
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  gpsd::util::charToHex(this, a2, a3, a4);
+  gpsd::util::charToHex(a4, this, a2, a3);
 }
 
 void gpsd::util::logBinaryBytes(gpsd::util *this, const unsigned __int8 *a2, uint64_t a3, const char *a4)
@@ -4423,7 +3849,7 @@ void gpsd::util::logBinaryBytes(gpsd::util *this, const unsigned __int8 *a2, uin
           v10 = v8;
         }
 
-        gpsd::util::charToHex((this + v7), v10, 0, &__p);
+        gpsd::util::charToHex(&__p, (this + v7), v10, 0);
         p_p = &__p;
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
@@ -4744,7 +4170,7 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
   v67[66] = v28;
   v66[67] = @"GlonassPerFrequencyGroupDelayMeters";
   v29 = GpsdPlatformInfo::instance(0);
-  GpsdPlatformInfo::glonassPerFrequencyGroupDelayMeters(v29, __p);
+  GpsdPlatformInfo::glonassPerFrequencyGroupDelayMeters(__p, v29);
   v30 = vectorToNSArray(__p);
   v67[67] = v30;
   v66[68] = @"RavenExpected";
@@ -4989,7 +4415,7 @@ _DWORD *GpsdPreferences::setMode(int a1)
   return result;
 }
 
-void GpsdPreferences::vendorLogDirectory(GpsdPreferences *this@<X0>, _BYTE *a2@<X8>)
+void GpsdPreferences::vendorLogDirectory(GpsdPreferences *this@<X0>, void *a2@<X8>)
 {
   v3 = *this;
   if (*this > 2)
@@ -5029,10 +4455,10 @@ LABEL_13:
   std::string::basic_string[abi:ne200100]<0>(a2, [v5 UTF8String]);
 }
 
-void GpsdPreferences::vendorLogDirectoryAssumingGpsd(_BYTE *a1@<X8>)
+void GpsdPreferences::vendorLogDirectoryAssumingGpsd(void *a1@<X8>)
 {
-  v3 = [fDefaults stringForKey:@"VendorLogDirectory"];
-  std::string::basic_string[abi:ne200100]<0>(a1, [v3 UTF8String]);
+  v2 = [fDefaults stringForKey:@"VendorLogDirectory"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
 }
 
 id GpsdPreferences::vendorLogPrefixWithTimestamp(GpsdPreferences *this)
@@ -5048,7 +4474,7 @@ id GpsdPreferences::vendorLogPrefixWithTimestamp(GpsdPreferences *this)
   }
 }
 
-id GpsdPreferences::vendorLogMaxDirectorySizeMB(GpsdPreferences *this)
+unint64_t GpsdPreferences::vendorLogMaxDirectorySizeMB(GpsdPreferences *this)
 {
   v1 = [fDefaults integerForKey:@"VendorLogMaxDirectorySizeMB"];
   if (![fDefaults BOOLForKey:@"VendorLogQA"])
@@ -5093,7 +4519,7 @@ uint64_t GpsdPreferences::vendorLogRotationSizeMB(GpsdPreferences *this)
   }
 }
 
-id GpsdPreferences::vendorLogMaxNumberOfFiles(GpsdPreferences *this)
+unint64_t GpsdPreferences::vendorLogMaxNumberOfFiles(GpsdPreferences *this)
 {
   v1 = [fDefaults integerForKey:@"VendorLogMaxNumberOfFiles"];
   if (![fDefaults BOOLForKey:@"VendorLogQA"])
@@ -5113,10 +4539,10 @@ id GpsdPreferences::vendorLogMaxNumberOfFiles(GpsdPreferences *this)
   }
 }
 
-void GpsdPreferences::forceGnssDeviceLibraryName(_BYTE *a1@<X8>)
+void GpsdPreferences::forceGnssDeviceLibraryName(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = [fDefaults stringForKey:@"ForceGnssDeviceLibraryName"];
-  std::string::basic_string[abi:ne200100]<0>(a1, [v3 UTF8String]);
+  v2 = [fDefaults stringForKey:@"ForceGnssDeviceLibraryName"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
 }
 
 uint64_t integerToHalLogLevel(unsigned int a1)
@@ -5209,28 +4635,28 @@ uint64_t GpsdPreferences::maxSchedulerQos(GpsdPreferences *this)
   }
 }
 
-void GpsdPreferences::protobufLogDirectory(_BYTE *a1@<X8>)
+void GpsdPreferences::protobufLogDirectory(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = [fDefaults stringForKey:@"ProtobufLogDirectory"];
-  std::string::basic_string[abi:ne200100]<0>(a1, [v3 UTF8String]);
+  v2 = [fDefaults stringForKey:@"ProtobufLogDirectory"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
 }
 
-void GpsdPreferences::nvStorePath(GpsdPreferences *this@<X0>, _BYTE *a2@<X8>)
+void GpsdPreferences::nvStorePath(uint64_t *__return_ptr a1@<X8>, GpsdPreferences *this@<X0>)
 {
   v4 = [fDefaults stringForKey:@"DatabasePath"];
   v5 = v4;
   if (v4)
   {
-    std::string::basic_string[abi:ne200100]<0>(a2, [v4 UTF8String]);
+    std::string::basic_string[abi:ne200100]<0>(a1, [v4 UTF8String]);
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(a2, (&off_10017BC68)[*this]);
+    std::string::basic_string[abi:ne200100]<0>(a1, (&off_10017BC68)[*this]);
   }
 }
 
-void GpsdPreferences::nvStoreFile(GpsdPreferences *this@<X0>, _BYTE *a2@<X8>)
+void GpsdPreferences::nvStoreFile(GpsdPreferences *this@<X0>, void *a2@<X8>)
 {
   v3 = *this;
   if ((*this - 1) < 2)
@@ -5557,10 +4983,10 @@ unint64_t GpsdPreferences::libolafCoexFlagsBitfield(GpsdPreferences *this)
   return v15 | v23 | v19 | v20 | v21 | v16 | v17 | v18 | v13 | v14 | v11 | v12;
 }
 
-void GpsdPreferences::debugSettingsString(_BYTE *a1@<X8>)
+void GpsdPreferences::debugSettingsString(void *a1@<X8>)
 {
-  v3 = [fDefaults stringForKey:@"DebugSettingsString"];
-  std::string::basic_string[abi:ne200100]<0>(a1, [v3 UTF8String]);
+  v2 = [fDefaults stringForKey:@"DebugSettingsString"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
 }
 
 uint64_t GpsdPlatformInfoHardware::detectHardware(GpsdPlatformInfoHardware *this)
@@ -6459,7 +5885,7 @@ unint64_t GpsdHardwareConfig::getEarliestBornYear(GpsdHardwareConfig *this)
   return v9 | v8;
 }
 
-BOOL GpsdPlatformInfo::isGpsdSupported(GpsdPlatformInfo *this)
+uint64_t GpsdPlatformInfo::isGpsdSupported(GpsdPlatformInfo *this)
 {
   v1 = *(this + 2);
   if ((v1 - 201) < 2)
@@ -6501,7 +5927,7 @@ void ___ZN16GpsdPlatformInfo7isPhoneEv_block_invoke(id a1)
   }
 }
 
-void GpsdPlatformInfo::vendorDylibFullPathName(GpsdPlatformInfo *this@<X0>, uint64_t a2@<X8>)
+void GpsdPlatformInfo::vendorDylibFullPathName(GpsdPlatformInfo *this@<X0>, void *a2@<X8>)
 {
   v3 = *(this + 2);
   if ((v3 - 201) <= 1)
@@ -6545,8 +5971,8 @@ LABEL_11:
   }
 
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
 }
 
 BOOL GpsdPlatformInfo::isLibgll6(GpsdPlatformInfo *this)
@@ -6680,7 +6106,7 @@ double GpsdPlatformInfo::externalToChipL5GroupDelayMeters(GpsdPlatformInfo *this
   return result;
 }
 
-void GpsdPlatformInfo::glonassPerFrequencyGroupDelayMeters(GpsdPlatformInfo *this@<X0>, void *a2@<X8>)
+void GpsdPlatformInfo::glonassPerFrequencyGroupDelayMeters(uint64_t *__return_ptr a1@<X8>, GpsdPlatformInfo *this@<X0>)
 {
   v3 = *(this + 2);
   if (v3 == 107)
@@ -6701,10 +6127,10 @@ void GpsdPlatformInfo::glonassPerFrequencyGroupDelayMeters(GpsdPlatformInfo *thi
     *(&v19 + 1) = v4 + -520.569214 + 0.1;
     *&v20 = *(&v19 + 1);
     *(&v20 + 1) = *(&v19 + 1);
-    a2[1] = 0;
-    a2[2] = 0;
-    *a2 = 0;
-    std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>();
+    a1[1] = 0;
+    a1[2] = 0;
+    *a1 = 0;
+    std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(a1, &v14, v21);
   }
 
   if ((v3 - 301) > 1)
@@ -6746,10 +6172,10 @@ LABEL_20:
     v12 = v9[3];
     v16 = v9[2];
     v17 = v12;
-    a2[1] = 0;
-    a2[2] = 0;
-    *a2 = 0;
-    std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>();
+    a1[1] = 0;
+    a1[2] = 0;
+    *a1 = 0;
+    std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(a1, &v14, v21);
   }
 
   if (v6 == 31611)
@@ -6773,9 +6199,9 @@ LABEL_18:
   }
 
 LABEL_23:
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
 }
 
 double GpsdPlatformInfo::getNonAsicPowerParameters(GpsdPlatformInfo *this)
@@ -6818,7 +6244,7 @@ double GpsdPlatformInfo::getNonAsicPowerParameters(GpsdPlatformInfo *this)
   return result;
 }
 
-BOOL GpsdPlatformInfo::usesPcie(GpsdPlatformInfo *this)
+uint64_t GpsdPlatformInfo::usesPcie(GpsdPlatformInfo *this)
 {
   v1 = *(this + 2);
   v2 = v1 - 301;
@@ -6826,7 +6252,7 @@ BOOL GpsdPlatformInfo::usesPcie(GpsdPlatformInfo *this)
   return v2 < 2 || v3;
 }
 
-BOOL GpsdPlatformInfo::usesResetGpio(GpsdPlatformInfo *this)
+uint64_t GpsdPlatformInfo::usesResetGpio(GpsdPlatformInfo *this)
 {
   v1 = *(this + 2);
   v2 = v1 == 201;
@@ -6838,7 +6264,7 @@ BOOL GpsdPlatformInfo::usesResetGpio(GpsdPlatformInfo *this)
   return v1 == 103 || v2;
 }
 
-BOOL GpsdPlatformInfo::usesTimeMarkGpio(GpsdPlatformInfo *this)
+uint64_t GpsdPlatformInfo::usesTimeMarkGpio(GpsdPlatformInfo *this)
 {
   v1 = *(this + 2);
   v2 = v1 == 201;
@@ -6850,7 +6276,7 @@ BOOL GpsdPlatformInfo::usesTimeMarkGpio(GpsdPlatformInfo *this)
   return v1 == 103 || v2;
 }
 
-BOOL GpsdPlatformInfo::usesAsyncCommRead(GpsdPlatformInfo *this)
+uint64_t GpsdPlatformInfo::usesAsyncCommRead(GpsdPlatformInfo *this)
 {
   v1 = *(this + 2);
   v2 = v1 - 301;
@@ -6858,7 +6284,7 @@ BOOL GpsdPlatformInfo::usesAsyncCommRead(GpsdPlatformInfo *this)
   return v2 < 2 || v3;
 }
 
-BOOL GpsdPlatformInfo::usesTimeMarkPciDoorbell(GpsdPlatformInfo *this)
+uint64_t GpsdPlatformInfo::usesTimeMarkPciDoorbell(GpsdPlatformInfo *this)
 {
   v1 = *(this + 2);
   v2 = v1 - 301;
@@ -6866,7 +6292,7 @@ BOOL GpsdPlatformInfo::usesTimeMarkPciDoorbell(GpsdPlatformInfo *this)
   return v2 < 2 || v3;
 }
 
-BOOL GpsdPlatformInfo::usesGpio(GpsdPlatformInfo *this)
+uint64_t GpsdPlatformInfo::usesGpio(GpsdPlatformInfo *this)
 {
   v1 = *(this + 2);
   v2 = v1 == 201;
@@ -7106,44 +6532,43 @@ unint64_t GpsdPlatformInfo::getNoiseFigure(uint64_t a1, int a2)
   return v7 | v6;
 }
 
-void GpsdPlatformInfo::readMlbSerialNumber(std::string *a1@<X8>)
+void GpsdPlatformInfo::readMlbSerialNumber(std::string *__return_ptr a1@<X8>)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
-  v3 = MGCopyAnswer();
-  v4 = v3;
-  if (v3)
+  v2 = MGCopyAnswer();
+  v3 = v2;
+  if (v2)
   {
-    CStringPtr = CFStringGetCStringPtr(v3, 0x8000100u);
+    CStringPtr = CFStringGetCStringPtr(v2, 0x8000100u);
     std::string::assign(a1, CStringPtr);
-    CFRelease(v4);
-    v6 = GpsdLogObjectGeneral;
+    CFRelease(v3);
+    v5 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
     {
       if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v7 = a1;
+        v6 = a1;
       }
 
       else
       {
-        v7 = a1->__r_.__value_.__r.__words[0];
+        v6 = a1->__r_.__value_.__r.__words[0];
       }
 
-      v9 = 136380675;
-      v10 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "MlbSn,%{private}s", &v9, 0xCu);
+      v8 = 136380675;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "MlbSn,%{private}s", &v8, 0xCu);
     }
   }
 
   else
   {
-    v8 = GpsdLogObjectGeneral;
+    v7 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9) = 0;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MlbSn,readSN,failed", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "MlbSn,readSN,failed", &v8, 2u);
     }
   }
 }
@@ -7172,10 +6597,10 @@ void GpsdPlatformInfo::parseWeekFromDomMlbSerialNumber(uint64_t a1, const std::s
     v6 = a2->__r_.__value_.__r.__words[0];
   }
 
-  v7 = v6->__r_.__value_.__r.__words + 3;
+  v7 = &v6->__r_.__value_.__s.__data_[3];
   do
   {
-    v8 = *(v7 + v5);
+    v8 = v7[v5];
     v9 = charToIntBase34(v8);
     if (v9 < 0)
     {
@@ -7593,94 +7018,92 @@ void gpsd::util::triggerDiagnosticReport(gpsd::util *this, const gpsd::util::Dia
     }
 
     v5 = [NSString stringWithUTF8String:v4];
-    v6 = *(this + 3);
     if (*(this + 47) >= 0)
     {
-      v7 = this + 24;
+      v6 = this + 24;
     }
 
     else
     {
-      v7 = *(this + 3);
+      v6 = *(this + 3);
     }
 
-    v8 = [NSString stringWithUTF8String:v7];
-    v9 = *(this + 6);
+    v7 = [NSString stringWithUTF8String:v6];
     if (*(this + 71) >= 0)
     {
-      v10 = this + 48;
+      v8 = this + 48;
     }
 
     else
     {
-      v10 = *(this + 6);
+      v8 = *(this + 6);
     }
 
-    v11 = [NSString stringWithUTF8String:v10];
-    v12 = [v3 signatureWithDomain:@"GPSDaemon" type:v5 subType:v8 subtypeContext:v11 detectedProcess:@"com.apple.gpsd" triggerThresholdValues:0];
+    v9 = [NSString stringWithUTF8String:v8];
+    v10 = [v3 signatureWithDomain:@"GPSDaemon" type:v5 subType:v7 subtypeContext:v9 detectedProcess:@"com.apple.gpsd" triggerThresholdValues:0];
 
-    v13 = GpsdLogObjectGeneral;
+    v11 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       if (*(this + 23) >= 0)
       {
-        v14 = this;
+        v12 = this;
       }
 
       else
       {
-        v14 = *this;
+        v12 = *this;
       }
 
       if (*(this + 47) >= 0)
       {
-        v15 = this + 24;
+        v13 = this + 24;
       }
 
       else
       {
-        v15 = *(this + 3);
+        v13 = *(this + 3);
       }
 
       if (*(this + 71) >= 0)
       {
-        v16 = this + 48;
+        v14 = this + 48;
       }
 
       else
       {
-        v16 = *(this + 6);
+        v14 = *(this + 6);
       }
 
       LODWORD(buf.__m_.__sig) = 136315650;
-      *(&buf.__m_.__sig + 4) = v14;
+      *(&buf.__m_.__sig + 4) = v12;
       *&buf.__m_.__opaque[4] = 2080;
-      *&buf.__m_.__opaque[6] = v15;
+      *&buf.__m_.__opaque[6] = v13;
       *&buf.__m_.__opaque[14] = 2080;
-      *&buf.__m_.__opaque[16] = v16;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#gsdr,type,%s,subtype,%s,context,%s", &buf, 0x20u);
+      *&buf.__m_.__opaque[16] = v14;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#gsdr,type,%s,subtype,%s,context,%s", &buf, 0x20u);
     }
 
-    memset(v36.__cv_.__opaque, 0, sizeof(v36.__cv_.__opaque));
-    v36.__cv_.__sig = 1018212795;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3812000000;
-    v31 = __Block_byref_object_copy__2;
-    v32 = __Block_byref_object_dispose__2;
-    v33 = &unk_100166303;
-    v34 = 0;
+    memset(v34.__cv_.__opaque, 0, sizeof(v34.__cv_.__opaque));
+    v34.__cv_.__sig = 1018212795;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3812000000;
+    v29 = __Block_byref_object_copy__2;
+    v30 = __Block_byref_object_dispose__2;
+    v31 = &unk_100166303;
+    v32 = 0;
     if (*(this + 72) == 1)
     {
       operator new();
     }
 
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = ___ZN4gpsd4util23triggerDiagnosticReportERKNS0_26DiagnosticReportParametersE_block_invoke;
-    v27[3] = &unk_10017BD00;
-    v27[4] = &v28;
-    if ([v3 snapshotWithSignature:v12 duration:0 events:0 payload:0 actions:v27 reply:0.0])
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = ___ZN4gpsd4util23triggerDiagnosticReportERKNS0_26DiagnosticReportParametersE_block_invoke;
+    v25[3] = &unk_10017BD00;
+    v25[4] = &v26;
+    if ([v3 snapshotWithSignature:v10 duration:0 events:0 payload:0 actions:v25 reply:0.0])
     {
       if (*(this + 72) == 1)
       {
@@ -7689,48 +7112,48 @@ void gpsd::util::triggerDiagnosticReport(gpsd::util *this, const gpsd::util::Dia
         __lk.__m_ = &buf;
         __lk.__owns_ = 1;
         std::mutex::lock(&buf);
-        v17 = v29[6];
-        v18.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-        v19.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-        if (v19.__d_.__rep_)
+        v15 = v27[6];
+        v16.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+        v17.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+        if (v17.__d_.__rep_)
         {
-          if (v19.__d_.__rep_ < 1)
+          if (v17.__d_.__rep_ < 1)
           {
-            if (v19.__d_.__rep_ >= 0xFFDF3B645A1CAC09)
+            if (v17.__d_.__rep_ >= 0xFFDF3B645A1CAC09)
             {
-              v20.__d_.__rep_ = 1000 * v19.__d_.__rep_ + 5000000000;
+              v18.__d_.__rep_ = 1000 * v17.__d_.__rep_ + 5000000000;
             }
 
             else
             {
-              v20.__d_.__rep_ = 0x800000012A05F200;
+              v18.__d_.__rep_ = 0x800000012A05F200;
             }
           }
 
-          else if (v19.__d_.__rep_ < 0x20C49BA59708B8)
+          else if (v17.__d_.__rep_ < 0x20C49BA59708B8)
           {
-            v20.__d_.__rep_ = 1000 * v19.__d_.__rep_ + 5000000000;
+            v18.__d_.__rep_ = 1000 * v17.__d_.__rep_ + 5000000000;
           }
 
           else
           {
-            v20.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
+            v18.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
           }
         }
 
         else
         {
-          v20.__d_.__rep_ = 5000000000;
+          v18.__d_.__rep_ = 5000000000;
         }
 
-        std::condition_variable::__do_timed_wait(v17, &__lk, v20);
-        if (std::chrono::steady_clock::now().__d_.__rep_ - v18.__d_.__rep_ > 0x12A05F1FFLL)
+        std::condition_variable::__do_timed_wait(v15, &__lk, v18);
+        if (std::chrono::steady_clock::now().__d_.__rep_ - v16.__d_.__rep_ > 0x12A05F1FFLL)
         {
-          v22 = GpsdLogObjectGeneral;
+          v20 = GpsdLogObjectGeneral;
           if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
           {
-            *v25 = 0;
-            _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "#gsdr,wait timeout", v25, 2u);
+            *v23 = 0;
+            _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "#gsdr,wait timeout", v23, 2u);
           }
         }
 
@@ -7745,35 +7168,35 @@ void gpsd::util::triggerDiagnosticReport(gpsd::util *this, const gpsd::util::Dia
 
     else
     {
-      v21 = GpsdLogObjectGeneral;
+      v19 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.__m_.__sig) = 0;
-        _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "#gsdr,return failure", &buf, 2u);
+        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "#gsdr,return failure", &buf, 2u);
       }
     }
 
-    v23 = GpsdLogObjectGeneral;
+    v21 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.__m_.__sig) = 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "#gsdr,exit", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#gsdr,exit", &buf, 2u);
     }
 
-    _Block_object_dispose(&v28, 8);
-    v24 = v34;
-    v34 = 0;
-    if (v24)
+    _Block_object_dispose(&v26, 8);
+    v22 = v32;
+    v32 = 0;
+    if (v22)
     {
-      std::condition_variable::~condition_variable(v24);
+      std::condition_variable::~condition_variable(v22);
       operator delete();
     }
 
-    std::condition_variable::~condition_variable(&v36);
+    std::condition_variable::~condition_variable(&v34);
   }
 }
 
-void sub_1001171DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::mutex *a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_1001171DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::mutex *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   std::mutex::~mutex(&a25);
   _Block_object_dispose(&a18, 8);
@@ -8195,7 +7618,7 @@ NSObject **GpsdDaemonManager::GpsdDaemonManager(NSObject **a1, uint64_t a2, disp
   return a1;
 }
 
-void GpsdDaemonManager::init(uint64_t a1, uint64_t a2)
+void GpsdDaemonManager::init(void *a1, uint64_t a2)
 {
   v3 = GpsdPreferences::instance(0);
   if (GpsdPreferences::useLegacyLibXpc(v3))
@@ -8237,7 +7660,7 @@ void GpsdDaemonManager::init(uint64_t a1, uint64_t a2)
   __assert_rtn("init", "GpsdDaemonManager.cpp", 72, "false && GpsdDaemonManager,fIndicationCallback,nullptr");
 }
 
-void sub_1001183C8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, char a45)
+void sub_1001183C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, char a45)
 {
   std::__function::__value_func<void ()(std::vector<unsigned char> &&)>::~__value_func[abi:ne200100](&a45);
   std::__function::__value_func<void ()(std::vector<unsigned char> &&)>::~__value_func[abi:ne200100](v45 - 112);
@@ -9103,7 +8526,7 @@ uint64_t std::__function::__func<instanceDaemon(void)::$_0,std::allocator<instan
   }
 }
 
-void GpsdGnssDeviceHelper::handleRequest(uint64_t **a1, uint64_t a2, uint64_t a3)
+void GpsdGnssDeviceHelper::handleRequest(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a2 + 20);
   switch(v3)
@@ -9234,14 +8657,14 @@ LABEL_26:
   }
 }
 
-void sub_10011A3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10011A3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t GpsdGnssDeviceHelper::injectAssistancePosition(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::injectAssistancePosition(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 396) & 8) != 0)
   {
@@ -9269,7 +8692,7 @@ uint64_t GpsdGnssDeviceHelper::injectAssistancePosition(uint64_t **a1, uint64_t 
   }
 }
 
-uint64_t GpsdGnssDeviceHelper::injectAssistanceTime(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::injectAssistanceTime(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 396) & 0x10) != 0)
   {
@@ -9327,14 +8750,14 @@ LABEL_10:
   return std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceAccel(uint64_t a1, uint64_t a2, uint64_t a3)
+void GpsdGnssDeviceHelper::setAssistanceAccel(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 396) & 0x40) != 0)
   {
     operator new();
   }
 
-  return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
 void sub_10011A8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -9350,14 +8773,14 @@ void sub_10011A8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceGyro(uint64_t a1, uint64_t a2, uint64_t a3)
+void GpsdGnssDeviceHelper::setAssistanceGyro(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 396) & 0x80) != 0)
   {
     operator new();
   }
 
-  return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
 void sub_10011AA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -9373,7 +8796,7 @@ void sub_10011AA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceDem(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::setAssistanceDem(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 397))
   {
@@ -9431,7 +8854,7 @@ LABEL_10:
   return std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceMapVector(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::setAssistanceMapVector(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 397) & 2) != 0)
   {
@@ -9459,7 +8882,7 @@ uint64_t GpsdGnssDeviceHelper::setAssistanceMapVector(uint64_t **a1, uint64_t a2
   }
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceMotionActivityContext(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::setAssistanceMotionActivityContext(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 397) & 4) != 0)
   {
@@ -9487,7 +8910,7 @@ uint64_t GpsdGnssDeviceHelper::setAssistanceMotionActivityContext(uint64_t **a1,
   }
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceMountState(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::setAssistanceMountState(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 397) & 8) != 0)
   {
@@ -9541,7 +8964,7 @@ uint64_t GpsdGnssDeviceHelper::setAssistanceMountState(uint64_t **a1, uint64_t a
   }
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceSignalEnvironment(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::setAssistanceSignalEnvironment(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 397) & 0x10) != 0)
   {
@@ -9578,7 +9001,7 @@ uint64_t GpsdGnssDeviceHelper::setAssistanceSignalEnvironment(uint64_t **a1, uin
   }
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceSpeedConstraint(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::setAssistanceSpeedConstraint(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 397) & 0x20) != 0)
   {
@@ -9649,7 +9072,7 @@ LABEL_15:
   return std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
-uint64_t GpsdGnssDeviceHelper::setAssistanceAlongTrackVelocity(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t GpsdGnssDeviceHelper::setAssistanceAlongTrackVelocity(uint8_t ***a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 397) & 0x40) != 0)
   {
@@ -9707,14 +9130,14 @@ LABEL_10:
   return std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
-uint64_t GpsdGnssDeviceHelper::injectAssistanceFile(uint64_t a1, uint64_t a2, uint64_t a3)
+void GpsdGnssDeviceHelper::injectAssistanceFile(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 397) & 0x80) != 0)
   {
     operator new();
   }
 
-  return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
 void sub_10011B4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -9730,12 +9153,616 @@ void sub_10011B4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t GpsdGnssDeviceHelper::injectRtiFile(uint64_t a1, uint64_t a2, uint64_t a3)
+void GpsdGnssDeviceHelper::injectRtiFile(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 398))
   {
     operator new();
   }
 
-  return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  std::function<void ()(gnss::Result)>::operator()(a3, 4);
+}
+
+void sub_10011B6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v10 - 72);
+  v12 = a10;
+  a10 = 0;
+  if (v12)
+  {
+    std::default_delete<cproto::gpsd::InjectRavenOrbitFile>::operator()[abi:ne200100](&a10, v12);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t GpsdGnssDeviceHelper::deleteGnssData(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 398) & 4) != 0)
+  {
+    v13 = 0;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v6 = 0u;
+    HIDWORD(v6) = 5;
+    v4 = *(a2 + 144);
+    if (!v4)
+    {
+      v4 = *(proto::gpsd::Request::default_instance_ + 144);
+    }
+
+    if (*(v4 + 20))
+    {
+      *&v7 = *(v4 + 8);
+    }
+
+    v5 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v14, a3);
+    GnssDeviceManager::pushRequest(v5, &v6, v14);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v14);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+uint64_t GpsdGnssDeviceHelper::setPvtmReport(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 398) & 8) != 0)
+  {
+    v10 = 0;
+    memset(v9, 0, sizeof(v9));
+    v8 = 0u;
+    HIDWORD(v8) = 6;
+    v6 = *(a2 + 152);
+    if (!v6)
+    {
+      v6 = *(proto::gpsd::Request::default_instance_ + 152);
+    }
+
+    ProtobufUtil::convert::cpbSetPvtmReport(v6, v9);
+    v7 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v11, a3);
+    GnssDeviceManager::pushRequest(v7, &v8, v11);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v11);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+uint64_t GpsdGnssDeviceHelper::setNmeaHandler(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 398) & 0x10) != 0)
+  {
+    v13 = 0;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v6 = 0u;
+    HIDWORD(v6) = 7;
+    v4 = *(a2 + 160);
+    if (!v4)
+    {
+      v4 = *(proto::gpsd::Request::default_instance_ + 160);
+    }
+
+    if (*(v4 + 20))
+    {
+      *&v7 = *(v4 + 8);
+    }
+
+    v5 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v14, a3);
+    GnssDeviceManager::pushRequest(v5, &v6, v14);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v14);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+uint64_t GpsdGnssDeviceHelper::setConfigSimulatorMode(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 398) & 0x20) != 0)
+  {
+    v14 = 0;
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v7 = 0u;
+    HIDWORD(v7) = 24;
+    v4 = *(a2 + 168);
+    if (!v4)
+    {
+      v4 = *(proto::gpsd::Request::default_instance_ + 168);
+    }
+
+    v5 = *(v4 + 20);
+    if (v5)
+    {
+      LOBYTE(v8) = *(v4 + 8);
+    }
+
+    if ((v5 & 2) != 0)
+    {
+      DWORD1(v8) = *(v4 + 12);
+    }
+
+    v6 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
+    GnssDeviceManager::pushRequest(v6, &v7, v15);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+uint64_t GpsdGnssDeviceHelper::setConfigEnableGnssConstellations(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 398) & 0x40) != 0)
+  {
+    v14 = 0;
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v7 = 0u;
+    HIDWORD(v7) = 25;
+    v4 = *(a2 + 176);
+    if (!v4)
+    {
+      v4 = *(proto::gpsd::Request::default_instance_ + 176);
+    }
+
+    v5 = v4[5];
+    if (v5)
+    {
+      LODWORD(v8) = v4[2];
+    }
+
+    if ((v5 & 2) != 0)
+    {
+      DWORD1(v8) = v4[3];
+    }
+
+    v6 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
+    GnssDeviceManager::pushRequest(v6, &v7, v15);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+uint64_t GpsdGnssDeviceHelper::setConfigDutyCycling(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 398) & 0x80) != 0)
+  {
+    v13 = 0;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v6 = 0u;
+    HIDWORD(v6) = 26;
+    v4 = *(a2 + 184);
+    if (!v4)
+    {
+      v4 = *(proto::gpsd::Request::default_instance_ + 184);
+    }
+
+    if (*(v4 + 16))
+    {
+      LOBYTE(v7) = *(v4 + 8);
+    }
+
+    v5 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v14, a3);
+    GnssDeviceManager::pushRequest(v5, &v6, v14);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v14);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+uint64_t GpsdGnssDeviceHelper::setThermalRiskState(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 399) & 0x10) != 0)
+  {
+    v14 = 0;
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v7 = 0u;
+    HIDWORD(v7) = 31;
+    v4 = *(a2 + 224);
+    if (!v4)
+    {
+      v4 = *(proto::gpsd::Request::default_instance_ + 224);
+    }
+
+    v5 = *(v4 + 24);
+    if (v5)
+    {
+      *&v8 = *(v4 + 8);
+    }
+
+    if ((v5 & 2) != 0)
+    {
+      DWORD2(v8) = *(v4 + 16);
+    }
+
+    v6 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
+    GnssDeviceManager::pushRequest(v6, &v7, v15);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+uint64_t GpsdGnssDeviceHelper::setConfigRfBandEnable(uint8_t ***a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 399) & 0x20) != 0)
+  {
+    v14 = 0;
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v7 = 0u;
+    HIDWORD(v7) = 38;
+    v4 = *(a2 + 232);
+    if (!v4)
+    {
+      v4 = *(proto::gpsd::Request::default_instance_ + 232);
+    }
+
+    v5 = *(v4 + 16);
+    if (v5)
+    {
+      LOBYTE(v8) = *(v4 + 8);
+    }
+
+    if ((v5 & 2) != 0)
+    {
+      BYTE1(v8) = *(v4 + 9);
+    }
+
+    v6 = **a1;
+    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
+    GnssDeviceManager::pushRequest(v6, &v7, v15);
+    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
+  }
+
+  else
+  {
+
+    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
+  }
+}
+
+void GpsdGnssDeviceHelper::injectRavenOrbitFile(uint64_t **a1, uint64_t a2, uint64_t a3)
+{
+  if ((*(a2 + 399) & 0x40) != 0)
+  {
+    operator new();
+  }
+
+  std::function<void ()(gnss::Result)>::operator()(a3, 4);
+}
+
+void sub_10011C1C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v10 - 72);
+  v12 = a10;
+  a10 = 0;
+  if (v12)
+  {
+    std::default_delete<cproto::gpsd::InjectRavenOrbitFile>::operator()[abi:ne200100](&a10, v12);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+GpsdAbmUtil *GpsdAbmUtil::GpsdAbmUtil(GpsdAbmUtil *a1, uint64_t a2)
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](a1 + 24, a2);
+  v3 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#gpsdAbm,ctor begin", buf, 2u);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(v32, "com.apple.gpsd.AbmQueue");
+  v4 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
+  if (!v4)
+  {
+    v5 = GpsdLogObjectWarning;
+    if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v32;
+      if (v33 < 0)
+      {
+        v6 = v32[0];
+      }
+
+      *buf = 136446210;
+      *&buf[4] = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#gpsdAbm,nullattr,%{public}s", buf, 0xCu);
+    }
+  }
+
+  if (v33 >= 0)
+  {
+    v7 = v32;
+  }
+
+  else
+  {
+    v7 = v32[0];
+  }
+
+  v8 = dispatch_queue_create(v7, v4);
+  *(a1 + 2) = v8;
+  if (!v8)
+  {
+    v13 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      v14 = v32;
+      if (v33 < 0)
+      {
+        v14 = v32[0];
+      }
+
+      *buf = 136446210;
+      *&buf[4] = v14;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "#gpsdAbm,queue,null,%{public}s", buf, 0xCu);
+      v13 = GpsdLogObjectGeneral;
+    }
+
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAbmUtil.cpp";
+      v35 = 1026;
+      v36 = 29;
+      v37 = 2082;
+      v38 = "GpsdAbmUtil";
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v30, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v28, "GpsdAbmUtil");
+    std::string::basic_string[abi:ne200100]<0>(__p, "#gpsdAbm,queue,null,%{public}s");
+    gpsd::util::triggerDiagnosticReport(v30, v28, __p);
+    if (v27 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (v29 < 0)
+    {
+      operator delete(v28[0]);
+    }
+
+    v15 = "false && #gpsdAbm,queue,null,%{public}s";
+    v16 = 29;
+    if (v31 < 0)
+    {
+      v17 = v30;
+LABEL_45:
+      operator delete(*v17);
+    }
+
+LABEL_46:
+    __assert_rtn("GpsdAbmUtil", "GpsdAbmUtil.cpp", v16, v15);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(buf, "com.apple.gpsd.Abm");
+  abm::client::CreateManager();
+  v9 = v25;
+  v25 = 0uLL;
+  v10 = *(a1 + 1);
+  *a1 = v9;
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    if (*(&v25 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v25 + 1));
+    }
+  }
+
+  if (SBYTE3(v38) < 0)
+  {
+    operator delete(*buf);
+  }
+
+  if (!*a1)
+  {
+    v18 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "#gpsdAbm,abmManager,null,com.apple.gpsd.Abm", buf, 2u);
+      v18 = GpsdLogObjectGeneral;
+    }
+
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAbmUtil.cpp";
+      v35 = 1026;
+      v36 = 33;
+      v37 = 2082;
+      v38 = "GpsdAbmUtil";
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v23, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v21, "GpsdAbmUtil");
+    std::string::basic_string[abi:ne200100]<0>(v19, "#gpsdAbm,abmManager,null,com.apple.gpsd.Abm");
+    gpsd::util::triggerDiagnosticReport(v23, v21, v19);
+    if (v20 < 0)
+    {
+      operator delete(v19[0]);
+    }
+
+    if (v22 < 0)
+    {
+      operator delete(v21[0]);
+    }
+
+    v15 = "false && #gpsdAbm,abmManager,null,com.apple.gpsd.Abm";
+    v16 = 33;
+    if (v24 < 0)
+    {
+      v17 = v23;
+      goto LABEL_45;
+    }
+
+    goto LABEL_46;
+  }
+
+  GpsdAbmUtil::registerForAbmNotifications(a1);
+  v11 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#gpsdAbm, Abm Manager Created, Notifications registered", buf, 2u);
+  }
+
+  if (v33 < 0)
+  {
+    operator delete(v32[0]);
+  }
+
+  return a1;
+}
+
+void sub_10011C6A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
+{
+  if (*(v48 - 73) < 0)
+  {
+    operator delete(*(v48 - 96));
+  }
+
+  if (*(v48 - 97) < 0)
+  {
+    operator delete(*(v48 - 120));
+  }
+
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v47 + 24);
+  v50 = *(v47 + 8);
+  if (v50)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void GpsdAbmUtil::registerForAbmNotifications(GpsdAbmUtil *this)
+{
+  v2 = *(this + 1);
+  v9 = *this;
+  v10 = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(v7, abm::kEventTraceDumpStateBegin);
+  abm::client::RegisterEventHandler();
+  if (v8 < 0)
+  {
+    operator delete(v7[0]);
+  }
+
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  v3 = *(this + 1);
+  v6 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(v7, abm::kEventBasebandBootStateChange);
+  abm::client::RegisterEventHandler();
+  if (v8 < 0)
+  {
+    operator delete(v7[0]);
+  }
+
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  v4 = *(this + 1);
+  v5 = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  abm::client::EventsOn();
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
 }

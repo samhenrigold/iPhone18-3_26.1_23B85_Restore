@@ -61,7 +61,7 @@
   v2 = +[NRPairedDeviceRegistry sharedInstance];
   getPairedDevices = [v2 getPairedDevices];
 
-  LOBYTE(v2) = [getPairedDevices count] != 0;
+  LOBYTE(v2) = objc_msgSend_count(getPairedDevices) != 0;
   return v2;
 }
 
@@ -79,45 +79,44 @@
     timer = self->_timer;
     self->_timer = v7;
 
-    v9 = self->_timer;
     dispatch_set_qos_class_fallback();
-    v10 = self->_timer;
+    v9 = self->_timer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100077898;
     handler[3] = &unk_1001B5668;
     handler[4] = self;
-    dispatch_source_set_event_handler(v10, handler);
+    dispatch_source_set_event_handler(v9, handler);
     dispatch_resume(self->_timer);
     out_token = 0;
-    v11 = _CDDComplicationChangeOverCloudNotificationString();
-    uTF8String = [v11 UTF8String];
-    v13 = self->_queue;
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100077A8C;
-    v21[3] = &unk_1001B5B78;
-    v21[4] = self;
-    notify_register_dispatch(uTF8String, &out_token, v13, v21);
+    v10 = _CDDComplicationChangeOverCloudNotificationString();
+    uTF8String = [v10 UTF8String];
+    v12 = self->_queue;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100077A8C;
+    v20[3] = &unk_1001B5B78;
+    v20[4] = self;
+    notify_register_dispatch(uTF8String, &out_token, v12, v20);
 
-    v20 = 0;
-    v14 = _CDDComplicationChangeNotificationString();
-    uTF8String2 = [v14 UTF8String];
-    v16 = self->_queue;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100077AE4;
-    v19[3] = &unk_1001B5B78;
-    v19[4] = self;
-    notify_register_dispatch(uTF8String2, &v20, v16, v19);
-
-    v17 = self->_queue;
+    v19 = 0;
+    v13 = _CDDComplicationChangeNotificationString();
+    uTF8String2 = [v13 UTF8String];
+    v15 = self->_queue;
     v18[0] = _NSConcreteStackBlock;
     v18[1] = 3221225472;
-    v18[2] = sub_100077B3C;
-    v18[3] = &unk_1001B5668;
+    v18[2] = sub_100077AE4;
+    v18[3] = &unk_1001B5B78;
     v18[4] = self;
-    dispatch_sync(v17, v18);
+    notify_register_dispatch(uTF8String2, &v19, v15, v18);
+
+    v16 = self->_queue;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100077B3C;
+    v17[3] = &unk_1001B5668;
+    v17[4] = self;
+    dispatch_sync(v16, v17);
   }
 }
 

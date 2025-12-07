@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_498420();
+  sub_498420(selfCopy);
 }
 
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container
@@ -80,13 +80,13 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  v14 = sub_498CFC(viewCopy);
+  v14 = sub_498CFC(viewCopy, v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -97,7 +97,7 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_AB92A0();
   v15 = v14;
@@ -106,7 +106,7 @@
   kindCopy = kind;
   pathCopy = path;
   selfCopy = self;
-  v20 = sub_499608(viewCopy, v13, v15);
+  v20 = sub_499608(viewCopy, v13, v15, v12);
 
   (*(v10 + 8))(v12, v9);
 
@@ -117,7 +117,7 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -133,7 +133,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -148,7 +148,7 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -175,7 +175,7 @@
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   (*(v6 + 8))(v8, v5);
@@ -186,7 +186,7 @@
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   (*(v6 + 8))(v8, v5);

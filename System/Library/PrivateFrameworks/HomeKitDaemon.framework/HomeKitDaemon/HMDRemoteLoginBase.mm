@@ -79,10 +79,9 @@
 
 void __33__HMDRemoteLoginBase_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_160907;
-  logCategory__hmf_once_v1_160907 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_160907;
+  logCategory__hmf_once_v1_160907 = v0;
 }
 
 @end

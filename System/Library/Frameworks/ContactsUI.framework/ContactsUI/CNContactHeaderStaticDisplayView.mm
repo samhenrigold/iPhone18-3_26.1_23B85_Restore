@@ -366,8 +366,8 @@ LABEL_6:
 
 - (BOOL)canSensitiveContentHelpButtonViewHidePhoto:(id)photo
 {
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v3 = objc_msgSend_contacts(self, a2, photo);
+  firstObject = [v3 firstObject];
   overrideSensitiveContent = [firstObject overrideSensitiveContent];
 
   return overrideSensitiveContent;
@@ -406,8 +406,8 @@ LABEL_6:
 
   if (userInterfaceStyle != userInterfaceStyle2)
   {
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v9 = objc_msgSend_contacts(self);
+    firstObject = [v9 firstObject];
     hasBeenPersisted = [firstObject hasBeenPersisted];
 
     if ((hasBeenPersisted & 1) == 0)
@@ -781,8 +781,8 @@ void __70__CNContactHeaderStaticDisplayView__unknownContactActionForGeminiView__
 
 - (void)_assignActionToGeminiView
 {
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v3 = objc_msgSend_contacts(self, a2);
+  firstObject = [v3 firstObject];
   hasBeenPersisted = [firstObject hasBeenPersisted];
 
   if (hasBeenPersisted)
@@ -1198,11 +1198,11 @@ LABEL_12:
   v26.super_class = CNContactHeaderStaticDisplayView;
   [(CNContactHeaderView *)&v26 reloadDataPreservingChanges:changesCopy];
   [(CNContactHeaderStaticDisplayView *)self _assignActionToGeminiView];
-  contacts = [(CNContactHeaderView *)self contacts];
-  v7 = [(CNContactHeaderStaticDisplayView *)self _headerStringForContacts:contacts];
+  v6 = objc_msgSend_contacts(self);
+  v7 = [(CNContactHeaderStaticDisplayView *)self _headerStringForContacts:v6];
 
-  contacts2 = [(CNContactHeaderView *)self contacts];
-  v9 = [(CNContactHeaderStaticDisplayView *)self attributedTaglineForContacts:contacts2];
+  v8 = objc_msgSend_contacts(self);
+  v9 = [(CNContactHeaderStaticDisplayView *)self attributedTaglineForContacts:v8];
 
   _importantString = [(CNContactHeaderStaticDisplayView *)self _importantString];
   [(CNContactHeaderStaticDisplayView *)self _updateImportantLabel];
@@ -1369,7 +1369,7 @@ LABEL_8:
 
   if (allowsPickerActions)
   {
-    featureFlags = [(CNContactHeaderView *)self contacts];
+    featureFlags = objc_msgSend_contacts(self);
     firstObject = [featureFlags firstObject];
     hasBeenPersisted = [firstObject hasBeenPersisted];
   }
@@ -1394,8 +1394,8 @@ LABEL_9:
   [geminiView2 setGeminiResult:resultCopy];
 
   [(CNContactHeaderView *)self setNeedsLabelSizeCalculation:1];
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject2 = [contacts firstObject];
+  v12 = objc_msgSend_contacts(self);
+  firstObject2 = [v12 firstObject];
   hasBeenPersisted2 = [firstObject2 hasBeenPersisted];
 
   if (hasBeenPersisted2)
@@ -1581,8 +1581,8 @@ LABEL_13:
 
 - (void)_updatePhotoView
 {
-  contacts = [(CNContactHeaderView *)self contacts];
-  v6 = v5 <= 1 && (-[CNContactHeaderView contacts](self, "contacts"), v2 = v5 = [contacts count];
+  v8 = objc_msgSend_contacts(self, a2);
+  v6 = v5 <= 1 && (objc_msgSend_contacts(self), v2 = v5 = [v8 count];
   photoView = [(CNContactHeaderView *)self photoView];
   [photoView setHidden:v6];
 
@@ -1706,8 +1706,8 @@ LABEL_13:
   [(CNContactHeaderStaticDisplayView *)self configureSensitiveContentHelpButtonHidden:!visibility];
   if (visibility)
   {
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
 
     sensitiveContentManager = [(CNContactHeaderStaticDisplayView *)self sensitiveContentManager];
     v8 = [sensitiveContentManager shouldShowUIForPosterWithSensitiveContent:1 forContact:firstObject];
@@ -1819,8 +1819,8 @@ LABEL_15:
 - (void)setBlurViewGradient
 {
   v16[1] = *MEMORY[0x1E69E9840];
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v3 = objc_msgSend_contacts(self, a2);
+  firstObject = [v3 firstObject];
   wallpaper = [firstObject wallpaper];
   wallpaperType = [wallpaper wallpaperType];
 
@@ -2735,8 +2735,8 @@ id __53__CNContactHeaderStaticDisplayView_updateConstraints__block_invoke_2(uint
 
   else
   {
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v4 = objc_msgSend_contacts(self);
+    firstObject = [v4 firstObject];
     v6 = [firstObject imageDataAvailable] | v3;
 
     v7 = v6 ^ 1;
@@ -2827,8 +2827,8 @@ LABEL_9:
 
   else
   {
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v8 = objc_msgSend_contacts(self);
+    firstObject = [v8 firstObject];
     wallpaper = [firstObject wallpaper];
     font = [wallpaper font];
 
@@ -2945,15 +2945,15 @@ LABEL_9:
   featureFlags = [currentEnvironment featureFlags];
   v5 = [featureFlags isFeatureEnabled:29];
 
-  if (v5 & 1) != 0 || -[CNContactHeaderView showMonogramsOnly](self, "showMonogramsOnly") || -[CNContactHeaderView isPad](self, "isPad") || (-[CNContactHeaderView delegate](self, "delegate"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 isOrientationPhoneLandscape], v6, (v7) || (-[CNContactHeaderView contacts](self, "contacts"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v9 != 1))
+  if (v5 & 1) != 0 || -[CNContactHeaderView showMonogramsOnly](self, "showMonogramsOnly") || -[CNContactHeaderView isPad](self, "isPad") || (-[CNContactHeaderView delegate](self, "delegate"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 isOrientationPhoneLandscape], v6, (v7) || (objc_msgSend_contacts(self), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v9 != 1))
   {
     LOBYTE(v15) = 0;
   }
 
   else
   {
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v10 = objc_msgSend_contacts(self);
+    firstObject = [v10 firstObject];
 
     v12 = *MEMORY[0x1E6996540];
     wallpaper = [firstObject wallpaper];
@@ -3025,8 +3025,8 @@ LABEL_9:
 - (id)imageDataForColorFetchingIsImageDataOrThumbnail:(BOOL *)thumbnail bitmapFormat:(id *)format
 {
   MmappedBitmapContext = self;
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v7 = objc_msgSend_contacts(self, a2);
+  firstObject = [v7 firstObject];
 
   if ([firstObject isKeyAvailable:*MEMORY[0x1E695C400]])
   {
@@ -3255,13 +3255,13 @@ uint64_t __85__CNContactHeaderStaticDisplayView_assignImageColorsToAvatarBackgro
   if (![(CNContactHeaderStaticDisplayView *)self shouldShowPoster])
   {
     [(CNContactHeaderStaticDisplayView *)self setPosterViewHidden:1];
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v8 = objc_msgSend_contacts(self);
+    firstObject = [v8 firstObject];
     backgroundColors = [firstObject backgroundColors];
     contactImage = [backgroundColors contactImage];
 
-    contacts2 = [(CNContactHeaderView *)self contacts];
-    firstObject2 = [contacts2 firstObject];
+    v12 = objc_msgSend_contacts(self);
+    firstObject2 = [v12 firstObject];
     identifier = [firstObject2 identifier];
 
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -3592,8 +3592,8 @@ void __101__CNContactHeaderStaticDisplayView_assignSnapshotImageToPosterView_con
     blurView = [(CNContactHeaderStaticDisplayView *)self blurView];
     [blurView setHidden:0];
 
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v8 = objc_msgSend_contacts(self);
+    firstObject = [v8 firstObject];
 
     identifier = [firstObject identifier];
     currentlyDisplayedPosterContactIdentifier = [(CNContactHeaderStaticDisplayView *)self currentlyDisplayedPosterContactIdentifier];
@@ -3911,10 +3911,11 @@ void __57__CNContactHeaderStaticDisplayView_updatePosterViewImage__block_invoke(
 
 - (void)didFinishUsing
 {
+  v2 = sStaticDisplayContactHeaderView;
   if (sStaticDisplayContactHeaderView == self)
   {
     sStaticDisplayContactHeaderView = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, v2);
   }
 }
 

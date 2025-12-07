@@ -91,16 +91,16 @@
   {
     safari_sortedArrayUsingFinderLikeSorting = [v14 safari_sortedArrayUsingFinderLikeSorting];
     _dialogController = [self _dialogController];
-    v18 = [MEMORY[0x1E69B1B00] webExtensionPermissionDialogWithExtension:v13 domains:safari_sortedArrayUsingFinderLikeSorting showMoreOptionsForAlwaysAllow:a6 includeDenyButton:a7 completionHandler:v15];
-    [_dialogController presentDialog:v18];
+    v19 = [MEMORY[0x1E69B1B00] webExtensionPermissionDialogWithExtension:v13 domains:safari_sortedArrayUsingFinderLikeSorting showMoreOptionsForAlwaysAllow:a6 includeDenyButton:a7 completionHandler:v15];
+    [_dialogController presentDialog:v19];
   }
 
   else
   {
-    v19 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = WBS_LOG_CHANNEL_PREFIXWebExtensions(0, v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [SFWebExtensionsController(SafariServicesExtras) showAccessRequestDialogForExtension:v19 domains:? callingAPIName:? showMoreOptionsForAlwaysAllow:? includeDenyButton:? responseBlock:?];
+      [SFWebExtensionsController(SafariServicesExtras) showAccessRequestDialogForExtension:v20 domains:? callingAPIName:? showMoreOptionsForAlwaysAllow:? includeDenyButton:? responseBlock:?];
     }
   }
 }

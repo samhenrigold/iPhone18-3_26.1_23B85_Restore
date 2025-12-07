@@ -6,10 +6,15 @@
 - (id)_passcodeStringFromPasscodeData:(id)data;
 - (id)_retrieveUnlockOnlyPasscode;
 - (id)_sendProtobuf:(id)protobuf reliably:(BOOL)reliably expectsResponse:(BOOL)response responseIdentifier:(id)identifier error:(id *)error;
+- (id)_sendRequest:(unsigned __int16)request data:(id)data reliably:(BOOL)reliably expectResponse:(BOOL)response handler:(id)handler error:(id *)error;
 - (id)errorHandlerForRequest:(id)request;
 - (id)responseHandlerForRequestMessageID:(id)d;
 - (void)_logProtobuf:(id)protobuf;
 - (void)_logResponse:(id)response;
+- (void)_notifyCurrentStateReliably:(BOOL)reliably completionHandler:(id)handler;
+- (void)_notifyPairResult:(BOOL)result error:(id)error handler:(id)handler;
+- (void)_sendResponse:(unsigned __int16)response toRequestID:(id)d data:(id)data error:(id *)error;
+- (void)_sendResultOfMessage:(unsigned __int16)message requestID:(id)d success:(BOOL)success error:(id)error;
 - (void)completeEnableOnlyRemoteUnlockWithPasscode:(id)passcode completionHandler:(id)handler;
 - (void)didCompleteRequest:(id)request;
 - (void)didGetPasscodeState:(id)state;
@@ -25,6 +30,7 @@
 - (void)removeErrorHandlerForRequest:(id)request;
 - (void)removeLockout:(id)lockout;
 - (void)removeResponseHandlerForRequestMessageID:(id)d;
+- (void)requestDeviceSetWristDetectionDisabled:(BOOL)disabled completion:(id)completion;
 - (void)requestRemoteDeviceDisableOnlyRemoteUnlock;
 - (void)requestRemoteDeviceRemoteAction:(int64_t)action type:(int64_t)type completionHandler:(id)handler;
 - (void)requestRemoteDeviceRemoveLockout:(id)lockout;
@@ -310,6 +316,102 @@
   }
 }
 
+- (void)_sendResultOfMessage:(unsigned __int16)message requestID:(id)d success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  messageCopy = message;
+  dCopy = d;
+  errorCopy = error;
+  v12 = objc_alloc_init(PUProtoRequestCompleted);
+  v13 = +[PUPasscodeState toProtobuf];
+  [(PUProtoRequestCompleted *)v12 setPasscodeState:v13];
+
+  [(PUProtoRequestCompleted *)v12 setMessageID:messageCopy];
+  [(PUProtoRequestCompleted *)v12 setSuccess:successCopy];
+  if (errorCopy)
+  {
+    v14 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+    [v14 encodeObject:errorCopy forKey:@"error"];
+    encodedData = [v14 encodedData];
+    [(PUProtoRequestCompleted *)v12 setErrorData:encodedData];
+  }
+
+  v16 = pu_log();
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  if (dCopy)
+  {
+    if (v17)
+    {
+      v18 = @"NO";
+      if (successCopy)
+      {
+        v18 = @"YES";
+      }
+
+      v22 = 67109378;
+      v23 = messageCopy;
+      v24 = 2112;
+      v25 = v18;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Sending result of message %i (%@) as RESPONSE", &v22, 0x12u);
+    }
+
+    data = [(PUProtoRequestCompleted *)v12 data];
+    [(PUPeer *)self _sendResponse:203 toRequestID:dCopy data:data error:0];
+  }
+
+  else
+  {
+    if (v17)
+    {
+      v20 = @"NO";
+      if (successCopy)
+      {
+        v20 = @"YES";
+      }
+
+      v22 = 67109378;
+      v23 = messageCopy;
+      v24 = 2112;
+      v25 = v20;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Sending result of message %i (%@) as REQUEST", &v22, 0x12u);
+    }
+
+    data = [(PUProtoRequestCompleted *)v12 data];
+    v21 = [(PUPeer *)self _sendRequest:203 data:data reliably:0 expectResponse:0 handler:0 error:0];
+  }
+}
+
+- (id)_sendRequest:(unsigned __int16)request data:(id)data reliably:(BOOL)reliably expectResponse:(BOOL)response handler:(id)handler error:(id *)error
+{
+  responseCopy = response;
+  reliablyCopy = reliably;
+  requestCopy = request;
+  handlerCopy = handler;
+  dataCopy = data;
+  v16 = [[IDSProtobuf alloc] initWithProtobufData:dataCopy type:requestCopy isResponse:0];
+
+  if (handlerCopy)
+  {
+    v17 = [handlerCopy copy];
+    v18 = [NSNumber numberWithUnsignedShort:requestCopy];
+    [(PUPeer *)self setResponseHandler:v17 forRequestMessageID:v18];
+  }
+
+  v19 = [(PUPeer *)self _sendProtobuf:v16 reliably:reliablyCopy expectsResponse:responseCopy responseIdentifier:0 error:error];
+
+  return v19;
+}
+
+- (void)_sendResponse:(unsigned __int16)response toRequestID:(id)d data:(id)data error:(id *)error
+{
+  responseCopy = response;
+  dCopy = d;
+  dataCopy = data;
+  v11 = [[IDSProtobuf alloc] initWithProtobufData:dataCopy type:responseCopy isResponse:1];
+
+  v12 = [(PUPeer *)self _sendProtobuf:v11 reliably:0 expectsResponse:0 responseIdentifier:dCopy error:error];
+}
+
 - (id)_sendProtobuf:(id)protobuf reliably:(BOOL)reliably expectsResponse:(BOOL)response responseIdentifier:(id)identifier error:(id *)error
 {
   responseCopy = response;
@@ -580,6 +682,19 @@ LABEL_14:
     objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
+}
+
+- (void)requestDeviceSetWristDetectionDisabled:(BOOL)disabled completion:(id)completion
+{
+  disabledCopy = disabled;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100003B60;
+  v6[3] = &unk_100018708;
+  disabledCopy2 = disabled;
+  completionCopy = completion;
+  v5 = completionCopy;
+  [PUPasscodeState setWristDetectionDisabled:disabledCopy completion:v6];
 }
 
 - (void)resetDeviceWristDetectionSetting:(id)setting
@@ -857,6 +972,21 @@ LABEL_9:
   return v4;
 }
 
+- (void)_notifyCurrentStateReliably:(BOOL)reliably completionHandler:(id)handler
+{
+  reliablyCopy = reliably;
+  handlerCopy = handler;
+  v7 = +[PUPasscodeState toProtobuf];
+  data = [v7 data];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100004E8C;
+  v11[3] = &unk_100018658;
+  v12 = handlerCopy;
+  v9 = handlerCopy;
+  v10 = [(PUPeer *)self _sendRequest:202 data:data reliably:reliablyCopy expectResponse:0 handler:v11 error:0];
+}
+
 - (void)disableOnlyRemoteUnlockWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -1123,7 +1253,7 @@ LABEL_34:
       v24 = pu_log();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        sub_10000D3E8(&buf + 8);
+        sub_10000D3E8();
       }
 
       v25 = v35;
@@ -1213,12 +1343,11 @@ LABEL_40:
 - (void)didUnlock:(id)unlock
 {
   [(PUPeer *)self _logProtobuf:unlock];
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(PUPeerDelegate *)v5 peerRemoteDeviceDidUnlock:self];
+    [(PUPeerDelegate *)delegate peerRemoteDeviceDidUnlock:self];
   }
 }
 
@@ -1340,6 +1469,38 @@ LABEL_40:
   outgoingResponseIdentifier = [context outgoingResponseIdentifier];
   data = [v8 data];
   [(PUPeer *)self _sendResponse:202 toRequestID:outgoingResponseIdentifier data:data error:0];
+}
+
+- (void)_notifyPairResult:(BOOL)result error:(id)error handler:(id)handler
+{
+  resultCopy = result;
+  errorCopy = error;
+  handlerCopy = handler;
+  v10 = pu_log();
+  v11 = v10;
+  if (resultCopy)
+  {
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "successfully paired for unlocking", v12, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    sub_10000D5D4();
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+    [(PUPeerDelegate *)self->_delegate peer:self didPairForUnlock:resultCopy error:errorCopy];
+  }
+
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, 0, errorCopy);
+  }
 }
 
 @end

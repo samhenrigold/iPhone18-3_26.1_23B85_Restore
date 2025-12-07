@@ -39,7 +39,7 @@
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v138 = *MEMORY[0x1E69E9840];
+  v137 = *MEMORY[0x1E69E9840];
   v6 = *buffer - 324506182;
   if (v6 >= 3)
   {
@@ -109,45 +109,45 @@
     binary = [Property binary];
     uuid = [binary uuid];
 
-    v119 = uuid;
+    v118 = uuid;
     if (uuid)
     {
       v37 = [v19 objectForKeyedSubscript:uuid];
       v38 = v37;
       if (v37)
       {
-        v117 = v37;
+        v116 = v37;
         v38 = v37;
         if ([v37 count])
         {
-          v112 = bufferCopy;
+          v111 = bufferCopy;
           dictionaryCopy = dictionary;
-          v115 = v19;
-          v125 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v38, "count")}];
+          v114 = v19;
+          v124 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v38, "count")}];
+          v131 = 0u;
           v132 = 0u;
           v133 = 0u;
           v134 = 0u;
-          v135 = 0u;
           obj = v38;
-          v39 = [obj countByEnumeratingWithState:&v132 objects:v137 count:16];
+          v39 = [obj countByEnumeratingWithState:&v131 objects:v136 count:16];
           if (v39)
           {
             v41 = v39;
-            v123 = *v133;
+            v122 = *v132;
             do
             {
               v42 = 0;
               do
               {
-                if (*v133 != v123)
+                if (*v132 != v122)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v43 = *(*(&v132 + 1) + 8 * v42);
+                v43 = *(*(&v131 + 1) + 8 * v42);
                 if (v43)
                 {
-                  v44 = objc_getProperty(*(*(&v132 + 1) + 8 * v42), v40, 8, 1);
+                  v44 = objc_getProperty(*(*(&v131 + 1) + 8 * v42), v40, 8, 1);
                 }
 
                 else
@@ -189,13 +189,13 @@
 
                 exclave = [v56 exclave];
                 v58 = [SABinaryLoadInfo binaryLoadInfoWithSegment:v47 loadAddress:loadAddress2 + loadAddress isInKernelAddressSpace:isInKernelAddressSpace exclave:exclave];
-                [v125 addObject:v58];
+                [v124 addObject:v58];
 
                 ++v42;
               }
 
               while (v41 != v42);
-              v59 = [obj countByEnumeratingWithState:&v132 objects:v137 count:16];
+              v59 = [obj countByEnumeratingWithState:&v131 objects:v136 count:16];
               v41 = v59;
             }
 
@@ -215,7 +215,7 @@
           binary3 = [v61 binary];
           uuid2 = [binary3 uuid];
           dictionary = dictionaryCopy;
-          bufferCopy = v112;
+          bufferCopy = v111;
           if (selfa)
           {
             v65 = objc_getProperty(selfa, v63, 8, 1);
@@ -227,13 +227,13 @@
           }
 
           loadAddress3 = [v65 loadAddress];
-          v67 = [v125 copy];
+          v67 = [v124 copy];
           v68 = [SASharedCache sharedCacheWithUUID:uuid2 slide:loadAddress3 binaryLoadInfos:v67];
           sharedCache64Bit = self->_sharedCache64Bit;
           self->_sharedCache64Bit = v68;
 
-          v19 = v115;
-          v38 = v117;
+          v19 = v114;
+          v38 = v116;
         }
       }
     }
@@ -256,34 +256,34 @@
       v78 = v77;
       if (v77 && [v77 count])
       {
-        v116 = v19;
-        v118 = uuid3;
-        v126 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v78, "count")}];
+        v115 = v19;
+        v117 = uuid3;
+        v125 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v78, "count")}];
+        v127 = 0u;
         v128 = 0u;
         v129 = 0u;
         v130 = 0u;
-        v131 = 0u;
-        v114 = v78;
+        v113 = v78;
         obja = v78;
-        v79 = [obja countByEnumeratingWithState:&v128 objects:v136 count:16];
+        v79 = [obja countByEnumeratingWithState:&v127 objects:v135 count:16];
         if (v79)
         {
           v81 = v79;
-          v124 = *v129;
+          v123 = *v128;
           do
           {
             v82 = 0;
             do
             {
-              if (*v129 != v124)
+              if (*v128 != v123)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v83 = *(*(&v128 + 1) + 8 * v82);
+              v83 = *(*(&v127 + 1) + 8 * v82);
               if (v83)
               {
-                v84 = objc_getProperty(*(*(&v128 + 1) + 8 * v82), v80, 8, 1);
+                v84 = objc_getProperty(*(*(&v127 + 1) + 8 * v82), v80, 8, 1);
               }
 
               else
@@ -329,13 +329,13 @@
 
               exclave2 = [v96 exclave];
               v98 = [SABinaryLoadInfo binaryLoadInfoWithSegment:v87 loadAddress:loadAddress5 + loadAddress4 isInKernelAddressSpace:isInKernelAddressSpace2 exclave:exclave2];
-              [v126 addObject:v98];
+              [v125 addObject:v98];
 
               ++v82;
             }
 
             while (v81 != v82);
-            v99 = [obja countByEnumeratingWithState:&v128 objects:v136 count:16];
+            v99 = [obja countByEnumeratingWithState:&v127 objects:v135 count:16];
             v81 = v99;
           }
 
@@ -352,7 +352,7 @@
           v101 = 0;
         }
 
-        uuid3 = v118;
+        uuid3 = v117;
         binary6 = [v101 binary];
         uuid4 = [binary6 uuid];
         if (v74)
@@ -365,19 +365,17 @@
           v105 = 0;
         }
 
-        v78 = v114;
+        v78 = v113;
         loadAddress6 = [v105 loadAddress];
-        v107 = [v126 copy];
+        v107 = [v125 copy];
         v108 = [SASharedCache sharedCacheWithUUID:uuid4 slide:loadAddress6 binaryLoadInfos:v107];
         sharedCache32Bit = self->_sharedCache32Bit;
         self->_sharedCache32Bit = v108;
 
-        v19 = v116;
+        v19 = v115;
       }
     }
   }
-
-  v110 = *MEMORY[0x1E69E9840];
 }
 
 @end

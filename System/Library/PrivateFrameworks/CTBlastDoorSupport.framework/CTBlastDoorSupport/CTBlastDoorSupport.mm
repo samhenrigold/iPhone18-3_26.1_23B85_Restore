@@ -29,8 +29,7 @@ __n128 std::__optional_storage_base<ctb::MLSFileTransfer,false>::__assign_from[a
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -85,7 +84,7 @@ void sub_242645960(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -107,7 +106,7 @@ void sub_2426459E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -131,7 +130,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-__n128 std::__optional_storage_base<ctb::CPIMMessage,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::CPIMMessage,false>>(uint64_t a1, uint64_t a2)
+__n128 std::__optional_storage_base<ctb::CPIMMessage,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::CPIMMessage,false>>(uint64_t a1, __int128 *a2)
 {
   if (*(a1 + 280) == *(a2 + 280))
   {
@@ -151,77 +150,66 @@ __n128 std::__optional_storage_base<ctb::CPIMMessage,false>::__assign_from[abi:n
   else
   {
     v5 = *a2;
-    *(a1 + 16) = *(a2 + 16);
+    *(a1 + 16) = *(a2 + 2);
     *a1 = v5;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
-    *(a1 + 40) = *(a2 + 40);
+    *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v6;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
-    v7 = *(a2 + 48);
-    *(a1 + 64) = *(a2 + 64);
+    a2[2] = 0uLL;
+    *(a2 + 3) = 0;
+    v7 = a2[3];
+    *(a1 + 64) = *(a2 + 8);
     *(a1 + 48) = v7;
-    *(a2 + 56) = 0;
-    *(a2 + 64) = 0;
-    *(a2 + 48) = 0;
+    *(a2 + 56) = 0uLL;
+    *(a2 + 6) = 0;
     v8 = *(a2 + 72);
-    *(a1 + 88) = *(a2 + 88);
+    *(a1 + 88) = *(a2 + 11);
     *(a1 + 72) = v8;
-    *(a2 + 72) = 0;
-    *(a2 + 80) = 0;
-    *(a2 + 88) = 0;
-    v9 = *(a2 + 96);
-    *(a1 + 112) = *(a2 + 112);
+    *(a2 + 72) = 0uLL;
+    *(a2 + 11) = 0;
+    v9 = a2[6];
+    *(a1 + 112) = *(a2 + 14);
     *(a1 + 96) = v9;
-    *(a2 + 96) = 0;
-    *(a2 + 104) = 0;
-    *(a2 + 112) = 0;
+    a2[6] = 0uLL;
+    *(a2 + 14) = 0;
     v10 = *(a2 + 120);
-    *(a1 + 136) = *(a2 + 136);
+    *(a1 + 136) = *(a2 + 17);
     *(a1 + 120) = v10;
-    *(a2 + 120) = 0;
-    *(a2 + 128) = 0;
-    *(a2 + 136) = 0;
-    v11 = *(a2 + 144);
-    *(a1 + 160) = *(a2 + 160);
+    *(a2 + 120) = 0uLL;
+    *(a2 + 17) = 0;
+    v11 = a2[9];
+    *(a1 + 160) = *(a2 + 20);
     *(a1 + 144) = v11;
-    *(a2 + 144) = 0;
-    *(a2 + 152) = 0;
-    *(a2 + 160) = 0;
+    a2[9] = 0uLL;
+    *(a2 + 20) = 0;
     v12 = *(a2 + 168);
-    *(a1 + 184) = *(a2 + 184);
+    *(a1 + 184) = *(a2 + 23);
     *(a1 + 168) = v12;
-    *(a2 + 168) = 0;
-    *(a2 + 176) = 0;
-    *(a2 + 184) = 0;
-    v13 = *(a2 + 192);
-    *(a1 + 208) = *(a2 + 208);
+    *(a2 + 168) = 0uLL;
+    *(a2 + 23) = 0;
+    v13 = a2[12];
+    *(a1 + 208) = *(a2 + 26);
     *(a1 + 192) = v13;
-    *(a2 + 192) = 0;
-    *(a2 + 200) = 0;
-    *(a2 + 208) = 0;
+    a2[12] = 0uLL;
+    *(a2 + 26) = 0;
     *(a1 + 216) = *(a2 + 216);
     *(a1 + 240) = 0;
     *(a1 + 248) = 0;
     *(a1 + 232) = 0;
     *(a1 + 232) = *(a2 + 232);
-    *(a1 + 248) = *(a2 + 248);
-    *(a2 + 232) = 0;
-    *(a2 + 240) = 0;
-    *(a2 + 248) = 0;
+    *(a1 + 248) = *(a2 + 31);
+    *(a2 + 232) = 0uLL;
+    *(a2 + 31) = 0;
     *(a1 + 256) = 0;
     *(a1 + 264) = 0;
     *(a1 + 272) = 0;
-    result = *(a2 + 256);
+    result = a2[16];
     *(a1 + 256) = result;
-    *(a1 + 272) = *(a2 + 272);
-    *(a2 + 256) = 0;
-    *(a2 + 264) = 0;
-    *(a2 + 272) = 0;
+    *(a1 + 272) = *(a2 + 34);
+    a2[16] = 0uLL;
+    *(a2 + 34) = 0;
     *(a1 + 280) = 1;
   }
 
@@ -338,7 +326,7 @@ uint64_t ctb::CPIMMessage::operator=(uint64_t a1, __int128 *a2)
   return a1;
 }
 
-void std::vector<ctb::CPIMNamespace>::__vdeallocate(void **a1)
+void std::vector<ctb::CPIMNamespace>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -380,7 +368,7 @@ void std::__destroy_at[abi:ne200100]<ctb::CPIMNamespace,0>(uint64_t a1)
   }
 }
 
-void std::vector<ctb::CPIMEncapsulatedMessage>::__vdeallocate(void **a1)
+void std::vector<ctb::CPIMEncapsulatedMessage>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -1144,7 +1132,7 @@ void std::vector<ctb::chatbot::CardCarouselContent>::clear[abi:ne200100](uint64_
   a1[1] = v3;
 }
 
-void std::vector<ctb::SIPConferenceInfo::User>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<ctb::SIPConferenceInfo::User>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -1555,7 +1543,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-uint64_t std::vector<ctb::CPIMNamespace>::__init_with_size[abi:ne200100]<ctb::CPIMNamespace*,ctb::CPIMNamespace*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::CPIMNamespace>::__init_with_size[abi:ne200100]<ctb::CPIMNamespace*,ctb::CPIMNamespace*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1572,7 +1560,7 @@ void sub_2426476E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::CPIMNamespace>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::CPIMNamespace>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -1656,7 +1644,7 @@ void sub_242647854(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ctb::CPIMEncapsulatedMessage>::__init_with_size[abi:ne200100]<ctb::CPIMEncapsulatedMessage*,ctb::CPIMEncapsulatedMessage*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::CPIMEncapsulatedMessage>::__init_with_size[abi:ne200100]<ctb::CPIMEncapsulatedMessage*,ctb::CPIMEncapsulatedMessage*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1673,7 +1661,7 @@ void sub_242647908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::CPIMEncapsulatedMessage>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::CPIMEncapsulatedMessage>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAABLL)
   {
@@ -2043,7 +2031,7 @@ void sub_2426480BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__optional_copy_base<ctb::chatbot::SuggestedChipList,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<ctb::chatbot::SuggestedChipList,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -2062,7 +2050,7 @@ void sub_242648114(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<ctb::chatbot::SuggestedChipList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::SuggestedChipList,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<ctb::chatbot::SuggestedChipList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::SuggestedChipList,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -2077,7 +2065,7 @@ void *std::__optional_storage_base<ctb::chatbot::SuggestedChipList,false>::__con
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::SuggestedChip>::__init_with_size[abi:ne200100]<ctb::chatbot::SuggestedChip*,ctb::chatbot::SuggestedChip*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::SuggestedChip>::__init_with_size[abi:ne200100]<ctb::chatbot::SuggestedChip*,ctb::chatbot::SuggestedChip*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2094,7 +2082,7 @@ void sub_242648208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::chatbot::SuggestedChip>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::chatbot::SuggestedChip>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x11A7B9611A7B962)
   {
@@ -2254,7 +2242,7 @@ void sub_242648584(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ctb::chatbot::CardCarouselContent>::__init_with_size[abi:ne200100]<ctb::chatbot::CardCarouselContent*,ctb::chatbot::CardCarouselContent*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::CardCarouselContent>::__init_with_size[abi:ne200100]<ctb::chatbot::CardCarouselContent*,ctb::chatbot::CardCarouselContent*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2271,7 +2259,7 @@ void sub_24264865C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::chatbot::CardCarouselContent>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::chatbot::CardCarouselContent>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xEA0EA0EA0EA0EBLL)
   {
@@ -2393,15 +2381,15 @@ void std::__allocator_destroy[abi:ne200100]<std::allocator<ctb::chatbot::CardCar
   }
 }
 
-uint64_t std::__optional_copy_base<ctb::SIPConferenceInfo::Description,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+std::string *std::__optional_copy_base<ctb::SIPConferenceInfo::Description,false>::__optional_copy_base[abi:ne200100](std::string *a1, uint64_t a2)
 {
-  *a1 = 0;
-  *(a1 + 64) = 0;
+  a1->__r_.__value_.__s.__data_[0] = 0;
+  a1[2].__r_.__value_.__s.__data_[16] = 0;
   if (*(a2 + 64) == 1)
   {
     std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](a1, a2);
     std::__optional_copy_base<ctb::SIPConferenceInfo::SubjectExt,false>::__optional_copy_base[abi:ne200100]((a1 + 32), (a2 + 32));
-    *(a1 + 64) = 1;
+    a1[2].__r_.__value_.__s.__data_[16] = 1;
   }
 
   return a1;
@@ -2440,7 +2428,7 @@ void sub_242648A78(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ctb::SIPConferenceInfo::User>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::SIPConferenceInfo::User>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2457,7 +2445,7 @@ void sub_242648B00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::SIPConferenceInfo::User>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::SIPConferenceInfo::User>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2477,7 +2465,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ctb::SIPConferenceInf
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ctb::SIPConferenceInfo::User>,ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ctb::SIPConferenceInfo::User>,ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -2508,7 +2496,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ctb:
   return v4;
 }
 
-uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::SIPConferenceInfo::Endpoint>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2525,7 +2513,7 @@ void sub_242648CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::SIPConferenceInfo::Endpoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::SIPConferenceInfo::Endpoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2E8BA2E8BA2E8BBLL)
   {
@@ -2545,7 +2533,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ctb::SIPConferenceInf
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ctb::SIPConferenceInfo::Endpoint>,ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ctb::SIPConferenceInfo::Endpoint>,ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*>(uint64_t a1, uint64_t a2, uint64_t a3, std::string *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -2560,12 +2548,12 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<c
     do
     {
       std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](v4, v6);
-      *(v4 + 32) = *(v6 + 32);
+      v4[1].__r_.__value_.__l.__size_ = *(v6 + 32);
       std::__optional_copy_base<ctb::SIPConferenceInfo::ReferredInfo,false>::__optional_copy_base[abi:ne200100]((v4 + 40), v6 + 40);
-      *(v4 + 80) = *(v6 + 80);
+      v4[3].__r_.__value_.__l.__size_ = *(v6 + 80);
       v6 += 88;
-      v4 = v11 + 88;
-      v11 += 88;
+      v4 = (v11 + 88);
+      v11 = (v11 + 88);
     }
 
     while (v6 != a3);
@@ -2750,7 +2738,7 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<ctb
   return result;
 }
 
-double std::__variant_detail::__assignment<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>>::__assign_alt[abi:ne200100]<0ul,ctb::chatbot::CardMessage,ctb::chatbot::CardMessage>(uint64_t a1, _OWORD *a2, uint64_t a3)
+double std::__variant_detail::__assignment<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>>::__assign_alt[abi:ne200100]<0ul,ctb::chatbot::CardMessage,ctb::chatbot::CardMessage>(uint64_t a1, char *a2, uint64_t a3)
 {
   if (*(a1 + 328))
   {
@@ -2818,11 +2806,11 @@ double std::__variant_detail::__assignment<std::__variant_detail::__traits<ctb::
   else
   {
     *a2 = *a3;
-    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>((a2 + 1), (a3 + 16));
-    std::__optional_storage_base<ctb::chatbot::CardMedia,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardMedia,false>>((a2 + 3), a3 + 48);
-    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(a2 + 232, (a3 + 232));
-    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(a2 + 264, (a3 + 264));
-    *&v6 = std::__optional_storage_base<ctb::chatbot::SuggestedChipList,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::SuggestedChipList,false>>(a2 + 296, (a3 + 296)).n128_u64[0];
+    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>((a2 + 16), (a3 + 16));
+    std::__optional_storage_base<ctb::chatbot::CardMedia,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardMedia,false>>((a2 + 48), a3 + 48);
+    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>((a2 + 232), (a3 + 232));
+    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>((a2 + 264), (a3 + 264));
+    *&v6 = std::__optional_storage_base<ctb::chatbot::SuggestedChipList,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::SuggestedChipList,false>>((a2 + 296), (a3 + 296)).n128_u64[0];
   }
 
   return *&v6;
@@ -2862,8 +2850,7 @@ __n128 std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_fro
     result = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
     *a1 = result;
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
+    *(a2 + 8) = 0uLL;
     a2->n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -2956,14 +2943,12 @@ uint64_t std::__optional_storage_base<ctb::chatbot::CardMedia,false>::__construc
   v2 = *a2;
   *(result + 16) = *(a2 + 2);
   *result = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v3 = *(a2 + 24);
   *(result + 40) = *(a2 + 5);
   *(result + 24) = v3;
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *(a2 + 3) = 0;
   v4 = *(a2 + 6);
   *(result + 56) = 0;
@@ -2974,8 +2959,7 @@ uint64_t std::__optional_storage_base<ctb::chatbot::CardMedia,false>::__construc
     v5 = *(a2 + 56);
     *(result + 72) = *(a2 + 9);
     *(result + 56) = v5;
-    *(a2 + 8) = 0;
-    *(a2 + 9) = 0;
+    a2[4] = 0uLL;
     *(a2 + 7) = 0;
     *(result + 80) = 1;
   }
@@ -2987,8 +2971,7 @@ uint64_t std::__optional_storage_base<ctb::chatbot::CardMedia,false>::__construc
     v6 = *(a2 + 88);
     *(result + 104) = *(a2 + 13);
     *(result + 88) = v6;
-    *(a2 + 12) = 0;
-    *(a2 + 13) = 0;
+    a2[6] = 0uLL;
     *(a2 + 11) = 0;
     *(result + 112) = 1;
   }
@@ -3004,8 +2987,7 @@ uint64_t std::__optional_storage_base<ctb::chatbot::CardMedia,false>::__construc
     v9 = a2[9];
     *(result + 160) = *(a2 + 20);
     *(result + 144) = v9;
-    *(a2 + 19) = 0;
-    *(a2 + 20) = 0;
+    *(a2 + 152) = 0uLL;
     *(a2 + 18) = 0;
     *(result + 168) = 1;
   }
@@ -3045,8 +3027,7 @@ __n128 std::__optional_storage_base<ctb::chatbot::SuggestedChipList,false>::__as
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -3054,7 +3035,7 @@ __n128 std::__optional_storage_base<ctb::chatbot::SuggestedChipList,false>::__as
   return result;
 }
 
-void std::vector<ctb::chatbot::SuggestedChip>::__vdeallocate(void **a1)
+void std::vector<ctb::chatbot::SuggestedChip>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -3094,20 +3075,20 @@ _BYTE *std::__optional_move_base<ctb::chatbot::CardMedia,false>::__optional_move
   return a1;
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>>::__assign_alt[abi:ne200100]<1ul,ctb::chatbot::CardCarouselMessage,ctb::chatbot::CardCarouselMessage>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>>::__assign_alt[abi:ne200100]<1ul,ctb::chatbot::CardCarouselMessage,ctb::chatbot::CardCarouselMessage>(uint64_t a1, __n128 *a2, __n128 *a3)
 {
   if (*(a1 + 328) == 1)
   {
-    v5 = *a3;
-    *(a2 + 8) = *(a3 + 8);
-    *a2 = v5;
-    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(a2 + 16, (a3 + 16));
-    std::vector<ctb::chatbot::CardCarouselContent>::__vdeallocate((a2 + 48));
-    *(a2 + 48) = *(a3 + 48);
-    *(a2 + 64) = *(a3 + 64);
-    *(a3 + 48) = 0;
-    *(a3 + 56) = 0;
-    *(a3 + 64) = 0;
+    v5 = a3->n128_u64[0];
+    a2->n128_u32[2] = a3->n128_u32[2];
+    a2->n128_u64[0] = v5;
+    std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(&a2[1], a3 + 1);
+    std::vector<ctb::chatbot::CardCarouselContent>::__vdeallocate(&a2[3]);
+    a2[3] = a3[3];
+    a2[4].n128_u64[0] = a3[4].n128_u64[0];
+    a3[3].n128_u64[0] = 0;
+    a3[3].n128_u64[1] = 0;
+    a3[4].n128_u64[0] = 0;
   }
 
   else
@@ -3236,38 +3217,38 @@ void sub_242649B90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__optional_storage_base<ctb::chatbot::RenderInformation,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::RenderInformation,false>>(void **this, uint64_t a2)
+void std::__optional_storage_base<ctb::chatbot::RenderInformation,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::RenderInformation,false>>(ctb::chatbot::BotInformation *this, uint64_t a2)
 {
   if (*(this + 680) == *(a2 + 680))
   {
     if (*(this + 680))
     {
       ctb::chatbot::BotInformation::operator=(this, a2);
-      std::__optional_storage_base<ctb::chatbot::MenuItem,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MenuItem,false>>((this + 70), (a2 + 560));
+      std::__optional_storage_base<ctb::chatbot::MenuItem,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MenuItem,false>>(this + 35, (a2 + 560));
       *(this + 592) = *(a2 + 592);
-      v4 = this + 75;
+      v4 = (this + 600);
       if (*(this + 623) < 0)
       {
         operator delete(*v4);
       }
 
       v5 = *(a2 + 600);
-      this[77] = *(a2 + 616);
+      *(this + 77) = *(a2 + 616);
       *v4 = v5;
       *(a2 + 623) = 0;
       *(a2 + 600) = 0;
-      v6 = this + 78;
+      v6 = (this + 624);
       if (*(this + 647) < 0)
       {
         operator delete(*v6);
       }
 
       v7 = *(a2 + 624);
-      this[80] = *(a2 + 640);
+      *(this + 80) = *(a2 + 640);
       *v6 = v7;
       *(a2 + 647) = 0;
       *(a2 + 624) = 0;
-      std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>((this + 81), (a2 + 648));
+      std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(this + 648, (a2 + 648));
     }
   }
 
@@ -3277,22 +3258,22 @@ void std::__optional_storage_base<ctb::chatbot::RenderInformation,false>::__assi
     {
       if (*(this + 672) == 1 && *(this + 671) < 0)
       {
-        operator delete(this[81]);
+        operator delete(*(this + 81));
       }
 
       if (*(this + 647) < 0)
       {
-        operator delete(this[78]);
+        operator delete(*(this + 78));
       }
 
       if (*(this + 623) < 0)
       {
-        operator delete(this[75]);
+        operator delete(*(this + 75));
       }
 
       if (*(this + 584) == 1)
       {
-        v12 = this + 70;
+        v12 = (this + 560);
         std::vector<ctb::chatbot::MenuL0Content>::__destroy_vector::operator()[abi:ne200100](&v12);
       }
 
@@ -3307,10 +3288,10 @@ void std::__optional_storage_base<ctb::chatbot::RenderInformation,false>::__assi
       *(this + 584) = 0;
       if (*(a2 + 584) == 1)
       {
-        this[72] = 0;
+        *(this + 72) = 0;
         *(this + 35) = 0u;
         *(this + 35) = *(a2 + 560);
-        this[72] = *(a2 + 576);
+        *(this + 72) = *(a2 + 576);
         *(a2 + 576) = 0;
         *(a2 + 560) = 0u;
         *(this + 584) = 1;
@@ -3318,13 +3299,13 @@ void std::__optional_storage_base<ctb::chatbot::RenderInformation,false>::__assi
 
       *(this + 592) = *(a2 + 592);
       v9 = *(a2 + 600);
-      this[77] = *(a2 + 616);
-      *(this + 75) = v9;
+      *(this + 77) = *(a2 + 616);
+      *(this + 600) = v9;
       *(a2 + 616) = 0;
       *(a2 + 608) = 0;
       *(a2 + 600) = 0;
       v10 = *(a2 + 624);
-      this[80] = *(a2 + 640);
+      *(this + 80) = *(a2 + 640);
       *(this + 39) = v10;
       *(a2 + 640) = 0;
       *(a2 + 632) = 0;
@@ -3335,8 +3316,8 @@ void std::__optional_storage_base<ctb::chatbot::RenderInformation,false>::__assi
       if (*(a2 + 672) == 1)
       {
         v11 = *(a2 + 648);
-        this[83] = *(a2 + 664);
-        *(this + 81) = v11;
+        *(this + 83) = *(a2 + 664);
+        *(this + 648) = v11;
         *(a2 + 664) = 0;
         *(a2 + 656) = 0;
         *(a2 + 648) = 0;
@@ -3390,8 +3371,8 @@ void std::__optional_storage_base<ctb::chatbot::OrgDetails,false>::__assign_from
 uint64_t ctb::chatbot::OrgDetails::operator=(uint64_t a1, uint64_t a2)
 {
   std::__optional_storage_base<ctb::chatbot::CommunicationAddress,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CommunicationAddress,false>>(a1, a2);
-  std::__optional_storage_base<ctb::chatbot::MediaList,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MediaList,false>>(a1 + 104, (a2 + 104));
-  std::__optional_storage_base<ctb::chatbot::OrgName,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::OrgName,false>>(a1 + 136, (a2 + 136));
+  std::__optional_storage_base<ctb::chatbot::MediaList,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MediaList,false>>((a1 + 104), (a2 + 104));
+  std::__optional_storage_base<ctb::chatbot::OrgName,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::OrgName,false>>((a1 + 136), (a2 + 136));
   std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(a1 + 168, (a2 + 168));
   std::__optional_storage_base<ctb::chatbot::CategoryList,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CategoryList,false>>((a1 + 200), a2 + 200);
   std::__optional_storage_base<ctb::chatbot::WebResources,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::WebResources,false>>(a1 + 232, (a2 + 232));
@@ -3550,20 +3531,17 @@ __n128 std::__optional_storage_base<ctb::chatbot::CommunicationAddress,false>::_
     v8 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v8;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v9 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v9;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v10 = a2[3];
     *(a1 + 64) = *(a2 + 8);
     *(a1 + 48) = v10;
-    *(a2 + 7) = 0;
-    *(a2 + 8) = 0;
+    *(a2 + 56) = 0uLL;
     *(a2 + 6) = 0;
     *(a1 + 72) = 0;
     *(a1 + 80) = 0;
@@ -3571,8 +3549,7 @@ __n128 std::__optional_storage_base<ctb::chatbot::CommunicationAddress,false>::_
     result = *(a2 + 72);
     *(a1 + 72) = result;
     *(a1 + 88) = *(a2 + 11);
-    *(a2 + 9) = 0;
-    *(a2 + 10) = 0;
+    *(a2 + 72) = 0uLL;
     *(a2 + 11) = 0;
     *(a1 + 96) = 1;
   }
@@ -3610,7 +3587,7 @@ void std::vector<ctb::chatbot::URIEntry>::__base_destruct_at_end[abi:ne200100](u
 
 void ctb::chatbot::CommunicationAddress::~CommunicationAddress(void **this)
 {
-  v2 = this + 9;
+  v2 = (this + 9);
   std::vector<ctb::chatbot::URIEntry>::__destroy_vector::operator()[abi:ne200100](&v2);
   if (*(this + 71) < 0)
   {
@@ -3628,7 +3605,7 @@ void ctb::chatbot::CommunicationAddress::~CommunicationAddress(void **this)
   }
 }
 
-void std::vector<ctb::chatbot::URIEntry>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<ctb::chatbot::URIEntry>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   if (*v2)
@@ -3662,41 +3639,39 @@ void ctb::chatbot::TelephoneInformation::~TelephoneInformation(void **this)
   ctb::chatbot::TelephoneInformation::~TelephoneInformation(this);
 }
 
-__n128 std::__optional_storage_base<ctb::chatbot::MediaList,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MediaList,false>>(uint64_t a1, __n128 *a2)
+__n128 std::__optional_storage_base<ctb::chatbot::MediaList,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MediaList,false>>(__n128 *a1, __n128 *a2)
 {
-  if (*(a1 + 24) == a2[1].n128_u8[8])
+  if (a1[1].n128_u8[8] == a2[1].n128_u8[8])
   {
-    if (*(a1 + 24))
+    if (a1[1].n128_u8[8])
     {
       std::vector<ctb::chatbot::MediaEntry>::__vdeallocate(a1);
       result = *a2;
       *a1 = *a2;
-      *(a1 + 16) = a2[1].n128_u64[0];
+      a1[1].n128_u64[0] = a2[1].n128_u64[0];
       a2->n128_u64[0] = 0;
       a2->n128_u64[1] = 0;
       a2[1].n128_u64[0] = 0;
     }
   }
 
-  else if (*(a1 + 24))
+  else if (a1[1].n128_u8[8])
   {
     v5 = a1;
     std::vector<ctb::chatbot::MediaEntry>::__destroy_vector::operator()[abi:ne200100](&v5);
-    *(a1 + 24) = 0;
+    a1[1].n128_u8[8] = 0;
   }
 
   else
   {
-    *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    *a1 = 0uLL;
+    a1[1].n128_u64[0] = 0;
     result = *a2;
     *a1 = *a2;
-    *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    a1[1].n128_u64[0] = a2[1].n128_u64[0];
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
-    *(a1 + 24) = 1;
+    a1[1].n128_u8[8] = 1;
   }
 
   return result;
@@ -3745,41 +3720,39 @@ void std::vector<ctb::chatbot::MediaEntry>::__destroy_vector::operator()[abi:ne2
   }
 }
 
-__n128 std::__optional_storage_base<ctb::chatbot::OrgName,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::OrgName,false>>(uint64_t a1, __n128 *a2)
+__n128 std::__optional_storage_base<ctb::chatbot::OrgName,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::OrgName,false>>(__n128 *a1, __n128 *a2)
 {
-  if (*(a1 + 24) == a2[1].n128_u8[8])
+  if (a1[1].n128_u8[8] == a2[1].n128_u8[8])
   {
-    if (*(a1 + 24))
+    if (a1[1].n128_u8[8])
     {
       std::vector<ctb::chatbot::OrgNameEntry>::__vdeallocate(a1);
       result = *a2;
       *a1 = *a2;
-      *(a1 + 16) = a2[1].n128_u64[0];
+      a1[1].n128_u64[0] = a2[1].n128_u64[0];
       a2->n128_u64[0] = 0;
       a2->n128_u64[1] = 0;
       a2[1].n128_u64[0] = 0;
     }
   }
 
-  else if (*(a1 + 24))
+  else if (a1[1].n128_u8[8])
   {
     v5 = a1;
     std::vector<ctb::chatbot::OrgNameEntry>::__destroy_vector::operator()[abi:ne200100](&v5);
-    *(a1 + 24) = 0;
+    a1[1].n128_u8[8] = 0;
   }
 
   else
   {
-    *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    *a1 = 0uLL;
+    a1[1].n128_u64[0] = 0;
     result = *a2;
     *a1 = *a2;
-    *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    a1[1].n128_u64[0] = a2[1].n128_u64[0];
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
-    *(a1 + 24) = 1;
+    a1[1].n128_u8[8] = 1;
   }
 
   return result;
@@ -3937,8 +3910,7 @@ __n128 std::__optional_storage_base<ctb::chatbot::WebResources,false>::__assign_
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -4032,20 +4004,17 @@ __n128 std::__optional_move_base<ctb::chatbot::CommunicationAddress,false>::__op
     v2 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v2;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v3 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v3;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v4 = a2[3];
     *(a1 + 64) = *(a2 + 8);
     *(a1 + 48) = v4;
-    *(a2 + 7) = 0;
-    *(a2 + 8) = 0;
+    *(a2 + 56) = 0uLL;
     *(a2 + 6) = 0;
     *(a1 + 72) = 0;
     *(a1 + 80) = 0;
@@ -4053,8 +4022,7 @@ __n128 std::__optional_move_base<ctb::chatbot::CommunicationAddress,false>::__op
     result = *(a2 + 72);
     *(a1 + 72) = result;
     *(a1 + 88) = *(a2 + 11);
-    *(a2 + 9) = 0;
-    *(a2 + 10) = 0;
+    *(a2 + 72) = 0uLL;
     *(a2 + 11) = 0;
     *(a1 + 96) = 1;
   }
@@ -4062,47 +4030,45 @@ __n128 std::__optional_move_base<ctb::chatbot::CommunicationAddress,false>::__op
   return result;
 }
 
-__n128 std::__optional_storage_base<ctb::chatbot::MenuItem,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MenuItem,false>>(uint64_t a1, __n128 *a2)
+__n128 std::__optional_storage_base<ctb::chatbot::MenuItem,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::MenuItem,false>>(__n128 *a1, __n128 *a2)
 {
-  if (*(a1 + 24) == a2[1].n128_u8[8])
+  if (a1[1].n128_u8[8] == a2[1].n128_u8[8])
   {
-    if (*(a1 + 24))
+    if (a1[1].n128_u8[8])
     {
       std::vector<ctb::chatbot::MenuL0Content>::__vdeallocate(a1);
       result = *a2;
       *a1 = *a2;
-      *(a1 + 16) = a2[1].n128_u64[0];
+      a1[1].n128_u64[0] = a2[1].n128_u64[0];
       a2->n128_u64[0] = 0;
       a2->n128_u64[1] = 0;
       a2[1].n128_u64[0] = 0;
     }
   }
 
-  else if (*(a1 + 24))
+  else if (a1[1].n128_u8[8])
   {
     v5 = a1;
     std::vector<ctb::chatbot::MenuL0Content>::__destroy_vector::operator()[abi:ne200100](&v5);
-    *(a1 + 24) = 0;
+    a1[1].n128_u8[8] = 0;
   }
 
   else
   {
-    *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    *a1 = 0uLL;
+    a1[1].n128_u64[0] = 0;
     result = *a2;
     *a1 = *a2;
-    *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    a1[1].n128_u64[0] = a2[1].n128_u64[0];
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
-    *(a1 + 24) = 1;
+    a1[1].n128_u8[8] = 1;
   }
 
   return result;
 }
 
-void std::vector<ctb::chatbot::MenuL0Content>::__vdeallocate(void **a1)
+void std::vector<ctb::chatbot::MenuL0Content>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -4525,7 +4491,7 @@ void sub_24264B588(_Unwind_Exception *exception_object)
 std::string *ctb::chatbot::RenderInformation::RenderInformation(std::string *this, const ctb::chatbot::RenderInformation *a2)
 {
   v4 = ctb::chatbot::BotInformation::BotInformation(this, a2);
-  std::__optional_copy_base<ctb::chatbot::MenuItem,false>::__optional_copy_base[abi:ne200100](v4 + 560, a2 + 560);
+  std::__optional_copy_base<ctb::chatbot::MenuItem,false>::__optional_copy_base[abi:ne200100](v4 + 70, a2 + 560);
   this[24].__r_.__value_.__s.__data_[16] = *(a2 + 592);
   if (*(a2 + 623) < 0)
   {
@@ -4583,7 +4549,7 @@ ctb::chatbot::BotInformation *ctb::chatbot::BotInformation::BotInformation(ctb::
   std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](this + 18, a2 + 27);
   std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((this + 464), a2 + 29);
   std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((this + 496), a2 + 31);
-  std::__optional_copy_base<ctb::chatbot::AddressEntryList,false>::__optional_copy_base[abi:ne200100](this + 528, a2 + 528);
+  std::__optional_copy_base<ctb::chatbot::AddressEntryList,false>::__optional_copy_base[abi:ne200100](this + 66, a2 + 528);
   return this;
 }
 
@@ -4672,30 +4638,30 @@ std::string *ctb::chatbot::OrgDetails::OrgDetails(std::string *this, const ctb::
   return this;
 }
 
-void sub_24264B980(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24264B980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 224) == 1)
+  va_start(va, a3);
+  if (*(v3 + 224) == 1)
   {
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   }
 
-  if (*(v2 + 192) == 1 && *(v2 + 191) < 0)
+  if (*(v3 + 192) == 1 && *(v3 + 191) < 0)
   {
-    operator delete(*(v2 + 168));
+    operator delete(*(v3 + 168));
   }
 
-  if (*(v2 + 160) == 1)
+  if (*(v3 + 160) == 1)
   {
     std::vector<ctb::chatbot::OrgNameEntry>::__destroy_vector::operator()[abi:ne200100](va);
   }
 
-  if (*(v2 + 128) == 1)
+  if (*(v3 + 128) == 1)
   {
     std::vector<ctb::chatbot::MediaEntry>::__destroy_vector::operator()[abi:ne200100](va);
   }
 
-  std::optional<ctb::chatbot::CommunicationAddress>::~optional(v2);
+  std::optional<ctb::chatbot::CommunicationAddress>::~optional(v3);
   _Unwind_Resume(a1);
 }
 
@@ -4771,7 +4737,7 @@ void sub_24264BAFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ctb::chatbot::URIEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::URIEntry*,ctb::chatbot::URIEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::URIEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::URIEntry*,ctb::chatbot::URIEntry*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4788,7 +4754,7 @@ void sub_24264BBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::chatbot::URIEntry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::chatbot::URIEntry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -4862,7 +4828,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<ctb::chatbot::URIEntry>,c
   }
 }
 
-uint64_t std::__optional_copy_base<ctb::chatbot::MediaList,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<ctb::chatbot::MediaList,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -4881,7 +4847,7 @@ void sub_24264BDF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<ctb::chatbot::MediaList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::MediaList,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<ctb::chatbot::MediaList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::MediaList,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -4896,7 +4862,7 @@ void *std::__optional_storage_base<ctb::chatbot::MediaList,false>::__construct_f
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::MediaEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::MediaEntry*,ctb::chatbot::MediaEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::MediaEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::MediaEntry*,ctb::chatbot::MediaEntry*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4913,7 +4879,7 @@ void sub_24264BEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::chatbot::MediaEntry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::chatbot::MediaEntry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x38E38E38E38E38FLL)
   {
@@ -5010,7 +4976,7 @@ void std::__allocator_destroy[abi:ne200100]<std::allocator<ctb::chatbot::MediaEn
   }
 }
 
-uint64_t std::__optional_copy_base<ctb::chatbot::OrgName,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<ctb::chatbot::OrgName,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -5029,7 +4995,7 @@ void sub_24264C1A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<ctb::chatbot::OrgName,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::OrgName,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<ctb::chatbot::OrgName,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::OrgName,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -5044,7 +5010,7 @@ void *std::__optional_storage_base<ctb::chatbot::OrgName,false>::__construct_fro
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::OrgNameEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::OrgNameEntry*,ctb::chatbot::OrgNameEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::OrgNameEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::OrgNameEntry*,ctb::chatbot::OrgNameEntry*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5061,7 +5027,7 @@ void sub_24264C288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::chatbot::OrgNameEntry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::chatbot::OrgNameEntry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -5148,7 +5114,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<ctb::chatbot::OrgNameEntr
   }
 }
 
-uint64_t std::__optional_copy_base<ctb::chatbot::CategoryList,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<ctb::chatbot::CategoryList,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -5167,7 +5133,7 @@ void sub_24264C4AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<ctb::chatbot::CategoryList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::CategoryList,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<ctb::chatbot::CategoryList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::CategoryList,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -5182,7 +5148,7 @@ void *std::__optional_storage_base<ctb::chatbot::CategoryList,false>::__construc
   return result;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5199,7 +5165,7 @@ void sub_24264C598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5283,7 +5249,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-uint64_t std::__optional_copy_base<ctb::chatbot::WebResources,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<ctb::chatbot::WebResources,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -5302,7 +5268,7 @@ void sub_24264C7D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<ctb::chatbot::WebResources,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::WebResources,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<ctb::chatbot::WebResources,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::WebResources,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -5317,7 +5283,7 @@ void *std::__optional_storage_base<ctb::chatbot::WebResources,false>::__construc
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::WebEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::WebEntry*,ctb::chatbot::WebEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::WebEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::WebEntry*,ctb::chatbot::WebEntry*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5398,7 +5364,7 @@ void sub_24264C98C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__optional_copy_base<ctb::chatbot::AddressEntryList,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<ctb::chatbot::AddressEntryList,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -5417,7 +5383,7 @@ void sub_24264CA10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<ctb::chatbot::AddressEntryList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::AddressEntryList,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<ctb::chatbot::AddressEntryList,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::AddressEntryList,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -5432,7 +5398,7 @@ void *std::__optional_storage_base<ctb::chatbot::AddressEntryList,false>::__cons
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::AddressEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::AddressEntry*,ctb::chatbot::AddressEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::AddressEntry>::__init_with_size[abi:ne200100]<ctb::chatbot::AddressEntry*,ctb::chatbot::AddressEntry*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5513,7 +5479,7 @@ void sub_24264CBCC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__optional_copy_base<ctb::chatbot::MenuItem,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<ctb::chatbot::MenuItem,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -5532,7 +5498,7 @@ void sub_24264CC50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<ctb::chatbot::MenuItem,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::MenuItem,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<ctb::chatbot::MenuItem,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<ctb::chatbot::MenuItem,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -5547,7 +5513,7 @@ void *std::__optional_storage_base<ctb::chatbot::MenuItem,false>::__construct_fr
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL0Content>::__init_with_size[abi:ne200100]<ctb::chatbot::MenuL0Content*,ctb::chatbot::MenuL0Content*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::MenuL0Content>::__init_with_size[abi:ne200100]<ctb::chatbot::MenuL0Content*,ctb::chatbot::MenuL0Content*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5564,7 +5530,7 @@ void sub_24264CD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::chatbot::MenuL0Content>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::chatbot::MenuL0Content>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x108421084210843)
   {
@@ -5644,7 +5610,7 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chat
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL1Content>::__init_with_size[abi:ne200100]<ctb::chatbot::MenuL1Content*,ctb::chatbot::MenuL1Content*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::MenuL1Content>::__init_with_size[abi:ne200100]<ctb::chatbot::MenuL1Content*,ctb::chatbot::MenuL1Content*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5669,7 +5635,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<c
     do
     {
       *(a4 + v7) = *(a2 + v7);
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a4 + v7 + 8, (a2 + v7 + 8));
+      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a4 + v7 + 8, a2 + v7 + 8);
       v7 += 248;
     }
 
@@ -5699,7 +5665,7 @@ void sub_24264D058(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uint64_t a1, _DWORD *a2)
+uint64_t std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 232) = -1;
@@ -5707,21 +5673,21 @@ uint64_t std::__variant_detail::__copy_constructor<std::__variant_detail::__trai
   return a1;
 }
 
-uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1> const&>(uint64_t a1, _DWORD *a2)
+uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1> const&>(uint64_t a1, uint64_t a2)
 {
   result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
-  v5 = a2[58];
+  v5 = *(a2 + 232);
   if (v5 != -1)
   {
     v6 = a1;
-    result = (*(&off_2854F70F8 + v5))(&v6, a2);
+    result = (off_2854F70F8[v5])(&v6, a2);
     *(a1 + 232) = v5;
   }
 
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL2Content>::__init_with_size[abi:ne200100]<ctb::chatbot::MenuL2Content*,ctb::chatbot::MenuL2Content*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::chatbot::MenuL2Content>::__init_with_size[abi:ne200100]<ctb::chatbot::MenuL2Content*,ctb::chatbot::MenuL2Content*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5871,7 +5837,7 @@ uint64_t ctb::ProvisioningConfiguration::operator=(uint64_t a1, uint64_t a2)
   std::__optional_storage_base<ctb::ProvisioningConfiguration::AccessControl,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::AccessControl,false>>(a1 + 64, a2 + 64);
   std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::IMS3GPP,false>>((a1 + 120), a2 + 120);
   std::__optional_storage_base<ctb::ProvisioningConfiguration::Services,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Services,false>>(a1 + 656, (a2 + 656));
-  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging,false>>(a1 + 720, a2 + 720);
+  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging,false>>((a1 + 720), (a2 + 720));
   v5 = *(a2 + 1176);
   v6 = *(a2 + 1192);
   *(a1 + 1201) = *(a2 + 1201);
@@ -5925,47 +5891,47 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::Token,false>
   return result;
 }
 
-void std::__optional_storage_base<ctb::ProvisioningConfiguration::AccessControl,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::AccessControl,false>>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<ctb::ProvisioningConfiguration::AccessControl,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::AccessControl,false>>(uint64_t result, uint64_t a2)
 {
-  if (*(a1 + 48) == *(a2 + 48))
+  if (*(result + 48) == *(a2 + 48))
   {
-    if (*(a1 + 48))
+    if (*(result + 48))
     {
-      std::__tree<std::string>::__move_assign(a1, a2);
-      std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__vdeallocate((a1 + 24));
-      *(a1 + 24) = *(a2 + 24);
-      *(a1 + 40) = *(a2 + 40);
+      std::__tree<std::string>::__move_assign(result, a2);
+      std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__vdeallocate((result + 24));
+      *(result + 24) = *(a2 + 24);
+      *(result + 40) = *(a2 + 40);
       *(a2 + 24) = 0;
       *(a2 + 32) = 0;
       *(a2 + 40) = 0;
     }
   }
 
-  else if (*(a1 + 48))
+  else if (*(result + 48))
   {
-    v4 = (a1 + 24);
+    v4 = (result + 24);
     std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__destroy_vector::operator()[abi:ne200100](&v4);
-    std::__tree<std::string>::destroy(a1, *(a1 + 8));
-    *(a1 + 48) = 0;
+    std::__tree<std::string>::destroy(result, *(result + 8));
+    *(result + 48) = 0;
   }
 
   else
   {
-    std::construct_at[abi:ne200100]<ctb::ProvisioningConfiguration::AccessControl,ctb::ProvisioningConfiguration::AccessControl,ctb::ProvisioningConfiguration::AccessControl*>(a1, a2);
-    *(a1 + 48) = 1;
+    std::construct_at[abi:ne200100]<ctb::ProvisioningConfiguration::AccessControl,ctb::ProvisioningConfiguration::AccessControl,ctb::ProvisioningConfiguration::AccessControl*>(result, a2);
+    *(result + 48) = 1;
   }
 }
 
-void std::__tree<std::string>::__move_assign(uint64_t a1, void *a2)
+void std::__tree<std::string>::__move_assign(void *a1, void *a2)
 {
-  v4 = (a1 + 8);
-  std::__tree<std::string>::destroy(a1, *(a1 + 8));
+  v4 = a1 + 1;
+  std::__tree<std::string>::destroy(a1, a1[1]);
   *a1 = *a2;
   v5 = a2 + 1;
   v6 = a2[1];
   *v4 = v6;
   v7 = a2[2];
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   if (v7)
   {
     *(v6 + 16) = v4;
@@ -5995,7 +5961,7 @@ void std::__tree<std::string>::destroy(uint64_t a1, char *a2)
   }
 }
 
-void std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__vdeallocate(void **a1)
+void std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6100,7 +6066,7 @@ __n128 std::construct_at[abi:ne200100]<ctb::ProvisioningConfiguration::AccessCon
   return result;
 }
 
-double std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::IMS3GPP,false>>(ctb::ProvisioningConfiguration::IMS3GPP *a1, uint64_t a2)
+void std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::IMS3GPP,false>>(ctb::ProvisioningConfiguration::IMS3GPP *a1, uint64_t a2)
 {
   if (*(a1 + 528) == *(a2 + 528))
   {
@@ -6114,16 +6080,14 @@ double std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,fals
   else if (*(a1 + 528))
   {
     ctb::ProvisioningConfiguration::IMS3GPP::~IMS3GPP(a1);
-    *(v4 + 528) = 0;
+    *(v3 + 528) = 0;
   }
 
   else
   {
 
-    *&result = std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,false>::__construct[abi:ne200100]<ctb::ProvisioningConfiguration::IMS3GPP>(a1, a2).n128_u64[0];
+    std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,false>::__construct[abi:ne200100]<ctb::ProvisioningConfiguration::IMS3GPP>(a1, a2);
   }
-
-  return result;
 }
 
 uint64_t ctb::ProvisioningConfiguration::IMS3GPP::operator=(uint64_t a1, __int128 *a2)
@@ -6139,8 +6103,8 @@ uint64_t ctb::ProvisioningConfiguration::IMS3GPP::operator=(uint64_t a1, __int12
   *(a2 + 23) = 0;
   *a2 = 0;
   std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(a1 + 24, (a2 + 24));
-  std::__tree<std::string>::__move_assign(a1 + 56, a2 + 7);
-  std::__tree<std::string>::__move_assign(a1 + 80, a2 + 10);
+  std::__tree<std::string>::__move_assign((a1 + 56), a2 + 7);
+  std::__tree<std::string>::__move_assign((a1 + 80), a2 + 10);
   if (*(a1 + 127) < 0)
   {
     operator delete(*(a1 + 104));
@@ -6311,8 +6275,7 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,fals
   v2 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(a1 + 24) = 0;
   *(a1 + 48) = 0;
@@ -6321,8 +6284,7 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,fals
     v3 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v3;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     *(a1 + 48) = 1;
   }
@@ -6370,14 +6332,12 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,fals
   v12 = *(a2 + 104);
   *(a1 + 120) = *(a2 + 15);
   *(a1 + 104) = v12;
-  *(a2 + 14) = 0;
-  *(a2 + 15) = 0;
+  a2[7] = 0uLL;
   *(a2 + 13) = 0;
   v13 = a2[8];
   *(a1 + 144) = *(a2 + 18);
   *(a1 + 128) = v13;
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
+  *(a2 + 136) = 0uLL;
   *(a2 + 16) = 0;
   v14 = *(a2 + 152);
   *(a1 + 168) = *(a2 + 21);
@@ -6385,80 +6345,67 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::IMS3GPP,fals
   v15 = a2[11];
   *(a1 + 192) = *(a2 + 24);
   *(a1 + 176) = v15;
-  *(a2 + 22) = 0;
-  *(a2 + 23) = 0;
+  a2[11] = 0uLL;
   *(a2 + 24) = 0;
   v16 = *(a2 + 200);
   *(a1 + 216) = *(a2 + 27);
   *(a1 + 200) = v16;
-  *(a2 + 25) = 0;
-  *(a2 + 26) = 0;
+  *(a2 + 200) = 0uLL;
   *(a2 + 27) = 0;
   v17 = a2[14];
   *(a1 + 240) = *(a2 + 30);
   *(a1 + 224) = v17;
-  *(a2 + 28) = 0;
-  *(a2 + 29) = 0;
+  a2[14] = 0uLL;
   *(a2 + 30) = 0;
   v18 = *(a2 + 248);
   *(a1 + 264) = *(a2 + 33);
   *(a1 + 248) = v18;
-  *(a2 + 31) = 0;
-  *(a2 + 32) = 0;
+  *(a2 + 248) = 0uLL;
   *(a2 + 33) = 0;
   v19 = a2[17];
   *(a1 + 288) = *(a2 + 36);
   *(a1 + 272) = v19;
-  *(a2 + 34) = 0;
-  *(a2 + 35) = 0;
+  a2[17] = 0uLL;
   *(a2 + 36) = 0;
   v20 = *(a2 + 296);
   *(a1 + 312) = *(a2 + 39);
   *(a1 + 296) = v20;
-  *(a2 + 37) = 0;
-  *(a2 + 38) = 0;
+  *(a2 + 296) = 0uLL;
   *(a2 + 39) = 0;
   v21 = a2[20];
   *(a1 + 336) = *(a2 + 42);
   *(a1 + 320) = v21;
-  *(a2 + 40) = 0;
-  *(a2 + 41) = 0;
+  a2[20] = 0uLL;
   *(a2 + 42) = 0;
   v22 = *(a2 + 344);
   *(a1 + 360) = *(a2 + 45);
   *(a1 + 344) = v22;
-  *(a2 + 43) = 0;
-  *(a2 + 44) = 0;
+  *(a2 + 344) = 0uLL;
   *(a2 + 45) = 0;
   v23 = a2[23];
   *(a1 + 384) = *(a2 + 48);
   *(a1 + 368) = v23;
-  *(a2 + 46) = 0;
-  *(a2 + 47) = 0;
+  a2[23] = 0uLL;
   *(a2 + 48) = 0;
   v24 = *(a2 + 392);
   *(a1 + 408) = *(a2 + 51);
   *(a1 + 392) = v24;
-  *(a2 + 49) = 0;
-  *(a2 + 50) = 0;
+  *(a2 + 392) = 0uLL;
   *(a2 + 51) = 0;
   v25 = a2[26];
   *(a1 + 432) = *(a2 + 54);
   *(a1 + 416) = v25;
-  *(a2 + 52) = 0;
-  *(a2 + 53) = 0;
+  a2[26] = 0uLL;
   *(a2 + 54) = 0;
   v26 = *(a2 + 440);
   *(a1 + 456) = *(a2 + 57);
   *(a1 + 440) = v26;
-  *(a2 + 55) = 0;
-  *(a2 + 56) = 0;
+  *(a2 + 440) = 0uLL;
   *(a2 + 57) = 0;
   v27 = a2[29];
   *(a1 + 480) = *(a2 + 60);
   *(a1 + 464) = v27;
-  *(a2 + 58) = 0;
-  *(a2 + 59) = 0;
+  a2[29] = 0uLL;
   *(a2 + 60) = 0;
   result = *(a2 + 488);
   v29 = *(a2 + 504);
@@ -6568,7 +6515,7 @@ void std::__optional_storage_base<ctb::ProvisioningConfiguration::Services,false
       v3 = *a2;
       *(a1 + 11) = *(a2 + 11);
       *a1 = v3;
-      v4 = a1 + 32;
+      v4 = (a1 + 32);
       v5 = a2 + 2;
 
       std::__tree<std::string>::__move_assign(v4, v5);
@@ -6610,18 +6557,18 @@ void std::__optional_storage_base<ctb::ProvisioningConfiguration::Services,false
   }
 }
 
-void std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging,false>>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging,false>>(__n128 *a1, __n128 *a2)
 {
-  if (*(a1 + 448) == *(a2 + 448))
+  if (a1[28].n128_u8[0] == a2[28].n128_u8[0])
   {
-    if (*(a1 + 448))
+    if (a1[28].n128_u8[0])
     {
 
       ctb::ProvisioningConfiguration::Messaging::operator=(a1, a2);
     }
   }
 
-  else if (*(a1 + 448))
+  else if (a1[28].n128_u8[0])
   {
     ctb::ProvisioningConfiguration::Messaging::~Messaging(a1);
     *(v3 + 448) = 0;
@@ -6634,16 +6581,16 @@ void std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,fals
   }
 }
 
-uint64_t ctb::ProvisioningConfiguration::Messaging::operator=(uint64_t a1, __int128 *a2)
+__n128 *ctb::ProvisioningConfiguration::Messaging::operator=(__n128 *a1, __n128 *a2)
 {
   v4 = *a2;
-  *(a1 + 16) = *(a2 + 2);
+  a1[1].n128_u64[0] = a2[1].n128_u64[0];
   *a1 = v4;
-  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::Chatbot,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::Chatbot,false>>(a1 + 24, (a2 + 24));
-  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::FileTransfer,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::FileTransfer,false>>(a1 + 120, (a2 + 120));
-  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::Chat,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::Chat,false>>(a1 + 264, (a2 + 264));
-  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::StandaloneMsg,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::StandaloneMsg,false>>(a1 + 368, a2 + 23);
-  std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(a1 + 416, a2 + 26);
+  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::Chatbot,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::Chatbot,false>>(&a1[1].n128_i64[1], &a2[1].n128_i8[8]);
+  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::FileTransfer,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::FileTransfer,false>>(&a1[7].n128_i64[1], &a2[7].n128_i8[8]);
+  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::Chat,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::Chat,false>>(&a1[16].n128_i64[1], &a2[16].n128_i8[8]);
+  std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::StandaloneMsg,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::ProvisioningConfiguration::Messaging::StandaloneMsg,false>>(&a1[23], &a2[23]);
+  std::__optional_storage_base<ctb::chatbot::CardStyle,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::chatbot::CardStyle,false>>(&a1[26], a2 + 26);
   return a1;
 }
 
@@ -6659,20 +6606,17 @@ uint64_t std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,
     v3 = *(a2 + 24);
     *(result + 40) = *(a2 + 5);
     *(result + 24) = v3;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v4 = a2[3];
     *(result + 64) = *(a2 + 8);
     *(result + 48) = v4;
-    *(a2 + 7) = 0;
-    *(a2 + 8) = 0;
+    *(a2 + 56) = 0uLL;
     *(a2 + 6) = 0;
     v5 = *(a2 + 72);
     *(result + 88) = *(a2 + 11);
     *(result + 72) = v5;
-    *(a2 + 10) = 0;
-    *(a2 + 11) = 0;
+    a2[5] = 0uLL;
     *(a2 + 9) = 0;
     v6 = *(a2 + 12);
     *(result + 104) = *(a2 + 52);
@@ -6690,26 +6634,22 @@ uint64_t std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,
     v8 = a2[9];
     *(result + 160) = *(a2 + 20);
     *(result + 144) = v8;
-    *(a2 + 19) = 0;
-    *(a2 + 20) = 0;
+    *(a2 + 152) = 0uLL;
     *(a2 + 18) = 0;
     v9 = *(a2 + 168);
     *(result + 184) = *(a2 + 23);
     *(result + 168) = v9;
-    *(a2 + 22) = 0;
-    *(a2 + 23) = 0;
+    a2[11] = 0uLL;
     *(a2 + 21) = 0;
     v10 = a2[12];
     *(result + 208) = *(a2 + 26);
     *(result + 192) = v10;
-    *(a2 + 24) = 0;
-    *(a2 + 25) = 0;
+    a2[12] = 0uLL;
     *(a2 + 26) = 0;
     v11 = *(a2 + 216);
     *(result + 232) = *(a2 + 29);
     *(result + 216) = v11;
-    *(a2 + 27) = 0;
-    *(a2 + 28) = 0;
+    *(a2 + 216) = 0uLL;
     *(a2 + 29) = 0;
     *(result + 240) = a2[15];
     *(result + 256) = 1;
@@ -6727,8 +6667,7 @@ uint64_t std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,
     v14 = a2[19];
     *(result + 320) = *(a2 + 40);
     *(result + 304) = v14;
-    *(a2 + 39) = 0;
-    *(a2 + 40) = 0;
+    *(a2 + 312) = 0uLL;
     *(a2 + 38) = 0;
     *(result + 328) = 0;
     *(result + 352) = 0;
@@ -6737,8 +6676,7 @@ uint64_t std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,
       v15 = *(a2 + 328);
       *(result + 344) = *(a2 + 43);
       *(result + 328) = v15;
-      *(a2 + 42) = 0;
-      *(a2 + 43) = 0;
+      a2[21] = 0uLL;
       *(a2 + 41) = 0;
       *(result + 352) = 1;
     }
@@ -6753,8 +6691,7 @@ uint64_t std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,
     v16 = a2[23];
     *(result + 384) = *(a2 + 48);
     *(result + 368) = v16;
-    *(a2 + 47) = 0;
-    *(a2 + 48) = 0;
+    *(a2 + 376) = 0uLL;
     *(a2 + 46) = 0;
     *(result + 392) = *(a2 + 392);
     *(result + 408) = 1;
@@ -6767,8 +6704,7 @@ uint64_t std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging,
     v17 = a2[26];
     *(result + 432) = *(a2 + 54);
     *(result + 416) = v17;
-    *(a2 + 53) = 0;
-    *(a2 + 54) = 0;
+    *(a2 + 424) = 0uLL;
     *(a2 + 52) = 0;
     *(result + 440) = 1;
   }
@@ -6844,20 +6780,17 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::C
     v8 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v8;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v9 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v9;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     result = a2[3];
     *(a1 + 64) = *(a2 + 8);
     *(a1 + 48) = result;
-    *(a2 + 7) = 0;
-    *(a2 + 8) = 0;
+    *(a2 + 56) = 0uLL;
     *(a2 + 6) = 0;
     v10 = *(a2 + 9);
     *(a1 + 80) = *(a2 + 40);
@@ -6955,26 +6888,22 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::F
     v11 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v11;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v12 = a2[3];
     *(a1 + 64) = *(a2 + 8);
     *(a1 + 48) = v12;
-    *(a2 + 7) = 0;
-    *(a2 + 8) = 0;
+    *(a2 + 56) = 0uLL;
     *(a2 + 6) = 0;
     v13 = *(a2 + 72);
     *(a1 + 88) = *(a2 + 11);
     *(a1 + 72) = v13;
-    *(a2 + 9) = 0;
-    *(a2 + 10) = 0;
+    *(a2 + 72) = 0uLL;
     *(a2 + 11) = 0;
     v14 = a2[6];
     *(a1 + 112) = *(a2 + 14);
     *(a1 + 96) = v14;
-    *(a2 + 12) = 0;
-    *(a2 + 13) = 0;
+    a2[6] = 0uLL;
     *(a2 + 14) = 0;
     result = *(a2 + 120);
     *(a1 + 120) = result;
@@ -7059,8 +6988,7 @@ void std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::Cha
       v10 = *(a2 + 40);
       *(a1 + 56) = *(a2 + 7);
       *(a1 + 40) = v10;
-      *(a2 + 6) = 0;
-      *(a2 + 7) = 0;
+      a2[3] = 0uLL;
       *(a2 + 5) = 0;
       *(a1 + 64) = 0;
       *(a1 + 88) = 0;
@@ -7070,8 +6998,7 @@ void std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::Cha
         v11 = a2[4];
         *(a1 + 80) = *(a2 + 10);
         *(a1 + 64) = v11;
-        *(a2 + 9) = 0;
-        *(a2 + 10) = 0;
+        *(a2 + 72) = 0uLL;
         *(a2 + 8) = 0;
         *(a1 + 88) = 1;
       }
@@ -7130,8 +7057,7 @@ __n128 std::__optional_storage_base<ctb::ProvisioningConfiguration::Messaging::S
     v6 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     result = *(a2 + 24);
     *(a1 + 24) = result;
@@ -7491,7 +7417,7 @@ uint64_t std::__optional_copy_base<ctb::ProvisioningConfiguration::AccessControl
     *(a1 + 24) = 0;
     *(a1 + 32) = 0;
     *(a1 + 40) = 0;
-    std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__init_with_size[abi:ne200100]<ctb::ProvisioningConfiguration::AccessControl::Server*,ctb::ProvisioningConfiguration::AccessControl::Server*>(a1 + 24, *(a2 + 24), *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - *(a2 + 24)) >> 3));
+    std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__init_with_size[abi:ne200100]<ctb::ProvisioningConfiguration::AccessControl::Server*,ctb::ProvisioningConfiguration::AccessControl::Server*>((a1 + 24), *(a2 + 24), *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - *(a2 + 24)) >> 3));
     *(a1 + 48) = 1;
   }
 
@@ -7518,7 +7444,7 @@ void *std::set<std::string>::set[abi:ne200100](void *a1, uint64_t a2)
   return a1;
 }
 
-void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(void *result, void **a2, void **a3)
+void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(void *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -7526,8 +7452,8 @@ void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std
     v5 = result;
     do
     {
-      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, v5 + 1, v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -7543,7 +7469,7 @@ void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -7560,11 +7486,11 @@ void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std
   return result;
 }
 
-void *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2, void **a3)
+uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, void *a2, char *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -7573,10 +7499,10 @@ void *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::
   return result;
 }
 
-void **std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2, void ***a3, uint64_t *a4, void **a5)
+uint64_t *std::__tree<std::string>::__find_equal<std::string>(void *a1, void *a2, char **a3, uint64_t *a4, char *a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, (a2 + 32)) & 0x80) != 0)
+  v9 = a1 + 1;
+  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, a2 + 32) & 0x80) != 0)
   {
     if (*a1 == a2)
     {
@@ -7619,7 +7545,7 @@ void **std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2
     if (*a2)
     {
       *a3 = v12;
-      return (v12 + 1);
+      return v12 + 1;
     }
 
     else
@@ -7629,18 +7555,18 @@ void **std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2
     }
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a2 + 32), a5) & 0x80) == 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 + 4, a5) & 0x80) == 0)
   {
     *a3 = a2;
     *a4 = a2;
     return a4;
   }
 
-  a4 = (a2 + 8);
-  v13 = *(a2 + 8);
+  a4 = a2 + 1;
+  v13 = a2[1];
   if (v13)
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
     do
     {
       v15 = v14;
@@ -7680,7 +7606,7 @@ LABEL_29:
     return a4;
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 4) & 0x80) != 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 32) & 0x80) != 0)
   {
     v13 = *a4;
     goto LABEL_29;
@@ -7698,7 +7624,7 @@ void sub_24264F548(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7716,7 +7642,7 @@ uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2,
   return result;
 }
 
-void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+uint64_t *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -7727,7 +7653,7 @@ void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2,
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -7745,8 +7671,8 @@ void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2,
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -7762,7 +7688,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -7772,7 +7698,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -7785,12 +7711,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -7841,12 +7767,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7860,22 +7786,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7909,13 +7835,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7975,7 +7901,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__init_with_size[abi:ne200100]<ctb::ProvisioningConfiguration::AccessControl::Server*,ctb::ProvisioningConfiguration::AccessControl::Server*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__init_with_size[abi:ne200100]<ctb::ProvisioningConfiguration::AccessControl::Server*,ctb::ProvisioningConfiguration::AccessControl::Server*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7992,7 +7918,7 @@ void sub_24264F944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -8740,8 +8666,7 @@ __n128 std::__optional_storage_base<ctb::CPMGroupManagement,false>::__assign_fro
     result = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
     *a1 = result;
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
+    *(a2 + 8) = 0uLL;
     a2->n128_u64[0] = 0;
     *(a1 + 24) = a2[1].n128_u64[1];
     *(a1 + 32) = 1;
@@ -8790,17 +8715,17 @@ void std::__optional_storage_base<ctb::CPMGroupManagement,false>::__construct[ab
   this[1].__r_.__value_.__s.__data_[8] = 1;
 }
 
-uint64_t std::__optional_copy_base<ctb::ServerMLSRCSContent,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+_BYTE *std::__optional_copy_base<ctb::ServerMLSRCSContent,false>::__optional_copy_base[abi:ne200100](_BYTE *a1, uint64_t a2)
 {
   *a1 = 0;
-  *(a1 + 24) = 0;
+  a1[24] = 0;
   if (*(a2 + 24) == 1)
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    *(a1 + 1) = 0;
+    *(a1 + 2) = 0;
     std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *a2, *(a2 + 8), *(a2 + 8) - *a2);
-    *(a1 + 24) = 1;
+    a1[24] = 1;
   }
 
   return a1;
@@ -9243,7 +9168,7 @@ __n128 std::__optional_storage_base<ctb::IMCompositionIndication,false>::__assig
   {
     if (*(a1 + 64))
     {
-      v4 = &a2->n128_i8[8];
+      v4 = &a2->n128_u64[1];
       *a1 = a2->n128_u32[0];
       if (*(a1 + 31) < 0)
       {
@@ -9290,14 +9215,12 @@ __n128 std::__optional_storage_base<ctb::IMCompositionIndication,false>::__assig
     v7 = *(a2 + 8);
     *(a1 + 24) = a2[1].n128_u64[1];
     *(a1 + 8) = v7;
-    a2[1].n128_u64[0] = 0;
-    a2[1].n128_u64[1] = 0;
+    a2[1] = 0uLL;
     a2->n128_u64[1] = 0;
     result = a2[2];
     *(a1 + 48) = a2[3].n128_u64[0];
     *(a1 + 32) = result;
-    a2[2].n128_u64[1] = 0;
-    a2[3].n128_u64[0] = 0;
+    *(&a2[2] + 8) = 0uLL;
     a2[2].n128_u64[0] = 0;
     *(a1 + 56) = a2[3].n128_u64[1];
     *(a1 + 64) = 1;
@@ -9424,20 +9347,17 @@ __n128 std::__optional_storage_base<ctb::IMRevoke,false>::__assign_from[abi:ne20
     v7 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v7;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v8 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v8;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     result = a2[3];
     *(a1 + 64) = *(a2 + 8);
     *(a1 + 48) = result;
-    *(a2 + 7) = 0;
-    *(a2 + 8) = 0;
+    *(a2 + 56) = 0uLL;
     *(a2 + 6) = 0;
     *(a1 + 72) = *(a2 + 18);
     *(a1 + 80) = 1;
@@ -9515,17 +9435,17 @@ void sub_242651D80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__optional_copy_base<ctb::CPIMMLSMessage,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+_BYTE *std::__optional_copy_base<ctb::CPIMMLSMessage,false>::__optional_copy_base[abi:ne200100](_BYTE *a1, uint64_t a2)
 {
   *a1 = 0;
-  *(a1 + 24) = 0;
+  a1[24] = 0;
   if (*(a2 + 24) == 1)
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    *(a1 + 1) = 0;
+    *(a1 + 2) = 0;
     std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *a2, *(a2 + 8), *(a2 + 8) - *a2);
-    *(a1 + 24) = 1;
+    a1[24] = 1;
   }
 
   return a1;
@@ -9541,7 +9461,7 @@ void sub_242651EC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__optional_storage_base<ctb::FileTransferDescriptor,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::FileTransferDescriptor,false>>(ctb::FileTransferDescriptor *this, uint64_t a2)
+void std::__optional_storage_base<ctb::FileTransferDescriptor,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::FileTransferDescriptor,false>>(ctb::FileTransferDescriptor *this, __int128 *a2)
 {
   if (*(this + 328) == *(a2 + 328))
   {
@@ -9561,51 +9481,47 @@ void std::__optional_storage_base<ctb::FileTransferDescriptor,false>::__assign_f
   else
   {
     v4 = *a2;
-    *(this + 2) = *(a2 + 16);
+    *(this + 2) = *(a2 + 2);
     *this = v4;
     *(this + 24) = 0;
     *(this + 48) = 0;
     if (*(a2 + 48) == 1)
     {
       v5 = *(a2 + 24);
-      *(this + 5) = *(a2 + 40);
+      *(this + 5) = *(a2 + 5);
       *(this + 24) = v5;
-      *(a2 + 32) = 0;
-      *(a2 + 40) = 0;
-      *(a2 + 24) = 0;
+      a2[2] = 0uLL;
+      *(a2 + 3) = 0;
       *(this + 48) = 1;
     }
 
     v6 = *(a2 + 56);
-    *(this + 9) = *(a2 + 72);
+    *(this + 9) = *(a2 + 9);
     *(this + 56) = v6;
-    *(a2 + 64) = 0;
-    *(a2 + 72) = 0;
-    *(a2 + 56) = 0;
-    v7 = *(a2 + 80);
-    *(this + 12) = *(a2 + 96);
+    a2[4] = 0uLL;
+    *(a2 + 7) = 0;
+    v7 = a2[5];
+    *(this + 12) = *(a2 + 12);
     *(this + 5) = v7;
-    *(a2 + 88) = 0;
-    *(a2 + 96) = 0;
-    *(a2 + 80) = 0;
+    *(a2 + 88) = 0uLL;
+    *(a2 + 10) = 0;
     v8 = *(a2 + 104);
-    *(this + 15) = *(a2 + 120);
+    *(this + 15) = *(a2 + 15);
     *(this + 104) = v8;
-    *(a2 + 112) = 0;
-    *(a2 + 120) = 0;
-    *(a2 + 104) = 0;
-    *(this + 8) = *(a2 + 128);
-    std::__optional_move_base<ctb::FileTransferDescriptor::FileDescriptor,false>::__optional_move_base[abi:ne200100](this + 144, (a2 + 144));
+    a2[7] = 0uLL;
+    *(a2 + 13) = 0;
+    *(this + 8) = a2[8];
+    std::__optional_move_base<ctb::FileTransferDescriptor::FileDescriptor,false>::__optional_move_base[abi:ne200100](this + 144, a2 + 9);
     *(this + 296) = 0;
     *(this + 320) = 0;
     if (*(a2 + 320) == 1)
     {
       v9 = *(a2 + 296);
-      *(this + 39) = *(a2 + 312);
+      *(this + 39) = *(a2 + 39);
       *(this + 296) = v9;
-      *(a2 + 304) = 0;
-      *(a2 + 312) = 0;
-      *(a2 + 296) = 0;
+      *(a2 + 38) = 0;
+      *(a2 + 39) = 0;
+      *(a2 + 37) = 0;
       *(this + 320) = 1;
     }
 
@@ -9740,8 +9656,7 @@ __n128 std::__optional_storage_base<ctb::FileTransferDescriptor::FileDescriptor,
       v10 = *(a2 + 24);
       *(a1 + 40) = *(a2 + 5);
       *(a1 + 24) = v10;
-      *(a2 + 4) = 0;
-      *(a2 + 5) = 0;
+      a2[2] = 0uLL;
       *(a2 + 3) = 0;
       *(a1 + 48) = 1;
     }
@@ -9749,20 +9664,17 @@ __n128 std::__optional_storage_base<ctb::FileTransferDescriptor::FileDescriptor,
     v11 = *(a2 + 56);
     *(a1 + 72) = *(a2 + 9);
     *(a1 + 56) = v11;
-    *(a2 + 8) = 0;
-    *(a2 + 9) = 0;
+    a2[4] = 0uLL;
     *(a2 + 7) = 0;
     v12 = a2[5];
     *(a1 + 96) = *(a2 + 12);
     *(a1 + 80) = v12;
-    *(a2 + 11) = 0;
-    *(a2 + 12) = 0;
+    *(a2 + 88) = 0uLL;
     *(a2 + 10) = 0;
     v13 = *(a2 + 104);
     *(a1 + 120) = *(a2 + 15);
     *(a1 + 104) = v13;
-    *(a2 + 14) = 0;
-    *(a2 + 15) = 0;
+    a2[7] = 0uLL;
     *(a2 + 13) = 0;
     result = a2[8];
     *(a1 + 128) = result;
@@ -9794,8 +9706,7 @@ __n128 std::__optional_storage_base<ctb::FileTransferDescriptor::FileDescriptor,
       v3 = *(a2 + 24);
       *(a1 + 40) = *(a2 + 5);
       *(a1 + 24) = v3;
-      *(a2 + 4) = 0;
-      *(a2 + 5) = 0;
+      a2[2] = 0uLL;
       *(a2 + 3) = 0;
       *(a1 + 48) = 1;
     }
@@ -9803,20 +9714,17 @@ __n128 std::__optional_storage_base<ctb::FileTransferDescriptor::FileDescriptor,
     v4 = *(a2 + 56);
     *(a1 + 72) = *(a2 + 9);
     *(a1 + 56) = v4;
-    *(a2 + 8) = 0;
-    *(a2 + 9) = 0;
+    a2[4] = 0uLL;
     *(a2 + 7) = 0;
     v5 = a2[5];
     *(a1 + 96) = *(a2 + 12);
     *(a1 + 80) = v5;
-    *(a2 + 11) = 0;
-    *(a2 + 12) = 0;
+    *(a2 + 88) = 0uLL;
     *(a2 + 10) = 0;
     v6 = *(a2 + 104);
     *(a1 + 120) = *(a2 + 15);
     *(a1 + 104) = v6;
-    *(a2 + 14) = 0;
-    *(a2 + 15) = 0;
+    a2[7] = 0uLL;
     *(a2 + 13) = 0;
     result = a2[8];
     *(a1 + 128) = result;
@@ -9824,4 +9732,87 @@ __n128 std::__optional_storage_base<ctb::FileTransferDescriptor::FileDescriptor,
   }
 
   return result;
+}
+
+ctb::FileTransferDescriptor::FileDescriptor *std::__optional_copy_base<ctb::FileTransferDescriptor,false>::__optional_copy_base[abi:ne200100](ctb::FileTransferDescriptor::FileDescriptor *this, _BYTE *a2)
+{
+  *this = 0;
+  *(this + 328) = 0;
+  if (a2[328] == 1)
+  {
+    ctb::FileTransferDescriptor::FileDescriptor::FileDescriptor(this, a2);
+    std::__optional_copy_base<ctb::FileTransferDescriptor::FileDescriptor,false>::__optional_copy_base[abi:ne200100]((this + 144), (a2 + 144));
+    std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((this + 296), (a2 + 296));
+    *(this + 328) = 1;
+  }
+
+  return this;
+}
+
+void sub_2426524E0(_Unwind_Exception *a1)
+{
+  std::optional<ctb::FileTransferDescriptor::FileDescriptor>::~optional(v1 + 144);
+  ctb::FileTransferDescriptor::FileDescriptor::~FileDescriptor(v1);
+  if (*(v1 + 328) == 1)
+  {
+    ctb::FileTransferDescriptor::~FileTransferDescriptor(v1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+__n128 std::__optional_storage_base<ctb::BootstrappingInfo,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::BootstrappingInfo,false>>(uint64_t a1, __n128 *a2)
+{
+  if (*(a1 + 32) == a2[2].n128_u8[0])
+  {
+    if (*(a1 + 32))
+    {
+      if (*(a1 + 23) < 0)
+      {
+        operator delete(*a1);
+      }
+
+      result = *a2;
+      *(a1 + 16) = a2[1].n128_u64[0];
+      *a1 = result;
+      a2[1].n128_u8[7] = 0;
+      a2->n128_u8[0] = 0;
+      *(a1 + 24) = a2[1].n128_u64[1];
+    }
+  }
+
+  else if (*(a1 + 32))
+  {
+    if (*(a1 + 23) < 0)
+    {
+      operator delete(*a1);
+    }
+
+    *(a1 + 32) = 0;
+  }
+
+  else
+  {
+    result = *a2;
+    *(a1 + 16) = a2[1].n128_u64[0];
+    *a1 = result;
+    *(a2 + 8) = 0uLL;
+    a2->n128_u64[0] = 0;
+    *(a1 + 24) = a2[1].n128_u64[1];
+    *(a1 + 32) = 1;
+  }
+
+  return result;
+}
+
+std::string *std::__optional_copy_base<ctb::BootstrappingInfo,false>::__optional_copy_base[abi:ne200100](std::string *this, uint64_t a2)
+{
+  this->__r_.__value_.__s.__data_[0] = 0;
+  this[1].__r_.__value_.__s.__data_[8] = 0;
+  if (*(a2 + 32) == 1)
+  {
+    std::__optional_storage_base<ctb::CPMGroupManagement,false>::__construct[abi:ne200100]<ctb::CPMGroupManagement const&>(this, a2);
+  }
+
+  return this;
 }

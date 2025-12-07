@@ -4,7 +4,10 @@
 - (id)identifierFromOptions:(id)options;
 - (void)addAvailableDataTypesToClient:(id)client dataTypes:(unint64_t)types connectionID:(unsigned int)d completion:(id)completion;
 - (void)addRequestedDataTypes:(id)types types:(unint64_t)a4;
+- (void)addToCidDictionary:(unsigned int)dictionary idsIdentifier:(id)identifier dataTypes:(unint64_t)types;
+- (void)handleXPCDisconnected:(unsigned int)disconnected;
 - (void)removeAvailableDataTypesToClient:(id)client dataTypes:(unint64_t)types connectionID:(unsigned int)d completion:(id)completion;
+- (void)removeFromCidDictionary:(unsigned int)dictionary idsIdentifier:(id)identifier dataTypes:(unint64_t)types;
 - (void)removeRequestedDataTypes:(id)types types:(unint64_t)a4;
 - (void)setupAAS;
 - (void)setupRapport;
@@ -36,6 +39,97 @@
   [(DRServerManager *)v2 setupRapport];
   [(DRServerManager *)v2 setupAAS];
   return v2;
+}
+
+- (void)addToCidDictionary:(unsigned int)dictionary idsIdentifier:(id)identifier dataTypes:(unint64_t)types
+{
+  v6 = *&dictionary;
+  identifierCopy = identifier;
+  cidDictionary = self->_cidDictionary;
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  dictionary = [(NSMutableDictionary *)cidDictionary objectForKeyedSubscript:v9];
+
+  if (dictionary)
+  {
+    v11 = [dictionary objectForKeyedSubscript:identifierCopy];
+    unsignedLongLongValue = [v11 unsignedLongLongValue];
+
+    v13 = MEMORY[0x277CCABB0];
+    typesCopy = unsignedLongLongValue | types;
+  }
+
+  else
+  {
+    if (gLogCategory_DRServerManager <= 50 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
+    {
+      v18 = v6;
+      v19 = identifierCopy;
+      LogPrintF();
+    }
+
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v15 = self->_cidDictionary;
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+    [(NSMutableDictionary *)v15 setObject:dictionary forKeyedSubscript:v16];
+
+    v13 = MEMORY[0x277CCABB0];
+    typesCopy = types;
+  }
+
+  v17 = [v13 numberWithUnsignedLongLong:typesCopy];
+  [dictionary setObject:v17 forKeyedSubscript:identifierCopy];
+}
+
+- (void)removeFromCidDictionary:(unsigned int)dictionary idsIdentifier:(id)identifier dataTypes:(unint64_t)types
+{
+  v6 = *&dictionary;
+  identifierCopy = identifier;
+  cidDictionary = self->_cidDictionary;
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  v10 = [(NSMutableDictionary *)cidDictionary objectForKeyedSubscript:v9];
+
+  if (v10)
+  {
+    v11 = [v10 objectForKeyedSubscript:identifierCopy];
+    unsignedLongLongValue = [v11 unsignedLongLongValue];
+
+    if ((unsignedLongLongValue & ~types) != 0)
+    {
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue & ~types];
+      [v10 setObject:v13 forKeyedSubscript:identifierCopy];
+LABEL_4:
+
+      goto LABEL_15;
+    }
+
+    if (gLogCategory_DRServerManager <= 50 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
+    {
+      v15 = v6;
+      v16 = identifierCopy;
+      LogPrintF();
+    }
+
+    [v10 removeObjectForKey:{identifierCopy, v15, v16}];
+    if (![v10 count])
+    {
+      if (gLogCategory_DRServerManager <= 50 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
+      {
+        [DRServerManager removeFromCidDictionary:idsIdentifier:dataTypes:];
+      }
+
+      v14 = self->_cidDictionary;
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+      [(NSMutableDictionary *)v14 removeObjectForKey:v13];
+      goto LABEL_4;
+    }
+  }
+
+  else if (gLogCategory_DRServerManager <= 90 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF();
+  }
+
+LABEL_15:
 }
 
 - (void)addRequestedDataTypes:(id)types types:(unint64_t)a4
@@ -148,7 +242,7 @@ void __50__DRServerManager_removeRequestedDataTypes_types___block_invoke_3(uint6
 
   if (gLogCategory_DRServerManager <= 40 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
   {
-    __50__DRServerManager_removeRequestedDataTypes_types___block_invoke_3_cold_1(a1);
+    __50__DRServerManager_removeRequestedDataTypes_types___block_invoke_3_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -306,7 +400,7 @@ void __86__DRServerManager_removeAvailableDataTypesToClient_dataTypes_connection
 
   if (gLogCategory_DRServerManager <= 40 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
   {
-    __86__DRServerManager_removeAvailableDataTypesToClient_dataTypes_connectionID_completion___block_invoke_3_cold_1(a1);
+    __86__DRServerManager_removeAvailableDataTypesToClient_dataTypes_connectionID_completion___block_invoke_3_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -343,17 +437,17 @@ void __86__DRServerManager_removeAvailableDataTypesToClient_dataTypes_connection
 
 void __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_invoke(uint64_t a1)
 {
-  v2 = (a1 + 40);
+  v2 = a1 + 40;
   v3 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
-  v4 = *(v2[1] + 8);
+  v4 = *(*(v2 + 8) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  if (!*(*(v2[1] + 8) + 40))
+  if (!*(*(*(v2 + 8) + 8) + 40))
   {
     if (gLogCategory_DRServerManager <= 50 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
     {
-      __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_invoke_cold_1(v2, a1);
+      __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_invoke_cold_1();
     }
 
     v6 = [[DRClient alloc] initWithIdentifier:*(a1 + 40)];
@@ -379,7 +473,7 @@ uint64_t __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_i
 {
   if (gLogCategory_DRServerManager <= 50 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
   {
-    __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_invoke_2_cold_1(a1);
+    __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_invoke_2_cold_1();
   }
 
   v3 = *(a1 + 32);
@@ -390,18 +484,17 @@ uint64_t __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_i
 
 - (id)identifierFromOptions:(id)options
 {
-  v3 = *MEMORY[0x277D442E8];
   optionsCopy = options;
   Int64 = CFDictionaryGetInt64();
-  v6 = MEMORY[0x277D442D0];
+  v5 = MEMORY[0x277D442D0];
   if (Int64 < 0)
   {
-    v6 = MEMORY[0x277D442A8];
+    v5 = MEMORY[0x277D442A8];
   }
 
-  v7 = [optionsCopy objectForKeyedSubscript:*v6];
+  v6 = [optionsCopy objectForKeyedSubscript:*v5];
 
-  return v7;
+  return v6;
 }
 
 - (void)setupRapport
@@ -540,7 +633,7 @@ LABEL_7:
 LABEL_8:
   if (gLogCategory_DRServerManager <= 50 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
   {
-    __27__DRServerManager_setupAAS__block_invoke_cold_1(a1);
+    __27__DRServerManager_setupAAS__block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -587,6 +680,60 @@ uint64_t __27__DRServerManager_setupAAS__block_invoke_4(uint64_t a1, void *a2)
   return MEMORY[0x2821F96F8]();
 }
 
+- (void)handleXPCDisconnected:(unsigned int)disconnected
+{
+  v3 = *&disconnected;
+  v24 = *MEMORY[0x277D85DE8];
+  cidDictionary = self->_cidDictionary;
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+  v7 = [(NSMutableDictionary *)cidDictionary objectForKeyedSubscript:v6];
+
+  if (v7)
+  {
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v18 = v7;
+    v8 = v7;
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v20;
+      do
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v20 != v11)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v13 = *(*(&v19 + 1) + 8 * i);
+          if (gLogCategory_DRServerManager <= 50 && (gLogCategory_DRServerManager != -1 || _LogCategory_Initialize()))
+          {
+            v16 = v3;
+            v17 = v13;
+            LogPrintF();
+          }
+
+          v14 = [v8 objectForKeyedSubscript:{v13, v16, v17}];
+          unsignedLongLongValue = [v14 unsignedLongLongValue];
+
+          [(DRServerManager *)self removeAvailableDataTypesToClient:v13 dataTypes:unsignedLongLongValue connectionID:v3 completion:0];
+        }
+
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      }
+
+      while (v10);
+    }
+
+    v7 = v18;
+  }
+}
+
 - (void)addRequestedDataTypes:(uint64_t)a1 types:.cold.1(uint64_t a1)
 {
   if (a1)
@@ -613,13 +760,6 @@ uint64_t __27__DRServerManager_setupAAS__block_invoke_4(uint64_t a1, void *a2)
   }
 
   LogPrintF();
-}
-
-uint64_t __59__DRServerManager_getClientFromClientDictionary_fromAvail___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
-{
-  *(a2 + 56);
-  v3 = *a1;
-  return LogPrintF();
 }
 
 void __31__DRServerManager_setupRapport__block_invoke_3_cold_1(void *a1)

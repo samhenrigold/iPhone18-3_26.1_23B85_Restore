@@ -40,7 +40,8 @@ uint64_t __35__ATXMenuItemDonationClient_shared__block_invoke()
 {
   invocationCopy = invocation;
   completionCopy = completion;
-  if ([invocationCopy invocationType] == 3)
+  invocationType = [invocationCopy invocationType];
+  if (invocationType == 3)
   {
     if (completionCopy)
     {
@@ -50,20 +51,20 @@ uint64_t __35__ATXMenuItemDonationClient_shared__block_invoke()
 
   else
   {
-    v7 = __atxlog_handle_client_donations();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = __atxlog_handle_client_donations(invocationType);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [ATXMenuItemDonationClient donateMenuItemInvocation:invocationCopy completion:v7];
+      [ATXMenuItemDonationClient donateMenuItemInvocation:invocationCopy completion:v8];
     }
 
-    v8 = +[ATXDonationManager sharedManager];
+    v9 = +[ATXDonationManager sharedManager];
     identity = [invocationCopy identity];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __65__ATXMenuItemDonationClient_donateMenuItemInvocation_completion___block_invoke;
-    v10[3] = &unk_1E80C08E0;
-    v11 = completionCopy;
-    [v8 donateMenuItem:identity completion:v10];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __65__ATXMenuItemDonationClient_donateMenuItemInvocation_completion___block_invoke;
+    v11[3] = &unk_1E80C08E0;
+    v12 = completionCopy;
+    [v9 donateMenuItem:identity completion:v11];
   }
 }
 

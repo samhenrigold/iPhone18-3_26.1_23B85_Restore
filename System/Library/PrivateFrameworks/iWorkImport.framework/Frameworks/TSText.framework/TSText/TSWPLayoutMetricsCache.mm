@@ -145,11 +145,11 @@
 
   else
   {
-    v18[0] = 0;
+    v18 = 0;
     v19 = vdupq_n_s64(0x7FF8000000000000uLL);
     v20 = 0x7FFFFFFFFFFFFFFFLL;
     v21 = 0x7FF8000000000000;
-    sub_276E06ACC(p_paragraphMetrics, &begin[range.location].var0, range.length, v18);
+    sub_276E06ACC(p_paragraphMetrics, &begin[range.location].var0, range.length, &v18);
   }
 }
 

@@ -36,25 +36,13 @@
 
 - (void)_updateTTL
 {
-  if ([(MSPSharedTripFetchedCapabilityStatus *)self isFailedRequest])
+  if (![(MSPSharedTripFetchedCapabilityStatus *)self isFailedRequest])
   {
-    v3 = &GEOConfigMSPShareETAFailedIDSStatusTTL;
+    [(MSPSharedTripFetchedCapabilityStatus *)self isBlocked];
   }
 
-  else if ([(MSPSharedTripFetchedCapabilityStatus *)self isBlocked])
-  {
-    v3 = &GEOConfigMSPShareETABlockedIDSStatusTTL;
-  }
-
-  else
-  {
-    v3 = &GEOConfigMSPShareETAFetchedIDSStatusTTL;
-  }
-
-  v4 = *v3;
-  v5 = v3[1];
   GEOConfigGetDouble();
-  self->_ttl = v6;
+  self->_ttl = v3;
 }
 
 - (int64_t)status

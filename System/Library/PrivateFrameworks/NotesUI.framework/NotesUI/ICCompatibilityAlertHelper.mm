@@ -71,7 +71,7 @@ void __210__ICCompatibilityAlertHelper_showCompatibilityAlertForAccountIfNeeded_
   performBlockOnMainThread();
 }
 
-uint64_t __210__ICCompatibilityAlertHelper_showCompatibilityAlertForAccountIfNeeded_title_alertMessage_defaultButtonTitle_secondaryButtonTitle_postscript_parentViewController_hasShownAlertKey_minimumNotesVersion_completion___block_invoke_2(uint64_t result)
+uint64_t (**__210__ICCompatibilityAlertHelper_showCompatibilityAlertForAccountIfNeeded_title_alertMessage_defaultButtonTitle_secondaryButtonTitle_postscript_parentViewController_hasShownAlertKey_minimumNotesVersion_completion___block_invoke_2(uint64_t (**result)(void)))(void)
 {
   if (isShowingCompatibilityAlert)
   {
@@ -81,13 +81,13 @@ uint64_t __210__ICCompatibilityAlertHelper_showCompatibilityAlertForAccountIfNee
   v1 = result;
   objc_opt_class();
   v2 = [MEMORY[0x1E695E000] standardUserDefaults];
-  v3 = [v2 objectForKey:*(v1 + 32)];
+  v3 = [v2 objectForKey:v1[4]];
   v4 = ICDynamicCast();
   v5 = [v4 BOOLValue];
 
   if (!v5)
   {
-    if (!*(v1 + 40))
+    if (!v1[5])
     {
       goto LABEL_9;
     }
@@ -102,22 +102,22 @@ uint64_t __210__ICCompatibilityAlertHelper_showCompatibilityAlertForAccountIfNee
     goto LABEL_9;
   }
 
-  v7 = *(v1 + 40);
+  v7 = v1[5];
 
   if (v7)
   {
 LABEL_7:
     v8 = [MEMORY[0x1E695E000] standardUserDefaults];
-    [v8 setObject:MEMORY[0x1E695E118] forKey:*(v1 + 32)];
+    [v8 setObject:MEMORY[0x1E695E118] forKey:v1[4]];
 
-    return [*(v1 + 104) showCompatibilityAlertWithDeviceMessage:*(v1 + 40) title:*(v1 + 48) alertMessage:*(v1 + 56) defaultButtonTitle:*(v1 + 64) secondaryButtonTitle:*(v1 + 72) postscript:*(v1 + 80) parentViewController:*(v1 + 88) completion:*(v1 + 96)];
+    return [v1[13] showCompatibilityAlertWithDeviceMessage:v1[5] title:v1[6] alertMessage:v1[7] defaultButtonTitle:v1[8] secondaryButtonTitle:v1[9] postscript:v1[10] parentViewController:v1[11] completion:v1[12]];
   }
 
 LABEL_9:
-  result = *(v1 + 96);
+  result = v1[12];
   if (result)
   {
-    v9 = *(result + 16);
+    v9 = result[2];
 
     return v9();
   }

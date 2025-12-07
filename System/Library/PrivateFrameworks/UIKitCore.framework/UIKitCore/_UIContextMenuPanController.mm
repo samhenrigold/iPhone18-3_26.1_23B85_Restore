@@ -217,7 +217,7 @@ LABEL_14:
       v23 = v22;
       if (v8)
       {
-        [v8 anchor];
+        objc_msgSend_anchor(v8);
         v24 = v37 - 1;
         v25 = 0.5;
         v26 = 0.5;
@@ -665,9 +665,9 @@ LABEL_10:
   if (panGestureRecognizer == recognizerCopy)
   {
     name = [gestureRecognizerCopy name];
-    v10 = [name isEqualToString:@"com.apple.UIKit.ContextMenuActionsListSelection"];
+    isEqualToString = objc_msgSend_isEqualToString_(name);
 
-    if (v10)
+    if (isEqualToString)
     {
       v11 = 1;
     }
@@ -903,11 +903,11 @@ LABEL_32:
   v12 = v11;
   v14 = v13;
 
-  [(_UIContextMenuPanController *)self menuAnchor];
-  v15 = v177;
-  if (v177 == 4 || v177 == 1)
+  objc_msgSend_menuAnchor(self);
+  v15 = v177[0];
+  if (v177[0] == 4 || v177[0] == 1)
   {
-    v180.origin.x = UIRectInsetEdges(v177, v8, v10, v12, v14, -48.0);
+    v180.origin.x = UIRectInsetEdges(v177[0], v8, v10, v12, v14, -48.0);
   }
 
   else
@@ -1457,7 +1457,7 @@ LABEL_46:
   v22 = v172[5];
   v172[5] = height;
 
-  [(_UIContextMenuPanController *)self menuAnchor];
+  objc_msgSend_menuAnchor(self);
   v23 = v170;
   platterView = [(_UIContextMenuPanController *)self platterView];
   [platterView bounds];
@@ -1757,8 +1757,8 @@ LABEL_47:
   v64.ty = v64.ty + v24;
   if (v64.ty < 0.0)
   {
-    [(_UIContextMenuPanController *)self menuAnchor];
-    if (v62 == 4)
+    objc_msgSend_menuAnchor(self);
+    if (v62[0] == 4)
     {
       [v9 frame];
       v25 = (Width - CGRectGetWidth(v71)) * 0.5;
@@ -1772,7 +1772,7 @@ LABEL_47:
         v26 = 0.0;
       }
 
-      [(_UIContextMenuPanController *)self menuAnchor];
+      objc_msgSend_menuAnchor(self);
       if (v61 == 8)
       {
         v27 = v26 + v64.tx;
@@ -1811,7 +1811,7 @@ LABEL_18:
     }
 
     v35 = v33 + v34;
-    [(_UIContextMenuPanController *)self menuAnchor];
+    objc_msgSend_menuAnchor(self);
     v36 = 1.0;
     if (*&v63.a == 4)
     {
@@ -1962,7 +1962,7 @@ LABEL_18:
       v27 = v26;
       v28 = vabdd_f64(v26, v23);
       v29 = vabdd_f64(v24, v21);
-      [(_UIContextMenuPanController *)self menuAnchor];
+      objc_msgSend_menuAnchor(self);
       v30 = v27 - v28;
       if (v19 < v27 - v28)
       {
@@ -1975,12 +1975,12 @@ LABEL_18:
         v31 = v18;
       }
 
-      if (v44 != 8)
+      if (v44[0] != 8)
       {
         v31 = v18;
       }
 
-      if (v44 == 4)
+      if (v44[0] == 4)
       {
         v31 = v18;
       }
@@ -2002,12 +2002,12 @@ LABEL_18:
         v33 = v18;
       }
 
-      if (v44 != 2)
+      if (v44[0] != 2)
       {
         v33 = v18;
       }
 
-      if (v44 == 1)
+      if (v44[0] == 1)
       {
         v33 = v18;
       }
@@ -2017,7 +2017,7 @@ LABEL_18:
         v32 = v19;
       }
 
-      if (v44 <= 3)
+      if (v44[0] <= 3)
       {
         v34 = v32;
       }
@@ -2027,7 +2027,7 @@ LABEL_18:
         v34 = v30;
       }
 
-      if (v44 <= 3)
+      if (v44[0] <= 3)
       {
         v35 = v33;
       }
@@ -2147,7 +2147,7 @@ LABEL_18:
   x = location.x;
   v8 = translation.y;
   v9 = translation.x;
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ClickUIDebugEnabled, @"ClickUIDebugEnabled", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1EA95E0FC)
+  if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ClickUIDebugEnabled, @"ClickUIDebugEnabled", _UIInternalPreferenceUpdateBool) || !byte_1EA95E0FC)
   {
     return;
   }

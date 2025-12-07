@@ -54,11 +54,12 @@
   }
 
   v5 = v4;
-  v6 = [[LibcoreReflectGenericSignatureParser alloc] initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader()];
-  [(LibcoreReflectGenericSignatureParser *)v6 parseForClassWithJavaLangReflectGenericDeclaration:self withNSString:v5];
-  v7 = [LibcoreReflectTypes getType:v6->superclassType_];
+  v6 = [LibcoreReflectGenericSignatureParser alloc];
+  v8 = [(LibcoreReflectGenericSignatureParser *)v6 initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader(v6, v7)];
+  [(LibcoreReflectGenericSignatureParser *)v8 parseForClassWithJavaLangReflectGenericDeclaration:self withNSString:v5];
+  v9 = [LibcoreReflectTypes getType:v8->superclassType_];
 
-  return v7;
+  return v9;
 }
 
 - (id)getDeclaringClass
@@ -106,14 +107,14 @@
   v3 = +[NSMutableDictionary dictionary];
   [(IOSClass *)self collectMethods:v3 publicOnly:0];
   allValues = [v3 allValues];
-  v5 = JavaLangReflectMethod_class_();
+  v6 = JavaLangReflectMethod_class_(allValues, v5);
 
-  return [IOSObjectArray arrayWithNSArray:allValues type:v5];
+  return [IOSObjectArray arrayWithNSArray:allValues type:v6];
 }
 
 - (id)getDeclaredConstructors
 {
-  v2 = JavaLangReflectConstructor_class_();
+  v2 = JavaLangReflectConstructor_class_(self, a2);
 
   return [IOSObjectArray arrayWithLength:0 type:v2];
 }
@@ -123,14 +124,14 @@
   v3 = +[NSMutableDictionary dictionary];
   sub_1002186D4(self, v3);
   allValues = [v3 allValues];
-  v5 = JavaLangReflectMethod_class_();
+  v6 = JavaLangReflectMethod_class_(allValues, v5);
 
-  return [IOSObjectArray arrayWithNSArray:allValues type:v5];
+  return [IOSObjectArray arrayWithNSArray:allValues type:v6];
 }
 
 - (id)getConstructors
 {
-  v2 = JavaLangReflectConstructor_class_();
+  v2 = JavaLangReflectConstructor_class_(self, a2);
 
   return [IOSObjectArray arrayWithLength:0 type:v2];
 }
@@ -311,33 +312,35 @@ LABEL_12:
 
 - (id)getGenericInterfaces
 {
-  if ([(IOSClass *)self isPrimitive])
+  isPrimitive = [(IOSClass *)self isPrimitive];
+  if (isPrimitive)
   {
-    v3 = JavaLangReflectType_class_();
+    v5 = JavaLangReflectType_class_(isPrimitive, v4);
 
-    return [IOSObjectArray arrayWithLength:0 type:v3];
+    return [IOSObjectArray arrayWithLength:0 type:v5];
   }
 
   else
   {
-    v5 = [-[IOSClass getMetadata](self "getMetadata")];
-    if (v5)
+    v7 = [-[IOSClass getMetadata](self "getMetadata")];
+    if (v7)
     {
-      v6 = v5;
-      v7 = [[LibcoreReflectGenericSignatureParser alloc] initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader()];
-      [(LibcoreReflectGenericSignatureParser *)v7 parseForClassWithJavaLangReflectGenericDeclaration:self withNSString:v6];
-      v8 = [LibcoreReflectTypes getTypeArray:v7->interfaceTypes_ clone:0];
+      v8 = v7;
+      v9 = [LibcoreReflectGenericSignatureParser alloc];
+      v11 = [(LibcoreReflectGenericSignatureParser *)v9 initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader(v9, v10)];
+      [(LibcoreReflectGenericSignatureParser *)v11 parseForClassWithJavaLangReflectGenericDeclaration:self withNSString:v8];
+      v12 = [LibcoreReflectTypes getTypeArray:v11->interfaceTypes_ clone:0];
 
-      return v8;
+      return v12;
     }
 
     else
     {
       getInterfacesInternal = [(IOSClass *)self getInterfacesInternal];
-      v10 = getInterfacesInternal[2];
-      v11 = JavaLangReflectType_class_();
+      v14 = getInterfacesInternal[2];
+      v16 = JavaLangReflectType_class_(getInterfacesInternal, v15);
 
-      return [IOSObjectArray arrayWithObjects:getInterfacesInternal + 6 count:v10 type:v11];
+      return [IOSObjectArray arrayWithObjects:getInterfacesInternal + 6 count:v14 type:v16];
     }
   }
 }
@@ -347,19 +350,20 @@ LABEL_12:
   v3 = [-[IOSClass getMetadata](self "getMetadata")];
   if (v3)
   {
-    v4 = v3;
-    v5 = [[LibcoreReflectGenericSignatureParser alloc] initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader()];
-    [(LibcoreReflectGenericSignatureParser *)v5 parseForClassWithJavaLangReflectGenericDeclaration:self withNSString:v4];
-    v6 = v5->formalTypeParameters_;
+    v5 = v3;
+    v6 = [LibcoreReflectGenericSignatureParser alloc];
+    v8 = [(LibcoreReflectGenericSignatureParser *)v6 initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader(v6, v7)];
+    [v8 parseForClassWithJavaLangReflectGenericDeclaration:self withNSString:v5];
+    v9 = v8[3];
 
-    return v6;
+    return v9;
   }
 
   else
   {
-    v8 = JavaLangReflectTypeVariable_class_();
+    v11 = JavaLangReflectTypeVariable_class_(0, v4);
 
-    return [IOSObjectArray arrayWithLength:0 type:v8];
+    return [IOSObjectArray arrayWithLength:0 type:v11];
   }
 }
 
@@ -414,62 +418,63 @@ LABEL_12:
   }
 
   getSuperclass = [(IOSClass *)self getSuperclass];
-  v9 = JavaLangAnnotationInherited_class_();
+  getSuperclass2 = JavaLangAnnotationInherited_class_(getSuperclass, v9);
   if (getSuperclass)
   {
-    v10 = v9;
+    v12 = getSuperclass2;
     do
     {
-      v21 = getSuperclass;
+      v23 = getSuperclass;
       getDeclaredAnnotations2 = [getSuperclass getDeclaredAnnotations];
       if (getDeclaredAnnotations2[2] >= 1)
       {
-        v12 = getDeclaredAnnotations2;
-        v13 = 0;
+        v14 = getDeclaredAnnotations2;
+        v15 = 0;
         do
         {
-          v14 = *&v12[2 * v13 + 6];
-          v15 = [objc_msgSend(v14 "getClass")];
-          if (v15[2] >= 1)
+          v16 = *&v14[2 * v15 + 6];
+          v17 = [objc_msgSend(v16 "getClass")];
+          if (v17[2] >= 1)
           {
-            v16 = v15;
-            v17 = 0;
-            v18 = v15;
+            v18 = v17;
+            v19 = 0;
+            v20 = v17;
             do
             {
-              if (v10 == [*(v18 + 3) annotationType])
+              if (v12 == [*(v20 + 3) annotationType])
               {
-                [v3 addObject:v14];
+                [v3 addObject:v16];
               }
 
-              ++v17;
-              v18 += 2;
+              ++v19;
+              v20 += 2;
             }
 
-            while (v17 < v16[2]);
+            while (v19 < v18[2]);
           }
 
-          ++v13;
+          ++v15;
         }
 
-        while (v13 < v12[2]);
+        while (v15 < v14[2]);
       }
 
-      getSuperclass = [v21 getSuperclass];
+      getSuperclass2 = [v23 getSuperclass];
+      getSuperclass = getSuperclass2;
     }
 
-    while (getSuperclass);
+    while (getSuperclass2);
   }
 
-  v19 = [IOSObjectArray arrayWithNSArray:v3 type:JavaLangAnnotationAnnotation_class_()];
+  v21 = [IOSObjectArray arrayWithNSArray:v3 type:JavaLangAnnotationAnnotation_class_(getSuperclass2, v11)];
 
-  return v19;
+  return v21;
 }
 
 - (id)getDeclaredAnnotations
 {
-  objcClass = [(IOSClass *)self objcClass];
-  if (objcClass && JreFindClassMethod(objcClass, "__annotations"))
+  ClassMethod = [(IOSClass *)self objcClass];
+  if (ClassMethod && (ClassMethod = JreFindClassMethod(ClassMethod, "__annotations")) != 0)
   {
 
     method_invoke();
@@ -477,9 +482,9 @@ LABEL_12:
 
   else
   {
-    v4 = JavaLangAnnotationAnnotation_class_();
+    v5 = JavaLangAnnotationAnnotation_class_(ClassMethod, v3);
 
-    return [IOSObjectArray arrayWithLength:0 type:v4];
+    return [IOSObjectArray arrayWithLength:0 type:v5];
   }
 
   return result;

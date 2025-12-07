@@ -111,40 +111,41 @@
 {
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = eventCopy;
+    v6 = eventCopy;
     addedCanonicalIDs = [(VUIAppDocumentModifiedUpNextEvent *)self addedCanonicalIDs];
-    v7 = [addedCanonicalIDs mutableCopy];
+    v8 = [addedCanonicalIDs mutableCopy];
 
-    addedCanonicalIDs2 = [v5 addedCanonicalIDs];
-    [v7 unionSet:addedCanonicalIDs2];
+    addedCanonicalIDs2 = [v6 addedCanonicalIDs];
+    [v8 unionSet:addedCanonicalIDs2];
 
     removedCanonicalIDs = [(VUIAppDocumentModifiedUpNextEvent *)self removedCanonicalIDs];
-    v10 = [removedCanonicalIDs mutableCopy];
+    v11 = [removedCanonicalIDs mutableCopy];
 
-    removedCanonicalIDs2 = [v5 removedCanonicalIDs];
+    removedCanonicalIDs2 = [v6 removedCanonicalIDs];
 
-    [v10 unionSet:removedCanonicalIDs2];
-    v12 = [v7 mutableCopy];
-    [v12 minusSet:v10];
-    v13 = [v10 mutableCopy];
-    [v13 minusSet:v7];
-    v14 = [[VUIAppDocumentModifiedUpNextEvent alloc] initWithAddedCanonicalIDs:v12 removedCanonicalIDs:v13];
+    [v11 unionSet:removedCanonicalIDs2];
+    v13 = [v8 mutableCopy];
+    [v13 minusSet:v11];
+    v14 = [v11 mutableCopy];
+    [v14 minusSet:v8];
+    v15 = [[VUIAppDocumentModifiedUpNextEvent alloc] initWithAddedCanonicalIDs:v13 removedCanonicalIDs:v14];
   }
 
   else
   {
-    v15 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = VUIDefaultLogObject(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(VUIAppDocumentModifiedFavoritesEvent *)self coalescedEvent:eventCopy, v15];
+      [(VUIAppDocumentModifiedFavoritesEvent *)self coalescedEvent:eventCopy, v16];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (unint64_t)hash

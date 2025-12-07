@@ -38,12 +38,10 @@
 {
   v3 = [NSMutableString stringWithCapacity:0];
   [(NSMutableString *)v3 appendFormat:@"UUID: %@\n", self->_uuid];
-  channel = [(W5WiFiChannel *)self->_channel channel];
-  channel = self->_channel;
-  [(NSMutableString *)v3 appendFormat:@"Channel: %ld (%@)\n", channel, W5DescriptionForChannelWidth()];
-  v6 = [(NSMutableString *)v3 copy];
+  [(NSMutableString *)v3 appendFormat:@"Channel: %ld (%@)\n", [(W5WiFiChannel *)self->_channel channel], W5DescriptionForChannelWidth()];
+  v4 = [(NSMutableString *)v3 copy];
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)isEqualToWiFiSnifferRequest:(id)request

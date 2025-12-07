@@ -186,7 +186,7 @@ LABEL_3:
   if (firstObject)
   {
     v6 = firstObject;
-    [firstObject blockPathStart];
+    objc_msgSend_blockPathStart(firstObject);
     firstObject = v6;
   }
 

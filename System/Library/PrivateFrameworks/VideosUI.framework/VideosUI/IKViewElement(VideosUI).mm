@@ -28,99 +28,100 @@
 
 - (id)vui_updateEventDescriptors
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v38 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v52 = *MEMORY[0x1E69E9840];
+  v39 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   attributes = [self attributes];
   v2 = [attributes vui_stringForKey:@"vui-update-events"];
   v3 = v2;
   if (v2)
   {
-    v33 = v2;
-    v34 = attributes;
+    v34 = v2;
+    v35 = attributes;
     v4 = [v2 componentsSeparatedByString:{@", "}];
-    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v50 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (!v5)
     {
       goto LABEL_36;
     }
 
     v6 = v5;
-    v7 = *v47;
-    v36 = v4;
+    v7 = *v48;
+    v37 = v4;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v47 != v7)
+        if (*v48 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v46 + 1) + 8 * i) componentsSeparatedByString:@":"];
+        v9 = [*(*(&v47 + 1) + 8 * i) componentsSeparatedByString:@":"];
         v10 = [v9 count];
         if (v10)
         {
           v11 = v10;
-          v45 = 0;
+          v46 = 0;
           v12 = [v9 objectAtIndex:0];
           whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
           v14 = [v12 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
-          if (!VUIAppDocumentUpdateEventTypeFromStringRepresentation(v14, &v45))
+          updated = VUIAppDocumentUpdateEventTypeFromStringRepresentation(v14, &v46);
+          if (!updated)
           {
             goto LABEL_33;
           }
 
-          if (v45 <= 2)
+          if (v46 <= 2)
           {
             if (v11 == 1)
             {
-              v15 = VUIDefaultLogObject();
-              if (os_log_type_enabled(&v15->super.super, OS_LOG_TYPE_ERROR))
+              v16 = VUIDefaultLogObject(updated);
+              if (os_log_type_enabled(&v16->super.super, OS_LOG_TYPE_ERROR))
               {
-                [(IKViewElement(VideosUI) *)&v43 vui_updateEventDescriptors];
+                [(IKViewElement(VideosUI) *)&v44 vui_updateEventDescriptors];
               }
 
               goto LABEL_32;
             }
 
-            v16 = [v9 objectAtIndex:1];
+            v17 = [v9 objectAtIndex:1];
             whitespaceCharacterSet2 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-            v15 = [v16 stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
+            v16 = [v17 stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
 
-            v18 = [MEMORY[0x1E696AB90] decimalNumberWithString:v15];
-            unsignedIntegerValue = [v18 unsignedIntegerValue];
+            v19 = [MEMORY[0x1E696AB90] decimalNumberWithString:v16];
+            unsignedIntegerValue = [v19 unsignedIntegerValue];
             if (unsignedIntegerValue)
             {
-              v20 = unsignedIntegerValue;
+              v21 = unsignedIntegerValue;
               if (v11 < 3)
               {
-                v22 = 0;
+                v23 = 0;
               }
 
               else
               {
-                v35 = [v9 objectAtIndex:2];
+                v36 = [v9 objectAtIndex:2];
                 whitespaceCharacterSet3 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-                v22 = [v35 stringByTrimmingCharactersInSet:whitespaceCharacterSet3];
+                v23 = [v36 stringByTrimmingCharactersInSet:whitespaceCharacterSet3];
               }
 
-              v29 = [VUIAppDocumentRefreshEventDescriptor alloc];
-              v30 = [(VUIAppDocumentRefreshEventDescriptor *)v29 initWithEventType:v45 delayInSeconds:v20 name:v22];
+              v30 = [VUIAppDocumentRefreshEventDescriptor alloc];
+              v31 = [(VUIAppDocumentRefreshEventDescriptor *)v30 initWithEventType:v46 delayInSeconds:v21 name:v23];
 
-              v15 = v30;
-              v4 = v36;
+              v16 = v31;
+              v4 = v37;
               goto LABEL_30;
             }
 
-            v25 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v26 = VUIDefaultLogObject(0);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              [(IKViewElement(VideosUI) *)&v41 vui_updateEventDescriptors];
+              [(IKViewElement(VideosUI) *)&v42 vui_updateEventDescriptors];
             }
 
 LABEL_32:
@@ -129,46 +130,46 @@ LABEL_33:
             goto LABEL_34;
           }
 
-          if (v45 == 17)
+          if (v46 == 17)
           {
-            v23 = objc_opt_class();
-            v24 = 17;
+            v24 = objc_opt_class();
+            v25 = 17;
           }
 
           else
           {
-            if (v45 == 4)
+            if (v46 == 4)
             {
               if (v11 == 1)
               {
-                v15 = VUIDefaultLogObject();
-                if (os_log_type_enabled(&v15->super.super, OS_LOG_TYPE_ERROR))
+                v16 = VUIDefaultLogObject(updated);
+                if (os_log_type_enabled(&v16->super.super, OS_LOG_TYPE_ERROR))
                 {
-                  [(IKViewElement(VideosUI) *)&v39 vui_updateEventDescriptors];
+                  [(IKViewElement(VideosUI) *)&v40 vui_updateEventDescriptors];
                 }
 
                 goto LABEL_32;
               }
 
-              v26 = [v9 objectAtIndex:1];
+              v27 = [v9 objectAtIndex:1];
               whitespaceCharacterSet4 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-              v28 = [v26 stringByTrimmingCharactersInSet:whitespaceCharacterSet4];
+              v29 = [v27 stringByTrimmingCharactersInSet:whitespaceCharacterSet4];
 
-              v4 = v36;
-              v15 = [[VUIAppDocumentPurchaseEventDescriptor alloc] initWithCanonicalID:v28];
+              v4 = v37;
+              v16 = [[VUIAppDocumentPurchaseEventDescriptor alloc] initWithCanonicalID:v29];
 
               goto LABEL_30;
             }
 
-            v23 = objc_opt_class();
-            v24 = v45;
+            v24 = objc_opt_class();
+            v25 = v46;
           }
 
-          v15 = [v23 _vui_updateEventDescriptorWithType:v24];
+          v16 = [v24 _vui_updateEventDescriptorWithType:v25];
 LABEL_30:
-          if (v15)
+          if (v16)
           {
-            [v38 addObject:v15];
+            [v39 addObject:v16];
             goto LABEL_32;
           }
 
@@ -178,21 +179,21 @@ LABEL_30:
 LABEL_34:
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v47 objects:v51 count:16];
       if (!v6)
       {
 LABEL_36:
 
-        v3 = v33;
-        attributes = v34;
+        v3 = v34;
+        attributes = v35;
         break;
       }
     }
   }
 
-  v31 = [v38 copy];
+  v32 = [v39 copy];
 
-  return v31;
+  return v32;
 }
 
 - (id)vui_title

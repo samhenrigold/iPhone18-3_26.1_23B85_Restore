@@ -1,5 +1,6 @@
 @interface HeadhponeHeartRateTutorial1ViewController
 - (_TtC20HeadphoneProxService41HeadhponeHeartRateTutorial1ViewController)initWithContentView:(id)view;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -9,6 +10,20 @@
 {
   selfCopy = self;
   sub_1000B08D8();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for HeadhponeHeartRateTutorial1ViewController();
+  v4 = v5.receiver;
+  [(HeadhponeHeartRateTutorial1ViewController *)&v5 viewDidAppear:appearCopy];
+  if (swift_unknownObjectWeakLoadStrong())
+  {
+    sub_1000BB1F8(v4[OBJC_IVAR____TtC20HeadphoneProxService41HeadhponeHeartRateTutorial1ViewController_type]);
+    swift_unknownObjectRelease();
+  }
 }
 
 - (_TtC20HeadphoneProxService41HeadhponeHeartRateTutorial1ViewController)initWithContentView:(id)view

@@ -24,57 +24,58 @@
 
 - (BOOL)preserveBTPairingRecord
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "About to preserve bluetooth pairing records to ensure these pairings persist.", buf, 2u);
   }
 
-  if (![(MSDBluetoothHelper *)self preserveBTFiles])
+  preserveBTFiles = [(MSDBluetoothHelper *)self preserveBTFiles];
+  if ((preserveBTFiles & 1) == 0)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = sub_100063A54(preserveBTFiles);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1000CCCD0();
     }
 
-    v6 = 0;
+    v8 = 0;
     goto LABEL_21;
   }
 
-  v4 = +[MSDPlatform sharedInstance];
-  macOS = [v4 macOS];
+  v5 = +[MSDPlatform sharedInstance];
+  macOS = [v5 macOS];
 
   if (macOS)
   {
-    v6 = 0;
+    v8 = 0;
 LABEL_14:
-    v15 = 1;
+    v19 = 1;
     goto LABEL_15;
   }
 
-  v7 = sub_100063A54();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100063A54(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saving bluetooth pairing info stored in system keychain.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Saving bluetooth pairing info stored in system keychain.", buf, 2u);
   }
 
-  v8 = +[NSFileManager defaultManager];
-  v9 = [v8 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain"];
+  v10 = +[NSFileManager defaultManager];
+  v11 = [v10 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain"];
 
-  if (v9)
+  if (v11)
   {
-    v10 = +[NSFileManager defaultManager];
-    v22 = 0;
-    v11 = [v10 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain" error:&v22];
-    v6 = v22;
+    v12 = +[NSFileManager defaultManager];
+    v26 = 0;
+    v13 = [v12 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain" error:&v26];
+    v8 = v26;
 
-    if ((v11 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = sub_100063A54(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_1000CCD10();
       }
@@ -85,88 +86,89 @@ LABEL_14:
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  v13 = +[MSDCryptoHandler sharedInstance];
-  v14 = [v13 preserveAndEncryptKeychainItemsForKey:@"com.appl.mobilestoredemo.bluetooth." toFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain"];
+  v16 = +[MSDCryptoHandler sharedInstance];
+  v17 = [v16 preserveAndEncryptKeychainItemsForKey:@"com.appl.mobilestoredemo.bluetooth." toFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain"];
 
-  if (v14)
+  if (v17)
   {
     goto LABEL_14;
   }
 
-  v12 = sub_100063A54();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v15 = sub_100063A54(v18);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     sub_1000CCD80();
   }
 
 LABEL_21:
 
-  v17 = +[NSFileManager defaultManager];
-  v18 = [v17 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter"];
+  v21 = +[NSFileManager defaultManager];
+  v22 = [v21 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter"];
 
-  if (v18)
+  if (v22)
   {
-    v19 = +[NSFileManager defaultManager];
-    v21 = v6;
-    [v19 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" error:&v21];
-    v20 = v21;
+    v23 = +[NSFileManager defaultManager];
+    v25 = v8;
+    [v23 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" error:&v25];
+    v24 = v25;
 
-    v15 = 0;
-    v6 = v20;
+    v19 = 0;
+    v8 = v24;
   }
 
   else
   {
-    v15 = 0;
+    v19 = 0;
   }
 
 LABEL_15:
 
-  return v15;
+  return v19;
 }
 
 - (void)restoreBTPairingRecordIfNeeded
 {
-  if (![(MSDBluetoothHelper *)self shouldRestoreBluetoothPairingRecord])
+  shouldRestoreBluetoothPairingRecord = [(MSDBluetoothHelper *)self shouldRestoreBluetoothPairingRecord];
+  if ((shouldRestoreBluetoothPairingRecord & 1) == 0)
   {
-    sub_1000CCDC0();
+    sub_1000CCDC0(shouldRestoreBluetoothPairingRecord);
     return;
   }
 
-  v3 = +[MSDPlatform sharedInstance];
-  macOS = [v3 macOS];
+  v4 = +[MSDPlatform sharedInstance];
+  macOS = [v4 macOS];
 
   if ((macOS & 1) == 0)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100063A54(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Restoring bluetooth pairing information to system keychain.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Restoring bluetooth pairing information to system keychain.", buf, 2u);
     }
 
-    v6 = +[MSDCryptoHandler sharedInstance];
-    v7 = [v6 restoreAndDecryptKeychainItemsForKey:@"com.appl.mobilestoredemo.bluetooth." fromFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain"];
+    v8 = +[MSDCryptoHandler sharedInstance];
+    v9 = [v8 restoreAndDecryptKeychainItemsForKey:@"com.appl.mobilestoredemo.bluetooth." fromFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.btkeychain"];
 
-    v8 = sub_100063A54();
-    v9 = v8;
-    if ((v7 & 1) == 0)
+    v11 = sub_100063A54(v10);
+    v12 = v11;
+    if ((v9 & 1) == 0)
     {
-      sub_1000CCE1C(v8);
+      sub_1000CCE1C(v11);
       return;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Done restoring bluetooth keychain items.", v11, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Done restoring bluetooth keychain items.", v14, 2u);
     }
 
-    v10 = +[MSDHelperAgent sharedInstance];
-    [v10 restartBluetooth];
+    v13 = +[MSDHelperAgent sharedInstance];
+    [v13 restartBluetooth];
   }
 
   [(MSDBluetoothHelper *)self removeBluetoothPairingRecordIfNeeded];
@@ -174,18 +176,19 @@ LABEL_15:
 
 - (BOOL)preserveBTFiles
 {
-  v51[1] = 0;
+  v55[1] = 0;
   v2 = +[NSFileManager defaultManager];
   v3 = 0;
   if ([v2 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter"])
   {
-    v51[0] = 0;
-    v4 = [v2 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" error:v51];
-    v3 = v51[0];
+    v55[0] = 0;
+    v4 = [v2 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" error:v55];
+    v5 = v55[0];
+    v3 = v5;
     if ((v4 & 1) == 0)
     {
-      v9 = sub_100063A54();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_100063A54(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1000CCE70();
       }
@@ -194,149 +197,149 @@ LABEL_15:
     }
   }
 
-  v5 = v3;
-  v50 = v3;
-  v6 = [v2 createDirectoryAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" withIntermediateDirectories:1 attributes:0 error:&v50];
-  v3 = v50;
+  v6 = v3;
+  v54 = v3;
+  v7 = [v2 createDirectoryAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" withIntermediateDirectories:1 attributes:0 error:&v54];
+  v3 = v54;
 
-  if ((v6 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000CCEE0();
     }
 
 LABEL_27:
-    v36 = 0;
+    v40 = 0;
     goto LABEL_28;
   }
 
-  v7 = +[MSDPlatform sharedInstance];
-  macOS = [v7 macOS];
+  v9 = +[MSDPlatform sharedInstance];
+  macOS = [v9 macOS];
 
-  v44 = v3;
+  v48 = v3;
   if (macOS)
   {
-    v9 = 0;
-    v10 = &off_10017BBF8;
+    v11 = 0;
+    v12 = &off_10017BBF8;
   }
 
   else
   {
-    v9 = [NSString stringWithCString:container_system_group_path_for_identifier() encoding:4];
-    v42 = [v9 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.paired.db"];
-    v53[0] = v42;
-    v11 = [v9 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.paired.db-shm"];
-    v53[1] = v11;
-    v12 = [v9 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.paired.db-wal"];
-    v53[2] = v12;
-    v13 = [v9 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.other.db"];
-    v53[3] = v13;
-    v14 = [v9 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.other.db-shm"];
-    v53[4] = v14;
-    v15 = [v9 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.other.db-wal"];
-    v53[5] = v15;
-    v16 = [v9 stringByAppendingPathComponent:@"Library/Preferences/com.apple.MobileBluetooth.devices.plist"];
-    v53[6] = v16;
-    v17 = [v9 stringByAppendingPathComponent:@"Library/Preferences/com.apple.BTMagic.plist"];
-    v53[7] = v17;
-    v10 = [NSArray arrayWithObjects:v53 count:8];
+    v11 = [NSString stringWithCString:container_system_group_path_for_identifier() encoding:4];
+    v46 = [v11 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.paired.db"];
+    v57[0] = v46;
+    v13 = [v11 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.paired.db-shm"];
+    v57[1] = v13;
+    v14 = [v11 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.paired.db-wal"];
+    v57[2] = v14;
+    v15 = [v11 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.other.db"];
+    v57[3] = v15;
+    v16 = [v11 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.other.db-shm"];
+    v57[4] = v16;
+    v17 = [v11 stringByAppendingPathComponent:@"Library/Database/com.apple.MobileBluetooth.ledevices.other.db-wal"];
+    v57[5] = v17;
+    v18 = [v11 stringByAppendingPathComponent:@"Library/Preferences/com.apple.MobileBluetooth.devices.plist"];
+    v57[6] = v18;
+    v19 = [v11 stringByAppendingPathComponent:@"Library/Preferences/com.apple.BTMagic.plist"];
+    v57[7] = v19;
+    v12 = [NSArray arrayWithObjects:v57 count:8];
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  obj = v10;
-  v18 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-  if (!v18)
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  obj = v12;
+  v20 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+  if (!v20)
   {
     goto LABEL_19;
   }
 
-  v19 = v18;
-  v39 = v9;
-  v20 = 0;
-  v43 = *v47;
+  v21 = v20;
+  v43 = v11;
+  v22 = 0;
+  v47 = *v51;
   p_cache = &OBJC_METACLASS___MSDPlatform.cache;
   while (2)
   {
-    v22 = 0;
-    v23 = v20;
+    v24 = 0;
+    v25 = v22;
     do
     {
-      if (*v47 != v43)
+      if (*v51 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v46 + 1) + 8 * v22);
+      v22 = *(*(&v50 + 1) + 8 * v24);
 
-      stringByDeletingLastPathComponent = [v20 stringByDeletingLastPathComponent];
-      v25 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" stringByAppendingPathComponent:stringByDeletingLastPathComponent];
-      v26 = [v2 fileExistsAtPath:v25];
+      stringByDeletingLastPathComponent = [v22 stringByDeletingLastPathComponent];
+      v27 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" stringByAppendingPathComponent:stringByDeletingLastPathComponent];
+      v28 = [v2 fileExistsAtPath:v27];
 
-      if ((v26 & 1) == 0)
+      if ((v28 & 1) == 0)
       {
-        v27 = v2;
-        v28 = p_cache;
-        v29 = v19;
-        stringByDeletingLastPathComponent2 = [v20 stringByDeletingLastPathComponent];
-        v31 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" stringByAppendingPathComponent:stringByDeletingLastPathComponent2];
-        v45 = v44;
-        v32 = v27;
-        v41 = [v27 createDirectoryAtPath:v31 withIntermediateDirectories:1 attributes:0 error:&v45];
-        v3 = v45;
+        v29 = v2;
+        v30 = p_cache;
+        v31 = v21;
+        stringByDeletingLastPathComponent2 = [v22 stringByDeletingLastPathComponent];
+        v33 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/BluetoothShelter" stringByAppendingPathComponent:stringByDeletingLastPathComponent2];
+        v49 = v48;
+        v34 = v29;
+        v45 = [v29 createDirectoryAtPath:v33 withIntermediateDirectories:1 attributes:0 error:&v49];
+        v3 = v49;
 
-        if ((v41 & 1) == 0)
+        if ((v45 & 1) == 0)
         {
-          v37 = sub_100063A54();
-          if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v41 = sub_100063A54(v35);
+          if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            v2 = v32;
-            v9 = v39;
+            v2 = v34;
+            v11 = v43;
             goto LABEL_26;
           }
 
           sub_1000CCF50();
-          v2 = v32;
+          v2 = v34;
 LABEL_23:
-          v9 = v39;
+          v11 = v43;
 LABEL_26:
 
           goto LABEL_27;
         }
 
-        v44 = v3;
-        v33 = v32;
-        v19 = v29;
-        p_cache = v28;
-        v2 = v33;
+        v48 = v3;
+        v36 = v34;
+        v21 = v31;
+        p_cache = v30;
+        v2 = v36;
       }
 
       sharedInstance = [p_cache + 223 sharedInstance];
-      v35 = [sharedInstance preserveBluetoothFileToShelter:v20];
+      v38 = [sharedInstance preserveBluetoothFileToShelter:v22];
 
-      if ((v35 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
-        v37 = sub_100063A54();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v41 = sub_100063A54(v39);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           sub_1000CCFD4();
         }
 
-        v3 = v44;
+        v3 = v48;
         goto LABEL_23;
       }
 
-      v22 = v22 + 1;
-      v23 = v20;
+      v24 = v24 + 1;
+      v25 = v22;
     }
 
-    while (v19 != v22);
-    v19 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-    if (v19)
+    while (v21 != v24);
+    v21 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+    if (v21)
     {
       continue;
     }
@@ -344,14 +347,14 @@ LABEL_26:
     break;
   }
 
-  v9 = v39;
+  v11 = v43;
 LABEL_19:
 
-  v36 = 1;
-  v3 = v44;
+  v40 = 1;
+  v3 = v48;
 LABEL_28:
 
-  return v36;
+  return v40;
 }
 
 - (BOOL)shouldRestoreBluetoothPairingRecord

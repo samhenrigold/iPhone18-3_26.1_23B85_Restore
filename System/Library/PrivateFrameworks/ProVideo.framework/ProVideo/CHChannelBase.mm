@@ -294,10 +294,10 @@
 
 - (void)getMD5Value:(unsigned int *)value
 {
-  OZChannelBase::getHash(self->_pOZChannel);
+  OZChannelBase::getHash(self->_pOZChannel, a2, value, v3, v4);
   if (value)
   {
-    *value = v4;
+    *value = v6;
   }
 }
 

@@ -20,7 +20,7 @@
 
 + (id)path
 {
-  v2 = NTKMainBundleDependentCacheDirectory();
+  v2 = NTKMainBundleDependentCacheDirectory(self);
   v3 = [v2 stringByAppendingPathComponent:@"FaceResourceLinks"];
 
   return v3;

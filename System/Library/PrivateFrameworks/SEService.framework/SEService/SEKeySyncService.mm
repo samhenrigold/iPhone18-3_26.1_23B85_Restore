@@ -10,7 +10,6 @@
   if (error)
   {
     v7 = SESDefaultLogObject();
-    v8 = *MEMORY[0x1E69E5148];
     *error = SESCreateAndLogError();
   }
 

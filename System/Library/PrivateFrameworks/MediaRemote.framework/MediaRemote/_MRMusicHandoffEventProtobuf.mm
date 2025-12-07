@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -26,13 +27,33 @@
   }
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"MRMusicHandoffEventTypeSucceeded";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"MRMusicHandoffEventTypeFailed";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
   v4 = 1;
-  if (([typeCopy isEqualToString:@"MRMusicHandoffEventTypeSucceeded"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(typeCopy) & 1) == 0)
   {
-    if ([typeCopy isEqualToString:@"MRMusicHandoffEventTypeFailed"])
+    if (objc_msgSend_isEqualToString_(typeCopy))
     {
       v4 = 2;
     }
@@ -95,18 +116,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_sessionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

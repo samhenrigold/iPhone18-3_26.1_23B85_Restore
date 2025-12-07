@@ -161,14 +161,12 @@
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
   }
 
@@ -189,7 +187,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    unlockDate = self->_unlockDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -200,7 +197,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    sessionStartDate = self->_sessionStartDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -211,7 +207,6 @@
 
   if (*&self->_has)
   {
-    arTrackingDistance = self->_arTrackingDistance;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -350,7 +345,6 @@
     goto LABEL_38;
   }
 
-  v5 = *(equalCopy + 80);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 80) & 0x10) == 0 || self->_version != *(equalCopy + 19))
@@ -402,7 +396,6 @@
   }
 
   has = self->_has;
-  v10 = *(equalCopy + 80);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 80) & 4) == 0 || self->_unlockDate != *(equalCopy + 3))
@@ -427,7 +420,6 @@
     has = self->_has;
   }
 
-  v12 = *(equalCopy + 80);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_sessionStartDate != *(equalCopy + 2))
@@ -451,12 +443,12 @@
     }
 
 LABEL_38:
-    v14 = 0;
+    v11 = 0;
     goto LABEL_39;
   }
 
 LABEL_34:
-  v14 = (*(equalCopy + 80) & 1) == 0;
+  v11 = (*(equalCopy + 80) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_arTrackingDistance != *(equalCopy + 1))
@@ -464,12 +456,12 @@ LABEL_34:
       goto LABEL_38;
     }
 
-    v14 = 1;
+    v11 = 1;
   }
 
 LABEL_39:
 
-  return v14;
+  return v11;
 }
 
 - (unint64_t)hash

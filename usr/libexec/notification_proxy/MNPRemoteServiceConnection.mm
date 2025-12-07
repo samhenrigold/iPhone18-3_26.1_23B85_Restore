@@ -18,9 +18,9 @@
 - (MNPRemoteServiceConnection)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v15.receiver = self;
-  v15.super_class = MNPRemoteServiceConnection;
-  v6 = [(MNPRemoteServiceConnection *)&v15 init];
+  v13.receiver = self;
+  v13.super_class = MNPRemoteServiceConnection;
+  v6 = [(MNPRemoteServiceConnection *)&v13 init];
   if (v6)
   {
     v7 = os_transaction_create();
@@ -32,10 +32,8 @@
     queue = v6->_queue;
     v6->_queue = v9;
 
-    conn = v6->_conn;
-    v12 = v6->_queue;
     xpc_remote_connection_set_target_queue();
-    v13 = v6;
+    v11 = v6;
   }
 
   return v6;
@@ -83,12 +81,10 @@
 - (void)listen
 {
   objc_initWeak(&location, self);
-  conn = self->_conn;
-  objc_copyWeak(&v5, &location);
+  objc_copyWeak(&v2, &location);
   xpc_remote_connection_set_event_handler();
-  v4 = self->_conn;
   xpc_remote_connection_activate();
-  objc_destroyWeak(&v5);
+  objc_destroyWeak(&v2);
   objc_destroyWeak(&location);
 }
 

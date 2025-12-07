@@ -10,16 +10,16 @@
 
 - (MCDeclarationsPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v30.receiver = self;
-  v30.super_class = MCDeclarationsPayload;
-  v9 = [(MCPayload *)&v30 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v29.receiver = self;
+  v29.super_class = MCDeclarationsPayload;
+  v9 = [(MCPayload *)&v29 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (v9)
   {
-    v29 = 0;
-    v10 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Declarations" isRequired:1 outError:&v29];
-    v11 = v29;
+    v28 = 0;
+    v10 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Declarations" isRequired:1 outError:&v28];
+    v11 = v28;
     if (v11)
     {
       v12 = v11;
@@ -39,9 +39,9 @@
         v19 = v18;
         mCVerboseDescription = [v14 MCVerboseDescription];
         *buf = 138543618;
-        v32 = v18;
-        v33 = 2114;
-        v34 = mCVerboseDescription;
+        v31 = v18;
+        v32 = 2114;
+        v33 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -61,9 +61,9 @@
           friendlyName = [(MCPayload *)v9 friendlyName];
           allKeys = [dictionaryCopy allKeys];
           *buf = 138543618;
-          v32 = friendlyName;
-          v33 = 2114;
-          v34 = allKeys;
+          v31 = friendlyName;
+          v32 = 2114;
+          v33 = allKeys;
           _os_log_impl(&dword_1A795B000, v23, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
         }
       }
@@ -74,7 +74,6 @@
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

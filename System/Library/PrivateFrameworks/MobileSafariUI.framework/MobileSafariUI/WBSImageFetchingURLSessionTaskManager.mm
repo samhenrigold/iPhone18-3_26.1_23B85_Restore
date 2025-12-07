@@ -13,7 +13,7 @@ void __115__WBSImageFetchingURLSessionTaskManager_ReadingListMetadataFetcherAddi
 
   else
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXReadingList();
+    v3 = WBS_LOG_CHANNEL_PREFIXReadingList(a1, 0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __115__WBSImageFetchingURLSessionTaskManager_ReadingListMetadataFetcherAdditions__fetchThumbnailForBookmark_completion___block_invoke_cold_1();

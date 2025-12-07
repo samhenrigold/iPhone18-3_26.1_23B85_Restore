@@ -161,50 +161,13 @@
       name2 = [(IEEvent *)v5 name];
       v8 = [name isEqualToString:name2];
 
-      if ((v8 & 1) == 0)
-      {
-        goto LABEL_14;
-      }
-
-      eventId = [(IEEvent *)self eventId];
-      eventId2 = [(IEEvent *)v5 eventId];
-      v11 = [eventId isEqualToString:eventId2];
-
-      if ((v11 & 1) == 0)
-      {
-        goto LABEL_14;
-      }
-
-      slots = [(IEEvent *)self slots];
-      slots2 = [(IEEvent *)v5 slots];
-      v14 = [slots isEqualToDictionary:slots2];
-
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_14;
-      }
-
-      producer = [(IEEvent *)self producer];
-      producer2 = [(IEEvent *)v5 producer];
-      v17 = [producer isEqual:producer2];
-
-      if ((v17 & 1) == 0)
-      {
-        goto LABEL_14;
-      }
-
-      parsers = [(IEEvent *)self parsers];
-      v19 = [parsers count];
-      parsers2 = [(IEEvent *)v5 parsers];
-      v21 = [parsers2 count];
-
-      if (v19 == v21)
+      if (v8 & 1) != 0 && (-[IEEvent eventId](self, "eventId"), v9 = objc_claimAutoreleasedReturnValue(), -[IEEvent eventId](v5, "eventId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v9 isEqualToString:v10], v10, v9, (v11) && (-[IEEvent slots](self, "slots"), v12 = objc_claimAutoreleasedReturnValue(), -[IEEvent slots](v5, "slots"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToDictionary:", v13), v13, v12, (v14) && (-[IEEvent producer](self, "producer"), v15 = objc_claimAutoreleasedReturnValue(), -[IEEvent producer](v5, "producer"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, (v17) && (-[IEEvent parsers](self, "parsers"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "count"), -[IEEvent parsers](v5, "parsers"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "count"), v20, v18, v19 == v21))
       {
         v22 = 0;
         do
         {
-          parsers3 = [(IEEvent *)self parsers];
-          v24 = [parsers3 count];
+          parsers = [(IEEvent *)self parsers];
+          v24 = [parsers count];
 
           v25 = v24 <= v22;
           if (v24 <= v22)
@@ -212,10 +175,10 @@
             break;
           }
 
-          parsers4 = [(IEEvent *)self parsers];
-          v27 = [parsers4 objectAtIndex:v22];
-          parsers5 = [(IEEvent *)v5 parsers];
-          v29 = [parsers5 objectAtIndex:v22];
+          parsers2 = [(IEEvent *)self parsers];
+          v27 = [parsers2 objectAtIndex:v22];
+          parsers3 = [(IEEvent *)v5 parsers];
+          v29 = [parsers3 objectAtIndex:v22];
           v30 = [v27 isEqual:v29];
 
           ++v22;
@@ -226,7 +189,6 @@
 
       else
       {
-LABEL_14:
         v25 = 0;
       }
     }

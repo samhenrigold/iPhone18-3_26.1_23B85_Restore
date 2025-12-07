@@ -287,7 +287,7 @@ LABEL_52:
 
 - (void)_ensureButtonBar
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   if (!self->_buttonBar)
   {
     v3 = objc_alloc_init(_UIButtonBar);
@@ -299,16 +299,16 @@ LABEL_52:
     [(_UIButtonBar *)self->_buttonBar setItemDistribution:self->_itemDistribution];
     traitCollection = [(UIView *)self traitCollection];
     v6 = +[_UIButtonBarButtonVisualProvider visualProviderForIdiom:](_UIButtonBarButtonVisualProvider, "visualProviderForIdiom:", [traitCollection userInterfaceIdiom]);
-    objc_opt_class();
-    v7 = _UIButtonBarButtonMakerForVisualProvider();
-    [(_UIButtonBar *)self->_buttonBar setViewUpdater:v7];
+    v7 = objc_opt_class();
+    v8 = _UIButtonBarButtonMakerForVisualProvider(v7);
+    [(_UIButtonBar *)self->_buttonBar setViewUpdater:v8];
 
     [(_UIButtonBar *)self->_buttonBar setMinimumInterItemSpace:0.0];
-    v8 = [UIBarButtonItemGroup alloc];
-    v48 = [(UIBarButtonItemGroup *)v8 initWithBarButtonItems:MEMORY[0x1E695E0F0] representativeItem:0];
-    v50[0] = v48;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:1];
-    [(_UIButtonBar *)self->_buttonBar setBarButtonGroups:v9];
+    v9 = [UIBarButtonItemGroup alloc];
+    v49 = [(UIBarButtonItemGroup *)v9 initWithBarButtonItems:MEMORY[0x1E695E0F0] representativeItem:0];
+    v51[0] = v49;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:1];
+    [(_UIButtonBar *)self->_buttonBar setBarButtonGroups:v10];
 
     top = self->_padding.top;
     leading = self->_padding.leading;
@@ -317,14 +317,14 @@ LABEL_52:
     view = [(_UIButtonBar *)self->_buttonBar view];
     [view setDirectionalLayoutMargins:{top, leading, bottom, trailing}];
 
-    v15 = objc_alloc_init(_UIPointerInteractionAssistant);
+    v16 = objc_alloc_init(_UIPointerInteractionAssistant);
     assistant = self->_assistant;
-    self->_assistant = v15;
+    self->_assistant = v16;
 
     [(UIView *)self addInteraction:self->_assistant];
-    v17 = self->_assistant;
+    v18 = self->_assistant;
     assistantView = [(_UIButtonBar *)self->_buttonBar assistantView];
-    [(_UIPointerInteractionAssistant *)v17 setAssistedView:assistantView identifier:@"ContentView.buttonBar"];
+    [(_UIPointerInteractionAssistant *)v18 setAssistedView:assistantView identifier:@"ContentView.buttonBar"];
 
     [(_UIButtonBar *)self->_buttonBar setAssistant:self->_assistant];
     view2 = [(_UIButtonBar *)self->_buttonBar view];
@@ -334,44 +334,44 @@ LABEL_52:
     [(UIView *)self insertSubview:previewContainer atIndex:1];
     leadingAnchor = [view2 leadingAnchor];
     leadingAnchor2 = [(UIView *)self leadingAnchor];
-    v23 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v24 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
     buttonBarLeadingConstraint = self->_buttonBarLeadingConstraint;
-    self->_buttonBarLeadingConstraint = v23;
+    self->_buttonBarLeadingConstraint = v24;
 
     trailingAnchor = [(UIView *)self trailingAnchor];
     trailingAnchor2 = [view2 trailingAnchor];
-    v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
     buttonBarTrailingConstraint = self->_buttonBarTrailingConstraint;
-    self->_buttonBarTrailingConstraint = v27;
+    self->_buttonBarTrailingConstraint = v28;
 
-    v41 = MEMORY[0x1E69977A0];
-    v29 = self->_buttonBarTrailingConstraint;
-    v49[0] = self->_buttonBarLeadingConstraint;
-    v49[1] = v29;
+    v42 = MEMORY[0x1E69977A0];
+    v30 = self->_buttonBarTrailingConstraint;
+    v50[0] = self->_buttonBarLeadingConstraint;
+    v50[1] = v30;
     topAnchor = [view2 topAnchor];
     topAnchor2 = [(UIView *)self topAnchor];
-    v45 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v49[2] = v45;
+    v46 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v50[2] = v46;
     bottomAnchor = [view2 bottomAnchor];
     bottomAnchor2 = [(UIView *)self bottomAnchor];
-    v42 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v49[3] = v42;
+    v43 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v50[3] = v43;
     leadingAnchor3 = [previewContainer leadingAnchor];
     leadingAnchor4 = [view2 leadingAnchor];
-    v38 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v49[4] = v38;
+    v39 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v50[4] = v39;
     topAnchor3 = [previewContainer topAnchor];
     topAnchor4 = [view2 topAnchor];
-    v32 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-    v49[5] = v32;
+    v33 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+    v50[5] = v33;
     widthAnchor = [previewContainer widthAnchor];
-    v34 = [widthAnchor constraintEqualToConstant:0.0];
-    v49[6] = v34;
+    v35 = [widthAnchor constraintEqualToConstant:0.0];
+    v50[6] = v35;
     heightAnchor = [previewContainer heightAnchor];
-    v36 = [heightAnchor constraintEqualToConstant:0.0];
-    v49[7] = v36;
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:8];
-    [v41 activateConstraints:v37];
+    v37 = [heightAnchor constraintEqualToConstant:0.0];
+    v50[7] = v37;
+    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:8];
+    [v42 activateConstraints:v38];
   }
 }
 

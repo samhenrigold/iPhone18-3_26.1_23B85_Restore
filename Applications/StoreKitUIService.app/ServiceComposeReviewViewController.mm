@@ -54,7 +54,7 @@
 {
   v9 = 0u;
   v10 = 0u;
-  [(ServiceComposeReviewViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self, a2);
   v7 = v9;
   v8 = v10;
   if (sub_10000D270(&v7, @"com.apple.ios.StoreKit.compose-review") || (v7 = v9, v8 = v10, sub_10000D270(&v7, kSSITunesStorePrivateEntitlement)))

@@ -502,7 +502,7 @@ LABEL_29:
 LABEL_30:
       v36 = [v18 existingSceneHandleForScene:v20];
       externalForegroundApplicationSceneHandles2 = [v18 externalForegroundApplicationSceneHandles];
-      v38 = [externalForegroundApplicationSceneHandles2 containsObject:v36];
+      v38 = objc_msgSend_containsObject_(externalForegroundApplicationSceneHandles2);
 
       v101 = v36;
       if (v38)

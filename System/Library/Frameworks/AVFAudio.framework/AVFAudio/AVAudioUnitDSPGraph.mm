@@ -11,11 +11,11 @@
 
 - (NSURL)auProcessingStripURL
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   p_impl = &self->super.super._impl;
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, self->super.super._impl);
-  v3 = (*(**p_impl + 152))(*p_impl, 1635087216, 0, 0, &v12, 8);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, self->super.super._impl);
+  v3 = (*(**p_impl + 152))(*p_impl, 1635087216, 0, 0, &v11, 8);
   if (v3)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -27,44 +27,43 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v14 = "AVAudioUnitDSPGraph.mm";
-      v15 = 1024;
-      v16 = 130;
-      v17 = 1024;
-      v18 = v3;
+      v13 = "AVAudioUnitDSPGraph.mm";
+      v14 = 1024;
+      v15 = 130;
+      v16 = 1024;
+      v17 = v3;
       _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d unable to get property kAUDSPGraphProperty_AUStrip %i", buf, 0x18u);
     }
   }
 
-  else if (v12)
+  else if (v11)
   {
-    v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:v12];
+    v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:v11];
     goto LABEL_9;
   }
 
   v5 = 0;
 LABEL_9:
-  if (v11 == 1)
+  if (v10 == 1)
   {
-    std::recursive_mutex::unlock(v10);
+    std::recursive_mutex::unlock(v9);
   }
 
-  if (v9 == 1)
+  if (v8 == 1)
   {
-    std::recursive_mutex::unlock(v8);
+    std::recursive_mutex::unlock(v7);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (NSURL)dspGraphURL
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   p_impl = &self->super.super._impl;
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, self->super.super._impl);
-  v3 = (*(**p_impl + 152))(*p_impl, 1685287015, 0, 0, &v12, 8);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, self->super.super._impl);
+  v3 = (*(**p_impl + 152))(*p_impl, 1685287015, 0, 0, &v11, 8);
   if (v3)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -76,34 +75,33 @@ LABEL_9:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v14 = "AVAudioUnitDSPGraph.mm";
-      v15 = 1024;
-      v16 = 115;
-      v17 = 1024;
-      v18 = v3;
+      v13 = "AVAudioUnitDSPGraph.mm";
+      v14 = 1024;
+      v15 = 115;
+      v16 = 1024;
+      v17 = v3;
       _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d unable to get property kAUDSPGraphProperty_GraphTextFilePath %i", buf, 0x18u);
     }
   }
 
-  else if (v12)
+  else if (v11)
   {
-    v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:v12];
+    v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:v11];
     goto LABEL_9;
   }
 
   v5 = 0;
 LABEL_9:
-  if (v11 == 1)
+  if (v10 == 1)
   {
-    std::recursive_mutex::unlock(v10);
+    std::recursive_mutex::unlock(v9);
   }
 
-  if (v9 == 1)
+  if (v8 == 1)
   {
-    std::recursive_mutex::unlock(v8);
+    std::recursive_mutex::unlock(v7);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -230,23 +228,22 @@ LABEL_9:
 
 void __42__AVAudioUnitDSPGraph_loadAudioDSPManager__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = dlopen("/System/Library/Frameworks/AudioToolbox.framework/libAudioDSP.dylib", 1);
   v3 = dlsym(v2, "GetAudioDSPManager");
   if (v3)
   {
     if ((atomic_load_explicit(&_ZGVZZ42__AVAudioUnitDSPGraph_loadAudioDSPManager_EUb_E8instance, memory_order_acquire) & 1) == 0)
     {
-      v8 = v3;
+      v6 = v3;
       if (__cxa_guard_acquire(&_ZGVZZ42__AVAudioUnitDSPGraph_loadAudioDSPManager_EUb_E8instance))
       {
-        _ZZZ42__AVAudioUnitDSPGraph_loadAudioDSPManager_EUb_E8instance = v8();
+        _ZZZ42__AVAudioUnitDSPGraph_loadAudioDSPManager_EUb_E8instance = v6();
         __cxa_guard_release(&_ZGVZZ42__AVAudioUnitDSPGraph_loadAudioDSPManager_EUb_E8instance);
       }
     }
 
     v4 = *(*_ZZZ42__AVAudioUnitDSPGraph_loadAudioDSPManager_EUb_E8instance + 24);
-    v5 = *MEMORY[0x1E69E9840];
 
     v4();
   }
@@ -258,18 +255,17 @@ void __42__AVAudioUnitDSPGraph_loadAudioDSPManager__block_invoke(uint64_t a1)
       dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
     }
 
-    v6 = *AVAudioEngineLogCategory(void)::category;
+    v5 = *AVAudioEngineLogCategory(void)::category;
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AVAudioUnitDSPGraph.mm";
-      v11 = 1024;
-      v12 = 51;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: Unable to call RegisterAudioUnits_Internal from libAudioDSP.dylib.", &v9, 0x12u);
+      v7 = 136315394;
+      v8 = "AVAudioUnitDSPGraph.mm";
+      v9 = 1024;
+      v10 = 51;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: Unable to call RegisterAudioUnits_Internal from libAudioDSP.dylib.", &v7, 0x12u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
-    v7 = *MEMORY[0x1E69E9840];
   }
 }
 

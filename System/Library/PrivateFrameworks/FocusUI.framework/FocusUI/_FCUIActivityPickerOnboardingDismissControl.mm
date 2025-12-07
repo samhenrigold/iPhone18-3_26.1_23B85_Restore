@@ -209,7 +209,7 @@
   image = [(UIImageView *)self->_imageView image];
   [image size];
 
-  v4 = BSRectWithSize();
+  BSRectWithSize();
 
   MEMORY[0x2821DE758](v4);
   result.size.height = v8;

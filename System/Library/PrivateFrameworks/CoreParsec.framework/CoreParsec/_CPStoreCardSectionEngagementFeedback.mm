@@ -164,7 +164,6 @@ LABEL_27:
   toCopy = to;
   if ([(_CPStoreCardSectionEngagementFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -178,13 +177,11 @@ LABEL_27:
 
   if ([(_CPStoreCardSectionEngagementFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStoreCardSectionEngagementFeedback *)self actionCardType])
   {
-    actionCardType = self->_actionCardType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -198,7 +195,6 @@ LABEL_27:
 
   if ([(_CPStoreCardSectionEngagementFeedback *)self productPageResult])
   {
-    productPageResult = self->_productPageResult;
     PBDataWriterWriteInt32Field();
   }
 
@@ -206,18 +202,16 @@ LABEL_27:
 
   if (cardSectionId)
   {
-    cardSectionId = self->_cardSectionId;
     PBDataWriterWriteStringField();
   }
 
   resultId = [(_CPStoreCardSectionEngagementFeedback *)self resultId];
 
-  v15 = toCopy;
+  v10 = toCopy;
   if (resultId)
   {
-    resultId = self->_resultId;
     PBDataWriterWriteStringField();
-    v15 = toCopy;
+    v10 = toCopy;
   }
 }
 

@@ -28,7 +28,7 @@
   v15[1] = *MEMORY[0x277D85DE8];
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
   v6 = [self length];
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v8 = (v15 - v7);
   [self getCharacters:v15 - v7 range:{0, v6}];
   if (!v6)

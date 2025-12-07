@@ -316,7 +316,7 @@
 
   else
   {
-    v21 = bls_diagnostics_log();
+    v21 = bls_diagnostics_log(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       [BLSDiagnosticFlipbookFrame initWithXPCDictionary:];
@@ -333,7 +333,7 @@
 
   else
   {
-    v26 = bls_diagnostics_log();
+    v26 = bls_diagnostics_log(0);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       [BLSDiagnosticFlipbookFrame initWithXPCDictionary:];
@@ -351,7 +351,7 @@
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   xpc_dictionary_set_uint64(dictionaryCopy, [@"presentationTime" UTF8String], self->_presentationTime);
   xpc_dictionary_set_uint64(dictionaryCopy, [@"frameId" UTF8String], self->_frameId);
@@ -359,24 +359,18 @@
   xpc_dictionary_set_double(dictionaryCopy, [@"dimming" UTF8String], self->_aplDimming);
   xpc_dictionary_set_uint64(dictionaryCopy, [@"memoryUsage" UTF8String], self->_memoryUsage);
   [@"rawSurfaceFrame" UTF8String];
-  x = self->_rawSurfaceFrame.origin.x;
-  y = self->_rawSurfaceFrame.origin.y;
-  width = self->_rawSurfaceFrame.size.width;
-  height = self->_rawSurfaceFrame.size.height;
   BSSerializeCGRectToXPCDictionaryWithKey();
   xpc_dictionary_set_BOOL(dictionaryCopy, [@"inverted" UTF8String], self->_inverted);
   uTF8String = [@"specifier" UTF8String];
-  v10 = xpc_dictionary_create(0, 0, 0);
-  [(BLSDiagnosticPresentationDateSpecifier *)self->_specifier encodeWithXPCDictionary:v10];
-  xpc_dictionary_set_value(dictionaryCopy, uTF8String, v10);
+  v6 = xpc_dictionary_create(0, 0, 0);
+  [(BLSDiagnosticPresentationDateSpecifier *)self->_specifier encodeWithXPCDictionary:v6];
+  xpc_dictionary_set_value(dictionaryCopy, uTF8String, v6);
   uTF8String2 = [@"uuid" UTF8String];
   *uuid = 0;
-  v15 = 0;
+  v10 = 0;
   [(NSUUID *)self->_uuid getUUIDBytes:uuid];
-  v12 = xpc_uuid_create(uuid);
-  xpc_dictionary_set_value(dictionaryCopy, uTF8String2, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v8 = xpc_uuid_create(uuid);
+  xpc_dictionary_set_value(dictionaryCopy, uTF8String2, v8);
 }
 
 - (BLSDiagnosticFlipbookFrame)initWithCoder:(id)coder
@@ -443,22 +437,6 @@
   WeakRetained = objc_loadWeakRetained(&self->_surfaceProvider);
 
   return WeakRetained;
-}
-
-- (void)initWithXPCDictionary:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_5(&dword_21FE25000, v0, v1, "specifier missing from encoding: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithXPCDictionary:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_5(&dword_21FE25000, v0, v1, "uuid missing from encoding: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -35,29 +35,29 @@
 
 - (BOOL)containsInfoSuggestion:(id)suggestion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v5 = self->_bannedWidgets;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v25 != v8)
+      if (*v24 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v24 + 1) + 8 * v9);
-      v11 = [v10 objectForKeyedSubscript:{@"extensionBundleId", v24}];
+      v10 = *(*(&v23 + 1) + 8 * v9);
+      v11 = [v10 objectForKeyedSubscript:{@"extensionBundleId", v23}];
       v12 = [v10 objectForKeyedSubscript:@"appBundleId"];
       v13 = [v10 objectForKeyedSubscript:@"widgetKind"];
       if (v11 && ([suggestionCopy widgetBundleIdentifier], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
@@ -106,7 +106,7 @@ LABEL_11:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -120,7 +120,6 @@ LABEL_11:
   v21 = 0;
 LABEL_22:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

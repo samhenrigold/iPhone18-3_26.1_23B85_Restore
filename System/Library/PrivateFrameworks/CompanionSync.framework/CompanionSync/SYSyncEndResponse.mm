@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)errorResolutionAsString:(int)string;
 - (int)StringAsErrorResolution:(id)resolution;
 - (int)errorResolution;
 - (unint64_t)hash;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)errorResolutionAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Retry";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Ignore";
+  }
+
+  return v4;
 }
 
 - (int)StringAsErrorResolution:(id)resolution
@@ -112,7 +136,7 @@
     [SYSyncEndResponse writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteSubmessage();
   if (!self->_syncID)
   {
@@ -127,7 +151,6 @@
 
   if (*&self->_has)
   {
-    errorResolution = self->_errorResolution;
     PBDataWriterWriteInt32Field();
   }
 }

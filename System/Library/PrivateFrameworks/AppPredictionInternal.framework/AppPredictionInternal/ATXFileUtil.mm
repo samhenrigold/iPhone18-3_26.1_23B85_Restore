@@ -4,6 +4,8 @@
 + (BOOL)cachesAreValidForConsumerSubTypes:(id)types;
 + (BOOL)shouldUpdateCache:(id)cache withRefreshRate:(double)rate;
 + (double)cacheAgeForCache:(id)cache withCurrentTime:(double)time;
++ (double)cacheAgeForConsumerType:(unsigned __int8)type;
++ (double)cacheAgeForConsumerType:(unsigned __int8)type basePath:(id)path;
 @end
 
 @implementation ATXFileUtil
@@ -18,15 +20,14 @@
 
 + (BOOL)_shouldUpdateCache:(id)cache withRefreshRate:(double)rate currentTime:(double)time
 {
-  v18 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v10 = [defaultManager fileExistsAtPath:cacheCopy];
 
   if ((v10 & 1) == 0)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       +[ATXFileUtil _shouldUpdateCache:withRefreshRate:currentTime:];
     }
@@ -34,11 +35,11 @@
     goto LABEL_7;
   }
 
-  [self cacheAgeForCache:cacheCopy withCurrentTime:time];
-  if (v11 > rate)
+  v12 = [self cacheAgeForCache:cacheCopy withCurrentTime:time];
+  if (v13 > rate)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = __atxlog_handle_default(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       +[ATXFileUtil _shouldUpdateCache:withRefreshRate:currentTime:];
     }
@@ -48,10 +49,10 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (v11 < 0.0)
+  if (v13 < 0.0)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = __atxlog_handle_default(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       +[ATXFileUtil _shouldUpdateCache:withRefreshRate:currentTime:];
     }
@@ -59,11 +60,11 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v15 = open([cacheCopy UTF8String], 0);
-  if (v15 < 0)
+  v16 = open([cacheCopy UTF8String], 0);
+  if ((v16 & 0x80000000) != 0)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_default(v16);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[ATXFileUtil _shouldUpdateCache:withRefreshRate:currentTime:];
     }
@@ -71,41 +72,66 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v16 = v15;
+  v17 = v16;
   ATXCacheFileRead();
-  close(v16);
-  v17 = __atxlog_handle_default();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  close(v17);
+  v18 = __atxlog_handle_default(0);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     +[ATXFileUtil _shouldUpdateCache:withRefreshRate:currentTime:];
   }
 
 LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
+}
+
++ (double)cacheAgeForConsumerType:(unsigned __int8)type
+{
+  typeCopy = type;
+  appPredictionDirectory = [MEMORY[0x277CEBCB0] appPredictionDirectory];
+  v5 = [appPredictionDirectory stringByAppendingPathComponent:@"caches/ATXCacheFile"];
+  [ATXFileUtil cacheAgeForConsumerType:typeCopy basePath:v5];
+  v7 = v6;
+
+  return v7;
+}
+
++ (double)cacheAgeForConsumerType:(unsigned __int8)type basePath:(id)path
+{
+  typeCopy = type;
+  v6 = MEMORY[0x277CEB3A0];
+  pathCopy = path;
+  sharedInstanceWithMobileAssets = [v6 sharedInstanceWithMobileAssets];
+  v9 = [sharedInstanceWithMobileAssets getFullCachePathWithBaseCachePath:pathCopy consumerSubType:typeCopy];
+
+  [self cacheAgeForCache:v9 withCurrentTime:CFAbsoluteTimeGetCurrent()];
+  v11 = v10;
+
+  return v11;
 }
 
 + (double)cacheAgeForCache:(id)cache withCurrentTime:(double)time
 {
   cacheCopy = cache;
-  memset(&v9, 0, sizeof(v9));
-  if (lstat([cacheCopy fileSystemRepresentation], &v9))
+  memset(&v10, 0, sizeof(v10));
+  v6 = lstat([cacheCopy fileSystemRepresentation], &v10);
+  if (v6)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [ATXFileUtil cacheAgeForCache:cacheCopy withCurrentTime:v6];
+      [ATXFileUtil cacheAgeForCache:cacheCopy withCurrentTime:v7];
     }
 
-    v7 = 1.79769313e308;
+    v8 = 1.79769313e308;
   }
 
   else
   {
-    v7 = time - (v9.st_mtimespec.tv_sec + v9.st_mtimespec.tv_nsec * 0.000000001 - *MEMORY[0x277CBECD0]);
+    v8 = time - (v10.st_mtimespec.tv_sec + v10.st_mtimespec.tv_nsec * 0.000000001 - *MEMORY[0x277CBECD0]);
   }
 
-  return v7;
+  return v8;
 }
 
 + (BOOL)cachesAreValidForConsumerSubTypes:(id)types
@@ -121,62 +147,62 @@ LABEL_8:
 
 + (BOOL)cachesAreValidForBasePath:(id)path consumerSubTypes:(id)types
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   typesCopy = types;
   v7 = objc_opt_new();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v8 = typesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
+        v13 = *(*(&v29 + 1) + 8 * i);
         mEMORY[0x277CEB3A0] = [MEMORY[0x277CEB3A0] sharedInstanceWithMobileAssets];
         v15 = [mEMORY[0x277CEB3A0] getFullCachePathWithBaseCachePath:pathCopy consumerSubType:{objc_msgSend(v13, "unsignedCharValue")}];
 
         [v7 addObject:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v10);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = v7;
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     while (2)
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * j);
+        v21 = *(*(&v25 + 1) + 8 * j);
         v22 = +[_ATXGlobals sharedInstance];
         [v22 defaultPredictionRefreshRate];
         LOBYTE(v21) = [ATXFileUtil shouldUpdateCache:v21 withRefreshRate:?];
@@ -188,7 +214,7 @@ LABEL_8:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v18)
       {
         continue;
@@ -201,72 +227,22 @@ LABEL_8:
   v23 = 1;
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
-}
-
-+ (void)_shouldUpdateCache:withRefreshRate:currentTime:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v0, v1, "Prediction cache doesn't yet exist, update cache at path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_shouldUpdateCache:withRefreshRate:currentTime:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Prediction cache file held invalid data (old magic number?) at path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_shouldUpdateCache:withRefreshRate:currentTime:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Prediction cache file was empty at path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_shouldUpdateCache:withRefreshRate:currentTime:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Prediction cache file open failed at path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_shouldUpdateCache:withRefreshRate:currentTime:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v0, v1, "Prediction cache was created in the future, update cache at path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_shouldUpdateCache:withRefreshRate:currentTime:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v0, v1, "Prediction cache is old, update cache at path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)cacheAgeForCache:(uint64_t)a1 withCurrentTime:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *__error();
   v5 = __error();
   v6 = strerror(*v5);
-  v8 = 138412802;
-  v9 = a1;
-  v10 = 1024;
-  v11 = v4;
-  v12 = 2080;
-  v13 = v6;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Couldn't lstat %@: [%i] %s", &v8, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412802;
+  v8 = a1;
+  v9 = 1024;
+  v10 = v4;
+  v11 = 2080;
+  v12 = v6;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Couldn't lstat %@: [%i] %s", &v7, 0x1Cu);
 }
 
 @end

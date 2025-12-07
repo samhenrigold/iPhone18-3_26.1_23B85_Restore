@@ -7,7 +7,7 @@
 
 - (_TtC12VisualLookUp26VITextLookupFlowCompatible)init
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB54548);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB54548, &unk_1D9C9F480);
   swift_allocObject();
   *(&self->super.isa + OBJC_IVAR____TtC12VisualLookUp26VITextLookupFlowCompatible_flow) = sub_1D9C1AB3C(0, sub_1D9C1AC84, 0);
   v4.receiver = self;

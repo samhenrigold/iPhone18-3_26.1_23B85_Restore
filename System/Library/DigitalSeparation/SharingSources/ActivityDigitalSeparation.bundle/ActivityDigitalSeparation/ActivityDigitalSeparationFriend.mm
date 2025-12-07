@@ -10,23 +10,22 @@
 {
   v3 = sub_8D74();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend);
+  __chkstk_darwin(v3);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(&self->super.isa + OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend);
   selfCopy = self;
-  result = [v8 UUID];
+  result = [v7 UUID];
   if (result)
   {
-    v11 = result;
+    v10 = result;
     sub_8D64();
 
     sub_8D54();
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
 
-    v12 = sub_8DB4();
+    v11 = sub_8DB4();
 
-    return v12;
+    return v11;
   }
 
   else
@@ -39,8 +38,8 @@
 
 - (NSPersonNameComponents)nameComponents
 {
-  v3 = *(*(sub_2084(&unk_115F0, &qword_A770) - 8) + 64);
-  v4 = (__chkstk_darwin)();
+  v3 = sub_2084(&unk_115F0, &qword_A770);
+  v4 = __chkstk_darwin(v3 - 8);
   v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
   v8 = &v20 - v7;

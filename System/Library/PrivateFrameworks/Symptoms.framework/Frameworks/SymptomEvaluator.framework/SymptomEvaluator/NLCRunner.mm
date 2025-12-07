@@ -171,7 +171,7 @@ uint64_t __27__NLCRunner_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)engage
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = _nlc_connect(&self->session_cookie);
   if (v3 == 1)
   {
@@ -182,9 +182,9 @@ uint64_t __27__NLCRunner_sharedInstance__block_invoke(uint64_t a1)
       v6 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v13 = 67109120;
-        v14 = v5;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "_nlc_start_simulation failed: (%d)", &v13, 8u);
+        v12 = 67109120;
+        v13 = v5;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "_nlc_start_simulation failed: (%d)", &v12, 8u);
       }
     }
 
@@ -196,9 +196,9 @@ uint64_t __27__NLCRunner_sharedInstance__block_invoke(uint64_t a1)
       v9 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v13 = 67109120;
-        v14 = v8;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "_nlc_disconnect failed: (%d)", &v13, 8u);
+        v12 = 67109120;
+        v13 = v8;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "_nlc_disconnect failed: (%d)", &v12, 8u);
       }
     }
 
@@ -211,18 +211,16 @@ uint64_t __27__NLCRunner_sharedInstance__block_invoke(uint64_t a1)
     v11 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = 67109120;
-      v14 = v10;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "_nlc_connect failed: (%d)", &v13, 8u);
+      v12 = 67109120;
+      v13 = v10;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "_nlc_connect failed: (%d)", &v12, 8u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disengage
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = _nlc_connect(&self->session_cookie);
   if (v3 == 1)
   {
@@ -233,9 +231,9 @@ uint64_t __27__NLCRunner_sharedInstance__block_invoke(uint64_t a1)
       v6 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v13 = 67109120;
-        v14 = v5;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "_nlc_stop_simulation failed: (%d)", &v13, 8u);
+        v12 = 67109120;
+        v13 = v5;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "_nlc_stop_simulation failed: (%d)", &v12, 8u);
       }
     }
 
@@ -247,9 +245,9 @@ uint64_t __27__NLCRunner_sharedInstance__block_invoke(uint64_t a1)
       v9 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v13 = 67109120;
-        v14 = v8;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "_nlc_disconnect failed: (%d)", &v13, 8u);
+        v12 = 67109120;
+        v13 = v8;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "_nlc_disconnect failed: (%d)", &v12, 8u);
       }
     }
 
@@ -262,13 +260,11 @@ uint64_t __27__NLCRunner_sharedInstance__block_invoke(uint64_t a1)
     v11 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = 67109120;
-      v14 = v10;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "_nlc_connect failed: (%d)", &v13, 8u);
+      v12 = 67109120;
+      v13 = v10;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "_nlc_connect failed: (%d)", &v12, 8u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

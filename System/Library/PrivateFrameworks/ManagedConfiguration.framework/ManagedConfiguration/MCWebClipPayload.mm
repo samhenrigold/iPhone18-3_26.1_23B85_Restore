@@ -11,12 +11,12 @@
 
 - (MCWebClipPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v96.receiver = self;
-  v96.super_class = MCWebClipPayload;
-  v10 = [(MCPayload *)&v96 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v95.receiver = self;
+  v95.super_class = MCWebClipPayload;
+  v10 = [(MCPayload *)&v95 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_20;
@@ -24,9 +24,9 @@
 
   if ([profileCopy isStub])
   {
-    v86 = 0;
-    v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"URL" isRequired:0 outError:&v86];
-    v12 = v86;
+    v85 = 0;
+    v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"URL" isRequired:0 outError:&v85];
+    v12 = v85;
     if (!v12)
     {
       if (v11)
@@ -36,34 +36,34 @@
         v10->_URL = v13;
       }
 
-      v85 = 0;
-      v15 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"Label" isRequired:0 outError:&v85];
-      v16 = v85;
+      v84 = 0;
+      v15 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"Label" isRequired:0 outError:&v84];
+      v16 = v84;
       label = v10->_label;
       v10->_label = v15;
 
       if (!v16)
       {
-        v84 = 0;
-        v18 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"FullScreen" isRequired:0 outError:&v84];
-        v16 = v84;
+        v83 = 0;
+        v18 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"FullScreen" isRequired:0 outError:&v83];
+        v16 = v83;
         fullScreenNum = v10->_fullScreenNum;
         v10->_fullScreenNum = v18;
 
         if (!v16)
         {
           v10->_fullScreen = [(NSNumber *)v10->_fullScreenNum BOOLValue];
-          v83 = 0;
-          v20 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SavedIdentifier" isRequired:0 outError:&v83];
-          v16 = v83;
+          v82 = 0;
+          v20 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SavedIdentifier" isRequired:0 outError:&v82];
+          v16 = v82;
           savedIdentifier = v10->_savedIdentifier;
           v10->_savedIdentifier = v20;
 
           if (!v16)
           {
-            v82 = 0;
-            v22 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IsRemovable" isRequired:0 outError:&v82];
-            v16 = v82;
+            v81 = 0;
+            v22 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IsRemovable" isRequired:0 outError:&v81];
+            v16 = v81;
             isRemovableNum = v10->_isRemovableNum;
             v10->_isRemovableNum = v22;
 
@@ -72,28 +72,28 @@
               v24 = v10->_isRemovableNum;
               v25 = !v24 || [(NSNumber *)v24 BOOLValue];
               v10->_isRemovable = v25;
-              v81 = 0;
-              v70 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IgnoreManifestScope" isRequired:0 outError:&v81];
-              v16 = v81;
+              v80 = 0;
+              v69 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IgnoreManifestScope" isRequired:0 outError:&v80];
+              v16 = v80;
               ignoreManifestScopeNum = v10->_ignoreManifestScopeNum;
-              v10->_ignoreManifestScopeNum = v70;
+              v10->_ignoreManifestScopeNum = v69;
 
               if (!v16)
               {
                 v10->_ignoreManifestScope = [(NSNumber *)v10->_ignoreManifestScopeNum BOOLValue];
-                v80 = 0;
-                v72 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ContentMode" isRequired:0 outError:&v80];
-                v16 = v80;
+                v79 = 0;
+                v71 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ContentMode" isRequired:0 outError:&v79];
+                v16 = v79;
                 contentMode = v10->_contentMode;
-                v10->_contentMode = v72;
+                v10->_contentMode = v71;
 
                 if (!v16)
                 {
-                  v79 = 0;
-                  v74 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"TargetApplicationBundleIdentifier" isRequired:0 outError:&v79];
-                  v16 = v79;
+                  v78 = 0;
+                  v73 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"TargetApplicationBundleIdentifier" isRequired:0 outError:&v78];
+                  v16 = v78;
                   targetApplicationBundleIdentifier = v10->_targetApplicationBundleIdentifier;
-                  v10->_targetApplicationBundleIdentifier = v74;
+                  v10->_targetApplicationBundleIdentifier = v73;
 
                   if (!v16)
                   {
@@ -112,65 +112,65 @@
     goto LABEL_13;
   }
 
-  v95 = 0;
-  v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"URL" isRequired:1 outError:&v95];
-  v12 = v95;
+  v94 = 0;
+  v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"URL" isRequired:1 outError:&v94];
+  v12 = v94;
   if (!v12)
   {
-    v36 = [MEMORY[0x1E695DFF8] URLWithString:v11];
-    v37 = v10->_URL;
-    v10->_URL = v36;
+    v35 = [MEMORY[0x1E695DFF8] URLWithString:v11];
+    v36 = v10->_URL;
+    v10->_URL = v35;
 
-    v94 = 0;
-    v38 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"Label" isRequired:1 outError:&v94];
-    v16 = v94;
-    v39 = v10->_label;
-    v10->_label = v38;
+    v93 = 0;
+    v37 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"Label" isRequired:1 outError:&v93];
+    v16 = v93;
+    v38 = v10->_label;
+    v10->_label = v37;
 
     if (v16)
     {
       goto LABEL_14;
     }
 
-    v93 = 0;
-    v40 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Icon" isRequired:0 outError:&v93];
-    v41 = v93;
-    if (v41)
+    v92 = 0;
+    v39 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Icon" isRequired:0 outError:&v92];
+    v40 = v92;
+    if (v40)
     {
-      v16 = v41;
+      v16 = v40;
 LABEL_24:
 
       goto LABEL_14;
     }
 
-    if (v40)
+    if (v39)
     {
-      v42 = MCCGImageSourceCreateWithData(v40, 0);
-      if (v42)
+      v41 = MCCGImageSourceCreateWithData(v39, 0);
+      if (v41)
       {
-        v43 = v42;
-        if (MCCGImageSourceGetCount(v42))
+        v42 = v41;
+        if (MCCGImageSourceGetCount(v41))
         {
-          ImageAtIndex = MCCGImageSourceCreateImageAtIndex(v43, 0, 0);
+          ImageAtIndex = MCCGImageSourceCreateImageAtIndex(v42, 0, 0);
           if (ImageAtIndex)
           {
             CFRelease(ImageAtIndex);
-            CFRelease(v43);
-            objc_storeStrong(&v10->_iconData, v40);
+            CFRelease(v42);
+            objc_storeStrong(&v10->_iconData, v39);
             goto LABEL_30;
           }
         }
 
-        CFRelease(v43);
+        CFRelease(v42);
       }
 
       iconData = v10->_iconData;
-      v10->_iconData = v40;
-      v50 = v40;
+      v10->_iconData = v39;
+      v49 = v39;
 
-      v51 = MEMORY[0x1E696ABC0];
-      v59 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_P_FIELD", v52, v53, v54, v55, v56, v57, v58, @"Icon");
-      v16 = [v51 MCErrorWithDomain:@"MCProfileErrorDomain" code:1003 descriptionArray:v59 errorType:@"MCFatalError"];
+      v50 = MEMORY[0x1E696ABC0];
+      v58 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_P_FIELD", v51, v52, v53, v54, v55, v56, v57, @"Icon");
+      v16 = [v50 MCErrorWithDomain:@"MCProfileErrorDomain" code:1003 descriptionArray:v58 errorType:@"MCFatalError"];
 
       if (!v16)
       {
@@ -181,57 +181,57 @@ LABEL_24:
     }
 
 LABEL_30:
-    v92 = 0;
-    v45 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IsRemovable" isRequired:0 outError:&v92];
-    v16 = v92;
-    v46 = v10->_isRemovableNum;
-    v10->_isRemovableNum = v45;
+    v91 = 0;
+    v44 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IsRemovable" isRequired:0 outError:&v91];
+    v16 = v91;
+    v45 = v10->_isRemovableNum;
+    v10->_isRemovableNum = v44;
 
     if (!v16)
     {
-      v47 = v10->_isRemovableNum;
-      v48 = !v47 || [(NSNumber *)v47 BOOLValue];
-      v10->_isRemovable = v48;
-      v91 = 0;
-      v60 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Precomposed" isRequired:0 outError:&v91];
-      v16 = v91;
+      v46 = v10->_isRemovableNum;
+      v47 = !v46 || [(NSNumber *)v46 BOOLValue];
+      v10->_isRemovable = v47;
+      v90 = 0;
+      v59 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Precomposed" isRequired:0 outError:&v90];
+      v16 = v90;
       precomposedNum = v10->_precomposedNum;
-      v10->_precomposedNum = v60;
+      v10->_precomposedNum = v59;
 
       if (!v16)
       {
         v10->_precomposed = [(NSNumber *)v10->_precomposedNum BOOLValue];
-        v90 = 0;
-        v62 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"FullScreen" isRequired:0 outError:&v90];
-        v16 = v90;
-        v63 = v10->_fullScreenNum;
-        v10->_fullScreenNum = v62;
+        v89 = 0;
+        v61 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"FullScreen" isRequired:0 outError:&v89];
+        v16 = v89;
+        v62 = v10->_fullScreenNum;
+        v10->_fullScreenNum = v61;
 
         if (!v16)
         {
           v10->_fullScreen = [(NSNumber *)v10->_fullScreenNum BOOLValue];
-          v89 = 0;
-          v64 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IgnoreManifestScope" isRequired:0 outError:&v89];
-          v16 = v89;
-          v65 = v10->_ignoreManifestScopeNum;
-          v10->_ignoreManifestScopeNum = v64;
+          v88 = 0;
+          v63 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IgnoreManifestScope" isRequired:0 outError:&v88];
+          v16 = v88;
+          v64 = v10->_ignoreManifestScopeNum;
+          v10->_ignoreManifestScopeNum = v63;
 
           if (!v16)
           {
             v10->_ignoreManifestScope = [(NSNumber *)v10->_ignoreManifestScopeNum BOOLValue];
-            v88 = 0;
-            v66 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ContentMode" isRequired:0 outError:&v88];
-            v16 = v88;
-            v67 = v10->_contentMode;
-            v10->_contentMode = v66;
+            v87 = 0;
+            v65 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ContentMode" isRequired:0 outError:&v87];
+            v16 = v87;
+            v66 = v10->_contentMode;
+            v10->_contentMode = v65;
 
             if (!v16)
             {
-              v87 = 0;
-              v68 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"TargetApplicationBundleIdentifier" isRequired:0 outError:&v87];
-              v16 = v87;
-              v69 = v10->_targetApplicationBundleIdentifier;
-              v10->_targetApplicationBundleIdentifier = v68;
+              v86 = 0;
+              v67 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"TargetApplicationBundleIdentifier" isRequired:0 outError:&v86];
+              v16 = v86;
+              v68 = v10->_targetApplicationBundleIdentifier;
+              v10->_targetApplicationBundleIdentifier = v67;
 
               if (!v16)
               {
@@ -239,16 +239,16 @@ LABEL_30:
 LABEL_47:
                 if ([dictionaryCopy count])
                 {
-                  v76 = _MCLogObjects;
+                  v75 = _MCLogObjects;
                   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
                   {
-                    v77 = v76;
+                    v76 = v75;
                     friendlyName = [(MCPayload *)v10 friendlyName];
                     *buf = 138543618;
-                    v98 = friendlyName;
-                    v99 = 2114;
-                    v100 = dictionaryCopy;
-                    _os_log_impl(&dword_1A795B000, v77, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
+                    v97 = friendlyName;
+                    v98 = 2114;
+                    v99 = dictionaryCopy;
+                    _os_log_impl(&dword_1A795B000, v76, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
                   }
                 }
 
@@ -284,16 +284,15 @@ LABEL_15:
     v32 = v31;
     mCVerboseDescription = [v27 MCVerboseDescription];
     *buf = 138543618;
-    v98 = v31;
-    v99 = 2114;
-    v100 = mCVerboseDescription;
+    v97 = v31;
+    v98 = 2114;
+    v99 = mCVerboseDescription;
     _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
   }
 
   v10 = 0;
 LABEL_20:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -443,7 +442,7 @@ LABEL_20:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_label)
   {
@@ -518,16 +517,14 @@ LABEL_20:
   if ([v3 count])
   {
     v32 = [MCKeyValueSection sectionWithKeyValues:v3];
-    v36[0] = v32;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+    v35[0] = v32;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
   }
 
   else
   {
     v33 = 0;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }

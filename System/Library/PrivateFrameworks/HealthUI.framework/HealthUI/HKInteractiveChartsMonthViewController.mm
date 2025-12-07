@@ -27,9 +27,9 @@
 
 - (void)viewDidLoad
 {
-  v19.receiver = self;
-  v19.super_class = HKInteractiveChartsMonthViewController;
-  [(HKMonthViewController *)&v19 viewDidLoad];
+  v20.receiver = self;
+  v20.super_class = HKInteractiveChartsMonthViewController;
+  [(HKMonthViewController *)&v20 viewDidLoad];
   v3 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:24 target:self action:sel_dismissViewController_];
   navigationItem = [(HKInteractiveChartsMonthViewController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:v3];
@@ -42,13 +42,13 @@
   [navigationItem2 setRightBarButtonItem:v8];
 
   v10 = [HKWeekdayHeaderPaletteView alloc];
-  v11 = [(HKWeekdayHeaderPaletteView *)v10 initWithFrame:HKUICalendarLocaleIsRightToLeft() shouldSupportRTL:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
-  [(HKInteractiveChartsMonthViewController *)self setWeekdayHeaderPaletteView:v11];
+  v12 = [(HKWeekdayHeaderPaletteView *)v10 initWithFrame:HKUICalendarLocaleIsRightToLeft(v10 shouldSupportRTL:v11), *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  [(HKInteractiveChartsMonthViewController *)self setWeekdayHeaderPaletteView:v12];
 
   navigationController = [(HKInteractiveChartsMonthViewController *)self navigationController];
   +[HKWeekdayHeaderPaletteView preferredHeight];
-  v14 = [navigationController paletteForEdge:2 size:{0.0, v13}];
-  [(HKInteractiveChartsMonthViewController *)self setContainingPalette:v14];
+  v15 = [navigationController paletteForEdge:2 size:{0.0, v14}];
+  [(HKInteractiveChartsMonthViewController *)self setContainingPalette:v15];
 
   containingPalette = [(HKInteractiveChartsMonthViewController *)self containingPalette];
   weekdayHeaderPaletteView = [(HKInteractiveChartsMonthViewController *)self weekdayHeaderPaletteView];

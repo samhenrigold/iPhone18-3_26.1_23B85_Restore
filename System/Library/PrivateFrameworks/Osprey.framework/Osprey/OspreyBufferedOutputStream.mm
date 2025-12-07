@@ -59,11 +59,11 @@ LABEL_6:
     return length;
   }
 
-  OspreyLoggingInit();
-  v9 = OspreyLogContextGRPC;
+  OspreyLoggingInit(-1, v8);
+  v10 = OspreyLogContextGRPC;
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
   {
-    [OspreyBufferedOutputStream write:v9 maxLength:?];
+    [OspreyBufferedOutputStream write:v10 maxLength:?];
   }
 
   return -1;
@@ -81,7 +81,7 @@ LABEL_6:
   dispatch_async(queue, block);
 }
 
-uint64_t __35__OspreyBufferedOutputStream_close__block_invoke(uint64_t a1)
+void *__35__OspreyBufferedOutputStream_close__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 136) length];
   if (!result)
@@ -155,11 +155,11 @@ void __42__OspreyBufferedOutputStream__flushBuffer__block_invoke(uint64_t a1, ui
       *a5 = 1;
       if (v10 == -1)
       {
-        OspreyLoggingInit();
-        v11 = OspreyLogContextGRPC;
+        OspreyLoggingInit(-1, v11);
+        v12 = OspreyLogContextGRPC;
         if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
         {
-          __42__OspreyBufferedOutputStream__flushBuffer__block_invoke_cold_1(v9, 144, v11);
+          __42__OspreyBufferedOutputStream__flushBuffer__block_invoke_cold_1(v9, 144, v12);
         }
       }
     }
@@ -179,6 +179,7 @@ void __42__OspreyBufferedOutputStream__flushBuffer__block_invoke(uint64_t a1, ui
 - (void)stream:(id)stream handleEvent:(unint64_t)event
 {
   streamCopy = stream;
+  v8 = streamCopy;
   if (self->_outputStream != streamCopy)
   {
     goto LABEL_13;
@@ -189,16 +190,16 @@ void __42__OspreyBufferedOutputStream__flushBuffer__block_invoke(uint64_t a1, ui
     case 0x10uLL:
       goto LABEL_12;
     case 8uLL:
-      OspreyLoggingInit();
-      v7 = OspreyLogContextGRPC;
+      OspreyLoggingInit(streamCopy, v7);
+      v9 = OspreyLogContextGRPC;
       if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
       {
-        [OspreyBufferedOutputStream stream:v7 handleEvent:?];
+        [OspreyBufferedOutputStream stream:v9 handleEvent:?];
       }
 
       goto LABEL_12;
     case 4uLL:
-      OspreyLoggingInit();
+      OspreyLoggingInit(streamCopy, v7);
       if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
       {
         [OspreyBufferedOutputStream stream:handleEvent:];
@@ -221,8 +222,9 @@ LABEL_13:
   v2 = *a1;
   v3 = a2;
   v4 = [v2 streamError];
+  v11 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25DDE6000, v5, v6, "%s Error writing bytes to %@ with: %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_25DDE6000, v5, v6, "%s Error writing bytes to %@ with: %@", v7, v8, v9, v10, v11);
 }
 
 void __42__OspreyBufferedOutputStream__flushBuffer__block_invoke_cold_1(void *a1, uint64_t a2, void *a3)
@@ -230,8 +232,9 @@ void __42__OspreyBufferedOutputStream__flushBuffer__block_invoke_cold_1(void *a1
   v3 = *(*a1 + a2);
   v4 = a3;
   v5 = [v3 streamError];
+  v12 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25DDE6000, v6, v7, "%s Error writing bytes to %@ with: %@", v8, v9, v10, v11, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_25DDE6000, v6, v7, "%s Error writing bytes to %@ with: %@", v8, v9, v10, v11, v12);
 }
 
 - (void)stream:(void *)a1 handleEvent:(void *)a2 .cold.1(void **a1, void *a2)
@@ -239,8 +242,9 @@ void __42__OspreyBufferedOutputStream__flushBuffer__block_invoke_cold_1(void *a1
   v2 = *a1;
   v3 = a2;
   v4 = [v2 streamError];
+  v11 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25DDE6000, v5, v6, "%s OutputStream %@ error occurred: %@.", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_25DDE6000, v5, v6, "%s OutputStream %@ error occurred: %@.", v7, v8, v9, v10, v11);
 }
 
 - (void)stream:handleEvent:.cold.2()

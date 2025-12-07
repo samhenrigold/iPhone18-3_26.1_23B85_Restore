@@ -21,11 +21,11 @@
 
   if (v6)
   {
-    v7 = SWFrameworkLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SWFrameworkLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D2C1D000, v7, OS_LOG_TYPE_DEFAULT, "_sendStartCollaborationAction: invoking the action handler", buf, 2u);
+      _os_log_impl(&dword_1D2C1D000, v8, OS_LOG_TYPE_DEFAULT, "_sendStartCollaborationAction: invoking the action handler", buf, 2u);
     }
 
     actionHandler2 = [(SWCollaborationCoordinator *)self actionHandler];
@@ -34,9 +34,9 @@
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = _SWCollaborationCoordinator;
-    [(SWCollaborationCoordinator *)&v9 _sendStartCollaborationAction:actionCopy];
+    v10.receiver = self;
+    v10.super_class = _SWCollaborationCoordinator;
+    [(SWCollaborationCoordinator *)&v10 _sendStartCollaborationAction:actionCopy];
   }
 }
 

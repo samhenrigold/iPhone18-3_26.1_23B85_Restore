@@ -41,27 +41,25 @@
 
 - (void)requestTransaction:(CXTransaction *)transaction completion:(void *)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = transaction;
   v7 = completion;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "transaction: %@", buf, 0xCu);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __50__CXCallController_requestTransaction_completion___block_invoke;
-  v11[3] = &unk_1E7C073D8;
-  v11[4] = self;
-  v12 = v7;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __50__CXCallController_requestTransaction_completion___block_invoke;
+  v10[3] = &unk_1E7C073D8;
+  v10[4] = self;
+  v11 = v7;
   v9 = v7;
-  [(CXCallController *)self _requestTransaction:v6 completion:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [(CXCallController *)self _requestTransaction:v6 completion:v10];
 }
 
 void __50__CXCallController_requestTransaction_completion___block_invoke(uint64_t a1, void *a2)
@@ -81,34 +79,31 @@ void __50__CXCallController_requestTransaction_completion___block_invoke(uint64_
 
 - (void)requestTransactionWithActions:(NSArray *)actions completion:(void *)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = actions;
   v7 = completion;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "actions: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "actions: %@", &v10, 0xCu);
   }
 
   v9 = [[CXTransaction alloc] initWithActions:v6];
   [(CXCallController *)self requestTransaction:v9 completion:v7];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestTransactionWithAction:(CXAction *)action completion:(void *)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11 = action;
+  v11 = *MEMORY[0x1E69E9840];
+  v10 = action;
   v6 = MEMORY[0x1E695DEC8];
   v7 = completion;
   v8 = action;
-  v9 = [v6 arrayWithObjects:&v11 count:1];
+  v9 = [v6 arrayWithObjects:&v10 count:1];
 
-  [(CXCallController *)self requestTransactionWithActions:v9 completion:v7, v11, v12];
-  v10 = *MEMORY[0x1E69E9840];
+  [(CXCallController *)self requestTransactionWithActions:v9 completion:v7, v10, v11];
 }
 
 - (void)_requestTransaction:(id)transaction completion:(id)completion

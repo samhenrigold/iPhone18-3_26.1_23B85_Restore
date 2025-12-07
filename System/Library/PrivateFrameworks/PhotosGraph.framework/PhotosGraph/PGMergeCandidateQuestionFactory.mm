@@ -8,7 +8,7 @@
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v50[2] = *MEMORY[0x277D85DE8];
+  v49[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   persons = [(PGMergeCandidateQuestionFactory *)self persons];
   photoLibrary = [(PGManagerWorkingContext *)self->_workingContext photoLibrary];
@@ -16,76 +16,76 @@
 
   [librarySpecificFetchOptions setFetchLimit:9];
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"faceCount" ascending:0];
-  v50[0] = v8;
+  v49[0] = v8;
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v50[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+  v49[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
   [librarySpecificFetchOptions setSortDescriptors:v10];
 
   v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"verifiedType == %d", 0];
   [librarySpecificFetchOptions setPredicate:v11];
 
-  v35 = objc_opt_new();
+  v34 = objc_opt_new();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = persons;
-  v12 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v12 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v43;
     v15 = 0x277CD9000uLL;
-    v36 = *v44;
+    v35 = *v43;
     do
     {
       v16 = 0;
-      v37 = v13;
+      v36 = v13;
       do
       {
-        if (*v44 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v43 + 1) + 8 * v16);
+        v17 = *(*(&v42 + 1) + 8 * v16);
         v18 = objc_autoreleasePoolPush();
         v19 = [*(v15 + 2360) fetchMergeCandidatePersonsForPerson:v17 options:librarySpecificFetchOptions];
         if ([v19 count])
         {
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           v20 = v19;
-          v21 = [v20 countByEnumeratingWithState:&v39 objects:v48 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
           if (v21)
           {
             v22 = v21;
             v23 = librarySpecificFetchOptions;
             v24 = 0;
-            v25 = *v40;
+            v25 = *v39;
             do
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v40 != v25)
+                if (*v39 != v25)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v24 += [*(*(&v39 + 1) + 8 * i) faceCount];
+                v24 += [*(*(&v38 + 1) + 8 * i) faceCount];
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v39 objects:v48 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
             }
 
             while (v22);
             v27 = v24;
             librarySpecificFetchOptions = v23;
-            v14 = v36;
-            v13 = v37;
+            v14 = v35;
+            v13 = v36;
             v15 = 0x277CD9000;
           }
 
@@ -98,7 +98,7 @@
           if (v28 > 0.0)
           {
             v29 = [[PGMergeCandidateQuestion alloc] initWithPerson:v17 score:v28];
-            [v35 addObject:v29];
+            [v34 addObject:v29];
           }
         }
 
@@ -107,20 +107,18 @@
       }
 
       while (v16 != v13);
-      v13 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v13 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v13);
   }
 
   v30 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"score" ascending:0];
-  v47 = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
-  [v35 sortUsingDescriptors:v31];
+  v46 = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+  [v34 sortUsingDescriptors:v31];
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v35;
+  return v34;
 }
 
 - (PHFetchResult)persons

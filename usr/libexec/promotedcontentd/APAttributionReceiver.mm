@@ -106,7 +106,7 @@
   v8 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -279,7 +279,7 @@
         v46 = connection3;
         if (connection3)
         {
-          [connection3 auditToken];
+          objc_msgSend_auditToken(connection3);
         }
 
         else
@@ -641,7 +641,7 @@ LABEL_50:
         v83 = connection;
         if (connection)
         {
-          [connection auditToken];
+          objc_msgSend_auditToken(connection);
         }
 
         else
@@ -931,7 +931,7 @@ LABEL_34:
   v20 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else

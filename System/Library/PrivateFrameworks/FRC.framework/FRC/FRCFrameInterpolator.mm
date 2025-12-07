@@ -8,6 +8,7 @@
 - (BOOL)updateGatingResult;
 - (CGAffineTransform)preferredTransform;
 - (FRCFrameInterpolator)initWithMode:(int64_t)mode;
+- (__CVBuffer)synthesisFrameForTimeScale:(float)scale outputSize:(CGSize)size outputPixelFormat:(unsigned int)format scalerEnabled:(BOOL)enabled frameIndex:(unint64_t)index lastFrame:(BOOL)frame;
 - (id)createOutputFramesWithWidth:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format numberOframes:(unint64_t)oframes;
 - (id)errorWithErrorCode:(int64_t)code;
 - (id)interpolateBetweenFirstFrame:(id)frame secondFrame:(id)secondFrame numberOfFrames:(unint64_t)frames withError:(id *)error;
@@ -298,7 +299,7 @@ LABEL_23:
 
 - (int64_t)startSessionWithUsage:(int64_t)usage
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   [(FRCFrameInterpolator *)self overwriteQualityModeFromDefaults];
   state = self->_state;
@@ -310,20 +311,19 @@ LABEL_23:
 
   if (state == 3)
   {
-    goto LABEL_4;
+    return -22007;
   }
 
   if (usage == -1)
   {
     NSLog(&cfstr_ErrorInvalidUs.isa);
-    goto LABEL_20;
+    return -22002;
   }
 
   if (state == 2)
   {
     NSLog(&cfstr_ErrorSessionIs.isa);
-    result = -22004;
-    goto LABEL_21;
+    return -22004;
   }
 
   qualityMode = self->_qualityMode;
@@ -355,9 +355,7 @@ LABEL_23:
 
   if (usage == -1)
   {
-LABEL_20:
-    result = -22002;
-    goto LABEL_21;
+    return -22002;
   }
 
   legacyNormalizationMode = self->_legacyNormalizationMode;
@@ -395,25 +393,23 @@ LABEL_20:
       [FRCFrameInterpolator startSessionWithUsage:?];
     }
 
-    goto LABEL_4;
+    return -22007;
   }
 
   if (![(FRCFrameInterpolator *)self configureSynthesis])
   {
-    v21 = self->_logger;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = self->_logger;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [FRCFrameInterpolator startSessionWithUsage:v21];
+      [FRCFrameInterpolator startSessionWithUsage:v20];
     }
 
-LABEL_4:
-    result = -22007;
-    goto LABEL_21;
+    return -22007;
   }
 
-  v17 = objc_alloc_init(FRCFrameDropDetector);
+  v16 = objc_alloc_init(FRCFrameDropDetector);
   frameDropDetector = self->_frameDropDetector;
-  self->_frameDropDetector = v17;
+  self->_frameDropDetector = v16;
 
   [(FRCFrameDropDetector *)self->_frameDropDetector setSingleDropRecoveryEnabled:[(FRCFrameInterpolator *)self singleDropRecoveryEnabled]];
   gatingLevel = self->_gatingLevel;
@@ -432,18 +428,18 @@ LABEL_4:
   }
 
   [(FRCFrameInterpolator *)self allocateInternalBuffers];
-  v22 = 1;
+  v21 = 1;
   self->_enableCrossFlowAnalysis = 1;
-  v23 = MEMORY[0x277CC0898];
-  v24 = *MEMORY[0x277CC0898];
+  v22 = MEMORY[0x277CC0898];
+  v23 = *MEMORY[0x277CC0898];
   *&self->_lastFramePts.value = *MEMORY[0x277CC0898];
-  v25 = *(v23 + 16);
-  self->_lastFramePts.epoch = v25;
-  *&self->_lastFrameDuration.value = v24;
-  self->_lastFrameDuration.epoch = v25;
+  v24 = *(v22 + 16);
+  self->_lastFramePts.epoch = v24;
+  *&self->_lastFrameDuration.value = v23;
+  self->_lastFrameDuration.epoch = v24;
   self->_lastFramesToInterpolate = 0;
-  *&self->_ptsForLiteDebugging.value = v24;
-  self->_ptsForLiteDebugging.epoch = v25;
+  *&self->_ptsForLiteDebugging.value = v23;
+  self->_ptsForLiteDebugging.epoch = v24;
   self->_concurrentOpticalFlow = 1;
   *&self->_onDemandOpticalFlowBuffersAllocation = 257;
   self->_state = 2;
@@ -452,9 +448,9 @@ LABEL_4:
   if (!self->_qualityMode)
   {
     self->_concurrentOpticalFlow = 1;
-LABEL_45:
-    self->_onDemandOpticalFlowBuffersAllocation = v22;
-    goto LABEL_46;
+LABEL_44:
+    self->_onDemandOpticalFlowBuffersAllocation = v21;
+    goto LABEL_45;
   }
 
   synthesisMode = self->_synthesisMode;
@@ -462,26 +458,26 @@ LABEL_45:
   {
     if (synthesisMode == 3)
     {
-      v22 = 0;
+      v21 = 0;
       self->_concurrentOpticalFlow = 1;
     }
 
     else
     {
       self->_concurrentOpticalFlow = 1;
-      v22 = FRCGetNumberOfPixelsForUsage(usage) > 0x1FA400;
+      v21 = FRCGetNumberOfPixelsForUsage(usage) > 0x1FA400;
     }
 
-    goto LABEL_45;
+    goto LABEL_44;
   }
 
-LABEL_46:
-  self->_onDemandSynthesisBufferAllocation = v22;
+LABEL_45:
+  self->_onDemandSynthesisBufferAllocation = v21;
   if (self->_lowMemoryMode)
   {
-    v27 = self->_gatingLevel == 0;
-    self->_onDemandOpticalFlowBuffersAllocation = v27;
-    self->_onDemandSynthesisBufferAllocation = v27;
+    v26 = self->_gatingLevel == 0;
+    self->_onDemandOpticalFlowBuffersAllocation = v26;
+    self->_onDemandSynthesisBufferAllocation = v26;
     [(FRCSynthesis *)self->_synthesis setFramePipeline:0];
   }
 
@@ -502,22 +498,22 @@ LABEL_46:
   }
 
   NSLog(&cfstr_FrcSessionStar.isa, self->_usage, self->_width, self->_height, self->_qualityMode, self->_tilingEnabled, [(OpticalFlow *)self->_opticalFlow downsampling], self->_synthesisMode, self->_concurrentOpticalFlow, [(OpticalFlow *)self->_opticalFlow twoStageFlow], [(FRCImageProcessor *)self->_imageProcessor selfNormalization], [(FRCSynthesis *)self->_synthesis temporalFiltering], [(FRCSynthesis *)self->_synthesis linearSplatting], [(OpticalFlow *)self->_opticalFlow useAdaptationLayer], [(OpticalFlow *)self->_opticalFlow revision]);
-  v28 = self->_logger;
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v27 = self->_logger;
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     useCase = self->_useCase;
     *buf = 67109120;
-    v36 = useCase;
-    _os_log_impl(&dword_24A8C8000, v28, OS_LOG_TYPE_DEFAULT, "Use case: %d", buf, 8u);
+    v35 = useCase;
+    _os_log_impl(&dword_24A8C8000, v27, OS_LOG_TYPE_DEFAULT, "Use case: %d", buf, 8u);
   }
 
   if (self->_lowMemoryMode)
   {
-    v30 = self->_logger;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = self->_logger;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A8C8000, v30, OS_LOG_TYPE_DEFAULT, "Low Memory Mode", buf, 2u);
+      _os_log_impl(&dword_24A8C8000, v29, OS_LOG_TYPE_DEFAULT, "Low Memory Mode", buf, 2u);
     }
   }
 
@@ -537,18 +533,15 @@ LABEL_46:
   self->_sessionStatistics = 0;
 
   self->_sessionResult = -1;
-  v34 = MEMORY[0x277CC08F0];
+  v33 = MEMORY[0x277CC08F0];
   *&self->_maxTimeGap.value = *MEMORY[0x277CC08F0];
-  self->_maxTimeGap.epoch = *(v34 + 16);
+  self->_maxTimeGap.epoch = *(v33 + 16);
   self->_recommendation = 0;
   self->_shouldGatedForInteractive = 0;
   *&self->_maxPixelMeanDiff = 0;
   self->_firstPairInSession = 1;
   kdebug_trace();
-  result = -22000;
-LABEL_21:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return -22000;
 }
 
 - (BOOL)configureSynthesis
@@ -1002,12 +995,12 @@ LABEL_8:
 LABEL_19:
       [(FRCFrameInterpolator *)selfCopy2 errorWithErrorCode:v21];
       *error = v22 = 0;
-      goto LABEL_77;
+      goto LABEL_75;
     }
 
 LABEL_20:
     v22 = 0;
-    goto LABEL_77;
+    goto LABEL_75;
   }
 
   if (![frameCopy buffer] || !objc_msgSend(secondFrameCopy, "buffer"))
@@ -1046,14 +1039,14 @@ LABEL_17:
   self->_outputPixelFormat = format;
   v19 = [scalesCopy count];
   ++self->_totalFramePairsProcessed;
-  memset(&v81, 0, sizeof(v81));
+  memset(&v80, 0, sizeof(v80));
   if (secondFrameCopy)
   {
-    [secondFrameCopy presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(secondFrameCopy);
     if (frameCopy)
     {
 LABEL_13:
-      [frameCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(frameCopy);
       goto LABEL_24;
     }
   }
@@ -1069,9 +1062,9 @@ LABEL_13:
 
   memset(&rhs, 0, sizeof(rhs));
 LABEL_24:
-  CMTimeSubtract(&v81, &lhs, &rhs);
+  CMTimeSubtract(&v80, &lhs, &rhs);
   rhs = self->_maxTimeGap;
-  time2 = v81;
+  time2 = v80;
   CMTimeMaximum(&lhs, &rhs, &time2);
   self->_maxTimeGap = lhs;
   v23 = self->_gatingEnabled && !self->_gatingPaused;
@@ -1088,7 +1081,7 @@ LABEL_24:
     frameDropDetector = self->_frameDropDetector;
     if (frameCopy)
     {
-      [frameCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(frameCopy);
     }
 
     else
@@ -1098,53 +1091,48 @@ LABEL_24:
 
     rhs = self->_lastFramePts;
     v28 = CMTimeCompare(&rhs, &lhs);
-    if (self->_gatingEnabled)
-    {
-      enableCrossFlowAnalysis = self->_enableCrossFlowAnalysis;
-    }
-
-    lhs = v81;
+    lhs = v80;
     [(OpticalFlowAnalyzer *)flowAnalyzer prepareGatingFrameDropDetector:frameDropDetector numberOfFrames:v19 timeGap:&lhs isContinuousDrops:v28 == 0 enableFlowAnalysis:self->_cleanRectFirst.origin.x enableCrossFlowAnalysis:self->_cleanRectFirst.origin.y cleanRectFirst:self->_cleanRectFirst.size.width cleanRectSecond:self->_cleanRectFirst.size.height, self->_cleanRectSecond.origin.x, self->_cleanRectSecond.origin.y, self->_cleanRectSecond.size.width, self->_cleanRectSecond.size.height];
   }
 
   kdebug_trace();
-  v30 = self->_width;
-  v50 = v30 != CVPixelBufferGetWidth([frameCopy buffer]) || self->_isYUV;
+  v29 = self->_width;
+  v49 = v29 != CVPixelBufferGetWidth([frameCopy buffer]) || self->_isYUV;
   [(FRCFrameInterpolator *)self preserveCMAttachmentFirstFrame:frameCopy secondFrame:secondFrameCopy];
   if (!frameCopy)
   {
     memset(&lhs, 0, sizeof(lhs));
     if (secondFrameCopy)
     {
-      goto LABEL_48;
+      goto LABEL_46;
     }
 
-LABEL_50:
+LABEL_48:
     memset(&rhs, 0, sizeof(rhs));
-    goto LABEL_51;
+    goto LABEL_49;
   }
 
-  [frameCopy presentationTimeStamp];
+  objc_msgSend_presentationTimeStamp(frameCopy);
   if (!secondFrameCopy)
   {
-    goto LABEL_50;
+    goto LABEL_48;
   }
 
-LABEL_48:
-  [secondFrameCopy presentationTimeStamp];
-LABEL_51:
-  v51 = v19;
-  v31 = [(FRCFrameInterpolator *)self shallReusePreviousFlowPts0:&lhs Pts1:&rhs];
+LABEL_46:
+  objc_msgSend_presentationTimeStamp(secondFrameCopy);
+LABEL_49:
+  v50 = v19;
+  v30 = [(FRCFrameInterpolator *)self shallReusePreviousFlowPts0:&lhs Pts1:&rhs];
   if (self->_streamingMode && !self->_firstPairInSession)
   {
     -[FRCImageProcessor preProcessFirstInput:secondInput:waitForCompletion:](self->_imageProcessor, "preProcessFirstInput:secondInput:waitForCompletion:", 0, [secondFrameCopy buffer], 0);
-    v32 = 1;
+    v31 = 1;
   }
 
   else
   {
     -[FRCImageProcessor preProcessFirstInput:secondInput:waitForCompletion:](self->_imageProcessor, "preProcessFirstInput:secondInput:waitForCompletion:", [frameCopy buffer], objc_msgSend(secondFrameCopy, "buffer"), 0);
-    v32 = 0;
+    v31 = 0;
   }
 
   if ([(OpticalFlow *)self->_opticalFlow bypassInputNormalization])
@@ -1160,63 +1148,63 @@ LABEL_51:
   block[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke;
   block[3] = &unk_278FEA5B0;
   block[4] = self;
-  v79 = v32;
-  v80 = v31;
+  v78 = v31;
+  v79 = v30;
   dispatch_group_async(dispatchGroup, concurrentQueue, block);
   rhs.value = 0;
   *&rhs.timescale = &rhs;
   rhs.epoch = 0x2020000000;
-  v77 = 0;
+  v76 = 0;
   time2.value = 0;
   *&time2.timescale = &time2;
   time2.epoch = 0x2020000000;
-  v75 = 0;
+  v74 = 0;
   if (v25)
   {
-    v35 = self->_dispatchGroup;
-    v36 = self->_concurrentQueue;
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_2;
-    v72[3] = &unk_278FEA5D8;
-    v72[4] = self;
-    v37 = frameCopy;
-    v73 = v37;
-    dispatch_group_async(v35, v36, v72);
+    v34 = self->_dispatchGroup;
+    v35 = self->_concurrentQueue;
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_2;
+    v71[3] = &unk_278FEA5D8;
+    v71[4] = self;
+    v36 = frameCopy;
+    v72 = v36;
+    dispatch_group_async(v34, v35, v71);
     if (!self->_gatingLevel)
     {
-      v38 = self->_dispatchGroup;
-      v39 = self->_concurrentQueue;
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_3;
-      v69[3] = &unk_278FEA600;
-      v69[4] = self;
-      v70 = v37;
-      v71 = secondFrameCopy;
-      dispatch_group_async(v38, v39, v69);
+      v37 = self->_dispatchGroup;
+      v38 = self->_concurrentQueue;
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_3;
+      v68[3] = &unk_278FEA600;
+      v68[4] = self;
+      v69 = v36;
+      v70 = secondFrameCopy;
+      dispatch_group_async(v37, v38, v68);
     }
 
     if ([(OpticalFlow *)self->_opticalFlow imageFeatures][464] && [(OpticalFlow *)self->_opticalFlow imageFeatures][944])
     {
-      v40 = CVPixelBufferRetain([(OpticalFlow *)self->_opticalFlow imageFeatures][464]);
-      *(*&rhs.timescale + 24) = v40;
-      v41 = CVPixelBufferRetain([(OpticalFlow *)self->_opticalFlow imageFeatures][944]);
-      *(*&time2.timescale + 24) = v41;
+      v39 = CVPixelBufferRetain([(OpticalFlow *)self->_opticalFlow imageFeatures][464]);
+      *(*&rhs.timescale + 24) = v39;
+      v40 = CVPixelBufferRetain([(OpticalFlow *)self->_opticalFlow imageFeatures][944]);
+      *(*&time2.timescale + 24) = v40;
     }
 
     else
     {
-      v42 = self->_dispatchGroup;
-      v43 = self->_concurrentQueue;
-      v68[0] = MEMORY[0x277D85DD0];
-      v68[1] = 3221225472;
-      v68[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_4;
-      v68[3] = &unk_278FEA628;
-      v68[4] = self;
-      v68[5] = &rhs;
-      v68[6] = &time2;
-      dispatch_group_async(v42, v43, v68);
+      v41 = self->_dispatchGroup;
+      v42 = self->_concurrentQueue;
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_4;
+      v67[3] = &unk_278FEA628;
+      v67[4] = self;
+      v67[5] = &rhs;
+      v67[6] = &time2;
+      dispatch_group_async(v41, v42, v67);
     }
   }
 
@@ -1224,53 +1212,53 @@ LABEL_51:
   lhs.value = 0;
   *&lhs.timescale = &lhs;
   lhs.epoch = 0x3032000000;
-  v65 = __Block_byref_object_copy__0;
-  v66 = __Block_byref_object_dispose__0;
-  v67 = 0;
-  v44 = self->_dispatchGroup;
-  v45 = self->_concurrentQueue;
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_105;
-  v55[3] = &unk_278FEA650;
+  v64 = __Block_byref_object_copy__0;
+  v65 = __Block_byref_object_dispose__0;
+  v66 = 0;
+  v43 = self->_dispatchGroup;
+  v44 = self->_concurrentQueue;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_105;
+  v54[3] = &unk_278FEA650;
   p_lhs = &lhs;
-  v55[4] = self;
-  v56 = frameCopy;
-  v46 = secondFrameCopy;
-  v57 = v46;
-  v58 = scalesCopy;
-  v60 = width;
-  v61 = height;
+  v54[4] = self;
+  v55 = frameCopy;
+  v45 = secondFrameCopy;
+  v56 = v45;
+  v57 = scalesCopy;
+  v59 = width;
+  v60 = height;
   formatCopy = format;
-  v63 = v50;
-  dispatch_group_async(v44, v45, v55);
+  v62 = v49;
+  dispatch_group_async(v43, v44, v54);
   if (v25)
   {
-    v47 = self->_dispatchGroup;
-    v48 = self->_concurrentQueue;
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_2_106;
-    v54[3] = &unk_278FEA628;
-    v54[4] = self;
-    v54[5] = &rhs;
-    v54[6] = &time2;
-    dispatch_group_async(v47, v48, v54);
+    v46 = self->_dispatchGroup;
+    v47 = self->_concurrentQueue;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_timeScales_outputSize_outputPixelFormat_withError___block_invoke_2_106;
+    v53[3] = &unk_278FEA628;
+    v53[4] = self;
+    v53[5] = &rhs;
+    v53[6] = &time2;
+    dispatch_group_async(v46, v47, v53);
   }
 
   dispatch_group_wait(self->_dispatchGroup, 0xFFFFFFFFFFFFFFFFLL);
   if (secondFrameCopy)
   {
-    [v46 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v45);
   }
 
   else
   {
-    memset(v53, 0, sizeof(v53));
+    memset(v52, 0, sizeof(v52));
   }
 
-  v52 = v81;
-  [(FRCFrameInterpolator *)self updateLastFramePts:v53 duration:&v52 toInterpolate:v51];
+  v51 = v80;
+  [(FRCFrameInterpolator *)self updateLastFramePts:v52 duration:&v51 toInterpolate:v50];
   if (v25)
   {
     if ([(FRCFrameInterpolator *)self updateGatingResult])
@@ -1284,7 +1272,7 @@ LABEL_51:
       {
         [*(*&lhs.timescale + 40) removeAllObjects];
         v22 = 0;
-        goto LABEL_76;
+        goto LABEL_74;
       }
     }
 
@@ -1295,12 +1283,12 @@ LABEL_51:
   self->_gatingPaused = 0;
   kdebug_trace();
   v22 = *(*&lhs.timescale + 40);
-LABEL_76:
+LABEL_74:
 
   _Block_object_dispose(&lhs, 8);
   _Block_object_dispose(&time2, 8);
   _Block_object_dispose(&rhs, 8);
-LABEL_77:
+LABEL_75:
 
   return v22;
 }
@@ -1514,7 +1502,7 @@ uint64_t __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_ti
 
 - (BOOL)checkFrameFormatConsistencyFirstFrame:(id)frame secondFrame:(id)secondFrame outputFrames:(id)frames
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   secondFrameCopy = secondFrame;
   framesCopy = frames;
@@ -1526,28 +1514,28 @@ uint64_t __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_ti
   v14 = CVPixelBufferGetHeight([secondFrameCopy buffer]);
   if (v12 == PixelFormatType && v13 == Width && v14 == Height)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v15 = framesCopy;
-    v16 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v16)
     {
       v17 = v16;
-      v29 = secondFrameCopy;
-      v30 = frameCopy;
-      v18 = *v33;
+      v28 = secondFrameCopy;
+      v29 = frameCopy;
+      v18 = *v32;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v33 != v18)
+          if (*v32 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v32 + 1) + 8 * i);
+          v20 = *(*(&v31 + 1) + 8 * i);
           v21 = CVPixelBufferGetPixelFormatType([v20 buffer]);
           v22 = CVPixelBufferGetWidth([v20 buffer]);
           v23 = CVPixelBufferGetHeight([v20 buffer]);
@@ -1559,14 +1547,14 @@ uint64_t __115__FRCFrameInterpolator_interpolateBetweenFirstFrame_secondFrame_ti
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v17);
       v26 = 1;
 LABEL_21:
-      secondFrameCopy = v29;
-      frameCopy = v30;
+      secondFrameCopy = v28;
+      frameCopy = v29;
     }
 
     else
@@ -1581,8 +1569,67 @@ LABEL_21:
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
+}
+
+- (__CVBuffer)synthesisFrameForTimeScale:(float)scale outputSize:(CGSize)size outputPixelFormat:(unsigned int)format scalerEnabled:(BOOL)enabled frameIndex:(unint64_t)index lastFrame:(BOOL)frame
+{
+  height = size.height;
+  width = size.width;
+  v15 = [(FRCSynthesis *)self->_synthesis synthesizeFrameForTimeScale:index frameIndex:enabled];
+  pixelBufferOut = 0;
+  outputFrameListFromClient = self->_outputFrameListFromClient;
+  if (outputFrameListFromClient)
+  {
+    v17 = [(NSArray *)outputFrameListFromClient objectAtIndexedSubscript:index];
+    pixelBufferOut = CVPixelBufferRetain([v17 buffer]);
+  }
+
+  else
+  {
+    outputPixelBufferPool = self->_outputPixelBufferPool;
+    if (outputPixelBufferPool)
+    {
+      CVPixelBufferPoolCreatePixelBuffer(0, outputPixelBufferPool, &pixelBufferOut);
+    }
+
+    else
+    {
+      pixelBufferOut = createPixelBuffer(width, height, format, 0);
+    }
+  }
+
+  if (self->_removeCMAttachment)
+  {
+    CMRemoveAllAttachments(pixelBufferOut);
+    if (frame)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    CMSetAttachments(pixelBufferOut, self->_anchorFrameCMAttachment, 1u);
+    if (frame)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  if (([(FRCSynthesis *)self->_synthesis frameSyncRequired]& 1) == 0)
+  {
+    lowMemoryMode = self->_lowMemoryMode;
+    goto LABEL_13;
+  }
+
+LABEL_11:
+  lowMemoryMode = 1;
+LABEL_13:
+  *&v19 = scale;
+  [(FRCImageProcessor *)self->_imageProcessor postProcessNormalizedFrame:v15 output:pixelBufferOut timeScale:lowMemoryMode waitForCompletion:v19];
+  CVPixelBufferRelease(v15);
+  return pixelBufferOut;
 }
 
 - (int)closestNumIdxInArray:(id)array target:(double)target
@@ -1824,19 +1871,19 @@ LABEL_10:
   memset(&v49, 0, sizeof(v49));
   if (framesCopy)
   {
-    [framesCopy presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(framesCopy);
   }
 
   memset(&v48, 0, sizeof(v48));
   if (secondCopy)
   {
-    [secondCopy presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(secondCopy);
     if (framesCopy)
     {
 LABEL_7:
-      [framesCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(framesCopy);
       CMTimeSubtract(&v48, &lhs, &rhs);
-      [framesCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(framesCopy);
       goto LABEL_10;
     }
   }
@@ -1857,7 +1904,7 @@ LABEL_10:
   v35 = secondCopy;
   if (secondCopy)
   {
-    [secondCopy presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(secondCopy, secondCopy);
   }
 
   else
@@ -1884,7 +1931,7 @@ LABEL_10:
       CMTimeMultiplyByFloat64(&rhs, &time, v25);
       if (framesCopy)
       {
-        [framesCopy presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(framesCopy);
         v28 = v43;
       }
 
@@ -1903,7 +1950,7 @@ LABEL_10:
       CMTimeAdd(&time, &v41, &v40);
       if (framesCopy)
       {
-        [framesCopy presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(framesCopy);
         v29 = v39;
       }
 
@@ -2038,7 +2085,7 @@ LABEL_10:
 
 - (void)overwriteQualityModeFromDefaults
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.FRC"];
   v4 = [v3 objectForKey:@"QualityMode"];
   if (!v4)
@@ -2049,9 +2096,9 @@ LABEL_10:
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v4;
-    _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Forcing to %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v4;
+    _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Forcing to %@", &v11, 0xCu);
   }
 
   if ([v4 caseInsensitiveCompare:@"kFRCHighPerformanceMode"])
@@ -2104,14 +2151,13 @@ LABEL_15:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       lowMemoryMode = self->_lowMemoryMode;
-      v12 = 67109120;
-      LODWORD(v13) = lowMemoryMode;
-      _os_log_impl(&dword_24A8C8000, v9, OS_LOG_TYPE_DEFAULT, "Setting lowMemoryMode to %d", &v12, 8u);
+      v11 = 67109120;
+      LODWORD(v12) = lowMemoryMode;
+      _os_log_impl(&dword_24A8C8000, v9, OS_LOG_TYPE_DEFAULT, "Setting lowMemoryMode to %d", &v11, 8u);
     }
   }
 
 LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFlowAnalysisFromDefaults
@@ -2262,38 +2308,38 @@ LABEL_7:
 
 - (void)restoreCMAttachmentToFirstFrame:(id)frame secondFrame:(id)secondFrame interpolatedFrames:(id)frames
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   secondFrameCopy = secondFrame;
   framesCopy = frames;
   if (self->_removeCMAttachment)
   {
     CMSetAttachments([frame buffer], self->_anchorFrameCMAttachment, 1u);
     CMSetAttachments([secondFrameCopy buffer], self->_anchorFrameCMAttachment, 1u);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v10 = framesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         v14 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          CMSetAttachments([*(*(&v16 + 1) + 8 * v14++) buffer], self->_anchorFrameCMAttachment, 1u);
+          CMSetAttachments([*(*(&v15 + 1) + 8 * v14++) buffer], self->_anchorFrameCMAttachment, 1u);
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v12);
@@ -2301,8 +2347,6 @@ LABEL_7:
   }
 
   CFRelease(self->_anchorFrameCMAttachment);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)constructSessionStatisticsWithSessionDuration:(double)duration

@@ -5,22 +5,25 @@ void sub_100000F64(id a1)
   _objc_release_x1();
 }
 
-void sub_100002B08(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002B08(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100002B28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002B28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 8u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 8u);
 }
 
-void sub_100002B74(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002B74(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id getPIDsAndProcNames(FILE *a1)
@@ -28,25 +31,25 @@ id getPIDsAndProcNames(FILE *a1)
   v2 = proc_listpids(1u, 0, 0, 0);
   if (v2 <= 0)
   {
-    v14 = __error();
-    v15 = strerror(*v14);
-    if (fprintf(a1, "Error: Failed to fetch bytes for pids with proc_listpids for PROC_ALL_PIDS: %s\n", v15) == -1)
+    v13 = __error();
+    v14 = strerror(*v13);
+    v15 = fprintf(a1, "Error: Failed to fetch bytes for pids with proc_listpids for PROC_ALL_PIDS: %s\n", v14);
+    if (v15 == -1)
     {
-      v16 = __error();
+      v15 = __error();
       if ((byte_10006E50F & 1) == 0)
       {
-        v17 = *v16;
         byte_10006E50F = 1;
-        v18 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v16 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v19 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10002FF98();
     }
@@ -58,25 +61,25 @@ id getPIDsAndProcNames(FILE *a1)
   v4 = malloc_type_calloc(v2, 1uLL, 0x100004052888210uLL);
   if (!v4)
   {
-    v20 = __error();
-    v21 = strerror(*v20);
-    if (fprintf(a1, "Error: Failed to allocate memory to read pids into: %s\n", v21) == -1)
+    v18 = __error();
+    v19 = strerror(*v18);
+    v20 = fprintf(a1, "Error: Failed to allocate memory to read pids into: %s\n", v19);
+    if (v20 == -1)
     {
-      v22 = __error();
+      v20 = __error();
       if ((byte_10006E510 & 1) == 0)
       {
-        v23 = *v22;
         byte_10006E510 = 1;
-        v24 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v21 = shared_filesystem_metadata_snapshot_service_log_handle(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v19 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = shared_filesystem_metadata_snapshot_service_log_handle(v20);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10002FF18();
     }
@@ -84,7 +87,7 @@ id getPIDsAndProcNames(FILE *a1)
 LABEL_29:
 
 LABEL_30:
-    v25 = 0;
+    v22 = 0;
     goto LABEL_31;
   }
 
@@ -95,23 +98,23 @@ LABEL_30:
 LABEL_7:
     v8 = __error();
     v9 = strerror(*v8);
-    if (fprintf(a1, "Error: Failed to fetch pids: %s\n", v9) == -1)
+    v10 = fprintf(a1, "Error: Failed to fetch pids: %s\n", v9);
+    if (v10 == -1)
     {
       v10 = __error();
       if ((byte_10006E511 & 1) == 0)
       {
-        v11 = *v10;
         byte_10006E511 = 1;
-        v12 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+        v11 = shared_filesystem_metadata_snapshot_service_log_handle(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v13 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = shared_filesystem_metadata_snapshot_service_log_handle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10002FE98();
     }
@@ -132,80 +135,82 @@ LABEL_7:
     }
   }
 
-  v27 = +[NSMutableDictionary dictionary];
+  v24 = +[NSMutableDictionary dictionary];
   if (v7 >= 4)
   {
-    v28 = v7 >> 2;
-    v29 = v5;
+    v25 = v7 >> 2;
+    v26 = v5;
     do
     {
-      v31 = *v29++;
-      v30 = v31;
-      v32 = [NSString stringWithFormat:@"%d", v31];
-      if (!proc_name(v31, buffer, 0x20u))
+      v28 = *v26++;
+      v27 = v28;
+      v29 = [NSString stringWithFormat:@"%d", v28];
+      if (!proc_name(v28, buffer, 0x20u))
       {
-        v33 = __error();
-        v34 = strerror(*v33);
-        if (fprintf(a1, "Error: Failed to get proc_name for pid %d: %s\n", v30, v34) == -1)
+        v30 = __error();
+        v31 = strerror(*v30);
+        v32 = fprintf(a1, "Error: Failed to get proc_name for pid %d: %s\n", v27, v31);
+        if (v32 == -1)
         {
-          v35 = __error();
+          v32 = __error();
           if ((byte_10006E512 & 1) == 0)
           {
-            v36 = *v35;
+            v33 = *v32;
             byte_10006E512 = 1;
-            v37 = shared_filesystem_metadata_snapshot_service_log_handle();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+            v34 = shared_filesystem_metadata_snapshot_service_log_handle(v32);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
             {
               *buf = 67109120;
-              v51 = v36;
-              _os_log_fault_impl(&_mh_execute_header, v37, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", buf, 8u);
+              v48 = v33;
+              _os_log_fault_impl(&_mh_execute_header, v34, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", buf, 8u);
             }
           }
         }
 
-        v38 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v35 = shared_filesystem_metadata_snapshot_service_log_handle(v32);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          v46 = __error();
-          v47 = strerror(*v46);
+          v43 = __error();
+          v44 = strerror(*v43);
           *buf = 67109378;
-          v51 = v30;
-          v52 = 2080;
-          v53 = v47;
-          _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Error: Failed to get proc_name for pid %d: %s", buf, 0x12u);
+          v48 = v27;
+          v49 = 2080;
+          v50 = v44;
+          _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Error: Failed to get proc_name for pid %d: %s", buf, 0x12u);
         }
 
-        if (snprintf(buffer, 0x20uLL, "UNKNOWN_PROCESS_%d", v30) < 0)
+        if (snprintf(buffer, 0x20uLL, "UNKNOWN_PROCESS_%d", v27) < 0)
         {
-          v39 = __error();
-          v40 = strerror(*v39);
-          if (fprintf(a1, "Error: Failed to sprintf procname for pid %d: %s\n", v30, v40) == -1)
+          v36 = __error();
+          v37 = strerror(*v36);
+          v38 = fprintf(a1, "Error: Failed to sprintf procname for pid %d: %s\n", v27, v37);
+          if (v38 == -1)
           {
-            v41 = __error();
+            v38 = __error();
             if ((byte_10006E513 & 1) == 0)
             {
-              v42 = *v41;
+              v39 = *v38;
               byte_10006E513 = 1;
-              v43 = shared_filesystem_metadata_snapshot_service_log_handle();
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+              v40 = shared_filesystem_metadata_snapshot_service_log_handle(v38);
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
-                v51 = v42;
-                _os_log_fault_impl(&_mh_execute_header, v43, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", buf, 8u);
+                v48 = v39;
+                _os_log_fault_impl(&_mh_execute_header, v40, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", buf, 8u);
               }
             }
           }
 
-          v44 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v41 = shared_filesystem_metadata_snapshot_service_log_handle(v38);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            v48 = __error();
-            v49 = strerror(*v48);
+            v45 = __error();
+            v46 = strerror(*v45);
             *buf = 67109378;
-            v51 = v30;
-            v52 = 2080;
-            v53 = v49;
-            _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Error: Failed to sprintf procname for pid %d: %s", buf, 0x12u);
+            v48 = v27;
+            v49 = 2080;
+            v50 = v46;
+            _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Error: Failed to sprintf procname for pid %d: %s", buf, 0x12u);
           }
 
           buffer[0] = *"UKNOWN_PROCESS";
@@ -213,21 +218,21 @@ LABEL_7:
         }
       }
 
-      v45 = [NSString stringWithFormat:@"%s", buffer];
-      [v27 setObject:v45 forKeyedSubscript:v32];
+      v42 = [NSString stringWithFormat:@"%s", buffer];
+      [v24 setObject:v42 forKeyedSubscript:v29];
 
-      --v28;
+      --v25;
     }
 
-    while (v28);
+    while (v25);
   }
 
   free(v5);
-  v25 = [v27 copy];
+  v22 = [v24 copy];
 
 LABEL_31:
 
-  return v25;
+  return v22;
 }
 
 void addEntryForPath(void *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
@@ -264,18 +269,18 @@ void populateTextFiles(uint64_t a1, void *a2, void *a3, FILE *a4)
   if (a1)
   {
     v9 = 0;
-    v44 = 0u;
-    memset(v45, 0, 272);
     v42 = 0u;
-    v43 = 0u;
+    memset(v43, 0, 272);
     v40 = 0u;
     v41 = 0u;
     v38 = 0u;
     v39 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v10 = 10000;
+    v34 = 0u;
     v35 = 0u;
+    v10 = 10000;
+    v33 = 0u;
     memset(buffer, 0, sizeof(buffer));
     while (1)
     {
@@ -288,44 +293,45 @@ void populateTextFiles(uint64_t a1, void *a2, void *a3, FILE *a4)
       v12 = v11;
       if (v11 > 0x4F7)
       {
-        if (BYTE8(v45[0]))
+        if (BYTE8(v43[0]))
         {
-          v18 = [NSString stringWithFormat:@"%s", v45 + 8];
+          v18 = [NSString stringWithFormat:@"%s", v43 + 8];
           v19 = v18;
-          if (!WORD3(v36))
+          if (!WORD3(v34))
           {
-            addEntryForPath(v18, *(&v41 + 1), a1, v7, v8);
+            addEntryForPath(v18, *(&v39 + 1), a1, v7, v8);
           }
         }
 
-        v9 = *(&v35 + 1) + v35;
+        v9 = *(&v33 + 1) + v33;
       }
 
       else
       {
         v13 = __error();
         v14 = [NSString stringWithFormat:@"Error: Too few bytes returned by proc_pidinfo(PROC_PIDREGIONPATHINFO) for %@[%d] (expected %lu, got %d): %s", v7, a1, 1272, v12, strerror(*v13)];
-        if (fprintf(a4, "%s\n", [v14 UTF8String]) == -1)
+        v15 = fprintf(a4, "%s\n", [v14 UTF8String]);
+        if (v15 == -1)
         {
           v15 = __error();
           if ((byte_10006E516 & 1) == 0)
           {
-            v30 = *v15;
+            v28 = *v15;
             byte_10006E516 = 1;
-            v16 = shared_filesystem_metadata_snapshot_service_log_handle();
+            v16 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
             {
               *buf = 67109120;
-              v33 = v30;
+              v31 = v28;
               _os_log_fault_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", buf, 8u);
             }
           }
         }
 
-        v17 = shared_filesystem_metadata_snapshot_service_log_handle();
+        v17 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          sub_100030018(&v31, v14);
+          sub_100030018(v29, v14);
         }
 
         addEntryForPath(v14, 0, a1, v7, v8);
@@ -339,56 +345,56 @@ void populateTextFiles(uint64_t a1, void *a2, void *a3, FILE *a4)
 
     if (*__error() != 3 && *__error() != 22)
     {
-      v24 = __error();
-      v25 = [NSString stringWithFormat:@"Error: proc_pidinfo(PROC_PIDREGIONPATHINFO) error for %@[%d]: %s", v7, a1, strerror(*v24)];
-      if (fprintf(a4, "%s\n", [v25 UTF8String]) == -1)
+      v23 = __error();
+      v24 = [NSString stringWithFormat:@"Error: proc_pidinfo(PROC_PIDREGIONPATHINFO) error for %@[%d]: %s", v7, a1, strerror(*v23)];
+      v25 = fprintf(a4, "%s\n", [v24 UTF8String]);
+      if (v25 == -1)
       {
-        v26 = __error();
+        v25 = __error();
         if ((byte_10006E515 & 1) == 0)
         {
-          v27 = *v26;
           byte_10006E515 = 1;
-          v28 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+          v26 = shared_filesystem_metadata_snapshot_service_log_handle(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      v29 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v27 = shared_filesystem_metadata_snapshot_service_log_handle(v25);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        sub_10002FCAC(v25);
+        sub_10002FCAC(v24);
       }
 
-      addEntryForPath(v25, 0, a1, v7, v8);
+      addEntryForPath(v24, 0, a1, v7, v8);
     }
   }
 
   else
   {
-    if (fprintf(a4, "%s\n", "Warn: Skipping mapped files for kernel_task [0]") == -1)
+    v20 = fprintf(a4, "%s\n", "Warn: Skipping mapped files for kernel_task [0]");
+    if (v20 == -1)
     {
       v20 = __error();
       if ((byte_10006E514 & 1) == 0)
       {
-        v21 = *v20;
         byte_10006E514 = 1;
-        v22 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v21 = shared_filesystem_metadata_snapshot_service_log_handle(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v23 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = shared_filesystem_metadata_snapshot_service_log_handle(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buffer[0]) = 136315138;
       *(buffer + 4) = "Warn: Skipping mapped files for kernel_task [0]";
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s", buffer, 0xCu);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s", buffer, 0xCu);
     }
   }
 
@@ -401,40 +407,40 @@ void populateFDs(uint64_t a1, void *a2, void *a3, FILE *a4)
   v8 = a3;
   if (!a1)
   {
-    if (fprintf(a4, "%s\n", "Warn: Skipping reading fds for kernel_task [0]") == -1)
+    v16 = fprintf(a4, "%s\n", "Warn: Skipping reading fds for kernel_task [0]");
+    if (v16 == -1)
     {
-      v17 = __error();
+      v16 = __error();
       if ((byte_10006E517 & 1) == 0)
       {
-        v18 = *v17;
         byte_10006E517 = 1;
-        v19 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+        v17 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v20 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v18 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       *&buf[4] = "Warn: Skipping reading fds for kernel_task [0]";
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
     goto LABEL_78;
   }
 
-  v89 = 0;
-  v88 = 0u;
-  v87 = 0u;
-  v86 = 0u;
-  v85 = 0u;
-  v84 = 0u;
-  v83 = 0u;
+  v83 = 0;
   v82 = 0u;
+  v81 = 0u;
+  v80 = 0u;
+  v79 = 0u;
+  v78 = 0u;
+  v77 = 0u;
+  v76 = 0u;
   *count = 0u;
   memset(buffer, 0, sizeof(buffer));
   v9 = proc_pidinfo(a1, 2, 0, buffer, 232);
@@ -442,25 +448,25 @@ void populateFDs(uint64_t a1, void *a2, void *a3, FILE *a4)
   {
     if (*__error() != 1 && *__error() != 3)
     {
-      v54 = __error();
-      v12 = [NSString stringWithFormat:@"Error: Error getting PID information with proc_pidinfo(PROC_PIDTASKALLINFO) for %@[%d]: %s", v7, a1, strerror(*v54)];
-      if (fprintf(a4, "%s\n", [v12 UTF8String]) == -1)
+      v50 = __error();
+      v12 = [NSString stringWithFormat:@"Error: Error getting PID information with proc_pidinfo(PROC_PIDTASKALLINFO) for %@[%d]: %s", v7, a1, strerror(*v50)];
+      v51 = fprintf(a4, "%s\n", [v12 UTF8String]);
+      if (v51 == -1)
       {
-        v55 = __error();
+        v51 = __error();
         if ((byte_10006E518 & 1) == 0)
         {
-          v56 = *v55;
           byte_10006E518 = 1;
-          v57 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+          v52 = shared_filesystem_metadata_snapshot_service_log_handle(v51);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      v16 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = shared_filesystem_metadata_snapshot_service_log_handle(v51);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_76;
       }
@@ -481,23 +487,23 @@ LABEL_77:
     {
       v11 = __error();
       v12 = [NSString stringWithFormat:@"Error: Too few bytes returned by proc_pidinfo(PROC_PIDTASKALLINFO) for %@[%d] (expected %lu, got %d): %s", v7, a1, 232, v10, strerror(*v11)];
-      if (fprintf(a4, "%s\n", [v12 UTF8String]) == -1)
+      v13 = fprintf(a4, "%s\n", [v12 UTF8String]);
+      if (v13 == -1)
       {
         v13 = __error();
         if ((byte_10006E519 & 1) == 0)
         {
-          v14 = *v13;
           byte_10006E519 = 1;
-          v15 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+          v14 = shared_filesystem_metadata_snapshot_service_log_handle(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      v16 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = shared_filesystem_metadata_snapshot_service_log_handle(v13);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_76;
       }
@@ -506,18 +512,47 @@ LABEL_77:
     }
   }
 
-  v21 = count[0];
+  v19 = count[0];
   if (SLODWORD(count[0]) <= 0)
   {
     v12 = [NSString stringWithFormat:@"Error: No open files for %@[%d]", v7, a1];
-    if (fprintf(a4, "%s\n", [v12 UTF8String]) == -1)
+    v45 = fprintf(a4, "%s\n", [v12 UTF8String]);
+    if (v45 == -1)
     {
-      v47 = __error();
+      v45 = __error();
       if ((byte_10006E51A & 1) == 0)
       {
-        v48 = *v47;
         byte_10006E51A = 1;
-        v49 = shared_filesystem_metadata_snapshot_service_log_handle();
+        v46 = shared_filesystem_metadata_snapshot_service_log_handle(v45);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+        {
+          sub_10002FC44();
+        }
+      }
+    }
+
+    v15 = shared_filesystem_metadata_snapshot_service_log_handle(v45);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_76;
+    }
+
+    goto LABEL_75;
+  }
+
+  v20 = malloc_type_calloc(LODWORD(count[0]), 8uLL, 0x100004000313F17uLL);
+  if (!v20)
+  {
+    v47 = __error();
+    v12 = [NSString stringWithFormat:@"Error: Failed to allocate memory for fdinfos for %@[%d]: %s", v7, a1, strerror(*v47)];
+    v48 = fprintf(a4, "%s\n", [v12 UTF8String]);
+    if (v48 == -1)
+    {
+      v48 = __error();
+      if ((byte_10006E51B & 1) == 0)
+      {
+        byte_10006E51B = 1;
+        v49 = shared_filesystem_metadata_snapshot_service_log_handle(v48);
         if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
@@ -525,8 +560,8 @@ LABEL_77:
       }
     }
 
-    v16 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = shared_filesystem_metadata_snapshot_service_log_handle(v48);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_76;
     }
@@ -534,251 +569,224 @@ LABEL_77:
     goto LABEL_75;
   }
 
-  v22 = malloc_type_calloc(LODWORD(count[0]), 8uLL, 0x100004000313F17uLL);
-  if (!v22)
+  v21 = v20;
+  v22 = proc_pidinfo(a1, 1, 0, v20, 8 * v19);
+  if (v22 <= 0 && *__error() != 3)
   {
-    v50 = __error();
-    v12 = [NSString stringWithFormat:@"Error: Failed to allocate memory for fdinfos for %@[%d]: %s", v7, a1, strerror(*v50)];
-    if (fprintf(a4, "%s\n", [v12 UTF8String]) == -1)
+    v53 = __error();
+    v12 = [NSString stringWithFormat:@"Error: Failed to read fdinfo for %@[%d]: %s", v7, a1, strerror(*v53)];
+    v54 = fprintf(a4, "%s\n", [v12 UTF8String]);
+    if (v54 == -1)
     {
-      v51 = __error();
-      if ((byte_10006E51B & 1) == 0)
-      {
-        v52 = *v51;
-        byte_10006E51B = 1;
-        v53 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
-        {
-          sub_10002FC44();
-        }
-      }
-    }
-
-    v16 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_76;
-    }
-
-    goto LABEL_75;
-  }
-
-  v23 = v22;
-  v24 = proc_pidinfo(a1, 1, 0, v22, 8 * v21);
-  if (v24 <= 0 && *__error() != 3)
-  {
-    v58 = __error();
-    v12 = [NSString stringWithFormat:@"Error: Failed to read fdinfo for %@[%d]: %s", v7, a1, strerror(*v58)];
-    if (fprintf(a4, "%s\n", [v12 UTF8String]) == -1)
-    {
-      v59 = __error();
+      v54 = __error();
       if ((byte_10006E51C & 1) == 0)
       {
-        v60 = *v59;
         byte_10006E51C = 1;
-        v61 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
+        v55 = shared_filesystem_metadata_snapshot_service_log_handle(v54);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v62 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v56 = shared_filesystem_metadata_snapshot_service_log_handle(v54);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       sub_10002FCAC(v12);
     }
 
-    free(v23);
+    free(v21);
     goto LABEL_77;
   }
 
-  v63 = v23;
-  v25 = (v24 >> 3);
-  if (v25 >= 1)
+  v57 = v21;
+  v23 = (v22 >> 3);
+  if (v23 >= 1)
   {
-    v26 = v23 + 1;
-    while (*v26 != 1)
+    v24 = v21 + 1;
+    while (*v24 != 1)
     {
 LABEL_52:
-      v26 += 2;
-      if (!--v25)
+      v24 += 2;
+      if (!--v23)
       {
         goto LABEL_61;
       }
     }
 
-    v27 = *(v26 - 1);
-    memset(v79, 0, 336);
-    v78 = 0u;
-    v77 = 0u;
-    v76 = 0u;
-    v75 = 0u;
-    v74 = 0u;
-    v73 = 0u;
+    v25 = *(v24 - 1);
+    memset(v73, 0, 336);
     v72 = 0u;
     v71 = 0u;
     v70 = 0u;
     v69 = 0u;
+    v68 = 0u;
+    v67 = 0u;
+    v66 = 0u;
+    v65 = 0u;
+    v64 = 0u;
+    v63 = 0u;
     *buf = 0u;
-    v28 = proc_pidfdinfo(a1, v27, 2, buf, 1200);
-    if (v28 <= 0)
+    v26 = proc_pidfdinfo(a1, v25, 2, buf, 1200);
+    if (v26 <= 0)
     {
-      v39 = "UNKNOWN_VNODE_PATH_(revoked)";
+      v37 = "UNKNOWN_VNODE_PATH_(revoked)";
       if (*__error() != 2)
       {
-        v40 = __error();
-        v41 = [NSString stringWithFormat:@"Error: Failed to read proc_pidfdinfo(PROC_PIDFDVNODEPATHINFO) for %@[%d]: %s", v7, a1, strerror(*v40)];
-        if (fprintf(a4, "%s\n", [v41 UTF8String]) == -1)
+        v38 = __error();
+        v39 = [NSString stringWithFormat:@"Error: Failed to read proc_pidfdinfo(PROC_PIDFDVNODEPATHINFO) for %@[%d]: %s", v7, a1, strerror(*v38)];
+        v40 = fprintf(a4, "%s\n", [v39 UTF8String]);
+        if (v40 == -1)
         {
-          v42 = __error();
+          v40 = __error();
           if ((byte_10006E51D & 1) == 0)
           {
-            v43 = *v42;
+            v41 = *v40;
             byte_10006E51D = 1;
-            v44 = shared_filesystem_metadata_snapshot_service_log_handle();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+            v42 = shared_filesystem_metadata_snapshot_service_log_handle(v40);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
             {
-              *v65 = 67109120;
-              v66 = v43;
-              _os_log_fault_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v65, 8u);
+              *v59 = 67109120;
+              v60 = v41;
+              _os_log_fault_impl(&_mh_execute_header, v42, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v59, 8u);
             }
           }
         }
 
-        v45 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v43 = shared_filesystem_metadata_snapshot_service_log_handle(v40);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          sub_100030018(&v67, v41);
+          sub_100030018(v61, v39);
         }
 
-        v39 = v65;
-        bzero(v65, 0x401uLL);
+        v37 = v59;
+        bzero(v59, 0x401uLL);
         __strncat_chk();
-        v46 = __error();
-        strerror(*v46);
+        v44 = __error();
+        strerror(*v44);
         __strncat_chk();
       }
 
-      v36 = [NSString stringWithFormat:@"%@:%d:%s", v7, a1, v39];
-      v37 = v36;
-      v38 = 0;
+      v34 = [NSString stringWithFormat:@"%@:%d:%s", v7, a1, v37];
+      v35 = v34;
+      v36 = 0;
     }
 
     else
     {
-      v29 = v28;
-      if (v28 <= 0x4AF)
+      v27 = v26;
+      if (v26 <= 0x4AF)
       {
-        v30 = __error();
-        v31 = [NSString stringWithFormat:@"Error: Too few bytes returned by proc_pidinfo(PROC_PIDFDVNODEPATHINFO) for fd %d for %@[%d] (expected %lu, got %d): %s", v27, v7, a1, 1200, v29, strerror(*v30)];
-        if (fprintf(a4, "%s\n", [v31 UTF8String]) == -1)
+        v28 = __error();
+        v29 = [NSString stringWithFormat:@"Error: Too few bytes returned by proc_pidinfo(PROC_PIDFDVNODEPATHINFO) for fd %d for %@[%d] (expected %lu, got %d): %s", v25, v7, a1, 1200, v27, strerror(*v28)];
+        v30 = fprintf(a4, "%s\n", [v29 UTF8String]);
+        if (v30 == -1)
         {
-          v32 = __error();
+          v30 = __error();
           if ((byte_10006E51E & 1) == 0)
           {
-            v33 = *v32;
+            v31 = *v30;
             byte_10006E51E = 1;
-            v34 = shared_filesystem_metadata_snapshot_service_log_handle();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+            v32 = shared_filesystem_metadata_snapshot_service_log_handle(v30);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
             {
-              *v65 = 67109120;
-              v66 = v33;
-              _os_log_fault_impl(&_mh_execute_header, v34, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v65, 8u);
+              *v59 = 67109120;
+              v60 = v31;
+              _os_log_fault_impl(&_mh_execute_header, v32, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v59, 8u);
             }
           }
         }
 
-        v35 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v33 = shared_filesystem_metadata_snapshot_service_log_handle(v30);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          sub_100030018(&v64, v31);
+          sub_100030018(v58, v29);
         }
       }
 
-      v36 = [NSString stringWithFormat:@"%s", v79];
-      v37 = v36;
-      if (HIWORD(v69))
+      v34 = [NSString stringWithFormat:@"%s", v73];
+      v35 = v34;
+      if (HIWORD(v63))
       {
         goto LABEL_51;
       }
 
-      v38 = v75;
+      v36 = v69;
     }
 
-    addEntryForPath(v36, v38, a1, v7, v8);
+    addEntryForPath(v34, v36, a1, v7, v8);
 LABEL_51:
 
     goto LABEL_52;
   }
 
 LABEL_61:
-  free(v63);
+  free(v57);
 LABEL_78:
 }
 
 id unlinkedOpenFiles(FILE *a1)
 {
-  if (fprintf(a1, "Info: Fetching unlinked-but-open files\n") == -1)
+  v2 = fprintf(a1, "Info: Fetching unlinked-but-open files\n");
+  if (v2 == -1)
   {
     v2 = __error();
     if ((byte_10006E51F & 1) == 0)
     {
-      v3 = *v2;
       byte_10006E51F = 1;
-      v4 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v3 = shared_filesystem_metadata_snapshot_service_log_handle(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
     }
   }
 
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = shared_filesystem_metadata_snapshot_service_log_handle(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Info: Fetching unlinked-but-open files", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Info: Fetching unlinked-but-open files", buf, 2u);
   }
 
-  v6 = getPIDsAndProcNames(a1);
+  v5 = getPIDsAndProcNames(a1);
   +[NSMutableDictionary dictionary];
-  v14 = _NSConcreteStackBlock;
-  v15 = 3221225472;
-  v16 = sub_100004494;
-  v18 = v17 = &unk_100068728;
-  v19 = a1;
-  v7 = v18;
-  [v6 enumerateKeysAndObjectsUsingBlock:&v14];
-  if (fprintf(a1, "Info: Finished fetching unlinked-but-open files\n") == -1)
+  v12 = _NSConcreteStackBlock;
+  v13 = 3221225472;
+  v14 = sub_100004494;
+  v16 = v15 = &unk_100068728;
+  v17 = a1;
+  v6 = v16;
+  [v5 enumerateKeysAndObjectsUsingBlock:&v12];
+  v7 = fprintf(a1, "Info: Finished fetching unlinked-but-open files\n");
+  if (v7 == -1)
   {
-    v8 = __error();
+    v7 = __error();
     if ((byte_10006E521 & 1) == 0)
     {
-      v9 = *v8;
       byte_10006E521 = 1;
-      v10 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v8 = shared_filesystem_metadata_snapshot_service_log_handle(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
     }
   }
 
-  v11 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = shared_filesystem_metadata_snapshot_service_log_handle(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Info: Finished fetching unlinked-but-open files", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Info: Finished fetching unlinked-but-open files", buf, 2u);
   }
 
   fflush(a1);
-  v21 = @"UnlinkedOpenFiles";
-  v22 = v7;
-  v12 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1, v14, v15, v16, v17];
+  v19 = @"UnlinkedOpenFiles";
+  v20 = v6;
+  v10 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1, v12, v13, v14, v15];
 
-  return v12;
+  return v10;
 }
 
 void sub_100004494(uint64_t a1, void *a2, void *a3)
@@ -794,27 +802,27 @@ void sub_100004494(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    if (fprintf(*(a1 + 40), "%s\n", "Warn: Skipping looking for unlinked-but-open files for kernel_task [0]") == -1)
+    v8 = fprintf(*(a1 + 40), "%s\n", "Warn: Skipping looking for unlinked-but-open files for kernel_task [0]");
+    if (v8 == -1)
     {
       v8 = __error();
       if ((byte_10006E520 & 1) == 0)
       {
-        v9 = *v8;
         byte_10006E520 = 1;
-        v10 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v9 = shared_filesystem_metadata_snapshot_service_log_handle(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v11 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = shared_filesystem_metadata_snapshot_service_log_handle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "Warn: Skipping looking for unlinked-but-open files for kernel_task [0]";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      v12 = "Warn: Skipping looking for unlinked-but-open files for kernel_task [0]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
   }
 }
@@ -831,16 +839,16 @@ void sub_100004610(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_error_impl(a1, v4, OS_LOG_TYPE_ERROR, a4, v5, 0xCu);
 }
 
-id shared_filesystem_metadata_snapshot_service_log_handle()
+id shared_filesystem_metadata_snapshot_service_log_handle(uint64_t a1)
 {
   if (qword_10006E530 != -1)
   {
     sub_10003006C();
   }
 
-  v1 = qword_10006E528;
+  v2 = qword_10006E528;
 
-  return v1;
+  return v2;
 }
 
 void sub_100004674(id a1)
@@ -883,32 +891,31 @@ id cacheDeleteAvailable(void *a1)
 {
   v1 = a1;
   v2 = +[NSMutableDictionary dictionary];
-  for (i = 0; i != 3; ++i)
+  for (i = 0; i != 12; i += 4)
   {
-    v4 = dword_1000348F4[i];
-    v5 = CacheDeleteCopyAvailableSpaceForVolume();
-    if (i == 1)
+    v4 = CacheDeleteCopyAvailableSpaceForVolume();
+    if (i == 4)
     {
-      v6 = "CacheDeleteAvailableSpaceClassUserInitiated";
+      v5 = "CacheDeleteAvailableSpaceClassUserInitiated";
     }
 
     else
     {
-      v6 = "CacheDeleteAvailableSpaceClassEssential";
+      v5 = "CacheDeleteAvailableSpaceClassEssential";
     }
 
-    if (i * 4)
+    if (i)
     {
-      v7 = v6;
+      v6 = v5;
     }
 
     else
     {
-      v7 = "CacheDeleteAvailableSpaceClassSpeculative";
+      v6 = "CacheDeleteAvailableSpaceClassSpeculative";
     }
 
-    v8 = [NSString stringWithUTF8String:v7];
-    [v2 setObject:v5 forKeyedSubscript:v8];
+    v7 = [NSString stringWithUTF8String:v6];
+    [v2 setObject:v4 forKeyedSubscript:v7];
   }
 
   return v2;
@@ -930,90 +937,90 @@ id cacheDeleteInfo(void *a1)
   return v4;
 }
 
-uint64_t edit_pathname()
+uint64_t edit_pathname(uint64_t a1, uint64_t a2)
 {
-  v0 = archive_entry_pathname();
-  v1 = *v0;
-  if (v1 == 92 || v1 == 47)
+  v2 = archive_entry_pathname();
+  v3 = *v2;
+  if (v3 == 92 || v3 == 47)
   {
-    v2 = v0[1];
-    if (v2 == 92 || v2 == 47)
+    v4 = v2[1];
+    if (v4 == 92 || v4 == 47)
     {
-      v3 = v0[2];
-      if (v3 == 63 || v3 == 46)
+      v5 = v2[2];
+      if (v5 == 63 || v5 == 46)
       {
-        v4 = v0[3];
-        if (v4 == 92 || v4 == 47)
+        v6 = v2[3];
+        if (v6 == 92 || v6 == 47)
         {
-          if (v3 == 63 && (v0[4] | 0x20) == 0x75 && (v0[5] | 0x20) == 0x6E && (v0[6] | 0x20) == 0x63 && ((v5 = v0[7], v5 == 92) || v5 == 47))
+          if (v5 == 63 && (v2[4] | 0x20) == 0x75 && (v2[5] | 0x20) == 0x6E && (v2[6] | 0x20) == 0x63 && ((v7 = v2[7], v7 == 92) || v7 == 47))
           {
-            v0 += 8;
+            v2 += 8;
           }
 
           else
           {
-            v0 += 4;
+            v2 += 4;
           }
         }
       }
     }
   }
 
-  LOBYTE(v6) = *v0;
+  LOBYTE(v8) = *v2;
   do
   {
-    v7 = v0;
-    v8 = (v6 & 0xDF) - 65;
-    v9 = v0;
-    if (v8 <= 0x19)
+    v9 = v2;
+    v10 = (v8 & 0xDF) - 65;
+    v11 = v2;
+    if (v10 <= 0x19)
     {
-      v9 = &v0[2 * (v0[1] == 58)];
+      v11 = &v2[2 * (v2[1] == 58)];
     }
 
     while (1)
     {
-      v0 = v9;
-      v6 = *v9;
-      if (v6 != 92 && v6 != 47)
+      v2 = v11;
+      v8 = *v11;
+      if (v8 != 92 && v8 != 47)
       {
         break;
       }
 
-      v9 = v0 + 1;
-      if (v0[1] == 46 && v0[2] == 46)
+      v11 = v2 + 1;
+      if (v2[1] == 46 && v2[2] == 46)
       {
-        v12 = v0[3];
-        v10 = v0 + 3;
-        v11 = v12;
-        if (v12 == 92)
+        v14 = v2[3];
+        v12 = v2 + 3;
+        v13 = v14;
+        if (v14 == 92)
         {
-          v9 = v10;
+          v11 = v12;
         }
 
-        if (v11 == 47)
+        if (v13 == 47)
         {
-          v9 = v10;
+          v11 = v12;
         }
       }
     }
   }
 
-  while (v7 != v0);
-  if (v6)
+  while (v9 != v2);
+  if (v8)
   {
-    v13 = v7;
+    v15 = v9;
   }
 
   else
   {
-    v13 = ".";
+    v15 = ".";
   }
 
-  if (v13 != archive_entry_pathname())
+  if (v15 != archive_entry_pathname())
   {
-    v14 = strdup(v13);
+    v16 = strdup(v15);
     archive_entry_copy_pathname();
-    free(v14);
+    free(v16);
   }
 
   return 0;
@@ -1021,38 +1028,37 @@ uint64_t edit_pathname()
 
 uint64_t archive_snapshot_directory(uint64_t a1)
 {
-  archive_write_new();
+  v2 = archive_write_new();
   if (archive_write_set_format_by_name())
   {
-    v2 = *(a1 + 32);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = *(a1 + 32);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v63 = "ustar";
-      v64 = 2080;
-      v65 = archive_error_string();
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Can't use format %s: %s\n", buf, 0x16u);
+      v54 = "ustar";
+      v55 = 2080;
+      v56 = archive_error_string();
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Can't use format %s: %s\n", buf, 0x16u);
     }
 
-    v3 = *(a1 + 24);
-    v4 = archive_error_string();
-    fprintf(v3, "Can't use format %s: %s\n", "ustar", v4);
+    v4 = *(a1 + 24);
+    v5 = archive_error_string();
+    fprintf(v4, "Can't use format %s: %s\n", "ustar", v5);
   }
 
   archive_write_set_bytes_per_block();
   if (archive_write_add_filter_gzip())
   {
-    v5 = *(a1 + 32);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = *(a1 + 32);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Unsupported compression option\n", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Unsupported compression option\n", buf, 2u);
     }
 
     fwrite("Unsupported compression option\n", 0x1FuLL, 1uLL, *(a1 + 24));
   }
 
-  v6 = *(a1 + 8);
   if (archive_write_open_filename())
   {
     v7 = *(a1 + 32);
@@ -1060,7 +1066,7 @@ uint64_t archive_snapshot_directory(uint64_t a1)
     {
       v8 = archive_error_string();
       *buf = 136315138;
-      v63 = v8;
+      v54 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
     }
   }
@@ -1094,66 +1100,64 @@ uint64_t archive_snapshot_directory(uint64_t a1)
   }
 
   fwrite("cannot create link resolver\n", 0x1CuLL, 1uLL, *(a1 + 24));
-  v15 = *(a1 + 48);
   archive_format();
   archive_entry_linkresolver_set_strategy();
   disk_new = archive_read_disk_new();
   *(a1 + 40) = disk_new;
   if (!disk_new)
   {
-    v17 = *(a1 + 32);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = *(a1 + 32);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Cannot create read_disk object\n", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Cannot create read_disk object\n", buf, 2u);
     }
   }
 
   fwrite("Cannot create read_disk object\n", 0x1FuLL, 1uLL, *(a1 + 24));
-  v18 = *(a1 + 40);
   archive_read_disk_set_standard_lookup();
-  v19 = *(a1 + 16);
-  v59 = 0;
-  v60 = 0;
-  v20 = tree_open(v19);
-  if (v20)
+  v17 = *(a1 + 16);
+  v50 = 0;
+  v51 = 0;
+  v18 = tree_open(v17);
+  if (v18)
   {
-    v21 = v20;
-    v22 = tree_next(v20);
-    if (v22)
+    v19 = v18;
+    v20 = tree_next(v18);
+    if (v20)
     {
-      v23 = v22;
+      v21 = v20;
       while (1)
       {
-        v24 = tree_current_path(v21);
-        if (v23 == -2)
+        v22 = tree_current_path(v19);
+        if (v21 == -2)
         {
-          v25 = *(a1 + 32);
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v23 = *(a1 + 32);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v63 = v24;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s: Unable to continue traversing directory tree\n", buf, 0xCu);
+            v54 = v22;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s: Unable to continue traversing directory tree\n", buf, 0xCu);
           }
 
-          fprintf(*(a1 + 24), "%s: Unable to continue traversing directory tree\n", v24);
+          fprintf(*(a1 + 24), "%s: Unable to continue traversing directory tree\n", v22);
           goto LABEL_56;
         }
 
-        fprintf(*(a1 + 24), "%s: Unable to continue traversing directory tree\n", v24);
-        if (v23 == 1)
+        fprintf(*(a1 + 24), "%s: Unable to continue traversing directory tree\n", v22);
+        if (v21 == 1)
         {
           break;
         }
 
-        if (v23 == -1)
+        if (v21 == -1)
         {
-          v26 = *(a1 + 32);
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v24 = *(a1 + 32);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v63 = v24;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s: Couldn't visit directory\n", buf, 0xCu);
+            v54 = v22;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s: Couldn't visit directory\n", buf, 0xCu);
           }
 
           fprintf(*(a1 + 24), "%s: Couldn't visit directory\n");
@@ -1162,83 +1166,78 @@ LABEL_55:
         }
 
 LABEL_56:
-        v23 = tree_next(v21);
-        if (!v23)
+        v21 = tree_next(v19);
+        if (!v21)
         {
           goto LABEL_57;
         }
       }
 
-      if (tree_current_lstat(v21))
+      if (tree_current_lstat(v19))
       {
-        is_physical_dir = tree_current_is_physical_dir(v21);
-        v28 = *(a1 + 40);
+        is_physical_dir = tree_current_is_physical_dir(v19);
         archive_read_disk_set_symlink_physical();
         archive_entry_free();
-        v60 = archive_entry_new();
+        v51 = archive_entry_new();
         archive_entry_set_pathname();
-        tree_current_access_path(v21);
+        tree_current_access_path(v19);
         archive_entry_copy_sourcepath();
-        v29 = *(a1 + 40);
         disk_entry_from_file = archive_read_disk_entry_from_file();
         if (disk_entry_from_file)
         {
-          v31 = *(a1 + 32);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v27 = *(a1 + 32);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v32 = *(a1 + 40);
-            v33 = archive_error_string();
+            v28 = archive_error_string();
             *buf = 136315138;
-            v63 = v33;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
+            v54 = v28;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
           }
         }
 
-        v34 = *(a1 + 24);
-        v35 = *(a1 + 40);
-        v36 = archive_error_string();
-        fprintf(v34, "%s\n", v36);
+        v29 = *(a1 + 24);
+        v30 = archive_error_string();
+        v31 = fprintf(v29, "%s\n", v30);
         if (disk_entry_from_file >= -20)
         {
           if (is_physical_dir)
           {
-            tree_descend(v21);
+            v31 = tree_descend(v19);
           }
 
-          edit_pathname();
-          v37 = archive_entry_pathname();
-          v38 = basename(v37);
-          v39 = archive_entry_sourcepath();
-          v40 = v39;
-          if (*v38 != 46 || v38[1] != 95)
+          edit_pathname(v31, v51);
+          v32 = archive_entry_pathname();
+          v33 = basename(v32);
+          v34 = archive_entry_sourcepath();
+          v35 = v34;
+          if (*v33 != 46 || v33[1] != 95)
           {
-            if (copyfile(v39, 0, 0, 0xD0005u))
+            if (copyfile(v34, 0, 0, 0xD0005u))
             {
-              strcpy(v61, "/tmp/tar.md.XXXXXX");
-              v41 = mkstemp(v61);
-              if ((v41 & 0x80000000) == 0)
+              strcpy(v52, "/tmp/tar.md.XXXXXX");
+              v36 = mkstemp(v52);
+              if ((v36 & 0x80000000) == 0)
               {
-                v42 = v41;
-                if (fcntl(v41, 50, buf) != -1)
+                v37 = v36;
+                if (fcntl(v36, 50, buf) != -1)
                 {
-                  v58 = 0;
-                  memset(&v57, 0, sizeof(v57));
-                  v43 = dirname(v24);
-                  asprintf(&v58, "%s/._%s", v43, v38);
-                  copyfile(v40, buf, 0, 0x4C0005u);
-                  stat(buf, &v57);
-                  archive_entry_new();
+                  v49 = 0;
+                  memset(&v48, 0, sizeof(v48));
+                  v38 = dirname(v22);
+                  asprintf(&v49, "%s/._%s", v38, v33);
+                  copyfile(v35, buf, 0, 0x4C0005u);
+                  stat(buf, &v48);
+                  v39 = archive_entry_new();
                   archive_entry_set_pathname();
                   archive_entry_copy_sourcepath();
-                  v44 = *(a1 + 40);
                   archive_read_disk_entry_from_file();
-                  sub_100005A00(a1);
+                  sub_100005A00(a1, v2, v39);
                   archive_entry_free();
                   unlink(buf);
-                  free(v58);
+                  free(v49);
                 }
 
-                close(v42);
+                close(v37);
               }
             }
 
@@ -1247,20 +1246,13 @@ LABEL_56:
               archive_entry_set_size();
             }
 
-            v45 = *(a1 + 48);
             archive_entry_linkify();
-            if (v60)
+            for (i = v51; i; v51 = i)
             {
-              do
-              {
-                sub_100005A00(a1);
-                archive_entry_free();
-                v46 = v59;
-                v59 = 0;
-                v60 = v46;
-              }
-
-              while (v46);
+              sub_100005A00(a1, v2, i);
+              archive_entry_free();
+              i = v50;
+              v50 = 0;
             }
           }
         }
@@ -1268,12 +1260,12 @@ LABEL_56:
         goto LABEL_56;
       }
 
-      v47 = *(a1 + 32);
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v41 = *(a1 + 32);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v63 = v24;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%s: Cannot stat\n", buf, 0xCu);
+        v54 = v22;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%s: Cannot stat\n", buf, 0xCu);
       }
 
       fprintf(*(a1 + 24), "%s: Cannot stat\n");
@@ -1282,181 +1274,177 @@ LABEL_56:
 
 LABEL_57:
     archive_entry_free();
-    tree_close(v21);
+    tree_close(v19);
   }
 
   else
   {
-    v48 = *(a1 + 32);
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+    v42 = *(a1 + 32);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v63 = v19;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "%s: Cannot open\n", buf, 0xCu);
+      v54 = v17;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%s: Cannot open\n", buf, 0xCu);
     }
 
-    fprintf(*(a1 + 24), "%s: Cannot open\n", v19);
+    fprintf(*(a1 + 24), "%s: Cannot open\n", v17);
     *a1 = 1;
   }
 
-  v49 = *(a1 + 48);
   archive_entry_linkify();
   if (archive_write_close())
   {
-    v50 = *(a1 + 32);
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v43 = *(a1 + 32);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = archive_error_string();
+      v44 = archive_error_string();
       *buf = 136315138;
-      v63 = v51;
-      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
+      v54 = v44;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
     }
 
-    v52 = *(a1 + 24);
-    v53 = archive_error_string();
-    fprintf(v52, "%s\n", v53);
+    v45 = *(a1 + 24);
+    v46 = archive_error_string();
+    fprintf(v45, "%s\n", v46);
     *a1 = 1;
   }
 
   free(*(a1 + 56));
-  v54 = *(a1 + 48);
   archive_entry_linkresolver_free();
   *(a1 + 48) = 0;
-  v55 = *(a1 + 40);
   archive_read_free();
   *(a1 + 40) = 0;
   return archive_write_free();
 }
 
-uint64_t sub_100005A00(uint64_t a1)
+uint64_t sub_100005A00(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (archive_entry_size() < 1)
   {
-    v3 = -1;
+    v5 = -1;
   }
 
   else
   {
-    v2 = archive_entry_sourcepath();
-    v3 = open(v2, 0);
-    if (v3 == -1)
+    v4 = archive_entry_sourcepath();
+    v5 = open(v4, 0);
+    if (v5 == -1)
     {
-      v4 = *(a1 + 32);
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = *(a1 + 32);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = __error();
-        v6 = strerror(*v5);
+        v7 = __error();
+        v8 = strerror(*v7);
         *buf = 136315394;
-        v29 = v2;
-        v30 = 2080;
-        v31 = v6;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: could not open file: %s\n", buf, 0x16u);
+        v30 = v4;
+        v31 = 2080;
+        v32 = v8;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: could not open file: %s\n", buf, 0x16u);
       }
 
-      v7 = *(a1 + 24);
-      v8 = __error();
-      v9 = strerror(*v8);
-      return fprintf(v7, "%s: could not open file: %s\n", v2, v9);
+      v9 = *(a1 + 24);
+      v10 = __error();
+      v11 = strerror(*v10);
+      return fprintf(v9, "%s: could not open file: %s\n", v4, v11);
     }
   }
 
   result = archive_write_header();
-  v11 = result;
+  v13 = result;
   if (result)
   {
-    v12 = *(a1 + 32);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = *(a1 + 32);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v29 = archive_entry_pathname();
-      v30 = 2080;
-      v31 = archive_error_string();
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: %s\n", buf, 0x16u);
+      v30 = archive_entry_pathname();
+      v31 = 2080;
+      v32 = archive_error_string();
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s: %s\n", buf, 0x16u);
     }
 
-    v13 = *(a1 + 24);
-    v14 = archive_entry_pathname();
-    v15 = archive_error_string();
-    result = fprintf(v13, "%s: %s\n", v14, v15);
-    if (v11 == -30)
+    v15 = *(a1 + 24);
+    v16 = archive_entry_pathname();
+    v17 = archive_error_string();
+    result = fprintf(v15, "%s: %s\n", v16, v17);
+    if (v13 == -30)
     {
 LABEL_29:
       exit(1);
     }
   }
 
-  if (v3 < 0 || v11 < -20)
+  if (v5 < 0 || v13 < -20)
   {
 LABEL_19:
-    if (v3 < 0)
+    if (v5 < 0)
     {
       return result;
     }
 
-    return close(v3);
+    return close(v5);
   }
 
   if (archive_entry_size() < 1)
   {
-    return close(v3);
+    return close(v5);
   }
 
-  v16 = read(v3, *(a1 + 56), 0x10000uLL);
-  if (v16 < 1)
+  v18 = read(v5, *(a1 + 56), 0x10000uLL);
+  if (v18 < 1)
   {
-    return close(v3);
+    return close(v5);
   }
 
-  v17 = v16;
+  v19 = v18;
   while (1)
   {
-    v18 = *(a1 + 56);
-    v19 = archive_write_data();
-    if ((v19 & 0x8000000000000000) != 0)
+    v20 = archive_write_data();
+    if ((v20 & 0x8000000000000000) != 0)
     {
-      v24 = *(a1 + 32);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = *(a1 + 32);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = archive_error_string();
+        v26 = archive_error_string();
         *buf = 136315138;
-        v29 = v25;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
+        v30 = v26;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
       }
 
-      v26 = *(a1 + 24);
-      v27 = archive_error_string();
-      fprintf(v26, "%s\n", v27);
+      v27 = *(a1 + 24);
+      v28 = archive_error_string();
+      fprintf(v27, "%s\n", v28);
       goto LABEL_29;
     }
 
-    if (v19 < v17)
+    if (v20 < v19)
     {
       break;
     }
 
-    result = read(v3, *(a1 + 56), 0x10000uLL);
-    v17 = result;
+    result = read(v5, *(a1 + 56), 0x10000uLL);
+    v19 = result;
     if (result <= 0)
     {
       goto LABEL_19;
     }
   }
 
-  v20 = *(a1 + 32);
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = *(a1 + 32);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = archive_entry_pathname();
+    v22 = archive_entry_pathname();
     *buf = 136315138;
-    v29 = v21;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s: Truncated write; file may have grown while being archived.\n", buf, 0xCu);
+    v30 = v22;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s: Truncated write; file may have grown while being archived.\n", buf, 0xCu);
   }
 
-  v22 = *(a1 + 24);
-  v23 = archive_entry_pathname();
-  result = fprintf(v22, "%s: Truncated write; file may have grown while being archived.\n", v23);
-  if ((v3 & 0x80000000) == 0)
+  v23 = *(a1 + 24);
+  v24 = archive_entry_pathname();
+  result = fprintf(v23, "%s: Truncated write; file may have grown while being archived.\n", v24);
+  if ((v5 & 0x80000000) == 0)
   {
-    return close(v3);
+    return close(v5);
   }
 
   return result;
@@ -1467,31 +1455,32 @@ void sub_10000682C(uint64_t a1)
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = 0;
-    v3 = [v2 executeWithError:&v7];
-    v4 = v7;
+    v8 = 0;
+    v3 = [v2 executeWithError:&v8];
+    v4 = v8;
+    v5 = v4;
   }
 
   else
   {
-    v5 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = shared_filesystem_metadata_snapshot_service_log_handle(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000301F0();
     }
 
-    v4 = 0;
+    v5 = 0;
     v3 = 0;
   }
 
-  v6 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = shared_filesystem_metadata_snapshot_service_log_handle(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Replying with archive path: %@ and error: %@", buf, 0x16u);
+    v10 = v3;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Replying with archive path: %@ and error: %@", buf, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1529,11 +1518,11 @@ void sub_100007DB4(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v5 = shared_filesystem_metadata_snapshot_service_log_handle(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v24 = v3;
+    v23 = v3;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Fetching APFS snapshot info for %{public}@", buf, 0xCu);
   }
 
@@ -1556,45 +1545,44 @@ void sub_100007DB4(uint64_t a1, void *a2)
     v16 = __error();
     if ((byte_10006E564 & 1) == 0)
     {
-      v17 = *v16;
       byte_10006E564 = 1;
-      v18 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
     }
   }
 
-  v19 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v18 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v24 = "[Metadata] APFS Snapshot info";
-    v25 = 2048;
-    v26 = v14;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s duration: %.0f seconds", buf, 0x16u);
+    v23 = "[Metadata] APFS Snapshot info";
+    v24 = 2048;
+    v25 = v14;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s duration: %.0f seconds", buf, 0x16u);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v14 + *(*(*(a1 + 48) + 8) + 24);
-  v20 = *(a1 + 40);
-  v21 = [v20 __miscProgress];
-  LODWORD(v22) = 10.0;
-  [v20 __incrementProgress:v21 byPercent:v22];
+  v19 = *(a1 + 40);
+  v20 = [v19 __miscProgress];
+  LODWORD(v21) = 10.0;
+  [v19 __incrementProgress:v20 byPercent:v21];
 
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_1000088E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000088E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1617,10 +1605,11 @@ void sub_100008988(uint64_t a1, void *a2, void *a3)
   *(v6 + 40) = v5;
 }
 
-void sub_10000B45C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000B45C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t sub_10000B49C(uint64_t result, float a2)
@@ -1640,7 +1629,7 @@ id sub_10000BA20(uint64_t a1)
 {
   v1 = (a1 + 32);
   v2 = [*(a1 + 32) _eventDictionary];
-  v3 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v3 = shared_filesystem_metadata_snapshot_service_log_handle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100030894(v1, v2, v3);
@@ -1675,23 +1664,23 @@ void sub_10000F664(uint64_t a1, void *a2, void *a3, uint64_t a4)
     free(v10);
     if (!v11)
     {
-      if (fprintf(*(a1 + 40), "Failed to get hashed path for %s (isDir: 0)\n", [v7 UTF8String]) == -1)
+      v20 = fprintf(*(a1 + 40), "Failed to get hashed path for %s (isDir: 0)\n", [v7 UTF8String]);
+      if (v20 == -1)
       {
-        v22 = __error();
+        v20 = __error();
         if ((byte_10006E5AF & 1) == 0)
         {
-          v23 = *v22;
           byte_10006E5AF = 1;
-          v24 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+          v21 = shared_filesystem_metadata_snapshot_service_log_handle(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      v14 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = shared_filesystem_metadata_snapshot_service_log_handle(v20);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_10003138C(v7);
       }
@@ -1704,10 +1693,9 @@ void sub_10000F664(uint64_t a1, void *a2, void *a3, uint64_t a4)
       v12 = __error();
       if ((byte_10006E5B0 & 1) == 0)
       {
-        v13 = *v12;
         byte_10006E5B0 = 1;
-        v14 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        v13 = shared_filesystem_metadata_snapshot_service_log_handle(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
@@ -1719,26 +1707,26 @@ LABEL_21:
 
   else
   {
-    v15 = *(a1 + 40);
-    v16 = [v7 UTF8String];
-    v17 = __error();
-    v18 = strerror(*v17);
-    if (fprintf(v15, "Failed to strdup() string %s with error %s\n", v16, v18) == -1)
+    v14 = *(a1 + 40);
+    v15 = [v7 UTF8String];
+    v16 = __error();
+    v17 = strerror(*v16);
+    v18 = fprintf(v14, "Failed to strdup() string %s with error %s\n", v15, v17);
+    if (v18 == -1)
     {
-      v19 = __error();
+      v18 = __error();
       if ((byte_10006E5AE & 1) == 0)
       {
-        v20 = *v19;
         byte_10006E5AE = 1;
-        v21 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+        v19 = shared_filesystem_metadata_snapshot_service_log_handle(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v11 = shared_filesystem_metadata_snapshot_service_log_handle();
+    v11 = shared_filesystem_metadata_snapshot_service_log_handle(v18);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100031410(v7);
@@ -1766,10 +1754,9 @@ void sub_10000F8CC(uint64_t a1, void *a2, int a3, int a4)
         goto LABEL_15;
       }
 
-      v11 = *v10;
       byte_10006E5B2 = 1;
-      v12 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v11 = shared_filesystem_metadata_snapshot_service_log_handle(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
@@ -1777,23 +1764,23 @@ void sub_10000F8CC(uint64_t a1, void *a2, int a3, int a4)
 
     else
     {
-      if (fprintf(*(a1 + 48), "Failed to get hashed path for %s (isDir: 1)\n", [v7 UTF8String]) == -1)
+      v12 = fprintf(*(a1 + 48), "Failed to get hashed path for %s (isDir: 1)\n", [v7 UTF8String]);
+      if (v12 == -1)
       {
-        v13 = __error();
+        v12 = __error();
         if ((byte_10006E5B1 & 1) == 0)
         {
-          v14 = *v13;
           byte_10006E5B1 = 1;
-          v15 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+          v13 = shared_filesystem_metadata_snapshot_service_log_handle(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      v12 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = shared_filesystem_metadata_snapshot_service_log_handle(v12);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1000314A4(v7);
       }
@@ -1810,10 +1797,9 @@ void sub_10000FA44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
     v5 = __error();
     if ((byte_10006E5BE & 1) == 0)
     {
-      v6 = *v5;
       byte_10006E5BE = 1;
-      v7 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v6 = shared_filesystem_metadata_snapshot_service_log_handle(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
@@ -1828,10 +1814,9 @@ void sub_10000FAD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     v5 = __error();
     if ((byte_10006E5C4 & 1) == 0)
     {
-      v6 = *v5;
       byte_10006E5C4 = 1;
-      v7 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v6 = shared_filesystem_metadata_snapshot_service_log_handle(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
@@ -1854,7 +1839,7 @@ BOOL sub_1000104C4(id a1, statfs **a2, int *a3, id *a4)
     v8 = *__error();
     v9 = [NSString stringWithFormat:@"Failed to get volume info: %s.", strerror(v8)];
     v10 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v8 userInfo:0];
-    v11 = shared_filesystem_metadata_snapshot_service_log_handle();
+    v11 = shared_filesystem_metadata_snapshot_service_log_handle(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10003153C(v10);
@@ -1888,43 +1873,45 @@ void sub_1000106B4(id a1)
 
 unint64_t sub_1000106CC(id a1, statfs *a2)
 {
-  v9[2] = 0;
-  v9[0] = 5;
-  v9[1] = 2155872256;
-  memset(v8, 0, 12);
+  v11[2] = 0;
+  v11[0] = 5;
+  v11[1] = 2155872256;
+  memset(v10, 0, 12);
   f_mntonname = a2->f_mntonname;
-  if (!getattrlist(a2->f_mntonname, v9, v8, 0xCuLL, 0))
+  if (!getattrlist(a2->f_mntonname, v11, v10, 0xCuLL, 0))
   {
-    return *(v8 + 4);
+    return *(v10 + 4);
   }
 
-  v4 = *__error();
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = __error();
+  v5 = *v4;
+  v6 = shared_filesystem_metadata_snapshot_service_log_handle(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_1000315DC();
   }
 
-  if (v4 != 45)
+  if (v5 != 45)
   {
     return -1;
   }
 
-  v6 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v8 = shared_filesystem_metadata_snapshot_service_log_handle(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136446210;
-    v11 = f_mntonname;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Falling back to using statfs to calculate used bytes for volume at %{public}s", buf, 0xCu);
+    v13 = f_mntonname;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Falling back to using statfs to calculate used bytes for volume at %{public}s", buf, 0xCu);
   }
 
   return (a2->f_blocks - a2->f_bfree) * a2->f_bsize;
 }
 
-void sub_100011394(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100011394(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100011408(id a1)
@@ -1934,9 +1921,9 @@ void sub_100011408(id a1)
   _objc_release_x1();
 }
 
-void sub_10001156C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001156C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2013,9 +2000,9 @@ char *sub_1000117E8(void *a1, const char *a2)
   return result;
 }
 
-uint64_t tree_next(uint64_t a1)
+uint64_t tree_next(uint64_t *a1)
 {
-  if (*(a1 + 36) == -2)
+  if (*(a1 + 9) == -2)
   {
     sub_100031764();
   }
@@ -2031,7 +2018,7 @@ uint64_t tree_next(uint64_t a1)
         goto LABEL_13;
       }
 
-      if (!*(a1 + 16))
+      if (!a1[2])
       {
         break;
       }
@@ -2047,7 +2034,7 @@ LABEL_10:
     v3 = *(v2 + 56);
     if ((v3 & 4) != 0)
     {
-      *(a1 + 8) = v2;
+      a1[1] = v2;
       v5 = *(v2 + 24);
       v6 = strlen(v5);
       sub_100011AF8(a1, v5, v6);
@@ -2085,10 +2072,10 @@ LABEL_10:
     }
 
     sub_100011C0C(a1);
-    *(a1 + 32) &= 0xFFFFFFCF;
+    *(a1 + 8) &= 0xFFFFFFCF;
   }
 
-  *(a1 + 8) = v2;
+  a1[1] = v2;
   v7 = *(v2 + 24);
   v8 = strlen(v7);
   sub_100011AF8(a1, v7, v8);
@@ -2100,31 +2087,31 @@ LABEL_10:
     v11 = open(".", 0);
     v9 = *a1;
     *(*a1 + 60) = v11;
-    v12 = *(a1 + 92);
-    v13 = *(a1 + 96);
-    *(a1 + 92) = v12 + 1;
+    v12 = *(a1 + 23);
+    v13 = *(a1 + 24);
+    *(a1 + 23) = v12 + 1;
     if (v12 >= v13)
     {
-      *(a1 + 96) = v12 + 1;
+      *(a1 + 24) = v12 + 1;
     }
   }
 
-  *(a1 + 72) = *(a1 + 80);
+  a1[9] = a1[10];
   if (chdir(*(v9 + 24)))
   {
     sub_100011C0C(a1);
-    *(a1 + 40) = *__error();
+    *(a1 + 10) = *__error();
     result = 0xFFFFFFFFLL;
   }
 
   else
   {
-    ++*(a1 + 88);
+    ++*(a1 + 22);
     result = 2;
   }
 
 LABEL_13:
-  *(a1 + 36) = result;
+  *(a1 + 9) = result;
   return result;
 }
 
@@ -2201,7 +2188,7 @@ LABEL_11:
   return result;
 }
 
-char *sub_100011AF8(uint64_t a1, const char *a2, unint64_t a3)
+char *sub_100011AF8(uint64_t a1, const char *a2, size_t a3)
 {
   v3 = a3;
   v6 = *(a1 + 48);
@@ -2343,9 +2330,9 @@ uint64_t sub_100011C98(uint64_t *a1)
   return v3;
 }
 
-uint64_t tree_descend(uint64_t result)
+char *tree_descend(char *result)
 {
-  if (*(result + 36) == 1)
+  if (*(result + 9) == 1)
   {
     v1 = result;
     if (tree_current_is_physical_dir(result))
@@ -2364,7 +2351,7 @@ uint64_t tree_descend(uint64_t result)
       v2 = 2;
     }
 
-    result = sub_1000117E8(v1, *(v1 + 64));
+    result = sub_1000117E8(v1, *(v1 + 8));
     *(*v1 + 56) |= v2;
   }
 
@@ -2458,32 +2445,32 @@ void tree_close(uint64_t a1)
 
 BOOL hasSnapshotCapability(const char *a1, FILE *a2)
 {
-  v18 = xmmword_1000349A0;
-  v19 = 0;
+  v16 = xmmword_1000349A0;
   v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  v4 = getattrlist(a1, &v18, v16, 0x24uLL, 0);
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
+  v4 = getattrlist(a1, &v16, v14, 0x24uLL, 0);
   if (v4 < 0)
   {
     v6 = __error();
     v7 = [NSString stringWithFormat:@"Error: Could not fetch attributes for volume at %s: %s", a1, strerror(*v6)];
-    if (fprintf(a2, "%s\n", [v7 UTF8String]) == -1)
+    v8 = fprintf(a2, "%s\n", [v7 UTF8String]);
+    if (v8 == -1)
     {
       v8 = __error();
       if ((byte_10006E600 & 1) == 0)
       {
-        v9 = *v8;
         byte_10006E600 = 1;
-        v10 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v9 = shared_filesystem_metadata_snapshot_service_log_handle(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v11 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = shared_filesystem_metadata_snapshot_service_log_handle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100031794(v7);
     }
@@ -2491,28 +2478,28 @@ BOOL hasSnapshotCapability(const char *a1, FILE *a2)
     goto LABEL_19;
   }
 
-  if ((BYTE10(v16[0]) & 2) != 0)
+  if ((BYTE10(v14[0]) & 2) != 0)
   {
-    if (fprintf(a2, "Info: Volume at %s has snapshot capabilities\n", a1) == -1)
+    v11 = fprintf(a2, "Info: Volume at %s has snapshot capabilities\n", a1);
+    if (v11 == -1)
     {
-      v12 = __error();
+      v11 = __error();
       if ((byte_10006E601 & 1) == 0)
       {
-        v13 = *v12;
         byte_10006E601 = 1;
-        v14 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        v12 = shared_filesystem_metadata_snapshot_service_log_handle(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v7 = shared_filesystem_metadata_snapshot_service_log_handle();
+    v7 = shared_filesystem_metadata_snapshot_service_log_handle(v11);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = a1;
+      v19 = a1;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Info: Volume at %s has snapshot capabilities", buf, 0xCu);
     }
 
@@ -2527,33 +2514,33 @@ LABEL_19:
 
 id snapshotsInfo(const char *a1, FILE *a2)
 {
-  v68 = +[NSMutableDictionary dictionary];
+  v65 = +[NSMutableDictionary dictionary];
   v4 = open(a1, 0, 0);
   if (v4 < 0)
   {
-    v54 = __error();
-    v55 = [NSString stringWithFormat:@"Error: Could not open directory %s: %s", a1, strerror(*v54)];
-    if (fprintf(a2, "%s\n", [v55 UTF8String]) == -1)
+    v53 = __error();
+    v54 = [NSString stringWithFormat:@"Error: Could not open directory %s: %s", a1, strerror(*v53)];
+    v55 = fprintf(a2, "%s\n", [v54 UTF8String]);
+    if (v55 == -1)
     {
-      v56 = __error();
+      v55 = __error();
       if ((byte_10006E602 & 1) == 0)
       {
-        v57 = *v56;
         byte_10006E602 = 1;
-        v58 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+        v56 = shared_filesystem_metadata_snapshot_service_log_handle(v55);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v59 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+    v57 = shared_filesystem_metadata_snapshot_service_log_handle(v55);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
-      *v83 = 136315138;
-      v84 = [v55 UTF8String];
-      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%s", v83, 0xCu);
+      *v80 = 136315138;
+      v81 = [v54 UTF8String];
+      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%s", v80, 0xCu);
     }
 
 LABEL_95:
@@ -2563,14 +2550,14 @@ LABEL_95:
 
   if (hasSnapshotCapability(a1, a2))
   {
-    v67 = a1;
-    *&v73.bitmapcount = xmmword_1000349B8;
-    *&v73.fileattr = 0x800000000;
-    v5 = fs_snapshot_list(v4, &v73, v83, 0x400uLL, 0);
+    v64 = a1;
+    *&v70.bitmapcount = xmmword_1000349B8;
+    *&v70.fileattr = 0x800000000;
+    v5 = fs_snapshot_list(v4, &v70, v80, 0x400uLL, 0);
     if ((v5 & 0x80000000) == 0)
     {
-      v66 = a2;
-      v65 = v4;
+      v63 = a2;
+      v62 = v4;
       do
       {
         if (!v5)
@@ -2578,7 +2565,7 @@ LABEL_95:
           goto LABEL_94;
         }
 
-        v6 = v83;
+        v6 = v80;
         do
         {
           v8 = *v6;
@@ -2593,16 +2580,17 @@ LABEL_95:
             }
 
 LABEL_20:
-            v70 = v5;
+            v67 = v5;
             v5 = v10 + *v10;
-            if (fprintf(a2, "Info: Found snapshot '%s'\n", v5) == -1)
+            v16 = fprintf(a2, "Info: Found snapshot '%s'\n", v5);
+            if (v16 == -1)
             {
               v16 = __error();
               if ((byte_10006E606 & 1) == 0)
               {
                 v17 = *v16;
                 byte_10006E606 = 1;
-                v18 = shared_filesystem_metadata_snapshot_service_log_handle();
+                v18 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 67109120;
@@ -2612,7 +2600,7 @@ LABEL_20:
               }
             }
 
-            v19 = shared_filesystem_metadata_snapshot_service_log_handle();
+            v19 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
@@ -2621,38 +2609,39 @@ LABEL_20:
             }
 
             *buf = 0u;
-            memset(v82, 0, sizeof(v82));
+            memset(v79, 0, sizeof(v79));
             if ((v7 & 0x20) != 0)
             {
               v27 = *(v10 + 1);
-              v72 = v27;
-              if (fprintf(a2, "Info: Snapshot '%s' has xid %lld\n", v5, v27) == -1)
+              v28 = fprintf(a2, "Info: Snapshot '%s' has xid %lld\n", v5, v27);
+              v69 = v27;
+              if (v28 == -1)
               {
                 v28 = __error();
                 if ((byte_10006E607 & 1) == 0)
                 {
                   v29 = *v28;
                   byte_10006E607 = 1;
-                  v30 = shared_filesystem_metadata_snapshot_service_log_handle();
+                  v30 = shared_filesystem_metadata_snapshot_service_log_handle(v28);
                   if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
                   {
-                    *v77 = 67109120;
-                    LODWORD(v78) = v29;
-                    _os_log_fault_impl(&_mh_execute_header, v30, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v77, 8u);
+                    *v74 = 67109120;
+                    LODWORD(v75) = v29;
+                    _os_log_fault_impl(&_mh_execute_header, v30, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v74, 8u);
                   }
 
-                  v27 = v72;
+                  v27 = v69;
                 }
               }
 
-              v31 = shared_filesystem_metadata_snapshot_service_log_handle();
+              v31 = shared_filesystem_metadata_snapshot_service_log_handle(v28);
               if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315394;
-                v78 = v5;
-                v79 = 2048;
-                v80 = v27;
-                _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has xid %lld", v77, 0x16u);
+                *v74 = 136315394;
+                v75 = v5;
+                v76 = 2048;
+                v77 = v27;
+                _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has xid %lld", v74, 0x16u);
               }
 
               v20 = (v10 + 4);
@@ -2666,31 +2655,32 @@ LABEL_29:
               v22 = *v20;
               v20 += 2;
               v21 = v22;
-              if (fprintf(a2, "Info: Snapshot '%s' has creation timestamp of %ld\n", v5, v22) == -1)
+              v23 = fprintf(a2, "Info: Snapshot '%s' has creation timestamp of %ld\n", v5, v22);
+              if (v23 == -1)
               {
                 v23 = __error();
                 if ((byte_10006E608 & 1) == 0)
                 {
                   v24 = *v23;
                   byte_10006E608 = 1;
-                  v25 = shared_filesystem_metadata_snapshot_service_log_handle();
+                  v25 = shared_filesystem_metadata_snapshot_service_log_handle(v23);
                   if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
                   {
-                    *v77 = 67109120;
-                    LODWORD(v78) = v24;
-                    _os_log_fault_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v77, 8u);
+                    *v74 = 67109120;
+                    LODWORD(v75) = v24;
+                    _os_log_fault_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v74, 8u);
                   }
                 }
               }
 
-              v26 = shared_filesystem_metadata_snapshot_service_log_handle();
+              v26 = shared_filesystem_metadata_snapshot_service_log_handle(v23);
               if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315394;
-                v78 = v5;
-                v79 = 2048;
-                v80 = v21;
-                _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has creation timestamp of %ld", v77, 0x16u);
+                *v74 = 136315394;
+                v75 = v5;
+                v76 = 2048;
+                v77 = v21;
+                _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has creation timestamp of %ld", v74, 0x16u);
               }
 
               if ((v7 & 0x800000) != 0)
@@ -2701,31 +2691,32 @@ LABEL_47:
                 if (uuid_compare(byte_1000349D0, uu2))
                 {
                   uuid_unparse(uu2, buf);
-                  if (fprintf(a2, "Info: Snapshot '%s' has uuid %s\n", v5, buf) == -1)
+                  v32 = fprintf(a2, "Info: Snapshot '%s' has uuid %s\n", v5, buf);
+                  if (v32 == -1)
                   {
                     v32 = __error();
                     if ((byte_10006E609 & 1) == 0)
                     {
                       v33 = *v32;
                       byte_10006E609 = 1;
-                      v34 = shared_filesystem_metadata_snapshot_service_log_handle();
+                      v34 = shared_filesystem_metadata_snapshot_service_log_handle(v32);
                       if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
                       {
-                        *v77 = 67109120;
-                        LODWORD(v78) = v33;
-                        _os_log_fault_impl(&_mh_execute_header, v34, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v77, 8u);
+                        *v74 = 67109120;
+                        LODWORD(v75) = v33;
+                        _os_log_fault_impl(&_mh_execute_header, v34, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v74, 8u);
                       }
                     }
                   }
 
-                  v35 = shared_filesystem_metadata_snapshot_service_log_handle();
+                  v35 = shared_filesystem_metadata_snapshot_service_log_handle(v32);
                   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v77 = 136315394;
-                    v78 = v5;
-                    v79 = 2080;
-                    v80 = buf;
-                    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has uuid %s", v77, 0x16u);
+                    *v74 = 136315394;
+                    v75 = v5;
+                    v76 = 2080;
+                    v77 = buf;
+                    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has uuid %s", v74, 0x16u);
                   }
                 }
 
@@ -2736,7 +2727,7 @@ LABEL_47:
             else
             {
               v20 = (v10 + 2);
-              v72 = -1;
+              v69 = -1;
               if ((v7 & 0x200) != 0)
               {
                 goto LABEL_29;
@@ -2750,35 +2741,36 @@ LABEL_46:
               }
             }
 
-            v71 = v8;
+            v68 = v8;
             if ((v9 & 8) != 0)
             {
               v36 = *v20;
-              if (fprintf(a2, "Info: Snapshot '%s' has size %lld\n", v5, v36) == -1)
+              v37 = fprintf(a2, "Info: Snapshot '%s' has size %lld\n", v5, v36);
+              if (v37 == -1)
               {
                 v37 = __error();
                 if ((byte_10006E60A & 1) == 0)
                 {
                   v38 = *v37;
                   byte_10006E60A = 1;
-                  v39 = shared_filesystem_metadata_snapshot_service_log_handle();
+                  v39 = shared_filesystem_metadata_snapshot_service_log_handle(v37);
                   if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
                   {
-                    *v77 = 67109120;
-                    LODWORD(v78) = v38;
-                    _os_log_fault_impl(&_mh_execute_header, v39, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v77, 8u);
+                    *v74 = 67109120;
+                    LODWORD(v75) = v38;
+                    _os_log_fault_impl(&_mh_execute_header, v39, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v74, 8u);
                   }
                 }
               }
 
-              v40 = shared_filesystem_metadata_snapshot_service_log_handle();
+              v40 = shared_filesystem_metadata_snapshot_service_log_handle(v37);
               if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
               {
-                *v77 = 136315394;
-                v78 = v5;
-                v79 = 2048;
-                v80 = v36;
-                _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has size %lld", v77, 0x16u);
+                *v74 = 136315394;
+                v75 = v5;
+                v76 = 2048;
+                v77 = v36;
+                _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Info: Snapshot '%s' has size %lld", v74, 0x16u);
               }
             }
 
@@ -2787,31 +2779,31 @@ LABEL_46:
               v36 = -1;
             }
 
-            v74[0] = @"SnapshotSize";
-            v69 = [NSNumber numberWithUnsignedLongLong:v36];
-            v75[0] = v69;
-            v74[1] = @"SnapshotPath";
-            v41 = [NSString stringWithUTF8String:v67];
-            v75[1] = v41;
-            v74[2] = @"SnapshotName";
+            v71[0] = @"SnapshotSize";
+            v66 = [NSNumber numberWithUnsignedLongLong:v36];
+            v72[0] = v66;
+            v71[1] = @"SnapshotPath";
+            v41 = [NSString stringWithUTF8String:v64];
+            v72[1] = v41;
+            v71[2] = @"SnapshotName";
             v42 = [NSString stringWithUTF8String:v5];
-            v75[2] = v42;
-            v74[3] = @"SnapshotXID";
-            v43 = [NSNumber numberWithUnsignedLongLong:v72];
-            v75[3] = v43;
-            v74[4] = @"SnapshotUUID";
+            v72[2] = v42;
+            v71[3] = @"SnapshotXID";
+            v43 = [NSNumber numberWithUnsignedLongLong:v69];
+            v72[3] = v43;
+            v71[4] = @"SnapshotUUID";
             v44 = [NSString stringWithUTF8String:buf];
-            v75[4] = v44;
-            v74[5] = @"SnapshotCtime";
+            v72[4] = v44;
+            v71[5] = @"SnapshotCtime";
             v45 = [NSNumber numberWithLong:v21];
-            v75[5] = v45;
-            v46 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:6];
-            v47 = [NSString stringWithFormat:@"%s [xid:%lld]", v5, v72];
-            [v68 setObject:v46 forKeyedSubscript:v47];
+            v72[5] = v45;
+            v46 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:6];
+            v47 = [NSString stringWithFormat:@"%s [xid:%lld]", v5, v69];
+            [v65 setObject:v46 forKeyedSubscript:v47];
 
-            a2 = v66;
-            LODWORD(v5) = v70;
-            v8 = v71;
+            a2 = v63;
+            LODWORD(v5) = v67;
+            v8 = v68;
             goto LABEL_68;
           }
 
@@ -2827,14 +2819,15 @@ LABEL_46:
             goto LABEL_20;
           }
 
-          if (fprintf(a2, "Error: Error reading attributes for directory entry: %d\n", *(v6 + 6)) == -1)
+          v12 = fprintf(a2, "Error: Error reading attributes for directory entry: %d\n", *(v6 + 6));
+          if (v12 == -1)
           {
             v12 = __error();
             if ((byte_10006E605 & 1) == 0)
             {
               v13 = *v12;
               byte_10006E605 = 1;
-              v14 = shared_filesystem_metadata_snapshot_service_log_handle();
+              v14 = shared_filesystem_metadata_snapshot_service_log_handle(v12);
               if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
@@ -2844,7 +2837,7 @@ LABEL_46:
             }
           }
 
-          v15 = shared_filesystem_metadata_snapshot_service_log_handle();
+          v15 = shared_filesystem_metadata_snapshot_service_log_handle(v12);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
@@ -2858,10 +2851,10 @@ LABEL_68:
         }
 
         while (v5);
-        *&v73.bitmapcount = xmmword_1000349B8;
-        *&v73.fileattr = 0x800000000;
-        v4 = v65;
-        v5 = fs_snapshot_list(v65, &v73, v83, 0x400uLL, 0);
+        *&v70.bitmapcount = xmmword_1000349B8;
+        *&v70.fileattr = 0x800000000;
+        v4 = v62;
+        v5 = fs_snapshot_list(v62, &v70, v80, 0x400uLL, 0);
       }
 
       while ((v5 & 0x80000000) == 0);
@@ -2869,23 +2862,23 @@ LABEL_68:
 
     v48 = __error();
     v49 = [NSString stringWithFormat:@"Error: fs_snapshot_list failed (returned %d): %s", v5, strerror(*v48)];
-    if (fprintf(a2, "%s\n", [v49 UTF8String]) == -1)
+    v50 = fprintf(a2, "%s\n", [v49 UTF8String]);
+    if (v50 == -1)
     {
       v50 = __error();
       if ((byte_10006E604 & 1) == 0)
       {
-        v51 = *v50;
         byte_10006E604 = 1;
-        v52 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+        v51 = shared_filesystem_metadata_snapshot_service_log_handle(v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v53 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v52 = shared_filesystem_metadata_snapshot_service_log_handle(v50);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       sub_100031794(v49);
     }
@@ -2893,27 +2886,27 @@ LABEL_68:
 
   else
   {
-    if (fprintf(a2, "Warn: Volume at %s does not support snapshots\n", a1) == -1)
+    v58 = fprintf(a2, "Warn: Volume at %s does not support snapshots\n", a1);
+    if (v58 == -1)
     {
-      v60 = __error();
+      v58 = __error();
       if ((byte_10006E603 & 1) == 0)
       {
-        v61 = *v60;
         byte_10006E603 = 1;
-        v62 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
+        v59 = shared_filesystem_metadata_snapshot_service_log_handle(v58);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v63 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    v60 = shared_filesystem_metadata_snapshot_service_log_handle(v58);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
     {
-      *v83 = 136315138;
-      v84 = a1;
-      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "Warn: Volume at %s does not support snapshots", v83, 0xCu);
+      *v80 = 136315138;
+      v81 = a1;
+      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Warn: Volume at %s does not support snapshots", v80, 0xCu);
     }
   }
 
@@ -2926,7 +2919,7 @@ LABEL_94:
 LABEL_96:
   fflush(a2);
 
-  return v68;
+  return v65;
 }
 
 CFDictionaryRef indirectionTableStatistics()
@@ -2956,14 +2949,15 @@ id apfsVolumeInfo(FILE *a1)
         if (v7)
         {
           v8 = v7;
-          if (fprintf(a1, "Warn: 0x%08x: Could not get name for io_registry_entry_t 0x%x\n", v7, v6) == -1)
+          v9 = fprintf(a1, "Warn: 0x%08x: Could not get name for io_registry_entry_t 0x%x\n", v7, v6);
+          if (v9 == -1)
           {
             v9 = __error();
             if ((byte_10006E60C & 1) == 0)
             {
               v10 = *v9;
               byte_10006E60C = 1;
-              v11 = shared_filesystem_metadata_snapshot_service_log_handle();
+              v11 = shared_filesystem_metadata_snapshot_service_log_handle(v9);
               if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
@@ -2975,7 +2969,7 @@ id apfsVolumeInfo(FILE *a1)
             }
           }
 
-          v12 = shared_filesystem_metadata_snapshot_service_log_handle();
+          v12 = shared_filesystem_metadata_snapshot_service_log_handle(v9);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109376;
@@ -2993,14 +2987,15 @@ id apfsVolumeInfo(FILE *a1)
         if (v13)
         {
           v14 = v13;
-          if (fprintf(a1, "Error: 0x%08x: Could not get properties for io_registry_entry_t %s\n", v13, name) == -1)
+          v15 = fprintf(a1, "Error: 0x%08x: Could not get properties for io_registry_entry_t %s\n", v13, name);
+          if (v15 == -1)
           {
             v15 = __error();
             if ((byte_10006E60D & 1) == 0)
             {
               v16 = *v15;
               byte_10006E60D = 1;
-              v17 = shared_filesystem_metadata_snapshot_service_log_handle();
+              v17 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
               if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
@@ -3012,7 +3007,7 @@ id apfsVolumeInfo(FILE *a1)
             }
           }
 
-          v18 = shared_filesystem_metadata_snapshot_service_log_handle();
+          v18 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109378;
@@ -3060,14 +3055,15 @@ id apfsVolumeInfo(FILE *a1)
 
   else
   {
-    if (fprintf(a1, "Error: Could not create matching dictionary for %s\n", "AppleAPFSVolume") == -1)
+    v24 = fprintf(a1, "Error: Could not create matching dictionary for %s\n", "AppleAPFSVolume");
+    if (v24 == -1)
     {
       v24 = __error();
       if ((byte_10006E60B & 1) == 0)
       {
         v25 = *v24;
         byte_10006E60B = 1;
-        v26 = shared_filesystem_metadata_snapshot_service_log_handle();
+        v26 = shared_filesystem_metadata_snapshot_service_log_handle(v24);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
           sub_100031840(v25, v26);
@@ -3075,7 +3071,7 @@ id apfsVolumeInfo(FILE *a1)
       }
     }
 
-    v27 = shared_filesystem_metadata_snapshot_service_log_handle();
+    v27 = shared_filesystem_metadata_snapshot_service_log_handle(v24);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_1000318B8(v27);
@@ -3091,10 +3087,11 @@ id apfsVolumeInfo(FILE *a1)
 
 id enter_sandbox()
 {
-  if ((_set_user_dir_suffix() & 1) == 0)
+  v0 = _set_user_dir_suffix();
+  if ((v0 & 1) == 0)
   {
-    v1 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = shared_filesystem_metadata_snapshot_service_log_handle(v0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1000319B8();
     }
@@ -3116,24 +3113,26 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-void sub_1000134E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000134E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-void sub_100013500(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100013500(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   bzero(__str, 0x400uLL);
   if (!qword_10006E610)
   {
     qword_10006E610 = malloc_type_calloc(0x400uLL, 1uLL, 0x100004077774924uLL);
-    vsnprintf(__str, 0x400uLL, a1, &a9);
+    vsnprintf(__str, 0x400uLL, a1, va);
     snprintf(qword_10006E610, 0x400uLL, "%s", __str);
   }
 }
 
-uint64_t sub_1000135D0(uint64_t a1, uint64_t *a2, unsigned int a3)
+uint64_t sub_1000135D0(uint64_t a1, unint64_t *a2, unsigned int a3)
 {
   *(a1 + 36) = -1;
   if (a3 < 8)
@@ -3145,7 +3144,7 @@ uint64_t sub_1000135D0(uint64_t a1, uint64_t *a2, unsigned int a3)
   while (2)
   {
     v9 = *a2;
-    v8 = a2 + 1;
+    v8 = (a2 + 1);
     v7 = v9;
     v10 = HIDWORD(v9);
     v11 = v6 - 1;
@@ -7740,7 +7739,7 @@ double sub_10001A0D4(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10001A148(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10001A148(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a2;
   v10 = 0;
@@ -16527,7 +16526,7 @@ LABEL_2:
                                                 {
                                                   v17 = "ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context";
 LABEL_161:
-                                                  sub_100013500(v17, a2, a3, a4, a5, a6, a7, a8, v21);
+                                                  sub_100013500(v17, a2, a3, a4, a5, a6, a7, a8);
                                                 }
 
 LABEL_162:
@@ -17589,17 +17588,17 @@ LABEL_2686:
 LABEL_2987:
                                                             if (v12 >> 33)
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d_");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d_", a4, a5, a6, a7, a8);
                                                             }
 
                                                             else
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d", a4, a5, a6, a7, a8);
                                                             }
 
                                                             if ((sub_1000279D4(a1, __str, v8, 8u, v14) & 1) == 0)
                                                             {
-                                                              sub_100013500("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12);
+                                                              sub_100013500("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12, v14);
                                                               return v10;
                                                             }
 

@@ -14,6 +14,7 @@
 - (void)enableCaptiveWebsheet:(unsigned __int8)websheet;
 - (void)handleUSBInterfaceChangedWithEventInfo:(id)info;
 - (void)handleWiFiInterfaceChangedWithEventInfo:(id)info;
+- (void)joinWiFiNetworkWithSSID:(id)d isNetworkHidden:(BOOL)hidden passPhrase:(id)phrase captivePortalAuthToken:(id)token completion:(id)completion;
 - (void)startMonitoringUSBInterfaceChange;
 - (void)startMonitoringWiFiInterfaceChange;
 - (void)stopMonitoringUSBInterfaceChange;
@@ -49,7 +50,7 @@
 {
   if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000BF78();
+    sub_10000BF78(self);
   }
 
   cwInterface = self->_cwInterface;
@@ -75,7 +76,7 @@
 {
   if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000C070();
+    sub_10000C070(self);
   }
 
   [(CWFInterface *)self->_cwInterface stopMonitoringEventType:19];
@@ -98,12 +99,46 @@
   dispatch_async(monitorQueue, v7);
 }
 
+- (void)joinWiFiNetworkWithSSID:(id)d isNetworkHidden:(BOOL)hidden passPhrase:(id)phrase captivePortalAuthToken:(id)token completion:(id)completion
+{
+  hiddenCopy = hidden;
+  dCopy = d;
+  phraseCopy = phrase;
+  tokenCopy = token;
+  completionCopy = completion;
+  v15 = objc_alloc_init(CWFScanParameters);
+  [v15 setSSID:dCopy];
+  [v15 setIncludeHiddenNetworks:hiddenCopy];
+  [v15 setMaximumCacheAge:0];
+  [v15 setNumberOfScans:1];
+  [v15 setMergeScanResults:1];
+  if (tokenCopy)
+  {
+    if (IsAppleInternalBuild() && dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_100022610, "[APUIConnectivityManager joinWiFiNetworkWithSSID:isNetworkHidden:passPhrase:captivePortalAuthToken:completion:]", 33554482, "[%{ptr}] Starts captive portal authentication with token %@.", self, tokenCopy);
+    }
+
+    if ([objc_opt_class() isCaptivePortalMitigationSupported])
+    {
+      [tokenCopy dataUsingEncoding:4];
+      CNSetCaptivePortalAuthenticationCredentials();
+    }
+  }
+
+  [(APUIConnectivityManager *)self _startWiFiNetworkScanWithScanParameters:v15 passPhrase:phraseCopy captivePortalAuthToken:tokenCopy completion:completionCopy];
+}
+
 - (void)enableCaptiveWebsheet:(unsigned __int8)websheet
 {
-  CNEnableWebSheetLaunch();
-  if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
+  v5 = CNEnableWebSheetLaunch();
+  if (dword_100022610 <= 50)
   {
-    sub_10000C34C();
+    v6 = v5;
+    if (dword_100022610 != -1 || _LogCategory_Initialize())
+    {
+      sub_10000C34C(websheet, v6, self);
+    }
   }
 }
 
@@ -125,13 +160,13 @@
       {
         if (dword_100022610 <= 90 && (dword_100022610 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_100022610, "[APUIConnectivityManager tagAirPlayNetwork]", 33554522, "[%{ptr}] Update network profile with error: %@.", self, v6);
         }
       }
 
       else if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
       {
-        sub_10000C3C0();
+        sub_10000C3C0(self);
       }
     }
   }
@@ -145,7 +180,7 @@
   completionCopy = completion;
   if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000C400();
+    sub_10000C400(self);
   }
 
   cwInterface = self->_cwInterface;
@@ -175,7 +210,7 @@
   [v12 setRememberUponSuccessfulAssociation:1];
   if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000C4BC();
+    sub_10000C4BC(self);
   }
 
   cwInterface = self->_cwInterface;
@@ -268,7 +303,8 @@ LABEL_8:
   currentNetworkSSID = selfCopy->_currentNetworkSSID;
   selfCopy->_currentNetworkSSID = v9;
 
-  if (selfCopy->_connectivityState == connectivityState)
+  v11 = selfCopy->_connectivityState;
+  if (v11 == connectivityState)
   {
     objc_sync_exit(selfCopy);
     goto LABEL_11;
@@ -283,18 +319,18 @@ LABEL_8:
         goto LABEL_10;
       }
 
-      v12 = selfCopy->_connectivityState;
+      v11 = selfCopy->_connectivityState;
     }
 
-    LogPrintF();
+    LogPrintF(&dword_100022610, "[APUIConnectivityManager handleWiFiInterfaceChangedWithEventInfo:]", 33554482, "[%{ptr}] previous state: %d, currentState: %d.", selfCopy, connectivityState, v11);
   }
 
 LABEL_10:
   objc_sync_exit(selfCopy);
 
-  v11 = +[NSNotificationCenter defaultCenter];
-  [(APUIConnectivityManager *)v11 postNotificationName:@"kAPUIConnectivityManagerNotification_ConnectivityStateChanged" object:selfCopy];
-  selfCopy = v11;
+  v12 = +[NSNotificationCenter defaultCenter];
+  [(APUIConnectivityManager *)v12 postNotificationName:@"kAPUIConnectivityManagerNotification_ConnectivityStateChanged" object:selfCopy];
+  selfCopy = v12;
 LABEL_11:
 }
 
@@ -305,7 +341,6 @@ LABEL_11:
   v2 = obj;
   if (!obj->_isListeningForWiFiInterfaceChange)
   {
-    connectivityHelper = obj->_connectivityHelper;
     if (APConnectivityHelperRegisterForEvent())
     {
       APSLogErrorAt();
@@ -329,7 +364,6 @@ LABEL_11:
   v2 = obj;
   if (obj->_isListeningForWiFiInterfaceChange)
   {
-    connectivityHelper = obj->_connectivityHelper;
     if (APConnectivityHelperDeregisterForEvent())
     {
       APSLogErrorAt();
@@ -353,7 +387,6 @@ LABEL_11:
   v2 = obj;
   if (!obj->_isListeningForUSBInterfaceChange)
   {
-    connectivityHelper = obj->_connectivityHelper;
     if (APConnectivityHelperRegisterForEvent())
     {
       APSLogErrorAt();
@@ -377,7 +410,6 @@ LABEL_11:
   v2 = obj;
   if (obj->_isListeningForUSBInterfaceChange)
   {
-    connectivityHelper = obj->_connectivityHelper;
     if (APConnectivityHelperDeregisterForEvent())
     {
       APSLogErrorAt();
@@ -396,33 +428,34 @@ LABEL_11:
 
 - (APUIConnectivityManager)init
 {
-  v8.receiver = self;
-  v8.super_class = APUIConnectivityManager;
-  v2 = [(APUIConnectivityManager *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = APUIConnectivityManager;
+  v2 = [(APUIConnectivityManager *)&v9 init];
   if (v2)
   {
     if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
     {
-      sub_10000C6CC();
+      sub_10000C6CC(v2);
     }
 
     SharedHelper = APConnectivityHelperGetSharedHelper();
     v2->_connectivityHelper = SharedHelper;
     if (SharedHelper && (CFRetain(SharedHelper), v2->_connectivityHelper))
     {
-      if (!APConnectivityHelperRegisterEventHandler())
+      v4 = APConnectivityHelperRegisterEventHandler();
+      if (!v4)
       {
         [(APUIConnectivityManager *)v2 _initWifiInterface];
         p_super = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-        v5 = dispatch_queue_create("AirPlaySenderUIApp.networkObserverQueue", p_super);
+        v6 = dispatch_queue_create("AirPlaySenderUIApp.networkObserverQueue", p_super);
         monitorQueue = v2->_monitorQueue;
-        v2->_monitorQueue = v5;
+        v2->_monitorQueue = v6;
 
 LABEL_9:
         return v2;
       }
 
-      sub_10000C70C();
+      sub_10000C70C(v4);
     }
 
     else
@@ -482,10 +515,14 @@ LABEL_9:
 
 + (BOOL)shouldUpdateNetworkProfile
 {
-  APSSettingsGetBooleanIfPresent();
-  if (dword_100022610 <= 50 && (dword_100022610 != -1 || _LogCategory_Initialize()))
+  BooleanIfPresent = APSSettingsGetBooleanIfPresent();
+  if (dword_100022610 <= 50)
   {
-    sub_10000C760();
+    v3 = BooleanIfPresent;
+    if (dword_100022610 != -1 || _LogCategory_Initialize())
+    {
+      sub_10000C760(1, v3 == 0);
+    }
   }
 
   return 1;

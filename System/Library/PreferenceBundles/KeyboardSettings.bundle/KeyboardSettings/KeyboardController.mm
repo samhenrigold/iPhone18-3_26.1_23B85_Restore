@@ -1,6 +1,7 @@
 @interface KeyboardController
 + (BOOL)_isLowStorageForOnDeviceDictationAsset;
 + (id)localizedDisplayNameForInputMode:(id)mode forDictation:(BOOL)dictation;
++ (id)localizedListForInputModes:(id)modes forDictation:(BOOL)dictation duplicatedBaseLanguages:(id)languages;
 + (id)localizedStringForGeneralKeyboardSpecifier;
 + (id)localizedStringForKeyboardController;
 + (id)singleActiveDisabledDictationLanguage;
@@ -87,6 +88,8 @@
 - (void)setWubiStandard:(id)standard specifier:(id)specifier;
 - (void)showDictationDisabledDialogForSpecifier:(id)specifier;
 - (void)showDictationEnableDialogForSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation KeyboardController
@@ -1089,6 +1092,25 @@ LABEL_8:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KeyboardController;
+  [(KeyboardController *)&v4 viewWillAppear:appear];
+  if (self->_needsReloadSpecifiers)
+  {
+    [(KeyboardController *)self reloadSpecifiers];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KeyboardController;
+  [(KeyboardController *)&v4 viewDidAppear:appear];
+  [(KeyboardController *)self emitNavigationEventForRootController];
+}
+
 - (void)preferencesDidChange:(id)change
 {
   block[0] = _NSConcreteStackBlock;
@@ -1197,8 +1219,7 @@ LABEL_8:
     v5 = v4;
     if ([group specifierForID:@"KEYBOARD_TITLE"])
     {
-      [group removeObject:v5];
-      if ((sub_80FC() & 1) == 0)
+      if ((sub_80FC([group removeObject:v5]) & 1) == 0)
       {
 
         [group addObject:v5];
@@ -1230,23 +1251,21 @@ LABEL_8:
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   sharedInputModeController = [+[UIKeyboardInputModeController sharedInputModeController](UIKeyboardInputModeController sharedInputModeController];
-  v5 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v12 != v7)
+      if (*v11 != v7)
       {
         objc_enumerationMutation(sharedInputModeController);
       }
 
-      v9 = *(*(&v11 + 1) + 8 * v8);
       if ([UIKeyboardInputModeGetVariant() isEqualToString:@"Shuangpin"])
       {
         break;
@@ -1254,7 +1273,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -1268,10 +1287,10 @@ LABEL_3:
   else
   {
 LABEL_9:
-    v10 = [group specifierForID:@"ShuangpinType"];
-    if (v10)
+    v9 = [group specifierForID:@"ShuangpinType"];
+    if (v9)
     {
-      [group removeObject:v10];
+      [group removeObject:v9];
     }
   }
 }
@@ -1281,34 +1300,29 @@ LABEL_9:
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   sharedInputModeController = [+[UIKeyboardInputModeController sharedInputModeController](UIKeyboardInputModeController sharedInputModeController];
-  v5 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v12 != v7)
+      if (*v11 != v7)
       {
         objc_enumerationMutation(sharedInputModeController);
       }
 
-      v9 = *(*(&v11 + 1) + 8 * v8);
-      if ([UIKeyboardInputModeGetVariant() isEqualToString:@"Pinyin"])
+      if ([UIKeyboardInputModeGetVariant() isEqualToString:@"Pinyin"] && (objc_msgSend(UIKeyboardInputModeGetRegion(), "isEqualToString:", @"Hans") & 1) != 0)
       {
-        if ([UIKeyboardInputModeGetRegion() isEqualToString:@"Hans"])
-        {
-          break;
-        }
+        break;
       }
 
       if (v6 == ++v8)
       {
-        v6 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -1322,10 +1336,10 @@ LABEL_3:
   else
   {
 LABEL_10:
-    v10 = [group specifierForID:@"PinyinDialect"];
-    if (v10)
+    v9 = [group specifierForID:@"PinyinDialect"];
+    if (v9)
     {
-      [group removeObject:v10];
+      [group removeObject:v9];
     }
   }
 }
@@ -1987,6 +2001,52 @@ LABEL_27:
   return [objc_msgSend(count "allKeys")];
 }
 
++ (id)localizedListForInputModes:(id)modes forDictation:(BOOL)dictation duplicatedBaseLanguages:(id)languages
+{
+  dictationCopy = dictation;
+  v8 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [modes count]);
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v9 = [modes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v18;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v18 != v11)
+        {
+          objc_enumerationMutation(modes);
+        }
+
+        v13 = *(*(&v17 + 1) + 8 * v12);
+        if ([languages containsObject:UIKeyboardInputModeGetBaseLanguage()] && (v14 = TUIKeyboardDisplayNameFromIdentifier()) != 0 || (v14 = +[KeyboardController localizedDisplayNameForInputMode:forDictation:](KeyboardController, "localizedDisplayNameForInputMode:forDictation:", v13, dictationCopy)) != 0)
+        {
+          v15 = v14;
+          if (([(NSMutableArray *)v8 containsObject:v14]& 1) == 0)
+          {
+            [(NSMutableArray *)v8 addObject:v15];
+          }
+        }
+
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [modes countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v10);
+  }
+
+  return [NSListFormatter localizedStringByJoiningStrings:v8];
+}
+
 - (id)loadAllKeyboardPreferences
 {
   v3 = [(KeyboardController *)self loadSpecifiersFromPlistName:@"Preferences_base" target:self];
@@ -2131,7 +2191,7 @@ LABEL_17:
 
 - (void)addFeedbackItems:(id)items
 {
-  if (sub_80FC())
+  if (sub_80FC(self))
   {
     if (![items specifierForID:@"ReachableKeyboard"] && !objc_msgSend(items, "specifierForID:", @"HardwareKeyboard") && !objc_msgSend(items, "specifierForID:", @"USER_DICTIONARY"))
     {

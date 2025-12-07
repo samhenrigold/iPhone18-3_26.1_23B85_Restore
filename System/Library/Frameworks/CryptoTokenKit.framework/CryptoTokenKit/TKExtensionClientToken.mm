@@ -123,66 +123,66 @@ void __72__TKExtensionClientToken_ensureConnectionCanRequireCardInsertion_error_
 
 - (id)withError:(id *)error invoke:(id)invoke
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   invokeCopy = invoke;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v9 = 0;
-  v36 = *MEMORY[0x1E696A250];
+  v37 = *MEMORY[0x1E696A250];
   v10 = 0.0;
   *&v11 = 138543618;
-  v35 = v11;
+  v36 = v11;
   while ([(TKExtensionClientToken *)selfCopy ensureConnectionCanRequireCardInsertion:[(TKClientToken *)selfCopy canRequireCardInsertion] error:error])
   {
-    *v45 = 0;
-    v46 = v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__4;
-    v49 = __Block_byref_object_dispose__4;
-    v50 = 0;
+    *v46 = 0;
+    v47 = v46;
+    v48 = 0x3032000000;
+    v49 = __Block_byref_object_copy__4;
+    v50 = __Block_byref_object_dispose__4;
+    v51 = 0;
     tokenConnection = [(TKExtensionClientToken *)selfCopy tokenConnection];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __43__TKExtensionClientToken_withError_invoke___block_invoke;
-    v40[3] = &unk_1E86B7B20;
-    v40[4] = v45;
-    v13 = [tokenConnection synchronousRemoteObjectProxyWithErrorHandler:v40];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __43__TKExtensionClientToken_withError_invoke___block_invoke;
+    v41[3] = &unk_1E86B7B20;
+    v41[4] = v46;
+    v13 = [tokenConnection synchronousRemoteObjectProxyWithErrorHandler:v41];
 
     connectionIdentifier = selfCopy->_connectionIdentifier;
-    v39 = 0;
-    v15 = invokeCopy[2](invokeCopy, v13, connectionIdentifier, &v39);
-    v16 = v39;
-    v17 = *(v46 + 5);
+    v40 = 0;
+    v15 = invokeCopy[2](invokeCopy, v13, connectionIdentifier, &v40);
+    v16 = v40;
+    v17 = *(v47 + 5);
     if (!v17)
     {
       if (error && !v15)
       {
         if (!v16)
         {
-          v22 = TK_LOG_client_0();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+          v23 = TK_LOG_client_0(0);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
           {
-            [(TKExtensionClientToken *)&v37 withError:v38 invoke:v22];
+            [(TKExtensionClientToken *)&v38 withError:v39 invoke:v23];
           }
 
           v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-2 userInfo:0];
         }
 
-        v23 = v16;
+        v24 = v16;
         *error = v16;
       }
 
 LABEL_22:
       v4 = v15;
-      v20 = 0;
       v21 = 0;
+      v22 = 0;
       goto LABEL_23;
     }
 
-    if ([v17 code] == 4099 || objc_msgSend(*(v46 + 5), "code") == 4097)
+    if ([v17 code] == 4099 || (v18 = objc_msgSend(*(v47 + 5), "code"), v18 == 4097))
     {
-      domain = [*(v46 + 5) domain];
-      if ([domain isEqualToString:v36])
+      domain = [*(v47 + 5) domain];
+      if ([domain isEqualToString:v37])
       {
         _testing_noAutomaticReconnect = [(TKCTKDConnection *)selfCopy->_serverConnection _testing_noAutomaticReconnect];
 
@@ -190,15 +190,15 @@ LABEL_22:
         {
           if (v10 <= 30.0)
           {
-            v25 = TK_LOG_client_0();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            v27 = TK_LOG_client_0(v18);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
               tokenID = [(TKClientToken *)selfCopy tokenID];
-              *buf = v35;
-              v42 = tokenID;
-              v43 = 1024;
-              LODWORD(v44) = v9;
-              _os_log_debug_impl(&dword_1DF413000, v25, OS_LOG_TYPE_DEBUG, "reconnecting connection to %{public}@, try %d", buf, 0x12u);
+              *buf = v36;
+              v43 = tokenID;
+              v44 = 1024;
+              LODWORD(v45) = v9;
+              _os_log_debug_impl(&dword_1DF413000, v27, OS_LOG_TYPE_DEBUG, "reconnecting connection to %{public}@, try %d", buf, 0x12u);
             }
 
             [(NSXPCConnection *)selfCopy->_tokenConnection invalidate];
@@ -207,24 +207,24 @@ LABEL_22:
 
             if (v9 * 0.1 <= 1.0)
             {
-              v27 = v9 * 0.1;
+              v29 = v9 * 0.1;
             }
 
             else
             {
-              v27 = 1.0;
+              v29 = 1.0;
             }
 
-            [MEMORY[0x1E696AF00] sleepForTimeInterval:v27];
-            v21 = 0;
-            v10 = v10 + v27;
-            v20 = 1;
+            [MEMORY[0x1E696AF00] sleepForTimeInterval:v29];
+            v22 = 0;
+            v10 = v10 + v29;
+            v21 = 1;
           }
 
           else
           {
-            v20 = 0;
-            v21 = 1;
+            v21 = 0;
+            v22 = 1;
           }
 
           goto LABEL_23;
@@ -236,16 +236,16 @@ LABEL_22:
       }
     }
 
-    v24 = TK_LOG_client_0();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = TK_LOG_client_0(v18);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       tokenID2 = [(TKClientToken *)selfCopy tokenID];
-      v29 = *(v46 + 5);
-      *buf = v35;
-      v42 = tokenID2;
-      v43 = 2114;
-      v44 = v29;
-      _os_log_error_impl(&dword_1DF413000, v24, OS_LOG_TYPE_ERROR, "Failed to send request to token %{public}@, error: %{public}@", buf, 0x16u);
+      v31 = *(v47 + 5);
+      *buf = v36;
+      v43 = tokenID2;
+      v44 = 2114;
+      v45 = v31;
+      _os_log_error_impl(&dword_1DF413000, v25, OS_LOG_TYPE_ERROR, "Failed to send request to token %{public}@, error: %{public}@", buf, 0x16u);
     }
 
     if (!error)
@@ -253,26 +253,26 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    v20 = 0;
     v21 = 0;
+    v22 = 0;
     v4 = 0;
-    *error = *(v46 + 5);
+    *error = *(v47 + 5);
 LABEL_23:
 
-    _Block_object_dispose(v45, 8);
+    _Block_object_dispose(v46, 8);
     ++v9;
-    if ((v20 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
-      if (!v21)
+      if (!v22)
       {
         goto LABEL_37;
       }
 
-      v31 = TK_LOG_client_0();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+      v33 = TK_LOG_client_0(v26);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
         tokenID3 = [(TKClientToken *)selfCopy tokenID];
-        [(TKExtensionClientToken *)tokenID3 withError:v45 invoke:v31];
+        [(TKExtensionClientToken *)tokenID3 withError:v46 invoke:v33];
       }
 
       if (error)
@@ -289,8 +289,6 @@ LABEL_23:
   v4 = 0;
 LABEL_37:
   objc_sync_exit(selfCopy);
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -311,22 +309,21 @@ LABEL_37:
   statusCopy = status;
   v11 = [(TKCTKDConnection *)serverConnection withError:&v19 invoke:v15];
   v12 = v19;
+  v13 = v12;
   if (!v11)
   {
-    v13 = TK_LOG_client_0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = TK_LOG_client_0(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218498;
       operationCopy2 = operation;
       v22 = 2048;
       statusCopy2 = status;
       v24 = 2114;
-      v25 = v12;
-      _os_log_error_impl(&dword_1DF413000, v13, OS_LOG_TYPE_ERROR, "Failed notify operation %ld status %ld error %{public}@", buf, 0x20u);
+      v25 = v13;
+      _os_log_error_impl(&dword_1DF413000, v14, OS_LOG_TYPE_ERROR, "Failed notify operation %ld status %ld error %{public}@", buf, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

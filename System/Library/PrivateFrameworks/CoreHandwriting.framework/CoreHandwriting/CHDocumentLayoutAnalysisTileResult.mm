@@ -391,17 +391,17 @@ LABEL_34:
     v70 = v68 + v69;
     v71 = *(v68 + v69);
     *buf = 0u;
-    v88 = 0u;
+    v89 = 0u;
     LODWORD(adjacencyMatrixCopy) = 1065353216;
     if (v71)
     {
       v72 = -8 - v69;
       do
       {
-        v86[0] = *(v70 + 8);
-        v86[1] = v86;
+        v86 = *(v70 + 8);
+        v87 = &v86;
         v73 = *(v70 + 16);
-        *(sub_18372DD50(buf, v86[0]) + 6) = v73;
+        *(sub_18372DD50(buf, v86, &v87) + 6) = v73;
         v72 -= 12;
         v70 += 12;
         --v71;
@@ -414,7 +414,7 @@ LABEL_34:
       {
 LABEL_49:
         v80 = sub_18372E058(adjacencyMatrix, buf);
-        v76 = v88;
+        v76 = v89;
         *(adjacencyMatrix + 1) = v80;
         if (v76)
         {
@@ -440,10 +440,10 @@ LABEL_49:
     *v74 = v75;
     *(v74 + 8) = *&buf[8];
     *&buf[8] = 0;
-    v76 = v88;
-    *(v74 + 16) = v88;
-    v77 = *(&v88 + 1);
-    *(v74 + 24) = *(&v88 + 1);
+    v76 = v89;
+    *(v74 + 16) = v89;
+    v77 = *(&v89 + 1);
+    *(v74 + 24) = *(&v89 + 1);
     *(v74 + 32) = adjacencyMatrixCopy;
     if (v77)
     {
@@ -464,7 +464,7 @@ LABEL_49:
 
       v76 = 0;
       *(v75 + 8 * v78) = v74 + 16;
-      v88 = 0uLL;
+      v89 = 0uLL;
     }
 
     *(adjacencyMatrix + 1) = v74 + 40;

@@ -167,23 +167,21 @@ WBSPasswordPatternMatch *__58__WBSPasswordEvaluation_initWithDictionaryRepresent
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v11[0] = @"evaluationType";
+  v11[4] = *MEMORY[0x1E69E9840];
+  v10[0] = @"evaluationType";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_evaluationType];
   password = self->_password;
   patternMatches = self->_patternMatches;
-  v12[0] = v3;
-  v12[1] = password;
-  v11[1] = @"password";
-  v11[2] = @"patternMatches";
+  v11[0] = v3;
+  v11[1] = password;
+  v10[1] = @"password";
+  v10[2] = @"patternMatches";
   v6 = [(NSArray *)patternMatches safari_mapObjectsUsingBlock:&__block_literal_global_19_1];
-  v12[2] = v6;
-  v11[3] = @"guessesRequired";
+  v11[2] = v6;
+  v10[3] = @"guessesRequired";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:self->_guessesRequired];
-  v12[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[3] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }
@@ -285,28 +283,28 @@ id __56__WBSPasswordEvaluation_bestPatternMatchForUserFeedback__block_invoke_2(u
 
 - (id)_bestPatternMatchOfType:(unint64_t)type
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = self->_patternMatches;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([v10 type] == type)
         {
           if (!v7 || ([v7 guessesRequired], v12 = v11, objc_msgSend(v10, "guessesRequired"), v12 > v13))
@@ -318,7 +316,7 @@ id __56__WBSPasswordEvaluation_bestPatternMatchForUserFeedback__block_invoke_2(u
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -328,8 +326,6 @@ id __56__WBSPasswordEvaluation_bestPatternMatchForUserFeedback__block_invoke_2(u
   {
     v7 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -537,7 +533,7 @@ LABEL_45:
 - (id)compactDescriptionWithPasswordColumnWidth:(unint64_t)width includePatternMatches:(BOOL)matches
 {
   matchesCopy = matches;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
   strength = [(WBSPasswordEvaluation *)self strength];
   if (strength > 3)
@@ -556,30 +552,30 @@ LABEL_45:
   if (matchesCopy)
   {
     [v7 addObject:&stru_1F3064D08];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = self->_patternMatches;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [*(*(&v20 + 1) + 8 * i) compactDescriptionWithMatchedStringColumnWidth:width];
+          v16 = [*(*(&v19 + 1) + 8 * i) compactDescriptionWithMatchedStringColumnWidth:width];
           [v7 addObject:v16];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
@@ -587,8 +583,6 @@ LABEL_45:
   }
 
   v17 = [v7 componentsJoinedByString:@"\n"];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

@@ -5,9 +5,40 @@
 - (int64_t)nextOrd;
 - (int64_t)ordAtWithInt:(int)int;
 - (void)dealloc;
+- (void)setDocumentWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_$11
+
+- (void)setDocumentWithInt:(int)int
+{
+  v4 = self->val$ordinals_;
+  if (!v4 || (v5 = [(OrgApacheLuceneUtilLongValues *)v4 getWithInt:*&int], (v6 = self->val$offsets_) == 0))
+  {
+    JreThrowNullPointerException();
+  }
+
+  v7 = v5;
+  v8 = v5 << 32;
+  size = v6->super.size_;
+  if ((v7 & 0x80000000) != 0 || size <= v7)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, v7);
+  }
+
+  v10 = *(&v6->super.size_ + v7 + 1);
+  self->startOffset_ = v10;
+  self->offset_ = v10;
+  v11 = self->val$offsets_;
+  v12 = (&_mh_execute_header + v8) >> 32;
+  v13 = v11->super.size_;
+  if (v12 < 0 || v13 <= v12)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v13, (&_mh_execute_header + v8) >> 32);
+  }
+
+  self->endOffset_ = *(&v11->super.size_ + v12 + 1);
+}
 
 - (int64_t)ordAtWithInt:(int)int
 {
@@ -65,13 +96,12 @@
 
 - (int64_t)lookupTermWithOrgApacheLuceneUtilBytesRef:(id)ref
 {
-  v5 = self->val$binary_;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = self->val$binary_;
+    v5 = self->val$binary_;
     objc_opt_class();
-    if (!v6)
+    if (!v5)
     {
       JreThrowNullPointerException();
     }
@@ -81,26 +111,25 @@
       JreThrowClassCastException();
     }
 
-    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v6 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
+    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v5 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__11;
-    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v8 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
+    v7.receiver = self;
+    v7.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__11;
+    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v7 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
   }
 }
 
 - (id)termsEnum
 {
-  v3 = self->val$binary_;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->val$binary_;
+    v3 = self->val$binary_;
     objc_opt_class();
-    if (!v4)
+    if (!v3)
     {
       JreThrowNullPointerException();
     }
@@ -110,14 +139,14 @@
       JreThrowClassCastException();
     }
 
-    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v4 getTermsEnum];
+    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v3 getTermsEnum];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__11;
-    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v6 termsEnum];
+    v5.receiver = self;
+    v5.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__11;
+    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v5 termsEnum];
   }
 }
 

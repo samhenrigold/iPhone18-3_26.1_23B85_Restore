@@ -5,9 +5,11 @@
 
 uint64_t __45__NSTermOfAddress_ContactsFoundation__os_log__block_invoke()
 {
-  os_log_cn_once_object_1_3 = os_log_create("com.apple.contacts", "NSTermOfAddress+ContactsFoundation");
+  v0 = os_log_create("com.apple.contacts", "NSTermOfAddress+ContactsFoundation");
+  v1 = os_log_cn_once_object_1_3;
+  os_log_cn_once_object_1_3 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id __91__NSTermOfAddress_ContactsFoundation__pronounDescriptionsForAddressingGrammars_uppercased___block_invoke(uint64_t a1, void *a2)

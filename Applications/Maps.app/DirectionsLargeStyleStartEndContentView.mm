@@ -27,7 +27,7 @@
   *&retstr->var6 = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var2 = 0u;
-  return [DirectionsLargeStyleStepView cellMetricsForIdiom:a4];
+  return objc_msgSend_cellMetricsForIdiom_(DirectionsLargeStyleStepView, idiom, a4);
 }
 
 @end

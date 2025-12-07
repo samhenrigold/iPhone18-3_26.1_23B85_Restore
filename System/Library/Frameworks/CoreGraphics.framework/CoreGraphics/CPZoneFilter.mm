@@ -130,7 +130,7 @@
   }
 
   v8 = 0;
-  v15 = 0;
+  v16 = 0;
   v9 = 0;
   v10 = v6;
   do
@@ -169,7 +169,7 @@ LABEL_9:
 
       else
       {
-        ++v15;
+        ++v16;
       }
     }
 
@@ -181,7 +181,7 @@ LABEL_9:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v15 = 0;
+          v16 = 0;
           goto LABEL_9;
         }
       }
@@ -192,7 +192,7 @@ LABEL_10:
   }
 
   while (v7 != v8);
-  if (v9 < v15)
+  if (v9 < v16)
   {
     for (i = 0; i != v10; ++i)
     {
@@ -207,7 +207,7 @@ LABEL_10:
 
 LABEL_24:
 
-  deZoneTablesIn(zone);
+  deZoneTablesIn(zone, v15);
 }
 
 - (CPZoneFilter)initWithPage:(id)page

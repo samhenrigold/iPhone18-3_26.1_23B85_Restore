@@ -9,7 +9,7 @@
 
 + (id)schemaFromMovieTicketedEventReservation:()schema
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CD3F90] schemaFromReservation:v3];
   v5 = [v4 mutableCopy];
@@ -22,12 +22,12 @@
 
   if (name)
   {
-    v32[0] = @"@type";
-    v32[1] = @"name";
-    v33[0] = @"http://schema.org/Movie";
+    v31[0] = @"@type";
+    v31[1] = @"name";
+    v32[0] = @"http://schema.org/Movie";
     name2 = [event name];
-    v33[1] = name2;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v32[1] = name2;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
     [v6 setObject:v10 forKeyedSubscript:@"movie"];
   }
@@ -73,23 +73,21 @@
 
     if (schema4)
     {
-      v30[0] = @"@type";
-      v30[1] = @"ticketedSeat";
-      v31[0] = @"http://schema.org/Ticket";
-      v31[1] = schema4;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v29[0] = @"@type";
+      v29[1] = @"ticketedSeat";
+      v30[0] = @"http://schema.org/Ticket";
+      v30[1] = schema4;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
       [v5 setObject:v27 forKeyedSubscript:@"reservedTicket"];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)schemaFromGenericTicketedEventReservation:()schema
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CD3F90] schemaFromReservation:v3];
   v5 = [v4 mutableCopy];
@@ -148,16 +146,14 @@
 
     if (schema4)
     {
-      v30[0] = @"@type";
-      v30[1] = @"ticketedSeat";
-      v31[0] = @"http://schema.org/Ticket";
-      v31[1] = schema4;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v29[0] = @"@type";
+      v29[1] = @"ticketedSeat";
+      v30[0] = @"http://schema.org/Ticket";
+      v30[1] = schema4;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
       [v5 setObject:v27 forKeyedSubscript:@"reservedTicket"];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

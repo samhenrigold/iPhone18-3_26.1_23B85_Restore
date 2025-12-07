@@ -44,7 +44,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (*&self->_has)
   {
@@ -61,30 +61,30 @@
   if ([(NSMutableArray *)self->_results count])
   {
     v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_results, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v7 = self->_results;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
           [v6 addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -111,18 +111,15 @@
     [dictionary setObject:personaId forKey:@"personaId"];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -131,36 +128,35 @@
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_results;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_results;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_uniqueId)
@@ -177,8 +173,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -232,7 +226,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -245,34 +239,34 @@
   v8 = v6[4];
   v6[4] = v7;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v9 = self->_results;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       v13 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v23 + 1) + 8 * v13) copyWithZone:{zone, v23}];
+        v14 = [*(*(&v22 + 1) + 8 * v13) copyWithZone:{zone, v22}];
         [v6 addResults:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -290,7 +284,6 @@
   v20 = v6[3];
   v6[3] = v19;
 
-  v21 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -302,7 +295,6 @@
     goto LABEL_17;
   }
 
-  v5 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -314,7 +306,7 @@
   else if (*(equalCopy + 56))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
@@ -354,17 +346,17 @@ LABEL_17:
   personaId = self->_personaId;
   if (personaId | *(equalCopy + 3))
   {
-    v11 = [(NSString *)personaId isEqual:?];
+    v10 = [(NSString *)personaId isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -411,7 +403,7 @@ LABEL_18:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[7])
@@ -425,29 +417,29 @@ LABEL_18:
     [(BMPBSiriQueryEvent *)self setQuery:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5[5];
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(BMPBSiriQueryEvent *)self addResults:*(*(&v12 + 1) + 8 * i), v12];
+        [(BMPBSiriQueryEvent *)self addResults:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -467,8 +459,6 @@ LABEL_18:
   {
     [(BMPBSiriQueryEvent *)self setPersonaId:?];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

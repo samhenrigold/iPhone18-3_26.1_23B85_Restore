@@ -23,7 +23,7 @@
 
 - (void)_initConstantsBuffer:(id)buffer device:(id)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   -[MTLLegacySVImageData setConstantData:](self->_vertexFunctionData, "setConstantData:", [objc_msgSend(buffer "vertexDebugInstrumentationData")]);
   -[MTLLegacySVImageData setConstantData:](self->_fragmentFunctionData, "setConstantData:", [objc_msgSend(buffer "fragmentDebugInstrumentationData")]);
   -[MTLLegacySVImageData setConstantData:](self->_tileFunctionData, "setConstantData:", [objc_msgSend(buffer "tileDebugInstrumentationData")]);
@@ -40,79 +40,72 @@
 
     if ([(MTLLegacySVRenderPipelineState *)self vertexConstantsBuffer])
     {
-      [(MTLLegacySVRenderPipelineState *)self vertexConstantsBuffer];
-      LegacySVGlobalResidentBufferList::addBuffer(device + 552);
+      LegacySVGlobalResidentBufferList::addBuffer(device + 552, [(MTLLegacySVRenderPipelineState *)self vertexConstantsBuffer]);
     }
 
     if ([(MTLLegacySVRenderPipelineState *)self fragmentConstantsBuffer])
     {
-      [(MTLLegacySVRenderPipelineState *)self fragmentConstantsBuffer];
-      LegacySVGlobalResidentBufferList::addBuffer(device + 552);
+      LegacySVGlobalResidentBufferList::addBuffer(device + 552, [(MTLLegacySVRenderPipelineState *)self fragmentConstantsBuffer]);
     }
 
     if ([(MTLLegacySVRenderPipelineState *)self tileConstantsBuffer])
     {
-      [(MTLLegacySVRenderPipelineState *)self tileConstantsBuffer];
-      LegacySVGlobalResidentBufferList::addBuffer(device + 552);
+      LegacySVGlobalResidentBufferList::addBuffer(device + 552, [(MTLLegacySVRenderPipelineState *)self tileConstantsBuffer]);
     }
 
     if ([(MTLLegacySVRenderPipelineState *)self objectConstantsBuffer])
     {
-      [(MTLLegacySVRenderPipelineState *)self objectConstantsBuffer];
-      LegacySVGlobalResidentBufferList::addBuffer(device + 552);
+      LegacySVGlobalResidentBufferList::addBuffer(device + 552, [(MTLLegacySVRenderPipelineState *)self objectConstantsBuffer]);
     }
 
     if ([(MTLLegacySVRenderPipelineState *)self meshConstantsBuffer])
     {
-      [(MTLLegacySVRenderPipelineState *)self meshConstantsBuffer];
-      LegacySVGlobalResidentBufferList::addBuffer(device + 552);
+      LegacySVGlobalResidentBufferList::addBuffer(device + 552, [(MTLLegacySVRenderPipelineState *)self meshConstantsBuffer]);
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     binaryFunctionData = self->_binaryFunctionData;
-    v10 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(binaryFunctionData);
           }
 
-          if (*(*(*(&v16 + 1) + 8 * i) + 8))
+          v14 = *(*(*(&v15 + 1) + 8 * i) + 8);
+          if (v14)
           {
-            LegacySVGlobalResidentBufferList::addBuffer(&self->super.super._device[4]._memorySize);
+            LegacySVGlobalResidentBufferList::addBuffer(&self->super.super._device[4]._memorySize, v14);
           }
         }
 
-        v11 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
     }
 
-    indirectStateBuffer = self->_indirectStateBuffer;
-    LegacySVGlobalResidentBufferList::addBuffer(device + 552);
+    LegacySVGlobalResidentBufferList::addBuffer(device + 552, self->_indirectStateBuffer);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (MTLLegacySVRenderPipelineState)initWithRenderPipelineState:(id)state descriptor:(id)descriptor unwrappedDescriptor:(id)unwrappedDescriptor reflection:(id)reflection device:(id)device pipelineOptions:(unint64_t)options
 {
   deviceCopy = device;
-  v72 = *MEMORY[0x277D85DE8];
-  v67.receiver = self;
-  v67.super_class = MTLLegacySVRenderPipelineState;
-  v14 = [(MTLToolsRenderPipelineState *)&v67 initWithBaseObject:state parent:device];
+  v71 = *MEMORY[0x277D85DE8];
+  v66.receiver = self;
+  v66.super_class = MTLLegacySVRenderPipelineState;
+  v14 = [(MTLToolsRenderPipelineState *)&v66 initWithBaseObject:state parent:device];
   if (v14)
   {
     if ((deviceCopy[292] & 2) != 0)
@@ -169,116 +162,116 @@
     v23 = v21 + v20 + v22 + [objc_msgSend(objc_msgSend(descriptor "fragmentLinkedFunctions")];
     if (v23)
     {
-      v47 = deviceCopy;
+      v46 = deviceCopy;
       v14->_binaryFunctionData = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v23];
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v24 = [objc_msgSend(descriptor "vertexLinkedFunctions")];
-      v25 = [v24 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v62 objects:v70 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v64;
+        v27 = *v63;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v64 != v27)
+            if (*v63 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            [(NSMutableArray *)v14->_binaryFunctionData addObject:*(*(*(&v63 + 1) + 8 * i) + 48)];
+            [(NSMutableArray *)v14->_binaryFunctionData addObject:*(*(*(&v62 + 1) + 8 * i) + 48)];
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v63 objects:v71 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v62 objects:v70 count:16];
         }
 
         while (v26);
       }
 
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v29 = [objc_msgSend(descriptor "fragmentLinkedFunctions")];
-      v30 = [v29 countByEnumeratingWithState:&v59 objects:v70 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v58 objects:v69 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v60;
+        v32 = *v59;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v60 != v32)
+            if (*v59 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            [(NSMutableArray *)v14->_binaryFunctionData addObject:*(*(*(&v59 + 1) + 8 * j) + 48)];
+            [(NSMutableArray *)v14->_binaryFunctionData addObject:*(*(*(&v58 + 1) + 8 * j) + 48)];
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v59 objects:v70 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v58 objects:v69 count:16];
         }
 
         while (v31);
       }
 
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       vertexPreloadedLibraries = [descriptor vertexPreloadedLibraries];
-      v35 = [vertexPreloadedLibraries countByEnumeratingWithState:&v55 objects:v69 count:16];
-      deviceCopy = v47;
+      v35 = [vertexPreloadedLibraries countByEnumeratingWithState:&v54 objects:v68 count:16];
+      deviceCopy = v46;
       if (v35)
       {
         v36 = v35;
-        v37 = *v56;
+        v37 = *v55;
         do
         {
           for (k = 0; k != v36; ++k)
           {
-            if (*v56 != v37)
+            if (*v55 != v37)
             {
               objc_enumerationMutation(vertexPreloadedLibraries);
             }
 
-            -[NSMutableArray addObject:](v14->_binaryFunctionData, "addObject:", [*(*(&v55 + 1) + 8 * k) imageData]);
+            -[NSMutableArray addObject:](v14->_binaryFunctionData, "addObject:", [*(*(&v54 + 1) + 8 * k) imageData]);
           }
 
-          v36 = [vertexPreloadedLibraries countByEnumeratingWithState:&v55 objects:v69 count:16];
+          v36 = [vertexPreloadedLibraries countByEnumeratingWithState:&v54 objects:v68 count:16];
         }
 
         while (v36);
       }
 
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       fragmentPreloadedLibraries = [descriptor fragmentPreloadedLibraries];
-      v40 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v51 objects:v68 count:16];
+      v40 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v50 objects:v67 count:16];
       if (v40)
       {
         v41 = v40;
-        v42 = *v52;
+        v42 = *v51;
         do
         {
           for (m = 0; m != v41; ++m)
           {
-            if (*v52 != v42)
+            if (*v51 != v42)
             {
               objc_enumerationMutation(fragmentPreloadedLibraries);
             }
 
-            -[NSMutableArray addObject:](v14->_binaryFunctionData, "addObject:", [*(*(&v51 + 1) + 8 * m) imageData]);
+            -[NSMutableArray addObject:](v14->_binaryFunctionData, "addObject:", [*(*(&v50 + 1) + 8 * m) imageData]);
           }
 
-          v41 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v51 objects:v68 count:16];
+          v41 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v50 objects:v67 count:16];
         }
 
         while (v41);
@@ -288,8 +281,8 @@
     v14->_internalReflection = reflectionCopy;
     if ([objc_msgSend(state "vertexDebugInstrumentationData")] || objc_msgSend(objc_msgSend(state, "fragmentDebugInstrumentationData"), "userReflectionData"))
     {
-      v50 = 0;
-      v44 = [unwrappedDescriptor newSerializedVertexDataWithFlags:28 options:optionsCopy error:&v50];
+      v49 = 0;
+      v44 = [unwrappedDescriptor newSerializedVertexDataWithFlags:28 options:optionsCopy error:&v49];
       v14->_userReflection = [objc_alloc(MEMORY[0x277CD6F90]) initWithVertexData:objc_msgSend(objc_msgSend(state fragmentData:"vertexDebugInstrumentationData") serializedVertexDescriptor:"userReflectionData") device:objc_msgSend(objc_msgSend(state options:"fragmentDebugInstrumentationData") flags:{"userReflectionData"), v44, objc_msgSend(deviceCopy, "baseObject"), optionsCopy, 0}];
       dispatch_release(v44);
     }
@@ -298,16 +291,15 @@
     [(MTLLegacySVRenderPipelineState *)v14 _initConstantsBuffer:state device:deviceCopy];
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (MTLLegacySVRenderPipelineState)initWithRenderPipelineState:(id)state vertexBinaryFunctions:(id)functions fragmentBinaryFunctions:(id)binaryFunctions tileBinaryFunctions:(id)tileBinaryFunctions objectBinaryFunctions:(id)objectBinaryFunctions meshBinaryFunctions:(id)meshBinaryFunctions withState:(id)withState device:(id)self0 pipelineOptions:(unint64_t)self1
 {
-  v75 = *MEMORY[0x277D85DE8];
-  v69.receiver = self;
-  v69.super_class = MTLLegacySVRenderPipelineState;
-  v17 = [(MTLToolsRenderPipelineState *)&v69 initWithBaseObject:state parent:device];
+  v74 = *MEMORY[0x277D85DE8];
+  v68.receiver = self;
+  v68.super_class = MTLLegacySVRenderPipelineState;
+  v17 = [(MTLToolsRenderPipelineState *)&v68 initWithBaseObject:state parent:device];
   if (v17)
   {
     [functions count];
@@ -326,7 +318,7 @@
     v21 = v20 + [binaryFunctions count];
     v22 = v21 + [tileBinaryFunctions count];
     v23 = v22 + [objectBinaryFunctions count];
-    v48 = meshBinaryFunctionsCopy;
+    v47 = meshBinaryFunctionsCopy;
     v24 = v23 + [meshBinaryFunctionsCopy count] + v19;
     if (v24)
     {
@@ -338,136 +330,136 @@
       [(NSMutableArray *)v17->_binaryFunctionData addObjectsFromArray:?];
     }
 
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
-    v25 = [functions countByEnumeratingWithState:&v65 objects:v74 count:16];
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v25 = [functions countByEnumeratingWithState:&v64 objects:v73 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v66;
+      v27 = *v65;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v66 != v27)
+          if (*v65 != v27)
           {
             objc_enumerationMutation(functions);
           }
 
-          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v65 + 1) + 8 * i) + 48)];
+          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v64 + 1) + 8 * i) + 48)];
         }
 
-        v26 = [functions countByEnumeratingWithState:&v65 objects:v74 count:16];
+        v26 = [functions countByEnumeratingWithState:&v64 objects:v73 count:16];
       }
 
       while (v26);
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
-    v29 = [binaryFunctions countByEnumeratingWithState:&v61 objects:v73 count:16];
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v29 = [binaryFunctions countByEnumeratingWithState:&v60 objects:v72 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v62;
+      v31 = *v61;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v62 != v31)
+          if (*v61 != v31)
           {
             objc_enumerationMutation(binaryFunctions);
           }
 
-          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v61 + 1) + 8 * j) + 48)];
+          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v60 + 1) + 8 * j) + 48)];
         }
 
-        v30 = [binaryFunctions countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v30 = [binaryFunctions countByEnumeratingWithState:&v60 objects:v72 count:16];
       }
 
       while (v30);
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
-    v33 = [tileBinaryFunctions countByEnumeratingWithState:&v57 objects:v72 count:16];
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v33 = [tileBinaryFunctions countByEnumeratingWithState:&v56 objects:v71 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v58;
+      v35 = *v57;
       do
       {
         for (k = 0; k != v34; ++k)
         {
-          if (*v58 != v35)
+          if (*v57 != v35)
           {
             objc_enumerationMutation(tileBinaryFunctions);
           }
 
-          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v57 + 1) + 8 * k) + 48)];
+          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v56 + 1) + 8 * k) + 48)];
         }
 
-        v34 = [tileBinaryFunctions countByEnumeratingWithState:&v57 objects:v72 count:16];
+        v34 = [tileBinaryFunctions countByEnumeratingWithState:&v56 objects:v71 count:16];
       }
 
       while (v34);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v37 = [objectBinaryFunctions countByEnumeratingWithState:&v53 objects:v71 count:16];
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v37 = [objectBinaryFunctions countByEnumeratingWithState:&v52 objects:v70 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v54;
+      v39 = *v53;
       do
       {
         for (m = 0; m != v38; ++m)
         {
-          if (*v54 != v39)
+          if (*v53 != v39)
           {
             objc_enumerationMutation(objectBinaryFunctions);
           }
 
-          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v53 + 1) + 8 * m) + 48)];
+          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v52 + 1) + 8 * m) + 48)];
         }
 
-        v38 = [objectBinaryFunctions countByEnumeratingWithState:&v53 objects:v71 count:16];
+        v38 = [objectBinaryFunctions countByEnumeratingWithState:&v52 objects:v70 count:16];
       }
 
       while (v38);
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    v41 = [v48 countByEnumeratingWithState:&v49 objects:v70 count:16];
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v41 = [v47 countByEnumeratingWithState:&v48 objects:v69 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v50;
+      v43 = *v49;
       do
       {
         for (n = 0; n != v42; ++n)
         {
-          if (*v50 != v43)
+          if (*v49 != v43)
           {
-            objc_enumerationMutation(v48);
+            objc_enumerationMutation(v47);
           }
 
-          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v49 + 1) + 8 * n) + 48)];
+          [(NSMutableArray *)v17->_binaryFunctionData addObject:*(*(*(&v48 + 1) + 8 * n) + 48)];
         }
 
-        v42 = [v48 countByEnumeratingWithState:&v49 objects:v70 count:16];
+        v42 = [v47 countByEnumeratingWithState:&v48 objects:v69 count:16];
       }
 
       while (v42);
@@ -487,16 +479,15 @@
     [(MTLLegacySVRenderPipelineState *)v17 _initConstantsBuffer:state device:v17->super.super._device];
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (MTLLegacySVRenderPipelineState)initWithRenderPipelineState:(id)state tileDescriptor:(id)descriptor reflection:(id)reflection device:(id)device pipelineOptions:(unint64_t)options
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v39.receiver = self;
-  v39.super_class = MTLLegacySVRenderPipelineState;
-  v12 = [(MTLToolsRenderPipelineState *)&v39 initWithBaseObject:state parent:device];
+  v41 = *MEMORY[0x277D85DE8];
+  v38.receiver = self;
+  v38.super_class = MTLLegacySVRenderPipelineState;
+  v12 = [(MTLToolsRenderPipelineState *)&v38 initWithBaseObject:state parent:device];
   if (v12)
   {
     if ((*(device + 292) & 2) != 0)
@@ -518,64 +509,64 @@
     if (v15)
     {
       v12->_binaryFunctionData = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v15];
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v16 = [objc_msgSend(descriptor "linkedFunctions")];
-      v17 = [v16 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v34 objects:v40 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v36;
+        v19 = *v35;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v36 != v19)
+            if (*v35 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            [(NSMutableArray *)v12->_binaryFunctionData addObject:*(*(*(&v35 + 1) + 8 * i) + 48)];
+            [(NSMutableArray *)v12->_binaryFunctionData addObject:*(*(*(&v34 + 1) + 8 * i) + 48)];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v35 objects:v41 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v34 objects:v40 count:16];
         }
 
         while (v18);
       }
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       preloadedLibraries = [descriptor preloadedLibraries];
-      v22 = [preloadedLibraries countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v22 = [preloadedLibraries countByEnumeratingWithState:&v30 objects:v39 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v32;
+        v24 = *v31;
         do
         {
           for (j = 0; j != v23; ++j)
           {
-            if (*v32 != v24)
+            if (*v31 != v24)
             {
               objc_enumerationMutation(preloadedLibraries);
             }
 
-            -[NSMutableArray addObject:](v12->_binaryFunctionData, "addObject:", [*(*(&v31 + 1) + 8 * j) imageData]);
+            -[NSMutableArray addObject:](v12->_binaryFunctionData, "addObject:", [*(*(&v30 + 1) + 8 * j) imageData]);
           }
 
-          v23 = [preloadedLibraries countByEnumeratingWithState:&v31 objects:v40 count:16];
+          v23 = [preloadedLibraries countByEnumeratingWithState:&v30 objects:v39 count:16];
         }
 
         while (v23);
       }
     }
 
-    v12->_internalReflection = v29;
+    v12->_internalReflection = v28;
     v12->_supportsIndirectCommandBuffers = 0;
     v26 = 1;
     if ((optionsCopy & 0x800000000) == 0)
@@ -590,16 +581,15 @@
     [(MTLLegacySVRenderPipelineState *)v12 _initConstantsBuffer:state device:device];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (MTLLegacySVRenderPipelineState)initWithRenderPipelineState:(id)state meshDescriptor:(id)descriptor unwrappedDescriptor:(id)unwrappedDescriptor reflection:(id)reflection device:(id)device pipelineOptions:(unint64_t)options
 {
-  v88 = *MEMORY[0x277D85DE8];
-  v81.receiver = self;
-  v81.super_class = MTLLegacySVRenderPipelineState;
-  unwrappedDescriptor = [(MTLToolsRenderPipelineState *)&v81 initWithBaseObject:state parent:device, unwrappedDescriptor];
+  v87 = *MEMORY[0x277D85DE8];
+  v80.receiver = self;
+  v80.super_class = MTLLegacySVRenderPipelineState;
+  unwrappedDescriptor = [(MTLToolsRenderPipelineState *)&v80 initWithBaseObject:state parent:device, unwrappedDescriptor];
   if (unwrappedDescriptor)
   {
     reflectionCopy = reflection;
@@ -640,169 +630,169 @@
     if (v20)
     {
       unwrappedDescriptor->_binaryFunctionData = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v20];
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
       v78 = 0u;
+      v79 = 0u;
+      v76 = 0u;
+      v77 = 0u;
       v21 = [objc_msgSend(descriptor "meshLinkedFunctions")];
-      v22 = [v21 countByEnumeratingWithState:&v77 objects:v87 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v76 objects:v86 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v78;
+        v24 = *v77;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v78 != v24)
+            if (*v77 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            [(NSMutableArray *)unwrappedDescriptor->_binaryFunctionData addObject:*(*(*(&v77 + 1) + 8 * i) + 48)];
+            [(NSMutableArray *)unwrappedDescriptor->_binaryFunctionData addObject:*(*(*(&v76 + 1) + 8 * i) + 48)];
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v77 objects:v87 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v76 objects:v86 count:16];
         }
 
         while (v23);
       }
 
-      v75 = 0u;
-      v76 = 0u;
-      v73 = 0u;
       v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
       v26 = [objc_msgSend(descriptor "objectLinkedFunctions")];
-      v27 = [v26 countByEnumeratingWithState:&v73 objects:v86 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v72 objects:v85 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v74;
+        v29 = *v73;
         do
         {
           for (j = 0; j != v28; ++j)
           {
-            if (*v74 != v29)
+            if (*v73 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            [(NSMutableArray *)unwrappedDescriptor->_binaryFunctionData addObject:*(*(*(&v73 + 1) + 8 * j) + 48)];
+            [(NSMutableArray *)unwrappedDescriptor->_binaryFunctionData addObject:*(*(*(&v72 + 1) + 8 * j) + 48)];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v73 objects:v86 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v72 objects:v85 count:16];
         }
 
         while (v28);
       }
 
-      v71 = 0u;
-      v72 = 0u;
-      v69 = 0u;
       v70 = 0u;
+      v71 = 0u;
+      v68 = 0u;
+      v69 = 0u;
       v31 = [objc_msgSend(descriptor "fragmentLinkedFunctions")];
-      v32 = [v31 countByEnumeratingWithState:&v69 objects:v85 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v68 objects:v84 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v70;
+        v34 = *v69;
         do
         {
           for (k = 0; k != v33; ++k)
           {
-            if (*v70 != v34)
+            if (*v69 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            [(NSMutableArray *)unwrappedDescriptor->_binaryFunctionData addObject:*(*(*(&v69 + 1) + 8 * k) + 48)];
+            [(NSMutableArray *)unwrappedDescriptor->_binaryFunctionData addObject:*(*(*(&v68 + 1) + 8 * k) + 48)];
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v69 objects:v85 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v68 objects:v84 count:16];
         }
 
         while (v33);
       }
 
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
       v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
       meshPreloadedLibraries = [descriptor meshPreloadedLibraries];
-      v37 = [meshPreloadedLibraries countByEnumeratingWithState:&v65 objects:v84 count:16];
+      v37 = [meshPreloadedLibraries countByEnumeratingWithState:&v64 objects:v83 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v66;
+        v39 = *v65;
         do
         {
           for (m = 0; m != v38; ++m)
           {
-            if (*v66 != v39)
+            if (*v65 != v39)
             {
               objc_enumerationMutation(meshPreloadedLibraries);
             }
 
-            -[NSMutableArray addObject:](unwrappedDescriptor->_binaryFunctionData, "addObject:", [*(*(&v65 + 1) + 8 * m) imageData]);
+            -[NSMutableArray addObject:](unwrappedDescriptor->_binaryFunctionData, "addObject:", [*(*(&v64 + 1) + 8 * m) imageData]);
           }
 
-          v38 = [meshPreloadedLibraries countByEnumeratingWithState:&v65 objects:v84 count:16];
+          v38 = [meshPreloadedLibraries countByEnumeratingWithState:&v64 objects:v83 count:16];
         }
 
         while (v38);
       }
 
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
       v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       objectPreloadedLibraries = [descriptor objectPreloadedLibraries];
-      v42 = [objectPreloadedLibraries countByEnumeratingWithState:&v61 objects:v83 count:16];
+      v42 = [objectPreloadedLibraries countByEnumeratingWithState:&v60 objects:v82 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v62;
+        v44 = *v61;
         do
         {
           for (n = 0; n != v43; ++n)
           {
-            if (*v62 != v44)
+            if (*v61 != v44)
             {
               objc_enumerationMutation(objectPreloadedLibraries);
             }
 
-            -[NSMutableArray addObject:](unwrappedDescriptor->_binaryFunctionData, "addObject:", [*(*(&v61 + 1) + 8 * n) imageData]);
+            -[NSMutableArray addObject:](unwrappedDescriptor->_binaryFunctionData, "addObject:", [*(*(&v60 + 1) + 8 * n) imageData]);
           }
 
-          v43 = [objectPreloadedLibraries countByEnumeratingWithState:&v61 objects:v83 count:16];
+          v43 = [objectPreloadedLibraries countByEnumeratingWithState:&v60 objects:v82 count:16];
         }
 
         while (v43);
       }
 
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
       v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       fragmentPreloadedLibraries = [descriptor fragmentPreloadedLibraries];
-      v47 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v57 objects:v82 count:16];
+      v47 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v56 objects:v81 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v58;
+        v49 = *v57;
         do
         {
           for (ii = 0; ii != v48; ++ii)
           {
-            if (*v58 != v49)
+            if (*v57 != v49)
             {
               objc_enumerationMutation(fragmentPreloadedLibraries);
             }
 
-            -[NSMutableArray addObject:](unwrappedDescriptor->_binaryFunctionData, "addObject:", [*(*(&v57 + 1) + 8 * ii) imageData]);
+            -[NSMutableArray addObject:](unwrappedDescriptor->_binaryFunctionData, "addObject:", [*(*(&v56 + 1) + 8 * ii) imageData]);
           }
 
-          v48 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v57 objects:v82 count:16];
+          v48 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v56 objects:v81 count:16];
         }
 
         while (v48);
@@ -818,7 +808,7 @@
 
     unwrappedDescriptor->_shaderValidation = v51;
     unwrappedDescriptor->_shaderValidationState = v51;
-    unwrappedDescriptor->_internalReflection = v55;
+    unwrappedDescriptor->_internalReflection = v54;
     if ([objc_msgSend(state "objectDebugInstrumentationData")] || objc_msgSend(objc_msgSend(state, "meshDebugInstrumentationData"), "userReflectionData") || objc_msgSend(objc_msgSend(state, "fragmentDebugInstrumentationData"), "userReflectionData"))
     {
       unwrappedDescriptor->_userReflection = [objc_alloc(MEMORY[0x277CD6F90]) initWithObjectData:objc_msgSend(objc_msgSend(state meshData:"objectDebugInstrumentationData") fragmentData:"userReflectionData") device:objc_msgSend(objc_msgSend(state options:"meshDebugInstrumentationData") flags:{"userReflectionData"), objc_msgSend(objc_msgSend(state, "fragmentDebugInstrumentationData"), "userReflectionData"), objc_msgSend(device, "baseObject"), optionsCopy, 0}];
@@ -828,56 +818,51 @@
     [(MTLLegacySVRenderPipelineState *)unwrappedDescriptor _initConstantsBuffer:state device:device];
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return unwrappedDescriptor;
 }
 
 - (id)unwrapBinaryFunctions:(id)functions
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   device = [(MTLToolsRenderPipelineState *)self device];
-  if ([functions count])
+  if (![functions count])
   {
-    [(MTLDevice *)device baseObject];
-    v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(functions, "count")}];
-    v12 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v6 = [functions countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v13;
-      do
-      {
-        for (i = 0; i != v7; ++i)
-        {
-          if (*v13 != v8)
-          {
-            objc_enumerationMutation(functions);
-          }
+    return 0;
+  }
 
-          [v5 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "baseObject")}];
+  [(MTLDevice *)device baseObject];
+  v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(functions, "count")}];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = [functions countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v12;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v12 != v8)
+        {
+          objc_enumerationMutation(functions);
         }
 
-        v7 = [functions countByEnumeratingWithState:&v12 objects:v16 count:16];
+        [v5 addObject:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "baseObject")}];
       }
 
-      while (v7);
+      v7 = [functions countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
+
+    while (v7);
   }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t __67__MTLLegacySVRenderPipelineState_functionHandleWithFunction_stage___block_invoke(void *a1)
+MTLLegacySVFunctionHandle *__67__MTLLegacySVRenderPipelineState_functionHandleWithFunction_stage___block_invoke(void *a1)
 {
   v2 = [MTLLegacySVFunctionHandle alloc];
   v3 = a1[4];
@@ -1103,7 +1088,7 @@ uint64_t __67__MTLLegacySVRenderPipelineState_functionHandleWithFunction_stage__
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_supportsIndirectCommandBuffers)
   {
     LegacySVGlobalResidentBufferList::removeBuffer(&self->super.super._device[4]._memorySize, self->_indirectStateBuffer);
@@ -1133,43 +1118,42 @@ uint64_t __67__MTLLegacySVRenderPipelineState_functionHandleWithFunction_stage__
       LegacySVGlobalResidentBufferList::removeBuffer(&self->super.super._device[4]._memorySize, [(MTLLegacySVRenderPipelineState *)self meshConstantsBuffer]);
     }
 
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     binaryFunctionData = self->_binaryFunctionData;
-    v4 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(binaryFunctionData);
           }
 
-          v8 = *(*(*(&v11 + 1) + 8 * i) + 8);
+          v8 = *(*(*(&v10 + 1) + 8 * i) + 8);
           if (v8)
           {
             LegacySVGlobalResidentBufferList::removeBuffer(&self->super.super._device[4]._memorySize, v8);
           }
         }
 
-        v5 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = MTLLegacySVRenderPipelineState;
-  [(MTLToolsRenderPipelineState *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = MTLLegacySVRenderPipelineState;
+  [(MTLToolsRenderPipelineState *)&v9 dealloc];
 }
 
 @end

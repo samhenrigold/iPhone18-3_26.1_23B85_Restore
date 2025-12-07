@@ -40,8 +40,8 @@
 
 - (void)startTimingForKey:(int)key
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v5 = micro();
+  v21 = *MEMORY[0x277D85DE8];
+  v5 = micro(self, a2);
   queue = self->queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -60,14 +60,14 @@
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v13 = v7;
-        v14 = 2080;
-        v15 = "[TimingCollection startTimingForKey:]";
-        v16 = 1024;
-        v17 = 79;
-        v18 = 2048;
+        v12 = v7;
+        v13 = 2080;
+        v14 = "[TimingCollection startTimingForKey:]";
+        v15 = 1024;
+        v16 = 79;
+        v17 = 2048;
         selfCopy2 = self;
-        v20 = 1024;
+        v19 = 1024;
         keyCopy3 = key;
         _os_log_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %p Started timing for key %d", buf, 0x2Cu);
       }
@@ -76,20 +76,18 @@
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v13 = v7;
-      v14 = 2080;
-      v15 = "[TimingCollection startTimingForKey:]";
-      v16 = 1024;
-      v17 = 79;
-      v18 = 2048;
+      v12 = v7;
+      v13 = 2080;
+      v14 = "[TimingCollection startTimingForKey:]";
+      v15 = 1024;
+      v16 = 79;
+      v17 = 2048;
       selfCopy2 = self;
-      v20 = 1024;
+      v19 = 1024;
       keyCopy3 = key;
       _os_log_debug_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEBUG, " [%s] %s:%d %p Started timing for key %d", buf, 0x2Cu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__TimingCollection_startTimingForKey___block_invoke(uint64_t a1)
@@ -199,8 +197,8 @@ void *__39__TimingCollection_setStopTime_forKey___block_invoke(uint64_t a1)
 
 - (void)stopTimingForKey:(int)key
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v5 = micro();
+  v21 = *MEMORY[0x277D85DE8];
+  v5 = micro(self, a2);
   queue = self->queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -219,14 +217,14 @@ void *__39__TimingCollection_setStopTime_forKey___block_invoke(uint64_t a1)
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v13 = v7;
-        v14 = 2080;
-        v15 = "[TimingCollection stopTimingForKey:]";
-        v16 = 1024;
-        v17 = 136;
-        v18 = 2048;
+        v12 = v7;
+        v13 = 2080;
+        v14 = "[TimingCollection stopTimingForKey:]";
+        v15 = 1024;
+        v16 = 136;
+        v17 = 2048;
         selfCopy2 = self;
-        v20 = 1024;
+        v19 = 1024;
         keyCopy3 = key;
         _os_log_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %p Stopped timing for key %d", buf, 0x2Cu);
       }
@@ -235,20 +233,18 @@ void *__39__TimingCollection_setStopTime_forKey___block_invoke(uint64_t a1)
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v13 = v7;
-      v14 = 2080;
-      v15 = "[TimingCollection stopTimingForKey:]";
-      v16 = 1024;
-      v17 = 136;
-      v18 = 2048;
+      v12 = v7;
+      v13 = 2080;
+      v14 = "[TimingCollection stopTimingForKey:]";
+      v15 = 1024;
+      v16 = 136;
+      v17 = 2048;
       selfCopy2 = self;
-      v20 = 1024;
+      v19 = 1024;
       keyCopy3 = key;
       _os_log_debug_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEBUG, " [%s] %s:%d %p Stopped timing for key %d", buf, 0x2Cu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void *__37__TimingCollection_stopTimingForKey___block_invoke(uint64_t a1)
@@ -404,7 +400,7 @@ uint64_t __39__TimingCollection_removeTimingForKey___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __31__TimingCollection_description__block_invoke(uint64_t a1)
+void *__31__TimingCollection_description__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) description];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -431,7 +427,7 @@ uint64_t __31__TimingCollection_description__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __27__TimingCollection_hasKey___block_invoke(uint64_t a1)
+void *__27__TimingCollection_hasKey___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCABA8], "numberWithInt:", *(a1 + 48))}];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;

@@ -240,9 +240,11 @@
 
 uint64_t __34__NUGlobalSettings_globalSettings__block_invoke()
 {
-  globalSettings_globalSettings = objc_alloc_init(NUGlobalSettings);
+  v0 = objc_alloc_init(NUGlobalSettings);
+  v1 = globalSettings_globalSettings;
+  globalSettings_globalSettings = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)urlSettingForKey:(id)key defaultValue:(id)value
@@ -498,9 +500,12 @@ uint64_t __51__NUGlobalSettings_BOOLSettingForKey_defaultValue___block_invoke(ui
 
 uint64_t __47__NUGlobalSettings_settingForKey_defaultValue___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _settingForKey:*(a1 + 40) defaultValue:*(a1 + 48)];
+  v2 = [*(a1 + 32) _settingForKey:*(a1 + 40) defaultValue:*(a1 + 48)];
+  v3 = *(*(a1 + 56) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)reset

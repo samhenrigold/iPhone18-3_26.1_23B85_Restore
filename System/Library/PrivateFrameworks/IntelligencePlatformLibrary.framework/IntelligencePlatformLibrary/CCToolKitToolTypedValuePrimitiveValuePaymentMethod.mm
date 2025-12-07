@@ -214,9 +214,9 @@ LABEL_21:
       {
         v33 = [CCToolKitToolDisplayRepresentation alloc];
         v34 = CCPBReaderReadDataNoCopy();
-        v45 = 0;
-        v35 = [(CCItemMessage *)v33 initWithData:v34 error:&v45];
-        v10 = v45;
+        v43 = 0;
+        v35 = [(CCItemMessage *)v33 initWithData:v34 error:&v43];
+        v10 = v43;
         displayRepresentation = self->_displayRepresentation;
         self->_displayRepresentation = v35;
       }
@@ -292,7 +292,6 @@ LABEL_34:
 
         v37 = objc_opt_class();
         v34 = NSStringFromClass(v37);
-        v38 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -312,23 +311,22 @@ LABEL_44:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v43 = 1;
+    v41 = 1;
     goto LABEL_48;
   }
 
 LABEL_45:
-  v39 = objc_opt_class();
-  v40 = NSStringFromClass(v39);
-  v41 = *&v6[*v9];
-  v42 = CCInvalidBufferErrorForMessage();
+  v38 = objc_opt_class();
+  v39 = NSStringFromClass(v38);
+  v40 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_46:
-  v43 = 0;
+  v41 = 0;
 LABEL_48:
 
-  return v43;
+  return v41;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValuePaymentMethod)initWithType:(unsigned int)type identificationHint:(id)hint displayRepresentation:(id)representation error:(id *)error

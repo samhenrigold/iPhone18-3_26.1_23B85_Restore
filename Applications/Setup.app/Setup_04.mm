@@ -1,4 +1,66 @@
-uint64_t sub_100089660()
+void *sub_1000892D4(uint64_t a1)
+{
+  v2 = sub_100088A6C();
+  result = dlsym(v2, "WFNetworkListControllerAssociationErrorKey");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1003A6FF0 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void sub_100089340(NSAssertionHandler *a1)
+{
+  sub_100089484();
+  *(*(a1[4].super.isa + 1) + 24) = objc_getClass("BCSConfigurationManager");
+  if (!*(*(a1[4].super.isa + 1) + 24))
+  {
+    a1 = +[NSAssertionHandler currentHandler];
+    v2 = [NSString stringWithUTF8String:"Class getBCSConfigurationManagerClass(void)_block_invoke"];
+    [(NSAssertionHandler *)a1 handleFailureInFunction:v2 file:@"SetupController.m" lineNumber:220 description:@"Unable to find class %s", "BCSConfigurationManager"];
+
+    __break(1u);
+  }
+
+  qword_1003A6FF8 = *(*(a1[4].super.isa + 1) + 24);
+}
+
+void sub_100089484()
+{
+  v2 = 0;
+  if (!sub_1000895AC(&v2))
+  {
+    v0 = +[NSAssertionHandler currentHandler];
+    v1 = [NSString stringWithUTF8String:"void *BarcodeSupportLibrary(void)"];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"SetupController.m" lineNumber:219 description:@"%s", v2];
+
+    __break(1u);
+  }
+
+  if (v2)
+  {
+    free(v2);
+  }
+}
+
+uint64_t sub_1000895AC(uint64_t a1)
+{
+  v10 = a1;
+  v8 = qword_1003A7000;
+  v9 = qword_1003A7000;
+  if (!qword_1003A7000)
+  {
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_100089660;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_100089660(&v2);
+  }
+
+  return qword_1003A7000;
+}
+
+uint64_t sub_100089660(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7000 = result;
@@ -1476,27 +1538,42 @@ void sub_100098080(NSAssertionHandler *a1)
 
 void sub_1000981C4()
 {
-  if (!sub_1000982EC())
+  v2 = 0;
+  if (!sub_1000982EC(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *iCloudQuotaUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyiCloudQuotaController.m" lineNumber:28 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyiCloudQuotaController.m" lineNumber:28 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000982EC()
+uint64_t sub_1000982EC(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7010;
+  v9 = qword_1003A7010;
   if (!qword_1003A7010)
   {
-    sub_1000983A0();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000983A0;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000983A0(&v2);
   }
 
   return qword_1003A7010;
 }
 
-uint64_t sub_1000983A0()
+uint64_t sub_1000983A0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7010 = result;
@@ -1521,27 +1598,42 @@ void sub_100098434(NSAssertionHandler *a1)
 
 void sub_100098578()
 {
-  if (!sub_1000986A0())
+  v2 = 0;
+  if (!sub_1000986A0(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *iCloudQuotaLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyiCloudQuotaController.m" lineNumber:24 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyiCloudQuotaController.m" lineNumber:24 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000986A0()
+uint64_t sub_1000986A0(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7020;
+  v9 = qword_1003A7020;
   if (!qword_1003A7020)
   {
-    sub_100098754();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_100098754;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_100098754(&v2);
   }
 
   return qword_1003A7020;
 }
 
-uint64_t sub_100098754()
+uint64_t sub_100098754(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7020 = result;
@@ -2134,13 +2226,19 @@ void sub_1000A1034(uint64_t a1)
 
 void sub_1000A17D4()
 {
-  if (!sub_1000B10A4())
+  v2 = 0;
+  if (!sub_1000B10A4(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *WiFiKitUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyNavigationFlowController.m" lineNumber:113 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyNavigationFlowController.m" lineNumber:113 description:@"%s", v2];
 
     __break(1u);
+  }
+
+  if (v2)
+  {
+    free(v2);
   }
 }
 
@@ -3360,17 +3458,26 @@ id sub_1000B054C(id *a1, void *a2)
   return v6;
 }
 
-uint64_t sub_1000B10A4()
+uint64_t sub_1000B10A4(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7028;
+  v9 = qword_1003A7028;
   if (!qword_1003A7028)
   {
-    sub_1000B1158();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000B1158;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000B1158(&v2);
   }
 
   return qword_1003A7028;
 }
 
-uint64_t sub_1000B1158()
+uint64_t sub_1000B1158(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7028 = result;
@@ -3512,30 +3619,45 @@ void *sub_1000B4404(uint64_t a1)
 
 uint64_t sub_1000B4470()
 {
-  v3 = sub_1000B459C();
+  v4 = 0;
+  v3 = sub_1000B459C(&v4);
   if (!v3)
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SoftwareUpdateSettingsUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySUSUISoftwareUpdateManager.m" lineNumber:20 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySUSUISoftwareUpdateManager.m" lineNumber:20 description:@"%s", v4];
 
     __break(1u);
+  }
+
+  if (v4)
+  {
+    free(v4);
   }
 
   return v3;
 }
 
-uint64_t sub_1000B459C()
+uint64_t sub_1000B459C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7040;
+  v9 = qword_1003A7040;
   if (!qword_1003A7040)
   {
-    sub_1000B4650();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000B4650;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000B4650(&v2);
   }
 
   return qword_1003A7040;
 }
 
-uint64_t sub_1000B4650()
+uint64_t sub_1000B4650(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7040 = result;
@@ -4194,11 +4316,11 @@ void sub_1000BAAB4(void *a1, void *a2, void *a3, void *a4)
   objc_storeStrong(location, 0);
 }
 
-double sub_1000BC3F0()
+double sub_1000BC3F0(uint64_t a1, uint64_t a2)
 {
-  v0 = BFFIsiPad();
+  v2 = BFFIsiPad();
   result = 57.0;
-  if ((v0 & 1) == 0)
+  if ((v2 & 1) == 0)
   {
     return 18.0;
   }
@@ -4628,27 +4750,42 @@ void sub_1000C52FC(NSAssertionHandler *a1)
 
 void sub_1000C5440()
 {
-  if (!sub_1000C5568())
+  v2 = 0;
+  if (!sub_1000C5568(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *BiometricKitUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMesaController.m" lineNumber:43 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMesaController.m" lineNumber:43 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000C5568()
+uint64_t sub_1000C5568(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7060;
+  v9 = qword_1003A7060;
   if (!qword_1003A7060)
   {
-    sub_1000C561C();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000C561C;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000C561C(&v2);
   }
 
   return qword_1003A7060;
 }
 
-uint64_t sub_1000C561C()
+uint64_t sub_1000C561C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7060 = result;
@@ -4673,27 +4810,42 @@ void sub_1000C56B0(NSAssertionHandler *a1)
 
 void sub_1000C57F4()
 {
-  if (!sub_1000C591C())
+  v2 = 0;
+  if (!sub_1000C591C(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *BiometricKitLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMesaController.m" lineNumber:41 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMesaController.m" lineNumber:41 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000C591C()
+uint64_t sub_1000C591C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7070;
+  v9 = qword_1003A7070;
   if (!qword_1003A7070)
   {
-    sub_1000C59D0();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000C59D0;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000C59D0(&v2);
   }
 
   return qword_1003A7070;
 }
 
-uint64_t sub_1000C59D0()
+uint64_t sub_1000C59D0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7070 = result;
@@ -4718,27 +4870,42 @@ void sub_1000C5A64(NSAssertionHandler *a1)
 
 void sub_1000C5BA8()
 {
-  if (!sub_1000C5CD0())
+  v2 = 0;
+  if (!sub_1000C5CD0(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *PasscodeAndBiometricsSettingsLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMesaController.m" lineNumber:45 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMesaController.m" lineNumber:45 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000C5CD0()
+uint64_t sub_1000C5CD0(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7080;
+  v9 = qword_1003A7080;
   if (!qword_1003A7080)
   {
-    sub_1000C5D84();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000C5D84;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000C5D84(&v2);
   }
 
   return qword_1003A7080;
 }
 
-uint64_t sub_1000C5D84()
+uint64_t sub_1000C5D84(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7080 = result;
@@ -6013,27 +6180,42 @@ void sub_1000D3C78(NSAssertionHandler *a1)
 
 void sub_1000D3DBC()
 {
-  if (!sub_1000D3EE4())
+  v2 = 0;
+  if (!sub_1000D3EE4(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *LoggingSupportLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"RestoreFromBackupController.m" lineNumber:56 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"RestoreFromBackupController.m" lineNumber:56 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000D3EE4()
+uint64_t sub_1000D3EE4(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A70A0;
+  v9 = qword_1003A70A0;
   if (!qword_1003A70A0)
   {
-    sub_1000D3F98();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000D3F98;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000D3F98(&v2);
   }
 
   return qword_1003A70A0;
 }
 
-uint64_t sub_1000D3F98()
+uint64_t sub_1000D3F98(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A70A0 = result;
@@ -6215,27 +6397,42 @@ void sub_1000DB2A8(NSAssertionHandler *a1)
 
 void sub_1000DB3EC()
 {
-  if (!sub_1000DB514())
+  v2 = 0;
+  if (!sub_1000DB514(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *MigrationKitLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMoveFromAndroidController.m" lineNumber:40 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyMoveFromAndroidController.m" lineNumber:40 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000DB514()
+uint64_t sub_1000DB514(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A70B8;
+  v9 = qword_1003A70B8;
   if (!qword_1003A70B8)
   {
-    sub_1000DB5C8();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000DB5C8;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000DB5C8(&v2);
   }
 
   return qword_1003A70B8;
 }
 
-uint64_t sub_1000DB5C8()
+uint64_t sub_1000DB5C8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A70B8 = result;
@@ -6810,27 +7007,42 @@ void sub_1000E497C(NSAssertionHandler *a1)
 
 void sub_1000E4AC0()
 {
-  if (!sub_1000E4BE8())
+  v2 = 0;
+  if (!sub_1000E4BE8(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *PassKitCoreLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyExpressWelcomeController.m" lineNumber:65 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyExpressWelcomeController.m" lineNumber:65 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000E4BE8()
+uint64_t sub_1000E4BE8(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A70C8;
+  v9 = qword_1003A70C8;
   if (!qword_1003A70C8)
   {
-    sub_1000E4C9C();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000E4C9C;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000E4C9C(&v2);
   }
 
   return qword_1003A70C8;
 }
 
-uint64_t sub_1000E4C9C()
+uint64_t sub_1000E4C9C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A70C8 = result;
@@ -8079,30 +8291,45 @@ void *sub_1000F39B0(uint64_t a1)
 
 uint64_t sub_1000F3A1C()
 {
-  v3 = sub_1000F3B48();
+  v4 = 0;
+  v3 = sub_1000F3B48(&v4);
   if (!v3)
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SIMSetupSupportLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCloudSIMController.m" lineNumber:27 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCloudSIMController.m" lineNumber:27 description:@"%s", v4];
 
     __break(1u);
+  }
+
+  if (v4)
+  {
+    free(v4);
   }
 
   return v3;
 }
 
-uint64_t sub_1000F3B48()
+uint64_t sub_1000F3B48(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A70D8;
+  v9 = qword_1003A70D8;
   if (!qword_1003A70D8)
   {
-    sub_1000F3BFC();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000F3BFC;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000F3BFC(&v2);
   }
 
   return qword_1003A70D8;
 }
 
-uint64_t sub_1000F3BFC()
+uint64_t sub_1000F3BFC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A70D8 = result;
@@ -8367,27 +8594,42 @@ void sub_1000F79A4(NSAssertionHandler *a1)
 
 void sub_1000F7AE8()
 {
-  if (!sub_1000F7C10())
+  v2 = 0;
+  if (!sub_1000F7C10(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *CameraUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCameraButtonViewControllerWrapper.m" lineNumber:16 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCameraButtonViewControllerWrapper.m" lineNumber:16 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1000F7C10()
+uint64_t sub_1000F7C10(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7110;
+  v9 = qword_1003A7110;
   if (!qword_1003A7110)
   {
-    sub_1000F7CC4();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1000F7CC4;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1000F7CC4(&v2);
   }
 
   return qword_1003A7110;
 }
 
-uint64_t sub_1000F7CC4()
+uint64_t sub_1000F7CC4(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7110 = result;
@@ -8825,27 +9067,42 @@ void sub_100104814(NSAssertionHandler *a1)
 
 void sub_100104958()
 {
-  if (!sub_100104A80())
+  v2 = 0;
+  if (!sub_100104A80(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *AirTrafficLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"RestoreFromComputerController.m" lineNumber:26 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"RestoreFromComputerController.m" lineNumber:26 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_100104A80()
+uint64_t sub_100104A80(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7120;
+  v9 = qword_1003A7120;
   if (!qword_1003A7120)
   {
-    sub_100104B34();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_100104B34;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_100104B34(&v2);
   }
 
   return qword_1003A7120;
 }
 
-uint64_t sub_100104B34()
+uint64_t sub_100104B34(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7120 = result;
@@ -9074,27 +9331,42 @@ void sub_100106C20(NSAssertionHandler *a1)
 
 void sub_100106D64()
 {
-  if (!sub_100106E8C())
+  v2 = 0;
+  if (!sub_100106E8C(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *AssistantServicesLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"AssistantOptInController.m" lineNumber:42 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"AssistantOptInController.m" lineNumber:42 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_100106E8C()
+uint64_t sub_100106E8C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7130;
+  v9 = qword_1003A7130;
   if (!qword_1003A7130)
   {
-    sub_100106F40();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_100106F40;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_100106F40(&v2);
   }
 
   return qword_1003A7130;
 }
 
-uint64_t sub_100106F40()
+uint64_t sub_100106F40(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7130 = result;
@@ -9119,27 +9391,42 @@ void sub_100106FD4(NSAssertionHandler *a1)
 
 void sub_100107118()
 {
-  if (!sub_100107240())
+  v2 = 0;
+  if (!sub_100107240(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *VoiceTriggerUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"AssistantOptInController.m" lineNumber:51 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"AssistantOptInController.m" lineNumber:51 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_100107240()
+uint64_t sub_100107240(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7140;
+  v9 = qword_1003A7140;
   if (!qword_1003A7140)
   {
-    sub_1001072F4();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001072F4;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001072F4(&v2);
   }
 
   return qword_1003A7140;
 }
 
-uint64_t sub_1001072F4()
+uint64_t sub_1001072F4(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7140 = result;
@@ -9164,27 +9451,42 @@ void sub_100107388(NSAssertionHandler *a1)
 
 void sub_1001074CC()
 {
-  if (!sub_1001075F4())
+  v2 = 0;
+  if (!sub_1001075F4(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *VoiceTriggerLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"AssistantOptInController.m" lineNumber:59 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"AssistantOptInController.m" lineNumber:59 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001075F4()
+uint64_t sub_1001075F4(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7150;
+  v9 = qword_1003A7150;
   if (!qword_1003A7150)
   {
-    sub_1001076A8();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001076A8;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001076A8(&v2);
   }
 
   return qword_1003A7150;
 }
 
-uint64_t sub_1001076A8()
+uint64_t sub_1001076A8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7150 = result;
@@ -9510,310 +9812,4 @@ void sub_100110528(id *a1, void *a2)
   objc_storeStrong(v10, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-}
-
-void sub_100110638(NSObject *a1)
-{
-  oslog[2] = a1;
-  oslog[1] = a1;
-  if (a1[4].isa)
-  {
-    oslog[0] = _BYLoggingFacility();
-    v17 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
-    {
-      v15 = 0;
-      v13 = 0;
-      if (_BYIsInternalInstall())
-      {
-        isa = a1[4].isa;
-      }
-
-      else if (a1[4].isa)
-      {
-        v16 = [(objc_class *)a1[4].isa domain];
-        v15 = 1;
-        isa = [NSString stringWithFormat:@"<Error domain: %@, code %ld>", v16, [(objc_class *)a1[4].isa code]];
-        v14 = isa;
-        v13 = 1;
-      }
-
-      else
-      {
-        isa = 0;
-      }
-
-      sub_100071CBC(buf, isa);
-      _os_log_error_impl(&_mh_execute_header, oslog[0], v17, "Configure MDM failed with error: %{public}@", buf, 0xCu);
-      if (v13)
-      {
-      }
-
-      if (v15)
-      {
-      }
-    }
-
-    objc_storeStrong(oslog, 0);
-    v3 = [(objc_class *)a1[5].isa enrollmentCoordinator];
-    [v3 returnToServiceFlowCompleted];
-
-    [(objc_class *)a1[5].isa _presentTryAgainAlert];
-  }
-
-  else
-  {
-    v12 = _BYLoggingFacility();
-    v11 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v4 = v12;
-      v5 = v11;
-      sub_10006AA68(v10);
-      _os_log_impl(&_mh_execute_header, v4, v5, "Configure MDM succeed!", v10, 2u);
-    }
-
-    objc_storeStrong(&v12, 0);
-    v6 = +[BuddyCloudConfigManager sharedManager];
-    v7 = [(objc_class *)a1[5].isa managedConfiguration];
-    v8 = [v7 cloudConfigurationDetails];
-    [v6 setCloudConfigurationDetails:v8];
-
-    v9 = [(objc_class *)a1[5].isa delegate];
-    [v9 flowItemDone:a1[5].isa];
-  }
-}
-
-void sub_100110908(id *a1, void *a2, void *a3)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v14 = 0;
-  objc_storeStrong(&v14, a3);
-  v13[1] = a1;
-  v5 = &_dispatch_main_q;
-  block = _NSConcreteStackBlock;
-  v7 = -1073741824;
-  v8 = 0;
-  v9 = sub_100110A60;
-  v10 = &unk_10032BB10;
-  v11 = location[0];
-  v12 = v14;
-  v13[0] = a1[4];
-  dispatch_async(v5, &block);
-
-  objc_storeStrong(v13, 0);
-  objc_storeStrong(&v12, 0);
-  objc_storeStrong(&v11, 0);
-  objc_storeStrong(&v14, 0);
-  objc_storeStrong(location, 0);
-}
-
-void sub_100110A60(uint64_t a1)
-{
-  oslog[2] = a1;
-  oslog[1] = a1;
-  if (*(a1 + 32))
-  {
-    oslog[0] = _BYLoggingFacility();
-    v17 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
-    {
-      v15 = 0;
-      v13 = 0;
-      if (_BYIsInternalInstall())
-      {
-        v2 = *(a1 + 32);
-      }
-
-      else if (*(a1 + 32))
-      {
-        v16 = [*(a1 + 32) domain];
-        v15 = 1;
-        v2 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<Error domain: %@, code %ld>", v16, [*(a1 + 32) code]);
-        v14 = v2;
-        v13 = 1;
-      }
-
-      else
-      {
-        v2 = 0;
-      }
-
-      sub_100071CBC(buf, v2);
-      _os_log_error_impl(&_mh_execute_header, oslog[0], v17, "Could not retrieve cloud configuration: %{public}@", buf, 0xCu);
-      if (v13)
-      {
-      }
-
-      if (v15)
-      {
-      }
-    }
-
-    objc_storeStrong(oslog, 0);
-    v12 = _BYLoggingFacility();
-    v11 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      sub_10006AE18(v20, *(a1 + 40));
-      _os_log_impl(&_mh_execute_header, v12, v11, "Detail: %@", v20, 0xCu);
-    }
-
-    objc_storeStrong(&v12, 0);
-    [*(a1 + 48) _presentTryAgainAlert];
-  }
-
-  else
-  {
-    v10 = _BYLoggingFacility();
-    v9 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = v10;
-      v4 = v9;
-      sub_10006AA68(v8);
-      _os_log_impl(&_mh_execute_header, v3, v4, "Successfully fetched cloud configuration!", v8, 2u);
-    }
-
-    objc_storeStrong(&v10, 0);
-    v7 = _BYLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-    {
-      sub_10006AE18(v19, *(a1 + 40));
-      _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Details: %@", v19, 0xCu);
-    }
-
-    objc_storeStrong(&v7, 0);
-    v5 = +[BuddyCloudConfigManager sharedManager];
-    [v5 setCloudConfigurationDetails:*(a1 + 40)];
-
-    v6 = [*(a1 + 48) delegate];
-    [v6 flowItemDone:*(a1 + 48)];
-  }
-}
-
-void sub_1001111AC(id *a1, void *a2)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v3 = [a1[4] featureFlags];
-  v4 = [v3 isMDMEnrollmentFlowControllerAdoptionEnabled] ^ 1;
-
-  if (v4)
-  {
-    [a1[4] _fetchCloudConfig];
-  }
-
-  else
-  {
-    v5 = [a1[4] enrollmentCoordinator];
-    [v5 startEnrollmentFlow];
-  }
-
-  objc_storeStrong(location, 0);
-}
-
-void sub_100111258(id *a1, void *a2)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v3 = [a1[4] navigationController];
-  v4 = [v3 popViewControllerAnimated:1];
-
-  objc_storeStrong(location, 0);
-}
-
-id sub_100111A70(id *a1, void *a2, void *a3, void *a4)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v38 = 0;
-  objc_storeStrong(&v38, a3);
-  v37 = 0;
-  objc_storeStrong(&v37, a4);
-  v36[1] = a1;
-  v36[0] = v38;
-  v35 = [location[0] dequeueReusableCellWithIdentifier:v37];
-  if (!v35)
-  {
-    v7 = [UITableViewCell alloc];
-    v35 = [v7 initWithStyle:0 reuseIdentifier:v37];
-  }
-
-  v8 = +[BFFStyle sharedStyle];
-  [v8 applyThemeToTableCell:v35];
-
-  v9 = [v35 textLabel];
-  [v9 setLineBreakMode:0];
-
-  v10 = [v35 textLabel];
-  [v10 setNumberOfLines:0];
-
-  v11 = +[UIColor systemBlueColor];
-  v12 = [v35 imageView];
-  [v12 setTintColor:v11];
-
-  v34 = 0;
-  v13 = [v36[0] symbolName];
-
-  if (v13)
-  {
-    v14 = [v36[0] symbolConfiguration];
-
-    v15 = [v36[0] symbolName];
-    if (v14)
-    {
-      v16 = [v36[0] symbolConfiguration];
-      v17 = [UIImage _systemImageNamed:v15 withConfiguration:v16];
-      v18 = v34;
-      v34 = v17;
-    }
-
-    else
-    {
-      v19 = [UIImage _systemImageNamed:v15];
-      v20 = v34;
-      v34 = v19;
-    }
-  }
-
-  else if ([a1[4] _useCompactMode])
-  {
-    v21 = [v36[0] icon];
-    v22 = sub_100111E80();
-    v24 = [v21 imageByPreparingThumbnailOfSize:{v22, v23, *&v22, *&v23}];
-    v25 = v34;
-    v34 = v24;
-  }
-
-  else
-  {
-    v26 = [v36[0] icon];
-    v27 = v34;
-    v34 = v26;
-  }
-
-  v28 = [v35 imageView];
-  [v28 setImage:v34];
-
-  v29 = [v35 textLabel];
-  v30 = [v38 title];
-  [v29 setText:v30];
-
-  v31 = +[UIColor secondarySystemBackgroundColor];
-  [v35 setBackgroundColor:v31];
-
-  v32 = v35;
-  objc_storeStrong(&v34, 0);
-  objc_storeStrong(&v35, 0);
-  objc_storeStrong(v36, 0);
-  objc_storeStrong(&v37, 0);
-  objc_storeStrong(&v38, 0);
-  objc_storeStrong(location, 0);
-  return v32;
 }

@@ -2,6 +2,7 @@
 + (id)_newUnknownRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 displayName:(id)self5 config:(id)self6;
 + (id)defaultDisplayString;
 + (id)unknownRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 displayName:(id)self4;
++ (id)unknownRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 displayName:(id)self5;
 - (BOOL)isEquivalent:(id)equivalent;
 - (HKUnknownRecord)init;
 - (HKUnknownRecord)initWithCoder:(id)coder;
@@ -39,6 +40,13 @@
   v3 = [v2 localizedStringForKey:@"UNSPECIFIED_UNKNOWN_RECORD" value:&stru_1F05FF230 table:@"Localizable-Clinical-Health-Records"];
 
   return v3;
+}
+
++ (id)unknownRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 displayName:(id)self5
+{
+  v15 = [self _newUnknownRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state displayName:name config:0];
+
+  return v15;
 }
 
 + (id)_newUnknownRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 displayName:(id)self5 config:(id)self6

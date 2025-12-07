@@ -1,13 +1,13 @@
 @interface NSIndexSet(CEKLightingFrameCache)
-- (uint64_t)cek_indexNearestToIndex:()CEKLightingFrameCache;
+- (char)cek_indexNearestToIndex:()CEKLightingFrameCache;
 @end
 
 @implementation NSIndexSet(CEKLightingFrameCache)
 
-- (uint64_t)cek_indexNearestToIndex:()CEKLightingFrameCache
+- (char)cek_indexNearestToIndex:()CEKLightingFrameCache
 {
   v5 = [self indexLessThanOrEqualToIndex:?];
-  v6 = a3 - v5;
+  v6 = &a3[-v5];
   if (a3 != v5)
   {
     v7 = v5;

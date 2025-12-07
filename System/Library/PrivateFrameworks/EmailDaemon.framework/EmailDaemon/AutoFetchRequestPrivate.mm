@@ -603,46 +603,45 @@ LABEL_26:
       v8 = EFFetchSignpostLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        activity = self->_activity;
         [errorCopy ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         sub_1000D0770();
       }
 
-      v10 = EFFetchSignpostLog();
-      v11 = v10;
+      v9 = EFFetchSignpostLog();
+      v10 = v9;
       signpostID = self->_signpostID;
-      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
       {
         code = [errorCopy code];
-        v14 = self->_activity;
-        v19 = 134349312;
-        v20 = code;
-        v21 = 2050;
-        v22 = v14;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_EVENT, signpostID, "AutoFetchRequest", "error code=%{signpost.description:attribute,public}lld activity=%{signpost.description:attribute,public}p", &v19, 0x16u);
+        activity = self->_activity;
+        v18 = 134349312;
+        v19 = code;
+        v20 = 2050;
+        v21 = activity;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, signpostID, "AutoFetchRequest", "error code=%{signpost.description:attribute,public}lld activity=%{signpost.description:attribute,public}p", &v18, 0x16u);
       }
     }
 
     else
     {
-      v11 = EFFetchSignpostLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = EFFetchSignpostLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = self->_activity;
+        v14 = self->_activity;
         *buf = 134217984;
-        v24 = v15;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Activity %p did finish.", buf, 0xCu);
+        v23 = v14;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Activity %p did finish.", buf, 0xCu);
       }
     }
 
-    v16 = EFFetchSignpostLog();
-    v17 = v16;
-    v18 = self->_signpostID;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v15 = EFFetchSignpostLog();
+    v16 = v15;
+    v17 = self->_signpostID;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_END, v18, "AutoFetchRequest", "", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_INTERVAL_END, v17, "AutoFetchRequest", "", &v18, 2u);
     }
   }
 }

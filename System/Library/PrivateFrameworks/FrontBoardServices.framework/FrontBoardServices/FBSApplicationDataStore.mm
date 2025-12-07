@@ -58,15 +58,16 @@
   idCopy = id;
   identityCopy = identity;
   clientCopy = client;
+  v12 = clientCopy;
   if (!idCopy && identityCopy)
   {
-    v12 = MEMORY[0x1E69635D8];
+    v13 = MEMORY[0x1E69635D8];
     identityString = [identityCopy identityString];
-    idCopy = [v12 bundleIdentifierForIdentityString:identityString error:0];
+    idCopy = [v13 bundleIdentifierForIdentityString:identityString error:0];
 
     if (!idCopy)
     {
-      [FBSApplicationDataStore _initWithBundleId:identityCopy identity:a2 client:?];
+      [FBSApplicationDataStore _initWithBundleId:identityCopy identity:a2 client:self];
     }
 
     goto LABEL_6;
@@ -75,14 +76,14 @@
   if (idCopy)
   {
 LABEL_6:
-    v23.receiver = self;
-    v23.super_class = FBSApplicationDataStore;
-    v14 = [(FBSApplicationDataStore *)&v23 init];
-    v15 = v14;
-    if (v14)
+    v24.receiver = self;
+    v24.super_class = FBSApplicationDataStore;
+    v15 = [(FBSApplicationDataStore *)&v24 init];
+    v16 = v15;
+    if (v15)
     {
-      objc_storeStrong(&v14->_bundleId, idCopy);
-      objc_storeStrong(&v15->_identity, identity);
+      objc_storeStrong(&v15->_bundleId, idCopy);
+      objc_storeStrong(&v16->_identity, identity);
       if (identityCopy)
       {
         identityString2 = [identityCopy identityString];
@@ -93,31 +94,31 @@ LABEL_6:
         identityString2 = idCopy;
       }
 
-      identifier = v15->_identifier;
-      v15->_identifier = &identityString2->isa;
+      identifier = v16->_identifier;
+      v16->_identifier = &identityString2->isa;
 
-      if (clientCopy)
+      if (v12)
       {
-        objc_storeStrong(&v15->_client, client);
+        objc_storeStrong(&v16->_client, client);
       }
 
       else
       {
-        v18 = +[FBSApplicationDataStoreClientFactory sharedInstance];
-        checkout = [v18 checkout];
-        client = v15->_client;
-        v15->_client = checkout;
+        v19 = +[FBSApplicationDataStoreClientFactory sharedInstance];
+        checkout = [v19 checkout];
+        client = v16->_client;
+        v16->_client = checkout;
 
-        v15->_clientNeedsCheckin = 1;
+        v16->_clientNeedsCheckin = 1;
       }
     }
 
-    self = v15;
+    self = v16;
     selfCopy = self;
     goto LABEL_14;
   }
 
-  idCopy = FBLogCommon();
+  idCopy = FBLogCommon(clientCopy);
   if (os_log_type_enabled(idCopy, OS_LOG_TYPE_FAULT))
   {
     [FBSApplicationDataStore _initWithBundleId:idCopy identity:? client:?];
@@ -362,7 +363,7 @@ uint64_t __68__FBSApplicationDataStore_applicationIdentifiersWithAvailableStores
 
 - (BOOL)migrateWithError:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (![(FBSApplicationDataStore *)self needsMigration])
   {
     v8 = 0;
@@ -378,34 +379,34 @@ uint64_t __68__FBSApplicationDataStore_applicationIdentifiersWithAvailableStores
   identity = self->_identity;
   if (identity)
   {
-    v39 = 0;
-    v6 = [(LSApplicationIdentity *)identity findApplicationRecordFetchingPlaceholder:1 error:&v39];
-    v7 = v39;
+    v40 = 0;
+    v6 = [(LSApplicationIdentity *)identity findApplicationRecordFetchingPlaceholder:1 error:&v40];
+    v7 = v40;
     v8 = v7;
     if (v6)
     {
-      v37 = 0u;
       v38 = 0u;
-      v35 = 0u;
+      v39 = 0u;
       v36 = 0u;
+      v37 = 0u;
       identities = [v6 identities];
-      v10 = [identities countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v10 = [identities countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v10)
       {
         v11 = v10;
         errorCopy = error;
         v12 = 0;
-        v13 = *v36;
+        v13 = *v37;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v36 != v13)
+            if (*v37 != v13)
             {
               objc_enumerationMutation(identities);
             }
 
-            v15 = *(*(&v35 + 1) + 8 * i);
+            v15 = *(*(&v36 + 1) + 8 * i);
             personaType = [(LSApplicationIdentity *)self->_identity personaType];
             if (personaType == [v15 personaType])
             {
@@ -425,7 +426,7 @@ uint64_t __68__FBSApplicationDataStore_applicationIdentifiersWithAvailableStores
             }
           }
 
-          v11 = [identities countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v11 = [identities countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v11);
@@ -441,25 +442,25 @@ uint64_t __68__FBSApplicationDataStore_applicationIdentifiersWithAvailableStores
     else
     {
       v21 = MEMORY[0x1E696ABC0];
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __44__FBSApplicationDataStore_migrateWithError___block_invoke_2;
-      v33[3] = &unk_1E76BE348;
-      v34 = v7;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __44__FBSApplicationDataStore_migrateWithError___block_invoke_2;
+      v34[3] = &unk_1E76BE348;
+      v35 = v7;
       v22 = v7;
-      v8 = [v21 bs_errorWithDomain:@"FBSApplicationDataStore" code:1 configuration:v33];
+      v8 = [v21 bs_errorWithDomain:@"FBSApplicationDataStore" code:1 configuration:v34];
 
       v12 = 0;
-      identities = v34;
+      identities = v35;
     }
 
     goto LABEL_22;
   }
 
   bundleId = self->_bundleId;
-  v32 = 0;
-  v6 = [MEMORY[0x1E69635D8] identityStringsForApplicationWithBundleIdentifier:bundleId error:&v32];
-  v8 = v32;
+  v33 = 0;
+  v6 = [MEMORY[0x1E69635D8] identityStringsForApplicationWithBundleIdentifier:bundleId error:&v33];
+  v8 = v33;
   if ([v6 count])
   {
     v20 = objc_alloc(MEMORY[0x1E69635D8]);
@@ -470,15 +471,15 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v26 = MEMORY[0x1E696ABC0];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __44__FBSApplicationDataStore_migrateWithError___block_invoke_3;
-  v30[3] = &unk_1E76BE2F8;
-  v30[4] = self;
-  v31 = v8;
-  v27 = v8;
-  v8 = [v26 bs_errorWithDomain:@"FBSApplicationDataStore" code:1 configuration:v30];
+  v27 = MEMORY[0x1E696ABC0];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __44__FBSApplicationDataStore_migrateWithError___block_invoke_3;
+  v31[3] = &unk_1E76BE2F8;
+  v31[4] = self;
+  v32 = v8;
+  v28 = v8;
+  v8 = [v27 bs_errorWithDomain:@"FBSApplicationDataStore" code:1 configuration:v31];
 
   v12 = 0;
 LABEL_23:
@@ -490,24 +491,24 @@ LABEL_23:
 
   else
   {
-    v29 = 0;
-    v18 = [(FBSApplicationDataStore *)self migrateToIdentity:v12 error:&v29];
-    v8 = v29;
+    v30 = 0;
+    v18 = [(FBSApplicationDataStore *)self migrateToIdentity:v12 error:&v30];
+    v8 = v30;
   }
 
   if (error)
   {
     if (v8)
     {
-      v23 = FBLogAppDataStore();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = FBLogAppDataStore(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [(FBSApplicationDataStore *)self migrateWithError:v8];
       }
     }
 
 LABEL_31:
-    v24 = v8;
+    v25 = v8;
     *error = v8;
   }
 
@@ -541,7 +542,7 @@ void __44__FBSApplicationDataStore_migrateWithError___block_invoke_3(uint64_t a1
 
 - (BOOL)migrateToIdentity:(id)identity error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   NSClassFromString(&cfstr_Lsapplicationi.isa);
   if (!identityCopy)
@@ -563,52 +564,53 @@ void __44__FBSApplicationDataStore_migrateWithError___block_invoke_3(uint64_t a1
   identityString = [identityCopy identityString];
   v10 = [v8 bundleIdentifierForIdentityString:identityString error:0];
 
-  if (![(NSString *)self->_bundleId isEqualToString:v10])
+  v11 = [(NSString *)self->_bundleId isEqualToString:v10];
+  if ((v11 & 1) == 0)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identity does not match bundleID: %@ vs %@", self->_bundleId, v10];
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identity does not match bundleID: %@ vs %@", self->_bundleId, v10];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [(FBSApplicationDataStore *)a2 migrateToIdentity:v19 error:?];
+      [(FBSApplicationDataStore *)a2 migrateToIdentity:v21 error:?];
     }
 
-    [v19 UTF8String];
+    [v21 UTF8String];
     _bs_set_crash_log_message();
   }
 
-  v11 = FBLogAppDataStore();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = FBLogAppDataStore(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "Migrating %{public}@ to latest identity...", buf, 0xCu);
+    _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "Migrating %{public}@ to latest identity...", buf, 0xCu);
   }
 
   identifier = self->_identifier;
   client = self->_client;
   identityString2 = [identityCopy identityString];
-  v15 = [(FBSApplicationDataStoreRepositoryClient *)client migrateIdentifier:identifier toIdentifier:identityString2];
+  v16 = [(FBSApplicationDataStoreRepositoryClient *)client migrateIdentifier:identifier toIdentifier:identityString2];
 
-  if (v15)
+  if (v16)
   {
-    v16 = FBLogAppDataStore();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = FBLogAppDataStore(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [FBSApplicationDataStore migrateToIdentity:v15 error:?];
+      [FBSApplicationDataStore migrateToIdentity:v16 error:?];
     }
   }
 
   if (error)
   {
-    v17 = MEMORY[0x1E696ABC0];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __51__FBSApplicationDataStore_migrateToIdentity_error___block_invoke;
-    v20[3] = &unk_1E76BE348;
-    v21 = v15;
-    *error = [v17 bs_errorWithDomain:@"FBSApplicationDataStore" code:1 configuration:v20];
+    v19 = MEMORY[0x1E696ABC0];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __51__FBSApplicationDataStore_migrateToIdentity_error___block_invoke;
+    v22[3] = &unk_1E76BE348;
+    v23 = v16;
+    *error = [v19 bs_errorWithDomain:@"FBSApplicationDataStore" code:1 configuration:v22];
   }
 
-  return v15 == 0;
+  return v16 == 0;
 }
 
 void __51__FBSApplicationDataStore_migrateToIdentity_error___block_invoke(uint64_t a1, void *a2)
@@ -977,7 +979,7 @@ void __70__FBSApplicationDataStore_safeArchivedObjectForKey_ofType_withResult___
 
       if (!DeepCopy)
       {
-        objectCopy = FBLogAppDataStore();
+        objectCopy = FBLogAppDataStore(v9);
         if (os_log_type_enabled(objectCopy, OS_LOG_TYPE_ERROR))
         {
           [FBSApplicationDataStore setObject:forKey:];
@@ -997,10 +999,10 @@ void __70__FBSApplicationDataStore_safeArchivedObjectForKey_ofType_withResult___
     goto LABEL_11;
   }
 
-  v9 = FBLogAppDataStore();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = FBLogAppDataStore(0);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    [FBSApplicationDataStore setObject:forKey:];
+    [FBSApplicationDataStore setObject:objectCopy forKey:v10];
   }
 
 LABEL_11:
@@ -1013,20 +1015,21 @@ LABEL_11:
   if (objectCopy)
   {
     v8 = objc_autoreleasePoolPush();
-    v12 = 0;
-    v9 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectCopy requiringSecureCoding:0 error:&v12];
-    v10 = v12;
+    v13 = 0;
+    v9 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectCopy requiringSecureCoding:0 error:&v13];
+    v10 = v13;
+    v11 = v10;
     if (v10)
     {
-      v11 = FBLogAppDataStore();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = FBLogAppDataStore(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [FBSApplicationDataStore setArchivedObject:forKey:];
+        [FBSApplicationDataStore setArchivedObject:objectCopy forKey:v11];
       }
 
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
-        [FBSApplicationDataStore setArchivedObject:forKey:];
+        [FBSApplicationDataStore setArchivedObject:objectCopy forKey:?];
       }
     }
 
@@ -1088,7 +1091,7 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = [keys copy];
-  v4 = FBLogAppDataStore();
+  v4 = FBLogAppDataStore(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1105,8 +1108,7 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
   v8[3] = &unk_1E76BE518;
   v9 = v3;
   v6 = v3;
-  [FBSApplicationDataStore _doWithClassClient:v8];
-  v7 = FBLogAppDataStore();
+  v7 = FBLogAppDataStore([FBSApplicationDataStore _doWithClassClient:v8]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1165,35 +1167,34 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
   return v8;
 }
 
-- (void)_initWithBundleId:(void *)a1 identity:(const char *)a2 client:.cold.2(void *a1, const char *a2)
+- (void)_initWithBundleId:(void *)a1 identity:(const char *)a2 client:(uint64_t)a3 .cold.2(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v12 = [a1 fbs_mediumDescription];
-  v4 = [v3 stringWithFormat:@"no bundleID found for identity %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 fbs_mediumDescription];
+  v6 = [v4 stringWithFormat:@"no bundleID found for identity %@", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v14 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, 2u);
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v16 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 
 + (void)storeForApplicationIdentity:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:LSApplicationIdentityClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:LSApplicationIdentityClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1202,15 +1203,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 + (void)storeForApplicationIdentity:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1219,15 +1219,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 + (void)storeForApplicationIdentifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1236,15 +1235,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 + (void)storeForApplicationIdentifier:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1261,15 +1259,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)migrateToIdentity:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:LSApplicationIdentityClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:LSApplicationIdentityClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1310,20 +1307,19 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"provided identity itself requires migration"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_12();
-    v6 = NSStringFromClass(v5);
+    v5 = NSStringFromSelector(a1);
+    v7 = OUTLINED_FUNCTION_12(v5, v6);
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_4_3();
-    v9 = 2048;
-    v10 = a2;
-    v11 = v7;
-    v12 = @"FBSApplicationDataStore.m";
-    v13 = 1024;
-    v14 = 218;
-    v15 = v7;
-    v16 = v4;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
+    v11 = 2048;
+    v12 = a2;
+    v13 = v9;
+    v14 = @"FBSApplicationDataStore.m";
+    v15 = 1024;
+    v16 = 218;
+    v17 = v9;
+    v18 = v4;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, 0x3Au);
   }
 
   [v4 UTF8String];
@@ -1332,15 +1328,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)migrateToIdentity:(char *)a1 error:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1349,15 +1344,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)deserializeObjectForKey:(char *)a1 ofType:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1366,15 +1360,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)deserializeObjectForKey:(char *)a1 ofType:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"type"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"type", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1383,15 +1376,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)deserializeObjectForKey:(char *)a1 ofType:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1400,15 +1392,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)deserializeObjectForKey:(char *)a1 ofType:withResult:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1417,15 +1408,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)deserializeObjectForKey:(char *)a1 ofType:withResult:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"resultBlock"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"resultBlock", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1434,15 +1424,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)deserializeObjectForKey:(char *)a1 ofType:withResult:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"type"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"type", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1451,15 +1440,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)deserializeObjectForKey:(char *)a1 ofType:withResult:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1468,15 +1456,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)serializeObject:(char *)a1 forKey:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1485,15 +1472,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)serializeObject:(char *)a1 forKey:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1502,15 +1488,14 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
 
 - (void)serializeObject:(char *)a1 forKey:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"object"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"object", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1524,31 +1509,31 @@ uint64_t __53__FBSApplicationDataStore_synchronizeWithCompletion___block_invoke_
   _os_log_error_impl(&dword_1A2DBB000, v0, OS_LOG_TYPE_ERROR, "ERROR: value provided for key %{public}@ is not a valid property list", v1, 0xCu);
 }
 
-- (void)setObject:forKey:.cold.2()
+- (void)setObject:(uint64_t)a1 forKey:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_5_5();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)setArchivedObject:forKey:.cold.1()
+- (void)setArchivedObject:(uint64_t)a1 forKey:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_5_5();
-  v1 = v0;
+  v3 = v2;
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-- (void)setArchivedObject:forKey:.cold.2()
+- (void)setArchivedObject:(uint64_t)a1 forKey:.cold.2(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAA8] currentHandler];
-  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[FBSApplicationDataStore setArchivedObject:forKey:]"];
-  v2 = objc_opt_class();
-  v3 = NSStringFromProtocol(&unk_1F15B0680);
-  [v0 handleFailureInFunction:v1 file:@"FBSApplicationDataStore.m" lineNumber:385 description:{@"%@ does not conform to <%@>", v2, v3}];
+  v1 = [MEMORY[0x1E696AAA8] currentHandler];
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[FBSApplicationDataStore setArchivedObject:forKey:]"];
+  v3 = objc_opt_class();
+  v4 = NSStringFromProtocol(&unk_1F15B0680);
+  [v1 handleFailureInFunction:v2 file:@"FBSApplicationDataStore.m" lineNumber:385 description:{@"%@ does not conform to <%@>", v3, v4}];
 }
 
 @end

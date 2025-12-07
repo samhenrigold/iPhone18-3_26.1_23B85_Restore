@@ -15,14 +15,14 @@
     self = objc_msgSendSuper2(&v16, sel_init);
     if (self)
     {
-      v11 = [v9 copy];
+      v11 = objc_msgSend_copy(v9);
       v12 = *(self + 2);
       *(self + 2) = v11;
 
       *(self + 1) = time;
       *(self + 3) = interval;
       *(self + 4) = interval + time;
-      v13 = [typeCopy copy];
+      v13 = objc_msgSend_copy(typeCopy);
       v14 = *(self + 5);
       *(self + 5) = v13;
     }

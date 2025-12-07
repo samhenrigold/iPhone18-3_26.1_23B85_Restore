@@ -57,7 +57,7 @@ LABEL_12:
 {
   if (points)
   {
-    return sub_19B920AF0(&self->clrr, points);
+    return sub_19B920AF0(&self->clrr, points, points, v3);
   }
 
   else
@@ -68,24 +68,25 @@ LABEL_12:
 
 - (id)advanceToPoint:(id)point
 {
-  result = [[CLRacingRoutePerformanceResults alloc] initWithTimeAhead:4 currentDistance:604800.0 referenceDistance:-1.0 currentAveragePace:-1.0 totalOverlapDistance:-1.0 state:-1.0];
+  v5 = [CLRacingRoutePerformanceResults alloc];
+  result = objc_msgSend_initWithTimeAhead_currentDistance_referenceDistance_currentAveragePace_totalOverlapDistance_state_(v5, v6, 4, v7, 604800.0, -1.0, -1.0, -1.0, -1.0);
   if (point)
   {
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v11 = 0u;
-    memset(v10, 0, sizeof(v10));
-    v6 = sub_19B924398(&self->clrr, point, v10);
-    v7 = *&v17 - *(&v11 + 1);
-    v8 = *&v18;
-    v9 = [CLRacingRoutePerformanceResults alloc];
-    return [(CLRacingRoutePerformanceResults *)v9 initWithTimeAhead:v6 currentDistance:v7 referenceDistance:*&v14 currentAveragePace:*(&v19 + 1) totalOverlapDistance:*(&v13 + 1) state:v8];
+    memset(v16, 0, sizeof(v16));
+    v10 = sub_19B924398(&self->clrr, point, v16, v9);
+    v11 = *&v23 - *(&v17 + 1);
+    v12 = *&v24;
+    v13 = [CLRacingRoutePerformanceResults alloc];
+    return objc_msgSend_initWithTimeAhead_currentDistance_referenceDistance_currentAveragePace_totalOverlapDistance_state_(v13, v14, v10, v15, v11, *&v20, *(&v25 + 1), *(&v19 + 1), v12);
   }
 
   return result;

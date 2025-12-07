@@ -51,9 +51,9 @@
 - (UIButtonConfiguration)buttonConfiguration
 {
   _providedView = [(SBUISystemApertureButtonContentProvider *)self _providedView];
-  configuration = [_providedView configuration];
+  v3 = objc_msgSend_configuration(_providedView);
 
-  return configuration;
+  return v3;
 }
 
 - (void)setButtonConfiguration:(id)configuration

@@ -33,7 +33,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   v5 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -42,17 +42,15 @@
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
     v9 = NSStringFromSelector([invocationCopy selector]);
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v9;
-    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "Forwarding invocation [%{public}@ %{public}@]", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v9;
+    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "Forwarding invocation [%{public}@ %{public}@]", &v11, 0x16u);
   }
 
   value2 = [(LNLoggingProxy *)self value];
   [invocationCopy invokeWithTarget:value2];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)methodSignatureForSelector:(SEL)selector

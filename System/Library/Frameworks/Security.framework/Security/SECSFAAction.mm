@@ -1,5 +1,6 @@
 @interface SECSFAAction
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -126,7 +127,6 @@ LABEL_17:
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_action != *(equalCopy + 4))
@@ -138,7 +138,7 @@ LABEL_17:
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -169,17 +169,17 @@ LABEL_15:
   drop = self->_drop;
   if (drop | *(equalCopy + 3))
   {
-    v10 = [(SECSFAActionDropEvent *)drop isEqual:?];
+    v9 = [(SECSFAActionDropEvent *)drop isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -377,6 +377,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)actionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E70D4C78[string];
   }
 
   return v4;

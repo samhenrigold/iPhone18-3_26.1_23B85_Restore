@@ -99,29 +99,29 @@ LABEL_8:
 
 - (id)_expirationOrInformativeText
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v4 = self->_mutableItems;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         informativeFooterText = [v10 informativeFooterText];
 
         if (informativeFooterText)
@@ -140,7 +140,7 @@ LABEL_8:
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -165,8 +165,6 @@ LABEL_8:
 
     v7 = v20;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

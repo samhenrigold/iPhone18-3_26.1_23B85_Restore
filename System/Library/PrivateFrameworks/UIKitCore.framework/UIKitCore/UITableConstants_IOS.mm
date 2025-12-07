@@ -1062,13 +1062,13 @@ LABEL_15:
   else
   {
     v14 = 0.0;
-    if (([identifierCopy isEqualToString:0x1EFB34170] & 1) == 0 && (objc_msgSend(accessoryIdentifierCopy, "isEqualToString:", 0x1EFB34170) & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(identifierCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(accessoryIdentifierCopy) & 1) == 0)
     {
       if (identifierCopy)
       {
         if (accessoryIdentifierCopy)
         {
-          if ([accessoryIdentifierCopy isEqualToString:0x1EFB9F430])
+          if (objc_msgSend_isEqualToString_(accessoryIdentifierCopy))
           {
             v14 = 16.0;
           }

@@ -58,28 +58,29 @@
   sharedAVSystemController = [v4 sharedAVSystemController];
   if (sharedAVSystemController)
   {
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       goto LABEL_11;
     }
 
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = objc_opt_class();
-      v9 = v12;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] +[AVSystemController sharedAVSystemController] returned something that isn't an AVSystemController class: %@", buf, 0xCu);
+      v13 = objc_opt_class();
+      v10 = v13;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] +[AVSystemController sharedAVSystemController] returned something that isn't an AVSystemController class: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] +[AVSystemController sharedAVSystemController] returned nil value", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] +[AVSystemController sharedAVSystemController] returned nil value", buf, 2u);
     }
   }
 
@@ -368,7 +369,7 @@ LABEL_11:
 
 - (void)pickSpeakerRoute
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -417,7 +418,7 @@ LABEL_13:
 
 - (void)pickHandsetRoute
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -467,7 +468,7 @@ LABEL_13:
 - (void)pickRouteWithUID:(id)d
 {
   dCopy = d;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -570,7 +571,7 @@ void __66__PHAudioDeviceController_fetchCurrentRouteWithCompletionHandler___bloc
 
 - (void)restorePickedRoute
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -585,7 +586,7 @@ void __66__PHAudioDeviceController_fetchCurrentRouteWithCompletionHandler___bloc
 
 - (void)clearCachedRoutes
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -626,12 +627,12 @@ void __66__PHAudioDeviceController_fetchCurrentRouteWithCompletionHandler___bloc
   else
   {
     queueCopy = queue;
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [(PHAudioDeviceController *)self callForPickableRoutesUsingBackgroundQueue:queueCopy];
       *buf = 138412290;
-      v31 = v9;
+      v32 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Refreshing picked route based on call: %@", buf, 0xCu);
     }
 
@@ -640,26 +641,26 @@ void __66__PHAudioDeviceController_fetchCurrentRouteWithCompletionHandler___bloc
 
     if ((isTTY & 1) == 0)
     {
-      v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
+      v27 = 0u;
       v12 = [(PHAudioDeviceController *)self _pickableRoutesUsingBackgroundQueue:queueCopy, 0];
-      v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v26;
+        v15 = *v27;
 LABEL_8:
         v16 = 0;
         while (1)
         {
-          if (*v26 != v15)
+          if (*v27 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * v16);
+          v17 = *(*(&v26 + 1) + 8 * v16);
           v18 = [v17 valueForKey:AVSystemController_RouteDescriptionKey_RouteCurrentlyPicked];
           bOOLValue = [v18 BOOLValue];
 
@@ -670,7 +671,7 @@ LABEL_8:
 
           if (v14 == ++v16)
           {
-            v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
             if (v14)
             {
               goto LABEL_8;
@@ -699,13 +700,13 @@ LABEL_14:
 
 LABEL_17:
     objc_storeStrong(p_pickedRoute, v20);
-    v22 = PHDefaultLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = PHDefaultLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *p_pickedRoute;
+      v24 = *p_pickedRoute;
       *buf = 138412290;
-      v31 = v23;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Refreshed picked route: %@", buf, 0xCu);
+      v32 = v24;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Refreshed picked route: %@", buf, 0xCu);
     }
 
     v5 = *p_pickedRoute;
@@ -816,33 +817,34 @@ void __56__PHAudioDeviceController__pickableRoutesUsingAttribute__block_invoke(i
   }
 
   v13 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [pickableRoutesForTTY count]);
-  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v14 = pickableRoutesForTTY;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v26;
     do
     {
       for (i = 0; i != v16; i = i + 1)
       {
-        if (*v25 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
-        if ([(PHAudioDeviceController *)self _routeIsAirTunes:v19])
+        v19 = *(*(&v25 + 1) + 8 * i);
+        v20 = [(PHAudioDeviceController *)self _routeIsAirTunes:v19];
+        if (v20)
         {
-          v20 = PHDefaultLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = PHDefaultLog(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            *v23 = 0;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "PHAudioDeviceController: Filtering out AirTunes audio route until better support is available within the app", v23, 2u);
+            *v24 = 0;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "PHAudioDeviceController: Filtering out AirTunes audio route until better support is available within the app", v24, 2u);
           }
         }
 
@@ -852,13 +854,13 @@ void __56__PHAudioDeviceController__pickableRoutesUsingAttribute__block_invoke(i
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v16);
   }
 
-  v21 = v13;
+  v22 = v13;
   return v13;
 }
 
@@ -898,32 +900,31 @@ void __59__PHAudioDeviceController__pickableRoutesForCategory_mode___block_invok
 - (void)_pickRoute:(id)route
 {
   routeCopy = route;
-  [(PHAudioDeviceController *)self clearCachedRoutes];
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog([(PHAudioDeviceController *)self clearCachedRoutes]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = routeCopy;
+    v15 = routeCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHAudioDeviceController: Picking new route = %@", buf, 0xCu);
   }
 
   v6 = +[PHAudioDeviceController sharedSystemController];
-  v12 = 0;
-  v7 = [v6 setAttribute:routeCopy forKey:AVSystemController_PickedRouteAttribute error:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [v6 setAttribute:routeCopy forKey:AVSystemController_PickedRouteAttribute error:&v13];
+  v8 = v13;
 
   if ((v7 & 1) == 0)
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PHDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(PHAudioDeviceController *)v8 _pickRoute:v9];
+      [(PHAudioDeviceController *)v8 _pickRoute:v10];
     }
   }
 
   pickedRoute = self->_pickedRoute;
   self->_pickedRoute = routeCopy;
-  v11 = routeCopy;
+  v12 = routeCopy;
 
   dispatch_async(&_dispatch_main_q, &__block_literal_global_104);
 }
@@ -1005,7 +1006,7 @@ void __38__PHAudioDeviceController__pickRoute___block_invoke(id a1)
 
 void __56__PHAudioDeviceController__audioRouteInformationChanged__block_invoke(id a1)
 {
-  v1 = PHDefaultLog();
+  v1 = PHDefaultLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 138412290;

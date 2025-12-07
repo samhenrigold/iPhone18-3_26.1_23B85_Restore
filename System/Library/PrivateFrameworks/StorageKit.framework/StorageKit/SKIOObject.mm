@@ -9,6 +9,7 @@
 - (id)copyParentPropertyWithClass:(Class)class key:(id)key;
 - (id)copyProperties;
 - (id)copyPropertyWithClass:(Class)class key:(id)key;
+- (id)newIteratorWithOptions:(unsigned int)options;
 - (void)dealloc;
 @end
 
@@ -58,7 +59,7 @@
 
 - (SKIOObject)initWithClassName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = *MEMORY[0x277CD2898];
   v6 = IOServiceMatching([nameCopy UTF8String]);
@@ -74,15 +75,14 @@
     v9 = SKGetOSLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = nameCopy;
-      _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_ERROR, "Cannot find IO object of class %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = nameCopy;
+      _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_ERROR, "Cannot find IO object of class %@", &v11, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -91,6 +91,32 @@
   copyNextObject = [next copyNextObject];
 
   return [(SKIOObject *)self initWithIOObject:copyNextObject];
+}
+
+- (id)newIteratorWithOptions:(unsigned int)options
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v3 = MEMORY[0x26D68F790]([(SKIOObject *)self ioObj], "IOService", *&options, &v8);
+  if (v3)
+  {
+    v4 = v3;
+    v5 = SKGetOSLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v10 = v4;
+      _os_log_impl(&dword_26BBB8000, v5, OS_LOG_TYPE_ERROR, "Failed creating IO iterator, err code %d", buf, 8u);
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    v7 = [SKIOIterator alloc];
+    return [(SKIOObject *)v7 initWithIOObject:v8 retain:0];
+  }
 }
 
 - (NSString)ioClassName
@@ -116,7 +142,7 @@
 - (SKIOObject)ioObjectWithClassName:(id)name iterateParents:(BOOL)parents
 {
   parentsCopy = parents;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   uTF8String = [nameCopy UTF8String];
   if (parentsCopy)
@@ -152,16 +178,14 @@
     v12 = SKGetOSLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = nameCopy;
-      _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_ERROR, "Cannot find %@ entry", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = nameCopy;
+      _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_ERROR, "Cannot find %@ entry", &v14, 0xCu);
     }
   }
 
   v11 = 0;
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -214,7 +238,7 @@ LABEL_13:
 
 - (id)copyParent
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   parent = 0;
   ParentEntry = IORegistryEntryGetParentEntry([(SKIOObject *)self ioObj], "IOService", &parent);
   if (ParentEntry)
@@ -224,21 +248,18 @@ LABEL_13:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v10 = v3;
+      v9 = v3;
       _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "Failed to get parent registry entry, err code %d", buf, 8u);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
     v6 = [SKIOObject alloc];
-    result = [(SKIOObject *)v6 initWithIOObject:parent];
+    return [(SKIOObject *)v6 initWithIOObject:parent];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 @end

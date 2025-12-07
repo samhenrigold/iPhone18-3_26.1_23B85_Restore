@@ -427,7 +427,7 @@
 
 - (void)dealloc
 {
-  AKLog(@"%s (If you do not see this in a debug build, we've got a world leak to fix.)");
+  AKLog();
   v3.receiver = self;
   v3.super_class = AKController;
   [(AKController *)&v3 dealloc];

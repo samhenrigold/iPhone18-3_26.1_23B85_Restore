@@ -50,7 +50,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1005E0B9C();
+  sub_1005E0B9C(selfCopy);
 }
 
 - (void)_traitCollectionDidChangeWithSender:(id)sender previousTraitCollection:(id)collection
@@ -62,7 +62,7 @@
   swift_unknownObjectRelease();
   sub_1005E0D88(collection);
 
-  sub_1000074E0(&v8);
+  sub_1000074E0(v8);
 }
 
 - (void)textFieldDidBeginEditing:(id)editing

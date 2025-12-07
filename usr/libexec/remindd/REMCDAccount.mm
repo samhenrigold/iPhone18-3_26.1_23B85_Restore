@@ -336,7 +336,7 @@
 
   if (![v4 count])
   {
-    v13 = +[REMLog cloudkit];
+    v13 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10076E104();
@@ -346,7 +346,7 @@
   firstObject = [v4 firstObject];
   if ([v4 count] >= 2)
   {
-    v15 = +[REMLog cloudkit];
+    v15 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       sub_10076E138(v4, firstObject);
@@ -387,7 +387,7 @@
       goto LABEL_10;
     }
 
-    v11 = +[REMLog cloudkit];
+    v11 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10076E1F0();
@@ -396,7 +396,7 @@
 
   else
   {
-    unsafeUntilSystemReady_primaryICloudACAccount = +[REMLog cloudkit];
+    unsafeUntilSystemReady_primaryICloudACAccount = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(unsafeUntilSystemReady_primaryICloudACAccount, OS_LOG_TYPE_ERROR))
     {
       sub_10076E224();
@@ -420,7 +420,7 @@ LABEL_10:
   v11 = firstObject;
   if (firstObject && [firstObject inactive])
   {
-    v12 = +[REMLog cloudkit];
+    v12 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -462,7 +462,7 @@ LABEL_10:
       goto LABEL_9;
     }
 
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10076E258();
@@ -471,7 +471,7 @@ LABEL_10:
 
   else
   {
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10076E28C();
@@ -502,29 +502,29 @@ LABEL_9:
 
   if ((isPrimaryCloudKit & 1) == 0)
   {
-    sub_10076E2C0();
+    sub_10076E2C0(v7, v8);
   }
 
   personIDSalt = [(REMCDAccount *)self personIDSalt];
 
   if (personIDSalt)
   {
-    v8 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10076E330(self);
     }
 
 LABEL_6:
-    LOBYTE(v9) = 0;
+    LOBYTE(v11) = 0;
     goto LABEL_18;
   }
 
-  v10 = +[PersonIDSaltGenerator randomSalt];
-  if (!v10)
+  v12 = +[PersonIDSaltGenerator randomSalt];
+  if (!v12)
   {
-    v8 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10076E4A8(self);
     }
@@ -532,47 +532,47 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v8 = v10;
-  [(REMCDAccount *)self setPersonIDSalt:v10];
+  v10 = v12;
+  [(REMCDAccount *)self setPersonIDSalt:v12];
   createResolutionTokenMapIfNecessary = [(REMCDObject *)self createResolutionTokenMapIfNecessary];
-  v12 = @"personIDSalt";
-  [createResolutionTokenMapIfNecessary updateForKey:v12];
-  v13 = [createResolutionTokenMapIfNecessary getTokenForKey:v12];
+  v14 = @"personIDSalt";
+  [createResolutionTokenMapIfNecessary updateForKey:v14];
+  v15 = [createResolutionTokenMapIfNecessary getTokenForKey:v14];
   [(REMCDObject *)self updateChangeCount];
   identifier = [(REMCDAccount *)self identifier];
   uUIDString = [identifier UUIDString];
   personIDSalt2 = [(REMCDAccount *)self personIDSalt];
-  v17 = [personIDSalt2 base64EncodedStringWithOptions:0];
-  v24 = v13;
-  v9 = [contextCopy ic_saveWithLogDescription:{@"Setting account .personIDSalt {accountID: %@, salt: %@, resolutionToken: %@}", uUIDString, v17, v13}];
+  v19 = [personIDSalt2 base64EncodedStringWithOptions:0];
+  v26 = v15;
+  v11 = [contextCopy ic_saveWithLogDescription:{@"Setting account .personIDSalt {accountID: %@, salt: %@, resolutionToken: %@}", uUIDString, v19, v15}];
 
-  if (v9)
+  if (v11)
   {
     personIDSalt3 = [(REMCDAccount *)self personIDSalt];
-    v19 = [(REMCDAccount *)self postAccountPropertyChangeNotificationWithKey:@"personIDSalt_v1" changedValue:personIDSalt3];
-    v20 = +[REMLog cloudkit];
-    v21 = v20;
-    if (v19)
+    v21 = [(REMCDAccount *)self postAccountPropertyChangeNotificationWithKey:@"personIDSalt_v1" changedValue:personIDSalt3];
+    v22 = objc_msgSend_cloudkit(REMLog);
+    v23 = v22;
+    if (v21)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         remObjectID = [(REMCDObject *)self remObjectID];
         *buf = 138543618;
-        v26 = remObjectID;
-        v27 = 2112;
-        v28 = personIDSalt3;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "generateAndSavePersonIDSaltIfNeeded...: Posted RDStoreControllerREMAccountPropertiesDidUpdate {accountID: %{public}@, salt: %@}", buf, 0x16u);
+        v28 = remObjectID;
+        v29 = 2112;
+        v30 = personIDSalt3;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "generateAndSavePersonIDSaltIfNeeded...: Posted RDStoreControllerREMAccountPropertiesDidUpdate {accountID: %{public}@, salt: %@}", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10076E400(self);
     }
   }
 
 LABEL_18:
-  return v9;
+  return v11;
 }
 
 + (id)accountByCKIdentifierFrom:(id)from
@@ -607,7 +607,7 @@ LABEL_18:
 
         else
         {
-          v12 = +[REMLog cloudkit];
+          v12 = objc_msgSend_cloudkit(REMLog);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             sub_10076E530(v19, v10, &v20, v12);
@@ -636,11 +636,12 @@ LABEL_18:
 - (id)recordName
 {
   selfCopy = self;
-  REMCDAccount.recordName()();
+  object = REMCDAccount.recordName()()._object;
 
-  v3 = String._bridgeToObjectiveC()();
+  v4 = String._bridgeToObjectiveC()();
+  object, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3;
+  return v4;
 }
 
 - (id)recordType
@@ -659,6 +660,8 @@ LABEL_18:
   contextCopy = context;
   v12 = static REMCDAccount.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -666,23 +669,25 @@ LABEL_18:
 {
   swift_getObjCClassMetadata();
   contextCopy = context;
-  static REMCDAccount.allCloudObjects(in:)(contextCopy);
+  v5 = static REMCDAccount.allCloudObjects(in:)(contextCopy);
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
-  return v5.super.isa;
+  return v6.super.isa;
 }
 
 + (id)allCloudObjectIDsInContext:(id)context
 {
   swift_getObjCClassMetadata();
   contextCopy = context;
-  static REMCDAccount.allCloudObjectIDs(in:)(contextCopy);
+  v5 = static REMCDAccount.allCloudObjectIDs(in:)(contextCopy);
 
   sub_1000060C8(0, &qword_100943230, NSManagedObjectID_ptr);
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
-  return v5.super.isa;
+  return v6.super.isa;
 }
 
 + (id)newCloudObjectForRecord:(id)record accountID:(id)d context:(id)context
@@ -695,6 +700,7 @@ LABEL_18:
   static REMCDAccount.newCloudObject(for:accountID:managedObjectContext:)(recordCopy, v7, v9, contextCopy);
   v13 = v12;
 
+  v9, v14, v15, v16, v17, v18, v19, v20;
   return v13;
 }
 
@@ -722,6 +728,8 @@ LABEL_18:
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDAccount.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (id)newlyCreatedRecord

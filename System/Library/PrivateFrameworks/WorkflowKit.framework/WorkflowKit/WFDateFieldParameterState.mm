@@ -17,7 +17,7 @@
   parameter = [contextCopy parameter];
   resultType = [parameter resultType];
 
-  if (([resultType isEqualToString:@"String"] & 1) != 0 || v13)
+  if ((objc_msgSend_isEqualToString_(resultType) & 1) != 0 || v13)
   {
     v30.receiver = self;
     v30.super_class = WFDateFieldParameterState;
@@ -26,12 +26,12 @@
 
   else
   {
-    v16 = [resultType isEqualToString:@"WFDetectedDate"];
+    isEqualToString = objc_msgSend_isEqualToString_(resultType);
     preprocessedDate = [(WFDateFieldParameterState *)self preprocessedDate];
 
     if (preprocessedDate)
     {
-      if (v16)
+      if (isEqualToString)
       {
         v18 = objc_alloc(MEMORY[0x1E6996DD0]);
         preprocessedDate2 = [(WFDateFieldParameterState *)self preprocessedDate];
@@ -57,7 +57,7 @@
         v27[3] = &unk_1E8378C50;
         v22 = &v28;
         v28 = valueHandlerCopy;
-        v29 = v16;
+        v29 = isEqualToString;
         [variableString2 processIntoContentItemsWithContext:contextCopy completionHandler:v27];
       }
 
@@ -68,7 +68,7 @@
         v24[1] = 3221225472;
         v24[2] = __86__WFDateFieldParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_3;
         v24[3] = &unk_1E8378C78;
-        v26 = v16;
+        v26 = isEqualToString;
         v22 = &v25;
         v25 = valueHandlerCopy;
         [variableString3 processWithContext:contextCopy completionHandler:v24];
@@ -153,12 +153,11 @@ void __86__WFDateFieldParameterState_processWithContext_userInputRequiredHandler
 
 + (id)processingValueClasses
 {
-  v5[3] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[3] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
 
   return v2;
 }

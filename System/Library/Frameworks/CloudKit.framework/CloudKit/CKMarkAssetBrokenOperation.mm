@@ -75,7 +75,7 @@
 - (void)setMarkAssetBrokenCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -106,7 +106,7 @@ LABEL_9:
 
 - (id)markAssetBrokenCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -242,7 +242,7 @@ LABEL_9:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -304,19 +304,19 @@ LABEL_9:
     v25 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v56 = v25;
-      v57 = objc_opt_class();
-      v58 = NSStringFromClass(v57);
-      v61 = objc_msgSend_ckShortDescription(self, v59, v60);
+      v55 = v25;
+      v56 = objc_opt_class();
+      v57 = NSStringFromClass(v56);
+      v60 = objc_msgSend_ckShortDescription(self, v58, v59);
       *buf = 138544130;
-      v64 = v58;
-      v65 = 2048;
+      v63 = v57;
+      v64 = 2048;
       selfCopy = self;
-      v67 = 2114;
-      v68 = v61;
-      v69 = 2112;
-      v70 = v19;
-      _os_log_debug_impl(&dword_1883EA000, v56, OS_LOG_TYPE_DEBUG, "Calling markAssetBrokenCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
+      v66 = 2114;
+      v67 = v60;
+      v68 = 2112;
+      v69 = v19;
+      _os_log_debug_impl(&dword_1883EA000, v55, OS_LOG_TYPE_DEBUG, "Calling markAssetBrokenCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
     }
 
     v28 = objc_msgSend_markAssetBrokenCompletionBlock(self, v26, v27);
@@ -343,16 +343,14 @@ LABEL_9:
     objc_msgSend_setObject_forKeyedSubscript_(v53, v54, v50, @"zoneNames");
   }
 
-  v62.receiver = self;
-  v62.super_class = CKMarkAssetBrokenOperation;
-  [(CKOperation *)&v62 _finishOnCallbackQueueWithError:errorCopy];
-
-  v55 = *MEMORY[0x1E69E9840];
+  v61.receiver = self;
+  v61.super_class = CKMarkAssetBrokenOperation;
+  [(CKOperation *)&v61 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -405,28 +403,26 @@ LABEL_9:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKMarkAssetBrokenOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKMarkAssetBrokenOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -470,13 +466,11 @@ LABEL_9:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKMarkAssetBrokenOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKMarkAssetBrokenOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

@@ -1,5 +1,6 @@
 @interface HDCodableMedicalIDData
 - (BOOL)isEqual:(id)equal;
+- (id)bloodTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -173,6 +174,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFF7FFFFFFFLL | v3);
+}
+
+- (id)bloodTypeAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27861A548[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBloodType:(id)type
@@ -599,7 +615,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   medicalIDBytes = self->_medicalIDBytes;
@@ -611,8 +627,8 @@
   has = self->_has;
   if ((*&has & 0x200) != 0)
   {
-    v80 = [MEMORY[0x277CCABB0] numberWithDouble:self->_dateSaved];
-    [v4 setObject:v80 forKey:@"dateSaved"];
+    v79 = [MEMORY[0x277CCABB0] numberWithDouble:self->_dateSaved];
+    [v4 setObject:v79 forKey:@"dateSaved"];
 
     has = self->_has;
     if ((*&has & 0x100000000) == 0)
@@ -632,8 +648,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v81 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_schemaVersion];
-  [v4 setObject:v81 forKey:@"schemaVersion"];
+  v80 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_schemaVersion];
+  [v4 setObject:v80 forKey:@"schemaVersion"];
 
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -648,8 +664,8 @@ LABEL_6:
   }
 
 LABEL_122:
-  v82 = [MEMORY[0x277CCABB0] numberWithBool:self->_isDisabled];
-  [v4 setObject:v82 forKey:@"isDisabled"];
+  v81 = [MEMORY[0x277CCABB0] numberWithBool:self->_isDisabled];
+  [v4 setObject:v81 forKey:@"isDisabled"];
 
   if ((*&self->_has & 0x2000) != 0)
   {
@@ -719,8 +735,8 @@ LABEL_8:
   v20 = self->_has;
   if ((*&v20 & 0x40000000) != 0)
   {
-    v83 = [MEMORY[0x277CCABB0] numberWithDouble:self->_weightModifiedDate];
-    [v4 setObject:v83 forKey:@"weightModifiedDate"];
+    v82 = [MEMORY[0x277CCABB0] numberWithDouble:self->_weightModifiedDate];
+    [v4 setObject:v82 forKey:@"weightModifiedDate"];
 
     v20 = self->_has;
     if ((*&v20 & 0x80000000) == 0)
@@ -743,15 +759,15 @@ LABEL_28:
   bloodType = self->_bloodType;
   if (bloodType >= 9)
   {
-    v85 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_bloodType];
+    v84 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_bloodType];
   }
 
   else
   {
-    v85 = off_27861A548[bloodType];
+    v84 = off_27861A548[bloodType];
   }
 
-  [v4 setObject:v85 forKey:@"bloodType"];
+  [v4 setObject:v84 forKey:@"bloodType"];
 
   v20 = self->_has;
   if ((*&v20 & 0x10) == 0)
@@ -766,8 +782,8 @@ LABEL_29:
   }
 
 LABEL_146:
-  v98 = [MEMORY[0x277CCABB0] numberWithDouble:self->_bloodTypeModifiedDate];
-  [v4 setObject:v98 forKey:@"bloodTypeModifiedDate"];
+  v97 = [MEMORY[0x277CCABB0] numberWithDouble:self->_bloodTypeModifiedDate];
+  [v4 setObject:v97 forKey:@"bloodTypeModifiedDate"];
 
   v20 = self->_has;
   if ((*&v20 & 0x4000) == 0)
@@ -782,8 +798,8 @@ LABEL_30:
   }
 
 LABEL_147:
-  v99 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_isOrganDonor];
-  [v4 setObject:v99 forKey:@"isOrganDonor"];
+  v98 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_isOrganDonor];
+  [v4 setObject:v98 forKey:@"isOrganDonor"];
 
   if ((*&self->_has & 0x8000) != 0)
   {
@@ -796,30 +812,30 @@ LABEL_32:
   if ([(NSMutableArray *)self->_emergencyContacts count])
   {
     v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_emergencyContacts, "count")}];
+    v115 = 0u;
     v116 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
     v23 = self->_emergencyContacts;
-    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v116 objects:v124 count:16];
+    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v115 objects:v123 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v117;
+      v26 = *v116;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v117 != v26)
+          if (*v116 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          dictionaryRepresentation4 = [*(*(&v116 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v115 + 1) + 8 * i) dictionaryRepresentation];
           [v22 addObject:dictionaryRepresentation4];
         }
 
-        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v116 objects:v124 count:16];
+        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v115 objects:v123 count:16];
       }
 
       while (v25);
@@ -837,30 +853,30 @@ LABEL_32:
   if ([(NSMutableArray *)self->_clinicalContacts count])
   {
     v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_clinicalContacts, "count")}];
+    v111 = 0u;
     v112 = 0u;
     v113 = 0u;
     v114 = 0u;
-    v115 = 0u;
     v31 = self->_clinicalContacts;
-    v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v112 objects:v123 count:16];
+    v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v111 objects:v122 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v113;
+      v34 = *v112;
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v113 != v34)
+          if (*v112 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          dictionaryRepresentation5 = [*(*(&v112 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v111 + 1) + 8 * j) dictionaryRepresentation];
           [v30 addObject:dictionaryRepresentation5];
         }
 
-        v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v112 objects:v123 count:16];
+        v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v111 objects:v122 count:16];
       }
 
       while (v33);
@@ -920,8 +936,8 @@ LABEL_32:
   v45 = self->_has;
   if ((*&v45 & 0x40000) != 0)
   {
-    v86 = [MEMORY[0x277CCABB0] numberWithDouble:self->_medicationInfoModifiedDate];
-    [v4 setObject:v86 forKey:@"medicationInfoModifiedDate"];
+    v85 = [MEMORY[0x277CCABB0] numberWithDouble:self->_medicationInfoModifiedDate];
+    [v4 setObject:v85 forKey:@"medicationInfoModifiedDate"];
 
     v45 = self->_has;
     if ((*&v45 & 0x400000000) == 0)
@@ -941,8 +957,8 @@ LABEL_70:
     goto LABEL_70;
   }
 
-  v87 = [MEMORY[0x277CCABB0] numberWithBool:self->_shareDuringEmergency];
-  [v4 setObject:v87 forKey:@"shareDuringEmergency"];
+  v86 = [MEMORY[0x277CCABB0] numberWithBool:self->_shareDuringEmergency];
+  [v4 setObject:v86 forKey:@"shareDuringEmergency"];
 
   if ((*&self->_has & 0x20000000) != 0)
   {
@@ -961,8 +977,8 @@ LABEL_72:
   v48 = self->_has;
   if ((*&v48 & 0x10000000) != 0)
   {
-    v88 = [MEMORY[0x277CCABB0] numberWithDouble:self->_primaryLanguageCodeModifiedDate];
-    [v4 setObject:v88 forKey:@"primaryLanguageCodeModifiedDate"];
+    v87 = [MEMORY[0x277CCABB0] numberWithDouble:self->_primaryLanguageCodeModifiedDate];
+    [v4 setObject:v87 forKey:@"primaryLanguageCodeModifiedDate"];
 
     v48 = self->_has;
     if ((*&v48 & 0x4000000) == 0)
@@ -982,8 +998,8 @@ LABEL_76:
     goto LABEL_76;
   }
 
-  v89 = [MEMORY[0x277CCABB0] numberWithDouble:self->_pregnancyStartDate];
-  [v4 setObject:v89 forKey:@"pregnancyStartDate"];
+  v88 = [MEMORY[0x277CCABB0] numberWithDouble:self->_pregnancyStartDate];
+  [v4 setObject:v88 forKey:@"pregnancyStartDate"];
 
   v48 = self->_has;
   if ((*&v48 & 0x8000000) == 0)
@@ -998,8 +1014,8 @@ LABEL_77:
   }
 
 LABEL_132:
-  v90 = [MEMORY[0x277CCABB0] numberWithDouble:self->_pregnancyStartDateModifiedDate];
-  [v4 setObject:v90 forKey:@"pregnancyStartDateModifiedDate"];
+  v89 = [MEMORY[0x277CCABB0] numberWithDouble:self->_pregnancyStartDateModifiedDate];
+  [v4 setObject:v89 forKey:@"pregnancyStartDateModifiedDate"];
 
   v48 = self->_has;
   if ((*&v48 & 0x1000000) == 0)
@@ -1014,8 +1030,8 @@ LABEL_78:
   }
 
 LABEL_133:
-  v91 = [MEMORY[0x277CCABB0] numberWithDouble:self->_pregnancyEstimatedDueDate];
-  [v4 setObject:v91 forKey:@"pregnancyEstimatedDueDate"];
+  v90 = [MEMORY[0x277CCABB0] numberWithDouble:self->_pregnancyEstimatedDueDate];
+  [v4 setObject:v90 forKey:@"pregnancyEstimatedDueDate"];
 
   if ((*&self->_has & 0x2000000) != 0)
   {
@@ -1028,30 +1044,30 @@ LABEL_80:
   if ([(NSMutableArray *)self->_medicationsLists count])
   {
     v50 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_medicationsLists, "count")}];
+    v107 = 0u;
     v108 = 0u;
     v109 = 0u;
     v110 = 0u;
-    v111 = 0u;
     v51 = self->_medicationsLists;
-    v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v108 objects:v122 count:16];
+    v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v107 objects:v121 count:16];
     if (v52)
     {
       v53 = v52;
-      v54 = *v109;
+      v54 = *v108;
       do
       {
         for (k = 0; k != v53; ++k)
         {
-          if (*v109 != v54)
+          if (*v108 != v54)
           {
             objc_enumerationMutation(v51);
           }
 
-          dictionaryRepresentation6 = [*(*(&v108 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v107 + 1) + 8 * k) dictionaryRepresentation];
           [v50 addObject:dictionaryRepresentation6];
         }
 
-        v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v108 objects:v122 count:16];
+        v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v107 objects:v121 count:16];
       }
 
       while (v53);
@@ -1063,8 +1079,8 @@ LABEL_80:
   v57 = self->_has;
   if ((*&v57 & 0x80000) != 0)
   {
-    v92 = [MEMORY[0x277CCABB0] numberWithDouble:self->_medicationsListModifiedDate];
-    [v4 setObject:v92 forKey:@"medicationsListModifiedDate"];
+    v91 = [MEMORY[0x277CCABB0] numberWithDouble:self->_medicationsListModifiedDate];
+    [v4 setObject:v91 forKey:@"medicationsListModifiedDate"];
 
     v57 = self->_has;
     if ((*&v57 & 0x100000) == 0)
@@ -1084,8 +1100,8 @@ LABEL_91:
     goto LABEL_91;
   }
 
-  v93 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_medicationsListVersion];
-  [v4 setObject:v93 forKey:@"medicationsListVersion"];
+  v92 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_medicationsListVersion];
+  [v4 setObject:v92 forKey:@"medicationsListVersion"];
 
   if ((*&self->_has & 0x200000) != 0)
   {
@@ -1098,30 +1114,30 @@ LABEL_93:
   if ([(NSMutableArray *)self->_allergiesLists count])
   {
     v59 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_allergiesLists, "count")}];
+    v103 = 0u;
     v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v107 = 0u;
     v60 = self->_allergiesLists;
-    v61 = [(NSMutableArray *)v60 countByEnumeratingWithState:&v104 objects:v121 count:16];
+    v61 = [(NSMutableArray *)v60 countByEnumeratingWithState:&v103 objects:v120 count:16];
     if (v61)
     {
       v62 = v61;
-      v63 = *v105;
+      v63 = *v104;
       do
       {
         for (m = 0; m != v62; ++m)
         {
-          if (*v105 != v63)
+          if (*v104 != v63)
           {
             objc_enumerationMutation(v60);
           }
 
-          dictionaryRepresentation7 = [*(*(&v104 + 1) + 8 * m) dictionaryRepresentation];
+          dictionaryRepresentation7 = [*(*(&v103 + 1) + 8 * m) dictionaryRepresentation];
           [v59 addObject:dictionaryRepresentation7];
         }
 
-        v62 = [(NSMutableArray *)v60 countByEnumeratingWithState:&v104 objects:v121 count:16];
+        v62 = [(NSMutableArray *)v60 countByEnumeratingWithState:&v103 objects:v120 count:16];
       }
 
       while (v62);
@@ -1133,8 +1149,8 @@ LABEL_93:
   v66 = self->_has;
   if (*&v66)
   {
-    v94 = [MEMORY[0x277CCABB0] numberWithDouble:self->_allergiesListModifiedDate];
-    [v4 setObject:v94 forKey:@"allergiesListModifiedDate"];
+    v93 = [MEMORY[0x277CCABB0] numberWithDouble:self->_allergiesListModifiedDate];
+    [v4 setObject:v93 forKey:@"allergiesListModifiedDate"];
 
     v66 = self->_has;
     if ((*&v66 & 2) == 0)
@@ -1154,8 +1170,8 @@ LABEL_104:
     goto LABEL_104;
   }
 
-  v95 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_allergiesListVersion];
-  [v4 setObject:v95 forKey:@"allergiesListVersion"];
+  v94 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_allergiesListVersion];
+  [v4 setObject:v94 forKey:@"allergiesListVersion"];
 
   if ((*&self->_has & 4) != 0)
   {
@@ -1168,30 +1184,30 @@ LABEL_106:
   if ([(NSMutableArray *)self->_conditionsLists count])
   {
     v68 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_conditionsLists, "count")}];
+    v99 = 0u;
     v100 = 0u;
     v101 = 0u;
     v102 = 0u;
-    v103 = 0u;
     v69 = self->_conditionsLists;
-    v70 = [(NSMutableArray *)v69 countByEnumeratingWithState:&v100 objects:v120 count:16];
+    v70 = [(NSMutableArray *)v69 countByEnumeratingWithState:&v99 objects:v119 count:16];
     if (v70)
     {
       v71 = v70;
-      v72 = *v101;
+      v72 = *v100;
       do
       {
         for (n = 0; n != v71; ++n)
         {
-          if (*v101 != v72)
+          if (*v100 != v72)
           {
             objc_enumerationMutation(v69);
           }
 
-          dictionaryRepresentation8 = [*(*(&v100 + 1) + 8 * n) dictionaryRepresentation];
+          dictionaryRepresentation8 = [*(*(&v99 + 1) + 8 * n) dictionaryRepresentation];
           [v68 addObject:dictionaryRepresentation8];
         }
 
-        v71 = [(NSMutableArray *)v69 countByEnumeratingWithState:&v100 objects:v120 count:16];
+        v71 = [(NSMutableArray *)v69 countByEnumeratingWithState:&v99 objects:v119 count:16];
       }
 
       while (v71);
@@ -1209,8 +1225,8 @@ LABEL_106:
     }
 
 LABEL_142:
-    v97 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_conditionsListVersion];
-    [v4 setObject:v97 forKey:@"conditionsListVersion"];
+    v96 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_conditionsListVersion];
+    [v4 setObject:v96 forKey:@"conditionsListVersion"];
 
     if ((*&self->_has & 0x100) == 0)
     {
@@ -1220,8 +1236,8 @@ LABEL_142:
     goto LABEL_118;
   }
 
-  v96 = [MEMORY[0x277CCABB0] numberWithDouble:self->_conditionsListModifiedDate];
-  [v4 setObject:v96 forKey:@"conditionsListModifiedDate"];
+  v95 = [MEMORY[0x277CCABB0] numberWithDouble:self->_conditionsListModifiedDate];
+  [v4 setObject:v95 forKey:@"conditionsListModifiedDate"];
 
   v75 = self->_has;
   if ((*&v75 & 0x80) != 0)
@@ -1240,13 +1256,12 @@ LABEL_118:
 LABEL_119:
   v77 = v4;
 
-  v78 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_medicalIDBytes)
   {
@@ -1256,7 +1271,6 @@ LABEL_119:
   has = self->_has;
   if ((*&has & 0x200) != 0)
   {
-    dateSaved = self->_dateSaved;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((*&has & 0x100000000) == 0)
@@ -1276,7 +1290,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  schemaVersion = self->_schemaVersion;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1291,12 +1304,10 @@ LABEL_6:
   }
 
 LABEL_112:
-  isDisabled = self->_isDisabled;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_7:
-    isDisabledModifiedDate = self->_isDisabledModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1308,7 +1319,6 @@ LABEL_8:
 
   if ((*(&self->_has + 2) & 0x80) != 0)
   {
-    pictureDataModifiedDate = self->_pictureDataModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1319,7 +1329,6 @@ LABEL_8:
 
   if ((*(&self->_has + 2) & 0x40) != 0)
   {
-    nameModifiedDate = self->_nameModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1330,7 +1339,6 @@ LABEL_8:
 
   if ((*(&self->_has + 1) & 8) != 0)
   {
-    gregorianBirthdayModifiedDate = self->_gregorianBirthdayModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1341,7 +1349,6 @@ LABEL_8:
 
   if ((*(&self->_has + 1) & 0x10) != 0)
   {
-    heightModifiedDate = self->_heightModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1350,16 +1357,15 @@ LABEL_8:
     PBDataWriterWriteSubmessage();
   }
 
-  v11 = self->_has;
-  if ((*&v11 & 0x40000000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40000000) != 0)
   {
-    weightModifiedDate = self->_weightModifiedDate;
     PBDataWriterWriteDoubleField();
-    v11 = self->_has;
-    if ((*&v11 & 0x80000000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x80000000) == 0)
     {
 LABEL_28:
-      if ((*&v11 & 0x10) == 0)
+      if ((*&v6 & 0x10) == 0)
       {
         goto LABEL_29;
       }
@@ -1368,18 +1374,17 @@ LABEL_28:
     }
   }
 
-  else if ((*&v11 & 0x80000000) == 0)
+  else if ((*&v6 & 0x80000000) == 0)
   {
     goto LABEL_28;
   }
 
-  bloodType = self->_bloodType;
   PBDataWriterWriteInt32Field();
-  v11 = self->_has;
-  if ((*&v11 & 0x10) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10) == 0)
   {
 LABEL_29:
-    if ((*&v11 & 0x4000) == 0)
+    if ((*&v6 & 0x4000) == 0)
     {
       goto LABEL_30;
     }
@@ -1388,13 +1393,12 @@ LABEL_29:
   }
 
 LABEL_116:
-  bloodTypeModifiedDate = self->_bloodTypeModifiedDate;
   PBDataWriterWriteDoubleField();
-  v11 = self->_has;
-  if ((*&v11 & 0x4000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_30:
-    if ((*&v11 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_32;
     }
@@ -1403,89 +1407,83 @@ LABEL_30:
   }
 
 LABEL_117:
-  isOrganDonor = self->_isOrganDonor;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_31:
-    isOrganDonorModifiedDate = self->_isOrganDonorModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_32:
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
-  v95 = 0u;
-  v13 = self->_emergencyContacts;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v94 objects:v102 count:16];
-  if (v14)
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v7 = self->_emergencyContacts;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
+  if (v8)
   {
-    v15 = v14;
-    v16 = *v95;
+    v9 = v8;
+    v10 = *v54;
     do
     {
-      v17 = 0;
+      v11 = 0;
       do
       {
-        if (*v95 != v16)
+        if (*v54 != v10)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v7);
         }
 
-        v18 = *(*(&v94 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v11;
       }
 
-      while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v94 objects:v102 count:16];
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
-    while (v15);
+    while (v9);
   }
 
   if ((*(&self->_has + 1) & 4) != 0)
   {
-    emergencyContactsModifiedDate = self->_emergencyContactsModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v20 = self->_clinicalContacts;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v90 objects:v101 count:16];
-  if (v21)
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v12 = self->_clinicalContacts;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v49 objects:v60 count:16];
+  if (v13)
   {
-    v22 = v21;
-    v23 = *v91;
+    v14 = v13;
+    v15 = *v50;
     do
     {
-      v24 = 0;
+      v16 = 0;
       do
       {
-        if (*v91 != v23)
+        if (*v50 != v15)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v12);
         }
 
-        v25 = *(*(&v90 + 1) + 8 * v24);
         PBDataWriterWriteSubmessage();
-        ++v24;
+        ++v16;
       }
 
-      while (v22 != v24);
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v90 objects:v101 count:16];
+      while (v14 != v16);
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v49 objects:v60 count:16];
     }
 
-    while (v22);
+    while (v14);
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    clinicalContactsModifiedDate = self->_clinicalContactsModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1496,7 +1494,6 @@ LABEL_32:
 
   if (*(&self->_has + 2))
   {
-    medicalConditionsModifiedDate = self->_medicalConditionsModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1507,7 +1504,6 @@ LABEL_32:
 
   if ((*(&self->_has + 2) & 2) != 0)
   {
-    medicalNotesModifiedDate = self->_medicalNotesModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1518,7 +1514,6 @@ LABEL_32:
 
   if ((*&self->_has & 8) != 0)
   {
-    allergyInfoModifiedDate = self->_allergyInfoModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1527,16 +1522,15 @@ LABEL_32:
     PBDataWriterWriteStringField();
   }
 
-  v30 = self->_has;
-  if ((*&v30 & 0x40000) != 0)
+  v17 = self->_has;
+  if ((*&v17 & 0x40000) != 0)
   {
-    medicationInfoModifiedDate = self->_medicationInfoModifiedDate;
     PBDataWriterWriteDoubleField();
-    v30 = self->_has;
-    if ((*&v30 & 0x400000000) == 0)
+    v17 = self->_has;
+    if ((*&v17 & 0x400000000) == 0)
     {
 LABEL_66:
-      if ((*&v30 & 0x20000000) == 0)
+      if ((*&v17 & 0x20000000) == 0)
       {
         goto LABEL_68;
       }
@@ -1545,17 +1539,15 @@ LABEL_66:
     }
   }
 
-  else if ((*&v30 & 0x400000000) == 0)
+  else if ((*&v17 & 0x400000000) == 0)
   {
     goto LABEL_66;
   }
 
-  shareDuringEmergency = self->_shareDuringEmergency;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20000000) != 0)
   {
 LABEL_67:
-    shareDuringEmergencyModifiedDate = self->_shareDuringEmergencyModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1565,16 +1557,15 @@ LABEL_68:
     PBDataWriterWriteStringField();
   }
 
-  v32 = self->_has;
-  if ((*&v32 & 0x10000000) != 0)
+  v18 = self->_has;
+  if ((*&v18 & 0x10000000) != 0)
   {
-    primaryLanguageCodeModifiedDate = self->_primaryLanguageCodeModifiedDate;
     PBDataWriterWriteDoubleField();
-    v32 = self->_has;
-    if ((*&v32 & 0x4000000) == 0)
+    v18 = self->_has;
+    if ((*&v18 & 0x4000000) == 0)
     {
 LABEL_72:
-      if ((*&v32 & 0x8000000) == 0)
+      if ((*&v18 & 0x8000000) == 0)
       {
         goto LABEL_73;
       }
@@ -1583,18 +1574,17 @@ LABEL_72:
     }
   }
 
-  else if ((*&v32 & 0x4000000) == 0)
+  else if ((*&v18 & 0x4000000) == 0)
   {
     goto LABEL_72;
   }
 
-  pregnancyStartDate = self->_pregnancyStartDate;
   PBDataWriterWriteDoubleField();
-  v32 = self->_has;
-  if ((*&v32 & 0x8000000) == 0)
+  v18 = self->_has;
+  if ((*&v18 & 0x8000000) == 0)
   {
 LABEL_73:
-    if ((*&v32 & 0x1000000) == 0)
+    if ((*&v18 & 0x1000000) == 0)
     {
       goto LABEL_74;
     }
@@ -1603,13 +1593,12 @@ LABEL_73:
   }
 
 LABEL_124:
-  pregnancyStartDateModifiedDate = self->_pregnancyStartDateModifiedDate;
   PBDataWriterWriteDoubleField();
-  v32 = self->_has;
-  if ((*&v32 & 0x1000000) == 0)
+  v18 = self->_has;
+  if ((*&v18 & 0x1000000) == 0)
   {
 LABEL_74:
-    if ((*&v32 & 0x2000000) == 0)
+    if ((*&v18 & 0x2000000) == 0)
     {
       goto LABEL_76;
     }
@@ -1618,58 +1607,54 @@ LABEL_74:
   }
 
 LABEL_125:
-  pregnancyEstimatedDueDate = self->_pregnancyEstimatedDueDate;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x2000000) != 0)
   {
 LABEL_75:
-    pregnancyEstimatedDueDateModifiedDate = self->_pregnancyEstimatedDueDateModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_76:
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v34 = self->_medicationsLists;
-  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v86 objects:v100 count:16];
-  if (v35)
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v19 = self->_medicationsLists;
+  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v45 objects:v59 count:16];
+  if (v20)
   {
-    v36 = v35;
-    v37 = *v87;
+    v21 = v20;
+    v22 = *v46;
     do
     {
-      v38 = 0;
+      v23 = 0;
       do
       {
-        if (*v87 != v37)
+        if (*v46 != v22)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v19);
         }
 
-        v39 = *(*(&v86 + 1) + 8 * v38);
         PBDataWriterWriteSubmessage();
-        ++v38;
+        ++v23;
       }
 
-      while (v36 != v38);
-      v36 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v86 objects:v100 count:16];
+      while (v21 != v23);
+      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v45 objects:v59 count:16];
     }
 
-    while (v36);
+    while (v21);
   }
 
-  v40 = self->_has;
-  if ((*&v40 & 0x80000) != 0)
+  v24 = self->_has;
+  if ((*&v24 & 0x80000) != 0)
   {
-    medicationsListModifiedDate = self->_medicationsListModifiedDate;
     PBDataWriterWriteDoubleField();
-    v40 = self->_has;
-    if ((*&v40 & 0x100000) == 0)
+    v24 = self->_has;
+    if ((*&v24 & 0x100000) == 0)
     {
 LABEL_85:
-      if ((*&v40 & 0x200000) == 0)
+      if ((*&v24 & 0x200000) == 0)
       {
         goto LABEL_87;
       }
@@ -1678,63 +1663,59 @@ LABEL_85:
     }
   }
 
-  else if ((*&v40 & 0x100000) == 0)
+  else if ((*&v24 & 0x100000) == 0)
   {
     goto LABEL_85;
   }
 
-  medicationsListVersion = self->_medicationsListVersion;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x200000) != 0)
   {
 LABEL_86:
-    medicationsListVersionModifiedDate = self->_medicationsListVersionModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_87:
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v42 = self->_allergiesLists;
-  v43 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v82 objects:v99 count:16];
-  if (v43)
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v25 = self->_allergiesLists;
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v41 objects:v58 count:16];
+  if (v26)
   {
-    v44 = v43;
-    v45 = *v83;
+    v27 = v26;
+    v28 = *v42;
     do
     {
-      v46 = 0;
+      v29 = 0;
       do
       {
-        if (*v83 != v45)
+        if (*v42 != v28)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v25);
         }
 
-        v47 = *(*(&v82 + 1) + 8 * v46);
         PBDataWriterWriteSubmessage();
-        ++v46;
+        ++v29;
       }
 
-      while (v44 != v46);
-      v44 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v82 objects:v99 count:16];
+      while (v27 != v29);
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v41 objects:v58 count:16];
     }
 
-    while (v44);
+    while (v27);
   }
 
-  v48 = self->_has;
-  if (*&v48)
+  v30 = self->_has;
+  if (*&v30)
   {
-    allergiesListModifiedDate = self->_allergiesListModifiedDate;
     PBDataWriterWriteDoubleField();
-    v48 = self->_has;
-    if ((*&v48 & 2) == 0)
+    v30 = self->_has;
+    if ((*&v30 & 2) == 0)
     {
 LABEL_96:
-      if ((*&v48 & 4) == 0)
+      if ((*&v30 & 4) == 0)
       {
         goto LABEL_98;
       }
@@ -1743,63 +1724,59 @@ LABEL_96:
     }
   }
 
-  else if ((*&v48 & 2) == 0)
+  else if ((*&v30 & 2) == 0)
   {
     goto LABEL_96;
   }
 
-  allergiesListVersion = self->_allergiesListVersion;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_97:
-    allergiesListVersionModifiedDate = self->_allergiesListVersionModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_98:
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v50 = self->_conditionsLists;
-  v51 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v78 objects:v98 count:16];
-  if (v51)
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v31 = self->_conditionsLists;
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v37 objects:v57 count:16];
+  if (v32)
   {
-    v52 = v51;
-    v53 = *v79;
+    v33 = v32;
+    v34 = *v38;
     do
     {
-      v54 = 0;
+      v35 = 0;
       do
       {
-        if (*v79 != v53)
+        if (*v38 != v34)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v31);
         }
 
-        v55 = *(*(&v78 + 1) + 8 * v54);
         PBDataWriterWriteSubmessage();
-        ++v54;
+        ++v35;
       }
 
-      while (v52 != v54);
-      v52 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v78 objects:v98 count:16];
+      while (v33 != v35);
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v37 objects:v57 count:16];
     }
 
-    while (v52);
+    while (v33);
   }
 
-  v56 = self->_has;
-  if ((*&v56 & 0x40) == 0)
+  v36 = self->_has;
+  if ((*&v36 & 0x40) == 0)
   {
-    if ((*&v56 & 0x80) == 0)
+    if ((*&v36 & 0x80) == 0)
     {
       goto LABEL_107;
     }
 
 LABEL_134:
-    conditionsListVersion = self->_conditionsListVersion;
     PBDataWriterWriteInt64Field();
     if ((*&self->_has & 0x100) == 0)
     {
@@ -1809,25 +1786,21 @@ LABEL_134:
     goto LABEL_108;
   }
 
-  conditionsListModifiedDate = self->_conditionsListModifiedDate;
   PBDataWriterWriteDoubleField();
-  v56 = self->_has;
-  if ((*&v56 & 0x80) != 0)
+  v36 = self->_has;
+  if ((*&v36 & 0x80) != 0)
   {
     goto LABEL_134;
   }
 
 LABEL_107:
-  if ((*&v56 & 0x100) != 0)
+  if ((*&v36 & 0x100) != 0)
   {
 LABEL_108:
-    conditionsListVersionModifiedDate = self->_conditionsListVersionModifiedDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_109:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -2346,7 +2319,7 @@ LABEL_94:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_medicalIDBytes copyWithZone:zone];
   v7 = *(v5 + 328);
@@ -2507,34 +2480,34 @@ LABEL_19:
   }
 
 LABEL_20:
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
   v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   v20 = self->_emergencyContacts;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v84 objects:v92 count:16];
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v83 objects:v91 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v85;
+    v23 = *v84;
     do
     {
       v24 = 0;
       do
       {
-        if (*v85 != v23)
+        if (*v84 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [*(*(&v84 + 1) + 8 * v24) copyWithZone:zone];
+        v25 = [*(*(&v83 + 1) + 8 * v24) copyWithZone:zone];
         [v5 addEmergencyContacts:v25];
 
         ++v24;
       }
 
       while (v22 != v24);
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v84 objects:v92 count:16];
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v83 objects:v91 count:16];
     }
 
     while (v22);
@@ -2546,34 +2519,34 @@ LABEL_20:
     *(v5 + 404) |= 0x400uLL;
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v26 = self->_clinicalContacts;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v79 objects:v90 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v81;
+    v29 = *v80;
     do
     {
       v30 = 0;
       do
       {
-        if (*v81 != v29)
+        if (*v80 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = [*(*(&v80 + 1) + 8 * v30) copyWithZone:zone];
+        v31 = [*(*(&v79 + 1) + 8 * v30) copyWithZone:zone];
         [v5 addClinicalContacts:v31];
 
         ++v30;
       }
 
       while (v28 != v30);
-      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v80 objects:v91 count:16];
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v79 objects:v90 count:16];
     }
 
     while (v28);
@@ -2719,34 +2692,34 @@ LABEL_53:
   }
 
 LABEL_54:
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v44 = self->_medicationsLists;
-  v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v76 objects:v90 count:16];
+  v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v75 objects:v89 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v77;
+    v47 = *v76;
     do
     {
       v48 = 0;
       do
       {
-        if (*v77 != v47)
+        if (*v76 != v47)
         {
           objc_enumerationMutation(v44);
         }
 
-        v49 = [*(*(&v76 + 1) + 8 * v48) copyWithZone:zone];
+        v49 = [*(*(&v75 + 1) + 8 * v48) copyWithZone:zone];
         [v5 addMedicationsList:v49];
 
         ++v48;
       }
 
       while (v46 != v48);
-      v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v76 objects:v90 count:16];
+      v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v75 objects:v89 count:16];
     }
 
     while (v46);
@@ -2785,34 +2758,34 @@ LABEL_64:
   }
 
 LABEL_65:
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v51 = self->_allergiesLists;
-  v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v72 objects:v89 count:16];
+  v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v71 objects:v88 count:16];
   if (v52)
   {
     v53 = v52;
-    v54 = *v73;
+    v54 = *v72;
     do
     {
       v55 = 0;
       do
       {
-        if (*v73 != v54)
+        if (*v72 != v54)
         {
           objc_enumerationMutation(v51);
         }
 
-        v56 = [*(*(&v72 + 1) + 8 * v55) copyWithZone:zone];
+        v56 = [*(*(&v71 + 1) + 8 * v55) copyWithZone:zone];
         [v5 addAllergiesList:v56];
 
         ++v55;
       }
 
       while (v53 != v55);
-      v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v72 objects:v89 count:16];
+      v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v71 objects:v88 count:16];
     }
 
     while (v53);
@@ -2851,34 +2824,34 @@ LABEL_75:
   }
 
 LABEL_76:
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v58 = self->_conditionsLists;
-  v59 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v68 objects:v88 count:16];
+  v59 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v67 objects:v87 count:16];
   if (v59)
   {
     v60 = v59;
-    v61 = *v69;
+    v61 = *v68;
     do
     {
       v62 = 0;
       do
       {
-        if (*v69 != v61)
+        if (*v68 != v61)
         {
           objc_enumerationMutation(v58);
         }
 
-        v63 = [*(*(&v68 + 1) + 8 * v62) copyWithZone:{zone, v68}];
+        v63 = [*(*(&v67 + 1) + 8 * v62) copyWithZone:{zone, v67}];
         [v5 addConditionsList:v63];
 
         ++v62;
       }
 
       while (v60 != v62);
-      v60 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v68 objects:v88 count:16];
+      v60 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v67 objects:v87 count:16];
     }
 
     while (v60);
@@ -2922,7 +2895,6 @@ LABEL_86:
 LABEL_87:
   v65 = v5;
 
-  v66 = *MEMORY[0x277D85DE8];
   return v65;
 }
 
@@ -2978,7 +2950,6 @@ LABEL_87:
       goto LABEL_230;
     }
 
-    v8 = equalCopy[400];
     if (self->_isDisabled)
     {
       if ((equalCopy[400] & 1) == 0)
@@ -3345,7 +3316,6 @@ LABEL_87:
       goto LABEL_230;
     }
 
-    v20 = equalCopy[401];
     if (self->_shareDuringEmergency)
     {
       if ((equalCopy[401] & 1) == 0)
@@ -3568,7 +3538,7 @@ LABEL_87:
     }
 
 LABEL_230:
-    v25 = 0;
+    v23 = 0;
     goto LABEL_231;
   }
 
@@ -3606,17 +3576,17 @@ LABEL_215:
       goto LABEL_230;
     }
 
-    v25 = 1;
+    v23 = 1;
   }
 
   else
   {
-    v25 = (v7 & 0x100) == 0;
+    v23 = (v7 & 0x100) == 0;
   }
 
 LABEL_231:
 
-  return v25;
+  return v23;
 }
 
 - (unint64_t)hash
@@ -4675,7 +4645,7 @@ LABEL_229:
 
 - (void)mergeFrom:(id)from
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 41))
   {
@@ -4872,29 +4842,29 @@ LABEL_44:
   }
 
 LABEL_45:
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v13 = *(fromCopy + 37);
-  v14 = [v13 countByEnumeratingWithState:&v60 objects:v68 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v59 objects:v67 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v61;
+    v16 = *v60;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v61 != v16)
+        if (*v60 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(HDCodableMedicalIDData *)self addEmergencyContacts:*(*(&v60 + 1) + 8 * i)];
+        [(HDCodableMedicalIDData *)self addEmergencyContacts:*(*(&v59 + 1) + 8 * i)];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v59 objects:v67 count:16];
     }
 
     while (v15);
@@ -4906,29 +4876,29 @@ LABEL_45:
     *&self->_has |= 0x400uLL;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v18 = *(fromCopy + 35);
-  v19 = [v18 countByEnumeratingWithState:&v56 objects:v67 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v55 objects:v66 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v57;
+    v21 = *v56;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v57 != v21)
+        if (*v56 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [(HDCodableMedicalIDData *)self addClinicalContacts:*(*(&v56 + 1) + 8 * j)];
+        [(HDCodableMedicalIDData *)self addClinicalContacts:*(*(&v55 + 1) + 8 * j)];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v56 objects:v67 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v55 objects:v66 count:16];
     }
 
     while (v20);
@@ -5079,29 +5049,29 @@ LABEL_88:
   }
 
 LABEL_89:
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v25 = *(fromCopy + 44);
-  v26 = [v25 countByEnumeratingWithState:&v52 objects:v66 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v51 objects:v65 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v53;
+    v28 = *v52;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v53 != v28)
+        if (*v52 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        [(HDCodableMedicalIDData *)self addMedicationsList:*(*(&v52 + 1) + 8 * k)];
+        [(HDCodableMedicalIDData *)self addMedicationsList:*(*(&v51 + 1) + 8 * k)];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v52 objects:v66 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v51 objects:v65 count:16];
     }
 
     while (v27);
@@ -5140,29 +5110,29 @@ LABEL_99:
   }
 
 LABEL_100:
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v31 = *(fromCopy + 32);
-  v32 = [v31 countByEnumeratingWithState:&v48 objects:v65 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v47 objects:v64 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v49;
+    v34 = *v48;
     do
     {
       for (m = 0; m != v33; ++m)
       {
-        if (*v49 != v34)
+        if (*v48 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        [(HDCodableMedicalIDData *)self addAllergiesList:*(*(&v48 + 1) + 8 * m)];
+        [(HDCodableMedicalIDData *)self addAllergiesList:*(*(&v47 + 1) + 8 * m)];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v48 objects:v65 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v47 objects:v64 count:16];
     }
 
     while (v33);
@@ -5201,29 +5171,29 @@ LABEL_110:
   }
 
 LABEL_111:
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v37 = *(fromCopy + 36);
-  v38 = [v37 countByEnumeratingWithState:&v44 objects:v64 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v43 objects:v63 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v45;
+    v40 = *v44;
     do
     {
       for (n = 0; n != v39; ++n)
       {
-        if (*v45 != v40)
+        if (*v44 != v40)
         {
           objc_enumerationMutation(v37);
         }
 
-        [(HDCodableMedicalIDData *)self addConditionsList:*(*(&v44 + 1) + 8 * n), v44];
+        [(HDCodableMedicalIDData *)self addConditionsList:*(*(&v43 + 1) + 8 * n), v43];
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v44 objects:v64 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v43 objects:v63 count:16];
     }
 
     while (v39);
@@ -5265,8 +5235,6 @@ LABEL_121:
   }
 
 LABEL_122:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 @end

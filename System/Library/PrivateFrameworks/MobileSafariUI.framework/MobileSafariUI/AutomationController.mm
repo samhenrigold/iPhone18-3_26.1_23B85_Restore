@@ -107,24 +107,24 @@
 
 - (void)updatePreferencesForAutomation:(id)automation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   automationCopy = automation;
   [automationCopy setFraudulentWebsiteWarningEnabled:0];
   [automationCopy setElementFullscreenEnabled:1];
   [automationCopy _setVideoQualityIncludesDisplayCompositingEnabled:1];
   [automationCopy _setMockCaptureDevicesEnabled:1];
-  [automationCopy _setMockCaptureDevicesPromptEnabled:0];
+  v5 = [automationCopy _setMockCaptureDevicesPromptEnabled:0];
   if (self->_provisionalSessionConfiguration)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = WBS_LOG_CHANNEL_PREFIXWebDriver(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(AutomationController *)[(_WKAutomationSessionConfiguration *)self->_provisionalSessionConfiguration allowsInsecureMediaCapture] updatePreferencesForAutomation:v8];
+      [(AutomationController *)[(_WKAutomationSessionConfiguration *)self->_provisionalSessionConfiguration allowsInsecureMediaCapture] updatePreferencesForAutomation:v12];
     }
 
-    [automationCopy _setMediaCaptureRequiresSecureConnection:{-[_WKAutomationSessionConfiguration allowsInsecureMediaCapture](self->_provisionalSessionConfiguration, "allowsInsecureMediaCapture") ^ 1}];
-    v6 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = [automationCopy _setMediaCaptureRequiresSecureConnection:{-[_WKAutomationSessionConfiguration allowsInsecureMediaCapture](self->_provisionalSessionConfiguration, "allowsInsecureMediaCapture") ^ 1}];
+    v10 = WBS_LOG_CHANNEL_PREFIXWebDriver(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [(AutomationController *)[(_WKAutomationSessionConfiguration *)self->_provisionalSessionConfiguration suppressesICECandidateFiltering] updatePreferencesForAutomation:?];
     }
@@ -142,60 +142,61 @@
 
 - (void)createAutomationSessionWithIdentifier:(id)identifier configuration:(id)configuration retryBehavior:(int64_t)behavior
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   configurationCopy = configuration;
-  if ([(_SFAutomationController *)self allowsRemoteAutomation])
+  allowsRemoteAutomation = [(_SFAutomationController *)self allowsRemoteAutomation];
+  if (allowsRemoteAutomation)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXWebDriver(allowsRemoteAutomation, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v36 = identifierCopy;
-      _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_DEFAULT, "Checking if a new session (%{public}@) can be created.", buf, 0xCu);
+      v42 = identifierCopy;
+      _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_DEFAULT, "Checking if a new session (%{public}@) can be created.", buf, 0xCu);
     }
 
-    v11 = MEMORY[0x277D4A710];
+    v13 = MEMORY[0x277D4A710];
     automationSession = [(AutomationController *)self automationSession];
-    v13 = [v11 canCreateSessionWithExistingSession:automationSession retryBehavior:behavior];
+    v15 = [v13 canCreateSessionWithExistingSession:automationSession retryBehavior:behavior];
 
-    switch(v13)
+    switch(v15)
     {
       case 1:
-        v18 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v22 = WBS_LOG_CHANNEL_PREFIXWebDriver(v16, v17);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           automationSession2 = [(AutomationController *)self automationSession];
           sessionIdentifier = [automationSession2 sessionIdentifier];
           *buf = 138543618;
-          v36 = sessionIdentifier;
-          v37 = 2114;
-          v38 = identifierCopy;
-          _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_DEFAULT, "Terminating unpaired session (%{public}@) so new session request (%{public}@) can be fulfilled.", buf, 0x16u);
+          v42 = sessionIdentifier;
+          v43 = 2114;
+          v44 = identifierCopy;
+          _os_log_impl(&dword_215819000, v22, OS_LOG_TYPE_DEFAULT, "Terminating unpaired session (%{public}@) so new session request (%{public}@) can be fulfilled.", buf, 0x16u);
         }
 
         [(AutomationController *)self terminateSession];
         break;
       case 2:
-        v14 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v18 = WBS_LOG_CHANNEL_PREFIXWebDriver(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134349056;
-          v36 = 1;
-          _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_DEFAULT, "Waiting %{public}lld seconds and trying session creation again.", buf, 0xCu);
+          v42 = 1;
+          _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_DEFAULT, "Waiting %{public}lld seconds and trying session creation again.", buf, 0xCu);
         }
 
-        v15 = dispatch_time(0, 1000000000);
+        v19 = dispatch_time(0, 1000000000);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke;
         block[3] = &unk_2781D6AC0;
         block[4] = self;
-        v16 = &v33;
-        v33 = identifierCopy;
-        v17 = &v34;
-        v34 = configurationCopy;
-        dispatch_after(v15, MEMORY[0x277D85CD0], block);
+        v20 = &v39;
+        v39 = identifierCopy;
+        v21 = &v40;
+        v40 = configurationCopy;
+        dispatch_after(v19, MEMORY[0x277D85CD0], block);
         goto LABEL_20;
       case 3:
         goto LABEL_21;
@@ -206,42 +207,42 @@
     aBlock[2] = __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_2;
     aBlock[3] = &unk_2781D6AC0;
     aBlock[4] = self;
-    v30 = configurationCopy;
-    v31 = identifierCopy;
-    v21 = _Block_copy(aBlock);
+    v36 = configurationCopy;
+    v37 = identifierCopy;
+    v25 = _Block_copy(aBlock);
     currentlyActiveSession = [MEMORY[0x277D751B8] currentlyActiveSession];
-    v23 = currentlyActiveSession == 0;
+    v27 = currentlyActiveSession == 0;
 
-    if (v23)
+    if (v27)
     {
-      v25 = [MEMORY[0x277D751B0] defaultConfigurationForStyle:3];
-      [v25 setAllowsAutoLock:0];
-      [v25 setAllowsLockButton:1];
-      [v25 setAutomaticallyRelaunchesAfterAppCrash:0];
-      v26 = MEMORY[0x277D751B8];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_55;
-      v27[3] = &unk_2781D7608;
-      v27[4] = self;
-      v28 = v21;
-      [v26 requestSessionWithConfiguration:v25 completion:v27];
+      v31 = [MEMORY[0x277D751B0] defaultConfigurationForStyle:3];
+      [v31 setAllowsAutoLock:0];
+      [v31 setAllowsLockButton:1];
+      [v31 setAutomaticallyRelaunchesAfterAppCrash:0];
+      v32 = MEMORY[0x277D751B8];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_55;
+      v33[3] = &unk_2781D7608;
+      v33[4] = self;
+      v34 = v25;
+      [v32 requestSessionWithConfiguration:v31 completion:v33];
     }
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v30 = WBS_LOG_CHANNEL_PREFIXWebDriver(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_215819000, v24, OS_LOG_TYPE_DEFAULT, "Skipped starting Guided Access session used for WebDriver, ASAM session already active.", buf, 2u);
+        _os_log_impl(&dword_215819000, v30, OS_LOG_TYPE_DEFAULT, "Skipped starting Guided Access session used for WebDriver, ASAM session already active.", buf, 2u);
       }
 
-      v21[2](v21);
+      v25[2](v25);
     }
 
-    v16 = &v30;
-    v17 = &v31;
+    v20 = &v36;
+    v21 = &v37;
 LABEL_20:
   }
 
@@ -266,7 +267,7 @@ void __90__AutomationController_createAutomationSessionWithIdentifier_configurat
 
 void __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(v4 + 40);
@@ -274,11 +275,11 @@ void __90__AutomationController_createAutomationSessionWithIdentifier_configurat
 
   if (v3)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXWebDriver(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v7 = [v3 safari_privacyPreservingDescription];
-      __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_3_cold_1(v7, v13, v6);
+      v9 = [v3 safari_privacyPreservingDescription];
+      __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_3_cold_1(v9, v15, v8);
     }
 
     [*(a1 + 32) _uninstallGuidedAccessSession];
@@ -286,45 +287,45 @@ void __90__AutomationController_createAutomationSessionWithIdentifier_configurat
 
   else
   {
-    v8 = objc_alloc_init(MEMORY[0x277D54C30]);
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 24);
-    *(v9 + 24) = v8;
+    v10 = objc_alloc_init(MEMORY[0x277D54C30]);
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 24);
+    *(v11 + 24) = v10;
 
     [*(*(a1 + 32) + 24) activateAssertionWithIdentifier:@"com.apple.sharing.PreventProxCards"];
-    v11 = [objc_alloc(MEMORY[0x277CE3878]) initWithConfiguration:*(a1 + 40)];
-    [v11 setDelegate:*(a1 + 32)];
-    [v11 setSessionIdentifier:*(a1 + 48)];
-    objc_storeStrong((*(a1 + 32) + 48), v11);
-    v12 = [*(a1 + 32) processPool];
-    [v12 _setAutomationSession:v11];
+    v13 = [objc_alloc(MEMORY[0x277CE3878]) initWithConfiguration:*(a1 + 40)];
+    [v13 setDelegate:*(a1 + 32)];
+    [v13 setSessionIdentifier:*(a1 + 48)];
+    objc_storeStrong((*(a1 + 32) + 48), v13);
+    v14 = [*(a1 + 32) processPool];
+    [v14 _setAutomationSession:v13];
   }
 }
 
 void __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_55(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (v5 || !v6)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXWebDriver(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v10 = [v5 safari_privacyPreservingDescription];
-      __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_55_cold_1(v10, v11, v9);
+      v13 = [v5 safari_privacyPreservingDescription];
+      __90__AutomationController_createAutomationSessionWithIdentifier_configuration_retryBehavior___block_invoke_55_cold_1(v13, v14, v12);
     }
   }
 
   else
   {
     objc_storeStrong((*(a1 + 32) + 32), a3);
-    v8 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = WBS_LOG_CHANNEL_PREFIXWebDriver(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Successfully started Guided Access session used for WebDriver.", v11, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Successfully started Guided Access session used for WebDriver.", v14, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -362,25 +363,26 @@ void __90__AutomationController_createAutomationSessionWithIdentifier_configurat
 
 void __53__AutomationController__uninstallGuidedAccessSession__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXWebDriver(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v4 = [v2 safari_privacyPreservingDescription];
-      __53__AutomationController__uninstallGuidedAccessSession__block_invoke_cold_1(v4, v6, v3);
+      v6 = [v4 safari_privacyPreservingDescription];
+      __53__AutomationController__uninstallGuidedAccessSession__block_invoke_cold_1(v6, v8, v5);
     }
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXWebDriver();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXWebDriver(0, v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Successfully ended Guided Access session used for WebDriver.", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Successfully ended Guided Access session used for WebDriver.", v8, 2u);
     }
   }
 }

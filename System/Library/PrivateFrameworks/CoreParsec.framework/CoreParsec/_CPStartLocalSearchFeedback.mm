@@ -216,7 +216,6 @@ LABEL_33:
   to;
   if ([(_CPStartLocalSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -224,7 +223,6 @@ LABEL_33:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
@@ -232,31 +230,26 @@ LABEL_33:
 
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self queryId])
   {
-    queryId = self->_queryId;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self indexType])
   {
-    indexType = self->_indexType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self searchType])
   {
-    searchType = self->_searchType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -264,7 +257,6 @@ LABEL_33:
 
   if (originatingApp)
   {
-    originatingApp = self->_originatingApp;
     PBDataWriterWriteStringField();
   }
 
@@ -286,31 +278,26 @@ LABEL_33:
 
   if ([(_CPStartLocalSearchFeedback *)self coreSpotlightIndexUsed])
   {
-    coreSpotlightIndexUsed = self->_coreSpotlightIndexUsed;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self isPhotosScopedSearch])
   {
-    isPhotosScopedSearch = self->_isPhotosScopedSearch;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self isSemanticSearchEligible])
   {
-    isSemanticSearchEligible = self->_isSemanticSearchEligible;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self spotlightInitialPageType])
   {
-    spotlightInitialPageType = self->_spotlightInitialPageType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartLocalSearchFeedback *)self spotlightBrowsingSearchScope])
   {
-    spotlightBrowsingSearchScope = self->_spotlightBrowsingSearchScope;
     PBDataWriterWriteInt32Field();
   }
 

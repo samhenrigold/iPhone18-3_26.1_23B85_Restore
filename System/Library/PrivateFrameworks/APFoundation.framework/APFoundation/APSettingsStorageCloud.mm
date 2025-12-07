@@ -13,27 +13,26 @@
 
 - (APSettingsStorageCloud)initWithDefaultValues:(id)values
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"initWithDefaultValues: is not available on APSettingsStorageCloud. Please use initWithDefaultValues:shouldUseLocalPersistance:forSubclass: instead.", v3);
   v6 = APLogForCategory(0x2FuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_ERROR, "Error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_ERROR, "Error: %{public}@", &v8, 0xCu);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (APSettingsStorageCloud)initWithDefaultValues:(id)values shouldUseLocalPersistance:(BOOL)persistance forSubclass:(Class)subclass
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
-  v75.receiver = self;
-  v75.super_class = APSettingsStorageCloud;
-  v11 = [(APSettingsStorageCloud *)&v75 init];
+  v74.receiver = self;
+  v74.super_class = APSettingsStorageCloud;
+  v11 = [(APSettingsStorageCloud *)&v74 init];
   if (v11)
   {
     v12 = objc_msgSend_copy(valuesCopy, v8, v9, v10);
@@ -75,16 +74,16 @@
 
     v49 = objc_alloc_init(APStorageManager);
     v50 = v11->_settingsClassNameForEFS;
-    v74 = 0;
-    v52 = objc_msgSend_fileExistsAtPath_error_(v49, v51, v50, &v74);
-    v53 = v74;
+    v73 = 0;
+    v52 = objc_msgSend_fileExistsAtPath_error_(v49, v51, v50, &v73);
+    v53 = v73;
     if (v53)
     {
       v54 = APLogForCategory(0x2FuLL);
       if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v77 = v53;
+        v76 = v53;
         _os_log_impl(&dword_1BADC1000, v54, OS_LOG_TYPE_ERROR, "Error finding local cloud object: %{public}@", buf, 0xCu);
       }
     }
@@ -92,9 +91,9 @@
     if (v52)
     {
       v58 = v11->_settingsClassNameForEFS;
-      v72 = 0;
-      v59 = objc_msgSend_objectStoredAtPath_error_(v49, v55, v58, &v72);
-      v60 = v72;
+      v71 = 0;
+      v59 = objc_msgSend_objectStoredAtPath_error_(v49, v55, v58, &v71);
+      v60 = v71;
       v64 = objc_msgSend_mutableCopy(v59, v61, v62, v63);
       v65 = v11->_cloudStore;
       v11->_cloudStore = v64;
@@ -105,7 +104,7 @@
         if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v77 = v60;
+          v76 = v60;
           _os_log_impl(&dword_1BADC1000, v66, OS_LOG_TYPE_ERROR, "Error finding EFS Settings object: %{public}@", buf, 0xCu);
         }
       }
@@ -115,9 +114,9 @@
     {
       v67 = objc_msgSend_copy(v11->_cloudStore, v55, v56, v57);
       v68 = v11->_settingsClassNameForEFS;
-      v73 = 0;
-      objc_msgSend_storeObject_atPath_error_(v49, v69, v67, v68, &v73);
-      v60 = v73;
+      v72 = 0;
+      objc_msgSend_storeObject_atPath_error_(v49, v69, v67, v68, &v72);
+      v60 = v72;
 
       if (!v60)
       {
@@ -133,7 +132,7 @@ LABEL_19:
       if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v77 = v60;
+        v76 = v60;
         _os_log_impl(&dword_1BADC1000, v59, OS_LOG_TYPE_ERROR, "Error storing local cloud object: %{public}@", buf, 0xCu);
       }
     }
@@ -143,7 +142,6 @@ LABEL_19:
 
 LABEL_20:
 
-  v70 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -161,15 +159,15 @@ LABEL_20:
 
 - (void)persistLocallyIfNeeded
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_useLocalPersistance(self, a2, v2, v3))
   {
     v5 = objc_alloc_init(APStorageManager);
     v9 = objc_msgSend_cloudStore(self, v6, v7, v8);
     v13 = objc_msgSend_settingsClassNameForEFS(self, v10, v11, v12);
-    v18 = 0;
-    objc_msgSend_storeObject_atPath_error_(v5, v14, v9, v13, &v18);
-    v15 = v18;
+    v17 = 0;
+    objc_msgSend_storeObject_atPath_error_(v5, v14, v9, v13, &v17);
+    v15 = v17;
 
     if (v15)
     {
@@ -177,18 +175,16 @@ LABEL_20:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v20 = v15;
+        v19 = v15;
         _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "Error storing local cloud object: %{public}@", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateCloudStore:(id)store
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_userInfo(store, a2, store, v3);
   v8 = objc_msgSend_objectForKey_(v5, v6, *MEMORY[0x1E696A9D8], v7);
   v12 = v8;
@@ -212,29 +208,29 @@ LABEL_20:
 
     else
     {
-      v46 = v12;
+      v45 = v12;
       v16 = objc_msgSend_objectForKey_(v5, v14, *MEMORY[0x1E696A9E0], v15);
       v20 = objc_msgSend_defaultStore(MEMORY[0x1E696AFB8], v17, v18, v19);
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       v21 = v16;
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v48, v52, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v47, v51, 16);
       if (v23)
       {
         v27 = v23;
-        v28 = *v49;
+        v28 = *v48;
         do
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v49 != v28)
+            if (*v48 != v28)
             {
               objc_enumerationMutation(v21);
             }
 
-            v30 = *(*(&v48 + 1) + 8 * i);
+            v30 = *(*(&v47 + 1) + 8 * i);
             v31 = objc_msgSend_settingsClassNameForCloud(self, v24, v25, v26);
             isEqualToString = objc_msgSend_isEqualToString_(v30, v32, v31, v33);
 
@@ -249,19 +245,17 @@ LABEL_20:
             }
           }
 
-          v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v48, v52, 16);
+          v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v47, v51, 16);
         }
 
         while (v27);
       }
 
-      v12 = v46;
+      v12 = v45;
     }
   }
 
 LABEL_17:
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForKey:(id)key error:(id *)error

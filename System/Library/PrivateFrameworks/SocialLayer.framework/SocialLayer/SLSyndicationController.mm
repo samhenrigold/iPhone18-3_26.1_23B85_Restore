@@ -73,16 +73,15 @@ void __60__SLSyndicationController_removeMessageGUIDFromSyndication___block_invo
 
 - (void)_sendCurrentRemovalsToDaemonAndDisconnect
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SLSyndicationController _sendCurrentRemovalsToDaemonAndDisconnect]";
-  _os_log_debug_impl(&dword_231772000, log, OS_LOG_TYPE_DEBUG, "%s: Not currently connected to syndication service. We'll wait for the connection to finish posting pending removals.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SLSyndicationController _sendCurrentRemovalsToDaemonAndDisconnect]";
+  _os_log_debug_impl(&dword_231772000, log, OS_LOG_TYPE_DEBUG, "%s: Not currently connected to syndication service. We'll wait for the connection to finish posting pending removals.", &v1, 0xCu);
 }
 
 void __68__SLSyndicationController__sendCurrentRemovalsToDaemonAndDisconnect__block_invoke(uint64_t a1, char a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = SWFrameworkLogHandle();
   v6 = v5;
@@ -91,9 +90,9 @@ void __68__SLSyndicationController__sendCurrentRemovalsToDaemonAndDisconnect__bl
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_INFO, "Received success for removal for message with guid: '%@'", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_INFO, "Received success for removal for message with guid: '%@'", &v8, 0xCu);
     }
   }
 
@@ -107,8 +106,6 @@ void __68__SLSyndicationController__sendCurrentRemovalsToDaemonAndDisconnect__bl
   {
     [WeakRetained _disconnectSyndicationServiceConnectionIfNecessary];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disconnectSyndicationServiceConnectionIfNecessary
@@ -124,7 +121,7 @@ void __68__SLSyndicationController__sendCurrentRemovalsToDaemonAndDisconnect__bl
 
 void __77__SLSyndicationController__disconnectSyndicationServiceConnectionIfNecessary__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pendingmessageGUIDsToRemove];
   v3 = [v2 allObjects];
   v4 = [v3 count];
@@ -134,16 +131,14 @@ void __77__SLSyndicationController__disconnectSyndicationServiceConnectionIfNece
     v5 = SWFrameworkLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[SLSyndicationController _disconnectSyndicationServiceConnectionIfNecessary]_block_invoke";
-      _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "%s: No more message GUIDS to remove, disconnecting from syndication service proxy.", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[SLSyndicationController _disconnectSyndicationServiceConnectionIfNecessary]_block_invoke";
+      _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "%s: No more message GUIDS to remove, disconnecting from syndication service proxy.", &v7, 0xCu);
     }
 
     v6 = [*(a1 + 32) syndicationServiceProxy];
     [v6 disconnect];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serviceProxyDidConnect:(id)connect
@@ -259,12 +254,11 @@ void __53__SLSyndicationController_syndicationProcessingQueue__block_invoke()
 
 void __68__SLSyndicationController__sendCurrentRemovalsToDaemonAndDisconnect__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Unsuccessful sending remove for message with guid: '%@'", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Unsuccessful sending remove for message with guid: '%@'", &v3, 0xCu);
 }
 
 @end

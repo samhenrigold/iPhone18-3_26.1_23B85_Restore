@@ -190,7 +190,7 @@
 
 - (void)writeJSONObjectToStream:(id)stream prefix:(id)prefix
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   prefixCopy = prefix;
   if (prefixCopy)
@@ -198,25 +198,25 @@
     [(ARQATracer *)self writeStringToOutputStream:prefixCopy];
   }
 
-  v13 = 0;
-  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:streamCopy options:0 error:&v13];
-  v9 = v13;
+  v14 = 0;
+  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:streamCopy options:0 error:&v14];
+  v9 = v14;
   [(NSMutableData *)self->_dataBuffer appendData:v8];
 
   if (v9)
   {
-    v10 = _ARLogGeneral_35();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _ARLogGeneral_35(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138543874;
-      v15 = v12;
-      v16 = 2048;
+      v16 = v13;
+      v17 = 2048;
       selfCopy = self;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error serializing JSON with error %@", buf, 0x20u);
+      v19 = 2112;
+      v20 = v9;
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error serializing JSON with error %@", buf, 0x20u);
     }
 
     [(ARQATracer *)self writeStringToOutputStream:@"{}"];
@@ -231,20 +231,21 @@
 
 - (void)flushDataBufferToFile
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = [(NSOutputStream *)self->_framesStreamToFile write:[(NSMutableData *)self->_dataBuffer bytes] maxLength:[(NSMutableData *)self->_dataBuffer length]];
-  if (v3 != [(NSMutableData *)self->_dataBuffer length])
+  v4 = [(NSMutableData *)self->_dataBuffer length];
+  if (v3 != v4)
   {
-    v4 = _ARLogGeneral_35();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ARLogGeneral_35(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
-      v7 = 138543618;
-      v8 = v6;
-      v9 = 2048;
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Not all bytes could be written to file", &v7, 0x16u);
+      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Not all bytes could be written to file", &v8, 0x16u);
     }
   }
 
@@ -267,19 +268,19 @@
 
 void __20__ARQATracer_start___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   if ((*(*(a1 + 32) + 16) & 1) == 0)
   {
-    v2 = _ARLogGeneral_35();
+    v2 = _ARLogGeneral_35(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = objc_opt_class();
       v4 = NSStringFromClass(v3);
       v5 = *(a1 + 32);
       *buf = 138543618;
-      v44 = v4;
-      v45 = 2048;
-      v46 = v5;
+      v46 = v4;
+      v47 = 2048;
+      v48 = v5;
       _os_log_impl(&dword_1C241C000, v2, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Start", buf, 0x16u);
     }
 
@@ -307,68 +308,68 @@ void __20__ARQATracer_start___block_invoke(uint64_t a1)
       v13 = [objc_opt_class() traceOutputDirectory];
       v14 = [v12 stringWithFormat:@"%@/segmentation.mov", v13];
 
-      v15 = _ARLogGeneral_35();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = _ARLogGeneral_35(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v18 = *(a1 + 32);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
+        v19 = *(a1 + 32);
         *buf = 138543874;
-        v44 = v17;
-        v45 = 2048;
         v46 = v18;
-        v47 = 2114;
-        v48 = v14;
-        _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Recording segmentation output to %{public}@", buf, 0x20u);
+        v47 = 2048;
+        v48 = v19;
+        v49 = 2114;
+        v50 = v14;
+        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Recording segmentation output to %{public}@", buf, 0x20u);
       }
 
-      v19 = objc_alloc(MEMORY[0x1E698BEC8]);
-      v20 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
-      v21 = [v19 initWithFileURL:v20 expectedFrameRate:MEMORY[0x1E695E0F8] fileSummary:60.0];
-      v22 = *(a1 + 32);
-      v23 = *(v22 + 56);
-      *(v22 + 56) = v21;
+      v20 = objc_alloc(MEMORY[0x1E698BEC8]);
+      v21 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
+      v22 = [v20 initWithFileURL:v21 expectedFrameRate:MEMORY[0x1E695E0F8] fileSummary:60.0];
+      v23 = *(a1 + 32);
+      v24 = *(v23 + 56);
+      *(v23 + 56) = v22;
 
       [*(*(a1 + 32) + 56) registerStreamID:@"Segmentation" withConfigObject:0];
     }
 
     if ([*(a1 + 32) _shouldDumpSemanticData] && objc_msgSend(*(a1 + 32), "isSemanticSegmentationDataAvailableForSession:", *(a1 + 40)))
     {
-      v24 = MEMORY[0x1E696AEC0];
-      v25 = [objc_opt_class() traceOutputDirectory];
-      v26 = [v24 stringWithFormat:@"%@/semantics.mov", v25];
+      v25 = MEMORY[0x1E696AEC0];
+      v26 = [objc_opt_class() traceOutputDirectory];
+      v27 = [v25 stringWithFormat:@"%@/semantics.mov", v26];
 
-      v27 = _ARLogGeneral_35();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v29 = _ARLogGeneral_35(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
-        v28 = objc_opt_class();
-        v29 = NSStringFromClass(v28);
-        v30 = *(a1 + 32);
+        v30 = objc_opt_class();
+        v31 = NSStringFromClass(v30);
+        v32 = *(a1 + 32);
         *buf = 138543874;
-        v44 = v29;
-        v45 = 2048;
-        v46 = v30;
-        v47 = 2114;
-        v48 = v26;
-        _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Recording semantics output to %{public}@", buf, 0x20u);
+        v46 = v31;
+        v47 = 2048;
+        v48 = v32;
+        v49 = 2114;
+        v50 = v27;
+        _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Recording semantics output to %{public}@", buf, 0x20u);
       }
 
-      v31 = objc_alloc(MEMORY[0x1E698BEC8]);
-      v32 = [MEMORY[0x1E695DFF8] fileURLWithPath:v26];
-      v33 = [v31 initWithFileURL:v32 expectedFrameRate:MEMORY[0x1E695E0F8] fileSummary:10.0];
-      v34 = *(a1 + 32);
-      v35 = *(v34 + 64);
-      *(v34 + 64) = v33;
+      v33 = objc_alloc(MEMORY[0x1E698BEC8]);
+      v34 = [MEMORY[0x1E695DFF8] fileURLWithPath:v27];
+      v35 = [v33 initWithFileURL:v34 expectedFrameRate:MEMORY[0x1E695E0F8] fileSummary:10.0];
+      v36 = *(a1 + 32);
+      v37 = *(v36 + 64);
+      *(v36 + 64) = v35;
 
       [*(*(a1 + 32) + 64) registerStreamID:@"Semantics" withConfigObject:0];
     }
 
-    v36 = [*(a1 + 40) configuration];
-    v37 = [*(a1 + 40) technique];
-    v38 = [ARQAHelper headerInformationWithConfiguration:v36 technique:v37];
-    v39 = *(a1 + 32);
-    v40 = *(v39 + 24);
-    *(v39 + 24) = v38;
+    v38 = [*(a1 + 40) configuration];
+    v39 = [*(a1 + 40) technique];
+    v40 = [ARQAHelper headerInformationWithConfiguration:v38 technique:v39];
+    v41 = *(a1 + 32);
+    v42 = *(v41 + 24);
+    *(v41 + 24) = v40;
 
     objc_initWeak(buf, *(a1 + 32));
     block[0] = MEMORY[0x1E69E9820];
@@ -376,9 +377,9 @@ void __20__ARQATracer_start___block_invoke(uint64_t a1)
     block[2] = __20__ARQATracer_start___block_invoke_44;
     block[3] = &unk_1E817D9C0;
     block[4] = *(a1 + 32);
-    objc_copyWeak(&v42, buf);
+    objc_copyWeak(&v44, buf);
     dispatch_sync(MEMORY[0x1E69E96A0], block);
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(buf);
   }
 }
@@ -456,47 +457,47 @@ void __20__ARQATracer_start___block_invoke_44(uint64_t a1)
 
 void __18__ARQATracer_stop__block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v2 = _ARLogGeneral_35();
+  v54 = *MEMORY[0x1E69E9840];
+  v2 = _ARLogGeneral_35(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
     v5 = *(a1 + 32);
     *buf = 138543618;
-    v47 = v4;
-    v48 = 2048;
-    v49 = v5;
+    v51 = v4;
+    v52 = 2048;
+    v53 = v5;
     _os_log_impl(&dword_1C241C000, v2, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Stop requested", buf, 0x16u);
   }
 
   v6 = *(*(a1 + 32) + 16);
-  v7 = _ARLogGeneral_35();
-  v8 = v7;
+  v8 = _ARLogGeneral_35(v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 32);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = *(a1 + 32);
       *buf = 138543618;
-      v47 = v10;
-      v48 = 2048;
-      v49 = v11;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Stopping", buf, 0x16u);
+      v51 = v11;
+      v52 = 2048;
+      v53 = v12;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Stopping", buf, 0x16u);
     }
 
     *(*(a1 + 32) + 16) = 0;
     [*(a1 + 32) writeStringToOutputStream:@"]"];
-    v12 = [*(a1 + 32) additionalResults];
-    v13 = [v12 count];
+    v13 = [*(a1 + 32) additionalResults];
+    v14 = [v13 count];
 
-    if (v13)
+    if (v14)
     {
-      v14 = *(a1 + 32);
-      v15 = [v14 additionalResults];
-      [v14 writeJSONObjectToStream:v15 prefix:{@", additionalData:"}];
+      v15 = *(a1 + 32);
+      v16 = [v15 additionalResults];
+      [v15 writeJSONObjectToStream:v16 prefix:{@", additionalData:"}];
     }
 
     [*(a1 + 32) writeJSONObjectToStream:*(*(a1 + 32) + 24) prefix:{@", header:"}];
@@ -504,110 +505,113 @@ void __18__ARQATracer_stop__block_invoke(uint64_t a1)
     [*(a1 + 32) flushDataBufferToFile];
     [*(*(a1 + 32) + 40) close];
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 136));
-    v17 = objc_opt_respondsToSelector();
+    v18 = objc_opt_respondsToSelector();
 
-    if (v17)
+    if (v18)
     {
-      v18 = objc_loadWeakRetained((*(a1 + 32) + 136));
-      v19 = *(a1 + 32);
-      v20 = [v19 traceOutputFilePath];
-      [v18 tracer:v19 finishedWritingJSONToPath:v20];
+      v19 = objc_loadWeakRetained((*(a1 + 32) + 136));
+      v20 = *(a1 + 32);
+      v21 = [v20 traceOutputFilePath];
+      [v19 tracer:v20 finishedWritingJSONToPath:v21];
     }
 
-    v21 = *(a1 + 32);
-    v22 = v21[7];
-    if (v22)
+    v22 = *(a1 + 32);
+    v23 = v22[7];
+    if (v23)
     {
-      v45 = 0;
-      [v22 finishWriting:&v45];
-      v23 = v45;
-      if (v23)
+      v49 = 0;
+      [v23 finishWriting:&v49];
+      v24 = v49;
+      v25 = v24;
+      if (v24)
       {
-        v24 = _ARLogGeneral_35();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v26 = _ARLogGeneral_35(v24);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v25 = objc_opt_class();
-          v26 = NSStringFromClass(v25);
-          v27 = *(a1 + 32);
+          v27 = objc_opt_class();
+          v28 = NSStringFromClass(v27);
+          v29 = *(a1 + 32);
           *buf = 138543618;
-          v47 = v26;
-          v48 = 2048;
-          v49 = v27;
-          _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not write segmentation video", buf, 0x16u);
+          v51 = v28;
+          v52 = 2048;
+          v53 = v29;
+          _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not write segmentation video", buf, 0x16u);
         }
       }
 
-      v21 = *(a1 + 32);
+      v22 = *(a1 + 32);
     }
 
-    v28 = v21[8];
-    if (v28)
+    v30 = v22[8];
+    if (v30)
     {
-      v44 = 0;
-      [v28 finishWriting:&v44];
-      v29 = v44;
-      if (v29)
+      v48 = 0;
+      [v30 finishWriting:&v48];
+      v31 = v48;
+      v32 = v31;
+      if (v31)
       {
-        v30 = _ARLogGeneral_35();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v33 = _ARLogGeneral_35(v31);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v31 = objc_opt_class();
-          v32 = NSStringFromClass(v31);
-          v33 = *(a1 + 32);
+          v34 = objc_opt_class();
+          v35 = NSStringFromClass(v34);
+          v36 = *(a1 + 32);
           *buf = 138543618;
-          v47 = v32;
-          v48 = 2048;
-          v49 = v33;
-          _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not write semantics video", buf, 0x16u);
+          v51 = v35;
+          v52 = 2048;
+          v53 = v36;
+          _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not write semantics video", buf, 0x16u);
         }
       }
 
-      v21 = *(a1 + 32);
+      v22 = *(a1 + 32);
     }
 
-    if ([v21 forceQuitApp])
+    v37 = [v22 forceQuitApp];
+    if (v37)
     {
-      v34 = _ARLogGeneral_35();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      v38 = _ARLogGeneral_35(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        v35 = objc_opt_class();
-        v36 = NSStringFromClass(v35);
-        v37 = *(a1 + 32);
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
+        v41 = *(a1 + 32);
         *buf = 138543618;
-        v47 = v36;
-        v48 = 2048;
-        v49 = v37;
-        _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Requesting App termination on ARQATracer stop", buf, 0x16u);
+        v51 = v40;
+        v52 = 2048;
+        v53 = v41;
+        _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Requesting App termination on ARQATracer stop", buf, 0x16u);
       }
 
-      v38 = [*(a1 + 32) delegate];
-      [v38 requestDelayedAppTermination];
+      v42 = [*(a1 + 32) delegate];
+      [v42 requestDelayedAppTermination];
     }
 
     objc_initWeak(buf, *(a1 + 32));
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __18__ARQATracer_stop__block_invoke_84;
-    v42[3] = &unk_1E817BDB0;
-    objc_copyWeak(&v43, buf);
-    v42[4] = *(a1 + 32);
-    dispatch_async(MEMORY[0x1E69E96A0], v42);
-    objc_destroyWeak(&v43);
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __18__ARQATracer_stop__block_invoke_84;
+    v46[3] = &unk_1E817BDB0;
+    objc_copyWeak(&v47, buf);
+    v46[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x1E69E96A0], v46);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
-      v41 = *(a1 + 32);
+      v43 = objc_opt_class();
+      v44 = NSStringFromClass(v43);
+      v45 = *(a1 + 32);
       *buf = 138543618;
-      v47 = v40;
-      v48 = 2048;
-      v49 = v41;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: User default for tracing is not set or not tracing", buf, 0x16u);
+      v51 = v44;
+      v52 = 2048;
+      v53 = v45;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: User default for tracing is not set or not tracing", buf, 0x16u);
     }
   }
 }
@@ -761,61 +765,61 @@ void __29__ARQATracer_update_session___block_invoke(uint64_t a1)
   }
 }
 
-void __29__ARQATracer_update_session___block_invoke_2(uint64_t a1)
+void __29__ARQATracer_update_session___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v17 = 0uLL;
-  v18 = 0;
-  v2 = MEMORY[0x1E698BEC8];
-  [*(a1 + 32) timestamp];
-  [v2 cmTimeFromTimestamp:?];
-  v15 = 0u;
+  v18 = 0uLL;
+  v19 = 0;
+  v3 = MEMORY[0x1E698BEC8];
+  objc_msgSend_timestamp(*(a1 + 32), a2);
+  objc_msgSend_cmTimeFromTimestamp_(v3);
   v16 = 0u;
-  v14 = 0u;
-  v3 = [*(a1 + 32) camera];
-  [v3 intrinsics];
-  DWORD2(v14) = v4;
+  v17 = 0u;
+  v15 = 0u;
+  v4 = [*(a1 + 32) camera];
+  [v4 intrinsics];
   DWORD2(v15) = v5;
-  *&v14 = v6;
+  DWORD2(v16) = v6;
   *&v15 = v7;
-  DWORD2(v16) = v8;
-  *&v16 = v9;
+  *&v16 = v8;
+  DWORD2(v17) = v9;
+  *&v17 = v10;
 
-  v10 = [*(a1 + 40) _createRecordablePixelBufferFromSegmentationBuffer:{objc_msgSend(*(a1 + 32), "segmentationBuffer")}];
-  v11 = *(*(a1 + 40) + 56);
-  v12 = v17;
+  v11 = [*(a1 + 40) _createRecordablePixelBufferFromSegmentationBuffer:{objc_msgSend(*(a1 + 32), "segmentationBuffer")}];
+  v12 = *(*(a1 + 40) + 56);
   v13 = v18;
-  [v11 processPixelBuffer:v10 withTimeStamp:&v12 intrinsics:&v14 exposureTime:@"Segmentation" streamID:0.0];
-  CVPixelBufferRelease(v10);
+  v14 = v19;
+  [v12 processPixelBuffer:v11 withTimeStamp:&v13 intrinsics:&v15 exposureTime:@"Segmentation" streamID:0.0];
+  CVPixelBufferRelease(v11);
 }
 
-void __29__ARQATracer_update_session___block_invoke_3(uint64_t a1)
+void __29__ARQATracer_update_session___block_invoke_3(uint64_t a1, const char *a2)
 {
-  v19 = 0uLL;
-  v20 = 0;
-  v2 = MEMORY[0x1E698BEC8];
-  [*(a1 + 32) timestamp];
-  [v2 cmTimeFromTimestamp:?];
-  v17 = 0u;
+  v20 = 0uLL;
+  v21 = 0;
+  v3 = MEMORY[0x1E698BEC8];
+  objc_msgSend_timestamp(*(a1 + 32), a2);
+  objc_msgSend_cmTimeFromTimestamp_(v3);
   v18 = 0u;
-  v16 = 0u;
-  v3 = [*(a1 + 32) camera];
-  [v3 intrinsics];
-  DWORD2(v16) = v4;
+  v19 = 0u;
+  v17 = 0u;
+  v4 = [*(a1 + 32) camera];
+  [v4 intrinsics];
   DWORD2(v17) = v5;
-  *&v16 = v6;
+  DWORD2(v18) = v6;
   *&v17 = v7;
-  DWORD2(v18) = v8;
-  *&v18 = v9;
+  *&v18 = v8;
+  DWORD2(v19) = v9;
+  *&v19 = v10;
 
-  v10 = *(a1 + 40);
-  v11 = [*(a1 + 32) rawSceneUnderstandingData];
-  v12 = [v10 _createRecordablePixelBufferFromSemanticsBuffer:{objc_msgSend(v11, "semanticSegmentationBuffer")}];
+  v11 = *(a1 + 40);
+  v12 = [*(a1 + 32) rawSceneUnderstandingData];
+  v13 = [v11 _createRecordablePixelBufferFromSemanticsBuffer:{objc_msgSend(v12, "semanticSegmentationBuffer")}];
 
-  v13 = *(*(a1 + 40) + 64);
-  v14 = v19;
+  v14 = *(*(a1 + 40) + 64);
   v15 = v20;
-  [v13 processPixelBuffer:v12 withTimeStamp:&v14 intrinsics:&v16 exposureTime:@"Semantics" streamID:0.0];
-  CVPixelBufferRelease(v12);
+  v16 = v21;
+  [v14 processPixelBuffer:v13 withTimeStamp:&v15 intrinsics:&v17 exposureTime:@"Semantics" streamID:0.0];
+  CVPixelBufferRelease(v13);
 }
 
 void __29__ARQATracer_update_session___block_invoke_4(uint64_t a1)
@@ -862,7 +866,7 @@ void __29__ARQATracer_update_session___block_invoke_4(uint64_t a1)
     v24 = 0;
     [defaultManager createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v24];
     v13 = v24;
-    v14 = _ARLogGeneral_35();
+    v14 = _ARLogGeneral_35(v13);
     v15 = v14;
     if (v13)
     {
@@ -977,7 +981,7 @@ BOOL __37__ARQATracer__shouldDumpSemanticData__block_invoke()
 - (void)replaySensorDidFinishReplayingData
 {
   v10 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogGeneral_35();
+  v3 = _ARLogGeneral_35(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -1018,24 +1022,25 @@ LABEL_6:
 
 - (__CVBuffer)_createRecordablePixelBufferFromSegmentationBuffer:(__CVBuffer *)buffer
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   p_segmentationYUVPixelBufferPool = &self->_segmentationYUVPixelBufferPool;
   if (!self->_segmentationYUVPixelBufferPool)
   {
     Width = CVPixelBufferGetWidth(buffer);
     Height = CVPixelBufferGetHeight(buffer);
-    if (ar_pixelBufferPoolCreateNew(Width, Height, 875704422, p_segmentationYUVPixelBufferPool))
+    New = ar_pixelBufferPoolCreateNew(Width, Height, 875704422, p_segmentationYUVPixelBufferPool);
+    if (New)
     {
-      v7 = _ARLogGeneral_35();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _ARLogGeneral_35(New);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v9 = NSStringFromClass(v13);
+        v15 = objc_opt_class();
+        v10 = NSStringFromClass(v15);
         *buf = 138543618;
-        v21 = v9;
-        v22 = 2048;
+        v25 = v10;
+        v26 = 2048;
         selfCopy4 = self;
-        v10 = "%{public}@ <%p>: Could not create pixel buffer pool.";
+        v11 = "%{public}@ <%p>: Could not create pixel buffer pool.";
         goto LABEL_12;
       }
 
@@ -1044,39 +1049,44 @@ LABEL_6:
   }
 
   v6 = *MEMORY[0x1E695E480];
-  if (!self->_segmentationTransferSession && VTPixelTransferSessionCreate(*MEMORY[0x1E695E480], &self->_segmentationTransferSession))
+  if (!self->_segmentationTransferSession)
   {
-    v7 = _ARLogGeneral_35();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v16 = VTPixelTransferSessionCreate(*MEMORY[0x1E695E480], &self->_segmentationTransferSession);
+    if (v16)
     {
-      v14 = objc_opt_class();
-      v9 = NSStringFromClass(v14);
-      *buf = 138543618;
-      v21 = v9;
-      v22 = 2048;
-      selfCopy4 = self;
-      v10 = "%{public}@ <%p>: Could not create VTPixelTransferSession.";
-      goto LABEL_12;
-    }
+      v8 = _ARLogGeneral_35(v16);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        v17 = objc_opt_class();
+        v10 = NSStringFromClass(v17);
+        *buf = 138543618;
+        v25 = v10;
+        v26 = 2048;
+        selfCopy4 = self;
+        v11 = "%{public}@ <%p>: Could not create VTPixelTransferSession.";
+        goto LABEL_12;
+      }
 
-    goto LABEL_13;
+      goto LABEL_13;
+    }
   }
 
   pixelBufferOut = 0;
-  if (CVPixelBufferPoolCreatePixelBuffer(v6, *p_segmentationYUVPixelBufferPool, &pixelBufferOut))
+  v7 = CVPixelBufferPoolCreatePixelBuffer(v6, *p_segmentationYUVPixelBufferPool, &pixelBufferOut);
+  if (v7)
   {
-    v7 = _ARLogGeneral_35();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ARLogGeneral_35(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138543618;
-      v21 = v9;
-      v22 = 2048;
+      v25 = v10;
+      v26 = 2048;
       selfCopy4 = self;
-      v10 = "%{public}@ <%p>: Could not create pixel buffer.";
+      v11 = "%{public}@ <%p>: Could not create pixel buffer.";
 LABEL_12:
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, v11, buf, 0x16u);
     }
 
 LABEL_13:
@@ -1084,18 +1094,19 @@ LABEL_13:
     return 0;
   }
 
-  if (VTPixelTransferSessionTransferImage(self->_segmentationTransferSession, buffer, pixelBufferOut))
+  v19 = VTPixelTransferSessionTransferImage(self->_segmentationTransferSession, buffer, pixelBufferOut);
+  if (v19)
   {
-    v16 = _ARLogGeneral_35();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = _ARLogGeneral_35(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138543618;
-      v21 = v18;
-      v22 = 2048;
+      v25 = v22;
+      v26 = 2048;
       selfCopy4 = self;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not create transfer pixel buffer.", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not create transfer pixel buffer.", buf, 0x16u);
     }
   }
 
@@ -1104,25 +1115,26 @@ LABEL_13:
 
 - (__CVBuffer)_createRecordablePixelBufferFromSemanticsBuffer:(__CVBuffer *)buffer
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   p_semanticsYUVPixelBufferPool = &self->_semanticsYUVPixelBufferPool;
   semanticsYUVPixelBufferPool = self->_semanticsYUVPixelBufferPool;
   if (!semanticsYUVPixelBufferPool)
   {
     Width = CVPixelBufferGetWidth(buffer);
     Height = CVPixelBufferGetHeight(buffer);
-    if (ar_pixelBufferPoolCreateNew(Width, Height, 1111970369, p_semanticsYUVPixelBufferPool))
+    New = ar_pixelBufferPoolCreateNew(Width, Height, 1111970369, p_semanticsYUVPixelBufferPool);
+    if (New)
     {
-      v7 = _ARLogGeneral_35();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _ARLogGeneral_35(New);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v9 = NSStringFromClass(v13);
+        v15 = objc_opt_class();
+        v10 = NSStringFromClass(v15);
         *buf = 138543618;
-        v17 = v9;
-        v18 = 2048;
+        v19 = v10;
+        v20 = 2048;
         selfCopy2 = self;
-        v10 = "%{public}@ <%p>: Could not create pixel buffer pool.";
+        v11 = "%{public}@ <%p>: Could not create pixel buffer pool.";
         goto LABEL_8;
       }
 
@@ -1135,20 +1147,21 @@ LABEL_9:
   }
 
   pixelBufferOut = 0;
-  if (CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], semanticsYUVPixelBufferPool, &pixelBufferOut))
+  v7 = CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], semanticsYUVPixelBufferPool, &pixelBufferOut);
+  if (v7)
   {
-    v7 = _ARLogGeneral_35();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ARLogGeneral_35(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138543618;
-      v17 = v9;
-      v18 = 2048;
+      v19 = v10;
+      v20 = 2048;
       selfCopy2 = self;
-      v10 = "%{public}@ <%p>: Could not create pixel buffer.";
+      v11 = "%{public}@ <%p>: Could not create pixel buffer.";
 LABEL_8:
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, v11, buf, 0x16u);
 
       goto LABEL_9;
     }
@@ -1162,7 +1175,7 @@ LABEL_8:
 
 int8x8_t __62__ARQATracer__createRecordablePixelBufferFromSemanticsBuffer___block_invoke(uint64_t a1, unsigned __int8 *a2, uint64_t a3, _DWORD *a4)
 {
-  v5 = ARCV3DColorComponentsForRawSemantics(*a2);
+  v5 = ARCV3DColorComponentsForRawSemantics(*a2, a2);
   v6 = vmovn_s64(vcvtq_s64_f64(vmulq_f64(vcvtq_f64_f32(vext_s8(v5.n128_u64[0], *&vextq_s8(v5, v5, 8uLL), 4uLL)), vdupq_n_s64(0x406FE00000000000uLL))));
   v7 = (v5.n128_f32[0] * 255.0);
   v5.n128_u16[3] = 255;

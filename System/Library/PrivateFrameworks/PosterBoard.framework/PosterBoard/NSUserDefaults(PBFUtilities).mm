@@ -31,9 +31,9 @@
     +[NSUserDefaults(PBFUtilities) pbf_unprotectedUserDefaults];
   }
 
-  v1 = pbf_unprotectedUserDefaults_unprotectedUserDefaults;
+  v2 = pbf_unprotectedUserDefaults_unprotectedUserDefaults;
 
-  return v1;
+  return v2;
 }
 
 + (id)pbf_snapshotsBuildVersion

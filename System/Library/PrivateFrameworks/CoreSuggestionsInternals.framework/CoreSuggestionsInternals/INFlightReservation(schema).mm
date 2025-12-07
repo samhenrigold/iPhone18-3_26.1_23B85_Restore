@@ -205,7 +205,7 @@
 
 + (id)schemaFromFlightReservation:()schema
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CD3F90] schemaFromReservation:v3];
   v5 = [v4 mutableCopy];
@@ -219,11 +219,11 @@
 
     if (schema)
     {
-      v15[0] = @"@type";
-      v15[1] = @"ticketedSeat";
-      v16[0] = @"http://schema.org/Ticket";
-      v16[1] = schema;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+      v14[0] = @"@type";
+      v14[1] = @"ticketedSeat";
+      v15[0] = @"http://schema.org/Ticket";
+      v15[1] = schema;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
       [v5 setObject:v9 forKeyedSubscript:@"reservedTicket"];
     }
   }
@@ -233,8 +233,6 @@
   flight = [v3 flight];
   v12 = [v10 schemaFromFlight:flight];
   [v5 setObject:v12 forKeyedSubscript:@"reservationFor"];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

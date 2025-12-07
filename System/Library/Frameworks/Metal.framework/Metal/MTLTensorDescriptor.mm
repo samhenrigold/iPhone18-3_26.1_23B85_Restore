@@ -189,11 +189,11 @@
 - (void)validateWithBuffer:offset:error:.cold.5()
 {
   OUTLINED_FUNCTION_1_5();
-  v2 = v1;
+  v1 = v0;
+  v2 = [*v0 extentAtDimensionIndex:1];
+  [*v1 extentAtDimensionIndex:1];
   v3 = [*v1 extentAtDimensionIndex:1];
-  v4 = ([*v2 extentAtDimensionIndex:1] * v0) >> 3;
-  v5 = [*v2 extentAtDimensionIndex:1];
-  OUTLINED_FUNCTION_0_9(v5, v6, @"Stride at index 1 (%llu elements, %llu bytes, %llu bits) should be 64-byte (512-bit) aligned when using MTLTensorUsageMachineLearning", v7, v8, v9, v10, v11, v3);
+  OUTLINED_FUNCTION_0_9(v3, v4, @"Stride at index 1 (%llu elements, %llu bytes, %llu bits) should be 64-byte (512-bit) aligned when using MTLTensorUsageMachineLearning", v5, v6, v7, v8, v9, v2);
 }
 
 @end

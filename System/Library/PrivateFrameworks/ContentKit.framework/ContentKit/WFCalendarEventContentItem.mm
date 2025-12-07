@@ -694,7 +694,7 @@ void __46__WFCalendarEventContentItem_propertyBuilders__block_invoke(uint64_t a1
     v13 = v11;
 
     v14 = [v18 mutableEvent];
-    [v14 duration];
+    objc_msgSend_duration(v14);
     v15 = [v13 dateByAddingTimeInterval:?];
     v16 = [v18 mutableEvent];
     [v16 setEndDate:v15];

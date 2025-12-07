@@ -341,7 +341,7 @@
     CGAffineTransformMakeScale(&v16, v4, v4);
     if (v6)
     {
-      [v6 transform];
+      objc_msgSend_transform(v6);
     }
 
     else

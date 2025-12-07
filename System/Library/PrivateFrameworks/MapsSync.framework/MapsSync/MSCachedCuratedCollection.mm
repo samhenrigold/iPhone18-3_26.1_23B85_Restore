@@ -22,22 +22,21 @@
   identifierCopy = identifier;
   selfCopy = self;
   v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v20 = *(*(v19 - 8) + 64);
-  v21 = MEMORY[0x1EEE9AC00](v19 - 8);
-  v23 = &v62 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v25 = &v62 - v24;
+  v20 = MEMORY[0x1EEE9AC00](v19 - 8);
+  v22 = &v61 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20);
+  v24 = &v61 - v23;
   if (description)
   {
-    v26 = sub_1B63BEBD4();
-    v69 = v27;
-    v70 = v26;
+    v25 = sub_1B63BEBD4();
+    v68 = v26;
+    v69 = v25;
   }
 
   else
   {
+    v68 = 0;
     v69 = 0;
-    v70 = 0;
   }
 
   if (image)
@@ -49,9 +48,9 @@
     attributionCopy = attribution;
     titleCopy = title;
     localeCopy = locale;
-    v35 = sub_1B63BE924();
-    v67 = v36;
-    v68 = v35;
+    v34 = sub_1B63BE924();
+    v66 = v35;
+    v67 = v34;
 
     if (url)
     {
@@ -59,8 +58,8 @@
     }
 
 LABEL_9:
+    v64 = 0;
     v65 = 0;
-    v66 = 0;
     if (date)
     {
       goto LABEL_7;
@@ -75,8 +74,152 @@ LABEL_9:
   attributionCopy2 = attribution;
   titleCopy2 = title;
   localeCopy2 = locale;
-  v67 = 0xF000000000000000;
-  v68 = 0;
+  v66 = 0xF000000000000000;
+  v67 = 0;
+  if (!url)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_6:
+  v36 = sub_1B63BEBD4();
+  v64 = v37;
+  v65 = v36;
+
+  if (date)
+  {
+LABEL_7:
+    sub_1B63BE974();
+
+    v38 = sub_1B63BE994();
+    (*(*(v38 - 8) + 56))(v24, 0, 1, v38);
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  v45 = sub_1B63BE994();
+  (*(*(v45 - 8) + 56))(v24, 1, 1, v45);
+LABEL_11:
+  if (changeDate)
+  {
+    sub_1B63BE974();
+
+    v46 = 0;
+  }
+
+  else
+  {
+    v46 = 1;
+  }
+
+  v47 = sub_1B63BE994();
+  (*(*(v47 - 8) + 56))(v22, v46, 1, v47);
+  if (attribution)
+  {
+    v48 = sub_1B63BEBD4();
+    v62 = v49;
+    v63 = v48;
+  }
+
+  else
+  {
+    v62 = 0;
+    v63 = 0;
+  }
+
+  v50 = v22;
+  if (title)
+  {
+    v51 = sub_1B63BEBD4();
+    v53 = v52;
+  }
+
+  else
+  {
+    v51 = 0;
+    v53 = 0;
+  }
+
+  if (locale)
+  {
+    v54 = sub_1B63BEBD4();
+    v56 = v55;
+  }
+
+  else
+  {
+    v54 = 0;
+    v56 = 0;
+  }
+
+  v58 = v66;
+  v57 = v67;
+  v59 = sub_1B62C120C(v69, v68, identifierCopy, v67, v66, v65, v64, tombstoneCopy, v24, v50, count, index, v63, v62, providerIdentifier, v51, v53, v54, v56);
+  sub_1B6284F64(v57, v58);
+  return v59;
+}
+
+- (MSCachedCuratedCollection)initWithStore:(id)store collectionDescription:(id)description curatedCollectionIdentifier:(unint64_t)identifier image:(id)image imageUrl:(id)url isTombstone:(BOOL)tombstone lastFetchedDate:(id)date lastSignificantChangeDate:(id)self0 placesCount:(int)self1 positionIndex:(int64_t)self2 publisherAttribution:(id)self3 resultProviderIdentifier:(int)self4 title:(id)self5 titleLocale:(id)self6
+{
+  tombstoneCopy = tombstone;
+  identifierCopy = identifier;
+  selfCopy = self;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
+  v21 = MEMORY[0x1EEE9AC00](v20 - 8);
+  v23 = &v58 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v25 = &v58 - v24;
+  if (description)
+  {
+    v26 = sub_1B63BEBD4();
+    v65 = v27;
+    v66 = v26;
+  }
+
+  else
+  {
+    v65 = 0;
+    v66 = 0;
+  }
+
+  storeCopy = store;
+  if (image)
+  {
+    imageCopy = image;
+    urlCopy = url;
+    dateCopy = date;
+    changeDateCopy = changeDate;
+    attributionCopy = attribution;
+    titleCopy = title;
+    localeCopy = locale;
+    v35 = sub_1B63BE924();
+    v62 = v36;
+    v63 = v35;
+
+    if (url)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_9:
+    v60 = 0;
+    v61 = 0;
+    if (date)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_10;
+  }
+
+  urlCopy2 = url;
+  dateCopy2 = date;
+  changeDateCopy2 = changeDate;
+  attributionCopy2 = attribution;
+  titleCopy2 = title;
+  localeCopy2 = locale;
+  v62 = 0xF000000000000000;
+  v63 = 0;
   if (!url)
   {
     goto LABEL_9;
@@ -84,8 +227,8 @@ LABEL_9:
 
 LABEL_6:
   v37 = sub_1B63BEBD4();
-  v65 = v38;
-  v66 = v37;
+  v60 = v38;
+  v61 = v37;
 
   if (date)
   {
@@ -118,186 +261,41 @@ LABEL_11:
   if (attribution)
   {
     v49 = sub_1B63BEBD4();
-    v63 = v50;
-    v64 = v49;
+    v58 = v50;
+    v59 = v49;
   }
 
   else
   {
-    v63 = 0;
-    v64 = 0;
-  }
-
-  v51 = v23;
-  if (title)
-  {
-    v52 = sub_1B63BEBD4();
-    v54 = v53;
-  }
-
-  else
-  {
-    v52 = 0;
-    v54 = 0;
-  }
-
-  if (locale)
-  {
-    v55 = sub_1B63BEBD4();
-    v57 = v56;
-  }
-
-  else
-  {
-    v55 = 0;
-    v57 = 0;
-  }
-
-  v59 = v67;
-  v58 = v68;
-  v60 = sub_1B62C120C(v70, v69, identifierCopy, v68, v67, v66, v65, tombstoneCopy, v25, v51, count, index, v64, v63, providerIdentifier, v52, v54, v55, v57);
-  sub_1B6284F64(v58, v59);
-  return v60;
-}
-
-- (MSCachedCuratedCollection)initWithStore:(id)store collectionDescription:(id)description curatedCollectionIdentifier:(unint64_t)identifier image:(id)image imageUrl:(id)url isTombstone:(BOOL)tombstone lastFetchedDate:(id)date lastSignificantChangeDate:(id)self0 placesCount:(int)self1 positionIndex:(int64_t)self2 publisherAttribution:(id)self3 resultProviderIdentifier:(int)self4 title:(id)self5 titleLocale:(id)self6
-{
-  tombstoneCopy = tombstone;
-  identifierCopy = identifier;
-  selfCopy = self;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v21 = *(*(v20 - 8) + 64);
-  v22 = MEMORY[0x1EEE9AC00](v20 - 8);
-  v24 = &v59 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v26 = &v59 - v25;
-  if (description)
-  {
-    v27 = sub_1B63BEBD4();
-    v66 = v28;
-    v67 = v27;
-  }
-
-  else
-  {
-    v66 = 0;
-    v67 = 0;
-  }
-
-  storeCopy = store;
-  if (image)
-  {
-    imageCopy = image;
-    urlCopy = url;
-    dateCopy = date;
-    changeDateCopy = changeDate;
-    attributionCopy = attribution;
-    titleCopy = title;
-    localeCopy = locale;
-    v36 = sub_1B63BE924();
-    v63 = v37;
-    v64 = v36;
-
-    if (url)
-    {
-      goto LABEL_6;
-    }
-
-LABEL_9:
-    v61 = 0;
-    v62 = 0;
-    if (date)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_10;
-  }
-
-  urlCopy2 = url;
-  dateCopy2 = date;
-  changeDateCopy2 = changeDate;
-  attributionCopy2 = attribution;
-  titleCopy2 = title;
-  localeCopy2 = locale;
-  v63 = 0xF000000000000000;
-  v64 = 0;
-  if (!url)
-  {
-    goto LABEL_9;
-  }
-
-LABEL_6:
-  v38 = sub_1B63BEBD4();
-  v61 = v39;
-  v62 = v38;
-
-  if (date)
-  {
-LABEL_7:
-    sub_1B63BE974();
-
-    v40 = sub_1B63BE994();
-    (*(*(v40 - 8) + 56))(v26, 0, 1, v40);
-    goto LABEL_11;
-  }
-
-LABEL_10:
-  v47 = sub_1B63BE994();
-  (*(*(v47 - 8) + 56))(v26, 1, 1, v47);
-LABEL_11:
-  if (changeDate)
-  {
-    sub_1B63BE974();
-
-    v48 = 0;
-  }
-
-  else
-  {
-    v48 = 1;
-  }
-
-  v49 = sub_1B63BE994();
-  (*(*(v49 - 8) + 56))(v24, v48, 1, v49);
-  if (attribution)
-  {
-    v50 = sub_1B63BEBD4();
-    v59 = v51;
-    v60 = v50;
-  }
-
-  else
-  {
+    v58 = 0;
     v59 = 0;
-    v60 = 0;
   }
 
   if (title)
   {
-    v52 = sub_1B63BEBD4();
-    v54 = v53;
+    v51 = sub_1B63BEBD4();
+    v53 = v52;
   }
 
   else
   {
-    v52 = 0;
-    v54 = 0;
+    v51 = 0;
+    v53 = 0;
   }
 
   if (locale)
   {
-    v55 = sub_1B63BEBD4();
-    v57 = v56;
+    v54 = sub_1B63BEBD4();
+    v56 = v55;
   }
 
   else
   {
-    v55 = 0;
-    v57 = 0;
+    v54 = 0;
+    v56 = 0;
   }
 
-  return CachedCuratedCollection.init(store:collectionDescription:curatedCollectionIdentifier:image:imageUrl:isTombstone:lastFetchedDate:lastSignificantChangeDate:placesCount:positionIndex:publisherAttribution:resultProviderIdentifier:title:titleLocale:)(storeCopy, v67, v66, identifierCopy, v64, v63, v62, v61, tombstoneCopy, v26, v24, count, index, v60, v59, providerIdentifier, v52, v54, v55, v57);
+  return CachedCuratedCollection.init(store:collectionDescription:curatedCollectionIdentifier:image:imageUrl:isTombstone:lastFetchedDate:lastSignificantChangeDate:placesCount:positionIndex:publisherAttribution:resultProviderIdentifier:title:titleLocale:)(storeCopy, v66, v65, identifierCopy, v63, v62, v61, v60, tombstoneCopy, v25, v23, count, index, v59, v58, providerIdentifier, v51, v53, v54, v56);
 }
 
 + (Class)managedClass
@@ -323,22 +321,22 @@ LABEL_11:
 - (NSData)image
 {
   selfCopy = self;
-  v3 = sub_1B62BBAA8();
-  v5 = v4;
+  v4 = sub_1B62BBAA8(selfCopy, v3);
+  v6 = v5;
 
-  if (v5 >> 60 == 15)
+  if (v6 >> 60 == 15)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = sub_1B63BE904();
-    sub_1B6284F64(v3, v5);
-    v6 = v7;
+    v8 = sub_1B63BE904();
+    sub_1B6284F64(v4, v6);
+    v7 = v8;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setImage:(id)image

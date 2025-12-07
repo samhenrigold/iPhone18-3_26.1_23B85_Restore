@@ -160,9 +160,9 @@
 - (CHStrokeProviderVersion)strokeProviderVersion
 {
   drawing = [(PKStrokeProvider *)self drawing];
-  version = [drawing version];
+  v3 = objc_msgSend_version(drawing);
 
-  return version;
+  return v3;
 }
 
 - (id)slices

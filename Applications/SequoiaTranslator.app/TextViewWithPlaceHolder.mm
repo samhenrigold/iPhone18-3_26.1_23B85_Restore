@@ -134,7 +134,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   containerCopy = container;
-  return sub_10026E3E0(container, x, y, width, height);
+  return sub_10026E3E0(container, v10, x, y, width, height);
 }
 
 - (_TtC17SequoiaTranslator23TextViewWithPlaceHolder)initWithCoder:(id)coder

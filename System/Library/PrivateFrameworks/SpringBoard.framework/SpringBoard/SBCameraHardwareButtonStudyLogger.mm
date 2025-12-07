@@ -79,29 +79,29 @@ id __41__SBCameraHardwareButtonStudyLogger_init__block_invoke_2()
   [(SLGNotificationActivatedLogger *)logger logBlock:v6 domain:@"com.apple.SpringBoard.cameraButton"];
 }
 
-id __52__SBCameraHardwareButtonStudyLogger_logButtonEvent___block_invoke()
+id __52__SBCameraHardwareButtonStudyLogger_logButtonEvent___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v0 = IOHIDEventGetIntegerValue() != 0;
-  v1 = [SBApp rawDeviceOrientationIgnoringOrientationLocks];
-  v2 = [SBApp orientationAggregator];
-  v3 = [v2 activeInterfaceOrientation];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v1 = IOHIDEventGetIntegerValue() != 0;
+  v2 = [SBApp rawDeviceOrientationIgnoringOrientationLocks];
+  v3 = [SBApp orientationAggregator];
+  v4 = [v3 activeInterfaceOrientation];
 
-  v12 = @"cameraButtonEvent";
-  v10[0] = @"down";
-  v4 = [MEMORY[0x277CCABB0] numberWithBool:v0];
-  v11[0] = v4;
-  v10[1] = @"interfaceOrientation";
-  v5 = [MEMORY[0x277CCABB0] numberWithInteger:v3];
-  v11[1] = v5;
-  v10[2] = @"deviceOrientation";
-  v6 = [MEMORY[0x277CCABB0] numberWithInteger:v1];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v13 = @"cameraButtonEvent";
+  v11[0] = @"down";
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:v1];
+  v12[0] = v5;
+  v11[1] = @"interfaceOrientation";
+  v6 = [MEMORY[0x277CCABB0] numberWithInteger:v4];
+  v12[1] = v6;
+  v11[2] = @"deviceOrientation";
+  v7 = [MEMORY[0x277CCABB0] numberWithInteger:v2];
+  v12[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
-  return v8;
+  return v9;
 }
 
 - (void)logPocketState:(int64_t)state

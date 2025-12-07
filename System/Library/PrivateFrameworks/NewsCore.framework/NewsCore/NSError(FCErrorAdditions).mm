@@ -84,13 +84,13 @@
 
 + (id)fc_notCachedErrorWithMissingObjects:()FCErrorAdditions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v9 = @"FCErrorMissingObjectsDescriptionsKey";
+    v8 = @"FCErrorMissingObjectsDescriptionsKey";
     allObjects = [a3 allObjects];
-    v10[0] = allObjects;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = allObjects;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -100,35 +100,29 @@
 
   v6 = [self fc_errorWithCode:5 description:@"The operation could not be completed with just the contents of the cache." additionalUserInfo:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (id)fc_requestDroppedErrorForDroppedFeeds:()FCErrorAdditions totalFeeds:
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Rejecting feed request because %lu of %lu feeds were dropped.", a3, a4];
-  v10 = @"FCErrorRetryAfter";
-  v11[0] = &unk_1F2E71B98;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"FCErrorRetryAfter";
+  v10[0] = &unk_1F2E71B98;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [self fc_errorWithCode:2 description:v5 additionalUserInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)fc_offlineErrorWithReason:()FCErrorAdditions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"FCErrorOfflineReasonKey";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"FCErrorOfflineReasonKey";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:?];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [self fc_errorWithCode:10 description:0 additionalUserInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -154,66 +148,58 @@
 
 + (id)fc_missingResourceErrorWithDescription:()FCErrorAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A578];
-  v11[0] = a3;
+  v9 = *MEMORY[0x1E696A578];
+  v10[0] = a3;
   v4 = MEMORY[0x1E695DF20];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"FCErrorDomain" code:19 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)fc_blockedInCurrentStorefrontErrorWithIdentifiers:()FCErrorAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"FCErrorBlockedContentIdentifiersKey";
-  v11[0] = a3;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"FCErrorBlockedContentIdentifiersKey";
+  v10[0] = a3;
   v4 = MEMORY[0x1E695DF20];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [self fc_errorWithCode:20 description:@"The requested content is not allowed in the current storefront" additionalUserInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)fc_missingAssetErrorWithAssetHandles:()FCErrorAdditions
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [v4 fc_arrayByTransformingWithBlock:&__block_literal_global_129];
   v6 = [v4 fc_arrayByTransformingWithBlock:&__block_literal_global_96_0];
 
   v7 = *MEMORY[0x1E696A750];
-  v12[0] = @"FCErrorMissingObjectsDescriptionsKey";
-  v12[1] = v7;
-  v13[0] = v5;
-  v13[1] = v6;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = @"FCErrorMissingObjectsDescriptionsKey";
+  v11[1] = v7;
+  v12[0] = v5;
+  v12[1] = v6;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v9 = [self fc_errorWithCode:25 description:@"The requested asset could not be retrieved." additionalUserInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)fc_unzipFailedErrorWithErrorCode:()FCErrorAdditions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"FCErrorUnderlyingErrorCodeKey";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"FCErrorUnderlyingErrorCodeKey";
   v2 = [MEMORY[0x1E696AD98] numberWithInt:?];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [self fc_errorWithCode:26 description:@"Failed to unzip a zip archive." additionalUserInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

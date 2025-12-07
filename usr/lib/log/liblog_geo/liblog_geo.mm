@@ -324,34 +324,34 @@ LABEL_26:
 
 id scanDict(void *a1)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v18;
+    v4 = *v17;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v17 + 1) + 8 * i);
+        v6 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v10 = MEMORY[0x29EDBA0F8];
           v11 = objc_opt_class();
           v7 = NSStringFromClass(v11);
-          v8 = [v10 stringWithFormat:@"%@ is actually a %@", v6, v7, v17];
+          v8 = [v10 stringWithFormat:@"%@ is actually a %@", v6, v7, v16];
 LABEL_20:
           v9 = v8;
 LABEL_21:
@@ -390,10 +390,10 @@ LABEL_21:
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v14 = MEMORY[0x29EDBA0F8];
-                v15 = objc_opt_class();
-                v16 = NSStringFromClass(v15);
-                v9 = [v14 stringWithFormat:@"value for %@ is actually a %@", v6, v16, v17];
+                v13 = MEMORY[0x29EDBA0F8];
+                v14 = objc_opt_class();
+                v15 = NSStringFromClass(v14);
+                v9 = [v13 stringWithFormat:@"value for %@ is actually a %@", v6, v15, v16];
 
                 goto LABEL_21;
               }
@@ -402,7 +402,7 @@ LABEL_21:
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
       v9 = 0;
       if (v3)
       {
@@ -420,34 +420,32 @@ LABEL_21:
 
 LABEL_22:
 
-  v12 = *MEMORY[0x29EDCA608];
-
   return v9;
 }
 
 id scanArr(void *a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v15;
+    v4 = *v14;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v15 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v14 + 1) + 8 * i);
+        v6 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -480,10 +478,10 @@ LABEL_17:
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v11 = MEMORY[0x29EDBA0F8];
-                v12 = objc_opt_class();
-                v13 = NSStringFromClass(v12);
-                v8 = [v11 stringWithFormat:@"value %@ is actually a %@", v6, v13, v14];
+                v10 = MEMORY[0x29EDBA0F8];
+                v11 = objc_opt_class();
+                v12 = NSStringFromClass(v11);
+                v8 = [v10 stringWithFormat:@"value %@ is actually a %@", v6, v12, v13];
 
                 goto LABEL_18;
               }
@@ -492,7 +490,7 @@ LABEL_17:
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v3)
       {
         continue;
@@ -504,8 +502,6 @@ LABEL_17:
 
   v8 = 0;
 LABEL_18:
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -566,9 +562,9 @@ BOOL getNameAndRemainderAtOffset(void *a1, unint64_t a2, void *a3, void *a4)
   return v12;
 }
 
-void sub_2999DB1F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2999DB1F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

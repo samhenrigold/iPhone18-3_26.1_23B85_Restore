@@ -96,13 +96,13 @@
 {
   managerCopy = manager;
   locationsCopy = locations;
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(locationsCopy, v8))
   {
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_DEBUG, "DualLocationUpdater update", buf, 2u);
+      _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "DualLocationUpdater update", buf, 2u);
     }
   }
 
@@ -114,75 +114,80 @@
     block[1] = 3221225472;
     block[2] = __76__MapsSuggestionsDefaultLocationUpdater_locationManager_didUpdateLocations___block_invoke;
     block[3] = &unk_1E81F5410;
-    objc_copyWeak(&v13, buf);
-    v11 = managerCopy;
-    v12 = locationsCopy;
+    objc_copyWeak(&v14, buf);
+    v12 = managerCopy;
+    v13 = locationsCopy;
     dispatch_async(dispatchQueue, block);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 }
 
 void __76__MapsSuggestionsDefaultLocationUpdater_locationManager_didUpdateLocations___block_invoke(id *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained)
   {
     [WeakRetained considerMyAllowanceAsLimited:{objc_msgSend(a1[4], "_limitsPrecision")}];
-    v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
     v3 = a1[5];
-    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
-      v5 = v4;
-      v6 = *v12;
+      v6 = v4;
+      v7 = *v13;
       do
       {
-        for (i = 0; i != v5; ++i)
+        v8 = 0;
+        do
         {
-          if (*v12 != v6)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * i);
-          if (MapsSuggestionsLoggingIsVerbose())
+          v9 = *(*(&v12 + 1) + 8 * v8);
+          if (MapsSuggestionsLoggingIsVerbose(v4, v5))
           {
-            v9 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+            v10 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v17 = v8;
-              _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "Considering new location: %@", buf, 0xCu);
+              v18 = v9;
+              _os_log_impl(&dword_1C5126000, v10, OS_LOG_TYPE_DEBUG, "Considering new location: %@", buf, 0xCu);
             }
           }
 
-          if (MapsSuggestionsIsValidLocation(v8))
+          if (MapsSuggestionsIsValidLocation(v9))
           {
-            [WeakRetained considerMyNewLocation:v8];
+            v4 = [WeakRetained considerMyNewLocation:v9];
           }
 
           else
           {
-            v10 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            v11 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v17 = v8;
-              _os_log_impl(&dword_1C5126000, v10, OS_LOG_TYPE_ERROR, "Dropping invalid location: %@", buf, 0xCu);
+              v18 = v9;
+              _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_ERROR, "Dropping invalid location: %@", buf, 0xCu);
             }
           }
+
+          ++v8;
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        while (v6 != v8);
+        v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = v4;
       }
 
-      while (v5);
+      while (v4);
     }
   }
 
@@ -192,11 +197,11 @@ void __76__MapsSuggestionsDefaultLocationUpdater_locationManager_didUpdateLocati
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v17 = "MapsSuggestionsDefaultLocationUpdater.m";
-      v18 = 1026;
-      v19 = 93;
-      v20 = 2082;
-      v21 = "[MapsSuggestionsDefaultLocationUpdater locationManager:didUpdateLocations:]_block_invoke";
+      v18 = "MapsSuggestionsDefaultLocationUpdater.m";
+      v19 = 1026;
+      v20 = 93;
+      v21 = 2082;
+      v22 = "[MapsSuggestionsDefaultLocationUpdater locationManager:didUpdateLocations:]_block_invoke";
       _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
     }
   }
@@ -204,22 +209,22 @@ void __76__MapsSuggestionsDefaultLocationUpdater_locationManager_didUpdateLocati
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   code = [errorCopy code];
   if (code != 3)
   {
     if (code)
     {
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412290;
-        v12 = errorCopy;
-        v7 = "Location error: %@";
-        v8 = v6;
-        v9 = OS_LOG_TYPE_ERROR;
-        v10 = 12;
+        v12 = 138412290;
+        v13 = errorCopy;
+        v8 = "Location error: %@";
+        v9 = v7;
+        v10 = OS_LOG_TYPE_ERROR;
+        v11 = 12;
         goto LABEL_8;
       }
 
@@ -228,18 +233,18 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(0, v6))
     {
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v11) = 0;
-        v7 = "Location unknown";
-        v8 = v6;
-        v9 = OS_LOG_TYPE_DEBUG;
-        v10 = 2;
+        LOWORD(v12) = 0;
+        v8 = "Location unknown";
+        v9 = v7;
+        v10 = OS_LOG_TYPE_DEBUG;
+        v11 = 2;
 LABEL_8:
-        _os_log_impl(&dword_1C5126000, v8, v9, v7, &v11, v10);
+        _os_log_impl(&dword_1C5126000, v9, v10, v8, &v12, v11);
         goto LABEL_9;
       }
 

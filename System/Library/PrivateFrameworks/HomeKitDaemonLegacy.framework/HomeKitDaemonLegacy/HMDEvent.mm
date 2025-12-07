@@ -62,7 +62,7 @@
 
 - (BOOL)_activate:(unint64_t)_activate completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -72,13 +72,13 @@
     v10 = HMFGetLogIdentifier();
     v11 = HMDEventTriggerActivationTypeAsString([(HMDEvent *)selfCopy activationType]);
     v12 = HMDEventTriggerActivationTypeAsString(_activate);
-    v18 = 138543874;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v11;
-    v22 = 2112;
-    v23 = v12;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating the activation type from %@ to %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v11;
+    v21 = 2112;
+    v22 = v12;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating the activation type from %@ to %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -95,7 +95,6 @@
     (*(v14 + 2))(v14, 0);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return activationType != _activate;
 }
 
@@ -187,20 +186,18 @@
 
 - (id)createPayload
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10[0] = *MEMORY[0x277CD2340];
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9[0] = *MEMORY[0x277CD2340];
   uuid = [(HMDEvent *)self uuid];
   uUIDString = [uuid UUIDString];
-  v11[0] = uUIDString;
-  v10[1] = *MEMORY[0x277CD22F0];
+  v10[0] = uUIDString;
+  v9[1] = *MEMORY[0x277CD22F0];
   triggerType = [(HMDEvent *)self triggerType];
-  v11[1] = triggerType;
-  v10[2] = *MEMORY[0x277CD22A0];
+  v10[1] = triggerType;
+  v9[2] = *MEMORY[0x277CD22A0];
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEvent isEndEvent](self, "isEndEvent")}];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }
@@ -249,18 +246,16 @@
 
 - (void)_registerForMessages
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   home = [(HMDEvent *)self home];
   administratorHandler = [home administratorHandler];
   v5 = *MEMORY[0x277CD2318];
   v6 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v10[0] = v6;
+  v9[0] = v6;
   v7 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v10[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   [administratorHandler registerForMessage:v5 receiver:self policies:v8 selector:sel__handleUpdateRequest_];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -417,12 +412,11 @@
 
 uint64_t __23__HMDEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_111473;
-  logCategory__hmf_once_v1_111473 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_111473;
+  logCategory__hmf_once_v1_111473 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

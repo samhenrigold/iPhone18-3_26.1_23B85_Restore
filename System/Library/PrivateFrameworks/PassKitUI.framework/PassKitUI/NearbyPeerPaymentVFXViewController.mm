@@ -30,13 +30,14 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1BD636D40();
+  sub_1BD636D40(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1BD637210(appear);
+  sub_1BD637210(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

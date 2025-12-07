@@ -62,23 +62,23 @@ uint64_t __35__ASDRestoreService_sharedInstance__block_invoke()
 
 void __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___block_invoke_2;
-    v12[3] = &unk_1E7CDB730;
-    v13 = *(a1 + 40);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v12];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___block_invoke_4;
-    v10[3] = &unk_1E7CDB758;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___block_invoke_2;
+    v11[3] = &unk_1E7CDB730;
+    v12 = *(a1 + 40);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v11];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___block_invoke_4;
+    v9[3] = &unk_1E7CDB758;
     v7 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    [v6 clearFollowupsForAccountID:v7 replyHandler:v10];
+    v10 = *(a1 + 40);
+    [v6 clearFollowupsForAccountID:v7 replyHandler:v9];
   }
 
   else
@@ -87,35 +87,32 @@ void __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v5;
+      v14 = v5;
       _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "[RestoreService] Prioritize failed, service unavailable: %{public}@", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[RestoreService] Clear followups failed, request failed: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[RestoreService] Clear followups failed, request failed: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___block_invoke_4(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = ASDLogHandleForCategory(13);
   v7 = v6;
@@ -123,21 +120,20 @@ void __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[RestoreService] Clear followups, error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[RestoreService] Clear followups, error: %{public}@", &v8, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 67109120;
-    LODWORD(v10) = a2;
-    _os_log_impl(&dword_1B8220000, v7, OS_LOG_TYPE_INFO, "[RestoreService] Clear followups returned: %d", &v9, 8u);
+    v8 = 67109120;
+    LODWORD(v9) = a2;
+    _os_log_impl(&dword_1B8220000, v7, OS_LOG_TYPE_INFO, "[RestoreService] Clear followups returned: %d", &v8, 8u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)estimateTotalDownloadSizeWithCompletionHandler:(id)handler
@@ -155,22 +151,22 @@ void __70__ASDRestoreService_clearFollowupsForAccountID_withCompletionHandler___
 
 void __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___block_invoke_7;
-    v11[3] = &unk_1E7CDB730;
-    v12 = *(a1 + 32);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v11];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___block_invoke_8;
-    v9[3] = &unk_1E7CDDCF8;
-    v10 = *(a1 + 32);
-    [v6 estimateTotalDownloadSizeWithReplyHandler:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___block_invoke_7;
+    v10[3] = &unk_1E7CDB730;
+    v11 = *(a1 + 32);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v10];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___block_invoke_8;
+    v8[3] = &unk_1E7CDDCF8;
+    v9 = *(a1 + 32);
+    [v6 estimateTotalDownloadSizeWithReplyHandler:v8];
   }
 
   else
@@ -179,35 +175,32 @@ void __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___bl
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[RestoreService] Download size estimate failed, service unavailable: %{public}@", buf, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___block_invoke_7(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[RestoreService] Download size estimate failed, request failed: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[RestoreService] Download size estimate failed, request failed: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = ASDLogHandleForCategory(13);
   v7 = v6;
@@ -215,21 +208,20 @@ void __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___bl
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[RestoreService] Download size estimate failed, error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[RestoreService] Download size estimate failed, error: %{public}@", &v8, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 134217984;
-    v10 = a2;
-    _os_log_impl(&dword_1B8220000, v7, OS_LOG_TYPE_INFO, "[RestoreService] Download size estimate returned: %{iec-bytes}lu", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = a2;
+    _os_log_impl(&dword_1B8220000, v7, OS_LOG_TYPE_INFO, "[RestoreService] Download size estimate returned: %{iec-bytes}lu", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prioritizeBundleIDs:(id)ds userInitiated:(BOOL)initiated withCompletionHandler:(id)handler
@@ -251,24 +243,24 @@ void __68__ASDRestoreService_estimateTotalDownloadSizeWithCompletionHandler___bl
 
 void __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHandler___block_invoke_10;
-    v13[3] = &unk_1E7CDB730;
-    v14 = *(a1 + 40);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHandler___block_invoke_10;
+    v12[3] = &unk_1E7CDB730;
+    v13 = *(a1 + 40);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v12];
     v7 = *(a1 + 48);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHandler___block_invoke_11;
-    v11[3] = &unk_1E7CDB758;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHandler___block_invoke_11;
+    v10[3] = &unk_1E7CDB758;
     v8 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    [v6 prioritizeBundleIDs:v8 userInitiated:v7 replyHandler:v11];
+    v11 = *(a1 + 40);
+    [v6 prioritizeBundleIDs:v8 userInitiated:v7 replyHandler:v10];
   }
 
   else
@@ -277,35 +269,32 @@ void __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHan
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v5;
+      v15 = v5;
       _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "[RestoreService] Prioritize failed, service unavailable: %{public}@", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHandler___block_invoke_10(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[RestoreService] Prioritize failed, request failed: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[RestoreService] Prioritize failed, request failed: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHandler___block_invoke_11(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = ASDLogHandleForCategory(13);
   v7 = v6;
@@ -313,21 +302,20 @@ void __77__ASDRestoreService_prioritizeBundleIDs_userInitiated_withCompletionHan
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[RestoreService] Prioritize, error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[RestoreService] Prioritize, error: %{public}@", &v8, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 67109120;
-    LODWORD(v10) = a2;
-    _os_log_impl(&dword_1B8220000, v7, OS_LOG_TYPE_INFO, "[RestoreService] Prioritize returned: %d", &v9, 8u);
+    v8 = 67109120;
+    LODWORD(v9) = a2;
+    _os_log_impl(&dword_1B8220000, v7, OS_LOG_TYPE_INFO, "[RestoreService] Prioritize returned: %d", &v8, 8u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

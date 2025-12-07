@@ -88,10 +88,10 @@
     goto LABEL_9;
   }
 
-  [(_UIKeyboardIndirectTextSelectionGestureState *)self translation];
+  objc_msgSend_translation(self);
   v9 = v8;
   v11 = v10;
-  [(_UIKeyboardIndirectTextSelectionGestureState *)v5 translation];
+  objc_msgSend_translation(v5);
   v13 = 0;
   if (v9 != v14 || v11 != v12)
   {

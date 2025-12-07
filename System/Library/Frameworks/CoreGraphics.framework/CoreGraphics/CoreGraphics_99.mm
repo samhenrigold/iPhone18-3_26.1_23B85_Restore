@@ -1,102 +1,20 @@
-__int16 PDAluminosityPDA@<H0>(__n128 _Q0@<Q0>, __n128 _Q1@<Q1>, __n128 _Q2@<Q2>, double a4@<D3>, float a5@<S4>, double a6@<D5>, double a7@<D6>, double a8@<D7>, uint64_t a9@<X0>, uint64_t a10@<X1>, uint64_t a11@<X2>, uint64_t a12@<X3>, uint64_t a13@<X4>, uint64_t a14@<X5>, uint64_t a15@<X6>, uint64_t a16@<X7>, __int16 a17, __int16 a18, __int16 a19, float a20)
+int8x16_t *RGBAf16_mark_pixelmask(__n128 a1, __n128 a2, __n128 _Q2, float16x4_t _D3, float32x4_t _Q4, float32x4_t _D5, int8x16_t _Q6, float32x4_t _Q7, _DWORD *a9, int *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  _H5 = a19;
-  _H6 = a18;
-  _H7 = a17;
-  __asm
-  {
-    FCVT            S0, H0
-    FCVT            S1, H1
-    FCVT            S2, H2
-    FCVT            S7, H7
-    FCVT            S6, H6
-    FCVT            S5, H5
-  }
-
-  v30 = 0.0;
-  v31 = _S0 - (_S0 * a20);
-  v32 = _S1 - (_S1 * a20);
-  if (a20 == 1.0)
-  {
-    v31 = 0.0;
-    v32 = 0.0;
-  }
-
-  else
-  {
-    v30 = _S2 - (_S2 * a20);
-    _S2 = _S2 * a20;
-  }
-
-  if (a20 != 1.0)
-  {
-    _S1 = _S1 * a20;
-    _S0 = _S0 * a20;
-  }
-
-  v33 = (v31 + _S7) - (_S7 * a5);
-  v34 = (v32 + _S6) - (_S6 * a5);
-  v35 = (v30 + _S5) - (_S5 * a5);
-  if (a5 == 1.0)
-  {
-    v33 = v31;
-  }
-
-  else
-  {
-    _S7 = _S7 * a5;
-    _S6 = _S6 * a5;
-    _S5 = _S5 * a5;
-  }
-
-  if (a5 == 1.0)
-  {
-    v36 = v32;
-  }
-
-  else
-  {
-    v36 = v34;
-  }
-
-  if (a5 != 1.0)
-  {
-    v30 = v35;
-  }
-
-  v37 = (((_S6 - _S1) * 0.59) + ((_S7 - _S0) * 0.3)) + ((_S5 - _S2) * 0.11);
-  _S3 = (a5 + a20) - (a5 * a20);
-  _S0 = v33 + (_S0 + v37);
-  _S1 = v36 + (_S1 + v37);
-  _S2 = v30 + (_S2 + v37);
-  __asm
-  {
-    FCVT            H0, S0
-    FCVT            H1, S1
-    FCVT            H2, S2
-    FCVT            H3, S3
-  }
-
-  return result;
-}
-
-int8x16_t *RGBAf16_mark_pixelmask(_DWORD *a1, int *a2, uint64_t a3, __n128 a4, __n128 a5, __n128 _Q2, float16x4_t _D3, float32x4_t _Q4, float32x4_t _Q5, int8x16_t _Q6, float32x4_t _Q7, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
-{
-  v18 = a2[2];
-  v19 = a2[7];
-  v21 = *(a2 + 5);
-  result = *(a2 + 6);
-  v22 = *(a2 + 11);
-  v23 = *(a2 + 12);
-  v24 = *(a2 + 17);
-  v623 = a2[1];
-  v25 = *a2;
+  v18 = a10[2];
+  v19 = a10[7];
+  v21 = *(a10 + 5);
+  result = *(a10 + 6);
+  v22 = *(a10 + 11);
+  v23 = *(a10 + 12);
+  v24 = *(a10 + 17);
+  v623 = a10[1];
+  v25 = *a10;
   v625 = result;
   if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::onceToken != -1)
   {
-    v589 = a3;
+    v589 = a11;
     dispatch_once(&CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::onceToken, &__block_literal_global_9_13911);
-    a3 = v589;
+    a11 = v589;
     result = v625;
   }
 
@@ -105,21 +23,21 @@ int8x16_t *RGBAf16_mark_pixelmask(_DWORD *a1, int *a2, uint64_t a3, __n128 a4, _
   {
     v27 = v623;
     v28 = v19 >> 3;
-    v29 = (v21 + 8 * (v19 >> 3) * a2[4] + 8 * a2[3]);
-    v30 = a2[31];
-    v31 = (v24 + a2[27] * v30 + a2[26]);
-    v32 = a2[14];
-    v33 = a2[15];
-    v34 = a2[19];
+    v29 = (v21 + 8 * (v19 >> 3) * a10[4] + 8 * a10[3]);
+    v30 = a10[31];
+    v31 = (v24 + a10[27] * v30 + a10[26]);
+    v32 = a10[14];
+    v33 = a10[15];
+    v34 = a10[19];
     if ((v25 & 0xFF00) != 0x100)
     {
-      v40 = a2[16];
+      v40 = a10[16];
       v35 = v34 >> 3;
-      v41 = v22 + 8 * (v34 >> 3) * a2[17];
+      v41 = (v22 + 8 * (v34 >> 3) * a10[17]);
       v39 = 1;
       v42 = v22;
       v36 = v22;
-      v43 = a2[17];
+      v43 = a10[17];
       goto LABEL_15;
     }
 
@@ -155,7 +73,7 @@ LABEL_15:
       v621 = v30 - v45;
       v622 = v28 - v45;
       v606 = v35;
-      switch(a3)
+      switch(a11)
       {
         case 0:
           do
@@ -382,20 +300,20 @@ LABEL_15:
 
           return result;
         case 2:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33] >= 2)
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33] >= 2)
           {
-            return composite_pixelmask<(CGCompositeOperation)2,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a1);
+            return composite_pixelmask<(CGCompositeOperation)2,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a9);
           }
 
           else
           {
-            return composite_pixelmask_SOVER(v29, v622, v36, v35, v624, v43, v40, v22, a4.n128_f64[0], a5.n128_f64[0], _Q2.n128_f64[0], _D3, *_Q4.i64, _Q5, v41, v31, v621, v623, v18, v39);
+            return composite_pixelmask_SOVER(v29, v622, v36, v35, v624, v43, v40, v22, a1.n128_f64[0], a2.n128_f64[0], _Q2.n128_f64[0], _D3, *_Q4.i64, _D5, v41, v31, v621, v623, v18, v39);
           }
 
         case 3:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)3,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)3,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a9);
           }
 
           result = v41;
@@ -543,9 +461,9 @@ LABEL_15:
           while (v18);
           return result;
         case 4:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)4,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)4,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a9);
           }
 
           result = v41;
@@ -708,9 +626,9 @@ LABEL_15:
           while (v18);
           return result;
         case 5:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)5,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a1);
+            return composite_pixelmask<(CGCompositeOperation)5,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a9);
           }
 
           do
@@ -782,9 +700,9 @@ LABEL_15:
           while (v18);
           return result;
         case 6:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)6,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)6,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a9);
           }
 
           while (1)
@@ -954,9 +872,9 @@ LABEL_587:
           }
 
         case 7:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)7,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a1);
+            return composite_pixelmask<(CGCompositeOperation)7,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a9);
           }
 
           do
@@ -1041,9 +959,9 @@ LABEL_587:
           while (v18);
           return result;
         case 8:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)8,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a1);
+            return composite_pixelmask<(CGCompositeOperation)8,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a9);
           }
 
           do
@@ -1127,9 +1045,9 @@ LABEL_587:
           while (v18);
           return result;
         case 9:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)9,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a1);
+            return composite_pixelmask<(CGCompositeOperation)9,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a9);
           }
 
           do
@@ -1203,9 +1121,9 @@ LABEL_587:
           while (v18);
           return result;
         case 10:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)10,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a1);
+            return composite_pixelmask<(CGCompositeOperation)10,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, *a9);
           }
 
           do
@@ -1277,9 +1195,9 @@ LABEL_587:
           while (v18);
           return result;
         case 11:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)11,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)11,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           do
@@ -1460,9 +1378,9 @@ LABEL_587:
           while (v18);
           return result;
         case 12:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)12,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)12,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v44, *a9);
           }
 
           do
@@ -1581,9 +1499,9 @@ LABEL_587:
           while (v18);
           return result;
         case 13:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)13,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)13,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v438 = v39;
@@ -1599,8 +1517,8 @@ LABEL_587:
               v442 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v442 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v442 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v443 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v443);
                 __asm { FCVT            S1, H7 }
@@ -1632,10 +1550,10 @@ LABEL_560:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.n128_u16[0] = v29->u16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAmultiplyPDA(a4, _Q1, _Q2, *&_D3, _S4, v443, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v443), SWORD1(v443), SWORD2(v443), *_Q6.i32);
+                  v29->i16[0] = PDAmultiplyPDA(a1, _Q1, _Q2, *&_D3, _S4, v443, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v443), SWORD1(v443), SWORD2(v443), *_Q6.i32);
                   v29->i16[1] = v446;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -1699,9 +1617,9 @@ LABEL_561:
           }
 
         case 14:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)14,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)14,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           while (1)
@@ -1864,9 +1782,9 @@ LABEL_270:
           }
 
         case 15:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)15,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)15,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v317 = v39;
@@ -1882,8 +1800,8 @@ LABEL_270:
               v321 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v321 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v321 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v322 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v322);
                 __asm { FCVT            S1, H7 }
@@ -1915,10 +1833,10 @@ LABEL_389:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.n128_u16[0] = v29->u16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAoverlayPDA(a4, _Q1, _Q2, *&_D3, _S4, v322, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v322), SWORD1(v322), SWORD2(v322), *_Q6.i32);
+                  v29->i16[0] = PDAoverlayPDA(a1, _Q1, _Q2, *&_D3, _S4, v322, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v322), SWORD1(v322), SWORD2(v322), *_Q6.i32);
                   v29->i16[1] = v325;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -1982,9 +1900,9 @@ LABEL_390:
           }
 
         case 16:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)16,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)16,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v131 = v39;
@@ -2000,8 +1918,8 @@ LABEL_390:
               v135 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v135 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v135 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v136 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v136);
                 __asm { FCVT            S1, H7 }
@@ -2033,10 +1951,10 @@ LABEL_244:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.i16[0] = v29->i16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAdarkenPDA(a4, *_Q1.i64, _Q2.n128_f64[0], *&_D3, _S4, v136, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v136), SHIDWORD(v136), *_Q6.i32);
+                  v29->i16[0] = PDAdarkenPDA(a1, *_Q1.i64, _Q2.n128_f64[0], *&_D3, _S4, v136, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v136), SHIDWORD(v136), *_Q6.i32);
                   v29->i16[1] = v139;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -2100,9 +2018,9 @@ LABEL_245:
           }
 
         case 17:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)17,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)17,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v381 = v39;
@@ -2118,8 +2036,8 @@ LABEL_245:
               v385 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v385 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v385 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v386 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v386);
                 __asm { FCVT            S1, H7 }
@@ -2151,10 +2069,10 @@ LABEL_462:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.i16[0] = v29->i16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAlightenPDA(a4, *_Q1.i64, _Q2.n128_f64[0], *&_D3, _S4, v386, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v386), SHIDWORD(v386), *_Q6.i32);
+                  v29->i16[0] = PDAlightenPDA(a1, *_Q1.i64, _Q2.n128_f64[0], *&_D3, _S4, v386, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v386), SHIDWORD(v386), *_Q6.i32);
                   v29->i16[1] = v389;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -2231,8 +2149,8 @@ LABEL_463:
               v105 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v105 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v105 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v106 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v106);
                 __asm { FCVT            S1, H7 }
@@ -2264,10 +2182,10 @@ LABEL_174:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.n128_u16[0] = v29->u16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAcolordodgePDA(a4, _Q1, _Q2, *&_D3, _S4, v106, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v106), SWORD1(v106), SWORD2(v106), *_Q6.i32);
+                  v29->i16[0] = PDAcolordodgePDA(a1, _Q1, _Q2, *&_D3, _S4, v106, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v106), SWORD1(v106), SWORD2(v106), *_Q6.i32);
                   v29->i16[1] = v109;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -2331,9 +2249,9 @@ LABEL_175:
           }
 
         case 19:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)19,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)19,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v530 = v39;
@@ -2349,8 +2267,8 @@ LABEL_175:
               v534 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v534 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v534 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v535 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v535);
                 __asm { FCVT            S1, H7 }
@@ -2382,10 +2300,10 @@ LABEL_678:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.n128_u16[0] = v29->u16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAcolorburnPDA(a4, _Q1, _Q2, *&_D3, _S4, v535, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v535), SWORD1(v535), SWORD2(v535), *_Q6.i32);
+                  v29->i16[0] = PDAcolorburnPDA(a1, _Q1, _Q2, *&_D3, _S4, v535, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v535), SWORD1(v535), SWORD2(v535), *_Q6.i32);
                   v29->i16[1] = v538;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -2449,9 +2367,9 @@ LABEL_679:
           }
 
         case 20:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)20,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)20,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v397 = v39;
@@ -2467,8 +2385,8 @@ LABEL_679:
               v401 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v401 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v401 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v402 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v402);
                 __asm { FCVT            S1, H7 }
@@ -2500,10 +2418,10 @@ LABEL_489:
                     _Q4.i32[0] = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.i16[0] = v29->i16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAsoftlightPDA(a4, *_Q1.f32, _Q2, _D3, *_Q4.i64, v402, *_Q6.i8, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v402), SWORD1(v402), SWORD2(v402), *_Q6.i32);
+                  v29->i16[0] = PDAsoftlightPDA(a1, *_Q1.f32, _Q2, _D3, *_Q4.i64, v402, *_Q6.i8, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v402), SWORD1(v402), SWORD2(v402), *_Q6.i32);
                   v29->i16[1] = v404;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -2567,9 +2485,9 @@ LABEL_490:
           }
 
         case 21:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)21,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)21,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v422 = v39;
@@ -2585,8 +2503,8 @@ LABEL_490:
               v426 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v426 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v426 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v427 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v427);
                 __asm { FCVT            S1, H7 }
@@ -2618,10 +2536,10 @@ LABEL_533:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.n128_u16[0] = v29->u16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAhardlightPDA(a4, _Q1, _Q2, *&_D3, _S4, v427, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v427), SWORD1(v427), SWORD2(v427), *_Q6.i32);
+                  v29->i16[0] = PDAhardlightPDA(a1, _Q1, _Q2, *&_D3, _S4, v427, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v427), SWORD1(v427), SWORD2(v427), *_Q6.i32);
                   v29->i16[1] = v430;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -2685,9 +2603,9 @@ LABEL_534:
           }
 
         case 22:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)22,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)22,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
           v514 = v39;
@@ -2703,8 +2621,8 @@ LABEL_534:
               v518 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v518 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v518 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v519 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v519);
                 __asm { FCVT            S1, H7 }
@@ -2736,10 +2654,10 @@ LABEL_651:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.i16[0] = v29->i16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAdifferencePDA(a4, *_Q1.i64, _Q2.n128_f64[0], *&_D3, _S4, v519, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v519), SHIDWORD(v519), *_Q6.i32);
+                  v29->i16[0] = PDAdifferencePDA(a1, *_Q1.i64, _Q2.n128_f64[0], *&_D3, _S4, v519, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v519), SHIDWORD(v519), *_Q6.i32);
                   v29->i16[1] = v522;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -2803,12 +2721,12 @@ LABEL_652:
           }
 
         case 23:
-          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a2[33])
+          if (CGPreferencesCheck<CGImageMarkAllowTemplateMethodFP>(void)::result && a10[33])
           {
-            return composite_pixelmask<(CGCompositeOperation)23,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a1);
+            return composite_pixelmask<(CGCompositeOperation)23,_rgbaf16_t>(v29, v622, v36, v35, v624, v43, v40, v22, v41, v31, v621, v623, v18, v39, v26, v44, *a9);
           }
 
-          a4.n128_u32[0] = 998277249;
+          a1.n128_u32[0] = 998277249;
           while (1)
           {
             v546 = v623;
@@ -2865,7 +2783,7 @@ LABEL_704:
                   __asm { FCVT            H5, S6 }
 
                   v559 = vcvtq_f32_f16(*_Q7.f32).u64[0];
-                  v560 = vcvtq_f32_f16(vext_s8(_D4, a4.n128_u64[0], 2uLL)).u64[0];
+                  v560 = vcvtq_f32_f16(vext_s8(_D4, a1.n128_u64[0], 2uLL)).u64[0];
                   *_Q7.f32 = vmla_f32(vadd_f32(v559, v560), 0xC0000000C0000000, vmul_f32(v559, v560));
                   v29->i16[0] = _H5;
                   *(v29->i32 + 2) = vcvt_f16_f32(_Q7).u32[0];
@@ -2944,8 +2862,8 @@ LABEL_705:
               v89 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v89 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v89 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v90 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v90);
                 __asm { FCVT            S1, H7 }
@@ -2977,10 +2895,10 @@ LABEL_113:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.n128_u16[0] = v29->u16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAhuePDA(a4, _Q1, _Q2, *&_D3, _S4, v90, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v90), SWORD1(v90), SWORD2(v90), *_Q6.i32);
+                  v29->i16[0] = PDAhuePDA(a1, _Q1, _Q2, *&_D3, _S4, v90, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v90), SWORD1(v90), SWORD2(v90), *_Q6.i32);
                   v29->i16[1] = v93;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -3057,8 +2975,8 @@ LABEL_114:
               v73 = *v31;
               if (*v31)
               {
-                a4.n128_f32[0] = v73 * 0.0039216;
-                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+                a1.n128_f32[0] = v73 * 0.0039216;
+                _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
                 v74 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
                 _Q7.i16[0] = HIWORD(v74);
                 __asm { FCVT            S1, H7 }
@@ -3090,10 +3008,10 @@ LABEL_86:
                     _S4 = 1.0;
                   }
 
-                  a4.n128_u16[0] = v29->i16[0];
+                  a1.n128_u16[0] = v29->i16[0];
                   _Q1.n128_u16[0] = v29->u16[1];
                   _Q2.n128_u16[0] = v29->u16[2];
-                  v29->i16[0] = PDAsaturationPDA(a4, _Q1, _Q2, *&_D3, _S4, v74, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v74), SWORD1(v74), SWORD2(v74), *_Q6.i32);
+                  v29->i16[0] = PDAsaturationPDA(a1, _Q1, _Q2, *&_D3, _S4, v74, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v74), SWORD1(v74), SWORD2(v74), *_Q6.i32);
                   v29->i16[1] = v77;
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
@@ -3170,8 +3088,8 @@ LABEL_87:
               v121 = *v31;
               if (*v31)
               {
-                a5.n128_f32[0] = v121 * 0.0039216;
-                v122 = vmulq_n_f32(vcvtq_f32_f16(*v36), a5.n128_f32[0]);
+                a2.n128_f32[0] = v121 * 0.0039216;
+                v122 = vmulq_n_f32(vcvtq_f32_f16(*v36), a2.n128_f32[0]);
                 v122.n128_u64[0] = vcvt_f16_f32(v122);
                 _D3.i16[0] = v122.n128_i16[3];
                 __asm { FCVT            S2, H3 }
@@ -3179,7 +3097,7 @@ LABEL_87:
                 _S4 = v23 ? _Q2.n128_f32[0] : v121 * 0.0039216;
                 if (_S4 > 0.0)
                 {
-                  _Q5.i16[0] = v29->i16[3];
+                  _D5.i16[0] = v29->i16[3];
                   if (result)
                   {
                     __asm { FCMP            H5, #0 }
@@ -3204,10 +3122,10 @@ LABEL_216:
                   }
 
                   _Q7.i16[0] = v29->i16[0];
-                  a5.n128_u16[0] = v122.n128_u16[1];
+                  a2.n128_u16[0] = v122.n128_u16[1];
                   _Q2.n128_u16[0] = v122.n128_u16[2];
-                  v29->i16[0] = PDAluminosityPDA(v122, a5, _Q2, *&_D3, _S4, *_Q5.i64, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, v29->i16[0], *(v29->i32 + 2), HIWORD(*(v29->i32 + 2)), *_Q6.i32);
-                  v29->i16[1] = a5.n128_u16[0];
+                  v29->i16[0] = PDAluminosityPDA(v122, a2, _Q2, *&_D3, _S4, *_D5.i64, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, v29->i16[0], *(v29->i32 + 2), HIWORD(*(v29->i32 + 2)), *_Q6.i32);
+                  v29->i16[1] = a2.n128_u16[0];
                   v29->i16[2] = _Q2.n128_u16[0];
                   result = v625;
                   goto LABEL_216;
@@ -3290,8 +3208,8 @@ LABEL_29:
           goto LABEL_42;
         }
 
-        a4.n128_f32[0] = v53 * 0.0039216;
-        _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a4.n128_f32[0]);
+        a1.n128_f32[0] = v53 * 0.0039216;
+        _Q1 = vmulq_n_f32(vcvtq_f32_f16(*v36), a1.n128_f32[0]);
         v54 = COERCE_DOUBLE(vcvt_f16_f32(_Q1));
         _Q7.i16[0] = HIWORD(v54);
         __asm { FCVT            S1, H7 }
@@ -3315,10 +3233,10 @@ LABEL_29:
           __asm { FCVT            S4, H3 }
 
 LABEL_40:
-          a4.n128_u16[0] = v29->i16[0];
+          a1.n128_u16[0] = v29->i16[0];
           _Q1.n128_u16[0] = v29->u16[1];
           _Q2.n128_u16[0] = v29->u16[2];
-          v29->i16[0] = PDAluminosityPDA(a4, _Q1, _Q2, *&_D3, _S4, v54, *_Q6.i64, *_Q7.i64, result, v27, a3, v39, v44, v43, v40, a16, SLOWORD(v54), SWORD1(v54), SWORD2(v54), *_Q6.i32);
+          v29->i16[0] = PDAluminosityPDA(a1, _Q1, _Q2, *&_D3, _S4, v54, *_Q6.i64, *_Q7.i64, result, v27, a11, v39, v44, v43, v40, a16, SLOWORD(v54), SWORD1(v54), SWORD2(v54), *_Q6.i32);
           v29->i16[1] = v61;
           v29->i16[2] = _Q2.n128_u16[0];
           result = v625;
@@ -3426,16 +3344,16 @@ LABEL_13:
   return result;
 }
 
-void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2)
 {
-  v8 = *(a1 + 4);
-  v9 = *(a1 + 8);
-  if (v8 >= 1 && v9 >= 1)
+  v2 = *(a1 + 4);
+  v3 = *(a1 + 8);
+  if (v2 >= 1 && v3 >= 1)
   {
-    v12 = *(a1 + 136);
-    if (v12)
+    v6 = *(a1 + 136);
+    if (v6)
     {
-      v14 = *(a1 + 40);
+      v8 = *(a1 + 40);
       if (use_vImage_font_smoothing(void)::predicate != -1)
       {
         dispatch_once(&use_vImage_font_smoothing(void)::predicate, &__block_literal_global_14_21947);
@@ -3445,78 +3363,78 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
       {
         if ((a2 - 3) <= 0xFFFFFFFD)
         {
-          _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9559, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "mode == COPY || mode == SOVER", "mode = %d", a6, a7, a8, a2);
+          _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9559, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "mode == COPY || mode == SOVER", "mode = %d", a2);
         }
 
-        v15 = vImageCGCompositeMarkConstDeepMaskARGB_ARGB16F();
-        if (v15)
+        v9 = vImageCGCompositeMarkConstDeepMaskARGB_ARGB16F();
+        if (v9)
         {
-          CGPostError("vImageCGCompositeMarkConstDeepMaskARGB_ARGB16F failed %ld", v16, v17, v18, v19, v20, v21, v22, v15);
+          CGPostError("vImageCGCompositeMarkConstDeepMaskARGB_ARGB16F failed %ld", v9);
         }
       }
 
       else
       {
-        v23 = *(a1 + 124);
-        if (v23)
+        v10 = *(a1 + 124);
+        if (v10)
         {
-          _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9588, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "%ld", a6, a7, a8, *(a1 + 124));
+          _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9588, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "%ld", *(a1 + 124));
         }
 
         if ((a2 - 1) > 1)
         {
-          _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9685, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented", a6, a7, a8, v145);
+          _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9685, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented");
         }
 
-        v24 = *(a1 + 28) >> 3;
-        v25 = v14 + 8 * v24 * *(a1 + 16) + 8 * *(a1 + 12);
-        v26 = v23 >> 1;
-        v27 = v26 - v8;
-        v28 = v24 - v8;
-        v29 = v12 + 2 * v26 * *(a1 + 108) + 2 * *(a1 + 104);
-        LOWORD(v30) = COERCE_UNSIGNED_INT(1.0);
+        v11 = *(a1 + 28) >> 3;
+        v12 = v8 + 8 * v11 * *(a1 + 16) + 8 * *(a1 + 12);
+        v13 = v10 >> 1;
+        v14 = v13 - v2;
+        v15 = v11 - v2;
+        v16 = v6 + 2 * v13 * *(a1 + 108) + 2 * *(a1 + 104);
+        LOWORD(v17) = COERCE_UNSIGNED_INT(1.0);
         do
         {
-          v31 = (v29 & 3) != 0;
-          v32 = (v29 + 2 * v8) & 0xFFFFFFFFFFFFFFFCLL;
-          v33 = v29 + 4 * v8;
-          v34 = v8;
+          v18 = (v16 & 3) != 0;
+          v19 = (v16 + 2 * v2) & 0xFFFFFFFFFFFFFFFCLL;
+          v20 = v16 + 4 * v2;
+          v21 = v2;
           do
           {
-            if (v31)
+            if (v18)
             {
-              v35 = *v29;
-              v36 = 1;
-              v37 = 1;
+              v22 = *v16;
+              v23 = 1;
+              v24 = 1;
             }
 
-            else if (v34 == 1)
+            else if (v21 == 1)
             {
-              if (v32 == v33)
+              if (v19 == v20)
               {
-                _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9616, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "postamble == true", "mdp %p w %d", a6, a7, a8, v29);
+                _CGHandleAssert("RGBAf16_mark_const_deep_mask_ARGB", 9616, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "postamble == true", "mdp %p w %d", v16, v2);
               }
 
-              v35 = *v29;
-              v37 = 1;
-              v36 = 1;
+              v22 = *v16;
+              v24 = 1;
+              v23 = 1;
             }
 
             else
             {
-              v36 = 0;
-              v35 = *v29;
-              v37 = 2;
+              v23 = 0;
+              v22 = *v16;
+              v24 = 2;
             }
 
-            if ((v35 & 0x7FFF7FFF) != 0)
+            if ((v22 & 0x7FFF7FFF) != 0)
             {
-              v38 = HIWORD(v35);
+              v25 = HIWORD(v22);
               do
               {
-                v39 = v36;
-                v40 = v35 & 0x7FFF;
-                if ((v35 & 0x7FFF) != 0)
+                v26 = v23;
+                v27 = v22 & 0x7FFF;
+                if ((v22 & 0x7FFF) != 0)
                 {
                   __asm
                   {
@@ -3524,12 +3442,12 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCMP            H17, #0
                   }
 
-                  _ZF = _ZF || _H17 == v30;
+                  _ZF = _ZF || _H17 == v17;
                   if (!_ZF)
                   {
                     __asm { FCVT            S4, H17 }
 
-                    v48 = _H17 * _H17;
+                    v35 = _H17 * _H17;
                     _S4 = -(_S4 * _S4);
                     __asm
                     {
@@ -3544,17 +3462,17 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H17 = v48;
+                      _H17 = v35;
                     }
                   }
 
                   __asm { FCMP            H7, #0 }
 
-                  if (!_ZF && _H7 != v30)
+                  if (!_ZF && _H7 != v17)
                   {
                     __asm { FCVT            S4, H7 }
 
-                    v55 = _H7 * _H7;
+                    v42 = _H7 * _H7;
                     _S4 = -(_S4 * _S4);
                     __asm
                     {
@@ -3569,17 +3487,17 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H7 = v55;
+                      _H7 = v42;
                     }
                   }
 
                   __asm { FCMP            H3, #0 }
 
-                  if (!_ZF && _H3 != v30)
+                  if (!_ZF && _H3 != v17)
                   {
                     __asm { FCVT            S4, H3 }
 
-                    v62 = _H3 * _H3;
+                    v49 = _H3 * _H3;
                     _S4 = -(_S4 * _S4);
                     __asm
                     {
@@ -3594,24 +3512,24 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H3 = v62;
+                      _H3 = v49;
                     }
                   }
 
-                  _H6 = *v25;
-                  _H5 = *(v25 + 2);
-                  _H4 = *(v25 + 4);
+                  _H6 = *v12;
+                  _H5 = *(v12 + 2);
+                  _H4 = *(v12 + 4);
                   __asm
                   {
                     FCMP            H16, #0
                     FCMP            H20, #0
                   }
 
-                  if (!_ZF && _H20 != v30)
+                  if (!_ZF && _H20 != v17)
                   {
                     __asm { FCVT            S21, H20 }
 
-                    v72 = _H20 * _H20;
+                    v59 = _H20 * _H20;
                     _S21 = -(_S21 * _S21);
                     __asm
                     {
@@ -3626,17 +3544,17 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H20 = v72;
+                      _H20 = v59;
                     }
                   }
 
                   __asm { FCMP            H19, #0 }
 
-                  if (!_ZF && _H19 != v30)
+                  if (!_ZF && _H19 != v17)
                   {
                     __asm { FCVT            S21, H19 }
 
-                    v78 = _H19 * _H19;
+                    v65 = _H19 * _H19;
                     _S21 = -(_S21 * _S21);
                     __asm
                     {
@@ -3651,17 +3569,17 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H19 = v78;
+                      _H19 = v65;
                     }
                   }
 
                   __asm { FCMP            H18, #0 }
 
-                  if (!_ZF && _H18 != v30)
+                  if (!_ZF && _H18 != v17)
                   {
                     __asm { FCVT            S21, H18 }
 
-                    v84 = _H18 * _H18;
+                    v71 = _H18 * _H18;
                     _S21 = -(_S21 * _S21);
                     __asm
                     {
@@ -3676,7 +3594,7 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H18 = v84;
+                      _H18 = v71;
                     }
                   }
 
@@ -3686,29 +3604,29 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCVT            S20, H20
                   }
 
-                  _S17 = _S20 + ((_S17 - _S20) * ((v40 >> 10) / 31.0));
+                  _S17 = _S20 + ((_S17 - _S20) * ((v27 >> 10) / 31.0));
                   __asm
                   {
                     FCVT            H17, S17
                     FCMP            H17, #0
                   }
 
-                  if (!_ZF && _H17 != v30)
+                  if (!_ZF && _H17 != v17)
                   {
                     __asm { FCVT            S20, H17 }
 
-                    v94 = sqrtf(_S20);
-                    v95 = -sqrtf(fabsf(_S20));
+                    v81 = sqrtf(_S20);
+                    v82 = -sqrtf(fabsf(_S20));
                     __asm { FCMP            H17, #0 }
 
                     if (_NF)
                     {
-                      _S17 = v95;
+                      _S17 = v82;
                     }
 
                     else
                     {
-                      _S17 = v94;
+                      _S17 = v81;
                     }
 
                     __asm { FCVT            H17, S17 }
@@ -3720,29 +3638,29 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCVT            S19, H19
                   }
 
-                  _S7 = _S19 + ((_S7 - _S19) * (((v40 >> 5) & 0x1F) / 31.0));
+                  _S7 = _S19 + ((_S7 - _S19) * (((v27 >> 5) & 0x1F) / 31.0));
                   __asm
                   {
                     FCVT            H7, S7
                     FCMP            H7, #0
                   }
 
-                  if (!_ZF && _H7 != v30)
+                  if (!_ZF && _H7 != v17)
                   {
                     __asm { FCVT            S19, H7 }
 
-                    v104 = sqrtf(_S19);
-                    v105 = -sqrtf(fabsf(_S19));
+                    v91 = sqrtf(_S19);
+                    v92 = -sqrtf(fabsf(_S19));
                     __asm { FCMP            H7, #0 }
 
                     if (_NF)
                     {
-                      _S7 = v105;
+                      _S7 = v92;
                     }
 
                     else
                     {
-                      _S7 = v104;
+                      _S7 = v91;
                     }
 
                     __asm { FCVT            H7, S7 }
@@ -3754,38 +3672,38 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCVT            S18, H18
                   }
 
-                  _S3 = _S18 + ((_S3 - _S18) * ((v35 & 0x1F) / 31.0));
+                  _S3 = _S18 + ((_S3 - _S18) * ((v22 & 0x1F) / 31.0));
                   __asm
                   {
                     FCVT            H3, S3
                     FCMP            H3, #0
                   }
 
-                  if (!_ZF && _H3 != v30)
+                  if (!_ZF && _H3 != v17)
                   {
                     __asm { FCVT            S18, H3 }
 
-                    v114 = sqrtf(_S18);
-                    v115 = -sqrtf(fabsf(_S18));
+                    v101 = sqrtf(_S18);
+                    v102 = -sqrtf(fabsf(_S18));
                     __asm { FCMP            H3, #0 }
 
                     if (_NF)
                     {
-                      _S3 = v115;
+                      _S3 = v102;
                     }
 
                     else
                     {
-                      _S3 = v114;
+                      _S3 = v101;
                     }
 
                     __asm { FCVT            H3, S3 }
                   }
 
-                  v118 = ((((v35 >> 2) & 0xF8) + 16) * ((v35 >> 2) & 0xF8)) >> 8;
+                  v105 = ((((v22 >> 2) & 0xF8) + 16) * ((v22 >> 2) & 0xF8)) >> 8;
                   __asm { FCVT            S16, H16 }
 
-                  _S18 = ((v118 / 255.0) - (_S16 * (v118 / 255.0))) + _S16;
+                  _S18 = ((v105 / 255.0) - (_S16 * (v105 / 255.0))) + _S16;
                   __asm
                   {
                     FCVT            H18, S18
@@ -3795,23 +3713,23 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                   if (_NF ^ _VF | _ZF)
                   {
-                    v123 = 0;
+                    v110 = 0;
                   }
 
                   else
                   {
-                    v123 = 1;
+                    v110 = 1;
                   }
 
-                  v124 = _H18 < v30;
-                  v125 = _H17 * _H18;
-                  v126 = _H7 * _H18;
-                  v127 = _H3 * _H18;
-                  if ((v123 & v124) != 0)
+                  v111 = _H18 < v17;
+                  v112 = _H17 * _H18;
+                  v113 = _H7 * _H18;
+                  v114 = _H3 * _H18;
+                  if ((v110 & v111) != 0)
                   {
-                    _H3 = v127;
-                    _H7 = v126;
-                    _H17 = v125;
+                    _H3 = v114;
+                    _H7 = v113;
+                    _H17 = v112;
                   }
 
                   __asm
@@ -3843,191 +3761,193 @@ void RGBAf16_mark_const_deep_mask_ARGB(uint64_t a1, int a2, uint64_t a3, uint64_
                   _S2 = _S16 + ((_S19 - _S16) * _S2);
                   __asm { FCVT            H2, S2 }
 
-                  *(v25 + 6) = _H2;
+                  *(v12 + 6) = _H2;
                   if (_H6 > _H2)
                   {
-                    v143 = _H2;
+                    v130 = _H2;
                   }
 
                   else
                   {
-                    v143 = _H6;
+                    v130 = _H6;
                   }
 
-                  *v25 = v143;
+                  *v12 = v130;
                   if (_H5 > _H2)
                   {
-                    v144 = _H2;
+                    v131 = _H2;
                   }
 
                   else
                   {
-                    v144 = _H5;
+                    v131 = _H5;
                   }
 
-                  *(v25 + 2) = v144;
+                  *(v12 + 2) = v131;
                   if (_H3 <= _H2)
                   {
                     _H2 = _H3;
                   }
 
-                  *(v25 + 4) = _H2;
+                  *(v12 + 4) = _H2;
                 }
 
-                v25 += 8;
-                v36 = 1;
-                v35 = v38;
+                v12 += 8;
+                v23 = 1;
+                v22 = v25;
               }
 
-              while ((v39 & 1) == 0);
+              while ((v26 & 1) == 0);
             }
 
             else
             {
-              v25 += 8 * v37;
+              v12 += 8 * v24;
             }
 
-            v31 = 0;
-            v29 += 2 * v37;
-            _VF = __OFSUB__(v34, v37);
-            v34 -= v37;
+            v18 = 0;
+            v16 += 2 * v24;
+            _VF = __OFSUB__(v21, v24);
+            v21 -= v24;
           }
 
-          while (!((v34 < 0) ^ _VF | (v34 == 0)));
-          v29 += 2 * v27;
-          v25 += 8 * v28;
-          _VF = __OFSUB__(v9--, 1);
+          while (!((v21 < 0) ^ _VF | (v21 == 0)));
+          v16 += 2 * v14;
+          v12 += 8 * v15;
+          _VF = __OFSUB__(v3--, 1);
         }
 
-        while (!((v9 < 0) ^ _VF | (v9 == 0)));
+        while (!((v3 < 0) ^ _VF | (v3 == 0)));
       }
     }
   }
 }
 
-void RGBAf16_mark_const_deep_mask_BGColorARGB(uint64_t a1, int a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9, double _D6, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void RGBAf16_mark_const_deep_mask_BGColorARGB(uint64_t a1, int a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9, double _D6)
 {
-  v19 = *(a1 + 4);
-  v20 = *(a1 + 8);
-  if (v19 < 1 || v20 < 1)
+  v14 = *(a1 + 4);
+  v15 = *(a1 + 8);
+  if (v14 < 1 || v15 < 1)
   {
     return;
   }
 
-  v23 = *(a1 + 136);
-  if (!v23)
+  v18 = *(a1 + 136);
+  if (!v18)
   {
     return;
   }
 
-  v26 = *(a1 + 40);
-  v27 = *(a1 + 88);
+  v21 = *(a1 + 40);
+  v22 = *(a1 + 88);
   if (use_vImage_font_smoothing(void)::predicate != -1)
   {
     dispatch_once(&use_vImage_font_smoothing(void)::predicate, &__block_literal_global_14_21947);
   }
 
-  v28 = *(a1 + 124);
-  if (v28)
+  v23 = *(a1 + 124);
+  if (v23)
   {
-    _CGHandleAssert("RGBAf16_mark_const_deep_mask_BGColorARGB", 9759, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "mdn = %ld", a13, a14, a15, *(a1 + 124));
+    _CGHandleAssert("RGBAf16_mark_const_deep_mask_BGColorARGB", 9759, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "mdn = %ld", *(a1 + 124));
   }
 
   if ((a2 - 1) > 1)
   {
-    _CGHandleAssert("RGBAf16_mark_const_deep_mask_BGColorARGB", 9883, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented", a13, a14, a15, v186);
+    _CGHandleAssert("RGBAf16_mark_const_deep_mask_BGColorARGB", 9883, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented");
   }
 
-  v29 = *(a1 + 28) >> 3;
-  v30 = v26 + 8 * v29 * *(a1 + 16) + 8 * *(a1 + 12);
-  v31 = v28 >> 1;
-  v32 = (v28 >> 1) - v19;
-  v33 = v29 - v19;
-  v34 = v23 + 2 * v31 * *(a1 + 108) + 2 * *(a1 + 104);
-  LOWORD(v35) = COERCE_UNSIGNED_INT(1.0);
+  v24 = *(a1 + 28) >> 3;
+  v25 = v21 + 8 * v24 * *(a1 + 16) + 8 * *(a1 + 12);
+  v26 = v23 >> 1;
+  v27 = (v23 >> 1) - v14;
+  v28 = v24 - v14;
+  v29 = v18 + 2 * v26 * *(a1 + 108) + 2 * *(a1 + 104);
+  LODWORD(a4) = 1.0;
+  LOWORD(a6) = COERCE_UNSIGNED_INT(1.0);
+  LODWORD(a7) = 31.0;
   while (2)
   {
-    v36 = (v34 & 3) != 0;
-    v37 = (v34 + 2 * v19) & 0xFFFFFFFFFFFFFFFCLL;
-    v38 = v34 + 4 * v19;
-    v39 = v19;
+    v30 = (v29 & 3) != 0;
+    v31 = (v29 + 2 * v14) & 0xFFFFFFFFFFFFFFFCLL;
+    v32 = v29 + 4 * v14;
+    v33 = v14;
     do
     {
-      if (v36)
+      if (v30)
       {
-        v40 = *v34;
-        v41 = 1;
-        v42 = 1;
-        if (!*v34)
+        v34 = *v29;
+        v35 = 1;
+        v36 = 1;
+        if (!*v29)
         {
           goto LABEL_18;
         }
       }
 
-      else if (v39 == 1)
+      else if (v33 == 1)
       {
-        if (v37 == v38)
+        if (v31 == v32)
         {
-          _CGHandleAssert("RGBAf16_mark_const_deep_mask_BGColorARGB", 9787, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "postamble == true", "", a13, a14, a15, v186);
+          _CGHandleAssert("RGBAf16_mark_const_deep_mask_BGColorARGB", 9787, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "postamble == true", "", a4, 0.0, a6, a7, 0.0);
         }
 
-        v40 = *v34;
-        v42 = 1;
-        v41 = 1;
-        if (!*v34)
+        v34 = *v29;
+        v36 = 1;
+        v35 = 1;
+        if (!*v29)
         {
 LABEL_18:
-          v30 += 8 * v42;
+          v25 += 8 * v36;
           goto LABEL_128;
         }
       }
 
       else
       {
-        v41 = 0;
-        v40 = *v34;
-        v42 = 2;
-        if (!*v34)
+        v35 = 0;
+        v34 = *v29;
+        v36 = 2;
+        if (!*v29)
         {
           goto LABEL_18;
         }
       }
 
-      v43 = v40;
-      v44 = HIWORD(v40);
+      v37 = v34;
+      v38 = HIWORD(v34);
       do
       {
-        v45 = v41;
-        if (v43)
+        v39 = v35;
+        if (v37)
         {
-          _H19 = *(v27 + 4);
-          _H18 = *(v27 + 6);
-          _H7 = *(v30 + 4);
-          _H5 = *(v30 + 6);
+          _H19 = *(v22 + 4);
+          _H18 = *(v22 + 6);
+          _H7 = *(v25 + 4);
+          _H5 = *(v25 + 6);
           __asm { FCVT            S5, H5 }
 
-          v53 = 1.0 - _S5;
+          v47 = 1.0 - _S5;
           if ((1.0 - _S5) > 1.0)
           {
-            v53 = 1.0;
+            v47 = 1.0;
           }
 
-          if (v53 >= 0.0)
+          if (v47 >= 0.0)
           {
-            v54 = v53;
+            v48 = v47;
           }
 
           else
           {
-            v54 = 0.0;
+            v48 = 0.0;
           }
 
-          _D21.i32[0] = *v27;
-          LODWORD(_D6) = *v30;
+          _D21.i32[0] = *v22;
+          LODWORD(_D6) = *v25;
           _D16.i32[0] = *a3;
           _D16 = vcvtq_f32_f16(_D16).u64[0];
           *&_D6 = vcvtq_f32_f16(*&_D6).u64[0];
-          *_Q17.f32 = vmla_n_f32(*&_D6, _D16, v54);
+          *_Q17.f32 = vmla_n_f32(*&_D6, _D16, v48);
           *_Q17.f32 = vcvt_f16_f32(_Q17);
           _D16.i16[0] = *(a3 + 4);
           __asm
@@ -4036,47 +3956,47 @@ LABEL_18:
             FCVT            S7, H7
           }
 
-          *_D16.i32 = _S7 + (*_D16.i32 * v54);
+          *_D16.i32 = _S7 + (*_D16.i32 * v48);
           __asm { FCVT            H16, S16 }
 
           _H22 = *(a3 + 6);
           __asm { FCVT            S22, H22 }
 
-          _S20 = _S5 + (_S22 * v54);
+          _S20 = _S5 + (_S22 * v48);
           __asm { FCVT            H20, S20 }
 
           if (a2 == 2)
           {
             __asm { FCVT            S18, H18 }
 
-            v61 = 1.0 - _S18;
+            v55 = 1.0 - _S18;
             if ((1.0 - _S18) > 1.0)
             {
-              v61 = 1.0;
+              v55 = 1.0;
             }
 
-            if (v61 < 0.0)
+            if (v55 < 0.0)
             {
-              v61 = 0.0;
+              v55 = 0.0;
             }
 
-            v62 = vcvtq_f32_f16(_D21);
-            *v62.f32 = vmla_n_f32(*v62.f32, *&vcvtq_f32_f16(*_Q17.f32), v61);
-            _D21 = vcvt_f16_f32(v62);
+            v56 = vcvtq_f32_f16(_D21);
+            *v56.f32 = vmla_n_f32(*v56.f32, *&vcvtq_f32_f16(*_Q17.f32), v55);
+            _D21 = vcvt_f16_f32(v56);
             __asm
             {
               FCVT            S23, H16
               FCVT            S19, H19
             }
 
-            _S19 = _S19 + (_S23 * v61);
+            _S19 = _S19 + (_S23 * v55);
             __asm
             {
               FCVT            H19, S19
               FCVT            S23, H20
             }
 
-            *_D18.i32 = _S18 + (_S23 * v61);
+            *_D18.i32 = _S18 + (_S23 * v55);
             __asm { FCVT            H18, S18 }
           }
 
@@ -4089,7 +4009,7 @@ LABEL_18:
 
           else
           {
-            _NF = *_D18.i16 < v35;
+            _NF = *_D18.i16 < *&a6;
           }
 
           if (_NF)
@@ -4100,11 +4020,11 @@ LABEL_18:
           _H22 = *_D21.i16;
           __asm { FCMP            H21, #0 }
 
-          if (!_ZF && _H22 != v35)
+          if (!_ZF && _H22 != *&a6)
           {
             __asm { FCVT            S23, H22 }
 
-            v70 = vmul_f16(_D21, _D21).u16[0];
+            v64 = vmul_f16(_D21, _D21).u16[0];
             _S23 = -(_S23 * _S23);
             __asm
             {
@@ -4119,18 +4039,18 @@ LABEL_18:
 
             else
             {
-              _H22 = *&v70;
+              _H22 = *&v64;
             }
           }
 
           __asm { FCMP            H23, #0 }
 
-          _ZF = _ZF || _H23 == v35;
+          _ZF = _ZF || _H23 == *&a6;
           if (!_ZF)
           {
             __asm { FCVT            S21, H23 }
 
-            v77 = _H23 * _H23;
+            v71 = _H23 * _H23;
             _S21 = -(_S21 * _S21);
             __asm
             {
@@ -4145,17 +4065,17 @@ LABEL_18:
 
             else
             {
-              _H23 = v77;
+              _H23 = v71;
             }
           }
 
           __asm { FCMP            H19, #0 }
 
-          if (!_ZF && _H19 != v35)
+          if (!_ZF && _H19 != *&a6)
           {
             __asm { FCVT            S21, H19 }
 
-            v83 = _H19 * _H19;
+            v77 = _H19 * _H19;
             _S21 = -(_S21 * _S21);
             __asm
             {
@@ -4170,7 +4090,7 @@ LABEL_18:
 
             else
             {
-              _H19 = v83;
+              _H19 = v77;
             }
           }
 
@@ -4181,11 +4101,11 @@ LABEL_18:
             FCMP            H28, #0
           }
 
-          if (!_ZF && _H28 != v35)
+          if (!_ZF && _H28 != *&a6)
           {
             __asm { FCVT            S26, H28 }
 
-            v92 = _H28 * _H28;
+            v86 = _H28 * _H28;
             _S26 = -(_S26 * _S26);
             __asm
             {
@@ -4200,17 +4120,17 @@ LABEL_18:
 
             else
             {
-              _H28 = v92;
+              _H28 = v86;
             }
           }
 
           __asm { FCMP            H25, #0 }
 
-          if (!_ZF && _H25 != v35)
+          if (!_ZF && _H25 != *&a6)
           {
             __asm { FCVT            S26, H25 }
 
-            v99 = _H25 * _H25;
+            v93 = _H25 * _H25;
             _S26 = -(_S26 * _S26);
             __asm
             {
@@ -4225,17 +4145,17 @@ LABEL_18:
 
             else
             {
-              _H25 = v99;
+              _H25 = v93;
             }
           }
 
           __asm { FCMP            H24, #0 }
 
-          if (!_ZF && _H24 != v35)
+          if (!_ZF && _H24 != *&a6)
           {
             __asm { FCVT            S26, H24 }
 
-            v106 = _H24 * _H24;
+            v100 = _H24 * _H24;
             _S26 = -(_S26 * _S26);
             __asm
             {
@@ -4250,17 +4170,17 @@ LABEL_18:
 
             else
             {
-              _H24 = v106;
+              _H24 = v100;
             }
           }
 
-          _S26 = ((v43 >> 10) & 0x1F) / 31.0;
+          _S26 = ((v37 >> 10) & 0x1F) / 31.0;
           __asm { FCVT            H26, S26 }
 
-          _S27 = ((v43 >> 5) & 0x1F) / 31.0;
+          _S27 = ((v37 >> 5) & 0x1F) / 31.0;
           __asm { FCVT            H27, S27 }
 
-          _S29 = (v43 & 0x1F) / 31.0;
+          _S29 = (v37 & 0x1F) / 31.0;
           __asm
           {
             FCVT            H29, S29
@@ -4269,17 +4189,17 @@ LABEL_18:
 
           if (_H27 <= _H29)
           {
-            v117 = _H29;
+            v111 = _H29;
           }
 
           else
           {
-            v117 = _H27;
+            v111 = _H27;
           }
 
-          if (v117 >= _H26)
+          if (v111 >= _H26)
           {
-            _H26 = v117;
+            _H26 = v111;
           }
 
           __asm
@@ -4295,22 +4215,22 @@ LABEL_18:
             FCMP            H22, #0
           }
 
-          if (!_ZF && _H22 != v35)
+          if (!_ZF && _H22 != *&a6)
           {
             __asm { FCVT            S28, H22 }
 
-            v124 = sqrtf(_S28);
-            v125 = -sqrtf(fabsf(_S28));
+            v118 = sqrtf(_S28);
+            v119 = -sqrtf(fabsf(_S28));
             __asm { FCMP            H22, #0 }
 
             if (_NF)
             {
-              _S22 = v125;
+              _S22 = v119;
             }
 
             else
             {
-              _S22 = v124;
+              _S22 = v118;
             }
 
             __asm { FCVT            H22, S22 }
@@ -4330,22 +4250,22 @@ LABEL_18:
             FCMP            H23, #0
           }
 
-          if (!_ZF && _H23 != v35)
+          if (!_ZF && _H23 != *&a6)
           {
             __asm { FCVT            S25, H23 }
 
-            v135 = sqrtf(_S25);
-            v136 = -sqrtf(fabsf(_S25));
+            v129 = sqrtf(_S25);
+            v130 = -sqrtf(fabsf(_S25));
             __asm { FCMP            H23, #0 }
 
             if (_NF)
             {
-              _S23 = v136;
+              _S23 = v130;
             }
 
             else
             {
-              _S23 = v135;
+              _S23 = v129;
             }
 
             __asm { FCVT            H23, S23 }
@@ -4365,22 +4285,22 @@ LABEL_18:
             FCMP            H19, #0
           }
 
-          if (!_ZF && _H19 != v35)
+          if (!_ZF && _H19 != *&a6)
           {
             __asm { FCVT            S24, H19 }
 
-            v146 = sqrtf(_S24);
-            v147 = -sqrtf(fabsf(_S24));
+            v140 = sqrtf(_S24);
+            v141 = -sqrtf(fabsf(_S24));
             __asm { FCMP            H19, #0 }
 
             if (_NF)
             {
-              _S19 = v147;
+              _S19 = v141;
             }
 
             else
             {
-              _S19 = v146;
+              _S19 = v140;
             }
 
             __asm { FCVT            H19, S19 }
@@ -4403,22 +4323,22 @@ LABEL_18:
 
           if (_NF ^ _VF | _ZF)
           {
-            v156 = 0;
+            v150 = 0;
           }
 
           else
           {
-            v156 = 1;
+            v150 = 1;
           }
 
-          if ((v156 & (_H18 < v35)) != 0)
+          if ((v150 & (_H18 < *&a6)) != 0)
           {
             _H19 = _H19 * _H18;
             _H23 = _H23 * _H18;
             _H22 = _H22 * _H18;
           }
 
-          _H24 = v35 - _H26;
+          _H24 = *&a6 - _H26;
           __asm
           {
             FCVT            S17, H17
@@ -4472,7 +4392,7 @@ LABEL_18:
           _S17 = _S17 + (*&_D6 * _S19);
           __asm { FCVT            H17, S17 }
 
-          *v30 = LOWORD(_S17);
+          *v25 = LOWORD(_S17);
           __asm
           {
             FCVT            S17, H21
@@ -4480,13 +4400,13 @@ LABEL_18:
             FCVT            H6, S17
           }
 
-          *(v30 + 2) = _H6;
+          *(v25 + 2) = _H6;
           __asm { FCVT            S6, H16 }
 
           _S6 = _S6 + (_S7 * _S19);
           __asm { FCVT            H6, S6 }
 
-          *(v30 + 4) = LOWORD(_S6);
+          *(v25 + 4) = LOWORD(_S6);
           _S5 = *_D18.i32 + (_S5 * _S19);
           __asm
           {
@@ -4494,53 +4414,53 @@ LABEL_18:
             FCMP            H5, #0
           }
 
-          v183 = _NF;
-          if (_H5 > v35)
+          v177 = _NF;
+          if (_H5 > *&a6)
           {
-            v184 = 1;
+            v178 = 1;
           }
 
           else
           {
-            v184 = v183;
+            v178 = v177;
           }
 
-          if ((v183 & (_H5 <= v35)) != 0)
+          if ((v177 & (_H5 <= *&a6)) != 0)
           {
-            v185 = COERCE_SHORT_FLOAT(0);
+            v179 = COERCE_SHORT_FLOAT(0);
           }
 
           else
           {
-            LOWORD(v185) = COERCE_UNSIGNED_INT(1.0);
+            LOWORD(v179) = COERCE_UNSIGNED_INT(1.0);
           }
 
-          if (v184)
+          if (v178)
           {
-            _H5 = v185;
+            _H5 = v179;
           }
 
-          *(v30 + 6) = _H5;
+          *(v25 + 6) = _H5;
         }
 
-        v30 += 8;
-        v41 = 1;
-        v43 = v44;
+        v25 += 8;
+        v35 = 1;
+        v37 = v38;
       }
 
-      while ((v45 & 1) == 0);
+      while ((v39 & 1) == 0);
 LABEL_128:
-      v36 = 0;
-      v34 += 2 * v42;
-      _VF = __OFSUB__(v39, v42);
-      v39 -= v42;
+      v30 = 0;
+      v29 += 2 * v36;
+      _VF = __OFSUB__(v33, v36);
+      v33 -= v36;
     }
 
-    while (!((v39 < 0) ^ _VF | (v39 == 0)));
-    v34 += 2 * v32;
-    v30 += 8 * v33;
-    _VF = __OFSUB__(v20--, 1);
-    if (!((v20 < 0) ^ _VF | (v20 == 0)))
+    while (!((v33 < 0) ^ _VF | (v33 == 0)));
+    v29 += 2 * v27;
+    v25 += 8 * v28;
+    _VF = __OFSUB__(v15--, 1);
+    if (!((v15 < 0) ^ _VF | (v15 == 0)))
     {
       continue;
     }
@@ -4549,16 +4469,16 @@ LABEL_128:
   }
 }
 
-void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, double a3, double a4)
 {
-  v8 = *(a1 + 4);
-  v9 = *(a1 + 8);
-  if (v8 >= 1 && v9 >= 1)
+  v4 = *(a1 + 4);
+  v5 = *(a1 + 8);
+  if (v4 >= 1 && v5 >= 1)
   {
-    v12 = *(a1 + 136);
-    if (v12)
+    v8 = *(a1 + 136);
+    if (v8)
     {
-      v14 = *(a1 + 40);
+      v10 = *(a1 + 40);
       if (use_vImage_font_smoothing(void)::predicate != -1)
       {
         dispatch_once(&use_vImage_font_smoothing(void)::predicate, &__block_literal_global_14_21947);
@@ -4568,77 +4488,78 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
       {
         if ((a2 - 3) <= 0xFFFFFFFD)
         {
-          _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 9918, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "mode == COPY || mode == SOVER", "mode = %d", a6, a7, a8, a2);
+          _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 9918, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "mode == COPY || mode == SOVER", "mode = %d", a2);
         }
 
         if (vImageCGCompositeMarkConstDeepMaskXRGB_ARGB16F())
         {
-          CGPostError("vImageCGCompositeMarkConstDeepMaskXRGB_ARGB16F failed", v15, v16, v17, v18, v19, v20, v21, v132);
+          CGPostError("vImageCGCompositeMarkConstDeepMaskXRGB_ARGB16F failed");
         }
       }
 
       else
       {
-        v22 = *(a1 + 124);
-        if (v22)
+        v11 = *(a1 + 124);
+        if (v11)
         {
-          _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 9947, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "mdn = %ld", a6, a7, a8, *(a1 + 124));
+          _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 9947, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "mdn = %ld", *(a1 + 124));
         }
 
         if ((a2 - 1) > 1)
         {
-          _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 10032, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented", a6, a7, a8, v132);
+          _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 10032, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented");
         }
 
-        v23 = *(a1 + 28) >> 3;
-        v24 = (v14 + 8 * v23 * *(a1 + 16) + 8 * *(a1 + 12));
-        v25 = v22 >> 1;
-        v26 = (v22 >> 1) - v8;
-        v27 = v23 - v8;
-        v28 = v12 + 2 * v25 * *(a1 + 108) + 2 * *(a1 + 104);
-        LOWORD(v29) = COERCE_UNSIGNED_INT(1.0);
+        v12 = *(a1 + 28) >> 3;
+        v13 = (v10 + 8 * v12 * *(a1 + 16) + 8 * *(a1 + 12));
+        v14 = v11 >> 1;
+        v15 = (v11 >> 1) - v4;
+        v16 = v12 - v4;
+        v17 = v8 + 2 * v14 * *(a1 + 108) + 2 * *(a1 + 104);
+        LOWORD(a3) = COERCE_UNSIGNED_INT(1.0);
+        LODWORD(a4) = 31.0;
         do
         {
-          v30 = (v28 & 3) != 0;
-          v31 = (v28 + 2 * v8) & 0xFFFFFFFFFFFFFFFCLL;
-          v32 = v28 + 4 * v8;
-          v33 = v8;
+          v18 = (v17 & 3) != 0;
+          v19 = (v17 + 2 * v4) & 0xFFFFFFFFFFFFFFFCLL;
+          v20 = v17 + 4 * v4;
+          v21 = v4;
           do
           {
-            if (v30)
+            if (v18)
             {
-              v34 = *v28;
-              v35 = 1;
-              v36 = 1;
+              v22 = *v17;
+              v23 = 1;
+              v24 = 1;
             }
 
-            else if (v33 == 1)
+            else if (v21 == 1)
             {
-              if (v31 == v32)
+              if (v19 == v20)
               {
-                _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 9975, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "postamble == true", "", a6, a7, a8, v132);
+                _CGHandleAssert("RGBAf16_mark_const_deep_mask_XRGB", 9975, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "postamble == true", "", a3, a4);
               }
 
-              v34 = *v28;
-              v36 = 1;
-              v35 = 1;
+              v22 = *v17;
+              v24 = 1;
+              v23 = 1;
             }
 
             else
             {
-              v35 = 0;
-              v34 = *v28;
-              v36 = 2;
+              v23 = 0;
+              v22 = *v17;
+              v24 = 2;
             }
 
-            if ((v34 & 0x7FFF7FFF) != 0)
+            if ((v22 & 0x7FFF7FFF) != 0)
             {
-              v37 = HIWORD(v34);
+              v25 = HIWORD(v22);
               do
               {
-                v38 = v35;
-                v39 = v34 & 0x7FFF;
-                if (v39)
+                v26 = v23;
+                v27 = v22 & 0x7FFF;
+                if (v27)
                 {
                   __asm
                   {
@@ -4646,12 +4567,12 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCMP            H17, #0
                   }
 
-                  _ZF = _ZF || _H17 == v29;
+                  _ZF = _ZF || _H17 == *&a3;
                   if (!_ZF)
                   {
                     __asm { FCVT            S5, H17 }
 
-                    v47 = _H17 * _H17;
+                    v35 = _H17 * _H17;
                     _S5 = -(_S5 * _S5);
                     __asm
                     {
@@ -4666,17 +4587,17 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H17 = v47;
+                      _H17 = v35;
                     }
                   }
 
                   __asm { FCMP            H4, #0 }
 
-                  if (!_ZF && _H4 != v29)
+                  if (!_ZF && _H4 != *&a3)
                   {
                     __asm { FCVT            S5, H4 }
 
-                    v54 = _H4 * _H4;
+                    v42 = _H4 * _H4;
                     _S5 = -(_S5 * _S5);
                     __asm
                     {
@@ -4691,17 +4612,17 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H4 = v54;
+                      _H4 = v42;
                     }
                   }
 
                   __asm { FCMP            H3, #0 }
 
-                  if (!_ZF && _H3 != v29)
+                  if (!_ZF && _H3 != *&a3)
                   {
                     __asm { FCVT            S5, H3 }
 
-                    v61 = _H3 * _H3;
+                    v49 = _H3 * _H3;
                     _S5 = -(_S5 * _S5);
                     __asm
                     {
@@ -4716,37 +4637,37 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H3 = v61;
+                      _H3 = v49;
                     }
                   }
 
-                  _H7 = *v24;
-                  _H5 = v24[1];
+                  _H7 = *v13;
+                  _H5 = v13[1];
                   __asm { FCMP            H16, #0 }
 
                   if (_NF ^ _VF | _ZF)
                   {
-                    v68 = 0;
+                    v56 = 0;
                   }
 
                   else
                   {
-                    v68 = 1;
+                    v56 = 1;
                   }
 
-                  if (_H16 >= v29)
+                  if (_H16 >= *&a3)
                   {
-                    v68 = 0;
+                    v56 = 0;
                   }
 
-                  _H6 = v24[2];
+                  _H6 = v13[2];
                   __asm { FCMP            H20, #0 }
 
-                  if (!_ZF && _H20 != v29)
+                  if (!_ZF && _H20 != *&a3)
                   {
                     __asm { FCVT            S21, H20 }
 
-                    v72 = _H20 * _H20;
+                    v60 = _H20 * _H20;
                     _S21 = -(_S21 * _S21);
                     __asm
                     {
@@ -4761,17 +4682,17 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H20 = v72;
+                      _H20 = v60;
                     }
                   }
 
                   __asm { FCMP            H19, #0 }
 
-                  if (!_ZF && _H19 != v29)
+                  if (!_ZF && _H19 != *&a3)
                   {
                     __asm { FCVT            S21, H19 }
 
-                    v78 = _H19 * _H19;
+                    v66 = _H19 * _H19;
                     _S21 = -(_S21 * _S21);
                     __asm
                     {
@@ -4786,17 +4707,17 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H19 = v78;
+                      _H19 = v66;
                     }
                   }
 
                   __asm { FCMP            H18, #0 }
 
-                  if (!_ZF && _H18 != v29)
+                  if (!_ZF && _H18 != *&a3)
                   {
                     __asm { FCVT            S21, H18 }
 
-                    v84 = _H18 * _H18;
+                    v72 = _H18 * _H18;
                     _S21 = -(_S21 * _S21);
                     __asm
                     {
@@ -4811,7 +4732,7 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
 
                     else
                     {
-                      _H18 = v84;
+                      _H18 = v72;
                     }
                   }
 
@@ -4821,29 +4742,29 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCVT            S20, H20
                   }
 
-                  _S17 = _S20 + ((_S17 - _S20) * ((v39 >> 10) / 31.0));
+                  _S17 = _S20 + ((_S17 - _S20) * ((v27 >> 10) / 31.0));
                   __asm
                   {
                     FCVT            H17, S17
                     FCMP            H17, #0
                   }
 
-                  if (!_ZF && _H17 != v29)
+                  if (!_ZF && _H17 != *&a3)
                   {
                     __asm { FCVT            S20, H17 }
 
-                    v94 = sqrtf(_S20);
-                    v95 = -sqrtf(fabsf(_S20));
+                    v82 = sqrtf(_S20);
+                    v83 = -sqrtf(fabsf(_S20));
                     __asm { FCMP            H17, #0 }
 
                     if (_NF)
                     {
-                      _S17 = v95;
+                      _S17 = v83;
                     }
 
                     else
                     {
-                      _S17 = v94;
+                      _S17 = v82;
                     }
 
                     __asm { FCVT            H17, S17 }
@@ -4855,29 +4776,29 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCVT            S19, H19
                   }
 
-                  _S4 = _S19 + ((_S4 - _S19) * (((v39 >> 5) & 0x1F) / 31.0));
+                  _S4 = _S19 + ((_S4 - _S19) * (((v27 >> 5) & 0x1F) / 31.0));
                   __asm
                   {
                     FCVT            H4, S4
                     FCMP            H4, #0
                   }
 
-                  if (!_ZF && _H4 != v29)
+                  if (!_ZF && _H4 != *&a3)
                   {
                     __asm { FCVT            S19, H4 }
 
-                    v104 = sqrtf(_S19);
-                    v105 = -sqrtf(fabsf(_S19));
+                    v92 = sqrtf(_S19);
+                    v93 = -sqrtf(fabsf(_S19));
                     __asm { FCMP            H4, #0 }
 
                     if (_NF)
                     {
-                      _S4 = v105;
+                      _S4 = v93;
                     }
 
                     else
                     {
-                      _S4 = v104;
+                      _S4 = v92;
                     }
 
                     __asm { FCVT            H4, S4 }
@@ -4889,42 +4810,42 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
                     FCVT            S18, H18
                   }
 
-                  _S3 = _S18 + ((_S3 - _S18) * ((v39 & 0x1F) / 31.0));
+                  _S3 = _S18 + ((_S3 - _S18) * ((v27 & 0x1F) / 31.0));
                   __asm
                   {
                     FCVT            H3, S3
                     FCMP            H3, #0
                   }
 
-                  if (!_ZF && _H3 != v29)
+                  if (!_ZF && _H3 != *&a3)
                   {
                     __asm { FCVT            S18, H3 }
 
-                    v114 = sqrtf(_S18);
-                    v115 = -sqrtf(fabsf(_S18));
+                    v102 = sqrtf(_S18);
+                    v103 = -sqrtf(fabsf(_S18));
                     __asm { FCMP            H3, #0 }
 
                     if (_NF)
                     {
-                      _S3 = v115;
+                      _S3 = v103;
                     }
 
                     else
                     {
-                      _S3 = v114;
+                      _S3 = v102;
                     }
 
                     __asm { FCVT            H3, S3 }
                   }
 
-                  v118 = _H16 * _H17;
-                  v119 = _H16 * _H4;
-                  v120 = _H16 * _H3;
-                  if (v68)
+                  v106 = _H16 * _H17;
+                  v107 = _H16 * _H4;
+                  v108 = _H16 * _H3;
+                  if (v56)
                   {
-                    _H3 = v120;
-                    _H4 = v119;
-                    _H16 = v118;
+                    _H3 = v108;
+                    _H4 = v107;
+                    _H16 = v106;
                   }
 
                   else
@@ -4942,7 +4863,7 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
                   _S7 = _S7 + ((_S16 - _S7) * _S2);
                   __asm { FCVT            H7, S7 }
 
-                  *v24 = LOWORD(_S7);
+                  *v13 = LOWORD(_S7);
                   __asm
                   {
                     FCVT            S4, H4
@@ -4952,7 +4873,7 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
                   _S4 = _S5 + ((_S4 - _S5) * _S2);
                   __asm { FCVT            H4, S4 }
 
-                  v24[1] = LOWORD(_S4);
+                  v13[1] = LOWORD(_S4);
                   __asm
                   {
                     FCVT            S3, H3
@@ -4962,323 +4883,321 @@ void RGBAf16_mark_const_deep_mask_XRGB(uint64_t a1, int a2, uint64_t a3, uint64_
                   _S2 = _S4 + ((_S3 - _S4) * _S2);
                   __asm { FCVT            H2, S2 }
 
-                  v24[2] = LOWORD(_S2);
+                  v13[2] = LOWORD(_S2);
                 }
 
-                v24 += 4;
-                v35 = 1;
-                LOWORD(v34) = v37;
+                v13 += 4;
+                v23 = 1;
+                LOWORD(v22) = v25;
               }
 
-              while ((v38 & 1) == 0);
+              while ((v26 & 1) == 0);
             }
 
             else
             {
-              v24 += 4 * v36;
+              v13 += 4 * v24;
             }
 
-            v30 = 0;
-            v28 += 2 * v36;
-            _VF = __OFSUB__(v33, v36);
-            v33 -= v36;
+            v18 = 0;
+            v17 += 2 * v24;
+            _VF = __OFSUB__(v21, v24);
+            v21 -= v24;
           }
 
-          while (!((v33 < 0) ^ _VF | (v33 == 0)));
-          v28 += 2 * v26;
-          v24 += 4 * v27;
-          _VF = __OFSUB__(v9--, 1);
+          while (!((v21 < 0) ^ _VF | (v21 == 0)));
+          v17 += 2 * v15;
+          v13 += 4 * v16;
+          _VF = __OFSUB__(v5--, 1);
         }
 
-        while (!((v9 < 0) ^ _VF | (v9 == 0)));
+        while (!((v5 < 0) ^ _VF | (v5 == 0)));
       }
     }
   }
 }
 
-uint64_t RGBAf16_mark_deep_pixel(uint64_t result, int a2, double a3, double a4, double a5, double a6, double a7, double a8, double _D6, float32x4_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+uint64_t RGBAf16_mark_deep_pixel(uint64_t result, int a2, double a3, double a4, double a5, double a6, double a7, double a8, double _D6, float32x4_t a10)
 {
-  v17 = *(result + 4);
-  v18 = *(result + 8);
-  if (v17 < 1 || v18 < 1)
+  v11 = *(result + 4);
+  v12 = *(result + 8);
+  if (v11 < 1 || v12 < 1)
   {
     return result;
   }
 
-  v20 = *(result + 124);
-  if (v20)
+  v14 = *(result + 124);
+  if (v14)
   {
-    _CGHandleAssert("RGBAf16_mark_deep_pixel", 10064, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "mdn = %lu", a14, a15, a16, v20);
+    _CGHandleAssert("RGBAf16_mark_deep_pixel", 10064, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "((mdn >> 1) << 1) == mdn", "mdn = %lu", v14);
   }
 
-  v21 = *(result + 136);
-  if (!v21)
+  v15 = *(result + 136);
+  if (!v15)
   {
     return result;
   }
 
-  v22 = *(result + 88);
-  v23 = *(result + 96);
-  v24 = *(result + 28) >> 3;
-  v25 = (*(result + 40) + 8 * v24 * *(result + 16) + 8 * *(result + 12));
-  v26 = v20 >> 1;
-  v27 = (v21 + 2 * (*(result + 124) >> 1) * *(result + 108) + 2 * *(result + 104));
-  v29 = *(result + 56);
-  v28 = *(result + 60);
-  v30 = *(result + 76) >> 3;
+  v16 = *(result + 88);
+  v17 = *(result + 96);
+  v18 = *(result + 28) >> 3;
+  v19 = (*(result + 40) + 8 * v18 * *(result + 16) + 8 * *(result + 12));
+  v20 = v14 >> 1;
+  v21 = (v15 + 2 * (*(result + 124) >> 1) * *(result + 108) + 2 * *(result + 104));
+  v23 = *(result + 56);
+  v22 = *(result + 60);
+  v24 = *(result + 76) >> 3;
   if (*(result + 1) << 8 == 256)
   {
-    v22 += 8 * v30 * v28 + 8 * v29;
-    if (v30 == v24)
+    v16 += 8 * v24 * v22 + 8 * v23;
+    if (v24 == v18)
     {
-      v31 = (v25 - v22) >> 3;
-      if (v31 >= 1)
+      v25 = (v19 - v16) >> 3;
+      if (v25 >= 1)
       {
-        if (v31 <= v17)
+        if (v25 <= v11)
         {
-          v25 += (v17 - 1);
-          v22 += 8 * (v17 - 1);
-          LODWORD(v32) = -1;
-          v34 = *(result + 28) >> 3;
-          v27 += (v17 - 1);
+          v19 += (v11 - 1);
+          v16 += 8 * (v11 - 1);
+          LODWORD(v26) = -1;
+          v28 = *(result + 28) >> 3;
+          v21 += (v11 - 1);
           goto LABEL_19;
         }
 
-        v32 = (v18 - 1);
-        v33 = v22 + 8 * v24 * v32;
-        if (v25 <= v33 + 8 * v17 - 8)
+        v26 = (v12 - 1);
+        v27 = v16 + 8 * v18 * v26;
+        if (v19 <= v27 + 8 * v11 - 8)
         {
-          v25 += v24 * v32;
-          v27 += v26 * v32;
-          v34 = -v24;
-          v26 = -v26;
-          LODWORD(v32) = 1;
-          v22 = v33;
-          v24 = -v24;
+          v19 += v18 * v26;
+          v21 += v20 * v26;
+          v28 = -v18;
+          v20 = -v20;
+          LODWORD(v26) = 1;
+          v16 = v27;
+          v18 = -v18;
           goto LABEL_19;
         }
       }
 
-      LODWORD(v32) = 1;
-      v34 = *(result + 28) >> 3;
+      LODWORD(v26) = 1;
+      v28 = *(result + 28) >> 3;
     }
 
     else
     {
-      LODWORD(v32) = 1;
-      v34 = *(result + 76) >> 3;
+      LODWORD(v26) = 1;
+      v28 = *(result + 76) >> 3;
     }
 
 LABEL_19:
-    LODWORD(v40) = 0;
-    v43 = v32 * v17;
-    v37 = v23 != 0;
-    v38 = v26 - v43;
-    v39 = v24 - v43;
-    v32 = v32;
-    v46 = -1;
-    v30 = v34;
+    LODWORD(v34) = 0;
+    v39 = v26 * v11;
+    v31 = v17 != 0;
+    v32 = v20 - v39;
+    v33 = v18 - v39;
+    v26 = v26;
+    v38 = -1;
+    v24 = v28;
     goto LABEL_20;
   }
 
-  v35 = *(result + 64);
-  v36 = *(result + 68);
-  v37 = v23 != 0;
-  v38 = v26 - v17;
-  v39 = v24 - v17;
-  if (!v22)
+  v29 = *(result + 64);
+  v30 = *(result + 68);
+  v31 = v17 != 0;
+  v32 = v20 - v11;
+  v33 = v18 - v11;
+  if (!v16)
   {
-    v46 = 0;
-    v32 = 1;
-    v43 = *(result + 4);
-    LODWORD(v34) = *(result + 64);
-    LODWORD(v40) = *(result + 68);
+    v38 = 0;
+    v26 = 1;
+    v39 = *(result + 4);
+    LODWORD(v28) = *(result + 64);
+    LODWORD(v34) = *(result + 68);
 LABEL_20:
-    v41 = 0;
-    v45 = 0;
-    v30 -= v43;
+    v35 = 0;
+    v37 = 0;
+    v24 -= v39;
+    v28 = v28;
     v34 = v34;
-    v40 = v40;
     goto LABEL_21;
   }
 
-  v34 = v35;
-  v40 = v36;
-  v41 = v22 + 8 * v30 * v36;
-  v42 = v28 % v36;
-  v43 = (v29 / v35);
-  v44 = v22 + 8 * v30 * v42;
-  v45 = v44 + 8 * (v29 % v35);
-  v46 = v44 + 8 * v34;
-  v32 = 1;
-  v22 = v45;
+  v28 = v29;
+  v34 = v30;
+  v35 = v16 + 8 * v24 * v30;
+  v36 = v16 + 8 * v24 * (v22 % v30);
+  v37 = v36 + 8 * (v23 % v29);
+  v38 = v36 + 8 * v28;
+  v26 = 1;
+  v16 = v37;
 LABEL_21:
   if (a2 == 1)
   {
-    v73 = *(result + 48) == 0 || v37;
-    result = -v34;
-    if (v73)
+    v66 = *(result + 48) == 0 || v31;
+    result = -v28;
+    if (v66)
     {
-      v74 = v17 + 1;
+      v67 = v11 + 1;
       do
       {
-        v75 = v74;
+        v68 = v67;
         do
         {
-          v76 = *v27;
-          v77 = v76 & 0x7FFF;
-          if ((v76 & 0x7FFF) != 0)
+          v69 = *v21;
+          v70 = v69 & 0x7FFF;
+          if ((v69 & 0x7FFF) != 0)
           {
-            if (v77 == 0x7FFF)
+            if (v70 == 0x7FFF)
             {
-              v78 = *v22;
+              v71 = *v16;
             }
 
             else
             {
-              v79.f32[0] = (v77 >> 10);
-              v79.f32[1] = ((v76 >> 5) & 0x1F);
-              v79.f32[2] = (v76 & 0x1F);
-              v79.f32[3] = (((((v76 >> 2) & 0xF8) + 16) * ((v76 >> 2) & 0xF8)) >> 8);
-              v80 = vdivq_f32(v79, xmmword_18439CF90);
-              v78 = vcvt_f16_f32(vmlaq_f32(vmulq_n_f32(vcvtq_f32_f16(*v25), 1.0 - v80.f32[3]), v80, vcvtq_f32_f16(*v22)));
+              v72.f32[0] = (v70 >> 10);
+              v72.f32[1] = ((v69 >> 5) & 0x1F);
+              v72.f32[2] = (v69 & 0x1F);
+              v72.f32[3] = (((((v69 >> 2) & 0xF8) + 16) * ((v69 >> 2) & 0xF8)) >> 8);
+              v73 = vdivq_f32(v72, xmmword_18439CF90);
+              v71 = vcvt_f16_f32(vmlaq_f32(vmulq_n_f32(vcvtq_f32_f16(*v19), 1.0 - v73.f32[3]), v73, vcvtq_f32_f16(*v16)));
             }
 
-            *v25 = v78;
+            *v19 = v71;
           }
 
-          v81 = v22 + 8 * v32;
-          if (v81 >= v46)
+          v74 = v16 + 8 * v26;
+          if (v74 >= v38)
           {
-            v82 = -v34;
+            v75 = -v28;
           }
 
           else
           {
-            v82 = 0;
+            v75 = 0;
           }
 
-          v22 = v81 + 8 * v82;
-          v27 += v32;
-          --v75;
-          v25 += v32;
+          v16 = v74 + 8 * v75;
+          v21 += v26;
+          --v68;
+          v19 += v26;
         }
 
-        while (v75 > 1);
-        v27 += v38;
-        v25 += v39;
-        v83 = v45 + 8 * v30;
-        if (v83 >= v41)
+        while (v68 > 1);
+        v21 += v32;
+        v19 += v33;
+        v76 = v37 + 8 * v24;
+        if (v76 >= v35)
         {
-          v84 = -(v30 * v40);
+          v77 = -(v24 * v34);
         }
 
         else
         {
-          v84 = 0;
+          v77 = 0;
         }
 
-        v85 = v83 + 8 * v84;
-        v86 = v46 + 8 * v84 + 8 * v30;
-        v22 += 8 * v30;
-        if (v41)
+        v78 = v76 + 8 * v77;
+        v79 = v38 + 8 * v77 + 8 * v24;
+        v16 += 8 * v24;
+        if (v35)
         {
-          v46 = v86;
-          v45 = v85;
-          v22 = v85;
+          v38 = v79;
+          v37 = v78;
+          v16 = v78;
         }
 
-        _VF = __OFSUB__(v18--, 1);
+        _VF = __OFSUB__(v12--, 1);
       }
 
-      while (!((v18 < 0) ^ _VF | (v18 == 0)));
+      while (!((v12 < 0) ^ _VF | (v12 == 0)));
     }
 
     else
     {
-      v87 = v17 + 1;
+      v80 = v11 + 1;
       do
       {
-        v88 = v87;
+        v81 = v80;
         do
         {
-          v89 = *v27;
-          v90 = v89 & 0x7FFF;
-          if ((v89 & 0x7FFF) != 0)
+          v82 = *v21;
+          v83 = v82 & 0x7FFF;
+          if ((v82 & 0x7FFF) != 0)
           {
-            if (v90 == 0x7FFF)
+            if (v83 == 0x7FFF)
             {
-              v25->i32[0] = *v22;
-              v25->i16[2] = *(v22 + 4);
-              v25->i16[3] = COERCE_UNSIGNED_INT(1.0);
+              v19->i32[0] = *v16;
+              v19->i16[2] = *(v16 + 4);
+              v19->i16[3] = COERCE_UNSIGNED_INT(1.0);
             }
 
             else
             {
-              v91.f32[0] = (v90 >> 10);
-              a10.i32[0] = *v22;
+              v84.f32[0] = (v83 >> 10);
+              a10.i32[0] = *v16;
               a10 = vcvtq_f32_f16(*a10.f32);
-              _H16 = *(v22 + 4);
-              v91.f32[1] = ((v89 >> 5) & 0x1F);
-              v91.f32[2] = (v89 & 0x1F);
+              _H16 = *(v16 + 4);
+              v84.f32[1] = ((v82 >> 5) & 0x1F);
+              v84.f32[2] = (v82 & 0x1F);
               __asm { FCVT            S4, H16 }
 
-              v91.f32[3] = (((((v89 >> 2) & 0xF8) + 16) * ((v89 >> 2) & 0xF8)) >> 8);
-              v94 = vdivq_f32(v91, xmmword_18439CF90);
+              v84.f32[3] = (((((v82 >> 2) & 0xF8) + 16) * ((v82 >> 2) & 0xF8)) >> 8);
+              v87 = vdivq_f32(v84, xmmword_18439CF90);
               a10.i32[2] = _S4;
-              v95 = vmulq_f32(a10, v94);
+              v88 = vmulq_f32(a10, v87);
               a10.i32[3] = 1.0;
-              v96 = vsubq_f32(a10, v94);
-              v95.i32[3] = v96.i32[3];
-              *v25 = vcvt_f16_f32(vmlaq_laneq_f32(v95, vcvtq_f32_f16(*v25), v96, 3));
+              v89 = vsubq_f32(a10, v87);
+              v88.i32[3] = v89.i32[3];
+              *v19 = vcvt_f16_f32(vmlaq_laneq_f32(v88, vcvtq_f32_f16(*v19), v89, 3));
             }
           }
 
-          v97 = v22 + 8 * v32;
-          if (v97 >= v46)
+          v90 = v16 + 8 * v26;
+          if (v90 >= v38)
           {
-            v98 = -v34;
+            v91 = -v28;
           }
 
           else
           {
-            v98 = 0;
+            v91 = 0;
           }
 
-          v22 = v97 + 8 * v98;
-          --v88;
-          v27 += v32;
-          v25 += v32;
+          v16 = v90 + 8 * v91;
+          --v81;
+          v21 += v26;
+          v19 += v26;
         }
 
-        while (v88 > 1);
-        v27 += v38;
-        v25 += v39;
-        v99 = v45 + 8 * v30;
-        if (v99 >= v41)
+        while (v81 > 1);
+        v21 += v32;
+        v19 += v33;
+        v92 = v37 + 8 * v24;
+        if (v92 >= v35)
         {
-          v100 = -(v30 * v40);
+          v93 = -(v24 * v34);
         }
 
         else
         {
-          v100 = 0;
+          v93 = 0;
         }
 
-        v101 = v99 + 8 * v100;
-        v102 = v46 + 8 * v100 + 8 * v30;
-        v22 += 8 * v30;
-        if (v41)
+        v94 = v92 + 8 * v93;
+        v95 = v38 + 8 * v93 + 8 * v24;
+        v16 += 8 * v24;
+        if (v35)
         {
-          v46 = v102;
-          v45 = v101;
-          v22 = v101;
+          v38 = v95;
+          v37 = v94;
+          v16 = v94;
         }
 
-        _VF = __OFSUB__(v18--, 1);
+        _VF = __OFSUB__(v12--, 1);
       }
 
-      while (!((v18 < 0) ^ _VF | (v18 == 0)));
+      while (!((v12 < 0) ^ _VF | (v12 == 0)));
     }
 
     return result;
@@ -5286,30 +5205,30 @@ LABEL_21:
 
   if (a2 != 2)
   {
-    _CGHandleAssert("RGBAf16_mark_deep_pixel", 10312, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented", v34, v40, v43, v103);
+    _CGHandleAssert("RGBAf16_mark_deep_pixel", 10312, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_rgba_float16.cc", "", "Unimplemented", a3, a4, a5, a6, a7, a8, _D6, *a10.i64);
   }
 
-  result = -v34;
-  v47 = v17 + 1;
+  result = -v28;
+  v40 = v11 + 1;
   __asm { FMOV            V4.2S, #31.0 }
 
   while (2)
   {
-    v53 = v47;
+    v46 = v40;
     do
     {
-      v54 = *v27;
-      v55 = v54 & 0x7FFF;
-      if ((v54 & 0x7FFF) == 0)
+      v47 = *v21;
+      v48 = v47 & 0x7FFF;
+      if ((v47 & 0x7FFF) == 0)
       {
         goto LABEL_34;
       }
 
-      if (v55 == 0x7FFF)
+      if (v48 == 0x7FFF)
       {
-        if (*(v22 + 6) >= COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)))
+        if (*(v16 + 6) >= COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)))
         {
-          v61 = *v22;
+          v54 = *v16;
         }
 
         else
@@ -5323,23 +5242,23 @@ LABEL_21:
 
           __asm { FCVT            S5, H6 }
 
-          a10.i32[0] = *v22;
-          v58.i64[0] = vcvtq_f32_f16(*a10.f32).u64[0];
-          _H16 = *(v22 + 4);
+          a10.i32[0] = *v16;
+          v51.i64[0] = vcvtq_f32_f16(*a10.f32).u64[0];
+          _H16 = *(v16 + 4);
           __asm { FCVT            S16, H16 }
 
-          v58.i64[1] = __PAIR64__(LODWORD(_S5), _S16);
-          a10 = vmlaq_n_f32(v58, vcvtq_f32_f16(*v25), 1.0 - _S5);
-          v61 = vcvt_f16_f32(a10);
+          v51.i64[1] = __PAIR64__(LODWORD(_S5), _S16);
+          a10 = vmlaq_n_f32(v51, vcvtq_f32_f16(*v19), 1.0 - _S5);
+          v54 = vcvt_f16_f32(a10);
         }
       }
 
       else
       {
-        _H6 = *(v22 + 6);
+        _H6 = *(v16 + 6);
         __asm { FCVT            S6, H6 }
 
-        _S5 = ((((((v54 >> 2) & 0xF8) + 16) * ((v54 >> 2) & 0xF8)) >> 8) / 255.0) * _S6;
+        _S5 = ((((((v47 >> 2) & 0xF8) + 16) * ((v47 >> 2) & 0xF8)) >> 8) / 255.0) * _S6;
         __asm
         {
           FCVT            H5, S5
@@ -5351,69 +5270,69 @@ LABEL_21:
           goto LABEL_34;
         }
 
-        a10.i32[0] = v54 >> 5;
-        a10.i32[1] = *v27;
-        _D16.i32[0] = *(v22 + 2);
+        a10.i32[0] = v47 >> 5;
+        a10.i32[1] = *v21;
+        _D16.i32[0] = *(v16 + 2);
         _D16 = vcvtq_f32_f16(_D16).u64[0];
         *a10.f32 = vmul_f32(vdiv_f32(vcvt_f32_u32(vand_s8(*a10.f32, 0x1F0000001FLL)), _D4), _D16);
-        _D16.i16[0] = *v22;
+        _D16.i16[0] = *v16;
         __asm { FCVT            S16, H16 }
 
-        *&_D6 = ((v55 >> 10) / 31.0) * *_D16.i32;
+        *&_D6 = ((v48 >> 10) / 31.0) * *_D16.i32;
         __asm { FCVT            H6, S6 }
 
         _D6 = COERCE_DOUBLE(vext_s8(vext_s8(*&_D6, *&_D6, 2uLL), vcvt_f16_f32(a10), 6uLL));
         HIWORD(_D6) = _H5;
-        v66 = vcvtq_f32_f16(*&_D6);
-        a10 = vcvtq_f32_f16(*v25);
-        v61 = vcvt_f16_f32(vmlaq_n_f32(v66, a10, 1.0 - v66.f32[3]));
+        v59 = vcvtq_f32_f16(*&_D6);
+        a10 = vcvtq_f32_f16(*v19);
+        v54 = vcvt_f16_f32(vmlaq_n_f32(v59, a10, 1.0 - v59.f32[3]));
       }
 
-      *v25 = v61;
+      *v19 = v54;
 LABEL_34:
-      v67 = v22 + 8 * v32;
-      if (v67 >= v46)
+      v60 = v16 + 8 * v26;
+      if (v60 >= v38)
       {
-        v68 = -v34;
+        v61 = -v28;
       }
 
       else
       {
-        v68 = 0;
+        v61 = 0;
       }
 
-      v22 = v67 + 8 * v68;
-      v27 += v32;
-      v25 += v32;
-      --v53;
+      v16 = v60 + 8 * v61;
+      v21 += v26;
+      v19 += v26;
+      --v46;
     }
 
-    while (v53 > 1);
-    v27 += v38;
-    v25 += v39;
-    v69 = v45 + 8 * v30;
-    if (v69 >= v41)
+    while (v46 > 1);
+    v21 += v32;
+    v19 += v33;
+    v62 = v37 + 8 * v24;
+    if (v62 >= v35)
     {
-      v70 = -(v30 * v40);
+      v63 = -(v24 * v34);
     }
 
     else
     {
-      v70 = 0;
+      v63 = 0;
     }
 
-    v71 = v69 + 8 * v70;
-    v72 = v46 + 8 * v70 + 8 * v30;
-    v22 += 8 * v30;
-    if (v41)
+    v64 = v62 + 8 * v63;
+    v65 = v38 + 8 * v63 + 8 * v24;
+    v16 += 8 * v24;
+    if (v35)
     {
-      v46 = v72;
-      v45 = v71;
-      v22 = v71;
+      v38 = v65;
+      v37 = v64;
+      v16 = v64;
     }
 
-    _VF = __OFSUB__(v18--, 1);
-    if (!((v18 < 0) ^ _VF | (v18 == 0)))
+    _VF = __OFSUB__(v12--, 1);
+    if (!((v12 < 0) ^ _VF | (v12 == 0)))
     {
       continue;
     }
@@ -5422,63 +5341,63 @@ LABEL_34:
   }
 }
 
-void RGBAf16_mark_bits(uint64_t a1, __n128 a2)
+void RGBAf16_mark_bits(uint64_t a1)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v7 = v2;
-  v36 = *MEMORY[0x1E69E9840];
-  v8 = *(v5 + 112);
-  v9 = *(v5 + 116);
-  v10 = (v8 + 15) & 0xFFFFFFF0;
-  v11 = v10 * v9;
-  if (v11 <= 4096)
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v3 = v2;
+  v5 = v4;
+  v6 = v1;
+  v35 = *MEMORY[0x1E69E9840];
+  v7 = *(v4 + 112);
+  v8 = *(v4 + 116);
+  v9 = (v7 + 15) & 0xFFFFFFF0;
+  v10 = v9 * v8;
+  if (v10 <= 4096)
   {
-    v12 = v35;
+    v11 = v34;
   }
 
   else
   {
-    v12 = malloc_type_malloc(v11, 0x100004077774924uLL);
-    if (!v12)
+    v11 = malloc_type_malloc(v10, 0x100004077774924uLL);
+    if (!v11)
     {
       return;
     }
   }
 
-  CGSConvertBitsToMask(*(v6 + 136), *(v6 + 124), v12, v10, v8, v9, *(v6 + 128));
-  v25 = *(v6 + 112);
-  v31[6] = *(v6 + 96);
-  v32 = v25;
-  v26 = *(v6 + 144);
-  v33 = *(v6 + 128);
-  v34 = v26;
-  v27 = *(v6 + 48);
-  v31[2] = *(v6 + 32);
-  v31[3] = v27;
-  v28 = *(v6 + 80);
-  v31[4] = *(v6 + 64);
-  v31[5] = v28;
-  v29 = *v6;
-  v30 = *(v6 + 16);
-  v31[0] = *v6;
-  v31[1] = v30;
-  HIDWORD(v32) = (v8 + 15) & 0xFFFFFFF0;
-  *(&v33 + 1) = v12;
-  if (BYTE1(v31[0]) << 8 == 1024)
+  CGSConvertBitsToMask(*(v5 + 136), *(v5 + 124), v11, v9, v7, v8, *(v5 + 128));
+  v24 = *(v5 + 112);
+  v30[6] = *(v5 + 96);
+  v31 = v24;
+  v25 = *(v5 + 144);
+  v32 = *(v5 + 128);
+  v33 = v25;
+  v26 = *(v5 + 48);
+  v30[2] = *(v5 + 32);
+  v30[3] = v26;
+  v27 = *(v5 + 80);
+  v30[4] = *(v5 + 64);
+  v30[5] = v27;
+  v28 = *v5;
+  v29 = *(v5 + 16);
+  v30[0] = *v5;
+  v30[1] = v29;
+  HIDWORD(v31) = (v7 + 15) & 0xFFFFFFF0;
+  *(&v32 + 1) = v11;
+  if (BYTE1(v30[0]) << 8 == 1024)
   {
-    RGBAf16_mark_constmask(v31, v4, v13, v14, v29.n128_f64[0], v30, v19, v20, *v21.i64, *v22.i64, *v23.i64, v24, v15, v16, v17, v18);
+    RGBAf16_mark_constmask(v30, v3, v28.n128_f64[0], v29, v18, v19, v20, *v21.i64, *v22.i64, v23, v12, v13, v14, v15, v16, v17);
   }
 
   else
   {
-    RGBAf16_mark_pixelmask(v7, v31, v4, v29, v30, v19, *&v20, v21, v22, v23, v24, v14, v15, v16, v17, v18);
+    RGBAf16_mark_pixelmask(v28, v29, v18, v19.n128_u64[0], v20, v21, v22, v23, v6, v30, v3, v13, v14, v15, v16, v17);
   }
 
-  if (v12 != v35)
+  if (v11 != v34)
   {
-    free(v12);
+    free(v11);
   }
 }
 
@@ -5520,7 +5439,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)2,_rgbaf16_t>(float16x8_t
           v37 = a10;
           do
           {
-            v38 = v37++;
+            v38 = v37;
+            v37 += 16;
           }
 
           while (v37 <= v36 && (vminvq_u8(vceqq_s8(*v38, v24)) & 0x80) != 0);
@@ -5530,13 +5450,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)2,_rgbaf16_t>(float16x8_t
             v38 = (v38 + 4);
           }
 
-          while (v38 <= v36 && v39->i32[0] == -1);
+          while (v38 <= v36 && *v39 == -1);
           if (v39 < v36)
           {
-            while (v39->u8[0] == 255)
+            while (*v39 == 255)
             {
-              v39 = (v39 + 1);
-              if (v39 >= v36)
+              if (++v39 >= v36)
               {
                 v39 = &a10[v28];
                 break;
@@ -5577,7 +5496,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)2,_rgbaf16_t>(float16x8_t
         v31 = a10;
         do
         {
-          v32 = v31++;
+          v32 = v31;
+          v31 += 16;
         }
 
         while (v31 <= v30 && (vminvq_u8(vceqzq_s8(*v32)) & 0x80) != 0);
@@ -5587,13 +5507,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)2,_rgbaf16_t>(float16x8_t
           v32 = (v32 + 4);
         }
 
-        while (v32 <= v30 && !v33->i32[0]);
+        while (v32 <= v30 && !*v33);
         if (v33 < v30)
         {
-          while (!v33->i8[0])
+          while (!*v33)
           {
-            v33 = (v33 + 1);
-            if (v33 >= v30)
+            if (++v33 >= v30)
             {
               v33 = &a10[v28];
               break;
@@ -5679,7 +5598,7 @@ LABEL_36:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v64 = &a5->i64[a4];
+      v64 = &a5->i8[8 * a4];
       if (v64 >= a9)
       {
         v65 = v20;
@@ -5690,7 +5609,7 @@ LABEL_36:
         v65 = 0;
       }
 
-      v66 = &v64[v65];
+      v66 = &v64[8 * v65];
       v67 = a8 + 8 * v65 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -5731,7 +5650,8 @@ LABEL_36:
         v79 = a10;
         do
         {
-          v80 = v79++;
+          v80 = v79;
+          v79 += 16;
         }
 
         while (v79 <= v78 && (vminvq_u8(vceqq_s8(*v80, v24)) & 0x80) != 0);
@@ -5741,13 +5661,12 @@ LABEL_36:
           v80 = (v80 + 4);
         }
 
-        while (v80 <= v78 && v81->i32[0] == -1);
+        while (v80 <= v78 && *v81 == -1);
         if (v81 < v78)
         {
-          while (v81->u8[0] == 255)
+          while (*v81 == 255)
           {
-            v81 = (v81 + 1);
-            if (v81 >= v78)
+            if (++v81 >= v78)
             {
               v81 = &a10[v70];
               break;
@@ -5790,7 +5709,8 @@ LABEL_36:
       v73 = a10;
       do
       {
-        v74 = v73++;
+        v74 = v73;
+        v73 += 16;
       }
 
       while (v73 <= v72 && (vminvq_u8(vceqzq_s8(*v74)) & 0x80) != 0);
@@ -5800,13 +5720,12 @@ LABEL_36:
         v74 = (v74 + 4);
       }
 
-      while (v74 <= v72 && !v75->i32[0]);
+      while (v74 <= v72 && !*v75);
       if (v75 < v72)
       {
-        while (!v75->i8[0])
+        while (!*v75)
         {
-          v75 = (v75 + 1);
-          if (v75 >= v72)
+          if (++v75 >= v72)
           {
             v75 = &a10[v70];
             break;
@@ -5893,7 +5812,7 @@ LABEL_85:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v109 = &a5->i64[a4];
+    v109 = &a5->i8[8 * a4];
     if (v109 >= a9)
     {
       v110 = v20;
@@ -5904,7 +5823,7 @@ LABEL_85:
       v110 = 0;
     }
 
-    v111 = &v109[v110];
+    v111 = &v109[8 * v110];
     v112 = a8 + 8 * v110 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -5924,7 +5843,7 @@ LABEL_85:
   }
 }
 
-uint64_t composite_pixelmask_SOVER(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, unint64_t a8, double a9, double a10, double a11, float16x4_t a12, double a13, float32x4_t a14, unint64_t a15, _BYTE *a16, uint64_t a17, int a18, int a19, int a20)
+unint64_t composite_pixelmask_SOVER(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, int a6, int a7, unint64_t a8, double a9, double a10, double a11, float16x4_t a12, double a13, float32x4_t a14, unint64_t a15, _BYTE *a16, uint64_t a17, int a18, int a19, int a20)
 {
   if (use_vImage_fp16_compositing(void)::predicate != -1)
   {
@@ -5970,7 +5889,7 @@ uint64_t composite_pixelmask_SOVER(uint64_t a1, uint64_t a2, uint64_t a3, uint64
           a14 = vmlaq_n_f32(v40, vcvtq_f32_f16(*a1), 1.0 - _S3);
           a12 = vcvt_f16_f32(a14);
 LABEL_15:
-          *a1 = *&a12;
+          *a1 = a12;
           goto LABEL_18;
         }
 
@@ -6130,7 +6049,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)6,_rgbaf16_t>(int8x16_t *re
           v46 = a10;
           do
           {
-            v47 = v46++;
+            v47 = v46;
+            v46 += 16;
           }
 
           while (v46 <= v45 && (vminvq_u8(vceqq_s8(*v47, v33)) & 0x80) != 0);
@@ -6140,13 +6060,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)6,_rgbaf16_t>(int8x16_t *re
             v47 = (v47 + 4);
           }
 
-          while (v47 <= v45 && v48->i32[0] == -1);
+          while (v47 <= v45 && *v48 == -1);
           if (v48 < v45)
           {
-            while (v48->u8[0] == 255)
+            while (*v48 == 255)
             {
-              v48 = (v48 + 1);
-              if (v48 >= v45)
+              if (++v48 >= v45)
               {
                 v48 = &a10[v37];
                 break;
@@ -6188,7 +6107,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)6,_rgbaf16_t>(int8x16_t *re
         v40 = a10;
         do
         {
-          v41 = v40++;
+          v41 = v40;
+          v40 += 16;
         }
 
         while (v40 <= v39 && (vminvq_u8(vceqzq_s8(*v41)) & 0x80) != 0);
@@ -6198,13 +6118,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)6,_rgbaf16_t>(int8x16_t *re
           v41 = (v41 + 4);
         }
 
-        while (v41 <= v39 && !v42->i32[0]);
+        while (v41 <= v39 && !*v42);
         if (v42 < v39)
         {
-          while (!v42->i8[0])
+          while (!*v42)
           {
-            v42 = (v42 + 1);
-            if (v42 >= v39)
+            if (++v42 >= v39)
             {
               v42 = &a10[v37];
               break;
@@ -6293,7 +6212,7 @@ LABEL_39:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v77 = &a5->i64[a4];
+      v77 = &a5->i8[8 * a4];
       if (v77 >= a9)
       {
         v78 = v29;
@@ -6304,7 +6223,7 @@ LABEL_39:
         v78 = 0;
       }
 
-      v79 = &v77[v78];
+      v79 = &v77[8 * v78];
       v80 = a8 + 8 * v78 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -6345,7 +6264,8 @@ LABEL_39:
         v92 = a10;
         do
         {
-          v93 = v92++;
+          v93 = v92;
+          v92 += 16;
         }
 
         while (v92 <= v91 && (vminvq_u8(vceqq_s8(*v93, v33)) & 0x80) != 0);
@@ -6355,13 +6275,12 @@ LABEL_39:
           v93 = (v93 + 4);
         }
 
-        while (v93 <= v91 && v94->i32[0] == -1);
+        while (v93 <= v91 && *v94 == -1);
         if (v94 < v91)
         {
-          while (v94->u8[0] == 255)
+          while (*v94 == 255)
           {
-            v94 = (v94 + 1);
-            if (v94 >= v91)
+            if (++v94 >= v91)
             {
               v94 = &a10[v83];
               break;
@@ -6404,7 +6323,8 @@ LABEL_39:
       v86 = a10;
       do
       {
-        v87 = v86++;
+        v87 = v86;
+        v86 += 16;
       }
 
       while (v86 <= v85 && (vminvq_u8(vceqzq_s8(*v87)) & 0x80) != 0);
@@ -6414,13 +6334,12 @@ LABEL_39:
         v87 = (v87 + 4);
       }
 
-      while (v87 <= v85 && !v88->i32[0]);
+      while (v87 <= v85 && !*v88);
       if (v88 < v85)
       {
-        while (!v88->i8[0])
+        while (!*v88)
         {
-          v88 = (v88 + 1);
-          if (v88 >= v85)
+          if (++v88 >= v85)
           {
             v88 = &a10[v83];
             break;
@@ -6510,7 +6429,7 @@ LABEL_88:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v125 = &a5->i64[a4];
+    v125 = &a5->i8[8 * a4];
     if (v125 >= a9)
     {
       v126 = v29;
@@ -6521,7 +6440,7 @@ LABEL_88:
       v126 = 0;
     }
 
-    v127 = &v125[v126];
+    v127 = &v125[8 * v126];
     v128 = a8 + 8 * v126 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -6596,7 +6515,8 @@ uint64_t composite_pixelmask<(CGCompositeOperation)3,_rgbaf16_t>(uint64_t result
           v45 = a10;
           do
           {
-            v46 = v45++;
+            v46 = v45;
+            v45 += 16;
           }
 
           while (v45 <= v44 && (vminvq_u8(vceqq_s8(*v46, v32)) & 0x80) != 0);
@@ -6606,13 +6526,12 @@ uint64_t composite_pixelmask<(CGCompositeOperation)3,_rgbaf16_t>(uint64_t result
             v46 = (v46 + 4);
           }
 
-          while (v46 <= v44 && v47->i32[0] == -1);
+          while (v46 <= v44 && *v47 == -1);
           if (v47 < v44)
           {
-            while (v47->u8[0] == 255)
+            while (*v47 == 255)
             {
-              v47 = (v47 + 1);
-              if (v47 >= v44)
+              if (++v47 >= v44)
               {
                 v47 = &a10[v36];
                 break;
@@ -6648,7 +6567,8 @@ uint64_t composite_pixelmask<(CGCompositeOperation)3,_rgbaf16_t>(uint64_t result
         v39 = a10;
         do
         {
-          v40 = v39++;
+          v40 = v39;
+          v39 += 16;
         }
 
         while (v39 <= v38 && (vminvq_u8(vceqzq_s8(*v40)) & 0x80) != 0);
@@ -6658,13 +6578,12 @@ uint64_t composite_pixelmask<(CGCompositeOperation)3,_rgbaf16_t>(uint64_t result
           v40 = (v40 + 4);
         }
 
-        while (v40 <= v38 && !v41->i32[0]);
+        while (v40 <= v38 && !*v41);
         if (v41 < v38)
         {
-          while (!v41->i8[0])
+          while (!*v41)
           {
-            v41 = (v41 + 1);
-            if (v41 >= v38)
+            if (++v41 >= v38)
             {
               v41 = &a10[v36];
               break;
@@ -6743,7 +6662,7 @@ LABEL_39:
 
       a10 += a11;
       result += 8 * a2;
-      v61 = &a5->i64[a4];
+      v61 = &a5->i8[8 * a4];
       if (v61 >= a9)
       {
         v62 = v29;
@@ -6754,7 +6673,7 @@ LABEL_39:
         v62 = 0;
       }
 
-      v63 = &v61[v62];
+      v63 = &v61[8 * v62];
       v64 = a8 + 8 * v62 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -6795,7 +6714,8 @@ LABEL_39:
         v76 = a10;
         do
         {
-          v77 = v76++;
+          v77 = v76;
+          v76 += 16;
         }
 
         while (v76 <= v75 && (vminvq_u8(vceqq_s8(*v77, v32)) & 0x80) != 0);
@@ -6805,13 +6725,12 @@ LABEL_39:
           v77 = (v77 + 4);
         }
 
-        while (v77 <= v75 && v78->i32[0] == -1);
+        while (v77 <= v75 && *v78 == -1);
         if (v78 < v75)
         {
-          while (v78->u8[0] == 255)
+          while (*v78 == 255)
           {
-            v78 = (v78 + 1);
-            if (v78 >= v75)
+            if (++v78 >= v75)
             {
               v78 = &a10[v67];
               break;
@@ -6849,7 +6768,8 @@ LABEL_39:
       v70 = a10;
       do
       {
-        v71 = v70++;
+        v71 = v70;
+        v70 += 16;
       }
 
       while (v70 <= v69 && (vminvq_u8(vceqzq_s8(*v71)) & 0x80) != 0);
@@ -6859,13 +6779,12 @@ LABEL_39:
         v71 = (v71 + 4);
       }
 
-      while (v71 <= v69 && !v72->i32[0]);
+      while (v71 <= v69 && !*v72);
       if (v72 < v69)
       {
-        while (!v72->i8[0])
+        while (!*v72)
         {
-          v72 = (v72 + 1);
-          if (v72 >= v69)
+          if (++v72 >= v69)
           {
             v72 = &a10[v67];
             break;
@@ -6947,7 +6866,7 @@ LABEL_88:
 
     a10 += a11;
     result += 8 * a2;
-    v97 = &a5->i64[a4];
+    v97 = &a5->i8[8 * a4];
     if (v97 >= a9)
     {
       v98 = v29;
@@ -6958,7 +6877,7 @@ LABEL_88:
       v98 = 0;
     }
 
-    v99 = &v97[v98];
+    v99 = &v97[8 * v98];
     v100 = a8 + 8 * v98 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -7016,7 +6935,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)7,_rgbaf16_t>(float16x8_t
           v37 = a10;
           do
           {
-            v38 = v37++;
+            v38 = v37;
+            v37 += 16;
           }
 
           while (v37 <= v36 && (vminvq_u8(vceqq_s8(*v38, v24)) & 0x80) != 0);
@@ -7026,13 +6946,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)7,_rgbaf16_t>(float16x8_t
             v38 = (v38 + 4);
           }
 
-          while (v38 <= v36 && v39->i32[0] == -1);
+          while (v38 <= v36 && *v39 == -1);
           if (v39 < v36)
           {
-            while (v39->u8[0] == 255)
+            while (*v39 == 255)
             {
-              v39 = (v39 + 1);
-              if (v39 >= v36)
+              if (++v39 >= v36)
               {
                 v39 = &a10[v28];
                 break;
@@ -7072,7 +6991,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)7,_rgbaf16_t>(float16x8_t
         v31 = a10;
         do
         {
-          v32 = v31++;
+          v32 = v31;
+          v31 += 16;
         }
 
         while (v31 <= v30 && (vminvq_u8(vceqzq_s8(*v32)) & 0x80) != 0);
@@ -7082,13 +7002,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)7,_rgbaf16_t>(float16x8_t
           v32 = (v32 + 4);
         }
 
-        while (v32 <= v30 && !v33->i32[0]);
+        while (v32 <= v30 && !*v33);
         if (v33 < v30)
         {
-          while (!v33->i8[0])
+          while (!*v33)
           {
-            v33 = (v33 + 1);
-            if (v33 >= v30)
+            if (++v33 >= v30)
             {
               v33 = &a10[v28];
               break;
@@ -7168,7 +7087,7 @@ LABEL_36:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v56 = &a5->i64[a4];
+      v56 = &a5->i8[8 * a4];
       if (v56 >= a9)
       {
         v57 = v20;
@@ -7179,7 +7098,7 @@ LABEL_36:
         v57 = 0;
       }
 
-      v58 = &v56[v57];
+      v58 = &v56[8 * v57];
       v59 = a8 + 8 * v57 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -7220,7 +7139,8 @@ LABEL_36:
         v71 = a10;
         do
         {
-          v72 = v71++;
+          v72 = v71;
+          v71 += 16;
         }
 
         while (v71 <= v70 && (vminvq_u8(vceqq_s8(*v72, v24)) & 0x80) != 0);
@@ -7230,13 +7150,12 @@ LABEL_36:
           v72 = (v72 + 4);
         }
 
-        while (v72 <= v70 && v73->i32[0] == -1);
+        while (v72 <= v70 && *v73 == -1);
         if (v73 < v70)
         {
-          while (v73->u8[0] == 255)
+          while (*v73 == 255)
           {
-            v73 = (v73 + 1);
-            if (v73 >= v70)
+            if (++v73 >= v70)
             {
               v73 = &a10[v62];
               break;
@@ -7278,7 +7197,8 @@ LABEL_36:
       v65 = a10;
       do
       {
-        v66 = v65++;
+        v66 = v65;
+        v65 += 16;
       }
 
       while (v65 <= v64 && (vminvq_u8(vceqzq_s8(*v66)) & 0x80) != 0);
@@ -7288,13 +7208,12 @@ LABEL_36:
         v66 = (v66 + 4);
       }
 
-      while (v66 <= v64 && !v67->i32[0]);
+      while (v66 <= v64 && !*v67);
       if (v67 < v64)
       {
-        while (!v67->i8[0])
+        while (!*v67)
         {
-          v67 = (v67 + 1);
-          if (v67 >= v64)
+          if (++v67 >= v64)
           {
             v67 = &a10[v62];
             break;
@@ -7376,7 +7295,7 @@ LABEL_85:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v94 = &a5->i64[a4];
+    v94 = &a5->i8[8 * a4];
     if (v94 >= a9)
     {
       v95 = v20;
@@ -7387,7 +7306,7 @@ LABEL_85:
       v95 = 0;
     }
 
-    v96 = &v94[v95];
+    v96 = &v94[8 * v95];
     v97 = a8 + 8 * v95 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -7462,7 +7381,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)4,_rgbaf16_t>(float16x8_t
           v45 = a10;
           do
           {
-            v46 = v45++;
+            v46 = v45;
+            v45 += 16;
           }
 
           while (v45 <= v44 && (vminvq_u8(vceqq_s8(*v46, v32)) & 0x80) != 0);
@@ -7472,13 +7392,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)4,_rgbaf16_t>(float16x8_t
             v46 = (v46 + 4);
           }
 
-          while (v46 <= v44 && v47->i32[0] == -1);
+          while (v46 <= v44 && *v47 == -1);
           if (v47 < v44)
           {
-            while (v47->u8[0] == 255)
+            while (*v47 == 255)
             {
-              v47 = (v47 + 1);
-              if (v47 >= v44)
+              if (++v47 >= v44)
               {
                 v47 = &a10[v36];
                 break;
@@ -7516,7 +7435,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)4,_rgbaf16_t>(float16x8_t
         v39 = a10;
         do
         {
-          v40 = v39++;
+          v40 = v39;
+          v39 += 16;
         }
 
         while (v39 <= v38 && (vminvq_u8(vceqzq_s8(*v40)) & 0x80) != 0);
@@ -7526,13 +7446,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)4,_rgbaf16_t>(float16x8_t
           v40 = (v40 + 4);
         }
 
-        while (v40 <= v38 && !v41->i32[0]);
+        while (v40 <= v38 && !*v41);
         if (v41 < v38)
         {
-          while (!v41->i8[0])
+          while (!*v41)
           {
-            v41 = (v41 + 1);
-            if (v41 >= v38)
+            if (++v41 >= v38)
             {
               v41 = &a10[v36];
               break;
@@ -7614,7 +7533,7 @@ LABEL_39:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v66 = &a5->i64[a4];
+      v66 = &a5->i8[8 * a4];
       if (v66 >= a9)
       {
         v67 = v29;
@@ -7625,7 +7544,7 @@ LABEL_39:
         v67 = 0;
       }
 
-      v68 = &v66[v67];
+      v68 = &v66[8 * v67];
       v69 = a8 + 8 * v67 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -7666,7 +7585,8 @@ LABEL_39:
         v81 = a10;
         do
         {
-          v82 = v81++;
+          v82 = v81;
+          v81 += 16;
         }
 
         while (v81 <= v80 && (vminvq_u8(vceqq_s8(*v82, v32)) & 0x80) != 0);
@@ -7676,13 +7596,12 @@ LABEL_39:
           v82 = (v82 + 4);
         }
 
-        while (v82 <= v80 && v83->i32[0] == -1);
+        while (v82 <= v80 && *v83 == -1);
         if (v83 < v80)
         {
-          while (v83->u8[0] == 255)
+          while (*v83 == 255)
           {
-            v83 = (v83 + 1);
-            if (v83 >= v80)
+            if (++v83 >= v80)
             {
               v83 = &a10[v72];
               break;
@@ -7721,7 +7640,8 @@ LABEL_39:
       v75 = a10;
       do
       {
-        v76 = v75++;
+        v76 = v75;
+        v75 += 16;
       }
 
       while (v75 <= v74 && (vminvq_u8(vceqzq_s8(*v76)) & 0x80) != 0);
@@ -7731,13 +7651,12 @@ LABEL_39:
         v76 = (v76 + 4);
       }
 
-      while (v76 <= v74 && !v77->i32[0]);
+      while (v76 <= v74 && !*v77);
       if (v77 < v74)
       {
-        while (!v77->i8[0])
+        while (!*v77)
         {
-          v77 = (v77 + 1);
-          if (v77 >= v74)
+          if (++v77 >= v74)
           {
             v77 = &a10[v72];
             break;
@@ -7821,7 +7740,7 @@ LABEL_88:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v105 = &a5->i64[a4];
+    v105 = &a5->i8[8 * a4];
     if (v105 >= a9)
     {
       v106 = v29;
@@ -7832,7 +7751,7 @@ LABEL_88:
       v106 = 0;
     }
 
-    v107 = &v105[v106];
+    v107 = &v105[8 * v106];
     v108 = a8 + 8 * v106 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -7888,7 +7807,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)8,_rgbaf16_t>(float16x8_t
           v36 = a10;
           do
           {
-            v37 = v36++;
+            v37 = v36;
+            v36 += 16;
           }
 
           while (v36 <= v35 && (vminvq_u8(vceqq_s8(*v37, v23)) & 0x80) != 0);
@@ -7898,13 +7818,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)8,_rgbaf16_t>(float16x8_t
             v37 = (v37 + 4);
           }
 
-          while (v37 <= v35 && v38->i32[0] == -1);
+          while (v37 <= v35 && *v38 == -1);
           if (v38 < v35)
           {
-            while (v38->u8[0] == 255)
+            while (*v38 == 255)
             {
-              v38 = (v38 + 1);
-              if (v38 >= v35)
+              if (++v38 >= v35)
               {
                 v38 = &a10[v27];
                 break;
@@ -7939,7 +7858,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)8,_rgbaf16_t>(float16x8_t
         v30 = a10;
         do
         {
-          v31 = v30++;
+          v31 = v30;
+          v30 += 16;
         }
 
         while (v30 <= v29 && (vminvq_u8(vceqzq_s8(*v31)) & 0x80) != 0);
@@ -7949,13 +7869,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)8,_rgbaf16_t>(float16x8_t
           v31 = (v31 + 4);
         }
 
-        while (v31 <= v29 && !v32->i32[0]);
+        while (v31 <= v29 && !*v32);
         if (v32 < v29)
         {
-          while (!v32->i8[0])
+          while (!*v32)
           {
-            v32 = (v32 + 1);
-            if (v32 >= v29)
+            if (++v32 >= v29)
             {
               v32 = &a10[v27];
               break;
@@ -8032,7 +7951,7 @@ LABEL_36:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v50 = &a5->i64[a4];
+      v50 = &a5->i8[8 * a4];
       if (v50 >= a9)
       {
         v51 = v20;
@@ -8043,7 +7962,7 @@ LABEL_36:
         v51 = 0;
       }
 
-      v52 = &v50[v51];
+      v52 = &v50[8 * v51];
       v53 = a8 + 8 * v51 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -8084,7 +8003,8 @@ LABEL_36:
         v65 = a10;
         do
         {
-          v66 = v65++;
+          v66 = v65;
+          v65 += 16;
         }
 
         while (v65 <= v64 && (vminvq_u8(vceqq_s8(*v66, v23)) & 0x80) != 0);
@@ -8094,13 +8014,12 @@ LABEL_36:
           v66 = (v66 + 4);
         }
 
-        while (v66 <= v64 && v67->i32[0] == -1);
+        while (v66 <= v64 && *v67 == -1);
         if (v67 < v64)
         {
-          while (v67->u8[0] == 255)
+          while (*v67 == 255)
           {
-            v67 = (v67 + 1);
-            if (v67 >= v64)
+            if (++v67 >= v64)
             {
               v67 = &a10[v56];
               break;
@@ -8137,7 +8056,8 @@ LABEL_36:
       v59 = a10;
       do
       {
-        v60 = v59++;
+        v60 = v59;
+        v59 += 16;
       }
 
       while (v59 <= v58 && (vminvq_u8(vceqzq_s8(*v60)) & 0x80) != 0);
@@ -8147,13 +8067,12 @@ LABEL_36:
         v60 = (v60 + 4);
       }
 
-      while (v60 <= v58 && !v61->i32[0]);
+      while (v60 <= v58 && !*v61);
       if (v61 < v58)
       {
-        while (!v61->i8[0])
+        while (!*v61)
         {
-          v61 = (v61 + 1);
-          if (v61 >= v58)
+          if (++v61 >= v58)
           {
             v61 = &a10[v56];
             break;
@@ -8233,7 +8152,7 @@ LABEL_85:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v84 = &a5->i64[a4];
+    v84 = &a5->i8[8 * a4];
     if (v84 >= a9)
     {
       v85 = v20;
@@ -8244,7 +8163,7 @@ LABEL_85:
       v85 = 0;
     }
 
-    v86 = &v84[v85];
+    v86 = &v84[8 * v85];
     v87 = a8 + 8 * v85 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -8300,7 +8219,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)5,_rgbaf16_t>(float16x8_t
           v36 = a10;
           do
           {
-            v37 = v36++;
+            v37 = v36;
+            v36 += 16;
           }
 
           while (v36 <= v35 && (vminvq_u8(vceqq_s8(*v37, v23)) & 0x80) != 0);
@@ -8310,13 +8230,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)5,_rgbaf16_t>(float16x8_t
             v37 = (v37 + 4);
           }
 
-          while (v37 <= v35 && v38->i32[0] == -1);
+          while (v37 <= v35 && *v38 == -1);
           if (v38 < v35)
           {
-            while (v38->u8[0] == 255)
+            while (*v38 == 255)
             {
-              v38 = (v38 + 1);
-              if (v38 >= v35)
+              if (++v38 >= v35)
               {
                 v38 = &a10[v27];
                 break;
@@ -8353,7 +8272,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)5,_rgbaf16_t>(float16x8_t
         v30 = a10;
         do
         {
-          v31 = v30++;
+          v31 = v30;
+          v30 += 16;
         }
 
         while (v30 <= v29 && (vminvq_u8(vceqzq_s8(*v31)) & 0x80) != 0);
@@ -8363,13 +8283,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)5,_rgbaf16_t>(float16x8_t
           v31 = (v31 + 4);
         }
 
-        while (v31 <= v29 && !v32->i32[0]);
+        while (v31 <= v29 && !*v32);
         if (v32 < v29)
         {
-          while (!v32->i8[0])
+          while (!*v32)
           {
-            v32 = (v32 + 1);
-            if (v32 >= v29)
+            if (++v32 >= v29)
             {
               v32 = &a10[v27];
               break;
@@ -8448,7 +8367,7 @@ LABEL_36:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v53 = &a5->i64[a4];
+      v53 = &a5->i8[8 * a4];
       if (v53 >= a9)
       {
         v54 = v20;
@@ -8459,7 +8378,7 @@ LABEL_36:
         v54 = 0;
       }
 
-      v55 = &v53[v54];
+      v55 = &v53[8 * v54];
       v56 = a8 + 8 * v54 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -8500,7 +8419,8 @@ LABEL_36:
         v68 = a10;
         do
         {
-          v69 = v68++;
+          v69 = v68;
+          v68 += 16;
         }
 
         while (v68 <= v67 && (vminvq_u8(vceqq_s8(*v69, v23)) & 0x80) != 0);
@@ -8510,13 +8430,12 @@ LABEL_36:
           v69 = (v69 + 4);
         }
 
-        while (v69 <= v67 && v70->i32[0] == -1);
+        while (v69 <= v67 && *v70 == -1);
         if (v70 < v67)
         {
-          while (v70->u8[0] == 255)
+          while (*v70 == 255)
           {
-            v70 = (v70 + 1);
-            if (v70 >= v67)
+            if (++v70 >= v67)
             {
               v70 = &a10[v59];
               break;
@@ -8555,7 +8474,8 @@ LABEL_36:
       v62 = a10;
       do
       {
-        v63 = v62++;
+        v63 = v62;
+        v62 += 16;
       }
 
       while (v62 <= v61 && (vminvq_u8(vceqzq_s8(*v63)) & 0x80) != 0);
@@ -8565,13 +8485,12 @@ LABEL_36:
         v63 = (v63 + 4);
       }
 
-      while (v63 <= v61 && !v64->i32[0]);
+      while (v63 <= v61 && !*v64);
       if (v64 < v61)
       {
-        while (!v64->i8[0])
+        while (!*v64)
         {
-          v64 = (v64 + 1);
-          if (v64 >= v61)
+          if (++v64 >= v61)
           {
             v64 = &a10[v59];
             break;
@@ -8652,7 +8571,7 @@ LABEL_85:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v89 = &a5->i64[a4];
+    v89 = &a5->i8[8 * a4];
     if (v89 >= a9)
     {
       v90 = v20;
@@ -8663,7 +8582,7 @@ LABEL_85:
       v90 = 0;
     }
 
-    v91 = &v89[v90];
+    v91 = &v89[8 * v90];
     v92 = a8 + 8 * v90 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -8719,7 +8638,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)9,_rgbaf16_t>(float16x8_t
           v36 = a10;
           do
           {
-            v37 = v36++;
+            v37 = v36;
+            v36 += 16;
           }
 
           while (v36 <= v35 && (vminvq_u8(vceqq_s8(*v37, v23)) & 0x80) != 0);
@@ -8729,13 +8649,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)9,_rgbaf16_t>(float16x8_t
             v37 = (v37 + 4);
           }
 
-          while (v37 <= v35 && v38->i32[0] == -1);
+          while (v37 <= v35 && *v38 == -1);
           if (v38 < v35)
           {
-            while (v38->u8[0] == 255)
+            while (*v38 == 255)
             {
-              v38 = (v38 + 1);
-              if (v38 >= v35)
+              if (++v38 >= v35)
               {
                 v38 = &a10[v27];
                 break;
@@ -8772,7 +8691,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)9,_rgbaf16_t>(float16x8_t
         v30 = a10;
         do
         {
-          v31 = v30++;
+          v31 = v30;
+          v30 += 16;
         }
 
         while (v30 <= v29 && (vminvq_u8(vceqzq_s8(*v31)) & 0x80) != 0);
@@ -8782,13 +8702,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)9,_rgbaf16_t>(float16x8_t
           v31 = (v31 + 4);
         }
 
-        while (v31 <= v29 && !v32->i32[0]);
+        while (v31 <= v29 && !*v32);
         if (v32 < v29)
         {
-          while (!v32->i8[0])
+          while (!*v32)
           {
-            v32 = (v32 + 1);
-            if (v32 >= v29)
+            if (++v32 >= v29)
             {
               v32 = &a10[v27];
               break;
@@ -8865,7 +8784,7 @@ LABEL_36:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v51 = a5 + 8 * a4;
+      v51 = &a5->i8[8 * a4];
       if (v51 >= a9)
       {
         v52 = v20;
@@ -8876,7 +8795,7 @@ LABEL_36:
         v52 = 0;
       }
 
-      v53 = (v51 + 8 * v52);
+      v53 = &v51[8 * v52];
       v54 = a8 + 8 * v52 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -8917,7 +8836,8 @@ LABEL_36:
         v66 = a10;
         do
         {
-          v67 = v66++;
+          v67 = v66;
+          v66 += 16;
         }
 
         while (v66 <= v65 && (vminvq_u8(vceqq_s8(*v67, v23)) & 0x80) != 0);
@@ -8927,13 +8847,12 @@ LABEL_36:
           v67 = (v67 + 4);
         }
 
-        while (v67 <= v65 && v68->i32[0] == -1);
+        while (v67 <= v65 && *v68 == -1);
         if (v68 < v65)
         {
-          while (v68->u8[0] == 255)
+          while (*v68 == 255)
           {
-            v68 = (v68 + 1);
-            if (v68 >= v65)
+            if (++v68 >= v65)
             {
               v68 = &a10[v57];
               break;
@@ -8972,7 +8891,8 @@ LABEL_36:
       v60 = a10;
       do
       {
-        v61 = v60++;
+        v61 = v60;
+        v60 += 16;
       }
 
       while (v60 <= v59 && (vminvq_u8(vceqzq_s8(*v61)) & 0x80) != 0);
@@ -8982,13 +8902,12 @@ LABEL_36:
         v61 = (v61 + 4);
       }
 
-      while (v61 <= v59 && !v62->i32[0]);
+      while (v61 <= v59 && !*v62);
       if (v62 < v59)
       {
-        while (!v62->i8[0])
+        while (!*v62)
         {
-          v62 = (v62 + 1);
-          if (v62 >= v59)
+          if (++v62 >= v59)
           {
             v62 = &a10[v57];
             break;
@@ -9070,7 +8989,7 @@ LABEL_85:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v88 = a5 + 8 * a4;
+    v88 = &a5->i8[8 * a4];
     if (v88 >= a9)
     {
       v89 = v20;
@@ -9081,7 +9000,7 @@ LABEL_85:
       v89 = 0;
     }
 
-    v90 = (v88 + 8 * v89);
+    v90 = &v88[8 * v89];
     v91 = a8 + 8 * v89 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -9137,7 +9056,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf16_t>(float16x8_
           v36 = a10;
           do
           {
-            v37 = v36++;
+            v37 = v36;
+            v36 += 16;
           }
 
           while (v36 <= v35 && (vminvq_u8(vceqq_s8(*v37, v23)) & 0x80) != 0);
@@ -9147,13 +9067,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf16_t>(float16x8_
             v37 = (v37 + 4);
           }
 
-          while (v37 <= v35 && v38->i32[0] == -1);
+          while (v37 <= v35 && *v38 == -1);
           if (v38 < v35)
           {
-            while (v38->u8[0] == 255)
+            while (*v38 == 255)
             {
-              v38 = (v38 + 1);
-              if (v38 >= v35)
+              if (++v38 >= v35)
               {
                 v38 = &a10[v27];
                 break;
@@ -9190,7 +9109,8 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf16_t>(float16x8_
         v30 = a10;
         do
         {
-          v31 = v30++;
+          v31 = v30;
+          v30 += 16;
         }
 
         while (v30 <= v29 && (vminvq_u8(vceqzq_s8(*v31)) & 0x80) != 0);
@@ -9200,13 +9120,12 @@ float16x8_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf16_t>(float16x8_
           v31 = (v31 + 4);
         }
 
-        while (v31 <= v29 && !v32->i32[0]);
+        while (v31 <= v29 && !*v32);
         if (v32 < v29)
         {
-          while (!v32->i8[0])
+          while (!*v32)
           {
-            v32 = (v32 + 1);
-            if (v32 >= v29)
+            if (++v32 >= v29)
             {
               v32 = &a10[v27];
               break;
@@ -9283,7 +9202,7 @@ LABEL_36:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v51 = a5 + 8 * a4;
+      v51 = &a5->i8[8 * a4];
       if (v51 >= a9)
       {
         v52 = v20;
@@ -9294,7 +9213,7 @@ LABEL_36:
         v52 = 0;
       }
 
-      v53 = (v51 + 8 * v52);
+      v53 = &v51[8 * v52];
       v54 = a8 + 8 * v52 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -9335,7 +9254,8 @@ LABEL_36:
         v66 = a10;
         do
         {
-          v67 = v66++;
+          v67 = v66;
+          v66 += 16;
         }
 
         while (v66 <= v65 && (vminvq_u8(vceqq_s8(*v67, v23)) & 0x80) != 0);
@@ -9345,13 +9265,12 @@ LABEL_36:
           v67 = (v67 + 4);
         }
 
-        while (v67 <= v65 && v68->i32[0] == -1);
+        while (v67 <= v65 && *v68 == -1);
         if (v68 < v65)
         {
-          while (v68->u8[0] == 255)
+          while (*v68 == 255)
           {
-            v68 = (v68 + 1);
-            if (v68 >= v65)
+            if (++v68 >= v65)
             {
               v68 = &a10[v57];
               break;
@@ -9390,7 +9309,8 @@ LABEL_36:
       v60 = a10;
       do
       {
-        v61 = v60++;
+        v61 = v60;
+        v60 += 16;
       }
 
       while (v60 <= v59 && (vminvq_u8(vceqzq_s8(*v61)) & 0x80) != 0);
@@ -9400,13 +9320,12 @@ LABEL_36:
         v61 = (v61 + 4);
       }
 
-      while (v61 <= v59 && !v62->i32[0]);
+      while (v61 <= v59 && !*v62);
       if (v62 < v59)
       {
-        while (!v62->i8[0])
+        while (!*v62)
         {
-          v62 = (v62 + 1);
-          if (v62 >= v59)
+          if (++v62 >= v59)
           {
             v62 = &a10[v57];
             break;
@@ -9488,7 +9407,7 @@ LABEL_85:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v88 = a5 + 8 * a4;
+    v88 = &a5->i8[8 * a4];
     if (v88 >= a9)
     {
       v89 = v20;
@@ -9499,7 +9418,7 @@ LABEL_85:
       v89 = 0;
     }
 
-    v90 = (v88 + 8 * v89);
+    v90 = &v88[8 * v89];
     v91 = a8 + 8 * v89 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)
@@ -9590,7 +9509,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf16_t>(int8x16_t *r
           v51 = a10;
           do
           {
-            v52 = v51++;
+            v52 = v51;
+            v51 += 16;
           }
 
           while (v51 <= v50 && (vminvq_u8(vceqq_s8(*v52, v39)) & 0x80) != 0);
@@ -9600,13 +9520,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf16_t>(int8x16_t *r
             v52 = (v52 + 4);
           }
 
-          while (v52 <= v50 && v53->i32[0] == -1);
+          while (v52 <= v50 && *v53 == -1);
           if (v53 < v50)
           {
-            while (v53->u8[0] == 255)
+            while (*v53 == 255)
             {
-              v53 = (v53 + 1);
-              if (v53 >= v50)
+              if (++v53 >= v50)
               {
                 v53 = &a10[v42];
                 break;
@@ -9648,7 +9567,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf16_t>(int8x16_t *r
         v45 = a10;
         do
         {
-          v46 = v45++;
+          v46 = v45;
+          v45 += 16;
         }
 
         while (v45 <= v44 && (vminvq_u8(vceqzq_s8(*v46)) & 0x80) != 0);
@@ -9658,13 +9578,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf16_t>(int8x16_t *r
           v46 = (v46 + 4);
         }
 
-        while (v46 <= v44 && !v47->i32[0]);
+        while (v46 <= v44 && !*v47);
         if (v47 < v44)
         {
-          while (!v47->i8[0])
+          while (!*v47)
           {
-            v47 = (v47 + 1);
-            if (v47 >= v44)
+            if (++v47 >= v44)
             {
               v47 = &a10[v42];
               break;
@@ -9755,7 +9674,7 @@ LABEL_42:
 
       a10 += a11;
       result = (result + 8 * a2);
-      v84 = &a5->i64[a4];
+      v84 = &a5->i8[8 * a4];
       if (v84 >= a9)
       {
         v85 = v35;
@@ -9766,7 +9685,7 @@ LABEL_42:
         v85 = 0;
       }
 
-      v86 = &v84[v85];
+      v86 = &v84[8 * v85];
       v87 = a8 + 8 * v85 + 8 * a4;
       a3 = (a3 + 8 * a4);
       if (a9)
@@ -9807,7 +9726,8 @@ LABEL_42:
         v99 = a10;
         do
         {
-          v100 = v99++;
+          v100 = v99;
+          v99 += 16;
         }
 
         while (v99 <= v98 && (vminvq_u8(vceqq_s8(*v100, v39)) & 0x80) != 0);
@@ -9817,13 +9737,12 @@ LABEL_42:
           v100 = (v100 + 4);
         }
 
-        while (v100 <= v98 && v101->i32[0] == -1);
+        while (v100 <= v98 && *v101 == -1);
         if (v101 < v98)
         {
-          while (v101->u8[0] == 255)
+          while (*v101 == 255)
           {
-            v101 = (v101 + 1);
-            if (v101 >= v98)
+            if (++v101 >= v98)
             {
               v101 = &a10[v90];
               break;
@@ -9865,7 +9784,8 @@ LABEL_42:
       v93 = a10;
       do
       {
-        v94 = v93++;
+        v94 = v93;
+        v93 += 16;
       }
 
       while (v93 <= v92 && (vminvq_u8(vceqzq_s8(*v94)) & 0x80) != 0);
@@ -9875,13 +9795,12 @@ LABEL_42:
         v94 = (v94 + 4);
       }
 
-      while (v94 <= v92 && !v95->i32[0]);
+      while (v94 <= v92 && !*v95);
       if (v95 < v92)
       {
-        while (!v95->i8[0])
+        while (!*v95)
         {
-          v95 = (v95 + 1);
-          if (v95 >= v92)
+          if (++v95 >= v92)
           {
             v95 = &a10[v90];
             break;
@@ -9972,7 +9891,7 @@ LABEL_91:
 
     a10 += a11;
     result = (result + 8 * a2);
-    v132 = &a5->i64[a4];
+    v132 = &a5->i8[8 * a4];
     if (v132 >= a9)
     {
       v133 = v35;
@@ -9983,7 +9902,7 @@ LABEL_91:
       v133 = 0;
     }
 
-    v134 = &v132[v133];
+    v134 = &v132[8 * v133];
     v135 = a8 + 8 * v133 + 8 * a4;
     a3 = (a3 + 8 * a4);
     if (a9)

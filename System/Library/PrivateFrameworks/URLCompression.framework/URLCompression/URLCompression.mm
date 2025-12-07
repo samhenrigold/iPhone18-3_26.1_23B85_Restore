@@ -352,14 +352,14 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-void UC::UCBitVector::append(UC::UCBitVector *this, int a2)
+void UC::UCBitVector::append(uint64_t this, int a2)
 {
-  v2 = *(this + 4);
+  v2 = *(this + 32);
   *(this + 24) |= a2 << (~v2 & 7);
-  *(this + 4) = v2 + 1;
+  *(this + 32) = v2 + 1;
   if (((v2 + 1) & 7) == 0)
   {
-    std::vector<unsigned char>::push_back[abi:ne200100](this, this + 24);
+    std::vector<unsigned char>::push_back[abi:ne200100](this, (this + 24));
     *(this + 24) = 0;
   }
 }
@@ -498,14 +498,14 @@ void *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *
   {
     v6 = result;
     result = std::vector<unsigned char>::__vallocate[abi:ne200100](result, __sz);
-    v7 = v6[1];
+    v7 = *(v6 + 1);
     v8 = a3 - a2;
     if (v8)
     {
-      result = memmove(v6[1], a2, v8);
+      result = memmove(*(v6 + 1), a2, v8);
     }
 
-    v6[1] = v7 + v8;
+    *(v6 + 1) = v7 + v8;
   }
 
   return result;
@@ -610,41 +610,41 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
 void UC::SUE::SegmentedURLEncoderImpl::_encodeHost(std::string *this@<X1>, UC::SUE::UCSegmentedURLCoderProvider **a2@<X0>, int a3@<W2>, int *a4@<X8>)
 {
   v5 = this;
-  *&v62 = *MEMORY[0x277D85DE8];
-  memset(&v60, 0, sizeof(v60));
-  *(v59 + 3) = 0;
-  v59[0] = 0;
+  *&v61 = *MEMORY[0x277D85DE8];
+  memset(&v59, 0, sizeof(v59));
+  *(v58 + 3) = 0;
+  v58[0] = 0;
   v8 = std::string::rfind(this, 46, 0xFFFFFFFFFFFFFFFFLL);
   if (v8 == -1)
   {
     v12 = 0;
     v10 = 0;
-    std::string::operator=(&v60, v5);
+    std::string::operator=(&v59, v5);
     size = 0;
   }
 
   else
   {
     v9 = v8;
-    std::string::basic_string(&v58, v5, v8, 0xFFFFFFFFFFFFFFFFLL, &v56);
-    size = v58.__r_.__value_.__l.__size_;
-    v10 = v58.__r_.__value_.__r.__words[0];
-    v59[0] = v58.__r_.__value_.__r.__words[2];
-    *(v59 + 3) = *(&v58.__r_.__value_.__r.__words[2] + 3);
-    v12 = HIBYTE(v58.__r_.__value_.__r.__words[2]);
-    std::string::basic_string(&v58, v5, 0, v9, &v56);
-    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string(&v57, v5, v8, 0xFFFFFFFFFFFFFFFFLL, &v55);
+    size = v57.__r_.__value_.__l.__size_;
+    v10 = v57.__r_.__value_.__r.__words[0];
+    v58[0] = v57.__r_.__value_.__r.__words[2];
+    *(v58 + 3) = *(&v57.__r_.__value_.__r.__words[2] + 3);
+    v12 = HIBYTE(v57.__r_.__value_.__r.__words[2]);
+    std::string::basic_string(&v57, v5, 0, v9, &v55);
+    if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v60.__r_.__value_.__l.__data_);
+      operator delete(v59.__r_.__value_.__l.__data_);
     }
 
-    v60 = v58;
+    v59 = v57;
   }
 
   if (a3)
   {
     std::string::push_back(v5, 124);
-    std::string::push_back(&v60, 124);
+    std::string::push_back(&v59, 124);
   }
 
   v13 = SHIBYTE(v5->__r_.__value_.__r.__words[2]);
@@ -655,23 +655,23 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeHost(std::string *this@<X1>, UC::S
     v13 = v14->__r_.__value_.__l.__size_;
   }
 
-  UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v5, v13, &v58);
-  v56 = 0uLL;
-  v57 = 0;
-  UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(*a2, &v53);
-  (*(*v53 + 40))(v55);
-  v56 = *v55;
-  v57 = v55[2];
-  HIBYTE(v55[2]) = 0;
-  LOBYTE(v55[0]) = 0;
-  if (v54)
+  UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v5, v13, &v57);
+  v55 = 0uLL;
+  v56 = 0;
+  UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(&v52, *a2);
+  (*(*v52 + 40))(v54);
+  v55 = *v54;
+  v56 = v54[2];
+  HIBYTE(v54[2]) = 0;
+  LOBYTE(v54[0]) = 0;
+  if (v53)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v53);
   }
 
-  memset(v55, 0, sizeof(v55));
-  v53 = 0;
-  v54 = 0uLL;
+  memset(v54, 0, sizeof(v54));
+  v52 = 0;
+  v53 = 0uLL;
   if ((v12 & 0x80u) == 0)
   {
     v15 = v12;
@@ -691,67 +691,67 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeHost(std::string *this@<X1>, UC::S
     goto LABEL_61;
   }
 
-  if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v60;
+    v16 = &v59;
   }
 
   else
   {
-    v16 = v60.__r_.__value_.__r.__words[0];
+    v16 = v59.__r_.__value_.__r.__words[0];
   }
 
-  if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v17 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+    v17 = HIBYTE(v59.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v17 = v60.__r_.__value_.__l.__size_;
+    v17 = v59.__r_.__value_.__l.__size_;
   }
 
-  UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v16, v17, v52);
-  UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(*a2, &v48);
-  (*(*v48.__r_.__value_.__l.__data_ + 40))(&__p);
-  if (v48.__r_.__value_.__l.__size_)
+  UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v16, v17, v51);
+  UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(&v47, *a2);
+  (*(*v47.__r_.__value_.__l.__data_ + 40))(&__p);
+  if (v47.__r_.__value_.__l.__size_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v48.__r_.__value_.__l.__size_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v47.__r_.__value_.__l.__size_);
   }
 
   if ((v12 & 0x80) != 0)
   {
-    std::string::__init_copy_ctor_external(&v61, v10, size);
+    std::string::__init_copy_ctor_external(&v60, v10, size);
   }
 
   else
   {
-    v61.__r_.__value_.__r.__words[0] = v10;
-    v61.__r_.__value_.__l.__size_ = size;
-    LODWORD(v61.__r_.__value_.__r.__words[2]) = v59[0];
-    *(&v61.__r_.__value_.__r.__words[2] + 3) = *(v59 + 3);
-    *(&v61.__r_.__value_.__s + 23) = v12;
+    v60.__r_.__value_.__r.__words[0] = v10;
+    v60.__r_.__value_.__l.__size_ = size;
+    LODWORD(v60.__r_.__value_.__r.__words[2]) = v58[0];
+    *(&v60.__r_.__value_.__r.__words[2] + 3) = *(v58 + 3);
+    *(&v60.__r_.__value_.__s + 23) = v12;
   }
 
-  memset(&v48, 0, sizeof(v48));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v48, &v61, &v62, 1uLL);
-  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+  memset(&v47, 0, sizeof(v47));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v47, &v60, &v61, 1uLL);
+  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v61.__r_.__value_.__l.__data_);
+    operator delete(v60.__r_.__value_.__l.__data_);
   }
 
-  UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder(*a2, &v61);
-  v22 = (*(*v61.__r_.__value_.__l.__data_ + 16))(v61.__r_.__value_.__r.__words[0], &v48);
-  if (v61.__r_.__value_.__l.__size_)
+  UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder(&v60, *a2);
+  v22 = (*(*v60.__r_.__value_.__l.__data_ + 16))(v60.__r_.__value_.__r.__words[0], &v47);
+  if (v60.__r_.__value_.__l.__size_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v61.__r_.__value_.__l.__size_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v60.__r_.__value_.__l.__size_);
   }
 
   if (v22)
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder(*a2, &v46);
-    (*(*v46 + 40))(&v61);
-    if ((v51 & 0x80u) == 0)
+    UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder(&v45, *a2);
+    (*(*v45 + 40))(&v60);
+    if ((v50 & 0x80u) == 0)
     {
       p_p = &__p;
     }
@@ -761,51 +761,51 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeHost(std::string *this@<X1>, UC::S
       p_p = __p;
     }
 
-    if ((v51 & 0x80u) == 0)
-    {
-      v24 = v51;
-    }
-
-    else
+    if ((v50 & 0x80u) == 0)
     {
       v24 = v50;
     }
 
-    v25 = std::string::append(&v61, p_p, v24);
+    else
+    {
+      v24 = v49;
+    }
+
+    v25 = std::string::append(&v60, p_p, v24);
     v26 = v25->__r_.__value_.__r.__words[0];
-    v55[1] = v25->__r_.__value_.__l.__size_;
-    *(&v55[1] + 7) = *(&v25->__r_.__value_.__r.__words[1] + 7);
+    v54[1] = v25->__r_.__value_.__l.__size_;
+    *(&v54[1] + 7) = *(&v25->__r_.__value_.__r.__words[1] + 7);
     LOBYTE(v21) = *(&v25->__r_.__value_.__s + 23);
     v25->__r_.__value_.__l.__size_ = 0;
     v25->__r_.__value_.__r.__words[2] = 0;
     v25->__r_.__value_.__r.__words[0] = 0;
-    v55[0] = v26;
-    HIBYTE(v55[2]) = v21;
-    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+    v54[0] = v26;
+    HIBYTE(v54[2]) = v21;
+    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v61.__r_.__value_.__l.__data_);
+      operator delete(v60.__r_.__value_.__l.__data_);
     }
 
-    if (v47)
+    if (v46)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v46);
     }
   }
 
   else
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(*a2, &v61);
-    v21 = (*(*v61.__r_.__value_.__l.__data_ + 16))(v61.__r_.__value_.__r.__words[0], &v48);
-    if (v61.__r_.__value_.__l.__size_)
+    UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(&v60, *a2);
+    v21 = (*(*v60.__r_.__value_.__l.__data_ + 16))(v60.__r_.__value_.__r.__words[0], &v47);
+    if (v60.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v61.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v60.__r_.__value_.__l.__size_);
     }
 
     if (v21)
     {
-      UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(*a2, &v46);
-      (*(*v46 + 40))(&v61);
-      if ((v51 & 0x80u) == 0)
+      UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(&v45, *a2);
+      (*(*v45 + 40))(&v60);
+      if ((v50 & 0x80u) == 0)
       {
         v27 = &__p;
       }
@@ -815,34 +815,34 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeHost(std::string *this@<X1>, UC::S
         v27 = __p;
       }
 
-      if ((v51 & 0x80u) == 0)
-      {
-        v28 = v51;
-      }
-
-      else
+      if ((v50 & 0x80u) == 0)
       {
         v28 = v50;
       }
 
-      v29 = std::string::append(&v61, v27, v28);
+      else
+      {
+        v28 = v49;
+      }
+
+      v29 = std::string::append(&v60, v27, v28);
       v18 = v29->__r_.__value_.__r.__words[0];
-      *&v54 = v29->__r_.__value_.__l.__size_;
-      *(&v54 + 7) = *(&v29->__r_.__value_.__r.__words[1] + 7);
+      *&v53 = v29->__r_.__value_.__l.__size_;
+      *(&v53 + 7) = *(&v29->__r_.__value_.__r.__words[1] + 7);
       v19 = HIBYTE(v29->__r_.__value_.__r.__words[2]);
       v29->__r_.__value_.__l.__size_ = 0;
       v29->__r_.__value_.__r.__words[2] = 0;
       v29->__r_.__value_.__r.__words[0] = 0;
-      v53 = v18;
-      HIBYTE(v54) = v19;
-      if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+      v52 = v18;
+      HIBYTE(v53) = v19;
+      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v61.__r_.__value_.__l.__data_);
+        operator delete(v60.__r_.__value_.__l.__data_);
       }
 
-      if (v47)
+      if (v46)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v46);
       }
 
       LOBYTE(v21) = 0;
@@ -853,23 +853,23 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeHost(std::string *this@<X1>, UC::S
   v18 = 0;
   v19 = 0;
 LABEL_58:
-  v61.__r_.__value_.__r.__words[0] = &v48;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v61);
-  if (v51 < 0)
+  v60.__r_.__value_.__r.__words[0] = &v47;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v60);
+  if (v50 < 0)
   {
     operator delete(__p);
   }
 
-  __p = v52;
+  __p = v51;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v20 = v55[1];
-  v15 = v54;
+  v20 = v54[1];
+  v15 = v53;
 LABEL_61:
-  v30 = SHIBYTE(v57);
-  v31 = HIBYTE(v57);
-  if (SHIBYTE(v57) < 0)
+  v30 = SHIBYTE(v56);
+  v31 = HIBYTE(v56);
+  if (SHIBYTE(v56) < 0)
   {
-    v31 = *(&v56 + 1);
+    v31 = *(&v55 + 1);
   }
 
   v32 = v21;
@@ -892,12 +892,12 @@ LABEL_61:
 
   if (v33 && v34)
   {
-    v36 = v55;
+    v36 = v54;
   }
 
   else
   {
-    v36 = &v56;
+    v36 = &v55;
   }
 
   if (v33 && v34)
@@ -918,13 +918,13 @@ LABEL_61:
 
   else
   {
-    v38 = HIBYTE(v57);
+    v38 = HIBYTE(v56);
   }
 
   v39 = v35 != 0 && v35 < v31;
   if (v35 != 0 && v35 < v31)
   {
-    v40 = &v53;
+    v40 = &v52;
   }
 
   else
@@ -958,17 +958,17 @@ LABEL_61:
   {
     if (v33 && v34)
     {
-      v44 = v55;
+      v44 = v54;
     }
 
     else
     {
-      v44 = &v56;
+      v44 = &v55;
     }
 
     if (v39)
     {
-      v44 = &v53;
+      v44 = &v52;
     }
 
     std::string::__init_copy_ctor_external(v42, *v40, v44[1]);
@@ -988,7 +988,7 @@ LABEL_61:
     }
 
 LABEL_103:
-    operator delete(v55[0]);
+    operator delete(v54[0]);
     if ((v30 & 0x80000000) == 0)
     {
       goto LABEL_97;
@@ -1010,21 +1010,19 @@ LABEL_96:
   }
 
 LABEL_104:
-  operator delete(v56);
+  operator delete(v55);
 LABEL_97:
-  *&v56 = &v58;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v56);
+  *&v55 = &v57;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v55);
   if ((v12 & 0x80) != 0)
   {
     operator delete(v10);
   }
 
-  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v60.__r_.__value_.__l.__data_);
+    operator delete(v59.__r_.__value_.__l.__data_);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2702E1270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, char *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, char *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, char a40)
@@ -1128,7 +1126,7 @@ void UC::SUE::SegmentedURLEncoderImpl::encodeURL(UC::SUE::SegmentedURLEncoderImp
     {
 LABEL_218:
       exception = __cxa_allocate_exception(0x58uLL);
-      UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 1, "", 0, "Only encoding of the scheme https is supported", 46);
+      UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 1, "", 0, "Only encoding of the scheme https is supported", 0x2EuLL);
       goto LABEL_222;
     }
 
@@ -1150,7 +1148,7 @@ LABEL_218:
   if (*(a2 + 18))
   {
     exception = __cxa_allocate_exception(0x58uLL);
-    UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 2, "", 0, "Encoding of URLs with port is not supported", 43);
+    UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 2, "", 0, "Encoding of URLs with port is not supported", 0x2BuLL);
     goto LABEL_222;
   }
 
@@ -1163,7 +1161,7 @@ LABEL_218:
   if (v12)
   {
     exception = __cxa_allocate_exception(0x58uLL);
-    UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 3, "", 0, "Encoding of URLs with user is not supported", 43);
+    UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 3, "", 0, "Encoding of URLs with user is not supported", 0x2BuLL);
     goto LABEL_222;
   }
 
@@ -1176,7 +1174,7 @@ LABEL_218:
   if (v13)
   {
     exception = __cxa_allocate_exception(0x58uLL);
-    UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 4, "", 0, "Encoding of URLs with password is not supported", 47);
+    UC::Exception::CoderError::CoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 4, "", 0, "Encoding of URLs with password is not supported", 0x2FuLL);
 LABEL_222:
   }
 
@@ -1637,7 +1635,7 @@ LABEL_140:
   }
 
   UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v45, v46, &__x);
-  UC::SUE::UCSegmentedURLCoderProvider::getCombinedPathAndQueryCoder(*this, &v70);
+  UC::SUE::UCSegmentedURLCoderProvider::getCombinedPathAndQueryCoder(&v70, *this);
   (*(*v70 + 40))(&v72);
   if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2061,8 +2059,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = (v4 + 24);
   }
@@ -2075,7 +2072,7 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForHostFormatType@<X0>(unsi
   if (a1 >= 3)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 0, "Unknown host format type", 24);
+    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 0, "Unknown host format type", 0x18uLL);
   }
 
   v2 = off_279E00778[a1];
@@ -2083,7 +2080,7 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForHostFormatType@<X0>(unsi
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingSegmentedPathAndQuery(UC::SUE::UCSegmentedURLCoderProvider **a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, _BYTE *a4@<X8>)
+void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingSegmentedPathAndQuery(UC::SUE::UCSegmentedURLCoderProvider **result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, std::string *a4@<X8>)
 {
   v7 = *(a3 + 23);
   if (v7 < 0)
@@ -2117,8 +2114,8 @@ void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingSegmentedPathAndQuery(UC::SUE
 
   if (*(v9 + v8 - 1) == 38)
   {
-    *a4 = 0;
-    a4[24] = 0;
+    a4->__r_.__value_.__s.__data_[0] = 0;
+    a4[1].__r_.__value_.__s.__data_[0] = 0;
     return;
   }
 
@@ -2289,10 +2286,10 @@ LABEL_44:
       }
 
       UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v35, v34, &v61);
-      if ((UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedPathComponentOrQueryValue(a1, &v61) & 1) == 0)
+      if ((UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedPathComponentOrQueryValue(result, &v61) & 1) == 0)
       {
-        *v54 = 0;
-        v54[24] = 0;
+        v54->__r_.__value_.__s.__data_[0] = 0;
+        v54[1].__r_.__value_.__s.__data_[0] = 0;
         v60.__r_.__value_.__r.__words[0] = &v61;
         std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v60);
         goto LABEL_119;
@@ -2394,7 +2391,7 @@ LABEL_84:
           v43 = v44->__r_.__value_.__s.__data_[size - 1] != 47;
 LABEL_87:
           std::string::basic_string[abi:ne200100]<0>(&v57, "0");
-          UC::SUE::SegmentedURLEncoderImpl::_encodeURLPathComponent(a1, &v65[v27], v43, v32, __p);
+          UC::SUE::SegmentedURLEncoderImpl::_encodeURLPathComponent(result, &v65[v27], v43, v32, __p);
           if ((v56 & 0x80u) == 0)
           {
             v45 = __p;
@@ -2474,7 +2471,7 @@ LABEL_104:
 LABEL_116:
     UC::JoinString(&v62, &v61);
     *a4 = v61;
-    a4[24] = 1;
+    a4[1].__r_.__value_.__s.__data_[0] = 1;
   }
 
   else
@@ -2494,10 +2491,10 @@ LABEL_116:
       v49 = 1;
     }
 
-    while ((UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedQureyParameter(a1, (v63 + v50)) & 1) != 0)
+    while ((UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedQureyParameter(result, (v63 + v50)) & 1) != 0)
     {
       v53 = v51-- != 0;
-      UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent((v63 + v50), a1, v53, &v61);
+      UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent(&v61, (v63 + v50), result, v53);
       std::vector<std::string>::push_back[abi:ne200100](&v62, &v61);
       if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -2511,8 +2508,8 @@ LABEL_116:
       }
     }
 
-    *a4 = 0;
-    a4[24] = 0;
+    a4->__r_.__value_.__s.__data_[0] = 0;
+    a4[1].__r_.__value_.__s.__data_[0] = 0;
   }
 
 LABEL_119:
@@ -2544,12 +2541,12 @@ void sub_2702E2C1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingWithPathWordBookAndAutoQueryTemplateFormat(UC::SUE::UCSegmentedURLCoderProvider **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
+void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingWithPathWordBookAndAutoQueryTemplateFormat(UC::SUE::UCSegmentedURLCoderProvider **a1@<X0>, unsigned __int8 *a2@<X1>, unsigned __int8 *a3@<X2>, std::string *a4@<X8>)
 {
   if (UC::SUE::SegmentedURLEncoderImpl::_pathAndQueryMatchPathWordBookAndAutoQueryTemplateFormat(a1, a2, a3))
   {
     memset(v47, 0, sizeof(v47));
-    v8 = *(a2 + 23);
+    v8 = a2[23];
     if (v8 >= 0)
     {
       v9 = a2;
@@ -2562,12 +2559,12 @@ void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingWithPathWordBookAndAutoQueryT
 
     if (v8 >= 0)
     {
-      v10 = *(a2 + 23);
+      v10 = a2[23];
     }
 
     else
     {
-      v10 = *(a2 + 8);
+      v10 = *(a2 + 1);
     }
 
     UC::SplitString(v9, v10, 0x2Fu, v47);
@@ -2576,7 +2573,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingWithPathWordBookAndAutoQueryT
     v46 = 0;
     UC::SUE::SegmentedURLEncoderImpl::_filterByComponentsToKeep(v11, v47, &v44);
     memset(v43, 0, sizeof(v43));
-    v12 = *(a3 + 23);
+    v12 = a3[23];
     if (v12 >= 0)
     {
       v13 = a3;
@@ -2589,12 +2586,12 @@ void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingWithPathWordBookAndAutoQueryT
 
     if (v12 >= 0)
     {
-      v14 = *(a3 + 23);
+      v14 = a3[23];
     }
 
     else
     {
-      v14 = *(a3 + 8);
+      v14 = *(a3 + 1);
     }
 
     UC::SplitString(v13, v14, 0x26u, v43);
@@ -2606,7 +2603,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_tryEncodingWithPathWordBookAndAutoQueryT
     if (v45 - v44 == 24)
     {
       std::string::basic_string[abi:ne200100]<0>(&v37, "0");
-      UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(*a1, &v33);
+      UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(&v33, *a1);
       (*(*v33 + 32))(v35);
       if ((v36 & 0x80u) == 0)
       {
@@ -2743,7 +2740,7 @@ LABEL_61:
       while ((UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedQureyParameter(a1, &v40[v24]) & 1) != 0)
       {
         v29 = v26-- != 0;
-        UC::SUE::SegmentedURLEncoderImpl::_encodePathWordBookAndAutoQueryTemplateQueryComponent(&v40[v24], a1, v29, &__p);
+        UC::SUE::SegmentedURLEncoderImpl::_encodePathWordBookAndAutoQueryTemplateQueryComponent(&__p, &v40[v24], a1, v29);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v30 = &__p;
@@ -2834,7 +2831,7 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForNonTemplatePathAndQueryE
     if (a1)
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 0, "Unknown non-template path and query encode type type", 52);
+      UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 0, "Unknown non-template path and query encode type type", 0x34uLL);
     }
 
     v2 = "1";
@@ -2949,7 +2946,7 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForTemplateType@<X0>(int a1
     if (a1 != 1)
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 0, "Unknown template type", 21);
+      UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 0, "Unknown template type", 0x15uLL);
     }
 
     v2 = "1";
@@ -2965,7 +2962,7 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForTemplateType@<X0>(int a1
 
 uint64_t UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedPathComponentOrQueryValue(UC::SUE::UCSegmentedURLCoderProvider **a1, uint64_t a2)
 {
-  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a1, &v8);
+  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v8, *a1);
   if ((*(*v8 + 16))(v8, a2))
   {
     v4 = 1;
@@ -2973,7 +2970,7 @@ uint64_t UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedPathComponentOrQue
 
   else
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(*a1, &v6);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(&v6, *a1);
     v4 = (*(*v6 + 16))(v6, a2);
     if (v7)
     {
@@ -3036,7 +3033,7 @@ uint64_t UC::SUE::SegmentedURLEncoderImpl::_canEncodeSegmentedQureyParameter(UC:
   }
 
   UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v6, size, v15);
-  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a1, &v13);
+  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v13, *a1);
   v8 = (*(*v13 + 2))(v13, v15);
   if (v14)
   {
@@ -3147,7 +3144,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent
   UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v14, v15, v47);
   __p = 0uLL;
   v46 = 0;
-  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a1, &v43);
+  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v43, *a1);
   v16 = (*(*v43 + 16))(v43, v47);
   if (*(&v43 + 1))
   {
@@ -3156,7 +3153,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent
 
   if (v16)
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a1, v40);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(v40, *a1);
     v17 = v40[0];
     if (*(a4 + 23) < 0)
     {
@@ -3191,7 +3188,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent
 
   v43 = 0uLL;
   v44 = 0;
-  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(*a1, v40);
+  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(v40, *a1);
   v18 = (*(*v40[0] + 16))(v40[0], v47);
   if (v40[1])
   {
@@ -3200,7 +3197,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent
 
   if (v18)
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(*a1, v38);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(v38, *a1);
     (*(*v38[0] + 40))(v40);
     if (SHIBYTE(v44) < 0)
     {
@@ -3237,7 +3234,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent
   v39 = 0;
   if (a2)
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(*a1, &v36);
+    UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(&v36, *a1);
     v19 = (*(*v36 + 24))(v36, a3);
     if (*(&v36 + 1))
     {
@@ -3246,7 +3243,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent
 
     if (v19)
     {
-      UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(*a1, &v34);
+      UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(&v34, *a1);
       (*(*v34 + 32))(&v36);
       if (SHIBYTE(v39) < 0)
       {
@@ -3433,7 +3430,7 @@ void sub_2702E3D04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -3456,7 +3453,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -3503,7 +3500,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
 
 void UC::SUE::SegmentedURLEncoderImpl::_encodeURLPathComponent(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, int a4@<W3>, uint64_t a5@<X8>)
 {
-  v62[2] = *MEMORY[0x277D85DE8];
+  v61[2] = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 23);
   if ((v6 & 0x80u) != 0)
   {
@@ -3513,46 +3510,46 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeURLPathComponent(uint64_t a1@<X0>,
   if (!v6)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 0, "Cannot encode empty path", 24);
+    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 0, "Cannot encode empty path", 0x18uLL);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a1, 1, a2, &__p, a4, 0, &v58);
+  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a1, 1, a2, &__p, a4, 0, &v57);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (HIDWORD(v58))
+  if (HIDWORD(v57))
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingType(v58, &__p);
-  if (v60 >= 0)
+  UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingType(v57, &__p);
+  if (v59 >= 0)
   {
-    v11 = &v59;
+    v11 = &v58;
   }
 
   else
   {
-    v11 = v59;
+    v11 = v58;
   }
 
-  if (v60 >= 0)
+  if (v59 >= 0)
   {
-    v12 = HIBYTE(v60);
+    v12 = HIBYTE(v59);
   }
 
   else
   {
-    v12 = *(&v59 + 1);
+    v12 = *(&v58 + 1);
   }
 
   v13 = std::string::append(&__p, v11, v12);
   v14 = v13->__r_.__value_.__r.__words[0];
-  v62[0] = v13->__r_.__value_.__l.__size_;
-  *(v62 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
+  v61[0] = v13->__r_.__value_.__l.__size_;
+  *(v61 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
   v15 = SHIBYTE(v13->__r_.__value_.__r.__words[2]);
   v13->__r_.__value_.__l.__size_ = 0;
   v13->__r_.__value_.__r.__words[2] = 0;
@@ -3565,10 +3562,10 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeURLPathComponent(uint64_t a1@<X0>,
     }
 
 LABEL_70:
-    v42 = v62[0];
+    v42 = v61[0];
     *a5 = v14;
     *(a5 + 8) = v42;
-    *(a5 + 15) = *(v62 + 7);
+    *(a5 + 15) = *(v61 + 7);
     *(a5 + 23) = v15;
     goto LABEL_77;
   }
@@ -3580,56 +3577,56 @@ LABEL_70:
   }
 
 LABEL_15:
-  v46 = v14;
-  v47 = v15;
-  std::string::basic_string[abi:ne200100]<0>(v53, "");
-  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a1, 1, a2, v53, 1, 0, &__p);
-  v58 = __p.__r_.__value_.__r.__words[0];
-  if (SHIBYTE(v60) < 0)
+  v45 = v14;
+  v46 = v15;
+  std::string::basic_string[abi:ne200100]<0>(v52, "");
+  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a1, 1, a2, v52, 1, 0, &__p);
+  v57 = __p.__r_.__value_.__r.__words[0];
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
-  v59 = *&__p.__r_.__value_.__r.__words[1];
-  v60 = v56;
-  HIBYTE(v56) = 0;
+  v58 = *&__p.__r_.__value_.__r.__words[1];
+  v59 = v55;
+  HIBYTE(v55) = 0;
   __p.__r_.__value_.__s.__data_[8] = 0;
-  v61 = v57;
-  if (SHIBYTE(v54) < 0)
+  v60 = v56;
+  if (SHIBYTE(v53) < 0)
   {
-    operator delete(v53[0]);
+    operator delete(v52[0]);
   }
 
-  if (HIDWORD(v58))
+  if (HIDWORD(v57))
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingType(v58, &__p);
-  if (v60 >= 0)
+  UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingType(v57, &__p);
+  if (v59 >= 0)
   {
-    v16 = &v59;
+    v16 = &v58;
   }
 
   else
   {
-    v16 = v59;
+    v16 = v58;
   }
 
-  if (v60 >= 0)
+  if (v59 >= 0)
   {
-    v17 = HIBYTE(v60);
+    v17 = HIBYTE(v59);
   }
 
   else
   {
-    v17 = *(&v59 + 1);
+    v17 = *(&v58 + 1);
   }
 
   v18 = std::string::append(&__p, v16, v17);
   v19 = *&v18->__r_.__value_.__l.__data_;
-  v54 = v18->__r_.__value_.__r.__words[2];
-  *v53 = v19;
+  v53 = v18->__r_.__value_.__r.__words[2];
+  *v52 = v19;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
@@ -3639,31 +3636,31 @@ LABEL_15:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "10");
-  if (v54 >= 0)
+  if (v53 >= 0)
   {
-    v20 = v53;
+    v20 = v52;
   }
 
   else
   {
-    v20 = v53[0];
+    v20 = v52[0];
   }
 
-  if (v54 >= 0)
+  if (v53 >= 0)
   {
-    v21 = HIBYTE(v54);
+    v21 = HIBYTE(v53);
   }
 
   else
   {
-    v21 = v53[1];
+    v21 = v52[1];
   }
 
   v22 = std::string::insert(&__p, 0, v20, v21);
   size = v22->__r_.__value_.__l.__size_;
-  v45 = v22->__r_.__value_.__r.__words[0];
-  v52[0] = v22->__r_.__value_.__r.__words[2];
-  *(v52 + 3) = *(&v22->__r_.__value_.__r.__words[2] + 3);
+  v44 = v22->__r_.__value_.__r.__words[0];
+  v51[0] = v22->__r_.__value_.__r.__words[2];
+  *(v51 + 3) = *(&v22->__r_.__value_.__r.__words[2] + 3);
   v24 = HIBYTE(v22->__r_.__value_.__r.__words[2]);
   v25 = HIBYTE(v22->__r_.__value_.__r.__words[2]);
   v22->__r_.__value_.__r.__words[0] = 0;
@@ -3684,11 +3681,11 @@ LABEL_15:
     v26 = *(a2 + 8);
   }
 
-  v27 = v50;
-  std::string::basic_string[abi:ne200100](v50, v26 + 1);
-  if (v51 < 0)
+  v27 = v49;
+  std::string::basic_string[abi:ne200100](v49, v26 + 1);
+  if (v50 < 0)
   {
-    v27 = v50[0];
+    v27 = v49[0];
   }
 
   if (v26)
@@ -3707,55 +3704,55 @@ LABEL_15:
   }
 
   *(v27 + v26) = 47;
-  std::string::basic_string[abi:ne200100]<0>(v48, "");
-  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a1, 1, v50, v48, a4, 0, &__p);
-  v58 = __p.__r_.__value_.__r.__words[0];
-  if (SHIBYTE(v60) < 0)
+  std::string::basic_string[abi:ne200100]<0>(v47, "");
+  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a1, 1, v49, v47, a4, 0, &__p);
+  v57 = __p.__r_.__value_.__r.__words[0];
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
-  v59 = *&__p.__r_.__value_.__r.__words[1];
-  v60 = v56;
-  HIBYTE(v56) = 0;
+  v58 = *&__p.__r_.__value_.__r.__words[1];
+  v59 = v55;
+  HIBYTE(v55) = 0;
   __p.__r_.__value_.__s.__data_[8] = 0;
-  v61 = v57;
-  if (v49 < 0)
+  v60 = v56;
+  if (v48 < 0)
   {
-    operator delete(v48[0]);
+    operator delete(v47[0]);
   }
 
-  if (HIDWORD(v58))
+  if (HIDWORD(v57))
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingType(v58, &__p);
-  if (v60 >= 0)
+  UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingType(v57, &__p);
+  if (v59 >= 0)
   {
-    v29 = &v59;
+    v29 = &v58;
   }
 
   else
   {
-    v29 = v59;
+    v29 = v58;
   }
 
-  if (v60 >= 0)
+  if (v59 >= 0)
   {
-    v30 = HIBYTE(v60);
+    v30 = HIBYTE(v59);
   }
 
   else
   {
-    v30 = *(&v59 + 1);
+    v30 = *(&v58 + 1);
   }
 
   v31 = std::string::append(&__p, v29, v30);
   v32 = v31->__r_.__value_.__r.__words[0];
   v33 = v31->__r_.__value_.__l.__size_;
-  LODWORD(v48[0]) = v31->__r_.__value_.__r.__words[2];
-  *(v48 + 3) = *(&v31->__r_.__value_.__r.__words[2] + 3);
+  LODWORD(v47[0]) = v31->__r_.__value_.__r.__words[2];
+  *(v47 + 3) = *(&v31->__r_.__value_.__r.__words[2] + 3);
   v34 = HIBYTE(v31->__r_.__value_.__r.__words[2]);
   v35 = HIBYTE(v31->__r_.__value_.__r.__words[2]);
   v31->__r_.__value_.__r.__words[0] = 0;
@@ -3791,22 +3788,22 @@ LABEL_15:
   {
     *a5 = v32;
     *(a5 + 8) = v33;
-    *(a5 + 16) = v48[0];
-    *(a5 + 19) = *(v48 + 3);
+    *(a5 + 16) = v47[0];
+    *(a5 + 19) = *(v47 + 3);
     *(a5 + 23) = v35;
-    v40 = v45;
-    v41 = v46;
-    v39 = v47;
+    v40 = v44;
+    v41 = v45;
+    v39 = v46;
   }
 
   else
   {
-    *a5 = v45;
+    *a5 = v44;
     *(a5 + 8) = size;
-    *(a5 + 16) = v52[0];
-    *(a5 + 19) = *(v52 + 3);
+    *(a5 + 16) = v51[0];
+    *(a5 + 19) = *(v51 + 3);
     *(a5 + 23) = v25;
-    v39 = v47;
+    v39 = v46;
     if (v34 < 0)
     {
       operator delete(v32);
@@ -3814,10 +3811,10 @@ LABEL_15:
 
     v36 = 0;
     v40 = 0;
-    v41 = v46;
+    v41 = v45;
   }
 
-  if ((v51 & 0x80000000) == 0)
+  if ((v50 & 0x80000000) == 0)
   {
     if (!v36)
     {
@@ -3827,7 +3824,7 @@ LABEL_15:
     goto LABEL_74;
   }
 
-  operator delete(v50[0]);
+  operator delete(v49[0]);
   if (v36)
   {
 LABEL_74:
@@ -3835,9 +3832,9 @@ LABEL_74:
   }
 
 LABEL_75:
-  if (SHIBYTE(v54) < 0)
+  if (SHIBYTE(v53) < 0)
   {
-    operator delete(v53[0]);
+    operator delete(v52[0]);
     if ((v39 & 0x80000000) == 0)
     {
       goto LABEL_77;
@@ -3851,12 +3848,10 @@ LABEL_75:
 
   operator delete(v41);
 LABEL_77:
-  if (SHIBYTE(v60) < 0)
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2702E4434(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, int a11, int a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
@@ -3932,7 +3927,7 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingTyp
   if (a1 >= 4)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 0, "Unknown path component type", 27);
+    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 0, "Unknown path component type", 0x1BuLL);
   }
 
   v2 = off_279E00758[a1];
@@ -3940,12 +3935,12 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForPathComponentEncodingTyp
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent(std::string *this@<X1>, UC::SUE::UCSegmentedURLCoderProvider **a2@<X0>, int a3@<W2>, uint64_t a4@<X8>)
+void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent(uint64_t *__return_ptr a1@<X8>, std::string *this@<X1>, UC::SUE::UCSegmentedURLCoderProvider **a3@<X0>, int a4@<W2>)
 {
   v8 = std::string::find(this, 61, 0);
   std::string::basic_string(&v61, this, 0, v8, &v41);
   std::string::basic_string(&v60, this, v8 + 1, 0xFFFFFFFFFFFFFFFFLL, &v41);
-  if (a3)
+  if (a4)
   {
     v9 = "|";
   }
@@ -4011,7 +4006,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent(std::strin
   }
 
   UC::SUE::SegmentedURLEncoderImpl::_tokenizeStringWithSingleCharacterSymbols(v14, v15, &v53);
-  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a2, &v41);
+  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v41, *a3);
   v16 = v41.__r_.__value_.__r.__words[0];
   std::string::basic_string[abi:ne200100]<0>(__p, "?");
   (*(*v16 + 56))(&v50, v16, &v53, __p);
@@ -4051,7 +4046,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent(std::strin
   memset(&v41, 0, sizeof(v41));
   v45 = &v41;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v45);
-  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a2, &v41);
+  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v41, *a3);
   v19 = v41.__r_.__value_.__r.__words[0];
   std::string::basic_string[abi:ne200100]<0>(v43, "?");
   (*(*v19 + 56))(&v45, v19, &v53, v43);
@@ -4090,15 +4085,15 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent(std::strin
     v25 = v23;
   }
 
-  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a2, 0, &v60.__r_.__value_.__l.__data_, &v40, a3, v24 - v25, &v41);
+  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a3, 0, &v60.__r_.__value_.__l.__data_, &v40, a4, v24 - v25, &v41);
   if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v40.__r_.__value_.__l.__data_);
   }
 
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (HIDWORD(v41.__r_.__value_.__r.__words[0]) != 1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -4208,15 +4203,15 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedQueryComponent(std::strin
 
   v36 = std::string::append(&v40, v30, v31);
   v37 = v36->__r_.__value_.__l.__size_;
-  *a4 = v36->__r_.__value_.__r.__words[0];
-  *(a4 + 8) = v37;
-  *(a4 + 15) = *(&v36->__r_.__value_.__r.__words[1] + 7);
+  *a1 = v36->__r_.__value_.__r.__words[0];
+  a1[1] = v37;
+  *(a1 + 15) = *(&v36->__r_.__value_.__r.__words[1] + 7);
   LOBYTE(v37) = *(&v36->__r_.__value_.__s + 23);
   v36->__r_.__value_.__l.__size_ = 0;
   v36->__r_.__value_.__r.__words[2] = 0;
   v36->__r_.__value_.__r.__words[0] = 0;
   v38 = SHIBYTE(v40.__r_.__value_.__r.__words[2]);
-  *(a4 + 23) = v37;
+  *(a1 + 23) = v37;
   if (v38 < 0)
   {
     operator delete(v40.__r_.__value_.__l.__data_);
@@ -4357,7 +4352,7 @@ void *UC::SUE::SegmentedURLEncoderImpl::_encodingBitsForQueryComponentEncodingTy
   if (a1 >= 3)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 30, 0, "Unknown query component type", 28);
+    UC::Exception::InternalCoderError::InternalCoderError(exception, "UCSegmentedURLCoderErrorDomain", 0x1EuLL, 0, "Unknown query component type", 0x1CuLL);
   }
 
   v2 = off_279E00790[a1];
@@ -4450,19 +4445,19 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-uint64_t UC::SUE::SegmentedURLEncoderImpl::_pathAndQueryMatchPathWordBookAndAutoQueryTemplateFormat(UC::SUE::UCSegmentedURLCoderProvider **a1, uint64_t *a2, uint64_t *a3)
+uint64_t UC::SUE::SegmentedURLEncoderImpl::_pathAndQueryMatchPathWordBookAndAutoQueryTemplateFormat(UC::SUE::UCSegmentedURLCoderProvider **a1, unsigned __int8 *a2, uint64_t *a3)
 {
   v3 = a3;
-  v5 = *(a2 + 23);
-  v6 = a2[1];
+  v5 = a2[23];
+  v6 = *(a2 + 1);
   if ((v5 & 0x80u) == 0)
   {
-    v7 = *(a2 + 23);
+    v7 = a2[23];
   }
 
   else
   {
-    v7 = a2[1];
+    v7 = *(a2 + 1);
   }
 
   if (v7 >= 2)
@@ -4539,7 +4534,7 @@ LABEL_23:
 
   if (v42 - v41 == 24)
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(*a1, &v38);
+    UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(&v38, *a1);
     v14 = ((*v38)[3])(v38, v41);
     if (v39)
     {
@@ -4706,7 +4701,7 @@ LABEL_84:
       p_p = &__p;
     }
 
-    if ((UC::IsAllDigits(p_p, size) & 1) == 0)
+    if (!UC::IsAllDigits(p_p, size))
     {
       goto LABEL_63;
     }
@@ -4805,12 +4800,12 @@ void sub_2702E52B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::SegmentedURLEncoderImpl::_encodePathWordBookAndAutoQueryTemplateQueryComponent(std::string *this@<X1>, uint64_t a2@<X0>, int a3@<W2>, std::string *a4@<X8>)
+void UC::SUE::SegmentedURLEncoderImpl::_encodePathWordBookAndAutoQueryTemplateQueryComponent(std::string *__return_ptr a1@<X8>, std::string *this@<X1>, uint64_t a3@<X0>, int a4@<W2>)
 {
   v8 = std::string::find(this, 61, 0);
   std::string::basic_string(&v16, this, v8 + 1, 0xFFFFFFFFFFFFFFFFLL, v13);
   std::string::basic_string[abi:ne200100]<0>(&__p, "=");
-  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a2, 0, &v16.__r_.__value_.__l.__data_, &__p, a3, 0, v13);
+  UC::SUE::SegmentedURLEncoderImpl::_encodeSegmentedPathOrQueryValueComponent(a3, 0, &v16.__r_.__value_.__l.__data_, &__p, a4, 0, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4843,7 +4838,7 @@ void UC::SUE::SegmentedURLEncoderImpl::_encodePathWordBookAndAutoQueryTemplateQu
   }
 
   v11 = std::string::append(&__p, v9, v10);
-  *a4 = *v11;
+  *a1 = *v11;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
@@ -4943,7 +4938,7 @@ uint64_t UC::SUE::SegmentedURLDecoderImpl::_decodeQueryComponentEncodingType(UC:
   if (v4)
   {
     exception = __cxa_allocate_exception(0x38uLL);
-    UC::Exception::InvalidDecodingInstruction::InvalidDecodingInstruction(exception, "11", 2, "Encountered an invalid instruction (11) for query component decoding.", 69);
+    UC::Exception::InvalidDecodingInstruction::InvalidDecodingInstruction(exception, "11", 2uLL, "Encountered an invalid instruction (11) for query component decoding.", 0x45uLL);
   }
 
   return 2;
@@ -4999,7 +4994,7 @@ void UC::SUE::SegmentedURLDecoderImpl::decodeURL(UC::SUE::UCSegmentedURLCoderPro
 
     if (v9 > 1)
     {
-      UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(*this, &v29);
+      UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(&v29, *this);
       v10 = v29;
       std::string::basic_string[abi:ne200100]<0>(v23, "|");
       (*(*v10 + 48))(&__p, v10, a2, v23);
@@ -5044,12 +5039,12 @@ void UC::SUE::SegmentedURLDecoderImpl::decodeURL(UC::SUE::UCSegmentedURLCoderPro
     {
       if (v9)
       {
-        UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(*this, &__p);
+        UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(&__p, *this);
       }
 
       else
       {
-        UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder(*this, &__p);
+        UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder(&__p, *this);
       }
 
       v13 = __p;
@@ -5059,7 +5054,7 @@ void UC::SUE::SegmentedURLDecoderImpl::decodeURL(UC::SUE::UCSegmentedURLCoderPro
       }
 
       (*(*v13 + 56))(&__p, v13, a2);
-      UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(*this, &v27);
+      UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(&v27, *this);
       v14 = v27;
       std::string::basic_string[abi:ne200100]<0>(v25, "|");
       (*(*v14 + 48))(&v29, v14, a2, v25);
@@ -5151,7 +5146,7 @@ void UC::SUE::SegmentedURLDecoderImpl::decodeURL(UC::SUE::UCSegmentedURLCoderPro
     {
       if (NextBit)
       {
-        UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithPathWordBookAndAutoQueryTemplateFormat(&__p, this, a2);
+        UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithPathWordBookAndAutoQueryTemplateFormat(this, a2);
         if ((v34 & 0x80u) == 0)
         {
           v21 = &__p;
@@ -5237,7 +5232,7 @@ void sub_2702E5A70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithPathWordBookAndAutoQueryTemplateFormat(UC::SUE::SegmentedURLDecoderImpl *this, UC::UCBitStream *a2)
+uint64_t *UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithPathWordBookAndAutoQueryTemplateFormat(UC::SUE::SegmentedURLDecoderImpl *this, UC::UCBitStream *a2)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v17);
   if (UC::UCBitStream::readNextBit(a2))
@@ -5247,7 +5242,7 @@ uint64_t UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithPathWordBookAndAu
 LABEL_15:
     LOBYTE(__p) = 63;
     v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &__p, 1);
-    UC::SUE::SegmentedURLDecoderImpl::_decodeQueryStringComponentsForPathWordBookAndAutoQueryTemplate(&__p, this, a2);
+    UC::SUE::SegmentedURLDecoderImpl::_decodeQueryStringComponentsForPathWordBookAndAutoQueryTemplate(this, a2);
     if ((v16 & 0x80u) == 0)
     {
       p_p = &__p;
@@ -5280,7 +5275,7 @@ LABEL_15:
 
   LOBYTE(__p) = 47;
   v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &__p, 1);
-  UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(*this, &v12);
+  UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(&v12, *this);
   (*(*v12 + 56))(&__p);
   if ((v16 & 0x80u) == 0)
   {
@@ -5347,7 +5342,7 @@ void sub_2702E5E38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithNonTemplateFormat(UC::SUE::SegmentedURLDecoderImpl *this@<X0>, UC::UCBitStream *a2@<X1>, uint64_t a3@<X8>)
+void UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithNonTemplateFormat(UC::SUE::SegmentedURLDecoderImpl *this@<X0>, UC::UCBitStream *a2@<X1>, void *a3@<X8>)
 {
   if (UC::UCBitStream::readNextBit(a2))
   {
@@ -5362,9 +5357,9 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodeRestOfURLWithNonTemplateFormat(UC:
   }
 }
 
-void UC::SUE::SegmentedURLDecoderImpl::_decodeCombinedPathAndQuery(UC::SUE::UCSegmentedURLCoderProvider **this@<X0>, UC::UCBitStream *a2@<X1>, uint64_t a3@<X8>)
+void UC::SUE::SegmentedURLDecoderImpl::_decodeCombinedPathAndQuery(UC::SUE::UCSegmentedURLCoderProvider **this@<X0>, UC::UCBitStream *a2@<X1>, void *a3@<X8>)
 {
-  UC::SUE::UCSegmentedURLCoderProvider::getCombinedPathAndQueryCoder(*this, &v9);
+  UC::SUE::UCSegmentedURLCoderProvider::getCombinedPathAndQueryCoder(&v9, *this);
   v5 = v9;
   std::string::basic_string[abi:ne200100]<0>(__p, "|");
   (*(*v5 + 48))(v11, v5, a2, __p);
@@ -5401,7 +5396,7 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodeCombinedPathAndQuery(UC::SUE::UCSe
   if (v6 == 47 || v6 == 35)
   {
     *a3 = *v11;
-    *(a3 + 16) = v12;
+    a3[2] = v12;
     return;
   }
 
@@ -5560,7 +5555,7 @@ LABEL_30:
     v14 = 0;
     while (UC::UCBitStream::hasMore(a2))
     {
-      UC::SUE::SegmentedURLDecoderImpl::_decodeSegmentedQueryStringComponent(this, a2, __p);
+      UC::SUE::SegmentedURLDecoderImpl::_decodeSegmentedQueryStringComponent(__p, this, a2);
       if (v14)
       {
         std::operator+<char>();
@@ -5668,23 +5663,23 @@ void sub_2702E6360(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void UC::SUE::SegmentedURLDecoderImpl::_decodeSegmentedQueryStringComponent(UC::SUE::SegmentedURLDecoderImpl *this@<X0>, UC::UCBitStream *a2@<X1>, uint64_t a3@<X8>)
+void UC::SUE::SegmentedURLDecoderImpl::_decodeSegmentedQueryStringComponent(uint64_t *__return_ptr a1@<X8>, UC::SUE::SegmentedURLDecoderImpl *this@<X0>, UC::UCBitStream *a3@<X1>)
 {
-  ComponentEncodingType = UC::SUE::SegmentedURLDecoderImpl::_decodeQueryComponentEncodingType(this, a2);
+  ComponentEncodingType = UC::SUE::SegmentedURLDecoderImpl::_decodeQueryComponentEncodingType(this, a3);
   if (ComponentEncodingType == 1)
   {
     std::string::basic_string[abi:ne200100]<0>(&v30, "=");
-    UC::SUE::SegmentedURLDecoderImpl::_decodeQueryValueWithEncodingType(this, a2, 1, &v30);
+    UC::SUE::SegmentedURLDecoderImpl::_decodeQueryValueWithEncodingType(this, a3, 1, &v30);
     if (v32 < 0)
     {
       operator delete(v30);
     }
 
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*this, &v25);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v25, *this);
     v7 = v25.__r_.__value_.__r.__words[0];
     std::string::basic_string[abi:ne200100]<0>(v28, "?");
     std::string::basic_string[abi:ne200100]<0>(__p, "|");
-    (*(*v7 + 64))(&v30, v7, a2, v28, __p);
+    (*(*v7 + 64))(&v30, v7, a3, v28, __p);
     if (v27 < 0)
     {
       operator delete(__p[0]);
@@ -5759,11 +5754,11 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodeSegmentedQueryStringComponent(UC::
   else
   {
     v14 = ComponentEncodingType;
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*this, &v30);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v30, *this);
     v15 = v30;
     std::string::basic_string[abi:ne200100]<0>(v23, "?");
     std::string::basic_string[abi:ne200100]<0>(v21, "|");
-    (*(*v15 + 64))(&v33, v15, a2, v23, v21);
+    (*(*v15 + 64))(&v33, v15, a3, v23, v21);
     if (v22 < 0)
     {
       operator delete(v21[0]);
@@ -5780,7 +5775,7 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodeSegmentedQueryStringComponent(UC::
     }
 
     std::string::basic_string[abi:ne200100]<0>(&v25, "=");
-    UC::SUE::SegmentedURLDecoderImpl::_decodeQueryValueWithEncodingType(this, a2, v14, &v25);
+    UC::SUE::SegmentedURLDecoderImpl::_decodeQueryValueWithEncodingType(this, a3, v14, &v25);
     if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v25.__r_.__value_.__l.__data_);
@@ -5842,8 +5837,8 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodeSegmentedQueryStringComponent(UC::
     v13 = std::string::append(&v25, v19, v20);
   }
 
-  *a3 = *&v13->__r_.__value_.__l.__data_;
-  *(a3 + 16) = *(&v13->__r_.__value_.__l + 2);
+  *a1 = *&v13->__r_.__value_.__l.__data_;
+  a1[2] = v13->__r_.__value_.__r.__words[2];
   v13->__r_.__value_.__l.__size_ = 0;
   v13->__r_.__value_.__r.__words[2] = 0;
   v13->__r_.__value_.__r.__words[0] = 0;
@@ -5887,7 +5882,7 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodeQueryValueWithEncodingType(uint64_
 {
   if (a3 == 2)
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(*a1, &v17);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(&v17, *a1);
     v6 = v17;
     std::string::basic_string[abi:ne200100]<0>(v10, "|");
     (*(*v6 + 48))(v6, a2, v10);
@@ -5913,7 +5908,7 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodeQueryValueWithEncodingType(uint64_
     return;
   }
 
-  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a1, &v17);
+  UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v17, *a1);
   v9 = v17;
   if (*(a4 + 23) < 0)
   {
@@ -6021,7 +6016,7 @@ void sub_2702E6C30(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t UC::SUE::SegmentedURLDecoderImpl::_decodeQueryStringComponentsForPathWordBookAndAutoQueryTemplate(UC::SUE::SegmentedURLDecoderImpl *this, UC::UCBitStream *a2)
+uint64_t *UC::SUE::SegmentedURLDecoderImpl::_decodeQueryStringComponentsForPathWordBookAndAutoQueryTemplate(UC::SUE::SegmentedURLDecoderImpl *this, UC::UCBitStream *a2)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
   v4 = 0;
@@ -6117,12 +6112,12 @@ void UC::SUE::SegmentedURLDecoderImpl::_decodePathValueWithEncodingType(uint64_t
   {
     if (a3 != 2)
     {
-      UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(*a1, &v17);
+      UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(&v17, *a1);
       (*(*v17 + 56))(v17, a2);
       goto LABEL_17;
     }
 
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(*a1, &v17);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(&v17, *a1);
     v7 = v17;
     std::string::basic_string[abi:ne200100]<0>(v10, "|");
     (*(*v7 + 48))(v7, a2, v10);
@@ -6145,7 +6140,7 @@ LABEL_17:
 
   if (!a3)
   {
-    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(*a1, &v17);
+    UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(&v17, *a1);
     v6 = v17;
     if (*(a4 + 23) < 0)
     {
@@ -7157,16 +7152,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -7189,9 +7184,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2702E8684(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2702E8684(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x27439D7D0](&a10);
+  MEMORY[0x27439D7D0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -7309,12 +7304,12 @@ uint64_t UC::UCLEB128Coder::canEncode(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t UC::UCLEB128Coder::canEncode(uint64_t a1, uint64_t a2)
+BOOL UC::UCLEB128Coder::canEncode(uint64_t a1, unsigned __int8 *a2)
 {
-  v3 = *(a2 + 23);
+  v3 = a2[23];
   if ((v3 & 0x8000000000000000) == 0)
   {
-    if (*(a2 + 23))
+    if (a2[23])
     {
       v4 = a2;
       goto LABEL_6;
@@ -7323,7 +7318,7 @@ uint64_t UC::UCLEB128Coder::canEncode(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v3 = *(a2 + 8);
+  v3 = *(a2 + 1);
   if (!v3)
   {
     return 0;
@@ -7340,7 +7335,7 @@ LABEL_6:
     }
 
     result = 0;
-    if (*(a2 + 23) >= 0)
+    if ((a2[23] & 0x80u) == 0)
     {
       v6 = a2;
     }
@@ -7360,7 +7355,7 @@ LABEL_6:
       v7 = 0;
       do
       {
-        v8 = v6[v7];
+        v8 = *(v6 + v7);
         v9 = UC::UCLEB128Coder::canEncode(std::string const&)::maxNumber[v7];
         result = v8 <= v9;
       }
@@ -7588,8 +7583,7 @@ void sub_2702E9020(_Unwind_Exception *a1)
 
 void UC::UCLEB128Coder::encode(uint64_t a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   v3 = *a2;
   v4 = a2[1];
@@ -7677,9 +7671,9 @@ uint64_t UC::UCLEB128Coder::decode(int a1, UC::UCBitStream *this)
   return MEMORY[0x27439D8A0](&v14);
 }
 
-void sub_2702E92F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702E92F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7840,7 +7834,7 @@ void sub_2702E974C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *UC::UCHuffmanCoder::UCHuffmanCoder(void *a1, void **a2)
+void *UC::UCHuffmanCoder::UCHuffmanCoder(void *a1, UC::UCMultiContextSymbolFrequencyTrie **a2)
 {
   *a1 = &unk_28803D430;
   a1[1] = 0;
@@ -7851,7 +7845,7 @@ void *UC::UCHuffmanCoder::UCHuffmanCoder(void *a1, void **a2)
   v31 = 0;
   v32 = 0;
   v33 = &v34;
-  UC::UCMultiContextSymbolFrequencyTrie::getOrderedSymbols(v4, &v28);
+  UC::UCMultiContextSymbolFrequencyTrie::getOrderedSymbols(&v28, v4);
   v5 = *v28;
   v6 = v28[1];
   while (v5 != v6)
@@ -7961,17 +7955,17 @@ void sub_2702E9A10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void UC::UCHuffmanCoder::_initilizeSymbolToCodeMap(uint64_t **this)
+void UC::UCHuffmanCoder::_initilizeSymbolToCodeMap(uint64_t this)
 {
-  v1 = (this + 1);
-  if (!this[1])
+  v1 = (this + 8);
+  if (!*(this + 8))
   {
     v3 = operator new(0x28uLL);
     *v3 = 0u;
     v3[1] = 0u;
     *(v3 + 8) = 1065353216;
     std::string::basic_string[abi:ne200100]<0>(&__p, "");
-    _generateSymbolToCodeMapHelper(v3, &__p, this[2]);
+    _generateSymbolToCodeMapHelper(v3, &__p, *(this + 16));
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -7993,7 +7987,7 @@ void sub_2702E9B84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _generateSymbolToCodeMapHelper(uint64_t a1, std::string *a2, uint64_t *a3)
+void _generateSymbolToCodeMapHelper(float *a1, std::string *a2, uint64_t *a3)
 {
   v4 = a2;
   v6 = *a3;
@@ -8090,9 +8084,9 @@ LABEL_14:
       v16 = *(a3 + 2);
     }
 
-    v17 = &v16;
-    v13 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v16.__r_.__value_.__l.__data_, &std::piecewise_construct, &v17);
-    std::string::operator=((v13 + 5), v4);
+    v18 = &v16;
+    v13 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v16, &std::piecewise_construct, &v18, &v17);
+    std::string::operator=((v13 + 40), v4);
     if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v16.__r_.__value_.__l.__data_);
@@ -8110,10 +8104,10 @@ void sub_2702E9D70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void UC::UCHuffmanCoder::encode(uint64_t **a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void UC::UCHuffmanCoder::encode(uint64_t a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
 {
   UC::UCHuffmanCoder::_initilizeSymbolToCodeMap(a1);
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1[1], a2);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(*(a1 + 8), a2);
   if (!v6)
   {
     exception = __cxa_allocate_exception(0x38uLL);
@@ -8121,7 +8115,7 @@ void UC::UCHuffmanCoder::encode(uint64_t **a1@<X0>, uint64_t a2@<X1>, std::strin
     v12 = *(a2 + 23);
     if (v12 >= 0)
     {
-      v13 = a2;
+      LODWORD(v13) = a2;
     }
 
     else
@@ -8131,15 +8125,15 @@ void UC::UCHuffmanCoder::encode(uint64_t **a1@<X0>, uint64_t a2@<X1>, std::strin
 
     if (v12 >= 0)
     {
-      v14 = *(a2 + 23);
+      LODWORD(v14) = *(a2 + 23);
     }
 
     else
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
     }
 
-    UC::Exception::UnsupportedEncodingSymbol::UnsupportedEncodingSymbol(exception, v13, v14, "Huffman coder encountered an unsupported symbol", 47);
+    UC::Exception::UnsupportedEncodingSymbol::UnsupportedEncodingSymbol(exception, v13, v14, "Huffman coder encountered an unsupported symbol", 0x2FuLL);
   }
 
   if (*(v6 + 63) < 0)
@@ -8158,45 +8152,8 @@ void UC::UCHuffmanCoder::encode(uint64_t **a1@<X0>, uint64_t a2@<X1>, std::strin
   }
 }
 
-void UC::Exception::UnsupportedEncodingSymbol::~UnsupportedEncodingSymbol(std::exception *this)
 {
-  this->__vftable = &unk_28803D498;
-  if (SHIBYTE(this[6].__vftable) < 0)
-  {
-    operator delete(this[4].__vftable);
-  }
-
-  this->__vftable = &unk_28803D408;
-  if (SHIBYTE(this[3].__vftable) < 0)
-  {
-    operator delete(this[1].__vftable);
-  }
-
-  std::exception::~exception(this);
-}
-
-{
-  this->__vftable = &unk_28803D498;
-  if (SHIBYTE(this[6].__vftable) < 0)
-  {
-    operator delete(this[4].__vftable);
-  }
-
-  this->__vftable = &unk_28803D408;
-  if (SHIBYTE(this[3].__vftable) < 0)
-  {
-    operator delete(this[1].__vftable);
-  }
-
-  std::exception::~exception(this);
-
-  operator delete(v2);
-}
-
-void UC::UCHuffmanCoder::encode(uint64_t a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
-{
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   v3 = *a2;
   v4 = a2[1];
@@ -8238,6 +8195,41 @@ void UC::UCHuffmanCoder::encode(uint64_t a1@<X0>, uint64_t *a2@<X1>, std::string
   }
 }
 
+void UC::Exception::UnsupportedEncodingSymbol::~UnsupportedEncodingSymbol(std::exception *this)
+{
+  this->__vftable = &unk_28803D498;
+  if (SHIBYTE(this[6].__vftable) < 0)
+  {
+    operator delete(this[4].__vftable);
+  }
+
+  this->__vftable = &unk_28803D408;
+  if (SHIBYTE(this[3].__vftable) < 0)
+  {
+    operator delete(this[1].__vftable);
+  }
+
+  std::exception::~exception(this);
+}
+
+{
+  this->__vftable = &unk_28803D498;
+  if (SHIBYTE(this[6].__vftable) < 0)
+  {
+    operator delete(this[4].__vftable);
+  }
+
+  this->__vftable = &unk_28803D408;
+  if (SHIBYTE(this[3].__vftable) < 0)
+  {
+    operator delete(this[1].__vftable);
+  }
+
+  std::exception::~exception(this);
+
+  operator delete(v2);
+}
+
 void sub_2702E9FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (*(v15 + 23) < 0)
@@ -8250,8 +8242,7 @@ void sub_2702E9FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void UC::UCHuffmanCoder::decode(UC::UCBitStream *this@<X1>, uint64_t a2@<X0>, const void **a3@<X2>, std::string *a4@<X8>)
 {
-  a4->__r_.__value_.__r.__words[0] = 0;
-  a4->__r_.__value_.__l.__size_ = 0;
+  *&a4->__r_.__value_.__l.__data_ = 0uLL;
   a4->__r_.__value_.__r.__words[2] = 0;
   while (UC::UCBitStream::hasMore(this))
   {
@@ -8368,7 +8359,7 @@ void UC::UCHuffmanCoder::decodeNextSymbol(UC::UCHuffmanCoder *this@<X0>, UC::UCB
   {
 LABEL_5:
     exception = __cxa_allocate_exception(0x38uLL);
-    UC::Exception::InvalidDecodingSymbolInstruction::InvalidDecodingSymbolInstruction(exception, "", 0, "Huffman decoder encountered an invalid symbol instruction. The encoding bit stream is invalid", 93);
+    UC::Exception::InvalidDecodingSymbolInstruction::InvalidDecodingSymbolInstruction(exception, "", 0, "Huffman decoder encountered an invalid symbol instruction. The encoding bit stream is invalid", 0x5DuLL);
   }
 
   while (1)
@@ -8583,9 +8574,9 @@ void std::priority_queue<std::unique_ptr<UCHuffmanNodeWrapper>,std::vector<std::
   *(a1 + 8) = v3 - 8;
 }
 
-void sub_2702EA6C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702EA6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<UCHuffmanNodeWrapper>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -8612,7 +8603,7 @@ void std::make_unique[abi:ne200100]<UC::UCHuffmanTreeNode,std::unique_ptr<UC::UC
   std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100](&v16, 0);
 }
 
-void sub_2702EA79C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17)
+void sub_2702EA79C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a18)
 {
   if (a15 < 0)
   {
@@ -8620,7 +8611,7 @@ void sub_2702EA79C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100](&a16, 0);
-  std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100](&a17, 0);
+  std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100](&a18, 0);
   operator delete(v17);
   _Unwind_Resume(a1);
 }
@@ -8652,13 +8643,13 @@ uint64_t std::__split_buffer<std::unique_ptr<UCHuffmanNodeWrapper>>::~__split_bu
   return a1;
 }
 
-void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,createHuffmanTree(UC::UCSymbolFrequencyTable const&)::$_0 &,std::__wrap_iter<std::unique_ptr<UCHuffmanNodeWrapper> *>>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,createHuffmanTree(UC::UCSymbolFrequencyTable const&)::$_0 &,std::__wrap_iter<std::unique_ptr<UCHuffmanNodeWrapper> *>>(uint64_t result, uint64_t a2, uint64_t a3)
 {
   v3 = a3 - 2;
   if (a3 >= 2)
   {
     v5 = v3 >> 1;
-    v6 = (a1 + 8 * (v3 >> 1));
+    v6 = (result + 8 * (v3 >> 1));
     v7 = (a2 - 8);
     if (createHuffmanTree(UC::UCSymbolFrequencyTable const&)::$_0::operator()(v6, (a2 - 8)))
     {
@@ -8677,7 +8668,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,createHuffmanTree(UC::U
         }
 
         v5 = (v5 - 1) >> 1;
-        v6 = (a1 + 8 * v5);
+        v6 = (result + 8 * v5);
         v7 = v9;
       }
 
@@ -8687,9 +8678,9 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,createHuffmanTree(UC::U
   }
 }
 
-void sub_2702EA918(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702EA918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<UCHuffmanNodeWrapper>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -8848,7 +8839,7 @@ void sub_2702EAA94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::unique_ptr<UCHuffmanNodeWrapper>::reset[abi:ne200100](uint64_t **a1, uint64_t *a2)
+void std::unique_ptr<UCHuffmanNodeWrapper>::reset[abi:ne200100](void **a1, void *a2)
 {
   v2 = *a1;
   *a1 = a2;
@@ -8860,7 +8851,7 @@ void std::unique_ptr<UCHuffmanNodeWrapper>::reset[abi:ne200100](uint64_t **a1, u
   }
 }
 
-void std::vector<std::unique_ptr<UCHuffmanNodeWrapper>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::unique_ptr<UCHuffmanNodeWrapper>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -8885,37 +8876,37 @@ void std::vector<std::unique_ptr<UCHuffmanNodeWrapper>>::__destroy_vector::opera
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2, uint64_t a3, __int128 **a4)
+char *std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t *a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v8 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v9 = v8;
-  v10 = *(a1 + 8);
-  if (v10)
+  v9 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v10 = v9;
+  v11 = *(a1 + 1);
+  if (v11)
   {
-    v11 = vcnt_s8(v10);
-    v11.i16[0] = vaddlv_u8(v11);
-    v12 = v11.u32[0];
-    if (v11.u32[0] > 1uLL)
+    v12 = vcnt_s8(v11);
+    v12.i16[0] = vaddlv_u8(v12);
+    v13 = v12.u32[0];
+    if (v12.u32[0] > 1uLL)
     {
-      v4 = v8;
-      if (v8 >= v10)
+      v5 = v9;
+      if (v9 >= v11)
       {
-        v4 = v8 % v10;
+        v5 = v9 % v11;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v8;
+      v5 = (v11 - 1) & v9;
     }
 
-    v13 = *(*a1 + 8 * v4);
-    if (v13)
+    v14 = *(*a1 + 8 * v5);
+    if (v14)
     {
-      for (i = *v13; i; i = *i)
+      for (i = *v14; i; i = *i)
       {
-        v15 = i[1];
-        if (v15 == v9)
+        v16 = *(i + 1);
+        if (v16 == v10)
         {
           if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, a2))
           {
@@ -8925,20 +8916,20 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,s
 
         else
         {
-          if (v12 > 1)
+          if (v13 > 1)
           {
-            if (v15 >= v10)
+            if (v16 >= v11)
             {
-              v15 %= v10;
+              v16 %= v11;
             }
           }
 
           else
           {
-            v15 &= v10 - 1;
+            v16 &= v11 - 1;
           }
 
-          if (v15 != v4)
+          if (v16 != v5)
           {
             break;
           }
@@ -8947,96 +8938,96 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,s
     }
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v9, a4, v27);
-  v16 = (*(a1 + 24) + 1);
-  v17 = *(a1 + 32);
-  if (!v10 || (v17 * v10) < v16)
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v10, a4, v28);
+  v17 = (*(a1 + 3) + 1);
+  v18 = a1[8];
+  if (!v11 || (v18 * v11) < v17)
   {
-    v18 = 1;
-    if (v10 >= 3)
+    v19 = 1;
+    if (v11 >= 3)
     {
-      v18 = (v10 & (v10 - 1)) != 0;
+      v19 = (v11 & (v11 - 1)) != 0;
     }
 
-    v19 = v18 | (2 * v10);
-    v20 = vcvtps_u32_f32(v16 / v17);
-    if (v19 <= v20)
+    v20 = v19 | (2 * v11);
+    v21 = vcvtps_u32_f32(v17 / v18);
+    if (v20 <= v21)
     {
-      v21 = v20;
+      v22 = v21;
     }
 
     else
     {
-      v21 = v19;
+      v22 = v20;
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, v21);
-    v10 = *(a1 + 8);
-    if ((v10 & (v10 - 1)) != 0)
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, v22);
+    v11 = *(a1 + 1);
+    if ((v11 & (v11 - 1)) != 0)
     {
-      if (v9 >= v10)
+      if (v10 >= v11)
       {
-        v4 = v9 % v10;
+        v5 = v10 % v11;
       }
 
       else
       {
-        v4 = v9;
+        v5 = v10;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v9;
+      v5 = (v11 - 1) & v10;
     }
   }
 
-  v22 = *a1;
-  v23 = *(*a1 + 8 * v4);
-  if (v23)
+  v23 = *a1;
+  v24 = *(*a1 + 8 * v5);
+  if (v24)
   {
-    i = v27[0];
-    *v27[0] = *v23;
-    *v23 = i;
+    i = v28[0];
+    *v28[0] = *v24;
+    *v24 = i;
   }
 
   else
   {
-    v24 = v27[0];
-    *v27[0] = *(a1 + 16);
-    *(a1 + 16) = v24;
-    *(v22 + 8 * v4) = a1 + 16;
-    i = v27[0];
-    if (*v27[0])
+    v25 = v28[0];
+    *v28[0] = *(a1 + 2);
+    *(a1 + 2) = v25;
+    *(v23 + 8 * v5) = a1 + 4;
+    i = v28[0];
+    if (*v28[0])
     {
-      v25 = *(*v27[0] + 8);
-      if ((v10 & (v10 - 1)) != 0)
+      v26 = *(*v28[0] + 8);
+      if ((v11 & (v11 - 1)) != 0)
       {
-        if (v25 >= v10)
+        if (v26 >= v11)
         {
-          v25 %= v10;
+          v26 %= v11;
         }
       }
 
       else
       {
-        v25 &= v10 - 1;
+        v26 &= v11 - 1;
       }
 
-      *(*a1 + 8 * v25) = v27[0];
-      i = v27[0];
+      *(*a1 + 8 * v26) = v28[0];
+      i = v28[0];
     }
   }
 
-  v27[0] = 0;
-  ++*(a1 + 24);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](v27);
+  v28[0] = 0;
+  ++*(a1 + 3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](v28);
   return i;
 }
 
-void sub_2702EADEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702EADEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9069,7 +9060,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
   *(a4 + 16) = 1;
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9086,9 +9077,9 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -9285,7 +9276,7 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -9301,7 +9292,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -9309,7 +9300,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -9333,7 +9324,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -9608,7 +9599,7 @@ void std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100](uint64_t *a1, u
       operator delete(*(v2 + 16));
     }
 
-    std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100](v2 + 8, 0);
+    std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100]((v2 + 8), 0);
     std::unique_ptr<UC::UCHuffmanTreeNode>::reset[abi:ne200100](v2, 0);
 
     operator delete(v2);
@@ -9657,7 +9648,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -9811,16 +9802,16 @@ void UC::SUE::UCSegmentedURLCoderProvider::clearCaches(UC::SUE::UCSegmentedURLCo
   }
 }
 
-uint64_t UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+void **UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder@<X0>(uint64_t *__return_ptr a1@<X8>, void **this@<X0>)
 {
   v2 = this;
-  v67 = *MEMORY[0x277D85DE8];
-  v4 = *(this + 72);
+  v66 = *MEMORY[0x277D85DE8];
+  v4 = this[9];
   if (v4)
   {
-    v5 = *(this + 80);
-    *a2 = v4;
-    a2[1] = v5;
+    v5 = this[10];
+    *a1 = v4;
+    a1[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -9829,140 +9820,139 @@ uint64_t UC::SUE::UCSegmentedURLCoderProvider::getTLDCoder@<X0>(uint64_t this@<X
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v17, ".com");
-    LOWORD(v18) = -2;
-    std::string::basic_string[abi:ne200100]<0>(&v19, ".org");
-    v21 = 9974;
-    std::string::basic_string[abi:ne200100]<0>(&v22, ".net");
-    v24 = 5990;
-    std::string::basic_string[abi:ne200100]<0>(v25, ".de");
-    LOWORD(v26) = 4451;
-    std::string::basic_string[abi:ne200100]<0>(&v27, ".ru");
-    v29 = 4077;
-    std::string::basic_string[abi:ne200100]<0>(&v30, ".cn");
-    v32 = 3255;
-    std::string::basic_string[abi:ne200100]<0>(v33, ".uk");
-    LOWORD(v34) = 3206;
-    std::string::basic_string[abi:ne200100]<0>(&v35, ".jp");
-    v37 = 2274;
-    std::string::basic_string[abi:ne200100]<0>(&v38, ".it");
-    v40 = 1580;
-    std::string::basic_string[abi:ne200100]<0>(v41, ".fr");
-    LOWORD(v42) = 1437;
-    std::string::basic_string[abi:ne200100]<0>(&v43, ".nl");
-    v45 = 1432;
-    std::string::basic_string[abi:ne200100]<0>(&v46, ".au");
-    v48 = 1299;
-    std::string::basic_string[abi:ne200100]<0>(v49, ".br");
-    LOWORD(v50) = 1197;
-    std::string::basic_string[abi:ne200100]<0>(&v51, ".ca");
-    v53 = 1154;
-    std::string::basic_string[abi:ne200100]<0>(&v54, ".info");
-    v56 = 1097;
-    std::string::basic_string[abi:ne200100]<0>(&v57, ".in");
-    v58 = 981;
-    std::string::basic_string[abi:ne200100]<0>(v59, ".edu");
-    v60 = 961;
-    std::string::basic_string[abi:ne200100]<0>(v61, ".us");
-    v62 = 865;
-    std::string::basic_string[abi:ne200100]<0>(v63, ".pl");
-    v64 = 850;
-    std::string::basic_string[abi:ne200100]<0>(v65, ".ga");
-    v66 = 838;
-    std::unordered_map<std::string,unsigned short>::unordered_map(v16, &v17, 20);
-    v6 = 640;
-    do
-    {
-      if (v16[v6 + 39] < 0)
-      {
-        operator delete(*&v16[v6 + 16]);
-      }
-
-      v6 -= 32;
-    }
-
-    while (v6);
-    std::string::basic_string[abi:ne200100]<0>(&v17, ".com");
+    std::string::basic_string[abi:ne200100]<0>(&v16, ".com");
+    LOWORD(v17) = -2;
     std::string::basic_string[abi:ne200100]<0>(&v18, ".org");
-    std::string::basic_string[abi:ne200100]<0>(&v20, ".net");
-    std::string::basic_string[abi:ne200100]<0>(&v23, ".de");
-    std::string::basic_string[abi:ne200100]<0>(v25, ".ru");
-    std::string::basic_string[abi:ne200100]<0>(&v26, ".cn");
-    std::string::basic_string[abi:ne200100]<0>(&v28, ".uk");
-    std::string::basic_string[abi:ne200100]<0>(&v31, ".jp");
-    std::string::basic_string[abi:ne200100]<0>(v33, ".it");
-    std::string::basic_string[abi:ne200100]<0>(&v34, ".fr");
-    std::string::basic_string[abi:ne200100]<0>(&v36, ".nl");
-    std::string::basic_string[abi:ne200100]<0>(&v39, ".au");
-    std::string::basic_string[abi:ne200100]<0>(v41, ".br");
-    std::string::basic_string[abi:ne200100]<0>(&v42, ".ca");
-    std::string::basic_string[abi:ne200100]<0>(&v44, ".info");
-    std::string::basic_string[abi:ne200100]<0>(&v47, ".in");
-    std::string::basic_string[abi:ne200100]<0>(v49, ".edu");
-    std::string::basic_string[abi:ne200100]<0>(&v50, ".us");
-    std::string::basic_string[abi:ne200100]<0>(&v52, ".pl");
-    std::string::basic_string[abi:ne200100]<0>(&v55, ".ga");
-    memset(&v15, 0, sizeof(v15));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v15, &v17, &v57, 0x14uLL);
-    v7 = 480;
+    v20 = 9974;
+    std::string::basic_string[abi:ne200100]<0>(&v21, ".net");
+    v23 = 5990;
+    std::string::basic_string[abi:ne200100]<0>(v24, ".de");
+    LOWORD(v25) = 4451;
+    std::string::basic_string[abi:ne200100]<0>(&v26, ".ru");
+    v28 = 4077;
+    std::string::basic_string[abi:ne200100]<0>(&v29, ".cn");
+    v31 = 3255;
+    std::string::basic_string[abi:ne200100]<0>(v32, ".uk");
+    LOWORD(v33) = 3206;
+    std::string::basic_string[abi:ne200100]<0>(&v34, ".jp");
+    v36 = 2274;
+    std::string::basic_string[abi:ne200100]<0>(&v37, ".it");
+    v39 = 1580;
+    std::string::basic_string[abi:ne200100]<0>(v40, ".fr");
+    LOWORD(v41) = 1437;
+    std::string::basic_string[abi:ne200100]<0>(&v42, ".nl");
+    v44 = 1432;
+    std::string::basic_string[abi:ne200100]<0>(&v45, ".au");
+    v47 = 1299;
+    std::string::basic_string[abi:ne200100]<0>(v48, ".br");
+    LOWORD(v49) = 1197;
+    std::string::basic_string[abi:ne200100]<0>(&v50, ".ca");
+    v52 = 1154;
+    std::string::basic_string[abi:ne200100]<0>(&v53, ".info");
+    v55 = 1097;
+    std::string::basic_string[abi:ne200100]<0>(&v56, ".in");
+    v57 = 981;
+    std::string::basic_string[abi:ne200100]<0>(v58, ".edu");
+    v59 = 961;
+    std::string::basic_string[abi:ne200100]<0>(v60, ".us");
+    v61 = 865;
+    std::string::basic_string[abi:ne200100]<0>(v62, ".pl");
+    v63 = 850;
+    std::string::basic_string[abi:ne200100]<0>(v64, ".ga");
+    v65 = 838;
+    std::unordered_map<std::string,unsigned short>::unordered_map(v15, &v16, 20);
+    v6 = 80;
     do
     {
-      if (*(&v17 + v7 - 1) < 0)
+      if (SHIBYTE(v15[v6 + 4]) < 0)
       {
-        operator delete(*&v16[v7 + 24]);
+        operator delete(v15[v6 + 2]);
       }
 
-      v7 -= 24;
+      v6 -= 4;
     }
 
-    while (v7);
-    std::allocate_shared[abi:ne200100]<std::unordered_map<std::string,unsigned short>,std::allocator<std::unordered_map<std::string,unsigned short>>,std::unordered_map<std::string,unsigned short>&,0>(v16, &v17);
-    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v15, &v12);
-    std::allocate_shared[abi:ne200100]<UC::UCSymbolFrequencyTable,std::allocator<UC::UCSymbolFrequencyTable>,std::shared_ptr<std::unordered_map<std::string,unsigned short>> &,std::shared_ptr<std::vector<std::string>>,0>(&v17, &v12, &v13);
-    if (*(&v12 + 1))
+    while (v6 * 8);
+    std::string::basic_string[abi:ne200100]<0>(&v16, ".com");
+    std::string::basic_string[abi:ne200100]<0>(&v17, ".org");
+    std::string::basic_string[abi:ne200100]<0>(&v19, ".net");
+    std::string::basic_string[abi:ne200100]<0>(&v22, ".de");
+    std::string::basic_string[abi:ne200100]<0>(v24, ".ru");
+    std::string::basic_string[abi:ne200100]<0>(&v25, ".cn");
+    std::string::basic_string[abi:ne200100]<0>(&v27, ".uk");
+    std::string::basic_string[abi:ne200100]<0>(&v30, ".jp");
+    std::string::basic_string[abi:ne200100]<0>(v32, ".it");
+    std::string::basic_string[abi:ne200100]<0>(&v33, ".fr");
+    std::string::basic_string[abi:ne200100]<0>(&v35, ".nl");
+    std::string::basic_string[abi:ne200100]<0>(&v38, ".au");
+    std::string::basic_string[abi:ne200100]<0>(v40, ".br");
+    std::string::basic_string[abi:ne200100]<0>(&v41, ".ca");
+    std::string::basic_string[abi:ne200100]<0>(&v43, ".info");
+    std::string::basic_string[abi:ne200100]<0>(&v46, ".in");
+    std::string::basic_string[abi:ne200100]<0>(v48, ".edu");
+    std::string::basic_string[abi:ne200100]<0>(&v49, ".us");
+    std::string::basic_string[abi:ne200100]<0>(&v51, ".pl");
+    std::string::basic_string[abi:ne200100]<0>(&v54, ".ga");
+    memset(&v14, 0, sizeof(v14));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v14, &v16, &v56, 0x14uLL);
+    v7 = 60;
+    do
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
+      if (*(&v16 + v7 * 8 - 1) < 0)
+      {
+        operator delete(v15[v7 + 3]);
+      }
+
+      v7 -= 3;
     }
 
-    std::allocate_shared[abi:ne200100]<UC::UCHuffmanCoder,std::allocator<UC::UCHuffmanCoder>,std::shared_ptr<UC::UCSymbolFrequencyTable> &,0>(&v13, &v12);
-    v8 = *(&v12 + 1);
-    v9 = v12;
-    v12 = 0uLL;
-    v10 = *(v2 + 80);
-    *(v2 + 72) = __PAIR128__(v8, v9);
+    while (v7 * 8);
+    std::allocate_shared[abi:ne200100]<std::unordered_map<std::string,unsigned short>,std::allocator<std::unordered_map<std::string,unsigned short>>,std::unordered_map<std::string,unsigned short>&,0>(v15, &v16);
+    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v14, &v11);
+    std::allocate_shared[abi:ne200100]<UC::UCSymbolFrequencyTable,std::allocator<UC::UCSymbolFrequencyTable>,std::shared_ptr<std::unordered_map<std::string,unsigned short>> &,std::shared_ptr<std::vector<std::string>>,0>(&v16, &v11, &v12);
+    if (*(&v11 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
+    }
+
+    std::allocate_shared[abi:ne200100]<UC::UCHuffmanCoder,std::allocator<UC::UCHuffmanCoder>,std::shared_ptr<UC::UCSymbolFrequencyTable> &,0>(&v12, &v11);
+    v8 = *(&v11 + 1);
+    v9 = v11;
+    v11 = 0uLL;
+    v10 = v2[10];
+    *(v2 + 9) = __PAIR128__(v8, v9);
     if (v10)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-      if (*(&v12 + 1))
+      if (*(&v11 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
       }
 
-      v8 = *(v2 + 80);
+      v8 = v2[10];
     }
 
-    *a2 = *(v2 + 72);
-    a2[1] = v8;
+    *a1 = v2[9];
+    a1[1] = v8;
     if (v8)
     {
       atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
     }
 
-    if (v14)
+    if (v13)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
 
-    if (*(&v17 + 1))
+    if (*(&v16 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v17 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v16 + 1));
     }
 
-    *&v17 = &v15;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v17);
-    this = std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::~__hash_table(v16);
+    *&v16 = &v14;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v16);
+    return std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::~__hash_table(v15);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return this;
 }

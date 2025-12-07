@@ -40,9 +40,10 @@ void __54__ICAttachmentSystemPaperModel_UI__drawPreviewInRect___block_invoke(uin
 
 uint64_t __108__ICAttachmentSystemPaperModel_PreviewGeneration__generateImageForAttachment_fullResolution_appearanceInfo___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) imageWithFullResolution:*(a1 + 56) inverted:{objc_msgSend(*(a1 + 40), "isDark")}];
+  v2 = [*(a1 + 32) imageWithFullResolution:*(a1 + 56) inverted:{objc_msgSend(*(a1 + 40), "isDark")}];
+  *(*(*(a1 + 48) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 void __97__ICAttachmentSystemPaperModel_PreviewGeneration__generatePreviewsForAttachment_paperIdentifier___block_invoke(uint64_t a1)
@@ -336,9 +337,10 @@ void __97__ICAttachmentSystemPaperModel_PreviewGeneration__generatePreviewsForAt
 
 uint64_t __97__ICAttachmentSystemPaperModel_PreviewGeneration__generatePreviewsForAttachment_paperIdentifier___block_invoke_18(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) imageWithFullResolution:0 inverted:{objc_msgSend(*(a1 + 40), "isDark")}];
+  v2 = [*(a1 + 32) imageWithFullResolution:0 inverted:{objc_msgSend(*(a1 + 40), "isDark")}];
+  *(*(*(a1 + 48) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 uint64_t __79__ICAttachmentSystemPaperModel_PreviewGeneration__generatePreviewsInOperation___block_invoke(uint64_t a1)
@@ -349,9 +351,10 @@ uint64_t __79__ICAttachmentSystemPaperModel_PreviewGeneration__generatePreviewsI
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) paperBundleURL];
+  v6 = [*(a1 + 32) paperBundleURL];
+  *(*(*(a1 + 48) + 8) + 40) = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6);
 }
 
 void __97__ICAttachmentSystemPaperModel_PreviewGeneration__generatePreviewsForAttachment_paperIdentifier___block_invoke_2_cold_1(void *a1, uint8_t *buf, os_log_t log)

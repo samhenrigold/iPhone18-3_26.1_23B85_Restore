@@ -17,7 +17,7 @@
 {
   v8 = _Block_copy(handler);
   v9 = sub_192F96DAC();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE142D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE142D0, &unk_192FC7350);
   sub_192F9669C();
   *(swift_allocObject() + 16) = v8;
   trackerCopy = tracker;
@@ -29,7 +29,7 @@
 
 - (void)callHandlersUsingNewBagDictionary:(id)dictionary changedKeys:(id)keys
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE142D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE142D0, &unk_192FC7350);
   v5 = sub_192F9669C();
   v6 = sub_192F96DAC();
   selfCopy = self;
@@ -40,7 +40,7 @@
 {
   v6 = _Block_copy(handler);
   v7 = sub_192F96DAC();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE142D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE142D0, &unk_192FC7350);
   sub_192F9669C();
   *(swift_allocObject() + 16) = v6;
   selfCopy = self;

@@ -9,21 +9,19 @@
 
 - (NSSet)labels
 {
-  v2 = *(self + OBJC_IVAR____TtC11PhotosGraph4Node_labels);
 
-  v3 = sub_22F741410();
+  v2 = sub_22F741410();
 
-  return v3;
+  return v2;
 }
 
 - (NSDictionary)properties
 {
-  v2 = *(self + OBJC_IVAR____TtC11PhotosGraph4Node_properties);
   sub_22F20B0E0();
 
-  v3 = sub_22F740C80();
+  v2 = sub_22F740C80();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC11PhotosGraph4Node)initWithIdentifier:(unint64_t)identifier labels:(id)labels properties:(id)properties

@@ -25,10 +25,10 @@
 - (void)dealloc
 {
   selfCopy = self;
-  sub_19099AEEC();
-  v3.receiver = selfCopy;
-  v3.super_class = CKCustomAcknowledgementDebouncer;
-  [(CKCustomAcknowledgementDebouncer *)&v3 dealloc];
+  v3 = sub_19099AEEC();
+  v4.receiver = selfCopy;
+  v4.super_class = CKCustomAcknowledgementDebouncer;
+  [(CKCustomAcknowledgementDebouncer *)&v4 dealloc];
 }
 
 - (CKCustomAcknowledgementDebouncer)init

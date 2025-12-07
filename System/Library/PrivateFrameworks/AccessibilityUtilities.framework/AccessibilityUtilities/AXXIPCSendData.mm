@@ -19,13 +19,13 @@ void ____AXXIPCSendData_block_invoke(uint64_t a1, void *a2)
   dispatch_async(v4, block);
 }
 
-void ____AXXIPCSendData_block_invoke_2(uint64_t a1)
+void ____AXXIPCSendData_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 40) + 8);
-  if (*(v1 + 24) == 1)
+  v2 = *(*(a1 + 40) + 8);
+  if (*(v2 + 24) == 1)
   {
-    v2 = AXLogIPC();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = AXLogIPC();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       ____AXXIPCSendData_block_invoke_2_cold_2();
     }
@@ -33,18 +33,18 @@ void ____AXXIPCSendData_block_invoke_2(uint64_t a1)
 
   else
   {
-    *(v1 + 24) = 1;
-    v3 = _AXIPCAsyncSendDataReply(*(a1 + 48), 0, [*(a1 + 32) bytes], objc_msgSend(*(a1 + 32), "length"));
-    if (!v3)
+    *(v2 + 24) = 1;
+    v4 = _AXIPCAsyncSendDataReply(*(a1 + 48), 0, [*(a1 + 32) bytes], objc_msgSend(*(a1 + 32), "length"));
+    if (!v4)
     {
       return;
     }
 
-    v4 = v3;
-    v2 = AXLogIPC();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v5 = v4;
+    v3 = AXLogIPC();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      ____AXXIPCSendData_block_invoke_2_cold_1(v4);
+      ____AXXIPCSendData_block_invoke_2_cold_1(v5);
     }
   }
 }
@@ -53,7 +53,7 @@ void ____AXXIPCSendData_block_invoke_2_cold_1(mach_error_t a1)
 {
   mach_error_string(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_18B15E000, v1, v2, "reply to message failed: %{public}s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_5(&dword_18B15E000, v1, v2, "reply to message failed: %{public}s", v3, v4, v5, v6);
 }
 
 @end

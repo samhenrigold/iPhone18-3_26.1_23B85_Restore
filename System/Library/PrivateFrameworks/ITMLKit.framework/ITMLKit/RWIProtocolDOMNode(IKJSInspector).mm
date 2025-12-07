@@ -73,7 +73,7 @@
 
 + (id)ik_nodeFromDOMNode:()IKJSInspector
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a3;
   nodeValue = [v3 nodeValue];
   if (nodeValue)
@@ -99,28 +99,28 @@
     array = [MEMORY[0x277CBEB18] array];
     if ([_attributes count])
     {
-      v26 = v5;
-      v27 = v3;
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
+      v25 = v5;
+      v26 = v3;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       allKeys = [_attributes allKeys];
-      v15 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v15 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v29;
+        v17 = *v28;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v29 != v17)
+            if (*v28 != v17)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v19 = *(*(&v28 + 1) + 8 * i);
+            v19 = *(*(&v27 + 1) + 8 * i);
             v20 = +[IKDOMElement _filteredAttributes];
             v21 = [v20 containsObject:v19];
 
@@ -132,14 +132,14 @@
             }
           }
 
-          v16 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v16 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v16);
       }
 
-      v5 = v26;
-      v3 = v27;
+      v5 = v25;
+      v3 = v26;
     }
 
     [v11 setAttributes:array];
@@ -147,8 +147,6 @@
 
   childNodesAsArray = [v3 childNodesAsArray];
   [v11 setChildNodeCount:{objc_msgSend(childNodesAsArray, "count")}];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -183,7 +181,7 @@
 
 - (void)ik_setAttributeValue:()IKJSInspector name:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = +[IKDOMElement _filteredAttributes];
@@ -194,13 +192,13 @@
     v10 = ITMLKitGetLogObject(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412802;
-      v19 = v7;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
+      v17 = 138412802;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
       selfCopy = self;
-      _os_log_debug_impl(&dword_2549A4000, v10, OS_LOG_TYPE_DEBUG, "Setting %@ = %@ on %@", &v18, 0x20u);
+      _os_log_debug_impl(&dword_2549A4000, v10, OS_LOG_TYPE_DEBUG, "Setting %@ = %@ on %@", &v17, 0x20u);
     }
 
     attributes = [self attributes];
@@ -240,8 +238,6 @@ LABEL_8:
 
     [self setAttributes:v12];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ik_removeAttributeNamed:()IKJSInspector
@@ -352,19 +348,19 @@ LABEL_9:
 
 - (id)ik_description
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
   nodeId = [self nodeId];
   nodeName = [self nodeName];
-  v7 = [v2 stringWithFormat:@"<%@: %p, id: %i, name: %@, type: %i>", v4, self, nodeId, nodeName, objc_msgSend(self, "nodeType")];
+  v8 = [v3 stringWithFormat:@"<%@: %p, id: %i, name: %@, type: %i>", v5, self, nodeId, nodeName, objc_msgSend(self, "nodeType")];
 
-  return v7;
+  return v8;
 }
 
 - (id)ik_nodeWithNodeId:()IKJSInspector
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([self nodeId] == a3)
   {
     selfCopy = self;
@@ -372,26 +368,26 @@ LABEL_9:
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     children = [self children];
-    v7 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(children);
           }
 
-          v11 = [*(*(&v14 + 1) + 8 * i) ik_nodeWithNodeId:a3];
+          v11 = [*(*(&v13 + 1) + 8 * i) ik_nodeWithNodeId:a3];
           if (v11)
           {
             selfCopy = v11;
@@ -400,7 +396,7 @@ LABEL_9:
           }
         }
 
-        v8 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -414,16 +410,15 @@ LABEL_9:
   }
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
 
 - (void)ik_updateWithDOMNode:()IKJSInspector fullfillChildren:dispatcher:
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   v8 = a3;
-  v103 = a5;
+  v102 = a5;
   nodeValue = [v8 nodeValue];
   v10 = nodeValue;
   if (nodeValue)
@@ -467,32 +462,32 @@ LABEL_13:
 
   [self setLocalName:v17];
 
-  v95 = v8;
+  v94 = v8;
   if ([v8 nodeType] == 1)
   {
-    v94 = a4;
+    v93 = a4;
     _attributes = [v8 _attributes];
     ik_attributesDictionary = [self ik_attributesDictionary];
+    v115 = 0u;
     v116 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
     v19 = _attributes;
-    v20 = [v19 countByEnumeratingWithState:&v116 objects:v132 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v115 objects:v131 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v117;
+      v22 = *v116;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v117 != v22)
+          if (*v116 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v116 + 1) + 8 * i);
+          v24 = *(*(&v115 + 1) + 8 * i);
           v25 = +[IKDOMElement _filteredAttributes];
           v26 = [v25 containsObject:v24];
 
@@ -507,53 +502,53 @@ LABEL_13:
               {
                 objb = [self ik_description];
                 *buf = 138412802;
-                v127 = objb;
-                v128 = 2112;
-                v129 = v24;
-                v130 = 2112;
-                v131 = v28;
+                v126 = objb;
+                v127 = 2112;
+                v128 = v24;
+                v129 = 2112;
+                v130 = v28;
                 _os_log_debug_impl(&dword_2549A4000, v29, OS_LOG_TYPE_DEBUG, "Updating attribute for %@: %@ = %@", buf, 0x20u);
               }
 
               [self ik_setAttributeValue:v28 name:v24];
-              [v103 safe_attributeModifiedWithNodeId:objc_msgSend(self name:"nodeId") value:{v24, v28}];
+              [v102 safe_attributeModifiedWithNodeId:objc_msgSend(self name:"nodeId") value:{v24, v28}];
               if ([v24 isEqualToString:@"style"])
               {
                 v30 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(self, "nodeId")}];
-                v125 = v30;
-                v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
-                [v103 safe_inlineStyleInvalidatedWithNodeIds:v31];
+                v124 = v30;
+                v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
+                [v102 safe_inlineStyleInvalidatedWithNodeIds:v31];
               }
             }
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v116 objects:v132 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v115 objects:v131 count:16];
       }
 
       while (v21);
     }
 
-    v114 = 0u;
-    v115 = 0u;
-    v112 = 0u;
     v113 = 0u;
+    v114 = 0u;
+    v111 = 0u;
+    v112 = 0u;
     allKeys = [ik_attributesDictionary allKeys];
-    v33 = [allKeys countByEnumeratingWithState:&v112 objects:v124 count:16];
+    v33 = [allKeys countByEnumeratingWithState:&v111 objects:v123 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v113;
+      v35 = *v112;
       do
       {
         for (j = 0; j != v34; ++j)
         {
-          if (*v113 != v35)
+          if (*v112 != v35)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v37 = *(*(&v112 + 1) + 8 * j);
+          v37 = *(*(&v111 + 1) + 8 * j);
           allKeys2 = [v19 allKeys];
           v39 = [allKeys2 containsObject:v37];
 
@@ -564,25 +559,25 @@ LABEL_13:
             {
               ik_description = [self ik_description];
               *buf = 138412546;
-              v127 = v37;
-              v128 = 2112;
-              v129 = ik_description;
+              v126 = v37;
+              v127 = 2112;
+              v128 = ik_description;
               _os_log_debug_impl(&dword_2549A4000, v40, OS_LOG_TYPE_DEBUG, "Removing attribute (%@) for %@", buf, 0x16u);
             }
 
             [self ik_removeAttributeNamed:v37];
-            [v103 safe_attributeRemovedWithNodeId:objc_msgSend(self name:{"nodeId"), v37}];
+            [v102 safe_attributeRemovedWithNodeId:objc_msgSend(self name:{"nodeId"), v37}];
           }
         }
 
-        v34 = [allKeys countByEnumeratingWithState:&v112 objects:v124 count:16];
+        v34 = [allKeys countByEnumeratingWithState:&v111 objects:v123 count:16];
       }
 
       while (v34);
     }
 
-    v8 = v95;
-    a4 = v94;
+    v8 = v94;
+    a4 = v93;
   }
 
   children = [self children];
@@ -618,32 +613,32 @@ LABEL_13:
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     movedIndexesByNewIndex = [(IKDiffEvaluator *)v48 movedIndexesByNewIndex];
 
-    v100 = indexSet;
+    v99 = indexSet;
     if (movedIndexesByNewIndex)
     {
       v53 = v47;
       v54 = array;
-      v110 = 0u;
-      v111 = 0u;
-      v108 = 0u;
       v109 = 0u;
+      v110 = 0u;
+      v107 = 0u;
+      v108 = 0u;
       v55 = v48;
       obj = [(IKDiffEvaluator *)v48 movedIndexesByNewIndex];
-      v56 = [obj countByEnumeratingWithState:&v108 objects:v123 count:16];
+      v56 = [obj countByEnumeratingWithState:&v107 objects:v122 count:16];
       if (v56)
       {
         v57 = v56;
-        v58 = *v109;
+        v58 = *v108;
         do
         {
           for (k = 0; k != v57; ++k)
           {
-            if (*v109 != v58)
+            if (*v108 != v58)
             {
               objc_enumerationMutation(obj);
             }
 
-            v60 = *(*(&v108 + 1) + 8 * k);
+            v60 = *(*(&v107 + 1) + 8 * k);
             [indexSet addIndex:{objc_msgSend(v60, "unsignedIntegerValue")}];
             movedIndexesByNewIndex2 = [(IKDiffEvaluator *)v55 movedIndexesByNewIndex];
             v62 = [movedIndexesByNewIndex2 objectForKey:v60];
@@ -658,10 +653,10 @@ LABEL_13:
               [dictionary setObject:v64 forKey:v66];
             }
 
-            indexSet = v100;
+            indexSet = v99;
           }
 
-          v57 = [obj countByEnumeratingWithState:&v108 objects:v123 count:16];
+          v57 = [obj countByEnumeratingWithState:&v107 objects:v122 count:16];
         }
 
         while (v57);
@@ -672,49 +667,49 @@ LABEL_13:
       v48 = v55;
     }
 
-    removedIndexes = [(IKDiffEvaluator *)v48 removedIndexes];
+    v67 = objc_msgSend_removedIndexes(v48);
 
-    if (removedIndexes)
+    if (v67)
     {
       obja = v47;
-      removedIndexes2 = [(IKDiffEvaluator *)v48 removedIndexes];
-      v69 = [array objectsAtIndexes:removedIndexes2];
+      v68 = objc_msgSend_removedIndexes(v48);
+      v69 = [array objectsAtIndexes:v68];
 
       v70 = v48;
-      removedIndexes3 = [(IKDiffEvaluator *)v48 removedIndexes];
+      v71 = objc_msgSend_removedIndexes(v48);
       v72 = array;
-      [array removeObjectsAtIndexes:removedIndexes3];
+      [array removeObjectsAtIndexes:v71];
 
-      v106 = 0u;
-      v107 = 0u;
-      v104 = 0u;
       v105 = 0u;
+      v106 = 0u;
+      v103 = 0u;
+      v104 = 0u;
       v73 = v69;
-      v74 = [v73 countByEnumeratingWithState:&v104 objects:v122 count:16];
+      v74 = [v73 countByEnumeratingWithState:&v103 objects:v121 count:16];
       if (v74)
       {
         v75 = v74;
-        v76 = *v105;
+        v76 = *v104;
         do
         {
           for (m = 0; m != v75; ++m)
           {
-            if (*v105 != v76)
+            if (*v104 != v76)
             {
               objc_enumerationMutation(v73);
             }
 
-            v78 = *(*(&v104 + 1) + 8 * m);
+            v78 = *(*(&v103 + 1) + 8 * m);
             v79 = ITMLKitGetLogObject(1);
             if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
             {
               [RWIProtocolDOMNode(IKJSInspector) ik_updateWithDOMNode:buf fullfillChildren:selfCopy dispatcher:?];
             }
 
-            [v103 safe_childNodeRemovedWithParentNodeId:objc_msgSend(selfCopy nodeId:{"nodeId"), objc_msgSend(v78, "nodeId")}];
+            [v102 safe_childNodeRemovedWithParentNodeId:objc_msgSend(selfCopy nodeId:{"nodeId"), objc_msgSend(v78, "nodeId")}];
           }
 
-          v75 = [v73 countByEnumeratingWithState:&v104 objects:v122 count:16];
+          v75 = [v73 countByEnumeratingWithState:&v103 objects:v121 count:16];
         }
 
         while (v75);
@@ -722,7 +717,7 @@ LABEL_13:
 
       array = v72;
       v47 = obja;
-      indexSet = v100;
+      indexSet = v99;
       v48 = v70;
     }
 
@@ -743,7 +738,7 @@ LABEL_76:
 
             if (v85)
             {
-              [v85 ik_updateWithDOMNode:v81 dispatcher:v103];
+              [v85 ik_updateWithDOMNode:v81 dispatcher:v102];
               v82 = v85;
               if (n)
               {
@@ -760,7 +755,7 @@ LABEL_82:
               v88 = ITMLKitGetLogObject(1);
               if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
               {
-                [RWIProtocolDOMNode(IKJSInspector) ik_updateWithDOMNode:v121 fullfillChildren:v82 dispatcher:?];
+                [RWIProtocolDOMNode(IKJSInspector) ik_updateWithDOMNode:v120 fullfillChildren:v82 dispatcher:?];
               }
 
               if (!n)
@@ -773,8 +768,8 @@ LABEL_78:
               nodeId = [v86 nodeId];
             }
 
-            indexSet = v100;
-            [v103 safe_childNodeInsertedWithParentNodeId:objc_msgSend(selfCopy previousNodeId:"nodeId") node:{nodeId, v82}];
+            indexSet = v99;
+            [v102 safe_childNodeInsertedWithParentNodeId:objc_msgSend(selfCopy previousNodeId:"nodeId") node:{nodeId, v82}];
             [array insertObject:v82 atIndex:n];
 LABEL_84:
           }
@@ -793,10 +788,10 @@ LABEL_84:
             v83 = ITMLKitGetLogObject(1);
             if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
             {
-              [RWIProtocolDOMNode(IKJSInspector) ik_updateWithDOMNode:v120 fullfillChildren:v82 dispatcher:?];
+              [RWIProtocolDOMNode(IKJSInspector) ik_updateWithDOMNode:v119 fullfillChildren:v82 dispatcher:?];
             }
 
-            [v82 ik_updateWithDOMNode:v81 dispatcher:v103];
+            [v82 ik_updateWithDOMNode:v81 dispatcher:v102];
             goto LABEL_84;
           }
         }
@@ -810,7 +805,7 @@ LABEL_84:
       [RWIProtocolDOMNode(IKJSInspector) ik_updateWithDOMNode:selfCopy fullfillChildren:? dispatcher:?];
     }
 
-    v8 = v95;
+    v8 = v94;
   }
 
   childNodesAsArray2 = [v8 childNodesAsArray];
@@ -825,10 +820,8 @@ LABEL_84:
     }
 
     [self setChildNodeCount:v91];
-    [v103 safe_childNodeCountUpdatedWithNodeId:objc_msgSend(self childNodeCount:{"nodeId"), v91}];
+    [v102 safe_childNodeCountUpdatedWithNodeId:objc_msgSend(self childNodeCount:{"nodeId"), v91}];
   }
-
-  v93 = *MEMORY[0x277D85DE8];
 }
 
 @end

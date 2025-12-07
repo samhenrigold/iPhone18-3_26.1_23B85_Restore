@@ -5,6 +5,7 @@
 - (unint64_t)itemType;
 - (unint64_t)layoutJustification;
 - (unint64_t)speedLimitSetting;
+- (void)_performActionsForUIScene:(id)scene withUpdatedFBSScene:(id)sScene settingsDiff:(id)diff fromSettings:(id)settings transitionContext:(id)context lifecycleActionType:(unsigned int)type;
 - (void)addClusterSettingsObserver:(id)observer;
 - (void)commonInit;
 - (void)handleZoomInDirection:(int64_t)direction;
@@ -15,18 +16,18 @@
 
 - (void)commonInit
 {
-  v31[1] = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = CRSUIClusterWindow;
-  [(CRSUIWindow *)&v29 commonInit];
+  v30[1] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = CRSUIClusterWindow;
+  [(CRSUIWindow *)&v28 commonInit];
   v3 = [objc_alloc(MEMORY[0x277CF89C0]) initWithProtocol:&unk_285609190];
   observers = self->_observers;
   self->_observers = v3;
 
   windowScene = [(CRSUIClusterWindow *)self windowScene];
   v6 = [[CRSUIClusterZoomBSActionsHandler alloc] initWithDelegate:self];
-  v31[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+  v30[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
   [windowScene _registerSceneActionsHandlerArray:v7 forKey:@"zoomActions"];
 
   v8 = objc_alloc_init(CRSUIInstrumentClusterSettingsDiffInspector);
@@ -35,52 +36,51 @@
 
   objc_initWeak(&location, self);
   v10 = self->_clusterSettingsDiffInspector;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __32__CRSUIClusterWindow_commonInit__block_invoke;
-  v26[3] = &unk_278DA12D0;
-  objc_copyWeak(&v27, &location);
-  [(CRSUIInstrumentClusterSettingsDiffInspector *)v10 observeShowETAWithBlock:v26];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __32__CRSUIClusterWindow_commonInit__block_invoke;
+  v25[3] = &unk_278DA12D0;
+  objc_copyWeak(&v26, &location);
+  [(CRSUIInstrumentClusterSettingsDiffInspector *)v10 observeShowETAWithBlock:v25];
   v11 = self->_clusterSettingsDiffInspector;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_2;
-  v24[3] = &unk_278DA12D0;
-  objc_copyWeak(&v25, &location);
-  [(CRSUIInstrumentClusterSettingsDiffInspector *)v11 observeShowCompassWithBlock:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_2;
+  v23[3] = &unk_278DA12D0;
+  objc_copyWeak(&v24, &location);
+  [(CRSUIInstrumentClusterSettingsDiffInspector *)v11 observeShowCompassWithBlock:v23];
   v12 = self->_clusterSettingsDiffInspector;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_3;
-  v22[3] = &unk_278DA12D0;
-  objc_copyWeak(&v23, &location);
-  [(CRSUIInstrumentClusterSettingsDiffInspector *)v12 observeShowSpeedLimitWithBlock:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_3;
+  v21[3] = &unk_278DA12D0;
+  objc_copyWeak(&v22, &location);
+  [(CRSUIInstrumentClusterSettingsDiffInspector *)v12 observeShowSpeedLimitWithBlock:v21];
   v13 = self->_clusterSettingsDiffInspector;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_4;
-  v20[3] = &unk_278DA12D0;
-  objc_copyWeak(&v21, &location);
-  [(CRSUIInstrumentClusterSettingsDiffInspector *)v13 observeItemTypeWithBlock:v20];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_4;
+  v19[3] = &unk_278DA12D0;
+  objc_copyWeak(&v20, &location);
+  [(CRSUIInstrumentClusterSettingsDiffInspector *)v13 observeItemTypeWithBlock:v19];
   v14 = self->_clusterSettingsDiffInspector;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_5;
-  v18[3] = &unk_278DA12D0;
-  objc_copyWeak(&v19, &location);
-  [(CRSUIInstrumentClusterSettingsDiffInspector *)v14 observeLayoutSpecificationWithBlock:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __32__CRSUIClusterWindow_commonInit__block_invoke_5;
+  v17[3] = &unk_278DA12D0;
+  objc_copyWeak(&v18, &location);
+  [(CRSUIInstrumentClusterSettingsDiffInspector *)v14 observeLayoutSpecificationWithBlock:v17];
   windowScene2 = [(CRSUIClusterWindow *)self windowScene];
   selfCopy = self;
   v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&selfCopy count:1];
   [windowScene2 _registerSettingsDiffActionArray:v16 forKey:@"clusterSettings"];
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v21);
-  objc_destroyWeak(&v23);
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __32__CRSUIClusterWindow_commonInit__block_invoke(uint64_t a1)
@@ -176,6 +176,17 @@ void __32__CRSUIClusterWindow_commonInit__block_invoke_5(uint64_t a1)
 {
   observers = [(CRSUIClusterWindow *)self observers];
   [observers clusterWindow:self didZoomInDirection:direction];
+}
+
+- (void)_performActionsForUIScene:(id)scene withUpdatedFBSScene:(id)sScene settingsDiff:(id)diff fromSettings:(id)settings transitionContext:(id)context lifecycleActionType:(unsigned int)type
+{
+  v8 = *&type;
+  v16.receiver = self;
+  v16.super_class = CRSUIClusterWindow;
+  diffCopy = diff;
+  [(CRSUIWindow *)&v16 _performActionsForUIScene:scene withUpdatedFBSScene:sScene settingsDiff:diffCopy fromSettings:settings transitionContext:context lifecycleActionType:v8];
+  v15 = [(CRSUIClusterWindow *)self clusterSettingsDiffInspector:v16.receiver];
+  [v15 inspectDiff:diffCopy withContext:0];
 }
 
 - (id)_clusterSettings

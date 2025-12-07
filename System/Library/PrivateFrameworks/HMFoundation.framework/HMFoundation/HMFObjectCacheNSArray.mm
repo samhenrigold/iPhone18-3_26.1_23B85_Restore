@@ -6,7 +6,7 @@
 
 + (id)hmf_cachedPolicyLists:(id)lists
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   listsCopy = lists;
   v4 = objc_autoreleasePoolPush();
   if (!listsCopy)
@@ -19,22 +19,22 @@
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v9 = objc_autoreleasePoolPush();
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = HMFGetOSLogHandle(0, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = HMFGetLogIdentifier(0);
-      v12 = objc_opt_class();
-      v13 = v12;
-      v19 = 138544130;
-      v20 = v11;
-      v21 = 2112;
-      v22 = listsCopy;
-      v23 = 2112;
-      v24 = v12;
-      v25 = 2112;
-      v26 = objc_opt_class();
-      v14 = v26;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ mismatches cache class %@:", &v19, 0x2Au);
+      v12 = HMFGetLogIdentifier(0);
+      v13 = objc_opt_class();
+      v14 = v13;
+      v20 = 138544130;
+      v21 = v12;
+      v22 = 2112;
+      v23 = listsCopy;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 2112;
+      v27 = objc_opt_class();
+      v15 = v27;
+      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ mismatches cache class %@:", &v20, 0x2Au);
     }
 
     goto LABEL_15;
@@ -43,18 +43,18 @@
   if (([listsCopy conformsToProtocol:&unk_283ED34A0] & 1) == 0)
   {
     v9 = objc_autoreleasePoolPush();
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = HMFGetOSLogHandle(0, v16);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v15 = HMFGetLogIdentifier(0);
-      v19 = 138543874;
-      v20 = v15;
-      v21 = 2112;
-      v22 = listsCopy;
-      v23 = 2112;
-      v24 = objc_opt_class();
-      v16 = v24;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ does not conform to NSCopying protocol", &v19, 0x20u);
+      v17 = HMFGetLogIdentifier(0);
+      v20 = 138543874;
+      v21 = v17;
+      v22 = 2112;
+      v23 = listsCopy;
+      v24 = 2112;
+      v25 = objc_opt_class();
+      v18 = v25;
+      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ does not conform to NSCopying protocol", &v20, 0x20u);
     }
 
 LABEL_15:
@@ -85,8 +85,6 @@ LABEL_15:
   os_unfair_lock_unlock(&stru_280AFC244);
 LABEL_16:
   objc_autoreleasePoolPop(v4);
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

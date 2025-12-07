@@ -53,11 +53,11 @@
 
 - (basic_string<char,)milName
 {
-  name = [v1 name];
-  v5 = name;
-  if (name)
+  v3 = objc_msgSend_name(v1);
+  v5 = v3;
+  if (v3)
   {
-    [name cxxString];
+    objc_msgSend_cxxString(v3);
   }
 
   else
@@ -83,7 +83,7 @@
     location = self->_location;
     if (location)
     {
-      [(SNNMILSourceLocation *)location milLocation];
+      objc_msgSend_milLocation(location, a2);
       if (v27)
       {
         operator new();
@@ -151,11 +151,11 @@
 
     v22 = 0;
     v30[0] = 0;
-    name = [(SNNMILFunctionBuilder *)self name];
-    v13 = name;
-    if (name)
+    v12 = objc_msgSend_name(self);
+    v13 = v12;
+    if (v12)
     {
-      [name cxxString];
+      objc_msgSend_cxxString(v12);
     }
 
     else
@@ -200,106 +200,99 @@
 
 - (id)placeholderWithShape:(id)shape dataType:(unint64_t)type name:(id)name location:(id)location
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   shapeCopy = shape;
   nameCopy = name;
-  v34 = 0;
-  v35 = 0;
-  v36 = 0;
+  v31 = 0;
+  v32 = 0;
+  v33 = 0;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v11 = shapeCopy;
-  v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
-  if (v12)
+  v10 = shapeCopy;
+  v11 = [v10 countByEnumeratingWithState:&v27 objects:v36 count:16];
+  if (v11)
   {
-    v13 = *v31;
+    v12 = *v28;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v13)
+        if (*v28 != v12)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         WeakRetained = objc_loadWeakRetained(&self->_context);
-        v17 = WeakRetained;
+        v16 = WeakRetained;
         if (WeakRetained)
         {
-          [WeakRetained context];
-          v18 = __p;
+          objc_msgSend_context(WeakRetained);
+          v17 = __p;
         }
 
         else
         {
-          v18 = 0;
+          v17 = 0;
           __p = 0;
-          v27 = 0;
+          v24 = 0;
         }
 
-        v19 = MIL::IRConstantDimension::Make(v18, [v15 unsignedIntegerValue]);
-        if (v27)
+        v18 = MIL::IRConstantDimension::Make(v17, [v14 unsignedIntegerValue]);
+        if (v24)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v24);
         }
 
-        __p = v19;
-        std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&v34, &__p);
+        __p = v18;
+        std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&v31, &__p);
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
-  if (type - 1 <= 0xB)
+  v19 = objc_loadWeakRetained(&self->_context);
+  objc_msgSend_context(v19);
+  v20 = MIL::IRTensorValueType::MakeWithShape();
+  if (v24)
   {
-    v20 = dword_25BCBADEC[type - 1];
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
-  v21 = objc_loadWeakRetained(&self->_context);
-  [v21 context];
-  v22 = MIL::IRTensorValueType::MakeWithShape();
-  if (v27)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-  }
-
-  v29 = v22;
+  v26 = v20;
   if (nameCopy)
   {
-    [nameCopy cxxString];
+    objc_msgSend_cxxString(nameCopy);
   }
 
   else
   {
     __p = 0;
-    v27 = 0;
-    v28 = 0;
+    v24 = 0;
+    v25 = 0;
   }
 
   p_p = &__p;
-  v37 = &v29;
-  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<MIL::IRTensorValueType const*&>>(&self->_inputs, &__p);
-  if (SHIBYTE(v28) < 0)
+  v34 = &v26;
+  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<MIL::IRTensorValueType const*&>>(&self->_inputs, &__p, &std::piecewise_construct, &p_p, &v34);
+  if (SHIBYTE(v25) < 0)
   {
     operator delete(__p);
   }
 
-  v23 = [[SNNMILNamedValue alloc] initWithName:nameCopy];
-  if (v34)
+  v21 = [[SNNMILNamedValue alloc] initWithName:nameCopy];
+  if (v31)
   {
-    v35 = v34;
-    operator delete(v34);
+    v32 = v31;
+    operator delete(v31);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v21;
 }
 
 - (id)placeholderWithShape:(id)shape dataType:(unint64_t)type location:(id)location
@@ -314,37 +307,37 @@
 
 - (BOOL)retainOutputsWithNames:(id)names
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   namesCopy = names;
-  v5 = [namesCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v5 = [namesCopy countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v5)
   {
-    v6 = *v29;
+    v6 = *v28;
     p_outputs = &self->_outputs;
     v8 = namesCopy;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(namesCopy);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
+        v10 = *(*(&v27 + 1) + 8 * i);
         if (v10)
         {
-          [v10 cxxString];
+          objc_msgSend_cxxString(v10);
         }
 
         else
         {
           *__p = 0uLL;
-          v27 = 0;
+          v26 = 0;
         }
 
         end = self->_outputs.__end_;
@@ -374,16 +367,16 @@
             v16 = v14;
           }
 
-          v32.__end_cap_.__value_ = &self->_outputs;
+          v31.__end_cap_.__value_ = &self->_outputs;
           if (v16)
           {
             std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&self->_outputs, v16);
           }
 
           v17 = 24 * v13;
-          *(v17 + 16) = v27;
+          *(v17 + 16) = v26;
           *v17 = *__p;
-          v27 = 0;
+          v26 = 0;
           *__p = 0uLL;
           v18 = (24 * v13 + 24);
           begin = self->_outputs.__begin_;
@@ -395,170 +388,168 @@
           self->_outputs.__end_ = v18;
           v23 = self->_outputs.__cap_;
           self->_outputs.__cap_ = 0;
-          v32.__end_ = v22;
-          v32.__end_cap_.__value_ = v23;
-          v32.__first_ = v22;
-          v32.__begin_ = v22;
-          std::__split_buffer<std::string>::~__split_buffer(&v32);
+          v31.__end_ = v22;
+          v31.__end_cap_.__value_ = v23;
+          v31.__first_ = v22;
+          v31.__begin_ = v22;
+          std::__split_buffer<std::string>::~__split_buffer(&v31);
           self->_outputs.__end_ = v18;
           namesCopy = v8;
         }
 
         else
         {
-          *(end + 2) = v27;
+          *(end + 2) = v26;
           *end = *__p;
           self->_outputs.__end_ = end + 24;
         }
       }
 
-      v5 = [namesCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v5 = [namesCopy countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v5);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)retainOutputs:(id)outputs
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   outputsCopy = outputs;
   v5 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = outputsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        name = [*(*(&v14 + 1) + 8 * v9) name];
-        [v5 addObject:name];
+        v10 = objc_msgSend_name(*(*(&v13 + 1) + 8 * v9), v13);
+        [v5 addObject:v10];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [(SNNMILFunctionBuilder *)self retainOutputsWithNames:v5];
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)constantOperationWithValue:(unique_ptr<const)MIL:(std:(id)l :(id)a5 default_delete<const MIL::IRValue>>)a3 :IRValue name:location:
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained(&self->_context);
   [WeakRetained platformOpset];
-  std::string::basic_string[abi:ne200100]<0>(&v44, "const");
+  std::string::basic_string[abi:ne200100]<0>(&v43, "const");
   MIL::IROpset::TryGetOperatorSharedPtr();
-  if (v46 < 0)
+  if (v45 < 0)
   {
-    operator delete(v44);
+    operator delete(v43);
   }
 
   v11 = objc_loadWeakRetained(&self->_context);
   v12 = v11;
   if (v11)
   {
-    [v11 milValueForString:lCopy];
+    objc_msgSend_milValueForString_(v11);
   }
 
   else
   {
-    v41[0] = 0;
+    v40[0] = 0;
   }
 
   if (v9)
   {
-    [v9 milLocation];
-    v13 = v37;
+    objc_msgSend_milLocation(v9);
+    v13 = v36;
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v34, "");
+    std::string::basic_string[abi:ne200100]<0>(&v33, "");
     MIL::TextFileLocation::Make();
-    v13 = v36;
-    v36 = 0;
-    v37 = v13;
+    v13 = v35;
+    v35 = 0;
+    v36 = v13;
   }
 
-  v38 = v13;
+  v37 = v13;
   if (v13)
   {
     operator new();
   }
 
-  v39 = 0;
-  v37 = 0;
-  v32[2] = v41[1];
-  v33 = v42;
-  if (v42)
+  v38 = 0;
+  v36 = 0;
+  v31[2] = v40[1];
+  v32 = v41;
+  if (v41)
   {
-    atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v32[0] = 0;
-  v32[1] = 0;
-  v31 = v32;
+  v31[0] = 0;
+  v31[1] = 0;
+  v30 = v31;
   if (lCopy)
   {
-    [lCopy cxxString];
+    objc_msgSend_cxxString(lCopy);
   }
 
   else
   {
     __p = 0;
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
   }
 
   (*(*a3.var0->var0 + 4))();
   MIL::IRNamedValueType::Make();
-  v48 = v29;
-  if (v29)
+  v47 = v28;
+  if (v28)
   {
     operator new();
   }
 
-  v49 = 0;
-  v29 = 0;
-  memset(v30, 0, sizeof(v30));
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType> const*,std::shared_ptr<MIL::IRNamedValueType> const*>(v30, &v48, &v50, 1uLL);
-  std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>::pair[abi:ne200100]<char const(&)[4],std::unique_ptr<MIL::IRValue const>,0>(&v44, "val", a3.var0);
-  std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>::pair[abi:ne200100]<char const(&)[5],std::unique_ptr<MIL::IRValue const>,0>(v47, "name", v41);
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v25, &v44, 2);
-  memset(v24, 0, sizeof(v24));
+  v48 = 0;
+  v28 = 0;
+  memset(v29, 0, sizeof(v29));
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType> const*,std::shared_ptr<MIL::IRNamedValueType> const*>(v29, &v47, &v49, 1uLL);
+  std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>::pair[abi:ne200100]<char const(&)[4],std::unique_ptr<MIL::IRValue const>,0>(&v43, "val", a3.var0);
+  std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>::pair[abi:ne200100]<char const(&)[5],std::unique_ptr<MIL::IRValue const>,0>(v46, "name", v40);
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v24, &v43, 2);
+  memset(v23, 0, sizeof(v23));
   MIL::IROperation::Make();
-  v43 = v24;
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v43);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v25);
+  v42 = v23;
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v42);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v24);
   for (i = 0; i != -10; i -= 5)
   {
-    v15 = &(&v44)[i];
-    v16 = *&v47[i * 8 + 32];
+    v15 = &(&v43)[i];
+    v16 = v46[i + 4];
     if (v16)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v16);
@@ -570,32 +561,32 @@
     }
   }
 
-  v44 = v30;
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v44);
-  if (v49)
+  v43 = v29;
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v43);
+  if (v48)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v48);
   }
 
-  std::unique_ptr<MIL::IRNamedValueType>::~unique_ptr[abi:ne200100](&v29);
-  if (SHIBYTE(v28) < 0)
+  std::unique_ptr<MIL::IRNamedValueType>::~unique_ptr[abi:ne200100](&v28);
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__p);
   }
 
-  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(&v31, v32[0]);
-  if (v33)
+  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(&v30, v31[0]);
+  if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
   }
 
-  if (v39)
+  if (v38)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
   }
 
-  v17 = v37;
-  v37 = 0;
+  v17 = v36;
+  v36 = 0;
   if (v17)
   {
     (*(*v17 + 8))(v17);
@@ -603,54 +594,52 @@
 
   if (!v9)
   {
-    v18 = v36;
-    v36 = 0;
+    v18 = v35;
+    v35 = 0;
     if (v18)
     {
       (*(*v18 + 8))(v18);
     }
 
-    if (v35 < 0)
+    if (v34 < 0)
     {
-      operator delete(v34);
+      operator delete(v33);
     }
   }
 
-  v44 = v40;
-  if (v40)
+  v43 = v39;
+  if (v39)
   {
     operator new();
   }
 
-  v45 = 0;
-  v40 = 0;
-  std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&self->_operations.__begin_, &v44);
-  if (v45)
+  v44 = 0;
+  v39 = 0;
+  std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&self->_operations.__begin_, &v43);
+  if (v44)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   }
 
   v19 = [[SNNMILNamedValue alloc] initWithName:lCopy];
-  v20 = v40;
-  v40 = 0;
+  v20 = v39;
+  v39 = 0;
   if (v20)
   {
     (*(*v20 + 1))(v20);
   }
 
-  v21 = v41[0];
-  v41[0] = 0;
+  v21 = v40[0];
+  v40[0] = 0;
   if (v21)
   {
     (*(*v21 + 8))(v21);
   }
 
-  if (v42)
+  if (v41)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -665,16 +654,16 @@
   WeakRetained = objc_loadWeakRetained(&self->_context);
   if (v11)
   {
-    [v11 milValueWithContext:WeakRetained];
+    objc_msgSend_milValueWithContext_(v11);
   }
 
   else
   {
-    v18 = 0;
+    v18[0] = 0;
   }
 
-  v17 = v18;
-  v18 = 0;
+  v17 = v18[0];
+  v18[0] = 0;
   v13 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v17 name:nameCopy location:locationCopy];
   v14 = v17;
   v17 = 0;
@@ -683,8 +672,8 @@
     (*(*v14 + 8))(v14);
   }
 
-  v15 = v18;
-  v18 = 0;
+  v15 = v18[0];
+  v18[0] = 0;
   if (v15)
   {
     (*(*v15 + 8))(v15);
@@ -702,16 +691,16 @@
   v12 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained milValueForString:scalarCopy];
+    objc_msgSend_milValueForString_(WeakRetained);
   }
 
   else
   {
-    v18 = 0;
+    v18[0] = 0;
   }
 
-  v17 = v18;
-  v18 = 0;
+  v17 = v18[0];
+  v18[0] = 0;
   v13 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v17 name:nameCopy location:locationCopy];
   v14 = v17;
   v17 = 0;
@@ -720,8 +709,8 @@
     (*(*v14 + 8))(v14);
   }
 
-  v15 = v18;
-  v18 = 0;
+  v15 = v18[0];
+  v18[0] = 0;
   if (v15)
   {
     (*(*v15 + 8))(v15);
@@ -749,16 +738,16 @@
   WeakRetained = objc_loadWeakRetained(&self->_context);
   if (v13)
   {
-    [(SNNMILDataValue *)v13 milValueWithContext:WeakRetained];
+    objc_msgSend_milValueWithContext_(v13);
   }
 
   else
   {
-    v20 = 0;
+    v20[0] = 0;
   }
 
-  v19 = v20;
-  v20 = 0;
+  v19 = v20[0];
+  v20[0] = 0;
   v15 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v19 name:nameCopy location:locationCopy];
   v16 = v19;
   v19 = 0;
@@ -767,8 +756,8 @@
     (*(*v16 + 8))(v16);
   }
 
-  v17 = v20;
-  v20 = 0;
+  v17 = v20[0];
+  v20[0] = 0;
   if (v17)
   {
     (*(*v17 + 8))(v17);
@@ -787,16 +776,16 @@
   WeakRetained = objc_loadWeakRetained(&self->_context);
   if (v16)
   {
-    [(SNNMILDataValue *)v16 milValueWithContext:WeakRetained];
+    objc_msgSend_milValueWithContext_(v16);
   }
 
   else
   {
-    v23 = 0;
+    v23[0] = 0;
   }
 
-  v22 = v23;
-  v23 = 0;
+  v22 = v23[0];
+  v23[0] = 0;
   v18 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v22 name:nameCopy location:locationCopy];
   v19 = v22;
   v22 = 0;
@@ -805,8 +794,8 @@
     (*(*v19 + 8))(v19);
   }
 
-  v20 = v23;
-  v23 = 0;
+  v20 = v23[0];
+  v23[0] = 0;
   if (v20)
   {
     (*(*v20 + 8))(v20);
@@ -842,35 +831,35 @@
   nameCopy = name;
   locationCopy = location;
   WeakRetained = objc_loadWeakRetained(&self->_context);
-  v16 = WeakRetained;
+  v14 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained milValueForTensorWithBytes:bytes shape:shapeCopy dataType:type];
+    objc_msgSend_milValueForTensorWithBytes_shape_dataType_(WeakRetained);
   }
 
   else
   {
-    v22 = 0;
+    v20[0] = 0;
   }
 
-  v21 = v22;
-  v22 = 0;
-  v17 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v21 name:nameCopy location:locationCopy];
-  v18 = v21;
-  v21 = 0;
-  if (v18)
+  v19 = v20[0];
+  v20[0] = 0;
+  v15 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v19 name:nameCopy location:locationCopy];
+  v16 = v19;
+  v19 = 0;
+  if (v16)
   {
-    (*(*v18 + 8))(v18);
+    (*(*v16 + 8))(v16);
   }
 
-  v19 = v22;
-  v22 = 0;
-  if (v19)
+  v17 = v20[0];
+  v20[0] = 0;
+  if (v17)
   {
-    (*(*v19 + 8))(v19);
+    (*(*v17 + 8))(v17);
   }
 
-  return v17;
+  return v15;
 }
 
 - (id)constantTensorWithBytes:(void *)bytes shape:(id)shape dataType:(unint64_t)type location:(id)location
@@ -891,35 +880,35 @@
   nameCopy = name;
   locationCopy = location;
   WeakRetained = objc_loadWeakRetained(&self->_context);
-  v20 = WeakRetained;
+  v19 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained milValueForTensorBlobWithFilename:filenameCopy shape:shapeCopy dataType:type offset:offsetCopy];
+    objc_msgSend_milValueForTensorBlobWithFilename_shape_dataType_offset_(WeakRetained);
   }
 
   else
   {
-    v26 = 0;
+    v25[0] = 0;
   }
 
-  v25 = v26;
-  v26 = 0;
-  v21 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v25 name:nameCopy location:locationCopy];
-  v22 = v25;
-  v25 = 0;
+  v24 = v25[0];
+  v25[0] = 0;
+  v20 = [(SNNMILFunctionBuilder *)self constantOperationWithValue:&v24 name:nameCopy location:locationCopy];
+  v21 = v24;
+  v24 = 0;
+  if (v21)
+  {
+    (*(*v21 + 8))(v21);
+  }
+
+  v22 = v25[0];
+  v25[0] = 0;
   if (v22)
   {
     (*(*v22 + 8))(v22);
   }
 
-  v23 = v26;
-  v26 = 0;
-  if (v23)
-  {
-    (*(*v23 + 8))(v23);
-  }
-
-  return v21;
+  return v20;
 }
 
 - (id)constantTensorBlobWithFilename:(id)filename shape:(id)shape dataType:(unint64_t)type offset:(id)offset location:(id)location
@@ -936,85 +925,85 @@
 
 - (id)outputsByApplyingOperatorNamed:(id)named toInputs:(id)inputs outputs:(id)outputs attributes:(id)attributes location:(id)location
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   inputsCopy = inputs;
   outputsCopy = outputs;
   attributesCopy = attributes;
   locationCopy = location;
-  v106[1] = 0;
-  v106[0] = 0;
-  v105 = v106;
+  v105[1] = 0;
+  v105[0] = 0;
+  v104 = v105;
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
   obj = inputsCopy;
-  v13 = [obj countByEnumeratingWithState:&v101 objects:v114 count:16];
+  v13 = [obj countByEnumeratingWithState:&v100 objects:v113 count:16];
   if (v13)
   {
-    v63 = *v102;
+    v62 = *v101;
     do
     {
-      v65 = v13;
-      for (i = 0; i != v65; ++i)
+      v64 = v13;
+      for (i = 0; i != v64; ++i)
       {
-        if (*v102 != v63)
+        if (*v101 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v101 + 1) + 8 * i);
+        v15 = *(*(&v100 + 1) + 8 * i);
         v16 = [obj objectForKeyedSubscript:v15];
-        v108 = 0uLL;
-        *&v109 = 0;
+        v107 = 0uLL;
+        *&v108 = 0;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v17 = v16;
+          v96 = 0u;
           v97 = 0u;
           v98 = 0u;
           v99 = 0u;
-          v100 = 0u;
-          v68 = v17;
+          v67 = v17;
           values = [v17 values];
-          v19 = [values countByEnumeratingWithState:&v97 objects:v113 count:16];
-          v20 = v68;
+          v19 = [values countByEnumeratingWithState:&v96 objects:v112 count:16];
+          v20 = v67;
           if (v19)
           {
-            v21 = *v98;
-            v20 = v68;
+            v21 = *v97;
+            v20 = v67;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v98 != v21)
+                if (*v97 != v21)
                 {
                   objc_enumerationMutation(values);
                 }
 
-                v23 = *(*(&v97 + 1) + 8 * j);
+                v23 = *(*(&v96 + 1) + 8 * j);
 
                 v20 = v23;
-                [(SNNMILFunctionBuilder *)self milArgumentForSNNMILValue:v23];
-                __p = v79;
-                if (v79)
+                objc_msgSend_milArgumentForSNNMILValue_(self);
+                __p = v78;
+                if (v78)
                 {
                   operator new();
                 }
 
-                v95 = 0;
-                v79 = 0;
-                std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&v108, &__p);
-                if (v95)
+                v94 = 0;
+                v78 = 0;
+                std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&v107, &__p);
+                if (v94)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v94);
                 }
 
-                v79 = 0;
+                v78 = 0;
               }
 
-              v19 = [values countByEnumeratingWithState:&v97 objects:v113 count:16];
+              v19 = [values countByEnumeratingWithState:&v96 objects:v112 count:16];
             }
 
             while (v19);
@@ -1025,82 +1014,82 @@
 
         else
         {
-          [(SNNMILFunctionBuilder *)self milArgumentForSNNMILValue:v16];
-          __p = v79;
-          if (v79)
+          objc_msgSend_milArgumentForSNNMILValue_(self);
+          __p = v78;
+          if (v78)
           {
             operator new();
           }
 
-          v95 = 0;
-          v79 = 0;
-          std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&v108, &__p);
-          if (v95)
+          v94 = 0;
+          v78 = 0;
+          std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&v107, &__p);
+          if (v94)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v94);
           }
 
-          v79 = 0;
+          v78 = 0;
         }
 
         if (v15)
         {
-          [v15 cxxString];
+          objc_msgSend_cxxString(v15);
         }
 
         else
         {
           __p = 0;
+          v94 = 0;
           v95 = 0;
-          v96 = 0;
         }
 
-        std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>(&v105, &__p);
-        if (SHIBYTE(v96) < 0)
+        std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>(&v104, &__p, &__p, &v107);
+        if (SHIBYTE(v95) < 0)
         {
           operator delete(__p);
         }
 
-        __p = &v108;
+        __p = &v107;
         std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&__p);
       }
 
-      v13 = [obj countByEnumeratingWithState:&v101 objects:v114 count:16];
+      v13 = [obj countByEnumeratingWithState:&v100 objects:v113 count:16];
     }
 
     while (v13);
   }
 
-  v66 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v65 = [MEMORY[0x277CBEBF8] mutableCopy];
   __p = 0;
+  v94 = 0;
   v95 = 0;
-  v96 = 0;
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
-  v64 = outputsCopy;
-  v24 = [v64 countByEnumeratingWithState:&v90 objects:v112 count:16];
+  v63 = outputsCopy;
+  v24 = [v63 countByEnumeratingWithState:&v89 objects:v111 count:16];
   if (v24)
   {
-    v25 = *v91;
+    v25 = *v90;
     do
     {
       for (k = 0; k != v24; ++k)
       {
-        if (*v91 != v25)
+        if (*v90 != v25)
         {
-          objc_enumerationMutation(v64);
+          objc_enumerationMutation(v63);
         }
 
-        v27 = *(*(&v90 + 1) + 8 * k);
+        v27 = *(*(&v89 + 1) + 8 * k);
         dimensions = [v27 dimensions];
         -[SNNMILFunctionBuilder tensorValueTypeWithShape:dataType:](self, "tensorValueTypeWithShape:dataType:", dimensions, [v27 dataType]);
 
-        name = [v27 name];
-        if (name)
+        v29 = objc_msgSend_name(v27);
+        if (v29)
         {
-          [v27 name];
+          objc_msgSend_name(v27);
         }
 
         else
@@ -1111,43 +1100,43 @@
 
         if (v30)
         {
-          [v30 cxxString];
+          objc_msgSend_cxxString(v30);
         }
 
         else
         {
+          v86 = 0;
           v87 = 0;
           v88 = 0;
-          v89 = 0;
         }
 
         MIL::IRNamedValueType::Make();
-        if (v108)
+        if (v107)
         {
           operator new();
         }
 
-        *&v108 = 0;
-        std::unique_ptr<MIL::IRNamedValueType>::~unique_ptr[abi:ne200100](&v108);
-        if (SHIBYTE(v89) < 0)
+        *&v107 = 0;
+        std::unique_ptr<MIL::IRNamedValueType>::~unique_ptr[abi:ne200100](&v107);
+        if (SHIBYTE(v88) < 0)
         {
-          operator delete(v87);
+          operator delete(v86);
         }
 
-        v31 = v95;
-        if (v95 >= v96)
+        v31 = v94;
+        if (v94 >= v95)
         {
           v33 = __p;
-          v34 = v95 - __p;
-          v35 = (v95 - __p) >> 4;
+          v34 = v94 - __p;
+          v35 = (v94 - __p) >> 4;
           v36 = v35 + 1;
           if ((v35 + 1) >> 60)
           {
             std::vector<MIL::IRDimension const*>::__throw_length_error[abi:ne200100]();
           }
 
-          v37 = v96 - __p;
-          if ((v96 - __p) >> 3 > v36)
+          v37 = v95 - __p;
+          if ((v95 - __p) >> 3 > v36)
           {
             v36 = v37 >> 3;
           }
@@ -1171,99 +1160,99 @@
           p_shared_weak_owners = (16 * v35 + 16);
           memcpy(0, v33, v34);
           v41 = __p;
-          v42 = v96;
+          v42 = v95;
           __p = 0;
-          v95 = p_shared_weak_owners;
-          v96 = 0;
-          *&v109 = v41;
-          *(&v109 + 1) = v42;
-          *(&v108 + 1) = v41;
+          v94 = p_shared_weak_owners;
+          v95 = 0;
           *&v108 = v41;
-          std::__split_buffer<std::shared_ptr<MIL::IROperation>>::~__split_buffer(&v108);
+          *(&v108 + 1) = v42;
+          *(&v107 + 1) = v41;
+          *&v107 = v41;
+          std::__split_buffer<std::shared_ptr<MIL::IROperation>>::~__split_buffer(&v107);
         }
 
         else
         {
-          v95->__vftable = 0;
+          v94->__vftable = 0;
           v31->__shared_owners_ = 0;
           p_shared_weak_owners = &v31->__shared_weak_owners_;
         }
 
-        v95 = p_shared_weak_owners;
+        v94 = p_shared_weak_owners;
         v43 = [[SNNMILNamedValue alloc] initWithName:v30];
-        [v66 addObject:v43];
+        [v65 addObject:v43];
         [(NSMutableArray *)self->_outputNames addObject:v30];
       }
 
-      v24 = [v64 countByEnumeratingWithState:&v90 objects:v112 count:16];
+      v24 = [v63 countByEnumeratingWithState:&v89 objects:v111 count:16];
     }
 
     while (v24);
   }
 
+  v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
   LODWORD(p_p) = 1065353216;
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
-  v69 = attributesCopy;
-  v44 = [v69 countByEnumeratingWithState:&v83 objects:v111 count:16];
+  v68 = attributesCopy;
+  v44 = [v68 countByEnumeratingWithState:&v82 objects:v110 count:16];
   if (v44)
   {
-    v45 = *v84;
+    v45 = *v83;
     do
     {
       for (m = 0; m != v44; ++m)
       {
-        if (*v84 != v45)
+        if (*v83 != v45)
         {
-          objc_enumerationMutation(v69);
+          objc_enumerationMutation(v68);
         }
 
-        v47 = *(*(&v83 + 1) + 8 * m);
-        v48 = [v69 objectForKeyedSubscript:v47];
+        v47 = *(*(&v82 + 1) + 8 * m);
+        v48 = [v68 objectForKeyedSubscript:v47];
         WeakRetained = objc_loadWeakRetained(&self->_context);
         if (v48)
         {
-          [v48 milValueWithContext:WeakRetained];
+          objc_msgSend_milValueWithContext_(v48);
         }
 
         else
         {
-          v82 = 0;
+          v81 = 0;
         }
 
         if (v47)
         {
-          [v47 cxxString];
+          objc_msgSend_cxxString(v47);
         }
 
         else
         {
+          v78 = 0;
           v79 = 0;
           v80 = 0;
-          v81 = 0;
         }
 
-        v77 = &v79;
-        v107 = &v82;
-        std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<std::unique_ptr<MIL::IRValue const> &&>>(&v108, &v79);
-        if (SHIBYTE(v81) < 0)
+        v76 = &v78;
+        v106 = &v81;
+        std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<std::unique_ptr<MIL::IRValue const> &&>>(&v107, &v78, &std::piecewise_construct, &v76, &v106);
+        if (SHIBYTE(v80) < 0)
         {
-          operator delete(v79);
+          operator delete(v78);
         }
 
-        v50 = v82;
-        v82 = 0;
+        v50 = v81;
+        v81 = 0;
         if (v50)
         {
           (*(*v50 + 8))(v50);
         }
       }
 
-      v44 = [v69 countByEnumeratingWithState:&v83 objects:v111 count:16];
+      v44 = [v68 countByEnumeratingWithState:&v82 objects:v110 count:16];
     }
 
     while (v44);
@@ -1273,74 +1262,74 @@
   [v51 platformOpset];
   if (namedCopy)
   {
-    [namedCopy cxxString];
+    objc_msgSend_cxxString(namedCopy);
   }
 
   else
   {
+    v78 = 0;
     v79 = 0;
     v80 = 0;
-    v81 = 0;
   }
 
   MIL::IROpset::TryGetOperatorSharedPtr();
-  if (SHIBYTE(v81) < 0)
+  if (SHIBYTE(v80) < 0)
   {
-    operator delete(v79);
+    operator delete(v78);
   }
 
-  if (!v77)
+  if (!v76)
   {
     __assert_rtn("[SNNMILFunctionBuilder outputsByApplyingOperatorNamed:toInputs:outputs:attributes:location:]", "SNNMILBuilders.mm", 324, "op");
   }
 
   if (locationCopy)
   {
-    [locationCopy milLocation];
-    v52 = v74;
+    objc_msgSend_milLocation(locationCopy);
+    v52 = v73;
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v71, "");
+    std::string::basic_string[abi:ne200100]<0>(&v70, "");
     MIL::TextFileLocation::Make();
-    v52 = v73;
-    v73 = 0;
-    v74 = v52;
+    v52 = v72;
+    v72 = 0;
+    v73 = v52;
   }
 
-  v75 = v52;
+  v74 = v52;
   if (v52)
   {
     operator new();
   }
 
-  v76 = 0;
-  v74 = 0;
-  v70 = v78;
-  if (v78)
+  v75 = 0;
+  v73 = 0;
+  v69 = v77;
+  if (v77)
   {
-    atomic_fetch_add_explicit(&v78->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v77->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
+  v78 = 0;
   v79 = 0;
   v80 = 0;
-  v81 = 0;
   MIL::IROperation::Make();
-  v107 = &v79;
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v107);
-  if (v70)
+  v106 = &v78;
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v106);
+  if (v69)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v69);
   }
 
-  if (v76)
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  v53 = v74;
-  v74 = 0;
+  v53 = v73;
+  v73 = 0;
   if (v53)
   {
     (*(*v53 + 8))(v53);
@@ -1348,52 +1337,51 @@
 
   if (!locationCopy)
   {
-    v54 = v73;
-    v73 = 0;
+    v54 = v72;
+    v72 = 0;
     if (v54)
     {
       (*(*v54 + 8))(v54);
     }
 
-    if (v72 < 0)
+    if (v71 < 0)
     {
-      operator delete(v71);
+      operator delete(v70);
     }
   }
 
-  v79 = v82;
-  if (v82)
+  v78 = v81;
+  if (v81)
   {
     operator new();
   }
 
-  v80 = 0;
-  v82 = 0;
-  std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&self->_operations.__begin_, &v79);
-  if (v80)
+  v79 = 0;
+  v81 = 0;
+  std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](&self->_operations.__begin_, &v78);
+  if (v79)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v80);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v79);
   }
 
-  v55 = v66;
-  v56 = v82;
-  v82 = 0;
+  v55 = v65;
+  v56 = v81;
+  v81 = 0;
   if (v56)
   {
     (*(*v56 + 8))(v56);
   }
 
-  if (v78)
+  if (v77)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v78);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v77);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&v108);
-  *&v108 = &__p;
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v108);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&v107);
+  *&v107 = &__p;
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__destroy_vector::operator()[abi:ne200100](&v107);
 
-  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(&v105, v106[0]);
-  v57 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(&v104, v105[0]);
 
   return v55;
 }
@@ -1420,81 +1408,75 @@
 
 - (const)tensorValueTypeWithShape:(id)shape dataType:(unint64_t)type
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   __p = 0;
-  v27 = 0;
-  v28 = 0;
+  v24 = 0;
+  v25 = 0;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   shapeCopy = shape;
-  v7 = [shapeCopy countByEnumeratingWithState:&v22 objects:v29 count:16];
-  if (v7)
+  v6 = [shapeCopy countByEnumeratingWithState:&v19 objects:v26 count:16];
+  if (v6)
   {
-    v8 = *v23;
+    v7 = *v20;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v8)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(shapeCopy);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         WeakRetained = objc_loadWeakRetained(&self->_context);
-        v12 = WeakRetained;
+        v11 = WeakRetained;
         if (WeakRetained)
         {
-          [WeakRetained context];
-          v13 = v20;
+          objc_msgSend_context(WeakRetained);
+          v12 = v17;
         }
 
         else
         {
-          v13 = 0;
-          v20 = 0;
-          v21 = 0;
+          v12 = 0;
+          v17 = 0;
+          v18 = 0;
         }
 
-        v14 = MIL::IRConstantDimension::Make(v13, [v10 unsignedIntegerValue]);
-        if (v21)
+        v13 = MIL::IRConstantDimension::Make(v12, [v9 unsignedIntegerValue]);
+        if (v18)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
         }
 
-        v20 = v14;
-        std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&__p, &v20);
+        v17 = v13;
+        std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&__p, &v17);
       }
 
-      v7 = [shapeCopy countByEnumeratingWithState:&v22 objects:v29 count:16];
+      v6 = [shapeCopy countByEnumeratingWithState:&v19 objects:v26 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
-  if (type - 1 <= 0xB)
+  v14 = objc_loadWeakRetained(&self->_context);
+  objc_msgSend_context(v14);
+  v15 = MIL::IRTensorValueType::MakeWithShape();
+  if (v18)
   {
-    v15 = dword_25BCBADEC[type - 1];
-  }
-
-  v16 = objc_loadWeakRetained(&self->_context);
-  [v16 context];
-  v17 = MIL::IRTensorValueType::MakeWithShape();
-  if (v21)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   if (__p)
   {
-    v27 = __p;
+    v24 = __p;
     operator delete(__p);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v15;
 }
 
 - (unique_ptr<MIL::IRArgument,)milArgumentForSNNMILValue:(id)value
@@ -1503,11 +1485,11 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    name = [valueCopy name];
-    v6 = name;
-    if (name)
+    v5 = objc_msgSend_name(valueCopy);
+    v6 = v5;
+    if (v5)
     {
-      [name cxxString];
+      objc_msgSend_cxxString(v5);
     }
 
     else
@@ -1530,7 +1512,7 @@
     WeakRetained = objc_loadWeakRetained(&self->_context);
     if (v7)
     {
-      [v7 milValueWithContext:WeakRetained];
+      objc_msgSend_milValueWithContext_(v7);
     }
 
     else
@@ -1555,7 +1537,7 @@
   v5 = nameCopy;
   if (nameCopy)
   {
-    [nameCopy cxxString];
+    objc_msgSend_cxxString(nameCopy);
   }
 
   else
@@ -1683,11 +1665,10 @@ LABEL_31:
 
 - (void)constantOperationWithValue:(uint64_t *)a1 name:location:.cold.1(uint64_t *a1)
 {
-  v1 = OUTLINED_FUNCTION_0_2(a1);
-  if (v1)
+  if (OUTLINED_FUNCTION_0_2(a1))
   {
-    v2 = OUTLINED_FUNCTION_0_1(v1);
-    (*(v3 + 8))(v2);
+    OUTLINED_FUNCTION_0_1();
+    (*(v1 + 8))();
   }
 
   OUTLINED_FUNCTION_2_0();
@@ -1695,11 +1676,10 @@ LABEL_31:
 
 - (void)constantValue:(uint64_t *)a1 name:location:.cold.1(uint64_t *a1)
 {
-  v1 = OUTLINED_FUNCTION_0_2(a1);
-  if (v1)
+  if (OUTLINED_FUNCTION_0_2(a1))
   {
-    v2 = OUTLINED_FUNCTION_0_1(v1);
-    (*(v3 + 8))(v2);
+    OUTLINED_FUNCTION_0_1();
+    (*(v1 + 8))();
   }
 
   OUTLINED_FUNCTION_2_0();

@@ -1,6 +1,5 @@
 @interface TRIRunningXPCActivityDescriptor
 - (TRIRunningXPCActivityDescriptor)initWithActivity:(id)activity capabilities:(unint64_t)capabilities name:(id)name;
-- (id)description;
 - (id)initForImmediateWorkWithCapabilities:(unint64_t)capabilities;
 @end
 
@@ -83,7 +82,7 @@ LABEL_3:
 
 BOOL __70__TRIRunningXPCActivityDescriptor_initWithActivity_capabilities_name___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   should_defer = xpc_activity_should_defer(*(a1 + 32));
   if (should_defer)
   {
@@ -91,19 +90,18 @@ BOOL __70__TRIRunningXPCActivityDescriptor_initWithActivity_capabilities_name___
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "Deferral requested for activity %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "Deferral requested for activity %{public}@", &v6, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return should_defer;
 }
 
 void __70__TRIRunningXPCActivityDescriptor_initWithActivity_capabilities_name___block_invoke_23(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   state = xpc_activity_get_state(*(a1 + 32));
   if (a2)
   {
@@ -124,29 +122,27 @@ void __70__TRIRunningXPCActivityDescriptor_initWithActivity_capabilities_name___
     {
       v9 = *(a1 + 40);
       v10 = [TRIXPCActivitySupport nameForActivityState:v5];
-      v15 = 138543618;
-      v16 = v9;
-      v17 = 2114;
-      v18 = v10;
-      _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "XPC activity %{public}@ completion with state %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v10;
+      _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "XPC activity %{public}@ completion with state %{public}@", &v14, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 40);
-    v13 = [TRIXPCActivitySupport nameForActivityState:state];
-    v14 = [TRIXPCActivitySupport nameForActivityState:v5];
-    v15 = 138543874;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v13;
-    v19 = 2114;
-    v20 = v14;
-    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "XPC activity %{public}@ completion: unable to transition state %{public}@ --> %{public}@", &v15, 0x20u);
+    v11 = *(a1 + 40);
+    v12 = [TRIXPCActivitySupport nameForActivityState:state];
+    v13 = [TRIXPCActivitySupport nameForActivityState:v5];
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v13;
+    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "XPC activity %{public}@ completion: unable to transition state %{public}@ --> %{public}@", &v14, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initForImmediateWorkWithCapabilities:(unint64_t)capabilities
@@ -189,24 +185,14 @@ void __70__TRIRunningXPCActivityDescriptor_initWithActivity_capabilities_name___
 
 void __72__TRIRunningXPCActivityDescriptor_initForImmediateWorkWithCapabilities___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = TRILogCategory_Server();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = a2;
-    _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "internal testing activity completing with status %tu", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = a2;
+    _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "internal testing activity completing with status %tu", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  name = self->_name;
-  return [v3 stringWithFormat:@"<%@: %@, %llu>", v4, name, self->_capabilities];
 }
 
 @end

@@ -10,90 +10,91 @@ BOOL sub_100080508()
     return 0;
   }
 
-  v14 = 0;
-  v13 = 4;
-  if (sysctl(dword_100127E18, qword_100127570, &v14, &v13, 0, 0))
+  v17 = 0;
+  v16 = 4;
+  if (sysctl(dword_100127E18, qword_100127570, &v17, &v16, 0, 0))
   {
-    sub_1000BD9E8(&v14);
+    sub_1000BD9E8(&v17);
   }
 
   if (byte_100127EC8 == 1)
   {
-    v0 = *__error();
-    v1 = sub_10003E080();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+    v0 = __error();
+    v1 = *v0;
+    v3 = sub_10003E080(v0, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000BDC3C(&v14);
+      sub_1000BDC3C();
     }
 
-    *__error() = v0;
+    *__error() = v1;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v3 = *__error();
-    v4 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Memory pressure %d", v14);
-    if (v4)
+    v5 = *__error();
+    v6 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Memory pressure %d", v17);
+    if (v6)
     {
-      v5 = v4;
-      CStringPtr = CFStringGetCStringPtr(v4, 0x8000100u);
+      v8 = v6;
+      CStringPtr = CFStringGetCStringPtr(v6, 0x8000100u);
       if (CStringPtr)
       {
-        v7 = CStringPtr;
-        v8 = 0;
+        v10 = CStringPtr;
+        v11 = 0;
       }
 
       else
       {
-        v7 = malloc_type_calloc(0x400uLL, 1uLL, 0x9F735A8BuLL);
-        CFStringGetCString(v5, v7, 1024, 0x8000100u);
-        v8 = v7;
+        v10 = malloc_type_calloc(0x400uLL, 1uLL, 0x9F735A8BuLL);
+        CFStringGetCString(v8, v10, 1024, 0x8000100u);
+        v11 = v10;
       }
 
       if (qword_100127ED0)
       {
-        v11 = qword_100127ED0;
+        v14 = qword_100127ED0;
       }
 
       else
       {
-        v11 = __stderrp;
+        v14 = __stderrp;
       }
 
-      fprintf(v11, "%s\n", v7);
-      if (v8)
+      fprintf(v14, "%s\n", v10);
+      if (v11)
       {
-        free(v8);
+        free(v11);
       }
 
-      CFRelease(v5);
+      CFRelease(v8);
     }
 
     else
     {
-      v9 = sub_10003E080();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v12 = sub_10003E080(0, v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        sub_1000BDCB0(&v14);
+        sub_1000BDCB0();
       }
 
       if (qword_100127ED0)
       {
-        v10 = qword_100127ED0;
+        v13 = qword_100127ED0;
       }
 
       else
       {
-        v10 = __stderrp;
+        v13 = __stderrp;
       }
 
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v10);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v13);
     }
 
-    *__error() = v3;
+    *__error() = v5;
   }
 
-  return v14 > 3;
+  return v17 > 3;
 }
 
 void sub_100080750(id a1)
@@ -119,85 +120,86 @@ void sub_10008078C()
 
 void sub_1000807C4(id a1)
 {
-  memset(&v22, 0, sizeof(v22));
-  v1 = stat("/private/var/db/spindump", &v22);
+  memset(&v25, 0, sizeof(v25));
+  v1 = stat("/private/var/db/spindump", &v25);
   if (v1)
   {
     v9 = *__error();
     if (byte_100127EC8 == 1)
     {
-      v10 = *__error();
-      v11 = sub_10003E080();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v10 = __error();
+      v11 = *v10;
+      v13 = sub_10003E080(v10, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         sub_1000BE160();
       }
 
-      *__error() = v10;
+      *__error() = v11;
     }
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 0)
     {
-      v13 = *__error();
-      v14 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Creating spindump directory /private/var/db/spindump after stat said %d", v9);
-      if (v14)
+      v15 = *__error();
+      v16 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Creating spindump directory /private/var/db/spindump after stat said %d", v9);
+      if (v16)
       {
-        v15 = v14;
-        CStringPtr = CFStringGetCStringPtr(v14, 0x8000100u);
+        v18 = v16;
+        CStringPtr = CFStringGetCStringPtr(v16, 0x8000100u);
         if (CStringPtr)
         {
-          v17 = CStringPtr;
-          v18 = 0;
+          v20 = CStringPtr;
+          v21 = 0;
         }
 
         else
         {
-          v17 = malloc_type_calloc(0x400uLL, 1uLL, 0xE3AA1872uLL);
-          CFStringGetCString(v15, v17, 1024, 0x8000100u);
-          v18 = v17;
+          v20 = malloc_type_calloc(0x400uLL, 1uLL, 0xE3AA1872uLL);
+          CFStringGetCString(v18, v20, 1024, 0x8000100u);
+          v21 = v20;
         }
 
         if (qword_100127ED0)
         {
-          v21 = qword_100127ED0;
+          v24 = qword_100127ED0;
         }
 
         else
         {
-          v21 = __stderrp;
+          v24 = __stderrp;
         }
 
-        fprintf(v21, "%s\n", v17);
-        if (v18)
+        fprintf(v24, "%s\n", v20);
+        if (v21)
         {
-          free(v18);
+          free(v21);
         }
 
-        CFRelease(v15);
+        CFRelease(v18);
       }
 
       else
       {
-        v19 = sub_10003E080();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+        v22 = sub_10003E080(0, v17);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
         {
           sub_1000BE1D0();
         }
 
         if (qword_100127ED0)
         {
-          v20 = qword_100127ED0;
+          v23 = qword_100127ED0;
         }
 
         else
         {
-          v20 = __stderrp;
+          v23 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v20);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v23);
       }
 
-      *__error() = v13;
+      *__error() = v15;
     }
 
     if (mkdir("/private/var/db/spindump", 0x1EDu))
@@ -206,7 +208,7 @@ void sub_1000807C4(id a1)
     }
   }
 
-  else if ((v22.st_mode & 0xF000) != 0x4000)
+  else if ((v25.st_mode & 0xF000) != 0x4000)
   {
     sub_1000BE4EC(v1, v2, v3, v4, v5, v6, v7, v8);
   }
@@ -219,10 +221,11 @@ _DWORD *sub_100080A90(void *a1, int *a2)
   return sub_10003E020(v3);
 }
 
-void sub_100080AB0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100080AB0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_fault_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x12u);
+  _os_log_fault_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x12u);
 }
 
 uint64_t sub_100080AE4(const __CFString *a1, char *a2)
@@ -250,16 +253,18 @@ void *sub_100080B70()
   return malloc_type_calloc(0x400uLL, 1uLL, 0xE3AA1872uLL);
 }
 
-void sub_100080B90(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100080B90(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_fault_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x16u);
+  _os_log_fault_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_100080BB0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100080BB0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_fault_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x12u);
+  _os_log_fault_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x12u);
 }
 
 CFStringRef sub_100080BDC(uint64_t a1, uint64_t a2, const __CFString *a3)
@@ -362,10 +367,10 @@ void sub_100083F9C(uint64_t a1)
     if (![qword_100127E48 count])
     {
 LABEL_62:
-      v44 = [[SPSampledProcess alloc] initWithPid:*(a1 + 56) isWSBased:*(a1 + 62)];
-      v45 = *(*(a1 + 40) + 8);
-      v46 = *(v45 + 40);
-      *(v45 + 40) = v44;
+      v50 = [[SPSampledProcess alloc] initWithPid:*(a1 + 56) isWSBased:*(a1 + 62)];
+      v51 = *(*(a1 + 40) + 8);
+      v52 = *(v51 + 40);
+      *(v51 + 40) = v50;
 
       [qword_100127E48 setObject:*(*(*(a1 + 40) + 8) + 40) forKey:*(a1 + 32)];
       *(*(*(*(a1 + 40) + 8) + 40) + 299) = 1;
@@ -377,44 +382,45 @@ LABEL_62:
       goto LABEL_5;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v10 = [qword_100127E48 allValues];
-    v11 = [v10 countByEnumeratingWithState:&v47 objects:v57 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v53 objects:v63 count:16];
     if (!v11)
     {
       goto LABEL_61;
     }
 
     v12 = v11;
-    v13 = *v48;
+    v13 = *v54;
 LABEL_15:
     v14 = 0;
     while (1)
     {
-      if (*v48 != v13)
+      if (*v54 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v47 + 1) + 8 * v14);
+      v15 = *(*(&v53 + 1) + 8 * v14);
       if (([v15 targetProcessId] & 0x80000000) != 0)
       {
         if (byte_100127EC8)
         {
-          v32 = *__error();
-          v33 = sub_10003E080();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v35 = __error();
+          v36 = *v35;
+          v38 = sub_10003E080(v35, v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
-            v34 = *(a1 + 56);
+            v39 = *(a1 + 56);
             *buf = 67109120;
-            LODWORD(v52) = v34;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "overridden by [%d]", buf, 8u);
+            LODWORD(v58) = v39;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "overridden by [%d]", buf, 8u);
           }
 
-          *__error() = v32;
+          *__error() = v36;
         }
 
         if (byte_100127EC9 != 1 || dword_100127558 > 2)
@@ -422,22 +428,22 @@ LABEL_15:
           goto LABEL_56;
         }
 
-        v22 = *__error();
-        v24 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"overridden by [%d]", *(a1 + 56));
-        if (v24)
+        v24 = *__error();
+        v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"overridden by [%d]", *(a1 + 56));
+        if (v26)
         {
           goto LABEL_41;
         }
 
-        v25 = sub_10003E080();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+        v28 = sub_10003E080(0, v41);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
-          v42 = *(a1 + 56);
+          v48 = *(a1 + 56);
           *buf = 67109120;
-          LODWORD(v52) = v42;
-          v29 = v25;
-          v30 = "Unable to format: overridden by [%d]";
-          v31 = 8;
+          LODWORD(v58) = v48;
+          v32 = v28;
+          v33 = "Unable to format: overridden by [%d]";
+          v34 = 8;
           goto LABEL_59;
         }
       }
@@ -446,23 +452,24 @@ LABEL_15:
       {
         if (byte_100127EC8)
         {
-          v16 = *__error();
-          v17 = sub_10003E080();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v16 = __error();
+          v17 = *v16;
+          v19 = sub_10003E080(v16, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = sub_10003E020([v15 targetProcessId]);
-            v19 = [v15 targetProcessId];
-            v20 = *(a1 + 56);
+            v20 = sub_10003E020([v15 targetProcessId]);
+            v21 = [v15 targetProcessId];
+            v22 = *(a1 + 56);
             *buf = 136446722;
-            v52 = v18;
-            v53 = 1024;
-            v54 = v19;
-            v55 = 1024;
-            v56 = v20;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s [%d]: overridden by [%d]", buf, 0x18u);
+            v58 = v20;
+            v59 = 1024;
+            v60 = v21;
+            v61 = 1024;
+            v62 = v22;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s [%d]: overridden by [%d]", buf, 0x18u);
           }
 
-          *__error() = v16;
+          *__error() = v17;
         }
 
         if (byte_100127EC9 != 1 || dword_100127558 > 2)
@@ -470,87 +477,87 @@ LABEL_15:
           goto LABEL_56;
         }
 
-        v22 = *__error();
-        v23 = sub_10003E020([v15 targetProcessId]);
-        v24 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: overridden by [%d]", v23, [v15 targetProcessId], *(a1 + 56));
-        if (v24)
+        v24 = *__error();
+        v25 = sub_10003E020([v15 targetProcessId]);
+        v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: overridden by [%d]", v25, [v15 targetProcessId], *(a1 + 56));
+        if (v26)
         {
 LABEL_41:
-          v36 = v24;
-          CStringPtr = CFStringGetCStringPtr(v24, 0x8000100u);
+          v42 = v26;
+          CStringPtr = CFStringGetCStringPtr(v26, 0x8000100u);
           if (CStringPtr)
           {
-            v38 = CStringPtr;
-            v39 = 0;
+            v44 = CStringPtr;
+            v45 = 0;
           }
 
           else
           {
-            v38 = malloc_type_calloc(0x400uLL, 1uLL, 0x624BA0D9uLL);
-            CFStringGetCString(v36, v38, 1024, 0x8000100u);
-            v39 = v38;
+            v44 = malloc_type_calloc(0x400uLL, 1uLL, 0x624BA0D9uLL);
+            CFStringGetCString(v42, v44, 1024, 0x8000100u);
+            v45 = v44;
           }
 
           if (qword_100127ED0)
           {
-            v40 = qword_100127ED0;
+            v46 = qword_100127ED0;
           }
 
           else
           {
-            v40 = __stderrp;
+            v46 = __stderrp;
           }
 
-          fprintf(v40, "%s\n", v38);
-          if (v39)
+          fprintf(v46, "%s\n", v44);
+          if (v45)
           {
-            free(v39);
+            free(v45);
           }
 
-          CFRelease(v36);
+          CFRelease(v42);
           goto LABEL_55;
         }
 
-        v25 = sub_10003E080();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+        v28 = sub_10003E080(0, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
-          v26 = sub_10003E020([v15 targetProcessId]);
-          v27 = [v15 targetProcessId];
-          v28 = *(a1 + 56);
+          v29 = sub_10003E020([v15 targetProcessId]);
+          v30 = [v15 targetProcessId];
+          v31 = *(a1 + 56);
           *buf = 136315650;
-          v52 = v26;
-          v53 = 1024;
-          v54 = v27;
-          v55 = 1024;
-          v56 = v28;
-          v29 = v25;
-          v30 = "Unable to format: %s [%d]: overridden by [%d]";
-          v31 = 24;
+          v58 = v29;
+          v59 = 1024;
+          v60 = v30;
+          v61 = 1024;
+          v62 = v31;
+          v32 = v28;
+          v33 = "Unable to format: %s [%d]: overridden by [%d]";
+          v34 = 24;
 LABEL_59:
-          _os_log_fault_impl(&_mh_execute_header, v29, OS_LOG_TYPE_FAULT, v30, buf, v31);
+          _os_log_fault_impl(&_mh_execute_header, v32, OS_LOG_TYPE_FAULT, v33, buf, v34);
         }
       }
 
       if (qword_100127ED0)
       {
-        v41 = qword_100127ED0;
+        v47 = qword_100127ED0;
       }
 
       else
       {
-        v41 = __stderrp;
+        v47 = __stderrp;
       }
 
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v41);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v47);
 LABEL_55:
-      *__error() = v22;
+      *__error() = v24;
 LABEL_56:
       [v15 stopSamplingWithReason:9];
       if (v12 == ++v14)
       {
-        v43 = [v10 countByEnumeratingWithState:&v47 objects:v57 count:16];
-        v12 = v43;
-        if (!v43)
+        v49 = [v10 countByEnumeratingWithState:&v53 objects:v63 count:16];
+        v12 = v49;
+        if (!v49)
         {
 LABEL_61:
 
@@ -604,20 +611,21 @@ id sub_100084ADC(uint64_t a1)
   {
     if (byte_100127EC8)
     {
-      v2 = *__error();
-      v3 = sub_10003E080();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v2 = __error();
+      v3 = *v2;
+      v5 = sub_10003E080(v2, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v4 = sub_10003E020(*(*v1 + 18));
-        v5 = *(*v1 + 18);
+        v6 = sub_10003E020(*(*v1 + 18));
+        v7 = *(*v1 + 18);
         *buf = 136446466;
-        v23 = v4;
-        v24 = 1024;
-        v25 = v5;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%{public}s [%d]: exited - HID", buf, 0x12u);
+        v29 = v6;
+        v30 = 1024;
+        v31 = v7;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%{public}s [%d]: exited - HID", buf, 0x12u);
       }
 
-      *__error() = v2;
+      *__error() = v3;
     }
 
     if (byte_100127EC9 != 1 || dword_100127558 > 1)
@@ -625,13 +633,13 @@ id sub_100084ADC(uint64_t a1)
       goto LABEL_40;
     }
 
-    v7 = *__error();
-    v8 = sub_10003E020(*(*v1 + 18));
-    v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: exited - HID", v8, *(*v1 + 18));
-    if (!v9)
+    v9 = *__error();
+    v10 = sub_10003E020(*(*v1 + 18));
+    v11 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: exited - HID", v10, *(*v1 + 18));
+    if (!v11)
     {
-      v10 = sub_10003E080();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v13 = sub_10003E080(0, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         sub_1000BF548();
       }
@@ -640,17 +648,17 @@ LABEL_35:
 
       if (qword_100127ED0)
       {
-        v19 = qword_100127ED0;
+        v25 = qword_100127ED0;
       }
 
       else
       {
-        v19 = __stderrp;
+        v25 = __stderrp;
       }
 
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v19);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v25);
 LABEL_39:
-      *__error() = v7;
+      *__error() = v9;
       goto LABEL_40;
     }
 
@@ -659,25 +667,26 @@ LABEL_39:
 
   if (byte_100127EC8)
   {
-    v11 = *__error();
-    v12 = sub_10003E080();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = __error();
+    v15 = *v14;
+    v17 = sub_10003E080(v14, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "exited - HID", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "exited - HID", buf, 2u);
     }
 
-    *__error() = v11;
+    *__error() = v15;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 1)
   {
-    v7 = *__error();
-    v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"exited - HID");
-    if (!v9)
+    v9 = *__error();
+    v11 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"exited - HID");
+    if (!v11)
     {
-      v10 = sub_10003E080();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v13 = sub_10003E080(0, v19);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         sub_1000BF514();
       }
@@ -686,48 +695,48 @@ LABEL_39:
     }
 
 LABEL_24:
-    v14 = v9;
-    CStringPtr = CFStringGetCStringPtr(v9, 0x8000100u);
+    v20 = v11;
+    CStringPtr = CFStringGetCStringPtr(v11, 0x8000100u);
     if (CStringPtr)
     {
-      v16 = CStringPtr;
-      v17 = 0;
+      v22 = CStringPtr;
+      v23 = 0;
     }
 
     else
     {
-      v16 = malloc_type_calloc(0x400uLL, 1uLL, 0xB01773A3uLL);
-      CFStringGetCString(v14, v16, 1024, 0x8000100u);
-      v17 = v16;
+      v22 = malloc_type_calloc(0x400uLL, 1uLL, 0xB01773A3uLL);
+      CFStringGetCString(v20, v22, 1024, 0x8000100u);
+      v23 = v22;
     }
 
     if (qword_100127ED0)
     {
-      v18 = qword_100127ED0;
+      v24 = qword_100127ED0;
     }
 
     else
     {
-      v18 = __stderrp;
+      v24 = __stderrp;
     }
 
-    fprintf(v18, "%s\n", v16);
-    if (v17)
+    fprintf(v24, "%s\n", v22);
+    if (v23)
     {
-      free(v17);
+      free(v23);
     }
 
-    CFRelease(v14);
+    CFRelease(v20);
     goto LABEL_39;
   }
 
 LABEL_40:
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_100084F20;
-  v21[3] = &unk_100115B50;
-  v21[4] = *v1;
-  sub_100084E6C(v21);
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_100084F20;
+  v27[3] = &unk_100115B50;
+  v27[4] = *v1;
+  sub_100084E6C(v27);
   return [*v1 deleteHIDExitSource];
 }
 
@@ -774,14 +783,15 @@ void sub_100084F20(uint64_t a1, void *a2)
     {
       if (byte_100127EC8)
       {
-        v35 = *__error();
-        v36 = sub_10003E080();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        v44 = __error();
+        v45 = *v44;
+        v47 = sub_10003E080(v44, v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
         {
           sub_1000BF744();
         }
 
-        *__error() = v35;
+        *__error() = v45;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -789,12 +799,12 @@ void sub_100084F20(uint64_t a1, void *a2)
         goto LABEL_86;
       }
 
-      v23 = *__error();
-      v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Process exited, no longer waiting for HID event");
-      if (!v25)
+      v28 = *__error();
+      v30 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Process exited, no longer waiting for HID event");
+      if (!v30)
       {
-        v26 = sub_10003E080();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+        v32 = sub_10003E080(0, v49);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
         {
           sub_1000BF778();
         }
@@ -807,14 +817,15 @@ void sub_100084F20(uint64_t a1, void *a2)
     {
       if (byte_100127EC8)
       {
-        v20 = *__error();
-        v21 = sub_10003E080();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v23 = __error();
+        v24 = *v23;
+        v26 = sub_10003E080(v23, v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           sub_1000BF7AC();
         }
 
-        *__error() = v20;
+        *__error() = v24;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -822,13 +833,13 @@ void sub_100084F20(uint64_t a1, void *a2)
         goto LABEL_86;
       }
 
-      v23 = *__error();
-      v24 = sub_10003E020(*(*v4 + 72));
-      v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Process exited, no longer waiting for HID event", v24, *(*v4 + 72));
-      if (!v25)
+      v28 = *__error();
+      v29 = sub_10003E020(*(*v4 + 72));
+      v30 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Process exited, no longer waiting for HID event", v29, *(*v4 + 72));
+      if (!v30)
       {
-        v26 = sub_10003E080();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+        v32 = sub_10003E080(0, v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
         {
           sub_1000BF82C();
         }
@@ -837,58 +848,58 @@ LABEL_81:
 
         if (qword_100127ED0)
         {
-          v48 = qword_100127ED0;
+          v60 = qword_100127ED0;
         }
 
         else
         {
-          v48 = __stderrp;
+          v60 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v48);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v60);
 LABEL_85:
-        *__error() = v23;
+        *__error() = v28;
 LABEL_86:
         dispatch_semaphore_signal(v7[53]);
-        v49 = [NSNumber numberWithInt:*(*v4 + 72)];
-        [v3 setObject:0 forKeyedSubscript:v49];
+        v61 = [NSNumber numberWithInt:*(*v4 + 72)];
+        [v3 setObject:0 forKeyedSubscript:v61];
 
         goto LABEL_96;
       }
     }
 
-    v38 = v25;
-    CStringPtr = CFStringGetCStringPtr(v25, 0x8000100u);
+    v50 = v30;
+    CStringPtr = CFStringGetCStringPtr(v30, 0x8000100u);
     if (CStringPtr)
     {
-      v40 = CStringPtr;
-      v41 = 0;
+      v52 = CStringPtr;
+      v53 = 0;
     }
 
     else
     {
-      v40 = malloc_type_calloc(0x400uLL, 1uLL, 0xD53039E6uLL);
-      CFStringGetCString(v38, v40, 1024, 0x8000100u);
-      v41 = v40;
+      v52 = malloc_type_calloc(0x400uLL, 1uLL, 0xD53039E6uLL);
+      CFStringGetCString(v50, v52, 1024, 0x8000100u);
+      v53 = v52;
     }
 
     if (qword_100127ED0)
     {
-      v43 = qword_100127ED0;
+      v55 = qword_100127ED0;
     }
 
     else
     {
-      v43 = __stderrp;
+      v55 = __stderrp;
     }
 
-    fprintf(v43, "%s\n", v40);
-    if (v41)
+    fprintf(v55, "%s\n", v52);
+    if (v53)
     {
-      free(v41);
+      free(v53);
     }
 
-    CFRelease(v38);
+    CFRelease(v50);
     goto LABEL_85;
   }
 
@@ -896,14 +907,15 @@ LABEL_86:
   {
     if (byte_100127EC8)
     {
-      v10 = *__error();
-      v11 = sub_10003E080();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v10 = __error();
+      v11 = *v10;
+      v13 = sub_10003E080(v10, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         sub_1000BF644();
       }
 
-      *__error() = v10;
+      *__error() = v11;
     }
 
     if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -911,52 +923,52 @@ LABEL_86:
       goto LABEL_96;
     }
 
-    v13 = *__error();
-    v14 = sub_10003E020(*(*v4 + 72));
-    v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Process exited, and not waiting for a HID event", v14, *(*v4 + 72));
-    if (v15)
+    v15 = *__error();
+    v16 = sub_10003E020(*(*v4 + 72));
+    v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Process exited, and not waiting for a HID event", v16, *(*v4 + 72));
+    if (v17)
     {
-      v16 = v15;
-      v17 = CFStringGetCStringPtr(v15, 0x8000100u);
-      if (v17)
+      v19 = v17;
+      v20 = CFStringGetCStringPtr(v17, 0x8000100u);
+      if (v20)
       {
-        v18 = v17;
-        v19 = 0;
+        v21 = v20;
+        v22 = 0;
       }
 
       else
       {
-        v18 = malloc_type_calloc(0x400uLL, 1uLL, 0xCD2A47B5uLL);
-        CFStringGetCString(v16, v18, 1024, 0x8000100u);
-        v19 = v18;
+        v21 = malloc_type_calloc(0x400uLL, 1uLL, 0xCD2A47B5uLL);
+        CFStringGetCString(v19, v21, 1024, 0x8000100u);
+        v22 = v21;
       }
 
       if (qword_100127ED0)
       {
-        v44 = qword_100127ED0;
+        v56 = qword_100127ED0;
       }
 
       else
       {
-        v44 = __stderrp;
+        v56 = __stderrp;
       }
 
-      fprintf(v44, "%s\n", v18);
-      if (v19)
+      fprintf(v56, "%s\n", v21);
+      if (v22)
       {
-        free(v19);
+        free(v22);
       }
 
-      v45 = v16;
+      v57 = v19;
 LABEL_94:
-      CFRelease(v45);
+      CFRelease(v57);
 LABEL_95:
-      *__error() = v13;
+      *__error() = v15;
       goto LABEL_96;
     }
 
-    v42 = sub_10003E080();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+    v54 = sub_10003E080(0, v18);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
     {
       sub_1000BF6C4();
     }
@@ -966,59 +978,60 @@ LABEL_95:
 
   if (byte_100127EC8)
   {
-    v27 = *__error();
-    v28 = sub_10003E080();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v33 = __error();
+    v34 = *v33;
+    v36 = sub_10003E080(v33, v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       sub_1000BF5DC();
     }
 
-    *__error() = v27;
+    *__error() = v34;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v13 = *__error();
-    v30 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Process exited, and not waiting for a HID event");
-    if (v30)
+    v15 = *__error();
+    v38 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Process exited, and not waiting for a HID event");
+    if (v38)
     {
-      v31 = v30;
-      v32 = CFStringGetCStringPtr(v30, 0x8000100u);
-      if (v32)
+      v40 = v38;
+      v41 = CFStringGetCStringPtr(v38, 0x8000100u);
+      if (v41)
       {
-        v33 = v32;
-        v34 = 0;
+        v42 = v41;
+        v43 = 0;
       }
 
       else
       {
-        v33 = malloc_type_calloc(0x400uLL, 1uLL, 0xCD2A47B5uLL);
-        CFStringGetCString(v31, v33, 1024, 0x8000100u);
-        v34 = v33;
+        v42 = malloc_type_calloc(0x400uLL, 1uLL, 0xCD2A47B5uLL);
+        CFStringGetCString(v40, v42, 1024, 0x8000100u);
+        v43 = v42;
       }
 
       if (qword_100127ED0)
       {
-        v50 = qword_100127ED0;
+        v62 = qword_100127ED0;
       }
 
       else
       {
-        v50 = __stderrp;
+        v62 = __stderrp;
       }
 
-      fprintf(v50, "%s\n", v33);
-      if (v34)
+      fprintf(v62, "%s\n", v42);
+      if (v43)
       {
-        free(v34);
+        free(v43);
       }
 
-      v45 = v31;
+      v57 = v40;
       goto LABEL_94;
     }
 
-    v46 = sub_10003E080();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v58 = sub_10003E080(0, v39);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
     {
       sub_1000BF610();
     }
@@ -1026,15 +1039,15 @@ LABEL_95:
 LABEL_75:
     if (qword_100127ED0)
     {
-      v47 = qword_100127ED0;
+      v59 = qword_100127ED0;
     }
 
     else
     {
-      v47 = __stderrp;
+      v59 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v47);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v59);
     goto LABEL_95;
   }
 
@@ -1065,21 +1078,22 @@ void sub_100085668(uint64_t a1, void *a2)
   {
     if (v7)
     {
-      v19 = v8[18];
+      v22 = v8[18];
       if (v7 != v8)
       {
-        if (v19 < 0)
+        if (v22 < 0)
         {
           if (byte_100127EC8)
           {
-            v68 = *__error();
-            v69 = sub_10003E080();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+            v89 = __error();
+            v90 = *v89;
+            v92 = sub_10003E080(v89, v91);
+            if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
             {
               sub_1000BF8AC();
             }
 
-            *__error() = v68;
+            *__error() = v90;
           }
 
           if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1087,46 +1101,46 @@ void sub_100085668(uint64_t a1, void *a2)
             goto LABEL_256;
           }
 
-          v23 = *__error();
-          v71 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Previous spin waiting for HID event");
-          if (v71)
+          v28 = *__error();
+          v94 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Previous spin waiting for HID event");
+          if (v94)
           {
-            v26 = v71;
-            CStringPtr = CFStringGetCStringPtr(v71, 0x8000100u);
+            v32 = v94;
+            CStringPtr = CFStringGetCStringPtr(v94, 0x8000100u);
             if (CStringPtr)
             {
-              v73 = CStringPtr;
-              v74 = 0;
+              v97 = CStringPtr;
+              v98 = 0;
             }
 
             else
             {
-              v73 = malloc_type_calloc(0x400uLL, 1uLL, 0xC75494B9uLL);
-              CFStringGetCString(v26, v73, 1024, 0x8000100u);
-              v74 = v73;
+              v97 = malloc_type_calloc(0x400uLL, 1uLL, 0xC75494B9uLL);
+              CFStringGetCString(v32, v97, 1024, 0x8000100u);
+              v98 = v97;
             }
 
             if (qword_100127ED0)
             {
-              v132 = qword_100127ED0;
+              v171 = qword_100127ED0;
             }
 
             else
             {
-              v132 = __stderrp;
+              v171 = __stderrp;
             }
 
-            fprintf(v132, "%s\n", v73);
-            if (v74)
+            fprintf(v171, "%s\n", v97);
+            if (v98)
             {
-              free(v74);
+              free(v98);
             }
 
             goto LABEL_254;
           }
 
-          v104 = sub_10003E080();
-          if (os_log_type_enabled(v104, OS_LOG_TYPE_FAULT))
+          v140 = sub_10003E080(0, v95);
+          if (os_log_type_enabled(v140, OS_LOG_TYPE_FAULT))
           {
             sub_1000BF8E0();
           }
@@ -1136,14 +1150,15 @@ void sub_100085668(uint64_t a1, void *a2)
         {
           if (byte_100127EC8)
           {
-            v20 = *__error();
-            v21 = sub_10003E080();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+            v23 = __error();
+            v24 = *v23;
+            v26 = sub_10003E080(v23, v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
               sub_1000BF914();
             }
 
-            *__error() = v20;
+            *__error() = v24;
           }
 
           if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1151,46 +1166,46 @@ void sub_100085668(uint64_t a1, void *a2)
             goto LABEL_256;
           }
 
-          v23 = *__error();
-          v24 = sub_10003E020(*(*v4 + 72));
-          v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Previous spin waiting for HID event", v24, *(*v4 + 72));
-          if (v25)
+          v28 = *__error();
+          v29 = sub_10003E020(*(*v4 + 72));
+          v30 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Previous spin waiting for HID event", v29, *(*v4 + 72));
+          if (v30)
           {
-            v26 = v25;
-            v27 = CFStringGetCStringPtr(v25, 0x8000100u);
-            if (v27)
+            v32 = v30;
+            v33 = CFStringGetCStringPtr(v30, 0x8000100u);
+            if (v33)
             {
-              v28 = v27;
-              v29 = 0;
+              v34 = v33;
+              v35 = 0;
             }
 
             else
             {
-              v28 = malloc_type_calloc(0x400uLL, 1uLL, 0xC75494B9uLL);
-              CFStringGetCString(v26, v28, 1024, 0x8000100u);
-              v29 = v28;
+              v34 = malloc_type_calloc(0x400uLL, 1uLL, 0xC75494B9uLL);
+              CFStringGetCString(v32, v34, 1024, 0x8000100u);
+              v35 = v34;
             }
 
             if (qword_100127ED0)
             {
-              v108 = qword_100127ED0;
+              v144 = qword_100127ED0;
             }
 
             else
             {
-              v108 = __stderrp;
+              v144 = __stderrp;
             }
 
-            fprintf(v108, "%s\n", v28);
-            if (v29)
+            fprintf(v144, "%s\n", v34);
+            if (v35)
             {
-              free(v29);
+              free(v35);
             }
 
 LABEL_254:
-            CFRelease(v26);
+            CFRelease(v32);
 LABEL_255:
-            *__error() = v23;
+            *__error() = v28;
 LABEL_256:
             if (!*(*v4 + 424))
             {
@@ -1201,175 +1216,178 @@ LABEL_256:
             {
               if (byte_100127EC8)
               {
-                v146 = *__error();
-                v147 = sub_10003E080();
-                if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+                v188 = __error();
+                v189 = *v188;
+                v191 = sub_10003E080(v188, v190);
+                if (os_log_type_enabled(v191, OS_LOG_TYPE_ERROR))
                 {
                   sub_1000BFA14();
                 }
 
-                *__error() = v146;
+                *__error() = v189;
               }
 
               if (byte_100127EC9 == 1 && dword_100127558 <= 3)
               {
-                v148 = *__error();
-                v149 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: _hidEventSem non-NULL when already tracking this process in previous spin", "self->_hidEventSem == ((void*)0)");
-                if (v149)
+                v192 = *__error();
+                v193 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: _hidEventSem non-NULL when already tracking this process in previous spin", "self->_hidEventSem == ((void*)0)");
+                if (v193)
                 {
-                  v162 = v149;
-                  v163 = CFStringGetCStringPtr(v149, 0x8000100u);
-                  if (v163)
+                  v210 = v193;
+                  v211 = CFStringGetCStringPtr(v193, 0x8000100u);
+                  if (v211)
                   {
-                    v164 = v163;
-                    v165 = 0;
+                    v212 = v211;
+                    v213 = 0;
                   }
 
                   else
                   {
-                    v164 = malloc_type_calloc(0x400uLL, 1uLL, 0x520D1BC6uLL);
-                    CFStringGetCString(v162, v164, 1024, 0x8000100u);
-                    v165 = v164;
+                    v212 = malloc_type_calloc(0x400uLL, 1uLL, 0x520D1BC6uLL);
+                    CFStringGetCString(v210, v212, 1024, 0x8000100u);
+                    v213 = v212;
                   }
 
                   if (qword_100127ED0)
                   {
-                    v177 = qword_100127ED0;
+                    v225 = qword_100127ED0;
                   }
 
                   else
                   {
-                    v177 = __stderrp;
+                    v225 = __stderrp;
                   }
 
-                  fprintf(v177, "%s\n", v164);
-                  if (v165)
+                  fprintf(v225, "%s\n", v212);
+                  if (v213)
                   {
-                    free(v165);
+                    free(v213);
                   }
 
-                  CFRelease(v162);
+                  CFRelease(v210);
                 }
 
                 else
                 {
-                  v150 = sub_10003E080();
-                  if (os_log_type_enabled(v150, OS_LOG_TYPE_FAULT))
+                  v195 = sub_10003E080(0, v194);
+                  if (os_log_type_enabled(v195, OS_LOG_TYPE_FAULT))
                   {
                     sub_1000BFA94();
                   }
 
                   if (qword_100127ED0)
                   {
-                    v151 = qword_100127ED0;
+                    v196 = qword_100127ED0;
                   }
 
                   else
                   {
-                    v151 = __stderrp;
+                    v196 = __stderrp;
                   }
 
-                  fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v151);
+                  fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v196);
                 }
 
-                *__error() = v148;
+                *__error() = v192;
               }
 
-              v182 = "self->_hidEventSem == ((void*)0)";
-              v176 = "%s: _hidEventSem non-NULL when already tracking this process in previous spin";
+              v230 = "self->_hidEventSem == ((void*)0)";
+              v224 = "%s: _hidEventSem non-NULL when already tracking this process in previous spin";
             }
 
             else
             {
               if (byte_100127EC8)
               {
-                v133 = *__error();
-                v134 = sub_10003E080();
-                if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+                v172 = __error();
+                v173 = *v172;
+                v175 = sub_10003E080(v172, v174);
+                if (os_log_type_enabled(v175, OS_LOG_TYPE_ERROR))
                 {
                   sub_1000BFB14();
                 }
 
-                *__error() = v133;
+                *__error() = v173;
               }
 
               if (byte_100127EC9 == 1 && dword_100127558 <= 3)
               {
-                v135 = *__error();
-                v136 = sub_10003E020([*v4 targetProcessId]);
-                v137 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: %s: _hidEventSem non-NULL when already tracking this process in previous spin", v136, [*v4 targetProcessId], "self->_hidEventSem == ((void*)0)");
-                if (v137)
+                v176 = *__error();
+                v177 = sub_10003E020([*v4 targetProcessId]);
+                v178 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: %s: _hidEventSem non-NULL when already tracking this process in previous spin", v177, [*v4 targetProcessId], "self->_hidEventSem == ((void*)0)");
+                if (v178)
                 {
-                  v158 = v137;
-                  v159 = CFStringGetCStringPtr(v137, 0x8000100u);
-                  if (v159)
+                  v206 = v178;
+                  v207 = CFStringGetCStringPtr(v178, 0x8000100u);
+                  if (v207)
                   {
-                    v160 = v159;
-                    v161 = 0;
+                    v208 = v207;
+                    v209 = 0;
                   }
 
                   else
                   {
-                    v160 = malloc_type_calloc(0x400uLL, 1uLL, 0x520D1BC6uLL);
-                    CFStringGetCString(v158, v160, 1024, 0x8000100u);
-                    v161 = v160;
+                    v208 = malloc_type_calloc(0x400uLL, 1uLL, 0x520D1BC6uLL);
+                    CFStringGetCString(v206, v208, 1024, 0x8000100u);
+                    v209 = v208;
                   }
 
                   if (qword_100127ED0)
                   {
-                    v174 = qword_100127ED0;
+                    v222 = qword_100127ED0;
                   }
 
                   else
                   {
-                    v174 = __stderrp;
+                    v222 = __stderrp;
                   }
 
-                  fprintf(v174, "%s\n", v160);
-                  if (v161)
+                  fprintf(v222, "%s\n", v208);
+                  if (v209)
                   {
-                    free(v161);
+                    free(v209);
                   }
 
-                  CFRelease(v158);
+                  CFRelease(v206);
                 }
 
                 else
                 {
-                  v138 = sub_10003E080();
-                  if (os_log_type_enabled(v138, OS_LOG_TYPE_FAULT))
+                  v180 = sub_10003E080(0, v179);
+                  if (os_log_type_enabled(v180, OS_LOG_TYPE_FAULT))
                   {
                     sub_1000BFBAC();
                   }
 
                   if (qword_100127ED0)
                   {
-                    v139 = qword_100127ED0;
+                    v181 = qword_100127ED0;
                   }
 
                   else
                   {
-                    v139 = __stderrp;
+                    v181 = __stderrp;
                   }
 
-                  fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v139);
+                  fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v181);
                 }
 
-                *__error() = v135;
+                *__error() = v176;
               }
 
-              v175 = sub_10003E020([*v4 targetProcessId]);
-              [*v4 targetProcessId];
-              LOBYTE(v182) = v175;
-              v176 = "%s [%d]: %s: _hidEventSem non-NULL when already tracking this process in previous spin";
+              v223 = sub_10003E020([*v4 targetProcessId]);
+              v231 = [*v4 targetProcessId];
+              v232 = "self->_hidEventSem == ((void*)0)";
+              v230 = v223;
+              v224 = "%s [%d]: %s: _hidEventSem non-NULL when already tracking this process in previous spin";
             }
 
-            v178 = 897;
+            v226 = 897;
             goto LABEL_368;
           }
 
-          v104 = sub_10003E080();
-          if (os_log_type_enabled(v104, OS_LOG_TYPE_FAULT))
+          v140 = sub_10003E080(0, v31);
+          if (os_log_type_enabled(v140, OS_LOG_TYPE_FAULT))
           {
             sub_1000BF994();
           }
@@ -1377,30 +1395,31 @@ LABEL_256:
 
         if (qword_100127ED0)
         {
-          v111 = qword_100127ED0;
+          v147 = qword_100127ED0;
         }
 
         else
         {
-          v111 = __stderrp;
+          v147 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v111);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v147);
         goto LABEL_255;
       }
 
-      if (v19 < 0)
+      if (v22 < 0)
       {
         if (byte_100127EC8)
         {
-          v97 = *__error();
-          v98 = sub_10003E080();
-          if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+          v130 = __error();
+          v131 = *v130;
+          v133 = sub_10003E080(v130, v132);
+          if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
           {
             sub_1000BFC44();
           }
 
-          *__error() = v97;
+          *__error() = v131;
         }
 
         if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1408,12 +1427,12 @@ LABEL_256:
           goto LABEL_285;
         }
 
-        v57 = *__error();
-        v59 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"No longer waiting for HID event");
-        if (!v59)
+        v74 = *__error();
+        v76 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"No longer waiting for HID event");
+        if (!v76)
         {
-          v60 = sub_10003E080();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
+          v78 = sub_10003E080(0, v135);
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
           {
             sub_1000BFC78();
           }
@@ -1426,14 +1445,15 @@ LABEL_256:
       {
         if (byte_100127EC8)
         {
-          v54 = *__error();
-          v55 = sub_10003E080();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+          v69 = __error();
+          v70 = *v69;
+          v72 = sub_10003E080(v69, v71);
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
           {
             sub_1000BFCAC();
           }
 
-          *__error() = v54;
+          *__error() = v70;
         }
 
         if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1441,13 +1461,13 @@ LABEL_256:
           goto LABEL_285;
         }
 
-        v57 = *__error();
-        v58 = sub_10003E020(*(*v4 + 72));
-        v59 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: No longer waiting for HID event", v58, *(*v4 + 72));
-        if (!v59)
+        v74 = *__error();
+        v75 = sub_10003E020(*(*v4 + 72));
+        v76 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: No longer waiting for HID event", v75, *(*v4 + 72));
+        if (!v76)
         {
-          v60 = sub_10003E080();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
+          v78 = sub_10003E080(0, v77);
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
           {
             sub_1000BFD2C();
           }
@@ -1456,62 +1476,62 @@ LABEL_280:
 
           if (qword_100127ED0)
           {
-            v142 = qword_100127ED0;
+            v184 = qword_100127ED0;
           }
 
           else
           {
-            v142 = __stderrp;
+            v184 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v142);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v184);
 LABEL_284:
-          *__error() = v57;
+          *__error() = v74;
 LABEL_285:
           dispatch_semaphore_signal(*(*v4 + 424));
-          v143 = *(*v4 + 424);
+          v185 = *(*v4 + 424);
           *(*v4 + 424) = 0;
 
-          v144 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*v4 targetProcessId]);
-          [v3 setObject:0 forKeyedSubscript:v144];
+          v186 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*v4 targetProcessId]);
+          [v3 setObject:0 forKeyedSubscript:v186];
 
           [*v4 deleteHIDExitSource];
           goto LABEL_295;
         }
       }
 
-      v100 = v59;
-      v101 = CFStringGetCStringPtr(v59, 0x8000100u);
-      if (v101)
+      v136 = v76;
+      v137 = CFStringGetCStringPtr(v76, 0x8000100u);
+      if (v137)
       {
-        v102 = v101;
-        v103 = 0;
+        v138 = v137;
+        v139 = 0;
       }
 
       else
       {
-        v102 = malloc_type_calloc(0x400uLL, 1uLL, 0x630446DAuLL);
-        CFStringGetCString(v100, v102, 1024, 0x8000100u);
-        v103 = v102;
+        v138 = malloc_type_calloc(0x400uLL, 1uLL, 0x630446DAuLL);
+        CFStringGetCString(v136, v138, 1024, 0x8000100u);
+        v139 = v138;
       }
 
       if (qword_100127ED0)
       {
-        v112 = qword_100127ED0;
+        v148 = qword_100127ED0;
       }
 
       else
       {
-        v112 = __stderrp;
+        v148 = __stderrp;
       }
 
-      fprintf(v112, "%s\n", v102);
-      if (v103)
+      fprintf(v148, "%s\n", v138);
+      if (v139)
       {
-        free(v103);
+        free(v139);
       }
 
-      CFRelease(v100);
+      CFRelease(v136);
       goto LABEL_284;
     }
 
@@ -1519,14 +1539,15 @@ LABEL_285:
     {
       if (byte_100127EC8)
       {
-        v82 = *__error();
-        v83 = sub_10003E080();
-        if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
+        v109 = __error();
+        v110 = *v109;
+        v112 = sub_10003E080(v109, v111);
+        if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
         {
           sub_1000BFDAC();
         }
 
-        *__error() = v82;
+        *__error() = v110;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1534,12 +1555,12 @@ LABEL_285:
         goto LABEL_226;
       }
 
-      v40 = *__error();
-      v42 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Doesn't require HID event and we weren't waiting before anyway");
-      if (!v42)
+      v51 = *__error();
+      v53 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Doesn't require HID event and we weren't waiting before anyway");
+      if (!v53)
       {
-        v43 = sub_10003E080();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+        v55 = sub_10003E080(0, v114);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
         {
           sub_1000BFDE0();
         }
@@ -1552,14 +1573,15 @@ LABEL_285:
     {
       if (byte_100127EC8)
       {
-        v37 = *__error();
-        v38 = sub_10003E080();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+        v46 = __error();
+        v47 = *v46;
+        v49 = sub_10003E080(v46, v48);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
         {
           sub_1000BFE14();
         }
 
-        *__error() = v37;
+        *__error() = v47;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1567,13 +1589,13 @@ LABEL_285:
         goto LABEL_226;
       }
 
-      v40 = *__error();
-      v41 = sub_10003E020(*(*v4 + 72));
-      v42 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Doesn't require HID event and we weren't waiting before anyway", v41, *(*v4 + 72));
-      if (!v42)
+      v51 = *__error();
+      v52 = sub_10003E020(*(*v4 + 72));
+      v53 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Doesn't require HID event and we weren't waiting before anyway", v52, *(*v4 + 72));
+      if (!v53)
       {
-        v43 = sub_10003E080();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+        v55 = sub_10003E080(0, v54);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
         {
           sub_1000BFE94();
         }
@@ -1582,17 +1604,17 @@ LABEL_221:
 
         if (qword_100127ED0)
         {
-          v118 = qword_100127ED0;
+          v154 = qword_100127ED0;
         }
 
         else
         {
-          v118 = __stderrp;
+          v154 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v118);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v154);
 LABEL_225:
-        *__error() = v40;
+        *__error() = v51;
 LABEL_226:
         if (!*(*v4 + 424))
         {
@@ -1603,208 +1625,211 @@ LABEL_226:
         {
           if (byte_100127EC8)
           {
-            v152 = *__error();
-            v153 = sub_10003E080();
-            if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+            v197 = __error();
+            v198 = *v197;
+            v200 = sub_10003E080(v197, v199);
+            if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
             {
               sub_1000BFF14();
             }
 
-            *__error() = v152;
+            *__error() = v198;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 3)
           {
-            v154 = *__error();
-            v155 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: _hidEventSem non-NULL when not requiring HID event", "self->_hidEventSem == ((void*)0)");
-            if (v155)
+            v201 = *__error();
+            v202 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: _hidEventSem non-NULL when not requiring HID event", "self->_hidEventSem == ((void*)0)");
+            if (v202)
             {
-              v170 = v155;
-              v171 = CFStringGetCStringPtr(v155, 0x8000100u);
-              if (v171)
+              v218 = v202;
+              v219 = CFStringGetCStringPtr(v202, 0x8000100u);
+              if (v219)
               {
-                v172 = v171;
-                v173 = 0;
+                v220 = v219;
+                v221 = 0;
               }
 
               else
               {
-                v172 = malloc_type_calloc(0x400uLL, 1uLL, 0xD335DB8AuLL);
-                CFStringGetCString(v170, v172, 1024, 0x8000100u);
-                v173 = v172;
+                v220 = malloc_type_calloc(0x400uLL, 1uLL, 0xD335DB8AuLL);
+                CFStringGetCString(v218, v220, 1024, 0x8000100u);
+                v221 = v220;
               }
 
               if (qword_100127ED0)
               {
-                v181 = qword_100127ED0;
+                v229 = qword_100127ED0;
               }
 
               else
               {
-                v181 = __stderrp;
+                v229 = __stderrp;
               }
 
-              fprintf(v181, "%s\n", v172);
-              if (v173)
+              fprintf(v229, "%s\n", v220);
+              if (v221)
               {
-                free(v173);
+                free(v221);
               }
 
-              CFRelease(v170);
+              CFRelease(v218);
             }
 
             else
             {
-              v156 = sub_10003E080();
-              if (os_log_type_enabled(v156, OS_LOG_TYPE_FAULT))
+              v204 = sub_10003E080(0, v203);
+              if (os_log_type_enabled(v204, OS_LOG_TYPE_FAULT))
               {
                 sub_1000BFF94();
               }
 
               if (qword_100127ED0)
               {
-                v157 = qword_100127ED0;
+                v205 = qword_100127ED0;
               }
 
               else
               {
-                v157 = __stderrp;
+                v205 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v157);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v205);
             }
 
-            *__error() = v154;
+            *__error() = v201;
           }
 
-          v182 = "self->_hidEventSem == ((void*)0)";
-          v176 = "%s: _hidEventSem non-NULL when not requiring HID event";
+          v230 = "self->_hidEventSem == ((void*)0)";
+          v224 = "%s: _hidEventSem non-NULL when not requiring HID event";
         }
 
         else
         {
           if (byte_100127EC8)
           {
-            v123 = *__error();
-            v124 = sub_10003E080();
-            if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+            v159 = __error();
+            v160 = *v159;
+            v162 = sub_10003E080(v159, v161);
+            if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
             {
               sub_1000C0014();
             }
 
-            *__error() = v123;
+            *__error() = v160;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 3)
           {
-            v125 = *__error();
-            v126 = sub_10003E020([*v4 targetProcessId]);
-            v127 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: %s: _hidEventSem non-NULL when not requiring HID event", v126, [*v4 targetProcessId], "self->_hidEventSem == ((void*)0)");
-            if (v127)
+            v163 = *__error();
+            v164 = sub_10003E020([*v4 targetProcessId]);
+            v165 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: %s: _hidEventSem non-NULL when not requiring HID event", v164, [*v4 targetProcessId], "self->_hidEventSem == ((void*)0)");
+            if (v165)
             {
-              v166 = v127;
-              v167 = CFStringGetCStringPtr(v127, 0x8000100u);
-              if (v167)
+              v214 = v165;
+              v215 = CFStringGetCStringPtr(v165, 0x8000100u);
+              if (v215)
               {
-                v168 = v167;
-                v169 = 0;
+                v216 = v215;
+                v217 = 0;
               }
 
               else
               {
-                v168 = malloc_type_calloc(0x400uLL, 1uLL, 0xD335DB8AuLL);
-                CFStringGetCString(v166, v168, 1024, 0x8000100u);
-                v169 = v168;
+                v216 = malloc_type_calloc(0x400uLL, 1uLL, 0xD335DB8AuLL);
+                CFStringGetCString(v214, v216, 1024, 0x8000100u);
+                v217 = v216;
               }
 
               if (qword_100127ED0)
               {
-                v179 = qword_100127ED0;
+                v227 = qword_100127ED0;
               }
 
               else
               {
-                v179 = __stderrp;
+                v227 = __stderrp;
               }
 
-              fprintf(v179, "%s\n", v168);
-              if (v169)
+              fprintf(v227, "%s\n", v216);
+              if (v217)
               {
-                free(v169);
+                free(v217);
               }
 
-              CFRelease(v166);
+              CFRelease(v214);
             }
 
             else
             {
-              v128 = sub_10003E080();
-              if (os_log_type_enabled(v128, OS_LOG_TYPE_FAULT))
+              v167 = sub_10003E080(0, v166);
+              if (os_log_type_enabled(v167, OS_LOG_TYPE_FAULT))
               {
                 sub_1000C00AC();
               }
 
               if (qword_100127ED0)
               {
-                v129 = qword_100127ED0;
+                v168 = qword_100127ED0;
               }
 
               else
               {
-                v129 = __stderrp;
+                v168 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v129);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v168);
             }
 
-            *__error() = v125;
+            *__error() = v163;
           }
 
-          v180 = sub_10003E020([*v4 targetProcessId]);
-          [*v4 targetProcessId];
-          LOBYTE(v182) = v180;
-          v176 = "%s [%d]: %s: _hidEventSem non-NULL when not requiring HID event";
+          v228 = sub_10003E020([*v4 targetProcessId]);
+          v231 = [*v4 targetProcessId];
+          v232 = "self->_hidEventSem == ((void*)0)";
+          v230 = v228;
+          v224 = "%s [%d]: %s: _hidEventSem non-NULL when not requiring HID event";
         }
 
-        v178 = 908;
+        v226 = 908;
 LABEL_368:
-        sub_10003DF54("[SPSampledProcess requireHIDEvent:]_block_invoke", "SPProcessEvent.m", v178, v176, v119, v120, v121, v122, v182);
+        sub_10003DF54("[SPSampledProcess requireHIDEvent:]_block_invoke", "SPProcessEvent.m", v226, v224, v155, v156, v157, v158, v230, v231, v232);
         abort();
       }
     }
 
-    v85 = v42;
-    v86 = CFStringGetCStringPtr(v42, 0x8000100u);
-    if (v86)
+    v115 = v53;
+    v116 = CFStringGetCStringPtr(v53, 0x8000100u);
+    if (v116)
     {
-      v87 = v86;
-      v88 = 0;
+      v117 = v116;
+      v118 = 0;
     }
 
     else
     {
-      v87 = malloc_type_calloc(0x400uLL, 1uLL, 0xCF4E71B1uLL);
-      CFStringGetCString(v85, v87, 1024, 0x8000100u);
-      v88 = v87;
+      v117 = malloc_type_calloc(0x400uLL, 1uLL, 0xCF4E71B1uLL);
+      CFStringGetCString(v115, v117, 1024, 0x8000100u);
+      v118 = v117;
     }
 
     if (qword_100127ED0)
     {
-      v107 = qword_100127ED0;
+      v143 = qword_100127ED0;
     }
 
     else
     {
-      v107 = __stderrp;
+      v143 = __stderrp;
     }
 
-    fprintf(v107, "%s\n", v87);
-    if (v88)
+    fprintf(v143, "%s\n", v117);
+    if (v118)
     {
-      free(v88);
+      free(v118);
     }
 
-    CFRelease(v85);
+    CFRelease(v115);
     goto LABEL_225;
   }
 
@@ -1814,14 +1839,15 @@ LABEL_368:
     {
       if (byte_100127EC8)
       {
-        v75 = *__error();
-        v76 = sub_10003E080();
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+        v99 = __error();
+        v100 = *v99;
+        v102 = sub_10003E080(v99, v101);
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C0360();
         }
 
-        *__error() = v75;
+        *__error() = v100;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1829,12 +1855,12 @@ LABEL_368:
         goto LABEL_218;
       }
 
-      v33 = *__error();
-      v35 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Requires HID event");
-      if (!v35)
+      v41 = *__error();
+      v43 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Requires HID event");
+      if (!v43)
       {
-        v36 = sub_10003E080();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+        v45 = sub_10003E080(0, v104);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
         {
           sub_1000C0394();
         }
@@ -1847,14 +1873,15 @@ LABEL_368:
     {
       if (byte_100127EC8)
       {
-        v30 = *__error();
-        v31 = sub_10003E080();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v36 = __error();
+        v37 = *v36;
+        v39 = sub_10003E080(v36, v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C03C8();
         }
 
-        *__error() = v30;
+        *__error() = v37;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -1862,13 +1889,13 @@ LABEL_368:
         goto LABEL_218;
       }
 
-      v33 = *__error();
-      v34 = sub_10003E020(*(*v4 + 72));
-      v35 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Requires HID event", v34, *(*v4 + 72));
-      if (!v35)
+      v41 = *__error();
+      v42 = sub_10003E020(*(*v4 + 72));
+      v43 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Requires HID event", v42, *(*v4 + 72));
+      if (!v43)
       {
-        v36 = sub_10003E080();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+        v45 = sub_10003E080(0, v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
         {
           sub_1000C0448();
         }
@@ -1877,63 +1904,63 @@ LABEL_213:
 
         if (qword_100127ED0)
         {
-          v113 = qword_100127ED0;
+          v149 = qword_100127ED0;
         }
 
         else
         {
-          v113 = __stderrp;
+          v149 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v113);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v149);
 LABEL_217:
-        *__error() = v33;
+        *__error() = v41;
 LABEL_218:
-        v114 = dispatch_semaphore_create(0);
-        v115 = *(*v4 + 424);
-        *(*v4 + 424) = v114;
+        v150 = dispatch_semaphore_create(0);
+        v151 = *(*v4 + 424);
+        *(*v4 + 424) = v150;
 
-        v116 = *v4;
-        v117 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*v4 targetProcessId]);
-        [v3 setObject:v116 forKeyedSubscript:v117];
+        v152 = *v4;
+        v153 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*v4 targetProcessId]);
+        [v3 setObject:v152 forKeyedSubscript:v153];
 
         [*v4 createHIDExitSource];
         goto LABEL_295;
       }
     }
 
-    v78 = v35;
-    v79 = CFStringGetCStringPtr(v35, 0x8000100u);
-    if (v79)
+    v105 = v43;
+    v106 = CFStringGetCStringPtr(v43, 0x8000100u);
+    if (v106)
     {
-      v80 = v79;
-      v81 = 0;
+      v107 = v106;
+      v108 = 0;
     }
 
     else
     {
-      v80 = malloc_type_calloc(0x400uLL, 1uLL, 0x9184FDDCuLL);
-      CFStringGetCString(v78, v80, 1024, 0x8000100u);
-      v81 = v80;
+      v107 = malloc_type_calloc(0x400uLL, 1uLL, 0x9184FDDCuLL);
+      CFStringGetCString(v105, v107, 1024, 0x8000100u);
+      v108 = v107;
     }
 
     if (qword_100127ED0)
     {
-      v106 = qword_100127ED0;
+      v142 = qword_100127ED0;
     }
 
     else
     {
-      v106 = __stderrp;
+      v142 = __stderrp;
     }
 
-    fprintf(v106, "%s\n", v80);
-    if (v81)
+    fprintf(v142, "%s\n", v107);
+    if (v108)
     {
-      free(v81);
+      free(v108);
     }
 
-    CFRelease(v78);
+    CFRelease(v105);
     goto LABEL_217;
   }
 
@@ -1944,15 +1971,16 @@ LABEL_218:
     {
       if (byte_100127EC8)
       {
-        v61 = *__error();
-        v62 = sub_10003E080();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+        v79 = __error();
+        v80 = *v79;
+        v82 = sub_10003E080(v79, v81);
+        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Already waiting for HID event from previous spin, canceling this spin", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "Already waiting for HID event from previous spin, canceling this spin", buf, 2u);
         }
 
-        *__error() = v61;
+        *__error() = v80;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 2)
@@ -1960,12 +1988,12 @@ LABEL_218:
         goto LABEL_197;
       }
 
-      v15 = *__error();
-      v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already waiting for HID event from previous spin, canceling this spin");
-      if (!v17)
+      v17 = *__error();
+      v19 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already waiting for HID event from previous spin, canceling this spin");
+      if (!v19)
       {
-        v18 = sub_10003E080();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v21 = sub_10003E080(0, v84);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
           sub_1000C0144();
         }
@@ -1978,20 +2006,21 @@ LABEL_218:
     {
       if (byte_100127EC8)
       {
-        v10 = *__error();
-        v11 = sub_10003E080();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v10 = __error();
+        v11 = *v10;
+        v13 = sub_10003E080(v10, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = sub_10003E020(*(*v4 + 72));
-          v13 = *(*v4 + 72);
+          v14 = sub_10003E020(*(*v4 + 72));
+          v15 = *(*v4 + 72);
           *buf = 136446466;
-          v184 = v12;
-          v185 = 1024;
-          v186 = v13;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s [%d]: Already waiting for HID event from previous spin, canceling this spin", buf, 0x12u);
+          v234 = v14;
+          v235 = 1024;
+          v236 = v15;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s [%d]: Already waiting for HID event from previous spin, canceling this spin", buf, 0x12u);
         }
 
-        *__error() = v10;
+        *__error() = v11;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 2)
@@ -1999,13 +2028,13 @@ LABEL_218:
         goto LABEL_197;
       }
 
-      v15 = *__error();
-      v16 = sub_10003E020(*(*v4 + 72));
-      v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already waiting for HID event from previous spin, canceling this spin", v16, *(*v4 + 72));
-      if (!v17)
+      v17 = *__error();
+      v18 = sub_10003E020(*(*v4 + 72));
+      v19 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already waiting for HID event from previous spin, canceling this spin", v18, *(*v4 + 72));
+      if (!v19)
       {
-        v18 = sub_10003E080();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v21 = sub_10003E080(0, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
           sub_1000C0178();
         }
@@ -2014,190 +2043,38 @@ LABEL_192:
 
         if (qword_100127ED0)
         {
-          v110 = qword_100127ED0;
+          v146 = qword_100127ED0;
         }
 
         else
         {
-          v110 = __stderrp;
+          v146 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v110);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v146);
 LABEL_196:
-        *__error() = v15;
+        *__error() = v17;
 LABEL_197:
         [*v4 stopSamplingWithReason:7];
         goto LABEL_295;
       }
     }
 
-    v64 = v17;
-    v65 = CFStringGetCStringPtr(v17, 0x8000100u);
-    if (v65)
+    v85 = v19;
+    v86 = CFStringGetCStringPtr(v19, 0x8000100u);
+    if (v86)
     {
-      v66 = v65;
-      v67 = 0;
+      v87 = v86;
+      v88 = 0;
     }
 
     else
     {
-      v66 = malloc_type_calloc(0x400uLL, 1uLL, 0x7684D7B6uLL);
-      CFStringGetCString(v64, v66, 1024, 0x8000100u);
-      v67 = v66;
+      v87 = malloc_type_calloc(0x400uLL, 1uLL, 0x7684D7B6uLL);
+      CFStringGetCString(v85, v87, 1024, 0x8000100u);
+      v88 = v87;
     }
 
-    if (qword_100127ED0)
-    {
-      v105 = qword_100127ED0;
-    }
-
-    else
-    {
-      v105 = __stderrp;
-    }
-
-    fprintf(v105, "%s\n", v66);
-    if (v67)
-    {
-      free(v67);
-    }
-
-    CFRelease(v64);
-    goto LABEL_196;
-  }
-
-  if ((v9 & 0x80000000) == 0)
-  {
-    if (byte_100127EC8)
-    {
-      v44 = *__error();
-      v45 = sub_10003E080();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
-      {
-        sub_1000C0260();
-      }
-
-      *__error() = v44;
-    }
-
-    if (byte_100127EC9 != 1 || dword_100127558 > 0)
-    {
-      goto LABEL_295;
-    }
-
-    v47 = *__error();
-    v48 = sub_10003E020(*(*v4 + 72));
-    v49 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already waiting for HID event", v48, *(*v4 + 72));
-    if (v49)
-    {
-      v50 = v49;
-      v51 = CFStringGetCStringPtr(v49, 0x8000100u);
-      if (v51)
-      {
-        v52 = v51;
-        v53 = 0;
-      }
-
-      else
-      {
-        v52 = malloc_type_calloc(0x400uLL, 1uLL, 0x711E5E63uLL);
-        CFStringGetCString(v50, v52, 1024, 0x8000100u);
-        v53 = v52;
-      }
-
-      if (qword_100127ED0)
-      {
-        v130 = qword_100127ED0;
-      }
-
-      else
-      {
-        v130 = __stderrp;
-      }
-
-      fprintf(v130, "%s\n", v52);
-      if (v53)
-      {
-        free(v53);
-      }
-
-      v131 = v50;
-LABEL_293:
-      CFRelease(v131);
-LABEL_294:
-      *__error() = v47;
-      goto LABEL_295;
-    }
-
-    v109 = sub_10003E080();
-    if (os_log_type_enabled(v109, OS_LOG_TYPE_FAULT))
-    {
-      sub_1000C02E0();
-    }
-
-    goto LABEL_274;
-  }
-
-  if (byte_100127EC8)
-  {
-    v89 = *__error();
-    v90 = sub_10003E080();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
-    {
-      sub_1000C01F8();
-    }
-
-    *__error() = v89;
-  }
-
-  if (byte_100127EC9 == 1 && dword_100127558 <= 0)
-  {
-    v47 = *__error();
-    v92 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already waiting for HID event");
-    if (v92)
-    {
-      v93 = v92;
-      v94 = CFStringGetCStringPtr(v92, 0x8000100u);
-      if (v94)
-      {
-        v95 = v94;
-        v96 = 0;
-      }
-
-      else
-      {
-        v95 = malloc_type_calloc(0x400uLL, 1uLL, 0x711E5E63uLL);
-        CFStringGetCString(v93, v95, 1024, 0x8000100u);
-        v96 = v95;
-      }
-
-      if (qword_100127ED0)
-      {
-        v145 = qword_100127ED0;
-      }
-
-      else
-      {
-        v145 = __stderrp;
-      }
-
-      fprintf(v145, "%s\n", v95);
-      if (v96)
-      {
-        free(v96);
-      }
-
-      v131 = v93;
-      goto LABEL_293;
-    }
-
-    v140 = sub_10003E080();
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_FAULT))
-    {
-      sub_1000C022C();
-    }
-
-LABEL_274:
     if (qword_100127ED0)
     {
       v141 = qword_100127ED0;
@@ -2208,7 +2085,161 @@ LABEL_274:
       v141 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v141);
+    fprintf(v141, "%s\n", v87);
+    if (v88)
+    {
+      free(v88);
+    }
+
+    CFRelease(v85);
+    goto LABEL_196;
+  }
+
+  if ((v9 & 0x80000000) == 0)
+  {
+    if (byte_100127EC8)
+    {
+      v56 = __error();
+      v57 = *v56;
+      v59 = sub_10003E080(v56, v58);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+      {
+        sub_1000C0260();
+      }
+
+      *__error() = v57;
+    }
+
+    if (byte_100127EC9 != 1 || dword_100127558 > 0)
+    {
+      goto LABEL_295;
+    }
+
+    v61 = *__error();
+    v62 = sub_10003E020(*(*v4 + 72));
+    v63 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already waiting for HID event", v62, *(*v4 + 72));
+    if (v63)
+    {
+      v65 = v63;
+      v66 = CFStringGetCStringPtr(v63, 0x8000100u);
+      if (v66)
+      {
+        v67 = v66;
+        v68 = 0;
+      }
+
+      else
+      {
+        v67 = malloc_type_calloc(0x400uLL, 1uLL, 0x711E5E63uLL);
+        CFStringGetCString(v65, v67, 1024, 0x8000100u);
+        v68 = v67;
+      }
+
+      if (qword_100127ED0)
+      {
+        v169 = qword_100127ED0;
+      }
+
+      else
+      {
+        v169 = __stderrp;
+      }
+
+      fprintf(v169, "%s\n", v67);
+      if (v68)
+      {
+        free(v68);
+      }
+
+      v170 = v65;
+LABEL_293:
+      CFRelease(v170);
+LABEL_294:
+      *__error() = v61;
+      goto LABEL_295;
+    }
+
+    v145 = sub_10003E080(0, v64);
+    if (os_log_type_enabled(v145, OS_LOG_TYPE_FAULT))
+    {
+      sub_1000C02E0();
+    }
+
+    goto LABEL_274;
+  }
+
+  if (byte_100127EC8)
+  {
+    v119 = __error();
+    v120 = *v119;
+    v122 = sub_10003E080(v119, v121);
+    if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
+    {
+      sub_1000C01F8();
+    }
+
+    *__error() = v120;
+  }
+
+  if (byte_100127EC9 == 1 && dword_100127558 <= 0)
+  {
+    v61 = *__error();
+    v124 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already waiting for HID event");
+    if (v124)
+    {
+      v126 = v124;
+      v127 = CFStringGetCStringPtr(v124, 0x8000100u);
+      if (v127)
+      {
+        v128 = v127;
+        v129 = 0;
+      }
+
+      else
+      {
+        v128 = malloc_type_calloc(0x400uLL, 1uLL, 0x711E5E63uLL);
+        CFStringGetCString(v126, v128, 1024, 0x8000100u);
+        v129 = v128;
+      }
+
+      if (qword_100127ED0)
+      {
+        v187 = qword_100127ED0;
+      }
+
+      else
+      {
+        v187 = __stderrp;
+      }
+
+      fprintf(v187, "%s\n", v128);
+      if (v129)
+      {
+        free(v129);
+      }
+
+      v170 = v126;
+      goto LABEL_293;
+    }
+
+    v182 = sub_10003E080(0, v125);
+    if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+    {
+      sub_1000C022C();
+    }
+
+LABEL_274:
+    if (qword_100127ED0)
+    {
+      v183 = qword_100127ED0;
+    }
+
+    else
+    {
+      v183 = __stderrp;
+    }
+
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v183);
     goto LABEL_294;
   }
 
@@ -2228,14 +2259,15 @@ void sub_1000870C4(uint64_t a1, void *a2)
     {
       if (byte_100127EC8)
       {
-        v41 = *__error();
-        v42 = sub_10003E080();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+        v50 = __error();
+        v51 = *v50;
+        v53 = sub_10003E080(v50, v52);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C06D4();
         }
 
-        *__error() = v41;
+        *__error() = v51;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -2243,12 +2275,12 @@ void sub_1000870C4(uint64_t a1, void *a2)
         goto LABEL_136;
       }
 
-      v25 = *__error();
-      v27 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"No sampled process for hid event");
-      if (!v27)
+      v30 = *__error();
+      v32 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"No sampled process for hid event");
+      if (!v32)
       {
-        v28 = sub_10003E080();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+        v34 = sub_10003E080(0, v55);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
         {
           sub_1000C0708();
         }
@@ -2261,14 +2293,15 @@ void sub_1000870C4(uint64_t a1, void *a2)
     {
       if (byte_100127EC8)
       {
-        v22 = *__error();
-        v23 = sub_10003E080();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v25 = __error();
+        v26 = *v25;
+        v28 = sub_10003E080(v25, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C073C();
         }
 
-        *__error() = v22;
+        *__error() = v26;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -2276,13 +2309,13 @@ void sub_1000870C4(uint64_t a1, void *a2)
         goto LABEL_136;
       }
 
-      v25 = *__error();
-      v26 = sub_10003E020(*v4);
-      v27 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: No sampled process for hid event", v26, *v4);
-      if (!v27)
+      v30 = *__error();
+      v31 = sub_10003E020(*v4);
+      v32 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: No sampled process for hid event", v31, *v4);
+      if (!v32)
       {
-        v28 = sub_10003E080();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+        v34 = sub_10003E080(0, v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
         {
           sub_1000C07BC();
         }
@@ -2291,39 +2324,39 @@ void sub_1000870C4(uint64_t a1, void *a2)
       }
     }
 
-    v44 = v27;
-    CStringPtr = CFStringGetCStringPtr(v27, 0x8000100u);
+    v56 = v32;
+    CStringPtr = CFStringGetCStringPtr(v32, 0x8000100u);
     if (CStringPtr)
     {
 LABEL_65:
-      v54 = CStringPtr;
-      v55 = 0;
+      v69 = CStringPtr;
+      v70 = 0;
 LABEL_119:
       if (qword_100127ED0)
       {
-        v73 = qword_100127ED0;
+        v91 = qword_100127ED0;
       }
 
       else
       {
-        v73 = __stderrp;
+        v91 = __stderrp;
       }
 
-      fprintf(v73, "%s\n", v54);
-      if (v55)
+      fprintf(v91, "%s\n", v69);
+      if (v70)
       {
-        free(v55);
+        free(v70);
       }
 
-      CFRelease(v44);
+      CFRelease(v56);
       goto LABEL_125;
     }
 
-    v46 = 2845071430;
+    v58 = 2845071430;
 LABEL_118:
-    v54 = malloc_type_calloc(0x400uLL, 1uLL, v46);
-    CFStringGetCString(v44, v54, 1024, 0x8000100u);
-    v55 = v54;
+    v69 = malloc_type_calloc(0x400uLL, 1uLL, v58);
+    CFStringGetCString(v56, v69, 1024, 0x8000100u);
+    v70 = v69;
     goto LABEL_119;
   }
 
@@ -2335,15 +2368,16 @@ LABEL_118:
     {
       if (byte_100127EC8)
       {
-        v56 = *__error();
-        v57 = sub_10003E080();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+        v71 = __error();
+        v72 = *v71;
+        v74 = sub_10003E080(v71, v73);
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Got hid event", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "Got hid event", buf, 2u);
         }
 
-        *__error() = v56;
+        *__error() = v72;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 1)
@@ -2351,47 +2385,47 @@ LABEL_118:
         goto LABEL_135;
       }
 
-      v34 = *__error();
-      v59 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Got hid event");
-      if (v59)
+      v42 = *__error();
+      v76 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Got hid event");
+      if (v76)
       {
-        v60 = v59;
-        v61 = CFStringGetCStringPtr(v59, 0x8000100u);
-        if (v61)
+        v78 = v76;
+        v79 = CFStringGetCStringPtr(v76, 0x8000100u);
+        if (v79)
         {
-          v62 = v61;
-          v63 = 0;
+          v80 = v79;
+          v81 = 0;
         }
 
         else
         {
-          v62 = malloc_type_calloc(0x400uLL, 1uLL, 0x57A67270uLL);
-          CFStringGetCString(v60, v62, 1024, 0x8000100u);
-          v63 = v62;
+          v80 = malloc_type_calloc(0x400uLL, 1uLL, 0x57A67270uLL);
+          CFStringGetCString(v78, v80, 1024, 0x8000100u);
+          v81 = v80;
         }
 
         if (qword_100127ED0)
         {
-          v74 = qword_100127ED0;
+          v92 = qword_100127ED0;
         }
 
         else
         {
-          v74 = __stderrp;
+          v92 = __stderrp;
         }
 
-        fprintf(v74, "%s\n", v62);
-        if (v63)
+        fprintf(v92, "%s\n", v80);
+        if (v81)
         {
-          free(v63);
+          free(v81);
         }
 
-        v69 = v60;
+        v87 = v78;
         goto LABEL_133;
       }
 
-      v71 = sub_10003E080();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
+      v89 = sub_10003E080(0, v77);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
       {
         sub_1000C04C8();
       }
@@ -2401,20 +2435,21 @@ LABEL_118:
     {
       if (byte_100127EC8)
       {
-        v29 = *__error();
-        v30 = sub_10003E080();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v35 = __error();
+        v36 = *v35;
+        v38 = sub_10003E080(v35, v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
-          v31 = sub_10003E020(*v4);
-          v32 = *v4;
+          v39 = sub_10003E020(*v4);
+          v40 = *v4;
           *buf = 136446466;
-          v88 = v31;
-          v89 = 1024;
-          v90 = v32;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%{public}s [%d]: Got hid event", buf, 0x12u);
+          v106 = v39;
+          v107 = 1024;
+          v108 = v40;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "%{public}s [%d]: Got hid event", buf, 0x12u);
         }
 
-        *__error() = v29;
+        *__error() = v36;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 1)
@@ -2422,65 +2457,65 @@ LABEL_118:
         goto LABEL_135;
       }
 
-      v34 = *__error();
-      v35 = sub_10003E020(*v4);
-      v36 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Got hid event", v35, *v4);
-      if (v36)
+      v42 = *__error();
+      v43 = sub_10003E020(*v4);
+      v44 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Got hid event", v43, *v4);
+      if (v44)
       {
-        v37 = v36;
-        v38 = CFStringGetCStringPtr(v36, 0x8000100u);
-        if (v38)
+        v46 = v44;
+        v47 = CFStringGetCStringPtr(v44, 0x8000100u);
+        if (v47)
         {
-          v39 = v38;
-          v40 = 0;
+          v48 = v47;
+          v49 = 0;
         }
 
         else
         {
-          v39 = malloc_type_calloc(0x400uLL, 1uLL, 0x57A67270uLL);
-          CFStringGetCString(v37, v39, 1024, 0x8000100u);
-          v40 = v39;
+          v48 = malloc_type_calloc(0x400uLL, 1uLL, 0x57A67270uLL);
+          CFStringGetCString(v46, v48, 1024, 0x8000100u);
+          v49 = v48;
         }
 
         if (qword_100127ED0)
         {
-          v68 = qword_100127ED0;
+          v86 = qword_100127ED0;
         }
 
         else
         {
-          v68 = __stderrp;
+          v86 = __stderrp;
         }
 
-        fprintf(v68, "%s\n", v39);
-        if (v40)
+        fprintf(v86, "%s\n", v48);
+        if (v49)
         {
-          free(v40);
+          free(v49);
         }
 
-        v69 = v37;
+        v87 = v46;
 LABEL_133:
-        CFRelease(v69);
+        CFRelease(v87);
 LABEL_134:
-        *__error() = v34;
+        *__error() = v42;
 LABEL_135:
-        v75 = [SATimeRange timeRangeStart:*(a1 + 40) end:*(a1 + 32)];
-        [v6 setEventTimeRange:v75];
+        v93 = [SATimeRange timeRangeStart:*(a1 + 40) end:*(a1 + 32)];
+        [v6 setEventTimeRange:v93];
 
         [v6 setReportTimeStart:*(a1 + 40)];
         [v6 setReportTimeEnd:*(a1 + 32)];
         [v6 setTargetHIDEventMachAbs:*(a1 + 56)];
         [v6 setTargetHIDEventEndMachAbs:{objc_msgSend(*(a1 + 32), "machAbsTime")}];
         dispatch_semaphore_signal(*(v6 + 424));
-        v76 = [NSNumber numberWithInt:*(a1 + 64)];
-        [v3 setObject:0 forKeyedSubscript:v76];
+        v94 = [NSNumber numberWithInt:*(a1 + 64)];
+        [v3 setObject:0 forKeyedSubscript:v94];
 
         [v6 deleteHIDExitSource];
         goto LABEL_136;
       }
 
-      v66 = sub_10003E080();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
+      v84 = sub_10003E080(0, v45);
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
       {
         sub_1000C04FC();
       }
@@ -2488,15 +2523,15 @@ LABEL_135:
 
     if (qword_100127ED0)
     {
-      v72 = qword_100127ED0;
+      v90 = qword_100127ED0;
     }
 
     else
     {
-      v72 = __stderrp;
+      v90 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v72);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v90);
     goto LABEL_134;
   }
 
@@ -2504,105 +2539,106 @@ LABEL_135:
   {
     if (byte_100127EC8)
     {
-      v8 = *__error();
-      v9 = sub_10003E080();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = __error();
+      v9 = *v8;
+      v11 = sub_10003E080(v8, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v77 = sub_10003E020(*v4);
-        v78 = *v4;
+        v95 = sub_10003E020(*v4);
+        v96 = *v4;
         [*(v6 + 416) machAbsTimeSeconds];
-        v80 = v79;
+        v98 = v97;
         [*v7 machAbsTimeSeconds];
         *buf = 136446722;
-        v88 = v77;
-        v89 = 1024;
-        v90 = v78;
-        v91 = 2048;
-        v92 = v80 - v81;
-        _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%{public}s [%d]: Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", buf, 0x1Cu);
+        v106 = v95;
+        v107 = 1024;
+        v108 = v96;
+        v109 = 2048;
+        v110 = v98 - v99;
+        _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%{public}s [%d]: Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", buf, 0x1Cu);
       }
 
-      *__error() = v8;
+      *__error() = v9;
     }
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 0)
     {
-      v11 = *__error();
-      v12 = sub_10003E020(*v4);
-      v13 = *v4;
+      v13 = *__error();
+      v14 = sub_10003E020(*v4);
+      v15 = *v4;
       [*(v6 + 416) machAbsTimeSeconds];
-      v15 = v14;
+      v17 = v16;
       [*v7 machAbsTimeSeconds];
-      v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", v12, v13, v15 - v16);
-      if (v17)
+      v19 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", v14, v15, v17 - v18);
+      if (v19)
       {
-        v18 = v17;
-        v19 = CFStringGetCStringPtr(v17, 0x8000100u);
-        if (v19)
+        v21 = v19;
+        v22 = CFStringGetCStringPtr(v19, 0x8000100u);
+        if (v22)
         {
-          v20 = v19;
-          v21 = 0;
+          v23 = v22;
+          v24 = 0;
         }
 
         else
         {
-          v20 = malloc_type_calloc(0x400uLL, 1uLL, 0xF72AC13FuLL);
-          CFStringGetCString(v18, v20, 1024, 0x8000100u);
-          v21 = v20;
+          v23 = malloc_type_calloc(0x400uLL, 1uLL, 0xF72AC13FuLL);
+          CFStringGetCString(v21, v23, 1024, 0x8000100u);
+          v24 = v23;
         }
 
         if (qword_100127ED0)
         {
-          v67 = qword_100127ED0;
+          v85 = qword_100127ED0;
         }
 
         else
         {
-          v67 = __stderrp;
+          v85 = __stderrp;
         }
 
-        fprintf(v67, "%s\n", v20);
-        if (v21)
+        fprintf(v85, "%s\n", v23);
+        if (v24)
         {
-          free(v21);
+          free(v24);
         }
 
-        CFRelease(v18);
+        CFRelease(v21);
       }
 
       else
       {
-        v64 = sub_10003E080();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
+        v82 = sub_10003E080(0, v20);
+        if (os_log_type_enabled(v82, OS_LOG_TYPE_FAULT))
         {
-          v82 = sub_10003E020(*v4);
-          v83 = *v4;
+          v100 = sub_10003E020(*v4);
+          v101 = *v4;
           [*(v6 + 416) machAbsTimeSeconds];
-          v85 = v84;
+          v103 = v102;
           [*v7 machAbsTimeSeconds];
           *buf = 136315650;
-          v88 = v82;
-          v89 = 1024;
-          v90 = v83;
-          v91 = 2048;
-          v92 = v85 - v86;
-          _os_log_fault_impl(&_mh_execute_header, v64, OS_LOG_TYPE_FAULT, "Unable to format: %s [%d]: Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", buf, 0x1Cu);
+          v106 = v100;
+          v107 = 1024;
+          v108 = v101;
+          v109 = 2048;
+          v110 = v103 - v104;
+          _os_log_fault_impl(&_mh_execute_header, v82, OS_LOG_TYPE_FAULT, "Unable to format: %s [%d]: Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", buf, 0x1Cu);
         }
 
         if (qword_100127ED0)
         {
-          v65 = qword_100127ED0;
+          v83 = qword_100127ED0;
         }
 
         else
         {
-          v65 = __stderrp;
+          v83 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v65);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v83);
       }
 
-      *__error() = v11;
+      *__error() = v13;
     }
 
     goto LABEL_136;
@@ -2610,38 +2646,39 @@ LABEL_135:
 
   if (byte_100127EC8)
   {
-    v47 = *__error();
-    v48 = sub_10003E080();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    v59 = __error();
+    v60 = *v59;
+    v62 = sub_10003E080(v59, v61);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C057C(v6, v7);
     }
 
-    *__error() = v47;
+    *__error() = v60;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v25 = *__error();
+    v30 = *__error();
     [*(v6 + 416) machAbsTimeSeconds];
-    v51 = v50;
+    v65 = v64;
     [*v7 machAbsTimeSeconds];
-    v53 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", v51 - v52);
-    if (v53)
+    v67 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Got hid event from %.1fs earlier than the spin we monitored, continuing to wait", v65 - v66);
+    if (v67)
     {
-      v44 = v53;
-      CStringPtr = CFStringGetCStringPtr(v53, 0x8000100u);
+      v56 = v67;
+      CStringPtr = CFStringGetCStringPtr(v67, 0x8000100u);
       if (CStringPtr)
       {
         goto LABEL_65;
       }
 
-      v46 = 4146774335;
+      v58 = 4146774335;
       goto LABEL_118;
     }
 
-    v28 = sub_10003E080();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v34 = sub_10003E080(0, v68);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
       sub_1000C0628(v6, v7);
     }
@@ -2650,17 +2687,17 @@ LABEL_106:
 
     if (qword_100127ED0)
     {
-      v70 = qword_100127ED0;
+      v88 = qword_100127ED0;
     }
 
     else
     {
-      v70 = __stderrp;
+      v88 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v70);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v88);
 LABEL_125:
-    *__error() = v25;
+    *__error() = v30;
   }
 
 LABEL_136:
@@ -2713,14 +2750,15 @@ void sub_10008926C(uint64_t a1)
   {
     if (byte_100127EC8)
     {
-      v13 = *__error();
-      v14 = sub_10003E080();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v13 = __error();
+      v14 = *v13;
+      v16 = sub_10003E080(v13, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C0FD8();
       }
 
-      *__error() = v13;
+      *__error() = v14;
     }
 
     if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -2728,52 +2766,52 @@ void sub_10008926C(uint64_t a1)
       return;
     }
 
-    v16 = *__error();
-    v17 = sub_10003E020(*(*v3 + 72));
-    v18 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Lost race: already done sampling", v17, *(*v3 + 72));
-    if (v18)
+    v18 = *__error();
+    v19 = sub_10003E020(*(*v3 + 72));
+    v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Lost race: already done sampling", v19, *(*v3 + 72));
+    if (v20)
     {
-      v19 = v18;
-      CStringPtr = CFStringGetCStringPtr(v18, 0x8000100u);
+      v22 = v20;
+      CStringPtr = CFStringGetCStringPtr(v20, 0x8000100u);
       if (CStringPtr)
       {
-        v21 = CStringPtr;
-        v22 = 0;
+        v24 = CStringPtr;
+        v25 = 0;
       }
 
       else
       {
-        v21 = malloc_type_calloc(0x400uLL, 1uLL, 0xF7E812DuLL);
-        CFStringGetCString(v19, v21, 1024, 0x8000100u);
-        v22 = v21;
+        v24 = malloc_type_calloc(0x400uLL, 1uLL, 0xF7E812DuLL);
+        CFStringGetCString(v22, v24, 1024, 0x8000100u);
+        v25 = v24;
       }
 
       if (qword_100127ED0)
       {
-        v32 = qword_100127ED0;
+        v38 = qword_100127ED0;
       }
 
       else
       {
-        v32 = __stderrp;
+        v38 = __stderrp;
       }
 
-      fprintf(v32, "%s\n", v21);
-      if (v22)
+      fprintf(v38, "%s\n", v24);
+      if (v25)
       {
-        free(v22);
+        free(v25);
       }
 
-      v33 = v19;
+      v39 = v22;
 LABEL_58:
-      CFRelease(v33);
+      CFRelease(v39);
 LABEL_59:
-      *__error() = v16;
+      *__error() = v18;
       return;
     }
 
-    v31 = sub_10003E080();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v37 = sub_10003E080(0, v21);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       sub_1000C1058();
     }
@@ -2783,59 +2821,60 @@ LABEL_59:
 
   if (byte_100127EC8)
   {
-    v23 = *__error();
-    v24 = sub_10003E080();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v26 = __error();
+    v27 = *v26;
+    v29 = sub_10003E080(v26, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C0F70();
     }
 
-    *__error() = v23;
+    *__error() = v27;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v16 = *__error();
-    v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Lost race: already done sampling");
-    if (v26)
+    v18 = *__error();
+    v31 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Lost race: already done sampling");
+    if (v31)
     {
-      v27 = v26;
-      v28 = CFStringGetCStringPtr(v26, 0x8000100u);
-      if (v28)
+      v33 = v31;
+      v34 = CFStringGetCStringPtr(v31, 0x8000100u);
+      if (v34)
       {
-        v29 = v28;
-        v30 = 0;
+        v35 = v34;
+        v36 = 0;
       }
 
       else
       {
-        v29 = malloc_type_calloc(0x400uLL, 1uLL, 0xF7E812DuLL);
-        CFStringGetCString(v27, v29, 1024, 0x8000100u);
-        v30 = v29;
+        v35 = malloc_type_calloc(0x400uLL, 1uLL, 0xF7E812DuLL);
+        CFStringGetCString(v33, v35, 1024, 0x8000100u);
+        v36 = v35;
       }
 
       if (qword_100127ED0)
       {
-        v36 = qword_100127ED0;
+        v42 = qword_100127ED0;
       }
 
       else
       {
-        v36 = __stderrp;
+        v42 = __stderrp;
       }
 
-      fprintf(v36, "%s\n", v29);
-      if (v30)
+      fprintf(v42, "%s\n", v35);
+      if (v36)
       {
-        free(v30);
+        free(v36);
       }
 
-      v33 = v27;
+      v39 = v33;
       goto LABEL_58;
     }
 
-    v34 = sub_10003E080();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+    v40 = sub_10003E080(0, v32);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
     {
       sub_1000C0FA4();
     }
@@ -2843,52 +2882,53 @@ LABEL_59:
 LABEL_47:
     if (qword_100127ED0)
     {
-      v35 = qword_100127ED0;
+      v41 = qword_100127ED0;
     }
 
     else
     {
-      v35 = __stderrp;
+      v41 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v35);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v41);
     goto LABEL_59;
   }
 }
 
-_DWORD *sub_1000896D8(uint64_t a1)
+void sub_1000896D8(uint64_t a1)
 {
   v1 = (a1 + 32);
   v2 = *(*(a1 + 32) + 48);
-  result = SAMachAbsTimeSecondsGetCurrent();
-  v4 = *(*v1 + 18);
-  if (v2 <= v5)
+  SAMachAbsTimeSecondsGetCurrent();
+  v3 = *(*v1 + 18);
+  if (v2 <= v4)
   {
-    if (v4 < 0)
+    if (v3 < 0)
     {
       if (byte_100127EC8)
       {
-        v31 = *__error();
-        v32 = sub_10003E080();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v39 = __error();
+        v40 = *v39;
+        v42 = sub_10003E080(v39, v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C10D8();
         }
 
-        *__error() = v31;
+        *__error() = v40;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
       {
-        return [*v1 stopSamplingWithReason:3];
+        goto LABEL_83;
       }
 
-      v19 = *__error();
-      v21 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Monitoring timed out");
-      if (!v21)
+      v23 = *__error();
+      v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Monitoring timed out");
+      if (!v25)
       {
-        v22 = sub_10003E080();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v27 = sub_10003E080(0, v44);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
           sub_1000C110C();
         }
@@ -2901,28 +2941,29 @@ _DWORD *sub_1000896D8(uint64_t a1)
     {
       if (byte_100127EC8)
       {
-        v16 = *__error();
-        v17 = sub_10003E080();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v18 = __error();
+        v19 = *v18;
+        v21 = sub_10003E080(v18, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C1140();
         }
 
-        *__error() = v16;
+        *__error() = v19;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
       {
-        return [*v1 stopSamplingWithReason:3];
+        goto LABEL_83;
       }
 
-      v19 = *__error();
-      v20 = sub_10003E020(*(*v1 + 18));
-      v21 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Monitoring timed out", v20, *(*v1 + 18));
-      if (!v21)
+      v23 = *__error();
+      v24 = sub_10003E020(*(*v1 + 18));
+      v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Monitoring timed out", v24, *(*v1 + 18));
+      if (!v25)
       {
-        v22 = sub_10003E080();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v27 = sub_10003E080(0, v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
           sub_1000C11C0();
         }
@@ -2931,123 +2972,124 @@ LABEL_78:
 
         if (qword_100127ED0)
         {
-          v44 = qword_100127ED0;
+          v55 = qword_100127ED0;
         }
 
         else
         {
-          v44 = __stderrp;
+          v55 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v44);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v55);
 LABEL_82:
-        *__error() = v19;
-        return [*v1 stopSamplingWithReason:3];
+        *__error() = v23;
+LABEL_83:
+        [*v1 stopSamplingWithReason:3];
+        return;
       }
     }
 
-    v34 = v21;
-    CStringPtr = CFStringGetCStringPtr(v21, 0x8000100u);
+    v45 = v25;
+    CStringPtr = CFStringGetCStringPtr(v25, 0x8000100u);
     if (CStringPtr)
     {
-      v36 = CStringPtr;
-      v37 = 0;
+      v47 = CStringPtr;
+      v48 = 0;
     }
 
     else
     {
-      v36 = malloc_type_calloc(0x400uLL, 1uLL, 0x9AA84E51uLL);
-      CFStringGetCString(v34, v36, 1024, 0x8000100u);
-      v37 = v36;
+      v47 = malloc_type_calloc(0x400uLL, 1uLL, 0x9AA84E51uLL);
+      CFStringGetCString(v45, v47, 1024, 0x8000100u);
+      v48 = v47;
     }
 
     if (qword_100127ED0)
     {
-      v39 = qword_100127ED0;
+      v50 = qword_100127ED0;
     }
 
     else
     {
-      v39 = __stderrp;
+      v50 = __stderrp;
     }
 
-    fprintf(v39, "%s\n", v36);
-    if (v37)
+    fprintf(v50, "%s\n", v47);
+    if (v48)
     {
-      free(v37);
+      free(v48);
     }
 
-    CFRelease(v34);
+    CFRelease(v45);
     goto LABEL_82;
   }
 
-  if ((v4 & 0x80000000) == 0)
+  if ((v3 & 0x80000000) == 0)
   {
     if (byte_100127EC8)
     {
-      v6 = *__error();
-      v7 = sub_10003E080();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v5 = __error();
+      v6 = *v5;
+      v8 = sub_10003E080(v5, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C12A8();
       }
 
-      result = __error();
-      *result = v6;
+      *__error() = v6;
     }
 
     if (byte_100127EC9 != 1 || dword_100127558 > 0)
     {
-      return result;
+      return;
     }
 
-    v9 = *__error();
-    v10 = sub_10003E020(*(*v1 + 18));
-    v11 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Monitoring timeout was extended, doing nothing", v10, *(*v1 + 18));
-    if (v11)
+    v10 = *__error();
+    v11 = sub_10003E020(*(*v1 + 18));
+    v12 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Monitoring timeout was extended, doing nothing", v11, *(*v1 + 18));
+    if (v12)
     {
-      v12 = v11;
-      v13 = CFStringGetCStringPtr(v11, 0x8000100u);
-      if (v13)
+      v14 = v12;
+      v15 = CFStringGetCStringPtr(v12, 0x8000100u);
+      if (v15)
       {
-        v14 = v13;
-        v15 = 0;
+        v16 = v15;
+        v17 = 0;
       }
 
       else
       {
-        v14 = malloc_type_calloc(0x400uLL, 1uLL, 0x322215D7uLL);
-        CFStringGetCString(v12, v14, 1024, 0x8000100u);
-        v15 = v14;
+        v16 = malloc_type_calloc(0x400uLL, 1uLL, 0x322215D7uLL);
+        CFStringGetCString(v14, v16, 1024, 0x8000100u);
+        v17 = v16;
       }
 
       if (qword_100127ED0)
       {
-        v40 = qword_100127ED0;
+        v51 = qword_100127ED0;
       }
 
       else
       {
-        v40 = __stderrp;
+        v51 = __stderrp;
       }
 
-      fprintf(v40, "%s\n", v14);
-      if (v15)
+      fprintf(v51, "%s\n", v16);
+      if (v17)
       {
-        free(v15);
+        free(v17);
       }
 
-      v41 = v12;
+      v52 = v14;
 LABEL_91:
-      CFRelease(v41);
+      CFRelease(v52);
 LABEL_92:
-      result = __error();
-      *result = v9;
-      return result;
+      *__error() = v10;
+      return;
     }
 
-    v38 = sub_10003E080();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v49 = sub_10003E080(0, v13);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
     {
       sub_1000C1328();
     }
@@ -3057,60 +3099,60 @@ LABEL_92:
 
   if (byte_100127EC8)
   {
-    v23 = *__error();
-    v24 = sub_10003E080();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v28 = __error();
+    v29 = *v28;
+    v31 = sub_10003E080(v28, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C1240();
     }
 
-    result = __error();
-    *result = v23;
+    *__error() = v29;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v9 = *__error();
-    v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Monitoring timeout was extended, doing nothing");
-    if (v26)
+    v10 = *__error();
+    v33 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Monitoring timeout was extended, doing nothing");
+    if (v33)
     {
-      v27 = v26;
-      v28 = CFStringGetCStringPtr(v26, 0x8000100u);
-      if (v28)
+      v35 = v33;
+      v36 = CFStringGetCStringPtr(v33, 0x8000100u);
+      if (v36)
       {
-        v29 = v28;
-        v30 = 0;
+        v37 = v36;
+        v38 = 0;
       }
 
       else
       {
-        v29 = malloc_type_calloc(0x400uLL, 1uLL, 0x322215D7uLL);
-        CFStringGetCString(v27, v29, 1024, 0x8000100u);
-        v30 = v29;
+        v37 = malloc_type_calloc(0x400uLL, 1uLL, 0x322215D7uLL);
+        CFStringGetCString(v35, v37, 1024, 0x8000100u);
+        v38 = v37;
       }
 
       if (qword_100127ED0)
       {
-        v45 = qword_100127ED0;
+        v56 = qword_100127ED0;
       }
 
       else
       {
-        v45 = __stderrp;
+        v56 = __stderrp;
       }
 
-      fprintf(v45, "%s\n", v29);
-      if (v30)
+      fprintf(v56, "%s\n", v37);
+      if (v38)
       {
-        free(v30);
+        free(v38);
       }
 
-      v41 = v27;
+      v52 = v35;
       goto LABEL_91;
     }
 
-    v42 = sub_10003E080();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+    v53 = sub_10003E080(0, v34);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
     {
       sub_1000C1274();
     }
@@ -3118,28 +3160,23 @@ LABEL_92:
 LABEL_72:
     if (qword_100127ED0)
     {
-      v43 = qword_100127ED0;
+      v54 = qword_100127ED0;
     }
 
     else
     {
-      v43 = __stderrp;
+      v54 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v43);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v54);
     goto LABEL_92;
   }
-
-  return result;
 }
 
 uint64_t sub_10008A124(uint64_t a1)
 {
   objc_storeStrong((*(a1 + 32) + 56), *(a1 + 40));
-  v2 = objc_retainBlock(*(a1 + 48));
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 64);
-  *(v3 + 64) = v2;
+  *(*(a1 + 32) + 64) = objc_retainBlock(*(a1 + 48));
 
   return _objc_release_x1();
 }
@@ -3193,36 +3230,37 @@ void sub_10008A1EC(uint64_t a1)
       {
         if (byte_100127EC8)
         {
-          v27 = *__error();
-          v28 = sub_10003E080();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v33 = __error();
+          v34 = *v33;
+          v36 = sub_10003E080(v33, v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             sub_1000C1754();
           }
 
-          *__error() = v27;
+          *__error() = v34;
         }
 
         if (byte_100127EC9 == 1 && dword_100127558 <= 3)
         {
-          v14 = *__error();
-          v29 = sub_10003E020(*(*v2 + 72));
-          v30 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to allocate proc exit dispatch source", v29, *(*v2 + 72));
-          if (v30)
+          v16 = *__error();
+          v37 = sub_10003E020(*(*v2 + 72));
+          v38 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to allocate proc exit dispatch source", v37, *(*v2 + 72));
+          if (v38)
           {
-            v24 = v30;
-            CStringPtr = CFStringGetCStringPtr(v30, 0x8000100u);
+            v30 = v38;
+            CStringPtr = CFStringGetCStringPtr(v38, 0x8000100u);
             if (CStringPtr)
             {
               goto LABEL_47;
             }
 
-            v26 = 2518794908;
+            v32 = 2518794908;
             goto LABEL_93;
           }
 
-          v47 = sub_10003E080();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+          v65 = sub_10003E080(0, v39);
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
           {
             sub_1000C17D4();
           }
@@ -3232,15 +3270,15 @@ LABEL_87:
 LABEL_103:
           if (qword_100127ED0)
           {
-            v50 = qword_100127ED0;
+            v68 = qword_100127ED0;
           }
 
           else
           {
-            v50 = __stderrp;
+            v68 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v50);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v68);
           goto LABEL_116;
         }
 
@@ -3249,14 +3287,15 @@ LABEL_103:
 
       if (byte_100127EC8)
       {
-        v41 = *__error();
-        v42 = sub_10003E080();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v56 = __error();
+        v57 = *v56;
+        v59 = sub_10003E080(v56, v58);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
           sub_1000C16E4();
         }
 
-        *__error() = v41;
+        *__error() = v57;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -3264,27 +3303,27 @@ LABEL_103:
         return;
       }
 
-      v14 = *__error();
-      v43 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to allocate proc exit dispatch source");
-      if (v43)
+      v16 = *__error();
+      v60 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to allocate proc exit dispatch source");
+      if (v60)
       {
-        v16 = v43;
-        v17 = CFStringGetCStringPtr(v43, 0x8000100u);
-        if (v17)
+        v19 = v60;
+        v20 = CFStringGetCStringPtr(v60, 0x8000100u);
+        if (v20)
         {
           goto LABEL_80;
         }
 
-        v18 = 2518794908;
+        v21 = 2518794908;
 LABEL_108:
-        v44 = malloc_type_calloc(0x400uLL, 1uLL, v18);
-        CFStringGetCString(v16, v44, 1024, 0x8000100u);
-        v45 = v44;
+        v62 = malloc_type_calloc(0x400uLL, 1uLL, v21);
+        CFStringGetCString(v19, v62, 1024, 0x8000100u);
+        v63 = v62;
         goto LABEL_109;
       }
 
-      v46 = sub_10003E080();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v64 = sub_10003E080(0, v61);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
       {
         sub_1000C1720();
       }
@@ -3298,15 +3337,16 @@ LABEL_102:
     {
       if (byte_100127EC8)
       {
-        v11 = *__error();
-        v12 = sub_10003E080();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v11 = __error();
+        v12 = *v11;
+        v14 = sub_10003E080(v11, v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "No target process to monitor for exiting", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "No target process to monitor for exiting", buf, 2u);
         }
 
-        *__error() = v11;
+        *__error() = v12;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 1)
@@ -3314,12 +3354,12 @@ LABEL_102:
         return;
       }
 
-      v14 = *__error();
-      v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"No target process to monitor for exiting");
-      if (!v15)
+      v16 = *__error();
+      v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"No target process to monitor for exiting");
+      if (!v17)
       {
-        v46 = sub_10003E080();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+        v64 = sub_10003E080(0, v18);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
         {
           sub_1000C167C();
         }
@@ -3327,11 +3367,11 @@ LABEL_102:
         goto LABEL_102;
       }
 
-      v16 = v15;
-      v17 = CFStringGetCStringPtr(v15, 0x8000100u);
-      if (!v17)
+      v19 = v17;
+      v20 = CFStringGetCStringPtr(v17, 0x8000100u);
+      if (!v20)
       {
-        v18 = 2765977849;
+        v21 = 2765977849;
         goto LABEL_108;
       }
     }
@@ -3340,15 +3380,16 @@ LABEL_102:
     {
       if (byte_100127EC8)
       {
-        v33 = *__error();
-        v34 = sub_10003E080();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        v42 = __error();
+        v43 = *v42;
+        v45 = sub_10003E080(v42, v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "Can't stop when kernel exits", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Can't stop when kernel exits", buf, 2u);
         }
 
-        *__error() = v33;
+        *__error() = v43;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 1)
@@ -3356,12 +3397,12 @@ LABEL_102:
         return;
       }
 
-      v14 = *__error();
-      v36 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Can't stop when kernel exits");
-      if (!v36)
+      v16 = *__error();
+      v47 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Can't stop when kernel exits");
+      if (!v47)
       {
-        v46 = sub_10003E080();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+        v64 = sub_10003E080(0, v48);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
         {
           sub_1000C16B0();
         }
@@ -3369,36 +3410,36 @@ LABEL_102:
         goto LABEL_102;
       }
 
-      v16 = v36;
-      v17 = CFStringGetCStringPtr(v36, 0x8000100u);
-      if (!v17)
+      v19 = v47;
+      v20 = CFStringGetCStringPtr(v47, 0x8000100u);
+      if (!v20)
       {
-        v18 = 3500407202;
+        v21 = 3500407202;
         goto LABEL_108;
       }
     }
 
 LABEL_80:
-    v44 = v17;
-    v45 = 0;
+    v62 = v20;
+    v63 = 0;
 LABEL_109:
     if (qword_100127ED0)
     {
-      v51 = qword_100127ED0;
+      v69 = qword_100127ED0;
     }
 
     else
     {
-      v51 = __stderrp;
+      v69 = __stderrp;
     }
 
-    fprintf(v51, "%s\n", v44);
-    if (v45)
+    fprintf(v69, "%s\n", v62);
+    if (v63)
     {
-      free(v45);
+      free(v63);
     }
 
-    v49 = v16;
+    v67 = v19;
     goto LABEL_115;
   }
 
@@ -3406,14 +3447,15 @@ LABEL_109:
   {
     if (byte_100127EC8)
     {
-      v37 = *__error();
-      v38 = sub_10003E080();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      v49 = __error();
+      v50 = *v49;
+      v52 = sub_10003E080(v49, v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C0F70();
       }
 
-      *__error() = v37;
+      *__error() = v50;
     }
 
     if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -3421,12 +3463,12 @@ LABEL_109:
       return;
     }
 
-    v14 = *__error();
-    v40 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Lost race: already done sampling");
-    if (!v40)
+    v16 = *__error();
+    v54 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Lost race: already done sampling");
+    if (!v54)
     {
-      v46 = sub_10003E080();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v64 = sub_10003E080(0, v55);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
       {
         sub_1000C15C8();
       }
@@ -3434,11 +3476,11 @@ LABEL_109:
       goto LABEL_102;
     }
 
-    v16 = v40;
-    v17 = CFStringGetCStringPtr(v40, 0x8000100u);
-    if (!v17)
+    v19 = v54;
+    v20 = CFStringGetCStringPtr(v54, 0x8000100u);
+    if (!v20)
     {
-      v18 = 3680569647;
+      v21 = 3680569647;
       goto LABEL_108;
     }
 
@@ -3447,65 +3489,66 @@ LABEL_109:
 
   if (byte_100127EC8)
   {
-    v19 = *__error();
-    v20 = sub_10003E080();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v22 = __error();
+    v23 = *v22;
+    v25 = sub_10003E080(v22, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C0FD8();
     }
 
-    *__error() = v19;
+    *__error() = v23;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v14 = *__error();
-    v22 = sub_10003E020(*(*v2 + 72));
-    v23 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Lost race: already done sampling", v22, *(*v2 + 72));
-    if (v23)
+    v16 = *__error();
+    v27 = sub_10003E020(*(*v2 + 72));
+    v28 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Lost race: already done sampling", v27, *(*v2 + 72));
+    if (v28)
     {
-      v24 = v23;
-      CStringPtr = CFStringGetCStringPtr(v23, 0x8000100u);
+      v30 = v28;
+      CStringPtr = CFStringGetCStringPtr(v28, 0x8000100u);
       if (CStringPtr)
       {
 LABEL_47:
-        v31 = CStringPtr;
-        v32 = 0;
+        v40 = CStringPtr;
+        v41 = 0;
 LABEL_94:
         if (qword_100127ED0)
         {
-          v48 = qword_100127ED0;
+          v66 = qword_100127ED0;
         }
 
         else
         {
-          v48 = __stderrp;
+          v66 = __stderrp;
         }
 
-        fprintf(v48, "%s\n", v31);
-        if (v32)
+        fprintf(v66, "%s\n", v40);
+        if (v41)
         {
-          free(v32);
+          free(v41);
         }
 
-        v49 = v24;
+        v67 = v30;
 LABEL_115:
-        CFRelease(v49);
+        CFRelease(v67);
 LABEL_116:
-        *__error() = v14;
+        *__error() = v16;
         return;
       }
 
-      v26 = 3680569647;
+      v32 = 3680569647;
 LABEL_93:
-      v31 = malloc_type_calloc(0x400uLL, 1uLL, v26);
-      CFStringGetCString(v24, v31, 1024, 0x8000100u);
-      v32 = v31;
+      v40 = malloc_type_calloc(0x400uLL, 1uLL, v32);
+      CFStringGetCString(v30, v40, 1024, 0x8000100u);
+      v41 = v40;
       goto LABEL_94;
     }
 
-    v47 = sub_10003E080();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+    v65 = sub_10003E080(0, v29);
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
     {
       sub_1000C15FC();
     }
@@ -3521,14 +3564,15 @@ id sub_10008AA14(uint64_t a1)
   {
     if (byte_100127EC8)
     {
-      v2 = *__error();
-      v3 = sub_10003E080();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v2 = __error();
+      v3 = *v2;
+      v5 = sub_10003E080(v2, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C18BC();
       }
 
-      *__error() = v2;
+      *__error() = v3;
     }
 
     if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -3536,13 +3580,13 @@ id sub_10008AA14(uint64_t a1)
       return [*v1 stopSamplingWithReason:2];
     }
 
-    v5 = *__error();
-    v6 = sub_10003E020(*(*v1 + 18));
-    v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: exited", v6, *(*v1 + 18));
-    if (!v7)
+    v7 = *__error();
+    v8 = sub_10003E020(*(*v1 + 18));
+    v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: exited", v8, *(*v1 + 18));
+    if (!v9)
     {
-      v8 = sub_10003E080();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v11 = sub_10003E080(0, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         sub_1000C193C();
       }
@@ -3551,17 +3595,17 @@ LABEL_35:
 
       if (qword_100127ED0)
       {
-        v17 = qword_100127ED0;
+        v23 = qword_100127ED0;
       }
 
       else
       {
-        v17 = __stderrp;
+        v23 = __stderrp;
       }
 
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v17);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v23);
 LABEL_39:
-      *__error() = v5;
+      *__error() = v7;
       return [*v1 stopSamplingWithReason:2];
     }
 
@@ -3570,24 +3614,25 @@ LABEL_39:
 
   if (byte_100127EC8)
   {
-    v9 = *__error();
-    v10 = sub_10003E080();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = __error();
+    v13 = *v12;
+    v15 = sub_10003E080(v12, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C1854();
     }
 
-    *__error() = v9;
+    *__error() = v13;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v5 = *__error();
-    v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"exited");
-    if (!v7)
+    v7 = *__error();
+    v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"exited");
+    if (!v9)
     {
-      v8 = sub_10003E080();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v11 = sub_10003E080(0, v17);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         sub_1000C1888();
       }
@@ -3596,38 +3641,38 @@ LABEL_39:
     }
 
 LABEL_24:
-    v12 = v7;
-    CStringPtr = CFStringGetCStringPtr(v7, 0x8000100u);
+    v18 = v9;
+    CStringPtr = CFStringGetCStringPtr(v9, 0x8000100u);
     if (CStringPtr)
     {
-      v14 = CStringPtr;
-      v15 = 0;
+      v20 = CStringPtr;
+      v21 = 0;
     }
 
     else
     {
-      v14 = malloc_type_calloc(0x400uLL, 1uLL, 0x7E1E3432uLL);
-      CFStringGetCString(v12, v14, 1024, 0x8000100u);
-      v15 = v14;
+      v20 = malloc_type_calloc(0x400uLL, 1uLL, 0x7E1E3432uLL);
+      CFStringGetCString(v18, v20, 1024, 0x8000100u);
+      v21 = v20;
     }
 
     if (qword_100127ED0)
     {
-      v16 = qword_100127ED0;
+      v22 = qword_100127ED0;
     }
 
     else
     {
-      v16 = __stderrp;
+      v22 = __stderrp;
     }
 
-    fprintf(v16, "%s\n", v14);
-    if (v15)
+    fprintf(v22, "%s\n", v20);
+    if (v21)
     {
-      free(v15);
+      free(v21);
     }
 
-    CFRelease(v12);
+    CFRelease(v18);
     goto LABEL_39;
   }
 
@@ -3682,14 +3727,15 @@ void sub_10008C59C(uint64_t a1, void *a2)
     {
       if (byte_100127EC8)
       {
-        v15 = *__error();
-        v16 = sub_10003E080();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v18 = __error();
+        v19 = *v18;
+        v21 = sub_10003E080(v18, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C218C();
         }
 
-        *__error() = v15;
+        *__error() = v19;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -3697,12 +3743,12 @@ void sub_10008C59C(uint64_t a1, void *a2)
         goto LABEL_42;
       }
 
-      v11 = *__error();
-      v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Removing self from processes waiting on HID event list");
-      if (!v13)
+      v13 = *__error();
+      v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Removing self from processes waiting on HID event list");
+      if (!v15)
       {
-        v14 = sub_10003E080();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        v17 = sub_10003E080(0, v23);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           sub_1000C21C0();
         }
@@ -3715,14 +3761,15 @@ void sub_10008C59C(uint64_t a1, void *a2)
     {
       if (byte_100127EC8)
       {
-        v8 = *__error();
-        v9 = sub_10003E080();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v8 = __error();
+        v9 = *v8;
+        v11 = sub_10003E080(v8, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C21F4();
         }
 
-        *__error() = v8;
+        *__error() = v9;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -3730,13 +3777,13 @@ void sub_10008C59C(uint64_t a1, void *a2)
         goto LABEL_42;
       }
 
-      v11 = *__error();
-      v12 = sub_10003E020(*(*v4 + 18));
-      v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Removing self from processes waiting on HID event list", v12, *(*v4 + 18));
-      if (!v13)
+      v13 = *__error();
+      v14 = sub_10003E020(*(*v4 + 18));
+      v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Removing self from processes waiting on HID event list", v14, *(*v4 + 18));
+      if (!v15)
       {
-        v14 = sub_10003E080();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        v17 = sub_10003E080(0, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           sub_1000C2274();
         }
@@ -3745,58 +3792,58 @@ LABEL_37:
 
         if (qword_100127ED0)
         {
-          v23 = qword_100127ED0;
+          v29 = qword_100127ED0;
         }
 
         else
         {
-          v23 = __stderrp;
+          v29 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v23);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v29);
 LABEL_41:
-        *__error() = v11;
+        *__error() = v13;
 LABEL_42:
-        v24 = [NSNumber numberWithInt:*(*v4 + 18)];
-        [v3 setObject:0 forKeyedSubscript:v24];
+        v30 = [NSNumber numberWithInt:*(*v4 + 18)];
+        [v3 setObject:0 forKeyedSubscript:v30];
 
         [*v4 deleteHIDExitSource];
         goto LABEL_43;
       }
     }
 
-    v18 = v13;
-    CStringPtr = CFStringGetCStringPtr(v13, 0x8000100u);
+    v24 = v15;
+    CStringPtr = CFStringGetCStringPtr(v15, 0x8000100u);
     if (CStringPtr)
     {
-      v20 = CStringPtr;
-      v21 = 0;
+      v26 = CStringPtr;
+      v27 = 0;
     }
 
     else
     {
-      v20 = malloc_type_calloc(0x400uLL, 1uLL, 0xC1A22004uLL);
-      CFStringGetCString(v18, v20, 1024, 0x8000100u);
-      v21 = v20;
+      v26 = malloc_type_calloc(0x400uLL, 1uLL, 0xC1A22004uLL);
+      CFStringGetCString(v24, v26, 1024, 0x8000100u);
+      v27 = v26;
     }
 
     if (qword_100127ED0)
     {
-      v22 = qword_100127ED0;
+      v28 = qword_100127ED0;
     }
 
     else
     {
-      v22 = __stderrp;
+      v28 = __stderrp;
     }
 
-    fprintf(v22, "%s\n", v20);
-    if (v21)
+    fprintf(v28, "%s\n", v26);
+    if (v27)
     {
-      free(v21);
+      free(v27);
     }
 
-    CFRelease(v18);
+    CFRelease(v24);
     goto LABEL_41;
   }
 
@@ -3805,11 +3852,10 @@ LABEL_43:
 
 void sub_10008C8D0(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(*(a1 + 32) + 64) + 16))();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 64);
-  *(v3 + 64) = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 64);
+  *(v2 + 64) = 0;
 }
 
 void sub_10008C924(uint64_t a1, void *a2)
@@ -3905,35 +3951,119 @@ void sub_10008C924(uint64_t a1, void *a2)
     {
       if (byte_100127EC8)
       {
-        v70 = *__error();
-        v71 = sub_10003E080();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+        v73 = __error();
+        v74 = *v73;
+        v76 = sub_10003E080(v73, v75);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
           sub_1000C22F4();
         }
 
-        *__error() = v70;
+        *__error() = v74;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 3)
       {
-        v72 = *__error();
-        v73 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Mismatched sample providers", "endSnapshot.stackshotProvider == self->_sampleProvider");
-        if (v73)
+        v77 = *__error();
+        v78 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Mismatched sample providers", "endSnapshot.stackshotProvider == self->_sampleProvider");
+        if (v78)
         {
-          v80 = v73;
-          CStringPtr = CFStringGetCStringPtr(v73, 0x8000100u);
+          v86 = v78;
+          CStringPtr = CFStringGetCStringPtr(v78, 0x8000100u);
           if (CStringPtr)
           {
-            v82 = CStringPtr;
-            v83 = 0;
+            v88 = CStringPtr;
+            v89 = 0;
           }
 
           else
           {
-            v82 = malloc_type_calloc(0x400uLL, 1uLL, 0xE692CA2uLL);
-            CFStringGetCString(v80, v82, 1024, 0x8000100u);
-            v83 = v82;
+            v88 = malloc_type_calloc(0x400uLL, 1uLL, 0xE692CA2uLL);
+            CFStringGetCString(v86, v88, 1024, 0x8000100u);
+            v89 = v88;
+          }
+
+          if (qword_100127ED0)
+          {
+            v96 = qword_100127ED0;
+          }
+
+          else
+          {
+            v96 = __stderrp;
+          }
+
+          fprintf(v96, "%s\n", v88);
+          if (v89)
+          {
+            free(v89);
+          }
+
+          CFRelease(v86);
+        }
+
+        else
+        {
+          v80 = sub_10003E080(0, v79);
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+          {
+            sub_1000C2374();
+          }
+
+          if (qword_100127ED0)
+          {
+            v81 = qword_100127ED0;
+          }
+
+          else
+          {
+            v81 = __stderrp;
+          }
+
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v81);
+        }
+
+        *__error() = v77;
+      }
+
+      sub_10003DF54("[SPSampledProcess _samplingHasCompletedWithEndSnapshot:withReason:]_block_invoke", "SPProcessEvent.m", 1269, "%s: Mismatched sample providers", v27, v28, v29, v30, "endSnapshot.stackshotProvider == self->_sampleProvider");
+    }
+
+    else
+    {
+      if (byte_100127EC8)
+      {
+        v63 = __error();
+        v64 = *v63;
+        v66 = sub_10003E080(v63, v65);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000C23F4();
+        }
+
+        *__error() = v64;
+      }
+
+      if (byte_100127EC9 == 1 && dword_100127558 <= 3)
+      {
+        v67 = *__error();
+        v68 = sub_10003E020(*(*v6 + 18));
+        v69 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: %s: Mismatched sample providers", v68, *(*v6 + 18), "endSnapshot.stackshotProvider == self->_sampleProvider");
+        if (v69)
+        {
+          v82 = v69;
+          v83 = CFStringGetCStringPtr(v69, 0x8000100u);
+          if (v83)
+          {
+            v84 = v83;
+            v85 = 0;
+          }
+
+          else
+          {
+            v84 = malloc_type_calloc(0x400uLL, 1uLL, 0xE692CA2uLL);
+            CFStringGetCString(v82, v84, 1024, 0x8000100u);
+            v85 = v84;
           }
 
           if (qword_100127ED0)
@@ -3946,124 +4076,41 @@ void sub_10008C924(uint64_t a1, void *a2)
             v90 = __stderrp;
           }
 
-          fprintf(v90, "%s\n", v82);
-          if (v83)
+          fprintf(v90, "%s\n", v84);
+          if (v85)
           {
-            free(v83);
+            free(v85);
           }
 
-          CFRelease(v80);
+          CFRelease(v82);
         }
 
         else
         {
-          v74 = sub_10003E080();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
-          {
-            sub_1000C2374();
-          }
-
-          if (qword_100127ED0)
-          {
-            v75 = qword_100127ED0;
-          }
-
-          else
-          {
-            v75 = __stderrp;
-          }
-
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v75);
-        }
-
-        *__error() = v72;
-      }
-
-      sub_10003DF54("[SPSampledProcess _samplingHasCompletedWithEndSnapshot:withReason:]_block_invoke", "SPProcessEvent.m", 1269, "%s: Mismatched sample providers", v27, v28, v29, v30, "endSnapshot.stackshotProvider == self->_sampleProvider");
-    }
-
-    else
-    {
-      if (byte_100127EC8)
-      {
-        v63 = *__error();
-        v64 = sub_10003E080();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
-        {
-          sub_1000C23F4();
-        }
-
-        *__error() = v63;
-      }
-
-      if (byte_100127EC9 == 1 && dword_100127558 <= 3)
-      {
-        v65 = *__error();
-        v66 = sub_10003E020(*(*v6 + 18));
-        v67 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: %s: Mismatched sample providers", v66, *(*v6 + 18), "endSnapshot.stackshotProvider == self->_sampleProvider");
-        if (v67)
-        {
-          v76 = v67;
-          v77 = CFStringGetCStringPtr(v67, 0x8000100u);
-          if (v77)
-          {
-            v78 = v77;
-            v79 = 0;
-          }
-
-          else
-          {
-            v78 = malloc_type_calloc(0x400uLL, 1uLL, 0xE692CA2uLL);
-            CFStringGetCString(v76, v78, 1024, 0x8000100u);
-            v79 = v78;
-          }
-
-          if (qword_100127ED0)
-          {
-            v84 = qword_100127ED0;
-          }
-
-          else
-          {
-            v84 = __stderrp;
-          }
-
-          fprintf(v84, "%s\n", v78);
-          if (v79)
-          {
-            free(v79);
-          }
-
-          CFRelease(v76);
-        }
-
-        else
-        {
-          v68 = sub_10003E080();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+          v71 = sub_10003E080(0, v70);
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
           {
             sub_1000C2490();
           }
 
           if (qword_100127ED0)
           {
-            v69 = qword_100127ED0;
+            v72 = qword_100127ED0;
           }
 
           else
           {
-            v69 = __stderrp;
+            v72 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v69);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v72);
         }
 
-        *__error() = v65;
+        *__error() = v67;
       }
 
-      v85 = sub_10003E020(*(*v6 + 18));
-      v91 = *(*v6 + 18);
-      sub_10003DF54("[SPSampledProcess _samplingHasCompletedWithEndSnapshot:withReason:]_block_invoke", "SPProcessEvent.m", 1269, "%s [%d]: %s: Mismatched sample providers", v86, v87, v88, v89, v85);
+      v91 = sub_10003E020(*(*v6 + 18));
+      sub_10003DF54("[SPSampledProcess _samplingHasCompletedWithEndSnapshot:withReason:]_block_invoke", "SPProcessEvent.m", 1269, "%s [%d]: %s: Mismatched sample providers", v92, v93, v94, v95, v91, *(*v6 + 18), "endSnapshot.stackshotProvider == self->_sampleProvider");
     }
 
     abort();
@@ -4154,10 +4201,10 @@ LABEL_34:
 
     if (v46)
     {
-      v95 = 0;
-      v96 = &v95;
-      v97 = 0x2020000000;
-      v98 = 0;
+      v100 = 0;
+      v101 = &v100;
+      v102 = 0x2020000000;
+      v103 = 0;
       v47 = [*v6 reportTimeStart];
       v48 = v47;
       if (v47)
@@ -4192,20 +4239,20 @@ LABEL_34:
         if (v56 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v58 = [v4 targetProcess];
-          v94[0] = _NSConcreteStackBlock;
-          v94[1] = 3221225472;
-          v94[2] = sub_10008D2E0;
-          v94[3] = &unk_100115C40;
-          v94[4] = &v95;
-          v94[5] = v51;
-          v94[6] = v57;
-          [v58 enumerateTaskStatesBetweenStartTime:v49 startSampleIndex:v51 endTime:v54 endSampleIndex:v57 reverseOrder:0 block:v94];
+          v99[0] = _NSConcreteStackBlock;
+          v99[1] = 3221225472;
+          v99[2] = sub_10008D2E0;
+          v99[3] = &unk_100115C40;
+          v99[4] = &v100;
+          v99[5] = v51;
+          v99[6] = v57;
+          [v58 enumerateTaskStatesBetweenStartTime:v49 startSampleIndex:v51 endTime:v54 endSampleIndex:v57 reverseOrder:0 block:v99];
         }
       }
 
-      *(*v6 + 72) = v96[3];
+      *(*v6 + 72) = v101[3];
 
-      _Block_object_dispose(&v95, 8);
+      _Block_object_dispose(&v100, 8);
     }
   }
 
@@ -4219,16 +4266,16 @@ LABEL_46:
     block[2] = sub_10008D358;
     block[3] = &unk_100115BA0;
     block[4] = v59;
-    v93 = v24;
+    v98 = v24;
     dispatch_async(v60, block);
     v61 = *(*v6 + 7);
     *(*v6 + 7) = 0;
   }
 }
 
-void sub_10008D2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10008D2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4244,11 +4291,10 @@ void sub_10008D2E0(void *a1, void *a2)
 
 void sub_10008D358(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(*(a1 + 32) + 64) + 16))();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 64);
-  *(v3 + 64) = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 64);
+  *(v2 + 64) = 0;
 }
 
 void sub_10008DD38(uint64_t a1, void *a2, double a3)
@@ -4277,7 +4323,7 @@ void sub_10008E770(uint64_t a1, void *a2, double a3)
 
 id sub_10008E8AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unint64_t a6, void *a7, void *a8, double a9)
 {
-  v200 = a5;
+  v257 = a5;
   v17 = a7;
   v18 = a8;
   v19 = v18;
@@ -4288,99 +4334,100 @@ id sub_10008E8AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, u
     goto LABEL_475;
   }
 
-  v198 = v18;
+  v255 = v18;
   if ((a1 & 0x80000000) != 0)
   {
-    v199 = 0;
+    v256 = 0;
   }
 
   else if (proc_pidpath(a1, &buffer, 0x400u) < 1)
   {
     if (byte_100127EC8 == 1)
     {
-      v21 = *__error();
-      v22 = sub_10003E080();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = __error();
+      v22 = *v21;
+      v24 = sub_10003E080(v21, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_1000C2710();
       }
 
-      *__error() = v21;
+      *__error() = v22;
     }
 
-    v199 = 0;
+    v256 = 0;
     if (byte_100127EC9 == 1 && dword_100127558 <= 3)
     {
-      v23 = *__error();
-      v24 = sub_10003E020(a1);
       v25 = *__error();
-      v26 = __error();
-      v27 = strerror(*v26);
-      v28 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to get path: %d (%s)", v24, a1, v25, v27);
-      v29 = v28;
-      if (v28)
+      v26 = sub_10003E020(a1);
+      v27 = *__error();
+      v28 = __error();
+      v29 = strerror(*v28);
+      v30 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to get path: %d (%s)", v26, a1, v27, v29);
+      v32 = v30;
+      if (v30)
       {
-        CStringPtr = CFStringGetCStringPtr(v28, 0x8000100u);
+        CStringPtr = CFStringGetCStringPtr(v30, 0x8000100u);
         if (CStringPtr)
         {
-          v31 = 0;
+          v34 = 0;
         }
 
         else
         {
           CStringPtr = malloc_type_calloc(0x400uLL, 1uLL, 0xED55E785uLL);
-          CFStringGetCString(v29, CStringPtr, 1024, 0x8000100u);
-          v31 = CStringPtr;
+          CFStringGetCString(v32, CStringPtr, 1024, 0x8000100u);
+          v34 = CStringPtr;
         }
 
         if (qword_100127ED0)
         {
-          v34 = qword_100127ED0;
+          v37 = qword_100127ED0;
         }
 
         else
         {
-          v34 = __stderrp;
+          v37 = __stderrp;
         }
 
-        fprintf(v34, "%s\n", CStringPtr);
-        if (v31)
+        fprintf(v37, "%s\n", CStringPtr);
+        if (v34)
         {
-          free(v31);
+          free(v34);
         }
 
-        CFRelease(v29);
+        CFRelease(v32);
       }
 
       else
       {
-        v32 = sub_10003E080();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+        v35 = sub_10003E080(0, v31);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
         {
           sub_1000C27B8();
         }
 
         if (qword_100127ED0)
         {
-          v33 = qword_100127ED0;
+          v36 = qword_100127ED0;
         }
 
         else
         {
-          v33 = __stderrp;
+          v36 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v33);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v36);
       }
 
-      v199 = 0;
-      *__error() = v23;
+      v256 = 0;
+      *__error() = v25;
     }
   }
 
   else
   {
-    v199 = [NSString stringWithUTF8String:&buffer];
+    v256 = [NSString stringWithUTF8String:&buffer];
   }
 
   if ((a6 & 1) != 0 && !sub_1000338B0(a1))
@@ -4389,14 +4436,15 @@ id sub_10008E8AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, u
     {
       if (byte_100127EC8)
       {
-        v68 = *__error();
-        v69 = sub_10003E080();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        v83 = __error();
+        v84 = *v83;
+        v86 = sub_10003E080(v83, v85);
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
         {
           sub_1000C2860();
         }
 
-        *__error() = v68;
+        *__error() = v84;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -4404,45 +4452,45 @@ id sub_10008E8AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, u
         goto LABEL_218;
       }
 
-      v47 = *__error();
-      v70 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"process doesn't exist, not sampling");
-      v50 = v70;
-      if (v70)
+      v55 = *__error();
+      v87 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"process doesn't exist, not sampling");
+      v59 = v87;
+      if (v87)
       {
-        v71 = CFStringGetCStringPtr(v70, 0x8000100u);
-        if (v71)
+        v89 = CFStringGetCStringPtr(v87, 0x8000100u);
+        if (v89)
         {
-          v72 = 0;
+          v90 = 0;
         }
 
         else
         {
-          v71 = malloc_type_calloc(0x400uLL, 1uLL, 0xA6D1A9A1uLL);
-          CFStringGetCString(v50, v71, 1024, 0x8000100u);
-          v72 = v71;
+          v89 = malloc_type_calloc(0x400uLL, 1uLL, 0xA6D1A9A1uLL);
+          CFStringGetCString(v59, v89, 1024, 0x8000100u);
+          v90 = v89;
         }
 
         if (qword_100127ED0)
         {
-          v127 = qword_100127ED0;
+          v172 = qword_100127ED0;
         }
 
         else
         {
-          v127 = __stderrp;
+          v172 = __stderrp;
         }
 
-        fprintf(v127, "%s\n", v71);
-        if (v72)
+        fprintf(v172, "%s\n", v89);
+        if (v90)
         {
-          free(v72);
+          free(v90);
         }
 
         goto LABEL_216;
       }
 
-      v103 = sub_10003E080();
-      if (os_log_type_enabled(v103, OS_LOG_TYPE_FAULT))
+      v136 = sub_10003E080(0, v88);
+      if (os_log_type_enabled(v136, OS_LOG_TYPE_FAULT))
       {
         sub_1000C289C();
       }
@@ -4452,14 +4500,15 @@ id sub_10008E8AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, u
     {
       if (byte_100127EC8)
       {
-        v45 = *__error();
-        v46 = sub_10003E080();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v51 = __error();
+        v52 = *v51;
+        v54 = sub_10003E080(v51, v53);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
           sub_1000C28D0();
         }
 
-        *__error() = v45;
+        *__error() = v52;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -4467,56 +4516,56 @@ id sub_10008E8AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, u
         goto LABEL_218;
       }
 
-      v47 = *__error();
-      v48 = sub_10003E020(a1);
-      v49 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: process doesn't exist, not sampling", v48, a1);
-      v50 = v49;
-      if (v49)
+      v55 = *__error();
+      v56 = sub_10003E020(a1);
+      v57 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: process doesn't exist, not sampling", v56, a1);
+      v59 = v57;
+      if (v57)
       {
-        v51 = CFStringGetCStringPtr(v49, 0x8000100u);
-        if (v51)
+        v60 = CFStringGetCStringPtr(v57, 0x8000100u);
+        if (v60)
         {
-          v52 = 0;
+          v61 = 0;
         }
 
         else
         {
-          v51 = malloc_type_calloc(0x400uLL, 1uLL, 0xA6D1A9A1uLL);
-          CFStringGetCString(v50, v51, 1024, 0x8000100u);
-          v52 = v51;
+          v60 = malloc_type_calloc(0x400uLL, 1uLL, 0xA6D1A9A1uLL);
+          CFStringGetCString(v59, v60, 1024, 0x8000100u);
+          v61 = v60;
         }
 
         if (qword_100127ED0)
         {
-          v118 = qword_100127ED0;
+          v160 = qword_100127ED0;
         }
 
         else
         {
-          v118 = __stderrp;
+          v160 = __stderrp;
         }
 
-        fprintf(v118, "%s\n", v51);
-        if (v52)
+        fprintf(v160, "%s\n", v60);
+        if (v61)
         {
-          free(v52);
+          free(v61);
         }
 
 LABEL_216:
-        CFRelease(v50);
+        CFRelease(v59);
 LABEL_217:
-        *__error() = v47;
+        *__error() = v55;
 LABEL_218:
-        v128 = __error();
+        v173 = __error();
         v20 = 0;
-        v129 = 2;
+        v174 = 2;
 LABEL_379:
-        *v128 = v129;
+        *v173 = v174;
         goto LABEL_473;
       }
 
-      v103 = sub_10003E080();
-      if (os_log_type_enabled(v103, OS_LOG_TYPE_FAULT))
+      v136 = sub_10003E080(0, v58);
+      if (os_log_type_enabled(v136, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2954();
       }
@@ -4524,41 +4573,42 @@ LABEL_379:
 
     if (qword_100127ED0)
     {
-      v119 = qword_100127ED0;
+      v161 = qword_100127ED0;
     }
 
     else
     {
-      v119 = __stderrp;
+      v161 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v119);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v161);
     goto LABEL_217;
   }
 
-  v35 = (a6 >> 2) & 1;
-  v204 = 0;
-  v20 = [SPSampledProcess copySampledProcessForPid:a1 isWSBased:v35 createIfUnsampled:1 cancelExistingProcesses:(a6 >> 9) & 1 wasSampled:&v204];
+  v38 = (a6 >> 2) & 1;
+  v261 = 0;
+  v20 = [SPSampledProcess copySampledProcessForPid:a1 isWSBased:v38 createIfUnsampled:1 cancelExistingProcesses:(a6 >> 9) & 1 wasSampled:&v261];
   if (v20)
   {
     goto LABEL_35;
   }
 
-  if ((a6 & 2) == 0 || (v204 & 1) == 0)
+  if ((a6 & 2) == 0 || (v261 & 1) == 0)
   {
 LABEL_335:
     if ((a1 & 0x80000000) != 0)
     {
       if (byte_100127EC8)
       {
-        v156 = *__error();
-        v157 = sub_10003E080();
-        if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
+        v204 = __error();
+        v205 = *v204;
+        v207 = sub_10003E080(v204, v206);
+        if (os_log_type_enabled(v207, OS_LOG_TYPE_ERROR))
         {
           sub_1000C343C();
         }
 
-        *__error() = v156;
+        *__error() = v205;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -4566,45 +4616,45 @@ LABEL_335:
         goto LABEL_378;
       }
 
-      v150 = *__error();
-      v158 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to create SPSampledProcess");
-      v153 = v158;
-      if (v158)
+      v197 = *__error();
+      v208 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to create SPSampledProcess");
+      v201 = v208;
+      if (v208)
       {
-        v159 = CFStringGetCStringPtr(v158, 0x8000100u);
-        if (v159)
+        v210 = CFStringGetCStringPtr(v208, 0x8000100u);
+        if (v210)
         {
-          v160 = 0;
+          v211 = 0;
         }
 
         else
         {
-          v159 = malloc_type_calloc(0x400uLL, 1uLL, 0x525AA6ACuLL);
-          CFStringGetCString(v153, v159, 1024, 0x8000100u);
-          v160 = v159;
+          v210 = malloc_type_calloc(0x400uLL, 1uLL, 0x525AA6ACuLL);
+          CFStringGetCString(v201, v210, 1024, 0x8000100u);
+          v211 = v210;
         }
 
         if (qword_100127ED0)
         {
-          v164 = qword_100127ED0;
+          v215 = qword_100127ED0;
         }
 
         else
         {
-          v164 = __stderrp;
+          v215 = __stderrp;
         }
 
-        fprintf(v164, "%s\n", v159);
-        if (v160)
+        fprintf(v215, "%s\n", v210);
+        if (v211)
         {
-          free(v160);
+          free(v211);
         }
 
         goto LABEL_376;
       }
 
-      v161 = sub_10003E080();
-      if (os_log_type_enabled(v161, OS_LOG_TYPE_FAULT))
+      v212 = sub_10003E080(0, v209);
+      if (os_log_type_enabled(v212, OS_LOG_TYPE_FAULT))
       {
         sub_1000C3478();
       }
@@ -4614,14 +4664,15 @@ LABEL_335:
     {
       if (byte_100127EC8)
       {
-        v148 = *__error();
-        v149 = sub_10003E080();
-        if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+        v193 = __error();
+        v194 = *v193;
+        v196 = sub_10003E080(v193, v195);
+        if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
         {
           sub_1000C34AC();
         }
 
-        *__error() = v148;
+        *__error() = v194;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -4629,54 +4680,54 @@ LABEL_335:
         goto LABEL_378;
       }
 
-      v150 = *__error();
-      v151 = sub_10003E020(a1);
-      v152 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to create SPSampledProcess", v151, a1);
-      v153 = v152;
-      if (v152)
+      v197 = *__error();
+      v198 = sub_10003E020(a1);
+      v199 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to create SPSampledProcess", v198, a1);
+      v201 = v199;
+      if (v199)
       {
-        v154 = CFStringGetCStringPtr(v152, 0x8000100u);
-        if (v154)
+        v202 = CFStringGetCStringPtr(v199, 0x8000100u);
+        if (v202)
         {
-          v155 = 0;
+          v203 = 0;
         }
 
         else
         {
-          v154 = malloc_type_calloc(0x400uLL, 1uLL, 0x525AA6ACuLL);
-          CFStringGetCString(v153, v154, 1024, 0x8000100u);
-          v155 = v154;
+          v202 = malloc_type_calloc(0x400uLL, 1uLL, 0x525AA6ACuLL);
+          CFStringGetCString(v201, v202, 1024, 0x8000100u);
+          v203 = v202;
         }
 
         if (qword_100127ED0)
         {
-          v162 = qword_100127ED0;
+          v213 = qword_100127ED0;
         }
 
         else
         {
-          v162 = __stderrp;
+          v213 = __stderrp;
         }
 
-        fprintf(v162, "%s\n", v154);
-        if (v155)
+        fprintf(v213, "%s\n", v202);
+        if (v203)
         {
-          free(v155);
+          free(v203);
         }
 
 LABEL_376:
-        CFRelease(v153);
+        CFRelease(v201);
 LABEL_377:
-        *__error() = v150;
+        *__error() = v197;
 LABEL_378:
-        v128 = __error();
+        v173 = __error();
         v20 = 0;
-        v129 = 37;
+        v174 = 37;
         goto LABEL_379;
       }
 
-      v161 = sub_10003E080();
-      if (os_log_type_enabled(v161, OS_LOG_TYPE_FAULT))
+      v212 = sub_10003E080(0, v200);
+      if (os_log_type_enabled(v212, OS_LOG_TYPE_FAULT))
       {
         sub_1000C3530();
       }
@@ -4684,23 +4735,23 @@ LABEL_378:
 
     if (qword_100127ED0)
     {
-      v163 = qword_100127ED0;
+      v214 = qword_100127ED0;
     }
 
     else
     {
-      v163 = __stderrp;
+      v214 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v163);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v214);
     goto LABEL_377;
   }
 
-  v44 = [SPSampledProcess copySampledProcessForPid:a1 isWSBased:(a6 & 4) == 0 createIfUnsampled:0 cancelExistingProcesses:0 wasSampled:0];
-  v197 = v44;
-  if (v44)
+  v50 = [SPSampledProcess copySampledProcessForPid:a1 isWSBased:(a6 & 4) == 0 createIfUnsampled:0 cancelExistingProcesses:0 wasSampled:0];
+  v254 = v50;
+  if (v50)
   {
-    [v44 stopSamplingWithReason:9];
+    [v50 stopSamplingWithReason:9];
     goto LABEL_334;
   }
 
@@ -4708,11 +4759,12 @@ LABEL_378:
   {
     if (byte_100127EC8)
     {
-      theStringc = *__error();
-      v104 = sub_10003E080();
-      if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
+      v137 = __error();
+      theStringc = *v137;
+      v139 = sub_10003E080(v137, v138);
+      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000C29D8((a6 & 4) != 0, v104);
+        sub_1000C29D8((a6 & 4) != 0, v139);
       }
 
       *__error() = theStringc;
@@ -4720,71 +4772,71 @@ LABEL_378:
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 0)
     {
-      v189 = *__error();
-      v105 = "";
-      if (v35)
+      v246 = *__error();
+      v140 = "";
+      if (v38)
       {
-        v105 = "non-";
+        v140 = "non-";
       }
 
-      v106 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to find existing %sWindowServer-based sampled process", v105);
-      theStringb = v106;
-      if (v106)
+      v141 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to find existing %sWindowServer-based sampled process", v140);
+      theStringb = v141;
+      if (v141)
       {
-        v107 = CFStringGetCStringPtr(v106, 0x8000100u);
-        if (v107)
+        v143 = CFStringGetCStringPtr(v141, 0x8000100u);
+        if (v143)
         {
-          v188 = 0;
+          v245 = 0;
         }
 
         else
         {
-          v107 = malloc_type_calloc(0x400uLL, 1uLL, 0x74E39FBBuLL);
-          CFStringGetCString(theStringb, v107, 1024, 0x8000100u);
-          v188 = v107;
+          v143 = malloc_type_calloc(0x400uLL, 1uLL, 0x74E39FBBuLL);
+          CFStringGetCString(theStringb, v143, 1024, 0x8000100u);
+          v245 = v143;
         }
 
         if (qword_100127ED0)
         {
-          v147 = qword_100127ED0;
+          v192 = qword_100127ED0;
         }
 
         else
         {
-          v147 = __stderrp;
+          v192 = __stderrp;
         }
 
-        fprintf(v147, "%s\n", v107);
-        if (v188)
+        fprintf(v192, "%s\n", v143);
+        if (v245)
         {
-          free(v188);
+          free(v245);
         }
 
         goto LABEL_332;
       }
 
-      theStringe = sub_10003E080();
-      v143 = theStringe;
+      theStringe = sub_10003E080(0, v142);
+      v188 = theStringe;
       if (os_log_type_enabled(theStringe, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2A68();
-        v143 = theStringe;
+        v188 = theStringe;
       }
 
       if (qword_100127ED0)
       {
-        v135 = qword_100127ED0;
+        v180 = qword_100127ED0;
       }
 
       else
       {
-        v135 = __stderrp;
+        v180 = __stderrp;
       }
 
 LABEL_303:
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v135);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v180);
 LABEL_333:
-      *__error() = v189;
+      *__error() = v246;
     }
   }
 
@@ -4792,9 +4844,10 @@ LABEL_333:
   {
     if (byte_100127EC8)
     {
-      theStringa = *__error();
-      v73 = sub_10003E080();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+      v91 = __error();
+      theStringa = *v91;
+      v93 = sub_10003E080(v91, v92);
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C2AD8(a1);
       }
@@ -4804,49 +4857,49 @@ LABEL_333:
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 0)
     {
-      v189 = *__error();
-      v74 = sub_10003E020(a1);
-      if (v35)
+      v246 = *__error();
+      v94 = sub_10003E020(a1);
+      if (v38)
       {
-        v75 = "non-";
+        v95 = "non-";
       }
 
       else
       {
-        v75 = "";
+        v95 = "";
       }
 
-      v76 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to find existing %sWindowServer-based sampled process", v74, a1, v75);
-      theStringb = v76;
-      if (v76)
+      v96 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to find existing %sWindowServer-based sampled process", v94, a1, v95);
+      theStringb = v96;
+      if (v96)
       {
-        v77 = CFStringGetCStringPtr(v76, 0x8000100u);
-        if (v77)
+        v98 = CFStringGetCStringPtr(v96, 0x8000100u);
+        if (v98)
         {
-          v187 = 0;
+          v244 = 0;
         }
 
         else
         {
-          v77 = malloc_type_calloc(0x400uLL, 1uLL, 0x74E39FBBuLL);
-          CFStringGetCString(theStringb, v77, 1024, 0x8000100u);
-          v187 = v77;
+          v98 = malloc_type_calloc(0x400uLL, 1uLL, 0x74E39FBBuLL);
+          CFStringGetCString(theStringb, v98, 1024, 0x8000100u);
+          v244 = v98;
         }
 
         if (qword_100127ED0)
         {
-          v140 = qword_100127ED0;
+          v185 = qword_100127ED0;
         }
 
         else
         {
-          v140 = __stderrp;
+          v185 = __stderrp;
         }
 
-        fprintf(v140, "%s\n", v77);
-        if (v187)
+        fprintf(v185, "%s\n", v98);
+        if (v244)
         {
-          free(v187);
+          free(v244);
         }
 
 LABEL_332:
@@ -4854,22 +4907,22 @@ LABEL_332:
         goto LABEL_333;
       }
 
-      theStringd = sub_10003E080();
-      v134 = theStringd;
+      theStringd = sub_10003E080(0, v97);
+      v179 = theStringd;
       if (os_log_type_enabled(theStringd, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2B9C(a1);
-        v134 = theStringd;
+        v179 = theStringd;
       }
 
       if (qword_100127ED0)
       {
-        v135 = qword_100127ED0;
+        v180 = qword_100127ED0;
       }
 
       else
       {
-        v135 = __stderrp;
+        v180 = __stderrp;
       }
 
       goto LABEL_303;
@@ -4877,7 +4930,7 @@ LABEL_332:
   }
 
 LABEL_334:
-  v20 = [SPSampledProcess copySampledProcessForPid:a1 isWSBased:(a6 >> 2) & 1 createIfUnsampled:1 cancelExistingProcesses:(a6 >> 9) & 1 wasSampled:&v204];
+  v20 = [SPSampledProcess copySampledProcessForPid:a1 isWSBased:(a6 >> 2) & 1 createIfUnsampled:1 cancelExistingProcesses:(a6 >> 9) & 1 wasSampled:&v261];
 
   if (!v20)
   {
@@ -4885,12 +4938,12 @@ LABEL_334:
   }
 
 LABEL_35:
-  v196 = (a6 >> 1) & 1;
-  if (v204 != 1)
+  v253 = (a6 >> 1) & 1;
+  if (v261 != 1)
   {
     [v20 setSamplingIntervalUs:a2];
     [v20 setOccasionalDataIntervalSec:a3];
-    [v20 setSamplingMode:a4 withAdditionalSampledProcesses:v200];
+    [v20 setSamplingMode:a4 withAdditionalSampledProcesses:v257];
     [v20 setOmitSensitiveStrings:(a6 >> 4) & 1];
     [v20 setCancelOnMemoryPressure:(a6 >> 5) & 1];
     if ([v20 startSampling])
@@ -4907,14 +4960,15 @@ LABEL_35:
     {
       if (byte_100127EC8)
       {
-        v89 = *__error();
-        v90 = sub_10003E080();
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+        v116 = __error();
+        v117 = *v116;
+        v119 = sub_10003E080(v116, v118);
+        if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
         {
           sub_1000C2C44();
         }
 
-        *__error() = v89;
+        *__error() = v117;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -4922,45 +4976,45 @@ LABEL_35:
         goto LABEL_273;
       }
 
-      v62 = *__error();
-      v91 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Failed to start sampling");
-      v65 = v91;
-      if (v91)
+      v76 = *__error();
+      v120 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Failed to start sampling");
+      v80 = v120;
+      if (v120)
       {
-        v92 = CFStringGetCStringPtr(v91, 0x8000100u);
-        if (v92)
+        v122 = CFStringGetCStringPtr(v120, 0x8000100u);
+        if (v122)
         {
-          v93 = 0;
+          v123 = 0;
         }
 
         else
         {
-          v92 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE501104uLL);
-          CFStringGetCString(v65, v92, 1024, 0x8000100u);
-          v93 = v92;
+          v122 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE501104uLL);
+          CFStringGetCString(v80, v122, 1024, 0x8000100u);
+          v123 = v122;
         }
 
         if (qword_100127ED0)
         {
-          v138 = qword_100127ED0;
+          v183 = qword_100127ED0;
         }
 
         else
         {
-          v138 = __stderrp;
+          v183 = __stderrp;
         }
 
-        fprintf(v138, "%s\n", v92);
-        if (v93)
+        fprintf(v183, "%s\n", v122);
+        if (v123)
         {
-          free(v93);
+          free(v123);
         }
 
         goto LABEL_271;
       }
 
-      v121 = sub_10003E080();
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_FAULT))
+      v163 = sub_10003E080(0, v121);
+      if (os_log_type_enabled(v163, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2C80();
       }
@@ -4970,14 +5024,15 @@ LABEL_35:
     {
       if (byte_100127EC8)
       {
-        v60 = *__error();
-        v61 = sub_10003E080();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        v72 = __error();
+        v73 = *v72;
+        v75 = sub_10003E080(v72, v74);
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
         {
           sub_1000C2CB4();
         }
 
-        *__error() = v60;
+        *__error() = v73;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -4985,45 +5040,45 @@ LABEL_35:
         goto LABEL_273;
       }
 
-      v62 = *__error();
-      v63 = sub_10003E020(a1);
-      v64 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Failed to start sampling", v63, a1);
-      v65 = v64;
-      if (v64)
+      v76 = *__error();
+      v77 = sub_10003E020(a1);
+      v78 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Failed to start sampling", v77, a1);
+      v80 = v78;
+      if (v78)
       {
-        v66 = CFStringGetCStringPtr(v64, 0x8000100u);
-        if (v66)
+        v81 = CFStringGetCStringPtr(v78, 0x8000100u);
+        if (v81)
         {
-          v67 = 0;
+          v82 = 0;
         }
 
         else
         {
-          v66 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE501104uLL);
-          CFStringGetCString(v65, v66, 1024, 0x8000100u);
-          v67 = v66;
+          v81 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE501104uLL);
+          CFStringGetCString(v80, v81, 1024, 0x8000100u);
+          v82 = v81;
         }
 
         if (qword_100127ED0)
         {
-          v131 = qword_100127ED0;
+          v176 = qword_100127ED0;
         }
 
         else
         {
-          v131 = __stderrp;
+          v176 = __stderrp;
         }
 
-        fprintf(v131, "%s\n", v66);
-        if (v67)
+        fprintf(v176, "%s\n", v81);
+        if (v82)
         {
-          free(v67);
+          free(v82);
         }
 
 LABEL_271:
-        CFRelease(v65);
+        CFRelease(v80);
 LABEL_272:
-        *__error() = v62;
+        *__error() = v76;
 LABEL_273:
         [v20 removeSelfFromPidCache];
         *__error() = 37;
@@ -5033,8 +5088,8 @@ LABEL_472:
         goto LABEL_473;
       }
 
-      v121 = sub_10003E080();
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_FAULT))
+      v163 = sub_10003E080(0, v79);
+      if (os_log_type_enabled(v163, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2D38();
       }
@@ -5042,15 +5097,15 @@ LABEL_472:
 
     if (qword_100127ED0)
     {
-      v133 = qword_100127ED0;
+      v178 = qword_100127ED0;
     }
 
     else
     {
-      v133 = __stderrp;
+      v178 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v133);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v178);
     goto LABEL_272;
   }
 
@@ -5060,14 +5115,15 @@ LABEL_472:
     {
       if (byte_100127EC8)
       {
-        v78 = *__error();
-        v79 = sub_10003E080();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+        v99 = __error();
+        v100 = *v99;
+        v102 = sub_10003E080(v99, v101);
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C32CC();
         }
 
-        *__error() = v78;
+        *__error() = v100;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -5075,45 +5131,45 @@ LABEL_472:
         goto LABEL_471;
       }
 
-      v38 = *__error();
-      v80 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Not overriding existing sampling callback");
-      v41 = v80;
-      if (v80)
+      v43 = *__error();
+      v103 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Not overriding existing sampling callback");
+      v47 = v103;
+      if (v103)
       {
-        v81 = CFStringGetCStringPtr(v80, 0x8000100u);
-        if (v81)
+        v105 = CFStringGetCStringPtr(v103, 0x8000100u);
+        if (v105)
         {
-          v82 = 0;
+          v106 = 0;
         }
 
         else
         {
-          v81 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE1A83DDuLL);
-          CFStringGetCString(v41, v81, 1024, 0x8000100u);
-          v82 = v81;
+          v105 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE1A83DDuLL);
+          CFStringGetCString(v47, v105, 1024, 0x8000100u);
+          v106 = v105;
         }
 
         if (qword_100127ED0)
         {
-          v136 = qword_100127ED0;
+          v181 = qword_100127ED0;
         }
 
         else
         {
-          v136 = __stderrp;
+          v181 = __stderrp;
         }
 
-        fprintf(v136, "%s\n", v81);
-        if (v82)
+        fprintf(v181, "%s\n", v105);
+        if (v106)
         {
-          free(v82);
+          free(v106);
         }
 
         goto LABEL_256;
       }
 
-      v120 = sub_10003E080();
-      if (os_log_type_enabled(v120, OS_LOG_TYPE_FAULT))
+      v162 = sub_10003E080(0, v104);
+      if (os_log_type_enabled(v162, OS_LOG_TYPE_FAULT))
       {
         sub_1000C3300();
       }
@@ -5123,14 +5179,15 @@ LABEL_472:
     {
       if (byte_100127EC8)
       {
-        v36 = *__error();
-        v37 = sub_10003E080();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v39 = __error();
+        v40 = *v39;
+        v42 = sub_10003E080(v39, v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C3334();
         }
 
-        *__error() = v36;
+        *__error() = v40;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -5138,50 +5195,50 @@ LABEL_472:
         goto LABEL_471;
       }
 
-      v38 = *__error();
-      v39 = sub_10003E020(a1);
-      v40 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Not overriding existing sampling callback", v39, a1);
-      v41 = v40;
-      if (v40)
+      v43 = *__error();
+      v44 = sub_10003E020(a1);
+      v45 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Not overriding existing sampling callback", v44, a1);
+      v47 = v45;
+      if (v45)
       {
-        v42 = CFStringGetCStringPtr(v40, 0x8000100u);
-        if (v42)
+        v48 = CFStringGetCStringPtr(v45, 0x8000100u);
+        if (v48)
         {
-          v43 = 0;
+          v49 = 0;
         }
 
         else
         {
-          v42 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE1A83DDuLL);
-          CFStringGetCString(v41, v42, 1024, 0x8000100u);
-          v43 = v42;
+          v48 = malloc_type_calloc(0x400uLL, 1uLL, 0xDE1A83DDuLL);
+          CFStringGetCString(v47, v48, 1024, 0x8000100u);
+          v49 = v48;
         }
 
         if (qword_100127ED0)
         {
-          v130 = qword_100127ED0;
+          v175 = qword_100127ED0;
         }
 
         else
         {
-          v130 = __stderrp;
+          v175 = __stderrp;
         }
 
-        fprintf(v130, "%s\n", v42);
-        if (v43)
+        fprintf(v175, "%s\n", v48);
+        if (v49)
         {
-          free(v43);
+          free(v49);
         }
 
 LABEL_256:
-        CFRelease(v41);
+        CFRelease(v47);
 LABEL_257:
-        *__error() = v38;
+        *__error() = v43;
         goto LABEL_471;
       }
 
-      v120 = sub_10003E080();
-      if (os_log_type_enabled(v120, OS_LOG_TYPE_FAULT))
+      v162 = sub_10003E080(0, v46);
+      if (os_log_type_enabled(v162, OS_LOG_TYPE_FAULT))
       {
         sub_1000C33B8();
       }
@@ -5189,15 +5246,15 @@ LABEL_257:
 
     if (qword_100127ED0)
     {
-      v132 = qword_100127ED0;
+      v177 = qword_100127ED0;
     }
 
     else
     {
-      v132 = __stderrp;
+      v177 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v132);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v177);
     goto LABEL_257;
   }
 
@@ -5207,15 +5264,16 @@ LABEL_257:
     {
       if (byte_100127EC8)
       {
-        v122 = *__error();
-        v123 = sub_10003E080();
-        if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+        v164 = __error();
+        v165 = *v164;
+        v167 = sub_10003E080(v164, v166);
+        if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buffer) = 0;
-          _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_DEFAULT, "Already sampling with sensitive strings", &buffer, 2u);
+          _os_log_impl(&_mh_execute_header, v167, OS_LOG_TYPE_DEFAULT, "Already sampling with sensitive strings", &buffer, 2u);
         }
 
-        *__error() = v122;
+        *__error() = v165;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 2)
@@ -5223,45 +5281,45 @@ LABEL_257:
         goto LABEL_471;
       }
 
-      v97 = *__error();
-      v124 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling with sensitive strings");
-      v100 = v124;
-      if (v124)
+      v129 = *__error();
+      v168 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling with sensitive strings");
+      v133 = v168;
+      if (v168)
       {
-        v125 = CFStringGetCStringPtr(v124, 0x8000100u);
-        if (v125)
+        v170 = CFStringGetCStringPtr(v168, 0x8000100u);
+        if (v170)
         {
-          v126 = 0;
+          v171 = 0;
         }
 
         else
         {
-          v125 = malloc_type_calloc(0x400uLL, 1uLL, 0xD8407571uLL);
-          CFStringGetCString(v100, v125, 1024, 0x8000100u);
-          v126 = v125;
+          v170 = malloc_type_calloc(0x400uLL, 1uLL, 0xD8407571uLL);
+          CFStringGetCString(v133, v170, 1024, 0x8000100u);
+          v171 = v170;
         }
 
         if (qword_100127ED0)
         {
-          v185 = qword_100127ED0;
+          v242 = qword_100127ED0;
         }
 
         else
         {
-          v185 = __stderrp;
+          v242 = __stderrp;
         }
 
-        fprintf(v185, "%s\n", v125);
-        if (v126)
+        fprintf(v242, "%s\n", v170);
+        if (v171)
         {
-          free(v126);
+          free(v171);
         }
 
         goto LABEL_469;
       }
 
-      v139 = sub_10003E080();
-      if (os_log_type_enabled(v139, OS_LOG_TYPE_FAULT))
+      v184 = sub_10003E080(0, v169);
+      if (os_log_type_enabled(v184, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2DBC();
       }
@@ -5271,19 +5329,20 @@ LABEL_257:
     {
       if (byte_100127EC8)
       {
-        v94 = *__error();
-        v95 = sub_10003E080();
-        if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+        v124 = __error();
+        v125 = *v124;
+        v127 = sub_10003E080(v124, v126);
+        if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
         {
-          v96 = sub_10003E020(a1);
+          v128 = sub_10003E020(a1);
           buffer = 136446466;
-          v206 = v96;
-          v207 = 1024;
-          v208 = a1;
-          _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "%{public}s [%d]: Already sampling with sensitive strings", &buffer, 0x12u);
+          v263 = v128;
+          v264 = 1024;
+          v265 = a1;
+          _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_DEFAULT, "%{public}s [%d]: Already sampling with sensitive strings", &buffer, 0x12u);
         }
 
-        *__error() = v94;
+        *__error() = v125;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 2)
@@ -5291,53 +5350,53 @@ LABEL_257:
         goto LABEL_471;
       }
 
-      v97 = *__error();
-      v98 = sub_10003E020(a1);
-      v99 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling with sensitive strings", v98, a1);
-      v100 = v99;
-      if (v99)
+      v129 = *__error();
+      v130 = sub_10003E020(a1);
+      v131 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling with sensitive strings", v130, a1);
+      v133 = v131;
+      if (v131)
       {
-        v101 = CFStringGetCStringPtr(v99, 0x8000100u);
-        if (v101)
+        v134 = CFStringGetCStringPtr(v131, 0x8000100u);
+        if (v134)
         {
-          v102 = 0;
+          v135 = 0;
         }
 
         else
         {
-          v101 = malloc_type_calloc(0x400uLL, 1uLL, 0xD8407571uLL);
-          CFStringGetCString(v100, v101, 1024, 0x8000100u);
-          v102 = v101;
+          v134 = malloc_type_calloc(0x400uLL, 1uLL, 0xD8407571uLL);
+          CFStringGetCString(v133, v134, 1024, 0x8000100u);
+          v135 = v134;
         }
 
         if (qword_100127ED0)
         {
-          v145 = qword_100127ED0;
+          v190 = qword_100127ED0;
         }
 
         else
         {
-          v145 = __stderrp;
+          v190 = __stderrp;
         }
 
-        fprintf(v145, "%s\n", v101);
-        if (v102)
+        fprintf(v190, "%s\n", v134);
+        if (v135)
         {
-          free(v102);
+          free(v135);
         }
 
 LABEL_469:
-        CFRelease(v100);
+        CFRelease(v133);
 LABEL_470:
-        *__error() = v97;
+        *__error() = v129;
 LABEL_471:
         *__error() = 37;
 
         goto LABEL_472;
       }
 
-      v139 = sub_10003E080();
-      if (os_log_type_enabled(v139, OS_LOG_TYPE_FAULT))
+      v184 = sub_10003E080(0, v132);
+      if (os_log_type_enabled(v184, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2DF0();
       }
@@ -5345,15 +5404,15 @@ LABEL_471:
 
     if (qword_100127ED0)
     {
-      v146 = qword_100127ED0;
+      v191 = qword_100127ED0;
     }
 
     else
     {
-      v146 = __stderrp;
+      v191 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v146);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v191);
     goto LABEL_470;
   }
 
@@ -5363,57 +5422,58 @@ LABEL_471:
     {
       if (byte_100127EC8)
       {
-        v108 = *__error();
-        v109 = sub_10003E080();
-        if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
+        v144 = __error();
+        v145 = *v144;
+        v147 = sub_10003E080(v144, v146);
+        if (os_log_type_enabled(v147, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C2FE4();
         }
 
-        *__error() = v108;
+        *__error() = v145;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 0)
       {
         theString = *__error();
-        v110 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling, overriding existing callback");
-        v57 = v110;
-        if (v110)
+        v148 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling, overriding existing callback");
+        v69 = v148;
+        if (v148)
         {
-          v111 = CFStringGetCStringPtr(v110, 0x8000100u);
-          if (v111)
+          v150 = CFStringGetCStringPtr(v148, 0x8000100u);
+          if (v150)
           {
-            v112 = 0;
+            v151 = 0;
           }
 
           else
           {
-            v111 = malloc_type_calloc(0x400uLL, 1uLL, 0x1D4CFECCuLL);
-            CFStringGetCString(v57, v111, 1024, 0x8000100u);
-            v112 = v111;
+            v150 = malloc_type_calloc(0x400uLL, 1uLL, 0x1D4CFECCuLL);
+            CFStringGetCString(v69, v150, 1024, 0x8000100u);
+            v151 = v150;
           }
 
           if (qword_100127ED0)
           {
-            v165 = qword_100127ED0;
+            v216 = qword_100127ED0;
           }
 
           else
           {
-            v165 = __stderrp;
+            v216 = __stderrp;
           }
 
-          fprintf(v165, "%s\n", v111);
-          if (v112)
+          fprintf(v216, "%s\n", v150);
+          if (v151)
           {
-            free(v112);
+            free(v151);
           }
 
           goto LABEL_393;
         }
 
-        v137 = sub_10003E080();
-        if (os_log_type_enabled(v137, OS_LOG_TYPE_FAULT))
+        v182 = sub_10003E080(0, v149);
+        if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
         {
           sub_1000C3018();
         }
@@ -5422,15 +5482,15 @@ LABEL_309:
 
         if (qword_100127ED0)
         {
-          v144 = qword_100127ED0;
+          v189 = qword_100127ED0;
         }
 
         else
         {
-          v144 = __stderrp;
+          v189 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v144);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v189);
         goto LABEL_394;
       }
     }
@@ -5439,62 +5499,63 @@ LABEL_309:
     {
       if (byte_100127EC8)
       {
-        v53 = *__error();
-        v54 = sub_10003E080();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+        v62 = __error();
+        v63 = *v62;
+        v65 = sub_10003E080(v62, v64);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
         {
           sub_1000C304C();
         }
 
-        *__error() = v53;
+        *__error() = v63;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 0)
       {
         theString = *__error();
-        v55 = sub_10003E020(a1);
-        v56 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling, overriding existing callback", v55, a1);
-        v57 = v56;
-        if (v56)
+        v66 = sub_10003E020(a1);
+        v67 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling, overriding existing callback", v66, a1);
+        v69 = v67;
+        if (v67)
         {
-          v58 = CFStringGetCStringPtr(v56, 0x8000100u);
-          if (v58)
+          v70 = CFStringGetCStringPtr(v67, 0x8000100u);
+          if (v70)
           {
-            v59 = 0;
+            v71 = 0;
           }
 
           else
           {
-            v58 = malloc_type_calloc(0x400uLL, 1uLL, 0x1D4CFECCuLL);
-            CFStringGetCString(v57, v58, 1024, 0x8000100u);
-            v59 = v58;
+            v70 = malloc_type_calloc(0x400uLL, 1uLL, 0x1D4CFECCuLL);
+            CFStringGetCString(v69, v70, 1024, 0x8000100u);
+            v71 = v70;
           }
 
           if (qword_100127ED0)
           {
-            v141 = qword_100127ED0;
+            v186 = qword_100127ED0;
           }
 
           else
           {
-            v141 = __stderrp;
+            v186 = __stderrp;
           }
 
-          fprintf(v141, "%s\n", v58);
-          if (v59)
+          fprintf(v186, "%s\n", v70);
+          if (v71)
           {
-            free(v59);
+            free(v71);
           }
 
 LABEL_393:
-          CFRelease(v57);
+          CFRelease(v69);
 LABEL_394:
           *__error() = theString;
           goto LABEL_395;
         }
 
-        v137 = sub_10003E080();
-        if (os_log_type_enabled(v137, OS_LOG_TYPE_FAULT))
+        v182 = sub_10003E080(0, v68);
+        if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
         {
           sub_1000C30D0();
         }
@@ -5508,57 +5569,58 @@ LABEL_394:
   {
     if (byte_100127EC8)
     {
-      v113 = *__error();
-      v114 = sub_10003E080();
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_DEBUG))
+      v152 = __error();
+      v153 = *v152;
+      v155 = sub_10003E080(v152, v154);
+      if (os_log_type_enabled(v155, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C2E74();
       }
 
-      *__error() = v113;
+      *__error() = v153;
     }
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 0)
     {
       theString = *__error();
-      v115 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling, not overriding existing callback");
-      v57 = v115;
-      if (v115)
+      v156 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling, not overriding existing callback");
+      v69 = v156;
+      if (v156)
       {
-        v116 = CFStringGetCStringPtr(v115, 0x8000100u);
-        if (v116)
+        v158 = CFStringGetCStringPtr(v156, 0x8000100u);
+        if (v158)
         {
-          v117 = 0;
+          v159 = 0;
         }
 
         else
         {
-          v116 = malloc_type_calloc(0x400uLL, 1uLL, 0x9F25C25AuLL);
-          CFStringGetCString(v57, v116, 1024, 0x8000100u);
-          v117 = v116;
+          v158 = malloc_type_calloc(0x400uLL, 1uLL, 0x9F25C25AuLL);
+          CFStringGetCString(v69, v158, 1024, 0x8000100u);
+          v159 = v158;
         }
 
         if (qword_100127ED0)
         {
-          v166 = qword_100127ED0;
+          v217 = qword_100127ED0;
         }
 
         else
         {
-          v166 = __stderrp;
+          v217 = __stderrp;
         }
 
-        fprintf(v166, "%s\n", v116);
-        if (v117)
+        fprintf(v217, "%s\n", v158);
+        if (v159)
         {
-          free(v117);
+          free(v159);
         }
 
         goto LABEL_393;
       }
 
-      v137 = sub_10003E080();
-      if (os_log_type_enabled(v137, OS_LOG_TYPE_FAULT))
+      v182 = sub_10003E080(0, v157);
+      if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2EA8();
       }
@@ -5571,58 +5633,59 @@ LABEL_394:
   {
     if (byte_100127EC8)
     {
-      v83 = *__error();
-      v84 = sub_10003E080();
-      if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
+      v107 = __error();
+      v108 = *v107;
+      v110 = sub_10003E080(v107, v109);
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C2EDC();
       }
 
-      *__error() = v83;
+      *__error() = v108;
     }
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 0)
     {
       theString = *__error();
-      v85 = sub_10003E020(a1);
-      v86 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling, not overriding existing callback", v85, a1);
-      v57 = v86;
-      if (v86)
+      v111 = sub_10003E020(a1);
+      v112 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling, not overriding existing callback", v111, a1);
+      v69 = v112;
+      if (v112)
       {
-        v87 = CFStringGetCStringPtr(v86, 0x8000100u);
-        if (v87)
+        v114 = CFStringGetCStringPtr(v112, 0x8000100u);
+        if (v114)
         {
-          v88 = 0;
+          v115 = 0;
         }
 
         else
         {
-          v87 = malloc_type_calloc(0x400uLL, 1uLL, 0x9F25C25AuLL);
-          CFStringGetCString(v57, v87, 1024, 0x8000100u);
-          v88 = v87;
+          v114 = malloc_type_calloc(0x400uLL, 1uLL, 0x9F25C25AuLL);
+          CFStringGetCString(v69, v114, 1024, 0x8000100u);
+          v115 = v114;
         }
 
         if (qword_100127ED0)
         {
-          v142 = qword_100127ED0;
+          v187 = qword_100127ED0;
         }
 
         else
         {
-          v142 = __stderrp;
+          v187 = __stderrp;
         }
 
-        fprintf(v142, "%s\n", v87);
-        if (v88)
+        fprintf(v187, "%s\n", v114);
+        if (v115)
         {
-          free(v88);
+          free(v115);
         }
 
         goto LABEL_393;
       }
 
-      v137 = sub_10003E080();
-      if (os_log_type_enabled(v137, OS_LOG_TYPE_FAULT))
+      v182 = sub_10003E080(0, v113);
+      if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
       {
         sub_1000C2F60();
       }
@@ -5638,14 +5701,15 @@ LABEL_395:
     {
       if (byte_100127EC8)
       {
-        v175 = *__error();
-        v176 = sub_10003E080();
-        if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
+        v229 = __error();
+        v230 = *v229;
+        v232 = sub_10003E080(v229, v231);
+        if (os_log_type_enabled(v232, OS_LOG_TYPE_ERROR))
         {
           sub_1000C3154();
         }
 
-        *__error() = v175;
+        *__error() = v230;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -5653,45 +5717,45 @@ LABEL_395:
         goto LABEL_471;
       }
 
-      v169 = *__error();
-      v177 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling with incompatible parameters");
-      v172 = v177;
-      if (v177)
+      v222 = *__error();
+      v233 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Already sampling with incompatible parameters");
+      v226 = v233;
+      if (v233)
       {
-        v178 = CFStringGetCStringPtr(v177, 0x8000100u);
-        if (v178)
+        v235 = CFStringGetCStringPtr(v233, 0x8000100u);
+        if (v235)
         {
-          v179 = 0;
+          v236 = 0;
         }
 
         else
         {
-          v178 = malloc_type_calloc(0x400uLL, 1uLL, 0x23ECBC0uLL);
-          CFStringGetCString(v172, v178, 1024, 0x8000100u);
-          v179 = v178;
+          v235 = malloc_type_calloc(0x400uLL, 1uLL, 0x23ECBC0uLL);
+          CFStringGetCString(v226, v235, 1024, 0x8000100u);
+          v236 = v235;
         }
 
         if (qword_100127ED0)
         {
-          v184 = qword_100127ED0;
+          v241 = qword_100127ED0;
         }
 
         else
         {
-          v184 = __stderrp;
+          v241 = __stderrp;
         }
 
-        fprintf(v184, "%s\n", v178);
-        if (v179)
+        fprintf(v241, "%s\n", v235);
+        if (v236)
         {
-          free(v179);
+          free(v236);
         }
 
         goto LABEL_460;
       }
 
-      v181 = sub_10003E080();
-      if (os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
+      v238 = sub_10003E080(0, v234);
+      if (os_log_type_enabled(v238, OS_LOG_TYPE_FAULT))
       {
         sub_1000C3190();
       }
@@ -5701,14 +5765,15 @@ LABEL_395:
     {
       if (byte_100127EC8)
       {
-        v167 = *__error();
-        v168 = sub_10003E080();
-        if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+        v218 = __error();
+        v219 = *v218;
+        v221 = sub_10003E080(v218, v220);
+        if (os_log_type_enabled(v221, OS_LOG_TYPE_ERROR))
         {
           sub_1000C31C4();
         }
 
-        *__error() = v167;
+        *__error() = v219;
       }
 
       if (byte_100127EC9 != 1 || dword_100127558 > 3)
@@ -5716,50 +5781,50 @@ LABEL_395:
         goto LABEL_471;
       }
 
-      v169 = *__error();
-      v170 = sub_10003E020(a1);
-      v171 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling with incompatible parameters", v170, a1);
-      v172 = v171;
-      if (v171)
+      v222 = *__error();
+      v223 = sub_10003E020(a1);
+      v224 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Already sampling with incompatible parameters", v223, a1);
+      v226 = v224;
+      if (v224)
       {
-        v173 = CFStringGetCStringPtr(v171, 0x8000100u);
-        if (v173)
+        v227 = CFStringGetCStringPtr(v224, 0x8000100u);
+        if (v227)
         {
-          v174 = 0;
+          v228 = 0;
         }
 
         else
         {
-          v173 = malloc_type_calloc(0x400uLL, 1uLL, 0x23ECBC0uLL);
-          CFStringGetCString(v172, v173, 1024, 0x8000100u);
-          v174 = v173;
+          v227 = malloc_type_calloc(0x400uLL, 1uLL, 0x23ECBC0uLL);
+          CFStringGetCString(v226, v227, 1024, 0x8000100u);
+          v228 = v227;
         }
 
         if (qword_100127ED0)
         {
-          v182 = qword_100127ED0;
+          v239 = qword_100127ED0;
         }
 
         else
         {
-          v182 = __stderrp;
+          v239 = __stderrp;
         }
 
-        fprintf(v182, "%s\n", v173);
-        if (v174)
+        fprintf(v239, "%s\n", v227);
+        if (v228)
         {
-          free(v174);
+          free(v228);
         }
 
 LABEL_460:
-        CFRelease(v172);
+        CFRelease(v226);
 LABEL_461:
-        *__error() = v169;
+        *__error() = v222;
         goto LABEL_471;
       }
 
-      v181 = sub_10003E080();
-      if (os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
+      v238 = sub_10003E080(0, v225);
+      if (os_log_type_enabled(v238, OS_LOG_TYPE_FAULT))
       {
         sub_1000C3248();
       }
@@ -5767,15 +5832,15 @@ LABEL_461:
 
     if (qword_100127ED0)
     {
-      v183 = qword_100127ED0;
+      v240 = qword_100127ED0;
     }
 
     else
     {
-      v183 = __stderrp;
+      v240 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v183);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v240);
     goto LABEL_461;
   }
 
@@ -5783,7 +5848,7 @@ LABEL_461:
   {
     if ((a6 & 2) != 0)
     {
-      [v20 setSamplingMode:a4 withAdditionalSampledProcesses:v200];
+      [v20 setSamplingMode:a4 withAdditionalSampledProcesses:v257];
       [v20 setCancelOnMemoryPressure:(a6 >> 5) & 1];
 LABEL_424:
       [v20 requireHIDEvent:(a6 >> 6) & 1];
@@ -5794,14 +5859,14 @@ LABEL_425:
       }
 
       objc_initWeak(&buffer, v20);
-      v201[0] = _NSConcreteStackBlock;
-      v201[1] = 3221225472;
-      v201[2] = sub_100090B78;
-      v201[3] = &unk_100115CE0;
-      v202 = v198;
-      objc_copyWeak(&v203, &buffer);
-      [v20 setSamplingCompletionHandlerQueue:v17 andBlock:v201];
-      objc_destroyWeak(&v203);
+      v258[0] = _NSConcreteStackBlock;
+      v258[1] = 3221225472;
+      v258[2] = sub_100090B78;
+      v258[3] = &unk_100115CE0;
+      v259 = v255;
+      objc_copyWeak(&v260, &buffer);
+      [v20 setSamplingCompletionHandlerQueue:v17 andBlock:v258];
+      objc_destroyWeak(&v260);
 
       objc_destroyWeak(&buffer);
       goto LABEL_428;
@@ -5815,11 +5880,11 @@ LABEL_425:
 
   else
   {
-    [v20 setSamplingMode:a4 withAdditionalSampledProcesses:v200];
+    [v20 setSamplingMode:a4 withAdditionalSampledProcesses:v257];
     if ((a6 >> 1) & 1 | ((a6 & 0x20) == 0))
     {
       [v20 setCancelOnMemoryPressure:?];
-      if (v196)
+      if (v253)
       {
         goto LABEL_424;
       }
@@ -5827,19 +5892,19 @@ LABEL_425:
   }
 
 LABEL_54:
-  if ((a6 & 2) != 0 || (v204 & 1) == 0)
+  if ((a6 & 2) != 0 || (v261 & 1) == 0)
   {
     goto LABEL_425;
   }
 
-  LOBYTE(v196) = 0;
+  LOBYTE(v253) = 0;
 LABEL_428:
   if (a9 > 0.0)
   {
     [v20 setSamplingTimeoutAtTime:a9];
   }
 
-  if (v196 & 1 | ((v204 & 1) == 0))
+  if (v253 & 1 | ((v261 & 1) == 0))
   {
     [v20 setStopWhenProcessExits:a6 & 1];
   }
@@ -5849,18 +5914,18 @@ LABEL_428:
     [v20 gatherLoadInfoForPid:a1];
   }
 
-  v180 = v199;
-  if (!v199)
+  v237 = v256;
+  if (!v256)
   {
     goto LABEL_474;
   }
 
   [v20 setTargetProcessAbsolutePath:?];
 LABEL_473:
-  v180 = v199;
+  v237 = v256;
 LABEL_474:
 
-  v19 = v198;
+  v19 = v255;
 LABEL_475:
 
   return v20;
@@ -5912,13 +5977,6 @@ _DWORD *sub_100090FC0(uint64_t a1)
   return sub_10003E020(v2);
 }
 
-void sub_100091028(uint64_t a1@<X1>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(a1 + 297);
-  v4 = *(a1 + 298);
-}
-
 void sub_10009103C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
 {
   va_start(va, a4);
@@ -5955,37 +6013,37 @@ id sub_1000911BC(uint64_t a1, void *a2)
   if (!v2)
   {
     stackshot_config_set_pid();
-    v29 = stackshot_capture_with_config();
-    if (!v29)
+    v32 = stackshot_capture_with_config();
+    if (!v32)
     {
-      v30 = [NSData alloc];
+      v33 = [NSData alloc];
       stackshot_buffer = stackshot_config_get_stackshot_buffer();
-      v6 = [v30 initWithBytesNoCopy:stackshot_buffer length:stackshot_config_get_stackshot_size() freeWhenDone:0];
+      v6 = [v33 initWithBytesNoCopy:stackshot_buffer length:stackshot_config_get_stackshot_size() freeWhenDone:0];
       goto LABEL_53;
     }
 
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_1000916A8;
-    v40[3] = &unk_1001152D0;
-    v41 = v29;
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_1000916A8;
+    v43[3] = &unk_1001152D0;
+    v44 = v32;
     if (qword_100127E78 == -1)
     {
       v6 = 0;
       goto LABEL_53;
     }
 
-    dispatch_once(&qword_100127E78, v40);
+    dispatch_once(&qword_100127E78, v43);
 LABEL_52:
     v6 = 0;
     goto LABEL_53;
   }
 
-  v38 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v4 = [v2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v40 = 0u;
+  v4 = [v2 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (!v4)
   {
     goto LABEL_52;
@@ -5993,18 +6051,18 @@ LABEL_52:
 
   v5 = v4;
   v6 = 0;
-  v7 = *v37;
+  v7 = *v40;
   do
   {
     v8 = 0;
     do
     {
-      if (*v37 != v7)
+      if (*v40 != v7)
       {
         objc_enumerationMutation(v3);
       }
 
-      v9 = *(*(&v36 + 1) + 8 * v8);
+      v9 = *(*(&v39 + 1) + 8 * v8);
       [v9 intValue];
       stackshot_config_set_pid();
       v10 = stackshot_capture_with_config();
@@ -6014,84 +6072,85 @@ LABEL_52:
         {
           if (byte_100127EC8 == 1)
           {
-            v11 = *__error();
-            v12 = sub_10003E080();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+            v11 = __error();
+            v12 = *v11;
+            v14 = sub_10003E080(v11, v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
-              sub_1000C35B4(v43, v9);
+              sub_1000C35B4(v46, v9);
             }
 
-            *__error() = v11;
+            *__error() = v12;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 0)
           {
-            v14 = *__error();
-            v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"pid %d doesn't exist", [v9 intValue]);
-            if (v15)
+            v16 = *__error();
+            v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"pid %d doesn't exist", [v9 intValue]);
+            if (v17)
             {
-              v16 = v15;
-              v33 = v14;
-              v17 = v3;
-              v18 = v6;
-              CStringPtr = CFStringGetCStringPtr(v15, 0x8000100u);
+              v19 = v17;
+              v36 = v16;
+              v20 = v3;
+              v21 = v6;
+              CStringPtr = CFStringGetCStringPtr(v17, 0x8000100u);
               if (CStringPtr)
               {
-                v20 = CStringPtr;
-                v21 = 0;
+                v23 = CStringPtr;
+                v24 = 0;
               }
 
               else
               {
-                v20 = malloc_type_calloc(0x400uLL, 1uLL, 0x4C16FD23uLL);
-                CFStringGetCString(v16, v20, 1024, 0x8000100u);
-                v21 = v20;
+                v23 = malloc_type_calloc(0x400uLL, 1uLL, 0x4C16FD23uLL);
+                CFStringGetCString(v19, v23, 1024, 0x8000100u);
+                v24 = v23;
               }
 
               if (qword_100127ED0)
               {
-                v27 = qword_100127ED0;
+                v30 = qword_100127ED0;
               }
 
               else
               {
-                v27 = __stderrp;
+                v30 = __stderrp;
               }
 
-              fprintf(v27, "%s\n", v20);
-              if (v21)
+              fprintf(v30, "%s\n", v23);
+              if (v24)
               {
-                free(v21);
+                free(v24);
               }
 
-              CFRelease(v16);
-              v6 = v18;
-              v3 = v17;
-              v14 = v33;
+              CFRelease(v19);
+              v6 = v21;
+              v3 = v20;
+              v16 = v36;
             }
 
             else
             {
-              v25 = sub_10003E080();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+              v28 = sub_10003E080(0, v18);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
               {
-                sub_1000C3610(v42, v9);
+                sub_1000C3610(v45, v9);
               }
 
               if (qword_100127ED0)
               {
-                v26 = qword_100127ED0;
+                v29 = qword_100127ED0;
               }
 
               else
               {
-                v26 = __stderrp;
+                v29 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v26);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v29);
             }
 
-            *__error() = v14;
+            *__error() = v16;
           }
 
           [v3 removeObject:v9];
@@ -6103,7 +6162,7 @@ LABEL_52:
           block[1] = 3221225472;
           block[2] = sub_100091880;
           block[3] = &unk_1001152D0;
-          v35 = v10;
+          v38 = v10;
           if (qword_100127E80 != -1)
           {
             dispatch_once(&qword_100127E80, block);
@@ -6115,15 +6174,15 @@ LABEL_52:
       {
         if (v6)
         {
-          v22 = stackshot_config_get_stackshot_buffer();
-          [v6 appendBytes:v22 length:stackshot_config_get_stackshot_size()];
+          v25 = stackshot_config_get_stackshot_buffer();
+          [v6 appendBytes:v25 length:stackshot_config_get_stackshot_size()];
         }
 
         else
         {
-          v23 = [NSMutableData alloc];
-          v24 = stackshot_config_get_stackshot_buffer();
-          v6 = [v23 initWithBytes:v24 length:stackshot_config_get_stackshot_size()];
+          v26 = [NSMutableData alloc];
+          v27 = stackshot_config_get_stackshot_buffer();
+          v6 = [v26 initWithBytes:v27 length:stackshot_config_get_stackshot_size()];
         }
 
         stackshot_config_dealloc_buffer();
@@ -6133,11 +6192,11 @@ LABEL_52:
     }
 
     while (v5 != v8);
-    v28 = [v3 countByEnumeratingWithState:&v36 objects:v44 count:16];
-    v5 = v28;
+    v31 = [v3 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v5 = v31;
   }
 
-  while (v28);
+  while (v31);
 LABEL_53:
 
   return v6;
@@ -6148,38 +6207,64 @@ int *sub_1000916A8(int *result)
   v1 = result;
   if (byte_100127EC8 == 1)
   {
-    v2 = *__error();
-    v3 = sub_10003E080();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = __error();
+    v3 = *v2;
+    v5 = sub_10003E080(v2, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C366C(v1);
+      sub_1000C366C();
     }
 
     result = __error();
-    *result = v2;
+    *result = v3;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v5 = *__error();
-    v7 = *(v1 + 32);
-    v6 = (v1 + 32);
-    v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot failed: %d", v7);
+    v7 = *__error();
+    v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot failed: %d", v1[8]);
     if (v8)
     {
-      v9 = v8;
+      v10 = v8;
       CStringPtr = CFStringGetCStringPtr(v8, 0x8000100u);
       if (CStringPtr)
       {
-        v11 = CStringPtr;
-        v12 = 0;
+        v12 = CStringPtr;
+        v13 = 0;
       }
 
       else
       {
-        v11 = malloc_type_calloc(0x400uLL, 1uLL, 0x759AEC2uLL);
-        CFStringGetCString(v9, v11, 1024, 0x8000100u);
-        v12 = v11;
+        v12 = malloc_type_calloc(0x400uLL, 1uLL, 0x759AEC2uLL);
+        CFStringGetCString(v10, v12, 1024, 0x8000100u);
+        v13 = v12;
+      }
+
+      if (qword_100127ED0)
+      {
+        v16 = qword_100127ED0;
+      }
+
+      else
+      {
+        v16 = __stderrp;
+      }
+
+      fprintf(v16, "%s\n", v12);
+      if (v13)
+      {
+        free(v13);
+      }
+
+      CFRelease(v10);
+    }
+
+    else
+    {
+      v14 = sub_10003E080(0, v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      {
+        sub_1000C36E0();
       }
 
       if (qword_100127ED0)
@@ -6192,38 +6277,11 @@ int *sub_1000916A8(int *result)
         v15 = __stderrp;
       }
 
-      fprintf(v15, "%s\n", v11);
-      if (v12)
-      {
-        free(v12);
-      }
-
-      CFRelease(v9);
-    }
-
-    else
-    {
-      v13 = sub_10003E080();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
-      {
-        sub_1000C36E0(v6);
-      }
-
-      if (qword_100127ED0)
-      {
-        v14 = qword_100127ED0;
-      }
-
-      else
-      {
-        v14 = __stderrp;
-      }
-
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v14);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v15);
     }
 
     result = __error();
-    *result = v5;
+    *result = v7;
   }
 
   return result;
@@ -6234,38 +6292,64 @@ int *sub_100091880(int *result)
   v1 = result;
   if (byte_100127EC8 == 1)
   {
-    v2 = *__error();
-    v3 = sub_10003E080();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = __error();
+    v3 = *v2;
+    v5 = sub_10003E080(v2, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C366C(v1);
+      sub_1000C366C();
     }
 
     result = __error();
-    *result = v2;
+    *result = v3;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v5 = *__error();
-    v7 = *(v1 + 32);
-    v6 = (v1 + 32);
-    v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot failed: %d", v7);
+    v7 = *__error();
+    v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot failed: %d", v1[8]);
     if (v8)
     {
-      v9 = v8;
+      v10 = v8;
       CStringPtr = CFStringGetCStringPtr(v8, 0x8000100u);
       if (CStringPtr)
       {
-        v11 = CStringPtr;
-        v12 = 0;
+        v12 = CStringPtr;
+        v13 = 0;
       }
 
       else
       {
-        v11 = malloc_type_calloc(0x400uLL, 1uLL, 0x59C8CB92uLL);
-        CFStringGetCString(v9, v11, 1024, 0x8000100u);
-        v12 = v11;
+        v12 = malloc_type_calloc(0x400uLL, 1uLL, 0x59C8CB92uLL);
+        CFStringGetCString(v10, v12, 1024, 0x8000100u);
+        v13 = v12;
+      }
+
+      if (qword_100127ED0)
+      {
+        v16 = qword_100127ED0;
+      }
+
+      else
+      {
+        v16 = __stderrp;
+      }
+
+      fprintf(v16, "%s\n", v12);
+      if (v13)
+      {
+        free(v13);
+      }
+
+      CFRelease(v10);
+    }
+
+    else
+    {
+      v14 = sub_10003E080(0, v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      {
+        sub_1000C36E0();
       }
 
       if (qword_100127ED0)
@@ -6278,38 +6362,11 @@ int *sub_100091880(int *result)
         v15 = __stderrp;
       }
 
-      fprintf(v15, "%s\n", v11);
-      if (v12)
-      {
-        free(v12);
-      }
-
-      CFRelease(v9);
-    }
-
-    else
-    {
-      v13 = sub_10003E080();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
-      {
-        sub_1000C36E0(v6);
-      }
-
-      if (qword_100127ED0)
-      {
-        v14 = qword_100127ED0;
-      }
-
-      else
-      {
-        v14 = __stderrp;
-      }
-
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v14);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v15);
     }
 
     result = __error();
-    *result = v5;
+    *result = v7;
   }
 
   return result;
@@ -6326,18 +6383,18 @@ uint64_t sub_100092620(uint64_t a1)
     sub_1000C3B80();
   }
 
-  v124 = 63;
+  v140 = 63;
   v4 = pthread_self();
   v5 = pthread_mach_thread_np(v4);
-  if (thread_policy_set(v5, 3u, &v124, 1u))
+  if (thread_policy_set(v5, 3u, &v140, 1u))
   {
     sub_1000C3D10();
   }
 
-  v120 = 0;
-  v121 = &v120;
-  v122 = 0x2020000000;
-  v123 = 0;
+  v136 = 0;
+  v137 = &v136;
+  v138 = 0x2020000000;
+  v139 = 0;
   if (byte_100127F10 & 1) != 0 || (byte_100127F11)
   {
     dsema = 0;
@@ -6349,23 +6406,23 @@ uint64_t sub_100092620(uint64_t a1)
   }
 
   group = dispatch_group_create();
-  v92 = byte_100127F11;
+  v108 = byte_100127F11;
   if (byte_100127F11 == 1)
   {
     dispatch_suspend(*(a1 + 24));
   }
 
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x2020000000;
-  v119 = 0;
+  v132 = 0;
+  v133 = &v132;
+  v134 = 0x2020000000;
+  v135 = 0;
   when = dispatch_time(0, 0);
   SAMachAbsTimeSecondsGetCurrent();
   v7 = v6;
   [*(a1 + 8) startingSamplingLiveSystem];
-  v98 = 0;
-  v95 = 0;
-  v97 = 0;
+  v114 = 0;
+  v111 = 0;
+  v113 = 0;
   do
   {
     v8 = objc_autoreleasePoolPush();
@@ -6380,122 +6437,123 @@ uint64_t sub_100092620(uint64_t a1)
     {
       if (byte_100127EC8 == 1)
       {
-        v9 = *__error();
-        v10 = sub_10003E080();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v9 = __error();
+        v10 = *v9;
+        v12 = sub_10003E080(v9, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          sub_1000C3EA0(&v114, v115);
+          sub_1000C3EA0(&v130, v131);
         }
 
-        *__error() = v9;
+        *__error() = v10;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 3)
       {
-        v14 = *__error();
-        v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to update sampling pid list");
-        v16 = v15;
-        if (v15)
+        v16 = *__error();
+        v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to update sampling pid list");
+        v19 = v17;
+        if (v17)
         {
-          CStringPtr = CFStringGetCStringPtr(v15, 0x8000100u);
+          CStringPtr = CFStringGetCStringPtr(v17, 0x8000100u);
           if (CStringPtr)
           {
-            v18 = 0;
+            v21 = 0;
           }
 
           else
           {
             CStringPtr = malloc_type_calloc(0x400uLL, 1uLL, 0x49956E23uLL);
-            CFStringGetCString(v16, CStringPtr, 1024, 0x8000100u);
-            v18 = CStringPtr;
+            CFStringGetCString(v19, CStringPtr, 1024, 0x8000100u);
+            v21 = CStringPtr;
           }
 
           if (qword_100127ED0)
           {
-            v21 = qword_100127ED0;
+            v24 = qword_100127ED0;
           }
 
           else
           {
-            v21 = __stderrp;
+            v24 = __stderrp;
           }
 
-          fprintf(v21, "%s\n", CStringPtr);
-          if (v18)
+          fprintf(v24, "%s\n", CStringPtr);
+          if (v21)
           {
-            free(v18);
+            free(v21);
           }
 
-          CFRelease(v16);
+          CFRelease(v19);
         }
 
         else
         {
-          v19 = sub_10003E080();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+          v22 = sub_10003E080(0, v18);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
           {
-            sub_1000C3ED8(&v112, v113);
+            sub_1000C3ED8(&v128, v129);
           }
 
           if (qword_100127ED0)
           {
-            v20 = qword_100127ED0;
+            v23 = qword_100127ED0;
           }
 
           else
           {
-            v20 = __stderrp;
+            v23 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v20);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v23);
         }
 
-        v12 = 0;
-        *__error() = v14;
+        v14 = 0;
+        *__error() = v16;
       }
 
       else
       {
-        v12 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      v12 = *(a1 + 104);
-      if (v12 == 1)
+      v14 = *(a1 + 104);
+      if (v14 == 1)
       {
         *(a1 + 104) = 0;
-        v13 = [*(a1 + 96) mutableCopy];
+        v15 = [*(a1 + 96) mutableCopy];
 
-        v95 = v13;
+        v111 = v15;
       }
 
       dispatch_semaphore_signal(*(a1 + 112));
     }
 
-    v22 = v117[3];
-    if (v22)
+    v25 = v133[3];
+    if (v25)
     {
-      v117[3] = 0;
+      v133[3] = 0;
     }
 
     else
     {
-      v22 = stackshot_config_create();
+      v25 = stackshot_config_create();
     }
 
-    if (!v98)
+    if (!v114)
     {
-      v12 = 1;
+      v14 = 1;
     }
 
-    if (v12 == 1)
+    if (v14 == 1)
     {
       stackshot_config_set_flags();
       stackshot_config_set_delta_timestamp();
 LABEL_54:
-      v23 = 0;
+      v26 = 0;
       goto LABEL_55;
     }
 
@@ -6506,213 +6564,215 @@ LABEL_54:
       goto LABEL_54;
     }
 
-    v23 = ((dword_100127EA4 * 1.2) + 0x3FFFF) & 0xFFFC0000;
+    v26 = ((dword_100127EA4 * 1.2) + 0x3FFFF) & 0xFFFC0000;
     stackshot_config_set_size_hint();
 LABEL_55:
-    v98 = mach_absolute_time();
-    v24 = sub_1000911BC(v22, v95);
-    if (v24)
+    v114 = mach_absolute_time();
+    v27 = sub_1000911BC(v25, v111);
+    if (v27)
     {
       SASecondsFromMachTimeUsingLiveTimebase();
-      v26 = v25;
-      if ([v24 length] >= 0xFFFFFFFF)
+      v29 = v28;
+      if ([v27 length] >= 0xFFFFFFFF)
       {
         if (byte_100127EC8 == 1)
         {
-          v77 = *__error();
-          v78 = sub_10003E080();
-          if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+          v89 = __error();
+          v90 = *v89;
+          v92 = sub_10003E080(v89, v91);
+          if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
           {
-            sub_1000C3F30(buf, [v24 length]);
+            sub_1000C3F30(buf, [v27 length]);
           }
 
-          *__error() = v77;
+          *__error() = v90;
         }
 
         if (byte_100127EC9 == 1 && dword_100127558 <= 3)
         {
-          v79 = *__error();
-          v80 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: bad stackshot data length %lu", "stackshotData.length < 4294967295U", [v24 length]);
-          v81 = v80;
-          if (v80)
+          v93 = *__error();
+          v94 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: bad stackshot data length %lu", "stackshotData.length < 4294967295U", [v27 length]);
+          v96 = v94;
+          if (v94)
           {
-            v84 = CFStringGetCStringPtr(v80, 0x8000100u);
-            if (v84)
+            v99 = CFStringGetCStringPtr(v94, 0x8000100u);
+            if (v99)
             {
-              v85 = 0;
+              v100 = 0;
             }
 
             else
             {
-              v84 = malloc_type_calloc(0x400uLL, 1uLL, 0xF7639C3DuLL);
-              CFStringGetCString(v81, v84, 1024, 0x8000100u);
-              v85 = v84;
+              v99 = malloc_type_calloc(0x400uLL, 1uLL, 0xF7639C3DuLL);
+              CFStringGetCString(v96, v99, 1024, 0x8000100u);
+              v100 = v99;
             }
 
             if (qword_100127ED0)
             {
-              v86 = qword_100127ED0;
+              v101 = qword_100127ED0;
             }
 
             else
             {
-              v86 = __stderrp;
+              v101 = __stderrp;
             }
 
-            fprintf(v86, "%s\n", v84);
-            if (v85)
+            fprintf(v101, "%s\n", v99);
+            if (v100)
             {
-              free(v85);
+              free(v100);
             }
 
-            CFRelease(v81);
+            CFRelease(v96);
           }
 
           else
           {
-            v82 = sub_10003E080();
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_FAULT))
+            v97 = sub_10003E080(0, v95);
+            if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
             {
-              sub_1000C3F80(v126, [v24 length]);
+              sub_1000C3F80(v142, [v27 length]);
             }
 
             if (qword_100127ED0)
             {
-              v83 = qword_100127ED0;
+              v98 = qword_100127ED0;
             }
 
             else
             {
-              v83 = __stderrp;
+              v98 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v83);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v98);
           }
 
-          *__error() = v79;
+          *__error() = v93;
         }
 
-        [v24 length];
-        sub_10003DF54("_SamplingThread", "SPSampleProvider.m", 263, "%s: bad stackshot data length %lu", v87, v88, v89, v90, "stackshotData.length < 4294967295U");
+        v102 = [v27 length];
+        sub_10003DF54("_SamplingThread", "SPSampleProvider.m", 263, "%s: bad stackshot data length %lu", v103, v104, v105, v106, "stackshotData.length < 4294967295U", v102);
         abort();
       }
 
-      v27 = [v24 length];
-      v28 = v27;
-      if ((v12 & 1) == 0)
+      v30 = [v27 length];
+      v31 = v30;
+      if ((v14 & 1) == 0)
       {
-        if (v23 && v23 < v27)
+        if (v26 && v26 < v30)
         {
           if (byte_100127EC8 == 1)
           {
-            v29 = *__error();
-            v30 = sub_10003E080();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+            v32 = __error();
+            v33 = *v32;
+            v35 = sub_10003E080(v32, v34);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
               *buf = 67109632;
-              v128 = dword_100127EA4;
-              v129 = 1024;
-              *v130 = v23;
-              *&v130[4] = 1024;
-              *&v130[6] = v28;
-              _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "Hint too small (previous %d, hint %d, actual %d)", buf, 0x14u);
+              v144 = dword_100127EA4;
+              v145 = 1024;
+              *v146 = v26;
+              *&v146[4] = 1024;
+              *&v146[6] = v31;
+              _os_log_debug_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "Hint too small (previous %d, hint %d, actual %d)", buf, 0x14u);
             }
 
-            *__error() = v29;
+            *__error() = v33;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 0)
           {
-            v31 = *__error();
-            v32 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Hint too small (previous %d, hint %d, actual %d)", dword_100127EA4, v23, v28);
-            v33 = v32;
-            if (v32)
+            v36 = *__error();
+            v37 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Hint too small (previous %d, hint %d, actual %d)", dword_100127EA4, v26, v31);
+            v39 = v37;
+            if (v37)
             {
-              v34 = CFStringGetCStringPtr(v32, 0x8000100u);
-              if (v34)
+              v40 = CFStringGetCStringPtr(v37, 0x8000100u);
+              if (v40)
               {
-                v35 = 0;
+                v41 = 0;
               }
 
               else
               {
-                v34 = malloc_type_calloc(0x400uLL, 1uLL, 0xD2D880CDuLL);
-                CFStringGetCString(v33, v34, 1024, 0x8000100u);
-                v35 = v34;
+                v40 = malloc_type_calloc(0x400uLL, 1uLL, 0xD2D880CDuLL);
+                CFStringGetCString(v39, v40, 1024, 0x8000100u);
+                v41 = v40;
               }
 
               if (qword_100127ED0)
               {
-                v38 = qword_100127ED0;
+                v44 = qword_100127ED0;
               }
 
               else
               {
-                v38 = __stderrp;
+                v44 = __stderrp;
               }
 
-              fprintf(v38, "%s\n", v34);
-              if (v35)
+              fprintf(v44, "%s\n", v40);
+              if (v41)
               {
-                free(v35);
+                free(v41);
               }
 
-              CFRelease(v33);
+              CFRelease(v39);
             }
 
             else
             {
-              v36 = sub_10003E080();
-              if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+              v42 = sub_10003E080(0, v38);
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109632;
-                v128 = dword_100127EA4;
-                v129 = 1024;
-                *v130 = v23;
-                *&v130[4] = 1024;
-                *&v130[6] = v28;
-                _os_log_fault_impl(&_mh_execute_header, v36, OS_LOG_TYPE_FAULT, "Unable to format: Hint too small (previous %d, hint %d, actual %d)", buf, 0x14u);
+                v144 = dword_100127EA4;
+                v145 = 1024;
+                *v146 = v26;
+                *&v146[4] = 1024;
+                *&v146[6] = v31;
+                _os_log_fault_impl(&_mh_execute_header, v42, OS_LOG_TYPE_FAULT, "Unable to format: Hint too small (previous %d, hint %d, actual %d)", buf, 0x14u);
               }
 
               if (qword_100127ED0)
               {
-                v37 = qword_100127ED0;
+                v43 = qword_100127ED0;
               }
 
               else
               {
-                v37 = __stderrp;
+                v43 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v37);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v43);
             }
 
-            *__error() = v31;
+            *__error() = v36;
           }
         }
 
-        if (dword_100127EA4 < v28)
+        if (dword_100127EA4 < v31)
         {
-          dword_100127EA4 = v28;
+          dword_100127EA4 = v31;
         }
       }
 
       if (dsema)
       {
-        v97 |= (atomic_fetch_add_explicit(v121 + 3, v28, memory_order_relaxed) + v28) > 20971519;
+        v113 |= (atomic_fetch_add_explicit(v137 + 3, v31, memory_order_relaxed) + v31) > 20971519;
       }
 
-      v39 = dispatch_get_global_queue(25, 0);
+      v45 = dispatch_get_global_queue(25, 0);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100096BA4;
       block[3] = &unk_100115E60;
-      v40 = a1;
-      v109 = v40;
-      v111 = v26;
-      v41 = group;
-      v110 = v41;
-      dispatch_async(v39, block);
+      v46 = a1;
+      v125 = v46;
+      v127 = v29;
+      v47 = group;
+      v126 = v47;
+      dispatch_async(v45, block);
 
       if (qword_100127EB0 != -1)
       {
@@ -6721,98 +6781,99 @@ LABEL_55:
 
       if (qword_100127EA8)
       {
-        v42 = v24;
-        v43 = [v24 bytes];
-        v44 = [v24 length];
-        if (fwrite(v43, v44, 1uLL, qword_100127EA8) != 1)
+        v48 = v27;
+        v49 = [v27 bytes];
+        v50 = [v27 length];
+        if (fwrite(v49, v50, 1uLL, qword_100127EA8) != 1)
         {
           if (byte_100127EC8 == 1)
           {
-            v45 = *__error();
-            v46 = sub_10003E080();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v51 = __error();
+            v52 = *v51;
+            v54 = sub_10003E080(v51, v53);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
-              v62 = ferror(qword_100127EA8);
-              v63 = strerror(v62);
+              v71 = ferror(qword_100127EA8);
+              v72 = strerror(v71);
               *buf = 67109378;
-              v128 = v62;
-              v129 = 2080;
-              *v130 = v63;
-              _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Unable to write stackshot: %d (%s)", buf, 0x12u);
+              v144 = v71;
+              v145 = 2080;
+              *v146 = v72;
+              _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "Unable to write stackshot: %d (%s)", buf, 0x12u);
             }
 
-            *__error() = v45;
+            *__error() = v52;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 3)
           {
-            v93 = *__error();
-            v47 = ferror(qword_100127EA8);
-            v48 = strerror(v47);
-            v49 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to write stackshot: %d (%s)", v47, v48);
-            v50 = v49;
-            if (v49)
+            v109 = *__error();
+            v55 = ferror(qword_100127EA8);
+            v56 = strerror(v55);
+            v57 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to write stackshot: %d (%s)", v55, v56);
+            v59 = v57;
+            if (v57)
             {
-              v51 = CFStringGetCStringPtr(v49, 0x8000100u);
-              if (v51)
+              v60 = CFStringGetCStringPtr(v57, 0x8000100u);
+              if (v60)
               {
-                v52 = 0;
+                v61 = 0;
               }
 
               else
               {
-                v51 = malloc_type_calloc(0x400uLL, 1uLL, 0x98F51B62uLL);
-                CFStringGetCString(v50, v51, 1024, 0x8000100u);
-                v52 = v51;
+                v60 = malloc_type_calloc(0x400uLL, 1uLL, 0x98F51B62uLL);
+                CFStringGetCString(v59, v60, 1024, 0x8000100u);
+                v61 = v60;
               }
 
               if (qword_100127ED0)
               {
-                v55 = qword_100127ED0;
+                v64 = qword_100127ED0;
               }
 
               else
               {
-                v55 = __stderrp;
+                v64 = __stderrp;
               }
 
-              fprintf(v55, "%s\n", v51);
-              if (v52)
+              fprintf(v64, "%s\n", v60);
+              if (v61)
               {
-                free(v52);
+                free(v61);
               }
 
-              CFRelease(v50);
+              CFRelease(v59);
             }
 
             else
             {
-              v53 = sub_10003E080();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+              v62 = sub_10003E080(0, v58);
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
               {
-                v64 = ferror(qword_100127EA8);
-                v65 = strerror(v64);
+                v73 = ferror(qword_100127EA8);
+                v74 = strerror(v73);
                 *buf = 67109378;
-                v128 = v64;
-                v129 = 2080;
-                *v130 = v65;
-                _os_log_fault_impl(&_mh_execute_header, v53, OS_LOG_TYPE_FAULT, "Unable to format: Unable to write stackshot: %d (%s)", buf, 0x12u);
+                v144 = v73;
+                v145 = 2080;
+                *v146 = v74;
+                _os_log_fault_impl(&_mh_execute_header, v62, OS_LOG_TYPE_FAULT, "Unable to format: Unable to write stackshot: %d (%s)", buf, 0x12u);
               }
 
               if (qword_100127ED0)
               {
-                v54 = qword_100127ED0;
+                v63 = qword_100127ED0;
               }
 
               else
               {
-                v54 = __stderrp;
+                v63 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v54);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v63);
             }
 
-            *__error() = v93;
+            *__error() = v109;
           }
 
           fclose(qword_100127EA8);
@@ -6820,25 +6881,25 @@ LABEL_55:
         }
       }
 
-      v56 = *(a1 + 24);
-      v100[0] = _NSConcreteStackBlock;
-      v100[1] = 3221225472;
-      v100[2] = sub_1000970A4;
-      v100[3] = &unk_100115EA8;
-      v101 = v40;
-      v102 = v24;
-      v104 = &v116;
-      v106 = v22;
-      v57 = dsema;
-      v107 = v28;
-      v103 = v57;
-      v105 = &v120;
-      dispatch_group_async(v41, v56, v100);
+      v65 = *(a1 + 24);
+      v116[0] = _NSConcreteStackBlock;
+      v116[1] = 3221225472;
+      v116[2] = sub_1000970A4;
+      v116[3] = &unk_100115EA8;
+      v117 = v46;
+      v118 = v27;
+      v120 = &v132;
+      v122 = v25;
+      v66 = dsema;
+      v123 = v31;
+      v119 = v66;
+      v121 = &v136;
+      dispatch_group_async(v47, v65, v116);
     }
 
 LABEL_117:
     objc_autoreleasePoolPop(v8);
-    if (((dsema != 0) & v97) == 1)
+    if (((dsema != 0) & v113) == 1)
     {
       if (qword_100127EB8 != -1)
       {
@@ -6846,107 +6907,108 @@ LABEL_117:
       }
 
       dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-      v97 = 0;
+      v113 = 0;
     }
 
     SAMachAbsTimeSecondsGetCurrent();
-    v59 = v58;
-    v60 = *(a1 + 64);
-    v7 = v7 + v60 / 1000000.0;
-    if (v7 <= v58)
+    v68 = v67;
+    v69 = *(a1 + 64);
+    v7 = v7 + v69 / 1000000.0;
+    if (v7 <= v67)
     {
-      v61 = dispatch_time(0, 0);
-      v7 = v59;
+      v70 = dispatch_time(0, 0);
+      v7 = v68;
     }
 
     else
     {
-      v61 = dispatch_time(when, 1000 * v60);
+      v70 = dispatch_time(when, 1000 * v69);
     }
 
-    when = v61;
+    when = v70;
   }
 
-  while (dispatch_semaphore_wait(*(a1 + 48), v61));
+  while (dispatch_semaphore_wait(*(a1 + 48), v70));
   [*(a1 + 8) finishedSamplingLiveSystem];
-  if (v92)
+  if (v108)
   {
     if (qword_100127F18 && dispatch_group_wait(qword_100127F18, 0))
     {
       if (byte_100127EC8 == 1)
       {
-        v66 = *__error();
-        v67 = sub_10003E080();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v75 = __error();
+        v76 = *v75;
+        v78 = sub_10003E080(v75, v77);
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "Sampling completed, waiting for SIGINFO...", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "Sampling completed, waiting for SIGINFO...", buf, 2u);
         }
 
-        *__error() = v66;
+        *__error() = v76;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 2)
       {
-        v68 = *__error();
-        v69 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Sampling completed, waiting for SIGINFO...");
-        v70 = v69;
-        if (v69)
+        v79 = *__error();
+        v80 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Sampling completed, waiting for SIGINFO...");
+        v82 = v80;
+        if (v80)
         {
-          v71 = CFStringGetCStringPtr(v69, 0x8000100u);
-          if (v71)
+          v83 = CFStringGetCStringPtr(v80, 0x8000100u);
+          if (v83)
           {
-            v72 = 0;
+            v84 = 0;
           }
 
           else
           {
-            v71 = malloc_type_calloc(0x400uLL, 1uLL, 0xB93FA9D3uLL);
-            CFStringGetCString(v70, v71, 1024, 0x8000100u);
-            v72 = v71;
+            v83 = malloc_type_calloc(0x400uLL, 1uLL, 0xB93FA9D3uLL);
+            CFStringGetCString(v82, v83, 1024, 0x8000100u);
+            v84 = v83;
           }
 
           if (qword_100127ED0)
           {
-            v75 = qword_100127ED0;
+            v87 = qword_100127ED0;
           }
 
           else
           {
-            v75 = __stderrp;
+            v87 = __stderrp;
           }
 
-          fprintf(v75, "%s\n", v71);
-          if (v72)
+          fprintf(v87, "%s\n", v83);
+          if (v84)
           {
-            free(v72);
+            free(v84);
           }
 
-          CFRelease(v70);
+          CFRelease(v82);
         }
 
         else
         {
-          v73 = sub_10003E080();
-          if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
+          v85 = sub_10003E080(0, v81);
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
           {
             sub_1000C3FF8();
           }
 
           if (qword_100127ED0)
           {
-            v74 = qword_100127ED0;
+            v86 = qword_100127ED0;
           }
 
           else
           {
-            v74 = __stderrp;
+            v86 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v74);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v86);
         }
 
-        *__error() = v68;
+        *__error() = v79;
       }
 
       dispatch_group_wait(qword_100127F18, 0xFFFFFFFFFFFFFFFFLL);
@@ -6956,22 +7018,23 @@ LABEL_117:
   }
 
   dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
-  if (v117[3])
+  if (v133[3])
   {
     stackshot_config_dealloc();
   }
 
-  _Block_object_dispose(&v116, 8);
+  _Block_object_dispose(&v132, 8);
 
-  _Block_object_dispose(&v120, 8);
+  _Block_object_dispose(&v136, 8);
   objc_autoreleasePoolPop(context);
   return 0;
 }
 
-void sub_1000936B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
+void sub_1000936B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
 {
-  _Block_object_dispose(&a50, 8);
-  _Block_object_dispose((v50 - 248), 8);
+  va_start(va, a49);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v49 - 248), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6983,9 +7046,9 @@ void sub_100094188(id a1)
   qword_100127E90 = v1;
 }
 
-void sub_100094348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100094348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7068,14 +7131,14 @@ void sub_100096440(uint64_t a1)
   v1 = qword_100127E98;
   if (qword_100127E98 != *(a1 + 32))
   {
-    if (sub_1000C4728(&v19))
+    if (sub_1000C4728(&v25))
     {
       return;
     }
 
-    v5 = v19;
+    v7 = v25;
 LABEL_43:
-    *__error() = v5;
+    *__error() = v7;
     return;
   }
 
@@ -7083,14 +7146,15 @@ LABEL_43:
   {
     if (byte_100127EC8 == 1)
     {
-      v2 = *__error();
-      v3 = sub_10003E080();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v2 = __error();
+      v3 = *v2;
+      v5 = sub_10003E080(v2, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C48F8();
       }
 
-      *__error() = v2;
+      *__error() = v3;
     }
 
     if (byte_100127EC9 != 1 || dword_100127558 > 0)
@@ -7098,27 +7162,27 @@ LABEL_43:
       return;
     }
 
-    v5 = *__error();
-    v6 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot provider shared instance not yet done");
-    if (v6)
+    v7 = *__error();
+    v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot provider shared instance not yet done");
+    if (v8)
     {
-      v7 = v6;
-      CStringPtr = CFStringGetCStringPtr(v6, 0x8000100u);
+      v10 = v8;
+      CStringPtr = CFStringGetCStringPtr(v8, 0x8000100u);
       if (!CStringPtr)
       {
-        v9 = 3275332155;
+        v12 = 3275332155;
 LABEL_36:
-        v14 = malloc_type_calloc(0x400uLL, 1uLL, v9);
-        CFStringGetCString(v7, v14, 1024, 0x8000100u);
-        v15 = v14;
+        v20 = malloc_type_calloc(0x400uLL, 1uLL, v12);
+        CFStringGetCString(v10, v20, 1024, 0x8000100u);
+        v21 = v20;
         goto LABEL_37;
       }
 
       goto LABEL_26;
     }
 
-    v16 = sub_10003E080();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v22 = sub_10003E080(0, v9);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       sub_1000C492C();
     }
@@ -7130,56 +7194,57 @@ LABEL_36:
 
   if (byte_100127EC8 == 1)
   {
-    v10 = *__error();
-    v11 = sub_10003E080();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = __error();
+    v14 = *v13;
+    v16 = sub_10003E080(v13, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C4960();
     }
 
-    *__error() = v10;
+    *__error() = v14;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 0)
   {
-    v5 = *__error();
-    v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot provider shared instance done");
-    if (v13)
+    v7 = *__error();
+    v18 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Stackshot provider shared instance done");
+    if (v18)
     {
-      v7 = v13;
-      CStringPtr = CFStringGetCStringPtr(v13, 0x8000100u);
+      v10 = v18;
+      CStringPtr = CFStringGetCStringPtr(v18, 0x8000100u);
       if (!CStringPtr)
       {
-        v9 = 1965783567;
+        v12 = 1965783567;
         goto LABEL_36;
       }
 
 LABEL_26:
-      v14 = CStringPtr;
-      v15 = 0;
+      v20 = CStringPtr;
+      v21 = 0;
 LABEL_37:
       if (qword_100127ED0)
       {
-        v18 = qword_100127ED0;
+        v24 = qword_100127ED0;
       }
 
       else
       {
-        v18 = __stderrp;
+        v24 = __stderrp;
       }
 
-      fprintf(v18, "%s\n", v14);
-      if (v15)
+      fprintf(v24, "%s\n", v20);
+      if (v21)
       {
-        free(v15);
+        free(v21);
       }
 
-      CFRelease(v7);
+      CFRelease(v10);
       goto LABEL_43;
     }
 
-    v16 = sub_10003E080();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v22 = sub_10003E080(0, v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       sub_1000C4994();
     }
@@ -7188,15 +7253,15 @@ LABEL_31:
 
     if (qword_100127ED0)
     {
-      v17 = qword_100127ED0;
+      v23 = qword_100127ED0;
     }
 
     else
     {
-      v17 = __stderrp;
+      v23 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v17);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v23);
     goto LABEL_43;
   }
 }
@@ -7292,10 +7357,10 @@ void sub_100096CB8(id a1)
   if (v1 && (*v1 != 48 || v1[1]))
   {
     strcpy(__filename, "/var/mobile/stackshots.");
-    memset(&v22, 0, sizeof(v22));
-    v21 = time(0);
-    localtime_r(&v21, &v22);
-    v2 = strftime(&__filename[23], 0x3E9uLL, "%Y-%m-%d-%T", &v22);
+    memset(&v28, 0, sizeof(v28));
+    v27 = time(0);
+    localtime_r(&v27, &v28);
+    v2 = strftime(&__filename[23], 0x3E9uLL, "%Y-%m-%d-%T", &v28);
     v3 = v2 + 23;
     if (v2 + 23 >= 0x400)
     {
@@ -7309,26 +7374,27 @@ void sub_100096CB8(id a1)
     {
       if (byte_100127EC8)
       {
-        v5 = *__error();
-        v6 = sub_10003E080();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v5 = __error();
+        v6 = *v5;
+        v8 = sub_10003E080(v5, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v24 = __filename;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saving stackshots to %s", buf, 0xCu);
+          v30 = __filename;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Saving stackshots to %s", buf, 0xCu);
         }
 
-        *__error() = v5;
+        *__error() = v6;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 2)
       {
-        v7 = *__error();
-        v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Saving stackshots to %s", __filename);
-        if (!v8)
+        v9 = *__error();
+        v10 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Saving stackshots to %s", __filename);
+        if (!v10)
         {
-          v9 = sub_10003E080();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+          v12 = sub_10003E080(0, v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
             sub_1000C4BC0();
           }
@@ -7337,17 +7403,17 @@ LABEL_34:
 
           if (qword_100127ED0)
           {
-            v20 = qword_100127ED0;
+            v26 = qword_100127ED0;
           }
 
           else
           {
-            v20 = __stderrp;
+            v26 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v20);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v26);
 LABEL_38:
-          *__error() = v7;
+          *__error() = v9;
           return;
         }
 
@@ -7359,67 +7425,68 @@ LABEL_38:
     {
       if (byte_100127EC8)
       {
-        v10 = *__error();
-        v11 = sub_10003E080();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = __error();
+        v14 = *v13;
+        v16 = sub_10003E080(v13, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          sub_1000C4C34(__filename, v11);
+          sub_1000C4C34(__filename, v16);
         }
 
-        *__error() = v10;
+        *__error() = v14;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 3)
       {
-        v7 = *__error();
-        v12 = *__error();
-        v13 = __error();
-        v14 = strerror(*v13);
-        v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to open %s to save stackshots: %d (%s)", __filename, v12, v14);
-        if (!v8)
+        v9 = *__error();
+        v17 = *__error();
+        v18 = __error();
+        v19 = strerror(*v18);
+        v10 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to open %s to save stackshots: %d (%s)", __filename, v17, v19);
+        if (!v10)
         {
-          v9 = sub_10003E080();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+          v12 = sub_10003E080(0, v20);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
-            sub_1000C4CD8(__filename, v9);
+            sub_1000C4CD8(__filename, v12);
           }
 
           goto LABEL_34;
         }
 
 LABEL_23:
-        v15 = v8;
-        CStringPtr = CFStringGetCStringPtr(v8, 0x8000100u);
+        v21 = v10;
+        CStringPtr = CFStringGetCStringPtr(v10, 0x8000100u);
         if (CStringPtr)
         {
-          v17 = CStringPtr;
-          v18 = 0;
+          v23 = CStringPtr;
+          v24 = 0;
         }
 
         else
         {
-          v17 = malloc_type_calloc(0x400uLL, 1uLL, 0x67BC2E96uLL);
-          CFStringGetCString(v15, v17, 1024, 0x8000100u);
-          v18 = v17;
+          v23 = malloc_type_calloc(0x400uLL, 1uLL, 0x67BC2E96uLL);
+          CFStringGetCString(v21, v23, 1024, 0x8000100u);
+          v24 = v23;
         }
 
         if (qword_100127ED0)
         {
-          v19 = qword_100127ED0;
+          v25 = qword_100127ED0;
         }
 
         else
         {
-          v19 = __stderrp;
+          v25 = __stderrp;
         }
 
-        fprintf(v19, "%s\n", v17);
-        if (v18)
+        fprintf(v25, "%s\n", v23);
+        if (v24)
         {
-          free(v18);
+          free(v24);
         }
 
-        CFRelease(v15);
+        CFRelease(v21);
         goto LABEL_38;
       }
     }
@@ -7430,108 +7497,109 @@ intptr_t sub_1000970A4(uint64_t a1)
 {
   context = objc_autoreleasePoolPush();
   [*(*(a1 + 32) + 8) addKCDataStackshots:*(a1 + 40) createSeparateSamplePerStackshot:0];
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v2 = *(*(a1 + 32) + 120);
-  v3 = [v2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (!v3)
   {
     goto LABEL_48;
   }
 
   v4 = v3;
-  v5 = *v38;
+  v5 = *v43;
   do
   {
     for (i = 0; i != v4; i = i + 1)
     {
-      if (*v38 != v5)
+      if (*v43 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v37 + 1) + 8 * i);
+      v7 = *(*(&v42 + 1) + 8 * i);
       if (([*(*(a1 + 32) + 8) cacheLoadInfoForProcess:{objc_msgSend(v7, "intValue")}] & 1) == 0)
       {
         if (([v7 intValue] & 0x80000000) != 0)
         {
           if (byte_100127EC8)
           {
-            v17 = *__error();
-            v18 = sub_10003E080();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v20 = __error();
+            v21 = *v20;
+            v23 = sub_10003E080(v20, v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              sub_1000C4D7C(&v35, v36);
+              sub_1000C4D7C(&v40, v41);
             }
 
-            *__error() = v17;
+            *__error() = v21;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 3)
           {
-            v11 = *__error();
-            v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to cache load info");
-            if (v13)
+            v13 = *__error();
+            v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to cache load info");
+            if (v15)
             {
 LABEL_30:
-              v20 = v13;
-              CStringPtr = CFStringGetCStringPtr(v13, 0x8000100u);
+              v26 = v15;
+              CStringPtr = CFStringGetCStringPtr(v15, 0x8000100u);
               if (CStringPtr)
               {
-                v22 = CStringPtr;
-                v23 = 0;
+                v28 = CStringPtr;
+                v29 = 0;
               }
 
               else
               {
-                v22 = malloc_type_calloc(0x400uLL, 1uLL, 0x1D8FE22BuLL);
-                CFStringGetCString(v20, v22, 1024, 0x8000100u);
-                v23 = v22;
+                v28 = malloc_type_calloc(0x400uLL, 1uLL, 0x1D8FE22BuLL);
+                CFStringGetCString(v26, v28, 1024, 0x8000100u);
+                v29 = v28;
               }
 
               if (qword_100127ED0)
               {
-                v24 = qword_100127ED0;
+                v30 = qword_100127ED0;
               }
 
               else
               {
-                v24 = __stderrp;
+                v30 = __stderrp;
               }
 
-              fprintf(v24, "%s\n", v22);
-              if (v23)
+              fprintf(v30, "%s\n", v28);
+              if (v29)
               {
-                free(v23);
+                free(v29);
               }
 
-              CFRelease(v20);
+              CFRelease(v26);
               goto LABEL_45;
             }
 
-            v14 = sub_10003E080();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+            v17 = sub_10003E080(0, v25);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
-              sub_1000C4DB4(&v33, v34);
+              sub_1000C4DB4(&v38, v39);
             }
 
 LABEL_41:
 
             if (qword_100127ED0)
             {
-              v25 = qword_100127ED0;
+              v31 = qword_100127ED0;
             }
 
             else
             {
-              v25 = __stderrp;
+              v31 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v25);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v31);
 LABEL_45:
-            *__error() = v11;
+            *__error() = v13;
             continue;
           }
         }
@@ -7540,42 +7608,43 @@ LABEL_45:
         {
           if (byte_100127EC8)
           {
-            v8 = *__error();
-            v9 = sub_10003E080();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            v8 = __error();
+            v9 = *v8;
+            v11 = sub_10003E080(v8, v10);
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
-              v26 = sub_10003E020([v7 intValue]);
-              v27 = [v7 intValue];
+              v32 = sub_10003E020([v7 intValue]);
+              v33 = [v7 intValue];
               *buf = 136446466;
-              v42 = v26;
-              v43 = 1024;
-              v44 = v27;
-              _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s [%d]: Unable to cache load info", buf, 0x12u);
+              v47 = v32;
+              v48 = 1024;
+              v49 = v33;
+              _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s [%d]: Unable to cache load info", buf, 0x12u);
             }
 
-            *__error() = v8;
+            *__error() = v9;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 3)
           {
-            v11 = *__error();
-            v12 = sub_10003E020([v7 intValue]);
-            v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to cache load info", v12, [v7 intValue]);
-            if (v13)
+            v13 = *__error();
+            v14 = sub_10003E020([v7 intValue]);
+            v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]: Unable to cache load info", v14, [v7 intValue]);
+            if (v15)
             {
               goto LABEL_30;
             }
 
-            v14 = sub_10003E080();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+            v17 = sub_10003E080(0, v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
-              v15 = sub_10003E020([v7 intValue]);
-              v16 = [v7 intValue];
+              v18 = sub_10003E020([v7 intValue]);
+              v19 = [v7 intValue];
               *buf = 136315394;
-              v42 = v15;
-              v43 = 1024;
-              v44 = v16;
-              _os_log_fault_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, "Unable to format: %s [%d]: Unable to cache load info", buf, 0x12u);
+              v47 = v18;
+              v48 = 1024;
+              v49 = v19;
+              _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "Unable to format: %s [%d]: Unable to cache load info", buf, 0x12u);
             }
 
             goto LABEL_41;
@@ -7584,7 +7653,7 @@ LABEL_45:
       }
     }
 
-    v4 = [v2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v4 = [v2 countByEnumeratingWithState:&v42 objects:v50 count:16];
   }
 
   while (v4);
@@ -7592,7 +7661,6 @@ LABEL_48:
 
   [*(*(a1 + 32) + 120) removeAllObjects];
   objc_autoreleasePoolPop(context);
-  v28 = *(a1 + 72);
   if (*(*(*(a1 + 56) + 8) + 24))
   {
     result = stackshot_config_dealloc();
@@ -7606,9 +7674,9 @@ LABEL_48:
 
   if (*(a1 + 48))
   {
-    v30 = *(a1 + 80);
-    v31 = atomic_fetch_add_explicit((*(*(a1 + 64) + 8) + 24), -v30, memory_order_relaxed) - v30;
-    if (v31 <= 20971519 && v31 + *(a1 + 80) >= 20971520)
+    v35 = *(a1 + 80);
+    v36 = atomic_fetch_add_explicit((*(*(a1 + 64) + 8) + 24), -v35, memory_order_relaxed) - v35;
+    if (v36 <= 20971519 && v36 + *(a1 + 80) >= 20971520)
     {
       return dispatch_semaphore_signal(*(a1 + 48));
     }
@@ -7621,78 +7689,79 @@ void sub_1000975B0(id a1)
 {
   if (byte_100127EC8 == 1)
   {
-    v1 = *__error();
-    v2 = sub_10003E080();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v1 = __error();
+    v2 = *v1;
+    v4 = sub_10003E080(v1, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1000C4DE4();
     }
 
-    *__error() = v1;
+    *__error() = v2;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v4 = *__error();
-    v5 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to process samples fast enough, throttling sampling rate to avoid bloating memory. Use -noThrottle to avoid this.");
-    if (v5)
+    v6 = *__error();
+    v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to process samples fast enough, throttling sampling rate to avoid bloating memory. Use -noThrottle to avoid this.");
+    if (v7)
     {
-      v6 = v5;
-      CStringPtr = CFStringGetCStringPtr(v5, 0x8000100u);
+      v9 = v7;
+      CStringPtr = CFStringGetCStringPtr(v7, 0x8000100u);
       if (CStringPtr)
       {
-        v8 = CStringPtr;
-        v9 = 0;
+        v11 = CStringPtr;
+        v12 = 0;
       }
 
       else
       {
-        v8 = malloc_type_calloc(0x400uLL, 1uLL, 0xA311B46AuLL);
-        CFStringGetCString(v6, v8, 1024, 0x8000100u);
-        v9 = v8;
+        v11 = malloc_type_calloc(0x400uLL, 1uLL, 0xA311B46AuLL);
+        CFStringGetCString(v9, v11, 1024, 0x8000100u);
+        v12 = v11;
       }
 
       if (qword_100127ED0)
       {
-        v12 = qword_100127ED0;
+        v15 = qword_100127ED0;
       }
 
       else
       {
-        v12 = __stderrp;
+        v15 = __stderrp;
       }
 
-      fprintf(v12, "%s\n", v8);
-      if (v9)
+      fprintf(v15, "%s\n", v11);
+      if (v12)
       {
-        free(v9);
+        free(v12);
       }
 
-      CFRelease(v6);
+      CFRelease(v9);
     }
 
     else
     {
-      v10 = sub_10003E080();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v13 = sub_10003E080(0, v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         sub_1000C4E20();
       }
 
       if (qword_100127ED0)
       {
-        v11 = qword_100127ED0;
+        v14 = qword_100127ED0;
       }
 
       else
       {
-        v11 = __stderrp;
+        v14 = __stderrp;
       }
 
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v11);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v14);
     }
 
-    *__error() = v4;
+    *__error() = v6;
   }
 }
 
@@ -7796,7 +7865,7 @@ void *sub_1000A0AF0(uint64_t a1)
     v5 = *(*(*v2 + 8) + 24);
     if (v5 <= 0)
     {
-      sub_1000C65E8(a1 + 32);
+      sub_1000C65E8();
     }
   }
 
@@ -7810,14 +7879,15 @@ void *sub_1000A0AF0(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = result;
   if (!*(*(*(a1 + 40) + 8) + 24))
   {
-    sub_1000C67F8(v2);
+    sub_1000C67F8();
   }
 
   return result;
 }
 
-void sub_1000A0B94(FILE *a1, void *a2, void *a3, char a4, char a5, void *a6)
+void sub_1000A0B94(FILE *a1, void *a2, void *a3, uint64_t a4, char a5, void *a6)
 {
+  v8 = a4;
   v11 = a2;
   v12 = a3;
   v13 = a6;
@@ -7835,7 +7905,7 @@ void sub_1000A0B94(FILE *a1, void *a2, void *a3, char a4, char a5, void *a6)
   v46 = sub_1000A4398;
   v47 = sub_1000A43A8;
   v48 = 0;
-  v17 = sub_1000A0E84(a1, 0, v12, a4);
+  v17 = sub_1000A0E84(a1, 0, v12, v8);
   v18 = v44[5];
   v44[5] = v17;
 
@@ -7848,7 +7918,7 @@ void sub_1000A0B94(FILE *a1, void *a2, void *a3, char a4, char a5, void *a6)
   v32 = v19;
   v38 = v49;
   v39 = &v43;
-  v42 = a4;
+  v42 = v8;
   v40 = a1;
   v20 = v12;
   v33 = v20;
@@ -7877,8 +7947,9 @@ void sub_1000A0B94(FILE *a1, void *a2, void *a3, char a4, char a5, void *a6)
   objc_autoreleasePoolPop(context);
 }
 
-id sub_1000A0E84(FILE *a1, int a2, void *a3, char a4)
+id sub_1000A0E84(FILE *a1, uint64_t a2, void *a3, char a4)
 {
+  v5 = a2;
   v7 = a3;
   v8 = objc_autoreleasePoolPush();
   v9 = objc_alloc_init(NSMutableArray);
@@ -7896,7 +7967,7 @@ id sub_1000A0E84(FILE *a1, int a2, void *a3, char a4)
   v11 = v9;
   v17 = v11;
   v19 = a4;
-  sub_1000A314C(a1, a2, v15);
+  sub_1000A314C(a1, v5, v15);
   if ((v21[3] & 1) == 0)
   {
 
@@ -7912,9 +7983,9 @@ id sub_1000A0E84(FILE *a1, int a2, void *a3, char a4)
   return v13;
 }
 
-void sub_1000A0FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A0FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7996,22 +8067,23 @@ LABEL_3:
 
     if (byte_100127EC8 == 1)
     {
-      v57 = *__error();
-      v58 = sub_10003E080();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v60 = __error();
+      v61 = *v60;
+      v63 = sub_10003E080(v60, v62);
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218754;
-        v235 = v26;
-        v236 = 2048;
-        *v237 = [v13 count];
-        *&v237[8] = 1024;
-        *&v237[10] = a2;
-        *&v237[14] = 2112;
-        *&v237[16] = v11;
-        _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Parsing spindump text: corrupt condensed file, frame line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
+        v267 = v26;
+        v268 = 2048;
+        *v269 = [v13 count];
+        *&v269[8] = 1024;
+        *&v269[10] = a2;
+        *&v269[14] = 2112;
+        *&v269[16] = v11;
+        _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Parsing spindump text: corrupt condensed file, frame line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
       }
 
-      *__error() = v57;
+      *__error() = v61;
     }
 
     v17 = 0;
@@ -8020,34 +8092,34 @@ LABEL_3:
       goto LABEL_280;
     }
 
-    v37 = *__error();
-    v59 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: corrupt condensed file, frame line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", v26, [v13 count], a2, v11);
-    if (v59)
+    v39 = *__error();
+    v64 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: corrupt condensed file, frame line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", v26, [v13 count], a2, v11);
+    if (v64)
     {
-      v39 = v59;
-      CStringPtr = CFStringGetCStringPtr(v59, 0x8000100u);
+      v42 = v64;
+      CStringPtr = CFStringGetCStringPtr(v64, 0x8000100u);
       if (CStringPtr)
       {
         goto LABEL_55;
       }
 
-      v41 = 3085136139;
+      v44 = 3085136139;
       goto LABEL_151;
     }
 
-    v136 = sub_10003E080();
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_FAULT))
+    v160 = sub_10003E080(0, v65);
+    if (os_log_type_enabled(v160, OS_LOG_TYPE_FAULT))
     {
-      v198 = [v13 count];
+      v230 = [v13 count];
       *buf = 134218754;
-      v235 = v26;
-      v236 = 2048;
-      *v237 = v198;
-      *&v237[8] = 1024;
-      *&v237[10] = a2;
-      *&v237[14] = 2112;
-      *&v237[16] = v11;
-      _os_log_fault_impl(&_mh_execute_header, v136, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: corrupt condensed file, frame line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
+      v267 = v26;
+      v268 = 2048;
+      *v269 = v230;
+      *&v269[8] = 1024;
+      *&v269[10] = a2;
+      *&v269[14] = 2112;
+      *&v269[16] = v11;
+      _os_log_fault_impl(&_mh_execute_header, v160, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: corrupt condensed file, frame line has out-of-bounds binary index %lu (%lu binaries) (%d: %@)", buf, 0x26u);
     }
 
     goto LABEL_134;
@@ -8059,11 +8131,11 @@ LABEL_3:
     v30 = [v11 substringWithRange:{v18, v19}];
     v31 = sub_1000A2DC0(v30);
 
-    v228 = _NSConcreteStackBlock;
-    v229 = 3221225472;
-    v230 = sub_1000C5890;
-    v231 = &unk_100115F50;
-    v232 = v31;
+    v260 = _NSConcreteStackBlock;
+    v261 = 3221225472;
+    v262 = sub_1000C5890;
+    v263 = &unk_100115F50;
+    v264 = v31;
     v32 = SABinarySearchArray();
     if (v32 < [v13 count])
     {
@@ -8101,14 +8173,15 @@ LABEL_19:
 
       if (byte_100127EC8 == 1)
       {
-        v35 = *__error();
-        v36 = sub_10003E080();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v35 = __error();
+        v36 = *v35;
+        v38 = sub_10003E080(v35, v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           sub_1000C6A08();
         }
 
-        *__error() = v35;
+        *__error() = v36;
       }
 
       v17 = 0;
@@ -8117,48 +8190,48 @@ LABEL_19:
         goto LABEL_280;
       }
 
-      v37 = *__error();
-      v38 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to find load info for (%d: %@)", a2, v11);
-      if (v38)
+      v39 = *__error();
+      v40 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unable to find load info for (%d: %@)", a2, v11);
+      if (v40)
       {
-        v39 = v38;
-        CStringPtr = CFStringGetCStringPtr(v38, 0x8000100u);
+        v42 = v40;
+        CStringPtr = CFStringGetCStringPtr(v40, 0x8000100u);
         if (CStringPtr)
         {
 LABEL_55:
-          v60 = CStringPtr;
-          v61 = 0;
+          v66 = CStringPtr;
+          v67 = 0;
 LABEL_152:
           if (qword_100127ED0)
           {
-            v152 = qword_100127ED0;
+            v180 = qword_100127ED0;
           }
 
           else
           {
-            v152 = __stderrp;
+            v180 = __stderrp;
           }
 
-          fprintf(v152, "%s\n", v60);
-          if (v61)
+          fprintf(v180, "%s\n", v66);
+          if (v67)
           {
-            free(v61);
+            free(v67);
           }
 
-          CFRelease(v39);
+          CFRelease(v42);
           goto LABEL_158;
         }
 
-        v41 = 2824012580;
+        v44 = 2824012580;
 LABEL_151:
-        v60 = malloc_type_calloc(0x400uLL, 1uLL, v41);
-        CFStringGetCString(v39, v60, 1024, 0x8000100u);
-        v61 = v60;
+        v66 = malloc_type_calloc(0x400uLL, 1uLL, v44);
+        CFStringGetCString(v42, v66, 1024, 0x8000100u);
+        v67 = v66;
         goto LABEL_152;
       }
 
-      v137 = sub_10003E080();
-      if (os_log_type_enabled(v137, OS_LOG_TYPE_FAULT))
+      v161 = sub_10003E080(0, v41);
+      if (os_log_type_enabled(v161, OS_LOG_TYPE_FAULT))
       {
         sub_1000C6A7C();
       }
@@ -8166,18 +8239,18 @@ LABEL_151:
 LABEL_134:
       if (qword_100127ED0)
       {
-        v138 = qword_100127ED0;
+        v162 = qword_100127ED0;
       }
 
       else
       {
-        v138 = __stderrp;
+        v162 = __stderrp;
       }
 
-      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v138);
+      fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v162);
 LABEL_158:
       v17 = 0;
-      *__error() = v37;
+      *__error() = v39;
       goto LABEL_280;
     }
 
@@ -8186,159 +8259,160 @@ LABEL_56:
     goto LABEL_279;
   }
 
-  v218 = a2;
-  v219 = v14;
+  v250 = a2;
+  v251 = v14;
   v20 = [v12 rangeWithName:@"binaryUuid"];
   if (v20 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v42 = v20;
-    v43 = v21;
-    v44 = [v11 substringWithRange:{v20, v21}];
-    v45 = sub_1000A4234(v44);
+    v45 = v20;
+    v46 = v21;
+    v47 = [v11 substringWithRange:{v20, v21}];
+    v48 = sub_1000A4234(v47);
 
-    if (!v45)
+    if (!v48)
     {
       if (byte_100127EC8 == 1)
       {
-        v73 = *__error();
-        v74 = sub_10003E080();
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+        v79 = __error();
+        v80 = *v79;
+        v82 = sub_10003E080(v79, v81);
+        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
         {
-          v75 = [v11 substringWithRange:{v42, v43}];
+          v83 = [v11 substringWithRange:{v45, v46}];
           *buf = 138412802;
-          v235 = v75;
-          v236 = 1024;
-          *v237 = v218;
-          *&v237[4] = 2112;
-          *&v237[6] = v11;
-          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: unable to parse UUID %@ in line (%d: %@)", buf, 0x1Cu);
+          v267 = v83;
+          v268 = 1024;
+          *v269 = v250;
+          *&v269[4] = 2112;
+          *&v269[6] = v11;
+          _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: unable to parse UUID %@ in line (%d: %@)", buf, 0x1Cu);
         }
 
-        *__error() = v73;
+        *__error() = v80;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 2)
       {
-        v76 = v13;
-        v77 = v12;
-        v78 = *__error();
-        v79 = [v11 substringWithRange:{v42, v43}];
-        v80 = v11;
-        v81 = v79;
-        v82 = v80;
-        v83 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: unable to parse UUID %@ in line (%d: %@)", v79, v218, v80);
+        v84 = v13;
+        v85 = v12;
+        v86 = *__error();
+        v87 = [v11 substringWithRange:{v45, v46}];
+        v88 = v11;
+        v89 = v87;
+        v90 = v88;
+        v91 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: unable to parse UUID %@ in line (%d: %@)", v87, v250, v88);
 
-        if (v83)
+        if (v91)
         {
-          v84 = CFStringGetCStringPtr(v83, 0x8000100u);
-          if (v84)
+          v94 = CFStringGetCStringPtr(v91, 0x8000100u);
+          if (v94)
           {
-            v85 = v84;
-            v86 = 0;
+            v95 = v94;
+            v96 = 0;
           }
 
           else
           {
-            v85 = malloc_type_calloc(0x400uLL, 1uLL, 0x80A8BE69uLL);
-            CFStringGetCString(v83, v85, 1024, 0x8000100u);
-            v86 = v85;
+            v95 = malloc_type_calloc(0x400uLL, 1uLL, 0x80A8BE69uLL);
+            CFStringGetCString(v91, v95, 1024, 0x8000100u);
+            v96 = v95;
           }
 
-          v11 = v82;
+          v11 = v90;
           if (qword_100127ED0)
           {
-            v170 = qword_100127ED0;
+            v202 = qword_100127ED0;
           }
 
           else
           {
-            v170 = __stderrp;
+            v202 = __stderrp;
           }
 
-          fprintf(v170, "%s\n", v85);
-          v12 = v77;
-          if (v86)
+          fprintf(v202, "%s\n", v95);
+          v12 = v85;
+          if (v96)
           {
-            free(v86);
+            free(v96);
           }
 
-          CFRelease(v83);
+          CFRelease(v91);
         }
 
         else
         {
-          v166 = sub_10003E080();
-          v11 = v82;
-          if (os_log_type_enabled(v166, OS_LOG_TYPE_FAULT))
+          v198 = sub_10003E080(v92, v93);
+          v11 = v90;
+          if (os_log_type_enabled(v198, OS_LOG_TYPE_FAULT))
           {
-            v199 = [v82 substringWithRange:{v42, v43}];
+            v231 = [v90 substringWithRange:{v45, v46}];
             *buf = 138412802;
-            v235 = v199;
-            v236 = 1024;
-            *v237 = v218;
-            *&v237[4] = 2112;
-            *&v237[6] = v82;
-            _os_log_fault_impl(&_mh_execute_header, v166, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: unable to parse UUID %@ in line (%d: %@)", buf, 0x1Cu);
+            v267 = v231;
+            v268 = 1024;
+            *v269 = v250;
+            *&v269[4] = 2112;
+            *&v269[6] = v90;
+            _os_log_fault_impl(&_mh_execute_header, v198, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: unable to parse UUID %@ in line (%d: %@)", buf, 0x1Cu);
           }
 
           if (qword_100127ED0)
           {
-            v167 = qword_100127ED0;
+            v199 = qword_100127ED0;
           }
 
           else
           {
-            v167 = __stderrp;
+            v199 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v167);
-          v12 = v77;
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v199);
+          v12 = v85;
         }
 
-        v13 = v76;
+        v13 = v84;
 LABEL_216:
-        *__error() = v78;
+        *__error() = v86;
       }
 
 LABEL_217:
 
       v17 = 0;
-      v14 = v219;
+      v14 = v251;
       goto LABEL_280;
     }
 
-    v216 = v11;
-    v226 = 0u;
-    v227 = 0u;
-    v224 = 0u;
-    v225 = 0u;
-    v46 = v13;
-    v47 = [v46 countByEnumeratingWithState:&v224 objects:v240 count:16];
-    if (!v47)
+    v248 = v11;
+    v258 = 0u;
+    v259 = 0u;
+    v256 = 0u;
+    v257 = 0u;
+    v49 = v13;
+    v50 = [v49 countByEnumeratingWithState:&v256 objects:v272 count:16];
+    if (!v50)
     {
 
       goto LABEL_109;
     }
 
-    v49 = v47;
-    v212 = v13;
-    v214 = v12;
+    v52 = v50;
+    v244 = v13;
+    v246 = v12;
     v17 = 0;
-    v50 = *v225;
+    v53 = *v257;
     while (1)
     {
-      v51 = 0;
+      v54 = 0;
       do
       {
-        if (*v225 != v50)
+        if (*v257 != v53)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v49);
         }
 
-        v52 = *(*(&v224 + 1) + 8 * v51);
-        if (v52)
+        v55 = *(*(&v256 + 1) + 8 * v54);
+        if (v55)
         {
-          Property = objc_getProperty(*(*(&v224 + 1) + 8 * v51), v48, 40, 1);
+          Property = objc_getProperty(*(*(&v256 + 1) + 8 * v54), v51, 40, 1);
         }
 
         else
@@ -8346,343 +8420,346 @@ LABEL_217:
           Property = 0;
         }
 
-        v54 = [Property uuid];
-        v55 = [v54 isEqual:v45];
+        v57 = [Property uuid];
+        v58 = [v57 isEqual:v48];
 
-        if (v55)
+        if (v58)
         {
           if (v17)
           {
-            if (objc_getProperty(v17, v48, 48, 1))
+            if (objc_getProperty(v17, v51, 48, 1))
             {
-              v12 = v214;
+              v12 = v246;
               if (byte_100127EC8)
               {
-                v87 = *__error();
-                v88 = sub_10003E080();
-                if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+                v97 = __error();
+                v98 = *v97;
+                v100 = sub_10003E080(v97, v99);
+                if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
                 {
-                  v90 = objc_getProperty(v17, v89, 40, 1);
-                  v91 = [v90 uuid];
-                  v93 = objc_getProperty(v17, v92, 48, 1);
+                  v102 = objc_getProperty(v17, v101, 40, 1);
+                  v103 = [v102 uuid];
+                  v105 = objc_getProperty(v17, v104, 48, 1);
 
                   *buf = 138413314;
-                  v235 = v45;
-                  v236 = 2112;
-                  *v237 = v91;
-                  *&v237[8] = 2112;
-                  *&v237[10] = v93;
-                  *&v237[18] = 1024;
-                  *&v237[20] = v218;
-                  v238 = 2112;
-                  v239 = v216;
-                  _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
+                  v267 = v48;
+                  v268 = 2112;
+                  *v269 = v103;
+                  *&v269[8] = 2112;
+                  *&v269[10] = v105;
+                  *&v269[18] = 1024;
+                  *&v269[20] = v250;
+                  v270 = 2112;
+                  v271 = v248;
+                  _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
                 }
 
-                *__error() = v87;
+                *__error() = v98;
               }
 
-              v94 = byte_100127EC9 == 1 && dword_100127558 <= 2;
-              v11 = v216;
-              v13 = v212;
-              if (!v94)
+              v106 = byte_100127EC9 == 1 && dword_100127558 <= 2;
+              v11 = v248;
+              v13 = v244;
+              if (!v106)
               {
                 goto LABEL_263;
               }
 
-              v210 = *__error();
-              v96 = objc_getProperty(v17, v95, 40, 1);
-              v97 = [v96 uuid];
-              v99 = objc_getProperty(v17, v98, 48, 1);
+              v242 = *__error();
+              v108 = objc_getProperty(v17, v107, 40, 1);
+              v109 = [v108 uuid];
+              v111 = objc_getProperty(v17, v110, 48, 1);
 
-              v100 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", v45, v97, v99, v218, v216);
-              if (v100)
+              v112 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", v48, v109, v111, v250, v248);
+              if (v112)
               {
-                v101 = CFStringGetCStringPtr(v100, 0x8000100u);
-                if (v101)
+                v115 = CFStringGetCStringPtr(v112, 0x8000100u);
+                if (v115)
                 {
-                  v102 = v101;
-                  v103 = 0;
+                  v116 = v115;
+                  v117 = 0;
                 }
 
                 else
                 {
-                  v102 = malloc_type_calloc(0x400uLL, 1uLL, 0xB6BD52EBuLL);
-                  CFStringGetCString(v100, v102, 1024, 0x8000100u);
-                  v103 = v102;
+                  v116 = malloc_type_calloc(0x400uLL, 1uLL, 0xB6BD52EBuLL);
+                  CFStringGetCString(v112, v116, 1024, 0x8000100u);
+                  v117 = v116;
                 }
 
-                v12 = v214;
+                v12 = v246;
                 if (qword_100127ED0)
                 {
-                  v180 = qword_100127ED0;
+                  v212 = qword_100127ED0;
                 }
 
                 else
                 {
-                  v180 = __stderrp;
+                  v212 = __stderrp;
                 }
 
-                fprintf(v180, "%s\n", v102);
-                if (v103)
+                fprintf(v212, "%s\n", v116);
+                if (v117)
                 {
-                  free(v103);
+                  free(v117);
                 }
 
-                CFRelease(v100);
+                CFRelease(v112);
               }
 
               else
               {
-                v171 = sub_10003E080();
-                if (os_log_type_enabled(v171, OS_LOG_TYPE_FAULT))
+                v203 = sub_10003E080(v113, v114);
+                if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
                 {
-                  v200 = objc_getProperty(v17, v172, 40, 1);
-                  v201 = [v200 uuid];
-                  v203 = objc_getProperty(v17, v202, 48, 1);
+                  v232 = objc_getProperty(v17, v204, 40, 1);
+                  v233 = [v232 uuid];
+                  v235 = objc_getProperty(v17, v234, 48, 1);
 
                   *buf = 138413314;
-                  v235 = v45;
-                  v236 = 2112;
-                  *v237 = v201;
-                  *&v237[8] = 2112;
-                  *&v237[10] = v203;
-                  *&v237[18] = 1024;
-                  *&v237[20] = v218;
-                  v238 = 2112;
-                  v239 = v216;
-                  _os_log_fault_impl(&_mh_execute_header, v171, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
+                  v267 = v48;
+                  v268 = 2112;
+                  *v269 = v233;
+                  *&v269[8] = 2112;
+                  *&v269[10] = v235;
+                  *&v269[18] = 1024;
+                  *&v269[20] = v250;
+                  v270 = 2112;
+                  v271 = v248;
+                  _os_log_fault_impl(&_mh_execute_header, v203, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
                 }
 
                 if (qword_100127ED0)
                 {
-                  v173 = qword_100127ED0;
+                  v205 = qword_100127ED0;
                 }
 
                 else
                 {
-                  v173 = __stderrp;
+                  v205 = __stderrp;
                 }
 
-                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v173);
-                v12 = v214;
+                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v205);
+                v12 = v246;
               }
 
-              v144 = v210;
+              v170 = v242;
             }
 
             else
             {
-              v13 = v212;
+              v13 = v244;
               if (byte_100127EC8)
               {
-                v139 = *__error();
-                v140 = sub_10003E080();
-                if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
+                v163 = __error();
+                v164 = *v163;
+                v166 = sub_10003E080(v163, v165);
+                if (os_log_type_enabled(v166, OS_LOG_TYPE_DEFAULT))
                 {
-                  v142 = [objc_getProperty(v17 v141];
+                  v168 = [objc_getProperty(v17 v167];
                   *buf = 138413058;
-                  v235 = v45;
-                  v236 = 2112;
-                  *v237 = v142;
-                  *&v237[8] = 1024;
-                  *&v237[10] = v218;
-                  *&v237[14] = 2112;
-                  *&v237[16] = v216;
-                  _os_log_impl(&_mh_execute_header, v140, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
+                  v267 = v48;
+                  v268 = 2112;
+                  *v269 = v168;
+                  *&v269[8] = 1024;
+                  *&v269[10] = v250;
+                  *&v269[14] = 2112;
+                  *&v269[16] = v248;
+                  _os_log_impl(&_mh_execute_header, v166, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
                 }
 
-                *__error() = v139;
+                *__error() = v164;
               }
 
-              v143 = byte_100127EC9 == 1 && dword_100127558 <= 2;
-              v12 = v214;
-              v11 = v216;
-              if (!v143)
+              v169 = byte_100127EC9 == 1 && dword_100127558 <= 2;
+              v12 = v246;
+              v11 = v248;
+              if (!v169)
               {
                 goto LABEL_263;
               }
 
-              v144 = *__error();
-              v146 = [objc_getProperty(v17 v145];
-              v147 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ (%d: %@)", v45, v146, v218, v216);
+              v170 = *__error();
+              v172 = [objc_getProperty(v17 v171];
+              v173 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ (%d: %@)", v48, v172, v250, v248);
 
-              if (v147)
+              if (v173)
               {
-                v148 = v144;
-                v149 = CFStringGetCStringPtr(v147, 0x8000100u);
-                if (v149)
+                v176 = v170;
+                v177 = CFStringGetCStringPtr(v173, 0x8000100u);
+                if (v177)
                 {
-                  v150 = v149;
-                  v151 = 0;
+                  v178 = v177;
+                  v179 = 0;
                 }
 
                 else
                 {
-                  v150 = malloc_type_calloc(0x400uLL, 1uLL, 0x20241F5BuLL);
-                  CFStringGetCString(v147, v150, 1024, 0x8000100u);
-                  v151 = v150;
+                  v178 = malloc_type_calloc(0x400uLL, 1uLL, 0x20241F5BuLL);
+                  CFStringGetCString(v173, v178, 1024, 0x8000100u);
+                  v179 = v178;
                 }
 
                 if (qword_100127ED0)
                 {
-                  v189 = qword_100127ED0;
+                  v221 = qword_100127ED0;
                 }
 
                 else
                 {
-                  v189 = __stderrp;
+                  v221 = __stderrp;
                 }
 
-                fprintf(v189, "%s\n", v150);
-                if (v151)
+                fprintf(v221, "%s\n", v178);
+                if (v179)
                 {
-                  free(v151);
+                  free(v179);
                 }
 
-                CFRelease(v147);
-                v144 = v148;
+                CFRelease(v173);
+                v170 = v176;
               }
 
               else
               {
-                v181 = sub_10003E080();
-                if (os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
+                v213 = sub_10003E080(v174, v175);
+                if (os_log_type_enabled(v213, OS_LOG_TYPE_FAULT))
                 {
-                  v208 = [objc_getProperty(v17 v182];
+                  v240 = [objc_getProperty(v17 v214];
                   *buf = 138413058;
-                  v235 = v45;
-                  v236 = 2112;
-                  *v237 = v208;
-                  *&v237[8] = 1024;
-                  *&v237[10] = v218;
-                  *&v237[14] = 2112;
-                  *&v237[16] = v216;
-                  _os_log_fault_impl(&_mh_execute_header, v181, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
+                  v267 = v48;
+                  v268 = 2112;
+                  *v269 = v240;
+                  *&v269[8] = 1024;
+                  *&v269[10] = v250;
+                  *&v269[14] = 2112;
+                  *&v269[16] = v248;
+                  _os_log_fault_impl(&_mh_execute_header, v213, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary UUID %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
                 }
 
                 if (qword_100127ED0)
                 {
-                  v183 = qword_100127ED0;
+                  v215 = qword_100127ED0;
                 }
 
                 else
                 {
-                  v183 = __stderrp;
+                  v215 = __stderrp;
                 }
 
-                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v183);
+                fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v215);
               }
             }
 
-            *__error() = v144;
-            v11 = v216;
+            *__error() = v170;
+            v11 = v248;
 LABEL_263:
 
             goto LABEL_264;
           }
 
-          v17 = v52;
+          v17 = v55;
         }
 
-        v51 = v51 + 1;
+        v54 = v54 + 1;
       }
 
-      while (v49 != v51);
-      v56 = [v46 countByEnumeratingWithState:&v224 objects:v240 count:16];
-      v49 = v56;
-      if (!v56)
+      while (v52 != v54);
+      v59 = [v49 countByEnumeratingWithState:&v256 objects:v272 count:16];
+      v52 = v59;
+      if (!v59)
       {
 
-        v12 = v214;
-        v11 = v216;
-        v13 = v212;
+        v12 = v246;
+        v11 = v248;
+        v13 = v244;
         if (!v17)
         {
 LABEL_109:
           if (byte_100127EC8 == 1)
           {
-            v121 = *__error();
-            v122 = sub_10003E080();
-            if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+            v139 = __error();
+            v140 = *v139;
+            v142 = sub_10003E080(v139, v141);
+            if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v235 = v45;
-              v236 = 1024;
-              *v237 = v218;
-              *&v237[4] = 2112;
-              *&v237[6] = v11;
-              _os_log_error_impl(&_mh_execute_header, v122, OS_LOG_TYPE_ERROR, "Parsing spindump text: No matching binary for frame line with binary UUID %@! (%d: %@)", buf, 0x1Cu);
+              v267 = v48;
+              v268 = 1024;
+              *v269 = v250;
+              *&v269[4] = 2112;
+              *&v269[6] = v11;
+              _os_log_error_impl(&_mh_execute_header, v142, OS_LOG_TYPE_ERROR, "Parsing spindump text: No matching binary for frame line with binary UUID %@! (%d: %@)", buf, 0x1Cu);
             }
 
-            *__error() = v121;
+            *__error() = v140;
           }
 
           if (byte_100127EC9 == 1 && dword_100127558 <= 3)
           {
-            v78 = *__error();
-            v123 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No matching binary for frame line with binary UUID %@! (%d: %@)", v45, v218, v11);
-            if (v123)
+            v86 = *__error();
+            v143 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No matching binary for frame line with binary UUID %@! (%d: %@)", v48, v250, v11);
+            if (v143)
             {
-              v124 = v123;
-              v125 = CFStringGetCStringPtr(v123, 0x8000100u);
-              if (v125)
+              v145 = v143;
+              v146 = CFStringGetCStringPtr(v143, 0x8000100u);
+              if (v146)
               {
-                v126 = v125;
-                v127 = 0;
+                v147 = v146;
+                v148 = 0;
               }
 
               else
               {
-                v126 = malloc_type_calloc(0x400uLL, 1uLL, 0x4CCB5E1CuLL);
-                CFStringGetCString(v124, v126, 1024, 0x8000100u);
-                v127 = v126;
+                v147 = malloc_type_calloc(0x400uLL, 1uLL, 0x4CCB5E1CuLL);
+                CFStringGetCString(v145, v147, 1024, 0x8000100u);
+                v148 = v147;
               }
 
               if (qword_100127ED0)
               {
-                v179 = qword_100127ED0;
+                v211 = qword_100127ED0;
               }
 
               else
               {
-                v179 = __stderrp;
+                v211 = __stderrp;
               }
 
-              fprintf(v179, "%s\n", v126);
-              if (v127)
+              fprintf(v211, "%s\n", v147);
+              if (v148)
               {
-                free(v127);
+                free(v148);
               }
 
-              CFRelease(v124);
+              CFRelease(v145);
             }
 
             else
             {
-              v168 = sub_10003E080();
-              if (os_log_type_enabled(v168, OS_LOG_TYPE_FAULT))
+              v200 = sub_10003E080(0, v144);
+              if (os_log_type_enabled(v200, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412802;
-                v235 = v45;
-                v236 = 1024;
-                *v237 = v218;
-                *&v237[4] = 2112;
-                *&v237[6] = v11;
-                _os_log_fault_impl(&_mh_execute_header, v168, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No matching binary for frame line with binary UUID %@! (%d: %@)", buf, 0x1Cu);
+                v267 = v48;
+                v268 = 1024;
+                *v269 = v250;
+                *&v269[4] = 2112;
+                *&v269[6] = v11;
+                _os_log_fault_impl(&_mh_execute_header, v200, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No matching binary for frame line with binary UUID %@! (%d: %@)", buf, 0x1Cu);
               }
 
               if (qword_100127ED0)
               {
-                v169 = qword_100127ED0;
+                v201 = qword_100127ED0;
               }
 
               else
               {
-                v169 = __stderrp;
+                v201 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v169);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v201);
             }
 
             goto LABEL_216;
@@ -8692,17 +8769,17 @@ LABEL_109:
         }
 
 LABEL_264:
-        v190 = [v12 rangeWithName:@"offsetIntoBinary"];
-        if (v190 == 0x7FFFFFFFFFFFFFFFLL)
+        v222 = [v12 rangeWithName:@"offsetIntoBinary"];
+        if (v222 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          sub_1000C6AF0(v11, v218);
+          sub_1000C6AF0(v11, v250);
         }
 
-        v192 = [v11 substringWithRange:{v190, v191}];
-        v24 = sub_1000A2DC0(v192);
+        v224 = [v11 substringWithRange:{v222, v223}];
+        v24 = sub_1000A2DC0(v224);
 
 LABEL_266:
-        v14 = v219;
+        v14 = v251;
         goto LABEL_279;
       }
     }
@@ -8716,405 +8793,408 @@ LABEL_266:
     goto LABEL_266;
   }
 
-  v217 = v11;
+  v249 = v11;
   v29 = [v11 substringWithRange:{v22, v23}];
-  v220 = 0u;
-  v221 = 0u;
-  v222 = 0u;
-  v223 = 0u;
-  v62 = v13;
-  v63 = [v62 countByEnumeratingWithState:&v220 objects:v233 count:16];
-  if (!v63)
+  v252 = 0u;
+  v253 = 0u;
+  v254 = 0u;
+  v255 = 0u;
+  v68 = v13;
+  v69 = [v68 countByEnumeratingWithState:&v252 objects:v265 count:16];
+  if (!v69)
   {
 
 LABEL_119:
-    v14 = v219;
+    v14 = v251;
     if (byte_100127EC8 == 1)
     {
-      v128 = *__error();
-      v129 = sub_10003E080();
-      if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
+      v149 = __error();
+      v150 = *v149;
+      v152 = sub_10003E080(v149, v151);
+      if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v235 = v29;
-        v236 = 1024;
-        *v237 = v218;
-        *&v237[4] = 2112;
-        *&v237[6] = v11;
-        _os_log_error_impl(&_mh_execute_header, v129, OS_LOG_TYPE_ERROR, "Parsing spindump text: No matching binary for frame line with binary name %@! (%d: %@)", buf, 0x1Cu);
+        v267 = v29;
+        v268 = 1024;
+        *v269 = v250;
+        *&v269[4] = 2112;
+        *&v269[6] = v11;
+        _os_log_error_impl(&_mh_execute_header, v152, OS_LOG_TYPE_ERROR, "Parsing spindump text: No matching binary for frame line with binary name %@! (%d: %@)", buf, 0x1Cu);
       }
 
-      *__error() = v128;
+      *__error() = v150;
     }
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 3)
     {
-      v130 = *__error();
-      v131 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No matching binary for frame line with binary name %@! (%d: %@)", v29, v218, v11);
-      if (v131)
+      v153 = *__error();
+      v154 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No matching binary for frame line with binary name %@! (%d: %@)", v29, v250, v11);
+      if (v154)
       {
-        v132 = v131;
-        v133 = CFStringGetCStringPtr(v131, 0x8000100u);
-        if (v133)
+        v156 = v154;
+        v157 = CFStringGetCStringPtr(v154, 0x8000100u);
+        if (v157)
         {
-          v134 = v133;
-          v135 = 0;
+          v158 = v157;
+          v159 = 0;
         }
 
         else
         {
-          v134 = malloc_type_calloc(0x400uLL, 1uLL, 0xEC7BDB2BuLL);
-          CFStringGetCString(v132, v134, 1024, 0x8000100u);
-          v135 = v134;
+          v158 = malloc_type_calloc(0x400uLL, 1uLL, 0xEC7BDB2BuLL);
+          CFStringGetCString(v156, v158, 1024, 0x8000100u);
+          v159 = v158;
         }
 
         if (qword_100127ED0)
         {
-          v184 = qword_100127ED0;
+          v216 = qword_100127ED0;
         }
 
         else
         {
-          v184 = __stderrp;
+          v216 = __stderrp;
         }
 
-        fprintf(v184, "%s\n", v134);
-        if (v135)
+        fprintf(v216, "%s\n", v158);
+        if (v159)
         {
-          free(v135);
+          free(v159);
         }
 
-        CFRelease(v132);
+        CFRelease(v156);
       }
 
       else
       {
-        v174 = sub_10003E080();
-        if (os_log_type_enabled(v174, OS_LOG_TYPE_FAULT))
+        v206 = sub_10003E080(0, v155);
+        if (os_log_type_enabled(v206, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          v235 = v29;
-          v236 = 1024;
-          *v237 = v218;
-          *&v237[4] = 2112;
-          *&v237[6] = v11;
-          _os_log_fault_impl(&_mh_execute_header, v174, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No matching binary for frame line with binary name %@! (%d: %@)", buf, 0x1Cu);
+          v267 = v29;
+          v268 = 1024;
+          *v269 = v250;
+          *&v269[4] = 2112;
+          *&v269[6] = v11;
+          _os_log_fault_impl(&_mh_execute_header, v206, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No matching binary for frame line with binary name %@! (%d: %@)", buf, 0x1Cu);
         }
 
         if (qword_100127ED0)
         {
-          v175 = qword_100127ED0;
+          v207 = qword_100127ED0;
         }
 
         else
         {
-          v175 = __stderrp;
+          v207 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v175);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v207);
       }
 
-      *__error() = v130;
+      *__error() = v153;
     }
 
     goto LABEL_3;
   }
 
-  v65 = v63;
-  v213 = v13;
-  v215 = v12;
+  v71 = v69;
+  v245 = v13;
+  v247 = v12;
   v17 = 0;
-  v66 = *v221;
+  v72 = *v253;
   do
   {
-    v67 = 0;
+    v73 = 0;
     do
     {
-      if (*v221 != v66)
+      if (*v253 != v72)
       {
-        objc_enumerationMutation(v62);
+        objc_enumerationMutation(v68);
       }
 
-      v68 = *(*(&v220 + 1) + 8 * v67);
-      if (v68)
+      v74 = *(*(&v252 + 1) + 8 * v73);
+      if (v74)
       {
-        v69 = objc_getProperty(*(*(&v220 + 1) + 8 * v67), v64, 40, 1);
+        v75 = objc_getProperty(*(*(&v252 + 1) + 8 * v73), v70, 40, 1);
       }
 
       else
       {
-        v69 = 0;
+        v75 = 0;
       }
 
-      v70 = [v69 name];
-      v71 = [v70 isEqualToString:v29];
+      v76 = [v75 name];
+      v77 = [v76 isEqualToString:v29];
 
-      if (v71)
+      if (v77)
       {
         if (!v17)
         {
-          v17 = v68;
+          v17 = v74;
           goto LABEL_67;
         }
 
-        if (objc_getProperty(v17, v64, 48, 1))
+        if (objc_getProperty(v17, v70, 48, 1))
         {
-          v12 = v215;
+          v12 = v247;
           if (byte_100127EC8)
           {
-            v104 = *__error();
-            v105 = sub_10003E080();
-            if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+            v118 = __error();
+            v119 = *v118;
+            v121 = sub_10003E080(v118, v120);
+            if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
             {
-              v107 = objc_getProperty(v17, v106, 40, 1);
-              v108 = [v107 uuid];
-              v110 = objc_getProperty(v17, v109, 48, 1);
+              v123 = objc_getProperty(v17, v122, 40, 1);
+              v124 = [v123 uuid];
+              v126 = objc_getProperty(v17, v125, 48, 1);
 
               *buf = 138413314;
-              v235 = v29;
-              v236 = 2112;
-              *v237 = v108;
-              *&v237[8] = 2112;
-              *&v237[10] = v110;
-              *&v237[18] = 1024;
-              *&v237[20] = v218;
-              v238 = 2112;
-              v239 = v217;
-              _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
+              v267 = v29;
+              v268 = 2112;
+              *v269 = v124;
+              *&v269[8] = 2112;
+              *&v269[10] = v126;
+              *&v269[18] = 1024;
+              *&v269[20] = v250;
+              v270 = 2112;
+              v271 = v249;
+              _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
             }
 
-            *__error() = v104;
+            *__error() = v119;
           }
 
-          v111 = byte_100127EC9 == 1 && dword_100127558 <= 2;
-          v11 = v217;
-          v13 = v213;
-          if (!v111)
+          v127 = byte_100127EC9 == 1 && dword_100127558 <= 2;
+          v11 = v249;
+          v13 = v245;
+          if (!v127)
           {
             goto LABEL_275;
           }
 
-          v211 = *__error();
-          v113 = objc_getProperty(v17, v112, 40, 1);
-          v114 = [v113 uuid];
-          v116 = objc_getProperty(v17, v115, 48, 1);
+          v243 = *__error();
+          v129 = objc_getProperty(v17, v128, 40, 1);
+          v130 = [v129 uuid];
+          v132 = objc_getProperty(v17, v131, 48, 1);
 
-          v117 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", v29, v114, v116, v218, v217);
-          if (v117)
+          v133 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", v29, v130, v132, v250, v249);
+          if (v133)
           {
-            v118 = CFStringGetCStringPtr(v117, 0x8000100u);
-            if (v118)
+            v136 = CFStringGetCStringPtr(v133, 0x8000100u);
+            if (v136)
             {
-              v119 = v118;
-              v120 = 0;
+              v137 = v136;
+              v138 = 0;
             }
 
             else
             {
-              v119 = malloc_type_calloc(0x400uLL, 1uLL, 0xD0215DAuLL);
-              CFStringGetCString(v117, v119, 1024, 0x8000100u);
-              v120 = v119;
+              v137 = malloc_type_calloc(0x400uLL, 1uLL, 0xD0215DAuLL);
+              CFStringGetCString(v133, v137, 1024, 0x8000100u);
+              v138 = v137;
             }
 
-            v12 = v215;
+            v12 = v247;
             if (qword_100127ED0)
             {
-              v185 = qword_100127ED0;
+              v217 = qword_100127ED0;
             }
 
             else
             {
-              v185 = __stderrp;
+              v217 = __stderrp;
             }
 
-            fprintf(v185, "%s\n", v119);
-            if (v120)
+            fprintf(v217, "%s\n", v137);
+            if (v138)
             {
-              free(v120);
+              free(v138);
             }
 
-            CFRelease(v117);
+            CFRelease(v133);
           }
 
           else
           {
-            v176 = sub_10003E080();
-            if (os_log_type_enabled(v176, OS_LOG_TYPE_FAULT))
+            v208 = sub_10003E080(v134, v135);
+            if (os_log_type_enabled(v208, OS_LOG_TYPE_FAULT))
             {
-              v204 = objc_getProperty(v17, v177, 40, 1);
-              v205 = [v204 uuid];
-              v207 = objc_getProperty(v17, v206, 48, 1);
+              v236 = objc_getProperty(v17, v209, 40, 1);
+              v237 = [v236 uuid];
+              v239 = objc_getProperty(v17, v238, 48, 1);
 
               *buf = 138413314;
-              v235 = v29;
-              v236 = 2112;
-              *v237 = v205;
-              *&v237[8] = 2112;
-              *&v237[10] = v207;
-              *&v237[18] = 1024;
-              *&v237[20] = v218;
-              v238 = 2112;
-              v239 = v217;
-              _os_log_fault_impl(&_mh_execute_header, v176, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
+              v267 = v29;
+              v268 = 2112;
+              *v269 = v237;
+              *&v269[8] = 2112;
+              *&v269[10] = v239;
+              *&v269[18] = 1024;
+              *&v269[20] = v250;
+              v270 = 2112;
+              v271 = v249;
+              _os_log_fault_impl(&_mh_execute_header, v208, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ segment %@ (%d: %@)", buf, 0x30u);
             }
 
             if (qword_100127ED0)
             {
-              v178 = qword_100127ED0;
+              v210 = qword_100127ED0;
             }
 
             else
             {
-              v178 = __stderrp;
+              v210 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v178);
-            v12 = v215;
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v210);
+            v12 = v247;
           }
 
-          v158 = v211;
+          v188 = v243;
         }
 
         else
         {
-          v13 = v213;
+          v13 = v245;
           if (byte_100127EC8)
           {
-            v153 = *__error();
-            v154 = sub_10003E080();
-            if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
+            v181 = __error();
+            v182 = *v181;
+            v184 = sub_10003E080(v181, v183);
+            if (os_log_type_enabled(v184, OS_LOG_TYPE_DEFAULT))
             {
-              v156 = [objc_getProperty(v17 v155];
+              v186 = [objc_getProperty(v17 v185];
               *buf = 138413058;
-              v235 = v29;
-              v236 = 2112;
-              *v237 = v156;
-              *&v237[8] = 1024;
-              *&v237[10] = v218;
-              *&v237[14] = 2112;
-              *&v237[16] = v217;
-              _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
+              v267 = v29;
+              v268 = 2112;
+              *v269 = v186;
+              *&v269[8] = 1024;
+              *&v269[10] = v250;
+              *&v269[14] = 2112;
+              *&v269[16] = v249;
+              _os_log_impl(&_mh_execute_header, v184, OS_LOG_TYPE_DEFAULT, "Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
             }
 
-            *__error() = v153;
+            *__error() = v182;
           }
 
-          v157 = byte_100127EC9 == 1 && dword_100127558 <= 2;
-          v12 = v215;
-          v11 = v217;
-          if (!v157)
+          v187 = byte_100127EC9 == 1 && dword_100127558 <= 2;
+          v12 = v247;
+          v11 = v249;
+          if (!v187)
           {
             goto LABEL_275;
           }
 
-          v158 = *__error();
-          v160 = [objc_getProperty(v17 v159];
-          v161 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ (%d: %@)", v29, v160, v218, v217);
+          v188 = *__error();
+          v190 = [objc_getProperty(v17 v189];
+          v191 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ (%d: %@)", v29, v190, v250, v249);
 
-          if (v161)
+          if (v191)
           {
-            v162 = v158;
-            v163 = CFStringGetCStringPtr(v161, 0x8000100u);
-            if (v163)
+            v194 = v188;
+            v195 = CFStringGetCStringPtr(v191, 0x8000100u);
+            if (v195)
             {
-              v164 = v163;
-              v165 = 0;
+              v196 = v195;
+              v197 = 0;
             }
 
             else
             {
-              v164 = malloc_type_calloc(0x400uLL, 1uLL, 0x575F020CuLL);
-              CFStringGetCString(v161, v164, 1024, 0x8000100u);
-              v165 = v164;
+              v196 = malloc_type_calloc(0x400uLL, 1uLL, 0x575F020CuLL);
+              CFStringGetCString(v191, v196, 1024, 0x8000100u);
+              v197 = v196;
             }
 
             if (qword_100127ED0)
             {
-              v193 = qword_100127ED0;
+              v225 = qword_100127ED0;
             }
 
             else
             {
-              v193 = __stderrp;
+              v225 = __stderrp;
             }
 
-            fprintf(v193, "%s\n", v164);
-            if (v165)
+            fprintf(v225, "%s\n", v196);
+            if (v197)
             {
-              free(v165);
+              free(v197);
             }
 
-            CFRelease(v161);
-            v158 = v162;
+            CFRelease(v191);
+            v188 = v194;
           }
 
           else
           {
-            v186 = sub_10003E080();
-            if (os_log_type_enabled(v186, OS_LOG_TYPE_FAULT))
+            v218 = sub_10003E080(v192, v193);
+            if (os_log_type_enabled(v218, OS_LOG_TYPE_FAULT))
             {
-              v209 = [objc_getProperty(v17 v187];
+              v241 = [objc_getProperty(v17 v219];
               *buf = 138413058;
-              v235 = v29;
-              v236 = 2112;
-              *v237 = v209;
-              *&v237[8] = 1024;
-              *&v237[10] = v218;
-              *&v237[14] = 2112;
-              *&v237[16] = v217;
-              _os_log_fault_impl(&_mh_execute_header, v186, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
+              v267 = v29;
+              v268 = 2112;
+              *v269 = v241;
+              *&v269[8] = 1024;
+              *&v269[10] = v250;
+              *&v269[14] = 2112;
+              *&v269[16] = v249;
+              _os_log_fault_impl(&_mh_execute_header, v218, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: No address for frame line, and binary name %@ matches multiple load infos, assuming %@ (%d: %@)", buf, 0x26u);
             }
 
             if (qword_100127ED0)
             {
-              v188 = qword_100127ED0;
+              v220 = qword_100127ED0;
             }
 
             else
             {
-              v188 = __stderrp;
+              v220 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v188);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v220);
           }
         }
 
-        *__error() = v158;
-        v11 = v217;
+        *__error() = v188;
+        v11 = v249;
 LABEL_275:
 
         goto LABEL_276;
       }
 
 LABEL_67:
-      v67 = v67 + 1;
+      v73 = v73 + 1;
     }
 
-    while (v65 != v67);
-    v72 = [v62 countByEnumeratingWithState:&v220 objects:v233 count:16];
-    v65 = v72;
+    while (v71 != v73);
+    v78 = [v68 countByEnumeratingWithState:&v252 objects:v265 count:16];
+    v71 = v78;
   }
 
-  while (v72);
+  while (v78);
 
-  v12 = v215;
-  v11 = v217;
-  v13 = v213;
+  v12 = v247;
+  v11 = v249;
+  v13 = v245;
   if (!v17)
   {
     goto LABEL_119;
   }
 
 LABEL_276:
-  v194 = [v12 rangeWithName:@"offsetIntoBinary"];
-  v14 = v219;
-  if (v194 == 0x7FFFFFFFFFFFFFFFLL)
+  v226 = [v12 rangeWithName:@"offsetIntoBinary"];
+  v14 = v251;
+  if (v226 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    sub_1000C6D08(v11, v218);
+    sub_1000C6D08(v11, v250);
   }
 
-  v196 = [v11 substringWithRange:{v194, v195}];
-  v24 = sub_1000A2DC0(v196);
+  v228 = [v11 substringWithRange:{v226, v227}];
+  v24 = sub_1000A2DC0(v228);
 
 LABEL_278:
 LABEL_279:
@@ -9242,33 +9322,33 @@ void sub_1000A314C(FILE *a1, int a2, void *a3)
   }
 
   v7 = v6;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
   v45 = 0;
   v46 = &v45;
   v47 = 0x2020000000;
   v48 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_1000A4190;
-  v40[3] = &unk_100115410;
-  v40[4] = &v41;
-  v40[5] = &v45;
-  v8 = objc_retainBlock(v40);
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = sub_1000A4190;
+  v44[3] = &unk_100115410;
+  v44[4] = &v45;
+  v44[5] = &v49;
+  v8 = objc_retainBlock(v44);
   (v8[2])();
 LABEL_3:
   v9 = 0;
-  while (fgets((v46[3] + v9), *(v42 + 6) - v9, a1))
+  while (fgets((v50[3] + v9), *(v46 + 6) - v9, a1))
   {
-    v10 = v46[3];
-    v9 = strnlen(v10, *(v42 + 6));
+    v10 = v50[3];
+    v9 = strnlen(v10, *(v46 + 6));
     if (v10[v9 - 1] == 10)
     {
       v10[v9 - 1] = 0;
       v11 = [NSString alloc];
-      v12 = [v11 initWithUTF8String:v46[3]];
+      v12 = [v11 initWithUTF8String:v50[3]];
       v3 = (v3 + 1);
       buf[0] = 0;
       v5[2](v5, v12, v3, buf);
@@ -9285,128 +9365,129 @@ LABEL_3:
     (v8[2])(v8);
   }
 
-  free(v46[3]);
+  free(v50[3]);
   if (fseeko(a1, v7, 0))
   {
     if (byte_100127EC8 == 1)
     {
-      v14 = *__error();
-      v15 = sub_10003E080();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = __error();
+      v15 = *v14;
+      v17 = sub_10003E080(v14, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v16 = *__error();
-        v17 = __error();
-        v18 = strerror(*v17);
+        v18 = *__error();
+        v19 = __error();
+        v20 = strerror(*v19);
         *buf = 136315906;
-        v50 = "ret == 0";
-        v51 = 2048;
-        v52 = v7;
-        v53 = 1024;
-        v54 = v16;
-        v55 = 2080;
-        v56 = v18;
-        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s: Unable to seek back to %lld after searching for load infos: %d (%s)", buf, 0x26u);
+        v54 = "ret == 0";
+        v55 = 2048;
+        v56 = v7;
+        v57 = 1024;
+        v58 = v18;
+        v59 = 2080;
+        v60 = v20;
+        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s: Unable to seek back to %lld after searching for load infos: %d (%s)", buf, 0x26u);
       }
 
-      *__error() = v14;
+      *__error() = v15;
     }
 
     if (byte_100127EC9 == 1 && dword_100127558 <= 3)
     {
-      v20 = *__error();
-      v21 = *__error();
-      v22 = __error();
-      v23 = strerror(*v22);
-      v24 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to seek back to %lld after searching for load infos: %d (%s)", "ret == 0", v7, v21, v23);
-      v25 = v24;
-      if (v24)
+      v22 = *__error();
+      v23 = *__error();
+      v24 = __error();
+      v25 = strerror(*v24);
+      v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Unable to seek back to %lld after searching for load infos: %d (%s)", "ret == 0", v7, v23, v25);
+      v28 = v26;
+      if (v26)
       {
-        CStringPtr = CFStringGetCStringPtr(v24, 0x8000100u);
+        CStringPtr = CFStringGetCStringPtr(v26, 0x8000100u);
         if (CStringPtr)
         {
-          v38 = 0;
+          v42 = 0;
         }
 
         else
         {
           CStringPtr = malloc_type_calloc(0x400uLL, 1uLL, 0x9252CE00uLL);
-          CFStringGetCString(v25, CStringPtr, 1024, 0x8000100u);
-          v38 = CStringPtr;
+          CFStringGetCString(v28, CStringPtr, 1024, 0x8000100u);
+          v42 = CStringPtr;
         }
 
         if (qword_100127ED0)
         {
-          v39 = qword_100127ED0;
+          v43 = qword_100127ED0;
         }
 
         else
         {
-          v39 = __stderrp;
+          v43 = __stderrp;
         }
 
-        fprintf(v39, "%s\n", CStringPtr);
-        if (v38)
+        fprintf(v43, "%s\n", CStringPtr);
+        if (v42)
         {
-          free(v38);
+          free(v42);
         }
 
-        CFRelease(v25);
+        CFRelease(v28);
       }
 
       else
       {
-        v26 = sub_10003E080();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+        v29 = sub_10003E080(0, v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
         {
-          v27 = *__error();
-          v28 = __error();
-          v29 = strerror(*v28);
+          v30 = *__error();
+          v31 = __error();
+          v32 = strerror(*v31);
           *buf = 136315906;
-          v50 = "ret == 0";
-          v51 = 2048;
-          v52 = v7;
-          v53 = 1024;
-          v54 = v27;
-          v55 = 2080;
-          v56 = v29;
-          _os_log_fault_impl(&_mh_execute_header, v26, OS_LOG_TYPE_FAULT, "Unable to format: %s: Unable to seek back to %lld after searching for load infos: %d (%s)", buf, 0x26u);
+          v54 = "ret == 0";
+          v55 = 2048;
+          v56 = v7;
+          v57 = 1024;
+          v58 = v30;
+          v59 = 2080;
+          v60 = v32;
+          _os_log_fault_impl(&_mh_execute_header, v29, OS_LOG_TYPE_FAULT, "Unable to format: %s: Unable to seek back to %lld after searching for load infos: %d (%s)", buf, 0x26u);
         }
 
         if (qword_100127ED0)
         {
-          v30 = qword_100127ED0;
+          v33 = qword_100127ED0;
         }
 
         else
         {
-          v30 = __stderrp;
+          v33 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v30);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v33);
       }
 
-      *__error() = v20;
+      *__error() = v22;
     }
 
-    v31 = *__error();
-    v32 = __error();
-    strerror(*v32);
-    sub_10003DF54("LookaheadLines", "SPTextualReportParser.m", 978, "%s: Unable to seek back to %lld after searching for load infos: %d (%s)", v33, v34, v35, v36, "ret == 0");
+    v34 = *__error();
+    v35 = __error();
+    v36 = strerror(*v35);
+    sub_10003DF54("LookaheadLines", "SPTextualReportParser.m", 978, "%s: Unable to seek back to %lld after searching for load infos: %d (%s)", v37, v38, v39, v40, "ret == 0", v7, v34, v36);
     abort();
   }
 
-  _Block_object_dispose(&v41, 8);
   _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
-void sub_1000A362C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000A362C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -9443,242 +9524,243 @@ void sub_1000A368C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
         v18 = 0;
       }
 
-      v28 = [v13 rangeWithName:@"startAddress"];
-      if (v28 == 0x7FFFFFFFFFFFFFFFLL)
-      {
-        v99 = 0;
-      }
-
-      else
-      {
-        v30 = [v12 substringWithRange:{v28, v29}];
-        v99 = sub_1000A2DC0(v30);
-      }
-
-      v31 = [v13 rangeWithName:@"endAddress"];
+      v31 = [v13 rangeWithName:@"startAddress"];
       if (v31 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v98 = 0;
+        v108 = 0;
       }
 
       else
       {
         v33 = [v12 substringWithRange:{v31, v32}];
-        v98 = sub_1000A2DC0(v33);
+        v108 = sub_1000A2DC0(v33);
       }
 
-      v34 = [v13 rangeWithName:@"bundleIdentifier"];
+      v34 = [v13 rangeWithName:@"endAddress"];
       if (v34 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v36 = 0;
+        v107 = 0;
       }
 
       else
       {
         v36 = [v12 substringWithRange:{v34, v35}];
-        v37 = v36;
+        v107 = sub_1000A2DC0(v36);
       }
 
-      v38 = [v13 rangeWithName:@"name"];
-      v100 = a3;
-      if (v38 == 0x7FFFFFFFFFFFFFFFLL)
+      v37 = [v13 rangeWithName:@"bundleIdentifier"];
+      if (v37 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v40 = 0;
+        v39 = 0;
       }
 
       else
       {
-        v40 = [v12 substringWithRange:{v38, v39}];
-        v41 = v40;
+        v39 = [v12 substringWithRange:{v37, v38}];
+        v40 = v39;
       }
 
-      v101 = a4;
-      v42 = [v13 rangeWithName:@"version"];
-      if (v42 == 0x7FFFFFFFFFFFFFFFLL)
+      v41 = [v13 rangeWithName:@"name"];
+      v109 = a3;
+      if (v41 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v44 = 0;
+        v43 = 0;
       }
 
       else
       {
-        v44 = [v12 substringWithRange:{v42, v43}];
-        v45 = v44;
+        v43 = [v12 substringWithRange:{v41, v42}];
+        v44 = v43;
       }
 
-      v46 = [v13 rangeWithName:@"binaryUuid"];
-      if (v46 == 0x7FFFFFFFFFFFFFFFLL)
+      v110 = a4;
+      v45 = [v13 rangeWithName:@"version"];
+      if (v45 == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v47 = 0;
+      }
+
+      else
+      {
+        v47 = [v12 substringWithRange:{v45, v46}];
+        v48 = v47;
+      }
+
+      v49 = [v13 rangeWithName:@"binaryUuid"];
+      if (v49 == 0x7FFFFFFFFFFFFFFFLL)
       {
         sub_1000C75E0(v12, a3);
       }
 
-      v97 = v14;
-      v104 = v18;
-      v48 = [v12 substringWithRange:{v46, v47}];
-      v49 = sub_1000A4234(v48);
-      v50 = v49;
+      v106 = v14;
+      v113 = v18;
+      v51 = [v12 substringWithRange:{v49, v50}];
+      v52 = sub_1000A4234(v51);
+      v53 = v52;
 
-      v51 = [v13 rangeWithName:@"segmentName"];
-      if (v51 == 0x7FFFFFFFFFFFFFFFLL)
+      v54 = [v13 rangeWithName:@"segmentName"];
+      if (v54 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v53 = 0;
+        v56 = 0;
       }
 
       else
       {
-        v53 = [v12 substringWithRange:{v51, v52}];
-        v54 = v53;
+        v56 = [v12 substringWithRange:{v54, v55}];
+        v57 = v56;
       }
 
-      v55 = [v13 rangeWithName:@"binaryPath"];
-      if (v55 == 0x7FFFFFFFFFFFFFFFLL)
+      v58 = [v13 rangeWithName:@"binaryPath"];
+      if (v58 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v57 = 0;
+        v60 = 0;
       }
 
       else
       {
-        v57 = [v12 substringWithRange:{v55, v56}];
-        v58 = v57;
+        v60 = [v12 substringWithRange:{v58, v59}];
+        v61 = v60;
       }
 
-      v103 = v36;
-      v102 = v40;
-      v105 = v44;
-      v59 = v49;
-      v60 = v53;
-      v61 = v57;
-      if (!v59)
+      v112 = v39;
+      v111 = v43;
+      v114 = v47;
+      v62 = v52;
+      v63 = v56;
+      v64 = v60;
+      if (!v62)
       {
-        sub_1000C73C8(v12, v100);
+        sub_1000C73C8(v12, v109);
       }
 
-      v62 = v61;
-      if (*(a1 + 56) != 1 || v104 == [*(a1 + 40) count])
+      v65 = v64;
+      if (*(a1 + 56) != 1 || v113 == [*(a1 + 40) count])
       {
-        if ([v62 isAbsolutePath])
+        if ([v65 isAbsolutePath])
         {
-          v82 = v62;
+          v91 = v65;
         }
 
         else
         {
-          v82 = 0;
+          v91 = 0;
         }
 
-        v83 = [SABinary binaryWithUUID:v59 absolutePath:v82];
-        v84 = [v83 path];
+        v92 = [SABinary binaryWithUUID:v62 absolutePath:v91];
+        v93 = [v92 path];
 
-        if (!v84 && v62)
+        if (!v93 && v65)
         {
-          [v83 addPath:v62];
+          [v92 addPath:v65];
         }
 
-        v86 = v102;
-        v85 = v103;
-        v87 = sub_1000C54F0([SPLoadInfo alloc], v83, v97 != 0x7FFFFFFFFFFFFFFFLL, v99, v98, v103, v102, v105, v60);
-        [*(a1 + 40) addObject:v87];
+        v95 = v111;
+        v94 = v112;
+        v96 = sub_1000C54F0([SPLoadInfo alloc], v92, v106 != 0x7FFFFFFFFFFFFFFFLL, v108, v107, v112, v111, v114, v63);
+        [*(a1 + 40) addObject:v96];
       }
 
       else
       {
         if (byte_100127EC8 == 1)
         {
-          v63 = *__error();
-          v64 = sub_10003E080();
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+          v66 = __error();
+          v67 = *v66;
+          v69 = sub_10003E080(v66, v68);
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
           {
-            v92 = [*(a1 + 40) count];
+            v101 = [*(a1 + 40) count];
             *buf = 134218754;
-            *v107 = v92;
-            *&v107[8] = 2048;
-            *&v107[10] = v104;
-            v108 = 1024;
-            v109 = v100;
-            v110 = 2112;
-            v111 = v12;
-            _os_log_error_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Parsing spindump text: corrupt condensed file, binary at position %lu has index %lu (%d: %@)", buf, 0x26u);
+            *v116 = v101;
+            *&v116[8] = 2048;
+            *&v116[10] = v113;
+            v117 = 1024;
+            v118 = v109;
+            v119 = 2112;
+            v120 = v12;
+            _os_log_error_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "Parsing spindump text: corrupt condensed file, binary at position %lu has index %lu (%d: %@)", buf, 0x26u);
           }
 
-          *__error() = v63;
+          *__error() = v67;
         }
 
         if (byte_100127EC9 == 1 && dword_100127558 <= 3)
         {
-          v65 = *__error();
-          v66 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: corrupt condensed file, binary at position %lu has index %lu (%d: %@)", [*(a1 + 40) count], v104, v100, v12);
-          if (v66)
+          v70 = *__error();
+          v71 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: corrupt condensed file, binary at position %lu has index %lu (%d: %@)", [*(a1 + 40) count], v113, v109, v12);
+          if (v71)
           {
-            v67 = v66;
-            CStringPtr = CFStringGetCStringPtr(v66, 0x8000100u);
+            v73 = v71;
+            CStringPtr = CFStringGetCStringPtr(v71, 0x8000100u);
             if (CStringPtr)
             {
-              v69 = CStringPtr;
-              v70 = 0;
+              v75 = CStringPtr;
+              v76 = 0;
             }
 
             else
             {
-              v69 = malloc_type_calloc(0x400uLL, 1uLL, 0xC89B8028uLL);
-              CFStringGetCString(v67, v69, 1024, 0x8000100u);
-              v70 = v69;
+              v75 = malloc_type_calloc(0x400uLL, 1uLL, 0xC89B8028uLL);
+              CFStringGetCString(v73, v75, 1024, 0x8000100u);
+              v76 = v75;
             }
 
             if (qword_100127ED0)
             {
-              v88 = qword_100127ED0;
+              v97 = qword_100127ED0;
             }
 
             else
             {
-              v88 = __stderrp;
+              v97 = __stderrp;
             }
 
-            fprintf(v88, "%s\n", v69);
-            if (v70)
+            fprintf(v97, "%s\n", v75);
+            if (v76)
             {
-              free(v70);
+              free(v76);
             }
 
-            CFRelease(v67);
+            CFRelease(v73);
           }
 
           else
           {
-            v80 = sub_10003E080();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+            v89 = sub_10003E080(0, v72);
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
             {
-              v96 = [*(a1 + 40) count];
+              v105 = [*(a1 + 40) count];
               *buf = 134218754;
-              *v107 = v96;
-              *&v107[8] = 2048;
-              *&v107[10] = v104;
-              v108 = 1024;
-              v109 = v100;
-              v110 = 2112;
-              v111 = v12;
-              _os_log_fault_impl(&_mh_execute_header, v80, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: corrupt condensed file, binary at position %lu has index %lu (%d: %@)", buf, 0x26u);
+              *v116 = v105;
+              *&v116[8] = 2048;
+              *&v116[10] = v113;
+              v117 = 1024;
+              v118 = v109;
+              v119 = 2112;
+              v120 = v12;
+              _os_log_fault_impl(&_mh_execute_header, v89, OS_LOG_TYPE_FAULT, "Unable to format: Parsing spindump text: corrupt condensed file, binary at position %lu has index %lu (%d: %@)", buf, 0x26u);
             }
 
             if (qword_100127ED0)
             {
-              v81 = qword_100127ED0;
+              v90 = qword_100127ED0;
             }
 
             else
             {
-              v81 = __stderrp;
+              v90 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v81);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v90);
           }
 
-          *__error() = v65;
+          *__error() = v70;
         }
 
         *(*(*(a1 + 48) + 8) + 24) = 0;
-        v86 = v102;
-        *v101 = 1;
-        v85 = v103;
+        v95 = v111;
+        *v110 = 1;
+        v94 = v112;
       }
     }
 
@@ -9686,78 +9768,79 @@ void sub_1000A368C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
     {
       if (byte_100127EC8 == 1)
       {
-        v19 = *__error();
-        v20 = sub_10003E080();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v19 = __error();
+        v20 = *v19;
+        v22 = sub_10003E080(v19, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_1000C7A10();
         }
 
-        *__error() = v19;
+        *__error() = v20;
       }
 
       if (byte_100127EC9 == 1 && dword_100127558 <= 3)
       {
-        v22 = *__error();
-        v23 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected line in load infos, ignoring (%d: %@)", a3, v8);
-        if (v23)
+        v24 = *__error();
+        v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: Unexpected line in load infos, ignoring (%d: %@)", a3, v8);
+        if (v25)
         {
-          v24 = v23;
-          v25 = CFStringGetCStringPtr(v23, 0x8000100u);
-          if (v25)
+          v27 = v25;
+          v28 = CFStringGetCStringPtr(v25, 0x8000100u);
+          if (v28)
           {
-            v26 = v25;
-            v27 = 0;
+            v29 = v28;
+            v30 = 0;
           }
 
           else
           {
-            v26 = malloc_type_calloc(0x400uLL, 1uLL, 0xC242A947uLL);
-            CFStringGetCString(v24, v26, 1024, 0x8000100u);
-            v27 = v26;
+            v29 = malloc_type_calloc(0x400uLL, 1uLL, 0xC242A947uLL);
+            CFStringGetCString(v27, v29, 1024, 0x8000100u);
+            v30 = v29;
           }
 
           if (qword_100127ED0)
           {
-            v91 = qword_100127ED0;
+            v100 = qword_100127ED0;
           }
 
           else
           {
-            v91 = __stderrp;
+            v100 = __stderrp;
           }
 
-          fprintf(v91, "%s\n", v26);
-          if (v27)
+          fprintf(v100, "%s\n", v29);
+          if (v30)
           {
-            free(v27);
+            free(v30);
           }
 
-          CFRelease(v24);
+          CFRelease(v27);
         }
 
         else
         {
-          v89 = sub_10003E080();
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
+          v98 = sub_10003E080(0, v26);
+          if (os_log_type_enabled(v98, OS_LOG_TYPE_FAULT))
           {
             sub_1000C7A84();
           }
 
           if (qword_100127ED0)
           {
-            v90 = qword_100127ED0;
+            v99 = qword_100127ED0;
           }
 
           else
           {
-            v90 = __stderrp;
+            v99 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v90);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v99);
         }
 
-        *__error() = v22;
+        *__error() = v24;
       }
     }
 
@@ -9767,82 +9850,83 @@ void sub_1000A368C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
       {
         if (byte_100127EC8 == 1)
         {
-          v71 = *__error();
-          v72 = sub_10003E080();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+          v77 = __error();
+          v78 = *v77;
+          v80 = sub_10003E080(v77, v79);
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v107 = a3;
-            *&v107[4] = 2112;
-            *&v107[6] = v8;
-            _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "Parsing spindump text: No load infos, ended at line (%d: %@)", buf, 0x12u);
+            *v116 = a3;
+            *&v116[4] = 2112;
+            *&v116[6] = v8;
+            _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_INFO, "Parsing spindump text: No load infos, ended at line (%d: %@)", buf, 0x12u);
           }
 
-          *__error() = v71;
+          *__error() = v78;
         }
 
         if (byte_100127EC9 == 1 && dword_100127558 <= 1)
         {
-          v74 = *__error();
-          v75 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No load infos, ended at line (%d: %@)", a3, v8);
-          if (v75)
+          v82 = *__error();
+          v83 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Parsing spindump text: No load infos, ended at line (%d: %@)", a3, v8);
+          if (v83)
           {
-            v76 = v75;
-            v77 = CFStringGetCStringPtr(v75, 0x8000100u);
-            if (v77)
+            v85 = v83;
+            v86 = CFStringGetCStringPtr(v83, 0x8000100u);
+            if (v86)
             {
-              v78 = v77;
-              v79 = 0;
+              v87 = v86;
+              v88 = 0;
             }
 
             else
             {
-              v78 = malloc_type_calloc(0x400uLL, 1uLL, 0xC34195DAuLL);
-              CFStringGetCString(v76, v78, 1024, 0x8000100u);
-              v79 = v78;
+              v87 = malloc_type_calloc(0x400uLL, 1uLL, 0xC34195DAuLL);
+              CFStringGetCString(v85, v87, 1024, 0x8000100u);
+              v88 = v87;
             }
 
             if (qword_100127ED0)
             {
-              v95 = qword_100127ED0;
+              v104 = qword_100127ED0;
             }
 
             else
             {
-              v95 = __stderrp;
+              v104 = __stderrp;
             }
 
-            fprintf(v95, "%s\n", v78);
-            if (v79)
+            fprintf(v104, "%s\n", v87);
+            if (v88)
             {
-              free(v79);
+              free(v88);
             }
 
-            CFRelease(v76);
+            CFRelease(v85);
           }
 
           else
           {
-            v93 = sub_10003E080();
-            if (os_log_type_enabled(v93, OS_LOG_TYPE_FAULT))
+            v102 = sub_10003E080(0, v84);
+            if (os_log_type_enabled(v102, OS_LOG_TYPE_FAULT))
             {
               sub_1000C7AF8();
             }
 
             if (qword_100127ED0)
             {
-              v94 = qword_100127ED0;
+              v103 = qword_100127ED0;
             }
 
             else
             {
-              v94 = __stderrp;
+              v103 = __stderrp;
             }
 
-            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v94);
+            fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v103);
           }
 
-          *__error() = v74;
+          *__error() = v82;
         }
       }
 

@@ -352,15 +352,15 @@ void __56__SKUIScrollingTabBarController_areScrollingTabsAllowed__block_invoke()
 
 - (void)viewDidLayoutSubviews
 {
-  v29.receiver = self;
-  v29.super_class = SKUIScrollingTabBarController;
-  [(SKUIScrollingTabBarController *)&v29 viewDidLayoutSubviews];
+  v30.receiver = self;
+  v30.super_class = SKUIScrollingTabBarController;
+  [(SKUIScrollingTabBarController *)&v30 viewDidLayoutSubviews];
   view = [(SKUIScrollingTabBarController *)self view];
   [view bounds];
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
   proxyScrollView = self->_proxyScrollView;
   if (proxyScrollView)
   {
@@ -368,31 +368,31 @@ void __56__SKUIScrollingTabBarController_areScrollingTabsAllowed__block_invoke()
 
     if (!superview)
     {
-      [view addSubview:self->_proxyScrollView];
+      proxyScrollView = [view addSubview:self->_proxyScrollView];
     }
   }
 
-  v15 = *MEMORY[0x277CBF348];
-  v14 = *(MEMORY[0x277CBF348] + 8);
-  v16 = SKUIMPUFoundationFramework();
-  v17 = SKUIWeakLinkedSymbolForString("MPUSizeEqualToSize", v16);
+  v16 = *MEMORY[0x277CBF348];
+  v15 = *(MEMORY[0x277CBF348] + 8);
+  v17 = SKUIMPUFoundationFramework(proxyScrollView, v4);
+  v18 = SKUIWeakLinkedSymbolForString("MPUSizeEqualToSize", v17);
   p_contentCollectionViewItemSize = &self->_contentCollectionViewItemSize;
-  if (v17(self->_contentCollectionViewItemSize.width, self->_contentCollectionViewItemSize.height, v9, v11))
+  if (v18(self->_contentCollectionViewItemSize.width, self->_contentCollectionViewItemSize.height, v10, v12))
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   else
   {
     if (self->_shouldPreserveFocusUponNextContentCollectionViewItemSizeChange)
     {
-      v19 = p_contentCollectionViewItemSize->width > 0.00000011920929;
+      v20 = p_contentCollectionViewItemSize->width > 0.00000011920929;
       if (p_contentCollectionViewItemSize->width > 0.00000011920929)
       {
         [(SKUIScrollingTabBarContentCollectionView *)self->_contentCollectionView contentOffset];
-        v14 = v20;
-        UIRoundToViewScale();
         v15 = v21;
+        UIRoundToViewScale();
+        v16 = v22;
       }
 
       self->_shouldPreserveFocusUponNextContentCollectionViewItemSizeChange = 0;
@@ -400,53 +400,53 @@ void __56__SKUIScrollingTabBarController_areScrollingTabsAllowed__block_invoke()
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    p_contentCollectionViewItemSize->width = v9;
-    self->_contentCollectionViewItemSize.height = v11;
+    p_contentCollectionViewItemSize->width = v10;
+    self->_contentCollectionViewItemSize.height = v12;
     collectionViewLayout = [(SKUIScrollingTabBarContentCollectionView *)self->_contentCollectionView collectionViewLayout];
-    v23 = objc_alloc_init([objc_opt_class() invalidationContextClass]);
+    v24 = objc_alloc_init([objc_opt_class() invalidationContextClass]);
 
-    [v23 setInvalidateFlowLayoutDelegateMetrics:1];
+    [v24 setInvalidateFlowLayoutDelegateMetrics:1];
     collectionViewLayout2 = [(SKUIScrollingTabBarContentCollectionView *)self->_contentCollectionView collectionViewLayout];
-    [collectionViewLayout2 invalidateLayoutWithContext:v23];
+    [collectionViewLayout2 invalidateLayoutWithContext:v24];
   }
 
-  v30.origin.x = v5;
-  v30.origin.y = v7;
-  v30.size.width = v9;
-  v30.size.height = v11;
-  Width = CGRectGetWidth(v30);
+  v31.origin.x = v6;
+  v31.origin.y = v8;
+  v31.size.width = v10;
+  v31.size.height = v12;
+  Width = CGRectGetWidth(v31);
   if (Width >= 2.0)
   {
-    v26 = Width;
+    v27 = Width;
   }
 
   else
   {
-    v26 = 2.0;
+    v27 = 2.0;
   }
 
-  v31.origin.x = v5;
-  v31.origin.y = v7;
-  v31.size.width = v26;
-  v31.size.height = v11;
-  Height = CGRectGetHeight(v31);
+  v32.origin.x = v6;
+  v32.origin.y = v8;
+  v32.size.width = v27;
+  v32.size.height = v12;
+  Height = CGRectGetHeight(v32);
   if (Height >= 2.0)
   {
-    v28 = Height;
+    v29 = Height;
   }
 
   else
   {
-    v28 = 2.0;
+    v29 = 2.0;
   }
 
-  [(SKUIScrollingTabBarContentCollectionView *)self->_contentCollectionView setFrame:v5, v7, v26, v28];
-  if (v19)
+  [(SKUIScrollingTabBarContentCollectionView *)self->_contentCollectionView setFrame:v6, v8, v27, v29];
+  if (v20)
   {
-    [(SKUIScrollingTabBarContentCollectionView *)self->_contentCollectionView setContentOffset:v15, v14];
+    [(SKUIScrollingTabBarContentCollectionView *)self->_contentCollectionView setContentOffset:v16, v15];
   }
 
   [(SKUIScrollingTabBarController *)self _updateLayoutOfTabBar];
@@ -481,7 +481,7 @@ void __56__SKUIScrollingTabBarController_areScrollingTabsAllowed__block_invoke()
   }
 }
 
-uint64_t __48__SKUIScrollingTabBarController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
+void *__48__SKUIScrollingTabBarController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -522,7 +522,7 @@ uint64_t __48__SKUIScrollingTabBarController_viewWillAppear___block_invoke_2(uin
   }
 }
 
-uint64_t __51__SKUIScrollingTabBarController_viewWillDisappear___block_invoke_2(uint64_t a1, void *a2)
+void *__51__SKUIScrollingTabBarController_viewWillDisappear___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -888,7 +888,7 @@ uint64_t __51__SKUIScrollingTabBarController_viewWillDisappear___block_invoke_2(
       view2 = [firstObject view];
     }
 
-    [(SKUIScrollingTabBarController *)self _viewControllerContentScrollViewContentInsetDescriptor];
+    objc_msgSend__viewControllerContentScrollViewContentInsetDescriptor(self);
     [v11 applyNewContentInsetDescriptor:&v22];
     [v9 setManagesViewControllerContainerViewLayout:0];
     [v9 setViewController:v10];
@@ -1075,7 +1075,7 @@ uint64_t __51__SKUIScrollingTabBarController_viewWillDisappear___block_invoke_2(
 
 - (double)contentViewControllerBottomInsetAdjustment
 {
-  [(SKUIScrollingTabBarController *)self _viewControllerContentScrollViewContentInsetDescriptor:0];
+  objc_msgSend__viewControllerContentScrollViewContentInsetDescriptor(self, a2, 0, 0);
   [(SKUIScrollingTabBarController *)self _effectiveBottomBarOffset];
   return 0.0 - v3;
 }
@@ -1284,7 +1284,7 @@ LABEL_15:
         v27 = 0;
         v25 = 0u;
         v26 = 0u;
-        [(SKUIScrollingTabBarController *)self _viewControllerContentScrollViewContentInsetDescriptor];
+        objc_msgSend__viewControllerContentScrollViewContentInsetDescriptor(self);
         v22 = self->_transientViewControllerItemContext;
         v23[0] = v25;
         v23[1] = v26;
@@ -1662,7 +1662,7 @@ uint64_t __73__SKUIScrollingTabBarController_detachTabBarPalette_animated_comple
 void __91__SKUIScrollingTabBarController_updateTabBarComponentPositionOffsetsWithPresentationValues__block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 1272) layer];
-  v43 = [v2 presentationLayer];
+  v45 = [v2 presentationLayer];
 
   v3 = [*(*(a1 + 32) + 1312) layer];
   v4 = [v3 presentationLayer];
@@ -1670,8 +1670,8 @@ void __91__SKUIScrollingTabBarController_updateTabBarComponentPositionOffsetsWit
   v5 = [*(a1 + 32) view];
   v6 = [v5 layer];
   v7 = [v6 presentationLayer];
-  [v43 bounds];
-  [v7 convertRect:v43 fromLayer:?];
+  [v45 bounds];
+  [v7 convertRect:v45 fromLayer:?];
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -1687,37 +1687,37 @@ void __91__SKUIScrollingTabBarController_updateTabBarComponentPositionOffsetsWit
   v24 = v23;
   v26 = v25;
 
-  v27 = SKUIMPUFoundationFramework();
-  v28 = SKUIWeakLinkedSymbolForString("MPUSizeEqualToSize", v27);
-  if (v28([v43 bounds], v13, v15) && ((v28)(objc_msgSend(v4, "bounds"), v24, v26) & 1) != 0)
+  v29 = SKUIMPUFoundationFramework(v27, v28);
+  v30 = SKUIWeakLinkedSymbolForString("MPUSizeEqualToSize", v29);
+  if (v30([v45 bounds], v13, v15) && ((v30)(objc_msgSend(v4, "bounds"), v24, v26) & 1) != 0)
   {
     [*(a1 + 32) willUpdateAdditionalTabBarComponentsPositionOffsets];
-    v29 = *MEMORY[0x277D76DA8];
-    v30 = *(MEMORY[0x277D76DA8] + 8);
-    [*(a1 + 32) setAdditionalTabBarButtonsContainerPositionOffset:{*MEMORY[0x277D76DA8], v30}];
-    [*(a1 + 32) setAdditionalTabBarPalettePositionOffset:{v29, v30}];
+    v31 = *MEMORY[0x277D76DA8];
+    v32 = *(MEMORY[0x277D76DA8] + 8);
+    [*(a1 + 32) setAdditionalTabBarButtonsContainerPositionOffset:{*MEMORY[0x277D76DA8], v32}];
+    [*(a1 + 32) setAdditionalTabBarPalettePositionOffset:{v31, v32}];
     [*(a1 + 32) didUpdateAdditionalTabBarComponentsPositionOffsets];
-    v31 = [*(a1 + 32) view];
-    [v31 setNeedsLayout];
-
-    v32 = [*(a1 + 32) view];
-    [v32 layoutIfNeeded];
-
     v33 = [*(a1 + 32) view];
-    [*(*(a1 + 32) + 1272) bounds];
-    [v33 convertRect:*(*(a1 + 32) + 1272) fromView:?];
-    v35 = v34;
-    v37 = v36;
+    [v33 setNeedsLayout];
 
-    v38 = [*(a1 + 32) view];
+    v34 = [*(a1 + 32) view];
+    [v34 layoutIfNeeded];
+
+    v35 = [*(a1 + 32) view];
+    [*(*(a1 + 32) + 1272) bounds];
+    [v35 convertRect:*(*(a1 + 32) + 1272) fromView:?];
+    v37 = v36;
+    v39 = v38;
+
+    v40 = [*(a1 + 32) view];
     [*(*(a1 + 32) + 1312) bounds];
-    [v38 convertRect:*(*(a1 + 32) + 1312) fromView:?];
-    v40 = v39;
+    [v40 convertRect:*(*(a1 + 32) + 1312) fromView:?];
     v42 = v41;
+    v44 = v43;
 
     [*(a1 + 32) willUpdateAdditionalTabBarComponentsPositionOffsets];
-    [*(a1 + 32) setAdditionalTabBarButtonsContainerPositionOffset:{v9 - v35, v11 - v37}];
-    [*(a1 + 32) setAdditionalTabBarPalettePositionOffset:{v20 - v40, v22 - v42}];
+    [*(a1 + 32) setAdditionalTabBarButtonsContainerPositionOffset:{v9 - v37, v11 - v39}];
+    [*(a1 + 32) setAdditionalTabBarPalettePositionOffset:{v20 - v42, v22 - v44}];
     [*(a1 + 32) didUpdateAdditionalTabBarComponentsPositionOffsets];
   }
 
@@ -1799,7 +1799,7 @@ LABEL_16:
   }
 }
 
-uint64_t __55__SKUIScrollingTabBarController_hideBarWithTransition___block_invoke(uint64_t a1)
+void *__55__SKUIScrollingTabBarController_hideBarWithTransition___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 1280) = *(a1 + 40);
   v2 = *(a1 + 32);
@@ -1826,11 +1826,11 @@ uint64_t __55__SKUIScrollingTabBarController_hideBarWithTransition___block_invok
   return result;
 }
 
-uint64_t __55__SKUIScrollingTabBarController_hideBarWithTransition___block_invoke_2(uint64_t result, int a2)
+void *__55__SKUIScrollingTabBarController_hideBarWithTransition___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1272) setHidden:1];
+    return [*(result[4] + 1272) setHidden:1];
   }
 
   return result;
@@ -1913,7 +1913,7 @@ LABEL_14:
   }
 }
 
-uint64_t __55__SKUIScrollingTabBarController_showBarWithTransition___block_invoke(uint64_t a1)
+void *__55__SKUIScrollingTabBarController_showBarWithTransition___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 1296) = 0;
   *(*(a1 + 32) + 1280) = *MEMORY[0x277D76DA8];
@@ -1930,11 +1930,11 @@ uint64_t __55__SKUIScrollingTabBarController_showBarWithTransition___block_invok
   return result;
 }
 
-uint64_t __55__SKUIScrollingTabBarController_showBarWithTransition___block_invoke_2(uint64_t result, int a2)
+id *__55__SKUIScrollingTabBarController_showBarWithTransition___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _updateHidesBarsOnSwipeAvailability];
+    return [result[4] _updateHidesBarsOnSwipeAvailability];
   }
 
   return result;
@@ -2011,7 +2011,7 @@ uint64_t __55__SKUIScrollingTabBarController_showBarWithTransition___block_invok
 {
   if (self->_tabBarExplicitlyHidden)
   {
-    [(SKUIScrollingTabBarController *)self _viewControllerContentScrollViewContentInsetDescriptor:0];
+    objc_msgSend__viewControllerContentScrollViewContentInsetDescriptor(self, a2, 0, 0, 0, 0);
     return 0.0;
   }
 
@@ -2147,17 +2147,18 @@ uint64_t __55__SKUIScrollingTabBarController_showBarWithTransition___block_invok
   setupCopy = setup;
   animationsCopy = animations;
   completionCopy = completion;
+  v12 = completionCopy;
   activePaletteTransitions = self->_activePaletteTransitions;
   if (!activePaletteTransitions)
   {
     [(SKUIScrollingTabBarPalette *)self->_tabBarPalette bounds];
-    v16 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v14, v13 + -5.0, v15, v12 + 5.0}];
-    [v16 setClipsToBounds:1];
-    [v16 addSubview:self->_tabBarPalette];
+    v18 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v16, v15 + -5.0, v17, v14 + 5.0}];
+    [v18 setClipsToBounds:1];
+    [v18 addSubview:self->_tabBarPalette];
     layer = [(SKUIScrollingTabBarPalette *)self->_tabBarPalette layer];
-    [layer setValue:v16 forKey:@"SKUIScrollingTabBarPaletteClippingView"];
+    [layer setValue:v18 forKey:@"SKUIScrollingTabBarPaletteClippingView"];
 
-    [(UIView *)self->_tabBarContainerView insertSubview:v16 belowSubview:self->_tabBar];
+    [(UIView *)self->_tabBarContainerView insertSubview:v18 belowSubview:self->_tabBar];
     [(SKUIScrollingTabBarPalette *)self->_tabBarPalette setTabBarBackgroundExtendsBehindPalette:0];
     [(SKUIScrollingTabBarController *)self _updateTabBarBackgroundsAndHairlines];
     if (setupCopy)
@@ -2169,16 +2170,16 @@ uint64_t __55__SKUIScrollingTabBarController_showBarWithTransition___block_invok
   }
 
   self->_activePaletteTransitions = activePaletteTransitions + 1;
-  v18 = SKUIMPUFoundationFramework();
-  v19 = SKUIWeakLinkedClassForString(&cfstr_Mpuspringanima.isa, v18);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __80__SKUIScrollingTabBarController__animatePaletteWithSetup_animations_completion___block_invoke;
-  v21[3] = &unk_2781F85E0;
-  v21[4] = self;
-  v22 = completionCopy;
-  v20 = completionCopy;
-  [v19 animateUsingSpringWithDamping:animationsCopy mass:1024 stiffness:v21 velocity:700.0 animations:2.0 options:300.0 completion:0.0];
+  v20 = SKUIMPUFoundationFramework(completionCopy, v11);
+  v21 = SKUIWeakLinkedClassForString(&cfstr_Mpuspringanima.isa, v20);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __80__SKUIScrollingTabBarController__animatePaletteWithSetup_animations_completion___block_invoke;
+  v23[3] = &unk_2781F85E0;
+  v23[4] = self;
+  v24 = v12;
+  v22 = v12;
+  [v21 animateUsingSpringWithDamping:animationsCopy mass:1024 stiffness:v23 velocity:700.0 animations:2.0 options:300.0 completion:0.0];
 }
 
 void __80__SKUIScrollingTabBarController__animatePaletteWithSetup_animations_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -2811,7 +2812,7 @@ LABEL_74:
   navigationController = [(UIViewController *)self->_focusedViewController navigationController];
   navigationBar = [navigationController navigationBar];
 
-  [(SKUIScrollingTabBarController *)self _viewControllerContentScrollViewContentInsetDescriptor:0];
+  objc_msgSend__viewControllerContentScrollViewContentInsetDescriptor(self, 0, 0);
   [navigationBar bounds];
   [view convertRect:navigationBar fromView:?];
   MaxY = CGRectGetMaxY(v7);
@@ -3665,7 +3666,7 @@ uint64_t __98__SKUIScrollingTabBarController__updateTabBarButtonsSelectionProgre
     }
   }
 
-  return [a2 setSelectionProgress:v3];
+  return [a2 setSelectionProgress:{a3, v3}];
 }
 
 - (void)_updateViewControllerContentScrollViewInset
@@ -3674,7 +3675,7 @@ uint64_t __98__SKUIScrollingTabBarController__updateTabBarButtonsSelectionProgre
   v19 = 0;
   v17 = 0u;
   v18 = 0u;
-  [(SKUIScrollingTabBarController *)self _viewControllerContentScrollViewContentInsetDescriptor];
+  objc_msgSend__viewControllerContentScrollViewContentInsetDescriptor(self, a2);
   v15 = 0u;
   v16 = 0u;
   v13 = 0u;

@@ -102,9 +102,9 @@
   return [array copy];
 }
 
-uint64_t __67__AVAssetDownloadCache_mediaSelectionOptionsInMediaSelectionGroup___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__67__AVAssetDownloadCache_mediaSelectionOptionsInMediaSelectionGroup___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  result = [*(a1 + 32) isEqualToDictionary:{objc_msgSend(a2, "dictionary")}];
+  result = [*(a1 + 32) isEqualToDictionary:{objc_msgSend(a2, "dictionary", a3)}];
   if (result)
   {
     *a4 = 1;

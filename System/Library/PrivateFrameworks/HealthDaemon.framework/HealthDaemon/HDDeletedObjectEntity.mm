@@ -45,14 +45,12 @@ id __96__HDDeletedObjectEntity_insertDeletedObject_provenanceIdentifier_deletion
 
 uint64_t __96__HDDeletedObjectEntity_insertDeletedObject_provenanceIdentifier_deletionDate_inDatabase_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = [*(a1 + 32) UUID];
-  v5 = _HDSQLiteValueForUUID();
+  v3 = [*(a1 + 32) UUID];
+  v4 = _HDSQLiteValueForUUID();
   HDSQLiteBindFoundationValueToStatement();
 
-  v6 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 3, 2);
-  v7 = *(a1 + 48);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

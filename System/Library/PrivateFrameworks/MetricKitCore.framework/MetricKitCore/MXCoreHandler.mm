@@ -74,7 +74,7 @@
 
 - (void)_updateClientAvailabilityAndPrepareDataActivityForBundleID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(MXClientUtilProtocol *)self->_clientUtil persistAllClients];
   [(MXClientUtilProtocol *)self->_clientUtil updateClientAsAvailableFromPersistence];
@@ -83,9 +83,9 @@
   {
     v6 = logHandle;
     clientUtil = [(MXCoreHandler *)self clientUtil];
-    v10[0] = 67109120;
-    v10[1] = [clientUtil isClientAvailableForBundleID:dCopy];
-    _os_log_impl(&dword_258D6F000, v6, OS_LOG_TYPE_INFO, "Interested clients now available State: %d\n", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [clientUtil isClientAvailableForBundleID:dCopy];
+    _os_log_impl(&dword_258D6F000, v6, OS_LOG_TYPE_INFO, "Interested clients now available State: %d\n", v9, 8u);
   }
 
   if ([(MXClientUtilProtocol *)self->_clientUtil isClientAvailableFromPersistence])
@@ -93,8 +93,6 @@
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained clientIsAvailableForPreparingDataActivity];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performDataActivity
@@ -152,80 +150,78 @@
 
 - (void)_reportMetricKitUsage
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   allClients = [(MXClientUtilProtocol *)self->_clientUtil allClients];
-  v4 = [allClients countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [allClients countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(allClients);
         }
 
-        [(MXClientUtilProtocol *)self->_clientUtil reportMetricKitUsageForBundleID:*(*(&v9 + 1) + 8 * v7++)];
+        [(MXClientUtilProtocol *)self->_clientUtil reportMetricKitUsageForBundleID:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allClients countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [allClients countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_successCountFromSavingMetricPayloadsToDeliveryDirectoryForClientMetrics:(id)metrics
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allKeys = [metricsCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v6)
   {
     v8 = v6;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     *&v7 = 138412290;
-    v17 = v7;
+    v16 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         logHandle = self->_logHandle;
         if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v17;
-          v23 = v12;
+          *buf = v16;
+          v22 = v12;
           _os_log_impl(&dword_258D6F000, logHandle, OS_LOG_TYPE_DEFAULT, "Payload delivery for client: %@", buf, 0xCu);
         }
 
-        v14 = [metricsCopy objectForKeyedSubscript:{v12, v17}];
+        v14 = [metricsCopy objectForKeyedSubscript:{v12, v16}];
         v9 += [(MXDeliveryDataCacherProtocol *)self->_deliveryDataCacher saveMetrics:v14 toDeliveryDirectoryForBundleID:v12];
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v8);
@@ -236,7 +232,6 @@
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

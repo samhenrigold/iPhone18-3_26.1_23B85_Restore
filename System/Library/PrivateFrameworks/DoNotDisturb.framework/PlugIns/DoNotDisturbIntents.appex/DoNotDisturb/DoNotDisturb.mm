@@ -6,7 +6,7 @@ void sub_10000118C(void *a1, uint64_t a2, uint64_t a3)
   v5[2](v5, v6);
 }
 
-void DNDIntentRegisterLogging()
+void DNDIntentRegisterLogging(uint64_t result, uint64_t a2)
 {
   if (qword_10000D638 != -1)
   {
@@ -21,10 +21,11 @@ void sub_100001328(id a1)
   _objc_release_x1();
 }
 
-void sub_100001CB0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001CB0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100001CCC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)

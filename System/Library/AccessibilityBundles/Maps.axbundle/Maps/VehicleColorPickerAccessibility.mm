@@ -22,7 +22,7 @@
 
 void __77__VehicleColorPickerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v2 = [MEMORY[0x29EDB8E20] set];
   v3 = [*(a1 + 32) safeArrayForKey:@"colors"];
   if ([v3 count] != 12)
@@ -34,26 +34,26 @@ void __77__VehicleColorPickerAccessibility__accessibilityLoadAccessibilityInform
     }
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -80,15 +80,15 @@ void __77__VehicleColorPickerAccessibility__accessibilityLoadAccessibilityInform
             v12 = objc_opt_class();
             v13 = NSStringFromClass(v12);
             *buf = 138412546;
-            v21 = v10;
-            v22 = 2112;
-            v23 = v13;
+            v20 = v10;
+            v21 = 2112;
+            v22 = v13;
             _os_log_fault_impl(&dword_29BEFF000, v11, OS_LOG_TYPE_FAULT, "Unexpected format for vehicle colors array. Found %@ of type %@.", buf, 0x16u);
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -99,17 +99,14 @@ void __77__VehicleColorPickerAccessibility__accessibilityLoadAccessibilityInform
   }
 
 LABEL_21:
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void __77__VehicleColorPickerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_29BEFF000, a2, OS_LOG_TYPE_FAULT, "Found two vehicle colors with the same description: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_29BEFF000, a2, OS_LOG_TYPE_FAULT, "Found two vehicle colors with the same description: %@", &v2, 0xCu);
 }
 
 @end

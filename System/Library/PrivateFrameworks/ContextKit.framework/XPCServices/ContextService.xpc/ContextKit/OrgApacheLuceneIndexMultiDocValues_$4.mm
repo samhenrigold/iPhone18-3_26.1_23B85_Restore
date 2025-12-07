@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneIndexMultiDocValues_$4
 - (int)count;
+- (int64_t)valueAtWithInt:(int)int;
 - (void)dealloc;
 - (void)setDocumentWithInt:(int)int;
 @end
@@ -8,7 +9,7 @@
 
 - (void)setDocumentWithInt:(int)int
 {
-  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(int, self->val$starts_);
+  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(*&int, self->val$starts_);
   v6 = self->val$values_;
   if (!v6)
   {
@@ -39,6 +40,17 @@ LABEL_11:
   v12 = (int - *(&v10->super.size_ + v7 + 1));
 
   [(OrgApacheLuceneIndexSortedNumericDocValues *)current setDocumentWithInt:v12];
+}
+
+- (int64_t)valueAtWithInt:(int)int
+{
+  current = self->current_;
+  if (!current)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexSortedNumericDocValues *)current valueAtWithInt:*&int];
 }
 
 - (int)count

@@ -95,21 +95,19 @@ LABEL_14:
 
 void __78__TPSContextualBiomeEventBuilder_contextualBiomeEventFromDuetEventDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v7 = a2;
   v5 = a3;
-  v6 = [(__CFString *)v9 isEqualToString:@"stringValue"];
-  v7 = *(a1 + 32);
-  if (v6)
+  if ([(__CFString *)v7 isEqualToString:@"stringValue"])
   {
-    v8 = @"contentIdentifier";
+    v6 = @"contentIdentifier";
   }
 
   else
   {
-    v8 = v9;
+    v6 = v7;
   }
 
-  [*(a1 + 32) setObject:v5 forKeyedSubscript:v8];
+  [*(a1 + 32) setObject:v5 forKeyedSubscript:v6];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 + (void)setViewAnnotationDelegate:(id)delegate for:(id)for
 {
-  type metadata accessor for PXAppIntentsViewAnnotations();
+  type metadata accessor for PXAppIntentsViewAnnotations(self, a2);
   swift_unknownObjectRetain();
   forCopy = for;
   static PXAppIntentsViewAnnotations.setDelegate(_:for:)(delegate, forCopy);

@@ -2880,7 +2880,7 @@ void __47__PUAlbumListViewController_updateSyncProgress__block_invoke(uint64_t a
   [_mainTableView setEditing:-[PUAlbumListViewController isEditing](self animated:{"isEditing"), animatedCopy}];
 }
 
-uint64_t __49__PUAlbumListViewController_setEditing_animated___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__49__PUAlbumListViewController_setEditing_animated___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) compare:a2];
   if (result == -1)
@@ -4436,7 +4436,7 @@ void __86__PUAlbumListViewController__targetIndexPathForMoveFromIndexPath_toProp
   v4 = dataSource;
   if (dataSource)
   {
-    [dataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(dataSource);
   }
 
   else
@@ -4875,14 +4875,14 @@ LABEL_6:
     if (self->_albumSubtitleFormat && [collectionCopy px_isMacSyncedAlbum])
     {
       v12 = PULocalizedString(self->_albumSubtitleFormat);
-      v6 = PULocalizedStringWithValidatedFormat(v12, @"%ld");
+      v6 = PULocalizedStringWithValidatedFormat(v12, @"%ld", v13, v14, v15, v16, v17, v18, v10);
     }
 
     else
     {
       v12 = PLSharedCountFormatter();
-      v13 = [MEMORY[0x1E696AD98] numberWithInteger:v10];
-      v6 = [v12 stringFromNumber:v13];
+      v19 = [MEMORY[0x1E696AD98] numberWithInteger:v10];
+      v6 = [v12 stringFromNumber:v19];
     }
   }
 
@@ -5113,7 +5113,7 @@ void __100__PUAlbumListViewController__updateStackView_forFaces_inCollection_wit
   v35 = _badgeManager;
   if (_badgeManager)
   {
-    [_badgeManager badgeInfoForCollection:v30 options:0];
+    objc_msgSend_badgeInfoForCollection_options_(_badgeManager);
   }
 
   else
@@ -5486,7 +5486,7 @@ LABEL_9:
     v19 = dataSource;
     if (dataSource)
     {
-      [dataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource);
     }
 
     else
@@ -6968,7 +6968,7 @@ void __89__PUAlbumListViewController__visiblyInsertItemAtIndexPath_modelUpdate_c
   return selfCopy;
 }
 
-uint64_t __54__PUAlbumListViewController__someAlbumSupportsEditing__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__54__PUAlbumListViewController__someAlbumSupportsEditing__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _editCapabilitiesForAlbum:a2];
   if (result)

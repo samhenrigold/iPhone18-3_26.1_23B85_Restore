@@ -3,7 +3,7 @@
 
 @implementation WKTextManipulationItem
 
-uint64_t __82___WKTextManipulationItem_isEqualToTextManipulationItem_includingContentEquality___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__82___WKTextManipulationItem_isEqualToTextManipulationItem_includingContentEquality___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqualToTextManipulationToken:objc_msgSend(objc_msgSend(*(a1 + 32) includingContentEquality:{"tokens"), "objectAtIndexedSubscript:", a3), *(a1 + 48)}];
   if ((result & 1) == 0)

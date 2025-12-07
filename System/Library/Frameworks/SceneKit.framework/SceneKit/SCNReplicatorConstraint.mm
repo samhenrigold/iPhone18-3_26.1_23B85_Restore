@@ -23,26 +23,27 @@
 
 - (SCNReplicatorConstraint)init
 {
-  v10.receiver = self;
-  v10.super_class = SCNReplicatorConstraint;
-  v2 = [(SCNConstraint *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = SCNReplicatorConstraint;
+  v2 = [(SCNConstraint *)&v12 init];
+  v4 = v2;
   if (v2)
   {
-    Replicator = C3DConstraintCreateReplicator();
-    v2[64] = 1;
-    v2[65] = 1;
-    *(v2 + 1) = Replicator;
-    v2[66] = 1;
-    *(v2 + 68) = xmmword_21C27F610;
-    *(v2 + 84) = 0;
-    *(v2 + 23) = 0;
+    Replicator = C3DConstraintCreateReplicator(v2, v3);
+    v4->_replicateOrientation = 1;
+    v4->_replicatePosition = 1;
+    v4->super._constraintRef = Replicator;
+    v4->_replicateScale = 1;
+    v4->_orientationOffset = xmmword_21C27F610;
+    *&v4->_positionOffset.x = 0;
+    v4->_positionOffset.z = 0.0;
     __asm { FMOV            V0.2S, #1.0 }
 
-    *(v2 + 12) = _D0;
-    *(v2 + 26) = 1065353216;
+    *&v4->_scaleOffset.x = _D0;
+    v4->_scaleOffset.z = 1.0;
   }
 
-  return v2;
+  return v4;
 }
 
 + (id)replicatorConstraint
@@ -190,11 +191,11 @@
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"positionOffset" applyBlock:v8];
 }
 
-void __45__SCNReplicatorConstraint_setPositionOffset___block_invoke(uint64_t a1, __n128 a2)
+void __45__SCNReplicatorConstraint_setPositionOffset___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  a2.n128_u64[0] = *(a1 + 40);
-  a2.n128_u32[2] = *(a1 + 48);
-  C3DConstraintReplicatorSetPositionOffset(*(*(a1 + 32) + 8), a2);
+  a3.n128_u64[0] = *(a1 + 40);
+  a3.n128_u32[2] = *(a1 + 48);
+  C3DConstraintReplicatorSetPositionOffset(*(*(a1 + 32) + 8), a2, a3);
 }
 
 - (SCNVector3)positionOffset
@@ -226,11 +227,11 @@ void __45__SCNReplicatorConstraint_setPositionOffset___block_invoke(uint64_t a1,
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"scaleOffset" applyBlock:v8];
 }
 
-void __42__SCNReplicatorConstraint_setScaleOffset___block_invoke(uint64_t a1, __n128 a2)
+void __42__SCNReplicatorConstraint_setScaleOffset___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  a2.n128_u64[0] = *(a1 + 40);
-  a2.n128_u32[2] = *(a1 + 48);
-  C3DConstraintDistanceSetTargetDirection(*(*(a1 + 32) + 8), a2);
+  a3.n128_u64[0] = *(a1 + 40);
+  a3.n128_u32[2] = *(a1 + 48);
+  C3DConstraintDistanceSetTargetDirection(*(*(a1 + 32) + 8), a2, a3);
 }
 
 - (SCNVector3)scaleOffset
@@ -255,7 +256,7 @@ void __42__SCNReplicatorConstraint_setScaleOffset___block_invoke(uint64_t a1, __
 
 - (void)_customDecodingOfSCNReplicatorConstraint:(id)constraint
 {
-  self->super._constraintRef = C3DConstraintCreateReplicator();
+  self->super._constraintRef = C3DConstraintCreateReplicator(self, a2);
   -[SCNReplicatorConstraint setTarget:](self, "setTarget:", [constraint decodeObjectOfClass:objc_opt_class() forKey:@"target"]);
 
   [(SCNConstraint *)self finalizeDecodeConstraint:constraint];

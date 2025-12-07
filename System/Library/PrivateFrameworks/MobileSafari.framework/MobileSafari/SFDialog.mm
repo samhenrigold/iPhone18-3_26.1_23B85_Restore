@@ -34,7 +34,7 @@
 {
   if (self->_completed)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXTabDialogs();
+    v4 = WBS_LOG_CHANNEL_PREFIXTabDialogs(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SFDialog completeWithResponse:v4];
@@ -596,7 +596,7 @@ LABEL_9:
 
 + (id)permanentlyAcceptCertificateDialogWithAcceptanceHandler:(id)handler
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v4 = objc_alloc_init(SFBasicDialog);
   permanentAcceptanceConfirmationTitle = [MEMORY[0x1E69C8EE8] permanentAcceptanceConfirmationTitle];
@@ -604,22 +604,22 @@ LABEL_9:
 
   permanentAcceptanceConfirmationButtonTitle = [MEMORY[0x1E69C8EE8] permanentAcceptanceConfirmationButtonTitle];
   v7 = [SFDialogAction actionWithTitle:permanentAcceptanceConfirmationButtonTitle activatingKeyboardShortcut:0 type:2];
-  v18[0] = v7;
+  v20[0] = v7;
   v8 = _WBSLocalizedString();
   v9 = [SFDialogAction actionWithTitle:v8 activatingKeyboardShortcut:1 type:1];
-  v18[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v20[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   [(SFBasicDialog *)v4 setActions:v10];
 
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __68__SFDialog_permanentlyAcceptCertificateDialogWithAcceptanceHandler___block_invoke;
-  v16 = &unk_1E721DAD8;
-  v17 = handlerCopy;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __68__SFDialog_permanentlyAcceptCertificateDialogWithAcceptanceHandler___block_invoke;
+  v18 = &unk_1E721DAD8;
+  v19 = handlerCopy;
   v11 = handlerCopy;
-  [(SFBasicDialog *)v4 setCompletionHandler:&v13];
-  [(SFBasicDialog *)v4 setPresentationStyle:1, v13, v14, v15, v16];
-  [(SFBasicDialog *)v4 setAlertControllerPresentsAsActionSheet:_SFDeviceIsPad() ^ 1];
+  [(SFBasicDialog *)v4 setCompletionHandler:&v15];
+  v12 = [(SFBasicDialog *)v4 setPresentationStyle:1, v15, v16, v17, v18];
+  [(SFBasicDialog *)v4 setAlertControllerPresentsAsActionSheet:_SFDeviceIsPad(v12, v13) ^ 1];
 
   return v4;
 }

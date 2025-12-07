@@ -1,6 +1,6 @@
 @interface HDIDSReachabilityOperation
 - (HDIDSReachabilityOperation)initWithIdentifers:(id)identifers serviceIdentifier:(id)identifier updateHandler:(id)handler;
-- (uint64_t)_finish;
+- (id)_finish;
 - (void)batchQueryController:(id)controller updatedDestinationsStatus:(id)status onService:(id)service error:(id)error;
 - (void)cancel;
 - (void)start;
@@ -23,7 +23,7 @@
     v12->_lock._os_unfair_lock_opaque = 0;
     objc_storeStrong(&v12->_destinationIdentifiers, identifers);
     objc_storeStrong(&v13->_serviceIdentifier, identifier);
-    v14 = [handlerCopy copy];
+    v14 = objc_msgSend_copy(handlerCopy);
     updateHandler = v13->_updateHandler;
     v13->_updateHandler = v14;
 
@@ -37,7 +37,7 @@
 
 - (void)start
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if (!self->_queryController)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -89,31 +89,29 @@
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __41__HDIDSReachabilityOperation__startTimer__block_invoke;
-    v17 = &unk_278616F38;
-    objc_copyWeak(v18, &location);
+    v16 = &unk_278616F38;
+    objc_copyWeak(v17, &location);
     dispatch_source_set_event_handler(v11, buf);
     dispatch_resume(self->_timer);
-    objc_destroyWeak(v18);
+    objc_destroyWeak(v17);
     objc_destroyWeak(&location);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinations:(id)destinations
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   os_unfair_lock_lock(&self->_lock);
   _HKInitializeLogging();
   v5 = HKLogSharing();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2048;
-    v12 = [destinationsCopy count];
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Updating reachability operation for %ld identifiers", &v9, 0x16u);
+    v10 = 2048;
+    v11 = [destinationsCopy count];
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Updating reachability operation for %ld identifiers", &v8, 0x16u);
   }
 
   [(IDSBatchIDQueryController *)self->_queryController setDestinations:destinationsCopy];
@@ -125,13 +123,11 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogSharing();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -141,20 +137,19 @@
     _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: The reachability operation has been cancelled.", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = HDIDSReachabilityOperation;
-  [(HDIDSReachabilityOperation *)&v5 cancel];
-  [(HDIDSReachabilityOperation *)self _finish];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = HDIDSReachabilityOperation;
+  [(HDIDSReachabilityOperation *)&v4 cancel];
+  [(HDIDSReachabilityOperation *)&self->super.super.isa _finish];
 }
 
-- (uint64_t)_finish
+- (id)_finish
 {
   if (result)
   {
     v1 = result;
-    [*(result + 256) invalidate];
-    v2 = *(v1 + 288);
+    [result[32] invalidate];
+    v2 = v1[36];
     if (v2)
     {
       dispatch_source_cancel(v2);
@@ -174,7 +169,7 @@
 
 void __41__HDIDSReachabilityOperation__startTimer__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -183,19 +178,17 @@ void __41__HDIDSReachabilityOperation__startTimer__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v5 = WeakRetained;
+      v4 = WeakRetained;
       _os_log_impl(&dword_228986000, v1, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: The reachability operation has timed out.", buf, 0xCu);
     }
 
     [(HDIDSReachabilityOperation *)WeakRetained _finish];
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)batchQueryController:(id)controller updatedDestinationsStatus:(id)status onService:(id)service error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   serviceCopy = service;
   errorCopy = error;
@@ -205,13 +198,13 @@ void __41__HDIDSReachabilityOperation__startTimer__block_invoke(uint64_t a1)
     v12 = HKLogSharing();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
+      v16 = 138543362;
       selfCopy2 = self;
       v13 = "[summary-sharing] %{public}@: We got a reachability callback but we are already cancelled.";
       v14 = v12;
       v15 = 12;
 LABEL_8:
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, v13, &v17, v15);
+      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, v13, &v16, v15);
     }
   }
 
@@ -227,18 +220,16 @@ LABEL_8:
     v12 = HKLogSharing();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543618;
+      v16 = 138543618;
       selfCopy2 = self;
-      v19 = 2112;
-      v20 = serviceCopy;
+      v18 = 2112;
+      v19 = serviceCopy;
       v13 = "[summary-sharing] %{public}@: We got a reachability callback with the incorrect service identifier %@";
       v14 = v12;
       v15 = 22;
       goto LABEL_8;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HDIDSReachabilityOperation_batchQueryController_updatedDestinationsStatus_onService_error___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)

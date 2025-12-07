@@ -192,18 +192,18 @@ LABEL_16:
 
 void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceController___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = dispatch_semaphore_create(0);
   v3 = a1[6];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceController___block_invoke_2;
-  v9[3] = &unk_1E865AA48;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceController___block_invoke_2;
+  v8[3] = &unk_1E865AA48;
   v4 = a1[4];
-  v11 = a1[5];
+  v10 = a1[5];
   v5 = v2;
-  v10 = v5;
-  [v4 getDeviceLatenciesForStream:v3 withCompletion:v9];
+  v9 = v5;
+  [v4 getDeviceLatenciesForStream:v3 withCompletion:v8];
   v6 = dispatch_time(0, 5000000000);
   if (dispatch_semaphore_wait(v5, v6))
   {
@@ -211,17 +211,15 @@ void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceC
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v13 = "[CSHardwareLatencyHelper _hardwareLatenciesUsingStreamHandle:andVoiceController:]_block_invoke";
+      v12 = "[CSHardwareLatencyHelper _hardwareLatenciesUsingStreamHandle:andVoiceController:]_block_invoke";
       _os_log_fault_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_FAULT, "%s AVVC getDeviceLatenciesForStream:withCompletion timed out", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceController___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -231,11 +229,11 @@ void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceC
     {
       v9 = v8;
       v10 = [v7 localizedDescription];
-      v12 = 136315394;
-      v13 = "[CSHardwareLatencyHelper _hardwareLatenciesUsingStreamHandle:andVoiceController:]_block_invoke_2";
-      v14 = 2112;
-      v15 = v10;
-      _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s getDeviceLatenciesForStream error: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[CSHardwareLatencyHelper _hardwareLatenciesUsingStreamHandle:andVoiceController:]_block_invoke_2";
+      v13 = 2112;
+      v14 = v10;
+      _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s getDeviceLatenciesForStream error: %@", &v11, 0x16u);
     }
   }
 
@@ -245,42 +243,38 @@ void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceC
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_hardwareLatencyAdjustmentSecondsUsingStreamHandle:(unint64_t)handle andVoiceController:(id)controller
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = [(CSHardwareLatencyHelper *)self _hardwareLatenciesUsingStreamHandle:handle andVoiceController:controller];
-  v13 = 0;
-  v6 = [(CSHardwareLatencyHelper *)self _adjustmentSecondsFromLatencyInfo:v5 error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [(CSHardwareLatencyHelper *)self _adjustmentSecondsFromLatencyInfo:v5 error:&v12];
+  v7 = v12;
   if (v7)
   {
     v8 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v11 = v8;
+      v10 = v8;
       localizedDescription = [v7 localizedDescription];
       *buf = 136315650;
-      v15 = "[CSHardwareLatencyHelper _hardwareLatencyAdjustmentSecondsUsingStreamHandle:andVoiceController:]";
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = localizedDescription;
-      _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Error getting adjustment for hardware latency. infoDict=%{public}@; err=%{public}@", buf, 0x20u);
+      v14 = "[CSHardwareLatencyHelper _hardwareLatencyAdjustmentSecondsUsingStreamHandle:andVoiceController:]";
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = localizedDescription;
+      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Error getting adjustment for hardware latency. infoDict=%{public}@; err=%{public}@", buf, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (BOOL)addHWLatencyToOption:(id)option withCorrection:(double)correction streamHandle:(unint64_t)handle voiceController:(id)controller
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   optionCopy = option;
   v11 = [(CSHardwareLatencyHelper *)self _hardwareLatencyAdjustmentSecondsUsingStreamHandle:handle andVoiceController:controller];
   v12 = v11;
@@ -294,17 +288,17 @@ void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceC
     v20 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136316162;
-      v24 = "[CSHardwareLatencyHelper addHWLatencyToOption:withCorrection:streamHandle:voiceController:]";
-      v25 = 2050;
-      v26 = v18;
-      v27 = 2050;
-      v28 = v19;
-      v29 = 2048;
-      v30 = v16;
-      v31 = 2048;
+      v22 = 136316162;
+      v23 = "[CSHardwareLatencyHelper addHWLatencyToOption:withCorrection:streamHandle:voiceController:]";
+      v24 = 2050;
+      v25 = v18;
+      v26 = 2050;
+      v27 = v19;
+      v28 = 2048;
+      v29 = v16;
+      v30 = 2048;
       correctionCopy = correction;
-      _os_log_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_DEFAULT, "%s Applying adjustment for hardware latency %{public}f secs, %{public}llu ticks (AVF=%f Correction=%f)", &v23, 0x34u);
+      _os_log_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_DEFAULT, "%s Applying adjustment for hardware latency %{public}f secs, %{public}llu ticks (AVF=%f Correction=%f)", &v22, 0x34u);
     }
 
     [optionCopy adjustStartRecordingHostTime:v19];
@@ -317,16 +311,15 @@ void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceC
     v14 = 0;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315394;
-      v24 = "[CSHardwareLatencyHelper addHWLatencyToOption:withCorrection:streamHandle:voiceController:]";
-      v25 = 2112;
-      v26 = *&v12;
-      _os_log_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_DEFAULT, "%s No adjustment for hardware latency to apply. avfLatencySeconds = %@", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = "[CSHardwareLatencyHelper addHWLatencyToOption:withCorrection:streamHandle:voiceController:]";
+      v24 = 2112;
+      v25 = *&v12;
+      _os_log_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_DEFAULT, "%s No adjustment for hardware latency to apply. avfLatencySeconds = %@", &v22, 0x16u);
       v14 = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -344,9 +337,11 @@ void __82__CSHardwareLatencyHelper__hardwareLatenciesUsingStreamHandle_andVoiceC
 
 uint64_t __41__CSHardwareLatencyHelper_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_3433 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedInstance_3433;
+  sharedInstance_sharedInstance_3433 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

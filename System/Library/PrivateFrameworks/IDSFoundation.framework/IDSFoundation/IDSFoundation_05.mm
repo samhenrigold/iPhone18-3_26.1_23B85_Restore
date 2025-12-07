@@ -1,685 +1,3 @@
-void sub_1A7C907E4(id *a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v7 = [a1[4] queue];
-  if (v5)
-  {
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = sub_1A7C90950;
-    block[3] = &unk_1E77E2878;
-    block[4] = a1[4];
-    v13 = v5;
-    v14 = a1[5];
-    v15 = a1[6];
-    dispatch_async(v7, block);
-
-    v8 = v13;
-  }
-
-  else
-  {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1A7C909FC;
-    v9[3] = &unk_1E77DD0F0;
-    v11 = a1[6];
-    v10 = v6;
-    dispatch_async(v7, v9);
-
-    v8 = v11;
-  }
-}
-
-void sub_1A7C90950(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = sub_1A7C909EC;
-  v4[3] = &unk_1E77E2850;
-  v3 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  [v1 q_groupFromRecord:v2 inContext:v3 completion:v4];
-}
-
-uint64_t IDSQRProtoGetMaterialRequestReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v16[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v16 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v16[0] & 0x7F) << v5;
-        if ((v16[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = objc_alloc_init(IDSQRProtoMaterialOwner);
-        [a1 addMaterialOwners:v13];
-        v16[0] = 0xAAAAAAAAAAAAAAAALL;
-        v16[1] = 0xAAAAAAAAAAAAAAAALL;
-        if (!PBReaderPlaceMark() || !IDSQRProtoMaterialOwnerReadFrom(v13, a2))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v14 = [a2 position];
-    }
-
-    while (v14 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_1A7C92990(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = [v3 state];
-  if (v4 == 1)
-  {
-    v9 = +[IDSFoundationLog utilities];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-    {
-      sub_1A7E1F834(v3, v9);
-    }
-  }
-
-  else if (!v4)
-  {
-    v5 = [v3 value];
-    v6 = *(*(a1 + 32) + 8);
-    v7 = [*(a1 + 40) rtcType];
-    v8 = [*(a1 + 40) dictionaryRepresentation];
-    [v5 sendMessageWithCategory:v6 type:v7 payload:v8 error:0];
-  }
-}
-
-void IDSCopyPacketLog(void *a1)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  if (v1)
-  {
-    v2 = NSHomeDirectory();
-    v3 = [v2 stringByAppendingString:@"/Library/IdentityServices/PacketLogs/"];
-
-    v4 = [MEMORY[0x1E696AC08] defaultManager];
-    v15 = 0;
-    [v4 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v15];
-    v5 = v15;
-
-    if (v5)
-    {
-      v6 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v17 = v5;
-        _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "Could not get destination directory for packet log: %@", buf, 0xCu);
-      }
-
-      if (os_log_shim_legacy_logging_enabled())
-      {
-        if (_IDSShouldLogTransport())
-        {
-          _IDSLogTransport(@"GL", @"IDS", @"Could not get destination directory for packet log: %@");
-          if (_IDSShouldLog())
-          {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"Could not get destination directory for packet log: %@");
-          }
-        }
-      }
-    }
-
-    else
-    {
-      v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
-      v8 = [v1 lastPathComponent];
-      v9 = [v7 URLByAppendingPathComponent:v8];
-
-      v10 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v17 = v9;
-        _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "Writing packet log to %@", buf, 0xCu);
-      }
-
-      if (os_log_shim_legacy_logging_enabled())
-      {
-        if (_IDSShouldLogTransport())
-        {
-          v13 = v9;
-          _IDSLogTransport(@"GL", @"IDS", @"Writing packet log to %@");
-          if (_IDSShouldLog())
-          {
-            v13 = v9;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"Writing packet log to %@");
-          }
-        }
-      }
-
-      v11 = [MEMORY[0x1E696AC08] defaultManager];
-      v14 = 0;
-      [v11 copyItemAtURL:v1 toURL:v9 error:&v14];
-      v5 = v14;
-
-      if (v5)
-      {
-        v12 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          v17 = v5;
-          _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "Could not copy packet log: %@", buf, 0xCu);
-        }
-
-        if (os_log_shim_legacy_logging_enabled())
-        {
-          if (_IDSShouldLogTransport())
-          {
-            _IDSLogTransport(@"GL", @"IDS", @"Could not copy packet log: %@");
-            if (_IDSShouldLog())
-            {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"Could not copy packet log: %@");
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t sub_1A7C92FE0(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2 != -1)
-  {
-    if ((*(a1 + 40) & 1) == 0)
-    {
-      IDSTransportThreadRemoveSocket(v2);
-      v2 = *(a1 + 32);
-    }
-
-    close(v2);
-  }
-
-  result = *(a1 + 36);
-  if (result != -1)
-  {
-    if ((*(a1 + 40) & 1) == 0)
-    {
-      IDSTransportThreadRemoveSocket(result);
-      LODWORD(result) = *(a1 + 36);
-    }
-
-    return close(result);
-  }
-
-  return result;
-}
-
-uint64_t sub_1A7C93B48()
-{
-  v0 = *__error();
-  result = 14;
-  if (v0 <= 53)
-  {
-    if (v0 <= 48)
-    {
-      if (v0 == 35)
-      {
-        return result;
-      }
-
-      if (v0 != 39)
-      {
-        if (v0 == 40)
-        {
-          return 4;
-        }
-
-        return 11;
-      }
-
-      return 6;
-    }
-
-    if ((v0 - 49) >= 3)
-    {
-      return 11;
-    }
-
-    return 3;
-  }
-
-  if (v0 > 56)
-  {
-    if ((v0 - 64) >= 2)
-    {
-      if (v0 == 57)
-      {
-        return 6;
-      }
-
-      return 11;
-    }
-
-    return 3;
-  }
-
-  if (v0 == 54)
-  {
-    return 2;
-  }
-
-  if (v0 != 55)
-  {
-    return 5;
-  }
-
-  return result;
-}
-
-uint64_t IDSQRProtoParticipantUpdateIndicationReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v50[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v50 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v50[0] & 0x7F) << v5;
-        if ((v50[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 14)
-      {
-        if (v13 == 15)
-        {
-          v34 = 0;
-          v35 = 0;
-          v36 = 0;
-          *(a1 + 48) |= 1u;
-          while (1)
-          {
-            LOBYTE(v50[0]) = 0;
-            v37 = [a2 position] + 1;
-            if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 1, v38 <= objc_msgSend(a2, "length")))
-            {
-              v39 = [a2 data];
-              [v39 getBytes:v50 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v36 |= (v50[0] & 0x7F) << v34;
-            if ((v50[0] & 0x80) == 0)
-            {
-              break;
-            }
-
-            v34 += 7;
-            v11 = v35++ >= 9;
-            if (v11)
-            {
-              v40 = 0;
-              goto LABEL_78;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v40 = 0;
-          }
-
-          else
-          {
-            v40 = v36;
-          }
-
-LABEL_78:
-          *(a1 + 32) = v40;
-          goto LABEL_91;
-        }
-
-        if (v13 == 16)
-        {
-          v21 = 0;
-          v22 = 0;
-          v23 = 0;
-          *(a1 + 48) |= 4u;
-          while (1)
-          {
-            LOBYTE(v50[0]) = 0;
-            v24 = [a2 position] + 1;
-            if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
-            {
-              v26 = [a2 data];
-              [v26 getBytes:v50 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v23 |= (v50[0] & 0x7F) << v21;
-            if ((v50[0] & 0x80) == 0)
-            {
-              break;
-            }
-
-            v21 += 7;
-            v11 = v22++ >= 9;
-            if (v11)
-            {
-              v20 = 0;
-              goto LABEL_73;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v20 = 0;
-          }
-
-          else
-          {
-            v20 = v23;
-          }
-
-LABEL_73:
-          v41 = 44;
-          goto LABEL_74;
-        }
-      }
-
-      else
-      {
-        if (v13 == 3)
-        {
-          if ((v12 & 7) == 2)
-          {
-            v50[0] = 0xAAAAAAAAAAAAAAAALL;
-            v50[1] = 0xAAAAAAAAAAAAAAAALL;
-            result = PBReaderPlaceMark();
-            if (!result)
-            {
-              return result;
-            }
-
-            while (1)
-            {
-              v27 = [a2 position];
-              if (v27 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
-              {
-                break;
-              }
-
-              v28 = 0;
-              v29 = 0;
-              v30 = 0;
-              while (1)
-              {
-                v51 = 0;
-                v31 = [a2 position] + 1;
-                if (v31 >= [a2 position] && (v32 = objc_msgSend(a2, "position") + 1, v32 <= objc_msgSend(a2, "length")))
-                {
-                  v33 = [a2 data];
-                  [v33 getBytes:&v51 range:{objc_msgSend(a2, "position"), 1}];
-
-                  [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-                }
-
-                else
-                {
-                  [a2 _setError];
-                }
-
-                v30 |= (v51 & 0x7F) << v28;
-                if ((v51 & 0x80) == 0)
-                {
-                  break;
-                }
-
-                v28 += 7;
-                v11 = v29++ >= 9;
-                if (v11)
-                {
-                  goto LABEL_56;
-                }
-              }
-
-              [a2 hasError];
-LABEL_56:
-              PBRepeatedUInt64Add();
-            }
-
-            PBReaderRecallMark();
-          }
-
-          else
-          {
-            v42 = 0;
-            v43 = 0;
-            v44 = 0;
-            while (1)
-            {
-              LOBYTE(v50[0]) = 0;
-              v45 = [a2 position] + 1;
-              if (v45 >= [a2 position] && (v46 = objc_msgSend(a2, "position") + 1, v46 <= objc_msgSend(a2, "length")))
-              {
-                v47 = [a2 data];
-                [v47 getBytes:v50 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v44 |= (v50[0] & 0x7F) << v42;
-              if ((v50[0] & 0x80) == 0)
-              {
-                break;
-              }
-
-              v42 += 7;
-              v11 = v43++ >= 9;
-              if (v11)
-              {
-                goto LABEL_90;
-              }
-            }
-
-            [a2 hasError];
-LABEL_90:
-            PBRepeatedUInt64Add();
-          }
-
-          goto LABEL_91;
-        }
-
-        if (v13 == 4)
-        {
-          v14 = 0;
-          v15 = 0;
-          v16 = 0;
-          *(a1 + 48) |= 2u;
-          while (1)
-          {
-            LOBYTE(v50[0]) = 0;
-            v17 = [a2 position] + 1;
-            if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-            {
-              v19 = [a2 data];
-              [v19 getBytes:v50 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v16 |= (v50[0] & 0x7F) << v14;
-            if ((v50[0] & 0x80) == 0)
-            {
-              break;
-            }
-
-            v14 += 7;
-            v11 = v15++ >= 9;
-            if (v11)
-            {
-              v20 = 0;
-              goto LABEL_69;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v20 = 0;
-          }
-
-          else
-          {
-            v20 = v16;
-          }
-
-LABEL_69:
-          v41 = 40;
-LABEL_74:
-          *(a1 + v41) = v20;
-          goto LABEL_91;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_91:
-      v48 = [a2 position];
-    }
-
-    while (v48 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
 uint64_t sub_1A7C97AE0(_DWORD **a1, _WORD *a2, unint64_t *a3, _BYTE *a4)
 {
   v4 = 0;
@@ -757,7 +75,7 @@ LABEL_8:
   return 1;
 }
 
-BOOL sub_1A7C97ED0(uint64_t a1, int a2, int a3, void *__src, unint64_t a5)
+BOOL sub_1A7C97ED0(uint64_t a1, int a2, int a3, void *__src, size_t a5)
 {
   v6 = *(a1 + 32);
   v7 = *(v6 + 72);
@@ -991,9 +309,9 @@ void sub_1A7C98794(uint64_t a1)
   [v1 _readCapsuleWithExistingData:MEMORY[0x1E69E9668] completionHandler:v2];
 }
 
-_DWORD *IDSHC_CreateContext(void *a1, int a2, int a3, int a4, int a5, int a6, int a7)
+_DWORD *IDSHC_CreateContext(void *a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   result = malloc_type_malloc(0x14uLL, 0x1000040A86A77D5uLL);
   v15 = result;
   if (result)
@@ -1007,27 +325,27 @@ _DWORD *IDSHC_CreateContext(void *a1, int a2, int a3, int a4, int a5, int a6, in
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67110400;
-      v18 = a2;
-      v19 = 1024;
-      v20 = a3;
-      v21 = 1024;
-      v22 = a4;
+      v22 = a2;
       v23 = 1024;
-      v24 = a5;
+      v24 = a3;
       v25 = 1024;
-      v26 = a6;
+      v26 = a4;
       v27 = 1024;
-      v28 = a7;
+      v28 = a5;
+      v29 = 1024;
+      v30 = a6;
+      v31 = 1024;
+      v32 = a7;
       _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "CreateContext - p:%u c:%u s_port:%u d_port:%u seq:%u ack:%u", buf, 0x26u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
     if (result)
     {
-      result = _IDSShouldLog();
+      result = _IDSShouldLog(0);
       if (result)
       {
-        result = _IDSLogV(0, @"IDSFoundation", @"IDSHC", @"CreateContext - p:%u c:%u s_port:%u d_port:%u seq:%u ack:%u");
+        result = _IDSLogV(0, @"IDSFoundation", @"IDSHC", @"CreateContext - p:%u c:%u s_port:%u d_port:%u seq:%u ack:%u", v17, v18, v19, v20, a2);
       }
     }
   }
@@ -1046,7 +364,7 @@ void IDSHC_RemoveContext(void *a1)
 
 uint64_t IDSHC_Compress(_DWORD *a1, uint64_t *a2, int *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*a1 != 6)
   {
     if (*a1 != 17)
@@ -1065,24 +383,24 @@ uint64_t IDSHC_Compress(_DWORD *a1, uint64_t *a2, int *a3)
   if (v6 > 0x4F)
   {
     result = 0;
-    v9 = 6;
+    v13 = 6;
     if ((*(v5 + 13) & 0x20) != 0)
     {
-      v10 = -6;
+      v14 = -6;
     }
 
     else
     {
-      v9 = 8;
-      v10 = -8;
+      v13 = 8;
+      v14 = -8;
     }
 
-    v11 = v5 + v9;
-    v12 = *(v5 + 4);
-    *(v11 + 8) = *(v5 + 12);
-    *v11 = v12;
-    v4 = v10 + *a3;
-    *a2 = v11;
+    v15 = v5 + v13;
+    v16 = *(v5 + 4);
+    *(v15 + 8) = *(v5 + 12);
+    *v15 = v16;
+    v4 = v14 + *a3;
+    *a2 = v15;
 LABEL_16:
     *a3 = v4;
     return result;
@@ -1093,15 +411,15 @@ LABEL_16:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v14 = v7;
+    v18 = v7;
     _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "IDSCompressTCPPacket2 - invalid TCP header length %d.", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
-    if (_IDSShouldLog())
+    if (_IDSShouldLog(0))
     {
-      _IDSLogV(0, @"IDSFoundation", @"IDSHC", @"IDSCompressTCPPacket2 - invalid TCP header length %d.");
+      _IDSLogV(0, @"IDSFoundation", @"IDSHC", @"IDSCompressTCPPacket2 - invalid TCP header length %d.", v9, v10, v11, v12, v7);
     }
   }
 
@@ -1113,7 +431,8 @@ uint64_t IDSHC_DecompressSimple(uint64_t **a1, _DWORD *a2, _DWORD *a3)
   if (*a3 == 17)
   {
     v7 = *a1;
-    *(v7-- - 2) = a3[2];
+    *(v7 - 2) = a3[2];
+    v7 -= 8;
     *(v7 + 2) = bswap32(*a2 + 8) >> 16;
     *(v7 + 3) = 0;
     *a1 = v7;
@@ -1143,7 +462,7 @@ uint64_t IDSHC_DecompressSimple(uint64_t **a1, _DWORD *a2, _DWORD *a3)
     else
     {
       *(v3 - 2) = v4;
-      v5 = v3 - 1;
+      v5 = (v3 - 8);
       *(v3 - 4) = *v3;
       *(v3 + 4) = *(v3 + 2);
       v6 = 8;
@@ -1160,7 +479,7 @@ uint64_t IDSHC_DecompressSimple(uint64_t **a1, _DWORD *a2, _DWORD *a3)
 
 uint64_t sub_1A7C99798(uint64_t a1, int a2)
 {
-  *&v26[5] = *MEMORY[0x1E69E9840];
+  *&v82[5] = *MEMORY[0x1E69E9840];
   v4 = *a1;
   if (v4 != pthread_self())
   {
@@ -1169,9 +488,9 @@ uint64_t sub_1A7C99798(uint64_t a1, int a2)
     {
       v6 = *a1;
       *buf = 134218240;
-      v24 = v6;
-      v25 = 2048;
-      *v26 = pthread_self();
+      v80 = v6;
+      v81 = 2048;
+      *v82 = pthread_self();
       _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "should assert real time mode on thread %p, not %p", buf, 0x16u);
     }
 
@@ -1179,12 +498,14 @@ uint64_t sub_1A7C99798(uint64_t a1, int a2)
     {
       if (_IDSShouldLogTransport())
       {
+        v7 = *a1;
         pthread_self();
-        _IDSLogTransport(@"TPThread", @"IDS", @"should assert real time mode on thread %p, not %p");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TPThread", @"IDS", @"should assert real time mode on thread %p, not %p", v8, v9, v10, v11, v12, v7);
+        if (_IDSShouldLog(0))
         {
+          v13 = *a1;
           pthread_self();
-          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"should assert real time mode on thread %p, not %p");
+          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"should assert real time mode on thread %p, not %p", v14, v15, v16, v17, v13);
         }
       }
     }
@@ -1197,27 +518,27 @@ uint64_t sub_1A7C99798(uint64_t a1, int a2)
     goto LABEL_47;
   }
 
-  v7 = *(a1 + 80);
+  v18 = *(a1 + 80);
   if (a2)
   {
-    *(a1 + 80) = v7 + 1;
-    if (v7 < 1)
+    *(a1 + 80) = v18 + 1;
+    if (v18 < 1)
     {
-      v22 = -1431655766;
-      sub_1A7C99E5C(56, &v22);
-      *(a1 + 84) = v22;
+      v78 = -1431655766;
+      sub_1A7C99E5C(0x38u, &v78);
+      *(a1 + 84) = v78;
       sub_1A7C99FF0();
-      v20 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v67 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = *a1;
+        v68 = *a1;
         *buf = 134218496;
-        v24 = v21;
-        v25 = 1024;
-        *v26 = v22;
-        v26[2] = 1024;
-        *&v26[3] = 56;
-        _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "asserting real time mode on thread %p (%d => %d)", buf, 0x18u);
+        v80 = v68;
+        v81 = 1024;
+        *v82 = v78;
+        v82[2] = 1024;
+        *&v82[3] = 56;
+        _os_log_impl(&dword_1A7AD9000, v67, OS_LOG_TYPE_DEFAULT, "asserting real time mode on thread %p (%d => %d)", buf, 0x18u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -1226,11 +547,11 @@ uint64_t sub_1A7C99798(uint64_t a1, int a2)
         result = _IDSShouldLogTransport();
         if (result)
         {
-          _IDSLogTransport(@"TPThread", @"IDS", @"asserting real time mode on thread %p (%d => %d)");
-          result = _IDSShouldLog();
+          _IDSLogTransport(@"TPThread", @"IDS", @"asserting real time mode on thread %p (%d => %d)", v69, v70, v71, v72, v73, *a1);
+          result = _IDSShouldLog(0);
           if (result)
           {
-            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"asserting real time mode on thread %p (%d => %d)");
+            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"asserting real time mode on thread %p (%d => %d)", v74, v75, v76, v77, *a1);
           }
         }
       }
@@ -1238,16 +559,16 @@ uint64_t sub_1A7C99798(uint64_t a1, int a2)
 
     else
     {
-      v8 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v19 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *a1;
-        v10 = *(a1 + 80);
+        v20 = *a1;
+        v21 = *(a1 + 80);
         *buf = 134218240;
-        v24 = v9;
-        v25 = 1024;
-        *v26 = v10;
-        _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "asserting real time mode on thread %p but already in real time mode (%d assertions)", buf, 0x12u);
+        v80 = v20;
+        v81 = 1024;
+        *v82 = v21;
+        _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "asserting real time mode on thread %p but already in real time mode (%d assertions)", buf, 0x12u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -1256,11 +577,11 @@ uint64_t sub_1A7C99798(uint64_t a1, int a2)
         result = _IDSShouldLogTransport();
         if (result)
         {
-          _IDSLogTransport(@"TPThread", @"IDS", @"asserting real time mode on thread %p but already in real time mode (%d assertions)");
-          result = _IDSShouldLog();
+          _IDSLogTransport(@"TPThread", @"IDS", @"asserting real time mode on thread %p but already in real time mode (%d assertions)", v23, v24, v25, v26, v27, *a1);
+          result = _IDSShouldLog(0);
           if (result)
           {
-            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"asserting real time mode on thread %p but already in real time mode (%d assertions)");
+            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"asserting real time mode on thread %p but already in real time mode (%d assertions)", v28, v29, v30, v31, *a1);
           }
         }
       }
@@ -1269,25 +590,25 @@ uint64_t sub_1A7C99798(uint64_t a1, int a2)
 
   else
   {
-    if (!v7)
+    if (!v18)
     {
-      v12 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v32 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *a1;
+        v33 = *a1;
         *buf = 134217984;
-        v24 = v13;
-        _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "unasserting real time mode on thread %p but not in real time mode", buf, 0xCu);
+        v80 = v33;
+        _os_log_impl(&dword_1A7AD9000, v32, OS_LOG_TYPE_DEFAULT, "unasserting real time mode on thread %p but not in real time mode", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TPThread", @"IDS", @"unasserting real time mode on thread %p but not in real time mode");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TPThread", @"IDS", @"unasserting real time mode on thread %p but not in real time mode", v34, v35, v36, v37, v38, *a1);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"unasserting real time mode on thread %p but not in real time mode");
+            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"unasserting real time mode on thread %p but not in real time mode", v39, v40, v41, v42, *a1);
           }
         }
       }
@@ -1301,24 +622,24 @@ LABEL_47:
       abort();
     }
 
-    *(a1 + 80) = v7 - 1;
-    if (v7 < 2)
+    *(a1 + 80) = v18 - 1;
+    if (v18 < 2)
     {
-      v17 = *(a1 + 84);
-      v22 = -1431655766;
-      sub_1A7C99E5C(v17, &v22);
+      v55 = *(a1 + 84);
+      v78 = -1431655766;
+      sub_1A7C99E5C(v55, &v78);
       sub_1A7C99FF0();
-      v18 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v56 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *a1;
+        v57 = *a1;
         *buf = 134218496;
-        v24 = v19;
-        v25 = 1024;
-        *v26 = v22;
-        v26[2] = 1024;
-        *&v26[3] = v17;
-        _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "unasserting real time mode on thread %p (%d => %d)", buf, 0x18u);
+        v80 = v57;
+        v81 = 1024;
+        *v82 = v78;
+        v82[2] = 1024;
+        *&v82[3] = v55;
+        _os_log_impl(&dword_1A7AD9000, v56, OS_LOG_TYPE_DEFAULT, "unasserting real time mode on thread %p (%d => %d)", buf, 0x18u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -1327,11 +648,11 @@ LABEL_47:
         result = _IDSShouldLogTransport();
         if (result)
         {
-          _IDSLogTransport(@"TPThread", @"IDS", @"unasserting real time mode on thread %p (%d => %d)");
-          result = _IDSShouldLog();
+          _IDSLogTransport(@"TPThread", @"IDS", @"unasserting real time mode on thread %p (%d => %d)", v58, v59, v60, v61, v62, *a1);
+          result = _IDSShouldLog(0);
           if (result)
           {
-            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"unasserting real time mode on thread %p (%d => %d)");
+            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"unasserting real time mode on thread %p (%d => %d)", v63, v64, v65, v66, *a1);
           }
         }
       }
@@ -1339,16 +660,16 @@ LABEL_47:
 
     else
     {
-      v14 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v43 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *a1;
-        v16 = *(a1 + 80);
+        v44 = *a1;
+        v45 = *(a1 + 80);
         *buf = 134218240;
-        v24 = v15;
-        v25 = 1024;
-        *v26 = v16;
-        _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "unasserting real time mode on thread %p but still in real time mode (%d assertions)", buf, 0x12u);
+        v80 = v44;
+        v81 = 1024;
+        *v82 = v45;
+        _os_log_impl(&dword_1A7AD9000, v43, OS_LOG_TYPE_DEFAULT, "unasserting real time mode on thread %p but still in real time mode (%d assertions)", buf, 0x12u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -1357,11 +678,11 @@ LABEL_47:
         result = _IDSShouldLogTransport();
         if (result)
         {
-          _IDSLogTransport(@"TPThread", @"IDS", @"unasserting real time mode on thread %p but still in real time mode (%d assertions)");
-          result = _IDSShouldLog();
+          _IDSLogTransport(@"TPThread", @"IDS", @"unasserting real time mode on thread %p but still in real time mode (%d assertions)", v46, v47, v48, v49, v50, *a1);
+          result = _IDSShouldLog(0);
           if (result)
           {
-            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"unasserting real time mode on thread %p but still in real time mode (%d assertions)");
+            return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"unasserting real time mode on thread %p but still in real time mode (%d assertions)", v51, v52, v53, v54, *a1);
           }
         }
       }
@@ -1371,13 +692,13 @@ LABEL_47:
   return result;
 }
 
-uint64_t sub_1A7C99E5C(int a1, int *a2)
+uint64_t sub_1A7C99E5C(unsigned int a1, int *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v10 = 0xAAAAAAAAAAAAAAAALL;
-  v9 = -1431655766;
+  v22 = *MEMORY[0x1E69E9840];
+  v19 = 0xAAAAAAAAAAAAAAAALL;
+  v18 = -1431655766;
   v4 = IMGetDomainIntForKey();
-  if ((v4 - 1) >= 0x63)
+  if (v4 - 1 >= 0x63)
   {
     v5 = a1;
   }
@@ -1388,19 +709,19 @@ uint64_t sub_1A7C99E5C(int a1, int *a2)
   }
 
   v6 = pthread_self();
-  pthread_getschedparam(v6, &v9, &v10);
+  pthread_getschedparam(v6, &v18, &v19);
   if (a2)
   {
-    *a2 = v10.sched_priority;
+    *a2 = v19.sched_priority;
   }
 
-  v10.sched_priority = v5;
-  pthread_setschedparam(v6, v9, &v10);
+  v19.sched_priority = v5;
+  pthread_setschedparam(v6, v18, &v19);
   v7 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v12 = v5;
+    v21 = v5;
     _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "Set IDSTransportThread priority at %d.", buf, 8u);
   }
 
@@ -1410,11 +731,11 @@ uint64_t sub_1A7C99E5C(int a1, int *a2)
     result = _IDSShouldLogTransport();
     if (result)
     {
-      _IDSLogTransport(@"TPThread", @"IDS", @"Set IDSTransportThread priority at %d.");
-      result = _IDSShouldLog();
+      _IDSLogTransport(@"TPThread", @"IDS", @"Set IDSTransportThread priority at %d.", v9, v10, v11, v12, v13, v5);
+      result = _IDSShouldLog(0);
       if (result)
       {
-        return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Set IDSTransportThread priority at %d.");
+        return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Set IDSTransportThread priority at %d.", v14, v15, v16, v17, v5);
       }
     }
   }
@@ -1424,7 +745,7 @@ uint64_t sub_1A7C99E5C(int a1, int *a2)
 
 uint64_t sub_1A7C99FF0()
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1AC562F80](@"com.apple.ids", @"IDSTransportCPUConfig");
   if (v0)
   {
@@ -1435,7 +756,7 @@ uint64_t sub_1A7C99FF0()
     {
       v4 = [objc_msgSend(v1 objectAtIndex:{0), "intValue"}];
       v5 = [objc_msgSend(v1 objectAtIndex:{1), "intValue"}];
-      v6 = (v4 - 1) < 0x63;
+      v6 = v4 - 1 < 0x63;
       v7 = v5 > 0;
       if (v6 && v7)
       {
@@ -1469,9 +790,9 @@ uint64_t sub_1A7C99FF0()
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v16 = v2;
-    v17 = 1024;
-    v18 = v3;
+    v34 = v2;
+    v35 = 1024;
+    v36 = v3;
     _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "Fix IDSTransportThread CPU limit (%d, %d).", buf, 0xEu);
   }
 
@@ -1481,34 +802,34 @@ uint64_t sub_1A7C99FF0()
     v9 = _IDSShouldLogTransport();
     if (v9)
     {
-      _IDSLogTransport(@"TPThread", @"IDS", @"Fix IDSTransportThread CPU limit (%d, %d).");
-      v9 = _IDSShouldLog();
+      _IDSLogTransport(@"TPThread", @"IDS", @"Fix IDSTransportThread CPU limit (%d, %d).", v10, v11, v12, v13, v14, v2);
+      v9 = _IDSShouldLog(0);
       if (v9)
       {
-        v9 = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Fix IDSTransportThread CPU limit (%d, %d).");
+        v9 = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Fix IDSTransportThread CPU limit (%d, %d).", v15, v16, v17, v18, v2);
       }
     }
   }
 
-  v10 = MEMORY[0x1AC563CD0](v9);
+  v19 = MEMORY[0x1AC563CD0](v9);
   policy_info = 0;
-  thread_policy_set(v10, 1u, &policy_info, 1u);
+  thread_policy_set(v19, 1u, &policy_info, 1u);
   result = proc_setthread_cpupercent();
-  v12 = result;
+  v21 = result;
   if (result)
   {
     policy_info = 1;
-    thread_policy_set(v10, 1u, &policy_info, 1u);
-    v13 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    thread_policy_set(v19, 1u, &policy_info, 1u);
+    v22 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      v16 = v2;
-      v17 = 1024;
-      v18 = v3;
-      v19 = 1024;
-      v20 = v12;
-      _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "Failed to set CPU limit (%d, %d) (error=%d), move back to timeshare.", buf, 0x14u);
+      v34 = v2;
+      v35 = 1024;
+      v36 = v3;
+      v37 = 1024;
+      v38 = v21;
+      _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "Failed to set CPU limit (%d, %d) (error=%d), move back to timeshare.", buf, 0x14u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
@@ -1517,11 +838,11 @@ uint64_t sub_1A7C99FF0()
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"Failed to set CPU limit (%d, %d) (error=%d), move back to timeshare.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"TPThread", @"IDS", @"Failed to set CPU limit (%d, %d) (error=%d), move back to timeshare.", v23, v24, v25, v26, v27, v2);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Failed to set CPU limit (%d, %d) (error=%d), move back to timeshare.");
+          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Failed to set CPU limit (%d, %d) (error=%d), move back to timeshare.", v28, v29, v30, v31, v2);
         }
       }
     }
@@ -1543,18 +864,18 @@ BOOL IDSTransportThreadInit()
     v1 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_1A7AD9000, v1, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadInit: transport thread not initialized", v3, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1A7AD9000, v1, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadInit: transport thread not initialized", &v12, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadInit: transport thread not initialized");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadInit: transport thread not initialized", v2, v3, v4, v5, v6, v12);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadInit: transport thread not initialized");
+          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadInit: transport thread not initialized", v7, v8, v9, v10, v12);
         }
       }
     }
@@ -1565,7 +886,7 @@ BOOL IDSTransportThreadInit()
 
 BOOL IDSTransportThreadInitWithPriority(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   switch(a1)
   {
     case 100:
@@ -1609,7 +930,7 @@ BOOL IDSTransportThreadInitWithPriority(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = a1;
+      v16 = a1;
       _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadInit: transport thread with priority %lu not initialized", buf, 0xCu);
     }
 
@@ -1617,10 +938,10 @@ BOOL IDSTransportThreadInitWithPriority(uint64_t a1)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadInit: transport thread with priority %lu not initialized");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadInit: transport thread with priority %lu not initialized", v5, v6, v7, v8, v9, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadInit: transport thread with priority %lu not initialized");
+          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadInit: transport thread with priority %lu not initialized", v10, v11, v12, v13, a1);
         }
       }
     }
@@ -1683,9 +1004,9 @@ void IDSTransportThreadAddSyncBlockWithPriority(uint64_t a1, const void *a2)
   sub_1A7B029E0(v4, a2);
 }
 
-uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void *a4)
+uint64_t sub_1A7C9A670(uint64_t a1, uint64_t a2, const void *a3, const void *a4)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 44);
   v7 = *(a1 + 48);
   v6 = *(a1 + 56);
@@ -1696,12 +1017,12 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
   *&changelist.data = v9;
   if ((a2 & 0x80000000) != 0)
   {
-    v17 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v28 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v29 = a2;
-      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadAddSocket called with bad socket %d", buf, 8u);
+      *v76 = a2;
+      _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadAddSocket called with bad socket %d", buf, 8u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
@@ -1710,11 +1031,11 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadAddSocket called with bad socket %d");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadAddSocket called with bad socket %d", v30, v31, v32, v33, v34, a2);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadAddSocket called with bad socket %d");
+          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadAddSocket called with bad socket %d", v35, v36, v37, v38, a2);
         }
       }
     }
@@ -1730,9 +1051,9 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
       {
         v15 = *a1;
         *buf = 134218240;
-        *v29 = v15;
-        *&v29[8] = 2048;
-        v30 = pthread_self();
+        *v76 = v15;
+        *&v76[8] = 2048;
+        v77 = pthread_self();
         _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "should add socket on thread %p, not %p", buf, 0x16u);
       }
 
@@ -1740,12 +1061,14 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
       {
         if (_IDSShouldLogTransport())
         {
+          v16 = *a1;
           pthread_self();
-          _IDSLogTransport(@"TPThread", @"IDS", @"should add socket on thread %p, not %p");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TPThread", @"IDS", @"should add socket on thread %p, not %p", v17, v18, v19, v20, v21, v16);
+          if (_IDSShouldLog(0))
           {
+            v22 = *a1;
             pthread_self();
-            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"should add socket on thread %p, not %p");
+            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"should add socket on thread %p, not %p", v23, v24, v25, v26, v22);
           }
         }
       }
@@ -1761,24 +1084,24 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
     sub_1A7C9B87C(a1, a2);
     if (v5 < 1)
     {
-      LODWORD(v16) = 0;
+      v27 = 0;
     }
 
     else
     {
-      v16 = 0;
-      while (*(v7 + 4 * v16) != -1)
+      v27 = 0;
+      while (*(v7 + 4 * v27) != -1)
       {
-        if (v5 == ++v16)
+        if (v5 == ++v27)
         {
-          LODWORD(v16) = v5;
+          v27 = v5;
           break;
         }
       }
     }
 
     ++*(a1 + 24);
-    if (v16 >= *(a1 + 40))
+    if (v27 >= *(a1 + 40))
     {
       result = sub_1A7C9C5A4(a1);
       if (!result)
@@ -1791,37 +1114,37 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
       v8 = *(a1 + 64);
     }
 
-    *(v7 + 4 * v16) = a2;
+    *(v7 + 4 * v27) = a2;
     if (a3)
     {
-      *(v6 + 8 * v16) = _Block_copy(a3);
+      *(v6 + 8 * v27) = _Block_copy(a3);
       changelist.ident = a2;
       *&changelist.filter = 393215;
       changelist.data = 0;
-      changelist.udata = v16;
+      changelist.udata = v27;
       if (kevent(*(a1 + 32), &changelist, 1, 0, 0, 0) < 0)
       {
-        v19 = *__error();
-        v20 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v39 = *__error();
+        v40 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109632;
-          *v29 = v16;
-          *&v29[4] = 1024;
-          *&v29[6] = a2;
-          LOWORD(v30) = 1024;
-          *(&v30 + 2) = v19;
-          _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, ADD|ENABLE) failed with error(%d)", buf, 0x14u);
+          *v76 = v27;
+          *&v76[4] = 1024;
+          *&v76[6] = a2;
+          LOWORD(v77) = 1024;
+          *(&v77 + 2) = v39;
+          _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, ADD|ENABLE) failed with error(%d)", buf, 0x14u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, ADD|ENABLE) failed with error(%d)");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, ADD|ENABLE) failed with error(%d)", v41, v42, v43, v44, v45, v27);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, ADD|ENABLE) failed with error(%d)");
+              _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, ADD|ENABLE) failed with error(%d)", v46, v47, v48, v49, v27);
             }
           }
         }
@@ -1830,39 +1153,39 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
 
     else
     {
-      *(v6 + 8 * v16) = 0;
+      *(v6 + 8 * v27) = 0;
     }
 
     if (a4)
     {
-      *(v8 + 8 * v16) = _Block_copy(a4);
+      *(v8 + 8 * v27) = _Block_copy(a4);
       changelist.ident = a2;
       *&changelist.filter = 393214;
       changelist.data = 0;
-      changelist.udata = v16;
+      changelist.udata = v27;
       if (kevent(*(a1 + 32), &changelist, 1, 0, 0, 0) < 0)
       {
-        v21 = *__error();
-        v22 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v50 = *__error();
+        v51 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109632;
-          *v29 = v16;
-          *&v29[4] = 1024;
-          *&v29[6] = a2;
-          LOWORD(v30) = 1024;
-          *(&v30 + 2) = v21;
-          _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, ADD|ENABLE) failed with error(%d)", buf, 0x14u);
+          *v76 = v27;
+          *&v76[4] = 1024;
+          *&v76[6] = a2;
+          LOWORD(v77) = 1024;
+          *(&v77 + 2) = v50;
+          _os_log_impl(&dword_1A7AD9000, v51, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, ADD|ENABLE) failed with error(%d)", buf, 0x14u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, ADD|ENABLE) failed with error(%d)");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, ADD|ENABLE) failed with error(%d)", v52, v53, v54, v55, v56, v27);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, ADD|ENABLE) failed with error(%d)");
+              _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, ADD|ENABLE) failed with error(%d)", v57, v58, v59, v60, v27);
             }
           }
         }
@@ -1871,7 +1194,7 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
 
     else
     {
-      *(v8 + 8 * v16) = 0;
+      *(v8 + 8 * v27) = 0;
     }
 
     if (*(a1 + 36) < a2)
@@ -1879,28 +1202,28 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
       *(a1 + 36) = a2;
     }
 
-    if (v16 == v5)
+    if (v27 == v5)
     {
       ++*(a1 + 44);
     }
 
-    v23 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v61 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(a1 + 44);
-      v25 = *(v6 + 8 * v16);
-      v26 = *(v8 + 8 * v16);
+      v62 = *(a1 + 44);
+      v63 = *(v6 + 8 * v27);
+      v64 = *(v8 + 8 * v27);
       *buf = 67110144;
-      *v29 = a2;
-      *&v29[4] = 1024;
-      *&v29[6] = v16;
-      LOWORD(v30) = 1024;
-      *(&v30 + 2) = v24;
-      HIWORD(v30) = 2048;
-      v31 = v25;
-      v32 = 2048;
-      v33 = v26;
-      _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "added socket %d at %d (count:%d) with readBlock %p writeBlock %p", buf, 0x28u);
+      *v76 = a2;
+      *&v76[4] = 1024;
+      *&v76[6] = v27;
+      LOWORD(v77) = 1024;
+      *(&v77 + 2) = v62;
+      HIWORD(v77) = 2048;
+      v78 = v63;
+      v79 = 2048;
+      v80 = v64;
+      _os_log_impl(&dword_1A7AD9000, v61, OS_LOG_TYPE_DEFAULT, "added socket %d at %d (count:%d) with readBlock %p writeBlock %p", buf, 0x28u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
@@ -1909,11 +1232,11 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"added socket %d at %d (count:%d) with readBlock %p writeBlock %p");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"TPThread", @"IDS", @"added socket %d at %d (count:%d) with readBlock %p writeBlock %p", v65, v66, v67, v68, v69, a2);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"added socket %d at %d (count:%d) with readBlock %p writeBlock %p");
+          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"added socket %d at %d (count:%d) with readBlock %p writeBlock %p", v70, v71, v72, v73, a2);
         }
       }
     }
@@ -1922,7 +1245,7 @@ uint64_t sub_1A7C9A670(uint64_t a1, unsigned int a2, const void *a3, const void 
   return result;
 }
 
-uint64_t IDSTransportThreadAddSocketWithPriority(unsigned int a1, const void *a2, const void *a3, uint64_t a4)
+uint64_t IDSTransportThreadAddSocketWithPriority(uint64_t a1, const void *a2, const void *a3, uint64_t a4)
 {
   v7 = &unk_1EB2B8610;
   v8 = &qword_1EB2B8668;
@@ -1949,9 +1272,9 @@ uint64_t IDSTransportThreadAddSocketWithPriority(unsigned int a1, const void *a2
   return sub_1A7C9A670(v9, a1, a2, a3);
 }
 
-uint64_t sub_1A7C9ADAC(uint64_t result, unsigned int a2, char a3)
+uint64_t sub_1A7C9ADAC(uint64_t result, uint64_t a2, char a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v4 = *(result + 44);
   v5 = *(result + 48);
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -1960,12 +1283,12 @@ uint64_t sub_1A7C9ADAC(uint64_t result, unsigned int a2, char a3)
   *&changelist.data = v6;
   if ((a2 & 0x80000000) != 0)
   {
-    v12 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v21 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v19 = a2;
-      _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadSuspendSocket called with bad socket %d", buf, 8u);
+      v55 = a2;
+      _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadSuspendSocket called with bad socket %d", buf, 8u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
@@ -1974,11 +1297,11 @@ uint64_t sub_1A7C9ADAC(uint64_t result, unsigned int a2, char a3)
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadSuspendSocket called with bad socket %d");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadSuspendSocket called with bad socket %d", v22, v23, v24, v25, v26, a2);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadSuspendSocket called with bad socket %d");
+          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadSuspendSocket called with bad socket %d", v27, v28, v29, v30, a2);
         }
       }
     }
@@ -1992,16 +1315,16 @@ LABEL_6:
     {
       v11 = @"YES";
       *buf = 67109634;
-      v19 = a2;
+      v55 = a2;
       if ((a3 & 1) == 0)
       {
         v11 = @"NO";
       }
 
-      v20 = 2112;
-      *v21 = v11;
-      *&v21[8] = 1024;
-      v22 = v4;
+      v56 = 2112;
+      *v57 = v11;
+      *&v57[8] = 1024;
+      v58 = v4;
       _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "suspendSocket(%d, forRead:%@) cannot find socket (count:%d)", buf, 0x18u);
     }
 
@@ -2011,11 +1334,11 @@ LABEL_6:
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"suspendSocket(%d, forRead:%@) cannot find socket (count:%d)");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"TPThread", @"IDS", @"suspendSocket(%d, forRead:%@) cannot find socket (count:%d)", v12, v13, v14, v15, v16, a2);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"suspendSocket(%d, forRead:%@) cannot find socket (count:%d)");
+          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"suspendSocket(%d, forRead:%@) cannot find socket (count:%d)", v17, v18, v19, v20, a2);
         }
       }
     }
@@ -2027,8 +1350,7 @@ LABEL_6:
     v9 = 0;
     while (*(v5 + 4 * v9) != a2)
     {
-      v9 = v9 + 1;
-      if (v4 == v9)
+      if (v4 == ++v9)
       {
         goto LABEL_6;
       }
@@ -2043,17 +1365,17 @@ LABEL_6:
       result = kevent(*(result + 32), &changelist, 1, 0, 0, 0);
       if ((result & 0x80000000) != 0)
       {
-        v13 = *__error();
-        v14 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v31 = *__error();
+        v32 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109632;
-          v19 = v9;
-          v20 = 1024;
-          *v21 = a2;
-          *&v21[4] = 1024;
-          *&v21[6] = v13;
-          _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, DISABLE) failed with error(%d)", buf, 0x14u);
+          v55 = v9;
+          v56 = 1024;
+          *v57 = a2;
+          *&v57[4] = 1024;
+          *&v57[6] = v31;
+          _os_log_impl(&dword_1A7AD9000, v32, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, DISABLE) failed with error(%d)", buf, 0x14u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -2062,11 +1384,11 @@ LABEL_6:
           result = _IDSShouldLogTransport();
           if (result)
           {
-            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, DISABLE) failed with error(%d)");
-            result = _IDSShouldLog();
+            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, DISABLE) failed with error(%d)", v33, v34, v35, v36, v37, v9);
+            result = _IDSShouldLog(0);
             if (result)
             {
-              result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, DISABLE) failed with error(%d)");
+              result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, DISABLE) failed with error(%d)", v38, v39, v40, v41, v9);
             }
           }
         }
@@ -2082,17 +1404,17 @@ LABEL_6:
       result = kevent(*(v8 + 32), &changelist, 1, 0, 0, 0);
       if ((result & 0x80000000) != 0)
       {
-        v15 = *__error();
-        v16 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v42 = *__error();
+        v43 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109632;
-          v19 = v9;
-          v20 = 1024;
-          *v21 = a2;
-          *&v21[4] = 1024;
-          *&v21[6] = v15;
-          _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, DISABLE) failed with error(%d)", buf, 0x14u);
+          v55 = v9;
+          v56 = 1024;
+          *v57 = a2;
+          *&v57[4] = 1024;
+          *&v57[6] = v42;
+          _os_log_impl(&dword_1A7AD9000, v43, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, DISABLE) failed with error(%d)", buf, 0x14u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -2101,11 +1423,11 @@ LABEL_6:
           result = _IDSShouldLogTransport();
           if (result)
           {
-            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, DISABLE) failed with error(%d)");
-            result = _IDSShouldLog();
+            _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, DISABLE) failed with error(%d)", v44, v45, v46, v47, v48, v9);
+            result = _IDSShouldLog(0);
             if (result)
             {
-              result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, DISABLE) failed with error(%d)");
+              result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, DISABLE) failed with error(%d)", v49, v50, v51, v52, v9);
             }
           }
         }
@@ -2118,7 +1440,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t IDSTransportThreadSuspendSocketWithPriority(unsigned int a1, char a2, uint64_t a3)
+uint64_t IDSTransportThreadSuspendSocketWithPriority(uint64_t a1, char a2, uint64_t a3)
 {
   v5 = &unk_1EB2B8610;
   v6 = &qword_1EB2B8668;
@@ -2145,9 +1467,9 @@ uint64_t IDSTransportThreadSuspendSocketWithPriority(unsigned int a1, char a2, u
   return sub_1A7C9ADAC(v7, a1, a2);
 }
 
-uint64_t sub_1A7C9B308(uint64_t result, unsigned int a2, char a3)
+uint64_t sub_1A7C9B308(uint64_t result, uint64_t a2, char a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v4 = *(result + 44);
   v6 = *(result + 48);
   v5 = *(result + 56);
@@ -2158,12 +1480,12 @@ uint64_t sub_1A7C9B308(uint64_t result, unsigned int a2, char a3)
   *&changelist.data = v8;
   if ((a2 & 0x80000000) != 0)
   {
-    v14 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v23 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v21 = a2;
-      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadResumeSocket called with bad socket %d", buf, 8u);
+      v57 = a2;
+      _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadResumeSocket called with bad socket %d", buf, 8u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
@@ -2172,11 +1494,11 @@ uint64_t sub_1A7C9B308(uint64_t result, unsigned int a2, char a3)
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadResumeSocket called with bad socket %d");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadResumeSocket called with bad socket %d", v24, v25, v26, v27, v28, a2);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadResumeSocket called with bad socket %d");
+          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadResumeSocket called with bad socket %d", v29, v30, v31, v32, a2);
         }
       }
     }
@@ -2190,16 +1512,16 @@ LABEL_6:
     {
       v13 = @"YES";
       *buf = 67109634;
-      v21 = a2;
+      v57 = a2;
       if ((a3 & 1) == 0)
       {
         v13 = @"NO";
       }
 
-      v22 = 2112;
-      *v23 = v13;
-      *&v23[8] = 1024;
-      v24 = v4;
+      v58 = 2112;
+      *v59 = v13;
+      *&v59[8] = 1024;
+      v60 = v4;
       _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "resumeSocket(%d, forRead:%@) cannot find socket (count:%d)", buf, 0x18u);
     }
 
@@ -2209,11 +1531,11 @@ LABEL_6:
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"resumeSocket(%d, forRead:%@) cannot find socket (count:%d)");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"TPThread", @"IDS", @"resumeSocket(%d, forRead:%@) cannot find socket (count:%d)", v14, v15, v16, v17, v18, a2);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"resumeSocket(%d, forRead:%@) cannot find socket (count:%d)");
+          return _IDSLogV(0, @"IDSFoundation", @"TPThread", @"resumeSocket(%d, forRead:%@) cannot find socket (count:%d)", v19, v20, v21, v22, a2);
         }
       }
     }
@@ -2225,8 +1547,7 @@ LABEL_6:
     v11 = 0;
     while (*(v6 + 4 * v11) != a2)
     {
-      v11 = v11 + 1;
-      if (v4 == v11)
+      if (v4 == ++v11)
       {
         goto LABEL_6;
       }
@@ -2243,17 +1564,17 @@ LABEL_6:
         result = kevent(*(result + 32), &changelist, 1, 0, 0, 0);
         if ((result & 0x80000000) != 0)
         {
-          v15 = *__error();
-          v16 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v33 = *__error();
+          v34 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109632;
-            v21 = v11;
-            v22 = 1024;
-            *v23 = a2;
-            *&v23[4] = 1024;
-            *&v23[6] = v15;
-            _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, ENABLE) failed with error(%d)", buf, 0x14u);
+            v57 = v11;
+            v58 = 1024;
+            *v59 = a2;
+            *&v59[4] = 1024;
+            *&v59[6] = v33;
+            _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, ENABLE) failed with error(%d)", buf, 0x14u);
           }
 
           result = os_log_shim_legacy_logging_enabled();
@@ -2262,11 +1583,11 @@ LABEL_6:
             result = _IDSShouldLogTransport();
             if (result)
             {
-              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, ENABLE) failed with error(%d)");
-              result = _IDSShouldLog();
+              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, ENABLE) failed with error(%d)", v35, v36, v37, v38, v39, v11);
+              result = _IDSShouldLog(0);
               if (result)
               {
-                result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, ENABLE) failed with error(%d)");
+                result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, ENABLE) failed with error(%d)", v40, v41, v42, v43, v11);
               }
             }
           }
@@ -2285,17 +1606,17 @@ LABEL_6:
         result = kevent(*(v10 + 32), &changelist, 1, 0, 0, 0);
         if ((result & 0x80000000) != 0)
         {
-          v17 = *__error();
-          v18 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v44 = *__error();
+          v45 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109632;
-            v21 = v11;
-            v22 = 1024;
-            *v23 = a2;
-            *&v23[4] = 1024;
-            *&v23[6] = v17;
-            _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, ENABLE) failed with error(%d)", buf, 0x14u);
+            v57 = v11;
+            v58 = 1024;
+            *v59 = a2;
+            *&v59[4] = 1024;
+            *&v59[6] = v44;
+            _os_log_impl(&dword_1A7AD9000, v45, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, ENABLE) failed with error(%d)", buf, 0x14u);
           }
 
           result = os_log_shim_legacy_logging_enabled();
@@ -2304,11 +1625,11 @@ LABEL_6:
             result = _IDSShouldLogTransport();
             if (result)
             {
-              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, ENABLE) failed with error(%d)");
-              result = _IDSShouldLog();
+              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, ENABLE) failed with error(%d)", v46, v47, v48, v49, v50, v11);
+              result = _IDSShouldLog(0);
               if (result)
               {
-                result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, ENABLE) failed with error(%d)");
+                result = _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, ENABLE) failed with error(%d)", v51, v52, v53, v54, v11);
               }
             }
           }
@@ -2322,7 +1643,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t IDSTransportThreadResumeSocketWithPriority(unsigned int a1, char a2, uint64_t a3)
+uint64_t IDSTransportThreadResumeSocketWithPriority(uint64_t a1, char a2, uint64_t a3)
 {
   v5 = &unk_1EB2B8610;
   v6 = &qword_1EB2B8668;
@@ -2349,9 +1670,9 @@ uint64_t IDSTransportThreadResumeSocketWithPriority(unsigned int a1, char a2, ui
   return sub_1A7C9B308(v7, a1, a2);
 }
 
-void sub_1A7C9B87C(uint64_t a1, unsigned int a2)
+void sub_1A7C9B87C(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 44);
   v4 = *(a1 + 48);
   v5 = *(a1 + 56);
@@ -2362,22 +1683,22 @@ void sub_1A7C9B87C(uint64_t a1, unsigned int a2)
   *&changelist.data = v7;
   if ((a2 & 0x80000000) != 0)
   {
-    v14 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v34 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v28 = a2;
-      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadRemoveSocket called with bad socket %d", buf, 8u);
+      *v84 = a2;
+      _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadRemoveSocket called with bad socket %d", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadRemoveSocket called with bad socket %d");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadRemoveSocket called with bad socket %d", v35, v36, v37, v38, v39, a2);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadRemoveSocket called with bad socket %d");
+          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadRemoveSocket called with bad socket %d", v40, v41, v42, v43, a2);
         }
       }
     }
@@ -2393,9 +1714,9 @@ void sub_1A7C9B87C(uint64_t a1, unsigned int a2)
       {
         v11 = *a1;
         *buf = 134218240;
-        *v28 = v11;
-        *&v28[8] = 2048;
-        v29 = pthread_self();
+        *v84 = v11;
+        *&v84[8] = 2048;
+        v85 = pthread_self();
         _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "should remove socket on thread %p, not %p", buf, 0x16u);
       }
 
@@ -2403,12 +1724,14 @@ void sub_1A7C9B87C(uint64_t a1, unsigned int a2)
       {
         if (_IDSShouldLogTransport())
         {
+          v12 = *a1;
           pthread_self();
-          _IDSLogTransport(@"TPThread", @"IDS", @"should remove socket on thread %p, not %p");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TPThread", @"IDS", @"should remove socket on thread %p, not %p", v13, v14, v15, v16, v17, v12);
+          if (_IDSShouldLog(0))
           {
+            v18 = *a1;
             pthread_self();
-            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"should remove socket on thread %p, not %p");
+            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"should remove socket on thread %p, not %p", v19, v20, v21, v22, v18);
           }
         }
       }
@@ -2424,24 +1747,24 @@ void sub_1A7C9B87C(uint64_t a1, unsigned int a2)
     if (v3 < 1)
     {
 LABEL_15:
-      v13 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v24 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v28 = a2;
-        *&v28[4] = 1024;
-        *&v28[6] = v3;
-        _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "removeSocket(%d) cannot find socket (count:%d)", buf, 0xEu);
+        *v84 = a2;
+        *&v84[4] = 1024;
+        *&v84[6] = v3;
+        _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "removeSocket(%d) cannot find socket (count:%d)", buf, 0xEu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TPThread", @"IDS", @"removeSocket(%d) cannot find socket (count:%d)");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TPThread", @"IDS", @"removeSocket(%d) cannot find socket (count:%d)", v25, v26, v27, v28, v29, a2);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"removeSocket(%d) cannot find socket (count:%d)");
+            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"removeSocket(%d) cannot find socket (count:%d)", v30, v31, v32, v33, a2);
           }
         }
       }
@@ -2449,152 +1772,151 @@ LABEL_15:
 
     else
     {
-      v12 = 0;
-      while (v4[v12] != a2)
+      v23 = 0;
+      while (v4[v23] != a2)
       {
-        v12 = v12 + 1;
-        if (v3 == v12)
+        if (v3 == ++v23)
         {
           goto LABEL_15;
         }
       }
 
-      v15 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v44 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(v5 + 8 * v12);
-        v17 = *(v6 + 8 * v12);
+        v45 = *(v5 + 8 * v23);
+        v46 = *(v6 + 8 * v23);
         *buf = 67110144;
-        *v28 = a2;
-        *&v28[4] = 1024;
-        *&v28[6] = v12;
-        LOWORD(v29) = 1024;
-        *(&v29 + 2) = v3 - 1;
-        HIWORD(v29) = 2048;
-        v30 = v16;
-        v31 = 2048;
-        v32 = v17;
-        _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "removing socket %d at %d (count:%d) with readBlock %p writeBlock %p", buf, 0x28u);
+        *v84 = a2;
+        *&v84[4] = 1024;
+        *&v84[6] = v23;
+        LOWORD(v85) = 1024;
+        *(&v85 + 2) = v3 - 1;
+        HIWORD(v85) = 2048;
+        v86 = v45;
+        v87 = 2048;
+        v88 = v46;
+        _os_log_impl(&dword_1A7AD9000, v44, OS_LOG_TYPE_DEFAULT, "removing socket %d at %d (count:%d) with readBlock %p writeBlock %p", buf, 0x28u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TPThread", @"IDS", @"removing socket %d at %d (count:%d) with readBlock %p writeBlock %p");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TPThread", @"IDS", @"removing socket %d at %d (count:%d) with readBlock %p writeBlock %p", v47, v48, v49, v50, v51, a2);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"removing socket %d at %d (count:%d) with readBlock %p writeBlock %p");
+            _IDSLogV(0, @"IDSFoundation", @"TPThread", @"removing socket %d at %d (count:%d) with readBlock %p writeBlock %p", v52, v53, v54, v55, a2);
           }
         }
       }
 
-      v4[v12] = -1;
-      if (*(v5 + 8 * v12))
+      v4[v23] = -1;
+      if (*(v5 + 8 * v23))
       {
         changelist.ident = a2;
         *&changelist.filter = 196607;
         changelist.data = 0;
-        changelist.udata = v12;
+        changelist.udata = v23;
         if (kevent(*(a1 + 32), &changelist, 1, 0, 0, 0) < 0)
         {
-          v18 = *__error();
-          v19 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v56 = *__error();
+          v57 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109632;
-            *v28 = v12;
-            *&v28[4] = 1024;
-            *&v28[6] = a2;
-            LOWORD(v29) = 1024;
-            *(&v29 + 2) = v18;
-            _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, DELETE) failed with error(%d)", buf, 0x14u);
+            *v84 = v23;
+            *&v84[4] = 1024;
+            *&v84[6] = a2;
+            LOWORD(v85) = 1024;
+            *(&v85 + 2) = v56;
+            _os_log_impl(&dword_1A7AD9000, v57, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, READ, DELETE) failed with error(%d)", buf, 0x14u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, DELETE) failed with error(%d)");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, READ, DELETE) failed with error(%d)", v58, v59, v60, v61, v62, v23);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, DELETE) failed with error(%d)");
+                _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, READ, DELETE) failed with error(%d)", v63, v64, v65, v66, v23);
               }
             }
           }
         }
 
-        _Block_release(*(v5 + 8 * v12));
-        *(v5 + 8 * v12) = 0;
+        _Block_release(*(v5 + 8 * v23));
+        *(v5 + 8 * v23) = 0;
       }
 
-      if (*(v6 + 8 * v12))
+      if (*(v6 + 8 * v23))
       {
         changelist.ident = a2;
         *&changelist.filter = 196606;
         changelist.data = 0;
-        changelist.udata = v12;
+        changelist.udata = v23;
         if (kevent(*(a1 + 32), &changelist, 1, 0, 0, 0) < 0)
         {
-          v20 = *__error();
-          v21 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v67 = *__error();
+          v68 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109632;
-            *v28 = v12;
-            *&v28[4] = 1024;
-            *&v28[6] = a2;
-            LOWORD(v29) = 1024;
-            *(&v29 + 2) = v20;
-            _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, DELETE) failed with error(%d)", buf, 0x14u);
+            *v84 = v23;
+            *&v84[4] = 1024;
+            *&v84[6] = a2;
+            LOWORD(v85) = 1024;
+            *(&v85 + 2) = v67;
+            _os_log_impl(&dword_1A7AD9000, v68, OS_LOG_TYPE_DEFAULT, "kevent(fd[%d]=%d, WRITE, DELETE) failed with error(%d)", buf, 0x14u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, DELETE) failed with error(%d)");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TPThread", @"IDS", @"kevent(fd[%d]=%d, WRITE, DELETE) failed with error(%d)", v69, v70, v71, v72, v73, v23);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, DELETE) failed with error(%d)");
+                _IDSLogV(0, @"IDSFoundation", @"TPThread", @"kevent(fd[%d]=%d, WRITE, DELETE) failed with error(%d)", v74, v75, v76, v77, v23);
               }
             }
           }
         }
 
-        _Block_release(*(v6 + 8 * v12));
-        *(v6 + 8 * v12) = 0;
+        _Block_release(*(v6 + 8 * v23));
+        *(v6 + 8 * v23) = 0;
       }
 
       ++*(a1 + 24);
       if (*(a1 + 36) == a2)
       {
-        v22 = *(a1 + 44);
-        v23 = -1;
-        if (v22 >= 1)
+        v78 = *(a1 + 44);
+        v79 = -1;
+        if (v78 >= 1)
         {
           do
           {
-            v25 = *v4++;
-            v24 = v25;
-            if (v25 > v23)
+            v81 = *v4++;
+            v80 = v81;
+            if (v81 > v79)
             {
-              v23 = v24;
+              v79 = v80;
             }
 
-            --v22;
+            --v78;
           }
 
-          while (v22);
+          while (v78);
         }
 
-        *(a1 + 36) = v23;
+        *(a1 + 36) = v79;
       }
     }
   }
 }
 
-void IDSTransportThreadRemoveSocketWithPriority(unsigned int a1, uint64_t a2)
+void IDSTransportThreadRemoveSocketWithPriority(uint64_t a1, uint64_t a2)
 {
   v3 = &unk_1EB2B8610;
   v4 = &qword_1EB2B8668;
@@ -2623,7 +1945,7 @@ void IDSTransportThreadRemoveSocketWithPriority(unsigned int a1, uint64_t a2)
 
 BOOL IDSTransportThreadIsOnPrimaryTransportThread()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v0 = qword_1EB2B8668;
   v1 = pthread_self();
   v2 = OSLogHandleForTransportCategory();
@@ -2636,19 +1958,26 @@ BOOL IDSTransportThreadIsOnPrimaryTransportThread()
     }
 
     *buf = 138412290;
-    v6 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadIsOnPrimaryTransportThread: %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    if (_IDSShouldLogTransport())
+    if (v0 == v1)
     {
-      _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadIsOnPrimaryTransportThread: %@");
-      if (_IDSShouldLog())
-      {
-        _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadIsOnPrimaryTransportThread: %@");
-      }
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadIsOnPrimaryTransportThread: %@", v4, v5, v6, v7, v8, v9);
+    if (_IDSShouldLog(0))
+    {
+      _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadIsOnPrimaryTransportThread: %@", v10, v11, v12, v13, v9);
     }
   }
 
@@ -2657,28 +1986,28 @@ BOOL IDSTransportThreadIsOnPrimaryTransportThread()
 
 void sub_1A7C9C1C4(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = kqueue();
   *(a1 + 32) = v4;
   if (v4 == -1)
   {
-    v8 = *__error();
-    v9 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v17 = *__error();
+    v18 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v13) = v8;
-      _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadInit kqueue failed (%d)", buf, 8u);
+      LODWORD(v35) = v17;
+      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "IDSTransportThreadInit kqueue failed (%d)", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadInit kqueue failed (%d)");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TPThread", @"IDS", @"IDSTransportThreadInit kqueue failed (%d)", v19, v20, v21, v22, v23, v17);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadInit kqueue failed (%d)");
+          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"IDSTransportThreadInit kqueue failed (%d)", v24, v25, v26, v27, v17);
         }
       }
     }
@@ -2702,16 +2031,16 @@ void sub_1A7C9C1C4(uint64_t a1, uint64_t a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v13) = v6;
+        LODWORD(v35) = v6;
         _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "failed to create transport thread (%d)", buf, 8u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TPThread", @"IDS", @"failed to create transport thread (%d)");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TPThread", @"IDS", @"failed to create transport thread (%d)", v8, v9, v10, v11, v12, v6);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"failed to create transport thread (%d)");
+          _IDSLogV(0, @"IDSFoundation", @"TPThread", @"failed to create transport thread (%d)", v13, v14, v15, v16, v6);
         }
       }
 
@@ -2720,18 +2049,18 @@ LABEL_10:
       return;
     }
 
-    v10 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v28 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *a1;
+      v29 = *a1;
       *buf = 134217984;
-      v13 = v11;
-      _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "Created transport thread with tid(%p).", buf, 0xCu);
+      v35 = v29;
+      _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "Created transport thread with tid(%p).", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Created transport thread with tid(%p).");
+      _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Created transport thread with tid(%p).", v30, v31, v32, v33, *a1);
     }
 
     *(a1 + 8) = 1;
@@ -2755,8 +2084,8 @@ double sub_1A7C9C554()
 
 uint64_t sub_1A7C9C5A4(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = 2 * *(a1 + 40);
+  v24 = *MEMORY[0x1E69E9840];
+  v2 = (2 * *(a1 + 40));
   v3 = malloc_type_realloc(*(a1 + 48), 4 * v2, 0x100004052888210uLL);
   if (!v3)
   {
@@ -2764,7 +2093,7 @@ uint64_t sub_1A7C9C5A4(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v11 = v2;
+      v23 = v2;
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "realloc(%d) for fds failed", buf, 8u);
     }
 
@@ -2774,13 +2103,13 @@ uint64_t sub_1A7C9C5A4(uint64_t a1)
       return result;
     }
 
-    result = _IDSShouldLog();
+    result = _IDSShouldLog(0);
     if (!result)
     {
       return result;
     }
 
-    _IDSLogV(0, @"IDSFoundation", @"TPThread", @"realloc(%d) for fds failed");
+    _IDSLogV(0, @"IDSFoundation", @"TPThread", @"realloc(%d) for fds failed", v8, v9, v10, v11, v2);
     return 0;
   }
 
@@ -2788,12 +2117,12 @@ uint64_t sub_1A7C9C5A4(uint64_t a1)
   v4 = malloc_type_realloc(*(a1 + 56), 8 * v2, 0x80040B8603338uLL);
   if (!v4)
   {
-    v8 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v12 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v11 = v2;
-      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "realloc(%d) for readBlocks failed", buf, 8u);
+      v23 = v2;
+      _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "realloc(%d) for readBlocks failed", buf, 8u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
@@ -2802,13 +2131,13 @@ uint64_t sub_1A7C9C5A4(uint64_t a1)
       return result;
     }
 
-    result = _IDSShouldLog();
+    result = _IDSShouldLog(0);
     if (!result)
     {
       return result;
     }
 
-    _IDSLogV(0, @"IDSFoundation", @"TPThread", @"realloc(%d) for readBlocks failed");
+    _IDSLogV(0, @"IDSFoundation", @"TPThread", @"realloc(%d) for readBlocks failed", v13, v14, v15, v16, v2);
     return 0;
   }
 
@@ -2821,21 +2150,21 @@ uint64_t sub_1A7C9C5A4(uint64_t a1)
     return 1;
   }
 
-  v9 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v17 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = v2;
-    _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "realloc(%d) for writeBlocks failed", buf, 8u);
+    v23 = v2;
+    _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "realloc(%d) for writeBlocks failed", buf, 8u);
   }
 
   result = os_log_shim_legacy_logging_enabled();
   if (result)
   {
-    result = _IDSShouldLog();
+    result = _IDSShouldLog(0);
     if (result)
     {
-      _IDSLogV(0, @"IDSFoundation", @"TPThread", @"realloc(%d) for writeBlocks failed");
+      _IDSLogV(0, @"IDSFoundation", @"TPThread", @"realloc(%d) for writeBlocks failed", v18, v19, v20, v21, v2);
       return 0;
     }
   }
@@ -2845,7 +2174,7 @@ uint64_t sub_1A7C9C5A4(uint64_t a1)
 
 double sub_1A7C9C87C(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sub_1A7AFF09C(a1, 3);
   v2 = *a1;
   if (*a1)
@@ -2867,10 +2196,10 @@ double sub_1A7C9C87C(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TPThread", @"IDS", @"Transport thread with tid(%p) stopped.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TPThread", @"IDS", @"Transport thread with tid(%p) stopped.", v5, v6, v7, v8, v9, *a1);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Transport thread with tid(%p) stopped.");
+        _IDSLogV(0, @"IDSFoundation", @"TPThread", @"Transport thread with tid(%p) stopped.", v10, v11, v12, v13, *a1);
       }
     }
   }
@@ -2878,10 +2207,10 @@ double sub_1A7C9C87C(uint64_t a1)
   free(*(a1 + 48));
   free(*(a1 + 56));
   free(*(a1 + 64));
-  v5 = *(a1 + 32);
-  if (v5 != -1)
+  v14 = *(a1 + 32);
+  if (v14 != -1)
   {
-    close(v5);
+    close(v14);
   }
 
   *(a1 + 80) = 0;
@@ -3432,9 +2761,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1A7C9EEA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1A7C9EEA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3577,9 +2906,9 @@ void *sub_1A7CA0268()
   return result;
 }
 
-uint64_t IDSSimpleUInt16List_Init(uint64_t result, int a2)
+uint64_t *IDSSimpleUInt16List_Init(uint64_t *result, int a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -3594,37 +2923,37 @@ uint64_t IDSSimpleUInt16List_Init(uint64_t result, int a2)
       {
         v6 = *v3;
         *buf = 134217984;
-        v9 = v6;
+        v18 = v6;
         _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEBUG, "IDSSimpleUInt16List: initialized to size %lu.", buf, 0xCu);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(1);
         if (result)
         {
-          return _IDSLogV(1, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: initialized to size %lu.");
+          return _IDSLogV(1, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: initialized to size %lu.", v7, v8, v9, v10, *v3);
         }
       }
     }
 
     else
     {
-      v7 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v11 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: failed to initialize.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: failed to initialize.", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: failed to initialize.");
+          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: failed to initialize.", v12, v13, v14, v15, v16);
         }
       }
     }
@@ -3648,17 +2977,17 @@ void *IDSSimpleUInt16List_Destroy(void *result)
     v2 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: list destroyed.", v3, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: list destroyed.", &v7, 2u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
     if (result)
     {
-      result = _IDSShouldLog();
+      result = _IDSShouldLog(0);
       if (result)
       {
-        return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: list destroyed.");
+        return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: list destroyed.", v3, v4, v5, v6, v7);
       }
     }
   }
@@ -3668,7 +2997,7 @@ void *IDSSimpleUInt16List_Destroy(void *result)
 
 uint64_t IDSSimpleUInt16List_AddItem(uint64_t result, unsigned int a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (!result)
   {
     return result;
@@ -3681,8 +3010,8 @@ uint64_t IDSSimpleUInt16List_AddItem(uint64_t result, unsigned int a2)
     if (*result)
     {
 LABEL_23:
-      v10 = *(result + 16);
-      v13 = *(result + 8);
+      v14 = *(result + 16);
+      v21 = *(result + 8);
     }
 
     else
@@ -3691,71 +3020,71 @@ LABEL_23:
       v4 = 0;
       v6 = 0;
 LABEL_16:
-      v9 = malloc_type_realloc(*(result + 16), v7, 0x1000040BDFB0063uLL);
-      if (!v9)
+      v13 = malloc_type_realloc(*(result + 16), v7, 0x1000040BDFB0063uLL);
+      if (!v13)
       {
-        v17 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v33 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: failed to realloc list.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: failed to realloc list.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
         if (result)
         {
-          result = _IDSShouldLog();
+          result = _IDSShouldLog(0);
           if (result)
           {
-            return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: failed to realloc list.");
+            return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: failed to realloc list.", v34, v35, v36, v37, v44);
           }
         }
 
         return result;
       }
 
-      v10 = v9;
-      v11 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = v13;
+      v15 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *v3;
+        v16 = *v3;
         *buf = 134218240;
-        *v21 = v12;
-        *&v21[8] = 2048;
-        *&v21[10] = v6;
-        _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: list size changed from %lu to %lu.", buf, 0x16u);
+        *v46 = v16;
+        *&v46[8] = 2048;
+        *&v46[10] = v6;
+        _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: list size changed from %lu to %lu.", buf, 0x16u);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: list size changed from %lu to %lu.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: list size changed from %lu to %lu.", v17, v18, v19, v20, *v3);
       }
 
-      v3[2] = v10;
+      v3[2] = v14;
       *v3 = v6;
-      v13 = v3[1];
+      v21 = v3[1];
     }
 
-    v10[v4] = a2;
-    v3[1] = v13 + 1;
-    v14 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v14[v4] = a2;
+    v3[1] = v21 + 1;
+    v22 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      v15 = v3[1];
+      v23 = v3[1];
       *buf = 67109376;
-      *v21 = __rev16(a2);
-      *&v21[4] = 2048;
-      *&v21[6] = v15;
-      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEBUG, "IDSSimpleUInt16List: added item %04x, count %lu.", buf, 0x12u);
+      *v46 = __rev16(a2);
+      *&v46[4] = 2048;
+      *&v46[6] = v23;
+      _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEBUG, "IDSSimpleUInt16List: added item %04x, count %lu.", buf, 0x12u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
     if (result)
     {
-      result = _IDSShouldLog();
+      result = _IDSShouldLog(1);
       if (result)
       {
-        return _IDSLogV(1, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: added item %04x, count %lu.");
+        return _IDSLogV(1, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: added item %04x, count %lu.", v24, v25, v26, v27, __rev16(a2));
       }
     }
 
@@ -3766,21 +3095,21 @@ LABEL_16:
   {
     if (*(*(result + 16) + 2 * i) == a2)
     {
-      v16 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v28 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        *v21 = __rev16(a2);
-        _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEBUG, "Error: IDSSimpleUInt16List: item %04x is already in the list, ignore.", buf, 8u);
+        *v46 = __rev16(a2);
+        _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEBUG, "Error: IDSSimpleUInt16List: item %04x is already in the list, ignore.", buf, 8u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(1);
         if (result)
         {
-          return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSSimpleUInt16List: item %04x is already in the list, ignore.");
+          return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSSimpleUInt16List: item %04x is already in the list, ignore.", v29, v30, v31, v32, __rev16(a2));
         }
       }
 
@@ -3795,22 +3124,22 @@ LABEL_16:
 
   if (v4 < 0)
   {
-    v18 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v38 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
-      v19 = *v3;
+      v39 = *v3;
       *buf = 134217984;
-      *v21 = v19;
-      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEBUG, "Error: IDSSimpleUInt16List: 2 * list->listSize overflow, list->listSize = %lu", buf, 0xCu);
+      *v46 = v39;
+      _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEBUG, "Error: IDSSimpleUInt16List: 2 * list->listSize overflow, list->listSize = %lu", buf, 0xCu);
     }
 
     result = os_log_shim_legacy_logging_enabled();
     if (result)
     {
-      result = _IDSShouldLog();
+      result = _IDSShouldLog(1);
       if (result)
       {
-        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSSimpleUInt16List: 2 * list->listSize overflow, list->listSize = %lu");
+        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSSimpleUInt16List: 2 * list->listSize overflow, list->listSize = %lu", v40, v41, v42, v43, *v3);
       }
     }
   }
@@ -3828,17 +3157,17 @@ LABEL_16:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      *v21 = 4 * v4;
+      *v46 = 4 * v4;
       _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Error: IDSSimpleUInt16List: sizeof(uint16_t) * newListSize overflow, sizeOfNewListSize = %lu", buf, 0xCu);
     }
 
     result = os_log_shim_legacy_logging_enabled();
     if (result)
     {
-      result = _IDSShouldLog();
+      result = _IDSShouldLog(1);
       if (result)
       {
-        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSSimpleUInt16List: sizeof(uint16_t) * newListSize overflow, sizeOfNewListSize = %lu");
+        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSSimpleUInt16List: sizeof(uint16_t) * newListSize overflow, sizeOfNewListSize = %lu", v9, v10, v11, v12, 4 * v4);
       }
     }
   }
@@ -3848,7 +3177,7 @@ LABEL_16:
 
 uint64_t IDSSimpleUInt16List_RemoveItem(uint64_t result, unsigned int a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -3877,17 +3206,17 @@ LABEL_9:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v10 = __rev16(a2);
+        v18 = __rev16(a2);
         _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "IDSSimpleUInt16List: cannot find item %04x.", buf, 8u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: cannot find item %04x.");
+          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: cannot find item %04x.", v7, v8, v9, v10, __rev16(a2));
         }
       }
     }
@@ -3896,24 +3225,24 @@ LABEL_9:
     {
       memmove((*(result + 16) + 2 * v5), (*(result + 16) + 2 * v5 + 2), 2 * (v4 + ~v5));
       --*(v3 + 8);
-      v7 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v11 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v8 = *(v3 + 8);
+        v12 = *(v3 + 8);
         *buf = 67109376;
-        v10 = __rev16(a2);
-        v11 = 2048;
-        v12 = v8;
-        _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEBUG, "IDSSimpleUInt16List: removed item %04x, count %lu.", buf, 0x12u);
+        v18 = __rev16(a2);
+        v19 = 2048;
+        v20 = v12;
+        _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEBUG, "IDSSimpleUInt16List: removed item %04x, count %lu.", buf, 0x12u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(1);
         if (result)
         {
-          return _IDSLogV(1, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: removed item %04x, count %lu.");
+          return _IDSLogV(1, @"IDSFoundation", @"GL", @"IDSSimpleUInt16List: removed item %04x, count %lu.", v13, v14, v15, v16, __rev16(a2));
         }
       }
     }
@@ -3977,9 +3306,9 @@ uint64_t IDSSimpleUInt16List_ElementAtIndex(uint64_t result, int a2)
   return result;
 }
 
-uint64_t IDSQRSendInfoList_Init(uint64_t result, int a2)
+uint64_t *IDSQRSendInfoList_Init(uint64_t *result, int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -3999,9 +3328,9 @@ uint64_t IDSQRSendInfoList_Init(uint64_t result, int a2)
           v8 = *v3;
           v9 = **v3;
           *buf = 134218240;
-          v13 = v8;
-          v14 = 2048;
-          v15 = v9;
+          v31 = v8;
+          v32 = 2048;
+          v33 = v9;
           _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_Init: initialized list %p to size %lu.", buf, 0x16u);
         }
 
@@ -4011,11 +3340,11 @@ uint64_t IDSQRSendInfoList_Init(uint64_t result, int a2)
           result = _IDSShouldLogTransport();
           if (result)
           {
-            _IDSLogTransport(@"GL", @"IDS", @"IDSQRSendInfoList_Init: initialized list %p to size %lu.");
-            result = _IDSShouldLog();
+            _IDSLogTransport(@"GL", @"IDS", @"IDSQRSendInfoList_Init: initialized list %p to size %lu.", v10, v11, v12, v13, v14, *v3);
+            result = _IDSShouldLog(0);
             if (result)
             {
-              return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Init: initialized list %p to size %lu.");
+              return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Init: initialized list %p to size %lu.", v15, v16, v17, v18, *v3);
             }
           }
         }
@@ -4023,20 +3352,20 @@ uint64_t IDSQRSendInfoList_Init(uint64_t result, int a2)
 
       else
       {
-        v11 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v24 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_Init: failed to initialize items.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_Init: failed to initialize items.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
         if (result)
         {
-          result = _IDSShouldLog();
+          result = _IDSShouldLog(0);
           if (result)
           {
-            return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Init: failed to initialize items.");
+            return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Init: failed to initialize items.", v25, v26, v27, v28, v29);
           }
         }
       }
@@ -4044,20 +3373,20 @@ uint64_t IDSQRSendInfoList_Init(uint64_t result, int a2)
 
     else
     {
-      v10 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v19 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_Init: failed to initialize list.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_Init: failed to initialize list.", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Init: failed to initialize list.");
+          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Init: failed to initialize list.", v20, v21, v22, v23, v29);
         }
       }
     }
@@ -4068,7 +3397,7 @@ uint64_t IDSQRSendInfoList_Init(uint64_t result, int a2)
 
 void IDSQRSendInfoList_Destroy(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = a1[1];
@@ -4082,16 +3411,16 @@ void IDSQRSendInfoList_Destroy(void *a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v5 = a1;
+      v14 = a1;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_Destroy: list %p destroyed.", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"IDSQRSendInfoList_Destroy: list %p destroyed.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"IDSQRSendInfoList_Destroy: list %p destroyed.", v4, v5, v6, v7, v8, a1);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Destroy: list %p destroyed.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_Destroy: list %p destroyed.", v9, v10, v11, v12, a1);
       }
     }
 
@@ -4101,7 +3430,7 @@ void IDSQRSendInfoList_Destroy(void *a1)
 
 uint64_t IDSQRSendInfoList_AddItemAtIndex(uint64_t result, void *__src, int a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (!result)
   {
     return result;
@@ -4118,9 +3447,9 @@ LABEL_4:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v20 = __src;
-      v21 = 1024;
-      LODWORD(v22) = a3;
+      v50 = __src;
+      v51 = 1024;
+      LODWORD(v52) = a3;
       _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_AddItemAtIndex: added item %p at index %d.", buf, 0x12u);
     }
 
@@ -4130,11 +3459,11 @@ LABEL_4:
       result = _IDSShouldLogTransport();
       if (result)
       {
-        _IDSLogTransport(@"GL", @"IDS", @"IDSQRSendInfoList_AddItemAtIndex: added item %p at index %d.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"IDSQRSendInfoList_AddItemAtIndex: added item %p at index %d.", v9, v10, v11, v12, v13, __src);
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_AddItemAtIndex: added item %p at index %d.");
+          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_AddItemAtIndex: added item %p at index %d.", v14, v15, v16, v17, __src);
         }
       }
     }
@@ -4142,125 +3471,125 @@ LABEL_4:
     return result;
   }
 
-  if ((v6 & 0x8000000000000000) != 0)
+  if (v6 < 0)
   {
-    v10 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v23 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *v5;
+      v24 = *v5;
       *buf = 134217984;
-      v20 = v11;
-      _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEBUG, "Error: IDSQRSendInfoList_AddItemAtIndex: list->listSize * 2 overflow, list->listSize = %lu", buf, 0xCu);
+      v50 = v24;
+      _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEBUG, "Error: IDSQRSendInfoList_AddItemAtIndex: list->listSize * 2 overflow, list->listSize = %lu", buf, 0xCu);
     }
 
     result = os_log_shim_legacy_logging_enabled();
     if (result)
     {
-      result = _IDSShouldLog();
+      result = _IDSShouldLog(1);
       if (result)
       {
-        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSQRSendInfoList_AddItemAtIndex: list->listSize * 2 overflow, list->listSize = %lu");
+        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSQRSendInfoList_AddItemAtIndex: list->listSize * 2 overflow, list->listSize = %lu", v25, v26, v27, v28, *v5);
       }
     }
   }
 
   else if (a3 == 0x7FFFFFFF)
   {
-    v9 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v18 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEBUG, "Error: IDSQRSendInfoList_AddItemAtIndex: itemIndex = INT_MAX", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEBUG, "Error: IDSQRSendInfoList_AddItemAtIndex: itemIndex = INT_MAX", buf, 2u);
     }
 
     result = os_log_shim_legacy_logging_enabled();
     if (result)
     {
-      result = _IDSShouldLog();
+      result = _IDSShouldLog(1);
       if (result)
       {
-        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSQRSendInfoList_AddItemAtIndex: itemIndex = INT_MAX");
+        return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSQRSendInfoList_AddItemAtIndex: itemIndex = INT_MAX", v19, v20, v21, v22, v48);
       }
     }
   }
 
   else
   {
-    v12 = 2 * v6;
-    if (v12 <= a3 + 1)
+    v29 = 2 * v6;
+    if (v29 <= a3 + 1)
     {
-      v13 = a3 + 1;
+      v30 = a3 + 1;
     }
 
     else
     {
-      v13 = v12;
+      v30 = v29;
     }
 
-    if (is_mul_ok(v13, 0x168uLL))
+    if (is_mul_ok(v30, 0x168uLL))
     {
-      v15 = malloc_type_realloc(*(result + 8), 360 * v13, 0x1000040A2B0AFECuLL);
-      if (v15)
+      v36 = malloc_type_realloc(*(result + 8), 360 * v30, 0x1000040A2B0AFECuLL);
+      if (v36)
       {
-        v7 = v15;
-        v16 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v7 = v36;
+        v37 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = *v5;
+          v38 = *v5;
           *buf = 134218240;
-          v20 = v17;
-          v21 = 2048;
-          v22 = v13;
-          _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_AddItemAtIndex: list size changed from %lu to %lu.", buf, 0x16u);
+          v50 = v38;
+          v51 = 2048;
+          v52 = v30;
+          _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_AddItemAtIndex: list size changed from %lu to %lu.", buf, 0x16u);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_AddItemAtIndex: list size changed from %lu to %lu.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_AddItemAtIndex: list size changed from %lu to %lu.", v39, v40, v41, v42, *v5);
         }
 
-        *v5 = v13;
+        *v5 = v30;
         v5[1] = v7;
         goto LABEL_4;
       }
 
-      v18 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v43 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_AddItemAtIndex: failed to realloc list.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v43, OS_LOG_TYPE_DEFAULT, "IDSQRSendInfoList_AddItemAtIndex: failed to realloc list.", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(0);
         if (result)
         {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_AddItemAtIndex: failed to realloc list.");
+          return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRSendInfoList_AddItemAtIndex: failed to realloc list.", v44, v45, v46, v47, v48);
         }
       }
     }
 
     else
     {
-      v14 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v31 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v20 = 360;
-        v21 = 2048;
-        v22 = v13;
-        _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEBUG, "Error: IDSQRSendInfoList_AddItemAtIndex: sizeof(IDSQRSendInfo) * newListSize overflow, sizeof(IDSQRSendInfo) = %lu, newListSize = %lu", buf, 0x16u);
+        v50 = 360;
+        v51 = 2048;
+        v52 = v30;
+        _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEBUG, "Error: IDSQRSendInfoList_AddItemAtIndex: sizeof(IDSQRSendInfo) * newListSize overflow, sizeof(IDSQRSendInfo) = %lu, newListSize = %lu", buf, 0x16u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
       if (result)
       {
-        result = _IDSShouldLog();
+        result = _IDSShouldLog(1);
         if (result)
         {
-          return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSQRSendInfoList_AddItemAtIndex: sizeof(IDSQRSendInfo) * newListSize overflow, sizeof(IDSQRSendInfo) = %lu, newListSize = %lu");
+          return _IDSLogV(1, @"IDSFoundation", @"GL", @"Error: IDSQRSendInfoList_AddItemAtIndex: sizeof(IDSQRSendInfo) * newListSize overflow, sizeof(IDSQRSendInfo) = %lu, newListSize = %lu", v32, v33, v34, v35, 360);
         }
       }
     }
@@ -4503,7 +3832,7 @@ uint64_t GLUtilStunErrorToGlobalLinkError(int a1)
 
 double GLUtilNATCheckTimeout()
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v0 = +[IDSServerBag sharedInstance];
   v1 = [v0 objectForKey:@"gk-p2p-nat-type-timeout"];
 
@@ -4516,7 +3845,7 @@ double GLUtilNATCheckTimeout()
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v8 = *&v3;
+      v26 = *&v3;
       _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "got commnat timeout: %f(s)", buf, 0xCu);
     }
 
@@ -4524,10 +3853,10 @@ double GLUtilNATCheckTimeout()
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"got commnat timeout: %f(s)");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"got commnat timeout: %f(s)", v5, v6, v7, v8, v9, *&v3);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"got commnat timeout: %f(s)");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"got commnat timeout: %f(s)", v10, v11, v12, v13, *&v3);
         }
       }
     }
@@ -4535,12 +3864,12 @@ double GLUtilNATCheckTimeout()
 
   else
   {
-    v5 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v14 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v8 = @"gk-p2p-nat-type-timeout";
-      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "failed to get bag entry with %@ key", buf, 0xCu);
+      v26 = @"gk-p2p-nat-type-timeout";
+      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "failed to get bag entry with %@ key", buf, 0xCu);
     }
 
     v3 = 0.0;
@@ -4548,10 +3877,10 @@ double GLUtilNATCheckTimeout()
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"failed to get bag entry with %@ key");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"failed to get bag entry with %@ key", v15, v16, v17, v18, v19, @"gk-p2p-nat-type-timeout");
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get bag entry with %@ key");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get bag entry with %@ key", v20, v21, v22, v23, @"gk-p2p-nat-type-timeout");
         }
       }
     }
@@ -4560,9 +3889,9 @@ double GLUtilNATCheckTimeout()
   return v3;
 }
 
-uint64_t GLUtilGetDefaultInterface(_DWORD *a1, char *a2, _BYTE *a3)
+uint64_t GLUtilGetDefaultInterface(unsigned int *a1, char *a2, unsigned __int8 *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v6 = +[IDSNWPathUtils sharedInstance];
   v7 = [v6 getDefaultPath];
 
@@ -4574,9 +3903,9 @@ uint64_t GLUtilGetDefaultInterface(_DWORD *a1, char *a2, _BYTE *a3)
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v24 = v7;
-      v25 = 1024;
-      v26 = v16;
+      v42 = v7;
+      v43 = 1024;
+      v44 = v16;
       _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "no default path is available (path:%@, status:%d).", buf, 0x12u);
     }
 
@@ -4584,10 +3913,10 @@ uint64_t GLUtilGetDefaultInterface(_DWORD *a1, char *a2, _BYTE *a3)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"no default path is available (path:%@, status:%d).");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"no default path is available (path:%@, status:%d).", v18, v19, v20, v21, v22, v7);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"no default path is available (path:%@, status:%d).");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"no default path is available (path:%@, status:%d).", v23, v24, v25, v26, v7);
         }
       }
     }
@@ -4605,30 +3934,30 @@ uint64_t GLUtilGetDefaultInterface(_DWORD *a1, char *a2, _BYTE *a3)
   v13 = [v7 usesInterfaceType:2];
   if ((v10 & 0x80000000) != 0 || !v12)
   {
-    v19 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v28 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [v7 privateDescription];
+      v29 = [v7 privateDescription];
       *buf = 138412802;
-      v24 = v12;
-      v25 = 1024;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v20;
-      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "invalid default interface [%@:%d], %@.", buf, 0x1Cu);
+      v42 = v12;
+      v43 = 1024;
+      v44 = v10;
+      v45 = 2112;
+      v46 = v29;
+      _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "invalid default interface [%@:%d], %@.", buf, 0x1Cu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v21 = [v7 privateDescription];
-        _IDSLogTransport(@"GL", @"IDS", @"invalid default interface [%@:%d], %@.");
+        v39 = [v7 privateDescription];
+        _IDSLogTransport(@"GL", @"IDS", @"invalid default interface [%@:%d], %@.", v30, v31, v32, v33, v34, v12);
 
-        if (_IDSShouldLog())
+        if (_IDSShouldLog(0))
         {
-          v22 = [v7 privateDescription];
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid default interface [%@:%d], %@.");
+          v40 = [v7 privateDescription];
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid default interface [%@:%d], %@.", v35, v36, v37, v38, v12);
         }
       }
     }
@@ -4962,7 +4291,7 @@ LABEL_11:
   return v2;
 }
 
-uint64_t GLUtilGetFirstUnusedInterface(void *a1, void *a2, void *a3, _DWORD *a4, char *a5, char a6)
+uint64_t GLUtilGetFirstUnusedInterface(void *a1, void *a2, void *a3, unsigned int *a4, char *a5, char a6)
 {
   v49 = *MEMORY[0x1E69E9840];
   v38 = a1;
@@ -5017,7 +4346,7 @@ LABEL_8:
         v20 = [v18 local];
         v21 = [v20 index];
 
-        if (((a6 & 1) != 0 || [v18 isRelayStunCandidatePair] && (objc_msgSend(v18, "isSelfQRSession") & 1) == 0) && v21 == v12 && (v19 - 1) <= 3)
+        if (((a6 & 1) != 0 || objc_msgSend_isRelayStunCandidatePair(v18) && ([v18 isSelfQRSession] & 1) == 0) && v21 == v12 && (v19 - 1) <= 3)
         {
           if (!v38)
           {
@@ -5156,7 +4485,7 @@ id GLUtilCreateRelayCandidateForLinkEngine(uint64_t a1, int a2, uint64_t a3)
 
 id GLUtilCreateLocalCandidateForLinkEngine(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 address];
   v3 = [v2 sa];
@@ -5193,9 +4522,9 @@ id GLUtilCreateLocalCandidateForLinkEngine(void *a1)
     v8 = IDSRadioAccessTechnologyToString(v6);
     v9 = [v1 name];
     *buf = 136315394;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
+    v28 = v8;
+    v29 = 2112;
+    v30 = v9;
     _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "setting RAT %s for interface [%@].", buf, 0x16u);
   }
 
@@ -5204,38 +4533,36 @@ id GLUtilCreateLocalCandidateForLinkEngine(void *a1)
     if (_IDSShouldLogTransport())
     {
       v10 = IDSRadioAccessTechnologyToString(v6);
-      [v1 name];
-      v17 = v16 = v10;
-      _IDSLogTransport(@"GL", @"IDS", @"setting RAT %s for interface [%@].");
+      v25 = [v1 name];
+      _IDSLogTransport(@"GL", @"IDS", @"setting RAT %s for interface [%@].", v11, v12, v13, v14, v15, v10);
 
-      if (_IDSShouldLog())
+      if (_IDSShouldLog(0))
       {
-        v11 = IDSRadioAccessTechnologyToString(v6);
-        [v1 name];
-        v17 = v16 = v11;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"setting RAT %s for interface [%@].");
+        v16 = IDSRadioAccessTechnologyToString(v6);
+        v26 = [v1 name];
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"setting RAT %s for interface [%@].", v17, v18, v19, v20, v16);
       }
     }
   }
 
-  v12 = +[IDSStunCandidate candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:](IDSStunCandidate, "candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:", 3, 0, v6, 1280, [v1 index], v3, v3);
-  [v12 setDelegatedIndex:{objc_msgSend(v1, "delegatedIndex")}];
-  v13 = [v1 name];
-  [v12 setInterfaceName:v13];
+  v21 = +[IDSStunCandidate candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:](IDSStunCandidate, "candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:", 3, 0, v6, 1280, [v1 index], v3, v3);
+  [v21 setDelegatedIndex:{objc_msgSend(v1, "delegatedIndex")}];
+  v22 = [v1 name];
+  [v21 setInterfaceName:v22];
 
-  v14 = [v1 delegatedName];
-  [v12 setDelegatedInterfaceName:v14];
+  v23 = [v1 delegatedName];
+  [v21 setDelegatedInterfaceName:v23];
 
-  return v12;
+  return v21;
 }
 
 id GLUtilCreateRelayCandidatePair(void *a1, void *a2, void *a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, uint64_t a8, void *a9)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v13 = a1;
-  v36 = a2;
+  v55 = a2;
   v14 = a3;
-  v37 = a9;
+  v56 = a9;
   if (a8 == 3)
   {
     v15 = 896;
@@ -5256,7 +4583,7 @@ id GLUtilCreateRelayCandidatePair(void *a1, void *a2, void *a3, uint64_t a4, uns
     v16 = v15;
   }
 
-  v38 = [IDSStunCandidate candidateWithType:3 transport:a8 radioAccessTechnology:0 mtu:1280 - GLUtilGetLinkOverhead(v16 | 0x1Au) index:0xFFFFFFFFLL address:0 external:a4];
+  v57 = [IDSStunCandidate candidateWithType:3 transport:a8 radioAccessTechnology:0 mtu:1280 - GLUtilGetLinkOverhead(v16 | 0x1Au) index:0xFFFFFFFFLL address:0 external:a4];
   v17 = [v14 address];
   v18 = [v17 sa];
 
@@ -5293,9 +4620,9 @@ id GLUtilCreateRelayCandidatePair(void *a1, void *a2, void *a3, uint64_t a4, uns
     v23 = IDSRadioAccessTechnologyToString(v21);
     v24 = [v14 name];
     *buf = 136315394;
-    v40 = v23;
-    v41 = 2112;
-    v42 = v24;
+    v59 = v23;
+    v60 = 2112;
+    v61 = v24;
     _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "setting RAT %s for interface [%@].", buf, 0x16u);
   }
 
@@ -5304,58 +4631,56 @@ id GLUtilCreateRelayCandidatePair(void *a1, void *a2, void *a3, uint64_t a4, uns
     if (_IDSShouldLogTransport())
     {
       v25 = IDSRadioAccessTechnologyToString(v21);
-      v33 = [v14 name];
-      _IDSLogTransport(@"GL", @"IDS", @"setting RAT %s for interface [%@].");
+      v51 = [v14 name];
+      _IDSLogTransport(@"GL", @"IDS", @"setting RAT %s for interface [%@].", v26, v27, v28, v29, v30, v25);
 
-      if (_IDSShouldLog())
+      if (_IDSShouldLog(0))
       {
-        IDSRadioAccessTechnologyToString(v21);
-        v33 = [v14 name];
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"setting RAT %s for interface [%@].");
+        v31 = IDSRadioAccessTechnologyToString(v21);
+        v52 = [v14 name];
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"setting RAT %s for interface [%@].", v32, v33, v34, v35, v31);
       }
     }
   }
 
   if (*(v18 + 1) == 30)
   {
-    v26 = 2;
+    v36 = 2;
   }
 
   else
   {
-    v26 = 1;
+    v36 = 1;
   }
 
-  v27 = +[IDSStunCandidate candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:](IDSStunCandidate, "candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:", 3, a8, v21, GLUtilGetLocalMTU(v16 | v26 | 0x20u, v19), [v14 index], v18, v18);
-  v28 = [v13 relaySessionID];
-  v29 = [IDSStunCandidatePair candidatePairWithLocalCandidate:v27 remoteCandidate:v38 sessionID:v28 delegate:v37];
+  v37 = +[IDSStunCandidate candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:](IDSStunCandidate, "candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:", 3, a8, v21, GLUtilGetLocalMTU(v16 | v36 | 0x20u, v19), [v14 index], v18, v18);
+  v38 = [v13 relaySessionID];
+  v39 = [IDSStunCandidatePair candidatePairWithLocalCandidate:v37 remoteCandidate:v57 sessionID:v38 delegate:v56];
 
-  v30 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v40 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = v13;
-    _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "GLUtilCreateRelayCandidatePair: setPropertiesWithRelaySessionInfo, qrSessionInfo = %@", buf, 0xCu);
+    v59 = v13;
+    _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "GLUtilCreateRelayCandidatePair: setPropertiesWithRelaySessionInfo, qrSessionInfo = %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      v32 = v13;
-      _IDSLogTransport(@"GL", @"IDS", @"GLUtilCreateRelayCandidatePair: setPropertiesWithRelaySessionInfo, qrSessionInfo = %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"GLUtilCreateRelayCandidatePair: setPropertiesWithRelaySessionInfo, qrSessionInfo = %@", v41, v42, v43, v44, v45, v13);
+      if (_IDSShouldLog(0))
       {
-        v32 = v13;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilCreateRelayCandidatePair: setPropertiesWithRelaySessionInfo, qrSessionInfo = %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilCreateRelayCandidatePair: setPropertiesWithRelaySessionInfo, qrSessionInfo = %@", v46, v47, v48, v49, v13);
       }
     }
   }
 
-  [v29 setPropertiesWithRelaySessionInfo:v13 sessionInfoDict:v36 enableSKE:{a7, v32, v33}];
-  [v29 setIsAcceptedRelaySession:a5];
+  [v39 setPropertiesWithRelaySessionInfo:v13 sessionInfoDict:v55 enableSKE:a7];
+  [v39 setIsAcceptedRelaySession:a5];
 
-  return v29;
+  return v39;
 }
 
 void *GLUtilGetCandidatePairByLinkID(int a1, void *a2, uint64_t a3, int a4, void *a5)
@@ -5413,7 +4738,7 @@ LABEL_13:
   return a2;
 }
 
-void GLUtilGetLinkInformation(void *a1, uint64_t a2, _DWORD *a3, _BYTE *a4, void *a5)
+void GLUtilGetLinkInformation(void *a1, void *a2, _DWORD *a3, _BYTE *a4, void *a5)
 {
   v28 = *MEMORY[0x1E69E9840];
   v7 = a1;
@@ -5446,7 +4771,7 @@ void GLUtilGetLinkInformation(void *a1, uint64_t a2, _DWORD *a3, _BYTE *a4, void
       v14 = *(*(&v23 + 1) + 8 * i);
       if (!v7)
       {
-        if ([v14 isRelayStunCandidatePair] & 1) == 0 || (objc_msgSend(v14, "isSelfQRSession"))
+        if (objc_msgSend_isRelayStunCandidatePair(v14) & 1) == 0 || ([v14 isSelfQRSession])
         {
           continue;
         }
@@ -5469,7 +4794,7 @@ LABEL_14:
       }
 
       v15 = [v14 sessionID];
-      if (([v7 isEqualToString:v15] & 1) == 0 || (objc_msgSend(v14, "isRelayStunCandidatePair") & 1) == 0)
+      if (([v7 isEqualToString:v15] & 1) == 0 || (objc_msgSend_isRelayStunCandidatePair(v14) & 1) == 0)
       {
 
         continue;
@@ -5567,7 +4892,7 @@ uint64_t GLUtilHasRelayCandidatePairConnected(void *a1, void *a2)
         }
 
         v8 = *(*(&v12 + 1) + 8 * i);
-        if ([v8 isRelayStunCandidatePair])
+        if (objc_msgSend_isRelayStunCandidatePair(v8, v12))
         {
           if ([v8 state] == 4)
           {
@@ -5619,7 +4944,7 @@ uint64_t GLUtilHasRelayCandidatePairSucceededOrConnected(void *a1, void *a2, int
         }
 
         v11 = *(*(&v18 + 1) + 8 * i);
-        if ([v11 isRelayStunCandidatePair] && (objc_msgSend(v11, "state") == 3 || objc_msgSend(v11, "state") == 4))
+        if (objc_msgSend_isRelayStunCandidatePair(v11, v18) && ([v11 state] == 3 || objc_msgSend(v11, "state") == 4))
         {
           v12 = [v11 local];
           v13 = [v12 radioAccessTechnology];
@@ -5676,7 +5001,7 @@ uint64_t GLUtilHasSharedRelayCandidatePairSucceededOrConnected(void *a1, void *a
         v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 allocateType] != 2)
         {
-          if ([v8 isRelayStunCandidatePair])
+          if (objc_msgSend_isRelayStunCandidatePair(v8))
           {
             v9 = [v8 sessionID];
             v10 = [v9 isEqualToString:v3];
@@ -5733,7 +5058,7 @@ uint64_t GLUtilHasNonSharedRelayCandidatePair(void *a1, void *a2)
         v8 = *(*(&v12 + 1) + 8 * i);
         if (([v8 isSharedQRSession] & 1) == 0)
         {
-          if ([v8 isRelayStunCandidatePair])
+          if (objc_msgSend_isRelayStunCandidatePair(v8))
           {
             if ([v8 state])
             {
@@ -5895,7 +5220,7 @@ id GLUtilGetDifferentRelayCandidatePairSucceeded(void *a1, void *a2)
 
         v8 = *(*(&v20 + 1) + 8 * i);
         v9 = [v8 state];
-        if ([v8 isRelayStunCandidatePair])
+        if (objc_msgSend_isRelayStunCandidatePair(v8))
         {
           v10 = (v9 - 3) > 1;
         }
@@ -5973,7 +5298,7 @@ id GLUtilGetRelayCandidatePairNotSucceededForOppositeIPVersion(void *a1, void *a
 
         v8 = *(*(&v25 + 1) + 8 * i);
         v9 = [v8 state];
-        if ([v8 isRelayStunCandidatePair])
+        if (objc_msgSend_isRelayStunCandidatePair(v8))
         {
           v10 = (v9 - 1) > 1;
         }
@@ -6040,51 +5365,51 @@ LABEL_21:
 
 uint64_t GLUtilSelectStunTransport(void *a1, uint64_t a2, int a3, int a4, int a5, int a6, void *a7, unint64_t a8)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v15 = a1;
   v16 = a7;
   if ((a2 - 3) > 1)
   {
-    v35 = 0;
-    v34 = -86;
-    v19 = +[IDSServerBag sharedInstance];
-    v20 = [v19 objectForKey:@"ids-fallback-to-tcp-first"];
+    v53 = 0;
+    v52 = -86;
+    v28 = +[IDSServerBag sharedInstance];
+    v29 = [v28 objectForKey:@"ids-fallback-to-tcp-first"];
 
-    v21 = [v20 BOOLValue];
-    v22 = 3;
-    if (!v21)
+    v30 = [v29 BOOLValue];
+    v31 = 3;
+    if (!v30)
     {
-      v22 = 4;
+      v31 = 4;
     }
 
-    v33 = v22;
+    v51 = v31;
     if (a3)
     {
       HasRelayCandidatePairConnected = GLUtilHasRelayCandidatePairConnected(v15, v16);
       a2 = 2;
       if (a8 <= 3 && (HasRelayCandidatePairConnected & 1) == 0)
       {
-        GLUtilGetLinkInformation(v15, 2, &v35, 0, v16);
+        GLUtilGetLinkInformation(v15, 2, &v53, 0, v16);
         a2 = 2;
-        if (v35)
+        if (v53)
         {
           if ((a6 & 1) == 0)
           {
-            GLUtilGetLinkInformation(v15, v33, &v35, 0, v16);
-            v24 = 3;
-            if (v21)
+            GLUtilGetLinkInformation(v15, v51, &v53, 0, v16);
+            v33 = 3;
+            if (v30)
             {
-              v24 = 4;
+              v33 = 4;
             }
 
-            if (v35)
+            if (v53)
             {
-              a2 = v24;
+              a2 = v33;
             }
 
             else
             {
-              a2 = v33;
+              a2 = v51;
             }
           }
         }
@@ -6093,89 +5418,89 @@ uint64_t GLUtilSelectStunTransport(void *a1, uint64_t a2, int a3, int a4, int a5
 
     else
     {
-      v25 = GLUtilHasRelayCandidatePairConnected(0, v16);
+      v34 = GLUtilHasRelayCandidatePairConnected(0, v16);
       if (a4 && !a5)
       {
         goto LABEL_45;
       }
 
-      GLUtilGetLinkInformation(0, 2, &v35, &v34, v16);
-      v26 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      GLUtilGetLinkInformation(0, 2, &v53, &v52, v16);
+      v35 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = @"NO";
-        if (v34)
+        v36 = @"NO";
+        if (v52)
         {
-          v28 = @"YES";
+          v37 = @"YES";
         }
 
         else
         {
-          v28 = @"NO";
+          v37 = @"NO";
         }
 
         *buf = 67109890;
-        if (v25)
+        if (v34)
         {
-          v29 = @"YES";
+          v38 = @"YES";
         }
 
         else
         {
-          v29 = @"NO";
+          v38 = @"NO";
         }
 
-        *v37 = v35;
-        *&v37[4] = 2112;
+        *v55 = v53;
+        *&v55[4] = 2112;
         if (a6)
         {
-          v27 = @"YES";
+          v36 = @"YES";
         }
 
-        *&v37[6] = v28;
-        v38 = 2112;
-        v39 = v29;
-        v40 = 2112;
-        v41 = v27;
-        _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "linkAttempted: %d, linkConnected: %@, isQRConnected: %@, retryAllocbind: %@", buf, 0x26u);
+        *&v55[6] = v37;
+        v56 = 2112;
+        v57 = v38;
+        v58 = 2112;
+        v59 = v36;
+        _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "linkAttempted: %d, linkConnected: %@, isQRConnected: %@, retryAllocbind: %@", buf, 0x26u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"linkAttempted: %d, linkConnected: %@, isQRConnected: %@, retryAllocbind: %@");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"linkAttempted: %d, linkConnected: %@, isQRConnected: %@, retryAllocbind: %@", v39, v40, v41, v42, v43, v53);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"linkAttempted: %d, linkConnected: %@, isQRConnected: %@, retryAllocbind: %@");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"linkAttempted: %d, linkConnected: %@, isQRConnected: %@, retryAllocbind: %@", v44, v45, v46, v47, v53);
           }
         }
       }
 
-      if (v35)
+      if (v53)
       {
-        v30 = v25 | v34;
+        v48 = v34 | v52;
         a2 = 2;
-        if ((v30 & 1) == 0 && (a6 & 1) == 0)
+        if ((v48 & 1) == 0 && (a6 & 1) == 0)
         {
-          GLUtilGetLinkInformation(0, v33, &v35, &v34, v16);
-          a2 = v33;
-          if (v35)
+          GLUtilGetLinkInformation(0, v51, &v53, &v52, v16);
+          a2 = v51;
+          if (v53)
           {
-            v31 = 3;
-            if (v21)
+            v49 = 3;
+            if (v30)
             {
-              v31 = 4;
+              v49 = 4;
             }
 
-            if (v34)
+            if (v52)
             {
-              a2 = v33;
+              a2 = v51;
             }
 
             else
             {
-              a2 = v31;
+              a2 = v49;
             }
           }
         }
@@ -6196,7 +5521,7 @@ LABEL_45:
     {
       v18 = (&_IDSStunTransportStrings)[a2];
       *buf = 136315138;
-      *v37 = v18;
+      *v55 = v18;
       _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "found override tranpsort [%s].", buf, 0xCu);
     }
 
@@ -6204,10 +5529,10 @@ LABEL_45:
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"found override tranpsort [%s].");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"found override tranpsort [%s].", v19, v20, v21, v22, v23, (&_IDSStunTransportStrings)[a2]);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"found override tranpsort [%s].");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"found override tranpsort [%s].", v24, v25, v26, v27, (&_IDSStunTransportStrings)[a2]);
         }
       }
     }
@@ -6216,33 +5541,33 @@ LABEL_45:
   return a2;
 }
 
-__CFArray *GLUtilGetExcludedInterfaceAddressList(uint64_t a1, uint64_t a2, void *a3)
+__CFArray *GLUtilGetExcludedInterfaceAddressList(int a1, uint64_t a2, void *a3)
 {
-  v78 = *MEMORY[0x1E69E9840];
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
+  v125 = *MEMORY[0x1E69E9840];
+  v111 = 0u;
+  v112 = 0u;
+  v113 = 0u;
+  v114 = 0u;
   obj = a3;
-  v59 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
-  if (!v59)
+  v106 = [obj countByEnumeratingWithState:&v111 objects:v124 count:16];
+  if (!v106)
   {
     v4 = 0;
     goto LABEL_75;
   }
 
   v4 = 0;
-  v58 = *v65;
+  v105 = *v112;
   do
   {
-    for (i = 0; i != v59; ++i)
+    for (i = 0; i != v106; ++i)
     {
-      if (*v65 != v58)
+      if (*v112 != v105)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v64 + 1) + 8 * i);
+      v6 = *(*(&v111 + 1) + 8 * i);
       v7 = [v6 index];
       v8 = [v6 delegatedIndex];
       v9 = [v6 address];
@@ -6257,9 +5582,9 @@ __CFArray *GLUtilGetExcludedInterfaceAddressList(uint64_t a1, uint64_t a2, void 
           v13 = v12;
           v14 = [v12 UTF8String];
           *buf = 136315394;
-          v70 = v14;
-          v71 = 1024;
-          v72 = v7;
+          v117 = v14;
+          v118 = 1024;
+          v119 = v7;
           _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "skip if:[%s:%d].", buf, 0x12u);
         }
 
@@ -6269,17 +5594,15 @@ __CFArray *GLUtilGetExcludedInterfaceAddressList(uint64_t a1, uint64_t a2, void 
           {
             v15 = [v6 name];
             v16 = v15;
-            v51 = [v15 UTF8String];
-            v52 = v7;
-            _IDSLogTransport(@"GL", @"IDS", @"skip if:[%s:%d].");
+            v17 = [v15 UTF8String];
+            _IDSLogTransport(@"GL", @"IDS", @"skip if:[%s:%d].", v18, v19, v20, v21, v22, v17);
 
-            if (_IDSShouldLog())
+            if (_IDSShouldLog(0))
             {
-              v17 = [v6 name];
-              v18 = v17;
-              v51 = [v17 UTF8String];
-              v52 = v7;
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"skip if:[%s:%d].");
+              v23 = [v6 name];
+              v24 = v23;
+              v25 = [v23 UTF8String];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"skip if:[%s:%d].", v26, v27, v28, v29, v25);
             }
           }
         }
@@ -6313,36 +5636,34 @@ LABEL_20:
         goto LABEL_33;
       }
 
-      v19 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v30 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [v6 name];
-        v21 = v20;
-        v22 = [v20 UTF8String];
+        v31 = [v6 name];
+        v32 = v31;
+        v33 = [v31 UTF8String];
         *buf = 136315394;
-        v70 = v22;
-        v71 = 1024;
-        v72 = v7;
-        _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "skip companion link if:[%s:%d].", buf, 0x12u);
+        v117 = v33;
+        v118 = 1024;
+        v119 = v7;
+        _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "skip companion link if:[%s:%d].", buf, 0x12u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v23 = [v6 name];
-          v24 = v23;
-          v50 = [v23 UTF8String];
-          v52 = v7;
-          _IDSLogTransport(@"GL", @"IDS", @"skip companion link if:[%s:%d].");
+          v34 = [v6 name];
+          v35 = v34;
+          v36 = [v34 UTF8String];
+          _IDSLogTransport(@"GL", @"IDS", @"skip companion link if:[%s:%d].", v37, v38, v39, v40, v41, v36);
 
-          if (_IDSShouldLog())
+          if (_IDSShouldLog(0))
           {
-            v25 = [v6 name];
-            v26 = v25;
-            v50 = [v25 UTF8String];
-            v52 = v7;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"skip companion link if:[%s:%d].");
+            v42 = [v6 name];
+            v43 = v42;
+            v44 = [v42 UTF8String];
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"skip companion link if:[%s:%d].", v45, v46, v47, v48, v44);
           }
         }
       }
@@ -6391,48 +5712,40 @@ LABEL_33:
           if (!v6)
           {
 LABEL_62:
-            v40 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+            v73 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
             {
-              v41 = [v6 name];
-              v42 = v41;
-              v43 = [v41 UTF8String];
+              v74 = [v6 name];
+              v75 = v74;
+              v76 = [v74 UTF8String];
               *buf = 136316162;
-              v70 = v43;
-              v71 = 1024;
-              v72 = v7;
-              v73 = 1024;
-              *v74 = v8;
-              *&v74[4] = 2080;
-              *&v74[6] = a2;
-              v75 = 1024;
-              v76 = a1;
-              _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "skip if:[%s:%d] with delegate-if-idx:%d, default-if:[%s:%d].", buf, 0x28u);
+              v117 = v76;
+              v118 = 1024;
+              v119 = v7;
+              v120 = 1024;
+              *v121 = v8;
+              *&v121[4] = 2080;
+              *&v121[6] = a2;
+              v122 = 1024;
+              v123 = a1;
+              _os_log_impl(&dword_1A7AD9000, v73, OS_LOG_TYPE_DEFAULT, "skip if:[%s:%d] with delegate-if-idx:%d, default-if:[%s:%d].", buf, 0x28u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                v44 = [v6 name];
-                v45 = v44;
-                v54 = a2;
-                v55 = a1;
-                v52 = v7;
-                v53 = v8;
-                v50 = [v44 UTF8String];
-                _IDSLogTransport(@"GL", @"IDS", @"skip if:[%s:%d] with delegate-if-idx:%d, default-if:[%s:%d].");
+                v77 = [v6 name];
+                v78 = v77;
+                v79 = [v77 UTF8String];
+                _IDSLogTransport(@"GL", @"IDS", @"skip if:[%s:%d] with delegate-if-idx:%d, default-if:[%s:%d].", v80, v81, v82, v83, v84, v79);
 
-                if (_IDSShouldLog())
+                if (_IDSShouldLog(0))
                 {
-                  v46 = [v6 name];
-                  v47 = v46;
-                  v54 = a2;
-                  v55 = a1;
-                  v52 = v7;
-                  v53 = v8;
-                  v50 = [v46 UTF8String];
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"skip if:[%s:%d] with delegate-if-idx:%d, default-if:[%s:%d].");
+                  v85 = [v6 name];
+                  v86 = v85;
+                  v87 = [v85 UTF8String];
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"skip if:[%s:%d] with delegate-if-idx:%d, default-if:[%s:%d].", v88, v89, v90, v91, v87);
                 }
               }
             }
@@ -6449,37 +5762,37 @@ LABEL_62:
         goto LABEL_62;
       }
 
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
-      v27 = obj;
-      v28 = [v27 countByEnumeratingWithState:&v60 objects:v68 count:16];
-      if (v28)
+      v109 = 0u;
+      v110 = 0u;
+      v107 = 0u;
+      v108 = 0u;
+      v49 = obj;
+      v50 = [v49 countByEnumeratingWithState:&v107 objects:v115 count:16];
+      if (v50)
       {
-        v29 = *v61;
+        v51 = *v108;
 LABEL_41:
-        v30 = 0;
+        v52 = 0;
         while (1)
         {
-          if (*v61 != v29)
+          if (*v108 != v51)
           {
-            objc_enumerationMutation(v27);
+            objc_enumerationMutation(v49);
           }
 
           if ((a1 & 0x80000000) == 0)
           {
-            v31 = *(*(&v60 + 1) + 8 * v30);
-            if ([v31 index] == a1 && objc_msgSend(v31, "delegatedIndex") == v7)
+            v53 = *(*(&v107 + 1) + 8 * v52);
+            if ([v53 index] == a1 && objc_msgSend(v53, "delegatedIndex") == v7)
             {
               break;
             }
           }
 
-          if (v28 == ++v30)
+          if (v50 == ++v52)
           {
-            v28 = [v27 countByEnumeratingWithState:&v60 objects:v68 count:16];
-            if (v28)
+            v50 = [v49 countByEnumeratingWithState:&v107 objects:v115 count:16];
+            if (v50)
             {
               goto LABEL_41;
             }
@@ -6488,44 +5801,38 @@ LABEL_41:
           }
         }
 
-        v32 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v54 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = [v6 name];
-          v34 = v33;
-          v35 = [v33 UTF8String];
+          v55 = [v6 name];
+          v56 = v55;
+          v57 = [v55 UTF8String];
           *buf = 136315906;
-          v70 = v35;
-          v71 = 1024;
-          v72 = v7;
-          v73 = 2080;
-          *v74 = a2;
-          *&v74[8] = 1024;
-          *&v74[10] = a1;
-          _os_log_impl(&dword_1A7AD9000, v32, OS_LOG_TYPE_DEFAULT, "skip if:[%s:%d], default-if:[%s:%d].", buf, 0x22u);
+          v117 = v57;
+          v118 = 1024;
+          v119 = v7;
+          v120 = 2080;
+          *v121 = a2;
+          *&v121[8] = 1024;
+          *&v121[10] = a1;
+          _os_log_impl(&dword_1A7AD9000, v54, OS_LOG_TYPE_DEFAULT, "skip if:[%s:%d], default-if:[%s:%d].", buf, 0x22u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v36 = [v6 name];
-            v37 = v36;
-            v53 = a2;
-            v54 = a1;
-            v50 = [v36 UTF8String];
-            v52 = v7;
-            _IDSLogTransport(@"GL", @"IDS", @"skip if:[%s:%d], default-if:[%s:%d].");
+            v58 = [v6 name];
+            v59 = v58;
+            v60 = [v58 UTF8String];
+            _IDSLogTransport(@"GL", @"IDS", @"skip if:[%s:%d], default-if:[%s:%d].", v61, v62, v63, v64, v65, v60);
 
-            if (_IDSShouldLog())
+            if (_IDSShouldLog(0))
             {
-              v38 = [v6 name];
-              v39 = v38;
-              v53 = a2;
-              v54 = a1;
-              v50 = [v38 UTF8String];
-              v52 = v7;
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"skip if:[%s:%d], default-if:[%s:%d].");
+              v66 = [v6 name];
+              v67 = v66;
+              v68 = [v66 UTF8String];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"skip if:[%s:%d], default-if:[%s:%d].", v69, v70, v71, v72, v68);
             }
           }
         }
@@ -6559,28 +5866,28 @@ LABEL_49:
       }
     }
 
-    v59 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
+    v106 = [obj countByEnumeratingWithState:&v111 objects:v124 count:16];
   }
 
-  while (v59);
+  while (v106);
 LABEL_75:
 
-  v48 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v92 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v70 = v4;
-    _os_log_impl(&dword_1A7AD9000, v48, OS_LOG_TYPE_DEFAULT, "excluded interfaces:%@.", buf, 0xCu);
+    v117 = v4;
+    _os_log_impl(&dword_1A7AD9000, v92, OS_LOG_TYPE_DEFAULT, "excluded interfaces:%@.", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"excluded interfaces:%@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"excluded interfaces:%@.", v93, v94, v95, v96, v97, v4);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"excluded interfaces:%@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"excluded interfaces:%@.", v98, v99, v100, v101, v4);
       }
     }
   }
@@ -6590,14 +5897,14 @@ LABEL_75:
 
 id GLUtilSelectInterface(uint64_t a1, int a2, void *a3, void *a4, void *a5, int a6, uint64_t a7, int a8)
 {
-  v118[2] = *MEMORY[0x1E69E9840];
-  v86 = a3;
-  v80 = a4;
-  v81 = a5;
-  HasRelayCandidatePairConnected = GLUtilHasRelayCandidatePairConnected(v81, v80);
+  v175[2] = *MEMORY[0x1E69E9840];
+  v143 = a3;
+  v137 = a4;
+  v138 = a5;
+  HasRelayCandidatePairConnected = GLUtilHasRelayCandidatePairConnected(v138, v137);
   v14 = HasRelayCandidatePairConnected;
-  v94 = -1;
-  v95 = -1;
+  v151 = -1;
+  v152 = -1;
   if ((a1 - 3) < 2)
   {
     v15 = HasRelayCandidatePairConnected;
@@ -6608,15 +5915,15 @@ id GLUtilSelectInterface(uint64_t a1, int a2, void *a3, void *a4, void *a5, int 
     v15 = 0;
   }
 
-  v83 = v15;
-  v93 = 0;
-  v118[0] = 0;
-  v118[1] = 0;
-  v117[0] = 0;
-  v117[1] = 0;
-  if (GLUtilGetDefaultInterface(&v95, v118, &v93))
+  v140 = v15;
+  v150 = 0;
+  v175[0] = 0;
+  v175[1] = 0;
+  v174[0] = 0;
+  v174[1] = 0;
+  if (GLUtilGetDefaultInterface(&v152, v175, &v150))
   {
-    v85 = (v14 | a2) ^ 1;
+    v142 = (v14 | a2) ^ 1;
   }
 
   else
@@ -6632,448 +5939,412 @@ id GLUtilSelectInterface(uint64_t a1, int a2, void *a3, void *a4, void *a5, int 
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"failed to get default interface, use non-default interface.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"failed to get default interface, use non-default interface.", v17, v18, v19, v20, v21, v130);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get default interface, use non-default interface.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get default interface, use non-default interface.", v22, v23, v24, v25, v131);
         }
       }
     }
 
-    v85 = 0;
+    v142 = 0;
   }
 
-  v82 = GLUtilGetExcludedInterfaceAddressList(v95, v118, v86);
-  v17 = [v86 mutableCopy];
-  [(__CFString *)v17 removeObjectsInArray:v82];
-  v18 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v139 = GLUtilGetExcludedInterfaceAddressList(v152, v175, v143);
+  v26 = [v143 mutableCopy];
+  [(__CFString *)v26 removeObjectsInArray:v139];
+  v27 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v98 = v17;
-    _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "remaining interfaces:%@.", buf, 0xCu);
+    v155 = v26;
+    _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "remaining interfaces:%@.", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      v64 = v17;
-      _IDSLogTransport(@"GL", @"IDS", @"remaining interfaces:%@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"remaining interfaces:%@.", v28, v29, v30, v31, v32, v26);
+      if (_IDSShouldLog(0))
       {
-        v64 = v17;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"remaining interfaces:%@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"remaining interfaces:%@.", v33, v34, v35, v36, v26);
       }
     }
   }
 
-  v19 = [IDSServerBag sharedInstanceForBagType:0, v64];
-  v20 = [v19 objectForKey:@"reduce-cellular-usage"];
-  v21 = [v20 BOOLValue];
+  v37 = [IDSServerBag sharedInstanceForBagType:0];
+  v38 = [v37 objectForKey:@"reduce-cellular-usage"];
+  v39 = [v38 BOOLValue];
 
-  GLUtilGetFirstUnusedInterface(v81, v80, v17, &v94, v117, v21);
-  v79 = a2 & ~v14;
-  v22 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  GLUtilGetFirstUnusedInterface(v138, v137, v26, &v151, v174, v39);
+  v136 = a2 & ~v14;
+  v40 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = @"NO";
+    v41 = @"NO";
     if (v14)
     {
-      v24 = @"YES";
+      v42 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v42 = @"NO";
     }
 
-    if (v83)
+    if (v140)
     {
-      v25 = @"YES";
-    }
-
-    else
-    {
-      v25 = @"NO";
-    }
-
-    if (v79)
-    {
-      v26 = @"YES";
+      v43 = @"YES";
     }
 
     else
     {
-      v26 = @"NO";
+      v43 = @"NO";
     }
 
-    v98 = (&_IDSStunTransportStrings)[a1];
-    if (v85)
+    if (v136)
     {
-      v27 = @"YES";
+      v44 = @"YES";
     }
 
     else
     {
-      v27 = @"NO";
+      v44 = @"NO";
+    }
+
+    v155 = (&_IDSStunTransportStrings)[a1];
+    if (v142)
+    {
+      v45 = @"YES";
+    }
+
+    else
+    {
+      v45 = @"NO";
     }
 
     *buf = 136317442;
-    v99 = 2112;
-    if (v93)
+    v156 = 2112;
+    if (v150)
     {
-      v23 = @"YES";
+      v41 = @"YES";
     }
 
-    v100 = v24;
-    v101 = 2112;
-    v102 = v25;
-    v103 = 2112;
-    v104 = v26;
-    v105 = 2112;
-    v106 = v27;
-    v107 = 2080;
-    v108 = v118;
-    v109 = 1024;
-    v110 = v95;
-    v111 = 2112;
-    v112 = v23;
-    v113 = 2080;
-    v114 = v117;
-    v115 = 1024;
-    v116 = v94;
-    _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "interface preference for %s: (connected:%@, non-cell:%@, cell:%@, use-default:%@, default-if:[%s:%d, Cell:%@], first-unused-if:[%s:%d]).", buf, 0x5Eu);
-  }
-
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
-  {
-    v28 = v14 ? @"YES" : @"NO";
-    v29 = v83 ? @"YES" : @"NO";
-    v30 = v79 ? @"YES" : @"NO";
-    v31 = v85 ? @"YES" : @"NO";
-    v32 = v93 ? @"YES" : @"NO";
-    v77 = v117;
-    v78 = v94;
-    v75 = v95;
-    v76 = v32;
-    v73 = v31;
-    v74 = v118;
-    v71 = v29;
-    v72 = v30;
-    v65 = (&_IDSStunTransportStrings)[a1];
-    v66 = v28;
-    _IDSLogTransport(@"GL", @"IDS", @"interface preference for %s: (connected:%@, non-cell:%@, cell:%@, use-default:%@, default-if:[%s:%d, Cell:%@], first-unused-if:[%s:%d]).");
-    if (_IDSShouldLog())
-    {
-      if (v93)
-      {
-        v33 = @"YES";
-      }
-
-      else
-      {
-        v33 = @"NO";
-      }
-
-      v77 = v117;
-      v78 = v94;
-      v75 = v95;
-      v76 = v33;
-      v73 = v31;
-      v74 = v118;
-      v71 = v29;
-      v72 = v30;
-      v65 = (&_IDSStunTransportStrings)[a1];
-      v66 = v28;
-      _IDSLogV(0, @"IDSFoundation", @"GL", @"interface preference for %s: (connected:%@, non-cell:%@, cell:%@, use-default:%@, default-if:[%s:%d, Cell:%@], first-unused-if:[%s:%d]).");
-    }
-  }
-
-  v34 = IMGetDomainBoolForKey();
-  v35 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 67109120;
-    LODWORD(v98) = v34;
-    _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "forceToUseIPv6 = %d", buf, 8u);
+    v157 = v42;
+    v158 = 2112;
+    v159 = v43;
+    v160 = 2112;
+    v161 = v44;
+    v162 = 2112;
+    v163 = v45;
+    v164 = 2080;
+    v165 = v175;
+    v166 = 1024;
+    v167 = v152;
+    v168 = 2112;
+    v169 = v41;
+    v170 = 2080;
+    v171 = v174;
+    v172 = 1024;
+    v173 = v151;
+    _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "interface preference for %s: (connected:%@, non-cell:%@, cell:%@, use-default:%@, default-if:[%s:%d, Cell:%@], first-unused-if:[%s:%d]).", buf, 0x5Eu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      v65 = v34;
-      _IDSLogTransport(@"GL", @"IDS", @"forceToUseIPv6 = %d");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"interface preference for %s: (connected:%@, non-cell:%@, cell:%@, use-default:%@, default-if:[%s:%d, Cell:%@], first-unused-if:[%s:%d]).", v46, v47, v48, v49, v50, (&_IDSStunTransportStrings)[a1]);
+      if (_IDSShouldLog(0))
       {
-        v65 = v34;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"forceToUseIPv6 = %d");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"interface preference for %s: (connected:%@, non-cell:%@, cell:%@, use-default:%@, default-if:[%s:%d, Cell:%@], first-unused-if:[%s:%d]).", v51, v52, v53, v54, (&_IDSStunTransportStrings)[a1]);
       }
     }
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  obj = v17;
-  v36 = [(__CFString *)obj countByEnumeratingWithState:&v89 objects:v96 count:16];
-  if (!v36)
+  v55 = IMGetDomainBoolForKey();
+  v56 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
   {
-    v84 = 0;
-    goto LABEL_133;
+    *buf = 67109120;
+    LODWORD(v155) = v55;
+    _os_log_impl(&dword_1A7AD9000, v56, OS_LOG_TYPE_DEFAULT, "forceToUseIPv6 = %d", buf, 8u);
   }
 
-  v84 = 0;
-  v37 = *v90;
+  if (os_log_shim_legacy_logging_enabled())
+  {
+    if (_IDSShouldLogTransport())
+    {
+      _IDSLogTransport(@"GL", @"IDS", @"forceToUseIPv6 = %d", v57, v58, v59, v60, v61, v55);
+      if (_IDSShouldLog(0))
+      {
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"forceToUseIPv6 = %d", v62, v63, v64, v65, v55);
+      }
+    }
+  }
+
+  v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
+  obj = v26;
+  v66 = [(__CFString *)obj countByEnumeratingWithState:&v146 objects:v153 count:16];
+  if (!v66)
+  {
+    v141 = 0;
+    goto LABEL_115;
+  }
+
+  v141 = 0;
+  v67 = *v147;
   while (2)
   {
-    for (i = 0; i != v36; ++i)
+    for (i = 0; i != v66; ++i)
     {
-      if (*v90 != v37)
+      if (*v147 != v67)
       {
         objc_enumerationMutation(obj);
       }
 
-      v39 = *(*(&v89 + 1) + 8 * i);
-      v40 = [v39 isCellular];
-      v41 = [v39 index];
-      v42 = [v39 address];
-      v43 = [v42 sa];
+      v69 = *(*(&v146 + 1) + 8 * i);
+      v70 = [v69 isCellular];
+      v71 = [v69 index];
+      v72 = [v69 address];
+      v73 = [v72 sa];
 
-      v44 = *(v43 + 1);
-      if (v34)
+      v74 = *(v73 + 1);
+      if (v55)
       {
-        if (v44 == 2)
+        if (v74 == 2)
         {
           continue;
         }
       }
 
-      else if (v44 == 30 && (GLUtilHasV4AddressForInterface(v41, v86) & 1) != 0)
+      else if (v74 == 30 && (GLUtilHasV4AddressForInterface(v71, v143) & 1) != 0)
       {
         continue;
       }
 
       if (a8 == 1)
       {
-        if (!v40)
+        if (!v70)
         {
           continue;
         }
 
-        v48 = v39;
+        v78 = v69;
 
-        v52 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v91 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
         {
-          v54 = [v48 name];
+          v93 = [v78 name];
           *buf = 138412546;
-          v98 = @"IDSGLInterfaceTypeMask_Cellular";
-          v99 = 2112;
-          v100 = v54;
-          _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", buf, 0x16u);
+          v155 = @"IDSGLInterfaceTypeMask_Cellular";
+          v156 = 2112;
+          v157 = v93;
+          _os_log_impl(&dword_1A7AD9000, v91, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", buf, 0x16u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v68 = [v48 name];
-            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@");
+            v133 = [v78 name];
+            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", v94, v95, v96, v97, v98, @"IDSGLInterfaceTypeMask_Cellular");
 
-            if (_IDSShouldLog())
+            if (_IDSShouldLog(0))
             {
-              v84 = [v48 name];
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@");
-              goto LABEL_119;
+              v141 = [v78 name];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", v99, v100, v101, v102, @"IDSGLInterfaceTypeMask_Cellular");
+              goto LABEL_101;
             }
           }
         }
 
-LABEL_132:
-        v84 = v48;
-        goto LABEL_133;
+LABEL_114:
+        v141 = v78;
+        goto LABEL_115;
       }
 
       if (a8 == 2)
       {
-        if (v40)
+        if (v70)
         {
           continue;
         }
 
-        v48 = v39;
+        v78 = v69;
 
-        v49 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v79 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = [v48 name];
+          v81 = [v78 name];
           *buf = 138412546;
-          v98 = @"IDSGLInterfaceTypeMask_NonCellular";
-          v99 = 2112;
-          v100 = v51;
-          _os_log_impl(&dword_1A7AD9000, v49, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", buf, 0x16u);
+          v155 = @"IDSGLInterfaceTypeMask_NonCellular";
+          v156 = 2112;
+          v157 = v81;
+          _os_log_impl(&dword_1A7AD9000, v79, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", buf, 0x16u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v67 = [v48 name];
-            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@");
+            v132 = [v78 name];
+            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", v82, v83, v84, v85, v86, @"IDSGLInterfaceTypeMask_NonCellular");
 
-            if (_IDSShouldLog())
+            if (_IDSShouldLog(0))
             {
-              v84 = [v48 name];
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@");
-LABEL_119:
+              v141 = [v78 name];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredLocalInterface %@, selected interface: %@", v87, v88, v89, v90, @"IDSGLInterfaceTypeMask_NonCellular");
+LABEL_101:
 
-              v84 = v39;
-              goto LABEL_133;
+              v141 = v69;
+              goto LABEL_115;
             }
           }
         }
 
-        goto LABEL_132;
+        goto LABEL_114;
       }
 
       if (a6 == 1)
       {
-        if (!v40)
+        if (!v70)
         {
           continue;
         }
 
-        v48 = v39;
+        v78 = v69;
 
-        v56 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        v104 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
         {
-          v58 = [v48 name];
+          v106 = [v78 name];
           *buf = 138412546;
-          v98 = @"IDSGLInterfaceTypeMask_Cellular";
-          v99 = 2112;
-          v100 = v58;
-          _os_log_impl(&dword_1A7AD9000, v56, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", buf, 0x16u);
+          v155 = @"IDSGLInterfaceTypeMask_Cellular";
+          v156 = 2112;
+          v157 = v106;
+          _os_log_impl(&dword_1A7AD9000, v104, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", buf, 0x16u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v69 = [v48 name];
-            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@");
+            v134 = [v78 name];
+            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", v107, v108, v109, v110, v111, @"IDSGLInterfaceTypeMask_Cellular");
 
-            if (_IDSShouldLog())
+            if (_IDSShouldLog(0))
             {
-              v84 = [v48 name];
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@");
-              goto LABEL_119;
+              v141 = [v78 name];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", v112, v113, v114, v115, @"IDSGLInterfaceTypeMask_Cellular");
+              goto LABEL_101;
             }
           }
         }
 
-        goto LABEL_132;
+        goto LABEL_114;
       }
 
       if (a6 == 2)
       {
-        if (v40)
+        if (v70)
         {
           continue;
         }
 
-        v48 = v39;
+        v78 = v69;
 
-        v59 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v116 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
         {
-          v61 = [v48 name];
+          v118 = [v78 name];
           *buf = 138412546;
-          v98 = @"IDSGLInterfaceTypeMask_NonCellular";
-          v99 = 2112;
-          v100 = v61;
-          _os_log_impl(&dword_1A7AD9000, v59, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", buf, 0x16u);
+          v155 = @"IDSGLInterfaceTypeMask_NonCellular";
+          v156 = 2112;
+          v157 = v118;
+          _os_log_impl(&dword_1A7AD9000, v116, OS_LOG_TYPE_DEFAULT, "GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", buf, 0x16u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v70 = [v48 name];
-            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@");
+            v135 = [v78 name];
+            _IDSLogTransport(@"GL", @"IDS", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", v119, v120, v121, v122, v123, @"IDSGLInterfaceTypeMask_NonCellular");
 
-            if (_IDSShouldLog())
+            if (_IDSShouldLog(0))
             {
-              v84 = [v48 name];
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@");
-              goto LABEL_119;
+              v141 = [v78 name];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilSelectInterface: havePreferredInterfaceFromInitiator %@, selected interface: %@", v124, v125, v126, v127, @"IDSGLInterfaceTypeMask_NonCellular");
+              goto LABEL_101;
             }
           }
         }
 
-        goto LABEL_132;
+        goto LABEL_114;
       }
 
-      v45 = v85;
-      if ((v95 & 0x80000000) != 0)
+      v75 = v142;
+      if (v152 < 0)
       {
-        v45 = 0;
+        v75 = 0;
       }
 
-      if (v45 == 1 && v41 == v95)
+      if (v75 == 1 && v71 == v152)
       {
-LABEL_118:
-        v55 = v39;
-        goto LABEL_119;
+LABEL_100:
+        v103 = v69;
+        goto LABEL_101;
       }
 
-      if (v83)
+      if (v140)
       {
-        if ((v40 & 1) == 0)
+        if ((v70 & 1) == 0)
         {
-          goto LABEL_118;
+          goto LABEL_100;
         }
       }
 
-      else if (v79)
+      else if (v136)
       {
-        if (v40)
+        if (v70)
         {
-          goto LABEL_118;
+          goto LABEL_100;
         }
       }
 
-      else if (v94 == -1)
+      else if (v151 == -1)
       {
-        v47 = v39;
+        v77 = v69;
 
-        v84 = v47;
+        v141 = v77;
       }
 
       else
       {
-        if (v41 == v94)
+        if (v71 == v151)
         {
-          v46 = v85;
+          v76 = v142;
         }
 
         else
         {
-          v46 = 1;
+          v76 = 1;
         }
 
-        if ((v46 & 1) == 0)
+        if ((v76 & 1) == 0)
         {
-          goto LABEL_118;
+          goto LABEL_100;
         }
       }
     }
 
-    v36 = [(__CFString *)obj countByEnumeratingWithState:&v89 objects:v96 count:16];
-    if (v36)
+    v66 = [(__CFString *)obj countByEnumeratingWithState:&v146 objects:v153 count:16];
+    if (v66)
     {
       continue;
     }
@@ -7081,11 +6352,11 @@ LABEL_118:
     break;
   }
 
-LABEL_133:
+LABEL_115:
 
-  v62 = v84;
+  v128 = v141;
 
-  return v62;
+  return v128;
 }
 
 void sub_1A7CA6370(_Unwind_Exception *a1, int a2)
@@ -7119,7 +6390,7 @@ __CFString *GLUtilPreferredInterfaceToString(int a1)
   }
 }
 
-uint64_t GLUtilHasValidUInt16Attr(void *a1, uint64_t a2, _WORD *a3)
+void *GLUtilHasValidUInt16Attr(void *a1, uint64_t a2, _WORD *a3)
 {
   v9 = *MEMORY[0x1E69E9840];
   bzero(v7, 0x410uLL);
@@ -7135,7 +6406,7 @@ uint64_t GLUtilHasValidUInt16Attr(void *a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-uint64_t GLUtilHasValidUInt32Attr(void *a1, uint64_t a2, _DWORD *a3)
+void *GLUtilHasValidUInt32Attr(void *a1, uint64_t a2, _DWORD *a3)
 {
   v9 = *MEMORY[0x1E69E9840];
   bzero(v7, 0x410uLL);
@@ -7517,7 +6788,7 @@ LABEL_42:
 
 BOOL GLUtilRelayLinkHasReachedMaxRetryLimit(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E696AD98] numberWithInt:a1];
   v5 = [v3 objectForKey:v4];
@@ -7539,11 +6810,11 @@ BOOL GLUtilRelayLinkHasReachedMaxRetryLimit(uint64_t a1, void *a2)
       }
 
       *buf = 136315650;
-      v11 = "GLUtilRelayLinkHasReachedMaxRetryLimit";
-      v12 = 2112;
-      v13 = v8;
-      v14 = 1024;
-      v15 = v6;
+      v20 = "GLUtilRelayLinkHasReachedMaxRetryLimit";
+      v21 = 2112;
+      v22 = v8;
+      v23 = 1024;
+      v24 = v6;
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "%s: retry count for linkType: %@ has exceeded, with %d retries!", buf, 0x1Cu);
     }
 
@@ -7551,10 +6822,10 @@ BOOL GLUtilRelayLinkHasReachedMaxRetryLimit(uint64_t a1, void *a2)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"%s: retry count for linkType: %@ has exceeded, with %d retries!");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"%s: retry count for linkType: %@ has exceeded, with %d retries!", v9, v10, v11, v12, v13, "GLUtilRelayLinkHasReachedMaxRetryLimit");
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"%s: retry count for linkType: %@ has exceeded, with %d retries!");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"%s: retry count for linkType: %@ has exceeded, with %d retries!", v14, v15, v16, v17, "GLUtilRelayLinkHasReachedMaxRetryLimit");
         }
       }
     }
@@ -7608,23 +6879,23 @@ void GLUtilReportAWDStunMessageEvent(void *a1, uint64_t a2, void *a3, float a4)
 
 void GLUtilReportAWDStunMessageEventWithType(uint64_t a1, uint64_t a2, void *a3, float a4)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v6 = a3;
-  v45 = sub_1A7CA744C(a1, [v6 isSharedQRSession]);
-  if (v45)
+  v60 = sub_1A7CA744C(a1, [v6 isSharedQRSession]);
+  if (v60)
   {
     v7 = [v6 local];
-    v47 = [v7 radioAccessTechnology];
+    v62 = [v7 radioAccessTechnology];
 
     v8 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      v49 = a1;
-      v50 = 1024;
-      v51 = v45;
-      v52 = 1024;
-      v53 = a2;
+      v64 = a1;
+      v65 = 1024;
+      v66 = v60;
+      v67 = 1024;
+      v68 = a2;
       _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "report AWD stun message event (messageType:%04x, eventSubType:%u, resultCode:%d).", buf, 0x14u);
     }
 
@@ -7632,58 +6903,52 @@ void GLUtilReportAWDStunMessageEventWithType(uint64_t a1, uint64_t a2, void *a3,
     {
       if (_IDSShouldLogTransport())
       {
-        v32 = v45;
-        v33 = a2;
-        v31 = a1;
-        _IDSLogTransport(@"GL", @"IDS", @"report AWD stun message event (messageType:%04x, eventSubType:%u, resultCode:%d).");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"report AWD stun message event (messageType:%04x, eventSubType:%u, resultCode:%d).", v9, v10, v11, v12, v13, a1);
+        if (_IDSShouldLog(0))
         {
-          v33 = a2;
-          v31 = a1;
-          v32 = v45;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD stun message event (messageType:%04x, eventSubType:%u, resultCode:%d).");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD stun message event (messageType:%04x, eventSubType:%u, resultCode:%d).", v14, v15, v16, v17, a1);
         }
       }
     }
 
-    v35 = [IDSQuickRelayMetric alloc];
-    v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v45];
+    v50 = [IDSQuickRelayMetric alloc];
+    v56 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v60];
     if (a4 <= 0.0)
     {
-      v34 = 0;
+      v49 = 0;
     }
 
     else
     {
-      *&v9 = a4;
-      v34 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
+      *&v18 = a4;
+      v49 = [MEMORY[0x1E696AD98] numberWithFloat:v18];
     }
 
-    v39 = [MEMORY[0x1E696AD98] numberWithInt:{a2, v31, v32, v33}];
-    v37 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v6, "relayProviderType")}];
-    v11 = MEMORY[0x1E696AD98];
-    v12 = [v6 local];
-    v13 = [v11 numberWithInteger:{objc_msgSend(v12, "transport")}];
-    v14 = v47;
-    if (v47 > 0xA)
+    v54 = [MEMORY[0x1E696AD98] numberWithInt:a2];
+    v52 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v6, "relayProviderType")}];
+    v29 = MEMORY[0x1E696AD98];
+    v30 = [v6 local];
+    v31 = [v29 numberWithInteger:{objc_msgSend(v30, "transport")}];
+    v32 = v62;
+    if (v62 > 0xA)
     {
-      v15 = 0;
+      v33 = 0;
     }
 
     else
     {
-      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-      v14 = v47;
+      v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+      v32 = v62;
     }
 
-    v16 = v14 < 0xB;
-    v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "enableSKE")}];
-    v18 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "isInitiator")}];
-    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v6, "protocolVersion")}];
-    v20 = [v6 appName];
-    v36 = [(IDSQuickRelayMetric *)v35 initWithType:&unk_1F1B203D8 eventSubType:v41 duration:v34 resultCode:v39 providerType:v37 transportType:v13 interfaceType:v15 skeEnabled:v17 isInitiator:v18 protocolVersion:v19 retryCount:0 serviceName:v20 subServiceName:0 participantCount:0];
+    v34 = v32 < 0xB;
+    v35 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "enableSKE")}];
+    v36 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "isInitiator")}];
+    v37 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v6, "protocolVersion")}];
+    v38 = [v6 appName];
+    v51 = [(IDSQuickRelayMetric *)v50 initWithType:&unk_1F1B203D8 eventSubType:v56 duration:v49 resultCode:v54 providerType:v52 transportType:v31 interfaceType:v33 skeEnabled:v35 isInitiator:v36 protocolVersion:v37 retryCount:0 serviceName:v38 subServiceName:0 participantCount:0];
 
-    if (v16)
+    if (v34)
     {
     }
 
@@ -7691,44 +6956,44 @@ void GLUtilReportAWDStunMessageEventWithType(uint64_t a1, uint64_t a2, void *a3,
     {
     }
 
-    v21 = +[IDSCoreAnalyticsLogger defaultLogger];
-    [v21 logMetric:v36];
+    v39 = +[IDSCoreAnalyticsLogger defaultLogger];
+    [v39 logMetric:v51];
 
-    v42 = +[IDSAWDLogging sharedInstance];
-    v46 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v45];
+    v57 = +[IDSAWDLogging sharedInstance];
+    v61 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v60];
     if (a4 <= 0.0)
     {
-      v38 = 0;
+      v53 = 0;
     }
 
     else
     {
-      *&v22 = a4;
-      v38 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
+      *&v40 = a4;
+      v53 = [MEMORY[0x1E696AD98] numberWithFloat:v40];
     }
 
-    v44 = [MEMORY[0x1E696AD98] numberWithInt:a2];
-    v40 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v6, "relayProviderType")}];
-    v23 = MEMORY[0x1E696AD98];
-    v24 = [v6 local];
-    v25 = [v23 numberWithInteger:{objc_msgSend(v24, "transport")}];
-    if (v47 >= 0xB)
+    v59 = [MEMORY[0x1E696AD98] numberWithInt:a2];
+    v55 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v6, "relayProviderType")}];
+    v41 = MEMORY[0x1E696AD98];
+    v42 = [v6 local];
+    v43 = [v41 numberWithInteger:{objc_msgSend(v42, "transport")}];
+    if (v62 >= 0xB)
     {
-      v26 = 0;
+      v44 = 0;
     }
 
     else
     {
-      v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v47];
+      v44 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v62];
     }
 
-    v27 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "enableSKE")}];
-    v28 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "isInitiator")}];
-    v29 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v6, "protocolVersion")}];
-    v30 = [v6 appName];
-    [v42 IDSQuickRelayEventType:&unk_1F1B203D8 eventSubType:v46 duration:v38 resultCode:v44 providerType:v40 transportType:v25 interfaceType:v26 skeEnabled:v27 isInitiator:v28 protocolVersion:v29 retryCount:0 serviceName:v30 subServiceName:0 participantCount:0];
+    v45 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "enableSKE")}];
+    v46 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "isInitiator")}];
+    v47 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v6, "protocolVersion")}];
+    v48 = [v6 appName];
+    [v57 IDSQuickRelayEventType:&unk_1F1B203D8 eventSubType:v61 duration:v53 resultCode:v59 providerType:v55 transportType:v43 interfaceType:v44 skeEnabled:v45 isInitiator:v46 protocolVersion:v47 retryCount:0 serviceName:v48 subServiceName:0 participantCount:0];
 
-    if (v47 < 0xB)
+    if (v62 < 0xB)
     {
     }
 
@@ -7739,22 +7004,22 @@ void GLUtilReportAWDStunMessageEventWithType(uint64_t a1, uint64_t a2, void *a3,
 
   else
   {
-    v10 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v19 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v49 = a1;
-      _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "receive unknown stun message type (%04x) for AWD, ignore", buf, 8u);
+      v64 = a1;
+      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "receive unknown stun message type (%04x) for AWD, ignore", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"receive unknown stun message type (%04x) for AWD, ignore");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"receive unknown stun message type (%04x) for AWD, ignore", v20, v21, v22, v23, v24, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"receive unknown stun message type (%04x) for AWD, ignore");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"receive unknown stun message type (%04x) for AWD, ignore", v25, v26, v27, v28, a1);
         }
       }
     }
@@ -7989,24 +7254,24 @@ LABEL_61:
 
 void GLUtilReportAWDActiveLinkRTT(void *a1, unsigned int a2, unsigned int a3, float a4)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [v5 local];
-  v40 = [v6 radioAccessTechnology];
+  v46 = [v6 radioAccessTechnology];
 
   v7 = [v5 local];
-  v39 = [v7 transport];
+  v45 = [v7 transport];
 
   v8 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = (&_IDSStunTransportStrings)[v39];
+    v9 = (&_IDSStunTransportStrings)[v45];
     *buf = 67109634;
-    v42 = a4;
-    v43 = 2080;
-    v44 = v9;
-    v45 = 2080;
-    v46 = IDSRadioAccessTechnologyToString(v40);
+    v48 = a4;
+    v49 = 2080;
+    v50 = v9;
+    v51 = 2080;
+    v52 = IDSRadioAccessTechnologyToString(v46);
     _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "report AWD active link rtt: %d ms for %s on RAT [%s].", buf, 0x1Cu);
   }
 
@@ -8014,54 +7279,50 @@ void GLUtilReportAWDActiveLinkRTT(void *a1, unsigned int a2, unsigned int a3, fl
   {
     if (_IDSShouldLogTransport())
     {
-      v31 = (&_IDSStunTransportStrings)[v39];
-      v32 = IDSRadioAccessTechnologyToString(v40);
-      v30 = a4;
-      _IDSLogTransport(@"GL", @"IDS", @"report AWD active link rtt: %d ms for %s on RAT [%s].");
-      if (_IDSShouldLog())
+      IDSRadioAccessTechnologyToString(v46);
+      _IDSLogTransport(@"GL", @"IDS", @"report AWD active link rtt: %d ms for %s on RAT [%s].", v10, v11, v12, v13, v14, a4);
+      if (_IDSShouldLog(0))
       {
-        v31 = (&_IDSStunTransportStrings)[v39];
-        v32 = IDSRadioAccessTechnologyToString(v40);
-        v30 = a4;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD active link rtt: %d ms for %s on RAT [%s].");
+        IDSRadioAccessTechnologyToString(v46);
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD active link rtt: %d ms for %s on RAT [%s].", v15, v16, v17, v18, a4);
       }
     }
   }
 
-  v35 = [IDSQuickRelayMetric alloc];
+  v41 = [IDSQuickRelayMetric alloc];
   if (a4 <= 0.0)
   {
-    v33 = 0;
+    v39 = 0;
   }
 
   else
   {
-    *&v10 = a4;
-    v33 = [MEMORY[0x1E696AD98] numberWithFloat:v10];
+    *&v19 = a4;
+    v39 = [MEMORY[0x1E696AD98] numberWithFloat:v19];
   }
 
-  v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v5, "relayProviderType", v30, v31, v32)}];
-  v12 = [MEMORY[0x1E696AD98] numberWithInteger:v39];
-  v13 = v40;
-  if (v40 > 0xA)
+  v20 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v5, "relayProviderType")}];
+  v21 = [MEMORY[0x1E696AD98] numberWithInteger:v45];
+  v22 = v46;
+  if (v46 > 0xA)
   {
-    v14 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-    v13 = v40;
+    v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+    v22 = v46;
   }
 
-  v15 = v13 < 0xB;
-  v16 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-  v17 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-  v18 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v5, "protocolVersion")}];
-  v19 = [v5 appName];
-  v36 = [(IDSQuickRelayMetric *)v35 initWithType:&unk_1F1B203D8 eventSubType:&unk_1F1B203F0 duration:v33 resultCode:0 providerType:v11 transportType:v12 interfaceType:v14 skeEnabled:v16 isInitiator:v17 protocolVersion:v18 retryCount:0 serviceName:v19 subServiceName:0 participantCount:0];
+  v24 = v22 < 0xB;
+  v25 = [MEMORY[0x1E696AD98] numberWithBool:a2];
+  v26 = [MEMORY[0x1E696AD98] numberWithBool:a3];
+  v27 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v5, "protocolVersion")}];
+  v28 = [v5 appName];
+  v42 = [(IDSQuickRelayMetric *)v41 initWithType:&unk_1F1B203D8 eventSubType:&unk_1F1B203F0 duration:v39 resultCode:0 providerType:v20 transportType:v21 interfaceType:v23 skeEnabled:v25 isInitiator:v26 protocolVersion:v27 retryCount:0 serviceName:v28 subServiceName:0 participantCount:0];
 
-  if (v15)
+  if (v24)
   {
   }
 
@@ -8069,40 +7330,40 @@ void GLUtilReportAWDActiveLinkRTT(void *a1, unsigned int a2, unsigned int a3, fl
   {
   }
 
-  v20 = +[IDSCoreAnalyticsLogger defaultLogger];
-  [v20 logMetric:v36];
+  v29 = +[IDSCoreAnalyticsLogger defaultLogger];
+  [v29 logMetric:v42];
 
-  v21 = +[IDSAWDLogging sharedInstance];
+  v30 = +[IDSAWDLogging sharedInstance];
   if (a4 <= 0.0)
+  {
+    v40 = 0;
+  }
+
+  else
+  {
+    *&v31 = a4;
+    v40 = [MEMORY[0x1E696AD98] numberWithFloat:v31];
+  }
+
+  v32 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v5, "relayProviderType")}];
+  v33 = [MEMORY[0x1E696AD98] numberWithInteger:v45];
+  if (v46 >= 0xB)
   {
     v34 = 0;
   }
 
   else
   {
-    *&v22 = a4;
-    v34 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
+    v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v46];
   }
 
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v5, "relayProviderType")}];
-  v24 = [MEMORY[0x1E696AD98] numberWithInteger:v39];
-  if (v40 >= 0xB)
-  {
-    v25 = 0;
-  }
+  v35 = [MEMORY[0x1E696AD98] numberWithBool:a2];
+  v36 = [MEMORY[0x1E696AD98] numberWithBool:a3];
+  v37 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v5, "protocolVersion")}];
+  v38 = [v5 appName];
+  [v30 IDSQuickRelayEventType:&unk_1F1B203D8 eventSubType:&unk_1F1B203F0 duration:v40 resultCode:0 providerType:v32 transportType:v33 interfaceType:v34 skeEnabled:v35 isInitiator:v36 protocolVersion:v37 retryCount:0 serviceName:v38 subServiceName:0 participantCount:0];
 
-  else
-  {
-    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v40];
-  }
-
-  v26 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-  v27 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-  v28 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v5, "protocolVersion")}];
-  v29 = [v5 appName];
-  [v21 IDSQuickRelayEventType:&unk_1F1B203D8 eventSubType:&unk_1F1B203F0 duration:v34 resultCode:0 providerType:v23 transportType:v24 interfaceType:v25 skeEnabled:v26 isInitiator:v27 protocolVersion:v28 retryCount:0 serviceName:v29 subServiceName:0 participantCount:0];
-
-  if (v40 < 0xB)
+  if (v46 < 0xB)
   {
   }
 
@@ -8113,20 +7374,20 @@ void GLUtilReportAWDActiveLinkRTT(void *a1, unsigned int a2, unsigned int a3, fl
 
 void GLUtilReportAWDClientTimerEvent(uint64_t a1, uint64_t a2, void *a3, unsigned int a4, unsigned int a5, float a6)
 {
-  v56 = *MEMORY[0x1E69E9840];
-  v49 = a3;
-  v7 = [v49 local];
-  v48 = [v7 radioAccessTechnology];
+  v62 = *MEMORY[0x1E69E9840];
+  v55 = a3;
+  v7 = [v55 local];
+  v54 = [v7 radioAccessTechnology];
 
   v8 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    v51 = a1;
-    v52 = 1024;
-    v53 = a6;
-    v54 = 1024;
-    v55 = a2;
+    v57 = a1;
+    v58 = 1024;
+    v59 = a6;
+    v60 = 1024;
+    v61 = a2;
     _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "report AWD client timer event (eventSubType: %u, duration: %d ms, resultCode: %d).", buf, 0x14u);
   }
 
@@ -8134,70 +7395,16 @@ void GLUtilReportAWDClientTimerEvent(uint64_t a1, uint64_t a2, void *a3, unsigne
   {
     if (_IDSShouldLogTransport())
     {
-      v33 = a6;
-      v34 = a2;
-      v32 = a1;
-      _IDSLogTransport(@"GL", @"IDS", @"report AWD client timer event (eventSubType: %u, duration: %d ms, resultCode: %d).");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"report AWD client timer event (eventSubType: %u, duration: %d ms, resultCode: %d).", v9, v10, v11, v12, v13, a1);
+      if (_IDSShouldLog(0))
       {
-        v33 = a6;
-        v34 = a2;
-        v32 = a1;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD client timer event (eventSubType: %u, duration: %d ms, resultCode: %d).");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD client timer event (eventSubType: %u, duration: %d ms, resultCode: %d).", v14, v15, v16, v17, a1);
       }
     }
   }
 
-  v36 = [IDSQuickRelayMetric alloc];
-  v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
-  if (a6 <= 0.0)
-  {
-    v35 = 0;
-  }
-
-  else
-  {
-    *&v9 = a6;
-    v35 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-  }
-
-  v40 = [MEMORY[0x1E696AD98] numberWithInt:{a2, v32, v33, v34}];
-  v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v49, "relayProviderType")}];
-  v11 = MEMORY[0x1E696AD98];
-  v12 = [v49 local];
-  v13 = [v11 numberWithInteger:{objc_msgSend(v12, "transport")}];
-  v14 = v48;
-  if (v48 > 0xA)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-    v14 = v48;
-  }
-
-  v16 = v14 < 0xB;
-  v17 = [MEMORY[0x1E696AD98] numberWithBool:a4];
-  v18 = [MEMORY[0x1E696AD98] numberWithBool:a5];
-  v19 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v49, "protocolVersion")}];
-  v20 = [v49 appName];
-  v37 = [(IDSQuickRelayMetric *)v36 initWithType:&unk_1F1B20408 eventSubType:v42 duration:v35 resultCode:v40 providerType:v10 transportType:v13 interfaceType:v15 skeEnabled:v17 isInitiator:v18 protocolVersion:v19 retryCount:0 serviceName:v20 subServiceName:0 participantCount:0];
-
-  if (v16)
-  {
-  }
-
-  if (a6 > 0.0)
-  {
-  }
-
-  v21 = +[IDSCoreAnalyticsLogger defaultLogger];
-  [v21 logMetric:v37];
-
-  v43 = +[IDSAWDLogging sharedInstance];
-  v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
+  v42 = [IDSQuickRelayMetric alloc];
+  v48 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
   if (a6 <= 0.0)
   {
     v41 = 0;
@@ -8205,32 +7412,80 @@ void GLUtilReportAWDClientTimerEvent(uint64_t a1, uint64_t a2, void *a3, unsigne
 
   else
   {
-    *&v22 = a6;
-    v41 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
+    *&v18 = a6;
+    v41 = [MEMORY[0x1E696AD98] numberWithFloat:v18];
   }
 
-  v45 = [MEMORY[0x1E696AD98] numberWithInt:a2];
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v49, "relayProviderType")}];
-  v24 = MEMORY[0x1E696AD98];
-  v25 = [v49 local];
-  v26 = [v24 numberWithInteger:{objc_msgSend(v25, "transport")}];
-  if (v48 >= 0xB)
+  v46 = [MEMORY[0x1E696AD98] numberWithInt:a2];
+  v19 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v55, "relayProviderType")}];
+  v20 = MEMORY[0x1E696AD98];
+  v21 = [v55 local];
+  v22 = [v20 numberWithInteger:{objc_msgSend(v21, "transport")}];
+  v23 = v54;
+  if (v54 > 0xA)
   {
-    v27 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v48];
+    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+    v23 = v54;
   }
 
-  v28 = [MEMORY[0x1E696AD98] numberWithBool:a4];
-  v29 = [MEMORY[0x1E696AD98] numberWithBool:a5];
-  v30 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v49, "protocolVersion")}];
-  v31 = [v49 appName];
-  [v43 IDSQuickRelayEventType:&unk_1F1B20408 eventSubType:v47 duration:v41 resultCode:v45 providerType:v23 transportType:v26 interfaceType:v27 skeEnabled:v28 isInitiator:v29 protocolVersion:v30 retryCount:0 serviceName:v31 subServiceName:0 participantCount:0];
+  v25 = v23 < 0xB;
+  v26 = [MEMORY[0x1E696AD98] numberWithBool:a4];
+  v27 = [MEMORY[0x1E696AD98] numberWithBool:a5];
+  v28 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v55, "protocolVersion")}];
+  v29 = [v55 appName];
+  v43 = [(IDSQuickRelayMetric *)v42 initWithType:&unk_1F1B20408 eventSubType:v48 duration:v41 resultCode:v46 providerType:v19 transportType:v22 interfaceType:v24 skeEnabled:v26 isInitiator:v27 protocolVersion:v28 retryCount:0 serviceName:v29 subServiceName:0 participantCount:0];
 
-  if (v48 < 0xB)
+  if (v25)
+  {
+  }
+
+  if (a6 > 0.0)
+  {
+  }
+
+  v30 = +[IDSCoreAnalyticsLogger defaultLogger];
+  [v30 logMetric:v43];
+
+  v49 = +[IDSAWDLogging sharedInstance];
+  v53 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
+  if (a6 <= 0.0)
+  {
+    v47 = 0;
+  }
+
+  else
+  {
+    *&v31 = a6;
+    v47 = [MEMORY[0x1E696AD98] numberWithFloat:v31];
+  }
+
+  v51 = [MEMORY[0x1E696AD98] numberWithInt:a2];
+  v32 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v55, "relayProviderType")}];
+  v33 = MEMORY[0x1E696AD98];
+  v34 = [v55 local];
+  v35 = [v33 numberWithInteger:{objc_msgSend(v34, "transport")}];
+  if (v54 >= 0xB)
+  {
+    v36 = 0;
+  }
+
+  else
+  {
+    v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v54];
+  }
+
+  v37 = [MEMORY[0x1E696AD98] numberWithBool:a4];
+  v38 = [MEMORY[0x1E696AD98] numberWithBool:a5];
+  v39 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v55, "protocolVersion")}];
+  v40 = [v55 appName];
+  [v49 IDSQuickRelayEventType:&unk_1F1B20408 eventSubType:v53 duration:v47 resultCode:v51 providerType:v32 transportType:v35 interfaceType:v36 skeEnabled:v37 isInitiator:v38 protocolVersion:v39 retryCount:0 serviceName:v40 subServiceName:0 participantCount:0];
+
+  if (v54 < 0xB)
   {
   }
 
@@ -8239,7 +7494,7 @@ void GLUtilReportAWDClientTimerEvent(uint64_t a1, uint64_t a2, void *a3, unsigne
   }
 }
 
-id GLUCreateQRStunMessageEvent(void *a1, unsigned int a2, void *a3, void *a4, float a5)
+id GLUCreateQRStunMessageEvent(void *a1, uint64_t a2, void *a3, void *a4, float a5)
 {
   v9 = a4;
   v10 = a3;
@@ -8248,14 +7503,15 @@ id GLUCreateQRStunMessageEvent(void *a1, unsigned int a2, void *a3, void *a4, fl
   return v11;
 }
 
-id GLUCreateQRStunMessageEventWithType(unsigned int a1, unsigned int a2, void *a3, void *a4, float a5)
+id GLUCreateQRStunMessageEventWithType(uint64_t a1, uint64_t a2, void *a3, void *a4, float a5)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v6 = a2;
+  v31 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = [v9 isSharedQRSession];
   v12 = sub_1A7CA744C(a1, v11);
-  if ((a2 & 0xFFFFFFFE) == 0x22)
+  if ((v6 & 0xFFFFFFFE) == 0x22)
   {
     v13 = 801;
   }
@@ -8268,7 +7524,7 @@ id GLUCreateQRStunMessageEventWithType(unsigned int a1, unsigned int a2, void *a
   if (v13)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v15 = GLUCreateQRStunMessageEventWithEventSubType(v13, a2, v9, v10, a5);
+    v15 = GLUCreateQRStunMessageEventWithEventSubType(v13, v6, v9, v10, a5);
     v16 = [v15 mutableCopy];
 
     if (a1 == 4064)
@@ -8293,7 +7549,7 @@ id GLUCreateQRStunMessageEventWithType(unsigned int a1, unsigned int a2, void *a
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v21 = a1;
+      v30 = a1;
       _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "receive unknown stun message type (%04x) for QREvent, ignore", buf, 8u);
     }
 
@@ -8301,10 +7557,10 @@ id GLUCreateQRStunMessageEventWithType(unsigned int a1, unsigned int a2, void *a
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"receive unknown stun message type (%04x) for QREvent, ignore");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"receive unknown stun message type (%04x) for QREvent, ignore", v19, v20, v21, v22, v23, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"receive unknown stun message type (%04x) for QREvent, ignore");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"receive unknown stun message type (%04x) for QREvent, ignore", v24, v25, v26, v27, a1);
         }
       }
     }
@@ -8317,7 +7573,7 @@ id GLUCreateQRStunMessageEventWithType(unsigned int a1, unsigned int a2, void *a
 
 CFMutableDictionaryRef GLUCreateQRStunMessageEventWithEventSubType(uint64_t a1, unsigned int a2, void *a3, void *a4, float a5)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -8331,9 +7587,9 @@ CFMutableDictionaryRef GLUCreateQRStunMessageEventWithEventSubType(uint64_t a1, 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v40 = v12;
-    v41 = 2112;
-    v42 = v14;
+    v47 = v12;
+    v48 = 2112;
+    v49 = v14;
     _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "GLUCreateQRStunMessageEvent: reportingDataBlob: %@, serverSoftwareVersion: %@", buf, 0x16u);
   }
 
@@ -8341,89 +7597,85 @@ CFMutableDictionaryRef GLUCreateQRStunMessageEventWithEventSubType(uint64_t a1, 
   {
     if (_IDSShouldLogTransport())
     {
-      v36 = v12;
-      v37 = v14;
-      _IDSLogTransport(@"GL", @"IDS", @"GLUCreateQRStunMessageEvent: reportingDataBlob: %@, serverSoftwareVersion: %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"GLUCreateQRStunMessageEvent: reportingDataBlob: %@, serverSoftwareVersion: %@", v16, v17, v18, v19, v20, v12);
+      if (_IDSShouldLog(0))
       {
-        v36 = v12;
-        v37 = v14;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUCreateQRStunMessageEvent: reportingDataBlob: %@, serverSoftwareVersion: %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUCreateQRStunMessageEvent: reportingDataBlob: %@, serverSoftwareVersion: %@", v21, v22, v23, v24, v12);
       }
     }
   }
 
   if (v9)
   {
-    v16 = [MEMORY[0x1E695DF00] date];
-    [v16 timeIntervalSinceDate:v9];
+    v25 = [MEMORY[0x1E695DF00] date];
+    [v25 timeIntervalSinceDate:v9];
     if ((a1 & 0xFFFFFFF7) == 0xD6)
     {
-      v18 = [MEMORY[0x1E696AD98] numberWithDouble:v17 * 1000.0];
-      [(__CFDictionary *)Mutable setObject:v18 forKeyedSubscript:@"DELTAT"];
+      v27 = [MEMORY[0x1E696AD98] numberWithDouble:v26 * 1000.0];
+      [(__CFDictionary *)Mutable setObject:v27 forKeyedSubscript:@"DELTAT"];
     }
   }
 
-  v19 = [v8 local];
-  v20 = [v19 radioAccessTechnology];
-
-  v21 = [v8 remote];
-  v22 = [v21 radioAccessTechnology];
-
-  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v8, "protocolVersion")}];
-  [(__CFDictionary *)Mutable setObject:v23 forKeyedSubscript:@"QVER"];
-
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
-  [(__CFDictionary *)Mutable setObject:v24 forKeyedSubscript:@"TYPE"];
-
-  *&v25 = a5;
-  v26 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
-  [(__CFDictionary *)Mutable setObject:v26 forKeyedSubscript:@"DUR"];
-
-  v27 = MEMORY[0x1E696AD98];
   v28 = [v8 local];
-  v29 = [v27 numberWithInteger:{objc_msgSend(v28, "transport")}];
-  [(__CFDictionary *)Mutable setObject:v29 forKeyedSubscript:@"TRAN"];
+  v29 = [v28 radioAccessTechnology];
 
-  if (v20 >= 0xB)
+  v30 = [v8 remote];
+  v31 = [v30 radioAccessTechnology];
+
+  v32 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v8, "protocolVersion")}];
+  [(__CFDictionary *)Mutable setObject:v32 forKeyedSubscript:@"QVER"];
+
+  v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
+  [(__CFDictionary *)Mutable setObject:v33 forKeyedSubscript:@"TYPE"];
+
+  *&v34 = a5;
+  v35 = [MEMORY[0x1E696AD98] numberWithFloat:v34];
+  [(__CFDictionary *)Mutable setObject:v35 forKeyedSubscript:@"DUR"];
+
+  v36 = MEMORY[0x1E696AD98];
+  v37 = [v8 local];
+  v38 = [v36 numberWithInteger:{objc_msgSend(v37, "transport")}];
+  [(__CFDictionary *)Mutable setObject:v38 forKeyedSubscript:@"TRAN"];
+
+  if (v29 >= 0xB)
   {
     [(__CFDictionary *)Mutable setObject:0 forKeyedSubscript:@"LINF"];
   }
 
   else
   {
-    v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v20];
-    [(__CFDictionary *)Mutable setObject:v30 forKeyedSubscript:@"LINF"];
+    v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v29];
+    [(__CFDictionary *)Mutable setObject:v39 forKeyedSubscript:@"LINF"];
   }
 
-  if (v22 >= 0xB)
+  if (v31 >= 0xB)
   {
     [(__CFDictionary *)Mutable setObject:0 forKeyedSubscript:@"RINF"];
   }
 
   else
   {
-    v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v22];
-    [(__CFDictionary *)Mutable setObject:v31 forKeyedSubscript:@"RINF"];
+    v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v31];
+    [(__CFDictionary *)Mutable setObject:v40 forKeyedSubscript:@"RINF"];
   }
 
-  v32 = [MEMORY[0x1E696AD98] numberWithInt:a2];
-  [(__CFDictionary *)Mutable setObject:v32 forKeyedSubscript:@"SCODE"];
+  v41 = [MEMORY[0x1E696AD98] numberWithInt:a2];
+  [(__CFDictionary *)Mutable setObject:v41 forKeyedSubscript:@"SCODE"];
 
   [(__CFDictionary *)Mutable setObject:v12 forKeyedSubscript:@"QBLOB"];
   [(__CFDictionary *)Mutable setObject:v14 forKeyedSubscript:@"QSV"];
-  v33 = [v8 local];
-  if (*([v33 address] + 1) == 2)
+  v42 = [v8 local];
+  if (*([v42 address] + 1) == 2)
   {
-    v34 = @"IPv4";
+    v43 = @"IPv4";
   }
 
   else
   {
-    v34 = @"IPv6";
+    v43 = @"IPv6";
   }
 
-  [(__CFDictionary *)Mutable setObject:v34 forKeyedSubscript:@"LIPV"];
+  [(__CFDictionary *)Mutable setObject:v43 forKeyedSubscript:@"LIPV"];
 
   return Mutable;
 }
@@ -8818,45 +8070,45 @@ CFMutableDictionaryRef GLUCreateQRNoSessionStateEvent(void *a1, uint64_t a2, uin
 
 id GLUCreateNetworkInterfaceArrayWithOptions(uint64_t a1, int a2, char a3, int a4, int a5, int a6, char a7, unsigned int a8, void *a9)
 {
-  v126 = *MEMORY[0x1E69E9840];
-  v109 = a9;
-  v120 = 0xAAAAAAAAAAAAAAAALL;
-  if (getifaddrs(&v120) < 0)
+  v232 = *MEMORY[0x1E69E9840];
+  v215 = a9;
+  v226 = 0xAAAAAAAAAAAAAAAALL;
+  if (getifaddrs(&v226) < 0)
   {
-    v16 = *__error();
-    v17 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v34 = *__error();
+    v35 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       *&buf[4] = "GLUCreateNetworkInterfaceArrayWithOptions";
       *&buf[12] = 1024;
-      *&buf[14] = v16;
-      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "%s getifaddrs failed errno=%d", buf, 0x12u);
+      *&buf[14] = v34;
+      _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "%s getifaddrs failed errno=%d", buf, 0x12u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"%s getifaddrs failed errno=%d");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"%s getifaddrs failed errno=%d", v36, v37, v38, v39, v40, "GLUCreateNetworkInterfaceArrayWithOptions");
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"%s getifaddrs failed errno=%d");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"%s getifaddrs failed errno=%d", v41, v42, v43, v44, "GLUCreateNetworkInterfaceArrayWithOptions");
         }
       }
     }
 
-    v18 = 0;
+    v45 = 0;
     goto LABEL_170;
   }
 
   if (a4)
   {
     v13 = +[IDSCellularLinkMonitor sharedInstance];
-    v106 = [v13 cellularDataInterfaceName];
+    v212 = [v13 cellularDataInterfaceName];
 
-    v101 = (v109 | v106) != 0;
-    if (!(v109 | v106))
+    v207 = (v215 | v212) != 0;
+    if (!(v215 | v212))
     {
       v14 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -8869,37 +8121,33 @@ id GLUCreateNetworkInterfaceArrayWithOptions(uint64_t a1, int a2, char a3, int a
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"found no interface for cellular data, skip.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"found no interface for cellular data, skip.", v15, v16, v17, v18, v19, v200);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"found no interface for cellular data, skip.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"found no interface for cellular data, skip.", v20, v21, v22, v23, v201);
           }
         }
       }
     }
 
-    v15 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v24 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *&buf[4] = v106;
+      *&buf[4] = v212;
       *&buf[12] = 2112;
-      *&buf[14] = v109;
-      _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "Sliced Cellular Interface - found %@ and/or %@ interface for cellular data.", buf, 0x16u);
+      *&buf[14] = v215;
+      _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "Sliced Cellular Interface - found %@ and/or %@ interface for cellular data.", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v93 = v106;
-        v94 = v109;
-        _IDSLogTransport(@"GL", @"IDS", @"Sliced Cellular Interface - found %@ and/or %@ interface for cellular data.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"Sliced Cellular Interface - found %@ and/or %@ interface for cellular data.", v25, v26, v27, v28, v29, v212);
+        if (_IDSShouldLog(0))
         {
-          v93 = v106;
-          v94 = v109;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"Sliced Cellular Interface - found %@ and/or %@ interface for cellular data.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"Sliced Cellular Interface - found %@ and/or %@ interface for cellular data.", v30, v31, v32, v33, v212);
         }
       }
     }
@@ -8907,127 +8155,121 @@ id GLUCreateNetworkInterfaceArrayWithOptions(uint64_t a1, int a2, char a3, int a
 
   else
   {
-    v106 = 0;
-    v101 = 0;
+    v212 = 0;
+    v207 = 0;
   }
 
   if (a6)
   {
-    v19 = +[IDSNWPathUtils sharedInstance];
-    v20 = [v19 getDefaultPath];
+    v46 = +[IDSNWPathUtils sharedInstance];
+    v47 = [v46 getDefaultPath];
 
-    v21 = [v20 status];
-    if (v21 == 1)
+    v48 = [v47 status];
+    if (v48 == 1)
     {
-      v22 = [v20 interface];
-      v107 = [v22 interfaceName];
+      v49 = [v47 interface];
+      v213 = [v49 interfaceName];
     }
 
     else
     {
-      v23 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v50 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        *&buf[4] = v20;
+        *&buf[4] = v47;
         *&buf[12] = 1024;
-        *&buf[14] = v21;
-        _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "no default path is available (path:%@, status:%d).", buf, 0x12u);
+        *&buf[14] = v48;
+        _os_log_impl(&dword_1A7AD9000, v50, OS_LOG_TYPE_DEFAULT, "no default path is available (path:%@, status:%d).", buf, 0x12u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v93 = v20;
-          v94 = v21;
-          _IDSLogTransport(@"GL", @"IDS", @"no default path is available (path:%@, status:%d).");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"no default path is available (path:%@, status:%d).", v51, v52, v53, v54, v55, v47);
+          if (_IDSShouldLog(0))
           {
-            v93 = v20;
-            v94 = v21;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"no default path is available (path:%@, status:%d).");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"no default path is available (path:%@, status:%d).", v56, v57, v58, v59, v47);
           }
         }
       }
 
-      v107 = 0;
+      v213 = 0;
     }
   }
 
   else
   {
-    v107 = 0;
+    v213 = 0;
   }
 
-  v24 = v120;
-  if (!v120)
+  v60 = v226;
+  if (!v226)
   {
     MEMORY[0x1AC563BA0](0);
     goto LABEL_162;
   }
 
-  v108 = 0;
-  if (v107)
+  v214 = 0;
+  if (v213)
   {
-    v25 = a6;
+    v61 = a6;
   }
 
   else
   {
-    v25 = 0;
+    v61 = 0;
   }
 
-  v102 = v25;
-  v98 = __rev16(a8);
+  v208 = v61;
+  v204 = __rev16(a8);
   do
   {
     if (a1 == 1)
     {
-      if (v24->ifa_addr->sa_family != 30)
+      if (v60->ifa_addr->sa_family != 30)
       {
         goto LABEL_53;
       }
     }
 
-    else if (!a1 && v24->ifa_addr->sa_family != 2)
+    else if (!a1 && v60->ifa_addr->sa_family != 2)
     {
       goto LABEL_53;
     }
 
-    if ((v24->ifa_flags & 9) == 1)
+    if ((v60->ifa_flags & 9) == 1)
     {
-      ifa_addr = v24->ifa_addr;
+      ifa_addr = v60->ifa_addr;
       if (ifa_addr)
       {
-        if (!v24->ifa_netmask || (valid = IsValidSA(v24->ifa_netmask), ifa_addr = v24->ifa_addr, !valid) || ifa_addr->sa_family == v24->ifa_netmask->sa_family)
+        if (!v60->ifa_netmask || (valid = IsValidSA(v60->ifa_netmask), ifa_addr = v60->ifa_addr, !valid) || ifa_addr->sa_family == v60->ifa_netmask->sa_family)
         {
           if (!IsLinkLocalSA(ifa_addr) || a5)
           {
-            v28 = [IDSNWPathUtils sharedInstance:v93];
-            v29 = [v28 isVoWiFiInterface:v24->ifa_name];
+            v64 = +[IDSNWPathUtils sharedInstance];
+            v65 = [v64 isVoWiFiInterface:v60->ifa_name];
 
-            if (v29)
+            if (v65)
             {
-              v30 = OSLogHandleForTransportCategory();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v66 = OSLogHandleForTransportCategory();
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
-                ifa_name = v24->ifa_name;
+                ifa_name = v60->ifa_name;
                 *buf = 136315138;
                 *&buf[4] = ifa_name;
-                _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "filter out VoWiFi interface [if:%s]", buf, 0xCu);
+                _os_log_impl(&dword_1A7AD9000, v66, OS_LOG_TYPE_DEFAULT, "filter out VoWiFi interface [if:%s]", buf, 0xCu);
               }
 
               if (os_log_shim_legacy_logging_enabled())
               {
                 if (_IDSShouldLogTransport())
                 {
-                  v93 = v24->ifa_name;
-                  _IDSLogTransport(@"GL", @"IDS", @"filter out VoWiFi interface [if:%s]");
-                  if (_IDSShouldLog())
+                  _IDSLogTransport(@"GL", @"IDS", @"filter out VoWiFi interface [if:%s]", v68, v69, v70, v71, v72, v60->ifa_name);
+                  if (_IDSShouldLog(0))
                   {
-                    v93 = v24->ifa_name;
-                    _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out VoWiFi interface [if:%s]");
+                    _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out VoWiFi interface [if:%s]", v73, v74, v75, v76, v60->ifa_name);
                   }
                 }
               }
@@ -9036,34 +8278,32 @@ id GLUCreateNetworkInterfaceArrayWithOptions(uint64_t a1, int a2, char a3, int a
             }
 
             *__s2 = 0;
-            v124 = 0;
-            v119 = -1;
-            if (!GLUtilGetDefaultInterface(&v119, __s2, 0) || (sub_1A7CAA8FC(v24->ifa_name, v24->ifa_addr->sa_family, __s2) & 1) == 0)
+            v230 = 0;
+            v225 = -1;
+            if (!GLUtilGetDefaultInterface(&v225, __s2, 0) || (sub_1A7CAA8FC(v60->ifa_name, v60->ifa_addr->sa_family, __s2) & 1) == 0)
             {
-              v32 = +[IDSNWPathUtils sharedInstance];
-              v33 = [v32 filterVirtualInterfaces:v24->ifa_name];
+              v77 = +[IDSNWPathUtils sharedInstance];
+              v78 = [v77 filterVirtualInterfaces:v60->ifa_name];
 
-              if (v33)
+              if (v78)
               {
-                v34 = OSLogHandleForTransportCategory();
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                v79 = OSLogHandleForTransportCategory();
+                if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
                 {
-                  v35 = v24->ifa_name;
+                  v80 = v60->ifa_name;
                   *buf = 136315138;
-                  *&buf[4] = v35;
-                  _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "filter out virtual interface [if:%s]", buf, 0xCu);
+                  *&buf[4] = v80;
+                  _os_log_impl(&dword_1A7AD9000, v79, OS_LOG_TYPE_DEFAULT, "filter out virtual interface [if:%s]", buf, 0xCu);
                 }
 
                 if (os_log_shim_legacy_logging_enabled())
                 {
                   if (_IDSShouldLogTransport())
                   {
-                    v93 = v24->ifa_name;
-                    _IDSLogTransport(@"GL", @"IDS", @"filter out virtual interface [if:%s]");
-                    if (_IDSShouldLog())
+                    _IDSLogTransport(@"GL", @"IDS", @"filter out virtual interface [if:%s]", v81, v82, v83, v84, v85, v60->ifa_name);
+                    if (_IDSShouldLog(0))
                     {
-                      v93 = v24->ifa_name;
-                      _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out virtual interface [if:%s]");
+                      _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out virtual interface [if:%s]", v86, v87, v88, v89, v60->ifa_name);
                     }
                   }
                 }
@@ -9072,47 +8312,42 @@ id GLUCreateNetworkInterfaceArrayWithOptions(uint64_t a1, int a2, char a3, int a
               }
             }
 
-            if (v102)
+            if (v208)
             {
-              v36 = v24->ifa_name;
-              sa_family = v24->ifa_addr->sa_family;
-              v38 = v107;
-              if ((sub_1A7CAA8FC(v36, sa_family, [v107 UTF8String]) & 1) == 0)
+              v90 = v60->ifa_name;
+              sa_family = v60->ifa_addr->sa_family;
+              v92 = v213;
+              if ((sub_1A7CAA8FC(v90, sa_family, [v213 UTF8String]) & 1) == 0)
               {
-                v54 = OSLogHandleForTransportCategory();
-                if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                v117 = OSLogHandleForTransportCategory();
+                if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
                 {
-                  v55 = v24->ifa_name;
-                  v56 = v107;
-                  v57 = [v107 UTF8String];
+                  v118 = v60->ifa_name;
+                  v119 = v213;
+                  v120 = [v213 UTF8String];
                   *buf = 136315650;
-                  *&buf[4] = v55;
+                  *&buf[4] = v118;
                   *&buf[12] = 2112;
                   *&buf[14] = @"12345678-7654-DADA-DADA-DADADADADADA";
                   *&buf[22] = 2080;
-                  *&buf[24] = v57;
-                  _os_log_impl(&dword_1A7AD9000, v54, OS_LOG_TYPE_DEFAULT, "filter out non-default interface [if:%s] for %@, defaultIfName: %s", buf, 0x20u);
+                  *&buf[24] = v120;
+                  _os_log_impl(&dword_1A7AD9000, v117, OS_LOG_TYPE_DEFAULT, "filter out non-default interface [if:%s] for %@, defaultIfName: %s", buf, 0x20u);
                 }
 
                 if (os_log_shim_legacy_logging_enabled())
                 {
                   if (_IDSShouldLogTransport())
                   {
-                    v58 = v24->ifa_name;
-                    v59 = v107;
-                    v94 = @"12345678-7654-DADA-DADA-DADADADADADA";
-                    v95 = [v107 UTF8String];
-                    v93 = v58;
-                    _IDSLogTransport(@"GL", @"IDS", @"filter out non-default interface [if:%s] for %@, defaultIfName: %s");
-                    if (_IDSShouldLog())
+                    v121 = v60->ifa_name;
+                    v122 = v213;
+                    [v213 UTF8String];
+                    _IDSLogTransport(@"GL", @"IDS", @"filter out non-default interface [if:%s] for %@, defaultIfName: %s", v123, v124, v125, v126, v127, v121);
+                    if (_IDSShouldLog(0))
                     {
-                      v60 = v24->ifa_name;
-                      v61 = v107;
-                      v62 = [v107 UTF8String];
-                      v94 = @"12345678-7654-DADA-DADA-DADADADADADA";
-                      v95 = v62;
-                      v93 = v60;
-                      _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out non-default interface [if:%s] for %@, defaultIfName: %s");
+                      v128 = v60->ifa_name;
+                      v129 = v213;
+                      [v213 UTF8String];
+                      _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out non-default interface [if:%s] for %@, defaultIfName: %s", v130, v131, v132, v133, v128);
                     }
                   }
                 }
@@ -9121,84 +8356,77 @@ id GLUCreateNetworkInterfaceArrayWithOptions(uint64_t a1, int a2, char a3, int a
               }
             }
 
-            v99 = sub_1A7CAA9BC(v24->ifa_name, v24->ifa_addr->sa_family);
-            v39 = v24->ifa_addr->sa_family;
+            v205 = sub_1A7CAA9BC(v60->ifa_name, v60->ifa_addr->sa_family);
+            v93 = v60->ifa_addr->sa_family;
             memset(buf, 0, 32);
             __strlcpy_chk();
-            v40 = socket(v39, 2, 0);
-            v41 = v40;
-            if (v40 < 0)
+            v94 = socket(v93, 2, 0);
+            v95 = v94;
+            if (v94 < 0)
             {
-              v51 = __error();
-              IDSAssertNonFatalErrnoWithSource(*v51, "GL getInterfaceType", "/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSGlobalLinkUtil.m", 1883);
+              v105 = __error();
+              IDSAssertNonFatalErrnoWithSource(*v105, "GL getInterfaceType", "/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSGlobalLinkUtil.m", 1883);
             }
 
             else
             {
-              v93 = buf;
-              v42 = ioctl(v40, 0xC02069ADuLL);
-              v43 = *&buf[16];
-              close(v41);
-              if (v42 >= 0)
+              v96 = ioctl(v94, 0xC02069ADuLL, buf);
+              v97 = *&buf[16];
+              close(v95);
+              if (v96 >= 0)
               {
                 IDSCheckFileDescriptorUsageWithSource("IDSGlobalLinkUtil.m", 1886, 0);
-                v44 = v43;
-                if (v43 == 5)
+                v98 = v97;
+                if (v97 == 5)
                 {
-                  if (!v101)
+                  if (!v207)
                   {
                     goto LABEL_53;
                   }
 
-                  v45 = v24->ifa_name;
-                  v46 = v24->ifa_addr->sa_family;
-                  v47 = v106;
-                  if ((sub_1A7CAA8FC(v45, v46, [v106 UTF8String]) & 1) == 0)
+                  v99 = v60->ifa_name;
+                  v100 = v60->ifa_addr->sa_family;
+                  v101 = v212;
+                  if ((sub_1A7CAA8FC(v99, v100, [v212 UTF8String]) & 1) == 0)
                   {
-                    v48 = v24->ifa_name;
-                    v49 = v24->ifa_addr->sa_family;
-                    v50 = v109;
-                    if ((sub_1A7CAA8FC(v48, v49, [v109 UTF8String]) & 1) == 0)
+                    v102 = v60->ifa_name;
+                    v103 = v60->ifa_addr->sa_family;
+                    v104 = v215;
+                    if ((sub_1A7CAA8FC(v102, v103, [v215 UTF8String]) & 1) == 0)
                     {
                       goto LABEL_53;
                     }
                   }
 
-                  v44 = 5;
+                  v98 = 5;
                 }
 
                 else if (a7)
                 {
-                  if (v43 != 3)
+                  if (v97 != 3)
                   {
 LABEL_82:
-                    v52 = OSLogHandleForTransportCategory();
-                    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+                    v106 = OSLogHandleForTransportCategory();
+                    if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
                     {
-                      v53 = v24->ifa_name;
+                      v107 = v60->ifa_name;
                       *buf = 136315650;
-                      *&buf[4] = v53;
+                      *&buf[4] = v107;
                       *&buf[12] = 1024;
-                      *&buf[14] = v44;
+                      *&buf[14] = v98;
                       *&buf[18] = 2112;
                       *&buf[20] = @"12345678-7654-DADA-DADA-DADADADADADA";
-                      _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "filter out interface [if:%s type:%d] for %@.", buf, 0x1Cu);
+                      _os_log_impl(&dword_1A7AD9000, v106, OS_LOG_TYPE_DEFAULT, "filter out interface [if:%s type:%d] for %@.", buf, 0x1Cu);
                     }
 
                     if (os_log_shim_legacy_logging_enabled())
                     {
                       if (_IDSShouldLogTransport())
                       {
-                        v94 = v44;
-                        v95 = @"12345678-7654-DADA-DADA-DADADADADADA";
-                        v93 = v24->ifa_name;
-                        _IDSLogTransport(@"GL", @"IDS", @"filter out interface [if:%s type:%d] for %@.");
-                        if (_IDSShouldLog())
+                        _IDSLogTransport(@"GL", @"IDS", @"filter out interface [if:%s type:%d] for %@.", v108, v109, v110, v111, v112, v60->ifa_name);
+                        if (_IDSShouldLog(0))
                         {
-                          v94 = v44;
-                          v95 = @"12345678-7654-DADA-DADA-DADADADADADA";
-                          v93 = v24->ifa_name;
-                          _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out interface [if:%s type:%d] for %@.");
+                          _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out interface [if:%s type:%d] for %@.", v113, v114, v115, v116, v60->ifa_name);
                         }
                       }
                     }
@@ -9208,33 +8436,27 @@ LABEL_82:
 
                   if ((a3 & 1) == 0)
                   {
-                    v74 = OSLogHandleForTransportCategory();
-                    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                    v145 = OSLogHandleForTransportCategory();
+                    if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
                     {
-                      v75 = v24->ifa_name;
+                      v146 = v60->ifa_name;
                       *buf = 136315650;
-                      *&buf[4] = v75;
+                      *&buf[4] = v146;
                       *&buf[12] = 1024;
                       *&buf[14] = 3;
                       *&buf[18] = 2112;
                       *&buf[20] = @"12345678-7654-DADA-DADA-DADADADADADA";
-                      _os_log_impl(&dword_1A7AD9000, v74, OS_LOG_TYPE_DEFAULT, "filter out WiFi interface [if:%s type:%d] for %@.", buf, 0x1Cu);
+                      _os_log_impl(&dword_1A7AD9000, v145, OS_LOG_TYPE_DEFAULT, "filter out WiFi interface [if:%s type:%d] for %@.", buf, 0x1Cu);
                     }
 
                     if (os_log_shim_legacy_logging_enabled())
                     {
                       if (_IDSShouldLogTransport())
                       {
-                        v94 = 3;
-                        v95 = @"12345678-7654-DADA-DADA-DADADADADADA";
-                        v93 = v24->ifa_name;
-                        _IDSLogTransport(@"GL", @"IDS", @"filter out WiFi interface [if:%s type:%d] for %@.");
-                        if (_IDSShouldLog())
+                        _IDSLogTransport(@"GL", @"IDS", @"filter out WiFi interface [if:%s type:%d] for %@.", v147, v148, v149, v150, v151, v60->ifa_name);
+                        if (_IDSShouldLog(0))
                         {
-                          v94 = 3;
-                          v95 = @"12345678-7654-DADA-DADA-DADADADADADA";
-                          v93 = v24->ifa_name;
-                          _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out WiFi interface [if:%s type:%d] for %@.");
+                          _IDSLogV(0, @"IDSFoundation", @"GL", @"filter out WiFi interface [if:%s type:%d] for %@.", v152, v153, v154, v155, v60->ifa_name);
                         }
                       }
                     }
@@ -9242,7 +8464,7 @@ LABEL_82:
                     goto LABEL_53;
                   }
 
-                  v44 = 3;
+                  v98 = 3;
                 }
 
                 goto LABEL_98;
@@ -9250,72 +8472,70 @@ LABEL_82:
             }
 
             IDSCheckFileDescriptorUsageWithSource("IDSGlobalLinkUtil.m", 1886, 0);
-            v44 = 0;
+            v98 = 0;
             if (a7)
             {
               goto LABEL_82;
             }
 
 LABEL_98:
-            if (((a2 & 1) != 0 || (v99 & 0x100000) == 0) && (!a2 || (v99 & 0x20000) != 0))
+            if (((a2 & 1) != 0 || (v205 & 0x100000) == 0) && (!a2 || (v205 & 0x20000) != 0))
             {
-              v97 = v44;
-              v100 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              v63 = v24->ifa_addr;
-              if (v63->sa_family == 30)
+              v203 = v98;
+              v206 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v134 = v60->ifa_addr;
+              if (v134->sa_family == 30)
               {
-                v96 = sub_1A7CAACB0(v24->ifa_name, v63);
-                if ((v96 & 0x101E) == 0)
+                v202 = sub_1A7CAACB0(v60->ifa_name, v134);
+                if ((v202 & 0x101E) == 0)
                 {
-                  if ((v96 & 0x80) != 0)
+                  if ((v202 & 0x80) != 0)
                   {
-                    v117 = 0uLL;
-                    v118 = 0uLL;
-                    v115 = 0uLL;
-                    v116 = 0uLL;
-                    v76 = v108;
-                    v77 = [v76 countByEnumeratingWithState:&v115 objects:v122 count:16];
-                    if (v77)
+                    v223 = 0uLL;
+                    v224 = 0uLL;
+                    v221 = 0uLL;
+                    v222 = 0uLL;
+                    v156 = v214;
+                    v157 = [v156 countByEnumeratingWithState:&v221 objects:v228 count:16];
+                    if (v157)
                     {
-                      v78 = *v116;
+                      v158 = *v222;
                       do
                       {
-                        for (i = 0; i != v77; ++i)
+                        for (i = 0; i != v157; ++i)
                         {
-                          if (*v116 != v78)
+                          if (*v222 != v158)
                           {
-                            objc_enumerationMutation(v76);
+                            objc_enumerationMutation(v156);
                           }
 
-                          v80 = *(*(&v115 + 1) + 8 * i);
-                          v81 = v24->ifa_name;
-                          v82 = [v80 name];
-                          v83 = v82;
-                          if (!strcmp(v81, [v82 UTF8String]))
+                          v160 = *(*(&v221 + 1) + 8 * i);
+                          v161 = v60->ifa_name;
+                          v162 = [v160 name];
+                          v163 = v162;
+                          if (!strcmp(v161, [v162 UTF8String]))
                           {
-                            v84 = [v80 isTemporaryIPv6];
+                            v164 = [v160 isTemporaryIPv6];
 
-                            if ((v84 & 1) == 0)
+                            if ((v164 & 1) == 0)
                             {
-                              [v100 addObject:v80];
-                              v85 = OSLogHandleForTransportCategory();
-                              if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+                              [v206 addObject:v160];
+                              v165 = OSLogHandleForTransportCategory();
+                              if (os_log_type_enabled(v165, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 138412290;
-                                *&buf[4] = v80;
-                                _os_log_impl(&dword_1A7AD9000, v85, OS_LOG_TYPE_DEFAULT, "prune IPv6 interface %@.", buf, 0xCu);
+                                *&buf[4] = v160;
+                                _os_log_impl(&dword_1A7AD9000, v165, OS_LOG_TYPE_DEFAULT, "prune IPv6 interface %@.", buf, 0xCu);
                               }
 
                               if (os_log_shim_legacy_logging_enabled())
                               {
                                 if (_IDSShouldLogTransport())
                                 {
-                                  v93 = v80;
-                                  _IDSLogTransport(@"GL", @"IDS", @"prune IPv6 interface %@.");
-                                  if (_IDSShouldLog())
+                                  _IDSLogTransport(@"GL", @"IDS", @"prune IPv6 interface %@.", v166, v167, v168, v169, v170, v160);
+                                  if (_IDSShouldLog(0))
                                   {
-                                    v93 = v80;
-                                    _IDSLogV(0, @"IDSFoundation", @"GL", @"prune IPv6 interface %@.");
+                                    _IDSLogV(0, @"IDSFoundation", @"GL", @"prune IPv6 interface %@.", v171, v172, v173, v174, v160);
                                   }
                                 }
                               }
@@ -9327,66 +8547,64 @@ LABEL_98:
                           }
                         }
 
-                        v77 = [v76 countByEnumeratingWithState:&v115 objects:v122 count:16];
+                        v157 = [v156 countByEnumeratingWithState:&v221 objects:v228 count:16];
                       }
 
-                      while (v77);
+                      while (v157);
                     }
                   }
 
                   else
                   {
-                    v113 = 0uLL;
-                    v114 = 0uLL;
-                    v111 = 0uLL;
-                    v112 = 0uLL;
-                    v64 = v108;
-                    v65 = [v64 countByEnumeratingWithState:&v111 objects:v121 count:16];
-                    if (v65)
+                    v219 = 0uLL;
+                    v220 = 0uLL;
+                    v217 = 0uLL;
+                    v218 = 0uLL;
+                    v135 = v214;
+                    v136 = [v135 countByEnumeratingWithState:&v217 objects:v227 count:16];
+                    if (v136)
                     {
-                      v66 = *v112;
+                      v137 = *v218;
                       while (2)
                       {
-                        for (j = 0; j != v65; ++j)
+                        for (j = 0; j != v136; ++j)
                         {
-                          if (*v112 != v66)
+                          if (*v218 != v137)
                           {
-                            objc_enumerationMutation(v64);
+                            objc_enumerationMutation(v135);
                           }
 
-                          v68 = *(*(&v111 + 1) + 8 * j);
-                          v69 = v24->ifa_name;
-                          v70 = [v68 name];
-                          v71 = v70;
-                          if (!strcmp(v69, [v70 UTF8String]))
+                          v139 = *(*(&v217 + 1) + 8 * j);
+                          v140 = v60->ifa_name;
+                          v141 = [v139 name];
+                          v142 = v141;
+                          if (!strcmp(v140, [v141 UTF8String]))
                           {
-                            v72 = [v68 isTemporaryIPv6];
+                            v143 = [v139 isTemporaryIPv6];
 
-                            if (v72)
+                            if (v143)
                             {
-                              v90 = OSLogHandleForTransportCategory();
-                              if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+                              v179 = OSLogHandleForTransportCategory();
+                              if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 138412290;
-                                *&buf[4] = v68;
-                                _os_log_impl(&dword_1A7AD9000, v90, OS_LOG_TYPE_DEFAULT, "skip IPv6 interface %@.", buf, 0xCu);
+                                *&buf[4] = v139;
+                                _os_log_impl(&dword_1A7AD9000, v179, OS_LOG_TYPE_DEFAULT, "skip IPv6 interface %@.", buf, 0xCu);
                               }
 
                               if (os_log_shim_legacy_logging_enabled())
                               {
                                 if (_IDSShouldLogTransport())
                                 {
-                                  v93 = v68;
-                                  _IDSLogTransport(@"GL", @"IDS", @"skip IPv6 interface %@.");
-                                  if (_IDSShouldLog())
+                                  _IDSLogTransport(@"GL", @"IDS", @"skip IPv6 interface %@.", v180, v181, v182, v183, v184, v139);
+                                  if (_IDSShouldLog(0))
                                   {
-                                    v93 = v68;
-                                    _IDSLogV(0, @"IDSFoundation", @"GL", @"skip IPv6 interface %@.");
+                                    _IDSLogV(0, @"IDSFoundation", @"GL", @"skip IPv6 interface %@.", v185, v186, v187, v188, v139);
                                   }
                                 }
                               }
 
-                              v108 = v64;
+                              v214 = v135;
                               goto LABEL_157;
                             }
                           }
@@ -9396,8 +8614,8 @@ LABEL_98:
                           }
                         }
 
-                        v65 = [v64 countByEnumeratingWithState:&v111 objects:v121 count:16];
-                        if (v65)
+                        v136 = [v135 countByEnumeratingWithState:&v217 objects:v227 count:16];
+                        if (v136)
                         {
                           continue;
                         }
@@ -9407,36 +8625,36 @@ LABEL_98:
                     }
                   }
 
-                  if ([v100 count])
+                  if ([v206 count])
                   {
-                    [v108 removeObjectsInArray:v100];
+                    [v214 removeObjectsInArray:v206];
                   }
 
-                  v73 = v96;
+                  v144 = v202;
 LABEL_142:
-                  v86 = v24->ifa_addr;
-                  v87 = v97;
-                  if (v86->sa_data[2] != 209)
+                  v175 = v60->ifa_addr;
+                  v176 = v203;
+                  if (v175->sa_data[2] != 209)
                   {
-                    if (!v108)
+                    if (!v214)
                     {
-                      v88 = v73;
-                      v108 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                      v86 = v24->ifa_addr;
-                      v87 = v97;
-                      v73 = v88;
+                      v177 = v144;
+                      v214 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                      v175 = v60->ifa_addr;
+                      v176 = v203;
+                      v144 = v177;
                     }
 
-                    v89 = v86->sa_family;
-                    if (v89 == 30 || v89 == 2)
+                    v178 = v175->sa_family;
+                    if (v178 == 30 || v178 == 2)
                     {
-                      *v86->sa_data = v98;
+                      *v175->sa_data = v204;
                     }
 
-                    v64 = [IDSInterfaceAddress interfaceAddress:v24 eflags:v99 v6flags:v73 iftype:v87, v93];
-                    if (v64)
+                    v135 = [IDSInterfaceAddress interfaceAddress:v60 eflags:v205 v6flags:v144 iftype:v176];
+                    if (v135)
                     {
-                      [v108 addObject:v64];
+                      [v214 addObject:v135];
                     }
 
 LABEL_157:
@@ -9446,7 +8664,7 @@ LABEL_157:
                 goto LABEL_53;
               }
 
-              v73 = 0;
+              v144 = 0;
               goto LABEL_142;
             }
           }
@@ -9455,42 +8673,483 @@ LABEL_157:
     }
 
 LABEL_53:
-    v24 = v24->ifa_next;
+    v60 = v60->ifa_next;
   }
 
-  while (v24);
-  MEMORY[0x1AC563BA0](v120);
-  if (!v108)
+  while (v60);
+  MEMORY[0x1AC563BA0](v226);
+  if (!v214)
   {
 LABEL_162:
-    v108 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v214 = objc_alloc_init(MEMORY[0x1E695DF70]);
   }
 
-  v91 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+  v189 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v189, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "GLUCreateNetworkInterfaceArrayWithOptions";
     *&buf[12] = 2112;
-    *&buf[14] = v108;
-    _os_log_impl(&dword_1A7AD9000, v91, OS_LOG_TYPE_DEFAULT, "%s Available network interfaces: %@", buf, 0x16u);
+    *&buf[14] = v214;
+    _os_log_impl(&dword_1A7AD9000, v189, OS_LOG_TYPE_DEFAULT, "%s Available network interfaces: %@", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"%s Available network interfaces: %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"%s Available network interfaces: %@", v190, v191, v192, v193, v194, "GLUCreateNetworkInterfaceArrayWithOptions");
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"%s Available network interfaces: %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"%s Available network interfaces: %@", v195, v196, v197, v198, "GLUCreateNetworkInterfaceArrayWithOptions");
       }
     }
   }
 
-  v18 = v108;
+  v45 = v214;
 
 LABEL_170:
 
-  return v18;
+  return v45;
+}
+
+uint64_t sub_1A7CAA8FC(const char *a1, int a2, char *__s2)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  if (!__s2)
+  {
+    return 0;
+  }
+
+  if (!strncmp(a1, __s2, 0x10uLL))
+  {
+    return 1;
+  }
+
+  memset(__s1, 170, sizeof(__s1));
+  result = getEffectiveInterface(a1, a2, __s1, 0);
+  if (result)
+  {
+    return strncmp(__s1, __s2, 0x10uLL) == 0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1A7CAA9BC(uint64_t a1, int a2)
+{
+  v2 = a2;
+  v35 = *MEMORY[0x1E69E9840];
+  v3 = socket(a2, 2, 0);
+  if (v3 < 0)
+  {
+    v7 = *__error();
+    IDSAssertNonFatalErrnoWithSource(v7, "GL getExtendedFlags", "/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSGlobalLinkUtil.m", 1846);
+    v8 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v30 = "getExtendedFlags";
+      v31 = 1024;
+      v32 = v7;
+      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "%s socket failed errno=%d", buf, 0x12u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled())
+    {
+      if (_IDSShouldLogTransport())
+      {
+        _IDSLogTransport(@"GL", @"IDS", @"%s socket failed errno=%d", v9, v10, v11, v12, v13, "getExtendedFlags");
+        if (_IDSShouldLog(0))
+        {
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"%s socket failed errno=%d", v14, v15, v16, v17, "getExtendedFlags");
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v4 = v3;
+    IDSCheckFileDescriptorUsageWithSource("IDSGlobalLinkUtil.m", 1851, 0);
+    v33 = 0u;
+    v34 = 0u;
+    BYTE1(v34) = v2;
+    __strlcpy_chk();
+    v5 = ioctl(v4, 0xC020698EuLL, &v33);
+    close(v4);
+    if ((v5 & 0x80000000) == 0)
+    {
+      return v34;
+    }
+
+    v18 = *__error();
+    v19 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v30 = "getExtendedFlags";
+      v31 = 1024;
+      v32 = v18;
+      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "%s ioctl(SIOCGIFEFLAGS) failed errno=%d", buf, 0x12u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
+    {
+      _IDSLogTransport(@"GL", @"IDS", @"%s ioctl(SIOCGIFEFLAGS) failed errno=%d", v20, v21, v22, v23, v24, "getExtendedFlags");
+      if (_IDSShouldLog(0))
+      {
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"%s ioctl(SIOCGIFEFLAGS) failed errno=%d", v25, v26, v27, v28, "getExtendedFlags");
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t sub_1A7CAACB0(uint64_t a1, _OWORD *a2)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v3 = socket(30, 2, 0);
+  if (v3 < 0)
+  {
+    v7 = *__error();
+    IDSAssertNonFatalErrnoWithSource(v7, "GL getIPv6Flags", "/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSGlobalLinkUtil.m", 1799);
+    v8 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v30 = "getIPv6Flags";
+      v31 = 1024;
+      v32 = v7;
+      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "%s socket failed errno=%d", buf, 0x12u);
+    }
+
+    result = os_log_shim_legacy_logging_enabled();
+    if (result)
+    {
+      result = _IDSShouldLogTransport();
+      if (result)
+      {
+        _IDSLogTransport(@"GL", @"IDS", @"%s socket failed errno=%d", v9, v10, v11, v12, v13, "getIPv6Flags");
+        result = _IDSShouldLog(0);
+        if (result)
+        {
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"%s socket failed errno=%d", v14, v15, v16, v17, "getIPv6Flags");
+          return 0;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v4 = v3;
+    IDSCheckFileDescriptorUsageWithSource("IDSGlobalLinkUtil.m", 1804, 0);
+    memset(v33, 0, sizeof(v33));
+    __strlcpy_chk();
+    v33[1] = *a2;
+    *(&v33[1] + 12) = *(a2 + 12);
+    v5 = ioctl(v4, 0xC1206949uLL, v33);
+    close(v4);
+    if ((v5 & 0x80000000) == 0)
+    {
+      return LODWORD(v33[1]);
+    }
+
+    v18 = *__error();
+    v19 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v30 = "getIPv6Flags";
+      v31 = 1024;
+      v32 = v18;
+      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "%s ioctl(SIOCGIFAFLAG_IN6) failed errno=%d", buf, 0x12u);
+    }
+
+    result = os_log_shim_legacy_logging_enabled();
+    if (result)
+    {
+      result = _IDSShouldLogTransport();
+      if (result)
+      {
+        _IDSLogTransport(@"GL", @"IDS", @"%s ioctl(SIOCGIFAFLAG_IN6) failed errno=%d", v20, v21, v22, v23, v24, "getIPv6Flags");
+        result = _IDSShouldLog(0);
+        if (result)
+        {
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"%s ioctl(SIOCGIFAFLAG_IN6) failed errno=%d", v25, v26, v27, v28, "getIPv6Flags");
+          return 0;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t GLUGetExtendedFlagsForInterface(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 name];
+  v3 = [v2 UTF8String];
+
+  v4 = [v1 address];
+
+  v5 = sub_1A7CAA9BC(v3, *([v4 sa] + 1));
+  return v5;
+}
+
+id GLUtilGetRemainingInterfaces(void *a1)
+{
+  v31[2] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v28 = -1;
+  v31[0] = 0;
+  v31[1] = 0;
+  v27 = 0;
+  if (GLUtilGetDefaultInterface(&v28, v31, &v27))
+  {
+    v2 = GLUtilGetExcludedInterfaceAddressList(v28, v31, v1);
+    v3 = [v1 mutableCopy];
+    [v3 removeObjectsInArray:v2];
+    v4 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v30 = v3;
+      _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "GLUtilGetRemainingInterfaces: remaining interfaces:%@.", buf, 0xCu);
+    }
+
+    if (os_log_shim_legacy_logging_enabled())
+    {
+      if (_IDSShouldLogTransport())
+      {
+        _IDSLogTransport(@"GL", @"IDS", @"GLUtilGetRemainingInterfaces: remaining interfaces:%@.", v5, v6, v7, v8, v9, v3);
+        if (_IDSShouldLog(0))
+        {
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilGetRemainingInterfaces: remaining interfaces:%@.", v10, v11, v12, v13, v3);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v14 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "GLUtilGetRemainingInterfaces: Failed to get default interface, can not get remaining interfaces after exclusion!", buf, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled())
+    {
+      if (_IDSShouldLogTransport())
+      {
+        _IDSLogTransport(@"GL", @"IDS", @"GLUtilGetRemainingInterfaces: Failed to get default interface, can not get remaining interfaces after exclusion!", v15, v16, v17, v18, v19, v25);
+        if (_IDSShouldLog(0))
+        {
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"GLUtilGetRemainingInterfaces: Failed to get default interface, can not get remaining interfaces after exclusion!", v20, v21, v22, v23, v26);
+        }
+      }
+    }
+
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+uint64_t GLUtilGetPreferredRemoteInterface(char a1)
+{
+  if ((a1 - 1) > 7u)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return dword_1A7E40FA8[(a1 - 1)];
+  }
+}
+
+uint64_t GLUtilGetPreferredLocalInterface(int a1)
+{
+  v1 = 2 * ((a1 - 1) < 2);
+  if (a1 == 8)
+  {
+    v1 = 1;
+  }
+
+  if (a1 == 4)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t GLUtilShouldSetRemoteInterfacePreference(int a1, int a2)
+{
+  if (a1)
+  {
+    return a2 ^ 1u;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+unint64_t GLUtilStunTransportChar(unint64_t a1)
+{
+  v1 = 0x535452503FuLL >> (8 * a1);
+  if (a1 >= 5)
+  {
+    LOBYTE(v1) = 63;
+  }
+
+  return v1 & 0x7F;
+}
+
+__CFString *GLUtilStunTransportString(uint64_t a1)
+{
+  if ((a1 - 1) > 3)
+  {
+    return @"?";
+  }
+
+  else
+  {
+    return off_1E77E2A78[a1 - 1];
+  }
+}
+
+uint64_t GLUtilIDSStunTransportToBearer(uint64_t a1)
+{
+  if ((a1 - 1) >= 4)
+  {
+    return -1;
+  }
+
+  else
+  {
+    return (0x6000600110011uLL >> (16 * (a1 - 1)));
+  }
+}
+
+BOOL GLUtilUnderPerformanceTesting(void *a1, int a2)
+{
+  v48 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = [v3 local];
+  if ([v4 radioAccessTechnology])
+  {
+
+    v5 = 0;
+  }
+
+  else
+  {
+    v7 = [v3 remote];
+    v8 = [v7 radioAccessTechnology];
+
+    v5 = 0;
+    if (!v8 && a2)
+    {
+      memset(v45, 0, sizeof(v45));
+      v9 = [v3 local];
+      v10 = *([v9 address] + 1) == 30;
+
+      v11 = [v3 local];
+      v12 = [v11 address];
+
+      v13 = [v3 remote];
+      v14 = [v13 external];
+
+      if (v10)
+      {
+        *(v45 + 8) = *(v12 + 8);
+        *(&v45[1] + 8) = *(v14 + 8);
+        v15 = *(v12 + 2);
+        v16 = *(v14 + 2);
+        v17 = 96;
+      }
+
+      else
+      {
+        v15 = *(v12 + 2);
+        v16 = *(v14 + 2);
+        DWORD2(v45[0]) = *(v12 + 4);
+        DWORD2(v45[1]) = *(v14 + 4);
+        v17 = 4;
+      }
+
+      BYTE2(v45[0]) = v17;
+      WORD2(v45[0]) = v15;
+      WORD3(v45[0]) = v16;
+      v18 = [v3 local];
+      v19 = [v18 transport];
+
+      v5 = v19 == 2;
+      if (v19 == 2)
+      {
+        BYTE3(v45[0]) = 17;
+        if (sysctlbyname("net.link.generic.system.flow_key_trace", 0, 0, v45, 0x30uLL))
+        {
+          v20 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = *__error();
+            *buf = 67109120;
+            v47 = v21;
+            _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "Failed to send flow_key, sysctl returned %d", buf, 8u);
+          }
+
+          if (os_log_shim_legacy_logging_enabled())
+          {
+            if (_IDSShouldLogTransport())
+            {
+              v22 = __error();
+              _IDSLogTransport(@"GL", @"IDS", @"Failed to send flow_key, sysctl returned %d", v23, v24, v25, v26, v27, *v22);
+              if (_IDSShouldLog(0))
+              {
+                v28 = __error();
+                _IDSLogV(0, @"IDSFoundation", @"GL", @"Failed to send flow_key, sysctl returned %d", v29, v30, v31, v32, *v28);
+              }
+            }
+          }
+        }
+
+        else
+        {
+          v33 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "Succeeded in sending flow_key", buf, 2u);
+          }
+
+          if (os_log_shim_legacy_logging_enabled())
+          {
+            if (_IDSShouldLogTransport())
+            {
+              _IDSLogTransport(@"GL", @"IDS", @"Succeeded in sending flow_key", v34, v35, v36, v37, v38, v43);
+              if (_IDSShouldLog(0))
+              {
+                _IDSLogV(0, @"IDSFoundation", @"GL", @"Succeeded in sending flow_key", v39, v40, v41, v42, v44);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return v5;
 }

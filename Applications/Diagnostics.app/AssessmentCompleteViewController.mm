@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10009AA34();
+  sub_10009AA34(selfCopy);
 }
 
 - (_TtC11Diagnostics32AssessmentCompleteViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

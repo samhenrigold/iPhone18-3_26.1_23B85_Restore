@@ -301,7 +301,7 @@ id __18__CNFuture_chain___block_invoke(uint64_t a1, void *a2)
 
 + (id)sequence:(id)sequence
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   sequenceCopy = sequence;
   if (off_1EF43E9E8(&__block_literal_global_5, sequenceCopy))
   {
@@ -312,60 +312,58 @@ id __18__CNFuture_chain___block_invoke(uint64_t a1, void *a2)
   {
     array = [MEMORY[0x1E695DF70] array];
     firstObject = [sequenceCopy firstObject];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v17 = sequenceCopy;
+    v16 = sequenceCopy;
     _cn_tail = [sequenceCopy _cn_tail];
-    v8 = [_cn_tail countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [_cn_tail countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         v12 = firstObject;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(_cn_tail);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * v11);
-          v20[0] = MEMORY[0x1E69E9820];
-          v20[1] = 3221225472;
-          v20[2] = __21__CNFuture_sequence___block_invoke;
-          v20[3] = &unk_1E6ED7B28;
-          v21 = array;
-          v22 = v13;
-          firstObject = [v12 flatMap:v20];
+          v13 = *(*(&v22 + 1) + 8 * v11);
+          v19[0] = MEMORY[0x1E69E9820];
+          v19[1] = 3221225472;
+          v19[2] = __21__CNFuture_sequence___block_invoke;
+          v19[3] = &unk_1E6ED7B28;
+          v20 = array;
+          v21 = v13;
+          firstObject = [v12 flatMap:v19];
 
           ++v11;
           v12 = firstObject;
         }
 
         while (v9 != v11);
-        v9 = [_cn_tail countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [_cn_tail countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
     }
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __21__CNFuture_sequence___block_invoke_2;
-    v18[3] = &unk_1E6ED7B50;
-    v19 = array;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __21__CNFuture_sequence___block_invoke_2;
+    v17[3] = &unk_1E6ED7B50;
+    v18 = array;
     v14 = array;
-    v4 = [firstObject flatMap:v18];
+    v4 = [firstObject flatMap:v17];
 
-    sequenceCopy = v17;
+    sequenceCopy = v16;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -415,69 +413,65 @@ CNFuture *__21__CNFuture_sequence___block_invoke_2(uint64_t a1, uint64_t a2)
 
 id __21__CNFuture__joinOne___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = a2;
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = a2;
   v2 = MEMORY[0x1E695DEC8];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:&v8 count:1];
-  v5 = [CNFuture futureWithResult:v4, v8, v9];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = [v2 arrayWithObjects:&v7 count:1];
+  v5 = [CNFuture futureWithResult:v4, v7, v8];
 
   return v5;
 }
 
 + (id)_joinMany:(id)many
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   manyCopy = many;
   v4 = objc_alloc_init(CNPromise);
   v5 = [CNScheduler synchronousSerialDispatchQueueWithName:@"com.apple.contacts.future.join"];
   array = [MEMORY[0x1E695DF70] array];
   v7 = [manyCopy mutableCopy];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __22__CNFuture__joinMany___block_invoke;
-  v24[3] = &unk_1E6ED7BE8;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __22__CNFuture__joinMany___block_invoke;
+  v23[3] = &unk_1E6ED7BE8;
   v8 = array;
-  v25 = v8;
+  v24 = v8;
   v9 = v7;
-  v26 = v9;
+  v25 = v9;
   v10 = v4;
-  v27 = v10;
+  v26 = v10;
   v11 = v5;
-  v28 = v11;
-  [manyCopy enumerateObjectsUsingBlock:v24];
+  v27 = v11;
+  [manyCopy enumerateObjectsUsingBlock:v23];
   future = [(CNPromise *)v10 future];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v13 = manyCopy;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [future addCalculationDependency:{*(*(&v20 + 1) + 8 * i), v20}];
+        [future addCalculationDependency:{*(*(&v19 + 1) + 8 * i), v19}];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return future;
 }
@@ -534,52 +528,50 @@ void __22__CNFuture__joinMany___block_invoke_2(uint64_t a1, void *a2)
 
 void __22__CNFuture__joinMany___block_invoke_3(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E695DF70] array];
   v5 = *(a1 + 32);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __22__CNFuture__joinMany___block_invoke_4;
-  v16[3] = &unk_1E6ED6800;
-  objc_copyWeak(&v19, (a1 + 56));
-  v17 = *(a1 + 40);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __22__CNFuture__joinMany___block_invoke_4;
+  v15[3] = &unk_1E6ED6800;
+  objc_copyWeak(&v18, (a1 + 56));
+  v16 = *(a1 + 40);
   v6 = v4;
-  v18 = v6;
-  [v5 performBlock:v16];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v17 = v6;
+  [v5 performBlock:v15];
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) cancel];
+        [*(*(&v11 + 1) + 8 * v10++) cancel];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   [*(a1 + 48) finishWithError:v3];
-  objc_destroyWeak(&v19);
-
-  v11 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v18);
 }
 
 void __22__CNFuture__joinMany___block_invoke_4(id *a1)
@@ -641,15 +633,14 @@ void __22__CNFuture__joinMany___block_invoke_4(id *a1)
 
 - (BOOL)cancel
 {
-  impl = self->_impl;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 1;
   }
 
-  v4 = self->_impl;
+  impl = self->_impl;
 
-  return [(CNFutureImpl *)v4 cancel];
+  return [(CNFutureImpl *)impl cancel];
 }
 
 - (BOOL)finishWithResult:(id)result
@@ -782,22 +773,20 @@ void __38__CNFuture_addFailureBlock_scheduler___block_invoke(uint64_t a1, void *
 
 - (void)_flushCompletionBlocks
 {
-  impl = self->_impl;
   if (objc_opt_respondsToSelector())
   {
-    v4 = self->_impl;
+    impl = self->_impl;
 
-    [(CNFutureImpl *)v4 _flushCompletionBlocks];
+    [(CNFutureImpl *)impl _flushCompletionBlocks];
   }
 }
 
 - (void)finishWithResult:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AF00] callStackSymbols];
-  OUTLINED_FUNCTION_0(&dword_1859F0000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&dword_1859F0000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

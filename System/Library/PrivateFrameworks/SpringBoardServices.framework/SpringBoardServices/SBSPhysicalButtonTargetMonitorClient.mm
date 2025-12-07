@@ -89,7 +89,7 @@ void __86__SBSPhysicalButtonTargetMonitorClient_startObservingPresenceOfPhysical
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogHardwareButtonService();
+  v4 = SBLogHardwareButtonService(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -108,7 +108,7 @@ void __86__SBSPhysicalButtonTargetMonitorClient_startObservingPresenceOfPhysical
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogHardwareButtonService();
+  v5 = SBLogHardwareButtonService(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;

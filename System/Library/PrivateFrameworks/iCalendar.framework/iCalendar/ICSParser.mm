@@ -177,7 +177,7 @@ LABEL_11:
 
 - (BOOL)createPropertyType:(int)type component:(id)component withName:(id)name fatalError:(BOOL *)error
 {
-  v97[1] = *MEMORY[0x277D85DE8];
+  v96[1] = *MEMORY[0x277D85DE8];
   componentCopy = component;
   nameCopy = name;
   v12 = nameCopy;
@@ -306,9 +306,9 @@ LABEL_32:
   {
     if (![v17 length] || -[ICSTokenizer tokenType](self->_lexer, "tokenType") != 2)
     {
-      v97[0] = @"ATTACH";
-      v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:1];
-      if (([v76 containsObject:v12] & 1) == 0 && objc_msgSend(v17, "length") > 0x80000)
+      v96[0] = @"ATTACH";
+      v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:1];
+      if (([v75 containsObject:v12] & 1) == 0 && objc_msgSend(v17, "length") > 0x80000)
       {
         +[ICSLogger logAtLevel:forTokenizer:message:](ICSLogger, "logAtLevel:forTokenizer:message:", 3, 0, @"ICS property value exceeds maximum supported size (%@): %lu", v12, [v17 length]);
         LOBYTE(nextToken2) = 0;
@@ -318,17 +318,17 @@ LABEL_145:
         goto LABEL_146;
       }
 
-      v85 = v13;
+      v84 = v13;
       switch(type)
       {
         case 0:
-          v94 = 0;
-          if (sscanf([v17 UTF8String], "%d", &v94) != 1)
+          v93 = 0;
+          if (sscanf([v17 UTF8String], "%d", &v93) != 1)
           {
             goto LABEL_119;
           }
 
-          nextToken2 = [MEMORY[0x277CCABB0] numberWithInt:v94];
+          nextToken2 = [MEMORY[0x277CCABB0] numberWithInt:v93];
           v19 = v13;
           v20 = nextToken2;
           v21 = 5008;
@@ -392,42 +392,42 @@ LABEL_131:
 
           goto LABEL_143;
         case 5:
-          v84 = v12;
+          v83 = v12;
           v40 = v17;
           [v40 componentsSeparatedByString:{@", "}];
+          v89 = 0u;
           v90 = 0u;
           v91 = 0u;
-          v92 = 0u;
-          obja = v93 = 0u;
-          v61 = [obja countByEnumeratingWithState:&v90 objects:v96 count:16];
+          obja = v92 = 0u;
+          v61 = [obja countByEnumeratingWithState:&v89 objects:v95 count:16];
           if (v61)
           {
             v62 = v61;
-            v80 = v40;
-            v63 = *v91;
+            v79 = v40;
+            v63 = *v90;
             while (1)
             {
               for (i = 0; i != v62; ++i)
               {
-                if (*v91 != v63)
+                if (*v90 != v63)
                 {
                   objc_enumerationMutation(obja);
                 }
 
-                v65 = *(*(&v90 + 1) + 8 * i);
+                v65 = *(*(&v89 + 1) + 8 * i);
                 v66 = objc_alloc_init(ICSDate);
-                parameters = [v85 parameters];
+                parameters = [v84 parameters];
                 [(ICSProperty *)v66 setParameters:parameters];
 
                 v68 = +[ICSDateValue dateFromICSUTF8String:](ICSDateValue, "dateFromICSUTF8String:", [v65 UTF8String]);
                 nextToken2 = v68;
                 if (!v68)
                 {
-                  v40 = v80;
-                  v12 = v84;
-                  [ICSLogger logAtLevel:3 forTokenizer:self->_lexer message:@"Date validation error:%@ = '%@'", v84, v80];
+                  v40 = v79;
+                  v12 = v83;
+                  [ICSLogger logAtLevel:3 forTokenizer:self->_lexer message:@"Date validation error:%@ = '%@'", v83, v79];
 
-                  v13 = v85;
+                  v13 = v84;
                   goto LABEL_136;
                 }
 
@@ -443,16 +443,16 @@ LABEL_131:
                   }
                 }
 
-                [componentCopy addProperty:v84 withValue:v66];
+                [componentCopy addProperty:v83 withValue:v66];
               }
 
-              v62 = [obja countByEnumeratingWithState:&v90 objects:v96 count:16];
+              v62 = [obja countByEnumeratingWithState:&v89 objects:v95 count:16];
               if (!v62)
               {
                 LOBYTE(nextToken2) = 1;
-                v12 = v84;
-                v13 = v85;
-                v40 = v80;
+                v12 = v83;
+                v13 = v84;
+                v40 = v79;
                 goto LABEL_136;
               }
             }
@@ -469,32 +469,32 @@ LABEL_137:
           LOBYTE(nextToken2) = v41 != 0;
           if (v41)
           {
-            v83 = v12;
-            v78 = componentCopy;
-            v75 = v40;
+            v82 = v12;
+            v77 = componentCopy;
+            v74 = v40;
             [v40 componentsSeparatedByString:{@", "}];
+            v85 = 0u;
             v86 = 0u;
             v87 = 0u;
-            v88 = 0u;
-            obj = v89 = 0u;
-            v42 = [obj countByEnumeratingWithState:&v86 objects:v95 count:16];
+            obj = v88 = 0u;
+            v42 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
             if (v42)
             {
               v43 = v42;
-              v44 = *v87;
-              v77 = v17;
+              v44 = *v86;
+              v76 = v17;
               do
               {
                 v45 = 0;
-                v79 = v43;
+                v78 = v43;
                 do
                 {
-                  if (*v87 != v44)
+                  if (*v86 != v44)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v46 = [*(*(&v86 + 1) + 8 * v45) componentsSeparatedByString:@"/"];
+                  v46 = [*(*(&v85 + 1) + 8 * v45) componentsSeparatedByString:@"/"];
                   if ([v46 count] == 2)
                   {
                     v47 = [v46 objectAtIndex:0];
@@ -518,51 +518,51 @@ LABEL_137:
                     }
 
                     v56 = [[ICSFreeBusyTime alloc] initWithPeriod:v53];
-                    parameters2 = [v85 parameters];
+                    parameters2 = [v84 parameters];
                     [(ICSProperty *)v56 setParameters:parameters2];
 
-                    [v78 addProperty:v83 withValue:v56];
-                    v13 = v85;
+                    [v77 addProperty:v82 withValue:v56];
+                    v13 = v84;
 
-                    v17 = v77;
-                    v43 = v79;
+                    v17 = v76;
+                    v43 = v78;
                   }
 
                   ++v45;
                 }
 
                 while (v43 != v45);
-                v43 = [obj countByEnumeratingWithState:&v86 objects:v95 count:16];
+                v43 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
               }
 
               while (v43);
             }
 
-            componentCopy = v78;
-            v12 = v83;
+            componentCopy = v77;
+            v12 = v82;
             LOBYTE(nextToken2) = 1;
-            v40 = v75;
+            v40 = v74;
           }
 
           goto LABEL_137;
         case 7:
-          v94 = 0;
-          if (sscanf([v17 UTF8String], "%d", &v94) != 1)
+          v93 = 0;
+          if (sscanf([v17 UTF8String], "%d", &v93) != 1)
           {
             goto LABEL_119;
           }
 
-          if (v94 >= 1)
+          if (v93 >= 1)
           {
-            v71 = v94 % 0x64 + 60 * (v94 / 0x64);
+            v71 = v93 % 0x64 + 60 * (v93 / 0x64);
           }
 
           else
           {
-            v71 = v94 + 100 * (-v94 / 0x64) - 60 * (-v94 / 0x64);
+            v71 = v93 + 100 * (-v93 / 0x64) - 60 * (-v93 / 0x64);
           }
 
-          v94 = v71;
+          v93 = v71;
           nextToken2 = [MEMORY[0x277CCABB0] numberWithInt:60 * v71];
           v19 = v13;
           v20 = nextToken2;
@@ -577,7 +577,7 @@ LABEL_137:
             v32 = v33;
           }
 
-          v34 = [v32 stringByReplacingOccurrencesOfString:@"\\"" withString:&stru_28841D818];
+          v34 = [v32 stringByReplacingOccurrencesOfString:@"\" withString:&stru_28841D818];
 
           nextToken2 = [MEMORY[0x277CBEBC0] URLWithString:v34 encodingInvalidCharacters:0];
           if (nextToken2)
@@ -688,7 +688,7 @@ LABEL_120:
                 value = [dtstart2 value];
                 [nextToken2 cleanUpForStartDate:value];
 
-                v13 = v85;
+                v13 = v84;
               }
 
               v19 = v13;
@@ -732,9 +732,9 @@ LABEL_144:
       }
     }
 
-    LOBYTE(v94) = 0;
-    [(ICSParser *)self parseParameter:v13 fatalError:&v94];
-    if (v94 == 1)
+    LOBYTE(v93) = 0;
+    [(ICSParser *)self parseParameter:v13 fatalError:&v93];
+    if (v93 == 1)
     {
       break;
     }
@@ -757,7 +757,6 @@ LABEL_144:
 LABEL_146:
 
 LABEL_147:
-  v73 = *MEMORY[0x277D85DE8];
   return nextToken2;
 }
 
@@ -1267,7 +1266,7 @@ LABEL_9:
 
 + (id)entitiesFromNSData:(id)data options:(unint64_t)options
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = [[ICSParser alloc] initWithData:dataCopy options:options];
   v7 = v6;
@@ -1279,91 +1278,87 @@ LABEL_9:
 
     if (v10)
     {
-      v35 = dataCopy;
+      v32 = dataCopy;
       array = [MEMORY[0x277CBEB18] array];
+      v34 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v34 = parseData;
+      v31 = parseData;
       components2 = [parseData components];
-      v12 = [components2 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v12 = [components2 countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (!v12)
       {
         goto LABEL_20;
       }
 
       v13 = v12;
-      v14 = *v38;
-      v15 = 0x27A64B000uLL;
+      v14 = *v35;
       while (1)
       {
-        v16 = 0;
+        v15 = 0;
         do
         {
-          if (*v38 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(components2);
           }
 
-          v17 = *(*(&v37 + 1) + 8 * v16);
-          v18 = *(v15 + 1320);
+          v16 = *(*(&v34 + 1) + 8 * v15);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             lexer = [(ICSParser *)v7 lexer];
-            [ICSLogger logAtLevel:3 forTokenizer:lexer message:@"ICS: Cal not a ICSCalendar %@", v17];
+            [ICSLogger logAtLevel:3 forTokenizer:lexer message:@"ICS: Cal not a ICSCalendar %@", v16];
             goto LABEL_16;
           }
 
-          v19 = v17;
-          lexer = v19;
+          v17 = v16;
+          lexer = v17;
           if (options)
           {
-            [v19 fixPropertiesInheritance];
+            [v17 fixPropertiesInheritance];
             goto LABEL_15;
           }
 
-          v21 = components2;
-          v22 = v7;
+          v19 = components2;
+          v20 = v7;
           optionsCopy = options;
-          version = [v19 version];
+          version = [v17 version];
 
-          if (!version || ([lexer version], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "isEqualToString:", @"2.0"), v25, (v26 & 1) != 0))
+          if (!version || ([lexer version], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:", @"2.0"), v23, (v24 & 1) != 0))
           {
             [lexer fixPropertiesInheritance];
             [lexer fixEntities];
             options = optionsCopy;
-            v7 = v22;
-            components2 = v21;
-            v15 = 0x27A64B000;
+            v7 = v20;
+            components2 = v19;
 LABEL_15:
             [array addObject:lexer];
             goto LABEL_16;
           }
 
-          lexer2 = [(ICSParser *)v22 lexer];
+          lexer2 = [(ICSParser *)v20 lexer];
           version2 = [lexer version];
           [ICSLogger logAtLevel:3 forTokenizer:lexer2 message:@"Bad version of iCalendar %@", version2];
 
           options = optionsCopy;
-          v7 = v22;
-          components2 = v21;
-          v15 = 0x27A64B000;
+          v7 = v20;
+          components2 = v19;
 LABEL_16:
 
-          ++v16;
+          ++v15;
         }
 
-        while (v13 != v16);
-        v29 = [components2 countByEnumeratingWithState:&v37 objects:v41 count:16];
-        v13 = v29;
-        if (!v29)
+        while (v13 != v15);
+        v27 = [components2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v13 = v27;
+        if (!v27)
         {
 LABEL_20:
 
-          parseData = v34;
-          dataCopy = v35;
+          parseData = v31;
+          dataCopy = v32;
           goto LABEL_23;
         }
       }
@@ -1383,8 +1378,6 @@ LABEL_23:
 
     array = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return array;
 }

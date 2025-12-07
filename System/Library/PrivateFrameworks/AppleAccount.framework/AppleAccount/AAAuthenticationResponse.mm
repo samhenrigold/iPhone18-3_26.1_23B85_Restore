@@ -61,31 +61,29 @@
 
 void __49__AAAuthenticationResponse__privacySensitiveKeys__block_invoke()
 {
-  v4[18] = *MEMORY[0x1E69E9840];
-  v4[0] = @"age-category";
-  v4[1] = @"alternate-dsid";
-  v4[2] = @"auth-token";
-  v4[3] = @"base-phone-number";
-  v4[4] = @"firstName";
-  v4[5] = @"fullName";
-  v4[6] = @"fullName";
-  v4[7] = @"FullUserName";
-  v4[8] = @"lastName";
-  v4[9] = @"middleName";
-  v4[10] = @"profile-id";
-  v4[11] = @"pushToken";
-  v4[12] = @"realm-user-id";
-  v4[13] = @"uri";
-  v4[14] = @"aDsID";
-  v4[15] = @"dsid";
-  v4[16] = @"dsPrsID";
-  v4[17] = @"tokens";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:18];
+  v3[18] = *MEMORY[0x1E69E9840];
+  v3[0] = @"age-category";
+  v3[1] = @"alternate-dsid";
+  v3[2] = @"auth-token";
+  v3[3] = @"base-phone-number";
+  v3[4] = @"firstName";
+  v3[5] = @"fullName";
+  v3[6] = @"fullName";
+  v3[7] = @"FullUserName";
+  v3[8] = @"lastName";
+  v3[9] = @"middleName";
+  v3[10] = @"profile-id";
+  v3[11] = @"pushToken";
+  v3[12] = @"realm-user-id";
+  v3[13] = @"uri";
+  v3[14] = @"aDsID";
+  v3[15] = @"dsid";
+  v3[16] = @"dsPrsID";
+  v3[17] = @"tokens";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:18];
   v1 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v0];
   v2 = _privacySensitiveKeys_keysToRedact_0;
   _privacySensitiveKeys_keysToRedact_0 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)privacySensitiveResponseBody

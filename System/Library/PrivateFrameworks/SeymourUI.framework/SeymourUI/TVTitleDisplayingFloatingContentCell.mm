@@ -34,7 +34,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_20C04F004(change);
+  sub_20C04F004(change, selfCopy);
 }
 
 @end

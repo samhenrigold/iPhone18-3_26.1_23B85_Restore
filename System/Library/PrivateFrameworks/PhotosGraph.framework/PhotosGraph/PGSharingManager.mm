@@ -75,7 +75,7 @@ uint64_t __57__PGSharingManager__sortedSuggestionResults_withOptions___block_inv
 
 - (id)_filteredSuggestionResults:(id)results withOptions:(id)options graph:(id)graph
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   optionsCopy = options;
   graphCopy = graph;
@@ -85,31 +85,31 @@ uint64_t __57__PGSharingManager__sortedSuggestionResults_withOptions___block_inv
   v14 = filterLowWeightResults;
   if (filterLowWeightResults)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v15 = resultsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v45;
+      v18 = *v44;
       v19 = 2.22507386e-308;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v45 != v18)
+          if (*v44 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [*(*(&v44 + 1) + 8 * i) sourceWeight];
+          [*(*(&v43 + 1) + 8 * i) sourceWeight];
           v19 = fmax(v19, v21);
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v17);
@@ -130,31 +130,29 @@ uint64_t __57__PGSharingManager__sortedSuggestionResults_withOptions___block_inv
   fullName = [mePerson fullName];
   children = [graphCopy children];
   v25 = MEMORY[0x277CCAC30];
-  v34 = MEMORY[0x277D85DD0];
-  v35 = 3221225472;
-  v36 = __65__PGSharingManager__filteredSuggestionResults_withOptions_graph___block_invoke;
-  v37 = &unk_27887F3F0;
-  v38 = children;
-  v39 = serviceManager;
-  v43 = v14;
-  v42 = v19;
-  v40 = fullName;
-  v41 = loggingConnection;
+  v33 = MEMORY[0x277D85DD0];
+  v34 = 3221225472;
+  v35 = __65__PGSharingManager__filteredSuggestionResults_withOptions_graph___block_invoke;
+  v36 = &unk_27887F3F0;
+  v37 = children;
+  v38 = serviceManager;
+  v42 = v14;
+  v41 = v19;
+  v39 = fullName;
+  v40 = loggingConnection;
   v26 = loggingConnection;
   v27 = fullName;
   v28 = serviceManager;
   v29 = children;
-  v30 = [v25 predicateWithBlock:&v34];
-  v31 = [resultsCopy filteredArrayUsingPredicate:{v30, v34, v35, v36, v37}];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = [v25 predicateWithBlock:&v33];
+  v31 = [resultsCopy filteredArrayUsingPredicate:{v30, v33, v34, v35, v36}];
 
   return v31;
 }
 
 BOOL __65__PGSharingManager__filteredSuggestionResults_withOptions_graph___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 person];
   v5 = [v4 contactIdentifier];
@@ -219,9 +217,9 @@ LABEL_21:
     v18 = *(a1 + 56);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138477827;
-      v22 = v4;
-      _os_log_impl(&dword_22F0FC000, v18, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Suggested person %{private}@ matches me contact name", &v21, 0xCu);
+      v20 = 138477827;
+      v21 = v4;
+      _os_log_impl(&dword_22F0FC000, v18, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Suggested person %{private}@ matches me contact name", &v20, 0xCu);
     }
 
 LABEL_19:
@@ -232,34 +230,33 @@ LABEL_19:
   v6 = 0;
 LABEL_22:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)_mergeSuggestionResultByPersonIdentifer:(id)identifer withSourceSuggestionResults:(id)results
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identiferCopy = identifer;
   resultsCopy = results;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v7 = [resultsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [resultsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(resultsCopy);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         person = [v11 person];
         localIdentifier = [person localIdentifier];
 
@@ -284,18 +281,16 @@ LABEL_22:
         }
       }
 
-      v8 = [resultsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [resultsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canIncludeUnverified
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   photoLibrary = [(PGManagerWorkingContext *)self->_workingContext photoLibrary];
   countOfClusteringEligibleFaces = [photoLibrary countOfClusteringEligibleFaces];
   if (countOfClusteringEligibleFaces)
@@ -313,18 +308,17 @@ LABEL_22:
   loggingConnection = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134218752;
-    v11 = countOfClusteringEligibleFaces;
-    v12 = 2048;
-    v13 = v5;
-    v14 = 2048;
-    v15 = 0x3FB999999999999ALL;
-    v16 = 1024;
-    v17 = v6;
-    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Can include unverified result: countOfClusteringEligibleFaces %lu, percentageOfFacesNotClustered %.2f < %.2f == %d", &v10, 0x26u);
+    v9 = 134218752;
+    v10 = countOfClusteringEligibleFaces;
+    v11 = 2048;
+    v12 = v5;
+    v13 = 2048;
+    v14 = 0x3FB999999999999ALL;
+    v15 = 1024;
+    v16 = v6;
+    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Can include unverified result: countOfClusteringEligibleFaces %lu, percentageOfFacesNotClustered %.2f < %.2f == %d", &v9, 0x26u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -404,7 +398,7 @@ LABEL_7:
 
 - (id)suggestionResultsForAssetLocalIdentifiers:(id)identifiers momentLocalIdentifiers:(id)localIdentifiers options:(id)options
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   localIdentifiersCopy = localIdentifiers;
   optionsCopy = options;
@@ -426,99 +420,99 @@ LABEL_7:
       [optionsCopy setIncludeUnverified:{-[PGSharingManager _canIncludeUnverified](self, "_canIncludeUnverified")}];
     }
 
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x3032000000;
-    v66 = __Block_byref_object_copy__3417;
-    v67 = __Block_byref_object_dispose__3418;
-    v68 = v13;
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x3032000000;
-    v60 = __Block_byref_object_copy__3417;
-    v61 = __Block_byref_object_dispose__3418;
     v62 = 0;
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x3032000000;
-    v54 = __Block_byref_object_copy__3417;
-    v55 = __Block_byref_object_dispose__3418;
+    v63 = &v62;
+    v64 = 0x3032000000;
+    v65 = __Block_byref_object_copy__3417;
+    v66 = __Block_byref_object_dispose__3418;
+    v67 = v13;
     v56 = 0;
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2020000000;
-    v50 = 1;
+    v57 = &v56;
+    v58 = 0x3032000000;
+    v59 = __Block_byref_object_copy__3417;
+    v60 = __Block_byref_object_dispose__3418;
+    v61 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x3032000000;
+    v53 = __Block_byref_object_copy__3417;
+    v54 = __Block_byref_object_dispose__3418;
+    v55 = 0;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
+    v49 = 1;
     workingContext = self->_workingContext;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLocalIdentifiers_options___block_invoke;
-    v40[3] = &unk_27887F3A0;
-    v44 = &v47;
-    v40[4] = self;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLocalIdentifiers_options___block_invoke;
+    v39[3] = &unk_27887F3A0;
+    v43 = &v46;
+    v39[4] = self;
     optionsCopy = optionsCopy;
-    v41 = optionsCopy;
-    v45 = &v51;
-    v42 = identifiersCopy;
-    v43 = localIdentifiersCopy;
-    v46 = &v57;
-    [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v40];
-    if (v48[3])
+    v40 = optionsCopy;
+    v44 = &v50;
+    v41 = identifiersCopy;
+    v42 = localIdentifiersCopy;
+    v45 = &v56;
+    [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v39];
+    if (v47[3])
     {
       v16 = v14;
       v17 = objc_opt_new();
-      v18 = [v58[5] count];
+      v18 = [v57[5] count];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLocalIdentifiers_options___block_invoke_265;
       block[3] = &unk_27887F3C8;
       block[4] = self;
-      v38 = &v57;
+      v37 = &v56;
       v19 = optionsCopy;
-      v35 = v19;
+      v34 = v19;
       v20 = loggingConnection;
-      v36 = v20;
-      v39 = &v51;
+      v35 = v20;
+      v38 = &v50;
       v21 = v17;
-      v37 = v21;
+      v36 = v21;
       dispatch_apply(v18, 0, block);
       if ([v21 count])
       {
         v22 = self->_workingContext;
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLocalIdentifiers_options___block_invoke_267;
-        v30[3] = &unk_278889308;
-        v33 = &v63;
-        v30[4] = self;
-        v31 = v21;
-        v32 = v19;
-        [(PGManagerWorkingContext *)v22 performSynchronousConcurrentGraphReadUsingBlock:v30];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLocalIdentifiers_options___block_invoke_267;
+        v29[3] = &unk_278889308;
+        v32 = &v62;
+        v29[4] = self;
+        v30 = v21;
+        v31 = v19;
+        [(PGManagerWorkingContext *)v22 performSynchronousConcurrentGraphReadUsingBlock:v29];
       }
 
       else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = v52[5];
+        v23 = v51[5];
         *buf = 138412290;
-        v71 = v23;
+        v70 = v23;
         _os_log_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] No suggestions found for %@", buf, 0xCu);
       }
 
       v24 = v20;
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = [v64[5] count];
+        v25 = [v63[5] count];
         v26 = mach_absolute_time();
-        v27 = v64[5];
+        v27 = v63[5];
         *buf = 134218498;
-        v71 = v25;
-        v72 = 2048;
-        v73 = ((((v26 - v16) * info.numer) / info.denom) / 1000000.0);
-        v74 = 2112;
-        v75 = v27;
+        v70 = v25;
+        v71 = 2048;
+        v72 = ((((v26 - v16) * info.numer) / info.denom) / 1000000.0);
+        v73 = 2112;
+        v74 = v27;
         _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Returning %lu suggestions in %.4fms:\n%@", buf, 0x20u);
       }
 
-      v13 = v64[5];
+      v13 = v63[5];
     }
 
     else
@@ -526,21 +520,19 @@ LABEL_7:
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v71 = optionsCopy;
+        v70 = optionsCopy;
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Cannot run with options %@, no eligible persons to suggest", buf, 0xCu);
       }
 
       v13 = MEMORY[0x277CBEBF8];
     }
 
-    _Block_object_dispose(&v47, 8);
-    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v50, 8);
 
-    _Block_object_dispose(&v57, 8);
-    _Block_object_dispose(&v63, 8);
+    _Block_object_dispose(&v56, 8);
+    _Block_object_dispose(&v62, 8);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -592,7 +584,7 @@ void __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLoca
 
 void __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLocalIdentifiers_options___block_invoke_267(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) allValues];
@@ -610,43 +602,41 @@ void __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLoca
 
   if ([*(a1 + 48) useContactSuggestion])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v14 = *(*(*(a1 + 56) + 8) + 40);
-    v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v21;
+      v17 = *v20;
       do
       {
         v18 = 0;
         do
         {
-          if (*v21 != v17)
+          if (*v20 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [*(*(&v20 + 1) + 8 * v18++) setUseContactSuggestion:{1, v20}];
+          [*(*(&v19 + 1) + 8 * v18++) setUseContactSuggestion:{1, v19}];
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v16);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLocalIdentifiers_options___block_invoke_2(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(*(*(a1 + 64) + 8) + 40) objectAtIndexedSubscript:*(a1 + 80)];
   if (([v4 canRunWithOptions:*(a1 + 32)] & 1) == 0)
@@ -659,9 +649,9 @@ void __93__PGSharingManager_suggestionResultsForAssetLocalIdentifiers_momentLoca
 
     v13 = *(a1 + 32);
     *buf = 138412546;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v13;
+    v18 = v4;
+    v19 = 2112;
+    v20 = v13;
     v14 = "[Sharing Suggestion] Source %@ cannot run with options %@";
 LABEL_10:
     _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEFAULT, v14, buf, 0x16u);
@@ -678,9 +668,9 @@ LABEL_10:
 
     v15 = *(*(*(a1 + 72) + 8) + 40);
     *buf = 138412546;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v15;
+    v18 = v4;
+    v19 = 2112;
+    v20 = v15;
     v14 = "[Sharing Suggestion] Source %@ cannot run with input %@";
     goto LABEL_10;
   }
@@ -696,13 +686,13 @@ LABEL_10:
     v9 = [v6 count];
     v10 = mach_absolute_time();
     *buf = 138413058;
-    v19 = v4;
-    v20 = 2048;
-    v21 = v9;
-    v22 = 2048;
-    v23 = ((((v10 - v5) * info.numer) / info.denom) / 1000000.0);
-    v24 = 2112;
-    v25 = v6;
+    v18 = v4;
+    v19 = 2048;
+    v20 = v9;
+    v21 = 2048;
+    v22 = ((((v10 - v5) * info.numer) / info.denom) / 1000000.0);
+    v23 = 2112;
+    v24 = v6;
     _os_log_impl(&dword_22F0FC000, v8, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Source %@ returned %lu suggestions in %.4fms:\n%@", buf, 0x2Au);
   }
 
@@ -712,7 +702,6 @@ LABEL_10:
   objc_sync_exit(v11);
 
 LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)suggestionSourcesForSharingStream:(unint64_t)stream
@@ -736,44 +725,40 @@ LABEL_11:
 
 - (id)contextualStream
 {
-  v12[7] = *MEMORY[0x277D85DE8];
+  v11[7] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  v12[0] = v2;
+  v11[0] = v2;
   v3 = objc_opt_new();
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = objc_opt_new();
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = objc_opt_new();
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = objc_opt_new();
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = objc_opt_new();
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = objc_opt_new();
-  v12[6] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[6] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
 - (id)presenceStream
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v12[0] = v3;
+  v11[0] = v3;
   v4 = [PGSharingSuggestionSourceMergeCandidates alloc];
   serviceManager = [(PGManagerWorkingContext *)self->_workingContext serviceManager];
   v6 = [(PGSharingSuggestionSourceMergeCandidates *)v4 initWithServiceManager:serviceManager];
-  v12[1] = v6;
+  v11[1] = v6;
   v7 = objc_opt_new();
-  v12[2] = v7;
+  v11[2] = v7;
   v8 = objc_opt_new();
-  v12[3] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
 
   return v9;
 }

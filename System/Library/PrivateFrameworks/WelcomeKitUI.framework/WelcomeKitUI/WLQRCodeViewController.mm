@@ -1,12 +1,21 @@
 @interface WLQRCodeViewController
 - (void)initQRCode;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WLQRCodeViewController
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WLQRCodeViewController;
+  [(WLQRCodeViewController *)&v4 viewWillAppear:appear];
+  [(WLQRCodeViewController *)self initQRCode];
+}
+
 - (void)initQRCode
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   if (self->_qrcode && !self->_initialized)
   {
     self->_initialized = 1;
@@ -48,33 +57,31 @@
     }
 
     v19 = floor(floor((v16 - floor(v16 / v18)) * 0.5) * 0.5);
-    v37 = [(WLQRCode *)self->_qrcode createQRCodeImage:?];
-    v20 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v37];
+    v36 = [(WLQRCode *)self->_qrcode createQRCodeImage:?];
+    v20 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v36];
     [v20 setTranslatesAutoresizingMaskIntoConstraints:0];
     contentView = [(WLQRCodeViewController *)self contentView];
     [contentView addSubview:v20];
 
-    v32 = MEMORY[0x277CCAAD0];
+    v31 = MEMORY[0x277CCAAD0];
     topAnchor = [v20 topAnchor];
     contentView2 = [(WLQRCodeViewController *)self contentView];
     topAnchor2 = [contentView2 topAnchor];
-    v33 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v19];
-    v38[0] = v33;
+    v32 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v19];
+    v37[0] = v32;
     bottomAnchor = [v20 bottomAnchor];
     contentView3 = [(WLQRCodeViewController *)self contentView];
     bottomAnchor2 = [contentView3 bottomAnchor];
     v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-v19];
-    v38[1] = v25;
+    v37[1] = v25;
     centerXAnchor = [v20 centerXAnchor];
     contentView4 = [(WLQRCodeViewController *)self contentView];
     centerXAnchor2 = [contentView4 centerXAnchor];
     v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v38[2] = v29;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
-    [v32 activateConstraints:v30];
+    v37[2] = v29;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
+    [v31 activateConstraints:v30];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

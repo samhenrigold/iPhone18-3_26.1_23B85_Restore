@@ -8,6 +8,7 @@
 - (void)_invalidate;
 - (void)_invalidated;
 - (void)_invokeBlockActivateSafe:(id)safe;
+- (void)_provideContent:(id)content forDevice:(id)device force:(BOOL)force completion:(id)completion;
 - (void)_stopSuppressingDevice:(id)device completion:(id)completion;
 - (void)_suppressDevice:(id)device completion:(id)completion;
 - (void)_updateContent:(id)content forDevice:(id)device completion:(id)completion;
@@ -111,7 +112,7 @@
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = _os_activity_create(&dword_1A9662000, "Sharing/SFProximityClient/proximityClientActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -120,14 +121,14 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_activateCalled)
   {
-    v10 = -6721;
+    v9 = -6721;
   }
 
   else
   {
     if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFProximityClient, "[SFProximityClient _activateWithCompletion:]", 30, "Activate");
     }
 
     self->_activateCalled = 1;
@@ -136,18 +137,18 @@
     if (xpcCnx)
     {
       remoteObjectProxy = [(NSXPCConnection *)xpcCnx remoteObjectProxy];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __45__SFProximityClient__activateWithCompletion___block_invoke;
-      v16[3] = &unk_1E788B6D8;
-      v17 = completionCopy;
-      [remoteObjectProxy proximityClientActivate:self completion:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __45__SFProximityClient__activateWithCompletion___block_invoke;
+      v15[3] = &unk_1E788B6D8;
+      v16 = completionCopy;
+      [remoteObjectProxy proximityClientActivate:self completion:v15];
 
-      v8 = v17;
+      v8 = v16;
       goto LABEL_8;
     }
 
-    v10 = -6753;
+    v9 = -6753;
   }
 
   if (!completionCopy)
@@ -155,26 +156,24 @@
     goto LABEL_9;
   }
 
-  v11 = MEMORY[0x1E696ABC0];
-  v19 = *MEMORY[0x1E696A578];
-  v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-  v8 = v12;
-  v13 = @"?";
-  if (v12)
+  v10 = MEMORY[0x1E696ABC0];
+  v18 = *MEMORY[0x1E696A578];
+  v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+  v8 = v11;
+  v12 = @"?";
+  if (v11)
   {
-    v13 = v12;
+    v12 = v11;
   }
 
-  v20[0] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-  v15 = [v11 errorWithDomain:*MEMORY[0x1E696A768] code:v10 userInfo:v14];
-  (*(completionCopy + 2))(completionCopy, v15);
+  v19[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v14 = [v10 errorWithDomain:*MEMORY[0x1E696A768] code:v9 userInfo:v13];
+  (*(completionCopy + 2))(completionCopy, v14);
 
 LABEL_8:
 LABEL_9:
   os_activity_scope_leave(&state);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__SFProximityClient__activateWithCompletion___block_invoke(uint64_t a1)
@@ -204,7 +203,7 @@ uint64_t __45__SFProximityClient__activateWithCompletion___block_invoke(uint64_t
   if (gLogCategory_SFProximityClient <= 60 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFProximityClient, "[SFProximityClient _invalidate]", 60, "### Already invalidated\n");
   }
 }
 
@@ -213,9 +212,12 @@ uint64_t __45__SFProximityClient__activateWithCompletion___block_invoke(uint64_t
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SFProximityClient <= 50 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_SFProximityClient <= 50)
     {
-      [SFProximityClient _invalidated];
+      if (gLogCategory_SFProximityClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFProximityClient *)v3 _invalidated];
+      }
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -227,7 +229,7 @@ uint64_t __45__SFProximityClient__activateWithCompletion___block_invoke(uint64_t
     interruptionHandler = self->_interruptionHandler;
     self->_interruptionHandler = 0;
 
-    v5 = self->_invalidationHandler;
+    v8 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
     xpcCnx = self->_xpcCnx;
@@ -281,17 +283,20 @@ uint64_t __45__SFProximityClient__activateWithCompletion___block_invoke(uint64_t
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFProximityClient <= 50 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFProximityClient <= 50)
   {
-    [SFProximityClient _interrupted];
+    if (gLogCategory_SFProximityClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SFProximityClient *)v3 _interrupted];
+    }
   }
 
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v4 = *(interruptionHandler + 2);
+    v7 = *(interruptionHandler + 2);
 
-    v4();
+    v7();
   }
 }
 
@@ -357,13 +362,13 @@ void __46__SFProximityClient__invokeBlockActivateSafe___block_invoke(uint64_t a1
 
 - (void)_dismissContentForDevice:(id)device completion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient _dismissContentForDevice:completion:];
+    [SFProximityClient _dismissContentForDevice:deviceCopy completion:?];
   }
 
   [(SFProximityClient *)self _ensureXPCStarted];
@@ -371,14 +376,14 @@ void __46__SFProximityClient__invokeBlockActivateSafe___block_invoke(uint64_t a1
   if (xpcCnx)
   {
     remoteObjectProxy = [(NSXPCConnection *)xpcCnx remoteObjectProxy];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __57__SFProximityClient__dismissContentForDevice_completion___block_invoke;
-    v12[3] = &unk_1E788B6D8;
-    v13 = completionCopy;
-    [remoteObjectProxy proximityClientDismissContentForDevice:deviceCopy completion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __57__SFProximityClient__dismissContentForDevice_completion___block_invoke;
+    v11[3] = &unk_1E788B6D8;
+    v12 = completionCopy;
+    [remoteObjectProxy proximityClientDismissContentForDevice:deviceCopy completion:v11];
 
-    v10 = v13;
+    v10 = v12;
   }
 
   else
@@ -388,11 +393,10 @@ void __46__SFProximityClient__invokeBlockActivateSafe___block_invoke(uint64_t a1
       goto LABEL_7;
     }
 
-    v10 = v14;
+    v10 = v13;
   }
 
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__SFProximityClient__dismissContentForDevice_completion___block_invoke(uint64_t a1)
@@ -427,6 +431,71 @@ uint64_t __57__SFProximityClient__dismissContentForDevice_completion___block_inv
   dispatch_async(dispatchQueue, block);
 }
 
+- (void)_provideContent:(id)content forDevice:(id)device force:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  v27[1] = *MEMORY[0x1E69E9840];
+  contentCopy = content;
+  deviceCopy = device;
+  completionCopy = completion;
+  v13 = _os_activity_create(&dword_1A9662000, "Sharing/SFProximityClient/proximityClientprovideContent", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v13, &state);
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
+  {
+    v14 = "no";
+    if (forceCopy)
+    {
+      v14 = "yes";
+    }
+
+    LogPrintF(&gLogCategory_SFProximityClient, "[SFProximityClient _provideContent:forDevice:force:completion:]", 30, "Content for device: %@, force: %s: %@\n", deviceCopy, v14, contentCopy);
+  }
+
+  [(SFProximityClient *)self _ensureXPCStarted];
+  xpcCnx = self->_xpcCnx;
+  if (xpcCnx)
+  {
+    remoteObjectProxy = [(NSXPCConnection *)xpcCnx remoteObjectProxy];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __64__SFProximityClient__provideContent_forDevice_force_completion___block_invoke;
+    v23[3] = &unk_1E788B6D8;
+    v24 = completionCopy;
+    [remoteObjectProxy proximityClientProvideContent:contentCopy forDevice:deviceCopy force:forceCopy completion:v23];
+
+    v17 = v24;
+  }
+
+  else
+  {
+    if (!completionCopy)
+    {
+      goto LABEL_10;
+    }
+
+    v18 = MEMORY[0x1E696ABC0];
+    v26 = *MEMORY[0x1E696A578];
+    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+    v17 = v19;
+    v20 = @"?";
+    if (v19)
+    {
+      v20 = v19;
+    }
+
+    v27[0] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v22 = [v18 errorWithDomain:*MEMORY[0x1E696A768] code:-6753 userInfo:v21];
+    (*(completionCopy + 2))(completionCopy, v22);
+  }
+
+LABEL_10:
+  os_activity_scope_leave(&state);
+}
+
 uint64_t __64__SFProximityClient__provideContent_forDevice_force_completion___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -457,13 +526,13 @@ uint64_t __64__SFProximityClient__provideContent_forDevice_force_completion___bl
 
 - (void)_suppressDevice:(id)device completion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient _suppressDevice:completion:];
+    [SFProximityClient _suppressDevice:deviceCopy completion:?];
   }
 
   [(SFProximityClient *)self _ensureXPCStarted];
@@ -471,14 +540,14 @@ uint64_t __64__SFProximityClient__provideContent_forDevice_force_completion___bl
   if (xpcCnx)
   {
     remoteObjectProxy = [(NSXPCConnection *)xpcCnx remoteObjectProxy];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __48__SFProximityClient__suppressDevice_completion___block_invoke;
-    v12[3] = &unk_1E788B6D8;
-    v13 = completionCopy;
-    [remoteObjectProxy proximityClientSuppressDevice:deviceCopy completion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __48__SFProximityClient__suppressDevice_completion___block_invoke;
+    v11[3] = &unk_1E788B6D8;
+    v12 = completionCopy;
+    [remoteObjectProxy proximityClientSuppressDevice:deviceCopy completion:v11];
 
-    v10 = v13;
+    v10 = v12;
   }
 
   else
@@ -488,11 +557,10 @@ uint64_t __64__SFProximityClient__provideContent_forDevice_force_completion___bl
       goto LABEL_7;
     }
 
-    v10 = v14;
+    v10 = v13;
   }
 
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__SFProximityClient__suppressDevice_completion___block_invoke(uint64_t a1)
@@ -525,13 +593,13 @@ uint64_t __48__SFProximityClient__suppressDevice_completion___block_invoke(uint6
 
 - (void)_stopSuppressingDevice:(id)device completion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient _stopSuppressingDevice:completion:];
+    [SFProximityClient _stopSuppressingDevice:deviceCopy completion:?];
   }
 
   [(SFProximityClient *)self _ensureXPCStarted];
@@ -539,14 +607,14 @@ uint64_t __48__SFProximityClient__suppressDevice_completion___block_invoke(uint6
   if (xpcCnx)
   {
     remoteObjectProxy = [(NSXPCConnection *)xpcCnx remoteObjectProxy];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __55__SFProximityClient__stopSuppressingDevice_completion___block_invoke;
-    v12[3] = &unk_1E788B6D8;
-    v13 = completionCopy;
-    [remoteObjectProxy proximityClientStopSuppressingDevice:deviceCopy completion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __55__SFProximityClient__stopSuppressingDevice_completion___block_invoke;
+    v11[3] = &unk_1E788B6D8;
+    v12 = completionCopy;
+    [remoteObjectProxy proximityClientStopSuppressingDevice:deviceCopy completion:v11];
 
-    v10 = v13;
+    v10 = v12;
   }
 
   else
@@ -556,11 +624,10 @@ uint64_t __48__SFProximityClient__suppressDevice_completion___block_invoke(uint6
       goto LABEL_7;
     }
 
-    v10 = v14;
+    v10 = v13;
   }
 
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__SFProximityClient__stopSuppressingDevice_completion___block_invoke(uint64_t a1)
@@ -596,31 +663,29 @@ uint64_t __55__SFProximityClient__stopSuppressingDevice_completion___block_invok
 
 - (void)_updateContent:(id)content forDevice:(id)device completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   deviceCopy = device;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    v15 = deviceCopy;
-    v16 = contentCopy;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFProximityClient, "[SFProximityClient _updateContent:forDevice:completion:]", 30, "Update content for device: %@, %@\n", deviceCopy, contentCopy);
   }
 
-  [(SFProximityClient *)self _ensureXPCStarted:v15];
+  [(SFProximityClient *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
   if (xpcCnx)
   {
     remoteObjectProxy = [(NSXPCConnection *)xpcCnx remoteObjectProxy];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __57__SFProximityClient__updateContent_forDevice_completion___block_invoke;
-    v17[3] = &unk_1E788B6D8;
-    v18 = completionCopy;
-    [remoteObjectProxy proximityClientUpdateContent:contentCopy forDevice:deviceCopy completion:v17];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __57__SFProximityClient__updateContent_forDevice_completion___block_invoke;
+    v14[3] = &unk_1E788B6D8;
+    v15 = completionCopy;
+    [remoteObjectProxy proximityClientUpdateContent:contentCopy forDevice:deviceCopy completion:v14];
 
-    v13 = v18;
+    v13 = v15;
   }
 
   else
@@ -630,11 +695,10 @@ uint64_t __55__SFProximityClient__stopSuppressingDevice_completion___block_invok
       goto LABEL_8;
     }
 
-    v13 = v19;
+    v13 = v16;
   }
 
 LABEL_8:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__SFProximityClient__updateContent_forDevice_completion___block_invoke(uint64_t a1)
@@ -659,27 +723,29 @@ uint64_t __57__SFProximityClient__updateContent_forDevice_completion___block_inv
   dispatch_async(dispatchQueue, block);
 }
 
-void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
+void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   v7[1] = *MEMORY[0x1E69E9840];
-  if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFProximityClient <= 30)
   {
-    __45__SFProximityClient_requestScannerTimerReset__block_invoke_cold_1();
+    if (gLogCategory_SFProximityClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __45__SFProximityClient_requestScannerTimerReset__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  [*(a1 + 32) _ensureXPCStarted];
-  v2 = *(*(a1 + 32) + 32);
-  if (v2)
+  [*(v3 + 32) _ensureXPCStarted];
+  v4 = *(*(v3 + 32) + 32);
+  if (v4)
   {
-    v5 = [v2 remoteObjectProxy];
+    v5 = [v4 remoteObjectProxy];
     [v5 proximityClientRequestScannerTimerReset];
-    v3 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     __45__SFProximityClient_requestScannerTimerReset__block_invoke_cold_2(&v6, v7);
-    v4 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -689,7 +755,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceEnteredImmediate:];
+    [SFProximityClient proximityClientDeviceEnteredImmediate:immediateCopy];
   }
 
   deviceEnteredImmediateHandler = self->_deviceEnteredImmediateHandler;
@@ -707,7 +773,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceExitedImmediate:];
+    [SFProximityClient proximityClientDeviceExitedImmediate:immediateCopy];
   }
 
   deviceExitedImmediateHandler = self->_deviceExitedImmediateHandler;
@@ -725,7 +791,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceEnteredNearby:];
+    [SFProximityClient proximityClientDeviceEnteredNearby:nearbyCopy];
   }
 
   deviceEnteredNearbyHandler = self->_deviceEnteredNearbyHandler;
@@ -743,7 +809,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceExitedNearby:];
+    [SFProximityClient proximityClientDeviceExitedNearby:nearbyCopy];
   }
 
   deviceExitedNearbyHandler = self->_deviceExitedNearbyHandler;
@@ -761,7 +827,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceWasDismissedHandler:reason reason:?];
+    [SFProximityClient proximityClientDeviceWasDismissedHandler:reason reason:handlerCopy];
   }
 
   deviceWasDismissedHandlerEx = self->_deviceWasDismissedHandlerEx;
@@ -779,7 +845,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceWasSelectedHandler:];
+    [SFProximityClient proximityClientDeviceWasSelectedHandler:handlerCopy];
   }
 
   deviceWasSelectedHandler = self->_deviceWasSelectedHandler;
@@ -797,7 +863,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceDidUntriggerHandler:];
+    [SFProximityClient proximityClientDeviceDidUntriggerHandler:handlerCopy];
   }
 
   deviceDidUntriggerHandler = self->_deviceDidUntriggerHandler;
@@ -815,7 +881,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceWillTriggerHandler:];
+    [SFProximityClient proximityClientDeviceWillTriggerHandler:handlerCopy];
   }
 
   deviceWillTriggerHandler = self->_deviceWillTriggerHandler;
@@ -833,7 +899,7 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFProximityClient <= 30 && (gLogCategory_SFProximityClient != -1 || _LogCategory_Initialize()))
   {
-    [SFProximityClient proximityClientDeviceUpdated:rssi:state:];
+    [SFProximityClient proximityClientDeviceUpdated:updatedCopy rssi:? state:?];
   }
 
   deviceUpdateHandler = self->_deviceUpdateHandler;
@@ -848,32 +914,31 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
 - (SFProximityClient)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = SFProximityClient;
-  v5 = [(SFProximityClient *)&v13 init];
-  v6 = v5;
+  v12.receiver = self;
+  v12.super_class = SFProximityClient;
+  v5 = [(SFProximityClient *)&v12 init];
   if (v5)
   {
-    v7 = SFMainQueue(v5);
-    dispatchQueue = v6->_dispatchQueue;
-    v6->_dispatchQueue = v7;
+    v6 = SFMainQueue();
+    dispatchQueue = v5->_dispatchQueue;
+    v5->_dispatchQueue = v6;
 
-    v9 = coderCopy;
-    if ([v9 containsValueForKey:@"sa"])
+    v8 = coderCopy;
+    if ([v8 containsValueForKey:@"sa"])
     {
-      v6->_shouldAdvertise = [v9 decodeBoolForKey:@"sa"];
+      v5->_shouldAdvertise = [v8 decodeBoolForKey:@"sa"];
     }
 
-    v10 = v9;
-    if ([v10 containsValueForKey:@"wu"])
+    v9 = v8;
+    if ([v9 containsValueForKey:@"wu"])
     {
-      v6->_wantsUpdates = [v10 decodeBoolForKey:@"wu"];
+      v5->_wantsUpdates = [v9 decodeBoolForKey:@"wu"];
     }
 
-    v11 = v6;
+    v10 = v5;
   }
 
-  return v6;
+  return v5;
 }
 
 - (uint64_t)_dismissContentForDevice:(uint64_t)a1 completion:.cold.2(uint64_t a1)
@@ -884,18 +949,17 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke(uint64_t a1)
   }
 
   OUTLINED_FUNCTION_2_5();
-  v3 = *MEMORY[0x1E696A768];
-  *v4 = *MEMORY[0x1E696A578];
+  *v3 = *MEMORY[0x1E696A578];
   OUTLINED_FUNCTION_6_1();
-  v5 = [OUTLINED_FUNCTION_8() stringWithUTF8String:?];
-  OUTLINED_FUNCTION_3_3(v5, @"?");
+  v4 = [OUTLINED_FUNCTION_8() stringWithUTF8String:?];
+  OUTLINED_FUNCTION_3_3(v4, @"?");
   OUTLINED_FUNCTION_4_3();
-  [v6 dictionaryWithObjects:? forKeys:? count:?];
+  [v5 dictionaryWithObjects:? forKeys:? count:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_0_6() errorWithDomain:? code:? userInfo:?];
   objc_claimAutoreleasedReturnValue();
-  v7 = OUTLINED_FUNCTION_1_6();
-  v8(v7);
+  v6 = OUTLINED_FUNCTION_1_6();
+  v7(v6);
 
   return 0;
 }
@@ -918,18 +982,23 @@ void __45__SFProximityClient_requestScannerTimerReset__block_invoke_cold_2(void 
     *a2 = v8;
     v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:a2 forKeys:a1 count:1];
     v10 = [v4 errorWithDomain:v5 code:-6753 userInfo:v9];
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFProximityClient, "[SFProximityClient requestScannerTimerReset]_block_invoke", 90, "### Request scanner timer reset failed: %@\n", v10);
   }
 }
 
-- (uint64_t)proximityClientDeviceWasDismissedHandler:(uint64_t)a1 reason:.cold.1(uint64_t a1)
+- (uint64_t)proximityClientDeviceWasDismissedHandler:(uint64_t)a1 reason:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  if ((a1 - 1) <= 3)
+  if ((a1 - 1) > 3)
   {
-    v1 = off_1E788B770[a1 - 1];
+    v4 = @"?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E788B770[a1 - 1];
+  }
+
+  return LogPrintF(&gLogCategory_SFProximityClient, "[SFProximityClient proximityClientDeviceWasDismissedHandler:reason:]", 30, "DeviceWasDismissed %@, %@\n", a2, v4, v2, v3);
 }
 
 @end

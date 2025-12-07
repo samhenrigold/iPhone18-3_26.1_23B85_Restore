@@ -34,10 +34,10 @@
 
 - (void)loadView
 {
-  v32[4] = *MEMORY[0x1E69E9840];
-  v31.receiver = self;
-  v31.super_class = OBTextWelcomeController;
-  [(OBWelcomeController *)&v31 loadView];
+  v31[4] = *MEMORY[0x1E69E9840];
+  v30.receiver = self;
+  v30.super_class = OBTextWelcomeController;
+  [(OBWelcomeController *)&v30 loadView];
   stackView = [(OBTextWelcomeController *)self stackView];
   [stackView setTranslatesAutoresizingMaskIntoConstraints:0];
 
@@ -51,35 +51,33 @@
   stackView4 = [(OBTextWelcomeController *)self stackView];
   [contentView addSubview:stackView4];
 
-  v21 = MEMORY[0x1E696ACD8];
+  v20 = MEMORY[0x1E696ACD8];
   stackView5 = [(OBTextWelcomeController *)self stackView];
   topAnchor = [stackView5 topAnchor];
   contentView2 = [(OBWelcomeController *)self contentView];
   topAnchor2 = [contentView2 topAnchor];
-  v26 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v32[0] = v26;
+  v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v31[0] = v25;
   stackView6 = [(OBTextWelcomeController *)self stackView];
   leftAnchor = [stackView6 leftAnchor];
   contentView3 = [(OBWelcomeController *)self contentView];
   leftAnchor2 = [contentView3 leftAnchor];
-  v20 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v32[1] = v20;
+  v19 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v31[1] = v19;
   stackView7 = [(OBTextWelcomeController *)self stackView];
   rightAnchor = [stackView7 rightAnchor];
   contentView4 = [(OBWelcomeController *)self contentView];
   rightAnchor2 = [contentView4 rightAnchor];
   v11 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v32[2] = v11;
+  v31[2] = v11;
   stackView8 = [(OBTextWelcomeController *)self stackView];
   bottomAnchor = [stackView8 bottomAnchor];
   contentView5 = [(OBWelcomeController *)self contentView];
   bottomAnchor2 = [contentView5 bottomAnchor];
   v16 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v32[3] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
-  [v21 activateConstraints:v17];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v31[3] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
+  [v20 activateConstraints:v17];
 }
 
 - (void)addSectionWithHeader:(id)header content:(id)content accessoryButton:(id)button

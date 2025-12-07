@@ -1288,7 +1288,7 @@ LABEL_67:
                 v18 = [(CRLPKDrawingProvider *)self p_createUUIDFromHashingStrokeTransformForShapeItem:v17];
                 v19 = [CRLShapeItemNeedingPKStrokeUpdate alloc];
                 v20 = [v14 id];
-                [v17 transformInRoot];
+                objc_msgSend_transformInRoot(v17);
                 pencilKitStrokesInRootSpace = [v17 pencilKitStrokesInRootSpace];
                 v22 = [(CRLShapeItemNeedingPKStrokeUpdate *)v19 initWithID:v20 strokeTransformInfoUUID:v18 transformInRoot:buf pencilKitStrokesInRootSpace:pencilKitStrokesInRootSpace];
 
@@ -2248,7 +2248,7 @@ LABEL_67:
   v9 = 0u;
   if (itemCopy)
   {
-    [itemCopy transformInRoot];
+    objc_msgSend_transformInRoot(itemCopy);
   }
 
   *md = v9;

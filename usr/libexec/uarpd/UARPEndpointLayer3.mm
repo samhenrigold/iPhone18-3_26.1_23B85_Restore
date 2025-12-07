@@ -126,6 +126,8 @@
 - (void)notifyAssetPersonalizationNeeded:(id)needed;
 - (void)notifyAssetSolicited:(id)solicited;
 - (void)notifyAssetStagingProgress:(id)progress bytesTransferred:(unint64_t)transferred assetLength:(unint64_t)length;
+- (void)notifyDownstreamEndpointReachable:(unsigned __int16)reachable;
+- (void)notifyDownstreamEndpointUnreachable:(unsigned __int16)unreachable;
 - (void)notifyEndpointAppliedStagedAssets:(int64_t)assets;
 - (void)notifyEndpointAssetMetaDataComplete:(id)complete;
 - (void)notifyEndpointPayloadData:(id)data payload:(id)payload offset:(unint64_t)offset payloadData:(id)payloadData;
@@ -4491,30 +4493,29 @@ LABEL_8:
 
 - (void)notifyEndpointReachable
 {
-  layer3Delegate = self->_layer3Delegate;
-  v4 = objc_opt_respondsToSelector();
+  v3 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v6 = @"IS NOT";
-      v7 = 136315650;
-      v8 = "[UARPEndpointLayer3 notifyEndpointReachable]";
-      v9 = 2112;
+      v5 = @"IS NOT";
+      v6 = 136315650;
+      v7 = "[UARPEndpointLayer3 notifyEndpointReachable]";
+      v8 = 2112;
       selfCopy = self;
-      if (v4)
+      if (v3)
       {
-        v6 = @"IS";
+        v5 = @"IS";
       }
 
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v7, 0x20u);
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v6, 0x20u);
     }
   }
 
-  if (v4)
+  if (v3)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointReachable:self];
   }
@@ -4523,30 +4524,29 @@ LABEL_8:
 - (void)notifyAssetStagingProgress:(id)progress bytesTransferred:(unint64_t)transferred assetLength:(unint64_t)length
 {
   progressCopy = progress;
-  layer3Delegate = self->_layer3Delegate;
-  v10 = objc_opt_respondsToSelector();
+  v9 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v12 = @"IS NOT";
-      v13 = 136315650;
-      v14 = "[UARPEndpointLayer3 notifyAssetStagingProgress:bytesTransferred:assetLength:]";
-      v15 = 2112;
+      v11 = @"IS NOT";
+      v12 = 136315650;
+      v13 = "[UARPEndpointLayer3 notifyAssetStagingProgress:bytesTransferred:assetLength:]";
+      v14 = 2112;
       selfCopy = self;
-      if (v10)
+      if (v9)
       {
-        v12 = @"IS";
+        v11 = @"IS";
       }
 
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v13, 0x20u);
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v12, 0x20u);
     }
   }
 
-  if (((transferred <= length) & v10) == 1)
+  if (((transferred <= length) & v9) == 1)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetStagingProgress:self asset:progressCopy bytesTransferred:transferred assetLength:length];
   }
@@ -4555,30 +4555,29 @@ LABEL_8:
 - (void)notifyAssetPersonalizationNeeded:(id)needed
 {
   neededCopy = needed;
-  layer3Delegate = self->_layer3Delegate;
-  v6 = objc_opt_respondsToSelector();
+  v5 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v8 = @"IS NOT";
-      v9 = 136315650;
-      v10 = "[UARPEndpointLayer3 notifyAssetPersonalizationNeeded:]";
-      v11 = 2112;
+      v7 = @"IS NOT";
+      v8 = 136315650;
+      v9 = "[UARPEndpointLayer3 notifyAssetPersonalizationNeeded:]";
+      v10 = 2112;
       selfCopy = self;
-      if (v6)
+      if (v5)
       {
-        v8 = @"IS";
+        v7 = @"IS";
       }
 
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v9, 0x20u);
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v8, 0x20u);
     }
   }
 
-  if (v6)
+  if (v5)
   {
     if ([(UARPEndpointLayer3 *)self craftTatsuRequests:neededCopy])
     {
@@ -4596,7 +4595,227 @@ LABEL_8:
 - (void)notifyAssetPersonalizationComplete:(id)complete status:(int64_t)status
 {
   completeCopy = complete;
-  layer3Delegate = self->_layer3Delegate;
+  v7 = objc_opt_respondsToSelector();
+  if (self->_debugNotifications)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v9 = @"IS NOT";
+      v10 = 136315650;
+      v11 = "[UARPEndpointLayer3 notifyAssetPersonalizationComplete:status:]";
+      v12 = 2112;
+      selfCopy = self;
+      if (v7)
+      {
+        v9 = @"IS";
+      }
+
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v10, 0x20u);
+    }
+  }
+
+  if (v7)
+  {
+    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetPersonalizationComplete:self asset:completeCopy status:status];
+  }
+}
+
+- (void)notifyDownstreamEndpointReachable:(unsigned __int16)reachable
+{
+  reachableCopy = reachable;
+  v5 = objc_opt_respondsToSelector();
+  if (self->_debugNotifications)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v7 = @"IS NOT";
+      v8 = 136315650;
+      v9 = "[UARPEndpointLayer3 notifyDownstreamEndpointReachable:]";
+      v10 = 2112;
+      selfCopy = self;
+      if (v5)
+      {
+        v7 = @"IS";
+      }
+
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v8, 0x20u);
+    }
+  }
+
+  if (v5)
+  {
+    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3DownstreamEndpointReachable:self downstreamID:reachableCopy];
+  }
+}
+
+- (void)notifyDownstreamEndpointUnreachable:(unsigned __int16)unreachable
+{
+  unreachableCopy = unreachable;
+  v5 = objc_opt_respondsToSelector();
+  if (self->_debugNotifications)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v7 = @"IS NOT";
+      v8 = 136315650;
+      v9 = "[UARPEndpointLayer3 notifyDownstreamEndpointUnreachable:]";
+      v10 = 2112;
+      selfCopy = self;
+      if (v5)
+      {
+        v7 = @"IS";
+      }
+
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v8, 0x20u);
+    }
+  }
+
+  if (v5)
+  {
+    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3DownstreamEndpointUnreachable:self downstreamID:unreachableCopy];
+  }
+}
+
+- (void)notifyEndpointAppliedStagedAssets:(int64_t)assets
+{
+  v5 = objc_opt_respondsToSelector();
+  if (self->_debugNotifications)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v7 = @"IS NOT";
+      v8 = 136315650;
+      v9 = "[UARPEndpointLayer3 notifyEndpointAppliedStagedAssets:]";
+      v10 = 2112;
+      selfCopy = self;
+      if (v5)
+      {
+        v7 = @"IS";
+      }
+
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v8, 0x20u);
+    }
+  }
+
+  if (v5)
+  {
+    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAppliedStagedAssets:self layer3Flags:assets];
+  }
+}
+
+- (void)notifyEndpointRescindedStagedAssets
+{
+  v3 = objc_opt_respondsToSelector();
+  if (self->_debugNotifications)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v5 = @"IS NOT";
+      v6 = 136315650;
+      v7 = "[UARPEndpointLayer3 notifyEndpointRescindedStagedAssets]";
+      v8 = 2112;
+      selfCopy = self;
+      if (v3)
+      {
+        v5 = @"IS";
+      }
+
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v6, 0x20u);
+    }
+  }
+
+  if (v3)
+  {
+    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointRescindedAssets:self];
+  }
+}
+
+- (void)notifyAssetOffered:(id)offered
+{
+  offeredCopy = offered;
+  v5 = objc_opt_respondsToSelector();
+  if (self->_debugNotifications)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v7 = @"IS NOT";
+      v8 = 136315650;
+      v9 = "[UARPEndpointLayer3 notifyAssetOffered:]";
+      v10 = 2112;
+      selfCopy = self;
+      if (v5)
+      {
+        v7 = @"IS";
+      }
+
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v8, 0x20u);
+    }
+  }
+
+  if (v5)
+  {
+    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetOffered:self asset:offeredCopy];
+  }
+
+  else
+  {
+    [(UARPEndpointLayer3 *)self acceptLayer3Asset:offeredCopy];
+  }
+}
+
+- (void)notifyEndpointAssetMetaDataComplete:(id)complete
+{
+  completeCopy = complete;
+  v5 = objc_opt_respondsToSelector();
+  if (self->_debugNotifications)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v7 = @"IS NOT";
+      v8 = 136315650;
+      v9 = "[UARPEndpointLayer3 notifyEndpointAssetMetaDataComplete:]";
+      v10 = 2112;
+      selfCopy = self;
+      if (v5)
+      {
+        v7 = @"IS";
+      }
+
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v8, 0x20u);
+    }
+  }
+
+  if (v5)
+  {
+    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetMetaDataComplete:self asset:completeCopy];
+  }
+}
+
+- (void)notifyEndpointPayloadMetaDataComplete:(id)complete payload:(id)payload
+{
+  completeCopy = complete;
+  payloadCopy = payload;
   v8 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
@@ -4605,7 +4824,7 @@ LABEL_8:
     {
       v10 = @"IS NOT";
       v11 = 136315650;
-      v12 = "[UARPEndpointLayer3 notifyAssetPersonalizationComplete:status:]";
+      v12 = "[UARPEndpointLayer3 notifyEndpointPayloadMetaDataComplete:payload:]";
       v13 = 2112;
       selfCopy = self;
       if (v8)
@@ -4621,170 +4840,6 @@ LABEL_8:
 
   if (v8)
   {
-    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetPersonalizationComplete:self asset:completeCopy status:status];
-  }
-}
-
-- (void)notifyEndpointAppliedStagedAssets:(int64_t)assets
-{
-  layer3Delegate = self->_layer3Delegate;
-  v6 = objc_opt_respondsToSelector();
-  if (self->_debugNotifications)
-  {
-    log = self->_log;
-    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
-    {
-      v8 = @"IS NOT";
-      v9 = 136315650;
-      v10 = "[UARPEndpointLayer3 notifyEndpointAppliedStagedAssets:]";
-      v11 = 2112;
-      selfCopy = self;
-      if (v6)
-      {
-        v8 = @"IS";
-      }
-
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v9, 0x20u);
-    }
-  }
-
-  if (v6)
-  {
-    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAppliedStagedAssets:self layer3Flags:assets];
-  }
-}
-
-- (void)notifyEndpointRescindedStagedAssets
-{
-  layer3Delegate = self->_layer3Delegate;
-  v4 = objc_opt_respondsToSelector();
-  if (self->_debugNotifications)
-  {
-    log = self->_log;
-    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
-    {
-      v6 = @"IS NOT";
-      v7 = 136315650;
-      v8 = "[UARPEndpointLayer3 notifyEndpointRescindedStagedAssets]";
-      v9 = 2112;
-      selfCopy = self;
-      if (v4)
-      {
-        v6 = @"IS";
-      }
-
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v7, 0x20u);
-    }
-  }
-
-  if (v4)
-  {
-    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointRescindedAssets:self];
-  }
-}
-
-- (void)notifyAssetOffered:(id)offered
-{
-  offeredCopy = offered;
-  layer3Delegate = self->_layer3Delegate;
-  v6 = objc_opt_respondsToSelector();
-  if (self->_debugNotifications)
-  {
-    log = self->_log;
-    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
-    {
-      v8 = @"IS NOT";
-      v9 = 136315650;
-      v10 = "[UARPEndpointLayer3 notifyAssetOffered:]";
-      v11 = 2112;
-      selfCopy = self;
-      if (v6)
-      {
-        v8 = @"IS";
-      }
-
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v9, 0x20u);
-    }
-  }
-
-  if (v6)
-  {
-    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetOffered:self asset:offeredCopy];
-  }
-
-  else
-  {
-    [(UARPEndpointLayer3 *)self acceptLayer3Asset:offeredCopy];
-  }
-}
-
-- (void)notifyEndpointAssetMetaDataComplete:(id)complete
-{
-  completeCopy = complete;
-  layer3Delegate = self->_layer3Delegate;
-  v6 = objc_opt_respondsToSelector();
-  if (self->_debugNotifications)
-  {
-    log = self->_log;
-    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
-    {
-      v8 = @"IS NOT";
-      v9 = 136315650;
-      v10 = "[UARPEndpointLayer3 notifyEndpointAssetMetaDataComplete:]";
-      v11 = 2112;
-      selfCopy = self;
-      if (v6)
-      {
-        v8 = @"IS";
-      }
-
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v9, 0x20u);
-    }
-  }
-
-  if (v6)
-  {
-    [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetMetaDataComplete:self asset:completeCopy];
-  }
-}
-
-- (void)notifyEndpointPayloadMetaDataComplete:(id)complete payload:(id)payload
-{
-  completeCopy = complete;
-  payloadCopy = payload;
-  layer3Delegate = self->_layer3Delegate;
-  v9 = objc_opt_respondsToSelector();
-  if (self->_debugNotifications)
-  {
-    log = self->_log;
-    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
-    {
-      v11 = @"IS NOT";
-      v12 = 136315650;
-      v13 = "[UARPEndpointLayer3 notifyEndpointPayloadMetaDataComplete:payload:]";
-      v14 = 2112;
-      selfCopy = self;
-      if (v9)
-      {
-        v11 = @"IS";
-      }
-
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v12, 0x20u);
-    }
-  }
-
-  if (v9)
-  {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointPayloadMetaDataComplete:self asset:completeCopy payload:payloadCopy];
   }
 }
@@ -4794,30 +4849,29 @@ LABEL_8:
   dataCopy = data;
   payloadCopy = payload;
   payloadDataCopy = payloadData;
-  layer3Delegate = self->_layer3Delegate;
-  v14 = objc_opt_respondsToSelector();
+  v13 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v16 = @"IS NOT";
-      v17 = 136315650;
-      v18 = "[UARPEndpointLayer3 notifyEndpointPayloadData:payload:offset:payloadData:]";
-      v19 = 2112;
+      v15 = @"IS NOT";
+      v16 = 136315650;
+      v17 = "[UARPEndpointLayer3 notifyEndpointPayloadData:payload:offset:payloadData:]";
+      v18 = 2112;
       selfCopy = self;
-      if (v14)
+      if (v13)
       {
-        v16 = @"IS";
+        v15 = @"IS";
       }
 
-      v21 = 2112;
-      v22 = v16;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v17, 0x20u);
+      v20 = 2112;
+      v21 = v15;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v16, 0x20u);
     }
   }
 
-  if (v14)
+  if (v13)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointPayloadData:self asset:dataCopy payload:payloadCopy offset:offset payloadData:payloadDataCopy];
   }
@@ -4827,30 +4881,29 @@ LABEL_8:
 {
   completeCopy = complete;
   payloadCopy = payload;
-  layer3Delegate = self->_layer3Delegate;
-  v9 = objc_opt_respondsToSelector();
+  v8 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v11 = @"IS NOT";
-      v12 = 136315650;
-      v13 = "[UARPEndpointLayer3 notifyEndpointPayloadDataComplete:payload:]";
-      v14 = 2112;
+      v10 = @"IS NOT";
+      v11 = 136315650;
+      v12 = "[UARPEndpointLayer3 notifyEndpointPayloadDataComplete:payload:]";
+      v13 = 2112;
       selfCopy = self;
-      if (v9)
+      if (v8)
       {
-        v11 = @"IS";
+        v10 = @"IS";
       }
 
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v12, 0x20u);
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v11, 0x20u);
     }
   }
 
-  if (v9)
+  if (v8)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointPayloadDataComplete:self asset:completeCopy payload:payloadCopy];
   }
@@ -4859,30 +4912,29 @@ LABEL_8:
 - (void)notifyAssetSolicited:(id)solicited
 {
   solicitedCopy = solicited;
-  layer3Delegate = self->_layer3Delegate;
-  v6 = objc_opt_respondsToSelector();
+  v5 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v8 = @"IS NOT";
-      v9 = 136315650;
-      v10 = "[UARPEndpointLayer3 notifyAssetSolicited:]";
-      v11 = 2112;
+      v7 = @"IS NOT";
+      v8 = 136315650;
+      v9 = "[UARPEndpointLayer3 notifyAssetSolicited:]";
+      v10 = 2112;
       selfCopy = self;
-      if (v6)
+      if (v5)
       {
-        v8 = @"IS";
+        v7 = @"IS";
       }
 
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v9, 0x20u);
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v8, 0x20u);
     }
   }
 
-  if (v6)
+  if (v5)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetSolicited:self assetTag:solicitedCopy];
   }
@@ -4890,30 +4942,29 @@ LABEL_8:
 
 - (void)notifyApplyStagedAssets
 {
-  layer3Delegate = self->_layer3Delegate;
-  v4 = objc_opt_respondsToSelector();
+  v3 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v6 = @"IS NOT";
-      v7 = 136315650;
-      v8 = "[UARPEndpointLayer3 notifyApplyStagedAssets]";
-      v9 = 2112;
+      v5 = @"IS NOT";
+      v6 = 136315650;
+      v7 = "[UARPEndpointLayer3 notifyApplyStagedAssets]";
+      v8 = 2112;
       selfCopy = self;
-      if (v4)
+      if (v3)
       {
-        v6 = @"IS";
+        v5 = @"IS";
       }
 
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v7, 0x20u);
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v6, 0x20u);
     }
   }
 
-  if (v4)
+  if (v3)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointApplyStagedAssets:self];
   }
@@ -4923,30 +4974,29 @@ LABEL_8:
 {
   readyCopy = ready;
   payloadCopy = payload;
-  layer3Delegate = self->_layer3Delegate;
-  v9 = objc_opt_respondsToSelector();
+  v8 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v11 = @"IS NOT";
-      v12 = 136315650;
-      v13 = "[UARPEndpointLayer3 notifyPayloadReady:payload:]";
-      v14 = 2112;
+      v10 = @"IS NOT";
+      v11 = 136315650;
+      v12 = "[UARPEndpointLayer3 notifyPayloadReady:payload:]";
+      v13 = 2112;
       selfCopy = self;
-      if (v9)
+      if (v8)
       {
-        v11 = @"IS";
+        v10 = @"IS";
       }
 
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v12, 0x20u);
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v11, 0x20u);
     }
   }
 
-  if (v9)
+  if (v8)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointPayloadReady:self asset:readyCopy payload:payloadCopy];
   }
@@ -5002,41 +5052,40 @@ LABEL_8:
     processingStatus = [stagedCopy processingStatus];
     uuid = [stagedCopy uuid];
     v9 = [uuid description];
-    v14 = 136315650;
-    v15 = "[UARPEndpointLayer3 notifyTxFirmwareFullyStaged:]";
-    v16 = 2048;
+    v13 = 136315650;
+    v14 = "[UARPEndpointLayer3 notifyTxFirmwareFullyStaged:]";
+    v15 = 2048;
     selfCopy = processingStatus;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s: TX Firmware Asset Fully Staged, status is %lu. UUID of %@", &v14, 0x20u);
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s: TX Firmware Asset Fully Staged, status is %lu. UUID of %@", &v13, 0x20u);
   }
 
   [(NSMutableArray *)self->_completedAssets addObject:stagedCopy];
   [(NSMutableArray *)self->_firmwareAssets removeObject:stagedCopy];
-  layer3Delegate = self->_layer3Delegate;
-  v11 = objc_opt_respondsToSelector();
+  v10 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
-    v12 = self->_log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = self->_log;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = @"IS NOT";
-      v14 = 136315650;
-      v15 = "[UARPEndpointLayer3 notifyTxFirmwareFullyStaged:]";
-      v16 = 2112;
+      v12 = @"IS NOT";
+      v13 = 136315650;
+      v14 = "[UARPEndpointLayer3 notifyTxFirmwareFullyStaged:]";
+      v15 = 2112;
       selfCopy = self;
-      if (v11)
+      if (v10)
       {
-        v13 = @"IS";
+        v12 = @"IS";
       }
 
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v14, 0x20u);
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v13, 0x20u);
     }
   }
 
-  if (v11)
+  if (v10)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetFullyStaged:self txFirmwareAsset:stagedCopy];
   }
@@ -5062,44 +5111,43 @@ LABEL_8:
     stagedFirmwareVersion = [directConfiguration2 stagedFirmwareVersion];
     uuid = [stagedCopy uuid];
     v14 = [uuid description];
-    v19 = 136316162;
-    v20 = "[UARPEndpointLayer3 notifyRxFirmwareFullyStaged:]";
-    v21 = 2048;
+    v18 = 136316162;
+    v19 = "[UARPEndpointLayer3 notifyRxFirmwareFullyStaged:]";
+    v20 = 2048;
     selfCopy = processingStatus;
-    v23 = 2112;
-    v24 = assetVersion2;
-    v25 = 2112;
-    v26 = stagedFirmwareVersion;
-    v27 = 2112;
-    v28 = v14;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: RX Firmware Asset Fully Staged, status is %lu. Asset Verison is %@. Staged Version is %@. UUID of %@", &v19, 0x34u);
+    v22 = 2112;
+    v23 = assetVersion2;
+    v24 = 2112;
+    v25 = stagedFirmwareVersion;
+    v26 = 2112;
+    v27 = v14;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: RX Firmware Asset Fully Staged, status is %lu. Asset Verison is %@. Staged Version is %@. UUID of %@", &v18, 0x34u);
   }
 
   [(UARPEndpointLayer3 *)self notifyLayer2RxFirmwareFullyStaged:stagedCopy];
-  layer3Delegate = self->_layer3Delegate;
-  v16 = objc_opt_respondsToSelector();
+  v15 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
-    v17 = self->_log;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = self->_log;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = @"IS NOT";
-      v19 = 136315650;
-      v20 = "[UARPEndpointLayer3 notifyRxFirmwareFullyStaged:]";
-      v21 = 2112;
+      v17 = @"IS NOT";
+      v18 = 136315650;
+      v19 = "[UARPEndpointLayer3 notifyRxFirmwareFullyStaged:]";
+      v20 = 2112;
       selfCopy = self;
-      if (v16)
+      if (v15)
       {
-        v18 = @"IS";
+        v17 = @"IS";
       }
 
-      v23 = 2112;
-      v24 = v18;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v19, 0x20u);
+      v22 = 2112;
+      v23 = v17;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v18, 0x20u);
     }
   }
 
-  if (v16)
+  if (v15)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetFullyStaged:self rxFirmwareAsset:stagedCopy];
   }
@@ -5194,39 +5242,38 @@ LABEL_18:
     processingStatus = [stagedCopy processingStatus];
     uuid = [stagedCopy uuid];
     v9 = [uuid description];
-    v14 = 136315650;
-    v15 = "[UARPEndpointLayer3 notifyTxDynamicAssetFullyStaged:]";
-    v16 = 2048;
+    v13 = 136315650;
+    v14 = "[UARPEndpointLayer3 notifyTxDynamicAssetFullyStaged:]";
+    v15 = 2048;
     selfCopy = processingStatus;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s: TX Dynamic Asset Fully Staged, status is %lu. UUID of %@", &v14, 0x20u);
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s: TX Dynamic Asset Fully Staged, status is %lu. UUID of %@", &v13, 0x20u);
   }
 
-  layer3Delegate = self->_layer3Delegate;
-  v11 = objc_opt_respondsToSelector();
+  v10 = objc_opt_respondsToSelector();
   if (self->_debugNotifications)
   {
-    v12 = self->_log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = self->_log;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = @"IS NOT";
-      v14 = 136315650;
-      v15 = "[UARPEndpointLayer3 notifyTxDynamicAssetFullyStaged:]";
-      v16 = 2112;
+      v12 = @"IS NOT";
+      v13 = 136315650;
+      v14 = "[UARPEndpointLayer3 notifyTxDynamicAssetFullyStaged:]";
+      v15 = 2112;
       selfCopy = self;
-      if (v11)
+      if (v10)
       {
-        v13 = @"IS";
+        v12 = @"IS";
       }
 
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v14, 0x20u);
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: %@, %@ supported", &v13, 0x20u);
     }
   }
 
-  if (v11)
+  if (v10)
   {
     [(UARPEndpointLayer3DelegateProtocol *)self->_layer3Delegate layer3EndpointAssetFullyStaged:self txDynamicAsset:stagedCopy];
   }

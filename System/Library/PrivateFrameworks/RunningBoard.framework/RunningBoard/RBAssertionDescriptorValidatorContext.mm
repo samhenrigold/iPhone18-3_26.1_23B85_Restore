@@ -141,9 +141,7 @@
 
 - (void)setTargetClientRestriction:(id)restriction
 {
-  v4 = [restriction copy];
-  targetClientRestriction = self->_targetClientRestriction;
-  self->_targetClientRestriction = v4;
+  self->_targetClientRestriction = [restriction copy];
 
   MEMORY[0x2821F96F8]();
 }

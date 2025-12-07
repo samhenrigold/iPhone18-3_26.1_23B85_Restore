@@ -42,13 +42,13 @@
 
 - (void)_setupCommon
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setDataType:115];
   [v3 setIndex:0];
   originalObject = [(MTLToolsObject *)self->super.super.super._device originalObject];
-  v8[0] = v3;
-  v5 = [originalObject newArgumentEncoderWithArguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v8, 1)}];
+  v7[0] = v3;
+  v5 = [originalObject newArgumentEncoderWithArguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 1)}];
 
   v6 = [-[MTLToolsObject originalObject](self->super.super.super._device "originalObject")];
   [v5 setArgumentBuffer:v6 offset:0];
@@ -56,7 +56,6 @@
 
   self->_gpuIdentifier = *[v6 contents];
   self->_handleBuffer = [(MTLToolsDevice *)self->super.super.super._device newInternalBufferWithLength:248 options:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBuffer:(id)buffer offset:(unint64_t)offset atIndex:(unint64_t)index

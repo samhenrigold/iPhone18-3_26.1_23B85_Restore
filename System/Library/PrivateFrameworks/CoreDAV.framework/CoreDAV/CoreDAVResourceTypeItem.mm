@@ -70,7 +70,7 @@
 
 - (void)write:(id)write
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   name = [(CoreDAVItem *)self name];
   nameSpace = [(CoreDAVItem *)self nameSpace];
@@ -94,31 +94,31 @@
   unauthenticated = [(CoreDAVResourceTypeItem *)self unauthenticated];
   [unauthenticated write:writeCopy];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   extraChildItems = [(CoreDAVItem *)self extraChildItems];
-  v14 = [extraChildItems countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [extraChildItems countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(extraChildItems);
         }
 
-        [*(*(&v21 + 1) + 8 * v17++) write:writeCopy];
+        [*(*(&v20 + 1) + 8 * v17++) write:writeCopy];
       }
 
       while (v15 != v17);
-      v15 = [extraChildItems countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [extraChildItems countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
@@ -127,13 +127,11 @@
   name2 = [(CoreDAVItem *)self name];
   nameSpace2 = [(CoreDAVItem *)self nameSpace];
   [writeCopy endElement:name2 inNamespace:nameSpace2];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)stringSet
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   addressBook = [(CoreDAVResourceTypeItem *)self addressBook];
 
@@ -205,26 +203,26 @@
     [v3 addObject:v38];
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   extraChildItems = [(CoreDAVItem *)self extraChildItems];
-  v40 = [extraChildItems countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v40 = [extraChildItems countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v52;
+    v42 = *v51;
     do
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v52 != v42)
+        if (*v51 != v42)
         {
           objc_enumerationMutation(extraChildItems);
         }
 
-        v44 = *(*(&v51 + 1) + 8 * i);
+        v44 = *(*(&v50 + 1) + 8 * i);
         v45 = objc_alloc(MEMORY[0x277CCACA8]);
         nameSpace6 = [v44 nameSpace];
         name6 = [v44 name];
@@ -233,7 +231,7 @@
         [v3 addObject:v48];
       }
 
-      v41 = [extraChildItems countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v41 = [extraChildItems countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
     while (v41);
@@ -245,14 +243,12 @@
     v3 = 0;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (BOOL)isTypeWithNameSpace:(id)space andName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   nameCopy = name;
   if ([spaceCopy isEqualToString:@"DAV:"])
@@ -300,26 +296,26 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   extraChildItems = [(CoreDAVItem *)self extraChildItems];
-  v11 = [extraChildItems countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [extraChildItems countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(extraChildItems);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         nameSpace = [v15 nameSpace];
         if ([nameSpace isEqualToString:spaceCopy])
         {
@@ -339,7 +335,7 @@ LABEL_16:
         }
       }
 
-      v12 = [extraChildItems countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [extraChildItems countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
@@ -348,7 +344,6 @@ LABEL_16:
   v9 = 0;
 LABEL_29:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

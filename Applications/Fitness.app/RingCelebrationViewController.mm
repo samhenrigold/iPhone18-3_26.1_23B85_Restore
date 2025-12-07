@@ -22,7 +22,7 @@
 - (void)viewDidLayoutSubviews
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for RingCelebrationViewController();
+  v6.super_class = type metadata accessor for RingCelebrationViewController(0);
   v2 = v6.receiver;
   [(RingCelebrationViewController *)&v6 viewDidLayoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC10FitnessApp29RingCelebrationViewController_playerLayer];
@@ -45,7 +45,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for RingCelebrationViewController();
+  v5.super_class = type metadata accessor for RingCelebrationViewController(0);
   v4 = v5.receiver;
   [(RingCelebrationViewController *)&v5 viewDidDisappear:disappearCopy];
   [v4 teardownPlayer];

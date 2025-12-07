@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"settingMetadata";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"settingMetadata";
   settingMetadata = [(INOpenSettingIntent *)self settingMetadata];
   null = settingMetadata;
   if (!settingMetadata)
@@ -31,8 +31,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"searchQuery";
-  v11[0] = null;
+  v9[1] = @"searchQuery";
+  v10[0] = null;
   searchQuery = [(INOpenSettingIntent *)self searchQuery];
   null2 = searchQuery;
   if (!searchQuery)
@@ -40,8 +40,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (!searchQuery)
   {
   }
@@ -49,8 +49,6 @@
   if (!settingMetadata)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

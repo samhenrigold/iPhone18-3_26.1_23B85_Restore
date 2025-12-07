@@ -12,7 +12,7 @@
 {
   playerCopy = player;
   selfCopy = self;
-  sub_1B372D5A4();
+  sub_1B372D5A4(selfCopy);
 }
 
 - (void)mediaTimelineControl:(id)control didChangeValue:(float)value

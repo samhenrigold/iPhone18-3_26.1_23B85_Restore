@@ -43,43 +43,20 @@
   v14.receiver = self;
   v14.super_class = MBPeerTransferRequest;
   v7 = [(MBPeerTransferRequest *)&v14 init];
-  if (!v7)
+  if (!v7 || ([dictionaryCopy objectForKeyedSubscript:@"MBDeviceUDID"], v8 = objc_claimAutoreleasedReturnValue(), targetDeviceUDID = v7->_targetDeviceUDID, v7->_targetDeviceUDID = v8, targetDeviceUDID, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBFreeDiskSpace"), v10 = objc_claimAutoreleasedReturnValue(), freeDiskSpace = v7->_freeDiskSpace, v7->_freeDiskSpace = v10, freeDiskSpace, v7->_freeDiskSpace) && v7->_targetDeviceUDID)
   {
-    goto LABEL_4;
-  }
-
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"MBDeviceUDID"];
-  targetDeviceUDID = v7->_targetDeviceUDID;
-  v7->_targetDeviceUDID = v8;
-
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"MBFreeDiskSpace"];
-  freeDiskSpace = v7->_freeDiskSpace;
-  v7->_freeDiskSpace = v10;
-
-  if (!v7->_freeDiskSpace)
-  {
-    goto LABEL_5;
-  }
-
-  if (v7->_targetDeviceUDID)
-  {
-LABEL_4:
     v12 = v7;
+  }
+
+  else if (error)
+  {
+    [MBError errorWithCode:11 format:@"Failed to decode request. Missing property in dictionary %@", dictionaryCopy];
+    *error = v12 = 0;
   }
 
   else
   {
-LABEL_5:
-    if (error)
-    {
-      [MBError errorWithCode:11 format:@"Failed to decode request. Missing property in dictionary %@", dictionaryCopy];
-      *error = v12 = 0;
-    }
-
-    else
-    {
-      v12 = 0;
-    }
+    v12 = 0;
   }
 
   return v12;

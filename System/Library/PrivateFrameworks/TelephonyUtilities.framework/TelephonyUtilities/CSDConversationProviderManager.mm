@@ -363,21 +363,21 @@
   if (([providerCopy isDefaultProvider] & 1) != 0 || (-[CSDConversationProviderManager featureFlags](self, "featureFlags"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "groupFacetimeAsAServiceEnabled"), v5, (v6 & 1) == 0))
   {
     service = +[CSDFaceTimeMultiwayIDSService sharedInstance];
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(service);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       isDefaultProvider = [providerCopy isDefaultProvider];
-      v14 = @"NO";
+      v15 = @"NO";
       if (isDefaultProvider)
       {
-        v14 = @"YES";
+        v15 = @"YES";
       }
 
-      v17 = 138412546;
-      v18 = v14;
-      v19 = 2112;
-      v20 = providerCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "provider.isDefaultProvider: %@, provider: %@", &v17, 0x16u);
+      v18 = 138412546;
+      v19 = v15;
+      v20 = 2112;
+      v21 = providerCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "provider.isDefaultProvider: %@, provider: %@", &v18, 0x16u);
     }
   }
 
@@ -388,25 +388,25 @@
     v9 = [providerIdentifierToProvider objectForKeyedSubscript:identifier];
     service = [v9 service];
 
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       providerIdentifierToProvider2 = [(CSDConversationProviderManager *)self providerIdentifierToProvider];
-      v17 = 138412802;
-      v18 = service;
-      v19 = 2112;
-      v20 = providerCopy;
-      v21 = 2112;
-      v22 = providerIdentifierToProvider2;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "service: %@, provider: %@, providerIdentifierToProvider: %@", &v17, 0x20u);
+      v18 = 138412802;
+      v19 = service;
+      v20 = 2112;
+      v21 = providerCopy;
+      v22 = 2112;
+      v23 = providerIdentifierToProvider2;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "service: %@, provider: %@, providerIdentifierToProvider: %@", &v18, 0x20u);
     }
   }
 
   if (TUSimulatedModeEnabled())
   {
-    v15 = +[CSDSimulatedIDSService sharedInstance];
+    v16 = +[CSDSimulatedIDSService sharedInstance];
 
-    service = v15;
+    service = v16;
   }
 
   os_unfair_lock_unlock(&self->_accessorLock);

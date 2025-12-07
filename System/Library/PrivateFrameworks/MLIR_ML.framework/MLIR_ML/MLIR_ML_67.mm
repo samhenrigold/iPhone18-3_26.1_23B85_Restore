@@ -5,7 +5,7 @@ BOOL _ZN4llvm12function_refIFNS_11ParseResultERN4mlir9AttributeENS2_4TypeEEE11ca
   return v3 != 0;
 }
 
-uint64_t llvm::interleave<mlir::silc::TensorAxisRefAttr const*,void mlir::AsmPrinter::printStrippedAttrOrType<mlir::silc::TensorAxisRefAttr,(void *)0>(llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>)::{lambda(mlir::silc::TensorAxisRefAttr)#1},void llvm::interleave<llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>,void mlir::AsmPrinter::printStrippedAttrOrType<mlir::silc::TensorAxisRefAttr,(void *)0>(llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>)::{lambda(mlir::silc::TensorAxisRefAttr)#1},llvm::raw_ostream,mlir::silc::TensorAxisRefAttr const>(mlir::silc::TensorAxisRefAttr const&,llvm::raw_ostream &,void mlir::AsmPrinter::printStrippedAttrOrType<mlir::silc::TensorAxisRefAttr,(void *)0>(llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>)::{lambda(mlir::silc::TensorAxisRefAttr)#1},llvm::StringRef const&)::{lambda(void)#1},void>(uint64_t result, void *a2, mlir::AsmPrinter *a3, void *a4, uint64_t a5)
+uint64_t llvm::interleave<mlir::silc::TensorAxisRefAttr const*,void mlir::AsmPrinter::printStrippedAttrOrType<mlir::silc::TensorAxisRefAttr,(void *)0>(llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>)::{lambda(mlir::silc::TensorAxisRefAttr)#1},void llvm::interleave<llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>,void mlir::AsmPrinter::printStrippedAttrOrType<mlir::silc::TensorAxisRefAttr,(void *)0>(llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>)::{lambda(mlir::silc::TensorAxisRefAttr)#1},llvm::raw_ostream,mlir::silc::TensorAxisRefAttr const>(mlir::silc::TensorAxisRefAttr const&,llvm::raw_ostream &,void mlir::AsmPrinter::printStrippedAttrOrType<mlir::silc::TensorAxisRefAttr,(void *)0>(llvm::ArrayRef<mlir::silc::TensorAxisRefAttr>)::{lambda(mlir::silc::TensorAxisRefAttr)#1},llvm::StringRef const&)::{lambda(void)#1},void>(uint64_t result, void *a2, mlir::AsmPrinter *a3, llvm::raw_ostream *a4, uint64_t a5)
 {
   if (result != a2)
   {
@@ -30,14 +30,14 @@ uint64_t llvm::interleave<mlir::silc::TensorAxisRefAttr const*,void mlir::AsmPri
     {
       v15 = *a5;
       v16 = *(a5 + 8);
-      v17 = a4[4];
-      if (v16 <= a4[3] - v17)
+      v17 = *(a4 + 4);
+      if (v16 <= *(a4 + 3) - v17)
       {
         if (v16)
         {
           v18 = *(a5 + 8);
           memcpy(v17, v15, v16);
-          a4[4] += v18;
+          *(a4 + 4) += v18;
         }
       }
 
@@ -269,7 +269,7 @@ BOOL mlir::silc::SilcMeshOp::verify(mlir::SymbolTable **this)
   }
 
   v17 = 257;
-  mlir::OpState::emitError(this, v16, &v21);
+  mlir::OpState::emitError(&v21, this, v16);
   if (v21)
   {
     LODWORD(v18) = 3;
@@ -370,7 +370,7 @@ BOOL mlir::silc::SilcMeshOp::verify(mlir::SymbolTable **this)
   return v2;
 }
 
-unint64_t mlir::silc::SilcSPMDCallOp::getCallableForCallee(mlir::silc::SilcSPMDCallOp *this)
+uint64_t mlir::silc::SilcSPMDCallOp::getCallableForCallee(mlir::silc::SilcSPMDCallOp *this)
 {
   v1 = *this;
   if (!*(*this + 47) || (result = mlir::Operation::getInherentAttr(*this, "callee", 6), (v3 & 1) == 0))
@@ -382,7 +382,7 @@ unint64_t mlir::silc::SilcSPMDCallOp::getCallableForCallee(mlir::silc::SilcSPMDC
   {
     if (*(*result + 136) == &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id)
     {
-      result &= ~4uLL;
+      return result & 0xFFFFFFFFFFFFFFFBLL;
     }
 
     else
@@ -546,7 +546,7 @@ uint64_t mlir::silc::detail::SilcAllGatherOpGenericAdaptorBase::SilcAllGatherOpG
   return a1;
 }
 
-uint64_t mlir::silc::SilcAllGatherOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcAllGatherOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -924,7 +924,7 @@ unint64_t mlir::silc::SilcAllGatherOp::getInherentAttr(uint64_t a1, void *a2, vo
   }
 }
 
-void *mlir::silc::SilcAllGatherOp::setInherentAttr(void *result, void *a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::silc::SilcAllGatherOp::setInherentAttr(uint64_t *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 8 && *a2 == 0x676E696472616873)
   {
@@ -962,7 +962,7 @@ uint64_t mlir::silc::SilcAllGatherOp::populateInherentAttrs(uint64_t a1, uint64_
   return result;
 }
 
-uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (!a1 || *(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::silc::ShardingAttr,void>::id)
@@ -1089,18 +1089,18 @@ uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(uint64_t a1, uint
   return v11;
 }
 
-uint64_t mlir::silc::SilcAllGatherOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcAllGatherOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
   }
 
-  return mlir::DialectBytecodeReader::readAttribute<mlir::silc::ShardingAttr>(a1, v2) & 1;
+  return mlir::DialectBytecodeReader::readAttribute<mlir::silc::ShardingAttr>(a1, v2);
 }
 
-uint64_t mlir::DialectBytecodeReader::readAttribute<mlir::silc::ShardingAttr>(uint64_t a1, uint64_t *a2)
+BOOL mlir::DialectBytecodeReader::readAttribute<mlir::silc::ShardingAttr>(uint64_t a1, uint64_t *a2)
 {
   v43 = *MEMORY[0x277D85DE8];
   v27 = 0;
@@ -1287,7 +1287,7 @@ uint64_t mlir::DialectBytecodeReader::readAttribute<mlir::silc::ShardingAttr>(ui
   return v16;
 }
 
-uint64_t mlir::silc::SilcAllGatherOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *mlir::silc::SilcAllGatherOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = a5;
   result = mlir::OperationState::addOperands(a2, &v11, 1uLL);
@@ -1309,7 +1309,7 @@ uint64_t mlir::silc::SilcAllGatherOp::build(uint64_t a1, uint64_t a2, uint64_t a
   return result;
 }
 
-unint64_t mlir::silc::SilcAllGatherOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *mlir::silc::SilcAllGatherOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v15 = a6;
   result = mlir::OperationState::addOperands(a2, &v15, 1uLL);
@@ -1406,7 +1406,7 @@ uint64_t mlir::silc::SilcAllGatherOp::build(uint64_t a1, uint64_t a2, uint64_t a
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -1421,14 +1421,14 @@ BOOL mlir::silc::SilcAllGatherOp::verifyInvariantsImpl(mlir::Operation **this)
   if (v3)
   {
     v93 = v2;
-    if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v3, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v93) & 1) == 0 || (mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+    if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v3, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v93) || !mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
     {
       return 0;
     }
 
     v4 = *(*this + 9) ? *this - 16 : 0;
     NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-    if ((mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+    if (!mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
     {
       return 0;
     }
@@ -1508,8 +1508,8 @@ LABEL_43:
         v31 = *v30;
         {
           v32 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v33 = v31[1];
-          v34 = *(v31 + 4);
+          v33 = *(v31 + 8);
+          v34 = *(v31 + 16);
           if (!v34)
           {
             goto LABEL_60;
@@ -1523,8 +1523,8 @@ LABEL_43:
           mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
           v30 = v84;
           v32 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v33 = v82[1];
-          v34 = *(v82 + 4);
+          v33 = *(v82 + 8);
+          v34 = *(v82 + 16);
           if (!v34)
           {
             goto LABEL_60;
@@ -1748,7 +1748,7 @@ LABEL_106:
 LABEL_107:
                 v90 = v78;
                 v92 = 259;
-                mlir::OpState::emitOpError(this, &v90, &v93);
+                mlir::OpState::emitOpError(&v93, this, &v90);
                 v17 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v93);
                 if (v93)
                 {
@@ -1787,7 +1787,7 @@ LABEL_42:
 
   v90 = "requires attribute 'sharding'";
   v92 = 259;
-  mlir::OpState::emitOpError(this, &v90, &v93);
+  mlir::OpState::emitOpError(&v93, this, &v90);
   v17 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v93);
   if (v93)
   {
@@ -1856,17 +1856,17 @@ LABEL_42:
   return v17;
 }
 
-uint64_t mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(mlir::Operation *hasRank, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v130 = *MEMORY[0x277D85DE8];
   v10 = *a2;
-  v11 = *(*a2 + 17);
+  v11 = *(*a2 + 136);
   if (v11 == &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id || v11 == &mlir::detail::TypeIDResolver<mlir::UnrankedTensorType,void>::id)
   {
     {
       v13 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v14 = v10[1];
-      v15 = *(v10 + 4);
+      v14 = *(v10 + 8);
+      v15 = *(v10 + 16);
       if (!v15)
       {
         goto LABEL_18;
@@ -1878,8 +1878,8 @@ uint64_t mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(mlir::Operation *
       v22 = v10;
       mlir::ODIE::Compiler::CoreML::CastOp::inferReturnTypeComponents();
       v13 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v14 = v22[1];
-      v15 = *(v22 + 4);
+      v14 = *(v22 + 8);
+      v15 = *(v22 + 16);
       if (!v15)
       {
         goto LABEL_18;
@@ -1912,9 +1912,9 @@ uint64_t mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(mlir::Operation *
       v24 = v16[1];
       v118 = a2;
       v119 = v24;
-      hasRank = mlir::ShapedType::hasRank(&v118);
+      v25 = mlir::ShapedType::hasRank(&v118);
       v10 = *a2;
-      if (!hasRank)
+      if (!v25)
       {
         goto LABEL_44;
       }
@@ -1922,8 +1922,8 @@ uint64_t mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(mlir::Operation *
 LABEL_21:
       {
         v26 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-        v27 = v10[1];
-        v28 = *(v10 + 4);
+        v27 = *(v10 + 8);
+        v28 = *(v10 + 16);
         if (!v28)
         {
           goto LABEL_33;
@@ -1935,8 +1935,8 @@ LABEL_21:
         v105 = v10;
         mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
         v26 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-        v27 = v105[1];
-        v28 = *(v105 + 4);
+        v27 = *(v105 + 8);
+        v28 = *(v105 + 16);
         if (!v28)
         {
           goto LABEL_33;
@@ -1979,8 +1979,8 @@ LABEL_21:
 LABEL_34:
         {
           v36 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v37 = v10[1];
-          v38 = *(v10 + 4);
+          v37 = *(v10 + 8);
+          v38 = *(v10 + 16);
           if (!v38)
           {
             goto LABEL_133;
@@ -1992,8 +1992,8 @@ LABEL_34:
           v102 = v10;
           mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
           v36 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v37 = v102[1];
-          v38 = *(v102 + 4);
+          v37 = *(v102 + 8);
+          v38 = *(v102 + 16);
           if (!v38)
           {
             goto LABEL_133;
@@ -2063,12 +2063,12 @@ LABEL_18:
   }
 
 LABEL_44:
-  if (v10[17] == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(v10 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     {
       v66 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v67 = v10[1];
-      v68 = *(v10 + 4);
+      v67 = *(v10 + 8);
+      v68 = *(v10 + 16);
       if (!v68)
       {
         goto LABEL_98;
@@ -2080,8 +2080,8 @@ LABEL_44:
       v75 = v10;
       mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
       v66 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v67 = v75[1];
-      v68 = *(v75 + 4);
+      v67 = *(v75 + 8);
+      v68 = *(v75 + 16);
       if (!v68)
       {
         goto LABEL_98;
@@ -2119,8 +2119,8 @@ LABEL_44:
       {
 LABEL_99:
         v77 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-        v78 = v76[1];
-        v79 = *(v76 + 4);
+        v78 = *(v76 + 8);
+        v79 = *(v76 + 16);
         if (!v79)
         {
           goto LABEL_111;
@@ -2173,8 +2173,8 @@ LABEL_114:
         v88 = *a2;
         {
           v89 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v90 = v88[1];
-          v91 = *(v88 + 4);
+          v90 = *(v88 + 8);
+          v91 = *(v88 + 16);
           if (!v91)
           {
             goto LABEL_126;
@@ -2186,8 +2186,8 @@ LABEL_114:
           v98 = v88;
           mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
           v89 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v90 = v98[1];
-          v91 = *(v98 + 4);
+          v90 = *(v98 + 8);
+          v91 = *(v98 + 16);
           if (!v91)
           {
             goto LABEL_126;
@@ -2245,8 +2245,8 @@ LABEL_108:
       v106 = v76;
       mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
       v77 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v78 = v106[1];
-      v79 = *(v106 + 4);
+      v78 = *(v106 + 8);
+      v79 = *(v106 + 16);
       if (!v79)
       {
         goto LABEL_111;
@@ -2271,7 +2271,7 @@ LABEL_45:
   v109 = 261;
   v107 = a3;
   v108 = a4;
-  mlir::Operation::emitOpError(&v118, a1, &v107);
+  mlir::Operation::emitOpError(&v118, hasRank, &v107);
   if (v118)
   {
     LODWORD(v116) = 3;
@@ -2422,7 +2422,7 @@ LABEL_45:
   return v57;
 }
 
-uint64_t mlir::silc::SilcAllGatherOp::parse(mlir::silc::SilcAllGatherOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::silc::SilcAllGatherOp::parse(mlir::silc::SilcAllGatherOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v18, 0, sizeof(v18));
   v19 = 0;
@@ -2467,7 +2467,7 @@ uint64_t mlir::silc::SilcAllGatherOp::parse(mlir::silc::SilcAllGatherOp *this, m
   v7 = mlir::NamedAttrList::get(a2 + 112, **(v6 + 96));
   if (v7)
   {
-    if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v7, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcAllGatherOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v20) & 1) == 0)
+    if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v7, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcAllGatherOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v20))
     {
       return 0;
     }
@@ -2489,7 +2489,7 @@ uint64_t mlir::silc::SilcAllGatherOp::parse(mlir::silc::SilcAllGatherOp *this, m
   Results = mlir::FunctionType::getResults(v20);
   mlir::OperationState::addTypes(a2, Results, v10);
   v11 = (*(*this + 16))(this);
-  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v17, &Inputs, v11, a2 + 16) & 1;
+  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v17, &Inputs, v11, a2 + 16);
 }
 
 BOOL mlir::AsmParser::parseCustomAttributeWithFallback<mlir::silc::ShardingAttr>(uint64_t a1, void *a2, uint64_t a3)
@@ -2637,7 +2637,7 @@ uint64_t mlir::silc::detail::SilcAllReduceOpGenericAdaptorBase::SilcAllReduceOpG
   return a1;
 }
 
-uint64_t mlir::silc::SilcAllReduceOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::silc::SilcAllReduceOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v39 = *MEMORY[0x277D85DE8];
   v3 = a1[3];
@@ -3403,13 +3403,13 @@ BOOL mlir::silc::SilcAllReduceOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, 
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v8, "mesh", 4, a3, a4) & 1) != 0)
+  if (!v8 || mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v8, "mesh", 4, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(v9, "mesh_axes", 9, a3, a4) & 1) != 0)
+    if (!v9 || mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(v9, "mesh_axes", 9, a3, a4))
     {
       v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v10 || (mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(v10, "reduce_op", 9, a3, a4) & 1) != 0)
+      if (!v10 || mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(v10, "reduce_op", 9, a3, a4))
       {
         return 1;
       }
@@ -3419,7 +3419,7 @@ BOOL mlir::silc::SilcAllReduceOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v41 = *MEMORY[0x277D85DE8];
   if (!a1)
@@ -3563,7 +3563,7 @@ uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(uint64_t a1, uint
   return v16;
 }
 
-uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (!a1 || *(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::silc::TensorAxisRefAttr,void>::id)
@@ -3690,7 +3690,7 @@ uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(uint64_t a1, uint
   return v11;
 }
 
-uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (!a1 || *(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::silc::ReductionKindAttr,void>::id)
@@ -3817,28 +3817,20 @@ uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(uint64_t a1, uint
   return v11;
 }
 
-uint64_t mlir::silc::SilcAllReduceOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcAllReduceOp::readProperties(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
   }
 
-  if ((*(*a1 + 48))(a1, v3) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::silc::TensorAxisRefAttr>(a1, (v3 + 8)))
-  {
-    return mlir::DialectBytecodeReader::readAttribute<mlir::silc::ReductionKindAttr>(a1, (v3 + 16)) & 1;
-  }
-
-  else
-  {
-    return 0;
-  }
+  return ((*(*a1 + 48))(a1, v3) & 1) != 0 && mlir::DialectBytecodeReader::readAttribute<mlir::silc::TensorAxisRefAttr>(a1, (v3 + 8)) && mlir::DialectBytecodeReader::readAttribute<mlir::silc::ReductionKindAttr>(a1, (v3 + 16));
 }
 
-uint64_t mlir::OperationState::getOrAddProperties<mlir::silc::detail::SilcAllReduceOpGenericAdaptorBase::Properties>(uint64_t a1)
+uint64_t mlir::OperationState::getOrAddProperties<mlir::silc::detail::SilcAllReduceOpGenericAdaptorBase::Properties>(void *a1)
 {
-  result = *(a1 + 256);
+  result = a1[32];
   if (!result)
   {
     operator new();
@@ -3847,7 +3839,7 @@ uint64_t mlir::OperationState::getOrAddProperties<mlir::silc::detail::SilcAllRed
   return result;
 }
 
-uint64_t mlir::DialectBytecodeReader::readAttribute<mlir::silc::TensorAxisRefAttr>(uint64_t a1, uint64_t *a2)
+BOOL mlir::DialectBytecodeReader::readAttribute<mlir::silc::TensorAxisRefAttr>(uint64_t a1, uint64_t *a2)
 {
   v43 = *MEMORY[0x277D85DE8];
   v27 = 0;
@@ -4034,7 +4026,7 @@ uint64_t mlir::DialectBytecodeReader::readAttribute<mlir::silc::TensorAxisRefAtt
   return v16;
 }
 
-uint64_t mlir::DialectBytecodeReader::readAttribute<mlir::silc::ReductionKindAttr>(uint64_t a1, uint64_t *a2)
+BOOL mlir::DialectBytecodeReader::readAttribute<mlir::silc::ReductionKindAttr>(uint64_t a1, uint64_t *a2)
 {
   v43 = *MEMORY[0x277D85DE8];
   v27 = 0;
@@ -4240,7 +4232,7 @@ uint64_t mlir::silc::SilcAllReduceOp::setReduceOp(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t mlir::silc::SilcAllReduceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void *mlir::silc::SilcAllReduceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v16 = a4;
   result = mlir::OperationState::addOperands(a2, &v16, 1uLL);
@@ -4270,7 +4262,7 @@ uint64_t mlir::silc::SilcAllReduceOp::build(uint64_t a1, uint64_t a2, uint64_t a
   return result;
 }
 
-unint64_t mlir::silc::SilcAllReduceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *mlir::silc::SilcAllReduceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v20 = a5;
   result = mlir::OperationState::addOperands(a2, &v20, 1uLL);
@@ -4313,7 +4305,7 @@ unint64_t mlir::silc::SilcAllReduceOp::build(uint64_t a1, uint64_t a2, uint64_t 
   return result;
 }
 
-uint64_t mlir::silc::SilcAllReduceOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
+void *mlir::silc::SilcAllReduceOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
 {
   v17 = a4;
   mlir::OperationState::addOperands(a2, &v17, 1uLL);
@@ -4344,7 +4336,7 @@ uint64_t mlir::silc::SilcAllReduceOp::build(mlir::MLIRContext **a1, uint64_t a2,
   return result;
 }
 
-unint64_t mlir::silc::SilcAllReduceOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8)
+void *mlir::silc::SilcAllReduceOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8)
 {
   v21 = a5;
   mlir::OperationState::addOperands(a2, &v21, 1uLL);
@@ -4450,7 +4442,7 @@ uint64_t mlir::silc::SilcAllReduceOp::build(uint64_t a1, uint64_t a2, uint64_t a
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -4473,26 +4465,26 @@ BOOL mlir::silc::SilcAllReduceOp::verifyInvariantsImpl(mlir::Operation **this)
       if (v6)
       {
         v59[0] = *this;
-        if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v2, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v59) & 1) == 0)
+        if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v2, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v59))
         {
           return 0;
         }
 
         v59[0] = *this;
-        if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(v5, "mesh_axes", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v59) & 1) == 0)
+        if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(v5, "mesh_axes", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v59))
         {
           return 0;
         }
 
         v59[0] = *this;
-        if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(v6, "reduce_op", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v59) & 1) == 0 || (mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+        if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(v6, "reduce_op", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v59) || !mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
         {
           return 0;
         }
 
         v8 = *(*this + 9) ? *this - 16 : 0;
         NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v8, 0);
-        if ((mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+        if (!mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
         {
           return 0;
         }
@@ -4551,7 +4543,7 @@ BOOL mlir::silc::SilcAllReduceOp::verifyInvariantsImpl(mlir::Operation **this)
 
         v57[0] = v50;
         v58 = 259;
-        mlir::OpState::emitOpError(this, v57, v59);
+        mlir::OpState::emitOpError(v59, this, v57);
         v28 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v59);
         mlir::InFlightDiagnostic::~InFlightDiagnostic(v59);
         return v28;
@@ -4559,7 +4551,7 @@ BOOL mlir::silc::SilcAllReduceOp::verifyInvariantsImpl(mlir::Operation **this)
 
       v57[0] = "requires attribute 'reduce_op'";
       v58 = 259;
-      mlir::OpState::emitOpError(this, v57, v59);
+      mlir::OpState::emitOpError(v59, this, v57);
       v28 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v59);
       if (v59[0])
       {
@@ -4637,7 +4629,7 @@ LABEL_78:
     {
       v57[0] = "requires attribute 'mesh_axes'";
       v58 = 259;
-      mlir::OpState::emitOpError(this, v57, v59);
+      mlir::OpState::emitOpError(v59, this, v57);
       v28 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v59);
       if (v59[0])
       {
@@ -4705,7 +4697,7 @@ LABEL_78:
   {
     v57[0] = "requires attribute 'mesh'";
     v58 = 259;
-    mlir::OpState::emitOpError(this, v57, v59);
+    mlir::OpState::emitOpError(v59, this, v57);
     v28 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v59);
     if (v59[0])
     {
@@ -4771,7 +4763,7 @@ LABEL_78:
   return v28;
 }
 
-uint64_t mlir::silc::SilcAllReduceOp::parse(mlir::silc::SilcAllReduceOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::silc::SilcAllReduceOp::parse(mlir::silc::SilcAllReduceOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v21, 0, sizeof(v21));
   v22 = 0;
@@ -4865,7 +4857,7 @@ uint64_t mlir::silc::SilcAllReduceOp::parse(mlir::silc::SilcAllReduceOp *this, m
   Results = mlir::FunctionType::getResults(v23);
   mlir::OperationState::addTypes(a2, Results, v11);
   v12 = (*(*this + 16))(this);
-  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v20, &Inputs, v12, a2 + 16) & 1;
+  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v20, &Inputs, v12, a2 + 16);
 }
 
 BOOL mlir::AsmParser::parseCustomAttributeWithFallback<mlir::silc::ReductionKindAttr>(uint64_t a1, void *a2, uint64_t a3)
@@ -5007,7 +4999,7 @@ uint64_t mlir::silc::detail::SilcAllSliceOpGenericAdaptorBase::SilcAllSliceOpGen
   return a1;
 }
 
-uint64_t mlir::silc::SilcAllSliceOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcAllSliceOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -5385,7 +5377,7 @@ unint64_t mlir::silc::SilcAllSliceOp::getInherentAttr(uint64_t a1, void *a2, voi
   }
 }
 
-void *mlir::silc::SilcAllSliceOp::setInherentAttr(void *result, void *a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::silc::SilcAllSliceOp::setInherentAttr(uint64_t *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 8 && *a2 == 0x676E696472616873)
   {
@@ -5423,18 +5415,18 @@ uint64_t mlir::silc::SilcAllSliceOp::populateInherentAttrs(uint64_t a1, uint64_t
   return result;
 }
 
-uint64_t mlir::silc::SilcAllSliceOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcAllSliceOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
   }
 
-  return mlir::DialectBytecodeReader::readAttribute<mlir::silc::ShardingAttr>(a1, v2) & 1;
+  return mlir::DialectBytecodeReader::readAttribute<mlir::silc::ShardingAttr>(a1, v2);
 }
 
-uint64_t mlir::silc::SilcAllSliceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *mlir::silc::SilcAllSliceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = a5;
   result = mlir::OperationState::addOperands(a2, &v11, 1uLL);
@@ -5456,7 +5448,7 @@ uint64_t mlir::silc::SilcAllSliceOp::build(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-unint64_t mlir::silc::SilcAllSliceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *mlir::silc::SilcAllSliceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v15 = a6;
   result = mlir::OperationState::addOperands(a2, &v15, 1uLL);
@@ -5553,7 +5545,7 @@ uint64_t mlir::silc::SilcAllSliceOp::build(uint64_t a1, uint64_t a2, uint64_t a3
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -5568,14 +5560,14 @@ BOOL mlir::silc::SilcAllSliceOp::verifyInvariantsImpl(mlir::Operation **this)
   if (v3)
   {
     v93 = v2;
-    if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v3, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v93) & 1) == 0 || (mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+    if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v3, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v93) || !mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
     {
       return 0;
     }
 
     v4 = *(*this + 9) ? *this - 16 : 0;
     NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-    if ((mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+    if (!mlir::silc::__mlir_ods_local_type_constraint_SilcOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
     {
       return 0;
     }
@@ -5655,8 +5647,8 @@ LABEL_43:
         v31 = *v30;
         {
           v32 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v33 = v31[1];
-          v34 = *(v31 + 4);
+          v33 = *(v31 + 8);
+          v34 = *(v31 + 16);
           if (!v34)
           {
             goto LABEL_60;
@@ -5670,8 +5662,8 @@ LABEL_43:
           mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
           v30 = v84;
           v32 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v33 = v82[1];
-          v34 = *(v82 + 4);
+          v33 = *(v82 + 8);
+          v34 = *(v82 + 16);
           if (!v34)
           {
             goto LABEL_60;
@@ -5895,7 +5887,7 @@ LABEL_106:
 LABEL_107:
                 v90 = v78;
                 v92 = 259;
-                mlir::OpState::emitOpError(this, &v90, &v93);
+                mlir::OpState::emitOpError(&v93, this, &v90);
                 v17 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v93);
                 if (v93)
                 {
@@ -5934,7 +5926,7 @@ LABEL_42:
 
   v90 = "requires attribute 'sharding'";
   v92 = 259;
-  mlir::OpState::emitOpError(this, &v90, &v93);
+  mlir::OpState::emitOpError(&v93, this, &v90);
   v17 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v93);
   if (v93)
   {
@@ -6003,7 +5995,7 @@ LABEL_42:
   return v17;
 }
 
-uint64_t mlir::silc::SilcAllSliceOp::parse(mlir::silc::SilcAllSliceOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::silc::SilcAllSliceOp::parse(mlir::silc::SilcAllSliceOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v18, 0, sizeof(v18));
   v19 = 0;
@@ -6048,7 +6040,7 @@ uint64_t mlir::silc::SilcAllSliceOp::parse(mlir::silc::SilcAllSliceOp *this, mli
   v7 = mlir::NamedAttrList::get(a2 + 112, **(v6 + 96));
   if (v7)
   {
-    if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v7, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcAllSliceOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v20) & 1) == 0)
+    if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps1(v7, "sharding", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcAllSliceOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v20))
     {
       return 0;
     }
@@ -6070,7 +6062,7 @@ uint64_t mlir::silc::SilcAllSliceOp::parse(mlir::silc::SilcAllSliceOp *this, mli
   Results = mlir::FunctionType::getResults(v20);
   mlir::OperationState::addTypes(a2, Results, v10);
   v11 = (*(*this + 16))(this);
-  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v17, &Inputs, v11, a2 + 16) & 1;
+  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v17, &Inputs, v11, a2 + 16);
 }
 
 uint64_t mlir::silc::detail::SilcMeshOpGenericAdaptorBase::SilcMeshOpGenericAdaptorBase(uint64_t a1, uint64_t a2)
@@ -6112,7 +6104,7 @@ uint64_t mlir::silc::detail::SilcMeshOpGenericAdaptorBase::SilcMeshOpGenericAdap
   return a1;
 }
 
-uint64_t mlir::silc::SilcMeshOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcMeshOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v29 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -6724,7 +6716,7 @@ unint64_t mlir::silc::SilcMeshOp::getInherentAttr(uint64_t a1, void *a2, _DWORD 
   return a2[1];
 }
 
-void *mlir::silc::SilcMeshOp::setInherentAttr(void *result, void *a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::silc::SilcMeshOp::setInherentAttr(uint64_t *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 8)
   {
@@ -6797,10 +6789,10 @@ BOOL mlir::silc::SilcMeshOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, void 
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(v8, "mesh", 4, a3, a4) & 1) != 0)
+  if (!v8 || mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(v8, "mesh", 4, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v9, "sym_name", 8, a3, a4) & 1) != 0)
+    if (!v9 || mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v9, "sym_name", 8, a3, a4))
     {
       return 1;
     }
@@ -6809,7 +6801,7 @@ BOOL mlir::silc::SilcMeshOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, void 
   return result;
 }
 
-uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (!a1 || *(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::silc::MeshAttr,void>::id)
@@ -6936,26 +6928,18 @@ uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(uint64_t a1, uint
   return v11;
 }
 
-uint64_t mlir::silc::SilcMeshOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcMeshOp::readProperties(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
   }
 
-  if (mlir::DialectBytecodeReader::readAttribute<mlir::silc::MeshAttr>(a1, *(a2 + 256)))
-  {
-    return mlir::DialectBytecodeReader::readAttribute<mlir::StringAttr>(a1, (v3 + 8)) & 1;
-  }
-
-  else
-  {
-    return 0;
-  }
+  return mlir::DialectBytecodeReader::readAttribute<mlir::silc::MeshAttr>(a1, a2[32]) && mlir::DialectBytecodeReader::readAttribute<mlir::StringAttr>(a1, (v3 + 8));
 }
 
-uint64_t mlir::DialectBytecodeReader::readAttribute<mlir::silc::MeshAttr>(uint64_t a1, uint64_t *a2)
+BOOL mlir::DialectBytecodeReader::readAttribute<mlir::silc::MeshAttr>(uint64_t a1, uint64_t *a2)
 {
   v43 = *MEMORY[0x277D85DE8];
   v27 = 0;
@@ -7163,16 +7147,16 @@ uint64_t mlir::silc::SilcMeshOp::setSymName(uint64_t a1, size_t a2, size_t a3)
   return result;
 }
 
-void mlir::silc::SilcMeshOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void mlir::silc::SilcMeshOp::build(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a2 + 256);
+  v4 = a2[32];
   if (!v4)
   {
     operator new();
   }
 
   *(v4 + 8) = a3;
-  v5 = *(a2 + 256);
+  v5 = a2[32];
   if (!v5)
   {
     operator new();
@@ -7220,20 +7204,20 @@ void mlir::silc::SilcMeshOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   *(a2 + 72) = v11 + a4;
 }
 
-uint64_t mlir::silc::SilcMeshOp::build(mlir::StringAttr **a1, uint64_t a2, const llvm::Twine *a3, size_t a4, uint64_t a5)
+void *mlir::silc::SilcMeshOp::build(mlir::StringAttr **a1, void *a2, const llvm::Twine *a3, size_t a4, uint64_t a5)
 {
   v11 = 261;
   v10[0] = a3;
   v10[1] = a4;
   result = mlir::Builder::getStringAttr(a1, v10, a3);
-  v8 = *(a2 + 256);
+  v8 = a2[32];
   if (!v8)
   {
     operator new();
   }
 
   *(v8 + 8) = result;
-  v9 = *(a2 + 256);
+  v9 = a2[32];
   if (!v9)
   {
     operator new();
@@ -7243,7 +7227,7 @@ uint64_t mlir::silc::SilcMeshOp::build(mlir::StringAttr **a1, uint64_t a2, const
   return result;
 }
 
-unint64_t mlir::silc::SilcMeshOp::build(mlir::StringAttr **a1, uint64_t a2, const llvm::Twine *a3, uint64_t a4, size_t a5, size_t a6, uint64_t a7)
+void *mlir::silc::SilcMeshOp::build(mlir::StringAttr **a1, uint64_t a2, const llvm::Twine *a3, uint64_t a4, size_t a5, size_t a6, uint64_t a7)
 {
   v18 = 261;
   v17[0] = a5;
@@ -7349,7 +7333,7 @@ uint64_t mlir::silc::SilcMeshOp::build(uint64_t a1, uint64_t a2, uint64_t a3, ui
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -7369,18 +7353,18 @@ BOOL mlir::silc::SilcMeshOp::verifyInvariantsImpl(mlir::Operation **this)
     if (v5)
     {
       v25[0] = *this;
-      if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v5, "sym_name", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps5(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v25) & 1) == 0)
+      if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v5, "sym_name", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps5(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v25))
       {
         return 0;
       }
 
       v25[0] = *this;
-      return mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(v3, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v25) & 1;
+      return mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(v3, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v25);
     }
 
     v23[0] = "requires attribute 'sym_name'";
     v24 = 259;
-    mlir::OpState::emitOpError(this, v23, v25);
+    mlir::OpState::emitOpError(v25, this, v23);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v25);
     if (v25[0])
     {
@@ -7458,7 +7442,7 @@ LABEL_38:
   {
     v23[0] = "requires attribute 'mesh'";
     v24 = 259;
-    mlir::OpState::emitOpError(this, v23, v25);
+    mlir::OpState::emitOpError(v25, this, v23);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v25);
     if (v25[0])
     {
@@ -7560,7 +7544,7 @@ uint64_t mlir::silc::SilcMeshOp::parse(mlir::silc::SilcMeshOp *this, mlir::OpAsm
     *v6 = v13;
   }
 
-  if (v12 = (*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112)) && ((v7 = *(a2 + 1), v11[0] = this, v11[1] = &v12, v11[2] = a2, (v8 = mlir::NamedAttrList::get(a2 + 112, **(v7 + 96))) == 0) || (mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(v8, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcMeshOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v11)) && ((v9 = mlir::NamedAttrList::get(a2 + 112, *(*(v7 + 96) + 8))) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v9, "sym_name", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcMeshOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v11)))
+  if (v12 = (*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112)) && ((v7 = *(a2 + 1), v11[0] = this, v11[1] = &v12, v11[2] = a2, (v8 = mlir::NamedAttrList::get(a2 + 112, **(v7 + 96))) == 0) || mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(v8, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcMeshOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v11)) && ((v9 = mlir::NamedAttrList::get(a2 + 112, *(*(v7 + 96) + 8))) == 0 || mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v9, "sym_name", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::SilcMeshOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v11)))
   {
     return 1;
   }
@@ -7702,7 +7686,7 @@ uint64_t mlir::silc::detail::SilcSPMDCallOpGenericAdaptorBase::getCallee(mlir::s
   return mlir::StringAttr::getValue(&RootReference);
 }
 
-uint64_t mlir::silc::SilcSPMDCallOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::silc::SilcSPMDCallOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v34 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -8254,7 +8238,7 @@ unint64_t mlir::silc::SilcSPMDCallOp::getInherentAttr(uint64_t a1, void *a2, uin
   return a2[1];
 }
 
-void *mlir::silc::SilcSPMDCallOp::setInherentAttr(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::silc::SilcSPMDCallOp::setInherentAttr(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 4)
   {
@@ -8328,10 +8312,10 @@ BOOL mlir::silc::SilcSPMDCallOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, v
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(v8, "callee", 6, a3, a4) & 1) != 0)
+  if (!v8 || mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(v8, "callee", 6, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v9, "mesh", 4, a3, a4) & 1) != 0)
+    if (!v9 || mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v9, "mesh", 4, a3, a4))
     {
       return 1;
     }
@@ -8340,7 +8324,7 @@ BOOL mlir::silc::SilcSPMDCallOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, v
   return result;
 }
 
-uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v40 = *MEMORY[0x277D85DE8];
   if (!a1)
@@ -8478,15 +8462,15 @@ uint64_t mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(uint64_t a1, uint
   return v15;
 }
 
-uint64_t mlir::silc::SilcSPMDCallOp::readProperties(uint64_t a1, uint64_t a2)
+uint64_t mlir::silc::SilcSPMDCallOp::readProperties(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
   }
 
-  if (mlir::DialectBytecodeReader::readAttribute<mlir::FlatSymbolRefAttr>(a1, *(a2 + 256)))
+  if (mlir::DialectBytecodeReader::readAttribute<mlir::FlatSymbolRefAttr>(a1, a2[32]))
   {
     return (*(*a1 + 48))(a1, v3 + 8) & 1;
   }
@@ -8522,7 +8506,7 @@ uint64_t mlir::silc::SilcSPMDCallOp::setCallee(uint64_t a1, size_t a2, const llv
   return result;
 }
 
-uint64_t mlir::silc::SilcSPMDCallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+void *mlir::silc::SilcSPMDCallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
 {
   result = mlir::OperationState::addOperands(a2, a6, a7);
   v12 = *(a2 + 256);
@@ -8550,7 +8534,7 @@ uint64_t mlir::silc::SilcSPMDCallOp::build(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-unint64_t mlir::silc::SilcSPMDCallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+void *mlir::silc::SilcSPMDCallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a7, a8);
   v14 = *(a2 + 256);
@@ -8591,7 +8575,7 @@ unint64_t mlir::silc::SilcSPMDCallOp::build(uint64_t a1, uint64_t a2, uint64_t a
   return result;
 }
 
-uint64_t mlir::silc::SilcSPMDCallOp::build(mlir::StringAttr **a1, uint64_t a2, uint64_t a3, size_t a4, const llvm::Twine *a5, uint64_t a6, uint64_t a7, unint64_t a8)
+void *mlir::silc::SilcSPMDCallOp::build(mlir::StringAttr **a1, uint64_t a2, uint64_t a3, size_t a4, const llvm::Twine *a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   mlir::OperationState::addOperands(a2, a7, a8);
   result = mlir::SymbolRefAttr::get(*a1, a4, a5);
@@ -8620,7 +8604,7 @@ uint64_t mlir::silc::SilcSPMDCallOp::build(mlir::StringAttr **a1, uint64_t a2, u
   return result;
 }
 
-unint64_t mlir::silc::SilcSPMDCallOp::build(mlir::StringAttr **a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5, const llvm::Twine *a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10)
+void *mlir::silc::SilcSPMDCallOp::build(mlir::StringAttr **a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5, const llvm::Twine *a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10)
 {
   mlir::OperationState::addOperands(a2, a9, a10);
   result = mlir::SymbolRefAttr::get(*a1, a5, a6);
@@ -8724,7 +8708,7 @@ uint64_t mlir::silc::SilcSPMDCallOp::build(uint64_t a1, uint64_t a2, uint64_t a3
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -8735,22 +8719,22 @@ BOOL mlir::silc::SilcSPMDCallOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v71 = *MEMORY[0x277D85DE8];
   v1 = *this + 16 * ((*(*this + 11) >> 23) & 1);
-  v4 = *(v1 + 64);
+  v4 = *(v1 + 8);
   v3 = v1 + 64;
   v2 = v4;
   if (v4)
   {
-    v5 = *(v3 + 8);
+    v5 = *(v3 + 1);
     if (v5)
     {
       v60[0] = *this;
-      if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(v2, "callee", 6, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v60) & 1) == 0)
+      if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(v2, "callee", 6, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v60))
       {
         return 0;
       }
 
       v60[0] = *this;
-      if ((mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v5, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v60) & 1) == 0)
+      if (!mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(v5, "mesh", 4, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v60))
       {
         return 0;
       }
@@ -8989,7 +8973,7 @@ LABEL_99:
 
     v56[0] = "requires attribute 'mesh'";
     v57 = 259;
-    mlir::OpState::emitOpError(this, v56, v60);
+    mlir::OpState::emitOpError(v60, this, v56);
     v30 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v60);
     if (v60[0])
     {
@@ -9067,7 +9051,7 @@ LABEL_66:
   {
     v56[0] = "requires attribute 'callee'";
     v57 = 259;
-    mlir::OpState::emitOpError(this, v56, v60);
+    mlir::OpState::emitOpError(v60, this, v56);
     v30 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v60);
     if (v60[0])
     {
@@ -9133,7 +9117,7 @@ LABEL_66:
   return v30;
 }
 
-uint64_t mlir::silc::SilcSPMDCallOp::parse(mlir::silc::SilcSPMDCallOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::silc::SilcSPMDCallOp::parse(mlir::silc::SilcSPMDCallOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   v25[16] = *MEMORY[0x277D85DE8];
   v20 = 0;
@@ -9144,7 +9128,7 @@ uint64_t mlir::silc::SilcSPMDCallOp::parse(mlir::silc::SilcSPMDCallOp *this, mli
   v19 = 0;
   v5 = (*(*this + 32))(this, a2, a3);
   v7 = mlir::NoneType::get(*v5, v6);
-  if ((mlir::AsmParser::parseAttribute<mlir::FlatSymbolRefAttr>(this, &v21, v7) & 1) == 0)
+  if (!mlir::AsmParser::parseAttribute<mlir::FlatSymbolRefAttr>(this, &v21, v7))
   {
     goto LABEL_21;
   }
@@ -9183,7 +9167,7 @@ uint64_t mlir::silc::SilcSPMDCallOp::parse(mlir::silc::SilcSPMDCallOp *this, mli
     v19 = v12;
     Results = mlir::FunctionType::getResults(v22);
     mlir::OperationState::addTypes(a2, Results, v14);
-    v15 = mlir::OpAsmParser::resolveOperands<llvm::SmallVector<mlir::OpAsmParser::UnresolvedOperand,4u> &,llvm::ArrayRef<mlir::Type>>(this, v24, &Inputs, v10, a2 + 16) & 1;
+    v15 = mlir::OpAsmParser::resolveOperands<llvm::SmallVector<mlir::OpAsmParser::UnresolvedOperand,4u> &,llvm::ArrayRef<mlir::Type>>(this, v24, &Inputs, v10, a2 + 16);
   }
 
   else
@@ -9204,49 +9188,49 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::si
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps2(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps5(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::silc::__mlir_ods_local_attr_constraint_SilcOps7(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<void ()(mlir::OpaqueProperties)>::callback_fn<mlir::silc::detail::SilcAllGatherOpGenericAdaptorBase::Properties & mlir::OperationState::getOrAddProperties<mlir::silc::detail::SilcAllGatherOpGenericAdaptorBase::Properties>(void)::{lambda(mlir::OpaqueProperties)#1}>(uint64_t a1, uint64_t a2)
@@ -9764,4 +9748,33 @@ __n128 llvm::function_ref<void ()(mlir::OpaqueProperties,mlir::OpaqueProperties)
   result = *a3;
   *a2 = *a3;
   return result;
+}
+
+const char *llvm::getTypeName<mlir::silc::detail::SilcMeshOpGenericAdaptorBase::Properties>()
+{
+  v5 = "StringRef llvm::getTypeName() [DesiredTypeName = mlir::silc::detail::SilcMeshOpGenericAdaptorBase::Properties]";
+  v6 = 110;
+  v0 = llvm::StringRef::find(&v5, "DesiredTypeName = ", 0x12uLL, 0);
+  if (v6 >= v0)
+  {
+    v1 = v0;
+  }
+
+  else
+  {
+    v1 = v6;
+  }
+
+  v2 = &v5[v1];
+  if (v6 - v1 >= 0x12)
+  {
+    v3 = 18;
+  }
+
+  else
+  {
+    v3 = v6 - v1;
+  }
+
+  return &v2[v3];
 }

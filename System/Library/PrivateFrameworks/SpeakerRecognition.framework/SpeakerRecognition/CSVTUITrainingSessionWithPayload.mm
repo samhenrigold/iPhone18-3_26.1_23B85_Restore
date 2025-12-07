@@ -9,6 +9,7 @@
 - (void)_reportStopListening;
 - (void)audioSessionDidStartRecording:(BOOL)recording error:(id)error;
 - (void)audioSessionDidStopRecording:(int64_t)recording;
+- (void)closeSessionWithStatus:(int)status successfully:(BOOL)successfully;
 - (void)didDetectBeginOfSpeech;
 - (void)didDetectEndOfSpeech:(int64_t)speech;
 - (void)handleAudioInput:(id)input;
@@ -23,7 +24,7 @@
 
 - (void)matchRecognitionResult:(id)result withMatchedBlock:(id)block withNonMatchedBlock:(id)matchedBlock
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   blockCopy = block;
   matchedBlockCopy = matchedBlock;
@@ -49,27 +50,27 @@
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       utteranceId = self->super._utteranceId;
-      v23 = 136316162;
-      v24 = "[CSVTUITrainingSessionWithPayload matchRecognitionResult:withMatchedBlock:withNonMatchedBlock:]";
-      v25 = 2114;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v14;
-      v29 = 2050;
-      v30 = utteranceId;
-      v31 = 2114;
-      v32 = v16;
-      _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s %{public}@ %{public}@ %{public}ld %{public}@", &v23, 0x34u);
+      v22 = 136316162;
+      v23 = "[CSVTUITrainingSessionWithPayload matchRecognitionResult:withMatchedBlock:withNonMatchedBlock:]";
+      v24 = 2114;
+      v25 = v12;
+      v26 = 2114;
+      v27 = v14;
+      v28 = 2050;
+      v29 = utteranceId;
+      v30 = 2114;
+      v31 = v16;
+      _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s %{public}@ %{public}@ %{public}ld %{public}@", &v22, 0x34u);
       v19 = *v18;
     }
 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315394;
-      v24 = "[CSVTUITrainingSessionWithPayload matchRecognitionResult:withMatchedBlock:withNonMatchedBlock:]";
-      v25 = 2050;
-      v26 = v17;
-      _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s Recog Result: [%{public}ld]", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = "[CSVTUITrainingSessionWithPayload matchRecognitionResult:withMatchedBlock:withNonMatchedBlock:]";
+      v24 = 2050;
+      v25 = v17;
+      _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s Recog Result: [%{public}ld]", &v22, 0x16u);
     }
 
     if (blockCopy && (v21 = blockCopy, v17 == 1) || matchedBlockCopy && (v21 = matchedBlockCopy, !v17))
@@ -77,8 +78,6 @@
       v21[2]();
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechRecognitionTask:(id)task didFinishSuccessfully:(BOOL)successfully
@@ -99,17 +98,16 @@
 
 void __80__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishSuccessfully___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishSuccessfully:]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s SPEECH RECOGNITION TASK FINISH UNSUCCESSFULLY", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishSuccessfully:]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s SPEECH RECOGNITION TASK FINISH UNSUCCESSFULLY", &v3, 0xCu);
   }
 
   *(*(a1 + 32) + 123) = 1;
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechRecognitionTask:(id)task didFinishRecognition:(id)recognition
@@ -135,7 +133,7 @@ void __80__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishSucce
 
 void __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecognition___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8) == 3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -149,61 +147,55 @@ void __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecog
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishRecognition:]_block_invoke";
-      v16 = 2114;
-      v17 = v6;
+      v14 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishRecognition:]_block_invoke";
+      v15 = 2114;
+      v16 = v6;
       _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Final: [%{public}@]", buf, 0x16u);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecognition___block_invoke_8;
-    v12[3] = &unk_2785797A8;
-    v13 = WeakRetained;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecognition___block_invoke_9;
-    v10[3] = &unk_2785797A8;
-    v11 = v13;
-    v8 = v13;
-    [v8 matchRecognitionResult:v6 withMatchedBlock:v12 withNonMatchedBlock:v10];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecognition___block_invoke_8;
+    v11[3] = &unk_2785797A8;
+    v12 = WeakRetained;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecognition___block_invoke_9;
+    v9[3] = &unk_2785797A8;
+    v10 = v12;
+    v8 = v12;
+    [v8 matchRecognitionResult:v6 withMatchedBlock:v11 withNonMatchedBlock:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecognition___block_invoke_8(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishRecognition:]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Final Matching", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishRecognition:]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Final Matching", &v4, 0xCu);
   }
 
   [*(a1 + 32) finishSpeechRecognitionTask];
-  result = [*(a1 + 32) closeSessionWithStatus:1 successfully:1];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) closeSessionWithStatus:1 successfully:1];
 }
 
 uint64_t __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishRecognition___block_invoke_9(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishRecognition:]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Final Not Matching", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didFinishRecognition:]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Final Not Matching", &v4, 0xCu);
   }
 
   [*(a1 + 32) finishSpeechRecognitionTask];
-  result = [*(a1 + 32) closeSessionWithStatus:0 successfully:0];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) closeSessionWithStatus:0 successfully:0];
 }
 
 - (void)speechRecognitionTask:(id)task didHypothesizeTranscription:(id)transcription
@@ -229,7 +221,7 @@ uint64_t __79__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didFinishR
 
 void __86__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didHypothesizeTranscription___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8) == 3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -242,51 +234,105 @@ void __86__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didHypothesize
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v12 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didHypothesizeTranscription:]_block_invoke";
-      v13 = 2114;
-      v14 = v5;
+      v11 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didHypothesizeTranscription:]_block_invoke";
+      v12 = 2114;
+      v13 = v5;
       _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Non Final: [%{public}@]", buf, 0x16u);
     }
 
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __86__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didHypothesizeTranscription___block_invoke_7;
-    v9[3] = &unk_2785797A8;
-    v10 = WeakRetained;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __86__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didHypothesizeTranscription___block_invoke_7;
+    v8[3] = &unk_2785797A8;
+    v9 = WeakRetained;
     v7 = WeakRetained;
-    [v7 matchRecognitionResult:v5 withMatchedBlock:v9 withNonMatchedBlock:0];
+    [v7 matchRecognitionResult:v5 withMatchedBlock:v8 withNonMatchedBlock:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didHypothesizeTranscription___block_invoke_7(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didHypothesizeTranscription:]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s NON Final Matching", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSVTUITrainingSessionWithPayload speechRecognitionTask:didHypothesizeTranscription:]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s NON Final Matching", &v4, 0xCu);
   }
 
   [*(a1 + 32) finishSpeechRecognitionTask];
-  result = [*(a1 + 32) closeSessionWithStatus:1 successfully:1];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) closeSessionWithStatus:1 successfully:1];
+}
+
+- (void)closeSessionWithStatus:(int)status successfully:(BOOL)successfully
+{
+  successfullyCopy = successfully;
+  v5 = *&status;
+  v23 = *MEMORY[0x277D85DE8];
+  v7 = MEMORY[0x277D015D8];
+  v8 = *MEMORY[0x277D015D8];
+  if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
+  {
+    utteranceStored = self->_utteranceStored;
+    v15 = 136315906;
+    v16 = "[CSVTUITrainingSessionWithPayload closeSessionWithStatus:successfully:]";
+    v17 = 1026;
+    v18 = v5;
+    v19 = 1026;
+    v20 = successfullyCopy;
+    v21 = 1026;
+    v22 = utteranceStored;
+    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Called with status : %{public}d and success : %{public}d utteranceStored : %{public}d", &v15, 0x1Eu);
+  }
+
+  if (v5 <= 1 && !self->_utteranceStored)
+  {
+    v10 = [(CSVTUITrainingSession *)self requestTriggeredUtterance:self->_voiceTriggerEventInfo];
+    WeakRetained = objc_loadWeakRetained(&self->super._sessionDelegate);
+    v12 = objc_opt_respondsToSelector();
+
+    if (v12)
+    {
+      v13 = objc_loadWeakRetained(&self->super._sessionDelegate);
+      self->_utteranceStored = [v13 CSVTUITrainingSession:self hasTrainUtterance:v10 languageCode:self->super._locale payload:1];
+
+      if (!self->_utteranceStored)
+      {
+        v14 = *v7;
+        if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
+        {
+          v15 = 136315138;
+          v16 = "[CSVTUITrainingSessionWithPayload closeSessionWithStatus:successfully:]";
+          _os_log_error_impl(&dword_225E12000, v14, OS_LOG_TYPE_ERROR, "%s ERR: Failed to store utterance, overiding status", &v15, 0xCu);
+        }
+
+        v5 = 2;
+      }
+    }
+  }
+
+  if (self->super._trainingCompletion)
+  {
+    [(CSVTUITrainingSession *)self closeSessionWithStatus:v5 successfully:successfullyCopy complete:0];
+  }
+
+  else
+  {
+    [(CSVTUITrainingSession *)self closeSessionWithStatus:v5 successfully:successfullyCopy voiceTriggerEventInfo:self->_voiceTriggerEventInfo completeWithResult:0];
+  }
 }
 
 - (void)didDetectEndOfSpeech:(int64_t)speech
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D015D8];
   v6 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "[CSVTUITrainingSessionWithPayload didDetectEndOfSpeech:]";
-    v19 = 2050;
+    v17 = "[CSVTUITrainingSessionWithPayload didDetectEndOfSpeech:]";
+    v18 = 2050;
     speechCopy = speech;
     _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s End of speech detected with endpoint type: %{public}ld", buf, 0x16u);
   }
@@ -295,13 +341,13 @@ uint64_t __86__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didHypothe
   if (speech == 2)
   {
     queue = self->super._queue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __57__CSVTUITrainingSessionWithPayload_didDetectEndOfSpeech___block_invoke_2;
-    v12[3] = &unk_278578C88;
-    objc_copyWeak(&v13, &location);
-    dispatch_async(queue, v12);
-    v8 = &v13;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __57__CSVTUITrainingSessionWithPayload_didDetectEndOfSpeech___block_invoke_2;
+    v11[3] = &unk_278578C88;
+    objc_copyWeak(&v12, &location);
+    dispatch_async(queue, v11);
+    v8 = &v12;
     goto LABEL_7;
   }
 
@@ -312,10 +358,10 @@ uint64_t __86__CSVTUITrainingSessionWithPayload_speechRecognitionTask_didHypothe
     block[1] = 3221225472;
     block[2] = __57__CSVTUITrainingSessionWithPayload_didDetectEndOfSpeech___block_invoke;
     block[3] = &unk_2785791F0;
-    objc_copyWeak(&v15, &location);
+    objc_copyWeak(&v14, &location);
     block[4] = self;
     dispatch_async(v7, block);
-    v8 = &v15;
+    v8 = &v14;
 LABEL_7:
     objc_destroyWeak(v8);
     goto LABEL_10;
@@ -325,13 +371,12 @@ LABEL_7:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v18 = "[CSVTUITrainingSessionWithPayload didDetectEndOfSpeech:]";
+    v17 = "[CSVTUITrainingSessionWithPayload didDetectEndOfSpeech:]";
     _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, "%s unknown endpoint type", buf, 0xCu);
   }
 
 LABEL_10:
   objc_destroyWeak(&location);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __57__CSVTUITrainingSessionWithPayload_didDetectEndOfSpeech___block_invoke(uint64_t a1)
@@ -356,12 +401,12 @@ void __57__CSVTUITrainingSessionWithPayload_didDetectEndOfSpeech___block_invoke_
 
 - (void)didDetectBeginOfSpeech
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSVTUITrainingSessionWithPayload didDetectBeginOfSpeech]";
+    v7 = "[CSVTUITrainingSessionWithPayload didDetectBeginOfSpeech]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Begin of speech detected", buf, 0xCu);
   }
 
@@ -372,7 +417,6 @@ void __57__CSVTUITrainingSessionWithPayload_didDetectEndOfSpeech___block_invoke_
   block[3] = &unk_2785797A8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__CSVTUITrainingSessionWithPayload_didDetectBeginOfSpeech__block_invoke(uint64_t result)
@@ -384,35 +428,31 @@ uint64_t __58__CSVTUITrainingSessionWithPayload_didDetectBeginOfSpeech__block_in
 
 - (void)audioSessionDidStopRecording:(int64_t)recording
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[CSVTUITrainingSessionWithPayload audioSessionDidStopRecording:]";
-    _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s AudioSession Stopped", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSVTUITrainingSessionWithPayload audioSessionDidStopRecording:]";
+    _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s AudioSession Stopped", &v6, 0xCu);
   }
 
   if (recording)
   {
     [(CSVTUITrainingSessionWithPayload *)self closeSessionWithStatus:5 successfully:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionDidStartRecording:(BOOL)recording error:(id)error
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSVTUITrainingSessionWithPayload audioSessionDidStartRecording:error:]";
-    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s AudioSession Started", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSVTUITrainingSessionWithPayload audioSessionDidStartRecording:error:]";
+    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s AudioSession Started", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAudioInput:(id)input
@@ -436,7 +476,7 @@ uint64_t __58__CSVTUITrainingSessionWithPayload_didDetectBeginOfSpeech__block_in
 
 void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained && [WeakRetained shouldHandleSession])
@@ -469,17 +509,17 @@ void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke(uint
           v17 = v15[27];
           v18 = v15[28];
           *buf = 136316418;
-          v23 = "[CSVTUITrainingSessionWithPayload handleAudioInput:]_block_invoke";
-          v24 = 2050;
-          v25 = v8;
-          v26 = 2050;
-          v27 = v16 - v17;
-          v28 = 2050;
-          v29 = v16;
-          v30 = 2050;
-          v31 = v17;
-          v32 = 2050;
-          v33 = v18;
+          v22 = "[CSVTUITrainingSessionWithPayload handleAudioInput:]_block_invoke";
+          v23 = 2050;
+          v24 = v8;
+          v25 = 2050;
+          v26 = v16 - v17;
+          v27 = 2050;
+          v28 = v16;
+          v29 = 2050;
+          v30 = v17;
+          v31 = 2050;
+          v32 = v18;
           _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s Discarding surplus audio of %{public}lu samples, audio sample available %{public}lu (%{public}lu, %{public}lu, %{public}lu)", buf, 0x3Eu);
         }
       }
@@ -492,18 +532,16 @@ void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke(uint
     {
       [v3 pushAudioInputIntoPCMBuffer:*(a1 + 32)];
       *(*(a1 + 40) + 208) += v8;
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2;
-      v20[3] = &unk_278578C10;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2;
+      v19[3] = &unk_278578C10;
       v9 = *(a1 + 32);
-      v20[4] = *(a1 + 40);
-      v21 = v3;
-      [v21 handleAudioBufferForVTWithAudioInput:v9 withDetectedBlock:v20];
+      v19[4] = *(a1 + 40);
+      v20 = v3;
+      [v20 handleAudioBufferForVTWithAudioInput:v9 withDetectedBlock:v19];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2(uint64_t a1, void *a2)
@@ -551,7 +589,7 @@ void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2(ui
 
 - (void)_firedEndPointTimeout
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(CSVTUITrainingSessionWithPayload *)self shouldHandleSession])
   {
     status = self->super._status;
@@ -562,9 +600,9 @@ void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2(ui
     {
       if (v6)
       {
-        v10 = 136315138;
-        v11 = "[CSVTUITrainingSessionWithPayload _firedEndPointTimeout]";
-        _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s EOS Timeout Fired", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "[CSVTUITrainingSessionWithPayload _firedEndPointTimeout]";
+        _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s EOS Timeout Fired", &v9, 0xCu);
       }
 
       if ([(CSVTUITrainingSessionWithPayload *)self shouldMatchPayload])
@@ -577,9 +615,9 @@ void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2(ui
         v8 = *v4;
         if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315138;
-          v11 = "[CSVTUITrainingSessionWithPayload _firedEndPointTimeout]";
-          _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Stop right now since ASR has issue", &v10, 0xCu);
+          v9 = 136315138;
+          v10 = "[CSVTUITrainingSessionWithPayload _firedEndPointTimeout]";
+          _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Stop right now since ASR has issue", &v9, 0xCu);
         }
       }
 
@@ -590,9 +628,9 @@ void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2(ui
     {
       if (v6)
       {
-        v10 = 136315138;
-        v11 = "[CSVTUITrainingSessionWithPayload _firedEndPointTimeout]";
-        _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Force endpoint fired", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "[CSVTUITrainingSessionWithPayload _firedEndPointTimeout]";
+        _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Force endpoint fired", &v9, 0xCu);
       }
 
       v7 = 7;
@@ -600,8 +638,6 @@ void __53__CSVTUITrainingSessionWithPayload_handleAudioInput___block_invoke_2(ui
 
     [(CSVTUITrainingSessionWithPayload *)self closeSessionWithStatus:v7 successfully:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerEndPointTimeout
@@ -667,16 +703,16 @@ void __65__CSVTUITrainingSessionWithPayload__registerForceEndPointTimeout__block
 
 - (void)_firedVoiceTriggerTimeout
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(CSVTUITrainingSessionWithPayload *)self shouldHandleSession])
   {
     v3 = MEMORY[0x277D015D8];
     v4 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[CSVTUITrainingSessionWithPayload _firedVoiceTriggerTimeout]";
-      _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Fired VoiceTrigger Timeout", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CSVTUITrainingSessionWithPayload _firedVoiceTriggerTimeout]";
+      _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Fired VoiceTrigger Timeout", &v6, 0xCu);
     }
 
     if ([(CSVTUITrainingSessionWithPayload *)self shouldMatchPayload])
@@ -689,16 +725,14 @@ void __65__CSVTUITrainingSessionWithPayload__registerForceEndPointTimeout__block
       v5 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315138;
-        v8 = "[CSVTUITrainingSessionWithPayload _firedVoiceTriggerTimeout]";
-        _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Stop right now since ASR has issue", &v7, 0xCu);
+        v6 = 136315138;
+        v7 = "[CSVTUITrainingSessionWithPayload _firedVoiceTriggerTimeout]";
+        _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Stop right now since ASR has issue", &v6, 0xCu);
       }
     }
 
     [(CSVTUITrainingSessionWithPayload *)self closeSessionWithStatus:1 successfully:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerVoiceTriggerTimeout

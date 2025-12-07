@@ -12,7 +12,7 @@
   selfCopy = self;
   sub_100A6A3C0();
 
-  sub_1005B981C(&unk_101A0E7D0);
+  sub_1005B981C(&unk_101A0E7D0, &unk_1014912E0);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

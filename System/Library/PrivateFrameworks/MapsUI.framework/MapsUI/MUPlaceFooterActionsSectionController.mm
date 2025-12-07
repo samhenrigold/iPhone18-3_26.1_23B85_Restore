@@ -1,8 +1,17 @@
 @interface MUPlaceFooterActionsSectionController
 - (MUPlaceFooterActionsSectionController)initWithMapItem:(id)item actionManager:(id)manager;
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options;
 @end
 
 @implementation MUPlaceFooterActionsSectionController
+
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options
+{
+  v4 = MEMORY[0x1E69A1B10];
+  v5 = [(MUPlaceFooterActionsSectionController *)self analyticsModuleTypeForAction:*&action presentationOptions:options];
+
+  return [v4 moduleFromModuleType:v5];
+}
 
 - (MUPlaceFooterActionsSectionController)initWithMapItem:(id)item actionManager:(id)manager
 {

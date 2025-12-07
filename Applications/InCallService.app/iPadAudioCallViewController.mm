@@ -506,7 +506,7 @@
   if (self->_participantsViewControllersShouldIgnoreUpdates != updates)
   {
     updatesCopy = updates;
-    v5 = sub_100004F84();
+    v5 = sub_100004F84(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = @"NO";
@@ -535,9 +535,9 @@
   centerCopy = center;
   flagsCopy = flags;
   callCopy = call;
-  v84.receiver = self;
-  v84.super_class = iPadAudioCallViewController;
-  v15 = [(PHCallViewController *)&v84 initWithNibName:0 bundle:0];
+  v85.receiver = self;
+  v85.super_class = iPadAudioCallViewController;
+  v15 = [(PHCallViewController *)&v85 initWithNibName:0 bundle:0];
   v16 = v15;
   if (v15)
   {
@@ -682,7 +682,7 @@
     [(iPadAudioCallViewController *)v16 observeCallRecordingNotifications];
   }
 
-  v63 = sub_100004F84();
+  v63 = sub_100004F84(v15);
   if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -729,16 +729,16 @@ LABEL_21:
 
     if (!emergencyCoordinator)
     {
-      v77 = sub_100004F84();
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      v78 = sub_100004F84(v77);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v86 = v16;
-        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: going to create PHEnhancedEmergencyCoordinator from initing iPadAudioCallViewController: %@", buf, 0xCu);
+        v87 = v16;
+        _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: going to create PHEnhancedEmergencyCoordinator from initing iPadAudioCallViewController: %@", buf, 0xCu);
       }
 
-      v78 = objc_alloc_init(PHEnhancedEmergencyCoordinator);
-      [(iPadAudioCallViewController *)v16 setEmergencyCoordinator:v78];
+      v79 = objc_alloc_init(PHEnhancedEmergencyCoordinator);
+      [(iPadAudioCallViewController *)v16 setEmergencyCoordinator:v79];
 
       emergencyCoordinator2 = [(iPadAudioCallViewController *)v16 emergencyCoordinator];
       [emergencyCoordinator2 setDelegate:v16];
@@ -811,21 +811,21 @@ LABEL_5:
 
   if (isEnhancedEmergencyEnabled)
   {
-    v12 = +[PHSOSDisconnectionConfirmation sharedInstance];
-    [v12 removeDelegate:self];
+    v13 = +[PHSOSDisconnectionConfirmation sharedInstance];
+    [v13 removeDelegate:self];
   }
 
-  v13 = sub_100004F84();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004F84(v12);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController deallocated %@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController deallocated %@", buf, 0xCu);
   }
 
-  v14.receiver = self;
-  v14.super_class = iPadAudioCallViewController;
-  [(iPadAudioCallViewController *)&v14 dealloc];
+  v15.receiver = self;
+  v15.super_class = iPadAudioCallViewController;
+  [(iPadAudioCallViewController *)&v15 dealloc];
 }
 
 - (void)addBottomBarSubView
@@ -1270,35 +1270,35 @@ LABEL_9:
 
 - (void)updateScreenSharingDisableUpdateMask
 {
-  v22 = 0u;
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   callCenter = [(iPadAudioCallViewController *)self callCenter];
   currentAudioAndVideoCalls = [callCenter currentAudioAndVideoCalls];
 
-  v5 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v5 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v25;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v23 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(currentAudioAndVideoCalls);
         }
 
-        if ([*(*(&v22 + 1) + 8 * i) isSharingScreen])
+        if ([*(*(&v24 + 1) + 8 * i) isSharingScreen])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v6 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v24 objects:v34 count:16];
       if (v6)
       {
         continue;
@@ -1317,75 +1317,75 @@ LABEL_11:
 
   if (remoteControlStatus == 2)
   {
-    v13 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v13 = v9;
+    v15 = v9;
   }
 
-  v14 = sub_1000314C4();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_1000314C4(v13, v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = @"NO";
-    if (v13)
+    v17 = @"NO";
+    if (v15)
     {
-      v16 = @"YES";
+      v18 = @"YES";
     }
 
     else
     {
-      v16 = @"NO";
+      v18 = @"NO";
     }
 
     if (v9)
     {
-      v17 = @"YES";
+      v19 = @"YES";
     }
 
     else
     {
-      v17 = @"NO";
+      v19 = @"NO";
     }
 
     *buf = 138543874;
-    v27 = v16;
-    v28 = 2114;
-    v29 = v17;
+    v29 = v18;
+    v30 = 2114;
+    v31 = v19;
     if (remoteControlStatus == 2)
     {
-      v15 = @"YES";
+      v17 = @"YES";
     }
 
-    v30 = 2114;
-    v31 = v15;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Screen sharing audio call view controller shouldHideViewsFromScreenSharing: %{public}@ (isSharingScreenForAnyCall: %{public}@ isUnderRemoteControl: %{public}@)", buf, 0x20u);
+    v32 = 2114;
+    v33 = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Screen sharing audio call view controller shouldHideViewsFromScreenSharing: %{public}@ (isSharingScreenForAnyCall: %{public}@ isUnderRemoteControl: %{public}@)", buf, 0x20u);
   }
 
-  if (v13)
+  if (v15)
   {
-    v18 = 16;
+    v20 = 16;
   }
 
   else
   {
-    v18 = 0;
+    v20 = 0;
   }
 
   view = [(iPadAudioCallViewController *)self view];
   layer = [view layer];
-  [layer setDisableUpdateMask:v18];
+  [layer setDisableUpdateMask:v20];
 
   callDetailsCoordinator = [(iPadAudioCallViewController *)self callDetailsCoordinator];
-  [callDetailsCoordinator setShouldHideViewsFromScreenSharing:v13];
+  [callDetailsCoordinator setShouldHideViewsFromScreenSharing:v15];
 }
 
 - (void)viewDidLoad
 {
-  v6.receiver = self;
-  v6.super_class = iPadAudioCallViewController;
-  [(iPadAudioCallViewController *)&v6 viewDidLoad];
+  v7.receiver = self;
+  v7.super_class = iPadAudioCallViewController;
+  [(iPadAudioCallViewController *)&v7 viewDidLoad];
   inCallRootViewController = [(iPadAudioCallViewController *)self inCallRootViewController];
 
   if (inCallRootViewController)
@@ -1395,11 +1395,11 @@ LABEL_11:
 
   else
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Skipping update to state due to lack of root view controller.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Skipping update to state due to lack of root view controller.", v6, 2u);
     }
   }
 }
@@ -1484,7 +1484,7 @@ LABEL_11:
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1543,7 +1543,7 @@ LABEL_11:
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1634,7 +1634,7 @@ LABEL_7:
 - (void)viewWillDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1656,7 +1656,7 @@ LABEL_7:
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1682,17 +1682,17 @@ LABEL_7:
 {
   disappearCopy = disappear;
   windowCopy = window;
-  v8.receiver = self;
-  v8.super_class = iPadAudioCallViewController;
-  [(iPadAudioCallViewController *)&v8 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
-  v7 = sub_100004F84();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9.receiver = self;
+  v9.super_class = iPadAudioCallViewController;
+  v7 = [(iPadAudioCallViewController *)&v9 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
+  v8 = sub_100004F84(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v10 = windowCopy;
-    v11 = 1024;
-    v12 = disappearCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController view did move to window %@, shouldAppearOrDisappear %d", buf, 0x12u);
+    v11 = windowCopy;
+    v12 = 1024;
+    v13 = disappearCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController view did move to window %@, shouldAppearOrDisappear %d", buf, 0x12u);
   }
 }
 
@@ -1728,10 +1728,10 @@ LABEL_7:
 
 - (void)traitCollectionDidChange:(id)change
 {
-  v37.receiver = self;
-  v37.super_class = iPadAudioCallViewController;
+  v39.receiver = self;
+  v39.super_class = iPadAudioCallViewController;
   changeCopy = change;
-  [(iPadAudioCallViewController *)&v37 traitCollectionDidChange:changeCopy];
+  [(iPadAudioCallViewController *)&v39 traitCollectionDidChange:changeCopy];
   _backlightLuminance = [changeCopy _backlightLuminance];
 
   traitCollection = [(iPadAudioCallViewController *)self traitCollection];
@@ -1748,11 +1748,11 @@ LABEL_7:
 
     if (!_backlightLuminance4)
     {
-      v12 = sub_100004F84();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004F84(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v36 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Got trait collection callback saying display was off", v36, 2u);
+        *v38 = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Got trait collection callback saying display was off", v38, 2u);
       }
 
       [(iPadAudioCallViewController *)self suspendPosterAndCancelDelay:1];
@@ -1769,7 +1769,7 @@ LABEL_7:
         goto LABEL_24;
       }
 
-      v28 = renderingViewController;
+      v29 = renderingViewController;
       canShowPosterImage = [(iPadAudioCallViewController *)self canShowPosterImage];
 
       if (!canShowPosterImage)
@@ -1810,16 +1810,17 @@ LABEL_7:
     if (!alwaysOnDisplayPosterNameViewModel)
     {
 LABEL_19:
-      if (![(iPadAudioCallViewController *)self videoStreamingIsGoingOn])
+      videoStreamingIsGoingOn = [(iPadAudioCallViewController *)self videoStreamingIsGoingOn];
+      if (!videoStreamingIsGoingOn)
       {
         goto LABEL_24;
       }
 
-      v33 = sub_100004F84();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v35 = sub_100004F84(videoStreamingIsGoingOn);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        *v36 = 0;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: pause video if necessary when going to AOD", v36, 2u);
+        *v38 = 0;
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: pause video if necessary when going to AOD", v38, 2u);
       }
 
       renderingViewController2 = [(iPadAudioCallViewController *)self emergencyCoordinator];
@@ -1838,8 +1839,8 @@ LABEL_24:
       return;
     }
 
-    v23 = +[TUCallCenter sharedInstance];
-    if ([v23 currentCallCount] < 2)
+    v24 = +[TUCallCenter sharedInstance];
+    if ([v24 currentCallCount] < 2)
     {
     }
 
@@ -1847,17 +1848,17 @@ LABEL_24:
     {
       usesCompactMulticallUI = [(iPadAudioCallViewController *)self usesCompactMulticallUI];
 
-      v25 = 0.0;
+      v26 = 0.0;
       if ((usesCompactMulticallUI & 1) == 0)
       {
         goto LABEL_18;
       }
     }
 
-    v25 = 1.0;
+    v26 = 1.0;
 LABEL_18:
     alwaysOnDisplayPosterNameViewModel2 = [(iPadAudioCallViewController *)self alwaysOnDisplayPosterNameViewModel];
-    [alwaysOnDisplayPosterNameViewModel2 updatePosterNameAlpha:v25];
+    [alwaysOnDisplayPosterNameViewModel2 updatePosterNameAlpha:v26];
 
     goto LABEL_19;
   }
@@ -1882,17 +1883,17 @@ LABEL_18:
 - (void)callIsEmergencyChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = v6;
     name = [notificationCopy name];
-    v14 = 138412546;
+    v15 = 138412546;
     selfCopy = v6;
-    v16 = 2112;
-    v17 = name;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v14, 0x16u);
+    v17 = 2112;
+    v18 = name;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v15, 0x16u);
   }
 
   object = [notificationCopy object];
@@ -1905,16 +1906,16 @@ LABEL_18:
 
       if (!emergencyCoordinator)
       {
-        v11 = sub_100004F84();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100004F84(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 138412290;
+          v15 = 138412290;
           selfCopy = self;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: going to create PHEnhancedEmergencyCoordinator from callIsEmergencyChangedNotification from iPadAudioCallViewController: %@", &v14, 0xCu);
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: going to create PHEnhancedEmergencyCoordinator from callIsEmergencyChangedNotification from iPadAudioCallViewController: %@", &v15, 0xCu);
         }
 
-        v12 = objc_alloc_init(PHEnhancedEmergencyCoordinator);
-        [(iPadAudioCallViewController *)self setEmergencyCoordinator:v12];
+        v13 = objc_alloc_init(PHEnhancedEmergencyCoordinator);
+        [(iPadAudioCallViewController *)self setEmergencyCoordinator:v13];
 
         emergencyCoordinator2 = [(iPadAudioCallViewController *)self emergencyCoordinator];
         [emergencyCoordinator2 setDelegate:self];
@@ -1925,7 +1926,7 @@ LABEL_18:
 
 - (void)updateViewForEmergencyCallIfNecessary
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -1974,11 +1975,11 @@ LABEL_18:
 
   if (wantsHoldMusic)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "decline with reminder and decline with message unavailable due to call wanting hold music.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "decline with reminder and decline with message unavailable due to call wanting hold music.", v10, 2u);
     }
 
     bottomBar = [(PHCallViewController *)self bottomBar];
@@ -1992,7 +1993,7 @@ LABEL_18:
 - (void)callCenterScreeningStatusChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2014,17 +2015,17 @@ LABEL_18:
 - (void)callCenterCallStatusChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = v6;
     name = [notificationCopy name];
-    v49 = 138412546;
+    v53 = 138412546;
     selfCopy = v6;
-    v51 = 2112;
-    v52 = name;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v49, 0x16u);
+    v55 = 2112;
+    v56 = name;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v53, 0x16u);
   }
 
   object = [notificationCopy object];
@@ -2057,11 +2058,11 @@ LABEL_11:
 
   if ((v17 & 1) == 0)
   {
-    v18 = sub_100004F84();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004F84(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v49) = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "callCenterCallStatusChangedNotification - bail since we don't want to choose the call ourselves", &v49, 2u);
+      LOWORD(v53) = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "callCenterCallStatusChangedNotification - bail since we don't want to choose the call ourselves", &v53, 2u);
     }
 
     [(iPadAudioCallViewController *)self refreshUseRTTButton];
@@ -2091,16 +2092,16 @@ LABEL_21:
           goto LABEL_22;
         }
 
-        v22 = sub_100004F84();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_100004F84(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v49 = 138412290;
+          v53 = 138412290;
           selfCopy = self;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: going to create PHEnhancedEmergencyCoordinator when call is active from iPadAudioCallViewController: %@", &v49, 0xCu);
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: going to create PHEnhancedEmergencyCoordinator when call is active from iPadAudioCallViewController: %@", &v53, 0xCu);
         }
 
-        v23 = objc_alloc_init(PHEnhancedEmergencyCoordinator);
-        [(iPadAudioCallViewController *)self setEmergencyCoordinator:v23];
+        v25 = objc_alloc_init(PHEnhancedEmergencyCoordinator);
+        [(iPadAudioCallViewController *)self setEmergencyCoordinator:v25];
 
         features = [(iPadAudioCallViewController *)self emergencyCoordinator];
         [features setDelegate:self];
@@ -2113,8 +2114,8 @@ LABEL_21:
 LABEL_22:
   if ([object status] == 6)
   {
-    v24 = +[UIApplication sharedApplication];
-    delegate = [v24 delegate];
+    v26 = +[UIApplication sharedApplication];
+    delegate = [v26 delegate];
     [delegate setMostRecentlyDisconnectedAudioCall:object];
 
     uniqueProxyIdentifier = [object uniqueProxyIdentifier];
@@ -2138,20 +2139,20 @@ LABEL_22:
 
     [(iPadAudioCallViewController *)self writeToLastSeenPosterCacheIfNecessaryForCall:object];
     features2 = [(iPadAudioCallViewController *)self features];
-    if (([features2 isEnhancedEmergencyEnabled] & 1) != 0 && (-[iPadAudioCallViewController emergencyCoordinator](self, "emergencyCoordinator"), (v29 = objc_claimAutoreleasedReturnValue()) != 0))
+    if (([features2 isEnhancedEmergencyEnabled] & 1) != 0 && (-[iPadAudioCallViewController emergencyCoordinator](self, "emergencyCoordinator"), (v31 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v30 = v29;
+      v32 = v31;
       isEmergency2 = [object isEmergency];
 
       if (isEmergency2)
       {
-        v32 = sub_100004F84();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v35 = sub_100004F84(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           emergencyCoordinator2 = [(iPadAudioCallViewController *)self emergencyCoordinator];
-          v49 = 138412290;
+          v53 = 138412290;
           selfCopy = emergencyCoordinator2;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: clean emergencyCoordinator: %@", &v49, 0xCu);
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: clean emergencyCoordinator: %@", &v53, 0xCu);
         }
 
         emergencyCoordinator3 = [(iPadAudioCallViewController *)self emergencyCoordinator];
@@ -2184,11 +2185,11 @@ LABEL_22:
 
   if (autoPunchOutBehaviorRequiredForCurrentCalls)
   {
-    v39 = sub_100004F84();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v43 = sub_100004F84(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v49) = 0;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController: Punch-out requested for current calls", &v49, 2u);
+      LOWORD(v53) = 0;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController: Punch-out requested for current calls", &v53, 2u);
     }
 
     [(iPadAudioCallViewController *)self setParticipantsViewControllersShouldIgnoreUpdates:1];
@@ -2198,9 +2199,9 @@ LABEL_22:
   else
   {
     callCenter2 = [(iPadAudioCallViewController *)self callCenter];
-    v41 = [callCenter2 shouldActivateProviderInBackgroundForCall:object];
+    v45 = [callCenter2 shouldActivateProviderInBackgroundForCall:object];
 
-    if (v41)
+    if (v45)
     {
       [(PHCallViewController *)self activateProviderInBackgroundForCall:object];
     }
@@ -2214,7 +2215,7 @@ LABEL_22:
   existingPrioritizedCall = self->_existingPrioritizedCall;
   view = [(iPadAudioCallViewController *)self view];
   [view frame];
-  [(iPadAudioCallViewController *)self updateTopShelfContentWithCall:existingPrioritizedCall sceneWindowSize:v47, v48];
+  [(iPadAudioCallViewController *)self updateTopShelfContentWithCall:existingPrioritizedCall sceneWindowSize:v51, v52];
 
 LABEL_46:
 }
@@ -2222,7 +2223,7 @@ LABEL_46:
 - (void)conferenceParticipantCallsChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2271,7 +2272,7 @@ LABEL_46:
 - (void)callContinuityStateChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2285,7 +2286,7 @@ LABEL_46:
 - (void)hardPauseDigitsStateChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -2312,7 +2313,7 @@ LABEL_46:
 - (void)handleTUCallSupportsTTYWithVoiceChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2331,7 +2332,7 @@ LABEL_46:
 - (void)handleTUCallTTYTypeChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2422,7 +2423,7 @@ LABEL_7:
 - (void)callIsScreenSharingChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2440,7 +2441,7 @@ LABEL_7:
 - (void)callDisplayContextChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -3002,28 +3003,29 @@ LABEL_28:
 
     v11 = [[CNSharedProfileStateOracle alloc] initWithContact:v10 contactStore:v6];
     v12 = [CNSharedProfileStateOracle contactIsInAutoUpdateState:v10];
-    v13 = sub_100004F84();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-    if (v12)
+    v13 = v12;
+    v14 = sub_100004F84(v12);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    if (v13)
     {
-      if (v14)
+      if (v15)
       {
         currentNickname = [v11 currentNickname];
         imageData = [v10 imageData];
         *buf = 138412546;
-        v58 = currentNickname;
-        v59 = 2112;
-        v60 = imageData;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SNAP: animateInfoButtonCoinFlipIfNeeded using currentNickname %@ contact.imageData: %@", buf, 0x16u);
+        v61 = currentNickname;
+        v62 = 2112;
+        v63 = imageData;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SNAP: animateInfoButtonCoinFlipIfNeeded using currentNickname %@ contact.imageData: %@", buf, 0x16u);
       }
 
       currentNickname2 = [v11 currentNickname];
 
-      v18 = [CNSharedProfile alloc];
-      v19 = v18;
+      v19 = [CNSharedProfile alloc];
+      v20 = v19;
       if (!currentNickname2)
       {
-        v49 = [v18 initWithContact:v10];
+        v52 = [v19 initWithContact:v10];
         goto LABEL_18;
       }
 
@@ -3032,105 +3034,107 @@ LABEL_28:
 
     else
     {
-      if (v14)
+      if (v15)
       {
         pendingNickname = [v11 pendingNickname];
         *buf = 138412290;
-        v58 = pendingNickname;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SNAP: animateInfoButtonCoinFlipIfNeeded using pendingNickname %@", buf, 0xCu);
+        v61 = pendingNickname;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SNAP: animateInfoButtonCoinFlipIfNeeded using pendingNickname %@", buf, 0xCu);
       }
 
-      v19 = [CNSharedProfile alloc];
+      v20 = [CNSharedProfile alloc];
       currentNickname3 = [v11 pendingNickname];
     }
 
-    v22 = currentNickname3;
-    v49 = [v19 initWithNickname:currentNickname3];
+    v23 = currentNickname3;
+    v52 = [v20 initWithNickname:currentNickname3];
 
 LABEL_18:
     callDetailsViewButton2 = [(iPadAudioCallViewController *)self callDetailsViewButton];
     [callDetailsViewButton2 setAlpha:0.0];
 
-    v24 = objc_alloc_init(UIView);
-    [v24 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v25 = objc_alloc_init(UIView);
+    [v25 setTranslatesAutoresizingMaskIntoConstraints:0];
     view = [(iPadAudioCallViewController *)self view];
-    [view addSubview:v24];
+    [view addSubview:v25];
 
     pendingNickname2 = [v11 pendingNickname];
     avatar = [pendingNickname2 avatar];
 
-    v46 = avatar;
-    if (+[_TtC13InCallService23SensitivityFeatureFlags isSensitivityAvatarTreatmentEnabled])
+    v29 = +[_TtC13InCallService23SensitivityFeatureFlags isSensitivityAvatarTreatmentEnabled];
+    v49 = avatar;
+    if (v29)
     {
       contentIsSensitive = [avatar contentIsSensitive];
-      v29 = sub_100004F84();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v31 = contentIsSensitive;
+      v32 = sub_100004F84(contentIsSensitive);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v58) = contentIsSensitive;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for infoButton peekaboo returning %d", buf, 8u);
+        LODWORD(v61) = v31;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for infoButton peekaboo returning %d", buf, 8u);
       }
     }
 
     else
     {
-      v29 = sub_100004F84();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_100004F84(v29);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for infoButton peekaboo not performing check", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for infoButton peekaboo not performing check", buf, 2u);
       }
 
-      LOBYTE(contentIsSensitive) = 0;
+      LOBYTE(v31) = 0;
     }
 
-    v30 = +[ICSPreferences sharedPreferences];
-    forceBlurNewPoster = [v30 forceBlurNewPoster];
+    v33 = +[ICSPreferences sharedPreferences];
+    forceBlurNewPoster = [v33 forceBlurNewPoster];
 
-    v32 = forceBlurNewPoster | contentIsSensitive;
-    v33 = [_TtC13InCallService19BlurrableAvatarView alloc];
-    contact = [v49 contact];
-    v35 = [(BlurrableAvatarView *)v33 initWithContact:contact wantsBlur:v32 & 1 isCommunicationSafetyEnabled:+[_TtC13InCallService23SensitivityFeatureFlags isCommunicationSafetyEnabled]];
+    v35 = forceBlurNewPoster | v31;
+    v36 = [_TtC13InCallService19BlurrableAvatarView alloc];
+    contact = [v52 contact];
+    v38 = [(BlurrableAvatarView *)v36 initWithContact:contact wantsBlur:v35 & 1 isCommunicationSafetyEnabled:+[_TtC13InCallService23SensitivityFeatureFlags isCommunicationSafetyEnabled]];
 
-    [(BlurrableAvatarView *)v35 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v24 addSubview:v35];
-    v36 = [UIButton buttonWithType:4];
-    [v36 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v24 addSubview:v36];
-    v37 = +[UIColor secondaryLabelColor];
-    [v36 setTintColor:v37];
+    [(BlurrableAvatarView *)v38 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v25 addSubview:v38];
+    v39 = [UIButton buttonWithType:4];
+    [v39 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v25 addSubview:v39];
+    v40 = +[UIColor secondaryLabelColor];
+    [v39 setTintColor:v40];
 
-    [(iPadAudioCallViewController *)self applyCallDetailsViewButtonPositionAndSizeCapToElement:v36];
+    [(iPadAudioCallViewController *)self applyCallDetailsViewButtonPositionAndSizeCapToElement:v39];
     wallpaperTitleStyleAttributes = [(iPadAudioCallViewController *)self wallpaperTitleStyleAttributes];
-    v39 = wallpaperTitleStyleAttributes;
+    v42 = wallpaperTitleStyleAttributes;
     if (wallpaperTitleStyleAttributes)
     {
       titleColor = [wallpaperTitleStyleAttributes titleColor];
-      [v36 setTintColor:titleColor];
+      [v39 setTintColor:titleColor];
     }
 
-    v41 = +[TPIncomingCallMetricsProvider callDetailsButtonMaxSize];
-    [(BlurrableAvatarView *)v35 setMaximumContentSizeCategory:v41];
+    v44 = +[TPIncomingCallMetricsProvider callDetailsButtonMaxSize];
+    [(BlurrableAvatarView *)v38 setMaximumContentSizeCategory:v44];
 
-    [(iPadAudioCallViewController *)self applySizeToElement:v35 usingThisElementAsGuide:v36];
-    [(iPadAudioCallViewController *)self applySizeToElement:v24 usingThisElementAsGuide:v36];
-    [(iPadAudioCallViewController *)self applyCallDetailsViewButtonPositionAndSizeCapToElement:v24];
-    [(iPadAudioCallViewController *)self applyCallDetailsViewButtonPositionAndSizeCapToElement:v35];
-    [(BlurrableAvatarView *)v35 setAlpha:0.0];
+    [(iPadAudioCallViewController *)self applySizeToElement:v38 usingThisElementAsGuide:v39];
+    [(iPadAudioCallViewController *)self applySizeToElement:v25 usingThisElementAsGuide:v39];
+    [(iPadAudioCallViewController *)self applyCallDetailsViewButtonPositionAndSizeCapToElement:v25];
+    [(iPadAudioCallViewController *)self applyCallDetailsViewButtonPositionAndSizeCapToElement:v38];
+    [(BlurrableAvatarView *)v38 setAlpha:0.0];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000D4E98;
     block[3] = &unk_100359098;
-    v51 = v24;
-    v52 = v35;
-    v53 = v36;
+    v54 = v25;
+    v55 = v38;
+    v56 = v39;
     selfCopy = self;
-    v55 = v10;
-    v56 = v11;
-    v42 = v11;
-    v43 = v36;
-    v44 = v35;
-    v45 = v24;
+    v58 = v10;
+    v59 = v11;
+    v45 = v11;
+    v46 = v39;
+    v47 = v38;
+    v48 = v25;
     dispatch_async(&_dispatch_main_q, block);
 
     goto LABEL_27;
@@ -3140,28 +3144,29 @@ LABEL_18:
 - (void)triggerInversionColorUpdate:(id)update
 {
   updateCopy = update;
-  if (![(iPadAudioCallViewController *)self hasInvertedUIElementColorsBasedOnPoster])
+  hasInvertedUIElementColorsBasedOnPoster = [(iPadAudioCallViewController *)self hasInvertedUIElementColorsBasedOnPoster];
+  if ((hasInvertedUIElementColorsBasedOnPoster & 1) == 0)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(hasInvertedUIElementColorsBasedOnPoster);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SNAP: We are going to update inversion color based on new configuration", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SNAP: We are going to update inversion color based on new configuration", buf, 2u);
     }
 
-    v6 = [[TPInComingCallUISnapshotViewController alloc] initWithConfiguration:updateCopy style:0 nameString:&stru_100361FD0];
+    v7 = [[TPInComingCallUISnapshotViewController alloc] initWithConfiguration:updateCopy style:0 nameString:&stru_100361FD0];
     objc_initWeak(buf, self);
     view = [(iPadAudioCallViewController *)self view];
     window = [view window];
     windowScene = [window windowScene];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000D55E8;
-    v10[3] = &unk_1003590C0;
-    objc_copyWeak(&v11, buf);
-    [v6 snapshotWithOptions:0 windowScene:windowScene completionBlock:v10];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1000D55E8;
+    v11[3] = &unk_1003590C0;
+    objc_copyWeak(&v12, buf);
+    [v7 snapshotWithOptions:0 windowScene:windowScene completionBlock:v11];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 }
@@ -3200,7 +3205,7 @@ LABEL_18:
 
   else
   {
-    v15 = sub_100004F84();
+    v15 = sub_100004F84(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10025655C();
@@ -3473,14 +3478,14 @@ LABEL_9:
   callCenter2 = [(iPadAudioCallViewController *)self callCenter];
   v6 = [callCenter2 callWithStatus:1];
 
-  v7 = sub_100004F84();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004F84(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Supplemental merge button tapped. Grouping held call %@ with active call %@", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Supplemental merge button tapped. Grouping held call %@ with active call %@", &v10, 0x16u);
   }
 
   callCenter3 = [(iPadAudioCallViewController *)self callCenter];
@@ -3626,32 +3631,33 @@ LABEL_9:
   }
 
 LABEL_5:
-  if (!+[PHSOSViewController isCallBufferDismissalAssertionActive])
+  v9 = +[PHSOSViewController isCallBufferDismissalAssertionActive];
+  if (!v9)
   {
     goto LABEL_8;
   }
 
   if ([currentCallGroups count])
   {
-    +[PHSOSViewController releaseAllCallBufferDismissalAssertions];
+    v9 = +[PHSOSViewController releaseAllCallBufferDismissalAssertions];
 LABEL_8:
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v98 = 138412290;
-      *&v98[4] = currentCallGroups;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Current Call Groups is %@", v98, 0xCu);
+      *v110 = 138412290;
+      *&v110[4] = currentCallGroups;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Current Call Groups is %@", v110, 0xCu);
     }
 
     callCenter2 = [(iPadAudioCallViewController *)self callCenter];
-    v11 = [callCenter2 allCallsPassTest:&stru_100359108];
+    v12 = [callCenter2 allCallsPassTest:&stru_100359108];
 
     callCenter3 = [(iPadAudioCallViewController *)self callCenter];
     routeController = [callCenter3 routeController];
     pickedRoute = [routeController pickedRoute];
     deviceType = [pickedRoute deviceType];
 
-    if (!v11 || [(PHCallViewController *)self currentState]!= 1 && [(PHCallViewController *)self currentState]!= 3 && deviceType != 13)
+    if (!v12 || [(PHCallViewController *)self currentState]!= 1 && [(PHCallViewController *)self currentState]!= 3 && deviceType != 13)
     {
       goto LABEL_17;
     }
@@ -3666,7 +3672,7 @@ LABEL_8:
       {
 LABEL_17:
         [(PHCallViewController *)self obtainDismissalAssertionIfNeeded];
-        v19 = 0;
+        v20 = 0;
         goto LABEL_23;
       }
     }
@@ -3675,7 +3681,7 @@ LABEL_17:
     {
     }
 
-    v19 = 1;
+    v20 = 1;
 LABEL_23:
     if ([currentCallGroups count])
     {
@@ -3684,13 +3690,13 @@ LABEL_23:
         [(iPadAudioCallViewController *)self loadView];
       }
 
-      v21 = +[UIApplication sharedApplication];
-      delegate2 = [v21 delegate];
+      v22 = +[UIApplication sharedApplication];
+      delegate2 = [v22 delegate];
       bannerPresentationManager = [delegate2 bannerPresentationManager];
       callDetailsCoordinator = [(iPadAudioCallViewController *)self callDetailsCoordinator];
-      v25 = [(iPadAudioCallViewController *)self makeCallDetailsCoordinatorWithBannerPresentationManager:bannerPresentationManager existingCoordinator:callDetailsCoordinator deferredPresentationManager:self];
+      v26 = [(iPadAudioCallViewController *)self makeCallDetailsCoordinatorWithBannerPresentationManager:bannerPresentationManager existingCoordinator:callDetailsCoordinator deferredPresentationManager:self];
 
-      outcome = [v25 outcome];
+      outcome = [v26 outcome];
       if (outcome == 1)
       {
         [(iPadAudioCallViewController *)self setCallDetailsCoordinator:0];
@@ -3698,24 +3704,25 @@ LABEL_23:
 
       else if (outcome == 2)
       {
-        coordinator = [v25 coordinator];
+        coordinator = [v26 coordinator];
         [(iPadAudioCallViewController *)self setCallDetailsCoordinator:coordinator];
       }
     }
 
-    if (![currentCallGroups count])
+    v29 = [currentCallGroups count];
+    if (!v29)
     {
-      v32 = +[UIApplication sharedApplication];
-      delegate3 = [v32 delegate];
+      v34 = +[UIApplication sharedApplication];
+      delegate3 = [v34 delegate];
       mostRecentlyDisconnectedAudioCall = [delegate3 mostRecentlyDisconnectedAudioCall];
 
       if (mostRecentlyDisconnectedAudioCall)
       {
-        v35 = sub_100004F84();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v38 = sub_100004F84(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          *v98 = 0;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call has been disconnected, setting state to PHInCallStateEnded", v98, 2u);
+          *v110 = 0;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call has been disconnected, setting state to PHInCallStateEnded", v110, 2u);
         }
 
         [(iPadAudioCallViewController *)self setCurrentState:7 animated:0];
@@ -3724,40 +3731,40 @@ LABEL_23:
       goto LABEL_74;
     }
 
-    if (v19)
+    if (v20)
     {
-      v28 = sub_100004F84();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v30 = sub_100004F84(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         currentState = [(PHCallViewController *)self currentState];
-        *v98 = 67109376;
-        *&v98[4] = currentState;
-        *&v98[8] = 1024;
-        *&v98[10] = deviceType == 13;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: All calls are an endpoint elsewhere and previous state was %d OR shouldDismissForPickedRoute is %d, so setting state to PHInCallStateIdle", v98, 0xEu);
+        *v110 = 67109376;
+        *&v110[4] = currentState;
+        *&v110[8] = 1024;
+        *&v110[10] = deviceType == 13;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: All calls are an endpoint elsewhere and previous state was %d OR shouldDismissForPickedRoute is %d, so setting state to PHInCallStateIdle", v110, 0xEu);
       }
 
       selfCopy5 = self;
-      v31 = 0;
+      v33 = 0;
       goto LABEL_36;
     }
 
-    if ([currentCallGroups count] != 1 || (-[iPadAudioCallViewController callCenter](self, "callCenter"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v36, "hasCurrentVideoCalls"), v36, (v37 & 1) != 0))
+    if ([currentCallGroups count] != 1 || (-[iPadAudioCallViewController callCenter](self, "callCenter"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "hasCurrentVideoCalls"), v39, (v40 & 1) != 0))
     {
-      v38 = [currentCallGroups count];
+      v41 = [currentCallGroups count];
       callCenter4 = [(iPadAudioCallViewController *)self callCenter];
-      v40 = &v38[[callCenter4 currentVideoCallCount]];
+      v43 = &v41[[callCenter4 currentVideoCallCount]];
 
-      if (v40 < 2)
+      if (v43 < 2)
       {
         goto LABEL_75;
       }
 
-      v41 = sub_100004F84();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v45 = sub_100004F84(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        *v98 = 0;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: More than one call is active...", v98, 2u);
+        *v110 = 0;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: More than one call is active...", v110, 2u);
       }
 
       callCenter5 = [(iPadAudioCallViewController *)self callCenter];
@@ -3765,70 +3772,70 @@ LABEL_23:
 
       if (!incomingCall)
       {
-        v68 = [(iPadAudioCallViewController *)self _isScreeningAnyCallGroup:currentCallGroups];
+        v75 = [(iPadAudioCallViewController *)self _isScreeningAnyCallGroup:currentCallGroups];
         usesCompactMulticallUI = [(iPadAudioCallViewController *)self usesCompactMulticallUI];
-        v70 = usesCompactMulticallUI;
-        if (!v68)
+        v77 = usesCompactMulticallUI;
+        if (!v75)
         {
-          v76 = sub_100004F84();
-          v77 = os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT);
-          if (v70)
+          v82 = sub_100004F84(usesCompactMulticallUI);
+          v83 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
+          if (v77)
           {
-            if (v77)
+            if (v83)
             {
-              *v98 = 0;
-              _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... so setting state to PHInCallStateSingleCallActive", v98, 2u);
+              *v110 = 0;
+              _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... so setting state to PHInCallStateSingleCallActive", v110, 2u);
             }
 
-            v78 = 4;
+            v84 = 4;
           }
 
           else
           {
-            if (v77)
+            if (v83)
             {
-              *v98 = 0;
-              _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... so setting state to PHInCallStateMultipleCallsActive", v98, 2u);
+              *v110 = 0;
+              _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... so setting state to PHInCallStateMultipleCallsActive", v110, 2u);
             }
 
-            v78 = 5;
+            v84 = 5;
           }
 
-          [(iPadAudioCallViewController *)self setCurrentState:v78 animated:1];
+          [(iPadAudioCallViewController *)self setCurrentState:v84 animated:1];
           [(iPadAudioCallViewController *)self hideFirstNameLabelOnKeypad];
           goto LABEL_75;
         }
 
-        if (!usesCompactMulticallUI || (-[iPadAudioCallViewController prioritizedCall](self, "prioritizedCall"), (v71 = objc_claimAutoreleasedReturnValue()) == 0) || (v72 = v71, -[iPadAudioCallViewController prioritizedCall](self, "prioritizedCall"), v73 = objc_claimAutoreleasedReturnValue(), v74 = [v73 isScreening], v73, v72, (v74 & 1) != 0))
+        if (!usesCompactMulticallUI || (-[iPadAudioCallViewController prioritizedCall](self, "prioritizedCall"), (usesCompactMulticallUI = objc_claimAutoreleasedReturnValue()) == 0) || (v78 = usesCompactMulticallUI, -[iPadAudioCallViewController prioritizedCall](self, "prioritizedCall"), v79 = objc_claimAutoreleasedReturnValue(), v80 = [v79 isScreening], v79, v78, (v80 & 1) != 0))
         {
-          v75 = sub_100004F84();
-          if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+          v81 = sub_100004F84(usesCompactMulticallUI);
+          if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
           {
-            *v98 = 0;
-            _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... but no incoming call while one is being screened meaning the other was declined, so moving to PHInCallStateScreening", v98, 2u);
+            *v110 = 0;
+            _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... but no incoming call while one is being screened meaning the other was declined, so moving to PHInCallStateScreening", v110, 2u);
           }
 
           selfCopy5 = self;
-          v31 = 11;
+          v33 = 11;
           goto LABEL_36;
         }
 
-        v89 = sub_100004F84();
-        if (!os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+        v97 = sub_100004F84(usesCompactMulticallUI);
+        if (!os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_128;
         }
 
-        *v98 = 0;
-        v90 = "UpdateCurrentState: ... but no incoming call and the screening call isn't the prioritized one.";
+        *v110 = 0;
+        v98 = "UpdateCurrentState: ... but no incoming call and the screening call isn't the prioritized one.";
         goto LABEL_127;
       }
 
-      v44 = sub_100004F84();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v49 = sub_100004F84(v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
-        *v98 = 0;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... and we have an incoming audio call...", v98, 2u);
+        *v110 = 0;
+        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... and we have an incoming audio call...", v110, 2u);
       }
 
       callCenter6 = [(iPadAudioCallViewController *)self callCenter];
@@ -3840,19 +3847,19 @@ LABEL_23:
         if (!callCenter8)
         {
           callCenter8 = [(iPadAudioCallViewController *)self callCenter];
-          v48 = [callCenter8 callWithStatus:2];
-          if (!v48)
+          v53 = [callCenter8 callWithStatus:2];
+          if (!v53)
           {
             callCenter9 = [(iPadAudioCallViewController *)self callCenter];
             currentVideoCallCount = [callCenter9 currentVideoCallCount];
 
             if (!currentVideoCallCount)
             {
-              prioritizedCall = sub_100004F84();
+              prioritizedCall = sub_100004F84(v105);
               if (os_log_type_enabled(prioritizedCall, OS_LOG_TYPE_DEFAULT))
               {
-                *v98 = 0;
-                _os_log_impl(&_mh_execute_header, prioritizedCall, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... but we don't also have an active call, so moving to PHInCallStateIncomingRinging", v98, 2u);
+                *v110 = 0;
+                _os_log_impl(&_mh_execute_header, prioritizedCall, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... but we don't also have an active call, so moving to PHInCallStateIncomingRinging", v110, 2u);
               }
 
               goto LABEL_123;
@@ -3864,12 +3871,12 @@ LABEL_23:
       }
 
 LABEL_55:
-      v49 = [(iPadAudioCallViewController *)self _isScreeningAnyCallGroup:currentCallGroups];
+      v54 = [(iPadAudioCallViewController *)self _isScreeningAnyCallGroup:currentCallGroups];
       callCenter10 = [(iPadAudioCallViewController *)self callCenter];
       ics_hasTooManyCallsForCallWaitingBanner = [callCenter10 ics_hasTooManyCallsForCallWaitingBanner];
 
       features2 = [(iPadAudioCallViewController *)self features];
-      if (([features2 shouldShowFullScreenCallWaiting] & 1) != 0 || (v49 & 1) != 0 || (ics_hasTooManyCallsForCallWaitingBanner & 1) != 0 || -[iPadAudioCallViewController usesCompactMulticallUI](self, "usesCompactMulticallUI"))
+      if (([features2 shouldShowFullScreenCallWaiting] & 1) != 0 || (v54 & 1) != 0 || (ics_hasTooManyCallsForCallWaitingBanner & 1) != 0 || -[iPadAudioCallViewController usesCompactMulticallUI](self, "usesCompactMulticallUI"))
       {
 
         goto LABEL_60;
@@ -3884,19 +3891,19 @@ LABEL_55:
         if (isDominoEnabled2)
         {
 LABEL_60:
-          v53 = sub_100004F84();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+          v59 = sub_100004F84(v58);
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
           {
-            *v98 = 0;
-            _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... and we also have an active call, so moving to PHInCallStateCallWaiting", v98, 2u);
+            *v110 = 0;
+            _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: ... and we also have an active call, so moving to PHInCallStateCallWaiting", v110, 2u);
           }
 
           if (![(iPadAudioCallViewController *)self usesCompactMulticallUI])
           {
             selfCopy5 = self;
-            v31 = 3;
+            v33 = 3;
 LABEL_36:
-            [(iPadAudioCallViewController *)selfCopy5 setCurrentState:v31 animated:1, *v98];
+            [(iPadAudioCallViewController *)selfCopy5 setCurrentState:v33 animated:1, *v110];
 LABEL_75:
             [(iPadAudioCallViewController *)self updateCallTranslationIfNeeded];
             frontmostCall = [(iPadAudioCallViewController *)self frontmostCall];
@@ -3910,7 +3917,7 @@ LABEL_75:
           callUUID = [prioritizedCall callUUID];
           if (callUUID)
           {
-            v56 = callUUID;
+            v62 = callUUID;
             callCenter11 = [(iPadAudioCallViewController *)self callCenter];
             incomingCall2 = [callCenter11 incomingCall];
             callUUID2 = [incomingCall2 callUUID];
@@ -3944,7 +3951,7 @@ LABEL_123:
 
 LABEL_124:
           selfCopy5 = self;
-          v31 = 1;
+          v33 = 1;
           goto LABEL_36;
         }
       }
@@ -3953,78 +3960,80 @@ LABEL_124:
       {
       }
 
-      v89 = sub_100004F84();
-      if (!os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+      v97 = sub_100004F84(v58);
+      if (!os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_128:
 
         selfCopy5 = self;
-        v31 = 4;
+        v33 = 4;
         goto LABEL_36;
       }
 
-      *v98 = 0;
-      v90 = "UpdateCurrentState: ... and we also have an active call, so moving to PHInCallStateSingleCallActive (EmbedSwapBanner)";
+      *v110 = 0;
+      v98 = "UpdateCurrentState: ... and we also have an active call, so moving to PHInCallStateSingleCallActive (EmbedSwapBanner)";
 LABEL_127:
-      _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, v90, v98, 2u);
+      _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, v98, v110, 2u);
       goto LABEL_128;
     }
 
     mostRecentlyDisconnectedAudioCall = [currentCallGroups lastObject];
-    if ([mostRecentlyDisconnectedAudioCall status] == 4 || objc_msgSend(mostRecentlyDisconnectedAudioCall, "wantsHoldMusic"))
+    status = [mostRecentlyDisconnectedAudioCall status];
+    if (status == 4 || (status = [mostRecentlyDisconnectedAudioCall wantsHoldMusic], status))
     {
-      v63 = sub_100004F84();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      v70 = sub_100004F84(status);
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
       {
-        *v98 = 0;
-        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusRinging, setting state to PHInCallStateIncomingRinging", v98, 2u);
+        *v110 = 0;
+        _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusRinging, setting state to PHInCallStateIncomingRinging", v110, 2u);
       }
 
       selfCopy10 = self;
-      v65 = 1;
-      v66 = 0;
+      v72 = 1;
+      v73 = 0;
     }
 
     else
     {
-      if ([mostRecentlyDisconnectedAudioCall status] == 1 || objc_msgSend(mostRecentlyDisconnectedAudioCall, "status") == 2)
+      status2 = [mostRecentlyDisconnectedAudioCall status];
+      if (status2 == 1 || (status2 = [mostRecentlyDisconnectedAudioCall status], status2 == 2))
       {
-        v79 = sub_100004F84();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+        v86 = sub_100004F84(status2);
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
         {
-          *v98 = 0;
-          _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusActive, and the call was initiated on this device", v98, 2u);
+          *v110 = 0;
+          _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusActive, and the call was initiated on this device", v110, 2u);
         }
 
         calls = [mostRecentlyDisconnectedAudioCall calls];
-        v81 = [calls count];
+        v88 = [calls count];
 
-        v82 = sub_100004F84();
-        v83 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
-        if (v81 < 2)
+        v90 = sub_100004F84(v89);
+        v91 = os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT);
+        if (v88 < 2)
         {
-          if (v83)
+          if (v91)
           {
-            *v98 = 0;
-            _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "There is only one call in call group, so setting state to PHInCallStateSingleCallActive", v98, 2u);
+            *v110 = 0;
+            _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "There is only one call in call group, so setting state to PHInCallStateSingleCallActive", v110, 2u);
           }
 
           if ([(iPadAudioCallViewController *)self _isScreeningCallGroup:mostRecentlyDisconnectedAudioCall]&& ![(iPadAudioCallViewController *)self isCallSmartHoldingSessionActive:mostRecentlyDisconnectedAudioCall])
           {
-            v91 = 11;
+            v99 = 11;
           }
 
           else if ([(iPadAudioCallViewController *)self isCallSmartHoldingSessionActive:mostRecentlyDisconnectedAudioCall])
           {
-            v91 = 12;
+            v99 = 12;
           }
 
           else
           {
-            v91 = 4;
+            v99 = 4;
           }
 
-          [(iPadAudioCallViewController *)self setCurrentState:v91 animated:1];
+          [(iPadAudioCallViewController *)self setCurrentState:v99 animated:1];
           if (self->_waitOnHoldTipView && [(PHCallViewController *)self currentState]== 4)
           {
             [(iPadAudioCallViewController *)self displayWaitOnHoldTip];
@@ -4033,78 +4042,87 @@ LABEL_127:
           goto LABEL_73;
         }
 
-        if (v83)
+        if (v91)
         {
           calls2 = [mostRecentlyDisconnectedAudioCall calls];
-          v85 = [calls2 count];
-          *v98 = 134217984;
-          *&v98[4] = v85;
-          _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "There are %lu calls in call group, so setting state to PHInCallStateMultipleCallsActive", v98, 0xCu);
+          v93 = [calls2 count];
+          *v110 = 134217984;
+          *&v110[4] = v93;
+          _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "There are %lu calls in call group, so setting state to PHInCallStateMultipleCallsActive", v110, 0xCu);
         }
 
         selfCopy10 = self;
-        v65 = 5;
-      }
-
-      else if ([mostRecentlyDisconnectedAudioCall status] == 5)
-      {
-        v93 = sub_100004F84();
-        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
-        {
-          *v98 = 0;
-          _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusDisconnecting, setting state to PHInCallStateEnding", v98, 2u);
-        }
-
-        selfCopy10 = self;
-        v65 = 6;
-      }
-
-      else if ([mostRecentlyDisconnectedAudioCall status] == 6)
-      {
-        v96 = sub_100004F84();
-        if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
-        {
-          *v98 = 0;
-          _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusDisconnected, setting state to PHInCallStateEnded", v98, 2u);
-        }
-
-        selfCopy10 = self;
-        v65 = 7;
+        v72 = 5;
       }
 
       else
       {
-        if ([mostRecentlyDisconnectedAudioCall status] != 3)
+        status3 = [mostRecentlyDisconnectedAudioCall status];
+        if (status3 == 5)
         {
-          goto LABEL_73;
+          v102 = sub_100004F84(status3);
+          if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+          {
+            *v110 = 0;
+            _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusDisconnecting, setting state to PHInCallStateEnding", v110, 2u);
+          }
+
+          selfCopy10 = self;
+          v72 = 6;
         }
 
-        v97 = sub_100004F84();
-        if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+        else
         {
-          *v98 = 0;
-          _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is Sending, setting state to PHInCallStateOutgoingRinging", v98, 2u);
-        }
+          status4 = [mostRecentlyDisconnectedAudioCall status];
+          if (status4 == 6)
+          {
+            v107 = sub_100004F84(status4);
+            if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+            {
+              *v110 = 0;
+              _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is TUCallStatusDisconnected, setting state to PHInCallStateEnded", v110, 2u);
+            }
 
-        selfCopy10 = self;
-        v65 = 2;
+            selfCopy10 = self;
+            v72 = 7;
+          }
+
+          else
+          {
+            status5 = [mostRecentlyDisconnectedAudioCall status];
+            if (status5 != 3)
+            {
+              goto LABEL_73;
+            }
+
+            v109 = sub_100004F84(status5);
+            if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+            {
+              *v110 = 0;
+              _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: Call status is Sending, setting state to PHInCallStateOutgoingRinging", v110, 2u);
+            }
+
+            selfCopy10 = self;
+            v72 = 2;
+          }
+        }
       }
 
-      v66 = 1;
+      v73 = 1;
     }
 
-    [(iPadAudioCallViewController *)selfCopy10 setCurrentState:v65 animated:v66];
+    [(iPadAudioCallViewController *)selfCopy10 setCurrentState:v72 animated:v73];
 LABEL_73:
 
 LABEL_74:
     goto LABEL_75;
   }
 
-  v20 = sub_100004F84();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_100004F84(0);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    *v98 = 0;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController,UpdateCurrentState,invoking setCurrentState:PHInCallStateCallBuffer", v98, 2u);
+    *v110 = 0;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController,UpdateCurrentState,invoking setCurrentState:PHInCallStateCallBuffer", v110, 2u);
   }
 
   [(iPadAudioCallViewController *)self setCurrentState:10];
@@ -4183,23 +4201,23 @@ LABEL_76:
   if (![(iPadAudioCallViewController *)self middleViewState]|| [(iPadAudioCallViewController *)self middleViewState]== 4 || [(iPadAudioCallViewController *)self middleViewState]== 5)
   {
     objc_initWeak(location, self);
-    v37 = _NSConcreteStackBlock;
-    v38 = 3221225472;
-    v39 = sub_1000D8148;
-    v40 = &unk_100359158;
-    objc_copyWeak(&v41, location);
-    v42 = v9;
-    [(iPadAudioCallViewController *)self setMiddleViewState:1 animated:1 completion:&v37];
-    objc_destroyWeak(&v41);
+    v39 = _NSConcreteStackBlock;
+    v40 = 3221225472;
+    v41 = sub_1000D8148;
+    v42 = &unk_100359158;
+    objc_copyWeak(&v43, location);
+    v44 = v9;
+    [(iPadAudioCallViewController *)self setMiddleViewState:1 animated:1 completion:&v39];
+    objc_destroyWeak(&v43);
     objc_destroyWeak(location);
   }
 
   if (stateCopy == 5 || [(PHCallViewController *)self currentState]== 5)
   {
-    [(iPadAudioCallViewController *)self updateViewsForHeldCallControlsViewIfNeeded:v37];
+    [(iPadAudioCallViewController *)self updateViewsForHeldCallControlsViewIfNeeded:v39];
   }
 
-  v10 = [(PHCallViewController *)self bottomBar:v37];
+  v10 = [(PHCallViewController *)self bottomBar:v39];
   [v10 setUserInteractionEnabled:1];
 
   currentMiddleView = [(iPadAudioCallViewController *)self currentMiddleView];
@@ -4248,7 +4266,7 @@ LABEL_76:
 
     else
     {
-      callCenter3 = sub_100004F84();
+      callCenter3 = sub_100004F84(v19);
       if (os_log_type_enabled(callCenter3, OS_LOG_TYPE_ERROR))
       {
         sub_100256590();
@@ -4279,7 +4297,7 @@ LABEL_76:
 
     else
     {
-      voiceLoopManager = sub_100004F84();
+      voiceLoopManager = sub_100004F84(v24);
       if (os_log_type_enabled(voiceLoopManager, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(location[0]) = 0;
@@ -4302,8 +4320,8 @@ LABEL_31:
     pickedRoute = [routeController6 pickedRoute];
     isReceiver = [pickedRoute isReceiver];
 
-    v32 = +[UIApplication sharedApplication];
-    delegate = [v32 delegate];
+    v34 = +[UIApplication sharedApplication];
+    delegate = [v34 delegate];
     currentInCallScene = [delegate currentInCallScene];
     delegate2 = [currentInCallScene delegate];
     callAnalyticsLogger = [delegate2 callAnalyticsLogger];
@@ -4625,7 +4643,7 @@ LABEL_11:
 - (void)setWaitingState:(unsigned __int16)state
 {
   stateCopy = state;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v23 = 134217984;
@@ -4712,14 +4730,13 @@ LABEL_11:
     [currentMiddleView2 setButtonsEnabled:0];
   }
 
-  [(SOSEmergencyCallVoiceLoopManager *)self->_voiceLoopManager invalidate];
-  v9 = sub_100004F84();
+  v9 = sub_100004F84([(SOSEmergencyCallVoiceLoopManager *)self->_voiceLoopManager invalidate]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     uniqueProxyIdentifierUUID = [mostRecentlyDisconnectedAudioCall uniqueProxyIdentifierUUID];
     disconnectedReason = [mostRecentlyDisconnectedAudioCall disconnectedReason];
     contactIdentifiers = [mostRecentlyDisconnectedAudioCall contactIdentifiers];
-    v30 = [contactIdentifiers count];
+    v31 = [contactIdentifiers count];
     isOutgoing = [mostRecentlyDisconnectedAudioCall isOutgoing];
     dateConnected = [mostRecentlyDisconnectedAudioCall dateConnected];
     v13 = [dateConnected description];
@@ -4727,23 +4744,24 @@ LABEL_11:
     isFaceTimeProvider = [provider isFaceTimeProvider];
     v16 = +[FTDeviceSupport sharedInstance];
     *buf = 138413826;
-    v34 = uniqueProxyIdentifierUUID;
-    v35 = 2048;
-    v36 = disconnectedReason;
-    v37 = 2048;
-    v38 = v30;
-    v39 = 1024;
-    v40 = isOutgoing;
-    v41 = 2112;
-    v42 = v13;
-    v43 = 1024;
-    v44 = isFaceTimeProvider;
-    v45 = 1024;
+    v35 = uniqueProxyIdentifierUUID;
+    v36 = 2048;
+    v37 = disconnectedReason;
+    v38 = 2048;
+    v39 = v31;
+    v40 = 1024;
+    v41 = isOutgoing;
+    v42 = 2112;
+    v43 = v13;
+    v44 = 1024;
+    v45 = isFaceTimeProvider;
+    v46 = 1024;
     isGreenTea = [v16 isGreenTea];
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "disconnectedCall: %@ disconnectedReason: %ld (disconnectedCall.contactIdentifiers.count: %lu && \n\n !(disconnectedCall.isOutgoing: %d && disconnectedCall.dateConnected: %@) && \n\n disconnectedCall.provider.isFaceTimeProvider: %d \n\n [[FTDeviceSupport sharedInstance] isGreenTea]) : %d", buf, 0x3Cu);
   }
 
-  if (![mostRecentlyDisconnectedAudioCall disconnectedReasonRequiresCallBackUI])
+  disconnectedReasonRequiresCallBackUI = [mostRecentlyDisconnectedAudioCall disconnectedReasonRequiresCallBackUI];
+  if (!disconnectedReasonRequiresCallBackUI)
   {
     uUIDForLocallyDisconnectedCall = [(iPadAudioCallViewController *)self UUIDForLocallyDisconnectedCall];
     callUUID = [mostRecentlyDisconnectedAudioCall callUUID];
@@ -4753,8 +4771,8 @@ LABEL_11:
 
     else
     {
-      v25 = +[UIApplication sharedApplication];
-      delegate2 = [v25 delegate];
+      v26 = +[UIApplication sharedApplication];
+      delegate2 = [v26 delegate];
       hasExistingFullScreenInCallScene = [delegate2 hasExistingFullScreenInCallScene];
 
       if (hasExistingFullScreenInCallScene)
@@ -4772,11 +4790,11 @@ LABEL_11:
     goto LABEL_22;
   }
 
-  v17 = sub_100004F84();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100004F84(disconnectedReasonRequiresCallBackUI);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "disconnectedCall requires callback UI", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "disconnectedCall requires callback UI", buf, 2u);
   }
 
   inCallRootViewController2 = [(iPadAudioCallViewController *)self inCallRootViewController];
@@ -4787,21 +4805,21 @@ LABEL_11:
   [(iPadAudioCallViewController *)self setCallForBackgroundImage:mostRecentlyDisconnectedAudioCall animated:1 callDisplayStyleChanged:0];
   if ([mostRecentlyDisconnectedAudioCall service] == 2 && (objc_msgSend(mostRecentlyDisconnectedAudioCall, "isMessagingAllowed") & 1) != 0)
   {
-    v19 = 17;
+    v20 = 17;
   }
 
   else if ([mostRecentlyDisconnectedAudioCall isCallbackAllowed])
   {
-    v19 = 13;
+    v20 = 13;
   }
 
   else
   {
-    v19 = 18;
+    v20 = 18;
   }
 
   bottomBar2 = [(PHCallViewController *)self bottomBar];
-  [bottomBar2 setCurrentState:v19 animated:1 animationCompletionBlock:0];
+  [bottomBar2 setCurrentState:v20 animated:1 animationCompletionBlock:0];
 
   bottomBar3 = [(PHCallViewController *)self bottomBar];
   [bottomBar3 setUserInteractionEnabled:1];
@@ -4820,12 +4838,11 @@ LABEL_22:
 
   if ([mostRecentlyDisconnectedAudioCall disconnectedReason] == 34)
   {
-    [(iPadAudioCallViewController *)self setMiddleViewState:0];
-    v29 = sub_100004F84();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100004F84([(iPadAudioCallViewController *)self setMiddleViewState:0]);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController is about to set shouldPresentAlertButton to NO", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController is about to set shouldPresentAlertButton to NO", buf, 2u);
     }
 
     self->_shouldPresentAlertButton = 0;
@@ -4880,7 +4897,7 @@ LABEL_22:
 
       if (!routeForSpeakerEnable)
       {
-        callCenter6 = sub_100004F84();
+        callCenter6 = sub_100004F84(v22);
         if (os_log_type_enabled(callCenter6, OS_LOG_TYPE_ERROR))
         {
           sub_100256590();
@@ -4908,7 +4925,7 @@ LABEL_22:
 
       if (!routeForSpeakerEnable)
       {
-        callCenter6 = sub_100004F84();
+        callCenter6 = sub_100004F84(v18);
         if (os_log_type_enabled(callCenter6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -4930,25 +4947,25 @@ LABEL_12:
   isolatedCall = [(iPadAudioCallViewController *)self isolatedCall];
   [(iPadAudioCallViewController *)self setCallForBackgroundImage:isolatedCall animated:1 callDisplayStyleChanged:0];
 
-  v39 = _NSConcreteStackBlock;
-  v40 = 3221225472;
-  v41 = sub_1000D9A94;
-  v42 = &unk_100356D10;
-  v23 = lastObject;
-  v43 = v23;
+  v41 = _NSConcreteStackBlock;
+  v42 = 3221225472;
+  v43 = sub_1000D9A94;
+  v44 = &unk_100356D10;
+  v25 = lastObject;
+  v45 = v25;
   selfCopy = self;
-  v24 = objc_retainBlock(&v39);
-  -[iPadAudioCallViewController setMiddleViewState:animated:completion:](self, "setMiddleViewState:animated:completion:", 1, [v23 isVoicemail] ^ 1, v24);
+  v26 = objc_retainBlock(&v41);
+  -[iPadAudioCallViewController setMiddleViewState:animated:completion:](self, "setMiddleViewState:animated:completion:", 1, [v25 isVoicemail] ^ 1, v26);
   currentMiddleView = [(iPadAudioCallViewController *)self currentMiddleView];
-  v26 = objc_opt_respondsToSelector();
+  v28 = objc_opt_respondsToSelector();
 
-  if (v26)
+  if (v28)
   {
     currentMiddleView2 = [(iPadAudioCallViewController *)self currentMiddleView];
     [currentMiddleView2 setButtonsEnabled:1];
   }
 
-  if ([v23 isVoicemail])
+  if ([v25 isVoicemail])
   {
     [(iPadAudioCallViewController *)self setMiddleViewState:2];
   }
@@ -4966,8 +4983,8 @@ LABEL_12:
     goto LABEL_23;
   }
 
-  v30 = +[UIApplication sharedApplication];
-  delegate = [v30 delegate];
+  v32 = +[UIApplication sharedApplication];
+  delegate = [v32 delegate];
   currentInCallScene = [delegate currentInCallScene];
   presentationMode = [currentInCallScene presentationMode];
 
@@ -4982,7 +4999,7 @@ LABEL_12:
       goto LABEL_24;
     }
 
-    v36 = routeForSpeakerEnable2;
+    v38 = routeForSpeakerEnable2;
     pickedRoute3 = [callDisplayStyleManager pickedRoute];
     isReceiver2 = [pickedRoute3 isReceiver];
 
@@ -5003,7 +5020,7 @@ LABEL_24:
 
 - (void)setCallBufferState:(unsigned __int16)state
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -5046,7 +5063,7 @@ LABEL_24:
 {
   stateCopy = state;
   unlockedCopy = unlocked;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
@@ -5088,13 +5105,13 @@ LABEL_24:
   isBeingShownAboveCoverSheet = [currentInCallScene isBeingShownAboveCoverSheet];
 
   callDisplayStyleManager = [(iPadAudioCallViewController *)self callDisplayStyleManager];
-  v64 = isBeingShownAboveCoverSheet & !unlockedCopy | v12;
+  v65 = isBeingShownAboveCoverSheet & !unlockedCopy | v12;
   if ([callDisplayStyleManager callDisplayStyle] == 3)
   {
     features = [(iPadAudioCallViewController *)self features];
     isDominoEnabled = [features isDominoEnabled];
     v21 = 23;
-    if (v64)
+    if (v65)
     {
       v22 = 24;
     }
@@ -5109,7 +5126,7 @@ LABEL_24:
       v21 = v22;
     }
 
-    v63 = v21;
+    v64 = v21;
   }
 
   else
@@ -5120,26 +5137,16 @@ LABEL_24:
       v23 = 24;
     }
 
-    v63 = v23;
+    v64 = v23;
   }
 
   callCenter = [(iPadAudioCallViewController *)self callCenter];
   screeningCall = [callCenter screeningCall];
 
-  v25 = sub_100004F84();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100004F84(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    if (v64)
-    {
-      v26 = @"YES";
-    }
-
-    else
-    {
-      v26 = @"NO";
-    }
-
-    if (v12)
+    if (v65)
     {
       v27 = @"YES";
     }
@@ -5149,7 +5156,7 @@ LABEL_24:
       v27 = @"NO";
     }
 
-    if (isBeingShownAboveCoverSheet)
+    if (v12)
     {
       v28 = @"YES";
     }
@@ -5159,27 +5166,37 @@ LABEL_24:
       v28 = @"NO";
     }
 
+    if (isBeingShownAboveCoverSheet)
+    {
+      v29 = @"YES";
+    }
+
+    else
+    {
+      v29 = @"NO";
+    }
+
     callDisplayStyleManager2 = [(iPadAudioCallViewController *)self callDisplayStyleManager];
     callDisplayStyle = [callDisplayStyleManager2 callDisplayStyle];
-    v31 = @"NO";
+    v32 = @"NO";
     if (callDisplayStyle == 3)
     {
       features2 = [(iPadAudioCallViewController *)self features];
       if ([features2 isDominoEnabled])
       {
-        v31 = @"YES";
+        v32 = @"YES";
       }
     }
 
     *buf = 138413058;
-    *&buf[4] = v26;
+    *&buf[4] = v27;
     *&buf[12] = 2112;
-    *&buf[14] = v27;
+    *&buf[14] = v28;
     *&buf[22] = 2112;
-    v76 = v28;
-    LOWORD(v77[0]) = 2112;
-    *(v77 + 2) = v31;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: showLockedState: %@, displayIsOff: %@, beingShownAboveCoverSheet: %@, isAmbient: %@", buf, 0x2Au);
+    v77 = v29;
+    LOWORD(v78[0]) = 2112;
+    *(v78 + 2) = v32;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: showLockedState: %@, displayIsOff: %@, beingShownAboveCoverSheet: %@, isAmbient: %@", buf, 0x2Au);
     if (callDisplayStyle == 3)
     {
     }
@@ -5189,12 +5206,12 @@ LABEL_24:
   if (TUCallScreeningEnabledM3())
   {
     contactIdentifiers = [screeningCall contactIdentifiers];
-    v34 = [contactIdentifiers count] != 0;
+    v35 = [contactIdentifiers count] != 0;
 
-    if (((v34 | v64) & 1) == 0)
+    if (((v35 | v65) & 1) == 0)
     {
       [(iPadAudioCallViewController *)self setCallForBackgroundImage:screeningCall animated:1 callDisplayStyleChanged:0];
-      v35 = 25;
+      v36 = 25;
       goto LABEL_41;
     }
   }
@@ -5204,13 +5221,13 @@ LABEL_24:
   }
 
   [(iPadAudioCallViewController *)self setCallForBackgroundImage:screeningCall animated:1 callDisplayStyleChanged:0];
-  if (v63 != 23)
+  if (v64 != 23)
   {
-    v35 = 24;
+    v36 = 24;
     goto LABEL_48;
   }
 
-  v35 = 23;
+  v36 = 23;
 LABEL_41:
   if (!unlockedCopy)
   {
@@ -5222,7 +5239,7 @@ LABEL_41:
 
       if (isDominoEnabled2)
       {
-        v35 = 26;
+        v36 = 26;
       }
     }
 
@@ -5245,43 +5262,43 @@ LABEL_48:
   if ([callDisplayStyleManager4 callDisplayStyle] == 3)
   {
     features4 = [(iPadAudioCallViewController *)self features];
-    [bottomBar4 setCurrentState:v35 animated:objc_msgSend(features4 animationCompletionBlock:{"isDominoEnabled"), 0}];
+    [bottomBar4 setCurrentState:v36 animated:objc_msgSend(features4 animationCompletionBlock:{"isDominoEnabled"), 0}];
   }
 
   else
   {
-    [bottomBar4 setCurrentState:v35 animated:0 animationCompletionBlock:0];
+    [bottomBar4 setCurrentState:v36 animated:0 animationCompletionBlock:0];
   }
 
   bottomBar5 = [(PHCallViewController *)self bottomBar];
-  v47 = [bottomBar5 controlForActionType:30];
+  v48 = [bottomBar5 controlForActionType:30];
 
-  [(PHCallViewController *)self configureDeclineWithReminderButton:0 declineWithMessageButton:v47 forIncomingCall:screeningCall];
+  [(PHCallViewController *)self configureDeclineWithReminderButton:0 declineWithMessageButton:v48 forIncomingCall:screeningCall];
   featureFlags2 = [(iPadAudioCallViewController *)self featureFlags];
   receptionistEnabled = [featureFlags2 receptionistEnabled];
   if (screeningCall)
   {
-    v50 = receptionistEnabled;
+    v51 = receptionistEnabled;
   }
 
   else
   {
-    v50 = 0;
+    v51 = 0;
   }
 
-  if (v50)
+  if (v51)
   {
     bottomBar6 = [(PHCallViewController *)self bottomBar];
-    v52 = [bottomBar6 controlForActionType:27];
+    v53 = [bottomBar6 controlForActionType:27];
 
-    [(PHCallViewController *)self configureDeclineWithMoreButton:v52 forIncomingCall:screeningCall];
+    [(PHCallViewController *)self configureDeclineWithMoreButton:v53 forIncomingCall:screeningCall];
   }
 
   [(iPadAudioCallViewController *)self setMiddleViewState:4 animated:1];
   callDisplayStyleManager5 = [(iPadAudioCallViewController *)self callDisplayStyleManager];
-  v54 = [callDisplayStyleManager5 callDisplayStyle] == 0;
+  v55 = [callDisplayStyleManager5 callDisplayStyle] == 0;
 
-  if (v54)
+  if (v55)
   {
     callParticipantsViewController = [(iPadAudioCallViewController *)self callParticipantsViewController];
     [callParticipantsViewController setBannerButtonsState:0];
@@ -5291,48 +5308,48 @@ LABEL_48:
   [(iPadAudioCallViewController *)self _testing_didTransitionToIncomingRingingCallState:bottomBar7];
 
   stateChangeLockObservation = [(iPadAudioCallViewController *)self stateChangeLockObservation];
-  if (!stateChangeLockObservation || ([(iPadAudioCallViewController *)self stateDisplayChangedObservation], v58 = objc_claimAutoreleasedReturnValue(), v59 = v58 == 0, v58, stateChangeLockObservation, v59))
+  if (!stateChangeLockObservation || ([(iPadAudioCallViewController *)self stateDisplayChangedObservation], v59 = objc_claimAutoreleasedReturnValue(), v60 = v59 == 0, v59, stateChangeLockObservation, v60))
   {
-    v73[0] = 0;
-    v73[1] = v73;
-    v73[2] = 0x2020000000;
-    v74 = 0;
+    v74[0] = 0;
+    v74[1] = v74;
+    v74[2] = 0x2020000000;
+    v75 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3042000000;
-    v76 = sub_1000DA5B0;
-    v77[0] = sub_1000DA5BC;
-    objc_initWeak(&v77[1], self);
-    v71[0] = _NSConcreteStackBlock;
-    v71[1] = 3221225472;
-    v71[2] = sub_1000DA5C4;
-    v71[3] = &unk_100359180;
-    v71[4] = buf;
-    v71[5] = v73;
-    v72 = stateCopy;
-    v60 = [(iPadAudioCallViewController *)self makeLockObserverWithHandler:v71];
-    [(iPadAudioCallViewController *)self setStateChangeLockObservation:v60];
+    v77 = sub_1000DA5B0;
+    v78[0] = sub_1000DA5BC;
+    objc_initWeak(&v78[1], self);
+    v72[0] = _NSConcreteStackBlock;
+    v72[1] = 3221225472;
+    v72[2] = sub_1000DA5C4;
+    v72[3] = &unk_100359180;
+    v72[4] = buf;
+    v72[5] = v74;
+    v73 = stateCopy;
+    v61 = [(iPadAudioCallViewController *)self makeLockObserverWithHandler:v72];
+    [(iPadAudioCallViewController *)self setStateChangeLockObservation:v61];
 
-    v70[0] = 0;
-    v70[1] = v70;
-    v70[2] = 0x2020000000;
+    v71[0] = 0;
+    v71[1] = v71;
+    v71[2] = 0x2020000000;
     traitCollection3 = [(iPadAudioCallViewController *)self traitCollection];
     _backlightLuminance = [traitCollection3 _backlightLuminance];
 
-    v70[3] = _backlightLuminance;
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = sub_1000DA6E4;
-    v68[3] = &unk_1003591A8;
-    v68[4] = buf;
-    v68[5] = v70;
-    v68[6] = v73;
-    v69 = stateCopy;
-    [(iPadAudioCallViewController *)self setStateDisplayChangedObservation:v68];
-    _Block_object_dispose(v70, 8);
+    v71[3] = _backlightLuminance;
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_1000DA6E4;
+    v69[3] = &unk_1003591A8;
+    v69[4] = buf;
+    v69[5] = v71;
+    v69[6] = v74;
+    v70 = stateCopy;
+    [(iPadAudioCallViewController *)self setStateDisplayChangedObservation:v69];
+    _Block_object_dispose(v71, 8);
     _Block_object_dispose(buf, 8);
-    objc_destroyWeak(&v77[1]);
-    _Block_object_dispose(v73, 8);
+    objc_destroyWeak(&v78[1]);
+    _Block_object_dispose(v74, 8);
   }
 }
 
@@ -5405,7 +5422,7 @@ LABEL_5:
 
 - (void)updateWaitOnHoldViewIfNeeded
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -5468,32 +5485,33 @@ LABEL_5:
   animatedCopy = animated;
   stateCopy = state;
   currentState = [(PHCallViewController *)self currentState];
-  v8 = sub_100004F84();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = currentState;
+  v9 = sub_100004F84(currentState);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     *&buf[4] = stateCopy;
     *&buf[8] = 1024;
-    *&buf[10] = currentState;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: %d (existing state is %d)", buf, 0xEu);
+    *&buf[10] = v8;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Audio: setCurrentState: %d (existing state is %d)", buf, 0xEu);
   }
 
-  if (currentState != stateCopy)
+  if (v8 != stateCopy)
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004F84(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       currentState2 = [(PHCallViewController *)self currentState];
       *buf = 67109376;
       *&buf[4] = currentState2;
       *&buf[8] = 1024;
       *&buf[10] = stateCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Audio: Setting current state: %d -> %d", buf, 0xEu);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Audio: Setting current state: %d -> %d", buf, 0xEu);
     }
 
-    v31.receiver = self;
-    v31.super_class = iPadAudioCallViewController;
-    [(PHCallViewController *)&v31 setCurrentState:stateCopy];
+    v33.receiver = self;
+    v33.super_class = iPadAudioCallViewController;
+    [(PHCallViewController *)&v33 setCurrentState:stateCopy];
     [(iPadAudioCallViewController *)self setStateChangeLockObservation:0];
     [(iPadAudioCallViewController *)self setStateDisplayChangedObservation:0];
     if (stateCopy <= 4)
@@ -5571,7 +5589,7 @@ LABEL_16:
     }
 
 LABEL_30:
-    if (currentState == 3)
+    if (v8 == 3)
     {
       [(iPadAudioCallViewController *)self setShowsCallWaitingParticipantView:0];
     }
@@ -5583,14 +5601,14 @@ LABEL_30:
       {
         getParticipantsView_NotWaiting = [(iPadAudioCallViewController *)self getParticipantsView_NotWaiting];
         singleCallLabelView = [getParticipantsView_NotWaiting singleCallLabelView];
-        v13 = singleCallLabelView;
+        v15 = singleCallLabelView;
         if (singleCallLabelView)
         {
           statusLabel = [singleCallLabelView statusLabel];
-          v15 = *&CGAffineTransformIdentity.c;
+          v17 = *&CGAffineTransformIdentity.c;
           *buf = *&CGAffineTransformIdentity.a;
-          v33 = v15;
-          v34 = *&CGAffineTransformIdentity.tx;
+          v35 = v17;
+          v36 = *&CGAffineTransformIdentity.tx;
           [statusLabel setTransform:buf];
         }
       }
@@ -5615,14 +5633,14 @@ LABEL_38:
 LABEL_41:
     if ([(iPadAudioCallViewController *)self shouldShowNewPosterUpdates])
     {
-      v17 = dispatch_time(0, 950000000);
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 3221225472;
-      v29[2] = sub_1000DB134;
-      v29[3] = &unk_100356960;
-      v29[4] = self;
-      v30 = stateCopy;
-      dispatch_after(v17, &_dispatch_main_q, v29);
+      v19 = dispatch_time(0, 950000000);
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 3221225472;
+      v31[2] = sub_1000DB134;
+      v31[3] = &unk_100356960;
+      v31[4] = self;
+      v32 = stateCopy;
+      dispatch_after(v19, &_dispatch_main_q, v31);
     }
 
     else
@@ -5633,7 +5651,7 @@ LABEL_41:
         renderingViewController = [(iPadAudioCallViewController *)self renderingViewController];
         if (renderingViewController)
         {
-          v19 = renderingViewController;
+          v21 = renderingViewController;
           posterNameViewModel = [(iPadAudioCallViewController *)self posterNameViewModel];
           priorityPosterNameTextView = [posterNameViewModel priorityPosterNameTextView];
 
@@ -5649,8 +5667,8 @@ LABEL_41:
 
     [(iPadAudioCallViewController *)self updateAmbientAudioRoutesVisibility];
     [(iPadAudioCallViewController *)self updateShareNameAndPhotoHUDPresentationIfNeeded];
-    v24 = +[NSNotificationCenter defaultCenter];
-    [v24 postNotificationName:@"PHCallViewControllerStateChangedNotification" object:0];
+    v26 = +[NSNotificationCenter defaultCenter];
+    [v26 postNotificationName:@"PHCallViewControllerStateChangedNotification" object:0];
 
     bottomBar2 = [(PHCallViewController *)self bottomBar];
     [bottomBar2 setNeedsLayout];
@@ -6007,7 +6025,7 @@ LABEL_11:
       wallpaperData = [wallpaper wallpaperData];
 
       v15 = [PRSPosterArchiver unarchiveConfigurationFromData:wallpaperData error:0];
-      v16 = sub_100004F84();
+      v16 = sub_100004F84(v15);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
@@ -6024,7 +6042,7 @@ LABEL_11:
 
     else
     {
-      v21 = sub_100004F84();
+      v21 = sub_100004F84(v9);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v23 = 138412290;
@@ -6055,45 +6073,45 @@ LABEL_11:
 
   if (contactIdentifier)
   {
-    v6 = [PHInCallUtilities contactStoreForCall:callCopy];
+    v7 = [PHInCallUtilities contactStoreForCall:callCopy];
     contactIdentifier2 = [callCopy contactIdentifier];
-    v8 = +[iPadAudioCallViewController contactKeysToFetch];
+    v9 = +[iPadAudioCallViewController contactKeysToFetch];
     contactsCache = [(iPadAudioCallViewController *)self contactsCache];
-    v10 = [v6 contactForIdentifier:contactIdentifier2 keysToFetch:v8 usingCache:contactsCache];
+    v11 = [v7 contactForIdentifier:contactIdentifier2 keysToFetch:v9 usingCache:contactsCache];
 
-    if (v10)
+    if (v11)
     {
-      v11 = [[CNSharedProfileStateOracle alloc] initWithContact:v10 contactStore:v6];
-      v12 = sub_100004F84();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v12 = [[CNSharedProfileStateOracle alloc] initWithContact:v11 contactStore:v7];
+      v13 = sub_100004F84(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SNAP: current CNSharedProfileStateOracle is %@", &v15, 0xCu);
+        v16 = 138412290;
+        v17 = v12;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SNAP: current CNSharedProfileStateOracle is %@", &v16, 0xCu);
       }
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
-      v15 = 138412290;
-      v16 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SNAP: call doesn't have contactIdentifier %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "SNAP: call doesn't have contactIdentifier %@", &v16, 0xCu);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)currentCallStateCanShowNewPoster
@@ -6171,7 +6189,7 @@ LABEL_11:
           v15 = 0;
           v12 = [v11 updateContactAndNicknamesForAutoUpdateWithError:&v15];
           v13 = v15;
-          v14 = sub_100004F84();
+          v14 = sub_100004F84(v13);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -6428,14 +6446,14 @@ LABEL_11:
 
       if (shouldHideContact)
       {
-        v11 = sub_100004F84();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_100004F84(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 138412290;
-          v20 = callCopy;
-          v12 = "SNAP: call initiated with Siri using a phone or email on a lock device, not showing the wallpaper %@";
+          v22 = 138412290;
+          v23 = callCopy;
+          v14 = "SNAP: call initiated with Siri using a phone or email on a lock device, not showing the wallpaper %@";
 LABEL_11:
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, &v19, 0xCu);
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, &v22, 0xCu);
           goto LABEL_12;
         }
 
@@ -6447,36 +6465,36 @@ LABEL_11:
     {
     }
 
-    v11 = [PHInCallUtilities contactStoreForCall:callCopy];
+    v13 = [PHInCallUtilities contactStoreForCall:callCopy];
     contactIdentifier2 = [callCopy contactIdentifier];
-    v14 = +[iPadAudioCallViewController contactKeysToFetch];
+    v16 = +[iPadAudioCallViewController contactKeysToFetch];
     contactsCache = [(iPadAudioCallViewController *)self contactsCache];
-    v16 = [v11 contactForIdentifier:contactIdentifier2 keysToFetch:v14 usingCache:contactsCache];
+    v18 = [v13 contactForIdentifier:contactIdentifier2 keysToFetch:v16 usingCache:contactsCache];
 
-    v17 = sub_100004F84();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004F84(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 67109120;
-      LODWORD(v20) = v16 != 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "SNAP: the contact we used to fetch wallpaper for call is non-nil: %d", &v19, 8u);
+      v22 = 67109120;
+      LODWORD(v23) = v18 != 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "SNAP: the contact we used to fetch wallpaper for call is non-nil: %d", &v22, 8u);
     }
 
-    wallpaper = [v16 wallpaper];
+    wallpaper = [v18 wallpaper];
 
     if (wallpaper)
     {
-      wallpaper = [v16 wallpaper];
+      wallpaper = [v18 wallpaper];
     }
 
     goto LABEL_19;
   }
 
-  v11 = sub_100004F84();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004F84(v7);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = callCopy;
-    v12 = "SNAP: call doesn't have contactIdentifier %@";
+    v22 = 138412290;
+    v23 = callCopy;
+    v14 = "SNAP: call doesn't have contactIdentifier %@";
     goto LABEL_11;
   }
 
@@ -6606,13 +6624,13 @@ LABEL_8:
 
       if (shouldHideContact)
       {
-        v16 = sub_100004F84();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100004F84(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
-          v26 = 138412290;
-          v27 = uniqueProxyIdentifier2;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SNAP: call initiated with Siri using a phone or email on a lock device, not showing the wallpaper for callUUID %@", &v26, 0xCu);
+          v28 = 138412290;
+          v29 = uniqueProxyIdentifier2;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "SNAP: call initiated with Siri using a phone or email on a lock device, not showing the wallpaper for callUUID %@", &v28, 0xCu);
         }
 
         goto LABEL_15;
@@ -6623,52 +6641,52 @@ LABEL_8:
     {
     }
 
-    v18 = [(iPadAudioCallViewController *)self readCachedLastSeenPosterDataForCall:callCopy];
-    if (v18)
+    v20 = [(iPadAudioCallViewController *)self readCachedLastSeenPosterDataForCall:callCopy];
+    if (v20)
     {
-      configurationCache3 = v18;
-      v11 = [PRSPosterArchiver unarchiveConfigurationFromData:v18 error:0];
-      v20 = sub_100004F84();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      configurationCache3 = v20;
+      v12 = [PRSPosterArchiver unarchiveConfigurationFromData:v20 error:0];
+      v22 = sub_100004F84(v12);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         uniqueProxyIdentifier3 = [callCopy uniqueProxyIdentifier];
-        v26 = 138412290;
-        v27 = uniqueProxyIdentifier3;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "SNAP: unarchived a lastSeen PRSPosterConfiguration for %@", &v26, 0xCu);
+        v28 = 138412290;
+        v29 = uniqueProxyIdentifier3;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "SNAP: unarchived a lastSeen PRSPosterConfiguration for %@", &v28, 0xCu);
       }
 
-      v22 = [[ICSPosterConfigurationWrapper alloc] initWithConfiguration:v11 source:1];
+      v24 = [[ICSPosterConfigurationWrapper alloc] initWithConfiguration:v12 source:1];
       configurationCache2 = [(iPadAudioCallViewController *)self configurationCache];
       uniqueProxyIdentifier4 = [callCopy uniqueProxyIdentifier];
-      [configurationCache2 setObject:v22 forKey:uniqueProxyIdentifier4];
+      [configurationCache2 setObject:v24 forKey:uniqueProxyIdentifier4];
 
       goto LABEL_16;
     }
 
 LABEL_15:
     configurationCache3 = [(iPadAudioCallViewController *)self configurationCache];
-    v22 = [[ICSPosterConfigurationWrapper alloc] initWithConfiguration:0 source:1];
+    v24 = [[ICSPosterConfigurationWrapper alloc] initWithConfiguration:0 source:1];
     configurationCache2 = [callCopy uniqueProxyIdentifier];
-    [configurationCache3 setObject:v22 forKey:configurationCache2];
-    v11 = 0;
+    [configurationCache3 setObject:v24 forKey:configurationCache2];
+    v12 = 0;
 LABEL_16:
 
     goto LABEL_17;
   }
 
-  v9 = sub_100004F84();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004F84(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     callUUID = [callCopy callUUID];
-    v26 = 138412290;
-    v27 = callUUID;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "SNAP: Returning a cached PRSPosterConfiguration for %@", &v26, 0xCu);
+    v28 = 138412290;
+    v29 = callUUID;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SNAP: Returning a cached PRSPosterConfiguration for %@", &v28, 0xCu);
   }
 
-  v11 = configuration;
+  v12 = configuration;
 LABEL_17:
 
-  return v11;
+  return v12;
 }
 
 - (id)contactWallpaperConfigurationForCall:(id)call shouldReadFromCache:(BOOL)cache
@@ -6680,40 +6698,40 @@ LABEL_17:
   {
     if (cacheCopy && (-[iPadAudioCallViewController configurationCache](self, "configurationCache"), v8 = objc_claimAutoreleasedReturnValue(), [callCopy uniqueProxyIdentifier], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKey:", v9), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "configuration"), v11 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, v11))
     {
-      posterArchiveData = sub_100004F84();
+      posterArchiveData = sub_100004F84(v12);
       if (os_log_type_enabled(posterArchiveData, OS_LOG_TYPE_DEFAULT))
       {
         callUUID = [callCopy callUUID];
-        v25 = 138412290;
-        v26 = callUUID;
-        _os_log_impl(&_mh_execute_header, posterArchiveData, OS_LOG_TYPE_DEFAULT, "SNAP: Returning a cached PRSPosterConfiguration for %@", &v25, 0xCu);
+        v27 = 138412290;
+        v28 = callUUID;
+        _os_log_impl(&_mh_execute_header, posterArchiveData, OS_LOG_TYPE_DEFAULT, "SNAP: Returning a cached PRSPosterConfiguration for %@", &v27, 0xCu);
       }
     }
 
     else
     {
       posterArchiveData = [v7 posterArchiveData];
-      v14 = sub_100004F84();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      v15 = sub_100004F84(posterArchiveData);
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
       if (posterArchiveData)
       {
-        if (v15)
+        if (v16)
         {
-          v25 = 138412546;
-          v26 = posterArchiveData;
-          v27 = 2048;
-          v28 = [posterArchiveData length];
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SNAP: posterArchiveData in wallpaper is %@, length is %lu", &v25, 0x16u);
+          v27 = 138412546;
+          v28 = posterArchiveData;
+          v29 = 2048;
+          v30 = [posterArchiveData length];
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SNAP: posterArchiveData in wallpaper is %@, length is %lu", &v27, 0x16u);
         }
 
         v11 = [PRSPosterArchiver unarchiveConfigurationFromData:posterArchiveData error:0];
-        v16 = sub_100004F84();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100004F84(v11);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
-          v25 = 138412290;
-          v26 = uniqueProxyIdentifier;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SNAP: unarchived a contact (current) PRSPosterConfiguration for %@", &v25, 0xCu);
+          v27 = 138412290;
+          v28 = uniqueProxyIdentifier;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "SNAP: unarchived a contact (current) PRSPosterConfiguration for %@", &v27, 0xCu);
         }
 
         configurationCache2 = [[ICSPosterConfigurationWrapper alloc] initWithConfiguration:v11 source:2];
@@ -6724,10 +6742,10 @@ LABEL_17:
 
       else
       {
-        if (v15)
+        if (v16)
         {
-          LOWORD(v25) = 0;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SNAP: there is no posterArchiveData in wallpaper", &v25, 2u);
+          LOWORD(v27) = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SNAP: there is no posterArchiveData in wallpaper", &v27, 2u);
         }
 
         configurationCache2 = [(iPadAudioCallViewController *)self configurationCache];
@@ -6742,15 +6760,15 @@ LABEL_17:
   else
   {
     configurationCache3 = [(iPadAudioCallViewController *)self configurationCache];
-    v22 = [[ICSPosterConfigurationWrapper alloc] initWithConfiguration:0 source:2];
+    v23 = [[ICSPosterConfigurationWrapper alloc] initWithConfiguration:0 source:2];
     uniqueProxyIdentifier3 = [callCopy uniqueProxyIdentifier];
-    [configurationCache3 setObject:v22 forKey:uniqueProxyIdentifier3];
+    [configurationCache3 setObject:v23 forKey:uniqueProxyIdentifier3];
 
-    posterArchiveData = sub_100004F84();
+    posterArchiveData = sub_100004F84(v25);
     if (os_log_type_enabled(posterArchiveData, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&_mh_execute_header, posterArchiveData, OS_LOG_TYPE_DEFAULT, "SNAP: contactWallpaperForCall is nil", &v25, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&_mh_execute_header, posterArchiveData, OS_LOG_TYPE_DEFAULT, "SNAP: contactWallpaperForCall is nil", &v27, 2u);
     }
 
     v11 = 0;
@@ -6890,8 +6908,7 @@ LABEL_8:
     v6 = 0.0;
   }
 
-  [(PHBackgroundGradientBlurView *)self->_backgroundImageView setAlpha:v6];
-  v7 = sub_100004F84();
+  v7 = sub_100004F84([(PHBackgroundGradientBlurView *)self->_backgroundImageView setAlpha:v6]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     [(PHBackgroundGradientBlurView *)self->_backgroundImageView alpha];
@@ -6905,7 +6922,7 @@ LABEL_8:
 {
   changedCopy = changed;
   imageCopy = image;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(imageCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138412290;
@@ -6980,11 +6997,11 @@ LABEL_19:
 
 - (id)contactImageDataForCall:(id)call
 {
-  v4 = [(iPadAudioCallViewController *)self contactForCall:call];
-  v5 = v4;
-  if (v4)
+  imageData = [(iPadAudioCallViewController *)self contactForCall:call];
+  v5 = imageData;
+  if (imageData)
   {
-    fullscreenImageData = [v4 fullscreenImageData];
+    fullscreenImageData = [imageData fullscreenImageData];
     callDisplayStyleManager = [(iPadAudioCallViewController *)self callDisplayStyleManager];
     if ([callDisplayStyleManager callDisplayStyle] == 3)
     {
@@ -6993,7 +7010,8 @@ LABEL_19:
 
       if (isDominoEnabled && !fullscreenImageData)
       {
-        fullscreenImageData = [v5 imageData];
+        imageData = [v5 imageData];
+        fullscreenImageData = imageData;
       }
     }
 
@@ -7007,7 +7025,7 @@ LABEL_19:
     fullscreenImageData = 0;
   }
 
-  v10 = sub_100004F84();
+  v10 = sub_100004F84(imageData);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -7038,53 +7056,54 @@ LABEL_19:
 
   if (contactIdentifier && v8)
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004F84(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SNAP: trying to fetch contactImageData", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SNAP: trying to fetch contactImageData", v19, 2u);
     }
 
     handle3 = [PHInCallUtilities contactStoreForCall:callCopy];
     contactIdentifier2 = [callCopy contactIdentifier];
-    v13 = +[iPadAudioCallViewController contactKeysToFetch];
+    v14 = +[iPadAudioCallViewController contactKeysToFetch];
     contactsCache = [(iPadAudioCallViewController *)self contactsCache];
-    v15 = [handle3 contactForIdentifier:contactIdentifier2 keysToFetch:v13 usingCache:contactsCache];
+    v16 = [handle3 contactForIdentifier:contactIdentifier2 keysToFetch:v14 usingCache:contactsCache];
   }
 
   else
   {
-    v16 = [CNMutableContact alloc];
+    v17 = [CNMutableContact alloc];
     handle3 = [callCopy handle];
-    v15 = [v16 initWithHandle:handle3];
+    v16 = [v17 initWithHandle:handle3];
   }
 
-  return v15;
+  return v16;
 }
 
 - (id)fallbackImageDataForCall:(id)call
 {
-  v3 = [(iPadAudioCallViewController *)self contactForCall:call];
-  v4 = v3;
-  if (v3)
+  imageData = [(iPadAudioCallViewController *)self contactForCall:call];
+  v4 = imageData;
+  if (imageData)
   {
-    imageData = [v3 imageData];
+    imageData = [imageData imageData];
+    v5 = imageData;
   }
 
   else
   {
-    imageData = 0;
+    v5 = 0;
   }
 
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(imageData);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
-    v9 = imageData;
+    v9 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SNAP: fallbackImageDataForContact is %@", &v8, 0xCu);
   }
 
-  return imageData;
+  return v5;
 }
 
 - (id)contactImageForCall:(id)call
@@ -7530,7 +7549,7 @@ LABEL_6:
 
 - (void)addDefaultBackgroundGradientView
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -7588,7 +7607,7 @@ LABEL_6:
 
 - (void)removeDefaultBackgroundGradientView
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -7866,11 +7885,11 @@ LABEL_6:
   {
   }
 
-  v7 = sub_100004F84();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004F84(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v21 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Lock screen visibility did change, refreshing UI", v21, 2u);
+    *v22 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Lock screen visibility did change, refreshing UI", v22, 2u);
   }
 
   [(iPadAudioCallViewController *)self setCallForBackgroundImage:0];
@@ -7976,11 +7995,11 @@ LABEL_6:
 
       if (renderingMode == 2)
       {
-        v12 = sub_100004F84();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_100004F84(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *v14 = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SNAP: Setting poster renderingMode to .paused", v14, 2u);
+          *v15 = 0;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SNAP: Setting poster renderingMode to .paused", v15, 2u);
         }
 
         renderingViewController4 = [(iPadAudioCallViewController *)self renderingViewController];
@@ -8120,7 +8139,7 @@ LABEL_6:
   {
 
 LABEL_8:
-    v11 = 9;
+    v12 = 9;
     goto LABEL_9;
   }
 
@@ -8133,40 +8152,40 @@ LABEL_8:
   }
 
   callCenter3 = [(iPadAudioCallViewController *)self callCenter];
-  v7 = [callCenter3 callWithStatus:2];
-  if (v7)
+  v8 = [callCenter3 callWithStatus:2];
+  if (v8)
   {
-    v8 = v7;
+    v9 = v8;
     callCenter4 = [(iPadAudioCallViewController *)self callCenter];
-    v10 = [callCenter4 callWithStatus:1];
+    v11 = [callCenter4 callWithStatus:1];
 
-    if (v10)
+    if (v11)
     {
-      v11 = 8;
+      v12 = 8;
     }
 
     else
     {
-      v11 = 7;
+      v12 = 7;
     }
   }
 
   else
   {
 
-    v11 = 7;
+    v12 = 7;
   }
 
 LABEL_9:
-  v12 = sub_100004F84();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004F84(v4);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134217984;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "AudioCallWaiting: Showing bottom bar state: %ld", &v14, 0xCu);
+    v15 = 134217984;
+    v16 = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "AudioCallWaiting: Showing bottom bar state: %ld", &v15, 0xCu);
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)copyCallWaitingConstraintsFromParticipantsView
@@ -8277,7 +8296,7 @@ LABEL_7:
 
 - (void)audioCallControlsViewControllerRequestedKeypadPresentation:(id)presentation
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -8289,7 +8308,7 @@ LABEL_7:
 
 - (void)audioCallControlsViewControllerRequestedKeypadPresentationForFieldMode:(id)mode
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -8304,7 +8323,7 @@ LABEL_7:
 - (void)audioCallControlsViewControllerRequestedContactsPresentation:(id)presentation forView:(id)view
 {
   viewCopy = view;
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(viewCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -8326,7 +8345,7 @@ LABEL_7:
 - (void)audioCallControlsViewControllerRequestedAddCallPresentation:(id)presentation forView:(id)view
 {
   viewCopy = view;
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(viewCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -8347,7 +8366,7 @@ LABEL_7:
 
 - (void)audioCallControlsViewControllerRequestedAudioRoutesPresentation:(id)presentation
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -8359,7 +8378,7 @@ LABEL_7:
 
 - (void)audioCallControlsViewControllerRequestedVideoPresentation:(id)presentation
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -8417,15 +8436,15 @@ LABEL_7:
   {
   }
 
-  v8 = sub_10014265C();
-  if (!v8)
+  v9 = sub_10014265C(v8);
+  if (!v9)
   {
     return;
   }
 
-  v9 = v8;
+  v10 = v9;
   activeCall = [(iPadAudioCallViewController *)self activeCall];
-  emergencyCoordinator2 = [v9 viewControllerForCall:activeCall];
+  emergencyCoordinator2 = [v10 viewControllerForCall:activeCall];
 
   navigationController = [(iPadAudioCallViewController *)self navigationController];
   [navigationController pushViewController:emergencyCoordinator2 animated:1];
@@ -8436,7 +8455,7 @@ LABEL_8:
 - (void)audioCallControlsViewControllerRequestedMoreMenuFromSourceView:(id)view
 {
   viewCopy = view;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(viewCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -8455,7 +8474,7 @@ LABEL_8:
 - (void)audioCallControlsViewControllerRequestedShareCardFromSourceView:(id)view
 {
   viewCopy = view;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(viewCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -8554,7 +8573,7 @@ LABEL_8:
 - (void)audioCallControlsViewControllerRequestedAddCallPresentation:(id)presentation
 {
   presentationCopy = presentation;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(presentationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -8590,7 +8609,7 @@ LABEL_8:
 
 - (void)audioCallVoiceLoopViewControllerRequestedButtonPresentation
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -8637,38 +8656,38 @@ LABEL_8:
 {
   animatedCopy = animated;
   stateCopy = state;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v102) = stateCopy;
+    LODWORD(v104) = stateCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "setMiddleViewState: %d", buf, 8u);
   }
 
-  v9 = sub_100004F84();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004F84(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     buttonsViewController = [(iPadAudioCallViewController *)self buttonsViewController];
     [buttonsViewController view];
-    v97 = stateCopy;
-    v12 = v11 = animatedCopy;
+    v99 = stateCopy;
+    v13 = v12 = animatedCopy;
     buttonsViewController2 = [(iPadAudioCallViewController *)self buttonsViewController];
     view = [buttonsViewController2 view];
     [view alpha];
-    v16 = v15;
+    v17 = v16;
     buttonsViewController3 = [(iPadAudioCallViewController *)self buttonsViewController];
     view2 = [buttonsViewController3 view];
     superview = [view2 superview];
     *buf = 138412802;
-    v102 = v12;
-    v103 = 2048;
-    v104 = v16;
-    v105 = 2112;
-    v106 = superview;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "current six-up is: %@, six-up view alpha is: %f, six-up view parent view is: %@", buf, 0x20u);
+    v104 = v13;
+    v105 = 2048;
+    v106 = v17;
+    v107 = 2112;
+    v108 = superview;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "current six-up is: %@, six-up view alpha is: %f, six-up view parent view is: %@", buf, 0x20u);
 
-    animatedCopy = v11;
-    stateCopy = v97;
+    animatedCopy = v12;
+    stateCopy = v99;
   }
 
   middleViewState = self->_middleViewState;
@@ -8685,7 +8704,7 @@ LABEL_8:
 
         view3 = [(iPadAudioCallViewController *)self view];
         [view3 bounds];
-        [(iPadAudioCallViewController *)self showKeypadWithPerviousMiddleState:middleViewState viewSize:v30, v31];
+        [(iPadAudioCallViewController *)self showKeypadWithPerviousMiddleState:middleViewState viewSize:v32, v33];
       }
 
       else
@@ -8720,30 +8739,30 @@ LABEL_8:
           centerXAnchor = [view8 centerXAnchor];
           view9 = [(iPadAudioCallViewController *)self view];
           centerXAnchor2 = [view9 centerXAnchor];
-          v92 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-          v100[0] = v92;
+          v94 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+          v102[0] = v94;
           voiceLoopViewController5 = [(iPadAudioCallViewController *)self voiceLoopViewController];
           view10 = [voiceLoopViewController5 view];
           leadingAnchor = [view10 leadingAnchor];
           view11 = [(iPadAudioCallViewController *)self view];
           leadingAnchor2 = [view11 leadingAnchor];
-          v86 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-          v100[1] = v86;
+          v88 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+          v102[1] = v88;
           voiceLoopViewController6 = [(iPadAudioCallViewController *)self voiceLoopViewController];
           view12 = [voiceLoopViewController6 view];
           trailingAnchor = [view12 trailingAnchor];
           view13 = [(iPadAudioCallViewController *)self view];
           trailingAnchor2 = [view13 trailingAnchor];
-          v80 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-          v100[2] = v80;
+          v82 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+          v102[2] = v82;
           voiceLoopViewController7 = [(iPadAudioCallViewController *)self voiceLoopViewController];
           view14 = [voiceLoopViewController7 view];
           topAnchor = [view14 topAnchor];
           callParticipantsViewController = [(iPadAudioCallViewController *)self callParticipantsViewController];
           view15 = [callParticipantsViewController view];
           bottomAnchor = [view15 bottomAnchor];
-          v73 = [topAnchor constraintEqualToAnchor:bottomAnchor];
-          v100[3] = v73;
+          v75 = [topAnchor constraintEqualToAnchor:bottomAnchor];
+          v102[3] = v75;
           voiceLoopViewController8 = [(iPadAudioCallViewController *)self voiceLoopViewController];
           view16 = [voiceLoopViewController8 view];
           bottomAnchor2 = [view16 bottomAnchor];
@@ -8751,12 +8770,12 @@ LABEL_8:
           topLayoutGuide = [bottomBar topLayoutGuide];
           topAnchor2 = [topLayoutGuide topAnchor];
           [bottomAnchor2 constraintEqualToAnchor:topAnchor2];
-          v45 = v44 = animatedCopy;
-          v100[4] = v45;
-          v46 = [NSArray arrayWithObjects:v100 count:5];
-          [NSLayoutConstraint activateConstraints:v46];
+          v47 = v46 = animatedCopy;
+          v102[4] = v47;
+          v48 = [NSArray arrayWithObjects:v102 count:5];
+          [NSLayoutConstraint activateConstraints:v48];
 
-          animatedCopy = v44;
+          animatedCopy = v46;
         }
 
         callParticipantsViewController2 = [(iPadAudioCallViewController *)self callParticipantsViewController];
@@ -8771,10 +8790,10 @@ LABEL_8:
         [view18 layoutIfNeeded];
 
         callDisplayStyleManager = [(iPadAudioCallViewController *)self callDisplayStyleManager];
-        v53 = [callDisplayStyleManager callDisplayStyle] != 0;
+        v55 = [callDisplayStyleManager callDisplayStyle] != 0;
 
         view3 = [(PHCallViewController *)self bottomBar];
-        [view3 setCurrentState:11 animated:v53 animationCompletionBlock:0];
+        [view3 setCurrentState:11 animated:v55 animationCompletionBlock:0];
         goto LABEL_28;
       case 4:
         if ([(iPadAudioCallViewController *)self middleViewState]== 1)
@@ -8816,7 +8835,7 @@ LABEL_32:
           view23 = [(UIViewController *)waitOnHoldViewController view];
           [(iPadAudioCallViewController *)self removeContentViewIfNeeded:view23 animated:animatedCopy];
 
-          v69 = self->_waitOnHoldViewController;
+          v71 = self->_waitOnHoldViewController;
           self->_waitOnHoldViewController = 0;
         }
 
@@ -8831,13 +8850,13 @@ LABEL_34:
         [(iPadAudioCallViewController *)self updateBottomShelfWithMiddleViewState:self->_middleViewState callDisplayStyle:[(ICSCallDisplayStyleManager *)self->_callDisplayStyleManager callDisplayStyle]];
         if ([(iPadAudioCallViewController *)self isShowingPoster])
         {
-          v99[0] = _NSConcreteStackBlock;
-          v99[1] = 3221225472;
-          v99[2] = sub_1000E2FF8;
-          v99[3] = &unk_100357068;
-          v99[4] = self;
-          v99[5] = 0x3FF0000000000000;
-          [UIView animateWithDuration:v99 animations:0.2];
+          v101[0] = _NSConcreteStackBlock;
+          v101[1] = 3221225472;
+          v101[2] = sub_1000E2FF8;
+          v101[3] = &unk_100357068;
+          v101[4] = self;
+          v101[5] = 0x3FF0000000000000;
+          [UIView animateWithDuration:v101 animations:0.2];
         }
 
         return;
@@ -8846,7 +8865,7 @@ LABEL_34:
 
         if (!waitOnHoldViewController)
         {
-          view3 = sub_100004F84();
+          view3 = sub_100004F84(v23);
           if (os_log_type_enabled(view3, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -8878,8 +8897,8 @@ LABEL_34:
           [view25 addSubview:view26];
 
           view3 = [(iPadAudioCallViewController *)self waitOnHoldViewController];
-          v28View = [view3 view];
-          [(iPadAudioCallViewController *)self setupMiddleContentView:v28View flexibleConstraints:1 bottomPadding:-20.0];
+          v30View = [view3 view];
+          [(iPadAudioCallViewController *)self setupMiddleContentView:v30View flexibleConstraints:1 bottomPadding:-20.0];
 
 LABEL_28:
         }
@@ -8896,7 +8915,7 @@ LABEL_29:
 
       [(iPadAudioCallViewController *)self removeChildViewController:self->_screeningViewController];
       [(UIViewController *)self->_screeningViewController didMoveToParentViewController:0];
-      v66 = self->_screeningViewController;
+      v68 = self->_screeningViewController;
       self->_screeningViewController = 0;
     }
 
@@ -9080,7 +9099,7 @@ LABEL_29:
   useRTTButton = self->_useRTTButton;
   if (!useRTTButton)
   {
-    v4 = sub_10001A58C();
+    v4 = sub_10001A58C(0);
     frontmostCall = [(iPadAudioCallViewController *)self frontmostCall];
     v6 = [[PHAudioCallControlsSupplementalButton alloc] initWithFrame:CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height];
     v7 = self->_useRTTButton;
@@ -9212,14 +9231,14 @@ LABEL_29:
 
   else
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134218242;
+      v11 = 134218242;
       performedCopy = performed;
-      v12 = 2112;
-      v13 = barCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot perform bottom bar action %ld from unknown bottom bar %@", &v10, 0x16u);
+      v13 = 2112;
+      v14 = barCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot perform bottom bar action %ld from unknown bottom bar %@", &v11, 0x16u);
     }
   }
 }
@@ -9238,34 +9257,34 @@ LABEL_29:
 
   if (v6)
   {
-    v12 = +[TUCallCenter sharedInstance];
-    v13 = [v12 callsPassingTest:&stru_100359210];
-    firstObject = [v13 firstObject];
+    v13 = +[TUCallCenter sharedInstance];
+    v14 = [v13 callsPassingTest:&stru_100359210];
+    firstObject = [v14 firstObject];
 
     if (firstObject && !self->_shouldIgnoreWaitOnHoldSessionState)
     {
-      v131[0] = _NSConcreteStackBlock;
-      v131[1] = 3221225472;
-      v131[2] = sub_1000E4E94;
-      v131[3] = &unk_100359238;
-      v131[4] = self;
-      v131[5] = type;
-      v18 = objc_retainBlock(v131);
+      v139[0] = _NSConcreteStackBlock;
+      v139[1] = 3221225472;
+      v139[2] = sub_1000E4E94;
+      v139[3] = &unk_100359238;
+      v139[4] = self;
+      v139[5] = type;
+      v19 = objc_retainBlock(v139);
       displayName = [firstObject displayName];
-      [(iPadAudioCallViewController *)self presentWaitOnHoldEndForAnotherCallAlertWithCallerName:displayName completionHandler:v18];
+      [(iPadAudioCallViewController *)self presentWaitOnHoldEndForAnotherCallAlertWithCallerName:displayName completionHandler:v19];
 
       goto LABEL_104;
     }
   }
 
-  v15 = sub_100004F84();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100004F84(v12);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     bottomBar = [(PHCallViewController *)self bottomBar];
-    v17 = [bottomBar nameForActionType:type];
+    v18 = [bottomBar nameForActionType:type];
     *buf = 138412290;
-    v133 = v17;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BottomBarActionPerformed: %@", buf, 0xCu);
+    v141 = v18;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "BottomBarActionPerformed: %@", buf, 0xCu);
   }
 
   switch(type)
@@ -9289,37 +9308,38 @@ LABEL_32:
         callCenter = [(iPadAudioCallViewController *)self callCenter];
         screeningCall = [callCenter screeningCall];
 
-        if ([(iPadAudioCallViewController *)self usesCompactMulticallUI])
+        usesCompactMulticallUI = [(iPadAudioCallViewController *)self usesCompactMulticallUI];
+        if (usesCompactMulticallUI)
         {
           prioritizedCall = [(iPadAudioCallViewController *)self prioritizedCall];
-          v91 = [screeningCall isEqualToCall:prioritizedCall];
+          v95 = [screeningCall isEqualToCall:prioritizedCall];
 
-          v92 = v91 ^ 1;
+          v96 = v95 ^ 1;
         }
 
         else
         {
-          v92 = 0;
+          v96 = 0;
         }
 
-        if (!screeningCall || (v92 & 1) != 0)
+        if (!screeningCall || (v96 & 1) != 0)
         {
           callCenter2 = [(iPadAudioCallViewController *)self callCenter];
           incomingCall = [callCenter2 incomingCall];
 
-          v106 = sub_100004F84();
-          if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+          v112 = sub_100004F84(v111);
+          if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v133 = incomingCall;
-            _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "Answering incoming call: %@", buf, 0xCu);
+            v141 = incomingCall;
+            _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_DEFAULT, "Answering incoming call: %@", buf, 0xCu);
           }
 
-          if (-[iPadAudioCallViewController usesCompactMulticallUI](self, "usesCompactMulticallUI") && (-[iPadAudioCallViewController callCenter](self, "callCenter"), v107 = objc_claimAutoreleasedReturnValue(), [v107 currentCallGroups], v108 = objc_claimAutoreleasedReturnValue(), v109 = objc_msgSend(v108, "count") > 1, v108, v107, v109))
+          if (-[iPadAudioCallViewController usesCompactMulticallUI](self, "usesCompactMulticallUI") && (-[iPadAudioCallViewController callCenter](self, "callCenter"), v113 = objc_claimAutoreleasedReturnValue(), [v113 currentCallGroups], v114 = objc_claimAutoreleasedReturnValue(), v115 = objc_msgSend(v114, "count") > 1, v114, v113, v115))
           {
             callCenter4 = [(iPadAudioCallViewController *)self answerRequestForCall:incomingCall];
             callCenter3 = [(iPadAudioCallViewController *)self callCenter];
-            v111 = callCenter3;
+            v117 = callCenter3;
             if (screeningCall)
             {
               [callCenter3 endActiveOrHeldAndAnswerWithRequest:callCenter4];
@@ -9344,12 +9364,12 @@ LABEL_32:
 
         else
         {
-          v102 = sub_100004F84();
-          if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+          v107 = sub_100004F84(usesCompactMulticallUI);
+          if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v133 = screeningCall;
-            _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "Answering screened call: %@", buf, 0xCu);
+            v141 = screeningCall;
+            _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "Answering screened call: %@", buf, 0xCu);
           }
 
           incomingCall = [(iPadAudioCallViewController *)self answerRequestForCall:screeningCall];
@@ -9363,7 +9383,7 @@ LABEL_32:
     case 4:
       callCenter5 = [(iPadAudioCallViewController *)self callCenter];
       incomingCall2 = [callCenter5 incomingCall];
-      v70 = [(iPadAudioCallViewController *)self answerRequestForCall:incomingCall2];
+      v72 = [(iPadAudioCallViewController *)self answerRequestForCall:incomingCall2];
 
       callCenter6 = [(iPadAudioCallViewController *)self callCenter];
       activeVideoCall = [callCenter6 activeVideoCall];
@@ -9372,33 +9392,33 @@ LABEL_32:
       analyticsReporter2 = callCenter7;
       if (activeVideoCall)
       {
-        [callCenter7 endActiveOrHeldAndAnswerWithRequest:v70];
+        [callCenter7 endActiveOrHeldAndAnswerWithRequest:v72];
       }
 
       else
       {
         isEndAndAnswerAllowed = [callCenter7 isEndAndAnswerAllowed];
 
-        v120 = sub_100004F84();
-        v121 = os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT);
+        v127 = sub_100004F84(v126);
+        v128 = os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT);
         if (isEndAndAnswerAllowed)
         {
-          if (v121)
+          if (v128)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "BottomBar: Ending active and answering incoming call", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_DEFAULT, "BottomBar: Ending active and answering incoming call", buf, 2u);
           }
 
           callCenter8 = [(iPadAudioCallViewController *)self callCenter];
-          [callCenter8 endActiveOrHeldAndAnswerWithRequest:v70];
+          [callCenter8 endActiveOrHeldAndAnswerWithRequest:v72];
         }
 
         else
         {
-          if (v121)
+          if (v128)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "BottomBar: Disconnecting all calls", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_DEFAULT, "BottomBar: Disconnecting all calls", buf, 2u);
           }
 
           callCenter8 = [(iPadAudioCallViewController *)self callCenter];
@@ -9414,16 +9434,16 @@ LABEL_32:
       callCenter9 = [(iPadAudioCallViewController *)self callCenter];
       callCenter10 = [(iPadAudioCallViewController *)self callCenter];
       incomingCall3 = [callCenter10 incomingCall];
-      v47 = [(iPadAudioCallViewController *)self answerRequestForCall:incomingCall3];
-      [callCenter9 endHeldAndAnswerWithRequest:v47];
+      v48 = [(iPadAudioCallViewController *)self answerRequestForCall:incomingCall3];
+      [callCenter9 endHeldAndAnswerWithRequest:v48];
 
       break;
     case 6:
       callCenter11 = [(iPadAudioCallViewController *)self callCenter];
       callCenter12 = [(iPadAudioCallViewController *)self callCenter];
       incomingCall4 = [callCenter12 incomingCall];
-      v51 = [(iPadAudioCallViewController *)self answerRequestForCall:incomingCall4];
-      [callCenter11 holdActiveAndAnswerWithRequest:v51];
+      v52 = [(iPadAudioCallViewController *)self answerRequestForCall:incomingCall4];
+      [callCenter11 holdActiveAndAnswerWithRequest:v52];
 
       analyticsReporter3 = [(iPadAudioCallViewController *)self analyticsReporter];
       [analyticsReporter3 reportMultipleCallsWaitingUIAction:3];
@@ -9480,16 +9500,16 @@ LABEL_103:
 
       break;
     case 17:
-      v128[0] = _NSConcreteStackBlock;
-      v128[1] = 3221225472;
-      v128[2] = sub_1000E4FE4;
-      v128[3] = &unk_100356988;
-      v128[4] = self;
-      [(iPadAudioCallViewController *)self keypadViewWillDisappearWithCompletion:v128];
+      v136[0] = _NSConcreteStackBlock;
+      v136[1] = 3221225472;
+      v136[2] = sub_1000E4FE4;
+      v136[3] = &unk_100356988;
+      v136[4] = self;
+      [(iPadAudioCallViewController *)self keypadViewWillDisappearWithCompletion:v136];
       break;
     case 18:
-      v76 = +[UIApplication sharedApplication];
-      delegate = [v76 delegate];
+      v78 = +[UIApplication sharedApplication];
+      delegate = [v78 delegate];
       mostRecentlyDisconnectedAudioCall = [delegate mostRecentlyDisconnectedAudioCall];
 
       if (mostRecentlyDisconnectedAudioCall)
@@ -9501,7 +9521,7 @@ LABEL_103:
 
       else
       {
-        callCenter15 = sub_100004F84();
+        callCenter15 = sub_100004F84(v81);
         if (os_log_type_enabled(callCenter15, OS_LOG_TYPE_ERROR))
         {
           sub_1002565D8();
@@ -9516,8 +9536,8 @@ LABEL_103:
 
       if (areAuxiliaryRoutesAvailable)
       {
-        v36 = +[UIApplication sharedApplication];
-        delegate2 = [v36 delegate];
+        v37 = +[UIApplication sharedApplication];
+        delegate2 = [v37 delegate];
         currentInCallScene = [delegate2 currentInCallScene];
         [currentInCallScene requestTransitionToPresentationMode:2 shouldDismissCMASAlerts:0 analyticsSource:@"iPadSBSUIInCallTransitionAnalyticsSourceAudioRouteButtonPress"];
 
@@ -9533,7 +9553,7 @@ LABEL_103:
 
         callCenter18 = [(iPadAudioCallViewController *)self callCenter];
         routeController3 = [callCenter18 routeController];
-        v99 = routeController3;
+        v103 = routeController3;
         if (isSpeaker)
         {
           mostRecentlyDisconnectedAudioCall = [routeController3 routeForSpeakerDisable];
@@ -9550,7 +9570,7 @@ LABEL_103:
 
           else
           {
-            callCenter15 = sub_100004F84();
+            callCenter15 = sub_100004F84(v104);
             if (os_log_type_enabled(callCenter15, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
@@ -9575,7 +9595,7 @@ LABEL_103:
 
           else
           {
-            callCenter15 = sub_100004F84();
+            callCenter15 = sub_100004F84(v131);
             if (os_log_type_enabled(callCenter15, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
@@ -9595,9 +9615,9 @@ LABEL_98:
       break;
     case 24:
       callCenter21 = [(iPadAudioCallViewController *)self callCenter];
-      v66 = [callCenter21 currentCallCount] > 1;
+      v68 = [callCenter21 currentCallCount] > 1;
 
-      if (v66)
+      if (v68)
       {
         analyticsReporter4 = [(iPadAudioCallViewController *)self analyticsReporter];
         [analyticsReporter4 reportMultipleCallsWaitingUIAction:4];
@@ -9606,19 +9626,20 @@ LABEL_98:
       goto LABEL_39;
     case 25:
       featureFlags = [(iPadAudioCallViewController *)self featureFlags];
-      v55 = TUCallScreeningEnabledM3();
+      v56 = TUCallScreeningEnabledM3();
 
-      if (!v55)
+      if (!v56)
       {
         break;
       }
 
-      if (-[iPadAudioCallViewController usesCompactMulticallUI](self, "usesCompactMulticallUI") && (-[iPadAudioCallViewController callCenter](self, "callCenter"), v56 = objc_claimAutoreleasedReturnValue(), [v56 currentCallGroups], v57 = objc_claimAutoreleasedReturnValue(), v58 = objc_msgSend(v57, "count") > 1, v57, v56, v58))
+      usesCompactMulticallUI2 = [(iPadAudioCallViewController *)self usesCompactMulticallUI];
+      if (usesCompactMulticallUI2 && (-[iPadAudioCallViewController callCenter](self, "callCenter"), v58 = objc_claimAutoreleasedReturnValue(), [v58 currentCallGroups], v59 = objc_claimAutoreleasedReturnValue(), v60 = objc_msgSend(v59, "count") > 1, v59, v58, v60))
       {
         callCenter22 = [(iPadAudioCallViewController *)self callCenter];
-        v60 = [callCenter22 currentCallCount] > 1;
+        v62 = [callCenter22 currentCallCount] > 1;
 
-        if (v60)
+        if (v62)
         {
           analyticsReporter5 = [(iPadAudioCallViewController *)self analyticsReporter];
           [analyticsReporter5 reportMultipleCallsWaitingUIAction:4];
@@ -9633,20 +9654,20 @@ LABEL_39:
 
       else
       {
-        v112 = sub_100004F84();
-        if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
+        v118 = sub_100004F84(usesCompactMulticallUI2);
+        if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
         {
           frontmostCall4 = [(iPadAudioCallViewController *)self frontmostCall];
           *buf = 138412290;
-          v133 = frontmostCall4;
-          _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_DEFAULT, "Answering screened call: %@", buf, 0xCu);
+          v141 = frontmostCall4;
+          _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "Answering screened call: %@", buf, 0xCu);
         }
 
         frontmostCall5 = [(iPadAudioCallViewController *)self frontmostCall];
         if (frontmostCall5)
         {
-          v115 = +[UIApplication sharedApplication];
-          delegate3 = [v115 delegate];
+          v121 = +[UIApplication sharedApplication];
+          delegate3 = [v121 delegate];
           answeringMachine = [delegate3 answeringMachine];
           callUUID = [frontmostCall5 callUUID];
           [answeringMachine screenCallWithUUID:callUUID manualScreening:1 completion:&stru_100359278];
@@ -9656,21 +9677,21 @@ LABEL_39:
       break;
     case 26:
       featureFlags2 = [(iPadAudioCallViewController *)self featureFlags];
-      v85 = TUCallScreeningEnabledM3();
+      v88 = TUCallScreeningEnabledM3();
 
-      if (v85)
+      if (v88)
       {
         objc_initWeak(buf, self);
-        v86 = +[PHInCallUtilities sharedInstance];
-        v126[0] = _NSConcreteStackBlock;
-        v126[1] = 3221225472;
-        v126[2] = sub_1000E4FF8;
-        v126[3] = &unk_100357E78;
-        objc_copyWeak(&v127, buf);
-        v126[4] = self;
-        [v86 requestPasscodeUnlockWithCompletion:v126];
+        v89 = +[PHInCallUtilities sharedInstance];
+        v134[0] = _NSConcreteStackBlock;
+        v134[1] = 3221225472;
+        v134[2] = sub_1000E4FF8;
+        v134[3] = &unk_100357E78;
+        objc_copyWeak(&v135, buf);
+        v134[4] = self;
+        [v89 requestPasscodeUnlockWithCompletion:v134];
 
-        objc_destroyWeak(&v127);
+        objc_destroyWeak(&v135);
         objc_destroyWeak(buf);
       }
 
@@ -9685,26 +9706,26 @@ LABEL_39:
 
       break;
     case 35:
-      v20 = +[UIApplication sharedApplication];
-      delegate4 = [v20 delegate];
+      v21 = +[UIApplication sharedApplication];
+      delegate4 = [v21 delegate];
       mostRecentlyDisconnectedAudioCall2 = [delegate4 mostRecentlyDisconnectedAudioCall];
 
       objc_initWeak(buf, self);
       inCallRootViewController2 = [(iPadAudioCallViewController *)self inCallRootViewController];
-      v129[0] = _NSConcreteStackBlock;
-      v129[1] = 3221225472;
-      v129[2] = sub_1000E4F94;
-      v129[3] = &unk_100356E98;
-      objc_copyWeak(&v130, buf);
-      [inCallRootViewController2 presentBlockAndReportAlertToBlockCall:mostRecentlyDisconnectedAudioCall2 forViewController:self completion:v129];
+      v137[0] = _NSConcreteStackBlock;
+      v137[1] = 3221225472;
+      v137[2] = sub_1000E4F94;
+      v137[3] = &unk_100356E98;
+      objc_copyWeak(&v138, buf);
+      [inCallRootViewController2 presentBlockAndReportAlertToBlockCall:mostRecentlyDisconnectedAudioCall2 forViewController:self completion:v137];
 
-      objc_destroyWeak(&v130);
+      objc_destroyWeak(&v138);
       objc_destroyWeak(buf);
 
       break;
     case 36:
-      v25 = +[UIApplication sharedApplication];
-      delegate5 = [v25 delegate];
+      v26 = +[UIApplication sharedApplication];
+      delegate5 = [v26 delegate];
       mostRecentlyDisconnectedAudioCall3 = [delegate5 mostRecentlyDisconnectedAudioCall];
 
       inCallRootViewController3 = [(iPadAudioCallViewController *)self inCallRootViewController];
@@ -9713,8 +9734,8 @@ LABEL_39:
 
       break;
     case 38:
-      v30 = +[UIApplication sharedApplication];
-      delegate6 = [v30 delegate];
+      v31 = +[UIApplication sharedApplication];
+      delegate6 = [v31 delegate];
       alertCoordinator = [delegate6 alertCoordinator];
       [alertCoordinator invokeAlertWithRequestUnlock:-[iPadAudioCallViewController alertTriggeredByAutoCountdown](self automaticallyInvoked:{"alertTriggeredByAutoCountdown") ^ 1, -[iPadAudioCallViewController alertTriggeredByAutoCountdown](self, "alertTriggeredByAutoCountdown")}];
 
@@ -9730,8 +9751,8 @@ LABEL_11:
       goto LABEL_54;
     case 41:
 LABEL_54:
-      v87 = +[CNKGameControllerManager shared];
-      [v87 focus];
+      v90 = +[CNKGameControllerManager shared];
+      [v90 focus];
 
       break;
     default:
@@ -9764,11 +9785,11 @@ LABEL_104:
 
   if (currentCallCount != 1)
   {
-    frontmostCall = sub_100004F84();
+    frontmostCall = sub_100004F84(v5);
     if (os_log_type_enabled(frontmostCall, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&_mh_execute_header, frontmostCall, OS_LOG_TYPE_DEFAULT, "Multiple calls are currently active; Use RTT button should not be presented.", &v13, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&_mh_execute_header, frontmostCall, OS_LOG_TYPE_DEFAULT, "Multiple calls are currently active; Use RTT button should not be presented.", &v15, 2u);
     }
 
     goto LABEL_17;
@@ -9778,43 +9799,43 @@ LABEL_104:
   if (([frontmostCall isRTT]& 1) != 0 || ([frontmostCall isTTY]& 1) != 0 || ![frontmostCall supportsTTYWithVoice]|| [frontmostCall status]!= 1)
   {
 LABEL_17:
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
     goto LABEL_18;
   }
 
   localSenderIdentityUUID = [frontmostCall localSenderIdentityUUID];
   if (!localSenderIdentityUUID)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = frontmostCall;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Could not retrieve a sender identity UUID from the frontmost call %@; checking if RTT is available anyway.", &v13, 0xCu);
+      v15 = 138412290;
+      v16 = frontmostCall;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Could not retrieve a sender identity UUID from the frontmost call %@; checking if RTT is available anyway.", &v15, 0xCu);
     }
   }
 
   senderIdentityClient = [(PHCallViewController *)self senderIdentityClient];
-  v9 = [senderIdentityClient isRTTAvailableForSenderIdentityUUID:localSenderIdentityUUID];
+  v10 = [senderIdentityClient isRTTAvailableForSenderIdentityUUID:localSenderIdentityUUID];
 
-  v10 = sub_100004F84();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004F84(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = @"should not";
-    if (v9)
+    v13 = @"should not";
+    if (v10)
     {
-      v11 = @"should";
+      v13 = @"should";
     }
 
-    v13 = 138412546;
-    v14 = v11;
-    v15 = 2112;
-    v16 = frontmostCall;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Determined that the Use RTT button %@ be presented for the frontmost call %@.", &v13, 0x16u);
+    v15 = 138412546;
+    v16 = v13;
+    v17 = 2112;
+    v18 = frontmostCall;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Determined that the Use RTT button %@ be presented for the frontmost call %@.", &v15, 0x16u);
   }
 
 LABEL_18:
-  return v9;
+  return v10;
 }
 
 - (BOOL)shouldShowCallTransfer
@@ -9851,11 +9872,11 @@ LABEL_5:
           v19 = [CNPhoneNumber phoneNumberWithStringValue:@"4"];
           v20 = [CNContact predicateForContactMatchingPhoneNumber:v19];
 
-          v38 = CNPhoneNumberStringValueKey;
-          v21 = [NSArray arrayWithObjects:&v38 count:1];
-          v31 = 0;
-          v22 = [v18 unifiedContactsMatchingPredicate:v20 keysToFetch:v21 error:&v31];
-          v23 = v31;
+          v39 = CNPhoneNumberStringValueKey;
+          v21 = [NSArray arrayWithObjects:&v39 count:1];
+          v32 = 0;
+          v22 = [v18 unifiedContactsMatchingPredicate:v20 keysToFetch:v21 error:&v32];
+          v23 = v32;
 
           firstObject2 = [v8 firstObject];
           localSenderIdentity = [firstObject2 localSenderIdentity];
@@ -9863,17 +9884,17 @@ LABEL_5:
           uUIDString = [accountUUID UUIDString];
           v28 = [PHInCallUIUtilities isExplicitTransferSupportedForSubscriptionLabelIdentifier:uUIDString];
 
-          v29 = sub_100004F84();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v30 = sub_100004F84(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v30 = [v22 count];
+            v31 = [v22 count];
             *buf = 134218498;
-            v33 = v30;
-            v34 = 1024;
-            v35 = v28;
-            v36 = 2112;
-            v37 = v23;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "CallTransferButton: contacts with number 4 have count of %lu,  carrierWantsShowCallTransferButton = %d, error is %@", buf, 0x1Cu);
+            v34 = v31;
+            v35 = 1024;
+            v36 = v28;
+            v37 = 2112;
+            v38 = v23;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "CallTransferButton: contacts with number 4 have count of %lu,  carrierWantsShowCallTransferButton = %d, error is %@", buf, 0x1Cu);
           }
 
           if (v23)
@@ -10113,46 +10134,47 @@ LABEL_9:
   handle = [mostRecentlyDisconnectedAudioCall handle];
   value = [handle value];
 
-  v10 = sub_100004F84();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004F84(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412546;
-    v17 = mostRecentlyDisconnectedAudioCall;
-    v18 = 2112;
-    v19 = value;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Call %@; Destination ID %@", &v16, 0x16u);
+    v18 = 138412546;
+    v19 = mostRecentlyDisconnectedAudioCall;
+    v20 = 2112;
+    v21 = value;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call %@; Destination ID %@", &v18, 0x16u);
   }
 
-  if ([value destinationIdIsPhoneNumber])
+  destinationIdIsPhoneNumber = [value destinationIdIsPhoneNumber];
+  if (destinationIdIsPhoneNumber)
   {
-    v11 = CPPhoneNumberCopyCountryCodeForIncomingTextMessage();
-    if (!v11)
+    v13 = CPPhoneNumberCopyCountryCodeForIncomingTextMessage();
+    if (!v13)
     {
-      v11 = TUActiveCountryCode();
+      v13 = TUActiveCountryCode();
     }
 
-    v12 = TUNetworkCountryCode();
-    v13 = TUNumberToDial();
+    v14 = TUNetworkCountryCode();
+    v15 = TUNumberToDial();
 
-    value = v13;
+    value = v15;
   }
 
-  if (value && [value length])
+  if (value && (destinationIdIsPhoneNumber = [value length]) != 0)
   {
-    v14 = objc_alloc_init(MFMessageComposeViewController);
-    v15 = [NSArray arrayWithObject:value];
-    [v14 setRecipients:v15];
+    v16 = objc_alloc_init(MFMessageComposeViewController);
+    v17 = [NSArray arrayWithObject:value];
+    [v16 setRecipients:v17];
 
-    [v14 setBody:&stru_100361FD0];
-    [v14 setMessageComposeDelegate:self];
-    [v14 _setCanEditRecipients:0];
-    [(iPadAudioCallViewController *)self presentViewController:v14 animated:1 completion:0];
+    [v16 setBody:&stru_100361FD0];
+    [v16 setMessageComposeDelegate:self];
+    [v16 _setCanEditRecipients:0];
+    [(iPadAudioCallViewController *)self presentViewController:v16 animated:1 completion:0];
   }
 
   else
   {
-    v14 = sub_100004F84();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = sub_100004F84(destinationIdIsPhoneNumber);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10025660C();
     }
@@ -10307,32 +10329,33 @@ LABEL_9:
 - (void)hardwareButtonEventNotification:(id)notification
 {
   notificationCopy = notification;
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     userInfo = [notificationCopy userInfo];
-    v33 = 138412290;
-    *v34 = userInfo;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController received a hardware button event (%@)", &v33, 0xCu);
+    v37 = 138412290;
+    *v38 = userInfo;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController received a hardware button event (%@)", &v37, 0xCu);
   }
 
   activeCall = [(iPadAudioCallViewController *)self activeCall];
-  if (([activeCall isRTT] & 1) != 0 || objc_msgSend(activeCall, "isTTY"))
+  isRTT = [activeCall isRTT];
+  if ((isRTT & 1) != 0 || (isRTT = [activeCall isTTY], isRTT))
   {
-    v9 = sub_10014265C();
-    isKindOfClass = v9;
-    if (v9)
+    v10 = sub_10014265C(isRTT);
+    isKindOfClass = v10;
+    if (v10)
     {
       navigationController = [(iPadAudioCallViewController *)self navigationController];
       visibleViewController = [navigationController visibleViewController];
       isKindOfClass = objc_opt_isKindOfClass();
 
-      view = sub_100004F84();
+      view = sub_100004F84(v14);
       if (os_log_type_enabled(view, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = 67109120;
-        *v34 = isKindOfClass & 1;
-        _os_log_impl(&_mh_execute_header, view, OS_LOG_TYPE_DEFAULT, "setting isShowingRTTConversationViewController: %d", &v33, 8u);
+        v37 = 67109120;
+        *v38 = isKindOfClass & 1;
+        _os_log_impl(&_mh_execute_header, view, OS_LOG_TYPE_DEFAULT, "setting isShowingRTTConversationViewController: %d", &v37, 8u);
       }
     }
   }
@@ -10343,7 +10366,7 @@ LABEL_9:
   }
 
   isViewLoaded = [(iPadAudioCallViewController *)self isViewLoaded];
-  v14 = isViewLoaded;
+  v16 = isViewLoaded;
   if (isViewLoaded)
   {
     view = [(iPadAudioCallViewController *)self view];
@@ -10363,7 +10386,7 @@ LABEL_9:
   inCallRootViewController = [(iPadAudioCallViewController *)self inCallRootViewController];
   isDisplayStyleMiniWindow = [inCallRootViewController isDisplayStyleMiniWindow];
 
-  if (v14)
+  if (v16)
   {
 
     if ((isDisplayStyleMiniWindow & 1) == 0)
@@ -10373,43 +10396,43 @@ LABEL_9:
 
 LABEL_19:
     userInfo2 = [notificationCopy userInfo];
-    v18 = [userInfo2 valueForKey:@"kPHHardwareButtonEventType"];
+    v21 = [userInfo2 valueForKey:@"kPHHardwareButtonEventType"];
 
     callCenter = [(iPadAudioCallViewController *)self callCenter];
     incomingCall = [callCenter incomingCall];
 
-    if (v18 == @"kPHHardwareButtonEventTypeLockButton")
+    if (v21 == @"kPHHardwareButtonEventTypeLockButton")
     {
       [(iPadAudioCallViewController *)self handleDeviceLockEventWithSourceType:1];
     }
 
     else
     {
-      if (v18 == @"kPHHardwareButtonEventTypeVolumeDownButton" || v18 == @"kPHHardwareButtonEventTypeVolumeUpButton")
+      if (v21 == @"kPHHardwareButtonEventTypeVolumeDownButton" || v21 == @"kPHHardwareButtonEventTypeVolumeUpButton")
       {
-        v29 = sub_100004F84();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v33 = sub_100004F84(v28);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33) = 0;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling kPHHardwareButtonEventTypeVolumeDownButton || kPHHardwareButtonEventTypeVolumeUpButton buttonType", &v33, 2u);
+          LOWORD(v37) = 0;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling kPHHardwareButtonEventTypeVolumeDownButton || kPHHardwareButtonEventTypeVolumeUpButton buttonType", &v37, 2u);
         }
 
         [incomingCall suppressRingtone];
         goto LABEL_35;
       }
 
-      if (v18 == @"kPHHardwareButtonEventTypeHeadsetButton")
+      if (v21 == @"kPHHardwareButtonEventTypeHeadsetButton")
       {
-        v30 = sub_100004F84();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v34 = sub_100004F84(v28);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           callCenter2 = [(iPadAudioCallViewController *)self callCenter];
           incomingCall2 = [callCenter2 incomingCall];
-          v33 = 138412546;
-          *v34 = incomingCall2;
-          *&v34[8] = 2112;
-          v35 = activeCall;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling kPHHardwareButtonEventTypeHeadsetButton buttonType (incoming call = %@, active call = %@)", &v33, 0x16u);
+          v37 = 138412546;
+          *v38 = incomingCall2;
+          *&v38[8] = 2112;
+          v39 = activeCall;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling kPHHardwareButtonEventTypeHeadsetButton buttonType (incoming call = %@, active call = %@)", &v37, 0x16u);
         }
 
         callCenter3 = [(iPadAudioCallViewController *)self callCenter];
@@ -10417,16 +10440,16 @@ LABEL_19:
         goto LABEL_34;
       }
 
-      if (v18 == @"kPHHardwareButtonEventTypeHeadsetButtonLongPress")
+      if (v21 == @"kPHHardwareButtonEventTypeHeadsetButtonLongPress")
       {
-        v25 = sub_100004F84();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v29 = sub_100004F84(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           callCenter4 = [(iPadAudioCallViewController *)self callCenter];
           incomingCall3 = [callCenter4 incomingCall];
-          v33 = 138412290;
-          *v34 = incomingCall3;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling kPHHardwareButtonEventTypeHeadsetButtonLongPress buttonType (incoming call = %@)", &v33, 0xCu);
+          v37 = 138412290;
+          *v38 = incomingCall3;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling kPHHardwareButtonEventTypeHeadsetButtonLongPress buttonType (incoming call = %@)", &v37, 0xCu);
         }
 
         callCenter3 = [(iPadAudioCallViewController *)self callCenter];
@@ -10446,17 +10469,17 @@ LABEL_35:
   }
 
 LABEL_16:
-  v18 = sub_100004F84();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_100004F84(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     isViewLoaded2 = [(iPadAudioCallViewController *)self isViewLoaded];
     view2 = [(iPadAudioCallViewController *)self view];
     window2 = [view2 window];
-    v33 = 67109376;
-    *v34 = isViewLoaded2;
-    *&v34[4] = 1024;
-    *&v34[6] = window2 != 0;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] iPadAudioCallViewController will not handle the hardware button event as the view is not loaded (viewLoaded = %d) or we have no window (window exists = %d)", &v33, 0xEu);
+    v37 = 67109376;
+    *v38 = isViewLoaded2;
+    *&v38[4] = 1024;
+    *&v38[6] = window2 != 0;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[WARN] iPadAudioCallViewController will not handle the hardware button event as the view is not loaded (viewLoaded = %d) or we have no window (window exists = %d)", &v37, 0xEu);
   }
 
 LABEL_36:
@@ -10464,31 +10487,32 @@ LABEL_36:
 
 - (void)handleDeviceLockEventWithSourceType:(int64_t)type
 {
-  v22.receiver = self;
-  v22.super_class = iPadAudioCallViewController;
-  [(PHCallViewController *)&v22 handleDeviceLockEventWithSourceType:?];
+  v26.receiver = self;
+  v26.super_class = iPadAudioCallViewController;
+  [(PHCallViewController *)&v26 handleDeviceLockEventWithSourceType:?];
   activeCall = [(iPadAudioCallViewController *)self activeCall];
   callCenter = [(iPadAudioCallViewController *)self callCenter];
   resolvedIncomingCall = [callCenter resolvedIncomingCall];
 
   isPickedRouteReceiver = [(iPadAudioCallViewController *)self isPickedRouteReceiver];
-  v9 = sub_100004F84();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = isPickedRouteReceiver;
+  v10 = sub_100004F84(isPickedRouteReceiver);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
-    v24 = isPickedRouteReceiver;
-    v25 = 1024;
-    v26 = activeCall != 0;
-    v27 = 1024;
-    v28 = resolvedIncomingCall != 0;
+    v28 = v9;
     v29 = 1024;
+    v30 = activeCall != 0;
+    v31 = 1024;
+    v32 = resolvedIncomingCall != 0;
+    v33 = 1024;
     typeCopy = type;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling device lock event isPickedRouteReceiver=%d, activeCall=%d, incomingCall=%d, sourceType=%d", buf, 0x1Au);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling device lock event isPickedRouteReceiver=%d, activeCall=%d, incomingCall=%d, sourceType=%d", buf, 0x1Au);
   }
 
   if (type == 2)
   {
-    if ((resolvedIncomingCall != 0) | isPickedRouteReceiver & 1)
+    if ((resolvedIncomingCall != 0) | v9 & 1)
     {
       declineCallService = [(iPadAudioCallViewController *)self declineCallService];
       [declineCallService declineAnsweringCallDueToLockEventWithCurrentActiveCall:activeCall completionHandler:&stru_100359348];
@@ -10498,13 +10522,13 @@ LABEL_25:
     }
 
 LABEL_12:
-    if (((activeCall != 0) & isPickedRouteReceiver) == 1)
+    if (((activeCall != 0) & v9) == 1)
     {
       goto LABEL_13;
     }
 
 LABEL_10:
-    declineCallService2 = sub_100004F84();
+    declineCallService2 = sub_100004F84(shouldSuppressRingtone);
     if (os_log_type_enabled(declineCallService2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -10521,8 +10545,8 @@ LABEL_10:
 
   if (([resolvedIncomingCall shouldSuppressRingtone] & 1) == 0)
   {
-    v14 = +[UIApplication sharedApplication];
-    delegate = [v14 delegate];
+    v17 = +[UIApplication sharedApplication];
+    delegate = [v17 delegate];
     currentInCallScene = [delegate currentInCallScene];
     delegate2 = [currentInCallScene delegate];
     callAnalyticsLogger = [delegate2 callAnalyticsLogger];
@@ -10533,14 +10557,15 @@ LABEL_10:
     goto LABEL_20;
   }
 
-  if (([resolvedIncomingCall shouldSuppressRingtone] & 1) == 0 && ((activeCall != 0) & isPickedRouteReceiver) == 0)
+  shouldSuppressRingtone = [resolvedIncomingCall shouldSuppressRingtone];
+  if ((shouldSuppressRingtone & 1) == 0 && ((activeCall != 0) & v9) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_13:
-  v12 = +[PHInCallUtilities sharedInstance];
-  isLockToEndCallEnabled = [v12 isLockToEndCallEnabled];
+  v14 = +[PHInCallUtilities sharedInstance];
+  isLockToEndCallEnabled = [v14 isLockToEndCallEnabled];
 
   if (isLockToEndCallEnabled)
   {
@@ -10551,27 +10576,31 @@ LABEL_15:
     goto LABEL_20;
   }
 
-  v20 = sub_100004F84();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_100004F84(v16);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "... and requesting lock on next dismiss because Lock-to-End is disabled through accessibility setting.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "... and requesting lock on next dismiss because Lock-to-End is disabled through accessibility setting.", buf, 2u);
   }
 
   +[PHInCallRootViewController setShouldLockDeviceOnNextDismiss];
 LABEL_20:
-  if (type == 1 && [(iPadAudioCallViewController *)self videoStreamingIsGoingOn])
+  if (type == 1)
   {
-    v21 = sub_100004F84();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    videoStreamingIsGoingOn = [(iPadAudioCallViewController *)self videoStreamingIsGoingOn];
+    if (videoStreamingIsGoingOn)
     {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: pause video if necessary when locking device", buf, 2u);
-    }
+      v25 = sub_100004F84(videoStreamingIsGoingOn);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: pause video if necessary when locking device", buf, 2u);
+      }
 
-    declineCallService = [(iPadAudioCallViewController *)self emergencyCoordinator];
-    [declineCallService handleDeviceLockEvent];
-    goto LABEL_25;
+      declineCallService = [(iPadAudioCallViewController *)self emergencyCoordinator];
+      [declineCallService handleDeviceLockEvent];
+      goto LABEL_25;
+    }
   }
 
 LABEL_26:
@@ -10746,7 +10775,7 @@ LABEL_10:
 
 - (void)revealAudioRoutingDeviceListAnimated:(BOOL)animated
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -10779,42 +10808,42 @@ LABEL_10:
 
 LABEL_14:
           currentMiddleView = [(iPadAudioCallViewController *)self currentMiddleView];
-          v21 = objc_opt_respondsToSelector();
+          v22 = objc_opt_respondsToSelector();
 
-          if ((v21 & 1) == 0)
+          if ((v22 & 1) == 0)
           {
-            v14 = 0;
+            v15 = 0;
 LABEL_18:
+            v39 = 0u;
+            v40 = 0u;
             v37 = 0u;
             v38 = 0u;
-            v35 = 0u;
-            v36 = 0u;
-            interactions = [v14 interactions];
-            v23 = [interactions countByEnumeratingWithState:&v35 objects:v39 count:16];
-            if (v23)
+            interactions = [v15 interactions];
+            v24 = [interactions countByEnumeratingWithState:&v37 objects:v41 count:16];
+            if (v24)
             {
-              v24 = v23;
-              v25 = *v36;
+              v25 = v24;
+              v26 = *v38;
 LABEL_20:
-              v26 = 0;
+              v27 = 0;
               while (1)
               {
-                if (*v36 != v25)
+                if (*v38 != v26)
                 {
                   objc_enumerationMutation(interactions);
                 }
 
-                v27 = *(*(&v35 + 1) + 8 * v26);
+                v28 = *(*(&v37 + 1) + 8 * v27);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
                   break;
                 }
 
-                if (v24 == ++v26)
+                if (v25 == ++v27)
                 {
-                  v24 = [interactions countByEnumeratingWithState:&v35 objects:v39 count:16];
-                  if (v24)
+                  v25 = [interactions countByEnumeratingWithState:&v37 objects:v41 count:16];
+                  if (v25)
                   {
                     goto LABEL_20;
                   }
@@ -10823,21 +10852,21 @@ LABEL_20:
                 }
               }
 
-              buttonsViewController3 = v27;
+              buttonsViewController3 = v28;
 
               if (!buttonsViewController3)
               {
                 goto LABEL_29;
               }
 
-              [v14 bounds];
-              v29 = v28;
-              [v14 bounds];
-              v31 = v29 + v30 * 0.5;
-              [v14 bounds];
-              v33 = v32;
-              [v14 bounds];
-              [buttonsViewController3 _presentMenuAtLocation:v31, v33 + v34 * 0.5];
+              [v15 bounds];
+              v31 = v30;
+              [v15 bounds];
+              v33 = v31 + v32 * 0.5;
+              [v15 bounds];
+              v35 = v34;
+              [v15 bounds];
+              [buttonsViewController3 _presentMenuAtLocation:v33, v35 + v36 * 0.5];
             }
 
             else
@@ -10845,11 +10874,11 @@ LABEL_20:
 LABEL_26:
 
 LABEL_29:
-              buttonsViewController3 = sub_100004F84();
+              buttonsViewController3 = sub_100004F84(v29);
               if (os_log_type_enabled(buttonsViewController3, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *v41 = v14;
+                *v43 = v15;
                 _os_log_impl(&_mh_execute_header, buttonsViewController3, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find menu interaction for audio routes button: %@", buf, 0xCu);
               }
             }
@@ -10860,7 +10889,7 @@ LABEL_29:
           ambientAudioRoutesControlView2 = [(iPadAudioCallViewController *)self currentMiddleView];
           button = [ambientAudioRoutesControlView2 buttonForControlType:3];
 LABEL_16:
-          v14 = button;
+          v15 = button;
 
           goto LABEL_18;
         }
@@ -10874,8 +10903,8 @@ LABEL_16:
   {
   }
 
-  v14 = sub_100004F84();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100004F84(v9);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     buttonsViewController3 = [(iPadAudioCallViewController *)self buttonsViewController];
     isViewLoaded = [buttonsViewController3 isViewLoaded];
@@ -10883,10 +10912,10 @@ LABEL_16:
     view2 = [buttonsViewController4 view];
     window2 = [view2 window];
     *buf = 67109378;
-    *v41 = isViewLoaded;
-    *&v41[4] = 2112;
-    *&v41[6] = window2;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not presenting audio routing device list since isViewLoaded: %d; window: %@", buf, 0x12u);
+    *v43 = isViewLoaded;
+    *&v43[4] = 2112;
+    *&v43[6] = window2;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not presenting audio routing device list since isViewLoaded: %d; window: %@", buf, 0x12u);
 
 LABEL_31:
   }
@@ -10948,7 +10977,7 @@ LABEL_31:
 - (void)routesChangedForRouteController:(id)controller
 {
   controllerCopy = controller;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v18 = 0;
@@ -10990,9 +11019,9 @@ LABEL_31:
 
 - (void)callDisplayStyleDidChangeFromStyle:(int64_t)style toStyle:(int64_t)toStyle
 {
-  v33.receiver = self;
-  v33.super_class = iPadAudioCallViewController;
-  [PHCallViewController callDisplayStyleDidChangeFromStyle:"callDisplayStyleDidChangeFromStyle:toStyle:" toStyle:?];
+  v34.receiver = self;
+  v34.super_class = iPadAudioCallViewController;
+  v7 = [PHCallViewController callDisplayStyleDidChangeFromStyle:"callDisplayStyleDidChangeFromStyle:toStyle:" toStyle:?];
   if (toStyle == 4)
   {
     callCenter = [(iPadAudioCallViewController *)self callCenter];
@@ -11000,16 +11029,16 @@ LABEL_31:
 
     if ((hasCurrentCalls & 1) == 0)
     {
-      v9 = sub_100004F84();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004F84(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController was dismissed with no current calls", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController was dismissed with no current calls", buf, 2u);
       }
 
       [PHInCallRootViewController releaseDismissalAssertionForReason:@"PHFailureAlertShowingAssertionReason"];
       [PHInCallRootViewController releaseDismissalAssertionForReason:@"PHFallbackToTelephonyAssertionReason"];
-      [(iPadAudioCallViewController *)self setCurrentState:0];
+      v7 = [(iPadAudioCallViewController *)self setCurrentState:0];
     }
   }
 
@@ -11036,19 +11065,19 @@ LABEL_31:
       {
         objc_initWeak(buf, self);
         +[UIView _currentAnimationDuration];
-        v16 = dispatch_time(0, (v15 * 1000000000.0));
+        v17 = dispatch_time(0, (v16 * 1000000000.0));
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_1000E8608;
         block[3] = &unk_100356F60;
-        objc_copyWeak(&v31, buf);
-        dispatch_after(v16, &_dispatch_main_q, block);
-        objc_destroyWeak(&v31);
+        objc_copyWeak(&v32, buf);
+        dispatch_after(v17, &_dispatch_main_q, block);
+        objc_destroyWeak(&v32);
         objc_destroyWeak(buf);
       }
     }
 
-    [(iPadAudioCallViewController *)self setWaitingForFullScreenAudioRoutes:0];
+    v7 = [(iPadAudioCallViewController *)self setWaitingForFullScreenAudioRoutes:0];
   }
 
   if (style == 1 || toStyle != 1)
@@ -11066,11 +11095,11 @@ LABEL_31:
 
   else
   {
-    v17 = sub_100004F84();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100004F84(v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling lock event due to mini window attached", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController handling lock event due to mini window attached", buf, 2u);
     }
 
     [(iPadAudioCallViewController *)self handleDeviceLockEventWithSourceType:1];
@@ -11117,8 +11146,8 @@ LABEL_33:
   }
 
 LABEL_34:
-  v23 = +[UIDevice currentDevice];
-  orientation = [v23 orientation];
+  v24 = +[UIDevice currentDevice];
+  orientation = [v24 orientation];
 
   if (!style && toStyle == 2 && (orientation - 3) < 2 || UIAccessibilityIsReduceMotionEnabled())
   {
@@ -11231,14 +11260,14 @@ LABEL_34:
 
   else
   {
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134218242;
+      v10 = 134218242;
       typeCopy = type;
-      v11 = 2112;
-      v12 = controllerCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot perform bottom bar action %ld from unknown call participants viewcontroller object %@", &v9, 0x16u);
+      v12 = 2112;
+      v13 = controllerCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot perform bottom bar action %ld from unknown call participants viewcontroller object %@", &v10, 0x16u);
     }
   }
 }
@@ -11274,12 +11303,12 @@ LABEL_34:
 
   else
   {
-    callDetailsCoordinator = sub_100004F84();
+    callDetailsCoordinator = sub_100004F84(v6);
     if (os_log_type_enabled(callDetailsCoordinator, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = recognizerCopy;
-      _os_log_impl(&_mh_execute_header, callDetailsCoordinator, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot handle call details disclosure button tap from unknown call participants viewcontroller object %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = recognizerCopy;
+      _os_log_impl(&_mh_execute_header, callDetailsCoordinator, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot handle call details disclosure button tap from unknown call participants viewcontroller object %@", &v8, 0xCu);
     }
   }
 }
@@ -11384,7 +11413,7 @@ LABEL_7:
 
 - (BOOL)shouldRenderAlertTextColor
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -11397,7 +11426,7 @@ LABEL_7:
 
 - (BOOL)shouldRenderAlertTextFont
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -11584,7 +11613,7 @@ LABEL_7:
 
 - (void)startSuppressionOfSTKAlerts
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -11603,7 +11632,7 @@ LABEL_7:
 
 - (void)stopSuppressionOfSTKAlerts
 {
-  v2 = sub_100004F84();
+  v2 = sub_100004F84(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -11673,14 +11702,15 @@ LABEL_7:
 - (void)updatePresentationStateWithAllowed:(BOOL)allowed
 {
   allowedCopy = allowed;
-  if ([(iPadAudioCallViewController *)self shouldPresentAlertButton]!= allowed)
+  shouldPresentAlertButton = [(iPadAudioCallViewController *)self shouldPresentAlertButton];
+  if (shouldPresentAlertButton != allowedCopy)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(shouldPresentAlertButton);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = allowedCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController is about to set shouldPresentAlertButton to %d", v6, 8u);
+      v7[0] = 67109120;
+      v7[1] = allowedCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController is about to set shouldPresentAlertButton to %d", v7, 8u);
     }
 
     [(iPadAudioCallViewController *)self setShouldPresentAlertButton:allowedCopy];
@@ -11700,13 +11730,14 @@ LABEL_7:
 {
   if ([(iPadAudioCallViewController *)self shouldAutoCountdownAlert]&& ([(PHCallViewController *)self currentState]== 9 || [(PHCallViewController *)self currentState]== 8))
   {
-    if ([(iPadAudioCallViewController *)self didTriggerAutoCountdownAlertBefore])
+    didTriggerAutoCountdownAlertBefore = [(iPadAudioCallViewController *)self didTriggerAutoCountdownAlertBefore];
+    if (didTriggerAutoCountdownAlertBefore)
     {
-      v3 = sub_100004F84();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sub_100004F84(didTriggerAutoCountdownAlertBefore);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[WARN] Not triggering auto-countdown alert since we already triggered once before", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Not triggering auto-countdown alert since we already triggered once before", buf, 2u);
       }
     }
 
@@ -11716,49 +11747,49 @@ LABEL_7:
 
       if (!alertCountDownTimer)
       {
-        v5 = sub_100004F84();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v7 = sub_100004F84(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting auto-countdown for alert", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Starting auto-countdown for alert", buf, 2u);
         }
 
         [(iPadAudioCallViewController *)self setDidTriggerAutoCountdownAlertBefore:1];
         *buf = 0;
-        v23 = buf;
-        v24 = 0x2020000000;
+        v25 = buf;
+        v26 = 0x2020000000;
         +[_TtC13InCallService16AlertCoordinator countdownDuration];
-        v25 = v6;
-        v7 = +[UIApplication sharedApplication];
-        delegate = [v7 delegate];
+        v27 = v8;
+        v9 = +[UIApplication sharedApplication];
+        delegate = [v9 delegate];
         alertCoordinator = [delegate alertCoordinator];
         isBackgroundCountdownRunning = [alertCoordinator isBackgroundCountdownRunning];
 
         if (isBackgroundCountdownRunning)
         {
-          v11 = +[UIApplication sharedApplication];
-          delegate2 = [v11 delegate];
+          v13 = +[UIApplication sharedApplication];
+          delegate2 = [v13 delegate];
           alertCoordinator2 = [delegate2 alertCoordinator];
           [alertCoordinator2 currentBackgroundCountdownDuration];
-          *(v23 + 3) = v14;
+          *(v25 + 3) = v16;
 
-          v15 = +[UIApplication sharedApplication];
-          delegate3 = [v15 delegate];
+          v17 = +[UIApplication sharedApplication];
+          delegate3 = [v17 delegate];
           alertCoordinator3 = [delegate3 alertCoordinator];
           [alertCoordinator3 stopBackgroundCountdown];
         }
 
         objc_initWeak(&location, self);
-        v19[0] = _NSConcreteStackBlock;
-        v19[1] = 3221225472;
-        v19[2] = sub_1000E9C40;
-        v19[3] = &unk_1003576D0;
-        objc_copyWeak(&v20, &location);
-        v19[4] = buf;
-        v18 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:v19 block:1.0];
-        [(iPadAudioCallViewController *)self setAlertCountDownTimer:v18];
+        v21[0] = _NSConcreteStackBlock;
+        v21[1] = 3221225472;
+        v21[2] = sub_1000E9C40;
+        v21[3] = &unk_1003576D0;
+        objc_copyWeak(&v22, &location);
+        v21[4] = buf;
+        v20 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:v21 block:1.0];
+        [(iPadAudioCallViewController *)self setAlertCountDownTimer:v20];
 
-        objc_destroyWeak(&v20);
+        objc_destroyWeak(&v22);
         objc_destroyWeak(&location);
         _Block_object_dispose(buf, 8);
       }
@@ -11789,21 +11820,21 @@ LABEL_7:
 
       v8 = [v5 localizedStringForKey:v7 value:&stru_100361FD0 table:@"Localizable-Stewie"];
 
-      v9 = sub_100004F84();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004F84(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v8;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Requesting to speak alert utterance: %@", &v14, 0xCu);
+        v15 = 138412290;
+        v16 = v8;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Requesting to speak alert utterance: %@", &v15, 0xCu);
       }
 
-      v10 = +[UIScreen _carScreen];
+      v11 = +[UIScreen _carScreen];
       speechSynthesizer = [(iPadAudioCallViewController *)self speechSynthesizer];
-      [speechSynthesizer setUsesApplicationAudioSession:v10 != 0];
+      [speechSynthesizer setUsesApplicationAudioSession:v11 != 0];
 
-      v12 = [AVSpeechUtterance speechUtteranceWithString:v8];
+      v13 = [AVSpeechUtterance speechUtteranceWithString:v8];
       speechSynthesizer2 = [(iPadAudioCallViewController *)self speechSynthesizer];
-      [speechSynthesizer2 speakUtterance:v12];
+      [speechSynthesizer2 speakUtterance:v13];
 
       [(iPadAudioCallViewController *)self setDidRequestToSpeakAlertUtterance:1];
     }
@@ -11823,20 +11854,21 @@ LABEL_7:
   if ([(iPadAudioCallViewController *)self audioCallMutedTalkerIsSupported])
   {
     didNotifyMutedCaller = [(iPadAudioCallViewController *)self didNotifyMutedCaller];
-    mutedTalkerBannerViewController2 = sub_100004F84();
-    v6 = os_log_type_enabled(mutedTalkerBannerViewController2, OS_LOG_TYPE_DEFAULT);
-    if (didNotifyMutedCaller)
+    v5 = didNotifyMutedCaller;
+    mutedTalkerBannerViewController2 = sub_100004F84(didNotifyMutedCaller);
+    v7 = os_log_type_enabled(mutedTalkerBannerViewController2, OS_LOG_TYPE_DEFAULT);
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, mutedTalkerBannerViewController2, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController: received audioDeviceControllerMutedTalkerDidStart callback, but banner was presented before, skips updating", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, mutedTalkerBannerViewController2, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController: received audioDeviceControllerMutedTalkerDidStart callback, but banner was presented before, skips updating", v9, 2u);
       }
     }
 
     else
     {
-      if (v6)
+      if (v7)
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, mutedTalkerBannerViewController2, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController: received audioDeviceControllerMutedTalkerDidStart callback, presenting banner", buf, 2u);
@@ -11873,24 +11905,25 @@ LABEL_7:
 - (void)contactDidChange:(id)change
 {
   changeCopy = change;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     wallpaper = [changeCopy wallpaper];
-    v28 = 138412546;
-    *v29 = changeCopy;
-    *&v29[8] = 2112;
-    v30 = wallpaper;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "contactDidChange: %@ wallpaper: %@", &v28, 0x16u);
+    v30 = 138412546;
+    *v31 = changeCopy;
+    *&v31[8] = 2112;
+    v32 = wallpaper;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "contactDidChange: %@ wallpaper: %@", &v30, 0x16u);
   }
 
-  if ([(iPadAudioCallViewController *)self shouldUpdateBackgroundForEmergencyCall])
+  shouldUpdateBackgroundForEmergencyCall = [(iPadAudioCallViewController *)self shouldUpdateBackgroundForEmergencyCall];
+  if (shouldUpdateBackgroundForEmergencyCall)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(shouldUpdateBackgroundForEmergencyCall);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "we are in emergency call, ignore contact change", &v28, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "we are in emergency call, ignore contact change", &v30, 2u);
     }
 
     [(iPadAudioCallViewController *)self updateViewForEmergencyCallIfNecessary];
@@ -11899,10 +11932,10 @@ LABEL_7:
 
   contactsCache = [(iPadAudioCallViewController *)self contactsCache];
   identifier = [changeCopy identifier];
-  v10 = [contactsCache objectForKey:identifier];
+  v11 = [contactsCache objectForKey:identifier];
 
-  v11 = +[UIApplication sharedApplication];
-  delegate = [v11 delegate];
+  v12 = +[UIApplication sharedApplication];
+  delegate = [v12 delegate];
   isShowingIncomingNameUpdate = [delegate isShowingIncomingNameUpdate];
 
   presentedViewController = [(iPadAudioCallViewController *)self presentedViewController];
@@ -11921,7 +11954,7 @@ LABEL_7:
       isKindOfClass = 0;
     }
 
-    if (!v10)
+    if (!v11)
     {
       goto LABEL_22;
     }
@@ -11931,7 +11964,7 @@ LABEL_7:
   {
     isKindOfClass = 0;
     topViewController = presentedViewController;
-    if (!v10)
+    if (!v11)
     {
       goto LABEL_22;
     }
@@ -11943,14 +11976,14 @@ LABEL_7:
 
   if ((isShowingIncomingNameUpdate | isKindOfClass))
   {
-    v19 = sub_100004F84();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100004F84(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 67109376;
-      *v29 = isShowingIncomingNameUpdate;
-      *&v29[4] = 1024;
-      *&v29[6] = isKindOfClass & 1;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "SNAP: going to render poster again since contact did change, isBannerPresented = %d, isContactCardPresented = %d", &v28, 0xEu);
+      v30 = 67109376;
+      *v31 = isShowingIncomingNameUpdate;
+      *&v31[4] = 1024;
+      *&v31[6] = isKindOfClass & 1;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "SNAP: going to render poster again since contact did change, isBannerPresented = %d, isContactCardPresented = %d", &v30, 0xEu);
     }
 
     configurationCache = [(iPadAudioCallViewController *)self configurationCache];
@@ -11973,8 +12006,8 @@ LABEL_7:
     callToUseForWallpaper = [(iPadAudioCallViewController *)self callToUseForWallpaper];
     callDisplayStyleManager = [(iPadAudioCallViewController *)self contactImageDataForCall:callToUseForWallpaper];
 
-    v25 = [[UIImage alloc] initWithData:callDisplayStyleManager];
-    [(iPadAudioCallViewController *)self setBackgroundImage:v25];
+    v27 = [[UIImage alloc] initWithData:callDisplayStyleManager];
+    [(iPadAudioCallViewController *)self setBackgroundImage:v27];
 
 LABEL_21:
   }
@@ -11982,8 +12015,8 @@ LABEL_21:
 LABEL_22:
   if (isShowingIncomingNameUpdate)
   {
-    v26 = +[UIApplication sharedApplication];
-    delegate2 = [v26 delegate];
+    v28 = +[UIApplication sharedApplication];
+    delegate2 = [v28 delegate];
     [delegate2 setIsShowingIncomingNameUpdate:0];
   }
 
@@ -12049,30 +12082,30 @@ LABEL_25:
   featureFlags = [(iPadAudioCallViewController *)self featureFlags];
   screenSharingRemoteControlEnabled = [featureFlags screenSharingRemoteControlEnabled];
 
-  v8 = sub_10000B2A0();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_10000B2A0(v8, v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (screenSharingRemoteControlEnabled)
   {
-    if (v9)
+    if (v11)
     {
-      v10 = @"NO";
+      v12 = @"NO";
       if (statusCopy)
       {
-        v10 = @"YES";
+        v12 = @"YES";
       }
 
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating layer mask for remote control, remote control state is %@", &v11, 0xCu);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Updating layer mask for remote control, remote control state is %@", &v13, 0xCu);
     }
 
     [(iPadAudioCallViewController *)self updateScreenSharingDisableUpdateMask];
   }
 
-  else if (v9)
+  else if (v11)
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not updating layer mask for remote control, screen sharing remote control feature flag is disabled", &v11, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not updating layer mask for remote control, screen sharing remote control feature flag is disabled", &v13, 2u);
   }
 }
 
@@ -12139,11 +12172,11 @@ LABEL_25:
       v4 = [[SOSVoiceMessageManager alloc] initWithMessageType:101];
       [(iPadAudioCallViewController *)self setVoiceMessageManager:v4];
 
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004F84(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "startMessagePlayback,starting call buffer voice message", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "startMessagePlayback,starting call buffer voice message", v8, 2u);
       }
 
       voiceMessageManager2 = [(iPadAudioCallViewController *)self voiceMessageManager];
@@ -12158,11 +12191,11 @@ LABEL_25:
 
   if (voiceMessageManager)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "stopMessagePlayback", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "stopMessagePlayback", v7, 2u);
     }
 
     voiceMessageManager2 = [(iPadAudioCallViewController *)self voiceMessageManager];
@@ -12207,11 +12240,11 @@ LABEL_25:
 
   if (isValid)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController,stopCallBufferTimer", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "iPadAudioCallViewController,stopCallBufferTimer", v8, 2u);
     }
 
     callBufferTimer2 = [(iPadAudioCallViewController *)self callBufferTimer];
@@ -12240,8 +12273,7 @@ LABEL_25:
 
     [(PHSingleCallParticipantLabelView *)self->_bufferSingleCallLabelView setPreservesSuperviewLayoutMargins:1];
     [(PHSingleCallParticipantLabelView *)self->_bufferSingleCallLabelView setTranslatesAutoresizingMaskIntoConstraints:0];
-    [(PHSingleCallParticipantLabelView *)self->_bufferSingleCallLabelView setOverrideUserInterfaceStyle:2];
-    v7 = sub_100004F84();
+    v7 = sub_100004F84([(PHSingleCallParticipantLabelView *)self->_bufferSingleCallLabelView setOverrideUserInterfaceStyle:2]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = self->_bufferSingleCallLabelView;
@@ -12310,25 +12342,26 @@ LABEL_25:
 + (BOOL)wallpaperContentIsSensitive:(id)sensitive
 {
   sensitiveCopy = sensitive;
-  if (+[_TtC13InCallService23SensitivityFeatureFlags isContactNudityDetectionEnabled])
+  v4 = +[_TtC13InCallService23SensitivityFeatureFlags isContactNudityDetectionEnabled];
+  if (v4)
   {
     contentIsSensitive = [sensitiveCopy contentIsSensitive];
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(contentIsSensitive);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = contentIsSensitive;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SNAP: IMWallpaper.contentIsSensitive returning %d", v7, 8u);
+      v8[0] = 67109120;
+      v8[1] = contentIsSensitive;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SNAP: IMWallpaper.contentIsSensitive returning %d", v8, 8u);
     }
   }
 
   else
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SNAP: IMWallpaper.contentIsSensitive not performing check", v7, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SNAP: IMWallpaper.contentIsSensitive not performing check", v8, 2u);
     }
 
     LOBYTE(contentIsSensitive) = 0;
@@ -12998,12 +13031,12 @@ LABEL_16:
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v9 = iPadAudioCallViewController.makeCallDetailsCoordinator(bannerPresentationManager:existingCoordinator:deferredPresentationManager:)(managerCopy, coordinator);
+  v10 = iPadAudioCallViewController.makeCallDetailsCoordinator(bannerPresentationManager:existingCoordinator:deferredPresentationManager:)(managerCopy, coordinator, presentationManager);
 
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  return v9;
+  return v10;
 }
 
 - (id)makeHeldCallControlsViewWithCallCenter:(id)center style:(int64_t)style
@@ -13043,9 +13076,9 @@ LABEL_16:
 {
   contactCopy = contact;
   selfCopy = self;
-  v6 = sub_10022C48C();
+  v7 = sub_10022C48C(contact);
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)hasLastSeenPosterForCall:(id)call
@@ -13249,13 +13282,13 @@ LABEL_16:
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4, v6);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   iPadAudioCallViewController.handleCallRecordingCountdownNotification(notification:)();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)updateWaitOnHoldServiceWithCall:(id)call

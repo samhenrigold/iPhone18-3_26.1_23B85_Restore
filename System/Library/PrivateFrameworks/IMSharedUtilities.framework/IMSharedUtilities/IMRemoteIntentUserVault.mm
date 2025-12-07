@@ -49,7 +49,7 @@
 
 - (id)convertedPathForRemoteFile:(id)file
 {
-  v4 = sub_1A870CCE0(&unk_1EB309060);
+  v4 = sub_1A870CCE0(&unk_1EB309060, &unk_1A88EB3C0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v17 - v5;
   v7 = sub_1A88C72E8();

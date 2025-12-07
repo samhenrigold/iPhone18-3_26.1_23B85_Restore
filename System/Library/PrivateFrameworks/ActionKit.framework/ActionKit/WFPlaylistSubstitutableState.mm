@@ -84,7 +84,7 @@ void __89__WFPlaylistSubstitutableState_processWithContext_userInputRequiredHand
 
 + (id)serializedRepresentationFromValue:(id)value
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -95,9 +95,9 @@ void __89__WFPlaylistSubstitutableState_processWithContext_userInputRequiredHand
 
   if ([valueCopy entireMusicLibrary])
   {
-    v11 = @"EntireMusicLibrary";
-    v12[0] = MEMORY[0x277CBEC38];
-    playlistName = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"EntireMusicLibrary";
+    v11[0] = MEMORY[0x277CBEC38];
+    playlistName = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -106,8 +106,6 @@ void __89__WFPlaylistSubstitutableState_processWithContext_userInputRequiredHand
   }
 
   v7 = playlistName;
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

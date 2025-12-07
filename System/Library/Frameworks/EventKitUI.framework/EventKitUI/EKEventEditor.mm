@@ -622,7 +622,7 @@ LABEL_6:
 
 - (BOOL)saveCalendarItemWithSpan:(int64_t)span error:(id *)error
 {
-  v7 = EKUILogSignpostHandle();
+  v7 = EKUILogSignpostHandle(self);
   if (os_signpost_enabled(v7))
   {
     *buf = 0;
@@ -757,15 +757,15 @@ LABEL_27:
     attendees = [event attendees];
     v47 = [attendees count] != 0;
 
-    v63 = MEMORY[0x1E69E9820];
-    v64 = 3221225472;
-    v65 = __48__EKEventEditor_saveCalendarItemWithSpan_error___block_invoke;
-    v66 = &unk_1E8442300;
-    v68 = isReminderIntegrationEvent;
-    v69 = v47;
-    v48 = v67;
-    v67[0] = v41;
-    v67[1] = self;
+    v64 = MEMORY[0x1E69E9820];
+    v65 = 3221225472;
+    v66 = __48__EKEventEditor_saveCalendarItemWithSpan_error___block_invoke;
+    v67 = &unk_1E8442300;
+    v69 = isReminderIntegrationEvent;
+    v70 = v47;
+    v48 = v68;
+    v68[0] = v41;
+    v68[1] = self;
     CalAnalyticsSendEventLazy();
   }
 
@@ -773,9 +773,9 @@ LABEL_27:
   {
     [mEMORY[0x1E6966A10] handleEventUpdate:event];
 
-    v48 = &v61;
-    v61 = event;
-    v62 = v41;
+    v48 = &v62;
+    v62 = event;
+    v63 = v41;
     CalAnalyticsSendEventLazy();
   }
 
@@ -792,7 +792,7 @@ LABEL_27:
 
     if (!v51)
     {
-      v56 = 0;
+      v57 = 0;
       goto LABEL_41;
     }
 
@@ -801,14 +801,18 @@ LABEL_27:
     if ((v55 & 1) == 0)
     {
 LABEL_36:
-      v56 = 0;
+      v57 = 0;
       goto LABEL_43;
     }
   }
 
-  else if (![v50 saveEvent:event span:span error:error])
+  else
   {
-    goto LABEL_36;
+    v56 = [v50 saveEvent:event span:span error:error];
+    if (!v56)
+    {
+      goto LABEL_36;
+    }
   }
 
   suggestionInfo2 = [event suggestionInfo];
@@ -817,22 +821,22 @@ LABEL_36:
   {
     store = [(EKCalendarItemEditor *)self store];
     [(EKRemoteUIObjectSerializerWrapper *)store confirmSuggestedEvent:event];
-    v56 = 1;
+    v57 = 1;
 LABEL_41:
 
     goto LABEL_43;
   }
 
-  v56 = 1;
+  v57 = 1;
 LABEL_43:
-  v58 = EKUILogSignpostHandle();
-  if (os_signpost_enabled(v58))
+  v59 = EKUILogSignpostHandle(v56);
+  if (os_signpost_enabled(v59))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D3400000, v58, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SaveEvent", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1D3400000, v59, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SaveEvent", " enableTelemetry=YES ", buf, 2u);
   }
 
-  return v56;
+  return v57;
 }
 
 void __48__EKEventEditor_saveCalendarItemWithSpan_error___block_invoke(uint64_t a1, void *a2)

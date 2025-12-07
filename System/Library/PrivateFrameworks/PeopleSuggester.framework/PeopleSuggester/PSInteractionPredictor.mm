@@ -75,14 +75,14 @@ void __74___PSInteractionPredictor_trainAtDate_usingCompiledModelURL_andSaveToUR
 
 void __74___PSInteractionPredictor_trainAtDate_usingCompiledModelURL_andSaveToURL___block_invoke_145(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = a1[4];
     *buf = 138412290;
-    v16 = v5;
+    v15 = v5;
     _os_log_impl(&dword_1B5ED1000, v4, OS_LOG_TYPE_INFO, "Saving the adapted model at %@", buf, 0xCu);
   }
 
@@ -104,14 +104,12 @@ void __74___PSInteractionPredictor_trainAtDate_usingCompiledModelURL_andSaveToUR
       v12 = +[_PSLogging generalChannel];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __74___PSInteractionPredictor_trainAtDate_usingCompiledModelURL_andSaveToURL___block_invoke_145_cold_1((a1 + 6));
+        __74___PSInteractionPredictor_trainAtDate_usingCompiledModelURL_andSaveToURL___block_invoke_145_cold_1();
       }
     }
 
     dispatch_semaphore_signal(*(*(a1[7] + 8) + 40));
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __79___PSInteractionPredictor_rankedZkwSuggestionsFromPredictionArray_forBundleID___block_invoke()
@@ -132,23 +130,11 @@ void __79___PSInteractionPredictor_rankedZkwSuggestionsFromPredictionArray_forBu
 
 void __74___PSInteractionPredictor_trainAtDate_usingCompiledModelURL_andSaveToURL___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 task];
   v2 = [v1 error];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __74___PSInteractionPredictor_trainAtDate_usingCompiledModelURL_andSaveToURL___block_invoke_145_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*(*a1 + 8) + 40);
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

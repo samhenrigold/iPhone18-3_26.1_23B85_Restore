@@ -1,5 +1,7 @@
 @interface GDCComputeService
+- (BOOL)clearViewWithName:(id)name fullRebuild:(BOOL)rebuild error:(id *)error;
 - (BOOL)stopWithError:(id *)error;
+- (BOOL)truncateViewWithName:(id)name fullRebuild:(BOOL)rebuild error:(id *)error;
 - (GDCComputeService)init;
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
 - (id)updateGroupWithName:(id)name namesAndRequests:(id)requests error:(id *)error;
@@ -14,7 +16,7 @@
 {
   if (!self->_connection)
   {
-    v3 = GDCLog();
+    v3 = GDCLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -79,18 +81,18 @@
   [(GDCComputeService *)&v3 dealloc];
 }
 
-void __47__GDCComputeService_locked_establishConnection__block_invoke()
+void __47__GDCComputeService_locked_establishConnection__block_invoke(uint64_t a1)
 {
-  v0 = GDCLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = GDCLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __47__GDCComputeService_locked_establishConnection__block_invoke_cold_1(v0);
+    __47__GDCComputeService_locked_establishConnection__block_invoke_cold_1(v1);
   }
 }
 
 void __47__GDCComputeService_locked_establishConnection__block_invoke_27(uint64_t a1)
 {
-  v2 = GDCLog();
+  v2 = GDCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __47__GDCComputeService_locked_establishConnection__block_invoke_27_cold_1(v2);
@@ -138,7 +140,7 @@ void __47__GDCComputeService_locked_establishConnection__block_invoke_27(uint64_
   v35 = __Block_byref_object_copy_;
   v36 = __Block_byref_object_dispose_;
   v37 = 0;
-  v8 = GDCLog();
+  v8 = GDCLog(requestsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -152,32 +154,38 @@ void __47__GDCComputeService_locked_establishConnection__block_invoke_27(uint64_
   v29 = 0u;
   obj = requestsCopy;
   v9 = [obj countByEnumeratingWithState:&v28 objects:v48 count:16];
+  v10 = v9;
   if (v9)
   {
-    v10 = *v29;
+    v11 = *v29;
     do
     {
-      for (i = 0; i != v9; ++i)
+      v12 = 0;
+      do
       {
-        if (*v29 != v10)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * i);
-        v13 = GDCLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v13 = *(*(&v28 + 1) + 8 * v12);
+        v14 = GDCLog(v9);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = [v12 description];
+          v15 = [v13 description];
           *buf = 138412546;
           v45 = nameCopy;
           v46 = 2112;
-          v47 = v14;
-          _os_log_impl(&dword_254FB4000, v13, OS_LOG_TYPE_DEFAULT, "GDCComputeService: updateViewWithName: request: %@ %@", buf, 0x16u);
+          v47 = v15;
+          _os_log_impl(&dword_254FB4000, v14, OS_LOG_TYPE_DEFAULT, "GDCComputeService: updateViewWithName: request: %@ %@", buf, 0x16u);
         }
+
+        ++v12;
       }
 
+      while (v10 != v12);
       v9 = [obj countByEnumeratingWithState:&v28 objects:v48 count:16];
+      v10 = v9;
     }
 
     while (v9);
@@ -187,42 +195,40 @@ void __47__GDCComputeService_locked_establishConnection__block_invoke_27(uint64_
   v25[1] = 3221225472;
   v25[2] = __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error___block_invoke;
   v25[3] = &unk_2797B59C0;
-  v15 = nameCopy;
-  v26 = v15;
+  v16 = nameCopy;
+  v26 = v16;
   v27 = &v32;
-  v16 = [(GDCComputeService *)self synchronousRemoteObjectProxyWithErrorHandler:v25];
+  v17 = [(GDCComputeService *)self synchronousRemoteObjectProxyWithErrorHandler:v25];
   v24[0] = MEMORY[0x277D85DD0];
   v24[1] = 3221225472;
   v24[2] = __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error___block_invoke_29;
   v24[3] = &unk_2797B59E8;
   v24[4] = &v38;
   v24[5] = &v32;
-  [v16 updateViewWithName:v15 viewUpdateSourceRequests:obj reply:v24];
+  [v17 updateViewWithName:v16 viewUpdateSourceRequests:obj reply:v24];
 
-  v17 = v39[5];
-  if (error && !v17)
+  v18 = v39[5];
+  if (error && !v18)
   {
     *error = v33[5];
-    v17 = v39[5];
+    v18 = v39[5];
   }
 
-  v18 = v17;
+  v19 = v18;
 
   _Block_object_dispose(&v32, 8);
   _Block_object_dispose(&v38, 8);
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v19;
 }
 
 void __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = GDCLog();
+  v4 = GDCLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error___block_invoke_cold_1(a1);
+    __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -246,58 +252,56 @@ void __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error__
 
 - (id)updateGroupWithName:(id)name namesAndRequests:(id)requests error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   requestsCopy = requests;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy_;
-  v25 = __Block_byref_object_dispose_;
   v26 = 0;
-  v10 = GDCLog();
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v10 = GDCLog(requestsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = nameCopy;
+    v33 = nameCopy;
     _os_log_impl(&dword_254FB4000, v10, OS_LOG_TYPE_DEFAULT, "GDCComputeService: updateGroupWithName called: %@", buf, 0xCu);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke;
-  v18[3] = &unk_2797B59C0;
-  v11 = nameCopy;
-  v19 = v11;
-  v20 = &v21;
-  v12 = [(GDCComputeService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
-  v17[2] = __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke_31;
-  v17[3] = &unk_2797B59E8;
-  v17[4] = &v27;
-  v17[5] = &v21;
-  [v12 updateGroupWithName:v11 namesAndRequests:requestsCopy reply:v17];
+  v17[2] = __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke;
+  v17[3] = &unk_2797B59C0;
+  v11 = nameCopy;
+  v18 = v11;
+  v19 = &v20;
+  v12 = [(GDCComputeService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke_31;
+  v16[3] = &unk_2797B59E8;
+  v16[4] = &v26;
+  v16[5] = &v20;
+  [v12 updateGroupWithName:v11 namesAndRequests:requestsCopy reply:v16];
 
-  v13 = v28[5];
+  v13 = v27[5];
   if (error && !v13)
   {
-    *error = v22[5];
-    v13 = v28[5];
+    *error = v21[5];
+    v13 = v27[5];
   }
 
   v14 = v13;
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v14;
 }
@@ -305,10 +309,10 @@ void __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error__
 void __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = GDCLog();
+  v4 = GDCLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke_cold_1(a1);
+    __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -330,13 +334,67 @@ void __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_
   *(v9 + 40) = v6;
 }
 
+- (BOOL)clearViewWithName:(id)name fullRebuild:(BOOL)rebuild error:(id *)error
+{
+  rebuildCopy = rebuild;
+  v32 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  v9 = GDCLog(nameCopy);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v29 = nameCopy;
+    v30 = 1024;
+    v31 = rebuildCopy;
+    _os_log_impl(&dword_254FB4000, v9, OS_LOG_TYPE_DEFAULT, "GDCComputeService: clearViewWithName called [name: %@, fullRebuild: %d]", buf, 0x12u);
+  }
+
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke;
+  v15[3] = &unk_2797B59C0;
+  v10 = nameCopy;
+  v16 = v10;
+  v17 = &v18;
+  v11 = [(GDCComputeService *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke_32;
+  v14[3] = &unk_2797B5A10;
+  v14[4] = &v24;
+  v14[5] = &v18;
+  [v11 clearViewWithName:v10 fullRebuild:rebuildCopy reply:v14];
+
+  v12 = *(v25 + 24);
+  if (error && (v25[3] & 1) == 0)
+  {
+    *error = v19[5];
+    v12 = *(v25 + 24);
+  }
+
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
+
+  return v12 & 1;
+}
+
 void __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = GDCLog();
+  v4 = GDCLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke_cold_1(a1);
+    __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -344,13 +402,67 @@ void __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke(
   *(v5 + 40) = v3;
 }
 
+- (BOOL)truncateViewWithName:(id)name fullRebuild:(BOOL)rebuild error:(id *)error
+{
+  rebuildCopy = rebuild;
+  v32 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  v9 = GDCLog(nameCopy);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v29 = nameCopy;
+    v30 = 1024;
+    v31 = rebuildCopy;
+    _os_log_impl(&dword_254FB4000, v9, OS_LOG_TYPE_DEFAULT, "GDCComputeService: truncateViewWithName called [name: %@, fullRebuild: %d]", buf, 0x12u);
+  }
+
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invoke;
+  v15[3] = &unk_2797B59C0;
+  v10 = nameCopy;
+  v16 = v10;
+  v17 = &v18;
+  v11 = [(GDCComputeService *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invoke_34;
+  v14[3] = &unk_2797B5A10;
+  v14[4] = &v24;
+  v14[5] = &v18;
+  [v11 truncateViewWithName:v10 fullRebuild:rebuildCopy reply:v14];
+
+  v12 = *(v25 + 24);
+  if (error && (v25[3] & 1) == 0)
+  {
+    *error = v19[5];
+    v12 = *(v25 + 24);
+  }
+
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
+
+  return v12 & 1;
+}
+
 void __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = GDCLog();
+  v4 = GDCLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invoke_cold_1(a1);
+    __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -370,7 +482,7 @@ void __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invo
   v15 = __Block_byref_object_copy_;
   v16 = __Block_byref_object_dispose_;
   v17 = 0;
-  v5 = GDCLog();
+  v5 = GDCLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -407,7 +519,7 @@ void __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invo
 void __35__GDCComputeService_stopWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = GDCLog();
+  v4 = GDCLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __35__GDCComputeService_stopWithError___block_invoke_cold_1(v3, v4);
@@ -418,45 +530,40 @@ void __35__GDCComputeService_stopWithError___block_invoke(uint64_t a1, void *a2)
   *(v5 + 40) = v3;
 }
 
-void __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error___block_invoke_cold_1(uint64_t a1)
+void __71__GDCComputeService_updateViewWithName_viewUpdateSourceRequests_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254FB4000, v1, v2, "GDCComputeService: error during updateViewWithName %@ call: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_254FB4000, v0, v1, "GDCComputeService: error during updateViewWithName %@ call: %@");
 }
 
-void __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke_cold_1(uint64_t a1)
+void __64__GDCComputeService_updateGroupWithName_namesAndRequests_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254FB4000, v1, v2, "GDCComputeService: error during updateGroupWithName %@ call: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_254FB4000, v0, v1, "GDCComputeService: error during updateGroupWithName %@ call: %@");
 }
 
-void __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke_cold_1(uint64_t a1)
+void __57__GDCComputeService_clearViewWithName_fullRebuild_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254FB4000, v1, v2, "GDCComputeService: error during clearViewWithName %@ call: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_254FB4000, v0, v1, "GDCComputeService: error during clearViewWithName %@ call: %@");
 }
 
-void __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invoke_cold_1(uint64_t a1)
+void __60__GDCComputeService_truncateViewWithName_fullRebuild_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254FB4000, v1, v2, "GDCComputeService: error during truncateViewWithName %@ call: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_254FB4000, v0, v1, "GDCComputeService: error during truncateViewWithName %@ call: %@");
 }
 
 void __35__GDCComputeService_stopWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_254FB4000, a2, OS_LOG_TYPE_ERROR, "GDCComputeService: error during stop: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_254FB4000, a2, OS_LOG_TYPE_ERROR, "GDCComputeService: error during stop: %@", &v2, 0xCu);
 }
 
 @end

@@ -16,7 +16,7 @@
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"updateType" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"qmaxState" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"daysSinceQMax" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:2 convertedType:0];
@@ -24,16 +24,14 @@
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"daysSinceOCV" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:2 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"fullChargeState" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"daysSinceFullChargeAttempt" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:2 convertedType:0];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
@@ -138,7 +136,7 @@ LABEL_24:
 
 - (id)jsonDictionary
 {
-  v25[7] = *MEMORY[0x1E69E9840];
+  v24[7] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceBatteryGauging updateType](self, "updateType")}];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceBatteryGauging qmaxState](self, "qmaxState")}];
   if ([(BMDeviceBatteryGauging *)self hasDaysSinceQMax])
@@ -151,7 +149,7 @@ LABEL_24:
     v5 = 0;
   }
 
-  v23 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceBatteryGauging ocvState](self, "ocvState")}];
+  v22 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceBatteryGauging ocvState](self, "ocvState")}];
   if ([(BMDeviceBatteryGauging *)self hasDaysSinceOCV])
   {
     v6 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceBatteryGauging daysSinceOCV](self, "daysSinceOCV")}];
@@ -173,67 +171,67 @@ LABEL_24:
     v8 = 0;
   }
 
-  v24[0] = @"updateType";
+  v23[0] = @"updateType";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v25[0] = null;
-  v24[1] = @"qmaxState";
+  v19 = null;
+  v24[0] = null;
+  v23[1] = @"qmaxState";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null2;
-  v25[1] = null2;
-  v24[2] = @"daysSinceQMax";
+  v18 = null2;
+  v24[1] = null2;
+  v23[2] = @"daysSinceQMax";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = v3;
-  v25[2] = null3;
-  v24[3] = @"ocvState";
-  null4 = v23;
-  if (!v23)
+  v21 = v3;
+  v24[2] = null3;
+  v23[3] = @"ocvState";
+  null4 = v22;
+  if (!v22)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = v4;
-  v25[3] = null4;
-  v24[4] = @"daysSinceOCV";
+  v20 = v4;
+  v24[3] = null4;
+  v23[4] = @"daysSinceOCV";
   null5 = v6;
   if (!v6)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[4] = null5;
-  v24[5] = @"fullChargeState";
+  v24[4] = null5;
+  v23[5] = @"fullChargeState";
   null6 = v7;
   if (!v7)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[5] = null6;
-  v24[6] = @"daysSinceFullChargeAttempt";
+  v24[5] = null6;
+  v23[6] = @"daysSinceFullChargeAttempt";
   null7 = v8;
   if (!v8)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[6] = null7;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[6] = null7;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
   if (v8)
   {
     if (v7)
@@ -256,20 +254,20 @@ LABEL_26:
   {
   }
 
-  if (!v23)
+  if (!v22)
   {
   }
 
   if (v5)
   {
-    if (v21)
+    if (v20)
     {
       goto LABEL_32;
     }
 
 LABEL_39:
 
-    if (v22)
+    if (v21)
     {
       goto LABEL_33;
     }
@@ -277,13 +275,13 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  if (!v21)
+  if (!v20)
   {
     goto LABEL_39;
   }
 
 LABEL_32:
-  if (v22)
+  if (v21)
   {
     goto LABEL_33;
   }
@@ -291,17 +289,16 @@ LABEL_32:
 LABEL_40:
 
 LABEL_33:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMDeviceBatteryGauging)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v96[1] = *MEMORY[0x1E69E9840];
+  v95[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v82 = [dictionaryCopy objectForKeyedSubscript:@"updateType"];
-  if (!v82 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v81 = [dictionaryCopy objectForKeyedSubscript:@"updateType"];
+  if (!v81 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v6 = 0;
 LABEL_9:
@@ -326,16 +323,16 @@ LABEL_9:
             goto LABEL_56;
           }
 
-          v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v51 = objc_alloc(MEMORY[0x1E696ABC0]);
           errorCopy = error;
-          v54 = *MEMORY[0x1E698F240];
-          v93 = *MEMORY[0x1E696A578];
-          v80 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"qmaxState"];
-          v94 = v80;
-          v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-          v55 = [v52 initWithDomain:v54 code:2 userInfo:?];
+          v53 = *MEMORY[0x1E698F240];
+          v92 = *MEMORY[0x1E696A578];
+          v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"qmaxState"];
+          v93 = v79;
+          v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+          v54 = [v51 initWithDomain:v53 code:2 userInfo:?];
           v25 = 0;
-          *errorCopy = v55;
+          *errorCopy = v54;
           v9 = 0;
           goto LABEL_55;
         }
@@ -352,7 +349,7 @@ LABEL_9:
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"daysSinceQMax"];
-    v79 = v11;
+    v78 = v11;
     if (v11 && (v12 = v11, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -360,7 +357,7 @@ LABEL_9:
       {
         if (!error)
         {
-          v80 = 0;
+          v79 = 0;
           v25 = 0;
           goto LABEL_55;
         }
@@ -368,12 +365,12 @@ LABEL_9:
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
         v23 = *MEMORY[0x1E698F240];
-        v91 = *MEMORY[0x1E696A578];
+        v90 = *MEMORY[0x1E696A578];
         v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"daysSinceQMax"];
-        v92 = v16;
-        v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+        v91 = v16;
+        v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
         v24 = [v21 initWithDomain:v23 code:2 userInfo:?];
-        v80 = 0;
+        v79 = 0;
         v25 = 0;
         *errorCopy2 = v24;
 LABEL_54:
@@ -382,16 +379,16 @@ LABEL_55:
         goto LABEL_56;
       }
 
-      v80 = v12;
+      v79 = v12;
     }
 
     else
     {
-      v80 = 0;
+      v79 = 0;
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"ocvState"];
-    v76 = v13;
+    v75 = v13;
     if (v13 && (v14 = v13, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -414,16 +411,16 @@ LABEL_55:
           }
 
           errorCopy4 = error;
-          v57 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v58 = *MEMORY[0x1E698F240];
-          v89 = *MEMORY[0x1E696A578];
+          v56 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v57 = *MEMORY[0x1E698F240];
+          v88 = *MEMORY[0x1E696A578];
           v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"ocvState"];
-          v90 = v17;
-          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-          v59 = [v57 initWithDomain:v58 code:2 userInfo:v30];
+          v89 = v17;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+          v58 = [v56 initWithDomain:v57 code:2 userInfo:v30];
           v16 = 0;
           v25 = 0;
-          *errorCopy4 = v59;
+          *errorCopy4 = v58;
           goto LABEL_53;
         }
 
@@ -444,7 +441,7 @@ LABEL_55:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v73 = v17;
+        v72 = v17;
         v17 = 0;
       }
 
@@ -461,45 +458,45 @@ LABEL_55:
             goto LABEL_53;
           }
 
-          v70 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v66 = *MEMORY[0x1E698F240];
-          v87 = *MEMORY[0x1E696A578];
-          v74 = errorCopy6;
+          v69 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v65 = *MEMORY[0x1E698F240];
+          v86 = *MEMORY[0x1E696A578];
+          v73 = errorCopy6;
           v26 = dictionaryCopy;
           v27 = v6;
           v28 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v65 = objc_opt_class();
+          v64 = objc_opt_class();
           v29 = v28;
           v6 = v27;
           dictionaryCopy = v26;
           v30 = v17;
-          v77 = [v29 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v65, @"daysSinceOCV"];
-          v88 = v77;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+          v76 = [v29 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v64, @"daysSinceOCV"];
+          v87 = v76;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
           v17 = 0;
           v25 = 0;
-          *v74 = [v70 initWithDomain:v66 code:2 userInfo:v18];
+          *v73 = [v69 initWithDomain:v65 code:2 userInfo:v18];
 LABEL_52:
 
 LABEL_53:
           goto LABEL_54;
         }
 
-        v73 = v17;
+        v72 = v17;
         v17 = v17;
       }
     }
 
     else
     {
-      v73 = 0;
+      v72 = 0;
     }
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"fullChargeState"];
-    v75 = v9;
+    v74 = v9;
     if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v69 = v17;
+      v68 = v17;
       v19 = v6;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -514,42 +511,42 @@ LABEL_53:
         {
           if (!errorCopy6)
           {
-            v77 = 0;
+            v76 = 0;
             v25 = 0;
-            v30 = v73;
-            v17 = v69;
+            v30 = v72;
+            v17 = v68;
             goto LABEL_52;
           }
 
-          v60 = errorCopy6;
-          v78 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v61 = v8;
-          v62 = *MEMORY[0x1E698F240];
-          v85 = *MEMORY[0x1E696A578];
+          v59 = errorCopy6;
+          v77 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v60 = v8;
+          v61 = *MEMORY[0x1E698F240];
+          v84 = *MEMORY[0x1E696A578];
           v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"fullChargeState"];
-          v86 = v35;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
-          v63 = v62;
-          v8 = v61;
-          v64 = [v78 initWithDomain:v63 code:2 userInfo:v31];
-          v77 = 0;
+          v85 = v35;
+          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+          v62 = v61;
+          v8 = v60;
+          v63 = [v77 initWithDomain:v62 code:2 userInfo:v31];
+          v76 = 0;
           v25 = 0;
-          *v60 = v64;
+          *v59 = v63;
           v6 = v19;
-          v17 = v69;
+          v17 = v68;
           goto LABEL_51;
         }
 
         v20 = [MEMORY[0x1E696AD98] numberWithInt:BMDeviceBatteryGaugingPeriodicFullChargeStateFromString(v18)];
       }
 
-      v77 = v20;
-      v17 = v69;
+      v76 = v20;
+      v17 = v68;
     }
 
     else
     {
-      v77 = 0;
+      v76 = 0;
     }
 
     v31 = [dictionaryCopy objectForKeyedSubscript:@"daysSinceFullChargeAttempt"];
@@ -560,13 +557,13 @@ LABEL_53:
       {
         if (errorCopy6)
         {
-          v72 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v68 = *MEMORY[0x1E698F240];
-          v83 = *MEMORY[0x1E696A578];
-          v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"daysSinceFullChargeAttempt"];
-          v84 = v46;
-          v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-          *errorCopy6 = [v72 initWithDomain:v68 code:2 userInfo:v47];
+          v71 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v67 = *MEMORY[0x1E698F240];
+          v82 = *MEMORY[0x1E696A578];
+          v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"daysSinceFullChargeAttempt"];
+          v83 = v45;
+          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+          *errorCopy6 = [v71 initWithDomain:v67 code:2 userInfo:v46];
         }
 
         v35 = 0;
@@ -575,8 +572,8 @@ LABEL_53:
       }
 
       v32 = v18;
-      v67 = v31;
-      v71 = v8;
+      v66 = v31;
+      v70 = v8;
       v33 = dictionaryCopy;
       selfCopy2 = self;
       v35 = v31;
@@ -584,8 +581,8 @@ LABEL_53:
 
     else
     {
-      v67 = v31;
-      v71 = v8;
+      v66 = v31;
+      v70 = v8;
       v32 = v18;
       v33 = dictionaryCopy;
       selfCopy2 = self;
@@ -594,31 +591,31 @@ LABEL_53:
 
     intValue = [v6 intValue];
     v37 = v6;
-    intValue2 = [v75 intValue];
+    intValue2 = [v74 intValue];
     v39 = v16;
     intValue3 = [v16 intValue];
-    intValue4 = [v77 intValue];
+    intValue4 = [v76 intValue];
     v42 = intValue2;
     v6 = v37;
     v43 = intValue3;
     v16 = v39;
-    v25 = [(BMDeviceBatteryGauging *)selfCopy2 initWithUpdateType:intValue qmaxState:v42 daysSinceQMax:v80 ocvState:v43 daysSinceOCV:v17 fullChargeState:intValue4 daysSinceFullChargeAttempt:v35];
+    v25 = [(BMDeviceBatteryGauging *)selfCopy2 initWithUpdateType:intValue qmaxState:v42 daysSinceQMax:v79 ocvState:v43 daysSinceOCV:v17 fullChargeState:intValue4 daysSinceFullChargeAttempt:v35];
     self = v25;
     dictionaryCopy = v33;
-    v31 = v67;
-    v8 = v71;
+    v31 = v66;
+    v8 = v70;
     v18 = v32;
 LABEL_51:
 
-    v30 = v73;
-    v9 = v75;
+    v30 = v72;
+    v9 = v74;
     goto LABEL_52;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = v82;
+    v7 = v81;
 LABEL_8:
     v6 = v7;
     goto LABEL_9;
@@ -627,7 +624,7 @@ LABEL_8:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = [MEMORY[0x1E696AD98] numberWithInt:BMDeviceBatteryGaugingGaugingUpdateTypeFromString(v82)];
+    v7 = [MEMORY[0x1E696AD98] numberWithInt:BMDeviceBatteryGaugingGaugingUpdateTypeFromString(v81)];
     goto LABEL_8;
   }
 
@@ -638,21 +635,20 @@ LABEL_8:
     goto LABEL_57;
   }
 
-  v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v47 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy7 = error;
-  v50 = *MEMORY[0x1E698F240];
-  v95 = *MEMORY[0x1E696A578];
+  v49 = *MEMORY[0x1E698F240];
+  v94 = *MEMORY[0x1E696A578];
   v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"updateType"];
-  v96[0] = v9;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:&v95 count:1];
-  v51 = [v48 initWithDomain:v50 code:2 userInfo:v8];
+  v95[0] = v9;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v95 forKeys:&v94 count:1];
+  v50 = [v47 initWithDomain:v49 code:2 userInfo:v8];
   v6 = 0;
   v25 = 0;
-  *errorCopy7 = v51;
+  *errorCopy7 = v50;
 LABEL_56:
 
 LABEL_57:
-  v44 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -668,29 +664,22 @@ LABEL_57:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  updateType = self->_updateType;
   PBDataWriterWriteUint32Field();
-  qmaxState = self->_qmaxState;
   PBDataWriterWriteUint32Field();
   if (self->_hasDaysSinceQMax)
   {
-    daysSinceQMax = self->_daysSinceQMax;
     PBDataWriterWriteInt32Field();
   }
 
-  ocvState = self->_ocvState;
   PBDataWriterWriteUint32Field();
   if (self->_hasDaysSinceOCV)
   {
-    daysSinceOCV = self->_daysSinceOCV;
     PBDataWriterWriteInt32Field();
   }
 
-  fullChargeState = self->_fullChargeState;
   PBDataWriterWriteUint32Field();
   if (self->_hasDaysSinceFullChargeAttempt)
   {
-    daysSinceFullChargeAttempt = self->_daysSinceFullChargeAttempt;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -1215,23 +1204,21 @@ LABEL_124:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"updateType" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"qmaxState" number:2 type:4 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"daysSinceQMax" number:3 type:2 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"ocvState" number:4 type:4 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"daysSinceOCV" number:5 type:2 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"fullChargeState" number:6 type:4 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"daysSinceFullChargeAttempt" number:7 type:2 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }

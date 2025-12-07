@@ -348,16 +348,16 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PKR
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PKRefineMorph.Match(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PKRefineMorph.Match(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4)
 {
   if (*a1 != *a2 || *(a1 + 8) != *(a2 + 8))
   {
     return 0;
   }
 
-  v4 = *(a2 + 24);
-  v5 = *(a1 + 24);
-  return _sSasSQRzlE2eeoiySbSayxG_ABtFZ9PencilKit13PKRefineMorphV5MatchV0F2ToV_Tt1g5(*(a1 + 16), *(a2 + 16)) & (v5 == v4);
+  v6 = *(a2 + 24);
+  v7 = *(a1 + 24);
+  return _sSasSQRzlE2eeoiySbSayxG_ABtFZ9PencilKit13PKRefineMorphV5MatchV0F2ToV_Tt1g5(*(a1 + 16), *(a2 + 16)) & (v7 == v6);
 }
 
 uint64_t specialized morphCost #1 (of:match:in:) in static PKRefineMorph.computeMorph(from:to:fromViewFrame:toViewFrame:transformViewToModel:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, float64_t a6, float64_t a7)
@@ -613,6 +613,16 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1)
   return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v2);
 }
 
+{
+  v1 = a1;
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  v2 = Hasher._finalize()();
+
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(v1, v2);
+}
+
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(double a1)
 {
   v3 = a1 == 0.0;
@@ -625,16 +635,6 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:)(double a1)
   v5 = MEMORY[0x1CCA6D590](*(v1 + 40), *&v4);
 
   return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(v5, a1);
-}
-
-unint64_t specialized __RawDictionaryStorage.find<A>(_:)(unsigned __int8 a1)
-{
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  v2 = Hasher._finalize()();
-
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v2);
 }
 
 uint64_t specialized static BinaryFloatingPoint<>.random<A>(in:using:)(uint64_t result, double a2, double a3)
@@ -664,11 +664,12 @@ LABEL_7:
   return result;
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMd, &_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMR);
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -761,7 +762,7 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
       v29 = 1 << *(v5 + 32);
       if (v29 >= 64)
@@ -790,8 +791,9 @@ LABEL_7:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMd, &_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMR);
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -821,7 +823,7 @@ LABEL_15:
       v19 = v16 | (v8 << 6);
       v20 = *(*(v5 + 48) + 8 * v19);
       v21 = *(*(v5 + 56) + 8 * v19);
-      if ((a2 & 1) == 0)
+      if ((v4 & 1) == 0)
       {
         v22 = v21;
       }
@@ -899,7 +901,7 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
       v31 = 1 << *(v5 + 32);
       if (v31 >= 64)
@@ -926,10 +928,12 @@ LABEL_7:
   return result;
 }
 
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd, &_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMR);
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -959,7 +963,7 @@ LABEL_15:
       v19 = v16 | (v8 << 6);
       v20 = *(*(v5 + 48) + 8 * v19);
       v21 = *(*(v5 + 56) + 8 * v19);
-      if ((a2 & 1) == 0)
+      if ((v4 & 1) == 0)
       {
         v22 = v20;
         v23 = v21;
@@ -1028,7 +1032,7 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
       v31 = 1 << *(v5 + 32);
       if (v31 >= 64)
@@ -1291,7 +1295,7 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(unsigned __in
 void *specialized _NativeDictionary.copy()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMd, &_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -1364,7 +1368,7 @@ LABEL_19:
 id specialized _NativeDictionary.copy()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMd, &_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -1445,7 +1449,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd, &_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -1607,7 +1611,7 @@ uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t specialized _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(uint64_t *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t))
+uint64_t specialized _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *, uint64_t))
 {
   v6 = v4[2];
   v7 = v4[3] >> 1;
@@ -1712,7 +1716,7 @@ LABEL_45:
 
     v27 = v4[1];
     memcpy((v10 + 32), (v27 + 24 * v20), 24 * a2);
-    result = (a4)(&v17[24 * a2], a3);
+    result = a4(&v17[24 * a2], a3);
     v28 = v26 + v37;
     if (__OFADD__(v26, v37))
     {
@@ -3423,12 +3427,12 @@ LABEL_220:
                       {
 LABEL_229:
                         v185 = *v184;
-                        v171[2] = v184[2];
+                        *(v171 + 16) = v184[2];
                         *v171 = v185;
                       }
                     }
 
-                    v171 += 3;
+                    v171 += 24;
                     if (v183 >= v182 || v173 >= v174)
                     {
                       result = v171;
@@ -3914,7 +3918,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized static PKRefineMorph.computeMorph(from:to:fromViewFrame:toViewFrame:transformViewToModel:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, CGAffineTransform *a3@<X2>, _OWORD *a4@<X8>, CGFloat a5@<D0>, CGFloat a6@<D1>, double a7@<D2>, double a8@<D3>, double a9@<D4>, double a10@<D5>, double a11@<D6>, double a12@<D7>)
+void specialized static PKRefineMorph.computeMorph(from:to:fromViewFrame:toViewFrame:transformViewToModel:)(uint64_t a1@<X0>, uint64_t a2@<X1>, CGAffineTransform *a3@<X2>, _OWORD *a4@<X8>, CGFloat a5@<D0>, CGFloat a6@<D1>, double a7@<D2>, double a8@<D3>, double a9@<D4>, double a10@<D5>, double a11@<D6>, double a12@<D7>)
 {
   v12 = a2;
   v19 = *(a1 + 16);
@@ -3923,31 +3927,31 @@ uint64_t specialized static PKRefineMorph.computeMorph(from:to:fromViewFrame:toV
   {
     v23 = MEMORY[0x1E69E7CC0];
 LABEL_22:
-    v226 = *&v23;
+    v225 = *&v23;
     v19 = *(v12 + 16);
     v20 = MEMORY[0x1E69E7CC0];
     if (*&v19 == 0.0)
     {
-      v201 = a7;
-      v202 = a8;
-      *v203 = a9;
-      *&v203[8] = a10;
-      *&v203[16] = a11;
-      *&v203[24] = a12;
+      v200 = a7;
+      v201 = a8;
+      *v202 = a9;
+      *&v202[8] = a10;
+      *&v202[16] = a11;
+      *&v202[24] = a12;
       a = MEMORY[0x1E69E7CC0];
     }
 
     else
     {
-      *&v233.a = MEMORY[0x1E69E7CC0];
+      *&v232.a = MEMORY[0x1E69E7CC0];
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
       v42 = 0;
-      a = v233.a;
-      v229 = v12 + 32;
-      v222 = v19;
+      a = v232.a;
+      v228 = v12 + 32;
+      v221 = v19;
       do
       {
-        v44 = *(v229 + 8 * v42);
+        v44 = *(v228 + 8 * v42);
         v45 = [v44 path];
         if (!v45)
         {
@@ -3966,7 +3970,7 @@ LABEL_22:
           goto LABEL_197;
         }
 
-        v232 = a;
+        v231 = a;
         if (v26)
         {
           toTransform.a = v20;
@@ -3986,9 +3990,9 @@ LABEL_22:
             v52 = v51;
             v54 = v53;
             [v44 transform];
-            v242.x = v52;
-            v242.y = v54;
-            v55 = CGPointApplyAffineTransform(v242, &v235);
+            v241.x = v52;
+            v241.y = v54;
+            v55 = CGPointApplyAffineTransform(v241, &v234);
 
             toTransform.a = v48;
             v57 = *(*&v48 + 16);
@@ -4012,7 +4016,7 @@ LABEL_22:
           while (v26 != v47);
 
           v20 = MEMORY[0x1E69E7CC0];
-          v19 = v222;
+          v19 = v221;
         }
 
         else
@@ -4023,14 +4027,14 @@ LABEL_22:
 
         v58 = specialized static PKRefineMorph.NStroke.normalized(stroke:step:)(*&v48, 5.0);
 
-        a = v232;
-        v233.a = v232;
-        v60 = *(*&v232 + 16);
-        v59 = *(*&v232 + 24);
+        a = v231;
+        v232.a = v231;
+        v60 = *(*&v231 + 16);
+        v59 = *(*&v231 + 24);
         if (v60 >= v59 >> 1)
         {
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1);
-          a = v233.a;
+          a = v232.a;
         }
 
         ++v42;
@@ -4039,73 +4043,73 @@ LABEL_22:
       }
 
       while (v42 != v19);
-      v201 = a7;
-      v202 = a8;
-      *v203 = a9;
-      *&v203[8] = a10;
-      *&v203[16] = a11;
-      *&v203[24] = a12;
+      v200 = a7;
+      v201 = a8;
+      *v202 = a9;
+      *&v202[8] = a10;
+      *&v202[16] = a11;
+      *&v202[24] = a12;
     }
 
-    v238 = *&a;
+    v237 = *&a;
 
     v62 = PKRefineMorph.NDrawing.bounds.getter(v61);
     v64 = v63;
     v66 = v65;
     v68 = v67;
 
-    v69 = PKRefineMorph.NDrawing.bounds.getter(v226);
-    v205 = v70 / v66;
-    v206 = v69 - v62 * (v70 / v66);
+    v69 = PKRefineMorph.NDrawing.bounds.getter(v225);
+    v204 = v70 / v66;
+    v205 = v69 - v62 * (v70 / v66);
     by.a = v70 / v66;
     by.b = 0.0;
     by.c = 0.0;
-    v207 = v71 / v68;
+    v206 = v71 / v68;
     by.d = v71 / v68;
-    by.tx = v206;
-    v204 = v72 - v64 * (v71 / v68);
-    by.ty = v204;
+    by.tx = v205;
+    v203 = v72 - v64 * (v71 / v68);
+    by.ty = v203;
     PKRefineMorph.NDrawing.transform(by:)(&by);
-    v73 = v238;
-    v74 = PKRefineMorph.NDrawing.bounds.getter(v238);
+    v73 = v237;
+    v74 = PKRefineMorph.NDrawing.bounds.getter(v237);
     v76 = v75;
     v78 = v77;
     v80 = v79;
-    v248.origin.x = PKRefineMorph.NDrawing.bounds.getter(v226);
-    v248.origin.y = v81;
-    v248.size.width = v82;
-    v248.size.height = v83;
-    v243.origin.x = v74;
-    v243.origin.y = v76;
-    v243.size.width = v78;
-    v243.size.height = v80;
-    v244 = CGRectUnion(v243, v248);
-    x = v244.origin.x;
-    y = v244.origin.y;
-    width = v244.size.width;
-    height = v244.size.height;
-    v88 = CGRectGetWidth(v244);
-    v245.origin.x = x;
-    v245.origin.y = y;
-    v245.size.width = width;
-    v245.size.height = height;
-    v89 = CGRectGetHeight(v245);
+    v247.origin.x = PKRefineMorph.NDrawing.bounds.getter(v225);
+    v247.origin.y = v81;
+    v247.size.width = v82;
+    v247.size.height = v83;
+    v242.origin.x = v74;
+    v242.origin.y = v76;
+    v242.size.width = v78;
+    v242.size.height = v80;
+    v243 = CGRectUnion(v242, v247);
+    x = v243.origin.x;
+    y = v243.origin.y;
+    width = v243.size.width;
+    height = v243.size.height;
+    v88 = CGRectGetWidth(v243);
+    v244.origin.x = x;
+    v244.origin.y = y;
+    v244.size.width = width;
+    v244.size.height = height;
+    v89 = CGRectGetHeight(v244);
     if (v88 > v89)
     {
       v89 = v88;
     }
 
     a7 = v89 * 0.25;
-    v90 = specialized static PKRefineMorph.calcMatches(fromDrawing:toDrawing:maxDist:)(v226, v73, v89 * 0.25);
+    v90 = specialized static PKRefineMorph.calcMatches(fromDrawing:toDrawing:maxDist:)(v225, v73, v89 * 0.25);
     v26 = v90;
     v91 = MEMORY[0x1E69E7CC0];
-    v223 = *(v90 + 16);
-    if (v223)
+    v222 = *(v90 + 16);
+    if (v222)
     {
       v92 = 0;
-      v216 = (v90 + 40);
-      v219 = v90 + 32;
-      v232 = MEMORY[0x1E69E7CC0];
+      v215 = (v90 + 40);
+      v218 = v90 + 32;
+      v231 = MEMORY[0x1E69E7CC0];
       while (1)
       {
         if (v92 >= *(v26 + 16))
@@ -4113,24 +4117,24 @@ LABEL_22:
           goto LABEL_204;
         }
 
-        v93 = (v219 + 32 * v92);
+        v93 = (v218 + 32 * v92);
         v95 = *v93;
         v94 = v93[1];
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v232 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v232 + 16) + 1, 1, *&v232));
+          v231 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v231 + 16) + 1, 1, *&v231));
         }
 
-        v97 = *(*&v232 + 16);
-        v96 = *(*&v232 + 24);
+        v97 = *(*&v231 + 16);
+        v96 = *(*&v231 + 24);
         if (v97 >= v96 >> 1)
         {
-          v232 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v96 > 1), v97 + 1, 1, *&v232));
+          v231 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v96 > 1), v97 + 1, 1, *&v231));
         }
 
-        *(*&v232 + 16) = v97 + 1;
-        *(*&v232 + 8 * v97 + 32) = v91;
+        *(*&v231 + 16) = v97 + 1;
+        *(*&v231 + 8 * v97 + 32) = v91;
         v98 = *(v26 + 16);
         if (v98)
         {
@@ -4141,15 +4145,15 @@ LABEL_47:
         ++v92;
 
         v91 = MEMORY[0x1E69E7CC0];
-        if (v92 == v223)
+        if (v92 == v222)
         {
           goto LABEL_72;
         }
       }
 
       *&v19 = 0.0;
-      *&v20 = *&v232 + 24;
-      v99 = v216;
+      *&v20 = *&v231 + 24;
+      v99 = v215;
       while (v19 < *(v26 + 16))
       {
         if (v92 != v19)
@@ -4160,7 +4164,7 @@ LABEL_47:
           v104 = v103 * (v103 * 3.0) - v103 * (v103 * (v103 + v103));
           if (v104 > 0.1)
           {
-            v105 = *(*&v232 + 16);
+            v105 = *(*&v231 + 16);
             if (!v105)
             {
               __break(1u);
@@ -4202,24 +4206,24 @@ LABEL_47:
       goto LABEL_181;
     }
 
-    v232 = MEMORY[0x1E69E7CC0];
+    v231 = MEMORY[0x1E69E7CC0];
 LABEL_72:
-    v237 = v232;
-    specialized morphCost #2 (of:) in static PKRefineMorph.computeMorph(from:to:fromViewFrame:toViewFrame:transformViewToModel:)(v26, &v237);
+    v236 = v231;
+    specialized morphCost #2 (of:) in static PKRefineMorph.computeMorph(from:to:fromViewFrame:toViewFrame:transformViewToModel:)(v26, &v236);
     v110 = *(v26 + 16);
     *&v19 = MEMORY[0x1E69E7CC0];
     if (v110)
     {
-      *&v235.a = MEMORY[0x1E69E7CC0];
+      *&v234.a = MEMORY[0x1E69E7CC0];
 
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v110, 0);
       v111 = 0;
-      v20 = v235.a;
+      v20 = v234.a;
       v112 = (v26 + 56);
       do
       {
-        specialized morphCost #1 (of:match:in:) in static PKRefineMorph.computeMorph(from:to:fromViewFrame:toViewFrame:transformViewToModel:)(v111, *(v112 - 1), *v112, v26, &v237, *(v112 - 3), *(v112 - 2));
-        v235.a = v20;
+        specialized morphCost #1 (of:match:in:) in static PKRefineMorph.computeMorph(from:to:fromViewFrame:toViewFrame:transformViewToModel:)(v111, *(v112 - 1), *v112, v26, &v236, *(v112 - 3), *(v112 - 2));
+        v234.a = v20;
         v115 = *(*&v20 + 16);
         v114 = *(*&v20 + 24);
         if (v115 >= v114 >> 1)
@@ -4227,7 +4231,7 @@ LABEL_72:
           v116 = v113;
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v114 > 1), v115 + 1, 1);
           v113 = v116;
-          v20 = v235.a;
+          v20 = v234.a;
         }
 
         ++v111;
@@ -4252,8 +4256,8 @@ LABEL_72:
     while (1)
     {
       v117 = 0;
-      v224 = *&v20 + 32;
-      v220 = v20;
+      v223 = *&v20 + 32;
+      v219 = v20;
 LABEL_81:
       HIDWORD(v118) = -1030792151 * v117;
       LODWORD(v118) = HIDWORD(v118);
@@ -4285,7 +4289,7 @@ LABEL_81:
         }
       }
 
-      *&v214 = COERCE_DOUBLE(_sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_12CoreGraphics7CGFloatVTt0g5Tf4g_n(v19));
+      *&v213 = COERCE_DOUBLE(_sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_12CoreGraphics7CGFloatVTt0g5Tf4g_n(v19));
       v119 = *(v26 + 16);
 
       v120 = 0;
@@ -4369,11 +4373,11 @@ LABEL_211:
         if (v123 >= 2)
         {
           v124 = swift_isUniquelyReferenced_nonNull_native();
-          v235.a = v121;
+          v234.a = v121;
           if ((v124 & 1) == 0)
           {
             specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v121 + 16) + 1, 1);
-            v121 = v235.a;
+            v121 = v234.a;
           }
 
           v126 = *(*&v121 + 16);
@@ -4381,7 +4385,7 @@ LABEL_211:
           if (v126 >= v125 >> 1)
           {
             specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v125 > 1), v126 + 1, 1);
-            v121 = v235.a;
+            v121 = v234.a;
           }
 
           *(*&v121 + 16) = v126 + 1;
@@ -4397,24 +4401,24 @@ LABEL_211:
         goto LABEL_182;
       }
 
-      v212 = v117;
-      v213 = v117 + 1;
+      v211 = v117;
+      v212 = v117 + 1;
       v19 = -v127;
       do
       {
-        v235.a = 0.0;
-        MEMORY[0x1CCA6FC40](&v235, 8);
-        v128 = (*&v235.a * v127) >> 64;
-        if (v127 > *&v235.a * v127 && v19 % v127 > *&v235.a * v127)
+        v234.a = 0.0;
+        MEMORY[0x1CCA6FC40](&v234, 8);
+        v128 = (*&v234.a * v127) >> 64;
+        if (v127 > *&v234.a * v127 && v19 % v127 > *&v234.a * v127)
         {
           do
           {
-            v235.a = 0.0;
-            MEMORY[0x1CCA6FC40](&v235, 8);
+            v234.a = 0.0;
+            MEMORY[0x1CCA6FC40](&v234, 8);
           }
 
-          while (v19 % v127 > *&v235.a * v127);
-          v128 = (*&v235.a * v127) >> 64;
+          while (v19 % v127 > *&v234.a * v127);
+          v128 = (*&v234.a * v127) >> 64;
         }
 
         if (v128 >= *(*&v121 + 16))
@@ -4440,22 +4444,22 @@ LABEL_211:
           goto LABEL_191;
         }
 
-        v235.a = 0.0;
-        MEMORY[0x1CCA6FC40](&v235, 8);
-        v131 = (*&v235.a * v130) >> 64;
-        if (v130 > *&v235.a * v130)
+        v234.a = 0.0;
+        MEMORY[0x1CCA6FC40](&v234, 8);
+        v131 = (*&v234.a * v130) >> 64;
+        if (v130 > *&v234.a * v130)
         {
           v132 = -v130 % v130;
-          if (v132 > *&v235.a * v130)
+          if (v132 > *&v234.a * v130)
           {
             do
             {
-              v235.a = 0.0;
-              MEMORY[0x1CCA6FC40](&v235, 8);
+              v234.a = 0.0;
+              MEMORY[0x1CCA6FC40](&v234, 8);
             }
 
-            while (v132 > *&v235.a * v130);
-            v131 = (*&v235.a * v130) >> 64;
+            while (v132 > *&v234.a * v130);
+            v131 = (*&v234.a * v130) >> 64;
           }
         }
 
@@ -4474,20 +4478,20 @@ LABEL_211:
         v134 = specialized _ArrayBuffer._consumeAndCreateNew()(v26);
       }
 
-      v135 = (*&v232 + 32);
+      v135 = (*&v231 + 32);
       if (v129 >= *(v134 + 2))
       {
         goto LABEL_211;
       }
 
-      v230 = v134;
+      v229 = v134;
       v136 = v134 + 32;
       *&v134[32 * v129 + 56] = v131;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_1C8018A40;
       *(inited + 32) = v129;
-      if (v129 < *(*&v232 + 16))
+      if (v129 < *(*&v231 + 16))
       {
         break;
       }
@@ -4498,7 +4502,7 @@ LABEL_213:
       v20 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew()(*&v20));
     }
 
-    v138 = *(*&v232 + 32 + 8 * v129);
+    v138 = *(*&v231 + 32 + 8 * v129);
     v19 = *(v138 + 16);
     if (*&v19 == 0.0)
     {
@@ -4507,22 +4511,22 @@ LABEL_213:
 
     else
     {
-      v217 = inited;
-      *&v235.a = MEMORY[0x1E69E7CC0];
+      v216 = inited;
+      *&v234.a = MEMORY[0x1E69E7CC0];
 
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
-      v139 = v235.a;
-      v140 = *(*&v235.a + 16);
+      v139 = v234.a;
+      v140 = *(*&v234.a + 16);
       v141 = 40;
       do
       {
         v142 = *(v138 + v141);
-        v235.a = v139;
+        v234.a = v139;
         v143 = *(*&v139 + 24);
         if (v140 >= v143 >> 1)
         {
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v143 > 1), v140 + 1, 1);
-          v139 = v235.a;
+          v139 = v234.a;
         }
 
         *(*&v139 + 16) = v140 + 1;
@@ -4534,29 +4538,29 @@ LABEL_213:
 
       while (*&v19 != 0.0);
 
-      v135 = (*&v232 + 32);
-      inited = v217;
+      v135 = (*&v231 + 32);
+      inited = v216;
     }
 
-    *&v235.a = inited;
+    *&v234.a = inited;
     specialized Array.append<A>(contentsOf:)(*&v139);
-    v147 = v235.a;
-    v20 = v220;
-    v218 = *(*&v235.a + 16);
-    if (!v218)
+    v147 = v234.a;
+    v20 = v219;
+    v217 = *(*&v234.a + 16);
+    if (!v217)
     {
 
       v149 = 0.0;
       *&v19 = MEMORY[0x1E69E7CC0];
-      v180 = v213;
-      v181 = v230;
+      v180 = v212;
+      v181 = v229;
       goto LABEL_159;
     }
 
     v148 = 0;
-    v215 = *&v235.a + 32;
+    v214 = *&v234.a + 32;
     v149 = 0.0;
-    v150 = *&v214;
+    v150 = *&v213;
     while (1)
     {
       if (v148 >= *(*&v147 + 16))
@@ -4564,7 +4568,7 @@ LABEL_213:
         goto LABEL_198;
       }
 
-      v151 = *(v215 + 8 * v148);
+      v151 = *(v214 + 8 * v148);
       if ((v151 & 0x8000000000000000) != 0)
       {
         goto LABEL_199;
@@ -4575,18 +4579,18 @@ LABEL_213:
         goto LABEL_200;
       }
 
-      v152 = *(v230 + 2);
+      v152 = *(v229 + 2);
       if (v151 >= v152)
       {
         goto LABEL_201;
       }
 
-      if (v151 >= *(*&v232 + 16))
+      if (v151 >= *(*&v231 + 16))
       {
         goto LABEL_202;
       }
 
-      v153 = *(v224 + 8 * v151);
+      v153 = *(v223 + 8 * v151);
       v154 = v135[v151];
       v155 = *(v154 + 16);
       if (v155)
@@ -4645,7 +4649,7 @@ LABEL_213:
 
       v168 = v150;
       v169 = swift_isUniquelyReferenced_nonNull_native();
-      v235.a = v168;
+      v234.a = v168;
       v170 = specialized __RawDictionaryStorage.find<A>(_:)(v151);
       v172 = *(*&v168 + 16);
       v173 = (v171 & 1) == 0;
@@ -4670,8 +4674,8 @@ LABEL_213:
       v179 = v170;
       specialized _NativeDictionary.copy()();
       v170 = v179;
-      v135 = (*&v232 + 32);
-      v150 = v235.a;
+      v135 = (*&v231 + 32);
+      v150 = v234.a;
       if ((v19 & 1) == 0)
       {
 LABEL_153:
@@ -4695,21 +4699,21 @@ LABEL_130:
 LABEL_131:
       ++v148;
       v149 = v149 - v153 + v162;
-      v20 = v220;
-      if (v148 == v218)
+      v20 = v219;
+      if (v148 == v217)
       {
-        *&v214 = v150;
+        *&v213 = v150;
 
         *&v19 = MEMORY[0x1E69E7CC0];
-        v180 = v213;
-        v181 = v230;
+        v180 = v212;
+        v181 = v229;
         if (v149 < 0.0)
         {
           goto LABEL_160;
         }
 
 LABEL_159:
-        v182 = exp(-v149 / (5000 - v212));
+        v182 = exp(-v149 / (5000 - v211));
         specialized static BinaryFloatingPoint<>.random<A>(in:using:)(v183, 0.0, 1.0);
         if (v184 >= v182)
         {
@@ -4720,7 +4724,7 @@ LABEL_159:
 LABEL_160:
 
           v185 = 0;
-          v186 = 1 << *(v214 + 32);
+          v186 = 1 << *(v213 + 32);
           if (v186 < 64)
           {
             v187 = ~(-1 << v186);
@@ -4731,7 +4735,7 @@ LABEL_160:
             v187 = -1;
           }
 
-          v188 = v187 & *(v214 + 64);
+          v188 = v187 & *(v213 + 64);
           v189 = (v186 + 63) >> 6;
           if (v188)
           {
@@ -4740,7 +4744,7 @@ LABEL_160:
               v190 = v185;
 LABEL_168:
               v191 = (v190 << 9) | (8 * __clz(__rbit64(v188)));
-              v192 = *(*(v214 + 48) + v191);
+              v192 = *(*(v213 + 48) + v191);
               if ((v192 & 0x8000000000000000) != 0)
               {
                 goto LABEL_209;
@@ -4752,7 +4756,7 @@ LABEL_168:
               }
 
               v188 &= v188 - 1;
-              *(v224 + 8 * v192) = *(*(v214 + 56) + v191);
+              *(v223 + 8 * v192) = *(*(v213 + 56) + v191);
               v185 = v190;
               if (!v188)
               {
@@ -4775,7 +4779,7 @@ LABEL_165:
               break;
             }
 
-            v188 = *(v214 + 64 + 8 * v190);
+            v188 = *(v213 + 64 + 8 * v190);
             ++v185;
             if (v188)
             {
@@ -4804,7 +4808,7 @@ LABEL_165:
     }
 
 LABEL_152:
-    v150 = v235.a;
+    v150 = v234.a;
     if ((v19 & 1) == 0)
     {
       goto LABEL_153;
@@ -4813,16 +4817,16 @@ LABEL_152:
     goto LABEL_130;
   }
 
-  *&v233.a = MEMORY[0x1E69E7CC0];
+  *&v232.a = MEMORY[0x1E69E7CC0];
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
   v22 = 0;
-  v23 = v233.a;
-  v228 = v19;
-  *&v232 = a1 + 32;
+  v23 = v232.a;
+  v227 = v19;
+  *&v231 = a1 + 32;
   while (1)
   {
-    v225 = v23;
-    v24 = *(*&v232 + 8 * v22);
+    v224 = v23;
+    v24 = *(*&v231 + 8 * v22);
     v25 = [v24 path];
     if (!v25)
     {
@@ -4850,14 +4854,14 @@ LABEL_152:
 LABEL_17:
     v39 = specialized static PKRefineMorph.NStroke.normalized(stroke:step:)(*&v29, 5.0);
 
-    v23 = v225;
-    v233.a = v225;
-    v41 = *(*&v225 + 16);
-    v40 = *(*&v225 + 24);
+    v23 = v224;
+    v232.a = v224;
+    v41 = *(*&v224 + 16);
+    v40 = *(*&v224 + 24);
     if (v41 >= v40 >> 1)
     {
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1);
-      v23 = v233.a;
+      v23 = v232.a;
     }
 
     ++v22;
@@ -4880,12 +4884,12 @@ LABEL_17:
     if (!v30)
     {
 LABEL_214:
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
       __break(1u);
 LABEL_215:
-      result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
-      return result;
+      return;
     }
 
     v31 = v30;
@@ -4893,9 +4897,9 @@ LABEL_215:
     v33 = v32;
     v35 = v34;
     [v24 transform];
-    v241.x = v33;
-    v241.y = v35;
-    v36 = CGPointApplyAffineTransform(v241, &v235);
+    v240.x = v33;
+    v240.y = v35;
+    v36 = CGPointApplyAffineTransform(v240, &v234);
 
     toTransform.a = v29;
     v38 = *(*&v29 + 16);
@@ -4917,7 +4921,7 @@ LABEL_215:
     {
 
       v20 = MEMORY[0x1E69E7CC0];
-      v19 = v228;
+      v19 = v227;
       goto LABEL_17;
     }
   }
@@ -4937,41 +4941,40 @@ LABEL_182:
 
 LABEL_184:
 
-  v246.origin.x = a5;
-  v246.origin.y = a6;
-  v246.size.width = v201;
-  v246.size.height = v202;
-  v247 = CGRectUnion(v246, *v203);
-  v227 = v247.origin.y;
-  v231 = v247.origin.x;
-  specialized PKRefineMorph.GridMesh.init(bounds:step:)(4, &v235, a5, a6, v201, v202);
-  v233.a = v205;
-  v233.b = 0.0;
-  v233.c = 0.0;
-  v233.d = v207;
-  v233.tx = v206;
-  v233.ty = v204;
-  CGAffineTransformInvert(&toTransform, &v233);
-  PKRefineMorph.GridMesh.morph(matches:toTransform:reversed:transformViewToModel:origin:)(v26, &toTransform, 0, a3, __PAIR128__(*&v227, *&v231));
-  specialized PKRefineMorph.GridMesh.init(bounds:step:)(4, &v233, *v203, *&v203[8], *&v203[16], *&v203[24]);
-  PKRefineMorph.GridMesh.morph(matches:toTransform:reversed:transformViewToModel:origin:)(v26, &by, 1, a3, __PAIR128__(*&v227, *&v231));
+  v245.origin.x = a5;
+  v245.origin.y = a6;
+  v245.size.width = v200;
+  v245.size.height = v201;
+  v246 = CGRectUnion(v245, *v202);
+  v226 = v246.origin.y;
+  v230 = v246.origin.x;
+  specialized PKRefineMorph.GridMesh.init(bounds:step:)(4, &v234, a5, a6, v200, v201);
+  v232.a = v204;
+  v232.b = 0.0;
+  v232.c = 0.0;
+  v232.d = v206;
+  v232.tx = v205;
+  v232.ty = v203;
+  CGAffineTransformInvert(&toTransform, &v232);
+  PKRefineMorph.GridMesh.morph(matches:toTransform:reversed:transformViewToModel:origin:)(v26, &toTransform, 0, a3, __PAIR128__(*&v226, *&v230));
+  specialized PKRefineMorph.GridMesh.init(bounds:step:)(4, &v232, *v202, *&v202[8], *&v202[16], *&v202[24]);
+  PKRefineMorph.GridMesh.morph(matches:toTransform:reversed:transformViewToModel:origin:)(v26, &by, 1, a3, __PAIR128__(*&v226, *&v230));
 
-  v194 = *&v233.tx;
-  v195 = v234;
-  v197 = *&v233.a;
-  v196 = *&v233.c;
-  v198 = *&v235.tx;
-  v199 = v236;
-  v200 = *&v235.c;
-  *a4 = *&v235.a;
-  a4[1] = v200;
-  a4[2] = v198;
-  a4[3] = v199;
-  a4[4] = v197;
-  a4[5] = v196;
-  a4[6] = v194;
-  a4[7] = v195;
-  return result;
+  v193 = *&v232.tx;
+  v194 = v233;
+  v196 = *&v232.a;
+  v195 = *&v232.c;
+  v197 = *&v234.tx;
+  v198 = v235;
+  v199 = *&v234.c;
+  *a4 = *&v234.a;
+  a4[1] = v199;
+  a4[2] = v197;
+  a4[3] = v198;
+  a4[4] = v196;
+  a4[5] = v195;
+  a4[6] = v193;
+  a4[7] = v194;
 }
 
 unint64_t type metadata accessor for NSNumber()
@@ -5118,7 +5121,7 @@ LABEL_8:
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PKRefineMorph.Match.MatchTo and conformance PKRefineMorph.Match.MatchTo()
+unint64_t lazy protocol witness table accessor for type PKRefineMorph.Match.MatchTo and conformance PKRefineMorph.Match.MatchTo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PKRefineMorph.Match.MatchTo and conformance PKRefineMorph.Match.MatchTo;
   if (!lazy protocol witness table cache variable for type PKRefineMorph.Match.MatchTo and conformance PKRefineMorph.Match.MatchTo)
@@ -5130,7 +5133,7 @@ unint64_t lazy protocol witness table accessor for type PKRefineMorph.Match.Matc
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PKRefineMorph.Match and conformance PKRefineMorph.Match()
+unint64_t lazy protocol witness table accessor for type PKRefineMorph.Match and conformance PKRefineMorph.Match(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PKRefineMorph.Match and conformance PKRefineMorph.Match;
   if (!lazy protocol witness table cache variable for type PKRefineMorph.Match and conformance PKRefineMorph.Match)
@@ -5156,7 +5159,7 @@ id static PKDrawing._unconditionallyBridgeFromObjectiveC(_:)@<X0>(id a1@<X0>, vo
   return v2;
 }
 
-uint64_t PKDrawing.init(data:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t PKDrawing.init(data:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v7 = objc_allocWithZone(PKDrawing);
   v8 = specialized @nonobjc PKDrawing.init(data:)();
@@ -5251,19 +5254,19 @@ void __swiftcall PKDrawing.appending(_:)(PencilKit::PKDrawing *__return_ptr rets
   retstr->drawing.super.isa = v4;
 }
 
-uint64_t PKDrawing.init<A>(strokes:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t PKDrawing.init<A>(strokes:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a4@<X8>)
 {
-  v6 = *(a2 - 8);
+  v7 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  (*(v6 + 16))(&v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a2);
+  (*(v7 + 16))(&v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a2);
   Array.init<A>(_:)();
-  v8 = objc_allocWithZone(PKDrawing);
+  v9 = objc_allocWithZone(PKDrawing);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v10 = [v8 initWithStrokes_];
+  v11 = [v9 initWithStrokes_];
 
-  result = (*(v6 + 8))(a1, a2);
-  *a3 = v10;
+  result = (*(v7 + 8))(a1, a2);
+  *a4 = v11;
   return result;
 }
 
@@ -5319,26 +5322,26 @@ void key path setter for PKDrawing.strokes : PKDrawing(uint64_t a1, id *a2)
   *a2 = v5;
 }
 
-void PKDrawing.strokes.setter()
+void PKDrawing.strokes.setter(uint64_t a1)
 {
-  v1 = objc_allocWithZone(PKDrawing);
+  v2 = objc_allocWithZone(PKDrawing);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v3 = [v1 initWithStrokes_];
+  v4 = [v2 initWithStrokes_];
 
-  *v0 = v3;
+  *v1 = v4;
 }
 
-void (*PKDrawing.strokes.modify(uint64_t *a1))(uint64_t a1, char a2)
+uint64_t (*PKDrawing.strokes.modify(uint64_t *a1))()
 {
   a1[1] = v1;
   *a1 = PKDrawing.strokes.getter();
   return PKDrawing.strokes.modify;
 }
 
-void PKDrawing.strokes.modify(uint64_t a1, char a2)
+void PKDrawing.strokes.modify(void *a1, char a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *v2;
   if (a2)
   {
@@ -5363,20 +5366,20 @@ void PKDrawing.strokes.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t PKDrawing.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+uint64_t PKDrawing.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Decoder.singleValueContainer()();
   if (!v2)
   {
-    __swift_project_boxed_opaque_existential_1(v10, v10[3]);
-    lazy protocol witness table accessor for type Data and conformance Data();
+    v5 = __swift_project_boxed_opaque_existential_1(v13, v13[3]);
+    lazy protocol witness table accessor for type Data and conformance Data(v5, v6, v7);
     dispatch thunk of SingleValueDecodingContainer.decode<A>(_:)();
-    v5 = objc_allocWithZone(PKDrawing);
-    v6 = specialized @nonobjc PKDrawing.init(data:)();
-    outlined consume of Data._Representation(v8, v9);
-    __swift_destroy_boxed_opaque_existential_0(v10);
-    *a2 = v6;
+    v8 = objc_allocWithZone(PKDrawing);
+    v9 = specialized @nonobjc PKDrawing.init(data:)();
+    outlined consume of Data._Representation(v11, v12);
+    __swift_destroy_boxed_opaque_existential_0(v13);
+    *a2 = v9;
   }
 
   return __swift_destroy_boxed_opaque_existential_0(a1);
@@ -5391,11 +5394,11 @@ uint64_t PKDrawing.encode(to:)(void *a1)
   v4 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
 
-  __swift_mutable_project_boxed_opaque_existential_1(v8, v9);
-  lazy protocol witness table accessor for type Data and conformance Data();
+  v7 = __swift_mutable_project_boxed_opaque_existential_1(v11, v11[3]);
+  lazy protocol witness table accessor for type Data and conformance Data(v7, v8, v9);
   dispatch thunk of SingleValueEncodingContainer.encode<A>(_:)();
   outlined consume of Data._Representation(v4, v6);
-  return __swift_destroy_boxed_opaque_existential_0(v8);
+  return __swift_destroy_boxed_opaque_existential_0(v11);
 }
 
 id static PKDrawing._forceBridgeFromObjectiveC(_:result:)(void *a1, id *a2)
@@ -5449,7 +5452,7 @@ id specialized @nonobjc PKDrawing.init(data:)()
   return v2;
 }
 
-unint64_t lazy protocol witness table accessor for type Data and conformance Data()
+unint64_t lazy protocol witness table accessor for type Data and conformance Data(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Data and conformance Data;
   if (!lazy protocol witness table cache variable for type Data and conformance Data)
@@ -5472,7 +5475,7 @@ unint64_t lazy protocol witness table accessor for type Data and conformance Dat
   return result;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -5480,7 +5483,7 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 id static PKInk._unconditionallyBridgeFromObjectiveC(_:)@<X0>(void *a1@<X0>, void *a2@<X8>)
@@ -5770,7 +5773,7 @@ void PKInk.color.setter(void *a1)
   *v1 = v3;
 }
 
-void (*PKInk.color.modify(void *a1))(void *a1, char a2)
+uint64_t (*PKInk.color.modify(void *a1))()
 {
   v3 = *v1;
   a1[1] = v1;
@@ -5861,7 +5864,7 @@ void __swiftcall PKStrokePath.InterpolatedSlice.next()(PencilKit::PKStrokePoint_
   if (!v6)
   {
 LABEL_10:
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
     __break(1u);
     return;
   }
@@ -5921,7 +5924,7 @@ LABEL_5:
   __break(1u);
 }
 
-unint64_t lazy protocol witness table accessor for type PKStrokePath.InterpolatedSlice and conformance PKStrokePath.InterpolatedSlice()
+unint64_t lazy protocol witness table accessor for type PKStrokePath.InterpolatedSlice and conformance PKStrokePath.InterpolatedSlice(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PKStrokePath.InterpolatedSlice and conformance PKStrokePath.InterpolatedSlice;
   if (!lazy protocol witness table cache variable for type PKStrokePath.InterpolatedSlice and conformance PKStrokePath.InterpolatedSlice)
@@ -5946,7 +5949,7 @@ double protocol witness for Sequence.makeIterator() in conformance PKStrokePath.
   return result;
 }
 
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance PKStrokePath.InterpolatedSlice()
+void *protocol witness for Sequence._copyToContiguousArray() in conformance PKStrokePath.InterpolatedSlice()
 {
   v1 = v0[1];
   v4[0] = *v0;
@@ -5957,7 +5960,7 @@ uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance P
   return v2;
 }
 
-uint64_t specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1)
+void *specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
@@ -6060,7 +6063,7 @@ LABEL_16:
           v25 = v24;
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMR);
         v26 = swift_allocObject();
         v27 = _swift_stdlib_malloc_size(v26);
         v28 = v27 - 32;
@@ -6108,7 +6111,7 @@ LABEL_43:
 LABEL_44:
         __break(1u);
 LABEL_45:
-        result = _assertionFailure(_:_:file:line:flags:)();
+        result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
         __break(1u);
         return result;
       }
@@ -7547,8 +7550,8 @@ void PKToolPickerCustomItem.Configuration.init(objcConfig:)(void *a1@<X0>, uint6
   v19 = v18;
   v76 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_So7UIImageCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   v20 = [a1 widthVariants];
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage, 0x1E69DCAB8);
   lazy protocol witness table accessor for type NSNumber and conformance NSObject();
   v21 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -7586,12 +7589,12 @@ void PKToolPickerCustomItem.Configuration.init(objcConfig:)(void *a1@<X0>, uint6
   v63 = v24;
   v30 = (v24 + 64) >> 6;
   v75 = v30;
-  while ((v21 & 0x8000000000000000) != 0)
+  while (v21 < 0)
   {
     if (!__CocoaDictionary.Iterator.next()() || (swift_dynamicCast(), v39 = v77, swift_dynamicCast(), v40 = v77, v35 = v29, v36 = v25, !v77))
     {
 LABEL_34:
-      outlined consume of [NSNumber : UIImage].Iterator._Variant();
+      outlined consume of [NSNumber : UIImage].Iterator._Variant(v21);
 
       v59 = [v73 defaultColor];
 
@@ -7763,7 +7766,7 @@ id PKToolPickerCustomItem.init(configuration:)(__int128 *a1)
   return v7;
 }
 
-uint64_t PKToolPickerCustomItem.Configuration.objcInstance.getter()
+id PKToolPickerCustomItem.Configuration.objcInstance.getter()
 {
   v1 = *v0;
   v2 = *(v0 + 1);
@@ -7780,7 +7783,7 @@ uint64_t PKToolPickerCustomItem.Configuration.objcInstance.getter()
   v54 = *(v0 + 12);
   v55 = *(v0 + 104);
   v11 = objc_allocWithZone(PKToolPickerCustomItemConfiguration);
-  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v5);
+  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v5, v6);
   v12 = MEMORY[0x1CCA6CE70](*&v1, v2);
   v13 = MEMORY[0x1CCA6CE70](v3, v4);
   v14 = [v11 initWithIdentifier:v12 name:v13];
@@ -7852,8 +7855,8 @@ LABEL_13:
     if (v25 >= v21)
     {
 
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage, 0x1E69DCAB8);
       lazy protocol witness table accessor for type NSNumber and conformance NSObject();
       isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -7990,7 +7993,7 @@ LABEL_36:
 LABEL_37:
   __break(1u);
 LABEL_38:
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
   return result;
@@ -8003,12 +8006,11 @@ uint64_t PKToolPickerCustomItem.Configuration.identifier.getter()
   return v1;
 }
 
-uint64_t PKToolPickerCustomItem.Configuration.identifier.setter(uint64_t a1, uint64_t a2)
+void PKToolPickerCustomItem.Configuration.identifier.setter(uint64_t a1, uint64_t a2)
 {
 
   *v2 = a1;
   v2[1] = a2;
-  return result;
 }
 
 uint64_t PKToolPickerCustomItem.Configuration.name.getter()
@@ -8018,12 +8020,11 @@ uint64_t PKToolPickerCustomItem.Configuration.name.getter()
   return v1;
 }
 
-uint64_t PKToolPickerCustomItem.Configuration.name.setter(uint64_t a1, uint64_t a2)
+void PKToolPickerCustomItem.Configuration.name.setter(uint64_t a1, uint64_t a2)
 {
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
-  return result;
 }
 
 uint64_t key path getter for PKToolPickerCustomItem.Configuration.imageProvider : PKToolPickerCustomItem.Configuration@<X0>(uint64_t a1@<X0>, uint64_t (**a2)()@<X8>)
@@ -8047,7 +8048,7 @@ uint64_t key path getter for PKToolPickerCustomItem.Configuration.imageProvider 
   *a2 = v6;
   a2[1] = v5;
 
-  return outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3);
+  return outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3, v4);
 }
 
 uint64_t key path setter for PKToolPickerCustomItem.Configuration.imageProvider : PKToolPickerCustomItem.Configuration(uint64_t *a1, uint64_t a2)
@@ -8069,8 +8070,9 @@ uint64_t key path setter for PKToolPickerCustomItem.Configuration.imageProvider 
   }
 
   v7 = *(a2 + 32);
-  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3);
-  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v7);
+  v8 = *(a2 + 40);
+  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3, v4);
+  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v7, v8);
   *(a2 + 32) = v6;
   *(a2 + 40) = v5;
   return result;
@@ -8079,19 +8081,19 @@ uint64_t key path setter for PKToolPickerCustomItem.Configuration.imageProvider 
 uint64_t PKToolPickerCustomItem.Configuration.imageProvider.getter()
 {
   v1 = *(v0 + 32);
-  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v1);
+  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v1, *(v0 + 40));
   return v1;
 }
 
 uint64_t PKToolPickerCustomItem.Configuration.imageProvider.setter(uint64_t a1, uint64_t a2)
 {
-  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v2 + 32));
+  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v2 + 32), *(v2 + 40));
   *(v2 + 32) = a1;
   *(v2 + 40) = a2;
   return result;
 }
 
-uint64_t key path getter for PKToolPickerCustomItem.Configuration.viewControllerProvider : PKToolPickerCustomItem.Configuration@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for PKToolPickerCustomItem.Configuration.viewControllerProvider : PKToolPickerCustomItem.Configuration@<X0>(uint64_t a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   v3 = *(a1 + 48);
   v4 = *(a1 + 56);
@@ -8112,7 +8114,7 @@ uint64_t key path getter for PKToolPickerCustomItem.Configuration.viewController
   *a2 = v6;
   a2[1] = v5;
 
-  return outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3);
+  return outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3, v4);
 }
 
 uint64_t key path setter for PKToolPickerCustomItem.Configuration.viewControllerProvider : PKToolPickerCustomItem.Configuration(uint64_t *a1, uint64_t a2)
@@ -8134,8 +8136,9 @@ uint64_t key path setter for PKToolPickerCustomItem.Configuration.viewController
   }
 
   v7 = *(a2 + 48);
-  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3);
-  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v7);
+  v8 = *(a2 + 56);
+  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3, v4);
+  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v7, v8);
   *(a2 + 48) = v6;
   *(a2 + 56) = v5;
   return result;
@@ -8144,26 +8147,19 @@ uint64_t key path setter for PKToolPickerCustomItem.Configuration.viewController
 uint64_t PKToolPickerCustomItem.Configuration.viewControllerProvider.getter()
 {
   v1 = *(v0 + 48);
-  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v1);
+  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v1, *(v0 + 56));
   return v1;
 }
 
 uint64_t PKToolPickerCustomItem.Configuration.viewControllerProvider.setter(uint64_t a1, uint64_t a2)
 {
-  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v2 + 48));
+  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v2 + 48), *(v2 + 56));
   *(v2 + 48) = a1;
   *(v2 + 56) = a2;
   return result;
 }
 
-uint64_t PKToolPickerCustomItem.Configuration.widthVariants.setter(uint64_t a1)
-{
-
-  *(v1 + 72) = a1;
-  return result;
-}
-
-_BYTE *(*PKToolPickerCustomItem.Configuration._supportsLassoBehaviors.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*PKToolPickerCustomItem.Configuration._supportsLassoBehaviors.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 104);
@@ -8202,7 +8198,7 @@ Swift::Int _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfCSo8NSNum
 {
   if (a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd, &_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMR);
     v2 = static _DictionaryStorage.convert(_:capacity:)();
     v19 = v2;
     __CocoaDictionary.makeIterator()();
@@ -8210,13 +8206,13 @@ Swift::Int _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfCSo8NSNum
     if (v3)
     {
       v4 = v3;
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
       v5 = v4;
       do
       {
         v17 = v5;
         swift_dynamicCast();
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage, 0x1E69DCAB8);
         swift_dynamicCast();
         v12 = *(v2 + 16);
         if (*(v2 + 24) <= v12)
@@ -8286,7 +8282,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_12CoreGraphics7CGFloatVTt0
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMd, &_ss18_DictionaryStorageCySi12CoreGraphics7CGFloatVGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     for (i = (a1 + 40); ; i += 2)
     {
@@ -8337,7 +8333,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_So7UI
     return MEMORY[0x1E69E7CC8];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMd, &_ss18_DictionaryStorageCy12CoreGraphics7CGFloatVSo7UIImageCGMR);
   v3 = static _DictionaryStorage.allocate(capacity:)();
   v4 = a1[4];
   v5 = *(a1 + 5);
@@ -8488,7 +8484,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo8NSNumberC_So7UIImageCTt0g5
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMd, &_ss18_DictionaryStorageCySo8NSNumberCSo7UIImageCGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 40); ; i += 2)
@@ -8539,15 +8535,15 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo13CIImageOptiona_ypTt0g5Tf4
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo13CIImageOptionaypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo13CIImageOptionaypGMd, &_ss18_DictionaryStorageCySo13CIImageOptionaypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of (CIContextOption, Any)(v4, &v11, &_sSo13CIImageOptiona_yptMd);
+      outlined init with copy of (CIContextOption, Any)(v4, &v11, &_sSo13CIImageOptiona_yptMd, &_sSo13CIImageOptiona_yptMR);
       v5 = v11;
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
+      result = specialized __RawDictionaryStorage.find<A>(_:)();
       if (v7)
       {
         break;
@@ -8591,15 +8587,15 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo15CIContextOptiona_ypTt0g5T
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo15CIContextOptionaypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo15CIContextOptionaypGMd, &_ss18_DictionaryStorageCySo15CIContextOptionaypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of (CIContextOption, Any)(v4, &v11, &_sSo15CIContextOptiona_yptMd);
+      outlined init with copy of (CIContextOption, Any)(v4, &v11, &_sSo15CIContextOptiona_yptMd, &_sSo15CIContextOptiona_yptMR);
       v5 = v11;
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
+      result = specialized __RawDictionaryStorage.find<A>(_:)();
       if (v7)
       {
         break;
@@ -8638,10 +8634,10 @@ LABEL_10:
   return result;
 }
 
-uint64_t outlined init with copy of (CIContextOption, Any)(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of (CIContextOption, Any)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -8650,7 +8646,7 @@ unint64_t lazy protocol witness table accessor for type NSNumber and conformance
   result = lazy protocol witness table cache variable for type NSNumber and conformance NSObject;
   if (!lazy protocol witness table cache variable for type NSNumber and conformance NSObject)
   {
-    type metadata accessor for NSObject(255, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSObject(255, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type NSNumber and conformance NSObject);
   }
@@ -9497,18 +9493,18 @@ uint64_t @objc completion handler block implementation for @escaping @callee_uno
   return MEMORY[0x1EEE6DED8](v4);
 }
 
-uint64_t PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:)(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, uint64_t a10, uint64_t a11, char a12)
+uint64_t PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
 {
-  *(v13 + 2472) = a12;
-  *(v13 + 2208) = a9;
-  *(v13 + 2200) = a8;
-  *(v13 + 2192) = a7;
-  *(v13 + 2184) = a6;
-  *(v13 + 2176) = a5;
-  *(v13 + 2168) = a4;
-  *(v13 + 2160) = a3;
-  *(v13 + 2152) = a2;
-  *(v13 + 2144) = a11;
+  *(v13 + 2472) = a4;
+  *(v13 + 2208) = a12;
+  *(v13 + 2200) = a11;
+  *(v13 + 2192) = a10;
+  *(v13 + 2184) = a9;
+  *(v13 + 2176) = a8;
+  *(v13 + 2168) = a7;
+  *(v13 + 2160) = a6;
+  *(v13 + 2152) = a5;
+  *(v13 + 2144) = a3;
   *(v13 + 2216) = *v12;
   if (a1)
   {
@@ -9757,7 +9753,7 @@ LABEL_11:
       v54 = *MEMORY[0x1E695F9A8];
       if (v53)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo13CIImageOptiona_yptGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo13CIImageOptiona_yptGMd, &_ss23_ContiguousArrayStorageCySo13CIImageOptiona_yptGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_1C8018A40;
         *(inited + 32) = v54;
@@ -9769,10 +9765,10 @@ LABEL_11:
         v58 = v53;
         _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo13CIImageOptiona_ypTt0g5Tf4g_n(inited);
         swift_setDeallocating();
-        outlined destroy of (CIImageOption, Any)(inited + 32, &_sSo13CIImageOptiona_yptMd);
+        outlined destroy of (CIImageOption, Any)(inited + 32, &_sSo13CIImageOptiona_yptMd, &_sSo13CIImageOptiona_yptMR);
         v59 = objc_allocWithZone(MEMORY[0x1E695F658]);
         type metadata accessor for CIImageOption(0);
-        lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption);
+        lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption, &protocol conformance descriptor for CIImageOption);
         isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
         v53 = [v59 initWithCGImage:v57 options:isa];
@@ -9899,7 +9895,7 @@ LABEL_11:
                 *(v0 + 120) = v0 + 2120;
                 *(v0 + 88) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
                 v107 = swift_continuation_init();
-                *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd);
+                *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd, &_sSccySo10CGImageRefaSg_ACts5NeverOGMR);
                 *(v0 + 632) = v107;
                 *(v0 + 600) = MEMORY[0x1E69E9820];
                 *(v0 + 608) = 1107296256;
@@ -9923,7 +9919,7 @@ LABEL_11:
                 *(v0 + 184) = v0 + 2136;
                 *(v0 + 152) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
                 v114 = swift_continuation_init();
-                *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd);
+                *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd, &_sSccySo7UIImageCSgs5NeverOGMR);
                 *(v0 + 568) = v114;
                 *(v0 + 536) = MEMORY[0x1E69E9820];
                 *(v0 + 544) = 1107296256;
@@ -9950,7 +9946,7 @@ LABEL_11:
               *(v0 + 16) = v0;
               *(v0 + 24) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
               v113 = swift_continuation_init();
-              *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+              *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
               *(v0 + 696) = v113;
               *(v0 + 664) = MEMORY[0x1E69E9820];
               *(v0 + 672) = 1107296256;
@@ -10116,7 +10112,7 @@ LABEL_5:
             *(v0 + 120) = v0 + 2120;
             *(v0 + 88) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
             v38 = swift_continuation_init();
-            *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd);
+            *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd, &_sSccySo10CGImageRefaSg_ACts5NeverOGMR);
             *(v0 + 632) = v38;
             *(v0 + 600) = MEMORY[0x1E69E9820];
             *(v0 + 608) = 1107296256;
@@ -10140,7 +10136,7 @@ LABEL_5:
             *(v0 + 184) = v0 + 2136;
             *(v0 + 152) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
             v45 = swift_continuation_init();
-            *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd);
+            *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd, &_sSccySo7UIImageCSgs5NeverOGMR);
             *(v0 + 568) = v45;
             *(v0 + 536) = MEMORY[0x1E69E9820];
             *(v0 + 544) = 1107296256;
@@ -10167,7 +10163,7 @@ LABEL_5:
           *(v0 + 16) = v0;
           *(v0 + 24) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
           v44 = swift_continuation_init();
-          *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+          *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
           *(v0 + 696) = v44;
           *(v0 + 664) = MEMORY[0x1E69E9820];
           *(v0 + 672) = 1107296256;
@@ -10256,7 +10252,7 @@ LABEL_33:
   v21 = *(v0 + 2408);
   v22 = *(v0 + 2384);
   v23 = *(v0 + 2240);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo13CIImageOptiona_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo13CIImageOptiona_yptGMd, &_ss23_ContiguousArrayStorageCySo13CIImageOptiona_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1C8018A40;
   *(inited + 32) = v20;
@@ -10264,15 +10260,15 @@ LABEL_33:
   v26 = v20;
   v27 = v8;
   v28 = [v25 init];
-  v29 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNull);
+  v29 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNull, 0x1E695DFB0);
   *(inited + 64) = v29;
   *(inited + 40) = v28;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo13CIImageOptiona_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  outlined destroy of (CIImageOption, Any)(inited + 32, &_sSo13CIImageOptiona_yptMd);
+  outlined destroy of (CIImageOption, Any)(inited + 32, &_sSo13CIImageOptiona_yptMd, &_sSo13CIImageOptiona_yptMR);
   v30 = objc_allocWithZone(MEMORY[0x1E695F658]);
   type metadata accessor for CIImageOption(0);
-  lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption);
+  lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption, &protocol conformance descriptor for CIImageOption);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   v32 = [v30 initWithCGImage:v27 options:isa];
@@ -10312,7 +10308,7 @@ LABEL_33:
   *(v42 + 40) = v45;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo13CIImageOptiona_ypTt0g5Tf4g_n(v42);
   swift_setDeallocating();
-  outlined destroy of (CIImageOption, Any)(v42 + 32, &_sSo13CIImageOptiona_yptMd);
+  outlined destroy of (CIImageOption, Any)(v42 + 32, &_sSo13CIImageOptiona_yptMd, &_sSo13CIImageOptiona_yptMR);
   v46 = objc_allocWithZone(MEMORY[0x1E695F658]);
   v47 = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -10333,7 +10329,7 @@ LABEL_33:
   v55 = *&v141[v40];
   *&v141[v40] = v54;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo15CIContextOptiona_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo15CIContextOptiona_yptGMd, &_ss23_ContiguousArrayStorageCySo15CIContextOptiona_yptGMR);
   v56 = swift_initStackObject();
   *(v56 + 16) = xmmword_1C80196F0;
   *(v56 + 32) = v38;
@@ -10349,11 +10345,11 @@ LABEL_33:
   *(v56 + 80) = v61;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo15CIContextOptiona_ypTt0g5Tf4g_n(v56);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CIContextOptiona_yptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CIContextOptiona_yptMd, &_sSo15CIContextOptiona_yptMR);
   swift_arrayDestroy();
   v62 = objc_allocWithZone(MEMORY[0x1E695F620]);
   type metadata accessor for CIContextOption(0);
-  lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIContextOption and conformance CIContextOption, type metadata accessor for CIContextOption);
+  lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIContextOption and conformance CIContextOption, type metadata accessor for CIContextOption, &protocol conformance descriptor for CIContextOption);
   v63 = Dictionary._bridgeToObjectiveC()().super.isa;
 
   v64 = [v62 initWithOptions_];
@@ -10506,7 +10502,7 @@ LABEL_17:
             *(v0 + 120) = v0 + 2120;
             *(v0 + 88) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
             v125 = swift_continuation_init();
-            *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd);
+            *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd, &_sSccySo10CGImageRefaSg_ACts5NeverOGMR);
             *(v0 + 632) = v125;
             *(v0 + 600) = MEMORY[0x1E69E9820];
             *(v0 + 608) = 1107296256;
@@ -10536,7 +10532,7 @@ LABEL_17:
             *(v0 + 184) = v0 + 2136;
             *(v0 + 152) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
             v136 = swift_continuation_init();
-            *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd);
+            *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd, &_sSccySo7UIImageCSgs5NeverOGMR);
             *(v0 + 568) = v136;
             *(v0 + 536) = MEMORY[0x1E69E9820];
             *(v0 + 544) = 1107296256;
@@ -10562,7 +10558,7 @@ LABEL_17:
           *(v0 + 16) = v0;
           *(v0 + 24) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
           v131 = swift_continuation_init();
-          *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+          *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
           *(v0 + 696) = v131;
           *(v0 + 664) = MEMORY[0x1E69E9820];
           *(v0 + 672) = 1107296256;
@@ -10773,7 +10769,7 @@ LABEL_9:
             *(v0 + 120) = v0 + 2120;
             *(v0 + 88) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
             v54 = swift_continuation_init();
-            *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd);
+            *(v0 + 656) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefaSg_ACts5NeverOGMd, &_sSccySo10CGImageRefaSg_ACts5NeverOGMR);
             *(v0 + 632) = v54;
             *(v0 + 600) = MEMORY[0x1E69E9820];
             *(v0 + 608) = 1107296256;
@@ -10803,7 +10799,7 @@ LABEL_9:
             *(v0 + 184) = v0 + 2136;
             *(v0 + 152) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
             v65 = swift_continuation_init();
-            *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd);
+            *(v0 + 592) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd, &_sSccySo7UIImageCSgs5NeverOGMR);
             *(v0 + 568) = v65;
             *(v0 + 536) = MEMORY[0x1E69E9820];
             *(v0 + 544) = 1107296256;
@@ -10829,7 +10825,7 @@ LABEL_9:
           *(v0 + 16) = v0;
           *(v0 + 24) = PKDrawing.draw(in:frame:from:darkUserInterfaceStyle:);
           v60 = swift_continuation_init();
-          *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+          *(v0 + 720) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
           *(v0 + 696) = v60;
           *(v0 + 664) = MEMORY[0x1E69E9820];
           *(v0 + 672) = 1107296256;

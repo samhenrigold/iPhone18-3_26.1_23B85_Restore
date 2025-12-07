@@ -78,8 +78,8 @@
 
 - (id)reshapeFitToTileToCommandBuffer:(id)buffer currentSource:(id)source kernelDimension:(unint64_t)dimension dimensionsToBeRetained:
 {
-  v71 = v5;
-  v87 = *MEMORY[0x277D85DE8];
+  v70 = v5;
+  v86 = *MEMORY[0x277D85DE8];
   axis = self->_axis;
   descriptor = [source descriptor];
   v11 = (source + *MEMORY[0x277CD7410]);
@@ -88,46 +88,46 @@
   v14 = HIDWORD(v13);
   v15 = *v11;
   v16 = v11[1];
-  v17 = BYTE2(v71) == 1 || BYTE1(v71) == 1;
-  v18 = BYTE3(v71) == 1 || BYTE2(v71) == 1;
-  v19 = BYTE4(v71) == 1 || BYTE3(v71) == 1;
-  v20 = BYTE5(v71) == 1 || BYTE4(v71) == 1;
-  v21 = BYTE6(v71) == 1 || BYTE5(v71) == 1;
-  v22 = BYTE7(v71) == 1 || BYTE6(v71) == 1;
-  v23 = BYTE8(v71) == 1 || BYTE7(v71) == 1;
-  v24 = BYTE9(v71) == 1;
-  v25 = BYTE9(v71) == 1 || BYTE8(v71) == 1;
-  v26 = BYTE10(v71) == 1;
-  if (BYTE10(v71) == 1)
+  v17 = BYTE2(v70) == 1 || BYTE1(v70) == 1;
+  v18 = BYTE3(v70) == 1 || BYTE2(v70) == 1;
+  v19 = BYTE4(v70) == 1 || BYTE3(v70) == 1;
+  v20 = BYTE5(v70) == 1 || BYTE4(v70) == 1;
+  v21 = BYTE6(v70) == 1 || BYTE5(v70) == 1;
+  v22 = BYTE7(v70) == 1 || BYTE6(v70) == 1;
+  v23 = BYTE8(v70) == 1 || BYTE7(v70) == 1;
+  v24 = BYTE9(v70) == 1;
+  v25 = BYTE9(v70) == 1 || BYTE8(v70) == 1;
+  v26 = BYTE10(v70) == 1;
+  if (BYTE10(v70) == 1)
   {
     v24 = 1;
   }
 
-  v27 = BYTE11(v71) == 1;
-  if (BYTE11(v71) == 1)
+  v27 = BYTE11(v70) == 1;
+  if (BYTE11(v70) == 1)
   {
     v26 = 1;
   }
 
-  v28 = BYTE12(v71) == 1;
-  if (BYTE12(v71) == 1)
+  v28 = BYTE12(v70) == 1;
+  if (BYTE12(v70) == 1)
   {
     v27 = 1;
   }
 
-  v29 = BYTE13(v71) == 1;
-  if (BYTE13(v71) == 1)
+  v29 = BYTE13(v70) == 1;
+  if (BYTE13(v70) == 1)
   {
     v28 = 1;
   }
 
-  v30 = BYTE14(v71) == 1;
-  if (BYTE14(v71) == 1)
+  v30 = BYTE14(v70) == 1;
+  if (BYTE14(v70) == 1)
   {
     v29 = 1;
   }
 
-  if (HIBYTE(v71) == 1)
+  if (HIBYTE(v70) == 1)
   {
     v30 = 1;
   }
@@ -165,8 +165,8 @@
     v33 = 1;
   }
 
-  v85 = v33;
-  v86 = v14;
+  v84 = v33;
+  v85 = v14;
   v36 = (v35 * DWORD1(v13));
   if (v28)
   {
@@ -199,8 +199,8 @@
     v38 = 1;
   }
 
-  v83 = v38;
-  v84 = v36;
+  v82 = v38;
+  v83 = v36;
   v40 = (v39 * HIDWORD(v12));
   if (v26)
   {
@@ -233,8 +233,8 @@
     v42 = 1;
   }
 
-  v81 = v42;
-  v82 = v40;
+  v80 = v42;
+  v81 = v40;
   v44 = (v43 * DWORD1(v12));
   v45 = !v25;
   if (v25)
@@ -269,8 +269,8 @@
     v47 = 1;
   }
 
-  v79 = v47;
-  v80 = v44;
+  v78 = v47;
+  v79 = v44;
   v50 = (v49 * HIDWORD(v16));
   v51 = !v22;
   if (v22)
@@ -305,8 +305,8 @@
     v53 = 1;
   }
 
-  v77 = v53;
-  v78 = v50;
+  v76 = v53;
+  v77 = v50;
   v56 = (v55 * DWORD1(v16));
   v57 = !v20;
   if (v20)
@@ -341,8 +341,8 @@
     v59 = 1;
   }
 
-  v75 = v59;
-  v76 = v56;
+  v74 = v59;
+  v75 = v56;
   v62 = (v61 * HIDWORD(v15));
   v63 = !v18;
   if (v18)
@@ -377,21 +377,19 @@
     v65 = 1;
   }
 
-  v73 = v65;
-  v74 = v62;
+  v72 = v65;
+  v73 = v62;
   *&v68 = v15;
   *(&v68 + 1) = (v67 * DWORD1(v15));
-  v72 = v68;
+  v71 = v68;
   if (axis >= 3)
   {
-    v73 = *(&v72 + axis);
-    *(&v72 + axis) = 1;
+    v72 = *(&v71 + axis);
+    *(&v71 + axis) = 1;
   }
 
-  [descriptor reshapeWithDimensionCount:dimension dimensionSizes:&v72];
-  result = [source arrayViewWithCommandBuffer:buffer descriptor:descriptor aliasing:1];
-  v70 = *MEMORY[0x277D85DE8];
-  return result;
+  [descriptor reshapeWithDimensionCount:dimension dimensionSizes:&v71];
+  return [source arrayViewWithCommandBuffer:buffer descriptor:descriptor aliasing:1];
 }
 
 @end

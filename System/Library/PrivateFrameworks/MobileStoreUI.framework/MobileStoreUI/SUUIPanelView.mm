@@ -107,7 +107,7 @@
   return reason;
 }
 
-uint64_t __64__SUUIPanelView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__64__SUUIPanelView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -814,7 +814,7 @@ void __31__SUUIPanelView_layoutSubviews__block_invoke(uint64_t a1, void *a2)
   nameCopy = name;
   optionsCopy = options;
   v9 = [(NSMapTable *)self->_animators objectForKey:feature];
-  if ([v9 isDescendantOfView:self] && objc_msgSend(nameCopy, "isEqualToString:", 0x286AFD9E0))
+  if ([v9 isDescendantOfView:self] && objc_msgSend_isEqualToString_(nameCopy))
   {
     v10 = [[SUUIShakeAnimation alloc] initWithOptions:optionsCopy];
     objc_opt_class();
@@ -910,15 +910,15 @@ void __60__SUUIPanelView__enumerateChildrenOfViewElement_usingBlock___block_invo
   maximumLength = [elementCopy maximumLength];
   if (maximumLength < 1)
   {
-    v7 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
-    v7 = [textStyle isEqualToString:0x286AF2E00];
+    isEqualToString = objc_msgSend_isEqualToString_(textStyle);
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 + (UIEdgeInsets)_marginsForViewElement:(id)element index:(unint64_t)index width:(double)width context:(id)context

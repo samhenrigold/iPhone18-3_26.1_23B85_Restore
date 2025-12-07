@@ -13,21 +13,22 @@
 - (BOOL)isHighlighted
 {
   selfCopy = self;
-  v3 = sub_62C04();
+  v3 = sub_62C04(selfCopy);
 
   return v3 & 1;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_62C8C(highlighted);
+  sub_62C8C(highlightedCopy);
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_62CE8();
+  sub_62CE8(selfCopy);
 }
 
 - (void)layoutSubviews

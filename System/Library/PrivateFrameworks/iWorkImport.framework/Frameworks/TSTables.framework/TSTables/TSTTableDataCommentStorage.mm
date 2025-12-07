@@ -13,7 +13,7 @@
   v4 = *&count;
   storageCopy = storage;
   v7 = [self alloc];
-  inited = objc_msgSend_initObjectWithCommentStorage_refCount_(v7, v8, storageCopy, v4, v9);
+  inited = objc_msgSend_initObjectWithCommentStorage_refCount_(v7, v8, storageCopy, v4);
 
   return inited;
 }
@@ -38,67 +38,67 @@
 {
   unarchiverCopy = unarchiver;
   completionCopy = completion;
-  objc_msgSend_sharedLoadFromArchive_(self, v10, archive, v11, v12);
-  v13 = *(archive + 9);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_2215BE3D0;
-  v18[3] = &unk_278467450;
-  v18[4] = self;
-  v14 = completionCopy;
-  v19 = v14;
-  v15 = unarchiverCopy;
-  v17 = objc_opt_class();
-  if (v13)
+  objc_msgSend_sharedLoadFromArchive_(self, v10, archive, v11);
+  v12 = *(archive + 9);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_2215BE3D0;
+  v17[3] = &unk_278467450;
+  v17[4] = self;
+  v13 = completionCopy;
+  v18 = v13;
+  v14 = unarchiverCopy;
+  v16 = objc_opt_class();
+  if (v12)
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v15, v16, v13, v17, 0, v18);
+    objc_msgSend_readReferenceMessage_class_protocol_completion_(v14, v15, v12, v16, 0, v17);
   }
 
   else
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v15, v16, MEMORY[0x277D80A18], v17, 0, v18);
+    objc_msgSend_readReferenceMessage_class_protocol_completion_(v14, v15, MEMORY[0x277D80A18], v16, 0, v17);
   }
 }
 
 - (void)encodeToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v28.receiver = self;
-  v28.super_class = TSTTableDataCommentStorage;
-  [(TSTTableDataObject *)&v28 encodeToArchive:archive archiver:archiverCopy];
-  v13 = objc_msgSend_commentStorage(self, v7, v8, v9, v10);
+  v23.receiver = self;
+  v23.super_class = TSTTableDataCommentStorage;
+  [(TSTTableDataObject *)&v23 encodeToArchive:archive archiver:archiverCopy];
+  v11 = objc_msgSend_commentStorage(self, v7, v8, v9);
   *(archive + 4) |= 0x40u;
-  v14 = *(archive + 9);
-  if (!v14)
+  v12 = *(archive + 9);
+  if (!v12)
   {
-    v15 = *(archive + 1);
-    if (v15)
+    v13 = *(archive + 1);
+    if (v13)
     {
-      v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+      v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v14 = MEMORY[0x223DA0390](v15);
-    *(archive + 9) = v14;
+    v12 = MEMORY[0x223DA0390](v13);
+    *(archive + 9) = v12;
   }
 
-  objc_msgSend_setStrongReference_message_(archiverCopy, v11, v13, v14, v12);
-  v20 = objc_msgSend_replies(v13, v16, v17, v18, v19);
-  v25 = objc_msgSend_count(v20, v21, v22, v23, v24);
+  objc_msgSend_setStrongReference_message_(archiverCopy, v10, v11, v12);
+  v17 = objc_msgSend_replies(v11, v14, v15, v16);
+  v21 = objc_msgSend_count(v17, v18, v19, v20);
 
-  if (v25)
+  if (v21)
   {
-    objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v26, *MEMORY[0x277D80980], @"TSDThreadedComments", v27);
+    objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v22, *MEMORY[0x277D80980], @"TSDThreadedComments");
   }
 }
 
 - (id)description
 {
-  v6 = MEMORY[0x277CCACA8];
-  v7 = objc_msgSend_refCount(self, a2, v2, v3, v4);
-  v12 = objc_msgSend_commentStorage(self, v8, v9, v10, v11);
-  v16 = objc_msgSend_stringWithFormat_(v6, v13, @"refCount: %d   commentStorage: %@", v14, v15, v7, v12);
+  v5 = MEMORY[0x277CCACA8];
+  v6 = objc_msgSend_refCount(self, a2, v2, v3);
+  v10 = objc_msgSend_commentStorage(self, v7, v8, v9);
+  v13 = objc_msgSend_stringWithFormat_(v5, v11, @"refCount: %d   commentStorage: %@", v12, v6, v10);
 
-  return v16;
+  return v13;
 }
 
 @end

@@ -139,7 +139,7 @@
 
   if ((*&self->_flags & 1) != 0 && !IsSupersetOfSet)
   {
-    [(_NSPlaceholderCharacterSet *)self _expandInverted];
+    objc_msgSend__expandInverted(self);
     invertedSet = self->_invertedSet;
     return CFCharacterSetIsSupersetOfSet(invertedSet, set) != 0;
   }
@@ -153,7 +153,7 @@
   v5 = &OBJC_IVAR____NSPlaceholderCharacterSet__original;
   if (*&self->_flags)
   {
-    [(_NSPlaceholderCharacterSet *)self _expandInverted];
+    objc_msgSend__expandInverted(self, a2);
     v5 = &OBJC_IVAR____NSPlaceholderCharacterSet__invertedSet;
   }
 
@@ -181,7 +181,7 @@
 
   if (*&flags)
   {
-    [(_NSPlaceholderCharacterSet *)self _expandInverted];
+    objc_msgSend__expandInverted(self, a2);
     original = self->_invertedSet;
   }
 
@@ -193,7 +193,7 @@
   v3 = &OBJC_IVAR____NSPlaceholderCharacterSet__original;
   if (*&self->_flags)
   {
-    [(_NSPlaceholderCharacterSet *)self _expandInverted];
+    objc_msgSend__expandInverted(self, a2);
     v3 = &OBJC_IVAR____NSPlaceholderCharacterSet__invertedSet;
   }
 
@@ -209,7 +209,7 @@
     return 0;
   }
 
-  [(_NSPlaceholderCharacterSet *)self _expandInverted];
+  objc_msgSend__expandInverted(self);
   invertedSet = self->_invertedSet;
 
   return [(NSCharacterSet *)invertedSet isEmpty];
@@ -319,7 +319,7 @@
   v4 = &OBJC_IVAR____NSPlaceholderCharacterSet__original;
   if (*&self->_flags)
   {
-    [(_NSPlaceholderCharacterSet *)self _expandInverted];
+    objc_msgSend__expandInverted(self, a2, archiver);
     v4 = &OBJC_IVAR____NSPlaceholderCharacterSet__invertedSet;
   }
 
@@ -331,7 +331,7 @@
   v4 = &OBJC_IVAR____NSPlaceholderCharacterSet__original;
   if (*&self->_flags)
   {
-    [(_NSPlaceholderCharacterSet *)self _expandInverted];
+    objc_msgSend__expandInverted(self, a2, coder);
     v4 = &OBJC_IVAR____NSPlaceholderCharacterSet__invertedSet;
   }
 

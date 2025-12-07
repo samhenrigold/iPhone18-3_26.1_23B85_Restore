@@ -38,24 +38,23 @@
 
 - (void)copyFromBuffer:(id)buffer sourceOffset:(unint64_t)offset toBuffer:(id)toBuffer destinationOffset:(unint64_t)destinationOffset size:(unint64_t)size
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v22[1] = v22;
+  v21[1] = v21;
   __src = 1;
-  v10 = 109;
+  v9 = 109;
   bufferCopy = buffer;
-  v12 = 100;
+  v11 = 100;
   offsetCopy = offset;
-  v14 = 109;
+  v13 = 109;
   toBufferCopy = toBuffer;
-  v16 = 100;
+  v15 = 100;
   destinationOffsetCopy = destinationOffset;
-  v18 = 100;
+  v17 = 100;
   sizeCopy = size;
-  v20 = 16;
-  v22[0] = &v21;
+  v19 = 16;
+  v21[0] = &v20;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x30uLL);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyFromBuffer:(id)buffer sourceOffset:(unint64_t)offset sourceBytesPerRow:(unint64_t)row sourceBytesPerImage:(unint64_t)image sourceSize:(id *)size toTexture:(id)texture destinationSlice:(unint64_t)slice destinationLevel:(unint64_t)self0 destinationOrigin:(id *)self1
@@ -175,156 +174,146 @@
 
 - (void)copyFromTexture:(id)texture toTexture:(id)toTexture
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v13[1] = v13;
+  v12[1] = v12;
   __src = 3329;
-  v7 = 109;
+  v6 = 109;
   textureCopy = texture;
-  v9 = 109;
+  v8 = 109;
   toTextureCopy = toTexture;
-  v11 = 16;
-  v13[0] = v12;
+  v10 = 16;
+  v12[0] = v11;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateMipmapsForTexture:(id)texture
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v10[1] = v10;
+  v9[1] = v9;
   __src = 3585;
-  v6 = 109;
+  v5 = 109;
   textureCopy = texture;
-  v8 = 16;
-  v10[0] = &v9;
+  v7 = 16;
+  v9[0] = &v8;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0xCuLL);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeResource:(id)resource
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v10[1] = v10;
+  v9[1] = v9;
   __src = 3841;
-  v6 = 109;
+  v5 = 109;
   resourceCopy = resource;
-  v8 = 16;
-  v10[0] = &v9;
+  v7 = 16;
+  v9[0] = &v8;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0xCuLL);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeTexture:(id)texture slice:(unint64_t)slice level:(unint64_t)level
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v16[1] = v16;
+  v15[1] = v15;
   __src = 4097;
-  v8 = 109;
+  v7 = 109;
   textureCopy = texture;
-  v10 = 100;
+  v9 = 100;
   sliceCopy = slice;
-  v12 = 100;
+  v11 = 100;
   levelCopy = level;
-  v14 = 16;
-  v16[0] = &v15;
+  v13 = 16;
+  v15[0] = &v14;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x1EuLL);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFence:(id)fence
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v10[1] = v10;
+  v9[1] = v9;
   __src = 29697;
-  v6 = 109;
+  v5 = 109;
   fenceCopy = fence;
-  v8 = 16;
-  v10[0] = &v9;
+  v7 = 16;
+  v9[0] = &v8;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0xCuLL);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForFence:(id)fence
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v10[1] = v10;
+  v9[1] = v9;
   __src = 32257;
-  v6 = 109;
+  v5 = 109;
   fenceCopy = fence;
-  v8 = 16;
-  v10[0] = &v9;
+  v7 = 16;
+  v9[0] = &v8;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0xCuLL);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)optimizeContentsForGPUAccess:(id)access
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v10[1] = v10;
+  v9[1] = v9;
   __src = 4353;
-  v6 = 109;
+  v5 = 109;
   accessCopy = access;
-  v8 = 16;
-  v10[0] = &v9;
+  v7 = 16;
+  v9[0] = &v8;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0xCuLL);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)optimizeContentsForGPUAccess:(id)access slice:(unint64_t)slice level:(unint64_t)level
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v16[1] = v16;
+  v15[1] = v15;
   __src = 4609;
-  v8 = 109;
+  v7 = 109;
   accessCopy = access;
-  v10 = 100;
+  v9 = 100;
   sliceCopy = slice;
-  v12 = 100;
+  v11 = 100;
   levelCopy = level;
-  v14 = 16;
-  v16[0] = &v15;
+  v13 = 16;
+  v15[0] = &v14;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x1EuLL);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)optimizeContentsForCPUAccess:(id)access
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v10[1] = v10;
+  v9[1] = v9;
   __src = 4865;
-  v6 = 109;
+  v5 = 109;
   accessCopy = access;
-  v8 = 16;
-  v10[0] = &v9;
+  v7 = 16;
+  v9[0] = &v8;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0xCuLL);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)optimizeContentsForCPUAccess:(id)access slice:(unint64_t)slice level:(unint64_t)level
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v16[1] = v16;
+  v15[1] = v15;
   __src = 5121;
-  v8 = 109;
+  v7 = 109;
   accessCopy = access;
-  v10 = 100;
+  v9 = 100;
   sliceCopy = slice;
-  v12 = 100;
+  v11 = 100;
   levelCopy = level;
-  v14 = 16;
-  v16[0] = &v15;
+  v13 = 16;
+  v15[0] = &v14;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x1EuLL);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice resetCounters:(BOOL)resetCounters countersBuffer:(id)buffer countersBufferOffset:(unint64_t)offset
@@ -338,14 +327,13 @@
 
 - (void)resetTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   stream = self->super._stream;
-  v11[1] = v11;
+  v10[1] = v10;
   __src = 5633;
-  v9 = 16;
-  v11[0] = v10;
+  v8 = 16;
+  v10[0] = v9;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 3uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

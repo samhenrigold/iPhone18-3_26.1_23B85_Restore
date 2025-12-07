@@ -28,12 +28,12 @@ void __92__INStopSendingUpdatesForwardingAction_executeLocallyWithIntentDelivere
 
 - (BOOL)executeRemotelyWithVendorRemote:(id)remote completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   remoteCopy = remote;
   handlerCopy = handler;
-  v15.receiver = self;
-  v15.super_class = INStopSendingUpdatesForwardingAction;
-  if ([(INIntentForwardingAction *)&v15 executeRemotelyWithVendorRemote:remoteCopy completionHandler:handlerCopy])
+  v14.receiver = self;
+  v14.super_class = INStopSendingUpdatesForwardingAction;
+  if ([(INIntentForwardingAction *)&v14 executeRemotelyWithVendorRemote:remoteCopy completionHandler:handlerCopy])
   {
     goto LABEL_4;
   }
@@ -56,14 +56,13 @@ LABEL_4:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v17 = "[INStopSendingUpdatesForwardingAction executeRemotelyWithVendorRemote:completionHandler:]";
+    v16 = "[INStopSendingUpdatesForwardingAction executeRemotelyWithVendorRemote:completionHandler:]";
     _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s The extension context doesn't implement stopSendingUpdatesForIntent:", buf, 0xCu);
   }
 
   v11 = 0;
 LABEL_8:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -84,7 +84,7 @@ uint64_t __72__AXCameraTorchManagerBackgroundAdapter_closeTorchDeviceWithComplet
 
 - (void)turnTorchOnWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -102,23 +102,21 @@ uint64_t __72__AXCameraTorchManagerBackgroundAdapter_closeTorchDeviceWithComplet
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
   }
 
   q = self->_q;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __67__AXCameraTorchManagerBackgroundAdapter_turnTorchOnWithCompletion___block_invoke;
-  v15[3] = &unk_279E2C588;
-  v15[4] = self;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __67__AXCameraTorchManagerBackgroundAdapter_turnTorchOnWithCompletion___block_invoke;
+  v14[3] = &unk_279E2C588;
+  v14[4] = self;
+  v15 = completionCopy;
   v13 = completionCopy;
-  dispatch_async(q, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(q, v14);
 }
 
 uint64_t __67__AXCameraTorchManagerBackgroundAdapter_turnTorchOnWithCompletion___block_invoke(uint64_t a1)
@@ -137,7 +135,7 @@ uint64_t __67__AXCameraTorchManagerBackgroundAdapter_turnTorchOnWithCompletion__
 
 - (void)turnTorchOffWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -155,23 +153,21 @@ uint64_t __67__AXCameraTorchManagerBackgroundAdapter_turnTorchOnWithCompletion__
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
   }
 
   q = self->_q;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __68__AXCameraTorchManagerBackgroundAdapter_turnTorchOffWithCompletion___block_invoke;
-  v15[3] = &unk_279E2C588;
-  v15[4] = self;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __68__AXCameraTorchManagerBackgroundAdapter_turnTorchOffWithCompletion___block_invoke;
+  v14[3] = &unk_279E2C588;
+  v14[4] = self;
+  v15 = completionCopy;
   v13 = completionCopy;
-  dispatch_async(q, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(q, v14);
 }
 
 uint64_t __68__AXCameraTorchManagerBackgroundAdapter_turnTorchOffWithCompletion___block_invoke(uint64_t a1)

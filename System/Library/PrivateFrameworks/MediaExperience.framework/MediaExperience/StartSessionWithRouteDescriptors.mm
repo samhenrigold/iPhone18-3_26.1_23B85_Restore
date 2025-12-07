@@ -6,16 +6,13 @@
 uint64_t __routingSessionManagerResilientRemote_StartSessionWithRouteDescriptors_block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 16) + 72);
-  if (!v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 72);
+  if (!v4)
   {
     return 4294954514;
   }
 
-  v6 = *(VTable + 16) + 72;
-
-  return v5(a2, v3);
+  return v4(a2, v3);
 }
 
 void __routingSessionManager_StartSessionWithRouteDescriptors_block_invoke(void *a1, uint64_t a2, uint64_t a3)
@@ -50,8 +47,7 @@ void __routingSessionManager_StartSessionWithRouteDescriptors_block_invoke(void 
 
 void __routingSessionManager_StartSessionWithRouteDescriptors_block_invoke_2(uint64_t a1)
 {
-  routingSessionManager_setPredictionContextForSession(*(a1 + 48), [*(a1 + 32) newSession], *(a1 + 40));
-  [*(a1 + 32) setPredictionContext:*(a1 + 40)];
+  [*(a1 + 32) setPredictionContext:{*(a1 + 40), routingSessionManager_setPredictionContextForSession(*(a1 + 48), objc_msgSend(*(a1 + 32), "newSession"), *(a1 + 40))}];
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -104,26 +100,26 @@ uint64_t __routingSessionManager_StartSessionWithRouteDescriptors_block_invoke_3
   return result;
 }
 
-void __routingSessionManager_StartSessionWithRouteDescriptors_block_invoke_5(uint64_t a1, int a2)
+void __routingSessionManager_StartSessionWithRouteDescriptors_block_invoke_5(uint64_t *a1, int a2)
 {
   if (a2)
   {
-    routingSessionManager_updateCurrentSession(*(a1 + 32), 0, 0, 0, 0, 0, 0, 1, *(a1 + 40), 0, @"Failed to discover pending route", 0);
+    routingSessionManager_updateCurrentSession(a1[4], 0, 0, 0, 0, 0, 0, 1, a1[5], 0, @"Failed to discover pending route", 0);
   }
 
-  v3 = *(a1 + 48);
+  v3 = a1[6];
   if (v3)
   {
     CFRelease(v3);
   }
 
-  v4 = *(a1 + 32);
+  v4 = a1[4];
   if (v4)
   {
     CFRelease(v4);
   }
 
-  v5 = *(a1 + 40);
+  v5 = a1[5];
   if (v5)
   {
 

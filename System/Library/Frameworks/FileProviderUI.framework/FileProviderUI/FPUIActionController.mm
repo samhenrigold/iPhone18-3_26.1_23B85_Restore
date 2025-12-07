@@ -55,20 +55,20 @@
 {
   v5 = MEMORY[0x277CCA9C8];
   providerIdentifier = [(FPUIActionController *)self providerIdentifier];
-  v12 = 0;
-  v7 = [v5 extensionWithIdentifier:providerIdentifier error:&v12];
-  v8 = v12;
+  v14 = 0;
+  v7 = [v5 extensionWithIdentifier:providerIdentifier error:&v14];
+  v8 = v14;
 
   if (!v7)
   {
-    v9 = fpuiLogHandle;
+    v11 = fpuiLogHandle;
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v9 = fpuiLogHandle;
+      FPUIInitLogging(v9, v10);
+      v11 = fpuiLogHandle;
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       if (!error)
       {
@@ -78,11 +78,11 @@
       goto LABEL_6;
     }
 
-    [(FPUIActionViewController *)v9 _getExtensionWithError:?];
+    [(FPUIActionViewController *)v11 _getExtensionWithError:?];
     if (error)
     {
 LABEL_6:
-      v10 = v8;
+      v12 = v8;
       *error = v8;
     }
   }
@@ -94,21 +94,22 @@ LABEL_7:
 
 - (void)_delegateDidFinishWithUserInfo:(id)info error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   errorCopy = error;
-  v8 = fpuiLogHandle;
+  v9 = errorCopy;
+  v10 = fpuiLogHandle;
   if (errorCopy)
   {
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v8 = fpuiLogHandle;
+      FPUIInitLogging(errorCopy, v8);
+      v10 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [FPUIActionViewController _delegateDidFinishWithUserInfo:v8 error:self];
+      [FPUIActionViewController _delegateDidFinishWithUserInfo:v10 error:self];
     }
   }
 
@@ -116,41 +117,39 @@ LABEL_7:
   {
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v8 = fpuiLogHandle;
+      FPUIInitLogging(0, v8);
+      v10 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = v8;
+      v11 = v10;
       actionIdentifier = [(FPUIActionController *)self actionIdentifier];
-      v16 = 138412290;
-      v17 = actionIdentifier;
-      _os_log_impl(&dword_238356000, v9, OS_LOG_TYPE_INFO, "Action with identifier (%@) did finish.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = actionIdentifier;
+      _os_log_impl(&dword_238356000, v11, OS_LOG_TYPE_INFO, "Action with identifier (%@) did finish.", &v17, 0xCu);
     }
   }
 
   delegate = [(FPUIActionController *)self delegate];
-  v12 = objc_opt_respondsToSelector();
+  v14 = objc_opt_respondsToSelector();
 
   delegate2 = [(FPUIActionController *)self delegate];
-  v14 = delegate2;
-  if (v12)
+  v16 = delegate2;
+  if (v14)
   {
-    [delegate2 actionControllerDidFinishAction:self userInfo:infoCopy error:errorCopy];
+    [delegate2 actionControllerDidFinishAction:self userInfo:infoCopy error:v9];
   }
 
   else
   {
-    [delegate2 actionControllerDidFinishAction:self error:errorCopy];
+    [delegate2 actionControllerDidFinishAction:self error:v9];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteActionContext:(id)context didEncounterError:(id)error completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   handlerCopy = handler;
   delegate = [(FPUIActionController *)self delegate];
@@ -163,31 +162,29 @@ LABEL_7:
     block[2] = __80__FPUIActionController_remoteActionContext_didEncounterError_completionHandler___block_invoke;
     block[3] = &unk_278A51398;
     block[4] = self;
-    v14 = errorCopy;
-    v15 = handlerCopy;
+    v15 = errorCopy;
+    v16 = handlerCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   else
   {
-    v11 = fpuiLogHandle;
+    v13 = fpuiLogHandle;
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v11 = fpuiLogHandle;
+      FPUIInitLogging(v11, v12);
+      v13 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = errorCopy;
-      _os_log_impl(&dword_238356000, v11, OS_LOG_TYPE_INFO, "An error occurred on the service side, but the client won't present it: %@", buf, 0xCu);
+      v18 = errorCopy;
+      _os_log_impl(&dword_238356000, v13, OS_LOG_TYPE_INFO, "An error occurred on the service side, but the client won't present it: %@", buf, 0xCu);
     }
 
     handlerCopy[2](handlerCopy);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __80__FPUIActionController_remoteActionContext_didEncounterError_completionHandler___block_invoke(uint64_t a1)

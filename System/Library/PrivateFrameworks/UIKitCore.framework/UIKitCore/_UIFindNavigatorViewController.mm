@@ -403,7 +403,7 @@ LABEL_8:
 {
   searchResultDisplayStyle = [(UIFindSession *)self->_findSession searchResultDisplayStyle];
   mode = [(_UIFindNavigatorView *)self->_findNavigatorView mode];
-  if (searchResultDisplayStyle != UIFindSessionSearchResultDisplayStyleNone && (v5 = mode, [(NSString *)self->_lastSearchQuery length]) && (lastSearchQuery = self->_lastSearchQuery, [(UIFindSession *)self->_findSession searchText], v7 = objc_claimAutoreleasedReturnValue(), LODWORD(lastSearchQuery) = [(NSString *)lastSearchQuery isEqualToString:v7], v7, lastSearchQuery))
+  if (searchResultDisplayStyle != UIFindSessionSearchResultDisplayStyleNone && (v5 = mode, [(NSString *)self->_lastSearchQuery length]) && (lastSearchQuery = self->_lastSearchQuery, [(UIFindSession *)self->_findSession searchText], v7 = objc_claimAutoreleasedReturnValue(), LODWORD(lastSearchQuery) = objc_msgSend_isEqualToString_(lastSearchQuery), v7, lastSearchQuery))
   {
     resultCount = [(UIFindSession *)self->_findSession resultCount];
     highlightedResultIndex = [(UIFindSession *)self->_findSession highlightedResultIndex];
@@ -449,11 +449,11 @@ LABEL_8:
   searchText = [(UIFindSession *)self->_findSession searchText];
   searchTextField = [(_UIFindNavigatorView *)self->_findNavigatorView searchTextField];
   text = [searchTextField text];
-  v8 = [searchText isEqualToString:text];
+  isEqualToString = objc_msgSend_isEqualToString_(searchText);
 
   findNavigatorView = self->_findNavigatorView;
 
-  [(_UIFindNavigatorView *)findNavigatorView setReplaceButtonEnabled:(v3 && allowsReplacementForCurrentlyHighlightedResult) & v8];
+  [(_UIFindNavigatorView *)findNavigatorView setReplaceButtonEnabled:(v3 && allowsReplacementForCurrentlyHighlightedResult) & isEqualToString];
 }
 
 - (void)_recomputeConfiguredSearchOptions
@@ -544,7 +544,7 @@ LABEL_7:
 {
   text = [query text];
   _configuredSearchOptions = [(_UIFindNavigatorViewController *)self _configuredSearchOptions];
-  if ([text isEqualToString:self->_lastSearchQuery] && objc_msgSend(_configuredSearchOptions, "isEqual:", self->_lastSearchOptions))
+  if (objc_msgSend_isEqualToString_(text) && objc_msgSend_isEqual_(_configuredSearchOptions))
   {
     [(UIFindSession *)self->_findSession highlightNextResultInDirection:0];
   }

@@ -87,11 +87,11 @@
   }
 }
 
-uint64_t __43__SiriUIDownloadableImageView_setImageURL___block_invoke(uint64_t result, uint64_t a2)
+id *__43__SiriUIDownloadableImageView_setImageURL___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _setImage:a2 isPlaceHolder:0];
+    return [result[4] _setImage:a2 isPlaceHolder:0];
   }
 
   return result;

@@ -120,21 +120,21 @@
 
 - (id)_loadDigitNumber:(unint64_t)number
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   number = [MEMORY[0x277CCACA8] stringWithFormat:@"digit_%i", number];
-  v4 = sub_23C085C88();
+  v4 = sub_23C085C88(number);
   v5 = [v4 URLForResource:number withExtension:@"scn" subdirectory:@"SceneKit Asset Catalog.scnassets"];
 
-  v14 = 0;
-  v6 = [MEMORY[0x277CDBAF8] sceneWithURL:v5 options:0 error:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [MEMORY[0x277CDBAF8] sceneWithURL:v5 options:0 error:&v13];
+  v7 = v13;
   if (v7)
   {
     v8 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_23C07F000, v8, OS_LOG_TYPE_DEFAULT, "Snowglobe: Error loading digit scene: %@", buf, 0xCu);
     }
   }
@@ -145,8 +145,6 @@
 
   [v11 setSimdPosition:0.0];
   [v11 removeFromParentNode];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -226,46 +224,45 @@
 {
   v22 = *MEMORY[0x277D85DE8];
   eyesCopy = eyes;
+  v5 = eyesCopy;
   leftEye = self->_leftEye;
-  if (!leftEye || (v6 = self->_rightEye) == 0)
+  if (!leftEye || (v7 = self->_rightEye) == 0)
   {
-    v7 = sub_23C085C88();
-    v8 = [v7 URLForResource:@"eyes" withExtension:@"scn" subdirectory:@"SceneKit Asset Catalog.scnassets"];
+    v8 = sub_23C085C88(eyesCopy);
+    v9 = [v8 URLForResource:@"eyes" withExtension:@"scn" subdirectory:@"SceneKit Asset Catalog.scnassets"];
 
     v19 = 0;
-    v9 = [MEMORY[0x277CDBAF8] sceneWithURL:v8 options:0 error:&v19];
-    v10 = v19;
-    if (v10)
+    v10 = [MEMORY[0x277CDBAF8] sceneWithURL:v9 options:0 error:&v19];
+    v11 = v19;
+    if (v11)
     {
-      v11 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v10;
-        _os_log_impl(&dword_23C07F000, v11, OS_LOG_TYPE_DEFAULT, "Snowglobe: Error loading lighting scene: %@", buf, 0xCu);
+        v21 = v11;
+        _os_log_impl(&dword_23C07F000, v12, OS_LOG_TYPE_DEFAULT, "Snowglobe: Error loading lighting scene: %@", buf, 0xCu);
       }
     }
 
-    rootNode = [v9 rootNode];
-    v13 = [rootNode childNodeWithName:@"LeftEye" recursively:1];
-    v14 = self->_leftEye;
-    self->_leftEye = v13;
+    rootNode = [v10 rootNode];
+    v14 = [rootNode childNodeWithName:@"LeftEye" recursively:1];
+    v15 = self->_leftEye;
+    self->_leftEye = v14;
 
-    rootNode2 = [v9 rootNode];
-    v16 = [rootNode2 childNodeWithName:@"RightEye" recursively:1];
+    rootNode2 = [v10 rootNode];
+    v17 = [rootNode2 childNodeWithName:@"RightEye" recursively:1];
     rightEye = self->_rightEye;
-    self->_rightEye = v16;
+    self->_rightEye = v17;
 
     [(SCNNode *)self->_leftEye setSimdScale:?];
     [(SCNNode *)self->_rightEye setSimdScale:*vdupq_n_s32(0x3BE33153u).i64];
 
     leftEye = self->_leftEye;
-    v6 = self->_rightEye;
+    v7 = self->_rightEye;
   }
 
-  eyesCopy[2](eyesCopy, leftEye, v6);
-
-  v18 = *MEMORY[0x277D85DE8];
+  (v5)[2](v5, leftEye, v7);
 }
 
 - (void)_replaceEyesForNode:(id)node withCompletion:(id)completion
@@ -309,99 +306,95 @@
     _os_log_impl(&dword_23C07F000, v2, OS_LOG_TYPE_DEFAULT, "Loading Snowglobe background objects..", buf, 2u);
   }
 
-  v3 = sub_23C085C88();
-  v4 = [v3 URLForResource:@"all_shapes" withExtension:@"scn" subdirectory:@"SceneKit Asset Catalog.scnassets"];
+  v4 = sub_23C085C88(v3);
+  v5 = [v4 URLForResource:@"all_shapes" withExtension:@"scn" subdirectory:@"SceneKit Asset Catalog.scnassets"];
 
   v23 = 0;
-  v5 = [MEMORY[0x277CDBAF8] sceneWithURL:v4 options:0 error:&v23];
-  v6 = v23;
-  v7 = _NTKLoggingObjectForDomain();
-  v8 = v7;
-  if (v6)
+  v6 = [MEMORY[0x277CDBAF8] sceneWithURL:v5 options:0 error:&v23];
+  v7 = v23;
+  v8 = _NTKLoggingObjectForDomain();
+  v9 = v8;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_23C08ED78(v6, v8);
+      sub_23C08ED78(v7, v9);
     }
 
-    v9 = MEMORY[0x277CBEBF8];
+    v10 = MEMORY[0x277CBEBF8];
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23C07F000, v8, OS_LOG_TYPE_DEFAULT, "Loaded Snowglobe background objects", buf, 2u);
+      _os_log_impl(&dword_23C07F000, v9, OS_LOG_TYPE_DEFAULT, "Loaded Snowglobe background objects", buf, 2u);
     }
 
-    rootNode = [v5 rootNode];
+    rootNode = [v6 rootNode];
     childNodes = [rootNode childNodes];
-    v12 = [childNodes copy];
+    v13 = [childNodes copy];
 
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v8 = v12;
-    v13 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
-    if (v13)
+    v9 = v13;
+    v14 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v20;
+      v15 = v14;
+      v16 = *v20;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v20 != v15)
+          if (*v20 != v16)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
           [*(*(&v19 + 1) + 8 * i) removeFromParentNode];
         }
 
-        v14 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v15 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
-    v9 = v8;
+    v10 = v9;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (id)digitShaderModifier
 {
   v13[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   shaderModifier = selfCopy->_shaderModifier;
   if (!shaderModifier)
   {
-    v4 = sub_23C085C88();
-    v5 = [v4 URLForResource:@"shadermodifier" withExtension:@"metal.snippet"];
+    v5 = sub_23C085C88(v3);
+    v6 = [v5 URLForResource:@"shadermodifier" withExtension:@"metal.snippet"];
 
-    v6 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v5 encoding:4 error:0];
+    v7 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v6 encoding:4 error:0];
     v12 = *MEMORY[0x277CDBC20];
-    v13[0] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    v8 = selfCopy->_shaderModifier;
-    selfCopy->_shaderModifier = v7;
+    v13[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v9 = selfCopy->_shaderModifier;
+    selfCopy->_shaderModifier = v8;
 
     shaderModifier = selfCopy->_shaderModifier;
   }
 
-  v9 = shaderModifier;
+  v10 = shaderModifier;
   objc_sync_exit(selfCopy);
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (void)loadDaintyOnQueue:(id)queue withCompletion:(id)completion
@@ -430,39 +423,37 @@
     _os_log_impl(&dword_23C07F000, v2, OS_LOG_TYPE_DEFAULT, "Loading Dainty..", buf, 2u);
   }
 
-  v3 = sub_23C085C88();
-  v4 = [v3 URLForResource:@"dainty" withExtension:@"scn" subdirectory:@"SceneKit Asset Catalog.scnassets"];
+  v4 = sub_23C085C88(v3);
+  v5 = [v4 URLForResource:@"dainty" withExtension:@"scn" subdirectory:@"SceneKit Asset Catalog.scnassets"];
 
   v14 = 0;
-  v5 = [MEMORY[0x277CDBAF8] sceneWithURL:v4 options:0 error:&v14];
-  v6 = v14;
-  if (v6)
+  v6 = [MEMORY[0x277CDBAF8] sceneWithURL:v5 options:0 error:&v14];
+  v7 = v14;
+  if (v7)
   {
-    v7 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v6;
-      _os_log_impl(&dword_23C07F000, v7, OS_LOG_TYPE_DEFAULT, "Snowglobe: Error loading dainty scene: %@", buf, 0xCu);
+      v16 = v7;
+      _os_log_impl(&dword_23C07F000, v8, OS_LOG_TYPE_DEFAULT, "Snowglobe: Error loading dainty scene: %@", buf, 0xCu);
     }
   }
 
-  rootNode = [v5 rootNode];
+  rootNode = [v6 rootNode];
   childNodes = [rootNode childNodes];
-  v10 = [childNodes objectAtIndexedSubscript:0];
+  v11 = [childNodes objectAtIndexedSubscript:0];
 
-  [v10 removeFromParentNode];
-  v11 = _NTKLoggingObjectForDomain();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  [v11 removeFromParentNode];
+  v12 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v16) = v10 != 0;
-    _os_log_impl(&dword_23C07F000, v11, OS_LOG_TYPE_DEFAULT, "Loaded Dainty %i", buf, 8u);
+    LODWORD(v16) = v11 != 0;
+    _os_log_impl(&dword_23C07F000, v12, OS_LOG_TYPE_DEFAULT, "Loaded Dainty %i", buf, 8u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 - (id)createScene
@@ -488,7 +479,7 @@
 
   else
   {
-    v5 = sub_23C085C88();
+    v5 = sub_23C085C88(self);
     v6 = [v5 URLForResource:@"snowglobe" withExtension:@"lighting" subdirectory:@"SceneKit Asset Catalog.scnassets"];
 
     v15 = 0;

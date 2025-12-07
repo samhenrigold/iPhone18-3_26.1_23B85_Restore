@@ -419,8 +419,9 @@ LABEL_7:
   }
 }
 
-uint64_t __55__GKGameCenterViewController__setupChildViewController__block_invoke_2(uint64_t a1, int a2)
+uint64_t __55__GKGameCenterViewController__setupChildViewController__block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     if (!*MEMORY[0x277D0C2A0])
@@ -435,7 +436,7 @@ uint64_t __55__GKGameCenterViewController__setupChildViewController__block_invok
     }
   }
 
-  return a2 ^ 1u;
+  return v2 ^ 1u;
 }
 
 void __55__GKGameCenterViewController__setupChildViewController__block_invoke_55(uint64_t a1, uint64_t a2)
@@ -469,8 +470,9 @@ void __55__GKGameCenterViewController__setupChildViewController__block_invoke_55
   }
 }
 
-uint64_t __56__GKGameCenterViewController__setupRemoteViewController__block_invoke(uint64_t a1, int a2)
+uint64_t __56__GKGameCenterViewController__setupRemoteViewController__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     if (!*MEMORY[0x277D0C2A0])
@@ -485,7 +487,7 @@ uint64_t __56__GKGameCenterViewController__setupRemoteViewController__block_invo
     }
   }
 
-  return a2 ^ 1u;
+  return v2 ^ 1u;
 }
 
 void __56__GKGameCenterViewController__setupRemoteViewController__block_invoke_60(uint64_t a1, char a2)
@@ -529,7 +531,7 @@ void __56__GKGameCenterViewController__setupRemoteViewController__block_invoke_2
     v4 = currentGame;
     if (currentGame)
     {
-      [currentGame gameInfo];
+      objc_msgSend_gameInfo(currentGame);
       v5 = BYTE5(v35);
     }
 

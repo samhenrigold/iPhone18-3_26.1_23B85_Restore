@@ -187,7 +187,7 @@
   source = [(THAnimationController *)self source];
   if (source)
   {
-    [(THAnimatableSource *)source freeTransform];
+    objc_msgSend_freeTransform(source);
   }
 
   else
@@ -277,7 +277,7 @@
     memset(&v47, 0, sizeof(v47));
     if (fadeOutAnimationLayer)
     {
-      [(CALayer *)fadeOutAnimationLayer transform];
+      objc_msgSend_transform(fadeOutAnimationLayer);
     }
 
     else
@@ -305,7 +305,7 @@
     targetLayer = [(THAnimationController *)self targetLayer];
     if (targetLayer)
     {
-      [(CALayer *)targetLayer transform];
+      objc_msgSend_transform(targetLayer);
     }
 
     else
@@ -337,7 +337,7 @@
   memset(&v47, 0, sizeof(v47));
   if (fadeInAnimationLayer)
   {
-    [(CALayer *)fadeInAnimationLayer transform];
+    objc_msgSend_transform(fadeInAnimationLayer);
   }
 
   else
@@ -366,7 +366,7 @@
     memset(&v48, 0, sizeof(v48));
     if (v21)
     {
-      [v21 transform];
+      objc_msgSend_transform(v21);
     }
 
     else
@@ -396,7 +396,7 @@
   source = [(THAnimationController *)self source];
   if (source)
   {
-    [(THAnimatableSource *)source freeTransform];
+    objc_msgSend_freeTransform(source);
   }
 
   else
@@ -454,7 +454,7 @@
   {
     if (v10)
     {
-      [v10 affineTransform];
+      objc_msgSend_affineTransform(v10);
     }
 
     else
@@ -831,7 +831,7 @@ LABEL_16:
   animationLayer = [(THAnimationController *)self animationLayer];
   if (animationLayer)
   {
-    [(CALayer *)animationLayer transform];
+    objc_msgSend_transform(animationLayer);
   }
 
   else
@@ -1115,33 +1115,33 @@ LABEL_16:
 
   [(THAnimationController *)self animationDuration];
   v7 = v6;
-  [v5 affineTransform];
-  memset(v15, 0, sizeof(v15));
+  objc_msgSend_affineTransform(v5);
+  memset(v14, 0, sizeof(v14));
   source = [(THAnimationController *)self source];
-  destination = [(THAnimationController *)self destination];
+  [(THAnimationController *)self destination];
   if (source)
   {
-    [(THAnimatableSource *)source shadowAnimationLayerDestinationTransform:destination uniformTargetScale:self->_uniformTargetScale];
+    objc_msgSend_shadowAnimationLayerDestinationTransform_uniformTargetScale_(source, self->_uniformTargetScale);
   }
 
   else
   {
-    memset(v15, 0, 48);
+    memset(v14, 0, 48);
   }
 
-  v11 = v7 * self->_shadowTransformDurationScale;
-  v10 = [CABasicAnimation animationWithKeyPath:@"transform"];
-  [(CABasicAnimation *)v10 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-  [(CABasicAnimation *)v10 setDuration:v11];
-  v13 = v15[1];
-  CATransform3DMakeAffineTransform(&v14, &v13);
-  [(CABasicAnimation *)v10 setFromValue:[NSValue valueWithCATransform3D:&v14]];
-  v13 = v15[0];
-  CATransform3DMakeAffineTransform(&v14, &v13);
-  [(CABasicAnimation *)v10 setToValue:[NSValue valueWithCATransform3D:&v14]];
-  [(CABasicAnimation *)v10 setFillMode:kCAFillModeForwards];
-  [(CABasicAnimation *)v10 setRemovedOnCompletion:0];
-  return v10;
+  v10 = v7 * self->_shadowTransformDurationScale;
+  v9 = [CABasicAnimation animationWithKeyPath:@"transform"];
+  [(CABasicAnimation *)v9 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+  [(CABasicAnimation *)v9 setDuration:v10];
+  v12 = v14[1];
+  CATransform3DMakeAffineTransform(&v13, &v12);
+  [(CABasicAnimation *)v9 setFromValue:[NSValue valueWithCATransform3D:&v13]];
+  v12 = v14[0];
+  CATransform3DMakeAffineTransform(&v13, &v12);
+  [(CABasicAnimation *)v9 setToValue:[NSValue valueWithCATransform3D:&v13]];
+  [(CABasicAnimation *)v9 setFillMode:kCAFillModeForwards];
+  [(CABasicAnimation *)v9 setRemovedOnCompletion:0];
+  return v9;
 }
 
 - (void)performAnimation

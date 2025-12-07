@@ -166,20 +166,20 @@ LABEL_9:
 
 + (id)feedItemFromCKRecord:()FCFeedItem storefrontID:recordSource:
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = a5;
   v10 = [objc_opt_class() identifierFromCKRecord:v7];
   if (![v10 length])
   {
-    v107[0] = MEMORY[0x1E69E9820];
-    v107[1] = 3221225472;
-    v107[2] = __75__NTPBFeedItem_FCFeedItem__feedItemFromCKRecord_storefrontID_recordSource___block_invoke;
-    v107[3] = &unk_1E7C36F98;
-    v108 = v7;
-    v11 = __75__NTPBFeedItem_FCFeedItem__feedItemFromCKRecord_storefrontID_recordSource___block_invoke(v107);
-    v76 = v108;
+    v106[0] = MEMORY[0x1E69E9820];
+    v106[1] = 3221225472;
+    v106[2] = __75__NTPBFeedItem_FCFeedItem__feedItemFromCKRecord_storefrontID_recordSource___block_invoke;
+    v106[3] = &unk_1E7C36F98;
+    v107 = v7;
+    v11 = __75__NTPBFeedItem_FCFeedItem__feedItemFromCKRecord_storefrontID_recordSource___block_invoke(v106);
+    v76 = v107;
     goto LABEL_59;
   }
 
@@ -190,7 +190,7 @@ LABEL_9:
 
   v13 = [v7 objectForKey:@"parentIssueID"];
   [v11 setParentIssueID:v13];
-  v101 = v13;
+  v100 = v13;
   [v11 setIsEvergreen:v13 != 0];
   v14 = [v7 objectForKey:@"clusterID"];
   [v11 setClusterID:v14];
@@ -398,7 +398,7 @@ LABEL_9:
   recordType = [v7 recordType];
   LODWORD(v72) = [recordType isEqualToString:@"Article"];
 
-  v102 = v10;
+  v101 = v10;
   if (v72)
   {
     v74 = [v7 objectForKey:@"publishDate"];
@@ -441,13 +441,13 @@ LABEL_9:
 
       v75 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unexpected record type for FeedItem: %@", v7];
       *buf = 136315906;
-      v111 = "+[NTPBFeedItem(FCFeedItem) feedItemFromCKRecord:storefrontID:recordSource:]";
-      v112 = 2080;
-      v113 = "FCFeedItem.m";
-      v114 = 1024;
-      v115 = 354;
-      v116 = 2114;
-      v117 = v75;
+      v110 = "+[NTPBFeedItem(FCFeedItem) feedItemFromCKRecord:storefrontID:recordSource:]";
+      v111 = 2080;
+      v112 = "FCFeedItem.m";
+      v113 = 1024;
+      v114 = 354;
+      v115 = 2114;
+      v116 = v75;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
@@ -472,34 +472,34 @@ LABEL_47:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v99 = v66;
-    v100 = v63;
+    v98 = v66;
+    v99 = v63;
     v89 = v60;
     v90 = v9;
     v91 = v8;
-    v105 = 0u;
-    v106 = 0u;
-    v103 = 0u;
     v104 = 0u;
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
     v92 = v88;
-    v93 = [v92 countByEnumeratingWithState:&v103 objects:v109 count:16];
+    v93 = [v92 countByEnumeratingWithState:&v102 objects:v108 count:16];
     if (v93)
     {
       v94 = v93;
-      v95 = *v104;
+      v95 = *v103;
       do
       {
         for (i = 0; i != v94; ++i)
         {
-          if (*v104 != v95)
+          if (*v103 != v95)
           {
             objc_enumerationMutation(v92);
           }
 
-          [v11 addSurfacedByArticleListID:*(*(&v103 + 1) + 8 * i)];
+          [v11 addSurfacedByArticleListID:*(*(&v102 + 1) + 8 * i)];
         }
 
-        v94 = [v92 countByEnumeratingWithState:&v103 objects:v109 count:16];
+        v94 = [v92 countByEnumeratingWithState:&v102 objects:v108 count:16];
       }
 
       while (v94);
@@ -508,8 +508,8 @@ LABEL_47:
     v8 = v91;
     v9 = v90;
     v60 = v89;
-    v66 = v99;
-    v63 = v100;
+    v66 = v98;
+    v63 = v99;
   }
 
   else
@@ -521,11 +521,9 @@ LABEL_47:
     }
   }
 
-  v76 = v101;
-  v10 = v102;
+  v76 = v100;
+  v10 = v101;
 LABEL_59:
-
-  v97 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -662,45 +660,43 @@ LABEL_59:
 
 - (void)enumerateFeaturesWithBlock:()FCFeedItem
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     topicIDs = [self topicIDs];
-    v6 = [topicIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [topicIDs countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(topicIDs);
           }
 
-          v10 = [FCFeedItemFeature featureForTopicID:*(*(&v12 + 1) + 8 * v9)];
+          v10 = [FCFeedItemFeature featureForTopicID:*(*(&v11 + 1) + 8 * v9)];
           v4[2](v4, v10);
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [topicIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [topicIDs countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)hasFeature:()FCFeedItem
@@ -754,33 +750,30 @@ LABEL_59:
 
 - (uint64_t)canBePurchased
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
-    v5 = 136315906;
-    v6 = "[NTPBFeedItem(FCFeedItem) canBePurchased]";
-    v7 = 2080;
-    v8 = "FCFeedItem.m";
-    v9 = 1024;
-    v10 = 525;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
+    v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
+    v4 = 136315906;
+    v5 = "[NTPBFeedItem(FCFeedItem) canBePurchased]";
+    v6 = 2080;
+    v7 = "FCFeedItem.m";
+    v8 = 1024;
+    v9 = 525;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
   }
 
   if ([self isPaid])
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = [self isBundlePaid];
+    return [self isBundlePaid];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)enumerateTopicCohortsWithBlock:()FCFeedItem

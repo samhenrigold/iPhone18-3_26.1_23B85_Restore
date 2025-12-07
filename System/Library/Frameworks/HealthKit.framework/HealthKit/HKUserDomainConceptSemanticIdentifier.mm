@@ -37,7 +37,7 @@
 
 - (NSString)stringValue
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   schema = [(HKUserDomainConceptTypeIdentifier *)self->_typeIdentifier schema];
   v4 = schema;
   v5 = @"(null)";
@@ -46,14 +46,12 @@
     v5 = schema;
   }
 
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HKUserDomainConceptTypeIdentifier code](self->_typeIdentifier, "code")}];
   stringValue = [v6 stringValue];
-  v12[1] = stringValue;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[1] = stringValue;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v9 = [v8 componentsJoinedByString:@"|█|"];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

@@ -7,7 +7,7 @@
 - (NSDictionary)tagNameThresholds
 {
   selfCopy = self;
-  sub_1ABAB1994();
+  sub_1ABAB1994(selfCopy);
 
   v3 = sub_1ABF23954();
 

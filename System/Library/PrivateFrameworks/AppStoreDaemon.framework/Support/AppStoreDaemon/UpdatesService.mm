@@ -398,7 +398,7 @@
 LABEL_15:
 
   [v6 setNextUpdateCheck:predictedOptimalStartDate];
-  v17 = sub_1003D6078();
+  v17 = sub_1003D6078(AppDefaultsManager);
   if (v17)
   {
     [v6 setLastUpdateCheck:v17];

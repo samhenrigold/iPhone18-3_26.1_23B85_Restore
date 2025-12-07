@@ -59,166 +59,166 @@
   return v12;
 }
 
-void __61__PLCloudResourcePruneManager_pruneResources_inPhotoLibrary___block_invoke(uint64_t a1)
+void __61__PLCloudResourcePruneManager_pruneResources_inPhotoLibrary___block_invoke(uint64_t a1, const char *a2)
 {
-  v57 = *MEMORY[0x1E69E9840];
-  v1 = (a1 + 32);
-  v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-  v34 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*v1, "count")}];
-  v44 = 0u;
+  v58 = *MEMORY[0x1E69E9840];
+  v2 = (a1 + 32);
+  v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend_count(*(a1 + 32), a2)}];
+  v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(*v2)];
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v3 = *v1;
-  v4 = [v3 countByEnumeratingWithState:&v42 objects:v56 count:16];
-  if (v4)
+  v44 = 0u;
+  v4 = *v2;
+  v5 = [v4 countByEnumeratingWithState:&v43 objects:v57 count:16];
+  if (v5)
   {
-    v5 = *v43;
+    v6 = *v44;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v43 != v5)
+        if (*v44 != v6)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v7 = *(*(&v42 + 1) + 8 * i);
-        v8 = [v7 fileURL];
-        v9 = [v8 path];
+        v8 = *(*(&v43 + 1) + 8 * i);
+        v9 = [v8 fileURL];
+        v10 = [v9 path];
 
-        if (v9)
+        if (v10)
         {
-          v10 = [v7 cplResourceIncludeFile:1 createDirectoryIfNeeded:0];
-          if (v10)
+          v11 = [v8 cplResourceIncludeFile:1 createDirectoryIfNeeded:0];
+          if (v11)
           {
-            [v34 addObject:v10];
-            [v2 setObject:v7 forKey:v9];
+            [v35 addObject:v11];
+            [v3 setObject:v8 forKey:v10];
           }
 
           else
           {
-            v11 = PLResourceCachingGetLog();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+            v12 = PLResourceCachingGetLog();
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               LODWORD(buf) = 138412290;
-              *(&buf + 4) = v7;
-              _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_ERROR, "Failed to create CPLResource for prune from %@", &buf, 0xCu);
+              *(&buf + 4) = v8;
+              _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_ERROR, "Failed to create CPLResource for prune from %@", &buf, 0xCu);
             }
 
-            v10 = 0;
+            v11 = 0;
           }
         }
 
         else
         {
-          v10 = PLResourceCachingGetLog();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v11 = PLResourceCachingGetLog();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v7;
-            _os_log_impl(&dword_19BF1F000, v10, OS_LOG_TYPE_ERROR, "Unable to prune resource with no file path: %@", &buf, 0xCu);
+            *(&buf + 4) = v8;
+            _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_ERROR, "Unable to prune resource with no file path: %@", &buf, 0xCu);
           }
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v42 objects:v56 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v43 objects:v57 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 
-  v12 = PLResourceCachingGetLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = PLResourceCachingGetLog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [*(a1 + 32) count];
+    v14 = objc_msgSend_count(*(a1 + 32));
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v13;
-    _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, "Pruning %lu resources", &buf, 0xCu);
+    *(&buf + 4) = v14;
+    _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "Pruning %lu resources", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__63374;
-  v54 = __Block_byref_object_dispose__63375;
-  v55 = 0;
-  v14 = dispatch_semaphore_create(0);
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__63374;
+  v55 = __Block_byref_object_dispose__63375;
+  v56 = 0;
+  v15 = dispatch_semaphore_create(0);
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 16));
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __61__PLCloudResourcePruneManager_pruneResources_inPhotoLibrary___block_invoke_114;
-  v39[3] = &unk_1E756F0E0;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __61__PLCloudResourcePruneManager_pruneResources_inPhotoLibrary___block_invoke_114;
+  v40[3] = &unk_1E756F0E0;
   p_buf = &buf;
-  dsema = v14;
-  v40 = dsema;
-  [WeakRetained deleteResources:v34 checkServerIfNecessary:1 completionHandler:v39];
+  dsema = v15;
+  v41 = dsema;
+  [WeakRetained deleteResources:v35 checkServerIfNecessary:1 completionHandler:v40];
 
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-  v33 = [MEMORY[0x1E696AC08] defaultManager];
-  v16 = objc_alloc(MEMORY[0x1E695DF70]);
-  v31 = [v16 initWithCapacity:{objc_msgSend(*(*(&buf + 1) + 40), "count")}];
-  v37 = 0u;
+  v34 = [MEMORY[0x1E696AC08] defaultManager];
+  v17 = objc_alloc(MEMORY[0x1E695DF70]);
+  v32 = [v17 initWithCapacity:objc_msgSend_count(*(*(&buf + 1) + 40))];
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v17 = *(*(&buf + 1) + 40);
-  v18 = [v17 countByEnumeratingWithState:&v35 objects:v50 count:16];
-  if (v18)
+  v37 = 0u;
+  v18 = *(*(&buf + 1) + 40);
+  v19 = [v18 countByEnumeratingWithState:&v36 objects:v51 count:16];
+  if (v19)
   {
-    v19 = *v36;
+    v20 = *v37;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v19; ++j)
       {
-        if (*v36 != v19)
+        if (*v37 != v20)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
-        v21 = *(*(&v35 + 1) + 8 * j);
-        v22 = [v21 identity];
-        v23 = [v22 fileURL];
-        v24 = [v23 path];
+        v22 = *(*(&v36 + 1) + 8 * j);
+        v23 = [v22 identity];
+        v24 = [v23 fileURL];
+        v25 = [v24 path];
 
-        if (v24)
+        if (v25)
         {
-          v25 = [v2 objectForKey:v24];
-          v26 = v25;
-          if (v25)
+          v26 = [v3 objectForKey:v25];
+          v27 = v26;
+          if (v26)
           {
-            v27 = [v25 fileURL];
-            v28 = [v27 path];
+            v28 = [v26 fileURL];
+            v29 = [v28 path];
 
-            if (v28 && [v24 isEqualToString:v28])
+            if (v29 && objc_msgSend_isEqualToString_(v25))
             {
-              if ([v33 fileExistsAtPath:v28])
+              if ([v34 fileExistsAtPath:v29])
               {
-                v29 = PLResourceCachingGetLog();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                v30 = PLResourceCachingGetLog();
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                 {
-                  *v46 = 138412290;
-                  v47 = v26;
-                  _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_ERROR, "Pruned file still exists at for %@", v46, 0xCu);
+                  *v47 = 138412290;
+                  v48 = v27;
+                  _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_ERROR, "Pruned file still exists at for %@", v47, 0xCu);
                 }
 
                 goto LABEL_30;
               }
 
-              [v31 addObject:v26];
-              *(*(*(a1 + 56) + 8) + 24) += [v26 dataLength];
+              [v32 addObject:v27];
+              *(*(*(a1 + 56) + 8) + 24) += [v27 dataLength];
             }
 
             else
             {
-              v29 = PLResourceCachingGetLog();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              v30 = PLResourceCachingGetLog();
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
-                *v46 = 138412546;
-                v47 = v21;
-                v48 = 2112;
-                v49 = v26;
-                _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_ERROR, "Unmatched filepath for pruned resource between CPL (%@) and PL (%@)", v46, 0x16u);
+                *v47 = 138412546;
+                v48 = v22;
+                v49 = 2112;
+                v50 = v27;
+                _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_ERROR, "Unmatched filepath for pruned resource between CPL (%@) and PL (%@)", v47, 0x16u);
               }
 
 LABEL_30:
@@ -227,36 +227,36 @@ LABEL_30:
 
           else
           {
-            v28 = PLResourceCachingGetLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            v29 = PLResourceCachingGetLog();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              *v46 = 138412290;
-              v47 = v21;
-              _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_DEFAULT, "Unable to find matching PLResource for deleted CPLResource %@", v46, 0xCu);
+              *v47 = 138412290;
+              v48 = v22;
+              _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_DEFAULT, "Unable to find matching PLResource for deleted CPLResource %@", v47, 0xCu);
             }
           }
 
           goto LABEL_40;
         }
 
-        v26 = PLResourceCachingGetLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v27 = PLResourceCachingGetLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          *v46 = 138412290;
-          v47 = v21;
-          _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_ERROR, "Pruned CPL resource %@ has no path", v46, 0xCu);
+          *v47 = 138412290;
+          v48 = v22;
+          _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_ERROR, "Pruned CPL resource %@ has no path", v47, 0xCu);
         }
 
 LABEL_40:
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v35 objects:v50 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v36 objects:v51 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
-  [*(a1 + 40) _updateLocalStateForPrunedResources:v31 inPhotoLibrary:*(a1 + 48)];
+  [*(a1 + 40) _updateLocalStateForPrunedResources:v32 inPhotoLibrary:*(a1 + 48)];
   _Block_object_dispose(&buf, 8);
 }
 
@@ -269,9 +269,9 @@ void __61__PLCloudResourcePruneManager_pruneResources_inPhotoLibrary___block_inv
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134218240;
-    v14 = [v5 count];
+    v14 = objc_msgSend_count(v5);
     v15 = 2048;
-    v16 = [v6 count];
+    v16 = objc_msgSend_count(v6);
     _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "Pruned %lu resources, kept %lu resources", &v13, 0x16u);
   }
 
@@ -472,7 +472,7 @@ uint64_t __50__PLCloudResourcePruneManager__localResourcesSize__block_invoke_2(u
 {
   v29 = *MEMORY[0x1E69E9840];
   resourcesCopy = resources;
-  v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(resourcesCopy, "count")}];
+  v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(resourcesCopy)];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
@@ -685,7 +685,7 @@ void __88__PLCloudResourcePruneManager__fetchResourcesForPruningWithBudget_urgen
   v25 = v13;
   v26 = v14;
   v15 = [v9 enumerateObjectsFromFetchRequest:v3 count:&v27 usingDefaultBatchSizeWithBlock:v22];
-  if ([v11 count])
+  if (objc_msgSend_count(v11))
   {
     if (*(a1 + 64) > *(*(*(a1 + 56) + 8) + 24))
     {
@@ -728,7 +728,7 @@ void __88__PLCloudResourcePruneManager__fetchResourcesForPruningWithBudget_urgen
 void __88__PLCloudResourcePruneManager__fetchResourcesForPruningWithBudget_urgency_batchHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   [*(a1 + 32) addObject:a2];
-  if ([*(a1 + 32) count] >= 0x64)
+  if (objc_msgSend_count(*(a1 + 32)) >= 0x64)
   {
     v6 = *(a1 + 40);
     if (v6)

@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100007230();
+  sub_100007230(selfCopy);
 }
 
 - (void)didReceiveMemoryWarning

@@ -30,7 +30,7 @@
       [currentHandler handleFailureInMethod:a2 object:v8 file:@"HDAppSubscription.m" lineNumber:22 description:{@"Invalid parameter not satisfying: %@", @"bundleID != nil"}];
     }
 
-    v9 = [identifierCopy copy];
+    v9 = objc_msgSend_copy(identifierCopy);
     bundleIdentifier = v8->_bundleIdentifier;
     v8->_bundleIdentifier = v9;
 
@@ -42,18 +42,17 @@
 
 - (HKObjectType)objectType
 {
-  dataCode = self->_dataCode;
   if (_HKValidDataTypeCode())
   {
-    v4 = [MEMORY[0x277CCD720] dataTypeWithCode:self->_dataCode];
+    v3 = [MEMORY[0x277CCD720] dataTypeWithCode:self->_dataCode];
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 @end

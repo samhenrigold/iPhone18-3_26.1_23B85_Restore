@@ -48,69 +48,64 @@
 
 - (id)_zoneIdentifierForOperation:(id)operation
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if ([operation isMemberOfClass:objc_opt_class()])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     recordsToSave = [operation recordsToSave];
-    v6 = [recordsToSave countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v6 = [recordsToSave countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = @"recordKeyZone";
-      v9 = *v25;
+      v9 = *v24;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(recordsToSave);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * v10);
+        v11 = *(*(&v23 + 1) + 8 * v10);
         if ([objc_msgSend(v11 "recordType")])
         {
-          goto LABEL_29;
+          return v8;
         }
 
         if ([objc_msgSend(v11 "recordType")])
         {
-          v8 = @"chatManateeZone";
-          goto LABEL_29;
+          return @"chatManateeZone";
         }
 
         if ([objc_msgSend(v11 "recordType")])
         {
-          v8 = @"messageManateeZone";
-          goto LABEL_29;
+          return @"messageManateeZone";
         }
 
         if ([objc_msgSend(v11 "recordType")])
         {
-          v8 = @"attachmentManateeZone";
-          goto LABEL_29;
+          return @"attachmentManateeZone";
         }
 
         if (v7 == ++v10)
         {
-          v7 = [recordsToSave countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v7 = [recordsToSave countByEnumeratingWithState:&v23 objects:v28 count:16];
           if (v7)
           {
             goto LABEL_4;
           }
 
-          break;
+          return &stru_283F23018;
         }
       }
     }
 
-LABEL_28:
-    v8 = &stru_283F23018;
-    goto LABEL_29;
+    return &stru_283F23018;
   }
 
   if (![operation isMemberOfClass:objc_opt_class()])
@@ -121,81 +116,77 @@ LABEL_28:
       v8 = @"chatManateeZone";
       if ([objc_msgSend(v17 "zoneName")])
       {
-        goto LABEL_29;
+        return v8;
       }
 
       v8 = @"messageManateeZone";
       if ([objc_msgSend(v17 "zoneName")])
       {
-        goto LABEL_29;
+        return v8;
       }
 
       v8 = @"attachmentManateeZone";
       if ([objc_msgSend(v17 "zoneName")])
       {
-        goto LABEL_29;
+        return v8;
       }
     }
 
-    goto LABEL_28;
+    return &stru_283F23018;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   recordIDs = [operation recordIDs];
-  v13 = [recordIDs countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v13 = [recordIDs countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (!v13)
   {
-    goto LABEL_28;
+    return &stru_283F23018;
   }
 
   v14 = v13;
-  v15 = *v21;
+  v15 = *v20;
   v8 = @"recordKeyZone";
 LABEL_17:
   v16 = 0;
   while (1)
   {
-    if (*v21 != v15)
+    if (*v20 != v15)
     {
       objc_enumerationMutation(recordIDs);
     }
 
-    if ([objc_msgSend(*(*(&v20 + 1) + 8 * v16) "zoneID")])
+    if ([objc_msgSend(*(*(&v19 + 1) + 8 * v16) "zoneID")])
     {
-      break;
+      return v8;
     }
 
     if (v14 == ++v16)
     {
-      v14 = [recordIDs countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [recordIDs countByEnumeratingWithState:&v19 objects:v27 count:16];
       if (v14)
       {
         goto LABEL_17;
       }
 
-      goto LABEL_28;
+      return &stru_283F23018;
     }
   }
-
-LABEL_29:
-  v18 = *MEMORY[0x277D85DE8];
-  return v8;
 }
 
 - (void)addOperation:(id)operation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       operationCopy2 = operation;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Adding operation %@", &v10, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Adding operation %@", &v9, 0xCu);
     }
   }
 
@@ -211,15 +202,13 @@ LABEL_29:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412546;
+      v9 = 138412546;
       operationCopy2 = operation;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Did not find mock database for operation %@ zoneID %@", &v10, 0x16u);
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Did not find mock database for operation %@ zoneID %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

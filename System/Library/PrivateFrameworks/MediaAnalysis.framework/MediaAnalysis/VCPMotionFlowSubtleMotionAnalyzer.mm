@@ -53,7 +53,7 @@
 
 + (BOOL)enableR2D2
 {
-  if ((DeviceHasANE() & 1) == 0)
+  if ((DeviceHasANE(self, a2) & 1) == 0)
   {
     return +[VCPMotionFlowSubtleMotionAnalyzer enableR2D2]::enable;
   }

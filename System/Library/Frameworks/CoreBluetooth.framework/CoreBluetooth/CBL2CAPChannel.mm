@@ -280,36 +280,36 @@ LABEL_7:
 
 - (void)managePendingData
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   p_incomingPackets = &self->incomingPackets;
   v4 = [(NSMutableArray *)self->incomingPackets count];
   v5 = v4 - 1;
   v6 = (v4 - 1);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   reverseObjectEnumerator = [(NSMutableArray *)*p_incomingPackets reverseObjectEnumerator];
-  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v20 = v5;
+    v19 = v5;
     v10 = 0;
-    v11 = *v22;
+    v11 = *v21;
     v12 = 1;
 LABEL_3:
     v13 = 0;
-    v14 = v20;
-    v20 -= v9;
+    v14 = v19;
+    v19 -= v9;
     while (1)
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v10 += [*(*(&v21 + 1) + 8 * v13) length];
+      v10 += [*(*(&v20 + 1) + 8 * v13) length];
       if (self->maxQueuePayloadSize <= v10)
       {
         break;
@@ -319,7 +319,7 @@ LABEL_3:
       v12 = [(NSMutableArray *)*p_incomingPackets count]- v14--;
       if (v9 == ++v13)
       {
-        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -348,8 +348,6 @@ LABEL_3:
 
     [(NSMutableArray *)self->incomingPackets removeAllObjects];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDataReceived:(id)received
@@ -399,12 +397,11 @@ uint64_t __37__CBL2CAPChannel_handleDataReceived___block_invoke(uint64_t a1)
 
 - (void)initWithPeer:(unsigned __int16 *)a1 manager:(NSObject *)a2 info:.cold.2(unsigned __int16 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_DEBUG, "Init CBL2CAPChannel with psm : %u", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_DEBUG, "Init CBL2CAPChannel with psm : %u", v3, 8u);
 }
 
 - (void)sendData:(uint64_t)a1 withCompletion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

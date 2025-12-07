@@ -55,13 +55,13 @@
   return v4;
 }
 
-void __71__WBSKeychainCredentialNotificationMonitor_initWithCoalescingInterval___block_invoke(uint64_t a1)
+void __71__WBSKeychainCredentialNotificationMonitor_initWithCoalescingInterval___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1B8447000, v2, OS_LOG_TYPE_DEFAULT, "Received keychain changed notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEFAULT, "Received keychain changed notification", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -121,8 +121,6 @@ void __65__WBSKeychainCredentialNotificationMonitor_addObserverWithBlock___block
   }
 
   v5 = _Block_copy(*(a1 + 48));
-  v6 = *(a1 + 40);
-  v7 = v5;
   [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
 }
 
@@ -176,17 +174,16 @@ uint64_t __71__WBSKeychainCredentialNotificationMonitor_triggerExternalNotificat
 
 - (void)_notifyKeybagUnlocked
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXKeychain();
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXKeychain(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 134217984;
+    v4 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers immediately that the keybag was unlocked", &v5, 0xCu);
+    _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers immediately that the keybag was unlocked", &v4, 0xCu);
   }
 
   [(WBSKeychainCredentialNotificationMonitor *)self triggerExternalNotification];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyKeychainUpdated
@@ -204,44 +201,44 @@ uint64_t __71__WBSKeychainCredentialNotificationMonitor_triggerExternalNotificat
   objc_destroyWeak(&location);
 }
 
-void __66__WBSKeychainCredentialNotificationMonitor__notifyKeychainUpdated__block_invoke(uint64_t a1)
+void __66__WBSKeychainCredentialNotificationMonitor__notifyKeychainUpdated__block_invoke(uint64_t a1, uint64_t a2)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (*(v2 + 32) == 0.0)
+  v3 = *(a1 + 32);
+  if (*(v3 + 32) == 0.0)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 134217984;
-      v24 = v10;
-      _os_log_impl(&dword_1B8447000, v9, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers immediately that keychain updated because no coalescing interval is set", buf, 0xCu);
+      v24 = v11;
+      _os_log_impl(&dword_1B8447000, v10, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers immediately that keychain updated because no coalescing interval is set", buf, 0xCu);
     }
 
     goto LABEL_9;
   }
 
-  if (!*(v2 + 40) || ([MEMORY[0x1E695DF00] date], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "timeIntervalSinceDate:", *(*(a1 + 32) + 40)), v5 = v4, v6 = *(*(a1 + 32) + 32), v3, v5 > v6))
+  if (!*(v3 + 40) || ([MEMORY[0x1E695DF00] date], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "timeIntervalSinceDate:", *(*(a1 + 32) + 40)), v6 = v5, v7 = *(*(a1 + 32) + 32), v4, v6 > v7))
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 134217984;
-      v24 = v8;
-      _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers immediately that keychain updated because enough time has elapsed", buf, 0xCu);
+      v24 = v9;
+      _os_log_impl(&dword_1B8447000, v8, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers immediately that keychain updated because enough time has elapsed", buf, 0xCu);
     }
 
 LABEL_9:
     [*(a1 + 32) _notifyObservers];
-    goto LABEL_10;
+    return;
   }
 
   v12 = *(a1 + 32);
   if (*(v12 + 48))
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXKeychain();
+    v13 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = *(a1 + 32);
@@ -271,30 +268,26 @@ LABEL_9:
     dispatch_resume(*(*v16 + 6));
     objc_destroyWeak(&v22);
   }
-
-LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __66__WBSKeychainCredentialNotificationMonitor__notifyKeychainUpdated__block_invoke_13(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = WBS_LOG_CHANNEL_PREFIXKeychain(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = 134217984;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_1B8447000, v2, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers that keychain updated after coalescing interval", &v4, 0xCu);
+      v5 = 134217984;
+      v6 = v3;
+      _os_log_impl(&dword_1B8447000, v4, OS_LOG_TYPE_INFO, "Notification monitor <%p> notifying observers that keychain updated after coalescing interval", &v5, 0xCu);
     }
 
-    [WeakRetained _notifyObservers];
-    [WeakRetained _cancelCoalescingTimer];
+    [v3 _notifyObservers];
+    [v3 _cancelCoalescingTimer];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelCoalescingTimer
@@ -306,31 +299,31 @@ void __66__WBSKeychainCredentialNotificationMonitor__notifyKeychainUpdated__bloc
 
 - (void)_notifyObservers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allValues = [(NSMutableDictionary *)self->_observers allValues];
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v9 + 1) + 8 * v6++) + 16))();
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -339,8 +332,6 @@ void __66__WBSKeychainCredentialNotificationMonitor__notifyKeychainUpdated__bloc
   date = [MEMORY[0x1E695DF00] date];
   lastNotificationTime = self->_lastNotificationTime;
   self->_lastNotificationTime = date;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -2,16 +2,17 @@
 - (RSOnlineFloorPlanGenerator)init;
 - (void)clear;
 - (void)generateFloorPlanWithInputDir:(id)dir outputDir:(id)outputDir debug:(BOOL)debug;
+- (void)generateFloorPlanWithInputPath:(id)path outputPath:(id)outputPath debug:(BOOL)debug;
 @end
 
 @implementation RSOnlineFloorPlanGenerator
 
 - (void)clear
 {
-  v132 = *MEMORY[0x277D85DE8];
-  v129.receiver = self;
-  v129.super_class = RSOnlineFloorPlanGenerator;
-  [(RSFloorPlanGeneratorBase *)&v129 clear];
+  v131 = *MEMORY[0x277D85DE8];
+  v128.receiver = self;
+  v128.super_class = RSOnlineFloorPlanGenerator;
+  [(RSFloorPlanGeneratorBase *)&v128 clear];
   onlineWallOpeningConsistency = self->_onlineWallOpeningConsistency;
   if (onlineWallOpeningConsistency)
   {
@@ -201,12 +202,12 @@
 
     onlineWallOpeningConsistency[67].__r_.__value_.__r.__words[0] = v56;
     onlineWallOpeningConsistency[29].__r_.__value_.__l.__size_ = onlineWallOpeningConsistency[29].__r_.__value_.__r.__words[0];
-    v130[0] = 0;
-    v131 = 0;
-    sub_262277818(onlineWallOpeningConsistency + 14, v130, v47);
-    if (v131 == 1)
+    v129[0] = 0;
+    v130 = 0;
+    sub_262277818(onlineWallOpeningConsistency + 14, v129, v47);
+    if (v130 == 1)
     {
-      sub_2621C50C4(v130);
+      sub_2621C50C4(v129);
     }
 
     v61 = objc_alloc_init(RSFloorPlan);
@@ -245,7 +246,7 @@
     objc_msgSend_removeAllObjects(accumulator->_newKeyframes, v76, v77);
     objc_msgSend_removeAllObjects(accumulator->_keyframeOrderDict, v78, v79);
     objc_msgSend_reset(accumulator->_worldpc, v80, v81);
-    sub_26229CE70(accumulator->_accMeta, v82, v83);
+    sub_26229CE70(&accumulator->_accMeta->super.isa, v82, v83);
     accumulator->_skipCnt = 0;
   }
 
@@ -377,7 +378,7 @@
     markerCoaching[1]._generator._vptr$MarkerProposal = markerCoaching[1].super.isa;
   }
 
-  sub_2621E188C(self->_heightEstimator);
+  sub_2621E188C(&self->_heightEstimator->super.isa);
   openingHeightAlignment = self->_openingHeightAlignment;
   if (openingHeightAlignment)
   {
@@ -431,19 +432,17 @@
   v126 = objc_msgSend_array(MEMORY[0x277CBEB18], v124, v125);
   floorPlanDebug = self->_floorPlanDebug;
   self->_floorPlanDebug = v126;
-
-  v128 = *MEMORY[0x277D85DE8];
 }
 
 - (RSOnlineFloorPlanGenerator)init
 {
-  v65[7] = *MEMORY[0x277D85DE8];
-  v56.receiver = self;
-  v56.super_class = RSOnlineFloorPlanGenerator;
-  v2 = [(RSFloorPlanGeneratorBase *)&v56 init];
+  v62[7] = *MEMORY[0x277D85DE8];
+  v53.receiver = self;
+  v53.super_class = RSOnlineFloorPlanGenerator;
+  v2 = [(RSFloorPlanGeneratorBase *)&v53 init];
   if (!v2)
   {
-    goto LABEL_13;
+    goto LABEL_10;
   }
 
   v3 = objc_alloc_init(RSWallOpeningOnlineOptimizer);
@@ -463,95 +462,89 @@
   v2->_projector = v9;
 
   v11 = [RSWallOpeningOnlineDetector alloc];
-  v12 = sub_2621CD3A4(&v2->_projector->super.isa);
-  v54 = v12;
-  if (v12 && *(v12 + 64) == 1)
-  {
-    v52 = *(v12 + 8);
-  }
-
+  v51 = sub_2621CD3A4(&v2->_projector->super.isa);
   if (v11)
   {
-    v58.receiver = v11;
-    v58.super_class = RSWallOpeningOnlineDetector;
-    v13 = [(RSFloorPlanGeneratorBase *)&v58 init];
-    if (v13)
+    v55.receiver = v11;
+    v55.super_class = RSWallOpeningOnlineDetector;
+    v12 = [(RSFloorPlanGeneratorBase *)&v55 init];
+    if (v12)
     {
-      v14 = MEMORY[0x277CCA8D8];
-      v53 = v13;
-      v15 = objc_opt_class();
-      v55 = objc_msgSend_bundleForClass_(v14, v16, v15);
-      v51 = objc_msgSend_stringByAppendingPathComponent_(@"PrecompiledModels", v17, @"lcnn_floorplan_model.bundle");
-      sub_262381FB4(v51, 0, v55);
+      v13 = MEMORY[0x277CCA8D8];
+      v50 = v12;
+      v14 = objc_opt_class();
+      v52 = objc_msgSend_bundleForClass_(v13, v15, v14);
+      v49 = objc_msgSend_stringByAppendingPathComponent_(@"PrecompiledModels", v16, @"lcnn_floorplan_model.bundle");
+      sub_262381FB4(v49, 0, v52);
       if (objc_claimAutoreleasedReturnValue())
       {
         sub_2621D0F64(buf, "0_weight.npy");
-        sub_2621D0F64(&v60 + 8, "1_weight.npy");
-        sub_2621D0F64(v61, "2_weight.npy");
-        sub_2621D0F64(v62, "0_bias.npy");
-        sub_2621D0F64(v63, "1_bias.npy");
-        sub_2621D0F64(v64, "2_bias.npy");
-        memset(v57, 0, sizeof(v57));
-        sub_2622C70D0(v57, buf, v65, 6uLL);
+        sub_2621D0F64(&v57 + 1, "1_weight.npy");
+        sub_2621D0F64(v58, "2_weight.npy");
+        sub_2621D0F64(v59, "0_bias.npy");
+        sub_2621D0F64(v60, "1_bias.npy");
+        sub_2621D0F64(&v61, "2_bias.npy");
+        memset(v54, 0, sizeof(v54));
+        sub_2622C70D0(v54, buf, v62, 6uLL);
       }
 
-      v19 = 0;
-      v18 = v53;
+      v18 = 0;
+      v17 = v50;
     }
 
     else
     {
-      v18 = 0;
-      v19 = v18;
+      v17 = 0;
+      v18 = v17;
     }
   }
 
   else
   {
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
   }
 
   wallOpeningDetector = v2->_wallOpeningDetector;
-  v2->_wallOpeningDetector = v19;
+  v2->_wallOpeningDetector = v18;
 
   if (v2->_wallOpeningDetector)
   {
-    v21 = objc_alloc_init(RSKeyframeAccumulation);
+    v20 = objc_alloc_init(RSKeyframeAccumulation);
     accumulator = v2->_accumulator;
-    v2->_accumulator = v21;
+    v2->_accumulator = v20;
 
-    v23 = objc_alloc_init(RSGeometryCalculation);
+    v22 = objc_alloc_init(RSGeometryCalculation);
     geometryEstimator = v2->_geometryEstimator;
-    v2->_geometryEstimator = v23;
+    v2->_geometryEstimator = v22;
 
-    v25 = objc_alloc_init(RSScanUIFormatter);
+    v24 = objc_alloc_init(RSScanUIFormatter);
     scanUiFormatter = v2->_scanUiFormatter;
-    v2->_scanUiFormatter = v25;
+    v2->_scanUiFormatter = v24;
 
-    v27 = objc_alloc_init(RSMarkerCoaching);
+    v26 = objc_alloc_init(RSMarkerCoaching);
     markerCoaching = v2->_markerCoaching;
-    v2->_markerCoaching = v27;
+    v2->_markerCoaching = v26;
 
-    v29 = objc_alloc_init(RSNonUniformHeightEstimation);
+    v28 = objc_alloc_init(RSNonUniformHeightEstimation);
     heightEstimator = v2->_heightEstimator;
-    v2->_heightEstimator = v29;
+    v2->_heightEstimator = v28;
 
-    v31 = objc_alloc_init(RSOpeningHeightAlignment);
+    v30 = objc_alloc_init(RSOpeningHeightAlignment);
     openingHeightAlignment = v2->_openingHeightAlignment;
-    v2->_openingHeightAlignment = v31;
+    v2->_openingHeightAlignment = v30;
 
-    v33 = objc_alloc_init(RSParentAssociation);
+    v32 = objc_alloc_init(RSParentAssociation);
     parentAssociation = v2->_parentAssociation;
-    v2->_parentAssociation = v33;
+    v2->_parentAssociation = v32;
 
-    v35 = objc_alloc_init(RSRecessedAreaReconstructor);
+    v34 = objc_alloc_init(RSRecessedAreaReconstructor);
     recessedAreaReconstructor = v2->_recessedAreaReconstructor;
-    v2->_recessedAreaReconstructor = v35;
+    v2->_recessedAreaReconstructor = v34;
 
-    v37 = objc_alloc_init(RSFloorEstimation);
+    v36 = objc_alloc_init(RSFloorEstimation);
     floorEstimator = v2->_floorEstimator;
-    v2->_floorEstimator = v37;
+    v2->_floorEstimator = v36;
 
     v2->_isMarkerCoachingEnabled = 0;
     v2->_isNonUniformHeightEnabled = 1;
@@ -559,22 +552,22 @@
     v2->_isOpendoorReplaceOpeningEnabled = 0;
     v2->_isDoorReplaceOpeningEnabled = 1;
     v2->_isBayWindowRecessedAreaEnabled = 0;
-    v39 = objc_alloc_init(RSFloorPlan);
+    v38 = objc_alloc_init(RSFloorPlan);
     floorPlanForOffline = v2->_floorPlanForOffline;
-    v2->_floorPlanForOffline = v39;
+    v2->_floorPlanForOffline = v38;
 
-    v41 = objc_alloc_init(RSMarkerSignal);
+    v40 = objc_alloc_init(RSMarkerSignal);
     markerSignal = v2->_markerSignal;
-    v2->_markerSignal = v41;
+    v2->_markerSignal = v40;
 
-    v45 = objc_msgSend_array(MEMORY[0x277CBEB18], v43, v44);
+    v44 = objc_msgSend_array(MEMORY[0x277CBEB18], v42, v43);
     floorPlanDebug = v2->_floorPlanDebug;
-    v2->_floorPlanDebug = v45;
+    v2->_floorPlanDebug = v44;
 
     v2->_enableLiveDump = 0;
-LABEL_13:
-    v47 = v2;
-    goto LABEL_19;
+LABEL_10:
+    v46 = v2;
+    goto LABEL_16;
   }
 
   if (qword_27FF0C090 != -1)
@@ -582,32 +575,31 @@ LABEL_13:
     dispatch_once(&qword_27FF0C090, &unk_2874EE160);
   }
 
-  v48 = qword_27FF0C088;
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+  v47 = qword_27FF0C088;
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_2621C3000, v48, OS_LOG_TYPE_ERROR, "Detector init failed", buf, 2u);
+    _os_log_error_impl(&dword_2621C3000, v47, OS_LOG_TYPE_ERROR, "Detector init failed", buf, 2u);
   }
 
-  v47 = 0;
-LABEL_19:
+  v46 = 0;
+LABEL_16:
 
-  v49 = *MEMORY[0x277D85DE8];
-  return v47;
+  return v46;
 }
 
 - (void)generateFloorPlanWithInputDir:(id)dir outputDir:(id)outputDir debug:(BOOL)debug
 {
   debugCopy = debug;
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   outputDirCopy = outputDir;
-  v97 = dirCopy;
+  v96 = dirCopy;
   v9 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v7, v8);
   v11 = objc_msgSend_contentsOfDirectoryAtPath_error_(v9, v10, dirCopy, 0);
 
-  v95 = v11;
-  v105 = objc_msgSend_sortedArrayUsingComparator_(v11, v12, &unk_2874EE2A0);
+  v94 = v11;
+  v104 = objc_msgSend_sortedArrayUsingComparator_(v11, v12, &unk_2874EE2A0);
   v15 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v13, v14);
   objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v15, v16, outputDirCopy, 1, 0, 0);
 
@@ -618,83 +610,83 @@ LABEL_19:
 
   v21 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v17, v18);
   v22 = 0;
-  v103 = 0;
-  while (v22 < objc_msgSend_count(v105, v19, v20))
+  v102 = 0;
+  while (v22 < objc_msgSend_count(v104, v19, v20))
   {
-    v24 = objc_msgSend_objectAtIndexedSubscript_(v105, v23, v22);
-    v104 = v22;
+    v24 = objc_msgSend_objectAtIndexedSubscript_(v104, v23, v22);
+    v103 = v22;
     hasSuffix = objc_msgSend_hasSuffix_(v24, v25, @"fp_input.plist");
 
     if (hasSuffix)
     {
-      v27 = objc_msgSend_objectAtIndexedSubscript_(v105, v19, v104);
-      v102 = objc_msgSend_stringByAppendingPathComponent_(v97, v28, v27);
+      v27 = objc_msgSend_objectAtIndexedSubscript_(v104, v19, v103);
+      v101 = objc_msgSend_stringByAppendingPathComponent_(v96, v28, v27);
 
       v29 = objc_alloc(MEMORY[0x277CBEAC0]);
-      v101 = objc_msgSend_initWithContentsOfFile_(v29, v30, v102);
-      v32 = objc_msgSend_objectForKeyedSubscript_(v101, v31, @"keyframes");
+      v100 = objc_msgSend_initWithContentsOfFile_(v29, v30, v101);
+      v32 = objc_msgSend_objectForKeyedSubscript_(v100, v31, @"keyframes");
       v33 = RSKeyframeSequenceFromDictionary(v32);
 
-      v109 = 0u;
-      v110 = 0u;
-      v107 = 0u;
       v108 = 0u;
+      v109 = 0u;
+      v106 = 0u;
+      v107 = 0u;
       v36 = objc_msgSend_allKeys(v33, v34, v35);
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v107, v111, 16);
+      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v106, v110, 16);
       if (v39)
       {
-        v40 = *v108;
+        v40 = *v107;
         do
         {
           for (i = 0; i != v39; ++i)
           {
-            if (*v108 != v40)
+            if (*v107 != v40)
             {
               objc_enumerationMutation(v36);
             }
 
-            v42 = *(*(&v107 + 1) + 8 * i);
+            v42 = *(*(&v106 + 1) + 8 * i);
             v43 = objc_msgSend_objectForKeyedSubscript_(v33, v38, v42);
             objc_msgSend_setObject_forKey_(v21, v44, v43, v42);
           }
 
-          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v38, &v107, v111, 16);
+          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v38, &v106, v110, 16);
         }
 
         while (v39);
       }
 
-      v106 = sub_2621EEA88(self, v21, MEMORY[0x277CBEBF8]);
-      v100 = objc_msgSend_walls(v106, v45, v46);
-      v49 = objc_msgSend_count(v100, v47, v48);
-      v52 = objc_msgSend_openings(v106, v50, v51);
+      v105 = sub_2621EEA88(self, v21, MEMORY[0x277CBEBF8]);
+      v99 = objc_msgSend_walls(v105, v45, v46);
+      v49 = objc_msgSend_count(v99, v47, v48);
+      v52 = objc_msgSend_openings(v105, v50, v51);
       v55 = objc_msgSend_count(v52, v53, v54);
-      v58 = objc_msgSend_windows(v106, v56, v57);
+      v58 = objc_msgSend_windows(v105, v56, v57);
       v61 = objc_msgSend_count(v58, v59, v60);
-      v64 = objc_msgSend_doors(v106, v62, v63);
+      v64 = objc_msgSend_doors(v105, v62, v63);
       v67 = objc_msgSend_count(v64, v65, v66);
-      v70 = objc_msgSend_opendoors(v106, v68, v69);
+      v70 = objc_msgSend_opendoors(v105, v68, v69);
       v73 = objc_msgSend_count(v70, v71, v72);
-      NSLog(&cfstr_RunWithFloorpl.isa, v103, v49, v55, v61, v67, v73);
+      NSLog(&cfstr_RunWithFloorpl.isa, v102, v49, v55, v61, v67, v73);
 
-      v75 = objc_msgSend_objectAtIndexedSubscript_(v105, v74, v104);
+      v75 = objc_msgSend_objectAtIndexedSubscript_(v104, v74, v103);
       v77 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v75, v76, @"fp_input.plist", @"fp_output.plist");
 
       v79 = objc_msgSend_stringByAppendingPathComponent_(outputDirCopy, v78, v77);
-      v82 = objc_msgSend_dictionaryRepresentation(v106, v80, v81);
+      v82 = objc_msgSend_dictionaryRepresentation(v105, v80, v81);
       objc_msgSend_writeToFile_atomically_(v82, v83, v79, 1);
 
       if (debugCopy)
       {
         v86 = objc_msgSend_stringByDeletingPathExtension(v79, v84, v85);
         v88 = objc_msgSend_stringByAppendingPathExtension_(v86, v87, @"obj");
-        objc_msgSend_writeToObj_(v106, v89, v88);
+        objc_msgSend_writeToObj_(v105, v89, v88);
       }
 
-      ++v103;
+      ++v102;
     }
 
-    v22 = v104 + 1;
+    v22 = v103 + 1;
   }
 
   if (debugCopy)
@@ -703,8 +695,92 @@ LABEL_19:
     v92 = objc_msgSend_stringByAppendingPathComponent_(outputDirCopy, v91, @"debug_info.plist");
     objc_msgSend_writeToFile_atomically_(v90, v93, v92, 1);
   }
+}
 
-  v94 = *MEMORY[0x277D85DE8];
+- (void)generateFloorPlanWithInputPath:(id)path outputPath:(id)outputPath debug:(BOOL)debug
+{
+  debugCopy = debug;
+  pathCopy = path;
+  v79 = debugCopy;
+  outputPathCopy = outputPath;
+  v78 = pathCopy;
+  NSLog(&cfstr_InputPathOutpu.isa, pathCopy, outputPathCopy, debugCopy);
+  v10 = objc_msgSend_dictionaryWithContentsOfFile_(MEMORY[0x277CBEAC0], v9, pathCopy);
+  self->_enableLiveDump = debugCopy;
+  v77 = v10;
+  v12 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"keyframes");
+  v13 = RSKeyframeSequenceFromDictionary(v12);
+
+  v76 = v13;
+  v16 = objc_msgSend_array(MEMORY[0x277CBEA60], v14, v15);
+  selfCopy = self;
+  v17 = sub_2621EEA88(self, v13, v16);
+
+  v20 = objc_msgSend_walls(v17, v18, v19);
+  v23 = objc_msgSend_count(v20, v21, v22);
+  v26 = objc_msgSend_openings(v17, v24, v25);
+  v29 = objc_msgSend_count(v26, v27, v28);
+  v32 = objc_msgSend_windows(v17, v30, v31);
+  v35 = objc_msgSend_count(v32, v33, v34);
+  v38 = objc_msgSend_doors(v17, v36, v37);
+  v41 = objc_msgSend_count(v38, v39, v40);
+  v44 = objc_msgSend_opendoors(v17, v42, v43);
+  v47 = objc_msgSend_count(v44, v45, v46);
+  NSLog(&cfstr_OverallWallsLu.isa, v23, v29, v35, v41, v47);
+
+  if (objc_msgSend_hasSuffix_(outputPathCopy, v48, @".plist"))
+  {
+    v51 = objc_msgSend_dictionaryRepresentation(v17, v49, v50);
+    objc_msgSend_writeToFile_atomically_(v51, v52, outputPathCopy, 1);
+  }
+
+  else if (objc_msgSend_hasSuffix_(outputPathCopy, v49, @".json"))
+  {
+    v55 = outputPathCopy;
+    v58 = objc_msgSend_UTF8String(v55, v56, v57);
+    v59 = strlen(v58);
+    if (v59 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      sub_2621CC980();
+    }
+
+    v61 = v59;
+    if (v59 >= 0x17)
+    {
+      operator new();
+    }
+
+    v82 = v59;
+    if (v59)
+    {
+      memmove(&__dst, v58, v59);
+    }
+
+    *(&__dst + v61) = 0;
+    sub_26234A5B8(v17, &__dst, v60);
+    if (v82 < 0)
+    {
+      operator delete(__dst);
+    }
+  }
+
+  else
+  {
+    NSLog(&cfstr_OutputFormatNo.isa, outputPathCopy);
+  }
+
+  if (v79)
+  {
+    v62 = objc_msgSend_stringByDeletingPathExtension(outputPathCopy, v53, v54);
+    v64 = objc_msgSend_stringByAppendingPathExtension_(v62, v63, @"obj");
+    objc_msgSend_writeToObj_(v17, v65, v64);
+
+    v67 = sub_2621EEB10(selfCopy, v66);
+    v68 = MEMORY[0x277CCACA8];
+    v71 = objc_msgSend_stringByDeletingPathExtension(outputPathCopy, v69, v70);
+    v73 = objc_msgSend_stringWithFormat_(v68, v72, @"%@_debug.plist", v71);
+    objc_msgSend_writeToFile_atomically_(v67, v74, v73, 1);
+  }
 }
 
 @end

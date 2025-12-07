@@ -492,7 +492,7 @@ void __54__SBSingleSceneController_sceneContentStateDidChange___block_invoke_33(
 - (void)scene:(id)scene didCompleteUpdateWithContext:(id)context error:(id)error
 {
   settings = [scene settings];
-  [settings frame];
+  objc_msgSend_frame(settings);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -735,7 +735,7 @@ void __56__SBSingleSceneController_didUpdateSceneTraitsDelegate___block_invoke(u
     [view setContentOrientation:1];
     [view setContainerOrientation:1];
     settings = [(FBScene *)self->_scene settings];
-    [settings frame];
+    objc_msgSend_frame(settings);
     [view setContentViewBoundsInReferenceSpace:?];
 
     [view setAutoresizingMask:18];

@@ -1445,13 +1445,13 @@ LABEL_14:
   v34 = transformer;
   if (transformer)
   {
-    [transformer transform];
+    objc_msgSend_transform(transformer);
     *&t1.a = v37;
     *&t1.c = v36;
     *&t1.tx = v35;
     if (!CGAffineTransformEqualToTransform(&t1, &t2))
     {
-      [v34 transform];
+      objc_msgSend_transform(v34);
       t1 = v41;
       CGAffineTransformConcat(&v40, &t1, &t2);
       t2 = v40;

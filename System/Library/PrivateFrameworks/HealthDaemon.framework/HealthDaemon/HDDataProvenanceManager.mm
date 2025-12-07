@@ -19,16 +19,16 @@
 
 - (void)_loadDefaults
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    goto LABEL_14;
+    return;
   }
 
   v2 = atomic_load((self + 72));
   if (v2)
   {
-    goto LABEL_14;
+    return;
   }
 
   noneContributorReference = [(HDDataProvenanceManager *)self noneContributorReference];
@@ -44,58 +44,57 @@
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __56__HDDataProvenanceManager__setNoneContributorReference___block_invoke;
-      v26 = &unk_278613920;
+      v25 = &unk_278613920;
       selfCopy2 = self;
       v8 = v6;
-      v28 = v8;
+      v27 = v8;
       [v7 hk_withLock:buf];
     }
   }
 
   WeakRetained = objc_loadWeakRetained((self + 8));
-  if ([WeakRetained profileType] == 1)
+  if ([WeakRetained profileType] != 1)
   {
-    goto LABEL_8;
-  }
+    primaryUserContributorReference = [(HDDataProvenanceManager *)self primaryUserContributorReference];
 
-  primaryUserContributorReference = [(HDDataProvenanceManager *)self primaryUserContributorReference];
-
-  if (!primaryUserContributorReference)
-  {
-    v18 = +[HDContributorReference contributorReferenceForPrimaryUser];
-    if (v18)
+    if (primaryUserContributorReference)
     {
-      v19 = v18;
-      v20 = *(self + 24);
+      goto LABEL_10;
+    }
+
+    v17 = +[HDContributorReference contributorReferenceForPrimaryUser];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = *(self + 24);
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __63__HDDataProvenanceManager__setPrimaryUserContributorReference___block_invoke;
-      v26 = &unk_278613920;
+      v25 = &unk_278613920;
       selfCopy2 = self;
-      WeakRetained = v19;
-      v28 = WeakRetained;
-      [v20 hk_withLock:buf];
+      WeakRetained = v18;
+      v27 = WeakRetained;
+      [v19 hk_withLock:buf];
     }
 
     else
     {
       WeakRetained = 0;
     }
-
-LABEL_8:
   }
 
+LABEL_10:
   v11 = objc_loadWeakRetained((self + 8));
   database = [v11 database];
   v13 = +[HDDatabaseTransactionContext contextForWriting];
-  v23[4] = self;
-  v24 = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __40__HDDataProvenanceManager__loadDefaults__block_invoke;
-  v23[3] = &unk_278616048;
-  v14 = [database performTransactionWithContext:v13 error:&v24 block:v23 inaccessibilityHandler:0];
-  v15 = v24;
+  v22[4] = self;
+  v23 = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __40__HDDataProvenanceManager__loadDefaults__block_invoke;
+  v22[3] = &unk_278616048;
+  v14 = [database performTransactionWithContext:v13 error:&v23 block:v22 inaccessibilityHandler:0];
+  v15 = v23;
 
   if ((v14 & 1) == 0)
   {
@@ -103,18 +102,15 @@ LABEL_8:
     v16 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v21 = v16;
-      v22 = objc_opt_class();
+      v20 = v16;
+      v21 = objc_opt_class();
       *buf = 138412546;
-      *&buf[4] = v22;
+      *&buf[4] = v21;
       *&buf[12] = 2114;
       *&buf[14] = v15;
-      _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%@: Failed to load data provenance default values: %{public}@", buf, 0x16u);
+      _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%@: Failed to load data provenance default values: %{public}@", buf, 0x16u);
     }
   }
-
-LABEL_14:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localSourceID
@@ -258,11 +254,11 @@ LABEL_14:
 
     objc_storeStrong(&v5->_localProductType, v16);
 
-    currentOSVersion = [behavior currentOSVersion];
-    v18 = currentOSVersion;
-    if (currentOSVersion)
+    v17 = objc_msgSend_currentOSVersion(behavior);
+    v18 = v17;
+    if (v17)
     {
-      v19 = currentOSVersion;
+      v19 = v17;
     }
 
     else
@@ -435,16 +431,16 @@ LABEL_14:
   v30 = provenanceCopy;
   objc_opt_self();
   v31 = objc_alloc_init(_HDDataProvenanceKey);
-  v32 = [v30 copy];
+  v32 = objc_msgSend_copy(v30);
 
   dataProvenance = v31->_dataProvenance;
   v31->_dataProvenance = v32;
 
-  v34 = [(NSString *)v29 copy];
+  v34 = objc_msgSend_copy(v29);
   localProductType = v31->_localProductType;
   v31->_localProductType = v34;
 
-  v36 = [(NSString *)v28 copy];
+  v36 = objc_msgSend_copy(v28);
   v37 = v31->_localSystemBuild;
   v31->_localSystemBuild = v36;
 
@@ -529,7 +525,7 @@ id __71__HDDataProvenanceManager__lookupOrInsertProvenance_transaction_error___b
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v6);
   }
 
   else
@@ -570,7 +566,7 @@ id __71__HDDataProvenanceManager__lookupOrInsertProvenance_transaction_error___b
 
 - (id)localDataProvenanceForSourceEntity:(id)entity version:(id)version deviceEntity:(id)deviceEntity
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   deviceEntityCopy = deviceEntity;
   versionCopy = version;
@@ -599,11 +595,11 @@ LABEL_3:
 LABEL_6:
   primaryUserContributorReference = [(HDDataProvenanceManager *)self primaryUserContributorReference];
   v14 = v11;
-  v43 = versionCopy;
+  v42 = versionCopy;
   v15 = v12;
   v16 = primaryUserContributorReference;
   v17 = v16;
-  v42 = v14;
+  v41 = v14;
   if (self)
   {
     localSourceID = v14;
@@ -629,13 +625,13 @@ LABEL_6:
       memset(buf, 0, sizeof(buf));
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       v22 = processInfo;
-      v38 = deviceEntityCopy;
-      v39 = entityCopy;
-      v37 = v15;
-      v40 = v17;
+      v37 = deviceEntityCopy;
+      v38 = entityCopy;
+      v36 = v15;
+      v39 = v17;
       if (processInfo)
       {
-        [processInfo operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(processInfo);
       }
 
       else
@@ -647,21 +643,21 @@ LABEL_6:
       currentSyncIdentityPersistentID = [WeakRetained currentSyncIdentityPersistentID];
       localSystemBuild = self->_localSystemBuild;
       localProductType = self->_localProductType;
-      localSourceVersion = v43;
-      if (!v43)
+      localSourceVersion = v42;
+      if (!v42)
       {
         localSourceVersion = self->_localSourceVersion;
       }
 
       _localTimeZoneName = [(HDDataProvenanceManager *)self _localTimeZoneName];
-      v44 = *buf;
-      v45 = *&buf[16];
-      self = [HDDataOriginProvenance dataProvenanceWithSyncProvenance:0 syncIdentity:currentSyncIdentityPersistentID productType:localProductType systemBuild:localSystemBuild operatingSystemVersion:&v44 sourceVersion:localSourceVersion timeZoneName:_localTimeZoneName sourceID:localSourceID deviceID:deviceNoneID contributorReference:noneContributorReference];
+      v43 = *buf;
+      v44 = *&buf[16];
+      self = [HDDataOriginProvenance dataProvenanceWithSyncProvenance:0 syncIdentity:currentSyncIdentityPersistentID productType:localProductType systemBuild:localSystemBuild operatingSystemVersion:&v43 sourceVersion:localSourceVersion timeZoneName:_localTimeZoneName sourceID:localSourceID deviceID:deviceNoneID contributorReference:noneContributorReference];
 
-      deviceEntityCopy = v38;
-      entityCopy = v39;
-      v15 = v37;
-      v17 = v40;
+      deviceEntityCopy = v37;
+      entityCopy = v38;
+      v15 = v36;
+      v17 = v39;
     }
 
     else
@@ -670,22 +666,22 @@ LABEL_6:
       v23 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v32 = v23;
+        v31 = v23;
         localSourceID2 = [(HDDataProvenanceManager *)self localSourceID];
         [(HDDataProvenanceManager *)self deviceNoneID];
-        v34 = v41 = v17;
+        v33 = v40 = v17;
         [(HDDataProvenanceManager *)self noneContributorReference];
-        v36 = v35 = v15;
+        v35 = v34 = v15;
         *buf = 138543874;
         *&buf[4] = localSourceID2;
         *&buf[12] = 2114;
-        *&buf[14] = v34;
+        *&buf[14] = v33;
         *&buf[22] = 2114;
-        v47 = v36;
-        _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "Missing local source (%{public}@), device (%{public}@) id or contributor (%{public}@)", buf, 0x20u);
+        v46 = v35;
+        _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Missing local source (%{public}@), device (%{public}@) id or contributor (%{public}@)", buf, 0x20u);
 
-        v15 = v35;
-        v17 = v41;
+        v15 = v34;
+        v17 = v40;
       }
 
       self = 0;
@@ -698,8 +694,6 @@ LABEL_6:
     deviceNoneID = v15;
     localSourceID = v14;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -745,7 +739,7 @@ LABEL_6:
 
 - (id)localDataProvenanceForSourceEntity:(id)entity version:(id)version deviceEntity:(id)deviceEntity timezone:(id)timezone OSVersion:(id *)sVersion
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   deviceEntityCopy = deviceEntity;
   timezoneCopy = timezone;
@@ -773,9 +767,9 @@ LABEL_3:
 
   v17 = 0;
 LABEL_6:
-  v52 = deviceEntityCopy;
+  v51 = deviceEntityCopy;
   primaryUserContributorReference = [(HDDataProvenanceManager *)self primaryUserContributorReference];
-  v53 = *&sVersion->var0;
+  v52 = *&sVersion->var0;
   var2 = sVersion->var2;
   v19 = v16;
   v20 = versionCopy;
@@ -783,8 +777,8 @@ LABEL_6:
   v22 = timezoneCopy;
   v23 = primaryUserContributorReference;
   v24 = v23;
-  v50 = v21;
-  v51 = v19;
+  v49 = v21;
+  v50 = v19;
   if (self)
   {
     localSourceID = v19;
@@ -807,7 +801,7 @@ LABEL_6:
 
     if (localSourceID && deviceNoneID && noneContributorReference)
     {
-      v48 = entityCopy;
+      v47 = entityCopy;
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       currentSyncIdentityPersistentID = [WeakRetained currentSyncIdentityPersistentID];
       localSystemBuild = self->_localSystemBuild;
@@ -824,26 +818,26 @@ LABEL_6:
         selfCopy = self;
         v35 = currentSyncIdentityPersistentID;
         v36 = self->_localProductType;
-        v47 = v24;
+        v46 = v24;
         v37 = v20;
         v38 = localSystemBuild;
         _localTimeZoneName = [(HDDataProvenanceManager *)selfCopy _localTimeZoneName];
         localSystemBuild = v38;
         v20 = v37;
-        v24 = v47;
+        v24 = v46;
         localProductType = v36;
         currentSyncIdentityPersistentID = v35;
         v33 = _localTimeZoneName;
       }
 
-      *buf = v53;
+      *buf = v52;
       *&buf[16] = var2;
       self = [HDDataOriginProvenance dataProvenanceWithSyncProvenance:0 syncIdentity:currentSyncIdentityPersistentID productType:localProductType systemBuild:localSystemBuild operatingSystemVersion:buf sourceVersion:localSourceVersion timeZoneName:v33 sourceID:localSourceID deviceID:deviceNoneID contributorReference:noneContributorReference];
       if (!v22)
       {
       }
 
-      entityCopy = v48;
+      entityCopy = v47;
     }
 
     else
@@ -852,20 +846,20 @@ LABEL_6:
       v40 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v43 = v40;
+        v42 = v40;
         localSourceID2 = [(HDDataProvenanceManager *)self localSourceID];
         [(HDDataProvenanceManager *)self deviceNoneID];
-        v45 = v49 = entityCopy;
+        v44 = v48 = entityCopy;
         noneContributorReference2 = [(HDDataProvenanceManager *)self noneContributorReference];
         *buf = 138543874;
         *&buf[4] = localSourceID2;
         *&buf[12] = 2114;
-        *&buf[14] = v45;
+        *&buf[14] = v44;
         *&buf[22] = 2114;
-        v56 = noneContributorReference2;
-        _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "Missing local source (%{public}@), device (%{public}@) id or contributor (%{public}@)", buf, 0x20u);
+        v55 = noneContributorReference2;
+        _os_log_error_impl(&dword_228986000, v42, OS_LOG_TYPE_ERROR, "Missing local source (%{public}@), device (%{public}@) id or contributor (%{public}@)", buf, 0x20u);
 
-        entityCopy = v49;
+        entityCopy = v48;
       }
 
       self = 0;
@@ -878,8 +872,6 @@ LABEL_6:
     localSourceID = v19;
     deviceNoneID = v21;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -911,7 +903,7 @@ id __77__HDDataProvenanceManager_originProvenanceForPersistentID_transaction_err
 
 uint64_t __40__HDDataProvenanceManager__loadDefaults__block_invoke(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [(HDDataProvenanceManager *)*(a1 + 32) deviceNoneID];
 
@@ -923,9 +915,9 @@ uint64_t __40__HDDataProvenanceManager__loadDefaults__block_invoke(uint64_t a1, 
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v7 = [WeakRetained deviceManager];
-  v50 = 0;
-  v8 = [v7 deviceEntityForNoDeviceWithError:&v50];
-  v5 = v50;
+  v46 = 0;
+  v8 = [v7 deviceEntityForNoDeviceWithError:&v46];
+  v5 = v46;
 
   if (v8)
   {
@@ -938,9 +930,9 @@ uint64_t __40__HDDataProvenanceManager__loadDefaults__block_invoke(uint64_t a1, 
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __44__HDDataProvenanceManager__setDeviceNoneID___block_invoke;
-      v52 = &unk_278613920;
-      v53 = v9;
-      v54 = v10;
+      v48 = &unk_278613920;
+      v49 = v9;
+      v50 = v10;
       [v12 hk_withLock:buf];
     }
   }
@@ -954,11 +946,10 @@ uint64_t __40__HDDataProvenanceManager__loadDefaults__block_invoke(uint64_t a1, 
       goto LABEL_9;
     }
 
-    v36 = *(a1 + 32);
     v11 = v13;
-    v37 = objc_opt_class();
+    v35 = objc_opt_class();
     *buf = 138412546;
-    *&buf[4] = v37;
+    *&buf[4] = v35;
     *&buf[12] = 2114;
     *&buf[14] = v5;
     _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%@: Failed to get device Entity for no device: %{public}@", buf, 0x16u);
@@ -976,9 +967,9 @@ LABEL_10:
 
   v16 = objc_loadWeakRetained((*(a1 + 32) + 8));
   v17 = [v16 sourceManager];
-  v49 = v5;
-  v18 = [v17 localDeviceSourceWithError:&v49];
-  v15 = v49;
+  v45 = v5;
+  v18 = [v17 localDeviceSourceWithError:&v45];
+  v15 = v45;
 
   if (v18)
   {
@@ -991,9 +982,9 @@ LABEL_10:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __45__HDDataProvenanceManager__setLocalSourceID___block_invoke;
-      v52 = &unk_278613920;
-      v53 = v19;
-      v54 = v20;
+      v48 = &unk_278613920;
+      v49 = v19;
+      v50 = v20;
       [v22 hk_withLock:buf];
     }
   }
@@ -1007,11 +998,10 @@ LABEL_10:
       goto LABEL_18;
     }
 
-    v38 = *(a1 + 32);
     v21 = v23;
-    v39 = objc_opt_class();
+    v36 = objc_opt_class();
     *buf = 138412546;
-    *&buf[4] = v39;
+    *&buf[4] = v36;
     *&buf[12] = 2114;
     *&buf[14] = v15;
     _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%@: Failed to get local device source: %{public}@", buf, 0x16u);
@@ -1025,9 +1015,9 @@ LABEL_19:
   {
     v26 = objc_loadWeakRetained((*(a1 + 32) + 8));
     v27 = [v26 deviceManager];
-    v48 = v15;
-    v28 = [v27 currentDeviceEntityWithError:&v48];
-    v25 = v48;
+    v44 = v15;
+    v28 = [v27 currentDeviceEntityWithError:&v44];
+    v25 = v44;
 
     if (v28)
     {
@@ -1040,9 +1030,9 @@ LABEL_19:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __45__HDDataProvenanceManager__setLocalDeviceID___block_invoke;
-        v52 = &unk_278613920;
-        v53 = v29;
-        v54 = v30;
+        v48 = &unk_278613920;
+        v49 = v29;
+        v50 = v30;
         [v32 hk_withLock:buf];
       }
     }
@@ -1056,11 +1046,10 @@ LABEL_19:
         goto LABEL_27;
       }
 
-      v40 = *(a1 + 32);
       v31 = v33;
-      v41 = objc_opt_class();
+      v37 = objc_opt_class();
       *buf = 138412546;
-      *&buf[4] = v41;
+      *&buf[4] = v37;
       *&buf[12] = 2114;
       *&buf[14] = v25;
       _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%@: Failed to get current device entity: %{public}@", buf, 0x16u);
@@ -1072,22 +1061,21 @@ LABEL_27:
 
   v25 = v15;
 LABEL_28:
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __40__HDDataProvenanceManager__loadDefaults__block_invoke_313;
-  v46[3] = &unk_278613968;
-  v47 = *(a1 + 32);
   v42[0] = MEMORY[0x277D85DD0];
   v42[1] = 3221225472;
-  v42[2] = __40__HDDataProvenanceManager__loadDefaults__block_invoke_2;
-  v42[3] = &unk_27861FF00;
-  v42[4] = v47;
-  v43 = v4 == 0;
-  v44 = v14 == 0;
-  v45 = v24 == 0;
-  [v3 onCommit:v46 orRollback:v42];
+  v42[2] = __40__HDDataProvenanceManager__loadDefaults__block_invoke_313;
+  v42[3] = &unk_278613968;
+  v43 = *(a1 + 32);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __40__HDDataProvenanceManager__loadDefaults__block_invoke_2;
+  v38[3] = &unk_27861FF00;
+  v38[4] = v43;
+  v39 = v4 == 0;
+  v40 = v14 == 0;
+  v41 = v24 == 0;
+  [v3 onCommit:v42 orRollback:v38];
 
-  v34 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1228,12 +1216,12 @@ uint64_t __45__HDDataProvenanceManager__setLocalSourceID___block_invoke(uint64_t
   if (!*(*(result + 32) + 32))
   {
     v2 = result;
-    v3 = [*(result + 40) copy];
+    v3 = objc_msgSend_copy(*(result + 40));
     v4 = *(v2 + 32);
     v5 = *(v4 + 32);
     *(v4 + 32) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1244,12 +1232,12 @@ uint64_t __45__HDDataProvenanceManager__setLocalDeviceID___block_invoke(uint64_t
   if (!*(*(result + 32) + 40))
   {
     v2 = result;
-    v3 = [*(result + 40) copy];
+    v3 = objc_msgSend_copy(*(result + 40));
     v4 = *(v2 + 32);
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1260,12 +1248,12 @@ uint64_t __44__HDDataProvenanceManager__setDeviceNoneID___block_invoke(uint64_t 
   if (!*(*(result + 32) + 48))
   {
     v2 = result;
-    v3 = [*(result + 40) copy];
+    v3 = objc_msgSend_copy(*(result + 40));
     v4 = *(v2 + 32);
     v5 = *(v4 + 48);
     *(v4 + 48) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1276,12 +1264,12 @@ uint64_t __56__HDDataProvenanceManager__setNoneContributorReference___block_invo
   if (!*(*(result + 32) + 56))
   {
     v2 = result;
-    v3 = [*(result + 40) copy];
+    v3 = objc_msgSend_copy(*(result + 40));
     v4 = *(v2 + 32);
     v5 = *(v4 + 56);
     *(v4 + 56) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1292,12 +1280,12 @@ uint64_t __63__HDDataProvenanceManager__setPrimaryUserContributorReference___blo
   if (!*(*(result + 32) + 64))
   {
     v2 = result;
-    v3 = [*(result + 40) copy];
+    v3 = objc_msgSend_copy(*(result + 40));
     v4 = *(v2 + 32);
     v5 = *(v4 + 64);
     *(v4 + 64) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;

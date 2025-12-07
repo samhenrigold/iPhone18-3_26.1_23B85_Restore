@@ -373,9 +373,9 @@ LABEL_5:
   return self;
 }
 
-uint64_t __55__PXGSublayoutDataStore_spriteIndexOriginForSublayout___block_invoke(uint64_t result, uint64_t a2, void *a3, _BYTE *a4)
+void **__55__PXGSublayoutDataStore_spriteIndexOriginForSublayout___block_invoke(void **result, uint64_t a2, void *a3, _BYTE *a4)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     *a4 = 1;
   }
@@ -384,7 +384,7 @@ uint64_t __55__PXGSublayoutDataStore_spriteIndexOriginForSublayout___block_invok
   {
     v4 = result;
     result = [a3 numberOfSprites];
-    *(*(*(v4 + 40) + 8) + 24) += result;
+    *(*(v4[5] + 1) + 24) += result;
   }
 
   return result;
@@ -408,9 +408,9 @@ uint64_t __55__PXGSublayoutDataStore_spriteIndexOriginForSublayout___block_invok
   return v3;
 }
 
-uint64_t __60__PXGSublayoutDataStore_spriteIndexOriginForSublayoutIndex___block_invoke(uint64_t result, uint64_t a2, void *a3, _BYTE *a4)
+void *__60__PXGSublayoutDataStore_spriteIndexOriginForSublayoutIndex___block_invoke(void *result, uint64_t a2, void *a3, _BYTE *a4)
 {
-  if (*(result + 40) == a2)
+  if (result[5] == a2)
   {
     *a4 = 1;
   }
@@ -419,7 +419,7 @@ uint64_t __60__PXGSublayoutDataStore_spriteIndexOriginForSublayoutIndex___block_
   {
     v4 = result;
     result = [a3 numberOfSprites];
-    *(*(*(v4 + 32) + 8) + 24) += result;
+    *(*(v4[4] + 8) + 24) += result;
   }
 
   return result;

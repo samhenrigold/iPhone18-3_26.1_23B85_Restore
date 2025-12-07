@@ -56,7 +56,7 @@
     containingBundleRecord = [v7 containingBundleRecord];
     bundleIdentifier = [containingBundleRecord bundleIdentifier];
     containingBundleRecord2 = _UIMainBundleIdentifier();
-    if ([bundleIdentifier isEqualToString:containingBundleRecord2])
+    if (objc_msgSend_isEqualToString_(bundleIdentifier))
     {
       v19 = 0;
 LABEL_22:

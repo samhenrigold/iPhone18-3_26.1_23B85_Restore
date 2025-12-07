@@ -164,7 +164,7 @@ LABEL_26:
 
 - ($995AEC83619B72959345773A9004CE00)serialize
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   *&self->super._serializedMessage.message.header.header.msgh_bits = 0u;
   p_serializedMessage = &self->super._serializedMessage;
   *&self->super._serializedMessage.message.string1[184] = 0u;
@@ -214,21 +214,21 @@ LABEL_26:
     }
 
     v13 = mutableBytes;
-    v43 = v11;
-    v44 = p_serializedMessage;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
+    v42 = v11;
+    v43 = p_serializedMessage;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     selfCopy = self;
     wantedResources3 = [(PSSGMessageRequestResourcesBase *)self wantedResources];
-    v15 = [wantedResources3 countByEnumeratingWithState:&v51 objects:v56 count:16];
-    v45 = v13;
+    v15 = [wantedResources3 countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v44 = v13;
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v52;
+      v18 = *v51;
       v19 = v13 + 256;
       do
       {
@@ -237,12 +237,12 @@ LABEL_26:
         v17 += v16;
         do
         {
-          if (*v52 != v18)
+          if (*v51 != v18)
           {
             objc_enumerationMutation(wantedResources3);
           }
 
-          v22 = *(*(&v51 + 1) + 8 * v20);
+          v22 = *(*(&v50 + 1) + 8 * v20);
           resourceKey = [v22 resourceKey];
           [resourceKey UTF8String];
           __strlcpy_chk();
@@ -276,7 +276,7 @@ LABEL_26:
         }
 
         while (v16 != v20);
-        v16 = [wantedResources3 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v16 = [wantedResources3 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v16);
@@ -287,29 +287,29 @@ LABEL_26:
       v17 = 0;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     noLongerWantedResources3 = [(PSSGMessageRequestResourcesBase *)selfCopy noLongerWantedResources];
-    v29 = [noLongerWantedResources3 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v29 = [noLongerWantedResources3 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v48;
+      v31 = *v47;
       do
       {
         v32 = 0;
-        v33 = v45 + 516 * v17 + 256;
+        v33 = v44 + 516 * v17 + 256;
         v17 += v30;
         do
         {
-          if (*v48 != v31)
+          if (*v47 != v31)
           {
             objc_enumerationMutation(noLongerWantedResources3);
           }
 
-          v34 = *(*(&v47 + 1) + 8 * v32);
+          v34 = *(*(&v46 + 1) + 8 * v32);
           resourceKey2 = [v34 resourceKey];
           [resourceKey2 UTF8String];
           __strlcpy_chk();
@@ -343,22 +343,21 @@ LABEL_26:
         }
 
         while (v30 != v32);
-        v30 = [noLongerWantedResources3 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v30 = [noLongerWantedResources3 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v30);
     }
 
-    [(PSSGMessageBase *)selfCopy setData:v43];
-    selfCopy->super._serializedMessage.var0.oolData = v45;
+    [(PSSGMessageBase *)selfCopy setData:v42];
+    selfCopy->super._serializedMessage.var0.oolData = v44;
     data = [(PSSGMessageBase *)selfCopy data];
     selfCopy->super._serializedMessage.oolDataLength = [data length];
 
     selfCopy->super._serializedMessage.message.var0.var0.dataLength = selfCopy->super._serializedMessage.oolDataLength;
-    p_serializedMessage = v44;
+    return v43;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return p_serializedMessage;
 }
 

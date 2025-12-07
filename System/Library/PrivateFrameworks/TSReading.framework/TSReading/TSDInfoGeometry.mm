@@ -124,18 +124,13 @@
 - (CGRect)boundsBeforeRotation
 {
   [(TSDInfoGeometry *)self position];
-  v4 = v3;
-  v6 = v5;
-  v7 = [(TSDInfoGeometry *)self size];
-  v8.n128_u64[0] = v11.n128_u64[0];
-  v10.n128_u64[0] = v9;
-  v11.n128_u64[0] = v4;
+  [(TSDInfoGeometry *)self size];
 
-  v12 = TSDRectWithOriginAndSize(v7, v11, v6, v8, v10);
-  result.size.height = v15;
-  result.size.width = v14;
-  result.origin.y = v13;
-  result.origin.x = v12;
+  TSDRectWithOriginAndSize();
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
   return result;
 }
 
@@ -155,7 +150,7 @@
   if (self)
   {
 
-    return [(TSDInfoGeometry *)self transformBasedOnRect:?];
+    return objc_msgSend_transformBasedOnRect_(self);
   }
 
   else
@@ -177,7 +172,7 @@
     selfCopy = self;
     v8 = TSDCenterOfRect(a4.origin.x, a4.origin.y, a4.size.width, a4.size.height);
 
-    return [(CGAffineTransform *)selfCopy transformBasedOnPoint:x centeredAtPoint:y, v8, v7];
+    return objc_msgSend_transformBasedOnPoint_centeredAtPoint_(selfCopy, x, y, v8, v7);
   }
 
   else
@@ -308,7 +303,7 @@
 
 - (CGRect)transformedBounds
 {
-  [(TSDInfoGeometry *)self transform];
+  objc_msgSend_transform(self, a2);
   v3.origin.x = TSDRectWithSize();
   return CGRectApplyAffineTransform(v3, &v2);
 }
@@ -491,47 +486,34 @@ TSDInfoGeometry *__52__TSDInfoGeometry_mixedObjectWithFraction_ofObject___block_
 
 - (CGAffineTransform)fullTransform
 {
-  v7.n128_u64[1] = 0;
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  v4.n128_u64[0] = 0;
-  v3.n128_u64[0] = 0;
-  if (*&self->mFlags)
-  {
-    v3.n128_u64[0] = *&self->mSize.width;
-  }
-
-  if ((*&self->mFlags & 2) != 0)
-  {
-    v4.n128_u64[0] = *&self->mSize.height;
-  }
-
-  v7.n128_u64[0] = *&self->mPosition.x;
-  [(TSDInfoGeometry *)self transformBasedOnRect:TSDRectWithOriginAndSize(self, v7, self->mPosition.y, v3, v4)];
-  v8 = 1.0;
-  v9 = 1.0;
+  TSDRectWithOriginAndSize();
+  objc_msgSend_transformBasedOnRect_(self);
+  v5 = 1.0;
+  v6 = 1.0;
   if ([(TSDInfoGeometry *)self widthValid])
   {
     [(TSDInfoGeometry *)self size];
-    v9 = v10;
+    v6 = v7;
   }
 
   if ([(TSDInfoGeometry *)self heightValid])
   {
     [(TSDInfoGeometry *)self size];
-    v8 = v11;
+    v5 = v8;
   }
 
-  v12 = *&retstr->c;
-  *&v15.a = *&retstr->a;
-  *&v15.c = v12;
-  *&v15.tx = *&retstr->tx;
-  result = CGAffineTransformScale(&v16, &v15, v9, v8);
-  v14 = *&v16.c;
-  *&retstr->a = *&v16.a;
-  *&retstr->c = v14;
-  *&retstr->tx = *&v16.tx;
+  v9 = *&retstr->c;
+  *&v12.a = *&retstr->a;
+  *&v12.c = v9;
+  *&v12.tx = *&retstr->tx;
+  result = CGAffineTransformScale(&v13, &v12, v6, v5);
+  v11 = *&v13.c;
+  *&retstr->a = *&v13.a;
+  *&retstr->c = v11;
+  *&retstr->tx = *&v13.tx;
   return result;
 }
 
@@ -660,7 +642,7 @@ TSDInfoGeometry *__52__TSDInfoGeometry_mixedObjectWithFraction_ofObject___block_
 {
   if (self)
   {
-    [(TSDInfoGeometry *)self fullTransform];
+    objc_msgSend_fullTransform(self, a2);
   }
 
   else
@@ -691,14 +673,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [(TSDInfoGeometry *)self fullTransform];
+  objc_msgSend_fullTransform(self, a2);
   if (!geometry)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [geometry transform];
+  objc_msgSend_transform(geometry);
 LABEL_6:
   CGAffineTransformConcat(&v8, &t1, &v6);
   return [TSDInfoGeometry geometryFromFullTransform:&v8 widthValid:[(TSDInfoGeometry *)self widthValid] heightValid:[(TSDInfoGeometry *)self heightValid]];
@@ -719,14 +701,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [geometry fullTransform];
+  objc_msgSend_fullTransform(geometry, a2);
   if (!self)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [(TSDInfoGeometry *)self transform];
+  objc_msgSend_transform(self);
 LABEL_6:
   CGAffineTransformConcat(&v8, &t1, &v6);
   return +[TSDInfoGeometry geometryFromFullTransform:widthValid:heightValid:](TSDInfoGeometry, "geometryFromFullTransform:widthValid:heightValid:", &v8, [geometry widthValid], objc_msgSend(geometry, "heightValid"));
@@ -747,14 +729,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [(TSDInfoGeometry *)self fullTransform];
+  objc_msgSend_fullTransform(self, a2);
   if (!geometry)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [geometry transform];
+  objc_msgSend_transform(geometry);
 LABEL_6:
   CGAffineTransformInvert(&v6, &v8);
   CGAffineTransformConcat(&v8, &t1, &v6);
@@ -774,7 +756,7 @@ LABEL_6:
   [(TSDInfoGeometry *)self size];
   if (self)
   {
-    [(TSDInfoGeometry *)self transform];
+    objc_msgSend_transform(self);
   }
 
   else

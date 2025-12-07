@@ -2,6 +2,8 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityUpdateCurrentPresentedView;
+- (void)_displayExerciseGoalViewAnimated:(BOOL)animated;
+- (void)_displayStandGoalViewAnimated:(BOOL)animated;
 - (void)computeMaxYForGoalViews;
 - (void)viewDidLoad;
 @end
@@ -76,6 +78,22 @@ id __90__CHASActivitySetupViewControllerAccessibility__accessibilityLoadAccessib
   v3.super_class = CHASActivitySetupViewControllerAccessibility;
   [(CHASActivitySetupViewControllerAccessibility *)&v3 computeMaxYForGoalViews];
   _UIAccessibilityUnblockPostingOfNotification();
+}
+
+- (void)_displayStandGoalViewAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = CHASActivitySetupViewControllerAccessibility;
+  [(CHASActivitySetupViewControllerAccessibility *)&v4 _displayStandGoalViewAnimated:animated];
+  [(CHASActivitySetupViewControllerAccessibility *)self _accessibilityUpdateCurrentPresentedView];
+}
+
+- (void)_displayExerciseGoalViewAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = CHASActivitySetupViewControllerAccessibility;
+  [(CHASActivitySetupViewControllerAccessibility *)&v4 _displayExerciseGoalViewAnimated:animated];
+  [(CHASActivitySetupViewControllerAccessibility *)self _accessibilityUpdateCurrentPresentedView];
 }
 
 - (void)_accessibilityUpdateCurrentPresentedView

@@ -4,6 +4,7 @@
 - (TSPEncoderWriteCoordinator)initWithEncoder:(id)encoder context:(id)context archiverClass:(Class)class delegate:(id)delegate;
 - (TSPObjectContext)context;
 - (id)componentWriter:(id)writer wantsComponentOfObject:(id)object componentReadVersion:(unint64_t *)version;
+- (id)componentWriter:(id)writer wantsExplicitComponentRootObjectForObject:(id)object archiverOrNil:(id)nil claimingComponent:(id)component hasArchiverAccessLock:(BOOL)lock;
 - (id)componentWriterWantsDelayedObjects:(id)objects;
 - (id)proxyForReferencedObject:(id)object;
 - (unint64_t)objectTargetType;
@@ -267,6 +268,17 @@
       objc_msgSend_archiveObjectWithHighPriority_(archiverManager, v7, object);
     }
   }
+}
+
+- (id)componentWriter:(id)writer wantsExplicitComponentRootObjectForObject:(id)object archiverOrNil:(id)nil claimingComponent:(id)component hasArchiverAccessLock:(BOOL)lock
+{
+  v7 = MEMORY[0x277D81150];
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPEncoderWriteCoordinator componentWriter:wantsExplicitComponentRootObjectForObject:archiverOrNil:claimingComponent:hasArchiverAccessLock:]", object, nil, component, lock);
+  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPEncoderWriteCoordinator.mm");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 213, 0, "Object containers are not supported.");
+
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+  return 0;
 }
 
 - (void)componentWriter:(id)writer canSkipArchivingStronglyReferencedObject:(id)object fromComponentRootObject:(id)rootObject completion:(id)completion

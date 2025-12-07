@@ -3,6 +3,8 @@
 - (BOOL)_edgeForceActive;
 - (BOOL)_edgeForcePending;
 - (BOOL)_originatesFromPointerEvent;
+- (BOOL)_shouldDeliverTouchForTouchesMoved;
+- (BOOL)_supportsForce;
 - (CGFloat)altitudeAngle;
 - (CGFloat)azimuthAngleInView:(UIView *)view;
 - (CGFloat)force;
@@ -34,8 +36,6 @@
 - (int64_t)_compareIndex:(id)index;
 - (uint64_t)_effectivelyAuthentic;
 - (uint64_t)_isStationaryRelativeToTouches:(uint64_t)touches;
-- (uint64_t)_shouldDeliverTouchForTouchesMoved;
-- (uint64_t)_supportsForce;
 - (void)_abandonForwardingRecord;
 - (void)_addGestureRecognizer:(uint64_t)recognizer;
 - (void)_clearForReenteringHoverInWindow:(id)window;
@@ -241,7 +241,7 @@
   return v3;
 }
 
-- (uint64_t)_shouldDeliverTouchForTouchesMoved
+- (BOOL)_shouldDeliverTouchForTouchesMoved
 {
   if (result)
   {
@@ -441,36 +441,36 @@
 
 - (double)_unclampedForce
 {
-  v1 = 0.0;
+  v2 = 0.0;
   if (self && [(UITouch *)self _supportsForce])
   {
     [self _pressure];
-    v4 = v3;
+    v5 = v4;
     _AXSForceTouchSensitivity();
-    v6 = v5;
-    v7 = self[43];
+    v7 = v6;
+    v8 = self[43];
     _isPointerTouch = [self _isPointerTouch];
-    v9 = 3;
+    v10 = 3;
     if (!_isPointerTouch)
     {
-      v9 = v7;
+      v10 = v8;
     }
 
-    v10 = 60.0;
-    if (v9 == 2)
+    v11 = 60.0;
+    if (v10 == 2)
     {
-      v10 = 120.0;
+      v11 = 120.0;
     }
 
-    if (v9 == 3)
+    if (v10 == 3)
     {
-      v10 = 115.0;
+      v11 = 115.0;
     }
 
-    v11 = v4 / (v10 * v6);
-    if (v11 >= 0.0)
+    v12 = v5 / (v11 * v7);
+    if (v12 >= 0.0)
     {
-      return v11;
+      return v12;
     }
 
     else
@@ -479,10 +479,10 @@
     }
   }
 
-  return v1;
+  return v2;
 }
 
-- (uint64_t)_supportsForce
+- (BOOL)_supportsForce
 {
   if (!self)
   {
@@ -1471,7 +1471,7 @@ LABEL_9:
     IOHIDEventGetFloatValue();
     [(UITouch *)event _setAltitudeAngle:?];
     IOHIDEventGetFloatValue();
-    *(event + 368) = v3;
+    *(event + 368) = v4;
 
     [(UITouch *)event _computeAzimuthAngleInWindow];
   }

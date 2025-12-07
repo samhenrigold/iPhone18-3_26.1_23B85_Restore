@@ -166,33 +166,33 @@ void __48__ACAccountStoreCache_generationForCacheSuffix___block_invoke(void *a1)
 - (id)cachedAccountsForSuffix:(id)suffix
 {
   suffixCopy = suffix;
-  if (ACIsAccountsd())
+  if (ACIsAccountsd(suffixCopy, v5))
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = [ACNotifyAccountCache cacheKeyForSuffix:suffixCopy];
-    v7 = v6;
-    if (v6)
+    v7 = [ACNotifyAccountCache cacheKeyForSuffix:suffixCopy];
+    v8 = v7;
+    if (v7)
     {
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __47__ACAccountStoreCache_cachedAccountsForSuffix___block_invoke;
-      v9[3] = &unk_1E7977180;
-      v9[4] = self;
-      v10 = v6;
-      v5 = ac_unfair_lock_perform_with_result_2(&self->_accountNotifyCachesLock, v9);
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __47__ACAccountStoreCache_cachedAccountsForSuffix___block_invoke;
+      v10[3] = &unk_1E7977180;
+      v10[4] = self;
+      v11 = v7;
+      v6 = ac_unfair_lock_perform_with_result_2(&self->_accountNotifyCachesLock, v10);
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 id __47__ACAccountStoreCache_cachedAccountsForSuffix___block_invoke(uint64_t a1)
@@ -215,22 +215,22 @@ id __47__ACAccountStoreCache_cachedAccountsForSuffix___block_invoke(uint64_t a1)
 {
   accountsCopy = accounts;
   suffixCopy = suffix;
-  if ((ACIsAccountsd() & 1) == 0)
+  if ((ACIsAccountsd(suffixCopy, v8) & 1) == 0)
   {
-    v8 = [ACNotifyAccountCache cacheKeyForSuffix:suffixCopy];
-    v9 = v8;
-    if (v8)
+    v9 = [ACNotifyAccountCache cacheKeyForSuffix:suffixCopy];
+    v10 = v9;
+    if (v9)
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v12 = __47__ACAccountStoreCache_cacheAccounts_forSuffix___block_invoke;
-      v13 = &unk_1E7975540;
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v13 = __47__ACAccountStoreCache_cacheAccounts_forSuffix___block_invoke;
+      v14 = &unk_1E7975540;
       selfCopy = self;
-      v15 = v8;
-      v16 = accountsCopy;
-      v10 = v11;
+      v16 = v9;
+      v17 = accountsCopy;
+      v11 = v12;
       os_unfair_lock_lock(&self->_accountNotifyCachesLock);
-      v12(v10);
+      v13(v11);
       os_unfair_lock_unlock(&self->_accountNotifyCachesLock);
     }
   }
@@ -320,39 +320,38 @@ id __55__ACAccountStoreCache_cachedAccountTypeWithIdentifier___block_invoke(uint
 
 void __44__ACAccountStoreCache_cacheAllAccountTypes___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _lock_cacheAccountType:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _lock_cacheAccountType:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
 
   *(*(a1 + 40) + 8) = 1;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cachedAllAccountTypes

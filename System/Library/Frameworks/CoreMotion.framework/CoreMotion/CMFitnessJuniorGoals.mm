@@ -31,25 +31,25 @@
 
 + (unint64_t)recommendedMoveMinutesForLevel:(int64_t)level userInfo:(id)info error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (level >= 3)
   {
-    v32 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, level);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v32, v33, a2, self, @"CMFitnessJuniorGoals.mm", 40, @"CMFitnessJuniorGoalLevel must be low, medium, or high");
+    v33 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, level);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v33, v34, a2, self, @"CMFitnessJuniorGoals.mm", 40, @"CMFitnessJuniorGoalLevel must be low, medium, or high");
     if (info)
     {
       goto LABEL_3;
     }
 
-LABEL_27:
-    v34 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, level);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v34, v35, a2, self, @"CMFitnessJuniorGoals.mm", 41, @"userInfo must not be empty.");
+LABEL_26:
+    v35 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, level);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v35, v36, a2, self, @"CMFitnessJuniorGoals.mm", 41, @"userInfo must not be empty.");
     goto LABEL_3;
   }
 
   if (!info)
   {
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
 LABEL_3:
@@ -66,7 +66,7 @@ LABEL_3:
     {
       objc_msgSend_age(info, v15, v16);
       *buf = 134283521;
-      v41 = v17;
+      v42 = v17;
       _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_ERROR, "FitnessJuniorGoals, Unexpected age input: %{private}f yrs. Fitness junior move minute goals are designed for user age interval [5.0, 13.0) yrs.", buf, 0xCu);
     }
 
@@ -79,45 +79,44 @@ LABEL_3:
         dispatch_once(&qword_1EAFE2808, &unk_1F0E29AA0);
       }
 
+      v22 = qword_1EAFE2830;
       objc_msgSend_age(info, v20, v21);
-      v38 = 134283521;
-      v39 = v22;
-      v23 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMFitnessJuniorGoals recommendedMoveMinutesForLevel:userInfo:error:]", "CoreLocation: %s\n", v23);
-      if (v23 != buf)
+      v39 = 134283521;
+      v40 = v23;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v22, 16, "FitnessJuniorGoals, Unexpected age input: %{private}f yrs. Fitness junior move minute goals are designed for user age interval [5.0, 13.0) yrs.", &v39, 12);
+      v25 = v24;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMFitnessJuniorGoals recommendedMoveMinutesForLevel:userInfo:error:]", "CoreLocation: %s\n", v24);
+      if (v25 != buf)
       {
-        free(v23);
+        free(v25);
       }
     }
 
     if (error)
     {
-      v24 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x1E696AAE8], v19, @"com.apple.coremotion");
-      v36 = *MEMORY[0x1E696A578];
-      v37 = objc_msgSend_localizedStringForKey_value_table_(v24, v25, @"Unexpected age input. Fitness junior move minute goals are designed for user age interval [5.0, 13.0 yrs."), &stru_1F0E3D7A0, 0);
-      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v26, &v37, &v36, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v28, @"CMErrorDomain", 107, v27);
+      v26 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x1E696AAE8], v19, @"com.apple.coremotion");
+      v37 = *MEMORY[0x1E696A578];
+      v38 = objc_msgSend_localizedStringForKey_value_table_(v26, v27, @"Unexpected age input. Fitness junior move minute goals are designed for user age interval [5.0, 13.0 yrs."), &stru_1F0E3D7A0, 0);
+      v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v28, &v38, &v37, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v30, @"CMErrorDomain", 107, v29);
     }
   }
 
-  v29 = 90;
+  v31 = 90;
   if (level == 2)
   {
-    v29 = 120;
+    v31 = 120;
   }
 
   if (level)
   {
-    result = v29;
+    return v31;
   }
 
   else
   {
-    result = 60;
+    return 60;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 @end

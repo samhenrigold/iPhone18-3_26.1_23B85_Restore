@@ -83,9 +83,9 @@
           goto LABEL_11;
         }
 
-        v15 = [@"fixedAmount" isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(@"fixedAmount");
 
-        if (v15)
+        if (isEqualToString)
         {
 LABEL_10:
           v10 |= 1uLL;
@@ -94,7 +94,7 @@ LABEL_10:
         else
         {
           v16 = v14;
-          if (v16 == @"minimumDue" || (v17 = v16, v18 = [@"minimumDue" isEqualToString:v16], v17, v18))
+          if (v16 == @"minimumDue" || (v17 = v16, v18 = objc_msgSend_isEqualToString_(@"minimumDue"), v17, v18))
           {
             v10 |= 2uLL;
           }
@@ -102,7 +102,7 @@ LABEL_10:
           else
           {
             v19 = v17;
-            if (v19 == @"statementBalance" || (v20 = v19, v21 = [@"statementBalance" isEqualToString:v19], v20, v21))
+            if (v19 == @"statementBalance" || (v20 = v19, v21 = objc_msgSend_isEqualToString_(@"statementBalance"), v20, v21))
             {
               v10 |= 4uLL;
             }
@@ -163,7 +163,7 @@ LABEL_22:
               goto LABEL_31;
             }
 
-            v34 = [@"now" isEqualToString:v32];
+            v34 = objc_msgSend_isEqualToString_(@"now");
 
             if (v34)
             {
@@ -177,14 +177,14 @@ LABEL_30:
             if (v35 != v30)
             {
               v36 = v35;
-              v37 = [(__CFString *)v30 isEqualToString:v35];
+              v37 = objc_msgSend_isEqualToString_(v30);
 
               v27 = v30;
               if (!v37)
               {
                 v38 = v36;
                 v28 = v31;
-                if (v38 == v31 || (v39 = v38, v40 = [(__CFString *)v31 isEqualToString:v38], v39, v28 = v31, v40))
+                if (v38 == v31 || (v39 = v38, v40 = objc_msgSend_isEqualToString_(v31), v39, v28 = v31, v40))
                 {
                   v26 |= 4uLL;
                 }
@@ -192,7 +192,7 @@ LABEL_30:
                 else
                 {
                   v41 = v39;
-                  if (v41 == @"biweekly" || (v42 = [@"biweekly" isEqualToString:v41], v41, v42))
+                  if (v41 == @"biweekly" || (v42 = objc_msgSend_isEqualToString_(@"biweekly"), v41, v42))
                   {
                     v26 |= 8uLL;
                   }
@@ -200,7 +200,7 @@ LABEL_30:
                   else
                   {
                     v43 = v41;
-                    if (v43 == @"monthly" || (v44 = [@"monthly" isEqualToString:v43], v43, v44))
+                    if (v43 == @"monthly" || (v44 = objc_msgSend_isEqualToString_(@"monthly"), v43, v44))
                     {
                       v26 |= 0x10uLL;
                     }
@@ -208,7 +208,7 @@ LABEL_30:
                     else
                     {
                       v45 = v43;
-                      if (v45 == @"paymentDueDate" || (v46 = [@"paymentDueDate" isEqualToString:v45], v45, v46))
+                      if (v45 == @"paymentDueDate" || (v46 = objc_msgSend_isEqualToString_(@"paymentDueDate"), v45, v46))
                       {
                         v26 |= 0x20uLL;
                       }
@@ -353,7 +353,7 @@ LABEL_54:
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<%@: %p ", objc_opt_class(), self];;
   identifier = [(PKAccountFeatureDescriptor *)self identifier];
   [v3 appendFormat:@"identifier: '%@'; ", identifier];
-  if (([identifier isEqualToString:@"schedulePayment"] & 1) != 0 || objc_msgSend(identifier, "isEqualToString:", @"scheduleRecurringPayments"))
+  if ((objc_msgSend_isEqualToString_(identifier) & 1) != 0 || objc_msgSend_isEqualToString_(identifier))
   {
     minimumAmount = [(PKAccountFeatureDescriptor *)self minimumAmount];
     [v3 appendFormat:@"minimumAmount: '%@'; ", minimumAmount];
@@ -486,7 +486,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if ([identifier isEqualToString:@"addFundingSource"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     fundingSourceTermsIdentifier = [(PKAccountFeatureDescriptor *)self fundingSourceTermsIdentifier];
     [v3 appendFormat:@"fundingSourceTermsIdentifier: '%@'; ", fundingSourceTermsIdentifier];
@@ -495,12 +495,12 @@ LABEL_29:
     goto LABEL_15;
   }
 
-  if ([identifier isEqualToString:@"exportTransactionData"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     [v3 appendFormat:@"supportedFileFormatsForTransactionData: '%@'; ", self->_supportedFileFormatsForTransactionData];
   }
 
-  else if ([identifier isEqualToString:@"accountUserInvitationAllowed"])
+  else if (objc_msgSend_isEqualToString_(identifier))
   {
     v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_maximumAccountUsers];
     [v3 appendFormat:@"maximumAccountUsers: '%@'; ", v21];
@@ -526,7 +526,7 @@ LABEL_29:
   else
   {
     v26 = identifier;
-    if (v26 == @"redeemRewards" || (v27 = v26) != 0 && (v28 = [(__CFString *)v26 isEqualToString:@"redeemRewards"], v27, v28))
+    if (v26 == @"redeemRewards" || (v27 = v26) != 0 && (isEqualToString = objc_msgSend_isEqualToString_(v26), v27, isEqualToString))
     {
       v29 = [(NSArray *)self->_supportedDestinations componentsJoinedByString:@", "];
       [v3 appendFormat:@"supportedDestinations: '%@'; ", v29];
@@ -747,9 +747,9 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  v13 = [languageCode isEqualToString:v11];
+  isEqualToString = objc_msgSend_isEqualToString_(languageCode);
 
-  if ((v13 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_11:
     currentLocale = objc_alloc_init(PKDynamicProvisioningPageContent);

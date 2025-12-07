@@ -111,7 +111,7 @@
     v5 = [(HMDRPIdentity *)&v10 init];
     if (v5)
     {
-      v6 = [kCopy copy];
+      v6 = objc_msgSend_copy(kCopy);
       deviceIRK = v5->_deviceIRK;
       v5->_deviceIRK = v6;
     }
@@ -155,10 +155,9 @@
 
 void __28__HMDRPIdentity_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_116828;
-  logCategory__hmf_once_v2_116828 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_116828;
+  logCategory__hmf_once_v2_116828 = v0;
 }
 
 + (HMDRPIdentity)identityWithRPIdentity:(id)identity

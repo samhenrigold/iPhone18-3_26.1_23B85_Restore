@@ -24,25 +24,23 @@
 
 - (id)additionalPayload
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"didSucceed";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"didSucceed";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_didSucceed];
-  v12[0] = v3;
-  v11[1] = @"isDownloadingForBackup";
+  v11[0] = v3;
+  v10[1] = @"isDownloadingForBackup";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_isDownloadingForBackup];
-  v12[1] = v4;
-  v11[2] = @"isRecursiveDownload";
+  v11[1] = v4;
+  v10[2] = @"isRecursiveDownload";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_isRecursiveDownload];
-  v12[2] = v5;
-  v11[3] = @"itemCount";
+  v11[2] = v5;
+  v10[3] = @"itemCount";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_itemCount];
-  v12[3] = v6;
-  v11[4] = @"totalContentSize";
+  v11[3] = v6;
+  v10[4] = @"totalContentSize";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_totalContentSize];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

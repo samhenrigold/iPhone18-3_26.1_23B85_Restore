@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100425288();
+  sub_100425288(v2);
 }
 
 - (void)prepareForReuse

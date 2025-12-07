@@ -5,6 +5,7 @@
 - (HDRBackwardDisplayManagement)initWithDevice:(id)device displayProperties:(id)properties;
 - (float)adjustUiScaleForDoViToHDR10Conversion:(float)conversion;
 - (id)createRenderCommandEncoderWithCommandBuffer:(id)buffer texture:(id)texture widthScale:(unsigned int)scale loadAction:(unint64_t)action;
+- (id)createShaderWithVertexName:(id)name fragmentName:(id)fragmentName colorFormat:(unint64_t)format useCustomMatrix:(BOOL)matrix p3CSC:(BOOL)c applyYGamma:(BOOL)gamma;
 - (id)getRenderPipelineStateForShader:(id)shader;
 - (int)adjustMetaData:(id *)data HDRUIBlending:(BOOL)blending hasLetterbox:(BOOL)letterbox;
 - (int)getTVIndex:(BOOL)index;
@@ -31,10 +32,12 @@
 - (void)fillScalingTable_SDR2HDR:(id *)r target_White:(float)white target_Black:(float)black;
 - (void)fillScalingTable_YUVTM:(id *)m targetwhite:(float)targetwhite targetblack:(float)targetblack satBoost:(float)boost scalingFactor:(BOOL)factor sdrOnly:(BOOL)only;
 - (void)generateMetaAndConfig:(id)config inputSurface:(__IOSurface *)surface outputSurface:(__IOSurface *)outputSurface payLoad:(id *)load dmCfg:(id *)cfg;
+- (void)handleMetaInsertion:(BOOL)insertion encoder:(id)encoder widthScale:(int)scale payloadLength:(unsigned int)length;
 - (void)initDisplayAttributes:(id)attributes;
 - (void)packetizeMetadata:(id *)metadata length:(int)length into:(int)into onSurface:(__IOSurface *)surface;
 - (void)setupMetadataTextureWithOutput:(__IOSurface *)output;
 - (void)setupMetal;
+- (void)setupTexturesWithInput:(__IOSurface *)input VideoSRGB:(BOOL)b UI:(__IOSurface *)i UISRGB:(BOOL)gB Output:(__IOSurface *)output PixelPerThread:(int)thread ptvMode:(BOOL)mode;
 - (void)updateUniformUIScaleForVideo:(BOOL)video forTV:(BOOL)v videoPeakBrightnessInNits:(int)nits uiHWDegamma:(BOOL)degamma dovi50toHDR10TVMode:(unsigned int)mode;
 - (void)updateVertices:(id)vertices videoInput:(__IOSurface *)input videoDstRegion:(id)region videoSrcRegion:(id)srcRegion uiInput:(__IOSurface *)uiInput uiDstRegion:(id)dstRegion uiSrcRegion:(id)uiSrcRegion dstWidth:(int)self0 dstHeight:(int)self1 videoSrcWidth:(int)self2 videoSrcHeight:(int)self3 index:(int)self4 scale:(int)self5;
 @end
@@ -43,12 +46,12 @@
 
 - (HDRBackwardDisplayManagement)initWithDevice:(id)device displayProperties:(id)properties
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   propertiesCopy = properties;
-  v14.receiver = self;
-  v14.super_class = HDRBackwardDisplayManagement;
-  v8 = [(HDRBackwardDisplayManagement *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = HDRBackwardDisplayManagement;
+  v8 = [(HDRBackwardDisplayManagement *)&v13 init];
   v9 = v8;
   if (v8)
   {
@@ -71,11 +74,11 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v16 = WORD1(v10);
-      v17 = 2080;
-      v18 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
-      v19 = 2048;
-      v20 = 0;
+      v15 = WORD1(v10);
+      v16 = 2080;
+      v17 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
+      v18 = 2048;
+      v19 = 0;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : error, self = %p \n", buf, 0x20u);
     }
 
@@ -90,9 +93,9 @@
     }
 
     *buf = 136315394;
-    v16 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
-    v17 = 2048;
-    v18 = 0;
+    v15 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
+    v16 = 2048;
+    v17 = 0;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : error, self = %p \n", buf, 0x16u);
   }
 
@@ -111,11 +114,11 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v16 = WORD1(v11);
-      v17 = 2080;
-      v18 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
-      v19 = 2048;
-      v20 = v9;
+      v15 = WORD1(v11);
+      v16 = 2080;
+      v17 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
+      v18 = 2048;
+      v19 = v9;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx    %s : instance=%p", buf, 0x20u);
     }
 
@@ -127,21 +130,20 @@ LABEL_19:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v16 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
-    v17 = 2048;
-    v18 = v9;
+    v15 = "[HDRBackwardDisplayManagement initWithDevice:displayProperties:]";
+    v16 = 2048;
+    v17 = v9;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]    %s : instance=%p", buf, 0x16u);
   }
 
 LABEL_21:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (HDRBackwardDisplayManagement)initWithDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (deviceCopy && !self->_device)
   {
@@ -174,15 +176,15 @@ LABEL_21:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       device = self->_device;
-      v11 = 134218754;
-      v12 = WORD1(v6);
-      v13 = 2080;
-      v14 = "[HDRBackwardDisplayManagement initWithDevice:]";
-      v15 = 2048;
-      v16 = deviceCopy;
-      v17 = 2048;
+      v10 = 134218754;
+      v11 = WORD1(v6);
+      v12 = 2080;
+      v13 = "[HDRBackwardDisplayManagement initWithDevice:]";
+      v14 = 2048;
+      v15 = deviceCopy;
+      v16 = 2048;
       deviceCopy2 = device;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : error, device = %p, _device=%p\n", &v11, 0x2Au);
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : error, device = %p, _device=%p\n", &v10, 0x2Au);
     }
 
     prevLogInstanceID = v6;
@@ -191,16 +193,15 @@ LABEL_21:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v8 = self->_device;
-    v11 = 136315650;
-    v12 = "[HDRBackwardDisplayManagement initWithDevice:]";
-    v13 = 2048;
-    v14 = deviceCopy;
-    v15 = 2048;
-    v16 = v8;
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : error, device = %p, _device=%p\n", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[HDRBackwardDisplayManagement initWithDevice:]";
+    v12 = 2048;
+    v13 = deviceCopy;
+    v14 = 2048;
+    v15 = v8;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : error, device = %p, _device=%p\n", &v10, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -492,7 +493,7 @@ LABEL_22:
 
 - (unsigned)getPackagingColorFormatFromDictionary:(id)dictionary withDefaultValue:(unsigned int)value
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [dictionary valueForKey:@"HDRProcessingDisplayColorFormatKey"];
   v6 = v5;
   if (v5)
@@ -521,32 +522,31 @@ LABEL_22:
     {
       if (logInstanceID)
       {
-        v9 = logInstanceID;
+        v8 = logInstanceID;
       }
 
       else
       {
-        v9 = prevLogInstanceID;
+        v8 = prevLogInstanceID;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 134217984;
-        v11 = WORD1(v9);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 860\n", &v10, 0xCu);
+        v9 = 134217984;
+        v10 = WORD1(v8);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 860\n", &v9, 0xCu);
       }
 
-      prevLogInstanceID = v9;
+      prevLogInstanceID = v8;
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 860\n", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 860\n", &v9, 2u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return value;
 }
 
@@ -567,6 +567,13 @@ LABEL_22:
 
   defaultLibrary = self->_defaultLibrary;
   self->_defaultLibrary = newDefaultLibrary;
+}
+
+- (id)createShaderWithVertexName:(id)name fragmentName:(id)fragmentName colorFormat:(unint64_t)format useCustomMatrix:(BOOL)matrix p3CSC:(BOOL)c applyYGamma:(BOOL)gamma
+{
+  v8 = [BackwardDmShader createShaderWithVertexName:name fragmentName:fragmentName colorFormat:format useCustomMatrix:matrix p3CSC:c applyYGamma:gamma];
+
+  return v8;
 }
 
 - (id)getRenderPipelineStateForShader:(id)shader
@@ -1497,7 +1504,7 @@ LABEL_22:
 
 - (void)createSamplers
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setSAddressMode:4];
   [v3 setTAddressMode:4];
@@ -1523,11 +1530,11 @@ LABEL_22:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 134218242;
-        v9 = WORD1(v6);
-        v10 = 2080;
-        v11 = "[HDRBackwardDisplayManagement createSamplers]";
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : Failed to create sampler for composer", &v8, 0x16u);
+        v7 = 134218242;
+        v8 = WORD1(v6);
+        v9 = 2080;
+        v10 = "[HDRBackwardDisplayManagement createSamplers]";
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : Failed to create sampler for composer", &v7, 0x16u);
       }
 
       prevLogInstanceID = v6;
@@ -1535,13 +1542,11 @@ LABEL_22:
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[HDRBackwardDisplayManagement createSamplers]";
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : Failed to create sampler for composer", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[HDRBackwardDisplayManagement createSamplers]";
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : Failed to create sampler for composer", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createPQ2LTable
@@ -1736,17 +1741,17 @@ LABEL_22:
 
 - (void)createBuffers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   uniformBuffers = self->_uniformBuffers;
   v4 = 3;
-  v13 = xmmword_2508CE620;
+  v12 = xmmword_2508CE620;
   do
   {
-    v5 = [(MTLDeviceSPI *)self->_device newBufferWithLength:320 options:0, v13];
+    v5 = [(MTLDeviceSPI *)self->_device newBufferWithLength:320 options:0, v12];
     v6 = *uniformBuffers;
     *uniformBuffers = v5;
 
-    *([(MTLBuffer *)*uniformBuffers contents]+ 272) = v13;
+    *([(MTLBuffer *)*uniformBuffers contents]+ 272) = v12;
     v7 = [(MTLDeviceSPI *)self->_device newBufferWithLength:1024 options:0];
     v8 = uniformBuffers[5];
     uniformBuffers[5] = v7;
@@ -1777,7 +1782,7 @@ LABEL_22:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v15 = WORD1(v11);
+        v14 = WORD1(v11);
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: _vertsBuffer warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 2476\n", buf, 0xCu);
       }
 
@@ -1790,24 +1795,22 @@ LABEL_22:
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: _vertsBuffer warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 2476\n", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createMetadataTexture
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:13 width:128 height:1 mipmapped:0];
   v4 = 0;
   metadataTextures = self->_metadataTextures;
   v6 = MEMORY[0x277D86220];
   *&v7 = 136315906;
-  v13 = v7;
+  v12 = v7;
   do
   {
     for (i = 0; i != 5; ++i)
     {
-      v9 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v3, v13];
+      v9 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v3, v12];
       v10 = (*metadataTextures)[i];
       (*metadataTextures)[i] = v9;
 
@@ -1828,15 +1831,15 @@ LABEL_22:
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134219010;
-            v15 = WORD1(v11);
-            v16 = 2080;
-            *v17 = "[HDRBackwardDisplayManagement createMetadataTexture]";
-            *&v17[8] = 1024;
-            *v18 = v4;
-            *&v18[4] = 1024;
-            *&v18[6] = i;
-            v19 = 2048;
-            v20 = 0;
+            v14 = WORD1(v11);
+            v15 = 2080;
+            *v16 = "[HDRBackwardDisplayManagement createMetadataTexture]";
+            *&v16[8] = 1024;
+            *v17 = v4;
+            *&v17[4] = 1024;
+            *&v17[6] = i;
+            v18 = 2048;
+            v19 = 0;
             _os_log_impl(&dword_250836000, v6, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : HDR error: Failed to create MTLTexture For _metadataTextures[%d][%d]=%p\n", buf, 0x2Cu);
           }
 
@@ -1845,14 +1848,14 @@ LABEL_22:
 
         else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v13;
-          v15 = "[HDRBackwardDisplayManagement createMetadataTexture]";
-          v16 = 1024;
-          *v17 = v4;
-          *&v17[4] = 1024;
-          *&v17[6] = i;
-          *v18 = 2048;
-          *&v18[2] = 0;
+          *buf = v12;
+          v14 = "[HDRBackwardDisplayManagement createMetadataTexture]";
+          v15 = 1024;
+          *v16 = v4;
+          *&v16[4] = 1024;
+          *&v16[6] = i;
+          *v17 = 2048;
+          *&v17[2] = 0;
           _os_log_impl(&dword_250836000, v6, OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : HDR error: Failed to create MTLTexture For _metadataTextures[%d][%d]=%p\n", buf, 0x22u);
         }
       }
@@ -1863,13 +1866,11 @@ LABEL_22:
   }
 
   while (v4 != 3);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createMetadataVertexBuffer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = floor(3072.0 / self->_targetWidth);
   v4 = [(MTLDeviceSPI *)self->_device newBufferWithLength:vcvtd_n_s64_f64((v3 + 2.0) * 5.0 + (v3 + 2.0) * 5.0 options:4uLL), 0];
   metadataVertexBuffer = self->_metadataVertexBuffer;
@@ -1891,9 +1892,9 @@ LABEL_22:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 134217984;
-        v26 = WORD1(v6);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: _metadataVertexBuffer warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 2515\n", &v25, 0xCu);
+        v24 = 134217984;
+        v25 = WORD1(v6);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: _metadataVertexBuffer warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 2515\n", &v24, 0xCu);
       }
 
       prevLogInstanceID = v6;
@@ -1901,8 +1902,8 @@ LABEL_22:
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: _metadataVertexBuffer warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 2515\n", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: _metadataVertexBuffer warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 2515\n", &v24, 2u);
     }
   }
 
@@ -1958,7 +1959,6 @@ LABEL_22:
   }
 
   while (v8 != 5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVertices:(id)vertices videoInput:(__IOSurface *)input videoDstRegion:(id)region videoSrcRegion:(id)srcRegion uiInput:(__IOSurface *)uiInput uiDstRegion:(id)dstRegion uiSrcRegion:(id)uiSrcRegion dstWidth:(int)self0 dstHeight:(int)self1 videoSrcWidth:(int)self2 videoSrcHeight:(int)self3 index:(int)self4 scale:(int)self5
@@ -2235,7 +2235,7 @@ LABEL_11:
 {
   vCopy = v;
   onlyCopy = only;
-  v120 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   self->_inputScaleFactor = metadata->var11;
   contents = [(MTLBuffer *)self->_uniformBuffer contents];
   v18 = contents;
@@ -2263,17 +2263,17 @@ LABEL_11:
   do
   {
     v25 = metadata->var9[v23];
-    v117 = v24;
-    *(&v117 & 0xFFFFFFFFFFFFFFF3 | (4 * (v23 & 3))) = v25;
-    v24 = v117;
-    v18[50] = *(&v117 + 2);
+    v116 = v24;
+    *(&v116 & 0xFFFFFFFFFFFFFFF3 | (4 * (v23 & 3))) = v25;
+    v24 = v116;
+    v18[50] = *(&v116 + 2);
     *(v18 + 24) = v24;
     ++v23;
   }
 
   while (v23 != 3);
   v26 = 0;
-  v102 = *(v18 + 12);
+  v101 = *(v18 + 12);
   v18[57] = metadata->var16;
   var4 = &[HDRBackwardDisplayManagement updateConfigFromMetadata:uiScaleFactor:width:background:hdrVideoOnly:hdr10TV:sdrOnly:]::bt2020_to_lms_host;
   v28 = *(v18 + 3);
@@ -2305,76 +2305,76 @@ LABEL_11:
   do
   {
     v44 = *(v41 - 3) * self->_inputScaleFactor;
-    v105 = v28;
-    *(&v105 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v44;
-    v28 = v105;
-    v18[14] = *(&v105 + 2);
+    v104 = v28;
+    *(&v104 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v44;
+    v28 = v104;
+    v18[14] = *(&v104 + 2);
     *(v18 + 6) = v28;
     v45 = *v41 * self->_inputScaleFactor;
-    v106 = v31;
-    *(&v106 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v45;
-    v31 = v106;
-    v18[18] = *(&v106 + 2);
+    v105 = v31;
+    *(&v105 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v45;
+    v31 = v105;
+    v18[18] = *(&v105 + 2);
     *(v18 + 8) = v31;
     v46 = v41[3] * self->_inputScaleFactor;
-    v107 = v30;
-    *(&v107 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v46;
-    v30 = v107;
-    v18[22] = *(&v107 + 2);
+    v106 = v30;
+    *(&v106 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v46;
+    v30 = v106;
+    v18[22] = *(&v106 + 2);
     *(v18 + 10) = v30;
     v47 = *(var8 - 27);
-    v108 = v33;
-    *(&v108 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v47;
-    v33 = v108;
-    v18[26] = *(&v108 + 2);
+    v107 = v33;
+    *(&v107 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v47;
+    v33 = v107;
+    v18[26] = *(&v107 + 2);
     *(v18 + 12) = v33;
     v48 = *(var8 - 24);
-    v109 = v34;
-    *(&v109 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v48;
-    v34 = v109;
-    v18[30] = *(&v109 + 2);
+    v108 = v34;
+    *(&v108 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v48;
+    v34 = v108;
+    v18[30] = *(&v108 + 2);
     *(v18 + 14) = v34;
     v49 = *(var8 - 21);
-    v110 = v35;
-    *(&v110 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v49;
-    v35 = v110;
-    v18[34] = *(&v110 + 2);
+    v109 = v35;
+    *(&v109 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v49;
+    v35 = v109;
+    v18[34] = *(&v109 + 2);
     *(v18 + 16) = v35;
     v50 = *var8;
-    v111 = v36;
-    *(&v111 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v50;
-    v36 = v111;
-    v18[38] = *(&v111 + 2);
+    v110 = v36;
+    *(&v110 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v50;
+    v36 = v110;
+    v18[38] = *(&v110 + 2);
     *(v18 + 18) = v36;
     v51 = *(var8 + 3);
-    v112 = v37;
-    *(&v112 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v51;
-    v37 = v112;
-    v18[42] = *(&v112 + 2);
+    v111 = v37;
+    *(&v111 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v51;
+    v37 = v111;
+    v18[42] = *(&v111 + 2);
     *(v18 + 20) = v37;
     v52 = *(var8 + 6);
-    v113 = v38;
-    *(&v113 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v52;
-    v38 = v113;
-    v18[46] = *(&v113 + 2);
+    v112 = v38;
+    *(&v112 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v52;
+    v38 = v112;
+    v18[46] = *(&v112 + 2);
     *(v18 + 22) = v38;
     v53 = *(v42 - 6);
-    v114 = v39;
-    *(&v114 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v53;
-    v39 = v114;
-    v18[2] = *(&v114 + 2);
+    v113 = v39;
+    *(&v113 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v53;
+    v39 = v113;
+    v18[2] = *(&v113 + 2);
     *v18 = v39;
     v54 = *(v42 - 3);
-    v115 = v40;
-    *(&v115 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v54;
-    v40 = v115;
-    v18[6] = *(&v115 + 2);
+    v114 = v40;
+    *(&v114 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v54;
+    v40 = v114;
+    v18[6] = *(&v114 + 2);
     *(v18 + 2) = v40;
     v55 = *v42++;
-    v116 = v43;
-    *(&v116 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v55;
-    v43 = v116;
-    v18[10] = *(&v116 + 2);
+    v115 = v43;
+    *(&v115 & 0xFFFFFFFFFFFFFFF3 | (4 * (v26 & 3))) = v55;
+    v43 = v115;
+    v18[10] = *(&v115 + 2);
     ++v26;
     *(v18 + 4) = v43;
     ++v41;
@@ -2397,16 +2397,16 @@ LABEL_11:
       {
         v64 = (v59 * *(v63 - 3)) + (*&v58 * *(v63 - 6));
         v65 = *v63++;
-        v104 = v61;
-        *(&v104 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v62 - 1) & 3))) = v64 + (v60 * v65);
-        v66 = v104;
-        v67 = v104;
+        v103 = v61;
+        *(&v103 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v62 - 1) & 3))) = v64 + (v60 * v65);
+        v66 = v103;
+        v67 = v103;
         HIDWORD(v67) = HIDWORD(v61);
         v61 = v67;
       }
 
       while (!__CFADD__(v62++, 1));
-      *(v57 + 8) = DWORD2(v104);
+      *(v57 + 8) = DWORD2(v103);
       *v57 = v66;
     }
   }
@@ -2467,10 +2467,10 @@ LABEL_11:
   do
   {
     v85 = metadata->var10[v83];
-    v103 = v84;
-    *(&v103 & 0xFFFFFFFFFFFFFFF3 | (4 * (v83 & 3))) = v85;
-    v84 = v103;
-    v18[54] = *(&v103 + 2);
+    v102 = v84;
+    *(&v102 & 0xFFFFFFFFFFFFFFF3 | (4 * (v83 & 3))) = v85;
+    v84 = v102;
+    v18[54] = *(&v102 + 2);
     *(v18 + 26) = v84;
     ++v83;
   }
@@ -2504,7 +2504,7 @@ LABEL_11:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v119 = WORD1(v87);
+            v118 = WORD1(v87);
             _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: _displayType != kHDRDestinationSDRTV warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 2921\n", buf, 0xCu);
           }
 
@@ -2565,14 +2565,12 @@ LABEL_11:
     v18[79] = v89;
   }
 
-  result = *&v102 <= 1.0;
-  v101 = *MEMORY[0x277D85DE8];
-  return result;
+  return *&v101 <= 1.0;
 }
 
 - (void)generateMetaAndConfig:(id)config inputSurface:(__IOSurface *)surface outputSurface:(__IOSurface *)outputSurface payLoad:(id *)load dmCfg:(id *)cfg
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v12 = [config valueForKey:@"BackwardDMHDRDictionary"];
   v13 = [v12 valueForKey:@"DolbyVisionBackwardDMParameter"];
   bytes = [v13 bytes];
@@ -2604,7 +2602,7 @@ LABEL_11:
   }
 
   v21 = v20;
-  v48 = v21;
+  v47 = v21;
   PlaneCount = IOSurfaceGetPlaneCount(surface);
   ID = IOSurfaceGetID(surface);
   if (!surface || PlaneCount != 3)
@@ -2615,12 +2613,12 @@ LABEL_11:
   v24 = ID;
   if (v19 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v54.columns[2].i32[0] = 67109120;
-    v54.columns[2].i32[1] = v24;
-    _os_log_error_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Current rg3h video input surface (IOSurface ID: %x) does not have config data\n", &v54.columns[2], 8u);
+    v53.columns[2].i32[0] = 67109120;
+    v53.columns[2].i32[1] = v24;
+    _os_log_error_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Current rg3h video input surface (IOSurface ID: %x) does not have config data\n", &v53.columns[2], 8u);
   }
 
-  if (!v48 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (!v47 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
 LABEL_20:
     if (v19)
@@ -2634,9 +2632,9 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v54.columns[2].i32[0] = 67109120;
-  v54.columns[2].i32[1] = v24;
-  _os_log_error_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Current rg3h video input surface (IOSurface ID: %x) does not have meta data\n", &v54.columns[2], 8u);
+  v53.columns[2].i32[0] = 67109120;
+  v53.columns[2].i32[1] = v24;
+  _os_log_error_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Current rg3h video input surface (IOSurface ID: %x) does not have meta data\n", &v53.columns[2], 8u);
   if (!v19)
   {
     goto LABEL_29;
@@ -2653,11 +2651,11 @@ LABEL_21:
   unk_27F3DDE88 = 0u;
   displayMaxBrightnessInNitsForSDR = self->_displayMaxBrightnessInNitsForSDR;
   displayMinBrightnessInNits = self->_displayMinBrightnessInNits;
-  *(&v54.columns[1] + 4) = 0uLL;
-  getStaticToneCurves(0.01514, 0.82735, 0.01514, 0.75189, 0.65275, 0.01514, 0.75189, 42.0, v54.columns[2].f32, &v54.columns[1].i32[3], &v54.columns[1].f32[2], &v54.columns[1].f32[1]);
+  *(&v53.columns[1] + 4) = 0uLL;
+  getStaticToneCurves(0.01514, 0.82735, 0.01514, 0.75189, 0.65275, 0.01514, 0.75189, 42.0, v53.columns[2].f32, &v53.columns[1].i32[3], &v53.columns[1].f32[2], &v53.columns[1].f32[1]);
   v27 = 0uLL;
-  dmMetaCfgData = v54.columns[2].i32[0];
-  *algn_27F3DDDDC = v54.columns[1].i32[3];
+  dmMetaCfgData = v53.columns[2].i32[0];
+  *algn_27F3DDDDC = v53.columns[1].i32[3];
   dword_27F3DDE14 = 1043183977;
   unk_27F3DDE0C = 0xC0948E8E40AF20C2;
   dword_27F3DDE20 = -1104418156;
@@ -2685,29 +2683,29 @@ LABEL_21:
   v28 = -3;
   v29 = &dword_2508CE808;
   v30 = 0uLL;
-  dword_27F3DDDE0 = v54.columns[1].i32[2];
-  unk_27F3DDDE4 = v54.columns[1].i32[1];
+  dword_27F3DDDE0 = v53.columns[1].i32[2];
+  unk_27F3DDDE4 = v53.columns[1].i32[1];
   v31 = 0uLL;
   do
   {
     v32 = *(v29 - 3);
     v33 = v28 - 1;
-    v54.columns[0] = v31;
-    *(&v54 & 0xFFFFFFFFFFFFFFF3 | (4 * (v33 & 3))) = v32;
-    v36.columns[0] = v54.columns[0];
-    v34 = v54.columns[0];
+    v53.columns[0] = v31;
+    *(&v53 & 0xFFFFFFFFFFFFFFF3 | (4 * (v33 & 3))) = v32;
+    v36.columns[0] = v53.columns[0];
+    v34 = v53.columns[0];
     v34.i32[3] = v31.i32[3];
     v36.columns[1].i32[0] = *v29;
-    v53 = v30;
-    *(&v53 & 0xFFFFFFFFFFFFFFF3 | (4 * (v33 & 3))) = v36.columns[1].i32[0];
-    v36.columns[1] = v53;
-    v35 = v53;
+    v52 = v30;
+    *(&v52 & 0xFFFFFFFFFFFFFFF3 | (4 * (v33 & 3))) = v36.columns[1].i32[0];
+    v36.columns[1] = v52;
+    v35 = v52;
     v35.i32[3] = v30.i32[3];
     v36.columns[2].i32[0] = v29[3];
-    v52 = v27;
-    *(&v52 & 0xFFFFFFFFFFFFFFF3 | (4 * (v33 & 3))) = v36.columns[2].i32[0];
-    v36.columns[2] = v52;
-    v37 = v52;
+    v51 = v27;
+    *(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (v33 & 3))) = v36.columns[2].i32[0];
+    v36.columns[2] = v51;
+    v37 = v51;
     ++v29;
     v37.i32[3] = v27.i32[3];
     v27 = v37;
@@ -2717,18 +2715,18 @@ LABEL_21:
   }
 
   while (!v38);
-  v56 = __invert_f3(v36);
+  v55 = __invert_f3(v36);
   v39 = -3;
   v40 = &dword_27F3DDE90;
   v41 = outputSurfaceCopy;
   do
   {
-    v51 = v56.columns[0];
-    *(v40 - 6) = *(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v39 - 1) & 3)));
-    v50 = v56.columns[1];
-    *(v40 - 3) = *(&v50 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v39 - 1) & 3)));
-    v49 = v56.columns[2];
-    *v40++ = *(&v49 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v39 - 1) & 3)));
+    v50 = v55.columns[0];
+    *(v40 - 6) = *(&v50 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v39 - 1) & 3)));
+    v49 = v55.columns[1];
+    *(v40 - 3) = *(&v49 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v39 - 1) & 3)));
+    v48 = v55.columns[2];
+    *v40++ = *(&v48 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v39 - 1) & 3)));
     v38 = __CFADD__(v39++, 1);
   }
 
@@ -2743,15 +2741,13 @@ LABEL_21:
 LABEL_30:
   [(HDRBackwardDisplayManagement *)self attatchInfoFrame:&dmMetaCfgData toOutputSurface:v41, loadCopy];
   v42 = &SDRMetaData;
-  if (!v48)
+  if (!v47)
   {
     v42 = v17;
   }
 
   *cfgCopy = &dmMetaCfgData;
-  *v45 = v42;
-
-  v43 = *MEMORY[0x277D85DE8];
+  *v44 = v42;
 }
 
 - (void)drawMetaWithEncoder:(id)encoder widthScale:(int)scale dmPayLoadLength:(int)length
@@ -2785,6 +2781,18 @@ LABEL_30:
     }
 
     while (v13 > 121);
+  }
+}
+
+- (void)handleMetaInsertion:(BOOL)insertion encoder:(id)encoder widthScale:(int)scale payloadLength:(unsigned int)length
+{
+  v6 = *&length;
+  v7 = *&scale;
+  insertionCopy = insertion;
+  encoderCopy = encoder;
+  if (insertionCopy)
+  {
+    [(HDRBackwardDisplayManagement *)self drawMetaWithEncoder:encoderCopy widthScale:v7 dmPayLoadLength:v6];
   }
 }
 
@@ -2828,7 +2836,7 @@ LABEL_30:
 - (void)packetizeMetadata:(id *)metadata length:(int)length into:(int)into onSurface:(__IOSurface *)surface
 {
   v9 = 0;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   metadataTexture = self->_metadataTexture;
   v11 = self->_metadataTextures[into];
   do
@@ -2864,9 +2872,9 @@ LABEL_30:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v18 = WORD1(v14);
-      v19 = 2080;
-      v20 = "[HDRBackwardDisplayManagement packetizeMetadata:length:into:onSurface:]";
+      v17 = WORD1(v14);
+      v18 = 2080;
+      v19 = "[HDRBackwardDisplayManagement packetizeMetadata:length:into:onSurface:]";
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: calloc failed!\n", buf, 0x16u);
     }
 
@@ -2876,21 +2884,19 @@ LABEL_30:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[HDRBackwardDisplayManagement packetizeMetadata:length:into:onSurface:]";
+    v17 = "[HDRBackwardDisplayManagement packetizeMetadata:length:into:onSurface:]";
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: calloc failed!\n", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)EncodeToCommandBuffer:(id)buffer inputSurface:(__IOSurface *)surface uiSurface:(__IOSurface *)uiSurface outputSurface:(__IOSurface *)outputSurface frameProperties:(id)properties
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   propertiesCopy = properties;
+  v80 = 0;
   v81 = 0;
-  v82 = 0;
-  v79 = bufferCopy;
+  v78 = bufferCopy;
   if (!bufferCopy || !outputSurface || !(surface | uiSurface))
   {
     if (enableLogInstance)
@@ -2908,14 +2914,14 @@ LABEL_30:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134219008;
-        *v84 = WORD1(v13);
+        *v83 = WORD1(v13);
+        *&v83[8] = 2048;
+        *v84 = bufferCopy;
         *&v84[8] = 2048;
-        *v85 = bufferCopy;
-        *&v85[8] = 2048;
-        *&v85[10] = outputSurface;
-        *v86 = 2048;
-        *&v86[2] = surface;
-        v87 = 2048;
+        *&v84[10] = outputSurface;
+        *v85 = 2048;
+        *&v85[2] = surface;
+        v86 = 2048;
         uiSurfaceCopy = uiSurface;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx commanBuffer=%p, output=%p, input=%p, ui=%p", buf, 0x34u);
       }
@@ -2930,13 +2936,13 @@ LABEL_30:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218752;
-        *v84 = bufferCopy;
+        *v83 = bufferCopy;
+        *&v83[8] = 2048;
+        *v84 = outputSurface;
         *&v84[8] = 2048;
-        *v85 = outputSurface;
-        *&v85[8] = 2048;
-        *&v85[10] = surface;
-        *v86 = 2048;
-        *&v86[2] = uiSurface;
+        *&v84[10] = surface;
+        *v85 = 2048;
+        *&v85[2] = uiSurface;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] commanBuffer=%p, output=%p, input=%p, ui=%p", buf, 0x2Au);
       }
 
@@ -2998,15 +3004,15 @@ LABEL_30:
         {
           v28 = self->_height;
           *buf = 134219008;
-          *v84 = WORD1(v27);
-          *&v84[8] = 1024;
-          *v85 = width;
-          *&v85[4] = 1024;
-          *&v85[6] = targetWidth;
-          *&v85[10] = 1024;
-          *&v85[12] = v28;
-          *&v85[16] = 1024;
-          *v86 = v20;
+          *v83 = WORD1(v27);
+          *&v83[8] = 1024;
+          *v84 = width;
+          *&v84[4] = 1024;
+          *&v84[6] = targetWidth;
+          *&v84[10] = 1024;
+          *&v84[12] = v28;
+          *&v84[16] = 1024;
+          *v85 = v20;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx _width=%d, _targetWidth=%d, _height=%d, _targetHeight=%d", buf, 0x24u);
         }
 
@@ -3021,13 +3027,13 @@ LABEL_30:
         {
           v54 = self->_height;
           *buf = 67109888;
-          *v84 = width;
-          *&v84[4] = 1024;
-          *&v84[6] = targetWidth;
-          *v85 = 1024;
-          *&v85[2] = v54;
-          *&v85[6] = 1024;
-          *&v85[8] = v20;
+          *v83 = width;
+          *&v83[4] = 1024;
+          *&v83[6] = targetWidth;
+          *v84 = 1024;
+          *&v84[2] = v54;
+          *&v84[6] = 1024;
+          *&v84[8] = v20;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] _width=%d, _targetWidth=%d, _height=%d, _targetHeight=%d", buf, 0x1Au);
         }
 
@@ -3044,24 +3050,24 @@ LABEL_30:
     [(HDRBackwardDisplayManagement *)self createMetadataVertexBuffer];
   }
 
-  [(HDRBackwardDisplayManagement *)self generateMetaAndConfig:propertiesCopy inputSurface:surface outputSurface:outputSurface payLoad:&v82 dmCfg:&v81];
-  if (v81)
+  [(HDRBackwardDisplayManagement *)self generateMetaAndConfig:propertiesCopy inputSurface:surface outputSurface:outputSurface payLoad:&v81 dmCfg:&v80];
+  if (v80)
   {
-    v23 = *(v81 + 224);
+    v23 = *(v80 + 224);
     v24 = v23 == 2;
-    v72 = v23 == 3;
+    v71 = v23 == 3;
   }
 
   else
   {
     v24 = 0;
-    v72 = 0;
+    v71 = 0;
   }
 
   outputPackingColorFormat = self->_outputPackingColorFormat;
-  if (bswap32(*(v82 + 78)) >> 16 == 0xFFFF)
+  if (bswap32(*(v81 + 78)) >> 16 == 0xFFFF)
   {
-    v29 = __rev16(*(v82 + 76));
+    v29 = __rev16(*(v81 + 76));
     v30 = v29 == 0xFFFF;
     if (!surface || v29 == 0xFFFF)
     {
@@ -3080,9 +3086,9 @@ LABEL_41:
 
   v30 = 0;
 LABEL_45:
-  v73 = bswap32(*(v82 + 78)) >> 16 == 65534 && bswap32(*(v82 + 76)) >> 16 == 65534;
+  v72 = bswap32(*(v81 + 78)) >> 16 == 65534 && bswap32(*(v81 + 76)) >> 16 == 65534;
   v31 = 0;
-  v71 = *(v81 + 280);
+  v70 = *(v80 + 280);
   if (v30)
   {
     uiSurface = surface;
@@ -3105,39 +3111,39 @@ LABEL_45:
   }
 
   v34 = v33;
-  v78 = v34;
+  v77 = v34;
   if (surfaceCopy && !uiSurface)
   {
     v31 = IOSurfaceGetPlaneCount(surfaceCopy) == 3;
   }
 
   displayMaxBrightnessInNitsForSDR = self->_displayMaxBrightnessInNitsForSDR;
-  if (v73)
+  if (v72)
   {
-    v36 = v81;
+    v36 = v80;
 LABEL_62:
     displayMaxBrightnessInNits = *(v36 + 232);
     goto LABEL_63;
   }
 
-  if ((((v24 || v72) | v78) & 1) == 0 || outputPackingColorFormat)
+  if ((((v24 || v71) | v77) & 1) == 0 || outputPackingColorFormat)
   {
     goto LABEL_65;
   }
 
-  v36 = v81;
+  v36 = v80;
   if (v24)
   {
     goto LABEL_62;
   }
 
   displayMaxBrightnessInNits = self->_displayMaxBrightnessInNits;
-  if (!v72)
+  if (!v71)
   {
     displayMinBrightnessInNits = self->_displayMinBrightnessInNits;
     LODWORD(v21) = 1128792064;
     LODWORD(v22) = 5.0;
-    [(HDRBackwardDisplayManagement *)self fillScalingTable_SDR2HDR:v81 target_White:v21 target_Black:v22];
+    [(HDRBackwardDisplayManagement *)self fillScalingTable_SDR2HDR:v80 target_White:v21 target_Black:v22];
     v39 = displayMaxBrightnessInNitsForSDR;
     goto LABEL_64;
   }
@@ -3147,13 +3153,13 @@ LABEL_63:
   v39 = displayMaxBrightnessInNits;
 LABEL_64:
   *&v21 = displayMaxBrightnessInNits;
-  setTargitBrightnessInMetaData(v82, v21, displayMinBrightnessInNits, v39, displayMinBrightnessInNits);
+  setTargitBrightnessInMetaData(v81, v21, displayMinBrightnessInNits, v39, displayMinBrightnessInNits);
 LABEL_65:
-  v74 = v31;
+  v73 = v31;
   uiSurfaceCopy2 = uiSurface;
   objc_storeStrong(&self->_uniformBuffer, self->_uniformBuffers[self->_frameIndex % 3]);
   objc_storeStrong(&self->_inverseScalingFactorTableTexture, self->_inverseScalingFactorTableTextures[self->_frameIndex % 3]);
-  if (v78)
+  if (v77)
   {
     v40 = 100.0;
   }
@@ -3203,12 +3209,12 @@ LABEL_152:
     v40 = *&v42 / 3.0;
   }
 
-  v70 = outputPackingColorFormat - 1;
+  v69 = outputPackingColorFormat - 1;
   *&v42 = v40;
-  [(HDRBackwardDisplayManagement *)self updateConfigFromMetadata:v81 uiScaleFactor:self->_targetWidth width:0 background:v74 hdrVideoOnly:outputPackingColorFormat - 1 < 2 hdr10TV:v78 sdrOnly:v42];
+  [(HDRBackwardDisplayManagement *)self updateConfigFromMetadata:v80 uiScaleFactor:self->_targetWidth width:0 background:v73 hdrVideoOnly:outputPackingColorFormat - 1 < 2 hdr10TV:v77 sdrOnly:v42];
   if (outputPackingColorFormat - 1 <= 1)
   {
-    if (v78)
+    if (v77)
     {
       LODWORD(v45) = 5.0;
       LODWORD(v44) = 1128792064;
@@ -3216,20 +3222,20 @@ LABEL_152:
 
     else
     {
-      LODWORD(v45) = *(v81 + 236);
-      *&v44 = *(v81 + 232);
+      LODWORD(v45) = *(v80 + 236);
+      *&v44 = *(v80 + 232);
     }
 
     LODWORD(v46) = 1.0;
-    [(HDRBackwardDisplayManagement *)self fillScalingTable_YUVTM:v81 targetwhite:1 targetblack:v78 satBoost:v44 scalingFactor:v45 sdrOnly:v46];
+    [(HDRBackwardDisplayManagement *)self fillScalingTable_YUVTM:v80 targetwhite:1 targetblack:v77 satBoost:v44 scalingFactor:v45 sdrOnly:v46];
     goto LABEL_97;
   }
 
-  [(HDRBackwardDisplayManagement *)self fillInverseScalingFactorTableFromDMConfig:v81];
+  [(HDRBackwardDisplayManagement *)self fillInverseScalingFactorTableFromDMConfig:v80];
   if (outputPackingColorFormat)
   {
 LABEL_97:
-    v69 = 0;
+    v68 = 0;
     goto LABEL_98;
   }
 
@@ -3244,17 +3250,17 @@ LABEL_97:
   }
 
   v48 = !v47;
-  v69 = [(HDRBackwardDisplayManagement *)self adjustMetaData:v82 HDRUIBlending:v48 hasLetterbox:0];
-  [(HDRBackwardDisplayManagement *)self packetizeMetadata:v82 length:v69 into:self->_frameIndex % 3 onSurface:outputSurface];
+  v68 = [(HDRBackwardDisplayManagement *)self adjustMetaData:v81 HDRUIBlending:v48 hasLetterbox:0];
+  [(HDRBackwardDisplayManagement *)self packetizeMetadata:v81 length:v68 into:self->_frameIndex % 3 onSurface:outputSurface];
 LABEL_98:
-  v75 = [(HDRBackwardDisplayManagement *)self pixelNumPerThreadFullScreen:1 videoInput:surfaceCopy UI:uiSurface Output:outputSurface widthScaling:0];
-  LOBYTE(v68) = v71 & 1;
-  [(HDRBackwardDisplayManagement *)self setupTexturesWithInput:surfaceCopy VideoSRGB:v78 UI:uiSurface UISRGB:v78 Output:outputSurface PixelPerThread:v75 ptvMode:v68];
-  v49 = [(HDRBackwardDisplayManagement *)self createRenderCommandEncoderWithCommandBuffer:v79 texture:self->_outputTexture widthScale:v75 loadAction:0];
+  v74 = [(HDRBackwardDisplayManagement *)self pixelNumPerThreadFullScreen:1 videoInput:surfaceCopy UI:uiSurface Output:outputSurface widthScaling:0];
+  LOBYTE(v67) = v70 & 1;
+  [(HDRBackwardDisplayManagement *)self setupTexturesWithInput:surfaceCopy VideoSRGB:v77 UI:uiSurface UISRGB:v77 Output:outputSurface PixelPerThread:v74 ptvMode:v67];
+  v49 = [(HDRBackwardDisplayManagement *)self createRenderCommandEncoderWithCommandBuffer:v78 texture:self->_outputTexture widthScale:v74 loadAction:0];
   if (v49)
   {
     v50 = v49;
-    v51 = [(HDRBackwardDisplayManagement *)self getTVIndex:v72];
+    v51 = [(HDRBackwardDisplayManagement *)self getTVIndex:v71];
     if (surfaceCopy)
     {
       [v50 setFragmentTexture:self->_inputTexture[0] atIndex:0];
@@ -3271,7 +3277,7 @@ LABEL_98:
     {
       if (surfaceCopy)
       {
-        if (v71)
+        if (v70)
         {
           if (enableLogInstance)
           {
@@ -3288,7 +3294,7 @@ LABEL_98:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134217984;
-              *v84 = WORD1(v57);
+              *v83 = WORD1(v57);
               _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: !ptvMode warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 3613\n", buf, 0xCu);
             }
 
@@ -3308,7 +3314,7 @@ LABEL_98:
       else
       {
         v58 = [(HDRBackwardDisplayManagement *)self inputIsSDRVideoFormat:0];
-        [(HDRBackwardDisplayManagement *)self updateUniformUIScaleForVideo:v58 forTV:v70 < 2 videoPeakBrightnessInNits:*(v81 + 240) uiHWDegamma:v78 dovi50toHDR10TVMode:*(v81 + 276)];
+        [(HDRBackwardDisplayManagement *)self updateUniformUIScaleForVideo:v58 forTV:v69 < 2 videoPeakBrightnessInNits:*(v80 + 240) uiHWDegamma:v77 dovi50toHDR10TVMode:*(v80 + 276)];
         v59 = 1592;
         if (v58)
         {
@@ -3329,12 +3335,12 @@ LABEL_98:
 
     else
     {
-      if (!v73)
+      if (!v72)
       {
         if (self->_width != self->_targetWidth || self->_height != self->_targetHeight)
         {
           v61 = &self->super.isa + v51;
-          if (v71)
+          if (v70)
           {
             p_BKDM_3Plane_2Pixel_Video_HDR10 = (v61 + 17);
           }
@@ -3347,13 +3353,13 @@ LABEL_98:
           goto LABEL_144;
         }
 
-        if (v71)
+        if (v70)
         {
           p_BKDM_3Plane_2Pixel_Video_HDR10 = &self->_BKDM_3Plane_2Pixel_PTV[v51];
           goto LABEL_144;
         }
 
-        if (*(v81 + 281) == 1)
+        if (*(v80 + 281) == 1)
         {
           p_BKDM_3Plane_2Pixel_Video_HDR10 = &self->_BKDM_3Plane_2Pixel_Video_HDR10;
           goto LABEL_144;
@@ -3373,13 +3379,13 @@ LABEL_145:
     [v50 setRenderPipelineState:v62];
     [v50 setFragmentTexture:self->_pq2LTable atIndex:v52];
     v64 = 2592;
-    if (v70 < 2)
+    if (v69 < 2)
     {
       v64 = 2640;
     }
 
     v65 = 2632;
-    if ((v78 & (outputPackingColorFormat == 0)) == 0)
+    if ((v77 & (outputPackingColorFormat == 0)) == 0)
     {
       v65 = v64;
     }
@@ -3395,7 +3401,7 @@ LABEL_145:
     [v50 setFragmentSamplerState:self->_inputSampler atIndex:0];
     [v50 setVertexBuffer:self->_vertsBuffer offset:0 atIndex:0];
     [v50 drawPrimitives:4 vertexStart:0 vertexCount:4];
-    [(HDRBackwardDisplayManagement *)self handleMetaInsertion:outputPackingColorFormat == 0 encoder:v50 widthScale:v75 payloadLength:v69];
+    [(HDRBackwardDisplayManagement *)self handleMetaInsertion:outputPackingColorFormat == 0 encoder:v50 widthScale:v74 payloadLength:v68];
     [v50 endEncoding];
 
     ++self->_frameIndex;
@@ -3417,11 +3423,11 @@ LABEL_145:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      *v84 = WORD1(v53);
-      *&v84[8] = 2080;
-      *v85 = "[HDRBackwardDisplayManagement EncodeToCommandBuffer:inputSurface:uiSurface:outputSurface:frameProperties:]";
-      *&v85[8] = 2048;
-      *&v85[10] = 0;
+      *v83 = WORD1(v53);
+      *&v83[8] = 2080;
+      *v84 = "[HDRBackwardDisplayManagement EncodeToCommandBuffer:inputSurface:uiSurface:outputSurface:frameProperties:]";
+      *&v84[8] = 2048;
+      *&v84[10] = 0;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : encoder=%p, out of encoder resource", buf, 0x20u);
     }
 
@@ -3431,16 +3437,15 @@ LABEL_145:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    *v84 = "[HDRBackwardDisplayManagement EncodeToCommandBuffer:inputSurface:uiSurface:outputSurface:frameProperties:]";
-    *&v84[8] = 2048;
-    *v85 = 0;
+    *v83 = "[HDRBackwardDisplayManagement EncodeToCommandBuffer:inputSurface:uiSurface:outputSurface:frameProperties:]";
+    *&v83[8] = 2048;
+    *v84 = 0;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : encoder=%p, out of encoder resource", buf, 0x16u);
   }
 
   v16 = -17004;
 LABEL_153:
 
-  v66 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -3490,32 +3495,32 @@ LABEL_153:
   var0 = dstRegion.var0;
   v14 = region.var1;
   v15 = region.var0;
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   dstRegionCopy = dstRegion;
   bufferCopy = buffer;
   propertiesCopy = properties;
   v20 = propertiesCopy;
-  v137 = 0;
   v136 = 0;
-  v134 = bufferCopy;
+  v135 = 0;
+  v133 = bufferCopy;
   if (bufferCopy && output && video | ui)
   {
-    v126 = propertiesCopy;
+    v125 = propertiesCopy;
     Width = IOSurfaceGetWidth(output);
     Height = IOSurfaceGetHeight(output);
-    v135 = __PAIR64__(Height, Width);
+    v134 = __PAIR64__(Height, Width);
     if (!video)
     {
-      v117 = 0;
-      v124 = 0;
-      v129 = 0;
+      v116 = 0;
+      v123 = 0;
+      v128 = 0;
       goto LABEL_24;
     }
 
-    v129 = IOSurfaceGetWidth(video);
-    v124 = IOSurfaceGetHeight(video);
+    v128 = IOSurfaceGetWidth(video);
+    v123 = IOSurfaceGetHeight(video);
     v23 = HIDWORD(*&v15);
-    if (v15.var0 >= v129 && v15.var1 >= v124)
+    if (v15.var0 >= v128 && v15.var1 >= v123)
     {
       if (enableLogInstance)
       {
@@ -3535,15 +3540,15 @@ LABEL_153:
         }
 
         *buf = 134219008;
-        *v140 = WORD1(v24);
-        *&v140[8] = 1024;
-        *v141 = v15.var0;
-        *&v141[4] = 1024;
-        *&v141[6] = v129;
-        *&v141[10] = 1024;
-        *&v141[12] = v15.var1;
-        *&v141[16] = 1024;
-        *v142 = v124;
+        *v139 = WORD1(v24);
+        *&v139[8] = 1024;
+        *v140 = v15.var0;
+        *&v140[4] = 1024;
+        *&v140[6] = v128;
+        *&v140[10] = 1024;
+        *&v140[12] = v15.var1;
+        *&v140[16] = 1024;
+        *v141 = v123;
         v25 = MEMORY[0x277D86220];
         v26 = " [1.450.54] #%04llx   region.origin.x=%d >= texWidth=%d && region.origin.y=%d >= texHeight=%d";
         v27 = 36;
@@ -3560,13 +3565,13 @@ LABEL_42:
       }
 
       *buf = 67109888;
-      *v140 = v15.var0;
-      *&v140[4] = 1024;
-      *&v140[6] = v129;
-      *v141 = 1024;
-      *&v141[2] = v15.var1;
-      *&v141[6] = 1024;
-      v54 = v124;
+      *v139 = v15.var0;
+      *&v139[4] = 1024;
+      *&v139[6] = v128;
+      *v140 = 1024;
+      *&v140[2] = v15.var1;
+      *&v140[6] = 1024;
+      v54 = v123;
       goto LABEL_92;
     }
 
@@ -3590,9 +3595,9 @@ LABEL_42:
         }
 
         *buf = 134218240;
-        *v140 = WORD1(v24);
-        *&v140[8] = 1024;
-        *v141 = v15.var0;
+        *v139 = WORD1(v24);
+        *&v139[8] = 1024;
+        *v140 = v15.var0;
         v25 = MEMORY[0x277D86220];
         v26 = " [1.450.54] #%04llx   !isMultipleOf2(region.origin.x=%d)";
         v27 = 18;
@@ -3605,7 +3610,7 @@ LABEL_42:
       }
 
       *buf = 67109120;
-      *v140 = v15.var0;
+      *v139 = v15.var0;
     }
 
     else
@@ -3620,15 +3625,15 @@ LABEL_42:
           }
 
           *buf = 67109888;
-          *v140 = var0.var0;
-          *&v140[4] = 1024;
-          *&v140[6] = Width;
-          *v141 = 1024;
-          *&v141[2] = var0.var1;
-          *&v141[6] = 1024;
+          *v139 = var0.var0;
+          *&v139[4] = 1024;
+          *&v139[6] = Width;
+          *v140 = 1024;
+          *&v140[2] = var0.var1;
+          *&v140[6] = 1024;
           v54 = Height;
 LABEL_92:
-          *&v141[8] = v54;
+          *&v140[8] = v54;
           v55 = MEMORY[0x277D86220];
           v56 = " [1.450.54]   region.origin.x=%d >= texWidth=%d && region.origin.y=%d >= texHeight=%d";
           v57 = 26;
@@ -3653,15 +3658,15 @@ LABEL_107:
         }
 
         *buf = 134219008;
-        *v140 = WORD1(v31);
-        *&v140[8] = 1024;
-        *v141 = var0.var0;
-        *&v141[4] = 1024;
-        *&v141[6] = Width;
-        *&v141[10] = 1024;
-        *&v141[12] = var0.var1;
-        *&v141[16] = 1024;
-        *v142 = Height;
+        *v139 = WORD1(v31);
+        *&v139[8] = 1024;
+        *v140 = var0.var0;
+        *&v140[4] = 1024;
+        *&v140[6] = Width;
+        *&v140[10] = 1024;
+        *&v140[12] = var0.var1;
+        *&v140[16] = 1024;
+        *v141 = Height;
         v32 = MEMORY[0x277D86220];
         v33 = " [1.450.54] #%04llx   region.origin.x=%d >= texWidth=%d && region.origin.y=%d >= texHeight=%d";
         v34 = 36;
@@ -3670,7 +3675,7 @@ LABEL_107:
 
       if ((var0.var0 & 1) == 0)
       {
-        if (v15.var0 + v14.var0 <= v129 && v15.var1 + v14.var1 <= v124)
+        if (v15.var0 + v14.var0 <= v128 && v15.var1 + v14.var1 <= v123)
         {
           if (v14.var0)
           {
@@ -3682,7 +3687,7 @@ LABEL_107:
               }
 
               *buf = 67109120;
-              *v140 = v14.var0;
+              *v139 = v14.var0;
 LABEL_273:
               v55 = MEMORY[0x277D86220];
               v56 = " [1.450.54]   !isMultipleOf2(region.size.width=%d)";
@@ -3702,9 +3707,9 @@ LABEL_273:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218240;
-              *v140 = WORD1(v85);
-              *&v140[8] = 1024;
-              *v141 = v14.var0;
+              *v139 = WORD1(v85);
+              *&v139[8] = 1024;
+              *v140 = v14.var0;
               _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx   !isMultipleOf2(region.size.width=%d)", buf, 0x12u);
             }
 
@@ -3716,7 +3721,7 @@ LABEL_273:
           {
             if ((var1.var0 & 1) == 0)
             {
-              v117 = [(HDRBackwardDisplayManagement *)self inputIsSDRVideoFormat:video];
+              v116 = [(HDRBackwardDisplayManagement *)self inputIsSDRVideoFormat:video];
 LABEL_24:
               if (ui)
               {
@@ -3733,16 +3738,16 @@ LABEL_24:
               }
 
               self->_uiEDRFactor = edrfactor;
-              self->_width = v129;
-              self->_height = v124;
+              self->_width = v128;
+              self->_height = v123;
               if (video)
               {
-                v116 = [(HDRBackwardDisplayManagement *)self inputIsSDRVideoFormat:video];
+                v115 = [(HDRBackwardDisplayManagement *)self inputIsSDRVideoFormat:video];
               }
 
               else
               {
-                v116 = 0;
+                v115 = 0;
                 self->_width = v28;
                 self->_height = v29;
               }
@@ -3761,7 +3766,7 @@ LABEL_24:
               }
 
               v38 = !v36 && PlaneCount == 3;
-              v128 = [(HDRBackwardDisplayManagement *)self pixelNumPerThreadFullScreen:0 videoInput:video UI:ui Output:output widthScaling:v38];
+              v127 = [(HDRBackwardDisplayManagement *)self pixelNumPerThreadFullScreen:0 videoInput:video UI:ui Output:output widthScaling:v38];
               if (video)
               {
                 uiCopy = ui;
@@ -3782,16 +3787,16 @@ LABEL_24:
                 uiCopy2 = ui;
               }
 
-              v121 = uiCopy;
-              v122 = uiCopy2;
+              v120 = uiCopy;
+              v121 = uiCopy2;
               if (uiCopy2)
               {
-                v132 = IOSurfaceGetPlaneCount(uiCopy2) == 3;
+                v131 = IOSurfaceGetPlaneCount(uiCopy2) == 3;
               }
 
               else
               {
-                v132 = 0;
+                v131 = 0;
               }
 
               if (!self->_metadataVertexBuffer)
@@ -3799,36 +3804,36 @@ LABEL_24:
                 [(HDRBackwardDisplayManagement *)self createMetadataVertexBuffer];
               }
 
-              [(HDRBackwardDisplayManagement *)self generateMetaAndConfig:v126 inputSurface:v122 outputSurface:output payLoad:&v137 dmCfg:&v136];
-              if (v136)
+              [(HDRBackwardDisplayManagement *)self generateMetaAndConfig:v125 inputSurface:v121 outputSurface:output payLoad:&v136 dmCfg:&v135];
+              if (v135)
               {
-                v41 = *(v136 + 224);
+                v41 = *(v135 + 224);
                 v42 = v41 == 2;
-                v120 = v41 == 3;
+                v119 = v41 == 3;
               }
 
               else
               {
                 v42 = 0;
-                v120 = 0;
+                v119 = 0;
               }
 
               outputPackingColorFormat = self->_outputPackingColorFormat;
-              v119 = *(v136 + 280);
+              v118 = *(v135 + 280);
               v43 = self->_frameIndex % 3;
               v44 = (&self->super.isa + v43);
               objc_storeStrong(&self->_uniformBuffer, v44[343]);
               objc_storeStrong(&self->_vertsBuf, v44[348]);
               objc_storeStrong(&self->_inverseScalingFactorTableTexture, v44[325]);
               displayMaxBrightnessInNitsForSDR = self->_displayMaxBrightnessInNitsForSDR;
-              v46 = [v126 valueForKey:@"SDRMaxBrightnessInNits"];
+              v46 = [v125 valueForKey:@"SDRMaxBrightnessInNits"];
               LODWORD(v47) = 1120403456;
-              if (v132)
+              if (v131)
               {
                 *&v47 = 1.0;
               }
 
-              v133 = v46;
+              v132 = v46;
               if (v46)
               {
                 [v46 floatValue];
@@ -3853,10 +3858,10 @@ LABEL_24:
                 *&v47 = *&v47 / displayMaxBrightnessInNitsForSDR;
               }
 
-              v118 = outputPackingColorFormat - 1;
+              v117 = outputPackingColorFormat - 1;
               *&v47 = *&v47 / self->_uiEDRFactor;
-              [(HDRBackwardDisplayManagement *)self updateConfigFromMetadata:v136 uiScaleFactor:self->_targetWidth width:color background:v132 hdrVideoOnly:outputPackingColorFormat - 1 < 2 hdr10TV:!v132 sdrOnly:v47];
-              [(HDRBackwardDisplayManagement *)self updateVertices:0 videoInput:v135 videoDstRegion:v122 videoSrcRegion:var0 uiInput:var1 uiDstRegion:v15 uiSrcRegion:v14 dstWidth:v121 dstHeight:*&uiDstRegion.var0 videoSrcWidth:*&uiDstRegion.var1 videoSrcHeight:*&srcRegion.var0 index:*&srcRegion.var1 scale:*&self->_targetWidth, __PAIR64__(v124, v129), __PAIR64__(v128, v43)];
+              [(HDRBackwardDisplayManagement *)self updateConfigFromMetadata:v135 uiScaleFactor:self->_targetWidth width:color background:v131 hdrVideoOnly:outputPackingColorFormat - 1 < 2 hdr10TV:!v131 sdrOnly:v47];
+              [(HDRBackwardDisplayManagement *)self updateVertices:0 videoInput:v134 videoDstRegion:v121 videoSrcRegion:var0 uiInput:var1 uiDstRegion:v15 uiSrcRegion:v14 dstWidth:v120 dstHeight:*&uiDstRegion.var0 videoSrcWidth:*&uiDstRegion.var1 videoSrcHeight:*&srcRegion.var0 index:*&srcRegion.var1 scale:*&self->_targetWidth, __PAIR64__(v123, v128), __PAIR64__(v127, v43)];
               if (outputPackingColorFormat)
               {
                 v52 = 1;
@@ -3864,17 +3869,17 @@ LABEL_24:
 
               else
               {
-                v52 = v132;
+                v52 = v131;
               }
 
-              if (!v42 && !v120 || outputPackingColorFormat != 0) && (v52)
+              if (!v42 && !v119 || outputPackingColorFormat != 0) && (v52)
               {
-                if (v118 <= 1)
+                if (v117 <= 1)
                 {
-                  if (v132)
+                  if (v131)
                   {
-                    LODWORD(v50) = *(v136 + 236);
-                    *&v49 = *(v136 + 232);
+                    LODWORD(v50) = *(v135 + 236);
+                    *&v49 = *(v135 + 232);
                   }
 
                   else
@@ -3884,19 +3889,19 @@ LABEL_24:
                   }
 
                   LODWORD(v51) = 1.0;
-                  [(HDRBackwardDisplayManagement *)self fillScalingTable_YUVTM:v136 targetwhite:1 targetblack:!v132 satBoost:v49 scalingFactor:v50 sdrOnly:v51];
-                  v125 = 0;
-                  v61 = v121 != 0;
+                  [(HDRBackwardDisplayManagement *)self fillScalingTable_YUVTM:v135 targetwhite:1 targetblack:!v131 satBoost:v49 scalingFactor:v50 sdrOnly:v51];
+                  v124 = 0;
+                  v61 = v120 != 0;
                   v63 = 1;
                   goto LABEL_126;
                 }
 
 LABEL_110:
-                [(HDRBackwardDisplayManagement *)self fillInverseScalingFactorTableFromDMConfig:v136, v49];
-                v61 = v121 != 0;
-                if (v121)
+                [(HDRBackwardDisplayManagement *)self fillInverseScalingFactorTableFromDMConfig:v135, v49];
+                v61 = v120 != 0;
+                if (v120)
                 {
-                  v62 = v132;
+                  v62 = v131;
                 }
 
                 else
@@ -3907,12 +3912,12 @@ LABEL_110:
                 if (outputPackingColorFormat)
                 {
                   v63 = 0;
-                  v125 = 0;
+                  v124 = 0;
                 }
 
                 else
                 {
-                  if (v132)
+                  if (v131)
                   {
                     if (dstRegionCopy.var0)
                     {
@@ -3921,7 +3926,7 @@ LABEL_110:
 
                     else
                     {
-                      v64 = v135 == *&dstRegionCopy.var1;
+                      v64 = v134 == *&dstRegionCopy.var1;
                     }
 
                     v65 = !v64;
@@ -3932,19 +3937,19 @@ LABEL_110:
                     v65 = 0;
                   }
 
-                  v66 = [(HDRBackwardDisplayManagement *)self adjustMetaData:v137 HDRUIBlending:v62 hasLetterbox:v65];
-                  [(HDRBackwardDisplayManagement *)self packetizeMetadata:v137 length:v66 into:self->_frameIndex % 3 onSurface:output];
-                  v125 = v66;
+                  v66 = [(HDRBackwardDisplayManagement *)self adjustMetaData:v136 HDRUIBlending:v62 hasLetterbox:v65];
+                  [(HDRBackwardDisplayManagement *)self packetizeMetadata:v136 length:v66 into:self->_frameIndex % 3 onSurface:output];
+                  v124 = v66;
                   v63 = 0;
                 }
 
 LABEL_126:
-                v130 = [(HDRBackwardDisplayManagement *)self getTVIndex:v120, v62];
-                if (v132)
+                v129 = [(HDRBackwardDisplayManagement *)self getTVIndex:v119, v62];
+                if (v131)
                 {
-                  LOBYTE(v115) = v119 & 1;
-                  [(HDRBackwardDisplayManagement *)self setupTexturesWithInput:v122 VideoSRGB:0 UI:v121 UISRGB:0 Output:output PixelPerThread:v128 ptvMode:v115];
-                  v67 = [(HDRBackwardDisplayManagement *)self createRenderCommandEncoderWithCommandBuffer:v134 texture:self->_outputTexture widthScale:v128 loadAction:0];
+                  LOBYTE(v114) = v118 & 1;
+                  [(HDRBackwardDisplayManagement *)self setupTexturesWithInput:v121 VideoSRGB:0 UI:v120 UISRGB:0 Output:output PixelPerThread:v127 ptvMode:v114];
+                  v67 = [(HDRBackwardDisplayManagement *)self createRenderCommandEncoderWithCommandBuffer:v133 texture:self->_outputTexture widthScale:v127 loadAction:0];
                   v68 = v67;
                   if (v67)
                   {
@@ -3970,7 +3975,7 @@ LABEL_131:
                     [v71 setFragmentTexture:*(&self->super.isa + v73) atIndex:v70 + 1];
                     [v71 setFragmentTexture:self->_l2PQTable atIndex:v70 + 2];
                     v74 = v70 + 3;
-                    if (!v132)
+                    if (!v131)
                     {
                       [v71 setFragmentTexture:self->_inputTexture[0] atIndex:v74];
                       LODWORD(v74) = v70 | 4;
@@ -3987,21 +3992,21 @@ LABEL_131:
                     num_Blend_Rects = self->_num_Blend_Rects;
                     if (self->_num_Blend_Rects[v43])
                     {
-                      if (v132)
+                      if (v131)
                       {
-                        [(HDRBackwardDisplayManagement *)self updateUniformUIScaleForVideo:v116 forTV:v118 < 2 videoPeakBrightnessInNits:*(v136 + 240) uiHWDegamma:v69 dovi50toHDR10TVMode:*(v136 + 276)];
-                        v76 = v130;
-                        if (v128 == 1)
+                        [(HDRBackwardDisplayManagement *)self updateUniformUIScaleForVideo:v115 forTV:v117 < 2 videoPeakBrightnessInNits:*(v135 + 240) uiHWDegamma:v69 dovi50toHDR10TVMode:*(v135 + 276)];
+                        v76 = v129;
+                        if (v127 == 1)
                         {
-                          if (v119)
+                          if (v118)
                           {
-                            v77 = &self->_BKDM_3Plane_1Pixel_UIBlending_PTV[v130];
+                            v77 = &self->_BKDM_3Plane_1Pixel_UIBlending_PTV[v129];
                           }
 
                           else
                           {
-                            v83 = *(v136 + 276);
-                            v84 = (&self->super.isa + v130);
+                            v83 = *(v135 + 276);
+                            v84 = (&self->super.isa + v129);
                             if (v83 == 2)
                             {
                               v77 = v84 + 101;
@@ -4021,8 +4026,8 @@ LABEL_131:
 
                         else
                         {
-                          v81 = &self->super.isa + v130;
-                          if (v119)
+                          v81 = &self->super.isa + v129;
+                          if (v118)
                           {
                             v77 = (v81 + 29);
                           }
@@ -4036,9 +4041,9 @@ LABEL_131:
 
                       else
                       {
-                        v76 = v130;
-                        v80 = &self->super.isa + v130;
-                        if (v117)
+                        v76 = v129;
+                        v80 = &self->super.isa + v129;
+                        if (v116)
                         {
                           v77 = (v80 + 223);
                         }
@@ -4074,24 +4079,24 @@ LABEL_131:
                     else
                     {
                       LODWORD(v79) = 0;
-                      v76 = v130;
+                      v76 = v129;
                     }
 
                     num_Video_Rects = self->_num_Video_Rects;
                     if (self->_num_Video_Rects[v43])
                     {
-                      if (v132)
+                      if (v131)
                       {
-                        if (v128 == 1)
+                        if (v127 == 1)
                         {
-                          if (v119)
+                          if (v118)
                           {
                             p_BKDM_3Plane_1Pixel_Video_HDR10 = &self->_BKDM_3Plane_1Pixel_PTV[v76];
                           }
 
                           else
                           {
-                            v111 = *(v136 + 276);
+                            v111 = *(v135 + 276);
                             if (v111 == 2)
                             {
                               p_BKDM_3Plane_1Pixel_Video_HDR10 = &self->_BKDM_3Plane_1Pixel_Video_Scaled_Inverse_HLGOOTF[v76];
@@ -4105,7 +4110,7 @@ LABEL_131:
                             else
                             {
                               p_BKDM_3Plane_1Pixel_Video_HDR10 = &self->_BKDM_3Plane_1Pixel_Video_Scaled[v76];
-                              if (*(v136 + 281) == 1)
+                              if (*(v135 + 281) == 1)
                               {
                                 p_BKDM_3Plane_1Pixel_Video_HDR10 = &self->_BKDM_3Plane_1Pixel_Video_HDR10;
                               }
@@ -4118,7 +4123,7 @@ LABEL_131:
                           v95 = &self->super.isa + v76;
                           v96 = (v95 + 175);
                           p_BKDM_3Plane_1Pixel_Video_HDR10 = (v95 + 5);
-                          if ((v119 & 1) == 0)
+                          if ((v118 & 1) == 0)
                           {
                             p_BKDM_3Plane_1Pixel_Video_HDR10 = v96;
                           }
@@ -4135,7 +4140,7 @@ LABEL_131:
                           p_BKDM_3Plane_1Pixel_Video_HDR10 = v94;
                         }
 
-                        if (v117)
+                        if (v116)
                         {
                           p_BKDM_3Plane_1Pixel_Video_HDR10 = &self->_BKDM_SDRVideoOnly[v76];
                         }
@@ -4161,14 +4166,14 @@ LABEL_131:
                     num_UI_Rects = self->_num_UI_Rects;
                     if (self->_num_UI_Rects[v43])
                     {
-                      if (v132)
+                      if (v131)
                       {
-                        if (v128 == 1)
+                        if (v127 == 1)
                         {
                           v100 = &self->super.isa + v76;
                           v101 = (v100 + 271);
                           v102 = (v100 + 283);
-                          if (*(v136 + 276) != 1)
+                          if (*(v135 + 276) != 1)
                           {
                             v102 = v101;
                           }
@@ -4215,7 +4220,7 @@ LABEL_131:
                     if (self->_num_ColorFill_Rects[v43])
                     {
                       v107 = 2072;
-                      if (v128 == 1)
+                      if (v127 == 1)
                       {
                         v107 = 1976;
                       }
@@ -4237,7 +4242,7 @@ LABEL_131:
                       }
                     }
 
-                    [(HDRBackwardDisplayManagement *)self handleMetaInsertion:outputPackingColorFormat == 0 encoder:v71 widthScale:v128 payloadLength:v125];
+                    [(HDRBackwardDisplayManagement *)self handleMetaInsertion:outputPackingColorFormat == 0 encoder:v71 widthScale:v127 payloadLength:v124];
                     [v71 endEncoding];
 
                     ++self->_frameIndex;
@@ -4248,10 +4253,10 @@ LABEL_131:
 
                 else
                 {
-                  v69 = v121 == 0;
-                  LOBYTE(v115) = 0;
-                  [HDRBackwardDisplayManagement setupTexturesWithInput:"setupTexturesWithInput:VideoSRGB:UI:UISRGB:Output:PixelPerThread:ptvMode:" VideoSRGB:v122 UI:v69 UISRGB:v115 Output:? PixelPerThread:? ptvMode:?];
-                  v72 = [(HDRBackwardDisplayManagement *)self createRenderCommandEncoderWithCommandBuffer:v134 texture:self->_outputTexture widthScale:v128 loadAction:0];
+                  v69 = v120 == 0;
+                  LOBYTE(v114) = 0;
+                  [HDRBackwardDisplayManagement setupTexturesWithInput:"setupTexturesWithInput:VideoSRGB:UI:UISRGB:Output:PixelPerThread:ptvMode:" VideoSRGB:v121 UI:v69 UISRGB:v114 Output:? PixelPerThread:? ptvMode:?];
+                  v72 = [(HDRBackwardDisplayManagement *)self createRenderCommandEncoderWithCommandBuffer:v133 texture:self->_outputTexture widthScale:v127 loadAction:0];
                   if (v72)
                   {
                     v70 = 0;
@@ -4275,11 +4280,11 @@ LABEL_131:
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 134218498;
-                    *v140 = WORD1(v78);
-                    *&v140[8] = 2080;
-                    *v141 = "[HDRBackwardDisplayManagement encodeToCommandBuffer:video:videoSrcRegion:videoDstRegion:ui:uiSrcRegion:uiDstRegion:backgroundColor:output:frameProperties:]";
-                    *&v141[8] = 2048;
-                    *&v141[10] = 0;
+                    *v139 = WORD1(v78);
+                    *&v139[8] = 2080;
+                    *v140 = "[HDRBackwardDisplayManagement encodeToCommandBuffer:video:videoSrcRegion:videoDstRegion:ui:uiSrcRegion:uiDstRegion:backgroundColor:output:frameProperties:]";
+                    *&v140[8] = 2048;
+                    *&v140[10] = 0;
                     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : encoder=%p, out of encoder resource", buf, 0x20u);
                   }
 
@@ -4291,9 +4296,9 @@ LABEL_131:
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315394;
-                    *v140 = "[HDRBackwardDisplayManagement encodeToCommandBuffer:video:videoSrcRegion:videoDstRegion:ui:uiSrcRegion:uiDstRegion:backgroundColor:output:frameProperties:]";
-                    *&v140[8] = 2048;
-                    *v141 = 0;
+                    *v139 = "[HDRBackwardDisplayManagement encodeToCommandBuffer:video:videoSrcRegion:videoDstRegion:ui:uiSrcRegion:uiDstRegion:backgroundColor:output:frameProperties:]";
+                    *&v139[8] = 2048;
+                    *v140 = 0;
                     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : encoder=%p, out of encoder resource", buf, 0x16u);
                   }
                 }
@@ -4304,29 +4309,29 @@ LABEL_131:
 
               if (v42)
               {
-                displayMaxBrightnessInNits = *(v136 + 232);
+                displayMaxBrightnessInNits = *(v135 + 232);
               }
 
               else
               {
                 displayMaxBrightnessInNits = self->_displayMaxBrightnessInNits;
-                if (!v120)
+                if (!v119)
                 {
                   displayMinBrightnessInNits = self->_displayMinBrightnessInNits;
                   v60 = self->_displayMaxBrightnessInNitsForSDR;
                   LODWORD(v49) = 1128792064;
                   LODWORD(v50) = 5.0;
-                  [(HDRBackwardDisplayManagement *)self fillScalingTable_SDR2HDR:v136 target_White:v49 target_Black:v50];
+                  [(HDRBackwardDisplayManagement *)self fillScalingTable_SDR2HDR:v135 target_White:v49 target_Black:v50];
                   v59 = v60;
                   goto LABEL_109;
                 }
               }
 
-              displayMinBrightnessInNits = *(v136 + 236);
+              displayMinBrightnessInNits = *(v135 + 236);
               v59 = displayMaxBrightnessInNits;
 LABEL_109:
               *&v49 = displayMaxBrightnessInNits;
-              v49 = setTargitBrightnessInMetaData(v137, v49, displayMinBrightnessInNits, v59, displayMinBrightnessInNits);
+              v49 = setTargitBrightnessInMetaData(v136, v49, displayMinBrightnessInNits, v59, displayMinBrightnessInNits);
               goto LABEL_110;
             }
 
@@ -4348,9 +4353,9 @@ LABEL_109:
               }
 
               *buf = 134218240;
-              *v140 = WORD1(v31);
-              *&v140[8] = 1024;
-              *v141 = var1.var0;
+              *v139 = WORD1(v31);
+              *&v139[8] = 1024;
+              *v140 = var1.var0;
               v32 = MEMORY[0x277D86220];
               v33 = " [1.450.54] #%04llx   !isMultipleOf2(region.size.width=%d)";
               goto LABEL_164;
@@ -4362,7 +4367,7 @@ LABEL_109:
             }
 
             *buf = 67109120;
-            *v140 = var1.var0;
+            *v139 = var1.var0;
             goto LABEL_273;
           }
 
@@ -4381,13 +4386,13 @@ LABEL_109:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218752;
-              *v140 = WORD1(v112);
-              *&v140[8] = 1024;
-              *v141 = var0.var0;
-              *&v141[4] = 1024;
-              *&v141[6] = var1.var0;
-              *&v141[10] = 1024;
-              *&v141[12] = Width;
+              *v139 = WORD1(v112);
+              *&v139[8] = 1024;
+              *v140 = var0.var0;
+              *&v140[4] = 1024;
+              *&v140[6] = var1.var0;
+              *&v140[10] = 1024;
+              *&v140[12] = Width;
               _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx   region.origin.x=%d + region.size.width=%d > texWidth=%d", buf, 0x1Eu);
             }
 
@@ -4402,11 +4407,11 @@ LABEL_109:
             }
 
             *buf = 67109632;
-            *v140 = var0.var0;
-            *&v140[4] = 1024;
-            *&v140[6] = var1.var0;
-            *v141 = 1024;
-            *&v141[2] = Width;
+            *v139 = var0.var0;
+            *&v139[4] = 1024;
+            *&v139[6] = var1.var0;
+            *v140 = 1024;
+            *&v140[2] = Width;
             _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]   region.origin.x=%d + region.size.width=%d > texWidth=%d", buf, 0x14u);
           }
 
@@ -4428,12 +4433,12 @@ LABEL_109:
             }
 
             *buf = 134218752;
-            *v140 = WORD1(v31);
-            *&v140[8] = 1024;
-            *v141 = var0.var1;
-            *&v141[4] = 1024;
-            *&v141[6] = var1.var1;
-            *&v141[10] = 1024;
+            *v139 = WORD1(v31);
+            *&v139[8] = 1024;
+            *v140 = var0.var1;
+            *&v140[4] = 1024;
+            *&v140[6] = var1.var1;
+            *&v140[10] = 1024;
             v86 = Height;
             goto LABEL_198;
           }
@@ -4442,10 +4447,10 @@ LABEL_288:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109632;
-            *v140 = var0.var1;
-            *&v140[4] = 1024;
-            *&v140[6] = var1.var1;
-            *v141 = 1024;
+            *v139 = var0.var1;
+            *&v139[4] = 1024;
+            *&v139[6] = var1.var1;
+            *v140 = 1024;
             v88 = Height;
             goto LABEL_210;
           }
@@ -4468,13 +4473,13 @@ LABEL_288:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218752;
-            *v140 = WORD1(v82);
-            *&v140[8] = 1024;
-            *v141 = v15.var0;
-            *&v141[4] = 1024;
-            *&v141[6] = v14.var0;
-            *&v141[10] = 1024;
-            *&v141[12] = v129;
+            *v139 = WORD1(v82);
+            *&v139[8] = 1024;
+            *v140 = v15.var0;
+            *&v140[4] = 1024;
+            *&v140[6] = v14.var0;
+            *&v140[10] = 1024;
+            *&v140[12] = v128;
             _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx   region.origin.x=%d + region.size.width=%d > texWidth=%d", buf, 0x1Eu);
           }
 
@@ -4489,11 +4494,11 @@ LABEL_288:
           }
 
           *buf = 67109632;
-          *v140 = v15.var0;
-          *&v140[4] = 1024;
-          *&v140[6] = v14.var0;
-          *v141 = 1024;
-          *&v141[2] = v129;
+          *v139 = v15.var0;
+          *&v139[4] = 1024;
+          *&v139[6] = v14.var0;
+          *v140 = 1024;
+          *&v140[2] = v128;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]   region.origin.x=%d + region.size.width=%d > texWidth=%d", buf, 0x14u);
         }
 
@@ -4515,15 +4520,15 @@ LABEL_288:
           }
 
           *buf = 134218752;
-          *v140 = WORD1(v31);
-          *&v140[8] = 1024;
-          *v141 = v23;
-          *&v141[4] = 1024;
-          *&v141[6] = v14.var1;
-          *&v141[10] = 1024;
-          v86 = v124;
+          *v139 = WORD1(v31);
+          *&v139[8] = 1024;
+          *v140 = v23;
+          *&v140[4] = 1024;
+          *&v140[6] = v14.var1;
+          *&v140[10] = 1024;
+          v86 = v123;
 LABEL_198:
-          *&v141[12] = v86;
+          *&v140[12] = v86;
           v32 = MEMORY[0x277D86220];
           v33 = " [1.450.54] #%04llx   region.origin.y=%d + region.size.height=%d > texHeight=%d";
           v34 = 30;
@@ -4534,13 +4539,13 @@ LABEL_208:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109632;
-          *v140 = v15.var1;
-          *&v140[4] = 1024;
-          *&v140[6] = v14.var1;
-          *v141 = 1024;
-          v88 = v124;
+          *v139 = v15.var1;
+          *&v139[4] = 1024;
+          *&v139[6] = v14.var1;
+          *v140 = 1024;
+          v88 = v123;
 LABEL_210:
-          *&v141[2] = v88;
+          *&v140[2] = v88;
           v55 = MEMORY[0x277D86220];
           v56 = " [1.450.54]   region.origin.y=%d + region.size.height=%d > texHeight=%d";
           v57 = 20;
@@ -4563,15 +4568,15 @@ LABEL_201:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134219008;
-            *v140 = WORD1(v87);
-            *&v140[8] = 1024;
-            *v141 = v129;
-            *&v141[4] = 1024;
-            *&v141[6] = v124;
-            *&v141[10] = 1024;
-            *&v141[12] = Width;
-            *&v141[16] = 1024;
-            *v142 = Height;
+            *v139 = WORD1(v87);
+            *&v139[8] = 1024;
+            *v140 = v128;
+            *&v140[4] = 1024;
+            *&v140[6] = v123;
+            *&v140[10] = 1024;
+            *&v140[12] = Width;
+            *&v140[16] = 1024;
+            *v141 = Height;
             _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx   videoSrcWidth=%d, videoSrcHeight=%d, dstWidth=%d, dstHeight=%d", buf, 0x24u);
           }
 
@@ -4579,7 +4584,7 @@ LABEL_201:
 LABEL_294:
           v22 = -17006;
 LABEL_295:
-          v20 = v126;
+          v20 = v125;
           goto LABEL_296;
         }
 
@@ -4587,13 +4592,13 @@ LABEL_292:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109888;
-          *v140 = v129;
-          *&v140[4] = 1024;
-          *&v140[6] = v124;
-          *v141 = 1024;
-          *&v141[2] = Width;
-          *&v141[6] = 1024;
-          *&v141[8] = Height;
+          *v139 = v128;
+          *&v139[4] = 1024;
+          *&v139[6] = v123;
+          *v140 = 1024;
+          *&v140[2] = Width;
+          *&v140[6] = 1024;
+          *&v140[8] = Height;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]   videoSrcWidth=%d, videoSrcHeight=%d, dstWidth=%d, dstHeight=%d", buf, 0x1Au);
         }
 
@@ -4618,9 +4623,9 @@ LABEL_292:
         }
 
         *buf = 134218240;
-        *v140 = WORD1(v31);
-        *&v140[8] = 1024;
-        *v141 = var0.var0;
+        *v139 = WORD1(v31);
+        *&v139[8] = 1024;
+        *v140 = var0.var0;
         v32 = MEMORY[0x277D86220];
         v33 = " [1.450.54] #%04llx   !isMultipleOf2(region.origin.x=%d)";
 LABEL_164:
@@ -4638,7 +4643,7 @@ LABEL_200:
       }
 
       *buf = 67109120;
-      *v140 = var0.var0;
+      *v139 = var0.var0;
     }
 
     v55 = MEMORY[0x277D86220];
@@ -4663,14 +4668,14 @@ LABEL_106:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134219008;
-      *v140 = WORD1(v21);
+      *v139 = WORD1(v21);
+      *&v139[8] = 2048;
+      *v140 = bufferCopy;
       *&v140[8] = 2048;
-      *v141 = bufferCopy;
-      *&v141[8] = 2048;
-      *&v141[10] = output;
-      *v142 = 2048;
-      *&v142[2] = video;
-      v143 = 2048;
+      *&v140[10] = output;
+      *v141 = 2048;
+      *&v141[2] = video;
+      v142 = 2048;
       uiCopy3 = ui;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx   commanBuffer=%p, output=%p, input=%p ui=%p", buf, 0x34u);
     }
@@ -4681,20 +4686,19 @@ LABEL_106:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
-    *v140 = bufferCopy;
+    *v139 = bufferCopy;
+    *&v139[8] = 2048;
+    *v140 = output;
     *&v140[8] = 2048;
-    *v141 = output;
-    *&v141[8] = 2048;
-    *&v141[10] = video;
-    *v142 = 2048;
-    *&v142[2] = ui;
+    *&v140[10] = video;
+    *v141 = 2048;
+    *&v141[2] = ui;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]   commanBuffer=%p, output=%p, input=%p ui=%p", buf, 0x2Au);
   }
 
   v22 = -17006;
 LABEL_296:
 
-  v113 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -4924,6 +4928,121 @@ LABEL_40:
   return default;
 }
 
+- (void)setupTexturesWithInput:(__IOSurface *)input VideoSRGB:(BOOL)b UI:(__IOSurface *)i UISRGB:(BOOL)gB Output:(__IOSurface *)output PixelPerThread:(int)thread ptvMode:(BOOL)mode
+{
+  bCopy = b;
+  v15 = 0x277CD7000uLL;
+  if (i)
+  {
+    v16 = [(HDRBackwardDisplayManagement *)self getPixelFormatFromSurface:i DeGamma:gB forceUseOnePlane:input == 0 default:80];
+    v17 = MEMORY[0x277CD7058];
+    Width = IOSurfaceGetWidth(i);
+    v19 = [v17 texture2DDescriptorWithPixelFormat:v16 width:Width height:IOSurfaceGetHeight(i) mipmapped:0];
+    v20 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v19 iosurface:i plane:0];
+    uiTexture = self->_uiTexture;
+    self->_uiTexture = v20;
+
+    v15 = 0x277CD7000;
+  }
+
+  else
+  {
+    v19 = self->_uiTexture;
+    self->_uiTexture = 0;
+  }
+
+  PlaneCount = IOSurfaceGetPlaneCount(input);
+  if (!input || PlaneCount == 3)
+  {
+    if (input)
+    {
+      if (thread == 2)
+      {
+        v27 = 103;
+      }
+
+      else
+      {
+        v27 = 53;
+      }
+
+      v29 = 23;
+      if (thread == 2)
+      {
+        v29 = 63;
+      }
+
+      v30 = 25;
+      if (thread == 2)
+      {
+        v30 = 65;
+      }
+
+      if (mode)
+      {
+        v31 = v29;
+      }
+
+      else
+      {
+        v31 = v30;
+      }
+
+      v28 = [*(v15 + 88) texture2DDescriptorWithPixelFormat:v31 width:self->_width / thread height:self->_height mipmapped:0];
+      v32 = 0;
+      inputTexture = self->_inputTexture;
+      v41 = v28;
+      do
+      {
+        v34 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v28 iosurface:input plane:v32];
+        v35 = inputTexture[v32];
+        inputTexture[v32] = v34;
+
+        ++v32;
+        v28 = v41;
+      }
+
+      while (v32 != 3);
+    }
+
+    else
+    {
+      v36 = self->_inputTexture[0];
+      self->_inputTexture[0] = 0;
+
+      v37 = self->_inputTexture[1];
+      self->_inputTexture[1] = 0;
+
+      v28 = self->_inputTexture[2];
+      self->_inputTexture[2] = 0;
+      v27 = 53;
+    }
+  }
+
+  else
+  {
+    v40 = [*(v15 + 88) texture2DDescriptorWithPixelFormat:-[HDRBackwardDisplayManagement getPixelFormatFromSurface:DeGamma:forceUseOnePlane:default:](self width:"getPixelFormatFromSurface:DeGamma:forceUseOnePlane:default:" height:input mipmapped:bCopy, i == 0, 115), self->_width, self->_height, 0];
+    v23 = [MTLDeviceSPI newTextureWithDescriptor:"newTextureWithDescriptor:iosurface:plane:" iosurface:? plane:?];
+    v24 = self->_inputTexture[0];
+    self->_inputTexture[0] = v23;
+
+    v25 = self->_inputTexture[1];
+    self->_inputTexture[1] = 0;
+
+    v26 = self->_inputTexture[2];
+    self->_inputTexture[2] = 0;
+
+    v27 = 53;
+    v28 = v40;
+  }
+
+  v42 = [*(v15 + 88) texture2DDescriptorWithPixelFormat:v27 width:self->_targetWidth / thread height:self->_targetHeight mipmapped:0];
+  [v42 setUsage:4];
+  v38 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v42 iosurface:output plane:0];
+  outputTexture = self->_outputTexture;
+  self->_outputTexture = v38;
+}
+
 - (void)setupMetadataTextureWithOutput:(__IOSurface *)output
 {
   v7 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:53 width:self->_targetWidth height:self->_targetHeight mipmapped:0];
@@ -4968,57 +5087,29 @@ LABEL_40:
 
 - (void)attatchInfoFrame:(id *)frame toOutputSurface:(__IOSurface *)surface
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.var8 = unk_2508CE738;
-  if (frame->var18.var2 && frame->var19.var0)
-  {
-    v9 = frame->var18;
-LABEL_7:
-    var19 = frame->var19;
-    goto LABEL_10;
-  }
-
-  if (frame->var18.var9 && frame->var19.var0)
-  {
-    *&v9.var8 = *&frame->var18.var8;
-    goto LABEL_7;
-  }
-
-  var14 = frame->var14;
-  if (var14 >= 0x3E8)
-  {
-    v9.var8 = 10000 * var14;
-    v9.var9 = (frame->var15 * 10000.0);
-  }
-
-LABEL_10:
-  if (frame->var20 && v9.var8 >= 10000 * frame->var14)
-  {
-    v6 = 10000 * frame->var14;
-  }
-
+  v7 = *MEMORY[0x277D85DE8];
   if (IOSurfaceSetBulkAttachments2())
   {
     if (enableLogInstance)
     {
       if (logInstanceID)
       {
-        v7 = logInstanceID;
+        v4 = logInstanceID;
       }
 
       else
       {
-        v7 = prevLogInstanceID;
+        v4 = prevLogInstanceID;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v11 = WORD1(v7);
+        v6 = WORD1(v4);
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: retVal == 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 4500\n", buf, 0xCu);
       }
 
-      prevLogInstanceID = v7;
+      prevLogInstanceID = v4;
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -5027,8 +5118,6 @@ LABEL_10:
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: retVal == 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/BackwardDisplayManagement/HDRBackwardDisplayManagement.mm at line 4500\n", buf, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

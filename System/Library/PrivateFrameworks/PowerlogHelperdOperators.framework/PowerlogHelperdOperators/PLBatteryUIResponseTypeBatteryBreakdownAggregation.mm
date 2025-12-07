@@ -128,43 +128,44 @@ LABEL_21:
           v14 = [v5 objectForKeyedSubscript:v10];
           intValue2 = [v14 intValue];
 
-          if ([(PLBatteryUIResponseTypeBatteryBreakdownAggregation *)self isForegroundOnlyBucket:v6])
+          v16 = [(PLBatteryUIResponseTypeBatteryBreakdownAggregation *)self isForegroundOnlyBucket:v6];
+          if (v16)
           {
             intValue2 = intValue;
             if (intValue >= 1)
             {
-              v16 = [MEMORY[0x277CCABB0] numberWithInt:intValue];
-              [v5 setObject:v16 forKeyedSubscript:v10];
+              v17 = [MEMORY[0x277CCABB0] numberWithInt:intValue];
+              [v5 setObject:v17 forKeyedSubscript:v10];
 
               intValue2 = intValue;
             }
           }
 
-          v17 = (intValue - intValue2);
-          if (v17 >= 1)
+          v18 = (intValue - intValue2);
+          if (v18 >= 1)
           {
-            v18 = [v5 objectForKeyedSubscript:@"PLBatteryUIAppBackgroundRuntimeKey"];
-            [v18 doubleValue];
-            v20 = v19;
+            v19 = [v5 objectForKeyedSubscript:@"PLBatteryUIAppBackgroundRuntimeKey"];
+            [v19 doubleValue];
+            v21 = v20;
 
-            v21 = [v5 objectForKeyedSubscript:@"PLBatteryUIAppForegroundRuntimeKey"];
-            [v21 doubleValue];
-            v23 = v22;
+            v22 = [v5 objectForKeyedSubscript:@"PLBatteryUIAppForegroundRuntimeKey"];
+            [v22 doubleValue];
+            v24 = v23;
 
-            v24 = v20 + v23;
-            if (v20 + v23 <= 0.0 || ((v24 = v20 / v24 * intValue, v25 = v24, v17 >= v24) ? (v17 = v25) : (v17 = v17), v25 >= 1))
+            v25 = v21 + v24;
+            if (v21 + v24 <= 0.0 || ((v25 = v21 / v25 * intValue, v26 = v25, v18 >= v25) ? (v18 = v26) : (v18 = v18), v26 >= 1))
             {
-              v26 = [MEMORY[0x277CCABB0] numberWithInt:{v17, v24}];
-              [v5 setObject:v26 forKeyedSubscript:v11];
+              v27 = [MEMORY[0x277CCABB0] numberWithInt:{v18, v25}];
+              [v5 setObject:v27 forKeyedSubscript:v11];
 
-              intValue2 = intValue - v17;
-              v27 = [MEMORY[0x277CCABB0] numberWithInt:(intValue - v17)];
-              [v5 setObject:v27 forKeyedSubscript:v10];
+              intValue2 = intValue - v18;
+              v28 = [MEMORY[0x277CCABB0] numberWithInt:(intValue - v18)];
+              [v5 setObject:v28 forKeyedSubscript:v10];
             }
           }
 
-          v28 = PLLogCommon();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v29 = PLLogCommon(v16);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             v37 = [v5 objectForKeyedSubscript:@"PLBatteryUIAppBundleIDKey"];
             *buf = 138413314;
@@ -176,14 +177,14 @@ LABEL_21:
             v49 = 1024;
             v50 = intValue2;
             v51 = 1024;
-            v52 = v17;
-            _os_log_debug_impl(&dword_25EE51000, v28, OS_LOG_TYPE_DEBUG, "%@: %@ total:%d fg:%d bg:%d", buf, 0x28u);
+            v52 = v18;
+            _os_log_debug_impl(&dword_25EE51000, v29, OS_LOG_TYPE_DEBUG, "%@: %@ total:%d fg:%d bg:%d", buf, 0x28u);
           }
 
-          v29 = v6++;
+          v30 = v6++;
         }
 
-        while (v29 < 0x11);
+        while (v30 < 0x11);
         [array addObject:v5];
         v4 = v36 + 1;
       }
@@ -196,7 +197,6 @@ LABEL_21:
   }
 
   [v31 setObject:array forKeyedSubscript:@"PLBatteryUIAppArrayKey"];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRNEForMetrics:(id)metrics rootNodeEnergy:(id)energy energyEntry:(id)entry
@@ -398,29 +398,29 @@ LABEL_21:
 
 - (void)filterEnergyEntries:(id)entries
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = [entriesCopy objectForKeyedSubscript:{@"PLBatteryUIAppArrayKey", 0}];
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"PLBatteryUIAppTypeKey"];
         intValue = [v11 intValue];
 
@@ -430,14 +430,13 @@ LABEL_21:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   [entriesCopy setObject:array forKeyedSubscript:@"PLBatteryUIAppArrayKey"];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

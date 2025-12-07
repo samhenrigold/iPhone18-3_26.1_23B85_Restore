@@ -107,7 +107,6 @@
     m_target = self->m_target;
     if (m_action)
     {
-      v6 = self->m_action;
       [m_target m_action];
     }
 

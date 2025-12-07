@@ -16,11 +16,10 @@
   *(v7 + 1) = 0u;
   *(v7 + 4) = 0;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC19HealthMedicationsUI25MedicationCategoryTipCell_tipView) = 0;
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for MedicationCategoryTipCell();
-  height = [(MedicationCategoryTipCell *)&v11 initWithFrame:x, y, width, height];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for MedicationCategoryTipCell();
+  height = [(MedicationCategoryTipCell *)&v10 initWithFrame:x, y, width, height];
   sub_22838F7B0();
-  v9 = *MEMORY[0x277CDA138];
   sub_228392B00();
 
   return height;

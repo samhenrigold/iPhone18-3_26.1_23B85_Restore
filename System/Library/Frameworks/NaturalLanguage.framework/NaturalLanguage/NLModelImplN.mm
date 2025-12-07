@@ -49,7 +49,7 @@
 
 - (NLModelImplN)initWithModelData:(id)data configuration:(id)configuration labelMap:(id)map vocabularyMap:(id)vocabularyMap documentFrequencyMap:(id)frequencyMap customEmbeddingData:(id)embeddingData trainingInfo:(id)info error:(id *)self0
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   configurationCopy = configuration;
   mapCopy = map;
@@ -57,8 +57,8 @@
   frequencyMapCopy = frequencyMap;
   embeddingDataCopy = embeddingData;
   infoCopy = info;
-  v33[0] = dataCopy;
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+  v32[0] = dataCopy;
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
   v23 = NLModelContainerCreate();
   if (v23)
   {
@@ -73,31 +73,30 @@
   {
     if (error)
     {
-      v30 = MEMORY[0x1E696ABC0];
-      v31 = *MEMORY[0x1E696A578];
-      v32 = @"Failed to load model file, invalid CRF model data";
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-      *error = [v30 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v27];
+      v29 = MEMORY[0x1E696ABC0];
+      v30 = *MEMORY[0x1E696A578];
+      v31 = @"Failed to load model file, invalid CRF model data";
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      *error = [v29 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v27];
     }
 
     selfCopy = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NLModelImplN)initWithModelTrainer:(id)trainer error:(id *)error
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   trainerCopy = trainer;
   configuration = [trainerCopy configuration];
   dataSet = [trainerCopy dataSet];
-  v55 = xmmword_19D4E9090;
-  v56 = vdupq_n_s64(0x400uLL);
-  v57 = xmmword_19D4E9510;
-  v46 = [NLDataSet dataSetWithDataSet:dataSet constraintParameters:&v55 modelTrainer:trainerCopy];
-  inverseLabelMap = [v46 inverseLabelMap];
+  v54 = xmmword_19D4E9090;
+  v55 = vdupq_n_s64(0x400uLL);
+  v56 = xmmword_19D4E9510;
+  v45 = [NLDataSet dataSetWithDataSet:dataSet constraintParameters:&v54 modelTrainer:trainerCopy];
+  inverseLabelMap = [v45 inverseLabelMap];
   numberOfTrainingInstances = [dataSet numberOfTrainingInstances];
   options = [trainerCopy options];
   v5 = unsignedIntegerForKey(options, @"MaximumIterations", 25);
@@ -107,41 +106,37 @@
     [NLModelImplN initWithModelTrainer:error:];
   }
 
-  if ([v46 numberOfTrainingInstances])
+  if ([v45 numberOfTrainingInstances])
   {
     v6 = MEMORY[0x1E695DF90];
     v7 = MEMORY[0x1E696AD98];
-    v42 = trainerCopy;
+    v41 = trainerCopy;
     v8 = [v7 numberWithInteger:1];
-    v44 = [v6 dictionaryWithObject:v8 forKey:*MEMORY[0x1E69981B8]];
+    v43 = [v6 dictionaryWithObject:v8 forKey:*MEMORY[0x1E69981B8]];
 
-    configuration2 = [v42 configuration];
+    configuration2 = [v41 configuration];
 
     language = [configuration2 language];
 
     v11 = [MEMORY[0x1E696AD98] numberWithInteger:20 * v5];
-    [v44 setObject:v11 forKey:*MEMORY[0x1E69981B0]];
+    [v43 setObject:v11 forKey:*MEMORY[0x1E69981B0]];
 
     if (language)
     {
-      [v44 setObject:language forKey:*MEMORY[0x1E69981A8]];
+      [v43 setObject:language forKey:*MEMORY[0x1E69981A8]];
     }
 
     cf = NLModelTrainerCreate();
     if (cf)
     {
       v12 = [NLDataEnumerator alloc];
-      v13 = [v46 dataProviderOfType:0];
-      v37 = [(NLDataEnumerator *)v12 initWithDataProvider:v13];
+      v13 = [v45 dataProviderOfType:0];
+      v36 = [(NLDataEnumerator *)v12 initWithDataProvider:v13];
 
-      *&v55 = 0;
-      *(&v55 + 1) = &v55;
-      v56.i64[0] = 0x2020000000;
-      v56.i64[1] = CFAbsoluteTimeGetCurrent();
-      v54[0] = 0;
-      v54[1] = v54;
-      v54[2] = 0x2020000000;
-      v54[3] = 0;
+      *&v54 = 0;
+      *(&v54 + 1) = &v54;
+      v55.i64[0] = 0x2020000000;
+      v55.i64[1] = CFAbsoluteTimeGetCurrent();
       v53[0] = 0;
       v53[1] = v53;
       v53[2] = 0x2020000000;
@@ -158,21 +153,25 @@
       v50[1] = v50;
       v50[2] = 0x2020000000;
       v50[3] = 0;
-      v48[0] = 0;
-      v48[1] = v48;
-      v48[2] = 0x2020000000;
-      v49 = 0;
-      [v46 numberOfTrainingInstances];
-      if ([v46 numberOfValidationInstances])
+      v49[0] = 0;
+      v49[1] = v49;
+      v49[2] = 0x2020000000;
+      v49[3] = 0;
+      v47[0] = 0;
+      v47[1] = v47;
+      v47[2] = 0x2020000000;
+      v48 = 0;
+      [v45 numberOfTrainingInstances];
+      if ([v45 numberOfValidationInstances])
       {
         v14 = [NLDataEnumerator alloc];
-        v15 = [v46 dataProviderOfType:1];
-        v36 = [(NLDataEnumerator *)v14 initWithDataProvider:v15];
+        v15 = [v45 dataProviderOfType:1];
+        v35 = [(NLDataEnumerator *)v14 initWithDataProvider:v15];
       }
 
       else
       {
-        v36 = 0;
+        v35 = 0;
       }
 
       v16 = objc_autoreleasePoolPush();
@@ -182,7 +181,7 @@
       if (os_log_type_enabled(internal, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v61 = 0;
+        v60 = 0;
         _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_INFO, "event: %lu", buf, 0xCu);
       }
 
@@ -199,18 +198,18 @@
           v24 = v23;
           uTF8String = [v23 UTF8String];
           *buf = 134218498;
-          v61 = 1;
-          v62 = 2048;
-          v63 = i;
-          v64 = 2082;
-          v65 = uTF8String;
+          v60 = 1;
+          v61 = 2048;
+          v62 = i;
+          v63 = 2082;
+          v64 = uTF8String;
           _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_INFO, "event: %lu, column: %lu, value: %{public}s", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v20);
       }
 
-      v26 = v42;
+      v26 = v41;
       v27 = NLModelTrainerTrainAndCopyContainer();
       v28 = objc_autoreleasePoolPush();
       v29 = NLGetLogCategory(0);
@@ -219,29 +218,29 @@
       if (os_log_type_enabled(internal3, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v61 = 3;
+        v60 = 3;
         _os_log_impl(&dword_19D48F000, internal3, OS_LOG_TYPE_INFO, "event: %lu", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v28);
-      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Finished CRF training in %.2f seconds", CFAbsoluteTimeGetCurrent() - *(*(&v55 + 1) + 24)];
+      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Finished CRF training in %.2f seconds", CFAbsoluteTimeGetCurrent() - *(*(&v54 + 1) + 24)];
       [v26 logMessage:v31];
 
       CFRelease(cf);
-      _Block_object_dispose(v48, 8);
+      _Block_object_dispose(v47, 8);
+      _Block_object_dispose(v49, 8);
       _Block_object_dispose(v50, 8);
       _Block_object_dispose(v51, 8);
       _Block_object_dispose(v52, 8);
       _Block_object_dispose(v53, 8);
-      _Block_object_dispose(v54, 8);
-      _Block_object_dispose(&v55, 8);
+      _Block_object_dispose(&v54, 8);
 
       if (v27)
       {
-        v58 = 0x1F10C67C0;
+        v57 = 0x1F10C67C0;
         v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:numberOfTrainingInstances];
-        v59 = v32;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v58 = v32;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
         self = [(NLModelImplN *)self initWithModelContainer:v27 configuration:configuration labelMap:inverseLabelMap vocabularyMap:0 documentFrequencyMap:0 customEmbeddingData:0 trainingInfo:v33];
 
         CFRelease(v27);
@@ -253,7 +252,6 @@
     }
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -266,7 +264,7 @@ uint64_t __43__NLModelImplN_initWithModelTrainer_error___block_invoke()
 
 void __43__NLModelImplN_initWithModelTrainer_error___block_invoke_13(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ([v5 hasPrefix:@"***** Iteration #"])
   {
@@ -282,11 +280,11 @@ void __43__NLModelImplN_initWithModelTrainer_error___block_invoke_13(uint64_t a1
       {
         v13 = *(a1 + 96) - *(*(*(a1 + 48) + 8) + 24);
         *buf = 134218496;
-        v35 = 2;
-        v36 = 2048;
-        v37 = 0;
-        v38 = 2048;
-        v39 = v13;
+        v34 = 2;
+        v35 = 2048;
+        v36 = 0;
+        v37 = 2048;
+        v38 = v13;
         _os_log_impl(&dword_19D48F000, v12, OS_LOG_TYPE_INFO, "event: %lu, column: %lu, value: %ld", buf, 0x20u);
       }
 
@@ -299,11 +297,11 @@ void __43__NLModelImplN_initWithModelTrainer_error___block_invoke_13(uint64_t a1
       {
         v17 = *(*(*(a1 + 56) + 8) + 24);
         *buf = 134218496;
-        v35 = 2;
-        v36 = 2048;
-        v37 = 1;
-        v38 = 2048;
-        v39 = v17;
+        v34 = 2;
+        v35 = 2048;
+        v36 = 1;
+        v37 = 2048;
+        v38 = v17;
         _os_log_impl(&dword_19D48F000, v16, OS_LOG_TYPE_INFO, "event: %lu, column: %lu, value: %f", buf, 0x20u);
       }
 
@@ -388,17 +386,17 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v32 = *(*(*(a1 + 80) + 8) + 24);
+    v31 = *(*(*(a1 + 80) + 8) + 24);
 
-    if (v32 <= 0x31)
+    if (v31 <= 0x31)
     {
-      v33 = *(*(*(a1 + 88) + 8) + 24);
+      v32 = *(*(*(a1 + 88) + 8) + 24);
       v6 = *(a1 + 104);
       v8 = *(*(a1 + 80) + 8);
-      for (i = *(v8 + 24) + 1; 50 * v33 < (i * v6); i = *(v8 + 24) + 1)
+      for (i = *(v8 + 24) + 1; 50 * v32 < (i * v6); i = *(v8 + 24) + 1)
       {
-        reportInstanceCompletionToTrainer(*(a1 + 32), v33, v6, 2);
-        v33 = ++*(*(*(a1 + 88) + 8) + 24);
+        reportInstanceCompletionToTrainer(*(a1 + 32), v32, v6, 2);
+        v32 = ++*(*(*(a1 + 88) + 8) + 24);
         v6 = *(a1 + 104);
         v8 = *(*(a1 + 80) + 8);
       }
@@ -412,8 +410,6 @@ LABEL_22:
   {
     *a3 = 1;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -439,36 +435,33 @@ LABEL_22:
 {
   if (self->_modelContainer && NLModelContainerGetModelDataCount() >= 1)
   {
-    modelContainer = self->_modelContainer;
-    v4 = NLModelContainerCopyModelDataAtIndex();
-    v5 = MEMORY[0x1E695DEF0];
-    BytePtr = CFDataGetBytePtr(v4);
-    v7 = [v5 dataWithBytes:BytePtr length:CFDataGetLength(v4)];
-    CFRelease(v4);
+    v2 = NLModelContainerCopyModelDataAtIndex();
+    v3 = MEMORY[0x1E695DEF0];
+    BytePtr = CFDataGetBytePtr(v2);
+    v5 = [v3 dataWithBytes:BytePtr length:CFDataGetLength(v2)];
+    CFRelease(v2);
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  return v7;
+  return v5;
 }
 
 - (id)predictedLabelsDictionaryForString:(id)string
 {
-  nlModel = self->_nlModel;
-  v4 = NLModelCopyPredictedLabels();
+  v3 = NLModelCopyPredictedLabels();
 
-  return v4;
+  return v3;
 }
 
 - (id)predictedLabelHypothesesDictionaryForString:(id)string maximumCount:(unint64_t)count
 {
-  nlModel = self->_nlModel;
-  v5 = NLModelCopyPredictedLabelsAndProbabilities();
+  v4 = NLModelCopyPredictedLabelsAndProbabilities();
 
-  return v5;
+  return v4;
 }
 
 - (id)predictedLabelsForTokens:(id)tokens
@@ -748,33 +741,33 @@ LABEL_20:
 
 - (id)predictedLabelForString:(id)string
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v20 = [(NLModelImplN *)self predictedLabelsDictionaryForString:?];
-  v4 = [v20 objectForKey:*MEMORY[0x1E6998160]];
+  v19 = [(NLModelImplN *)self predictedLabelsDictionaryForString:?];
+  v4 = [v19 objectForKey:*MEMORY[0x1E6998160]];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = v4;
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         v13 = [dictionary objectForKey:v12];
         unsignedIntegerValue = [v13 unsignedIntegerValue];
 
@@ -791,7 +784,7 @@ LABEL_20:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
@@ -802,25 +795,23 @@ LABEL_20:
     v9 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)predictedLabelHypothesesForString:(id)string maximumCount:(unint64_t)count
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v4 = [(NLModelImplN *)self predictedLabelHypothesesDictionaryForString:string maximumCount:?];
   v5 = [v4 objectForKey:*MEMORY[0x1E6998168]];
-  v41 = v4;
+  v40 = v4;
   v6 = [v4 objectForKey:*MEMORY[0x1E6998170]];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v44 = v6;
+  v43 = v6;
   if ([v5 count])
   {
     v8 = 0;
-    v43 = v5;
+    v42 = v5;
     do
     {
       if (v8 >= [v6 count])
@@ -857,19 +848,19 @@ LABEL_20:
       }
 
       ++v8;
-      v5 = v43;
-      v6 = v44;
+      v5 = v42;
+      v6 = v43;
     }
 
-    while (v8 < [v43 count]);
+    while (v8 < [v42 count]);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v20 = dictionary;
-  v21 = [v20 countByEnumeratingWithState:&v47 objects:v51 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v46 objects:v50 count:16];
   v22 = v20;
   if (!v21)
   {
@@ -877,23 +868,23 @@ LABEL_20:
   }
 
   v23 = v21;
-  v24 = *v48;
+  v24 = *v47;
   v25 = 0.0;
   do
   {
     for (i = 0; i != v23; ++i)
     {
-      if (*v48 != v24)
+      if (*v47 != v24)
       {
         objc_enumerationMutation(v20);
       }
 
-      v27 = [v20 objectForKey:*(*(&v47 + 1) + 8 * i)];
+      v27 = [v20 objectForKey:*(*(&v46 + 1) + 8 * i)];
       [v27 doubleValue];
       v25 = v25 + v28;
     }
 
-    v23 = [v20 countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v23 = [v20 countByEnumeratingWithState:&v46 objects:v50 count:16];
   }
 
   while (v23);
@@ -901,13 +892,13 @@ LABEL_20:
   if (count && v25 > 0.0)
   {
     allKeys = [v20 allKeys];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __63__NLModelImplN_predictedLabelHypothesesForString_maximumCount___block_invoke;
-    v45[3] = &unk_1E7628EA8;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __63__NLModelImplN_predictedLabelHypothesesForString_maximumCount___block_invoke;
+    v44[3] = &unk_1E7628EA8;
     v30 = v20;
-    v46 = v30;
-    v31 = [allKeys sortedArrayUsingComparator:v45];
+    v45 = v30;
+    v31 = [allKeys sortedArrayUsingComparator:v44];
 
     v32 = 0;
     do
@@ -929,12 +920,10 @@ LABEL_20:
 
     while (count != v32);
 
-    v22 = v46;
-    v6 = v44;
+    v22 = v45;
+    v6 = v43;
 LABEL_22:
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return dictionary2;
 }

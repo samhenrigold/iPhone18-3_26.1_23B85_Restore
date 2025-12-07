@@ -66,11 +66,11 @@
 
 - (void)setViewControllers:(id)controllers
 {
-  sub_13C80(0, &qword_DE7500);
-  sub_AB9760();
+  sub_13C80(0, &qword_DE7500, UIViewController_ptr);
+  v5 = sub_AB9760();
   controllersCopy = controllers;
   selfCopy = self;
-  sub_429608();
+  sub_429608(v5);
 }
 
 - (void)viewDidLoad

@@ -200,22 +200,22 @@
   v23 = v22;
   if (v10)
   {
-    [v22 setImageData:v10];
+    v22 = [v22 setImageData:v10];
   }
 
   if (v7)
   {
-    v24 = getCNContactThumbnailImageDataKey();
+    v24 = getCNContactThumbnailImageDataKey(v22);
     [v23 setValue:v7 forKey:v24];
 
     v25 = [MEMORY[0x1E696B098] valueWithRect:{v15, v17, v19, v21}];
-    v26 = getCNContactCropRectKey();
+    v26 = getCNContactCropRectKey(v25);
     [v23 setValue:v25 forKey:v26];
   }
 
   if (v9)
   {
-    v27 = getCNContactFullscreenImageDataKey();
+    v27 = getCNContactFullscreenImageDataKey(v22);
     [v23 setValue:v9 forKey:v27];
   }
 

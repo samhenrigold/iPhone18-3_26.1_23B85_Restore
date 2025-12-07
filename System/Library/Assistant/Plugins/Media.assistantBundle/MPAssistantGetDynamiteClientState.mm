@@ -6,38 +6,36 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(MEMORY[0x277D477E0]);
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v6, v7, v8, v9))
   {
-    aceId = [(MPAssistantGetDynamiteClientState *)self aceId];
-    v7 = sub_233505670(@"Get Dynamite Client State", aceId);
+    v14 = objc_msgSend_aceId(self, v10, v11, v12, v13);
+    v15 = sub_233505670(@"Get Dynamite Client State", v14);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v7;
+    self->_requestAceHash = v15;
   }
 
-  v9 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v17 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = self->_requestAceHash;
+    v18 = self->_requestAceHash;
     *buf = 138543362;
-    v18 = v10;
-    _os_log_impl(&dword_2334D9000, v9, OS_LOG_TYPE_DEFAULT, "Get Dynamite Client State (invoke) <%{public}@>: invoked", buf, 0xCu);
+    v25 = v18;
+    _os_log_impl(&dword_2334D9000, v17, OS_LOG_TYPE_DEFAULT, "Get Dynamite Client State (invoke) <%{public}@>: invoked", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_2334E7C10;
-  v14[3] = &unk_2789DAEF0;
-  v14[4] = self;
-  v15 = v5;
-  v16 = completionCopy;
-  v11 = completionCopy;
-  v12 = v5;
-  sub_2334E7C10(v14, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_2334E7C10;
+  v21[3] = &unk_2789DAEF0;
+  v21[4] = self;
+  v22 = v5;
+  v23 = completionCopy;
+  v19 = completionCopy;
+  v20 = v5;
+  sub_2334E7C10(v21, 0);
 }
 
 @end

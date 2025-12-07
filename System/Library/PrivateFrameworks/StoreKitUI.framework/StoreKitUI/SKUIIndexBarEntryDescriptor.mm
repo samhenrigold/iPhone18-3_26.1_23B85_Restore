@@ -7,6 +7,7 @@
 - (CGSize)size;
 - (UIEdgeInsets)contentEdgeInsets;
 - (unint64_t)hash;
+- (void)hash;
 - (void)setArtwork:(id)artwork;
 - (void)setAttributedString:(id)string;
 - (void)setImage:(id)image;
@@ -262,6 +263,60 @@ LABEL_21:
   result.height = height;
   result.width = width;
   return result;
+}
+
+- (void)hash
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryDescriptor hash]";
+}
+
+- (void)isEqual:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryDescriptor isEqual:]";
+}
+
++ (void)entryDescriptorWithArtwork:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntryDescriptor entryDescriptorWithArtwork:]";
+}
+
++ (void)entryDescriptorWithAttributedString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntryDescriptor entryDescriptorWithAttributedString:]";
+}
+
++ (void)entryDescriptorWithImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntryDescriptor entryDescriptorWithImage:]";
+}
+
++ (void)placeholderEntryDescriptorWithSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntryDescriptor placeholderEntryDescriptorWithSize:]";
+}
+
+- (void)setArtwork:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryDescriptor setArtwork:]";
+}
+
+- (void)setAttributedString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryDescriptor setAttributedString:]";
+}
+
+- (void)setImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryDescriptor setImage:]";
 }
 
 @end

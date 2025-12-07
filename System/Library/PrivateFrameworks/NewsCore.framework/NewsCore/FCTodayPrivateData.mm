@@ -66,32 +66,31 @@
 
 - (FCTodayPrivateData)initWithDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   if (!dictionaryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dictionary"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dictionary"];
     *buf = 136315906;
-    v13 = "[FCTodayPrivateData initWithDictionary:]";
-    v14 = 2080;
-    v15 = "FCFileCoordinatedTodayDropbox.m";
-    v16 = 1024;
-    v17 = 144;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCTodayPrivateData initWithDictionary:]";
+    v13 = 2080;
+    v14 = "FCFileCoordinatedTodayDropbox.m";
+    v15 = 1024;
+    v16 = 144;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCTodayPrivateData;
-  v6 = [(FCTodayPrivateData *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCTodayPrivateData;
+  v6 = [(FCTodayPrivateData *)&v10 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_dictionary, dictionary);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -287,9 +287,9 @@
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v11 copy];
@@ -323,9 +323,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UIImage *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(UIImage *)v12 copy];
@@ -360,9 +360,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UIImage *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(UIImage *)v12 copy];
@@ -397,9 +397,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v10 copy];
@@ -430,9 +430,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v11 copy];
@@ -556,10 +556,10 @@ LABEL_13:
     goto LABEL_12;
   }
 
-  v9 = [(NSArray *)v13 isEqual:v8];
+  isEqual = objc_msgSend_isEqual_(v13);
 
   v10 = v13;
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_12:
     v12 = v10;
@@ -620,9 +620,9 @@ LABEL_14:
               goto LABEL_20;
             }
 
-            v15 = [badgeValue isEqual:v13];
+            isEqual = objc_msgSend_isEqual_(badgeValue);
 
-            if ((v15 & 1) == 0)
+            if ((isEqual & 1) == 0)
             {
               goto LABEL_6;
             }
@@ -674,7 +674,7 @@ LABEL_21:
 
           if (badgeValue && v18)
           {
-            v19 = [badgeValue isEqual:v18];
+            v19 = objc_msgSend_isEqual_(badgeValue);
 
             if ((v19 & 1) == 0)
             {
@@ -718,9 +718,9 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v8 = [(_UITabAlternateRepresentation *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->__compactRepresentation, representation);
@@ -759,9 +759,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v11 copy];
@@ -785,15 +785,15 @@ LABEL_9:
   v7 = v6;
   if (accessibilityLabel == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v6 && accessibilityLabel)
     {
-      v8 = [accessibilityLabel isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(accessibilityLabel);
     }
   }
 
@@ -803,7 +803,7 @@ LABEL_9:
   _linkedTabBarItem = [(UITab *)self _linkedTabBarItem];
   [_linkedTabBarItem setAccessibilityLabel:v7];
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UITab *)self _contentDidChange];
   }
@@ -817,15 +817,15 @@ LABEL_9:
   v7 = v6;
   if (accessibilityAttributedLabel == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v6 && accessibilityAttributedLabel)
     {
-      v8 = [accessibilityAttributedLabel isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(accessibilityAttributedLabel);
     }
   }
 
@@ -835,7 +835,7 @@ LABEL_9:
   _linkedTabBarItem = [(UITab *)self _linkedTabBarItem];
   [_linkedTabBarItem setAccessibilityAttributedLabel:v7];
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UITab *)self _contentDidChange];
   }
@@ -849,15 +849,15 @@ LABEL_9:
   v7 = v6;
   if (accessibilityValue == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v6 && accessibilityValue)
     {
-      v8 = [accessibilityValue isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(accessibilityValue);
     }
   }
 
@@ -867,7 +867,7 @@ LABEL_9:
   _linkedTabBarItem = [(UITab *)self _linkedTabBarItem];
   [_linkedTabBarItem setAccessibilityValue:v7];
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UITab *)self _contentDidChange];
   }
@@ -881,15 +881,15 @@ LABEL_9:
   v7 = v6;
   if (accessibilityAttributedValue == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v6 && accessibilityAttributedValue)
     {
-      v8 = [accessibilityAttributedValue isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(accessibilityAttributedValue);
     }
   }
 
@@ -899,7 +899,7 @@ LABEL_9:
   _linkedTabBarItem = [(UITab *)self _linkedTabBarItem];
   [_linkedTabBarItem setAccessibilityAttributedValue:v7];
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UITab *)self _contentDidChange];
   }
@@ -913,15 +913,15 @@ LABEL_9:
   v7 = v6;
   if (accessibilityHint == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v6 && accessibilityHint)
     {
-      v8 = [accessibilityHint isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(accessibilityHint);
     }
   }
 
@@ -931,7 +931,7 @@ LABEL_9:
   _linkedTabBarItem = [(UITab *)self _linkedTabBarItem];
   [_linkedTabBarItem setAccessibilityHint:v7];
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UITab *)self _contentDidChange];
   }
@@ -945,15 +945,15 @@ LABEL_9:
   v7 = v6;
   if (accessibilityAttributedHint == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v6 && accessibilityAttributedHint)
     {
-      v8 = [accessibilityAttributedHint isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(accessibilityAttributedHint);
     }
   }
 
@@ -963,7 +963,7 @@ LABEL_9:
   _linkedTabBarItem = [(UITab *)self _linkedTabBarItem];
   [_linkedTabBarItem setAccessibilityAttributedHint:v7];
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UITab *)self _contentDidChange];
   }

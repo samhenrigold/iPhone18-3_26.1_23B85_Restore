@@ -17,7 +17,7 @@
 
 - (void)updateForLocation:(id)location
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   [locationCopy coordinate];
   v6 = v5;
@@ -77,22 +77,20 @@ LABEL_3:
   objc_initWeak(&buf, self);
   v22 = [MNDispatchTimer alloc];
   v23 = MNNavigationQueue();
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __42__MNArrivalRegionTimer_updateForLocation___block_invoke;
-  v28[3] = &unk_1E8430EA0;
-  objc_copyWeak(&v29, &buf);
-  v24 = [(MNDispatchTimer *)v22 initWithTime:v23 queue:v28 handler:endNavigationTimeoutThreshold2];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __42__MNArrivalRegionTimer_updateForLocation___block_invoke;
+  v27[3] = &unk_1E8430EA0;
+  objc_copyWeak(&v28, &buf);
+  v24 = [(MNDispatchTimer *)v22 initWithTime:v23 queue:v27 handler:endNavigationTimeoutThreshold2];
   v26 = self->_timer;
   v25 = &self->_timer;
   *v25 = v24;
 
   [*v25 activate];
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&buf);
 LABEL_11:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __42__MNArrivalRegionTimer_updateForLocation___block_invoke(uint64_t a1)

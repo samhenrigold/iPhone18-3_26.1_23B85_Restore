@@ -8,7 +8,9 @@
 + (id)errorWithCode:(int64_t)code disks:(id)disks userInfo:(id)info;
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error;
 + (id)errorWithOSStatus:(int)status debugDescription:(id)description error:(id *)error;
++ (id)errorWithOSStatus:(int)status error:(id *)error;
 + (id)errorWithPOSIXCode:(int)code debugDescription:(id)description error:(id *)error;
++ (id)errorWithPOSIXCode:(int)code error:(id *)error;
 + (id)localizedDescriptionForCode:(int64_t)code;
 + (id)nilWithError:(id)error error:(id *)a4;
 + (id)nilWithSKErrorCode:(int64_t)code debugDescription:(id)description error:(id *)error;
@@ -228,6 +230,14 @@
   return v8;
 }
 
++ (id)errorWithPOSIXCode:(int)code error:(id *)error
+{
+  v5 = *&code;
+  v6 = objc_opt_class();
+
+  return [v6 errorWithPOSIXCode:v5 debugDescription:0 error:error];
+}
+
 + (id)errorWithOSStatus:(int)status debugDescription:(id)description error:(id *)error
 {
   descriptionCopy = description;
@@ -262,6 +272,14 @@
   }
 
   return v12;
+}
+
++ (id)errorWithOSStatus:(int)status error:(id *)error
+{
+  v5 = *&status;
+  v6 = objc_opt_class();
+
+  return [v6 errorWithOSStatus:v5 debugDescription:0 error:error];
 }
 
 + (id)nilWithSKErrorCode:(int64_t)code debugDescription:(id)description error:(id *)error

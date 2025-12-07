@@ -1,10 +1,26 @@
 @interface IXSMoveOrDeleteAlert
+- (IXSMoveOrDeleteAlert)initWithAppRecord:(id)record bundleIdentifier:(id)identifier removability:(unint64_t)removability deletionIsRestricted:(BOOL)restricted;
 - (id)defaultButtonLabel;
 - (id)message;
 - (id)title;
 @end
 
 @implementation IXSMoveOrDeleteAlert
+
+- (IXSMoveOrDeleteAlert)initWithAppRecord:(id)record bundleIdentifier:(id)identifier removability:(unint64_t)removability deletionIsRestricted:(BOOL)restricted
+{
+  v9.receiver = self;
+  v9.super_class = IXSMoveOrDeleteAlert;
+  v6 = [(IXSUninstallAlert *)&v9 initWithAppRecord:record bundleIdentifier:identifier removability:removability deletionIsRestricted:restricted];
+  v7 = v6;
+  if (v6)
+  {
+    [(IXSUninstallAlert *)v6 setTypeDescription:@"Move or Delete"];
+    [(IXSUninstallAlert *)v7 setNeedsArchiveOptionButton:1];
+  }
+
+  return v7;
+}
 
 - (id)title
 {

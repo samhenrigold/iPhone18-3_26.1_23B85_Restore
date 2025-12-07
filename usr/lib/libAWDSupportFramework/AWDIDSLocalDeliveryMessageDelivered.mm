@@ -215,7 +215,6 @@ LABEL_11:
 {
   if ((*&self->_has & 0x40) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -227,7 +226,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    isToDefaultPairedDevice = self->_isToDefaultPairedDevice;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -247,7 +245,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  messageSize = self->_messageSize;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -262,7 +259,6 @@ LABEL_8:
   }
 
 LABEL_14:
-  deliveryError = self->_deliveryError;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -274,7 +270,6 @@ LABEL_9:
     }
 
 LABEL_16:
-    linkType = self->_linkType;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -285,7 +280,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  rTT = self->_rTT;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -300,7 +294,6 @@ LABEL_10:
   }
 
 LABEL_17:
-  priority = self->_priority;
 
   PBDataWriterWriteUint64Field();
 }
@@ -495,7 +488,6 @@ LABEL_9:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 72);
     if ((has & 0x40) != 0)
     {
       if ((*(equal + 72) & 0x40) == 0 || self->_timestamp != *(equal + 7))

@@ -624,9 +624,9 @@ LABEL_86:
       if (quoteCertificatesResponse)
       {
         encryptionVersion = [(PKPeerPaymentQuoteCertificatesResponse *)quoteCertificatesResponse encryptionVersion];
-        v115 = [encryptionVersion isEqualToString:@"EV_ECC_v1-ASN.1"];
+        isEqualToString = objc_msgSend_isEqualToString_(encryptionVersion);
 
-        if (v115)
+        if (isEqualToString)
         {
           dictionary2 = [MEMORY[0x1E695DF90] dictionary];
           v75 = dictionary2;

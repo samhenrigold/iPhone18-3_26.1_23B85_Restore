@@ -35,7 +35,7 @@
 
 - (void)scheduleFeedback:(int64_t)feedback
 {
-  v5 = sub_1114();
+  v5 = sub_1114(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_7144();
@@ -43,11 +43,11 @@
 
   if (self->_finished)
   {
-    v6 = sub_1114();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1114(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "ignoring feedback (already finished)", v14, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "ignoring feedback (already finished)", v17, 2u);
     }
 
 LABEL_10:
@@ -56,8 +56,8 @@ LABEL_10:
   }
 
   feedbackSet = self->_feedbackSet;
-  v8 = [NSNumber numberWithInteger:feedback];
-  LODWORD(feedbackSet) = [(NSSet *)feedbackSet containsObject:v8];
+  v9 = [NSNumber numberWithInteger:feedback];
+  LODWORD(feedbackSet) = [(NSSet *)feedbackSet containsObject:v9];
 
   if (!feedbackSet)
   {
@@ -65,13 +65,13 @@ LABEL_10:
   }
 
   lastFeedback = self->_lastFeedback;
-  v10 = [NSNumber numberWithInteger:feedback];
-  LODWORD(lastFeedback) = [(NSNumber *)lastFeedback isEqualToNumber:v10];
+  v11 = [NSNumber numberWithInteger:feedback];
+  LODWORD(lastFeedback) = [(NSNumber *)lastFeedback isEqualToNumber:v11];
 
   if (lastFeedback)
   {
-    v6 = sub_1114();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = sub_1114(v12);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_722C();
     }
@@ -79,14 +79,14 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v11 = [NSNumber numberWithInteger:feedback];
-  v12 = self->_lastFeedback;
-  self->_lastFeedback = v11;
+  v13 = [NSNumber numberWithInteger:feedback];
+  v14 = self->_lastFeedback;
+  self->_lastFeedback = v13;
 
   if (self->_waiting)
   {
-    v13 = sub_1114();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v16 = sub_1114(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_71B8();
     }
@@ -116,49 +116,50 @@ LABEL_10:
   lastSentFeedback = self->_lastSentFeedback;
   self->_lastSentFeedback = v5;
 
-  [(CoachingFeedbackFilter *)self _timeoutForFeedback:feedback];
-  v8 = v7;
-  v9 = sub_1114();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = [(CoachingFeedbackFilter *)self _timeoutForFeedback:feedback];
+  v9 = v8;
+  v10 = sub_1114(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     feedbackCopy = feedback;
-    v23 = 2048;
-    v24 = v8;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "sending feedback: %d, will wait %.2f sec", buf, 0x12u);
+    v24 = 2048;
+    v25 = v9;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "sending feedback: %d, will wait %.2f sec", buf, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v19 = &off_10A98;
-  v11 = [NSNumber numberWithInteger:feedback];
-  v20 = v11;
-  v12 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-  [WeakRetained noResponseEventWithParams:v12];
+  v20 = &off_10A98;
+  v12 = [NSNumber numberWithInteger:feedback];
+  v21 = v12;
+  v13 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  [WeakRetained noResponseEventWithParams:v13];
 
-  v13 = objc_loadWeakRetained(&self->_delegate);
-  v14 = [NSNumber numberWithInteger:feedback];
-  [v13 mechanismEvent:14 value:v14 reply:&stru_102D8];
+  v14 = objc_loadWeakRetained(&self->_delegate);
+  v15 = [NSNumber numberWithInteger:feedback];
+  [v14 mechanismEvent:14 value:v15 reply:&stru_102D8];
 
-  v15 = dispatch_time(0, (v8 * 1000000000.0));
-  v16 = +[DaemonUtils sharedInstance];
-  serverQueue = [v16 serverQueue];
+  v16 = dispatch_time(0, (v9 * 1000000000.0));
+  v17 = +[DaemonUtils sharedInstance];
+  serverQueue = [v17 serverQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_13C4;
   block[3] = &unk_10300;
   block[4] = self;
-  dispatch_after(v15, serverQueue, block);
+  dispatch_after(v16, serverQueue, block);
 }
 
 - (void)_doneWaiting
 {
   p_lastFeedback = &self->_lastFeedback;
   v4 = [(NSNumber *)self->_lastFeedback isEqualToNumber:self->_lastSentFeedback];
-  v5 = sub_1114();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
-  if (v4)
+  v5 = v4;
+  v6 = sub_1114(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
       sub_72FC();
     }
@@ -169,7 +170,7 @@ LABEL_10:
 
   else
   {
-    if (v6)
+    if (v7)
     {
       sub_727C(p_lastFeedback);
     }
@@ -183,27 +184,27 @@ LABEL_10:
   finishCopy = finish;
   achievedCopy = achieved;
   blockCopy = block;
-  v9 = sub_1114();
+  v9 = sub_1114(blockCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315906;
-    v17 = "[CoachingFeedbackFilter dispatchNowOrWhenFeedbackDurationAchieved:finish:block:]";
-    v18 = 1024;
-    v19 = achievedCopy;
+    v18 = 136315906;
+    v19 = "[CoachingFeedbackFilter dispatchNowOrWhenFeedbackDurationAchieved:finish:block:]";
     v20 = 1024;
-    v21 = finishCopy;
-    v22 = 2112;
+    v21 = achievedCopy;
+    v22 = 1024;
+    v23 = finishCopy;
+    v24 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%s %d, %d on %@", &v16, 0x22u);
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%s %d, %d on %@", &v18, 0x22u);
   }
 
   if (self->_finished)
   {
-    v10 = sub_1114();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1114(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "won't dispatch, already finished", &v16, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "won't dispatch, already finished", &v18, 2u);
     }
 
     goto LABEL_19;
@@ -211,15 +212,15 @@ LABEL_10:
 
   if (!achievedCopy && self->_waiting)
   {
-    v11 = sub_1114();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_1114(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_7338(self);
     }
 
     pendingBlocks = self->_pendingBlocks;
-    v13 = objc_retainBlock(blockCopy);
-    [(NSMutableArray *)pendingBlocks addObject:v13];
+    v14 = objc_retainBlock(blockCopy);
+    [(NSMutableArray *)pendingBlocks addObject:v14];
 
     if (!finishCopy)
     {
@@ -227,8 +228,8 @@ LABEL_10:
     }
 
 LABEL_16:
-    v15 = sub_1114();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = sub_1114(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       sub_73F4();
     }
@@ -237,13 +238,13 @@ LABEL_16:
     goto LABEL_19;
   }
 
-  v14 = sub_1114();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = sub_1114(v10);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     sub_73B8();
   }
 
-  blockCopy[2](blockCopy);
+  v15 = blockCopy[2](blockCopy);
   if (finishCopy)
   {
     goto LABEL_16;
@@ -276,7 +277,7 @@ LABEL_19:
         }
 
         v8 = *(*(&v11 + 1) + 8 * v7);
-        v9 = sub_1114();
+        v9 = sub_1114(v3);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
@@ -285,15 +286,16 @@ LABEL_19:
           ++v5;
         }
 
-        (*(v8 + 16))(v8);
+        v3 = (*(v8 + 16))(v8);
         v7 = v7 + 1;
       }
 
       while (v4 != v7);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
   [(NSMutableArray *)self->_pendingBlocks removeAllObjects];

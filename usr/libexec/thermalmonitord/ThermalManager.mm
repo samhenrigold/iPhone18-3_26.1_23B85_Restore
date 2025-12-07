@@ -1,11 +1,13 @@
 @interface ThermalManager
 - (ThermalManager)initWithConfig:(__CFDictionary *)config;
+- (__CFString)getTGraphData:(int)data;
 - (void)checkForArcOverride:(__SCPreferences *)override key:(__CFString *)key;
 - (void)checkForLifetimeServoOverride:(__SCPreferences *)override key:(__CFString *)key;
 - (void)createNewProduct:(__CFRunLoop *)product;
 - (void)dealloc;
 - (void)initDataCollection;
 - (void)updatePrefs:(__SCPreferences *)prefs :(BOOL)a4;
+- (void)updateSystemLoad:(BOOL)load;
 @end
 
 @implementation ThermalManager
@@ -1810,6 +1812,61 @@ LABEL_110:
   }
 }
 
+- (void)updateSystemLoad:(BOOL)load
+{
+  loadCopy = load;
+  [(CommonProduct *)self->product updateAllThermalLoad:?];
+  if (byte_1000A22A0 == 1)
+  {
+    [(CommonProduct *)self->product updateDisplayDriver:loadCopy];
+  }
+
+  if ([+[HidSensors isSending2DTempGridToDisplayDriverEnabled]&& byte_1000A22A0 == 1 sharedInstance]
+  {
+    [(CommonProduct *)self->product send2DGridTempsToDisplayDriver:[(CommonProduct *)self->product compute2DGridTemps]];
+  }
+
+  if ([(CommonProduct *)self->product isSendingMaxTempToDisplayDriverEnabled]&& byte_1000A22A0 == 1)
+  {
+    computeMaxCGTemp = [(CommonProduct *)self->product computeMaxCGTemp];
+    v6 = dword_1000A24B8 - computeMaxCGTemp;
+    if (dword_1000A24B8 - computeMaxCGTemp < 0)
+    {
+      v6 = computeMaxCGTemp - dword_1000A24B8;
+    }
+
+    if (v6 >= 0x33)
+    {
+      dword_1000A24B8 = computeMaxCGTemp;
+      [(CommonProduct *)self->product sendMaxTempToDisplayDriver:computeMaxCGTemp];
+    }
+  }
+
+  if (sub_1000032F4())
+  {
+    [(CommonProduct *)self->product predictSignal];
+  }
+
+  [(CommonProduct *)self->product updateAccessories:loadCopy];
+  if (dword_1000A24B4 == 1)
+  {
+    [(CommonProduct *)self->product updateLifetimeServo];
+    dword_1000A24B4 = 0;
+  }
+
+  [(CommonProduct *)self->product updateContextualClamp];
+  [(CommonProduct *)self->product updatePowerzoneTelemetry];
+  v7 = dword_1000A24B0;
+  if (dword_1000A24B0 == 120)
+  {
+    [(CommonProduct *)self->product updateCoreAnalyticsInfo];
+    v7 = 0;
+  }
+
+  dword_1000A24B0 = v7 + 1;
+  ++dword_1000A24B4;
+}
+
 - (void)initDataCollection
 {
   if (self->product)
@@ -1821,6 +1878,14 @@ LABEL_110:
 
     [(TGraphSampler *)v3 setProduct:product withComponents:listofComponentControl andHotspotSupervisors:listOfSupervisorControl];
   }
+}
+
+- (__CFString)getTGraphData:(int)data
+{
+  v3 = *&data;
+  v4 = +[TGraphSampler sharedInstance];
+
+  return [(TGraphSampler *)v4 getTGraphData:v3];
 }
 
 @end

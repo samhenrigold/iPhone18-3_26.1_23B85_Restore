@@ -1,5 +1,5 @@
 @interface TIMecabraCandidate(TextInputCore)
-+ (id)displayReadingFromMecabraCandidate:()TextInputCore syllableSeparator:;
++ (__CFString)displayReadingFromMecabraCandidate:()TextInputCore syllableSeparator:;
 + (id)mecabraCandidateWithCandidateRef:()TextInputCore autoconvertedCandidates:;
 - (uint64_t)initWithMecabraCandidate:()TextInputCore input:cursorMovement:;
 @end
@@ -16,7 +16,7 @@
   }
 
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a3];
-  v11 = [self initWithCandidate:v9 forInput:v8 mecabraCandidatePointerValue:v10 withFlags:FlagsForCandidate() deleteCount:0 cursorMovement:a5];
+  v11 = [self initWithCandidate:v9 forInput:v8 mecabraCandidatePointerValue:v10 withFlags:FlagsForCandidate(a3) deleteCount:0 cursorMovement:a5];
 
   return v11;
 }
@@ -39,9 +39,9 @@
   return v7;
 }
 
-+ (id)displayReadingFromMecabraCandidate:()TextInputCore syllableSeparator:
++ (__CFString)displayReadingFromMecabraCandidate:()TextInputCore syllableSeparator:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (a3)
   {
@@ -66,30 +66,30 @@ LABEL_21:
     {
       v10 = v9;
       v11 = [MEMORY[0x277CCAB68] stringWithCapacity:{objc_msgSend(v9, "length") + (objc_msgSend(v8, "count") - 1) * objc_msgSend(v6, "length")}];
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
       obj = v8;
-      v12 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v12 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (v12)
       {
         v13 = v12;
         v14 = 0;
-        v15 = *v39;
-        v36 = v7;
+        v15 = *v38;
+        v35 = v7;
         while (2)
         {
           v16 = 0;
           v17 = v14;
           do
           {
-            if (*v39 != v15)
+            if (*v38 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v38 + 1) + 8 * v16);
+            v18 = *(*(&v37 + 1) + 8 * v16);
             if ([v11 length])
             {
               [v11 appendString:v6];
@@ -101,7 +101,7 @@ LABEL_21:
             if (unsignedIntegerValue > v20 || v14 > v20)
             {
 
-              v7 = v36;
+              v7 = v35;
               goto LABEL_28;
             }
 
@@ -113,8 +113,8 @@ LABEL_21:
           }
 
           while (v13 != v16);
-          v13 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
-          v7 = v36;
+          v13 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+          v7 = v35;
           if (v13)
           {
             continue;
@@ -147,16 +147,16 @@ LABEL_28:
           v26 = TIOSLogFacility();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
-            v29 = v7;
-            v30 = MEMORY[0x277CCACA8];
-            v31 = [obj valueForKey:@"stringValue"];
-            v32 = [v31 componentsJoinedByString:{@", "}];
+            v28 = v7;
+            v29 = MEMORY[0x277CCACA8];
+            v30 = [obj valueForKey:@"stringValue"];
+            v31 = [v30 componentsJoinedByString:{@", "}];
             Surface = MecabraCandidateGetSurface();
-            v33 = v30;
-            v7 = v29;
-            v34 = [v33 stringWithFormat:@"%s Invalid syllable lengths { %@ } for '%@'/'%@'", "+[TIMecabraCandidate(TextInputCore) displayReadingFromMecabraCandidate:syllableSeparator:]", v32, Surface, v10];
+            v32 = v29;
+            v7 = v28;
+            v33 = [v32 stringWithFormat:@"%s Invalid syllable lengths { %@ } for '%@'/'%@'", "+[TIMecabraCandidate(TextInputCore) displayReadingFromMecabraCandidate:syllableSeparator:]", v31, Surface, v10];
             *buf = 138412290;
-            v43 = v34;
+            v42 = v33;
             _os_log_debug_impl(&dword_22CA55000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -175,8 +175,6 @@ LABEL_36:
   v23 = v24;
   v7 = v23;
 LABEL_37:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

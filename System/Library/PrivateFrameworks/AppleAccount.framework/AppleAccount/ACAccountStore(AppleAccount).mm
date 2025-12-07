@@ -28,16 +28,14 @@
 
 - (id)aa_primaryAppleAccount
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69597F8];
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69597F8];
   v1 = MEMORY[0x1E695DEC8];
   selfCopy = self;
-  v3 = [v1 arrayWithObjects:&v8 count:1];
-  v4 = [selfCopy accountsWithAccountTypeIdentifiers:v3 preloadedProperties:0 error:{0, v8, v9}];
+  v3 = [v1 arrayWithObjects:&v7 count:1];
+  v4 = [selfCopy accountsWithAccountTypeIdentifiers:v3 preloadedProperties:0 error:{0, v7, v8}];
 
   v5 = [v4 aaf_firstObjectPassingTest:&__block_literal_global_30];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -52,35 +50,31 @@
 
 - (id)aa_appleAccounts
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *MEMORY[0x1E69597F8];
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69597F8];
   v1 = MEMORY[0x1E695DEC8];
   selfCopy = self;
-  v3 = [v1 arrayWithObjects:&v7 count:1];
-  v4 = [selfCopy accountsWithAccountTypeIdentifiers:v3 preloadedProperties:0 error:{0, v7, v8}];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = [v1 arrayWithObjects:&v6 count:1];
+  v4 = [selfCopy accountsWithAccountTypeIdentifiers:v3 preloadedProperties:0 error:{0, v6, v7}];
 
   return v4;
 }
 
 - (id)aa_primaryAppleAccountWithPreloadedDataclasses
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E69599E8];
-  v12[0] = *MEMORY[0x1E69599F0];
-  v12[1] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-  v13[0] = *MEMORY[0x1E69597F8];
+  v11[0] = *MEMORY[0x1E69599F0];
+  v11[1] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v12[0] = *MEMORY[0x1E69597F8];
   v4 = MEMORY[0x1E695DEC8];
   selfCopy = self;
   v6 = v3;
-  v7 = [v4 arrayWithObjects:v13 count:1];
+  v7 = [v4 arrayWithObjects:v12 count:1];
   v8 = [selfCopy accountsWithAccountTypeIdentifiers:v7 preloadedProperties:v6 error:0];
 
   v9 = [v8 aaf_firstObjectPassingTest:&__block_literal_global_32];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -95,96 +89,88 @@
 
 - (id)aa_appleAccountsWithError:()AppleAccount
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = *MEMORY[0x1E69597F8];
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69597F8];
   v4 = MEMORY[0x1E695DEC8];
   selfCopy = self;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  v7 = [selfCopy accountsWithAccountTypeIdentifiers:v6 preloadedProperties:0 error:{a3, v10, v11}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  v7 = [selfCopy accountsWithAccountTypeIdentifiers:v6 preloadedProperties:0 error:{a3, v9, v10}];
 
   return v7;
 }
 
 - (id)aa_accountsForAccountClass:()AppleAccount
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v15[0] = *MEMORY[0x1E69597F8];
+  v14[0] = *MEMORY[0x1E69597F8];
   v5 = MEMORY[0x1E695DEC8];
   selfCopy = self;
-  v7 = [v5 arrayWithObjects:v15 count:1];
+  v7 = [v5 arrayWithObjects:v14 count:1];
   v8 = [selfCopy accountsWithAccountTypeIdentifiers:v7 preloadedProperties:0 error:0];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __59__ACAccountStore_AppleAccount__aa_accountsForAccountClass___block_invoke;
-  v13[3] = &unk_1E7C9B248;
-  v14 = v4;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __59__ACAccountStore_AppleAccount__aa_accountsForAccountClass___block_invoke;
+  v12[3] = &unk_1E7C9B248;
+  v13 = v4;
   v9 = v4;
-  v10 = [v8 aaf_filter:v13];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = [v8 aaf_filter:v12];
 
   return v10;
 }
 
 - (void)aa_appleAccountsWithCompletion:()AppleAccount
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = *MEMORY[0x1E69597F8];
+  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69597F8];
   v4 = MEMORY[0x1E695DEC8];
   selfCopy = self;
   v6 = a3;
-  v7 = [v4 arrayWithObjects:&v9 count:1];
-  [selfCopy accountsWithAccountTypeIdentifiers:v7 preloadedProperties:0 completion:{v6, v9, v10}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [v4 arrayWithObjects:&v8 count:1];
+  [selfCopy accountsWithAccountTypeIdentifiers:v7 preloadedProperties:0 completion:{v6, v8, v9}];
 }
 
 - (void)aa_primaryAppleAccountWithCompletion:()AppleAccount
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __69__ACAccountStore_AppleAccount__aa_primaryAppleAccountWithCompletion___block_invoke;
-  v10[3] = &unk_1E7C9B290;
-  v11 = v4;
-  v12[0] = *MEMORY[0x1E69597F8];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __69__ACAccountStore_AppleAccount__aa_primaryAppleAccountWithCompletion___block_invoke;
+  v9[3] = &unk_1E7C9B290;
+  v10 = v4;
+  v11[0] = *MEMORY[0x1E69597F8];
   v5 = MEMORY[0x1E695DEC8];
   selfCopy = self;
   v7 = v4;
-  v8 = [v5 arrayWithObjects:v12 count:1];
-  [selfCopy accountsWithAccountTypeIdentifiers:v8 preloadedProperties:0 completion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = [v5 arrayWithObjects:v11 count:1];
+  [selfCopy accountsWithAccountTypeIdentifiers:v8 preloadedProperties:0 completion:v9];
 }
 
 - (id)aa_appleAccountWithUsername:()AppleAccount
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
-    v21[0] = *MEMORY[0x1E69597F8];
+    v20[0] = *MEMORY[0x1E69597F8];
     v5 = MEMORY[0x1E695DEC8];
     selfCopy = self;
-    v7 = [v5 arrayWithObjects:v21 count:1];
+    v7 = [v5 arrayWithObjects:v20 count:1];
     v8 = [selfCopy accountsWithAccountTypeIdentifiers:v7 preloadedProperties:0 error:0];
 
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __60__ACAccountStore_AppleAccount__aa_appleAccountWithUsername___block_invoke;
-    v19[3] = &unk_1E7C9B248;
-    v20 = v4;
-    v9 = [v8 aaf_firstObjectPassingTest:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __60__ACAccountStore_AppleAccount__aa_appleAccountWithUsername___block_invoke;
+    v18[3] = &unk_1E7C9B248;
+    v19 = v4;
+    v9 = [v8 aaf_firstObjectPassingTest:v18];
   }
 
   else
   {
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(ACAccountStore(AppleAccount) *)v8 aa_appleAccountWithUsername:v10, v11, v12, v13, v14, v15, v16];
@@ -193,34 +179,32 @@
     v9 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)aa_appleAccountWithPersonID:()AppleAccount
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
-    v21[0] = *MEMORY[0x1E69597F8];
+    v20[0] = *MEMORY[0x1E69597F8];
     v5 = MEMORY[0x1E695DEC8];
     selfCopy = self;
-    v7 = [v5 arrayWithObjects:v21 count:1];
+    v7 = [v5 arrayWithObjects:v20 count:1];
     v8 = [selfCopy accountsWithAccountTypeIdentifiers:v7 preloadedProperties:0 error:0];
 
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __60__ACAccountStore_AppleAccount__aa_appleAccountWithPersonID___block_invoke;
-    v19[3] = &unk_1E7C9B248;
-    v20 = v4;
-    v9 = [v8 aaf_firstObjectPassingTest:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __60__ACAccountStore_AppleAccount__aa_appleAccountWithPersonID___block_invoke;
+    v18[3] = &unk_1E7C9B248;
+    v19 = v4;
+    v9 = [v8 aaf_firstObjectPassingTest:v18];
   }
 
   else
   {
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(ACAccountStore(AppleAccount) *)v8 aa_appleAccountWithPersonID:v10, v11, v12, v13, v14, v15, v16];
@@ -229,34 +213,32 @@
     v9 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)aa_appleAccountWithAltDSID:()AppleAccount
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
-    v21[0] = *MEMORY[0x1E69597F8];
+    v20[0] = *MEMORY[0x1E69597F8];
     v5 = MEMORY[0x1E695DEC8];
     selfCopy = self;
-    v7 = [v5 arrayWithObjects:v21 count:1];
+    v7 = [v5 arrayWithObjects:v20 count:1];
     v8 = [selfCopy accountsWithAccountTypeIdentifiers:v7 preloadedProperties:0 error:0];
 
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __59__ACAccountStore_AppleAccount__aa_appleAccountWithAltDSID___block_invoke;
-    v19[3] = &unk_1E7C9B248;
-    v20 = v4;
-    v9 = [v8 aaf_firstObjectPassingTest:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __59__ACAccountStore_AppleAccount__aa_appleAccountWithAltDSID___block_invoke;
+    v18[3] = &unk_1E7C9B248;
+    v19 = v4;
+    v9 = [v8 aaf_firstObjectPassingTest:v18];
   }
 
   else
   {
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(ACAccountStore(AppleAccount) *)v8 aa_appleAccountWithAltDSID:v10, v11, v12, v13, v14, v15, v16];
@@ -265,39 +247,37 @@
     v9 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)aa_accountsEnabledForDataclass:()AppleAccount
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v6 = [self accountIdentifiersEnabledForDataclass:v4];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v7)
     {
       v8 = v7;
-      v23 = v4;
-      v9 = *v25;
+      v22 = v4;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
           v12 = [self accountWithIdentifier:v11 error:0];
           if (v12)
           {
@@ -306,27 +286,27 @@
 
           else
           {
-            v13 = _AALogSystem();
+            v13 = _AALogSystem(0);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v29 = v11;
+              v28 = v11;
               _os_log_error_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_ERROR, "Failed to fetch enabled account with identifier: %@", buf, 0xCu);
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v8);
-      v4 = v23;
+      v4 = v22;
     }
   }
 
   else
   {
-    v6 = _AALogSystem();
+    v6 = _AALogSystem(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(ACAccountStore(AppleAccount) *)v6 aa_accountsEnabledForDataclass:v14, v15, v16, v17, v18, v19, v20];
@@ -335,50 +315,52 @@
     v5 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)aa_recommendedAppleIDForAccountSignInWithTypeIdentifier:()AppleAccount
 {
-  v59[2] = *MEMORY[0x1E69E9840];
+  v64[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v55 = v4;
+    v60 = v4;
     _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier %@", buf, 0xCu);
   }
 
   aa_appleAccounts = [self aa_appleAccounts];
-  if ([aa_appleAccounts count] && objc_msgSend(v4, "isEqualToString:", *MEMORY[0x1E69597F8]))
+  if ([aa_appleAccounts count])
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [v4 isEqualToString:*MEMORY[0x1E69597F8]];
+    if (v7)
     {
-      *buf = 0;
-      v8 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier recommending nothing for an iCloud account because we already have one or more iCloud accounts.";
+      v8 = _AALogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        v9 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier recommending nothing for an iCloud account because we already have one or more iCloud accounts.";
 LABEL_14:
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
+        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
+        goto LABEL_15;
+      }
+
       goto LABEL_15;
     }
-
-    goto LABEL_15;
   }
 
   if ([aa_appleAccounts count] != 1)
   {
-    v11 = [aa_appleAccounts count];
-    v7 = _AALogSystem();
-    v12 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v11 >= 2)
+    v13 = [aa_appleAccounts count];
+    v8 = _AALogSystem(v13);
+    v14 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v13 >= 2)
     {
-      if (v12)
+      if (v14)
       {
         *buf = 0;
-        v8 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found > 1 iCloud account. Recommending nothing.";
+        v9 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found > 1 iCloud account. Recommending nothing.";
         goto LABEL_14;
       }
 
@@ -388,103 +370,104 @@ LABEL_15:
       goto LABEL_24;
     }
 
-    if (v12)
+    if (v14)
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found zero iCloud accounts. Checking other account types...", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found zero iCloud accounts. Checking other account types...", buf, 2u);
     }
 
-    v13 = *MEMORY[0x1E6959860];
-    v59[0] = *MEMORY[0x1E69598B0];
-    v59[1] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
-    v53 = 0;
-    v15 = [self accountsWithAccountTypeIdentifiers:v14 error:&v53];
-    v16 = v53;
-    if (v16)
+    v15 = *MEMORY[0x1E6959860];
+    v64[0] = *MEMORY[0x1E69598B0];
+    v64[1] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:2];
+    v58 = 0;
+    v17 = [self accountsWithAccountTypeIdentifiers:v16 error:&v58];
+    v18 = v58;
+    v19 = v18;
+    if (v18)
     {
-      v17 = _AALogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = _AALogSystem(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v55 = v16;
-        v18 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier recommending nothing after receiving error: %@";
-        v19 = v17;
-        v20 = 12;
+        v60 = v19;
+        v21 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier recommending nothing after receiving error: %@";
+        v22 = v20;
+        v23 = 12;
 LABEL_21:
-        _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, v18, buf, v20);
+        _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
       }
     }
 
     else
     {
-      if ([v15 count])
+      if ([v17 count])
       {
-        v26 = [v15 count];
-        v27 = _AALogSystem();
-        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-        if (v26 == 1)
+        v28 = [v17 count];
+        v29 = _AALogSystem(v28);
+        v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+        if (v28 == 1)
         {
-          if (v28)
+          if (v30)
           {
             *buf = 0;
-            _os_log_impl(&dword_1B6F6A000, v27, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found exactly one IS/GC account. Using it.", buf, 2u);
+            _os_log_impl(&dword_1B6F6A000, v29, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found exactly one IS/GC account. Using it.", buf, 2u);
           }
 
-          firstObject = [v15 objectAtIndexedSubscript:0];
+          firstObject = [v17 objectAtIndexedSubscript:0];
         }
 
         else
         {
-          if (v28)
+          if (v30)
           {
             *buf = 0;
-            _os_log_impl(&dword_1B6F6A000, v27, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found several IS/GC accounts. Checking their usernames...", buf, 2u);
+            _os_log_impl(&dword_1B6F6A000, v29, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found several IS/GC accounts. Checking their usernames...", buf, 2u);
           }
 
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
-          v50 = 0u;
-          obj = v15;
-          v29 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
-          if (v29)
+          v56 = 0u;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
+          obj = v17;
+          v31 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+          if (v31)
           {
-            v30 = v29;
-            v31 = 0;
-            v32 = *v50;
-            v46 = v15;
-            v47 = v14;
-            v45 = 0;
-LABEL_40:
+            v32 = v31;
             v33 = 0;
+            v34 = *v55;
+            v51 = v17;
+            v52 = v16;
+            v50 = 0;
+LABEL_40:
+            v35 = 0;
             while (1)
             {
-              if (*v50 != v32)
+              if (*v55 != v34)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v34 = *(*(&v49 + 1) + 8 * v33);
-              username = [v34 username];
-              v36 = username;
-              if (v31)
+              v36 = *(*(&v54 + 1) + 8 * v35);
+              username = [v36 username];
+              v38 = username;
+              if (v33)
               {
-                v37 = [v31 isEqualToString:username];
+                v39 = [v33 isEqualToString:username];
 
-                if ((v37 & 1) == 0)
+                if ((v39 & 1) == 0)
                 {
-                  v43 = _AALogSystem();
-                  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                  v48 = _AALogSystem(v40);
+                  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_1B6F6A000, v43, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier IS/GC accounts contain several usernames. Recommending nothing.", buf, 2u);
+                    _os_log_impl(&dword_1B6F6A000, v48, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier IS/GC accounts contain several usernames. Recommending nothing.", buf, 2u);
                   }
 
 LABEL_59:
-                  v15 = v46;
-                  v14 = v47;
-                  v16 = v45;
+                  v17 = v51;
+                  v16 = v52;
+                  v19 = v50;
 
                   firstObject = 0;
                   goto LABEL_60;
@@ -493,34 +476,34 @@ LABEL_59:
 
               else
               {
-                v31 = username;
+                v33 = username;
               }
 
-              accountType = [v34 accountType];
+              accountType = [v36 accountType];
               identifier = [accountType identifier];
-              v40 = [v4 isEqualToString:identifier];
+              v43 = [v4 isEqualToString:identifier];
 
-              if (v40)
+              if (v43)
               {
-                v43 = _AALogSystem();
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                v48 = _AALogSystem(v44);
+                if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
                 {
-                  accountType2 = [v34 accountType];
+                  accountType2 = [v36 accountType];
                   *buf = 138412290;
-                  v55 = accountType2;
-                  _os_log_impl(&dword_1B6F6A000, v43, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier can't recommend a username that already has an account of type %@. Recommending nothing.", buf, 0xCu);
+                  v60 = accountType2;
+                  _os_log_impl(&dword_1B6F6A000, v48, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier can't recommend a username that already has an account of type %@. Recommending nothing.", buf, 0xCu);
                 }
 
                 goto LABEL_59;
               }
 
-              if (v30 == ++v33)
+              if (v32 == ++v35)
               {
-                v30 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
-                v15 = v46;
-                v14 = v47;
-                v16 = v45;
-                if (v30)
+                v32 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+                v17 = v51;
+                v16 = v52;
+                v19 = v50;
+                if (v32)
                 {
                   goto LABEL_40;
                 }
@@ -530,14 +513,14 @@ LABEL_59:
             }
           }
 
-          v31 = 0;
+          v33 = 0;
 LABEL_52:
 
-          v41 = _AALogSystem();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v46 = _AALogSystem(v45);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B6F6A000, v41, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier all IS/GC usernames are identical. Using that.", buf, 2u);
+            _os_log_impl(&dword_1B6F6A000, v46, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier all IS/GC usernames are identical. Using that.", buf, 2u);
           }
 
           firstObject = [obj firstObject];
@@ -547,13 +530,13 @@ LABEL_60:
         goto LABEL_23;
       }
 
-      v17 = _AALogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = _AALogSystem(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v18 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found no IS/GC accounts. Recommending nothing.";
-        v19 = v17;
-        v20 = 2;
+        v21 = "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found no IS/GC accounts. Recommending nothing.";
+        v22 = v20;
+        v23 = 2;
         goto LABEL_21;
       }
     }
@@ -564,29 +547,28 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v9 = _AALogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _AALogSystem(1);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found exactly one iCloud account. Using it.", buf, 2u);
+    _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier found exactly one iCloud account. Using it.", buf, 2u);
   }
 
-  firstObject = [aa_appleAccounts objectAtIndexedSubscript:0];
+  v11 = [aa_appleAccounts objectAtIndexedSubscript:0];
+  firstObject = v11;
 LABEL_24:
-  v21 = _AALogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v24 = _AALogSystem(v11);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     username2 = [firstObject username];
     *buf = 138412546;
-    v55 = username2;
-    v56 = 2112;
-    v57 = firstObject;
-    _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier returning appleID %@ from account %@", buf, 0x16u);
+    v60 = username2;
+    v61 = 2112;
+    v62 = firstObject;
+    _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "aa_recommendedAppleIDForAccountSignInWithTypeIdentifier returning appleID %@ from account %@", buf, 0x16u);
   }
 
   username3 = [firstObject username];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return username3;
 }
@@ -633,53 +615,51 @@ LABEL_6:
 
 - (void)_performUpdateRequestWithAccount:()AppleAccount serverInfo:completion:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a5;
   v9 = a4;
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(v9);
   v11 = _AASignpostCreate(v10);
   v13 = v12;
 
-  v14 = _AASignpostLogSystem();
-  v15 = v14;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     accountType = [v7 accountType];
     identifier = [accountType identifier];
     *buf = 138543362;
-    v31 = identifier;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v11, "GetAccountSettings", " AccountType=%{public,signpost.telemetry:string2,name=AccountType}@  enableTelemetry=YES ", buf, 0xCu);
+    v32 = identifier;
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "GetAccountSettings", " AccountType=%{public,signpost.telemetry:string2,name=AccountType}@  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v18 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = _AASignpostLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     accountType2 = [v7 accountType];
     identifier2 = [accountType2 identifier];
     *buf = 134218242;
-    v31 = v11;
-    v32 = 2114;
-    v33 = identifier2;
-    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: GetAccountSettings  AccountType=%{public,signpost.telemetry:string2,name=AccountType}@  enableTelemetry=YES ", buf, 0x16u);
+    v32 = v11;
+    v33 = 2114;
+    v34 = identifier2;
+    _os_log_impl(&dword_1B6F6A000, v20, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: GetAccountSettings  AccountType=%{public,signpost.telemetry:string2,name=AccountType}@  enableTelemetry=YES ", buf, 0x16u);
   }
 
-  v21 = [[AAUpdateProvisioningRequest alloc] initWithAccount:v7];
-  [(AAUpdateProvisioningRequest *)v21 setServerInfo:v9];
+  v23 = [[AAUpdateProvisioningRequest alloc] initWithAccount:v7];
+  [(AAUpdateProvisioningRequest *)v23 setServerInfo:v9];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __87__ACAccountStore_AppleAccount___performUpdateRequestWithAccount_serverInfo_completion___block_invoke;
-  v25[3] = &unk_1E7C9B308;
-  v28 = v11;
-  v29 = v13;
-  v26 = v7;
-  v27 = v8;
-  v22 = v8;
-  v23 = v7;
-  [(AARequest *)v21 performRequestWithHandler:v25];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __87__ACAccountStore_AppleAccount___performUpdateRequestWithAccount_serverInfo_completion___block_invoke;
+  v26[3] = &unk_1E7C9B308;
+  v29 = v11;
+  v30 = v13;
+  v27 = v7;
+  v28 = v8;
+  v24 = v8;
+  v25 = v7;
+  [(AARequest *)v23 performRequestWithHandler:v26];
 }
 
 - (void)aa_loginAndUpdateiCloudAccount:()AppleAccount withCompletion:
@@ -701,43 +681,43 @@ LABEL_6:
 
   if ((v12 & 1) == 0)
   {
-    v15 = _AALogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _AALogSystem(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [ACAccountStore(AppleAccount) aa_loginAndUpdateiCloudAccount:v7 delegateParams:v15 withCompletion:?];
+      [ACAccountStore(AppleAccount) aa_loginAndUpdateiCloudAccount:v7 delegateParams:v17 withCompletion:?];
     }
 
-    v16 = MEMORY[0x1E696ABC0];
-    v17 = -18;
+    v18 = MEMORY[0x1E696ABC0];
+    v19 = -18;
     goto LABEL_10;
   }
 
-  v13 = [v8 objectForKey:@"com.apple.mobileme"];
+  v14 = [v8 objectForKey:@"com.apple.mobileme"];
 
-  if (!v13)
+  if (!v14)
   {
-    v18 = _AALogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _AALogSystem(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [ACAccountStore(AppleAccount) aa_loginAndUpdateiCloudAccount:v18 delegateParams:? withCompletion:?];
+      [ACAccountStore(AppleAccount) aa_loginAndUpdateiCloudAccount:v20 delegateParams:? withCompletion:?];
     }
 
-    v16 = MEMORY[0x1E696ABC0];
-    v17 = -3;
+    v18 = MEMORY[0x1E696ABC0];
+    v19 = -3;
 LABEL_10:
-    v14 = [v16 aa_errorWithCode:v17];
-    (*(v9 + 2))(v9, 0, 0, v14);
+    v16 = [v18 aa_errorWithCode:v19];
+    (*(v9 + 2))(v9, 0, 0, v16);
     goto LABEL_11;
   }
 
-  v14 = objc_alloc_init(AAiCloudLoginAccountRequester);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __93__ACAccountStore_AppleAccount__aa_loginAndUpdateiCloudAccount_delegateParams_withCompletion___block_invoke;
-  v19[3] = &unk_1E7C9B330;
-  v21 = v9;
-  v20 = v7;
-  [(AAiCloudLoginAccountRequester *)v14 loginWithAccount:v20 forDelegates:v8 completion:v19];
+  v16 = objc_alloc_init(AAiCloudLoginAccountRequester);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __93__ACAccountStore_AppleAccount__aa_loginAndUpdateiCloudAccount_delegateParams_withCompletion___block_invoke;
+  v21[3] = &unk_1E7C9B330;
+  v23 = v9;
+  v22 = v7;
+  [(AAiCloudLoginAccountRequester *)v16 loginWithAccount:v22 forDelegates:v8 completion:v21];
 
 LABEL_11:
 }
@@ -773,7 +753,7 @@ LABEL_11:
 
   else
   {
-    v4 = _AALogSystem();
+    v4 = _AALogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(ACAccountStore(AppleAccount) *)v4 aa_grandSlamAccountForiCloudAccount:v5, v6, v7, v8, v9, v10, v11];
@@ -794,7 +774,7 @@ LABEL_11:
 
   else
   {
-    v4 = _AALogSystem();
+    v4 = _AALogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(ACAccountStore(AppleAccount) *)v4 aa_grandSlamAccountForAltDSID:v5, v6, v7, v8, v9, v10, v11];
@@ -808,24 +788,24 @@ LABEL_11:
 
 - (id)aa_authKitAccountForAltDSID:()AppleAccount
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
-    v19[0] = *MEMORY[0x1E6959888];
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = *MEMORY[0x1E6959888];
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     v6 = [self accountsWithAccountTypeIdentifiers:v5 error:0];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __60__ACAccountStore_AppleAccount__aa_authKitAccountForAltDSID___block_invoke;
-    v17[3] = &unk_1E7C9B248;
-    v18 = v4;
-    v7 = [v6 aaf_firstObjectPassingTest:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __60__ACAccountStore_AppleAccount__aa_authKitAccountForAltDSID___block_invoke;
+    v16[3] = &unk_1E7C9B248;
+    v17 = v4;
+    v7 = [v6 aaf_firstObjectPassingTest:v16];
   }
 
   else
   {
-    v5 = _AALogSystem();
+    v5 = _AALogSystem(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ACAccountStore(AppleAccount) *)v5 aa_authKitAccountForAltDSID:v8, v9, v10, v11, v12, v13, v14];
@@ -834,70 +814,66 @@ LABEL_11:
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (void)aa_appleAccountWithUsername:()AppleAccount .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter username was not provided!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ACAccountStore(AppleAccount) aa_appleAccountWithUsername:]";
+  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter username was not provided!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)aa_appleAccountWithPersonID:()AppleAccount .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter personID was not provided!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ACAccountStore(AppleAccount) aa_appleAccountWithPersonID:]";
+  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter personID was not provided!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)aa_appleAccountWithAltDSID:()AppleAccount .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter altDSID was not provided!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ACAccountStore(AppleAccount) aa_appleAccountWithAltDSID:]";
+  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter altDSID was not provided!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)aa_accountsEnabledForDataclass:()AppleAccount .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter dataclass was not provided!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ACAccountStore(AppleAccount) aa_accountsEnabledForDataclass:]";
+  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter dataclass was not provided!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)aa_loginAndUpdateiCloudAccount:()AppleAccount delegateParams:withCompletion:.cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [a1 accountType];
   v4 = [v3 identifier];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Rejecting attempt to call iCloud login on non-iCloud account of type %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Rejecting attempt to call iCloud login on non-iCloud account of type %@", &v5, 0xCu);
 }
 
 - (void)aa_grandSlamAccountForiCloudAccount:()AppleAccount .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter iCloudAccount was not provided!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ACAccountStore(AppleAccount) aa_grandSlamAccountForiCloudAccount:]";
+  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter iCloudAccount was not provided!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)aa_grandSlamAccountForAltDSID:()AppleAccount .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter altDSID was not provided!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ACAccountStore(AppleAccount) aa_grandSlamAccountForAltDSID:]";
+  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter altDSID was not provided!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)aa_authKitAccountForAltDSID:()AppleAccount .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter altDSID was not provided!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ACAccountStore(AppleAccount) aa_authKitAccountForAltDSID:]";
+  OUTLINED_FUNCTION_0(&dword_1B6F6A000, a1, a3, "%s: Failing because parameter altDSID was not provided!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

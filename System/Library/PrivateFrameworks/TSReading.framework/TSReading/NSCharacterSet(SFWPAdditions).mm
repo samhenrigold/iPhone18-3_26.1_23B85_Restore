@@ -1,16 +1,16 @@
 @interface NSCharacterSet(SFWPAdditions)
-+ (uint64_t)allQuotesCharacterSetExcludingLeft;
-+ (uint64_t)allQuotesCharacterSetExcludingRight;
 + (uint64_t)breakingSpaceCharacterSet;
 + (uint64_t)invisibleCharacterSet;
 + (uint64_t)lineBreakingCharacterSet;
-+ (uint64_t)normalQuotesCharacterSet;
-+ (uint64_t)smartDoubleQuotesCharacterSet;
-+ (uint64_t)smartQuotesCharacterSet;
-+ (uint64_t)smartSingleQuotesCharacterSet;
 + (uint64_t)spaceCharacterSet;
++ (void)allQuotesCharacterSetExcludingLeft;
++ (void)allQuotesCharacterSetExcludingRight;
++ (void)normalQuotesCharacterSet;
 + (void)postSmartSet;
 + (void)preSmartSet;
++ (void)smartDoubleQuotesCharacterSet;
++ (void)smartQuotesCharacterSet;
++ (void)smartSingleQuotesCharacterSet;
 @end
 
 @implementation NSCharacterSet(SFWPAdditions)
@@ -60,7 +60,7 @@
   return result;
 }
 
-+ (uint64_t)normalQuotesCharacterSet
++ (void)normalQuotesCharacterSet
 {
   result = +[NSCharacterSet(SFWPAdditions) normalQuotesCharacterSet]::sNormalQuotesCharacterSet;
   if (!+[NSCharacterSet(SFWPAdditions) normalQuotesCharacterSet]::sNormalQuotesCharacterSet)
@@ -73,7 +73,7 @@
   return result;
 }
 
-+ (uint64_t)smartSingleQuotesCharacterSet
++ (void)smartSingleQuotesCharacterSet
 {
   result = +[NSCharacterSet(SFWPAdditions) smartSingleQuotesCharacterSet]::sSmartSingleQuotesCharacterSet;
   if (!+[NSCharacterSet(SFWPAdditions) smartSingleQuotesCharacterSet]::sSmartSingleQuotesCharacterSet)
@@ -86,7 +86,7 @@
   return result;
 }
 
-+ (uint64_t)smartDoubleQuotesCharacterSet
++ (void)smartDoubleQuotesCharacterSet
 {
   result = +[NSCharacterSet(SFWPAdditions) smartDoubleQuotesCharacterSet]::sSmartDoubleQuotesCharacterSet;
   if (!+[NSCharacterSet(SFWPAdditions) smartDoubleQuotesCharacterSet]::sSmartDoubleQuotesCharacterSet)
@@ -99,7 +99,7 @@
   return result;
 }
 
-+ (uint64_t)smartQuotesCharacterSet
++ (void)smartQuotesCharacterSet
 {
   v1[1] = *MEMORY[0x277D85DE8];
   result = +[NSCharacterSet(SFWPAdditions) smartQuotesCharacterSet]::sSmartQuotesCharacterSet;
@@ -113,7 +113,7 @@
   return result;
 }
 
-+ (uint64_t)allQuotesCharacterSetExcludingLeft
++ (void)allQuotesCharacterSetExcludingLeft
 {
   v1[1] = *MEMORY[0x277D85DE8];
   result = +[NSCharacterSet(SFWPAdditions) allQuotesCharacterSetExcludingLeft]::sAllQuotesCharacterSet;
@@ -127,7 +127,7 @@
   return result;
 }
 
-+ (uint64_t)allQuotesCharacterSetExcludingRight
++ (void)allQuotesCharacterSetExcludingRight
 {
   v1[1] = *MEMORY[0x277D85DE8];
   result = +[NSCharacterSet(SFWPAdditions) allQuotesCharacterSetExcludingRight]::sAllQuotesCharacterSet;

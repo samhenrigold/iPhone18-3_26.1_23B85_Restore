@@ -7,7 +7,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v33[10] = *MEMORY[0x277D85DE8];
+  v32[10] = *MEMORY[0x277D85DE8];
   version = [(TVLALSCalibrationData *)self version];
   if (!version)
   {
@@ -71,19 +71,19 @@ LABEL_14:
 
   if (channels)
   {
-    v33[0] = &unk_287E0E970;
+    v32[0] = &unk_287E0E970;
     v18 = [(TVLALSCalibrationData *)self version:@"ALS_CALIBRATION_RESERVED"];
-    v33[1] = v18;
-    v32[2] = @"ALS_CALIBRATION_DISPLAY_ID";
+    v32[1] = v18;
+    v31[2] = @"ALS_CALIBRATION_DISPLAY_ID";
     displayID2 = [(TVLALSCalibrationData *)self displayID];
-    v33[2] = displayID2;
-    v32[3] = @"ALS_CALIBRATION_NCHANNELS";
+    v32[2] = displayID2;
+    v31[3] = @"ALS_CALIBRATION_NCHANNELS";
     channels2 = [(TVLALSCalibrationData *)self channels];
-    v33[3] = channels2;
-    v32[4] = @"ALS_CALIBRATION_SPECTRUM_NOM";
+    v32[3] = channels2;
+    v31[4] = @"ALS_CALIBRATION_SPECTRUM_NOM";
     spectrumNom2 = [(TVLALSCalibrationData *)self spectrumNom];
-    v33[4] = spectrumNom2;
-    v32[5] = @"ALS_CALIBRATION_NARMALIZATION_FACTOR";
+    v32[4] = spectrumNom2;
+    v31[5] = @"ALS_CALIBRATION_NARMALIZATION_FACTOR";
     normalizationFactor = [(TVLALSCalibrationData *)self normalizationFactor];
     v23 = normalizationFactor;
     if (normalizationFactor)
@@ -96,20 +96,20 @@ LABEL_14:
       v24 = &unk_287E0E970;
     }
 
-    v33[5] = v24;
-    v32[6] = @"ALS_CALIBRATION_WAVELENGTH_END";
+    v32[5] = v24;
+    v31[6] = @"ALS_CALIBRATION_WAVELENGTH_END";
     wavelengthEnd2 = [(TVLALSCalibrationData *)self wavelengthEnd];
-    v33[6] = wavelengthEnd2;
-    v32[7] = @"ALS_CALIBRATION_WAVELENGTH_STEP";
+    v32[6] = wavelengthEnd2;
+    v31[7] = @"ALS_CALIBRATION_WAVELENGTH_STEP";
     wavelengthStep2 = [(TVLALSCalibrationData *)self wavelengthStep];
-    v33[7] = wavelengthStep2;
-    v32[8] = @"ALS_CALIBRATION_WAVELENGTH_START_NIR";
+    v32[7] = wavelengthStep2;
+    v31[8] = @"ALS_CALIBRATION_WAVELENGTH_START_NIR";
     wavelengthStartNIR2 = [(TVLALSCalibrationData *)self wavelengthStartNIR];
-    v33[8] = wavelengthStartNIR2;
-    v32[9] = @"ALS_CALIBRATION_WAVELENGTH_START_VISIBLE";
+    v32[8] = wavelengthStartNIR2;
+    v31[9] = @"ALS_CALIBRATION_WAVELENGTH_START_VISIBLE";
     wavelengthStartVisible2 = [(TVLALSCalibrationData *)self wavelengthStartVisible];
-    v33[9] = wavelengthStartVisible2;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:10];
+    v32[9] = wavelengthStartVisible2;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:10];
 
     goto LABEL_20;
   }
@@ -117,7 +117,6 @@ LABEL_14:
 LABEL_19:
   v29 = MEMORY[0x277CBEC10];
 LABEL_20:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

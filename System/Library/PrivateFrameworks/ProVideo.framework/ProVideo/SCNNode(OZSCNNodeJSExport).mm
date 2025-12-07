@@ -1,10 +1,10 @@
 @interface SCNNode(OZSCNNodeJSExport)
-- (uint64_t)firstChildNodeWithGeometry;
+- (void)firstChildNodeWithGeometry;
 @end
 
 @implementation SCNNode(OZSCNNodeJSExport)
 
-- (uint64_t)firstChildNodeWithGeometry
+- (void)firstChildNodeWithGeometry
 {
   v1 = [self childNodesPassingTest:&__block_literal_global_75];
   result = [v1 count];

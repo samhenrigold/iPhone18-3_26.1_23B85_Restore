@@ -57,7 +57,7 @@
 
 - (SRMediaEvent)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (([coder allowsKeyedCoding] & 1) == 0)
   {
     [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
@@ -80,16 +80,15 @@
     if (os_log_type_enabled(SRLogMediaEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v14 = v8;
-      v15 = 2048;
-      v16 = v6;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v6;
       _os_log_error_impl(&dword_1C914D000, v10, OS_LOG_TYPE_ERROR, "Failed to encode the object. Media identifier:%@, event type:%ld", buf, 0x16u);
     }
 
-    v9 = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -132,14 +131,12 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"mediaIdentifier";
-  v5[1] = @"eventType";
-  v6[0] = [(SRMediaEvent *)self mediaIdentifier];
-  v6[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRMediaEvent eventType](self, "eventType")}];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"mediaIdentifier";
+  v4[1] = @"eventType";
+  v5[0] = [(SRMediaEvent *)self mediaIdentifier];
+  v5[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRMediaEvent eventType](self, "eventType")}];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 }
 
 - (BOOL)isEqual:(id)equal

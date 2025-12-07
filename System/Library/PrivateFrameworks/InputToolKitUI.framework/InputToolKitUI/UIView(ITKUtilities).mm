@@ -14,8 +14,8 @@
 - (id)itk_constraintsToFillView:()ITKUtilities;
 - (id)itk_renderImageFromViewBackingStoreWithSubrect:()ITKUtilities;
 - (uint64_t)itk_renderImageFromViewBackingStore;
-- (uint64_t)itk_setHidden:()ITKUtilities animated:;
 - (uint64_t)setItk_transform:()ITKUtilities;
+- (void)itk_setHidden:()ITKUtilities animated:;
 - (void)setItk_backgroundColor:()ITKUtilities;
 @end
 
@@ -71,7 +71,7 @@
   return v7;
 }
 
-- (uint64_t)itk_setHidden:()ITKUtilities animated:
+- (void)itk_setHidden:()ITKUtilities animated:
 {
   result = [self isHidden];
   if (result != a3)
@@ -138,14 +138,14 @@
 {
   ITKRectWithSize();
   [self convertRect:0 fromView:?];
-  return v2;
+  return v3;
 }
 
 - (double)itk_windowLengthFromViewLength:()ITKUtilities
 {
   ITKRectWithSize();
   [self convertRect:0 toView:?];
-  return v2;
+  return v3;
 }
 
 - (id)itk_autoFadeOutShapeRectLayer
@@ -174,29 +174,29 @@
 
 - (id)itk_autoFadeOutLayerWithPath:()ITKUtilities fadeOutDelay:
 {
-  v4 = MEMORY[0x277CD9F90];
-  v5 = a3;
-  v6 = objc_alloc_init(v4);
+  v5 = MEMORY[0x277CD9F90];
+  v6 = a4;
+  v7 = objc_alloc_init(v5);
   [self bounds];
-  [v6 setFrame:?];
-  itk_CGPath = [v5 itk_CGPath];
+  [v7 setFrame:?];
+  itk_CGPath = [v6 itk_CGPath];
 
-  [v6 setPath:itk_CGPath];
+  [v7 setPath:itk_CGPath];
   itk_randomColor = [MEMORY[0x277D75348] itk_randomColor];
-  [v6 setStrokeColor:{objc_msgSend(itk_randomColor, "CGColor")}];
+  [v7 setStrokeColor:{objc_msgSend(itk_randomColor, "CGColor")}];
 
-  [v6 setFillColor:0];
-  [v6 setLineWidth:2.0];
+  [v7 setFillColor:0];
+  [v7 setLineWidth:2.0];
   clearColor = [MEMORY[0x277D75348] clearColor];
-  [v6 setBackgroundColor:{objc_msgSend(clearColor, "CGColor")}];
+  [v7 setBackgroundColor:{objc_msgSend(clearColor, "CGColor")}];
 
   layer = [self layer];
-  [layer addSublayer:v6];
+  [layer addSublayer:v7];
 
-  v12 = v6;
+  v13 = v7;
   itk_dispatchMainAfterDelay();
 
-  return v12;
+  return v13;
 }
 
 - (id)itk_constraintsToFillView:()ITKUtilities

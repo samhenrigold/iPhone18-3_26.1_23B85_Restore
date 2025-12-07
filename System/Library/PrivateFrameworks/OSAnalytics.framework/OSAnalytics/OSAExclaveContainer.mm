@@ -54,7 +54,7 @@
 
 - (id)getFramesForThread:(id)thread usingCatalog:(id)catalog
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   catalogCopy = catalog;
   if ([(OSAExclaveContainer *)self isExclaveValid])
@@ -69,30 +69,30 @@
 
       if (v11)
       {
-        v53 = v9;
-        v60 = 0u;
-        v61 = 0u;
-        v58 = 0u;
+        v52 = v9;
         v59 = 0u;
+        v60 = 0u;
+        v57 = 0u;
+        v58 = 0u;
         v12 = self->_sharedCaches;
-        v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v58 objects:v62 count:16];
+        v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v57 objects:v61 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v59;
+          v15 = *v58;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v59 != v15)
+              if (*v58 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              [catalogCopy addExclaveSharedCache:*(*(&v58 + 1) + 8 * i)];
+              [catalogCopy addExclaveSharedCache:*(*(&v57 + 1) + 8 * i)];
             }
 
-            v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v58 objects:v62 count:16];
+            v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v57 objects:v61 count:16];
           }
 
           while (v14);
@@ -105,9 +105,9 @@
         if (v19)
         {
           v20 = 0;
-          v54 = threadCopy;
+          v53 = threadCopy;
           selfCopy = self;
-          v57 = v11;
+          v56 = v11;
           do
           {
             stackEntries2 = [v11 stackEntries];
@@ -131,7 +131,7 @@
 
                 if (v31)
                 {
-                  v55 = v26;
+                  v54 = v26;
                   v32 = 0;
                   do
                   {
@@ -148,8 +148,8 @@
                   }
 
                   while (v39 > v32);
-                  threadCopy = v54;
-                  v26 = v55;
+                  threadCopy = v53;
+                  v26 = v54;
                   self = selfCopy;
                 }
 
@@ -180,8 +180,8 @@
 
 LABEL_22:
             ++v20;
-            v11 = v57;
-            stackEntries4 = [v57 stackEntries];
+            v11 = v56;
+            stackEntries4 = [v56 stackEntries];
             v48 = [stackEntries4 count];
           }
 
@@ -189,7 +189,7 @@ LABEL_22:
         }
 
         [catalogCopy clearExclaveSharedCaches];
-        v9 = v53;
+        v9 = v52;
       }
 
       else
@@ -222,8 +222,6 @@ LABEL_22:
 
     array = 0;
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -842,20 +840,18 @@ void __35__OSAExclaveContainer_parseKCdata___block_invoke_92(uint64_t a1, int a2
 
 - (void)getFramesForThread:(uint64_t)a1 usingCatalog:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exclave data not present for SCID %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exclave data not present for SCID %@", &v1, 0xCu);
 }
 
 - (void)getFramesForThread:(void *)a1 usingCatalog:.cold.2(void *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 134217984;
-  v3 = [a1 unsignedLongLongValue];
-  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exclave data not present for thread %llu", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 134217984;
+  v2 = [a1 unsignedLongLongValue];
+  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exclave data not present for thread %llu", &v1, 0xCu);
 }
 
 @end

@@ -27,9 +27,11 @@
 
 uint64_t __53__NSFileProviderItemVersion_beforeFirstSyncComponent__block_invoke()
 {
-  beforeFirstSyncComponent_beforeFirstSync = [@"NSFileProviderEmptyItemVersionBeforeFirstSyncComponent" dataUsingEncoding:4];
+  v0 = [@"NSFileProviderEmptyItemVersionBeforeFirstSyncComponent" dataUsingEncoding:4];
+  v1 = beforeFirstSyncComponent_beforeFirstSync;
+  beforeFirstSyncComponent_beforeFirstSync = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (NSFileProviderItemVersion)initWithMainContentVersion:(id)version equivalentContentVersions:(id)versions mainMetadataVersion:(id)metadataVersion equivalentMetadataVersions:(id)metadataVersions lastEditorDeviceName:(id)name conflictResolved:(BOOL)resolved

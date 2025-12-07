@@ -9,15 +9,14 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6, v9);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   participantCopy = participant;
   selfCopy = self;
   sub_10032C8EC();
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)createIncomingConversationWithHandles:(id)handles

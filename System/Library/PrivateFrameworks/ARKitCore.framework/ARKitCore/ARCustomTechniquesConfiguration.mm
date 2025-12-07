@@ -23,15 +23,16 @@
 
 - (id)initPrivate
 {
-  v4.receiver = self;
-  v4.super_class = ARCustomTechniquesConfiguration;
-  initPrivate = [(ARConfiguration *)&v4 initPrivate];
-  if (initPrivate && ARShouldSupport1440pAndAutofocus())
+  v6.receiver = self;
+  v6.super_class = ARCustomTechniquesConfiguration;
+  initPrivate = [(ARConfiguration *)&v6 initPrivate];
+  v4 = initPrivate;
+  if (initPrivate && ARShouldSupport1440pAndAutofocus(initPrivate, v3))
   {
-    [initPrivate setAutoFocusEnabled:1];
+    [v4 setAutoFocusEnabled:1];
   }
 
-  return initPrivate;
+  return v4;
 }
 
 - (id)imageSensorSettings
@@ -278,7 +279,7 @@ LABEL_13:
 
 - (void)_updateCaptureSettings
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   customSensors = [(ARConfiguration *)self customSensors];
   if (!customSensors)
   {
@@ -287,33 +288,33 @@ LABEL_13:
       return;
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 1;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__3;
-    v26 = __Block_byref_object_dispose__3;
-    v27 = *MEMORY[0x1E6986950];
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 1;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__3;
+    v28 = __Block_byref_object_dispose__3;
+    v29 = *MEMORY[0x1E6986950];
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     techniques = self->_techniques;
-    v21 = 0;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __57__ARCustomTechniquesConfiguration__updateCaptureSettings__block_invoke;
-    v17[3] = &unk_1E817D038;
-    v17[4] = &v28;
-    v17[5] = &v22;
-    v17[6] = &v18;
-    [(NSArray *)techniques enumerateObjectsUsingBlock:v17];
-    v5 = v29[3];
+    v23 = 0;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __57__ARCustomTechniquesConfiguration__updateCaptureSettings__block_invoke;
+    v19[3] = &unk_1E817D038;
+    v19[4] = &v30;
+    v19[5] = &v24;
+    v19[6] = &v20;
+    [(NSArray *)techniques enumerateObjectsUsingBlock:v19];
+    v5 = v31[3];
     if (v5 == [(ARVideoFormat *)self->super._videoFormat captureDevicePosition])
     {
-      v6 = v23[5];
+      v6 = v25[5];
       captureDeviceType = [(ARVideoFormat *)self->super._videoFormat captureDeviceType];
       LOBYTE(v6) = v6 == captureDeviceType;
 
@@ -323,7 +324,7 @@ LABEL_13:
       }
     }
 
-    if (*(v19 + 24) == 1)
+    if (*(v21 + 24) == 1)
     {
       v8 = +[ARWorldTrackingConfiguration supportedVideoFormats];
       firstObject = [v8 firstObject];
@@ -331,12 +332,12 @@ LABEL_13:
 
     else
     {
-      v8 = [ARVideoFormat supportedVideoFormatsForDevicePosition:v29[3] deviceType:v23[5]];
+      v8 = [ARVideoFormat supportedVideoFormatsForDevicePosition:v31[3] deviceType:v25[5]];
       firstObject2 = [v8 firstObject];
       videoFormat = self->super._videoFormat;
       self->super._videoFormat = firstObject2;
 
-      if (self->super._videoFormat || !ARRGBFaceTrackingEnabled())
+      if (self->super._videoFormat || !ARRGBFaceTrackingEnabled(v13, v14))
       {
         goto LABEL_14;
       }
@@ -353,57 +354,57 @@ LABEL_14:
       [ARCustomTechniquesConfiguration _updateCaptureSettings];
     }
 
-    v13 = _ARLogGeneral_logObj_12;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = _ARLogGeneral_logObj_12;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v16 = [(ARVideoFormat *)self->super._videoFormat description];
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = [(ARVideoFormat *)self->super._videoFormat description];
       *buf = 138543874;
-      v33 = v15;
-      v34 = 2048;
+      v35 = v17;
+      v36 = 2048;
       selfCopy = self;
-      v36 = 2114;
-      v37 = v16;
-      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Video format updated in custom techniques configurations: %{public}@", buf, 0x20u);
+      v38 = 2114;
+      v39 = v18;
+      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Video format updated in custom techniques configurations: %{public}@", buf, 0x20u);
     }
 
 LABEL_19:
-    _Block_object_dispose(&v18, 8);
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v24, 8);
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v30, 8);
     return;
   }
 }
 
 void __57__ARCustomTechniquesConfiguration__updateCaptureSettings__block_invoke(void *a1, void *a2)
 {
-  v9 = a2;
-  v3 = [v9 techniqueOfClass:objc_opt_class()];
+  v10 = a2;
+  v3 = [v10 techniqueOfClass:objc_opt_class()];
   if (v3)
   {
 
 LABEL_4:
     *(*(a1[4] + 8) + 24) = 2;
-    v5 = ARFaceTrackingDevice();
-    v6 = *(a1[5] + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v6 = ARFaceTrackingDevice(v4);
+    v7 = *(a1[5] + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
     goto LABEL_5;
   }
 
-  v4 = [v9 techniqueOfClass:objc_opt_class()];
+  v5 = [v10 techniqueOfClass:objc_opt_class()];
 
-  if (v4)
+  if (v5)
   {
     goto LABEL_4;
   }
 
-  v8 = [v9 techniqueOfClass:objc_opt_class()];
+  v9 = [v10 techniqueOfClass:objc_opt_class()];
 
-  if (v8)
+  if (v9)
   {
     *(*(a1[6] + 8) + 24) = 1;
   }

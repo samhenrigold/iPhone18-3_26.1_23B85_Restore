@@ -56,310 +56,322 @@
 {
   upgradeCopy = upgrade;
   recentlyCopy = recently;
-  v89 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   taskCopy = task;
-  if (upgradeCopy && ([(ATXModeEntityModelTrainer *)self shouldDeferTrainingDueToRestoredBackup]|| [(ATXModeEntityModelTrainer *)self shouldDeferTrainingDueToUpgrade]))
+  v8 = taskCopy;
+  if (upgradeCopy)
   {
-    [taskCopy setDone];
-    goto LABEL_64;
+    if ([(ATXModeEntityModelTrainer *)self shouldDeferTrainingDueToRestoredBackup]|| (taskCopy = [(ATXModeEntityModelTrainer *)self shouldDeferTrainingDueToUpgrade], taskCopy))
+    {
+      [v8 setDone];
+      goto LABEL_64;
+    }
   }
 
-  v8 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = __atxlog_handle_notification_management(taskCopy);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Started training Mode Entity Models...", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Started training Mode Entity Models...", buf, 2u);
   }
 
-  [taskCopy setProgressUnits:5];
-  v9 = objc_opt_new();
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v10 = allModesForTraining();
-  v72 = [v10 countByEnumeratingWithState:&v80 objects:v88 count:16];
-  if (v72)
+  [v8 setProgressUnits:5];
+  v10 = objc_opt_new();
+  v90 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  v11 = allModesForTraining();
+  v82 = [v11 countByEnumeratingWithState:&v90 objects:v98 count:16];
+  if (v82)
   {
-    v65 = 0;
-    v73 = *v81;
-    v71 = v9;
-    v67 = v10;
+    v75 = 0;
+    v83 = *v91;
+    v81 = v10;
+    v77 = v11;
 LABEL_9:
-    v11 = 0;
+    v12 = 0;
     while (1)
     {
-      if (*v81 != v73)
+      if (*v91 != v83)
       {
-        objc_enumerationMutation(v10);
+        objc_enumerationMutation(v11);
       }
 
-      v12 = *(*(&v80 + 1) + 8 * v11);
-      v13 = objc_autoreleasePoolPush();
-      unsignedIntegerValue = [v12 unsignedIntegerValue];
-      v15 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = *(*(&v90 + 1) + 8 * v12);
+      v14 = objc_autoreleasePoolPush();
+      unsignedIntegerValue = [v13 unsignedIntegerValue];
+      v16 = __atxlog_handle_notification_management(unsignedIntegerValue);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = ATXModeToString();
+        v17 = ATXModeToString();
         *buf = 138412290;
-        v85 = v16;
-        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Training Mode Entity Models for Mode %@...", buf, 0xCu);
+        v95 = v17;
+        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Training Mode Entity Models for Mode %@...", buf, 0xCu);
       }
 
       if (recentlyCopy)
       {
-        [v12 unsignedIntegerValue];
-        v17 = ATXModeToString();
-        v18 = [(ATXModeEntityModelTrainer *)self pathForModeEntityTypeIdentifier:@"apps" modeIdentifier:v17 modeConfigurationType:0];
+        [v13 unsignedIntegerValue];
+        v18 = ATXModeToString();
+        v19 = [(ATXModeEntityModelTrainer *)self pathForModeEntityTypeIdentifier:@"apps" modeIdentifier:v18 modeConfigurationType:0];
 
-        v19 = [MEMORY[0x277CEBCB0] modificationDateOfFileAtPath:v18];
-        [v19 timeIntervalSinceNow];
-        v21 = v20;
+        v20 = [MEMORY[0x277CEBCB0] modificationDateOfFileAtPath:v19];
+        [v20 timeIntervalSinceNow];
+        v22 = v21;
 
-        if (v21 < 0.0 && v21 > -21600.0)
+        if (v22 < 0.0 && v22 > -21600.0)
         {
-          v22 = __atxlog_handle_notification_management();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_notification_management(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            [v12 unsignedIntegerValue];
-            v23 = ATXModeToString();
+            [v13 unsignedIntegerValue];
+            v25 = ATXModeToString();
             *buf = 138412546;
-            v85 = v23;
-            v86 = 2048;
-            v87 = -v21;
-            _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "Skipping training of apps, contacts, and notification scores in Mode Entity Scorer for mode %@ since it was trained recently. Cache age: %.2f", buf, 0x16u);
+            v95 = v25;
+            v96 = 2048;
+            v97 = -v22;
+            _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Skipping training of apps, contacts, and notification scores in Mode Entity Scorer for mode %@ since it was trained recently. Cache age: %.2f", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v13);
+          objc_autoreleasePoolPop(v14);
           goto LABEL_47;
         }
       }
 
-      v24 = -[ATXAppModeModel initWithMode:modeEntityStore:globalAppModeAffinityModel:]([ATXAppModeModel alloc], "initWithMode:modeEntityStore:globalAppModeAffinityModel:", [v12 unsignedIntegerValue], self->_modeEntityStore, self->_globalAppModeAffinityModel);
-      v25 = [(ATXAppModeModel *)v24 scoredEntitiesWithXPCActivity:taskCopy];
-      if ([taskCopy didDefer])
+      v26 = -[ATXAppModeModel initWithMode:modeEntityStore:globalAppModeAffinityModel:]([ATXAppModeModel alloc], "initWithMode:modeEntityStore:globalAppModeAffinityModel:", [v13 unsignedIntegerValue], self->_modeEntityStore, self->_globalAppModeAffinityModel);
+      v27 = [(ATXAppModeModel *)v26 scoredEntitiesWithXPCActivity:v8];
+      didDefer = [v8 didDefer];
+      if (didDefer)
       {
-        v27 = __atxlog_handle_notification_management();
-        if (!os_log_type_enabled(&v27->super, OS_LOG_TYPE_DEFAULT))
+        v31 = __atxlog_handle_notification_management(didDefer);
+        if (!os_log_type_enabled(&v31->super, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_62;
         }
 
-        v57 = ATXModeToString();
+        v68 = ATXModeToString();
         *buf = 138412290;
-        v85 = v57;
-        v58 = "ATXAppModeModel: computing scoredEntities for %@, but deferring training because XPC activity asked for deferral";
+        v95 = v68;
+        v69 = "ATXAppModeModel: computing scoredEntities for %@, but deferring training because XPC activity asked for deferral";
 LABEL_55:
-        _os_log_impl(&dword_2263AA000, &v27->super, OS_LOG_TYPE_DEFAULT, v58, buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, &v31->super, OS_LOG_TYPE_DEFAULT, v69, buf, 0xCu);
 
         goto LABEL_62;
       }
 
-      v26 = ATXModeToString();
-      [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v25 modeEntityTypeIdentifier:@"apps" modeIdentifier:v26 modeConfigurationType:0];
+      v29 = ATXModeToString();
+      [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v27 modeEntityTypeIdentifier:@"apps" modeIdentifier:v29 modeConfigurationType:0];
 
-      if ([taskCopy didDefer])
+      didDefer2 = [v8 didDefer];
+      if (didDefer2)
       {
-        v27 = __atxlog_handle_notification_management();
-        if (!os_log_type_enabled(&v27->super, OS_LOG_TYPE_DEFAULT))
+        v31 = __atxlog_handle_notification_management(didDefer2);
+        if (!os_log_type_enabled(&v31->super, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_62;
         }
 
-        v57 = ATXModeToString();
+        v68 = ATXModeToString();
         *buf = 138412290;
-        v85 = v57;
-        v58 = "(Allow List) Finished training of app scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral";
+        v95 = v68;
+        v69 = "(Allow List) Finished training of app scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral";
         goto LABEL_55;
       }
 
-      v79 = v25;
-      context = v13;
-      v27 = [[ATXAppModeDenyListModel alloc] initWithMode:unsignedIntegerValue modeEntityStore:self->_modeEntityStore globalInterruptingAppModel:self->_globalInterruptingAppModel];
-      v28 = [(ATXAppModeDenyListModel *)v27 scoredEntitiesWithXPCActivity:taskCopy];
-      if ([taskCopy didDefer])
+      v89 = v27;
+      context = v14;
+      v31 = [[ATXAppModeDenyListModel alloc] initWithMode:unsignedIntegerValue modeEntityStore:self->_modeEntityStore globalInterruptingAppModel:self->_globalInterruptingAppModel];
+      v32 = [(ATXAppModeDenyListModel *)v31 scoredEntitiesWithXPCActivity:v8];
+      didDefer3 = [v8 didDefer];
+      if (didDefer3)
       {
-        v59 = __atxlog_handle_notification_management();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v70 = __atxlog_handle_notification_management(didDefer3);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
-          v60 = ATXModeToString();
+          v71 = ATXModeToString();
           *buf = 138412290;
-          v85 = v60;
-          v61 = "ATXAppModeDenyListModel: computing scoredEntities for %@, but deferring training because XPC activity asked for deferral.";
+          v95 = v71;
+          v72 = "ATXAppModeDenyListModel: computing scoredEntities for %@, but deferring training because XPC activity asked for deferral.";
           goto LABEL_60;
         }
 
 LABEL_61:
 
-        v13 = context;
-        v25 = v79;
+        v14 = context;
+        v27 = v89;
 LABEL_62:
 
-        objc_autoreleasePoolPop(v13);
+        objc_autoreleasePoolPop(v14);
         goto LABEL_63;
       }
 
-      v29 = ATXModeToString();
-      [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v28 modeEntityTypeIdentifier:@"apps" modeIdentifier:v29 modeConfigurationType:1];
+      v34 = ATXModeToString();
+      [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v32 modeEntityTypeIdentifier:@"apps" modeIdentifier:v34 modeConfigurationType:1];
 
-      if ([taskCopy didDefer])
+      didDefer4 = [v8 didDefer];
+      if (didDefer4)
       {
-        v59 = __atxlog_handle_notification_management();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v70 = __atxlog_handle_notification_management(didDefer4);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
-          v60 = ATXModeToString();
+          v71 = ATXModeToString();
           *buf = 138412290;
-          v85 = v60;
-          v61 = "(Deny List) Finished training of app scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral.";
+          v95 = v71;
+          v72 = "(Deny List) Finished training of app scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral.";
 LABEL_60:
-          _os_log_impl(&dword_2263AA000, v59, OS_LOG_TYPE_DEFAULT, v61, buf, 0xCu);
+          _os_log_impl(&dword_2263AA000, v70, OS_LOG_TYPE_DEFAULT, v72, buf, 0xCu);
         }
 
         goto LABEL_61;
       }
 
-      v75 = v27;
-      v76 = v24;
-      v30 = [[ATXContactModeModel alloc] initWithMode:unsignedIntegerValue contactStore:v9];
-      scoredEntities = [(ATXContactModeModel *)v30 scoredEntities];
-      v32 = [(ATXContactModeModel *)v30 purgeDeletedContacts:scoredEntities];
+      v85 = v31;
+      v86 = v26;
+      v36 = [[ATXContactModeModel alloc] initWithMode:unsignedIntegerValue contactStore:v10];
+      scoredEntities = [(ATXContactModeModel *)v36 scoredEntities];
+      v38 = [(ATXContactModeModel *)v36 purgeDeletedContacts:scoredEntities];
 
-      v33 = ATXModeToString();
-      v78 = v32;
-      [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v32 modeEntityTypeIdentifier:@"contacts" modeIdentifier:v33 modeConfigurationType:0];
+      v39 = ATXModeToString();
+      v88 = v38;
+      [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v38 modeEntityTypeIdentifier:@"contacts" modeIdentifier:v39 modeConfigurationType:0];
 
-      if ([taskCopy didDefer])
+      didDefer5 = [v8 didDefer];
+      if (didDefer5)
       {
-        v34 = __atxlog_handle_notification_management();
-        v35 = v75;
-        if (os_log_type_enabled(&v34->super, OS_LOG_TYPE_DEFAULT))
+        v41 = __atxlog_handle_notification_management(didDefer5);
+        v42 = v85;
+        if (os_log_type_enabled(&v41->super, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = ATXModeToString();
+          v43 = ATXModeToString();
           *buf = 138412290;
-          v85 = v36;
-          _os_log_impl(&dword_2263AA000, &v34->super, OS_LOG_TYPE_DEFAULT, "(Allow List) Finished training of contact scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral.", buf, 0xCu);
+          v95 = v43;
+          _os_log_impl(&dword_2263AA000, &v41->super, OS_LOG_TYPE_DEFAULT, "(Allow List) Finished training of contact scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral.", buf, 0xCu);
         }
 
-        v37 = 0;
+        v44 = 0;
       }
 
       else
       {
-        v69 = v30;
-        v34 = [[ATXContactModeDenyListModel alloc] initWithMode:unsignedIntegerValue contactStore:v9];
-        [(ATXContactModeDenyListModel *)v34 scoredEntities];
-        v39 = v38 = v9;
-        [(ATXContactModeDenyListModel *)v34 purgeDeletedContacts:v39];
-        v41 = v40 = taskCopy;
+        v79 = v36;
+        v41 = [[ATXContactModeDenyListModel alloc] initWithMode:unsignedIntegerValue contactStore:v10];
+        [(ATXContactModeDenyListModel *)v41 scoredEntities];
+        v46 = v45 = v10;
+        [(ATXContactModeDenyListModel *)v41 purgeDeletedContacts:v46];
+        v48 = v47 = v8;
 
-        v42 = ATXModeToString();
-        v70 = v41;
-        v43 = v41;
-        taskCopy = v40;
-        [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v43 modeEntityTypeIdentifier:@"contacts" modeIdentifier:v42 modeConfigurationType:1];
+        v49 = ATXModeToString();
+        v80 = v48;
+        v50 = v48;
+        v8 = v47;
+        [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v50 modeEntityTypeIdentifier:@"contacts" modeIdentifier:v49 modeConfigurationType:1];
 
-        if ([v40 didDefer])
+        didDefer6 = [v47 didDefer];
+        if (didDefer6)
         {
-          v44 = __atxlog_handle_notification_management();
-          v68 = v44;
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          v52 = __atxlog_handle_notification_management(didDefer6);
+          v78 = v52;
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
-            v45 = ATXModeToString();
+            v53 = ATXModeToString();
             *buf = 138412290;
-            v85 = v45;
-            _os_log_impl(&dword_2263AA000, v44, OS_LOG_TYPE_DEFAULT, "(Deny List) Finished training of contact scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral.", buf, 0xCu);
+            v95 = v53;
+            _os_log_impl(&dword_2263AA000, v52, OS_LOG_TYPE_DEFAULT, "(Deny List) Finished training of contact scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral.", buf, 0xCu);
           }
 
-          v37 = 0;
-          v35 = v75;
-          v30 = v69;
+          v44 = 0;
+          v42 = v85;
+          v36 = v79;
         }
 
         else
         {
-          v68 = [[ATXNotificationModeModel alloc] initWithMode:unsignedIntegerValue contactStore:v38];
-          v46 = [(ATXNotificationModeModel *)v68 scoredEntitiesWithScoredAppEntities:v79 scoredContactEntities:v32];
-          v47 = ATXModeToString();
-          v66 = v46;
-          [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v46 modeEntityTypeIdentifier:@"notifications" modeIdentifier:v47 modeConfigurationType:0];
+          v78 = [[ATXNotificationModeModel alloc] initWithMode:unsignedIntegerValue contactStore:v45];
+          v54 = [(ATXNotificationModeModel *)v78 scoredEntitiesWithScoredAppEntities:v89 scoredContactEntities:v38];
+          v55 = ATXModeToString();
+          v76 = v54;
+          [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v54 modeEntityTypeIdentifier:@"notifications" modeIdentifier:v55 modeConfigurationType:0];
 
-          if ([taskCopy didDefer])
+          didDefer7 = [v8 didDefer];
+          if (didDefer7)
           {
-            p_super = __atxlog_handle_notification_management();
-            v35 = v75;
-            v30 = v69;
+            p_super = __atxlog_handle_notification_management(didDefer7);
+            v42 = v85;
+            v36 = v79;
             if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
             {
-              v49 = ATXModeToString();
+              v58 = ATXModeToString();
               *buf = 138412290;
-              v85 = v49;
+              v95 = v58;
               _os_log_impl(&dword_2263AA000, p_super, OS_LOG_TYPE_DEFAULT, "Finished training of notification scores in Mode Entity Scorer for mode %@, but deferring training because XPC activity asked for deferral.", buf, 0xCu);
             }
 
-            v37 = 0;
+            v44 = 0;
           }
 
           else
           {
-            v64 = [[ATXWidgetModeModel alloc] initWithMode:unsignedIntegerValue globalWidgetPopularityModel:self->_globalWidgetPopularityModel];
-            v50 = [(ATXWidgetModeModel *)v64 scoredEntitiesWithScoredAppEntities:v79];
-            v51 = ATXModeToString();
-            v63 = v50;
-            [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v50 modeEntityTypeIdentifier:@"widgets" modeIdentifier:v51 modeConfigurationType:0];
+            v74 = [[ATXWidgetModeModel alloc] initWithMode:unsignedIntegerValue globalWidgetPopularityModel:self->_globalWidgetPopularityModel];
+            v59 = [(ATXWidgetModeModel *)v74 scoredEntitiesWithScoredAppEntities:v89];
+            v60 = ATXModeToString();
+            v73 = v59;
+            [(ATXModeEntityModelTrainer *)self persistModeEntityScores:v59 modeEntityTypeIdentifier:@"widgets" modeIdentifier:v60 modeConfigurationType:0];
 
-            v52 = __atxlog_handle_notification_management();
-            v30 = v69;
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+            v62 = __atxlog_handle_notification_management(v61);
+            v36 = v79;
+            if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
             {
-              v53 = ATXModeToString();
+              v63 = ATXModeToString();
               *buf = 138412290;
-              v85 = v53;
-              _os_log_impl(&dword_2263AA000, v52, OS_LOG_TYPE_DEFAULT, "Finished training of widget scores in Mode Entity Scorer for mode %@.", buf, 0xCu);
+              v95 = v63;
+              _os_log_impl(&dword_2263AA000, v62, OS_LOG_TYPE_DEFAULT, "Finished training of widget scores in Mode Entity Scorer for mode %@.", buf, 0xCu);
             }
 
-            didDefer = [taskCopy didDefer];
-            v35 = v75;
-            if (didDefer)
+            didDefer8 = [v8 didDefer];
+            v65 = didDefer8;
+            v42 = v85;
+            if (didDefer8)
             {
-              v55 = __atxlog_handle_notification_management();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+              v66 = __atxlog_handle_notification_management(didDefer8);
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
-                v56 = ATXModeToString();
+                v67 = ATXModeToString();
                 *buf = 138412290;
-                v85 = v56;
-                _os_log_impl(&dword_2263AA000, v55, OS_LOG_TYPE_DEFAULT, "Finished training of all entities for mode %@, but deferring training because XPC activity asked for deferral.", buf, 0xCu);
+                v95 = v67;
+                _os_log_impl(&dword_2263AA000, v66, OS_LOG_TYPE_DEFAULT, "Finished training of all entities for mode %@, but deferring training because XPC activity asked for deferral.", buf, 0xCu);
               }
             }
 
             else
             {
-              ++v65;
-              v55 = allModesForTraining();
-              [taskCopy setProgressUnits:{(v65 / -[NSObject count](v55, "count") * 95.0)}];
+              ++v75;
+              v66 = allModesForTraining();
+              [v8 setProgressUnits:{(v75 / -[NSObject count](v66, "count") * 95.0)}];
             }
 
-            v37 = didDefer ^ 1;
-            p_super = &v64->super;
+            v44 = v65 ^ 1;
+            p_super = &v74->super;
           }
         }
 
-        v10 = v67;
+        v11 = v77;
       }
 
       objc_autoreleasePoolPop(context);
-      if (!v37)
+      if (!v44)
       {
-        v9 = v71;
+        v10 = v81;
         goto LABEL_63;
       }
 
 LABEL_47:
-      ++v11;
-      v9 = v71;
-      if (v72 == v11)
+      ++v12;
+      v10 = v81;
+      if (v82 == v12)
       {
-        v72 = [v10 countByEnumeratingWithState:&v80 objects:v88 count:16];
-        if (v72)
+        v82 = [v11 countByEnumeratingWithState:&v90 objects:v98 count:16];
+        if (v82)
         {
           goto LABEL_9;
         }
@@ -369,18 +381,16 @@ LABEL_47:
     }
   }
 
-  [taskCopy setDone];
-  v10 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_notification_management([v8 setDone]);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Finished training Mode Entity Models for all modes.", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Finished training Mode Entity Models for all modes.", buf, 2u);
   }
 
 LABEL_63:
 
 LABEL_64:
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldDeferTrainingDueToRestoredBackup
@@ -390,9 +400,9 @@ LABEL_64:
   v4 = *MEMORY[0x277D41CC8];
   [v3 doubleForKey:*MEMORY[0x277D41CC8]];
   v6 = v5;
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v8 = v7 - v6;
-  if (v7 - v6 >= 604800.0)
+  timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v9 = v8 - v6;
+  if (v8 - v6 >= 604800.0)
   {
     if (v6 > 0.0)
     {
@@ -402,15 +412,15 @@ LABEL_64:
 
   else
   {
-    v9 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_notification_management(timeIntervalSinceReferenceDate);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Skipping retraining because backup was recently restored", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Skipping retraining because backup was recently restored", v12, 2u);
     }
   }
 
-  return v8 < 604800.0;
+  return v9 < 604800.0;
 }
 
 - (BOOL)shouldDeferTrainingDueToUpgrade
@@ -431,19 +441,19 @@ LABEL_64:
     v7 = v5;
   }
 
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v9 = v8 - v7;
-  if (v9 < 604800.0)
+  timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v10 = v9 - v7;
+  if (v10 < 604800.0)
   {
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_notification_management(timeIntervalSinceReferenceDate);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Skipping retraining because of recent upgrade", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Skipping retraining because of recent upgrade", v13, 2u);
     }
   }
 
-  return v9 < 604800.0;
+  return v10 < 604800.0;
 }
 
 - (id)pathForModeEntityTypeIdentifier:(id)identifier modeIdentifier:(id)modeIdentifier modeConfigurationType:(int64_t)type
@@ -485,23 +495,23 @@ LABEL_64:
   objc_autoreleasePoolPop(v16);
   if (v17 || !v18)
   {
-    v19 = [(ATXModeEntityModelTrainer *)self pathForModeEntityTypeIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy modeConfigurationType:type];
+    v20 = [(ATXModeEntityModelTrainer *)self pathForModeEntityTypeIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy modeConfigurationType:type];
     v26 = 0;
-    v20 = [v17 writeToFile:v19 options:1073741825 error:&v26];
-    v21 = v26;
-    v22 = __atxlog_handle_notification_management();
-    v23 = v22;
-    if (v20)
+    v21 = [v17 writeToFile:v20 options:1073741825 error:&v26];
+    v22 = v26;
+    v23 = __atxlog_handle_notification_management(v22);
+    v24 = v23;
+    if (v21)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v29 = identifierCopy;
-        _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "SUCCESS: Finished writing mode entity scores for mode entity type: %@.", buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "SUCCESS: Finished writing mode entity scores for mode entity type: %@.", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       [ATXModeEntityModelTrainer persistModeEntityScores:modeEntityTypeIdentifier:modeIdentifier:modeConfigurationType:];
     }
@@ -509,18 +519,17 @@ LABEL_64:
 
   else
   {
-    v19 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = __atxlog_handle_notification_management(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       [ATXModeEntityModelTrainer persistModeEntityScores:modeEntityTypeIdentifier:modeIdentifier:modeConfigurationType:];
     }
 
-    v20 = 0;
+    v21 = 0;
   }
 
   objc_autoreleasePoolPop(v15);
-  v24 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v21;
 }
 
 + (id)thresholdedModeEntityScores:(id)scores modeEntityTypeIdentifier:(id)identifier threshold:(double)threshold
@@ -568,21 +577,21 @@ LABEL_64:
       while (v12);
     }
 
-    v20 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = __atxlog_handle_notification_management(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = [v10 count];
-      v22 = v21 - [v9 count];
-      v23 = [v10 count];
+      v22 = [v10 count];
+      v23 = v22 - [v9 count];
+      v24 = [v10 count];
       *buf = 136315906;
       v31 = "+[ATXModeEntityModelTrainer thresholdedModeEntityScores:modeEntityTypeIdentifier:threshold:]";
       v32 = 2048;
-      v33 = v22;
+      v33 = v23;
       v34 = 2048;
-      v35 = v23;
+      v35 = v24;
       v36 = 2048;
       thresholdCopy = threshold;
-      _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "%s Filtered out %ld/%ld entities because their scores were < %f", buf, 0x2Au);
+      _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "%s Filtered out %ld/%ld entities because their scores were < %f", buf, 0x2Au);
     }
   }
 
@@ -590,8 +599,6 @@ LABEL_64:
   {
     v9 = scoresCopy;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -629,30 +636,30 @@ LABEL_6:
 
 + (double)maxScoreWithThresholdGivenModeEntityScores:(id)scores
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v5 = scoresCopy;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       v9 = 0;
       do
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [v5 objectForKeyedSubscript:{*(*(&v24 + 1) + 8 * v9), v24}];
+        v10 = [v5 objectForKeyedSubscript:{*(*(&v23 + 1) + 8 * v9), v23}];
         v11 = objc_alloc(MEMORY[0x277CCABB0]);
         scoreMetadata = [v10 scoreMetadata];
         [scoreMetadata score];
@@ -663,7 +670,7 @@ LABEL_6:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
@@ -692,12 +699,11 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v19 = [v16 objectAtIndexedSubscript:{maxElementsToPerisistPerEntityForModeBackup - 1, v24}];
+  v19 = [v16 objectAtIndexedSubscript:{maxElementsToPerisistPerEntityForModeBackup - 1, v23}];
   [v19 doubleValue];
   v21 = v20;
 
 LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -705,29 +711,30 @@ LABEL_15:
 {
   timeCopy = time;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = [self eventProviderForMode:{objc_msgSend(timeCopy, "atxMode")}];
+    v6 = [self eventProviderForMode:{objc_msgSend(timeCopy, "atxMode")}];
   }
 
   else
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ATXModeEntityModelTrainer *)timeCopy eventProviderForScorableTime:v6];
+      [(ATXModeEntityModelTrainer *)timeCopy eventProviderForScorableTime:v7];
     }
 
-    v7 = MEMORY[0x277CBEAD8];
-    v8 = *MEMORY[0x277CBE658];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    [v7 raise:v8 format:{@"Received invalid scorable time class %@", v10}];
+    v8 = MEMORY[0x277CBEAD8];
+    v9 = *MEMORY[0x277CBE658];
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    [v8 raise:v9 format:{@"Received invalid scorable time class %@", v11}];
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 + (id)eventProviderForMode:(unint64_t)mode
@@ -751,7 +758,7 @@ LABEL_15:
 
   else
   {
-    v3 = __atxlog_handle_notification_management();
+    v3 = __atxlog_handle_notification_management(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [ATXModeEntityModelTrainer eventProviderForMode:v3];
@@ -763,32 +770,14 @@ LABEL_15:
   return v4;
 }
 
-- (void)persistModeEntityScores:modeEntityTypeIdentifier:modeIdentifier:modeConfigurationType:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "FAILURE: Unable to write mode entity scores for mode entity type: %@. Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)persistModeEntityScores:modeEntityTypeIdentifier:modeIdentifier:modeConfigurationType:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "FAILURE: Unable to archive mode entity scores for mode entity type: %@. Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 + (void)eventProviderForScorableTime:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Received invalid scorable time class %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Received invalid scorable time class %@", &v5, 0xCu);
 }
 
 @end

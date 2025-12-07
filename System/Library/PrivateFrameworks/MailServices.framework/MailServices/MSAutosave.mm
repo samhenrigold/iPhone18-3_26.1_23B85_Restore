@@ -80,23 +80,23 @@ void __17__MSAutosave_log__block_invoke(uint64_t a1)
 
 - (BOOL)hasAutosavedMessageWithIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   promise = [MEMORY[0x1E699B868] promise];
   errorOnlyCompletionHandlerAdapter = [promise errorOnlyCompletionHandlerAdapter];
   v7 = [(MSXPCService *)self remoteObjectProxyWithErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __48__MSAutosave_hasAutosavedMessageWithIdentifier___block_invoke;
-  v19[3] = &unk_1E855EAB0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __48__MSAutosave_hasAutosavedMessageWithIdentifier___block_invoke;
+  v18[3] = &unk_1E855EAB0;
   v8 = promise;
-  v20 = v8;
-  [v7 hasAutosavedMessageWithIdentifier:identifierCopy completion:v19];
+  v19 = v8;
+  [v7 hasAutosavedMessageWithIdentifier:identifierCopy completion:v18];
   future = [v8 future];
-  v18 = 0;
-  v10 = [future resultWithTimeout:&v18 error:5.0];
-  v11 = v18;
+  v17 = 0;
+  v10 = [future resultWithTimeout:&v17 error:5.0];
+  v11 = v17;
 
   if (v11)
   {
@@ -104,7 +104,7 @@ void __17__MSAutosave_log__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       ef_publicDescription = [v11 ef_publicDescription];
-      [(MSAutosave *)ef_publicDescription hasAutosavedMessageWithIdentifier:v25, v12];
+      [(MSAutosave *)ef_publicDescription hasAutosavedMessageWithIdentifier:v24, v12];
     }
   }
 
@@ -113,13 +113,12 @@ void __17__MSAutosave_log__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v22 = identifierCopy;
-    v23 = 1024;
-    v24 = bOOLValue;
+    v21 = identifierCopy;
+    v22 = 1024;
+    v23 = bOOLValue;
     _os_log_impl(&dword_1D876A000, v15, OS_LOG_TYPE_INFO, "hasAutosavedMessageWithIdentifier %{public}@ returns %{BOOL}d", buf, 0x12u);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -145,17 +144,15 @@ void __48__MSAutosave_hasAutosavedMessageWithIdentifier___block_invoke(uint64_t 
 
 void __51__MSAutosave_removeAutosavedMessageWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[MSAutosave log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
     v6 = [v3 ef_publicDescription];
-    __51__MSAutosave_removeAutosavedMessageWithIdentifier___block_invoke_cold_1(v5, v6, v8, v4);
+    __51__MSAutosave_removeAutosavedMessageWithIdentifier___block_invoke_cold_1(v5, v6, v7, v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)autosavedMessageDataWithIdentifier:(id)identifier
@@ -185,24 +182,23 @@ void __51__MSAutosave_removeAutosavedMessageWithIdentifier___block_invoke(uint64
 
 void __49__MSAutosave_autosavedMessageDataWithIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[MSAutosave log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = *(a1 + 32);
-    v10 = 138543874;
-    v11 = v8;
-    v12 = 2048;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_1D876A000, v7, OS_LOG_TYPE_INFO, "autosavedMessageDataWithIdentifier:%{public}@ returned data: %p, error: %{public}@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v8;
+    v11 = 2048;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_1D876A000, v7, OS_LOG_TYPE_INFO, "autosavedMessageDataWithIdentifier:%{public}@ returned data: %p, error: %{public}@", &v9, 0x20u);
   }
 
   [*(a1 + 40) finishWithResult:v5 error:v6];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)autosaveMessageData:(id)data replacingIdentifier:(id)identifier completion:(id)completion
@@ -296,7 +292,7 @@ void __40__MSAutosave_newConnectionForInterface___block_invoke(uint64_t a1)
 
 - (void)_handleInterruptedConnection
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   activeAutosaveSessions = [(MSAutosave *)self activeAutosaveSessions];
   allObjects = [activeAutosaveSessions allObjects];
 
@@ -308,45 +304,43 @@ void __40__MSAutosave_newConnectionForInterface___block_invoke(uint64_t a1)
       [(MSAutosave *)v5 _handleInterruptedConnection];
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     obj = allObjects;
-    v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
           v9 = allObjects;
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           autosaveIdentifier = [v10 autosaveIdentifier];
-          v14[0] = MEMORY[0x1E69E9820];
-          v14[1] = 3221225472;
-          v14[2] = __42__MSAutosave__handleInterruptedConnection__block_invoke;
-          v14[3] = &unk_1E855EBA0;
-          v14[4] = v10;
-          [(MSAutosave *)self _getRemoteAutosaveSessionForIdentifier:autosaveIdentifier completion:v14];
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = __42__MSAutosave__handleInterruptedConnection__block_invoke;
+          v13[3] = &unk_1E855EBA0;
+          v13[4] = v10;
+          [(MSAutosave *)self _getRemoteAutosaveSessionForIdentifier:autosaveIdentifier completion:v13];
 
           allObjects = v9;
         }
 
-        v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __42__MSAutosave__handleInterruptedConnection__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -395,23 +389,14 @@ void __42__MSAutosave__handleInterruptedConnection__block_invoke(uint64_t a1, vo
 
 void __64__MSAutosave__getRemoteAutosaveSessionForIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
-  if (!v7 || v5)
+  if ((!v6 || v5) && !v5)
   {
-    if (!v5)
-    {
-      v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MSMessageAutosaveErrorDomain" code:4 userInfo:0];
-    }
-
-    (*(*(a1 + 40) + 16))();
+    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MSMessageAutosaveErrorDomain" code:4 userInfo:0];
   }
 
-  else
-  {
-    v6 = *(a1 + 32);
-    (*(*(a1 + 40) + 16))();
-  }
+  (*(*(a1 + 40) + 16))();
 }
 
 - (void)hasAutosavedMessageWithIdentifier:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

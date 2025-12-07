@@ -239,29 +239,29 @@
 
 - (id)accountMatchingSimIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     accounts = [(IDSService *)self accounts];
-    v6 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           userUniqueIdentifier = [v9 userUniqueIdentifier];
           v11 = [userUniqueIdentifier isEqual:identifierCopy];
 
@@ -272,7 +272,7 @@
           }
         }
 
-        v6 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -289,8 +289,6 @@ LABEL_12:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -353,7 +351,7 @@ LABEL_12:
     v10 = +[IDSLogging IDSService];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v10);
     }
 
     selfCopy = 0;
@@ -2022,18 +2020,16 @@ LABEL_12:
 
 - (id)datagramChannelForSessionDestination:(id)destination error:(id *)error
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v6 = *MEMORY[0x1E69A4B48];
-  v13[0] = *MEMORY[0x1E69A4B40];
-  v13[1] = v6;
-  v14[0] = &unk_1F0A299C0;
-  v14[1] = &unk_1F0A299C0;
+  v12[0] = *MEMORY[0x1E69A4B40];
+  v12[1] = v6;
+  v13[0] = &unk_1F0A299C0;
+  v13[1] = &unk_1F0A299C0;
   v7 = MEMORY[0x1E695DF20];
   destinationCopy = destination;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:v12 count:2];
   v10 = [(IDSService *)self datagramChannelForSessionDestination:destinationCopy options:v9 error:error];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -2101,40 +2097,38 @@ LABEL_12:
 
 - (id)aliases
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   accounts = [(IDSService *)self accounts];
-  v5 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(accounts);
         }
 
-        aliasStrings = [*(*(&v13 + 1) + 8 * i) aliasStrings];
+        aliasStrings = [*(*(&v12 + 1) + 8 * i) aliasStrings];
         [v3 addObjectsFromArray:aliasStrings];
       }
 
-      v6 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [objc_opt_class() removeSentinelFromAliases:v3];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -23,7 +23,7 @@
   [v14 setCenter:?];
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   else

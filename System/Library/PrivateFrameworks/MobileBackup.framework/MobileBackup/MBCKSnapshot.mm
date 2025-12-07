@@ -465,7 +465,7 @@
         *buf = 138412290;
         v27 = changeCopy;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Deleting file %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "Deleting file %@", changeCopy);
       }
     }
 
@@ -479,7 +479,7 @@
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Adding file %@ (%@)", buf, 0x16u);
 
       changeTypeString2 = [changeCopy changeTypeString];
-      _MBLog();
+      _MBLog(@"I ", "Adding file %@ (%@)", changeCopy, changeTypeString2);
     }
 
     v22 = [v18 queueUploadOfFileChange:changeCopy batchSave:saveCopy engine:v15 skipped:skipped error:error];
@@ -708,7 +708,6 @@ LABEL_28:
 - (void)forgetManifests
 {
   self->_hasFetchedManifests = 0;
-  manifestsByDomainName = self->_manifestsByDomainName;
   self->_manifestsByDomainName = 0;
   _objc_release_x1();
 }
@@ -783,7 +782,7 @@ LABEL_28:
 
       snapshotID2 = [(MBCKSnapshot *)self snapshotID];
       modificationDate2 = [(MBCKSnapshot *)self modificationDate];
-      _MBLog();
+      _MBLog(@"E ", "Snapshot %@ is missing created date, using modification date: %@", snapshotID2, modificationDate2);
     }
 
     modificationDate3 = [(MBCKSnapshot *)self modificationDate];
@@ -796,7 +795,7 @@ LABEL_28:
 {
   trackerCopy = tracker;
   completionCopy = completion;
-  v60 = trackerCopy;
+  v57 = trackerCopy;
   if (!trackerCopy)
   {
     __assert_rtn("[MBCKSnapshot prepareForSaveWithOperationTracker:completion:]", "MBCKSnapshot.m", 403, "tracker");
@@ -806,7 +805,7 @@ LABEL_28:
   [(MBCKSnapshot *)self snapshotFormat];
   if (MBSnapshotFormatContainsManifests())
   {
-    v57 = v8;
+    v54 = v8;
     selfCopy = self;
     snapshotID = [(MBCKSnapshot *)self snapshotID];
     manifestsByDomainName = [(MBCKSnapshot *)self manifestsByDomainName];
@@ -820,82 +819,80 @@ LABEL_28:
       *&buf[12] = 2114;
       *&buf[14] = snapshotID;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Deleting %lu old manifests from snapshot %{public}@", buf, 0x16u);
-      v53 = [allValues count];
-      v54 = snapshotID;
-      _MBLog();
+      _MBLog(@"Df", "Deleting %lu old manifests from snapshot %{public}@", [allValues count], snapshotID);
     }
 
     v12 = dispatch_group_create();
-    startBatchDelete = [v60 startBatchDelete];
+    startBatchDelete = [v57 startBatchDelete];
     [startBatchDelete setRetryWhenNetworkDisconnected:0];
     dispatch_group_enter(v12);
-    v98 = 0u;
-    v99 = 0u;
+    v95 = 0u;
     v96 = 0u;
-    v97 = 0u;
+    v93 = 0u;
+    v94 = 0u;
     obj = allValues;
-    v14 = [obj countByEnumeratingWithState:&v96 objects:v106 count:16];
+    v14 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
     if (v14)
     {
-      v15 = *v97;
+      v15 = *v94;
       do
       {
         for (i = 0; i != v14; i = i + 1)
         {
-          if (*v97 != v15)
+          if (*v94 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v96 + 1) + 8 * i);
+          v17 = *(*(&v93 + 1) + 8 * i);
           v18 = objc_autoreleasePoolPush();
           dispatch_group_enter(v12);
-          v94[0] = _NSConcreteStackBlock;
-          v94[1] = 3221225472;
-          v94[2] = sub_100050110;
-          v94[3] = &unk_1003BC0B0;
-          v95 = v12;
-          [v17 deletePendingManifestPagesWithBatchDelete:startBatchDelete completion:v94];
+          v91[0] = _NSConcreteStackBlock;
+          v91[1] = 3221225472;
+          v91[2] = sub_100050110;
+          v91[3] = &unk_1003BC0B0;
+          v92 = v12;
+          [v17 deletePendingManifestPagesWithBatchDelete:startBatchDelete completion:v91];
 
           objc_autoreleasePoolPop(v18);
         }
 
-        v14 = [obj countByEnumeratingWithState:&v96 objects:v106 count:16];
+        v14 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
       }
 
       while (v14);
     }
 
-    v92[0] = _NSConcreteStackBlock;
-    v92[1] = 3221225472;
-    v92[2] = sub_100050118;
-    v92[3] = &unk_1003BC010;
+    v89[0] = _NSConcreteStackBlock;
+    v89[1] = 3221225472;
+    v89[2] = sub_100050118;
+    v89[3] = &unk_1003BC010;
     v19 = v12;
-    v93 = v19;
-    [v60 finishBatchDelete:startBatchDelete completion:v92];
-    startBatchDelete2 = [v60 startBatchDelete];
+    v90 = v19;
+    [v57 finishBatchDelete:startBatchDelete completion:v89];
+    startBatchDelete2 = [v57 startBatchDelete];
 
     [startBatchDelete2 setRetryWhenNetworkDisconnected:0];
     dispatch_group_enter(v19);
-    v90 = 0u;
-    v91 = 0u;
+    v87 = 0u;
     v88 = 0u;
-    v89 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     obja = obj;
-    v20 = [obja countByEnumeratingWithState:&v88 objects:v105 count:16];
+    v20 = [obja countByEnumeratingWithState:&v85 objects:v102 count:16];
     if (v20)
     {
-      v21 = *v89;
+      v21 = *v86;
       do
       {
         for (j = 0; j != v20; j = j + 1)
         {
-          if (*v89 != v21)
+          if (*v86 != v21)
           {
             objc_enumerationMutation(obja);
           }
 
-          v23 = *(*(&v88 + 1) + 8 * j);
+          v23 = *(*(&v85 + 1) + 8 * j);
           v24 = objc_autoreleasePoolPush();
           manifestID = [v23 manifestID];
           domainName = [v23 domainName];
@@ -907,38 +904,36 @@ LABEL_28:
             *&buf[12] = 2112;
             *&buf[14] = domainName;
             _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Reclaiming quota for replaced files from manifest %{public}@ (%@)", buf, 0x16u);
-            v53 = manifestID;
-            v54 = domainName;
-            _MBLog();
+            _MBLog(@"Df", "Reclaiming quota for replaced files from manifest %{public}@ (%@)", manifestID, domainName);
           }
 
           dispatch_group_enter(v19);
-          v85[0] = _NSConcreteStackBlock;
-          v85[1] = 3221225472;
-          v85[2] = sub_1000501F4;
-          v85[3] = &unk_1003BC2E0;
-          v85[4] = selfCopy;
-          v86 = manifestID;
-          v87 = v19;
+          v82[0] = _NSConcreteStackBlock;
+          v82[1] = 3221225472;
+          v82[2] = sub_1000501F4;
+          v82[3] = &unk_1003BC2E0;
+          v82[4] = selfCopy;
+          v83 = manifestID;
+          v84 = v19;
           v28 = manifestID;
-          [v23 deletePendingCloudFilesWithBatchDelete:startBatchDelete2 completion:v85];
+          [v23 deletePendingCloudFilesWithBatchDelete:startBatchDelete2 completion:v82];
 
           objc_autoreleasePoolPop(v24);
         }
 
-        v20 = [obja countByEnumeratingWithState:&v88 objects:v105 count:16];
+        v20 = [obja countByEnumeratingWithState:&v85 objects:v102 count:16];
       }
 
       while (v20);
     }
 
-    v83[0] = _NSConcreteStackBlock;
-    v83[1] = 3221225472;
-    v83[2] = sub_10005024C;
-    v83[3] = &unk_1003BC010;
-    v56 = v19;
-    v84 = v56;
-    [v60 finishBatchDelete:startBatchDelete2 completion:v83];
+    v80[0] = _NSConcreteStackBlock;
+    v80[1] = 3221225472;
+    v80[2] = sub_10005024C;
+    v80[3] = &unk_1003BC010;
+    v53 = v19;
+    v81 = v53;
+    [v57 finishBatchDelete:startBatchDelete2 completion:v80];
     MBGroupWaitForever();
     v29 = MBGetDefaultLog();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
@@ -949,39 +944,37 @@ LABEL_28:
       *&buf[12] = 2114;
       *&buf[14] = snapshotID;
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Preparing %lu manifests for snapshot %{public}@", buf, 0x16u);
-      v53 = [obja count];
-      v54 = snapshotID;
-      _MBLog();
+      _MBLog(@"Df", "Preparing %lu manifests for snapshot %{public}@", [obja count], snapshotID);
     }
 
-    startBatchSave = [v60 startBatchSave];
+    startBatchSave = [v57 startBatchSave];
     v32 = dispatch_group_create();
     v33 = objc_opt_new();
-    v81 = 0u;
-    v82 = 0u;
+    v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     v34 = obja;
-    v35 = [v34 countByEnumeratingWithState:&v79 objects:v104 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v76 objects:v101 count:16];
     if (v35)
     {
-      objb = *v80;
+      objb = *v77;
       while (2)
       {
         v36 = 0;
-        v58 = v35;
+        v55 = v35;
         do
         {
-          if (*v80 != objb)
+          if (*v77 != objb)
           {
             objc_enumerationMutation(v34);
           }
 
-          v37 = *(*(&v79 + 1) + 8 * v36);
-          v38 = [(MBCKModel *)selfCopy cache:v53];
-          v78 = 0;
-          v39 = [v38 countFilesForManifest:v37 error:&v78];
-          manifestID2 = v78;
+          v37 = *(*(&v76 + 1) + 8 * v36);
+          cache = [(MBCKModel *)selfCopy cache];
+          v75 = 0;
+          v39 = [cache countFilesForManifest:v37 error:&v75];
+          manifestID2 = v75;
 
           if (manifestID2)
           {
@@ -999,14 +992,14 @@ LABEL_40:
           if (v39)
           {
             dispatch_group_enter(v32);
-            v75[0] = _NSConcreteStackBlock;
-            v75[1] = 3221225472;
-            v75[2] = sub_100050328;
-            v75[3] = &unk_1003BC308;
+            v72[0] = _NSConcreteStackBlock;
+            v72[1] = 3221225472;
+            v72[2] = sub_100050328;
+            v72[3] = &unk_1003BC308;
             v42 = v33;
-            v76 = v42;
-            v77 = v32;
-            [v37 saveWithBatchSave:startBatchSave completion:v75];
+            v73 = v42;
+            v74 = v32;
+            [v37 saveWithBatchSave:startBatchSave completion:v72];
             v43 = v42;
             objc_sync_enter(v43);
             v44 = [v43 count] == 0;
@@ -1028,17 +1021,14 @@ LABEL_40:
               *&buf[12] = 2112;
               *&buf[14] = domainName2;
               *&buf[22] = 2114;
-              v101 = snapshotID;
+              v98 = snapshotID;
               _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Removing manifest %{public}@ (%@) with 0 files from snapshot %{public}@", buf, 0x20u);
-              v54 = domainName2;
-              v55 = snapshotID;
-              v35 = v58;
-              v53 = manifestID2;
-              _MBLog();
+              v35 = v55;
+              _MBLog(@"Df", "Removing manifest %{public}@ (%@) with 0 files from snapshot %{public}@", manifestID2, domainName2, snapshotID);
             }
 
-            cache = [(MBCKModel *)selfCopy cache];
-            v47 = [cache removeManifestAndFiles:v37];
+            cache2 = [(MBCKModel *)selfCopy cache];
+            v47 = [cache2 removeManifestAndFiles:v37];
 
             [(NSMutableDictionary *)selfCopy->_manifestsByDomainName removeObjectForKey:domainName2];
           }
@@ -1047,7 +1037,7 @@ LABEL_40:
         }
 
         while (v35 != v36);
-        v35 = [v34 countByEnumeratingWithState:&v79 objects:v104 count:16];
+        v35 = [v34 countByEnumeratingWithState:&v76 objects:v101 count:16];
         if (v35)
         {
           continue;
@@ -1062,35 +1052,35 @@ LABEL_41:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v101 = sub_10004F268;
-    v102 = sub_10004F278;
-    v103 = 0;
+    v98 = sub_10004F268;
+    v99 = sub_10004F278;
+    v100 = 0;
     dispatch_group_enter(v32);
-    v72[0] = _NSConcreteStackBlock;
-    v72[1] = 3221225472;
-    v72[2] = sub_1000503B4;
-    v72[3] = &unk_1003BC160;
-    v74 = buf;
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_1000503B4;
+    v69[3] = &unk_1003BC160;
+    v71 = buf;
     v48 = v32;
-    v73 = v48;
-    [v60 finishBatchSave:startBatchSave completion:v72];
+    v70 = v48;
+    [v57 finishBatchSave:startBatchSave completion:v69];
     v49 = dispatch_get_global_queue(17, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100050414;
     block[3] = &unk_1003BC330;
-    v71 = buf;
-    v67 = v33;
-    v68 = snapshotID;
-    v69 = selfCopy;
-    v70 = v57;
+    v68 = buf;
+    v64 = v33;
+    v65 = snapshotID;
+    v66 = selfCopy;
+    v67 = v54;
     v50 = snapshotID;
     v51 = v33;
     v52 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
     dispatch_group_notify(v48, v49, v52);
 
     _Block_object_dispose(buf, 8);
-    v8 = v57;
+    v8 = v54;
   }
 
   else
@@ -1101,9 +1091,9 @@ LABEL_41:
 
 - (id)recordRepresentation
 {
-  v88.receiver = self;
-  v88.super_class = MBCKSnapshot;
-  recordRepresentation = [(MBCKModel *)&v88 recordRepresentation];
+  v84.receiver = self;
+  v84.super_class = MBCKSnapshot;
+  recordRepresentation = [(MBCKModel *)&v84 recordRepresentation];
   v5 = MBError_ptr;
   v6 = [NSNumber numberWithInteger:[(MBCKSnapshot *)self backupReason]];
   [recordRepresentation setObject:v6 forKeyedSubscript:@"backupReason"];
@@ -1111,166 +1101,159 @@ LABEL_41:
   v7 = [NSNumber numberWithInteger:[(MBCKSnapshot *)self type]];
   [recordRepresentation setObject:v7 forKeyedSubscript:@"backupType"];
 
-  snapshotFormat = self->_snapshotFormat;
   if (!MBSnapshotFormatContainsManifests())
   {
-    v37 = 0;
+    v36 = 0;
     goto LABEL_29;
   }
 
-  v68 = a2;
-  v69 = recordRepresentation;
-  v9 = [NSMutableArray alloc];
+  v64 = a2;
+  v65 = recordRepresentation;
+  v8 = [NSMutableArray alloc];
   manifestsByDomainName = [(MBCKSnapshot *)self manifestsByDomainName];
   allKeys = [manifestsByDomainName allKeys];
-  v75 = [v9 initWithCapacity:{objc_msgSend(allKeys, "count")}];
+  v71 = [v8 initWithCapacity:{objc_msgSend(allKeys, "count")}];
 
-  v12 = [NSMutableArray alloc];
+  v11 = [NSMutableArray alloc];
   manifestsByDomainName2 = [(MBCKSnapshot *)self manifestsByDomainName];
   allKeys2 = [manifestsByDomainName2 allKeys];
-  v74 = [v12 initWithCapacity:{objc_msgSend(allKeys2, "count")}];
+  v70 = [v11 initWithCapacity:{objc_msgSend(allKeys2, "count")}];
 
-  v15 = [NSMutableArray alloc];
+  v14 = [NSMutableArray alloc];
   manifestsByDomainName3 = [(MBCKSnapshot *)self manifestsByDomainName];
   allKeys3 = [manifestsByDomainName3 allKeys];
-  v73 = [v15 initWithCapacity:{objc_msgSend(allKeys3, "count")}];
+  v69 = [v14 initWithCapacity:{objc_msgSend(allKeys3, "count")}];
 
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   obj = [(MBCKSnapshot *)self manifestsByDomainName];
-  v76 = [obj countByEnumeratingWithState:&v84 objects:v93 count:16];
-  if (v76)
+  v72 = [obj countByEnumeratingWithState:&v80 objects:v89 count:16];
+  if (v72)
   {
-    v70 = 0;
-    v18 = 0;
-    v72 = *v85;
+    v66 = 0;
+    v17 = 0;
+    v68 = *v81;
     do
     {
-      for (i = 0; i != v76; i = i + 1)
+      for (i = 0; i != v72; i = i + 1)
       {
-        v20 = v18;
-        if (*v85 != v72)
+        v19 = v17;
+        if (*v81 != v68)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v84 + 1) + 8 * i);
-        v22 = [(MBCKSnapshot *)self manifestsByDomainName:v65];
-        v23 = [v22 objectForKeyedSubscript:v21];
+        v20 = *(*(&v80 + 1) + 8 * i);
+        manifestsByDomainName4 = [(MBCKSnapshot *)self manifestsByDomainName];
+        v22 = [manifestsByDomainName4 objectForKeyedSubscript:v20];
 
-        baseRecordIDString = [v23 baseRecordIDString];
-        [v75 addObject:baseRecordIDString];
+        baseRecordIDString = [v22 baseRecordIDString];
+        [v71 addObject:baseRecordIDString];
 
-        v25 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v23 manifestCount]);
-        [v74 addObject:v25];
+        v24 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v22 manifestCount]);
+        [v70 addObject:v24];
 
         cache = [(MBCKModel *)self cache];
-        manifestID = [v23 manifestID];
-        v83 = v18;
-        v28 = [cache checksumForManifest:manifestID shouldLog:0 error:&v83];
-        v18 = v83;
+        manifestID = [v22 manifestID];
+        v79 = v17;
+        v27 = [cache checksumForManifest:manifestID shouldLog:0 error:&v79];
+        v17 = v79;
 
-        v29 = [NSNumber numberWithLongLong:v28];
-        [v73 addObject:v29];
+        v28 = [NSNumber numberWithLongLong:v27];
+        [v69 addObject:v28];
 
         cache2 = [(MBCKModel *)self cache];
-        v82 = 0;
-        v31 = [cache2 countFilesForManifest:v23 error:&v82];
-        v32 = v82;
+        v78 = 0;
+        v30 = [cache2 countFilesForManifest:v22 error:&v78];
+        v31 = v78;
 
         cache3 = [(MBCKModel *)self cache];
-        v81 = 0;
-        v34 = [cache3 countDomainHmacForManifest:v23 error:&v81];
-        v35 = v81;
+        v77 = 0;
+        v33 = [cache3 countDomainHmacForManifest:v22 error:&v77];
+        v34 = v77;
 
-        if (!v32 && !v35 && v31 != v34)
+        if (!v31 && !v34 && v30 != v33)
         {
-          v36 = MBGetDefaultLog();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v35 = MBGetDefaultLog();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
-            *v90 = v21;
-            *&v90[8] = 2048;
-            *&v90[10] = v31;
-            v91 = 2048;
-            v92 = v34;
-            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Domain Hmac collision detected on manifest: %@ (%llu files != %llu hmac)", buf, 0x20u);
-            v66 = v31;
-            v67 = v34;
-            v65 = v21;
-            _MBLog();
+            *v86 = v20;
+            *&v86[8] = 2048;
+            *&v86[10] = v30;
+            v87 = 2048;
+            v88 = v33;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Domain Hmac collision detected on manifest: %@ (%llu files != %llu hmac)", buf, 0x20u);
+            _MBLog(@"E ", "Domain Hmac collision detected on manifest: %@ (%llu files != %llu hmac)", v20, v30, v33);
           }
 
-          v70 = 1;
+          v66 = 1;
         }
       }
 
-      v76 = [obj countByEnumeratingWithState:&v84 objects:v93 count:16];
+      v72 = [obj countByEnumeratingWithState:&v80 objects:v89 count:16];
     }
 
-    while (v76);
+    while (v72);
   }
 
   else
   {
-    v70 = 0;
-    v18 = 0;
+    v66 = 0;
+    v17 = 0;
   }
 
   cache4 = [(MBCKModel *)self cache];
-  v80 = v18;
-  v39 = [cache4 countManifestsForSnapshot:self error:&v80];
-  v37 = v80;
+  v76 = v17;
+  v38 = [cache4 countManifestsForSnapshot:self error:&v76];
+  v36 = v76;
 
-  if (!v37 && [v75 count] != v39)
+  if (!v36 && [v71 count] != v38)
   {
-    v40 = MBGetDefaultLog();
-    recordRepresentation = v69;
+    v39 = MBGetDefaultLog();
+    recordRepresentation = v65;
     v5 = MBError_ptr;
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v41 = [v75 count];
+      v40 = [v71 count];
       *buf = 67109376;
-      *v90 = v39;
-      *&v90[4] = 2048;
-      *&v90[6] = v41;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Local cache manifest count (%d) does not match CK manifest (%lu) counts on upload", buf, 0x12u);
-      v65 = v39;
-      v66 = [v75 count];
-      _MBLog();
+      *v86 = v38;
+      *&v86[4] = 2048;
+      *&v86[6] = v40;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Local cache manifest count (%d) does not match CK manifest (%lu) counts on upload", buf, 0x12u);
+      _MBLog(@"E ", "Local cache manifest count (%d) does not match CK manifest (%lu) counts on upload", v38, [v71 count]);
     }
 
     goto LABEL_25;
   }
 
-  recordRepresentation = v69;
+  recordRepresentation = v65;
   v5 = MBError_ptr;
-  if (v70)
+  if (v66)
   {
 LABEL_25:
-    v42 = [(MBCKModel *)self cache:v65];
-    [v42 flush];
+    cache5 = [(MBCKModel *)self cache];
+    [cache5 flush];
 
-    v43 = MBGetDefaultLog();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+    v42 = MBGetDefaultLog();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_FAULT, "Local cache <-> CK representation mismatch on upload", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_FAULT, "Local cache <-> CK representation mismatch on upload", buf, 2u);
+      _MBLog(@"F ", "Local cache <-> CK representation mismatch on upload");
     }
 
-    v44 = +[NSAssertionHandler currentHandler];
-    [v44 handleFailureInMethod:v68 object:self file:@"MBCKSnapshot.m" lineNumber:571 description:@"Local cache <-> CK representation mismatch on upload"];
+    v43 = +[NSAssertionHandler currentHandler];
+    [v43 handleFailureInMethod:v64 object:self file:@"MBCKSnapshot.m" lineNumber:571 description:@"Local cache <-> CK representation mismatch on upload"];
   }
 
-  [recordRepresentation setObject:v75 forKeyedSubscript:{@"manifestIDs", v65, v66}];
-  [recordRepresentation setObject:v74 forKeyedSubscript:@"manifestCounts"];
-  [recordRepresentation setObject:v73 forKeyedSubscript:@"manifestChecksums"];
+  [recordRepresentation setObject:v71 forKeyedSubscript:@"manifestIDs"];
+  [recordRepresentation setObject:v70 forKeyedSubscript:@"manifestCounts"];
+  [recordRepresentation setObject:v69 forKeyedSubscript:@"manifestChecksums"];
 
 LABEL_29:
-  v45 = self->_snapshotFormat;
   if (MBSnapshotFormatContainsFileLists())
   {
     commitID = [(MBCKSnapshot *)self commitID];
@@ -1279,23 +1262,23 @@ LABEL_29:
       __assert_rtn("[MBCKSnapshot recordRepresentation]", "MBCKSnapshot.m", 581, "commitID");
     }
 
-    v47 = commitID;
+    v45 = commitID;
     [recordRepresentation setObject:commitID forKeyedSubscript:@"originalSnapshotID"];
-    v48 = [v5[91] numberWithLongLong:self->_snapshotFormat];
-    [recordRepresentation setObject:v48 forKeyedSubscript:@"snapshotFormat"];
+    v46 = [v5[91] numberWithLongLong:self->_snapshotFormat];
+    [recordRepresentation setObject:v46 forKeyedSubscript:@"snapshotFormat"];
 
     if ([(NSArray *)self->_modifiedDomainRecordReferences count])
     {
-      v78 = 0;
-      v79 = 0;
-      v77 = 0;
-      [objc_opt_class() _createBaseRecordIDs:&v79 pageCounts:&v78 checksums:&v77 fromReferences:self->_modifiedDomainRecordReferences];
-      v49 = v79;
-      v50 = v78;
-      v51 = v77;
-      [recordRepresentation setObject:v49 forKeyedSubscript:@"domainBaseRecordIDs"];
-      [recordRepresentation setObject:v50 forKeyedSubscript:@"domainRecordCounts"];
-      [recordRepresentation setObject:v51 forKeyedSubscript:@"domainRecordCumulativeChecksums"];
+      v74 = 0;
+      v75 = 0;
+      v73 = 0;
+      [objc_opt_class() _createBaseRecordIDs:&v75 pageCounts:&v74 checksums:&v73 fromReferences:self->_modifiedDomainRecordReferences];
+      v47 = v75;
+      v48 = v74;
+      v49 = v73;
+      [recordRepresentation setObject:v47 forKeyedSubscript:@"domainBaseRecordIDs"];
+      [recordRepresentation setObject:v48 forKeyedSubscript:@"domainRecordCounts"];
+      [recordRepresentation setObject:v49 forKeyedSubscript:@"domainRecordCumulativeChecksums"];
     }
 
     if ([(NSArray *)self->_domainHmacsToRemove count])
@@ -1306,8 +1289,8 @@ LABEL_29:
 
   if ([(MBCKSnapshot *)self backupPolicy])
   {
-    v52 = [v5[91] numberWithInteger:{-[MBCKSnapshot backupPolicy](self, "backupPolicy")}];
-    [recordRepresentation setObject:v52 forKeyedSubscript:@"backupPolicy"];
+    v50 = [v5[91] numberWithInteger:{-[MBCKSnapshot backupPolicy](self, "backupPolicy")}];
+    [recordRepresentation setObject:v50 forKeyedSubscript:@"backupPolicy"];
   }
 
   deviceName = [(MBCKSnapshot *)self deviceName];
@@ -1319,13 +1302,13 @@ LABEL_29:
   productVersion = [(MBCKSnapshot *)self productVersion];
   [recordRepresentation setObject:productVersion forKeyedSubscript:@"productVersion"];
 
-  v56 = [v5[91] numberWithBool:{-[MBCKSnapshot isBackupAllowedOnCellular](self, "isBackupAllowedOnCellular")}];
-  [recordRepresentation setObject:v56 forKeyedSubscript:@"backupAllowedOnCellular"];
+  v54 = [v5[91] numberWithBool:{-[MBCKSnapshot isBackupAllowedOnCellular](self, "isBackupAllowedOnCellular")}];
+  [recordRepresentation setObject:v54 forKeyedSubscript:@"backupAllowedOnCellular"];
 
   if ([(MBCKSnapshot *)self cameraRollBackupState])
   {
-    v57 = [v5[91] numberWithInteger:{-[MBCKSnapshot cameraRollBackupState](self, "cameraRollBackupState")}];
-    [recordRepresentation setObject:v57 forKeyedSubscript:@"cameraRollBackupState"];
+    v55 = [v5[91] numberWithInteger:{-[MBCKSnapshot cameraRollBackupState](self, "cameraRollBackupState")}];
+    [recordRepresentation setObject:v55 forKeyedSubscript:@"cameraRollBackupState"];
   }
 
   backupProperties = [(MBCKSnapshot *)self backupProperties];
@@ -1337,33 +1320,33 @@ LABEL_29:
     [encryptedValueStore setObject:backupProperties2 forKeyedSubscript:@"backupProperties"];
   }
 
-  v61 = objc_opt_new();
+  v59 = objc_opt_new();
   if ([(MBCKSnapshot *)self isInherited])
   {
-    [v61 setObject:&__kCFBooleanTrue forKeyedSubscript:@"inherited"];
+    [v59 setObject:&__kCFBooleanTrue forKeyedSubscript:@"inherited"];
   }
 
   if ([(MBCKSnapshot *)self testCommitRepairChecksumOnLightrailChecksumMismatch])
   {
-    [v61 setObject:&__kCFBooleanTrue forKeyedSubscript:@"testCommitRepairChecksumOnLightrailChecksumMismatch"];
+    [v59 setObject:&__kCFBooleanTrue forKeyedSubscript:@"testCommitRepairChecksumOnLightrailChecksumMismatch"];
   }
 
-  if ([v61 count])
+  if ([v59 count])
   {
-    [recordRepresentation setPluginFields:v61];
+    [recordRepresentation setPluginFields:v59];
   }
 
-  v62 = MBGetDefaultLog();
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+  v60 = MBGetDefaultLog();
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
   {
-    v63 = objc_opt_class();
+    v61 = objc_opt_class();
     *buf = 138543618;
-    *v90 = v63;
-    *&v90[8] = 2112;
-    *&v90[10] = recordRepresentation;
-    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEBUG, "%{public}@ record representation: %@", buf, 0x16u);
-    objc_opt_class();
-    _MBLog();
+    *v86 = v61;
+    *&v86[8] = 2112;
+    *&v86[10] = recordRepresentation;
+    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEBUG, "%{public}@ record representation: %@", buf, 0x16u);
+    v62 = objc_opt_class();
+    _MBLog(@"Db", "%{public}@ record representation: %@", v62, recordRepresentation);
   }
 
   return recordRepresentation;
@@ -1393,7 +1376,7 @@ LABEL_29:
           *buf = 138412290;
           v11 = v5;
           _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to decode backup properties: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Failed to decode backup properties: %@", v5);
         }
       }
     }
@@ -1406,7 +1389,7 @@ LABEL_29:
         *buf = 138412290;
         v11 = valueCopy;
         _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Invalid type for backup properties: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Invalid type for backup properties: %@", valueCopy);
       }
 
       v4 = 0;
@@ -1602,54 +1585,53 @@ LABEL_29:
   self->_requiredProductVersion = requiredProductVersion;
 
   v30 = [recordCopy objectForKeyedSubscript:@"domainBaseRecordIDs"];
-  v76 = [recordCopy objectForKeyedSubscript:@"domainRecordCounts"];
-  v75 = [recordCopy objectForKeyedSubscript:@"domainRecordCumulativeChecksums"];
+  v74 = [recordCopy objectForKeyedSubscript:@"domainRecordCounts"];
+  v73 = [recordCopy objectForKeyedSubscript:@"domainRecordCumulativeChecksums"];
   v31 = MBGetDefaultLog();
-  v74 = v27;
+  v72 = v27;
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     snapshotID = [(MBCKSnapshot *)self snapshotID];
     *buf = 138412546;
-    v84 = snapshotID;
-    v85 = 2112;
-    v86 = v30;
+    v82 = snapshotID;
+    v83 = 2112;
+    v84 = v30;
     _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "Snapshot %@ refreshWithRecord->domainBaseRecordIDs: %@", buf, 0x16u);
 
     snapshotID2 = [(MBCKSnapshot *)self snapshotID];
-    v68 = v30;
-    _MBLog();
+    _MBLog(@"Db", "Snapshot %@ refreshWithRecord->domainBaseRecordIDs: %@", snapshotID2, v30);
 
-    v27 = v74;
+    v27 = v72;
   }
 
-  v33 = [objc_opt_class() _createDomainReferencesFromBaseRecordIDs:v30 pageCounts:v76 checksums:v75];
+  v34 = [objc_opt_class() _createDomainReferencesFromBaseRecordIDs:v30 pageCounts:v74 checksums:v73];
   modifiedDomainRecordReferences = self->_modifiedDomainRecordReferences;
-  self->_modifiedDomainRecordReferences = v33;
+  self->_modifiedDomainRecordReferences = v34;
 
-  v35 = [recordCopy objectForKeyedSubscript:@"domainQuota"];
-  v73 = v35;
-  if (v35)
+  v36 = [recordCopy objectForKeyedSubscript:@"domainQuota"];
+  v71 = v36;
+  if (v36)
   {
     if (self->_snapshotFormat == 3)
     {
-      v35 = [objc_opt_class() _createDomainRecordQuotaFromBaseRecordIDs:v30 domainQuotas:v35];
+      v36 = [objc_opt_class() _createDomainRecordQuotaFromBaseRecordIDs:v30 domainQuotas:v36];
     }
 
     else
     {
-      v35 = 0;
+      v36 = 0;
     }
   }
 
   domainRecordQuotas = self->_domainRecordQuotas;
-  self->_domainRecordQuotas = v35;
+  self->_domainRecordQuotas = v36;
 
-  v37 = [recordCopy objectForKeyedSubscript:@"domainHMACsToRemove"];
+  v38 = [recordCopy objectForKeyedSubscript:@"domainHMACsToRemove"];
   domainHmacsToRemove = self->_domainHmacsToRemove;
-  self->_domainHmacsToRemove = v37;
+  self->_domainHmacsToRemove = v38;
 
   accountType = [v27 accountType];
-  v40 = accountType;
+  v41 = accountType;
   if (accountType)
   {
     integerValue = [accountType integerValue];
@@ -1666,15 +1648,15 @@ LABEL_33:
   accountClass = [v27 accountClass];
   if (accountClass)
   {
-    v66 = [objc_opt_class() _accountTypeFromAccountClass:{objc_msgSend(accountClass, "integerValue")}];
+    v67 = [objc_opt_class() _accountTypeFromAccountClass:{objc_msgSend(accountClass, "integerValue")}];
   }
 
   else
   {
-    v66 = 1;
+    v67 = 1;
   }
 
-  self->_accountType = v66;
+  self->_accountType = v67;
 
   if (!self->_accountType)
   {
@@ -1682,59 +1664,58 @@ LABEL_33:
   }
 
 LABEL_9:
-  v69 = v40;
-  v70 = v30;
-  v71 = v26;
+  v68 = v41;
+  v69 = v26;
   objc_storeStrong(&self->_backupProperties, v26);
-  v42 = [recordCopy objectForKeyedSubscript:@"cameraRollBackupState"];
-  self->_cameraRollBackupState = [v42 integerValue];
+  v43 = [recordCopy objectForKeyedSubscript:@"cameraRollBackupState"];
+  self->_cameraRollBackupState = [v43 integerValue];
 
-  v43 = [recordCopy objectForKeyedSubscript:@"backupAllowedOnCellular"];
-  self->_isBackupAllowedOnCellular = [v43 BOOLValue];
+  v44 = [recordCopy objectForKeyedSubscript:@"backupAllowedOnCellular"];
+  self->_isBackupAllowedOnCellular = [v44 BOOLValue];
 
-  v72 = recordCopy;
-  v44 = [recordCopy objectForKeyedSubscript:@"manifestCounts"];
-  v45 = objc_opt_new();
+  v70 = recordCopy;
+  v45 = [recordCopy objectForKeyedSubscript:@"manifestCounts"];
+  v46 = objc_opt_new();
   manifestIDsToCounts = self->_manifestIDsToCounts;
-  self->_manifestIDsToCounts = v45;
+  self->_manifestIDsToCounts = v46;
 
-  v80 = 0u;
-  v81 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v47 = self->_manifestIDs;
-  v48 = [(NSArray *)v47 countByEnumeratingWithState:&v78 objects:v82 count:16];
-  if (v48)
+  v76 = 0u;
+  v77 = 0u;
+  v48 = self->_manifestIDs;
+  v49 = [(NSArray *)v48 countByEnumeratingWithState:&v76 objects:v80 count:16];
+  if (v49)
   {
-    v49 = v48;
-    LODWORD(v50) = 0;
-    v51 = *v79;
+    v50 = v49;
+    LODWORD(v51) = 0;
+    v52 = *v77;
 LABEL_11:
-    v52 = 0;
-    v53 = v50;
+    v53 = 0;
+    v54 = v51;
     while (1)
     {
-      if (*v79 != v51)
+      if (*v77 != v52)
       {
-        objc_enumerationMutation(v47);
+        objc_enumerationMutation(v48);
       }
 
-      v54 = *(*(&v78 + 1) + 8 * v52);
-      if ([(NSArray *)v44 count:snapshotID2]<= v53)
+      v55 = *(*(&v76 + 1) + 8 * v53);
+      if ([(NSArray *)v45 count]<= v54)
       {
         break;
       }
 
-      v50 = v53 + 1;
-      v55 = [(NSArray *)v44 objectAtIndexedSubscript:v53];
-      [(NSMutableDictionary *)self->_manifestIDsToCounts setObject:v55 forKeyedSubscript:v54];
+      v51 = v54 + 1;
+      v56 = [(NSArray *)v45 objectAtIndexedSubscript:v54];
+      [(NSMutableDictionary *)self->_manifestIDsToCounts setObject:v56 forKeyedSubscript:v55];
 
-      v52 = v52 + 1;
-      v53 = v50;
-      if (v49 == v52)
+      v53 = v53 + 1;
+      v54 = v51;
+      if (v50 == v53)
       {
-        v49 = [(NSArray *)v47 countByEnumeratingWithState:&v78 objects:v82 count:16];
-        if (v49)
+        v50 = [(NSArray *)v48 countByEnumeratingWithState:&v76 objects:v80 count:16];
+        if (v50)
         {
           goto LABEL_11;
         }
@@ -1744,57 +1725,53 @@ LABEL_11:
     }
   }
 
-  v56 = [(NSArray *)self->_manifestIDs count];
-  if (v56 != [(NSArray *)self->_manifestChecksums count]|| (v57 = [(NSArray *)self->_manifestIDs count], v57 != [(NSArray *)v44 count]))
+  v57 = [(NSArray *)self->_manifestIDs count];
+  if (v57 != [(NSArray *)self->_manifestChecksums count]|| (v58 = [(NSArray *)self->_manifestIDs count], v58 != [(NSArray *)v45 count]))
   {
-    v58 = MBGetDefaultLog();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    v59 = MBGetDefaultLog();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       snapshotID = self->_snapshotID;
       *buf = 138412290;
-      v84 = snapshotID;
-      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Snapshot refreshWithRecord: %@ parallel array count mismatch", buf, 0xCu);
-      snapshotID2 = self->_snapshotID;
-      _MBLog();
+      v82 = snapshotID;
+      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Snapshot refreshWithRecord: %@ parallel array count mismatch", buf, 0xCu);
+      _MBLog(@"E ", "Snapshot refreshWithRecord: %@ parallel array count mismatch", self->_snapshotID);
     }
 
-    v60 = MBGetDefaultLog();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v61 = MBGetDefaultLog();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
-      v61 = self->_manifestIDs;
+      v62 = self->_manifestIDs;
       *buf = 138412290;
-      v84 = v61;
-      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "manifestIDs: %@", buf, 0xCu);
-      snapshotID2 = self->_manifestIDs;
-      _MBLog();
-    }
-
-    v62 = MBGetDefaultLog();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      v84 = v44;
-      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "manifestCounts: %@", buf, 0xCu);
-      snapshotID2 = v44;
-      _MBLog();
+      v82 = v62;
+      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "manifestIDs: %@", buf, 0xCu);
+      _MBLog(@"E ", "manifestIDs: %@", self->_manifestIDs);
     }
 
     v63 = MBGetDefaultLog();
     if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
     {
-      v64 = self->_manifestChecksums;
       *buf = 138412290;
-      v84 = v64;
-      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "manifestChecksums: %@", buf, 0xCu);
-      snapshotID2 = self->_manifestChecksums;
-      _MBLog();
+      v82 = v45;
+      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "manifestCounts: %@", buf, 0xCu);
+      _MBLog(@"E ", "manifestCounts: %@", v45);
+    }
+
+    v64 = MBGetDefaultLog();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+    {
+      v65 = self->_manifestChecksums;
+      *buf = 138412290;
+      v82 = v65;
+      _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "manifestChecksums: %@", buf, 0xCu);
+      _MBLog(@"E ", "manifestChecksums: %@", self->_manifestChecksums);
     }
   }
 
   self->_hasFetchedManifests = 0;
-  v77.receiver = self;
-  v77.super_class = MBCKSnapshot;
-  [(MBCKModel *)&v77 refreshWithRecord:v72, snapshotID2];
+  v75.receiver = self;
+  v75.super_class = MBCKSnapshot;
+  [(MBCKModel *)&v75 refreshWithRecord:v70];
 }
 
 - (id)_getRecordIDString
@@ -1856,19 +1833,19 @@ LABEL_11:
       v13 = 0;
     }
 
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_100052B6C;
-    v54[3] = &unk_1003BC358;
+    v51[0] = _NSConcreteStackBlock;
+    v51[1] = 3221225472;
+    v51[2] = sub_100052B6C;
+    v51[3] = &unk_1003BC358;
     v15 = v10;
-    v55 = v15;
+    v52 = v15;
     v16 = summaryCopy;
-    v56 = v16;
+    v53 = v16;
     v17 = domainHMACsToRepair;
-    v57 = v17;
+    v54 = v17;
     v18 = v13;
-    v58 = v18;
-    if (![bCopy enumerateUploadedDomains:error block:v54])
+    v55 = v18;
+    if (![bCopy enumerateUploadedDomains:error block:v51])
     {
       v14 = 0;
 LABEL_22:
@@ -1878,69 +1855,66 @@ LABEL_22:
 
     obj = v10;
     v19 = objc_opt_new();
-    type = self->_type;
     if (MBSnapshotTypeIsFull())
     {
-      v21 = MBGetDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v20 = MBGetDefaultLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = self->_type;
         MBStringForSnapshotType();
-        v24 = v23 = v19;
+        v22 = v21 = v19;
         *buf = 138412290;
-        v60 = v24;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=commit= Not marking any domains to delete for snapshot type: %@", buf, 0xCu);
+        v57 = v22;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=commit= Not marking any domains to delete for snapshot type: %@", buf, 0xCu);
 
-        v25 = self->_type;
-        v41 = MBStringForSnapshotType();
-        _MBLog();
+        v23 = MBStringForSnapshotType();
+        _MBLog(@"Df", "=commit= Not marking any domains to delete for snapshot type: %@", v23);
 
-        v19 = v23;
+        v19 = v21;
       }
     }
 
     else
     {
-      v49[0] = _NSConcreteStackBlock;
-      v49[1] = 3221225472;
-      v49[2] = sub_100052D1C;
-      v49[3] = &unk_1003BC380;
-      v47 = v19;
-      v26 = v19;
-      v50 = v26;
-      v46 = v16;
-      v51 = v46;
-      v27 = v17;
-      v52 = v27;
-      v45 = v18;
-      v53 = v45;
-      v28 = [bCopy enumerateDomainsDeletedSincePreviousSnapshot:error block:v49];
-      if ([v27 count])
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 3221225472;
+      v46[2] = sub_100052D1C;
+      v46[3] = &unk_1003BC380;
+      v44 = v19;
+      v24 = v19;
+      v47 = v24;
+      v43 = v16;
+      v48 = v43;
+      v25 = v17;
+      v49 = v25;
+      v42 = v18;
+      v50 = v42;
+      v26 = [bCopy enumerateDomainsDeletedSincePreviousSnapshot:error block:v46];
+      if ([v25 count])
       {
-        v44 = v28;
-        [v26 unionSet:v27];
-        v29 = MBGetDefaultLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        v41 = v26;
+        [v24 unionSet:v25];
+        v27 = MBGetDefaultLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          allObjects = [v27 allObjects];
-          v30 = [allObjects sortedArrayUsingSelector:?];
-          v31 = [v30 componentsJoinedByString:{@", "}];
+          allObjects = [v25 allObjects];
+          v28 = [allObjects sortedArrayUsingSelector:?];
+          v29 = [v28 componentsJoinedByString:{@", "}];
           *buf = 138412290;
-          v60 = v31;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "=domain repair= Repaired domain HMACs: %@", buf, 0xCu);
+          v57 = v29;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "=domain repair= Repaired domain HMACs: %@", buf, 0xCu);
 
-          allObjects2 = [v27 allObjects];
-          v33 = [allObjects2 sortedArrayUsingSelector:"compare:"];
-          v42 = [v33 componentsJoinedByString:{@", "}];
-          _MBLog();
+          allObjects2 = [v25 allObjects];
+          v31 = [allObjects2 sortedArrayUsingSelector:"compare:"];
+          v32 = [v31 componentsJoinedByString:{@", "}];
+          _MBLog(@"I ", "=domain repair= Repaired domain HMACs: %@", v32);
         }
 
-        [v46 setUnknownDomainHMACsToRepair:v45];
-        v28 = v44;
+        [v43 setUnknownDomainHMACsToRepair:v42];
+        v26 = v41;
       }
 
-      v19 = v47;
-      if (!v28)
+      v19 = v44;
+      if (!v26)
       {
         v14 = 0;
 LABEL_21:
@@ -1949,21 +1923,19 @@ LABEL_21:
       }
     }
 
-    v34 = MBGetDefaultLog();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v33 = MBGetDefaultLog();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = v19;
-      v36 = [v15 count];
-      v37 = [v35 count];
+      v34 = v19;
+      v35 = [v15 count];
+      v36 = [v34 count];
       *buf = 134218240;
-      v60 = v36;
-      v61 = 2048;
-      v62 = v37;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "=commit= Finished marking domains in snapshot - modified:%lu deleted:%lu", buf, 0x16u);
-      [v15 count];
-      [v35 count];
-      v19 = v35;
-      _MBLog();
+      v57 = v35;
+      v58 = 2048;
+      v59 = v36;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "=commit= Finished marking domains in snapshot - modified:%lu deleted:%lu", buf, 0x16u);
+      v19 = v34;
+      _MBLog(@"Df", "=commit= Finished marking domains in snapshot - modified:%lu deleted:%lu", [v15 count], objc_msgSend(v34, "count"));
     }
 
     objc_storeStrong(&self->_modifiedDomainRecordReferences, obj);

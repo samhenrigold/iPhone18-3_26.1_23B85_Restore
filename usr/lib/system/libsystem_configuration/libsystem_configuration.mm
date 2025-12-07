@@ -1,66 +1,58 @@
 BOOL is_config_agent_type_dns(_BOOL8 result)
 {
-  v3 = *MEMORY[0x29EDCA608];
   if (result)
   {
     v1 = result;
-    result = !strcmp((result + 16), "SystemConfig") && strcmp((v1 + 48), "DNSAgent") == 0;
+    return !strcmp((result + 16), "SystemConfig") && strcmp((v1 + 48), "DNSAgent") == 0;
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t config_agent_copy_dns_information(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
   if (!is_config_agent_type_dns(a1))
   {
-LABEL_12:
-    v6 = *MEMORY[0x29EDCA608];
     return 0;
   }
 
   if (!*(a1 + 212))
   {
-    v4 = (a1 + 80);
-    if (strncmp(v4, "DNSAgent(p)", 0xBuLL) && strncmp(v4, "DNSAgent(m)", 0xBuLL))
+    v3 = (a1 + 80);
+    if (strncmp(v3, "DNSAgent(p)", 0xBuLL) && strncmp(v3, "DNSAgent(m)", 0xBuLL))
     {
-      if (*v4)
+      if (*v3)
       {
-        v5 = v4;
+        v4 = v3;
       }
 
       else
       {
-        v5 = "DNSAgent";
+        v4 = "DNSAgent";
       }
 
-      syslog(3, "Cannot parse config agent (%s). No data available", v5);
+      syslog(3, "Cannot parse config agent (%s). No data available", v4);
     }
 
-    goto LABEL_12;
+    return 0;
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 
   return xpc_create_from_plist();
 }
 
-void __dns_configuration_copy_block_invoke()
+void __dns_configuration_copy_block_invoke(uint64_t result)
 {
-  v3 = *MEMORY[0x29EDCA608];
   if (dnsinfo_active++)
   {
-    v1 = dnsinfo_client == 0;
+    v2 = dnsinfo_client == 0;
   }
 
   else
   {
-    v1 = 1;
+    v2 = 1;
   }
 
-  if (v1)
+  if (v2)
   {
     if (_block_invoke_once != -1)
     {
@@ -78,13 +70,11 @@ void __dns_configuration_copy_block_invoke()
       --dnsinfo_active;
     }
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 _DWORD *dns_configuration_copy()
 {
-  v68 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   if (!libSC_info_available())
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -93,7 +83,7 @@ _DWORD *dns_configuration_copy()
       _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "*** DNS configuration requested between fork() and exec()", buf, 2u);
     }
 
-    goto LABEL_21;
+    return 0;
   }
 
   if (__dns_configuration_queue_once != -1)
@@ -104,7 +94,7 @@ _DWORD *dns_configuration_copy()
   dispatch_sync(__dns_configuration_queue_q, &__block_literal_global);
   if (!dnsinfo_client || *dnsinfo_client != 1)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   v0 = xpc_dictionary_create(0, 0, 0);
@@ -119,9 +109,7 @@ _DWORD *dns_configuration_copy()
   xpc_release(v1);
   if (!v2)
   {
-LABEL_21:
-    v11 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   length = 0;
@@ -144,9 +132,9 @@ LABEL_21:
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      *v67 = v6;
-      *&v67[8] = 2048;
-      *&v67[10] = v4;
+      *v66 = v6;
+      *&v66[8] = 2048;
+      *&v66[10] = v4;
       v8 = MEMORY[0x29EDCA988];
       v9 = "DNS configuration: size error (%zu != %zu)";
       v10 = 22;
@@ -155,7 +143,7 @@ LABEL_21:
 
 LABEL_20:
     xpc_release(v2);
-    goto LABEL_21;
+    return 0;
   }
 
   v7 = bswap32(data[13]);
@@ -164,9 +152,9 @@ LABEL_20:
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v67 = v7;
-      *&v67[4] = 2048;
-      *&v67[6] = 0x100000 - v4;
+      *v66 = v7;
+      *&v66[4] = 2048;
+      *&v66[6] = 0x100000 - v4;
       v8 = MEMORY[0x29EDCA988];
       v9 = "DNS configuration: padding error (%u > %zu)";
       v10 = 18;
@@ -184,309 +172,294 @@ LABEL_19:
   xpc_release(v2);
   if (!v11)
   {
-    goto LABEL_22;
+    return v11;
   }
 
-  v14 = v11[12];
-  v15 = bswap32(v11[13]);
-  v16 = bswap32(*v11);
-  *v11 = v16;
-  if (v15 < 8 * v16)
+  v13 = v11[12];
+  v14 = bswap32(v11[13]);
+  v15 = bswap32(*v11);
+  *v11 = v15;
+  if (v14 < 8 * v15)
   {
     goto LABEL_95;
   }
 
-  v17 = bswap32(v14);
-  v18 = v11 + 14;
-  v19 = 8 * v16;
-  v20 = 8 * v16 ? v11 + v17 + 56 : 0;
-  v21 = v15 - v19;
-  *(v11 + 1) = v20;
-  v22 = bswap32(v11[3]);
-  v11[3] = v22;
-  if (v21 < 8 * v22)
+  v16 = bswap32(v13);
+  v17 = v11 + 14;
+  v18 = 8 * v15;
+  v19 = 8 * v15 ? v11 + v16 + 56 : 0;
+  v20 = v14 - v18;
+  *(v11 + 1) = v19;
+  v21 = bswap32(v11[3]);
+  v11[3] = v21;
+  if (v20 < 8 * v21)
   {
     goto LABEL_95;
   }
 
-  v23 = 8 * v22;
-  v24 = v11 + v17 + v19 + 56;
-  v25 = v23 ? v24 : 0;
-  v26 = v21 - v23;
-  *(v11 + 2) = v25;
-  v27 = bswap32(v11[8]);
-  v11[8] = v27;
-  if (v26 < 8 * v27)
+  v22 = 8 * v21;
+  v23 = v11 + v16 + v18 + 56;
+  v24 = v22 ? v23 : 0;
+  v25 = v20 - v22;
+  *(v11 + 2) = v24;
+  v26 = bswap32(v11[8]);
+  v11[8] = v26;
+  if (v25 < 8 * v26)
   {
     goto LABEL_95;
   }
 
-  v28 = 8 * v27;
-  v29 = v24 + v23;
-  if (8 * v27)
+  v27 = 8 * v26;
+  v28 = v23 + v22;
+  if (8 * v26)
   {
-    v30 = v24 + v23;
+    v29 = v23 + v22;
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  *(v11 + 9) = v30;
-  if (v17 < 8)
+  *(v11 + 9) = v29;
+  if (v16 < 8)
   {
-    v33 = 0;
     v32 = 0;
     v31 = 0;
+    v30 = 0;
     goto LABEL_92;
   }
 
+  v30 = 0;
   v31 = 0;
   v32 = 0;
-  v33 = 0;
-  v34 = v26 - v28;
-  v35 = v29 + v28;
+  v33 = v25 - v27;
+  v34 = v28 + v27;
   do
   {
-    v36 = bswap32(v18[1]);
-    v37 = bswap32(*v18);
-    if (v37 - 1 > 2)
+    v35 = bswap32(v17[1]);
+    v36 = bswap32(*v17);
+    if (v36 - 1 > 2)
     {
       goto LABEL_89;
     }
 
-    if (v36 - 8 < 0x64)
+    if (v35 - 8 < 0x64)
     {
       goto LABEL_95;
     }
 
-    *(v18 + 1) = 0;
-    v38 = bswap32(v18[4]);
-    v18[4] = v38;
-    if (v34 < 8 * v38)
+    *(v17 + 1) = 0;
+    v37 = bswap32(v17[4]);
+    v17[4] = v37;
+    if (v33 < 8 * v37)
     {
       goto LABEL_95;
     }
 
-    v39 = 8 * v38;
-    v40 = 8 * v38 ? v35 : 0;
-    v41 = v34 - v39;
-    *(v18 + 5) = v40;
-    *(v18 + 14) = bswap32(*(v18 + 14)) >> 16;
-    v42 = bswap32(v18[8]);
-    v18[8] = v42;
-    if (v41 < 8 * v42)
+    v38 = 8 * v37;
+    v39 = 8 * v37 ? v34 : 0;
+    v40 = v33 - v38;
+    *(v17 + 5) = v39;
+    *(v17 + 14) = bswap32(*(v17 + 14)) >> 16;
+    v41 = bswap32(v17[8]);
+    v17[8] = v41;
+    if (v40 < 8 * v41)
     {
       goto LABEL_95;
     }
 
-    v43 = 8 * v42;
-    v44 = v35 + v39;
-    v45 = 8 * v42 ? v44 : 0;
-    v46 = v41 - v43;
-    *(v18 + 9) = v45;
-    v47 = bswap32(v18[11]);
-    v18[11] = v47;
-    if (v46 < 8 * v47)
+    v42 = 8 * v41;
+    v43 = v34 + v38;
+    v44 = 8 * v41 ? v43 : 0;
+    v45 = v40 - v42;
+    *(v17 + 9) = v44;
+    v46 = bswap32(v17[11]);
+    v17[11] = v46;
+    if (v45 < 8 * v46)
     {
       goto LABEL_95;
     }
 
-    v48 = 8 * v47;
-    v49 = v44 + v43;
-    v50 = 8 * v47 ? v49 : 0;
-    *(v18 + 6) = v50;
-    *(v18 + 7) = 0;
-    *(v18 + 4) = vrev32q_s8(*(v18 + 4));
-    *(v18 + 10) = vrev32_s8(*(v18 + 20));
-    v51 = v36 - 108;
-    if (v36 - 108 != bswap32(v18[26]))
+    v47 = 8 * v46;
+    v48 = v43 + v42;
+    v49 = 8 * v46 ? v48 : 0;
+    *(v17 + 6) = v49;
+    *(v17 + 7) = 0;
+    *(v17 + 4) = vrev32q_s8(*(v17 + 4));
+    *(v17 + 10) = vrev32_s8(*(v17 + 20));
+    v50 = v35 - 108;
+    if (v35 - 108 != bswap32(v17[26]))
     {
       goto LABEL_95;
     }
 
-    v52 = v18 + 2;
-    if (v51 < 8)
+    v51 = v17 + 2;
+    if (v50 < 8)
     {
-      v55 = 0;
       v54 = 0;
       v53 = 0;
+      v52 = 0;
     }
 
     else
     {
+      v52 = 0;
       v53 = 0;
       v54 = 0;
-      v55 = 0;
-      v56 = v18 + 27;
+      v55 = v17 + 27;
       do
       {
-        v57 = v56[1];
-        v58 = bswap32(*v56);
-        if (v58 <= 12)
+        v56 = v55[1];
+        v57 = bswap32(*v55);
+        if (v57 <= 12)
         {
-          switch(v58)
+          switch(v57)
           {
             case 10:
-              *v52 = v56 + 2;
+              *v51 = v55 + 2;
               break;
             case 11:
-              v61 = *(v18 + 5);
-              if (!v61)
+              v60 = *(v17 + 5);
+              if (!v60)
               {
                 goto LABEL_95;
               }
 
-              *(v61 + 8 * v55++) = v56 + 2;
+              *(v60 + 8 * v54++) = v55 + 2;
               break;
             case 12:
-              v59 = *(v18 + 9);
-              if (!v59)
+              v58 = *(v17 + 9);
+              if (!v58)
               {
                 goto LABEL_95;
               }
 
-              *(v59 + 8 * v54++) = v56 + 2;
+              *(v58 + 8 * v53++) = v55 + 2;
               break;
           }
         }
 
-        else if (v58 > 14)
+        else if (v57 > 14)
         {
-          if (v58 == 15)
+          if (v57 == 15)
           {
-            *(v18 + 11) = v56 + 2;
+            *(v17 + 11) = v55 + 2;
           }
 
-          else if (v58 == 16)
+          else if (v57 == 16)
           {
-            *(v18 + 12) = v56 + 2;
+            *(v17 + 12) = v55 + 2;
           }
         }
 
-        else if (v58 == 13)
+        else if (v57 == 13)
         {
-          v60 = *(v18 + 6);
-          if (!v60)
+          v59 = *(v17 + 6);
+          if (!v59)
           {
             goto LABEL_95;
           }
 
-          *(v60 + 8 * v53++) = v56 + 2;
+          *(v59 + 8 * v52++) = v55 + 2;
         }
 
         else
         {
-          *(v18 + 7) = v56 + 2;
+          *(v17 + 7) = v55 + 2;
         }
 
-        v62 = bswap32(v57);
-        v56 = (v56 + v62);
-        v51 -= v62;
+        v61 = bswap32(v56);
+        v55 = (v55 + v61);
+        v50 -= v61;
       }
 
-      while (v51 > 7);
+      while (v50 > 7);
     }
 
-    if (v55 != v38 || v54 != v42 || v53 != v47)
+    if (v54 != v37 || v53 != v41 || v52 != v46)
     {
       goto LABEL_95;
     }
 
-    v35 = v49 + v48;
-    v34 = v46 - v48;
-    switch(v37)
+    v34 = v48 + v47;
+    v33 = v45 - v47;
+    switch(v36)
     {
       case 3u:
-        v63 = *(v11 + 9);
-        if (!v63)
+        v62 = *(v11 + 9);
+        if (!v62)
         {
           goto LABEL_95;
         }
 
-        v64 = v31++;
+        v63 = v30++;
         break;
       case 2u:
-        v63 = *(v11 + 2);
-        if (!v63)
+        v62 = *(v11 + 2);
+        if (!v62)
         {
           goto LABEL_95;
         }
 
-        v64 = v32++;
+        v63 = v31++;
         break;
       case 1u:
-        v63 = *(v11 + 1);
-        if (!v63)
+        v62 = *(v11 + 1);
+        if (!v62)
         {
           goto LABEL_95;
         }
 
-        v64 = v33++;
+        v63 = v32++;
         break;
       default:
         goto LABEL_89;
     }
 
-    *(v63 + 8 * v64) = v52;
+    *(v62 + 8 * v63) = v51;
 LABEL_89:
-    v18 = (v18 + v36);
-    v17 -= v36;
+    v17 = (v17 + v35);
+    v16 -= v35;
   }
 
-  while (v17 > 7);
-  v16 = *v11;
+  while (v16 > 7);
+  v15 = *v11;
 LABEL_92:
-  if (v33 != v16 || v32 != v11[3] || v31 != v11[8])
+  if (v32 != v15 || v31 != v11[3] || v30 != v11[8])
   {
 LABEL_95:
     free(v11);
-    goto LABEL_21;
+    return 0;
   }
 
-LABEL_22:
-  v12 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 dispatch_queue_t ____dns_configuration_queue_block_invoke()
 {
-  v2 = *MEMORY[0x29EDCA608];
   result = dispatch_queue_create("com.apple.SystemConfiguration.DNSConfiguration", 0);
   __dns_configuration_queue_q = result;
-  v1 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void dns_configuration_copy_cold_1()
 {
-  v0 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
-  v1 = *MEMORY[0x29EDCA608];
 
   dispatch_once(&__dns_configuration_queue_once, &__block_literal_global_19);
 }
 
-BOOL libSC_info_available()
-{
-  v0 = *MEMORY[0x29EDCA608];
-  *MEMORY[0x29EDCA608];
-  return (_available & 1) == 0;
-}
-
 void nwi_state_copy_cold_1()
 {
-  v0 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
-  v1 = *MEMORY[0x29EDCA608];
 
   dispatch_once(&nwi_state_copy_initialized, &__block_literal_global_0);
 }
 
 uint64_t nwi_state_copy()
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (nwi_state_copy_initialized != -1)
   {
     nwi_state_copy_cold_1();
@@ -605,72 +578,57 @@ LABEL_28:
     free(v3);
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 void __dns_configuration_copy_block_invoke_cold_1()
 {
-  v0 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
-  v1 = *MEMORY[0x29EDCA608];
 
   dispatch_once(&_block_invoke_once, &__block_literal_global_5);
 }
 
 uint64_t __nwi_state_copy_block_invoke()
 {
-  v2 = *MEMORY[0x29EDCA608];
   result = notify_register_check("com.apple.system.SystemConfiguration.nwi", &nwi_store_token);
   if (result)
   {
-    result = fprintf(*MEMORY[0x29EDCA610], "nwi_state: registration failed (%u)\n", result);
+    return fprintf(*MEMORY[0x29EDCA610], "nwi_state: registration failed (%u)\n", result);
   }
 
-  else
-  {
-    nwi_store_token_valid = 1;
-  }
-
-  v1 = *MEMORY[0x29EDCA608];
+  nwi_store_token_valid = 1;
   return result;
 }
 
 void _nwi_client_release_cold_1()
 {
-  v0 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
-  v1 = *MEMORY[0x29EDCA608];
 
   dispatch_once(&__nwi_client_queue_once, &__block_literal_global_27);
 }
 
 void _nwi_client_init()
 {
-  v2 = *MEMORY[0x29EDCA608];
   if (__nwi_client_queue_once != -1)
   {
     _nwi_client_release_cold_1();
   }
 
   v0 = __nwi_client_queue_q;
-  v1 = *MEMORY[0x29EDCA608];
 
   dispatch_sync(v0, &__block_literal_global_17);
 }
 
 const char *__dns_configuration_copy_block_invoke_2()
 {
-  v2 = *MEMORY[0x29EDCA608];
   result = getprogname();
   dns_configuration_copy_proc_name = result;
-  v1 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void *libSC_send_message_with_reply_sync(uint64_t a1, xpc_object_t message)
 {
-  *&v22[5] = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29EDCAA00];
   v5 = MEMORY[0x29EDCA9B8];
   v6 = MEMORY[0x29EDCAA18];
@@ -700,9 +658,9 @@ void *libSC_send_message_with_reply_sync(uint64_t a1, xpc_object_t message)
         if (v14)
         {
           v15 = *(a1 + 16);
-          v19 = 136315138;
-          v20 = v15;
-          _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s server not available", &v19, 0xCu);
+          v18 = 136315138;
+          v19 = v15;
+          _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s server not available", &v18, 0xCu);
         }
 
         *a1 = 0;
@@ -713,28 +671,26 @@ void *libSC_send_message_with_reply_sync(uint64_t a1, xpc_object_t message)
         if (v14)
         {
           v16 = *(a1 + 16);
-          v19 = 136315138;
-          v20 = v16;
-          _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s xpc_connection_send_message_with_reply_sync() with unexpected reply", &v19, 0xCu);
+          v18 = 136315138;
+          v19 = v16;
+          _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s xpc_connection_send_message_with_reply_sync() with unexpected reply", &v18, 0xCu);
         }
 
         log_xpc_object("  reply", v9);
       }
 
       xpc_release(v9);
-      v9 = 0;
-      break;
+      return 0;
     }
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      libSC_send_message_with_reply_sync_cold_1(buf, (a1 + 16), v22);
+      libSC_send_message_with_reply_sync_cold_1(buf, (a1 + 16), &buf[4]);
     }
 
     xpc_release(v5);
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -743,36 +699,30 @@ void *libSC_info_client_create(NSObject *a1, const char *a2, const char *a3)
   handler[6] = *MEMORY[0x29EDCA608];
   if (_available)
   {
-    v3 = 0;
+    return 0;
   }
 
-  else
-  {
-    v3 = malloc_type_malloc(0x20uLL, 0x103004009027118uLL);
-    *v3 = 1;
-    v3[2] = strdup(a3);
-    v3[3] = strdup(a2);
-    mach_service = xpc_connection_create_mach_service(a2, a1, 2uLL);
-    handler[0] = MEMORY[0x29EDCA5F8];
-    handler[1] = 0x40000000;
-    handler[2] = __libSC_info_client_create_block_invoke;
-    handler[3] = &__block_descriptor_tmp_1;
-    handler[4] = v3;
-    handler[5] = mach_service;
-    xpc_connection_set_event_handler(mach_service, handler);
-    v3[1] = mach_service;
-    xpc_connection_set_context(mach_service, v3);
-    xpc_connection_set_finalizer_f(mach_service, libSC_client_dealloc);
-    xpc_connection_resume(mach_service);
-  }
-
-  v8 = *MEMORY[0x29EDCA608];
+  v3 = malloc_type_malloc(0x20uLL, 0x103004009027118uLL);
+  *v3 = 1;
+  v3[2] = strdup(a3);
+  v3[3] = strdup(a2);
+  mach_service = xpc_connection_create_mach_service(a2, a1, 2uLL);
+  handler[0] = MEMORY[0x29EDCA5F8];
+  handler[1] = 0x40000000;
+  handler[2] = __libSC_info_client_create_block_invoke;
+  handler[3] = &__block_descriptor_tmp_1;
+  handler[4] = v3;
+  handler[5] = mach_service;
+  xpc_connection_set_event_handler(mach_service, handler);
+  v3[1] = mach_service;
+  xpc_connection_set_context(mach_service, v3);
+  xpc_connection_set_finalizer_f(mach_service, libSC_client_dealloc);
+  xpc_connection_resume(mach_service);
   return v3;
 }
 
 void dns_configuration_free(void *a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     if (__dns_configuration_queue_once != -1)
@@ -781,70 +731,47 @@ void dns_configuration_free(void *a1)
     }
 
     dispatch_sync(__dns_configuration_queue_q, &__block_literal_global_12);
-    v2 = *MEMORY[0x29EDCA608];
 
     free(a1);
-  }
-
-  else
-  {
-    v3 = *MEMORY[0x29EDCA608];
-    v4 = *MEMORY[0x29EDCA608];
   }
 }
 
 void libSC_client_dealloc(void **a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     free(a1[2]);
     free(a1[3]);
-    v2 = *MEMORY[0x29EDCA608];
 
     free(a1);
-  }
-
-  else
-  {
-    v3 = *MEMORY[0x29EDCA608];
-    v4 = *MEMORY[0x29EDCA608];
   }
 }
 
 dispatch_queue_t ____nwi_client_queue_block_invoke()
 {
-  v2 = *MEMORY[0x29EDCA608];
   result = dispatch_queue_create("com.apple.SystemConfiguration.NetworkInformation", 0);
   __nwi_client_queue_q = result;
-  v1 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void __dns_configuration_free_block_invoke()
 {
-  v1 = *MEMORY[0x29EDCA608];
   if (!--dnsinfo_active)
   {
     libSC_info_client_release(dnsinfo_client);
     dnsinfo_client = 0;
   }
-
-  v0 = *MEMORY[0x29EDCA608];
 }
 
 void libSC_info_client_release(uint64_t a1)
 {
-  v3 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 8);
-  v2 = *MEMORY[0x29EDCA608];
 
   xpc_release(v1);
 }
 
 void ___nwi_client_init_block_invoke()
 {
-  v3 = *MEMORY[0x29EDCA608];
   if (nwi_active++)
   {
     v1 = nwi_client == 0;
@@ -873,80 +800,58 @@ void ___nwi_client_init_block_invoke()
       --nwi_active;
     }
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 void ___nwi_client_init_block_invoke_cold_1()
 {
-  v0 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
-  v1 = *MEMORY[0x29EDCA608];
 
   dispatch_once(&nwi_store_force_refresh_block_invoke_once, &__block_literal_global_21);
 }
 
 const char *___nwi_client_init_block_invoke_2()
 {
-  v2 = *MEMORY[0x29EDCA608];
   result = getprogname();
   client_proc_name = result;
-  v1 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void ___nwi_client_release_block_invoke()
 {
-  v1 = *MEMORY[0x29EDCA608];
   if (!--nwi_active)
   {
     libSC_info_client_release(nwi_client);
     nwi_client = 0;
   }
-
-  v0 = *MEMORY[0x29EDCA608];
 }
 
 void _nwi_client_release()
 {
-  v2 = *MEMORY[0x29EDCA608];
   if (__nwi_client_queue_once != -1)
   {
     _nwi_client_release_cold_1();
   }
 
   v0 = __nwi_client_queue_q;
-  v1 = *MEMORY[0x29EDCA608];
 
   dispatch_sync(v0, &__block_literal_global_14);
 }
 
-uint64_t nwi_ifstate_get_generation(uint64_t a1)
-{
-  result = *(a1 + 52);
-  v2 = *MEMORY[0x29EDCA608];
-  *MEMORY[0x29EDCA608];
-  return result;
-}
-
 const char *nwi_state_get_ifstate(_DWORD *a1, char *__s1)
 {
-  v13 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
-LABEL_18:
-    v7 = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   v4 = a1[1];
   v5 = a1[2];
   if (v5 >= 1 && v5 <= v4)
   {
-    v7 = (a1 + 10);
-    while (strcmp(__s1, v7))
+    i = (a1 + 10);
+    while (strcmp(__s1, i))
     {
-      v7 += 112;
+      i += 112;
       if (!--v5)
       {
         goto LABEL_10;
@@ -961,37 +866,26 @@ LABEL_10:
     v9 = a1[3];
     if (v9 < 1 || v9 > v8)
     {
-      goto LABEL_18;
+      return 0;
     }
 
-    v7 = &a1[28 * v8 + 10];
-    while (strcmp(__s1, v7))
+    for (i = &a1[28 * v8 + 10]; strcmp(__s1, i); i += 112)
     {
-      v7 += 112;
       if (!--v9)
       {
-        goto LABEL_18;
+        return 0;
       }
     }
   }
 
-LABEL_19:
-  v11 = *MEMORY[0x29EDCA608];
-  return v7;
+  return i;
 }
 
 uint64_t nwi_ifstate_get_signature(uint64_t a1, int a2, _DWORD *a3)
 {
-  v6 = *MEMORY[0x29EDCA608];
   if (!a2)
   {
-LABEL_7:
-    if (!a1)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_8;
+    goto LABEL_7;
   }
 
   if (a2 != 30 && a2 != 2)
@@ -1008,35 +902,30 @@ LABEL_7:
     }
 
     a1 += 112 * v3;
-    goto LABEL_7;
+LABEL_7:
+    if (a1)
+    {
+      goto LABEL_8;
+    }
+
+LABEL_9:
+    result = 0;
+    *a3 = 0;
+    return result;
   }
 
 LABEL_8:
-  if ((*(a1 + 16) & 0x10) != 0)
+  if ((*(a1 + 16) & 0x10) == 0)
   {
-    *a3 = 20;
-    result = a1 + 92;
-    goto LABEL_11;
+    goto LABEL_9;
   }
 
-LABEL_9:
-  result = 0;
-  *a3 = 0;
-LABEL_11:
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-const char *dns_configuration_notify_key()
-{
-  v0 = *MEMORY[0x29EDCA608];
-  *MEMORY[0x29EDCA608];
-  return "com.apple.system.SystemConfiguration.dns_configuration";
+  *a3 = 20;
+  return a1 + 92;
 }
 
 void _dns_configuration_ack(uint64_t a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
   if (a1 && dnsinfo_client && *dnsinfo_client == 1)
   {
     if (__dns_configuration_queue_once != -1)
@@ -1049,54 +938,18 @@ void _dns_configuration_ack(uint64_t a1)
     xpc_dictionary_set_int64(v2, "request_op", 65538);
     xpc_dictionary_set_uint64(v2, "generation", *(a1 + 24));
     xpc_connection_send_message(*(dnsinfo_client + 8), v2);
-    v3 = *MEMORY[0x29EDCA608];
 
     xpc_release(v2);
   }
-
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
-    v5 = *MEMORY[0x29EDCA608];
-  }
-}
-
-void ___dns_configuration_ack_block_invoke()
-{
-  v1 = *MEMORY[0x29EDCA608];
-  ++dnsinfo_active;
-  v0 = *MEMORY[0x29EDCA608];
-}
-
-const char *nwi_state_get_notify_key()
-{
-  v0 = *MEMORY[0x29EDCA608];
-  *MEMORY[0x29EDCA608];
-  return "com.apple.system.SystemConfiguration.nwi";
-}
-
-void _nwi_state_force_refresh()
-{
-  v0 = 0;
-  v2 = *MEMORY[0x29EDCA608];
-  atomic_compare_exchange_strong(nwi_store_force_refresh, &v0, 1u);
-  v1 = *MEMORY[0x29EDCA608];
 }
 
 void nwi_state_release(atomic_uint *a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
   if (atomic_fetch_add(a1 + 5, 0xFFFFFFFF) == 1)
   {
     _nwi_client_release();
-    v2 = *MEMORY[0x29EDCA608];
 
     free(a1);
-  }
-
-  else
-  {
-    v3 = *MEMORY[0x29EDCA608];
   }
 }
 
@@ -1146,13 +999,11 @@ void *_nwi_config_agent_copy_data(uint64_t a1, void *a2)
     _nwi_client_release();
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 void _nwi_state_ack(uint64_t a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
   if (a1 && nwi_client && *nwi_client == 1)
   {
     if (__nwi_client_queue_once != -1)
@@ -1165,31 +1016,9 @@ void _nwi_state_ack(uint64_t a1)
     xpc_dictionary_set_int64(v2, "request_op", 131074);
     xpc_dictionary_set_uint64(v2, "generation", *(a1 + 32));
     xpc_connection_send_message(*(nwi_client + 8), v2);
-    v3 = *MEMORY[0x29EDCA608];
 
     xpc_release(v2);
   }
-
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
-    v5 = *MEMORY[0x29EDCA608];
-  }
-}
-
-void ___nwi_state_ack_block_invoke()
-{
-  v1 = *MEMORY[0x29EDCA608];
-  ++nwi_active;
-  v0 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t nwi_state_get_generation(uint64_t a1)
-{
-  result = *(a1 + 32);
-  v2 = *MEMORY[0x29EDCA608];
-  *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t nwi_ifstate_get_flags(uint64_t a1)
@@ -1213,12 +1042,10 @@ uint64_t nwi_ifstate_get_flags(uint64_t a1)
         v6 = 2;
       }
 
-      result |= *(v5 + 16) & 0x44 | v6;
+      return *(v5 + 16) & 0x44 | result | v6;
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1229,7 +1056,7 @@ uint64_t nwi_state_get_first_ifstate(uint64_t result, int a2)
     v2 = *(result + 4);
     if (v2 < 1)
     {
-      goto LABEL_11;
+      return 0;
     }
 
     v3 = 12;
@@ -1240,8 +1067,7 @@ uint64_t nwi_state_get_first_ifstate(uint64_t result, int a2)
 
     if (*(result + v3) < 1)
     {
-LABEL_11:
-      result = 0;
+      return 0;
     }
 
     else
@@ -1254,18 +1080,16 @@ LABEL_11:
       v4 = result + 112 * v2;
       if ((*(v4 + 56) & 8) != 0)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = v4 + 40;
+        return v4 + 40;
       }
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1276,9 +1100,7 @@ uint64_t nwi_ifstate_get_next(uint64_t a1, int a2)
     v2 = *(a1 + 24);
     if (!v2)
     {
-LABEL_5:
-      result = 0;
-      goto LABEL_9;
+      return 0;
     }
 
     a1 += 112 * v2;
@@ -1286,23 +1108,18 @@ LABEL_5:
 
   if ((*(a1 + 16) & 0x1008) != 0)
   {
-    goto LABEL_5;
+    return 0;
   }
 
   if ((*(a1 + 128) & 8) != 0)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = a1 + 112;
+    return a1 + 112;
   }
-
-LABEL_9:
-  v4 = *MEMORY[0x29EDCA608];
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t nwi_ifstate_compare_rank(uint64_t a1, uint64_t a2)
@@ -1322,17 +1139,13 @@ uint64_t nwi_ifstate_compare_rank(uint64_t a1, uint64_t a2)
 
   if (v4)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = v5;
+    return v5;
   }
-
-  v7 = *MEMORY[0x29EDCA608];
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t nwi_state_get_reachability_flags(uint64_t a1, int a2)
@@ -1395,20 +1208,20 @@ LABEL_14:
         v9 = v8;
       }
 
-      goto LABEL_20;
+      return *v9;
     }
 
-    v13 = *(a1 + 4);
-    if (v13 >= 1)
+    v11 = *(a1 + 4);
+    if (v11 >= 1)
     {
       if (*(a1 + 8) < 1)
       {
         if (*(a1 + 12) >= 1)
         {
-          v20 = a1 + 112 * v13;
-          if ((*(v20 + 56) & 8) == 0)
+          v18 = a1 + 112 * v11;
+          if ((*(v18 + 56) & 8) == 0)
           {
-            v17 = v20 + 40;
+            v15 = v18 + 40;
             goto LABEL_41;
           }
         }
@@ -1416,70 +1229,68 @@ LABEL_14:
 
       else
       {
-        v14 = a1 + 40;
-        v15 = *(a1 + 56);
-        if ((v15 & 8) != 0)
+        v12 = a1 + 40;
+        v13 = *(a1 + 56);
+        if ((v13 & 8) != 0)
         {
-          v16 = 0;
+          v14 = 0;
         }
 
         else
         {
-          v16 = a1 + 40;
+          v14 = a1 + 40;
         }
 
         if (*(a1 + 12) <= 0)
         {
-          v14 = v16;
-          if ((v15 & 8) == 0)
+          v12 = v14;
+          if ((v13 & 8) == 0)
           {
 LABEL_39:
-            v9 = (v14 + 60);
-LABEL_20:
-            v6 = *v9;
-            goto LABEL_21;
+            v9 = (v12 + 60);
+            return *v9;
           }
         }
 
         else
         {
-          v17 = v14 + 112 * v13;
-          v18 = *(v17 + 16);
-          if ((v18 & 8) != 0)
+          v15 = v12 + 112 * v11;
+          v16 = *(v15 + 16);
+          if ((v16 & 8) != 0)
           {
-            v19 = 0;
+            v17 = 0;
           }
 
           else
           {
-            v19 = v17;
+            v17 = v15;
           }
 
-          if ((v15 & 8) == 0)
+          if ((v13 & 8) == 0)
           {
-            if ((v18 & 8) == 0)
+            if ((v16 & 8) == 0)
             {
-              if (*(v16 + 28) <= *(v19 + 28))
+              if (*(v14 + 28) <= *(v17 + 28))
               {
-                v9 = (v16 + 60);
+                v9 = (v14 + 60);
               }
 
               else
               {
-                v9 = (v19 + 60);
+                v9 = (v17 + 60);
               }
 
-              goto LABEL_20;
+              return *v9;
             }
 
             goto LABEL_39;
           }
 
-          if ((v18 & 8) == 0)
+          if ((v16 & 8) == 0)
           {
 LABEL_41:
-            v9 = (v17 + 60);
-            goto LABEL_20;
+            v9 = (v15 + 60);
+            return *v9;
           }
         }
       }
@@ -1488,49 +1299,32 @@ LABEL_41:
     v6 = *(a1 + 24);
     if (v6)
     {
-      goto LABEL_21;
+      return v6;
     }
 
     v9 = (a1 + 28);
-    goto LABEL_20;
+    return *v9;
   }
 
-  v6 = 0;
-LABEL_21:
-  v10 = *MEMORY[0x29EDCA608];
-  v11 = *MEMORY[0x29EDCA608];
-  return v6;
+  return 0;
 }
 
 uint64_t nwi_ifstate_get_vpn_server(uint64_t a1)
 {
   if (*(a1 + 65))
   {
-    result = a1 + 64;
+    return a1 + 64;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t nwi_ifstate_get_reachability_flags(uint64_t a1)
-{
-  result = *(a1 + 60);
-  v2 = *MEMORY[0x29EDCA608];
-  *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t nwi_ifstate_get_dns_signature(uint64_t a1, int *a2)
 {
   v3 = a1;
-  v21 = *MEMORY[0x29EDCA608];
   *a2 = 0;
   if ((nwi_ifstate_get_flags(a1) & 4) != 0)
   {
@@ -1586,7 +1380,7 @@ LABEL_14:
     v4 = 0;
     if (!v11)
     {
-      goto LABEL_28;
+      return v4;
     }
 
     v14 = 0;
@@ -1607,8 +1401,7 @@ LABEL_17:
     {
 LABEL_27:
       *a2 = v10;
-      v4 = v11;
-      goto LABEL_28;
+      return v11;
     }
 
 LABEL_21:
@@ -1635,72 +1428,61 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v4 = 0;
-LABEL_28:
-  v19 = *MEMORY[0x29EDCA608];
-  return v4;
+  return 0;
 }
 
 uint64_t nwi_state_get_interface_names(uint64_t a1, void *a2, int a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  if (a2 && a3)
+  if (!a2 || !a3)
   {
-    result = *(a1 + 16);
-    if (result >= 1)
+    return *(a1 + 16);
+  }
+
+  result = *(a1 + 16);
+  if (result >= 1)
+  {
+    v5 = a1 + 40;
+    v6 = 2 * *(a1 + 4);
+    v7 = (v5 + 112 * v6);
+    v8 = result;
+    while (*v7 < v6)
     {
-      v5 = a1 + 40;
-      v6 = 2 * *(a1 + 4);
-      v7 = (v5 + 112 * v6);
-      v8 = result;
-      while (*v7 < v6)
+      *a2++ = v5 + 112 * *v7++;
+      if (!--v8)
       {
-        *a2++ = v5 + 112 * *v7++;
-        if (!--v8)
-        {
-          goto LABEL_10;
-        }
+        return result;
       }
-
-      result = 0;
     }
+
+    return 0;
   }
 
-  else
-  {
-    result = *(a1 + 16);
-  }
-
-LABEL_10:
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t _libSC_info_fork_child()
 {
-  v2 = *MEMORY[0x29EDCA608];
   result = _dispatch_is_fork_of_multithreaded_parent();
   if (result)
   {
     _available = 1;
   }
 
-  v1 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void __libSC_info_client_create_block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29C2B1550](a2);
   if (v4 == MEMORY[0x29EDCAA00])
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 24);
-      v11 = 136315138;
-      v12 = v7;
-      _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: unexpected message", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = v7;
+      _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: unexpected message", &v10, 0xCu);
     }
 
     log_xpc_object("  dict = ", a2);
@@ -1715,10 +1497,10 @@ void __libSC_info_client_create_block_invoke(uint64_t a1, void *a2)
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
-          v10 = *(*(a1 + 32) + 24);
-          v11 = 136315138;
-          v12 = v10;
-          _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: server not available", &v11, 0xCu);
+          v9 = *(*(a1 + 32) + 24);
+          v10 = 136315138;
+          v11 = v9;
+          _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: server not available", &v10, 0xCu);
         }
 
         **(a1 + 32) = 0;
@@ -1745,88 +1527,66 @@ void __libSC_info_client_create_block_invoke(uint64_t a1, void *a2)
     else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(*(a1 + 32) + 24);
-      v11 = 136315394;
-      v12 = v6;
-      v13 = 2048;
-      v14 = v5;
-      _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: unknown event type : %p", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = v6;
+      v12 = 2048;
+      v13 = v5;
+      _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: unknown event type : %p", &v10, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void log_xpc_object(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v3 = MEMORY[0x29C2B1490](a2);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = a1;
-    v7 = 2080;
-    v8 = v3;
-    _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s = %s", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = a1;
+    v6 = 2080;
+    v7 = v3;
+    _os_log_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s = %s", &v4, 0x16u);
   }
 
   free(v3);
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 BOOL is_config_agent_type_proxy(_BOOL8 result)
 {
-  v3 = *MEMORY[0x29EDCA608];
   if (result)
   {
     v1 = result;
-    result = !strcmp((result + 16), "SystemConfig") && strcmp((v1 + 48), "ProxyAgent") == 0;
+    return !strcmp((result + 16), "SystemConfig") && strcmp((v1 + 48), "ProxyAgent") == 0;
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 xpc_object_t config_agent_get_dns_nameservers(void *a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  if (a1 && MEMORY[0x29C2B1550]() == MEMORY[0x29EDCAA00])
+  if (!a1 || MEMORY[0x29C2B1550]() != MEMORY[0x29EDCAA00])
   {
-    v4 = *MEMORY[0x29EDCA608];
-
-    return xpc_dictionary_get_value(a1, "NameServers");
-  }
-
-  else
-  {
-    v2 = *MEMORY[0x29EDCA608];
     return 0;
   }
+
+  return xpc_dictionary_get_value(a1, "NameServers");
 }
 
 xpc_object_t config_agent_get_dns_searchdomains(void *a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  if (a1 && MEMORY[0x29C2B1550]() == MEMORY[0x29EDCAA00])
+  if (!a1 || MEMORY[0x29C2B1550]() != MEMORY[0x29EDCAA00])
   {
-    v4 = *MEMORY[0x29EDCA608];
-
-    return xpc_dictionary_get_value(a1, "SearchDomains");
-  }
-
-  else
-  {
-    v2 = *MEMORY[0x29EDCA608];
     return 0;
   }
+
+  return xpc_dictionary_get_value(a1, "SearchDomains");
 }
 
 void config_agent_free_dns_information(void *a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
   if (a1)
   {
-    v1 = *MEMORY[0x29EDCA608];
-    v2 = *MEMORY[0x29EDCA608];
 
     xpc_release(a1);
   }
@@ -1834,39 +1594,33 @@ void config_agent_free_dns_information(void *a1)
   else
   {
     syslog(3, "Attempting to free invalid resolver");
-    v3 = *MEMORY[0x29EDCA608];
   }
 }
 
 uint64_t config_agent_copy_proxy_information(uint64_t a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (!is_config_agent_type_proxy(a1))
   {
-LABEL_10:
-    v7 = *MEMORY[0x29EDCA608];
     return 0;
   }
 
   if (!*(a1 + 212))
   {
-    v5 = *(a1 + 80);
-    v4 = (a1 + 80);
-    if (v5)
+    v4 = *(a1 + 80);
+    v3 = (a1 + 80);
+    if (v4)
     {
-      v6 = v4;
+      v5 = v3;
     }
 
     else
     {
-      v6 = "ProxyAgent";
+      v5 = "ProxyAgent";
     }
 
-    syslog(3, "Cannot parse config agent (%s). No data available", v6);
-    goto LABEL_10;
+    syslog(3, "Cannot parse config agent (%s). No data available", v5);
+    return 0;
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 
   return xpc_create_from_plist();
 }
@@ -1874,46 +1628,46 @@ LABEL_10:
 void *config_agent_update_proxy_information(void *a1)
 {
   v1 = a1;
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   if (a1)
   {
-    v26 = 0;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v25 = 0;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v15 = 0u;
+    v18 = 0u;
     v16 = 0u;
-    *dst = 0u;
     v14 = 0u;
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2000000000;
-    v12 = 0;
+    v15 = 0u;
+    *dst = 0u;
+    v13 = 0u;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x2000000000;
+    v11 = 0;
     if (MEMORY[0x29C2B1550](a1) == MEMORY[0x29EDCA9E0])
     {
       applier[0] = MEMORY[0x29EDCA5F8];
       applier[1] = 0x40000000;
       applier[2] = __get_agent_uuid_if_OOB_data_required_block_invoke;
       applier[3] = &unk_29F28C090;
-      applier[4] = &v9;
+      applier[4] = &v8;
       xpc_array_apply(v1, applier);
     }
 
     else if (MEMORY[0x29C2B1550](v1) == MEMORY[0x29EDCAA00])
     {
       value = xpc_dictionary_get_value(v1, "OutOfBandDataUUID");
-      v10[3] = value;
+      v9[3] = value;
     }
 
-    if (v10[3] && MEMORY[0x29C2B1550]() == MEMORY[0x29EDCA9F8] && xpc_data_get_length(v10[3]) >= 0x10)
+    if (v9[3] && MEMORY[0x29C2B1550]() == MEMORY[0x29EDCA9F8] && xpc_data_get_length(v9[3]) >= 0x10)
     {
-      bytes_ptr = xpc_data_get_bytes_ptr(v10[3]);
+      bytes_ptr = xpc_data_get_bytes_ptr(v9[3]);
       uuid_copy(dst, bytes_ptr);
     }
 
@@ -1922,10 +1676,10 @@ void *config_agent_update_proxy_information(void *a1)
       uuid_clear(dst);
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v8, 8);
     if (uuid_is_null(dst))
     {
-      v1 = 0;
+      return 0;
     }
 
     else
@@ -1943,17 +1697,13 @@ void *config_agent_update_proxy_information(void *a1)
     }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v1;
 }
 
 void config_agent_free_proxy_information(void *a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
   if (a1)
   {
-    v1 = *MEMORY[0x29EDCA608];
-    v2 = *MEMORY[0x29EDCA608];
 
     xpc_release(a1);
   }
@@ -1961,41 +1711,36 @@ void config_agent_free_proxy_information(void *a1)
   else
   {
     syslog(3, "Attempting to free proxy configuration");
-    v3 = *MEMORY[0x29EDCA608];
   }
 }
 
 void __libSC_info_client_create_block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v3 = *(*(a1 + 32) + 24);
   pid = xpc_connection_get_pid(*(a1 + 40));
-  v6 = 136315650;
-  v7 = v3;
-  v8 = 1024;
-  v9 = pid;
-  v10 = 2080;
-  v11 = a2;
-  _os_log_debug_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "%s: connection error: %d : %s", &v6, 0x1Cu);
-  v5 = *MEMORY[0x29EDCA608];
+  v5 = 136315650;
+  v6 = v3;
+  v7 = 1024;
+  v8 = pid;
+  v9 = 2080;
+  v10 = a2;
+  _os_log_debug_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "%s: connection error: %d : %s", &v5, 0x1Cu);
 }
 
 void __libSC_info_client_create_block_invoke_cold_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   v1 = *(*(a1 + 32) + 24);
-  v3 = 136315138;
-  v4 = v1;
-  _os_log_debug_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "%s: server failed", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v2 = 136315138;
+  v3 = v1;
+  _os_log_debug_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "%s: server failed", &v2, 0xCu);
 }
 
 void libSC_send_message_with_reply_sync_cold_1(uint8_t *buf, uint64_t *a2, void *a3)
 {
-  v5 = *MEMORY[0x29EDCA608];
   v3 = *a2;
   *buf = 136315138;
   *a3 = v3;
   _os_log_debug_impl(&dword_299DD2000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "%s server failure, retrying", buf, 0xCu);
-  v4 = *MEMORY[0x29EDCA608];
 }

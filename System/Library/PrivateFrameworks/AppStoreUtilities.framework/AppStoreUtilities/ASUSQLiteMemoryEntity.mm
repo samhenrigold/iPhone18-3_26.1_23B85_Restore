@@ -189,7 +189,7 @@ uint64_t __61__ASUSQLiteMemoryEntity_reloadFromDatabaseEntity_properties___block
 
 - (id)valueForProperty:(id)property
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   v5 = [(NSMutableDictionary *)self->_propertyValues objectForKeyedSubscript:propertyCopy];
   if (!v5)
@@ -199,32 +199,30 @@ uint64_t __61__ASUSQLiteMemoryEntity_reloadFromDatabaseEntity_properties___block
     {
       if (![(NSArray *)properties containsObject:propertyCopy])
       {
-        v9 = objc_opt_class();
-        databaseEntityClass = [v9 databaseEntityClass];
+        v8 = objc_opt_class();
+        databaseEntityClass = [v8 databaseEntityClass];
         if (databaseEntityClass == objc_opt_class())
         {
-          NSStringFromClass(v9);
+          NSStringFromClass(v8);
         }
 
         else
         {
           [databaseEntityClass databaseTable];
         }
-        v11 = ;
-        v12 = ASULogHandleForCategory(1);
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+        v10 = ;
+        v11 = ASULogHandleForCategory(1);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
-          v13 = 138543618;
-          v14 = v11;
-          v15 = 2114;
-          v16 = propertyCopy;
-          _os_log_fault_impl(&dword_2400F8000, v12, OS_LOG_TYPE_FAULT, "Memory entity loaded from entity missing property: %{public}@.%{public}@", &v13, 0x16u);
+          v12 = 138543618;
+          v13 = v10;
+          v14 = 2114;
+          v15 = propertyCopy;
+          _os_log_fault_impl(&dword_2400F8000, v11, OS_LOG_TYPE_FAULT, "Memory entity loaded from entity missing property: %{public}@.%{public}@", &v12, 0x16u);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

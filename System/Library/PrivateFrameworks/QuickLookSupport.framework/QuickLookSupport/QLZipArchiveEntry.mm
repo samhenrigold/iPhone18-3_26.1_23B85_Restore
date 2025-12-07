@@ -17,7 +17,7 @@
 
 - (id)readDataWithError:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   data = self->_data;
   if (data)
   {
@@ -40,10 +40,10 @@
 
       WeakRetained = objc_loadWeakRetained(&self->_archive);
       entry = self->_entry;
-      v18 = 0;
-      v11 = [WeakRetained readCurrentDataWithEntry:entry error:&v18];
-      v12 = v18;
-      v13 = v18;
+      v20 = 0;
+      v11 = [WeakRetained readCurrentDataWithEntry:entry error:&v20];
+      v12 = v20;
+      v13 = v20;
       v14 = self->_data;
       self->_data = v11;
 
@@ -51,25 +51,25 @@
       {
         if (v13)
         {
-          v16 = _qlsLogHandle;
+          v18 = _qlsLogHandle;
           if (!_qlsLogHandle)
           {
-            QLSInitLogging();
-            v16 = _qlsLogHandle;
+            QLSInitLogging(v15, v16);
+            v18 = _qlsLogHandle;
           }
 
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v20 = v13;
-            _os_log_impl(&dword_2615AE000, v16, OS_LOG_TYPE_ERROR, "Error while attempting to read data: %@ #ZIPHandling", buf, 0xCu);
+            v22 = v13;
+            _os_log_impl(&dword_2615AE000, v18, OS_LOG_TYPE_ERROR, "Error while attempting to read data: %@ #ZIPHandling", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        v15 = v13;
+        v17 = v13;
         *error = v13;
         objc_storeStrong(p_error, v12);
       }

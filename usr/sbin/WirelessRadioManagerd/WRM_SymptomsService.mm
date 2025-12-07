@@ -5,11 +5,14 @@
 - (BOOL)isConnectedLinkGood:(BOOL)good;
 - (BOOL)isCurrentAttachPointHasChanged:(id)changed;
 - (BOOL)scorecardForIKETunnel:(id)tunnel isInstant:(BOOL)instant;
+- (BOOL)updateAllNetworkSymptoms:(int)symptoms;
 - (BOOL)watchpointForIKETunnel:(id)tunnel onThreshold:(unsigned int)threshold;
 - (WRM_SymptomsService)init;
 - (double)evaluateNetworkBandwidth;
 - (double)getAgeOfMetricDictionary:(id)dictionary;
 - (double)getMetricFromDictionary:(id)dictionary :(int)a4;
+- (int)getNetworkHistScore:(int)score;
+- (int)getNetworkScore:(int)score;
 - (int)mapSFNetworkAdvisoryToNetworkScore:(int)score;
 - (void)dealloc;
 - (void)displayIKEMetrics:(id)metrics;
@@ -139,6 +142,85 @@
   v9.receiver = self;
   v9.super_class = WRM_SymptomsService;
   [(WRM_SymptomsService *)&v9 dealloc];
+}
+
+- (BOOL)updateAllNetworkSymptoms:(int)symptoms
+{
+  v3 = *&symptoms;
+  [(NSDate *)self->mSFQueryTimer timeIntervalSinceNow];
+  v6 = v5;
+  v7 = self->mPrevTimeSinceSFQueryStarted - v5;
+  [WCM_Logging logLevel:24 message:@"iRAT:Rate limiting SF Delta Time %lf", *&v7];
+  if (v7 < 120.0)
+  {
+    v8 = @"Enforce rate limiting, do not query SF";
+    v9 = 18;
+    goto LABEL_7;
+  }
+
+  self->mPrevTimeSinceSFQueryStarted = v6;
+  if (v3 != 1)
+  {
+    if (!v3)
+    {
+      [WCM_Logging logLevel:24 message:@"updateAllNetworkSymptoms: BEGIN. Advice query:answer %llu:%llu FullScore query:answer %llu:%llu.", self->mAdviceQueried, self->mAdviceAnswered, self->mFullScoreQueried, self->mFullScoreAnswered];
+      [(WRM_SymptomsService *)self getNetworkUsageAdviceFromSF:0];
+      [(WRM_SymptomsService *)self getNetworkFullScoreFromSF:0];
+      [WCM_Logging logLevel:24 message:@"updateAllNetworkSymptoms: END. Advice query:answer %llu:%llu FullScore query:answer %llu:%llu.", self->mAdviceQueried, self->mAdviceAnswered, self->mFullScoreQueried, self->mFullScoreAnswered];
+      return v7 >= 120.0;
+    }
+
+    v11 = "[WRM_SymptomsService updateAllNetworkSymptoms:]";
+    v12 = v3;
+    v8 = @"iRAT: %s. Unknown network type %d.";
+    v9 = 16;
+LABEL_7:
+    [WCM_Logging logLevel:v9 message:v8, v11, v12, v13, v14];
+  }
+
+  return v7 >= 120.0;
+}
+
+- (int)getNetworkScore:(int)score
+{
+  if (score == 1)
+  {
+
+    return [(WRM_SymptomsService *)self calculateCellularScore];
+  }
+
+  else if (score)
+  {
+    [WCM_Logging logLevel:16 message:@"iRAT: %s. Unknown network type %d.", "[WRM_SymptomsService getNetworkScore:]", *&score, v3, v4];
+    return -1;
+  }
+
+  else
+  {
+
+    return [(WRM_SymptomsService *)self calculateWifiScore];
+  }
+}
+
+- (int)getNetworkHistScore:(int)score
+{
+  if (score == 1)
+  {
+
+    return [(WRM_SymptomsService *)self calculateCellularHistoryScore];
+  }
+
+  else if (score)
+  {
+    [WCM_Logging logLevel:16 message:@"iRAT: %s. Unknown network type %d.", "[WRM_SymptomsService getNetworkHistScore:]", *&score, v3, v4];
+    return -201;
+  }
+
+  else
+  {
+
+    return [(WRM_SymptomsService *)self calculateWifiHistoryScore];
+  }
 }
 
 - (double)getAgeOfMetricDictionary:(id)dictionary

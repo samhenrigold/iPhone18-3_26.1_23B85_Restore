@@ -7,6 +7,7 @@
 - (NSData)transitLineStorage;
 - (unint64_t)muid;
 - (void)setMuid:(unint64_t)muid;
+- (void)setPropertiesUnsafeWithManagedObject:(id)object lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (void)setTransitLineStorage:(id)storage;
 @end
 
@@ -78,6 +79,13 @@
   return swift_getObjCClassFromMetadata();
 }
 
+- (void)setPropertiesUnsafeWithManagedObject:(id)object lazyLoad:(BOOL)load parent:(BOOL)parent
+{
+  objectCopy = object;
+  selfCopy = self;
+  sub_1B62D9CB4(objectCopy, load, parent);
+}
+
 - (unint64_t)muid
 {
   v3 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__propertyLock;
@@ -99,22 +107,22 @@
 - (NSData)transitLineStorage
 {
   selfCopy = self;
-  v3 = sub_1B62DA26C();
-  v5 = v4;
+  v4 = sub_1B62DA26C(selfCopy, v3);
+  v6 = v5;
 
-  if (v5 >> 60 == 15)
+  if (v6 >> 60 == 15)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = sub_1B63BE904();
-    sub_1B6284F64(v3, v5);
-    v6 = v7;
+    v8 = sub_1B63BE904();
+    sub_1B6284F64(v4, v6);
+    v7 = v8;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setTransitLineStorage:(id)storage

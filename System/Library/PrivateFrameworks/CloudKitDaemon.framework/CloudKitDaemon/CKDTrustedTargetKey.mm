@@ -8,10 +8,10 @@
 
 - (CKDTrustedTargetKey)init
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = CKDTrustedTargetKey;
-  v2 = [(CKDTrustedTargetKey *)&v16 init];
+  v18 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = CKDTrustedTargetKey;
+  v2 = [(CKDTrustedTargetKey *)&v15 init];
   if (v2)
   {
     v3 = ccrng();
@@ -32,7 +32,7 @@
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
         {
           *buf = 67109120;
-          v18 = v7;
+          v17 = v7;
           _os_log_fault_impl(&dword_22506F000, v8, OS_LOG_TYPE_FAULT, "Failed to generate random number with error code %d", buf, 8u);
         }
 
@@ -64,13 +64,12 @@
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)encrypt:(id)encrypt
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   encryptCopy = encrypt;
   if (!objc_msgSend_length(encryptCopy, v5, v6))
   {
@@ -148,7 +147,7 @@
     }
 
     *buf = 67109120;
-    v43 = v17;
+    v41 = v17;
     v19 = "Failed to generate random number with error code %d";
     v20 = v18;
     v21 = 8;
@@ -161,14 +160,13 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v28 = ccaes_gcm_encrypt_mode();
-  v29 = (*v28 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v28);
-  v32 = objc_msgSend_key(self, v30, v31);
-  objc_msgSend_length(v32, v33, v34);
-  v37 = objc_msgSend_key(self, v35, v36);
-  v38 = v37;
-  objc_msgSend_bytes(v38, v39, v40);
+  v27 = ccaes_gcm_encrypt_mode();
+  MEMORY[0x28223BE20](v27);
+  v30 = objc_msgSend_key(self, v28, v29);
+  objc_msgSend_length(v30, v31, v32);
+  v35 = objc_msgSend_key(self, v33, v34);
+  v36 = v35;
+  objc_msgSend_bytes(v36, v37, v38);
   ccgcm_init();
 
   ccgcm_set_iv();
@@ -176,17 +174,15 @@ LABEL_21:
   ccgcm_finalize();
   ccgcm_context_size();
   cc_clear();
-  v25 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v41, v14, v9 + 32, 1);
+  v25 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v39, v14, v9 + 32, 1);
 LABEL_22:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 - (id)decrypt:(id)decrypt
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   decryptCopy = decrypt;
   if (objc_msgSend_length(decryptCopy, v5, v6) <= 0x1F)
   {
@@ -203,7 +199,7 @@ LABEL_22:
     }
 
 LABEL_17:
-    v33 = 0;
+    v32 = 0;
     goto LABEL_19;
   }
 
@@ -219,11 +215,11 @@ LABEL_17:
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v34 = *MEMORY[0x277CBC830];
+    v33 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_22506F000, v34, OS_LOG_TYPE_FAULT, "Could not malloc bytes to decrypt data", buf, 2u);
+      _os_log_fault_impl(&dword_22506F000, v33, OS_LOG_TYPE_FAULT, "Could not malloc bytes to decrypt data", buf, 2u);
     }
 
     goto LABEL_17;
@@ -231,49 +227,46 @@ LABEL_17:
 
   v16 = v15;
   v17 = ccaes_gcm_decrypt_mode();
-  v18 = (*v17 + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20](v17);
-  v21 = objc_msgSend_key(self, v19, v20);
-  objc_msgSend_length(v21, v22, v23);
-  v26 = objc_msgSend_key(self, v24, v25);
-  v27 = v26;
-  objc_msgSend_bytes(v27, v28, v29);
+  v20 = objc_msgSend_key(self, v18, v19);
+  objc_msgSend_length(v20, v21, v22);
+  v25 = objc_msgSend_key(self, v23, v24);
+  v26 = v25;
+  objc_msgSend_bytes(v26, v27, v28);
   ccgcm_init();
 
   ccgcm_set_iv();
   ccgcm_update();
   ccgcm_finalize();
-  v30 = cc_cmp_safe();
+  v29 = cc_cmp_safe();
   ccgcm_context_size();
   cc_clear();
-  if (v30)
+  if (v29)
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v32 = *MEMORY[0x277CBC830];
+    v31 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      *v37 = 0;
-      _os_log_error_impl(&dword_22506F000, v32, OS_LOG_TYPE_ERROR, "Tag did not match when decrypting", v37, 2u);
+      *v35 = 0;
+      _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "Tag did not match when decrypting", v35, 2u);
     }
 
     free(v16);
-    v33 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v33 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v31, v16, v14, 1);
+    v32 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v30, v16, v14, 1);
   }
 
 LABEL_19:
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v32;
 }
 
 @end

@@ -27,19 +27,17 @@
 {
   v5 = sub_100003F6C(&qword_1000B8D38, &qword_100081978);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5, v8);
-  v10 = v16 - v9;
-  v11 = *(&self->super.isa + OBJC_IVAR____TtCC15assessmentagent32AEAConcreteSpringBoardPrimitivesP33_045FAD156806D8E8B8D6866051B4907732AppRestrictionsMonitoringSession_streamMulticaster);
+  __chkstk_darwin(v5);
+  v8 = v13 - v7;
   stateCopy = state;
   selfCopy = self;
   allowedBundleIdentifiers = [stateCopy allowedBundleIdentifiers];
-  v15 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v16[1] = v15;
+  v13[1] = v12;
   CATAsyncStreamMulticaster.yield(_:)();
 
-  (*(v6 + 8))(v10, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)monitorDidLoseConnection
@@ -47,16 +45,16 @@
   v2 = *(&self->super.isa + OBJC_IVAR____TtCC15assessmentagent32AEAConcreteSpringBoardPrimitivesP33_045FAD156806D8E8B8D6866051B4907732AppRestrictionsMonitoringSession_invalidationHandler);
   v3 = *&self->invalidationHandler[OBJC_IVAR____TtCC15assessmentagent32AEAConcreteSpringBoardPrimitivesP33_045FAD156806D8E8B8D6866051B4907732AppRestrictionsMonitoringSession_invalidationHandler];
   selfCopy = self;
-  sub_100008448(v2);
+  sub_100008448(v2, v3);
   sub_100026FB8();
   if (v2)
   {
 
     v2(v4);
 
-    sub_10000858C(v2);
+    sub_10000858C(v2, v3);
 
-    sub_10000858C(v2);
+    sub_10000858C(v2, v3);
   }
 
   else

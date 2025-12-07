@@ -43,7 +43,7 @@
   }
 
   v16.receiver = self;
-  v16.super_class = type metadata accessor for EditDatePickerViewController();
+  v16.super_class = type metadata accessor for EditDatePickerViewController(0);
   v14 = [(EditDatePickerViewController *)&v16 initWithNibName:v13 bundle:bundleCopy];
 
   return v14;
@@ -59,7 +59,7 @@
   v9 = sub_100796BB4();
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   v12.receiver = self;
-  v12.super_class = type metadata accessor for EditDatePickerViewController();
+  v12.super_class = type metadata accessor for EditDatePickerViewController(0);
   v10 = [(EditDatePickerViewController *)&v12 initWithCoder:coderCopy];
 
   if (v10)

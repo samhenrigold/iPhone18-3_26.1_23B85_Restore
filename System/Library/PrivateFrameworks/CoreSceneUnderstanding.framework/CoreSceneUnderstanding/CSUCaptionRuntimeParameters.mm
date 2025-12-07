@@ -25,9 +25,9 @@
 
 - (void)_loadRuntimeParameters:(id)parameters
 {
-  v250 = *MEMORY[0x1E69E9840];
+  v257 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
-  v233 = parametersCopy;
+  v240 = parametersCopy;
   v6 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v3, @"captionModel", v4, v5);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -36,17 +36,17 @@
 
     if (v10)
     {
-      v231 = v10;
-      v14 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"minimumConfidence", v12, v13);
+      v238 = v10;
+      v15 = objc_msgSend_objectForKeyedSubscript_(v10, v12, @"minimumConfidence", v13, v14);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v18 = objc_msgSend_objectForKeyedSubscript_(v10, v15, @"minimumConfidence", v16, v17);
+        v19 = objc_msgSend_objectForKeyedSubscript_(v10, v16, @"minimumConfidence", v17, v18);
 
-        if (v18)
+        if (v19)
         {
-          objc_msgSend_doubleValue(v18, v19, v20, v21, v22);
-          self->_captionModelMinimumConfidence = v26;
+          objc_msgSend_doubleValue(v19, v21, v22, v23, v24);
+          self->_captionModelMinimumConfidence = v28;
           goto LABEL_14;
         }
       }
@@ -55,24 +55,24 @@
       {
       }
 
-      v34 = sub_1AC090E50();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      v36 = sub_1AC090E50(v20);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        sub_1AC11FC70(v34, v35, v36, v37, v38, v39, v40, v41);
+        sub_1AC11FC70(v36, v37, v38, v39, v40, v41, v42, v43);
       }
 
-      v18 = 0;
+      v19 = 0;
 LABEL_14:
-      v42 = objc_msgSend_objectForKeyedSubscript_(v10, v23, @"lengthNormalizationFactor", v24, v25);
+      v44 = objc_msgSend_objectForKeyedSubscript_(v10, v25, @"lengthNormalizationFactor", v26, v27);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v46 = objc_msgSend_objectForKeyedSubscript_(v10, v43, @"lengthNormalizationFactor", v44, v45);
+        v48 = objc_msgSend_objectForKeyedSubscript_(v10, v45, @"lengthNormalizationFactor", v46, v47);
 
-        if (v46)
+        if (v48)
         {
-          objc_msgSend_doubleValue(v46, v47, v48, v49, v50);
-          self->_captionModelLengthNormalizationFactor = v54;
+          objc_msgSend_doubleValue(v48, v50, v51, v52, v53);
+          self->_captionModelLengthNormalizationFactor = v57;
           goto LABEL_21;
         }
       }
@@ -81,23 +81,23 @@ LABEL_14:
       {
       }
 
-      v55 = sub_1AC090E50();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+      v58 = sub_1AC090E50(v49);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
       {
-        sub_1AC11FCE8(v55, v56, v57, v58, v59, v60, v61, v62);
+        sub_1AC11FCE8(v58, v59, v60, v61, v62, v63, v64, v65);
       }
 
-      v46 = 0;
+      v48 = 0;
 LABEL_21:
-      v63 = objc_msgSend_objectForKeyedSubscript_(v10, v51, @"excludeGenderStrategy", v52, v53);
+      v66 = objc_msgSend_objectForKeyedSubscript_(v10, v54, @"excludeGenderStrategy", v55, v56);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v67 = objc_msgSend_objectForKeyedSubscript_(v231, v64, @"excludeGenderStrategy", v65, v66);
+        v70 = objc_msgSend_objectForKeyedSubscript_(v238, v67, @"excludeGenderStrategy", v68, v69);
 
-        if (v67)
+        if (v70)
         {
-          self->_excludeGenderStrategy = objc_msgSend_unsignedIntegerValue(v67, v68, v69, v70, v71);
+          self->_excludeGenderStrategy = objc_msgSend_unsignedIntegerValue(v70, v72, v73, v74, v75);
 LABEL_27:
 
           goto LABEL_28;
@@ -108,10 +108,10 @@ LABEL_27:
       {
       }
 
-      v67 = sub_1AC090E50();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+      v70 = sub_1AC090E50(v71);
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
       {
-        sub_1AC11FD60(v67, v72, v73, v74, v75, v76, v77, v78);
+        sub_1AC11FD60(v70, v76, v77, v78, v79, v80, v81, v82);
       }
 
       goto LABEL_27;
@@ -122,66 +122,66 @@ LABEL_27:
   {
   }
 
-  v18 = sub_1AC090E50();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = sub_1AC090E50(v11);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    sub_1AC11FDD8(v18, v27, v28, v29, v30, v31, v32, v33);
+    sub_1AC11FDD8(v19, v29, v30, v31, v32, v33, v34, v35);
   }
 
-  v231 = 0;
+  v238 = 0;
 LABEL_28:
 
-  v246 = &parametersCopy;
-  v79 = sub_1AC0A9A00(&v246, @"replacements");
+  v253 = &parametersCopy;
+  v83 = sub_1AC0A9A00(&v253, @"replacements");
   replacements = self->_replacements;
-  self->_replacements = v79;
+  self->_replacements = v83;
 
-  v81 = sub_1AC0A9A00(&v246, @"excludeGenderReplacements");
+  v85 = sub_1AC0A9A00(&v253, @"excludeGenderReplacements");
   excludeGenderReplacements = self->_excludeGenderReplacements;
-  self->_excludeGenderReplacements = v81;
+  self->_excludeGenderReplacements = v85;
 
-  v86 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v83, @"excludeGenderTriggers", v84, v85);
+  v90 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v87, @"excludeGenderTriggers", v88, v89);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v90 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v87, @"excludeGenderTriggers", v88, v89);
+    v94 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v91, @"excludeGenderTriggers", v92, v93);
 
-    if (v90)
+    if (v94)
     {
-      v95 = objc_msgSend_array(MEMORY[0x1E695DF70], v91, v92, v93, v94);
-      v244 = 0u;
-      v245 = 0u;
-      v242 = 0u;
-      v243 = 0u;
-      obj = v90;
-      v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v96, &v242, v249, 16);
-      if (v97)
+      v100 = objc_msgSend_array(MEMORY[0x1E695DF70], v96, v97, v98, v99);
+      v251 = 0u;
+      v252 = 0u;
+      v249 = 0u;
+      v250 = 0u;
+      obj = v94;
+      v102 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v101, &v249, v256, 16);
+      if (v102)
       {
-        v98 = *v243;
+        v103 = *v250;
         do
         {
-          for (i = 0; i != v97; ++i)
+          for (i = 0; i != v102; ++i)
           {
-            if (*v243 != v98)
+            if (*v250 != v103)
             {
               objc_enumerationMutation(obj);
             }
 
-            v100 = *(*(&v242 + 1) + 8 * i);
-            v101 = [CSUCaptionRuntimeExcludeGenderTrigger alloc];
-            v105 = objc_msgSend_initWithDictionary_(v101, v102, v100, v103, v104);
-            objc_msgSend_addObject_(v95, v106, v105, v107, v108);
+            v105 = *(*(&v249 + 1) + 8 * i);
+            v106 = [CSUCaptionRuntimeExcludeGenderTrigger alloc];
+            v110 = objc_msgSend_initWithDictionary_(v106, v107, v105, v108, v109);
+            objc_msgSend_addObject_(v100, v111, v110, v112, v113);
           }
 
-          v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v109, &v242, v249, 16);
+          v102 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v114, &v249, v256, 16);
         }
 
-        while (v97);
+        while (v102);
       }
 
-      v114 = objc_msgSend_copy(v95, v110, v111, v112, v113);
+      v119 = objc_msgSend_copy(v100, v115, v116, v117, v118);
       excludeGenderTriggers = self->_excludeGenderTriggers;
-      self->_excludeGenderTriggers = v114;
+      self->_excludeGenderTriggers = v119;
 
       goto LABEL_42;
     }
@@ -191,24 +191,24 @@ LABEL_28:
   {
   }
 
-  v95 = sub_1AC090E50();
-  if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
+  v100 = sub_1AC090E50(v95);
+  if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
   {
-    sub_1AC11FE50(v95, v116, v117, v118, v119, v120, v121, v122);
+    sub_1AC11FE50(v100, v121, v122, v123, v124, v125, v126, v127);
   }
 
   obj = 0;
 LABEL_42:
 
-  v126 = objc_msgSend_objectForKeyedSubscript_(v233, v123, off_1EB54A2C0, v124, v125);
+  v131 = objc_msgSend_objectForKeyedSubscript_(v240, v128, off_1EB54A2C0, v129, v130);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v230 = objc_msgSend_objectForKeyedSubscript_(v233, v127, off_1EB54A2C0, v128, v129);
+    v237 = objc_msgSend_objectForKeyedSubscript_(v240, v132, off_1EB54A2C0, v133, v134);
 
-    if (v230)
+    if (v237)
     {
-      v134 = objc_msgSend_unsignedIntegerValue(v230, v130, v131, v132, v133);
+      v139 = objc_msgSend_unsignedIntegerValue(v237, v135, v136, v137, v138);
       goto LABEL_47;
     }
   }
@@ -217,38 +217,38 @@ LABEL_42:
   {
   }
 
-  v230 = 0;
-  v134 = 1;
+  v237 = 0;
+  v139 = 1;
 LABEL_47:
-  self->_genderOption = v134;
-  v135 = sub_1AC090E50();
-  if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
+  self->_genderOption = v139;
+  v140 = sub_1AC090E50(v139);
+  if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
   {
-    sub_1AC11FEC8(&self->_genderOption, v135);
+    sub_1AC11FEC8(&self->_genderOption, v140);
   }
 
-  v139 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v136, @"filterTokens", v137, v138);
+  v144 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v141, @"filterTokens", v142, v143);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v232 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v140, @"filterTokens", v141, v142);
+    v239 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v145, @"filterTokens", v146, v147);
 
-    if (v232)
+    if (v239)
     {
-      v147 = objc_msgSend_array(MEMORY[0x1E695DF70], v143, v144, v145, v146);
-      v151 = objc_msgSend_objectForKeyedSubscript_(v232, v148, @"gender", v149, v150);
+      v153 = objc_msgSend_array(MEMORY[0x1E695DF70], v149, v150, v151, v152);
+      v157 = objc_msgSend_objectForKeyedSubscript_(v239, v154, @"gender", v155, v156);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v155 = objc_msgSend_objectForKeyedSubscript_(v232, v152, @"gender", v153, v154);
+        v161 = objc_msgSend_objectForKeyedSubscript_(v239, v158, @"gender", v159, v160);
 
-        if (v155)
+        if (v161)
         {
-          objc_msgSend_addObjectsFromArray_(v147, v156, v155, v157, v158);
+          objc_msgSend_addObjectsFromArray_(v153, v163, v161, v164, v165);
 LABEL_62:
-          v178 = objc_msgSend_copy(v147, v159, v160, v161, v162, v230, v231);
+          v185 = objc_msgSend_copy(v153, v166, v167, v168, v169, v237, v238);
           genderedTokens = self->_genderedTokens;
-          self->_genderedTokens = v178;
+          self->_genderedTokens = v185;
 
           goto LABEL_63;
         }
@@ -258,13 +258,13 @@ LABEL_62:
       {
       }
 
-      v170 = sub_1AC090E50();
-      if (os_log_type_enabled(v170, OS_LOG_TYPE_DEBUG))
+      v177 = sub_1AC090E50(v162);
+      if (os_log_type_enabled(v177, OS_LOG_TYPE_DEBUG))
       {
-        sub_1AC11FF44(v170, v171, v172, v173, v174, v175, v176, v177);
+        sub_1AC11FF44(v177, v178, v179, v180, v181, v182, v183, v184);
       }
 
-      v155 = 0;
+      v161 = 0;
       goto LABEL_62;
     }
   }
@@ -273,83 +273,82 @@ LABEL_62:
   {
   }
 
-  v147 = sub_1AC090E50();
-  if (os_log_type_enabled(v147, OS_LOG_TYPE_DEBUG))
+  v153 = sub_1AC090E50(v148);
+  if (os_log_type_enabled(v153, OS_LOG_TYPE_DEBUG))
   {
-    sub_1AC11FFBC(v147, v163, v164, v165, v166, v167, v168, v169);
+    sub_1AC11FFBC(v153, v170, v171, v172, v173, v174, v175, v176);
   }
 
-  v232 = 0;
+  v239 = 0;
 LABEL_63:
 
-  v183 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v180, @"blacklistTokens", v181, v182);
+  v190 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v187, @"blacklistTokens", v188, v189);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v234 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v184, @"blacklistTokens", v185, v186);
+    v241 = objc_msgSend_objectForKeyedSubscript_(parametersCopy, v191, @"blacklistTokens", v192, v193);
   }
 
   else
   {
-    v234 = 0;
+    v241 = 0;
   }
 
-  v195 = objc_msgSend_array(MEMORY[0x1E695DF70], v187, v188, v189, v190);
-  if (v234)
+  v198 = objc_msgSend_array(MEMORY[0x1E695DF70], v194, v195, v196, v197);
+  v203 = v198;
+  if (v241)
   {
-    v196 = objc_msgSend_whitespaceAndNewlineCharacterSet(MEMORY[0x1E696AB08], v191, v192, v193, v194);
-    v240 = 0u;
-    v241 = 0u;
-    v238 = 0u;
-    v239 = 0u;
-    v197 = v234;
-    v202 = objc_msgSend_countByEnumeratingWithState_objects_count_(v197, v198, &v238, v248, 16);
-    if (v202)
+    v204 = objc_msgSend_whitespaceAndNewlineCharacterSet(MEMORY[0x1E696AB08], v199, v200, v201, v202);
+    v247 = 0u;
+    v248 = 0u;
+    v245 = 0u;
+    v246 = 0u;
+    v205 = v241;
+    v210 = objc_msgSend_countByEnumeratingWithState_objects_count_(v205, v206, &v245, v255, 16);
+    if (v210)
     {
-      v203 = *v239;
+      v211 = *v246;
       do
       {
-        for (j = 0; j != v202; ++j)
+        for (j = 0; j != v210; ++j)
         {
-          if (*v239 != v203)
+          if (*v246 != v211)
           {
-            objc_enumerationMutation(v197);
+            objc_enumerationMutation(v205);
           }
 
-          v205 = objc_msgSend_stringByTrimmingCharactersInSet_(*(*(&v238 + 1) + 8 * j), v199, v196, v200, v201, v230);
-          if (objc_msgSend_length(v205, v206, v207, v208, v209))
+          v213 = objc_msgSend_stringByTrimmingCharactersInSet_(*(*(&v245 + 1) + 8 * j), v207, v204, v208, v209, v237);
+          if (objc_msgSend_length(v213, v214, v215, v216, v217))
           {
-            v237 = 0;
-            v211 = objc_msgSend_regularExpressionWithPattern_options_error_(MEMORY[0x1E696AE70], v210, v205, 1, &v237);
-            v215 = v237;
-            if (v211)
+            v244 = 0;
+            v219 = objc_msgSend_regularExpressionWithPattern_options_error_(MEMORY[0x1E696AE70], v218, v213, 1, &v244);
+            v223 = v244;
+            if (v219)
             {
-              objc_msgSend_addObject_(v195, v212, v211, v213, v214);
+              objc_msgSend_addObject_(v203, v220, v219, v221, v222);
             }
           }
         }
 
-        v202 = objc_msgSend_countByEnumeratingWithState_objects_count_(v197, v199, &v238, v248, 16);
+        v210 = objc_msgSend_countByEnumeratingWithState_objects_count_(v205, v207, &v245, v255, 16);
       }
 
-      while (v202);
+      while (v210);
     }
   }
 
   else
   {
-    v196 = sub_1AC090E50();
-    if (os_log_type_enabled(v196, OS_LOG_TYPE_DEBUG))
+    v204 = sub_1AC090E50(v198);
+    if (os_log_type_enabled(v204, OS_LOG_TYPE_DEBUG))
     {
-      sub_1AC120034(v196, v216, v217, v218, v219, v220, v221, v222);
+      sub_1AC120034(v204, v224, v225, v226, v227, v228, v229, v230);
     }
   }
 
-  v227 = objc_msgSend_copy(v195, v223, v224, v225, v226);
+  v235 = objc_msgSend_copy(v203, v231, v232, v233, v234);
   blackListRules = self->_blackListRules;
-  self->_blackListRules = v227;
-
-  v229 = *MEMORY[0x1E69E9840];
+  self->_blackListRules = v235;
 }
 
 @end

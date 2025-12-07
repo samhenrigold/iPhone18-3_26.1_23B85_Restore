@@ -36,7 +36,7 @@
     baseBackendXPC = v9->_baseBackendXPC;
     if (baseBackendXPC)
     {
-      [baseBackendXPC backend];
+      objc_msgSend_backend(baseBackendXPC);
     }
 
     sub_1000DF428();
@@ -81,7 +81,7 @@
       v13 = v6->_baseBackendXPC;
       if (v13)
       {
-        [(BackendXPC *)v13 backend];
+        objc_msgSend_backend(v13);
       }
 
       sub_1000DF520();
@@ -106,7 +106,7 @@
   v9.receiver = self;
   v9.super_class = CryptoBackendXPC;
   [(BackendXPC *)&v9 encodeWithCoder:coderCopy];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v5 = v8;
   sub_1000DA06C(coderCopy, *(v7 + 48));
   baseBackendXPC = [(CryptoBackendXPC *)self baseBackendXPC];
@@ -121,11 +121,11 @@
 - (void)replaceWithBackendXPC:(id)c
 {
   cCopy = c;
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   if (cCopy)
   {
-    [cCopy backend];
-    v6 = v9;
+    objc_msgSend_backend(cCopy);
+    v6 = v8;
   }
 
   else
@@ -133,18 +133,17 @@
     v6 = 0uLL;
   }
 
-  v8 = *(v10 + 24);
-  v7 = *(v10 + 32);
-  *(v10 + 24) = v6;
+  v7 = *(v9 + 32);
+  *(v9 + 24) = v6;
   if (v7)
   {
     sub_10000367C(v7);
   }
 
   objc_storeStrong(&self->_baseBackendXPC, c);
-  if (v11)
+  if (v10)
   {
-    sub_10000367C(v11);
+    sub_10000367C(v10);
   }
 }
 

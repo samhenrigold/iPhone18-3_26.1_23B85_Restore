@@ -9,25 +9,20 @@
 - (ADClientIdentifierProvider)init
 {
   ObjectType = swift_getObjectType();
-  v3 = sub_264E56344();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  sub_264E56344();
   swift_allocObject();
-  v6 = sub_264E56334();
-  v7 = sub_264E56324();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
+  v3 = sub_264E56334();
+  sub_264E56324();
   swift_allocObject();
-  v10 = sub_264E56314();
-  v11 = sub_264E536C4(v6, v10, objc_allocWithZone(ObjectType));
+  v4 = sub_264E56314();
+  v5 = sub_264E536C4(v3, v4, objc_allocWithZone(ObjectType));
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v11;
+  return v5;
 }
 
 - (id)getIdentifiersWithType:(int64_t)type
 {
-  v7 = *(&self->super.isa + OBJC_IVAR___ADClientIdentifierProvider_lock);
   sub_264E560B4();
   selfCopy = self;
 
@@ -42,7 +37,6 @@
 
 - (void)notificationReceived
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___ADClientIdentifierProvider_lock);
   sub_264E560B4();
   selfCopy = self;
 

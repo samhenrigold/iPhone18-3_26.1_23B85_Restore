@@ -16,9 +16,11 @@
 - (unint64_t)_findFirstMatchingCuratedPhotoTraitSetForBundle:(id)bundle;
 - (unint64_t)_findMatchingMetaDataWithPeopleClassification:(unint64_t)classification;
 - (void)_addContentRatingForSongTitleAndArtistSuggestions:(id)suggestions;
+- (void)_extractContentsFromBundleStartDate:(id)date endDate:(id)endDate daysPerFetch:(unint64_t)fetch significantLocationEnabled:(BOOL)enabled partialResults:(id)results withHandler:(id)handler;
 - (void)_extractDominantMusicFromBundle:(id)bundle forBundleContent:(id)content;
 - (void)_extractPlaceOrCityNameFromBundle:(id)bundle forBundleContent:(id)content;
 - (void)_extractTimeReferenceFromBundle:(id)bundle forBundleContent:(id)content;
+- (void)_fetchEventBundlesWithStartDate:(id)date EndDate:(id)endDate SignificantLocationEnabled:(BOOL)enabled Handler:(id)handler;
 - (void)_filterExtractedBundles:(id)bundles contextPredicate:(id)predicate withHandler:(id)handler;
 - (void)_filterExtractedBundles:(id)bundles withHandler:(id)handler;
 - (void)_sortedBundleContextFromUpdatedGoodnessScore:(id)score;
@@ -590,6 +592,48 @@ void __99__MOBundleContentExtractor_extractContentsFromBundlesWithBundlePredicat
   }
 }
 
+- (void)_extractContentsFromBundleStartDate:(id)date endDate:(id)endDate daysPerFetch:(unint64_t)fetch significantLocationEnabled:(BOOL)enabled partialResults:(id)results withHandler:(id)handler
+{
+  enabledCopy = enabled;
+  dateCopy = date;
+  endDateCopy = endDate;
+  resultsCopy = results;
+  handlerCopy = handler;
+  if ([endDateCopy isOnOrBefore:dateCopy])
+  {
+    [(MOBundleContentExtractor *)self _filterExtractedBundles:resultsCopy withHandler:handlerCopy];
+  }
+
+  else
+  {
+    v18 = [endDateCopy dateByAddingTimeInterval:fetch * -86400.0];
+    if ([v18 isBeforeDate:dateCopy])
+    {
+      v19 = dateCopy;
+
+      v18 = v19;
+    }
+
+    objc_initWeak(&location, self);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = __139__MOBundleContentExtractor__extractContentsFromBundleStartDate_endDate_daysPerFetch_significantLocationEnabled_partialResults_withHandler___block_invoke;
+    v21[3] = &unk_1000B4B10;
+    objc_copyWeak(v26, &location);
+    v25 = handlerCopy;
+    v22 = resultsCopy;
+    v23 = dateCopy;
+    v20 = v18;
+    v24 = v20;
+    v26[1] = fetch;
+    v27 = enabledCopy;
+    [(MOBundleContentExtractor *)self _fetchEventBundlesWithStartDate:v20 EndDate:endDateCopy SignificantLocationEnabled:enabledCopy Handler:v21];
+
+    objc_destroyWeak(v26);
+    objc_destroyWeak(&location);
+  }
+}
+
 void __139__MOBundleContentExtractor__extractContentsFromBundleStartDate_endDate_daysPerFetch_significantLocationEnabled_partialResults_withHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -1141,6 +1185,74 @@ LABEL_43:
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
+}
+
+- (void)_fetchEventBundlesWithStartDate:(id)date EndDate:(id)endDate SignificantLocationEnabled:(BOOL)enabled Handler:(id)handler
+{
+  enabledCopy = enabled;
+  dateCopy = date;
+  endDateCopy = endDate;
+  handlerCopy = handler;
+  v13 = _mo_log_facility_get_os_log(&MOLogFacilityPersonalizedSensing);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412546;
+    v31 = dateCopy;
+    v32 = 2112;
+    v33 = endDateCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "_fetchEventBundlesWithHandler, startDate, %@, endDate, %@", buf, 0x16u);
+  }
+
+  v14 = [[NSDateInterval alloc] initWithStartDate:dateCopy endDate:endDateCopy];
+  v15 = [[MOEventBundleFetchOptions alloc] initWithDateInterval:v14 ascending:1 limit:0 includeDeletedBundles:0 skipRanking:0];
+  [v15 setSkipLocalization:1];
+  [v15 setPersonalizedSensingFilter:1];
+  [v15 setPersonalizedSensingVisitsAllowed:enabledCopy];
+  if (!self->_promptManager)
+  {
+    v16 = _mo_log_facility_get_os_log(&MOLogFacilityPersonalizedSensing);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    {
+      [MOBundleContentExtractor _fetchEventBundlesWithStartDate:v16 EndDate:? SignificantLocationEnabled:? Handler:?];
+    }
+
+    v28 = NSLocalizedDescriptionKey;
+    v29 = @"promptManager failed to be initiated";
+    v17 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v18 = [NSError errorWithDomain:@"MOContextErrorDomain" code:258 userInfo:v17];
+    handlerCopy[2](handlerCopy, 0, v18);
+  }
+
+  v19 = _mo_log_facility_get_os_log(&MOLogFacilityPerformance);
+  if (os_signpost_enabled(v19))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_INTERVAL_BEGIN, 1uLL, "XPCFetchBundles", "", buf, 2u);
+  }
+
+  v20 = [[MOPerformanceMeasurement alloc] initWithName:@"XPCFetchBundles" measureRecentPeak:0];
+  [(MOPerformanceMeasurement *)v20 startSession];
+  v21 = objc_autoreleasePoolPush();
+  promptManager = self->_promptManager;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = __103__MOBundleContentExtractor__fetchEventBundlesWithStartDate_EndDate_SignificantLocationEnabled_Handler___block_invoke;
+  v25[3] = &unk_1000B4B60;
+  v23 = handlerCopy;
+  v27 = enabledCopy;
+  v25[4] = self;
+  v26 = v23;
+  [(MOPromptManager *)promptManager fetchEventBundlesWithOptions:v15 handler:v25];
+
+  objc_autoreleasePoolPop(v21);
+  v24 = _mo_log_facility_get_os_log(&MOLogFacilityPerformance);
+  if (os_signpost_enabled(v24))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_END, 1uLL, "XPCFetchBundles", "", buf, 2u);
+  }
+
+  [(MOPerformanceMeasurement *)v20 endSession];
 }
 
 void __103__MOBundleContentExtractor__fetchEventBundlesWithStartDate_EndDate_SignificantLocationEnabled_Handler___block_invoke(uint64_t a1, void *a2, void *a3)

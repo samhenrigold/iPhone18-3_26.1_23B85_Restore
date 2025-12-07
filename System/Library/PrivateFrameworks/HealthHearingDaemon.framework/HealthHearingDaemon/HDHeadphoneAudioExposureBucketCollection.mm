@@ -1,9 +1,11 @@
 @interface HDHeadphoneAudioExposureBucketCollection
 - (HDHeadphoneAudioExposureBucketCollection)init;
 - (HDHeadphoneAudioExposureBucketCollection)initWithBuckets:(id)buckets;
+- (id)_bucketsWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error;
 - (id)_lock_snapshotStatisticsForNowDate:(id)date error:(id *)error;
 - (id)_lock_updateWithSampleBatch:(id)batch error:(id *)error;
 - (id)_updateWithSampleBatch:(id)batch needsRebuild:(BOOL *)rebuild error:(id *)error;
+- (id)copyWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error;
 - (id)snapshotStatisticsForNowDate:(id)date error:(id *)error;
 - (id)unitTesting_snapshotBuckets;
 - (void)clear;
@@ -47,6 +49,67 @@
   }
 
   return v5;
+}
+
+- (id)copyWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error
+{
+  zeroCopy = zero;
+  v25 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  os_unfair_lock_lock(&self->_lock);
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v10 = self->_storage;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v21;
+    while (2)
+    {
+      v14 = 0;
+      do
+      {
+        if (*v21 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = [*(*(&v20 + 1) + 8 * v14) copyWithEarliestStartDate:dateCopy resetDoseToZero:zeroCopy error:{error, v20}];
+        if (!v15)
+        {
+          os_unfair_lock_unlock(&self->_lock);
+          v18 = 0;
+          goto LABEL_11;
+        }
+
+        v16 = v15;
+        [v9 addObject:v15];
+
+        ++v14;
+      }
+
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      if (v12)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+  v17 = objc_alloc(objc_opt_class());
+  v10 = [v9 copy];
+  v18 = [v17 initWithBuckets:v10];
+LABEL_11:
+
+  return v18;
 }
 
 - (id)snapshotStatisticsForNowDate:(id)date error:(id *)error
@@ -224,9 +287,65 @@ uint64_t __58__HDHeadphoneAudioExposureBucketCollection_insertBuckets___block_in
   return v10;
 }
 
+- (id)_bucketsWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error
+{
+  zeroCopy = zero;
+  v24 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  os_unfair_lock_lock(&self->_lock);
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = self->_storage;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v20;
+    while (2)
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v20 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = [*(*(&v19 + 1) + 8 * i) copyWithEarliestStartDate:dateCopy resetDoseToZero:zeroCopy error:{error, v19}];
+        if (!v15)
+        {
+          os_unfair_lock_unlock(&self->_lock);
+
+          v17 = 0;
+          goto LABEL_11;
+        }
+
+        v16 = v15;
+        [v9 addObject:v15];
+      }
+
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v12)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+  v17 = [v9 copy];
+LABEL_11:
+
+  return v17;
+}
+
 - (id)_lock_updateWithSampleBatch:(id)batch error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   os_unfair_lock_assert_owner(&self->_lock);
   samples = [batchCopy samples];
@@ -235,26 +354,26 @@ uint64_t __58__HDHeadphoneAudioExposureBucketCollection_insertBuckets___block_in
   if (v8)
   {
     v9 = +[HDHeadphoneExposureStatisticUpdateResult resultForAggregation];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = self->_storage;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [*(*(&v20 + 1) + 8 * i) updateWithSampleBatch:batchCopy error:{error, v20}];
+          v15 = [*(*(&v19 + 1) + 8 * i) updateWithSampleBatch:batchCopy error:{error, v19}];
           if (!v15)
           {
 
@@ -266,7 +385,7 @@ uint64_t __58__HDHeadphoneAudioExposureBucketCollection_insertBuckets___block_in
           [v9 combineWithResult:v15];
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v12)
         {
           continue;
@@ -284,8 +403,6 @@ LABEL_12:
   {
     v17 = +[HDHeadphoneExposureStatisticUpdateResult resultForEmptySamplesAdded];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -320,11 +437,10 @@ id __71__HDHeadphoneAudioExposureBucketCollection_unitTesting_snapshotBuckets__b
 
 void __71__HDHeadphoneAudioExposureBucketCollection_unitTesting_snapshotBuckets__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_251764000, a2, OS_LOG_TYPE_FAULT, "Failed to compute current statistics: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_251764000, a2, OS_LOG_TYPE_FAULT, "Failed to compute current statistics: %@", &v2, 0xCu);
 }
 
 @end

@@ -89,14 +89,14 @@ uint64_t sub_21A17CB70()
   return sub_21A2F8474();
 }
 
-uint64_t sub_21A17CBD0()
+uint64_t sub_21A17CBD0(uint64_t a1)
 {
   MEMORY[0x21CED6EE0](0);
 
   return sub_21A2F79A4();
 }
 
-uint64_t sub_21A17CC24()
+uint64_t sub_21A17CC24(uint64_t a1)
 {
   sub_21A2F8434();
   MEMORY[0x21CED6EE0](0);
@@ -112,7 +112,7 @@ uint64_t sub_21A17CC80@<X0>(void *a1@<X8>)
   return sub_21A2F5434();
 }
 
-uint64_t sub_21A17CC8C(void *a1, void *a2)
+uint64_t sub_21A17CC8C(uint64_t *a1, void *a2)
 {
   if (*a1 == *a2 && a1[1] == a2[1])
   {
@@ -129,7 +129,7 @@ uint64_t sub_21A17CCBC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel);
+  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel, &unk_21A2FA8FC);
   sub_21A2F5094();
 
   v4 = *(v3 + 16);
@@ -141,10 +141,10 @@ uint64_t sub_21A17CCBC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   return sub_21A157F64(v4, v5, v6);
 }
 
-uint64_t sub_21A17CD70()
+uint64_t sub_21A17CD70(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel);
+  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel, &unk_21A2FA8FC);
   sub_21A2F5084();
 }
 
@@ -173,7 +173,7 @@ uint64_t sub_21A17CEEC()
   *(v4 + 32) = v1;
   *(v4 + 40) = 0;
   v0[2] = v3;
-  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel);
+  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel, &unk_21A2FA8FC);
   sub_21A2F5084();
 
   v5 = v0[1];
@@ -201,7 +201,7 @@ uint64_t sub_21A17D0B0()
   *(v2 + 24) = xmmword_21A2FA730;
   *(v2 + 40) = 1;
   v0[2] = v1;
-  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel);
+  sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel, &unk_21A2FA8FC);
   sub_21A2F5084();
 
   v3 = v0[1];
@@ -309,16 +309,16 @@ uint64_t sub_21A17D368(uint64_t result, unsigned int a2)
   return result;
 }
 
-void sub_21A17D3D8()
+void sub_21A17D3D8(uint64_t a1)
 {
   type metadata accessor for RecipeToken();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_21A17D474();
-    if (v1 <= 0x3F)
+    sub_21A17D474(319);
+    if (v2 <= 0x3F)
     {
-      sub_21A17D508();
-      if (v2 <= 0x3F)
+      sub_21A17D508(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -326,29 +326,29 @@ void sub_21A17D3D8()
   }
 }
 
-void sub_21A17D474()
+void sub_21A17D474(uint64_t a1)
 {
   if (!qword_27CCFEC38)
   {
     type metadata accessor for RecipeCardHostViewModel(255);
-    sub_21A17D638(&qword_27CCFEC40, type metadata accessor for RecipeCardHostViewModel);
-    v0 = sub_21A2F7744();
-    if (!v1)
+    sub_21A17D638(&qword_27CCFEC40, type metadata accessor for RecipeCardHostViewModel, &unk_21A2FA968);
+    v1 = sub_21A2F7744();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27CCFEC38);
+      atomic_store(v1, &qword_27CCFEC38);
     }
   }
 }
 
-void sub_21A17D508()
+void sub_21A17D508(uint64_t a1)
 {
   if (!qword_27CCFEC48)
   {
     sub_21A2F57F4();
-    v0 = sub_21A2F5664();
-    if (!v1)
+    v1 = sub_21A2F5664();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27CCFEC48);
+      atomic_store(v1, &qword_27CCFEC48);
     }
   }
 }
@@ -365,7 +365,7 @@ unint64_t sub_21A17D580()
   return result;
 }
 
-uint64_t sub_21A17D638(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_21A17D638(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -407,7 +407,7 @@ uint64_t sub_21A17D6D4(uint64_t *a1, uint64_t a2)
     {
       KeyPath = swift_getKeyPath();
       MEMORY[0x28223BE20](KeyPath, v8);
-      sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel);
+      sub_21A17D638(&qword_27CCFEC58, type metadata accessor for RecipeCardHostViewModel, &unk_21A2FA8FC);
       sub_21A2F5084();
       sub_21A157FBC(v3, v2, 0);
     }
@@ -420,7 +420,7 @@ uint64_t sub_21A17D6D4(uint64_t *a1, uint64_t a2)
   }
 
   type metadata accessor for RecipeCardHostContentViewModelSource(0);
-  sub_21A17D638(&qword_27CCFEB00, type metadata accessor for RecipeCardHostContentViewModelSource);
+  sub_21A17D638(&qword_27CCFEB00, type metadata accessor for RecipeCardHostContentViewModelSource, &unk_21A2FAD40);
   return sub_21A2F75C4();
 }
 
@@ -431,17 +431,17 @@ uint64_t sub_21A17D8C0()
   return v1;
 }
 
-uint64_t sub_21A17D8FC@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_21A17D8FC@<X0>(uint64_t *a3@<X8>)
 {
-  sub_21A17D638(&qword_27CCFEC40, type metadata accessor for RecipeCardHostViewModel);
+  sub_21A17D638(&qword_27CCFEC40, type metadata accessor for RecipeCardHostViewModel, &unk_21A2FA968);
   result = sub_21A2F7664();
-  *a1 = result;
+  *a3 = result;
   return result;
 }
 
 uint64_t sub_21A17D974@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_21A176C98(&qword_27CCFEDA8);
+  v2 = sub_21A176C98(&qword_27CCFEDA8, &unk_21A2FAD70);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = &v9 - v4;
   v6 = type metadata accessor for RecipeCardHostContentViewModelSource(0);
@@ -457,7 +457,7 @@ uint64_t sub_21A17D974@<X0>(uint64_t a1@<X8>)
   else
   {
     *(a1 + 24) = v6;
-    *(a1 + 32) = sub_21A17D638(&qword_27CCFEDB0, type metadata accessor for RecipeCardHostContentViewModelSource);
+    *(a1 + 32) = sub_21A17D638(&qword_27CCFEDB0, type metadata accessor for RecipeCardHostContentViewModelSource, &unk_21A2FACC8);
     v8 = sub_21A156050(a1);
     return sub_21A17E580(v5, v8, type metadata accessor for RecipeCardHostContentViewModelSource);
   }
@@ -465,7 +465,7 @@ uint64_t sub_21A17D974@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t sub_21A17DAC0@<X0>(void *a1@<X8>)
+void *sub_21A17DAC0@<X0>(void *a1@<X8>)
 {
   sub_21A17DF70();
   result = sub_21A2F7644();
@@ -611,9 +611,9 @@ unint64_t sub_21A17DFC4()
   result = qword_27CCFED18;
   if (!qword_27CCFED18)
   {
-    sub_21A176D98(&qword_27CCFED00);
-    sub_21A1772F8(&qword_27CCFED20, &qword_27CCFED08);
-    sub_21A1772F8(&qword_27CCFED28, &qword_27CCFECE8);
+    sub_21A176D98(&qword_27CCFED00, &qword_21A2FAB18);
+    sub_21A1772F8(&qword_27CCFED20, &qword_27CCFED08, &qword_21A2FAB20, MEMORY[0x277CDDA18]);
+    sub_21A1772F8(&qword_27CCFED28, &qword_27CCFECE8, &qword_21A2FAB00, MEMORY[0x277CDD7F8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFED18);
   }
@@ -638,7 +638,7 @@ uint64_t sub_21A17E120()
 
 uint64_t sub_21A17E180(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFECA8);
+  v4 = sub_21A176C98(&qword_27CCFECA8, &qword_21A311AB0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -660,17 +660,17 @@ unint64_t sub_21A17E27C()
   result = qword_27CCFED90;
   if (!qword_27CCFED90)
   {
-    sub_21A176D98(&qword_27CCFECB0);
-    sub_21A176D98(&qword_27CCFEC70);
-    sub_21A176D98(&qword_27CCFECC0);
-    sub_21A176D98(&qword_27CCFEC68);
-    sub_21A176D98(&qword_27CCFEC88);
-    sub_21A1772F8(&qword_27CCFEC90, &qword_27CCFEC68);
+    sub_21A176D98(&qword_27CCFECB0, &qword_21A2FAA58);
+    sub_21A176D98(&qword_27CCFEC70, &qword_21A2FA9D0);
+    sub_21A176D98(&qword_27CCFECC0, &unk_21A312000);
+    sub_21A176D98(&qword_27CCFEC68, &qword_21A2FA9C8);
+    sub_21A176D98(&qword_27CCFEC88, &qword_21A2FA9E8);
+    sub_21A1772F8(&qword_27CCFEC90, &qword_27CCFEC68, &qword_21A2FA9C8, MEMORY[0x277CE11A8]);
     sub_21A17DBF4();
-    sub_21A1772F8(&qword_27CCFECA0, &qword_27CCFEC88);
+    sub_21A1772F8(&qword_27CCFECA0, &qword_27CCFEC88, &qword_21A2FA9E8, MEMORY[0x277CDDA18]);
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
-    sub_21A17D638(&qword_27CCFED98, MEMORY[0x277CDD8B0]);
+    sub_21A17D638(&qword_27CCFED98, MEMORY[0x277CDD8B0], MEMORY[0x277CDD8A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFED90);
   }
@@ -692,7 +692,7 @@ unint64_t sub_21A17E47C()
 
 uint64_t sub_21A17E518(uint64_t a1)
 {
-  v2 = sub_21A176C98(&qword_27CCFEDA8);
+  v2 = sub_21A176C98(&qword_27CCFEDA8, &unk_21A2FAD70);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -735,7 +735,7 @@ uint64_t sub_21A17E61C(void *a1, unint64_t *a2)
 uint64_t sub_21A17E668@<X0>(uint64_t a1@<X8>)
 {
   swift_getKeyPath();
-  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel);
+  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel, &unk_21A2FAE68);
   sub_21A2F5094();
 
   return sub_21A17FE58(v1 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__imageAsset, a1);
@@ -745,7 +745,7 @@ uint64_t sub_21A17E71C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel);
+  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel, &unk_21A2FAE68);
   sub_21A2F5094();
 
   return sub_21A17FE58(v3 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__imageAsset, a2);
@@ -753,7 +753,7 @@ uint64_t sub_21A17E71C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_21A17E7D0(uint64_t a1)
 {
-  v2 = sub_21A176C98(&qword_27CCFEDC0);
+  v2 = sub_21A176C98(&qword_27CCFEDC0, &unk_21A2FAEE0);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = &v7 - v4;
   sub_21A17FE58(a1, &v7 - v4);
@@ -766,14 +766,14 @@ uint64_t sub_21A17E864(uint64_t a1)
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3, v5);
   v7 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_21A176C98(&qword_27CCFEE00);
+  v8 = sub_21A176C98(&qword_27CCFEE00, &qword_21A2FB008);
   v9 = v8 - 8;
   MEMORY[0x28223BE20](v8, v10);
   v12 = &v29 - v11;
-  v13 = sub_21A176C98(&qword_27CCFEDC0);
-  v15 = MEMORY[0x28223BE20](v13 - 8, v14);
-  v17 = &v29 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15, v18);
+  v13 = sub_21A176C98(&qword_27CCFEDC0, &unk_21A2FAEE0);
+  MEMORY[0x28223BE20](v13 - 8, v14);
+  v16 = &v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17, v18);
   v20 = &v29 - v19;
   v21 = OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__imageAsset;
   sub_21A17FE58(v1 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__imageAsset, &v29 - v19);
@@ -784,36 +784,36 @@ uint64_t sub_21A17E864(uint64_t a1)
   v23 = *(v4 + 48);
   if (v23(v12, 1, v3) == 1)
   {
-    sub_21A1427A8(v20, &qword_27CCFEDC0);
+    sub_21A1427A8(v20, &qword_27CCFEDC0, &unk_21A2FAEE0);
     if (v23(&v12[v22], 1, v3) == 1)
     {
-      sub_21A1427A8(v12, &qword_27CCFEDC0);
+      sub_21A1427A8(v12, &qword_27CCFEDC0, &unk_21A2FAEE0);
       v24 = v30;
 LABEL_9:
       sub_21A17FF00(v24, v1 + v21);
-      return sub_21A1427A8(v24, &qword_27CCFEDC0);
+      return sub_21A1427A8(v24, &qword_27CCFEDC0, &unk_21A2FAEE0);
     }
 
     goto LABEL_6;
   }
 
-  sub_21A17FE58(v12, v17);
+  sub_21A17FE58(v12, v16);
   if (v23(&v12[v22], 1, v3) == 1)
   {
-    sub_21A1427A8(v20, &qword_27CCFEDC0);
-    sub_21A17FDA8(v17, type metadata accessor for ImageAsset);
+    sub_21A1427A8(v20, &qword_27CCFEDC0, &unk_21A2FAEE0);
+    sub_21A17FDA8(v16, type metadata accessor for ImageAsset);
 LABEL_6:
-    sub_21A1427A8(v12, &qword_27CCFEE00);
+    sub_21A1427A8(v12, &qword_27CCFEE00, &qword_21A2FB008);
     v24 = v30;
     goto LABEL_7;
   }
 
   sub_21A17FCD8(&v12[v22], v7, type metadata accessor for ImageAsset);
-  v27 = _s10CookingKit10ImageAssetO2eeoiySbAC_ACtFZ_0(v17, v7);
+  v27 = _s10CookingKit10ImageAssetO2eeoiySbAC_ACtFZ_0(v16, v7);
   sub_21A17FDA8(v7, type metadata accessor for ImageAsset);
-  sub_21A1427A8(v20, &qword_27CCFEDC0);
-  sub_21A17FDA8(v17, type metadata accessor for ImageAsset);
-  sub_21A1427A8(v12, &qword_27CCFEDC0);
+  sub_21A1427A8(v20, &qword_27CCFEDC0, &unk_21A2FAEE0);
+  sub_21A17FDA8(v16, type metadata accessor for ImageAsset);
+  sub_21A1427A8(v12, &qword_27CCFEDC0, &unk_21A2FAEE0);
   v24 = v30;
   if (v27)
   {
@@ -826,16 +826,16 @@ LABEL_7:
   *(&v29 - 2) = v1;
   *(&v29 - 1) = v24;
   v31 = v1;
-  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel);
+  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel, &unk_21A2FAE68);
   sub_21A2F5084();
 
-  return sub_21A1427A8(v24, &qword_27CCFEDC0);
+  return sub_21A1427A8(v24, &qword_27CCFEDC0, &unk_21A2FAEE0);
 }
 
 unint64_t sub_21A17EC8C()
 {
   swift_getKeyPath();
-  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel);
+  sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel, &unk_21A2FAE68);
   sub_21A2F5094();
 
   v1 = *(v0 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__phase);
@@ -856,7 +856,7 @@ void sub_21A17ED40(unint64_t a1)
 LABEL_8:
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath, v5);
-    sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel);
+    sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel, &unk_21A2FAE68);
     sub_21A2F5084();
     sub_21A17F200(a1);
 
@@ -886,7 +886,7 @@ LABEL_4:
 
 uint64_t sub_21A17EEB4()
 {
-  sub_21A1427A8(v0 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__imageAsset, &qword_27CCFEDC0);
+  sub_21A1427A8(v0 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__imageAsset, &qword_27CCFEDC0, &unk_21A2FAEE0);
   sub_21A17F200(*(v0 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__phase));
   v1 = OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel___scope;
   v2 = sub_21A2F7614();
@@ -898,9 +898,9 @@ uint64_t sub_21A17EEB4()
   return swift_deallocClassInstance();
 }
 
-unint64_t sub_21A17EFC8(uint64_t *a1)
+unint64_t sub_21A17EFC8(unint64_t *a1)
 {
-  if (*a1 >= 0)
+  if ((*a1 & 0x8000000000000000) == 0)
   {
     return *a1 >> 62;
   }
@@ -1032,24 +1032,24 @@ unint64_t sub_21A17F27C()
   return result;
 }
 
-uint64_t sub_21A17F308@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_21A17F308@<X0>(uint64_t *a3@<X8>)
 {
-  sub_21A17FC4C(&qword_27CCFEDF8, type metadata accessor for RecipeImageViewModel);
+  sub_21A17FC4C(&qword_27CCFEDF8, type metadata accessor for RecipeImageViewModel, &unk_21A2FAE84);
   result = sub_21A2F7664();
-  *a1 = result;
+  *a3 = result;
   return result;
 }
 
 uint64_t sub_21A17F380@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_21A176C98(&qword_27CCFEDE8);
+  v2 = sub_21A176C98(&qword_27CCFEDE8, &qword_21A2FB000);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = &v9 - v4;
   v6 = type metadata accessor for RecipeImageViewModelSource(0);
   sub_21A2F7694();
   if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
   {
-    result = sub_21A1427A8(v5, &qword_27CCFEDE8);
+    result = sub_21A1427A8(v5, &qword_27CCFEDE8, &qword_21A2FB000);
     *a1 = 0u;
     *(a1 + 16) = 0u;
     *(a1 + 32) = 0;
@@ -1058,7 +1058,7 @@ uint64_t sub_21A17F380@<X0>(uint64_t a1@<X8>)
   else
   {
     *(a1 + 24) = v6;
-    *(a1 + 32) = sub_21A17FC4C(&qword_27CCFEDF0, type metadata accessor for RecipeImageViewModelSource);
+    *(a1 + 32) = sub_21A17FC4C(&qword_27CCFEDF0, type metadata accessor for RecipeImageViewModelSource, &unk_21A2FAF88);
     v8 = sub_21A156050(a1);
     return sub_21A17FCD8(v5, v8, type metadata accessor for RecipeImageViewModelSource);
   }
@@ -1081,42 +1081,42 @@ uint64_t sub_21A17F4DC()
   v11 = *(v10 - 8);
   v70 = v10;
   v71 = v11;
-  v13 = MEMORY[0x28223BE20](v10, v12);
-  v68 = &v62 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13, v15);
+  MEMORY[0x28223BE20](v10, v12);
+  v68 = &v62 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14, v15);
   v67 = &v62 - v16;
-  v17 = sub_21A176C98(&qword_27CCFEDC0);
-  v19 = MEMORY[0x28223BE20](v17 - 8, v18);
-  v21 = &v62 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v19, v22);
+  v17 = sub_21A176C98(&qword_27CCFEDC0, &unk_21A2FAEE0);
+  MEMORY[0x28223BE20](v17 - 8, v18);
+  v20 = &v62 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21, v22);
   v24 = &v62 - v23;
   v25 = type metadata accessor for RecipeImageViewModelSource(0);
-  v27 = MEMORY[0x28223BE20](v25, v26);
-  v66 = &v62 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = MEMORY[0x28223BE20](v27, v29);
-  v32 = &v62 - v31;
-  MEMORY[0x28223BE20](v30, v33);
+  MEMORY[0x28223BE20](v25, v26);
+  v66 = &v62 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v28, v29);
+  v31 = &v62 - v30;
+  MEMORY[0x28223BE20](v32, v33);
   v35 = &v62 - v34;
   v69 = *v0;
   sub_21A17FD40(v0, &v62 - v34, type metadata accessor for RecipeImageViewModelSource);
-  sub_21A176C98(&qword_27CCFEDD8);
+  sub_21A176C98(&qword_27CCFEDD8, &unk_21A2FAF20);
   sub_21A2F7594();
   v36 = v35;
   v37 = v70;
   sub_21A17FDA8(v36, type metadata accessor for RecipeImageViewModelSource);
   v38 = v69;
   sub_21A17E864(v24);
-  sub_21A17FD40(v0, v32, type metadata accessor for RecipeImageViewModelSource);
+  sub_21A17FD40(v0, v31, type metadata accessor for RecipeImageViewModelSource);
   sub_21A2F7594();
-  sub_21A17FDA8(v32, type metadata accessor for RecipeImageViewModelSource);
-  if ((*(v71 + 48))(v21, 1, v37) != 1)
+  sub_21A17FDA8(v31, type metadata accessor for RecipeImageViewModelSource);
+  if ((*(v71 + 48))(v20, 1, v37) != 1)
   {
-    v42 = v21;
+    v42 = v20;
     v43 = v67;
     sub_21A17FCD8(v42, v67, type metadata accessor for ImageAsset);
     v44 = v66;
     sub_21A17FD40(v0, v66, type metadata accessor for RecipeImageViewModelSource);
-    sub_21A176C98(&qword_27CCFEDD0);
+    sub_21A176C98(&qword_27CCFEDD0, &qword_21A2FAF18);
     sub_21A2F7594();
     sub_21A17FDA8(v44, type metadata accessor for RecipeImageViewModelSource);
     v45 = v72;
@@ -1204,7 +1204,7 @@ LABEL_19:
     goto LABEL_18;
   }
 
-  result = sub_21A1427A8(v21, &qword_27CCFEDC0);
+  result = sub_21A1427A8(v20, &qword_27CCFEDC0, &unk_21A2FAEE0);
   if ((*(v38 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__phase) & 0x8000000000000000) != 0)
   {
     *(v38 + OBJC_IVAR____TtC10CookingKit20RecipeImageViewModel__phase) = 0x8000000000000000;
@@ -1217,14 +1217,14 @@ LABEL_19:
     *(&v62 - 2) = v38;
     *(&v62 - 1) = 0x8000000000000000;
     v72 = v38;
-    sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel);
+    sub_21A17FC4C(&qword_27CCFEDB8, type metadata accessor for RecipeImageViewModel, &unk_21A2FAE68);
     sub_21A2F5084();
   }
 
   return result;
 }
 
-uint64_t sub_21A17FC4C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_21A17FC4C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1295,14 +1295,14 @@ void sub_21A17FE30(void *a1, char a2)
 
 uint64_t sub_21A17FE58(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFEDC0);
+  v4 = sub_21A176C98(&qword_27CCFEDC0, &unk_21A2FAEE0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_21A17FF00(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFEDC0);
+  v4 = sub_21A176C98(&qword_27CCFEDC0, &unk_21A2FAEE0);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -1318,17 +1318,17 @@ uint64_t sub_21A17FF88@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8
   v33 = *(v10 - 8);
   MEMORY[0x28223BE20](v10, v11);
   v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598]);
+  sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598], MEMORY[0x277CC5590]);
   sub_21A2F7544();
   sub_21A1806F4(a1, a2);
-  sub_21A180514(a1, a2);
+  sub_21A180514(a1, a2, v9);
   v14 = a1;
   v15 = v33;
   sub_21A180748(v14, a2);
   sub_21A2F7534();
   (*(v6 + 8))(v9, v5);
   v38 = v10;
-  v39 = sub_21A18079C(&qword_27CCFEE10, MEMORY[0x277CC5578]);
+  v39 = sub_21A18079C(&qword_27CCFEE10, MEMORY[0x277CC5578], MEMORY[0x277CC5568]);
   v16 = sub_21A156050(&v36);
   (*(v15 + 16))(v16, v13, v10);
   sub_21A142764(&v36, v38);
@@ -1525,63 +1525,63 @@ LABEL_31:
   return result;
 }
 
-uint64_t sub_21A180514(uint64_t a1, unint64_t a2)
+uint64_t sub_21A180514(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v2 = a2 >> 62;
+  v3 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
-    if (!v2)
+    if (!v3)
     {
       sub_21A2F7584();
-      sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598]);
+      sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598], MEMORY[0x277CC5590]);
       return sub_21A2F7524();
     }
 
-    v4 = a1;
-    v5 = a1 >> 32;
+    v5 = a1;
+    v6 = a1 >> 32;
     if (a1 >> 32 < a1)
     {
       __break(1u);
     }
 
-    return sub_21A1807E4(v4, v5);
+    return sub_21A1807E4(v5, v6);
   }
 
-  if (v2 == 2)
+  if (v3 == 2)
   {
-    v4 = *(a1 + 16);
-    v5 = *(a1 + 24);
-    return sub_21A1807E4(v4, v5);
+    v5 = *(a1 + 16);
+    v6 = *(a1 + 24);
+    return sub_21A1807E4(v5, v6);
   }
 
   sub_21A2F7584();
-  sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598]);
+  sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598], MEMORY[0x277CC5590]);
   return sub_21A2F7524();
 }
 
-uint64_t sub_21A1806F4(uint64_t a1, unint64_t a2)
+uint64_t sub_21A1806F4(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_21A180748(uint64_t a1, unint64_t a2)
+uint64_t sub_21A180748(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_21A18079C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_21A18079C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1603,7 +1603,7 @@ uint64_t sub_21A1807E4(uint64_t a1, uint64_t a2)
     {
       sub_21A2F4594();
       sub_21A2F7584();
-      sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598]);
+      sub_21A18079C(&qword_27CCFEE08, MEMORY[0x277CC5598], MEMORY[0x277CC5590]);
       return sub_21A2F7524();
     }
 
@@ -1752,7 +1752,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t type metadata accessor for RecipeSourceView()
+uint64_t type metadata accessor for RecipeSourceView(uint64_t a1)
 {
   result = qword_27CCFEE30;
   if (!qword_27CCFEE30)
@@ -1763,16 +1763,16 @@ uint64_t type metadata accessor for RecipeSourceView()
   return result;
 }
 
-void sub_21A180A50()
+void sub_21A180A50(uint64_t a1)
 {
   sub_21A180B24(319, &qword_27CCFEE40, type metadata accessor for RecipeTheme);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_21A180B24(319, &qword_27CCFEE48, MEMORY[0x277CDFA28]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_21A180B78();
-      if (v2 <= 0x3F)
+      sub_21A180B78(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1780,7 +1780,7 @@ void sub_21A180A50()
   }
 }
 
-void sub_21A180B24(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_21A180B24(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -1793,16 +1793,16 @@ void sub_21A180B24(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_21A180B78()
+void sub_21A180B78(uint64_t a1)
 {
   if (!qword_27CCFEE50)
   {
     type metadata accessor for RecipeSourceViewModel(255);
-    sub_21A18377C(&qword_27CCFEE58, type metadata accessor for RecipeSourceViewModel);
-    v0 = sub_21A2F7744();
-    if (!v1)
+    sub_21A18377C(&qword_27CCFEE58, type metadata accessor for RecipeSourceViewModel, &unk_21A301CF4);
+    v1 = sub_21A2F7744();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27CCFEE50);
+      atomic_store(v1, &qword_27CCFEE50);
     }
   }
 }
@@ -1814,52 +1814,52 @@ uint64_t sub_21A180C28@<X0>(uint64_t a1@<X8>)
   v77 = *(v81 - 8);
   MEMORY[0x28223BE20](v81, v2);
   v75 = v64 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for RecipeSourceView();
+  v4 = type metadata accessor for RecipeSourceView(0);
   v5 = v4 - 8;
   v65 = *(v4 - 8);
   v6 = *(v65 + 64);
   MEMORY[0x28223BE20](v4, v7);
-  v71 = sub_21A176C98(&qword_27CCFEE60);
+  v71 = sub_21A176C98(&qword_27CCFEE60, &qword_21A2FB0C8);
   v69 = *(v71 - 8);
   MEMORY[0x28223BE20](v71, v8);
   v67 = v64 - v9;
-  v74 = sub_21A176C98(&qword_27CCFEE68);
+  v74 = sub_21A176C98(&qword_27CCFEE68, &qword_21A2FB0D0);
   v72 = *(v74 - 8);
   MEMORY[0x28223BE20](v74, v10);
   v70 = v64 - v11;
-  v12 = sub_21A176C98(&qword_27CCFEE70);
+  v12 = sub_21A176C98(&qword_27CCFEE70, &qword_21A2FB0D8);
   v78 = *(v12 - 8);
   v79 = v12;
   MEMORY[0x28223BE20](v12, v13);
   v76 = v64 - v14;
-  v73 = sub_21A176C98(&qword_27CCFEE78);
+  v73 = sub_21A176C98(&qword_27CCFEE78, &qword_21A2FB0E0);
   MEMORY[0x28223BE20](v73, v15);
   v80 = v64 - v16;
-  v84 = sub_21A176C98(&qword_27CCFEE80);
+  v84 = sub_21A176C98(&qword_27CCFEE80, &qword_21A2FB0E8);
   MEMORY[0x28223BE20](v84, v17);
   v83 = v64 - v18;
-  v86 = sub_21A176C98(&qword_27CCFEE88);
+  v86 = sub_21A176C98(&qword_27CCFEE88, &qword_21A2FB0F0);
   v87 = *(v86 - 8);
   MEMORY[0x28223BE20](v86 - 8, v19);
   v82 = v64 - v20;
-  v21 = sub_21A176C98(&qword_27CCFEE90);
+  v21 = sub_21A176C98(&qword_27CCFEE90, &qword_21A2FB0F8);
   MEMORY[0x28223BE20](v21 - 8, v22);
   v24 = v64 - v23;
   v25 = v1;
   v26 = v1 + *(v5 + 32);
-  v68 = sub_21A176C98(&qword_27CCFEE28);
+  v68 = sub_21A176C98(&qword_27CCFEE28, &unk_21A2FB050);
   v27 = sub_21A2F7714();
   swift_getKeyPath();
   v88 = v27;
-  v66 = sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel);
+  v66 = sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel, &unk_21A301CD8);
   sub_21A2F5094();
 
-  sub_21A183960(v27 + OBJC_IVAR____TtC10CookingKit21RecipeSourceViewModel__target[0], v24, &qword_27CCFEE90);
+  sub_21A183960(v27 + OBJC_IVAR____TtC10CookingKit21RecipeSourceViewModel__target[0], v24, &qword_27CCFEE90, &qword_21A2FB0F8);
 
   v28 = type metadata accessor for RecipeSourceViewModel.Target(0);
   v29 = 1;
   LODWORD(v5) = (*(*(v28 - 8) + 48))(v24, 1, v28);
-  sub_21A1427A8(v24, &qword_27CCFEE90);
+  sub_21A1427A8(v24, &qword_27CCFEE90, &qword_21A2FB0F8);
   if (v5 != 1)
   {
     v64[1] = v26;
@@ -1870,14 +1870,14 @@ uint64_t sub_21A180C28@<X0>(uint64_t a1@<X8>)
     v33 = sub_21A1837C4(v64 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v32 + v31, type metadata accessor for RecipeSourceView);
     MEMORY[0x28223BE20](v33, v34);
     v64[-2] = v25;
-    sub_21A176C98(&qword_27CCFEEB0);
+    sub_21A176C98(&qword_27CCFEEB0, &qword_21A2FB138);
     sub_21A182FDC();
     v35 = v67;
     sub_21A2F7094();
     v36 = v75;
     sub_21A2F5B84();
-    v37 = sub_21A1772F8(&qword_27CCFEF20, &qword_27CCFEE60);
-    v38 = sub_21A18377C(&qword_27CCFEF28, MEMORY[0x277CDDB18]);
+    v37 = sub_21A1772F8(&qword_27CCFEF20, &qword_27CCFEE60, &qword_21A2FB0C8, MEMORY[0x277CDF028]);
+    v38 = sub_21A18377C(&qword_27CCFEF28, MEMORY[0x277CDDB18], MEMORY[0x277CDDB08]);
     v39 = v70;
     v40 = v71;
     v41 = v81;
@@ -1917,7 +1917,7 @@ uint64_t sub_21A180C28@<X0>(uint64_t a1@<X8>)
     *(v49 + *(v73 + 36)) = v48;
     v50 = v83;
     v51 = &v83[*(v84 + 36)];
-    v52 = sub_21A176C98(&qword_27CCFEF30);
+    v52 = sub_21A176C98(&qword_27CCFEF30, &qword_21A300240);
     sub_21A2F5C44();
     v53 = *(sub_21A2F5BC4() + 20);
     v54 = *MEMORY[0x277CE0118];
@@ -1927,7 +1927,7 @@ uint64_t sub_21A180C28@<X0>(uint64_t a1@<X8>)
 
     *v51 = _Q0;
     v51[*(v52 + 36)] = 0;
-    sub_21A149B18(v49, v50, &qword_27CCFEE78);
+    sub_21A149B18(v49, v50, &qword_27CCFEE78, &qword_21A2FB0E0);
     v61 = sub_21A2F7714();
     swift_getKeyPath();
     v88 = v61;
@@ -1946,30 +1946,30 @@ uint64_t sub_21A180C28@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_21A181674()
 {
-  type metadata accessor for RecipeSourceView();
-  sub_21A176C98(&qword_27CCFEE28);
+  type metadata accessor for RecipeSourceView(0);
+  sub_21A176C98(&qword_27CCFEE28, &unk_21A2FB050);
   sub_21A2F7714();
   sub_21A1EC0F8();
 }
 
 uint64_t sub_21A1816D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = sub_21A176C98(&qword_27CCFEEE8);
+  v4 = sub_21A176C98(&qword_27CCFEEE8, &qword_21A2FB150);
   v5 = v4 - 8;
   MEMORY[0x28223BE20](v4, v6);
   v8 = v45 - v7;
-  v9 = sub_21A176C98(&qword_27CCFEED8);
+  v9 = sub_21A176C98(&qword_27CCFEED8, &qword_21A2FB148);
   v10 = v9 - 8;
   MEMORY[0x28223BE20](v9, v11);
   v13 = v45 - v12;
-  v14 = sub_21A176C98(&qword_27CCFEEC8);
+  v14 = sub_21A176C98(&qword_27CCFEEC8, &qword_21A2FB140);
   v15 = v14 - 8;
   MEMORY[0x28223BE20](v14, v16);
   v18 = v45 - v17;
   *v8 = sub_21A2F5F34();
   *(v8 + 1) = 0;
   v8[16] = 0;
-  v19 = sub_21A176C98(&qword_27CCFEF58);
+  v19 = sub_21A176C98(&qword_27CCFEF58, &qword_21A2FB1F0);
   sub_21A181A78(a1, &v8[*(v19 + 44)]);
   LOBYTE(a1) = sub_21A2F6604();
   sub_21A2F55A4();
@@ -1982,7 +1982,7 @@ uint64_t sub_21A1816D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v20[40] = 0;
   sub_21A2F7344();
   sub_21A2F5C14();
-  sub_21A149B18(v8, v13, &qword_27CCFEEE8);
+  sub_21A149B18(v8, v13, &qword_27CCFEEE8, &qword_21A2FB150);
   v25 = &v13[*(v10 + 44)];
   v26 = v45[5];
   *(v25 + 4) = v45[4];
@@ -1998,17 +1998,17 @@ uint64_t sub_21A1816D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v31 = v30;
   v32 = &v18[*(v15 + 44)];
   *v32 = swift_getKeyPath();
-  sub_21A176C98(&qword_27CCFEEA0);
+  sub_21A176C98(&qword_27CCFEEA0, &unk_21A2FCEA0);
   swift_storeEnumTagMultiPayload();
-  v33 = *(type metadata accessor for RecipeCardButtonBackgroundView() + 20);
+  v33 = *(type metadata accessor for RecipeCardButtonBackgroundView(0) + 20);
   *(v32 + v33) = swift_getKeyPath();
-  sub_21A176C98(&qword_27CCFECD8);
+  sub_21A176C98(&qword_27CCFECD8, &unk_21A2FB250);
   swift_storeEnumTagMultiPayload();
-  v34 = (v32 + *(sub_21A176C98(&qword_27CCFEF08) + 36));
+  v34 = (v32 + *(sub_21A176C98(&qword_27CCFEF08, &unk_21A2FB160) + 36));
   *v34 = v29;
   v34[1] = v31;
-  sub_21A149B18(v13, v18, &qword_27CCFEED8);
-  v35 = (a2 + *(sub_21A176C98(&qword_27CCFEEB0) + 36));
+  sub_21A149B18(v13, v18, &qword_27CCFEED8, &qword_21A2FB148);
+  v35 = (a2 + *(sub_21A176C98(&qword_27CCFEEB0, &qword_21A2FB138) + 36));
   v36 = *(sub_21A2F5BC4() + 20);
   v37 = *MEMORY[0x277CE0118];
   v38 = sub_21A2F5F64();
@@ -2016,39 +2016,39 @@ uint64_t sub_21A1816D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   __asm { FMOV            V0.2D, #10.0 }
 
   *v35 = _Q0;
-  *&v35[*(sub_21A176C98(&qword_27CCFEF18) + 36)] = 256;
-  return sub_21A149B18(v18, a2, &qword_27CCFEEC8);
+  *&v35[*(sub_21A176C98(&qword_27CCFEF18, &qword_21A305E00) + 36)] = 256;
+  return sub_21A149B18(v18, a2, &qword_27CCFEEC8, &qword_21A2FB140);
 }
 
 uint64_t sub_21A181A78@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v120 = a2;
-  v114 = sub_21A176C98(&qword_27CCFEF60);
+  v114 = sub_21A176C98(&qword_27CCFEF60, &qword_21A3024C0);
   MEMORY[0x28223BE20](v114, v3);
   v126 = &v107 - v4;
-  v124 = sub_21A176C98(&qword_27CCFEF68);
+  v124 = sub_21A176C98(&qword_27CCFEF68, &qword_21A2FB260);
   MEMORY[0x28223BE20](v124, v5);
   v125 = (&v107 - v6);
-  v7 = sub_21A176C98(&qword_27CCFEF70);
+  v7 = sub_21A176C98(&qword_27CCFEF70, &qword_21A2FB268);
   v118 = *(v7 - 8);
   v119 = v7;
-  v9 = MEMORY[0x28223BE20](v7, v8);
-  v117 = &v107 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9, v11);
+  MEMORY[0x28223BE20](v7, v8);
+  v117 = &v107 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10, v11);
   v115 = &v107 - v12;
-  v13 = sub_21A176C98(&qword_27CCFEF78);
-  v15 = MEMORY[0x28223BE20](v13 - 8, v14);
-  v116 = &v107 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15, v17);
+  v13 = sub_21A176C98(&qword_27CCFEF78, &qword_21A2FB270);
+  MEMORY[0x28223BE20](v13 - 8, v14);
+  v116 = &v107 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16, v17);
   v127 = (&v107 - v18);
-  v19 = sub_21A176C98(&qword_27CCFEF80);
+  v19 = sub_21A176C98(&qword_27CCFEF80, &unk_21A2FB278);
   v123 = *(v19 - 8);
   MEMORY[0x28223BE20](v19, v20);
   v109 = &v107 - v21;
-  v22 = sub_21A176C98(&qword_27CCFEDC0);
-  v24 = MEMORY[0x28223BE20](v22 - 8, v23);
-  v107 = &v107 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v24, v26);
+  v22 = sub_21A176C98(&qword_27CCFEDC0, &unk_21A2FAEE0);
+  MEMORY[0x28223BE20](v22 - 8, v23);
+  v107 = &v107 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v25, v26);
   v110 = &v107 - v27;
   v112 = type metadata accessor for ImageAsset(0);
   v111 = *(v112 - 8);
@@ -2056,45 +2056,45 @@ uint64_t sub_21A181A78@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v108 = &v107 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
   v30 = sub_21A2F5A64();
   v31 = *(v30 - 8);
-  v33 = MEMORY[0x28223BE20](v30, v32);
-  v35 = &v107 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v33, v36);
+  MEMORY[0x28223BE20](v30, v32);
+  v34 = &v107 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v35, v36);
   v38 = &v107 - v37;
-  v39 = sub_21A176C98(&qword_27CCFEF88);
-  v41 = MEMORY[0x28223BE20](v39 - 8, v40);
-  v113 = &v107 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v41, v43);
+  v39 = sub_21A176C98(&qword_27CCFEF88, &qword_21A2FB288);
+  MEMORY[0x28223BE20](v39 - 8, v40);
+  v113 = &v107 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v42, v43);
   v45 = &v107 - v44;
-  type metadata accessor for RecipeSourceView();
+  type metadata accessor for RecipeSourceView(0);
   sub_21A1AC3FC(v38);
   v46 = *MEMORY[0x277CDF988];
   v121 = *(v31 + 104);
   v122 = v31 + 104;
-  v121(v35, v46, v30);
+  v121(v34, v46, v30);
   v47 = sub_21A2F5A54();
   v48 = *(v31 + 8);
-  v48(v35, v30);
+  v48(v34, v30);
   v48(v38, v30);
   v49 = v19;
   v50 = v45;
   v51 = 1;
   if (v47)
   {
-    sub_21A176C98(&qword_27CCFEE28);
+    sub_21A176C98(&qword_27CCFEE28, &unk_21A2FB050);
     v52 = sub_21A2F7714();
     swift_getKeyPath();
     *&v128 = v52;
-    sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel);
+    sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel, &unk_21A301CD8);
     sub_21A2F5094();
 
     v53 = v110;
-    sub_21A183960(v52 + OBJC_IVAR____TtC10CookingKit21RecipeSourceViewModel__imageAsset[0], v110, &qword_27CCFEDC0);
+    sub_21A183960(v52 + OBJC_IVAR____TtC10CookingKit21RecipeSourceViewModel__imageAsset[0], v110, &qword_27CCFEDC0, &unk_21A2FAEE0);
 
     v54 = v111;
     v55 = v112;
     if ((*(v111 + 48))(v53, 1, v112) == 1)
     {
-      sub_21A1427A8(v53, &qword_27CCFEDC0);
+      sub_21A1427A8(v53, &qword_27CCFEDC0, &unk_21A2FAEE0);
       v51 = 1;
     }
 
@@ -2106,19 +2106,19 @@ uint64_t sub_21A181A78@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       sub_21A18382C(v56, v107, type metadata accessor for ImageAsset);
       (*(v54 + 56))(v57, 0, 1, v55);
       v58 = v109;
-      sub_21A183960(v57, v109, &qword_27CCFEDC0);
-      v59 = v58 + *(sub_21A176C98(&qword_27CCFEFE0) + 52);
+      sub_21A183960(v57, v109, &qword_27CCFEDC0, &unk_21A2FAEE0);
+      v59 = v58 + *(sub_21A176C98(&qword_27CCFEFE0, &unk_21A2FCCD0) + 52);
       sub_21A2F72B4();
-      *(v59 + *(sub_21A176C98(&qword_27CCFEFE8) + 56)) = 256;
-      sub_21A1427A8(v57, &qword_27CCFEDC0);
+      *(v59 + *(sub_21A176C98(&qword_27CCFEFE8, &unk_21A2FB320) + 56)) = 256;
+      sub_21A1427A8(v57, &qword_27CCFEDC0, &unk_21A2FAEE0);
       sub_21A2F7344();
       sub_21A2F57C4();
-      v60 = (v58 + *(sub_21A176C98(&qword_27CCFEFF0) + 36));
+      v60 = (v58 + *(sub_21A176C98(&qword_27CCFEFF0, &unk_21A308D60) + 36));
       v61 = v129;
       *v60 = v128;
       v60[1] = v61;
       v60[2] = v130;
-      v62 = (v58 + *(sub_21A176C98(&qword_27CCFEFF8) + 36));
+      v62 = (v58 + *(sub_21A176C98(&qword_27CCFEFF8, &qword_21A2FB330) + 36));
       v63 = v49;
       v64 = *(sub_21A2F5BC4() + 20);
       v65 = *MEMORY[0x277CE0118];
@@ -2129,7 +2129,7 @@ uint64_t sub_21A181A78@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       __asm { FMOV            V0.2D, #8.0 }
 
       *v62 = _Q0;
-      *(v62 + *(sub_21A176C98(&qword_27CCFEF18) + 36)) = 256;
+      *(v62 + *(sub_21A176C98(&qword_27CCFEF18, &qword_21A305E00) + 36)) = 256;
       LOBYTE(v65) = sub_21A2F6654();
       sub_21A2F55A4();
       v74 = v73;
@@ -2155,18 +2155,18 @@ uint64_t sub_21A181A78@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *v127 = v82;
   v83[1] = 0x4000000000000000;
   *(v83 + 16) = 0;
-  v84 = sub_21A176C98(&qword_27CCFEF90);
+  v84 = sub_21A176C98(&qword_27CCFEF90, &qword_21A2FB290);
   sub_21A182718(a1, v83 + *(v84 + 44));
   v85 = sub_21A2F6F94();
   v86 = [objc_opt_self() tertiaryLabelColor];
   v87 = sub_21A2F6EF4();
-  v88 = sub_21A176C98(&qword_27CCFEF98);
+  v88 = sub_21A176C98(&qword_27CCFEF98, &qword_21A2FB298);
   v89 = v125;
   v90 = (v125 + *(v88 + 36));
   *v90 = swift_getKeyPath();
-  sub_21A176C98(&qword_27CCFEEA0);
+  sub_21A176C98(&qword_27CCFEEA0, &unk_21A2FCEA0);
   swift_storeEnumTagMultiPayload();
-  *(v90 + *(type metadata accessor for RecipeLabelVibrancyViewModifier() + 20)) = 1;
+  *(v90 + *(type metadata accessor for RecipeLabelVibrancyViewModifier(0) + 20)) = 1;
   *v89 = v85;
   v89[1] = v87;
   sub_21A2F6784();
@@ -2179,20 +2179,20 @@ uint64_t sub_21A181A78@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v93[1] = v91;
   v94 = v126;
   v121(v126, *MEMORY[0x277CDFA10], v30);
-  sub_21A18377C(&qword_27CCFEFA0, MEMORY[0x277CDFA28]);
+  sub_21A18377C(&qword_27CCFEFA0, MEMORY[0x277CDFA28], MEMORY[0x277CDFA48]);
   result = sub_21A2F7874();
   if (result)
   {
     sub_21A183550();
-    sub_21A1772F8(&qword_27CCFEFD0, &qword_27CCFEF60);
+    sub_21A1772F8(&qword_27CCFEFD0, &qword_27CCFEF60, &qword_21A3024C0, MEMORY[0x277D84470]);
     v96 = v115;
     sub_21A2F6BC4();
-    sub_21A1427A8(v94, &qword_27CCFEF60);
-    sub_21A1427A8(v89, &qword_27CCFEF68);
+    sub_21A1427A8(v94, &qword_27CCFEF60, &qword_21A3024C0);
+    sub_21A1427A8(v89, &qword_27CCFEF68, &qword_21A2FB260);
     v97 = v113;
-    sub_21A183960(v50, v113, &qword_27CCFEF88);
+    sub_21A183960(v50, v113, &qword_27CCFEF88, &qword_21A2FB288);
     v98 = v116;
-    sub_21A183960(v83, v116, &qword_27CCFEF78);
+    sub_21A183960(v83, v116, &qword_27CCFEF78, &qword_21A2FB270);
     v126 = v50;
     v99 = v117;
     v100 = v118;
@@ -2200,20 +2200,20 @@ uint64_t sub_21A181A78@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v102 = v119;
     v101(v117, v96, v119);
     v103 = v120;
-    sub_21A183960(v97, v120, &qword_27CCFEF88);
-    v104 = sub_21A176C98(&qword_27CCFEFD8);
-    sub_21A183960(v98, v103 + v104[12], &qword_27CCFEF78);
+    sub_21A183960(v97, v120, &qword_27CCFEF88, &qword_21A2FB288);
+    v104 = sub_21A176C98(&qword_27CCFEFD8, &qword_21A2FB2E8);
+    sub_21A183960(v98, v103 + v104[12], &qword_27CCFEF78, &qword_21A2FB270);
     v105 = v103 + v104[16];
     *v105 = 0x4020000000000000;
     *(v105 + 8) = 0;
     v101((v103 + v104[20]), v99, v102);
     v106 = *(v100 + 8);
     v106(v96, v102);
-    sub_21A1427A8(v127, &qword_27CCFEF78);
-    sub_21A1427A8(v126, &qword_27CCFEF88);
+    sub_21A1427A8(v127, &qword_27CCFEF78, &qword_21A2FB270);
+    sub_21A1427A8(v126, &qword_27CCFEF88, &qword_21A2FB288);
     v106(v99, v102);
-    sub_21A1427A8(v98, &qword_27CCFEF78);
-    return sub_21A1427A8(v97, &qword_27CCFEF88);
+    sub_21A1427A8(v98, &qword_27CCFEF78, &qword_21A2FB270);
+    return sub_21A1427A8(v97, &qword_27CCFEF88, &qword_21A2FB288);
   }
 
   else
@@ -2233,11 +2233,11 @@ uint64_t sub_21A182718@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v52 = v2;
   MEMORY[0x28223BE20](v2, v3);
   v50 = v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_21A176C98(&qword_27CCFF000);
+  v5 = sub_21A176C98(&qword_27CCFF000, &qword_21A2FB338);
   v6 = v5 - 8;
-  v8 = MEMORY[0x28223BE20](v5, v7);
-  v53 = v49 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8, v10);
+  MEMORY[0x28223BE20](v5, v7);
+  v53 = v49 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9, v10);
   v12 = v49 - v11;
   sub_21A2F5F54();
   v13 = sub_21A2F69A4();
@@ -2254,8 +2254,8 @@ uint64_t sub_21A182718@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   sub_21A1834EC(v13, v15, v17 & 1);
 
-  v24 = &v12[*(sub_21A176C98(&qword_27CCFF008) + 36)];
-  v25 = *(sub_21A176C98(&qword_27CCFF010) + 28);
+  v24 = &v12[*(sub_21A176C98(&qword_27CCFF008, &unk_21A2FB340) + 36)];
+  v25 = *(sub_21A176C98(&qword_27CCFF010, &qword_21A3126E0) + 28);
   v26 = *MEMORY[0x277CE0B48];
   v27 = sub_21A2F68D4();
   v28 = *(v27 - 8);
@@ -2267,24 +2267,24 @@ uint64_t sub_21A182718@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v12[16] = v22 & 1;
   *(v12 + 3) = v49[0];
   KeyPath = swift_getKeyPath();
-  v30 = &v12[*(sub_21A176C98(&qword_27CCFF018) + 36)];
+  v30 = &v12[*(sub_21A176C98(&qword_27CCFF018, &qword_21A2FB3B0) + 36)];
   *v30 = KeyPath;
   *(v30 + 1) = 1;
   v30[16] = 0;
   v31 = [objc_opt_self() secondaryLabelColor];
   v32 = sub_21A2F6EF4();
-  *&v12[*(sub_21A176C98(&qword_27CCFF020) + 36)] = v32;
+  *&v12[*(sub_21A176C98(&qword_27CCFF020, &qword_21A2FB3B8) + 36)] = v32;
   v33 = &v12[*(v6 + 44)];
   *v33 = swift_getKeyPath();
-  sub_21A176C98(&qword_27CCFEEA0);
+  sub_21A176C98(&qword_27CCFEEA0, &unk_21A2FCEA0);
   swift_storeEnumTagMultiPayload();
-  *(v33 + *(type metadata accessor for RecipeLabelVibrancyViewModifier() + 20)) = 1;
-  type metadata accessor for RecipeSourceView();
-  sub_21A176C98(&qword_27CCFEE28);
+  *(v33 + *(type metadata accessor for RecipeLabelVibrancyViewModifier(0) + 20)) = 1;
+  type metadata accessor for RecipeSourceView(0);
+  sub_21A176C98(&qword_27CCFEE28, &unk_21A2FB050);
   v34 = sub_21A2F7714();
   swift_getKeyPath();
   v55 = v34;
-  sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel);
+  sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel, &unk_21A301CD8);
   sub_21A2F5094();
 
   sub_21A2F5434();
@@ -2307,10 +2307,10 @@ uint64_t sub_21A182718@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   v44 = swift_getKeyPath();
   v45 = v53;
-  sub_21A183960(v12, v53, &qword_27CCFF000);
+  sub_21A183960(v12, v53, &qword_27CCFF000, &qword_21A2FB338);
   v46 = v54;
-  sub_21A183960(v45, v54, &qword_27CCFF000);
-  v47 = v46 + *(sub_21A176C98(&qword_27CCFF028) + 48);
+  sub_21A183960(v45, v54, &qword_27CCFF000, &qword_21A2FB338);
+  v47 = v46 + *(sub_21A176C98(&qword_27CCFF028, &qword_21A2FB3C0) + 48);
   *v47 = v38;
   *(v47 + 8) = v40;
   *(v47 + 16) = v35 & 1;
@@ -2321,10 +2321,10 @@ uint64_t sub_21A182718@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_21A176C88(v38, v40, v35 & 1);
   sub_21A2F5434();
 
-  sub_21A1427A8(v12, &qword_27CCFF000);
+  sub_21A1427A8(v12, &qword_27CCFF000, &qword_21A2FB338);
   sub_21A1834EC(v38, v40, v35 & 1);
 
-  return sub_21A1427A8(v45, &qword_27CCFF000);
+  return sub_21A1427A8(v45, &qword_27CCFF000, &qword_21A2FB338);
 }
 
 uint64_t sub_21A182D24@<X0>(uint64_t a1@<X8>)
@@ -2338,11 +2338,11 @@ uint64_t sub_21A182D24@<X0>(uint64_t a1@<X8>)
   v22 = v9;
   sub_21A1834EC(v1, v3, v5 & 1);
 
-  type metadata accessor for RecipeSourceView();
-  sub_21A176C98(&qword_27CCFEE28);
+  type metadata accessor for RecipeSourceView(0);
+  sub_21A176C98(&qword_27CCFEE28, &unk_21A2FB050);
   sub_21A2F7714();
   swift_getKeyPath();
-  sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel);
+  sub_21A18377C(&qword_27CCFEE98, type metadata accessor for RecipeSourceViewModel, &unk_21A301CD8);
   sub_21A2F5094();
 
   sub_21A2F5434();
@@ -2368,7 +2368,7 @@ uint64_t sub_21A182D24@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_21A182F74()
 {
-  type metadata accessor for RecipeSourceView();
+  type metadata accessor for RecipeSourceView(0);
 
   return sub_21A181674();
 }
@@ -2378,9 +2378,9 @@ unint64_t sub_21A182FDC()
   result = qword_27CCFEEB8;
   if (!qword_27CCFEEB8)
   {
-    sub_21A176D98(&qword_27CCFEEB0);
+    sub_21A176D98(&qword_27CCFEEB0, &qword_21A2FB138);
     sub_21A183094();
-    sub_21A1772F8(&qword_27CCFEF10, &qword_27CCFEF18);
+    sub_21A1772F8(&qword_27CCFEF10, &qword_27CCFEF18, &qword_21A305E00, MEMORY[0x277CDF4F0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEEB8);
   }
@@ -2393,9 +2393,9 @@ unint64_t sub_21A183094()
   result = qword_27CCFEEC0;
   if (!qword_27CCFEEC0)
   {
-    sub_21A176D98(&qword_27CCFEEC8);
+    sub_21A176D98(&qword_27CCFEEC8, &qword_21A2FB140);
     sub_21A18314C();
-    sub_21A1772F8(&qword_27CCFEF00, &qword_27CCFEF08);
+    sub_21A1772F8(&qword_27CCFEF00, &qword_27CCFEF08, &unk_21A2FB160, MEMORY[0x277CE0328]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEEC0);
   }
@@ -2408,7 +2408,7 @@ unint64_t sub_21A18314C()
   result = qword_27CCFEED0;
   if (!qword_27CCFEED0)
   {
-    sub_21A176D98(&qword_27CCFEED8);
+    sub_21A176D98(&qword_27CCFEED8, &qword_21A2FB148);
     sub_21A1831D8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEED0);
@@ -2422,8 +2422,8 @@ unint64_t sub_21A1831D8()
   result = qword_27CCFEEE0;
   if (!qword_27CCFEEE0)
   {
-    sub_21A176D98(&qword_27CCFEEE8);
-    sub_21A1772F8(&qword_27CCFEEF0, &qword_27CCFEEF8);
+    sub_21A176D98(&qword_27CCFEEE8, &qword_21A2FB150);
+    sub_21A1772F8(&qword_27CCFEEF0, &qword_27CCFEEF8, &qword_21A2FB158, MEMORY[0x277CE1138]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEEE0);
   }
@@ -2436,9 +2436,9 @@ unint64_t sub_21A183298()
   result = qword_27CCFEF38;
   if (!qword_27CCFEF38)
   {
-    sub_21A176D98(&qword_27CCFEE80);
+    sub_21A176D98(&qword_27CCFEE80, &qword_21A2FB0E8);
     sub_21A183350();
-    sub_21A1772F8(&qword_27CCFEF48, &qword_27CCFEF30);
+    sub_21A1772F8(&qword_27CCFEF48, &qword_27CCFEF30, &qword_21A300240, MEMORY[0x277CE07A8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEF38);
   }
@@ -2451,12 +2451,12 @@ unint64_t sub_21A183350()
   result = qword_27CCFEF40;
   if (!qword_27CCFEF40)
   {
-    sub_21A176D98(&qword_27CCFEE78);
-    sub_21A176D98(&qword_27CCFEE68);
-    sub_21A176D98(&qword_27CCFEE60);
+    sub_21A176D98(&qword_27CCFEE78, &qword_21A2FB0E0);
+    sub_21A176D98(&qword_27CCFEE68, &qword_21A2FB0D0);
+    sub_21A176D98(&qword_27CCFEE60, &qword_21A2FB0C8);
     sub_21A2F5B94();
-    sub_21A1772F8(&qword_27CCFEF20, &qword_27CCFEE60);
-    sub_21A18377C(&qword_27CCFEF28, MEMORY[0x277CDDB18]);
+    sub_21A1772F8(&qword_27CCFEF20, &qword_27CCFEE60, &qword_21A2FB0C8, MEMORY[0x277CDF028]);
+    sub_21A18377C(&qword_27CCFEF28, MEMORY[0x277CDDB18], MEMORY[0x277CDDB08]);
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
@@ -2494,9 +2494,9 @@ unint64_t sub_21A183550()
   result = qword_27CCFEFA8;
   if (!qword_27CCFEFA8)
   {
-    sub_21A176D98(&qword_27CCFEF68);
+    sub_21A176D98(&qword_27CCFEF68, &qword_21A2FB260);
     sub_21A183608();
-    sub_21A1772F8(&qword_27CCFE948, &qword_27CCFE950);
+    sub_21A1772F8(&qword_27CCFE948, &qword_27CCFE950, &qword_21A2FB2E0, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEFA8);
   }
@@ -2509,9 +2509,9 @@ unint64_t sub_21A183608()
   result = qword_27CCFEFB0;
   if (!qword_27CCFEFB0)
   {
-    sub_21A176D98(&qword_27CCFEF98);
+    sub_21A176D98(&qword_27CCFEF98, &qword_21A2FB298);
     sub_21A1836C4();
-    sub_21A18377C(&qword_27CCFEFC8, type metadata accessor for RecipeLabelVibrancyViewModifier);
+    sub_21A18377C(&qword_27CCFEFC8, type metadata accessor for RecipeLabelVibrancyViewModifier, &unk_21A2FBDF4);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEFB0);
   }
@@ -2524,8 +2524,8 @@ unint64_t sub_21A1836C4()
   result = qword_27CCFEFB8;
   if (!qword_27CCFEFB8)
   {
-    sub_21A176D98(&qword_27CCFEFC0);
-    sub_21A1772F8(&qword_27CCFE938, &qword_27CCFE940);
+    sub_21A176D98(&qword_27CCFEFC0, &unk_21A2FB2D0);
+    sub_21A1772F8(&qword_27CCFE938, &qword_27CCFE940, &unk_21A2F9A70, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFEFB8);
   }
@@ -2533,7 +2533,7 @@ unint64_t sub_21A1836C4()
   return result;
 }
 
-uint64_t sub_21A18377C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_21A18377C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2569,15 +2569,15 @@ uint64_t sub_21A183894(uint64_t a1)
 
 uint64_t sub_21A1838F0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFEF80);
+  v4 = sub_21A176C98(&qword_27CCFEF80, &unk_21A2FB278);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_21A183960(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_21A183960(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_21A176C98(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = sub_21A176C98(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -2586,8 +2586,8 @@ unint64_t sub_21A1839C8()
   result = qword_27CCFF030;
   if (!qword_27CCFF030)
   {
-    sub_21A176D98(&qword_27CCFF038);
-    sub_21A176D98(&qword_27CCFEE80);
+    sub_21A176D98(&qword_27CCFF038, qword_21A2FB3C8);
+    sub_21A176D98(&qword_27CCFEE80, &qword_21A2FB0E8);
     sub_21A183298();
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
@@ -2611,7 +2611,7 @@ uint64_t sub_21A183A88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[8] = v5;
   v4[9] = *(v5 - 8);
   v4[10] = swift_task_alloc();
-  v6 = type metadata accessor for RecipeSourceType();
+  v6 = type metadata accessor for RecipeSourceType(0);
   v4[11] = v6;
   v4[12] = *(v6 - 8);
   v4[13] = swift_task_alloc();
@@ -2674,39 +2674,42 @@ uint64_t sub_21A183E64()
       v7 = sub_21A2F4744();
       if (!v8)
       {
+        v10 = v0[6];
+        v9 = v0[7];
+        v11 = v7;
         sub_21A2F7884();
         sub_21A2F4A54();
-        v7 = sub_21A2F7934();
+        v7 = sub_21A2F7934(v9, v11, 0, 0, v10, "Fallback source label for a recipe imported from Safari.", 56, 2);
       }
     }
 
-    v9 = v0[15];
-    v10 = v0[13];
-    v11 = v0[10];
-    *v10 = v7;
-    v10[1] = v8;
-    v12 = *(type metadata accessor for WebRecipeSource() + 20);
-    v13 = sub_21A2F4794();
-    (*(*(v13 - 8) + 16))(v10 + v12, v11, v13);
+    v12 = v0[15];
+    v13 = v0[13];
+    v14 = v0[10];
+    *v13 = v7;
+    v13[1] = v8;
+    v15 = *(type metadata accessor for WebRecipeSource(0) + 20);
+    v16 = sub_21A2F4794();
+    (*(*(v16 - 8) + 16))(v13 + v15, v14, v16);
     swift_storeEnumTagMultiPayload();
     sub_21A2F5434();
-    sub_21A184364(v11, type metadata accessor for RecipeSourceSafari);
-    sub_21A184364(v9, type metadata accessor for RecipeSource);
+    sub_21A184364(v14, type metadata accessor for RecipeSourceSafari);
+    sub_21A184364(v12, type metadata accessor for RecipeSource);
   }
 
-  v15 = v0[12];
-  v14 = v0[13];
-  v16 = v0[11];
-  v17 = v0[2];
-  sub_21A18422C(v0[3], v17, type metadata accessor for Recipe);
-  v18 = *(type metadata accessor for Recipe() + 48);
-  sub_21A184294(v17 + v18);
-  sub_21A1842FC(v14, v17 + v18, type metadata accessor for RecipeSourceType);
-  (*(v15 + 56))(v17 + v18, 0, 1, v16);
+  v18 = v0[12];
+  v17 = v0[13];
+  v19 = v0[11];
+  v20 = v0[2];
+  sub_21A18422C(v0[3], v20, type metadata accessor for Recipe);
+  v21 = *(type metadata accessor for Recipe(0) + 48);
+  sub_21A184294(v20 + v21);
+  sub_21A1842FC(v17, v20 + v21, type metadata accessor for RecipeSourceType);
+  (*(v18 + 56))(v20 + v21, 0, 1, v19);
 
-  v19 = v0[1];
+  v22 = v0[1];
 
-  return v19();
+  return v22();
 }
 
 uint64_t sub_21A184174(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2728,7 +2731,7 @@ uint64_t sub_21A18422C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_21A184294(uint64_t a1)
 {
-  v2 = sub_21A176C98(&qword_27CCFF040);
+  v2 = sub_21A176C98(&qword_27CCFF040, &qword_21A2FB420);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -2749,73 +2752,73 @@ uint64_t sub_21A184364(uint64_t a1, uint64_t (*a2)(void))
 
 void sub_21A1843C4(uint64_t *a1)
 {
-  v338 = a1;
-  v329 = *v1;
-  v337 = type metadata accessor for CookingSessionCommand(0);
-  v3 = MEMORY[0x28223BE20](v337, v2);
-  v336 = &v303 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = MEMORY[0x28223BE20](v3, v5);
-  v334 = &v303 - v7;
-  MEMORY[0x28223BE20](v6, v8);
-  v328 = &v303 - v9;
-  v10 = sub_21A176C98(&qword_27CCFF050);
-  v12 = MEMORY[0x28223BE20](v10 - 8, v11);
-  v323 = &v303 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x28223BE20](v12, v14);
-  v314 = &v303 - v16;
-  v18 = MEMORY[0x28223BE20](v15, v17);
-  v20 = &v303 - v19;
-  v22 = MEMORY[0x28223BE20](v18, v21);
-  v322 = &v303 - v23;
-  v25 = MEMORY[0x28223BE20](v22, v24);
-  v315 = &v303 - v26;
-  MEMORY[0x28223BE20](v25, v27);
-  v326 = &v303 - v28;
-  v29 = sub_21A176C98(&qword_27CCFEB38);
-  v31 = MEMORY[0x28223BE20](v29 - 8, v30);
-  v325 = &v303 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = MEMORY[0x28223BE20](v31, v33);
-  v324 = &v303 - v35;
-  v37 = MEMORY[0x28223BE20](v34, v36);
-  v321 = &v303 - v38;
-  v40 = MEMORY[0x28223BE20](v37, v39);
-  v320 = &v303 - v41;
-  v43 = MEMORY[0x28223BE20](v40, v42);
-  v319 = &v303 - v44;
-  v46 = MEMORY[0x28223BE20](v43, v45);
-  v318 = &v303 - v47;
-  v49 = MEMORY[0x28223BE20](v46, v48);
-  v317 = &v303 - v50;
-  v52 = MEMORY[0x28223BE20](v49, v51);
-  v54 = &v303 - v53;
-  v56 = MEMORY[0x28223BE20](v52, v55);
-  v327 = &v303 - v57;
-  MEMORY[0x28223BE20](v56, v58);
-  v316 = &v303 - v59;
-  v330 = type metadata accessor for CookingSessionCommandAction(0);
-  MEMORY[0x28223BE20](v330, v60);
-  v331 = &v303 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v62 = sub_21A176C98(&qword_27CCFF058);
+  v339 = a1;
+  v330 = *v1;
+  v338 = type metadata accessor for CookingSessionCommand(0);
+  MEMORY[0x28223BE20](v338, v2);
+  v337 = &v304 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4, v5);
+  v335 = &v304 - v6;
+  MEMORY[0x28223BE20](v7, v8);
+  v329 = &v304 - v9;
+  v10 = sub_21A176C98(&qword_27CCFF050, &unk_21A2FB5F0);
+  MEMORY[0x28223BE20](v10 - 8, v11);
+  v324 = &v304 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13, v14);
+  v315 = &v304 - v15;
+  MEMORY[0x28223BE20](v16, v17);
+  v19 = &v304 - v18;
+  MEMORY[0x28223BE20](v20, v21);
+  v323 = &v304 - v22;
+  MEMORY[0x28223BE20](v23, v24);
+  v316 = &v304 - v25;
+  MEMORY[0x28223BE20](v26, v27);
+  v327 = &v304 - v28;
+  v29 = sub_21A176C98(&qword_27CCFEB38, &unk_21A2FB5C0);
+  MEMORY[0x28223BE20](v29 - 8, v30);
+  v326 = &v304 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v32, v33);
+  v325 = &v304 - v34;
+  MEMORY[0x28223BE20](v35, v36);
+  v322 = &v304 - v37;
+  MEMORY[0x28223BE20](v38, v39);
+  v321 = &v304 - v40;
+  MEMORY[0x28223BE20](v41, v42);
+  v320 = &v304 - v43;
+  MEMORY[0x28223BE20](v44, v45);
+  v319 = &v304 - v46;
+  MEMORY[0x28223BE20](v47, v48);
+  v318 = &v304 - v49;
+  MEMORY[0x28223BE20](v50, v51);
+  v53 = &v304 - v52;
+  MEMORY[0x28223BE20](v54, v55);
+  v328 = &v304 - v56;
+  MEMORY[0x28223BE20](v57, v58);
+  v317 = &v304 - v59;
+  v331 = type metadata accessor for CookingSessionCommandAction(0);
+  MEMORY[0x28223BE20](v331, v60);
+  v332 = &v304 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v62 = sub_21A176C98(&qword_27CCFF058, &unk_21A2FC890);
   MEMORY[0x28223BE20](v62 - 8, v63);
-  v65 = &v303 - v64;
-  v66 = sub_21A176C98(&qword_27CCFF060);
+  v65 = &v304 - v64;
+  v66 = sub_21A176C98(&qword_27CCFF060, &unk_21A2FB600);
   v67 = *(v66 - 8);
   MEMORY[0x28223BE20](v66, v68);
-  v70 = &v303 - v69;
-  v71 = type metadata accessor for Recipe();
+  v70 = &v304 - v69;
+  v71 = type metadata accessor for Recipe(0);
   v72 = *(v71 - 8);
   MEMORY[0x28223BE20](v71, v73);
-  v332 = &v303 - ((v74 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v75 = type metadata accessor for CookingSession();
-  v77 = MEMORY[0x28223BE20](v75, v76);
-  v79 = MEMORY[0x28223BE20](v77, v78);
-  v81 = MEMORY[0x28223BE20](v79, &v303 - v80);
-  v83 = MEMORY[0x28223BE20](v81, v82);
-  v85 = MEMORY[0x28223BE20](v83, v84);
-  v87 = &v303 - v86;
-  v89 = MEMORY[0x28223BE20](v85, v88);
-  v335 = &v303 - v95;
-  v333 = v1;
+  v333 = &v304 - ((v74 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v75 = type metadata accessor for CookingSession(0);
+  MEMORY[0x28223BE20](v75, v76);
+  MEMORY[0x28223BE20](v77, v78);
+  MEMORY[0x28223BE20](v80, &v304 - v79);
+  MEMORY[0x28223BE20](v81, v82);
+  MEMORY[0x28223BE20](v83, v84);
+  v86 = &v304 - v85;
+  MEMORY[0x28223BE20](v87, v88);
+  v336 = &v304 - v95;
+  v334 = v1;
   v96 = v1 + 2;
   v97 = v1[2];
   if (!*(v97 + 16))
@@ -2823,36 +2826,36 @@ void sub_21A1843C4(uint64_t *a1)
     goto LABEL_11;
   }
 
-  v306 = v91;
-  v308 = v90;
-  v305 = v94;
-  v304 = v93;
-  v307 = v20;
-  v310 = v89;
-  v312 = v92;
-  v309 = v54;
-  v311 = v96;
-  v99 = *v338;
-  v98 = v338[1];
+  v307 = v91;
+  v309 = v90;
+  v306 = v94;
+  v305 = v93;
+  v308 = v19;
+  v311 = v89;
+  v313 = v92;
+  v310 = v53;
+  v312 = v96;
+  v99 = *v339;
+  v98 = v339[1];
   swift_bridgeObjectRetain_n();
-  v313 = v99;
+  v314 = v99;
   v100 = sub_21A261F58(v99, v98);
   if (v101)
   {
     v102 = *(v97 + 56);
-    v103 = v312;
-    v303 = *(v312 + 72);
-    sub_21A18C008(v102 + v303 * v100, v87, type metadata accessor for CookingSession);
-    sub_21A18BED0(v87, v335, type metadata accessor for CookingSession);
-    (*(v67 + 16))(v70, v333 + OBJC_IVAR____TtC10CookingKit21CookingSessionsSource__importedRecipes, v66);
+    v103 = v313;
+    v304 = *(v313 + 72);
+    sub_21A18C008(v102 + v304 * v100, v86, type metadata accessor for CookingSession);
+    sub_21A18BED0(v86, v336, type metadata accessor for CookingSession);
+    (*(v67 + 16))(v70, v334 + OBJC_IVAR____TtC10CookingKit21CookingSessionsSource__importedRecipes, v66);
     sub_21A2F7594();
     (*(v67 + 8))(v70, v66);
-    v104 = v339;
-    if (v339[2])
+    v104 = v340;
+    if (v340[2])
     {
       v105 = v98;
-      v106 = sub_21A261F58(v313, v98);
-      v107 = v338;
+      v106 = sub_21A261F58(v314, v98);
+      v107 = v339;
       if (v108)
       {
         sub_21A18C008(*(v104 + 56) + *(v72 + 72) * v106, v65, type metadata accessor for Recipe);
@@ -2868,7 +2871,7 @@ void sub_21A1843C4(uint64_t *a1)
     else
     {
       v109 = 1;
-      v107 = v338;
+      v107 = v339;
       v105 = v98;
     }
 
@@ -2877,15 +2880,15 @@ void sub_21A1843C4(uint64_t *a1)
     if ((*(v72 + 48))(v65, 1, v71) == 1)
     {
       swift_bridgeObjectRelease_n();
-      sub_21A18BFA8(v335, type metadata accessor for CookingSession);
-      sub_21A1427A8(v65, &qword_27CCFF058);
+      sub_21A18BFA8(v336, type metadata accessor for CookingSession);
+      sub_21A1427A8(v65, &qword_27CCFF058, &unk_21A2FC890);
       goto LABEL_11;
     }
 
-    v122 = v332;
-    sub_21A18BED0(v65, v332, type metadata accessor for Recipe);
-    v123 = v331;
-    sub_21A18C008(v107 + *(v337 + 20), v331, type metadata accessor for CookingSessionCommandAction);
+    v122 = v333;
+    sub_21A18BED0(v65, v333, type metadata accessor for Recipe);
+    v123 = v332;
+    sub_21A18C008(v107 + *(v338 + 20), v332, type metadata accessor for CookingSessionCommandAction);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
 
     if (EnumCaseMultiPayload <= 4)
@@ -2894,18 +2897,18 @@ void sub_21A1843C4(uint64_t *a1)
       {
         if (EnumCaseMultiPayload != 2)
         {
-          v125 = v335;
+          v125 = v336;
           if (EnumCaseMultiPayload == 3)
           {
             v126 = *v123;
-            v127 = *v311;
-            if (*(*v311 + 16))
+            v127 = *v312;
+            if (*(*v312 + 16))
             {
-              v128 = sub_21A261F58(v313, v105);
-              v129 = v325;
+              v128 = sub_21A261F58(v314, v105);
+              v129 = v326;
               if (v130)
               {
-                sub_21A18C008(*(v127 + 56) + v128 * v303, v325, type metadata accessor for CookingSession);
+                sub_21A18C008(*(v127 + 56) + v128 * v304, v326, type metadata accessor for CookingSession);
                 v131 = 0;
               }
 
@@ -2918,11 +2921,11 @@ void sub_21A1843C4(uint64_t *a1)
             else
             {
               v131 = 1;
-              v129 = v325;
+              v129 = v326;
             }
 
-            v216 = v310;
-            (*(v103 + 56))(v129, v131, 1, v310);
+            v216 = v311;
+            (*(v103 + 56))(v129, v131, 1, v311);
             if (!(*(v103 + 48))(v129, 1, v216))
             {
               v129[178] = v126;
@@ -2930,28 +2933,29 @@ void sub_21A1843C4(uint64_t *a1)
             }
 
 LABEL_174:
-            v266 = v327;
-            sub_21A183960(v129, v327, &qword_27CCFEB38);
-            v267 = v309;
-            sub_21A183960(v266, v309, &qword_27CCFEB38);
-            sub_21A2C4224(v267, v313, v105);
-            sub_21A1427A8(v266, &qword_27CCFEB38);
+            v267 = v328;
+            sub_21A183960(v129, v328, &qword_27CCFEB38, &unk_21A2FB5C0);
+            v268 = v310;
+            sub_21A183960(v267, v310, &qword_27CCFEB38, &unk_21A2FB5C0);
+            sub_21A2C4224(v268, v314, v105);
+            sub_21A1427A8(v267, &qword_27CCFEB38, &unk_21A2FB5C0);
 LABEL_177:
             v237 = v129;
 LABEL_178:
             v262 = &qword_27CCFEB38;
+            v263 = &unk_21A2FB5C0;
             goto LABEL_179;
           }
 
-          sub_21A18BF38(v123, v326);
-          v156 = v308;
-          sub_21A18C008(v125, v308, type metadata accessor for CookingSession);
+          sub_21A18BF38(v123, v327);
+          v156 = v309;
+          sub_21A18C008(v125, v309, type metadata accessor for CookingSession);
           if (*(v156 + 179))
           {
             v158 = *(v156 + 16);
             v157 = *(v156 + 24);
             v159 = *(v156 + 32);
-            v160 = sub_21A271A00();
+            sub_21A271A00();
           }
 
           else
@@ -2961,22 +2965,22 @@ LABEL_178:
               if (qword_27CCFE7F0 == -1)
               {
 LABEL_72:
-                v181 = *(&xmmword_27CCFFB50 + 1);
-                v180 = xmmword_27CCFFB50;
-                v182 = qword_27CCFFB60;
+                v180 = unk_27CCFFB50;
+                v182 = *(&xmmword_27CCFFB58 + 1);
+                v181 = xmmword_27CCFFB58;
                 goto LABEL_132;
               }
 
 LABEL_223:
               swift_once();
-              v156 = v308;
+              v156 = v309;
               goto LABEL_72;
             }
 
             v157 = *(v156 + 128);
             v159 = *(v156 + 136);
             v158 = *(v156 + 120);
-            v160 = sub_21A27201C();
+            sub_21A27201C();
           }
 
           v217 = v160;
@@ -2992,12 +2996,12 @@ LABEL_223:
             if (v225 < 0 || v225 >= *(v217 + 16))
             {
 LABEL_126:
-              sub_21A18BFA8(v308, type metadata accessor for CookingSession);
+              sub_21A18BFA8(v309, type metadata accessor for CookingSession);
 
-              v141 = v326;
-              v220 = v322;
-              sub_21A183960(v326, v322, &qword_27CCFF050);
-              v221 = sub_21A176C98(&qword_27CCFF070);
+              v141 = v327;
+              v220 = v323;
+              sub_21A183960(v327, v323, &qword_27CCFF050, &unk_21A2FB5F0);
+              v221 = sub_21A176C98(&qword_27CCFF070, &qword_21A300A40);
               if ((*(*(v221 - 8) + 48))(v220, 1, v221) != 1)
               {
                 sub_21A18BE7C();
@@ -3005,24 +3009,26 @@ LABEL_126:
                 v223 = v222;
                 *v224 = 1;
 LABEL_169:
-                v339 = v222;
-                v264 = v222;
-                sub_21A176C98(&qword_27CCFF078);
+                v340 = v222;
+                v265 = v222;
+                sub_21A176C98(&qword_27CCFF078, &qword_21A2FB610);
                 sub_21A2F7BE4();
-                sub_21A1427A8(v141, &qword_27CCFF050);
+                sub_21A1427A8(v141, &qword_27CCFF050, &unk_21A2FB5F0);
 
                 v262 = &qword_27CCFF070;
+                v263 = &qword_21A300A40;
                 v237 = v220;
                 goto LABEL_179;
               }
 
 LABEL_166:
-              sub_21A1427A8(v141, &qword_27CCFF050);
+              sub_21A1427A8(v141, &qword_27CCFF050, &unk_21A2FB5F0);
               v237 = v220;
 LABEL_167:
               v262 = &qword_27CCFF050;
+              v263 = &unk_21A2FB5F0;
 LABEL_179:
-              sub_21A1427A8(v237, v262);
+              sub_21A1427A8(v237, v262, v263);
               goto LABEL_180;
             }
 
@@ -3031,7 +3037,7 @@ LABEL_179:
             v181 = v226[5];
             v182 = v226[6];
 
-            v156 = v308;
+            v156 = v309;
 LABEL_132:
             sub_21A18BFA8(v156, type metadata accessor for CookingSession);
             v227 = *(v125 + 179) == 0;
@@ -3063,28 +3069,29 @@ LABEL_132:
 
             *(v125 + v230) = v182;
             *(v125 + v231) = 0;
-            v232 = v327;
-            sub_21A18C008(v125, v327, type metadata accessor for CookingSession);
-            (*(v312 + 56))(v232, 0, 1, v310);
-            v233 = v309;
-            sub_21A183960(v232, v309, &qword_27CCFEB38);
-            sub_21A2C4224(v233, v313, v105);
-            sub_21A1427A8(v232, &qword_27CCFEB38);
-            v234 = v326;
-            v235 = v315;
-            sub_21A183960(v326, v315, &qword_27CCFF050);
-            v236 = sub_21A176C98(&qword_27CCFF070);
+            v232 = v328;
+            sub_21A18C008(v125, v328, type metadata accessor for CookingSession);
+            (*(v313 + 56))(v232, 0, 1, v311);
+            v233 = v310;
+            sub_21A183960(v232, v310, &qword_27CCFEB38, &unk_21A2FB5C0);
+            sub_21A2C4224(v233, v314, v105);
+            sub_21A1427A8(v232, &qword_27CCFEB38, &unk_21A2FB5C0);
+            v234 = v327;
+            v235 = v316;
+            sub_21A183960(v327, v316, &qword_27CCFF050, &unk_21A2FB5F0);
+            v236 = sub_21A176C98(&qword_27CCFF070, &qword_21A300A40);
             if ((*(*(v236 - 8) + 48))(v235, 1, v236) != 1)
             {
-              sub_21A176C98(&qword_27CCFF078);
+              sub_21A176C98(&qword_27CCFF078, &qword_21A2FB610);
               sub_21A2F7BF4();
-              sub_21A1427A8(v234, &qword_27CCFF050);
+              sub_21A1427A8(v234, &qword_27CCFF050, &unk_21A2FB5F0);
               v262 = &qword_27CCFF070;
+              v263 = &qword_21A300A40;
               v237 = v235;
               goto LABEL_179;
             }
 
-            sub_21A1427A8(v234, &qword_27CCFF050);
+            sub_21A1427A8(v234, &qword_27CCFF050, &unk_21A2FB5F0);
             v237 = v235;
             goto LABEL_167;
           }
@@ -3096,15 +3103,15 @@ LABEL_222:
         }
 
         v147 = *v123;
-        v148 = *v311;
-        v125 = v335;
-        if (*(*v311 + 16))
+        v148 = *v312;
+        v125 = v336;
+        if (*(*v312 + 16))
         {
-          v149 = sub_21A261F58(v313, v105);
-          v129 = v324;
+          v149 = sub_21A261F58(v314, v105);
+          v129 = v325;
           if (v150)
           {
-            sub_21A18C008(*(v148 + 56) + v149 * v303, v324, type metadata accessor for CookingSession);
+            sub_21A18C008(*(v148 + 56) + v149 * v304, v325, type metadata accessor for CookingSession);
             v151 = 0;
           }
 
@@ -3117,11 +3124,11 @@ LABEL_222:
         else
         {
           v151 = 1;
-          v129 = v324;
+          v129 = v325;
         }
 
-        v215 = v310;
-        (*(v103 + 56))(v129, v151, 1, v310);
+        v215 = v311;
+        (*(v103 + 56))(v129, v151, 1, v311);
         if ((*(v103 + 48))(v129, 1, v215))
         {
           goto LABEL_174;
@@ -3130,9 +3137,9 @@ LABEL_222:
         v129[177] = v147;
         v129[178] = 4;
 LABEL_176:
-        v268 = v327;
-        sub_21A183960(v129, v327, &qword_27CCFEB38);
-        sub_21A2C4224(v268, v313, v105);
+        v269 = v328;
+        sub_21A183960(v129, v328, &qword_27CCFEB38, &unk_21A2FB5C0);
+        sub_21A2C4224(v269, v314, v105);
         goto LABEL_177;
       }
 
@@ -3145,27 +3152,27 @@ LABEL_176:
         if (*(v161 + 24))
         {
           v165 = v103;
-          v137 = v335;
-          v166 = *(v335 + 179) == 0;
+          v137 = v336;
+          v166 = *(v336 + 179) == 0;
           v167 = 152;
-          if (*(v335 + 179))
+          if (*(v336 + 179))
           {
             v167 = 88;
           }
 
           v168 = 160;
-          if (*(v335 + 179))
+          if (*(v336 + 179))
           {
             v168 = 96;
           }
 
           v169 = 168;
-          if (*(v335 + 179))
+          if (*(v336 + 179))
           {
             v169 = 104;
           }
 
-          *(v335 + v167) = v162;
+          *(v336 + v167) = v162;
           *(v137 + v168) = v163;
           if (v166)
           {
@@ -3179,9 +3186,9 @@ LABEL_176:
 
           *(v137 + v169) = v164;
           *(v137 + v170) = 1;
-          v171 = v327;
-          sub_21A18C008(v137, v327, type metadata accessor for CookingSession);
-          (*(v165 + 56))(v171, 0, 1, v310);
+          v171 = v328;
+          sub_21A18C008(v137, v328, type metadata accessor for CookingSession);
+          (*(v165 + 56))(v171, 0, 1, v311);
           goto LABEL_145;
         }
 
@@ -3190,39 +3197,39 @@ LABEL_176:
           v197 = *(v122 + *(v71 + 72));
           if (v162 < *(v197 + 16))
           {
-            v198 = type metadata accessor for StepSection();
+            v198 = type metadata accessor for StepSection(0);
             v200 = *(v198 - 8);
             v199 = v198 - 8;
             v201 = *(v200 + 80);
             v202 = *(v200 + 72);
-            v125 = v335;
+            v125 = v336;
             if (v163 < 0 || v163 >= *(*(v197 + ((v201 + 32) & ~v201) + v202 * v162 + *(v199 + 32)) + 16))
             {
-              sub_21A18BFA8(v335, type metadata accessor for CookingSession);
+              sub_21A18BFA8(v336, type metadata accessor for CookingSession);
 
               goto LABEL_188;
             }
 
-            v203 = *(v335 + 179) == 0;
+            v203 = *(v336 + 179) == 0;
             v204 = 152;
-            if (*(v335 + 179))
+            if (*(v336 + 179))
             {
               v204 = 88;
             }
 
             v205 = 160;
-            if (*(v335 + 179))
+            if (*(v336 + 179))
             {
               v205 = 96;
             }
 
             v206 = 168;
-            if (*(v335 + 179))
+            if (*(v336 + 179))
             {
               v206 = 104;
             }
 
-            *(v335 + v204) = v162;
+            *(v336 + v204) = v162;
             *(v125 + v205) = v163;
             v207 = 112;
             if (v203)
@@ -3241,16 +3248,16 @@ LABEL_176:
       {
         if (*(v123 + 24))
         {
-          v137 = v335;
-          if (*(v335 + 179) == 1)
+          v137 = v336;
+          if (*(v336 + 179) == 1)
           {
             if (qword_27CCFE7F0 != -1)
             {
               swift_once();
             }
 
-            v138 = qword_27CCFFB60;
-            *(v137 + 16) = xmmword_27CCFFB50;
+            v138 = *(&xmmword_27CCFFB58 + 1);
+            *(v137 + 16) = unk_27CCFFB50;
             *(v137 + 32) = v138;
             v139 = 112;
             v140 = 88;
@@ -3258,7 +3265,7 @@ LABEL_176:
 
           else
           {
-            *(v335 + 120) = 0;
+            *(v336 + 120) = 0;
             *(v137 + 128) = 0;
             *(v137 + 136) = 0;
             *(v137 + 144) = 1;
@@ -3271,14 +3278,14 @@ LABEL_176:
           v238[1] = 0;
           v238[2] = 0;
           *(v137 + v139) = 1;
-          v171 = v327;
-          sub_21A18C008(v137, v327, type metadata accessor for CookingSession);
-          (*(v312 + 56))(v171, 0, 1, v310);
+          v171 = v328;
+          sub_21A18C008(v137, v328, type metadata accessor for CookingSession);
+          (*(v313 + 56))(v171, 0, 1, v311);
 LABEL_145:
-          v239 = v309;
-          sub_21A183960(v171, v309, &qword_27CCFEB38);
-          sub_21A2C4224(v239, v313, v105);
-          sub_21A1427A8(v171, &qword_27CCFEB38);
+          v239 = v310;
+          sub_21A183960(v171, v310, &qword_27CCFEB38, &unk_21A2FB5C0);
+          sub_21A2C4224(v239, v314, v105);
+          sub_21A1427A8(v171, &qword_27CCFEB38, &unk_21A2FB5C0);
           v240 = v137;
 LABEL_187:
           sub_21A18BFA8(v240, type metadata accessor for CookingSession);
@@ -3295,13 +3302,13 @@ LABEL_188:
           {
             v189 = *(v123 + 8);
             v190 = *(v123 + 16);
-            v191 = type metadata accessor for StepSection();
-            v125 = v335;
+            v191 = type metadata accessor for StepSection(0);
+            v125 = v336;
             if ((v189 & 0x8000000000000000) == 0 && v189 < *(*(v188 + ((*(*(v191 - 8) + 80) + 32) & ~*(*(v191 - 8) + 80)) + *(*(v191 - 8) + 72) * v187 + *(v191 + 24)) + 16))
             {
-              if (*(v335 + 179) != 1)
+              if (*(v336 + 179) != 1)
               {
-                *(v335 + 120) = v187;
+                *(v336 + 120) = v187;
                 *(v125 + 128) = v189;
                 *(v125 + 136) = v190;
                 *(v125 + 144) = 0;
@@ -3310,31 +3317,31 @@ LABEL_188:
                 *(v125 + 152) = 0;
                 *(v125 + 176) = 1;
 LABEL_220:
-                v301 = v327;
-                sub_21A18C008(v125, v327, type metadata accessor for CookingSession);
-                (*(v312 + 56))(v301, 0, 1, v310);
-                v302 = v309;
-                sub_21A183960(v301, v309, &qword_27CCFEB38);
-                sub_21A2C4224(v302, v313, v105);
-                v237 = v301;
+                v302 = v328;
+                sub_21A18C008(v125, v328, type metadata accessor for CookingSession);
+                (*(v313 + 56))(v302, 0, 1, v311);
+                v303 = v310;
+                sub_21A183960(v302, v310, &qword_27CCFEB38, &unk_21A2FB5C0);
+                sub_21A2C4224(v303, v314, v105);
+                v237 = v302;
                 goto LABEL_178;
               }
 
-              *(v335 + 16) = v187;
+              *(v336 + 16) = v187;
               *(v125 + 24) = v189;
               *(v125 + 32) = v190;
               *(v125 + 96) = 0;
               *(v125 + 104) = 0;
               *(v125 + 88) = 0;
               *(v125 + 112) = 1;
-              v192 = v305;
-              sub_21A18C008(v125, v305, type metadata accessor for CookingSession);
+              v192 = v306;
+              sub_21A18C008(v125, v306, type metadata accessor for CookingSession);
               if (*(v192 + 179))
               {
                 v194 = *(v192 + 16);
                 v193 = *(v192 + 24);
                 v195 = *(v192 + 32);
-                v196 = sub_21A271A00();
+                sub_21A271A00();
               }
 
               else
@@ -3348,105 +3355,105 @@ LABEL_220:
                 v193 = *(v192 + 128);
                 v195 = *(v192 + 136);
                 v194 = *(v192 + 120);
-                v196 = sub_21A27201C();
+                sub_21A27201C();
               }
 
-              v280 = v196;
-              v281 = sub_21A188160(v194, v193, v195, v196);
-              if ((v282 & 1) == 0)
+              v281 = v196;
+              v282 = sub_21A188160(v194, v193, v195, v196);
+              if ((v283 & 1) == 0)
               {
-                v283 = v281 - 1;
-                if (__OFSUB__(v281, 1))
+                v284 = v282 - 1;
+                if (__OFSUB__(v282, 1))
                 {
                   __break(1u);
                   goto LABEL_225;
                 }
 
-                if ((v283 & 0x8000000000000000) == 0 && v283 < *(v280 + 16))
+                if ((v284 & 0x8000000000000000) == 0 && v284 < *(v281 + 16))
                 {
-                  v284 = (v280 + 24 * v283);
-                  v285 = v284[4];
-                  v286 = v284[5];
-                  v287 = v284[6];
+                  v285 = (v281 + 24 * v284);
+                  v286 = v285[4];
+                  v287 = v285[5];
+                  v288 = v285[6];
 
-                  sub_21A18BFA8(v305, type metadata accessor for CookingSession);
+                  sub_21A18BFA8(v306, type metadata accessor for CookingSession);
 LABEL_204:
-                  *(v125 + 64) = v285;
-                  *(v125 + 72) = v286;
-                  *(v125 + 80) = v287;
-                  v288 = v304;
-                  sub_21A18C008(v125, v304, type metadata accessor for CookingSession);
-                  if (*(v288 + 179))
+                  *(v125 + 64) = v286;
+                  *(v125 + 72) = v287;
+                  *(v125 + 80) = v288;
+                  v289 = v305;
+                  sub_21A18C008(v125, v305, type metadata accessor for CookingSession);
+                  if (*(v289 + 179))
                   {
-                    v290 = *(v288 + 16);
-                    v289 = *(v288 + 24);
-                    v291 = *(v288 + 32);
-                    v292 = sub_21A271A00();
+                    v291 = *(v289 + 16);
+                    v290 = *(v289 + 24);
+                    v292 = *(v289 + 32);
+                    sub_21A271A00();
                   }
 
                   else
                   {
-                    if (*(v288 + 144))
+                    if (*(v289 + 144))
                     {
                       if (qword_27CCFE7F0 == -1)
                       {
 LABEL_208:
-                        v294 = *(&xmmword_27CCFFB50 + 1);
-                        v293 = xmmword_27CCFFB50;
-                        v295 = qword_27CCFFB60;
+                        v294 = unk_27CCFFB50;
+                        v296 = *(&xmmword_27CCFFB58 + 1);
+                        v295 = xmmword_27CCFFB58;
                         goto LABEL_218;
                       }
 
 LABEL_226:
                       swift_once();
-                      v288 = v304;
+                      v289 = v305;
                       goto LABEL_208;
                     }
 
-                    v289 = *(v288 + 128);
-                    v291 = *(v288 + 136);
-                    v290 = *(v288 + 120);
-                    v292 = sub_21A27201C();
+                    v290 = *(v289 + 128);
+                    v292 = *(v289 + 136);
+                    v291 = *(v289 + 120);
+                    sub_21A27201C();
                   }
 
-                  v296 = v292;
-                  v297 = sub_21A188160(v290, v289, v291, v292);
-                  if (v298)
+                  v297 = v293;
+                  v298 = sub_21A188160(v291, v290, v292, v293);
+                  if (v299)
                   {
 LABEL_211:
-                    sub_21A18BFA8(v304, type metadata accessor for CookingSession);
+                    sub_21A18BFA8(v305, type metadata accessor for CookingSession);
 
                     if (qword_27CCFE7F0 != -1)
                     {
                       swift_once();
                     }
 
-                    v294 = *(&xmmword_27CCFFB50 + 1);
-                    v293 = xmmword_27CCFFB50;
-                    v295 = qword_27CCFFB60;
+                    v294 = unk_27CCFFB50;
+                    v296 = *(&xmmword_27CCFFB58 + 1);
+                    v295 = xmmword_27CCFFB58;
                     goto LABEL_219;
                   }
 
-                  v299 = v297 + 1;
-                  if (!__OFADD__(v297, 1))
+                  v300 = v298 + 1;
+                  if (!__OFADD__(v298, 1))
                   {
-                    if (v299 < 0 || v299 >= *(v296 + 16))
+                    if (v300 < 0 || v300 >= *(v297 + 16))
                     {
                       goto LABEL_211;
                     }
 
-                    v300 = (v296 + 24 * v299);
-                    v293 = v300[4];
-                    v294 = v300[5];
-                    v295 = v300[6];
-                    v288 = v304;
+                    v301 = (v297 + 24 * v300);
+                    v294 = v301[4];
+                    v295 = v301[5];
+                    v296 = v301[6];
+                    v289 = v305;
 
 LABEL_218:
-                    sub_21A18BFA8(v288, type metadata accessor for CookingSession);
+                    sub_21A18BFA8(v289, type metadata accessor for CookingSession);
 LABEL_219:
-                    *(v125 + 40) = v293;
-                    *(v125 + 48) = v294;
-                    *(v125 + 56) = v295;
+                    *(v125 + 40) = v294;
+                    *(v125 + 48) = v295;
+                    *(v125 + 56) = v296;
                     goto LABEL_220;
                   }
 
@@ -3456,7 +3463,7 @@ LABEL_225:
                 }
               }
 
-              sub_21A18BFA8(v305, type metadata accessor for CookingSession);
+              sub_21A18BFA8(v306, type metadata accessor for CookingSession);
 
 LABEL_201:
               if (qword_27CCFE7F0 != -1)
@@ -3464,9 +3471,9 @@ LABEL_201:
                 swift_once();
               }
 
-              v286 = *(&xmmword_27CCFFB50 + 1);
-              v285 = xmmword_27CCFFB50;
-              v287 = qword_27CCFFB60;
+              v286 = unk_27CCFFB50;
+              v288 = *(&xmmword_27CCFFB58 + 1);
+              v287 = xmmword_27CCFFB58;
               goto LABEL_204;
             }
 
@@ -3479,95 +3486,95 @@ LABEL_186:
         }
       }
 
-      v125 = v335;
+      v125 = v336;
 LABEL_180:
       if (qword_27CCFE770 != -1)
       {
         swift_once();
       }
 
-      v269 = sub_21A2F53E4();
-      sub_21A177CBC(v269, qword_27CCFF0B0);
-      v270 = v107;
-      v271 = v328;
-      sub_21A18C008(v270, v328, type metadata accessor for CookingSessionCommand);
-      v272 = sub_21A2F53C4();
-      v273 = sub_21A2F7DF4();
-      if (os_log_type_enabled(v272, v273))
+      v270 = sub_21A2F53E4();
+      sub_21A177CBC(v270, qword_27CCFF0B0);
+      v271 = v107;
+      v272 = v329;
+      sub_21A18C008(v271, v329, type metadata accessor for CookingSessionCommand);
+      v273 = sub_21A2F53C4();
+      v274 = sub_21A2F7DF4();
+      if (os_log_type_enabled(v273, v274))
       {
-        v274 = swift_slowAlloc();
         v275 = swift_slowAlloc();
-        v339 = v275;
-        *v274 = 136315138;
-        sub_21A18C008(v271, v334, type metadata accessor for CookingSessionCommand);
-        v276 = sub_21A2F7944();
-        v278 = v277;
-        sub_21A18BFA8(v271, type metadata accessor for CookingSessionCommand);
-        v279 = sub_21A25B5DC(v276, v278, &v339);
+        v276 = swift_slowAlloc();
+        v340 = v276;
+        *v275 = 136315138;
+        sub_21A18C008(v272, v335, type metadata accessor for CookingSessionCommand);
+        v277 = sub_21A2F7944();
+        v279 = v278;
+        sub_21A18BFA8(v272, type metadata accessor for CookingSessionCommand);
+        v280 = sub_21A25B5DC(v277, v279, &v340);
 
-        *(v274 + 4) = v279;
-        _os_log_impl(&dword_21A137000, v272, v273, "CookingSessionsSource did handle command: %s", v274, 0xCu);
-        sub_21A142808(v275);
+        *(v275 + 4) = v280;
+        _os_log_impl(&dword_21A137000, v273, v274, "CookingSessionsSource did handle command: %s", v275, 0xCu);
+        sub_21A142808(v276);
+        MEMORY[0x21CED7BA0](v276, -1, -1);
         MEMORY[0x21CED7BA0](v275, -1, -1);
-        MEMORY[0x21CED7BA0](v274, -1, -1);
       }
 
       else
       {
 
-        sub_21A18BFA8(v271, type metadata accessor for CookingSessionCommand);
+        sub_21A18BFA8(v272, type metadata accessor for CookingSessionCommand);
       }
 
-      v339 = v333;
-      sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource);
+      v340 = v334;
+      sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource, &unk_21A2FB4C0);
       sub_21A2F75C4();
       goto LABEL_186;
     }
 
     if (EnumCaseMultiPayload > 6)
     {
-      v125 = v335;
+      v125 = v336;
       if (EnumCaseMultiPayload == 7)
       {
-        if (*(v335 + 179) != 1)
+        if (*(v336 + 179) != 1)
         {
           goto LABEL_51;
         }
 
-        v152 = *v311;
-        if (!*(*v311 + 16) || (v153 = sub_21A261F58(v313, v105), (v154 & 1) == 0))
+        v152 = *v312;
+        if (!*(*v312 + 16) || (v153 = sub_21A261F58(v314, v105), (v154 & 1) == 0))
         {
           v155 = 1;
-          v129 = v318;
+          v129 = v319;
           goto LABEL_107;
         }
 
-        v136 = *(v152 + 56) + v153 * v303;
-        v129 = v318;
+        v136 = *(v152 + 56) + v153 * v304;
+        v129 = v319;
       }
 
       else
       {
         if (EnumCaseMultiPayload != 8)
         {
-          if ((*(v335 + 179) & 1) == 0)
+          if ((*(v336 + 179) & 1) == 0)
           {
-            v183 = *v311;
-            if (*(*v311 + 16) && (v184 = sub_21A261F58(v313, v105), (v185 & 1) != 0))
+            v183 = *v312;
+            if (*(*v312 + 16) && (v184 = sub_21A261F58(v314, v105), (v185 & 1) != 0))
             {
-              v129 = v321;
-              sub_21A18C008(*(v183 + 56) + v184 * v303, v321, type metadata accessor for CookingSession);
+              v129 = v322;
+              sub_21A18C008(*(v183 + 56) + v184 * v304, v322, type metadata accessor for CookingSession);
               v186 = 0;
             }
 
             else
             {
               v186 = 1;
-              v129 = v321;
+              v129 = v322;
             }
 
-            v213 = v310;
-            (*(v103 + 56))(v129, v186, 1, v310);
+            v213 = v311;
+            (*(v103 + 56))(v129, v186, 1, v311);
             if ((*(v103 + 48))(v129, 1, v213))
             {
               goto LABEL_174;
@@ -3580,25 +3587,25 @@ LABEL_180:
           goto LABEL_51;
         }
 
-        v132 = *v311;
-        v133 = *(*v311 + 16);
-        if (*(v335 + 179) != 1)
+        v132 = *v312;
+        v133 = *(*v312 + 16);
+        if (*(v336 + 179) != 1)
         {
-          if (v133 && (v177 = sub_21A261F58(v313, v105), (v178 & 1) != 0))
+          if (v133 && (v177 = sub_21A261F58(v314, v105), (v178 & 1) != 0))
           {
-            v129 = v320;
-            sub_21A18C008(*(v132 + 56) + v177 * v303, v320, type metadata accessor for CookingSession);
+            v129 = v321;
+            sub_21A18C008(*(v132 + 56) + v177 * v304, v321, type metadata accessor for CookingSession);
             v179 = 0;
           }
 
           else
           {
             v179 = 1;
-            v129 = v320;
+            v129 = v321;
           }
 
-          v212 = v310;
-          (*(v103 + 56))(v129, v179, 1, v310);
+          v212 = v311;
+          (*(v103 + 56))(v129, v179, 1, v311);
           if ((*(v103 + 48))(v129, 1, v212))
           {
             goto LABEL_174;
@@ -3608,22 +3615,22 @@ LABEL_180:
           goto LABEL_176;
         }
 
-        if (!v133 || (v134 = sub_21A261F58(v313, v105), (v135 & 1) == 0))
+        if (!v133 || (v134 = sub_21A261F58(v314, v105), (v135 & 1) == 0))
         {
           v155 = 1;
-          v129 = v319;
+          v129 = v320;
           goto LABEL_107;
         }
 
-        v136 = *(v132 + 56) + v134 * v303;
-        v129 = v319;
+        v136 = *(v132 + 56) + v134 * v304;
+        v129 = v320;
       }
 
       sub_21A18C008(v136, v129, type metadata accessor for CookingSession);
       v155 = 0;
 LABEL_107:
-      v211 = v310;
-      (*(v103 + 56))(v129, v155, 1, v310);
+      v211 = v311;
+      (*(v103 + 56))(v129, v155, 1, v311);
       if ((*(v103 + 48))(v129, 1, v211))
       {
         goto LABEL_174;
@@ -3633,20 +3640,20 @@ LABEL_107:
       goto LABEL_176;
     }
 
-    v125 = v335;
+    v125 = v336;
     if (EnumCaseMultiPayload != 5)
     {
-      v172 = *v311;
-      v173 = *(*v311 + 16);
-      if (*(v335 + 179) == 1)
+      v172 = *v312;
+      v173 = *(*v312 + 16);
+      if (*(v336 + 179) == 1)
       {
         if (v173)
         {
-          v174 = sub_21A261F58(v313, v105);
-          v129 = v316;
+          v174 = sub_21A261F58(v314, v105);
+          v129 = v317;
           if (v175)
           {
-            sub_21A18C008(*(v172 + 56) + v174 * v303, v316, type metadata accessor for CookingSession);
+            sub_21A18C008(*(v172 + 56) + v174 * v304, v317, type metadata accessor for CookingSession);
             v176 = 0;
           }
 
@@ -3659,12 +3666,12 @@ LABEL_107:
         else
         {
           v176 = 1;
-          v129 = v316;
+          v129 = v317;
         }
 
-        v265 = v310;
-        (*(v103 + 56))(v129, v176, 1, v310);
-        if (!(*(v103 + 48))(v129, 1, v265))
+        v266 = v311;
+        (*(v103 + 56))(v129, v176, 1, v311);
+        if (!(*(v103 + 48))(v129, 1, v266))
         {
           v129[180] = 1;
           goto LABEL_176;
@@ -3673,21 +3680,21 @@ LABEL_107:
         goto LABEL_174;
       }
 
-      if (v173 && (v208 = sub_21A261F58(v313, v105), (v209 & 1) != 0))
+      if (v173 && (v208 = sub_21A261F58(v314, v105), (v209 & 1) != 0))
       {
-        v129 = v317;
-        sub_21A18C008(*(v172 + 56) + v208 * v303, v317, type metadata accessor for CookingSession);
+        v129 = v318;
+        sub_21A18C008(*(v172 + 56) + v208 * v304, v318, type metadata accessor for CookingSession);
         v210 = 0;
       }
 
       else
       {
         v210 = 1;
-        v129 = v317;
+        v129 = v318;
       }
 
-      v214 = v310;
-      (*(v103 + 56))(v129, v210, 1, v310);
+      v214 = v311;
+      (*(v103 + 56))(v129, v210, 1, v311);
       if ((*(v103 + 48))(v129, 1, v214))
       {
         goto LABEL_174;
@@ -3697,16 +3704,16 @@ LABEL_107:
       goto LABEL_176;
     }
 
-    v141 = v307;
-    sub_21A18BF38(v123, v307);
-    v142 = v306;
-    sub_21A18C008(v125, v306, type metadata accessor for CookingSession);
+    v141 = v308;
+    sub_21A18BF38(v123, v308);
+    v142 = v307;
+    sub_21A18C008(v125, v307, type metadata accessor for CookingSession);
     if (*(v142 + 179))
     {
       v144 = *(v142 + 16);
       v143 = *(v142 + 24);
       v145 = *(v142 + 32);
-      v146 = sub_21A271A00();
+      sub_21A271A00();
     }
 
     else
@@ -3720,21 +3727,21 @@ LABEL_107:
       v143 = *(v142 + 128);
       v145 = *(v142 + 136);
       v144 = *(v142 + 120);
-      v146 = sub_21A27201C();
+      sub_21A27201C();
     }
 
     v241 = v146;
     v242 = sub_21A188160(v144, v143, v145, v146);
     if (v243)
     {
-      sub_21A18BFA8(v306, type metadata accessor for CookingSession);
+      sub_21A18BFA8(v307, type metadata accessor for CookingSession);
 
-      v141 = v307;
+      v141 = v308;
       goto LABEL_165;
     }
 
     v244 = v242 - 1;
-    v141 = v307;
+    v141 = v308;
     if (__OFSUB__(v242, 1))
     {
       goto LABEL_222;
@@ -3746,7 +3753,7 @@ LABEL_107:
       v246 = v245[4];
       v247 = v245[5];
       v248 = v245[6];
-      v249 = v306;
+      v249 = v307;
 
       sub_21A18BFA8(v249, type metadata accessor for CookingSession);
       v250 = *(v125 + 179) == 0;
@@ -3778,47 +3785,48 @@ LABEL_107:
 
       *(v125 + v253) = v248;
       *(v125 + v254) = 0;
-      v255 = v327;
-      sub_21A18C008(v125, v327, type metadata accessor for CookingSession);
-      (*(v312 + 56))(v255, 0, 1, v310);
-      v256 = v309;
-      sub_21A183960(v255, v309, &qword_27CCFEB38);
-      sub_21A2C4224(v256, v313, v105);
+      v255 = v328;
+      sub_21A18C008(v125, v328, type metadata accessor for CookingSession);
+      (*(v313 + 56))(v255, 0, 1, v311);
+      v256 = v310;
+      sub_21A183960(v255, v310, &qword_27CCFEB38, &unk_21A2FB5C0);
+      sub_21A2C4224(v256, v314, v105);
       v257 = v255;
-      v258 = v307;
-      sub_21A1427A8(v257, &qword_27CCFEB38);
-      v259 = v314;
-      sub_21A183960(v258, v314, &qword_27CCFF050);
-      v260 = sub_21A176C98(&qword_27CCFF070);
+      v258 = v308;
+      sub_21A1427A8(v257, &qword_27CCFEB38, &unk_21A2FB5C0);
+      v259 = v315;
+      sub_21A183960(v258, v315, &qword_27CCFF050, &unk_21A2FB5F0);
+      v260 = sub_21A176C98(&qword_27CCFF070, &qword_21A300A40);
       if ((*(*(v260 - 8) + 48))(v259, 1, v260) != 1)
       {
-        sub_21A176C98(&qword_27CCFF078);
+        sub_21A176C98(&qword_27CCFF078, &qword_21A2FB610);
         sub_21A2F7BF4();
-        sub_21A1427A8(v258, &qword_27CCFF050);
+        sub_21A1427A8(v258, &qword_27CCFF050, &unk_21A2FB5F0);
         v262 = &qword_27CCFF070;
+        v263 = &qword_21A300A40;
         v237 = v259;
         goto LABEL_179;
       }
 
-      sub_21A1427A8(v258, &qword_27CCFF050);
+      sub_21A1427A8(v258, &qword_27CCFF050, &unk_21A2FB5F0);
       v237 = v259;
       goto LABEL_167;
     }
 
-    sub_21A18BFA8(v306, type metadata accessor for CookingSession);
+    sub_21A18BFA8(v307, type metadata accessor for CookingSession);
 
 LABEL_164:
 
 LABEL_165:
-    v220 = v323;
-    sub_21A183960(v141, v323, &qword_27CCFF050);
-    v261 = sub_21A176C98(&qword_27CCFF070);
+    v220 = v324;
+    sub_21A183960(v141, v324, &qword_27CCFF050, &unk_21A2FB5F0);
+    v261 = sub_21A176C98(&qword_27CCFF070, &qword_21A300A40);
     if ((*(*(v261 - 8) + 48))(v220, 1, v261) != 1)
     {
       sub_21A18BE7C();
       v222 = swift_allocError();
       v223 = v222;
-      *v263 = 0;
+      *v264 = 0;
       goto LABEL_169;
     }
 
@@ -3834,21 +3842,21 @@ LABEL_11:
 
   v110 = sub_21A2F53E4();
   sub_21A177CBC(v110, qword_27CCFF0C8);
-  v111 = v336;
-  sub_21A18C008(v338, v336, type metadata accessor for CookingSessionCommand);
+  v111 = v337;
+  sub_21A18C008(v339, v337, type metadata accessor for CookingSessionCommand);
   v112 = sub_21A2F53C4();
   v113 = sub_21A2F7DD4();
   if (os_log_type_enabled(v112, v113))
   {
     v114 = swift_slowAlloc();
     v115 = swift_slowAlloc();
-    v339 = v115;
+    v340 = v115;
     *v114 = 136446210;
-    sub_21A18C008(v111, v334, type metadata accessor for CookingSessionCommand);
+    sub_21A18C008(v111, v335, type metadata accessor for CookingSessionCommand);
     v116 = sub_21A2F7944();
     v118 = v117;
     sub_21A18BFA8(v111, type metadata accessor for CookingSessionCommand);
-    v119 = sub_21A25B5DC(v116, v118, &v339);
+    v119 = sub_21A25B5DC(v116, v118, &v340);
 
     *(v114 + 4) = v119;
     _os_log_impl(&dword_21A137000, v112, v113, "Unable to handle command, no matching cooking session. command=%{public}s", v114, 0xCu);
@@ -3869,25 +3877,25 @@ LABEL_11:
   sub_21A187F64(v120);
 }
 
-uint64_t sub_21A1867C4(uint64_t a1)
+uint64_t sub_21A1867C4(uint64_t *a1)
 {
   v2 = v1;
-  v4 = sub_21A176C98(&qword_27CCFEB38);
+  v4 = sub_21A176C98(&qword_27CCFEB38, &unk_21A2FB5C0);
   MEMORY[0x28223BE20](v4 - 8, v5);
   v7 = v20 - v6;
-  v8 = sub_21A176C98(&qword_27CCFEB08);
+  v8 = sub_21A176C98(&qword_27CCFEB08, &qword_21A2FC200);
   MEMORY[0x28223BE20](v8 - 8, v9);
   v11 = v20 - v10;
   v13 = *a1;
-  v12 = *(a1 + 8);
-  if (*(a1 + 16))
+  v12 = a1[1];
+  if (a1[2])
   {
-    v14 = type metadata accessor for CookingSession();
+    v14 = type metadata accessor for CookingSession(0);
     (*(*(v14 - 8) + 56))(v7, 1, 1, v14);
     sub_21A2F5434();
     sub_21A2C4224(v7, v13, v12);
     v20[1] = v2;
-    sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource);
+    sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource, &unk_21A2FB4C0);
     return sub_21A2F75C4();
   }
 
@@ -3896,7 +3904,7 @@ uint64_t sub_21A1867C4(uint64_t a1)
     v16 = sub_21A2F7C64();
     (*(*(v16 - 8) + 56))(v11, 1, 1, v16);
     sub_21A2F7C34();
-    sub_21A18BD3C();
+    sub_21A18BD3C(v13, v12);
 
     v17 = sub_21A2F7C24();
     v18 = swift_allocObject();
@@ -3910,26 +3918,26 @@ uint64_t sub_21A1867C4(uint64_t a1)
   }
 }
 
-uint64_t sub_21A186A48(uint64_t a1)
+uint64_t sub_21A186A48(uint64_t *a1)
 {
   v2 = v1;
   v4 = *v2;
-  v5 = sub_21A176C98(&qword_27CCFEB38);
-  v7 = MEMORY[0x28223BE20](v5 - 8, v6);
-  v9 = v71 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x28223BE20](v7, v10);
-  v13 = v71 - v12;
-  v15 = MEMORY[0x28223BE20](v11, v14);
-  v17 = v71 - v16;
-  v19 = MEMORY[0x28223BE20](v15, v18);
-  v76 = v71 - v20;
-  MEMORY[0x28223BE20](v19, v21);
+  v5 = sub_21A176C98(&qword_27CCFEB38, &unk_21A2FB5C0);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v8 = v71 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9, v10);
+  v12 = v71 - v11;
+  MEMORY[0x28223BE20](v13, v14);
+  v16 = v71 - v15;
+  MEMORY[0x28223BE20](v17, v18);
+  v76 = v71 - v19;
+  MEMORY[0x28223BE20](v20, v21);
   v23 = v71 - v22;
   v24 = *a1;
-  v25 = *(a1 + 8);
+  v25 = a1[1];
   if (!*(a1 + 16))
   {
-    v75 = v17;
+    v75 = v16;
     v37 = v2[2];
     if (*(v37 + 16))
     {
@@ -3942,7 +3950,7 @@ uint64_t sub_21A186A48(uint64_t a1)
         v40 = v38;
         v73 = v4;
         v41 = *(v37 + 56);
-        v42 = type metadata accessor for CookingSession();
+        v42 = type metadata accessor for CookingSession(0);
         v43 = *(v42 - 8);
         sub_21A18C008(v41 + *(v43 + 72) * v40, v23, type metadata accessor for CookingSession);
         (*(v43 + 56))(v23, 0, 1, v42);
@@ -3950,7 +3958,7 @@ uint64_t sub_21A186A48(uint64_t a1)
 
       else
       {
-        v42 = type metadata accessor for CookingSession();
+        v42 = type metadata accessor for CookingSession(0);
         (*(*(v42 - 8) + 56))(v23, 1, 1, v42);
       }
 
@@ -3960,31 +3968,31 @@ uint64_t sub_21A186A48(uint64_t a1)
 
     else
     {
-      v42 = type metadata accessor for CookingSession();
+      v42 = type metadata accessor for CookingSession(0);
       (*(*(v42 - 8) + 56))(v23, 1, 1, v42);
       sub_21A2F5434();
     }
 
-    type metadata accessor for CookingSession();
+    type metadata accessor for CookingSession(0);
     if ((*(*(v42 - 8) + 48))(v23, 1, v42))
     {
       v67 = v76;
-      sub_21A183960(v23, v76, &qword_27CCFEB38);
+      sub_21A183960(v23, v76, &qword_27CCFEB38, &unk_21A2FB5C0);
       v68 = v75;
-      sub_21A183960(v67, v75, &qword_27CCFEB38);
+      sub_21A183960(v67, v75, &qword_27CCFEB38, &unk_21A2FB5C0);
       sub_21A2C4224(v68, v24, v25);
-      sub_21A1427A8(v67, &qword_27CCFEB38);
+      sub_21A1427A8(v67, &qword_27CCFEB38, &unk_21A2FB5C0);
     }
 
     else
     {
       v23[179] = 1;
       v69 = v76;
-      sub_21A183960(v23, v76, &qword_27CCFEB38);
+      sub_21A183960(v23, v76, &qword_27CCFEB38, &unk_21A2FB5C0);
       sub_21A2C4224(v69, v24, v25);
     }
 
-    sub_21A1427A8(v23, &qword_27CCFEB38);
+    sub_21A1427A8(v23, &qword_27CCFEB38, &unk_21A2FB5C0);
     goto LABEL_30;
   }
 
@@ -3994,11 +4002,11 @@ uint64_t sub_21A186A48(uint64_t a1)
     v2[2] = MEMORY[0x277D84F98];
 LABEL_30:
     v77 = v2;
-    sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource);
+    sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource, &unk_21A2FB4C0);
     return sub_21A2F75C4();
   }
 
-  v75 = v17;
+  v75 = v16;
   v27 = v2 + 2;
   v26 = v2[2];
   v28 = *(v26 + 16);
@@ -4011,49 +4019,49 @@ LABEL_30:
     {
       v31 = v29;
       v32 = *(v26 + 56);
-      v33 = type metadata accessor for CookingSession();
+      v33 = type metadata accessor for CookingSession(0);
       v34 = *(v33 - 8);
       v72 = v24;
       v35 = v25;
       v36 = v34;
-      sub_21A18C008(v32 + *(v34 + 72) * v31, v13, type metadata accessor for CookingSession);
-      (*(v36 + 56))(v13, 0, 1, v33);
+      sub_21A18C008(v32 + *(v34 + 72) * v31, v12, type metadata accessor for CookingSession);
+      (*(v36 + 56))(v12, 0, 1, v33);
       v25 = v35;
       v24 = v72;
     }
 
     else
     {
-      v33 = type metadata accessor for CookingSession();
-      (*(*(v33 - 8) + 56))(v13, 1, 1, v33);
+      v33 = type metadata accessor for CookingSession(0);
+      (*(*(v33 - 8) + 56))(v12, 1, 1, v33);
     }
   }
 
   else
   {
-    v33 = type metadata accessor for CookingSession();
-    (*(*(v33 - 8) + 56))(v13, 1, 1, v33);
+    v33 = type metadata accessor for CookingSession(0);
+    (*(*(v33 - 8) + 56))(v12, 1, 1, v33);
     sub_21A2F5434();
   }
 
-  type metadata accessor for CookingSession();
+  type metadata accessor for CookingSession(0);
   v72 = *(v33 - 8);
   v44 = *(v72 + 48);
   v45 = v72 + 48;
-  v46 = v44(v13, 1, v33);
+  v46 = v44(v12, 1, v33);
   v74 = v25;
   if (v46)
   {
     v47 = v24;
     v48 = v76;
-    sub_21A183960(v13, v76, &qword_27CCFEB38);
+    sub_21A183960(v12, v76, &qword_27CCFEB38, &unk_21A2FB5C0);
     v71[1] = v45;
     v49 = v33;
     v50 = v2;
     v51 = v44;
     v52 = v27;
     v53 = v75;
-    sub_21A183960(v48, v75, &qword_27CCFEB38);
+    sub_21A183960(v48, v75, &qword_27CCFEB38, &unk_21A2FB5C0);
     sub_21A2F5434();
     v54 = v53;
     v27 = v52;
@@ -4063,26 +4071,26 @@ LABEL_30:
     v55 = v25;
     v56 = v47;
     sub_21A2C4224(v54, v47, v55);
-    sub_21A1427A8(v48, &qword_27CCFEB38);
+    sub_21A1427A8(v48, &qword_27CCFEB38, &unk_21A2FB5C0);
   }
 
   else
   {
-    v13[179] = 0;
+    v12[179] = 0;
     v57 = v76;
-    sub_21A183960(v13, v76, &qword_27CCFEB38);
+    sub_21A183960(v12, v76, &qword_27CCFEB38, &unk_21A2FB5C0);
     sub_21A2F5434();
     v58 = v25;
     v56 = v24;
     sub_21A2C4224(v57, v24, v58);
   }
 
-  sub_21A1427A8(v13, &qword_27CCFEB38);
+  sub_21A1427A8(v12, &qword_27CCFEB38, &unk_21A2FB5C0);
   v59 = *v27;
   v60 = v72;
   if (*(*v27 + 16) && (v61 = sub_21A261F58(v56, v74), (v62 & 1) != 0))
   {
-    sub_21A18C008(*(v59 + 56) + *(v60 + 72) * v61, v9, type metadata accessor for CookingSession);
+    sub_21A18C008(*(v59 + 56) + *(v60 + 72) * v61, v8, type metadata accessor for CookingSession);
     v63 = 0;
   }
 
@@ -4091,41 +4099,41 @@ LABEL_30:
     v63 = 1;
   }
 
-  (*(v60 + 56))(v9, v63, 1, v33);
-  if (v44(v9, 1, v33))
+  (*(v60 + 56))(v8, v63, 1, v33);
+  if (v44(v8, 1, v33))
   {
     v64 = v76;
-    sub_21A183960(v9, v76, &qword_27CCFEB38);
+    sub_21A183960(v8, v76, &qword_27CCFEB38, &unk_21A2FB5C0);
     v65 = v75;
-    sub_21A183960(v64, v75, &qword_27CCFEB38);
+    sub_21A183960(v64, v75, &qword_27CCFEB38, &unk_21A2FB5C0);
     sub_21A2C4224(v65, v56, v74);
-    sub_21A1427A8(v64, &qword_27CCFEB38);
+    sub_21A1427A8(v64, &qword_27CCFEB38, &unk_21A2FB5C0);
   }
 
   else
   {
-    *(v9 + 15) = 0;
-    *(v9 + 16) = 0;
-    *(v9 + 17) = 0;
-    v9[144] = 1;
-    *(v9 + 20) = 0;
-    *(v9 + 21) = 0;
-    *(v9 + 19) = 0;
-    v9[176] = 1;
-    *(v9 + 12) = 0;
-    *(v9 + 13) = 0;
-    *(v9 + 11) = 0;
-    v9[112] = 1;
-    *(v9 + 177) = 1028;
-    v9[179] = 0;
+    *(v8 + 15) = 0;
+    *(v8 + 16) = 0;
+    *(v8 + 17) = 0;
+    v8[144] = 1;
+    *(v8 + 20) = 0;
+    *(v8 + 21) = 0;
+    *(v8 + 19) = 0;
+    v8[176] = 1;
+    *(v8 + 12) = 0;
+    *(v8 + 13) = 0;
+    *(v8 + 11) = 0;
+    v8[112] = 1;
+    *(v8 + 177) = 1028;
+    v8[179] = 0;
     v66 = v76;
-    sub_21A183960(v9, v76, &qword_27CCFEB38);
+    sub_21A183960(v8, v76, &qword_27CCFEB38, &unk_21A2FB5C0);
     sub_21A2C4224(v66, v56, v74);
   }
 
-  sub_21A1427A8(v9, &qword_27CCFEB38);
+  sub_21A1427A8(v8, &qword_27CCFEB38, &unk_21A2FB5C0);
   v77 = v2;
-  sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource);
+  sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource, &unk_21A2FB4C0);
   return sub_21A2F75C4();
 }
 
@@ -4134,12 +4142,12 @@ uint64_t sub_21A187334(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v6[6] = a5;
   v6[7] = a6;
   v6[5] = a4;
-  sub_21A176C98(&qword_27CCFEB38);
+  sub_21A176C98(&qword_27CCFEB38, &unk_21A2FB5C0);
   v6[8] = swift_task_alloc();
   v6[9] = swift_task_alloc();
-  sub_21A176C98(&qword_27CCFF048);
+  sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
   v6[10] = swift_task_alloc();
-  v9 = type metadata accessor for CookingSession();
+  v9 = type metadata accessor for CookingSession(0);
   v6[11] = v9;
   v6[12] = *(v9 - 8);
   v10 = swift_task_alloc();
@@ -4196,13 +4204,13 @@ uint64_t sub_21A187630()
   sub_21A18BE0C(v4, v1 + *(v3 + 60));
   sub_21A18C008(v1, v5, type metadata accessor for CookingSession);
   (*(v2 + 56))(v5, 0, 1, v3);
-  sub_21A183960(v5, v6, &qword_27CCFEB38);
+  sub_21A183960(v5, v6, &qword_27CCFEB38, &unk_21A2FB5C0);
   sub_21A2F5434();
   sub_21A2C4224(v6, v12, v7);
-  sub_21A1427A8(v5, &qword_27CCFEB38);
+  sub_21A1427A8(v5, &qword_27CCFEB38, &unk_21A2FB5C0);
   v0[4] = v8;
-  type metadata accessor for CookingSessionsSource();
-  sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource);
+  type metadata accessor for CookingSessionsSource(0);
+  sub_21A1525E0(&qword_2811B8760, type metadata accessor for CookingSessionsSource, &unk_21A2FB4C0);
   sub_21A2F75C4();
   sub_21A18BFA8(v1, type metadata accessor for CookingSession);
 
@@ -4215,7 +4223,7 @@ uint64_t sub_21A187888(uint64_t a1, uint64_t *a2)
 {
   v3[4] = a1;
   v3[5] = v2;
-  sub_21A176C98(&qword_27CCFEB38);
+  sub_21A176C98(&qword_27CCFEB38, &unk_21A2FB5C0);
   v5 = swift_task_alloc();
   v6 = *a2;
   v7 = a2[1];
@@ -4265,10 +4273,10 @@ uint64_t sub_21A187BE0()
 {
   v1 = v0[6];
 
-  v2 = type metadata accessor for CookingSession();
+  v2 = type metadata accessor for CookingSession(0);
   if ((*(*(v2 - 8) + 48))(v1, 1, v2) == 1)
   {
-    sub_21A1427A8(v0[6], &qword_27CCFEB38);
+    sub_21A1427A8(v0[6], &qword_27CCFEB38, &unk_21A2FB5C0);
     v3 = qword_27CCFE7F0;
     sub_21A2F5434();
     if (v3 != -1)
@@ -4279,10 +4287,10 @@ uint64_t sub_21A187BE0()
     v5 = v0[7];
     v4 = v0[8];
     v6 = v0[4];
-    v7 = qword_27CCFFB60;
+    v7 = *(&xmmword_27CCFFB58 + 1);
     v8 = *(v2 + 60);
-    v14 = xmmword_27CCFFB50;
-    v15 = *(&xmmword_27CCFFB50 + 8);
+    v14 = unk_27CCFFB50;
+    v15 = xmmword_27CCFFB58;
     v9 = sub_21A2F49B4();
     (*(*(v9 - 8) + 56))(v6 + v8, 1, 1, v9);
     *v6 = v5;
@@ -4353,34 +4361,36 @@ uint64_t sub_21A187F64(void *a1)
   v2 = v1;
   v4 = type metadata accessor for CookingSessionCommandAction(0);
   MEMORY[0x28223BE20](v4, v5);
-  v7 = v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_21A176C98(&qword_27CCFF050);
-  v10 = MEMORY[0x28223BE20](v8 - 8, v9);
-  v12 = v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10, v13);
-  v15 = v20 - v14;
+  v7 = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_21A176C98(&qword_27CCFF050, &unk_21A2FB5F0);
+  MEMORY[0x28223BE20](v8 - 8, v9);
+  v11 = v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12, v13);
+  v15 = v21 - v14;
   sub_21A18C008(v2, v7, type metadata accessor for CookingSessionCommandAction);
   result = swift_getEnumCaseMultiPayload();
   if ((result & 0xFFFFFFFE) == 4)
   {
     sub_21A18BF38(v7, v15);
-    sub_21A18BF38(v15, v12);
-    v17 = sub_21A176C98(&qword_27CCFF070);
-    if ((*(*(v17 - 8) + 48))(v12, 1, v17) == 1)
+    sub_21A18BF38(v15, v11);
+    v17 = sub_21A176C98(&qword_27CCFF070, &qword_21A300A40);
+    if ((*(*(v17 - 8) + 48))(v11, 1, v17) == 1)
     {
       v18 = &qword_27CCFF050;
+      v19 = &unk_21A2FB5F0;
     }
 
     else
     {
-      v20[1] = a1;
-      v19 = a1;
-      sub_21A176C98(&qword_27CCFF078);
+      v21[1] = a1;
+      v20 = a1;
+      sub_21A176C98(&qword_27CCFF078, &qword_21A2FB610);
       sub_21A2F7BE4();
       v18 = &qword_27CCFF070;
+      v19 = &qword_21A300A40;
     }
 
-    return sub_21A1427A8(v12, v18);
+    return sub_21A1427A8(v11, v18, v19);
   }
 
   return result;
@@ -4419,9 +4429,9 @@ uint64_t sub_21A1881BC()
   v2 = sub_21A2F7614();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = OBJC_IVAR____TtC10CookingKit21CookingSessionsSource__importedRecipes;
-  v4 = sub_21A176C98(&qword_27CCFF060);
+  v4 = sub_21A176C98(&qword_27CCFF060, &unk_21A2FB600);
   (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  sub_21A142808(v0 + OBJC_IVAR____TtC10CookingKit21CookingSessionsSource_cookingSessionsManager);
+  sub_21A142808((v0 + OBJC_IVAR____TtC10CookingKit21CookingSessionsSource_cookingSessionsManager));
 
   return swift_deallocClassInstance();
 }
@@ -4434,11 +4444,13 @@ uint64_t Catalog<>.mostRecentlyViewedSession()@<X0>(uint64_t a1@<X8>)
   {
     v4 = a1;
     v5 = sub_21A188B14(v3, 0);
-    v6 = *(type metadata accessor for CookingSession() - 8);
-    v7 = sub_21A18B67C(&v9, v5 + ((*(v6 + 80) + 32) & ~*(v6 + 80)), v3, v2);
+    v6 = *(type metadata accessor for CookingSession(0) - 8);
+    sub_21A18B67C(&v11, v5 + ((*(v6 + 80) + 32) & ~*(v6 + 80)), v3, v2);
+    v8 = v7;
+    v9 = v11;
     sub_21A2F5434();
-    result = sub_21A14B2F8();
-    if (v7 != v3)
+    result = sub_21A14B2F8(v9);
+    if (v8 != v3)
     {
       __break(1u);
       return result;
@@ -4455,12 +4467,12 @@ uint64_t Catalog<>.mostRecentlyViewedSession()@<X0>(uint64_t a1@<X8>)
   sub_21A1883D4(v5, a1);
 }
 
-uint64_t sub_21A1883D4@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_21A1883D4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = a1[2];
+  v3 = *(a1 + 16);
   if (v3 == 1)
   {
-    v11 = type metadata accessor for CookingSession();
+    v11 = type metadata accessor for CookingSession(0);
     v15 = *(v11 - 8);
     sub_21A18C008(a1 + ((*(v15 + 80) + 32) & ~*(v15 + 80)), a2, type metadata accessor for CookingSession);
     v6 = *(v15 + 56);
@@ -4477,9 +4489,9 @@ uint64_t sub_21A1883D4@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
       sub_21A2F5434();
       sub_21A188DB4(&v16);
       v4 = v16;
-      if (v16[2])
+      if (*(v16 + 16))
       {
-        v5 = type metadata accessor for CookingSession();
+        v5 = type metadata accessor for CookingSession(0);
         v14 = *(v5 - 8);
         sub_21A18C008(v4 + ((*(v14 + 80) + 32) & ~*(v14 + 80)), a2, type metadata accessor for CookingSession);
 
@@ -4491,7 +4503,7 @@ uint64_t sub_21A1883D4@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
       }
     }
 
-    v12 = type metadata accessor for CookingSession();
+    v12 = type metadata accessor for CookingSession(0);
     v6 = *(*(v12 - 8) + 56);
     v9 = v12;
     v7 = a2;
@@ -4517,7 +4529,7 @@ uint64_t RandomAccessCollection<>.mostRecentlyViewedSession()@<X0>(uint64_t a1@<
     if (*(v11 + 16))
     {
       v12 = v11;
-      v13 = type metadata accessor for CookingSession();
+      v13 = type metadata accessor for CookingSession(0);
       v15 = *(v13 - 8);
       sub_21A18C008(v12 + ((*(v15 + 80) + 32) & ~*(v15 + 80)), a3, type metadata accessor for CookingSession);
 
@@ -4529,7 +4541,7 @@ uint64_t RandomAccessCollection<>.mostRecentlyViewedSession()@<X0>(uint64_t a1@<
     }
 
 LABEL_2:
-    v6 = type metadata accessor for CookingSession();
+    v6 = type metadata accessor for CookingSession(0);
     v7 = *(*(v6 - 8) + 56);
     v8 = v6;
     v9 = a3;
@@ -4547,42 +4559,42 @@ uint64_t sub_21A18873C(void *a1, void *a2)
   v40 = a2;
   v3 = sub_21A2F49B4();
   v38 = *(v3 - 8);
-  v5 = MEMORY[0x28223BE20](v3, v4);
-  v37 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5, v7);
+  MEMORY[0x28223BE20](v3, v4);
+  v37 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v7);
   v39 = &v35 - v8;
-  v9 = sub_21A176C98(&qword_27CCFF048);
-  v11 = MEMORY[0x28223BE20](v9 - 8, v10);
-  v13 = &v35 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x28223BE20](v11, v14);
-  v17 = &v35 - v16;
-  v19 = MEMORY[0x28223BE20](v15, v18);
-  v21 = &v35 - v20;
-  MEMORY[0x28223BE20](v19, v22);
+  v9 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
+  MEMORY[0x28223BE20](v9 - 8, v10);
+  v12 = &v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13, v14);
+  v16 = &v35 - v15;
+  MEMORY[0x28223BE20](v17, v18);
+  v20 = &v35 - v19;
+  MEMORY[0x28223BE20](v21, v22);
   v24 = &v35 - v23;
-  v25 = type metadata accessor for CookingSession();
+  v25 = type metadata accessor for CookingSession(0);
   v26 = *(v25 + 60);
   v36 = a1;
   v27 = a1 + v26;
   v28 = v38;
-  sub_21A183960(v27, v24, &qword_27CCFF048);
-  sub_21A183960(v40 + *(v25 + 60), v21, &qword_27CCFF048);
-  sub_21A183960(v24, v17, &qword_27CCFF048);
+  sub_21A183960(v27, v24, &qword_27CCFF048, &qword_21A2FB5E0);
+  sub_21A183960(v40 + *(v25 + 60), v20, &qword_27CCFF048, &qword_21A2FB5E0);
+  sub_21A183960(v24, v16, &qword_27CCFF048, &qword_21A2FB5E0);
   v29 = v28[6];
-  if (v29(v17, 1, v3) == 1)
+  if (v29(v16, 1, v3) == 1)
   {
-    v13 = v17;
+    v12 = v16;
   }
 
   else
   {
     v35 = v28[4];
-    v35(v39, v17, v3);
-    sub_21A183960(v21, v13, &qword_27CCFF048);
-    if (v29(v13, 1, v3) != 1)
+    v35(v39, v16, v3);
+    sub_21A183960(v20, v12, &qword_27CCFF048, &qword_21A2FB5E0);
+    if (v29(v12, 1, v3) != 1)
     {
       v31 = v37;
-      v35(v37, v13, v3);
+      v35(v37, v12, v3);
       v32 = v39;
       v30 = sub_21A2F4944();
       v33 = v28[1];
@@ -4594,11 +4606,11 @@ uint64_t sub_21A18873C(void *a1, void *a2)
     (v28[1])(v39, v3);
   }
 
-  sub_21A1427A8(v13, &qword_27CCFF048);
+  sub_21A1427A8(v12, &qword_27CCFF048, &qword_21A2FB5E0);
   v30 = 1;
   if (v29(v24, 1, v3) == 1)
   {
-    if (v29(v21, 1, v3) != 1 || *v40 == *v36 && v40[1] == v36[1])
+    if (v29(v20, 1, v3) != 1 || *v40 == *v36 && v40[1] == v36[1])
     {
       v30 = 0;
     }
@@ -4610,12 +4622,12 @@ uint64_t sub_21A18873C(void *a1, void *a2)
   }
 
 LABEL_12:
-  sub_21A1427A8(v21, &qword_27CCFF048);
-  sub_21A1427A8(v24, &qword_27CCFF048);
+  sub_21A1427A8(v20, &qword_27CCFF048, &qword_21A2FB5E0);
+  sub_21A1427A8(v24, &qword_27CCFF048, &qword_21A2FB5E0);
   return v30 & 1;
 }
 
-size_t sub_21A188B14(uint64_t a1, uint64_t a2)
+void *sub_21A188B14(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
   {
@@ -4632,15 +4644,15 @@ size_t sub_21A188B14(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  sub_21A176C98(&qword_27CCFF0A8);
-  v4 = *(type metadata accessor for CookingSession() - 8);
+  sub_21A176C98(&qword_27CCFF0A8, &qword_21A2FB638);
+  v4 = *(type metadata accessor for CookingSession(0) - 8);
   v5 = *(v4 + 72);
   v6 = (*(v4 + 80) + 32) & ~*(v4 + 80);
   v7 = swift_allocObject();
   result = j__malloc_size(v7);
   if (v5)
   {
-    if (result - v6 != 0x8000000000000000 || v5 != -1)
+    if ((result - v6) != 0x8000000000000000 || v5 != -1)
     {
       v7[2] = a1;
       v7[3] = 2 * ((result - v6) / v5);
@@ -4674,7 +4686,7 @@ void *sub_21A188C10(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  sub_21A176C98(&qword_27CCFF0A0);
+  sub_21A176C98(&qword_27CCFF0A0, &qword_21A2FB630);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -4708,7 +4720,7 @@ void *sub_21A188C94(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  sub_21A176C98(&qword_27CCFF088);
+  sub_21A176C98(&qword_27CCFF088, &qword_21A2FB620);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -4742,7 +4754,7 @@ void *sub_21A188D1C(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  sub_21A176C98(&qword_27CCFF080);
+  sub_21A176C98(&qword_27CCFF080, &qword_21A2FB618);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -4752,9 +4764,9 @@ void *sub_21A188D1C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_21A188DB4(void **a1)
+void sub_21A188DB4(uint64_t *a1)
 {
-  v2 = *(type metadata accessor for CookingSession() - 8);
+  v2 = *(type metadata accessor for CookingSession(0) - 8);
   v3 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
@@ -4762,22 +4774,21 @@ uint64_t sub_21A188DB4(void **a1)
   }
 
   v4 = v3[2];
-  v6[0] = v3 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
-  v6[1] = v4;
-  result = sub_21A188E5C(v6);
+  v5[0] = v3 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
+  v5[1] = v4;
+  sub_21A188E5C(v5);
   *a1 = v3;
-  return result;
 }
 
-uint64_t sub_21A188E5C(uint64_t *a1)
+void sub_21A188E5C(uint64_t *a1)
 {
   v2 = a1[1];
-  result = sub_21A2F8344();
-  if (result < v2)
+  v3 = sub_21A2F8344();
+  if (v3 < v2)
   {
     if (v2 >= -1)
     {
-      v4 = result;
+      v4 = v3;
       v5 = v2 / 2;
       if (v2 <= 1)
       {
@@ -4786,22 +4797,24 @@ uint64_t sub_21A188E5C(uint64_t *a1)
 
       else
       {
-        type metadata accessor for CookingSession();
+        type metadata accessor for CookingSession(0);
         v6 = sub_21A2F7B74();
         *(v6 + 16) = v5;
       }
 
-      v7 = *(type metadata accessor for CookingSession() - 8);
-      v8[0] = v6 + ((*(v7 + 80) + 32) & ~*(v7 + 80));
+      v7 = *(type metadata accessor for CookingSession(0) - 8);
+      v8[0] = (v6 + ((*(v7 + 80) + 32) & ~*(v7 + 80)));
       v8[1] = v5;
       sub_21A189670(v8, v9, a1, v4);
       *(v6 + 16) = 0;
+
+      return;
     }
 
     __break(1u);
 LABEL_12:
     __break(1u);
-    return result;
+    return;
   }
 
   if (v2 < 0)
@@ -4811,234 +4824,230 @@ LABEL_12:
 
   if (v2)
   {
-    return sub_21A188F88(0, v2, 1, a1);
+    sub_21A188F88(0, v2, 1, a1);
   }
-
-  return result;
 }
 
-uint64_t sub_21A188F88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void sub_21A188F88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v83 = sub_21A2F49B4();
-  v8 = *(v83 - 8);
-  v10 = MEMORY[0x28223BE20](v83, v9);
-  v73 = &v66[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v10, v12);
-  v82 = &v66[-v13];
-  v14 = sub_21A176C98(&qword_27CCFF048);
-  v16 = MEMORY[0x28223BE20](v14 - 8, v15);
-  v81 = &v66[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v19 = MEMORY[0x28223BE20](v16, v18);
-  v84 = &v66[-v20];
-  v22 = MEMORY[0x28223BE20](v19, v21);
-  v90 = &v66[-v23];
-  MEMORY[0x28223BE20](v22, v24);
-  v76 = &v66[-v25];
-  v85 = type metadata accessor for CookingSession();
-  v27 = MEMORY[0x28223BE20](v85, v26);
-  v79 = &v66[-((v28 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v30 = MEMORY[0x28223BE20](v27, v29);
-  v89 = &v66[-v31];
-  result = MEMORY[0x28223BE20](v30, v32);
-  v88 = &v66[-v35];
-  v68 = a2;
+  v82 = sub_21A2F49B4();
+  v8 = *(v82 - 8);
+  MEMORY[0x28223BE20](v82, v9);
+  v72 = &v65[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v11, v12);
+  v81 = &v65[-v13];
+  v14 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
+  MEMORY[0x28223BE20](v14 - 8, v15);
+  v80 = &v65[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v17, v18);
+  v83 = &v65[-v19];
+  MEMORY[0x28223BE20](v20, v21);
+  v89 = &v65[-v22];
+  MEMORY[0x28223BE20](v23, v24);
+  v75 = &v65[-v25];
+  v84 = type metadata accessor for CookingSession(0);
+  MEMORY[0x28223BE20](v84, v26);
+  v78 = &v65[-((v27 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v28, v29);
+  v88 = &v65[-v30];
+  MEMORY[0x28223BE20](v31, v32);
+  v87 = &v65[-v34];
+  v67 = a2;
   if (a3 != a2)
   {
-    v36 = *a4;
-    v37 = *(v34 + 72);
-    v80 = (v8 + 48);
-    v38 = (v8 + 32);
-    v74 = (v8 + 8);
-    v39 = v36 + v37 * (a3 - 1);
-    v77 = -v37;
-    v78 = v36;
-    v40 = a1 - a3;
-    v67 = v37;
-    v41 = v36 + v37 * a3;
-    v42 = &qword_27CCFF048;
-    v75 = v38;
+    v35 = *a4;
+    v36 = *(v33 + 72);
+    v79 = (v8 + 48);
+    v37 = (v8 + 32);
+    v73 = (v8 + 8);
+    v38 = v35 + v36 * (a3 - 1);
+    v76 = -v36;
+    v77 = v35;
+    v39 = a1 - a3;
+    v66 = v36;
+    v40 = v35 + v36 * a3;
+    v41 = &qword_27CCFF048;
+    v74 = v37;
 LABEL_6:
-    v71 = v39;
-    v72 = a3;
-    v69 = v41;
-    v70 = v40;
-    v43 = v40;
-    v44 = v76;
-    v45 = &unk_21A2FB5E0;
+    v70 = v38;
+    v71 = a3;
+    v68 = v40;
+    v69 = v39;
+    v42 = v39;
+    v43 = v75;
+    v44 = &qword_21A2FB5E0;
     while (1)
     {
-      v86 = v43;
-      v87 = v41;
+      v85 = v42;
+      v86 = v40;
+      v45 = v87;
+      sub_21A18C008(v40, v87, type metadata accessor for CookingSession);
       v46 = v88;
-      sub_21A18C008(v41, v88, type metadata accessor for CookingSession);
-      v47 = v89;
-      sub_21A18C008(v39, v89, type metadata accessor for CookingSession);
-      v48 = v85;
-      sub_21A183960(v46 + *(v85 + 60), v44, v42);
-      sub_21A183960(v47 + *(v48 + 60), v90, v42);
-      v49 = v45;
-      v50 = v42;
-      v51 = v84;
-      sub_21A183960(v44, v84, v50);
-      v52 = *v80;
-      v53 = v44;
-      v54 = v83;
-      if ((*v80)(v51, 1, v83) != 1)
+      sub_21A18C008(v38, v88, type metadata accessor for CookingSession);
+      v47 = v84;
+      sub_21A183960(v45 + *(v84 + 60), v43, v41, v44);
+      sub_21A183960(v46 + *(v47 + 60), v89, v41, v44);
+      v48 = v44;
+      v49 = v41;
+      v50 = v83;
+      sub_21A183960(v43, v83, v49, v48);
+      v51 = *v79;
+      v52 = v43;
+      v53 = v82;
+      if ((*v79)(v50, 1, v82) != 1)
       {
-        v55 = *v75;
-        (*v75)(v82, v84, v54);
-        v56 = v81;
-        sub_21A183960(v90, v81, v50);
-        v45 = v49;
-        if (v52(v56, 1, v54) != 1)
+        v54 = *v74;
+        (*v74)(v81, v83, v53);
+        v55 = v80;
+        sub_21A183960(v89, v80, v49, v48);
+        v44 = v48;
+        if (v51(v55, 1, v53) != 1)
         {
-          v60 = v82;
-          v61 = v73;
-          v55(v73, v81, v54);
-          v62 = sub_21A2F4944();
-          v63 = *v74;
-          (*v74)(v61, v54);
-          v63(v60, v54);
-          v57 = v62;
-          v44 = v76;
-          v42 = &qword_27CCFF048;
+          v59 = v81;
+          v60 = v72;
+          v54(v72, v80, v53);
+          v61 = sub_21A2F4944();
+          v62 = *v73;
+          (*v73)(v60, v53);
+          v62(v59, v53);
+          v56 = v61;
+          v43 = v75;
+          v41 = &qword_27CCFF048;
           goto LABEL_17;
         }
 
-        (*v74)(v82, v54);
-        v51 = v81;
-        v53 = v76;
-        v50 = &qword_27CCFF048;
+        (*v73)(v81, v53);
+        v50 = v80;
+        v52 = v75;
+        v49 = &qword_27CCFF048;
       }
 
-      sub_21A1427A8(v51, v50);
-      v42 = v50;
-      if (v52(v53, 1, v54) != 1)
+      sub_21A1427A8(v50, v49, v48);
+      v41 = v49;
+      if (v51(v52, 1, v53) != 1)
       {
-        sub_21A1427A8(v90, v50);
-        sub_21A1427A8(v53, v50);
-        sub_21A18BFA8(v89, type metadata accessor for CookingSession);
-        result = sub_21A18BFA8(v88, type metadata accessor for CookingSession);
-        v44 = v53;
-        v45 = v49;
+        sub_21A1427A8(v89, v49, v48);
+        sub_21A1427A8(v52, v49, v48);
+        sub_21A18BFA8(v88, type metadata accessor for CookingSession);
+        sub_21A18BFA8(v87, type metadata accessor for CookingSession);
+        v43 = v52;
+        v44 = v48;
+        v57 = v85;
         v58 = v86;
-        v59 = v87;
         goto LABEL_18;
       }
 
-      if (v52(v90, 1, v54) != 1 || *v89 == *v88 && v89[1] == v88[1])
+      if (v51(v89, 1, v53) != 1 || *v88 == *v87 && v88[1] == v87[1])
       {
-        sub_21A1427A8(v90, v50);
-        sub_21A1427A8(v76, v50);
-        sub_21A18BFA8(v89, type metadata accessor for CookingSession);
-        result = sub_21A18BFA8(v88, type metadata accessor for CookingSession);
+        sub_21A1427A8(v89, v49, &qword_21A2FB5E0);
+        sub_21A1427A8(v75, v49, &qword_21A2FB5E0);
+        sub_21A18BFA8(v88, type metadata accessor for CookingSession);
+        sub_21A18BFA8(v87, type metadata accessor for CookingSession);
 LABEL_5:
-        a3 = v72 + 1;
-        v39 = v71 + v67;
-        v40 = v70 - 1;
-        v41 = v69 + v67;
-        if (v72 + 1 == v68)
+        a3 = v71 + 1;
+        v38 = v70 + v66;
+        v39 = v69 - 1;
+        v40 = v68 + v66;
+        if (v71 + 1 == v67)
         {
-          return result;
+          return;
         }
 
         goto LABEL_6;
       }
 
-      v57 = sub_21A2F8394();
-      v44 = v76;
-      v45 = &unk_21A2FB5E0;
+      v56 = sub_21A2F8394();
+      v43 = v75;
+      v44 = &qword_21A2FB5E0;
 LABEL_17:
+      v57 = v85;
       v58 = v86;
-      v59 = v87;
-      sub_21A1427A8(v90, v42);
-      sub_21A1427A8(v44, v42);
-      sub_21A18BFA8(v89, type metadata accessor for CookingSession);
-      result = sub_21A18BFA8(v88, type metadata accessor for CookingSession);
-      if ((v57 & 1) == 0)
+      sub_21A1427A8(v89, v41, v44);
+      sub_21A1427A8(v43, v41, v44);
+      sub_21A18BFA8(v88, type metadata accessor for CookingSession);
+      sub_21A18BFA8(v87, type metadata accessor for CookingSession);
+      if ((v56 & 1) == 0)
       {
         goto LABEL_5;
       }
 
 LABEL_18:
-      if (!v78)
+      if (!v77)
       {
         __break(1u);
-        return result;
+        return;
       }
 
-      v64 = v79;
-      sub_21A18BED0(v59, v79, type metadata accessor for CookingSession);
+      v63 = v78;
+      sub_21A18BED0(v58, v78, type metadata accessor for CookingSession);
       swift_arrayInitWithTakeFrontToBack();
-      result = sub_21A18BED0(v64, v39, type metadata accessor for CookingSession);
-      v39 += v77;
-      v41 = v59 + v77;
-      v65 = __CFADD__(v58, 1);
-      v43 = v58 + 1;
-      if (v65)
+      sub_21A18BED0(v63, v38, type metadata accessor for CookingSession);
+      v38 += v76;
+      v40 = v58 + v76;
+      v64 = __CFADD__(v57, 1);
+      v42 = v57 + 1;
+      if (v64)
       {
         goto LABEL_5;
       }
     }
   }
-
-  return result;
 }
 
-uint64_t sub_21A189670(unint64_t *a1, uint64_t a2, unint64_t a3, int64_t a4)
+void sub_21A189670(char **a1, uint64_t a2, unint64_t a3, int64_t a4)
 {
-  v191 = a1;
-  v227 = sub_21A2F49B4();
-  v6 = *(v227 - 8);
-  v8 = MEMORY[0x28223BE20](v227, v7);
-  v206 = &v187 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x28223BE20](v8, v10);
-  v218 = &v187 - v12;
-  v14 = MEMORY[0x28223BE20](v11, v13);
-  v193 = &v187 - v15;
-  MEMORY[0x28223BE20](v14, v16);
-  v18 = &v187 - v17;
-  v19 = sub_21A176C98(&qword_27CCFF048);
-  v21 = MEMORY[0x28223BE20](v19 - 8, v20);
-  v219 = &v187 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = MEMORY[0x28223BE20](v21, v23);
-  v222 = &v187 - v25;
-  v27 = MEMORY[0x28223BE20](v24, v26);
-  v226 = &v187 - v28;
-  v30 = MEMORY[0x28223BE20](v27, v29);
-  v223 = &v187 - v31;
-  v33 = MEMORY[0x28223BE20](v30, v32);
-  v35 = &v187 - v34;
-  v37 = MEMORY[0x28223BE20](v33, v36);
-  v204 = &v187 - v38;
-  v40 = MEMORY[0x28223BE20](v37, v39);
-  v211 = &v187 - v41;
-  MEMORY[0x28223BE20](v40, v42);
-  v44 = &v187 - v43;
-  v45 = type metadata accessor for CookingSession();
-  v203 = *(v45 - 8);
-  v47 = MEMORY[0x28223BE20](v45, v46);
-  v197 = &v187 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v50 = MEMORY[0x28223BE20](v47, v49);
-  v216 = &v187 - v51;
-  v53 = MEMORY[0x28223BE20](v50, v52);
-  v225 = (&v187 - v54);
-  v56 = MEMORY[0x28223BE20](v53, v55);
-  v224 = (&v187 - v57);
-  v59 = MEMORY[0x28223BE20](v56, v58);
-  v202 = &v187 - v60;
-  v62 = MEMORY[0x28223BE20](v59, v61);
-  v208 = (&v187 - v63);
-  v65 = MEMORY[0x28223BE20](v62, v64);
-  v189 = (&v187 - v66);
-  result = MEMORY[0x28223BE20](v65, v67);
-  v205 = a3;
+  v193 = a1;
+  v229 = sub_21A2F49B4();
+  v6 = *(v229 - 8);
+  MEMORY[0x28223BE20](v229, v7);
+  v208 = &v189 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9, v10);
+  v220 = &v189 - v11;
+  MEMORY[0x28223BE20](v12, v13);
+  v195 = &v189 - v14;
+  MEMORY[0x28223BE20](v15, v16);
+  v18 = &v189 - v17;
+  v19 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
+  MEMORY[0x28223BE20](v19 - 8, v20);
+  v221 = &v189 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v22, v23);
+  v224 = &v189 - v24;
+  MEMORY[0x28223BE20](v25, v26);
+  v228 = &v189 - v27;
+  MEMORY[0x28223BE20](v28, v29);
+  v225 = &v189 - v30;
+  MEMORY[0x28223BE20](v31, v32);
+  v34 = &v189 - v33;
+  MEMORY[0x28223BE20](v35, v36);
+  v206 = &v189 - v37;
+  MEMORY[0x28223BE20](v38, v39);
+  v213 = &v189 - v40;
+  MEMORY[0x28223BE20](v41, v42);
+  v44 = &v189 - v43;
+  v45 = type metadata accessor for CookingSession(0);
+  v205 = *(v45 - 8);
+  MEMORY[0x28223BE20](v45, v46);
+  v199 = &v189 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v48, v49);
+  v218 = &v189 - v50;
+  MEMORY[0x28223BE20](v51, v52);
+  v227 = (&v189 - v53);
+  MEMORY[0x28223BE20](v54, v55);
+  v226 = (&v189 - v56);
+  MEMORY[0x28223BE20](v57, v58);
+  v204 = &v189 - v59;
+  MEMORY[0x28223BE20](v60, v61);
+  v210 = (&v189 - v62);
+  MEMORY[0x28223BE20](v63, v64);
+  v191 = (&v189 - v65);
+  MEMORY[0x28223BE20](v66, v67);
+  v207 = a3;
   if (*(a3 + 8) < 1)
   {
     v73 = MEMORY[0x277D84F90];
 LABEL_120:
-    v6 = *v191;
-    if (!*v191)
+    v6 = *v193;
+    if (!*v193)
     {
       goto LABEL_160;
     }
@@ -5049,150 +5058,157 @@ LABEL_120:
       goto LABEL_154;
     }
 
-    result = a3;
+    v183 = a3;
 LABEL_123:
-    v228 = result;
-    a3 = *(result + 16);
+    v230 = v183;
+    a3 = *(v183 + 2);
     if (a3 >= 2)
     {
-      while (*v205)
+      while (*v207)
       {
-        v182 = *(result + 16 * a3);
-        v183 = result;
-        v184 = *(result + 16 * (a3 - 1) + 40);
-        v185 = v210;
-        sub_21A18A95C(*v205 + *(v203 + 72) * v182, *v205 + *(v203 + 72) * *(result + 16 * (a3 - 1) + 32), *v205 + *(v203 + 72) * v184, v6);
-        v210 = v185;
-        if (v185)
+        v184 = *&v183[16 * a3];
+        v185 = v183;
+        v186 = *&v183[16 * a3 + 24];
+        v187 = v212;
+        sub_21A18A95C((*v207 + *(v205 + 72) * v184), (*v207 + *(v205 + 72) * *&v183[16 * a3 + 16]), (*v207 + *(v205 + 72) * v186), v6);
+        v212 = v187;
+        if (v187)
         {
+          goto LABEL_131;
         }
 
-        if (v184 < v182)
+        if (v186 < v184)
         {
           goto LABEL_147;
         }
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v183 = sub_21A1C7168(v183);
+          v185 = sub_21A1C7168(v185);
         }
 
-        if (a3 - 2 >= *(v183 + 2))
+        if (a3 - 2 >= *(v185 + 2))
         {
           goto LABEL_148;
         }
 
-        v186 = &v183[16 * a3];
-        *v186 = v182;
-        *(v186 + 1) = v184;
-        v228 = v183;
+        v188 = &v185[16 * a3];
+        *v188 = v184;
+        *(v188 + 1) = v186;
+        v230 = v185;
         sub_21A1C70DC(a3 - 1);
-        result = v228;
-        a3 = *(v228 + 16);
+        v183 = v230;
+        a3 = *(v230 + 2);
         if (a3 <= 1)
         {
+          goto LABEL_131;
         }
       }
 
       goto LABEL_158;
     }
+
+LABEL_131:
+
+    return;
   }
 
   v70 = *(a3 + 8);
-  v188 = (&v187 - v69);
-  v209 = v44;
-  v187 = a4;
+  v190 = (&v189 - v69);
+  v211 = v44;
+  v189 = a4;
   v71 = 0;
   v72 = (v6 + 48);
-  v212 = (v6 + 8);
-  v213 = (v6 + 32);
+  v214 = (v6 + 8);
+  v215 = (v6 + 32);
   v73 = MEMORY[0x277D84F90];
-  v196 = v18;
-  v74 = v223;
-  v195 = v35;
-  v220 = result;
-  v75 = v202;
-  v221 = (v6 + 48);
-  v76 = result;
+  v198 = v18;
+  v74 = v225;
+  v197 = v34;
+  v222 = v68;
+  v75 = v204;
+  v223 = (v6 + 48);
+  v76 = v68;
   while (1)
   {
-    v192 = v73;
+    v194 = v73;
     if (v71 + 1 >= v70)
     {
       v85 = v71 + 1;
       goto LABEL_35;
     }
 
-    v207 = v70;
-    v77 = *v205;
-    v78 = *(v203 + 72);
-    a3 = *v205 + v78 * (v71 + 1);
+    v209 = v70;
+    v77 = *v207;
+    v78 = *(v205 + 72);
+    a3 = *v207 + v78 * (v71 + 1);
     v79 = v71;
-    v80 = v188;
-    sub_21A18C008(a3, v188, type metadata accessor for CookingSession);
-    v81 = v189;
-    sub_21A18C008(v77 + v78 * v79, v189, type metadata accessor for CookingSession);
-    v82 = v210;
-    LODWORD(v215) = sub_21A18873C(v80, v81);
-    v210 = v82;
+    v80 = v190;
+    sub_21A18C008(a3, v190, type metadata accessor for CookingSession);
+    v81 = v191;
+    sub_21A18C008(v77 + v78 * v79, v191, type metadata accessor for CookingSession);
+    v82 = v212;
+    LODWORD(v217) = sub_21A18873C(v80, v81);
+    v212 = v82;
     if (v82)
     {
       sub_21A18BFA8(v81, type metadata accessor for CookingSession);
       sub_21A18BFA8(v80, type metadata accessor for CookingSession);
+      goto LABEL_131;
     }
 
     sub_21A18BFA8(v81, type metadata accessor for CookingSession);
-    result = sub_21A18BFA8(v80, type metadata accessor for CookingSession);
-    v190 = v79;
+    sub_21A18BFA8(v80, type metadata accessor for CookingSession);
+    v192 = v79;
     v6 = v79 + 2;
     v83 = v77 + v78 * v6;
-    v201 = v78;
+    v203 = v78;
     while (1)
     {
-      v85 = v207;
-      if (v207 == v6)
+      v85 = v209;
+      if (v209 == v6)
       {
         break;
       }
 
-      v86 = v208;
-      sub_21A18C008(v83, v208, type metadata accessor for CookingSession);
-      v217 = a3;
+      v86 = v210;
+      sub_21A18C008(v83, v210, type metadata accessor for CookingSession);
+      v219 = a3;
       sub_21A18C008(a3, v75, type metadata accessor for CookingSession);
       v87 = v72;
-      v88 = v209;
-      sub_21A183960(v86 + *(v76 + 60), v209, &qword_27CCFF048);
-      sub_21A183960(v75 + *(v76 + 60), v211, &qword_27CCFF048);
-      v89 = v204;
-      sub_21A183960(v88, v204, &qword_27CCFF048);
+      v88 = v211;
+      sub_21A183960(v86 + *(v76 + 60), v211, &qword_27CCFF048, &qword_21A2FB5E0);
+      sub_21A183960(v75 + *(v76 + 60), v213, &qword_27CCFF048, &qword_21A2FB5E0);
+      v89 = v206;
+      sub_21A183960(v88, v206, &qword_27CCFF048, &qword_21A2FB5E0);
       v90 = *v87;
-      if ((*v87)(v89, 1, v227) == 1)
+      if ((*v87)(v89, 1, v229) == 1)
       {
         goto LABEL_13;
       }
 
-      v91 = v196;
-      v92 = v227;
-      v214 = *v213;
-      v214(v196, v204, v227);
-      v89 = v195;
-      sub_21A183960(v211, v195, &qword_27CCFF048);
+      v91 = v198;
+      v92 = v229;
+      v216 = *v215;
+      v216(v198, v206, v229);
+      v89 = v197;
+      sub_21A183960(v213, v197, &qword_27CCFF048, &qword_21A2FB5E0);
       if (v90(v89, 1, v92) == 1)
       {
-        (*v212)(v91, v227);
-        v88 = v209;
-        v87 = v221;
-        v78 = v201;
+        (*v214)(v91, v229);
+        v88 = v211;
+        v87 = v223;
+        v78 = v203;
 LABEL_13:
-        sub_21A1427A8(v89, &qword_27CCFF048);
+        sub_21A1427A8(v89, &qword_27CCFF048, &qword_21A2FB5E0);
         v84 = 1;
-        v93 = v90(v88, 1, v227);
-        v76 = v220;
-        v75 = v202;
+        v93 = v90(v88, 1, v229);
+        v76 = v222;
+        v75 = v204;
         v72 = v87;
         if (v93 == 1)
         {
-          if (v90(v211, 1, v227) != 1 || *v75 == *v208 && v75[1] == v208[1])
+          if (v90(v213, 1, v229) != 1 || *v75 == *v210 && v75[1] == v210[1])
           {
             v84 = 0;
           }
@@ -5207,65 +5223,65 @@ LABEL_13:
       }
 
       v94 = v91;
-      v95 = v193;
+      v95 = v195;
       v96 = v89;
-      v97 = v227;
-      v214(v193, v96, v227);
+      v97 = v229;
+      v216(v195, v96, v229);
       v84 = sub_21A2F4944();
-      v98 = *v212;
-      (*v212)(v95, v97);
+      v98 = *v214;
+      (*v214)(v95, v97);
       v98(v94, v97);
-      v76 = v220;
-      v72 = v221;
-      v75 = v202;
-      v78 = v201;
+      v76 = v222;
+      v72 = v223;
+      v75 = v204;
+      v78 = v203;
 LABEL_8:
-      sub_21A1427A8(v211, &qword_27CCFF048);
-      sub_21A1427A8(v209, &qword_27CCFF048);
+      sub_21A1427A8(v213, &qword_27CCFF048, &qword_21A2FB5E0);
+      sub_21A1427A8(v211, &qword_27CCFF048, &qword_21A2FB5E0);
       sub_21A18BFA8(v75, type metadata accessor for CookingSession);
-      result = sub_21A18BFA8(v208, type metadata accessor for CookingSession);
+      sub_21A18BFA8(v210, type metadata accessor for CookingSession);
       ++v6;
       v83 += v78;
-      a3 = v217 + v78;
-      if ((v215 ^ v84))
+      a3 = &v219[v78];
+      if ((v217 ^ v84))
       {
         v85 = v6 - 1;
         break;
       }
     }
 
-    v74 = v223;
-    v71 = v190;
-    v73 = v192;
-    if ((v215 & 1) == 0)
+    v74 = v225;
+    v71 = v192;
+    v73 = v194;
+    if ((v217 & 1) == 0)
     {
       goto LABEL_35;
     }
 
-    if (v85 < v190)
+    if (v85 < v192)
     {
       goto LABEL_153;
     }
 
-    if (v190 < v85)
+    if (v192 < v85)
     {
       v6 = v78 * (v85 - 1);
       v99 = v85;
       v100 = v85 * v78;
-      v207 = v85;
-      v101 = v190;
-      v102 = v190 * v78;
+      v209 = v85;
+      v101 = v192;
+      v102 = v192 * v78;
       do
       {
         if (v101 != --v99)
         {
-          a3 = *v205;
-          if (!*v205)
+          a3 = *v207;
+          if (!*v207)
           {
             goto LABEL_157;
           }
 
-          sub_21A18BED0(a3 + v102, v197, type metadata accessor for CookingSession);
+          sub_21A18BED0(a3 + v102, v199, type metadata accessor for CookingSession);
           if (v102 < v6 || a3 + v102 >= a3 + v100)
           {
             swift_arrayInitWithTakeFrontToBack();
@@ -5276,7 +5292,7 @@ LABEL_8:
             swift_arrayInitWithTakeBackToFront();
           }
 
-          result = sub_21A18BED0(v197, a3 + v6, type metadata accessor for CookingSession);
+          sub_21A18BED0(v199, a3 + v6, type metadata accessor for CookingSession);
         }
 
         ++v101;
@@ -5286,16 +5302,16 @@ LABEL_8:
       }
 
       while (v101 < v99);
-      v74 = v223;
-      v73 = v192;
-      v76 = v220;
-      v72 = v221;
-      v71 = v190;
-      v85 = v207;
+      v74 = v225;
+      v73 = v194;
+      v76 = v222;
+      v72 = v223;
+      v71 = v192;
+      v85 = v209;
     }
 
 LABEL_35:
-    v103 = v205[1];
+    v103 = v207[1];
     if (v85 >= v103)
     {
       goto LABEL_44;
@@ -5306,7 +5322,7 @@ LABEL_35:
       goto LABEL_150;
     }
 
-    if (v85 - v71 >= v187)
+    if (v85 - v71 >= v189)
     {
 LABEL_44:
       a3 = v85;
@@ -5318,19 +5334,19 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    if (__OFADD__(v71, v187))
+    if (__OFADD__(v71, v189))
     {
       goto LABEL_151;
     }
 
-    if (v71 + v187 >= v103)
+    if (v71 + v189 >= v103)
     {
-      a3 = v205[1];
+      a3 = v207[1];
     }
 
     else
     {
-      a3 = v71 + v187;
+      a3 = v71 + v189;
     }
 
     if (a3 < v71)
@@ -5340,7 +5356,7 @@ LABEL_152:
 LABEL_153:
       __break(1u);
 LABEL_154:
-      result = sub_21A1C7168(a3);
+      v183 = sub_21A1C7168(a3);
       goto LABEL_123;
     }
 
@@ -5349,120 +5365,118 @@ LABEL_154:
       goto LABEL_44;
     }
 
-    v153 = v76;
-    v154 = *v205;
-    v155 = *(v203 + 72);
-    v156 = *v205 + v155 * (v85 - 1);
-    v214 = -v155;
-    v190 = v71;
-    v157 = v71 - v85;
-    v215 = v154;
-    v194 = v155;
-    v158 = v154 + v85 * v155;
-    v198 = a3;
+    v154 = v76;
+    v155 = *v207;
+    v156 = *(v205 + 72);
+    v157 = *v207 + v156 * (v85 - 1);
+    v216 = -v156;
+    v192 = v71;
+    v158 = (v71 - v85);
+    v217 = v155;
+    v196 = v156;
+    v159 = v155 + v85 * v156;
+    v200 = a3;
 LABEL_99:
-    v207 = v85;
-    v199 = v158;
-    v159 = v158;
-    v200 = v157;
-    v6 = v157;
-    v201 = v156;
-    v160 = v156;
+    v209 = v85;
+    v201 = v159;
+    v160 = v159;
+    v202 = v158;
+    v6 = v158;
+    v203 = v157;
+    v161 = v157;
 LABEL_100:
-    v161 = v224;
-    sub_21A18C008(v159, v224, type metadata accessor for CookingSession);
-    v162 = v225;
-    sub_21A18C008(v160, v225, type metadata accessor for CookingSession);
-    v163 = v161 + *(v153 + 60);
-    v72 = v221;
-    sub_21A183960(v163, v74, &qword_27CCFF048);
-    sub_21A183960(v162 + *(v153 + 60), v226, &qword_27CCFF048);
-    v164 = v74;
+    v162 = v226;
+    sub_21A18C008(v160, v226, type metadata accessor for CookingSession);
+    v163 = v227;
+    sub_21A18C008(v161, v227, type metadata accessor for CookingSession);
+    v164 = v162 + *(v154 + 60);
+    v72 = v223;
+    sub_21A183960(v164, v74, &qword_27CCFF048, &qword_21A2FB5E0);
+    sub_21A183960(v163 + *(v154 + 60), v228, &qword_27CCFF048, &qword_21A2FB5E0);
     v165 = v74;
-    v166 = v222;
-    sub_21A183960(v164, v222, &qword_27CCFF048);
-    v167 = *v72;
-    if ((*v72)(v166, 1, v227) != 1)
+    v166 = v74;
+    v167 = v224;
+    sub_21A183960(v165, v224, &qword_27CCFF048, &qword_21A2FB5E0);
+    v168 = *v72;
+    if ((*v72)(v167, 1, v229) != 1)
     {
       break;
     }
 
 LABEL_103:
-    sub_21A1427A8(v166, &qword_27CCFF048);
-    v74 = v165;
-    if (v167(v165, 1, v227) != 1)
+    sub_21A1427A8(v167, &qword_27CCFF048, &qword_21A2FB5E0);
+    v74 = v166;
+    if (v168(v166, 1, v229) != 1)
     {
-      sub_21A1427A8(v226, &qword_27CCFF048);
-      sub_21A1427A8(v165, &qword_27CCFF048);
-      sub_21A18BFA8(v225, type metadata accessor for CookingSession);
-      result = sub_21A18BFA8(v224, type metadata accessor for CookingSession);
+      sub_21A1427A8(v228, &qword_27CCFF048, &qword_21A2FB5E0);
+      sub_21A1427A8(v166, &qword_27CCFF048, &qword_21A2FB5E0);
+      sub_21A18BFA8(v227, type metadata accessor for CookingSession);
+      sub_21A18BFA8(v226, type metadata accessor for CookingSession);
       goto LABEL_111;
     }
 
-    if (v167(v226, 1, v227) == 1 && (*v225 != *v224 || v225[1] != v224[1]))
+    if (v168(v228, 1, v229) == 1 && (*v227 != *v226 || v227[1] != v226[1]))
     {
-      v173 = sub_21A2F8394();
+      v174 = sub_21A2F8394();
       goto LABEL_110;
     }
 
-    v6 = &unk_21A2FB5E0;
-    sub_21A1427A8(v226, &qword_27CCFF048);
-    sub_21A1427A8(v165, &qword_27CCFF048);
-    sub_21A18BFA8(v225, type metadata accessor for CookingSession);
-    sub_21A18BFA8(v224, type metadata accessor for CookingSession);
+    v6 = &qword_21A2FB5E0;
+    sub_21A1427A8(v228, &qword_27CCFF048, &qword_21A2FB5E0);
+    sub_21A1427A8(v166, &qword_27CCFF048, &qword_21A2FB5E0);
+    sub_21A18BFA8(v227, type metadata accessor for CookingSession);
+    sub_21A18BFA8(v226, type metadata accessor for CookingSession);
 LABEL_97:
-    v153 = v220;
+    v154 = v222;
 LABEL_98:
-    v85 = v207 + 1;
-    v156 = v201 + v194;
-    v157 = v200 - 1;
-    v158 = v199 + v194;
-    a3 = v198;
-    if (v207 + 1 != v198)
+    v85 = (v209 + 1);
+    v157 = v203 + v196;
+    v158 = v202 - 1;
+    v159 = v201 + v196;
+    a3 = v200;
+    if (v209 + 1 != v200)
     {
       goto LABEL_99;
     }
 
-    v73 = v192;
-    v75 = v202;
-    v76 = v153;
-    v71 = v190;
-    if (v198 < v190)
+    v73 = v194;
+    v75 = v204;
+    v76 = v154;
+    v71 = v192;
+    if (v200 < v192)
     {
       goto LABEL_149;
     }
 
 LABEL_45:
     v104 = v73;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    v198 = a3;
-    if (result)
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v200 = a3;
+    if (isUniquelyReferenced_nonNull_native)
     {
       v73 = v104;
     }
 
     else
     {
-      result = sub_21A1B7214(0, *(v104 + 16) + 1, 1, v104);
-      v73 = result;
+      v73 = sub_21A1B7214(0, *(v104 + 2) + 1, 1, v104);
     }
 
-    v6 = *(v73 + 16);
-    v105 = *(v73 + 24);
+    v6 = *(v73 + 2);
+    v106 = *(v73 + 3);
     a3 = v6 + 1;
-    if (v6 >= v105 >> 1)
+    if (v6 >= v106 >> 1)
     {
-      result = sub_21A1B7214((v105 > 1), v6 + 1, 1, v73);
-      v73 = result;
+      v73 = sub_21A1B7214((v106 > 1), v6 + 1, 1, v73);
     }
 
-    *(v73 + 16) = a3;
-    v106 = v73 + 16 * v6;
-    v107 = v198;
-    *(v106 + 32) = v71;
-    *(v106 + 40) = v107;
-    v217 = *v191;
-    if (!v217)
+    *(v73 + 2) = a3;
+    v107 = &v73[16 * v6];
+    v108 = v200;
+    *(v107 + 4) = v71;
+    *(v107 + 5) = v108;
+    v219 = *v193;
+    if (!v219)
     {
       goto LABEL_159;
     }
@@ -5471,7 +5485,7 @@ LABEL_45:
     {
       while (1)
       {
-        v108 = a3 - 1;
+        v109 = a3 - 1;
         if (a3 >= 4)
         {
           break;
@@ -5479,48 +5493,48 @@ LABEL_45:
 
         if (a3 == 3)
         {
-          v109 = *(v73 + 32);
-          v110 = *(v73 + 40);
-          v119 = __OFSUB__(v110, v109);
-          v111 = v110 - v109;
-          v112 = v119;
+          v110 = *(v73 + 4);
+          v111 = *(v73 + 5);
+          v120 = __OFSUB__(v111, v110);
+          v112 = v111 - v110;
+          v113 = v120;
 LABEL_64:
-          if (v112)
+          if (v113)
           {
             goto LABEL_138;
           }
 
-          v125 = (v73 + 16 * a3);
-          v127 = *v125;
-          v126 = v125[1];
-          v128 = __OFSUB__(v126, v127);
-          v129 = v126 - v127;
-          v130 = v128;
-          if (v128)
+          v126 = &v73[16 * a3];
+          v128 = *v126;
+          v127 = *(v126 + 1);
+          v129 = __OFSUB__(v127, v128);
+          v130 = v127 - v128;
+          v131 = v129;
+          if (v129)
           {
             goto LABEL_141;
           }
 
-          v131 = (v73 + 32 + 16 * v108);
-          v133 = *v131;
-          v132 = v131[1];
-          v119 = __OFSUB__(v132, v133);
-          v134 = v132 - v133;
-          if (v119)
+          v132 = &v73[16 * v109 + 32];
+          v134 = *v132;
+          v133 = *(v132 + 1);
+          v120 = __OFSUB__(v133, v134);
+          v135 = v133 - v134;
+          if (v120)
           {
             goto LABEL_144;
           }
 
-          if (__OFADD__(v129, v134))
+          if (__OFADD__(v130, v135))
           {
             goto LABEL_145;
           }
 
-          if (v129 + v134 >= v111)
+          if (v130 + v135 >= v112)
           {
-            if (v111 < v134)
+            if (v112 < v135)
             {
-              v108 = a3 - 2;
+              v109 = a3 - 2;
             }
 
             goto LABEL_85;
@@ -5529,36 +5543,36 @@ LABEL_64:
           goto LABEL_78;
         }
 
-        v135 = (v73 + 16 * a3);
-        v137 = *v135;
-        v136 = v135[1];
-        v119 = __OFSUB__(v136, v137);
-        v129 = v136 - v137;
-        v130 = v119;
+        v136 = &v73[16 * a3];
+        v138 = *v136;
+        v137 = *(v136 + 1);
+        v120 = __OFSUB__(v137, v138);
+        v130 = v137 - v138;
+        v131 = v120;
 LABEL_78:
-        if (v130)
+        if (v131)
         {
           goto LABEL_140;
         }
 
-        v138 = v73 + 16 * v108;
-        v140 = *(v138 + 32);
-        v139 = *(v138 + 40);
-        v119 = __OFSUB__(v139, v140);
-        v141 = v139 - v140;
-        if (v119)
+        v139 = &v73[16 * v109];
+        v141 = *(v139 + 4);
+        v140 = *(v139 + 5);
+        v120 = __OFSUB__(v140, v141);
+        v142 = v140 - v141;
+        if (v120)
         {
           goto LABEL_143;
         }
 
-        if (v141 < v129)
+        if (v142 < v130)
         {
           goto LABEL_3;
         }
 
 LABEL_85:
-        v6 = v108 - 1;
-        if (v108 - 1 >= a3)
+        v6 = v109 - 1;
+        if (v109 - 1 >= a3)
         {
           __break(1u);
 LABEL_134:
@@ -5600,110 +5614,111 @@ LABEL_151:
           goto LABEL_152;
         }
 
-        if (!*v205)
+        if (!*v207)
         {
           goto LABEL_156;
         }
 
-        v146 = v75;
-        v147 = v76;
-        v148 = v73;
-        a3 = *(v73 + 32 + 16 * v6);
-        v149 = *(v73 + 32 + 16 * v108 + 8);
-        v150 = v210;
-        sub_21A18A95C(*v205 + *(v203 + 72) * a3, *v205 + *(v203 + 72) * *(v73 + 32 + 16 * v108), *v205 + *(v203 + 72) * v149, v217);
-        v210 = v150;
-        if (v150)
+        v147 = v75;
+        v148 = v76;
+        v149 = v73;
+        a3 = *&v73[16 * v6 + 32];
+        v150 = *&v73[16 * v109 + 40];
+        v151 = v212;
+        sub_21A18A95C((*v207 + *(v205 + 72) * a3), (*v207 + *(v205 + 72) * *&v73[16 * v109 + 32]), (*v207 + *(v205 + 72) * v150), v219);
+        v212 = v151;
+        if (v151)
         {
+          goto LABEL_131;
         }
 
-        if (v149 < a3)
+        if (v150 < a3)
         {
           goto LABEL_134;
         }
 
         if (swift_isUniquelyReferenced_nonNull_native())
         {
-          v151 = v148;
+          v152 = v149;
         }
 
         else
         {
-          v151 = sub_21A1C7168(v148);
+          v152 = sub_21A1C7168(v149);
         }
 
-        if (v6 >= *(v151 + 2))
+        if (v6 >= *(v152 + 2))
         {
           goto LABEL_135;
         }
 
-        v76 = v147;
-        v152 = &v151[16 * v6];
-        *(v152 + 4) = a3;
-        *(v152 + 5) = v149;
-        v228 = v151;
-        result = sub_21A1C70DC(v108);
-        v73 = v228;
-        a3 = *(v228 + 16);
-        v75 = v146;
+        v76 = v148;
+        v153 = &v152[16 * v6];
+        *(v153 + 4) = a3;
+        *(v153 + 5) = v150;
+        v230 = v152;
+        sub_21A1C70DC(v109);
+        v73 = v230;
+        a3 = *(v230 + 2);
+        v75 = v147;
         if (a3 <= 1)
         {
           goto LABEL_3;
         }
       }
 
-      v113 = v73 + 32 + 16 * a3;
-      v114 = *(v113 - 64);
-      v115 = *(v113 - 56);
-      v119 = __OFSUB__(v115, v114);
-      v116 = v115 - v114;
-      if (v119)
+      v114 = &v73[16 * a3 + 32];
+      v115 = *(v114 - 64);
+      v116 = *(v114 - 56);
+      v120 = __OFSUB__(v116, v115);
+      v117 = v116 - v115;
+      if (v120)
       {
         goto LABEL_136;
       }
 
-      v118 = *(v113 - 48);
-      v117 = *(v113 - 40);
-      v119 = __OFSUB__(v117, v118);
-      v111 = v117 - v118;
-      v112 = v119;
-      if (v119)
+      v119 = *(v114 - 48);
+      v118 = *(v114 - 40);
+      v120 = __OFSUB__(v118, v119);
+      v112 = v118 - v119;
+      v113 = v120;
+      if (v120)
       {
         goto LABEL_137;
       }
 
-      v120 = (v73 + 16 * a3);
-      v122 = *v120;
-      v121 = v120[1];
-      v119 = __OFSUB__(v121, v122);
-      v123 = v121 - v122;
-      if (v119)
+      v121 = &v73[16 * a3];
+      v123 = *v121;
+      v122 = *(v121 + 1);
+      v120 = __OFSUB__(v122, v123);
+      v124 = v122 - v123;
+      if (v120)
       {
         goto LABEL_139;
       }
 
-      v119 = __OFADD__(v111, v123);
-      v124 = v111 + v123;
-      if (v119)
+      v120 = __OFADD__(v112, v124);
+      v125 = v112 + v124;
+      if (v120)
       {
         goto LABEL_142;
       }
 
-      if (v124 >= v116)
+      if (v125 >= v117)
       {
-        v142 = (v73 + 32 + 16 * v108);
-        v144 = *v142;
-        v143 = v142[1];
-        v119 = __OFSUB__(v143, v144);
-        v145 = v143 - v144;
-        if (v119)
+        v143 = &v73[16 * v109 + 32];
+        v145 = *v143;
+        v144 = *(v143 + 1);
+        v120 = __OFSUB__(v144, v145);
+        v146 = v144 - v145;
+        if (v120)
         {
           goto LABEL_146;
         }
 
-        if (v111 < v145)
+        if (v112 < v146)
         {
-          v108 = a3 - 2;
+          v109 = a3 - 2;
         }
 
         goto LABEL_85;
@@ -5713,68 +5728,68 @@ LABEL_151:
     }
 
 LABEL_3:
-    v70 = v205[1];
-    v71 = v198;
-    if (v198 >= v70)
+    v70 = v207[1];
+    v71 = v200;
+    if (v200 >= v70)
     {
       goto LABEL_120;
     }
   }
 
-  v217 = v6;
-  v168 = *v213;
-  v169 = v72;
-  v170 = v227;
-  (*v213)(v218, v222, v227);
-  v171 = v219;
-  sub_21A183960(v226, v219, &qword_27CCFF048);
-  v172 = v170;
-  v72 = v169;
-  if (v167(v171, 1, v172) == 1)
+  v219 = v6;
+  v169 = *v215;
+  v170 = v72;
+  v171 = v229;
+  (*v215)(v220, v224, v229);
+  v172 = v221;
+  sub_21A183960(v228, v221, &qword_27CCFF048, &qword_21A2FB5E0);
+  v173 = v171;
+  v72 = v170;
+  if (v168(v172, 1, v173) == 1)
   {
-    (*v212)(v218, v227);
-    v166 = v219;
-    v165 = v223;
-    v6 = v217;
+    (*v214)(v220, v229);
+    v167 = v221;
+    v166 = v225;
+    v6 = v219;
     goto LABEL_103;
   }
 
-  v174 = v227;
-  v175 = v218;
-  v176 = v206;
-  v168(v206, v219, v227);
-  v173 = sub_21A2F4944();
-  v177 = *v212;
-  v178 = v221;
-  (*v212)(v176, v174);
-  v179 = v174;
-  v72 = v178;
-  v177(v175, v179);
-  v6 = v217;
+  v175 = v229;
+  v176 = v220;
+  v177 = v208;
+  v169(v208, v221, v229);
+  v174 = sub_21A2F4944();
+  v178 = *v214;
+  v179 = v223;
+  (*v214)(v177, v175);
+  v180 = v175;
+  v72 = v179;
+  v178(v176, v180);
+  v6 = v219;
 LABEL_110:
-  sub_21A1427A8(v226, &qword_27CCFF048);
-  sub_21A1427A8(v223, &qword_27CCFF048);
-  sub_21A18BFA8(v225, type metadata accessor for CookingSession);
-  result = sub_21A18BFA8(v224, type metadata accessor for CookingSession);
-  if ((v173 & 1) == 0)
+  sub_21A1427A8(v228, &qword_27CCFF048, &qword_21A2FB5E0);
+  sub_21A1427A8(v225, &qword_27CCFF048, &qword_21A2FB5E0);
+  sub_21A18BFA8(v227, type metadata accessor for CookingSession);
+  sub_21A18BFA8(v226, type metadata accessor for CookingSession);
+  if ((v174 & 1) == 0)
   {
-    v74 = v223;
+    v74 = v225;
     goto LABEL_97;
   }
 
 LABEL_111:
-  if (v215)
+  if (v217)
   {
-    v180 = v216;
-    sub_21A18BED0(v159, v216, type metadata accessor for CookingSession);
-    v153 = v220;
+    v181 = v218;
+    sub_21A18BED0(v160, v218, type metadata accessor for CookingSession);
+    v154 = v222;
     swift_arrayInitWithTakeFrontToBack();
-    sub_21A18BED0(v180, v160, type metadata accessor for CookingSession);
-    v160 += v214;
-    v159 += v214;
-    v181 = __CFADD__(v6++, 1);
-    v74 = v223;
-    if (v181)
+    sub_21A18BED0(v181, v161, type metadata accessor for CookingSession);
+    v161 += v216;
+    v160 += v216;
+    v182 = __CFADD__(v6++, 1);
+    v74 = v225;
+    if (v182)
     {
       goto LABEL_98;
     }
@@ -5793,50 +5808,49 @@ LABEL_159:
   __break(1u);
 LABEL_160:
   __break(1u);
-  return result;
 }
 
-uint64_t sub_21A18A95C(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
+void sub_21A18A95C(char *a1, char *a2, char *a3, char *a4)
 {
-  v122 = a3;
+  v121 = a3;
   v7 = sub_21A2F49B4();
   v8 = *(v7 - 8);
-  v10 = MEMORY[0x28223BE20](v7, v9);
-  v114 = &v113 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x28223BE20](v10, v12);
-  v117 = &v113 - v14;
-  v16 = MEMORY[0x28223BE20](v13, v15);
-  v116 = &v113 - v17;
-  MEMORY[0x28223BE20](v16, v18);
-  v121 = (&v113 - v19);
-  v20 = sub_21A176C98(&qword_27CCFF048);
-  v22 = MEMORY[0x28223BE20](v20 - 8, v21);
-  v24 = &v113 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = MEMORY[0x28223BE20](v22, v25);
-  v120 = (&v113 - v27);
-  v29 = MEMORY[0x28223BE20](v26, v28);
-  v129 = &v113 - v30;
-  v32 = MEMORY[0x28223BE20](v29, v31);
-  v119 = &v113 - v33;
-  v35 = MEMORY[0x28223BE20](v32, v34);
-  v123 = &v113 - v36;
-  v38 = MEMORY[0x28223BE20](v35, v37);
-  v126 = (&v113 - v39);
-  v41 = MEMORY[0x28223BE20](v38, v40);
-  v134 = &v113 - v42;
-  MEMORY[0x28223BE20](v41, v43);
-  v127 = (&v113 - v44);
-  v135 = type metadata accessor for CookingSession();
-  v46 = MEMORY[0x28223BE20](v135, v45);
-  v125 = (&v113 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v49 = MEMORY[0x28223BE20](v46, v48);
-  v118 = &v113 - v50;
-  v52 = MEMORY[0x28223BE20](v49, v51);
-  v131 = (&v113 - v53);
-  result = MEMORY[0x28223BE20](v52, v54);
-  v130 = &v113 - v56;
-  v124 = *(v57 + 72);
-  if (!v124)
+  MEMORY[0x28223BE20](v7, v9);
+  v113 = &v112 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11, v12);
+  v116 = &v112 - v13;
+  MEMORY[0x28223BE20](v14, v15);
+  v115 = &v112 - v16;
+  MEMORY[0x28223BE20](v17, v18);
+  v120 = (&v112 - v19);
+  v20 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
+  MEMORY[0x28223BE20](v20 - 8, v21);
+  v23 = &v112 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v24, v25);
+  v119 = (&v112 - v26);
+  MEMORY[0x28223BE20](v27, v28);
+  v128 = &v112 - v29;
+  MEMORY[0x28223BE20](v30, v31);
+  v118 = &v112 - v32;
+  MEMORY[0x28223BE20](v33, v34);
+  v122 = &v112 - v35;
+  MEMORY[0x28223BE20](v36, v37);
+  v125 = (&v112 - v38);
+  MEMORY[0x28223BE20](v39, v40);
+  v133 = &v112 - v41;
+  MEMORY[0x28223BE20](v42, v43);
+  v126 = (&v112 - v44);
+  v134 = type metadata accessor for CookingSession(0);
+  MEMORY[0x28223BE20](v134, v45);
+  v124 = &v112 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v47, v48);
+  v117 = &v112 - v49;
+  MEMORY[0x28223BE20](v50, v51);
+  v130 = (&v112 - v52);
+  MEMORY[0x28223BE20](v53, v54);
+  v129 = &v112 - v55;
+  v123 = *(v56 + 72);
+  if (!v123)
   {
     __break(1u);
 LABEL_81:
@@ -5844,22 +5858,22 @@ LABEL_81:
     goto LABEL_82;
   }
 
-  if (a2 - a1 == 0x8000000000000000 && v124 == -1)
+  if (a2 - a1 == 0x8000000000000000 && v123 == -1)
   {
     goto LABEL_81;
   }
 
-  v58 = v122 - a2;
-  if (v122 - a2 != 0x8000000000000000 || v124 != -1)
+  v57 = v121 - a2;
+  if (v121 - a2 != 0x8000000000000000 || v123 != -1)
   {
-    v59 = (a2 - a1) / v124;
-    v138 = a1;
-    v137 = a4;
-    v128 = v7;
-    if (v59 < v58 / v124)
+    v58 = (a2 - a1) / v123;
+    v137 = a1;
+    v136 = a4;
+    v127 = v7;
+    if (v58 < v57 / v123)
     {
-      v60 = v59 * v124;
-      if (a4 < a1 || a1 + v60 <= a4)
+      v59 = v58 * v123;
+      if (a4 < a1 || &a1[v59] <= a4)
       {
         swift_arrayInitWithTakeFrontToBack();
       }
@@ -5869,81 +5883,81 @@ LABEL_81:
         swift_arrayInitWithTakeBackToFront();
       }
 
-      v125 = (a4 + v60);
-      v136 = a4 + v60;
-      if (v60 >= 1 && a2 < v122)
+      v124 = &a4[v59];
+      v135 = &a4[v59];
+      if (v59 >= 1 && a2 < v121)
       {
-        v63 = (v8 + 48);
-        v64 = (v8 + 32);
-        v120 = (v8 + 8);
+        v62 = (v8 + 48);
+        v63 = (v8 + 32);
+        v119 = (v8 + 8);
         while (1)
         {
-          v129 = a1;
-          v133 = a2;
-          v65 = v64;
+          v128 = a1;
+          v132 = a2;
+          v64 = v63;
+          v65 = v129;
+          sub_21A18C008(a2, v129, type metadata accessor for CookingSession);
+          v131 = a4;
           v66 = v130;
-          sub_21A18C008(a2, v130, type metadata accessor for CookingSession);
-          v132 = a4;
-          v67 = v131;
-          sub_21A18C008(a4, v131, type metadata accessor for CookingSession);
-          v68 = v135;
-          v69 = &v66[*(v135 + 60)];
-          v64 = v65;
-          v70 = v127;
-          sub_21A183960(v69, v127, &qword_27CCFF048);
-          sub_21A183960(v67 + *(v68 + 60), v134, &qword_27CCFF048);
-          v71 = v126;
-          sub_21A183960(v70, v126, &qword_27CCFF048);
-          v72 = *v63;
-          v73 = v128;
-          v74 = (*v63)(v71, 1, v128);
-          v75 = v71;
-          v76 = v123;
-          if (v74 != 1)
+          sub_21A18C008(a4, v130, type metadata accessor for CookingSession);
+          v67 = v134;
+          v68 = &v65[*(v134 + 60)];
+          v63 = v64;
+          v69 = v126;
+          sub_21A183960(v68, v126, &qword_27CCFF048, &qword_21A2FB5E0);
+          sub_21A183960(v66 + *(v67 + 60), v133, &qword_27CCFF048, &qword_21A2FB5E0);
+          v70 = v125;
+          sub_21A183960(v69, v125, &qword_27CCFF048, &qword_21A2FB5E0);
+          v71 = *v62;
+          v72 = v127;
+          v73 = (*v62)(v70, 1, v127);
+          v74 = v70;
+          v75 = v122;
+          if (v73 != 1)
           {
-            v77 = *v65;
-            (*v65)(v121, v126, v73);
-            sub_21A183960(v134, v76, &qword_27CCFF048);
-            if (v72(v76, 1, v73) != 1)
+            v76 = *v64;
+            (*v64)(v120, v125, v72);
+            sub_21A183960(v133, v75, &qword_27CCFF048, &qword_21A2FB5E0);
+            if (v71(v75, 1, v72) != 1)
             {
-              v81 = v121;
-              v82 = v116;
-              v77(v116, v123, v73);
-              v83 = sub_21A2F4944();
-              v84 = *v120;
+              v80 = v120;
+              v81 = v115;
+              v76(v115, v122, v72);
+              v82 = sub_21A2F4944();
+              v83 = *v119;
+              v84 = v81;
+              v63 = v64;
+              (*v119)(v84, v72);
+              v83(v80, v72);
               v85 = v82;
-              v64 = v65;
-              (*v120)(v85, v73);
-              v84(v81, v73);
-              v86 = v83;
-              a4 = v132;
-              v79 = v129;
+              a4 = v131;
+              v78 = v128;
               goto LABEL_32;
             }
 
-            (*v120)(v121, v73);
-            v75 = v76;
-            v70 = v127;
+            (*v119)(v120, v72);
+            v74 = v75;
+            v69 = v126;
           }
 
-          sub_21A1427A8(v75, &qword_27CCFF048);
-          if (v72(v70, 1, v73) != 1)
+          sub_21A1427A8(v74, &qword_27CCFF048, &qword_21A2FB5E0);
+          if (v71(v69, 1, v72) != 1)
           {
-            sub_21A1427A8(v134, &qword_27CCFF048);
-            sub_21A1427A8(v70, &qword_27CCFF048);
-            sub_21A18BFA8(v131, type metadata accessor for CookingSession);
+            sub_21A1427A8(v133, &qword_27CCFF048, &qword_21A2FB5E0);
+            sub_21A1427A8(v69, &qword_27CCFF048, &qword_21A2FB5E0);
             sub_21A18BFA8(v130, type metadata accessor for CookingSession);
-            a4 = v132;
-            v80 = v124;
-            v79 = v129;
+            sub_21A18BFA8(v129, type metadata accessor for CookingSession);
+            a4 = v131;
+            v79 = v123;
+            v78 = v128;
 LABEL_33:
-            a2 = v133 + v80;
-            if (v79 < v133 || v79 >= a2)
+            a2 = &v132[v79];
+            if (v78 < v132 || v78 >= a2)
             {
               swift_arrayInitWithTakeFrontToBack();
             }
 
-            else if (v79 != v133)
+            else if (v78 != v132)
             {
               swift_arrayInitWithTakeBackToFront();
             }
@@ -5951,50 +5965,50 @@ LABEL_33:
             goto LABEL_44;
           }
 
-          v78 = v72(v134, 1, v73);
-          v79 = v129;
-          if (v78 != 1 || *v131 == *v130 && v131[1] == *(v130 + 1))
+          v77 = v71(v133, 1, v72);
+          v78 = v128;
+          if (v77 != 1 || *v130 == *v129 && v130[1] == *(v129 + 1))
           {
-            sub_21A1427A8(v134, &qword_27CCFF048);
-            sub_21A1427A8(v70, &qword_27CCFF048);
-            sub_21A18BFA8(v131, type metadata accessor for CookingSession);
+            sub_21A1427A8(v133, &qword_27CCFF048, &qword_21A2FB5E0);
+            sub_21A1427A8(v69, &qword_27CCFF048, &qword_21A2FB5E0);
             sub_21A18BFA8(v130, type metadata accessor for CookingSession);
-            a4 = v132;
-            v80 = v124;
+            sub_21A18BFA8(v129, type metadata accessor for CookingSession);
+            a4 = v131;
+            v79 = v123;
             goto LABEL_37;
           }
 
-          v86 = sub_21A2F8394();
-          a4 = v132;
+          v85 = sub_21A2F8394();
+          a4 = v131;
 LABEL_32:
-          sub_21A1427A8(v134, &qword_27CCFF048);
-          sub_21A1427A8(v127, &qword_27CCFF048);
-          sub_21A18BFA8(v131, type metadata accessor for CookingSession);
+          sub_21A1427A8(v133, &qword_27CCFF048, &qword_21A2FB5E0);
+          sub_21A1427A8(v126, &qword_27CCFF048, &qword_21A2FB5E0);
           sub_21A18BFA8(v130, type metadata accessor for CookingSession);
-          v80 = v124;
-          if (v86)
+          sub_21A18BFA8(v129, type metadata accessor for CookingSession);
+          v79 = v123;
+          if (v85)
           {
             goto LABEL_33;
           }
 
 LABEL_37:
-          if (v79 < a4 || v79 >= a4 + v80)
+          if (v78 < a4 || v78 >= &a4[v79])
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (v79 != a4)
+          else if (v78 != a4)
           {
             swift_arrayInitWithTakeBackToFront();
           }
 
-          v137 = a4 + v80;
-          a4 += v80;
-          a2 = v133;
+          v136 = &a4[v79];
+          a4 += v79;
+          a2 = v132;
 LABEL_44:
-          a1 = v79 + v80;
-          v138 = a1;
-          if (a4 >= v125 || a2 >= v122)
+          a1 = &v78[v79];
+          v137 = a1;
+          if (a4 >= v124 || a2 >= v121)
           {
             goto LABEL_79;
           }
@@ -6004,8 +6018,8 @@ LABEL_44:
       goto LABEL_79;
     }
 
-    v61 = v58 / v124 * v124;
-    if (a4 < a2 || a2 + v61 <= a4)
+    v60 = v57 / v123 * v123;
+    if (a4 < a2 || &a2[v60] <= a4)
     {
       swift_arrayInitWithTakeFrontToBack();
     }
@@ -6015,133 +6029,133 @@ LABEL_44:
       swift_arrayInitWithTakeBackToFront();
     }
 
-    v87 = a4 + v61;
-    if (v61 < 1)
+    v86 = &a4[v60];
+    if (v60 < 1)
     {
 LABEL_78:
-      v138 = a2;
-      v136 = v87;
+      v137 = a2;
+      v135 = v86;
 LABEL_79:
-      sub_21A1C717C(&v138, &v137, &v136);
-      return 1;
+      sub_21A1C717C(&v137, &v136, &v135);
+      return;
     }
 
-    v121 = v24;
-    v132 = a4;
-    v88 = -v124;
-    v127 = (v8 + 48);
-    v116 = (v8 + 32);
-    v115 = (v8 + 8);
-    v89 = (a4 + v61);
-    v90 = v122;
-    v91 = v118;
-    v134 = -v124;
+    v120 = v23;
+    v131 = a4;
+    v87 = -v123;
+    v126 = (v8 + 48);
+    v115 = (v8 + 32);
+    v114 = (v8 + 8);
+    v88 = &a4[v60];
+    v89 = v121;
+    v90 = v117;
+    v133 = -v123;
 LABEL_50:
-    v126 = v87;
-    v122 = v87;
-    v92 = a2 + v88;
-    v133 = a2 + v88;
-    v124 = a2;
+    v125 = v86;
+    v121 = v86;
+    v91 = &a2[v87];
+    v132 = &a2[v87];
+    v123 = a2;
     while (1)
     {
       if (a2 <= a1)
       {
-        v138 = a2;
-        v136 = v122;
+        v137 = a2;
+        v135 = v121;
         goto LABEL_79;
       }
 
-      v130 = &v89[v88];
-      v131 = v90;
-      sub_21A18C008(&v89[v88], v91, type metadata accessor for CookingSession);
-      v94 = v92;
-      v95 = v125;
-      sub_21A18C008(v94, v125, type metadata accessor for CookingSession);
-      v96 = v135;
-      v97 = v91 + *(v135 + 60);
+      v129 = &v88[v87];
+      v130 = v89;
+      sub_21A18C008(&v88[v87], v90, type metadata accessor for CookingSession);
+      v93 = v91;
+      v94 = v124;
+      sub_21A18C008(v93, v124, type metadata accessor for CookingSession);
+      v95 = v134;
+      v96 = v90 + *(v134 + 60);
+      v97 = v118;
+      sub_21A183960(v96, v118, &qword_27CCFF048, &qword_21A2FB5E0);
+      sub_21A183960(&v94[*(v95 + 60)], v128, &qword_27CCFF048, &qword_21A2FB5E0);
       v98 = v119;
-      sub_21A183960(v97, v119, &qword_27CCFF048);
-      sub_21A183960(v95 + *(v96 + 60), v129, &qword_27CCFF048);
-      v99 = v120;
-      sub_21A183960(v98, v120, &qword_27CCFF048);
-      v100 = v128;
-      v101 = *v127;
-      if ((*v127)(v99, 1, v128) != 1)
+      sub_21A183960(v97, v119, &qword_27CCFF048, &qword_21A2FB5E0);
+      v99 = v127;
+      v100 = *v126;
+      if ((*v126)(v98, 1, v127) != 1)
       {
-        v123 = v89;
-        v102 = *v116;
-        v103 = v117;
-        (*v116)(v117, v120, v100);
-        v99 = v121;
-        sub_21A183960(v129, v121, &qword_27CCFF048);
-        if (v101(v99, 1, v100) != 1)
+        v122 = v88;
+        v101 = *v115;
+        v102 = v116;
+        (*v115)(v116, v119, v99);
+        v98 = v120;
+        sub_21A183960(v128, v120, &qword_27CCFF048, &qword_21A2FB5E0);
+        if (v100(v98, 1, v99) != 1)
         {
-          v107 = v114;
-          v102(v114, v99, v100);
-          v104 = sub_21A2F4944();
-          v108 = *v115;
-          v109 = v117;
-          (*v115)(v107, v100);
-          v108(v109, v100);
-          v91 = v118;
-          v106 = v119;
-          v89 = v123;
+          v106 = v113;
+          v101(v113, v98, v99);
+          v103 = sub_21A2F4944();
+          v107 = *v114;
+          v108 = v116;
+          (*v114)(v106, v99);
+          v107(v108, v99);
+          v90 = v117;
+          v105 = v118;
+          v88 = v122;
           goto LABEL_65;
         }
 
-        (*v115)(v103, v100);
-        v98 = v119;
-        v89 = v123;
+        (*v114)(v102, v99);
+        v97 = v118;
+        v88 = v122;
       }
 
-      sub_21A1427A8(v99, &qword_27CCFF048);
-      v104 = 1;
-      v105 = v101(v98, 1, v100);
-      v106 = v98;
-      v91 = v118;
-      if (v105 == 1)
+      sub_21A1427A8(v98, &qword_27CCFF048, &qword_21A2FB5E0);
+      v103 = 1;
+      v104 = v100(v97, 1, v99);
+      v105 = v97;
+      v90 = v117;
+      if (v104 == 1)
       {
-        if (v101(v129, 1, v128) != 1 || *v125 == *v91 && v125[1] == v91[1])
+        if (v100(v128, 1, v127) != 1 || *v124 == *v90 && *(v124 + 1) == v90[1])
         {
-          v104 = 0;
+          v103 = 0;
         }
 
         else
         {
-          v104 = sub_21A2F8394();
+          v103 = sub_21A2F8394();
         }
       }
 
 LABEL_65:
-      sub_21A1427A8(v129, &qword_27CCFF048);
-      sub_21A1427A8(v106, &qword_27CCFF048);
-      v110 = v131;
-      v90 = v131 + v134;
-      sub_21A18BFA8(v125, type metadata accessor for CookingSession);
-      sub_21A18BFA8(v91, type metadata accessor for CookingSession);
-      if (v104)
+      sub_21A1427A8(v128, &qword_27CCFF048, &qword_21A2FB5E0);
+      sub_21A1427A8(v105, &qword_27CCFF048, &qword_21A2FB5E0);
+      v109 = v130;
+      v89 = v130 + v133;
+      sub_21A18BFA8(v124, type metadata accessor for CookingSession);
+      sub_21A18BFA8(v90, type metadata accessor for CookingSession);
+      if (v103)
       {
-        if (v110 < v124 || v90 >= v124)
+        if (v109 < v123 || v89 >= v123)
         {
-          a2 = v133;
+          a2 = v132;
           swift_arrayInitWithTakeFrontToBack();
-          v87 = v126;
-          v88 = v134;
+          v86 = v125;
+          v87 = v133;
         }
 
         else
         {
-          a2 = v133;
-          v88 = v134;
-          v87 = v126;
-          if (v110 != v124)
+          a2 = v132;
+          v87 = v133;
+          v86 = v125;
+          if (v109 != v123)
           {
             swift_arrayInitWithTakeBackToFront();
-            a2 = v133;
+            a2 = v132;
           }
         }
 
-        if (v89 <= v132)
+        if (v88 <= v131)
         {
           goto LABEL_78;
         }
@@ -6149,27 +6163,27 @@ LABEL_65:
         goto LABEL_50;
       }
 
-      v111 = v130;
-      v112 = v130;
-      if (v110 < v89 || v90 >= v89)
+      v110 = v129;
+      v111 = v129;
+      if (v109 < v88 || v89 >= v88)
       {
         swift_arrayInitWithTakeFrontToBack();
       }
 
-      else if (v110 != v89)
+      else if (v109 != v88)
       {
         swift_arrayInitWithTakeBackToFront();
       }
 
-      v126 = v112;
-      v89 = v112;
-      v93 = v111 > v132;
-      v92 = v133;
-      v88 = v134;
-      a2 = v124;
-      if (!v93)
+      v125 = v111;
+      v88 = v111;
+      v92 = v110 > v131;
+      v91 = v132;
+      v87 = v133;
+      a2 = v123;
+      if (!v92)
       {
-        v87 = v126;
+        v86 = v125;
         goto LABEL_78;
       }
     }
@@ -6177,133 +6191,126 @@ LABEL_65:
 
 LABEL_82:
   __break(1u);
-  return result;
 }
 
-uint64_t sub_21A18B67C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_21A18B67C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = type metadata accessor for CookingSession();
-  v35 = *(v8 - 8);
-  v10 = MEMORY[0x28223BE20](v8 - 8, v9);
-  v34 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v10, v12);
-  v33 = &v30 - v14;
-  v15 = a4 + 64;
-  v16 = -1 << *(a4 + 32);
-  if (-v16 < 64)
+  v8 = type metadata accessor for CookingSession(0);
+  v34 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8 - 8, v9);
+  v33 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11, v12);
+  v32 = &v29 - v13;
+  v14 = a4 + 64;
+  v15 = -1 << *(a4 + 32);
+  if (-v15 < 64)
   {
-    v17 = ~(-1 << -v16);
+    v16 = ~(-1 << -v15);
   }
 
   else
   {
-    v17 = -1;
+    v16 = -1;
   }
 
-  v18 = v17 & *(a4 + 64);
+  v17 = v16 & *(a4 + 64);
   if (!a2)
   {
 LABEL_18:
-    v19 = 0;
-    a3 = 0;
+    v18 = 0;
 LABEL_25:
     *a1 = a4;
-    a1[1] = v15;
-    a1[2] = ~v16;
-    a1[3] = v19;
-    a1[4] = v18;
-    return a3;
+    a1[1] = v14;
+    a1[2] = ~v15;
+    a1[3] = v18;
+    a1[4] = v17;
+    return;
   }
 
   if (!a3)
   {
-    v19 = 0;
+    v18 = 0;
     goto LABEL_25;
   }
 
   if ((a3 & 0x8000000000000000) == 0)
   {
-    v31 = a1;
-    v32 = a3;
-    result = 0;
-    v19 = 0;
-    v30 = v16;
-    v20 = (63 - v16) >> 6;
-    v21 = 1;
-    while (v18)
+    v30 = a1;
+    v31 = a3;
+    v18 = 0;
+    v29 = v15;
+    v19 = (63 - v15) >> 6;
+    v20 = 1;
+    while (v17)
     {
 LABEL_14:
-      v24 = __clz(__rbit64(v18));
-      v18 &= v18 - 1;
-      v25 = v34;
-      a1 = *(v35 + 72);
-      sub_21A18C008(*(a4 + 56) + a1 * (v24 | (v19 << 6)), v34, type metadata accessor for CookingSession);
-      v26 = v25;
-      v27 = v33;
-      sub_21A18BED0(v26, v33, type metadata accessor for CookingSession);
-      sub_21A18BED0(v27, a2, type metadata accessor for CookingSession);
-      if (v21 == v32)
+      v23 = __clz(__rbit64(v17));
+      v17 &= v17 - 1;
+      v24 = v33;
+      a1 = *(v34 + 72);
+      sub_21A18C008(*(a4 + 56) + a1 * (v23 | (v18 << 6)), v33, type metadata accessor for CookingSession);
+      v25 = v24;
+      v26 = v32;
+      sub_21A18BED0(v25, v32, type metadata accessor for CookingSession);
+      sub_21A18BED0(v26, a2, type metadata accessor for CookingSession);
+      if (v20 == v31)
       {
-        a1 = v31;
-        a3 = v32;
+        a1 = v30;
         goto LABEL_23;
       }
 
       a2 += a1;
-      result = v21;
-      if (__OFADD__(v21++, 1))
+      if (__OFADD__(v20++, 1))
       {
         __break(1u);
         goto LABEL_18;
       }
     }
 
-    v22 = v19;
+    v21 = v18;
     while (1)
     {
-      v23 = v22 + 1;
-      if (__OFADD__(v22, 1))
+      v22 = v21 + 1;
+      if (__OFADD__(v21, 1))
       {
         __break(1u);
         goto LABEL_28;
       }
 
-      if (v23 >= v20)
+      if (v22 >= v19)
       {
         break;
       }
 
-      v18 = *(v15 + 8 * v23);
-      ++v22;
-      if (v18)
+      v17 = *(v14 + 8 * v22);
+      ++v21;
+      if (v17)
       {
-        v19 = v23;
+        v18 = v22;
         goto LABEL_14;
       }
     }
 
-    v18 = 0;
-    if (v20 <= v19 + 1)
+    v17 = 0;
+    if (v19 <= v18 + 1)
     {
-      v29 = v19 + 1;
+      v28 = v18 + 1;
     }
 
     else
     {
-      v29 = v20;
+      v28 = v19;
     }
 
-    v19 = v29 - 1;
-    a3 = result;
-    a1 = v31;
+    v18 = v28 - 1;
+    a1 = v30;
 LABEL_23:
-    v16 = v30;
+    v15 = v29;
     goto LABEL_25;
   }
 
 LABEL_28:
   __break(1u);
-  return result;
 }
 
 uint64_t sub_21A18B8F8(void *a1, uint64_t a2, uint64_t a3)
@@ -6312,10 +6319,10 @@ uint64_t sub_21A18B8F8(void *a1, uint64_t a2, uint64_t a3)
   v8 = sub_21A2F7554();
   v10 = MEMORY[0x28223BE20](v8, v9);
   (*(v12 + 16))(v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v3, v8, v10);
-  sub_21A1525E0(&qword_27CCFF090, MEMORY[0x277CC5290]);
+  sub_21A1525E0(&qword_27CCFF090, MEMORY[0x277CC5290], MEMORY[0x277CC52A8]);
   sub_21A2F7AA4();
-  v13 = *(v3 + *(sub_21A176C98(&qword_27CCFF098) + 36));
-  result = sub_21A1427A8(v4, &qword_27CCFF098);
+  v13 = *(v3 + *(sub_21A176C98(&qword_27CCFF098, &qword_21A2FB628) + 36));
+  result = sub_21A1427A8(v4, &qword_27CCFF098, &qword_21A2FB628);
   v15 = v23[0];
   v16 = v23[1];
   if (!a2)
@@ -6440,28 +6447,29 @@ LABEL_24:
     {
 LABEL_14:
       v17 = *(a4 + 48) + 56 * (__clz(__rbit64(v9)) | (v12 << 6));
-      v18 = *(v17 + 8);
+      v18 = *v17;
+      v19 = *(v17 + 8);
       v9 &= v9 - 1;
-      v19 = *(v17 + 16);
-      v20 = *(v17 + 24);
-      v21 = *(v17 + 32);
-      v22 = *(v17 + 40);
-      v23 = *(v17 + 48);
+      v20 = *(v17 + 16);
+      v21 = *(v17 + 24);
+      v22 = *(v17 + 32);
+      v23 = *(v17 + 40);
+      v24 = *(v17 + 48);
       *v11 = *v17;
-      *(v11 + 8) = v18;
-      *(v11 + 16) = v19;
-      *(v11 + 24) = v20;
-      *(v11 + 32) = v21;
-      *(v11 + 40) = v22;
-      *(v11 + 48) = v23;
+      *(v11 + 8) = v19;
+      *(v11 + 16) = v20;
+      *(v11 + 24) = v21;
+      *(v11 + 32) = v22;
+      *(v11 + 40) = v23;
+      *(v11 + 48) = v24;
       if (v14 == v10)
       {
-        sub_21A18BD3C();
+        sub_21A18BD3C(v18, v19);
         goto LABEL_24;
       }
 
       v11 += 56;
-      sub_21A18BD3C();
+      sub_21A18BD3C(v18, v19);
       result = v14;
       if (__OFADD__(v14++, 1))
       {
@@ -6497,15 +6505,15 @@ LABEL_14:
     v9 = 0;
     if (v13 <= (v12 + 1))
     {
-      v25 = v12 + 1;
+      v26 = v12 + 1;
     }
 
     else
     {
-      v25 = (63 - v7) >> 6;
+      v26 = (63 - v7) >> 6;
     }
 
-    v12 = v25 - 1;
+    v12 = v26 - 1;
     v10 = result;
     goto LABEL_24;
   }
@@ -6548,7 +6556,7 @@ uint64_t sub_21A18BD44(uint64_t a1)
 
 uint64_t sub_21A18BE0C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFF048);
+  v4 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -6574,7 +6582,7 @@ uint64_t sub_21A18BED0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_21A18BF38(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFF050);
+  v4 = sub_21A176C98(&qword_27CCFF050, &unk_21A2FB5F0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -6593,18 +6601,18 @@ uint64_t sub_21A18C008(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_21A18C108@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_21A18C108@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_21A2F53E4();
-  v6 = sub_21A177CBC(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_21A2F53E4();
+  v7 = sub_21A177CBC(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t sub_21A18C1A0()
@@ -6647,11 +6655,11 @@ uint64_t sub_21A18C4B8()
   return sub_21A2F53D4();
 }
 
-uint64_t sub_21A18C554(uint64_t a1, uint64_t *a2)
+uint64_t sub_21A18C554(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_21A2F53E4();
-  sub_21A177DCC(v3, a2);
-  sub_21A177CBC(v3, a2);
+  v5 = sub_21A2F53E4();
+  sub_21A177DCC(v5, a2);
+  sub_21A177CBC(v5, a2);
   return sub_21A2F53D4();
 }
 
@@ -6663,18 +6671,18 @@ uint64_t _s10CookingKit27RecipeFeaturesConfigurationV06SavingE0O9hashValueSivg_0
   return sub_21A2F8474();
 }
 
-uint64_t sub_21A18C614()
+uint64_t sub_21A18C614(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_21A2F8434();
-  MEMORY[0x21CED6EE0](v1);
+  MEMORY[0x21CED6EE0](v2);
   return sub_21A2F8474();
 }
 
 uint64_t sub_21A18C658@<X0>(void *a1@<X8>)
 {
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   v3 = *(v1 + 24);
@@ -6687,7 +6695,7 @@ uint64_t sub_21A18C704@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   v4 = *(v3 + 24);
@@ -6719,7 +6727,7 @@ uint64_t sub_21A18C7EC(uint64_t *a1)
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath, v7);
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
@@ -6733,7 +6741,7 @@ uint64_t sub_21A18C7EC(uint64_t *a1)
 uint64_t sub_21A18C950()
 {
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   v1 = *(v0 + 32);
@@ -6745,7 +6753,7 @@ uint64_t sub_21A18CA00@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   v4 = *(v3 + 40);
@@ -6771,7 +6779,7 @@ uint64_t sub_21A18CAAC(uint64_t a1, uint64_t a2)
 LABEL_12:
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath, v9);
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
@@ -6788,7 +6796,7 @@ LABEL_8:
 uint64_t sub_21A18CC1C()
 {
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   return *(v0 + 48);
@@ -6798,7 +6806,7 @@ uint64_t sub_21A18CCBC@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   *a2 = *(v3 + 48);
@@ -6816,7 +6824,7 @@ uint64_t sub_21A18CD8C(uint64_t result)
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath, v3);
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
@@ -6826,7 +6834,7 @@ uint64_t sub_21A18CD8C(uint64_t result)
 uint64_t sub_21A18CE9C()
 {
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   return *(v0 + 49);
@@ -6836,14 +6844,14 @@ uint64_t sub_21A18CF3C@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   *a2 = *(v3 + 49);
   return result;
 }
 
-unsigned __int8 *sub_21A18CFE4(unsigned __int8 *result, uint64_t a2)
+unsigned __int8 *sub_21A18CFE4(unsigned __int8 *result, uint64_t *a2)
 {
   v2 = *result;
   if (v2 == *(*a2 + 49))
@@ -6855,7 +6863,7 @@ unsigned __int8 *sub_21A18CFE4(unsigned __int8 *result, uint64_t a2)
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath, v4);
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
@@ -6865,28 +6873,28 @@ unsigned __int8 *sub_21A18CFE4(unsigned __int8 *result, uint64_t a2)
 uint64_t sub_21A18D0F8@<X0>(uint64_t a1@<X8>)
 {
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
-  return sub_21A183960(v1 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe, a1, &qword_27CCFEBC0);
+  return sub_21A183960(v1 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe, a1, &qword_27CCFEBC0, &unk_21A2FB780);
 }
 
 uint64_t sub_21A18D1BC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
-  return sub_21A183960(v3 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe, a2, &qword_27CCFEBC0);
+  return sub_21A183960(v3 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe, a2, &qword_27CCFEBC0, &unk_21A2FB780);
 }
 
 uint64_t sub_21A18D280(uint64_t a1)
 {
-  v2 = sub_21A176C98(&qword_27CCFEBC0);
+  v2 = sub_21A176C98(&qword_27CCFEBC0, &unk_21A2FB780);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = &v7 - v4;
-  sub_21A183960(a1, &v7 - v4, &qword_27CCFEBC0);
+  sub_21A183960(a1, &v7 - v4, &qword_27CCFEBC0, &unk_21A2FB780);
   return sub_21A18D32C(v5);
 }
 
@@ -6896,57 +6904,57 @@ uint64_t sub_21A18D32C(uint64_t a1)
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3, v5);
   v32 = (&v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_21A176C98(&qword_27CCFF138);
+  v7 = sub_21A176C98(&qword_27CCFF138, &qword_21A2FB9D0);
   v8 = v7 - 8;
   MEMORY[0x28223BE20](v7, v9);
   v11 = &v31 - v10;
-  v12 = sub_21A176C98(&qword_27CCFEBC0);
-  v14 = MEMORY[0x28223BE20](v12 - 8, v13);
-  v16 = (&v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v14, v17);
+  v12 = sub_21A176C98(&qword_27CCFEBC0, &unk_21A2FB780);
+  MEMORY[0x28223BE20](v12 - 8, v13);
+  v15 = (&v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v16, v17);
   v19 = &v31 - v18;
   v33 = v1;
   v20 = v1 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe;
   v21 = OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe;
-  sub_21A183960(v20, &v31 - v18, &qword_27CCFEBC0);
+  sub_21A183960(v20, &v31 - v18, &qword_27CCFEBC0, &unk_21A2FB780);
   v22 = *(v8 + 56);
-  sub_21A183960(v19, v11, &qword_27CCFEBC0);
+  sub_21A183960(v19, v11, &qword_27CCFEBC0, &unk_21A2FB780);
   v34 = a1;
-  sub_21A183960(a1, &v11[v22], &qword_27CCFEBC0);
+  sub_21A183960(a1, &v11[v22], &qword_27CCFEBC0, &unk_21A2FB780);
   v23 = *(v4 + 48);
   if (v23(v11, 1, v3) == 1)
   {
-    sub_21A1427A8(v19, &qword_27CCFEBC0);
+    sub_21A1427A8(v19, &qword_27CCFEBC0, &unk_21A2FB780);
     if (v23(&v11[v22], 1, v3) == 1)
     {
-      sub_21A1427A8(v11, &qword_27CCFEBC0);
+      sub_21A1427A8(v11, &qword_27CCFEBC0, &unk_21A2FB780);
       v24 = v34;
 LABEL_9:
       sub_21A18F8B0(v24, v33 + v21);
-      return sub_21A1427A8(v24, &qword_27CCFEBC0);
+      return sub_21A1427A8(v24, &qword_27CCFEBC0, &unk_21A2FB780);
     }
 
     goto LABEL_6;
   }
 
-  sub_21A183960(v11, v16, &qword_27CCFEBC0);
+  sub_21A183960(v11, v15, &qword_27CCFEBC0, &unk_21A2FB780);
   if (v23(&v11[v22], 1, v3) == 1)
   {
-    sub_21A1427A8(v19, &qword_27CCFEBC0);
-    sub_21A18F920(v16, type metadata accessor for ShareableRecipe);
+    sub_21A1427A8(v19, &qword_27CCFEBC0, &unk_21A2FB780);
+    sub_21A18F920(v15, type metadata accessor for ShareableRecipe);
 LABEL_6:
-    sub_21A1427A8(v11, &qword_27CCFF138);
+    sub_21A1427A8(v11, &qword_27CCFF138, &qword_21A2FB9D0);
     v24 = v34;
     goto LABEL_7;
   }
 
   v28 = v32;
   sub_21A18FCB8(&v11[v22], v32, type metadata accessor for ShareableRecipe);
-  v29 = _s10CookingKit15ShareableRecipeV2eeoiySbAC_ACtFZ_0(v16, v28);
+  v29 = _s10CookingKit15ShareableRecipeV2eeoiySbAC_ACtFZ_0(v15, v28);
   sub_21A18F920(v28, type metadata accessor for ShareableRecipe);
-  sub_21A1427A8(v19, &qword_27CCFEBC0);
-  sub_21A18F920(v16, type metadata accessor for ShareableRecipe);
-  sub_21A1427A8(v11, &qword_27CCFEBC0);
+  sub_21A1427A8(v19, &qword_27CCFEBC0, &unk_21A2FB780);
+  sub_21A18F920(v15, type metadata accessor for ShareableRecipe);
+  sub_21A1427A8(v11, &qword_27CCFEBC0, &unk_21A2FB780);
   v24 = v34;
   if (v29)
   {
@@ -6960,28 +6968,28 @@ LABEL_7:
   *(&v31 - 2) = v33;
   *(&v31 - 1) = v24;
   v35 = v27;
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5084();
 
-  return sub_21A1427A8(v24, &qword_27CCFEBC0);
+  return sub_21A1427A8(v24, &qword_27CCFEBC0, &unk_21A2FB780);
 }
 
 uint64_t sub_21A18D7EC()
 {
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   v1 = *(v0 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__externalShareAction);
-  sub_21A15955C(v1);
+  sub_21A15955C(v1, *(v0 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__externalShareAction + 8));
   return v1;
 }
 
-uint64_t sub_21A18D8AC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_21A18D8AC@<X0>(uint64_t *a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   v4 = *(v3 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__externalShareAction);
@@ -7002,67 +7010,68 @@ uint64_t sub_21A18D8AC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
   *a2 = v7;
   a2[1] = v6;
-  return sub_21A15955C(v4);
+  return sub_21A15955C(v4, v5);
 }
 
-uint64_t sub_21A18D9A4(uint64_t *a1)
+uint64_t sub_21A18D9A4(uint64_t *a1, uint64_t *a2)
 {
-  v1 = *a1;
-  v2 = a1[1];
+  v2 = *a1;
+  v3 = a1[1];
   if (*a1)
   {
-    v3 = swift_allocObject();
-    *(v3 + 16) = v1;
-    *(v3 + 24) = v2;
-    v4 = sub_21A18FDD0;
+    v4 = swift_allocObject();
+    *(v4 + 16) = v2;
+    *(v4 + 24) = v3;
+    v5 = sub_21A18FDD0;
   }
 
   else
   {
+    v5 = 0;
     v4 = 0;
   }
 
   KeyPath = swift_getKeyPath();
-  MEMORY[0x28223BE20](KeyPath, v6);
-  sub_21A15955C(v1);
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  MEMORY[0x28223BE20](KeyPath, v7);
+  sub_21A15955C(v2, v3);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5084();
-  sub_21A18EAA0(v4);
+  sub_21A18EAA0(v5, v4);
 }
 
 uint64_t sub_21A18DB14(uint64_t a1, void *a2)
 {
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
   return *(v2 + *a2);
 }
 
-uint64_t sub_21A18DBC8@<X0>(uint64_t *a1@<X0>, void *a2@<X4>, _BYTE *a3@<X8>)
+uint64_t sub_21A18DBC8@<X0>(uint64_t *a1@<X0>, void *a3@<X4>, _BYTE *a4@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
-  *a3 = *(v5 + *a2);
+  *a4 = *(v6 + *a3);
   return result;
 }
 
-unsigned __int8 *sub_21A18DCA4(unsigned __int8 *result, void *a2, uint64_t a3, uint64_t a4, void *a5)
+unsigned __int8 *sub_21A18DCA4(unsigned __int8 *result, uint64_t *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
-  v5 = *result;
-  if (v5 == *(*a2 + *a5))
+  v7 = *result;
+  if (v7 == *(*a2 + *a5))
   {
-    *(*a2 + *a5) = v5;
+    *(*a2 + *a5) = v7;
   }
 
   else
   {
     KeyPath = swift_getKeyPath();
-    MEMORY[0x28223BE20](KeyPath, v7);
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    MEMORY[0x28223BE20](KeyPath, v9);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
@@ -7072,7 +7081,7 @@ unsigned __int8 *sub_21A18DCA4(unsigned __int8 *result, void *a2, uint64_t a3, u
 uint64_t sub_21A18DDAC()
 {
   v1 = v0;
-  v2 = sub_21A176C98(&qword_27CCFEBC0);
+  v2 = sub_21A176C98(&qword_27CCFEBC0, &unk_21A2FB780);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = &v26 - v4;
   v6 = v0;
@@ -7090,7 +7099,7 @@ uint64_t sub_21A18DDAC()
     *(&v26 - 2) = 0;
     *(&v26 - 4) = v1;
     v27 = v1;
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
 
     if (*(v1 + 40))
@@ -7113,7 +7122,7 @@ LABEL_3:
       *(&v26 - 2) = 0;
       *(&v26 - 4) = v1;
       v27 = v1;
-      sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+      sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
       sub_21A2F5084();
 
       if (*(v1 + 48))
@@ -7145,7 +7154,7 @@ LABEL_4:
   *(&v26 - 2) = v1;
   *(&v26 - 8) = 0;
   v27 = v1;
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5084();
 
   if ((*(v1 + 49) & 1) == 0)
@@ -7161,7 +7170,7 @@ LABEL_9:
   *(&v26 - 2) = v1;
   *(&v26 - 8) = 0;
   v27 = v1;
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5084();
 
 LABEL_10:
@@ -7175,7 +7184,7 @@ LABEL_10:
     *(&v26 - 2) = v1;
     *(&v26 - 8) = 0;
     v27 = v1;
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
@@ -7190,7 +7199,7 @@ LABEL_10:
   *(&v26 - 2) = 0;
   *(&v26 - 4) = v1;
   v27 = v1;
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5084();
 
   if (*(v1 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__isFocusable))
@@ -7211,51 +7220,49 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_21A18E400()
+void sub_21A18E400()
 {
   v1 = v0;
   swift_getKeyPath();
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5094();
 
-  v3 = *(v0 + 24);
-  if (v3)
+  v2 = *(v0 + 24);
+  if (v2)
   {
-    v4 = *(v0 + 16);
+    v3 = *(v0 + 16);
     swift_getKeyPath();
     sub_21A2F5434();
     sub_21A2F5094();
 
-    v5 = *(v0 + 49);
+    v4 = *(v0 + 49);
     swift_getKeyPath();
     sub_21A2F5094();
 
-    v6 = *(v1 + 32);
-    v7 = *(v1 + 40);
-    if (v5 == 1)
+    v5 = *(v1 + 32);
+    v6 = *(v1 + 40);
+    if (v4 == 1)
     {
-      v8 = xmmword_21A2FB640;
+      v7 = xmmword_21A2FB640;
     }
 
     else
     {
-      v8 = 0uLL;
+      v7 = 0uLL;
     }
 
     sub_21A14FB78();
     sub_21A2F5434();
     sub_21A2F75E4();
-    return sub_21A18FAD4(v4, v3, v6, v7, v8, *(&v8 + 1), 0x20u);
+    sub_21A18FAD4(v3, v2, v5, v6, v7, *(&v7 + 1), 0x20u);
   }
-
-  return result;
 }
 
 uint64_t sub_21A18E5C8()
 {
 
-  sub_21A1427A8(v0 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe, &qword_27CCFEBC0);
-  sub_21A18EAA0(*(v0 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__externalShareAction));
+  sub_21A1427A8(v0 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__shareableRecipe, &qword_27CCFEBC0, &unk_21A2FB780);
+  sub_21A18EAA0(*(v0 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__externalShareAction), *(v0 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__externalShareAction + 8));
   v1 = OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel___scope;
   v2 = sub_21A2F7614();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
@@ -7298,24 +7305,24 @@ uint64_t sub_21A18E840()
   return v1;
 }
 
-uint64_t sub_21A18E87C@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_21A18E87C@<X0>(uint64_t *a3@<X8>)
 {
-  sub_21A18F55C(&qword_27CCFF158, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF158, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB750);
   result = sub_21A2F7664();
-  *a1 = result;
+  *a3 = result;
   return result;
 }
 
 uint64_t sub_21A18E8F4@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_21A176C98(&qword_27CCFF148);
+  v2 = sub_21A176C98(&qword_27CCFF148, &qword_21A2FBAA0);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = &v9 - v4;
   v6 = type metadata accessor for RecipeCardQuickLinksViewModelSource(0);
   sub_21A2F7694();
   if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
   {
-    result = sub_21A1427A8(v5, &qword_27CCFF148);
+    result = sub_21A1427A8(v5, &qword_27CCFF148, &qword_21A2FBAA0);
     *a1 = 0u;
     *(a1 + 16) = 0u;
     *(a1 + 32) = 0;
@@ -7324,7 +7331,7 @@ uint64_t sub_21A18E8F4@<X0>(uint64_t a1@<X8>)
   else
   {
     *(a1 + 24) = v6;
-    *(a1 + 32) = sub_21A18F55C(&qword_27CCFF150, type metadata accessor for RecipeCardQuickLinksViewModelSource);
+    *(a1 + 32) = sub_21A18F55C(&qword_27CCFF150, type metadata accessor for RecipeCardQuickLinksViewModelSource, &unk_21A2FB860);
     v8 = sub_21A156050(a1);
     return sub_21A18FCB8(v5, v8, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   }
@@ -7340,7 +7347,7 @@ uint64_t sub_21A18EA50()
   return v1;
 }
 
-uint64_t sub_21A18EAA0(uint64_t result)
+uint64_t sub_21A18EAA0(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -7352,22 +7359,22 @@ uint64_t sub_21A18EAA0(uint64_t result)
 uint64_t sub_21A18EAF4()
 {
   v1 = v0;
-  v2 = sub_21A176C98(&qword_27CCFEBC0);
+  v2 = sub_21A176C98(&qword_27CCFEBC0, &unk_21A2FB780);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = v59 - v4;
   v6 = type metadata accessor for RecipeCardQuickLinksViewModelSource(0);
-  v8 = MEMORY[0x28223BE20](v6, v7);
-  v10 = v59 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v8, v11);
-  v14 = v59 - v13;
-  v16 = MEMORY[0x28223BE20](v12, v15);
-  v18 = v59 - v17;
-  v20 = MEMORY[0x28223BE20](v16, v19);
-  v22 = v59 - v21;
-  MEMORY[0x28223BE20](v20, v23);
+  MEMORY[0x28223BE20](v6, v7);
+  v9 = v59 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10, v11);
+  v13 = v59 - v12;
+  MEMORY[0x28223BE20](v14, v15);
+  v17 = v59 - v16;
+  MEMORY[0x28223BE20](v18, v19);
+  v21 = v59 - v20;
+  MEMORY[0x28223BE20](v22, v23);
   v25 = v59 - v24;
   sub_21A18F5A4(v0, v59 - v24);
-  sub_21A176C98(&qword_27CCFF0E8);
+  sub_21A176C98(&qword_27CCFF0E8, &unk_21A2FB7B0);
   sub_21A2F7594();
   sub_21A18F920(v25, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   v26 = *(&v66 + 1);
@@ -7378,8 +7385,8 @@ uint64_t sub_21A18EAF4()
 
   v63 = v0;
   v64 = v6;
-  v61 = v14;
-  v62 = v10;
+  v61 = v13;
+  v62 = v9;
   v27 = v66;
   v28 = *v0;
   v29 = *(*v0 + 16);
@@ -7398,7 +7405,7 @@ uint64_t sub_21A18EAF4()
     v59[-3] = v27;
     v59[-2] = v26;
     *&v66 = v28;
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
@@ -7409,15 +7416,15 @@ uint64_t sub_21A18EAF4()
   }
 
   v34 = v63;
-  sub_21A18F5A4(v63, v22);
-  sub_21A176C98(&qword_27CCFF0F0);
+  sub_21A18F5A4(v63, v21);
+  sub_21A176C98(&qword_27CCFF0F0, &unk_21A311FD0);
   sub_21A2F7594();
-  sub_21A18F920(v22, type metadata accessor for RecipeCardQuickLinksViewModelSource);
+  sub_21A18F920(v21, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   sub_21A18CAAC(v66, *(&v66 + 1));
-  sub_21A18F5A4(v34, v18);
-  sub_21A176C98(&qword_27CCFF0F8);
+  sub_21A18F5A4(v34, v17);
+  sub_21A176C98(&qword_27CCFF0F8, &qword_21A2FB7C0);
   sub_21A2F7594();
-  sub_21A18F920(v18, type metadata accessor for RecipeCardQuickLinksViewModelSource);
+  sub_21A18F920(v17, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   v35 = v66;
   if (v66 == *(v28 + 48))
   {
@@ -7431,14 +7438,14 @@ uint64_t sub_21A18EAF4()
     v59[-2] = v28;
     LOBYTE(v59[-1]) = v35;
     *&v66 = v28;
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
-  sub_21A18F5A4(v34, v22);
-  sub_21A176C98(&qword_27CCFF100);
+  sub_21A18F5A4(v34, v21);
+  sub_21A176C98(&qword_27CCFF100, &qword_21A2FB7C8);
   sub_21A2F7594();
-  v38 = sub_21A18F920(v22, type metadata accessor for RecipeCardQuickLinksViewModelSource);
+  v38 = sub_21A18F920(v21, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   v39 = *&v65[0];
   *&v66 = v27;
   *(&v66 + 1) = v26;
@@ -7458,24 +7465,24 @@ uint64_t sub_21A18EAF4()
     v59[-2] = v28;
     LOBYTE(v59[-1]) = v41;
     *&v66 = v28;
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
   v44 = v60;
-  sub_21A18F5A4(v34, v22);
+  sub_21A18F5A4(v34, v21);
   v45 = v64;
-  sub_21A176C98(&qword_27CCFF108);
+  sub_21A176C98(&qword_27CCFF108, &unk_21A2FB7D0);
   sub_21A2F7594();
-  sub_21A18F920(v22, type metadata accessor for RecipeCardQuickLinksViewModelSource);
+  sub_21A18F920(v21, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   sub_21A18D32C(v44);
   v46 = v61;
   sub_21A18F5A4(v34, v61);
-  sub_21A176C98(&qword_27CCFF110);
+  sub_21A176C98(&qword_27CCFF110, &unk_21A301100);
   sub_21A2F7594();
   sub_21A18F920(v46, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   v47 = v66;
-  sub_21A18F700(*(&v66 + 1), v67);
+  sub_21A18F700(*(&v66 + 1), v67, v68, v69);
   if (v47 == *(v28 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__savingEnabled))
   {
     *(v28 + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__savingEnabled) = v47;
@@ -7488,13 +7495,13 @@ uint64_t sub_21A18EAF4()
     v59[-2] = v28;
     LOBYTE(v59[-1]) = v47;
     *&v65[0] = v28;
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
   v50 = v62;
   sub_21A18F5A4(v34, v62);
-  sub_21A176C98(&qword_27CCFF118);
+  sub_21A176C98(&qword_27CCFF118, &unk_21A2FB7E0);
   sub_21A2F7594();
   sub_21A18F920(v50, type metadata accessor for RecipeCardQuickLinksViewModelSource);
   v51 = v66;
@@ -7510,11 +7517,11 @@ uint64_t sub_21A18EAF4()
     v59[-2] = v28;
     LOBYTE(v59[-1]) = v51;
     *&v66 = v28;
-    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+    sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
     sub_21A2F5084();
   }
 
-  sub_21A183960(v34 + *(v45 + 52), &v66, &qword_27CCFF130);
+  sub_21A183960(v34 + *(v45 + 52), &v66, &qword_27CCFF130, &qword_21A2FB978);
   if (v68)
   {
     sub_21A14274C(&v66, v65);
@@ -7538,12 +7545,12 @@ uint64_t sub_21A18EAF4()
   v59[-3] = v56;
   v59[-2] = v55;
   *&v66 = v28;
-  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel);
+  sub_21A18F55C(&qword_27CCFF0E0, type metadata accessor for RecipeCardQuickLinksViewModel, &unk_21A2FB734);
   sub_21A2F5084();
-  sub_21A18EAA0(v56);
+  sub_21A18EAA0(v56, v55);
 }
 
-uint64_t sub_21A18F55C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_21A18F55C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7604,13 +7611,11 @@ LABEL_7:
   return v4 & 1;
 }
 
-uint64_t sub_21A18F700(uint64_t a1, uint64_t a2)
+void sub_21A18F700(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != 1)
   {
   }
-
-  return result;
 }
 
 uint64_t sub_21A18F790(uint64_t a1, uint64_t *a2)
@@ -7631,7 +7636,7 @@ uint64_t sub_21A18F7FC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_21A18F8B0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFEBC0);
+  v4 = sub_21A176C98(&qword_27CCFEBC0, &unk_21A2FB780);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -7649,10 +7654,11 @@ uint64_t sub_21A18F998()
   v2 = v0[4];
   v3 = (v0[2] + OBJC_IVAR____TtC10CookingKit29RecipeCardQuickLinksViewModel__externalShareAction);
   v4 = *v3;
+  v5 = v3[1];
   *v3 = v1;
   v3[1] = v2;
-  sub_21A15955C(v1);
-  return sub_21A18EAA0(v4);
+  sub_21A15955C(v1, v2);
+  return sub_21A18EAA0(v4, v5);
 }
 
 uint64_t sub_21A18F9F0()
@@ -7685,7 +7691,7 @@ unint64_t sub_21A18FA70()
   return result;
 }
 
-uint64_t sub_21A18FAD4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
+void sub_21A18FAD4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
 {
   v7 = a7 >> 5;
   if (v7 > 2)
@@ -7693,11 +7699,14 @@ uint64_t sub_21A18FAD4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
     switch(v7)
     {
       case 3u:
-        return sub_21A18FC50(result, a2, a3, a4, a5, a6);
+        sub_21A18FC50(result, a2, a3, a4, a5, a6);
+        break;
       case 4u:
-        return sub_21A16E294();
+        sub_21A16E294(result, a2, a3, a4);
+        break;
       case 5u:
-        return sub_21A18FCA0(result, a2, a3);
+        sub_21A18FCA0(result, a2, a3);
+        break;
     }
   }
 
@@ -7705,41 +7714,40 @@ uint64_t sub_21A18FAD4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
   {
     if (v7 == 1)
     {
-      return sub_21A18FBA0(result, a2, a3, a4, a5);
+      sub_21A18FBA0(result, a2, a3, a4, a5);
     }
 
     else if (v7 == 2)
     {
-      return sub_21A18FC00(result, a2, a3, a4, a5, a6 & 1);
+      sub_21A18FC00(result, a2, a3, a4, a5, a6 & 1);
     }
   }
 
   else
   {
-    return sub_21A18FB30(result, a2, a3, a4, a5, a6, a7);
+    sub_21A18FB30(result, a2, a3, a4, a5, a6, a7);
   }
-
-  return result;
 }
 
-uint64_t sub_21A18FB30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
+void sub_21A18FB30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
 {
   if (a7 <= 2u)
   {
+    goto LABEL_5;
   }
 
   if (a7 > 4u)
   {
     if (a7 == 5 || a7 == 6)
     {
+      goto LABEL_5;
     }
   }
 
   else if (a7 == 3 || a7 == 4)
   {
+LABEL_5:
   }
-
-  return result;
 }
 
 uint64_t sub_21A18FBA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
@@ -7766,21 +7774,22 @@ uint64_t sub_21A18FC00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t sub_21A18FC50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
+void sub_21A18FC50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
 {
   if (a6 <= 3u)
   {
     if (a6 >= 4u)
     {
-      return result;
+      return;
     }
+
+    goto LABEL_3;
   }
 
   if (a6 - 5 < 3 || a6 == 4)
   {
+LABEL_3:
   }
-
-  return result;
 }
 
 uint64_t sub_21A18FCA0(uint64_t a1, uint64_t a2, unsigned __int8 a3)
@@ -7861,19 +7870,19 @@ __n128 CookingSession.recipeCardScrollToStep.getter@<Q0>(__n128 *a1@<X8>)
 
 uint64_t CookingSession.lastExpandedUserPresentation.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for CookingSession() + 60);
+  v3 = v1 + *(type metadata accessor for CookingSession(0) + 60);
 
   return sub_21A18FED0(v3, a1);
 }
 
 uint64_t sub_21A18FED0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21A176C98(&qword_27CCFF048);
+  v4 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-unint64_t sub_21A18FF44(unsigned __int8 a1)
+uint64_t sub_21A18FF44(unsigned __int8 a1)
 {
   if (a1 > 5u)
   {
@@ -7954,10 +7963,10 @@ unint64_t sub_21A18FF44(unsigned __int8 a1)
   }
 }
 
-uint64_t sub_21A1900D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_21A1900D8@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_21A192688(a1, a2);
-  *a3 = result;
+  result = sub_21A192688(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7978,7 +7987,7 @@ uint64_t sub_21A190154(uint64_t a1)
 uint64_t CookingSession.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = sub_21A176C98(&qword_27CCFF160);
+  v5 = sub_21A176C98(&qword_27CCFF160, &qword_21A2FBAA8);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5, v7);
   v9 = &v21 - v8;
@@ -8047,10 +8056,10 @@ uint64_t CookingSession.encode(to:)(void *a1)
     sub_21A2F82F4();
     LOBYTE(v21) = 10;
     sub_21A2F82F4();
-    type metadata accessor for CookingSession();
+    type metadata accessor for CookingSession(0);
     LOBYTE(v21) = 11;
     sub_21A2F49B4();
-    sub_21A192C18(&qword_27CCFF188);
+    sub_21A192C18(&qword_27CCFF188, MEMORY[0x277CC9580]);
     sub_21A2F82D4();
   }
 
@@ -8060,15 +8069,15 @@ uint64_t CookingSession.encode(to:)(void *a1)
 uint64_t CookingSession.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v34 = a2;
-  v4 = sub_21A176C98(&qword_27CCFF048);
+  v4 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
   MEMORY[0x28223BE20](v4 - 8, v5);
   v35 = &v34 - v6;
-  v7 = sub_21A176C98(&qword_27CCFF190);
+  v7 = sub_21A176C98(&qword_27CCFF190, &qword_21A2FBAB0);
   v36 = *(v7 - 8);
   MEMORY[0x28223BE20](v7, v8);
   v10 = &v34 - v9;
-  v11 = type metadata accessor for CookingSession();
-  v13 = MEMORY[0x28223BE20](v11, v12);
+  v11 = type metadata accessor for CookingSession(0);
+  MEMORY[0x28223BE20](v11, v12);
   v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_27CCFE7F0 != -1)
   {
@@ -8077,14 +8086,14 @@ uint64_t CookingSession.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     v13 = v32;
   }
 
-  *&v16 = xmmword_27CCFFB50;
-  v17 = qword_27CCFFB60;
-  *&v18 = qword_27CCFFB60;
-  *(&v18 + 1) = xmmword_27CCFFB50;
-  *(v15 + 1) = xmmword_27CCFFB50;
+  *&v16 = qword_27CCFFB50;
+  v17 = *(&xmmword_27CCFFB58 + 1);
+  *&v18 = *(&xmmword_27CCFFB58 + 1);
+  *(&v18 + 1) = qword_27CCFFB50;
+  *(v15 + 1) = *&qword_27CCFFB50;
   *(v15 + 2) = v18;
-  *(&v16 + 1) = *(&xmmword_27CCFFB50 + 1);
-  *(v15 + 3) = *(&xmmword_27CCFFB50 + 8);
+  *(&v16 + 1) = xmmword_27CCFFB58;
+  *(v15 + 3) = xmmword_27CCFFB58;
   *(v15 + 4) = v16;
   *(v15 + 10) = v17;
   *(v15 + 11) = 0;
@@ -8111,7 +8120,7 @@ uint64_t CookingSession.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   if (v2)
   {
     sub_21A142808(a1);
-    return sub_21A1427A8(&v15[v37], &qword_27CCFF048);
+    return sub_21A1427A8(&v15[v37], &qword_27CCFF048, &qword_21A2FB5E0);
   }
 
   else
@@ -8171,7 +8180,7 @@ uint64_t CookingSession.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     LOBYTE(v38) = 10;
     v15[180] = sub_21A2F8254() & 1;
     LOBYTE(v38) = 11;
-    sub_21A192C18(&qword_27CCFF1B0);
+    sub_21A192C18(&qword_27CCFF1B0, MEMORY[0x277CC95A0]);
     sub_21A2F8234();
     (*(v36 + 8))(v10, v7);
     sub_21A18BE0C(v35, &v15[v37]);
@@ -8299,393 +8308,377 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_21A190FA0(uint64_t a1, uint64_t a2)
+void sub_21A190FA0(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CookingSession();
+  v4 = type metadata accessor for CookingSession(0);
   v5 = *(v4 - 8);
-  v7 = MEMORY[0x28223BE20](v4 - 8, v6);
-  v9 = &v53 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7, v10);
-  v12 = &v53 - v11;
-  v13 = sub_21A176C98(&qword_27CCFF1E8);
-  v15 = MEMORY[0x28223BE20](v13 - 8, v14);
-  v57 = &v53 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v15, v17);
-  if (a1 == a2)
+  MEMORY[0x28223BE20](v4 - 8, v6);
+  v8 = &v50 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9, v10);
+  v12 = &v50 - v11;
+  v13 = sub_21A176C98(&qword_27CCFF1E8, &unk_21A2FBD80);
+  MEMORY[0x28223BE20](v13 - 8, v14);
+  v54 = &v50 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16, v17);
+  if (a1 != a2 && *(a1 + 16) == *(a2 + 16))
   {
-    return 1;
-  }
+    v52 = a2;
+    v53 = (&v50 - v18);
+    v19 = 0;
+    v51 = a1;
+    v20 = *(a1 + 64);
+    v50 = a1 + 64;
+    v21 = 1 << *(a1 + 32);
+    v22 = -1;
+    if (v21 < 64)
+    {
+      v22 = ~(-1 << v21);
+    }
 
-  if (*(a1 + 16) != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  v55 = a2;
-  v56 = (&v53 - v19);
-  v20 = 0;
-  v54 = a1;
-  v21 = *(a1 + 64);
-  v53 = a1 + 64;
-  v22 = 1 << *(a1 + 32);
-  v23 = -1;
-  if (v22 < 64)
-  {
-    v23 = ~(-1 << v22);
-  }
-
-  v24 = v23 & v21;
-  v25 = (v22 + 63) >> 6;
-  while (v24)
-  {
-    v58 = (v24 - 1) & v24;
-    v26 = __clz(__rbit64(v24)) | (v20 << 6);
-    v27 = v57;
+    v23 = v22 & v20;
+    v24 = (v21 + 63) >> 6;
+    while (v23)
+    {
+      v55 = (v23 - 1) & v23;
+      v25 = __clz(__rbit64(v23)) | (v19 << 6);
+      v26 = v54;
 LABEL_16:
-    v32 = (*(v54 + 48) + 16 * v26);
-    v33 = *v32;
-    v34 = v32[1];
-    sub_21A192A48(*(v54 + 56) + *(v5 + 72) * v26, v12, type metadata accessor for CookingSession);
-    v35 = sub_21A176C98(&qword_27CCFF1F0);
-    v36 = *(v35 + 48);
-    *v27 = v33;
-    v27[1] = v34;
-    sub_21A192BB0(v12, v27 + v36, type metadata accessor for CookingSession);
-    (*(*(v35 - 8) + 56))(v27, 0, 1, v35);
-    sub_21A2F5434();
+      v31 = (*(v51 + 48) + 16 * v25);
+      v32 = *v31;
+      v33 = v31[1];
+      sub_21A192A48(*(v51 + 56) + *(v5 + 72) * v25, v12, type metadata accessor for CookingSession);
+      v34 = sub_21A176C98(&qword_27CCFF1F0, &qword_21A302840);
+      v35 = *(v34 + 48);
+      *v26 = v32;
+      v26[1] = v33;
+      sub_21A192BB0(v12, v26 + v35, type metadata accessor for CookingSession);
+      (*(*(v34 - 8) + 56))(v26, 0, 1, v34);
+      sub_21A2F5434();
 LABEL_17:
-    v37 = v56;
-    sub_21A149B18(v27, v56, &qword_27CCFF1E8);
-    v38 = sub_21A176C98(&qword_27CCFF1F0);
-    v39 = (*(*(v38 - 8) + 48))(v37, 1, v38);
-    v40 = v39 == 1;
-    if (v39 == 1)
-    {
-      return v40;
-    }
-
-    v41 = v12;
-    v42 = v5;
-    v43 = *(v38 + 48);
-    v45 = *v37;
-    v44 = v37[1];
-    sub_21A192BB0(v37 + v43, v9, type metadata accessor for CookingSession);
-    v46 = v55;
-    v47 = sub_21A261F58(v45, v44);
-    v49 = v48;
-
-    if ((v49 & 1) == 0)
-    {
-      sub_21A192B04(v9, type metadata accessor for CookingSession);
-      return 0;
-    }
-
-    v50 = *(v46 + 56);
-    v5 = v42;
-    v12 = v41;
-    sub_21A192A48(v50 + *(v42 + 72) * v47, v41, type metadata accessor for CookingSession);
-    v51 = _s10CookingKit0A7SessionV2eeoiySbAC_ACtFZ_0(v41, v9);
-    sub_21A192B04(v41, type metadata accessor for CookingSession);
-    result = sub_21A192B04(v9, type metadata accessor for CookingSession);
-    v24 = v58;
-    if (!v51)
-    {
-      return v40;
-    }
-  }
-
-  if (v25 <= v20 + 1)
-  {
-    v28 = v20 + 1;
-  }
-
-  else
-  {
-    v28 = v25;
-  }
-
-  v29 = v28 - 1;
-  v27 = v57;
-  while (1)
-  {
-    v30 = v20 + 1;
-    if (__OFADD__(v20, 1))
-    {
-      break;
-    }
-
-    if (v30 >= v25)
-    {
-      v52 = sub_21A176C98(&qword_27CCFF1F0);
-      (*(*(v52 - 8) + 56))(v27, 1, 1, v52);
-      v58 = 0;
-      v20 = v29;
-      goto LABEL_17;
-    }
-
-    v31 = *(v53 + 8 * v30);
-    ++v20;
-    if (v31)
-    {
-      v58 = (v31 - 1) & v31;
-      v26 = __clz(__rbit64(v31)) | (v30 << 6);
-      v20 = v30;
-      goto LABEL_16;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_21A191438(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for RecipeTimer();
-  v75 = *(v4 - 1);
-  v6 = MEMORY[0x28223BE20](v4, v5);
-  v8 = &v64 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v6, v9);
-  v12 = &v64 - v11;
-  MEMORY[0x28223BE20](v10, v13);
-  v71 = &v64 - v14;
-  v15 = sub_21A176C98(&qword_27CCFF208);
-  v17 = MEMORY[0x28223BE20](v15 - 8, v16);
-  v19 = &v64 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v17, v20);
-  if (a1 == a2)
-  {
-    return 1;
-  }
-
-  if (*(a1 + 16) != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  v70 = &v64 - v22;
-  v23 = 0;
-  v66 = a1;
-  v24 = *(a1 + 64);
-  v65 = a1 + 64;
-  v25 = 1 << *(a1 + 32);
-  v26 = -1;
-  if (v25 < 64)
-  {
-    v26 = ~(-1 << v25);
-  }
-
-  v27 = v26 & v24;
-  v28 = (v25 + 63) >> 6;
-  v68 = v8;
-  v69 = v12;
-  v67 = v28;
-  while (v27)
-  {
-    v32 = a2;
-    v74 = (v27 - 1) & v27;
-    v33 = __clz(__rbit64(v27)) | (v23 << 6);
-LABEL_18:
-    v39 = *(v66 + 48) + 48 * v33;
-    v41 = *v39;
-    v40 = *(v39 + 8);
-    v42 = *(v66 + 56) + *(v75 + 72) * v33;
-    v43 = *(v39 + 16);
-    v72 = *(v39 + 32);
-    v73 = v43;
-    v44 = v71;
-    sub_21A192A48(v42, v71, type metadata accessor for RecipeTimer);
-    v45 = sub_21A176C98(&qword_27CCFF210);
-    v46 = *(v45 + 48);
-    *v19 = v41;
-    *(v19 + 1) = v40;
-    v47 = v72;
-    *(v19 + 1) = v73;
-    *(v19 + 2) = v47;
-    sub_21A192BB0(v44, &v19[v46], type metadata accessor for RecipeTimer);
-    (*(*(v45 - 8) + 56))(v19, 0, 1, v45);
-    sub_21A2F5434();
-    a2 = v32;
-    v36 = v70;
-LABEL_19:
-    sub_21A149B18(v19, v36, &qword_27CCFF208);
-    v48 = sub_21A176C98(&qword_27CCFF210);
-    v49 = (*(*(v48 - 8) + 48))(v36, 1, v48) == 1;
-    result = v49;
-    if (v49)
-    {
-      return result;
-    }
-
-    LODWORD(v73) = v49;
-    v50 = *(v48 + 48);
-    v51 = v36[1];
-    v76[0] = *v36;
-    v76[1] = v51;
-    v76[2] = v36[2];
-    v52 = v36 + v50;
-    v53 = v69;
-    sub_21A192BB0(v52, v69, type metadata accessor for RecipeTimer);
-    v54 = sub_21A25A410(v76);
-    v56 = v55;
-    sub_21A192C5C(v76);
-    if ((v56 & 1) == 0)
-    {
-      goto LABEL_33;
-    }
-
-    v57 = v68;
-    sub_21A192A48(*(a2 + 56) + *(v75 + 72) * v54, v68, type metadata accessor for RecipeTimer);
-    sub_21A192B64();
-    if ((sub_21A2F7E74() & 1) == 0 || (_s10CookingKit12ContinuationV2eeoiySbACyxG_AEtFZ_0() & 1) == 0 || *(v57 + v4[6]) != *(v53 + v4[6]))
-    {
-      goto LABEL_32;
-    }
-
-    v58 = v4[7];
-    v59 = (v57 + v58);
-    v60 = *(v57 + v58 + 8);
-    v61 = (v53 + v58);
-    v62 = v61[1];
-    if (v60)
-    {
-      if (!v62 || (*v59 != *v61 || v60 != v62) && (sub_21A2F8394() & 1) == 0)
+      v36 = v53;
+      sub_21A149B18(v26, v53, &qword_27CCFF1E8, &unk_21A2FBD80);
+      v37 = sub_21A176C98(&qword_27CCFF1F0, &qword_21A302840);
+      if ((*(*(v37 - 8) + 48))(v36, 1, v37) == 1)
       {
-LABEL_32:
-        sub_21A192B04(v57, type metadata accessor for RecipeTimer);
-LABEL_33:
-        sub_21A192B04(v53, type metadata accessor for RecipeTimer);
-        return 0;
+        return;
+      }
+
+      v38 = v12;
+      v39 = v5;
+      v40 = *(v37 + 48);
+      v42 = *v36;
+      v41 = v36[1];
+      sub_21A192BB0(v36 + v40, v8, type metadata accessor for CookingSession);
+      v43 = v52;
+      v44 = sub_21A261F58(v42, v41);
+      v46 = v45;
+
+      if ((v46 & 1) == 0)
+      {
+        sub_21A192B04(v8, type metadata accessor for CookingSession);
+        return;
+      }
+
+      v47 = *(v43 + 56);
+      v5 = v39;
+      v12 = v38;
+      sub_21A192A48(v47 + *(v39 + 72) * v44, v38, type metadata accessor for CookingSession);
+      v48 = _s10CookingKit0A7SessionV2eeoiySbAC_ACtFZ_0(v38, v8);
+      sub_21A192B04(v38, type metadata accessor for CookingSession);
+      sub_21A192B04(v8, type metadata accessor for CookingSession);
+      v23 = v55;
+      if (!v48)
+      {
+        return;
       }
     }
 
-    else if (v62)
+    if (v24 <= v19 + 1)
     {
-      goto LABEL_32;
+      v27 = v19 + 1;
     }
 
-    v29 = v4[8];
-    v30 = *(v57 + v29);
-    v31 = *(v53 + v29);
-    sub_21A192B04(v57, type metadata accessor for RecipeTimer);
-    sub_21A192B04(v53, type metadata accessor for RecipeTimer);
-    v28 = v67;
-    v27 = v74;
-    result = v73;
-    if (v30 != v31)
+    else
     {
-      return result;
+      v27 = v24;
     }
+
+    v28 = v27 - 1;
+    v26 = v54;
+    while (1)
+    {
+      v29 = v19 + 1;
+      if (__OFADD__(v19, 1))
+      {
+        break;
+      }
+
+      if (v29 >= v24)
+      {
+        v49 = sub_21A176C98(&qword_27CCFF1F0, &qword_21A302840);
+        (*(*(v49 - 8) + 56))(v26, 1, 1, v49);
+        v55 = 0;
+        v19 = v28;
+        goto LABEL_17;
+      }
+
+      v30 = *(v50 + 8 * v29);
+      ++v19;
+      if (v30)
+      {
+        v55 = (v30 - 1) & v30;
+        v25 = __clz(__rbit64(v30)) | (v29 << 6);
+        v19 = v29;
+        goto LABEL_16;
+      }
+    }
+
+    __break(1u);
   }
-
-  if (v28 <= v23 + 1)
-  {
-    v34 = v23 + 1;
-  }
-
-  else
-  {
-    v34 = v28;
-  }
-
-  v35 = v34 - 1;
-  v36 = v70;
-  while (1)
-  {
-    v37 = v23 + 1;
-    if (__OFADD__(v23, 1))
-    {
-      break;
-    }
-
-    if (v37 >= v28)
-    {
-      v63 = sub_21A176C98(&qword_27CCFF210);
-      (*(*(v63 - 8) + 56))(v19, 1, 1, v63);
-      v74 = 0;
-      v23 = v35;
-      goto LABEL_19;
-    }
-
-    v38 = *(v65 + 8 * v37);
-    ++v23;
-    if (v38)
-    {
-      v32 = a2;
-      v74 = (v38 - 1) & v38;
-      v33 = __clz(__rbit64(v38)) | (v37 << 6);
-      v23 = v37;
-      goto LABEL_18;
-    }
-  }
-
-  __break(1u);
-  return result;
 }
 
-uint64_t sub_21A191A04(uint64_t result, uint64_t a2)
+void sub_21A191438(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for RecipeTimer(0);
+  v74 = *(v4 - 1);
+  MEMORY[0x28223BE20](v4, v5);
+  v7 = &v63 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8, v9);
+  v11 = &v63 - v10;
+  MEMORY[0x28223BE20](v12, v13);
+  v70 = &v63 - v14;
+  v15 = sub_21A176C98(&qword_27CCFF208, &qword_21A2FBD98);
+  MEMORY[0x28223BE20](v15 - 8, v16);
+  v18 = &v63 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v19, v20);
+  if (a1 != a2 && *(a1 + 16) == *(a2 + 16))
+  {
+    v69 = &v63 - v21;
+    v22 = 0;
+    v65 = a1;
+    v23 = *(a1 + 64);
+    v64 = a1 + 64;
+    v24 = 1 << *(a1 + 32);
+    v25 = -1;
+    if (v24 < 64)
+    {
+      v25 = ~(-1 << v24);
+    }
+
+    v26 = v25 & v23;
+    v27 = (v24 + 63) >> 6;
+    v67 = v7;
+    v68 = v11;
+    v66 = v27;
+    while (v26)
+    {
+      v31 = a2;
+      v73 = (v26 - 1) & v26;
+      v32 = __clz(__rbit64(v26)) | (v22 << 6);
+LABEL_18:
+      v38 = *(v65 + 48) + 48 * v32;
+      v40 = *v38;
+      v39 = *(v38 + 8);
+      v41 = *(v65 + 56) + *(v74 + 72) * v32;
+      v42 = *(v38 + 16);
+      v71 = *(v38 + 32);
+      v72 = v42;
+      v43 = v70;
+      sub_21A192A48(v41, v70, type metadata accessor for RecipeTimer);
+      v44 = sub_21A176C98(&qword_27CCFF210, &unk_21A2FBDA0);
+      v45 = *(v44 + 48);
+      *v18 = v40;
+      *(v18 + 1) = v39;
+      v46 = v71;
+      *(v18 + 1) = v72;
+      *(v18 + 2) = v46;
+      sub_21A192BB0(v43, &v18[v45], type metadata accessor for RecipeTimer);
+      (*(*(v44 - 8) + 56))(v18, 0, 1, v44);
+      sub_21A2F5434();
+      a2 = v31;
+      v35 = v69;
+LABEL_19:
+      sub_21A149B18(v18, v35, &qword_27CCFF208, &qword_21A2FBD98);
+      v47 = sub_21A176C98(&qword_27CCFF210, &unk_21A2FBDA0);
+      v48 = (*(*(v47 - 8) + 48))(v35, 1, v47) == 1;
+      if (v48)
+      {
+        return;
+      }
+
+      LODWORD(v72) = v48;
+      v49 = *(v47 + 48);
+      v50 = v35[1];
+      v75[0] = *v35;
+      v75[1] = v50;
+      v75[2] = v35[2];
+      v51 = v35 + v49;
+      v52 = v68;
+      sub_21A192BB0(v51, v68, type metadata accessor for RecipeTimer);
+      v53 = sub_21A25A410(v75);
+      v55 = v54;
+      sub_21A192C5C(v75);
+      if ((v55 & 1) == 0)
+      {
+        goto LABEL_33;
+      }
+
+      v56 = v67;
+      sub_21A192A48(*(a2 + 56) + *(v74 + 72) * v53, v67, type metadata accessor for RecipeTimer);
+      sub_21A192B64();
+      if ((sub_21A2F7E74() & 1) == 0 || (_s10CookingKit12ContinuationV2eeoiySbACyxG_AEtFZ_0() & 1) == 0 || *(v56 + v4[6]) != *(v52 + v4[6]))
+      {
+        goto LABEL_32;
+      }
+
+      v57 = v4[7];
+      v58 = (v56 + v57);
+      v59 = *(v56 + v57 + 8);
+      v60 = (v52 + v57);
+      v61 = v60[1];
+      if (v59)
+      {
+        if (!v61 || (*v58 != *v60 || v59 != v61) && (sub_21A2F8394() & 1) == 0)
+        {
+LABEL_32:
+          sub_21A192B04(v56, type metadata accessor for RecipeTimer);
+LABEL_33:
+          sub_21A192B04(v52, type metadata accessor for RecipeTimer);
+          return;
+        }
+      }
+
+      else if (v61)
+      {
+        goto LABEL_32;
+      }
+
+      v28 = v4[8];
+      v29 = *(v56 + v28);
+      v30 = *(v52 + v28);
+      sub_21A192B04(v56, type metadata accessor for RecipeTimer);
+      sub_21A192B04(v52, type metadata accessor for RecipeTimer);
+      v27 = v66;
+      v26 = v73;
+      if (v29 != v30)
+      {
+        return;
+      }
+    }
+
+    if (v27 <= v22 + 1)
+    {
+      v33 = v22 + 1;
+    }
+
+    else
+    {
+      v33 = v27;
+    }
+
+    v34 = v33 - 1;
+    v35 = v69;
+    while (1)
+    {
+      v36 = v22 + 1;
+      if (__OFADD__(v22, 1))
+      {
+        break;
+      }
+
+      if (v36 >= v27)
+      {
+        v62 = sub_21A176C98(&qword_27CCFF210, &unk_21A2FBDA0);
+        (*(*(v62 - 8) + 56))(v18, 1, 1, v62);
+        v73 = 0;
+        v22 = v34;
+        goto LABEL_19;
+      }
+
+      v37 = *(v64 + 8 * v36);
+      ++v22;
+      if (v37)
+      {
+        v31 = a2;
+        v73 = (v37 - 1) & v37;
+        v32 = __clz(__rbit64(v37)) | (v36 << 6);
+        v22 = v36;
+        goto LABEL_18;
+      }
+    }
+
+    __break(1u);
+  }
+}
+
+uint64_t sub_21A191A04(uint64_t result, uint64_t a2, __n128 a3)
 {
   if (result == a2)
   {
     return 1;
   }
 
-  v3 = result;
+  v4 = result;
   if (*(result + 16) != *(a2 + 16))
   {
     return 0;
   }
 
-  v4 = 0;
-  v5 = 1 << *(result + 32);
-  v6 = -1;
-  if (v5 < 64)
+  v5 = 0;
+  v6 = 1 << *(result + 32);
+  v7 = -1;
+  if (v6 < 64)
   {
-    v6 = ~(-1 << v5);
+    v7 = ~(-1 << v6);
   }
 
-  v7 = v6 & *(result + 64);
-  v8 = (v5 + 63) >> 6;
-  while (v7)
+  v8 = v7 & *(result + 64);
+  v9 = (v6 + 63) >> 6;
+  while (v8)
   {
-    v9 = __clz(__rbit64(v7));
-    v7 &= v7 - 1;
+    v10 = __clz(__rbit64(v8));
+    v8 &= v8 - 1;
 LABEL_13:
-    v12 = v9 | (v4 << 6);
-    v13 = *(*(v3 + 48) + v12);
-    v14 = v13 == 4;
-    if (v13 != 4)
+    v13 = v10 | (v5 << 6);
+    v14 = *(*(v4 + 48) + v13);
+    v15 = v14 == 4;
+    if (v14 != 4)
     {
-      v15 = *(*(v3 + 56) + 8 * v12);
-      result = sub_21A25A398();
-      if ((v16 & 1) != 0 && *(*(a2 + 56) + 8 * result) == v15)
+      v16 = *(*(v4 + 56) + 8 * v13);
+      result = sub_21A25A398(v14, a3);
+      if (v17)
       {
-        continue;
+        a3.n128_u64[0] = *(*(a2 + 56) + 8 * result);
+        if (a3.n128_f64[0] == v16)
+        {
+          continue;
+        }
       }
     }
 
-    return v14;
+    return v15;
   }
 
-  v10 = v4;
+  v11 = v5;
   while (1)
   {
-    v4 = v10 + 1;
-    if (__OFADD__(v10, 1))
+    v5 = v11 + 1;
+    if (__OFADD__(v11, 1))
     {
       break;
     }
 
-    if (v4 >= v8)
+    if (v5 >= v9)
     {
       return 1;
     }
 
-    v11 = *(v3 + 64 + 8 * v4);
-    ++v10;
-    if (v11)
+    v12 = *(v4 + 64 + 8 * v5);
+    ++v11;
+    if (v12)
     {
-      v9 = __clz(__rbit64(v11));
-      v7 = (v11 - 1) & v11;
+      v10 = __clz(__rbit64(v12));
+      v8 = (v12 - 1) & v12;
       goto LABEL_13;
     }
   }
@@ -8773,13 +8766,13 @@ BOOL _s10CookingKit0A7SessionV2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4, v6);
   v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_21A176C98(&qword_27CCFF048);
+  v9 = sub_21A176C98(&qword_27CCFF048, &qword_21A2FB5E0);
   MEMORY[0x28223BE20](v9 - 8, v10);
   v12 = &v27 - v11;
-  v13 = sub_21A176C98(&qword_27CCFF1F8);
+  v13 = sub_21A176C98(&qword_27CCFF1F8, &qword_21A2FBD90);
   MEMORY[0x28223BE20](v13, v14);
   v16 = &v27 - v15;
-  if ((*a1 != *a2 || *(a1 + 8) != *(a2 + 8)) && (sub_21A2F8394() & 1) == 0)
+  if (*a1 != *a2 && (sub_21A2F8394() & 1) == 0)
   {
     return 0;
   }
@@ -8873,7 +8866,7 @@ BOOL _s10CookingKit0A7SessionV2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
       return 0;
     }
 
-LABEL_34:
+LABEL_33:
     v18 = *(a1 + 177);
     v19 = *(a2 + 177);
     if (v18 == 4)
@@ -8909,7 +8902,7 @@ LABEL_34:
       return 0;
     }
 
-    v22 = *(type metadata accessor for CookingSession() + 60);
+    v22 = *(type metadata accessor for CookingSession(0) + 60);
     v23 = *(v13 + 48);
     sub_21A18FED0(a1 + v22, v16);
     sub_21A18FED0(a2 + v22, &v16[v23]);
@@ -8918,29 +8911,29 @@ LABEL_34:
     {
       if (v24(&v16[v23], 1, v4) == 1)
       {
-        sub_21A1427A8(v16, &qword_27CCFF048);
+        sub_21A1427A8(v16, &qword_27CCFF048, &qword_21A2FB5E0);
         return 1;
       }
 
-      goto LABEL_49;
+      goto LABEL_48;
     }
 
     sub_21A18FED0(v16, v12);
     if (v24(&v16[v23], 1, v4) == 1)
     {
       (*(v5 + 8))(v12, v4);
-LABEL_49:
-      sub_21A1427A8(v16, &qword_27CCFF1F8);
+LABEL_48:
+      sub_21A1427A8(v16, &qword_27CCFF1F8, &qword_21A2FBD90);
       return 0;
     }
 
     (*(v5 + 32))(v8, &v16[v23], v4);
-    sub_21A192C18(&qword_27CCFF200);
+    sub_21A192C18(&qword_27CCFF200, MEMORY[0x277CC9598]);
     v25 = sub_21A2F7874();
     v26 = *(v5 + 8);
     v26(v8, v4);
     v26(v12, v4);
-    sub_21A1427A8(v16, &qword_27CCFF048);
+    sub_21A1427A8(v16, &qword_27CCFF048, &qword_21A2FB5E0);
     return (v25 & 1) != 0;
   }
 
@@ -8952,7 +8945,7 @@ LABEL_49:
   result = 0;
   if (*(a1 + 152) == *(a2 + 152) && *(a1 + 160) == *(a2 + 160) && *(a1 + 168) == *(a2 + 168))
   {
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
   return result;
@@ -9421,7 +9414,7 @@ uint64_t sub_21A192BB0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_21A192C18(unint64_t *a1)
+uint64_t sub_21A192C18(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -9436,53 +9429,53 @@ uint64_t sub_21A192C18(unint64_t *a1)
 
 uint64_t sub_21A192CB4(uint64_t a1)
 {
-  v3 = sub_21A176C98(&qword_27CCFF240);
+  v3 = sub_21A176C98(&qword_27CCFF240, &qword_21A2FBE50);
   MEMORY[0x28223BE20](v3, v4);
   v6 = &v37 - v5;
-  v7 = sub_21A176C98(&qword_27CCFF248);
+  v7 = sub_21A176C98(&qword_27CCFF248, &qword_21A2FBE58);
   MEMORY[0x28223BE20](v7, v8);
   v10 = &v37 - v9;
-  v11 = type metadata accessor for RecipeTheme();
-  v13 = MEMORY[0x28223BE20](v11, v12);
-  v15 = (&v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v13, v16);
+  v11 = type metadata accessor for RecipeTheme(0);
+  MEMORY[0x28223BE20](v11, v12);
+  v14 = (&v37 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v15, v16);
   v18 = &v37 - v17;
-  if (*(v1 + *(type metadata accessor for RecipeLabelVibrancyViewModifier() + 20)) != 1)
+  if (*(v1 + *(type metadata accessor for RecipeLabelVibrancyViewModifier(0) + 20)) != 1)
   {
     goto LABEL_4;
   }
 
   sub_21A1AC424(v18);
-  sub_21A19422C(v18, v15);
+  sub_21A19422C(v18, v14);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
 
   if (EnumCaseMultiPayload == 1)
   {
-    v20 = sub_21A176C98(&qword_27CCFEB90);
-    sub_21A1427A8(v15 + *(v20 + 48), &qword_27CCFEDC0);
+    v20 = sub_21A176C98(&qword_27CCFEB90, &unk_21A2FCE50);
+    sub_21A1427A8(v14 + *(v20 + 48), &qword_27CCFEDC0, &unk_21A2FAEE0);
 LABEL_4:
-    v21 = sub_21A176C98(&qword_27CCFF250);
+    v21 = sub_21A176C98(&qword_27CCFF250, &qword_21A2FBE60);
     (*(*(v21 - 8) + 16))(v6, a1, v21);
     swift_storeEnumTagMultiPayload();
     sub_21A193CFC();
-    sub_21A1772F8(&qword_27CCFF280, &qword_27CCFF250);
+    sub_21A1772F8(&qword_27CCFF280, &qword_27CCFF250, &qword_21A2FBE60, MEMORY[0x277CE04B0]);
     return sub_21A2F6114();
   }
 
-  v23 = sub_21A176C98(&qword_27CCFEEA8);
-  sub_21A183894(v15 + *(v23 + 64));
+  v23 = sub_21A176C98(&qword_27CCFEEA8, &qword_21A2FB130);
+  sub_21A183894(v14 + *(v23 + 64));
   KeyPath = swift_getKeyPath();
-  v25 = &v10[*(sub_21A176C98(&qword_27CCFF278) + 36)];
-  v26 = *(sub_21A176C98(&qword_27CCFF290) + 28);
+  v25 = &v10[*(sub_21A176C98(&qword_27CCFF278, &qword_21A2FBE70) + 36)];
+  v26 = *(sub_21A176C98(&qword_27CCFF290, &qword_21A2FBE78) + 28);
   sub_21A2F72B4();
   v27 = sub_21A2F72D4();
   (*(*(v27 - 8) + 56))(v25 + v26, 0, 1, v27);
   *v25 = KeyPath;
-  v28 = sub_21A176C98(&qword_27CCFF250);
+  v28 = sub_21A176C98(&qword_27CCFF250, &qword_21A2FBE60);
   (*(*(v28 - 8) + 16))(v10, a1, v28);
   v29 = swift_getKeyPath();
-  v30 = &v10[*(sub_21A176C98(&qword_27CCFF268) + 36)];
-  v31 = *(sub_21A176C98(&qword_27CCFF2A0) + 28);
+  v30 = &v10[*(sub_21A176C98(&qword_27CCFF268, &qword_21A2FBE68) + 36)];
+  v31 = *(sub_21A176C98(&qword_27CCFF2A0, &unk_21A2FBE80) + 28);
   v32 = *MEMORY[0x277CDF3C0];
   v33 = sub_21A2F5654();
   (*(*(v33 - 8) + 104))(v30 + v31, v32, v33);
@@ -9491,97 +9484,97 @@ LABEL_4:
   v35 = *MEMORY[0x277CE13B8];
   v36 = sub_21A2F73B4();
   (*(*(v36 - 8) + 104))(&v10[v34], v35, v36);
-  sub_21A183960(v10, v6, &qword_27CCFF248);
+  sub_21A183960(v10, v6, &qword_27CCFF248, &qword_21A2FBE58);
   swift_storeEnumTagMultiPayload();
   sub_21A193CFC();
-  sub_21A1772F8(&qword_27CCFF280, &qword_27CCFF250);
+  sub_21A1772F8(&qword_27CCFF280, &qword_27CCFF250, &qword_21A2FBE60, MEMORY[0x277CE04B0]);
   sub_21A2F6114();
-  return sub_21A1427A8(v10, &qword_27CCFF248);
+  return sub_21A1427A8(v10, &qword_27CCFF248, &qword_21A2FBE58);
 }
 
 uint64_t sub_21A1931B8(uint64_t a1)
 {
-  v2 = sub_21A176C98(&qword_27CCFF2A8);
+  v2 = sub_21A176C98(&qword_27CCFF2A8, &qword_21A2FBEF0);
   MEMORY[0x28223BE20](v2 - 8, v3);
-  sub_21A183960(a1, &v6 - v4, &qword_27CCFF2A8);
+  sub_21A183960(a1, &v6 - v4, &qword_27CCFF2A8, &qword_21A2FBEF0);
   return sub_21A2F5D74();
 }
 
-uint64_t sub_21A19326C(double a1, uint64_t a2, uint64_t a3, char a4, void (*a5)(_BOOL8), uint64_t a6, int a7, uint64_t a8, int a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, char a18)
+uint64_t sub_21A19326C(double a1, uint64_t a2, uint64_t a3, char a4, double (*a5)(_BOOL8), uint64_t a6, int a7, uint64_t a8, int a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, char a18)
 {
-  v46 = a9;
-  v45 = *&a8;
-  v48 = a7;
-  v47 = a3;
-  v14 = sub_21A176C98(&qword_27CCFF218);
-  v49 = *(v14 - 8);
-  MEMORY[0x28223BE20](v14, v15);
-  v17 = &v44 - v16;
-  v18 = sub_21A2F6144();
-  v19 = *(v18 - 8);
-  MEMORY[0x28223BE20](v18, v20);
-  v22 = &v44 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = a9;
+  v52 = *&a8;
+  v55 = a7;
+  v54 = a3;
+  v21 = sub_21A176C98(&qword_27CCFF218, &unk_21A2FBDB0);
+  v56 = *(v21 - 8);
+  MEMORY[0x28223BE20](v21, v22);
+  v24 = &v51 - v23;
+  v25 = sub_21A2F6144();
+  v26 = *(v25 - 8);
+  MEMORY[0x28223BE20](v25, v27);
+  v29 = &v51 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a4)
   {
     sub_21A2F6314();
     sub_21A2F5824();
-    v24 = v23;
-    v26 = v25;
-    v28 = v27;
-    v30 = v29;
-    (*(v19 + 8))(v22, v18);
-    v31 = v24;
-    v32 = v26;
-    v33 = v28;
-    v34 = v30;
-    if (v48)
+    v31 = v30;
+    v33 = v32;
+    v35 = v34;
+    v37 = v36;
+    (*(v26 + 8))(v29, v25);
+    v38 = v31;
+    v39 = v33;
+    v40 = v35;
+    v41 = v37;
+    if (v55)
     {
-      MaxY = CGRectGetMaxY(*&v31);
+      MaxY = CGRectGetMaxY(*&v38);
     }
 
     else
     {
-      MaxY = CGRectGetMinY(*&v31);
+      MaxY = CGRectGetMinY(*&v38);
     }
 
-    v38 = 0.0;
+    v45 = 0.0;
     if (MaxY < a1)
     {
-      v39 = a1 - MaxY;
-      if ((v46 & 1) == 0 && MaxY < v45)
+      v46 = a1 - MaxY;
+      if ((v53 & 1) == 0 && MaxY < v52)
       {
-        v39 = v39 + MaxY - v45;
+        v46 = v46 + MaxY - v52;
       }
 
-      if ((a18 & 1) != 0 || (v38 = a17, v39 <= a17))
+      if ((a18 & 1) != 0 || (v45 = a17, v46 <= a17))
       {
-        v38 = v39;
+        v45 = v46;
       }
     }
 
-    v40 = MaxY < a1;
-    v41 = sub_21A2F5C84();
-    v42 = sub_21A1935CC();
-    MEMORY[0x21CED4240](v41, v42, 0.0, v38);
-    a5(v40);
-    v50 = v41;
-    v51 = v42;
+    v47 = MaxY < a1;
+    v48 = sub_21A2F5C84();
+    v49 = sub_21A1935CC();
+    MEMORY[0x21CED4240](v48, v49, 0.0, v45);
+    a5(v47);
+    v57 = v48;
+    v58 = v49;
     swift_getOpaqueTypeConformance2();
   }
 
   else
   {
-    v36 = sub_21A2F5C84();
-    v37 = sub_21A1935CC();
-    MEMORY[0x21CED4240](v36, v37, 0.0, 0.0);
+    v43 = sub_21A2F5C84();
+    v44 = sub_21A1935CC();
+    MEMORY[0x21CED4240](v43, v44, 0.0, 0.0);
     a5(0);
-    v50 = v36;
-    v51 = v37;
+    v57 = v43;
+    v58 = v44;
     swift_getOpaqueTypeConformance2();
   }
 
   sub_21A2F57B4();
-  return (*(v49 + 8))(v17, v14);
+  return (*(v56 + 8))(v24, v21);
 }
 
 unint64_t sub_21A1935CC()
@@ -9597,7 +9590,7 @@ unint64_t sub_21A1935CC()
   return result;
 }
 
-uint64_t type metadata accessor for RecipeLabelVibrancyViewModifier()
+uint64_t type metadata accessor for RecipeLabelVibrancyViewModifier(uint64_t a1)
 {
   result = qword_27CCFF228;
   if (!qword_27CCFF228)
@@ -9608,32 +9601,32 @@ uint64_t type metadata accessor for RecipeLabelVibrancyViewModifier()
   return result;
 }
 
-void sub_21A193698()
+void sub_21A193698(uint64_t a1)
 {
-  sub_21A19370C();
-  if (v0 <= 0x3F)
+  sub_21A19370C(319);
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
 }
 
-void sub_21A19370C()
+void sub_21A19370C(uint64_t a1)
 {
   if (!qword_27CCFEE40)
   {
-    type metadata accessor for RecipeTheme();
-    v0 = sub_21A2F5664();
-    if (!v1)
+    type metadata accessor for RecipeTheme(255);
+    v1 = sub_21A2F5664();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27CCFEE40);
+      atomic_store(v1, &qword_27CCFEE40);
     }
   }
 }
 
-uint64_t sub_21A193780(CGFloat a1, uint64_t a2, uint64_t a3, char a4, int a5)
+uint64_t sub_21A193780(CGFloat a1, uint64_t a2, uint64_t a3, char a4, unsigned int a5)
 {
   v47[3] = a5;
-  v7 = sub_21A176C98(&qword_27CCFF238);
+  v7 = sub_21A176C98(&qword_27CCFF238, &unk_21A309A00);
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7, v9);
   v11 = v47 - v10;
@@ -9800,7 +9793,7 @@ unint64_t sub_21A193CFC()
   result = qword_27CCFF258;
   if (!qword_27CCFF258)
   {
-    sub_21A176D98(&qword_27CCFF248);
+    sub_21A176D98(&qword_27CCFF248, &qword_21A2FBE58);
     sub_21A193D88();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFF258);
@@ -9814,11 +9807,26 @@ unint64_t sub_21A193D88()
   result = qword_27CCFF260;
   if (!qword_27CCFF260)
   {
-    sub_21A176D98(&qword_27CCFF268);
+    sub_21A176D98(&qword_27CCFF268, &qword_21A2FBE68);
     sub_21A193E40();
-    sub_21A1772F8(&qword_27CCFF298, &qword_27CCFF2A0);
+    sub_21A1772F8(&qword_27CCFF298, &qword_27CCFF2A0, &unk_21A2FBE80, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CCFF260);
+  }
+
+  return result;
+}
+
+unint64_t sub_21A193E40()
+{
+  result = qword_27CCFF270;
+  if (!qword_27CCFF270)
+  {
+    sub_21A176D98(&qword_27CCFF278, &qword_21A2FBE70);
+    sub_21A1772F8(&qword_27CCFF280, &qword_27CCFF250, &qword_21A2FBE60, MEMORY[0x277CE04B0]);
+    sub_21A1772F8(&qword_27CCFF288, &qword_27CCFF290, &qword_21A2FBE78, MEMORY[0x277CE0868]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27CCFF270);
   }
 
   return result;

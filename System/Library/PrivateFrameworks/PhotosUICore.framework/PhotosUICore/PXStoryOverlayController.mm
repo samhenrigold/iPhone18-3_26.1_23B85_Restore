@@ -945,7 +945,7 @@ LABEL_42:
     v43 = 0;
     if (mainModel)
     {
-      [mainModel currentScrollPosition];
+      objc_msgSend_currentScrollPosition(mainModel);
       v33 = v42;
       v34 = &v43;
       if (v42 <= 0.5)

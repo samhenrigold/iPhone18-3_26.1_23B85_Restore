@@ -15,9 +15,9 @@
 - (CAFCharacteristicMetadata)initWithConfig:(id)config
 {
   configCopy = config;
-  v30.receiver = self;
-  v30.super_class = CAFCharacteristicMetadata;
-  v5 = [(CAFCharacteristicMetadata *)&v30 init];
+  v32.receiver = self;
+  v32.super_class = CAFCharacteristicMetadata;
+  v5 = [(CAFCharacteristicMetadata *)&v32 init];
   if (!v5)
   {
     goto LABEL_56;
@@ -37,8 +37,8 @@
 
   if (!v7)
   {
-    v27 = CAFCharacteristicLogging();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = CAFCharacteristicLogging(v8);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [CAFCharacteristicMetadata initWithConfig:];
     }
@@ -48,94 +48,94 @@
 
   v5->_format = [v7 unsignedIntValue];
   objc_opt_class();
-  v8 = [configCopy objectForKeyedSubscript:@"minimumValue"];
-  if (v8 && (objc_opt_isKindOfClass() & 1) != 0)
+  v9 = [configCopy objectForKeyedSubscript:@"minimumValue"];
+  if (v9 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v9 = v8;
+    v10 = v9;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   minimumValue = v5->_minimumValue;
-  v5->_minimumValue = v9;
+  v5->_minimumValue = v10;
 
   objc_opt_class();
-  v11 = [configCopy objectForKeyedSubscript:@"maximumValue"];
-  if (v11 && (objc_opt_isKindOfClass() & 1) != 0)
+  v12 = [configCopy objectForKeyedSubscript:@"maximumValue"];
+  if (v12 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   maximumValue = v5->_maximumValue;
-  v5->_maximumValue = v12;
+  v5->_maximumValue = v13;
 
   objc_opt_class();
-  v14 = [configCopy objectForKeyedSubscript:@"maximumLength"];
-  if (v14 && (objc_opt_isKindOfClass() & 1) != 0)
+  v15 = [configCopy objectForKeyedSubscript:@"maximumLength"];
+  if (v15 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v15 = v14;
+    v16 = v15;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   maximumLength = v5->_maximumLength;
-  v5->_maximumLength = v15;
+  v5->_maximumLength = v16;
 
   objc_opt_class();
-  v17 = [configCopy objectForKeyedSubscript:@"stepValue"];
-  if (v17 && (objc_opt_isKindOfClass() & 1) != 0)
+  v18 = [configCopy objectForKeyedSubscript:@"stepValue"];
+  if (v18 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v18 = v17;
+    v19 = v18;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   stepValue = v5->_stepValue;
-  v5->_stepValue = v18;
+  v5->_stepValue = v19;
 
   objc_opt_class();
-  v20 = [configCopy objectForKeyedSubscript:@"validValues"];
-  if (v20 && (objc_opt_isKindOfClass() & 1) != 0)
+  v21 = [configCopy objectForKeyedSubscript:@"validValues"];
+  if (v21 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v21 = v20;
+    v22 = v21;
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
 
   validValues = v5->_validValues;
-  v5->_validValues = v21;
+  v5->_validValues = v22;
 
   objc_opt_class();
-  v23 = [configCopy objectForKeyedSubscript:@"units"];
-  if (v23 && (objc_opt_isKindOfClass() & 1) != 0)
+  v24 = [configCopy objectForKeyedSubscript:@"units"];
+  if (v24 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v24 = v23;
+    v25 = v24;
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
   units = v5->_units;
-  v5->_units = v24;
+  v5->_units = v25;
 
   format = v5->_format;
   if (format > 9)
@@ -146,8 +146,8 @@
       {
         if (!v5->_maximumLength)
         {
-          v27 = CAFCharacteristicLogging();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v29 = CAFCharacteristicLogging(v27);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             [CAFCharacteristicMetadata initWithConfig:];
           }
@@ -158,8 +158,8 @@
 
       else if (format == 13 && !v5->_maximumLength)
       {
-        v27 = CAFCharacteristicLogging();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = CAFCharacteristicLogging(v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [CAFCharacteristicMetadata initWithConfig:];
         }
@@ -172,8 +172,8 @@
     {
       if (!v5->_maximumLength)
       {
-        v27 = CAFCharacteristicLogging();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = CAFCharacteristicLogging(v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [CAFCharacteristicMetadata initWithConfig:];
         }
@@ -184,8 +184,8 @@
 
     else if (!v5->_maximumLength)
     {
-      v27 = CAFCharacteristicLogging();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v29 = CAFCharacteristicLogging(v27);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         [CAFCharacteristicMetadata initWithConfig:];
       }
@@ -201,22 +201,22 @@
 LABEL_55:
 
 LABEL_56:
-    v28 = v5;
+    v30 = v5;
     goto LABEL_57;
   }
 
-  v27 = CAFCharacteristicLogging();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v29 = CAFCharacteristicLogging(v27);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     [CAFCharacteristicMetadata initWithConfig:];
   }
 
 LABEL_40:
 
-  v28 = 0;
+  v30 = 0;
 LABEL_57:
 
-  return v28;
+  return v30;
 }
 
 @end

@@ -745,7 +745,7 @@ LABEL_91:
 
 - (SMSessionManagerState)initWithDictionary:(id)dictionary
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateStateKey"];
   v6 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateUserTriggerResposeKey"];
@@ -756,28 +756,28 @@ LABEL_91:
   v11 = [[SMSessionConfiguration alloc] initWithDictionary:dictionaryCopy];
   if (v11)
   {
-    v61 = intValue;
-    v63 = v6;
-    v69 = [[SMSessionMonitorContext alloc] initWithDictionary:dictionaryCopy];
+    v60 = intValue;
+    v62 = v6;
+    v68 = [[SMSessionMonitorContext alloc] initWithDictionary:dictionaryCopy];
     v12 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateDateKey"];
     selfCopy = self;
-    v64 = v5;
-    v59 = v12;
+    v63 = v5;
+    v58 = v12;
     if (v12)
     {
       v13 = MEMORY[0x277CBEAA8];
       [v12 doubleValue];
-      v68 = [v13 dateWithTimeIntervalSince1970:?];
+      v67 = [v13 dateWithTimeIntervalSince1970:?];
     }
 
     else
     {
-      v68 = 0;
+      v67 = 0;
     }
 
     v16 = objc_alloc(MEMORY[0x277CCAD78]);
     v17 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateActiveDeviceIdentifierKey"];
-    v67 = [v16 initWithUUIDString:v17];
+    v66 = [v16 initWithUUIDString:v17];
 
     v18 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateLocationKeyLatitude"];
     v19 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateLocationKeyLongitude"];
@@ -791,51 +791,51 @@ LABEL_91:
       v20 = [v21 initWithLatitude:v23 longitude:v24];
     }
 
-    v66 = v20;
+    v65 = v20;
     v25 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateAllowReadTokenKey"];
     v26 = intValue2;
     if (v25)
     {
-      v65 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v25 options:0];
+      v64 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v25 options:0];
     }
 
     else
     {
-      v65 = 0;
+      v64 = 0;
     }
 
     v27 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateSafetyCacheKeyKey"];
     if (v27)
     {
-      v55 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v27 options:0];
+      v54 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v27 options:0];
     }
 
     else
     {
-      v55 = 0;
+      v54 = 0;
     }
 
-    v56 = v27;
-    v54 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateStartMessageGUIDKey"];
-    v53 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateScheduledSendMessageGUIDKey"];
+    v55 = v27;
+    v53 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateStartMessageGUIDKey"];
+    v52 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateScheduledSendMessageGUIDKey"];
     v28 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateScheduledSendMessageDateKey"];
-    v52 = v28;
+    v51 = v28;
     if (v28)
     {
       v29 = MEMORY[0x277CBEAA8];
       [v28 doubleValue];
-      v51 = [v29 dateWithTimeIntervalSince1970:?];
+      v50 = [v29 dateWithTimeIntervalSince1970:?];
     }
 
     else
     {
-      v51 = 0;
+      v50 = 0;
     }
 
-    v58 = v18;
+    v57 = v18;
     v30 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateEstimatedEndDateKey"];
-    v57 = v19;
-    v50 = v30;
+    v56 = v19;
+    v49 = v30;
     if (v30)
     {
       v31 = MEMORY[0x277CBEAA8];
@@ -848,11 +848,11 @@ LABEL_91:
       v32 = 0;
     }
 
-    v47 = v26;
-    v48 = v61;
+    v46 = v26;
+    v47 = v60;
     v33 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateCoarseEstimatedEndDateKey"];
-    v70 = v11;
-    v49 = v33;
+    v69 = v11;
+    v48 = v33;
     if (v33)
     {
       v34 = MEMORY[0x277CBEAA8];
@@ -865,9 +865,9 @@ LABEL_91:
       v35 = 0;
     }
 
-    v62 = v7;
+    v61 = v7;
     intValue3 = [v7 intValue];
-    v60 = v8;
+    v59 = v8;
     intValue4 = [v8 intValue];
     v38 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateSessionStateTransitionDateKey"];
     v39 = v38;
@@ -887,15 +887,15 @@ LABEL_91:
     v43 = [dictionaryCopy valueForKey:@"__kSMSessionManagerStateActivePairedDeviceIdentifierKey"];
     v44 = [v42 initWithUUIDString:v43];
 
-    v72 = [(SMSessionManagerState *)selfCopy initWithSessionState:v47 configuration:v70 userTriggerResponse:v48 monitorContext:v69 date:v68 location:v66 allowReadToken:v65 safetyCacheKey:v55 startMessageGUID:v54 scheduledSendMessageGUID:v53 scheduledSendMessageDate:v51 activeDeviceIdentifier:v67 estimatedEndDate:v32 coarseEstimatedEndDate:v35 estimatedEndDateStatus:intValue3 sessionEndReason:intValue4 sessionStateTransitionDate:v41 activePairedDeviceIdentifier:v44];
-    self = v72;
+    v71 = [(SMSessionManagerState *)selfCopy initWithSessionState:v46 configuration:v69 userTriggerResponse:v47 monitorContext:v68 date:v67 location:v65 allowReadToken:v64 safetyCacheKey:v54 startMessageGUID:v53 scheduledSendMessageGUID:v52 scheduledSendMessageDate:v50 activeDeviceIdentifier:v66 estimatedEndDate:v32 coarseEstimatedEndDate:v35 estimatedEndDateStatus:intValue3 sessionEndReason:intValue4 sessionStateTransitionDate:v41 activePairedDeviceIdentifier:v44];
+    self = v71;
 
-    v11 = v70;
-    v15 = v72;
-    v6 = v63;
-    v5 = v64;
-    v7 = v62;
-    v8 = v60;
+    v11 = v69;
+    v15 = v71;
+    v6 = v62;
+    v5 = v63;
+    v7 = v61;
+    v8 = v59;
   }
 
   else
@@ -904,14 +904,13 @@ LABEL_91:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v74 = "[SMSessionManagerState initWithDictionary:]";
+      v73 = "[SMSessionManagerState initWithDictionary:]";
       _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "%s, configuration is nil", buf, 0xCu);
     }
 
     v15 = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1112,7 +1111,7 @@ LABEL_91:
 
 - (BOOL)isTimerExtensionValid:(double)valid
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   configuration = [(SMSessionManagerState *)self configuration];
   sessionStartDate = [configuration sessionStartDate];
 
@@ -1131,19 +1130,18 @@ LABEL_91:
     v12 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315650;
-      v16 = "[SMSessionManagerState isTimerExtensionValid:]";
-      v17 = 2112;
-      v18 = sessionStartDate;
-      v19 = 2112;
-      v20 = timeBound;
-      _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "%s, Unable to determine if timer extension is valid,startDate,%@,endDate,%@", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "[SMSessionManagerState isTimerExtensionValid:]";
+      v16 = 2112;
+      v17 = sessionStartDate;
+      v18 = 2112;
+      v19 = timeBound;
+      _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "%s, Unable to determine if timer extension is valid,startDate,%@,endDate,%@", &v14, 0x20u);
     }
 
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

@@ -3,6 +3,7 @@
 - (BuddyTableViewControllerAccessibility)init;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityMarkTableViewAsNotAXElement;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation BuddyTableViewControllerAccessibility
@@ -21,6 +22,14 @@
   v4 = __UIAccessibilityCastAsClass();
 
   [v4 setIsAccessibilityElement:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BuddyTableViewControllerAccessibility;
+  [(BuddyTableViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(BuddyTableViewControllerAccessibility *)self _accessibilityMarkTableViewAsNotAXElement];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation

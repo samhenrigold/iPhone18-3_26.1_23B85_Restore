@@ -206,9 +206,7 @@ LABEL_30:
   {
     if ([(NSIndexSet *)self->_indexSet count]>= 2)
     {
-      v5 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndex:row];
-      indexSet = self->_indexSet;
-      self->_indexSet = v5;
+      self->_indexSet = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndex:row];
 
       MEMORY[0x1EEE66BB8]();
     }
@@ -223,9 +221,7 @@ LABEL_30:
 
 - (void)matchNoRows
 {
-  indexSet = [MEMORY[0x1E696AC90] indexSet];
-  indexSet = self->_indexSet;
-  self->_indexSet = indexSet;
+  self->_indexSet = [MEMORY[0x1E696AC90] indexSet];
 
   MEMORY[0x1EEE66BB8]();
 }

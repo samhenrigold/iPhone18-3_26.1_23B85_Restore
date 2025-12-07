@@ -101,7 +101,7 @@ void __50__RPControlCenterAngelProxy_getBSServiceInterface__block_invoke()
 
 - (void)setupConnection
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CF3288] endpointForMachName:@"com.apple.ReplayKitAngel.mach" service:@"com.apple.ReplayKitAngel.session" instance:0];
   if (v3)
   {
@@ -110,25 +110,23 @@ void __50__RPControlCenterAngelProxy_getBSServiceInterface__block_invoke()
     self->_connection = v4;
 
     v6 = self->_connection;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __44__RPControlCenterAngelProxy_setupConnection__block_invoke;
-    v8[3] = &unk_278B61FE0;
-    v8[4] = self;
-    [(BSServiceConnectionClient *)v6 configureConnection:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __44__RPControlCenterAngelProxy_setupConnection__block_invoke;
+    v7[3] = &unk_278B61FE0;
+    v7[4] = self;
+    [(BSServiceConnectionClient *)v6 configureConnection:v7];
     [(BSServiceConnectionClient *)self->_connection activate];
   }
 
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy setupConnection]";
-    v11 = 1024;
-    v12 = 106;
+    v9 = "[RPControlCenterAngelProxy setupConnection]";
+    v10 = 1024;
+    v11 = 106;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngel endpoint nil", buf, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __44__RPControlCenterAngelProxy_setupConnection__block_invoke(uint64_t a1, void *a2)
@@ -162,31 +160,29 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke(uint64_t a1, 
 
 void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136446466;
-    v5 = "[RPControlCenterAngelProxy setupConnection]_block_invoke_2";
-    v6 = 1024;
-    v7 = 79;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Activation handler", &v4, 0x12u);
+    v3 = 136446466;
+    v4 = "[RPControlCenterAngelProxy setupConnection]_block_invoke_2";
+    v5 = 1024;
+    v6 = 79;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Activation handler", &v3, 0x12u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_90(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446466;
-    v10 = "[RPControlCenterAngelProxy setupConnection]_block_invoke";
-    v11 = 1024;
-    v12 = 82;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Interruption handler", &v9, 0x12u);
+    v8 = 136446466;
+    v9 = "[RPControlCenterAngelProxy setupConnection]_block_invoke";
+    v10 = 1024;
+    v11 = 82;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Interruption handler", &v8, 0x12u);
   }
 
   [@"com.apple.replayd" UTF8String];
@@ -199,13 +195,13 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_90(uint64_t a
       v6 = v4;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136446722;
-        v10 = "[RPControlCenterAngelProxy setupConnection]_block_invoke";
-        v11 = 1024;
-        v12 = 90;
-        v13 = 1024;
-        v14 = v6 != 0;
-        _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d hideStatusBar=%d", &v9, 0x18u);
+        v8 = 136446722;
+        v9 = "[RPControlCenterAngelProxy setupConnection]_block_invoke";
+        v10 = 1024;
+        v11 = 90;
+        v12 = 1024;
+        v13 = v6 != 0;
+        _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d hideStatusBar=%d", &v8, 0x18u);
       }
     }
   }
@@ -222,21 +218,19 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_90(uint64_t a
   }
 
   [v3 activate];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPControlCenterAngelProxy setupConnection]_block_invoke";
-    v9 = 1024;
-    v10 = 99;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Invalidation handler", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPControlCenterAngelProxy setupConnection]_block_invoke";
+    v8 = 1024;
+    v9 = 99;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Invalidation handler", &v6, 0x12u);
   }
 
   v4 = *(a1 + 32);
@@ -244,26 +238,25 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   *(v4 + 8) = 0;
 
   [*(a1 + 32) stopCurrentSession];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRecordingCountdownWithSessionType:(id)type
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[RPControlCenterAngelProxy startRecordingCountdownWithSessionType:]";
-    v13 = 1024;
-    v14 = 112;
+    v11 = "[RPControlCenterAngelProxy startRecordingCountdownWithSessionType:]";
+    v12 = 1024;
+    v13 = 112;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v6 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v10 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v9 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   v8 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v7];
 
   if (v8)
@@ -274,32 +267,30 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[RPControlCenterAngelProxy startRecordingCountdownWithSessionType:]";
-    v13 = 1024;
-    v14 = 119;
+    v11 = "[RPControlCenterAngelProxy startRecordingCountdownWithSessionType:]";
+    v12 = 1024;
+    v13 = 119;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCountdownState:(id)state
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[RPControlCenterAngelProxy setCountdownState:]";
-    v13 = 1024;
-    v14 = 124;
+    v11 = "[RPControlCenterAngelProxy setCountdownState:]";
+    v12 = 1024;
+    v13 = 124;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v6 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v10 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v9 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   v8 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v7];
 
   if (v8)
@@ -310,31 +301,29 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[RPControlCenterAngelProxy setCountdownState:]";
-    v13 = 1024;
-    v14 = 131;
+    v11 = "[RPControlCenterAngelProxy setCountdownState:]";
+    v12 = 1024;
+    v13 = 131;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRecordingCountdown
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy cancelRecordingCountdown]";
-    v11 = 1024;
-    v12 = 136;
+    v9 = "[RPControlCenterAngelProxy cancelRecordingCountdown]";
+    v10 = 1024;
+    v11 = 136;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v8 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   v6 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v5];
 
   if (v6)
@@ -345,31 +334,29 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy cancelRecordingCountdown]";
-    v11 = 1024;
-    v12 = 143;
+    v9 = "[RPControlCenterAngelProxy cancelRecordingCountdown]";
+    v10 = 1024;
+    v11 = 143;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showRecordingBanner
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy showRecordingBanner]";
-    v11 = 1024;
-    v12 = 148;
+    v9 = "[RPControlCenterAngelProxy showRecordingBanner]";
+    v10 = 1024;
+    v11 = 148;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v8 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   v6 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v5];
 
   if (v6)
@@ -380,31 +367,29 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy showRecordingBanner]";
-    v11 = 1024;
-    v12 = 155;
+    v9 = "[RPControlCenterAngelProxy showRecordingBanner]";
+    v10 = 1024;
+    v11 = 155;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRecordingCalled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy stopRecordingCalled]";
-    v11 = 1024;
-    v12 = 160;
+    v9 = "[RPControlCenterAngelProxy stopRecordingCalled]";
+    v10 = 1024;
+    v11 = 160;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v8 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   v6 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v5];
 
   if (v6)
@@ -415,31 +400,29 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy stopRecordingCalled]";
-    v11 = 1024;
-    v12 = 167;
+    v9 = "[RPControlCenterAngelProxy stopRecordingCalled]";
+    v10 = 1024;
+    v11 = 167;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideAndStopRecordingBanner
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy hideAndStopRecordingBanner]";
-    v11 = 1024;
-    v12 = 172;
+    v9 = "[RPControlCenterAngelProxy hideAndStopRecordingBanner]";
+    v10 = 1024;
+    v11 = 172;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v8 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   v6 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v5];
 
   if (v6)
@@ -450,33 +433,31 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy hideAndStopRecordingBanner]";
-    v11 = 1024;
-    v12 = 179;
+    v9 = "[RPControlCenterAngelProxy hideAndStopRecordingBanner]";
+    v10 = 1024;
+    v11 = 179;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)showReactionsTipForApplication:(id)application bundleID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   dCopy = d;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v16 = "[RPControlCenterAngelProxy showReactionsTipForApplication:bundleID:]";
-    v17 = 1024;
-    v18 = 184;
+    v15 = "[RPControlCenterAngelProxy showReactionsTipForApplication:bundleID:]";
+    v16 = 1024;
+    v17 = 184;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v9 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v14 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   v11 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v10];
 
   if (v11)
@@ -487,32 +468,31 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v16 = "[RPControlCenterAngelProxy showReactionsTipForApplication:bundleID:]";
-    v17 = 1024;
-    v18 = 191;
+    v15 = "[RPControlCenterAngelProxy showReactionsTipForApplication:bundleID:]";
+    v16 = 1024;
+    v17 = 191;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 != 0;
 }
 
 - (void)startReadyToRecord
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy startReadyToRecord]";
-    v11 = 1024;
-    v12 = 197;
+    v9 = "[RPControlCenterAngelProxy startReadyToRecord]";
+    v10 = 1024;
+    v11 = 197;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v8 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   v6 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v5];
 
   if (v6)
@@ -523,31 +503,29 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy startReadyToRecord]";
-    v11 = 1024;
-    v12 = 202;
+    v9 = "[RPControlCenterAngelProxy startReadyToRecord]";
+    v10 = 1024;
+    v11 = 202;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopReadyToRecord
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy stopReadyToRecord]";
-    v11 = 1024;
-    v12 = 207;
+    v9 = "[RPControlCenterAngelProxy stopReadyToRecord]";
+    v10 = 1024;
+    v11 = 207;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
   connection = self->_connection;
   v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v8 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   v6 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v5];
 
   if (v6)
@@ -558,25 +536,23 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[RPControlCenterAngelProxy stopReadyToRecord]";
-    v11 = 1024;
-    v12 = 212;
+    v9 = "[RPControlCenterAngelProxy stopReadyToRecord]";
+    v10 = 1024;
+    v11 = 212;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAngelServerProtocol nil", buf, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopCurrentSession
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[RPControlCenterAngelProxy stopCurrentSession]";
-    v7 = 1024;
-    v8 = 219;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[RPControlCenterAngelProxy stopCurrentSession]";
+    v6 = 1024;
+    v7 = 219;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v4, 0x12u);
   }
 
   delegate = self->_delegate;
@@ -584,20 +560,18 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   {
     [(RPControlCenterAngelProxyDelegate *)delegate stopCurrentSession];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestToCancelReadyToRecord
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[RPControlCenterAngelProxy requestToCancelReadyToRecord]";
-    v7 = 1024;
-    v8 = 228;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[RPControlCenterAngelProxy requestToCancelReadyToRecord]";
+    v6 = 1024;
+    v7 = 228;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v4, 0x12u);
   }
 
   delegate = self->_delegate;
@@ -605,21 +579,19 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   {
     [(RPControlCenterAngelProxyDelegate *)delegate requestToCancelReadyToRecord];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)countdownInterruptWithStatus:(id)status
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPControlCenterAngelProxy countdownInterruptWithStatus:]";
-    v9 = 1024;
-    v10 = 237;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPControlCenterAngelProxy countdownInterruptWithStatus:]";
+    v8 = 1024;
+    v9 = 237;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
   }
 
   delegate = self->_delegate;
@@ -627,8 +599,6 @@ void __44__RPControlCenterAngelProxy_setupConnection__block_invoke_97(uint64_t a
   {
     [(RPControlCenterAngelProxyDelegate *)delegate countdownInterruptWithStatus:statusCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

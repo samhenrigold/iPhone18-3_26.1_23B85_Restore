@@ -84,16 +84,16 @@
 
 - (UAFAssetSetConsistencyToken)initWithUUID:(id)d assetSetName:(id)name atomicInstance:(id)instance experiment:(id)experiment preinstalledAssetsSummary:(id)summary bootUUID:(id)iD experimentActivated:(BOOL)activated
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dCopy = d;
   nameCopy = name;
   instanceCopy = instance;
   experimentCopy = experiment;
   summaryCopy = summary;
   iDCopy = iD;
-  v40.receiver = self;
-  v40.super_class = UAFAssetSetConsistencyToken;
-  v19 = [(UAFAssetSetConsistencyToken *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = UAFAssetSetConsistencyToken;
+  v19 = [(UAFAssetSetConsistencyToken *)&v39 init];
   v20 = v19;
   if (v19)
   {
@@ -123,9 +123,9 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v42 = "[UAFAssetSetConsistencyToken initWithUUID:assetSetName:atomicInstance:experiment:preinstalledAssetsSummary:bootUUID:experimentActivated:]";
-        v43 = 2114;
-        v44 = nameCopy;
+        v41 = "[UAFAssetSetConsistencyToken initWithUUID:assetSetName:atomicInstance:experiment:preinstalledAssetsSummary:bootUUID:experimentActivated:]";
+        v42 = 2114;
+        v43 = nameCopy;
         _os_log_error_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_ERROR, "%s Current boot UUID is empty when creating consistency token for asset set %{public}@", buf, 0x16u);
       }
     }
@@ -150,9 +150,9 @@
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v42 = "[UAFAssetSetConsistencyToken initWithUUID:assetSetName:atomicInstance:experiment:preinstalledAssetsSummary:bootUUID:experimentActivated:]";
-        v43 = 2114;
-        v44 = nameCopy;
+        v41 = "[UAFAssetSetConsistencyToken initWithUUID:assetSetName:atomicInstance:experiment:preinstalledAssetsSummary:bootUUID:experimentActivated:]";
+        v42 = 2114;
+        v43 = nameCopy;
         _os_log_error_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_ERROR, "%s Treating empty boot UUID as current when creating consistency token for asset set %{public}@", buf, 0x16u);
       }
     }
@@ -174,7 +174,6 @@ LABEL_17:
     v34 = v20;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -193,7 +192,7 @@ LABEL_17:
 
 - (UAFAssetSetConsistencyToken)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"version"];
   if (([@"1.0.0" isEqualToString:v5] & 1) == 0)
@@ -202,9 +201,9 @@ LABEL_17:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[UAFAssetSetConsistencyToken initWithCoder:]";
-      v24 = 2114;
-      v25 = v5;
+      v22 = "[UAFAssetSetConsistencyToken initWithCoder:]";
+      v23 = 2114;
+      v24 = v5;
       _os_log_error_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_ERROR, "%s Decoding of asset set consistency token failed: unsupported version %{public}@", buf, 0x16u);
     }
 
@@ -230,7 +229,7 @@ LABEL_17:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "[UAFAssetSetConsistencyToken initWithCoder:]";
+      v22 = "[UAFAssetSetConsistencyToken initWithCoder:]";
       _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Decoding of asset set consistency token failed", buf, 0xCu);
     }
 
@@ -247,13 +246,12 @@ LABEL_12:
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"preinstalledAssetsSummary"];
 
   v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bootUUID"];
-  LOBYTE(v21) = [coderCopy decodeBoolForKey:@"experimentActivated"];
-  self = [(UAFAssetSetConsistencyToken *)self initWithUUID:v6 assetSetName:v8 atomicInstance:v11 experiment:v12 preinstalledAssetsSummary:v16 bootUUID:v17 experimentActivated:v21];
+  LOBYTE(v20) = [coderCopy decodeBoolForKey:@"experimentActivated"];
+  self = [(UAFAssetSetConsistencyToken *)self initWithUUID:v6 assetSetName:v8 atomicInstance:v11 experiment:v12 preinstalledAssetsSummary:v16 bootUUID:v17 experimentActivated:v20];
 
   selfCopy = self;
 LABEL_13:
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -595,15 +593,15 @@ LABEL_52:
 
 - (void)invalidate:(id)invalidate completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   invalidateCopy = invalidate;
   completionCopy = completion;
   v8 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v26 = "[UAFAssetSetConsistencyToken invalidate:completion:]";
-    v27 = 2114;
+    v25 = "[UAFAssetSetConsistencyToken invalidate:completion:]";
+    v26 = 2114;
     selfCopy3 = self;
     _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s invalidate request for %{public}@", buf, 0x16u);
   }
@@ -618,14 +616,14 @@ LABEL_52:
     if (self->_atomicInstance)
     {
       v9 = [(UAFAssetSetConsistencyToken *)self description];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_2;
-      v20[3] = &unk_1E7FFD5F8;
-      v21 = v9;
-      v22 = completionCopy;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_2;
+      v19[3] = &unk_1E7FFD5F8;
+      v20 = v9;
+      v21 = completionCopy;
       v10 = v9;
-      v11 = MEMORY[0x1BFB33950](v20);
+      v11 = MEMORY[0x1BFB33950](v19);
       [UAFAutoAssetManager invalidateAtomicInstance:self->_atomicInstance assetSetName:self->_assetSetName queue:invalidateCopy completion:v11];
     }
 
@@ -634,45 +632,45 @@ LABEL_52:
       preinstalledAssetsSummary = self->_preinstalledAssetsSummary;
       if (preinstalledAssetsSummary && [(NSSet *)preinstalledAssetsSummary count])
       {
-        v14 = UAFGetLogCategory(&UAFLogContextClient);
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = UAFGetLogCategory(&UAFLogContextClient);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v26 = "[UAFAssetSetConsistencyToken invalidate:completion:]";
-          v27 = 2114;
+          v25 = "[UAFAssetSetConsistencyToken invalidate:completion:]";
+          v26 = 2114;
           selfCopy3 = self;
-          _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Cannot invalidate token with no atomic instance and roots installed: '%{public}@'", buf, 0x16u);
+          _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s Cannot invalidate token with no atomic instance and roots installed: '%{public}@'", buf, 0x16u);
         }
 
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_342;
-        v16[3] = &unk_1E7FFD940;
-        v16[4] = self;
-        v17 = completionCopy;
-        dispatch_async(invalidateCopy, v16);
-        v10 = v17;
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_342;
+        v15[3] = &unk_1E7FFD940;
+        v15[4] = self;
+        v16 = completionCopy;
+        dispatch_async(invalidateCopy, v15);
+        v10 = v16;
       }
 
       else
       {
-        v15 = UAFGetLogCategory(&UAFLogContextClient);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v14 = UAFGetLogCategory(&UAFLogContextClient);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v26 = "[UAFAssetSetConsistencyToken invalidate:completion:]";
-          v27 = 2114;
+          v25 = "[UAFAssetSetConsistencyToken invalidate:completion:]";
+          v26 = 2114;
           selfCopy3 = self;
-          _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s Successfully invalidating empty token: '%{public}@'", buf, 0x16u);
+          _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Successfully invalidating empty token: '%{public}@'", buf, 0x16u);
         }
 
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_341;
-        v18[3] = &unk_1E7FFD4E8;
-        v19 = completionCopy;
-        dispatch_async(invalidateCopy, v18);
-        v10 = v19;
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_341;
+        v17[3] = &unk_1E7FFD4E8;
+        v18 = completionCopy;
+        dispatch_async(invalidateCopy, v17);
+        v10 = v18;
       }
     }
   }
@@ -683,17 +681,15 @@ LABEL_52:
     block[1] = 3221225472;
     block[2] = __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke;
     block[3] = &unk_1E7FFD4E8;
-    v24 = completionCopy;
+    v23 = completionCopy;
     dispatch_async(invalidateCopy, block);
-    v10 = v24;
+    v10 = v23;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
@@ -701,11 +697,11 @@ void __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_2(ui
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v14 = 136315394;
-      v15 = "[UAFAssetSetConsistencyToken invalidate:completion:]_block_invoke";
-      v16 = 2114;
-      v17 = v7;
-      _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Token '%{public}@' invalidated successfully", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[UAFAssetSetConsistencyToken invalidate:completion:]_block_invoke";
+      v15 = 2114;
+      v16 = v7;
+      _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Token '%{public}@' invalidated successfully", &v13, 0x16u);
     }
 
     goto LABEL_14;
@@ -723,13 +719,13 @@ LABEL_11:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = *(a1 + 32);
-        v14 = 136315650;
-        v15 = "[UAFAssetSetConsistencyToken invalidate:completion:]_block_invoke_2";
-        v16 = 2114;
-        v17 = v11;
-        v18 = 2114;
-        v19 = v4;
-        _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Received maskable error from invalidate, suppressing error for token '%{public}@'.  Suppressed error: '%{public}@'", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "[UAFAssetSetConsistencyToken invalidate:completion:]_block_invoke_2";
+        v15 = 2114;
+        v16 = v11;
+        v17 = 2114;
+        v18 = v4;
+        _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Received maskable error from invalidate, suppressing error for token '%{public}@'.  Suppressed error: '%{public}@'", &v13, 0x20u);
       }
 
       v6 = v4;
@@ -754,13 +750,13 @@ LABEL_14:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v14 = 136315650;
-    v15 = "[UAFAssetSetConsistencyToken invalidate:completion:]_block_invoke";
-    v16 = 2114;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v4;
-    _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Token '%{public}@' invalidated with: %{public}@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[UAFAssetSetConsistencyToken invalidate:completion:]_block_invoke";
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v4;
+    _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Token '%{public}@' invalidated with: %{public}@", &v13, 0x20u);
   }
 
 LABEL_15:
@@ -770,8 +766,6 @@ LABEL_15:
   {
     (*(v12 + 16))(v12, v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_342(uint64_t a1)
@@ -792,39 +786,35 @@ void __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_342(
 
 - (id)bootUUIDError
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v7 = *MEMORY[0x1E696A588];
-  v8[0] = @"The bootUUID doesn't match the current bootUUID";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A588];
+  v7[0] = @"The bootUUID doesn't match the current bootUUID";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)unlockableTokenError
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   assetSetName = [(UAFAssetSetConsistencyToken *)self assetSetName];
   v4 = [v2 stringWithFormat:@"There are no underlying assets (neither atomic instance nor asset roots) for consistency token for asset set %@", assetSetName];
 
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A588];
-  v11[0] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A588];
+  v10[0] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (BOOL)lock:(id *)lock
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_locked)
@@ -834,13 +824,13 @@ void __53__UAFAssetSetConsistencyToken_invalidate_completion___block_invoke_342(
     if (os_log_type_enabled(bootUUIDError, OS_LOG_TYPE_DEFAULT))
     {
       refCount = selfCopy->_refCount;
-      v17 = 136315650;
-      v18 = "[UAFAssetSetConsistencyToken lock:]";
-      v19 = 2114;
-      v20 = selfCopy;
-      v21 = 2048;
-      v22 = refCount;
-      _os_log_impl(&dword_1BCF2C000, bootUUIDError, OS_LOG_TYPE_DEFAULT, "%s Not actually locking %{public}@ and instead incrementing ref count to %lld", &v17, 0x20u);
+      v16 = 136315650;
+      v17 = "[UAFAssetSetConsistencyToken lock:]";
+      v18 = 2114;
+      v19 = selfCopy;
+      v20 = 2048;
+      v21 = refCount;
+      _os_log_impl(&dword_1BCF2C000, bootUUIDError, OS_LOG_TYPE_DEFAULT, "%s Not actually locking %{public}@ and instead incrementing ref count to %lld", &v16, 0x20u);
     }
 
 LABEL_26:
@@ -854,13 +844,13 @@ LABEL_26:
     v8 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "[UAFAssetSetConsistencyToken lock:]";
-      v19 = 2114;
-      v20 = selfCopy;
-      v21 = 2114;
-      v22 = bootUUIDError;
-      _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Failed to lock %{public}@: %{public}@", &v17, 0x20u);
+      v16 = 136315650;
+      v17 = "[UAFAssetSetConsistencyToken lock:]";
+      v18 = 2114;
+      v19 = selfCopy;
+      v20 = 2114;
+      v21 = bootUUIDError;
+      _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Failed to lock %{public}@: %{public}@", &v16, 0x20u);
     }
 
     if (lock)
@@ -886,11 +876,11 @@ LABEL_22:
       v10 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 136315394;
-        v18 = "[UAFAssetSetConsistencyToken lock:]";
-        v19 = 2114;
-        v20 = selfCopy;
-        _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Not actually locking %{public}@ as there is no atomic instance but roots are present", &v17, 0x16u);
+        v16 = 136315394;
+        v17 = "[UAFAssetSetConsistencyToken lock:]";
+        v18 = 2114;
+        v19 = selfCopy;
+        _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Not actually locking %{public}@ as there is no atomic instance but roots are present", &v16, 0x16u);
       }
 
       goto LABEL_23;
@@ -908,11 +898,11 @@ LABEL_23:
     v14 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315394;
-      v18 = "[UAFAssetSetConsistencyToken lock:]";
-      v19 = 2114;
-      v20 = selfCopy;
-      _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Locked %{public}@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[UAFAssetSetConsistencyToken lock:]";
+      v18 = 2114;
+      v19 = selfCopy;
+      _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Locked %{public}@", &v16, 0x16u);
     }
 
     bootUUIDError = 0;
@@ -922,13 +912,13 @@ LABEL_23:
   v11 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v17 = 136315650;
-    v18 = "[UAFAssetSetConsistencyToken lock:]";
-    v19 = 2114;
-    v20 = selfCopy;
-    v21 = 2114;
-    v22 = bootUUIDError;
-    _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s Failed to lock %{public}@: %{public}@", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "[UAFAssetSetConsistencyToken lock:]";
+    v18 = 2114;
+    v19 = selfCopy;
+    v20 = 2114;
+    v21 = bootUUIDError;
+    _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s Failed to lock %{public}@: %{public}@", &v16, 0x20u);
   }
 
   if (!lock)
@@ -943,13 +933,12 @@ LABEL_21:
 LABEL_27:
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)unlock:(id *)unlock
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_locked)
@@ -957,11 +946,11 @@ LABEL_27:
     endShortTermLockSync = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(endShortTermLockSync, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315394;
-      v18 = "[UAFAssetSetConsistencyToken unlock:]";
-      v19 = 2114;
-      v20 = selfCopy;
-      _os_log_error_impl(&dword_1BCF2C000, endShortTermLockSync, OS_LOG_TYPE_ERROR, "%s Can't unlock %{public}@: already unlocked", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[UAFAssetSetConsistencyToken unlock:]";
+      v18 = 2114;
+      v19 = selfCopy;
+      _os_log_error_impl(&dword_1BCF2C000, endShortTermLockSync, OS_LOG_TYPE_ERROR, "%s Can't unlock %{public}@: already unlocked", &v16, 0x16u);
     }
 
     goto LABEL_19;
@@ -975,17 +964,17 @@ LABEL_27:
     if (os_log_type_enabled(endShortTermLockSync, OS_LOG_TYPE_DEFAULT))
     {
       v7 = selfCopy->_refCount;
-      v17 = 136315650;
-      v18 = "[UAFAssetSetConsistencyToken unlock:]";
-      v19 = 2114;
-      v20 = selfCopy;
-      v21 = 2048;
-      v22 = v7;
+      v16 = 136315650;
+      v17 = "[UAFAssetSetConsistencyToken unlock:]";
+      v18 = 2114;
+      v19 = selfCopy;
+      v20 = 2048;
+      v21 = v7;
       v8 = "%s Not actually unlocking %{public}@ and instead decrementing ref count to %lld";
       v9 = endShortTermLockSync;
       v10 = 32;
 LABEL_18:
-      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, v8, &v17, v10);
+      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, v8, &v16, v10);
       goto LABEL_19;
     }
 
@@ -997,11 +986,11 @@ LABEL_18:
     v14 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315394;
-      v18 = "[UAFAssetSetConsistencyToken unlock:]";
-      v19 = 2114;
-      v20 = selfCopy;
-      _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Not actually unlocking %{public}@ as there is no atomic instance", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[UAFAssetSetConsistencyToken unlock:]";
+      v18 = 2114;
+      v19 = selfCopy;
+      _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Not actually unlocking %{public}@ as there is no atomic instance", &v16, 0x16u);
     }
 
 LABEL_16:
@@ -1010,10 +999,10 @@ LABEL_16:
     endShortTermLockSync = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(endShortTermLockSync, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315394;
-      v18 = "[UAFAssetSetConsistencyToken unlock:]";
-      v19 = 2114;
-      v20 = selfCopy;
+      v16 = 136315394;
+      v17 = "[UAFAssetSetConsistencyToken unlock:]";
+      v18 = 2114;
+      v19 = selfCopy;
       v8 = "%s Unlocked %{public}@";
       v9 = endShortTermLockSync;
       v10 = 22;
@@ -1034,13 +1023,13 @@ LABEL_19:
   v11 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v17 = 136315650;
-    v18 = "[UAFAssetSetConsistencyToken unlock:]";
-    v19 = 2114;
-    v20 = selfCopy;
-    v21 = 2114;
-    v22 = endShortTermLockSync;
-    _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s Failed to unlock %{public}@: %{public}@", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "[UAFAssetSetConsistencyToken unlock:]";
+    v18 = 2114;
+    v19 = selfCopy;
+    v20 = 2114;
+    v21 = endShortTermLockSync;
+    _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s Failed to unlock %{public}@: %{public}@", &v16, 0x20u);
   }
 
   if (unlock)
@@ -1058,13 +1047,12 @@ LABEL_19:
 LABEL_20:
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)processIdIsLockingToken:(int)token statBuffer:(stat *)buffer error:(id *)error
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v7 = proc_pidinfo(token, 1, 0, 0, 0);
   if (v7 < 0)
   {
@@ -1075,12 +1063,12 @@ LABEL_20:
       *errorCopy = LOBYTE(error) = 0;
     }
 
-    goto LABEL_33;
+    return error & 1;
   }
 
   v8 = v7 + 80;
-  v39 = malloc_type_malloc(v7 + 80, 0x100004000313F17uLL);
-  v9 = proc_pidinfo(token, 1, 0, v39, v8);
+  v38 = malloc_type_malloc(v7 + 80, 0x100004000313F17uLL);
+  v9 = proc_pidinfo(token, 1, 0, v38, v8);
   if ((v9 & 0x80000000) != 0)
   {
     if (error)
@@ -1090,15 +1078,15 @@ LABEL_20:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         lockURL = [(UAFAssetSetConsistencyToken *)self lockURL];
-        v29 = *error;
+        v28 = *error;
         LODWORD(buffer[0]) = 136315906;
         *(buffer + 4) = "[UAFAssetSetConsistencyToken processIdIsLockingToken:statBuffer:error:]";
         WORD6(buffer[0]) = 2048;
         *(buffer + 14) = token;
         WORD3(buffer[1]) = 2114;
         *(&buffer[1] + 1) = lockURL;
-        LOWORD(v51) = 2114;
-        *(&v51 + 2) = v29;
+        LOWORD(v50) = 2114;
+        *(&v50 + 2) = v28;
         _os_log_error_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_ERROR, "%s proc_pidinfo for pid %lld for file %{public}@ failed: %{public}@", buffer, 0x2Au);
       }
 
@@ -1116,8 +1104,8 @@ LABEL_20:
 
   errorCopy2 = error;
   v11 = v9 >> 3;
-  v35 = *MEMORY[0x1E696A798];
-  v12 = v39 + 1;
+  v34 = *MEMORY[0x1E696A798];
+  v12 = v38 + 1;
   v13 = 1;
   v14 = v11;
   v15 = 1;
@@ -1128,15 +1116,15 @@ LABEL_20:
       goto LABEL_18;
     }
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v52 = 0u;
+    v56 = 0u;
     v53 = 0u;
+    v54 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v50 = 0u;
     memset(buffer, 0, sizeof(buffer));
     v16 = proc_pidfdinfo(token, *(v12 - 1), 1, buffer, 176);
     if (v16 < 0)
@@ -1144,58 +1132,58 @@ LABEL_20:
       break;
     }
 
-    if (DWORD2(buffer[1]) == buffer->st_dev && v51 == buffer->st_ino && (BYTE1(buffer[0]) & 0x40) != 0)
+    if (DWORD2(buffer[1]) == buffer->st_dev && v50 == buffer->st_ino && (BYTE1(buffer[0]) & 0x40) != 0)
     {
       lockURL2 = [(UAFAssetSetConsistencyToken *)self lockURL];
       path = [lockURL2 path];
       v19 = path;
-      v37 = open([path UTF8String], 0);
+      v36 = open([path UTF8String], 0);
 
-      if (v37 < 0)
+      if (v36 < 0)
       {
-        v30 = [MEMORY[0x1E696ABC0] errorWithDomain:v35 code:*__error() userInfo:0];
+        v29 = [MEMORY[0x1E696ABC0] errorWithDomain:v34 code:*__error() userInfo:0];
         UAFGetLogCategory(&UAFLogContextClient);
-        v32 = v31 = errorCopy2;
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = v30 = errorCopy2;
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           lockURL3 = [(UAFAssetSetConsistencyToken *)self lockURL];
           *buf = 136315650;
-          v45 = "[UAFAssetSetConsistencyToken processIdIsLockingToken:statBuffer:error:]";
-          v46 = 2114;
-          v47 = lockURL3;
-          v48 = 2114;
-          v49 = v30;
-          _os_log_error_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_ERROR, "%s Failed to open %{public}@ to check nature of lock: %{public}@", buf, 0x20u);
+          v44 = "[UAFAssetSetConsistencyToken processIdIsLockingToken:statBuffer:error:]";
+          v45 = 2114;
+          v46 = lockURL3;
+          v47 = 2114;
+          v48 = v29;
+          _os_log_error_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_ERROR, "%s Failed to open %{public}@ to check nature of lock: %{public}@", buf, 0x20u);
 
-          v31 = errorCopy2;
+          v30 = errorCopy2;
         }
 
-        if (v31)
+        if (v30)
         {
-          v33 = v30;
-          *errorCopy2 = v30;
+          v32 = v29;
+          *errorCopy2 = v29;
         }
 
         goto LABEL_30;
       }
 
-      v41[1] = 0;
-      v41[0] = 0;
+      v40[1] = 0;
+      v40[0] = 0;
       tokenCopy = token;
-      v43 = 3;
-      if (fcntl(v37, 66, v41) < 0)
+      v42 = 3;
+      if (fcntl(v36, 66, v40) < 0)
       {
-        v20 = [MEMORY[0x1E696ABC0] errorWithDomain:v35 code:*__error() userInfo:0];
+        v20 = [MEMORY[0x1E696ABC0] errorWithDomain:v34 code:*__error() userInfo:0];
         v21 = UAFGetLogCategory(&UAFLogContextClient);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           lockURL4 = [(UAFAssetSetConsistencyToken *)self lockURL];
           *buf = 136315650;
-          v45 = "[UAFAssetSetConsistencyToken processIdIsLockingToken:statBuffer:error:]";
-          v46 = 2114;
-          v47 = lockURL4;
-          v48 = 2114;
-          v49 = v20;
+          v44 = "[UAFAssetSetConsistencyToken processIdIsLockingToken:statBuffer:error:]";
+          v45 = 2114;
+          v46 = lockURL4;
+          v47 = 2114;
+          v48 = v20;
           _os_log_error_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_ERROR, "%s Failed fcntl %{public}@ to check nature of lock: %{public}@", buf, 0x20u);
         }
 
@@ -1206,8 +1194,8 @@ LABEL_20:
         }
       }
 
-      close(v37);
-      if (v43 != 3)
+      close(v36);
+      if (v42 != 3)
       {
 LABEL_27:
         v10 = 1;
@@ -1226,7 +1214,7 @@ LABEL_18:
 
   if (errorCopy2)
   {
-    *errorCopy2 = [MEMORY[0x1E696ABC0] errorWithDomain:v35 code:*__error() userInfo:0];
+    *errorCopy2 = [MEMORY[0x1E696ABC0] errorWithDomain:v34 code:*__error() userInfo:0];
   }
 
 LABEL_30:
@@ -1234,19 +1222,17 @@ LABEL_30:
 LABEL_31:
   LOBYTE(error) = v15 && v10;
 LABEL_32:
-  free(v39);
-LABEL_33:
-  v26 = *MEMORY[0x1E69E9840];
+  free(v38);
   return error & 1;
 }
 
 - (id)processIdsLockingToken:(id *)token
 {
-  v49 = *MEMORY[0x1E69E9840];
-  memset(&v42, 0, sizeof(v42));
+  v48 = *MEMORY[0x1E69E9840];
+  memset(&v41, 0, sizeof(v41));
   lockURL = [(UAFAssetSetConsistencyToken *)self lockURL];
   path = [lockURL path];
-  v7 = stat([path UTF8String], &v42);
+  v7 = stat([path UTF8String], &v41);
 
   if (v7 < 0)
   {
@@ -1256,11 +1242,11 @@ LABEL_33:
     {
       lockURL2 = [(UAFAssetSetConsistencyToken *)self lockURL];
       *buf = 136315650;
-      v44 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
-      v45 = 2114;
-      v46 = lockURL2;
-      v47 = 2114;
-      v48 = v29;
+      v43 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
+      v44 = 2114;
+      v45 = lockURL2;
+      v46 = 2114;
+      v47 = v29;
       _os_log_error_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_ERROR, "%s stat of %{public}@ failed: %{public}@", buf, 0x20u);
     }
 
@@ -1285,11 +1271,11 @@ LABEL_33:
     {
       lockURL4 = [(UAFAssetSetConsistencyToken *)self lockURL];
       *buf = 136315650;
-      v44 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
-      v45 = 2114;
-      v46 = lockURL4;
-      v47 = 2114;
-      v48 = v29;
+      v43 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
+      v44 = 2114;
+      v45 = lockURL4;
+      v46 = 2114;
+      v47 = v29;
       _os_log_error_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_ERROR, "%s proc_listpidspath of %{public}@ failed: %{public}@", buf, 0x20u);
     }
 
@@ -1322,11 +1308,11 @@ LABEL_22:
     {
       lockURL6 = [(UAFAssetSetConsistencyToken *)self lockURL];
       *buf = 136315650;
-      v44 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
-      v45 = 2114;
-      v46 = lockURL6;
-      v47 = 2114;
-      v48 = v29;
+      v43 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
+      v44 = 2114;
+      v45 = lockURL6;
+      v46 = 2114;
+      v47 = v29;
       _os_log_error_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_ERROR, "%s proc_listpidspath of %{public}@ failed: %{public}@", buf, 0x20u);
     }
 
@@ -1355,11 +1341,11 @@ LABEL_10:
     {
       lockURL7 = [(UAFAssetSetConsistencyToken *)self lockURL];
       *buf = 136315650;
-      v44 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
-      v45 = 2114;
-      v46 = v19;
-      v47 = 2114;
-      v48 = lockURL7;
+      v43 = "[UAFAssetSetConsistencyToken processIdsLockingToken:]";
+      v44 = 2114;
+      v45 = v19;
+      v46 = 2114;
+      v47 = lockURL7;
       _os_log_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_DEFAULT, "%s Found pids %{public}@ locking %{public}@", buf, 0x20u);
     }
 
@@ -1371,9 +1357,9 @@ LABEL_10:
   while (1)
   {
     v21 = *v20;
-    v41 = 0;
-    v22 = [(UAFAssetSetConsistencyToken *)self processIdIsLockingToken:v21 statBuffer:&v42 error:&v41];
-    v23 = v41;
+    v40 = 0;
+    v22 = [(UAFAssetSetConsistencyToken *)self processIdIsLockingToken:v21 statBuffer:&v41 error:&v40];
+    v23 = v40;
     v24 = v23;
     if (!v22)
     {
@@ -1398,7 +1384,7 @@ LABEL_9:
 
   if (token)
   {
-    v37 = v23;
+    v36 = v23;
     *token = v24;
   }
 
@@ -1410,14 +1396,12 @@ LABEL_28:
   free(v13);
 LABEL_29:
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (BOOL)exlock:(id *)exlock
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self->_isBootUUIDCurrent)
   {
     bootUUIDError = [(UAFAssetSetConsistencyToken *)self bootUUIDError];
@@ -1425,11 +1409,11 @@ LABEL_29:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "[UAFAssetSetConsistencyToken exlock:]";
-      v23 = 2114;
+      v21 = "[UAFAssetSetConsistencyToken exlock:]";
+      v22 = 2114;
       selfCopy3 = self;
-      v25 = 2114;
-      v26 = bootUUIDError;
+      v24 = 2114;
+      v25 = bootUUIDError;
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Failed to lock %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1455,20 +1439,20 @@ LABEL_14:
     v11 = __error();
     bootUUIDError = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", strerror(*v11)];
     v12 = MEMORY[0x1E696ABC0];
-    v19 = *MEMORY[0x1E696A588];
-    v20 = bootUUIDError;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A588];
+    v19 = bootUUIDError;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v14 = [v12 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v13];
 
     v15 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "[UAFAssetSetConsistencyToken exlock:]";
-      v23 = 2114;
+      v21 = "[UAFAssetSetConsistencyToken exlock:]";
+      v22 = 2114;
       selfCopy3 = self;
-      v25 = 2114;
-      v26 = v14;
+      v24 = 2114;
+      v25 = v14;
       _os_log_error_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_ERROR, "%s Failed to lock %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1487,21 +1471,20 @@ LABEL_14:
   if (os_log_type_enabled(bootUUIDError, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[UAFAssetSetConsistencyToken exlock:]";
-    v23 = 2114;
+    v21 = "[UAFAssetSetConsistencyToken exlock:]";
+    v22 = 2114;
     selfCopy3 = self;
     _os_log_impl(&dword_1BCF2C000, bootUUIDError, OS_LOG_TYPE_DEFAULT, "%s Exlocked %{public}@", buf, 0x16u);
   }
 
 LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)nolock:(id *)nolock
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self->_isBootUUIDCurrent)
   {
     bootUUIDError = [(UAFAssetSetConsistencyToken *)self bootUUIDError];
@@ -1509,11 +1492,11 @@ LABEL_15:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "[UAFAssetSetConsistencyToken nolock:]";
-      v23 = 2114;
+      v21 = "[UAFAssetSetConsistencyToken nolock:]";
+      v22 = 2114;
       selfCopy3 = self;
-      v25 = 2114;
-      v26 = bootUUIDError;
+      v24 = 2114;
+      v25 = bootUUIDError;
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Failed to lock %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1539,20 +1522,20 @@ LABEL_14:
     v11 = __error();
     bootUUIDError = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", strerror(*v11)];
     v12 = MEMORY[0x1E696ABC0];
-    v19 = *MEMORY[0x1E696A588];
-    v20 = bootUUIDError;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A588];
+    v19 = bootUUIDError;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v14 = [v12 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v13];
 
     v15 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "[UAFAssetSetConsistencyToken nolock:]";
-      v23 = 2114;
+      v21 = "[UAFAssetSetConsistencyToken nolock:]";
+      v22 = 2114;
       selfCopy3 = self;
-      v25 = 2114;
-      v26 = v14;
+      v24 = 2114;
+      v25 = v14;
       _os_log_error_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_ERROR, "%s Failed to open %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1571,15 +1554,14 @@ LABEL_14:
   if (os_log_type_enabled(bootUUIDError, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[UAFAssetSetConsistencyToken nolock:]";
-    v23 = 2114;
+    v21 = "[UAFAssetSetConsistencyToken nolock:]";
+    v22 = 2114;
     selfCopy3 = self;
     _os_log_impl(&dword_1BCF2C000, bootUUIDError, OS_LOG_TYPE_DEFAULT, "%s Opened %{public}@", buf, 0x16u);
   }
 
 LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

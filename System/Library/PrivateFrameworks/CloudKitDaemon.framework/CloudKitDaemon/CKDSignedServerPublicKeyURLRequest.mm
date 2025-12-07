@@ -179,7 +179,7 @@ LABEL_25:
 + (BOOL)serverResponseIsComplete:(id)complete requireProtectionSource:(BOOL)source
 {
   sourceCopy = source;
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   v6 = objc_msgSend_objectForKeyedSubscript_(completeCopy, v5, @"public key");
   objc_opt_class();
@@ -222,32 +222,31 @@ LABEL_25:
 
   if (v25)
   {
+    v39 = 0u;
+    v40 = 0u;
+    LODWORD(v28) = objc_msgSend_count(v24, v26, v27) != 0;
     v41 = 0u;
     v42 = 0u;
-    LODWORD(v28) = objc_msgSend_count(v24, v26, v27) != 0;
-    v43 = 0u;
-    v44 = 0u;
     v29 = v24;
-    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v41, v45, 16);
+    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v39, v43, 16);
     if (v31)
     {
       v32 = v31;
-      v33 = *v42;
+      v33 = *v40;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v42 != v33)
+          if (*v40 != v33)
           {
             objc_enumerationMutation(v29);
           }
 
-          v35 = *(*(&v41 + 1) + 8 * i);
           objc_opt_class();
           LODWORD(v28) = v28 & objc_opt_isKindOfClass();
         }
 
-        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v36, &v41, v45, 16);
+        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v35, &v39, v43, 16);
       }
 
       while (v32);
@@ -257,14 +256,13 @@ LABEL_25:
   if (sourceCopy)
   {
 LABEL_17:
-    v37 = objc_msgSend_objectForKeyedSubscript_(completeCopy, v26, @"protection source");
+    v36 = objc_msgSend_objectForKeyedSubscript_(completeCopy, v26, @"protection source");
     objc_opt_class();
     LOBYTE(v28) = v28 & objc_opt_isKindOfClass();
   }
 
 LABEL_18:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v28 & 1;
 }
 
@@ -278,54 +276,51 @@ LABEL_18:
 
 + (id)nearestExpirationInCertificateList:(id)list
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v6 = objc_msgSend_distantFuture(MEMORY[0x277CBEAA8], v4, v5);
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v7 = listCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v22, v26, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v20, v24, 16);
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v21;
     do
     {
       v12 = 0;
       v13 = v6;
       do
       {
-        if (*v23 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * v12);
         SecCertificateNotValidAfter();
-        v17 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v15, v16, v22);
-        v6 = objc_msgSend_earlierDate_(v13, v18, v17);
+        v16 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v14, v15, v20);
+        v6 = objc_msgSend_earlierDate_(v13, v17, v16);
 
         ++v12;
         v13 = v6;
       }
 
       while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v19, &v22, v26, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v18, &v20, v24, 16);
     }
 
     while (v10);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (__SecTrust)createTrustEvalFromCertificateList:(id)list verifiedWithPolicy:(__SecPolicy *)policy
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   trust = 0;
   v4 = SecTrustCreateWithCertificates(list, policy, &trust);
   if (trust)
@@ -349,20 +344,19 @@ LABEL_18:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v18) = v4;
+      LODWORD(v17) = v4;
       _os_log_error_impl(&dword_22506F000, v6, OS_LOG_TYPE_ERROR, "Failed to create trust from certificates with status code: %i", buf, 8u);
     }
 
     result = trust;
     if (!trust)
     {
-      goto LABEL_28;
+      return result;
     }
 
 LABEL_22:
     CFRelease(result);
-    result = 0;
-    goto LABEL_28;
+    return 0;
   }
 
   cf = 0;
@@ -380,11 +374,11 @@ LABEL_22:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v18 = trust;
+      v17 = trust;
       _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "Successfully evaluated trust policy %{public}@", buf, 0xCu);
     }
 
-    result = trust;
+    return trust;
   }
 
   else
@@ -398,7 +392,7 @@ LABEL_22:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = cf;
+      v17 = cf;
       _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "Failed to evaluate trust policy with error: %@", buf, 0xCu);
     }
 
@@ -415,8 +409,6 @@ LABEL_22:
     }
   }
 
-LABEL_28:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 

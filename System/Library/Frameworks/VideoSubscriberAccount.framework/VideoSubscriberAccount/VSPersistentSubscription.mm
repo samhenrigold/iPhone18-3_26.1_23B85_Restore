@@ -102,9 +102,11 @@ LABEL_11:
 
 uint64_t __77__VSPersistentSubscription_keyPathsForValuesAffectingDerivedSubscriptionInfo__block_invoke()
 {
-  keyPathsForValuesAffectingDerivedSubscriptionInfo___vs_lazy_init_variable = __77__VSPersistentSubscription_keyPathsForValuesAffectingDerivedSubscriptionInfo__block_invoke_2();
+  v0 = __77__VSPersistentSubscription_keyPathsForValuesAffectingDerivedSubscriptionInfo__block_invoke_2();
+  v1 = keyPathsForValuesAffectingDerivedSubscriptionInfo___vs_lazy_init_variable;
+  keyPathsForValuesAffectingDerivedSubscriptionInfo___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __77__VSPersistentSubscription_keyPathsForValuesAffectingDerivedSubscriptionInfo__block_invoke_2()
@@ -122,20 +124,20 @@ id __77__VSPersistentSubscription_keyPathsForValuesAffectingDerivedSubscriptionI
 
 - (void)_updateDerivedSubscriptionInfo
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   providedSubscriptionInfo = [(VSPersistentSubscription *)self providedSubscriptionInfo];
   v5 = [providedSubscriptionInfo length];
 
   if (v5)
   {
-    entity = VSDefaultLogObject();
+    entity = VSDefaultLogObject(v6);
     if (os_log_type_enabled(entity, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "Provided info will be used.";
+      v8 = "Provided info will be used.";
 LABEL_7:
-      _os_log_impl(&dword_23AB8E000, entity, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
+      _os_log_impl(&dword_23AB8E000, entity, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
       goto LABEL_8;
     }
 
@@ -143,66 +145,67 @@ LABEL_7:
   }
 
   accessLevel = [(VSPersistentSubscription *)self accessLevel];
-  v9 = [accessLevel isEqual:&unk_284DF32E0];
+  v10 = [accessLevel isEqual:&unk_284DF32E0];
 
-  if (v9)
+  if (v10)
   {
-    entity = VSDefaultLogObject();
+    entity = VSDefaultLogObject(v11);
     if (os_log_type_enabled(entity, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "Access level is unknown; will not derive subscription info.";
+      v8 = "Access level is unknown; will not derive subscription info.";
       goto LABEL_7;
     }
 
 LABEL_8:
-    v10 = &stru_284DD5B48;
+    v12 = &stru_284DD5B48;
     goto LABEL_9;
   }
 
   entity = [(VSPersistentSubscription *)self entity];
-  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
   attributesByName = [entity attributesByName];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __58__VSPersistentSubscription__updateDerivedSubscriptionInfo__block_invoke;
-  v20[3] = &unk_278B73898;
-  v20[4] = self;
-  v14 = v12;
-  v21 = v14;
-  [attributesByName enumerateKeysAndObjectsUsingBlock:v20];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __58__VSPersistentSubscription__updateDerivedSubscriptionInfo__block_invoke;
+  v23[3] = &unk_278B73898;
+  v23[4] = self;
+  v16 = v14;
+  v24 = v16;
+  [attributesByName enumerateKeysAndObjectsUsingBlock:v23];
 
-  v19 = 0;
-  v15 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v14 options:2 error:&v19];
-  v16 = v19;
-  if (v15)
+  v22 = 0;
+  v17 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v16 options:2 error:&v22];
+  v18 = v22;
+  v19 = v18;
+  if (v17)
   {
-    v17 = v15;
-    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v17 encoding:4];
-    v18 = VSDefaultLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = v17;
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v20 encoding:4];
+    v21 = VSDefaultLogObject(v12);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v10;
-      _os_log_impl(&dword_23AB8E000, v18, OS_LOG_TYPE_DEFAULT, "Derived value: %@", buf, 0xCu);
+      v26 = v12;
+      _os_log_impl(&dword_23AB8E000, v21, OS_LOG_TYPE_DEFAULT, "Derived value: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v17 = VSErrorLogObject();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = VSErrorLogObject(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [VSPersistentSubscription _updateDerivedSubscriptionInfo];
     }
 
-    v10 = &stru_284DD5B48;
+    v12 = &stru_284DD5B48;
   }
 
 LABEL_9:
   [(VSPersistentSubscription *)self willChangeValueForKey:@"derivedSubscriptionInfo"];
-  v11 = [(__CFString *)v10 copy];
-  [(VSPersistentSubscription *)self setPrimitiveValue:v11 forKey:@"derivedSubscriptionInfo"];
+  v13 = [(__CFString *)v12 copy];
+  [(VSPersistentSubscription *)self setPrimitiveValue:v13 forKey:@"derivedSubscriptionInfo"];
 
   [(VSPersistentSubscription *)self didChangeValueForKey:@"derivedSubscriptionInfo"];
   objc_autoreleasePoolPop(v3);
@@ -246,54 +249,56 @@ void __58__VSPersistentSubscription__updateDerivedSubscriptionInfo__block_invoke
     v6 = [infoCopy dataUsingEncoding:4];
     if (v6)
     {
-      v24 = 0;
-      v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v24];
-      v8 = v24;
+      v26 = 0;
+      v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v26];
+      v8 = v26;
+      v9 = v8;
       if (v7)
       {
-        v9 = v7;
+        v10 = v7;
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v10 = MEMORY[0x277CBEAD8];
-            v11 = *MEMORY[0x277CBE660];
-            v12 = objc_opt_class();
-            v13 = NSStringFromClass(v12);
-            [v10 raise:v11 format:{@"Unexpectedly, topLevelJSONValue was %@, instead of NSDictionary.", v13}];
+            v12 = MEMORY[0x277CBEAD8];
+            v13 = *MEMORY[0x277CBE660];
+            v14 = objc_opt_class();
+            v15 = NSStringFromClass(v14);
+            [v12 raise:v13 format:{@"Unexpectedly, topLevelJSONValue was %@, instead of NSDictionary.", v15}];
           }
 
-          v14 = v9;
-          v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v16 = v10;
+          v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
           entity = [(VSPersistentSubscription *)self entity];
           attributesByName = [entity attributesByName];
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke;
-          v21[3] = &unk_278B73898;
-          v17 = v14;
-          v22 = v17;
-          v18 = v15;
-          v23 = v18;
-          [attributesByName enumerateKeysAndObjectsUsingBlock:v21];
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke;
+          v23[3] = &unk_278B73898;
+          v19 = v16;
+          v24 = v19;
+          v20 = v17;
+          v25 = v20;
+          [attributesByName enumerateKeysAndObjectsUsingBlock:v23];
 
-          if ([v18 count])
+          if ([v20 count])
           {
-            v20[0] = MEMORY[0x277D85DD0];
-            v20[1] = 3221225472;
-            v20[2] = __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke_51;
-            v20[3] = &unk_278B738C0;
-            v20[4] = self;
-            [v18 enumerateKeysAndObjectsUsingBlock:v20];
+            v22[0] = MEMORY[0x277D85DD0];
+            v22[1] = 3221225472;
+            v22[2] = __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke_51;
+            v22[3] = &unk_278B738C0;
+            v22[4] = self;
+            [v20 enumerateKeysAndObjectsUsingBlock:v22];
           }
         }
 
         else
         {
-          v17 = VSErrorLogObject();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = VSErrorLogObject(isKindOfClass);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             [VSPersistentSubscription _deriveValuesFromProvidedInfo:];
           }
@@ -302,8 +307,8 @@ void __58__VSPersistentSubscription__updateDerivedSubscriptionInfo__block_invoke
 
       else
       {
-        v9 = VSErrorLogObject();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = VSErrorLogObject(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [VSPersistentSubscription _deriveValuesFromProvidedInfo:];
         }
@@ -312,8 +317,8 @@ void __58__VSPersistentSubscription__updateDerivedSubscriptionInfo__block_invoke
 
     else
     {
-      v8 = VSErrorLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = VSErrorLogObject(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [VSPersistentSubscription _deriveValuesFromProvidedInfo:];
       }
@@ -325,7 +330,7 @@ void __58__VSPersistentSubscription__updateDerivedSubscriptionInfo__block_invoke
 
 void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = objc_autoreleasePoolPush();
@@ -333,13 +338,13 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
   v11 = v10;
   if (v10)
   {
-    v43 = a4;
+    v44 = a4;
     v12 = v10;
-    v13 = VSDefaultLogObject();
+    v13 = VSDefaultLogObject(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = v12;
+      v50 = v12;
       _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Examining %@ JSON key.", buf, 0xCu);
     }
 
@@ -348,7 +353,7 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
     v16 = [v15 count];
     if (!v16)
     {
-      v32 = VSErrorLogObject();
+      v32 = VSErrorLogObject(0);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke_cold_1();
@@ -363,43 +368,43 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
     v19 = isKindOfClass;
     if (v17 == 2 && (isKindOfClass & 1) != 0 && [(objc_class *)aClass isEqual:objc_opt_class()])
     {
-      v39 = v12;
-      v40 = v9;
-      v41 = v7;
-      v38 = v15;
+      v40 = v12;
+      v41 = v9;
+      v42 = v7;
+      v39 = v15;
       v20 = [v15 objectAtIndex:1];
-      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
       v21 = v14;
-      v22 = [v21 countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v45 objects:v55 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v45;
+        v24 = *v46;
         while (2)
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v45 != v24)
+            if (*v46 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v44 + 1) + 8 * i);
+            v26 = *(*(&v45 + 1) + 8 * i);
             if ((objc_opt_isKindOfClass() & 1) == 0 || [v20 isEqual:objc_opt_class()] && !objc_msgSend(v26, "length"))
             {
 
-              v9 = v40;
-              v7 = v41;
-              v12 = v39;
-              v15 = v38;
+              v9 = v41;
+              v7 = v42;
+              v12 = v40;
+              v15 = v39;
               goto LABEL_32;
             }
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v44 objects:v54 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v45 objects:v55 count:16];
           if (v23)
           {
             continue;
@@ -409,47 +414,48 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
         }
       }
 
-      v9 = v40;
-      v7 = v41;
-      v12 = v39;
-      v15 = v38;
+      v9 = v41;
+      v7 = v42;
+      v12 = v40;
+      v15 = v39;
     }
 
     else if ((v19 & 1) == 0)
     {
 LABEL_32:
-      if ([v8 vs_isRequiredJSONValue])
+      v33 = [v8 vs_isRequiredJSONValue];
+      if (v33)
       {
-        v33 = VSErrorLogObject();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v34 = VSErrorLogObject(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          v37 = NSStringFromClass(aClass);
+          v38 = NSStringFromClass(aClass);
           *buf = 138412802;
-          v49 = v14;
-          v50 = 2112;
-          v51 = v8;
-          v52 = 2112;
-          v53 = v37;
-          _os_log_error_impl(&dword_23AB8E000, v33, OS_LOG_TYPE_ERROR, "Value %@ for required attribute %@ was not expected class %@.", buf, 0x20u);
+          v50 = v14;
+          v51 = 2112;
+          v52 = v8;
+          v53 = 2112;
+          v54 = v38;
+          _os_log_error_impl(&dword_23AB8E000, v34, OS_LOG_TYPE_ERROR, "Value %@ for required attribute %@ was not expected class %@.", buf, 0x20u);
         }
 
         [*(a1 + 40) removeAllObjects];
-        *v43 = 1;
+        *v44 = 1;
       }
 
       else
       {
-        v34 = VSDefaultLogObject();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v35 = VSDefaultLogObject(v33);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v49 = v7;
-          _os_log_impl(&dword_23AB8E000, v34, OS_LOG_TYPE_DEFAULT, "Overwriting omitted value for %@ key.", buf, 0xCu);
+          v50 = v7;
+          _os_log_impl(&dword_23AB8E000, v35, OS_LOG_TYPE_DEFAULT, "Overwriting omitted value for %@ key.", buf, 0xCu);
         }
 
-        v35 = *(a1 + 40);
-        v36 = [MEMORY[0x277CBEB68] null];
-        [v35 setObject:v36 forKey:v7];
+        v36 = *(a1 + 40);
+        v37 = [MEMORY[0x277CBEB68] null];
+        [v36 setObject:v37 forKey:v7];
       }
 
       goto LABEL_39;
@@ -475,13 +481,13 @@ LABEL_32:
     }
 
     v14 = v14;
-    v31 = VSDefaultLogObject();
+    v31 = VSDefaultLogObject(v14);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v49 = v14;
-      v50 = 2112;
-      v51 = v7;
+      v50 = v14;
+      v51 = 2112;
+      v52 = v7;
       _os_log_impl(&dword_23AB8E000, v31, OS_LOG_TYPE_DEFAULT, "Got value %@ for %@ key.", buf, 0x16u);
     }
 
@@ -521,8 +527,7 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
   [(VSPersistentSubscription *)self willChangeValueForKey:@"providedSubscriptionInfo"];
   v5 = [infoCopy copy];
 
-  [(VSPersistentSubscription *)self _deriveValuesFromProvidedInfo:v5];
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject([(VSPersistentSubscription *)self _deriveValuesFromProvidedInfo:v5]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -536,19 +541,19 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
 
 - (void)setAccessLevel:(id)level
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   providedSubscriptionInfo = [(VSPersistentSubscription *)self providedSubscriptionInfo];
   v6 = [providedSubscriptionInfo length];
 
   if (v6)
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = levelCopy;
-      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring access level %@ because of subscription info.", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = levelCopy;
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring access level %@ because of subscription info.", &v9, 0xCu);
     }
   }
 
@@ -560,19 +565,19 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
 
 - (void)setSubscriberIdentifierHash:(id)hash
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   providedSubscriptionInfo = [(VSPersistentSubscription *)self providedSubscriptionInfo];
   v6 = [providedSubscriptionInfo length];
 
   if (v6)
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = hashCopy;
-      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring subscriber identifier hash %@ because of subscription info.", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = hashCopy;
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring subscriber identifier hash %@ because of subscription info.", &v9, 0xCu);
     }
   }
 
@@ -584,19 +589,19 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
 
 - (void)setBillingIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   providedSubscriptionInfo = [(VSPersistentSubscription *)self providedSubscriptionInfo];
   v6 = [providedSubscriptionInfo length];
 
   if (v6)
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = identifierCopy;
-      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring billing identifier %@ because of subscription info.", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = identifierCopy;
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring billing identifier %@ because of subscription info.", &v9, 0xCu);
     }
   }
 
@@ -608,19 +613,19 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
 
 - (void)setTierIdentifiers:(id)identifiers
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   providedSubscriptionInfo = [(VSPersistentSubscription *)self providedSubscriptionInfo];
   v6 = [providedSubscriptionInfo length];
 
   if (v6)
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = identifiersCopy;
-      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring tier identifiers %@ because of subscription info.", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = identifiersCopy;
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring tier identifiers %@ because of subscription info.", &v9, 0xCu);
     }
   }
 
@@ -632,14 +637,14 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
 
 - (void)awakeFromInsert
 {
-  v5.receiver = self;
-  v5.super_class = VSPersistentSubscription;
-  [(VSPersistentSubscription *)&v5 awakeFromInsert];
-  v3 = VSDefaultLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = VSPersistentSubscription;
+  awakeFromInsert = [(VSPersistentSubscription *)&v6 awakeFromInsert];
+  v4 = VSDefaultLogObject(awakeFromInsert);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Awake from insert.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Awake from insert.", v5, 2u);
   }
 
   [(VSPersistentSubscription *)self setAccessLevel:0];
@@ -652,14 +657,14 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
 
 - (void)awakeFromFetch
 {
-  v6.receiver = self;
-  v6.super_class = VSPersistentSubscription;
-  [(VSPersistentSubscription *)&v6 awakeFromFetch];
-  v3 = VSDefaultLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v7.receiver = self;
+  v7.super_class = VSPersistentSubscription;
+  awakeFromFetch = [(VSPersistentSubscription *)&v7 awakeFromFetch];
+  v4 = VSDefaultLogObject(awakeFromFetch);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Awake from fetch.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Awake from fetch.", v6, 2u);
   }
 
   [(VSPersistentSubscription *)self _updateDerivedSubscriptionInfo];
@@ -669,25 +674,25 @@ void __58__VSPersistentSubscription__deriveValuesFromProvidedInfo___block_invoke
 
 - (void)didChangeValueForKey:(id)key
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v9.receiver = self;
-  v9.super_class = VSPersistentSubscription;
-  [(VSPersistentSubscription *)&v9 didChangeValueForKey:keyCopy];
+  v10.receiver = self;
+  v10.super_class = VSPersistentSubscription;
+  [(VSPersistentSubscription *)&v10 didChangeValueForKey:keyCopy];
   keyPathsForValuesAffectingDerivedSubscriptionInfo = [objc_opt_class() keyPathsForValuesAffectingDerivedSubscriptionInfo];
   v6 = [keyPathsForValuesAffectingDerivedSubscriptionInfo containsObject:keyCopy];
 
   if (v6)
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [(VSPersistentSubscription *)self valueForKey:keyCopy];
+      v9 = [(VSPersistentSubscription *)self valueForKey:keyCopy];
       *buf = 138412546;
-      v11 = keyCopy;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Did change value for %@ key to %@, triggering derivation.", buf, 0x16u);
+      v12 = keyCopy;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Did change value for %@ key to %@, triggering derivation.", buf, 0x16u);
     }
 
     [(VSPersistentSubscription *)self _updateDerivedSubscriptionInfo];

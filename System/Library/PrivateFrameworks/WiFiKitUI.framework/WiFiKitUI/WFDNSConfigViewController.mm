@@ -85,7 +85,7 @@
 
 - (void)save:(id)save
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   saveHandler = [(WFDNSConfigViewController *)self saveHandler];
 
   if (saveHandler)
@@ -116,30 +116,33 @@
 
     v11 = WFLogForCategory(0);
     v12 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v11 && os_log_type_enabled(v11, v12))
+    v13 = v12;
+    if (WFCurrentLogLevel(v12, v14) >= 3 && v11 && os_log_type_enabled(v11, v13))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_273FB9000, v11, v12, "saving DNS servers and domains", &v21, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_273FB9000, v11, v13, "saving DNS servers and domains", &v26, 2u);
     }
 
-    v13 = WFLogForCategory(0);
-    v14 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v13 && os_log_type_enabled(v13, v14))
+    v15 = WFLogForCategory(0);
+    v16 = OSLogForWFLogLevel(3uLL);
+    v17 = v16;
+    if (WFCurrentLogLevel(v16, v18) >= 3 && v15 && os_log_type_enabled(v15, v17))
     {
       servers = self->_servers;
-      v21 = 138412290;
-      v22 = servers;
-      _os_log_impl(&dword_273FB9000, v13, v14, "DNS servers='%@'", &v21, 0xCu);
+      v26 = 138412290;
+      v27 = servers;
+      _os_log_impl(&dword_273FB9000, v15, v17, "DNS servers='%@'", &v26, 0xCu);
     }
 
-    v16 = WFLogForCategory(0);
-    v17 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v16 && os_log_type_enabled(v16, v17))
+    v20 = WFLogForCategory(0);
+    v21 = OSLogForWFLogLevel(3uLL);
+    v22 = v21;
+    if (WFCurrentLogLevel(v21, v23) >= 3 && v20 && os_log_type_enabled(v20, v22))
     {
       domains = self->_domains;
-      v21 = 138412290;
-      v22 = domains;
-      _os_log_impl(&dword_273FB9000, v16, v17, "DNS domains='%@'", &v21, 0xCu);
+      v26 = 138412290;
+      v27 = domains;
+      _os_log_impl(&dword_273FB9000, v20, v22, "DNS domains='%@'", &v26, 0xCu);
     }
 
     saveHandler2 = [(WFDNSConfigViewController *)self saveHandler];
@@ -147,7 +150,6 @@
   }
 
   [(UIViewController *)self wf_popViewControllerAnimated:1];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSaveEnabled
@@ -484,7 +486,7 @@ void __61__WFDNSConfigViewController_tableView_cellForRowAtIndexPath___block_inv
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v8 = -[WFDNSConfigViewController sectionForSectionNumber:](self, "sectionForSectionNumber:", [pathCopy section]);
   if (style != 2)
@@ -518,8 +520,8 @@ LABEL_11:
           }
 
           tableView2 = [(WFDNSConfigViewController *)self tableView];
-          v18[0] = v11;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+          v17[0] = v11;
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
           [tableView2 deleteRowsAtIndexPaths:v16 withRowAnimation:100];
 
           [(WFDNSConfigViewController *)self _updateSaveEnabled];
@@ -548,44 +550,43 @@ LABEL_11:
   }
 
 LABEL_17:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   [viewCopy deselectRowAtIndexPath:pathCopy animated:1];
   v8 = WFLogForCategory(0);
   v9 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v8)
+  v10 = v9;
+  if (WFCurrentLogLevel(v9, v11) >= 3 && v8)
   {
-    v10 = v8;
-    if (os_log_type_enabled(v10, v9))
+    v12 = v8;
+    if (os_log_type_enabled(v12, v10))
     {
       *buf = 134218240;
       section = [pathCopy section];
-      v108 = 2048;
-      v109 = [pathCopy row];
-      _os_log_impl(&dword_273FB9000, v10, v9, "tapped DNS config s=%ld r=%ld", buf, 0x16u);
+      v109 = 2048;
+      v110 = [pathCopy row];
+      _os_log_impl(&dword_273FB9000, v12, v10, "tapped DNS config s=%ld r=%ld", buf, 0x16u);
     }
   }
 
-  v11 = -[WFDNSConfigViewController sectionForSectionNumber:](self, "sectionForSectionNumber:", [pathCopy section]);
-  v12 = [pathCopy row];
-  v13 = [(WFDNSConfigViewController *)self sectionNumberForSection:1];
-  v14 = [(WFDNSConfigViewController *)self sectionNumberForSection:2];
-  v15 = [(WFDNSConfigViewController *)self sectionNumberForSection:3];
-  if (v11 != 1)
+  v13 = -[WFDNSConfigViewController sectionForSectionNumber:](self, "sectionForSectionNumber:", [pathCopy section]);
+  v14 = [pathCopy row];
+  v15 = [(WFDNSConfigViewController *)self sectionNumberForSection:1];
+  v16 = [(WFDNSConfigViewController *)self sectionNumberForSection:2];
+  v17 = [(WFDNSConfigViewController *)self sectionNumberForSection:3];
+  if (v13 != 1)
   {
     servers = [(WFDNSConfigViewController *)self servers];
-    if (v12 >= [servers count] && -[WFDNSConfigViewController isEditing](self, "isEditing"))
+    if (v14 >= [servers count] && -[WFDNSConfigViewController isEditing](self, "isEditing"))
     {
       section2 = [pathCopy section];
 
-      if (section2 == v14)
+      if (section2 == v16)
       {
         [(WFDNSConfigViewController *)self _addServerAtIndexPath:pathCopy];
         goto LABEL_47;
@@ -597,11 +598,11 @@ LABEL_17:
     }
 
     domains = [(WFDNSConfigViewController *)self domains];
-    if (v12 >= [domains count] && -[WFDNSConfigViewController isEditing](self, "isEditing"))
+    if (v14 >= [domains count] && -[WFDNSConfigViewController isEditing](self, "isEditing"))
     {
       section3 = [pathCopy section];
 
-      if (section3 == v15)
+      if (section3 == v17)
       {
         [(WFDNSConfigViewController *)self _addDomainAtIndexPath:pathCopy];
         goto LABEL_47;
@@ -622,12 +623,12 @@ LABEL_17:
     goto LABEL_46;
   }
 
-  if (v12 != [(WFDNSConfigViewController *)self dnsConfig])
+  if (v14 != [(WFDNSConfigViewController *)self dnsConfig])
   {
     tableView = [(WFDNSConfigViewController *)self tableView];
     [tableView beginUpdates];
 
-    if (v12)
+    if (v14)
     {
       if ([pathCopy row] != 1)
       {
@@ -642,29 +643,29 @@ LABEL_46:
 
       [(WFDNSConfigViewController *)self setDnsConfig:1];
       [(WFDNSConfigViewController *)self setEditing:1 animated:1];
-      v17 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:v13];
-      v18 = [viewCopy cellForRowAtIndexPath:v17];
-      [v18 setAccessoryType:0];
-
-      v19 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:v13];
+      v19 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:v15];
       v20 = [viewCopy cellForRowAtIndexPath:v19];
-      [v20 setEditingAccessoryType:0];
+      [v20 setAccessoryType:0];
 
-      v21 = [viewCopy cellForRowAtIndexPath:pathCopy];
-      [v21 setAccessoryType:3];
+      v21 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:v15];
+      v22 = [viewCopy cellForRowAtIndexPath:v21];
+      [v22 setEditingAccessoryType:0];
 
-      v22 = [viewCopy cellForRowAtIndexPath:pathCopy];
-      [v22 setEditingAccessoryType:3];
+      v23 = [viewCopy cellForRowAtIndexPath:pathCopy];
+      [v23 setAccessoryType:3];
 
-      v23 = MEMORY[0x277CCAA70];
+      v24 = [viewCopy cellForRowAtIndexPath:pathCopy];
+      [v24 setEditingAccessoryType:3];
+
+      v25 = MEMORY[0x277CCAA70];
       servers2 = [(WFDNSConfigViewController *)self servers];
-      v25 = [v23 indexPathForRow:objc_msgSend(servers2 inSection:{"count"), v14}];
-      v26 = MEMORY[0x277CCAA70];
+      v27 = [v25 indexPathForRow:objc_msgSend(servers2 inSection:{"count"), v16}];
+      v28 = MEMORY[0x277CCAA70];
       domains2 = [(WFDNSConfigViewController *)self domains];
-      v28 = [v26 indexPathForRow:objc_msgSend(domains2 inSection:{"count"), v15}];
-      v100[1] = v28;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:2];
-      [viewCopy insertRowsAtIndexPaths:v29 withRowAnimation:100];
+      v30 = [v28 indexPathForRow:objc_msgSend(domains2 inSection:{"count"), v17}];
+      v101[1] = v30;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:2];
+      [viewCopy insertRowsAtIndexPaths:v31 withRowAnimation:100];
     }
 
     else
@@ -674,64 +675,64 @@ LABEL_46:
       tableView3 = [(WFDNSConfigViewController *)self tableView];
       [tableView3 beginUpdates];
 
-      v36 = [viewCopy cellForRowAtIndexPath:pathCopy];
-      [v36 setAccessoryType:3];
+      v38 = [viewCopy cellForRowAtIndexPath:pathCopy];
+      [v38 setAccessoryType:3];
 
-      v37 = [viewCopy cellForRowAtIndexPath:pathCopy];
-      [v37 setEditingAccessoryType:3];
+      v39 = [viewCopy cellForRowAtIndexPath:pathCopy];
+      [v39 setEditingAccessoryType:3];
 
-      v38 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:v13];
-      v39 = [viewCopy cellForRowAtIndexPath:v38];
-      [v39 setAccessoryType:0];
-
-      v40 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:v13];
+      v40 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:v15];
       v41 = [viewCopy cellForRowAtIndexPath:v40];
-      [v41 setEditingAccessoryType:0];
+      [v41 setAccessoryType:0];
 
-      v42 = MEMORY[0x277CCAA70];
+      v42 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:v15];
+      v43 = [viewCopy cellForRowAtIndexPath:v42];
+      [v43 setEditingAccessoryType:0];
+
+      v44 = MEMORY[0x277CCAA70];
       servers3 = [(WFDNSConfigViewController *)self servers];
-      v44 = [v42 indexPathForRow:objc_msgSend(servers3 inSection:{"count"), v14}];
-      v105[0] = v44;
-      v45 = MEMORY[0x277CCAA70];
+      v46 = [v44 indexPathForRow:objc_msgSend(servers3 inSection:{"count"), v16}];
+      v106[0] = v46;
+      v47 = MEMORY[0x277CCAA70];
       domains3 = [(WFDNSConfigViewController *)self domains];
-      v47 = [v45 indexPathForRow:objc_msgSend(domains3 inSection:{"count"), v15}];
-      v105[1] = v47;
-      v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:2];
-      [viewCopy deleteRowsAtIndexPaths:v48 withRowAnimation:100];
+      v49 = [v47 indexPathForRow:objc_msgSend(domains3 inSection:{"count"), v17}];
+      v106[1] = v49;
+      v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:2];
+      [viewCopy deleteRowsAtIndexPaths:v50 withRowAnimation:100];
 
       servers4 = [(WFDNSConfigViewController *)self servers];
-      v50 = [servers4 count];
+      v52 = [servers4 count];
       originalServers = [(WFDNSConfigViewController *)self originalServers];
-      v52 = [originalServers count];
+      v54 = [originalServers count];
 
-      if (v50 <= v52)
+      if (v52 <= v54)
       {
         servers5 = [(WFDNSConfigViewController *)self servers];
-        v62 = [servers5 count];
+        v64 = [servers5 count];
         originalServers2 = [(WFDNSConfigViewController *)self originalServers];
-        v64 = [originalServers2 count];
+        v66 = [originalServers2 count];
 
-        if (v62 < v64)
+        if (v64 < v66)
         {
           servers6 = [(WFDNSConfigViewController *)self servers];
-          v66 = [servers6 count];
+          v68 = [servers6 count];
 
           while (1)
           {
             originalServers3 = [(WFDNSConfigViewController *)self originalServers];
-            v68 = [originalServers3 count];
+            v70 = [originalServers3 count];
 
-            if (v66 >= v68)
+            if (v68 >= v70)
             {
               break;
             }
 
-            v69 = [MEMORY[0x277CCAA70] indexPathForRow:v66 inSection:v14];
-            v103 = v69;
-            v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
-            [viewCopy insertRowsAtIndexPaths:v70 withRowAnimation:0];
+            v71 = [MEMORY[0x277CCAA70] indexPathForRow:v68 inSection:v16];
+            v104 = v71;
+            v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
+            [viewCopy insertRowsAtIndexPaths:v72 withRowAnimation:0];
 
-            ++v66;
+            ++v68;
           }
         }
       }
@@ -739,62 +740,62 @@ LABEL_46:
       else
       {
         originalServers4 = [(WFDNSConfigViewController *)self originalServers];
-        v54 = [originalServers4 count];
+        v56 = [originalServers4 count];
 
         servers7 = [(WFDNSConfigViewController *)self servers];
-        v56 = [servers7 count];
+        v58 = [servers7 count];
 
-        if (v54 < v56)
+        if (v56 < v58)
         {
           do
           {
-            v57 = [MEMORY[0x277CCAA70] indexPathForRow:v54 inSection:v14];
-            v104 = v57;
-            v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
-            [viewCopy deleteRowsAtIndexPaths:v58 withRowAnimation:0];
+            v59 = [MEMORY[0x277CCAA70] indexPathForRow:v56 inSection:v16];
+            v105 = v59;
+            v60 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
+            [viewCopy deleteRowsAtIndexPaths:v60 withRowAnimation:0];
 
-            ++v54;
+            ++v56;
             servers8 = [(WFDNSConfigViewController *)self servers];
-            v60 = [servers8 count];
+            v62 = [servers8 count];
           }
 
-          while (v54 < v60);
+          while (v56 < v62);
         }
       }
 
       domains4 = [(WFDNSConfigViewController *)self domains];
-      v72 = [domains4 count];
+      v74 = [domains4 count];
       originalDomains = [(WFDNSConfigViewController *)self originalDomains];
-      v74 = [originalDomains count];
+      v76 = [originalDomains count];
 
-      if (v72 <= v74)
+      if (v74 <= v76)
       {
         domains5 = [(WFDNSConfigViewController *)self domains];
-        v82 = [domains5 count];
+        v84 = [domains5 count];
         originalDomains2 = [(WFDNSConfigViewController *)self originalDomains];
-        v84 = [originalDomains2 count];
+        v86 = [originalDomains2 count];
 
-        if (v82 < v84)
+        if (v84 < v86)
         {
           domains6 = [(WFDNSConfigViewController *)self domains];
-          v86 = [domains6 count];
+          v88 = [domains6 count];
 
           while (1)
           {
             originalDomains3 = [(WFDNSConfigViewController *)self originalDomains];
-            v88 = [originalDomains3 count];
+            v90 = [originalDomains3 count];
 
-            if (v86 >= v88)
+            if (v88 >= v90)
             {
               break;
             }
 
-            v89 = [MEMORY[0x277CCAA70] indexPathForRow:v86 inSection:v15];
-            v101 = v89;
-            v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v101 count:1];
-            [viewCopy insertRowsAtIndexPaths:v90 withRowAnimation:0];
+            v91 = [MEMORY[0x277CCAA70] indexPathForRow:v88 inSection:v17];
+            v102 = v91;
+            v92 = [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
+            [viewCopy insertRowsAtIndexPaths:v92 withRowAnimation:0];
 
-            ++v86;
+            ++v88;
           }
         }
       }
@@ -802,30 +803,30 @@ LABEL_46:
       else
       {
         originalDomains4 = [(WFDNSConfigViewController *)self originalDomains];
-        v76 = [originalDomains4 count];
+        v78 = [originalDomains4 count];
 
         while (1)
         {
           domains7 = [(WFDNSConfigViewController *)self domains];
-          v78 = [domains7 count];
+          v80 = [domains7 count];
 
-          if (v76 >= v78)
+          if (v78 >= v80)
           {
             break;
           }
 
-          v79 = [MEMORY[0x277CCAA70] indexPathForRow:v76 inSection:v15];
-          v102 = v79;
-          v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
-          [viewCopy deleteRowsAtIndexPaths:v80 withRowAnimation:0];
+          v81 = [MEMORY[0x277CCAA70] indexPathForRow:v78 inSection:v17];
+          v103 = v81;
+          v82 = [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
+          [viewCopy deleteRowsAtIndexPaths:v82 withRowAnimation:0];
 
-          ++v76;
+          ++v78;
         }
       }
 
       originalServers5 = [(WFDNSConfigViewController *)self originalServers];
-      v92 = [originalServers5 mutableCopy];
-      [(WFDNSConfigViewController *)self setServers:v92];
+      v94 = [originalServers5 mutableCopy];
+      [(WFDNSConfigViewController *)self setServers:v94];
 
       servers9 = [(WFDNSConfigViewController *)self servers];
 
@@ -836,8 +837,8 @@ LABEL_46:
       }
 
       originalDomains5 = [(WFDNSConfigViewController *)self originalDomains];
-      v96 = [originalDomains5 mutableCopy];
-      [(WFDNSConfigViewController *)self setDomains:v96];
+      v98 = [originalDomains5 mutableCopy];
+      [(WFDNSConfigViewController *)self setDomains:v98];
 
       domains8 = [(WFDNSConfigViewController *)self domains];
 
@@ -855,13 +856,11 @@ LABEL_46:
   }
 
 LABEL_47:
-
-  v99 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addServerAtIndexPath:(id)path
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   servers = [(WFDNSConfigViewController *)self servers];
   lastObject = [servers lastObject];
@@ -869,17 +868,15 @@ LABEL_47:
 
   if (v7)
   {
-    v17 = [MEMORY[0x277CCAA70] indexPathForRow:objc_msgSend(pathCopy inSection:{"row") - 1, objc_msgSend(pathCopy, "section")}];
+    v15 = [MEMORY[0x277CCAA70] indexPathForRow:objc_msgSend(pathCopy inSection:{"row") - 1, objc_msgSend(pathCopy, "section")}];
 
     tableView = [(WFDNSConfigViewController *)self tableView];
-    v9 = [tableView cellForRowAtIndexPath:v17];
+    v9 = [tableView cellForRowAtIndexPath:v15];
 
     if (v9)
     {
       [v9 becomeFirstResponder];
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -888,22 +885,21 @@ LABEL_47:
     [servers2 addObject:&stru_288308678];
 
     tableView2 = [(WFDNSConfigViewController *)self tableView];
-    v18[0] = pathCopy;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-    [tableView2 insertRowsAtIndexPaths:v13 withRowAnimation:100];
+    v16[0] = pathCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    [tableView2 insertRowsAtIndexPaths:v12 withRowAnimation:100];
 
     [(WFDNSConfigViewController *)self _updateSaveEnabled];
     tableView3 = [(WFDNSConfigViewController *)self tableView];
-    v15 = [tableView3 cellForRowAtIndexPath:pathCopy];
+    v14 = [tableView3 cellForRowAtIndexPath:pathCopy];
 
-    [v15 becomeFirstResponder];
-    v16 = *MEMORY[0x277D85DE8];
+    [v14 becomeFirstResponder];
   }
 }
 
 - (void)_addDomainAtIndexPath:(id)path
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   domains = [(WFDNSConfigViewController *)self domains];
   lastObject = [domains lastObject];
@@ -911,13 +907,12 @@ LABEL_47:
 
   if (v7)
   {
-    v17 = [MEMORY[0x277CCAA70] indexPathForRow:objc_msgSend(pathCopy inSection:{"row") - 1, objc_msgSend(pathCopy, "section")}];
+    v15 = [MEMORY[0x277CCAA70] indexPathForRow:objc_msgSend(pathCopy inSection:{"row") - 1, objc_msgSend(pathCopy, "section")}];
 
     tableView = [(WFDNSConfigViewController *)self tableView];
-    v9 = [tableView cellForRowAtIndexPath:v17];
+    v9 = [tableView cellForRowAtIndexPath:v15];
 
     [v9 becomeFirstResponder];
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -926,16 +921,15 @@ LABEL_47:
     [domains2 addObject:&stru_288308678];
 
     tableView2 = [(WFDNSConfigViewController *)self tableView];
-    v18[0] = pathCopy;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-    [tableView2 insertRowsAtIndexPaths:v13 withRowAnimation:100];
+    v16[0] = pathCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    [tableView2 insertRowsAtIndexPaths:v12 withRowAnimation:100];
 
     [(WFDNSConfigViewController *)self _updateSaveEnabled];
     tableView3 = [(WFDNSConfigViewController *)self tableView];
-    v15 = [tableView3 cellForRowAtIndexPath:pathCopy];
+    v14 = [tableView3 cellForRowAtIndexPath:pathCopy];
 
-    [v15 becomeFirstResponder];
-    v16 = *MEMORY[0x277D85DE8];
+    [v14 becomeFirstResponder];
   }
 }
 
@@ -1063,20 +1057,21 @@ LABEL_7:
 
 - (WFDNSConfigViewController)initWithConfig:(id)config appearanceProxy:(id)proxy
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   configCopy = config;
   proxyCopy = proxy;
-  v47.receiver = self;
-  v47.super_class = WFDNSConfigViewController;
-  v8 = -[WFDNSConfigViewController initWithStyle:](&v47, sel_initWithStyle_, [proxyCopy tableViewStyle]);
+  v55.receiver = self;
+  v55.super_class = WFDNSConfigViewController;
+  v8 = -[WFDNSConfigViewController initWithStyle:](&v55, sel_initWithStyle_, [proxyCopy tableViewStyle]);
   v9 = v8;
   if (configCopy)
   {
     if (v8)
     {
       v8->_originalDNSConfig = [configCopy dnsConfig];
-      v9->_dnsConfig = [configCopy dnsConfig];
-      v9->_deviceCapability = WFCurrentDeviceCapability();
+      dnsConfig = [configCopy dnsConfig];
+      v9->_dnsConfig = dnsConfig;
+      v9->_deviceCapability = WFCurrentDeviceCapability(dnsConfig);
       if ([configCopy privacyProxyTierStatus] == 2)
       {
         privacyProxyEnabled = [configCopy privacyProxyEnabled];
@@ -1093,14 +1088,14 @@ LABEL_7:
       v9->_originalServers = dnsServerAddresses;
 
       dnsServerAddresses2 = [configCopy dnsServerAddresses];
-      v14 = [dnsServerAddresses2 mutableCopy];
+      v15 = [dnsServerAddresses2 mutableCopy];
       servers = v9->_servers;
-      v9->_servers = v14;
+      v9->_servers = v15;
 
       if (!v9->_servers)
       {
         array = [MEMORY[0x277CBEB18] array];
-        v17 = v9->_servers;
+        v18 = v9->_servers;
         v9->_servers = array;
       }
 
@@ -1109,46 +1104,53 @@ LABEL_7:
       v9->_originalDomains = dnsSearchDomains;
 
       dnsSearchDomains2 = [configCopy dnsSearchDomains];
-      v21 = [dnsSearchDomains2 mutableCopy];
+      v22 = [dnsSearchDomains2 mutableCopy];
       domains = v9->_domains;
-      v9->_domains = v21;
+      v9->_domains = v22;
 
       if (!v9->_domains)
       {
         array2 = [MEMORY[0x277CBEB18] array];
-        v24 = v9->_domains;
+        v25 = v9->_domains;
         v9->_domains = array2;
       }
 
       objc_storeStrong(&v9->_appearanceProxy, proxy);
-      v25 = WFLogForCategory(0);
-      v26 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v25)
+      v26 = WFLogForCategory(0);
+      v27 = OSLogForWFLogLevel(3uLL);
+      v28 = v27;
+      if (WFCurrentLogLevel(v27, v29) >= 3 && v26)
       {
-        v27 = v25;
-        if (os_log_type_enabled(v27, v26))
+        v30 = v26;
+        if (os_log_type_enabled(v30, v28))
         {
           ssid = [configCopy ssid];
           *buf = 138412290;
-          v49 = ssid;
-          _os_log_impl(&dword_273FB9000, v27, v26, "show DNS config view controller for network='%@'", buf, 0xCu);
+          v57 = ssid;
+          _os_log_impl(&dword_273FB9000, v30, v28, "show DNS config view controller for network='%@'", buf, 0xCu);
         }
       }
 
-      v29 = WFLogForCategory(0);
-      v30 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v29 && os_log_type_enabled(v29, v30))
+      v32 = WFLogForCategory(0);
+      v33 = OSLogForWFLogLevel(3uLL);
+      v34 = v33;
+      if (WFCurrentLogLevel(v33, v35) >= 3 && v32 && os_log_type_enabled(v32, v34))
       {
-        HIDWORD(v49) = HIDWORD(v9->_servers);
-        OUTLINED_FUNCTION_0_1(&dword_273FB9000, v31, v32, "DNS servers='%@'", v33, v34, v35, v36, v47.receiver, v47.super_class, 2u);
+        v42 = v9->_servers;
+        *buf = 138412290;
+        v57 = v42;
+        OUTLINED_FUNCTION_0_1(&dword_273FB9000, v36, v37, "DNS servers='%@'", v38, v39, v40, v41, v55.receiver, v55.super_class);
       }
 
       p_super = WFLogForCategory(0);
-      v38 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && p_super && os_log_type_enabled(p_super, v38))
+      v44 = OSLogForWFLogLevel(3uLL);
+      v45 = v44;
+      if (WFCurrentLogLevel(v44, v46) >= 3 && p_super && os_log_type_enabled(p_super, v45))
       {
-        HIDWORD(v49) = HIDWORD(v9->_domains);
-        OUTLINED_FUNCTION_0_1(&dword_273FB9000, v39, v40, "DNS domains='%@'", v41, v42, v43, v44, v47.receiver, v47.super_class, 2u);
+        v53 = v9->_domains;
+        *buf = 138412290;
+        v57 = v53;
+        OUTLINED_FUNCTION_0_1(&dword_273FB9000, v47, v48, "DNS domains='%@'", v49, v50, v51, v52, v55.receiver, v55.super_class);
       }
     }
 
@@ -1164,7 +1166,6 @@ LABEL_7:
     v9 = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

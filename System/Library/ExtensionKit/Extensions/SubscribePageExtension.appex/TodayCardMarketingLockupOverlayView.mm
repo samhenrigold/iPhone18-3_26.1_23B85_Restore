@@ -77,20 +77,20 @@
   v6 = sub_100747064();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension35TodayCardMarketingLockupOverlayView_lockupView);
   selfCopy = self;
   v12 = v10;
   sub_1001F5A40(v9);
   [v12 layoutMargins];
-  sub_1001CF768(v9, v12, width, height, v13, v14);
-  v16 = v15;
+  sub_1001CF768(v9, v12, width, height, v15, v16, v13, v14);
+  v18 = v17;
 
   (*(v7 + 8))(v9, v6);
-  v17 = fmax(v16, 79.0);
-  v18 = width;
-  result.height = v17;
-  result.width = v18;
+  v19 = fmax(v18, 79.0);
+  v20 = width;
+  result.height = v19;
+  result.width = v20;
   return result;
 }
 
@@ -146,10 +146,11 @@
   v3 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension35TodayCardMarketingLockupOverlayView_clickActionHandler);
   if (v3)
   {
+    v4 = *&selfCopy->lockupView[OBJC_IVAR____TtC22SubscribePageExtension35TodayCardMarketingLockupOverlayView_clickActionHandler];
 
-    v3(v4);
+    v3(v5);
 
-    sub_1000164A8(v3);
+    sub_1000164A8(v3, v4);
   }
 
   else

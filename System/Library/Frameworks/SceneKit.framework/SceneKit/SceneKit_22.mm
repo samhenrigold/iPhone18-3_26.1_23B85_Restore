@@ -1,3 +1,1354 @@
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
+{
+  v83 = *MEMORY[0x277D85DE8];
+  v6 = *a1;
+  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
+  v68 = *(*a1 + 4);
+  v60 = v57[1];
+  v52 = v57[2];
+  v61 = *(*(v60 + 456) + 8 * a5);
+  v7 = (*(v61 + 12) & 1) != 0 || *v6 == 0;
+  v56 = v7;
+  v59 = *(v57[60] + 8 * a5);
+  v8 = *(*(v52 + 456) + 8 * a5);
+  v9 = *(v60 + 20);
+  v78 = &v81;
+  v79 = 2 * v9;
+  v80 = 32;
+  v82 = 0;
+  if (2 * v9 >= 0x21)
+  {
+    v82 = operator new(8 * v9);
+    v78 = v82;
+    v80 = 2 * v9;
+    v9 = *(v60 + 20);
+  }
+
+  v10 = 0;
+  v73 = &v76;
+  v74 = v9;
+  v75 = 16;
+  v77 = 0;
+  if (v9 >= 0x11)
+  {
+    v10 = operator new(4 * v9);
+    v77 = v10;
+    v73 = v10;
+    v75 = v9;
+  }
+
+  v63[0] = v60;
+  v63[1] = v52;
+  if (*(v60 + 8) >= 1)
+  {
+    v53 = v8;
+    v11 = 0;
+    v13 = v57;
+    v12 = a3;
+    v14 = v56;
+    v15 = v59;
+    do
+    {
+      v16 = *(v13[30] + 4 * v11);
+      if (v16 != -1)
+      {
+        v17 = *(*(v61 + 12) + 4 * v11);
+        v18 = (*(v61 + 18) + 4 * v17);
+        v19 = *(v53[12] + 4 * v16);
+        v20 = (v53[18] + 4 * v19);
+        v21 = *v20;
+        v22 = v53[21];
+        if ((*(v22 + v21) & 1) == 0 && v14)
+        {
+          v24 = (*a4 + 16 * v21);
+          *v24 = 0;
+          v24[1] = 0;
+          *(*a4 + 16 * *v20) = vaddq_f32(*(*v12 + 16 * *v18), *(*a4 + 16 * *v20));
+        }
+
+        else if (*(v22 + v21))
+        {
+          v38 = v53[9];
+          v39 = *(v38 + 2 * v16);
+          if (*(v38 + 2 * v16))
+          {
+            v40 = 0;
+            v41 = v22 + v19;
+            v54 = v41;
+            v55 = *(v61 + 21) + v17;
+            do
+            {
+              v42 = *(*(v15 + 5) + 2 * (*(*(*(v15 + 4) + 96) + 4 * v16) + v40));
+              if (v40 != v42)
+              {
+                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
+              }
+
+              v43 = v18[v42];
+              v44 = v20[v40];
+              v45 = (*a4 + 16 * v44);
+              *v45 = 0;
+              v45[1] = 0;
+              if (!v14 && (*(v41 + v40) & 8) != 0)
+              {
+                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v11, v42, v69);
+                if ((*(v55 + v42) & 0x10) != 0)
+                {
+                  if ((*(v55 + v42) & 0x20) != 0)
+                  {
+                    v49 = v42 == 0;
+                    v48 = v11;
+                  }
+
+                  else
+                  {
+                    v48 = v11;
+                    v49 = v42;
+                  }
+
+                  FractionalWeight = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v48, v49, v16);
+                  v51 = 1.0 - FractionalWeight;
+                  v47 = FractionalWeight + ((1.0 - FractionalWeight) * 0.75);
+                  v46 = v51 * 0.125;
+                }
+
+                else
+                {
+                  v46 = 0.125;
+                  v47 = 0.75;
+                }
+
+                v13 = v57;
+                v12 = a3;
+                v14 = v56;
+                v15 = v59;
+                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[0]), v46);
+                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[1]), v46);
+                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v43), v47);
+                v41 = v54;
+              }
+
+              else
+              {
+                *(*a4 + 16 * v44) = vaddq_f32(*(*v12 + 16 * v43), *(*a4 + 16 * v44));
+              }
+
+              ++v40;
+            }
+
+            while (v39 != v40);
+          }
+        }
+
+        else
+        {
+          v25 = *(*(v60 + 336) + 8 * v11);
+          v62 = 0.0;
+          v26 = v78;
+          v27 = v78 + v25;
+          *v69 = &v62;
+          v70 = v78;
+          v71 = v27;
+          memset(v72, 0, 13);
+          v64 = v11;
+          v65 = v16;
+          v66 = *(*(v63[0] + 336) + 8 * v11);
+          v67 = *(*(v63[0] + 264) + 8 * v11);
+          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v11) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v16) >> 7) & 0xF);
+          v13 = v57;
+          v12 = a3;
+          v28 = *v18;
+          v29 = *v20;
+          v30 = (*a4 + 16 * v29);
+          *v30 = 0;
+          v30[1] = 0;
+          if (v72[2] >= 1)
+          {
+            if ((v72[3] & 1) == 0)
+            {
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
+            }
+
+            v31 = *(v60 + 264);
+            v32 = *(v31 + 8 * v11);
+            if (v32 >= 1)
+            {
+              v33 = (*(v60 + 288) + 4 * *(v31 + 4 * ((2 * v11) | 1)));
+              do
+              {
+                v34 = *v33++;
+                v35 = *(v57[21] + 4 * v34);
+                if (v35 == -1)
+                {
+                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
+                }
+
+                v36 = *v27++;
+                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a4 + 16 * *(v53[12] + 4 * v35)), v36);
+                --v32;
+              }
+
+              while (v32);
+            }
+          }
+
+          if (v72[1] >= 1)
+          {
+            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v11, v73);
+            v13 = v57;
+            v12 = a3;
+            if (v25 >= 1)
+            {
+              for (i = 0; i != v25; ++i)
+              {
+                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a3 + 16 * v73[i]), *(v26 + i * 4));
+              }
+            }
+          }
+
+          *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*v12 + 16 * v28), v62);
+          v14 = v56;
+          v15 = v59;
+        }
+      }
+
+      ++v11;
+    }
+
+    while (v11 < *(v60 + 8));
+    v10 = v77;
+  }
+
+  operator delete(v10);
+  operator delete(v82);
+}
+
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, uint64_t *a3, uint64_t *a4, int a5)
+{
+  v62[1] = *MEMORY[0x277D85DE8];
+  v8 = *(*(*a1 + 64) + 8 * a2 - 8);
+  v54 = *(*a1 + 4);
+  v9 = v8[1];
+  v10 = *(v8[60] + 8 * a5);
+  v11 = *(*(v9 + 456) + 8 * a5);
+  v47 = v8[2];
+  v12 = *(*(v47 + 456) + 8 * a5);
+  v13 = *(v9 + 16);
+  v14 = v60;
+  v57 = v60;
+  v58 = v13;
+  v59 = 8;
+  __p = 0;
+  if (v13 < 9)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = operator new(4 * v13);
+    __p = v15;
+    v57 = v15;
+    v59 = v13;
+    v14 = v15;
+  }
+
+  v53[0] = v62;
+  v53[1] = 0;
+  v53[2] = v14;
+  memset(&v53[3], 0, 13);
+  if ((*(v11 + 12) & 1) != 0 || !**a1)
+  {
+    LODWORD(v53[3]) = 2;
+    LODWORD(v53[4]) = 0;
+    v62[0] = 0x3F0000003F000000;
+    v48 = 1;
+  }
+
+  else
+  {
+    v48 = 0;
+  }
+
+  v51 = v9;
+  if (*(v9 + 4) >= 1)
+  {
+    v49 = v12;
+    v50 = v8;
+    v16 = 0;
+    do
+    {
+      v17 = *(v8[27] + 4 * v16);
+      if (v17 != -1)
+      {
+        v18 = (v49[18] + 4 * *(v49[12] + 4 * v17));
+        if (*(v49[21] + *v18))
+        {
+          v39 = v49[9];
+          v40 = *(v39 + 2 * v17);
+          if (*(v39 + 2 * v17))
+          {
+            v41 = 0;
+            do
+            {
+              v42 = *(*(v10 + 40) + 2 * (v41 + *(*(*(v10 + 32) + 96) + 4 * v17)));
+              if (v41 != v42)
+              {
+                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
+              }
+
+              OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v11, v16, v42, &v55);
+              v43 = v18[v41];
+              v44 = (*a4 + 16 * v43);
+              *v44 = 0;
+              v44[1] = 0;
+              v45 = v56;
+              v46.i64[0] = 0x3F0000003F000000;
+              v46.i64[1] = 0x3F0000003F000000;
+              *(*a4 + 16 * v43) = vmlaq_f32(*(*a4 + 16 * v43), v46, *(*a3 + 16 * v55));
+              *(*a4 + 16 * v43) = vmlaq_f32(*(*a4 + 16 * v43), v46, *(*a3 + 16 * v45));
+              ++v41;
+            }
+
+            while (v40 != v41);
+          }
+        }
+
+        else
+        {
+          if ((v48 & 1) == 0)
+          {
+            v52 = v16;
+            if (*(*(v9 + 216) + 4 * v16) <= 0.0)
+            {
+              v19 = 1;
+            }
+
+            else
+            {
+              v19 = 4;
+            }
+
+            OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2>::ComputeEdgeVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::EdgeInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v54, &v51, v53, v19, (*(*(v47 + 432) + 2 * v17) >> 7) & 0xF);
+          }
+
+          OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v11, v16, 0, &v55);
+          v20 = *v18;
+          v21 = (*a4 + 16 * v20);
+          *v21 = 0;
+          v21[1] = 0;
+          v22 = v56;
+          v23 = v62[0];
+          *(*a4 + 16 * v20) = vmlaq_n_f32(*(*a4 + 16 * v20), *(*a3 + 16 * v55), *v62);
+          *(*a4 + 16 * v20) = vmlaq_lane_f32(*(*a4 + 16 * v20), *(*a3 + 16 * v22), v23, 1);
+          if (SLODWORD(v53[4]) >= 1)
+          {
+            v24 = (*(v9 + 144) + 8 * v16);
+            v25 = *v24;
+            if (v25 >= 1)
+            {
+              v26 = 0;
+              v27 = *(v9 + 168) + 4 * v24[1];
+              do
+              {
+                v28 = *(v27 + 4 * v26);
+                if (BYTE4(v53[4]) == 1)
+                {
+                  v29 = *(v50[21] + 4 * v28);
+                  if (v29 == -1)
+                  {
+                    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
+                  }
+
+                  v30 = (v49[12] + 4 * v29);
+                  v31 = *a4;
+                  v32 = *a4;
+                }
+
+                else
+                {
+                  v33 = (2 * v28) | 1;
+                  v34 = *(v9 + 24);
+                  v35 = (*(v9 + 72) + 4 * *(v34 + 4 * v33));
+                  v36 = *(v34 + 8 * v28);
+                  v37 = 1;
+                  do
+                  {
+                    v38 = *v35++;
+                    ++v37;
+                  }
+
+                  while (v16 != v38);
+                  if (v37 < v36)
+                  {
+                    v36 = 0;
+                  }
+
+                  v30 = (*(v11 + 24) + 4 * *(*(*v11 + 24) + 4 * v33) + 4 * (v37 - v36));
+                  v32 = *a4;
+                  v31 = *a3;
+                }
+
+                *(v32 + 16 * v20) = vmlaq_n_f32(*(v32 + 16 * v20), *(v31 + 16 * *v30), *&v57[4 * v26++]);
+              }
+
+              while (v26 != v25);
+            }
+          }
+        }
+      }
+
+      ++v16;
+      v8 = v50;
+    }
+
+    while (v16 < *(v9 + 4));
+    v15 = __p;
+  }
+
+  operator delete(v15);
+}
+
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5, float32x4_t a6)
+{
+  v83 = *MEMORY[0x277D85DE8];
+  v7 = *a1;
+  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
+  v68 = *(*a1 + 4);
+  v60 = v57[1];
+  v52 = v57[2];
+  v61 = *(*(v60 + 456) + 8 * a5);
+  v8 = (*(v61 + 12) & 1) != 0 || *v7 == 0;
+  v56 = v8;
+  v59 = *(v57[60] + 8 * a5);
+  v9 = *(*(v52 + 456) + 8 * a5);
+  v10 = *(v60 + 20);
+  v78 = &v81;
+  v79 = 2 * v10;
+  v80 = 32;
+  v82 = 0;
+  if (2 * v10 >= 0x21)
+  {
+    v82 = operator new(8 * v10);
+    v78 = v82;
+    v80 = 2 * v10;
+    v10 = *(v60 + 20);
+  }
+
+  v11 = 0;
+  v73 = &v76;
+  v74 = v10;
+  v75 = 16;
+  v77 = 0;
+  if (v10 >= 0x11)
+  {
+    v11 = operator new(4 * v10);
+    v77 = v11;
+    v73 = v11;
+    v75 = v10;
+  }
+
+  v63[0] = v60;
+  v63[1] = v52;
+  if (*(v60 + 8) >= 1)
+  {
+    v53 = v9;
+    v12 = 0;
+    v14 = v57;
+    v13 = a3;
+    v15 = v56;
+    v16 = v59;
+    do
+    {
+      v17 = *(v14[30] + 4 * v12);
+      if (v17 != -1)
+      {
+        v18 = *(*(v61 + 12) + 4 * v12);
+        v19 = (*(v61 + 18) + 4 * v18);
+        v20 = *(v53[12] + 4 * v17);
+        v21 = (v53[18] + 4 * v20);
+        v22 = *v21;
+        v23 = v53[21];
+        if ((*(v23 + v22) & 1) == 0 && v15)
+        {
+          v25 = (*a4 + 16 * v22);
+          *v25 = 0;
+          v25[1] = 0;
+          v26 = *v21;
+          a6 = vaddq_f32(*(*v13 + 16 * *v19), *(*a4 + 16 * v26));
+          *(*a4 + 16 * v26) = a6;
+        }
+
+        else if (*(v23 + v22))
+        {
+          v40 = v53[9];
+          v41 = *(v40 + 2 * v17);
+          if (*(v40 + 2 * v17))
+          {
+            v42 = 0;
+            v43 = v23 + v20;
+            v54 = v43;
+            v55 = *(v61 + 21) + v18;
+            do
+            {
+              v44 = *(*(v16 + 5) + 2 * (*(*(*(v16 + 4) + 96) + 4 * v17) + v42));
+              if (v42 != v44)
+              {
+                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
+              }
+
+              v45 = v19[v44];
+              v46 = v21[v42];
+              v47 = (*a4 + 16 * v46);
+              *v47 = 0;
+              v47[1] = 0;
+              if (!v15 && (*(v43 + v42) & 8) != 0)
+              {
+                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v12, v44, v69);
+                if ((*(v55 + v44) & 0x10) != 0)
+                {
+                  if ((*(v55 + v44) & 0x20) != 0)
+                  {
+                    v50 = v44 == 0;
+                    v49 = v12;
+                  }
+
+                  else
+                  {
+                    v49 = v12;
+                    v50 = v44;
+                  }
+
+                  a6.f32[0] = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v49, v50, v17);
+                  v51 = 1.0 - a6.f32[0];
+                  a6.f32[0] = a6.f32[0] + ((1.0 - a6.f32[0]) * 0.75);
+                  v48 = v51 * 0.125;
+                }
+
+                else
+                {
+                  v48 = 0.125;
+                  a6.i32[0] = 0.75;
+                }
+
+                v14 = v57;
+                v13 = a3;
+                v15 = v56;
+                v16 = v59;
+                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[0]), v48);
+                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[1]), v48);
+                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v45), a6.f32[0]);
+                v43 = v54;
+              }
+
+              else
+              {
+                a6 = vaddq_f32(*(*v13 + 16 * v45), *(*a4 + 16 * v46));
+                *(*a4 + 16 * v46) = a6;
+              }
+
+              ++v42;
+            }
+
+            while (v41 != v42);
+          }
+        }
+
+        else
+        {
+          v27 = *(*(v60 + 336) + 8 * v12);
+          v62 = 0.0;
+          v28 = v78;
+          v29 = v78 + v27;
+          *v69 = &v62;
+          v70 = v78;
+          v71 = v29;
+          memset(v72, 0, 13);
+          v64 = v12;
+          v65 = v17;
+          v66 = *(*(v63[0] + 336) + 8 * v12);
+          v67 = *(*(v63[0] + 264) + 8 * v12);
+          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v12) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v17) >> 7) & 0xF, *a6.i64);
+          v14 = v57;
+          v13 = a3;
+          v30 = *v19;
+          v31 = *v21;
+          v32 = (*a4 + 16 * v31);
+          *v32 = 0;
+          v32[1] = 0;
+          if (v72[2] >= 1)
+          {
+            if ((v72[3] & 1) == 0)
+            {
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
+            }
+
+            v33 = *(v60 + 264);
+            v34 = *(v33 + 8 * v12);
+            if (v34 >= 1)
+            {
+              v35 = (*(v60 + 288) + 4 * *(v33 + 4 * ((2 * v12) | 1)));
+              do
+              {
+                v36 = *v35++;
+                v37 = *(v57[21] + 4 * v36);
+                if (v37 == -1)
+                {
+                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
+                }
+
+                v38 = *v29++;
+                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a4 + 16 * *(v53[12] + 4 * v37)), v38);
+                --v34;
+              }
+
+              while (v34);
+            }
+          }
+
+          if (v72[1] >= 1)
+          {
+            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v12, v73);
+            v14 = v57;
+            v13 = a3;
+            if (v27 >= 1)
+            {
+              for (i = 0; i != v27; ++i)
+              {
+                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a3 + 16 * v73[i]), *(v28 + i * 4));
+              }
+            }
+          }
+
+          a6 = *(*v13 + 16 * v30);
+          *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), a6, v62);
+          v15 = v56;
+          v16 = v59;
+        }
+      }
+
+      ++v12;
+    }
+
+    while (v12 < *(v60 + 8));
+    v11 = v77;
+  }
+
+  operator delete(v11);
+  operator delete(v82);
+}
+
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
+{
+  v8 = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v28 = *(*(*a1 + 64) + 8 * a2 - 8);
+  v29 = v28[1];
+  v9 = *(v28[60] + 8 * a5);
+  v10 = *(*(v29 + 456) + 8 * a5);
+  v11 = *(*(v28[2] + 456) + 8 * a5);
+  v12 = *(v29 + 16);
+  v32 = &v35;
+  v33 = v12;
+  v34 = 8;
+  __p = 0;
+  if (v12 >= 9)
+  {
+    v8 = operator new(4 * v12);
+    __p = v8;
+    v32 = v8;
+    v34 = v12;
+  }
+
+  if (*(v29 + 4) >= 1)
+  {
+    v13 = 0;
+    do
+    {
+      v14 = *(v28[27] + 4 * v13);
+      if (v14 != -1)
+      {
+        v15 = (v11[18] + 4 * *(v11[12] + 4 * v14));
+        if (*(v11[21] + *v15))
+        {
+          v20 = v11[9];
+          v21 = *(v20 + 2 * v14);
+          if (*(v20 + 2 * v14))
+          {
+            v22 = 0;
+            do
+            {
+              v23 = *(*(v9 + 40) + 2 * (v22 + *(*(*(v9 + 32) + 96) + 4 * v14)));
+              if (v22 != v23)
+              {
+                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
+              }
+
+              OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v10, v13, v23, &v30);
+              v24 = v15[v22];
+              v25 = (*a4 + 16 * v24);
+              *v25 = 0;
+              v25[1] = 0;
+              v26 = v31;
+              v27.i64[0] = 0x3F0000003F000000;
+              v27.i64[1] = 0x3F0000003F000000;
+              *(*a4 + 16 * v24) = vmlaq_f32(*(*a4 + 16 * v24), v27, *(*a3 + 16 * v30));
+              *(*a4 + 16 * v24) = vmlaq_f32(*(*a4 + 16 * v24), v27, *(*a3 + 16 * v26));
+              ++v22;
+            }
+
+            while (v21 != v22);
+          }
+        }
+
+        else
+        {
+          OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v10, v13, 0, &v30);
+          v16 = *v15;
+          v17 = (*a4 + 16 * v16);
+          *v17 = 0;
+          v17[1] = 0;
+          v18 = v31;
+          v19.i64[0] = 0x3F0000003F000000;
+          v19.i64[1] = 0x3F0000003F000000;
+          *(*a4 + 16 * v16) = vmlaq_f32(*(*a4 + 16 * v16), v19, *(*a3 + 16 * v30));
+          *(*a4 + 16 * v16) = vmlaq_f32(*(*a4 + 16 * v16), v19, *(*a3 + 16 * v18));
+        }
+      }
+
+      ++v13;
+    }
+
+    while (v13 < *(v29 + 4));
+    v8 = __p;
+  }
+
+  operator delete(v8);
+}
+
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
+{
+  v65 = *MEMORY[0x277D85DE8];
+  v6 = *(*(*a1 + 64) + 8 * a2 - 8);
+  v7 = v6[2];
+  v51 = v6;
+  v52 = v6[1];
+  v8 = v6[60];
+  v9 = *(v7 + 456);
+  v53 = *(*(v52 + 456) + 8 * a5);
+  v10 = (*(v53 + 12) & 1) != 0 || **a1 == 0;
+  v46 = v10;
+  v11 = *(v8 + 8 * a5);
+  v45 = *(v9 + 8 * a5);
+  v12 = *(v52 + 20);
+  v60 = &v63;
+  v61 = 2 * v12;
+  v62 = 32;
+  v64 = 0;
+  if (2 * v12 >= 0x21)
+  {
+    v64 = operator new(8 * v12);
+    v60 = v64;
+    v62 = 2 * v12;
+    v12 = *(v52 + 20);
+  }
+
+  v13 = 0;
+  v55 = &v58;
+  v56 = v12;
+  v57 = 16;
+  __p = 0;
+  if (v12 >= 0x11)
+  {
+    v13 = operator new(4 * v12);
+    __p = v13;
+    v55 = v13;
+    v57 = v12;
+  }
+
+  if (*(v52 + 8) >= 1)
+  {
+    v14 = 0;
+    v15 = a3;
+    v16 = v46;
+    while (1)
+    {
+      v17 = *(v51[30] + 4 * v14);
+      if (v17 != -1)
+      {
+        v18 = *(*(v53 + 12) + 4 * v14);
+        v19 = (*(v53 + 18) + 4 * v18);
+        v20 = *(v45[12] + 4 * v17);
+        v21 = (v45[18] + 4 * v20);
+        v22 = *v21;
+        v23 = v45[21];
+        if ((*(v23 + v22) & 1) == 0 && v16)
+        {
+          v25 = (*a4 + 16 * v22);
+          *v25 = 0;
+          v25[1] = 0;
+          v26 = (*a4 + 16 * *v21);
+          v27 = *v19;
+        }
+
+        else
+        {
+          if (*(v23 + v22))
+          {
+            v29 = v45[9];
+            v30 = *(v29 + 2 * v17);
+            if (*(v29 + 2 * v17))
+            {
+              v31 = 0;
+              v49 = *(v53 + 21) + v18;
+              v50 = *(v29 + 2 * v17);
+              v32 = v23 + v20;
+              v48 = v23 + v20;
+              do
+              {
+                v33 = *(*(v11 + 5) + 2 * (*(*(*(v11 + 4) + 96) + 4 * v17) + v31));
+                if (v31 != v33)
+                {
+                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
+                }
+
+                v34 = v19[v33];
+                v35 = v21[v31];
+                v36 = (*a4 + 16 * v35);
+                *v36 = 0;
+                v36[1] = 0;
+                if (!v16 && (*(v32 + v31) & 8) != 0)
+                {
+                  OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v53, v14, v33, v54);
+                  if ((*(v49 + v33) & 0x10) != 0)
+                  {
+                    if ((*(v49 + v33) & 0x20) != 0)
+                    {
+                      v41 = v33 == 0;
+                      v39 = v11;
+                      v40 = v14;
+                    }
+
+                    else
+                    {
+                      v39 = v11;
+                      v40 = v14;
+                      v41 = v33;
+                    }
+
+                    FractionalWeight = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v39, v40, v41, v17);
+                    v43 = 1.0 - FractionalWeight;
+                    v38 = FractionalWeight + ((1.0 - FractionalWeight) * 0.75);
+                    v37 = v43 * 0.125;
+                  }
+
+                  else
+                  {
+                    v37 = 0.125;
+                    v38 = 0.75;
+                  }
+
+                  v15 = a3;
+                  v16 = v46;
+                  v30 = v50;
+                  v44 = v54[1];
+                  *(*a4 + 16 * v35) = vmlaq_n_f32(*(*a4 + 16 * v35), *(*a3 + 16 * v54[0]), v37);
+                  *(*a4 + 16 * v35) = vmlaq_n_f32(*(*a4 + 16 * v35), *(*a3 + 16 * v44), v37);
+                  *(*a4 + 16 * v35) = vmlaq_n_f32(*(*a4 + 16 * v35), *(*a3 + 16 * v34), v38);
+                  v32 = v48;
+                }
+
+                else
+                {
+                  *(*a4 + 16 * v35) = vaddq_f32(*(*v15 + 16 * v34), *(*a4 + 16 * v35));
+                }
+
+                ++v31;
+              }
+
+              while (v30 != v31);
+            }
+
+            goto LABEL_19;
+          }
+
+          v27 = *v19;
+          v28 = (*a4 + 16 * v22);
+          *v28 = 0;
+          v28[1] = 0;
+          v26 = (*a4 + 16 * v22);
+        }
+
+        *v26 = vaddq_f32(*(*v15 + 16 * v27), *v26);
+      }
+
+LABEL_19:
+      if (++v14 >= *(v52 + 8))
+      {
+        v13 = __p;
+        break;
+      }
+    }
+  }
+
+  operator delete(v13);
+  operator delete(v64);
+}
+
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
+{
+  v83 = *MEMORY[0x277D85DE8];
+  v6 = *a1;
+  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
+  v68 = *(*a1 + 4);
+  v60 = v57[1];
+  v52 = v57[2];
+  v61 = *(*(v60 + 456) + 8 * a5);
+  v7 = (*(v61 + 12) & 1) != 0 || *v6 == 0;
+  v56 = v7;
+  v59 = *(v57[60] + 8 * a5);
+  v8 = *(*(v52 + 456) + 8 * a5);
+  v9 = *(v60 + 20);
+  v78 = &v81;
+  v79 = 2 * v9;
+  v80 = 32;
+  v82 = 0;
+  if (2 * v9 >= 0x21)
+  {
+    v82 = operator new(8 * v9);
+    v78 = v82;
+    v80 = 2 * v9;
+    v9 = *(v60 + 20);
+  }
+
+  v10 = 0;
+  v73 = &v76;
+  v74 = v9;
+  v75 = 16;
+  v77 = 0;
+  if (v9 >= 0x11)
+  {
+    v10 = operator new(4 * v9);
+    v77 = v10;
+    v73 = v10;
+    v75 = v9;
+  }
+
+  v63[0] = v60;
+  v63[1] = v52;
+  if (*(v60 + 8) >= 1)
+  {
+    v53 = v8;
+    v11 = 0;
+    v13 = v57;
+    v12 = a3;
+    v14 = v56;
+    v15 = v59;
+    do
+    {
+      v16 = *(v13[30] + 4 * v11);
+      if (v16 != -1)
+      {
+        v17 = *(*(v61 + 12) + 4 * v11);
+        v18 = (*(v61 + 18) + 4 * v17);
+        v19 = *(v53[12] + 4 * v16);
+        v20 = (v53[18] + 4 * v19);
+        v21 = *v20;
+        v22 = v53[21];
+        if ((*(v22 + v21) & 1) == 0 && v14)
+        {
+          v24 = (*a4 + 16 * v21);
+          *v24 = 0;
+          v24[1] = 0;
+          *(*a4 + 16 * *v20) = vaddq_f32(*(*v12 + 16 * *v18), *(*a4 + 16 * *v20));
+        }
+
+        else if (*(v22 + v21))
+        {
+          v38 = v53[9];
+          v39 = *(v38 + 2 * v16);
+          if (*(v38 + 2 * v16))
+          {
+            v40 = 0;
+            v41 = v22 + v19;
+            v54 = v41;
+            v55 = *(v61 + 21) + v17;
+            do
+            {
+              v42 = *(*(v15 + 5) + 2 * (*(*(*(v15 + 4) + 96) + 4 * v16) + v40));
+              if (v40 != v42)
+              {
+                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
+              }
+
+              v43 = v18[v42];
+              v44 = v20[v40];
+              v45 = (*a4 + 16 * v44);
+              *v45 = 0;
+              v45[1] = 0;
+              if (!v14 && (*(v41 + v40) & 8) != 0)
+              {
+                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v11, v42, v69);
+                if ((*(v55 + v42) & 0x10) != 0)
+                {
+                  if ((*(v55 + v42) & 0x20) != 0)
+                  {
+                    v49 = v42 == 0;
+                    v48 = v11;
+                  }
+
+                  else
+                  {
+                    v48 = v11;
+                    v49 = v42;
+                  }
+
+                  FractionalWeight = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v48, v49, v16);
+                  v51 = 1.0 - FractionalWeight;
+                  v47 = FractionalWeight + ((1.0 - FractionalWeight) * 0.75);
+                  v46 = v51 * 0.125;
+                }
+
+                else
+                {
+                  v46 = 0.125;
+                  v47 = 0.75;
+                }
+
+                v13 = v57;
+                v12 = a3;
+                v14 = v56;
+                v15 = v59;
+                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[0]), v46);
+                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[1]), v46);
+                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v43), v47);
+                v41 = v54;
+              }
+
+              else
+              {
+                *(*a4 + 16 * v44) = vaddq_f32(*(*v12 + 16 * v43), *(*a4 + 16 * v44));
+              }
+
+              ++v40;
+            }
+
+            while (v39 != v40);
+          }
+        }
+
+        else
+        {
+          v25 = *(*(v60 + 336) + 8 * v11);
+          v62 = 0.0;
+          v26 = v78;
+          v27 = v78 + v25;
+          *v69 = &v62;
+          v70 = v78;
+          v71 = v27;
+          memset(v72, 0, 13);
+          v64 = v11;
+          v65 = v16;
+          v66 = *(*(v63[0] + 336) + 8 * v11);
+          v67 = *(*(v63[0] + 264) + 8 * v11);
+          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v11) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v16) >> 7) & 0xF);
+          v13 = v57;
+          v12 = a3;
+          v28 = *v18;
+          v29 = *v20;
+          v30 = (*a4 + 16 * v29);
+          *v30 = 0;
+          v30[1] = 0;
+          if (v72[2] >= 1)
+          {
+            if ((v72[3] & 1) == 0)
+            {
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
+            }
+
+            v31 = *(v60 + 264);
+            v32 = *(v31 + 8 * v11);
+            if (v32 >= 1)
+            {
+              v33 = (*(v60 + 288) + 4 * *(v31 + 4 * ((2 * v11) | 1)));
+              do
+              {
+                v34 = *v33++;
+                v35 = *(v57[21] + 4 * v34);
+                if (v35 == -1)
+                {
+                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
+                }
+
+                v36 = *v27++;
+                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a4 + 16 * *(v53[12] + 4 * v35)), v36);
+                --v32;
+              }
+
+              while (v32);
+            }
+          }
+
+          if (v72[1] >= 1)
+          {
+            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v11, v73);
+            v13 = v57;
+            v12 = a3;
+            if (v25 >= 1)
+            {
+              for (i = 0; i != v25; ++i)
+              {
+                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a3 + 16 * v73[i]), *(v26 + i * 4));
+              }
+            }
+          }
+
+          *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*v12 + 16 * v28), v62);
+          v14 = v56;
+          v15 = v59;
+        }
+      }
+
+      ++v11;
+    }
+
+    while (v11 < *(v60 + 8));
+    v10 = v77;
+  }
+
+  operator delete(v10);
+  operator delete(v82);
+}
+
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5, float32x4_t a6)
+{
+  v83 = *MEMORY[0x277D85DE8];
+  v7 = *a1;
+  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
+  v68 = *(*a1 + 4);
+  v60 = v57[1];
+  v52 = v57[2];
+  v61 = *(*(v60 + 456) + 8 * a5);
+  v8 = (*(v61 + 12) & 1) != 0 || *v7 == 0;
+  v56 = v8;
+  v59 = *(v57[60] + 8 * a5);
+  v9 = *(*(v52 + 456) + 8 * a5);
+  v10 = *(v60 + 20);
+  v78 = &v81;
+  v79 = 2 * v10;
+  v80 = 32;
+  v82 = 0;
+  if (2 * v10 >= 0x21)
+  {
+    v82 = operator new(8 * v10);
+    v78 = v82;
+    v80 = 2 * v10;
+    v10 = *(v60 + 20);
+  }
+
+  v11 = 0;
+  v73 = &v76;
+  v74 = v10;
+  v75 = 16;
+  v77 = 0;
+  if (v10 >= 0x11)
+  {
+    v11 = operator new(4 * v10);
+    v77 = v11;
+    v73 = v11;
+    v75 = v10;
+  }
+
+  v63[0] = v60;
+  v63[1] = v52;
+  if (*(v60 + 8) >= 1)
+  {
+    v53 = v9;
+    v12 = 0;
+    v14 = v57;
+    v13 = a3;
+    v15 = v56;
+    v16 = v59;
+    do
+    {
+      v17 = *(v14[30] + 4 * v12);
+      if (v17 != -1)
+      {
+        v18 = *(*(v61 + 12) + 4 * v12);
+        v19 = (*(v61 + 18) + 4 * v18);
+        v20 = *(v53[12] + 4 * v17);
+        v21 = (v53[18] + 4 * v20);
+        v22 = *v21;
+        v23 = v53[21];
+        if ((*(v23 + v22) & 1) == 0 && v15)
+        {
+          v25 = (*a4 + 16 * v22);
+          *v25 = 0;
+          v25[1] = 0;
+          v26 = *v21;
+          a6 = vaddq_f32(*(*v13 + 16 * *v19), *(*a4 + 16 * v26));
+          *(*a4 + 16 * v26) = a6;
+        }
+
+        else if (*(v23 + v22))
+        {
+          v40 = v53[9];
+          v41 = *(v40 + 2 * v17);
+          if (*(v40 + 2 * v17))
+          {
+            v42 = 0;
+            v43 = v23 + v20;
+            v54 = v43;
+            v55 = *(v61 + 21) + v18;
+            do
+            {
+              v44 = *(*(v16 + 5) + 2 * (*(*(*(v16 + 4) + 96) + 4 * v17) + v42));
+              if (v42 != v44)
+              {
+                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
+              }
+
+              v45 = v19[v44];
+              v46 = v21[v42];
+              v47 = (*a4 + 16 * v46);
+              *v47 = 0;
+              v47[1] = 0;
+              if (!v15 && (*(v43 + v42) & 8) != 0)
+              {
+                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v12, v44, v69);
+                if ((*(v55 + v44) & 0x10) != 0)
+                {
+                  if ((*(v55 + v44) & 0x20) != 0)
+                  {
+                    v50 = v44 == 0;
+                    v49 = v12;
+                  }
+
+                  else
+                  {
+                    v49 = v12;
+                    v50 = v44;
+                  }
+
+                  a6.f32[0] = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v49, v50, v17);
+                  v51 = 1.0 - a6.f32[0];
+                  a6.f32[0] = a6.f32[0] + ((1.0 - a6.f32[0]) * 0.75);
+                  v48 = v51 * 0.125;
+                }
+
+                else
+                {
+                  v48 = 0.125;
+                  a6.i32[0] = 0.75;
+                }
+
+                v14 = v57;
+                v13 = a3;
+                v15 = v56;
+                v16 = v59;
+                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[0]), v48);
+                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[1]), v48);
+                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v45), a6.f32[0]);
+                v43 = v54;
+              }
+
+              else
+              {
+                a6 = vaddq_f32(*(*v13 + 16 * v45), *(*a4 + 16 * v46));
+                *(*a4 + 16 * v46) = a6;
+              }
+
+              ++v42;
+            }
+
+            while (v41 != v42);
+          }
+        }
+
+        else
+        {
+          v27 = *(*(v60 + 336) + 8 * v12);
+          v62 = 0.0;
+          v28 = v78;
+          v29 = v78 + v27;
+          *v69 = &v62;
+          v70 = v78;
+          v71 = v29;
+          memset(v72, 0, 13);
+          v64 = v12;
+          v65 = v17;
+          v66 = *(*(v63[0] + 336) + 8 * v12);
+          v67 = *(*(v63[0] + 264) + 8 * v12);
+          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v12) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v17) >> 7) & 0xF, *a6.i64);
+          v14 = v57;
+          v13 = a3;
+          v30 = *v19;
+          v31 = *v21;
+          v32 = (*a4 + 16 * v31);
+          *v32 = 0;
+          v32[1] = 0;
+          if (v72[2] >= 1)
+          {
+            if ((v72[3] & 1) == 0)
+            {
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
+            }
+
+            v33 = *(v60 + 264);
+            v34 = *(v33 + 8 * v12);
+            if (v34 >= 1)
+            {
+              v35 = (*(v60 + 288) + 4 * *(v33 + 4 * ((2 * v12) | 1)));
+              do
+              {
+                v36 = *v35++;
+                v37 = *(v57[21] + 4 * v36);
+                if (v37 == -1)
+                {
+                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
+                }
+
+                v38 = *v29++;
+                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a4 + 16 * *(v53[12] + 4 * v37)), v38);
+                --v34;
+              }
+
+              while (v34);
+            }
+          }
+
+          if (v72[1] >= 1)
+          {
+            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v12, v73);
+            v14 = v57;
+            v13 = a3;
+            if (v27 >= 1)
+            {
+              for (i = 0; i != v27; ++i)
+              {
+                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a3 + 16 * v73[i]), *(v28 + i * 4));
+              }
+            }
+          }
+
+          a6 = *(*v13 + 16 * v30);
+          *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), a6, v62);
+          v15 = v56;
+          v16 = v59;
+        }
+      }
+
+      ++v12;
+    }
+
+    while (v12 < *(v60 + 8));
+    v11 = v77;
+  }
+
+  operator delete(v11);
+  operator delete(v82);
+}
+
 void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
 {
   v65 = *MEMORY[0x277D85DE8];
@@ -228,54 +1579,56 @@ void OpenSubdiv::v3_1_1::Osd::CpuPatchTable::~CpuPatchTable(OpenSubdiv::v3_1_1::
   }
 }
 
-void _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int **a3, int a4, uint64_t a5, uint64_t a6)
+void _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = a6;
-  MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext = _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(a1, a2, a4, *(a1 + 80), a6);
+  v8 = a6;
+  MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext = _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(a1, a2, a4, *(a1 + 80), a6, a6, a7, a8);
   if (MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext)
   {
-    v11 = MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext;
-    if (!C3DMeshSourceGetSemantic(MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext))
+    v14 = MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext;
+    if (!C3DMeshSourceGetSemantic(MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext, v13))
     {
       v93 = 0u;
       v94 = 0u;
-      C3DMeshSourceGetContent(v11, &v93);
-      v12 = v94;
+      Content = C3DMeshSourceGetContent(v14, v15, &v93);
+      v18 = v94;
       if (*(a1 + 88))
       {
-        v13 = scn_default_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+        v19 = scn_default_log(Content, v17);
+        Content = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+        if (Content)
         {
-          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_1(v13, v14, v15, v16, v17, v18, v19, v20);
+          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_1(v19, v17, v20, v21, v22, v23, v24, v25);
         }
       }
 
-      v21 = *(a5 + 3);
-      if (v21 >= 2)
+      v26 = *(a5 + 3);
+      if (v26 >= 2)
       {
-        if (v21 != 2)
+        if (v26 != 2)
         {
           return;
         }
 
-        if (v12 != *(*(*(*a3 + 11) + 24 * ((*(*a3 + 8) >> 2) & 0xF)) + 8))
+        if (v18 != *(*(*(*a3 + 11) + 24 * ((*(*a3 + 8) >> 2) & 0xF)) + 8))
         {
-          v57 = scn_default_log();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+          v62 = scn_default_log(Content, v17);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
           {
-            _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_3(v57, v58, v59, v60, v61, v62, v63, v64);
+            _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_3(v62, v63, v64, v65, v66, v67, v68, v69);
           }
         }
 
-        v23 = malloc_type_malloc(12 * v12, 0x100004052888210uLL);
-        v71 = *(a1 + 48);
-        v72 = *(a1 + 56);
-        v73 = (a1 + 48);
+        v70 = malloc_type_malloc(12 * v18, 0x100004052888210uLL);
+        v28 = v70;
+        v72 = *(a1 + 48);
+        v73 = *(a1 + 56);
+        v74 = (a1 + 48);
         v91 = 0uLL;
         v92 = 0;
-        if (v72 != v71)
+        if (v73 != v72)
         {
-          std::vector<double>::__vallocate[abi:nn200100](&v91, (v72 - v71) >> 3);
+          std::vector<double>::__vallocate[abi:nn200100](&v91, (v73 - v72) >> 3);
         }
 
         v88 = 0;
@@ -286,41 +1639,41 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1
         v87 = 0;
         if (((*(*(*(*a3 + 5) + 8 * ((*(*a3 + 8) >> 2) & 0xF)) + 368) - *(*(*(*a3 + 5) + 8 * ((*(*a3 + 8) >> 2) & 0xF)) + 360)) & 0x3FFFFFFFCLL) != 0)
         {
-          v74 = **a3;
-          if (v74)
+          v75 = **a3;
+          if (v75)
           {
-            if (v74 == 2)
+            if (v75 == 2)
             {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE2ENSt3__16vectorI16C3DSubdivCPUDataIDv2_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v91, &v88, &__p);
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE2ENSt3__16vectorI16C3DSubdivCPUDataIDv2_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v74, &v91, &v88, &__p);
             }
 
-            else if (v74 == 1)
+            else if (v75 == 1)
             {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv2_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v91, &v88, &__p);
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv2_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v74, &v91, &v88, &__p);
             }
           }
 
           else
           {
-            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0ENSt3__16vectorI16C3DSubdivCPUDataIDv2_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v91, &v88, &__p);
+            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0ENSt3__16vectorI16C3DSubdivCPUDataIDv2_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v74, &v91, &v88, &__p);
           }
         }
 
         else
         {
-          OpenSubdiv::v3_1_1::Far::Error(4, "Failure in PrimvarRefiner::Limit() -- last level of refinement does not include full topology.", v65, v66, v67, v68, v69, v70, v78);
+          v70 = OpenSubdiv::v3_1_1::Far::Error(4, "Failure in PrimvarRefiner::Limit() -- last level of refinement does not include full topology.");
         }
 
-        if (v12)
+        if (v18)
         {
-          v75 = v12;
+          v76 = v18;
           do
           {
-            _Z68C3DSubdivCPUPrimvarDataCopyCrossNormalizedDataAtIndexToBufferAtIndexIDv2_fEvRNSt3__16vectorI16C3DSubdivCPUDataIT_ENS1_9allocatorIS5_EEEES9_iPfi();
-            --v75;
+            _Z68C3DSubdivCPUPrimvarDataCopyCrossNormalizedDataAtIndexToBufferAtIndexIDv2_fEvRNSt3__16vectorI16C3DSubdivCPUDataIT_ENS1_9allocatorIS5_EEEES9_iPfi(v70, v71);
+            --v76;
           }
 
-          while (v75);
+          while (v76);
         }
 
         if (__p)
@@ -344,95 +1697,95 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1
 
       else
       {
-        v79 = v12;
-        v80 = v6;
-        v22 = *(*a2 + 2);
-        v23 = malloc_type_calloc(v22, 0xCuLL, 0x100004052888210uLL);
-        v27 = **a2;
-        if (v27 >= 1)
+        v79 = v18;
+        v80 = v8;
+        v27 = *(*a2 + 2);
+        v28 = malloc_type_calloc(v27, 0xCuLL, 0x100004052888210uLL);
+        v32 = **a2;
+        if (v32 >= 1)
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v32; ++i)
           {
-            v29 = (*(*a2 + 3) + 8 * i);
-            if (*v29 != 4)
+            v34 = (*(*a2 + 3) + 8 * i);
+            if (*v34 != 4)
             {
               _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_2();
             }
 
-            v30 = (*(*a2 + 6) + 4 * v29[1]);
-            v31 = v30[2];
-            v32 = v30[3];
-            v33 = v30[1];
-            *v34.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + *v30 * BYTE6(v94)), v24, v25, v26);
-            v84 = v34;
-            *v37.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v33 * BYTE6(v94)), v34, v35, v36);
-            v83 = v37;
-            *v40.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v31 * BYTE6(v94)), v37, v38, v39);
-            v82 = v40;
-            *v43.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v32 * BYTE6(v94)), v40, v41, v42);
-            v44.i32[0] = 0;
-            v45 = 0;
-            v46.i8[0] = *(a5 + 3);
-            v47 = vdupq_lane_s8(*&vceqq_s8(v46, v44), 0);
-            v48 = vbslq_s8(v47, vsubq_f32(v82, v84), vsubq_f32(v43, v83));
-            v49 = vsubq_f32(vbslq_s8(v47, v83, v82), v84);
-            v50 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v48, v48), v48, 0xCuLL), vnegq_f32(v49)), v48, vextq_s8(vuzp1q_s32(v49, v49), v49, 0xCuLL));
-            v51 = vextq_s8(vuzp1q_s32(v50, v50), v50, 0xCuLL);
-            v52 = vmulq_f32(v50, v50);
-            *v46.i32 = v52.f32[1] + (v52.f32[2] + v52.f32[0]);
-            *v52.f32 = vrsqrte_f32(v46.u32[0]);
-            *v52.f32 = vmul_f32(*v52.f32, vrsqrts_f32(v46.u32[0], vmul_f32(*v52.f32, *v52.f32)));
-            v24 = vmulq_n_f32(v51, vmul_f32(*v52.f32, vrsqrts_f32(v46.u32[0], vmul_f32(*v52.f32, *v52.f32))).f32[0]);
-            v25 = v24.f32[2];
+            v35 = (*(*a2 + 6) + 4 * v34[1]);
+            v36 = v35[2];
+            v37 = v35[3];
+            v38 = v35[1];
+            *v39.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + *v35 * BYTE6(v94)), v29, v30, v31);
+            v84 = v39;
+            *v42.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v38 * BYTE6(v94)), v39, v40, v41);
+            v83 = v42;
+            *v45.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v36 * BYTE6(v94)), v42, v43, v44);
+            v82 = v45;
+            *v48.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v37 * BYTE6(v94)), v45, v46, v47);
+            v49.i32[0] = 0;
+            v50 = 0;
+            v51.i8[0] = *(a5 + 3);
+            v52 = vdupq_lane_s8(*&vceqq_s8(v51, v49), 0);
+            v53 = vbslq_s8(v52, vsubq_f32(v82, v84), vsubq_f32(v48, v83));
+            v54 = vsubq_f32(vbslq_s8(v52, v83, v82), v84);
+            v55 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v53, v53), v53, 0xCuLL), vnegq_f32(v54)), v53, vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL));
+            v56 = vextq_s8(vuzp1q_s32(v55, v55), v55, 0xCuLL);
+            v57 = vmulq_f32(v55, v55);
+            *v51.i32 = v57.f32[1] + (v57.f32[2] + v57.f32[0]);
+            *v57.f32 = vrsqrte_f32(v51.u32[0]);
+            *v57.f32 = vmul_f32(*v57.f32, vrsqrts_f32(v51.u32[0], vmul_f32(*v57.f32, *v57.f32)));
+            v29 = vmulq_n_f32(v56, vmul_f32(*v57.f32, vrsqrts_f32(v51.u32[0], vmul_f32(*v57.f32, *v57.f32))).f32[0]);
+            v30 = v29.f32[2];
             do
             {
-              v53 = &v23[12 * v30[v45]];
-              *v53 = vadd_f32(*v24.f32, *v53);
-              v26 = v24.f32[2] + v53[1].f32[0];
-              v53[1].f32[0] = v26;
-              ++v45;
+              v58 = &v28[12 * v35[v50]];
+              *v58 = vadd_f32(*v29.f32, *v58);
+              v31 = v29.f32[2] + v58[1].f32[0];
+              v58[1].f32[0] = v31;
+              ++v50;
             }
 
-            while (v45 != 4);
+            while (v50 != 4);
           }
         }
 
-        if (v22 >= 1)
+        if (v27 >= 1)
         {
-          v54 = v23 + 8;
-          v12 = v79;
-          v6 = v80;
+          v59 = v28 + 8;
+          v18 = v79;
+          v8 = v80;
           do
           {
-            v24.i64[0] = *(v54 - 1);
-            v24.i32[2] = *v54;
-            v55 = vmulq_f32(v24, v24);
-            *&v56 = v55.f32[2] + vaddv_f32(*v55.f32);
-            *v55.f32 = vrsqrte_f32(v56);
-            *v55.f32 = vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32)));
-            v24 = vmulq_n_f32(v24, vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32))).f32[0]);
-            *(v54 - 1) = v24.i64[0];
-            *v54 = v24.i32[2];
-            v54 += 3;
-            --v22;
+            v29.i64[0] = *(v59 - 1);
+            v29.i32[2] = *v59;
+            v60 = vmulq_f32(v29, v29);
+            *&v61 = v60.f32[2] + vaddv_f32(*v60.f32);
+            *v60.f32 = vrsqrte_f32(v61);
+            *v60.f32 = vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32)));
+            v29 = vmulq_n_f32(v29, vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32))).f32[0]);
+            *(v59 - 1) = v29.i64[0];
+            *v59 = v29.i32[2];
+            v59 += 3;
+            --v27;
           }
 
-          while (v22);
+          while (v27);
 LABEL_42:
-          v76 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v23, 12 * v12, *MEMORY[0x277CBECF0]);
-          v77 = C3DMeshSourceCreateWithData(1, v76, 1, 3, v12, 12, 0);
-          CFRelease(v76);
+          v77 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v28, 12 * v18, *MEMORY[0x277CBECF0]);
+          v78 = C3DMeshSourceCreateWithData(1, v77, 1, 3, v18, 12, 0);
+          CFRelease(v77);
           v91 = 0uLL;
-          v92 = v77;
-          std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v6, &v91);
+          v92 = v78;
+          std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v8, &v91);
           return;
         }
 
-        v12 = v79;
-        v6 = v80;
+        v18 = v79;
+        v8 = v80;
       }
 
-      if (!v23)
+      if (!v28)
       {
         return;
       }
@@ -442,119 +1795,120 @@ LABEL_42:
   }
 }
 
-void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int **a3, int a4, uint64_t a5, uint64_t a6)
+void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = a6;
-  MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext = _ZN23C3DSubdivCPUPrimvarDataIDv3_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(a1, a2, a4, *(a1 + 80), a6);
+  v8 = a6;
+  MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext = _ZN23C3DSubdivCPUPrimvarDataIDv3_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(a1, a2, a4, *(a1 + 80), a6, a6, a7, a8);
   if (MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext)
   {
-    v11 = MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext;
-    if (!C3DMeshSourceGetSemantic(MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext))
+    v14 = MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext;
+    if (!C3DMeshSourceGetSemantic(MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext, v13))
     {
-      v104 = 0u;
-      v105 = 0u;
-      C3DMeshSourceGetContent(v11, &v104);
-      v12 = v105;
+      v102 = 0u;
+      v103 = 0u;
+      Content = C3DMeshSourceGetContent(v14, v15, &v102);
+      v18 = v103;
       if (*(a1 + 88))
       {
-        v13 = scn_default_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+        v19 = scn_default_log(Content, v17);
+        Content = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+        if (Content)
         {
-          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_1(v13, v14, v15, v16, v17, v18, v19, v20);
+          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_1(v19, v17, v20, v21, v22, v23, v24, v25);
         }
       }
 
-      v21 = *(a5 + 3);
-      if (v21 < 2)
+      v26 = *(a5 + 3);
+      if (v26 < 2)
       {
-        v90 = v12;
-        v91 = v6;
-        v22 = *(*a2 + 2);
-        v23 = malloc_type_calloc(v22, 0xCuLL, 0x100004052888210uLL);
-        v27 = **a2;
-        if (v27 >= 1)
+        v88 = v18;
+        v89 = v8;
+        v27 = *(*a2 + 2);
+        v28 = malloc_type_calloc(v27, 0xCuLL, 0x100004052888210uLL);
+        v32 = **a2;
+        if (v32 >= 1)
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v32; ++i)
           {
-            v29 = (*(*a2 + 3) + 8 * i);
-            if (*v29 != 4)
+            v34 = (*(*a2 + 3) + 8 * i);
+            if (*v34 != 4)
             {
               _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_2();
             }
 
-            v30 = (*(*a2 + 6) + 4 * v29[1]);
-            v31 = v30[2];
-            v32 = v30[3];
-            v33 = v30[1];
-            *v34.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v105), (v104 + *v30 * BYTE6(v105)), v24, v25, v26);
-            v95 = v34;
-            *v37.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v105), (v104 + v33 * BYTE6(v105)), v34, v35, v36);
-            v94 = v37;
-            *v40.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v105), (v104 + v31 * BYTE6(v105)), v37, v38, v39);
-            v93 = v40;
-            *v43.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v105), (v104 + v32 * BYTE6(v105)), v40, v41, v42);
-            v44.i32[0] = 0;
-            v45 = 0;
-            v46.i8[0] = *(a5 + 3);
-            v47 = vdupq_lane_s8(*&vceqq_s8(v46, v44), 0);
-            v48 = vbslq_s8(v47, vsubq_f32(v93, v95), vsubq_f32(v43, v94));
-            v49 = vsubq_f32(vbslq_s8(v47, v94, v93), v95);
-            v50 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v48, v48), v48, 0xCuLL), vnegq_f32(v49)), v48, vextq_s8(vuzp1q_s32(v49, v49), v49, 0xCuLL));
-            v51 = vextq_s8(vuzp1q_s32(v50, v50), v50, 0xCuLL);
-            v52 = vmulq_f32(v50, v50);
-            *v46.i32 = v52.f32[1] + (v52.f32[2] + v52.f32[0]);
-            *v52.f32 = vrsqrte_f32(v46.u32[0]);
-            *v52.f32 = vmul_f32(*v52.f32, vrsqrts_f32(v46.u32[0], vmul_f32(*v52.f32, *v52.f32)));
-            v24 = vmulq_n_f32(v51, vmul_f32(*v52.f32, vrsqrts_f32(v46.u32[0], vmul_f32(*v52.f32, *v52.f32))).f32[0]);
-            v25 = v24.f32[2];
+            v35 = (*(*a2 + 6) + 4 * v34[1]);
+            v36 = v35[2];
+            v37 = v35[3];
+            v38 = v35[1];
+            *v39.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v103), (v102 + *v35 * BYTE6(v103)), v29, v30, v31);
+            v93 = v39;
+            *v42.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v103), (v102 + v38 * BYTE6(v103)), v39, v40, v41);
+            v92 = v42;
+            *v45.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v103), (v102 + v36 * BYTE6(v103)), v42, v43, v44);
+            v91 = v45;
+            *v48.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v103), (v102 + v37 * BYTE6(v103)), v45, v46, v47);
+            v49.i32[0] = 0;
+            v50 = 0;
+            v51.i8[0] = *(a5 + 3);
+            v52 = vdupq_lane_s8(*&vceqq_s8(v51, v49), 0);
+            v53 = vbslq_s8(v52, vsubq_f32(v91, v93), vsubq_f32(v48, v92));
+            v54 = vsubq_f32(vbslq_s8(v52, v92, v91), v93);
+            v55 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v53, v53), v53, 0xCuLL), vnegq_f32(v54)), v53, vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL));
+            v56 = vextq_s8(vuzp1q_s32(v55, v55), v55, 0xCuLL);
+            v57 = vmulq_f32(v55, v55);
+            *v51.i32 = v57.f32[1] + (v57.f32[2] + v57.f32[0]);
+            *v57.f32 = vrsqrte_f32(v51.u32[0]);
+            *v57.f32 = vmul_f32(*v57.f32, vrsqrts_f32(v51.u32[0], vmul_f32(*v57.f32, *v57.f32)));
+            v29 = vmulq_n_f32(v56, vmul_f32(*v57.f32, vrsqrts_f32(v51.u32[0], vmul_f32(*v57.f32, *v57.f32))).f32[0]);
+            v30 = v29.f32[2];
             do
             {
-              v53 = &v23[12 * v30[v45]];
-              *v53 = vadd_f32(*v24.f32, *v53);
-              v26 = v24.f32[2] + v53[1].f32[0];
-              v53[1].f32[0] = v26;
-              ++v45;
+              v58 = &v28[12 * v35[v50]];
+              *v58 = vadd_f32(*v29.f32, *v58);
+              v31 = v29.f32[2] + v58[1].f32[0];
+              v58[1].f32[0] = v31;
+              ++v50;
             }
 
-            while (v45 != 4);
+            while (v50 != 4);
           }
         }
 
-        if (v22 >= 1)
+        if (v27 >= 1)
         {
-          v54 = v23 + 8;
-          v12 = v90;
-          v6 = v91;
+          v59 = v28 + 8;
+          v18 = v88;
+          v8 = v89;
           do
           {
-            v24.i64[0] = *(v54 - 1);
-            v24.i32[2] = *v54;
-            v55 = vmulq_f32(v24, v24);
-            *&v56 = v55.f32[2] + vaddv_f32(*v55.f32);
-            *v55.f32 = vrsqrte_f32(v56);
-            *v55.f32 = vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32)));
-            v24 = vmulq_n_f32(v24, vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32))).f32[0]);
-            *(v54 - 1) = v24.i64[0];
-            *v54 = v24.i32[2];
-            v54 += 3;
-            --v22;
+            v29.i64[0] = *(v59 - 1);
+            v29.i32[2] = *v59;
+            v60 = vmulq_f32(v29, v29);
+            *&v61 = v60.f32[2] + vaddv_f32(*v60.f32);
+            *v60.f32 = vrsqrte_f32(v61);
+            *v60.f32 = vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32)));
+            v29 = vmulq_n_f32(v29, vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32))).f32[0]);
+            *(v59 - 1) = v29.i64[0];
+            *v59 = v29.i32[2];
+            v59 += 3;
+            --v27;
           }
 
-          while (v22);
+          while (v27);
 LABEL_43:
-          v87 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v23, 12 * v12, *MEMORY[0x277CBECF0]);
-          v88 = C3DMeshSourceCreateWithData(1, v87, 1, 3, v12, 12, 0);
-          CFRelease(v87);
-          v102 = 0uLL;
-          v103 = v88;
-          std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v6, &v102);
+          v86 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v28, 12 * v18, *MEMORY[0x277CBECF0]);
+          v87 = C3DMeshSourceCreateWithData(1, v86, 1, 3, v18, 12, 0);
+          CFRelease(v86);
+          v100 = 0uLL;
+          v101 = v87;
+          std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v8, &v100);
           return;
         }
 
-        v12 = v90;
-        v6 = v91;
+        v18 = v88;
+        v8 = v89;
 LABEL_42:
-        if (!v23)
+        if (!v28)
         {
           return;
         }
@@ -562,164 +1916,166 @@ LABEL_42:
         goto LABEL_43;
       }
 
-      if (v21 != 2)
+      if (v26 != 2)
       {
         return;
       }
 
-      if (v12 != *(*(*(*a3 + 11) + 24 * ((*(*a3 + 8) >> 2) & 0xF)) + 8))
+      if (v18 != *(*(*(*a3 + 11) + 24 * ((*(*a3 + 8) >> 2) & 0xF)) + 8))
       {
-        v57 = scn_default_log();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+        v62 = scn_default_log(Content, v17);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
         {
-          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_3(v57, v58, v59, v60, v61, v62, v63, v64);
+          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_3(v62, v63, v64, v65, v66, v67, v68, v69);
         }
       }
 
-      v23 = malloc_type_malloc(12 * v12, 0x100004052888210uLL);
-      v71 = *(a1 + 48);
-      v72 = *(a1 + 56);
-      v73 = (a1 + 48);
-      v102 = 0uLL;
-      v103 = 0;
-      if (v72 != v71)
+      v28 = malloc_type_malloc(12 * v18, 0x100004052888210uLL);
+      v70 = *(a1 + 48);
+      v71 = *(a1 + 56);
+      v72 = (a1 + 48);
+      v100 = 0uLL;
+      v101 = 0;
+      if (v71 != v70)
       {
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v102, (v72 - v71) >> 4);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v100, (v71 - v70) >> 4);
       }
 
-      v99 = 0;
-      v100 = 0;
-      v101 = 0;
-      __p = 0;
       v97 = 0;
       v98 = 0;
+      v99 = 0;
+      __p = 0;
+      v95 = 0;
+      v96 = 0;
       if (((*(*(*(*a3 + 5) + 8 * ((*(*a3 + 8) >> 2) & 0xF)) + 368) - *(*(*(*a3 + 5) + 8 * ((*(*a3 + 8) >> 2) & 0xF)) + 360)) & 0x3FFFFFFFCLL) != 0)
       {
-        v74 = **a3;
-        if (v74)
+        v73 = **a3;
+        if (v73)
         {
-          if (v74 == 2)
+          if (v73 == 2)
           {
-            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE2ENSt3__16vectorI16C3DSubdivCPUDataIDv3_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v102, &v99, &__p);
+            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE2ENSt3__16vectorI16C3DSubdivCPUDataIDv3_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v72, &v100, &v97, &__p);
           }
 
-          else if (v74 == 1)
+          else if (v73 == 1)
           {
-            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv3_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v102, &v99, &__p);
+            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv3_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v72, &v100, &v97, &__p);
           }
         }
 
         else
         {
-          _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0ENSt3__16vectorI16C3DSubdivCPUDataIDv3_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v102, &v99, &__p);
+          _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0ENSt3__16vectorI16C3DSubdivCPUDataIDv3_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v72, &v100, &v97, &__p);
         }
       }
 
       else
       {
-        OpenSubdiv::v3_1_1::Far::Error(4, "Failure in PrimvarRefiner::Limit() -- last level of refinement does not include full topology.", v65, v66, v67, v68, v69, v70, v89);
+        OpenSubdiv::v3_1_1::Far::Error(4, "Failure in PrimvarRefiner::Limit() -- last level of refinement does not include full topology.");
       }
 
-      v75 = __p;
-      if (v12)
+      v74 = __p;
+      if (v18)
       {
-        v76 = v99;
-        v77 = v23 + 8;
-        v78 = v12;
-        v79 = __p;
+        v75 = v97;
+        v76 = v28 + 8;
+        v77 = v18;
+        v78 = __p;
         do
         {
-          v80 = *v79++;
-          v81 = v80;
-          v82 = *v76++;
-          v83 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v81, v81), v81, 0xCuLL), vnegq_f32(v82)), v81, vextq_s8(vuzp1q_s32(v82, v82), v82, 0xCuLL));
-          v84 = vmulq_f32(v83, v83);
-          *&v85 = v84.f32[1] + (v84.f32[2] + v84.f32[0]);
-          *v84.f32 = vrsqrte_f32(v85);
-          *v84.f32 = vmul_f32(*v84.f32, vrsqrts_f32(v85, vmul_f32(*v84.f32, *v84.f32)));
-          v86 = vmulq_n_f32(vextq_s8(vuzp1q_s32(v83, v83), v83, 0xCuLL), vmul_f32(*v84.f32, vrsqrts_f32(v85, vmul_f32(*v84.f32, *v84.f32))).f32[0]);
-          *(v77 - 1) = v86.i64[0];
-          *v77 = v86.i32[2];
-          v77 += 3;
-          --v78;
+          v79 = *v78++;
+          v80 = v79;
+          v81 = *v75++;
+          v82 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v80, v80), v80, 0xCuLL), vnegq_f32(v81)), v80, vextq_s8(vuzp1q_s32(v81, v81), v81, 0xCuLL));
+          v83 = vmulq_f32(v82, v82);
+          *&v84 = v83.f32[1] + (v83.f32[2] + v83.f32[0]);
+          *v83.f32 = vrsqrte_f32(v84);
+          *v83.f32 = vmul_f32(*v83.f32, vrsqrts_f32(v84, vmul_f32(*v83.f32, *v83.f32)));
+          v85 = vmulq_n_f32(vextq_s8(vuzp1q_s32(v82, v82), v82, 0xCuLL), vmul_f32(*v83.f32, vrsqrts_f32(v84, vmul_f32(*v83.f32, *v83.f32))).f32[0]);
+          *(v76 - 1) = v85.i64[0];
+          *v76 = v85.i32[2];
+          v76 += 3;
+          --v77;
         }
 
-        while (v78);
+        while (v77);
       }
 
       else if (!__p)
       {
 LABEL_38:
-        if (v99)
+        if (v97)
         {
-          v100 = v99;
-          operator delete(v99);
+          v98 = v97;
+          operator delete(v97);
         }
 
-        if (v102)
+        if (v100)
         {
-          *(&v102 + 1) = v102;
-          operator delete(v102);
+          *(&v100 + 1) = v100;
+          operator delete(v100);
         }
 
         goto LABEL_42;
       }
 
-      v97 = v75;
-      operator delete(v75);
+      v95 = v74;
+      operator delete(v74);
       goto LABEL_38;
     }
   }
 }
 
-void _ZN23C3DSubdivCPUPrimvarDataIDv4_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int **a3, int a4, uint64_t a5, uint64_t a6)
+void _ZN23C3DSubdivCPUPrimvarDataIDv4_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = a6;
-  MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext = _ZN23C3DSubdivCPUPrimvarDataIDv4_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(a1, a2, a4, *(a1 + 80), a6);
+  v8 = a6;
+  MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext = _ZN23C3DSubdivCPUPrimvarDataIDv4_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(a1, a2, a4, *(a1 + 80), a6, a6, a7, a8);
   if (MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext)
   {
-    v11 = MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext;
-    if (!C3DMeshSourceGetSemantic(MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext))
+    v14 = MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext;
+    if (!C3DMeshSourceGetSemantic(MeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext, v13))
     {
       v93 = 0u;
       v94 = 0u;
-      C3DMeshSourceGetContent(v11, &v93);
-      v12 = v94;
+      Content = C3DMeshSourceGetContent(v14, v15, &v93);
+      v18 = v94;
       if (*(a1 + 88))
       {
-        v13 = scn_default_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+        v19 = scn_default_log(Content, v17);
+        Content = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+        if (Content)
         {
-          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_1(v13, v14, v15, v16, v17, v18, v19, v20);
+          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_1(v19, v17, v20, v21, v22, v23, v24, v25);
         }
       }
 
-      v21 = *(a5 + 3);
-      if (v21 >= 2)
+      v26 = *(a5 + 3);
+      if (v26 >= 2)
       {
-        if (v21 != 2)
+        if (v26 != 2)
         {
           return;
         }
 
-        if (v12 != *(*(*(*a3 + 11) + 24 * ((*(*a3 + 8) >> 2) & 0xF)) + 8))
+        if (v18 != *(*(*(*a3 + 11) + 24 * ((*(*a3 + 8) >> 2) & 0xF)) + 8))
         {
-          v57 = scn_default_log();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+          v62 = scn_default_log(Content, v17);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
           {
-            _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_3(v57, v58, v59, v60, v61, v62, v63, v64);
+            _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_3(v62, v63, v64, v65, v66, v67, v68, v69);
           }
         }
 
-        v23 = malloc_type_malloc(12 * v12, 0x100004052888210uLL);
-        v71 = *(a1 + 48);
-        v72 = *(a1 + 56);
-        v73 = (a1 + 48);
+        v70 = malloc_type_malloc(12 * v18, 0x100004052888210uLL);
+        v28 = v70;
+        v72 = *(a1 + 48);
+        v73 = *(a1 + 56);
+        v74 = (a1 + 48);
         v91 = 0uLL;
         v92 = 0;
-        if (v72 != v71)
+        if (v73 != v72)
         {
-          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v91, (v72 - v71) >> 4);
+          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v91, (v73 - v72) >> 4);
         }
 
         v88 = 0;
@@ -730,41 +2086,41 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv4_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1
         v87 = 0;
         if (((*(*(*(*a3 + 5) + 8 * ((*(*a3 + 8) >> 2) & 0xF)) + 368) - *(*(*(*a3 + 5) + 8 * ((*(*a3 + 8) >> 2) & 0xF)) + 360)) & 0x3FFFFFFFCLL) != 0)
         {
-          v74 = **a3;
-          if (v74)
+          v75 = **a3;
+          if (v75)
           {
-            if (v74 == 2)
+            if (v75 == 2)
             {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE2ENSt3__16vectorI16C3DSubdivCPUDataIDv4_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v91, &v88, &__p);
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE2ENSt3__16vectorI16C3DSubdivCPUDataIDv4_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v74, &v91, &v88, &__p);
             }
 
-            else if (v74 == 1)
+            else if (v75 == 1)
             {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv4_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v91, &v88, &__p);
+              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv4_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v74, &v91, &v88, &__p);
             }
           }
 
           else
           {
-            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0ENSt3__16vectorI16C3DSubdivCPUDataIDv4_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v73, &v91, &v88, &__p);
+            _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0ENSt3__16vectorI16C3DSubdivCPUDataIDv4_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(a3, v74, &v91, &v88, &__p);
           }
         }
 
         else
         {
-          OpenSubdiv::v3_1_1::Far::Error(4, "Failure in PrimvarRefiner::Limit() -- last level of refinement does not include full topology.", v65, v66, v67, v68, v69, v70, v78);
+          v70 = OpenSubdiv::v3_1_1::Far::Error(4, "Failure in PrimvarRefiner::Limit() -- last level of refinement does not include full topology.");
         }
 
-        if (v12)
+        if (v18)
         {
-          v75 = v12;
+          v76 = v18;
           do
           {
-            _Z68C3DSubdivCPUPrimvarDataCopyCrossNormalizedDataAtIndexToBufferAtIndexIDv2_fEvRNSt3__16vectorI16C3DSubdivCPUDataIT_ENS1_9allocatorIS5_EEEES9_iPfi();
-            --v75;
+            _Z68C3DSubdivCPUPrimvarDataCopyCrossNormalizedDataAtIndexToBufferAtIndexIDv2_fEvRNSt3__16vectorI16C3DSubdivCPUDataIT_ENS1_9allocatorIS5_EEEES9_iPfi(v70, v71);
+            --v76;
           }
 
-          while (v75);
+          while (v76);
         }
 
         if (__p)
@@ -788,95 +2144,95 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv4_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1
 
       else
       {
-        v79 = v12;
-        v80 = v6;
-        v22 = *(*a2 + 2);
-        v23 = malloc_type_calloc(v22, 0xCuLL, 0x100004052888210uLL);
-        v27 = **a2;
-        if (v27 >= 1)
+        v79 = v18;
+        v80 = v8;
+        v27 = *(*a2 + 2);
+        v28 = malloc_type_calloc(v27, 0xCuLL, 0x100004052888210uLL);
+        v32 = **a2;
+        if (v32 >= 1)
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v32; ++i)
           {
-            v29 = (*(*a2 + 3) + 8 * i);
-            if (*v29 != 4)
+            v34 = (*(*a2 + 3) + 8 * i);
+            if (*v34 != 4)
             {
               _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext_cold_2();
             }
 
-            v30 = (*(*a2 + 6) + 4 * v29[1]);
-            v31 = v30[2];
-            v32 = v30[3];
-            v33 = v30[1];
-            *v34.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + *v30 * BYTE6(v94)), v24, v25, v26);
-            v84 = v34;
-            *v37.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v33 * BYTE6(v94)), v34, v35, v36);
-            v83 = v37;
-            *v40.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v31 * BYTE6(v94)), v37, v38, v39);
-            v82 = v40;
-            *v43.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v32 * BYTE6(v94)), v40, v41, v42);
-            v44.i32[0] = 0;
-            v45 = 0;
-            v46.i8[0] = *(a5 + 3);
-            v47 = vdupq_lane_s8(*&vceqq_s8(v46, v44), 0);
-            v48 = vbslq_s8(v47, vsubq_f32(v82, v84), vsubq_f32(v43, v83));
-            v49 = vsubq_f32(vbslq_s8(v47, v83, v82), v84);
-            v50 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v48, v48), v48, 0xCuLL), vnegq_f32(v49)), v48, vextq_s8(vuzp1q_s32(v49, v49), v49, 0xCuLL));
-            v51 = vextq_s8(vuzp1q_s32(v50, v50), v50, 0xCuLL);
-            v52 = vmulq_f32(v50, v50);
-            *v46.i32 = v52.f32[1] + (v52.f32[2] + v52.f32[0]);
-            *v52.f32 = vrsqrte_f32(v46.u32[0]);
-            *v52.f32 = vmul_f32(*v52.f32, vrsqrts_f32(v46.u32[0], vmul_f32(*v52.f32, *v52.f32)));
-            v24 = vmulq_n_f32(v51, vmul_f32(*v52.f32, vrsqrts_f32(v46.u32[0], vmul_f32(*v52.f32, *v52.f32))).f32[0]);
-            v25 = v24.f32[2];
+            v35 = (*(*a2 + 6) + 4 * v34[1]);
+            v36 = v35[2];
+            v37 = v35[3];
+            v38 = v35[1];
+            *v39.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + *v35 * BYTE6(v94)), v29, v30, v31);
+            v84 = v39;
+            *v42.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v38 * BYTE6(v94)), v39, v40, v41);
+            v83 = v42;
+            *v45.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v36 * BYTE6(v94)), v42, v43, v44);
+            v82 = v45;
+            *v48.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v94), (v93 + v37 * BYTE6(v94)), v45, v46, v47);
+            v49.i32[0] = 0;
+            v50 = 0;
+            v51.i8[0] = *(a5 + 3);
+            v52 = vdupq_lane_s8(*&vceqq_s8(v51, v49), 0);
+            v53 = vbslq_s8(v52, vsubq_f32(v82, v84), vsubq_f32(v48, v83));
+            v54 = vsubq_f32(vbslq_s8(v52, v83, v82), v84);
+            v55 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v53, v53), v53, 0xCuLL), vnegq_f32(v54)), v53, vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL));
+            v56 = vextq_s8(vuzp1q_s32(v55, v55), v55, 0xCuLL);
+            v57 = vmulq_f32(v55, v55);
+            *v51.i32 = v57.f32[1] + (v57.f32[2] + v57.f32[0]);
+            *v57.f32 = vrsqrte_f32(v51.u32[0]);
+            *v57.f32 = vmul_f32(*v57.f32, vrsqrts_f32(v51.u32[0], vmul_f32(*v57.f32, *v57.f32)));
+            v29 = vmulq_n_f32(v56, vmul_f32(*v57.f32, vrsqrts_f32(v51.u32[0], vmul_f32(*v57.f32, *v57.f32))).f32[0]);
+            v30 = v29.f32[2];
             do
             {
-              v53 = &v23[12 * v30[v45]];
-              *v53 = vadd_f32(*v24.f32, *v53);
-              v26 = v24.f32[2] + v53[1].f32[0];
-              v53[1].f32[0] = v26;
-              ++v45;
+              v58 = &v28[12 * v35[v50]];
+              *v58 = vadd_f32(*v29.f32, *v58);
+              v31 = v29.f32[2] + v58[1].f32[0];
+              v58[1].f32[0] = v31;
+              ++v50;
             }
 
-            while (v45 != 4);
+            while (v50 != 4);
           }
         }
 
-        if (v22 >= 1)
+        if (v27 >= 1)
         {
-          v54 = v23 + 8;
-          v12 = v79;
-          v6 = v80;
+          v59 = v28 + 8;
+          v18 = v79;
+          v8 = v80;
           do
           {
-            v24.i64[0] = *(v54 - 1);
-            v24.i32[2] = *v54;
-            v55 = vmulq_f32(v24, v24);
-            *&v56 = v55.f32[2] + vaddv_f32(*v55.f32);
-            *v55.f32 = vrsqrte_f32(v56);
-            *v55.f32 = vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32)));
-            v24 = vmulq_n_f32(v24, vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32))).f32[0]);
-            *(v54 - 1) = v24.i64[0];
-            *v54 = v24.i32[2];
-            v54 += 3;
-            --v22;
+            v29.i64[0] = *(v59 - 1);
+            v29.i32[2] = *v59;
+            v60 = vmulq_f32(v29, v29);
+            *&v61 = v60.f32[2] + vaddv_f32(*v60.f32);
+            *v60.f32 = vrsqrte_f32(v61);
+            *v60.f32 = vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32)));
+            v29 = vmulq_n_f32(v29, vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32))).f32[0]);
+            *(v59 - 1) = v29.i64[0];
+            *v59 = v29.i32[2];
+            v59 += 3;
+            --v27;
           }
 
-          while (v22);
+          while (v27);
 LABEL_42:
-          v76 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v23, 12 * v12, *MEMORY[0x277CBECF0]);
-          v77 = C3DMeshSourceCreateWithData(1, v76, 1, 3, v12, 12, 0);
-          CFRelease(v76);
+          v77 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v28, 12 * v18, *MEMORY[0x277CBECF0]);
+          v78 = C3DMeshSourceCreateWithData(1, v77, 1, 3, v18, 12, 0);
+          CFRelease(v77);
           v91 = 0uLL;
-          v92 = v77;
-          std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v6, &v91);
+          v92 = v78;
+          std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v8, &v91);
           return;
         }
 
-        v12 = v79;
-        v6 = v80;
+        v18 = v79;
+        v8 = v80;
       }
 
-      if (!v23)
+      if (!v28)
       {
         return;
       }
@@ -886,64 +2242,66 @@ LABEL_42:
   }
 }
 
-uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v30 = 0u;
-  v31 = 0u;
-  C3DMeshSourceGetContent(a4, &v30);
-  v10 = C3DSizeOfBaseType(BYTE4(v31));
-  Semantic = C3DMeshSourceGetSemantic(a4);
-  if (Semantic || BYTE8(v31) >= 3u && (C3DBaseTypeIsFloatingValue(BYTE7(v31)) & 1) != 0)
+  v10 = a3;
+  v37 = 0u;
+  v38 = 0u;
+  C3DMeshSourceGetContent(a4, a2, &v37);
+  v14 = C3DSizeOfBaseType(BYTE4(v38), v13);
+  Semantic = C3DMeshSourceGetSemantic(a4, v15);
+  v18 = Semantic;
+  if (Semantic || BYTE8(v38) >= 3u && (Semantic = C3DBaseTypeIsFloatingValue(BYTE7(v38), v17), (Semantic & 1) != 0))
   {
-    v27 = a5;
-    if (a3)
+    v34 = a5;
+    if (v10)
     {
       NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*a2, *(a1 + 72));
-      v13 = 1149420332;
+      v20 = 1149420332;
     }
 
     else
     {
       NumFVarValues = *(*a2 + 2);
-      v13 = 3735651436;
+      v20 = 3735651436;
     }
 
-    v16 = NumFVarValues;
-    v17 = v10 * NumFVarValues;
-    v18 = malloc_type_malloc(v17, v13);
-    v19 = v18;
+    v23 = NumFVarValues;
+    v24 = v14 * NumFVarValues;
+    v25 = malloc_type_malloc(v24, v20);
+    v26 = v25;
     if (NumFVarValues >= 1)
     {
-      v20 = 0;
-      v21 = BYTE4(v31);
-      v22 = v18;
+      v27 = 0;
+      v28 = BYTE4(v38);
+      v29 = v25;
       do
       {
-        v23.i64[0] = *(*(a1 + 48) + v20);
-        v23.i64[1] = v23.i64[0];
-        C3DConvertFloatingTypeFromFloat4(v21, v22, v23);
-        v22 += v10;
-        v20 += 8;
+        v30.i64[0] = *(*(a1 + 48) + v27);
+        v30.i64[1] = v30.i64[0];
+        C3DConvertFloatingTypeFromFloat4(v28, v29, v30);
+        v29 += v14;
+        v27 += 8;
       }
 
-      while (8 * v16 != v20);
+      while (8 * v23 != v27);
     }
 
-    v24 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v19, v17, *MEMORY[0x277CBECF0]);
-    v15 = C3DMeshSourceCreateWithData(Semantic, v24, BYTE4(v31), 1, v16, v10, 0);
-    CFRelease(v24);
-    v25 = *(a1 + 88) == 2;
-    *(&v28 + 1) = a4;
-    *&v28 = v25;
-    BYTE1(v28) = *(a1 + 72);
-    v29 = v15;
-    std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v27, &v28);
+    v31 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v26, v24, *MEMORY[0x277CBECF0]);
+    v22 = C3DMeshSourceCreateWithData(v18, v31, BYTE4(v38), 1, v23, v14, 0);
+    CFRelease(v31);
+    v32 = *(a1 + 88) == 2;
+    *(&v35 + 1) = a4;
+    *&v35 = v32;
+    BYTE1(v35) = *(a1 + 72);
+    v36 = v22;
+    std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v34, &v35);
   }
 
   else
   {
-    v14 = scn_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v21 = scn_default_log(Semantic, v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext_cold_1();
     }
@@ -951,7 +2309,7 @@ uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10Op
     return 0;
   }
 
-  return v15;
+  return v22;
 }
 
 void std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](uint64_t a1, __int128 *a2)
@@ -1705,7 +3063,7 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0EN
   operator delete(v50);
 }
 
-void OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::ComputeVertexLimitMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+void OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::ComputeVertexLimitMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(uint64_t result, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
   v42 = *MEMORY[0x277D85DE8];
   if ((a6 - 1) > 1)
@@ -1713,7 +3071,7 @@ void OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::Co
     if (a6 == 4)
     {
       v12 = a2[6];
-      MEMORY[0x28223BE20](a1);
+      MEMORY[0x28223BE20](result);
       v14 = v41 - v13;
       bzero(v41 - v13, v15);
       if (v12 >= 1)
@@ -1770,7 +3128,7 @@ void OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::Co
 
       *&v30[v21 >> 30] = 1042983595;
       *&v30[v25 >> 30] = 1042983595;
-      OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::assignCreaseLimitTangentMasks<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(a1, a2, a4, a5, v41);
+      OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::assignCreaseLimitTangentMasks<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(result, a2, a4, a5, v41);
     }
 
     else
@@ -1853,7 +3211,7 @@ void OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::Co
       }
     }
 
-    OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::assignSmoothLimitTangentMasks<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(a1, a2, a4, a5);
+    OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::assignSmoothLimitTangentMasks<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(result, a2, a4, a5);
   }
 }
 
@@ -2684,65 +4042,67 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<C3DSubdivCPUMeshCreat
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv3_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv3_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v31 = 0u;
-  v32 = 0u;
-  C3DMeshSourceGetContent(a4, &v31);
-  v10 = C3DSizeOfBaseType(BYTE4(v32));
-  Semantic = C3DMeshSourceGetSemantic(a4);
-  if (Semantic || BYTE8(v32) >= 3u && (C3DBaseTypeIsFloatingValue(BYTE7(v32)) & 1) != 0)
+  v10 = a3;
+  v38 = 0u;
+  v39 = 0u;
+  C3DMeshSourceGetContent(a4, a2, &v38);
+  v14 = C3DSizeOfBaseType(BYTE4(v39), v13);
+  Semantic = C3DMeshSourceGetSemantic(a4, v15);
+  v18 = Semantic;
+  if (Semantic || BYTE8(v39) >= 3u && (Semantic = C3DBaseTypeIsFloatingValue(BYTE7(v39), v17), (Semantic & 1) != 0))
   {
-    v28 = a5;
-    if (a3)
+    v35 = a5;
+    if (v10)
     {
       NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*a2, *(a1 + 72));
-      v13 = 1149420332;
+      v20 = 1149420332;
     }
 
     else
     {
       NumFVarValues = *(*a2 + 2);
-      v13 = 3735651436;
+      v20 = 3735651436;
     }
 
-    v16 = NumFVarValues;
-    v17 = v10 * NumFVarValues;
-    v18 = malloc_type_malloc(v17, v13);
-    v19 = v18;
+    v23 = NumFVarValues;
+    v24 = v14 * NumFVarValues;
+    v25 = malloc_type_malloc(v24, v20);
+    v26 = v25;
     if (NumFVarValues >= 1)
     {
-      v20 = 0;
-      v21 = BYTE4(v32);
-      v22 = v18;
+      v27 = 0;
+      v28 = BYTE4(v39);
+      v29 = v25;
       do
       {
-        v23 = *(a1 + 48);
-        v24 = *(v23 + v20);
-        v24.i32[3] = *(v23 + v20 + 8);
-        C3DConvertFloatingTypeFromFloat4(v21, v22, v24);
-        v22 += v10;
-        v20 += 16;
+        v30 = *(a1 + 48);
+        v31 = *(v30 + v27);
+        v31.i32[3] = *(v30 + v27 + 8);
+        C3DConvertFloatingTypeFromFloat4(v28, v29, v31);
+        v29 += v14;
+        v27 += 16;
       }
 
-      while (16 * v16 != v20);
+      while (16 * v23 != v27);
     }
 
-    v25 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v19, v17, *MEMORY[0x277CBECF0]);
-    v15 = C3DMeshSourceCreateWithData(Semantic, v25, BYTE4(v32), 1, v16, v10, 0);
-    CFRelease(v25);
-    v26 = *(a1 + 88) == 2;
-    *(&v29 + 1) = a4;
-    *&v29 = v26;
-    BYTE1(v29) = *(a1 + 72);
-    v30 = v15;
-    std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v28, &v29);
+    v32 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v26, v24, *MEMORY[0x277CBECF0]);
+    v22 = C3DMeshSourceCreateWithData(v18, v32, BYTE4(v39), 1, v23, v14, 0);
+    CFRelease(v32);
+    v33 = *(a1 + 88) == 2;
+    *(&v36 + 1) = a4;
+    *&v36 = v33;
+    BYTE1(v36) = *(a1 + 72);
+    v37 = v22;
+    std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v35, &v36);
   }
 
   else
   {
-    v14 = scn_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v21 = scn_default_log(Semantic, v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext_cold_1();
     }
@@ -2750,7 +4110,7 @@ uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv3_fE26_CreateMeshSourceForSourceERKN10Op
     return 0;
   }
 
-  return v15;
+  return v22;
 }
 
 void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv3_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -3445,61 +4805,63 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0EN
   operator delete(v50);
 }
 
-uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv4_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv4_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext(uint64_t a1, OpenSubdiv::v3_1_1::Vtr::internal::Level **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v28 = 0u;
-  v29 = 0u;
-  C3DMeshSourceGetContent(a4, &v28);
-  v10 = C3DSizeOfBaseType(BYTE4(v29));
-  Semantic = C3DMeshSourceGetSemantic(a4);
-  if (Semantic || BYTE8(v29) >= 3u && (C3DBaseTypeIsFloatingValue(BYTE7(v29)) & 1) != 0)
+  v10 = a3;
+  v35 = 0u;
+  v36 = 0u;
+  C3DMeshSourceGetContent(a4, a2, &v35);
+  v14 = C3DSizeOfBaseType(BYTE4(v36), v13);
+  Semantic = C3DMeshSourceGetSemantic(a4, v15);
+  v18 = Semantic;
+  if (Semantic || BYTE8(v36) >= 3u && (Semantic = C3DBaseTypeIsFloatingValue(BYTE7(v36), v17), (Semantic & 1) != 0))
   {
-    v25 = a5;
-    if (a3)
+    v32 = a5;
+    if (v10)
     {
       NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*a2, *(a1 + 72));
-      v13 = 1149420332;
+      v20 = 1149420332;
     }
 
     else
     {
       NumFVarValues = *(*a2 + 2);
-      v13 = 3735651436;
+      v20 = 3735651436;
     }
 
-    v16 = NumFVarValues;
-    v17 = v10 * NumFVarValues;
-    v18 = malloc_type_malloc(v17, v13);
-    v19 = v18;
+    v23 = NumFVarValues;
+    v24 = v14 * NumFVarValues;
+    v25 = malloc_type_malloc(v24, v20);
+    v26 = v25;
     if (NumFVarValues >= 1)
     {
-      v20 = 0;
-      v21 = BYTE4(v29);
-      v22 = v18;
+      v27 = 0;
+      v28 = BYTE4(v36);
+      v29 = v25;
       do
       {
-        C3DConvertFloatingTypeFromFloat4(v21, v22, *(*(a1 + 48) + v20));
-        v22 += v10;
-        v20 += 16;
+        C3DConvertFloatingTypeFromFloat4(v28, v29, *(*(a1 + 48) + v27));
+        v29 += v14;
+        v27 += 16;
       }
 
-      while (16 * v16 != v20);
+      while (16 * v23 != v27);
     }
 
-    v23 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v19, v17, *MEMORY[0x277CBECF0]);
-    v15 = C3DMeshSourceCreateWithData(Semantic, v23, BYTE4(v29), 1, v16, v10, 0);
-    CFRelease(v23);
-    *&v26 = *(a1 + 88) == 2;
-    BYTE1(v26) = *(a1 + 72);
-    *(&v26 + 1) = a4;
-    v27 = v15;
-    std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v25, &v26);
+    v30 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v26, v24, *MEMORY[0x277CBECF0]);
+    v22 = C3DMeshSourceCreateWithData(v18, v30, BYTE4(v36), 1, v23, v14, 0);
+    CFRelease(v30);
+    *&v33 = *(a1 + 88) == 2;
+    BYTE1(v33) = *(a1 + 72);
+    *(&v33 + 1) = a4;
+    v34 = v22;
+    std::vector<C3DSubdivCPUMeshCreationSourceInfo>::push_back[abi:nn200100](v32, &v33);
   }
 
   else
   {
-    v14 = scn_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v21 = scn_default_log(Semantic, v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       _ZN23C3DSubdivCPUPrimvarDataIDv2_fE26_CreateMeshSourceForSourceERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEbPK15__C3DMeshSourceP31C3DSubdivCPUMeshCreationContext_cold_1();
     }
@@ -3507,7 +4869,7 @@ uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv4_fE26_CreateMeshSourceForSourceERKN10Op
     return 0;
   }
 
-  return v15;
+  return v22;
 }
 
 void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE1ENSt3__16vectorI16C3DSubdivCPUDataIDv4_fENS6_9allocatorISA_EEEESD_SD_SD_EEvRKT0_RT1_PT2_PT3_(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -4210,15 +5572,15 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner5limitILNS0_3Sdc10SchemeTypeE0EN
   operator delete(v52);
 }
 
-uint64_t _ZNSt3__16__treeINS_12__value_typeIDv3_fjEENS_19__map_value_compareIS2_S3_30__C3DSubdivWelderKeyComparatorLb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIS2_JNS_4pairIS2_jEEEEENSB_INS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t a1, float32x4_t *a2)
+uint64_t _ZNSt3__16__treeINS_12__value_typeIDv3_fjEENS_19__map_value_compareIS2_S3_30__C3DSubdivWelderKeyComparatorLb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIS2_JNS_4pairIS2_jEEEEENSB_INS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t **a1, float32x4_t *a2, uint64_t a3)
 {
-  v2 = _ZNSt3__16__treeINS_12__value_typeIDv3_fjEENS_19__map_value_compareIS2_S3_30__C3DSubdivWelderKeyComparatorLb1EEENS_9allocatorIS3_EEE12__find_equalIS2_EERPNS_16__tree_node_baseIPvEERPNS_15__tree_end_nodeISE_EERKT_(a1, &v4, a2)->i64[0];
-  if (!v2)
+  v3 = _ZNSt3__16__treeINS_12__value_typeIDv3_fjEENS_19__map_value_compareIS2_S3_30__C3DSubdivWelderKeyComparatorLb1EEENS_9allocatorIS3_EEE12__find_equalIS2_EERPNS_16__tree_node_baseIPvEERPNS_15__tree_end_nodeISE_EERKT_(a1, &v5, a2)->i64[0];
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 float32x4_t *_ZNSt3__16__treeINS_12__value_typeIDv3_fjEENS_19__map_value_compareIS2_S3_30__C3DSubdivWelderKeyComparatorLb1EEENS_9allocatorIS3_EEE12__find_equalIS2_EERPNS_16__tree_node_baseIPvEERPNS_15__tree_end_nodeISE_EERKT_(uint64_t a1, float32x4_t **a2, float32x4_t *a3)
@@ -4320,9 +5682,9 @@ LABEL_28:
   return result;
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -4333,11 +5695,9 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::string::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
-void std::vector<BOOL>::__vallocate[abi:nn200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4357,7 +5717,7 @@ void std::vector<BOOL>::__vallocate[abi:nn200100](uint64_t a1, uint64_t a2)
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -4379,9 +5739,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -4389,7 +5749,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:nn200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:nn200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:nn200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -4486,12 +5846,12 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<C3DSubdivMeshSourceIn
 
 uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::populateBaseLevel(OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase *a1, int *a2, uint64_t a3, char a4)
 {
-  if (!OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::resizeComponentTopology(a1, a2) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing(a1, v7, v8, v9, v10, v11, v12, v13) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignComponentTopology(a1, a2) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologyAssignment(a1, a4 & 1, OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::reportInvalidTopology, a2, v14, v15, v16, v17) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignComponentTags(a1, a2) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTagsAndSharpness(a1, v18) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignFaceVaryingTopology(a1, a2))
+  if (!OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::resizeComponentTopology(a1, a2) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing(a1, v7) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignComponentTopology(a1, a2) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologyAssignment(a1, a4 & 1, OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::reportInvalidTopology, a2) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignComponentTags(a1, a2) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTagsAndSharpness(a1, v8) || !OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignFaceVaryingTopology(a1, a2))
   {
     return 0;
   }
 
-  return OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareFaceVaryingChannels(a1, v19);
+  return OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareFaceVaryingChannels(a1, v9);
 }
 
 uint64_t std::vector<C3DSubdivCPUFVarPrimvarInfo>::emplace_back<C3DSubdivCPUFVarPrimvarInfo>(uint64_t *a1, uint64_t a2)
@@ -4666,17 +6026,17 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<C3DSubdivCPUPrimvarIn
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<C3DSubdivCPUPrimvarDataGroup>::__append(void ***a1, unint64_t a2)
+void std::vector<C3DSubdivCPUPrimvarDataGroup>::__append(char **a1, unint64_t a2)
 {
   v5 = a1[1];
   v4 = a1[2];
-  if (0x8E38E38E38E38E39 * (v4 - v5) >= a2)
+  if (0x8E38E38E38E38E39 * ((v4 - v5) >> 3) >= a2)
   {
     if (a2)
     {
       v10 = 72 * ((72 * a2 - 72) / 0x48) + 72;
       bzero(a1[1], v10);
-      v5 = (v5 + v10);
+      v5 += v10;
     }
 
     a1[1] = v5;
@@ -4684,13 +6044,13 @@ void std::vector<C3DSubdivCPUPrimvarDataGroup>::__append(void ***a1, unint64_t a
 
   else
   {
-    v6 = 0x8E38E38E38E38E39 * (v5 - *a1);
+    v6 = 0x8E38E38E38E38E39 * ((v5 - *a1) >> 3);
     if (v6 + a2 > 0x38E38E38E38E38ELL)
     {
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v7 = 0x8E38E38E38E38E39 * (v4 - *a1);
+    v7 = 0x8E38E38E38E38E39 * ((v4 - *a1) >> 3);
     v8 = 2 * v7;
     if (2 * v7 <= v6 + a2)
     {
@@ -4716,7 +6076,7 @@ void std::vector<C3DSubdivCPUPrimvarDataGroup>::__append(void ***a1, unint64_t a
     v11 = 72 * v6;
     v12 = 72 * ((72 * a2 - 72) / 0x48) + 72;
     bzero(v11, v12);
-    v13 = v11 + v12;
+    v13 = (v11 + v12);
     v14 = a1[1];
     v15 = (v11 + *a1 - v14);
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<C3DSubdivCPUPrimvarDataGroup>,C3DSubdivCPUPrimvarDataGroup*>(a1, *a1, v14, v15);
@@ -4743,7 +6103,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<C3DSubdivCPUPrimvarDa
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<C3DSubdivCPUPrimvarDataGroup>,C3DSubdivCPUPrimvarDataGroup*>(uint64_t a1, void **a2, void **a3, void *a4)
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<C3DSubdivCPUPrimvarDataGroup>,C3DSubdivCPUPrimvarDataGroup*>(uint64_t result, void **a2, void **a3, void *a4)
 {
   if (a2 != a3)
   {
@@ -4751,7 +6111,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<C3DSub
     v8 = a2;
     do
     {
-      std::allocator<C3DSubdivCPUPrimvarDataGroup>::construct[abi:nn200100]<C3DSubdivCPUPrimvarDataGroup,C3DSubdivCPUPrimvarDataGroup>(a1, a4, v8);
+      std::allocator<C3DSubdivCPUPrimvarDataGroup>::construct[abi:nn200100]<C3DSubdivCPUPrimvarDataGroup,C3DSubdivCPUPrimvarDataGroup>(result, a4, v8);
       v8 += 72;
       a4 += 9;
     }
@@ -4759,7 +6119,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<C3DSub
     while (v8 != a3);
     while (v6 != a3)
     {
-      std::allocator_traits<std::allocator<C3DSubdivCPUPrimvarDataGroup>>::destroy[abi:nn200100]<C3DSubdivCPUPrimvarDataGroup,0>(a1, v6);
+      std::allocator_traits<std::allocator<C3DSubdivCPUPrimvarDataGroup>>::destroy[abi:nn200100]<C3DSubdivCPUPrimvarDataGroup,0>(result, v6);
       v6 += 9;
     }
   }
@@ -5017,44 +6377,44 @@ uint64_t __updateJointsTransformHandles(uint64_t result)
     v1 = result;
     free(*(result + 96));
     *(v1 + 96) = malloc_type_malloc(4 * *(v1 + 104), 0x100004052888210uLL);
-    result = C3DGetScene(v1);
+    result = C3DGetScene(v1, v2);
     if (*(v1 + 104) >= 1)
     {
-      v2 = result;
-      v3 = 0;
+      v3 = result;
+      v4 = 0;
       do
       {
-        result = CFArrayGetValueAtIndex(*(v1 + 88), v3);
-        if (result && (v4 = result, result = C3DGetScene(result), result == v2))
+        result = CFArrayGetValueAtIndex(*(v1 + 88), v4);
+        if (result && (v6 = result, result = C3DGetScene(result, v5), result == v3))
         {
-          v5 = *(v4 + 88);
+          v7 = *(v6 + 88);
         }
 
         else
         {
-          v5 = -1;
+          v7 = -1;
         }
 
-        v6 = *(v1 + 104);
-        *(*(v1 + 96) + 4 * v3++) = v5;
+        v8 = *(v1 + 104);
+        *(*(v1 + 96) + 4 * v4++) = v7;
       }
 
-      while (v3 < v6);
+      while (v4 < v8);
     }
   }
 
   return result;
 }
 
-const void *_C3DGetEffectiveBaseMesh(uint64_t a1, uint64_t a2, __C3DGeometry *a3, int a4)
+__C3DMesh *_C3DGetEffectiveBaseMesh(uint64_t a1, uint64_t a2, __C3DGeometry *a3, int a4)
 {
-  Morpher = C3DNodeGetMorpher(a2);
+  Morpher = C3DNodeGetMorpher(a2, a2);
   if (a4 == 2 || !Morpher)
   {
     if (a3)
     {
 
-      return C3DGeometryGetRenderingMesh(a3);
+      return C3DGeometryGetRenderingMesh(a3, v7);
     }
 
     else
@@ -5066,11 +6426,11 @@ const void *_C3DGetEffectiveBaseMesh(uint64_t a1, uint64_t a2, __C3DGeometry *a3
   else
   {
 
-    return C3DMorpherGetMorphedMeshLegacy(Morpher);
+    return C3DMorpherGetMorphedMeshLegacy(Morpher, v7);
   }
 }
 
-uint64_t C3DSkinnerGetTypeID()
+uint64_t C3DSkinnerGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (C3DSkinnerGetTypeID_onceToken != -1)
   {
@@ -5094,7 +6454,7 @@ double __C3DSkinnerGetTypeID_block_invoke()
   return result;
 }
 
-__n128 C3DSkinnerCreate()
+__n128 C3DSkinnerCreate(uint64_t a1, uint64_t a2)
 {
   if (C3DSkinnerGetTypeID_onceToken != -1)
   {
@@ -5111,12 +6471,12 @@ __n128 C3DSkinnerCreate()
   return result;
 }
 
-uint64_t C3DSkinnerCreateWithSkin(void *a1)
+uint64_t C3DSkinnerCreateWithSkin(void *a1, uint64_t a2)
 {
-  C3DSkinnerCreate();
-  v3 = v2;
-  C3DSkinnerSetSkin(v2, a1);
-  return v3;
+  C3DSkinnerCreate(a1, a2);
+  v4 = v3;
+  C3DSkinnerSetSkin(v3, a1);
+  return v4;
 }
 
 __n128 C3DSkinnerSetSkin(uint64_t a1, void *cf)
@@ -5151,19 +6511,19 @@ __n128 C3DSkinnerSetSkin(uint64_t a1, void *cf)
   return result;
 }
 
-uint64_t C3DSkinnerCreateCopy(uint64_t a1)
+uint64_t C3DSkinnerCreateCopy(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 72);
-  C3DSkinnerCreate();
-  v4 = v3;
-  C3DSkinnerSetSkin(v3, v2);
-  C3DSkinnerSetSkeleton(v4, *(a1 + 80));
+  v3 = *(a1 + 72);
+  C3DSkinnerCreate(a1, a2);
+  v5 = v4;
+  C3DSkinnerSetSkin(v4, v3);
+  C3DSkinnerSetSkeleton(v5, *(a1 + 80));
   Copy = CFArrayCreateCopy(0, *(a1 + 88));
-  C3DSkinnerSetJoints(v4, Copy);
+  C3DSkinnerSetJoints(v5, Copy);
   CFRelease(Copy);
-  *(v4 + 192) = *(a1 + 192);
-  C3DEntityCopyTo(a1, v4);
-  return v4;
+  *(v5 + 192) = *(a1 + 192);
+  C3DEntityCopyTo(a1, v5);
+  return v5;
 }
 
 __n128 C3DSkinnerSetSkeleton(uint64_t a1, void *cf)
@@ -5174,7 +6534,7 @@ __n128 C3DSkinnerSetSkeleton(uint64_t a1, void *cf)
     v4 = *(a1 + 88);
     if (v4)
     {
-      CommonAncestor = C3DNodeFindCommonAncestor(v4);
+      CommonAncestor = C3DNodeFindCommonAncestor(v4, 0);
     }
 
     else
@@ -5323,31 +6683,32 @@ void C3DSkinnerSetJoints(uint64_t a1, CFTypeRef cf)
   }
 }
 
-void C3DSkinnerSetOwnerNode(uint64_t a1, uint64_t a2)
+void C3DSkinnerSetOwnerNode(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DSkinnerSetOwnerNode_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 64) = a2;
+  *(result + 64) = a2;
 }
 
 BOOL C3DSkinnerTransposeSkeleton(uint64_t a1, void *a2)
 {
   Count = CFArrayGetCount(*(a1 + 88));
   MutableCopy = CFArrayCreateMutableCopy(0, Count, *(a1 + 88));
-  v13 = 0;
-  if (C3DSkinnerFindJointsInClone(a1, MutableCopy, *(a1 + 80), a2, &v13))
+  v15 = 0;
+  if (C3DSkinnerFindJointsInClone(a1, MutableCopy, *(a1 + 80), a2, &v15))
   {
-    v6 = v13;
-    v7 = CFArrayGetCount(MutableCopy) == v6;
-    v8 = v7;
-    if (v7)
+    v6 = v15;
+    v7 = CFArrayGetCount(MutableCopy);
+    v9 = v7 == v6;
+    v10 = v7 == v6;
+    if (v9)
     {
       C3DSkinnerSetJoints(a1, MutableCopy);
       C3DSkinnerSetSkeleton(a1, a2);
@@ -5355,11 +6716,11 @@ BOOL C3DSkinnerTransposeSkeleton(uint64_t a1, void *a2)
 
     else
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = scn_default_log(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v12[0] = 0;
-        _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_DEFAULT, "Warning: C3DSkinnerTransposeSkeleton - unable to transpose every joints", v12, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_21BEF7000, v11, OS_LOG_TYPE_DEFAULT, "Warning: C3DSkinnerTransposeSkeleton - unable to transpose every joints", v14, 2u);
       }
     }
 
@@ -5372,7 +6733,7 @@ BOOL C3DSkinnerTransposeSkeleton(uint64_t a1, void *a2)
     return 0;
   }
 
-  return v8;
+  return v10;
 }
 
 uint64_t C3DSkinnerFindJointsInClone(uint64_t a1, __CFArray *a2, const void *a3, const void *a4, _DWORD *a5)
@@ -5445,7 +6806,7 @@ uint64_t C3DSkinnerFindJointsInClone(uint64_t a1, __CFArray *a2, const void *a3,
   return result;
 }
 
-CFIndex C3DSkinnerSkeletonNeedsRetargeting(uint64_t a1, uint64_t a2)
+CFIndex C3DSkinnerSkeletonNeedsRetargeting(uint64_t a1, const void *a2)
 {
   result = CFArrayGetCount(*(a1 + 88));
   if (result)
@@ -5459,7 +6820,7 @@ CFIndex C3DSkinnerSkeletonNeedsRetargeting(uint64_t a1, uint64_t a2)
 
 BOOL C3DSkinnerTransposeSkeletonUsingNodeNames(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   Count = CFArrayGetCount(*(a1 + 88));
   Mutable = CFArrayCreateMutable(0, Count, MEMORY[0x277CBF128]);
   if (Count < 1)
@@ -5477,23 +6838,23 @@ LABEL_8:
     while (1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v7);
-      Name = C3DNodeGetName(ValueAtIndex);
+      Name = C3DNodeGetName(ValueAtIndex, v9);
       if (!Name)
       {
-        v12 = scn_default_log();
-        if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v15 = scn_default_log(0, v11);
+        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_14;
         }
 
-        LOWORD(v18) = 0;
-        v13 = "Warning: Cannot update the joints using node names: unammed joint found";
-        v14 = v12;
-        v15 = 2;
+        LOWORD(v21) = 0;
+        v16 = "Warning: Cannot update the joints using node names: unammed joint found";
+        v17 = v15;
+        v18 = 2;
         goto LABEL_13;
       }
 
-      v10 = Name;
+      v12 = Name;
       NodeWithName = C3DNodeGetNodeWithName(a2, Name);
       if (!NodeWithName)
       {
@@ -5508,19 +6869,19 @@ LABEL_8:
       }
     }
 
-    v16 = scn_default_log();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = scn_default_log(0, v14);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v18 = 138412290;
-    v19 = v10;
-    v13 = "Warning: Cannot update the joints using node names: can't find node named %@";
-    v14 = v16;
-    v15 = 12;
+    v21 = 138412290;
+    v22 = v12;
+    v16 = "Warning: Cannot update the joints using node names: can't find node named %@";
+    v17 = v19;
+    v18 = 12;
 LABEL_13:
-    _os_log_impl(&dword_21BEF7000, v14, OS_LOG_TYPE_DEFAULT, v13, &v18, v15);
+    _os_log_impl(&dword_21BEF7000, v17, OS_LOG_TYPE_DEFAULT, v16, &v21, v18);
   }
 
 LABEL_14:
@@ -5530,21 +6891,21 @@ LABEL_14:
 
 void _C3DSkinnerUpdateBoundingBox(uint64_t a1, uint64_t a2)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 72);
   if (!v2)
   {
     return;
   }
 
-  Geometry = C3DNodeGetGeometry(a2);
+  Geometry = C3DNodeGetGeometry(a2, a2);
   if (Geometry)
   {
-    v5 = Geometry;
-    v6 = *(a1 + 88);
-    if (v6)
+    v6 = Geometry;
+    v7 = *(a1 + 88);
+    if (v7)
     {
-      Count = CFArrayGetCount(v6);
+      Count = CFArrayGetCount(v7);
     }
 
     else
@@ -5555,99 +6916,99 @@ void _C3DSkinnerUpdateBoundingBox(uint64_t a1, uint64_t a2)
     JointsCount = C3DSkinGetJointsCount(v2);
     if (Count && Count == JointsCount)
     {
-      v72 = 0;
-      v73 = 0;
-      v71 = 0;
-      VertexWeightsPointers = C3DSkinGetVertexWeightsPointers(v2, &v73, &v72, &v71);
-      v11 = MEMORY[0x28223BE20](VertexWeightsPointers);
-      v12 = &v69 - Count;
-      MEMORY[0x28223BE20](v11);
-      v13 = v12;
+      v80 = 0;
+      v81 = 0;
+      v79 = 0;
+      VertexWeightsPointers = C3DSkinGetVertexWeightsPointers(v2, &v81, &v80, &v79);
+      MEMORY[0x28223BE20](VertexWeightsPointers);
+      v13 = &v77 - Count;
+      MEMORY[0x28223BE20](v14);
+      v15 = v13;
       if (Count >= 1)
       {
-        memset_pattern16(&v69 - Count, &xmmword_21C2A2690, 16 * Count);
-        memset_pattern16(&v69 - Count, &xmmword_21C2A26A0, 16 * Count);
+        memset_pattern16(&v77 - Count, &xmmword_21C2A2690, 16 * Count);
+        memset_pattern16(&v77 - Count, &xmmword_21C2A26A0, 16 * Count);
       }
 
       DefaultShapeMatrix = C3DSkinGetDefaultShapeMatrix(v2);
       InverseBindMatricesPtr = C3DSkinGetInverseBindMatricesPtr(v2);
       if (Count == 1)
       {
-        v70.i32[2] = 0;
-        v70.i64[0] = 0;
-        v69.i32[2] = 0;
-        v69.i64[0] = 0;
-        if (C3DGeometryUsesDeformerBasedDynamicMesh(v5))
+        v78.i32[2] = 0;
+        v78.i64[0] = 0;
+        v77.i32[2] = 0;
+        v77.i64[0] = 0;
+        if (C3DGeometryUsesDeformerBasedDynamicMesh(v6))
         {
-          C3DGetBoundingBox(v5, 0, &v70, &v69);
+          C3DGetBoundingBox(v6, 0, &v78, &v77);
         }
 
         else
         {
-          RenderingMesh = C3DGeometryGetRenderingMesh(v5);
-          C3DMeshGetBoundingBox(RenderingMesh, &v70, &v69);
+          RenderingMesh = C3DGeometryGetRenderingMesh(v6, v19);
+          C3DMeshGetBoundingBox(RenderingMesh, &v78, &v77);
         }
 
-        v40 = 0;
-        v41 = vaddq_f32(v70, v69);
-        v42.i64[0] = 0x3F0000003F000000;
-        v42.i64[1] = 0x3F0000003F000000;
-        v43 = vmulq_f32(vsubq_f32(v69, v70), v42);
-        v44 = *InverseBindMatricesPtr;
-        v45 = InverseBindMatricesPtr[1];
-        v46 = InverseBindMatricesPtr[2];
-        v47 = InverseBindMatricesPtr[3];
-        v48 = DefaultShapeMatrix[1];
-        v49 = DefaultShapeMatrix[2];
-        v50 = DefaultShapeMatrix[3];
-        v74[0] = *DefaultShapeMatrix;
-        v74[1] = v48;
-        v74[2] = v49;
-        v74[3] = v50;
+        v48 = 0;
+        v49 = vaddq_f32(v78, v77);
+        v50.i64[0] = 0x3F0000003F000000;
+        v50.i64[1] = 0x3F0000003F000000;
+        v51 = vmulq_f32(vsubq_f32(v77, v78), v50);
+        v52 = *InverseBindMatricesPtr;
+        v53 = InverseBindMatricesPtr[1];
+        v54 = InverseBindMatricesPtr[2];
+        v55 = InverseBindMatricesPtr[3];
+        v56 = DefaultShapeMatrix[1];
+        v57 = DefaultShapeMatrix[2];
+        v58 = DefaultShapeMatrix[3];
+        v82[0] = *DefaultShapeMatrix;
+        v82[1] = v56;
+        v82[2] = v57;
+        v82[3] = v58;
         *buf = 0u;
-        v76 = 0u;
-        v77 = 0u;
-        v78 = 0u;
+        v84 = 0u;
+        v85 = 0u;
+        v86 = 0u;
         do
         {
-          *&buf[v40 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44, COERCE_FLOAT(v74[v40])), v45, *&v74[v40], 1), v46, v74[v40], 2), v47, v74[v40], 3);
-          ++v40;
+          *&buf[v48 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v52, COERCE_FLOAT(v82[v48])), v53, *&v82[v48], 1), v54, v82[v48], 2), v55, v82[v48], 3);
+          ++v48;
         }
 
-        while (v40 != 4);
-        v51.i64[0] = 0x3F0000003F000000;
-        v51.i64[1] = 0x3F0000003F000000;
-        v52 = vmulq_f32(v41, v51);
-        v53 = v43;
-        v53.i32[3] = 0;
-        v54 = vaddq_f32(v78, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v76, *v52.f32, 1), *buf, v52.f32[0]), v77, v52, 2));
-        v54.i32[3] = 1.0;
-        v55 = vuzp2q_s32(vdupq_lane_s32(*v43.f32, 1), v53);
-        v56 = vzip2q_s32(vtrn1q_s32(v53, v53), v53);
-        v53.i32[1] = v43.i32[0];
-        v53.i32[2] = v43.i32[0];
-        v57 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v53, *buf)), vabsq_f32(vmulq_f32(v55, v76))), vabsq_f32(vmulq_f32(v56, v77)));
-        *v12 = vsubq_f32(v54, v57);
-        *v12 = vaddq_f32(v57, v54);
+        while (v48 != 4);
+        v59.i64[0] = 0x3F0000003F000000;
+        v59.i64[1] = 0x3F0000003F000000;
+        v60 = vmulq_f32(v49, v59);
+        v61 = v51;
+        v61.i32[3] = 0;
+        v62 = vaddq_f32(v86, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v84, *v60.f32, 1), *buf, v60.f32[0]), v85, v60, 2));
+        v62.i32[3] = 1.0;
+        v63 = vuzp2q_s32(vdupq_lane_s32(*v51.f32, 1), v61);
+        v64 = vzip2q_s32(vtrn1q_s32(v61, v61), v61);
+        v61.i32[1] = v51.i32[0];
+        v61.i32[2] = v51.i32[0];
+        v65 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v61, *buf)), vabsq_f32(vmulq_f32(v63, v84))), vabsq_f32(vmulq_f32(v64, v85)));
+        *v13 = vsubq_f32(v62, v65);
+        *v13 = vaddq_f32(v65, v62);
 LABEL_44:
         if (Count >= 1)
         {
-          v58 = 0;
-          v59.i64[0] = 0x3F0000003F000000;
-          v59.i64[1] = 0x3F0000003F000000;
+          v66 = 0;
+          v67.i64[0] = 0x3F0000003F000000;
+          v67.i64[1] = 0x3F0000003F000000;
           do
           {
-            v60 = (*(a1 + 144) + v58);
-            v61 = *v12++;
-            v62 = v61;
-            v63 = *v13++;
-            v64 = vmulq_f32(vaddq_f32(v62, v63), v59);
-            v65 = vmulq_f32(vsubq_f32(v63, v62), v59);
-            v64.i32[3] = 1.0;
-            v65.i32[3] = 0;
-            *v60 = v64;
-            v60[1] = v65;
-            v58 += 32;
+            v68 = (*(a1 + 144) + v66);
+            v69 = *v13++;
+            v70 = v69;
+            v71 = *v15++;
+            v72 = vmulq_f32(vaddq_f32(v70, v71), v67);
+            v73 = vmulq_f32(vsubq_f32(v71, v70), v67);
+            v72.i32[3] = 1.0;
+            v73.i32[3] = 0;
+            *v68 = v72;
+            v68[1] = v73;
+            v66 += 32;
             --Count;
           }
 
@@ -5658,98 +7019,98 @@ LABEL_44:
         return;
       }
 
-      v17 = C3DGeometryGetRenderingMesh(v5);
-      if (v17)
+      v21 = C3DGeometryGetRenderingMesh(v6, v17);
+      if (v21)
       {
-        PositionSource = C3DMeshGetPositionSource(v17, 0);
+        PositionSource = C3DMeshGetPositionSource(v21, 0);
         if (PositionSource)
         {
           *buf = 0u;
-          v76 = 0u;
-          C3DMeshSourceGetContent(PositionSource, buf);
-          if (v76.i8[6])
+          v84 = 0u;
+          Content = C3DMeshSourceGetContent(PositionSource, v24, buf);
+          if (v84.i8[6])
           {
-            v19 = v76.i32[0];
-            if (v19 <= C3DMeshSourceGetMTLVertexFormat(v2) && v76.i32[0])
+            v27 = v84.i32[0];
+            if (v27 <= C3DMeshSourceGetMTLVertexFormat(v2) && v84.i32[0])
             {
-              v23 = 0;
+              v31 = 0;
               do
               {
-                *v24.i64 = C3DConvertFloatingTypeToFloat4(v76.u8[4], (*buf + v23 * v76.u8[6]), v20, v21.f32[0], v22.f32[0]);
-                v21 = *DefaultShapeMatrix;
-                v22 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(DefaultShapeMatrix[1], *v24.f32, 1), *DefaultShapeMatrix, v24.f32[0]), DefaultShapeMatrix[2], v24, 2);
-                v20 = vaddq_f32(DefaultShapeMatrix[3], v22);
-                if (v73)
+                *v32.i64 = C3DConvertFloatingTypeToFloat4(v84.u8[4], (*buf + v31 * v84.u8[6]), v28, v29.f32[0], v30.f32[0]);
+                v29 = *DefaultShapeMatrix;
+                v30 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(DefaultShapeMatrix[1], *v32.f32, 1), *DefaultShapeMatrix, v32.f32[0]), DefaultShapeMatrix[2], v32, 2);
+                v28 = vaddq_f32(DefaultShapeMatrix[3], v30);
+                if (v81)
                 {
-                  v25 = Count < 2;
+                  v33 = Count < 2;
                 }
 
                 else
                 {
-                  v25 = 1;
+                  v33 = 1;
                 }
 
-                if (v25)
+                if (v33)
                 {
-                  v26 = *v12;
-                  v22 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(InverseBindMatricesPtr[1], *v20.f32, 1), *InverseBindMatricesPtr, v20.f32[0]), InverseBindMatricesPtr[2], v20, 2);
-                  v27 = vaddq_f32(InverseBindMatricesPtr[3], v22);
-                  v27.i32[3] = 0;
-                  v26.i32[3] = 0;
-                  *v12 = vminnmq_f32(v27, v26);
-                  v21 = *v12;
-                  v21.i32[3] = 0;
-                  v20 = vmaxnmq_f32(v27, v21);
-                  *v12 = v20;
-                  ++v23;
+                  v34 = *v13;
+                  v30 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(InverseBindMatricesPtr[1], *v28.f32, 1), *InverseBindMatricesPtr, v28.f32[0]), InverseBindMatricesPtr[2], v28, 2);
+                  v35 = vaddq_f32(InverseBindMatricesPtr[3], v30);
+                  v35.i32[3] = 0;
+                  v34.i32[3] = 0;
+                  *v13 = vminnmq_f32(v35, v34);
+                  v29 = *v13;
+                  v29.i32[3] = 0;
+                  v28 = vmaxnmq_f32(v35, v29);
+                  *v13 = v28;
+                  ++v31;
                 }
 
                 else
                 {
-                  v28 = *(v73 + 8 * v23++);
-                  v29 = *(v73 + 8 * v23);
-                  v25 = v29 <= v28;
-                  v30 = v29 - v28;
-                  if (!v25)
+                  v36 = *(v81 + 8 * v31++);
+                  v37 = *(v81 + 8 * v31);
+                  v33 = v37 <= v36;
+                  v38 = v37 - v36;
+                  if (!v33)
                   {
-                    v31 = v71;
-                    v21 = vdupq_laneq_s32(v20, 2);
-                    v22 = vdupq_lane_s32(*v20.f32, 0);
-                    v32 = (v71 + 4 * v28);
-                    v33 = (v72 + 2 * v28);
+                    v39 = v79;
+                    v29 = vdupq_laneq_s32(v28, 2);
+                    v30 = vdupq_lane_s32(*v28.f32, 0);
+                    v40 = (v79 + 4 * v36);
+                    v41 = (v80 + 2 * v36);
                     do
                     {
-                      v35 = *v33++;
-                      v34 = v35;
-                      if ((v35 & 0x8000000000000000) == 0 && (!v31 || *v32 > 0.0) && Count > v34)
+                      v43 = *v41++;
+                      v42 = v43;
+                      if ((v43 & 0x8000000000000000) == 0 && (!v39 || *v40 > 0.0) && Count > v42)
                       {
-                        v36 = vaddq_f32(InverseBindMatricesPtr[4 * v34 + 3], vmlaq_f32(vmlaq_f32(vmulq_lane_f32(InverseBindMatricesPtr[4 * v34 + 1], *v20.f32, 1), InverseBindMatricesPtr[4 * v34], v22), InverseBindMatricesPtr[4 * v34 + 2], v21));
-                        v37 = v12[v34];
-                        v36.i32[3] = 0;
-                        v37.i32[3] = 0;
-                        v12[v34] = vminnmq_f32(v36, v37);
-                        v38 = v12[v34];
-                        v38.i32[3] = 0;
-                        v12[v34] = vmaxnmq_f32(v36, v38);
+                        v44 = vaddq_f32(InverseBindMatricesPtr[4 * v42 + 3], vmlaq_f32(vmlaq_f32(vmulq_lane_f32(InverseBindMatricesPtr[4 * v42 + 1], *v28.f32, 1), InverseBindMatricesPtr[4 * v42], v30), InverseBindMatricesPtr[4 * v42 + 2], v29));
+                        v45 = v13[v42];
+                        v44.i32[3] = 0;
+                        v45.i32[3] = 0;
+                        v13[v42] = vminnmq_f32(v44, v45);
+                        v46 = v13[v42];
+                        v46.i32[3] = 0;
+                        v13[v42] = vmaxnmq_f32(v44, v46);
                       }
 
-                      ++v32;
-                      --v30;
+                      ++v40;
+                      --v38;
                     }
 
-                    while (v30);
+                    while (v38);
                   }
                 }
               }
 
-              while (v23 < v76.u32[0]);
+              while (v31 < v84.u32[0]);
             }
           }
 
           else
           {
-            v68 = scn_default_log();
-            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+            v76 = scn_default_log(Content, v26);
+            if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
             {
               _C3DSkinnerUpdateBoundingBox_cold_2();
             }
@@ -5758,8 +7119,8 @@ LABEL_44:
           goto LABEL_44;
         }
 
-        v67 = scn_default_log();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        v75 = scn_default_log(0, v24);
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
         {
           _C3DSkinnerUpdateBoundingBox_cold_3();
         }
@@ -5767,8 +7128,8 @@ LABEL_44:
 
       else
       {
-        v66 = scn_default_log();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v74 = scn_default_log(0, v22);
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
         {
           _C3DSkinnerUpdateBoundingBox_cold_4();
         }
@@ -5778,8 +7139,8 @@ LABEL_44:
     else if ((_C3DSkinnerUpdateBoundingBox_done & 1) == 0)
     {
       _C3DSkinnerUpdateBoundingBox_done = 1;
-      v16 = scn_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = scn_default_log(JointsCount, v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         _C3DSkinnerUpdateBoundingBox_cold_1();
       }
@@ -5788,11 +7149,11 @@ LABEL_44:
 
   else
   {
-    v8 = scn_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = scn_default_log(0, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_DEFAULT, "Warning: _C3DSkinnerUpdateBoundingBox - skinned node has no geometry", buf, 2u);
+      _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_DEFAULT, "Warning: _C3DSkinnerUpdateBoundingBox - skinned node has no geometry", buf, 2u);
     }
   }
 }
@@ -6228,28 +7589,28 @@ uint64_t __skin_PNx4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   return __skinCPULike_PN(v13 + a1, a2 + a1, a3, a4, a5, a6, v72.i64, v71, v70, v69);
 }
 
-void __skin_generic_1bone(uint64_t a1, double a2, float32x4_t a3, float32x4_t a4)
+void __skin_generic_1bone(uint64_t result, double a2, float32x4_t a3, float32x4_t a4)
 {
-  v4 = *a1;
-  if (*a1 >= 1)
+  v4 = *result;
+  if (*result >= 1)
   {
-    v5 = *(a1 + 80);
-    v6 = *(a1 + 144);
-    v7 = *(a1 + 176);
-    v8 = *(a1 + 208);
-    v9 = *(a1 + 240);
-    v10 = *(a1 + 32);
+    v5 = *(result + 80);
+    v6 = *(result + 144);
+    v7 = *(result + 176);
+    v8 = *(result + 208);
+    v9 = *(result + 240);
+    v10 = *(result + 32);
     v11 = *v10;
     v12 = v10[1];
     v14 = v10[2];
     v13 = v10[3];
     v38 = v13;
-    v37 = *(a1 + 262);
-    v36 = *(a1 + 230);
-    v28 = *(a1 + 228);
-    v35 = *(a1 + 198);
-    v34 = *(a1 + 166);
-    v29 = *(a1 + 164);
+    v37 = *(result + 262);
+    v36 = *(result + 230);
+    v28 = *(result + 228);
+    v35 = *(result + 198);
+    v34 = *(result + 166);
+    v29 = *(result + 164);
     if (v8)
     {
       v15 = v7 == 0;
@@ -6260,18 +7621,18 @@ void __skin_generic_1bone(uint64_t a1, double a2, float32x4_t a3, float32x4_t a4
       v15 = 1;
     }
 
-    v33 = *(a1 + 134);
+    v33 = *(result + 134);
     v17 = !v15 && v9 != 0;
     v32 = v17;
-    v31 = *(a1 + 102);
+    v31 = *(result + 102);
     v18 = (v9 + 4);
     v19 = (v7 + 8);
-    v30 = *(a1 + 100);
-    v39 = *(a1 + 112);
+    v30 = *(result + 100);
+    v39 = *(result + 112);
     v20 = (v39 + 8);
-    v21 = (*(a1 + 48) + 8);
-    v22 = *(a1 + 144);
-    v23 = *(a1 + 70);
+    v21 = (*(result + 48) + 8);
+    v22 = *(result + 144);
+    v23 = *(result + 70);
     v43 = v11;
     v41 = v14;
     v42 = v12;
@@ -6327,111 +7688,111 @@ void __skin_generic_1bone(uint64_t a1, double a2, float32x4_t a3, float32x4_t a4
   }
 }
 
-double (*__skin_generic_pn(uint64_t a1))()
+double (*__skin_generic_pn(uint64_t a1, uint64_t a2))()
 {
-  v36 = *(a1 + 70);
-  v37 = *(a1 + 48);
-  v35 = *(a1 + 80);
-  v2 = *(a1 + 102);
-  v3 = *(a1 + 112);
-  v4 = *(a1 + 134);
-  v5 = *(a1 + 144);
-  v6 = *(a1 + 164);
-  v7 = *(a1 + 166);
-  v8 = C3DConvertGetReadToFloat4Function(*(a1 + 100));
-  result = C3DConvertGetReadToFloat4Function(v6);
-  v10 = *a1;
+  v38 = *(a1 + 70);
+  v39 = *(a1 + 48);
+  v37 = *(a1 + 80);
+  v3 = *(a1 + 102);
+  v4 = *(a1 + 112);
+  v5 = *(a1 + 134);
+  v6 = *(a1 + 144);
+  v7 = *(a1 + 164);
+  v8 = *(a1 + 166);
+  v9 = C3DConvertGetReadToFloat4Function(*(a1 + 100), a2);
+  result = C3DConvertGetReadToFloat4Function(v7, v10);
+  v12 = *a1;
   if (*a1 >= 1)
   {
-    v11 = result;
-    v12 = 0;
+    v13 = result;
+    v14 = 0;
     do
     {
-      *v13.i64 = (v8)(v35 + v12 * v2);
-      v38 = v13;
-      result = (v11)(v5 + v12 * v7);
-      v15 = *(a1 + 8);
-      v16 = *(v15 + 8 * v12);
-      v17 = v12 + 1;
-      v18 = *(v15 + 8 * (v12 + 1));
-      v19 = 0uLL;
-      v20 = 0uLL;
+      *v15.i64 = (v9)(v37 + v14 * v3);
+      v40 = v15;
+      result = (v13)(v6 + v14 * v8);
+      v17 = *(a1 + 8);
+      v18 = *(v17 + 8 * v14);
+      v19 = v14 + 1;
+      v20 = *(v17 + 8 * (v14 + 1));
       v21 = 0uLL;
       v22 = 0uLL;
-      v23 = v18 <= v16;
-      v24 = v18 - v16;
-      if (!v23)
+      v23 = 0uLL;
+      v24 = 0uLL;
+      v25 = v20 <= v18;
+      v26 = v20 - v18;
+      if (!v25)
       {
-        v25 = *(a1 + 16);
-        v26 = (v25 + 4 * v16);
-        v27 = (*(a1 + 24) + 2 * v16);
+        v27 = *(a1 + 16);
+        v28 = (v27 + 4 * v18);
+        v29 = (*(a1 + 24) + 2 * v18);
         do
         {
-          if (v25)
+          if (v27)
           {
-            v28 = *v26;
+            v30 = *v28;
           }
 
           else
           {
-            v28 = 1.0;
+            v30 = 1.0;
           }
 
-          v29 = *v27++;
-          v30 = (*(a1 + 32) + (v29 << 6));
-          v22 = vmlaq_n_f32(v22, *v30, v28);
-          v21 = vmlaq_n_f32(v21, v30[1], v28);
-          v20 = vmlaq_n_f32(v20, v30[2], v28);
-          v19 = vmlaq_n_f32(v19, v30[3], v28);
-          ++v26;
-          --v24;
+          v31 = *v29++;
+          v32 = (*(a1 + 32) + (v31 << 6));
+          v24 = vmlaq_n_f32(v24, *v32, v30);
+          v23 = vmlaq_n_f32(v23, v32[1], v30);
+          v22 = vmlaq_n_f32(v22, v32[2], v30);
+          v21 = vmlaq_n_f32(v21, v32[3], v30);
+          ++v28;
+          --v26;
         }
 
-        while (v24);
+        while (v26);
       }
 
-      v31 = vaddq_f32(v19, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v21, *v38.f32, 1), v22, v38.f32[0]), v20, v38, 2));
-      v32 = v37 + v12 * v36;
-      *v32 = v31.i64[0];
-      *(v32 + 8) = v31.i32[2];
-      v33 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v21, *v14.f32, 1), v22, v14.f32[0]), v20, v14, 2);
-      v34 = v3 + v12 * v4;
+      v33 = vaddq_f32(v21, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v23, *v40.f32, 1), v24, v40.f32[0]), v22, v40, 2));
+      v34 = v39 + v14 * v38;
       *v34 = v33.i64[0];
       *(v34 + 8) = v33.i32[2];
-      ++v12;
+      v35 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v23, *v16.f32, 1), v24, v16.f32[0]), v22, v16, 2);
+      v36 = v4 + v14 * v5;
+      *v36 = v35.i64[0];
+      *(v36 + 8) = v35.i32[2];
+      ++v14;
     }
 
-    while (v17 != v10);
+    while (v19 != v12);
   }
 
   return result;
 }
 
-void __skin_generic(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4)
+void __skin_generic(uint64_t result, float32x4_t a2, float32x4_t a3, float32x4_t a4)
 {
-  v4 = *a1;
-  if (*a1 >= 1)
+  v4 = *result;
+  if (*result >= 1)
   {
     v6 = 0;
-    v57 = *(a1 + 48);
-    v56 = *(a1 + 80);
-    v7 = *(a1 + 112);
-    v8 = *(a1 + 144);
-    v46 = *(a1 + 262);
-    v47 = *(a1 + 240);
-    v45 = *(a1 + 230);
-    v44 = *(a1 + 228);
-    v43 = *(a1 + 198);
-    v52 = *(a1 + 166);
-    v51 = *(a1 + 164);
-    v49 = *(a1 + 176);
-    v50 = *(a1 + 134);
-    v9 = *(a1 + 102);
-    v10 = *(a1 + 100);
-    v48 = *(a1 + 208);
+    v57 = *(result + 48);
+    v56 = *(result + 80);
+    v7 = *(result + 112);
+    v8 = *(result + 144);
+    v46 = *(result + 262);
+    v47 = *(result + 240);
+    v45 = *(result + 230);
+    v44 = *(result + 228);
+    v43 = *(result + 198);
+    v52 = *(result + 166);
+    v51 = *(result + 164);
+    v49 = *(result + 176);
+    v50 = *(result + 134);
+    v9 = *(result + 102);
+    v10 = *(result + 100);
+    v48 = *(result + 208);
     if (v48)
     {
-      v11 = *(a1 + 176) == 0;
+      v11 = *(result + 176) == 0;
     }
 
     else
@@ -6439,8 +7800,8 @@ void __skin_generic(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4)
       v11 = 1;
     }
 
-    v13 = !v11 && *(a1 + 240) != 0;
-    v14 = *(a1 + 70);
+    v13 = !v11 && *(result + 240) != 0;
+    v14 = *(result + 70);
     while (1)
     {
       *v15.i64 = C3DConvertFloatingTypeToFloat4(v10, (v56 + v6 * v9), a2, a3.f32[0], a4.f32[0]);
@@ -6455,7 +7816,7 @@ void __skin_generic(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4)
         v17 = v58;
       }
 
-      v19 = *(a1 + 8);
+      v19 = *(result + 8);
       v20 = *(v19 + 8 * v6);
       v21 = v6 + 1;
       v22 = *(v19 + 8 * (v6 + 1));
@@ -6466,9 +7827,9 @@ void __skin_generic(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4)
       v27 = v22 - v20;
       if (!v26)
       {
-        v28 = *(a1 + 16);
+        v28 = *(result + 16);
         v29 = (v28 + 4 * v20);
-        v30 = (*(a1 + 24) + 2 * v20);
+        v30 = (*(result + 24) + 2 * v20);
         do
         {
           if (v28)
@@ -6483,9 +7844,9 @@ void __skin_generic(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4)
 
           v33 = *v30++;
           v32 = v33;
-          if (v33 < *(a1 + 272))
+          if (v33 < *(result + 272))
           {
-            v34 = (*(a1 + 32) + (v32 << 6));
+            v34 = (*(result + 32) + (v32 << 6));
             a4 = *v34;
             v25 = vmlaq_n_f32(v25, *v34, v31);
             v24 = vmlaq_n_f32(v24, v34[1], v31);
@@ -6559,138 +7920,138 @@ LABEL_24:
 
 uint64_t C3DSkinnerSkinVertexOptimized(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v107 = *MEMORY[0x277D85DE8];
-  Count = C3DMeshSourceGetCount(a4);
+  v110 = *MEMORY[0x277D85DE8];
+  Count = C3DMeshSourceGetCount(a4, a2);
   v17 = CFArrayGetCount(*(a11 + 88));
   MaxInfluencesPerVertex = C3DSkinGetMaxInfluencesPerVertex(*(a11 + 72));
-  v34 = *(a11 + 112);
+  v37 = *(a11 + 112);
   v19 = *(a11 + 128);
-  v89 = 0u;
-  v90 = 0u;
-  C3DMeshSourceGetContent(a4, &v89);
-  if (BYTE4(v90) != 9)
+  v92 = 0u;
+  v93 = 0u;
+  C3DMeshSourceGetContent(a4, v20, &v92);
+  if (BYTE4(v93) != 9)
   {
     return 0;
   }
 
-  v87 = 0u;
-  v88 = 0u;
-  C3DMeshSourceGetContent(a3, &v87);
-  v21 = v88.u8[4];
-  v22 = v88.u8[4] != 9;
-  v105 = 0;
-  v106 = 0;
-  v104[0] = 0;
-  *(v104 + 7) = 0;
+  v90 = 0u;
+  v91 = 0u;
+  C3DMeshSourceGetContent(a3, v21, &v90);
+  v24 = v91.u8[4];
+  v25 = v91.u8[4] != 9;
+  v108 = 0;
+  v109 = 0;
+  v107[0] = 0;
+  *(v107 + 7) = 0;
   if (a6)
   {
-    C3DMeshSourceGetContent(a6, &v37);
-    v105 = v37.i64[1];
-    a6 = v37.i64[0];
-    v106 = v38;
-    v104[0] = *(&v38 + 5);
-    *(v104 + 7) = HIDWORD(v38);
-    if (BYTE4(v38) != 9)
+    C3DMeshSourceGetContent(a6, v22, &v40);
+    v108 = v40.i64[1];
+    a6 = v40.i64[0];
+    v109 = v41;
+    v107[0] = *(&v41 + 5);
+    *(v107 + 7) = HIDWORD(v41);
+    if (BYTE4(v41) != 9)
     {
       return 0;
     }
 
-    v31 = 9;
+    v34 = 9;
   }
 
   else
   {
-    v31 = 0;
+    v34 = 0;
   }
 
-  v102 = 0;
+  v105 = 0;
+  v106 = 0;
   v103 = 0;
-  v100 = 0;
-  v101 = 0;
+  v104 = 0;
   if (a5)
   {
-    C3DMeshSourceGetContent(a5, &v37);
-    v25 = v21 == 9;
-    v102 = v37.i64[1];
-    a5 = v37.i64[0];
-    v103 = v38;
-    v23 = BYTE5(v38);
-    v24 = BYTE6(v38);
-    v100 = *(&v38 + 7);
-    v101 = HIBYTE(v38);
-    v32 = BYTE4(v38);
-    v25 = v25 && BYTE4(v38) == 9;
-    v22 = !v25;
+    C3DMeshSourceGetContent(a5, v22, &v40);
+    v28 = v24 == 9;
+    v105 = v40.i64[1];
+    a5 = v40.i64[0];
+    v106 = v41;
+    v26 = BYTE5(v41);
+    v27 = BYTE6(v41);
+    v103 = *(&v41 + 7);
+    v104 = HIBYTE(v41);
+    v35 = BYTE4(v41);
+    v28 = v28 && BYTE4(v41) == 9;
+    v25 = !v28;
   }
 
   else
   {
-    v32 = 0;
-    v23 = 0;
-    v24 = 0;
+    v35 = 0;
+    v26 = 0;
+    v27 = 0;
   }
 
-  v98 = 0uLL;
-  v99 = 0;
-  v97[0] = 0;
-  *(v97 + 7) = 0;
+  v101 = 0uLL;
+  v102 = 0;
+  v100[0] = 0;
+  *(v100 + 7) = 0;
   if (a8)
   {
-    C3DMeshSourceGetContent(a8, &v37);
-    v98 = v37;
-    v99 = v38;
-    v97[0] = *(&v38 + 5);
-    *(v97 + 7) = HIDWORD(v38);
-    if (BYTE4(v38) == 10)
+    C3DMeshSourceGetContent(a8, v22, &v40);
+    v101 = v40;
+    v102 = v41;
+    v100[0] = *(&v41 + 5);
+    *(v100 + 7) = HIDWORD(v41);
+    if (BYTE4(v41) == 10)
     {
-      v29 = 10;
-      v30 = v23;
+      v32 = 10;
+      v33 = v26;
       goto LABEL_18;
     }
 
     return 0;
   }
 
-  v29 = 0;
-  v30 = v23;
+  v32 = 0;
+  v33 = v26;
 LABEL_18:
-  v95 = 0;
-  v96 = 0;
-  v94[0] = 0;
-  *(v94 + 7) = 0;
+  v98 = 0;
+  v99 = 0;
+  v97[0] = 0;
+  *(v97 + 7) = 0;
   if (a7)
   {
-    C3DMeshSourceGetContent(a7, &v37);
-    v95 = v37.i64[1];
-    a7 = v37.i64[0];
-    v96 = v38;
-    v26 = BYTE4(v38);
-    v94[0] = *(&v38 + 5);
-    *(v94 + 7) = HIDWORD(v38);
-    if (BYTE4(v38) != 9)
+    C3DMeshSourceGetContent(a7, v22, &v40);
+    v98 = v40.i64[1];
+    a7 = v40.i64[0];
+    v99 = v41;
+    v29 = BYTE4(v41);
+    v97[0] = *(&v41 + 5);
+    *(v97 + 7) = HIDWORD(v41);
+    if (BYTE4(v41) != 9)
     {
-      v22 = 1;
+      v25 = 1;
     }
   }
 
   else
   {
-    v26 = 0;
+    v29 = 0;
   }
 
-  v92 = 0uLL;
-  v93 = 0;
-  v91[0] = 0;
-  *(v91 + 7) = 0;
+  v95 = 0uLL;
+  v96 = 0;
+  v94[0] = 0;
+  *(v94 + 7) = 0;
   if (a9)
   {
-    C3DMeshSourceGetContent(a9, &v37);
-    v92 = v37;
-    v93 = v38;
-    v27 = BYTE4(v38);
-    v91[0] = *(&v38 + 5);
-    *(v91 + 7) = HIDWORD(v38);
-    if (BYTE4(v38) != 9)
+    C3DMeshSourceGetContent(a9, v22, &v40);
+    v95 = v40;
+    v96 = v41;
+    v30 = BYTE4(v41);
+    v94[0] = *(&v41 + 5);
+    *(v94 + 7) = HIDWORD(v41);
+    if (BYTE4(v41) != 9)
     {
       return 0;
     }
@@ -6698,151 +8059,151 @@ LABEL_18:
 
   else
   {
-    v27 = 0;
+    v30 = 0;
   }
 
-  if (!v22 && a6 && a5 && !a7 && v88.u8[6] == 12 && v24 == 12)
+  if (!v25 && a6 && a5 && !a7 && v91.u8[6] == 12 && v27 == 12)
   {
     if (v17 == 1)
     {
-      v37 = v89;
-      v38 = v90;
-      v85 = v87;
-      v86 = v88;
-      v80 = a6;
-      v81 = v105;
-      v82 = v106;
-      v83 = v31;
-      *v84 = v104[0];
-      *&v84[7] = *(v104 + 7);
-      v72 = a5;
-      v73 = v102;
-      v74 = v103;
-      v75 = v32;
-      v76 = v30;
-      v77 = 12;
-      v78 = v100;
-      v79 = v101;
-      __skin_PNx4_1bone(Count, a1, a2, a10, v34, v19, &v37, &v85, &v80, &v72);
+      v40 = v92;
+      v41 = v93;
+      v88 = v90;
+      v89 = v91;
+      v83 = a6;
+      v84 = v108;
+      v85 = v109;
+      v86 = v34;
+      *v87 = v107[0];
+      *&v87[7] = *(v107 + 7);
+      v75 = a5;
+      v76 = v105;
+      v77 = v106;
+      v78 = v35;
+      v79 = v33;
+      v80 = 12;
+      v81 = v103;
+      v82 = v104;
+      __skin_PNx4_1bone(Count, a1, a2, a10, v37, v19, &v40, &v88, &v83, &v75);
     }
 
     else
     {
-      v37 = v89;
-      v38 = v90;
-      v85 = v87;
-      v86 = v88;
-      v80 = a6;
-      v81 = v105;
-      v82 = v106;
-      v83 = v31;
-      *v84 = v104[0];
-      *&v84[7] = *(v104 + 7);
-      v72 = a5;
-      v73 = v102;
-      v74 = v103;
-      v75 = v32;
-      v76 = v30;
-      v77 = 12;
-      v78 = v100;
-      v79 = v101;
+      v40 = v92;
+      v41 = v93;
+      v88 = v90;
+      v89 = v91;
+      v83 = a6;
+      v84 = v108;
+      v85 = v109;
+      v86 = v34;
+      *v87 = v107[0];
+      *&v87[7] = *(v107 + 7);
+      v75 = a5;
+      v76 = v105;
+      v77 = v106;
+      v78 = v35;
+      v79 = v33;
+      v80 = 12;
+      v81 = v103;
+      v82 = v104;
       if (MaxInfluencesPerVertex == 1)
       {
-        __skin_PNx4_1influence(Count, a1, a2, a10, v34, &v37, &v85, &v80, &v72);
+        __skin_PNx4_1influence(Count, a1, a2, a10, v37, &v40, &v88, &v83, &v75);
       }
 
       else
       {
-        __skin_PNx4(0, Count, a1, a2, a10, v34, v19, &v37, &v85, &v80, &v72, v17);
+        __skin_PNx4(0, Count, a1, a2, a10, v37, v19, &v40, &v88, &v83, &v75, v17);
       }
     }
   }
 
   else
   {
-    v37.i64[0] = Count;
-    v37.i64[1] = a1;
-    *&v38 = a2;
-    *(&v38 + 1) = a10;
-    v39 = v34;
-    v40 = v19;
-    v41 = v89;
-    v42 = v90;
-    v43 = v87;
-    v44 = v88;
-    v47 = v106;
-    v45 = a6;
-    v46 = v105;
-    v48 = v31;
-    *&v49[7] = *(v104 + 7);
-    *v49 = v104[0];
-    v52 = v103;
-    v50 = a5;
-    v51 = v102;
-    v53 = v32;
-    v54 = v30;
-    v55 = v24;
-    v56 = v100;
-    v57 = v101;
-    v59 = v99;
-    v58 = v98;
-    v60 = v29;
-    *&v61[7] = *(v97 + 7);
-    *v61 = v97[0];
-    v64 = v96;
-    v62 = a7;
-    v63 = v95;
-    v65 = v26;
-    *&v66[7] = *(v94 + 7);
-    *v66 = v94[0];
-    v68 = v93;
-    v67 = v92;
-    v69 = v27;
-    *v70 = v91[0];
-    *&v70[7] = *(v91 + 7);
-    v71 = v17;
+    v40.i64[0] = Count;
+    v40.i64[1] = a1;
+    *&v41 = a2;
+    *(&v41 + 1) = a10;
+    v42 = v37;
+    v43 = v19;
+    v44 = v92;
+    v45 = v93;
+    v46 = v90;
+    v47 = v91;
+    v50 = v109;
+    v48 = a6;
+    v49 = v108;
+    v51 = v34;
+    *&v52[7] = *(v107 + 7);
+    *v52 = v107[0];
+    v55 = v106;
+    v53 = a5;
+    v54 = v105;
+    v56 = v35;
+    v57 = v33;
+    v58 = v27;
+    v59 = v103;
+    v60 = v104;
+    v62 = v102;
+    v61 = v101;
+    v63 = v32;
+    *&v64[7] = *(v100 + 7);
+    *v64 = v100[0];
+    v67 = v99;
+    v65 = a7;
+    v66 = v98;
+    v68 = v29;
+    *&v69[7] = *(v97 + 7);
+    *v69 = v97[0];
+    v71 = v96;
+    v70 = v95;
+    v72 = v30;
+    *v73 = v94[0];
+    *&v73[7] = *(v94 + 7);
+    v74 = v17;
     if (v17 == 1)
     {
-      __skin_generic_1bone(&v37, *v92.i64, v88, v20);
+      __skin_generic_1bone(&v40, *v95.i64, v91, v23);
     }
 
     else if (a6 && a5 && !a7)
     {
-      __skin_generic_pn(&v37);
+      __skin_generic_pn(&v40, v22);
     }
 
     else
     {
-      __skin_generic(&v37, v92, v88, v20);
+      __skin_generic(&v40, v95, v91, v23);
     }
   }
 
   return 1;
 }
 
-void __C3DSkinnerPrepareSkinnedMesh(uint64_t a1, uint64_t a2, uint64_t a3, __C3DGeometry *a4)
+void __C3DSkinnerPrepareSkinnedMesh(uint64_t result, uint64_t a2, uint64_t a3, __C3DGeometry *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(result, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       __C3DSkinnerPrepareSkinnedMesh_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
-  v16 = *(a1 + 72);
+  v16 = *(result + 72);
   if (v16)
   {
-    EffectiveCalculationMode = C3DSkinnerGetEffectiveCalculationMode(a1, a4);
-    *(a1 + 194) = 0;
+    EffectiveCalculationMode = C3DSkinnerGetEffectiveCalculationMode(result, a4);
+    *(result + 194) = 0;
     if (EffectiveCalculationMode > 1)
     {
       if (EffectiveCalculationMode != 2)
       {
-        v22 = scn_default_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v33 = scn_default_log(EffectiveCalculationMode, v18);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           __C3DSkinnerPrepareSkinnedMesh_cold_2();
         }
@@ -6851,18 +8212,18 @@ void __C3DSkinnerPrepareSkinnedMesh(uint64_t a1, uint64_t a2, uint64_t a3, __C3D
 
     else if (EffectiveCalculationMode)
     {
-      IndexedBoneIndices = C3DSkinGetIndexedBoneIndices(v16);
-      IndexedBoneWeights = C3DSkinGetIndexedBoneWeights(v16);
-      v41 = 0;
+      IndexedBoneIndices = C3DSkinGetIndexedBoneIndices(v16, v18);
+      IndexedBoneWeights = C3DSkinGetIndexedBoneWeights(v16, v34);
+      v55 = 0;
       __C3DMeshCopyByAddingOriginalSourcesWithPositionChannel(a3, a2, &IndexedBoneIndices);
       if (IndexedBoneIndices)
       {
         if (!C3DMeshGetSourceWithSemanticAtIndex(a3, 5, 0, 1))
         {
-          v23 = scn_default_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+          v36 = scn_default_log(0, v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
           {
-            __C3DSkinnerPrepareSkinnedMesh_cold_3(v23, v24, v25, v26, v27, v28, v29, v30);
+            __C3DSkinnerPrepareSkinnedMesh_cold_3(v36, v37, v38, v39, v40, v41, v42, v43);
           }
         }
       }
@@ -6871,33 +8232,33 @@ void __C3DSkinnerPrepareSkinnedMesh(uint64_t a1, uint64_t a2, uint64_t a3, __C3D
       {
         if (!C3DMeshGetSourceWithSemanticAtIndex(a3, 6, 0, 1))
         {
-          v31 = scn_default_log();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+          v45 = scn_default_log(0, v44);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
           {
-            __C3DSkinnerPrepareSkinnedMesh_cold_4(v31, v32, v33, v34, v35, v36, v37, v38);
+            __C3DSkinnerPrepareSkinnedMesh_cold_4(v45, v46, v47, v48, v49, v50, v51, v52);
           }
         }
       }
 
-      *(a1 + 195) = 1;
+      *(result + 195) = 1;
     }
 
     else
     {
       C3DMeshCopyRenderableSourceAndElements(a3, a2);
       PositionSource = C3DMeshGetPositionSource(a2, 1);
-      CopyWithBaseType = C3DMeshSourceCreateCopyWithBaseType(PositionSource, 9u, 1);
+      CopyWithBaseType = C3DMeshSourceCreateCopyWithBaseType(PositionSource, 9, 1, v20, v21, v22, v23, v24);
       C3DMeshSetSourceWithInputSet(a3, CopyWithBaseType, 0, 0);
       CFRelease(CopyWithBaseType);
       NormalSource = C3DMeshGetNormalSource(a2, 1);
       if (NormalSource)
       {
-        v21 = C3DMeshSourceCreateCopyWithBaseType(NormalSource, 9u, 1);
-        C3DMeshSetSourceWithInputSet(a3, v21, 0, 0);
-        CFRelease(v21);
+        v32 = C3DMeshSourceCreateCopyWithBaseType(NormalSource, 9, 1, v27, v28, v29, v30, v31);
+        C3DMeshSetSourceWithInputSet(a3, v32, 0, 0);
+        CFRelease(v32);
       }
 
-      *(a1 + 194) = 1;
+      *(result + 194) = 1;
     }
 
     C3DMeshCopyBoundingVolumes(a2, a3);
@@ -6911,7 +8272,7 @@ uint64_t C3DSkinnerGetEffectiveCalculationMode(uint64_t a1, __C3DGeometry *a2)
     return 3;
   }
 
-  if (a2 && C3DGeometryOpenSubdivGPUIsActive(a2))
+  if (a2 && C3DGeometryOpenSubdivGPUIsActive(a2, a2))
   {
     return 2;
   }
@@ -6926,7 +8287,7 @@ uint64_t C3DSkinnerGetEffectiveCalculationMode(uint64_t a1, __C3DGeometry *a2)
 
     if (result == 3)
     {
-      v4 = scn_default_log();
+      v4 = scn_default_log(result, a2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         C3DSkinnerGetEffectiveCalculationMode_cold_1();
@@ -6936,7 +8297,7 @@ uint64_t C3DSkinnerGetEffectiveCalculationMode(uint64_t a1, __C3DGeometry *a2)
     }
 
 LABEL_16:
-    v5 = scn_default_log();
+    v5 = scn_default_log(result, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __C3DSkinnerPrepareSkinnedMesh_cold_2();
@@ -6968,21 +8329,21 @@ LABEL_16:
 
 void _computeJointMatrices(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, simd_float4 a6, simd_float4 a7, simd_float4 a8, simd_float4 a9)
 {
-  v71.columns[2] = a8;
-  v71.columns[3] = a9;
-  v71.columns[0] = a6;
-  v71.columns[1] = a7;
-  *&v73[5] = *MEMORY[0x277D85DE8];
+  v74.columns[2] = a8;
+  v74.columns[3] = a9;
+  v74.columns[0] = a6;
+  v74.columns[1] = a7;
+  *&v76[5] = *MEMORY[0x277D85DE8];
   IOSurface = C3DTextureGetIOSurface(a2);
-  v74 = __invert_f4(v71);
-  v71.columns[2] = v74.columns[1];
-  v71.columns[3] = v74.columns[0];
-  v71.columns[0] = v74.columns[3];
-  v71.columns[1] = v74.columns[2];
-  v14 = C3DGetSceneRef(a3);
-  if (v14)
+  v77 = __invert_f4(v74);
+  v74.columns[2] = v77.columns[1];
+  v74.columns[3] = v77.columns[0];
+  v74.columns[0] = v77.columns[3];
+  v74.columns[1] = v77.columns[2];
+  v15 = C3DGetSceneRef(a3, v14);
+  if (v15)
   {
-    TransformTree = C3DSceneGetTransformTree(v14);
+    TransformTree = C3DSceneGetTransformTree(v15, v16);
   }
 
   else
@@ -6990,21 +8351,21 @@ void _computeJointMatrices(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, i
     TransformTree = 0;
   }
 
-  v16 = *(a1 + 80);
-  if (v16)
+  v18 = *(a1 + 80);
+  if (v18)
   {
-    v17 = C3DGetScene(v16);
+    v19 = C3DGetScene(v18, v16);
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  v18 = MEMORY[0x277D860B8];
-  v19 = C3DGetScene(a1);
+  v20 = MEMORY[0x277D860B8];
+  v21 = C3DGetScene(a1, v16);
   updated = *(a1 + 96);
-  if (v17 == v19)
+  if (v19 == v21)
   {
     if (!updated)
     {
@@ -7018,159 +8379,159 @@ void _computeJointMatrices(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, i
     *(a1 + 96) = 0;
   }
 
-  *v21.i64 = MEMORY[0x28223BE20](updated);
-  v70 = v21;
+  *v23.i64 = MEMORY[0x28223BE20](updated);
+  v73 = v23;
   if (a4 < 1)
   {
     IsBoundingBoxFixed = C3DNodeIsBoundingBoxFixed(a3);
-    v36.columns[1] = v71.columns[2];
-    v36.columns[0] = v71.columns[3];
-    v37 = v71.columns[0];
-    v36.columns[2] = v71.columns[1];
+    v39.columns[1] = v74.columns[2];
+    v39.columns[0] = v74.columns[3];
+    v40 = v74.columns[0];
+    v39.columns[2] = v74.columns[1];
     if ((IsBoundingBoxFixed & 1) == 0)
     {
-      v39 = xmmword_21C27F650;
-      v43 = v70;
+      v42 = xmmword_21C27F650;
+      v46 = v73;
 LABEL_30:
-      v56 = vaddq_f32(v37, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v36.columns[1], *v43.f32, 1), v36.columns[0], v43.f32[0]), v36.columns[2], v43, 2));
-      v56.i32[3] = 1.0;
-      v36.columns[3] = v39;
-      v36.columns[3].i32[1] = v39.i32[0];
-      v36.columns[3].i32[2] = v39.i32[0];
-      *(a1 + 160) = v56;
-      *(a1 + 176) = vaddq_f32(vabsq_f32(vmulq_f32(v36.columns[2], vzip2q_s32(vtrn1q_s32(v39, v39), v39))), vaddq_f32(vabsq_f32(vmulq_f32(v36.columns[0], v36.columns[3])), vabsq_f32(vmulq_f32(v36.columns[1], vuzp2q_s32(vdupq_lane_s32(*v39.f32, 1), v39)))));
+      v59 = vaddq_f32(v40, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v39.columns[1], *v46.f32, 1), v39.columns[0], v46.f32[0]), v39.columns[2], v46, 2));
+      v59.i32[3] = 1.0;
+      v39.columns[3] = v42;
+      v39.columns[3].i32[1] = v42.i32[0];
+      v39.columns[3].i32[2] = v42.i32[0];
+      *(a1 + 160) = v59;
+      *(a1 + 176) = vaddq_f32(vabsq_f32(vmulq_f32(v39.columns[2], vzip2q_s32(vtrn1q_s32(v42, v42), v42))), vaddq_f32(vabsq_f32(vmulq_f32(v39.columns[0], v39.columns[3])), vabsq_f32(vmulq_f32(v39.columns[1], vuzp2q_s32(vdupq_lane_s32(*v42.f32, 1), v42)))));
     }
   }
 
   else
   {
-    v69 = IOSurface;
-    v22 = a5;
-    v23 = 0;
-    v24 = &v68 - 8 * a4;
+    v72 = IOSurface;
+    v24 = a5;
+    v25 = 0;
+    v26 = &v71 - 8 * a4;
     do
     {
-      v25 = *(a1 + 96);
-      if (!v25 || (v26 = *(v25 + 4 * v23), v26 == -1))
+      v27 = *(a1 + 96);
+      if (!v27 || (v28 = *(v27 + 4 * v25), v28 == -1))
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v23);
+        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v25);
         if (ValueAtIndex)
         {
-          C3DNodeComputeWorldTransform(ValueAtIndex, v24);
+          C3DNodeComputeWorldTransform(ValueAtIndex, v26);
         }
 
         else
         {
-          v32 = scn_default_log();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+          v35 = scn_default_log(0, v34);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
           {
-            _computeJointMatrices_cold_1(buf, v73, v32);
+            _computeJointMatrices_cold_1(buf, v76, v35);
           }
 
-          v33 = v18[1];
-          *v24 = *v18;
-          *(v24 + 1) = v33;
-          v34 = v18[3];
-          *(v24 + 2) = v18[2];
-          *(v24 + 3) = v34;
+          v36 = v20[1];
+          *v26 = *v20;
+          *(v26 + 1) = v36;
+          v37 = v20[3];
+          *(v26 + 2) = v20[2];
+          *(v26 + 3) = v37;
         }
       }
 
       else
       {
-        WorldTransformPtr = C3DTransformTreeGetWorldTransformPtr(TransformTree, v26);
-        v28 = WorldTransformPtr[3];
-        v30 = *WorldTransformPtr;
-        v29 = WorldTransformPtr[1];
-        *(v24 + 2) = WorldTransformPtr[2];
-        *(v24 + 3) = v28;
-        *v24 = v30;
-        *(v24 + 1) = v29;
+        WorldTransformPtr = C3DTransformTreeGetWorldTransformPtr(TransformTree, v28);
+        v30 = WorldTransformPtr[3];
+        v32 = *WorldTransformPtr;
+        v31 = WorldTransformPtr[1];
+        *(v26 + 2) = WorldTransformPtr[2];
+        *(v26 + 3) = v30;
+        *v26 = v32;
+        *(v26 + 1) = v31;
       }
 
-      ++v23;
-      v24 += 8;
+      ++v25;
+      v26 += 8;
     }
 
-    while (a4 != v23);
-    v35 = C3DNodeIsBoundingBoxFixed(a3);
-    a5 = v22;
-    IOSurface = v69;
-    v36.columns[1] = v71.columns[2];
-    v36.columns[0] = v71.columns[3];
-    v37 = v71.columns[0];
-    v36.columns[2] = v71.columns[1];
-    if ((v35 & 1) == 0)
+    while (a4 != v25);
+    v38 = C3DNodeIsBoundingBoxFixed(a3);
+    a5 = v24;
+    IOSurface = v72;
+    v39.columns[1] = v74.columns[2];
+    v39.columns[0] = v74.columns[3];
+    v40 = v74.columns[0];
+    v39.columns[2] = v74.columns[1];
+    if ((v38 & 1) == 0)
     {
-      v38 = (&v68 - 8 * a4 + 4);
-      v39 = xmmword_21C27F650;
-      v40 = (*(a1 + 144) + 16);
-      v41.i64[0] = 0x3F0000003F000000;
-      v41.i64[1] = 0x3F0000003F000000;
-      v42 = a4;
-      v43 = v70;
+      v41 = (&v71 - 8 * a4 + 4);
+      v42 = xmmword_21C27F650;
+      v43 = (*(a1 + 144) + 16);
+      v44.i64[0] = 0x3F0000003F000000;
+      v44.i64[1] = 0x3F0000003F000000;
+      v45 = a4;
+      v46 = v73;
       do
       {
-        if ((vminvq_u32(vcgezq_f32(*v40->i8)) & 0x80000000) != 0)
+        if ((vminvq_u32(vcgezq_f32(*v43->i8)) & 0x80000000) != 0)
         {
-          v44 = v38[-2];
-          v45 = v38[-1];
-          v46 = *v40->i8;
-          v46.i32[1] = *v40->i8;
-          v46.i32[2] = v46.i32[1];
-          v47 = vaddq_f32(v38[1], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v45, v40[-2], 1), v44, COERCE_FLOAT(*v40[-2].i8)), *v38, *v40[-2].i8, 2));
-          v48 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v46, v44)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v40, 1), *v40->i8), v45))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(*v40->i8, *v40->i8), *v40->i8), *v38)));
-          v49 = vsubq_f32(v47, v48);
-          v50 = vsubq_f32(v43, v39);
-          v50.i32[3] = 0;
-          v49.i32[3] = 0;
-          v51 = vminnmq_f32(v50, v49);
-          v52 = vaddq_f32(v43, v39);
-          v52.i32[3] = 0;
-          v53 = vaddq_f32(v47, v48);
+          v47 = v41[-2];
+          v48 = v41[-1];
+          v49 = *v43->i8;
+          v49.i32[1] = *v43->i8;
+          v49.i32[2] = v49.i32[1];
+          v50 = vaddq_f32(v41[1], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v48, v43[-2], 1), v47, COERCE_FLOAT(*v43[-2].i8)), *v41, *v43[-2].i8, 2));
+          v51 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v49, v47)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v43, 1), *v43->i8), v48))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(*v43->i8, *v43->i8), *v43->i8), *v41)));
+          v52 = vsubq_f32(v50, v51);
+          v53 = vsubq_f32(v46, v42);
           v53.i32[3] = 0;
-          v54 = vmaxnmq_f32(v52, v53);
-          v43 = vmulq_f32(vaddq_f32(v51, v54), v41);
-          v39 = vmulq_f32(vsubq_f32(v54, v51), v41);
-          v43.i32[3] = 1.0;
-          v39.i32[3] = 0;
+          v52.i32[3] = 0;
+          v54 = vminnmq_f32(v53, v52);
+          v55 = vaddq_f32(v46, v42);
+          v55.i32[3] = 0;
+          v56 = vaddq_f32(v50, v51);
+          v56.i32[3] = 0;
+          v57 = vmaxnmq_f32(v55, v56);
+          v46 = vmulq_f32(vaddq_f32(v54, v57), v44);
+          v42 = vmulq_f32(vsubq_f32(v57, v54), v44);
+          v46.i32[3] = 1.0;
+          v42.i32[3] = 0;
         }
 
-        v38 += 4;
-        v40 += 4;
-        --v42;
+        v41 += 4;
+        v43 += 4;
+        --v45;
       }
 
-      while (v42);
+      while (v45);
       goto LABEL_30;
     }
   }
 
-  v36.columns[3] = v37;
-  scn_matrix_multiply_batch(&v68 - 4 * a4, v36, &v68 - a4, a4);
-  scn_matrix_multiply_batch(*(a1 + 112), &v68 - a4, IOSurface, a4);
+  v39.columns[3] = v40;
+  scn_matrix_multiply_batch(&v71 - 4 * a4, v39, &v71 - a4, a4);
+  scn_matrix_multiply_batch(*(a1 + 112), &v71 - a4, IOSurface, a4);
   scn_matrix_transpose_batch(*(a1 + 128), *(a1 + 112), a4);
   if (a4 >= 1 && a5)
   {
-    v57 = 0;
+    v60 = 0;
     do
     {
-      v58 = *(a1 + 112);
-      v59 = (*(a1 + 120) + v57);
-      v60 = *(v58 + v57);
-      v61 = *(v58 + v57 + 16);
-      v62 = *(v58 + v57 + 32);
-      v63 = *(v58 + v57 + 48);
-      v64 = vzip1q_s32(v60, v62);
-      v65 = vzip2q_s32(v60, v62);
-      v66 = vzip1q_s32(v61, v63);
-      v67 = vzip2q_s32(v61, v63);
-      v75.columns[0] = vzip1q_s32(v64, v66);
-      v75.columns[1] = vzip2q_s32(v64, v66);
-      v75.columns[2] = vzip1q_s32(v65, v67);
-      v75.columns[3] = vzip2q_s32(v65, v67);
-      *v59 = __invert_f4(v75);
-      v57 += 64;
+      v61 = *(a1 + 112);
+      v62 = (*(a1 + 120) + v60);
+      v63 = *(v61 + v60);
+      v64 = *(v61 + v60 + 16);
+      v65 = *(v61 + v60 + 32);
+      v66 = *(v61 + v60 + 48);
+      v67 = vzip1q_s32(v63, v65);
+      v68 = vzip2q_s32(v63, v65);
+      v69 = vzip1q_s32(v64, v66);
+      v70 = vzip2q_s32(v64, v66);
+      v78.columns[0] = vzip1q_s32(v67, v69);
+      v78.columns[1] = vzip2q_s32(v67, v69);
+      v78.columns[2] = vzip1q_s32(v68, v70);
+      v78.columns[3] = vzip2q_s32(v68, v70);
+      *v62 = __invert_f4(v78);
+      v60 += 64;
       --a4;
     }
 
@@ -7178,64 +8539,64 @@ LABEL_30:
   }
 }
 
-uint64_t C3DSkinnerUpdateCurrentMesh(uint64_t a1, float32x4_t *a2, uint64_t a3)
+uint64_t C3DSkinnerUpdateCurrentMesh(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      C3DSkinnerSetOwnerNode_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      C3DSkinnerSetOwnerNode_cold_1(v6, a2, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  v14 = *(a1 + 104);
-  Geometry = C3DNodeGetGeometry(a2);
+  v13 = *(a1 + 104);
+  Geometry = C3DNodeGetGeometry(a2, a2);
   if (Geometry)
   {
-    v16 = Geometry;
+    v15 = Geometry;
     EffectiveCalculationMode = C3DSkinnerGetEffectiveCalculationMode(a1, Geometry);
-    if (a3 && !C3DEngineContextGetRenderContext(a3) && EffectiveCalculationMode)
+    if (a3 && !C3DEngineContextGetRenderContext(a3, v16) && EffectiveCalculationMode)
     {
-      if (v14 > 20)
+      if (v13 > 20)
       {
         goto LABEL_63;
       }
 
-      MaterialsCount = C3DGeometryGetMaterialsCount(v16);
+      MaterialsCount = C3DGeometryGetMaterialsCount(v15, v16);
       if (MaterialsCount >= 1)
       {
         v19 = MaterialsCount;
-        MaterialAtIndex = C3DGeometryGetMaterialAtIndex(v16, 0);
-        if (C3DMaterialGetTechnique(MaterialAtIndex))
+        MaterialAtIndex = C3DGeometryGetMaterialAtIndex(v15, 0);
+        if (C3DMaterialGetTechnique(MaterialAtIndex, v21))
         {
           goto LABEL_63;
         }
 
-        v21 = 1;
+        v22 = 1;
         do
         {
-          v22 = v21;
-          if (v19 == v21)
+          v23 = v22;
+          if (v19 == v22)
           {
             break;
           }
 
-          v23 = C3DGeometryGetMaterialAtIndex(v16, v21);
-          Technique = C3DMaterialGetTechnique(v23);
-          v21 = v22 + 1;
+          v24 = C3DGeometryGetMaterialAtIndex(v15, v22);
+          Technique = C3DMaterialGetTechnique(v24, v25);
+          v22 = v23 + 1;
         }
 
         while (!Technique);
-        if (v22 < v19)
+        if (v23 < v19)
         {
 LABEL_63:
           if (*(a1 + 208))
           {
-            v25 = *(a1 + 64);
-            if (v25)
+            v27 = *(a1 + 64);
+            if (v27)
             {
-              C3DNodeGeometryDidUpdate(v25);
+              C3DNodeGeometryDidUpdate(v27, v16);
             }
           }
 
@@ -7244,25 +8605,25 @@ LABEL_63:
       }
     }
 
-    if (v14 == 1)
+    if (v13 == 1)
     {
       goto LABEL_57;
     }
 
-    RendererContextGL = C3DEngineContextGetRendererContextGL(a3);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(a3, v16);
     if (RendererContextGL)
     {
       SkinnedMeshLegacy = C3DSkinnerGetSkinnedMeshLegacy(a1, a2);
-      RenderingMesh = _C3DGetEffectiveBaseMesh(SkinnedMeshLegacy, a2, v16, EffectiveCalculationMode);
-      LayoutTimeStamp = C3DMeshGetLayoutTimeStamp(RenderingMesh);
+      v31 = _C3DGetEffectiveBaseMesh(SkinnedMeshLegacy, a2, v15, EffectiveCalculationMode);
+      LayoutTimeStamp = C3DMeshGetLayoutTimeStamp(v31);
       if (*(a1 + 136) != LayoutTimeStamp)
       {
         *(a1 + 136) = LayoutTimeStamp;
-        v30 = 1;
+        v34 = 1;
         if (!EffectiveCalculationMode)
         {
 LABEL_23:
-          v31 = *(a1 + 194);
+          v35 = *(a1 + 194);
           goto LABEL_29;
         }
 
@@ -7274,9 +8635,9 @@ LABEL_23:
 LABEL_26:
         if (EffectiveCalculationMode == 1)
         {
-          v31 = *(a1 + 195);
+          v35 = *(a1 + 195);
 LABEL_29:
-          if (!(v31 ^ 1 | v30))
+          if (!(v35 ^ 1 | v34))
           {
             goto LABEL_30;
           }
@@ -7284,14 +8645,14 @@ LABEL_29:
 LABEL_34:
           if (!RendererContextGL)
           {
-            v33 = scn_default_log();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+            v37 = scn_default_log(LayoutTimeStamp, v33);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
             {
-              C3DSkinnerUpdateCurrentMesh_cold_2(v33, v34, v35, v36, v37, v38, v39, v40);
+              C3DSkinnerUpdateCurrentMesh_cold_2(v37, v38, v39, v40, v41, v42, v43, v44);
             }
           }
 
-          __C3DSkinnerPrepareSkinnedMesh(a1, RenderingMesh, SkinnedMeshLegacy, v16);
+          __C3DSkinnerPrepareSkinnedMesh(a1, v31, SkinnedMeshLegacy, v15);
           if (!RendererContextGL)
           {
             goto LABEL_42;
@@ -7300,12 +8661,13 @@ LABEL_34:
           goto LABEL_38;
         }
 
-        v32 = scn_default_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v36 = scn_default_log(LayoutTimeStamp, v33);
+        LayoutTimeStamp = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+        if (LayoutTimeStamp)
         {
-          *v77 = 0;
-          _os_log_error_impl(&dword_21BEF7000, v32, OS_LOG_TYPE_ERROR, "Unreachable code: Unknown skinning calculation mode.", v77, 2u);
-          if (v30)
+          *v86 = 0;
+          _os_log_error_impl(&dword_21BEF7000, v36, OS_LOG_TYPE_ERROR, "Unreachable code: Unknown skinning calculation mode.", v86, 2u);
+          if (v34)
           {
             goto LABEL_34;
           }
@@ -7314,7 +8676,7 @@ LABEL_34:
         else
         {
 LABEL_33:
-          if (v30)
+          if (v34)
           {
             goto LABEL_34;
           }
@@ -7327,12 +8689,14 @@ LABEL_30:
         }
 
 LABEL_38:
-        if (C3DNodeGetMorpher(a2) && EffectiveCalculationMode)
+        LayoutTimeStamp = C3DNodeGetMorpher(a2, v33);
+        if (LayoutTimeStamp && EffectiveCalculationMode)
         {
-          MutabilityTimeStamp = C3DMeshGetMutabilityTimeStamp(SkinnedMeshLegacy);
-          if (MutabilityTimeStamp != C3DMeshGetMutabilityTimeStamp(RenderingMesh))
+          MutabilityTimeStamp = C3DMeshGetMutabilityTimeStamp(SkinnedMeshLegacy, v33);
+          LayoutTimeStamp = C3DMeshGetMutabilityTimeStamp(v31, v46);
+          if (MutabilityTimeStamp != LayoutTimeStamp)
           {
-            C3DMeshDidMutate(SkinnedMeshLegacy);
+            C3DMeshDidMutate(SkinnedMeshLegacy, v33);
           }
 
           goto LABEL_43;
@@ -7343,32 +8707,34 @@ LABEL_42:
         {
           if ((*(a1 + 194) & 1) == 0)
           {
-            v50 = scn_default_log();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+            v55 = scn_default_log(LayoutTimeStamp, v33);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
             {
-              C3DSkinnerUpdateCurrentMesh_cold_4(v50, v51, v52, v53, v54, v55, v56, v57);
+              C3DSkinnerUpdateCurrentMesh_cold_4(v55, v56, v57, v58, v59, v60, v61, v62);
             }
           }
 
           PositionSource = C3DMeshGetPositionSource(SkinnedMeshLegacy, 1);
-          if ((C3DMeshSourceIsMutable(PositionSource) & 1) == 0)
+          IsMutable = C3DMeshSourceIsMutable(PositionSource);
+          if ((IsMutable & 1) == 0)
           {
-            v59 = scn_default_log();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
+            v66 = scn_default_log(IsMutable, v65);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
             {
-              C3DSkinnerUpdateCurrentMesh_cold_5(v59, v60, v61, v62, v63, v64, v65, v66);
+              C3DSkinnerUpdateCurrentMesh_cold_5(v66, v67, v68, v69, v70, v71, v72, v73);
             }
           }
 
           if (C3DMeshGetNormalSource(SkinnedMeshLegacy, 1))
           {
             NormalSource = C3DMeshGetNormalSource(SkinnedMeshLegacy, 1);
-            if ((C3DMeshSourceIsMutable(NormalSource) & 1) == 0)
+            v75 = C3DMeshSourceIsMutable(NormalSource);
+            if ((v75 & 1) == 0)
             {
-              v68 = scn_default_log();
-              if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+              v77 = scn_default_log(v75, v76);
+              if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
               {
-                C3DSkinnerUpdateCurrentMesh_cold_6(v68, v69, v70, v71, v72, v73, v74, v75);
+                C3DSkinnerUpdateCurrentMesh_cold_6(v77, v78, v79, v80, v81, v82, v83, v84);
               }
             }
           }
@@ -7379,10 +8745,10 @@ LABEL_42:
 LABEL_43:
         if (EffectiveCalculationMode != 2 && (*(a1 + 195) & 1) == 0)
         {
-          v42 = scn_default_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+          v47 = scn_default_log(LayoutTimeStamp, v33);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
           {
-            C3DSkinnerUpdateCurrentMesh_cold_3(v42, v43, v44, v45, v46, v47, v48, v49);
+            C3DSkinnerUpdateCurrentMesh_cold_3(v47, v48, v49, v50, v51, v52, v53, v54);
           }
         }
 
@@ -7394,11 +8760,12 @@ LABEL_57:
 
     else
     {
-      RenderingMesh = C3DGeometryGetRenderingMesh(v16);
+      LayoutTimeStamp = C3DGeometryGetRenderingMesh(v15, v28);
+      v31 = LayoutTimeStamp;
       SkinnedMeshLegacy = 0;
     }
 
-    v30 = 0;
+    v34 = 0;
     if (!EffectiveCalculationMode)
     {
       goto LABEL_23;
@@ -7416,19 +8783,19 @@ uint64_t C3DSkinnerGetSkinnedMeshLegacy(uint64_t a1, uint64_t a2)
   {
     if (!a2)
     {
-      v5 = scn_default_log();
+      v5 = scn_default_log(a1, 0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        C3DSkinnerGetSkinnedMeshLegacy_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+        C3DSkinnerGetSkinnedMeshLegacy_cold_1(v5, a2, v6, v7, v8, v9, v10, v11);
       }
     }
 
     if (*(a1 + 104) == 1)
     {
-      if (C3DNodeGetMorpher(a2))
+      if (C3DNodeGetMorpher(a2, a2))
       {
-        Morpher = C3DNodeGetMorpher(a2);
-        MorphedMeshLegacy = C3DMorpherGetMorphedMeshLegacy(Morpher);
+        Morpher = C3DNodeGetMorpher(a2, v12);
+        MorphedMeshLegacy = C3DMorpherGetMorphedMeshLegacy(Morpher, v14);
         if (!MorphedMeshLegacy)
         {
           return *(a1 + 200);
@@ -7437,13 +8804,13 @@ uint64_t C3DSkinnerGetSkinnedMeshLegacy(uint64_t a1, uint64_t a2)
 
       else
       {
-        Geometry = C3DNodeGetGeometry(a2);
+        Geometry = C3DNodeGetGeometry(a2, v12);
         if (!Geometry)
         {
           return *(a1 + 200);
         }
 
-        MorphedMeshLegacy = C3DGeometryGetMesh(Geometry);
+        MorphedMeshLegacy = C3DGeometryGetMesh(Geometry, v25);
         if (!MorphedMeshLegacy)
         {
           return *(a1 + 200);
@@ -7454,18 +8821,18 @@ uint64_t C3DSkinnerGetSkinnedMeshLegacy(uint64_t a1, uint64_t a2)
       return *(a1 + 200);
     }
 
-    v15 = C3DNodeGetGeometry(a2);
-    if (v15)
+    v16 = C3DNodeGetGeometry(a2, a2);
+    if (v16)
     {
-      Mesh = C3DGeometryGetMesh(v15);
+      Mesh = C3DGeometryGetMesh(v16, v17);
       if (Mesh)
       {
-        v17 = Mesh;
-        *(a1 + 200) = C3DMeshCreateCopy(Mesh);
-        Name = C3DEntityGetName(v17);
-        v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ - Skinned", Name);
-        C3DEntitySetName(*(a1 + 200), v19);
-        CFRelease(v19);
+        v20 = Mesh;
+        *(a1 + 200) = C3DMeshCreateCopy(Mesh, v19);
+        Name = C3DEntityGetName(v20, v21);
+        v23 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ - Skinned", Name);
+        C3DEntitySetName(*(a1 + 200), v23);
+        CFRelease(v23);
       }
     }
   }
@@ -7473,7 +8840,7 @@ uint64_t C3DSkinnerGetSkinnedMeshLegacy(uint64_t a1, uint64_t a2)
   return *(a1 + 200);
 }
 
-void C3DSkinnerUpdateJointsAndBoundingBox(uint64_t a1, float32x4_t *a2)
+void C3DSkinnerUpdateJointsAndBoundingBox(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 193) == 1)
   {
@@ -7483,7 +8850,7 @@ void C3DSkinnerUpdateJointsAndBoundingBox(uint64_t a1, float32x4_t *a2)
   v4 = *(a1 + 72);
   if (!v4)
   {
-    v5 = scn_default_log();
+    v5 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       C3DSkinnerUpdateJointsAndBoundingBox_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -7491,13 +8858,13 @@ void C3DSkinnerUpdateJointsAndBoundingBox(uint64_t a1, float32x4_t *a2)
   }
 
   JointsCount = C3DSkinGetJointsCount(v4);
-  if (!*(a1 + 88) || (v14 = *(a1 + 104)) == 0 || (v15 = JointsCount, v14 != JointsCount))
+  if (!*(a1 + 88) || (v15 = *(a1 + 104)) == 0 || (v16 = JointsCount, v15 != JointsCount))
   {
     if ((C3DSkinnerUpdateJointsAndBoundingBox_done & 1) == 0)
     {
       C3DSkinnerUpdateJointsAndBoundingBox_done = 1;
-      v20 = scn_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = scn_default_log(JointsCount, v14);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         _C3DSkinnerUpdateBoundingBox_cold_1();
       }
@@ -7506,222 +8873,224 @@ void C3DSkinnerUpdateJointsAndBoundingBox(uint64_t a1, float32x4_t *a2)
     return;
   }
 
-  Geometry = C3DNodeGetGeometry(a2);
+  Geometry = C3DNodeGetGeometry(a2, v14);
   EffectiveCalculationMode = C3DSkinnerGetEffectiveCalculationMode(a1, Geometry);
-  v18 = C3DGeometryUsesDeformerBasedDynamicMesh(Geometry);
-  if (v18)
+  v19 = C3DGeometryUsesDeformerBasedDynamicMesh(Geometry);
+  if (v19)
   {
-    v19 = 0;
+    v21 = 0;
 LABEL_15:
     HasSourcesWithSemantic = 0;
     goto LABEL_16;
   }
 
-  v21 = _C3DGetEffectiveBaseMesh(v18, a2, Geometry, EffectiveCalculationMode);
-  v19 = v21;
+  v23 = _C3DGetEffectiveBaseMesh(v19, a2, Geometry, EffectiveCalculationMode);
+  v21 = v23;
   if (EffectiveCalculationMode)
   {
     goto LABEL_15;
   }
 
-  HasSourcesWithSemantic = C3DMeshHasSourcesWithSemantic(v21, 1, 1, 0);
+  HasSourcesWithSemantic = C3DMeshHasSourcesWithSemantic(v23, 1, 1, 0);
 LABEL_16:
-  WorldMatrix = C3DNodeGetWorldMatrix(a2);
-  _computeJointMatrices(a1, v4, a2, v15, HasSourcesWithSemantic, *WorldMatrix, WorldMatrix[1], WorldMatrix[2], WorldMatrix[3]);
+  WorldMatrix = C3DNodeGetWorldMatrix(a2, v20);
+  _computeJointMatrices(a1, v4, a2, v16, HasSourcesWithSemantic, *WorldMatrix, WorldMatrix[1], WorldMatrix[2], WorldMatrix[3]);
   if (*(a1 + 104) == 1 || EffectiveCalculationMode)
   {
-    v86 = a2;
+    v99 = a2;
 LABEL_59:
-    C3DNodeBoundingBoxDidUpdate(v86);
+    C3DNodeBoundingBoxDidUpdate(v99, v27);
     return;
   }
 
-  v24 = *(a1 + 200);
-  if (v24)
+  v28 = *(a1 + 200);
+  if (v28)
   {
-    PositionSource = C3DMeshGetPositionSource(v19, 1);
-    NormalSource = C3DMeshGetNormalSource(v19, 1);
-    SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(v19, 4, 0, 1);
-    v26 = C3DMeshGetPositionSource(v24, 1);
-    v27 = v26;
-    if (!v26 || v26 == PositionSource)
+    PositionSource = C3DMeshGetPositionSource(v21, 1);
+    NormalSource = C3DMeshGetNormalSource(v21, 1);
+    SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(v21, 4, 0, 1);
+    v30 = C3DMeshGetPositionSource(v28, 1);
+    v32 = v30;
+    if (!v30 || v30 == PositionSource)
     {
-      v28 = scn_default_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+      v33 = scn_default_log(v30, v31);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
-        C3DSkinnerUpdateJointsAndBoundingBox_cold_2(v28, v29, v30, v31, v32, v33, v34, v35);
+        C3DSkinnerUpdateJointsAndBoundingBox_cold_2(v33, v34, v35, v36, v37, v38, v39, v40);
       }
     }
 
-    if ((C3DMeshSourceIsMutable(v27) & 1) == 0)
+    IsMutable = C3DMeshSourceIsMutable(v32);
+    if ((IsMutable & 1) == 0)
     {
-      v36 = scn_default_log();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+      v43 = scn_default_log(IsMutable, v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
       {
-        C3DSkinnerUpdateJointsAndBoundingBox_cold_3(v36, v37, v38, v39, v40, v41, v42, v43);
+        C3DSkinnerUpdateJointsAndBoundingBox_cold_3(v43, v44, v45, v46, v47, v48, v49, v50);
       }
     }
 
-    v44 = C3DMeshGetNormalSource(v24, 1);
-    v45 = v44;
-    if (v44)
+    v51 = C3DMeshGetNormalSource(v28, 1);
+    v53 = v51;
+    if (v51)
     {
-      if (v44 == NormalSource)
+      if (v51 == NormalSource)
       {
-        v46 = scn_default_log();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
-        {
-          C3DSkinnerUpdateJointsAndBoundingBox_cold_4(v46, v47, v48, v49, v50, v51, v52, v53);
-        }
-      }
-
-      if ((C3DMeshSourceIsMutable(v45) & 1) == 0)
-      {
-        v54 = scn_default_log();
+        v54 = scn_default_log(v51, v52);
         if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
         {
-          C3DSkinnerUpdateJointsAndBoundingBox_cold_5(v54, v55, v56, v57, v58, v59, v60, v61);
+          C3DSkinnerUpdateJointsAndBoundingBox_cold_4(v54, v55, v56, v57, v58, v59, v60, v61);
+        }
+      }
+
+      v62 = C3DMeshSourceIsMutable(v53);
+      if ((v62 & 1) == 0)
+      {
+        v64 = scn_default_log(v62, v63);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
+        {
+          C3DSkinnerUpdateJointsAndBoundingBox_cold_5(v64, v65, v66, v67, v68, v69, v70, v71);
         }
       }
     }
 
-    v88 = v24;
-    v89 = a2;
-    v62 = C3DMeshGetSourceWithSemanticAtIndex(v24, 4, 0, 1);
-    Count = C3DMeshSourceGetCount(PositionSource);
-    v101 = 0;
-    v102 = 0;
-    v100 = 0;
-    C3DSkinGetVertexWeightsPointers(v4, &v102, &v100, &v101);
-    v93 = a1;
-    v90 = v45;
-    if ((C3DSkinnerSkinVertexOptimized(v102, v101, PositionSource, v27, NormalSource, v45, SourceWithSemanticAtIndex, v62, 0, v100, a1) & 1) == 0 && Count >= 1)
+    v101 = v28;
+    v102 = a2;
+    v72 = C3DMeshGetSourceWithSemanticAtIndex(v28, 4, 0, 1);
+    Count = C3DMeshSourceGetCount(PositionSource, v73);
+    v114 = 0;
+    v115 = 0;
+    v113 = 0;
+    C3DSkinGetVertexWeightsPointers(v4, &v115, &v113, &v114);
+    v106 = a1;
+    v103 = v53;
+    if ((C3DSkinnerSkinVertexOptimized(v115, v114, PositionSource, v32, NormalSource, v53, SourceWithSemanticAtIndex, v72, 0, v113, a1) & 1) == 0 && Count >= 1)
     {
-      v63 = 0;
+      v75 = 0;
       if (NormalSource)
       {
-        v64 = v45 == 0;
+        v76 = v53 == 0;
       }
 
       else
       {
-        v64 = 1;
+        v76 = 1;
       }
 
-      v65 = !v64;
-      v91 = v65;
-      v92 = v27;
+      v77 = !v76;
+      v104 = v77;
+      v105 = v32;
       do
       {
-        v66 = v101;
-        v67 = *(v102 + 8 * v63);
-        v99 = v63 + 1;
-        v68 = *(v102 + 8 * (v63 + 1));
-        v69 = v100;
-        v70 = *(v93 + 112);
-        v71 = *(v93 + 120);
-        v114 = 0u;
-        v115 = 0u;
-        v112 = 0u;
-        v113 = 0u;
-        v110 = 0u;
-        v111 = 0u;
-        v108 = 0u;
-        v109 = 0u;
-        C3DMatrix4x4MakeZero(&v112);
-        C3DMatrix4x4MakeZero(&v108);
-        v72 = v63;
-        *v73.i64 = C3DMeshSourceGetValueAtIndexAsVector3(PositionSource, v63);
-        v98 = v73;
-        v74 = 0uLL;
+        v78 = v114;
+        v79 = *(v115 + 8 * v75);
+        v112 = v75 + 1;
+        v80 = *(v115 + 8 * (v75 + 1));
+        v81 = v113;
+        v82 = *(v106 + 112);
+        v83 = *(v106 + 120);
+        v127 = 0u;
+        v128 = 0u;
+        v125 = 0u;
+        v126 = 0u;
+        v123 = 0u;
+        v124 = 0u;
+        v121 = 0u;
+        v122 = 0u;
+        C3DMatrix4x4MakeZero(&v125);
+        C3DMatrix4x4MakeZero(&v121);
+        v84 = v75;
+        *v85.i64 = C3DMeshSourceGetValueAtIndexAsVector3(PositionSource, v75);
+        v111 = v85;
+        v86 = 0uLL;
         if (NormalSource)
         {
-          *v74.i64 = C3DMeshSourceGetValueAtIndexAsVector3(NormalSource, v63);
+          *v86.i64 = C3DMeshSourceGetValueAtIndexAsVector3(NormalSource, v75);
         }
 
-        v97 = v74;
+        v110 = v86;
         if (SourceWithSemanticAtIndex)
         {
-          C3DMeshSourceGetValueAtIndexAsVector3(SourceWithSemanticAtIndex, v63);
+          C3DMeshSourceGetValueAtIndexAsVector3(SourceWithSemanticAtIndex, v75);
         }
 
-        v75 = v68 <= v67;
-        v76 = v68 - v67;
-        if (!v75)
+        v87 = v80 <= v79;
+        v88 = v80 - v79;
+        if (!v87)
         {
-          v77 = (v66 + 4 * v67);
-          v78 = (v69 + 2 * v67);
+          v89 = (v78 + 4 * v79);
+          v90 = (v81 + 2 * v79);
           do
           {
-            v80 = *v78++;
-            v79 = v80;
-            v107 = 0u;
-            v105 = 0u;
-            v106 = 0u;
-            v104 = 0u;
-            memset(v103, 0, sizeof(v103));
-            if (v66)
+            v92 = *v90++;
+            v91 = v92;
+            v120 = 0u;
+            v118 = 0u;
+            v119 = 0u;
+            v117 = 0u;
+            memset(v116, 0, sizeof(v116));
+            if (v78)
             {
-              v81 = *v77;
+              v93 = *v89;
             }
 
             else
             {
-              v81 = 1.0;
+              v93 = 1.0;
             }
 
-            C3DMatrix4x4MultFloat((v70 + (v79 << 6)), &v104, v81);
-            C3DMatrix4x4Add(&v112, &v104, &v112);
+            C3DMatrix4x4MultFloat((v82 + (v91 << 6)), &v117, v93);
+            C3DMatrix4x4Add(&v125, &v117, &v125);
             if (NormalSource)
             {
-              C3DMatrix4x4MultFloat((v71 + (v79 << 6)), v103, v81);
-              C3DMatrix4x4Add(&v108, v103, &v108);
+              C3DMatrix4x4MultFloat((v83 + (v91 << 6)), v116, v93);
+              C3DMatrix4x4Add(&v121, v116, &v121);
             }
 
-            ++v77;
-            --v76;
+            ++v89;
+            --v88;
           }
 
-          while (v76);
+          while (v88);
         }
 
-        v104 = v112;
-        v105 = v113;
-        v106 = v114;
-        v107 = v115;
-        v82.n128_f64[0] = C3DVector3MultMatrix4x4(&v104, v98);
-        C3DMeshSourceSetValueAtIndexAsVector3(v92, v72, v82);
-        if (v91)
+        v117 = v125;
+        v118 = v126;
+        v119 = v127;
+        v120 = v128;
+        v94.n128_f64[0] = C3DVector3MultMatrix4x4(&v117, v111);
+        C3DMeshSourceSetValueAtIndexAsVector3(v105, v84, v94);
+        if (v104)
         {
-          v104 = v108;
-          v105 = v109;
-          v106 = v110;
-          v107 = v111;
-          *v83.i64 = C3DVector3RotateAndScale(&v104, v97);
-          v84 = vmulq_f32(v83, v83);
-          *&v85 = v84.f32[2] + vaddv_f32(*v84.f32);
-          *v84.f32 = vrsqrte_f32(v85);
-          *v84.f32 = vmul_f32(*v84.f32, vrsqrts_f32(v85, vmul_f32(*v84.f32, *v84.f32)));
-          C3DMeshSourceSetValueAtIndexAsVector3(v90, v72, vmulq_n_f32(v83, vmul_f32(*v84.f32, vrsqrts_f32(v85, vmul_f32(*v84.f32, *v84.f32))).f32[0]));
+          v117 = v121;
+          v118 = v122;
+          v119 = v123;
+          v120 = v124;
+          *v95.i64 = C3DVector3RotateAndScale(&v117, v110);
+          v96 = vmulq_f32(v95, v95);
+          *&v97 = v96.f32[2] + vaddv_f32(*v96.f32);
+          *v96.f32 = vrsqrte_f32(v97);
+          *v96.f32 = vmul_f32(*v96.f32, vrsqrts_f32(v97, vmul_f32(*v96.f32, *v96.f32)));
+          C3DMeshSourceSetValueAtIndexAsVector3(v103, v84, vmulq_n_f32(v95, vmul_f32(*v96.f32, vrsqrts_f32(v97, vmul_f32(*v96.f32, *v96.f32))).f32[0]));
         }
 
-        v63 = v99;
+        v75 = v112;
       }
 
-      while (v99 != Count);
+      while (v112 != Count);
     }
 
-    C3DMeshDidMutate(v88);
-    C3DMeshResetBoundingVolumes(v88);
-    v86 = v89;
+    C3DMeshDidMutate(v101, v74);
+    C3DMeshResetBoundingVolumes(v101, v98);
+    v99 = v102;
     goto LABEL_59;
   }
 
   if ((C3DSkinnerUpdateJointsAndBoundingBox_done_14 & 1) == 0)
   {
     C3DSkinnerUpdateJointsAndBoundingBox_done_14 = 1;
-    v87 = scn_default_log();
-    if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+    v100 = scn_default_log(v26, v27);
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
     {
       C3DSkinnerUpdateJointsAndBoundingBox_cold_6();
     }
@@ -7738,7 +9107,7 @@ uint64_t C3DSkinnerGetJointMatrices(uint64_t a1, void *a2)
   return *(a1 + 128);
 }
 
-uint64_t C3DSkinnerGetBoundingBox(uint64_t a1, float32x4_t *a2, float32x4_t *a3)
+uint64_t C3DSkinnerGetBoundingBox(uint64_t a1, uint64_t a2, float32x4_t *a3)
 {
   if (*(a1 + 193) == 1)
   {
@@ -7749,9 +9118,9 @@ uint64_t C3DSkinnerGetBoundingBox(uint64_t a1, float32x4_t *a2, float32x4_t *a3)
   {
     BoundingBox = 1;
 LABEL_18:
-    v38 = *(a1 + 176);
+    v40 = *(a1 + 176);
     *a3 = *(a1 + 160);
-    a3[1] = v38;
+    a3[1] = v40;
     return BoundingBox & 1;
   }
 
@@ -7762,11 +9131,11 @@ LABEL_18:
     if (Count)
     {
       v8 = Count;
-      v40 = *(MEMORY[0x277D860B8] + 48);
+      v42 = *(MEMORY[0x277D860B8] + 48);
       if (Count < 1)
       {
         BoundingBox = 0;
-        v41 = xmmword_21C27F650;
+        v43 = xmmword_21C27F650;
       }
 
       else
@@ -7774,40 +9143,40 @@ LABEL_18:
         v9 = 0;
         BoundingBox = 0;
         v11 = 0;
-        v41 = xmmword_21C27F650;
+        v43 = xmmword_21C27F650;
         do
         {
           ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v11);
-          WorldMatrix = C3DNodeGetWorldMatrix(ValueAtIndex);
-          v14 = (*(a1 + 144) + v9);
-          v15 = v14[1];
-          if ((vminvq_u32(vcgezq_f32(v15)) & 0x80000000) != 0)
+          WorldMatrix = C3DNodeGetWorldMatrix(ValueAtIndex, v13);
+          v15 = (*(a1 + 144) + v9);
+          v16 = v15[1];
+          if ((vminvq_u32(vcgezq_f32(v16)) & 0x80000000) != 0)
           {
-            v16 = WorldMatrix[1];
-            v17 = WorldMatrix[2];
-            v18 = vaddq_f32(WorldMatrix[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v16, *v14->f32, 1), *WorldMatrix, COERCE_FLOAT(*v14)), v17, *v14, 2));
-            v19 = v14[1];
-            v19.i32[1] = v19.i32[0];
-            v19.i32[2] = v14[1];
-            v20 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v19, *WorldMatrix)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v15.f32, 1), v15), v16))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v15, v15), v15), v17)));
-            v21 = vsubq_f32(v18, v20);
-            v22 = vsubq_f32(v40, v41);
+            v17 = *(WorldMatrix + 16);
+            v18 = *(WorldMatrix + 32);
+            v19 = vaddq_f32(*(WorldMatrix + 48), vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v17, *v15->f32, 1), *WorldMatrix, COERCE_FLOAT(*v15)), v18, *v15, 2));
+            v20 = v15[1];
+            v20.i32[1] = v20.i32[0];
+            v20.i32[2] = v15[1];
+            v21 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v20, *WorldMatrix)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v16.f32, 1), v16), v17))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v16, v16), v16), v18)));
+            v22 = vsubq_f32(v19, v21);
+            v23 = vsubq_f32(v42, v43);
+            v23.i32[3] = 0;
             v22.i32[3] = 0;
-            v21.i32[3] = 0;
-            v23 = vminnmq_f32(v22, v21);
-            v24 = vaddq_f32(v18, v20);
-            v25 = vaddq_f32(v40, v41);
+            v24 = vminnmq_f32(v23, v22);
+            v25 = vaddq_f32(v19, v21);
+            v26 = vaddq_f32(v42, v43);
+            v26.i32[3] = 0;
             v25.i32[3] = 0;
-            v24.i32[3] = 0;
-            v26 = vmaxnmq_f32(v25, v24);
-            v22.i64[0] = 0x3F0000003F000000;
-            v22.i64[1] = 0x3F0000003F000000;
-            v27 = vmulq_f32(vaddq_f32(v23, v26), v22);
-            v28 = vmulq_f32(vsubq_f32(v26, v23), v22);
-            v27.i32[3] = 1.0;
-            v28.i32[3] = 0;
-            v40 = v27;
-            v41 = v28;
+            v27 = vmaxnmq_f32(v26, v25);
+            v23.i64[0] = 0x3F0000003F000000;
+            v23.i64[1] = 0x3F0000003F000000;
+            v28 = vmulq_f32(vaddq_f32(v24, v27), v23);
+            v29 = vmulq_f32(vsubq_f32(v27, v24), v23);
+            v28.i32[3] = 1.0;
+            v29.i32[3] = 0;
+            v42 = v28;
+            v43 = v29;
             BoundingBox = 1;
           }
 
@@ -7818,38 +9187,38 @@ LABEL_18:
         while (v8 != v11);
       }
 
-      memset(&v42, 0, sizeof(v42));
-      v34 = C3DNodeGetWorldMatrix(a2);
-      C3DMatrix4x4Invert(v34, &v42);
-      v35 = vaddq_f32(v42.columns[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v42.columns[1], *v40.f32, 1), v42.columns[0], v40.f32[0]), v42.columns[2], v40, 2));
-      v35.i32[3] = 1.0;
-      v36 = v41;
-      v36.i32[1] = v41.i32[0];
-      v36.i32[2] = v41.i32[0];
-      v37 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v36, v42.columns[0])), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v41.f32, 1), v41), v42.columns[1]))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v41, v41), v41), v42.columns[2])));
-      *(a1 + 160) = v35;
-      *(a1 + 176) = v37;
+      memset(&v44, 0, sizeof(v44));
+      v36 = C3DNodeGetWorldMatrix(a2, a2);
+      C3DMatrix4x4Invert(v36, &v44);
+      v37 = vaddq_f32(v44.columns[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v44.columns[1], *v42.f32, 1), v44.columns[0], v42.f32[0]), v44.columns[2], v42, 2));
+      v37.i32[3] = 1.0;
+      v38 = v43;
+      v38.i32[1] = v43.i32[0];
+      v38.i32[2] = v43.i32[0];
+      v39 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v38, v44.columns[0])), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v43.f32, 1), v43), v44.columns[1]))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v43, v43), v43), v44.columns[2])));
+      *(a1 + 160) = v37;
+      *(a1 + 176) = v39;
       goto LABEL_18;
     }
   }
 
-  Geometry = C3DNodeGetGeometry(a2);
+  Geometry = C3DNodeGetGeometry(a2, a2);
   if (Geometry)
   {
-    RenderingMesh = C3DGeometryGetRenderingMesh(Geometry);
-    v42.columns[0].i32[2] = 0;
-    v42.columns[0].i64[0] = 0;
-    v43.i32[2] = 0;
-    v43.i64[0] = 0;
-    BoundingBox = C3DMeshGetBoundingBox(RenderingMesh, &v42, &v43);
-    v31.i64[0] = 0x3F0000003F000000;
-    v31.i64[1] = 0x3F0000003F000000;
-    v32 = vmulq_f32(vaddq_f32(v42.columns[0], v43), v31);
-    v33 = vmulq_f32(vsubq_f32(v43, v42.columns[0]), v31);
-    v32.i32[3] = 1.0;
-    v33.i32[3] = 0;
-    *a3 = v32;
-    a3[1] = v33;
+    RenderingMesh = C3DGeometryGetRenderingMesh(Geometry, v31);
+    v44.columns[0].i32[2] = 0;
+    v44.columns[0].i64[0] = 0;
+    v45.i32[2] = 0;
+    v45.i64[0] = 0;
+    BoundingBox = C3DMeshGetBoundingBox(RenderingMesh, &v44, &v45);
+    v33.i64[0] = 0x3F0000003F000000;
+    v33.i64[1] = 0x3F0000003F000000;
+    v34 = vmulq_f32(vaddq_f32(v44.columns[0], v45), v33);
+    v35 = vmulq_f32(vsubq_f32(v45, v44.columns[0]), v33);
+    v34.i32[3] = 1.0;
+    v35.i32[3] = 0;
+    *a3 = v34;
+    a3[1] = v35;
   }
 
   else
@@ -7864,7 +9233,7 @@ uint64_t C3DSkinnerGetJointBoundingBoxes(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DSkinnerSetOwnerNode_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -7904,7 +9273,7 @@ void C3DSkinnerAppendDebugBones(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
   }
 }
 
-uint64_t __C3DSkinnerAppendDebugBones_block_invoke(uint64_t a1, float32x4_t *a2)
+uint64_t __C3DSkinnerAppendDebugBones_block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((C3DAuthoringEnvironmentHasAlreadyProcessedJoint(*(a1 + 32), a2) & 1) == 0)
   {
@@ -7914,66 +9283,66 @@ uint64_t __C3DSkinnerAppendDebugBones_block_invoke(uint64_t a1, float32x4_t *a2)
       {
 LABEL_10:
         C3DAuthoringEnvironmentRegisterProcessedJoint(*(a1 + 32), a2);
-        WorldMatrix = C3DNodeGetWorldMatrix(a2);
-        v11 = *(a1 + 56);
-        v12 = WorldMatrix[1];
-        v13 = WorldMatrix[2];
-        v14 = WorldMatrix[3];
-        v15 = vmulq_f32(*WorldMatrix, 0);
-        v16 = vmlaq_f32(v15, 0, v12);
-        v19 = vaddq_f32(v14, vmlaq_f32(vmlaq_n_f32(v15, v12, v11), 0, v13));
-        v20 = vaddq_f32(v14, vmlaq_n_f32(v16, v13, v11));
-        v21 = vaddq_f32(v14, vmlaq_f32(v16, 0, v13));
-        C3DAuthoringEnvironmentAppendDebugSegment(*(a1 + 32), 0, C3DAuthoringEnvironmentColorRed, *(a1 + 60), v21, vaddq_f32(v14, vmlaq_f32(vmlaq_f32(vmulq_n_f32(*WorldMatrix, v11), 0, v12), 0, v13)));
-        C3DAuthoringEnvironmentAppendDebugSegment(*(a1 + 32), 0, C3DAuthoringEnvironmentColorGreen, *(a1 + 60), v21, v19);
-        C3DAuthoringEnvironmentAppendDebugSegment(*(a1 + 32), 0, C3DAuthoringEnvironmentColorBlue, *(a1 + 60), v21, v20);
+        WorldMatrix = C3DNodeGetWorldMatrix(a2, v12);
+        v14 = *(a1 + 56);
+        v15 = *(WorldMatrix + 16);
+        v16 = *(WorldMatrix + 32);
+        v17 = *(WorldMatrix + 48);
+        v18 = vmulq_f32(*WorldMatrix, 0);
+        v19 = vmlaq_f32(v18, 0, v15);
+        v22 = vaddq_f32(v17, vmlaq_f32(vmlaq_n_f32(v18, v15, v14), 0, v16));
+        v23 = vaddq_f32(v17, vmlaq_n_f32(v19, v16, v14));
+        v24 = vaddq_f32(v17, vmlaq_f32(v19, 0, v16));
+        C3DAuthoringEnvironmentAppendDebugSegment(*(a1 + 32), 0, C3DAuthoringEnvironmentColorRed.var0.var0, *(a1 + 60), v24, vaddq_f32(v17, vmlaq_f32(vmlaq_f32(vmulq_n_f32(*WorldMatrix, v14), 0, v15), 0, v16)));
+        C3DAuthoringEnvironmentAppendDebugSegment(*(a1 + 32), 0, C3DAuthoringEnvironmentColorGreen, *(a1 + 60), v24, v22);
+        C3DAuthoringEnvironmentAppendDebugSegment(*(a1 + 32), 0, C3DAuthoringEnvironmentColorBlue, *(a1 + 60), v24, v23);
         return 0;
       }
 
-      v6 = C3DNodeGetWorldMatrix(a2);
-      v23 = 0uLL;
-      v22 = xmmword_21C27F8C0;
-      v5.columns[0].i32[0] = *(a1 + 56);
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 60);
-      v5.columns[1].i32[0] = v5.columns[0].i32[0];
+      v8 = C3DNodeGetWorldMatrix(a2, v4);
+      v26 = 0uLL;
+      v25 = xmmword_21C27F8C0;
+      v7.columns[0].i32[0] = *(a1 + 56);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 48);
+      v11 = *(a1 + 60);
+      v7.columns[1].i32[0] = v7.columns[0].i32[0];
     }
 
     else
     {
-      C3DNodeGetMatrix(a2, &v24);
-      v18 = v24;
-      v4 = C3DNodeGetWorldMatrix(a2);
-      v5 = __invert_f4(v18);
-      v23 = 0uLL;
-      v5.columns[0] = vmulq_f32(v5.columns[3], v5.columns[3]);
-      v5.columns[1].f32[0] = v5.columns[0].f32[2] + vaddv_f32(*v5.columns[0].f32);
-      v5.columns[0].f32[0] = sqrtf(v5.columns[1].f32[0]);
-      if (v5.columns[0].f32[0] <= 0.0)
+      C3DNodeGetMatrix(a2, v4, &v27);
+      v21 = v27;
+      v6 = C3DNodeGetWorldMatrix(a2, v5);
+      v7 = __invert_f4(v21);
+      v26 = 0uLL;
+      v7.columns[0] = vmulq_f32(v7.columns[3], v7.columns[3]);
+      v7.columns[1].f32[0] = v7.columns[0].f32[2] + vaddv_f32(*v7.columns[0].f32);
+      v7.columns[0].f32[0] = sqrtf(v7.columns[1].f32[0]);
+      if (v7.columns[0].f32[0] <= 0.0)
       {
-        v5.columns[2] = xmmword_21C27F8C0;
-        v5.columns[1].i32[0] = *(a1 + 56);
-        v5.columns[0].i32[0] = v5.columns[1].i32[0];
+        v7.columns[2] = xmmword_21C27F8C0;
+        v7.columns[1].i32[0] = *(a1 + 56);
+        v7.columns[0].i32[0] = v7.columns[1].i32[0];
       }
 
       else
       {
-        v5.columns[2].i32[0] = v5.columns[1].i32[0];
-        *v5.columns[1].f32 = vrsqrte_f32(v5.columns[1].u32[0]);
-        *v5.columns[1].f32 = vmul_f32(*v5.columns[1].f32, vrsqrts_f32(v5.columns[2].u32[0], vmul_f32(*v5.columns[1].f32, *v5.columns[1].f32)));
-        v5.columns[2] = vmulq_n_f32(v5.columns[3], vmul_f32(*v5.columns[1].f32, vrsqrts_f32(v5.columns[2].u32[0], vmul_f32(*v5.columns[1].f32, *v5.columns[1].f32))).f32[0]);
-        v5.columns[1].i32[0] = *(a1 + 56);
+        v7.columns[2].i32[0] = v7.columns[1].i32[0];
+        *v7.columns[1].f32 = vrsqrte_f32(v7.columns[1].u32[0]);
+        *v7.columns[1].f32 = vmul_f32(*v7.columns[1].f32, vrsqrts_f32(v7.columns[2].u32[0], vmul_f32(*v7.columns[1].f32, *v7.columns[1].f32)));
+        v7.columns[2] = vmulq_n_f32(v7.columns[3], vmul_f32(*v7.columns[1].f32, vrsqrts_f32(v7.columns[2].u32[0], vmul_f32(*v7.columns[1].f32, *v7.columns[1].f32))).f32[0]);
+        v7.columns[1].i32[0] = *(a1 + 56);
       }
 
-      v22 = v5.columns[2];
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 60);
-      v6 = v4;
+      v25 = v7.columns[2];
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 48);
+      v11 = *(a1 + 60);
+      v8 = v6;
     }
 
-    C3DAuthoringEnvironmentAppendDebugPyramid(v7, &v23, &v22, v6, v8, v9, v5.columns[0].f32[0], v5.columns[1].f32[0]);
+    C3DAuthoringEnvironmentAppendDebugPyramid(v9, &v26, &v25, v8, v10, v11, v7.columns[0].f32[0], v7.columns[1].f32[0]);
     goto LABEL_10;
   }
 
@@ -7987,7 +9356,7 @@ void C3DSkinnerAppendDebugBoundingBoxes(uint64_t a1, uint64_t a2, uint64_t a3)
     _C3DSkinnerUpdateBoundingBox(a1, a3);
   }
 
-  v11 = xmmword_21C27F7E0;
+  v12 = xmmword_21C27F7E0;
   Count = CFArrayGetCount(*(a1 + 88));
   if (Count >= 1)
   {
@@ -7998,8 +9367,8 @@ void C3DSkinnerAppendDebugBoundingBoxes(uint64_t a1, uint64_t a2, uint64_t a3)
       if ((vminvq_u32(vcgezq_f32(*(*(a1 + 144) + v7 + 16))) & 0x80000000) != 0)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), i);
-        WorldMatrix = C3DNodeGetWorldMatrix(ValueAtIndex);
-        C3DAuthoringEnvironmentAppendDebugBoundingBox(a2, (*(a1 + 144) + v7), WorldMatrix, &v11);
+        WorldMatrix = C3DNodeGetWorldMatrix(ValueAtIndex, v10);
+        C3DAuthoringEnvironmentAppendDebugBoundingBox(a2, (*(a1 + 144) + v7), WorldMatrix, &v12);
       }
 
       v7 += 32;
@@ -8007,7 +9376,7 @@ void C3DSkinnerAppendDebugBoundingBoxes(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-double C3DSkinnerAdjustTransformIfUsesNodeTransformCalculationMode(uint64_t a1, int a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6)
+double C3DSkinnerAdjustTransformIfUsesNodeTransformCalculationMode(uint64_t a1, uint64_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6)
 {
   if (a2 == 3)
   {
@@ -8020,7 +9389,7 @@ double C3DSkinnerAdjustTransformIfUsesNodeTransformCalculationMode(uint64_t a1, 
       v29 = a6;
       v26 = a3;
       v27 = a4;
-      v9 = scn_default_log();
+      v9 = scn_default_log(a1, a2);
       v10 = os_log_type_enabled(v9, OS_LOG_TYPE_FAULT);
       a3 = v26;
       a4 = v27;
@@ -8075,63 +9444,63 @@ void C3DSkinnerInputGeometryDidChange(uint64_t a1)
   *(a1 + 200) = 0;
 }
 
-id _C3DSkinnerCFFinalize(void *a1)
+id _C3DSkinnerCFFinalize(void *a1, uint64_t a2)
 {
   if (a1[9])
   {
     C3DSkinnerSetSkin(a1, 0);
   }
 
-  v2 = a1[16];
-  if (v2)
-  {
-    free(v2);
-  }
-
-  v3 = a1[11];
+  v3 = a1[16];
   if (v3)
   {
-    CFRelease(v3);
+    free(v3);
   }
 
-  v4 = a1[14];
+  v4 = a1[11];
   if (v4)
   {
-    free(v4);
+    CFRelease(v4);
   }
 
-  v5 = a1[15];
+  v5 = a1[14];
   if (v5)
   {
     free(v5);
   }
 
-  v6 = a1[18];
+  v6 = a1[15];
   if (v6)
   {
     free(v6);
   }
 
-  v7 = a1[25];
+  v7 = a1[18];
   if (v7)
   {
-    CFRelease(v7);
+    free(v7);
   }
 
-  v8 = a1[12];
+  v8 = a1[25];
   if (v8)
   {
-    free(v8);
+    CFRelease(v8);
   }
 
-  v9 = a1[10];
+  v9 = a1[12];
   if (v9)
   {
-    CFRelease(v9);
+    free(v9);
+  }
+
+  v10 = a1[10];
+  if (v10)
+  {
+    CFRelease(v10);
     a1[10] = 0;
   }
 
-  return C3DEntityCFFinalize(a1);
+  return C3DEntityCFFinalize(a1, a2);
 }
 
 __CFString *_C3DSkinnerCFCopyDebugDescription(uint64_t a1)
@@ -8175,51 +9544,51 @@ __CFString *_C3DSkinnerCFCopyDebugDescription(uint64_t a1)
   return Mutable;
 }
 
-__CFDictionary *_C3DSkinnerCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3)
+__CFDictionary *_C3DSkinnerCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      _C3DGeometryFillLibraryForSerialization_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      _C3DGeometryFillLibraryForSerialization_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
-  v14 = C3DEntityCopyPropertyList(a1, a2, a3);
-  v15 = *(a1 + 80);
-  if (v15)
+  v15 = C3DEntityCopyPropertyList(a1, a2, a3);
+  v16 = *(a1 + 80);
+  if (v16)
   {
-    v16 = __EntryNumberCreate(a2, v15);
-    if (!v16)
+    v17 = __EntryNumberCreate(a2, v16);
+    if (!v17)
     {
 LABEL_13:
-      CFRelease(v14);
+      CFRelease(v15);
       return 0;
     }
 
-    v17 = v16;
-    CFDictionaryAddValue(v14, @"skeletonID", v16);
-    CFRelease(v17);
+    v18 = v17;
+    CFDictionaryAddValue(v15, @"skeletonID", v17);
+    CFRelease(v18);
   }
 
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
   if (CFArrayGetCount(*(a1 + 88)) >= 1)
   {
-    v19 = 0;
+    v20 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v19);
-      v21 = __EntryNumberCreate(a2, ValueAtIndex);
-      if (!v21)
+      ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v20);
+      v22 = __EntryNumberCreate(a2, ValueAtIndex);
+      if (!v22)
       {
         break;
       }
 
-      v22 = v21;
-      CFArrayAppendValue(Mutable, v21);
-      CFRelease(v22);
-      if (++v19 >= CFArrayGetCount(*(a1 + 88)))
+      v23 = v22;
+      CFArrayAppendValue(Mutable, v22);
+      CFRelease(v23);
+      if (++v20 >= CFArrayGetCount(*(a1 + 88)))
       {
         goto LABEL_11;
       }
@@ -8230,20 +9599,21 @@ LABEL_13:
   }
 
 LABEL_11:
-  CFDictionaryAddValue(v14, @"joints", Mutable);
+  CFDictionaryAddValue(v15, @"joints", Mutable);
   CFRelease(Mutable);
   valuePtr = C3DLibraryGetEntryID(a2, *(a1 + 72));
-  v23 = CFNumberCreate(0, kCFNumberLongType, &valuePtr);
-  CFDictionarySetValue(v14, @"skinID", v23);
-  CFRelease(v23);
-  return v14;
+  v24 = CFNumberCreate(0, kCFNumberLongType, &valuePtr);
+  CFDictionarySetValue(v15, @"skinID", v24);
+  CFRelease(v24);
+  return v15;
 }
 
-BOOL _C3DSkinnerFinalizeDeserialization(uint64_t a1, uint64_t a2, CFDictionaryRef theDict, CFErrorRef *a4)
+BOOL _C3DSkinnerFinalizeDeserialization(_BOOL8 a1, uint64_t a2, CFDictionaryRef theDict, CFErrorRef *a4)
 {
-  if (!a1 && (v8 = scn_default_log(), os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
+  v7 = a1;
+  if (!a1 && (v8 = scn_default_log(0, a2), a1 = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
   {
-    C3DSkinnerSetOwnerNode_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+    C3DSkinnerSetOwnerNode_cold_1(v8, a2, v9, v10, v11, v12, v13, v14);
     if (a2)
     {
       goto LABEL_6;
@@ -8255,52 +9625,52 @@ BOOL _C3DSkinnerFinalizeDeserialization(uint64_t a1, uint64_t a2, CFDictionaryRe
     goto LABEL_6;
   }
 
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v15 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    _C3DSceneFinalizeDeserialization_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+    _C3DSceneFinalizeDeserialization_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_6:
   Value = CFDictionaryGetValue(theDict, @"skeletonID");
-  TypeID = C3DNodeGetTypeID();
-  v26 = __EntryForEntryNumber(a2, Value, TypeID);
-  if (!v26)
+  TypeID = C3DNodeGetTypeID(Value, v24);
+  v27 = __EntryForEntryNumber(a2, Value, TypeID);
+  if (!v27)
   {
-    v27 = scn_default_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = scn_default_log(0, v26);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      *v42 = 0;
-      _os_log_impl(&dword_21BEF7000, v27, OS_LOG_TYPE_DEFAULT, "Warning: Skinner deserialization: cannot find the specified skeleton", v42, 2u);
+      *v49 = 0;
+      _os_log_impl(&dword_21BEF7000, v28, OS_LOG_TYPE_DEFAULT, "Warning: Skinner deserialization: cannot find the specified skeleton", v49, 2u);
     }
   }
 
-  C3DSkinnerSetSkeleton(a1, v26);
-  v28 = CFDictionaryGetValue(theDict, @"joints");
-  Count = CFArrayGetCount(v28);
+  C3DSkinnerSetSkeleton(v7, v27);
+  v29 = CFDictionaryGetValue(theDict, @"joints");
+  Count = CFArrayGetCount(v29);
   Mutable = CFArrayCreateMutable(0, Count, MEMORY[0x277CBF128]);
-  if (CFArrayGetCount(v28) >= 1)
+  if (CFArrayGetCount(v29) >= 1)
   {
-    v31 = 0;
+    v32 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v28, v31);
-      v33 = C3DNodeGetTypeID();
-      v34 = __EntryForEntryNumber(a2, ValueAtIndex, v33);
-      if (!v34)
+      ValueAtIndex = CFArrayGetValueAtIndex(v29, v32);
+      v35 = C3DNodeGetTypeID(ValueAtIndex, v34);
+      v36 = __EntryForEntryNumber(a2, ValueAtIndex, v35);
+      if (!v36)
       {
         break;
       }
 
-      CFArrayAppendValue(Mutable, v34);
-      if (++v31 >= CFArrayGetCount(v28))
+      CFArrayAppendValue(Mutable, v36);
+      if (++v32 >= CFArrayGetCount(v29))
       {
         goto LABEL_13;
       }
     }
 
-    v38 = scn_default_log();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v43 = scn_default_log(0, v37);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       _C3DSkinnerFinalizeDeserialization_cold_4();
       if (a4)
@@ -8323,15 +9693,16 @@ LABEL_17:
   }
 
 LABEL_13:
-  C3DSkinnerSetJoints(a1, Mutable);
+  C3DSkinnerSetJoints(v7, Mutable);
   CFRelease(Mutable);
-  v35 = CFDictionaryGetValue(theDict, @"skinID");
-  v36 = C3DSkinGetTypeID();
-  v37 = __EntryForEntryNumber(a2, v35, v36);
-  if (!v37)
+  v38 = CFDictionaryGetValue(theDict, @"skinID");
+  v40 = C3DSkinGetTypeID(v38, v39);
+  v42 = __EntryForEntryNumber(a2, v38, v40);
+  if (!v42)
   {
-    v40 = scn_default_log();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v45 = scn_default_log(0, v41);
+    MalformedDocumentError = os_log_type_enabled(v45, OS_LOG_TYPE_ERROR);
+    if (MalformedDocumentError)
     {
       _C3DSkinnerFinalizeDeserialization_cold_3();
       if (a4)
@@ -8339,7 +9710,8 @@ LABEL_13:
 LABEL_22:
         if (!*a4)
         {
-          *a4 = C3DSceneSourceCreateMalformedDocumentError(0);
+          MalformedDocumentError = C3DSceneSourceCreateMalformedDocumentError(0);
+          *a4 = MalformedDocumentError;
         }
       }
     }
@@ -8349,21 +9721,21 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    v41 = C3DSkinCreate();
-    C3DSkinnerSetSkin(a1, v41);
-    CFRelease(v41);
-    return v37 != 0;
+    v48 = C3DSkinCreate(MalformedDocumentError, v47);
+    C3DSkinnerSetSkin(v7, v48);
+    CFRelease(v48);
+    return v42 != 0;
   }
 
-  C3DSkinnerSetSkin(a1, v37);
-  return v37 != 0;
+  C3DSkinnerSetSkin(v7, v42);
+  return v42 != 0;
 }
 
 uint64_t _C3DSkinnerFillLibraryForSerialization(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       C3DSkinnerSetOwnerNode_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -8401,1403 +9773,28 @@ CFNumberRef __EntryNumberCreate(uint64_t a1, const void *a2)
   EntryID = C3DLibraryGetEntryID(a1, a2);
   if (EntryID)
   {
-    v3 = EntryID;
+    v4 = EntryID;
     if (EntryID >= 0x7FFFFFFF)
     {
-      v4 = scn_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v5 = scn_default_log(EntryID, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        __EntryNumberCreate_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+        __EntryNumberCreate_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
       }
     }
 
-    valuePtr = v3;
+    valuePtr = v4;
     return CFNumberCreate(0, kCFNumberIntType, &valuePtr);
   }
 
   else
   {
-    v13 = scn_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = scn_default_log(0, v3);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __EntryNumberCreate_cold_2();
     }
 
     return 0;
   }
-}
-
-void *__EntryForEntryNumber(uint64_t a1, CFNumberRef number, void *a3)
-{
-  if (number)
-  {
-    valuePtr = 0;
-    if (CFNumberGetValue(number, kCFNumberIntType, &valuePtr))
-    {
-      RemappedID = C3DLibraryGetRemappedID(a1, valuePtr, a3);
-      return C3DLibraryGetEntry(a1, a3, RemappedID);
-    }
-
-    v8 = scn_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      __EntryForEntryNumber_cold_1();
-    }
-  }
-
-  else
-  {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      __EntryForEntryNumber_cold_2();
-    }
-  }
-
-  return 0;
-}
-
-__CFArray *_C3DSkinnerCopyInstanceVariables(uint64_t a1)
-{
-  Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-  v3 = MEMORY[0x277CBF138];
-  v4 = MEMORY[0x277CBF150];
-  v5 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v58 = 1;
-  valuePtr = 5;
-  Attributes = C3DEntityGetAttributes(a1);
-  v6 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v7 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v8 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v5, @"name", @"attributes");
-  CFDictionarySetValue(v5, @"type", v6);
-  CFDictionarySetValue(v5, @"address", v8);
-  CFDictionarySetValue(v5, @"semantic", v7);
-  CFArrayAppendValue(Mutable, v5);
-  CFRelease(v7);
-  CFRelease(v5);
-  CFRelease(v8);
-  CFRelease(v6);
-  v9 = CFDictionaryCreateMutable(0, 4, v3, v4);
-  v58 = 2;
-  valuePtr = 5;
-  Attributes = a1 + 72;
-  v10 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v11 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v12 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v9, @"name", @"skin");
-  CFDictionarySetValue(v9, @"type", v10);
-  CFDictionarySetValue(v9, @"address", v12);
-  CFDictionarySetValue(v9, @"semantic", v11);
-  CFArrayAppendValue(Mutable, v9);
-  CFRelease(v11);
-  CFRelease(v9);
-  CFRelease(v12);
-  CFRelease(v10);
-  v13 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v58 = 2;
-  valuePtr = 5;
-  Attributes = a1 + 80;
-  v14 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v15 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v16 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v13, @"name", @"skeleton");
-  CFDictionarySetValue(v13, @"type", v14);
-  CFDictionarySetValue(v13, @"address", v16);
-  CFDictionarySetValue(v13, @"semantic", v15);
-  CFArrayAppendValue(Mutable, v13);
-  CFRelease(v15);
-  CFRelease(v13);
-  CFRelease(v16);
-  CFRelease(v14);
-  v17 = MEMORY[0x277CBF138];
-  v18 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v58 = 2;
-  valuePtr = 5;
-  Attributes = a1 + 88;
-  v19 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v20 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v21 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v18, @"name", @"joints");
-  CFDictionarySetValue(v18, @"type", v19);
-  CFDictionarySetValue(v18, @"address", v21);
-  CFDictionarySetValue(v18, @"semantic", v20);
-  CFArrayAppendValue(Mutable, v18);
-  CFRelease(v20);
-  CFRelease(v18);
-  CFRelease(v21);
-  CFRelease(v19);
-  v22 = CFDictionaryCreateMutable(0, 4, v17, MEMORY[0x277CBF150]);
-  v58 = 0;
-  valuePtr = 3;
-  Attributes = a1 + 192;
-  v23 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v24 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v25 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v22, @"name", @"meshCreated");
-  CFDictionarySetValue(v22, @"type", v23);
-  CFDictionarySetValue(v22, @"address", v25);
-  CFDictionarySetValue(v22, @"semantic", v24);
-  CFArrayAppendValue(Mutable, v22);
-  CFRelease(v24);
-  CFRelease(v22);
-  CFRelease(v25);
-  CFRelease(v23);
-  v26 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v58 = 0;
-  valuePtr = 3;
-  Attributes = a1 + 193;
-  v27 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v28 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v29 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v26, @"name", @"bboxDirty");
-  CFDictionarySetValue(v26, @"type", v27);
-  CFDictionarySetValue(v26, @"address", v29);
-  CFDictionarySetValue(v26, @"semantic", v28);
-  CFArrayAppendValue(Mutable, v26);
-  CFRelease(v28);
-  CFRelease(v26);
-  CFRelease(v29);
-  CFRelease(v27);
-  v30 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v58 = 0;
-  valuePtr = 2;
-  Attributes = a1 + 208;
-  v31 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v32 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v33 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v30, @"name", @"calculationMode");
-  CFDictionarySetValue(v30, @"type", v31);
-  CFDictionarySetValue(v30, @"address", v33);
-  CFDictionarySetValue(v30, @"semantic", v32);
-  CFArrayAppendValue(Mutable, v30);
-  CFRelease(v32);
-  CFRelease(v30);
-  CFRelease(v33);
-  CFRelease(v31);
-  v34 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v58 = 2;
-  valuePtr = 5;
-  Attributes = a1 + 200;
-  v35 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v36 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-  v37 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-  CFDictionarySetValue(v34, @"name", @"skinnedMesh");
-  CFDictionarySetValue(v34, @"type", v35);
-  CFDictionarySetValue(v34, @"address", v37);
-  CFDictionarySetValue(v34, @"semantic", v36);
-  v56 = Mutable;
-  CFArrayAppendValue(Mutable, v34);
-  v38 = a1;
-  CFRelease(v36);
-  CFRelease(v34);
-  CFRelease(v37);
-  CFRelease(v35);
-  v39 = *(a1 + 88);
-  if (v39)
-  {
-    Count = CFArrayGetCount(v39);
-    if (Count >= 1)
-    {
-      v41 = 0;
-      v42 = 0;
-      v55 = Count;
-      v43 = MEMORY[0x277CBF138];
-      do
-      {
-        v44 = CFStringCreateWithFormat(0, 0, @"verticesJointsMatrices[%d]", v42);
-        v45 = CFDictionaryCreateMutable(0, 4, v43, MEMORY[0x277CBF150]);
-        v58 = 0;
-        valuePtr = 11;
-        Attributes = *(v38 + 112) + v41;
-        v46 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-        v47 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-        v48 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-        CFDictionarySetValue(v45, @"name", v44);
-        CFDictionarySetValue(v45, @"type", v46);
-        CFDictionarySetValue(v45, @"address", v48);
-        CFDictionarySetValue(v45, @"semantic", v47);
-        CFArrayAppendValue(v56, v45);
-        CFRelease(v47);
-        CFRelease(v45);
-        CFRelease(v48);
-        CFRelease(v46);
-        CFRelease(v44);
-        v49 = CFStringCreateWithFormat(0, 0, @"normalsJointsMatrices[%d]", v42);
-        v50 = CFDictionaryCreateMutable(0, 4, v43, MEMORY[0x277CBF150]);
-        v58 = 0;
-        valuePtr = 11;
-        Attributes = *(v38 + 120) + v41;
-        v51 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-        v52 = CFNumberCreate(0, kCFNumberSInt32Type, &v58);
-        v53 = CFNumberCreate(0, kCFNumberLongType, &Attributes);
-        CFDictionarySetValue(v50, @"name", v49);
-        CFDictionarySetValue(v50, @"type", v51);
-        CFDictionarySetValue(v50, @"address", v53);
-        CFDictionarySetValue(v50, @"semantic", v52);
-        CFArrayAppendValue(v56, v50);
-        CFRelease(v52);
-        CFRelease(v50);
-        CFRelease(v53);
-        CFRelease(v51);
-        CFRelease(v49);
-        ++v42;
-        v41 += 64;
-      }
-
-      while (v55 != v42);
-    }
-  }
-
-  return v56;
-}
-
-uint64_t _C3DSkinnerEnumerateSubEntities(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 72);
-  if (v2)
-  {
-    return (*(a2 + 16))(a2, v2);
-  }
-
-  return result;
-}
-
-uint64_t _C3DSkinnerSearchByID(uint64_t a1, const void *a2)
-{
-  ID = C3DEntityGetID(a1);
-  if (C3DEqual(ID, a2))
-  {
-    return a1;
-  }
-
-  v6 = *(a1 + 72);
-
-  return C3DSearchByID(v6, a2);
-}
-
-void _AppendC3DMatrix4x4(__CFString *a1, const __CFString *a2, float *a3)
-{
-  CFStringAppend(a1, a2);
-  CFStringAppendFormat(a1, 0, @" %f %f %f %f\n", *a3, a3[1], a3[2], a3[3]);
-  CFStringAppendFormat(a1, 0, @" %f %f %f %f\n", a3[4], a3[5], a3[6], a3[7]);
-  CFStringAppendFormat(a1, 0, @" %f %f %f %f\n", a3[8], a3[9], a3[10], a3[11]);
-  CFStringAppendFormat(a1, 0, @" %f %f %f %f\n", a3[12], a3[13], a3[14], a3[15]);
-}
-
-uint64_t _C3DSkinEnumerateSubEntities(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 88);
-  if (v2)
-  {
-    return (*(a2 + 16))(a2, v2);
-  }
-
-  return result;
-}
-
-uint64_t C3DSkinGetTypeID()
-{
-  if (C3DSkinGetTypeID_onceToken != -1)
-  {
-    C3DSkinGetTypeID_cold_1();
-  }
-
-  return C3DSkinGetTypeID_typeID;
-}
-
-double __C3DSkinGetTypeID_block_invoke()
-{
-  C3DSkinGetTypeID_typeID = _CFRuntimeRegisterClass();
-  unk_281740460 = kC3DC3DSkinContextClassSerializable;
-  unk_281740470 = *&off_282DC6420;
-  qword_281740418 = _C3DSkinCopyInstanceVariables;
-  result = *&kC3DC3DSkinContextClassSceneLink;
-  unk_281740430 = kC3DC3DSkinContextClassSceneLink;
-  unk_281740440 = unk_282DC6440;
-  qword_281740450 = qword_282DC6450;
-  unk_281740458 = _C3DSkinSearchByID;
-  return result;
-}
-
-uint64_t C3DSkinCreate()
-{
-  if (C3DSkinGetTypeID_onceToken != -1)
-  {
-    C3DSkinGetTypeID_cold_1();
-  }
-
-  Instance = C3DTypeCreateInstance_(C3DSkinGetTypeID_typeID, 224);
-  C3DMatrix4x4MakeIdentity(Instance + 112);
-  return Instance;
-}
-
-uint64_t C3DSkinCreateWith(uint64_t a1, int a2, uint64_t a3, const void *a4)
-{
-  v8 = C3DSkinCreate();
-  if (a4)
-  {
-    Name = C3DGeometryGetName(a4);
-    C3DEntitySetName(v8, Name);
-  }
-
-  *(v8 + 64) = a2;
-  *(v8 + 80) = a1;
-  *(v8 + 96) = C3DMalloc(a2 << 6);
-  *(v8 + 104) = C3DMalloc(a2 << 6);
-  v10 = *(v8 + 88);
-  if (v10 != a4)
-  {
-    if (v10)
-    {
-      CFRelease(v10);
-      *(v8 + 88) = 0;
-    }
-
-    if (a4)
-    {
-      v11 = CFRetain(a4);
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    *(v8 + 88) = v11;
-  }
-
-  if (a2 == 1)
-  {
-    *(v8 + 72) = 0;
-    *(v8 + 184) = 0;
-    *(v8 + 192) = 0;
-    *(v8 + 176) = 0;
-  }
-
-  else
-  {
-    v12 = 8 * a1;
-    if (a3)
-    {
-      *(v8 + 72) = a3;
-      *(v8 + 176) = C3DMalloc(v12 + 8);
-      *(v8 + 184) = C3DMalloc(2 * a3);
-      *(v8 + 192) = C3DMalloc(4 * a3);
-    }
-
-    else
-    {
-      *(v8 + 72) = 0;
-      *(v8 + 176) = C3DMalloc(v12 + 8);
-      *(v8 + 184) = C3DMalloc(0);
-      *(v8 + 192) = 0;
-    }
-  }
-
-  return v8;
-}
-
-uint64_t C3DSkinCreateWithSkinnableMesh(uint64_t a1, int a2)
-{
-  PositionSource = C3DMeshGetPositionSource(a1, 1);
-  Count = C3DMeshSourceGetCount(PositionSource);
-  SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(a1, 5, 0, 1);
-  if (SourceWithSemanticAtIndex)
-  {
-    v45 = 0u;
-    v46 = 0u;
-    C3DMeshSourceGetContent(SourceWithSemanticAtIndex, &v45);
-    v7 = C3DSkinCreate();
-    v8 = C3DMeshGetSourceWithSemanticAtIndex(a1, 6, 0, 1);
-    v9 = v8;
-    if (!v8)
-    {
-      *(v7 + 200) = 1;
-      v13 = Count;
-      goto LABEL_33;
-    }
-
-    v43 = 0u;
-    v44 = 0u;
-    C3DMeshSourceGetContent(v8, &v43);
-    v10 = BYTE7(v44);
-    if (BYTE7(v44) == 1 || BYTE7(v44) == 21)
-    {
-      if (v46)
-      {
-        v11 = 0;
-        v12 = 0;
-        v13 = 0;
-        v14 = 0;
-        while (1)
-        {
-          v15 = (v43 + v11);
-          if (BYTE7(v44) == 1)
-          {
-            if (BYTE8(v44))
-            {
-              v16 = 0;
-              v17 = BYTE8(v44);
-              do
-              {
-                v18 = *v15++;
-                if (v18 > 0.0)
-                {
-                  ++v16;
-                }
-
-                --v17;
-              }
-
-              while (v17);
-              goto LABEL_21;
-            }
-          }
-
-          else if (BYTE8(v44))
-          {
-            v16 = 0;
-            v19 = BYTE8(v44);
-            do
-            {
-              v20 = *v15;
-              v15 = (v15 + 1);
-              if (v20)
-              {
-                ++v16;
-              }
-
-              --v19;
-            }
-
-            while (v19);
-            goto LABEL_21;
-          }
-
-          v16 = 0;
-LABEL_21:
-          if (v14 <= v16)
-          {
-            v14 = v16;
-          }
-
-          v13 += v16;
-          ++v12;
-          v11 += BYTE6(v44);
-          if (v12 == v46)
-          {
-            goto LABEL_30;
-          }
-        }
-      }
-
-      LOWORD(v14) = 0;
-      v13 = 0;
-LABEL_30:
-      *(v7 + 200) = v14;
-    }
-
-    else
-    {
-      v21 = scn_default_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-      {
-        C3DSkinCreateWithSkinnableMesh_cold_1();
-      }
-
-      CFRelease(v7);
-      v13 = 0;
-    }
-
-    if (v10 == 1 || v10 == 21)
-    {
-LABEL_33:
-      *(v7 + 176) = C3DMalloc(8 * Count + 8);
-      *(v7 + 64) = a2;
-      *(v7 + 72) = v13;
-      *(v7 + 80) = Count;
-      v22 = a2 << 6;
-      *(v7 + 96) = C3DMalloc(v22);
-      *(v7 + 104) = C3DMalloc(v22);
-      *(v7 + 184) = C3DMalloc(2 * v13);
-      v23 = C3DMalloc(4 * v13);
-      *(v7 + 192) = v23;
-      if (v9)
-      {
-        v43 = 0u;
-        v44 = 0u;
-        C3DMeshSourceGetContent(v9, &v43);
-        v25 = *(v7 + 176);
-        if (Count >= 1)
-        {
-          v26 = 0;
-          v27 = 0;
-          v28 = v45;
-          v29 = BYTE6(v46);
-          v30 = BYTE7(v44);
-          v31 = v43;
-          v32 = BYTE6(v44);
-          v33 = BYTE8(v44);
-          do
-          {
-            *(v25 + 8 * v27) = v26;
-            if (v30 == 1)
-            {
-              if (v33)
-              {
-                for (i = 0; i != v33; ++i)
-                {
-                  LODWORD(v24) = *&v31[4 * i];
-                  if (*&v24 > 0.0)
-                  {
-                    *(*(v7 + 184) + 2 * v26) = v28[i];
-                    *(*(v7 + 192) + 4 * v26++) = LODWORD(v24);
-                  }
-                }
-              }
-            }
-
-            else if (v33)
-            {
-              v35 = v31;
-              v36 = v28;
-              v37 = v33;
-              do
-              {
-                if (*v35)
-                {
-                  *(*(v7 + 184) + 2 * v26) = *v36;
-                  LOBYTE(v24) = *v35;
-                  v24 = *&v24 / 255.0;
-                  *&v24 = v24;
-                  *(*(v7 + 192) + 4 * v26++) = LODWORD(v24);
-                }
-
-                ++v36;
-                ++v35;
-                --v37;
-              }
-
-              while (v37);
-            }
-
-            ++v27;
-            v28 += v29;
-            v31 += v32;
-          }
-
-          while (v27 != Count);
-          goto LABEL_56;
-        }
-      }
-
-      else
-      {
-        v25 = *(v7 + 176);
-        if (Count >= 1)
-        {
-          v38 = 0;
-          v39 = v45;
-          v40 = BYTE6(v46);
-          v41 = *(v7 + 184);
-          do
-          {
-            *(v25 + 8 * v38) = v38;
-            *(v41 + 2 * v38) = *v39;
-            v23[v38] = 1065353216;
-            v39 += v40;
-            ++v38;
-          }
-
-          while (Count != v38);
-          v26 = Count;
-          goto LABEL_56;
-        }
-      }
-
-      v26 = 0;
-LABEL_56:
-      *(v25 + 8 * Count) = v26;
-      return v7;
-    }
-  }
-
-  return 0;
-}
-
-void __computeInverseBindMatricesMultipliedByShapeMatrix(uint64_t a1)
-{
-  if (*(a1 + 104) && *(a1 + 64) >= 1)
-  {
-    v2 = 0;
-    v3 = 0;
-    do
-    {
-      C3DMatrix4x4Mult(a1 + 112, (*(a1 + 96) + v2), (*(a1 + 104) + v2));
-      ++v3;
-      v2 += 64;
-    }
-
-    while (v3 < *(a1 + 64));
-  }
-}
-
-void C3DSkinCopyInverseBindMatricesPtr(uint64_t a1, void *__src)
-{
-  if (!*(a1 + 96))
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DSkinCopyInverseBindMatricesPtr_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  memcpy(*(a1 + 96), __src, *(a1 + 64) << 6);
-  __computeInverseBindMatricesMultipliedByShapeMatrix(a1);
-}
-
-void C3DSkinPackWeightAndIndices(size_t *a1)
-{
-  v33 = *MEMORY[0x277D85DE8];
-  v1 = a1[9];
-  if (v1)
-  {
-    v3 = a1[10];
-    if (v1 != v3)
-    {
-      v4 = a1[22];
-      v5 = a1[23];
-      v6 = a1[24];
-      v7 = malloc_type_calloc(2uLL, v1, 0x31D2FBB9uLL);
-      v8 = malloc_type_calloc(4uLL, a1[9], 0x32C18A6DuLL);
-      v26 = &v26;
-      v27 = a1;
-      v30 = v4;
-      v9 = *v4;
-      MEMORY[0x28223BE20](v8);
-      v11 = &v26 - v10;
-      if (v3 < 1)
-      {
-        v12 = 0;
-      }
-
-      else
-      {
-        v12 = 0;
-        v13 = 0;
-        v14 = v30;
-        v28 = v3;
-        v29 = v8;
-        do
-        {
-          v15 = v14[++v13];
-          v16 = (v15 - v9);
-          if (v16 >= 1)
-          {
-            v31 = v14[v13];
-            v32 = v13;
-            for (i = 0; i != v16; ++i)
-            {
-              v18 = 0;
-              if (i)
-              {
-                while (*(v6 + 4 * v9 + 4 * i) <= *(v6 + 4 * v9 + 4 * *&v11[8 * v18]))
-                {
-                  if (i == ++v18)
-                  {
-                    v18 = i;
-                    goto LABEL_14;
-                  }
-                }
-              }
-
-              if (i != v18)
-              {
-                memmove(&v11[8 * v18 + 8], &v11[8 * v18], 8 * (i - v18));
-              }
-
-LABEL_14:
-              *&v11[8 * v18] = i;
-            }
-
-            v19 = v11;
-            v3 = v28;
-            v8 = v29;
-            v14 = v30;
-            v15 = v31;
-            v13 = v32;
-            do
-            {
-              v20 = *v19++;
-              v21 = v20 + v9;
-              v22 = *(v6 + 4 * (v20 + v9));
-              if (v22 <= 0.00000011921)
-              {
-                break;
-              }
-
-              v23 = *(v5 + 2 * v21);
-              v8[v12] = v22;
-              v7[v12++] = v23;
-              --v16;
-            }
-
-            while (v16);
-          }
-
-          v14[v13] = v12;
-          v9 = v15;
-        }
-
-        while (v13 != v3);
-      }
-
-      v24 = v27;
-      if (v12 >= v27[9])
-      {
-        free(v7);
-        free(v8);
-      }
-
-      else
-      {
-        free(v27[23]);
-        free(v24[24]);
-        if (v12)
-        {
-          v24[23] = malloc_type_realloc(v7, 2 * v12, 0x1000040BDFB0063uLL);
-          v25 = malloc_type_realloc(v8, 4 * v12, 0x100004052888210uLL);
-        }
-
-        else
-        {
-          free(v7);
-          free(v8);
-          v25 = 0;
-          v24[23] = 0;
-        }
-
-        v24[24] = v25;
-        v24[9] = v12;
-      }
-    }
-  }
-}
-
-void *C3DSkinGetVertexWeightsPointers(void *result, void *a2, void *a3, void *a4)
-{
-  if (a2)
-  {
-    *a2 = result[22];
-  }
-
-  if (a3)
-  {
-    *a3 = result[23];
-  }
-
-  if (a4)
-  {
-    *a4 = result[24];
-  }
-
-  return result;
-}
-
-uint64_t C3DSkinGetWeightsCount(uint64_t a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DSkinnerUpdateJointsAndBoundingBox_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  return *(a1 + 72);
-}
-
-__n128 C3DSkinSetDefaultShapeMatrix(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[3];
-  *(a1 + 144) = a2[2];
-  *(a1 + 160) = v4;
-  *(a1 + 112) = v2;
-  *(a1 + 128) = v3;
-  __computeInverseBindMatricesMultipliedByShapeMatrix(a1);
-  return result;
-}
-
-void __CreateIndexedJointsWeightsSourcesIfNeeded(uint64_t a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DSkinnerUpdateJointsAndBoundingBox_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  if (!*(a1 + 224))
-  {
-    v10 = *(a1 + 80);
-    Mutable = C3DMeshSourceCreateMutable(0, 5, v10, 4, 16);
-    C3DMeshSourceMakeImmutable(Mutable);
-    v12 = 0;
-    if (*(a1 + 200) >= 2)
-    {
-      v12 = C3DMeshSourceCreateMutable(0, 6, v10, 4, 21);
-      C3DMeshSourceMakeImmutable(v12);
-    }
-
-    v17 = 0u;
-    v18 = 0u;
-    C3DMeshSourceGetContent(Mutable, &v17);
-    v15 = 0u;
-    v16 = 0u;
-    if (v12)
-    {
-      C3DMeshSourceGetContent(v12, &v15);
-    }
-
-    v14[0] = v17;
-    v14[1] = v18;
-    v13[0] = v15;
-    v13[1] = v16;
-    C3DSkinFillJointWeightsBuffers(a1, v14, v13);
-    *(a1 + 216) = v12;
-    *(a1 + 224) = Mutable;
-  }
-}
-
-void C3DSkinFillJointWeightsBuffers(void *a1, void **a2, uint64_t *a3)
-{
-  v4 = a2;
-  v69 = *MEMORY[0x277D85DE8];
-  v5 = a1[10];
-  memset(*a2, 255, 4 * (v5 & 0x3FFFFFFF));
-  if (*a3)
-  {
-    bzero(*a3, v5 * *(a3 + 22));
-  }
-
-  if (*(v4 + 4) != v5 || *a3 && *(a3 + 4) != v5)
-  {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-    {
-      C3DSkinFillJointWeightsBuffers_cold_1(v6);
-    }
-  }
-
-  v7 = a1[22];
-  v8 = a1[23];
-  v9 = a1[24];
-  v67[0] = 0;
-  v67[1] = 0;
-  if (v5)
-  {
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-    v52 = v5;
-    v49 = v4;
-    v50 = a3;
-    v53 = v7;
-    while (1)
-    {
-      v58 = v10;
-      v13 = *(v7 + 8 * v11);
-      if (v13 < 0 || ((v14 = *(v7 + 8 * (v11 + 1)), v15 = a1[9], v13 <= v15) ? (v16 = v14 <= v15) : (v16 = 0), !v16))
-      {
-        if ((C3DSkinFillJointWeightsBuffers_done & 1) == 0)
-        {
-          C3DSkinFillJointWeightsBuffers_done = 1;
-          v48 = scn_default_log();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-          {
-            C3DSkinFillJointWeightsBuffers_cold_2();
-          }
-        }
-
-        return;
-      }
-
-      v57 = v11 + 1;
-      v17 = *v4;
-      v18 = v11 * *(v4 + 22);
-      v55 = v14 - v13;
-      if (v14 <= v13)
-      {
-        break;
-      }
-
-      v51 = v11;
-      v19 = 0;
-      v20 = &v17[v18];
-      v21 = 0.0;
-      v56 = v11 * *(v4 + 22);
-      do
-      {
-        v22 = *(v8 + 2 * v13);
-        if (v22 <= 255)
-        {
-          v23 = *(v9 + 4 * v13);
-          if (v23 > 0.0039216)
-          {
-            if (v19 < 4)
-            {
-              v20[v19] = v22;
-              v68[v19] = v23;
-              v21 = v21 + v23;
-              ++v19;
-            }
-
-            else
-            {
-              if ((v12 & 1) == 0)
-              {
-                v24 = v17;
-                v25 = v20;
-                v26 = scn_default_log();
-                v27 = os_log_type_enabled(v26, OS_LOG_TYPE_INFO);
-                v20 = v25;
-                v17 = v24;
-                v18 = v56;
-                if (v27)
-                {
-                  *buf = 134218752;
-                  v60 = v55;
-                  v61 = 1024;
-                  v62 = 4;
-                  v63 = 1024;
-                  v64 = v51;
-                  v65 = 1024;
-                  v66 = 4;
-                  _os_log_impl(&dword_21BEF7000, v26, OS_LOG_TYPE_INFO, "Info: Too many influencing joints (%ld > %d) on the vertex #%u, will cap to %d and renormalize", buf, 0x1Eu);
-                  v20 = v25;
-                  v17 = v24;
-                  v18 = v56;
-                }
-              }
-
-              v28 = 0;
-              v29 = v68[0];
-              for (i = 1; i != 4; ++i)
-              {
-                if (v29 > v68[i])
-                {
-                  v28 = i;
-                  v29 = v68[i];
-                }
-              }
-
-              if (v23 > v29)
-              {
-                v21 = v23 + (v21 - v29);
-                v68[v28] = v23;
-                v20[v28] = v22;
-              }
-
-              v12 = 1;
-            }
-          }
-        }
-
-        ++v13;
-      }
-
-      while (v13 != v14);
-      if (v21 > 0.0 && v21 != 1.0 && v19 >= 1)
-      {
-        v33 = v68;
-        v34 = v19;
-        do
-        {
-          *v33 = *v33 / v21;
-          ++v33;
-          --v34;
-        }
-
-        while (v34);
-      }
-
-      v4 = v49;
-      v35 = v58;
-      if (v19 >= 1)
-      {
-        v36 = *v50;
-        if (!*v50)
-        {
-          goto LABEL_60;
-        }
-
-        v37 = 0;
-        v38 = 0;
-        v39 = v58 * *(v50 + 22);
-        do
-        {
-          v40 = rintf(v68[v37] * 255.0);
-          if (v40 >= 255)
-          {
-            v40 = 255;
-          }
-
-          v41 = v40 & ~(v40 >> 31);
-          *(v36 + v39 + v37) = v41;
-          v38 += v41;
-          ++v37;
-        }
-
-        while (v19 != v37);
-        if (v38 == 255)
-        {
-          goto LABEL_60;
-        }
-
-        v42 = (v36 + v39);
-        while (1)
-        {
-          v43 = v19;
-          v44 = v42;
-          while (1)
-          {
-            v45 = *v44;
-            if (v38 > 254)
-            {
-              break;
-            }
-
-            if (v45 != 255)
-            {
-              v46 = 1;
-              v47 = 1;
-              goto LABEL_58;
-            }
-
-LABEL_55:
-            ++v44;
-            if (!--v43)
-            {
-              goto LABEL_59;
-            }
-          }
-
-          if (!*v44)
-          {
-            goto LABEL_55;
-          }
-
-          v47 = -1;
-          v46 = -1;
-LABEL_58:
-          *v44 = v45 + v46;
-          v38 += v47;
-LABEL_59:
-          if (v38 == 255)
-          {
-LABEL_60:
-            ++*(v67 + v19 - 1);
-            break;
-          }
-        }
-      }
-
-      if (v19 <= 3)
-      {
-        goto LABEL_64;
-      }
-
-LABEL_65:
-      v10 = v35 + 1;
-      v11 = v57;
-      v7 = v53;
-      if (v57 == v52)
-      {
-        return;
-      }
-    }
-
-    v19 = 0;
-    v35 = v58;
-LABEL_64:
-    bzero(&v17[v19 + v18], 4 - v19);
-    bzero(&v68[v19], 16 - 4 * v19);
-    goto LABEL_65;
-  }
-}
-
-CFTypeRef C3DSkinSetInfluencingMorpher(uint64_t a1, CFTypeRef cf)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DSkinnerUpdateJointsAndBoundingBox_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  result = *(a1 + 208);
-  if (result != cf)
-  {
-    if (result)
-    {
-      CFRelease(result);
-      *(a1 + 208) = 0;
-    }
-
-    if (cf)
-    {
-      result = CFRetain(cf);
-    }
-
-    else
-    {
-      result = 0;
-    }
-
-    *(a1 + 208) = result;
-  }
-
-  return result;
-}
-
-id _C3DSkinCFFinalize(void *a1)
-{
-  SharedInstance = C3DNotificationCenterGetSharedInstance();
-  C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationSkinWillDie", a1, 0, 1u);
-  v3 = a1[12];
-  if (v3)
-  {
-    free(v3);
-  }
-
-  v4 = a1[13];
-  if (v4)
-  {
-    free(v4);
-  }
-
-  v5 = a1[24];
-  if (v5)
-  {
-    free(v5);
-  }
-
-  v6 = a1[22];
-  if (v6)
-  {
-    free(v6);
-  }
-
-  v7 = a1[23];
-  if (v7)
-  {
-    free(v7);
-  }
-
-  if (a1[26])
-  {
-    C3DSkinSetInfluencingMorpher(a1, 0);
-  }
-
-  v8 = a1[11];
-  if (v8)
-  {
-    CFRelease(v8);
-    a1[11] = 0;
-  }
-
-  v9 = a1[28];
-  if (v9)
-  {
-    CFRelease(v9);
-    a1[28] = 0;
-  }
-
-  v10 = a1[27];
-  if (v10)
-  {
-    CFRelease(v10);
-    a1[27] = 0;
-  }
-
-  return C3DEntityCFFinalize(a1);
-}
-
-__CFString *_C3DSkinCFCopyDebugDescription(uint64_t a1)
-{
-  Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-  Name = C3DEntityGetName(a1);
-  CFStringAppendFormat(Mutable, 0, @"<C3DSkin %p name:%@ joint:%d weight:%d vertexCount:%d\n", a1, Name, *(a1 + 64), *(a1 + 72), *(a1 + 80));
-  CFStringAppendFormat(Mutable, 0, @"  maxInf:%d morpher:%p\n", *(a1 + 200), *(a1 + 208));
-  _AppendC3DMatrix4x4(Mutable, @"defaultShapeMatrix\n", (a1 + 112));
-  v4 = *(a1 + 96);
-  if (v4)
-  {
-    _AppendC3DMatrix4x4(Mutable, @"inverseBindMatrix", v4);
-  }
-
-  CFStringAppend(Mutable, @">");
-  return Mutable;
-}
-
-BOOL _C3DSkinInitWithPropertyList(uint64_t a1, const __CFDictionary *a2, uint64_t a3, CFErrorRef *a4)
-{
-  v31 = *MEMORY[0x277D85DE8];
-  if ((C3DEntityInitWithPropertyList(a1, a2) & 1) == 0)
-  {
-    v19 = scn_default_log();
-    result = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
-    if (!result)
-    {
-      return result;
-    }
-
-    _C3DSkinInitWithPropertyList_cold_1();
-    return 0;
-  }
-
-  if (!a1)
-  {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-    {
-      C3DSkinnerUpdateJointsAndBoundingBox_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
-    }
-  }
-
-  Value = CFDictionaryGetValue(a2, @"jointsCount");
-  if (!Value)
-  {
-    v21 = scn_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      _C3DSkinInitWithPropertyList_cold_6();
-      if (!a4)
-      {
-        return 0;
-      }
-
-      goto LABEL_31;
-    }
-
-    goto LABEL_30;
-  }
-
-  if (!CFNumberGetValue(Value, kCFNumberShortType, (a1 + 64)))
-  {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-    {
-      _C3DSkinInitWithPropertyList_cold_5();
-      if (!a4)
-      {
-        return 0;
-      }
-
-      goto LABEL_31;
-    }
-
-    goto LABEL_30;
-  }
-
-  *(a1 + 96) = C3DMalloc(*(a1 + 64) << 6);
-  *(a1 + 104) = C3DMalloc(*(a1 + 64) << 6);
-  v16 = CFDictionaryGetValue(a2, @"maxInfluences");
-  if (v16)
-  {
-    v17 = (a1 + 200);
-    if (CFNumberGetValue(v16, kCFNumberShortType, (a1 + 200)))
-    {
-      goto LABEL_23;
-    }
-
-    v18 = scn_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      v29 = 138412290;
-      v30 = a2;
-      _os_log_impl(&dword_21BEF7000, v18, OS_LOG_TYPE_DEFAULT, "Warning: Unable to read the maxInfluences in the skin %@, defaulting to 4. Please re-convert your assets.", &v29, 0xCu);
-    }
-  }
-
-  else
-  {
-    v23 = scn_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-    {
-      v29 = 138412290;
-      v30 = a2;
-      _os_log_impl(&dword_21BEF7000, v23, OS_LOG_TYPE_DEFAULT, "Warning: No maxInfluences in the skin %@, defaulting to 4. Please re-convert your assets.", &v29, 0xCu);
-    }
-
-    v17 = (a1 + 200);
-  }
-
-  *v17 = 4;
-LABEL_23:
-  v24 = CFDictionaryGetValue(a2, @"inverseBindMatrices");
-  if (v24)
-  {
-    C3DInitC3DFloatArrayWithSerializedData(v24, 16 * *(a1 + 64), *(a1 + 96));
-    v25 = CFDictionaryGetValue(a2, @"defaultShapeMatrix");
-    if (v25)
-    {
-      C3DInitC3DFloatArrayWithSerializedData(v25, 16, (a1 + 112));
-      __computeInverseBindMatricesMultipliedByShapeMatrix(a1);
-      return 1;
-    }
-
-    v27 = scn_default_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-    {
-      _C3DSkinInitWithPropertyList_cold_3();
-      if (!a4)
-      {
-        return 0;
-      }
-
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    v26 = scn_default_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-    {
-      _C3DSkinInitWithPropertyList_cold_4();
-      if (!a4)
-      {
-        return 0;
-      }
-
-      goto LABEL_31;
-    }
-  }
-
-LABEL_30:
-  if (!a4)
-  {
-    return 0;
-  }
-
-LABEL_31:
-  if (*a4)
-  {
-    return 0;
-  }
-
-  MalformedDocumentError = C3DSceneSourceCreateMalformedDocumentError(0);
-  result = 0;
-  *a4 = MalformedDocumentError;
-  return result;
 }

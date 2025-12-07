@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestTypeAsString:(int)string;
 - (int)StringAsRequestType:(id)type;
 - (int)requestType;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 1;
   }
+}
+
+- (id)requestTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278627728[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequestType:(id)type
@@ -115,36 +131,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    requestType = self->_requestType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_requestIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_fetchLocationResponse)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_fetchNextLocationResponse)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_errorDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -220,7 +235,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_requestType != *(equalCopy + 10))
@@ -232,7 +246,7 @@
   else if (*(equalCopy + 44))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -263,17 +277,17 @@ LABEL_15:
   errorDescription = self->_errorDescription;
   if (errorDescription | *(equalCopy + 1))
   {
-    v10 = [(NSString *)errorDescription isEqual:?];
+    v9 = [(NSString *)errorDescription isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

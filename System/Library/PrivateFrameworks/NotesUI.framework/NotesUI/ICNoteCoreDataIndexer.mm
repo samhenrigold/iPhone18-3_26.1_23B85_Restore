@@ -688,7 +688,7 @@ void __34__ICNoteCoreDataIndexer_willIndex__block_invoke(uint64_t a1)
   {
     sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
     pinnedNoteSectionIdentifier = [(ICNoteCoreDataIndexer *)self pinnedNoteSectionIdentifier];
-    v6 = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:pinnedNoteSectionIdentifier];
+    v6 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
     array = [v6 array];
     v8 = [array copy];
 
@@ -726,7 +726,7 @@ void __34__ICNoteCoreDataIndexer_willIndex__block_invoke(uint64_t a1)
   _Block_object_dispose(&v17, 8);
 }
 
-uint64_t __64__ICNoteCoreDataIndexer_mergePinnedNotesAndNotesSectionIfNeeded__block_invoke(uint64_t a1)
+void *__64__ICNoteCoreDataIndexer_mergePinnedNotesAndNotesSectionIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) sortsByPinned];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1042,7 +1042,7 @@ uint64_t __45__ICNoteCoreDataIndexer_togglePinnedForNote___block_invoke(id *a1)
   [a1[4] unmergePinnedNotesAndNotesSectionIfNeeded];
   v2 = [a1[4] sectionIdentifiersToManagedObjectIDs];
   v3 = [a1[4] pinnedNoteSectionIdentifier];
-  v4 = [v2 objectForKeyedSubscript:v3];
+  v4 = objc_msgSend_objectForKeyedSubscript_(v2);
   v5 = [a1[5] objectID];
   v6 = [v4 containsObject:v5];
 
@@ -1074,7 +1074,7 @@ uint64_t __45__ICNoteCoreDataIndexer_togglePinnedForNote___block_invoke(id *a1)
   {
     v8 = [a1[4] unpinnedSectionIdentifierForObject:a1[6]];
     v16 = [a1[4] sectionIdentifiersToManagedObjectIDs];
-    v17 = [v16 objectForKeyedSubscript:v8];
+    v17 = objc_msgSend_objectForKeyedSubscript_(v16);
     v18 = [a1[5] objectID];
     v19 = [v17 containsObject:v18];
 
@@ -1424,7 +1424,7 @@ void __103__ICNoteCoreDataIndexer_newSnapshotFromIndexWithLegacyManagedObjectCon
 
           v11 = *(*(&v16 + 1) + 8 * v10);
           v12 = [*(a1 + 32) sectionIdentifiersToManagedObjectIDs];
-          v13 = [v12 objectForKeyedSubscript:v11];
+          v13 = objc_msgSend_objectForKeyedSubscript_(v12);
 
           if (v13)
           {
@@ -1677,7 +1677,7 @@ void __110__ICNoteCoreDataIndexer_sectionSnapshotsForSectionType_legacyManagedOb
             if (![*(v13 + 32) shouldIncludeOutlineParentItems] || v18)
             {
               v21 = [*(v13 + 32) sectionIdentifiersToManagedObjectIDs];
-              v25 = [v21 objectForKeyedSubscript:v5];
+              v25 = objc_msgSend_objectForKeyedSubscript_(v21);
               v26 = [v25 array];
               v20 = v60;
               [v60 appendItems:v26];
@@ -1702,7 +1702,7 @@ void __110__ICNoteCoreDataIndexer_sectionSnapshotsForSectionType_legacyManagedOb
               }
 
               v25 = [*(v1 + 32) sectionIdentifiersToManagedObjectIDs];
-              v26 = [v25 objectForKeyedSubscript:v5];
+              v26 = objc_msgSend_objectForKeyedSubscript_(v25);
               v27 = [v26 array];
               [v60 appendItems:v27 intoParent:v5];
             }
@@ -1865,7 +1865,7 @@ LABEL_53:
 
   sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
   pinnedNoteSectionIdentifier = [(ICNoteCoreDataIndexer *)self pinnedNoteSectionIdentifier];
-  v9 = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:pinnedNoteSectionIdentifier];
+  v9 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
 
   sectionIdentifiers2 = [(ICNoteCoreDataIndexer *)self sectionIdentifiers];
   if ([sectionIdentifiers2 count] >= section)
@@ -1897,7 +1897,7 @@ LABEL_8:
   v4 = [sectionIdentifiers ic_objectPassingTest:&__block_literal_global_49];
 
   sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-  v6 = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:v4];
+  v6 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
   firstObject = [v6 firstObject];
 
   return firstObject;
@@ -2124,7 +2124,7 @@ uint64_t __65__ICNoteCoreDataIndexer_deleteWithDecisionController_completion___b
           {
             v9 = [*(a1 + 40) sectionIdentifiersToManagedObjectIDs];
             v10 = [*(a1 + 40) folderSectionIdentifier];
-            v11 = [v9 objectForKeyedSubscript:v10];
+            v11 = objc_msgSend_objectForKeyedSubscript_(v9);
             v12 = [v11 containsObject:v8];
 
             if (v12)
@@ -2139,7 +2139,7 @@ uint64_t __65__ICNoteCoreDataIndexer_deleteWithDecisionController_completion___b
           {
             v15 = [*(a1 + 40) sectionIdentifiersToManagedObjectIDs];
             v16 = [*(a1 + 40) pinnedNoteSectionIdentifier];
-            v17 = [v15 objectForKeyedSubscript:v16];
+            v17 = objc_msgSend_objectForKeyedSubscript_(v15);
             v18 = [v17 containsObject:v8];
 
             if (v18)
@@ -2161,7 +2161,7 @@ LABEL_14:
             if ([v8 ic_isNoteType])
             {
               v21 = [*(a1 + 40) sectionIdentifiersToManagedObjectIDs];
-              v22 = [v21 objectForKeyedSubscript:v19];
+              v22 = objc_msgSend_objectForKeyedSubscript_(v21);
               v23 = [v22 containsObject:v8];
 
               if (v23)
@@ -2321,7 +2321,7 @@ id __64__ICNoteCoreDataIndexer_mergePinnedNotesAndNotesSectionIfNeeded__block_in
   if ([dsCopy count])
   {
     sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-    orderedSet = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:sectionCopy];
+    orderedSet = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
 
     if (!orderedSet)
     {
@@ -2342,7 +2342,7 @@ id __64__ICNoteCoreDataIndexer_mergePinnedNotesAndNotesSectionIfNeeded__block_in
   if ([dsCopy count])
   {
     sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-    orderedSet = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:sectionCopy];
+    orderedSet = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
 
     if (!orderedSet)
     {
@@ -2362,7 +2362,7 @@ id __64__ICNoteCoreDataIndexer_mergePinnedNotesAndNotesSectionIfNeeded__block_in
   if ([dsCopy count])
   {
     sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-    v8 = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:sectionCopy];
+    v8 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
 
     if (v8)
     {
@@ -2382,7 +2382,7 @@ id __64__ICNoteCoreDataIndexer_mergePinnedNotesAndNotesSectionIfNeeded__block_in
   if ([sectionCopy sectionType] != 2)
   {
     sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-    v5 = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:sectionCopy];
+    v5 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
 
     if (!v5)
     {
@@ -2512,43 +2512,42 @@ id __37__ICNoteCoreDataIndexer_sortSection___block_invoke_5(uint64_t a1, void *a
 
 - (NSArray)sortedNoteIdentifiers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   sectionIdentifiers = [(ICNoteCoreDataIndexer *)self sectionIdentifiers];
-  v5 = [sectionIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [sectionIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(sectionIdentifiers);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
         sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-        v11 = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:v9];
-        array2 = [v11 array];
+        v10 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
+        array2 = [v10 array];
         [array addObjectsFromArray:array2];
       }
 
-      v6 = [sectionIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [sectionIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
-  v13 = [array ic_compactMap:&__block_literal_global_211];
+  v12 = [array ic_compactMap:&__block_literal_global_211];
 
-  return v13;
+  return v12;
 }
 
 void *__46__ICNoteCoreDataIndexer_sortedNoteIdentifiers__block_invoke(uint64_t a1, void *a2)
@@ -2615,7 +2614,7 @@ void *__46__ICNoteCoreDataIndexer_sortedNoteIdentifiers__block_invoke(uint64_t a
 
         v11 = *(*(&v17 + 1) + 8 * i);
         sectionIdentifiersToManagedObjectIDs2 = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-        v13 = [sectionIdentifiersToManagedObjectIDs2 objectForKeyedSubscript:v11];
+        v13 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs2);
         v14 = [v13 containsObject:dCopy];
 
         if (v14)
@@ -2664,7 +2663,7 @@ id __48__ICNoteCoreDataIndexer_unpinnedNoteIdentifiers__block_invoke(uint64_t a1
 
 LABEL_4:
     v6 = [*(a1 + 32) sectionIdentifiersToManagedObjectIDs];
-    v7 = [v6 objectForKeyedSubscript:v3];
+    v7 = objc_msgSend_objectForKeyedSubscript_(v6);
     v8 = [v7 array];
 
     goto LABEL_6;
@@ -2774,8 +2773,7 @@ LABEL_7:
     {
       sectionIdentifiersToManagedObjectIDs = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
       pinnedNoteSectionIdentifier = [(ICNoteCoreDataIndexer *)self pinnedNoteSectionIdentifier];
-      sectionIdentifiersToManagedObjectIDs3 = sectionIdentifiersToManagedObjectIDs;
-      v9 = pinnedNoteSectionIdentifier;
+      objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
     }
 
     else
@@ -2784,22 +2782,20 @@ LABEL_7:
       sectionIdentifiersToManagedObjectIDs2 = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
       sectionIdentifiersToManagedObjectIDs = [ICNoteTimelineController timelineSectionIdentifierForNoteObjectID:objectID date:v5 sectionIdentifiersToManagedObjectIDs:sectionIdentifiersToManagedObjectIDs2];
 
-      sectionIdentifiersToManagedObjectIDs3 = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
-      pinnedNoteSectionIdentifier = sectionIdentifiersToManagedObjectIDs3;
-      v9 = sectionIdentifiersToManagedObjectIDs;
+      pinnedNoteSectionIdentifier = [(ICNoteCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
+      objc_msgSend_objectForKeyedSubscript_(pinnedNoteSectionIdentifier);
     }
-
-    v13 = [sectionIdentifiersToManagedObjectIDs3 objectForKeyedSubscript:v9];
+    v11 = ;
     objectID2 = [noteCopy objectID];
-    v10 = [v13 containsObject:objectID2] ^ 1;
+    v8 = [v11 containsObject:objectID2] ^ 1;
   }
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 - (void)deleteObjectWithIDFromIndex:(os_log_t)log inSection:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)

@@ -9,8 +9,8 @@
 - (PXSharedAlbumsActivityEntryItemList)initWithActivities:(id)activities
 {
   sub_1A46C84B0();
-  sub_1A524CA34();
-  sub_1A46C7158();
+  v3 = sub_1A524CA34();
+  sub_1A46C7158(v3);
 }
 
 - (id)itemAtIndex:(int64_t)index

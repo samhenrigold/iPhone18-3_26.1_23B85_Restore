@@ -97,7 +97,7 @@
   v15 = v5;
   v33 = v15;
   v16 = [v14 sinkWithCompletion:v40 receiveInput:&v29];
-  if ([v15 count] >= 8 && (objc_msgSend(v4, "timeIntervalSinceDate:", v50[5]), v17 >= 1209600.0) && (objc_msgSend(v4, "timeIntervalSinceDate:", v44[5]), v18 <= 604800.0))
+  if (objc_msgSend_count(v15, v29, v30, v31, v32) >= 8 && ([v4 timeIntervalSinceDate:v50[5]], v17 >= 1209600.0) && (objc_msgSend(v4, "timeIntervalSinceDate:", v44[5]), v18 <= 604800.0))
   {
     v23 = 1;
   }
@@ -107,7 +107,7 @@
     v19 = self->_log;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [v15 count];
+      v20 = objc_msgSend_count(v15);
       v21 = v44[5];
       v22 = v50[5];
       *buf = 134218498;
@@ -128,7 +128,7 @@
     v24 = self->_log;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [v15 count];
+      v25 = objc_msgSend_count(v15);
       v26 = v44[5];
       v27 = v50[5];
       *buf = 134218498;

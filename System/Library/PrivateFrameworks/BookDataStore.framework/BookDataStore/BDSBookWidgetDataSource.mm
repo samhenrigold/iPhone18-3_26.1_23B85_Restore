@@ -20,7 +20,7 @@
 - (void)getBookWidgetDataWithLimit:(int64_t)limit completion:(id)completion
 {
   completionCopy = completion;
-  v6 = BDSWidgetLog();
+  v6 = BDSWidgetLog(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -29,7 +29,7 @@
 
   v7 = +[BDSBookWidgetDataFile sharedInstance];
   load = [v7 load];
-  v9 = BDSWidgetLog();
+  v9 = BDSWidgetLog(load);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (load)
   {

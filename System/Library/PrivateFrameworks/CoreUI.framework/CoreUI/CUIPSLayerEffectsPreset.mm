@@ -11,41 +11,41 @@
   {
     if (factor > 0.0)
     {
-      v24.receiver = self;
-      v24.super_class = CUIPSLayerEffectsPreset;
-      selfCopy = [(CUIShapeEffectPreset *)&v24 initWithEffectScale:?];
+      v18.receiver = self;
+      v18.super_class = CUIPSLayerEffectsPreset;
+      selfCopy = [(CUIShapeEffectPreset *)&v18 initWithEffectScale:?];
       if (selfCopy)
       {
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
-        v21 = 0u;
+        v16 = 0u;
+        v17 = 0u;
+        v14 = 0u;
+        v15 = 0u;
         v6 = [objc_msgSend(effects "effectList")];
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v21;
+          v9 = *v15;
           while (2)
           {
             for (i = 0; i != v8; i = i + 1)
             {
-              if (*v21 != v9)
+              if (*v15 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v20 + 1) + 8 * i);
-              v19 = 0;
-              if ([v11 visible] && (objc_msgSend(v11, "updateLayerEffectPreset:error:", selfCopy, &v19) & 1) == 0 && v19)
+              v11 = *(*(&v14 + 1) + 8 * i);
+              v13 = 0;
+              if ([v11 visible] && (objc_msgSend(v11, "updateLayerEffectPreset:error:", selfCopy, &v13) & 1) == 0 && v13)
               {
-                _CUILog(4, "Unable to update layer effect preset: %@", v12, v13, v14, v15, v16, v17, v19);
+                _CUILog(4, "Unable to update layer effect preset: %@", v13);
 
                 return 0;
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
             if (v8)
             {
               continue;

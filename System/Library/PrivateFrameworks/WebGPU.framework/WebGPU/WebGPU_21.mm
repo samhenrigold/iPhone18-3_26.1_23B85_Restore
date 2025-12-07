@@ -1,24 +1,24 @@
-WTF::StringImpl *WGSL::Metal::emitRadians(WGSL::Metal *this, const WGSL::Type **a2, WGSL::AST::CallExpression *a3)
+WTF::StringImpl *WGSL::Metal::emitRadians(int8x16_t **this, const WGSL::Type **a2, WGSL::AST::CallExpression *a3)
 {
   WTF::StringBuilder::append();
-  WGSL::Metal::FunctionDefinitionWriter::visit(this, a2[3], 0);
+  WGSL::Metal::FunctionDefinitionWriter::visit(this, a2[3], 0, v5, v6);
   result = WTF::StringBuilder::append();
   if (*(a2 + 21))
   {
-    v6 = (*(*this + 216))(this, *a2[9]);
-    WTF::String::number(&v8, v6, 0.0174532925);
-    v11[0] = " * ";
-    v11[1] = 3;
-    v10 = v8;
-    v9 = 41;
-    WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>((this + 64), v11, &v10, &v9);
-    result = v8;
-    v8 = 0;
+    v8 = ((*this)[13].i64[1])(this, *a2[9]);
+    WTF::String::number(&v10, v8, 0.0174532925);
+    v13[0] = " * ";
+    v13[1] = 3;
+    v12 = v10;
+    v11 = 41;
+    WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>((this + 8), v13, &v12, &v11);
+    result = v10;
+    v10 = 0;
     if (result)
     {
       if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(result, v7);
+        return WTF::StringImpl::destroy(result, v9);
       }
     }
   }
@@ -33,50 +33,52 @@ WTF::StringImpl *WGSL::Metal::emitRadians(WGSL::Metal *this, const WGSL::Type **
 
 uint64_t WGSL::Metal::emitTextureDimensions(WGSL::Metal *this, WGSL::Metal::FunctionDefinitionWriter *a2, WGSL::AST::CallExpression *a3)
 {
-  v17 = this;
+  v18 = this;
   v3 = *(a2 + 3);
   if (v3 && *(v3 + 48) == 1)
   {
-    v13 = &v17;
-    v14 = a2;
-    v15 = &v16;
-    v16 = v3;
+    v14 = &v18;
+    v15 = a2;
+    v16 = &v17;
+    v17 = v3;
     v4 = *(v3 + 8);
-    WTF::String::number(*(v3 + 8));
-    v20[0] = "uint";
-    v20[1] = 4;
-    v19 = v12;
-    v18 = 40;
-    WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>((this + 64), v20, &v19, &v18);
-    if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    WTF::String::number(&v13, v4);
+    v21[0] = "uint";
+    v21[1] = 4;
+    v20 = v13;
+    v19 = 40;
+    WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>((this + 64), v21, &v20, &v19);
+    v7 = v13;
+    v13 = 0;
+    if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v12, v6);
+      WTF::StringImpl::destroy(v7, v6);
     }
 
-    WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v13, "width", 6);
+    WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v14, "width", 6);
     WTF::StringBuilder::append();
-    result = WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v13, "height", 7);
+    result = WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v14, "height", 7);
     if (v4 >= 3)
     {
       WTF::StringBuilder::append();
-      result = WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v13, "depth", 6);
+      result = WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v14, "depth", 6);
     }
 
-    LOBYTE(v20[0]) = 41;
-    v8 = *(v17 + 9);
-    if (v8 && (v9 = *(v17 + 20), v9 < *(v8 + 4)) && !*(v17 + 8))
+    LOBYTE(v21[0]) = 41;
+    v9 = *(v18 + 9);
+    if (v9 && (v10 = *(v18 + 20), v10 < *(v9 + 4)) && !*(v18 + 8))
     {
-      v10 = *(v8 + 16);
-      v11 = *(v8 + 8);
-      *(v17 + 20) = v9 + 1;
-      if ((v10 & 4) != 0)
+      v11 = *(v9 + 16);
+      v12 = *(v9 + 8);
+      *(v18 + 20) = v10 + 1;
+      if ((v11 & 4) != 0)
       {
-        *(v11 + v9) = 41;
+        *(v12 + v10) = 41;
       }
 
       else
       {
-        *(v11 + 2 * v9) = 41;
+        *(v12 + 2 * v10) = 41;
       }
     }
 
@@ -88,11 +90,11 @@ uint64_t WGSL::Metal::emitTextureDimensions(WGSL::Metal *this, WGSL::Metal::Func
 
   else
   {
-    v13 = &v17;
-    v14 = a2;
-    v15 = &v16;
-    v16 = 0;
-    return WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v13, "width", 6);
+    v14 = &v18;
+    v15 = a2;
+    v16 = &v17;
+    v17 = 0;
+    return WGSL::Metal::emitTextureDimensions(WGSL::Metal::FunctionDefinitionWriter *,WGSL::AST::CallExpression &)::$_0::operator()(&v14, "width", 6);
   }
 
   return result;
@@ -335,7 +337,7 @@ LABEL_46:
   return result;
 }
 
-uint64_t WGSL::Metal::emitTextureGatherCompare(uint64_t this, WGSL::Metal::FunctionDefinitionWriter *a2, WGSL::AST::CallExpression *a3)
+WGSL::Metal *WGSL::Metal::emitTextureGatherCompare(WGSL::Metal *this, WGSL::Metal::FunctionDefinitionWriter *a2, WGSL::AST::CallExpression *a3)
 {
   if (*(a2 + 21))
   {
@@ -668,7 +670,7 @@ uint64_t WGSL::Metal::emitTextureNumSamples(uint64_t this, WGSL::Metal::Function
   return this;
 }
 
-uint64_t WGSL::Metal::emitTextureSample(uint64_t this, WGSL::Metal::FunctionDefinitionWriter *a2, WGSL::AST::CallExpression *a3)
+WGSL::Metal *WGSL::Metal::emitTextureSample(WGSL::Metal *this, WGSL::Metal::FunctionDefinitionWriter *a2, WGSL::AST::CallExpression *a3)
 {
   if (*(a2 + 21))
   {
@@ -887,7 +889,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t WGSL::Metal::emitTextureSampleCompare(uint64_t this, WGSL::Metal::FunctionDefinitionWriter *a2, WGSL::AST::CallExpression *a3)
+WGSL::Metal *WGSL::Metal::emitTextureSampleCompare(WGSL::Metal *this, WGSL::Metal::FunctionDefinitionWriter *a2, WGSL::AST::CallExpression *a3)
 {
   if (*(a2 + 21))
   {
@@ -2034,33 +2036,33 @@ LABEL_30:
   return result;
 }
 
-uint64_t WGSL::Metal::FunctionDefinitionWriter::serializeBinaryExpression(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t WGSL::Metal::FunctionDefinitionWriter::serializeBinaryExpression(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
   if ((a3 - 3) <= 1)
   {
-    v8 = *(a4 + 24);
-    if (v8)
+    v9 = *(a4 + 24);
+    if (v9)
     {
-      if (v8[48] != 1 || (v8 = *v8) != 0)
+      if (v9[48] != 1 || (v9 = *v9) != 0)
       {
-        while (v8[48] == 10)
+        while (v9[48] == 10)
         {
-          v8 = *(v8 + 1);
-          if (!v8)
+          v9 = *(v9 + 1);
+          if (!v9)
           {
             goto LABEL_13;
           }
         }
 
-        if (!v8[48] && *v8 <= 2u)
+        if (!v9[48] && *v9 <= 2u)
         {
-          v9 = "__wgslMod";
+          v10 = "__wgslMod";
           if (a3 == 3)
           {
-            v9 = "__wgslDiv";
+            v10 = "__wgslDiv";
           }
 
-          v10 = 9;
+          v11 = 9;
           goto LABEL_15;
         }
       }
@@ -2069,13 +2071,13 @@ uint64_t WGSL::Metal::FunctionDefinitionWriter::serializeBinaryExpression(uint64
 LABEL_13:
     if (a3 == 4)
     {
-      v9 = "fmod";
-      v10 = 4;
+      v10 = "fmod";
+      v11 = 4;
 LABEL_15:
-      v22[0] = v9;
-      v22[1] = v10;
-      v21 = 40;
-      WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>>((a1 + 64), v22, &v21);
+      v23[0] = v10;
+      v23[1] = v11;
+      v22 = 40;
+      WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>>((a1 + 64), v23, &v22);
       (*(*a1 + 216))(a1, a2);
 LABEL_24:
       WTF::StringBuilder::append();
@@ -2083,21 +2085,21 @@ LABEL_24:
     }
   }
 
-  LOBYTE(v22[0]) = 40;
-  v11 = *(a1 + 72);
-  if (v11 && (v12 = *(a1 + 80), v12 < *(v11 + 4)) && !*(a1 + 64))
+  LOBYTE(v23[0]) = 40;
+  v12 = *(a1 + 72);
+  if (v12 && (v13 = *(a1 + 80), v13 < *(v12 + 4)) && !*(a1 + 64))
   {
-    v14 = *(v11 + 16);
-    v15 = *(v11 + 8);
-    *(a1 + 80) = v12 + 1;
-    if ((v14 & 4) != 0)
+    v15 = *(v12 + 16);
+    v16 = *(v12 + 8);
+    *(a1 + 80) = v13 + 1;
+    if ((v15 & 4) != 0)
     {
-      *(v15 + v12) = 40;
+      *(v16 + v13) = 40;
     }
 
     else
     {
-      *(v15 + 2 * v12) = 40;
+      *(v16 + 2 * v13) = 40;
     }
   }
 
@@ -2107,7 +2109,7 @@ LABEL_24:
   }
 
   (*(*a1 + 216))(a1, a2);
-  v13 = 3;
+  v14 = 3;
   switch(a3)
   {
     case 0:
@@ -2133,31 +2135,31 @@ LABEL_24:
   }
 
 LABEL_25:
-  result = (*(*a1 + 216))(a1, a4, v13);
-  LOBYTE(v22[0]) = 41;
-  v17 = *(a1 + 72);
-  if (!v17)
+  result = (*(*a1 + 216))(a1, a4, v14);
+  LOBYTE(v23[0]) = 41;
+  v18 = *(a1 + 72);
+  if (!v18)
   {
     return WTF::StringBuilder::append();
   }
 
-  v18 = *(a1 + 80);
-  if (v18 >= *(v17 + 4) || *(a1 + 64))
+  v19 = *(a1 + 80);
+  if (v19 >= *(v18 + 4) || *(a1 + 64))
   {
     return WTF::StringBuilder::append();
   }
 
-  v19 = *(v17 + 16);
-  v20 = *(v17 + 8);
-  *(a1 + 80) = v18 + 1;
-  if ((v19 & 4) != 0)
+  v20 = *(v18 + 16);
+  v21 = *(v18 + 8);
+  *(a1 + 80) = v19 + 1;
+  if ((v20 & 4) != 0)
   {
-    *(v20 + v18) = 41;
+    *(v21 + v19) = 41;
   }
 
   else
   {
-    *(v20 + 2 * v18) = 41;
+    *(v21 + 2 * v19) = 41;
   }
 
   return result;
@@ -2344,22 +2346,22 @@ LABEL_18:
 LABEL_19:
   if (v14 == v15)
   {
-    v20 = *(a2 + 11);
-    return WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WGSL::AST::Identifier,void>>((this + 64), &v20);
+    v23 = *(a2 + 11);
+    return WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WGSL::AST::Identifier,void>>((this + 64), &v23);
   }
 
   else
   {
     WTF::StringBuilder::append(this + 64, 40);
     v17 = *(a2 + 3);
-    mpark::detail::copy_constructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1>::copy_constructor(v18, v14 + 8);
-    WGSL::Metal::FunctionDefinitionWriter::serializeConstant(this, v17, v18);
-    if (v19 != 255)
+    mpark::detail::copy_constructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1>::copy_constructor(v21, v14 + 8);
+    WGSL::Metal::FunctionDefinitionWriter::serializeConstant(this, v17, v21, v18, v19, v20);
+    if (v22 != 255)
     {
-      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v20, v18);
+      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v23, v21);
     }
 
-    v19 = -1;
+    v22 = -1;
     return WTF::StringBuilder::append(this + 64, 41);
   }
 }
@@ -2476,9 +2478,9 @@ unint64_t WTF::StringBuilder::append<std::span<char const,18446744073709551615ul
           v13 += 32;
           v37.val[1] = 0uLL;
           vst2q_s8(v13, v37);
-          v14 = v8 + 64;
+          v14 = (v8 + 64);
           vst2q_s8(v14, v36);
-          v15 = v8 + 96;
+          v15 = (v8 + 96);
           vst2q_s8(v15, *(&v9 - 1));
           v8 += 128;
         }
@@ -2597,39 +2599,39 @@ LABEL_27:
   return result;
 }
 
-unint64_t WGSL::Metal::FunctionDefinitionWriter::visit(WGSL::Metal::FunctionDefinitionWriter *this, WGSL::AST::Float16Literal *a2)
+unint64_t WGSL::Metal::FunctionDefinitionWriter::visit(WGSL::Metal::FunctionDefinitionWriter *this, WGSL::AST::Float16Literal *a2, __n128 _Q0)
 {
   _H0 = *(a2 + 32);
   __asm { FCVT            D0, H0 }
 
-  v9 = WTF::numberToStringWithTrailingPoint();
-  return WTF::StringBuilder::append<std::span<char const,18446744073709551615ul>>((this + 64), v9, v10);
+  v10 = WTF::numberToStringWithTrailingPoint();
+  return WTF::StringBuilder::append<std::span<char const,18446744073709551615ul>>((this + 64), v10, v11);
 }
 
-void WGSL::Metal::FunctionDefinitionWriter::visit(WGSL::Metal::FunctionDefinitionWriter *this, WGSL::AST::AssignmentStatement *a2)
+void WGSL::Metal::FunctionDefinitionWriter::visit(int8x16_t **this, WGSL::AST::AssignmentStatement *a2)
 {
-  (*(*this + 216))(this, *(a2 + 3));
+  ((*this)[13].i64[1])(this, *(a2 + 3));
   v4 = WTF::StringBuilder::append();
-  v5 = *(*(a2 + 3) + 24);
-  if (v5)
+  v8 = *(*(a2 + 3) + 24);
+  if (v8)
   {
-    if (*(v5 + 48) != 10)
+    if (*(v8 + 48) != 10)
     {
       mpark::throw_bad_variant_access(v4);
     }
 
-    v6 = *(v5 + 8);
-    v7 = *(a2 + 4);
+    v9 = *(v8 + 8);
+    v10 = *(a2 + 4);
 
-    WGSL::Metal::FunctionDefinitionWriter::visit(this, v6, v7);
+    WGSL::Metal::FunctionDefinitionWriter::visit(this, v9, v10, v5, v6, v7);
   }
 
   else
   {
-    v8 = *(a2 + 4);
-    v9 = *(*this + 216);
+    v11 = *(a2 + 4);
+    v12 = (*this)[13].i64[1];
 
-    v9(this, v8);
+    v12(this, v11);
   }
 }
 
@@ -2663,11 +2665,11 @@ uint64_t WGSL::Metal::FunctionDefinitionWriter::visit(WGSL::Metal::FunctionDefin
 
   (*(*this + 216))(this, *v5);
   WTF::StringBuilder::append();
-  v8 = *(a2 + 40);
-  v9 = *(a2 + 3);
-  v10 = *(a2 + 4);
+  v9 = *(a2 + 40);
+  v10 = *(a2 + 3);
+  v11 = *(a2 + 4);
 
-  return WGSL::Metal::FunctionDefinitionWriter::serializeBinaryExpression(this, v9, v8, v10);
+  return WGSL::Metal::FunctionDefinitionWriter::serializeBinaryExpression(this, v10, v9, v11, v8);
 }
 
 void WGSL::Metal::FunctionDefinitionWriter::visit(WGSL::Metal::FunctionDefinitionWriter *this, WGSL::AST::CompoundStatement *a2)
@@ -4043,7 +4045,7 @@ uint64_t mpark::detail::copy_constructor<mpark::detail::traits<float,half,double
   return a1;
 }
 
-_BYTE *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(WTF::StringBuilder *a1, unint64_t *a2, uint64_t *a3, char *a4)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(WTF::StringBuilder *a1, char **a2, uint64_t *a3, char *a4)
 {
   v7 = *a3;
   v8 = *(a1 + 1);
@@ -4248,8 +4250,8 @@ LABEL_92:
     }
 
 LABEL_17:
-    v30 = &v15[-v16 - 2];
-    if (v30 < 0xE || (v16 < v12 + (v30 >> 1) + 1 ? (v31 = v12 >= (v30 & 0xFFFFFFFFFFFFFFFELL) + v16 + 2) : (v31 = 1), !v31))
+    v30 = v15 - v16 - 2;
+    if (v30 < 0xE || (v16 < v12 + (v30 >> 1) + 1 ? (v31 = v12 >= &v16[(v30 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v31 = 1), !v31))
     {
       v34 = v12;
       v35 = v16;
@@ -4285,7 +4287,7 @@ LABEL_17:
 
       if ((v32 & 0x18) == 0)
       {
-        v35 = (v16 + 2 * v33);
+        v35 = &v16[2 * v33];
         v34 = (v12 + v33);
         goto LABEL_26;
       }
@@ -4297,8 +4299,8 @@ LABEL_17:
     }
 
     v34 = (v12 + (v32 & 0xFFFFFFFFFFFFFFF8));
-    v35 = (v16 + 2 * (v32 & 0xFFFFFFFFFFFFFFF8));
-    v84 = (v16 + 2 * v33);
+    v35 = &v16[2 * (v32 & 0xFFFFFFFFFFFFFFF8)];
+    v84 = &v16[2 * v33];
     v85 = (v12 + v33);
     v86 = v33 - (v32 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -4318,7 +4320,8 @@ LABEL_17:
     {
 LABEL_26:
       v36 = *v34++;
-      *v35++ = v36;
+      *v35 = v36;
+      v35 += 2;
     }
 
     while (v35 != v15);
@@ -4376,7 +4379,7 @@ LABEL_27:
   v41 = *(v13 + 4);
   if ((*(v13 + 16) & 4) != 0)
   {
-    v43 = &v39[v41];
+    v43 = &v39[2 * v41];
     if (v41 < 0x40)
     {
       v44 = &result[2 * v37];
@@ -4388,7 +4391,7 @@ LABEL_27:
 
     else
     {
-      v44 = &v39[v41 & 0xFFFFFFC0];
+      v44 = &v39[2 * (v41 & 0xFFFFFFC0)];
       v45 = 0uLL;
       v46 = &result[2 * v37];
       do
@@ -4421,8 +4424,8 @@ LABEL_27:
       }
     }
 
-    v64 = &result[2 * v41 + 2 * v37 - v44 - 2];
-    if (v64 < 0xE || (v44 < v40->u64 + (v64 >> 1) + 1 ? (v65 = v40 >= (v64 & 0xFFFFFFFFFFFFFFFELL) + v44 + 2) : (v65 = 1), !v65))
+    v64 = &result[2 * v41 + 2 * v37] - v44 - 2;
+    if (v64 < 0xE || (v44 < &v40->i8[(v64 >> 1) + 1] ? (v65 = v40 >= &v44[(v64 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v65 = 1), !v65))
     {
       v68 = v40;
       v69 = v44;
@@ -4458,7 +4461,7 @@ LABEL_27:
 
       if ((v66 & 0x18) == 0)
       {
-        v69 = (v44 + 2 * v67);
+        v69 = &v44[2 * v67];
         v68 = (v40 + v67);
         goto LABEL_62;
       }
@@ -4470,8 +4473,8 @@ LABEL_27:
     }
 
     v68 = (v40 + (v66 & 0xFFFFFFFFFFFFFFF8));
-    v69 = (v44 + 2 * (v66 & 0xFFFFFFFFFFFFFFF8));
-    v94 = (v44 + 2 * v67);
+    v69 = &v44[2 * (v66 & 0xFFFFFFFFFFFFFFF8)];
+    v94 = &v44[2 * v67];
     v95 = &v40->i8[v67];
     v96 = v67 - (v66 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -4492,7 +4495,8 @@ LABEL_27:
 LABEL_62:
       v70 = v68->u8[0];
       v68 = (v68 + 1);
-      *v69++ = v70;
+      *v69 = v70;
+      v69 += 2;
     }
 
     while (v69 != v43);
@@ -4525,7 +4529,7 @@ LABEL_66:
     goto LABEL_113;
   }
 
-  v39[v42] = v14;
+  *&v39[2 * v42] = v14;
   return result;
 }
 
@@ -4842,9 +4846,9 @@ LABEL_24:
     v22 += 32;
     v85.val[1] = 0uLL;
     vst2q_s8(v22, v85);
-    v23 = v18 + 64;
+    v23 = (v18 + 64);
     vst2q_s8(v23, v83);
-    v24 = v18 + 96;
+    v24 = (v18 + 96);
     vst2q_s8(v24, *(&v17 - 1));
     v18 += 128;
   }
@@ -4984,7 +4988,7 @@ LABEL_40:
   return result;
 }
 
-_BYTE *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, unint64_t *a2, unint64_t *a3)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, char **a2, char **a3)
 {
   v5 = *(a1 + 1);
   if (!v5 && (v5 = *a1) == 0 || (*(v5 + 16) & 4) != 0)
@@ -5061,8 +5065,8 @@ LABEL_68:
     }
 
 LABEL_15:
-    v27 = &v12[-v13 - 2];
-    if (v27 < 0xE || (v13 < v9 + (v27 >> 1) + 1 ? (v28 = v9 >= (v27 & 0xFFFFFFFFFFFFFFFELL) + v13 + 2) : (v28 = 1), !v28))
+    v27 = v12 - v13 - 2;
+    if (v27 < 0xE || (v13 < v9 + (v27 >> 1) + 1 ? (v28 = v9 >= &v13[(v27 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v28 = 1), !v28))
     {
       v31 = v9;
       v32 = v13;
@@ -5098,7 +5102,7 @@ LABEL_15:
 
       if ((v29 & 0x18) == 0)
       {
-        v32 = (v13 + 2 * v30);
+        v32 = &v13[2 * v30];
         v31 = (v9 + v30);
         goto LABEL_24;
       }
@@ -5110,8 +5114,8 @@ LABEL_15:
     }
 
     v31 = (v9 + (v29 & 0xFFFFFFFFFFFFFFF8));
-    v32 = (v13 + 2 * (v29 & 0xFFFFFFFFFFFFFFF8));
-    v61 = (v13 + 2 * v30);
+    v32 = &v13[2 * (v29 & 0xFFFFFFFFFFFFFFF8)];
+    v61 = &v13[2 * v30];
     v62 = (v9 + v30);
     v63 = v30 - (v29 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -5131,7 +5135,8 @@ LABEL_15:
     {
 LABEL_24:
       v33 = *v31++;
-      *v32++ = v33;
+      *v32 = v33;
+      v32 += 2;
     }
 
     while (v32 != v12);
@@ -5181,7 +5186,7 @@ LABEL_25:
   v36 = (v35 + 2 * v11);
   if (v11 >= 0x40)
   {
-    v37 = v35 + 2 * (v11 & 0x7FFFFFFFFFFFFFC0);
+    v37 = (v35 + 2 * (v11 & 0x7FFFFFFFFFFFFFC0));
     v38 = 0uLL;
     do
     {
@@ -5199,11 +5204,11 @@ LABEL_25:
       v42 += 32;
       v81.val[1] = 0uLL;
       vst2q_s8(v42, v81);
-      v43 = (v35 + 64);
-      vst2q_s8(v43, v79);
-      v44 = (v35 + 96);
+      i8 = v35[4].i8;
+      vst2q_s8(i8, v79);
+      v44 = v35[6].i8;
       vst2q_s8(v44, *(&v38 - 1));
-      v35 += 128;
+      v35 += 8;
     }
 
     while (v35 != v37);
@@ -5212,8 +5217,8 @@ LABEL_25:
 
   if (v35 != v36)
   {
-    v45 = &result[2 * v11 + 2 * v34 - v35 - 2];
-    if (v45 < 0xE || (v35 < v10 + (v45 >> 1) + 1 ? (v46 = v10 >= (v45 & 0xFFFFFFFFFFFFFFFELL) + v35 + 2) : (v46 = 1), !v46))
+    v45 = &result[2 * v11 + 2 * v34] - v35 - 2;
+    if (v45 < 0xE || (v35 < v10 + (v45 >> 1) + 1 ? (v46 = v10 >= v35->u64 + (v45 & 0xFFFFFFFFFFFFFFFELL) + 2) : (v46 = 1), !v46))
     {
       v49 = v10;
       v50 = v35;
@@ -5224,7 +5229,7 @@ LABEL_25:
     if (v45 >= 0x3E)
     {
       v48 = v47 & 0xFFFFFFFFFFFFFFE0;
-      v65 = (v35 + 32);
+      v65 = v35 + 2;
       v66 = (v10 + 16);
       v67 = v47 & 0xFFFFFFFFFFFFFFE0;
       do
@@ -5255,7 +5260,8 @@ LABEL_25:
         {
 LABEL_40:
           v51 = *v49++;
-          *v50++ = v51;
+          v50->i16[0] = v51;
+          v50 = (v50 + 2);
         }
 
         while (v50 != v36);
@@ -5290,7 +5296,7 @@ LABEL_40:
   return result;
 }
 
-void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, unint64_t *a3, int *a4, unint64_t *a5)
+void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, char **a3, int *a4, char **a5)
 {
   v9 = *(a1 + 1);
   if (!v9 && (v9 = *a1) == 0 || (*(v9 + 16) & 4) != 0)
@@ -5705,7 +5711,7 @@ LABEL_64:
   }
 }
 
-_BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(_BYTE *__b, unint64_t a2, int a3, _BYTE *a4, size_t a5, int a6, _BYTE *a7, size_t a8, uint64_t a9, _BYTE *a10, size_t a11, uint64_t a12, _BYTE *a13, size_t a14, uint64_t a15, _BYTE *a16, size_t a17, uint64_t a18, char *a19, size_t a20)
+_BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(_BYTE *__b, unint64_t a2, int a3, _BYTE *a4, size_t a5, int a6, _BYTE *a7, size_t a8, uint64_t a9, _BYTE *a10, size_t a11, uint64_t a12, _BYTE *a13, size_t a14, uint64_t a15, _BYTE *a16, uint64_t a17, uint64_t a18, char *a19, uint64_t a20)
 {
   v25 = __b;
   v26 = (4 * a3);
@@ -5964,7 +5970,7 @@ LABEL_56:
   return __b;
 }
 
-void WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(char *__b, unint64_t a2, int a3, unint64_t a4, unint64_t a5, int a6, unint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10, unint64_t a11, uint64_t a12, unint64_t a13, unint64_t a14, uint64_t a15, unint64_t a16, unint64_t a17)
+void WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(char *__b, unint64_t a2, int a3, unsigned __int8 *a4, unint64_t a5, int a6, unsigned __int8 *a7, unint64_t a8, uint64_t a9, unsigned __int8 *a10, unint64_t a11, uint64_t a12, unsigned __int8 *a13, unint64_t a14, uint64_t a15, uint64_t a16, unint64_t a17)
 {
   v25 = (4 * a3);
   if (v25)
@@ -5986,9 +5992,9 @@ LABEL_4:
       do
       {
         v89.val[0] = *a4;
-        v31 = *(a4 + 16);
-        v91.val[0] = *(a4 + 32);
-        v32 = *(a4 + 48);
+        v31 = *(a4 + 1);
+        v91.val[0] = *(a4 + 2);
+        v32 = *(a4 + 3);
         a4 += 64;
         v33 = v32;
         v91.val[1] = 0uLL;
@@ -6016,7 +6022,7 @@ LABEL_4:
 
 LABEL_10:
       v39 = &__b[2 * a5 + v38 - v28 - 2];
-      if (v39 < 0xE || (v28 < a4 + (v39 >> 1) + 1 ? (v40 = a4 >= (v39 & 0xFFFFFFFFFFFFFFFELL) + v28 + 2) : (v40 = 1), !v40))
+      if (v39 < 0xE || (v28 < &a4[(v39 >> 1) + 1] ? (v40 = a4 >= (v39 & 0xFFFFFFFFFFFFFFFELL) + v28 + 2) : (v40 = 1), !v40))
       {
         v43 = a4;
         v44 = v28;
@@ -6053,7 +6059,7 @@ LABEL_10:
         if ((v41 & 0x18) == 0)
         {
           v44 = (v28 + 2 * v42);
-          v43 = (a4 + v42);
+          v43 = &a4[v42];
           do
           {
 LABEL_19:
@@ -6072,10 +6078,10 @@ LABEL_19:
         v42 = 0;
       }
 
-      v43 = (a4 + (v41 & 0xFFFFFFFFFFFFFFF8));
+      v43 = &a4[v41 & 0xFFFFFFFFFFFFFFF8];
       v44 = (v28 + 2 * (v41 & 0xFFFFFFFFFFFFFFF8));
       v74 = (v28 + 2 * v42);
-      v75 = (a4 + v42);
+      v75 = &a4[v42];
       v76 = v42 - (v41 & 0xFFFFFFFFFFFFFFF8);
       do
       {
@@ -6142,7 +6148,7 @@ LABEL_29:
 
 LABEL_30:
     v61 = &__b[8 * (a6 & 0x3FFFFFFF) + 2 * a8 + 2 * a5 + v38 - v51 - 2];
-    if (v61 < 0xE || (v51 < a7 + (v61 >> 1) + 1 ? (v62 = a7 >= (v61 & 0xFFFFFFFFFFFFFFFELL) + v51 + 2) : (v62 = 1), !v62))
+    if (v61 < 0xE || (v51 < &a7[(v61 >> 1) + 1] ? (v62 = a7 >= (v61 & 0xFFFFFFFFFFFFFFFELL) + v51 + 2) : (v62 = 1), !v62))
     {
       v65 = a7;
       v66 = v51;
@@ -6179,7 +6185,7 @@ LABEL_30:
       if ((v63 & 0x18) == 0)
       {
         v66 = (v51 + 2 * v64);
-        v65 = (a7 + v64);
+        v65 = &a7[v64];
         goto LABEL_39;
       }
     }
@@ -6189,10 +6195,10 @@ LABEL_30:
       v64 = 0;
     }
 
-    v65 = (a7 + (v63 & 0xFFFFFFFFFFFFFFF8));
+    v65 = &a7[v63 & 0xFFFFFFFFFFFFFFF8];
     v66 = (v51 + 2 * (v63 & 0xFFFFFFFFFFFFFFF8));
     v84 = (v51 + 2 * v64);
-    v85 = (a7 + v64);
+    v85 = &a7[v64];
     v86 = v64 - (v63 & 0xFFFFFFFFFFFFFFF8);
     do
     {
@@ -6241,9 +6247,9 @@ LABEL_24:
   do
   {
     v90.val[0] = *a7;
-    v54 = *(a7 + 16);
-    v92.val[0] = *(a7 + 32);
-    v55 = *(a7 + 48);
+    v54 = *(a7 + 1);
+    v92.val[0] = *(a7 + 2);
+    v55 = *(a7 + 3);
     a7 += 64;
     v56 = v55;
     v92.val[1] = 0uLL;
@@ -6277,7 +6283,7 @@ LABEL_40:
   WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(&v49[2 * a8], v60 - a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
 
-void WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(char *__b, unint64_t a2, int a3, unint64_t a4, unint64_t a5, int a6, unint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10, unint64_t a11)
+void WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(char *__b, unint64_t a2, int a3, unsigned __int8 *a4, unint64_t a5, int a6, unsigned __int8 *a7, unint64_t a8, uint64_t a9, uint64_t a10, unint64_t a11)
 {
   v19 = (4 * a3);
   if (!v19)
@@ -6301,7 +6307,7 @@ LABEL_9:
 
 LABEL_10:
     v33 = &__b[2 * a5 + v32 - v22 - 2];
-    if (v33 < 0xE || (v22 < a4 + (v33 >> 1) + 1 ? (v34 = a4 >= (v33 & 0xFFFFFFFFFFFFFFFELL) + v22 + 2) : (v34 = 1), !v34))
+    if (v33 < 0xE || (v22 < &a4[(v33 >> 1) + 1] ? (v34 = a4 >= (v33 & 0xFFFFFFFFFFFFFFFELL) + v22 + 2) : (v34 = 1), !v34))
     {
       v37 = a4;
       v38 = v22;
@@ -6338,7 +6344,7 @@ LABEL_10:
       if ((v35 & 0x18) == 0)
       {
         v38 = (v22 + 2 * v36);
-        v37 = (a4 + v36);
+        v37 = &a4[v36];
         goto LABEL_19;
       }
     }
@@ -6348,10 +6354,10 @@ LABEL_10:
       v36 = 0;
     }
 
-    v37 = (a4 + (v35 & 0xFFFFFFFFFFFFFFF8));
+    v37 = &a4[v35 & 0xFFFFFFFFFFFFFFF8];
     v38 = (v22 + 2 * (v35 & 0xFFFFFFFFFFFFFFF8));
     v93 = (v22 + 2 * v36);
-    v94 = (a4 + v36);
+    v94 = &a4[v36];
     v95 = v36 - (v35 & 0xFFFFFFFFFFFFFFF8);
     do
     {
@@ -6398,9 +6404,9 @@ LABEL_4:
   do
   {
     v117.val[0] = *a4;
-    v25 = *(a4 + 16);
-    v120.val[0] = *(a4 + 32);
-    v26 = *(a4 + 48);
+    v25 = *(a4 + 1);
+    v120.val[0] = *(a4 + 2);
+    v26 = *(a4 + 3);
     a4 += 64;
     v27 = v26;
     v120.val[1] = 0uLL;
@@ -6457,7 +6463,7 @@ LABEL_29:
 
 LABEL_30:
     v57 = &__b[2 * a8 + 2 * v40 + v32 + v56 - v46 - 2];
-    if (v57 < 0xE || (v46 < a7 + (v57 >> 1) + 1 ? (v58 = a7 >= (v57 & 0xFFFFFFFFFFFFFFFELL) + v46 + 2) : (v58 = 1), !v58))
+    if (v57 < 0xE || (v46 < &a7[(v57 >> 1) + 1] ? (v58 = a7 >= (v57 & 0xFFFFFFFFFFFFFFFELL) + v46 + 2) : (v58 = 1), !v58))
     {
       v61 = a7;
       v62 = v46;
@@ -6494,7 +6500,7 @@ LABEL_30:
       if ((v59 & 0x18) == 0)
       {
         v62 = (v46 + 2 * v60);
-        v61 = (a7 + v60);
+        v61 = &a7[v60];
         goto LABEL_39;
       }
     }
@@ -6504,10 +6510,10 @@ LABEL_30:
       v60 = 0;
     }
 
-    v61 = (a7 + (v59 & 0xFFFFFFFFFFFFFFF8));
+    v61 = &a7[v59 & 0xFFFFFFFFFFFFFFF8];
     v62 = (v46 + 2 * (v59 & 0xFFFFFFFFFFFFFFF8));
     v103 = (v46 + 2 * v60);
-    v104 = (a7 + v60);
+    v104 = &a7[v60];
     v105 = v60 - (v59 & 0xFFFFFFFFFFFFFFF8);
     do
     {
@@ -6554,9 +6560,9 @@ LABEL_24:
   do
   {
     v118.val[0] = *a7;
-    v49 = *(a7 + 16);
-    v121.val[0] = *(a7 + 32);
-    v50 = *(a7 + 48);
+    v49 = *(a7 + 1);
+    v121.val[0] = *(a7 + 2);
+    v50 = *(a7 + 3);
     a7 += 64;
     v51 = v50;
     v121.val[1] = 0uLL;
@@ -6949,7 +6955,7 @@ LABEL_34:
   }
 }
 
-void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, unint64_t *a3, int *a4, unint64_t *a5, unsigned int *a6, unint64_t *a7)
+void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, unsigned __int8 **a3, int *a4, unsigned __int8 **a5, unsigned int *a6, unint64_t *a7)
 {
   v13 = *(a1 + 1);
   if ((v13 || (v13 = *a1) != 0) && (*(v13 + 16) & 4) == 0)
@@ -7069,7 +7075,7 @@ LABEL_25:
   }
 
   v38 = &v33[v25];
-  v39 = (4 * v26);
+  v39 = 4 * v26;
   if (!v39)
   {
     v39 = 0;
@@ -7081,7 +7087,7 @@ LABEL_25:
     goto LABEL_31;
   }
 
-  memset(&v33[v36], 32, (4 * v26));
+  memset(&v33[v36], 32, 4 * v26);
   if (v37 < v39)
   {
 LABEL_37:
@@ -7107,7 +7113,7 @@ LABEL_31:
   }
 }
 
-void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, unint64_t *a3, uint64_t *a4, unint64_t *a5)
+void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, char **a3, uint64_t *a4, char **a5)
 {
   v9 = *a4;
   v10 = *(a1 + 1);
@@ -7758,7 +7764,7 @@ LABEL_87:
   }
 }
 
-_BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(_BYTE *result, unint64_t a2, _BYTE *__src, size_t __n, unint64_t a5, _BYTE *a6, size_t a7)
+_BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(_BYTE *result, unint64_t a2, _BYTE *__src, size_t __n, uint64_t a5, _BYTE *a6, size_t a7)
 {
   v53 = *MEMORY[0x277D85DE8];
   if (__n)
@@ -7965,7 +7971,7 @@ _BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WT
 
   while (v36 != 2);
 LABEL_44:
-  if ((a5 & 0x8000000000000000) != 0)
+  if (a5 < 0)
   {
     v50 = -a5;
     v49 = 1;
@@ -8015,10 +8021,10 @@ LABEL_58:
   return result;
 }
 
-uint16x8_t WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(uint16x8_t *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5)
+uint16x8_t WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(uint16x8_t *a1, unint64_t a2, uint64_t a3, unsigned __int8 *a4, unint64_t a5)
 {
   v58 = *MEMORY[0x277D85DE8];
-  if ((a3 & 0x8000000000000000) != 0)
+  if (a3 < 0)
   {
     v8 = 0;
     v5 = -a3;
@@ -8093,7 +8099,7 @@ uint16x8_t WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<lon
             if (v24 == 2)
             {
 LABEL_39:
-              if ((a3 & 0x8000000000000000) != 0)
+              if (a3 < 0)
               {
                 v5 = -a3;
                 LODWORD(v8) = 1;
@@ -8136,9 +8142,9 @@ LABEL_39:
                 do
                 {
                   v59.val[0] = *a4;
-                  v35 = *(a4 + 16);
-                  v60.val[0] = *(a4 + 32);
-                  v36 = *(a4 + 48);
+                  v35 = *(a4 + 1);
+                  v60.val[0] = *(a4 + 2);
+                  v36 = *(a4 + 3);
                   a4 += 64;
                   result = v36;
                   v60.val[1] = 0uLL;
@@ -8163,7 +8169,7 @@ LABEL_39:
               if (v5 != v8)
               {
                 v40 = a1->u64 + 2 * a5 + 2 * v32 - v5 - 2;
-                if (v40 < 0xE || (v5 < a4 + (v40 >> 1) + 1 ? (v41 = a4 >= (v40 & 0xFFFFFFFFFFFFFFFELL) + v5 + 2) : (v41 = 1), !v41))
+                if (v40 < 0xE || (v5 < &a4[(v40 >> 1) + 1] ? (v41 = a4 >= (v40 & 0xFFFFFFFFFFFFFFFELL) + v5 + 2) : (v41 = 1), !v41))
                 {
                   v43 = a4;
                   v44 = v5;
@@ -8210,10 +8216,10 @@ LABEL_39:
                   v6 = 0;
                 }
 
-                v43 = (a4 + (v42 & 0xFFFFFFFFFFFFFFF8));
+                v43 = &a4[v42 & 0xFFFFFFFFFFFFFFF8];
                 v44 = (v5 + 2 * (v42 & 0xFFFFFFFFFFFFFFF8));
                 v53 = (v5 + 2 * v6);
-                v54 = (a4 + v6);
+                v54 = &a4[v6];
                 v55 = v6 - (v42 & 0xFFFFFFFFFFFFFFF8);
                 do
                 {
@@ -8333,7 +8339,7 @@ LABEL_70:
   __break(1u);
 LABEL_71:
   v44 = (v5 + 2 * v6);
-  v43 = (a4 + v6);
+  v43 = &a4[v6];
   do
   {
 LABEL_60:
@@ -8441,7 +8447,7 @@ LABEL_77:
     v20 = &v14[v16];
     v21 = &v14[v16] - result;
     v22 = v21 + 1;
-    if (v21 + 1 < 4 || ((v23 = (v20 + 1), result < v11 + 2 * v21 + 2) ? (v24 = v11 >= v23) : (v24 = 1), !v24))
+    if ((v21 + 1) < 4 || ((v23 = (v20 + 1), result < v11 + 2 * v21 + 2) ? (v24 = v11 >= v23) : (v24 = 1), !v24))
     {
       v42 = result;
       v43 = v11;
@@ -8662,7 +8668,8 @@ LABEL_53:
     {
 LABEL_50:
       v41 = *v39++;
-      *v40++ = v41;
+      *v40 = v41;
+      v40 += 2;
     }
 
     while (v40 != v26);
@@ -8945,7 +8952,7 @@ LABEL_126:
   *v16 = *a2;
   a7 = (v16 + 1);
   v26 = &v17[-1].i8[15];
-  a2 = (4 * v25);
+  a2 = 4 * v25;
   if (!a2)
   {
     a2 = 0;
@@ -9042,7 +9049,7 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  memset_pattern16(v16 + 1, aIneStateTLTAne, 2 * (4 * v25));
+  memset_pattern16(v16 + 1, aIneStateTLTAne, 8 * v25);
   if (v26 < a2)
   {
     goto LABEL_152;
@@ -9391,7 +9398,7 @@ LABEL_93:
   }
 }
 
-void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, char *a3, char *a4, uint64_t *a5, unint64_t *a6, uint64_t *a7, unint64_t *a8)
+void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, char *a3, char *a4, uint64_t *a5, unsigned __int8 **a6, uint64_t *a7, unsigned __int8 **a8)
 {
   v15 = *a5;
   v16 = *a7;
@@ -9512,7 +9519,7 @@ LABEL_29:
   WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>((v48 + 2), v46 - 2, v39, v41, v40, v42, v50, v44);
 }
 
-char *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(char *result, unint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6, unint64_t a7, unint64_t a8)
+char *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(char *result, unint64_t a2, uint64_t a3, unsigned __int8 *a4, unint64_t a5, uint64_t a6, unsigned __int8 *a7, unint64_t a8)
 {
   if (!a3)
   {
@@ -9569,8 +9576,8 @@ char *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WGSL::AS
       }
     }
 
-    v21 = &v11[-v12 - 2];
-    if (v21 < 0xE || (v12 < v8 + (v21 >> 1) + 1 ? (v22 = v8 >= (v21 & 0xFFFFFFFFFFFFFFFELL) + v12 + 2) : (v22 = 1), !v22))
+    v21 = v11 - v12 - 2;
+    if (v21 < 0xE || (v12 < v8 + (v21 >> 1) + 1 ? (v22 = v8 >= &v12[(v21 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v22 = 1), !v22))
     {
       v25 = v8;
       v26 = v12;
@@ -9606,7 +9613,7 @@ char *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WGSL::AS
 
       if ((v23 & 0x18) == 0)
       {
-        v26 = (v12 + 2 * v24);
+        v26 = &v12[2 * v24];
         v25 = (v8 + v24);
         goto LABEL_22;
       }
@@ -9618,8 +9625,8 @@ char *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WGSL::AS
     }
 
     v25 = (v8 + (v23 & 0xFFFFFFFFFFFFFFF8));
-    v26 = (v12 + 2 * (v23 & 0xFFFFFFFFFFFFFFF8));
-    v125 = (v12 + 2 * v24);
+    v26 = &v12[2 * (v23 & 0xFFFFFFFFFFFFFFF8)];
+    v125 = &v12[2 * v24];
     v126 = (v8 + v24);
     v127 = v24 - (v23 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -9698,8 +9705,8 @@ LABEL_26:
     }
 
 LABEL_32:
-    v48 = &result[2 * a5 + 2 * v10 - v38 - 2];
-    if (v48 < 0xE || (v38 < a4 + (v48 >> 1) + 1 ? (v49 = a4 >= (v48 & 0xFFFFFFFFFFFFFFFELL) + v38 + 2) : (v49 = 1), !v49))
+    v48 = &result[2 * a5 + 2 * v10] - v38 - 2;
+    if (v48 < 0xE || (v38 < &a4[(v48 >> 1) + 1] ? (v49 = a4 >= &v38[(v48 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v49 = 1), !v49))
     {
       v52 = a4;
       v53 = v38;
@@ -9735,8 +9742,8 @@ LABEL_32:
 
       if ((v50 & 0x18) == 0)
       {
-        v53 = (v38 + 2 * v51);
-        v52 = (a4 + v51);
+        v53 = &v38[2 * v51];
+        v52 = &a4[v51];
         goto LABEL_41;
       }
     }
@@ -9746,10 +9753,10 @@ LABEL_32:
       v51 = 0;
     }
 
-    v52 = (a4 + (v50 & 0xFFFFFFFFFFFFFFF8));
-    v53 = (v38 + 2 * (v50 & 0xFFFFFFFFFFFFFFF8));
-    v105 = (v38 + 2 * v51);
-    v106 = (a4 + v51);
+    v52 = &a4[v50 & 0xFFFFFFFFFFFFFFF8];
+    v53 = &v38[2 * (v50 & 0xFFFFFFFFFFFFFFF8)];
+    v105 = &v38[2 * v51];
+    v106 = &a4[v51];
     v107 = v51 - (v50 & 0xFFFFFFFFFFFFFFF8);
     do
     {
@@ -9782,9 +9789,9 @@ LABEL_41:
   do
   {
     v140.val[0] = *a4;
-    v41 = *(a4 + 16);
-    v144.val[0] = *(a4 + 32);
-    v42 = *(a4 + 48);
+    v41 = *(a4 + 1);
+    v144.val[0] = *(a4 + 2);
+    v42 = *(a4 + 3);
     a4 += 64;
     v43 = v42;
     v144.val[1] = 0uLL;
@@ -9990,9 +9997,9 @@ LABEL_68:
     do
     {
       v142.val[0] = *a7;
-      v86 = *(a7 + 16);
-      v146.val[0] = *(a7 + 32);
-      v87 = *(a7 + 48);
+      v86 = *(a7 + 1);
+      v146.val[0] = *(a7 + 2);
+      v87 = *(a7 + 3);
       a7 += 64;
       v88 = v87;
       v146.val[1] = 0uLL;
@@ -10017,7 +10024,7 @@ LABEL_68:
   if (v82 != v83)
   {
     v92 = &result[2 * a8 + 2 * v10 + 2 * v60 + 2 * v55 - v82 - 2];
-    if (v92 < 0xE || (v82 < a7 + (v92 >> 1) + 1 ? (v93 = a7 >= (v92 & 0xFFFFFFFFFFFFFFFELL) + v82 + 2) : (v93 = 1), !v93))
+    if (v92 < 0xE || (v82 < &a7[(v92 >> 1) + 1] ? (v93 = a7 >= (v92 & 0xFFFFFFFFFFFFFFFELL) + v82 + 2) : (v93 = 1), !v93))
     {
       v96 = a7;
       v97 = v82;
@@ -10054,7 +10061,7 @@ LABEL_68:
       if ((v94 & 0x18) == 0)
       {
         v97 = (v82 + 2 * v95);
-        v96 = (a7 + v95);
+        v96 = &a7[v95];
         do
         {
 LABEL_82:
@@ -10072,10 +10079,10 @@ LABEL_82:
       v95 = 0;
     }
 
-    v96 = (a7 + (v94 & 0xFFFFFFFFFFFFFFF8));
+    v96 = &a7[v94 & 0xFFFFFFFFFFFFFFF8];
     v97 = (v82 + 2 * (v94 & 0xFFFFFFFFFFFFFFF8));
     v115 = (v82 + 2 * v95);
-    v116 = (a7 + v95);
+    v116 = &a7[v95];
     v117 = v95 - (v94 & 0xFFFFFFFFFFFFFFF8);
     do
     {

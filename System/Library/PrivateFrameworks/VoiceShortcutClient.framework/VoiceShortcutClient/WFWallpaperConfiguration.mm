@@ -136,11 +136,11 @@
 
 - (WFWallpaperConfiguration)initWithUserInfo:(id)info
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   infoCopy = info;
-  v37.receiver = self;
-  v37.super_class = WFWallpaperConfiguration;
-  v5 = [(WFWallpaperConfiguration *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = WFWallpaperConfiguration;
+  v5 = [(WFWallpaperConfiguration *)&v36 init];
   if (!v5)
   {
 LABEL_38:
@@ -307,7 +307,7 @@ LABEL_38:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = infoCopy;
+      v38 = infoCopy;
       _os_log_impl(&dword_1B1DE3000, v34, OS_LOG_TYPE_DEFAULT, "Unable to make wallpaper configuration from userInfo due to missing asset URL and identifier: %@", buf, 0xCu);
     }
 
@@ -317,7 +317,6 @@ LABEL_38:
   v33 = v5;
 LABEL_39:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

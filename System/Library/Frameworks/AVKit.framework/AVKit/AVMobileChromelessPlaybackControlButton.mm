@@ -378,7 +378,7 @@ void __68__AVMobileChromelessPlaybackControlButton__setupMicaPackageIfNeeded__bl
     v4 = buttonMicaPackageContainerView;
     if (buttonMicaPackageContainerView)
     {
-      [buttonMicaPackageContainerView transform];
+      objc_msgSend_transform(buttonMicaPackageContainerView);
     }
 
     else

@@ -299,7 +299,7 @@ void WordLanguageModel::addWord(WordLanguageModel *this, uint64_t a2, uint64_t a
   }
 }
 
-_DWORD *WordLanguageModel::addUnmappedWord(WordLanguageModel *this, uint64_t a2)
+uint64_t *WordLanguageModel::addUnmappedWord(WordLanguageModel *this, uint64_t a2)
 {
   v2 = a2;
   v4 = *(this + 29);
@@ -486,42 +486,46 @@ void *WordLanguageModel::notifyEmptiedWordList(WordLanguageModel *this)
   return result;
 }
 
-void WordLanguageModel::verifyValidTopicWordLM(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double WordLanguageModel::verifyValidTopicWordLM(WordLanguageModel *this)
 {
   if (*(this + 16) >= 4u)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10333, "lm/wordlm", 23, "%u %.500s", a7, a8, *(this + 16));
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10333, "lm/wordlm", 23, "%u %.500s", *(this + 16), "TopicWord");
   }
 
   if (*(this + 5))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10336, "lm/wordlm", 25, "%.500s", a7, a8, "TopicWord");
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10336, "lm/wordlm", 25, "%.500s", "TopicWord");
   }
 
   if (*(this + 29))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10338, "lm/wordlm", 33, "%.500s", a7, a8, "TopicWord");
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10338, "lm/wordlm", 33, "%.500s", "TopicWord");
   }
+
+  return result;
 }
 
-void WordLanguageModel::verifyConsistentWithWordNgramBuildSpec(WordLanguageModel *this, const WordNgramBuildSpec *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double WordLanguageModel::verifyConsistentWithWordNgramBuildSpec(WordLanguageModel *this, const WordNgramBuildSpec *a2)
 {
-  if (*(this + 16) != *(a2 + 2))
+  v4 = *(a2 + 2);
+  if (*(this + 16) != v4)
   {
-    v10 = *(a2 + 2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10347, "lm/wordlm", 94, "%u %u", a7, a8, *(this + 16));
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10347, "lm/wordlm", 94, "%u %u", *(this + 16), v4);
   }
 
-  if (*(this + 80) != *(a2 + 12))
+  v6 = *(a2 + 12);
+  if (*(this + 80) != v6)
   {
-    v11 = *(a2 + 12);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10352, "lm/wordlm", 95, "%u %u", a7, a8, *(this + 80));
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10352, "lm/wordlm", 95, "%u %u", *(this + 80), v6);
   }
 
   if (*(this + 25) == -1 && *(a2 + 13) == 1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10355, "lm/wordlm", 96, "%s", a7, a8, &errStr_lm_wordlm_E_WORDNGRAMBUILDSPEC_MISMATCH_IGNOREINCONTEXTLMID);
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10355, "lm/wordlm", 96, "%s", &errStr_lm_wordlm_E_WORDNGRAMBUILDSPEC_MISMATCH_IGNOREINCONTEXTLMID);
   }
+
+  return result;
 }
 
 uint64_t WordLanguageModel::getWordId(WordLanguageModel *this, int a2, int a3)
@@ -1290,7 +1294,7 @@ LABEL_55:
   return LanguageModel::languageScoreFinishForSearch(this, a2, v17, a5);
 }
 
-unint64_t WordLanguageModel::languageScoreForPrefilterer(unint64_t result, uint64_t a2, uint64_t a3)
+uint64_t *WordLanguageModel::languageScoreForPrefilterer(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v6 = *(a2 + 8);
@@ -1497,7 +1501,7 @@ uint64_t WordLanguageModel::findQuad2Index(WordLanguageModel *this, unsigned int
   return result;
 }
 
-uint64_t WordLanguageModel::createContextData(WordLanguageModel *this)
+WordLMContextData *WordLanguageModel::createContextData(WordLanguageModel *this)
 {
   v2 = MemChunkAlloc(0x78uLL, 0);
   v3 = *(this + 29);
@@ -1522,7 +1526,7 @@ uint64_t WordLanguageModel::setContext(WordLanguageModel *this, uint64_t a2, uin
     {
       if (v14 < v13)
       {
-        v15 = (a6 + 40);
+        v15 = a6 + 40;
         if (!*(a6 + 52))
         {
           DgnPrimArray<unsigned int>::reallocElts(a6 + 40, 1, 0);
@@ -1547,7 +1551,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v15 = (a6 + 96);
+  v15 = a6 + 96;
   *(a6 + 104) = 0;
   v13 = *(a2 + 8);
   if (v13)
@@ -1590,7 +1594,7 @@ LABEL_19:
   if (v13 == 3)
   {
     v20 = *v15;
-    *(a6 + 88) = (*v15)[2];
+    *(a6 + 88) = *(*v15 + 8);
     goto LABEL_27;
   }
 
@@ -2010,22 +2014,22 @@ void WordLanguageModel::unsetContext(WordLanguageModel *this, LMContextData *a2)
 
 void WordLanguageModel::readBigramRecord(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v26 = 0;
+  v21 = 0;
   v12 = BigramData::isOnDiskCompressed((a1 + 360), a2);
   v13 = *(*(a1 + 552) + 2 * a2);
   if (v12)
   {
-    v25 = 0;
-    readObject(*(a1 + 224), &v25, &v26);
-    v14 = v25;
+    v20 = 0;
+    readObject(*(a1 + 224), &v20, &v21);
+    v14 = v20;
     v15 = *(a6 + 12);
-    if (v25 > v15)
+    if (v20 > v15)
     {
-      DgnPrimArray<unsigned int>::reallocElts(a6, v25 - v15, 0);
+      DgnPrimArray<unsigned int>::reallocElts(a6, v20 - v15, 0);
     }
 
     *(a6 + 8) = v14;
-    readObjectArray(*(a1 + 224), *a6, v14, &v26);
+    readObjectArray(*(a1 + 224), *a6, v14, &v21);
   }
 
   else
@@ -2037,7 +2041,7 @@ void WordLanguageModel::readBigramRecord(uint64_t a1, unsigned int a2, uint64_t 
     }
 
     *(a3 + 8) = v13;
-    readObjectArray(*(a1 + 224), *a3, v13, &v26);
+    readObjectArray(*(a1 + 224), *a3, v13, &v21);
   }
 
   if (*(a1 + 376))
@@ -2045,94 +2049,94 @@ void WordLanguageModel::readBigramRecord(uint64_t a1, unsigned int a2, uint64_t 
     v17 = *a5;
     if (*(a5 + 12) < v13)
     {
-      v27 = 0;
-      *(a5 + 12) = realloc_array(v17, &v27, v13, *(a5 + 8), *(a5 + 8), 1);
-      v17 = v27;
-      *a5 = v27;
+      v22 = 0;
+      *(a5 + 12) = realloc_array(v17, &v22, v13, *(a5 + 8), *(a5 + 8), 1);
+      v17 = v22;
+      *a5 = v22;
     }
 
     *(a5 + 8) = v13;
-    readObjectArray(*(a1 + 224), v17, v13, &v26);
+    readObjectArray(*(a1 + 224), v17, v13, &v21);
     if (!v12)
     {
       return;
     }
 
 LABEL_16:
-    v24 = *(a3 + 12);
-    if (v13 > v24)
+    v19 = *(a3 + 12);
+    if (v13 > v19)
     {
-      DgnPrimArray<short>::reallocElts(a3, v13 - v24, 0);
+      DgnPrimArray<short>::reallocElts(a3, v13 - v19, 0);
     }
 
     *(a3 + 8) = v13;
-    HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(a1 + 448, a6, a3, v18, v19, v20, v21, v22);
+    HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(a1 + 448, a6, a3);
     return;
   }
 
-  v23 = *(a4 + 12);
-  if (v13 > v23)
+  v18 = *(a4 + 12);
+  if (v13 > v18)
   {
-    DgnPrimArray<short>::reallocElts(a4, v13 - v23, 0);
+    DgnPrimArray<short>::reallocElts(a4, v13 - v18, 0);
   }
 
   *(a4 + 8) = v13;
-  readObjectArray(*(a1 + 224), *a4, v13, &v26);
+  readObjectArray(*(a1 + 224), *a4, v13, &v21);
   if (v12)
   {
     goto LABEL_16;
   }
 }
 
-void HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  HuffmanDecoder<unsigned short,unsigned int>::decodeValues(a1, a2, a3, a4, a5, a6, a7, a8);
-  v17 = *(a3 + 8);
-  if (v17)
+  HuffmanDecoder<unsigned short,unsigned int>::decodeValues(a1, a2, a3);
+  v4 = *(a3 + 2);
+  if (v4)
   {
-    v18 = 0;
-    v19 = 0;
-    v20 = *a3;
+    v5 = 0;
+    v6 = 0;
+    v7 = *a3;
     do
     {
-      v21 = v19;
-      v22 = v18;
-      v23 = *(v20 + 2 * v18);
-      if ((v19 ^ 0xFFFFu) < v23)
+      v8 = v6;
+      v9 = v5;
+      v10 = *(v7 + 2 * v5);
+      if ((v6 ^ 0xFFFFu) < v10)
       {
-        throwDecodeSuccessorOverflow(v9, v10, v11, v12, v13, v14, v15, v16);
-        v20 = *a3;
-        v17 = *(a3 + 8);
-        LOWORD(v23) = *(*a3 + 2 * v22);
+        throwDecodeSuccessorOverflow();
+        v7 = *a3;
+        v4 = *(a3 + 2);
+        LOWORD(v10) = *(*a3 + 2 * v9);
       }
 
-      v19 = v21 + v23;
-      *(v20 + 2 * v22) = v21 + v23;
-      v18 = v22 + 1;
+      v6 = v8 + v10;
+      *(v7 + 2 * v9) = v8 + v10;
+      v5 = v9 + 1;
     }
 
-    while (v17 > (v22 + 1));
+    while (v4 > (v9 + 1));
   }
 }
 
 void WordLanguageModel::readTrigramRecord(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v26 = 0;
+  v21 = 0;
   v12 = TrigramData::isOnDiskCompressed((a1 + 744), a2);
   v13 = *(*(a1 + 1040) + 2 * a2);
   if (v12)
   {
-    v25 = 0;
-    readObject(*(a1 + 224), &v25, &v26);
-    v14 = v25;
+    v20 = 0;
+    readObject(*(a1 + 224), &v20, &v21);
+    v14 = v20;
     v15 = *(a6 + 12);
-    if (v25 > v15)
+    if (v20 > v15)
     {
-      DgnPrimArray<unsigned int>::reallocElts(a6, v25 - v15, 0);
+      DgnPrimArray<unsigned int>::reallocElts(a6, v20 - v15, 0);
     }
 
     *(a6 + 8) = v14;
-    readObjectArray(*(a1 + 224), *a6, v14, &v26);
+    readObjectArray(*(a1 + 224), *a6, v14, &v21);
   }
 
   else
@@ -2144,7 +2148,7 @@ void WordLanguageModel::readTrigramRecord(uint64_t a1, unsigned int a2, uint64_t
     }
 
     *(a3 + 8) = v13;
-    readObjectArray(*(a1 + 224), *a3, v13, &v26);
+    readObjectArray(*(a1 + 224), *a3, v13, &v21);
   }
 
   if (*(a1 + 784))
@@ -2152,39 +2156,39 @@ void WordLanguageModel::readTrigramRecord(uint64_t a1, unsigned int a2, uint64_t
     v17 = *a5;
     if (*(a5 + 12) < v13)
     {
-      v27 = 0;
-      *(a5 + 12) = realloc_array(v17, &v27, v13, *(a5 + 8), *(a5 + 8), 1);
-      v17 = v27;
-      *a5 = v27;
+      v22 = 0;
+      *(a5 + 12) = realloc_array(v17, &v22, v13, *(a5 + 8), *(a5 + 8), 1);
+      v17 = v22;
+      *a5 = v22;
     }
 
     *(a5 + 8) = v13;
-    readObjectArray(*(a1 + 224), v17, v13, &v26);
+    readObjectArray(*(a1 + 224), v17, v13, &v21);
     if (!v12)
     {
       return;
     }
 
 LABEL_16:
-    v24 = *(a3 + 12);
-    if (v13 > v24)
+    v19 = *(a3 + 12);
+    if (v13 > v19)
     {
-      DgnPrimArray<short>::reallocElts(a3, v13 - v24, 0);
+      DgnPrimArray<short>::reallocElts(a3, v13 - v19, 0);
     }
 
     *(a3 + 8) = v13;
-    HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(a1 + 936, a6, a3, v18, v19, v20, v21, v22);
+    HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(a1 + 936, a6, a3);
     return;
   }
 
-  v23 = *(a4 + 12);
-  if (v13 > v23)
+  v18 = *(a4 + 12);
+  if (v13 > v18)
   {
-    DgnPrimArray<short>::reallocElts(a4, v13 - v23, 0);
+    DgnPrimArray<short>::reallocElts(a4, v13 - v18, 0);
   }
 
   *(a4 + 8) = v13;
-  readObjectArray(*(a1 + 224), *a4, v13, &v26);
+  readObjectArray(*(a1 + 224), *a4, v13, &v21);
   if (v12)
   {
     goto LABEL_16;
@@ -2253,7 +2257,7 @@ void WordLanguageModel::readUncompressedQuad3Data(uint64_t a1, uint64_t a2, uint
 
 void WordLanguageModel::readQuadgramRecord(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v48 = 0;
+  v33 = 0;
   v20 = QuadgramData::isOnDiskCompressed((a1 + 1232), a2);
   v21 = *(*(a1 + 1328) + 2 * a2);
   v22 = *(a3 + 12);
@@ -2272,12 +2276,12 @@ void WordLanguageModel::readQuadgramRecord(uint64_t a1, unsigned int a2, uint64_
   *(a4 + 8) = v21;
   if (v20)
   {
-    WordLanguageModel::readCompressedQuad3Data(a1, a10, a11, &v48);
+    WordLanguageModel::readCompressedQuad3Data(a1, a10, a11, &v33);
   }
 
   else
   {
-    WordLanguageModel::readUncompressedQuad3Data(a1, a3, a4, &v48);
+    WordLanguageModel::readUncompressedQuad3Data(a1, a3, a4, &v33);
   }
 
   if (*(a1 + 1256))
@@ -2285,14 +2289,14 @@ void WordLanguageModel::readQuadgramRecord(uint64_t a1, unsigned int a2, uint64_
     v24 = *a7;
     if (*(a7 + 12) < v21)
     {
-      v49 = 0;
-      *(a7 + 12) = realloc_array(v24, &v49, v21, *(a7 + 8), *(a7 + 8), 1);
-      v24 = v49;
-      *a7 = v49;
+      v34 = 0;
+      *(a7 + 12) = realloc_array(v24, &v34, v21, *(a7 + 8), *(a7 + 8), 1);
+      v24 = v34;
+      *a7 = v34;
     }
 
     *(a7 + 8) = v21;
-    readObjectArray(*(a1 + 224), v24, v21, &v48);
+    readObjectArray(*(a1 + 224), v24, v21, &v33);
   }
 
   else
@@ -2304,65 +2308,65 @@ void WordLanguageModel::readQuadgramRecord(uint64_t a1, unsigned int a2, uint64_
     }
 
     *(a6 + 8) = v21;
-    readObjectArray(*(a1 + 224), *a6, v21, &v48);
+    readObjectArray(*(a1 + 224), *a6, v21, &v33);
   }
 
-  v47 = 0;
+  v32 = 0;
   v26 = *(a1 + 224);
   if (v20)
   {
-    readObject(v26, &v47, &v48);
-    readObject<unsigned int>(*(a1 + 224), a12, &v48);
+    readObject(v26, &v32, &v33);
+    readObject<unsigned int>(*(a1 + 224), a12, &v33);
   }
 
   else
   {
-    readObject<unsigned short>(v26, a5, &v48);
-    v47 = *(a5 + 8);
+    readObject<unsigned short>(v26, a5, &v33);
+    v32 = *(a5 + 8);
   }
 
-  v27 = v47;
+  v27 = v32;
   if (*(a1 + 1272))
   {
     v28 = *a9;
-    if (*(a9 + 12) < v47)
+    if (*(a9 + 12) < v32)
     {
-      v49 = 0;
-      *(a9 + 12) = realloc_array(v28, &v49, v47, *(a9 + 8), *(a9 + 8), 1);
-      v28 = v49;
-      *a9 = v49;
+      v34 = 0;
+      *(a9 + 12) = realloc_array(v28, &v34, v32, *(a9 + 8), *(a9 + 8), 1);
+      v28 = v34;
+      *a9 = v34;
     }
 
     *(a9 + 8) = v27;
-    readObjectArray(*(a1 + 224), v28, v27, &v48);
+    readObjectArray(*(a1 + 224), v28, v27, &v33);
     if (!v20)
     {
       return;
     }
 
 LABEL_26:
-    HuffmanDecoder<unsigned short,unsigned int>::decodeValues(a1 + 1392, a10, a3, v29, v30, v31, v32, v33);
-    HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(a1 + 1392, a11, a4, v35, v36, v37, v38, v39);
-    v45 = v47;
-    v46 = *(a5 + 12);
-    if (v47 > v46)
+    HuffmanDecoder<unsigned short,unsigned int>::decodeValues(a1 + 1392, a10, a3);
+    HuffmanDecoder<unsigned short,unsigned int>::decodeSuccessors(a1 + 1392, a11, a4);
+    v30 = v32;
+    v31 = *(a5 + 12);
+    if (v32 > v31)
     {
-      DgnPrimArray<short>::reallocElts(a5, v47 - v46, 0);
+      DgnPrimArray<short>::reallocElts(a5, v32 - v31, 0);
     }
 
-    *(a5 + 8) = v45;
-    HuffmanDecoder<unsigned short,unsigned int>::decodeValues(a1 + 1392, a12, a5, v40, v41, v42, v43, v44);
+    *(a5 + 8) = v30;
+    HuffmanDecoder<unsigned short,unsigned int>::decodeValues(a1 + 1392, a12, a5);
     return;
   }
 
-  v34 = *(a8 + 12);
-  if (v47 > v34)
+  v29 = *(a8 + 12);
+  if (v32 > v29)
   {
-    DgnPrimArray<short>::reallocElts(a8, v47 - v34, 0);
+    DgnPrimArray<short>::reallocElts(a8, v32 - v29, 0);
   }
 
   *(a8 + 8) = v27;
-  readObjectArray(*(a1 + 224), *a8, v27, &v48);
+  readObjectArray(*(a1 + 224), *a8, v27, &v33);
   if (v20)
   {
     goto LABEL_26;
@@ -2384,131 +2388,131 @@ void readObject<unsigned short>(RealDFileSubFileStream *a1, uint64_t a2, unsigne
   readObjectArray(a1, *a2, v6, a3);
 }
 
-void HuffmanDecoder<unsigned short,unsigned int>::decodeValues(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void HuffmanDecoder<unsigned short,unsigned int>::decodeValues(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *(a2 + 8);
-  v11 = *a2;
-  v12 = **a2;
-  v13 = *(a3 + 8);
-  if (v13)
+  v5 = *(a2 + 8);
+  v6 = *a2;
+  v7 = **a2;
+  v8 = *(a3 + 8);
+  if (v8)
   {
-    v14 = 0;
-    v15 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 1;
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
+    v12 = 0;
+    v13 = 1;
     do
     {
-      v12 = (v17 >> -v15) | (v12 << v15);
-      if (v15 >= v16)
+      v7 = (v12 >> -v10) | (v7 << v10);
+      if (v10 >= v11)
       {
-        if (v18 >= v10)
+        if (v13 >= v5)
         {
           goto LABEL_17;
         }
 
-        v17 = v11[v18++];
-        v19 = v15;
-        v20 = v15 - v16;
-        v21 = (v17 >> -v20) | v12;
-        v22 = 32 - v20;
-        v23 = v17 << v20;
-        if (v19 == v16)
+        v12 = v6[v13++];
+        v14 = v10;
+        v15 = v10 - v11;
+        v16 = (v12 >> -v15) | v7;
+        v17 = 32 - v15;
+        v18 = v12 << v15;
+        if (v14 == v11)
         {
-          v16 = 32;
+          v11 = 32;
         }
 
         else
         {
-          v17 = v23;
-          v12 = v21;
-          v16 = v22;
+          v12 = v18;
+          v7 = v16;
+          v11 = v17;
         }
       }
 
       else
       {
-        v16 -= v15;
-        v17 <<= v15;
+        v11 -= v10;
+        v12 <<= v10;
       }
 
-      if (v12 >= *(a1 + 64))
+      if (v7 >= *(a1 + 64))
       {
-        v27 = *(*(a1 + 72) + 4 * (v12 >> 21));
-        v26 = *(*a1 + 4 * v27);
+        v22 = *(*(a1 + 72) + 4 * (v7 >> 21));
+        v21 = *(*a1 + 4 * v22);
       }
 
       else
       {
-        v24 = *(a1 + 68);
+        v19 = *(a1 + 68);
         do
         {
-          v25 = v24;
-          v26 = *(*a1 + 4 * v24--);
+          v20 = v19;
+          v21 = *(*a1 + 4 * v19--);
         }
 
-        while (v12 < v26);
-        v27 = v25;
+        while (v7 < v21);
+        v22 = v20;
       }
 
-      v15 = *(*(a1 + 16) + v27);
-      *(*a3 + 2 * v14++) = *(*(a1 + 48) + 2 * (((v12 - v26) >> -v15) + *(*(a1 + 32) + 4 * v27)));
+      v10 = *(*(a1 + 16) + v22);
+      *(*a3 + 2 * v9++) = *(*(a1 + 48) + 2 * (((v7 - v21) >> -v10) + *(*(a1 + 32) + 4 * v22)));
     }
 
-    while (v14 != v13);
+    while (v9 != v8);
   }
 
   else
   {
-    LODWORD(v14) = 0;
-    v16 = 0;
-    v15 = 0;
-    v18 = 1;
+    LODWORD(v9) = 0;
+    v11 = 0;
+    v10 = 0;
+    v13 = 1;
 LABEL_17:
-    if (v14 < v13)
+    if (v9 < v8)
     {
-      v28 = v10 + 2;
-      v29 = v14;
-      v30 = v15;
+      v23 = v5 + 2;
+      v24 = v9;
+      v25 = v10;
       do
       {
-        if (v30 >= v16)
+        if (v25 >= v11)
         {
-          if (v18 >= v28)
+          if (v13 >= v23)
           {
-            throwDecodeEndOfData(a1, a2, a3, a4, a5, a6, a7, a8);
+            throwDecodeEndOfData();
           }
 
-          ++v18;
-          v16 += 32;
+          ++v13;
+          v11 += 32;
         }
 
-        if (v12 >= *(a1 + 64))
+        if (v7 >= *(a1 + 64))
         {
-          v34 = *(*(a1 + 72) + 4 * (v12 >> 21));
-          v33 = *(*a1 + 4 * v34);
+          v29 = *(*(a1 + 72) + 4 * (v7 >> 21));
+          v28 = *(*a1 + 4 * v29);
         }
 
         else
         {
-          v31 = *(a1 + 68);
+          v26 = *(a1 + 68);
           do
           {
-            v32 = v31;
-            v33 = *(*a1 + 4 * v31--);
+            v27 = v26;
+            v28 = *(*a1 + 4 * v26--);
           }
 
-          while (v12 < v33);
-          v34 = v32;
+          while (v7 < v28);
+          v29 = v27;
         }
 
-        v16 -= v30;
-        v30 = *(*(a1 + 16) + v34);
-        *(*a3 + 2 * v29++) = *(*(a1 + 48) + 2 * (((v12 - v33) >> -v30) + *(*(a1 + 32) + 4 * v34)));
-        v12 <<= v30;
+        v11 -= v25;
+        v25 = *(*(a1 + 16) + v29);
+        *(*a3 + 2 * v24++) = *(*(a1 + 48) + 2 * (((v7 - v28) >> -v25) + *(*(a1 + 32) + 4 * v29)));
+        v7 <<= v25;
       }
 
-      while (v29 < *(a3 + 8));
+      while (v24 < *(a3 + 8));
     }
   }
 }
@@ -3171,9 +3175,9 @@ uint64_t WordLanguageModel::addBuildOneTranscriptNgramLM(uint64_t a1, uint64_t a
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v51);
 }
 
-void sub_2627A6AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2627A6AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -3313,17 +3317,17 @@ BOOL WordLanguageModel::endBuildingNgramLM(WordLanguageModel *this)
   return v2;
 }
 
-void sub_2627A6D4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2627A6D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
   v9 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
   DgnIOwnArray<HashKEV<unsigned int,unsigned int,StateIdScope> *>::releaseAll(va);
   DgnIOwnArray<HashKEV<unsigned int,unsigned int,StateIdScope> *>::releaseAll(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
@@ -3471,143 +3475,142 @@ BOOL WordLanguageModel::buildUnigramData(uint64_t a1, uint64_t a2, double *a3)
 
   v15 = v13 + *v7;
   v16 = **(a1 + 1808);
-  v19 = DgnExp(-20.0);
-  v20 = (v12 + v11 + 1);
-  v21 = v15 * v19 / (1.0 - v20 * v19);
-  if (v16 >= v21)
+  v17 = DgnExp(-20.0);
+  v18 = (v12 + v11 + 1);
+  v19 = v15 * v17 / (1.0 - v18 * v17);
+  if (v16 >= v19)
   {
-    v22 = v16;
+    v20 = v16;
   }
 
   else
   {
-    v22 = v21;
+    v20 = v19;
   }
 
-  v23 = v15 + v20 * v22;
-  v24 = (v23 + 0.5);
-  if (v24)
+  v21 = v15 + v18 * v20;
+  v22 = (v21 + 0.5);
+  if (v22)
   {
-    if (vabdd_f64(v23, v24) > 1.0)
+    if (vabdd_f64(v21, v22) > 1.0)
     {
-      v48 = v15 + v20 * v22;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 14124, "lm/wordlm", 28, "%f", v17, v18, SLOBYTE(v48));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 14124, "lm/wordlm", 28, "%f", v15 + v18 * v20);
     }
 
-    v25 = *(a1 + 104);
-    v50 = 0;
-    v51 = 0;
-    v26 = realloc_array(0, &v51, 8 * v25, 0, 0, 1);
-    v27 = v51;
-    v49 = v51;
-    v28 = *(a1 + 104);
-    LODWORD(v50) = v25;
-    HIDWORD(v50) = v26 >> 3;
-    *v51 = 0;
-    if (v28 >= 2)
+    v23 = *(a1 + 104);
+    v47 = 0;
+    v48 = 0;
+    v24 = realloc_array(0, &v48, 8 * v23, 0, 0, 1);
+    v25 = v48;
+    v46 = v48;
+    v26 = *(a1 + 104);
+    LODWORD(v47) = v23;
+    HIDWORD(v47) = v24 >> 3;
+    *v48 = 0;
+    if (v26 >= 2)
     {
-      bzero(v27 + 8, 8 * (v28 - 1));
+      bzero(v25 + 8, 8 * (v26 - 1));
     }
 
     if (*(v8 + 8))
     {
-      v29 = 0;
+      v27 = 0;
       do
       {
-        LmId = WordLanguageModel::getLmId(a1, v29);
+        LmId = WordLanguageModel::getLmId(a1, v27);
         if (LmId != -1)
         {
-          v49[LmId] = *(*v8 + 8 * v29) + v49[LmId];
+          v46[LmId] = *(*v8 + 8 * v27) + v46[LmId];
         }
 
-        ++v29;
+        ++v27;
       }
 
-      while (v29 < *(v8 + 8));
+      while (v27 < *(v8 + 8));
     }
 
     if (*(*(a1 + 1816) + 8) == 16777213)
     {
-      v49[*(a1 + 116)] = *v9;
+      v46[*(a1 + 116)] = *v9;
     }
 
-    v31 = *(a1 + 104);
-    if (v31 >= 2)
+    v29 = *(a1 + 104);
+    if (v29 >= 2)
     {
-      v32 = v49 + 1;
-      v33 = v31 - 1;
+      v30 = v46 + 1;
+      v31 = v29 - 1;
       do
       {
-        *v32 = v22 + *v32;
-        ++v32;
-        --v33;
+        *v30 = v20 + *v30;
+        ++v30;
+        --v31;
       }
 
-      while (v33);
+      while (v31);
     }
 
-    v34 = *v7;
-    v35 = *(a1 + 180);
-    if (v31 > v35)
+    v32 = *v7;
+    v33 = *(a1 + 180);
+    if (v29 > v33)
     {
-      DgnPrimArray<short>::reallocElts(a1 + 168, v31 - v35, 0);
+      DgnPrimArray<short>::reallocElts(a1 + 168, v29 - v33, 0);
     }
 
-    *(a1 + 176) = v31;
+    *(a1 + 176) = v29;
     **(a1 + 168) = 20000;
-    v36 = DgnLog(v22 / v23);
+    v34 = DgnLog(v20 / v21);
     LODWORD(v3) = *(a1 + 32);
-    v37 = *(a1 + 104);
-    v38 = *(a2 + 12);
-    v39 = v37;
-    if (v37 > v38)
+    v35 = *(a1 + 104);
+    v36 = *(a2 + 12);
+    v37 = v35;
+    if (v35 > v36)
     {
-      DgnPrimArray<unsigned long long>::reallocElts(a2, v37 - v38, 0);
-      v39 = *(a1 + 104);
+      DgnPrimArray<unsigned long long>::reallocElts(a2, v35 - v36, 0);
+      v37 = *(a1 + 104);
     }
 
-    *(a2 + 8) = v37;
-    v40 = *a2;
+    *(a2 + 8) = v35;
+    v38 = *a2;
     **a2 = 0;
-    if (v39 >= 2)
+    if (v37 >= 2)
     {
-      v41 = (0.5 - v36 * v3);
-      for (i = 1; i < v39; *&v40[i++] = v44)
+      v39 = (0.5 - v34 * v3);
+      for (i = 1; i < v37; *&v38[i++] = v42)
       {
-        v43 = v49[i];
-        if (v43 == v22)
+        v41 = v46[i];
+        if (v41 == v20)
         {
-          *(*(a1 + 168) + 2 * i) = v41;
-          v44 = v22 / v23;
+          *(*(a1 + 168) + 2 * i) = v39;
+          v42 = v20 / v21;
         }
 
         else
         {
-          v44 = v43 / v23;
-          v45 = DgnLog(v43 / v23);
-          LODWORD(v46) = *(a1 + 32);
-          *(*(a1 + 168) + 2 * i) = (0.5 - v45 * v46);
-          v40 = *a2;
-          v39 = *(a1 + 104);
+          v42 = v41 / v21;
+          v43 = DgnLog(v41 / v21);
+          LODWORD(v44) = *(a1 + 32);
+          *(*(a1 + 168) + 2 * i) = (0.5 - v43 * v44);
+          v38 = *a2;
+          v37 = *(a1 + 104);
         }
       }
     }
 
-    *a3 = (v22 + v34) / v23;
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v49);
+    *a3 = (v20 + v32) / v21;
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v46);
   }
 
-  return v24 != 0;
+  return v22 != 0;
 }
 
-void sub_2627A727C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2627A727C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t WordLanguageModel::buildNgramProbs(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, double a6)
+uint64_t WordLanguageModel::buildNgramProbs(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, double a6)
 {
   v102 = (a2 - 1);
   v10 = *(**(a1 + 1800) + 8 * v102);
@@ -4192,15 +4195,15 @@ LABEL_136:
   (**v56)(v56);
   MemChunkFree(v56, 0);
   Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::~Hash(v108);
-  v95 = *(a4 + 8);
-  if (v95 == *(a4 + 12))
+  v95 = *(a4 + 2);
+  if (v95 == *(a4 + 3))
   {
     DgnPrimArray<unsigned long long>::reallocElts(a4, 1, 1);
-    v95 = *(a4 + 8);
+    v95 = *(a4 + 2);
   }
 
   *(*a4 + 8 * v95) = v23;
-  *(a4 + 8) = v95 + 1;
+  *(a4 + 2) = v95 + 1;
   v96 = *(a5 + 8);
   if (v96 == *(a5 + 12))
   {
@@ -4213,12 +4216,13 @@ LABEL_136:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v117);
 }
 
-void sub_2627A7BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_2627A7BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
+  va_start(va, a51);
   Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,unsigned int>::~Hash(&a24);
   Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,unsigned int>::~Hash(&a38);
-  Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::~Hash(&a52);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v52 - 184);
+  Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::~Hash(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v51 - 184);
   _Unwind_Resume(a1);
 }
 
@@ -4425,7 +4429,7 @@ LABEL_45:
   }
 
 LABEL_48:
-  mrec_qsort_r<BuildWordIdNgramCmp>(v22, v23, 16);
+  mrec_qsort_r<BuildWordIdNgramCmp>(v22, v23, 16, 0);
   v36 = 0;
   v49[0] = 0;
   v49[1] = 0;
@@ -4480,7 +4484,7 @@ LABEL_48:
         v47 = v54;
       }
 
-      v53[v47] = v46;
+      *(v53 + 2 * v47) = v46;
       LODWORD(v54) = v47 + 1;
       ++v36;
       v38 = v51;
@@ -4495,12 +4499,12 @@ LABEL_63:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v55);
 }
 
-void sub_2627A8038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2627A8038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
@@ -4630,7 +4634,7 @@ LABEL_9:
               }
 
 LABEL_31:
-              mrec_qsort_r<BuildWordIdNgramCmp>(v13, v14, 16);
+              mrec_qsort_r<BuildWordIdNgramCmp>(v13, v14, 16, 0);
               v27 = 0;
               v28 = *(v80 + 8);
               v29 = v81;
@@ -4904,7 +4908,7 @@ LABEL_87:
   }
 
 LABEL_90:
-  mrec_qsort_r<BuildWordIdNgramCmp>(v49, v50, 16);
+  mrec_qsort_r<BuildWordIdNgramCmp>(v49, v50, 16, 0);
   v63 = 0;
   v64 = 0;
   v79[0] = 0;
@@ -4947,7 +4951,7 @@ LABEL_90:
         v76 = v83;
       }
 
-      v82[v76] = v75;
+      *(v82 + 2 * v76) = v75;
       LODWORD(v83) = v76 + 1;
       ++v63;
       v67 = v81;
@@ -4955,7 +4959,7 @@ LABEL_90:
 
     else
     {
-      TrigramData::fillTrigramRecord(a1 + 744, *(*(a1 + 808) + 4 * v65) + v64, &v84, &v82, v79);
+      TrigramData::fillTrigramRecord((a1 + 744), *(*(a1 + 808) + 4 * v65) + v64, &v84, &v82, v79);
       v67 = v81;
       if (v63 == v81)
       {
@@ -4990,24 +4994,24 @@ LABEL_109:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v88);
 }
 
-void sub_2627A86D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2627A86D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va4, a3);
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va4, a5);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
   v9 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   va_copy(va3, va2);
-  v10 = va_arg(va3, void);
   v12 = va_arg(va3, void);
+  v14 = va_arg(va3, void);
   va_copy(va4, va3);
-  v13 = va_arg(va4, void);
   v15 = va_arg(va4, void);
+  v17 = va_arg(va4, void);
   DgnIArray<Utterance *>::~DgnIArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
@@ -5016,18 +5020,18 @@ void sub_2627A86D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t WordLanguageModel::addWordDuringBuild(WordNgramTemplate **this, unsigned int a2)
+uint64_t *WordLanguageModel::addWordDuringBuild(WordNgramTemplate **this, unsigned int a2)
 {
   result = WordNgramTemplate::isHeadCloneWordId(this[227], a2);
   if (result)
   {
     v5 = this[23];
-    for (i = *(v5 + 8); i <= a2; *(v5 + 8) = i)
+    for (i = *(v5 + 2); i <= a2; *(v5 + 2) = i)
     {
-      if (i == *(v5 + 12))
+      if (i == *(v5 + 3))
       {
         result = DgnPrimArray<unsigned long long>::reallocElts(v5, 1, 1);
-        i = *(v5 + 8);
+        i = *(v5 + 2);
       }
 
       *(*v5 + 8 * i++) = 0;
@@ -5509,7 +5513,7 @@ LABEL_47:
   v40 = v53;
   v39 = v54;
 LABEL_48:
-  mrec_qsort_r<BuildWordIdNgramCmp>(v40, v39, 16);
+  mrec_qsort_r<BuildWordIdNgramCmp>(v40, v39, 16, 0);
   v41 = &v53[16 * (~v14 + a5)];
   v42 = *v41;
   *v47 = v42;
@@ -5532,26 +5536,26 @@ LABEL_48:
   return v6;
 }
 
-void sub_2627A8E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2627A8E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnIArray<Utterance *>::~DgnIArray(va);
   _Unwind_Resume(a1);
 }
 
-char *mrec_qsort_r<BuildWordIdNgramCmp>(char *result, unint64_t a2, int64_t a3)
+char *mrec_qsort_r<BuildWordIdNgramCmp>(char *result, unint64_t a2, int64_t a3, uint64_t a4)
 {
-  v4 = -a3;
-  v5 = a3 != 8;
-  v6 = ((result | a3) & 7) == 0;
+  v5 = -a3;
+  v6 = a3 != 8;
+  v7 = ((result | a3) & 7) == 0;
   if (((result | a3) & 7) != 0)
   {
-    v7 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v7 = a3 != 8;
+    v8 = a3 != 8;
   }
 
   if (a2 < 7)
@@ -5559,70 +5563,71 @@ char *mrec_qsort_r<BuildWordIdNgramCmp>(char *result, unint64_t a2, int64_t a3)
 LABEL_5:
     if ((a2 * a3) > a3)
     {
-      v8 = &result[a2 * a3];
-      v9 = &result[a3];
-      v10 = result;
+      v9 = &result[a2 * a3];
+      v10 = &result[a3];
+      v11 = result;
       do
       {
-        if (v9 > result)
+        if (v10 > result)
         {
-          v11 = v10;
-          v12 = v9;
+          v12 = v11;
+          v13 = v10;
 LABEL_9:
-          v13 = v12;
-          v12 = (v12 + v4);
-          v14 = *v12 - 1;
-          while ((v14 & 0x80000000) == 0)
+          v14 = v13;
+          v13 += v5;
+          v15 = *v13 - 1;
+          while ((v15 & 0x80000000) == 0)
           {
-            v15 = v14 & 0x7FFFFFFF;
-            v16 = v12[v15 + 1];
-            v17 = *(v13 + v15 * 4 + 4);
-            --v14;
-            if (v16 != v17)
+            v16 = 4 * (v15 & 0x7FFFFFFF);
+            v17 = *&v13[v16 + 4];
+            v18 = *(v14 + v16 + 4);
+            --v15;
+            if (v17 != v18)
             {
-              if (v16 >= v17)
+              if (v17 >= v18)
               {
-                if (v7)
+                if (v8)
                 {
-                  v18 = 0;
-                  if (v6)
+                  v19 = 0;
+                  if (v7)
                   {
-                    v19 = v12;
+                    v20 = v13;
                     do
                     {
-                      v20 = v13[v18];
-                      v13[v18] = *v19;
-                      *v19++ = v20;
-                      ++v18;
+                      v21 = v14[v19];
+                      v14[v19] = *v20;
+                      *v20 = v21;
+                      v20 += 8;
+                      ++v19;
                     }
 
-                    while (a3 >> 3 != v18);
+                    while (a3 >> 3 != v19);
                   }
 
                   else
                   {
-                    v22 = a3;
+                    v23 = a3;
                     do
                     {
-                      v23 = *(v13 + v18);
-                      *(v13 + v18) = *(v11 + v18);
-                      *(v11 + v18++) = v23;
-                      --v22;
+                      v24 = *(v14 + v19);
+                      *(v14 + v19) = v12[v19];
+                      v12[v19++] = v24;
+                      --v23;
                     }
 
-                    while (v22);
+                    while (v23);
                   }
                 }
 
                 else
                 {
-                  v21 = *v13;
-                  *v13 = *v12;
-                  *v12 = v21;
+                  v22 = *v14;
+                  *v14 = *v13;
+                  *v13 = v22;
                 }
 
-                v11 = (v11 + v4);
-                if (v12 > result)
+                v12 += v5;
+                if (v13 > result)
                 {
                   goto LABEL_9;
                 }
@@ -5633,356 +5638,356 @@ LABEL_9:
           }
         }
 
-        v9 += a3;
-        v10 = (v10 + a3);
+        v10 += a3;
+        v11 += a3;
       }
 
-      while (v9 < v8);
+      while (v10 < v9);
     }
 
     return result;
   }
 
-  v24 = a3 >> 3;
+  v26 = a3 >> 3;
   while (1)
   {
-    v25 = &result[(a2 >> 1) * a3];
+    v27 = &result[(a2 >> 1) * a3];
     if (a2 != 7)
     {
-      v26 = &result[(a2 - 1) * a3];
+      v28 = &result[(a2 - 1) * a3];
       if (a2 < 0x29)
       {
-        v28 = result;
+        v30 = result;
         goto LABEL_41;
       }
 
-      v27 = (a2 >> 3) * a3;
-      v28 = &result[v27];
-      v29 = 2 * v27;
-      v30 = &result[2 * v27];
-      v31 = result + 4;
-      v32 = &result[v27 + 4];
-      v33 = *result - 1;
-      v34 = v33;
+      v29 = (a2 >> 3) * a3;
+      v30 = &result[v29];
+      v31 = 2 * v29;
+      v32 = &result[2 * v29];
+      v33 = result + 4;
+      v34 = &result[v29 + 4];
+      v35 = *result - 1;
+      v36 = v35;
       do
       {
-        if (v34 < 0)
+        if (v36 < 0)
         {
           goto LABEL_74;
         }
 
-        v35 = v34 & 0x7FFFFFFF;
-        v36 = v31[v35];
-        v37 = *(v32 + v35 * 4);
-        --v34;
+        v37 = 4 * (v36 & 0x7FFFFFFF);
+        v38 = *&v33[v37];
+        v39 = *&v34[v37];
+        --v36;
       }
 
-      while (v36 == v37);
-      if (v36 >= v37)
+      while (v38 == v39);
+      if (v38 >= v39)
       {
 LABEL_74:
-        v76 = v30 + 4;
-        v77 = *v28 - 1;
+        v78 = v32 + 4;
+        v79 = *v30 - 1;
         do
         {
-          if (v77 < 0)
+          if (v79 < 0)
           {
             goto LABEL_78;
           }
 
-          v78 = 4 * (v77 & 0x7FFFFFFF);
-          v79 = *(v32 + v78);
-          v80 = *&v76[v78];
-          --v77;
+          v80 = 4 * (v79 & 0x7FFFFFFF);
+          v81 = *&v34[v80];
+          v82 = *&v78[v80];
+          --v79;
         }
 
-        while (v79 == v80);
-        if (v79 < v80)
+        while (v81 == v82);
+        if (v81 < v82)
         {
           do
           {
 LABEL_78:
-            if (v33 < 0)
+            if (v35 < 0)
             {
               goto LABEL_82;
             }
 
-            v81 = 4 * (v33 & 0x7FFFFFFF);
-            v82 = *(v31 + v81);
-            LODWORD(v81) = *&v76[v81];
-            --v33;
-            v83 = v82 >= v81;
+            v83 = 4 * (v35 & 0x7FFFFFFF);
+            v84 = *&v33[v83];
+            LODWORD(v83) = *&v78[v83];
+            --v35;
+            v85 = v84 >= v83;
           }
 
-          while (v82 == v81);
-          v28 = result;
-          if (v83)
+          while (v84 == v83);
+          v30 = result;
+          if (v85)
           {
 LABEL_82:
-            v28 = &result[2 * v27];
+            v30 = &result[2 * v29];
           }
         }
       }
 
       else
       {
-        v38 = v30 + 4;
-        v39 = *v28 - 1;
+        v40 = v32 + 4;
+        v41 = *v30 - 1;
         do
         {
-          if (v39 < 0)
+          if (v41 < 0)
           {
             goto LABEL_35;
           }
 
-          v40 = 4 * (v39 & 0x7FFFFFFF);
-          v41 = *(v32 + v40);
-          v42 = *&v38[v40];
-          --v39;
+          v42 = 4 * (v41 & 0x7FFFFFFF);
+          v43 = *&v34[v42];
+          v44 = *&v40[v42];
+          --v41;
         }
 
-        while (v41 == v42);
-        if (v41 >= v42)
+        while (v43 == v44);
+        if (v43 >= v44)
         {
 LABEL_35:
-          while ((v33 & 0x80000000) == 0)
+          while ((v35 & 0x80000000) == 0)
           {
-            v43 = v33 & 0x7FFFFFFF;
-            v44 = v31[v43];
-            v45 = *&v38[v43 * 4];
-            --v33;
-            if (v44 != v45)
+            v45 = 4 * (v35 & 0x7FFFFFFF);
+            v46 = *&v33[v45];
+            v47 = *&v40[v45];
+            --v35;
+            if (v46 != v47)
             {
-              if (v44 >= v45)
+              if (v46 >= v47)
               {
-                v28 = result;
+                v30 = result;
               }
 
               else
               {
-                v28 = &result[2 * v27];
+                v30 = &result[2 * v29];
               }
 
               goto LABEL_83;
             }
           }
 
-          v28 = result;
+          v30 = result;
         }
       }
 
 LABEL_83:
-      v84 = -v27;
-      v85 = &v25[-v27];
-      v86 = &v25[v27];
-      v87 = v85 + 4;
-      v88 = v25 + 4;
-      v89 = *v85 - 1;
-      v90 = v89;
+      v86 = -v29;
+      v87 = &v27[-v29];
+      v88 = &v27[v29];
+      v89 = v87 + 4;
+      v90 = v27 + 4;
+      v91 = *v87 - 1;
+      v92 = v91;
       do
       {
-        if (v90 < 0)
+        if (v92 < 0)
         {
           goto LABEL_96;
         }
 
-        v91 = v90 & 0x7FFFFFFF;
-        v92 = v87[v91];
-        v93 = v88[v91];
-        --v90;
+        v93 = v92 & 0x7FFFFFFF;
+        v94 = v89[v93];
+        v95 = *&v90[v93 * 4];
+        --v92;
       }
 
-      while (v92 == v93);
-      if (v92 >= v93)
+      while (v94 == v95);
+      if (v94 >= v95)
       {
 LABEL_96:
-        v102 = v86 + 4;
-        v103 = *v25 - 1;
+        v104 = v88 + 4;
+        v105 = *v27 - 1;
         do
         {
-          if (v103 < 0)
+          if (v105 < 0)
           {
             goto LABEL_100;
           }
 
-          v104 = v103 & 0x7FFFFFFF;
-          v105 = v88[v104];
-          v106 = v102[v104];
-          --v103;
+          v106 = 4 * (v105 & 0x7FFFFFFF);
+          v107 = *&v90[v106];
+          v108 = *&v104[v106];
+          --v105;
         }
 
-        while (v105 == v106);
-        if (v105 < v106)
+        while (v107 == v108);
+        if (v107 < v108)
         {
           do
           {
 LABEL_100:
-            if (v89 < 0)
+            if (v91 < 0)
             {
               goto LABEL_104;
             }
 
-            v107 = 4 * (v89 & 0x7FFFFFFF);
-            v108 = *(v87 + v107);
-            LODWORD(v107) = *(v102 + v107);
-            --v89;
-            v109 = v108 >= v107;
+            v109 = 4 * (v91 & 0x7FFFFFFF);
+            v110 = *(v89 + v109);
+            LODWORD(v109) = *&v104[v109];
+            --v91;
+            v111 = v110 >= v109;
           }
 
-          while (v108 == v107);
-          v25 = v85;
-          if (v109)
+          while (v110 == v109);
+          v27 = v87;
+          if (v111)
           {
 LABEL_104:
-            v25 = v86;
+            v27 = v88;
           }
         }
       }
 
       else
       {
-        v94 = v86 + 4;
-        v95 = *v25 - 1;
+        v96 = v88 + 4;
+        v97 = *v27 - 1;
         do
         {
-          if (v95 < 0)
+          if (v97 < 0)
           {
             goto LABEL_91;
           }
 
-          v96 = v95 & 0x7FFFFFFF;
-          v97 = v88[v96];
-          v98 = v94[v96];
-          --v95;
+          v98 = 4 * (v97 & 0x7FFFFFFF);
+          v99 = *&v90[v98];
+          v100 = *&v96[v98];
+          --v97;
         }
 
-        while (v97 == v98);
-        if (v97 >= v98)
+        while (v99 == v100);
+        if (v99 >= v100)
         {
 LABEL_91:
-          while ((v89 & 0x80000000) == 0)
+          while ((v91 & 0x80000000) == 0)
           {
-            v99 = v89 & 0x7FFFFFFF;
-            v100 = v87[v99];
-            v101 = v94[v99];
-            --v89;
-            if (v100 != v101)
+            v101 = v91 & 0x7FFFFFFF;
+            v102 = v89[v101];
+            v103 = *&v96[v101 * 4];
+            --v91;
+            if (v102 != v103)
             {
-              if (v100 >= v101)
+              if (v102 >= v103)
               {
-                v25 = v85;
+                v27 = v87;
               }
 
               else
               {
-                v25 = v86;
+                v27 = v88;
               }
 
               goto LABEL_105;
             }
           }
 
-          v25 = v85;
+          v27 = v87;
         }
       }
 
 LABEL_105:
-      v110 = &v26[-v29];
-      v111 = &v26[v84];
-      v112 = v110 + 4;
-      v113 = &v26[v84 + 4];
-      v114 = *v110 - 1;
-      v115 = v114;
+      v112 = &v28[-v31];
+      v113 = &v28[v86];
+      v114 = v112 + 4;
+      v115 = &v28[v86 + 4];
+      v116 = *v112 - 1;
+      v117 = v116;
       do
       {
-        if (v115 < 0)
+        if (v117 < 0)
         {
           goto LABEL_117;
         }
 
-        v116 = v115 & 0x7FFFFFFF;
-        v117 = v112[v116];
-        v118 = *(v113 + v116 * 4);
-        --v115;
+        v118 = v117 & 0x7FFFFFFF;
+        v119 = v114[v118];
+        v120 = *(v115 + v118 * 4);
+        --v117;
       }
 
-      while (v117 == v118);
-      if (v117 >= v118)
+      while (v119 == v120);
+      if (v119 >= v120)
       {
 LABEL_117:
-        v127 = v26 + 4;
-        v128 = *v111 - 1;
+        v129 = v28 + 4;
+        v130 = *v113 - 1;
         do
         {
-          if (v128 < 0)
+          if (v130 < 0)
           {
             goto LABEL_121;
           }
 
-          v129 = v128 & 0x7FFFFFFF;
-          v130 = *(v113 + v129 * 4);
-          v131 = v127[v129];
-          --v128;
+          v131 = 4 * (v130 & 0x7FFFFFFF);
+          v132 = *(v115 + v131);
+          v133 = *&v129[v131];
+          --v130;
         }
 
-        while (v130 == v131);
-        if (v130 < v131)
+        while (v132 == v133);
+        if (v132 < v133)
         {
           do
           {
 LABEL_121:
-            if (v114 < 0)
+            if (v116 < 0)
             {
               goto LABEL_41;
             }
 
-            v132 = v114 & 0x7FFFFFFF;
-            v133 = v112[v132];
-            v134 = v127[v132];
-            --v114;
+            v134 = v116 & 0x7FFFFFFF;
+            v135 = v114[v134];
+            v136 = *&v129[v134 * 4];
+            --v116;
           }
 
-          while (v133 == v134);
-          if (v133 < v134)
+          while (v135 == v136);
+          if (v135 < v136)
           {
 LABEL_124:
-            v26 = v110;
+            v28 = v112;
           }
 
 LABEL_41:
-          v46 = v28 + 4;
-          v47 = v25 + 4;
-          v48 = *v28 - 1;
-          v49 = v48;
-          while ((v49 & 0x80000000) == 0)
+          v48 = v30 + 4;
+          v49 = v27 + 4;
+          v50 = *v30 - 1;
+          v51 = v50;
+          while ((v51 & 0x80000000) == 0)
           {
-            v50 = 4 * (v49 & 0x7FFFFFFF);
-            v51 = *(v46 + v50);
-            LODWORD(v50) = *(v47 + v50);
-            --v49;
-            v52 = v51 >= v50;
-            if (v51 != v50)
+            v52 = 4 * (v51 & 0x7FFFFFFF);
+            v53 = *&v48[v52];
+            LODWORD(v52) = *&v49[v52];
+            --v51;
+            v54 = v53 >= v52;
+            if (v53 != v52)
             {
-              v53 = *v25;
-              if (!v52)
+              v55 = *v27;
+              if (!v54)
               {
-                v54 = v26 + 4;
-                v55 = v53 - 1;
+                v56 = v28 + 4;
+                v57 = v55 - 1;
                 do
                 {
-                  if (v55 < 0)
+                  if (v57 < 0)
                   {
                     goto LABEL_49;
                   }
 
-                  v56 = v55 & 0x7FFFFFFF;
-                  v57 = v47[v56];
-                  v58 = v54[v56];
-                  --v55;
+                  v58 = 4 * (v57 & 0x7FFFFFFF);
+                  v59 = *&v49[v58];
+                  v60 = *&v56[v58];
+                  --v57;
                 }
 
-                while (v57 == v58);
-                if (v57 < v58)
+                while (v59 == v60);
+                if (v59 < v60)
                 {
                   goto LABEL_66;
                 }
@@ -5990,10 +5995,10 @@ LABEL_41:
                 do
                 {
 LABEL_49:
-                  if (v48 < 0)
+                  if (v50 < 0)
                   {
-                    v25 = v28;
-                    if (v7)
+                    v27 = v30;
+                    if (v8)
                     {
                       goto LABEL_67;
                     }
@@ -6001,66 +6006,66 @@ LABEL_49:
                     goto LABEL_127;
                   }
 
-                  v59 = v48 & 0x7FFFFFFF;
-                  v60 = v46[v59];
-                  v61 = v54[v59];
-                  --v48;
+                  v61 = 4 * (v50 & 0x7FFFFFFF);
+                  v62 = *&v48[v61];
+                  v63 = *&v56[v61];
+                  --v50;
                 }
 
-                while (v60 == v61);
-                if (v60 >= v61)
+                while (v62 == v63);
+                if (v62 >= v63)
                 {
-                  v25 = v28;
+                  v27 = v30;
                 }
 
                 else
                 {
-                  v25 = v26;
+                  v27 = v28;
                 }
 
-                if (v7)
+                if (v8)
                 {
                   goto LABEL_67;
                 }
 
 LABEL_127:
-                v135 = *result;
-                *result = *v25;
-                *v25 = v135;
+                v137 = *result;
+                *result = *v27;
+                *v27 = v137;
                 goto LABEL_128;
               }
 
 LABEL_57:
-              v62 = v26 + 4;
-              v63 = v53 - 1;
+              v64 = v28 + 4;
+              v65 = v55 - 1;
               do
               {
-                if (v63 < 0)
+                if (v65 < 0)
                 {
                   goto LABEL_61;
                 }
 
-                v64 = v63 & 0x7FFFFFFF;
-                v65 = v47[v64];
-                v66 = v62[v64];
-                --v63;
+                v66 = 4 * (v65 & 0x7FFFFFFF);
+                v67 = *&v49[v66];
+                v68 = *&v64[v66];
+                --v65;
               }
 
-              while (v65 == v66);
-              if (v65 < v66)
+              while (v67 == v68);
+              if (v67 < v68)
               {
 LABEL_61:
-                while ((v48 & 0x80000000) == 0)
+                while ((v50 & 0x80000000) == 0)
                 {
-                  v67 = 4 * (v48 & 0x7FFFFFFF);
-                  v68 = *(v46 + v67);
-                  LODWORD(v67) = *(v62 + v67);
-                  --v48;
-                  v69 = v68 >= v67;
-                  if (v68 != v67)
+                  v69 = 4 * (v50 & 0x7FFFFFFF);
+                  v70 = *&v48[v69];
+                  LODWORD(v69) = *&v64[v69];
+                  --v50;
+                  v71 = v70 >= v69;
+                  if (v70 != v69)
                   {
-                    v25 = v28;
-                    if (!v69)
+                    v27 = v30;
+                    if (!v71)
                     {
                       goto LABEL_66;
                     }
@@ -6069,398 +6074,398 @@ LABEL_61:
                   }
                 }
 
-                v25 = v26;
+                v27 = v28;
               }
 
               goto LABEL_66;
             }
           }
 
-          v53 = *v25;
+          v55 = *v27;
           goto LABEL_57;
         }
       }
 
       else
       {
-        v119 = v26 + 4;
-        v120 = *v111 - 1;
+        v121 = v28 + 4;
+        v122 = *v113 - 1;
         do
         {
-          if (v120 < 0)
+          if (v122 < 0)
           {
             goto LABEL_113;
           }
 
-          v121 = v120 & 0x7FFFFFFF;
-          v122 = *(v113 + v121 * 4);
-          v123 = v119[v121];
-          --v120;
+          v123 = 4 * (v122 & 0x7FFFFFFF);
+          v124 = *(v115 + v123);
+          v125 = *&v121[v123];
+          --v122;
         }
 
-        while (v122 == v123);
-        if (v122 >= v123)
+        while (v124 == v125);
+        if (v124 >= v125)
         {
           do
           {
 LABEL_113:
-            if (v114 < 0)
+            if (v116 < 0)
             {
               goto LABEL_124;
             }
 
-            v124 = v114 & 0x7FFFFFFF;
-            v125 = v112[v124];
-            v126 = v119[v124];
-            --v114;
+            v126 = v116 & 0x7FFFFFFF;
+            v127 = v114[v126];
+            v128 = *&v121[v126 * 4];
+            --v116;
           }
 
-          while (v125 == v126);
-          if (v125 >= v126)
+          while (v127 == v128);
+          if (v127 >= v128)
           {
-            v26 = v110;
+            v28 = v112;
           }
 
           goto LABEL_41;
         }
       }
 
-      v26 = v111;
+      v28 = v113;
       goto LABEL_41;
     }
 
 LABEL_66:
-    if (!v7)
+    if (!v8)
     {
       goto LABEL_127;
     }
 
 LABEL_67:
-    if (v6)
+    if (v7)
     {
-      v70 = result;
-      v71 = a3 >> 3;
+      v72 = result;
+      v73 = a3 >> 3;
       do
       {
-        v72 = *v70;
-        *v70 = *v25;
-        v70 += 8;
-        *v25 = v72;
-        v25 += 8;
-        --v71;
-      }
-
-      while (v71);
-    }
-
-    else
-    {
-      v73 = a3;
-      v74 = result;
-      do
-      {
-        v75 = *v74;
-        *v74++ = *v25;
-        *v25++ = v75;
+        v74 = *v72;
+        *v72 = *v27;
+        v72 += 8;
+        *v27 = v74;
+        v27 += 8;
         --v73;
       }
 
       while (v73);
     }
 
+    else
+    {
+      v75 = a3;
+      v76 = result;
+      do
+      {
+        v77 = *v76;
+        *v76++ = *v27;
+        *v27++ = v77;
+        --v75;
+      }
+
+      while (v75);
+    }
+
 LABEL_128:
-    v136 = 0;
-    v137 = &result[a3];
-    v138 = &result[(a2 - 1) * a3];
-    v139 = result + 4;
-    v140 = v138;
-    v141 = &result[a3];
-    v142 = &result[a3];
+    v138 = 0;
+    v139 = &result[a3];
+    v140 = &result[(a2 - 1) * a3];
+    v141 = result + 4;
+    v142 = v140;
+    v143 = &result[a3];
+    v144 = &result[a3];
     while (1)
     {
-      while (v141 <= v140)
+      while (v143 <= v142)
       {
-        v143 = *v141 - 1;
+        v145 = *v143 - 1;
         do
         {
-          if (v143 < 0)
+          if (v145 < 0)
           {
-            if (v7)
+            if (v8)
             {
-              v157 = 0;
-              if (v6)
+              v159 = 0;
+              if (v7)
               {
                 do
                 {
-                  v158 = *&v142[8 * v157];
-                  *&v142[8 * v157] = *&v141[8 * v157];
-                  *&v141[8 * v157++] = v158;
+                  v160 = *&v144[8 * v159];
+                  *&v144[8 * v159] = *&v143[8 * v159];
+                  *&v143[8 * v159++] = v160;
                 }
 
-                while (v24 != v157);
+                while (v26 != v159);
               }
 
               else
               {
                 do
                 {
-                  v159 = v142[v157];
-                  v142[v157] = v141[v157];
-                  v141[v157++] = v159;
+                  v161 = v144[v159];
+                  v144[v159] = v143[v159];
+                  v143[v159++] = v161;
                 }
 
-                while (a3 != v157);
+                while (a3 != v159);
               }
             }
 
             else
             {
-              v161 = *v142;
-              *v142 = *v141;
-              *v141 = v161;
+              v163 = *v144;
+              *v144 = *v143;
+              *v143 = v163;
             }
 
-            v142 += a3;
-            v136 = 1;
+            v144 += a3;
+            v138 = 1;
             goto LABEL_163;
           }
 
-          v144 = v143 & 0x7FFFFFFF;
-          v145 = *&v141[v144 * 4 + 4];
-          v146 = v139[v144];
-          --v143;
+          v146 = 4 * (v145 & 0x7FFFFFFF);
+          v147 = *&v143[v146 + 4];
+          v148 = *&v141[v146];
+          --v145;
         }
 
-        while (v145 == v146);
-        if (v145 >= v146)
+        while (v147 == v148);
+        if (v147 >= v148)
         {
           break;
         }
 
 LABEL_163:
-        v141 += a3;
+        v143 += a3;
       }
 
 LABEL_144:
-      if (v141 > v140)
+      if (v143 > v142)
       {
         break;
       }
 
-      v151 = *v140 - 1;
+      v153 = *v142 - 1;
       do
       {
-        if (v151 < 0)
+        if (v153 < 0)
         {
-          if (v7)
+          if (v8)
           {
-            v147 = 0;
-            if (v6)
+            v149 = 0;
+            if (v7)
             {
               do
               {
-                v148 = *&v140[8 * v147];
-                *&v140[8 * v147] = *&v138[8 * v147];
-                *&v138[8 * v147++] = v148;
+                v150 = *&v142[8 * v149];
+                *&v142[8 * v149] = *&v140[8 * v149];
+                *&v140[8 * v149++] = v150;
               }
 
-              while (v24 != v147);
+              while (v26 != v149);
             }
 
             else
             {
               do
               {
-                v149 = v140[v147];
-                v140[v147] = v138[v147];
-                v138[v147++] = v149;
+                v151 = v142[v149];
+                v142[v149] = v140[v149];
+                v140[v149++] = v151;
               }
 
-              while (a3 != v147);
+              while (a3 != v149);
             }
           }
 
           else
           {
-            v150 = *v140;
-            *v140 = *v138;
-            *v138 = v150;
+            v152 = *v142;
+            *v142 = *v140;
+            *v140 = v152;
           }
 
-          v138 += v4;
-          v136 = 1;
+          v140 += v5;
+          v138 = 1;
 LABEL_143:
-          v140 += v4;
+          v142 += v5;
           goto LABEL_144;
         }
 
-        v152 = v151 & 0x7FFFFFFF;
-        v153 = *&v140[v152 * 4 + 4];
-        v154 = v139[v152];
-        --v151;
+        v154 = 4 * (v153 & 0x7FFFFFFF);
+        v155 = *&v142[v154 + 4];
+        v156 = *&v141[v154];
+        --v153;
       }
 
-      while (v153 == v154);
-      if (v153 >= v154)
+      while (v155 == v156);
+      if (v155 >= v156)
       {
         goto LABEL_143;
       }
 
-      if (v7)
+      if (v8)
       {
-        v155 = 0;
-        if (v6)
+        v157 = 0;
+        if (v7)
         {
           do
           {
-            v156 = *&v141[8 * v155];
-            *&v141[8 * v155] = *&v140[8 * v155];
-            *&v140[8 * v155++] = v156;
+            v158 = *&v143[8 * v157];
+            *&v143[8 * v157] = *&v142[8 * v157];
+            *&v142[8 * v157++] = v158;
           }
 
-          while (v24 != v155);
+          while (v26 != v157);
         }
 
         else
         {
           do
           {
-            v160 = v141[v155];
-            v141[v155] = v140[v155];
-            v140[v155++] = v160;
+            v162 = v143[v157];
+            v143[v157] = v142[v157];
+            v142[v157++] = v162;
           }
 
-          while (a3 != v155);
+          while (a3 != v157);
         }
       }
 
       else
       {
-        v162 = *v141;
-        *v141 = *v140;
-        *v140 = v162;
+        v164 = *v143;
+        *v143 = *v142;
+        *v142 = v164;
       }
 
-      v141 += a3;
-      v140 += v4;
-      v136 = 1;
+      v143 += a3;
+      v142 += v5;
+      v138 = 1;
     }
 
-    v163 = &result[a2 * a3];
-    if (!v136)
+    v165 = &result[a2 * a3];
+    if (!v138)
     {
       break;
     }
 
-    v164 = v141 - v142;
-    if (v142 - result >= v141 - v142)
+    v166 = v143 - v144;
+    if (v144 - result >= v143 - v144)
     {
-      v165 = v141 - v142;
+      v167 = v143 - v144;
     }
 
     else
     {
-      v165 = v142 - result;
+      v167 = v144 - result;
     }
 
-    if (v165)
+    if (v167)
     {
-      if (v6)
+      if (v7)
       {
-        v166 = &v141[-v165];
-        v167 = v165 >> 3;
-        v168 = result;
+        v168 = &v143[-v167];
+        v169 = v167 >> 3;
+        v170 = result;
         do
         {
-          v169 = *v168;
-          *v168 = *v166;
+          v171 = *v170;
+          *v170 = *v168;
+          v170 += 8;
+          *v168 = v171;
           v168 += 8;
-          *v166 = v169;
-          v166 += 8;
-          --v167;
+          --v169;
         }
 
-        while (v167);
+        while (v169);
       }
 
       else
       {
-        v170 = -v165;
-        v171 = result;
+        v172 = -v167;
+        v173 = result;
         do
         {
-          v172 = *v171;
-          *v171++ = v141[v170];
-          v141[v170] = v172;
-          v52 = __CFADD__(v170++, 1);
+          v174 = *v173;
+          *v173++ = v143[v172];
+          v143[v172] = v174;
+          v54 = __CFADD__(v172++, 1);
         }
 
-        while (!v52);
+        while (!v54);
       }
     }
 
-    v173 = v138 - v140;
-    v174 = v163 - &v138[a3];
-    if (v138 - v140 < v174)
+    v175 = v140 - v142;
+    v176 = v165 - &v140[a3];
+    if (v140 - v142 < v176)
     {
-      v174 = v138 - v140;
+      v176 = v140 - v142;
     }
 
-    if (v174)
+    if (v176)
     {
-      if (v6)
+      if (v7)
       {
-        v175 = &v163[-v174];
-        v176 = v174 >> 3;
+        v177 = &v165[-v176];
+        v178 = v176 >> 3;
         do
         {
-          v177 = *v141;
-          *v141 = *v175;
-          v141 += 8;
-          *v175 = v177;
-          v175 += 8;
-          --v176;
+          v179 = *v143;
+          *v143 = *v177;
+          v143 += 8;
+          *v177 = v179;
+          v177 += 8;
+          --v178;
         }
 
-        while (v176);
+        while (v178);
       }
 
       else
       {
-        v178 = -v174;
+        v180 = -v176;
         do
         {
-          v179 = *v141;
-          *v141++ = v163[v178];
-          v163[v178] = v179;
-          v52 = __CFADD__(v178++, 1);
+          v181 = *v143;
+          *v143++ = v165[v180];
+          v165[v180] = v181;
+          v54 = __CFADD__(v180++, 1);
         }
 
-        while (!v52);
+        while (!v54);
       }
     }
 
-    if (v164 > a3)
+    if (v166 > a3)
     {
-      result = mrec_qsort_r<BuildWordIdNgramCmp>();
+      result = mrec_qsort_r<BuildWordIdNgramCmp>(result, v166 / a3, a3, a4);
     }
 
-    if (v173 <= a3)
+    if (v175 <= a3)
     {
       return result;
     }
 
-    result = &v163[-v173];
-    a2 = v173 / a3;
-    v6 = (((v163 - v173) | a3) & 7) == 0;
-    if ((((v163 - v173) | a3) & 7) != 0)
+    result = &v165[-v175];
+    a2 = v175 / a3;
+    v7 = (((v165 - v175) | a3) & 7) == 0;
+    if ((((v165 - v175) | a3) & 7) != 0)
     {
-      v7 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v7 = v5;
+      v8 = v6;
     }
 
     if (a2 < 7)
@@ -6471,68 +6476,69 @@ LABEL_143:
 
   if ((a2 * a3) > a3)
   {
-    v180 = result;
+    v182 = result;
     do
     {
-      if (v137 > result)
+      if (v139 > result)
       {
-        v181 = v180;
-        v182 = v137;
-LABEL_202:
         v183 = v182;
-        v182 = (v182 + v4);
-        v184 = *v182 - 1;
-        while ((v184 & 0x80000000) == 0)
+        v184 = v139;
+LABEL_202:
+        v185 = v184;
+        v184 += v5;
+        v186 = *v184 - 1;
+        while ((v186 & 0x80000000) == 0)
         {
-          v185 = v184 & 0x7FFFFFFF;
-          v186 = v182[v185 + 1];
-          v187 = *(v183 + v185 * 4 + 4);
-          --v184;
-          if (v186 != v187)
+          v187 = 4 * (v186 & 0x7FFFFFFF);
+          v188 = *&v184[v187 + 4];
+          v189 = *(v185 + v187 + 4);
+          --v186;
+          if (v188 != v189)
           {
-            if (v186 >= v187)
+            if (v188 >= v189)
             {
-              if (v7)
+              if (v8)
               {
-                v188 = 0;
-                if (v6)
+                v190 = 0;
+                if (v7)
                 {
-                  v189 = v182;
+                  v191 = v184;
                   do
                   {
-                    v190 = v183[v188];
-                    v183[v188] = *v189;
-                    *v189++ = v190;
-                    ++v188;
+                    v192 = v185[v190];
+                    v185[v190] = *v191;
+                    *v191 = v192;
+                    v191 += 8;
+                    ++v190;
                   }
 
-                  while (v24 != v188);
+                  while (v26 != v190);
                 }
 
                 else
                 {
-                  v192 = a3;
+                  v194 = a3;
                   do
                   {
-                    v193 = *(v183 + v188);
-                    *(v183 + v188) = *(v181 + v188);
-                    *(v181 + v188++) = v193;
-                    --v192;
+                    v195 = *(v185 + v190);
+                    *(v185 + v190) = v183[v190];
+                    v183[v190++] = v195;
+                    --v194;
                   }
 
-                  while (v192);
+                  while (v194);
                 }
               }
 
               else
               {
-                v191 = *v183;
-                *v183 = *v182;
-                *v182 = v191;
+                v193 = *v185;
+                *v185 = *v184;
+                *v184 = v193;
               }
 
-              v181 = (v181 + v4);
-              if (v182 > result)
+              v183 += v5;
+              if (v184 > result)
               {
                 goto LABEL_202;
               }
@@ -6543,11 +6549,11 @@ LABEL_202:
         }
       }
 
-      v137 += a3;
-      v180 = (v180 + a3);
+      v139 += a3;
+      v182 += a3;
     }
 
-    while (v137 < v163);
+    while (v139 < v165);
   }
 
   return result;
@@ -6592,7 +6598,7 @@ uint64_t WordLanguageModel::createBuildWordIdAndCountArray(WordIdAndCountCmp *a1
   v15 = *a5;
   v16 = *(a5 + 8);
 
-  return mrec_qsort_r<WordIdAndCountCmp>(v15, v16, 8uLL, a1);
+  return mrec_qsort_r<WordIdAndCountCmp>(v15, v16, 8, a1);
 }
 
 uint64_t WordLanguageModel::maybeAddBuildBegAndEndLmId(uint64_t this)
@@ -6928,7 +6934,7 @@ LABEL_61:
   return result;
 }
 
-uint64_t mrec_qsort_r<WordIdAndCountCmp>(uint64_t result, unint64_t a2, unint64_t a3, WordIdAndCountCmp *a4)
+uint64_t mrec_qsort_r<WordIdAndCountCmp>(uint64_t result, unint64_t a2, int64_t a3, WordIdAndCountCmp *a4)
 {
   v4 = a4;
   v6 = a2;
@@ -7501,7 +7507,7 @@ LABEL_53:
   }
 
   v92 = (v7 + a3);
-  if ((v110 * a3) > a3)
+  if (v110 * a3 > a3)
   {
     v93 = v7;
     do
@@ -7673,54 +7679,52 @@ uint64_t Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::add(uint64_t
   return result;
 }
 
-uint64_t WordLanguageModel::dumpWordLM(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, DgnStream *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordLanguageModel::dumpWordLM(uint64_t a1, unsigned __int16 **a2, unsigned int a3, char a4, DgnStream *a5)
 {
-  v9 = a4;
-  v10 = a3;
-  if (*(a2 + 8))
+  if (*(a2 + 2))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 14939, "lm/wordlm", 91, "%u", a7, a8, **a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 14939, "lm/wordlm", 91, "%u", **a2);
   }
 
-  if (*(a1 + 64) < v10)
+  v9 = *(a1 + 64);
+  if (v9 < a3)
   {
-    v24 = *(a1 + 64);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 14940, "lm/wordlm", 92, "%u %u", a7, a8, v10);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 14940, "lm/wordlm", 92, "%u %u", a3, v9);
   }
 
-  v25 = a1;
-  v26 = v10;
-  v27 = 0;
-  v28 = 0;
-  v29 = 0;
-  v30 = 0;
-  v31 = -1;
-  v32 = -1;
-  v33 = v9;
-  NGramIterator::next(&v25, a2, a3, a4, a5, a6, a7, a8);
-  while ((v27 & 0x100) == 0)
+  v12 = a1;
+  v13 = a3;
+  v14 = 0;
+  v15 = 0;
+  v16 = 0;
+  v17 = 0;
+  v18 = -1;
+  v19 = -1;
+  v20 = a4;
+  NGramIterator::next(&v12);
+  while ((v14 & 0x100) == 0)
   {
-    if (v29)
+    if (v16)
     {
-      v15 = 0;
+      v10 = 0;
       do
       {
-        if (v15)
+        if (v10)
         {
-          DgnStream::streamPrintf(a5, " ", v12, v13, v14);
+          DgnStream::streamPrintf(a5, " ");
         }
 
-        DgnStream::streamPrintf(a5, "%u", v12, v13, v14, *(v28 + 4 * v15++), v24);
+        DgnStream::streamPrintf(a5, "%u", *(v15 + 4 * v10++));
       }
 
-      while (v15 < v29);
+      while (v10 < v16);
     }
 
-    DgnStream::streamPrintf(a5, " %u %d\n", v12, v13, v14, v30, SHIWORD(v30));
-    NGramIterator::next(&v25, v16, v17, v18, v19, v20, v21, v22);
+    DgnStream::streamPrintf(a5, " %u %d\n", v17, SHIWORD(v17));
+    NGramIterator::next(&v12);
   }
 
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v28);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v15);
 }
 
 void NGramIterator::NGramIterator(NGramIterator *this, const WordLanguageModel *a2, __int16 a3, char a4)
@@ -7736,19 +7740,19 @@ void NGramIterator::NGramIterator(NGramIterator *this, const WordLanguageModel *
   *(this + 56) = a4;
 }
 
-uint64_t NGramIterator::next(NGramIterator *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t NGramIterator::next(NGramIterator *this)
 {
   if (*(this + 11))
   {
-    v8 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v10 = *(this + 4);
-    if (v10 > 2)
+    v3 = *(this + 4);
+    if (v3 > 2)
     {
-      if (v10 == 3)
+      if (v3 == 3)
       {
         if (*(this + 56) == 1)
         {
@@ -7761,7 +7765,7 @@ uint64_t NGramIterator::next(NGramIterator *this, uint64_t a2, uint64_t a3, uint
         }
       }
 
-      else if (v10 == 4)
+      else if (v3 == 4)
       {
         if (*(this + 56) == 1)
         {
@@ -7775,12 +7779,12 @@ uint64_t NGramIterator::next(NGramIterator *this, uint64_t a2, uint64_t a3, uint
       }
     }
 
-    else if (v10 == 1)
+    else if (v3 == 1)
     {
-      NGramIterator::next1(this, a2, a3, a4, a5, a6, a7, a8);
+      NGramIterator::next1(this);
     }
 
-    else if (v10 == 2)
+    else if (v3 == 2)
     {
       if (*(this + 56) == 1)
       {
@@ -7793,59 +7797,59 @@ uint64_t NGramIterator::next(NGramIterator *this, uint64_t a2, uint64_t a3, uint
       }
     }
 
-    v8 = *(this + 11) ^ 1;
+    v1 = *(this + 11) ^ 1;
   }
 
-  return v8 & 1;
+  return v1 & 1;
 }
 
-void NGramIterator::next1(NGramIterator *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void NGramIterator::next1(NGramIterator *this)
 {
-  LODWORD(v9) = 1;
+  LODWORD(v2) = 1;
   if (*(this + 10) == 1)
   {
-    LODWORD(v9) = **(this + 2) + 1;
+    LODWORD(v2) = **(this + 2) + 1;
   }
 
   *(this + 10) = 1;
-  v10 = *this;
-  v11 = *(*this + 176);
-  v12 = v11 - v9;
-  if (v11 > v9)
+  v3 = *this;
+  v4 = *(*this + 176);
+  v5 = v4 - v2;
+  if (v4 > v2)
   {
-    v9 = v9;
+    v2 = v2;
     while (1)
     {
-      v13 = *(v10 + 21);
-      v14 = *(v13 + 2 * v9);
-      if (v14 != 20000)
+      v6 = *(v3 + 21);
+      v7 = *(v6 + 2 * v2);
+      if (v7 != 20000)
       {
         break;
       }
 
-      ++v9;
-      if (!--v12)
+      ++v2;
+      if (!--v5)
       {
         goto LABEL_18;
       }
     }
 
-    if (v10[16] < 2u)
+    if (v3[16] < 2u)
     {
-      v15 = 20000;
+      v8 = 20000;
     }
 
     else
     {
-      v15 = *(v13 + 2 * v9);
-      if (v10[84])
+      v8 = *(v6 + 2 * v2);
+      if (v3[84])
       {
-        v15 = *(*(v10 + 41) + 2 * v9);
+        v8 = *(*(v3 + 41) + 2 * v2);
       }
 
-      if (v15 < 0)
+      if (v8 < 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 15067, "lm/wordlm", 93, "%d", a7, a8, v15);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 15067, "lm/wordlm", 93, "%d", v8);
       }
     }
 
@@ -7855,31 +7859,31 @@ void NGramIterator::next1(NGramIterator *this, uint64_t a2, uint64_t a3, uint64_
     }
 
     *(this + 6) = 1;
-    **(this + 2) = v9;
-    *(this + 16) = v14;
-    *(this + 17) = v15;
-    v11 = *(*this + 176);
+    **(this + 2) = v2;
+    *(this + 16) = v7;
+    *(this + 17) = v8;
+    v4 = *(*this + 176);
   }
 
-  if (v9 >= v11)
+  if (v2 >= v4)
   {
 LABEL_18:
     *(this + 11) = 1;
   }
 }
 
-unint64_t NGramIterator::next2Backoff(unint64_t this)
+uint64_t *NGramIterator::next2Backoff(uint64_t *this)
 {
   v1 = this;
   if (*(this + 10) == 1)
   {
-    v2 = *(this + 40) + 1;
-    *(this + 40) = v2;
+    v2 = *(this + 10) + 1;
+    *(this + 10) = v2;
   }
 
   else
   {
-    *(this + 40) = 0xFFFFFFFF00000001;
+    this[5] = 0xFFFFFFFF00000001;
     v2 = 1;
   }
 
@@ -7893,7 +7897,7 @@ unint64_t NGramIterator::next2Backoff(unint64_t this)
     v7 = v2;
     while (!*(v6 + 2 * v7))
     {
-      *(this + 40) = ++v7;
+      *(this + 10) = ++v7;
       if (!--v5)
       {
         goto LABEL_13;
@@ -7901,20 +7905,20 @@ unint64_t NGramIterator::next2Backoff(unint64_t this)
     }
 
     v8 = *(*(v3 + 344) + 2 * v7);
-    v9 = *(this + 28);
+    v9 = *(this + 7);
     if (v9 <= 1)
     {
-      this = DgnPrimArray<unsigned int>::reallocElts(this + 16, 2 - v9, 0);
+      this = DgnPrimArray<unsigned int>::reallocElts((this + 2), 2 - v9, 0);
       v3 = *v1;
     }
 
-    *(v1 + 24) = 2;
-    v10 = *(v1 + 16);
+    *(v1 + 6) = 2;
+    v10 = v1[2];
     *v10 = v7;
     v10[1] = -1;
-    *(v1 + 32) = 20000;
-    *(v1 + 34) = v8;
-    v2 = *(v1 + 40);
+    *(v1 + 16) = 20000;
+    *(v1 + 17) = v8;
+    v2 = *(v1 + 10);
     v4 = *(v3 + 560);
   }
 
@@ -7984,7 +7988,7 @@ uint64_t *NGramIterator::next2(uint64_t *this)
       if (v3 >= *(*(v4 + 552) + 2 * v2))
       {
 LABEL_11:
-        *(v1 + 40) = ++v2;
+        *(v1 + 10) = ++v2;
         if (v2 >= v5)
         {
           v3 = 0;
@@ -7995,7 +7999,7 @@ LABEL_11:
           v3 = (*(v6 + 4 * (v2 >> 5)) >> v2) & 1;
         }
 
-        *(v1 + 44) = v3;
+        *(v1 + 11) = v3;
         goto LABEL_19;
       }
 
@@ -8008,9 +8012,9 @@ LABEL_11:
       break;
     }
 
-    v2 = *(v1 + 40);
-    v3 = *(v1 + 44) + 1;
-    *(v1 + 44) = v3;
+    v2 = *(v1 + 10);
+    v3 = *(v1 + 11) + 1;
+    *(v1 + 11) = v3;
     v4 = *v1;
 LABEL_19:
     v5 = *(v4 + 560);
@@ -8020,21 +8024,21 @@ LABEL_19:
     }
   }
 
-  v10 = *(v1 + 40);
+  v10 = *(v1 + 10);
   v11 = *(*(*v1 + 344) + 2 * v10);
   if ((*(*(*v1 + 384) + ((v10 >> 3) & 0x1FFFFFFC)) >> v10))
   {
-    v12 = *(v1 + 44);
+    v12 = *(v1 + 11);
   }
 
   else
   {
-    LOWORD(v12) = BigramData::getSearchSuccIdForIndex((*v1 + 360), v10, *(v1 + 44));
-    LODWORD(v10) = *(v1 + 40);
+    LOWORD(v12) = BigramData::getSearchSuccIdForIndex((*v1 + 360), v10, *(v1 + 11));
+    LODWORD(v10) = *(v1 + 10);
   }
 
-  this = NGramIteratorData::set2(v1 + 16, v10, v12, v9, v11);
-  v2 = *(v1 + 40);
+  this = NGramIteratorData::set2(v1 + 2, v10, v12, v9, v11);
+  v2 = *(v1 + 10);
   v5 = *(*v1 + 560);
 LABEL_25:
   if (v2 >= v5)
@@ -8045,21 +8049,21 @@ LABEL_25:
   return this;
 }
 
-unint64_t NGramIterator::next3Backoff(unint64_t this)
+uint64_t *NGramIterator::next3Backoff(uint64_t *this)
 {
   v1 = this;
   if (*(this + 10) == 1)
   {
-    v2 = *(this + 40);
-    v3 = *(this + 44) + 1;
-    *(this + 44) = v3;
+    v2 = *(this + 10);
+    v3 = *(this + 11) + 1;
+    *(this + 11) = v3;
   }
 
   else
   {
     v3 = 0;
-    *(this + 40) = 1;
-    *(this + 48) = -1;
+    this[5] = 1;
+    *(this + 12) = -1;
     v2 = 1;
   }
 
@@ -8075,9 +8079,9 @@ unint64_t NGramIterator::next3Backoff(unint64_t this)
   while (!*(v6 + 2 * v2) || v3 >= *(v6 + 2 * v2))
   {
     v3 = 0;
-    *(this + 40) = ++v2;
+    *(this + 10) = ++v2;
 LABEL_13:
-    *(this + 44) = v3;
+    *(this + 11) = v3;
     if (v2 >= v5)
     {
       goto LABEL_19;
@@ -8101,10 +8105,10 @@ LABEL_13:
     v9 = (*(v4 + 840) + 2 * v8);
   }
 
-  this = NGramIteratorData::set3(this + 16, v2, *(*(v4 + 824) + 2 * v8), 0xFFFF, 20000, *v9);
+  this = NGramIteratorData::set3(this + 2, v2, *(*(v4 + 824) + 2 * v8), 0xFFFF, 20000, *v9);
   v5 = *(*v1 + 800);
 LABEL_19:
-  if (*(v1 + 40) >= v5)
+  if (*(v1 + 10) >= v5)
   {
     *(v1 + 11) = 1;
   }
@@ -8112,13 +8116,13 @@ LABEL_19:
   return this;
 }
 
-int *NGramIterator::next3(int *this)
+uint64_t *NGramIterator::next3(uint64_t *this)
 {
   v1 = this;
   if (*(this + 10) == 1)
   {
-    ++this[12];
-    v2 = this[10];
+    ++*(this + 12);
+    v2 = *(this + 10);
     v3 = *this;
     v4 = *(*this + 800);
   }
@@ -8131,7 +8135,7 @@ int *NGramIterator::next3(int *this)
     {
       v2 = 1;
 LABEL_9:
-      this[10] = v2;
+      *(this + 10) = v2;
     }
 
     else
@@ -8146,10 +8150,10 @@ LABEL_9:
         }
       }
 
-      this[10] = v2;
-      this[11] = 0;
+      *(this + 10) = v2;
+      *(this + 11) = 0;
       v5 = *(*(v3 + 808) + 4 * v2);
-      this[12] = (*(*(v3 + 872) + ((v5 >> 3) & 0x1FFFFFFC)) >> v5) & 1;
+      *(this + 12) = (*(*(v3 + 872) + ((v5 >> 3) & 0x1FFFFFFC)) >> v5) & 1;
       v2 = v2;
     }
   }
@@ -8164,10 +8168,10 @@ LABEL_9:
   {
     v6 = *(v3 + 792);
     v7 = *(v6 + 2 * v2);
-    if (!*(v6 + 2 * v2) || (v8 = v1[11], v8 >= v7))
+    if (!*(v6 + 2 * v2) || (v8 = *(v1 + 11), v8 >= v7))
     {
       v17 = v2 + 1;
-      *(v1 + 5) = v17;
+      v1[5] = v17;
       if (v4 <= v17)
       {
         v18 = 0;
@@ -8185,7 +8189,7 @@ LABEL_9:
       }
 
 LABEL_31:
-      v1[12] = v18;
+      *(v1 + 12) = v18;
       goto LABEL_32;
     }
 
@@ -8194,15 +8198,15 @@ LABEL_31:
     v11 = *(v3 + 872);
     v12 = *(v11 + 4 * (v10 >> 5));
     v13 = 1 << (*(v9 + 4 * v2) + v8);
-    v14 = v1[12];
+    v14 = *(v1 + 12);
     if ((v13 & v12) == 0)
     {
       break;
     }
 
-    if (v1[12] <= *(*(v3 + 1040) + 2 * v10))
+    if (*(v1 + 12) <= *(*(v3 + 1040) + 2 * v10))
     {
-      v15 = v1[12] + *(*(v3 + 1024) + 4 * v10) - 1;
+      v15 = *(v1 + 12) + *(*(v3 + 1024) + 4 * v10) - 1;
       if (*(v3 + 784))
       {
         v15 = *(*(v3 + 1072) + v15);
@@ -8225,7 +8229,7 @@ LABEL_31:
     }
 
 LABEL_25:
-    v1[11] = v8 + 1;
+    *(v1 + 11) = v8 + 1;
     if (v8 + 1 < v7)
     {
       v20 = *(v11 + 4 * ((*(v9 + 4 * v2) + v8 + 1) >> 5)) >> (*(v9 + 4 * v2) + v8 + 1);
@@ -8235,7 +8239,7 @@ LABEL_27:
     }
 
 LABEL_32:
-    v2 = v1[10];
+    v2 = *(v1 + 10);
     v4 = *(v3 + 800);
     if (v2 >= v4)
     {
@@ -8251,7 +8255,7 @@ LABEL_32:
   this = TrigramData::getSearchScoreForIndex((v3 + 744), *(v9 + 4 * v2) + v8, v14);
   if (this == 20000)
   {
-    ++v1[12];
+    ++*(v1 + 12);
     v3 = *v1;
     goto LABEL_32;
   }
@@ -8263,12 +8267,12 @@ LABEL_37:
   v22 = *(*(v3 + 824) + 2 * v10);
   if ((v12 & v13) != 0)
   {
-    v23 = v1[12];
+    v23 = *(v1 + 12);
   }
 
   else
   {
-    LOWORD(v23) = TrigramData::getSearchSuccIdForIndex((v3 + 744), v10, v1[12]);
+    LOWORD(v23) = TrigramData::getSearchSuccIdForIndex((v3 + 744), v10, *(v1 + 12));
     v3 = *v1;
   }
 
@@ -8282,10 +8286,10 @@ LABEL_37:
     v24 = (*(v3 + 840) + 2 * v10);
   }
 
-  this = NGramIteratorData::set3((v1 + 4), v1[10], v22, v23, v21, *v24);
+  this = NGramIteratorData::set3(v1 + 2, *(v1 + 10), v22, v23, v21, *v24);
   v4 = *(*v1 + 800);
 LABEL_33:
-  if (v1[10] >= v4)
+  if (*(v1 + 10) >= v4)
   {
     *(v1 + 11) = 1;
   }
@@ -8399,7 +8403,7 @@ LABEL_26:
   v11 = *(v3[164] + 2 * v9);
   v12 = *(*(this + v7) + 2 * (v10 + v2));
   BackoffWeight = QuadgramData::getBackoffWeight(this, v9, v2);
-  this = NGramIteratorData::set4(v1 + 16, *(v1 + 10), v11, v12, 0xFFFF, 20000, BackoffWeight);
+  this = NGramIteratorData::set4(v1 + 2, *(v1 + 10), v11, v12, 0xFFFF, 20000, BackoffWeight);
   v4 = *(*v1 + 1288);
 LABEL_27:
   if (*(v1 + 10) >= v4)
@@ -8545,7 +8549,7 @@ LABEL_20:
   v20 = *(*(v16 + v19) + 2 * (v18 + v17));
   Quad3SuccIdForIndex = QuadgramData::getQuad3SuccIdForIndex(v16, v9, v17, *(v1 + 13));
   BackoffWeight = QuadgramData::getBackoffWeight((*v1 + 1232), v9, *(v1 + 12));
-  this = NGramIteratorData::set4(v1 + 16, *(v1 + 10), v15, v20, Quad3SuccIdForIndex, v13, BackoffWeight);
+  this = NGramIteratorData::set4(v1 + 2, *(v1 + 10), v15, v20, Quad3SuccIdForIndex, v13, BackoffWeight);
   v5 = *(*v1 + 1288);
 LABEL_33:
   if (*(v1 + 10) >= v5)
@@ -8556,16 +8560,16 @@ LABEL_33:
   return this;
 }
 
-unint64_t NGramIteratorData::set2(unint64_t this, int a2, int a3, __int16 a4, __int16 a5)
+uint64_t *NGramIteratorData::set2(uint64_t *this, int a2, int a3, __int16 a4, __int16 a5)
 {
   v9 = this;
-  v10 = *(this + 12);
+  v10 = *(this + 3);
   if (v10 <= 1)
   {
     this = DgnPrimArray<unsigned int>::reallocElts(this, 2 - v10, 0);
   }
 
-  *(v9 + 8) = 2;
+  *(v9 + 2) = 2;
   v11 = *v9;
   if (a3 == 0xFFFF)
   {
@@ -8579,21 +8583,21 @@ unint64_t NGramIteratorData::set2(unint64_t this, int a2, int a3, __int16 a4, __
 
   *v11 = a2;
   v11[1] = v12;
-  *(v9 + 16) = a4;
-  *(v9 + 18) = a5;
+  *(v9 + 8) = a4;
+  *(v9 + 9) = a5;
   return this;
 }
 
-unint64_t NGramIteratorData::set3(unint64_t this, int a2, int a3, int a4, __int16 a5, __int16 a6)
+uint64_t *NGramIteratorData::set3(uint64_t *this, int a2, int a3, int a4, __int16 a5, __int16 a6)
 {
   v11 = this;
-  v12 = *(this + 12);
+  v12 = *(this + 3);
   if (v12 <= 2)
   {
     this = DgnPrimArray<unsigned int>::reallocElts(this, 3 - v12, 0);
   }
 
-  *(v11 + 8) = 3;
+  *(v11 + 2) = 3;
   v13 = *v11;
   if (a3 == 0xFFFF)
   {
@@ -8618,21 +8622,21 @@ unint64_t NGramIteratorData::set3(unint64_t this, int a2, int a3, int a4, __int1
   }
 
   v13[2] = v15;
-  *(v11 + 16) = a5;
-  *(v11 + 18) = a6;
+  *(v11 + 8) = a5;
+  *(v11 + 9) = a6;
   return this;
 }
 
-unint64_t NGramIteratorData::set4(unint64_t this, int a2, int a3, int a4, int a5, __int16 a6, __int16 a7)
+uint64_t *NGramIteratorData::set4(uint64_t *this, int a2, int a3, int a4, int a5, __int16 a6, __int16 a7)
 {
   v13 = this;
-  v14 = *(this + 12);
+  v14 = *(this + 3);
   if (v14 <= 3)
   {
     this = DgnPrimArray<unsigned int>::reallocElts(this, 4 - v14, 0);
   }
 
-  *(v13 + 8) = 4;
+  *(v13 + 2) = 4;
   v15 = *v13;
   if (a3 == 0xFFFF)
   {
@@ -8668,8 +8672,8 @@ unint64_t NGramIteratorData::set4(unint64_t this, int a2, int a3, int a4, int a5
 
   v15[2] = v17;
   v15[3] = v18;
-  *(v13 + 16) = a6;
-  *(v13 + 18) = a7;
+  *(v13 + 8) = a6;
+  *(v13 + 9) = a7;
   return this;
 }
 
@@ -8782,7 +8786,7 @@ uint64_t HuffmanDecoder<unsigned short,unsigned int>::sizeObject(uint64_t a1, in
   return v5 + 8 * v4 + v6 + v7 + v8 + sizeObject<unsigned int>(a1 + 72, a2);
 }
 
-uint64_t HuffmanDecoder<unsigned short,unsigned int>::writeObject(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t HuffmanDecoder<unsigned short,unsigned int>::writeObject(uint64_t a1, DgnStream *a2, unsigned int *a3)
 {
   writeObject<unsigned int>(a2, a1, a3);
   writeObject<unsigned char>(a2, a1 + 16, a3);
@@ -8791,19 +8795,19 @@ uint64_t HuffmanDecoder<unsigned short,unsigned int>::writeObject(uint64_t a1, u
   return writeObject<unsigned short>(a2, a1 + 48, a3);
 }
 
-unint64_t HuffmanDecoder<unsigned short,unsigned int>::readObject(unint64_t a1, DgnStream *a2, unsigned int *a3)
+uint64_t *HuffmanDecoder<unsigned short,unsigned int>::readObject(uint64_t *a1, DgnStream *a2, unsigned int *a3)
 {
   readObject<unsigned int>(a2, a1, a3);
-  readObject<unsigned char>(a2, a1 + 16, a3);
-  readObject<unsigned int>(a2, a1 + 32, a3);
-  readObject<unsigned short>(a2, a1 + 48, a3);
+  readObject<unsigned char>(a2, (a1 + 2), a3);
+  readObject<unsigned int>(a2, (a1 + 4), a3);
+  readObject<unsigned short>(a2, (a1 + 6), a3);
 
   return HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(a1);
 }
 
-unint64_t HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(unint64_t result)
+uint64_t *HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(uint64_t *result)
 {
-  v1 = *(result + 8);
+  v1 = *(result + 2);
   if (v1)
   {
     v2 = result;
@@ -8836,35 +8840,35 @@ unint64_t HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(unin
       }
     }
 
-    v7 = *(result + 84);
+    v7 = *(result + 21);
     if (v7 <= 0x7FF)
     {
-      result = DgnPrimArray<unsigned int>::reallocElts(result + 72, 2048 - v7, 0);
+      result = DgnPrimArray<unsigned int>::reallocElts((result + 9), 2048 - v7, 0);
     }
 
-    *(v2 + 80) = 2048;
+    *(v2 + 20) = 2048;
     if ((v1 & 0x80000000) != 0)
     {
-      *(v2 + 64) = 0;
-      v11 = *(v2 + 8);
+      v2[8] = 0;
+      v11 = *(v2 + 2);
     }
 
     else
     {
       v8 = *v2;
       v9 = *(*v2 + 4 * v3);
-      *(v2 + 64) = (v9 & 0xFFE00000) + 0x200000;
-      *(v2 + 68) = v3;
+      *(v2 + 16) = (v9 & 0xFFE00000) + 0x200000;
+      *(v2 + 17) = v3;
       for (i = (v9 >> 21) + 1; ; ++i)
       {
-        v11 = *(v2 + 8);
-        v12 = v4 == v11 ? *(v2 + 80) : *(v8 + 4 * v4) >> 21;
+        v11 = *(v2 + 2);
+        v12 = v4 == v11 ? *(v2 + 20) : *(v8 + 4 * v4) >> 21;
         if (i >= v12)
         {
           break;
         }
 
-        *(*(v2 + 72) + 4 * i) = v3;
+        *(v2[9] + 4 * i) = v3;
       }
     }
 
@@ -8882,7 +8886,7 @@ unint64_t HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(unin
           LODWORD(v15) = *(v14 + 4 * v17);
           if (v16 < v15 >> 21)
           {
-            v18 = *(v2 + 72);
+            v18 = v2[9];
             do
             {
               *(v18 + 4 * v16++) = v4;
@@ -8890,7 +8894,7 @@ unint64_t HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(unin
             }
 
             while (v16 < v15 >> 21);
-            v11 = *(v2 + 8);
+            v11 = *(v2 + 2);
           }
 
           v13 = v11 - 1;
@@ -8901,15 +8905,15 @@ unint64_t HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(unin
       }
 
       v19 = *(v14 + 4 * v13) >> 21;
-      if (v19 < *(v2 + 80))
+      if (v19 < *(v2 + 20))
       {
-        v20 = *(v2 + 72);
+        v20 = v2[9];
         do
         {
-          *(v20 + 4 * v19++) = *(v2 + 8) - 1;
+          *(v20 + 4 * v19++) = *(v2 + 2) - 1;
         }
 
-        while (v19 < *(v2 + 80));
+        while (v19 < *(v2 + 20));
       }
     }
   }
@@ -8917,7 +8921,7 @@ unint64_t HuffmanDecoder<unsigned short,unsigned int>::configureIndexHelper(unin
   return result;
 }
 
-unint64_t DgnArray<DiskNgramContext>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+uint64_t *DgnArray<DiskNgramContext>::reallocElts(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = a2;
   if (a3)
@@ -9031,74 +9035,74 @@ uint64_t **Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsig
   return result;
 }
 
-unint64_t HuffmanDecoder<unsigned short,unsigned int>::initializeTable(unint64_t result, int a2, unsigned int a3)
+uint64_t *HuffmanDecoder<unsigned short,unsigned int>::initializeTable(uint64_t *result, int a2, unsigned int a3)
 {
   v4 = result;
   v5 = (a2 + 1);
-  v6 = *(result + 12);
+  v6 = *(result + 3);
   if (v5 > v6)
   {
     result = DgnPrimArray<unsigned int>::reallocElts(result, v5 - v6, 0);
   }
 
-  if (*(v4 + 28) < v5)
+  if (*(v4 + 7) < v5)
   {
     v9 = 0;
-    result = realloc_array(*(v4 + 16), &v9, v5, *(v4 + 24), *(v4 + 24), 1);
-    *(v4 + 28) = result;
-    *(v4 + 16) = v9;
+    result = realloc_array(v4[2], &v9, v5, *(v4 + 6), *(v4 + 6), 1);
+    *(v4 + 7) = result;
+    v4[2] = v9;
   }
 
-  v7 = *(v4 + 44);
+  v7 = *(v4 + 11);
   if (v5 > v7)
   {
-    result = DgnPrimArray<unsigned int>::reallocElts(v4 + 32, v5 - v7, 0);
+    result = DgnPrimArray<unsigned int>::reallocElts((v4 + 4), v5 - v7, 0);
   }
 
-  v8 = *(v4 + 60);
+  v8 = *(v4 + 15);
   if (a3 > v8)
   {
-    result = DgnPrimArray<short>::reallocElts(v4 + 48, a3 - v8, 0);
+    result = DgnPrimArray<short>::reallocElts((v4 + 6), a3 - v8, 0);
   }
 
-  *(v4 + 56) = a3;
+  *(v4 + 14) = a3;
   return result;
 }
 
-unint64_t HuffmanDecoder<unsigned short,unsigned int>::addCode(unint64_t result, int a2, char a3, int a4)
+uint64_t *HuffmanDecoder<unsigned short,unsigned int>::addCode(uint64_t *result, int a2, char a3, int a4)
 {
   v7 = result;
-  v8 = *(result + 8);
-  if (v8 == *(result + 12))
+  v8 = *(result + 2);
+  if (v8 == *(result + 3))
   {
     result = DgnPrimArray<unsigned int>::reallocElts(result, 1, 1);
-    v8 = *(v7 + 8);
+    v8 = *(v7 + 2);
   }
 
   *(*v7 + 4 * v8) = a2;
-  ++*(v7 + 8);
-  v9 = *(v7 + 24);
-  if (v9 == *(v7 + 28))
+  ++*(v7 + 2);
+  v9 = *(v7 + 6);
+  if (v9 == *(v7 + 7))
   {
-    result = DgnPrimArray<char>::reallocElts(v7 + 16, 1, 1);
-    v9 = *(v7 + 24);
+    result = DgnPrimArray<char>::reallocElts((v7 + 2), 1, 1);
+    v9 = *(v7 + 6);
   }
 
-  *(*(v7 + 16) + v9) = a3;
-  ++*(v7 + 24);
-  v10 = *(v7 + 40);
-  if (v10 == *(v7 + 44))
+  *(v7[2] + v9) = a3;
+  ++*(v7 + 6);
+  v10 = *(v7 + 10);
+  if (v10 == *(v7 + 11))
   {
-    result = DgnPrimArray<unsigned int>::reallocElts(v7 + 32, 1, 1);
-    v10 = *(v7 + 40);
+    result = DgnPrimArray<unsigned int>::reallocElts((v7 + 4), 1, 1);
+    v10 = *(v7 + 10);
   }
 
-  *(*(v7 + 32) + 4 * v10) = a4;
-  ++*(v7 + 40);
+  *(v7[4] + 4 * v10) = a4;
+  ++*(v7 + 10);
   return result;
 }
 
-uint64_t HuffmanEncoder<unsigned short,unsigned int>::countsToLengths(uint64_t a1, uint64_t a2)
+uint64_t HuffmanEncoder<unsigned short,unsigned int>::countsToLengths(uint64_t a1, uint64_t *a2)
 {
   HuffmanEncoder<unsigned short,unsigned int>::sortElements(a1);
   v4 = *(a1 + 128);
@@ -9208,14 +9212,14 @@ LABEL_21:
   }
 
   v23 = v4 + 1;
-  v24 = *(a2 + 12);
+  v24 = *(a2 + 3);
   if (v23 > v24)
   {
     DgnPrimArray<unsigned int>::reallocElts(a2, v23 - v24, 0);
   }
 
   v25 = 0;
-  *(a2 + 8) = v23;
+  *(a2 + 2) = v23;
   v26 = *a2;
   v27 = 1;
   do
@@ -9264,13 +9268,13 @@ LABEL_38:
   }
 
   while (2 * v30);
-  v32 = *(a2 + 12);
+  v32 = *(a2 + 3);
   if (v25 > v32)
   {
     DgnPrimArray<unsigned int>::reallocElts(a2, v25 - v32, 0);
   }
 
-  *(a2 + 8) = v25;
+  *(a2 + 2) = v25;
   return v28;
 }
 
@@ -9322,7 +9326,6 @@ void Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned in
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::~Hash(uint64_t a1)
 {
   *a1 = &unk_287523F50;
   if (*(a1 + 8))
@@ -9333,7 +9336,7 @@ uint64_t Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigne
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(uint64_t a1)
@@ -9425,7 +9428,6 @@ void Hash<BuildWordIdNgram,BuildWordIdNgram,BuildWordIdNgram,unsigned int>::~Has
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<BuildWordIdNgram,BuildWordIdNgram,BuildWordIdNgram,unsigned int>::~Hash(uint64_t a1)
 {
   *a1 = &unk_2875240E0;
   if (*(a1 + 8))
@@ -9436,7 +9438,7 @@ uint64_t Hash<BuildWordIdNgram,BuildWordIdNgram,BuildWordIdNgram,unsigned int>::
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t Hash<BuildWordIdNgram,BuildWordIdNgram,BuildWordIdNgram,unsigned int>::removeAll(uint64_t result)
@@ -9618,7 +9620,6 @@ void Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::~Hash(uint64_t a
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::~Hash(uint64_t a1)
 {
   *a1 = &unk_287524130;
   if (*(a1 + 8))
@@ -9629,7 +9630,7 @@ uint64_t Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::~Hash(uint64
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,double>::removeAll(uint64_t result)
@@ -9725,7 +9726,6 @@ void Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,unsigned int>::~Hash(uint
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,unsigned int>::~Hash(uint64_t a1)
 {
   *a1 = &unk_287524108;
   if (*(a1 + 8))
@@ -9736,48 +9736,48 @@ uint64_t Hash<BuildLmIdNgram,BuildLmIdNgram,BuildLmIdNgram,unsigned int>::~Hash(
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t MiniFst::init(uint64_t this, const ArcGraph *a2, PelScoreCache *a3)
+void *MiniFst::init(void *this, const ArcGraph *a2, PelScoreCache *a3)
 {
   v3 = this;
-  *(this + 80) = a2;
-  *(this + 88) = a3;
+  this[10] = a2;
+  this[11] = a3;
   v4 = *(a2 + 40);
   v5 = v4 + 1;
-  v6 = *(this + 44);
+  v6 = *(this + 11);
   if (v4 + 1 > v6)
   {
-    this = DgnArray<FstSearchLatticeHashBackoffActiveToken>::reallocElts(this + 32, v4 + 1 - v6, 0);
+    this = DgnArray<FstSearchLatticeHashBackoffActiveToken>::reallocElts((this + 4), v4 + 1 - v6, 0);
   }
 
-  *(v3 + 40) = v5;
-  v7 = *(v3 + 60);
+  *(v3 + 10) = v5;
+  v7 = *(v3 + 15);
   if (v5 > v7)
   {
-    this = DgnArray<FstSearchLatticeHashBackoffActiveToken>::reallocElts(v3 + 48, v5 - v7, 0);
+    this = DgnArray<FstSearchLatticeHashBackoffActiveToken>::reallocElts((v3 + 6), v5 - v7, 0);
   }
 
-  *(v3 + 56) = v5;
-  *(v3 + 96) = 1;
-  v8 = *(v3 + 76);
+  *(v3 + 14) = v5;
+  *(v3 + 24) = 1;
+  v8 = *(v3 + 19);
   if (v4 > v8)
   {
-    DgnPrimArray<unsigned int>::reallocElts(v3 + 64, v4 - v8, 0);
-    *(v3 + 72) = v4;
+    DgnPrimArray<unsigned int>::reallocElts((v3 + 8), v4 - v8, 0);
+    *(v3 + 18) = v4;
 LABEL_8:
-    this = memset(*(v3 + 64), 255, 4 * v4);
+    this = memset(v3[8], 255, 4 * v4);
     goto LABEL_9;
   }
 
-  *(v3 + 72) = v4;
+  *(v3 + 18) = v4;
   if (v4)
   {
     goto LABEL_8;
   }
 
 LABEL_9:
-  *(v3 + 96) = 0;
+  *(v3 + 24) = 0;
   return this;
 }

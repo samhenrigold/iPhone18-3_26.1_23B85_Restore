@@ -46,27 +46,29 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
   OUTLINED_FUNCTION_37_3();
-  sub_1E3E11370(appear);
+  sub_1E3E11370(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
   OUTLINED_FUNCTION_37_3();
-  sub_1E3E11508(disappear);
+  sub_1E3E11508(disappearCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1E3E115E4();
+  sub_1E3E115E4(selfCopy);
 }
 
 - (_TtC8VideosUI26PadRootSplitViewController)initWithTabs:(id)tabs
 {
-  sub_1E3280A90(0, &unk_1ECF39558);
+  sub_1E3280A90(0, &unk_1ECF39558, 0x1E69DCFE0);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062B4();
   sub_1E3E11CC8();
@@ -86,7 +88,7 @@
 - (void)preloadImageViewModelsFromBarItems:(id)items completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0, &unk_1E42A1250);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062B4();
   OUTLINED_FUNCTION_4_0();
@@ -97,7 +99,7 @@
 
 - (void)updateWithBarItems:(id)items setSelectedIdentifierFromDefaults:(BOOL)defaults appContext:(id)context
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0, &unk_1E42A1250);
   OUTLINED_FUNCTION_40_3();
   sub_1E42062B4();
   contextCopy = context;
@@ -107,7 +109,7 @@
 
 - (void)setSelectedIndexForIdentifier:(id)identifier withDeeplinkURL:(id)l
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0, &unk_1E42A9420);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v13 - v8;
@@ -141,7 +143,7 @@ LABEL_6:
   OUTLINED_FUNCTION_59_1();
   sub_1E3E15228();
 
-  sub_1E325F7FC(v9, &unk_1ECF363C0);
+  sub_1E325F7FC(v9, &unk_1ECF363C0, &unk_1E42A9420);
 }
 
 - (BOOL)controllerExistsForIdentifier:(id)identifier
@@ -160,10 +162,10 @@ LABEL_6:
   sub_1E4205F14();
   OUTLINED_FUNCTION_145();
   selfCopy = self;
-  OUTLINED_FUNCTION_12_1();
-  v5 = sub_1E3E16684();
+  v6 = OUTLINED_FUNCTION_12_1();
+  v7 = sub_1E3E16684(v6, v3);
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)isTabbarMode

@@ -116,19 +116,18 @@
 
 - (void)stop
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] %@ - stopping%@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  selfCopy = self;
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: stopped twice%@", &v2, 0xCu);
 }
 
 - (void)start
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: started twice%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: started twice%@", &v2, 0xCu);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -159,17 +158,15 @@ void __75__BRFPItemProgressObserver_observeValueForKeyPath_ofObject_change_conte
 
 - (void)updateWithFPItem:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("[BRFPItemProgressObserver updateWithFPItem:]", 69);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: [item.itemID isEqualToItemID:_fpItemID]%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: [item.itemID isEqualToItemID:_fpItemID]%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

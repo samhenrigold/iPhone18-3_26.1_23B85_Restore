@@ -85,7 +85,7 @@ TSSPropertySet *__46__TSWPCharacterStyle_propertiesAllowingNSNull__block_invoke(
 
 + (id)nullStyleName
 {
-  v2 = TSWPBundle();
+  v2 = TSWPBundle(self, a2);
 
   return [v2 localizedStringForKey:@"None" value:&stru_287D36338 table:@"TSText"];
 }

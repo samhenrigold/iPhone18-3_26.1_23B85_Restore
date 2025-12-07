@@ -12,28 +12,28 @@
 
 - (id)dictionaryRepresentation
 {
-  v26[11] = *MEMORY[0x1E69E9840];
+  v25[11] = *MEMORY[0x1E69E9840];
   text = self->_text;
-  v24 = text;
-  v25[0] = @"text";
+  v23 = text;
+  v24[0] = @"text";
   if (!text)
   {
     text = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = text;
-  v26[0] = text;
-  v25[1] = @"phoneSequence";
+  v19 = text;
+  v25[0] = text;
+  v24[1] = @"phoneSequence";
   phoneSequence = self->_phoneSequence;
-  v23 = phoneSequence;
+  v22 = phoneSequence;
   if (!phoneSequence)
   {
     phoneSequence = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = phoneSequence;
-  v26[1] = phoneSequence;
-  v25[2] = @"ipaPhoneSequence";
+  v18 = phoneSequence;
+  v25[1] = phoneSequence;
+  v24[2] = @"ipaPhoneSequence";
   ipaPhoneSequence = self->_ipaPhoneSequence;
   null = ipaPhoneSequence;
   if (!ipaPhoneSequence)
@@ -41,27 +41,27 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null;
-  v26[2] = null;
-  v25[3] = @"confidence";
-  v22 = [MEMORY[0x1E696AD98] numberWithInteger:self->_confidenceScore];
-  v26[3] = v22;
-  v25[4] = @"startTime";
-  v21 = [MEMORY[0x1E696AD98] numberWithDouble:self->_startTime];
-  v26[4] = v21;
-  v25[5] = @"silenceStartTime";
+  v17 = null;
+  v25[2] = null;
+  v24[3] = @"confidence";
+  v21 = [MEMORY[0x1E696AD98] numberWithInteger:self->_confidenceScore];
+  v25[3] = v21;
+  v24[4] = @"startTime";
+  v20 = [MEMORY[0x1E696AD98] numberWithDouble:self->_startTime];
+  v25[4] = v20;
+  v24[5] = @"silenceStartTime";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:self->_silenceStartTime];
-  v26[5] = v7;
-  v25[6] = @"endTime";
+  v25[5] = v7;
+  v24[6] = @"endTime";
   v8 = [MEMORY[0x1E696AD98] numberWithDouble:self->_endTime];
-  v26[6] = v8;
-  v25[7] = @"removeSpaceBefore";
+  v25[6] = v8;
+  v24[7] = @"removeSpaceBefore";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_removeSpaceBefore];
-  v26[7] = v9;
-  v25[8] = @"removeSpaceAfter";
+  v25[7] = v9;
+  v24[8] = @"removeSpaceAfter";
   v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_removeSpaceAfter];
-  v26[8] = v10;
-  v25[9] = @"graphCost";
+  v25[8] = v10;
+  v24[9] = @"graphCost";
   graphCost = self->_graphCost;
   null2 = graphCost;
   if (!graphCost)
@@ -69,8 +69,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[9] = null2;
-  v25[10] = @"acousticCost";
+  v25[9] = null2;
+  v24[10] = @"acousticCost";
   acousticCost = self->_acousticCost;
   null3 = acousticCost;
   if (!acousticCost)
@@ -78,8 +78,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[10] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:11];
+  v25[10] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:11];
   if (acousticCost)
   {
     if (graphCost)
@@ -102,15 +102,13 @@ LABEL_13:
   {
   }
 
+  if (!v22)
+  {
+  }
+
   if (!v23)
   {
   }
-
-  if (!v24)
-  {
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -118,9 +116,9 @@ LABEL_13:
 - (AFSpeechToken)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v109.receiver = self;
-  v109.super_class = AFSpeechToken;
-  v5 = [(AFSpeechToken *)&v109 init];
+  v107.receiver = self;
+  v107.super_class = AFSpeechToken;
+  v5 = [(AFSpeechToken *)&v107 init];
   if (!v5)
   {
     goto LABEL_77;
@@ -135,7 +133,7 @@ LABEL_13:
 
 LABEL_86:
 LABEL_87:
-    v102 = 0;
+    v100 = 0;
     goto LABEL_88;
   }
 
@@ -175,27 +173,26 @@ LABEL_87:
   objc_storeStrong(&v5->_phoneSequence, v19);
 
   v20 = [dictionaryCopy objectForKey:@"confidence"];
-  v21 = 0x1E696A000uLL;
-  v22 = objc_opt_class();
-  v23 = NSStringFromClass(v22);
-  v24 = v20;
-  v25 = v23;
-  v26 = v25;
-  if (v24)
+  v21 = objc_opt_class();
+  v22 = NSStringFromClass(v21);
+  v23 = v20;
+  v24 = v22;
+  v25 = v24;
+  if (v23)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
-    v28 = [v24 isEqual:null2];
+    v27 = [v23 isEqual:null2];
 
-    if (v28)
+    if (v27)
     {
     }
 
     else
     {
-      NSClassFromString(v26);
-      v30 = objc_opt_isKindOfClass();
+      NSClassFromString(v25);
+      v29 = objc_opt_isKindOfClass();
 
-      if ((v30 & 1) == 0)
+      if ((v29 & 1) == 0)
       {
 LABEL_84:
 
@@ -205,14 +202,14 @@ LABEL_85:
     }
 
     null3 = [MEMORY[0x1E695DFB0] null];
-    if ([v24 isEqual:null3])
+    if ([v23 isEqual:null3])
     {
       intValue = 0;
     }
 
     else
     {
-      intValue = [v24 intValue];
+      intValue = [v23 intValue];
     }
 
     v5->_confidenceScore = intValue;
@@ -224,31 +221,28 @@ LABEL_85:
     v5->_confidenceScore = 0;
   }
 
-  v33 = [dictionaryCopy objectForKey:@"startTime"];
-  v34 = objc_opt_class();
-  v35 = NSStringFromClass(v34);
-  v36 = v33;
-  v37 = v35;
-  v38 = v37;
-  v108 = v36;
-  if (v36)
+  v32 = [dictionaryCopy objectForKey:@"startTime"];
+  v33 = objc_opt_class();
+  v34 = NSStringFromClass(v33);
+  v35 = v32;
+  v36 = v34;
+  v37 = v36;
+  v106 = v35;
+  if (v35)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
-    v40 = [v36 isEqual:null4];
+    v39 = [v35 isEqual:null4];
 
-    if (v40)
+    if (v39)
     {
-
-      v21 = 0x1E696A000;
     }
 
     else
     {
-      NSClassFromString(v38);
-      v41 = objc_opt_isKindOfClass();
+      NSClassFromString(v37);
+      v40 = objc_opt_isKindOfClass();
 
-      v21 = 0x1E696A000uLL;
-      if ((v41 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
 LABEL_83:
 
@@ -257,14 +251,14 @@ LABEL_83:
     }
 
     null5 = [MEMORY[0x1E695DFB0] null];
-    v43 = [v36 isEqual:null5];
-    v44 = 0.0;
-    if ((v43 & 1) == 0)
+    v42 = [v35 isEqual:null5];
+    v43 = 0.0;
+    if ((v42 & 1) == 0)
     {
-      [v36 doubleValue];
+      [v35 doubleValue];
     }
 
-    v5->_startTime = v44;
+    v5->_startTime = v43;
 
     if (v5->_startTime < 0.0)
     {
@@ -278,19 +272,18 @@ LABEL_83:
     v5->_startTime = 0.0;
   }
 
-  v45 = [dictionaryCopy objectForKey:@"silenceStartTime"];
-  v46 = *(v21 + 3480);
-  v47 = objc_opt_class();
-  v48 = NSStringFromClass(v47);
-  v49 = v45;
-  v50 = v48;
-  v51 = v50;
-  if (v49)
+  v44 = [dictionaryCopy objectForKey:@"silenceStartTime"];
+  v45 = objc_opt_class();
+  v46 = NSStringFromClass(v45);
+  v47 = v44;
+  v48 = v46;
+  v49 = v48;
+  if (v47)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
-    v53 = [v49 isEqual:null6];
+    v51 = [v47 isEqual:null6];
 
-    if (v53)
+    if (v51)
     {
 
       v15 = 0x1E695D000;
@@ -298,11 +291,11 @@ LABEL_83:
 
     else
     {
-      NSClassFromString(v51);
-      v54 = objc_opt_isKindOfClass();
+      NSClassFromString(v49);
+      v52 = objc_opt_isKindOfClass();
 
       v15 = 0x1E695D000uLL;
-      if ((v54 & 1) == 0)
+      if ((v52 & 1) == 0)
       {
 LABEL_38:
 
@@ -311,14 +304,14 @@ LABEL_38:
     }
 
     null7 = [*(v15 + 4016) null];
-    v56 = [v49 isEqual:null7];
-    v57 = 0.0;
-    if ((v56 & 1) == 0)
+    v54 = [v47 isEqual:null7];
+    v55 = 0.0;
+    if ((v54 & 1) == 0)
     {
-      [v49 doubleValue];
+      [v47 doubleValue];
     }
 
-    v5->_silenceStartTime = v57;
+    v5->_silenceStartTime = v55;
 
     if (v5->_silenceStartTime < 0.0)
     {
@@ -332,29 +325,29 @@ LABEL_38:
     v5->_silenceStartTime = 0.0;
   }
 
-  v107 = v49;
-  v58 = [dictionaryCopy objectForKey:@"endTime"];
-  v59 = objc_opt_class();
-  v60 = NSStringFromClass(v59);
-  v61 = v58;
-  v62 = v60;
-  v63 = v62;
-  if (v61)
+  v105 = v47;
+  v56 = [dictionaryCopy objectForKey:@"endTime"];
+  v57 = objc_opt_class();
+  v58 = NSStringFromClass(v57);
+  v59 = v56;
+  v60 = v58;
+  v61 = v60;
+  if (v59)
   {
-    v64 = v15;
+    v62 = v15;
     null8 = [*(v15 + 4016) null];
-    v66 = [v61 isEqual:null8];
+    v64 = [v59 isEqual:null8];
 
-    if (v66)
+    if (v64)
     {
     }
 
     else
     {
-      NSClassFromString(v63);
-      v67 = objc_opt_isKindOfClass();
+      NSClassFromString(v61);
+      v65 = objc_opt_isKindOfClass();
 
-      if ((v67 & 1) == 0)
+      if ((v65 & 1) == 0)
       {
 LABEL_47:
 
@@ -363,15 +356,15 @@ LABEL_82:
       }
     }
 
-    null9 = [*(v64 + 4016) null];
-    v69 = [v61 isEqual:null9];
-    v70 = 0.0;
-    if ((v69 & 1) == 0)
+    null9 = [*(v62 + 4016) null];
+    v67 = [v59 isEqual:null9];
+    v68 = 0.0;
+    if ((v67 & 1) == 0)
     {
-      [v61 doubleValue];
+      [v59 doubleValue];
     }
 
-    v5->_endTime = v70;
+    v5->_endTime = v68;
 
     if (v5->_endTime < 0.0)
     {
@@ -385,30 +378,30 @@ LABEL_82:
     v5->_endTime = 0.0;
   }
 
-  v106 = v61;
-  v71 = [dictionaryCopy objectForKey:@"removeSpaceBefore"];
-  v72 = objc_opt_class();
-  v73 = NSStringFromClass(v72);
-  v74 = validationOfObjectWithClassType(v71, v73);
+  v104 = v59;
+  v69 = [dictionaryCopy objectForKey:@"removeSpaceBefore"];
+  v70 = objc_opt_class();
+  v71 = NSStringFromClass(v70);
+  v72 = validationOfObjectWithClassType(v69, v71);
 
-  if (!v74)
+  if (!v72)
   {
 LABEL_81:
 
     goto LABEL_82;
   }
 
-  if (v71)
+  if (v69)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
-    if ([v71 isEqual:null10])
+    if ([v69 isEqual:null10])
     {
       bOOLValue = 0;
     }
 
     else
     {
-      bOOLValue = [v71 BOOLValue];
+      bOOLValue = [v69 BOOLValue];
     }
 
     v5->_removeSpaceBefore = bOOLValue;
@@ -419,29 +412,29 @@ LABEL_81:
     v5->_removeSpaceBefore = 0;
   }
 
-  v77 = [dictionaryCopy objectForKey:@"removeSpaceAfter"];
-  v78 = objc_opt_class();
-  v79 = NSStringFromClass(v78);
-  v80 = validationOfObjectWithClassType(v77, v79);
+  v75 = [dictionaryCopy objectForKey:@"removeSpaceAfter"];
+  v76 = objc_opt_class();
+  v77 = NSStringFromClass(v76);
+  v78 = validationOfObjectWithClassType(v75, v77);
 
-  if (!v80)
+  if (!v78)
   {
 
     goto LABEL_81;
   }
 
-  v105 = v77;
-  if (v77)
+  v103 = v75;
+  if (v75)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
-    if ([v77 isEqual:null11])
+    if ([v75 isEqual:null11])
     {
       bOOLValue2 = 0;
     }
 
     else
     {
-      bOOLValue2 = [v77 BOOLValue];
+      bOOLValue2 = [v75 BOOLValue];
     }
 
     v5->_removeSpaceAfter = bOOLValue2;
@@ -452,12 +445,12 @@ LABEL_81:
     v5->_removeSpaceAfter = 0;
   }
 
-  v83 = [dictionaryCopy objectForKey:@"ipaPhoneSequence"];
-  v84 = objc_opt_class();
-  v85 = NSStringFromClass(v84);
-  v86 = validationOfObjectWithClassType(v83, v85);
+  v81 = [dictionaryCopy objectForKey:@"ipaPhoneSequence"];
+  v82 = objc_opt_class();
+  v83 = NSStringFromClass(v82);
+  v84 = validationOfObjectWithClassType(v81, v83);
 
-  if (!v86)
+  if (!v84)
   {
 
 LABEL_80:
@@ -465,75 +458,75 @@ LABEL_80:
   }
 
   null12 = [MEMORY[0x1E695DFB0] null];
-  if ([v83 isEqual:null12])
+  if ([v81 isEqual:null12])
   {
-    v88 = 0;
+    v86 = 0;
   }
 
   else
   {
-    v88 = v83;
+    v86 = v81;
   }
 
-  objc_storeStrong(&v5->_ipaPhoneSequence, v88);
+  objc_storeStrong(&v5->_ipaPhoneSequence, v86);
 
-  v89 = [dictionaryCopy objectForKey:@"graphCost"];
-  v104 = v83;
-  v90 = objc_opt_class();
-  v91 = NSStringFromClass(v90);
-  v92 = validationOfObjectWithClassType(v89, v91);
+  v87 = [dictionaryCopy objectForKey:@"graphCost"];
+  v102 = v81;
+  v88 = objc_opt_class();
+  v89 = NSStringFromClass(v88);
+  v90 = validationOfObjectWithClassType(v87, v89);
 
-  if (!v92)
+  if (!v90)
   {
 
     goto LABEL_80;
   }
 
   null13 = [MEMORY[0x1E695DFB0] null];
-  v94 = v89;
-  if ([v89 isEqual:null13])
+  v92 = v87;
+  if ([v87 isEqual:null13])
   {
-    v95 = 0;
+    v93 = 0;
   }
 
   else
   {
-    v95 = v89;
+    v93 = v87;
   }
 
-  objc_storeStrong(&v5->_graphCost, v95);
+  objc_storeStrong(&v5->_graphCost, v93);
 
-  v96 = [dictionaryCopy objectForKey:@"acousticCost"];
-  v97 = objc_opt_class();
-  v98 = NSStringFromClass(v97);
-  v99 = validationOfObjectWithClassType(v96, v98);
+  v94 = [dictionaryCopy objectForKey:@"acousticCost"];
+  v95 = objc_opt_class();
+  v96 = NSStringFromClass(v95);
+  v97 = validationOfObjectWithClassType(v94, v96);
 
-  if (v99)
+  if (v97)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
-    if ([v96 isEqual:null14])
+    if ([v94 isEqual:null14])
     {
-      v101 = 0;
+      v99 = 0;
     }
 
     else
     {
-      v101 = v96;
+      v99 = v94;
     }
 
-    objc_storeStrong(&v5->_acousticCost, v101);
+    objc_storeStrong(&v5->_acousticCost, v99);
   }
 
-  if (!v99)
+  if (!v97)
   {
     goto LABEL_87;
   }
 
 LABEL_77:
-  v102 = v5;
+  v100 = v5;
 LABEL_88:
 
-  return v102;
+  return v100;
 }
 
 - (id)aceToken
@@ -629,14 +622,23 @@ LABEL_88:
 
 - (id)description
 {
-  v16.receiver = self;
-  v16.super_class = AFSpeechToken;
-  v3 = [(AFSpeechToken *)&v16 description];
-  v4 = *&self->_startTime;
-  v14 = v4;
-  v15 = *&self->_text;
+  v15.receiver = self;
+  v15.super_class = AFSpeechToken;
+  v3 = [(AFSpeechToken *)&v15 description];
+  v13 = *&self->_startTime;
+  v14 = *&self->_text;
   endTime = self->_endTime;
   if (self->_removeSpaceBefore)
+  {
+    v5 = @"YES";
+  }
+
+  else
+  {
+    v5 = @"NO";
+  }
+
+  if (self->_removeSpaceAfter)
   {
     v6 = @"YES";
   }
@@ -646,30 +648,20 @@ LABEL_88:
     v6 = @"NO";
   }
 
-  if (self->_removeSpaceAfter)
-  {
-    v7 = @"YES";
-  }
-
-  else
-  {
-    v7 = @"NO";
-  }
-
   ipaPhoneSequence = self->_ipaPhoneSequence;
   confidenceScore = self->_confidenceScore;
   stringValue = [(NSNumber *)self->_graphCost stringValue];
   stringValue2 = [(NSNumber *)self->_acousticCost stringValue];
-  v12 = [v3 stringByAppendingFormat:@"text: %@, phoneSequence: %@, score: %ld, start: %lf, silenceStart: %lf, end: %lf, remove space before: %@ after: %@, ipaPhoneSequence: %@, graphCost: %@, acousticCost: %@", v15, confidenceScore, v14, *&endTime, v6, v7, ipaPhoneSequence, stringValue, stringValue2];
+  v11 = [v3 stringByAppendingFormat:@"text: %@, phoneSequence: %@, score: %ld, start: %lf, silenceStart: %lf, end: %lf, remove space before: %@ after: %@, ipaPhoneSequence: %@, graphCost: %@, acousticCost: %@", v14, confidenceScore, v13, *&endTime, v5, v6, ipaPhoneSequence, stringValue, stringValue2];
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
   objc_opt_class();
-  v6 = (objc_opt_isKindOfClass() & 1) != 0 && ((v5 = *(equalCopy + 2), v5 == self->_text) || -[NSString isEqualToString:](v5, "isEqualToString:")) && (([*(equalCopy + 3) isEqualToString:self->_phoneSequence] & 1) != 0 || *(equalCopy + 3) == self->_phoneSequence) && *(equalCopy + 5) == self->_confidenceScore && *(equalCopy + 6) == self->_startTime && *(equalCopy + 7) == self->_silenceStartTime && *(equalCopy + 8) == self->_endTime && equalCopy[8] == self->_removeSpaceBefore && equalCopy[9] == self->_removeSpaceAfter && ((objc_msgSend(*(equalCopy + 4), "isEqualToString:", self->_ipaPhoneSequence) & 1) != 0 || *(equalCopy + 3) == self->_phoneSequence) && ((objc_msgSend(*(equalCopy + 9), "isEqual:", self->_graphCost) & 1) != 0 || *(equalCopy + 9) == self->_graphCost) && ((objc_msgSend(*(equalCopy + 10), "isEqual:", self->_acousticCost) & 1) != 0 || *(equalCopy + 10) == self->_acousticCost);
+  v6 = (objc_opt_isKindOfClass() & 1) != 0 && ((v5 = *(equalCopy + 2), v5 == self->_text) || objc_msgSend_isEqualToString_(v5)) && ((objc_msgSend_isEqualToString_(*(equalCopy + 3)) & 1) != 0 || *(equalCopy + 3) == self->_phoneSequence) && *(equalCopy + 5) == self->_confidenceScore && *(equalCopy + 6) == self->_startTime && *(equalCopy + 7) == self->_silenceStartTime && *(equalCopy + 8) == self->_endTime && equalCopy[8] == self->_removeSpaceBefore && equalCopy[9] == self->_removeSpaceAfter && ((objc_msgSend_isEqualToString_(*(equalCopy + 4)) & 1) != 0 || *(equalCopy + 3) == self->_phoneSequence) && (([*(equalCopy + 9) isEqual:self->_graphCost] & 1) != 0 || *(equalCopy + 9) == self->_graphCost) && ((objc_msgSend(*(equalCopy + 10), "isEqual:", self->_acousticCost) & 1) != 0 || *(equalCopy + 10) == self->_acousticCost);
 
   return v6;
 }

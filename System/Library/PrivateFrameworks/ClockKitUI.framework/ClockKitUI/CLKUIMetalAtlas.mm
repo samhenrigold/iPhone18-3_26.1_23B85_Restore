@@ -59,7 +59,7 @@
   backingCopy = backing;
   if (backingCopy)
   {
-    [backingCopy structure];
+    objc_msgSend_structure(backingCopy);
     +[CLKUIMetalAtlas _computeMTLTextureMemoryUsageWithBacking:numMipmapLevelsToDrop:];
   }
 
@@ -73,7 +73,7 @@
   if (backingCopy)
   {
     kdebug_trace();
-    [backingCopy structure];
+    objc_msgSend_structure(backingCopy);
     +[CLKUIMetalAtlas _allocateMTLTextureWithBacking:numMipmapLevelsToDrop:device:];
   }
 
@@ -89,7 +89,7 @@
   if (backingCopy)
   {
     kdebug_trace();
-    [backingCopy structure];
+    objc_msgSend_structure(backingCopy);
     +[CLKUIMetalAtlas _uploadMTLTexture:withBacking:numMipmapLevelsToDrop:device:encoder:];
   }
 

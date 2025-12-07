@@ -22,42 +22,40 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v17 = *MEMORY[0x29EDCA608];
-  v15.receiver = self;
-  v15.super_class = BNContentViewControllerAccessibility;
-  [(BNContentViewControllerAccessibility *)&v15 _accessibilityLoadAccessibilityInformation];
-  v14 = 0;
+  v16 = *MEMORY[0x29EDCA608];
+  v14.receiver = self;
+  v14.super_class = BNContentViewControllerAccessibility;
+  [(BNContentViewControllerAccessibility *)&v14 _accessibilityLoadAccessibilityInformation];
+  v13 = 0;
   objc_opt_class();
   v3 = __UIAccessibilityCastAsClass();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   childViewControllers = [v3 childViewControllers];
-  v5 = [childViewControllers countByEnumeratingWithState:&v10 objects:v16 count:16];
+  v5 = [childViewControllers countByEnumeratingWithState:&v9 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(childViewControllers);
         }
 
-        [(BNContentViewControllerAccessibility *)self _axMarkupBannerVC:*(*(&v10 + 1) + 8 * i)];
+        [(BNContentViewControllerAccessibility *)self _axMarkupBannerVC:*(*(&v9 + 1) + 8 * i)];
       }
 
-      v6 = [childViewControllers countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v6 = [childViewControllers countByEnumeratingWithState:&v9 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (void)addChildViewController:(id)controller

@@ -99,7 +99,7 @@
 
 - (void)pruneForNextSampleStartTime:(double)time
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   supplementarySamples = self->_supplementarySamples;
   self->_supplementarySamples = array;
@@ -109,18 +109,18 @@
   {
     [(HKRollingBaselineConfiguration *)self->_configuration maximumWindowDuration];
     v8 = v7;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v9 = self->_samples;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
       v13 = time - v8;
-      v14 = *v22;
+      v14 = *v21;
       v15 = 0.0;
       while (2)
       {
@@ -129,12 +129,12 @@
         v12 += v11;
         do
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v21 + 1) + 8 * v16) _hd_trivialQuantitySampleValue];
+          [*(*(&v20 + 1) + 8 * v16) _hd_trivialQuantitySampleValue];
           if (v19 >= v13)
           {
             v12 = v17;
@@ -147,7 +147,7 @@
         }
 
         while (v11 != v16);
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v11)
         {
           continue;
@@ -169,8 +169,6 @@ LABEL_12:
     {
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addNextSampleValue:(double)value startTime:(double)time

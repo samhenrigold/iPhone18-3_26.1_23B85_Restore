@@ -71,28 +71,8 @@
   v10 = [v8 componentsFromLocaleIdentifier:localeIdentifier];
   v11 = [v10 objectForKey:@"sd"];
 
-  if ([v11 length])
+  if ([v11 length] && (v12 = MEMORY[0x277CBEAF8], objc_msgSend(self, "countryCode"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_opt_class(), objc_msgSend(self, "countryCode"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "_subdivisionCodeFromSubdivisionTag:restrictedToRegionCode:", v11, v15), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "languagesForRegion:subdivision:withThreshold:filter:", v13, v16, 1, 2), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, v13, v17) || (v18 = MEMORY[0x277CBEAF8], objc_msgSend(self, "countryCode"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "languagesForRegion:subdivision:withThreshold:filter:", v19, 0, 1, 2), v17 = objc_claimAutoreleasedReturnValue(), v19, v17))
   {
-    v12 = MEMORY[0x277CBEAF8];
-    countryCode = [self countryCode];
-    v14 = objc_opt_class();
-    countryCode2 = [self countryCode];
-    v16 = [v14 _subdivisionCodeFromSubdivisionTag:v11 restrictedToRegionCode:countryCode2];
-    v17 = [v12 languagesForRegion:countryCode subdivision:v16 withThreshold:1 filter:2];
-
-    if (v17)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  v18 = MEMORY[0x277CBEAF8];
-  countryCode3 = [self countryCode];
-  v17 = [v18 languagesForRegion:countryCode3 subdivision:0 withThreshold:1 filter:2];
-
-  if (v17)
-  {
-LABEL_6:
     [orderedSet addObjectsFromArray:v17];
   }
 
@@ -120,28 +100,8 @@ LABEL_6:
   v10 = [v8 componentsFromLocaleIdentifier:localeIdentifier];
   v11 = [v10 objectForKey:@"sd"];
 
-  if ([v11 length])
+  if ([v11 length] && (v12 = MEMORY[0x277CBEAF8], objc_msgSend(self, "countryCode"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_opt_class(), objc_msgSend(self, "countryCode"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "_subdivisionCodeFromSubdivisionTag:restrictedToRegionCode:", v11, v15), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "languagesForRegion:subdivision:withThreshold:filter:", v13, v16, 2, 2), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, v13, v17) || (v18 = MEMORY[0x277CBEAF8], objc_msgSend(self, "countryCode"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "languagesForRegion:subdivision:withThreshold:filter:", v19, 0, 2, 2), v17 = objc_claimAutoreleasedReturnValue(), v19, v17))
   {
-    v12 = MEMORY[0x277CBEAF8];
-    countryCode = [self countryCode];
-    v14 = objc_opt_class();
-    countryCode2 = [self countryCode];
-    v16 = [v14 _subdivisionCodeFromSubdivisionTag:v11 restrictedToRegionCode:countryCode2];
-    v17 = [v12 languagesForRegion:countryCode subdivision:v16 withThreshold:2 filter:2];
-
-    if (v17)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  v18 = MEMORY[0x277CBEAF8];
-  countryCode3 = [self countryCode];
-  v17 = [v18 languagesForRegion:countryCode3 subdivision:0 withThreshold:2 filter:2];
-
-  if (v17)
-  {
-LABEL_6:
     [orderedSet addObjectsFromArray:v17];
   }
 

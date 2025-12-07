@@ -61,21 +61,20 @@
 
 - (void)setString:(id)string
 {
-  content = self->_content;
   stringCopy = string;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(BKDisplayAnnotationContent *)self->_content setString:stringCopy];
-    v5 = stringCopy;
+    v4 = stringCopy;
   }
 
   else
   {
-    v6 = [BKDisplayAnnotationStringContent contentWithString:stringCopy];
+    v5 = [BKDisplayAnnotationStringContent contentWithString:stringCopy];
 
-    [(BKDisplayAnnotation *)self setContent:v6];
-    v5 = v6;
+    [(BKDisplayAnnotation *)self setContent:v5];
+    v4 = v5;
   }
 }
 

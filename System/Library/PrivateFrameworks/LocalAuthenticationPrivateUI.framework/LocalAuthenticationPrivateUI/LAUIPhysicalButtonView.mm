@@ -165,7 +165,7 @@
 
 - (void)interfaceOrientationDidChange:(id)change
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if (self->_workaroundsDisabled)
   {
@@ -188,8 +188,8 @@
   windowScene = [window2 windowScene];
   interfaceOrientation = [windowScene interfaceOrientation];
 
-  v9 = LA_LOG_LAUIPhysicalButtonView();
-  if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = LA_LOG_LAUIPhysicalButtonView(v9);
+  if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
 LABEL_8:
 
@@ -199,12 +199,12 @@ LABEL_8:
       [layer setOpacity:0.0];
 
       self->_lastInterfaceOrientation = interfaceOrientation;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __56__LAUIPhysicalButtonView_interfaceOrientationDidChange___block_invoke;
-      v14[3] = &unk_279821460;
-      v14[4] = self;
-      [MEMORY[0x277D75D18] animateWithDuration:0 delay:v14 options:0 animations:0.1 completion:0.4];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __56__LAUIPhysicalButtonView_interfaceOrientationDidChange___block_invoke;
+      v15[3] = &unk_279821460;
+      v15[4] = self;
+      [MEMORY[0x277D75D18] animateWithDuration:0 delay:v15 options:0 animations:0.1 completion:0.4];
     }
 
 LABEL_10:
@@ -215,13 +215,13 @@ LABEL_10:
   lastInterfaceOrientation = self->_lastInterfaceOrientation;
   if (lastInterfaceOrientation < 5 && interfaceOrientation < 5)
   {
-    v11 = off_2798214F8[lastInterfaceOrientation];
-    v12 = off_2798214F8[interfaceOrientation];
+    v12 = off_2798214F8[lastInterfaceOrientation];
+    v13 = off_2798214F8[interfaceOrientation];
     *buf = 138412546;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_impl(&dword_2560E6000, v9, OS_LOG_TYPE_DEFAULT, "Interface orientation did change notification triggered _lastInterfaceOrientation: %@ currentInterfaceOrientation: %@", buf, 0x16u);
+    v17 = v12;
+    v18 = 2112;
+    v19 = v13;
+    _os_log_impl(&dword_2560E6000, v10, OS_LOG_TYPE_DEFAULT, "Interface orientation did change notification triggered _lastInterfaceOrientation: %@ currentInterfaceOrientation: %@", buf, 0x16u);
     goto LABEL_8;
   }
 
@@ -238,10 +238,10 @@ void __56__LAUIPhysicalButtonView_interfaceOrientationDidChange___block_invoke(u
 
 - (void)updateFrame
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   if (self->_exportedHandle || self->_exporting)
   {
-    superview = LA_LOG_LAUIPhysicalButtonView();
+    superview = LA_LOG_LAUIPhysicalButtonView(self);
     if (os_log_type_enabled(superview, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(rect_24.m11) = 0;
@@ -282,101 +282,101 @@ LABEL_65:
     self->_coordinateSpace = coordinateSpace;
 
     [(UICoordinateSpace *)self->_fixedCoordinateSpace bounds];
-    [(LAUIPhysicalButtonView *)self _physicalButtonNormalizedFrame];
-    v11 = v10;
-    v13 = v12;
-    v15 = v14;
-    v17 = v16;
-    v18 = LA_LOG_LAUIPhysicalButtonView();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    _physicalButtonNormalizedFrame = [(LAUIPhysicalButtonView *)self _physicalButtonNormalizedFrame];
+    v12 = v11;
+    v14 = v13;
+    v16 = v15;
+    v18 = v17;
+    v19 = LA_LOG_LAUIPhysicalButtonView(_physicalButtonNormalizedFrame);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_12:
 
-      v21 = LA_LOG_LAUIPhysicalButtonView();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = LA_LOG_LAUIPhysicalButtonView(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"{ x:%.3f, y:%.3f, w:%.3f, h:%.3f }", v11, v13, v15, v17];
+        v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"{ x:%.3f, y:%.3f, w:%.3f, h:%.3f }", v12, v14, v16, v18];
         LODWORD(rect_24.m11) = 138412290;
-        *(&rect_24.m11 + 4) = v22;
-        _os_log_impl(&dword_2560E6000, v21, OS_LOG_TYPE_DEFAULT, "MG: physical button normalized frame: %@", &rect_24, 0xCu);
+        *(&rect_24.m11 + 4) = v24;
+        _os_log_impl(&dword_2560E6000, v23, OS_LOG_TYPE_DEFAULT, "MG: physical button normalized frame: %@", &rect_24, 0xCu);
 
         windowScene = rect_16;
       }
 
       [(UICoordinateSpace *)self->_coordinateSpace convertRect:self->_fixedCoordinateSpace fromCoordinateSpace:?];
-      v24 = v23;
       v26 = v25;
       v28 = v27;
       v30 = v29;
+      v32 = v31;
       if (self->_export)
       {
-        v31 = 5.0;
+        v33 = 5.0;
       }
 
       else
       {
-        v31 = 6.0;
+        v33 = 6.0;
       }
 
-      v32 = self->_coordinateSpace;
+      v34 = self->_coordinateSpace;
       [(UICoordinateSpace *)self->_fixedCoordinateSpace bounds];
-      [(UICoordinateSpace *)v32 convertRect:self->_fixedCoordinateSpace fromCoordinateSpace:?];
-      v37 = v34;
-      v38 = v35;
+      [(UICoordinateSpace *)v34 convertRect:self->_fixedCoordinateSpace fromCoordinateSpace:?];
       v39 = v36;
-      rect = v33;
-      if (v30 <= 0.0)
+      v40 = v37;
+      v41 = v38;
+      rect = v35;
+      if (v32 <= 0.0)
       {
-        MidY = CGRectGetMidY(*&v33);
-        v41 = indeterminateFrame;
-        if (v26 >= MidY)
+        MidY = CGRectGetMidY(*&v35);
+        v43 = indeterminateFrame;
+        if (v28 >= MidY)
         {
-          v26 = v26 - v31;
-          v42 = 3;
+          v28 = v28 - v33;
+          v44 = 3;
         }
 
         else
         {
-          v42 = 1;
+          v44 = 1;
         }
 
-        v30 = v31;
+        v32 = v33;
       }
 
       else
       {
-        MidX = CGRectGetMidX(*&v33);
-        v41 = indeterminateFrame;
-        if (v24 >= MidX)
+        MidX = CGRectGetMidX(*&v35);
+        v43 = indeterminateFrame;
+        if (v26 >= MidX)
         {
-          v24 = v24 - v31;
-          v42 = 2;
+          v26 = v26 - v33;
+          v44 = 2;
         }
 
         else
         {
-          v42 = 0;
+          v44 = 0;
         }
 
-        v28 = v31;
+        v30 = v33;
       }
 
       edge = self->_edge;
-      if (edge == v42 && !v41)
+      if (edge == v44 && !v43)
       {
 LABEL_38:
-        [superview convertRect:self->_coordinateSpace fromCoordinateSpace:v24, v26, v28, v30];
-        v49 = v48;
-        v51 = v50;
-        v53 = v52;
-        v55 = v54;
-        v56 = LA_LOG_LAUIPhysicalButtonView();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        v50 = [superview convertRect:self->_coordinateSpace fromCoordinateSpace:v26, v28, v30, v32];
+        v52 = v51;
+        v54 = v53;
+        v56 = v55;
+        v58 = v57;
+        v59 = LA_LOG_LAUIPhysicalButtonView(v50);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
         {
-          v57 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"{ x:%.3f, y:%.3f, w:%.3f, h:%.3f }", *&v49, *&v51, *&v53, *&v55];
+          v60 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"{ x:%.3f, y:%.3f, w:%.3f, h:%.3f }", *&v52, *&v54, *&v56, *&v58];
           LODWORD(rect_24.m11) = 138412290;
-          *(&rect_24.m11 + 4) = v57;
-          _os_log_impl(&dword_2560E6000, v56, OS_LOG_TYPE_DEFAULT, "LA: physical button view frame: %@", &rect_24, 0xCu);
+          *(&rect_24.m11 + 4) = v60;
+          _os_log_impl(&dword_2560E6000, v59, OS_LOG_TYPE_DEFAULT, "LA: physical button view frame: %@", &rect_24, 0xCu);
 
           windowScene = rect_16;
         }
@@ -386,41 +386,40 @@ LABEL_38:
           goto LABEL_44;
         }
 
-        self->_originalFrame.origin.x = v49;
-        self->_originalFrame.origin.y = v51;
-        self->_originalFrame.size.width = v53;
-        self->_originalFrame.size.height = v55;
-        v58 = v37 + v39 * 3.0;
+        self->_originalFrame.origin.x = v52;
+        self->_originalFrame.origin.y = v54;
+        self->_originalFrame.size.width = v56;
+        self->_originalFrame.size.height = v58;
+        v61 = v39 + v41 * 3.0;
         if (!self->_disableOffscreenWorkaround)
         {
-          v49 = rect + v38 * 3.0;
-          v51 = v37 + v39 * 3.0;
+          v52 = rect + v40 * 3.0;
+          v54 = v39 + v41 * 3.0;
         }
 
         if (self->_disablePortraitWorkaround)
         {
 LABEL_44:
-          v59 = v53;
-          v53 = v55;
+          v62 = v56;
+          v56 = v58;
 LABEL_57:
           [(LAUIPhysicalButtonView *)self frame];
-          v76.origin.x = v49;
-          v76.origin.y = v51;
-          v76.size.width = v59;
-          v76.size.height = v53;
-          if (!CGRectEqualToRect(v75, v76))
+          v79.origin.x = v52;
+          v79.origin.y = v54;
+          v79.size.width = v62;
+          v79.size.height = v56;
+          if (!CGRectEqualToRect(v78, v79))
           {
-            [(LAUIPhysicalButtonView *)self setFrame:v49, v51, v59, v53];
-            v67 = LA_LOG_LAUIPhysicalButtonView();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+            v70 = LA_LOG_LAUIPhysicalButtonView([(LAUIPhysicalButtonView *)self setFrame:v52, v54, v62, v56]);
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
             {
               LOWORD(rect_24.m11) = 0;
-              _os_log_impl(&dword_2560E6000, v67, OS_LOG_TYPE_DEFAULT, "physical button view frame updated", &rect_24, 2u);
+              _os_log_impl(&dword_2560E6000, v70, OS_LOG_TYPE_DEFAULT, "physical button view frame updated", &rect_24, 2u);
             }
           }
 
           self->_indeterminateFrame = 0;
-          if (edge != v42 && [(LAUIPhysicalButtonViewAnimation *)self->_animation isRunning])
+          if (edge != v44 && [(LAUIPhysicalButtonViewAnimation *)self->_animation isRunning])
           {
             [(LAUIPhysicalButtonViewAnimation *)self->_animation endImmediately];
             [(LAUIPhysicalButtonViewAnimation *)self->_animation begin];
@@ -429,103 +428,103 @@ LABEL_57:
           goto LABEL_65;
         }
 
-        v60 = self->_edge;
-        if ((v60 | 2) == 3)
+        v63 = self->_edge;
+        if ((v63 | 2) == 3)
         {
-          v59 = v55;
+          v62 = v58;
         }
 
         else
         {
-          v59 = v53;
-          v53 = v55;
+          v62 = v56;
+          v56 = v58;
         }
 
-        if (v60)
+        if (v63)
         {
-          if (v60 == 3)
+          if (v63 == 3)
           {
-            v61 = -1.57079633;
+            v64 = -1.57079633;
           }
 
           else
           {
-            if (v60 != 1)
+            if (v63 != 1)
             {
               containerView = self->_containerView;
-              v63 = *(MEMORY[0x277CD9DE8] + 80);
+              v66 = *(MEMORY[0x277CD9DE8] + 80);
               *&rect_24.m31 = *(MEMORY[0x277CD9DE8] + 64);
-              *&rect_24.m33 = v63;
-              v64 = *(MEMORY[0x277CD9DE8] + 112);
+              *&rect_24.m33 = v66;
+              v67 = *(MEMORY[0x277CD9DE8] + 112);
               *&rect_24.m41 = *(MEMORY[0x277CD9DE8] + 96);
-              *&rect_24.m43 = v64;
-              v65 = *(MEMORY[0x277CD9DE8] + 16);
+              *&rect_24.m43 = v67;
+              v68 = *(MEMORY[0x277CD9DE8] + 16);
               *&rect_24.m11 = *MEMORY[0x277CD9DE8];
-              *&rect_24.m13 = v65;
-              v66 = *(MEMORY[0x277CD9DE8] + 48);
+              *&rect_24.m13 = v68;
+              v69 = *(MEMORY[0x277CD9DE8] + 48);
               *&rect_24.m21 = *(MEMORY[0x277CD9DE8] + 32);
-              *&rect_24.m23 = v66;
+              *&rect_24.m23 = v69;
               goto LABEL_56;
             }
 
-            v61 = 1.57079633;
+            v64 = 1.57079633;
           }
         }
 
         else
         {
-          v61 = 3.14159265;
+          v64 = 3.14159265;
         }
 
         containerView = self->_containerView;
-        CATransform3DMakeRotation(&rect_24, v61, 0.0, 0.0, 1.0);
+        CATransform3DMakeRotation(&rect_24, v64, 0.0, 0.0, 1.0);
 LABEL_56:
         [(UIView *)containerView setTransform3D:&rect_24];
         goto LABEL_57;
       }
 
-      self->_edge = v42;
-      if (v42 > 1)
+      self->_edge = v44;
+      if (v44 > 1)
       {
-        if (v42 != 3)
+        if (v44 != 3)
         {
           instructionLabel = self->_instructionLabel;
-          v45 = 2;
+          v47 = 2;
           goto LABEL_37;
         }
       }
 
-      else if (!v42)
+      else if (!v44)
       {
-        v45 = 0;
+        v47 = 0;
         instructionLabel = self->_instructionLabel;
 LABEL_37:
-        [(UILabel *)instructionLabel setTextAlignment:v45];
+        [(UILabel *)instructionLabel setTextAlignment:v47];
         [(LAUIPhysicalButtonView *)self setNeedsLayout];
         goto LABEL_38;
       }
 
       instructionLabel = self->_instructionLabel;
-      v73.origin.x = v24;
-      v73.origin.y = v26;
-      v73.size.width = v28;
-      v73.size.height = v30;
-      v47 = CGRectGetMidX(v73);
-      v74.origin.x = rect;
-      v74.origin.y = v37;
-      v74.size.width = v38;
-      v74.size.height = v39;
-      v45 = 2 * (v47 >= CGRectGetMidX(v74));
+      v76.origin.x = v26;
+      v76.origin.y = v28;
+      v76.size.width = v30;
+      v76.size.height = v32;
+      v49 = CGRectGetMidX(v76);
+      v77.origin.x = rect;
+      v77.origin.y = v39;
+      v77.size.width = v40;
+      v77.size.height = v41;
+      v47 = 2 * (v49 >= CGRectGetMidX(v77));
       goto LABEL_37;
     }
 
     interfaceOrientation = [windowScene interfaceOrientation];
     if (interfaceOrientation < 5)
     {
-      v20 = off_2798214F8[interfaceOrientation];
+      v21 = off_2798214F8[interfaceOrientation];
       LODWORD(rect_24.m11) = 138412290;
-      *(&rect_24.m11 + 4) = v20;
-      _os_log_impl(&dword_2560E6000, v18, OS_LOG_TYPE_DEFAULT, "LA: current orientation: %@", &rect_24, 0xCu);
+      *(&rect_24.m11 + 4) = v21;
+      _os_log_impl(&dword_2560E6000, v19, OS_LOG_TYPE_DEFAULT, "LA: current orientation: %@", &rect_24, 0xCu);
       goto LABEL_12;
     }
 

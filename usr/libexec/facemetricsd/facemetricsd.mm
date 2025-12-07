@@ -12,22 +12,25 @@ uint64_t start()
   return 0;
 }
 
-void sub_10000277C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000277C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_100002798(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002798(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-void sub_1000027B4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000027B4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100002AD4(uint64_t a1)
@@ -49,7 +52,7 @@ void sub_100002AD4(uint64_t a1)
 
     else
     {
-      v7 = sub_100004784();
+      v7 = sub_100004784(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         sub_100005C90();
@@ -106,7 +109,7 @@ void sub_100003738(uint64_t a1, uint64_t a2, void *a3)
   v6 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
   if (v5)
   {
-    v7 = sub_100004784();
+    v7 = sub_100004784(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100005DF8();
@@ -142,40 +145,40 @@ void sub_100003D94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_100003DBC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = sub_100004784();
+  v3 = sub_100004784(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "app foregrounded timer expired", &v11, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "app foregrounded timer expired", &v12, 2u);
   }
 
   v4 = CFAbsoluteTimeGetCurrent() - WeakRetained[4];
-  v5 = sub_100004784();
-  v6 = v5;
+  v6 = sub_100004784(v5);
+  v7 = v6;
   if (v4 <= 31.0)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134217984;
-      v12 = v4;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "app foreground timer took (%f s) to fire", &v11, 0xCu);
+      v12 = 134217984;
+      v13 = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "app foreground timer took (%f s) to fire", &v12, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     sub_100005EA8();
   }
 
-  v7 = objc_loadWeakRetained((a1 + 32));
-  [v7 setCameraSessionActiveReason:{objc_msgSend(v7, "cameraSessionActiveReason") & 0xFFFFFFFD}];
-
   v8 = objc_loadWeakRetained((a1 + 32));
-  v9 = [v8 cameraSession];
-  [v9 updateMessageSessionWithSessionStopTimestamp:CFAbsoluteTimeGetCurrent()];
+  [v8 setCameraSessionActiveReason:{objc_msgSend(v8, "cameraSessionActiveReason") & 0xFFFFFFFD}];
 
-  v10 = objc_loadWeakRetained((a1 + 32));
-  [v10 _requestToStopCameraSession];
+  v9 = objc_loadWeakRetained((a1 + 32));
+  v10 = [v9 cameraSession];
+  [v10 updateMessageSessionWithSessionStopTimestamp:CFAbsoluteTimeGetCurrent()];
+
+  v11 = objc_loadWeakRetained((a1 + 32));
+  [v11 _requestToStopCameraSession];
 }
 
 void sub_1000044AC(id a1)
@@ -186,7 +189,7 @@ void sub_1000044AC(id a1)
 
 void sub_1000045A4(uint64_t a1)
 {
-  v2 = sub_100004784();
+  v2 = sub_100004784(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -203,16 +206,16 @@ void sub_1000045A4(uint64_t a1)
   [v5 setBool:0 forKey:@"userEnrolledInStudy"];
 }
 
-id sub_100004784()
+id sub_100004784(uint64_t a1)
 {
   if (qword_1000111F0 != -1)
   {
     sub_100006070();
   }
 
-  v1 = qword_1000111F8;
+  v2 = qword_1000111F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000047C8(id a1)
@@ -222,16 +225,19 @@ void sub_1000047C8(id a1)
   _objc_release_x1();
 }
 
-void sub_100005898(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005898(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100005B08(void *a1)
 {
   v1 = [a1 objectForKeyedSubscript:@"timestamp"];
-  sub_1000027B4(&_mh_execute_header, v2, v3, "metrics do not contain a valid timestamp: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_1000027B4(&_mh_execute_header, v2, v3, "metrics do not contain a valid timestamp: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100005B98(os_log_t log, double a2)

@@ -44,40 +44,38 @@
 
 void __76__PGGraphPersonRelationshipTagNode__localizationKeyForRelationshipTagLabel___block_invoke()
 {
-  v4[14] = *MEMORY[0x277D85DE8];
-  v3[0] = @"Mother";
-  v3[1] = @"Father";
-  v4[0] = @"PGPersonMotherSearchableText";
-  v4[1] = @"PGPersonFatherSearchableText";
-  v3[2] = @"Parent";
-  v3[3] = @"Child";
-  v4[2] = @"PGPersonParentSearchableText";
-  v4[3] = @"PGPersonChildSearchableText";
-  v3[4] = @"Son";
-  v3[5] = @"Daughter";
-  v4[4] = @"PGPersonSonSearchableText";
-  v4[5] = @"PGPersonDaughterSearchableText";
-  v3[6] = @"Brother";
-  v3[7] = @"Sister";
-  v4[6] = @"PGPersonBrotherSearchableText";
-  v4[7] = @"PGPersonSisterSearchableText";
-  v3[8] = @"Sibling";
-  v3[9] = @"Family";
-  v4[8] = @"PGPersonSiblingSearchableText";
-  v4[9] = @"PGPersonFamilySearchableText";
-  v3[10] = @"Partner";
-  v3[11] = @"Friend";
-  v4[10] = @"PGPersonPartnerSearchableText";
-  v4[11] = @"PGPersonFriendSearchableText";
-  v3[12] = @"Coworker";
-  v3[13] = @"Alumni";
-  v4[12] = @"PGPersonCoworkerSearchableText";
-  v4[13] = @"PGPersonAlumniSearchableText";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:14];
+  v3[14] = *MEMORY[0x277D85DE8];
+  v2[0] = @"Mother";
+  v2[1] = @"Father";
+  v3[0] = @"PGPersonMotherSearchableText";
+  v3[1] = @"PGPersonFatherSearchableText";
+  v2[2] = @"Parent";
+  v2[3] = @"Child";
+  v3[2] = @"PGPersonParentSearchableText";
+  v3[3] = @"PGPersonChildSearchableText";
+  v2[4] = @"Son";
+  v2[5] = @"Daughter";
+  v3[4] = @"PGPersonSonSearchableText";
+  v3[5] = @"PGPersonDaughterSearchableText";
+  v2[6] = @"Brother";
+  v2[7] = @"Sister";
+  v3[6] = @"PGPersonBrotherSearchableText";
+  v3[7] = @"PGPersonSisterSearchableText";
+  v2[8] = @"Sibling";
+  v2[9] = @"Family";
+  v3[8] = @"PGPersonSiblingSearchableText";
+  v3[9] = @"PGPersonFamilySearchableText";
+  v2[10] = @"Partner";
+  v2[11] = @"Friend";
+  v3[10] = @"PGPersonPartnerSearchableText";
+  v3[11] = @"PGPersonFriendSearchableText";
+  v2[12] = @"Coworker";
+  v2[13] = @"Alumni";
+  v3[12] = @"PGPersonCoworkerSearchableText";
+  v3[13] = @"PGPersonAlumniSearchableText";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:14];
   v1 = _localizationKeyForRelationshipTagLabel__searchKeyByLabel;
   _localizationKeyForRelationshipTagLabel__searchKeyByLabel = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)localizedName
@@ -266,26 +264,24 @@ void __76__PGGraphPersonRelationshipTagNode__localizationKeyForRelationshipTagLa
 
 + (id)supportedTagsAsStrings
 {
-  v7[14] = *MEMORY[0x277D85DE8];
+  v6[14] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Mother";
-  v7[1] = @"Father";
-  v7[2] = @"Parent";
-  v7[3] = @"Child";
-  v7[4] = @"Son";
-  v7[5] = @"Daughter";
-  v7[6] = @"Brother";
-  v7[7] = @"Sister";
-  v7[8] = @"Sibling";
-  v7[9] = @"Family";
-  v7[10] = @"Partner";
-  v7[11] = @"Friend";
-  v7[12] = @"Coworker";
-  v7[13] = @"Alumni";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:14];
+  v6[0] = @"Mother";
+  v6[1] = @"Father";
+  v6[2] = @"Parent";
+  v6[3] = @"Child";
+  v6[4] = @"Son";
+  v6[5] = @"Daughter";
+  v6[6] = @"Brother";
+  v6[7] = @"Sister";
+  v6[8] = @"Sibling";
+  v6[9] = @"Family";
+  v6[10] = @"Partner";
+  v6[11] = @"Friend";
+  v6[12] = @"Coworker";
+  v6[13] = @"Alumni";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:14];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

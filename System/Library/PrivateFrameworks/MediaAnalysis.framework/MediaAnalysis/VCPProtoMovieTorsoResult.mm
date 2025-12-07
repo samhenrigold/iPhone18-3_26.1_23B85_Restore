@@ -100,11 +100,11 @@ void __73__VCPProtoMovieTorsoResult_LegacyConversion__resultFromLegacyDictionary
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[VCPProtoMovieTorsoResult faceId](self, "faceId")}];
   [dictionary setObject:v6 forKeyedSubscript:@"faceId"];
 
-  timeRange = [(VCPProtoMovieTorsoResult *)self timeRange];
-  v8 = timeRange;
-  if (timeRange)
+  v7 = objc_msgSend_timeRange(self);
+  v8 = v7;
+  if (v7)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v7);
   }
 
   else

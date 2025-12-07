@@ -107,27 +107,26 @@ LABEL_7:
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v6[9] = *MEMORY[0x1E69E9840];
-  v5[0] = @"identifier";
+  v5[9] = *MEMORY[0x1E69E9840];
+  v4[0] = @"identifier";
+  v4[1] = @"email";
+  v5[0] = @"uuid";
   v5[1] = @"email";
-  v6[0] = @"uuid";
-  v6[1] = @"email";
+  v4[2] = @"fullName";
+  v4[3] = @"twitter";
   v5[2] = @"fullName";
   v5[3] = @"twitter";
-  v6[2] = @"fullName";
-  v6[3] = @"twitter";
-  v5[4] = @"websiteURL";
+  v4[4] = @"websiteURL";
+  v4[5] = @"mainIdentity";
+  v5[4] = @"website";
   v5[5] = @"mainIdentity";
-  v6[4] = @"website";
-  v6[5] = @"mainIdentity";
-  v5[6] = @"profileImageURL";
+  v4[6] = @"profileImageURL";
+  v4[7] = @"isAdmin";
+  v5[6] = @"profileImage";
   v5[7] = @"isAdmin";
-  v6[6] = @"profileImage";
-  v6[7] = @"isAdmin";
+  v4[8] = @"dateJoined";
   v5[8] = @"dateJoined";
-  v6[8] = @"dateJoined";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:9];
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:9];
 
   return v2;
 }

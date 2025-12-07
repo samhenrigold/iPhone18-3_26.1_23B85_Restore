@@ -529,7 +529,7 @@ LABEL_10:
   [(NSMutableArray *)self->_screenshots addObject:v20];
 }
 
-unint64_t __41__VKFeedbackProvider__captureScreenshots__block_invoke(uint64_t a1)
+void *__41__VKFeedbackProvider__captureScreenshots__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)

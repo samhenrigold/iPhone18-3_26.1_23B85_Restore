@@ -50,124 +50,125 @@
 
 - (id)depthDataForTime:(id *)time
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = JFXMediaDataReaderIntervalSignpostCategory();
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = JFXMediaDataReaderIntervalSignpostCategory(self, a2);
   signPostID = [(JFXDepthDataMediaReader *)self signPostID];
   if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v7 = signPostID;
     if (os_signpost_enabled(v5))
     {
-      v15 = *time;
-      Seconds = CMTimeGetSeconds(&v15);
-      LODWORD(v15.var0) = 138412546;
-      *(&v15.var0 + 4) = self;
-      LOWORD(v15.var2) = 2048;
-      *(&v15.var2 + 2) = Seconds;
-      _os_signpost_emit_with_name_impl(&dword_242A3B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "depthDataForTime", "%@ time %f", &v15, 0x16u);
+      v17 = *time;
+      Seconds = CMTimeGetSeconds(&v17);
+      LODWORD(v17.var0) = 138412546;
+      *(&v17.var0 + 4) = self;
+      LOWORD(v17.var2) = 2048;
+      *(&v17.var2 + 2) = Seconds;
+      _os_signpost_emit_with_name_impl(&dword_242A3B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "depthDataForTime", "%@ time %f", &v17, 0x16u);
     }
   }
 
-  v15 = *time;
-  v9 = [(JFXDepthDataMediaReader *)self JFX_readDepthDataForTime:&v15];
+  v17 = *time;
+  v9 = [(JFXDepthDataMediaReader *)self JFX_readDepthDataForTime:&v17];
+  v11 = v9;
   if (v9)
   {
-    [(JFXDepthDataMediaReader *)self setCachedDepthData:v9];
+    v9 = [(JFXDepthDataMediaReader *)self setCachedDepthData:v9];
   }
 
-  v10 = JFXMediaDataReaderIntervalSignpostCategory();
+  v12 = JFXMediaDataReaderIntervalSignpostCategory(v9, v10);
   signPostID2 = [(JFXDepthDataMediaReader *)self signPostID];
   if (signPostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v12 = signPostID2;
-    if (os_signpost_enabled(v10))
+    v14 = signPostID2;
+    if (os_signpost_enabled(v12))
     {
-      v15 = *time;
-      v13 = CMTimeGetSeconds(&v15);
-      LODWORD(v15.var0) = 134217984;
-      *(&v15.var0 + 4) = v13;
-      _os_signpost_emit_with_name_impl(&dword_242A3B000, v10, OS_SIGNPOST_INTERVAL_END, v12, "depthDataForTime", "time %f", &v15, 0xCu);
+      v17 = *time;
+      v15 = CMTimeGetSeconds(&v17);
+      LODWORD(v17.var0) = 134217984;
+      *(&v17.var0 + 4) = v15;
+      _os_signpost_emit_with_name_impl(&dword_242A3B000, v12, OS_SIGNPOST_INTERVAL_END, v14, "depthDataForTime", "time %f", &v17, 0xCu);
     }
   }
 
-  return v9;
+  return v11;
 }
 
 - (id)JFX_cachedDepthDataForTime:(id *)time
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   cachedDepthData = [(JFXDepthDataMediaReader *)self cachedDepthData];
   v6 = cachedDepthData;
-  if (cachedDepthData && ([cachedDepthData timeRange], time = *time, CMTimeRangeContainsTime(&range, &time)))
+  if (cachedDepthData && (objc_msgSend_timeRange(cachedDepthData), time = *time, CMTimeRangeContainsTime(&range, &time)))
   {
     v7 = JFXLog_DebugMediaDataReader();
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
 
     if (v8)
     {
-      v9 = JFXLog_DebugMediaDataReader();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = JFXLog_DebugMediaDataReader();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *&range.start.value = *&time->var0;
         range.start.epoch = time->var3;
         Seconds = CMTimeGetSeconds(&range.start);
-        [v6 timeRange];
-        *&range.start.value = v23;
-        range.start.epoch = v24;
-        v19 = CMTimeGetSeconds(&range.start);
-        [v6 timeRange];
+        objc_msgSend_timeRange(v6);
+        *&range.start.value = v25;
+        range.start.epoch = v26;
+        v21 = CMTimeGetSeconds(&range.start);
+        objc_msgSend_timeRange(v6);
         CMTimeRangeGetEnd(&time, &range);
-        v20 = CMTimeGetSeconds(&time);
+        v22 = CMTimeGetSeconds(&time);
         LODWORD(range.start.value) = 138413058;
         *(&range.start.value + 4) = self;
         LOWORD(range.start.flags) = 2048;
         *(&range.start.flags + 2) = Seconds;
         HIWORD(range.start.epoch) = 2048;
-        range.duration.value = v19;
+        range.duration.value = v21;
         LOWORD(range.duration.timescale) = 2048;
-        *(&range.duration.timescale + 2) = v20;
-        _os_log_debug_impl(&dword_242A3B000, v9, OS_LOG_TYPE_DEBUG, "%@ cached data found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
+        *(&range.duration.timescale + 2) = v22;
+        _os_log_debug_impl(&dword_242A3B000, v11, OS_LOG_TYPE_DEBUG, "%@ cached data found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
       }
     }
 
-    v10 = JFXMediaDataReaderEventSignpostPointCategory();
+    v12 = JFXMediaDataReaderEventSignpostPointCategory(v9, v10);
     signPostID = [(JFXDepthDataMediaReader *)self signPostID];
     if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v12 = signPostID;
-      if (os_signpost_enabled(v10))
+      v14 = signPostID;
+      if (os_signpost_enabled(v12))
       {
         *&range.start.value = *&time->var0;
         range.start.epoch = time->var3;
-        v13 = CMTimeGetSeconds(&range.start);
-        [v6 timeRange];
-        *&range.start.value = v21;
-        range.start.epoch = v22;
-        v14 = CMTimeGetSeconds(&range.start);
-        [v6 timeRange];
+        v15 = CMTimeGetSeconds(&range.start);
+        objc_msgSend_timeRange(v6);
+        *&range.start.value = v23;
+        range.start.epoch = v24;
+        v16 = CMTimeGetSeconds(&range.start);
+        objc_msgSend_timeRange(v6);
         CMTimeRangeGetEnd(&time, &range);
-        v15 = CMTimeGetSeconds(&time);
+        v17 = CMTimeGetSeconds(&time);
         LODWORD(range.start.value) = 138413058;
         *(&range.start.value + 4) = self;
         LOWORD(range.start.flags) = 2048;
-        *(&range.start.flags + 2) = v13;
+        *(&range.start.flags + 2) = v15;
         HIWORD(range.start.epoch) = 2048;
-        range.duration.value = v14;
+        range.duration.value = v16;
         LOWORD(range.duration.timescale) = 2048;
-        *(&range.duration.timescale + 2) = v15;
-        _os_signpost_emit_with_name_impl(&dword_242A3B000, v10, OS_SIGNPOST_EVENT, v12, "depthDataFoundInCache", "%@ found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
+        *(&range.duration.timescale + 2) = v17;
+        _os_signpost_emit_with_name_impl(&dword_242A3B000, v12, OS_SIGNPOST_EVENT, v14, "depthDataFoundInCache", "%@ found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
       }
     }
 
-    v16 = v6;
+    v18 = v6;
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  return v16;
+  return v18;
 }
 
 - (id)JFX_readDepthDataForTime:(id *)time
@@ -219,7 +220,7 @@ void __52__JFXDepthDataMediaReader_JFX_readDepthDataForTime___block_invoke(uint6
         if (v9)
         {
           v10 = [JFXMediaReaderDepthData alloc];
-          [v7 timeRange];
+          objc_msgSend_timeRange(v7);
           v11 = [(JFXMediaReaderDepthData *)v10 initWithAVDepthData:v9 timeRange:v19];
           v12 = *(*(a1 + 40) + 8);
           v13 = *(v12 + 40);
@@ -272,132 +273,132 @@ LABEL_9:
 
 - (id)JFX_decompressAVDepthDataFromVideoTrackReaderSample:(id)sample
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   synchronizationQueue = [(JFXDepthDataMediaReader *)self synchronizationQueue];
   dispatch_assert_queue_V2(synchronizationQueue);
 
-  v6 = JFXMediaDataReaderIntervalSignpostCategory();
+  v8 = JFXMediaDataReaderIntervalSignpostCategory(v6, v7);
   signPostID = [(JFXDepthDataMediaReader *)self signPostID];
   if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v8 = signPostID;
-    if (os_signpost_enabled(v6))
+    v10 = signPostID;
+    if (os_signpost_enabled(v8))
     {
       if (sampleCopy)
       {
-        [sampleCopy timeRange];
+        objc_msgSend_timeRange(sampleCopy);
       }
 
       else
       {
-        v33 = 0u;
-        v34 = 0u;
-        v32 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v36 = 0u;
       }
 
-      *&time.value = v32;
-      time.epoch = v33;
+      *&time.value = v36;
+      time.epoch = v37;
       Seconds = CMTimeGetSeconds(&time);
       LODWORD(time.value) = 138412546;
       *(&time.value + 4) = self;
       LOWORD(time.flags) = 2048;
       *(&time.flags + 2) = Seconds;
-      _os_signpost_emit_with_name_impl(&dword_242A3B000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v8, "decompressAVDepthData", "%@ time %f", &time, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_242A3B000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v10, "decompressAVDepthData", "%@ time %f", &time, 0x16u);
     }
   }
 
   depthDecompressor = [(JFXDepthDataMediaReader *)self depthDecompressor];
-  v31 = 0;
-  v11 = [depthDecompressor decompressAVDepthData:objc_msgSend(sampleCopy error:{"sampleBufferRef"), &v31}];
-  v12 = v31;
+  v35 = 0;
+  v13 = [depthDecompressor decompressAVDepthData:objc_msgSend(sampleCopy error:{"sampleBufferRef"), &v35}];
+  v14 = v35;
 
   if (sampleCopy)
   {
-    [sampleCopy timeRange];
+    objc_msgSend_timeRange(sampleCopy);
   }
 
   else
   {
-    v29 = 0u;
-    v30 = 0u;
-    v28 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
   }
 
-  *&time.value = v28;
-  time.epoch = v29;
-  v13 = CMTimeGetSeconds(&time);
+  *&time.value = v32;
+  time.epoch = v33;
+  v15 = CMTimeGetSeconds(&time);
   depthDecompressor2 = [(JFXDepthDataMediaReader *)self depthDecompressor];
   depthCodecType = [depthDecompressor2 depthCodecType];
 
   if (!depthCodecType)
   {
-    v16 = JFXLog_mediaDataReader();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = JFXLog_mediaDataReader();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(JFXDepthDataMediaReader *)self JFX_decompressAVDepthDataFromVideoTrackReaderSample:v16, v13];
+      [(JFXDepthDataMediaReader *)self JFX_decompressAVDepthDataFromVideoTrackReaderSample:v18, v15];
     }
   }
 
-  v17 = JFXLog_DebugMediaDataReader();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-  if (!v11 || v12)
+  v19 = JFXLog_DebugMediaDataReader();
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+  if (!v13 || v14)
   {
-    if (v18)
+    if (v20)
     {
-      v26[0] = HIBYTE(depthCodecType);
-      v26[1] = BYTE2(depthCodecType);
-      v26[2] = BYTE1(depthCodecType);
-      v26[3] = depthCodecType;
-      v26[4] = 0;
+      v30[0] = HIBYTE(depthCodecType);
+      v30[1] = BYTE2(depthCodecType);
+      v30[2] = BYTE1(depthCodecType);
+      v30[3] = depthCodecType;
+      v30[4] = 0;
       LODWORD(time.value) = 138413058;
       *(&time.value + 4) = self;
       LOWORD(time.flags) = 2112;
-      *(&time.flags + 2) = v12;
+      *(&time.flags + 2) = v14;
       HIWORD(time.epoch) = 2048;
-      v36 = v13;
-      v37 = 2080;
-      v38 = v26;
-      v19 = "%@ depth data decompression failed with error %@ for time %f, type detected %s";
-      v20 = v17;
-      v21 = 42;
+      v40 = v15;
+      v41 = 2080;
+      v42 = v30;
+      v21 = "%@ depth data decompression failed with error %@ for time %f, type detected %s";
+      v22 = v19;
+      v23 = 42;
       goto LABEL_26;
     }
   }
 
-  else if (v18)
+  else if (v20)
   {
-    v27[0] = HIBYTE(depthCodecType);
-    v27[1] = BYTE2(depthCodecType);
-    v27[2] = BYTE1(depthCodecType);
-    v27[3] = depthCodecType;
-    v27[4] = 0;
+    v31[0] = HIBYTE(depthCodecType);
+    v31[1] = BYTE2(depthCodecType);
+    v31[2] = BYTE1(depthCodecType);
+    v31[3] = depthCodecType;
+    v31[4] = 0;
     LODWORD(time.value) = 138412802;
     *(&time.value + 4) = self;
     LOWORD(time.flags) = 2048;
-    *(&time.flags + 2) = v13;
+    *(&time.flags + 2) = v15;
     HIWORD(time.epoch) = 2080;
-    v36 = COERCE_DOUBLE(v27);
-    v19 = "%@ depth data decompression succeeded for time %f, type detected %s";
-    v20 = v17;
-    v21 = 32;
+    v40 = COERCE_DOUBLE(v31);
+    v21 = "%@ depth data decompression succeeded for time %f, type detected %s";
+    v22 = v19;
+    v23 = 32;
 LABEL_26:
-    _os_log_debug_impl(&dword_242A3B000, v20, OS_LOG_TYPE_DEBUG, v19, &time, v21);
+    _os_log_debug_impl(&dword_242A3B000, v22, OS_LOG_TYPE_DEBUG, v21, &time, v23);
   }
 
-  v22 = JFXMediaDataReaderIntervalSignpostCategory();
+  v26 = JFXMediaDataReaderIntervalSignpostCategory(v24, v25);
   signPostID2 = [(JFXDepthDataMediaReader *)self signPostID];
   if (signPostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v24 = signPostID2;
-    if (os_signpost_enabled(v22))
+    v28 = signPostID2;
+    if (os_signpost_enabled(v26))
     {
       LOWORD(time.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_242A3B000, v22, OS_SIGNPOST_INTERVAL_END, v24, "decompressAVDepthData", &unk_242B66C87, &time, 2u);
+      _os_signpost_emit_with_name_impl(&dword_242A3B000, v26, OS_SIGNPOST_INTERVAL_END, v28, "decompressAVDepthData", &unk_242B66C87, &time, 2u);
     }
   }
 
-  return v11;
+  return v13;
 }
 
 - ($AC64C642040120CEEAD84DEEACA9A5CE)readableTimeRange
@@ -433,7 +434,7 @@ __n128 __44__JFXDepthDataMediaReader_readableTimeRange__block_invoke(uint64_t a1
   v3 = v2;
   if (v2)
   {
-    [v2 readableTimeRange];
+    objc_msgSend_readableTimeRange(v2);
   }
 
   else
@@ -556,9 +557,12 @@ void __32__JFXDepthDataMediaReader_error__block_invoke(uint64_t a1)
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) lastDecodeError];
+    v6 = [*(a1 + 32) lastDecodeError];
+    v7 = *(*(a1 + 40) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v6, v8);
   }
 }
 

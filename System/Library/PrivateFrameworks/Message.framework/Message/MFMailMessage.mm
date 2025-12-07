@@ -1,6 +1,7 @@
 @interface MFMailMessage
 + (id)forwardedMessagePrefixWithSpacer:(BOOL)spacer;
 + (id)globalMessageURLWithMessageIDHeader:(id)header;
++ (unsigned)displayablePriorityForPriority:(int)priority;
 + (unsigned)validatePriority:(int)priority;
 - (BOOL)isPartOfExistingThread;
 - (BOOL)shouldSetSummary;
@@ -125,6 +126,30 @@
   else
   {
     return 3;
+  }
+}
+
++ (unsigned)displayablePriorityForPriority:(int)priority
+{
+  v3 = [self validatePriority:*&priority];
+  if (v3 == 4)
+  {
+    v4 = 5;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (v3 == 2)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v4;
   }
 }
 
@@ -274,7 +299,7 @@
 
 - (id)preferredEmailAddressToReplyWith
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   preferredAccountToUseForReplying = [(MFMailMessage *)self preferredAccountToUseForReplying];
   v4 = 0x1E7A9F000uLL;
   v5 = [MailAccount addressesThatReceivedMessage:self];
@@ -295,12 +320,12 @@
   v10 = [v9 mutableCopy];
 
   [v10 removeObject:firstEmailAddress];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   senders = v10;
-  v12 = [senders countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v12 = [senders countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v12)
   {
     mailbox = senders;
@@ -308,18 +333,18 @@
     goto LABEL_27;
   }
 
-  v13 = *v34;
+  v13 = *v33;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v34 != v13)
+      if (*v33 != v13)
       {
         objc_enumerationMutation(senders);
       }
 
-      v15 = *(*(&v33 + 1) + 8 * i);
-      if ([v5 containsObject:{v15, v33}])
+      v15 = *(*(&v32 + 1) + 8 * i);
+      if ([v5 containsObject:{v15, v32}])
       {
         v4 = 0x1E7A9F000uLL;
         if ([senders containsObject:v15])
@@ -338,7 +363,7 @@
       }
     }
 
-    v12 = [senders countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v12 = [senders countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v12)
     {
       continue;
@@ -421,8 +446,6 @@ LABEL_29:
       v18 = stringValue2;
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -617,27 +640,27 @@ id __49__MFMailMessage_preferredEmailAddressToReplyWith__block_invoke(uint64_t a
 
 - (id)bestAlternativePart:(BOOL *)part
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [(MFMailMessage *)self _bestAlternativePartContent:part];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v3 = v15 = 0u;
+  v13 = 0u;
+  v3 = v14 = 0u;
   v4 = 0;
-  v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && ([v8 isVisuallyEmpty] & 1) == 0)
         {
@@ -667,13 +690,11 @@ id __49__MFMailMessage_preferredEmailAddressToReplyWith__block_invoke(uint64_t a
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -726,40 +747,40 @@ id __49__MFMailMessage_preferredEmailAddressToReplyWith__block_invoke(uint64_t a
 
 - (id)bestAlternativePartAsData:(BOOL *)data usingEncoding:(unint64_t)encoding
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = [(MFMailMessage *)self _bestAlternativePartContent:data];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__5;
-  v29 = __Block_byref_object_dispose__5;
-  v30 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__5;
+  v28 = __Block_byref_object_dispose__5;
+  v29 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __57__MFMailMessage_bestAlternativePartAsData_usingEncoding___block_invoke;
   aBlock[3] = &unk_1E7AA3428;
-  aBlock[4] = &v25;
+  aBlock[4] = &v24;
   aBlock[5] = encoding;
   v6 = _Block_copy(aBlock);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v30 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && ([v11 isVisuallyEmpty] & 1) == 0)
         {
@@ -767,37 +788,36 @@ id __49__MFMailMessage_preferredEmailAddressToReplyWith__block_invoke(uint64_t a
           if (htmlData)
           {
             preferredEncoding = [v11 preferredEncoding];
-            v17[0] = MEMORY[0x1E69E9820];
-            v17[1] = 3221225472;
-            v17[2] = __57__MFMailMessage_bestAlternativePartAsData_usingEncoding___block_invoke_2;
-            v17[3] = &unk_1E7AA3450;
-            v18 = v6;
-            v19 = preferredEncoding;
-            [htmlData ef_enumerateSubdataOfSize:0x80000 usingBlock:v17];
+            v16[0] = MEMORY[0x1E69E9820];
+            v16[1] = 3221225472;
+            v16[2] = __57__MFMailMessage_bestAlternativePartAsData_usingEncoding___block_invoke_2;
+            v16[3] = &unk_1E7AA3450;
+            v17 = v6;
+            v18 = preferredEncoding;
+            [htmlData ef_enumerateSubdataOfSize:0x80000 usingBlock:v16];
           }
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v31 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v30 count:16];
     }
 
     while (v8);
   }
 
-  v14 = v26[5];
-  _Block_object_dispose(&v25, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = v25[5];
+  _Block_object_dispose(&v24, 8);
 
   return v14;
 }
 
-void __57__MFMailMessage_bestAlternativePartAsData_usingEncoding___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void __57__MFMailMessage_bestAlternativePartAsData_usingEncoding___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = objc_autoreleasePoolPush();
   v7 = MFCreateStringWithBytes();
   v8 = v7;
-  if (a4 != -1 && !v7)
+  if (v4 != -1 && !v7)
   {
     v8 = MFCreateStringWithBytes();
   }

@@ -19,14 +19,14 @@
   }
 
   v10 = [elementCopy getAttribute:@"type"];
-  if ([v10 isEqualToString:@"email"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = 7;
   }
 
   else
   {
-    if (![v10 isEqualToString:@"number"])
+    if (!objc_msgSend_isEqualToString_(v10))
     {
       v9->_keyboardType = 0;
       goto LABEL_8;
@@ -51,7 +51,7 @@ LABEL_8:
     v9->_secure = [v14 BOOLValue];
   }
 
-  else if ([v10 isEqualToString:@"password"])
+  else if (objc_msgSend_isEqualToString_(v10))
   {
     v9->_secure = 1;
   }
@@ -69,17 +69,17 @@ LABEL_17:
 + (BOOL)isTextInputType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"number"] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"email") & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"password"))
+  if (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [typeCopy isEqualToString:@"text"];
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (id)supportedFeatures

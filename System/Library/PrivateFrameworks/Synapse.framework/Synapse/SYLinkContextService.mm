@@ -92,14 +92,14 @@
 
 - (void)fetchLinkContextsDataForUserActivityInfo:(id)info completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   completionCopy = completion;
   v8 = os_log_create("com.apple.synapse", "LinkContext");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v17 = infoCopy;
+    v16 = infoCopy;
     _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_DEFAULT, "LinkContextService: Received request to fetch link context. Activity info: %p", buf, 0xCu);
   }
 
@@ -113,13 +113,13 @@
 
   else if (infoCopy)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __76__SYLinkContextService_fetchLinkContextsDataForUserActivityInfo_completion___block_invoke;
-    v13[3] = &unk_27856B830;
-    v14 = infoCopy;
-    v15 = completionCopy;
-    [SYItemIndexingManager fetchLinkContextsDataForUserActivity:v14 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __76__SYLinkContextService_fetchLinkContextsDataForUserActivityInfo_completion___block_invoke;
+    v12[3] = &unk_27856B830;
+    v13 = infoCopy;
+    v14 = completionCopy;
+    [SYItemIndexingManager fetchLinkContextsDataForUserActivity:v13 completion:v12];
   }
 
   else
@@ -128,47 +128,44 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v17 = 0;
+      v16 = 0;
       _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_DEFAULT, "LinkContextService: Finished fetch link context request for activity: %p, calling completion with no data.", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy, MEMORY[0x277CBEBF8], 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SYLinkContextService_fetchLinkContextsDataForUserActivityInfo_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.synapse", "LinkContext");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218240;
-    v8 = v5;
-    v9 = 2048;
-    v10 = [v3 count];
-    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "LinkContextService: Finished fetch link context request for activity: %p. Found: %ld", &v7, 0x16u);
+    v6 = 134218240;
+    v7 = v5;
+    v8 = 2048;
+    v9 = [v3 count];
+    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "LinkContextService: Finished fetch link context request for activity: %p. Found: %ld", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userWillAddLinkWithActivityData:(id)data completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
   v8 = os_log_create("com.apple.synapse", "AddLinkContext");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _activeConnection = [(SYLinkContextService *)self _activeConnection];
-    v14 = 138412290;
-    v15 = _activeConnection;
-    _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_DEFAULT, "LinkContextService: userWillAddLinkWithActivityData, activeConnection = %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = _activeConnection;
+    _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_DEFAULT, "LinkContextService: userWillAddLinkWithActivityData, activeConnection = %@", &v13, 0xCu);
   }
 
   _activeConnection2 = [(SYLinkContextService *)self _activeConnection];
@@ -193,8 +190,6 @@ void __76__SYLinkContextService_fetchLinkContextsDataForUserActivityInfo_complet
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SYLinkContextService_userWillAddLinkWithActivityData_completion___block_invoke(uint64_t a1, void *a2)
@@ -209,15 +204,15 @@ void __67__SYLinkContextService_userWillAddLinkWithActivityData_completion___blo
 
 - (void)userDidRemoveContentItemDatas:(id)datas
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   datasCopy = datas;
   v5 = os_log_create("com.apple.synapse", "AddLinkContext");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _activeConnection = [(SYLinkContextService *)self _activeConnection];
-    v11 = 138412290;
-    v12 = _activeConnection;
-    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "LinkContextService: userDidRemoveContentItemDatas, activeConnection = %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = _activeConnection;
+    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "LinkContextService: userDidRemoveContentItemDatas, activeConnection = %@", &v10, 0xCu);
   }
 
   _activeConnection2 = [(SYLinkContextService *)self _activeConnection];
@@ -232,8 +227,6 @@ void __67__SYLinkContextService_userWillAddLinkWithActivityData_completion___blo
       [v9 userDidRemoveContentItemDatas:datasCopy];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SYLinkContextService_userDidRemoveContentItemDatas___block_invoke(uint64_t a1, void *a2)
@@ -248,15 +241,15 @@ void __54__SYLinkContextService_userDidRemoveContentItemDatas___block_invoke(uin
 
 - (void)userEditDidAddContentItemDatas:(id)datas
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   datasCopy = datas;
   v5 = os_log_create("com.apple.synapse", "AddLinkContext");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _activeConnection = [(SYLinkContextService *)self _activeConnection];
-    v11 = 138412290;
-    v12 = _activeConnection;
-    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "LinkContextService: userEditDidAddContentItemDatas, activeConnection = %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = _activeConnection;
+    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "LinkContextService: userEditDidAddContentItemDatas, activeConnection = %@", &v10, 0xCu);
   }
 
   _activeConnection2 = [(SYLinkContextService *)self _activeConnection];
@@ -271,8 +264,6 @@ void __54__SYLinkContextService_userDidRemoveContentItemDatas___block_invoke(uin
       [v9 userEditDidAddContentItemDatas:datasCopy];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SYLinkContextService_userEditDidAddContentItemDatas___block_invoke(uint64_t a1, void *a2)
@@ -287,7 +278,7 @@ void __55__SYLinkContextService_userEditDidAddContentItemDatas___block_invoke(ui
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (!connectionCopy)
@@ -304,12 +295,12 @@ void __55__SYLinkContextService_userEditDidAddContentItemDatas___block_invoke(ui
 
   if (![(SYLinkContextService *)self _forTesting])
   {
-    v19 = [connectionCopy valueForEntitlement:@"com.apple.synapse.allowLinkContextRequests"];
+    v18 = [connectionCopy valueForEntitlement:@"com.apple.synapse.allowLinkContextRequests"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v19 BOOLValue])
+    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v18 BOOLValue])
     {
-      v20 = os_log_create("com.apple.synapse", "LinkContext");
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = os_log_create("com.apple.synapse", "LinkContext");
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [SYLinkContextService listener:shouldAcceptNewConnection:];
       }
@@ -331,22 +322,22 @@ LABEL_4:
   [connectionCopy setRemoteObjectInterface:v13];
 
   objc_initWeak(location, self);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __59__SYLinkContextService_listener_shouldAcceptNewConnection___block_invoke;
-  v26[3] = &unk_27856B5A0;
-  objc_copyWeak(&v27, location);
-  [connectionCopy setInvalidationHandler:v26];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __59__SYLinkContextService_listener_shouldAcceptNewConnection___block_invoke_2;
-  v24 = &unk_27856B5A0;
-  objc_copyWeak(&v25, location);
-  [connectionCopy setInterruptionHandler:&v21];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __59__SYLinkContextService_listener_shouldAcceptNewConnection___block_invoke;
+  v25[3] = &unk_27856B5A0;
+  objc_copyWeak(&v26, location);
+  [connectionCopy setInvalidationHandler:v25];
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __59__SYLinkContextService_listener_shouldAcceptNewConnection___block_invoke_2;
+  v23 = &unk_27856B5A0;
+  objc_copyWeak(&v24, location);
+  [connectionCopy setInterruptionHandler:&v20];
   [connectionCopy resume];
   [(SYLinkContextService *)self set_activeConnection:connectionCopy];
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(location);
   v10 = 1;
 LABEL_7:
@@ -362,12 +353,11 @@ LABEL_7:
 
     *location = 134218242;
     *&location[4] = processIdentifier;
-    v29 = 2112;
-    v30 = v16;
+    v28 = 2112;
+    v29 = v16;
     _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_INFO, "LinkContextService: Listener should accept connection from pid %ld: %@", location, 0x16u);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -415,26 +405,10 @@ void __41__SYLinkContextService__listenerEndpoint__block_invoke(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void __67__SYLinkContextService_userWillAddLinkWithActivityData_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_0(&dword_225901000, v0, v1, "LinkContextService: Error creating client service proxy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x277CCA890] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"SYLinkContextService.m" lineNumber:165 description:{@"Invalid parameter not satisfying: %@", @"newConnection"}];
-}
-
-- (void)listener:shouldAcceptNewConnection:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_0(&dword_225901000, v0, v1, "LinkContextService: Refusing connection from non-entitled client with connection: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

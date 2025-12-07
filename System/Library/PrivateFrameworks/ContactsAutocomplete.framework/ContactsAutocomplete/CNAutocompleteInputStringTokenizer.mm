@@ -87,7 +87,7 @@ id __72__CNAutocompleteInputStringTokenizer_lazyNameStringTokenizerWithLocale___
 
 id __52__CNAutocompleteInputStringTokenizer_expandCJKNames__block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (CNStringContainsChineseJapaneseKoreanCharacters())
   {
@@ -99,11 +99,9 @@ id __52__CNAutocompleteInputStringTokenizer_expandCJKNames__block_invoke(uint64_
 
   else
   {
-    v9[0] = v3;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v3;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -258,13 +258,11 @@ LABEL_43:
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = vcvtd_n_f64_u64([(NSData *)self->_resourceBundleData length], 0xAuLL);
-  refreshResult = self->_refreshResult;
+  v7 = HKStringFromBool();
   v8 = HKStringFromBool();
-  error = self->_error;
-  v10 = HKStringFromBool();
-  v11 = [v3 stringWithFormat:@"<%@ %p, resource bundle data: %.2f KB, did refresh token: %@ error: %@>", v5, self, *&v6, v8, v10];
+  v9 = [v3 stringWithFormat:@"<%@ %p, resource bundle data: %.2f KB, did refresh token: %@ error: %@>", v5, self, *&v6, v7, v8];
 
-  return v11;
+  return v9;
 }
 
 - (void)encodeWithCoder:(id)coder

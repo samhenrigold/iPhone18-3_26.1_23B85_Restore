@@ -2,6 +2,10 @@
 - (void)dismissViewController:(int64_t)controller;
 - (void)handleProbeResult:(int64_t)result completionHandler:(id)handler;
 - (void)loadView;
+- (void)setCarPlayAndInternetMode:(BOOL)mode;
+- (void)startWithURL:(id)l ssid:(id)ssid interface:(id)interface proxyConfiguration:(id)configuration enableTVMode:(BOOL)mode delegate:(id)delegate;
+- (void)startWithURL:(id)l ssid:(id)ssid interface:(id)interface proxyConfiguration:(id)configuration showCancelMenu:(BOOL)menu delegate:(id)delegate;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation WSWebSheetViewController
@@ -16,6 +20,16 @@
 
   v8 = [[WSWebSheetView alloc] initWithFrame:self webSheetViewController:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), v5, v7];
   [(WSWebSheetViewController *)self setView:v8];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = WSWebSheetViewController;
+  [(WSWebSheetViewController *)&v6 viewDidAppear:appear];
+  view = [(WSWebSheetViewController *)self view];
+  window = [view window];
+  [window makeKeyWindow];
 }
 
 - (void)dismissViewController:(int64_t)controller
@@ -39,6 +53,68 @@ void __50__WSWebSheetViewController_dismissViewController___block_invoke(uint64_
 {
   v2 = [*(a1 + 32) webSheetView];
   [v2 dismissWebSheetWithCaptiveWebSheetResult:*(a1 + 40)];
+}
+
+- (void)startWithURL:(id)l ssid:(id)ssid interface:(id)interface proxyConfiguration:(id)configuration enableTVMode:(BOOL)mode delegate:(id)delegate
+{
+  modeCopy = mode;
+  [(WSWebSheetViewController *)self startWithURL:l ssid:ssid interface:interface proxyConfiguration:configuration showCancelMenu:!mode delegate:delegate];
+  view = [(WSWebSheetViewController *)self view];
+
+  if (view)
+  {
+    view2 = [(WSWebSheetViewController *)self view];
+    [view2 setEnableTVMode:modeCopy];
+  }
+}
+
+- (void)setCarPlayAndInternetMode:(BOOL)mode
+{
+  modeCopy = mode;
+  view = [(WSWebSheetViewController *)self view];
+
+  if (view)
+  {
+    view2 = [(WSWebSheetViewController *)self view];
+    [view2 setCarPlayAndInternet:modeCopy];
+  }
+}
+
+- (void)startWithURL:(id)l ssid:(id)ssid interface:(id)interface proxyConfiguration:(id)configuration showCancelMenu:(BOOL)menu delegate:(id)delegate
+{
+  menuCopy = menu;
+  lCopy = l;
+  ssidCopy = ssid;
+  interfaceCopy = interface;
+  configurationCopy = configuration;
+  delegateCopy = delegate;
+  view = [(WSWebSheetViewController *)self view];
+
+  if (view)
+  {
+    mEMORY[0x277CBAB38] = [MEMORY[0x277CBAB38] sharedHTTPCookieStorage];
+    [mEMORY[0x277CBAB38] webui_applySafariCookieAcceptPolicy];
+    view2 = [(WSWebSheetViewController *)self view];
+    [view2 setDelegate:delegateCopy];
+    [view2 setCurrentURL:lCopy];
+    [view2 setProbeURL:lCopy];
+    [view2 setSSID:ssidCopy];
+    if (configurationCopy)
+    {
+      [view2 setProxyConfiguration:configurationCopy];
+    }
+
+    [view2 setShouldShowStayConnectedOptions:menuCopy];
+    [view2 setWebViewWithInterfaceName:interfaceCopy];
+    webView = [view2 webView];
+    v22 = [MEMORY[0x277CBABA0] requestWithURL:lCopy];
+    v23 = [webView loadRequest:v22];
+  }
+
+  else
+  {
+    NSLog(&cfstr_WebsheetViewIs.isa);
+  }
 }
 
 - (void)handleProbeResult:(int64_t)result completionHandler:(id)handler

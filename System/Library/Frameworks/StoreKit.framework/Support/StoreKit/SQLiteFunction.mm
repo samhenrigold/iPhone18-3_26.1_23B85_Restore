@@ -39,14 +39,14 @@
 
 + (_TtC9storekitd14SQLiteFunction)extractJWSPayload
 {
-  v2 = sub_10021D9C8(&qword_1003CBE80, &qword_1003F26E8);
+  v2 = sub_10021D9C8(&qword_1003CBE80, &qword_1003F26E8, sub_10021D4FC);
 
   return v2;
 }
 
 + (_TtC9storekitd14SQLiteFunction)unarchiveRenewalInfoAsJSON
 {
-  v2 = sub_10021D9C8(&qword_1003CBE88, &qword_1003F26F0);
+  v2 = sub_10021D9C8(&qword_1003CBE88, &qword_1003F26F0, sub_10021D728);
 
   return v2;
 }

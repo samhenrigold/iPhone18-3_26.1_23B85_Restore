@@ -208,11 +208,14 @@ LABEL_48:
 
 - (id)description
 {
-  v5 = objc_autoreleasePoolPush();
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@), name %@, mappingType %u, sourceEntityName %@, sourceEntityVersionHash %@, destinationEntityName %@, destinationEntityVersionHash %@, attributeMappings %@, relationshipMappings %@, sourceExpression %@, entityMigrationPolicyClassName %@, userInfo %@", objc_opt_class(), -[NSEntityMapping name](self, "name"), -[NSEntityMapping mappingType](self, "mappingType"), -[NSEntityMapping sourceEntityName](self, "sourceEntityName"), -[NSEntityMapping sourceEntityVersionHash](self, "sourceEntityVersionHash"), -[NSEntityMapping destinationEntityName](self, "destinationEntityName"), -[NSEntityMapping destinationEntityVersionHash](self, "destinationEntityVersionHash"), -[NSEntityMapping attributeMappings](self, "attributeMappings"), -[NSEntityMapping relationshipMappings](self, "relationshipMappings"), -[NSEntityMapping sourceExpression](self, "sourceExpression"), -[NSEntityMapping entityMigrationPolicyClassName](self, "entityMigrationPolicyClassName"), -[NSEntityMapping userInfo](self, "userInfo")];
-  objc_autoreleasePoolPop(v5);
+  v3 = objc_autoreleasePoolPush();
+  v7 = MEMORY[0x1E696AEC0];
+  v8 = v3;
+  v6 = objc_opt_class();
+  v4 = objc_msgSend_stringWithFormat_(v7, v6, [(NSEntityMapping *)self name], [(NSEntityMapping *)self mappingType], [(NSEntityMapping *)self sourceEntityName], [(NSEntityMapping *)self sourceEntityVersionHash], [(NSEntityMapping *)self destinationEntityName], [(NSEntityMapping *)self destinationEntityVersionHash], [(NSEntityMapping *)self attributeMappings], [(NSEntityMapping *)self relationshipMappings], [(NSEntityMapping *)self sourceExpression], [(NSEntityMapping *)self entityMigrationPolicyClassName], [(NSEntityMapping *)self userInfo]);
+  objc_autoreleasePoolPop(v8);
 
-  return v3;
+  return v4;
 }
 
 - (NSString)name
@@ -220,7 +223,7 @@ LABEL_48:
   result = self->_name;
   if (!result)
   {
-    return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@->%@", -[NSEntityMapping sourceEntityName](self, "sourceEntityName"), -[NSEntityMapping destinationEntityName](self, "destinationEntityName")];
+    return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSEntityMapping *)self sourceEntityName], [(NSEntityMapping *)self destinationEntityName]);
   }
 
   return result;
@@ -409,7 +412,7 @@ LABEL_48:
             [(NSExpression *)v4->_sourceExpression allowEvaluation];
           }
 
-          v4->_userInfo = [coder decodeObjectOfClasses:+[_PFRoutines plistClassesForSecureCoding]() forKey:@"NSUserInfo"];
+          v4->_userInfo = [coder decodeObjectOfClasses:+[_PFRoutines plistClassesForSecureCoding](_PFRoutines) forKey:@"NSUserInfo"];
           v10 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSEntityMigrationPolicyClassName"];
           v4->_entityMigrationPolicyClassName = v10;
           if (!v10 || ([(NSString *)v10 isNSString]& 1) != 0)
@@ -449,8 +452,10 @@ LABEL_48:
       result = objc_alloc_init(_PFClassFromString(result[12].super.isa));
       if (!result)
       {
-        v2 = +[_NSCoreDataException exceptionWithName:code:reason:userInfo:](_NSCoreDataException, *MEMORY[0x1E695D930], 134110, [MEMORY[0x1E696AEC0] stringWithFormat:@"Couldn't create mapping policy for class named (%@)", isa], 0);
-        objc_exception_throw(v2);
+        v2 = *MEMORY[0x1E695D930];
+        v3 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], isa);
+        v4 = [_NSCoreDataException exceptionWithName:v2 code:134110 reason:v3 userInfo:0];
+        objc_exception_throw(v4);
       }
     }
 
@@ -537,7 +542,7 @@ LABEL_48:
 
 - (void)_mappingsByName
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -555,59 +560,59 @@ LABEL_48:
       v5 = [relationshipMappings count];
       v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v5 + v4];
       v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v5 + v4];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
-      v8 = [attributeMappings countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v8 = [attributeMappings countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v24;
+        v10 = *v23;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v24 != v10)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(attributeMappings);
             }
 
-            v12 = *(*(&v23 + 1) + 8 * i);
+            v12 = *(*(&v22 + 1) + 8 * i);
             [v7 addObject:v12];
             [v6 addObject:{objc_msgSend(v12, "name")}];
           }
 
-          v9 = [attributeMappings countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v9 = [attributeMappings countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v9);
       }
 
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
-      v13 = [relationshipMappings countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v13 = [relationshipMappings countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v20;
+        v15 = *v19;
         do
         {
           for (j = 0; j != v14; ++j)
           {
-            if (*v20 != v15)
+            if (*v19 != v15)
             {
               objc_enumerationMutation(relationshipMappings);
             }
 
-            v17 = *(*(&v19 + 1) + 8 * j);
+            v17 = *(*(&v18 + 1) + 8 * j);
             [v7 addObject:v17];
             [v6 addObject:{objc_msgSend(v17, "name")}];
           }
 
-          v14 = [relationshipMappings countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v14 = [relationshipMappings countByEnumeratingWithState:&v18 objects:v26 count:16];
         }
 
         while (v14);
@@ -615,11 +620,10 @@ LABEL_48:
 
       v1[3] = [objc_alloc(MEMORY[0x1E695DF90]) initWithObjects:v7 forKeys:v6];
 
-      result = v1[3];
+      return v1[3];
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 

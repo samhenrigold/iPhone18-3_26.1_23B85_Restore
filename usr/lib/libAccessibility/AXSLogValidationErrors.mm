@@ -3,7 +3,7 @@
 
 @implementation AXSLogValidationErrors
 
-uint64_t ___AXSLogValidationErrors_block_invoke()
+void *___AXSLogValidationErrors_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

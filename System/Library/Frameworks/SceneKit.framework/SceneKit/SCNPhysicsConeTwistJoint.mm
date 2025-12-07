@@ -437,7 +437,7 @@ double __49__SCNPhysicsConeTwistJoint_setMaximumTwistAngle___block_invoke(uint64
 
   if (!v8)
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNPhysicsHingeJoint _addToPhysicsWorld:v9 definition:?];
@@ -461,7 +461,7 @@ double __49__SCNPhysicsConeTwistJoint_setMaximumTwistAngle___block_invoke(uint64
   v14 = *&definition->var0[48];
   v16[2] = *&definition->var0[32];
   v16[3] = v14;
-  self->_constraint = _createConstraintFromDefinition(v16);
+  self->_constraint = _createConstraintFromDefinition(v16, a2);
   _handle = [world _handle];
   (*(*_handle + 112))(_handle, self->_constraint, 0);
 }

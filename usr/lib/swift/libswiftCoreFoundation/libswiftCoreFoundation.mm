@@ -133,16 +133,15 @@ unint64_t lazy protocol witness table accessor for type CGFloat and conformance 
 
 uint64_t protocol witness for Decodable.init(from:) in conformance CGFloat@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v18 = a2;
-  v16 = *(type metadata accessor for DecodingError.Context() - 8);
-  v4 = *(v16 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v6 = v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(type metadata accessor for DecodingError() - 8);
-  v7 = *(v17 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v9 = v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = a1[4];
+  v15 = a2;
+  v4 = type metadata accessor for DecodingError.Context();
+  v14[3] = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DecodingError();
+  v14[4] = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Decoder.singleValueContainer()();
   if (v2)
@@ -150,15 +149,15 @@ uint64_t protocol witness for Decodable.init(from:) in conformance CGFloat@<X0>(
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v15[1] = v6;
-  v15[2] = v9;
-  v11 = v18;
-  __swift_project_boxed_opaque_existential_1(v19, v19[3]);
+  v14[1] = v6;
+  v14[2] = v9;
+  v10 = v15;
+  __swift_project_boxed_opaque_existential_1(v16, v16[3]);
   dispatch thunk of SingleValueDecodingContainer.decode(_:)();
-  v13 = v12;
-  __swift_destroy_boxed_opaque_existential_1(v19);
+  v12 = v11;
+  __swift_destroy_boxed_opaque_existential_1(v16);
   result = __swift_destroy_boxed_opaque_existential_1(a1);
-  *v11 = v13;
+  *v10 = v12;
   return result;
 }
 
@@ -186,7 +185,7 @@ uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
   }
 }
 
-uint64_t protocol witness for CVarArg._cVarArgEncoding.getter in conformance CGFloat()
+unint64_t protocol witness for CVarArg._cVarArgEncoding.getter in conformance CGFloat()
 {
   v1 = *v0;
   result = _sSa9repeating5countSayxGx_SitcfCSi_Tt1gq5(0, 1uLL);
@@ -194,7 +193,7 @@ uint64_t protocol witness for CVarArg._cVarArgEncoding.getter in conformance CGF
   return result;
 }
 
-uint64_t _sSa9repeating5countSayxGx_SitcfCSi_Tt1gq5(uint64_t result, unint64_t a2)
+unint64_t _sSa9repeating5countSayxGx_SitcfCSi_Tt1gq5(unint64_t result, unint64_t a2)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -285,16 +284,14 @@ double protocol witness for static AdditiveArithmetic.+ infix(_:_:) in conforman
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance CGFloat(void *a1)
 {
-  v2 = *v1;
-  v3 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v5, v5[3]);
+  __swift_mutable_project_boxed_opaque_existential_1(v2, v2[3]);
   dispatch thunk of SingleValueEncodingContainer.encode(_:)();
-  return __swift_destroy_boxed_opaque_existential_1(v5);
+  return __swift_destroy_boxed_opaque_existential_1(v2);
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -302,62 +299,51 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
-}
-
-uint64_t _CFObject.hash(into:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a3 + 8);
-  v4 = dispatch thunk of Hashable.hashValue.getter();
-  return MEMORY[0x1DA717090](v4);
+  return v3;
 }
 
 double specialized BinaryFloatingPoint.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v62 = *(AssociatedTypeWitness - 8);
-  v63 = AssociatedTypeWitness;
-  v7 = (*(v62 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x1EEE9AC00])();
-  v61 = &v59 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v59 = *(v9 - 8);
-  v60 = v9;
-  v10 = (*(v59 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v11 = (MEMORY[0x1EEE9AC00])();
-  v13 = &v59 - v12;
-  v14 = *(a2 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v11);
-  v18 = &v59 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v16);
-  v21 = &v59 - v20;
-  MEMORY[0x1EEE9AC00](v19);
-  v23 = &v59 - v22;
-  v24 = dispatch thunk of static BinaryFloatingPoint.exponentBitCount.getter();
-  v25 = dispatch thunk of static BinaryFloatingPoint.significandBitCount.getter();
-  if (v24 == 11)
+  v49 = *(AssociatedTypeWitness - 8);
+  v50 = AssociatedTypeWitness;
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v48 = &v46 - v6;
+  v7 = swift_getAssociatedTypeWitness();
+  v46 = *(v7 - 8);
+  v47 = v7;
+  v8 = MEMORY[0x1EEE9AC00](v7);
+  v10 = &v46 - v9;
+  v11 = *(a2 - 8);
+  v12 = MEMORY[0x1EEE9AC00](v8);
+  v14 = &v46 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v12);
+  v17 = &v46 - v16;
+  MEMORY[0x1EEE9AC00](v15);
+  v19 = &v46 - v18;
+  v20 = dispatch thunk of static BinaryFloatingPoint.exponentBitCount.getter();
+  v21 = dispatch thunk of static BinaryFloatingPoint.significandBitCount.getter();
+  if (v20 == 11)
   {
-    if (v25 == 52)
+    if (v21 == 52)
     {
-      (*(v14 + 16))(v18, a1, a2);
+      (*(v11 + 16))(v14, a1, a2);
       if (!swift_dynamicCast())
       {
-        v28 = *(a3 + 16);
-        v29 = dispatch thunk of FloatingPoint.sign.getter();
+        v24 = dispatch thunk of FloatingPoint.sign.getter();
         dispatch thunk of BinaryFloatingPoint.exponentBitPattern.getter();
-        v30 = v60;
-        v31 = *(swift_getAssociatedConformanceWitness() + 8);
-        v32 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v59 + 8))(v13, v30);
-        v33 = v61;
+        v25 = v47;
+        swift_getAssociatedConformanceWitness();
+        v26 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (*(v46 + 8))(v10, v25);
+        v27 = v48;
         dispatch thunk of BinaryFloatingPoint.significandBitPattern.getter();
-        (*(v14 + 8))(a1, a2);
-        v34 = v63;
-        v35 = *(swift_getAssociatedConformanceWitness() + 8);
-        v36 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v62 + 8))(v33, v34);
-        *&result = (v29 << 63) | ((v32 & 0x7FF) << 52) | v36 & 0xFFFFFFFFFFFFFLL;
+        (*(v11 + 8))(a1, a2);
+        v28 = v50;
+        swift_getAssociatedConformanceWitness();
+        v29 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (*(v49 + 8))(v27, v28);
+        *&result = (v24 << 63) | ((v26 & 0x7FF) << 52) | v29 & 0xFFFFFFFFFFFFFLL;
         return result;
       }
 
@@ -367,74 +353,72 @@ double specialized BinaryFloatingPoint.init<A>(_:)(uint64_t a1, uint64_t a2, uin
     goto LABEL_13;
   }
 
-  if (v24 == 8)
+  if (v20 == 8)
   {
-    if (v25 == 23)
+    if (v21 == 23)
     {
-      (*(v14 + 16))(v21, a1, a2);
+      (*(v11 + 16))(v17, a1, a2);
       if (swift_dynamicCast())
       {
-        (*(v14 + 8))(a1, a2);
-        return *&v64;
+        (*(v11 + 8))(a1, a2);
+        return *&v51;
       }
 
       else
       {
-        v37 = *(a3 + 16);
-        v38 = dispatch thunk of FloatingPoint.sign.getter();
+        v30 = dispatch thunk of FloatingPoint.sign.getter();
         dispatch thunk of BinaryFloatingPoint.exponentBitPattern.getter();
-        v39 = v60;
-        v40 = *(swift_getAssociatedConformanceWitness() + 8);
-        v41 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v59 + 8))(v13, v39);
-        v42 = v61;
+        v31 = v47;
+        swift_getAssociatedConformanceWitness();
+        v32 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (*(v46 + 8))(v10, v31);
+        v33 = v48;
         dispatch thunk of BinaryFloatingPoint.significandBitPattern.getter();
-        (*(v14 + 8))(a1, a2);
-        v43 = v63;
-        v44 = *(swift_getAssociatedConformanceWitness() + 8);
-        v45 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v62 + 8))(v42, v43);
-        return COERCE_FLOAT((v38 << 31) | (v41 << 23) | v45 & 0x7FFFFF);
+        (*(v11 + 8))(a1, a2);
+        v34 = v50;
+        swift_getAssociatedConformanceWitness();
+        v35 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (*(v49 + 8))(v33, v34);
+        return COERCE_FLOAT((v30 << 31) | (v32 << 23) | v35 & 0x7FFFFF);
       }
     }
 
     goto LABEL_13;
   }
 
-  if (v24 != 5 || v25 != 10)
+  if (v20 != 5 || v21 != 10)
   {
 LABEL_13:
     lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
     static BinaryFloatingPoint._convert<A>(from:)();
 LABEL_14:
-    (*(v14 + 8))(a1, a2);
-    return v64;
+    (*(v11 + 8))(a1, a2);
+    return v51;
   }
 
-  (*(v14 + 16))(v23, a1, a2);
+  (*(v11 + 16))(v19, a1, a2);
   if (swift_dynamicCast())
   {
-    (*(v14 + 8))(a1, a2);
-    _H0 = LOWORD(v64);
+    (*(v11 + 8))(a1, a2);
+    _H0 = LOWORD(v51);
   }
 
   else
   {
-    v46 = *(a3 + 16);
-    v47 = dispatch thunk of FloatingPoint.sign.getter();
+    v36 = dispatch thunk of FloatingPoint.sign.getter();
     dispatch thunk of BinaryFloatingPoint.exponentBitPattern.getter();
-    v48 = v60;
-    v49 = *(swift_getAssociatedConformanceWitness() + 8);
-    v50 = dispatch thunk of BinaryInteger._lowWord.getter();
-    (*(v59 + 8))(v13, v48);
-    v51 = v61;
+    v37 = v47;
+    swift_getAssociatedConformanceWitness();
+    v38 = dispatch thunk of BinaryInteger._lowWord.getter();
+    (*(v46 + 8))(v10, v37);
+    v39 = v48;
     dispatch thunk of BinaryFloatingPoint.significandBitPattern.getter();
-    (*(v14 + 8))(a1, a2);
-    v52 = v63;
-    v53 = *(swift_getAssociatedConformanceWitness() + 8);
-    v54 = dispatch thunk of BinaryInteger._lowWord.getter();
-    (*(v62 + 8))(v51, v52);
-    _H0 = (v47 << 15) | ((v50 & 0x1F) << 10) | v54 & 0x3FF;
+    (*(v11 + 8))(a1, a2);
+    v40 = v50;
+    swift_getAssociatedConformanceWitness();
+    v41 = dispatch thunk of BinaryInteger._lowWord.getter();
+    (*(v49 + 8))(v39, v40);
+    _H0 = (v36 << 15) | ((v38 & 0x1F) << 10) | v41 & 0x3FF;
   }
 
   __asm { FCVT            D0, H0 }
@@ -446,11 +430,10 @@ uint64_t protocol witness for FloatingPoint.round(_:) in conformance CGFloat(uin
 {
   v3 = type metadata accessor for FloatingPointRoundingRule();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, a1, v3);
-  result = (*(v4 + 88))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, a1, v3);
+  result = (*(v4 + 88))(v6, v3);
   if (result == *MEMORY[0x1E69E7038])
   {
     *v1 = round(*v1);
@@ -465,17 +448,17 @@ uint64_t protocol witness for FloatingPoint.round(_:) in conformance CGFloat(uin
 
   if (result == *MEMORY[0x1E69E7040])
   {
-    v9 = *v1;
+    v8 = *v1;
 LABEL_7:
-    *v1 = ceil(v9);
+    *v1 = ceil(v8);
     return result;
   }
 
   if (result == *MEMORY[0x1E69E7048])
   {
-    v9 = *v1;
+    v8 = *v1;
 LABEL_10:
-    *v1 = floor(v9);
+    *v1 = floor(v8);
     return result;
   }
 
@@ -488,7 +471,7 @@ LABEL_10:
   {
     if (result == *MEMORY[0x1E69E7028])
     {
-      v9 = *v1;
+      v8 = *v1;
       if ((*v1 & 0x8000000000000000) == 0)
       {
         goto LABEL_7;
@@ -498,7 +481,7 @@ LABEL_10:
     }
 
     Double._roundSlowPath(_:)();
-    return (*(v4 + 8))(v7, v3);
+    return (*(v4 + 8))(v6, v3);
   }
 
   return result;
@@ -544,18 +527,17 @@ double protocol witness for static FloatingPoint./= infix(_:_:) in conformance C
   return result;
 }
 
-double CGFloat.init<A>(_:)(char *a1, uint64_t a2)
+double CGFloat.init<A>(_:)(char *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 - 8);
-  v5 = *(v4 + 64);
+  v5 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
   v7 = v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, a1, a2);
+  (*(v5 + 16))(v7, a1, a2);
   if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
   {
     v10 = dispatch thunk of static BinaryInteger.isSigned.getter();
     v11 = dispatch thunk of BinaryInteger._lowWord.getter();
-    v12 = *(v4 + 8);
+    v12 = *(v5 + 8);
     v12(a1, a2);
     v12(v7, a2);
     if (v10)
@@ -574,83 +556,82 @@ double CGFloat.init<A>(_:)(char *a1, uint64_t a2)
     lazy protocol witness table accessor for type Double and conformance Double();
     lazy protocol witness table accessor for type UInt64 and conformance UInt64();
     static BinaryFloatingPoint<>._convert<A>(from:)();
-    v8 = *(v4 + 8);
+    v8 = *(v5 + 8);
     v8(a1, a2);
     v8(v7, a2);
     return *&v13[1];
   }
 }
 
-uint64_t CGFloat.init<A>(exactly:)(uint64_t a1, uint64_t a2)
+uint64_t CGFloat.init<A>(exactly:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 - 8);
-  v5 = *(v4 + 64);
+  v6 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, a1, a2);
-  v8 = Double.init<A>(exactly:)(v7, a2);
-  LOBYTE(v7) = v9;
-  (*(v4 + 8))(a1, a2);
-  if (v7)
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v6 + 16))(v8, a1, a2);
+  v9 = Double.init<A>(exactly:)(v8, a2, a3);
+  LOBYTE(v8) = v10;
+  (*(v6 + 8))(a1, a2);
+  if (v8)
   {
     return 0;
   }
 
   else
   {
-    return v8;
+    return v9;
   }
 }
 
-uint64_t Double.init<A>(exactly:)(uint64_t a1, uint64_t a2)
+uint64_t Double.init<A>(exactly:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
   {
     lazy protocol witness table accessor for type Double and conformance Double();
     lazy protocol witness table accessor for type UInt64 and conformance UInt64();
-    v4 = static BinaryFloatingPoint<>._convert<A>(from:)();
+    v5 = static BinaryFloatingPoint<>._convert<A>(from:)();
     (*(*(a2 - 8) + 8))(a1, a2);
-    if (v4)
+    if (v5)
     {
-      v5 = v10;
-      return *&v5;
+      v6 = v11;
+      return *&v6;
     }
 
     return 0;
   }
 
-  v6 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v7 = dispatch thunk of BinaryInteger._lowWord.getter();
+  v7 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v8 = dispatch thunk of BinaryInteger._lowWord.getter();
   result = (*(*(a2 - 8) + 8))(a1, a2);
-  if ((v6 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v5 = v7;
-    if (v7 < 1.84467441e19 && v7 == v7)
+    v6 = v8;
+    if (v8 < 1.84467441e19 && v8 == v8)
     {
-      return *&v5;
+      return *&v6;
     }
 
     return 0;
   }
 
-  v5 = v7;
-  if (v7 >= 9.22337204e18)
+  v6 = v8;
+  if (v8 >= 9.22337204e18)
   {
     return 0;
   }
 
-  if (v5 <= -9.22337204e18)
+  if (v6 <= -9.22337204e18)
   {
     __break(1u);
     return result;
   }
 
-  if (v7 != v5)
+  if (v8 != v6)
   {
     return 0;
   }
 
-  return *&v5;
+  return *&v6;
 }
 
 double protocol witness for static SignedNumeric.- prefix(_:) in conformance CGFloat@<D0>(double *a1@<X0>, double *a2@<X8>)
@@ -719,7 +700,7 @@ double CGFloat.ulp.getter(double a1)
   return result;
 }
 
-unint64_t CGFloat.exponent.getter(double a1)
+uint64_t CGFloat.exponent.getter(double a1)
 {
   v1 = (*&a1 >> 52) & 0x7FFLL;
   if (v1 == 2047)
@@ -778,11 +759,10 @@ uint64_t CGFloat.round(_:)(uint64_t a1)
 {
   v3 = type metadata accessor for FloatingPointRoundingRule();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, a1, v3);
-  result = (*(v4 + 88))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, a1, v3);
+  result = (*(v4 + 88))(v6, v3);
   if (result == *MEMORY[0x1E69E7038])
   {
     *v1 = round(*v1);
@@ -797,17 +777,17 @@ uint64_t CGFloat.round(_:)(uint64_t a1)
 
   if (result == *MEMORY[0x1E69E7040])
   {
-    v9 = *v1;
+    v8 = *v1;
 LABEL_7:
-    *v1 = ceil(v9);
+    *v1 = ceil(v8);
     return result;
   }
 
   if (result == *MEMORY[0x1E69E7048])
   {
-    v9 = *v1;
+    v8 = *v1;
 LABEL_10:
-    *v1 = floor(v9);
+    *v1 = floor(v8);
     return result;
   }
 
@@ -820,7 +800,7 @@ LABEL_10:
   {
     if (result == *MEMORY[0x1E69E7028])
     {
-      v9 = *v1;
+      v8 = *v1;
       if ((*v1 & 0x8000000000000000) == 0)
       {
         goto LABEL_7;
@@ -830,7 +810,7 @@ LABEL_10:
     }
 
     Double._roundSlowPath(_:)();
-    return (*(v4 + 8))(v7, v3);
+    return (*(v4 + 8))(v6, v3);
   }
 
   return result;
@@ -871,7 +851,7 @@ double CGFloat.binade.getter(double a1)
   return result;
 }
 
-uint64_t CGFloat.significandWidth.getter(double a1)
+unint64_t CGFloat.significandWidth.getter(double a1)
 {
   v1 = *&a1 & 0xFFFFFFFFFFFFFLL;
   v2 = __clz(__rbit64(*&a1 & 0xFFFFFFFFFFFFFLL));
@@ -917,69 +897,62 @@ double protocol witness for BinaryFloatingPoint.init(_:) in conformance CGFloat@
   return result;
 }
 
-uint64_t protocol witness for BinaryFloatingPoint.init<A>(exactly:) in conformance CGFloat@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for BinaryFloatingPoint.init<A>(exactly:) in conformance CGFloat@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  result = specialized BinaryFloatingPoint.init<A>(exactly:)(a1, a2, a3);
-  *a4 = result;
-  *(a4 + 8) = v6 & 1;
+  result = specialized BinaryFloatingPoint.init<A>(exactly:)(a2, a3, a4);
+  *a1 = result;
+  *(a1 + 8) = v6 & 1;
   return result;
 }
 
 uint64_t specialized BinaryFloatingPoint.init<A>(exactly:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 16);
   swift_getAssociatedTypeWitness();
-  v7 = *(swift_getAssociatedConformanceWitness() + 8);
-  v82 = *(*(v7 + 24) + 16);
+  v65 = *(*(*(swift_getAssociatedConformanceWitness() + 8) + 24) + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(*(AssociatedTypeWitness - 8) + 64);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v80 = &v78 - v10;
-  v11 = swift_checkMetadataState();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v81 = &v78 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1EEE9AC00](v14);
-  v83 = &v78 - v17;
-  MEMORY[0x1EEE9AC00](v16);
-  v19 = &v78 - v18;
+  v63 = &v61 - v7;
+  v8 = swift_checkMetadataState();
+  v9 = *(v8 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v64 = &v61 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x1EEE9AC00](v10);
+  v66 = &v61 - v13;
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v61 - v14;
   if (dispatch thunk of FloatingPoint.isNaN.getter())
   {
     (*(*(a2 - 8) + 8))(a1, a2);
     return 0;
   }
 
-  v84 = a3;
-  v21 = a1;
+  v67 = a3;
+  v17 = a1;
   if (dispatch thunk of static BinaryFloatingPoint.exponentBitCount.getter() <= 11 && dispatch thunk of static BinaryFloatingPoint.significandBitCount.getter() < 53 || (dispatch thunk of FloatingPoint.isFinite.getter() & 1) == 0 || (dispatch thunk of FloatingPoint.isZero.getter() & 1) != 0)
   {
-    return specialized BinaryFloatingPoint.init<A>(_:)(v21, a2, v84);
+    return specialized BinaryFloatingPoint.init<A>(_:)(v17, a2, v67);
   }
 
   dispatch thunk of FloatingPoint.exponent.getter();
-  v85 = -1022;
-  v22 = v7;
+  v68 = -1022;
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v26 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v27 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    v79 = v12;
-    v21 = a1;
-    if (v26)
+    v19 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v20 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    v62 = v9;
+    v17 = a1;
+    if (v19)
     {
-      if (v27 <= 64)
+      if (v20 <= 64)
       {
         swift_getAssociatedConformanceWitness();
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-        v35 = v83;
+        v26 = v66;
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-        v24 = v7;
-        v36 = *(*(v7 + 32) + 8);
-        v37 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v25 = v79;
-        (*(v79 + 8))(v35, v11);
-        if ((v37 & 1) != 0 || dispatch thunk of BinaryInteger._lowWord.getter() < -1022)
+        v27 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v18 = v62;
+        (*(v62 + 8))(v26, v8);
+        if ((v27 & 1) != 0 || dispatch thunk of BinaryInteger._lowWord.getter() < -1022)
         {
           goto LABEL_25;
         }
@@ -988,14 +961,12 @@ uint64_t specialized BinaryFloatingPoint.init<A>(exactly:)(uint64_t a1, uint64_t
       else
       {
         lazy protocol witness table accessor for type Int and conformance Int();
-        v28 = v83;
-        v24 = v7;
+        v21 = v66;
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v29 = *(*(v7 + 32) + 8);
-        v30 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v25 = v79;
-        (*(v79 + 8))(v28, v11);
-        if (v30)
+        v22 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v18 = v62;
+        (*(v62 + 8))(v21, v8);
+        if (v22)
         {
           goto LABEL_25;
         }
@@ -1004,64 +975,61 @@ uint64_t specialized BinaryFloatingPoint.init<A>(exactly:)(uint64_t a1, uint64_t
 
     else
     {
-      if (v27 >= 64)
+      if (v20 >= 64)
       {
-        v24 = v7;
-        v25 = v79;
+        v18 = v62;
         goto LABEL_33;
       }
 
-      v24 = v7;
-      v34 = dispatch thunk of BinaryInteger._lowWord.getter();
-      v25 = v79;
-      if (v34 < -1022)
+      v25 = dispatch thunk of BinaryInteger._lowWord.getter();
+      v18 = v62;
+      if (v25 < -1022)
       {
         goto LABEL_25;
       }
     }
 
 LABEL_33:
-    v85 = 1023;
-    v43 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v44 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v43)
+    v68 = 1023;
+    v32 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v33 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v32)
     {
-      if (v44 <= 64)
+      if (v33 <= 64)
       {
         goto LABEL_35;
       }
     }
 
-    else if (v44 <= 63)
+    else if (v33 <= 63)
     {
 LABEL_35:
-      v45 = dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v25 + 8))(v19, v11);
-      if (v45 > 1023)
+      v34 = dispatch thunk of BinaryInteger._lowWord.getter();
+      (*(v18 + 8))(v15, v8);
+      if (v34 > 1023)
       {
 LABEL_73:
-        (*(*(a2 - 8) + 8))(v21, a2);
+        (*(*(a2 - 8) + 8))(v17, a2);
         return 0;
       }
 
 LABEL_39:
       if (dispatch thunk of BinaryFloatingPoint.significandWidth.getter() < 53)
       {
-        return specialized BinaryFloatingPoint.init<A>(_:)(v21, a2, v84);
+        return specialized BinaryFloatingPoint.init<A>(_:)(v17, a2, v67);
       }
 
       goto LABEL_73;
     }
 
     lazy protocol witness table accessor for type Int and conformance Int();
-    v46 = v83;
+    v35 = v66;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v47 = *(*(v24 + 32) + 8);
-    v48 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v49 = *(v25 + 8);
-    v49(v46, v11);
-    v49(v19, v11);
-    if (v48)
+    v36 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v37 = *(v18 + 8);
+    v37(v35, v8);
+    v37(v15, v8);
+    if (v36)
     {
       goto LABEL_73;
     }
@@ -1069,19 +1037,16 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v23 = v12;
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 64)
   {
     lazy protocol witness table accessor for type Int and conformance Int();
-    v31 = v83;
+    v23 = v66;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v32 = *(*(v22 + 32) + 8);
-    v33 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v12 + 8))(v31, v11);
-    v24 = v22;
-    v21 = a1;
-    v25 = v23;
-    if (v33)
+    v24 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v9 + 8))(v23, v8);
+    v17 = a1;
+    v18 = v9;
+    if (v24)
     {
       goto LABEL_25;
     }
@@ -1089,16 +1054,15 @@ LABEL_39:
     goto LABEL_33;
   }
 
-  v24 = v7;
-  v21 = a1;
-  v25 = v23;
+  v17 = a1;
+  v18 = v9;
   if (dispatch thunk of BinaryInteger._lowWord.getter() > -1023)
   {
     goto LABEL_33;
   }
 
 LABEL_25:
-  v85 = -1074;
+  v68 = -1074;
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -1109,19 +1073,18 @@ LABEL_25:
       }
 
 LABEL_46:
-      (*(*(a2 - 8) + 8))(v21, a2);
-      (*(v25 + 8))(v19, v11);
+      (*(*(a2 - 8) + 8))(v17, a2);
+      (*(v18 + 8))(v15, v8);
       return 0;
     }
 
 LABEL_31:
     lazy protocol witness table accessor for type Int and conformance Int();
-    v40 = v83;
+    v30 = v66;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v41 = *(*(v24 + 32) + 8);
-    v42 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v25 + 8))(v40, v11);
-    if ((v42 & 1) == 0)
+    v31 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v18 + 8))(v30, v8);
+    if ((v31 & 1) == 0)
     {
       goto LABEL_47;
     }
@@ -1129,33 +1092,32 @@ LABEL_31:
     goto LABEL_46;
   }
 
-  v38 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v39 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if (v38)
+  v28 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v29 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if (v28)
   {
-    if (v39 > 64)
+    if (v29 > 64)
     {
       goto LABEL_31;
     }
 
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-    v50 = v83;
+    v38 = v66;
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v51 = *(*(v24 + 32) + 8);
-    v52 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v53 = v50;
-    v54 = *(v25 + 8);
-    v54(v53, v11);
-    if (v52)
+    v39 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v40 = v38;
+    v41 = *(v18 + 8);
+    v41(v40, v8);
+    if (v39)
     {
-      (*(*(a2 - 8) + 8))(v21, a2);
-      v54(v19, v11);
+      (*(*(a2 - 8) + 8))(v17, a2);
+      v41(v15, v8);
       return 0;
     }
   }
 
-  else if (v39 >= 64)
+  else if (v29 >= 64)
   {
     goto LABEL_47;
   }
@@ -1166,26 +1128,25 @@ LABEL_31:
   }
 
 LABEL_47:
-  v55 = dispatch thunk of BinaryFloatingPoint.significandWidth.getter();
-  v56 = v81;
-  (*(v25 + 32))();
+  v42 = dispatch thunk of BinaryFloatingPoint.significandWidth.getter();
+  v43 = v64;
+  (*(v18 + 32))();
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() >= 65)
   {
-    v85 = 0x8000000000000000;
+    v68 = 0x8000000000000000;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 64)
       {
         lazy protocol witness table accessor for type Int and conformance Int();
-        v57 = v55;
-        v58 = v83;
+        v44 = v42;
+        v45 = v66;
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v59 = *(*(v24 + 32) + 8);
-        v60 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v61 = v58;
-        v55 = v57;
-        result = (*(v25 + 8))(v61, v11);
-        if (v60)
+        v46 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v47 = v45;
+        v42 = v44;
+        result = (*(v18 + 8))(v47, v8);
+        if (v46)
         {
           goto LABEL_75;
         }
@@ -1196,21 +1157,20 @@ LABEL_47:
       goto LABEL_60;
     }
 
-    v62 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v63 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v62)
+    v48 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v49 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v48)
     {
-      v79 = v55;
-      if (v63 > 64)
+      v62 = v42;
+      if (v49 > 64)
       {
         lazy protocol witness table accessor for type Int and conformance Int();
-        v64 = v83;
+        v50 = v66;
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v65 = *(*(v24 + 32) + 8);
-        v66 = dispatch thunk of static Comparable.< infix(_:_:)();
-        result = (*(v25 + 8))(v64, v11);
-        v55 = v79;
-        if (v66)
+        v51 = dispatch thunk of static Comparable.< infix(_:_:)();
+        result = (*(v18 + 8))(v50, v8);
+        v42 = v62;
+        if (v51)
         {
           goto LABEL_75;
         }
@@ -1220,13 +1180,12 @@ LABEL_47:
 
       swift_getAssociatedConformanceWitness();
       dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-      v67 = v83;
+      v52 = v66;
       dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-      v68 = *(*(v24 + 32) + 8);
-      v69 = dispatch thunk of static Comparable.< infix(_:_:)();
-      result = (*(v25 + 8))(v67, v11);
-      v55 = v79;
-      if (v69)
+      v53 = dispatch thunk of static Comparable.< infix(_:_:)();
+      result = (*(v18 + 8))(v52, v8);
+      v42 = v62;
+      if (v53)
       {
 LABEL_75:
         __break(1u);
@@ -1236,7 +1195,7 @@ LABEL_75:
       goto LABEL_60;
     }
 
-    if (v63 < 64)
+    if (v49 < 64)
     {
 LABEL_60:
       dispatch thunk of BinaryInteger._lowWord.getter();
@@ -1251,30 +1210,29 @@ LABEL_61:
 
   while (1)
   {
-    v85 = 0x7FFFFFFFFFFFFFFFLL;
-    v70 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v71 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if ((v70 & 1) == 0)
+    v68 = 0x7FFFFFFFFFFFFFFFLL;
+    v54 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v55 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if ((v54 & 1) == 0)
     {
       break;
     }
 
-    if (v71 <= 64)
+    if (v55 <= 64)
     {
       goto LABEL_70;
     }
 
 LABEL_64:
     lazy protocol witness table accessor for type Int and conformance Int();
-    v72 = v55;
-    v73 = v83;
+    v56 = v42;
+    v57 = v66;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v74 = *(*(v24 + 32) + 8);
-    v75 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v76 = v73;
-    v55 = v72;
-    (*(v25 + 8))(v76, v11);
-    if (v75)
+    v58 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v59 = v57;
+    v42 = v56;
+    (*(v18 + 8))(v59, v8);
+    if (v58)
     {
       __break(1u);
 LABEL_66:
@@ -1287,7 +1245,7 @@ LABEL_66:
     goto LABEL_71;
   }
 
-  if (v71 >= 64)
+  if (v55 >= 64)
   {
     goto LABEL_64;
   }
@@ -1295,20 +1253,20 @@ LABEL_66:
 LABEL_70:
   dispatch thunk of BinaryInteger._lowWord.getter();
 LABEL_71:
-  v77 = dispatch thunk of BinaryInteger._lowWord.getter();
-  result = (*(v25 + 8))(v56, v11);
-  if (__OFADD__(v77, 1074))
+  v60 = dispatch thunk of BinaryInteger._lowWord.getter();
+  result = (*(v18 + 8))(v43, v8);
+  if (__OFADD__(v60, 1074))
   {
     __break(1u);
     goto LABEL_75;
   }
 
-  if (v77 + 1074 < v55)
+  if (v60 + 1074 < v42)
   {
     goto LABEL_73;
   }
 
-  return specialized BinaryFloatingPoint.init<A>(_:)(v21, a2, v84);
+  return specialized BinaryFloatingPoint.init<A>(_:)(v17, a2, v67);
 }
 
 double protocol witness for BinaryFloatingPoint.binade.getter in conformance CGFloat@<D0>(double *a1@<X8>)
@@ -1321,18 +1279,7 @@ double protocol witness for BinaryFloatingPoint.binade.getter in conformance CGF
     goto LABEL_7;
   }
 
-  if ((*&v2 & 0xFFFFFFFFFFFFFLL) != 0)
-  {
-    v4 = v3 == 0;
-    *v1;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (!v4)
+  if ((*&v2 & 0xFFFFFFFFFFFFFLL) == 0 || v3 != 0)
   {
     *&v5 = *&v2 & 0xFFF0000000000000;
 LABEL_7:
@@ -1351,13 +1298,12 @@ uint64_t protocol witness for BinaryFloatingPoint.significandWidth.getter in con
   v1 = *v0 & 0xFFFFFFFFFFFFFLL;
   v2 = __clz(__rbit64(v1));
   v3 = (*v0 >> 52) & 0x7FFLL;
-  if (v3 && (v4 = ((*v0 >> 52) & 0x7FFLL) == 2047, v3 != 2047))
+  if (v3 && v3 != 2047)
   {
-    v8 = 52 - v2;
-    *v0;
+    v7 = 52 - v2;
     if (v1)
     {
-      return v8;
+      return v7;
     }
 
     else
@@ -1368,22 +1314,20 @@ uint64_t protocol witness for BinaryFloatingPoint.significandWidth.getter in con
 
   else
   {
-    *v0;
     if (v1)
     {
-      v5 = v3 == 0;
-      *v0;
+      v4 = v3 == 0;
     }
 
     else
     {
-      v5 = 0;
+      v4 = 0;
     }
 
-    v6 = 63 - __clz(v1) - v2;
-    if (v5)
+    v5 = 63 - __clz(v1) - v2;
+    if (v4)
     {
-      return v6;
+      return v5;
     }
 
     else
@@ -1400,28 +1344,27 @@ double protocol witness for FloatingPoint.init(_:) in conformance CGFloat@<D0>(u
   return result;
 }
 
-uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance CGFloat@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance CGFloat@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = *(a2 - 8);
-  v7 = *(v6 + 64);
+  v8 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 16))(v9, a1, a2);
-  v10 = Double.init<A>(exactly:)(v9, a2);
-  v12 = v11;
-  result = (*(v6 + 8))(a1, a2);
-  if (v12)
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v8 + 16))(v10, a1, a2);
+  v11 = Double.init<A>(exactly:)(v10, a2, a3);
+  v13 = v12;
+  result = (*(v8 + 8))(a1, a2);
+  if (v13)
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = v10;
+    v15 = v11;
   }
 
-  *a3 = v14;
-  *(a3 + 8) = v12 & 1;
+  *a4 = v15;
+  *(a4 + 8) = v13 & 1;
   return result;
 }
 
@@ -1430,7 +1373,6 @@ double protocol witness for FloatingPoint.ulp.getter in conformance CGFloat@<D0>
   v2 = (*v1 >> 52) & 0x7FFLL;
   if (v2)
   {
-    v3 = ((*v1 >> 52) & 0x7FFLL) == 2047;
     if (v2 != 2047)
     {
       result = COERCE_DOUBLE(*v1 & 0x7FF0000000000000) * 2.22044605e-16;
@@ -1438,16 +1380,16 @@ double protocol witness for FloatingPoint.ulp.getter in conformance CGFloat@<D0>
       return result;
     }
 
-    v5 = NAN;
+    v4 = NAN;
   }
 
   else
   {
-    *&v5 = 1;
+    *&v4 = 1;
   }
 
-  result = v5;
-  *a1 = v5;
+  result = v4;
+  *a1 = v4;
   return result;
 }
 
@@ -1487,24 +1429,19 @@ void protocol witness for FloatingPoint.exponent.getter in conformance CGFloat(v
   }
 }
 
-void protocol witness for FloatingPoint.significand.getter in conformance CGFloat(void *a1@<X8>)
+void protocol witness for FloatingPoint.significand.getter in conformance CGFloat(uint64_t *a1@<X8>)
 {
   v2 = *v1;
   v3 = (*v1 >> 52) & 0x7FF;
   v4 = *v1 & 0xFFFFFFFFFFFFFLL;
-  if (v4)
+  if (v4 && v3 == 2047)
   {
-    v5 = ((*v1 >> 52) & 0x7FF) == 2047;
-    if (v3 == 2047)
-    {
-      *a1 = v2;
-      return;
-    }
+    *a1 = v2;
+    return;
   }
 
   if (v3)
   {
-    v5 = ((*v1 >> 52) & 0x7FF) == 2047;
     if (v3 != 2047)
     {
       *a1 = v4 | 0x3FF0000000000000;
@@ -1548,13 +1485,12 @@ double *protocol witness for static FloatingPoint.minimum(_:_:) in conformance C
   v4 = *a2;
   if (*result > *a2)
   {
-    v5 = *a2;
-    if ((*&v4 & 0xFFFFFFFFFFFFFLL) == 0)
+    if ((v4 & 0xFFFFFFFFFFFFFLL) == 0)
     {
       v3 = *a2;
     }
 
-    if ((~*&v4 & 0x7FF0000000000000) != 0)
+    if ((~v4 & 0x7FF0000000000000) != 0)
     {
       v3 = *a2;
     }
@@ -1570,13 +1506,12 @@ double *protocol witness for static FloatingPoint.maximum(_:_:) in conformance C
   v4 = *a2;
   if (*a2 >= *result)
   {
-    v5 = *a2;
-    if ((*&v4 & 0xFFFFFFFFFFFFFLL) == 0)
+    if ((v4 & 0xFFFFFFFFFFFFFLL) == 0)
     {
       v3 = *a2;
     }
 
-    if ((~*&v4 & 0x7FF0000000000000) != 0)
+    if ((~v4 & 0x7FF0000000000000) != 0)
     {
       v3 = *a2;
     }
@@ -1592,13 +1527,12 @@ double *protocol witness for static FloatingPoint.minimumMagnitude(_:_:) in conf
   v4 = *a2;
   if (fabs(*result) > fabs(*a2))
   {
-    v5 = *a2;
-    if ((*&v4 & 0xFFFFFFFFFFFFFLL) == 0)
+    if ((v4 & 0xFFFFFFFFFFFFFLL) == 0)
     {
       v3 = *a2;
     }
 
-    if ((~*&v4 & 0x7FF0000000000000) != 0)
+    if ((~v4 & 0x7FF0000000000000) != 0)
     {
       v3 = *a2;
     }
@@ -1614,13 +1548,12 @@ double *protocol witness for static FloatingPoint.maximumMagnitude(_:_:) in conf
   v4 = *a2;
   if (fabs(*a2) >= fabs(*result))
   {
-    v5 = *a2;
-    if ((*&v4 & 0xFFFFFFFFFFFFFLL) == 0)
+    if ((v4 & 0xFFFFFFFFFFFFFLL) == 0)
     {
       v3 = *a2;
     }
 
-    if ((~*&v4 & 0x7FF0000000000000) != 0)
+    if ((~v4 & 0x7FF0000000000000) != 0)
     {
       v3 = *a2;
     }
@@ -1634,56 +1567,55 @@ uint64_t protocol witness for FloatingPoint.rounded(_:) in conformance CGFloat@<
 {
   v5 = type metadata accessor for FloatingPointRoundingRule();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *v2;
-  v15 = *v2;
-  (*(v6 + 16))(v9, a1, v5);
-  result = (*(v6 + 88))(v9, v5);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *v2;
+  v14 = *v2;
+  (*(v6 + 16))(v8, a1, v5);
+  result = (*(v6 + 88))(v8, v5);
   if (result == *MEMORY[0x1E69E7038])
   {
-    v12 = round(v10);
+    v11 = round(v9);
   }
 
   else if (result == *MEMORY[0x1E69E7030])
   {
-    v12 = rint(v10);
+    v11 = rint(v9);
   }
 
   else if (result == *MEMORY[0x1E69E7040])
   {
-    v12 = ceil(v10);
+    v11 = ceil(v9);
   }
 
   else if (result == *MEMORY[0x1E69E7048])
   {
-    v12 = floor(v10);
+    v11 = floor(v9);
   }
 
   else if (result == *MEMORY[0x1E69E7020])
   {
-    v12 = trunc(v10);
+    v11 = trunc(v9);
   }
 
   else if (result == *MEMORY[0x1E69E7028])
   {
-    v12 = ceil(v10);
-    v13 = floor(v10);
-    if (v10 < 0.0)
+    v11 = ceil(v9);
+    v12 = floor(v9);
+    if (v9 < 0.0)
     {
-      v12 = v13;
+      v11 = v12;
     }
   }
 
   else
   {
     Double._roundSlowPath(_:)();
-    result = (*(v6 + 8))(v9, v5);
-    v12 = v15;
+    result = (*(v6 + 8))(v8, v5);
+    v11 = v14;
   }
 
-  *a2 = v12;
+  *a2 = v11;
   return result;
 }
 
@@ -1711,7 +1643,7 @@ double protocol witness for FloatingPoint.nextDown.getter in conformance CGFloat
   return result;
 }
 
-uint64_t specialized BinaryFloatingPoint.isTotallyOrdered(belowOrEqualTo:)(double a1, double a2)
+BOOL specialized BinaryFloatingPoint.isTotallyOrdered(belowOrEqualTo:)(double a1, double a2)
 {
   if (a2 < a1)
   {
@@ -1747,23 +1679,6 @@ uint64_t specialized BinaryFloatingPoint.isTotallyOrdered(belowOrEqualTo:)(doubl
   {
     return *&a2 >> 63;
   }
-}
-
-BOOL protocol witness for FloatingPoint.isSignalingNaN.getter in conformance CGFloat()
-{
-  *v0;
-  if ((~*v0 & 0x7FF0000000000000) != 0)
-  {
-    v1 = 1;
-  }
-
-  else
-  {
-    v1 = (*v0 & 0xFFFFFFFFFFFFFLL) == 0;
-    *v0;
-  }
-
-  return !v1 && (*v0 & 0x8000000000000) == 0;
 }
 
 double protocol witness for ExpressibleByFloatLiteral.init(floatLiteral:) in conformance CGFloat@<D0>(double *a1@<X0>, void *a2@<X8>)
@@ -2042,15 +1957,12 @@ uint64_t CGFloat._cVarArgEncoding.getter(double a1)
 double CGFloat.init(from:)(void *a1)
 {
   v4 = type metadata accessor for DecodingError();
-  v17 = *(v4 - 8);
-  v5 = *(v17 + 64);
+  v14 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v6 = type metadata accessor for DecodingError.Context();
-  v16 = *(v6 - 8);
-  v7 = *(v16 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = a1[4];
+  v5 = type metadata accessor for DecodingError.Context();
+  v13 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Decoder.singleValueContainer()();
   if (v1)
@@ -2060,22 +1972,21 @@ double CGFloat.init(from:)(void *a1)
 
   else
   {
-    v14 = v9;
-    v15 = a1;
-    __swift_project_boxed_opaque_existential_1(v18, v18[3]);
+    v11 = v7;
+    v12 = a1;
+    __swift_project_boxed_opaque_existential_1(v15, v15[3]);
     dispatch thunk of SingleValueDecodingContainer.decode(_:)();
-    v2 = v11;
-    v12 = v15;
-    __swift_destroy_boxed_opaque_existential_1(v18);
-    __swift_destroy_boxed_opaque_existential_1(v12);
+    v2 = v8;
+    v9 = v12;
+    __swift_destroy_boxed_opaque_existential_1(v15);
+    __swift_destroy_boxed_opaque_existential_1(v9);
   }
 
   return v2;
 }
 
-uint64_t CGFloat.encode(to:)(void *a1)
+uint64_t CGFloat.encode(to:)(void *a1, double a2)
 {
-  v1 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
   __swift_mutable_project_boxed_opaque_existential_1(v3, v3[3]);
@@ -2157,7 +2068,7 @@ uint64_t specialized FloatingPoint.floatingPointClass.getter(double a1)
   }
 }
 
-double specialized Double.init(sign:exponent:significand:)(char a1, uint64_t a2, double a3)
+double specialized Double.init(sign:exponent:significand:)(char a1, unint64_t a2, double a3)
 {
   result = -a3;
   if ((a1 & 1) == 0)
@@ -2226,7 +2137,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

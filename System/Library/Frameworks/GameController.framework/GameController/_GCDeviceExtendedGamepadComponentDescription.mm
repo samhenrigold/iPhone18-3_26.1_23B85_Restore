@@ -6,33 +6,33 @@
 
 - (id)createWithContext:(id)context
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  bzero(v68, 0x638uLL);
+  bzero(v67, 0x638uLL);
   v4 = [GCExtendedGamepad alloc];
   identifier = [(_GCDevicePhysicalInputComponentDescription *)self identifier];
-  v6 = [(GCExtendedGamepad *)v4 initWithIdentifier:identifier info:v68];
+  v6 = [(GCExtendedGamepad *)v4 initWithIdentifier:identifier info:v67];
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   elementDescriptions = [(_GCDevicePhysicalInputComponentDescription *)self elementDescriptions];
-  v8 = [elementDescriptions countByEnumeratingWithState:&v64 objects:v69 count:16];
+  v8 = [elementDescriptions countByEnumeratingWithState:&v63 objects:v68 count:16];
   if (v8)
   {
-    v9 = *v65;
+    v9 = *v64;
     do
     {
       v10 = 0;
       do
       {
-        if (*v65 != v9)
+        if (*v64 != v9)
         {
           objc_enumerationMutation(elementDescriptions);
         }
 
-        v11 = *(*(&v64 + 1) + 8 * v10);
+        v11 = *(*(&v63 + 1) + 8 * v10);
         name = [v11 name];
         v13 = [name isEqualToString:@"Button A"];
 
@@ -198,41 +198,8 @@ LABEL_38:
         name17 = [v11 name];
         v46 = [name17 isEqualToString:@"Left Bumper"];
 
-        if (v46)
+        if (v46 & 1) != 0 || ([v11 name], v47 = objc_claimAutoreleasedReturnValue(), v48 = objc_msgSend(v47, "isEqualToString:", @"Right Bumper"), v47, (v48) || (objc_msgSend(v11, "name"), v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v49, "isEqualToString:", @"Back Left Button 0"), v49, (v50) || (objc_msgSend(v11, "name"), v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "isEqualToString:", @"Back Right Button 0"), v51, (v52) || (objc_msgSend(v11, "name"), v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend(v53, "isEqualToString:", @"Back Left Button 1"), v53, (v54) || (objc_msgSend(v11, "name"), v55 = objc_claimAutoreleasedReturnValue(), v56 = objc_msgSend(v55, "isEqualToString:", @"Back Right Button 1"), v55, (v56) || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
-          goto LABEL_48;
-        }
-
-        name18 = [v11 name];
-        v48 = [name18 isEqualToString:@"Right Bumper"];
-
-        if (v48)
-        {
-          goto LABEL_48;
-        }
-
-        name19 = [v11 name];
-        v50 = [name19 isEqualToString:@"Back Left Button 0"];
-
-        if (v50)
-        {
-          goto LABEL_48;
-        }
-
-        name20 = [v11 name];
-        v52 = [name20 isEqualToString:@"Back Right Button 0"];
-
-        if (v52)
-        {
-          goto LABEL_48;
-        }
-
-        name21 = [v11 name];
-        v54 = [name21 isEqualToString:@"Back Left Button 1"];
-
-        if (v54 & 1) != 0 || ([v11 name], v55 = objc_claimAutoreleasedReturnValue(), v56 = objc_msgSend(v55, "isEqualToString:", @"Back Right Button 1"), v55, (v56) || (objc_opt_class(), (objc_opt_isKindOfClass()))
-        {
-LABEL_48:
           v57 = [(GCPhysicalInputProfile *)v6 _buttonWithDescription:v11];
         }
 
@@ -250,7 +217,7 @@ LABEL_39:
       }
 
       while (v8 != v10);
-      v59 = [elementDescriptions countByEnumeratingWithState:&v64 objects:v69 count:16];
+      v59 = [elementDescriptions countByEnumeratingWithState:&v63 objects:v68 count:16];
       v8 = v59;
     }
 
@@ -259,10 +226,8 @@ LABEL_39:
 
   for (i = 0; i != 1584; i += 72)
   {
-    __destructor_8_s0_s48_s56_s64(&v68[i]);
+    __destructor_8_s0_s48_s56_s64(&v67[i]);
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

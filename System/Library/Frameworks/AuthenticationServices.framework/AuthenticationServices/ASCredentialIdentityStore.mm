@@ -92,27 +92,27 @@ void __75__ASCredentialIdentityStore_getCredentialIdentityStoreStateWithCompleti
 void __70__ASCredentialIdentityStore_saveCredentialIdentityEntries_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = v5;
-  v7 = *(a1 + 32);
-  if (v7)
+  v7 = v5;
+  v8 = *(a1 + 32);
+  if (v8)
   {
     if (v5 || (a2 & 1) != 0)
     {
-      v11 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
-      (*(v7 + 16))(v7, a2, v11);
+      v12 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
+      (*(v8 + 16))(v8, a2, v12);
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(0, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         __70__ASCredentialIdentityStore_saveCredentialIdentityEntries_completion___block_invoke_cold_1();
       }
 
-      v9 = *(a1 + 32);
-      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
-      (*(v9 + 16))(v9, 0, v10);
+      v10 = *(a1 + 32);
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
+      (*(v10 + 16))(v10, 0, v11);
     }
   }
 }
@@ -134,27 +134,27 @@ void __70__ASCredentialIdentityStore_saveCredentialIdentityEntries_completion___
 void __72__ASCredentialIdentityStore_removeCredentialIdentityEntries_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = v5;
-  v7 = *(a1 + 32);
-  if (v7)
+  v7 = v5;
+  v8 = *(a1 + 32);
+  if (v8)
   {
     if (v5 || (a2 & 1) != 0)
     {
-      v11 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
-      (*(v7 + 16))(v7, a2, v11);
+      v12 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
+      (*(v8 + 16))(v8, a2, v12);
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(0, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         __70__ASCredentialIdentityStore_saveCredentialIdentityEntries_completion___block_invoke_cold_1();
       }
 
-      v9 = *(a1 + 32);
-      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
-      (*(v9 + 16))(v9, 0, v10);
+      v10 = *(a1 + 32);
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
+      (*(v10 + 16))(v10, 0, v11);
     }
   }
 }
@@ -175,27 +175,27 @@ void __72__ASCredentialIdentityStore_removeCredentialIdentityEntries_completion_
 void __73__ASCredentialIdentityStore_removeAllCredentialIdentitiesWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = v5;
-  v7 = *(a1 + 32);
-  if (v7)
+  v7 = v5;
+  v8 = *(a1 + 32);
+  if (v8)
   {
     if (v5 || (a2 & 1) != 0)
     {
-      v11 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
-      (*(v7 + 16))(v7, a2, v11);
+      v12 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
+      (*(v8 + 16))(v8, a2, v12);
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(0, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         __70__ASCredentialIdentityStore_saveCredentialIdentityEntries_completion___block_invoke_cold_1();
       }
 
-      v9 = *(a1 + 32);
-      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
-      (*(v9 + 16))(v9, 0, v10);
+      v10 = *(a1 + 32);
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
+      (*(v10 + 16))(v10, 0, v11);
     }
   }
 }
@@ -217,27 +217,27 @@ void __73__ASCredentialIdentityStore_removeAllCredentialIdentitiesWithCompletion
 void __73__ASCredentialIdentityStore_replaceCredentialIdentityEntries_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = v5;
-  v7 = *(a1 + 32);
-  if (v7)
+  v7 = v5;
+  v8 = *(a1 + 32);
+  if (v8)
   {
     if (v5 || (a2 & 1) != 0)
     {
-      v11 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
-      (*(v7 + 16))(v7, a2, v11);
+      v12 = credentialIdentityStoreErrorFromSFExternalCredentialIdentityStoreError(v5);
+      (*(v8 + 16))(v8, a2, v12);
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(0, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         __70__ASCredentialIdentityStore_saveCredentialIdentityEntries_completion___block_invoke_cold_1();
       }
 
-      v9 = *(a1 + 32);
-      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
-      (*(v9 + 16))(v9, 0, v10);
+      v10 = *(a1 + 32);
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASCredentialIdentityStoreErrorDomain" code:0 userInfo:0];
+      (*(v10 + 16))(v10, 0, v11);
     }
   }
 }

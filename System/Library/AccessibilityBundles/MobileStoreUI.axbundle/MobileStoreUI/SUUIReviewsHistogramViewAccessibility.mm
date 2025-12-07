@@ -59,22 +59,22 @@
 
 - (void)setHistogramValues:(id)values
 {
-  v23 = *MEMORY[0x29EDCA608];
-  v21.receiver = self;
-  v21.super_class = SUUIReviewsHistogramViewAccessibility;
-  [(SUUIReviewsHistogramViewAccessibility *)&v21 setHistogramValues:values];
-  v16 = [(SUUIReviewsHistogramViewAccessibility *)self safeValueForKey:@"_histogramImageView"];
+  v22 = *MEMORY[0x29EDCA608];
+  v20.receiver = self;
+  v20.super_class = SUUIReviewsHistogramViewAccessibility;
+  [(SUUIReviewsHistogramViewAccessibility *)&v20 setHistogramValues:values];
+  v15 = [(SUUIReviewsHistogramViewAccessibility *)self safeValueForKey:@"_histogramImageView"];
   v4 = [(SUUIReviewsHistogramViewAccessibility *)self safeValueForKey:@"_histogramValues"];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v17;
     v9 = &stru_2A2230BA8;
     do
     {
@@ -82,16 +82,16 @@
       v11 = v9;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v10);
+        v12 = *(*(&v16 + 1) + 8 * v10);
         ++v7;
         v13 = UIAXStarRatingStringForRating();
         [v12 floatValue];
-        v15 = AXFormatFloatWithPercentage();
+        v14 = AXFormatFloatWithPercentage();
         v9 = __UIAXStringForVariables();
 
         ++v10;
@@ -99,7 +99,7 @@
       }
 
       while (v6 != v10);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:{16, v13, v15, @"__AXStringForVariablesSentinel"}];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:{16, v13, v14, @"__AXStringForVariablesSentinel"}];
     }
 
     while (v6);
@@ -110,9 +110,7 @@
     v9 = &stru_2A2230BA8;
   }
 
-  [v16 setAccessibilityValue:v9];
-
-  v14 = *MEMORY[0x29EDCA608];
+  [v15 setAccessibilityValue:v9];
 }
 
 - (SUUIReviewsHistogramViewAccessibility)initWithClientContext:(id)context

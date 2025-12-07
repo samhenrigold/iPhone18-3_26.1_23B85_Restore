@@ -99,28 +99,28 @@
 
 - (void)updateDuration:(double)duration completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (!handlerCopy)
   {
-    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMDurationEvent updateDuration:completionHandler:]", @"completion"];
-    v25 = objc_autoreleasePoolPush();
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMDurationEvent updateDuration:completionHandler:]", @"completion"];
+    v24 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v27 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v28 = HMFGetLogIdentifier();
+      v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v28;
-      v34 = 2112;
-      v35 = v24;
-      _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v32 = v27;
+      v33 = 2112;
+      v34 = v23;
+      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v25);
-    v29 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v24 userInfo:0];
-    objc_exception_throw(v29);
+    objc_autoreleasePoolPop(v24);
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
+    objc_exception_throw(v28);
   }
 
   v8 = context;
@@ -129,10 +129,10 @@
     [(HMDurationEvent *)self duration];
     if (vabdd_f64(v9, duration) >= 0.001)
     {
-      v30 = @"kDurationEventDuration";
+      v29 = @"kDurationEventDuration";
       delegateCaller = [MEMORY[0x1E696AD98] numberWithDouble:duration];
-      v31 = delegateCaller;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v30 = delegateCaller;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       [(HMEvent *)self _updateEventWithPayload:v22 completionHandler:handlerCopy];
     }
 
@@ -149,11 +149,11 @@
         [(HMDurationEvent *)selfCopy2 duration];
         v16 = [v15 numberWithDouble:?];
         *buf = 138543874;
-        v33 = v13;
-        v34 = 2112;
-        v35 = v14;
-        v36 = 2112;
-        v37 = v16;
+        v32 = v13;
+        v33 = 2112;
+        v34 = v14;
+        v35 = 2112;
+        v36 = v16;
         _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Duration is already approximately %@ (%@)", buf, 0x20u);
       }
 
@@ -172,9 +172,9 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v21;
-      v34 = 2080;
-      v35 = "[HMDurationEvent updateDuration:completionHandler:]";
+      v32 = v21;
+      v33 = 2080;
+      v34 = "[HMDurationEvent updateDuration:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -182,8 +182,6 @@
     delegateCaller = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, delegateCaller);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateFromDictionary:(id)dictionary
@@ -249,16 +247,15 @@
 
 - (HMDurationEvent)initWithDuration:(NSTimeInterval)duration
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"kEventUUIDKey";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"kEventUUIDKey";
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v10[1] = @"kEventTriggerEndEvent";
-  v11[0] = uUID;
-  v11[1] = MEMORY[0x1E695E118];
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[1] = @"kEventTriggerEndEvent";
+  v10[0] = uUID;
+  v10[1] = MEMORY[0x1E695E118];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [(HMDurationEvent *)self initWithDict:v6 duration:duration];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

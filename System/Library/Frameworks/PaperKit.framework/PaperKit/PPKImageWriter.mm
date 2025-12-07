@@ -20,9 +20,9 @@
     +[PPKImageWriter log];
   }
 
-  v0 = log__sharedLog;
+  v1 = log__sharedLog;
 
-  return v0;
+  return v1;
 }
 
 void __21__PPKImageWriter_log__block_invoke()

@@ -7,12 +7,12 @@
 
 + (id)mad_embeddingVersionAttribute
 {
-  v0 = objc_alloc(MEMORY[0x1E69DF600]);
+  v1 = objc_alloc(MEMORY[0x1E69DF600]);
   mad_embeddingVersionAttributeName = [objc_opt_class() mad_embeddingVersionAttributeName];
-  v2 = [objc_alloc(MEMORY[0x1E69DF610]) initWithIntegerDefaultValue:0];
-  v3 = [v0 initWithName:mad_embeddingVersionAttributeName columnType:v2];
+  v3 = [objc_alloc(MEMORY[0x1E69DF610]) initWithIntegerDefaultValue:0];
+  v4 = [v1 initWithName:mad_embeddingVersionAttributeName columnType:v3];
 
-  return v3;
+  return v4;
 }
 
 + (id)mad_stringIdentifierAttribute

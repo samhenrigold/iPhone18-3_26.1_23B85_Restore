@@ -19,15 +19,15 @@
 {
   Width = CVPixelBufferGetWidth(frame);
   Height = CVPixelBufferGetHeight(frame);
-  if (CMCaptureLibraryCore() && getkFigCaptureSampleBufferAttachmentKey_MetadataDictionarySymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureSampleBufferAttachmentKey_MetadataDictionarySymbolLoc())
   {
     v8 = getkFigCaptureSampleBufferAttachmentKey_MetadataDictionarySymbolLoc();
     if (!v8)
     {
-      dlerror();
-      v13 = abort_report_np();
+      v13 = dlerror();
+      v14 = abort_report_np("%s", v13);
 
-      _Unwind_Resume(v13);
+      _Unwind_Resume(v14);
     }
 
     v9 = *v8;
@@ -49,7 +49,7 @@
   height = dimensions.height;
   width = dimensions.width;
   dictionaryCopy = dictionary;
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_RawSensorWidthSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_RawSensorWidthSymbolLoc())
   {
     v8 = getkFigCaptureStreamMetadata_RawSensorWidth();
   }
@@ -62,7 +62,7 @@
   v9 = [dictionaryCopy objectForKeyedSubscript:v8];
   integerValue = [v9 integerValue];
 
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_RawSensorHeightSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_RawSensorHeightSymbolLoc())
   {
     v11 = getkFigCaptureStreamMetadata_RawSensorHeight();
   }
@@ -79,7 +79,7 @@
   [(ADMutableCameraCalibration *)self->_camera setReferenceDimensions:integerValue, integerValue2];
   *&v15 = self->_rawSensorPixelSize;
   [(ADMutableCameraCalibration *)self->_camera setPixelSize:v15];
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
   {
     v16 = getkFigCaptureStreamMetadata_SensorCropRect();
   }
@@ -94,9 +94,9 @@
   if (v17)
   {
     v18 = *(MEMORY[0x277CBF398] + 16);
-    v50 = *MEMORY[0x277CBF398];
-    v51 = v18;
-    if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
+    v52 = *MEMORY[0x277CBF398];
+    v53 = v18;
+    if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
     {
       v19 = getkFigCaptureStreamMetadata_SensorCropRect();
     }
@@ -106,12 +106,12 @@
       v19 = @"SensorCropRect";
     }
 
-    if (![(ADFigCameraCalibrationSource *)self rectFromMetadataField:dictionaryCopy key:v19 rect:&v50])
+    if (![(ADFigCameraCalibrationSource *)self rectFromMetadataField:dictionaryCopy key:v19 rect:&v52])
     {
       goto LABEL_51;
     }
 
-    [(ADMutableCameraCalibration *)self->_camera setReferenceDimensions:v51];
+    [(ADMutableCameraCalibration *)self->_camera setReferenceDimensions:v53];
     if (![(ADMutableCameraCalibration *)self->_camera scale:v13, integerValue2])
     {
       goto LABEL_51;
@@ -123,7 +123,7 @@
     [(ADMutableCameraCalibration *)self->_camera setReferenceDimensions:v13, integerValue2];
   }
 
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_PinholeCameraFocalLengthSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_PinholeCameraFocalLengthSymbolLoc())
   {
     v20 = getkFigCaptureStreamMetadata_PinholeCameraFocalLengthSymbolLoc();
     if (!v20)
@@ -148,7 +148,7 @@
     goto LABEL_35;
   }
 
-  if (!CMCaptureLibraryCore() || !getkFigCaptureStreamMetadata_PracticalFocalLengthSymbolLoc())
+  if (!CMCaptureLibraryCore(0) || !getkFigCaptureStreamMetadata_PracticalFocalLengthSymbolLoc())
   {
     v26 = @"PracticalFocalLength";
 LABEL_33:
@@ -164,7 +164,7 @@ LABEL_33:
 LABEL_35:
     [(ADCameraCalibration *)self->_camera pixelSize];
     v30 = v29;
-    if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_DistortionOpticalCenterSymbolLoc())
+    if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_DistortionOpticalCenterSymbolLoc())
     {
       v31 = getkFigCaptureStreamMetadata_DistortionOpticalCenterSymbolLoc();
       if (!v31)
@@ -180,7 +180,7 @@ LABEL_35:
       v32 = @"DistortionOpticalCenter";
     }
 
-    if ([(ADFigCameraCalibrationSource *)self pointFromMetadataField:dictionaryCopy key:v32 point:&v49])
+    if ([(ADFigCameraCalibrationSource *)self pointFromMetadataField:dictionaryCopy key:v32 point:&v51])
     {
 LABEL_47:
       *&v35 = v24 / 1000.0 / v30;
@@ -188,9 +188,9 @@ LABEL_47:
       HIDWORD(v36) = v35;
       __asm { FMOV            V3.2S, #1.0 }
 
-      [(ADMutableCameraCalibration *)self->_camera setIntrinsicMatrix:COERCE_DOUBLE(v35), v36, COERCE_DOUBLE(vcvt_f32_f64(v49))];
+      [(ADMutableCameraCalibration *)self->_camera setIntrinsicMatrix:COERCE_DOUBLE(v35), v36, COERCE_DOUBLE(vcvt_f32_f64(v51))];
       [(ADDynamicPolynomialsLensDistortionModel *)self->_distortion setDynamicFactor:0.0];
-      if (!CMCaptureLibraryCore() || !getkFigCaptureStreamMetadata_DynamicDistortionFactorSymbolLoc())
+      if (!CMCaptureLibraryCore(0) || !getkFigCaptureStreamMetadata_DynamicDistortionFactorSymbolLoc())
       {
         v43 = @"DynamicDistortionFactor";
         goto LABEL_53;
@@ -209,8 +209,8 @@ LABEL_53:
           [(ADDynamicPolynomialsLensDistortionModel *)self->_distortion setDynamicFactor:?];
         }
 
-        [(ADPolynomialsLensDistortionModel *)self->_distortion setDistortionCenter:*&v49];
-        if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_TotalSensorCropRectSymbolLoc())
+        [(ADPolynomialsLensDistortionModel *)self->_distortion setDistortionCenter:*&v51];
+        if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_TotalSensorCropRectSymbolLoc())
         {
           v47 = getkFigCaptureStreamMetadata_TotalSensorCropRect();
         }
@@ -220,9 +220,9 @@ LABEL_53:
           v47 = @"TotalSensorCropRect";
         }
 
-        if ([(ADFigCameraCalibrationSource *)self rectFromMetadataField:dictionaryCopy key:v47 rect:&v50])
+        if ([(ADFigCameraCalibrationSource *)self rectFromMetadataField:dictionaryCopy key:v47 rect:&v52])
         {
-          [(ADMutableCameraCalibration *)self->_camera crop:v50, v51];
+          [(ADMutableCameraCalibration *)self->_camera crop:v52, v53];
           height = [(ADMutableCameraCalibration *)self->_camera scale:width, height];
         }
 
@@ -237,11 +237,11 @@ LABEL_53:
       goto LABEL_65;
     }
 
-    if (!CMCaptureLibraryCore() || !getkFigCaptureStreamMetadata_OpticalCenterSymbolLoc())
+    if (!CMCaptureLibraryCore(0) || !getkFigCaptureStreamMetadata_OpticalCenterSymbolLoc())
     {
       v34 = @"OpticalCenter";
 LABEL_46:
-      if (![(ADFigCameraCalibrationSource *)self pointFromMetadataField:dictionaryCopy key:v34 point:&v49])
+      if (![(ADFigCameraCalibrationSource *)self pointFromMetadataField:dictionaryCopy key:v34 point:&v51])
       {
 LABEL_51:
         height = 0;
@@ -261,8 +261,8 @@ LABEL_63:
     }
 
 LABEL_65:
-    dlerror();
-    result = abort_report_np();
+    v50 = dlerror();
+    result = abort_report_np("%s", v50);
     goto LABEL_66;
   }
 
@@ -274,8 +274,8 @@ LABEL_65:
   }
 
 LABEL_64:
-  dlerror();
-  result = abort_report_np();
+  v49 = dlerror();
+  result = abort_report_np("%s", v49);
 LABEL_66:
   __break(1u);
   return result;
@@ -332,9 +332,9 @@ LABEL_7:
 - (uint64_t)initWithPixelSize:(double)size gdcModel:(double)model cameraToPlatformTransform:(double)transform
 {
   v10 = a8;
-  v36.receiver = self;
-  v36.super_class = ADFigCameraCalibrationSource;
-  v11 = [(ADFigCameraCalibrationSource *)&v36 init];
+  v37.receiver = self;
+  v37.super_class = ADFigCameraCalibrationSource;
+  v11 = [(ADFigCameraCalibrationSource *)&v37 init];
   v12 = v11;
   if (!v11)
   {
@@ -342,7 +342,7 @@ LABEL_7:
   }
 
   v11->_rawSensorPixelSize = a2;
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamGDCCoefficientsKey_BasePolynomialSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamGDCCoefficientsKey_BasePolynomialSymbolLoc())
   {
     v13 = getkFigCaptureStreamGDCCoefficientsKey_BasePolynomialSymbolLoc();
     if (!v13)
@@ -390,7 +390,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (!CMCaptureLibraryCore() || !getkFigCaptureStreamGDCCoefficientsKey_DynamicPolynomialSymbolLoc())
+  if (!CMCaptureLibraryCore(0) || !getkFigCaptureStreamGDCCoefficientsKey_DynamicPolynomialSymbolLoc())
   {
     v18 = @"DynamicPolynomial";
 LABEL_19:
@@ -454,8 +454,8 @@ LABEL_28:
   }
 
 LABEL_31:
-  dlerror();
-  result = abort_report_np();
+  v31 = dlerror();
+  result = abort_report_np("%s", v31);
   __break(1u);
   return result;
 }
@@ -568,13 +568,13 @@ LABEL_31:
 + (float)getAngularVelocityFromMetadataDictionary:(id)dictionary deviceClock:(double)clock
 {
   dictionaryCopy = dictionary;
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_ISPMotionDataSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_ISPMotionDataSymbolLoc())
   {
     v8 = getkFigCaptureStreamMetadata_ISPMotionDataSymbolLoc();
     if (!v8)
     {
-      dlerror();
-      abort_report_np();
+      v56 = dlerror();
+      abort_report_np("%s", v56);
       __break(1u);
       return result;
     }
@@ -602,36 +602,36 @@ LABEL_31:
     v17 = (bytes + 16);
     v18 = 1;
     v19 = 0.0;
-    v59 = vdupq_n_s64(0x3E10000000000000uLL);
+    v60 = vdupq_n_s64(0x3E10000000000000uLL);
     v20 = vdupq_n_s64(0x4066800000000000uLL);
-    v63 = v20;
+    v64 = v20;
     v20.i64[0] = 0x4066800000000000;
-    v62 = v20;
+    v63 = v20;
     v20.i64[0] = 0x400921FB54442D18;
-    v58 = v20;
+    v59 = v20;
     v21 = vdupq_n_s64(0x400921FB54442D18uLL);
     v22 = vnegq_f64(0);
-    v56 = v22;
-    v57 = v21;
+    v57 = v22;
+    v58 = v21;
     v23 = 0.0;
     v24 = 0.0;
     do
     {
       v25 = v4;
-      v60 = v21;
-      v61 = v22;
+      v61 = v21;
+      v62 = v22;
       v26 = *v17;
       v27 = *(v17 + 6);
       v28.i64[0] = v27;
       v28.i64[1] = SHIDWORD(v27);
-      _Q1 = vmulq_f64(vcvtq_f64_s64(v28), v59);
+      _Q1 = vmulq_f64(vcvtq_f64_s64(v28), v60);
       v30 = *(v17 - 1);
       _D3 = _Q1.f64[1];
       v32 = vmuld_lane_f64(_Q1.f64[0], _Q1, 1);
       v33 = *(v17 + 2);
       v28.i64[0] = v33;
       v28.i64[1] = SHIDWORD(v33);
-      _Q5 = vmulq_f64(vcvtq_f64_s64(v28), v59);
+      _Q5 = vmulq_f64(vcvtq_f64_s64(v28), v60);
       _D6 = _Q5.f64[1];
       __asm { FMLA            D7, D3, V1.D[1] }
 
@@ -650,39 +650,39 @@ LABEL_31:
       *(&v42 + 1) = _D2 - _Q5.f64[0] * _Q5.f64[0];
       v41.f64[1] = -(_Q5.f64[0] * _Q1.f64[1]);
       v45 = vmlaq_n_f64(v41, _Q5, _Q1.f64[0]);
-      v65[0] = _Q7;
-      v65[1] = _Q18;
+      v66[0] = _Q7;
+      v66[1] = _Q18;
       __asm { FMLS            D1, D6, V5.D[1] }
 
-      v65[2] = v42;
-      v65[3] = v12;
-      v65[4] = vaddq_f64(v45, v45);
-      v65[5] = _Q1;
+      v66[2] = v42;
+      v66[3] = v12;
+      v66[4] = vaddq_f64(v45, v45);
+      v66[5] = _Q1;
       v4 = v30;
-      ADCommonUtils::calcRotationAngle(v65, v64);
-      v21 = vdivq_f64(vmulq_f64(v64[1], v62), v58);
-      v22 = vdivq_f64(vmulq_f64(v64[0], v63), v57);
+      ADCommonUtils::calcRotationAngle(v66, v65);
+      v21 = vdivq_f64(vmulq_f64(v65[1], v63), v59);
+      v22 = vdivq_f64(vmulq_f64(v65[0], v64), v58);
       if ((v18 & 1) == 0 && (v26 - 1) <= 1u && v5 != 0.0)
       {
         v46.f64[0] = (v4 - v25) / clock;
         *&v47.f64[0] = v22.i64[0];
         *&v47.f64[1] = vextq_s8(v22, v22, 8uLL).u64[0];
-        v48 = vsubq_f64(v47, v61);
-        v49 = vsubq_f64(v21, v60);
-        v50 = vabdq_f64(v47, v61);
+        v48 = vsubq_f64(v47, v62);
+        v49 = vsubq_f64(v21, v61);
+        v50 = vabdq_f64(v47, v62);
         __asm { FMOV            V18.2D, #1.0 }
 
-        v51 = vorrq_s8(vandq_s8(v49, v56), _Q18);
-        v12 = vandq_s8(vorrq_s8(vandq_s8(v48, v56), _Q18), vorrq_s8(vcltzq_f64(v48), vcgtzq_f64(v48)));
+        v51 = vorrq_s8(vandq_s8(v49, v57), _Q18);
+        v12 = vandq_s8(vorrq_s8(vandq_s8(v48, v57), _Q18), vorrq_s8(vcltzq_f64(v48), vcgtzq_f64(v48)));
         _Q18.i64[1] = 0;
         v52 = vnegq_f64(vmulq_f64(vsubq_f64(vdupq_n_s64(0x4076800000000000uLL), v50), v12));
-        *&v53 = *&vnegq_f64(vmulq_f64(vsubq_f64(v62, vabdq_f64(v21, v60)), vbslq_s8(vorrq_s8(vcltzq_f64(v49), vcgtzq_f64(v49)), v51, 0)));
+        *&v53 = *&vnegq_f64(vmulq_f64(vsubq_f64(v63, vabdq_f64(v21, v61)), vbslq_s8(vorrq_s8(vcltzq_f64(v49), vcgtzq_f64(v49)), v51, 0)));
         if (fabs(v49.f64[0]) > 90.0)
         {
           v49.f64[0] = v53;
         }
 
-        v54 = vdivq_f64(vbslq_s8(vcgtq_f64(v50, v63), v52, v48), vdupq_lane_s64(*&v46.f64[0], 0));
+        v54 = vdivq_f64(vbslq_s8(vcgtq_f64(v50, v64), v52, v48), vdupq_lane_s64(*&v46.f64[0], 0));
         v19 = v19 + v54.f64[0];
         v23 = v23 + v54.f64[1];
         v24 = v24 + vdivq_f64(v49, v46).f64[0];
@@ -714,7 +714,7 @@ LABEL_19:
 + (double)getMidExposureTimestampFromMetadataDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  if (!CMCaptureLibraryCore() || !getkFigCaptureSampleBufferAttachmentKey_OriginalPresentationTimeStampSymbolLoc())
+  if (!CMCaptureLibraryCore(0) || !getkFigCaptureSampleBufferAttachmentKey_OriginalPresentationTimeStampSymbolLoc())
   {
     v5 = @"_OriginalPresentationTimeStamp";
     goto LABEL_6;
@@ -726,17 +726,17 @@ LABEL_19:
     v5 = *v4;
 LABEL_6:
     v6 = [dictionaryCopy objectForKeyedSubscript:v5];
-    memset(&v11, 0, sizeof(v11));
-    CMTimeMakeFromDictionary(&v11, v6);
-    time = v11;
+    memset(&v12, 0, sizeof(v12));
+    CMTimeMakeFromDictionary(&v12, v6);
+    time = v12;
     [ADFigCameraCalibrationSource getMidExposureTimestampFromMetadataDictionary:dictionaryCopy timestamp:CMTimeGetSeconds(&time)];
     v8 = v7;
 
     return v8;
   }
 
-  dlerror();
-  abort_report_np();
+  v10 = dlerror();
+  abort_report_np("%s", v10);
   __break(1u);
   return result;
 }
@@ -744,7 +744,7 @@ LABEL_6:
 + (double)getMidExposureTimestampFromMetadataDictionary:(id)dictionary timestamp:(double)timestamp
 {
   dictionaryCopy = dictionary;
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_RollingShutterSkewSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_RollingShutterSkewSymbolLoc())
   {
     v6 = getkFigCaptureStreamMetadata_RollingShutterSkewSymbolLoc();
     if (!v6)
@@ -763,7 +763,7 @@ LABEL_6:
   v8 = [dictionaryCopy objectForKeyedSubscript:v7];
   intValue = [v8 intValue];
 
-  if (!CMCaptureLibraryCore() || !getkFigCaptureStreamMetadata_ExposureTimeSymbolLoc())
+  if (!CMCaptureLibraryCore(0) || !getkFigCaptureStreamMetadata_ExposureTimeSymbolLoc())
   {
     v11 = @"ExposureTime";
     goto LABEL_11;
@@ -782,8 +782,8 @@ LABEL_11:
   }
 
 LABEL_12:
-  dlerror();
-  abort_report_np();
+  v16 = dlerror();
+  abort_report_np("%s", v16);
   __break(1u);
   return result;
 }
@@ -791,7 +791,7 @@ LABEL_12:
 + (void)getFrameTransformsFromMetadataDictionary:(id)dictionary sensorCropRect:(CGRect *)rect rawSensorSize:(CGSize *)size postReadCropRect:(CGRect *)cropRect
 {
   dictionaryCopy = dictionary;
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_RawSensorWidthSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_RawSensorWidthSymbolLoc())
   {
     v9 = getkFigCaptureStreamMetadata_RawSensorWidth();
   }
@@ -804,7 +804,7 @@ LABEL_12:
   v10 = [dictionaryCopy objectForKeyedSubscript:v9];
   size->width = [v10 intValue];
 
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_RawSensorHeightSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_RawSensorHeightSymbolLoc())
   {
     v11 = getkFigCaptureStreamMetadata_RawSensorHeight();
   }
@@ -817,7 +817,7 @@ LABEL_12:
   v12 = [dictionaryCopy objectForKeyedSubscript:v11];
   size->height = [v12 intValue];
 
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
   {
     v13 = getkFigCaptureStreamMetadata_SensorCropRect();
   }
@@ -831,7 +831,7 @@ LABEL_12:
 
   if (v14)
   {
-    if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
+    if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_SensorCropRectSymbolLoc())
     {
       v15 = getkFigCaptureStreamMetadata_SensorCropRect();
     }
@@ -852,7 +852,7 @@ LABEL_12:
     rect->size = *size;
   }
 
-  if (CMCaptureLibraryCore() && getkFigCaptureStreamMetadata_TotalSensorCropRectSymbolLoc())
+  if (CMCaptureLibraryCore(0) && getkFigCaptureStreamMetadata_TotalSensorCropRectSymbolLoc())
   {
     v17 = getkFigCaptureStreamMetadata_TotalSensorCropRect();
   }
@@ -938,7 +938,7 @@ LABEL_13:
         v57.columns[2].i32[3] = 0;
         v57.columns[3] = vnegq_f32(v43);
         v57.columns[3].i32[3] = 0;
-        *v44.i64 = ADCommonUtils::computeTransform(v30, v56, v57);
+        v44.n128_f64[0] = ADCommonUtils::computeTransform(v30, v56, v57);
         v49 = v44;
 
 LABEL_12:

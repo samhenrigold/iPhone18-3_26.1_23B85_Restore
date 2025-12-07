@@ -318,13 +318,13 @@ void __32__BSPortDeathSentinel_setQueue___block_invoke(void *a1)
   return v2;
 }
 
-uint64_t __30__BSPortDeathSentinel_isValid__block_invoke(uint64_t result)
+void *__30__BSPortDeathSentinel_isValid__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 33))
   {
-    *(*(*(result + 40) + 8) + 24) = 0;
+    *(*(result[5] + 8) + 24) = 0;
   }
 
   else
@@ -340,7 +340,7 @@ uint64_t __30__BSPortDeathSentinel_isValid__block_invoke(uint64_t result)
       result = [*(v2 + 8) isUsable];
     }
 
-    *(*(*(v1 + 40) + 8) + 24) = result;
+    *(*(v1[5] + 8) + 24) = result;
   }
 
   return result;

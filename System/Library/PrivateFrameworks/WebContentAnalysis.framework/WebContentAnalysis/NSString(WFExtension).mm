@@ -5,17 +5,17 @@
 - (uint64_t)WF_numericCompare:()WFExtension;
 - (uint64_t)WF_rangeOfWord:()WFExtension;
 - (uint64_t)WF_stringByProperlyFixingPercentEscapesUsingEncoding:()WFExtension;
-- (uint64_t)WF_stringWithMostSignificatDomainPart;
 - (uint64_t)_isIPv4DomainAddress;
 - (void)WF_stringByRemovingWord:()WFExtension;
 - (void)WF_stringByReplacingString:()WFExtension withString:;
+- (void)WF_stringWithMostSignificatDomainPart;
 @end
 
 @implementation NSString(WFExtension)
 
 + (uint64_t)WF_ignorableCharacterSet
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   result = ignorableCharacterSet_NSString;
   if (!ignorableCharacterSet_NSString)
   {
@@ -28,53 +28,50 @@
     result = ignorableCharacterSet_NSString;
     if (v2)
     {
-      v4 = 138412290;
-      v5 = ignorableCharacterSet_NSString;
-      _os_log_debug_impl(&dword_272D73000, v1, OS_LOG_TYPE_DEBUG, "ignorableCharacterSet_NSString %@", &v4, 0xCu);
-      result = ignorableCharacterSet_NSString;
+      v3 = 138412290;
+      v4 = ignorableCharacterSet_NSString;
+      _os_log_debug_impl(&dword_272D73000, v1, OS_LOG_TYPE_DEBUG, "ignorableCharacterSet_NSString %@", &v3, 0xCu);
+      return ignorableCharacterSet_NSString;
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (id)WF_stringFromArray:()WFExtension
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [a3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [a3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(a3);
         }
 
-        [v4 appendFormat:@"%@\n", *(*(&v11 + 1) + 8 * v8++)];
+        [v4 appendFormat:@"%@\n", *(*(&v10 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [a3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [a3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  result = v4;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4;
 }
 
 - (uint64_t)WF_rangeOfWord:()WFExtension
@@ -236,7 +233,7 @@
   return v3;
 }
 
-- (uint64_t)WF_stringWithMostSignificatDomainPart
+- (void)WF_stringWithMostSignificatDomainPart
 {
   v2 = [MEMORY[0x277CBEB18] arrayWithArray:{objc_msgSend(self, "componentsSeparatedByString:", @"."}];
   if ([v2 count] < 3 || (objc_msgSend(self, "_isIPv4DomainAddress") & 1) != 0)

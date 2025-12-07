@@ -74,7 +74,7 @@ uint64_t __69__PXGLayoutSnapshot_enumerateSpritesWithObjectIdentifier_usingBlock
   v5 = v4;
   if (v4)
   {
-    [v4 spriteAtIndex:a2];
+    objc_msgSend_spriteAtIndex_(v4);
   }
 
   else

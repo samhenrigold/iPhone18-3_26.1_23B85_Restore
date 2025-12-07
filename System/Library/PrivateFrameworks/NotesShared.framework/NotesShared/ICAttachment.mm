@@ -2058,10 +2058,10 @@ LABEL_31:
     *(archive + 23) = fileSize;
   }
 
-  [(ICAttachment *)selfCopy duration];
+  objc_msgSend_duration(selfCopy);
   if (v88 != 0.0)
   {
-    [(ICAttachment *)selfCopy duration];
+    objc_msgSend_duration(selfCopy);
     *(archive + 8) |= 0x100000u;
     *(archive + 24) = v89;
   }
@@ -2508,7 +2508,7 @@ LABEL_143:
         {
           if (v225 == *(archive + 32))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 112, v225 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 28, v225 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<topotext::PreviewImage>::New();
@@ -2558,7 +2558,7 @@ LABEL_143:
           {
             if (v237 == *(archive + 56))
             {
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 208, v237 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 52, v237 + 1);
             }
 
             google::protobuf::internal::GenericTypeHandler<topotext::Attachment>::New();
@@ -2619,7 +2619,7 @@ LABEL_143:
         {
           if (v254 == *(archive + 88))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 336, v254 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 84, v254 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<topotext::Attachment>::New();
@@ -3903,11 +3903,11 @@ LABEL_114:
       [v7 setObject:v76 forKeyedSubscript:@"FileSize"];
     }
 
-    [(ICAttachment *)self duration];
+    objc_msgSend_duration(self);
     if (v77 != 0.0)
     {
       v78 = *(v24 + 2992);
-      [(ICAttachment *)self duration];
+      objc_msgSend_duration(self);
       v79 = [v78 numberWithDouble:?];
       [v7 setObject:v79 forKeyedSubscript:@"Duration"];
     }
@@ -11726,100 +11726,100 @@ void __56__ICAttachment_Previews__loadLinkPreviewForSynapseItem___block_invoke_2
   return v18;
 }
 
-void __131__ICAttachment_Previews__attachmentPreviewImageCreatingIfNecessaryWithWidth_height_scale_appearanceType_scaleWhenDrawing_metadata___block_invoke(uint64_t a1)
+void __131__ICAttachment_Previews__attachmentPreviewImageCreatingIfNecessaryWithWidth_height_scale_appearanceType_scaleWhenDrawing_metadata___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_class();
-  objc_sync_enter(v2);
-  v3 = [*(a1 + 32) previewImages];
+  v35 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  objc_sync_enter(v3);
+  v4 = [*(a1 + 32) previewImages];
 
-  if (v3)
+  if (v4)
   {
-    v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v4 = [*(a1 + 32) previewImages];
-    v5 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v5)
+    v31 = 0u;
+    v5 = [*(a1 + 32) previewImages];
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    if (v6)
     {
-      v6 = *v30;
+      v7 = *v31;
       do
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v30 != v6)
+          if (*v31 != v7)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v8 = *(*(&v29 + 1) + 8 * i);
-          [v8 scale];
-          if (v9 == *(a1 + 56))
+          v9 = *(*(&v30 + 1) + 8 * i);
+          [v9 scale];
+          if (v10 == *(a1 + 56))
           {
-            [v8 width];
-            if (v10 == *(a1 + 64))
+            [v9 width];
+            if (v11 == *(a1 + 64))
             {
-              [v8 height];
-              if (v11 == *(a1 + 72) && *(a1 + 80) == [v8 appearanceType])
+              [v9 height];
+              if (v12 == *(a1 + 72) && *(a1 + 80) == [v9 appearanceType])
               {
-                objc_storeStrong((*(*(a1 + 48) + 8) + 40), v8);
+                objc_storeStrong((*(*(a1 + 48) + 8) + 40), v9);
               }
             }
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
-      while (v5);
+      while (v6);
     }
   }
 
-  v12 = *(*(*(a1 + 48) + 8) + 40);
-  if (!v12)
+  v13 = *(*(*(a1 + 48) + 8) + 40);
+  if (!v13)
   {
-    v13 = [*(a1 + 32) identifier];
-    v14 = [ICAttachmentPreviewImage identifierForContentIdentifier:v13 scale:*(a1 + 80) width:*(a1 + 56) height:*(a1 + 64) appearanceType:*(a1 + 72)];
+    v14 = [*(a1 + 32) identifier];
+    v15 = [ICAttachmentPreviewImage identifierForContentIdentifier:v14 scale:*(a1 + 80) width:*(a1 + 56) height:*(a1 + 64) appearanceType:*(a1 + 72)];
 
-    v15 = [*(a1 + 32) managedObjectContext];
-    v16 = [ICAttachmentPreviewImage attachmentPreviewImageWithIdentifier:v14 inContext:v15];
-    v17 = *(*(a1 + 48) + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v16 = [*(a1 + 32) managedObjectContext];
+    v17 = [ICAttachmentPreviewImage attachmentPreviewImageWithIdentifier:v15 inContext:v16];
+    v18 = *(*(a1 + 48) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
 
-    v19 = *(*(*(a1 + 48) + 8) + 40);
-    if (v19)
+    v20 = *(*(*(a1 + 48) + 8) + 40);
+    if (v20)
     {
-      v20 = [v19 attachment];
-      v21 = v20 == *(a1 + 32);
+      v21 = [v20 attachment];
+      v22 = v21 == *(a1 + 32);
 
-      if (v21)
+      if (v22)
       {
 LABEL_23:
 
-        v12 = *(*(*(a1 + 48) + 8) + 40);
+        v13 = *(*(*(a1 + 48) + 8) + 40);
         goto LABEL_24;
       }
 
-      v22 = *(*(*(a1 + 48) + 8) + 40);
-      if (v22)
+      v23 = *(*(*(a1 + 48) + 8) + 40);
+      if (v23)
       {
-        v23 = [v22 attachment];
-        v24 = v23 == 0;
+        v24 = [v23 attachment];
+        v25 = v24 == 0;
 
-        if (v24)
+        if (v25)
         {
-          v25 = [*(a1 + 32) managedObjectContext];
-          [v25 deleteObject:*(*(*(a1 + 48) + 8) + 40)];
+          v26 = [*(a1 + 32) managedObjectContext];
+          [v26 deleteObject:*(*(*(a1 + 48) + 8) + 40)];
         }
       }
     }
 
-    v26 = [ICAttachmentPreviewImage newAttachmentPreviewImageWithIdentifier:v14 attachment:*(a1 + 32)];
-    v27 = *(*(a1 + 48) + 8);
-    v28 = *(v27 + 40);
-    *(v27 + 40) = v26;
+    v27 = [ICAttachmentPreviewImage newAttachmentPreviewImageWithIdentifier:v15 attachment:*(a1 + 32)];
+    v28 = *(*(a1 + 48) + 8);
+    v29 = *(v28 + 40);
+    *(v28 + 40) = v27;
 
     [*(a1 + 32) addPreviewImagesObject:*(*(*(a1 + 48) + 8) + 40)];
     [*(*(*(a1 + 48) + 8) + 40) setWidth:*(a1 + 64)];
@@ -11836,8 +11836,8 @@ LABEL_23:
   }
 
 LABEL_24:
-  [v12 setMetadata:*(a1 + 40)];
-  objc_sync_exit(v2);
+  [v13 setMetadata:*(a1 + 40)];
+  objc_sync_exit(v3);
 }
 
 - (id)attachmentPreviewImageWithMinSize:(CGSize)size scale:(double)scale appearanceType:(unint64_t)type requireAppearance:(BOOL)appearance

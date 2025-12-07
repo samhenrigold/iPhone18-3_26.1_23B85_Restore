@@ -27,7 +27,6 @@
 
 uint64_t __36__ADIDManagerService_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -139,7 +138,7 @@ void __37__ADIDManagerService_forceReconcile___block_invoke_2(uint64_t a1)
 
 void __37__ADIDManagerService_forceReconcile___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -147,10 +146,10 @@ void __37__ADIDManagerService_forceReconcile___block_invoke_3(uint64_t a1, void 
     v5 = MEMORY[0x277CCA9B8];
     v6 = [v3 domain];
     v7 = [v4 code];
-    v14 = @"Error Description";
+    v13 = @"Error Description";
     v8 = [v4 description];
-    v15[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v10 = [v5 errorWithDomain:v6 code:v7 userInfo:v9];
 
     v11 = *(a1 + 32);
@@ -168,36 +167,34 @@ void __37__ADIDManagerService_forceReconcile___block_invoke_3(uint64_t a1, void 
       (*(v12 + 16))(v12, 0);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)delayForNewForceReconcileRequest
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   date = [MEMORY[0x277CBEAA8] date];
   array = [MEMORY[0x277CBEB18] array];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = selfCopy->_reconcileArray;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         [date timeIntervalSinceDate:v9];
         if (v10 > 30.0)
         {
@@ -205,7 +202,7 @@ void __37__ADIDManagerService_forceReconcile___block_invoke_3(uint64_t a1, void 
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -219,7 +216,6 @@ void __37__ADIDManagerService_forceReconcile___block_invoke_3(uint64_t a1, void 
   v12 = [(NSMutableArray *)selfCopy->_reconcileArray count];
   objc_sync_exit(selfCopy);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12 - 1;
 }
 

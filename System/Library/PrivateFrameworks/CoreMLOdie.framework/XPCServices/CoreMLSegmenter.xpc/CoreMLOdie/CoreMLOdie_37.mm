@@ -349,26 +349,26 @@ LABEL_33:
   return v20;
 }
 
-void sub_100201964(uint64_t a1, const void *a2, uint64_t a3)
+void sub_100201964(void *result, const void *a2, uint64_t a3)
 {
-  *(a1 + 192) = 0;
-  v5 = *(a1 + 120);
+  result[24] = 0;
+  v5 = *(result + 30);
   v6 = a3 + v5;
-  if (v6 > *(a1 + 124))
+  if (v6 > *(result + 31))
   {
     v7 = a2;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1 + 112, (a1 + 128), v6, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod((result + 14), result + 16, v6, 16);
     a2 = v7;
-    LODWORD(v5) = *(a1 + 120);
+    LODWORD(v5) = *(result + 30);
   }
 
   if (a3)
   {
-    memcpy((*(a1 + 112) + 16 * v5), a2, 16 * a3);
-    LODWORD(v5) = *(a1 + 120);
+    memcpy((result[14] + 16 * v5), a2, 16 * a3);
+    LODWORD(v5) = *(result + 30);
   }
 
-  *(a1 + 120) = v5 + a3;
+  *(result + 30) = v5 + a3;
 }
 
 void mlir::ODIE::Compiler::CoreML::CallOp::getInputIntents(mlir::SymbolTable **this@<X0>, llvm **a2@<X1>, _BYTE *a3@<X8>)
@@ -786,9 +786,9 @@ LABEL_53:
   }
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::CallOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::ODIE::Compiler::CoreML::CallOp::readProperties(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
@@ -1236,13 +1236,13 @@ void *sub_100202BFC(uint64_t a1)
 
     else
     {
-      v13 = v2;
-      v14 = result;
+      v12 = v2;
+      v13 = result;
       sub_1002A61F4();
-      result = v14;
+      result = v13;
       v3 = mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id;
-      v4 = *(v13 + 8);
-      v5 = *(v13 + 16);
+      v4 = *(v12 + 8);
+      v5 = *(v12 + 16);
       if (!v5)
       {
         return result;
@@ -1270,18 +1270,14 @@ void *sub_100202BFC(uint64_t a1)
     }
 
     while (v7);
-    if (v6 != &v4[2 * v5] && *v6 == v3)
-    {
-      v12 = v6[1];
-    }
   }
 
   return result;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::InvokeOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::ODIE::Compiler::CoreML::InvokeOp::readProperties(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
@@ -1299,7 +1295,7 @@ BOOL mlir::ODIE::Compiler::CoreML::InvokeOp::readProperties(uint64_t a1, uint64_
   }
 
   v18 = 0;
-  if ((sub_100202F4C(a1, &v18) & 1) == 0)
+  if (!sub_100202F4C(a1, &v18))
   {
     return 0;
   }
@@ -1372,7 +1368,7 @@ LABEL_29:
   return 1;
 }
 
-uint64_t sub_100202F4C(uint64_t a1, uint64_t *a2)
+BOOL sub_100202F4C(uint64_t a1, uint64_t *a2)
 {
   v31 = 0;
   if (((*(*a1 + 48))(a1, &v31) & 1) == 0)
@@ -1842,7 +1838,7 @@ LABEL_25:
 
   v43 = "could not resolve the callee ";
   v44 = 259;
-  mlir::OpState::emitOpError(this, &v43, v48);
+  mlir::OpState::emitOpError(v48, this, &v43);
   v22 = sub_100202BFC(this);
   if (v48[0])
   {
@@ -2109,7 +2105,7 @@ LABEL_14:
   llvm::deallocate_buffer(v9, v13, 8uLL);
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::PlaceholderOp::canonicalize(uint64_t a1, void *a2)
+uint64_t mlir::ODIE::Compiler::CoreML::PlaceholderOp::canonicalize(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 47) || (InherentAttr = mlir::Operation::getInherentAttr(a1, "coreml.keep_placeholder", 23), (v5 & 1) == 0))
   {
@@ -2122,7 +2118,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::PlaceholderOp::canonicalize(uint64_t a1, 
     v34[0] = "coreml.keep_placeholder requested";
     v35 = 259;
     AttrDictionary = v34;
-    v31 = a2[2];
+    v31 = *(a2 + 16);
     if (v31 && mlir::RewriterBase::Listener::classof(v31))
     {
       (*(*v31 + 88))(v31, v30, llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<llvm::LogicalResult mlir::RewriterBase::notifyMatchFailure<mlir::Location>(mlir::Location &&,llvm::Twine const&)::{lambda(mlir::Diagnostic &)#1}>, &AttrDictionary);
@@ -2133,7 +2129,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::PlaceholderOp::canonicalize(uint64_t a1, 
 
   v34[0] = *(a1 + 16 * ((*(a1 + 44) >> 23) & 1) + 64);
   Value = mlir::StringAttr::getValue(v34);
-  mlir::OperationName::OperationName(&v32, Value, v7, a2[1]);
+  mlir::OperationName::OperationName(&v32, Value, v7, *(a2 + 8));
   if (*(v32 + 16) == &mlir::detail::TypeIDResolver<void,void>::id)
   {
     v26 = *(a1 + 24);
@@ -2146,7 +2142,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::PlaceholderOp::canonicalize(uint64_t a1, 
     v34[2] = " is not registered";
     v35 = 770;
     v33[0] = v34;
-    v29 = a2[2];
+    v29 = *(a2 + 16);
     if (v29 && mlir::RewriterBase::Listener::classof(v29))
     {
       (*(*v29 + 88))(v29, v26, llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<llvm::LogicalResult mlir::RewriterBase::notifyMatchFailure<mlir::Location>(mlir::Location &&,llvm::Twine const&)::{lambda(mlir::Diagnostic &)#1}>, v33);
@@ -2198,7 +2194,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::PlaceholderOp::canonicalize(uint64_t a1, 
 
   v33[0] = v16;
   v33[1] = v15;
-  mlir::ResultRange::getTypes(v33, &AttrDictionary);
+  mlir::ResultRange::getTypes(&AttrDictionary, v33);
   v17 = AttrDictionary;
   v18 = v45;
   v19 = v47;
@@ -2224,13 +2220,13 @@ uint64_t mlir::ODIE::Compiler::CoreML::PlaceholderOp::canonicalize(uint64_t a1, 
   }
 
   v37 = v21 + v20;
-  v24 = mlir::OpBuilder::create(a2 + 1, v34);
+  v24 = mlir::OpBuilder::create((a2 + 8), v34);
   (*(*a2 + 8))(a2, a1, v24);
   mlir::OperationState::~OperationState(v34);
   return 1;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::ConstantOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::ODIE::Compiler::CoreML::ConstantOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a5)
   {
@@ -2251,7 +2247,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::ConstantOp::inferReturnTypes(uint64_t a1,
     }
 
     v21 = a6;
-    v22[0] = 0;
+    LOBYTE(v22) = 0;
     v23 = 0;
     v24 = v20;
     v25 = a9;
@@ -2265,7 +2261,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::ConstantOp::inferReturnTypes(uint64_t a1,
         v23 = 0;
       }
 
-      mlir::OperationName::OperationName(v22, "coreml.constant", 15, Context);
+      mlir::OperationName::OperationName(&v22, "coreml.constant", 0xFuLL, Context);
       v23 = 1;
       a4 = v14;
     }
@@ -2404,47 +2400,46 @@ LABEL_16:
 
 BOOL mlir::ODIE::Compiler::CoreML::ConcatOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v70 = a6;
-  v71[0] = 0;
-  v72 = 0;
-  v73 = a9;
-  v74 = a10;
+  v69 = a6;
+  LOBYTE(v70) = 0;
+  v71 = 0;
+  v72 = a9;
+  v73 = a10;
   if (a6)
   {
-    Context = mlir::Attribute::getContext(&v70);
-    if (v72 == 1)
+    Context = mlir::Attribute::getContext(&v69);
+    if (v71 == 1)
     {
-      v72 = 0;
+      v71 = 0;
     }
 
-    mlir::OperationName::OperationName(v71, "coreml.concat", 13, Context);
-    v72 = 1;
+    mlir::OperationName::OperationName(&v70, "coreml.concat", 0xDuLL, Context);
+    v71 = 1;
   }
 
-  v75 = a4;
-  v76 = a5;
-  v63 = 0;
+  v74 = a4;
+  v75 = a5;
+  v62 = 0;
   __dst[0] = a4;
   __dst[1] = 0;
-  v65.n128_u64[0] = &v63;
+  v64.n128_u64[0] = &v62;
   __dst[0] = mlir::ValueRange::dereference_iterator(__dst, 0);
   DefiningOp = mlir::Value::getDefiningOp(__dst);
-  if (!DefiningOp || !sub_100270924(&v65, DefiningOp))
+  if (!DefiningOp || !sub_100270924(&v64, DefiningOp))
   {
     return 0;
   }
 
-  if (mlir::DenseElementsAttr::getNumElements(&v63) != 1)
+  if (mlir::DenseElementsAttr::getNumElements(&v62) != 1)
   {
     return sub_1001F06E4(a2, a3, "expected a single dimension along which to concat");
   }
 
-  sub_10026BD14(&v63, __dst);
-  v62 = mlir::DenseElementsAttr::AttributeElementIterator::operator*(__dst);
-  mlir::IntegerAttr::getValue(&v62, __dst);
+  sub_10026BD14(&v62, __dst);
+  v61 = mlir::DenseElementsAttr::AttributeElementIterator::operator*(__dst);
+  mlir::IntegerAttr::getValue(&v61, __dst);
   if (LODWORD(__dst[1]) > 0x40)
   {
-    v20 = *__dst[0];
     operator delete[]();
   }
 
@@ -2458,21 +2453,21 @@ BOOL mlir::ODIE::Compiler::CoreML::ConcatOp::inferReturnTypes(uint64_t a1, uint6
     v17 = 0;
   }
 
-  __dst[0] = v69;
+  __dst[0] = v68;
   __dst[1] = 0x600000000;
-  v21 = v76;
-  v65.n128_u64[0] = v75;
-  v65.n128_u64[1] = 1;
-  v65.n128_u64[0] = mlir::ValueRange::offset_base(&v65, 1);
-  v65.n128_u64[1] = v21 - v65.n128_u64[1];
-  v22 = mlir::ValueRange::dereference_iterator(&v65, 0);
-  v61[0] = sub_10014A5C4((*(v22 + 8) & 0xFFFFFFFFFFFFFFF8));
-  v61[1] = v23;
-  if (!v61[0])
+  v20 = v75;
+  v64.n128_u64[0] = v74;
+  v64.n128_u64[1] = 1;
+  v64.n128_u64[0] = mlir::ValueRange::offset_base(&v64, 1);
+  v64.n128_u64[1] = v20 - v64.n128_u64[1];
+  v21 = mlir::ValueRange::dereference_iterator(&v64, 0);
+  v60[0] = sub_10014A5C4((*(v21 + 8) & 0xFFFFFFFFFFFFFFF8));
+  v60[1] = v22;
+  if (!v60[0])
   {
     v18 = sub_1001F06E4(a2, a3, "expected a ShapedType for all inputs to concat");
-    v28 = __dst[0];
-    if (__dst[0] != v69)
+    v27 = __dst[0];
+    if (__dst[0] != v68)
     {
       goto LABEL_90;
     }
@@ -2480,34 +2475,34 @@ BOOL mlir::ODIE::Compiler::CoreML::ConcatOp::inferReturnTypes(uint64_t a1, uint6
     return v18;
   }
 
-  Shape = mlir::ShapedType::getShape(v61);
-  v18 = v24;
-  v65.n128_u64[0] = &v66;
-  v65.n128_u64[1] = 0x600000000;
-  if (v24 < 7)
+  Shape = mlir::ShapedType::getShape(v60);
+  v18 = v23;
+  v64.n128_u64[0] = &v65;
+  v64.n128_u64[1] = 0x600000000;
+  if (v23 < 7)
   {
-    if (!v24)
+    if (!v23)
     {
-      v30 = 0;
-      v65.n128_u32[2] = 0;
-      v29 = &v66;
+      v29 = 0;
+      v64.n128_u32[2] = 0;
+      v28 = &v65;
 LABEL_28:
       v18 = LODWORD(__dst[1]);
-      if (LODWORD(__dst[1]) >= v30)
+      if (LODWORD(__dst[1]) >= v29)
       {
-        if (v30)
+        if (v29)
         {
-          memmove(__dst[0], v29, 8 * v30);
+          memmove(__dst[0], v28, 8 * v29);
         }
 
         goto LABEL_38;
       }
 
-      if (HIDWORD(__dst[1]) >= v30)
+      if (HIDWORD(__dst[1]) >= v29)
       {
         if (LODWORD(__dst[1]))
         {
-          memmove(__dst[0], v29, 8 * LODWORD(__dst[1]));
+          memmove(__dst[0], v28, 8 * LODWORD(__dst[1]));
           goto LABEL_36;
         }
       }
@@ -2515,111 +2510,111 @@ LABEL_28:
       else
       {
         LODWORD(__dst[1]) = 0;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(__dst, v69, v30, 8);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(__dst, v68, v29, 8);
       }
 
       v18 = 0;
 LABEL_36:
-      if (v65.n128_u32[2] != v18)
+      if (v64.n128_u32[2] != v18)
       {
-        memcpy(__dst[0] + 8 * v18, (v65.n128_u64[0] + 8 * v18), 8 * (v65.n128_u32[2] - v18));
+        memcpy(__dst[0] + 8 * v18, (v64.n128_u64[0] + 8 * v18), 8 * (v64.n128_u32[2] - v18));
       }
 
 LABEL_38:
-      LODWORD(__dst[1]) = v30;
+      LODWORD(__dst[1]) = v29;
       goto LABEL_39;
     }
 
-    v26 = 0;
-    v27 = &v66;
+    v25 = 0;
+    v26 = &v65;
   }
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, &v66, v24, 8);
-    v26 = v65.n128_u32[2];
-    v27 = v65.n128_u64[0];
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v64, &v65, v23, 8);
+    v25 = v64.n128_u32[2];
+    v26 = v64.n128_u64[0];
   }
 
-  memcpy(&v27[v26], Shape, 8 * v18);
-  v29 = v65.n128_u64[0];
-  v30 = v65.n128_u32[2] + v18;
-  v65.n128_u32[2] += v18;
-  if (v65.n128_u64[0] == &v66)
+  memcpy(&v26[v25], Shape, 8 * v18);
+  v28 = v64.n128_u64[0];
+  v29 = v64.n128_u32[2] + v18;
+  v64.n128_u32[2] += v18;
+  if (v64.n128_u64[0] == &v65)
   {
     goto LABEL_28;
   }
 
-  if (__dst[0] != v69)
+  if (__dst[0] != v68)
   {
     free(__dst[0]);
-    v29 = v65.n128_u64[0];
-    v30 = v65.n128_u32[2];
+    v28 = v64.n128_u64[0];
+    v29 = v64.n128_u32[2];
   }
 
-  __dst[0] = v29;
-  __dst[1] = __PAIR64__(v65.n128_u32[3], v30);
-  v65.n128_u64[0] = &v66;
-  v65.n128_u32[3] = 0;
+  __dst[0] = v28;
+  __dst[1] = __PAIR64__(v64.n128_u32[3], v29);
+  v64.n128_u64[0] = &v65;
+  v64.n128_u32[3] = 0;
 LABEL_39:
-  v65.n128_u32[2] = 0;
-  if (v65.n128_u64[0] != &v66)
+  v64.n128_u32[2] = 0;
+  if (v64.n128_u64[0] != &v65)
   {
-    free(v65.n128_u64[0]);
-    v30 = __dst[1];
+    free(v64.n128_u64[0]);
+    v29 = __dst[1];
   }
 
-  if (!v30)
+  if (!v29)
   {
     if (HIDWORD(__dst[1]))
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(__dst, v69, 1uLL, 8);
-      v31 = LODWORD(__dst[1]);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(__dst, v68, 1uLL, 8);
+      v30 = LODWORD(__dst[1]);
     }
 
-    *(__dst[0] + v31) = 1;
+    *(__dst[0] + v30) = 1;
     ++LODWORD(__dst[1]);
   }
 
   if (v17 < 0)
   {
-    mlir::ShapedType::getShape(v61);
-    v17 += v32;
+    mlir::ShapedType::getShape(v60);
+    v17 += v31;
   }
 
-  ElementType = mlir::ShapedType::getElementType(v61);
-  v34 = v76;
-  v65.n128_u64[0] = v75;
-  v65.n128_u64[1] = 1;
-  *&v64 = mlir::ValueRange::offset_base(&v65, 1);
-  *(&v64 + 1) = v34 - v65.n128_u64[1];
-  mlir::ValueRange::getTypes(&v64, &v65);
-  v35 = v67;
-  v36 = v65.n128_u64[1] + 1;
-  v64 = *&v65 + __PAIR128__(1, 0);
-  if (v65.n128_u64[1] + 1 == v67)
+  ElementType = mlir::ShapedType::getElementType(v60);
+  v33 = v75;
+  v64.n128_u64[0] = v74;
+  v64.n128_u64[1] = 1;
+  *&v63 = mlir::ValueRange::offset_base(&v64, 1);
+  *(&v63 + 1) = v33 - v64.n128_u64[1];
+  mlir::ValueRange::getTypes(&v63, &v64);
+  v34 = v66;
+  v35 = v64.n128_u64[1] + 1;
+  v63 = *&v64 + __PAIR128__(1, 0);
+  if (v64.n128_u64[1] + 1 == v66)
   {
 LABEL_48:
-    v37 = mlir::RankedTensorType::get(__dst[0], LODWORD(__dst[1]), ElementType, 0);
-    v38 = *(a11 + 8);
-    if (v38 >= *(a11 + 12))
+    v36 = mlir::RankedTensorType::get(__dst[0], LODWORD(__dst[1]), ElementType, 0);
+    v37 = *(a11 + 8);
+    if (v37 >= *(a11 + 12))
     {
-      v59 = v37;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a11, (a11 + 16), v38 + 1, 8);
-      v37 = v59;
-      LODWORD(v38) = *(a11 + 8);
+      v58 = v36;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a11, (a11 + 16), v37 + 1, 8);
+      v36 = v58;
+      LODWORD(v37) = *(a11 + 8);
     }
 
-    *(*a11 + 8 * v38) = v37;
+    *(*a11 + 8 * v37) = v36;
     ++*(a11 + 8);
     v18 = 1;
-    v28 = __dst[0];
-    if (__dst[0] != v69)
+    v27 = __dst[0];
+    if (__dst[0] != v68)
     {
       goto LABEL_90;
     }
@@ -2628,97 +2623,97 @@ LABEL_48:
   }
 
 LABEL_52:
-  v39 = mlir::ValueRange::dereference_iterator(&v64, v36);
-  v60[0] = sub_100067788((*(v39 + 8) & 0xFFFFFFFFFFFFFFF8));
-  v60[1] = v40;
-  if (!v60[0])
+  v38 = mlir::ValueRange::dereference_iterator(&v63, v35);
+  v59[0] = sub_100067788((*(v38 + 8) & 0xFFFFFFFFFFFFFFF8));
+  v59[1] = v39;
+  if (!v59[0])
   {
-    v58 = sub_1001F06E4(a2, a3, "expected a ShapedType for all inputs to concat");
+    v57 = sub_1001F06E4(a2, a3, "expected a ShapedType for all inputs to concat");
     goto LABEL_88;
   }
 
-  if (mlir::ShapedType::getElementType(v60) != ElementType)
+  if (mlir::ShapedType::getElementType(v59) != ElementType)
   {
-    v58 = sub_1001F06E4(a2, a3, "expected the same element type for all inputs to concat");
+    v57 = sub_1001F06E4(a2, a3, "expected the same element type for all inputs to concat");
     goto LABEL_88;
   }
 
-  if (mlir::ShapedType::hasRank(v60) && (mlir::ShapedType::getShape(v60), v41 == LODWORD(__dst[1])) || (mlir::ShapedType::getShape(v60), !v42) && LODWORD(__dst[1]) == 1)
+  if (mlir::ShapedType::hasRank(v59) && (mlir::ShapedType::getShape(v59), v40 == LODWORD(__dst[1])) || (mlir::ShapedType::getShape(v59), !v41) && LODWORD(__dst[1]) == 1)
   {
-    v44 = mlir::ShapedType::getShape(v60);
-    v45 = v43;
-    v65.n128_u64[0] = &v66;
-    v65.n128_u64[1] = 0x600000000;
-    if (v43 < 7)
+    v43 = mlir::ShapedType::getShape(v59);
+    v44 = v42;
+    v64.n128_u64[0] = &v65;
+    v64.n128_u64[1] = 0x600000000;
+    if (v42 < 7)
     {
-      if (!v43)
+      if (!v42)
       {
-        v65.n128_u32[2] = 0;
+        v64.n128_u32[2] = 0;
         goto LABEL_66;
       }
 
-      v46 = 0;
-      v47 = &v66;
+      v45 = 0;
+      v46 = &v65;
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, &v66, v43, 8);
-      v46 = v65.n128_u32[2];
-      v47 = v65.n128_u64[0];
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v64, &v65, v42, 8);
+      v45 = v64.n128_u32[2];
+      v46 = v64.n128_u64[0];
     }
 
-    memcpy(&v47[v46], v44, 8 * v45);
-    v65.n128_u32[2] += v45;
-    if (v65.n128_u32[2])
+    memcpy(&v46[v45], v43, 8 * v44);
+    v64.n128_u32[2] += v44;
+    if (v64.n128_u32[2])
     {
-      v48 = LODWORD(__dst[1]);
+      v47 = LODWORD(__dst[1]);
       if (!LODWORD(__dst[1]))
       {
         goto LABEL_77;
       }
 
 LABEL_69:
-      v50 = 0;
-      v51 = __dst[0];
-      v52 = 1;
-      v53 = v65.n128_u64[0];
+      v49 = 0;
+      v50 = __dst[0];
+      v51 = 1;
+      v52 = v64.n128_u64[0];
       while (1)
       {
-        if (v17 == v50)
+        if (v17 == v49)
         {
-          v54 = v51[v17];
-          if (v54 != 0x8000000000000000)
+          v53 = v50[v17];
+          if (v53 != 0x8000000000000000)
           {
-            v55 = *(v53 + 8 * v17);
-            v56 = v55 + v54;
-            if (v55 == 0x8000000000000000)
+            v54 = *(v52 + 8 * v17);
+            v55 = v54 + v53;
+            if (v54 == 0x8000000000000000)
             {
-              v56 = *(v53 + 8 * v17);
+              v55 = *(v52 + 8 * v17);
             }
 
-            v51[v17] = v56;
+            v50[v17] = v55;
           }
         }
 
-        else if (v51[v50] != *(v53 + 8 * v50))
+        else if (v50[v49] != *(v52 + 8 * v49))
         {
           v18 = sub_1001F06E4(a2, a3, "expected all input shapes to match along all dimensions other than the concat dimension");
-          v57 = v65.n128_u64[0];
-          if (v65.n128_u64[0] != &v66)
+          v56 = v64.n128_u64[0];
+          if (v64.n128_u64[0] != &v65)
           {
             goto LABEL_78;
           }
 
 LABEL_79:
-          if (v52)
+          if (v51)
           {
             goto LABEL_89;
           }
 
-          v36 = *(&v64 + 1) + 1;
-          *(&v64 + 1) = v36;
-          if (v36 == v35)
+          v35 = *(&v63 + 1) + 1;
+          *(&v63 + 1) = v35;
+          if (v35 == v34)
           {
             goto LABEL_48;
           }
@@ -2726,8 +2721,8 @@ LABEL_79:
           goto LABEL_52;
         }
 
-        v52 = ++v50 < v48;
-        if (v48 == v50)
+        v51 = ++v49 < v47;
+        if (v47 == v49)
         {
           goto LABEL_77;
         }
@@ -2735,47 +2730,47 @@ LABEL_79:
     }
 
 LABEL_66:
-    if (v65.n128_u32[3])
+    if (v64.n128_u32[3])
     {
-      v49 = 0;
+      v48 = 0;
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, &v66, 1uLL, 8);
-      v49 = v65.n128_u32[2];
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v64, &v65, 1uLL, 8);
+      v48 = v64.n128_u32[2];
     }
 
-    *(v65.n128_u64[0] + 8 * v49) = 1;
-    ++v65.n128_u32[2];
-    v48 = LODWORD(__dst[1]);
+    *(v64.n128_u64[0] + 8 * v48) = 1;
+    ++v64.n128_u32[2];
+    v47 = LODWORD(__dst[1]);
     if (!LODWORD(__dst[1]))
     {
 LABEL_77:
-      v52 = 0;
-      v57 = v65.n128_u64[0];
-      if (v65.n128_u64[0] == &v66)
+      v51 = 0;
+      v56 = v64.n128_u64[0];
+      if (v64.n128_u64[0] == &v65)
       {
         goto LABEL_79;
       }
 
 LABEL_78:
-      free(v57);
+      free(v56);
       goto LABEL_79;
     }
 
     goto LABEL_69;
   }
 
-  v58 = sub_1001F06E4(a2, a3, "expected all input tensors to have the same rank");
+  v57 = sub_1001F06E4(a2, a3, "expected all input tensors to have the same rank");
 LABEL_88:
-  v18 = v58;
+  v18 = v57;
 LABEL_89:
-  v28 = __dst[0];
-  if (__dst[0] != v69)
+  v27 = __dst[0];
+  if (__dst[0] != v68)
   {
 LABEL_90:
-    free(v28);
+    free(v27);
   }
 
   return v18;
@@ -2784,7 +2779,7 @@ LABEL_90:
 BOOL mlir::ODIE::Compiler::CoreML::ConcatOp::refineReturnTypes(uint64_t a1, uint64_t a2, char a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v40 = a6;
-  v41[0] = 0;
+  LOBYTE(v41) = 0;
   v42 = 0;
   v43 = a9;
   v44 = a10;
@@ -2796,7 +2791,7 @@ BOOL mlir::ODIE::Compiler::CoreML::ConcatOp::refineReturnTypes(uint64_t a1, uint
       v42 = 0;
     }
 
-    mlir::OperationName::OperationName(v41, "coreml.concat", 13, Context);
+    mlir::OperationName::OperationName(&v41, "coreml.concat", 0xDuLL, Context);
     v42 = 1;
   }
 
@@ -6360,7 +6355,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes(uint64_t *a1, u
 {
   if (a5 == 2)
   {
-    v14 = mlir::IntegerType::get(a1, 1, 0);
+    v14 = mlir::IntegerType::get(a1, 1u, 0);
 
     return sub_100205060(a4, a5, a11, v14, 1);
   }
@@ -6378,7 +6373,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::EqualOp::refineReturnTypes(uint64_t *a1, 
   v23 = 0x600000000;
   if (a5 == 2)
   {
-    v12 = mlir::IntegerType::get(a1, 1, 0);
+    v12 = mlir::IntegerType::get(a1, 1u, 0);
     if ((sub_100205060(a4, 2, &v22, v12, 1) & 1) == 0)
     {
       goto LABEL_3;
@@ -6443,7 +6438,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::GreaterOp::inferReturnTypes(uint64_t *a1,
 {
   if (a5 == 2)
   {
-    v14 = mlir::IntegerType::get(a1, 1, 0);
+    v14 = mlir::IntegerType::get(a1, 1u, 0);
 
     return sub_100205060(a4, a5, a11, v14, 1);
   }
@@ -6461,7 +6456,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::GreaterOp::refineReturnTypes(uint64_t *a1
   v23 = 0x600000000;
   if (a5 == 2)
   {
-    v12 = mlir::IntegerType::get(a1, 1, 0);
+    v12 = mlir::IntegerType::get(a1, 1u, 0);
     if ((sub_100205060(a4, 2, &v22, v12, 1) & 1) == 0)
     {
       goto LABEL_3;
@@ -6526,7 +6521,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::NotEqualOp::inferReturnTypes(uint64_t *a1
 {
   if (a5 == 2)
   {
-    v14 = mlir::IntegerType::get(a1, 1, 0);
+    v14 = mlir::IntegerType::get(a1, 1u, 0);
 
     return sub_100205060(a4, a5, a11, v14, 1);
   }
@@ -6544,7 +6539,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::NotEqualOp::refineReturnTypes(uint64_t *a
   v23 = 0x600000000;
   if (a5 == 2)
   {
-    v12 = mlir::IntegerType::get(a1, 1, 0);
+    v12 = mlir::IntegerType::get(a1, 1u, 0);
     if ((sub_100205060(a4, 2, &v22, v12, 1) & 1) == 0)
     {
       goto LABEL_3;
@@ -6605,7 +6600,7 @@ LABEL_14:
   return v13;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::ReduceMeanOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::ODIE::Compiler::CoreML::ReduceMeanOp::inferReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a5 == 3)
   {
@@ -7224,13 +7219,13 @@ LABEL_14:
   return v11;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::ShrinkDimsOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::ShrinkDimsOp::verify(mlir::Operation **this)
 {
-  v156 = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
-  mlir::TensorType::getShape(&v156);
+  v155 = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
+  mlir::TensorType::getShape(&v155);
   v3 = v2;
-  *&v166 = *(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8;
-  v4 = *mlir::RankedTensorType::getShape(&v166);
+  *&v165 = *(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8;
+  v4 = *mlir::RankedTensorType::getShape(&v165);
   if (v4 <= v3)
   {
     if (*(*this + 9))
@@ -7244,93 +7239,92 @@ BOOL mlir::ODIE::Compiler::CoreML::ShrinkDimsOp::verify(mlir::Operation **this)
     }
 
     v33 = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v32, 0) + 8) & 0xFFFFFFFFFFFFFFF8;
-    v154 = 0;
-    v155 = v33;
+    v153 = 0;
+    v154 = v33;
     v34 = *(*(*this + 9) + 56);
-    v163 = &v154;
-    *&v166 = v34;
-    DefiningOp = mlir::Value::getDefiningOp(&v166);
-    if (!DefiningOp || !sub_100270924(&v163, DefiningOp))
+    v162 = &v153;
+    *&v165 = v34;
+    DefiningOp = mlir::Value::getDefiningOp(&v165);
+    if (!DefiningOp || !sub_100270924(&v162, DefiningOp))
     {
       return 1;
     }
 
-    sub_1000C1790(&v154, &v166);
-    v36 = v167;
-    v157 = v166;
-    v37 = v171;
-    v163 = v165;
-    v164 = 0x600000000;
-    v38 = v167;
-    v39 = v171 - v167;
-    if ((v171 - v167) < 7)
+    sub_1000C1790(&v153, &v165);
+    v36 = v166;
+    v156 = v165;
+    v37 = v170;
+    v162 = v164;
+    v163 = 0x600000000;
+    v38 = v166;
+    v39 = v170 - v166;
+    if ((v170 - v166) < 7)
     {
       v40 = 0;
     }
 
     else
     {
-      v149 = v167;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v163, v165, v171 - v167, 8);
-      v36 = v149;
-      v40 = v164;
+      v148 = v166;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v162, v164, v170 - v166, 8);
+      v36 = v148;
+      v40 = v163;
     }
 
-    *__s2 = v157;
-    v160 = v36;
-    v161 = v3;
-    v162 = 1;
+    *__s2 = v156;
+    v159 = v36;
+    v160 = v3;
+    v161 = 1;
     if (v37 != v38)
     {
-      v43 = &v163[v40];
+      v43 = &v162[v40];
       do
       {
-        mlir::DenseElementsAttr::IntElementIterator::operator*(__s2, &v150);
-        if (v151 > 0x40)
+        mlir::DenseElementsAttr::IntElementIterator::operator*(__s2, &v149);
+        if (v150 > 0x40)
         {
-          v44 = (v161 & (*v150 >> 63)) + *v150;
           operator delete[]();
         }
 
-        if (v151)
+        if (v150)
         {
-          v45 = (v161 & ((v150 << -v151) >> -v151 >> 63)) + ((v150 << -v151) >> -v151);
+          v44 = (v160 & (v149 << -v150 >> -v150 >> 63)) + (v149 << -v150 >> -v150);
         }
 
         else
         {
-          v45 = 0;
+          v44 = 0;
         }
 
-        *v43++ = v45;
-        *&v160 = v160 + 1;
+        *v43++ = v44;
+        *&v159 = v159 + 1;
       }
 
-      while (v160 != v37);
-      v40 = v164;
+      while (v159 != v37);
+      v40 = v163;
     }
 
-    LODWORD(v164) = v40 + v39;
-    Shape = mlir::TensorType::getShape(&v156);
-    if (v164)
+    LODWORD(v163) = v40 + v39;
+    Shape = mlir::TensorType::getShape(&v155);
+    if (v163)
     {
-      v48 = v163;
-      v49 = &v163[v164];
-      v50 = 1;
+      v47 = v162;
+      v48 = &v162[v163];
+      v49 = 1;
       while (1)
       {
-        v51 = *v48;
-        if (*v48 >= v3)
+        v50 = *v47;
+        if (*v47 >= v3)
         {
           break;
         }
 
-        v52 = Shape[v51];
-        if (v52 == 1)
+        v51 = Shape[v50];
+        if (v51 == 1)
         {
-          if (++v48 == v49)
+          if (++v47 == v48)
           {
-            if (v50)
+            if (v49)
             {
               goto LABEL_112;
             }
@@ -7342,218 +7336,218 @@ BOOL mlir::ODIE::Compiler::CoreML::ShrinkDimsOp::verify(mlir::Operation **this)
 
         else
         {
-          if (v52 != 0x8000000000000000)
+          if (v51 != 0x8000000000000000)
           {
-            LOWORD(v161) = 257;
-            mlir::OpState::emitError(this, __s2, &v166);
-            if (v166)
+            LOWORD(v160) = 257;
+            mlir::OpState::emitError(this, __s2, &v165);
+            if (v165)
             {
-              LODWORD(v150) = 3;
-              v151 = " shrink dimension ";
-              v152 = 18;
-              v79 = &v150;
-              v80 = *(&v167 + 1);
-              if (v168 >= v169)
+              LODWORD(v149) = 3;
+              v150 = " shrink dimension ";
+              v151 = 18;
+              v78 = &v149;
+              v79 = *(&v166 + 1);
+              if (v167 >= v168)
               {
-                if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v168 > &v150)
+                if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v167 > &v149)
                 {
-                  v140 = &v150 - *(&v167 + 1);
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-                  v80 = *(&v167 + 1);
-                  v79 = &v140[*(&v167 + 1)];
+                  v139 = &v149 - *(&v166 + 1);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+                  v79 = *(&v166 + 1);
+                  v78 = &v139[*(&v166 + 1)];
                 }
 
                 else
                 {
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-                  v79 = &v150;
-                  v80 = *(&v167 + 1);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+                  v78 = &v149;
+                  v79 = *(&v166 + 1);
                 }
               }
 
-              v81 = v80 + 24 * v168;
-              v82 = *v79;
-              *(v81 + 16) = v79[2];
-              *v81 = v82;
-              v83 = ++v168;
-              if (v166)
+              v80 = v79 + 24 * v167;
+              v81 = *v78;
+              *(v80 + 16) = *(v78 + 2);
+              *v80 = v81;
+              v82 = ++v167;
+              if (v165)
               {
-                LODWORD(v150) = 2;
-                v151 = v51;
-                v84 = &v150;
-                v85 = *(&v167 + 1);
-                if (v83 >= v169)
+                LODWORD(v149) = 2;
+                v150 = v50;
+                v83 = &v149;
+                v84 = *(&v166 + 1);
+                if (v82 >= v168)
                 {
-                  if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v83 > &v150)
+                  if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v82 > &v149)
                   {
-                    v142 = &v150 - *(&v167 + 1);
-                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v83 + 1, 24);
-                    v85 = *(&v167 + 1);
-                    v84 = &v142[*(&v167 + 1)];
+                    v141 = &v149 - *(&v166 + 1);
+                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v82 + 1, 24);
+                    v84 = *(&v166 + 1);
+                    v83 = &v141[*(&v166 + 1)];
                   }
 
                   else
                   {
-                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v83 + 1, 24);
-                    v84 = &v150;
-                    v85 = *(&v167 + 1);
+                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v82 + 1, 24);
+                    v83 = &v149;
+                    v84 = *(&v166 + 1);
                   }
                 }
 
-                v86 = v85 + 24 * v168;
-                v87 = *v84;
-                *(v86 + 16) = v84[2];
-                *v86 = v87;
-                v88 = ++v168;
-                if (v166)
+                v85 = v84 + 24 * v167;
+                v86 = *v83;
+                *(v85 + 16) = *(v83 + 2);
+                *v85 = v86;
+                v87 = ++v167;
+                if (v165)
                 {
-                  LODWORD(v150) = 3;
-                  v151 = " has non-unit dimension length ";
-                  v152 = 31;
-                  v89 = &v150;
-                  v90 = *(&v167 + 1);
-                  if (v88 >= v169)
+                  LODWORD(v149) = 3;
+                  v150 = " has non-unit dimension length ";
+                  v151 = 31;
+                  v88 = &v149;
+                  v89 = *(&v166 + 1);
+                  if (v87 >= v168)
                   {
-                    if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v88 > &v150)
+                    if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v87 > &v149)
                     {
-                      v145 = &v150 - *(&v167 + 1);
-                      llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v88 + 1, 24);
-                      v90 = *(&v167 + 1);
-                      v89 = &v145[*(&v167 + 1)];
+                      v144 = &v149 - *(&v166 + 1);
+                      llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v87 + 1, 24);
+                      v89 = *(&v166 + 1);
+                      v88 = &v144[*(&v166 + 1)];
                     }
 
                     else
                     {
-                      llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v88 + 1, 24);
-                      v89 = &v150;
-                      v90 = *(&v167 + 1);
+                      llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v87 + 1, 24);
+                      v88 = &v149;
+                      v89 = *(&v166 + 1);
                     }
                   }
 
-                  v91 = v90 + 24 * v168;
-                  v92 = *v89;
-                  *(v91 + 16) = v89[2];
-                  *v91 = v92;
-                  v93 = ++v168;
-                  if (v166)
+                  v90 = v89 + 24 * v167;
+                  v91 = *v88;
+                  *(v90 + 16) = *(v88 + 2);
+                  *v90 = v91;
+                  v92 = ++v167;
+                  if (v165)
                   {
-                    LODWORD(v150) = 2;
-                    v151 = v52;
-                    v94 = &v150;
-                    v95 = *(&v167 + 1);
-                    if (v93 >= v169)
+                    LODWORD(v149) = 2;
+                    v150 = v51;
+                    v93 = &v149;
+                    v94 = *(&v166 + 1);
+                    if (v92 >= v168)
                     {
-                      if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v93 > &v150)
+                      if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v92 > &v149)
                       {
-                        v147 = &v150 - *(&v167 + 1);
-                        llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v93 + 1, 24);
-                        v95 = *(&v167 + 1);
-                        v94 = &v147[*(&v167 + 1)];
+                        v146 = &v149 - *(&v166 + 1);
+                        llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v92 + 1, 24);
+                        v94 = *(&v166 + 1);
+                        v93 = &v146[*(&v166 + 1)];
                       }
 
                       else
                       {
-                        llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v93 + 1, 24);
-                        v94 = &v150;
-                        v95 = *(&v167 + 1);
+                        llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v92 + 1, 24);
+                        v93 = &v149;
+                        v94 = *(&v166 + 1);
                       }
                     }
 
-                    v96 = v95 + 24 * v168;
-                    v97 = *v94;
-                    *(v96 + 16) = v94[2];
-                    *v96 = v97;
-                    v98 = ++v168;
-                    if (v166)
+                    v95 = v94 + 24 * v167;
+                    v96 = *v93;
+                    *(v95 + 16) = *(v93 + 2);
+                    *v95 = v96;
+                    v97 = ++v167;
+                    if (v165)
                     {
-                      LODWORD(v150) = 3;
-                      v151 = " in input tensor.";
-                      v152 = 17;
-                      v99 = &v150;
-                      v100 = *(&v167 + 1);
-                      if (v98 >= v169)
+                      LODWORD(v149) = 3;
+                      v150 = " in input tensor.";
+                      v151 = 17;
+                      v98 = &v149;
+                      v99 = *(&v166 + 1);
+                      if (v97 >= v168)
                       {
-                        if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v98 > &v150)
+                        if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v97 > &v149)
                         {
-                          v148 = &v150 - *(&v167 + 1);
-                          llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v98 + 1, 24);
-                          v100 = *(&v167 + 1);
-                          v99 = &v148[*(&v167 + 1)];
+                          v147 = &v149 - *(&v166 + 1);
+                          llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v97 + 1, 24);
+                          v99 = *(&v166 + 1);
+                          v98 = &v147[*(&v166 + 1)];
                         }
 
                         else
                         {
-                          llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v98 + 1, 24);
-                          v99 = &v150;
-                          v100 = *(&v167 + 1);
+                          llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v97 + 1, 24);
+                          v98 = &v149;
+                          v99 = *(&v166 + 1);
                         }
                       }
 
-                      v101 = v100 + 24 * v168;
-                      v102 = *v99;
-                      *(v101 + 16) = v99[2];
-                      *v101 = v102;
-                      ++v168;
+                      v100 = v99 + 24 * v167;
+                      v101 = *v98;
+                      *(v100 + 16) = *(v98 + 2);
+                      *v100 = v101;
+                      ++v167;
                     }
                   }
                 }
               }
             }
 
-            v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v166);
-            if (v166)
+            v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v165);
+            if (v165)
             {
-              mlir::InFlightDiagnostic::report(&v166);
+              mlir::InFlightDiagnostic::report(&v165);
             }
 
-            if (v177 != 1)
+            if (v176 != 1)
             {
               goto LABEL_152;
             }
 
-            if (v176 != &v177)
+            if (v175 != &v176)
             {
-              free(v176);
+              free(v175);
             }
 
-            v103 = __p;
+            v102 = __p;
             if (__p)
             {
-              v104 = v175;
-              v105 = __p;
-              if (v175 != __p)
+              v103 = v174;
+              v104 = __p;
+              if (v174 != __p)
               {
                 do
                 {
-                  v104 = sub_10005BEF4(v104 - 1);
+                  v103 = sub_10005BEF4(v103 - 1);
                 }
 
-                while (v104 != v103);
-                v105 = __p;
+                while (v103 != v102);
+                v104 = __p;
               }
 
-              v175 = v103;
-              operator delete(v105);
+              v174 = v102;
+              operator delete(v104);
             }
 
-            v75 = v172;
-            if (v172)
+            v74 = v171;
+            if (v171)
             {
-              v106 = v173;
-              v77 = v172;
-              if (v173 != v172)
+              v105 = v172;
+              v76 = v171;
+              if (v172 != v171)
               {
                 do
                 {
-                  v107 = *--v106;
-                  *v106 = 0;
-                  if (v107)
+                  v106 = *--v105;
+                  *v105 = 0;
+                  if (v106)
                   {
                     operator delete[]();
                   }
                 }
 
-                while (v106 != v75);
+                while (v105 != v74);
                 goto LABEL_148;
               }
 
@@ -7563,207 +7557,207 @@ BOOL mlir::ODIE::Compiler::CoreML::ShrinkDimsOp::verify(mlir::Operation **this)
             goto LABEL_150;
           }
 
-          v50 = 0;
-          ++v48;
+          v49 = 0;
+          ++v47;
           v24 = 1;
-          if (v48 == v49)
+          if (v47 == v48)
           {
             goto LABEL_152;
           }
         }
       }
 
-      LOWORD(v161) = 257;
-      mlir::OpState::emitError(this, __s2, &v166);
-      if (v166)
+      LOWORD(v160) = 257;
+      mlir::OpState::emitError(this, __s2, &v165);
+      if (v165)
       {
-        LODWORD(v150) = 3;
-        v151 = " shrink axes contains ";
-        v152 = 22;
-        v53 = &v150;
-        v54 = *(&v167 + 1);
-        if (v168 >= v169)
+        LODWORD(v149) = 3;
+        v150 = " shrink axes contains ";
+        v151 = 22;
+        v52 = &v149;
+        v53 = *(&v166 + 1);
+        if (v167 >= v168)
         {
-          if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v168 > &v150)
+          if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v167 > &v149)
           {
-            v139 = &v150 - *(&v167 + 1);
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-            v54 = *(&v167 + 1);
-            v53 = &v139[*(&v167 + 1)];
+            v138 = &v149 - *(&v166 + 1);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+            v53 = *(&v166 + 1);
+            v52 = &v138[*(&v166 + 1)];
           }
 
           else
           {
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-            v53 = &v150;
-            v54 = *(&v167 + 1);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+            v52 = &v149;
+            v53 = *(&v166 + 1);
           }
         }
 
-        v55 = v54 + 24 * v168;
-        v56 = *v53;
-        *(v55 + 16) = v53[2];
-        *v55 = v56;
-        v57 = ++v168;
-        if (v166)
+        v54 = v53 + 24 * v167;
+        v55 = *v52;
+        *(v54 + 16) = *(v52 + 2);
+        *v54 = v55;
+        v56 = ++v167;
+        if (v165)
         {
-          LODWORD(v150) = 2;
-          v151 = v51;
-          v58 = &v150;
-          v59 = *(&v167 + 1);
-          if (v57 >= v169)
+          LODWORD(v149) = 2;
+          v150 = v50;
+          v57 = &v149;
+          v58 = *(&v166 + 1);
+          if (v56 >= v168)
           {
-            if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v57 > &v150)
+            if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v56 > &v149)
             {
-              v141 = &v150 - *(&v167 + 1);
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v57 + 1, 24);
-              v59 = *(&v167 + 1);
-              v58 = &v141[*(&v167 + 1)];
+              v140 = &v149 - *(&v166 + 1);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v56 + 1, 24);
+              v58 = *(&v166 + 1);
+              v57 = &v140[*(&v166 + 1)];
             }
 
             else
             {
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v57 + 1, 24);
-              v58 = &v150;
-              v59 = *(&v167 + 1);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v56 + 1, 24);
+              v57 = &v149;
+              v58 = *(&v166 + 1);
             }
           }
 
-          v60 = v59 + 24 * v168;
-          v61 = *v58;
-          *(v60 + 16) = v58[2];
-          *v60 = v61;
-          v62 = ++v168;
-          if (v166)
+          v59 = v58 + 24 * v167;
+          v60 = *v57;
+          *(v59 + 16) = *(v57 + 2);
+          *v59 = v60;
+          v61 = ++v167;
+          if (v165)
           {
-            LODWORD(v150) = 3;
-            v151 = " which is higher than input rank ";
-            v152 = 33;
-            v63 = &v150;
-            v64 = *(&v167 + 1);
-            if (v62 >= v169)
+            LODWORD(v149) = 3;
+            v150 = " which is higher than input rank ";
+            v151 = 33;
+            v62 = &v149;
+            v63 = *(&v166 + 1);
+            if (v61 >= v168)
             {
-              if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v62 > &v150)
+              if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v61 > &v149)
               {
-                v144 = &v150 - *(&v167 + 1);
-                llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v62 + 1, 24);
-                v64 = *(&v167 + 1);
-                v63 = &v144[*(&v167 + 1)];
+                v143 = &v149 - *(&v166 + 1);
+                llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v61 + 1, 24);
+                v63 = *(&v166 + 1);
+                v62 = &v143[*(&v166 + 1)];
               }
 
               else
               {
-                llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v62 + 1, 24);
-                v63 = &v150;
-                v64 = *(&v167 + 1);
+                llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v61 + 1, 24);
+                v62 = &v149;
+                v63 = *(&v166 + 1);
               }
             }
 
-            v65 = v64 + 24 * v168;
-            v66 = *v63;
-            *(v65 + 16) = v63[2];
-            *v65 = v66;
-            v67 = ++v168;
-            if (v166)
+            v64 = v63 + 24 * v167;
+            v65 = *v62;
+            *(v64 + 16) = *(v62 + 2);
+            *v64 = v65;
+            v66 = ++v167;
+            if (v165)
             {
-              LODWORD(v150) = 2;
-              v151 = v3;
-              v68 = &v150;
-              v69 = *(&v167 + 1);
-              if (v67 >= v169)
+              LODWORD(v149) = 2;
+              v150 = v3;
+              v67 = &v149;
+              v68 = *(&v166 + 1);
+              if (v66 >= v168)
               {
-                if (*(&v167 + 1) <= &v150 && *(&v167 + 1) + 24 * v67 > &v150)
+                if (*(&v166 + 1) <= &v149 && *(&v166 + 1) + 24 * v66 > &v149)
                 {
-                  v146 = &v150 - *(&v167 + 1);
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v67 + 1, 24);
-                  v69 = *(&v167 + 1);
-                  v68 = &v146[*(&v167 + 1)];
+                  v145 = &v149 - *(&v166 + 1);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v66 + 1, 24);
+                  v68 = *(&v166 + 1);
+                  v67 = &v145[*(&v166 + 1)];
                 }
 
                 else
                 {
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v67 + 1, 24);
-                  v68 = &v150;
-                  v69 = *(&v167 + 1);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v66 + 1, 24);
+                  v67 = &v149;
+                  v68 = *(&v166 + 1);
                 }
               }
 
-              v70 = v69 + 24 * v168;
-              v71 = *v68;
-              *(v70 + 16) = v68[2];
-              *v70 = v71;
-              ++v168;
+              v69 = v68 + 24 * v167;
+              v70 = *v67;
+              *(v69 + 16) = *(v67 + 2);
+              *v69 = v70;
+              ++v167;
             }
           }
         }
       }
 
-      v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v166);
-      if (v166)
+      v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v165);
+      if (v165)
       {
-        mlir::InFlightDiagnostic::report(&v166);
+        mlir::InFlightDiagnostic::report(&v165);
       }
 
-      if (v177 != 1)
+      if (v176 != 1)
       {
         goto LABEL_152;
       }
 
-      if (v176 != &v177)
+      if (v175 != &v176)
       {
-        free(v176);
+        free(v175);
       }
 
-      v72 = __p;
+      v71 = __p;
       if (__p)
       {
-        v73 = v175;
-        v74 = __p;
-        if (v175 != __p)
+        v72 = v174;
+        v73 = __p;
+        if (v174 != __p)
         {
           do
           {
-            v73 = sub_10005BEF4(v73 - 1);
+            v72 = sub_10005BEF4(v72 - 1);
           }
 
-          while (v73 != v72);
-          v74 = __p;
+          while (v72 != v71);
+          v73 = __p;
         }
 
-        v175 = v72;
-        operator delete(v74);
+        v174 = v71;
+        operator delete(v73);
       }
 
-      v75 = v172;
-      if (v172)
+      v74 = v171;
+      if (v171)
       {
-        v76 = v173;
-        v77 = v172;
-        if (v173 != v172)
+        v75 = v172;
+        v76 = v171;
+        if (v172 != v171)
         {
           do
           {
-            v78 = *--v76;
-            *v76 = 0;
-            if (v78)
+            v77 = *--v75;
+            *v75 = 0;
+            if (v77)
             {
               operator delete[]();
             }
           }
 
-          while (v76 != v75);
+          while (v75 != v74);
 LABEL_148:
-          v77 = v172;
+          v76 = v171;
         }
 
 LABEL_149:
-        v173 = v75;
-        operator delete(v77);
+        v172 = v74;
+        operator delete(v76);
       }
 
 LABEL_150:
-      v132 = *(&v167 + 1);
-      if (*(&v167 + 1) == &v170)
+      v131 = *(&v166 + 1);
+      if (*(&v166 + 1) == &v169)
       {
         goto LABEL_152;
       }
@@ -7772,24 +7766,24 @@ LABEL_150:
     }
 
 LABEL_112:
-    __s2[0] = &v160;
+    __s2[0] = &v159;
     __s2[1] = 0x600000000;
-    if (v47)
+    if (v46)
     {
+      v107 = 0;
       v108 = 0;
-      v109 = 0;
-      v110 = &Shape[v47];
+      v109 = &Shape[v46];
       do
       {
-        if (v164)
+        if (v163)
         {
-          v112 = 8 * v164;
-          v113 = v163;
-          while (*v113 != v109)
+          v111 = 8 * v163;
+          v112 = v162;
+          while (*v112 != v108)
           {
-            ++v113;
-            v112 -= 8;
-            if (!v112)
+            ++v112;
+            v111 -= 8;
+            if (!v111)
             {
               goto LABEL_114;
             }
@@ -7798,181 +7792,181 @@ LABEL_112:
 
         else
         {
-          v113 = v163;
+          v112 = v162;
         }
 
-        if (v113 == &v163[v164])
+        if (v112 == &v162[v163])
         {
 LABEL_114:
-          v111 = *Shape;
-          if (v108 >= HIDWORD(__s2[1]))
+          v110 = *Shape;
+          if (v107 >= HIDWORD(__s2[1]))
           {
-            v114 = Shape;
-            llvm::SmallVectorBase<unsigned int>::grow_pod(__s2, &v160, v108 + 1, 8);
-            Shape = v114;
-            v108 = __s2[1];
+            v113 = Shape;
+            llvm::SmallVectorBase<unsigned int>::grow_pod(__s2, &v159, v107 + 1, 8);
+            Shape = v113;
+            v107 = __s2[1];
           }
 
-          *(__s2[0] + v108) = v111;
-          v108 = ++LODWORD(__s2[1]);
+          *(__s2[0] + v107) = v110;
+          v107 = ++LODWORD(__s2[1]);
         }
 
-        ++v109;
+        ++v108;
         ++Shape;
       }
 
-      while (Shape != v110);
+      while (Shape != v109);
     }
 
-    v115 = mlir::TensorType::getShape(&v155);
-    if (v116 == LODWORD(__s2[1]) && (v117 = __s2[0], !memcmp(v115, __s2[0], 8 * LODWORD(__s2[1]))))
+    v114 = mlir::TensorType::getShape(&v154);
+    if (v115 == LODWORD(__s2[1]) && (v116 = __s2[0], !memcmp(v114, __s2[0], 8 * LODWORD(__s2[1]))))
     {
       v24 = 1;
-      if (v117 != &v160)
+      if (v116 != &v159)
       {
 LABEL_144:
-        v132 = v117;
+        v131 = v116;
 LABEL_151:
-        free(v132);
+        free(v131);
       }
     }
 
     else
     {
-      v153 = 257;
-      mlir::OpState::emitError(this, &v150, &v166);
-      if (v166)
+      v152 = 257;
+      mlir::OpState::emitError(this, &v149, &v165);
+      if (v165)
       {
-        LODWORD(v157) = 3;
-        *(&v157 + 1) = " expected output shape mismatch: ";
-        v158 = 33;
-        v118 = &v157;
-        v119 = *(&v167 + 1);
-        if (v168 >= v169)
+        LODWORD(v156) = 3;
+        *(&v156 + 1) = " expected output shape mismatch: ";
+        v157 = 33;
+        v117 = &v156;
+        v118 = *(&v166 + 1);
+        if (v167 >= v168)
         {
-          if (*(&v167 + 1) <= &v157 && *(&v167 + 1) + 24 * v168 > &v157)
+          if (*(&v166 + 1) <= &v156 && *(&v166 + 1) + 24 * v167 > &v156)
           {
-            v137 = &v157 - *(&v167 + 1);
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-            v119 = *(&v167 + 1);
-            v118 = &v137[*(&v167 + 1)];
+            v136 = &v156 - *(&v166 + 1);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+            v118 = *(&v166 + 1);
+            v117 = &v136[*(&v166 + 1)];
           }
 
           else
           {
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-            v118 = &v157;
-            v119 = *(&v167 + 1);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+            v117 = &v156;
+            v118 = *(&v166 + 1);
           }
         }
 
-        v120 = v119 + 24 * v168;
-        v121 = *v118;
-        *(v120 + 16) = *(v118 + 2);
-        *v120 = v121;
-        ++v168;
+        v119 = v118 + 24 * v167;
+        v120 = *v117;
+        *(v119 + 16) = *(v117 + 2);
+        *v119 = v120;
+        ++v167;
       }
 
-      v122 = mlir::TensorType::getShape(&v155);
-      if (v166)
+      v121 = mlir::TensorType::getShape(&v154);
+      if (v165)
       {
-        *&v157 = ", ";
-        sub_100066E2C(v122, &v122[v123], &v166 + 8, &v166 + 8, &v157);
-        if (v166)
+        *&v156 = ", ";
+        sub_100066E2C(v121, &v121[v122], &v165 + 8, &v165 + 8, &v156);
+        if (v165)
         {
-          LODWORD(v157) = 3;
-          *(&v157 + 1) = " vs ";
-          v158 = 4;
-          v124 = &v157;
-          v125 = *(&v167 + 1);
-          if (v168 >= v169)
+          LODWORD(v156) = 3;
+          *(&v156 + 1) = " vs ";
+          v157 = 4;
+          v123 = &v156;
+          v124 = *(&v166 + 1);
+          if (v167 >= v168)
           {
-            if (*(&v167 + 1) <= &v157 && *(&v167 + 1) + 24 * v168 > &v157)
+            if (*(&v166 + 1) <= &v156 && *(&v166 + 1) + 24 * v167 > &v156)
             {
-              v138 = &v157 - *(&v167 + 1);
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-              v125 = *(&v167 + 1);
-              v124 = &v138[*(&v167 + 1)];
+              v137 = &v156 - *(&v166 + 1);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+              v124 = *(&v166 + 1);
+              v123 = &v137[*(&v166 + 1)];
             }
 
             else
             {
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-              v124 = &v157;
-              v125 = *(&v167 + 1);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+              v123 = &v156;
+              v124 = *(&v166 + 1);
             }
           }
 
-          v126 = v125 + 24 * v168;
-          v127 = *v124;
-          *(v126 + 16) = *(v124 + 2);
-          *v126 = v127;
-          ++v168;
-          if (v166)
+          v125 = v124 + 24 * v167;
+          v126 = *v123;
+          *(v125 + 16) = *(v123 + 2);
+          *v125 = v126;
+          ++v167;
+          if (v165)
           {
-            *&v157 = ", ";
-            sub_100066E2C(__s2[0], __s2[0] + LODWORD(__s2[1]), &v166 + 8, &v166 + 8, &v157);
-            if (v166)
+            *&v156 = ", ";
+            sub_100066E2C(__s2[0], __s2[0] + LODWORD(__s2[1]), &v165 + 8, &v165 + 8, &v156);
+            if (v165)
             {
-              LODWORD(v157) = 3;
-              *(&v157 + 1) = " Shrink dims = ";
-              v158 = 15;
-              v128 = &v157;
-              v129 = *(&v167 + 1);
-              if (v168 >= v169)
+              LODWORD(v156) = 3;
+              *(&v156 + 1) = " Shrink dims = ";
+              v157 = 15;
+              v127 = &v156;
+              v128 = *(&v166 + 1);
+              if (v167 >= v168)
               {
-                if (*(&v167 + 1) <= &v157 && *(&v167 + 1) + 24 * v168 > &v157)
+                if (*(&v166 + 1) <= &v156 && *(&v166 + 1) + 24 * v167 > &v156)
                 {
-                  v143 = &v157 - *(&v167 + 1);
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-                  v129 = *(&v167 + 1);
-                  v128 = &v143[*(&v167 + 1)];
+                  v142 = &v156 - *(&v166 + 1);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+                  v128 = *(&v166 + 1);
+                  v127 = &v142[*(&v166 + 1)];
                 }
 
                 else
                 {
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-                  v128 = &v157;
-                  v129 = *(&v167 + 1);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+                  v127 = &v156;
+                  v128 = *(&v166 + 1);
                 }
               }
 
-              v130 = v129 + 24 * v168;
-              v131 = *v128;
-              *(v130 + 16) = *(v128 + 2);
-              *v130 = v131;
-              ++v168;
-              if (v166)
+              v129 = v128 + 24 * v167;
+              v130 = *v127;
+              *(v129 + 16) = *(v127 + 2);
+              *v129 = v130;
+              ++v167;
+              if (v165)
               {
-                *&v157 = ", ";
-                sub_100066E2C(v163, &v163[v164], &v166 + 8, &v166 + 8, &v157);
+                *&v156 = ", ";
+                sub_100066E2C(v162, &v162[v163], &v165 + 8, &v165 + 8, &v156);
               }
             }
           }
         }
       }
 
-      v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v166);
-      if (v166)
+      v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v165);
+      if (v165)
       {
-        mlir::InFlightDiagnostic::report(&v166);
+        mlir::InFlightDiagnostic::report(&v165);
       }
 
-      if (v177 == 1)
+      if (v176 == 1)
       {
-        sub_10005BE10(&v166 + 1);
+        sub_10005BE10(&v165 + 1);
       }
 
-      v117 = __s2[0];
-      if (__s2[0] != &v160)
+      v116 = __s2[0];
+      if (__s2[0] != &v159)
       {
         goto LABEL_144;
       }
     }
 
 LABEL_152:
-    v41 = v163;
-    if (v163 == v165)
+    v41 = v162;
+    if (v162 == v164)
     {
       return v24;
     }
@@ -7980,150 +7974,150 @@ LABEL_152:
     goto LABEL_38;
   }
 
-  v165[8] = 257;
-  mlir::OpState::emitError(this, &v163, &v166);
-  if (v166)
+  v164[8] = 257;
+  mlir::OpState::emitError(this, &v162, &v165);
+  if (v165)
   {
     LODWORD(__s2[0]) = 3;
     __s2[1] = " number of axes to shrink ";
-    *&v160 = 26;
+    *&v159 = 26;
     v5 = __s2;
-    v6 = *(&v167 + 1);
-    if (v168 >= v169)
+    v6 = *(&v166 + 1);
+    if (v167 >= v168)
     {
-      if (*(&v167 + 1) <= __s2 && *(&v167 + 1) + 24 * v168 > __s2)
+      if (*(&v166 + 1) <= __s2 && *(&v166 + 1) + 24 * v167 > __s2)
       {
-        v133 = __s2 - *(&v167 + 1);
-        llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
-        v6 = *(&v167 + 1);
-        v5 = &v133[*(&v167 + 1)];
+        v132 = __s2 - *(&v166 + 1);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
+        v6 = *(&v166 + 1);
+        v5 = &v132[*(&v166 + 1)];
       }
 
       else
       {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v168 + 1, 24);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v167 + 1, 24);
         v5 = __s2;
-        v6 = *(&v167 + 1);
+        v6 = *(&v166 + 1);
       }
     }
 
-    v7 = v6 + 24 * v168;
+    v7 = v6 + 24 * v167;
     v8 = *v5;
     *(v7 + 16) = v5[2];
     *v7 = v8;
-    v9 = ++v168;
-    if (v166)
+    v9 = ++v167;
+    if (v165)
     {
       LODWORD(__s2[0]) = 2;
       __s2[1] = v4;
       v10 = __s2;
-      v11 = *(&v167 + 1);
-      if (v9 >= v169)
+      v11 = *(&v166 + 1);
+      if (v9 >= v168)
       {
-        if (*(&v167 + 1) <= __s2 && *(&v167 + 1) + 24 * v9 > __s2)
+        if (*(&v166 + 1) <= __s2 && *(&v166 + 1) + 24 * v9 > __s2)
         {
-          v134 = __s2 - *(&v167 + 1);
-          llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v9 + 1, 24);
-          v11 = *(&v167 + 1);
-          v10 = &v134[*(&v167 + 1)];
+          v133 = __s2 - *(&v166 + 1);
+          llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v9 + 1, 24);
+          v11 = *(&v166 + 1);
+          v10 = &v133[*(&v166 + 1)];
         }
 
         else
         {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v9 + 1, 24);
+          llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v9 + 1, 24);
           v10 = __s2;
-          v11 = *(&v167 + 1);
+          v11 = *(&v166 + 1);
         }
       }
 
-      v12 = v11 + 24 * v168;
+      v12 = v11 + 24 * v167;
       v13 = *v10;
       *(v12 + 16) = v10[2];
       *v12 = v13;
-      v14 = ++v168;
-      if (v166)
+      v14 = ++v167;
+      if (v165)
       {
         LODWORD(__s2[0]) = 3;
         __s2[1] = " is larger than input rank ";
-        *&v160 = 27;
+        *&v159 = 27;
         v15 = __s2;
-        v16 = *(&v167 + 1);
-        if (v14 >= v169)
+        v16 = *(&v166 + 1);
+        if (v14 >= v168)
         {
-          if (*(&v167 + 1) <= __s2 && *(&v167 + 1) + 24 * v14 > __s2)
+          if (*(&v166 + 1) <= __s2 && *(&v166 + 1) + 24 * v14 > __s2)
           {
-            v135 = __s2 - *(&v167 + 1);
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v14 + 1, 24);
-            v16 = *(&v167 + 1);
-            v15 = &v135[*(&v167 + 1)];
+            v134 = __s2 - *(&v166 + 1);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v14 + 1, 24);
+            v16 = *(&v166 + 1);
+            v15 = &v134[*(&v166 + 1)];
           }
 
           else
           {
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v14 + 1, 24);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v14 + 1, 24);
             v15 = __s2;
-            v16 = *(&v167 + 1);
+            v16 = *(&v166 + 1);
           }
         }
 
-        v17 = v16 + 24 * v168;
+        v17 = v16 + 24 * v167;
         v18 = *v15;
         *(v17 + 16) = v15[2];
         *v17 = v18;
-        v19 = ++v168;
-        if (v166)
+        v19 = ++v167;
+        if (v165)
         {
           LODWORD(__s2[0]) = 2;
           __s2[1] = v3;
           v20 = __s2;
-          v21 = *(&v167 + 1);
-          if (v19 >= v169)
+          v21 = *(&v166 + 1);
+          if (v19 >= v168)
           {
-            if (*(&v167 + 1) <= __s2 && *(&v167 + 1) + 24 * v19 > __s2)
+            if (*(&v166 + 1) <= __s2 && *(&v166 + 1) + 24 * v19 > __s2)
             {
-              v136 = __s2 - *(&v167 + 1);
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v19 + 1, 24);
-              v21 = *(&v167 + 1);
-              v20 = &v136[*(&v167 + 1)];
+              v135 = __s2 - *(&v166 + 1);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v19 + 1, 24);
+              v21 = *(&v166 + 1);
+              v20 = &v135[*(&v166 + 1)];
             }
 
             else
             {
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v167 + 8, &v170, v19 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(&v166 + 8, &v169, v19 + 1, 24);
               v20 = __s2;
-              v21 = *(&v167 + 1);
+              v21 = *(&v166 + 1);
             }
           }
 
-          v22 = v21 + 24 * v168;
+          v22 = v21 + 24 * v167;
           v23 = *v20;
           *(v22 + 16) = v20[2];
           *v22 = v23;
-          ++v168;
+          ++v167;
         }
       }
     }
   }
 
-  v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v166);
-  if (v166)
+  v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v165);
+  if (v165)
   {
-    mlir::InFlightDiagnostic::report(&v166);
+    mlir::InFlightDiagnostic::report(&v165);
   }
 
-  if (v177 == 1)
+  if (v176 == 1)
   {
-    if (v176 != &v177)
+    if (v175 != &v176)
     {
-      free(v176);
+      free(v175);
     }
 
     v25 = __p;
     if (__p)
     {
-      v26 = v175;
+      v26 = v174;
       v27 = __p;
-      if (v175 != __p)
+      if (v174 != __p)
       {
         do
         {
@@ -8134,16 +8128,16 @@ LABEL_152:
         v27 = __p;
       }
 
-      v175 = v25;
+      v174 = v25;
       operator delete(v27);
     }
 
-    v28 = v172;
-    if (v172)
+    v28 = v171;
+    if (v171)
     {
-      v29 = v173;
-      v30 = v172;
-      if (v173 != v172)
+      v29 = v172;
+      v30 = v171;
+      if (v172 != v171)
       {
         do
         {
@@ -8156,15 +8150,15 @@ LABEL_152:
         }
 
         while (v29 != v28);
-        v30 = v172;
+        v30 = v171;
       }
 
-      v173 = v28;
+      v172 = v28;
       operator delete(v30);
     }
 
-    v41 = *(&v167 + 1);
-    if (*(&v167 + 1) != &v170)
+    v41 = *(&v166 + 1);
+    if (*(&v166 + 1) != &v169)
     {
 LABEL_38:
       free(v41);
@@ -8229,7 +8223,7 @@ void *sub_10020D024(void *result, uint64_t a2)
   return result;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::ScatterNdOp::verify(mlir::Operation **this)
+uint64_t mlir::ODIE::Compiler::CoreML::ScatterNdOp::verify(mlir::Operation **this)
 {
   v152 = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8;
   Shape = mlir::TensorType::getShape(&v152);

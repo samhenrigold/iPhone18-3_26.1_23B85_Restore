@@ -2,11 +2,13 @@
 + (void)_computeScalingFactor:(id)factor dst_tex:(SEL)dst_tex scale_xy_inv:(id)scale_xy_inv coeff:(id)coeff;
 - (CGSize)aux_size;
 - (CGSize)ref_size;
+- (LKTFlowGPU)initWithMetalContext:(id)context width:(int)width height:(int)height nscales:(int)nscales;
 - (id)newBufferWithPixelFormat:(unint64_t)format width:(int)width data:(const void *)data;
 - (int)_computeFeaturesDerivativesWithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex;
 - (int)_computeFeaturesWithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex;
 - (int)_computeOpticalFlow;
 - (int)_computeOpticalFlowBidirectional;
+- (int)_createImagePyramidWithCommandBuffer:(id)buffer in_pixelbuf:(__CVBuffer *)in_pixelbuf I_idx:(int)i_idx;
 - (int)_createImagePyramidWithCommandBuffer:(id)buffer in_tex:(id)in_tex I_idx:(int)i_idx;
 - (int)_doNLRegularizationWithCommandBuffer:(id)buffer in_uv_tex:(id)in_uv_tex join_tex:(id)join_tex w_tex:(id)w_tex out_uv_tex:(id)out_uv_tex;
 - (int)_doSolverWithCommandBuffer:(id)buffer scale:(int)scale in_uv_tex:(id)in_uv_tex in_G0_tex:(id)g0_tex in_G1_tex:(id)g1_tex in_C0_tex:(id)c0_tex in_C1_tex:(id)c1_tex out_uv_tex:(id)self0 out_w_tex:(id)self1;
@@ -15,6 +17,8 @@
 - (int)_enqueueKeypointsFromFlowWithCommandBuffer:(id)buffer in_uv_fwd_tex:(id)in_uv_fwd_tex in_uv_bwd_tex:(id)in_uv_bwd_tex out_kpt_buf:(id)out_kpt_buf block_size:(int)block_size bidirectional_error:(float)bidirectional_error out_num_keypoints:(unsigned __int16 *)out_num_keypoints;
 - (int)_setupBuffer;
 - (int)_zeroFlowWithCommandBuffer:(id)buffer uv_tex:(id)uv_tex;
+- (int)computeKeypointsFromForwardFlow:(__CVBuffer *)flow backwardFlow:(__CVBuffer *)backwardFlow bidirectionalError:(float)error blockSize:(int)size outNumKeypoints:(unsigned __int16 *)keypoints;
+- (int)computeKeypointsFromTexForwardFlow:(id)flow backwardFlow:(id)backwardFlow bidirectionalError:(float)error blockSize:(int)size outNumKeypoints:(unsigned __int16 *)keypoints;
 - (int)estimateFlowFromReference:(__CVBuffer *)reference target:(__CVBuffer *)target;
 - (int)estimateFlowFromTexReference:(id)reference target:(id)target;
 - (int)estimateFlowStream:(__CVBuffer *)stream;
@@ -132,8 +136,6 @@
             v20 = (width + maxThreadExecutionWidth - 1) / maxThreadExecutionWidth * maxThreadExecutionWidth * height;
             Adiagb_buf = self->_Adiagb_buf;
             Ixy_buf = self->_Ixy_buf;
-            uv_bwd_pxbuf = self->_uv_bwd_pxbuf;
-            uv_fwd_pxbuf = self->_uv_fwd_pxbuf;
             v23 = 1;
             while (1)
             {
@@ -160,7 +162,7 @@
 
               v31 = sub_1800();
               v34 = sub_1724(v31, v33, v32 | 0x32430000u);
-              uv_fwd_pxbuf[v19] = v34;
+              self->_uv_fwd_pxbuf[v19] = v34;
               if (!v34)
               {
                 break;
@@ -168,7 +170,7 @@
 
               v35 = sub_1800();
               v38 = sub_1724(v35, v37, v36 | 0x32430000u);
-              uv_bwd_pxbuf[v19] = v38;
+              self->_uv_bwd_pxbuf[v19] = v38;
               if (!v38)
               {
                 break;
@@ -191,9 +193,9 @@
                 if (self->_nscales < 1)
                 {
 LABEL_24:
-                  v112 = [(LKTFlowGPU *)self newBufferWithPixelFormat:115 width:0x8000 data:0, v112];
+                  v95 = [(LKTFlowGPU *)self newBufferWithPixelFormat:115 width:0x8000 data:0, v98];
                   kpt_buf = self->_kpt_buf;
-                  self->_kpt_buf = v112;
+                  self->_kpt_buf = v95;
 
                   return 0;
                 }
@@ -203,12 +205,12 @@ LABEL_24:
                 v44 = vmovn_s64(vcvtq_s64_f64(self->_ref_size));
                 I_tex = self->_I_tex;
                 w_tex = self->_w_tex;
-                v113 = self->_I_tex[1];
+                v99 = self->_I_tex[1];
                 I_u32_alias_tex = self->_I_u32_alias_tex;
-                v112 = self->_I_u32_alias_tex[1];
+                v98 = self->_I_u32_alias_tex[1];
 LABEL_15:
-                v119 = v44.i32[0];
-                v123 = v44.i32[1];
+                v105 = v44.i32[0];
+                v109 = v44.i32[1];
                 v45 = v43.i32[0];
                 v46 = v43.i32[1];
                 v47 = &self->_ref_pyr_size[v42];
@@ -217,115 +219,101 @@ LABEL_15:
                 v48 = &self->_aux_pyr_size[v42];
                 v48->width = v43.i32[0];
                 v48->height = v43.i32[1];
-                mtlContext = self->_mtlContext;
-                G0_pxbuf = self->_G0_pxbuf;
-                v51 = sub_184C();
-                v53 = [v52 bindPixelBufferToMTL2DTexture:v51 pixelFormat:? usage:? textureSize:? plane:?];
-                sub_1888(v53);
+                v49 = sub_184C();
+                v51 = [v50 bindPixelBufferToMTL2DTexture:v49 pixelFormat:? usage:? textureSize:? plane:?];
+                sub_1888(v51);
                 if (self->_G0_tex[v42])
                 {
-                  v54 = self->_mtlContext;
-                  G1_pxbuf = self->_G1_pxbuf;
-                  v56 = sub_18C4();
-                  v58 = [v57 bindPixelBufferToMTL2DTexture:v56 pixelFormat:? usage:? textureSize:? plane:?];
-                  sub_1888(v58);
+                  v52 = sub_18C4();
+                  v54 = [v53 bindPixelBufferToMTL2DTexture:v52 pixelFormat:? usage:? textureSize:? plane:?];
+                  sub_1888(v54);
                   if (self->_G1_tex[v42])
                   {
-                    v59 = self->_mtlContext;
-                    C0_pxbuf = self->_C0_pxbuf;
-                    v61 = sub_184C();
-                    v63 = [v62 bindPixelBufferToMTL2DTexture:v61 pixelFormat:? usage:? textureSize:? plane:?];
-                    sub_1888(v63);
+                    v55 = sub_184C();
+                    v57 = [v56 bindPixelBufferToMTL2DTexture:v55 pixelFormat:? usage:? textureSize:? plane:?];
+                    sub_1888(v57);
                     if (self->_C0_tex[v42])
                     {
-                      v64 = self->_mtlContext;
-                      C1_pxbuf = self->_C1_pxbuf;
-                      v66 = sub_18C4();
-                      v68 = [v67 bindPixelBufferToMTL2DTexture:v66 pixelFormat:? usage:? textureSize:? plane:?];
-                      sub_1888(v68);
+                      v58 = sub_18C4();
+                      v60 = [v59 bindPixelBufferToMTL2DTexture:v58 pixelFormat:? usage:? textureSize:? plane:?];
+                      sub_1888(v60);
                       if (self->_C1_tex[v42])
                       {
-                        v118 = v45;
-                        v121 = v46;
-                        v69 = self->_mtlContext;
-                        w_pxbuf = self->_w_pxbuf;
-                        v71 = sub_184C();
-                        v73 = [v72 bindPixelBufferToMTL2DTexture:v71 pixelFormat:? usage:? textureSize:? plane:?];
-                        v74 = w_tex[v42];
-                        w_tex[v42] = v73;
+                        v104 = v45;
+                        v107 = v46;
+                        v61 = sub_184C();
+                        v63 = [v62 bindPixelBufferToMTL2DTexture:v61 pixelFormat:? usage:? textureSize:? plane:?];
+                        v64 = w_tex[v42];
+                        w_tex[v42] = v63;
 
-                        v75 = 0;
-                        v76 = 1;
+                        v65 = 0;
+                        v66 = 1;
                         while (1)
                         {
-                          v77 = v76;
-                          v78 = self->_mtlContext;
-                          v79 = uv_fwd_pxbuf[v75];
-                          v80 = sub_184C();
-                          v82 = [v81 bindPixelBufferToMTL2DTexture:v80 pixelFormat:? usage:? textureSize:? plane:?];
-                          v83 = self->_uv_fwd_tex[v75];
+                          v67 = v66;
+                          v68 = sub_184C();
+                          v70 = [v69 bindPixelBufferToMTL2DTexture:v68 pixelFormat:? usage:? textureSize:? plane:?];
+                          v71 = self->_uv_fwd_tex[v65];
+                          v72 = v71[v42];
+                          v71[v42] = v70;
+
+                          if (!v71[v42])
+                          {
+                            break;
+                          }
+
+                          v73 = sub_184C();
+                          v75 = [v74 bindPixelBufferToMTL2DTexture:v73 pixelFormat:? usage:? textureSize:? plane:?];
+                          v76 = self->_uv_bwd_tex[v65];
+                          v77 = v76[v42];
+                          v76[v42] = v75;
+
+                          if (!v76[v42])
+                          {
+                            break;
+                          }
+
+                          v78 = [(MTLTexture *)v71[v42] newTextureViewWithPixelFormat:53];
+                          v79 = v65;
+                          v80 = self->_uv_fwd_u32_alias_tex[v79];
+                          v81 = v80[v42];
+                          v80[v42] = v78;
+
+                          v82 = [(MTLTexture *)v76[v42] newTextureViewWithPixelFormat:53];
+                          v83 = self->_uv_bwd_u32_alias_tex[v79];
                           v84 = v83[v42];
                           v83[v42] = v82;
 
-                          if (!v83[v42])
+                          v66 = 0;
+                          v65 = 1;
+                          if ((v67 & 1) == 0)
                           {
-                            break;
-                          }
-
-                          v85 = self->_mtlContext;
-                          v86 = uv_bwd_pxbuf[v75];
-                          v87 = sub_184C();
-                          v89 = [v88 bindPixelBufferToMTL2DTexture:v87 pixelFormat:? usage:? textureSize:? plane:?];
-                          v90 = self->_uv_bwd_tex[v75];
-                          v91 = v90[v42];
-                          v90[v42] = v89;
-
-                          if (!v90[v42])
-                          {
-                            break;
-                          }
-
-                          v92 = [(MTLTexture *)v83[v42] newTextureViewWithPixelFormat:53];
-                          v93 = v75;
-                          v94 = self->_uv_fwd_u32_alias_tex[v93];
-                          v95 = v94[v42];
-                          v94[v42] = v92;
-
-                          v96 = [(MTLTexture *)v90[v42] newTextureViewWithPixelFormat:53];
-                          v97 = self->_uv_bwd_u32_alias_tex[v93];
-                          v98 = v97[v42];
-                          v97[v42] = v96;
-
-                          v76 = 0;
-                          v75 = 1;
-                          if ((v77 & 1) == 0)
-                          {
-                            v117 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:v119 height:v123 mipmapped:0];
-                            [v117 setUsage:19];
+                            v103 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:v105 height:v109 mipmapped:0];
+                            [v103 setUsage:19];
                             device4 = [(FigMetalContext *)self->_mtlContext device];
-                            v100 = [device4 newTextureWithDescriptor:v117];
-                            v101 = (*I_tex)[v42];
-                            (*I_tex)[v42] = v100;
+                            v86 = [device4 newTextureWithDescriptor:v103];
+                            v87 = (*I_tex)[v42];
+                            (*I_tex)[v42] = v86;
 
-                            v102 = [(MTLTexture *)(*I_tex)[v42] newTextureViewWithPixelFormat:53];
-                            v103 = (*I_u32_alias_tex)[v42];
-                            (*I_u32_alias_tex)[v42] = v102;
+                            v88 = [(MTLTexture *)(*I_tex)[v42] newTextureViewWithPixelFormat:53];
+                            v89 = (*I_u32_alias_tex)[v42];
+                            (*I_u32_alias_tex)[v42] = v88;
 
-                            v124 = sub_18E8(v119 % 2).n64_u64[0];
-                            v120 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:v118 height:v121 mipmapped:0];
-                            [v120 setUsage:19];
+                            v110 = sub_18E8(v105 % 2).n64_u64[0];
+                            v106 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:v104 height:v107 mipmapped:0];
+                            [v106 setUsage:19];
                             device5 = [(FigMetalContext *)self->_mtlContext device];
-                            v105 = [device5 newTextureWithDescriptor:v120];
-                            v106 = v113[v42];
-                            v113[v42] = v105;
+                            v91 = [device5 newTextureWithDescriptor:v106];
+                            v92 = v99[v42];
+                            v99[v42] = v91;
 
-                            v107 = [(MTLTexture *)v113[v42] newTextureViewWithPixelFormat:53];
-                            v108 = v112[v42];
-                            v112[v42] = v107;
+                            v93 = [(MTLTexture *)v99[v42] newTextureViewWithPixelFormat:53];
+                            v94 = v98[v42];
+                            v98[v42] = v93;
 
-                            v122 = sub_18E8(v118 % 2).n64_u64[0];
-                            v43 = v122;
-                            v44 = v124;
+                            v108 = sub_18E8(v104 % 2).n64_u64[0];
+                            v43 = v108;
+                            v44 = v110;
                             if (++v42 < self->_nscales)
                             {
                               goto LABEL_15;
@@ -349,6 +337,38 @@ LABEL_15:
   }
 
   return -12786;
+}
+
+- (LKTFlowGPU)initWithMetalContext:(id)context width:(int)width height:(int)height nscales:(int)nscales
+{
+  v6 = *&nscales;
+  v7 = *&height;
+  v8 = *&width;
+  contextCopy = context;
+  v18.receiver = self;
+  v18.super_class = LKTFlowGPU;
+  v12 = [(LKTFlowGPU *)&v18 init];
+  v13 = v12;
+  if (v12)
+  {
+    if ((v7 | v8))
+    {
+      v17 = [NSException exceptionWithName:@"Invalid parameter" reason:@"Odd image dimensions are not supported" userInfo:0];
+      objc_exception_throw(v17);
+    }
+
+    objc_storeStrong(&v12->_mtlContext, context);
+    commandQueue = [contextCopy commandQueue];
+    commandQueue = v13->_commandQueue;
+    v13->_commandQueue = commandQueue;
+
+    [(LKTFlowGPU *)v13 _setDefaultParameters];
+    [(LKTFlowGPU *)v13 _initMemory:v8 height:v7 nscales:v6];
+    [(LKTFlowGPU *)v13 _setupPipelines];
+    [(LKTFlowGPU *)v13 _setupBuffer];
+  }
+
+  return v13;
 }
 
 - (void)dealloc
@@ -571,6 +591,32 @@ LABEL_11:
   }
 
   return v6;
+}
+
+- (int)computeKeypointsFromForwardFlow:(__CVBuffer *)flow backwardFlow:(__CVBuffer *)backwardFlow bidirectionalError:(float)error blockSize:(int)size outNumKeypoints:(unsigned __int16 *)keypoints
+{
+  v8 = *&size;
+  v12 = [(FigMetalContext *)self->_mtlContext bindPixelBufferToMTL2DTexture:flow pixelFormat:65 usage:7 plane:0];
+  v13 = [(FigMetalContext *)self->_mtlContext bindPixelBufferToMTL2DTexture:backwardFlow pixelFormat:65 usage:7 plane:0];
+  *&v14 = error;
+  LODWORD(keypoints) = [(LKTFlowGPU *)self computeKeypointsFromTexForwardFlow:v12 backwardFlow:v13 bidirectionalError:v8 blockSize:keypoints outNumKeypoints:v14];
+
+  return keypoints;
+}
+
+- (int)computeKeypointsFromTexForwardFlow:(id)flow backwardFlow:(id)backwardFlow bidirectionalError:(float)error blockSize:(int)size outNumKeypoints:(unsigned __int16 *)keypoints
+{
+  v8 = *&size;
+  commandQueue = self->_commandQueue;
+  backwardFlowCopy = backwardFlow;
+  flowCopy = flow;
+  commandBuffer = [(MTLCommandQueue *)commandQueue commandBuffer];
+  [commandBuffer setLabel:@"LKT::KeypointsFromFlow"];
+  *&v16 = error;
+  [(LKTFlowGPU *)self _enqueueKeypointsFromFlowWithCommandBuffer:commandBuffer in_uv_fwd_tex:flowCopy in_uv_bwd_tex:backwardFlowCopy out_kpt_buf:self->_kpt_buf block_size:v8 bidirectional_error:keypoints out_num_keypoints:v16];
+
+  [commandBuffer commit];
+  return 0;
 }
 
 - (void)_initMemory:(int)memory height:(int)height nscales:(int)nscales
@@ -858,6 +904,17 @@ LABEL_11:
   }
 
   return 0;
+}
+
+- (int)_createImagePyramidWithCommandBuffer:(id)buffer in_pixelbuf:(__CVBuffer *)in_pixelbuf I_idx:(int)i_idx
+{
+  v5 = *&i_idx;
+  mtlContext = self->_mtlContext;
+  bufferCopy = buffer;
+  v10 = [(FigMetalContext *)mtlContext bindPixelBufferToMTL2DTexture:in_pixelbuf pixelFormat:70 usage:7 plane:0];
+  LODWORD(v5) = [(LKTFlowGPU *)self _createImagePyramidWithCommandBuffer:bufferCopy in_tex:v10 I_idx:v5];
+
+  return v5;
 }
 
 - (int)_zeroFlowWithCommandBuffer:(id)buffer uv_tex:(id)uv_tex
@@ -1287,11 +1344,10 @@ LABEL_11:
   {
     CVPixelBufferGetWidth(forward);
     CVPixelBufferGetHeight(forward);
-    mtlContext = self->_mtlContext;
-    v8 = sub_BF00();
-    v10 = [v9 bindPixelBufferToMTL2DTexture:v8 pixelFormat:? usage:? textureSize:? plane:?];
+    v7 = sub_BF00();
+    v9 = [v8 bindPixelBufferToMTL2DTexture:v7 pixelFormat:? usage:? textureSize:? plane:?];
     uv_fwd_tex_user_ref = self->_uv_fwd_tex_user_ref;
-    self->_uv_fwd_tex_user_ref = v10;
+    self->_uv_fwd_tex_user_ref = v9;
 
     if (!self->_uv_fwd_tex_user_ref)
     {
@@ -1300,11 +1356,10 @@ LABEL_11:
 
     if (backward)
     {
-      v12 = self->_mtlContext;
-      v13 = sub_BF00();
-      v15 = [v14 bindPixelBufferToMTL2DTexture:v13 pixelFormat:? usage:? textureSize:? plane:?];
+      v11 = sub_BF00();
+      v13 = [v12 bindPixelBufferToMTL2DTexture:v11 pixelFormat:? usage:? textureSize:? plane:?];
       uv_bwd_tex_user_ref = self->_uv_bwd_tex_user_ref;
-      self->_uv_bwd_tex_user_ref = v15;
+      self->_uv_bwd_tex_user_ref = v13;
 
       if (!self->_uv_bwd_tex_user_ref)
       {
@@ -1314,7 +1369,7 @@ LABEL_11:
 
     else
     {
-      v19 = self->_uv_bwd_tex_user_ref;
+      v17 = self->_uv_bwd_tex_user_ref;
       self->_uv_bwd_tex_user_ref = 0;
     }
 
@@ -1324,7 +1379,7 @@ LABEL_11:
 
   else
   {
-    v18 = self->_uv_fwd_tex_user_ref;
+    v16 = self->_uv_fwd_tex_user_ref;
     self->_uv_fwd_tex_user_ref = 0;
 
     return 0;

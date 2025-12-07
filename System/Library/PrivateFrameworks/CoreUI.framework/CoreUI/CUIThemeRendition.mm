@@ -114,7 +114,7 @@
   if (v4 != CGSizeZero.width || v6 != CGSizeZero.height)
   {
     uncroppedImage = self->_uncroppedImage;
-    if (uncroppedImage || (BitsPerComponent = CGImageGetBitsPerComponent(unslicedImage), ColorSpace = CGImageGetColorSpace(unslicedImage), AlphaInfo = CGImageGetAlphaInfo(unslicedImage), v23 = CUICGBitmapContextCreate(v4, v6, BitsPerComponent, 0, ColorSpace, AlphaInfo, v21, v22), v25.origin.y = v6 - (v10 + v14), v25.origin.x = v8, v25.size.width = v12, v25.size.height = v14, CGContextDrawImage(v23, v25, unslicedImage), self->_uncroppedImage = CGBitmapContextCreateImage(v23), CGContextRelease(v23), (uncroppedImage = self->_uncroppedImage) != 0))
+    if (uncroppedImage || (BitsPerComponent = CGImageGetBitsPerComponent(unslicedImage), ColorSpace = CGImageGetColorSpace(unslicedImage), AlphaInfo = CGImageGetAlphaInfo(unslicedImage), v21 = CUICGBitmapContextCreate(v4, v6, BitsPerComponent, 0, ColorSpace, AlphaInfo), v23.origin.y = v6 - (v10 + v14), v23.origin.x = v8, v23.size.width = v12, v23.size.height = v14, CGContextDrawImage(v21, v23, unslicedImage), self->_uncroppedImage = CGBitmapContextCreateImage(v21), CGContextRelease(v21), (uncroppedImage = self->_uncroppedImage) != 0))
     {
       CFRetain(uncroppedImage);
       CFAutorelease(self->_uncroppedImage);
@@ -317,7 +317,7 @@ LABEL_15:
 {
   var10 = data->var10;
   var0 = data->var11.var0;
-  SRGB = _CUIColorSpaceGetSRGB();
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
   if (var10)
   {
     space = SRGB;
@@ -332,55 +332,55 @@ LABEL_15:
         goto LABEL_22;
       }
 
-      v20 = [[NSString alloc] initWithUTF8String:v12 + 7];
-      v21 = 0;
-      v22 = (v12 + v12[3] + 28);
-      v23 = v12[5];
-      if (v23 > 1)
+      v14 = [[NSString alloc] initWithUTF8String:v12 + 7];
+      v15 = 0;
+      v16 = (v12 + v12[3] + 28);
+      v17 = v12[5];
+      if (v17 > 1)
       {
-        if (v23 == 2)
+        if (v17 == 2)
         {
-          v24 = [[NSNumber alloc] initWithDouble:*v22];
+          v18 = [[NSNumber alloc] initWithDouble:*v16];
           goto LABEL_15;
         }
 
-        if (v23 == 3)
+        if (v17 == 3)
         {
           if ((v12[6] & 0xF) == 1)
           {
-            v25 = *(v22 + 1);
-            *components = *v22;
-            v29 = v25;
-            v24 = CGColorCreate(space, components);
+            v19 = *(v16 + 1);
+            *components = *v16;
+            v22 = v19;
+            v18 = CGColorCreate(space, components);
             goto LABEL_15;
           }
 
-          _CUILog(4, "Rendition property with an unexpected color space.", v14, v15, v16, v17, v18, v19, v26);
-          v21 = 0;
+          _CUILog(4, "Rendition property with an unexpected color space.");
+          v15 = 0;
         }
       }
 
       else
       {
-        if (!v23)
+        if (!v17)
         {
-          v24 = [[NSString alloc] initWithUTF8String:v22];
+          v18 = [[NSString alloc] initWithUTF8String:v16];
           goto LABEL_15;
         }
 
-        if (v23 == 1)
+        if (v17 == 1)
         {
-          v24 = [[NSNumber alloc] initWithLongLong:*v22];
+          v18 = [[NSNumber alloc] initWithLongLong:*v16];
 LABEL_15:
-          v21 = v24;
-          if (v20 && v24)
+          v15 = v18;
+          if (v14 && v18)
           {
             if (!v10)
             {
               v10 = objc_alloc_init(NSMutableDictionary);
             }
 
-            [(NSDictionary *)v10 setObject:v21 forKey:v20];
+            [(NSDictionary *)v10 setObject:v15 forKey:v14];
           }
         }
       }
@@ -408,9 +408,9 @@ LABEL_28:
 - (id)_initWithCSIHeader:(const _csiheader *)header version:(unsigned int)version
 {
   v4 = *&version;
-  v19.receiver = self;
-  v19.super_class = CUIThemeRendition;
-  v6 = [(CUIThemeRendition *)&v19 init];
+  v13.receiver = self;
+  v13.super_class = CUIThemeRendition;
+  v6 = [(CUIThemeRendition *)&v13 init];
   v6->_colorSpaceID = *(header + 7) & 0xF;
   [(CUIThemeRendition *)v6 _initializeTypeIdentifiersWithLayout:header->var9.var1];
   v6->_name = [[NSString alloc] initWithUTF8String:header->var9.var3];
@@ -509,7 +509,7 @@ LABEL_14:
   [(CUIThemeRendition *)v6 _initializePropertiesFromCSIData:header version:v4];
   if (header->var1 > 1)
   {
-    _CUILog(4, "CoreUI: Error: CAR has a CSIVersion (%d) that is greater than the current version (%d)", v12, v13, v14, v15, v16, v17, header->var1);
+    _CUILog(4, "CoreUI: Error: CAR has a CSIVersion (%d) that is greater than the current version (%d)", header->var1, 1);
   }
 
   return v6;
@@ -559,9 +559,9 @@ LABEL_14:
 - (id)_initWithCSIData:(id)data forKey:(const _renditionkeytoken *)key version:(unsigned int)version
 {
   v5 = *&version;
-  v21.receiver = self;
-  v21.super_class = CUIThemeRendition;
-  result = [(CUIThemeRendition *)&v21 init];
+  v14.receiver = self;
+  v14.super_class = CUIThemeRendition;
+  result = [(CUIThemeRendition *)&v14 init];
   if (result)
   {
     v9 = result;
@@ -593,8 +593,7 @@ LABEL_14:
 
     else
     {
-      v14 = [CUIRenditionKey renditionKeyWithKeyList:key];
-      _CUILog(4, "CoreUI: Error while decoding CSIData for key %@", v15, v16, v17, v18, v19, v20, v14);
+      _CUILog(4, "CoreUI: Error while decoding CSIData for key %@", [CUIRenditionKey renditionKeyWithKeyList:key]);
 
       return 0;
     }

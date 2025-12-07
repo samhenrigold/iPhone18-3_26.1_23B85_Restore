@@ -16,9 +16,9 @@
   typeCopy = type;
   idCopy = id;
   nameCopy = name;
-  v70.receiver = self;
-  v70.super_class = AAFAnalyticsTransportInProcessRTC;
-  v12 = [(AAFAnalyticsTransportInProcessRTC *)&v70 init];
+  v71.receiver = self;
+  v71.super_class = AAFAnalyticsTransportInProcessRTC;
+  v12 = [(AAFAnalyticsTransportInProcessRTC *)&v71 init];
   v13 = v12;
   if (!v12)
   {
@@ -38,28 +38,28 @@
 
   v18 = [(NSDictionary *)v13->_sessionInfo mutableCopy];
   clientType = v13->_clientType;
-  if (RTCReportingLibraryCore())
+  if (RTCReportingLibraryCore(0))
   {
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2020000000;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x2020000000;
     v20 = getkRTCReportingSessionInfoClientTypeSymbolLoc_ptr;
-    v79 = getkRTCReportingSessionInfoClientTypeSymbolLoc_ptr;
+    v80 = getkRTCReportingSessionInfoClientTypeSymbolLoc_ptr;
     if (!getkRTCReportingSessionInfoClientTypeSymbolLoc_ptr)
     {
-      v71 = MEMORY[0x1E69E9820];
-      v72 = 3221225472;
-      v73 = __getkRTCReportingSessionInfoClientTypeSymbolLoc_block_invoke;
-      v74 = &unk_1E831BCB8;
-      v75 = &v76;
+      v72 = MEMORY[0x1E69E9820];
+      v73 = 3221225472;
+      v74 = __getkRTCReportingSessionInfoClientTypeSymbolLoc_block_invoke;
+      v75 = &unk_1E831BCB8;
+      v76 = &v77;
       v21 = RTCReportingLibrary();
       v22 = dlsym(v21, "kRTCReportingSessionInfoClientType");
-      *(v75[1] + 24) = v22;
-      getkRTCReportingSessionInfoClientTypeSymbolLoc_ptr = *(v75[1] + 24);
-      v20 = v77[3];
+      *(v76[1] + 24) = v22;
+      getkRTCReportingSessionInfoClientTypeSymbolLoc_ptr = *(v76[1] + 24);
+      v20 = v78[3];
     }
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v77, 8);
     if (!v20)
     {
       [AAFAnalyticsTransportInProcessRTC initWithClientType:clientBundleId:clientName:];
@@ -75,28 +75,28 @@
     [v18 setObject:clientType forKeyedSubscript:null];
   }
 
-  if (RTCReportingLibraryCore())
+  if (RTCReportingLibraryCore(0))
   {
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2020000000;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x2020000000;
     v24 = getkRTCReportingSessionInfoClientVersionSymbolLoc_ptr;
-    v79 = getkRTCReportingSessionInfoClientVersionSymbolLoc_ptr;
+    v80 = getkRTCReportingSessionInfoClientVersionSymbolLoc_ptr;
     if (!getkRTCReportingSessionInfoClientVersionSymbolLoc_ptr)
     {
-      v71 = MEMORY[0x1E69E9820];
-      v72 = 3221225472;
-      v73 = __getkRTCReportingSessionInfoClientVersionSymbolLoc_block_invoke;
-      v74 = &unk_1E831BCB8;
-      v75 = &v76;
+      v72 = MEMORY[0x1E69E9820];
+      v73 = 3221225472;
+      v74 = __getkRTCReportingSessionInfoClientVersionSymbolLoc_block_invoke;
+      v75 = &unk_1E831BCB8;
+      v76 = &v77;
       v25 = RTCReportingLibrary();
       v26 = dlsym(v25, "kRTCReportingSessionInfoClientVersion");
-      *(v75[1] + 24) = v26;
-      getkRTCReportingSessionInfoClientVersionSymbolLoc_ptr = *(v75[1] + 24);
-      v24 = v77[3];
+      *(v76[1] + 24) = v26;
+      getkRTCReportingSessionInfoClientVersionSymbolLoc_ptr = *(v76[1] + 24);
+      v24 = v78[3];
     }
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v77, 8);
     if (v24)
     {
       [v18 setObject:&unk_1F48489A0 forKeyedSubscript:*v24];
@@ -112,28 +112,28 @@ LABEL_61:
   [v18 setObject:&unk_1F48489A0 forKeyedSubscript:null2];
 
 LABEL_14:
-  if (RTCReportingLibraryCore())
+  if (RTCReportingLibraryCore(0))
   {
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2020000000;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x2020000000;
     v28 = getkRTCReportingSessionInfoSessionIDSymbolLoc_ptr;
-    v79 = getkRTCReportingSessionInfoSessionIDSymbolLoc_ptr;
+    v80 = getkRTCReportingSessionInfoSessionIDSymbolLoc_ptr;
     if (!getkRTCReportingSessionInfoSessionIDSymbolLoc_ptr)
     {
-      v71 = MEMORY[0x1E69E9820];
-      v72 = 3221225472;
-      v73 = __getkRTCReportingSessionInfoSessionIDSymbolLoc_block_invoke;
-      v74 = &unk_1E831BCB8;
-      v75 = &v76;
+      v72 = MEMORY[0x1E69E9820];
+      v73 = 3221225472;
+      v74 = __getkRTCReportingSessionInfoSessionIDSymbolLoc_block_invoke;
+      v75 = &unk_1E831BCB8;
+      v76 = &v77;
       v29 = RTCReportingLibrary();
       v30 = dlsym(v29, "kRTCReportingSessionInfoSessionID");
-      *(v75[1] + 24) = v30;
-      getkRTCReportingSessionInfoSessionIDSymbolLoc_ptr = *(v75[1] + 24);
-      v28 = v77[3];
+      *(v76[1] + 24) = v30;
+      getkRTCReportingSessionInfoSessionIDSymbolLoc_ptr = *(v76[1] + 24);
+      v28 = v78[3];
     }
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v77, 8);
     if (v28)
     {
       [v18 setObject:&unk_1F48489A0 forKeyedSubscript:*v28];
@@ -149,28 +149,28 @@ LABEL_62:
   [v18 setObject:&unk_1F48489A0 forKeyedSubscript:null3];
 
 LABEL_20:
-  if (RTCReportingLibraryCore())
+  if (RTCReportingLibraryCore(0))
   {
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2020000000;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x2020000000;
     v32 = getkRTCReportingSessionInfoBatchEventSymbolLoc_ptr;
-    v79 = getkRTCReportingSessionInfoBatchEventSymbolLoc_ptr;
+    v80 = getkRTCReportingSessionInfoBatchEventSymbolLoc_ptr;
     if (!getkRTCReportingSessionInfoBatchEventSymbolLoc_ptr)
     {
-      v71 = MEMORY[0x1E69E9820];
-      v72 = 3221225472;
-      v73 = __getkRTCReportingSessionInfoBatchEventSymbolLoc_block_invoke;
-      v74 = &unk_1E831BCB8;
-      v75 = &v76;
+      v72 = MEMORY[0x1E69E9820];
+      v73 = 3221225472;
+      v74 = __getkRTCReportingSessionInfoBatchEventSymbolLoc_block_invoke;
+      v75 = &unk_1E831BCB8;
+      v76 = &v77;
       v33 = RTCReportingLibrary();
       v34 = dlsym(v33, "kRTCReportingSessionInfoBatchEvent");
-      *(v75[1] + 24) = v34;
-      getkRTCReportingSessionInfoBatchEventSymbolLoc_ptr = *(v75[1] + 24);
-      v32 = v77[3];
+      *(v76[1] + 24) = v34;
+      getkRTCReportingSessionInfoBatchEventSymbolLoc_ptr = *(v76[1] + 24);
+      v32 = v78[3];
     }
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v77, 8);
     if (v32)
     {
       [v18 setObject:MEMORY[0x1E695E110] forKeyedSubscript:*v32];
@@ -187,7 +187,7 @@ LABEL_63:
 
 LABEL_26:
   clientBundleId = v13->_clientBundleId;
-  if (!RTCReportingLibraryCore())
+  if (!RTCReportingLibraryCore(0))
   {
     null5 = [MEMORY[0x1E695DFB0] null];
     [v18 setObject:clientBundleId forKeyedSubscript:null5];
@@ -195,26 +195,26 @@ LABEL_26:
     goto LABEL_32;
   }
 
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
   v37 = getkRTCReportingSessionInfoClientBundleIDSymbolLoc_ptr;
-  v79 = getkRTCReportingSessionInfoClientBundleIDSymbolLoc_ptr;
+  v80 = getkRTCReportingSessionInfoClientBundleIDSymbolLoc_ptr;
   if (!getkRTCReportingSessionInfoClientBundleIDSymbolLoc_ptr)
   {
-    v71 = MEMORY[0x1E69E9820];
-    v72 = 3221225472;
-    v73 = __getkRTCReportingSessionInfoClientBundleIDSymbolLoc_block_invoke;
-    v74 = &unk_1E831BCB8;
-    v75 = &v76;
+    v72 = MEMORY[0x1E69E9820];
+    v73 = 3221225472;
+    v74 = __getkRTCReportingSessionInfoClientBundleIDSymbolLoc_block_invoke;
+    v75 = &unk_1E831BCB8;
+    v76 = &v77;
     v38 = RTCReportingLibrary();
     v39 = dlsym(v38, "kRTCReportingSessionInfoClientBundleID");
-    *(v75[1] + 24) = v39;
-    getkRTCReportingSessionInfoClientBundleIDSymbolLoc_ptr = *(v75[1] + 24);
-    v37 = v77[3];
+    *(v76[1] + 24) = v39;
+    getkRTCReportingSessionInfoClientBundleIDSymbolLoc_ptr = *(v76[1] + 24);
+    v37 = v78[3];
   }
 
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v77, 8);
   if (!v37)
   {
 LABEL_64:
@@ -232,34 +232,35 @@ LABEL_32:
     {
       if (AppBooleanValue)
       {
-        if (RTCReportingLibraryCore())
+        if (RTCReportingLibraryCore(0))
         {
-          v76 = 0;
-          v77 = &v76;
-          v78 = 0x2020000000;
+          v77 = 0;
+          v78 = &v77;
+          v79 = 0x2020000000;
           v42 = getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_ptr;
-          v79 = getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_ptr;
+          v80 = getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_ptr;
           if (!getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_ptr)
           {
-            v71 = MEMORY[0x1E69E9820];
-            v72 = 3221225472;
-            v73 = __getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_block_invoke;
-            v74 = &unk_1E831BCB8;
-            v75 = &v76;
+            v72 = MEMORY[0x1E69E9820];
+            v73 = 3221225472;
+            v74 = __getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_block_invoke;
+            v75 = &unk_1E831BCB8;
+            v76 = &v77;
             v43 = RTCReportingLibrary();
             v44 = dlsym(v43, "kRTCReportingSessionInfoContainsRealtimeEvents");
-            *(v75[1] + 24) = v44;
-            getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_ptr = *(v75[1] + 24);
-            v42 = v77[3];
+            *(v76[1] + 24) = v44;
+            getkRTCReportingSessionInfoContainsRealtimeEventsSymbolLoc_ptr = *(v76[1] + 24);
+            v42 = v78[3];
           }
 
-          _Block_object_dispose(&v76, 8);
+          _Block_object_dispose(&v77, 8);
           if (!v42)
           {
 LABEL_67:
-            v68 = [AAFAnalyticsTransportInProcessRTC initWithClientType:clientBundleId:clientName:];
-            _Block_object_dispose(&v76, 8);
-            _Unwind_Resume(v68);
+            [AAFAnalyticsTransportInProcessRTC initWithClientType:clientBundleId:clientName:];
+            v69 = v68;
+            _Block_object_dispose(&v77, 8);
+            _Unwind_Resume(v69);
           }
 
           [v18 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*v42];
@@ -279,28 +280,28 @@ LABEL_67:
   v13->_sessionInfo = v46;
 
   v48 = [(NSDictionary *)v13->_userInfo mutableCopy];
-  if (RTCReportingLibraryCore())
+  if (RTCReportingLibraryCore(0))
   {
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2020000000;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x2020000000;
     v49 = getkRTCReportingUserInfoServiceNameSymbolLoc_ptr;
-    v79 = getkRTCReportingUserInfoServiceNameSymbolLoc_ptr;
+    v80 = getkRTCReportingUserInfoServiceNameSymbolLoc_ptr;
     if (!getkRTCReportingUserInfoServiceNameSymbolLoc_ptr)
     {
-      v71 = MEMORY[0x1E69E9820];
-      v72 = 3221225472;
-      v73 = __getkRTCReportingUserInfoServiceNameSymbolLoc_block_invoke;
-      v74 = &unk_1E831BCB8;
-      v75 = &v76;
+      v72 = MEMORY[0x1E69E9820];
+      v73 = 3221225472;
+      v74 = __getkRTCReportingUserInfoServiceNameSymbolLoc_block_invoke;
+      v75 = &unk_1E831BCB8;
+      v76 = &v77;
       v50 = RTCReportingLibrary();
       v51 = dlsym(v50, "kRTCReportingUserInfoServiceName");
-      *(v75[1] + 24) = v51;
-      getkRTCReportingUserInfoServiceNameSymbolLoc_ptr = *(v75[1] + 24);
-      v49 = v77[3];
+      *(v76[1] + 24) = v51;
+      getkRTCReportingUserInfoServiceNameSymbolLoc_ptr = *(v76[1] + 24);
+      v49 = v78[3];
     }
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v77, 8);
     if (v49)
     {
       [v48 setObject:@"default" forKeyedSubscript:*v49];
@@ -319,7 +320,7 @@ LABEL_66:
 
 LABEL_47:
   clientName = v13->_clientName;
-  if (!RTCReportingLibraryCore())
+  if (!RTCReportingLibraryCore(0))
   {
     null8 = [MEMORY[0x1E695DFB0] null];
     [v48 setObject:clientName forKeyedSubscript:null8];
@@ -327,26 +328,26 @@ LABEL_47:
     goto LABEL_53;
   }
 
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
   v54 = getkRTCReportingUserInfoClientNameSymbolLoc_ptr;
-  v79 = getkRTCReportingUserInfoClientNameSymbolLoc_ptr;
+  v80 = getkRTCReportingUserInfoClientNameSymbolLoc_ptr;
   if (!getkRTCReportingUserInfoClientNameSymbolLoc_ptr)
   {
-    v71 = MEMORY[0x1E69E9820];
-    v72 = 3221225472;
-    v73 = __getkRTCReportingUserInfoClientNameSymbolLoc_block_invoke;
-    v74 = &unk_1E831BCB8;
-    v75 = &v76;
+    v72 = MEMORY[0x1E69E9820];
+    v73 = 3221225472;
+    v74 = __getkRTCReportingUserInfoClientNameSymbolLoc_block_invoke;
+    v75 = &unk_1E831BCB8;
+    v76 = &v77;
     v55 = RTCReportingLibrary();
     v56 = dlsym(v55, "kRTCReportingUserInfoClientName");
-    *(v75[1] + 24) = v56;
-    getkRTCReportingUserInfoClientNameSymbolLoc_ptr = *(v75[1] + 24);
-    v54 = v77[3];
+    *(v76[1] + 24) = v56;
+    getkRTCReportingUserInfoClientNameSymbolLoc_ptr = *(v76[1] + 24);
+    v54 = v78[3];
   }
 
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v77, 8);
   if (!v54)
   {
     goto LABEL_66;
@@ -363,29 +364,29 @@ LABEL_53:
   eventQueue = v13->_eventQueue;
   v13->_eventQueue = array;
 
-  if (RTCReportingLibraryCore())
+  if (RTCReportingLibraryCore(0))
   {
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2050000000;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x2050000000;
     v62 = getRTCReportingClass_softClass;
-    v79 = getRTCReportingClass_softClass;
+    v80 = getRTCReportingClass_softClass;
     if (!getRTCReportingClass_softClass)
     {
-      v71 = MEMORY[0x1E69E9820];
-      v72 = 3221225472;
-      v73 = __getRTCReportingClass_block_invoke;
-      v74 = &unk_1E831BCB8;
-      v75 = &v76;
-      RTCReportingLibraryCore();
+      v72 = MEMORY[0x1E69E9820];
+      v73 = 3221225472;
+      v74 = __getRTCReportingClass_block_invoke;
+      v75 = &unk_1E831BCB8;
+      v76 = &v77;
+      RTCReportingLibraryCore(0);
       Class = objc_getClass("RTCReporting");
-      *(v75[1] + 24) = Class;
-      getRTCReportingClass_softClass = *(v75[1] + 24);
-      v62 = v77[3];
+      *(v76[1] + 24) = Class;
+      getRTCReportingClass_softClass = *(v76[1] + 24);
+      v62 = v78[3];
     }
 
     v64 = v62;
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v77, 8);
   }
 
   else
@@ -447,44 +448,43 @@ LABEL_59:
 
   if (eventCategory)
   {
-    v6 = [(AAFAnalyticsTransportInProcessRTC *)self _createPayloadWith:eventCopy];
+    v7 = [(AAFAnalyticsTransportInProcessRTC *)self _createPayloadWith:eventCopy];
     eventCategory2 = [eventCopy eventCategory];
-    v12 = 0;
-    v8 = [(AAFAnalyticsTransportInProcessRTC *)self _sendMessageWithCategory:eventCategory2 payload:v6 error:&v12];
-    v9 = v12;
+    v14 = 0;
+    v9 = [(AAFAnalyticsTransportInProcessRTC *)self _sendMessageWithCategory:eventCategory2 payload:v7 error:&v14];
+    v10 = v14;
 
-    v10 = _AAFLogSystem();
-    v11 = v10;
-    if (v8)
+    v12 = _AAFLogSystem(v11);
+    v13 = v12;
+    if (v9)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        [(AAFAnalyticsTransportInProcessRTC *)self sendEvent:v11];
+        [(AAFAnalyticsTransportInProcessRTC *)self sendEvent:v13];
       }
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(AAFAnalyticsTransportInProcessRTC *)self sendEvent:v9, v11];
+      [(AAFAnalyticsTransportInProcessRTC *)self sendEvent:v10, v13];
     }
   }
 
   else
   {
-    v6 = _AAFLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAFLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(AAFAnalyticsTransportInProcessRTC *)eventCopy sendEvent:v6];
+      [(AAFAnalyticsTransportInProcessRTC *)eventCopy sendEvent:v7];
     }
   }
 }
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1C8644000, v0, OS_LOG_TYPE_DEBUG, "%@ deallocated", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C8644000, v0, OS_LOG_TYPE_DEBUG, "%@ deallocated", v1, 0xCu);
 }
 
 - (NSString)debugDescription
@@ -514,7 +514,7 @@ LABEL_59:
 
   else
   {
-    v13 = _AAFLogSystem();
+    v13 = _AAFLogSystem(nameCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [AAFAnalyticsTransportInProcessRTC analyticsTransportRTCWithClientType:v13 clientBundleId:? clientName:?];
@@ -526,49 +526,43 @@ LABEL_59:
   return v12;
 }
 
-- (uint64_t)initWithClientType:clientBundleId:clientName:.cold.1()
+- (void)initWithClientType:clientBundleId:clientName:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [AAFAnalyticsTransportInProcessRTC sendEvent:v0];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [(AAFAnalyticsTransportInProcessRTC *)v1 sendEvent:v2, v3];
 }
 
 - (void)sendEvent:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v10 = 2048;
-  v11 = a1;
-  v12 = 2114;
-  v13 = a2;
+  v9 = 2048;
+  v10 = a1;
+  v11 = 2114;
+  v12 = a2;
   v7 = v6;
-  _os_log_error_impl(&dword_1C8644000, a3, OS_LOG_TYPE_ERROR, "<%@: %p> RTCReporting send failed with error: %{public}@", v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C8644000, a3, OS_LOG_TYPE_ERROR, "<%@: %p> RTCReporting send failed with error: %{public}@", v8, 0x20u);
 }
 
 - (void)sendEvent:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v8 = 2048;
-  v9 = a1;
+  v7 = 2048;
+  v8 = a1;
   v5 = v4;
-  _os_log_debug_impl(&dword_1C8644000, a2, OS_LOG_TYPE_DEBUG, "<%@: %p> RTCReporting send success!", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C8644000, a2, OS_LOG_TYPE_DEBUG, "<%@: %p> RTCReporting send success!", v6, 0x16u);
 }
 
 - (void)sendEvent:(void *)a1 .cold.3(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 eventName];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Error sending report for event (%@). RTC event needs a category.", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Error sending report for event (%@). RTC event needs a category.", v4, 0xCu);
 }
 
 @end

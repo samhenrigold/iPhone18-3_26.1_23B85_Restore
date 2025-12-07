@@ -18,7 +18,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_2748DE744();
+  sub_2748DE744(delegate);
 }
 
 - (void)viewDidLoad

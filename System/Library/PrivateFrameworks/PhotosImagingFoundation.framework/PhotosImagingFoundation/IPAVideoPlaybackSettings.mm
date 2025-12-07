@@ -29,7 +29,7 @@
   trimOperation = [(IPAVideoPlaybackSettings *)self trimOperation];
   if (posterFrameOperation)
   {
-    [posterFrameOperation frameTime];
+    objc_msgSend_frameTime(posterFrameOperation);
   }
 
   else if (trimOperation)
@@ -49,11 +49,11 @@
   v18 = 0u;
   if (slomoOperation)
   {
-    [slomoOperation timeRange];
+    objc_msgSend_timeRange(slomoOperation);
     if ((BYTE12(v18) & 1) == 0 || (BYTE4(v19[1]) & 1) == 0 || *(&v19[1] + 1) || (*(&v19[0] + 1) & 0x8000000000000000) != 0 || (v11 = *(v19 + 8), *&v12 = *(&v19[1] + 1), time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&v11, &time2)))
     {
       memset(&time2, 0, sizeof(time2));
-      [(IPAVideoPlaybackSettings *)self naturalDuration];
+      objc_msgSend_naturalDuration(self);
       [v8 rate];
       v15 = *&a4->var0;
       var3 = a4->var3;
@@ -70,7 +70,7 @@
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)scaledTimeFromNaturalTime:(SEL)time
 {
-  [(IPAVideoPlaybackSettings *)self naturalPlaybackRange];
+  objc_msgSend_naturalPlaybackRange(self, time);
   time2 = *a4;
   IPAClipTime(&time2, v19, &v12);
   *&a4->var0 = v12;
@@ -83,11 +83,11 @@
   memset(v19, 0, sizeof(v19));
   if (slomoOperation)
   {
-    [slomoOperation timeRange];
+    objc_msgSend_timeRange(slomoOperation);
     if ((BYTE12(v19[0]) & 1) == 0 || (BYTE4(v19[2]) & 1) == 0 || *(&v19[2] + 1) || (*(&v19[1] + 1) & 0x8000000000000000) != 0 || (v12 = *(&v19[1] + 8), *&v13 = *(&v19[2] + 1), time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&v12, &time2)))
     {
       memset(&time2, 0, sizeof(time2));
-      [(IPAVideoPlaybackSettings *)self naturalDuration];
+      objc_msgSend_naturalDuration(self);
       [v9 rate];
       v16 = *&a4->var0;
       var3 = a4->var3;
@@ -107,7 +107,7 @@
   if (a4->var2)
   {
     memset(&time, 0, sizeof(time));
-    [(IPAVideoPlaybackSettings *)self naturalPlaybackRange];
+    objc_msgSend_naturalPlaybackRange(self, duration);
     start = time.start;
     memset(&v17, 0, sizeof(v17));
     range = time;
@@ -122,7 +122,7 @@
       CMTimeMaximum(&range.start, &time1, &time2);
       memset(&time1, 0, sizeof(time1));
       time2 = v17;
-      [(IPAVideoPlaybackSettings *)self scaledTimeFromNaturalTime:&time2];
+      objc_msgSend_scaledTimeFromNaturalTime_(self);
       time2 = time1;
       v12 = *a4;
       CMTimeMinimum(&v15, &time2, &v12);
@@ -158,7 +158,7 @@
   v21 = *MEMORY[0x277D85DE8];
   trimOperation = [(IPAVideoPlaybackSettings *)self trimOperation];
   memset(&v19, 0, sizeof(v19));
-  [(IPAVideoPlaybackSettings *)self naturalDuration];
+  objc_msgSend_naturalDuration(self);
   *&start.start.value = *MEMORY[0x277CC08F0];
   start.start.epoch = *(MEMORY[0x277CC08F0] + 16);
   CMTimeRangeMake(&v19, &start.start, &duration.start);
@@ -168,7 +168,7 @@
   }
 
   memset(&start, 0, sizeof(start));
-  [trimOperation trimRange];
+  objc_msgSend_trimRange(trimOperation);
   if ((start.start.flags & 1) == 0 || (start.duration.flags & 1) == 0 || start.duration.epoch || start.duration.value < 0)
   {
     duration = start;
@@ -224,7 +224,7 @@ LABEL_5:
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)scaledDuration
 {
   memset(&v14, 0, sizeof(v14));
-  [(IPAVideoPlaybackSettings *)self naturalPlaybackRange];
+  objc_msgSend_naturalPlaybackRange(self, a3);
   *retstr = v14.duration;
   slomoOperation = [(IPAVideoPlaybackSettings *)self slomoOperation];
   if (slomoOperation)
@@ -237,10 +237,10 @@ LABEL_5:
     memset(&v9[1], 0, sizeof(CMTime));
     *&range.start.value = v12;
     range.start.epoch = epoch;
-    [(IPAVideoPlaybackSettings *)self scaledTimeFromNaturalTime:&range];
+    objc_msgSend_scaledTimeFromNaturalTime_(self);
     memset(v9, 0, 24);
     range.start = v11;
-    [(IPAVideoPlaybackSettings *)self scaledTimeFromNaturalTime:&range];
+    objc_msgSend_scaledTimeFromNaturalTime_(self);
     memset(&range, 0, sizeof(range));
     start = v9[1];
     v7 = v9[0];
@@ -342,9 +342,9 @@ LABEL_18:
     if (v7)
     {
       memset(&v35[1], 0, sizeof(CMTimeRange));
-      [v7 timeRange];
+      objc_msgSend_timeRange(v7);
       memset(v35, 0, 48);
-      [v18 trimRange];
+      objc_msgSend_trimRange(v18);
       time1 = v35[1];
       memset(&v34, 0, sizeof(v34));
       time2 = v35[0];
@@ -381,7 +381,7 @@ LABEL_18:
       if (v8)
       {
         memset(&time2, 0, 24);
-        [v8 frameTime];
+        objc_msgSend_frameTime(v8);
         time1 = v35[0];
         time = time2.start;
         if (!CMTimeRangeContainsTime(&time1, &time))
@@ -530,10 +530,10 @@ LABEL_18:
 - (BOOL)isEqualToDescription:(id)description
 {
   descriptionCopy = description;
-  [(IPAVideoPlaybackSettings *)self naturalDuration];
+  objc_msgSend_naturalDuration(self);
   if (descriptionCopy)
   {
-    [descriptionCopy naturalDuration];
+    objc_msgSend_naturalDuration(descriptionCopy);
   }
 
   else
@@ -771,7 +771,7 @@ LABEL_18:
 
     v18 = [IPAVideoPlaybackSettings alloc];
     adjustmentsCopy = v21;
-    [v21 naturalDuration];
+    objc_msgSend_naturalDuration(v21);
     v19 = [(IPAVideoPlaybackSettings *)v18 initWithOperations:v22 naturalDuration:buf];
   }
 

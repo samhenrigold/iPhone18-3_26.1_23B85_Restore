@@ -24,14 +24,13 @@
 
 - (void)mainInsideAutoreleasePool
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = +[HMIPersonsModelManager sharedInstance];
   homeUUID = [(HMIHomeTask *)self homeUUID];
   torsoAnnotations = [(HMIUpdateTorsoModelTask *)self torsoAnnotations];
   allObjects = [torsoAnnotations allObjects];
-  v13 = 0;
-  v7 = [v3 updateTorsoModelForHome:homeUUID torsoAnnotations:allObjects error:&v13];
-  v8 = v13;
+  v7 = [v3 updateTorsoModelForHome:? torsoAnnotations:? error:?];
+  v8 = 0;
 
   if ((v7 & 1) == 0)
   {
@@ -42,14 +41,14 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v8;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_22D12F000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error during update torso model task: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
-    [(HMFOperation *)selfCopy cancelWithError:v8];
+    [(HMFOperation *)selfCopy cancelWithError:?];
   }
 
   [(HMFOperation *)self finish];

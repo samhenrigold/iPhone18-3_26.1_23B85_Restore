@@ -28,14 +28,14 @@
 
 - (NTKSnowglobeDigitController)initWithDigit:(unint64_t)digit scene:(id)scene queue:(id)queue group:(id)group configureNode:(id)node
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   queueCopy = queue;
   groupCopy = group;
   nodeCopy = node;
-  v31.receiver = self;
-  v31.super_class = NTKSnowglobeDigitController;
-  v17 = [(NTKSnowglobeDigitController *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = NTKSnowglobeDigitController;
+  v17 = [(NTKSnowglobeDigitController *)&v30 init];
   if (v17)
   {
     dispatch_assert_queue_V2(queueCopy);
@@ -68,8 +68,8 @@
         digit = v17->_digit;
         *buf = 134218242;
         digitCopy = digit;
-        v34 = 2112;
-        v35 = v17;
+        v33 = 2112;
+        v34 = v17;
         _os_log_impl(&dword_23C07F000, v22, OS_LOG_TYPE_DEFAULT, "Snowglobe enter group loading digit %lu for %@", buf, 0x16u);
       }
 
@@ -78,22 +78,21 @@
 
     v24 = +[NTKSnowglobeAssetLibrary sharedInstance];
     renderQueue = v17->_renderQueue;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = sub_23C083490;
-    v28[3] = &unk_278BAC618;
-    v29 = v17;
-    v30 = nodeCopy;
-    [v24 digitNodeForNumber:digit queue:renderQueue withCompletion:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = sub_23C083490;
+    v27[3] = &unk_278BAC618;
+    v28 = v17;
+    v29 = nodeCopy;
+    [v24 digitNodeForNumber:digit queue:renderQueue withCompletion:v27];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)_setupWithNode:(id)node configureNode:(id)configureNode
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   configureNodeCopy = configureNode;
   dispatch_assert_queue_V2(self->_renderQueue);
@@ -104,9 +103,9 @@
     v9 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = selfCopy;
-      _os_log_impl(&dword_23C07F000, v9, OS_LOG_TYPE_DEFAULT, "Snowglobe early bail loading %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = selfCopy;
+      _os_log_impl(&dword_23C07F000, v9, OS_LOG_TYPE_DEFAULT, "Snowglobe early bail loading %@", &v14, 0xCu);
     }
 
     configureNodeCopy[2](configureNodeCopy, selfCopy, 0);
@@ -131,9 +130,9 @@ LABEL_13:
   v11 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = selfCopy;
-    _os_log_impl(&dword_23C07F000, v11, OS_LOG_TYPE_DEFAULT, "Snowglobe loaded digit for %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = selfCopy;
+    _os_log_impl(&dword_23C07F000, v11, OS_LOG_TYPE_DEFAULT, "Snowglobe loaded digit for %@", &v14, 0xCu);
   }
 
   if (selfCopy->_loadGroup)
@@ -141,9 +140,9 @@ LABEL_13:
     v12 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = selfCopy;
-      _os_log_impl(&dword_23C07F000, v12, OS_LOG_TYPE_DEFAULT, "Snowglobe leaving group for %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = selfCopy;
+      _os_log_impl(&dword_23C07F000, v12, OS_LOG_TYPE_DEFAULT, "Snowglobe leaving group for %@", &v14, 0xCu);
     }
 
     dispatch_group_leave(selfCopy->_loadGroup);
@@ -154,8 +153,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)destroy
@@ -295,7 +292,7 @@ LABEL_14:
   leg1 = self->_leg1;
   if (leg1)
   {
-    [(SCNNode *)leg1 transform];
+    objc_msgSend_transform(leg1);
   }
 
   else
@@ -327,7 +324,7 @@ LABEL_14:
   leg2 = self->_leg2;
   if (leg2)
   {
-    [(SCNNode *)leg2 transform];
+    objc_msgSend_transform(leg2);
   }
 
   else
@@ -466,12 +463,12 @@ LABEL_14:
         [(NTKSnowglobeDigitController *)self _effectiveOrigin];
         v10.i32[1] = v9;
         v10.i32[2] = v11;
-        v50 = v10;
+        v53 = v10;
         presentationNode2 = [(SCNNode *)self->_node presentationNode];
         [presentationNode2 simdPosition];
-        v51 = vsubq_f32(v50, v13);
+        v54 = vsubq_f32(v53, v13);
 
-        v14 = vmulq_f32(v51, v51);
+        v14 = vmulq_f32(v54, v54);
         if ((v14.f32[2] + vaddv_f32(*v14.f32)) < 0.5)
         {
           physicsBody2 = [(SCNNode *)self->_node physicsBody];
@@ -486,51 +483,54 @@ LABEL_14:
       {
         physicsBody4 = [(SCNNode *)self->_node physicsBody];
         [physicsBody4 velocity];
-        v48 = v19;
-        v49 = v18;
-        v52 = v20;
+        v51 = v19;
+        v52 = v18;
+        v55 = v20;
 
-        v21 = v49;
-        v21.i32[1] = v48;
-        v21.i32[2] = v52;
+        v21 = v52;
+        v21.i32[1] = v51;
+        v21.i32[2] = v55;
         v22 = vmulq_f32(v21, v21);
         v23 = sqrtf(v22.f32[2] + vaddv_f32(*v22.f32));
-        v24 = NTKSnowglobeTunableFloat(@"kickSpeed", 0.5);
+        NTKSnowglobeTunableFloat();
+        v25 = v24;
         [(NTKSnowglobeDigitProfile *)self->_profile kickMultiplier];
-        v26 = self->_accumulatedKick + (v24 * v25 + NTKSnowglobeTunableFloat(@"kickSpeedMotionMultiplier", 0.7) * v23) * 0.0333333333;
-        self->_accumulatedKick = v26;
-        v27 = sin((self->_random1 * 2.0 + 1.0) * (v26 + v26)) * -3.14159265 / 3.0;
-        *&v26 = sin((self->_random2 * 2.0 + 1.0) * (v26 * -2.0)) * -3.14159265 / 3.0;
+        v27 = v25 * v26;
+        NTKSnowglobeTunableFloat();
+        v29 = self->_accumulatedKick + (v27 + v28 * v23) * 0.0333333333;
+        self->_accumulatedKick = v29;
+        v30 = sin((self->_random1 * 2.0 + 1.0) * (v29 + v29)) * -3.14159265 / 3.0;
+        *&v29 = sin((self->_random2 * 2.0 + 1.0) * (v29 * -2.0)) * -3.14159265 / 3.0;
         [(NTKSnowglobeDigitController *)self _applyLegSpring:self->_leg1];
         [(NTKSnowglobeDigitController *)self _applyLegSpring:self->_leg2];
         physicsBody5 = [(SCNNode *)self->_leg1 physicsBody];
         physicsBody6 = [(SCNNode *)self->_leg1 physicsBody];
         [physicsBody6 mass];
-        v31 = v27 * 0.0333333333 * v30;
-        *&v32 = v31;
-        LODWORD(v31) = 1.0;
-        [physicsBody5 applyTorque:1 impulse:{v31, 0.0, 0.0, v32}];
+        v34 = v30 * 0.0333333333 * v33;
+        *&v35 = v34;
+        LODWORD(v34) = 1.0;
+        [physicsBody5 applyTorque:1 impulse:{v34, 0.0, 0.0, v35}];
 
         physicsBody7 = [(SCNNode *)self->_leg2 physicsBody];
         physicsBody8 = [(SCNNode *)self->_leg2 physicsBody];
         [physicsBody8 mass];
-        v36 = *&v26 * 0.0333333333 * v35;
-        *&v37 = v36;
-        LODWORD(v36) = 1.0;
-        [physicsBody7 applyTorque:1 impulse:{v36, 0.0, 0.0, v37}];
+        v39 = *&v29 * 0.0333333333 * v38;
+        *&v40 = v39;
+        LODWORD(v39) = 1.0;
+        [physicsBody7 applyTorque:1 impulse:{v39, 0.0, 0.0, v40}];
 
         physicsBody9 = [(SCNNode *)self->_node physicsBody];
         [physicsBody9 velocity];
-        DWORD1(v40) = v39;
-        DWORD2(v40) = v41;
-        *self->_anon_70 = v40;
+        DWORD1(v43) = v42;
+        DWORD2(v43) = v44;
+        *self->_anon_70 = v43;
 
         physicsBody10 = [(SCNNode *)self->_node physicsBody];
         [physicsBody10 angularVelocity];
-        v44.i32[1] = v43;
-        v44.i64[1] = __PAIR64__(v46, v45);
-        NTKMakeEulerAnglesFromAxisAngle(v44);
-        *&self->_anon_70[32] = v47;
+        v47.i32[1] = v46;
+        v47.i64[1] = __PAIR64__(v49, v48);
+        NTKMakeEulerAnglesFromAxisAngle(v47);
+        *&self->_anon_70[32] = v50;
 
         [(NTKSnowglobeDigitController *)self _queue_applyRandAcceleration];
         [(NTKSnowglobeDigitController *)self _queue_applyRotationSprings];
@@ -590,9 +590,9 @@ LABEL_14:
 {
   dispatch_assert_queue_V2(self->_renderQueue);
   v3 = arc4random() / 4294967300.0;
-  v17 = v3;
+  v18 = v3;
   *&v4 = arc4random() / 4294967300.0;
-  v5 = __PAIR64__(v4, LODWORD(v17));
+  v5 = __PAIR64__(v4, LODWORD(v18));
   v6.i64[0] = 0x4000000040000000;
   v6.i64[1] = 0x4000000040000000;
   __asm { FMOV            V2.4S, #-1.0 }
@@ -600,12 +600,14 @@ LABEL_14:
   v12 = vmlaq_f32(_Q2, v6, v5);
   v13 = vaddq_f32(v12, v12);
   v13.i32[2] = 0;
-  v18 = v13;
+  v19 = v13;
   [(NTKSnowglobeDigitProfile *)self->_profile randomMotionMultiplier];
-  v15 = NTKSnowglobeTunableFloat(@"randomMotionMultiplier", 0.3) * v14;
-  v16 = vmlaq_f32(vmulq_f32(vmulq_n_f32(v18, v15), vdupq_n_s32(0x3DCCCCCDu)), vdupq_n_s32(0x3F666666u), *self->_randAccel);
-  *self->_randAccel = v16;
-  *&self->_anon_70[16] = vaddq_f32(*&self->_anon_70[16], v16);
+  v15 = v14;
+  NTKSnowglobeTunableFloat();
+  *&v16 = v16 * v15;
+  v17 = vmlaq_f32(vmulq_f32(vmulq_n_f32(v19, *&v16), vdupq_n_s32(0x3DCCCCCDu)), vdupq_n_s32(0x3F666666u), *self->_randAccel);
+  *self->_randAccel = v17;
+  *&self->_anon_70[16] = vaddq_f32(*&self->_anon_70[16], v17);
 }
 
 - (void)_queue_applyRotationSprings
@@ -670,7 +672,7 @@ LABEL_14:
     v20 = vmulq_f32(vmulq_n_f32(v23, vmul_f32(v14, vrsqrts_f32(v12, vmul_f32(v14, v14))).f32[0]), xmmword_23C090670);
     [(NTKSnowglobeDigitProfile *)self->_profile springMultiplier];
     v21 = vmulq_n_f32(v20, v15);
-    v16 = NTKSnowglobeTunableFloat(@"springMultiplier", 0.8);
+    NTKSnowglobeTunableFloat();
     v9 = v23;
     *&v16 = v16;
     v17 = vmulq_n_f32(v21, *&v16);
@@ -766,17 +768,18 @@ LABEL_14:
   {
     y = position.y;
     x = position.x;
-    v5 = NTKSnowglobeTunableFloat(@"tapAcceleration", 300.0);
-    v6 = NTKSnowglobeTunableFloat(@"tapRotation", 100.0);
-    v7 = v5;
+    NTKSnowglobeTunableFloat();
+    v6 = v5;
+    NTKSnowglobeTunableFloat();
+    v7 = v6;
     v8.i64[0] = 0;
     v8.i32[3] = 0;
     v8.f32[2] = -v7;
     *&v9 = -y;
     *(&v9 + 1) = x;
     *&self->_anon_70[16] = vaddq_f32(v8, *&self->_anon_70[16]);
-    *&v6 = v6;
-    *&self->_anon_70[48] = vaddq_f32(*&self->_anon_70[48], vmulq_n_f32(v9, *&v6));
+    *&v10 = v10;
+    *&self->_anon_70[48] = vaddq_f32(*&self->_anon_70[48], vmulq_n_f32(v9, *&v10));
   }
 }
 
@@ -784,32 +787,32 @@ LABEL_14:
 {
   if (!self->_pausePhysics)
   {
-    v41 = +[NTKSnowglobeMotionManager sharedInstance];
-    [v41 userAcceleration];
-    v35 = v5;
-    v38 = v4;
+    v43 = +[NTKSnowglobeMotionManager sharedInstance];
+    [v43 userAcceleration];
+    v37 = v5;
+    v40 = v4;
     v7 = v6;
-    [v41 rotationRate];
+    [v43 rotationRate];
     v9 = v8;
-    *&v10 = NTKSnowglobeTunableFloat(@"motionLateralAcceleration", 8.0);
+    NTKSnowglobeTunableFloat();
     *&v10 = *&v10;
-    v34 = v10;
-    v11 = NTKSnowglobeTunableFloat(@"motionLateralAccelerationMax", 1.0);
+    v36 = v10;
+    NTKSnowglobeTunableFloat();
     *&v11 = v11;
-    v12.f64[0] = v38;
-    v12.f64[1] = v35;
+    v12.f64[0] = v40;
+    v12.f64[1] = v37;
     *&v12.f64[0] = vcvt_f32_f64(v12);
     v13 = v7;
     *&v12.f64[1] = v13;
     v15 = vdupq_n_s32(0x3D088889u);
     v14 = vdivq_f32(v12, v15);
     v15.f32[0] = -*&v11;
-    *v18.f32 = vmul_n_f32(*v14.f32, *&v34);
+    *v18.f32 = vmul_n_f32(*v14.f32, *&v36);
     v16 = vdup_lane_s32(*&v11, 0);
     *v18.f32 = vbsl_s8(vcgt_f32(v16, *v18.f32), *v18.f32, v16);
     v17 = vdup_lane_s32(*v15.f32, 0);
     *v18.f32 = vbsl_s8(vcgt_f32(v17, *v18.f32), v17, *v18.f32);
-    v19 = vmuls_lane_f32(*&v34, v14, 2);
+    v19 = vmuls_lane_f32(*&v36, v14, 2);
     if (v19 < *&v11)
     {
       *&v11 = v19;
@@ -821,42 +824,44 @@ LABEL_14:
     }
 
     v18.i32[2] = LODWORD(v11);
-    v39 = v18;
+    v41 = v18;
     [(NTKSnowglobeDigitProfile *)self->_profile accelerometerFactor];
-    v21 = vmulq_n_f32(v39, v20);
+    v21 = vmulq_n_f32(v41, v20);
     node = self->_node;
     if (node)
     {
-      v40 = v21;
+      v42 = v21;
       presentationNode = [(SCNNode *)node presentationNode];
       [presentationNode simdPosition];
-      v36 = v24;
+      v38 = v24;
 
-      v25 = v36;
+      v25 = v38;
       v25.i32[2] = 0;
-      v37 = v25;
-      v26 = NTKSnowglobeTunableFloat(@"spinAcceleration", 1.6);
-      v27 = NTKSnowglobeTunableFloat(@"spinAccelerationMax", 0.6);
-      v28 = v9 * v26;
-      if (v28 >= v27)
+      v39 = v25;
+      NTKSnowglobeTunableFloat();
+      v27 = v26;
+      NTKSnowglobeTunableFloat();
+      v29 = v28;
+      v30 = v9 * v27;
+      if (v30 >= v29)
       {
-        v28 = v27;
+        v30 = v29;
       }
 
-      v29 = -v27;
-      if (v28 >= v29)
+      v31 = -v29;
+      if (v30 >= v31)
       {
-        v30 = v28;
-        v29 = v30;
+        v32 = v30;
+        v31 = v32;
       }
 
-      LODWORD(v31) = 0;
-      v32.i64[0] = 0;
-      v32.i64[1] = LODWORD(v29);
-      v33 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v32, v32), v32, 0xCuLL), vnegq_f32(v37)), v32, vextq_s8(vuzp1q_s32(v37, v37), v37, 0xCuLL));
-      v21 = vaddq_f32(v40, vextq_s8(vuzp1q_s32(v33, v33), v33, 0xCuLL));
-      *(&v31 + 1) = -v29;
-      *&self->_anon_70[48] = v31;
+      LODWORD(v33) = 0;
+      v34.i64[0] = 0;
+      v34.i64[1] = LODWORD(v31);
+      v35 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v34, v34), v34, 0xCuLL), vnegq_f32(v39)), v34, vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL));
+      v21 = vaddq_f32(v42, vextq_s8(vuzp1q_s32(v35, v35), v35, 0xCuLL));
+      *(&v33 + 1) = -v31;
+      *&self->_anon_70[48] = v33;
     }
 
     *&self->_anon_70[16] = vaddq_f32(v21, *&self->_anon_70[16]);

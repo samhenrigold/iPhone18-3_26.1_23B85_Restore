@@ -14,6 +14,7 @@
 - (void)_logExtensionsStateWithReason:(id)reason;
 - (void)_startMatchingExtensions;
 - (void)dealloc;
+- (void)registerMailAppExtensionsObserver:(id)observer capabilities:(id)capabilities includeDisabled:(BOOL)disabled completion:(id)completion;
 @end
 
 @implementation MEAppExtensionsController
@@ -76,21 +77,19 @@ void __43__MEAppExtensionsController_sharedInstance__block_invoke()
 
 void __63__MEAppExtensionsController__emailExtensionAttributeDictionary__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D3D378];
-  v4[0] = @"com.apple.email.extension";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D3D378];
+  v3[0] = @"com.apple.email.extension";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = _emailExtensionAttributeDictionary_sMatchDictionary;
   _emailExtensionAttributeDictionary_sMatchDictionary = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (MEAppExtensionsController)init
 {
-  v17.receiver = self;
-  v17.super_class = MEAppExtensionsController;
-  v2 = [(MEAppExtensionsController *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MEAppExtensionsController;
+  v2 = [(MEAppExtensionsController *)&v16 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -108,13 +107,12 @@ void __63__MEAppExtensionsController__emailExtensionAttributeDictionary__block_i
     v2->_stateCaptureQueue = v9;
 
     objc_initWeak(&location, v2);
-    v11 = v2->_stateCaptureQueue;
-    objc_copyWeak(&v15, &location);
-    v12 = EFLogRegisterStateCaptureBlock();
+    objc_copyWeak(&v14, &location);
+    v11 = EFLogRegisterStateCaptureBlock();
     stateCaptureCancelable = v2->_stateCaptureCancelable;
-    v2->_stateCaptureCancelable = v12;
+    v2->_stateCaptureCancelable = v11;
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
 
@@ -123,32 +121,32 @@ void __63__MEAppExtensionsController__emailExtensionAttributeDictionary__block_i
 
 id __33__MEAppExtensionsController_init__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   os_unfair_lock_lock(WeakRetained + 4);
   v2 = *(WeakRetained + 4);
   os_unfair_lock_unlock(WeakRetained + 4);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = v2;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v9 ef_publicDescription];
         [v3 addObject:v10];
 
@@ -159,19 +157,17 @@ id __33__MEAppExtensionsController_init__block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  v19[0] = @"All Extensions";
-  v19[1] = @"Enabled Extensions";
-  v20[0] = v3;
-  v20[1] = v4;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v18[0] = @"All Extensions";
+  v18[1] = @"Enabled Extensions";
+  v19[0] = v3;
+  v19[1] = v4;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   return v12;
 }
@@ -183,6 +179,64 @@ id __33__MEAppExtensionsController_init__block_invoke(uint64_t a1)
   v3.receiver = self;
   v3.super_class = MEAppExtensionsController;
   [(MEAppExtensionsController *)&v3 dealloc];
+}
+
+- (void)registerMailAppExtensionsObserver:(id)observer capabilities:(id)capabilities includeDisabled:(BOOL)disabled completion:(id)completion
+{
+  disabledCopy = disabled;
+  observerCopy = observer;
+  capabilitiesCopy = capabilities;
+  completionCopy = completion;
+  v13 = [[MEMailAppExtensionObserverCriteria alloc] initWithCapabilities:capabilitiesCopy includeDisabled:disabledCopy];
+  os_unfair_lock_lock(&self->_lock);
+  v14 = [(NSMapTable *)self->_observers objectForKey:observerCopy];
+
+  if (v14)
+  {
+    areRemoteExtensionsFetched = self->_areRemoteExtensionsFetched;
+    os_unfair_lock_unlock(&self->_lock);
+    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"MEMailExtensionErrorDomain" code:1 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, 0, areRemoteExtensionsFetched, v16);
+  }
+
+  else
+  {
+    [(NSMapTable *)self->_observers setObject:v13 forKey:observerCopy];
+    v17 = self->_areRemoteExtensionsFetched;
+    os_unfair_lock_unlock(&self->_lock);
+    objc_initWeak(&location, observerCopy);
+    v18 = objc_alloc_init(MEMORY[0x277D07170]);
+    objc_initWeak(&from, self);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __103__MEAppExtensionsController_registerMailAppExtensionsObserver_capabilities_includeDisabled_completion___block_invoke;
+    v23[3] = &unk_279858DC0;
+    objc_copyWeak(&v24, &from);
+    objc_copyWeak(&v25, &location);
+    [v18 addCancelationBlock:v23];
+    os_unfair_lock_lock(&self->_lock);
+    v19 = self->_allRemoteExtensions;
+    if (!self->_extensionMatchingContext)
+    {
+      [(MEAppExtensionsController *)self _startMatchingExtensions];
+    }
+
+    os_unfair_lock_unlock(&self->_lock);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __103__MEAppExtensionsController_registerMailAppExtensionsObserver_capabilities_includeDisabled_completion___block_invoke_2;
+    v21[3] = &unk_279858DE8;
+    v21[4] = self;
+    v22 = v13;
+    v20 = [(NSArray *)v19 ef_filter:v21];
+    (*(completionCopy + 2))(completionCopy, v18, v20, v17, 0);
+
+    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&from);
+
+    objc_destroyWeak(&location);
+  }
 }
 
 void __103__MEAppExtensionsController_registerMailAppExtensionsObserver_capabilities_includeDisabled_completion___block_invoke(uint64_t a1)
@@ -228,27 +282,27 @@ uint64_t __52__MEAppExtensionsController_extensionForIdentifier___block_invoke(u
 
 - (BOOL)hasSecurityExtensionsEnabled
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = self->_allRemoteExtensions;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = v2;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         if ([v7 isEnabled])
         {
           capabilities = [v7 capabilities];
@@ -262,7 +316,7 @@ uint64_t __52__MEAppExtensionsController_extensionForIdentifier___block_invoke(u
         }
       }
 
-      v4 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -275,7 +329,6 @@ uint64_t __52__MEAppExtensionsController_extensionForIdentifier___block_invoke(u
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -313,98 +366,98 @@ void __53__MEAppExtensionsController__startMatchingExtensions__block_invoke(uint
 
 void __53__MEAppExtensionsController__startMatchingExtensions__block_invoke_2(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v30 = *(WeakRetained + 4);
+  v29 = *(WeakRetained + 4);
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  obj = v30;
-  v3 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  obj = v29;
+  v3 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v3)
   {
-    v4 = *v45;
+    v4 = *v44;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v45 != v4)
+        if (*v44 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v44 + 1) + 8 * i);
+        v6 = *(*(&v43 + 1) + 8 * i);
         v7 = [v6 extensionID];
         [v2 setObject:v6 forKeyedSubscript:v7];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v3 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v3);
   }
 
   v8 = [WeakRetained _remoteEmailExtensionsForExtensions:*(a1 + 32) enabledOnly:0];
-  v31 = [v8 allValues];
+  v30 = [v8 allValues];
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v34 = v31;
-  v10 = [v34 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v33 = v30;
+  v10 = [v33 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v10)
   {
-    v11 = *v41;
+    v11 = *v40;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v41 != v11)
+        if (*v40 != v11)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v33);
         }
 
-        v13 = *(*(&v40 + 1) + 8 * j);
+        v13 = *(*(&v39 + 1) + 8 * j);
         v14 = [v13 extensionID];
         [v9 setObject:v13 forKeyedSubscript:v14];
       }
 
-      v10 = [v34 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v10 = [v33 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_lock(WeakRetained + 4);
-  objc_storeStrong(WeakRetained + 4, v31);
+  objc_storeStrong(WeakRetained + 4, v30);
   v15 = WeakRetained;
   v16 = [*(WeakRetained + 1) copy];
   *(WeakRetained + 40) = 1;
   os_unfair_lock_unlock(WeakRetained + 4);
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v32 = [v16 keyEnumerator];
-  v17 = [v32 countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v31 = [v16 keyEnumerator];
+  v17 = [v31 countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (v17)
   {
-    v18 = *v37;
+    v18 = *v36;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v37 != v18)
+        if (*v36 != v18)
         {
-          objc_enumerationMutation(v32);
+          objc_enumerationMutation(v31);
         }
 
-        v20 = *(*(&v36 + 1) + 8 * k);
-        v21 = [v16 objectForKey:{v20, v30}];
+        v20 = *(*(&v35 + 1) + 8 * k);
+        v21 = [v16 objectForKey:{v20, v29}];
         v22 = [v15 _extensionsNewlyMatchingFromNewExtensions:v9 currentExtensions:v2 forCriteria:v21];
         v23 = [v15 _extensionsNoLongerMatchingFromNewExtensions:v9 currentExtensions:v2 forCriteria:v21];
         [v20 extensionsMatched:v22];
@@ -416,18 +469,18 @@ void __53__MEAppExtensionsController__startMatchingExtensions__block_invoke_2(ui
         v15 = WeakRetained;
       }
 
-      v17 = [v32 countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v17 = [v31 countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
     while (v17);
   }
 
-  v24 = [v34 ef_compactMap:&__block_literal_global_51];
+  v24 = [v33 ef_compactMap:&__block_literal_global_51];
   v25 = *(WeakRetained + 8);
   *(WeakRetained + 8) = v24;
 
   v26 = @"processing updates";
-  if (!v30)
+  if (!v29)
   {
     v26 = @"startup";
   }
@@ -436,8 +489,6 @@ void __53__MEAppExtensionsController__startMatchingExtensions__block_invoke_2(ui
   [WeakRetained _logExtensionsStateWithReason:v27];
   v28 = [MEMORY[0x277CCAB98] defaultCenter];
   [v28 postNotificationName:@"MEMailAppExtensionsEnabledStateChanged" object:WeakRetained];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 id __53__MEAppExtensionsController__startMatchingExtensions__block_invoke_3(uint64_t a1, void *a2)
@@ -458,31 +509,31 @@ id __53__MEAppExtensionsController__startMatchingExtensions__block_invoke_3(uint
 
 - (id)_extensionsNewlyMatchingFromNewExtensions:(id)extensions currentExtensions:(id)currentExtensions forCriteria:(id)criteria
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   currentExtensionsCopy = currentExtensions;
   criteriaCopy = criteria;
   includeDisabled = [criteriaCopy includeDisabled];
-  v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = [extensionsCopy allValues];
-  v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         if ([(MEAppExtensionsController *)self _extension:v13 matchesCriteria:criteriaCopy, extensionsCopy])
         {
           extensionID = [v13 extensionID];
@@ -505,7 +556,7 @@ id __53__MEAppExtensionsController__startMatchingExtensions__block_invoke_3(uint
             if ((previouslyEnabledExtensionIdentifiers & 1) == 0)
             {
 LABEL_12:
-              [v21 addObject:v13];
+              [v20 addObject:v13];
             }
           }
 
@@ -513,44 +564,42 @@ LABEL_12:
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v10);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 - (id)_extensionsNoLongerMatchingFromNewExtensions:(id)extensions currentExtensions:(id)currentExtensions forCriteria:(id)criteria
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   currentExtensionsCopy = currentExtensions;
   criteriaCopy = criteria;
   includeDisabled = [criteriaCopy includeDisabled];
-  v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = [currentExtensionsCopy allValues];
-  v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         extensionID = [v13 extensionID];
         v15 = [extensionsCopy objectForKeyedSubscript:extensionID];
 
@@ -564,7 +613,7 @@ LABEL_12:
             }
 
 LABEL_13:
-            [v21 addObject:v13];
+            [v20 addObject:v13];
             goto LABEL_14;
           }
 
@@ -584,15 +633,13 @@ LABEL_13:
 LABEL_14:
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v10);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 - (BOOL)_extension:(id)_extension matchesOldCriteria:(id)criteria
@@ -646,29 +693,29 @@ LABEL_14:
 - (id)_remoteEmailExtensionsForExtensions:(id)extensions enabledOnly:(BOOL)only
 {
   onlyCopy = only;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
-  v23 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v22 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v5 = extensionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v6)
   {
-    v7 = *v25;
+    v7 = *v24;
     v8 = !onlyCopy;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         identifier = [v10 identifier];
         _plugIn = [v10 _plugIn];
         userElection = [_plugIn userElection];
@@ -678,13 +725,13 @@ LABEL_14:
           _plugIn2 = [v10 _plugIn];
           v15 = [[MERemoteExtension alloc] initWithExtension:v10];
           identifier2 = [_plugIn2 identifier];
-          [v23 setObject:v15 forKeyedSubscript:identifier2];
+          [v22 setObject:v15 forKeyedSubscript:identifier2];
 
           v17 = +[MEAppExtensionsController log];
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v29 = identifier;
+            v28 = identifier;
             _os_log_impl(&dword_257F67000, v17, OS_LOG_TYPE_DEFAULT, "Found email extension with identifier:%@", buf, 0xCu);
           }
         }
@@ -695,17 +742,17 @@ LABEL_14:
           if (os_log_type_enabled(_plugIn2, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v29 = identifier;
-            v30 = 2080;
-            v31 = "NO";
-            v32 = 2048;
-            v33 = userElection;
+            v28 = identifier;
+            v29 = 2080;
+            v30 = "NO";
+            v31 = 2048;
+            v32 = userElection;
             _os_log_debug_impl(&dword_257F67000, _plugIn2, OS_LOG_TYPE_DEBUG, "Skipping extension:%@, optedIn:%s, election:%ld", buf, 0x20u);
           }
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v6);
@@ -714,15 +761,13 @@ LABEL_14:
   v18 = +[MEAppExtensionsController log];
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [v23 count];
+    v19 = [v22 count];
     *buf = 134217984;
-    v29 = v19;
+    v28 = v19;
     _os_log_impl(&dword_257F67000, v18, OS_LOG_TYPE_DEFAULT, "Found %lu email extensions", buf, 0xCu);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (void)_logExtensionsStateWithReason:(id)reason
@@ -769,8 +814,8 @@ LABEL_14:
     while (v9);
   }
 
-  v15 = MEMailExtensionsLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = MEMailExtensionsLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     v22 = reasonCopy;
@@ -778,10 +823,8 @@ LABEL_14:
     v24 = v6;
     v25 = 2114;
     v26 = v5;
-    _os_log_impl(&dword_257F67000, v15, OS_LOG_TYPE_DEFAULT, "Current Mail Extensions for %{public}@ - \nEnabled Extensions - %{public}@\nAll Extensions %{public}@", buf, 0x20u);
+    _os_log_impl(&dword_257F67000, v16, OS_LOG_TYPE_DEFAULT, "Current Mail Extensions for %{public}@ - \nEnabled Extensions - %{public}@\nAll Extensions %{public}@", buf, 0x20u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

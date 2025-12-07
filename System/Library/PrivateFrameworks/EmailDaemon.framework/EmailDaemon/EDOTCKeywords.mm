@@ -49,45 +49,42 @@ void __20__EDOTCKeywords_log__block_invoke(uint64_t a1)
 
 void __43__EDOTCKeywords_localizedExpressionStrings__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = [v2 URLForResource:@"EDOTCLocalizationKeywords" withExtension:@"json"];
+  v19 = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [v1 URLForResource:@"EDOTCLocalizationKeywords" withExtension:@"json"];
 
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3];
-  v19 = 0;
-  v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v19];
-  v6 = v19;
+  v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v2];
+  v17 = 0;
+  v4 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v17];
+  v5 = v17;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v5 count])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v4 count])
   {
-    v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __43__EDOTCKeywords_localizedExpressionStrings__block_invoke_20;
-    v17 = &unk_1E8255B38;
-    v8 = v7;
-    v18 = v8;
-    [v5 enumerateKeysAndObjectsUsingBlock:&v14];
-    v9 = [v8 allObjects];
-    v10 = localizedExpressionStrings_otcKeywordsArray;
-    localizedExpressionStrings_otcKeywordsArray = v9;
+    v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __43__EDOTCKeywords_localizedExpressionStrings__block_invoke_20;
+    v15 = &unk_1E8255B38;
+    v7 = v6;
+    v16 = v7;
+    [v4 enumerateKeysAndObjectsUsingBlock:&v12];
+    v8 = [v7 allObjects];
+    v9 = localizedExpressionStrings_otcKeywordsArray;
+    localizedExpressionStrings_otcKeywordsArray = v8;
   }
 
   else
   {
-    v11 = +[EDOTCKeywords log];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = +[EDOTCKeywords log];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = [v5 description];
-      __43__EDOTCKeywords_localizedExpressionStrings__block_invoke_cold_1(v12, v6, buf, v11);
+      v11 = [v4 description];
+      __43__EDOTCKeywords_localizedExpressionStrings__block_invoke_cold_1(v11, v5, buf, v10);
     }
 
-    v8 = localizedExpressionStrings_otcKeywordsArray;
+    v7 = localizedExpressionStrings_otcKeywordsArray;
     localizedExpressionStrings_otcKeywordsArray = MEMORY[0x1E695E0F0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __43__EDOTCKeywords_localizedExpressionStrings__block_invoke_20(uint64_t a1, uint64_t a2, void *a3)

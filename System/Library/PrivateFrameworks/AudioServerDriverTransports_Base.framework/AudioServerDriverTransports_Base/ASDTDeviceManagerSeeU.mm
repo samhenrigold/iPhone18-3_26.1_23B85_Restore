@@ -32,11 +32,11 @@
 
 - (BOOL)addAudioDeviceWithCheck:(id)check
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   checkCopy = check;
-  v17.receiver = self;
-  v17.super_class = ASDTDeviceManagerSeeU;
-  v5 = [(ASDTDeviceManager *)&v17 addAudioDeviceWithCheck:checkCopy];
+  v18.receiver = self;
+  v18.super_class = ASDTDeviceManagerSeeU;
+  v5 = [(ASDTDeviceManager *)&v18 addAudioDeviceWithCheck:checkCopy];
   if (v5)
   {
     deviceUID = [checkCopy deviceUID];
@@ -50,11 +50,11 @@
       initializingCond = [(ASDTDeviceManager *)self initializingCond];
       [initializingCond lock];
 
-      v11 = ASDTBaseLogType();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = ASDTBaseLogType(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         deviceName = [checkCopy deviceName];
-        [(ASDTDeviceManagerSeeU *)deviceName addAudioDeviceWithCheck:buf, v11];
+        [(ASDTDeviceManagerSeeU *)deviceName addAudioDeviceWithCheck:buf, v13];
       }
 
       underlyingDevices = [(ASDTDeviceManagerSeeU *)self underlyingDevices];
@@ -65,7 +65,6 @@
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -137,23 +136,23 @@
 - (BOOL)setupPublishUnderlyingDevicesProperty
 {
   selfCopy = self;
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
-  v15[0] = @"Subclass";
-  v15[1] = @"Selector";
-  v16[0] = @"ASDTUInt32Property";
-  v16[1] = &unk_2853549D8;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[0] = @"Subclass";
+  v14[1] = @"Selector";
+  v15[0] = @"ASDTUInt32Property";
+  v15[1] = &unk_2853549D8;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v4 = [ASDTCustomProperty customPropertyForConfig:v3];
   [(ASDTDeviceManagerSeeU *)selfCopy setPublishUnderlyingDevicesProperty:v4];
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__ASDTDeviceManagerSeeU_setupPublishUnderlyingDevicesProperty__block_invoke;
-  v12[3] = &unk_278CE6540;
-  objc_copyWeak(&v13, &location);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__ASDTDeviceManagerSeeU_setupPublishUnderlyingDevicesProperty__block_invoke;
+  v11[3] = &unk_278CE6540;
+  objc_copyWeak(&v12, &location);
   publishUnderlyingDevicesProperty = [(ASDTDeviceManagerSeeU *)selfCopy publishUnderlyingDevicesProperty];
-  [publishUnderlyingDevicesProperty setPropertyChangeBlock:v12];
+  [publishUnderlyingDevicesProperty setPropertyChangeBlock:v11];
 
   plugin = [(ASDTDeviceManager *)selfCopy plugin];
   publishUnderlyingDevicesProperty2 = [(ASDTDeviceManagerSeeU *)selfCopy publishUnderlyingDevicesProperty];
@@ -165,9 +164,8 @@
   publishUnderlyingDevicesProperty4 = [(ASDTDeviceManagerSeeU *)selfCopy publishUnderlyingDevicesProperty];
   LOBYTE(selfCopy) = publishUnderlyingDevicesProperty4 != 0;
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

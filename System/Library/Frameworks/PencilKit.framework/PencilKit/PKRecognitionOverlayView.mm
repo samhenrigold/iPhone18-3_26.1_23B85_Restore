@@ -37,7 +37,7 @@
   x = rect.origin.x;
   CurrentContext = UIGraphicsGetCurrentContext();
   CGContextSaveGState(CurrentContext);
-  [(PKRecognitionOverlayView *)self drawingTransform];
+  objc_msgSend_drawingTransform(self);
   CGContextConcatCTM(CurrentContext, &v14);
   visualizationManager = [(PKRecognitionOverlayView *)self visualizationManager];
   [(PKRecognitionOverlayView *)self bounds];

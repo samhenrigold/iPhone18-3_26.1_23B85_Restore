@@ -233,8 +233,6 @@ LABEL_34:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  status = self->_status;
-  v6 = toCopy;
   PBDataWriterWriteInt32Field();
   if (!self->_md5)
   {

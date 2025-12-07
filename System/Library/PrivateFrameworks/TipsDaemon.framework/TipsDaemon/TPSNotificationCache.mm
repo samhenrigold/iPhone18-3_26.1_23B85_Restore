@@ -63,11 +63,11 @@
 
 - (TPSNotificationCache)initWithCoder:(id)coder
 {
-  v26[5] = *MEMORY[0x277D85DE8];
+  v25[5] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = TPSNotificationCache;
-  v5 = [(TPSNotificationCache *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = TPSNotificationCache;
+  v5 = [(TPSNotificationCache *)&v23 init];
   if (v5)
   {
     v5->_type = [coderCopy decodeIntegerForKey:@"type"];
@@ -76,12 +76,12 @@
     v5->_locale = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v26[2] = objc_opt_class();
-    v26[3] = objc_opt_class();
-    v26[4] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v25[2] = objc_opt_class();
+    v25[3] = objc_opt_class();
+    v25[4] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"extensionPayload"];
@@ -89,10 +89,10 @@
     v5->_extensionPayload = v11;
 
     v13 = MEMORY[0x277CBEB98];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v25[2] = objc_opt_class();
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v24[2] = objc_opt_class();
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     v15 = [v13 setWithArray:v14];
 
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"document"];
@@ -108,7 +108,6 @@
     v5->_attachmentURL = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

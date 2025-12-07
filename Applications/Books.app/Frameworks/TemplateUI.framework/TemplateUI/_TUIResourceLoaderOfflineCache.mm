@@ -29,83 +29,84 @@
 
 - (_TUIResourceLoaderOfflineCache)init
 {
-  v28.receiver = self;
-  v28.super_class = _TUIResourceLoaderOfflineCache;
-  v2 = [(_TUIResourceLoaderOfflineCache *)&v28 init];
+  v30.receiver = self;
+  v30.super_class = _TUIResourceLoaderOfflineCache;
+  v2 = [(_TUIResourceLoaderOfflineCache *)&v30 init];
+  v3 = v2;
   if (!v2)
   {
-    return v2;
+    return v3;
   }
 
-  v3 = TUISignpostDefault();
-  v4 = os_signpost_id_make_with_pointer(v3, v2);
+  v4 = TUISignpostDefault(v2);
+  v5 = os_signpost_id_make_with_pointer(v4, v3);
 
-  v5 = TUISignpostDefault();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v7 = TUISignpostDefault(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Load offline cache", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Load offline cache", "", buf, 2u);
   }
 
-  v2->_postLaunchCacheCount = -1;
-  v7 = +[TUIOfflineCache provider];
-  v2->_generateOfflineCache = [v7 generateCache];
-  runFromCache = [v7 runFromCache];
-  v2->_runFromOfflineCache = runFromCache;
-  if ((v2->_generateOfflineCache || runFromCache) && (v12 = dispatch_queue_create("TUIResourceLoader.access", 0), accessQueue = v2->_accessQueue, v2->_accessQueue = v12, accessQueue, v2->_runFromOfflineCache))
+  v3->_postLaunchCacheCount = -1;
+  v9 = +[TUIOfflineCache provider];
+  v3->_generateOfflineCache = [v9 generateCache];
+  runFromCache = [v9 runFromCache];
+  v3->_runFromOfflineCache = runFromCache;
+  if ((v3->_generateOfflineCache || runFromCache) && (v14 = dispatch_queue_create("TUIResourceLoader.access", 0), accessQueue = v3->_accessQueue, v3->_accessQueue = v14, accessQueue, v3->_runFromOfflineCache))
   {
-    cacheFileCandidatesForPreLaunch = [v7 cacheFileCandidatesForPreLaunch];
-    v14 = [(_TUIResourceLoaderOfflineCache *)v2 _loadCacheFromCandidatePaths:cacheFileCandidatesForPreLaunch];
-    cache = v2->_cache;
-    v2->_cache = v14;
+    cacheFileCandidatesForPreLaunch = [v9 cacheFileCandidatesForPreLaunch];
+    v16 = [(_TUIResourceLoaderOfflineCache *)v3 _loadCacheFromCandidatePaths:cacheFileCandidatesForPreLaunch];
+    cache = v3->_cache;
+    v3->_cache = v16;
 
-    if (v2->_cache)
+    if (v3->_cache)
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v18 = [NSString stringWithFormat:@"%@-OfflineCache", v17];
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = [NSString stringWithFormat:@"%@-OfflineCache", v19];
 
-      v19 = [[NSURLCache alloc] initWithMemoryCapacity:79155201 diskCapacity:0 diskPath:v18];
-      urlCache = v2->_urlCache;
-      v2->_urlCache = v19;
+      v21 = [[NSURLCache alloc] initWithMemoryCapacity:79155201 diskCapacity:0 diskPath:v20];
+      urlCache = v3->_urlCache;
+      v3->_urlCache = v21;
 
-      [(NSURLCache *)v2->_urlCache removeAllCachedResponses];
-      v21 = v2->_cache;
-      v25[0] = _NSConcreteStackBlock;
-      v25[1] = 3221225472;
-      v25[2] = sub_900B0;
-      v25[3] = &unk_2607F0;
-      v26 = v2;
-      [(NSMutableDictionary *)v21 enumerateKeysAndObjectsUsingBlock:v25];
+      [(NSURLCache *)v3->_urlCache removeAllCachedResponses];
+      v23 = v3->_cache;
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_900B0;
+      v27[3] = &unk_2607F0;
+      v28 = v3;
+      [(NSMutableDictionary *)v23 enumerateKeysAndObjectsUsingBlock:v27];
     }
   }
 
   else
   {
-    if (!v2->_generateOfflineCache)
+    if (!v3->_generateOfflineCache)
     {
       goto LABEL_13;
     }
 
-    v9 = objc_opt_new();
-    v10 = v2->_cache;
-    v2->_cache = v9;
+    v11 = objc_opt_new();
+    v12 = v3->_cache;
+    v3->_cache = v11;
 
     cacheFileCandidatesForPreLaunch = +[NSNotificationCenter defaultCenter];
-    [cacheFileCandidatesForPreLaunch addObserver:v2 selector:"_saveOfflineCache:" name:UIApplicationDidEnterBackgroundNotification object:0];
+    [cacheFileCandidatesForPreLaunch addObserver:v3 selector:"_saveOfflineCache:" name:UIApplicationDidEnterBackgroundNotification object:0];
   }
 
 LABEL_13:
-  v22 = TUISignpostDefault();
-  v23 = v22;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  v24 = TUISignpostDefault(runFromCache);
+  v25 = v24;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v23, OS_SIGNPOST_INTERVAL_END, v4, "Load offline cache", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v25, OS_SIGNPOST_INTERVAL_END, v5, "Load offline cache", "", buf, 2u);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -142,93 +143,94 @@ LABEL_13:
 
 - (id)_loadCacheFromCandidatePaths:(id)paths
 {
-  v31 = 0u;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = paths;
-  v3 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v3 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v32;
+    v5 = *v34;
     v6 = &_AXSApplicationAccessibilityEnabled_ptr;
     while (2)
     {
       v7 = 0;
-      v27 = v4;
+      v29 = v4;
       do
       {
-        if (*v32 != v5)
+        if (*v34 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * v7);
+        v8 = *(*(&v33 + 1) + 8 * v7);
         defaultManager = [v6[449] defaultManager];
         v10 = [defaultManager fileExistsAtPath:v8];
 
         if (v10)
         {
-          v30 = 0;
-          v11 = [NSData dataWithContentsOfFile:v8 options:0 error:&v30];
-          v12 = v30;
+          v32 = 0;
+          v11 = [NSData dataWithContentsOfFile:v8 options:0 error:&v32];
+          v12 = v32;
+          v13 = v12;
           if (v11)
           {
-            v13 = v5;
-            v14 = objc_opt_class();
+            v14 = v5;
             v15 = objc_opt_class();
             v16 = objc_opt_class();
             v17 = objc_opt_class();
-            v18 = [NSSet setWithObjects:v14, v15, v16, v17, objc_opt_class(), 0];
-            v19 = objc_opt_class();
-            v29 = v12;
-            v20 = v11;
-            v21 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v18 fromData:v11 error:&v29];
-            v22 = v29;
+            v18 = objc_opt_class();
+            v19 = [NSSet setWithObjects:v15, v16, v17, v18, objc_opt_class(), 0];
+            v20 = objc_opt_class();
+            v31 = v13;
+            v21 = v11;
+            v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v19 fromData:v11 error:&v31];
+            v23 = v31;
 
-            v23 = TUIDynamicCast(v19, v21);
+            v24 = TUIDynamicCast(v20, v22);
 
-            v24 = TUIInstallBundleLog();
-            v25 = v24;
-            if (v23)
+            v26 = TUIInstallBundleLog(v25);
+            v27 = v26;
+            if (v24)
             {
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v36 = v8;
-                _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Using offline cache for TUI from %{public}@", buf, 0xCu);
+                v38 = v8;
+                _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Using offline cache for TUI from %{public}@", buf, 0xCu);
               }
 
               goto LABEL_22;
             }
 
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v36 = v8;
-              v37 = 2114;
-              v38 = v22;
-              _os_log_error_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Could not unarchive cache at %@ (error): %{public}@", buf, 0x16u);
+              v38 = v8;
+              v39 = 2114;
+              v40 = v23;
+              _os_log_error_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "Could not unarchive cache at %@ (error): %{public}@", buf, 0x16u);
             }
 
-            v5 = v13;
+            v5 = v14;
             v6 = &_AXSApplicationAccessibilityEnabled_ptr;
-            v4 = v27;
-            v11 = v20;
+            v4 = v29;
+            v11 = v21;
           }
 
           else
           {
-            v18 = TUIInstallBundleLog();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v19 = TUIInstallBundleLog(v12);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v36 = v8;
-              _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Could not read cache file from disk: %{public}@", buf, 0xCu);
+              v38 = v8;
+              _os_log_error_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Could not read cache file from disk: %{public}@", buf, 0xCu);
             }
 
-            v22 = v12;
+            v23 = v13;
           }
         }
 
@@ -236,7 +238,7 @@ LABEL_13:
       }
 
       while (v4 != v7);
-      v4 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v4 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (v4)
       {
         continue;
@@ -246,10 +248,10 @@ LABEL_13:
     }
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_22:
 
-  return v23;
+  return v24;
 }
 
 - (void)incrementPostLaunchCacheCount
@@ -269,86 +271,86 @@ LABEL_22:
   v4 = +[TUIOfflineCache provider];
   cacheDirCandidatesForPostLaunch = [v4 cacheDirCandidatesForPostLaunch];
 
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_90A78;
-  v32[3] = &unk_260818;
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_90A78;
+  v33[3] = &unk_260818;
   v6 = v3;
-  v33 = v6;
-  v7 = [cacheDirCandidatesForPostLaunch indexOfObjectPassingTest:v32];
+  v34 = v6;
+  v7 = [cacheDirCandidatesForPostLaunch indexOfObjectPassingTest:v33];
   if (v7 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v8 = [cacheDirCandidatesForPostLaunch objectAtIndexedSubscript:v7];
     if (v8)
     {
       v9 = v8;
-      v31 = 0;
-      v10 = [v6 contentsOfDirectoryAtPath:v8 error:&v31];
-      v23 = v31;
+      v32 = 0;
+      v10 = [v6 contentsOfDirectoryAtPath:v8 error:&v32];
+      v24 = v32;
       v11 = [v10 sortedArrayUsingSelector:"compare:"];
 
       if (!v11)
       {
-        v12 = TUIInstallBundleLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = TUIInstallBundleLog(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           sub_19A2C8();
         }
       }
 
-      v24 = v6;
-      v25 = cacheDirCandidatesForPostLaunch;
-      v29 = 0u;
+      v25 = v6;
+      v26 = cacheDirCandidatesForPostLaunch;
       v30 = 0u;
-      v27 = 0u;
+      v31 = 0u;
       v28 = 0u;
-      v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
-      if (v14)
+      v29 = 0u;
+      v14 = v11;
+      v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (v15)
       {
-        v15 = v14;
-        v16 = *v28;
+        v16 = v15;
+        v17 = *v29;
         do
         {
-          for (i = 0; i != v15; i = i + 1)
+          for (i = 0; i != v16; i = i + 1)
           {
-            if (*v28 != v16)
+            if (*v29 != v17)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v14);
             }
 
-            v18 = *(*(&v27 + 1) + 8 * i);
-            if ([v18 hasSuffix:@".plist"])
+            v19 = *(*(&v28 + 1) + 8 * i);
+            if ([v19 hasSuffix:@".plist"])
             {
-              v19 = v9;
-              v20 = [v9 stringByAppendingPathComponent:v18];
-              v34 = v20;
-              v21 = [NSArray arrayWithObjects:&v34 count:1];
-              v22 = [(_TUIResourceLoaderOfflineCache *)self _loadCacheFromCandidatePaths:v21];
+              v20 = v9;
+              v21 = [v9 stringByAppendingPathComponent:v19];
+              v35 = v21;
+              v22 = [NSArray arrayWithObjects:&v35 count:1];
+              v23 = [(_TUIResourceLoaderOfflineCache *)self _loadCacheFromCandidatePaths:v22];
 
-              if (v22)
+              if (v23)
               {
-                [(NSMutableDictionary *)self->_cache addEntriesFromDictionary:v22];
-                v26[0] = _NSConcreteStackBlock;
-                v26[1] = 3221225472;
-                v26[2] = sub_90AB0;
-                v26[3] = &unk_2607F0;
-                v26[4] = self;
-                [v22 enumerateKeysAndObjectsUsingBlock:v26];
+                [(NSMutableDictionary *)self->_cache addEntriesFromDictionary:v23];
+                v27[0] = _NSConcreteStackBlock;
+                v27[1] = 3221225472;
+                v27[2] = sub_90AB0;
+                v27[3] = &unk_2607F0;
+                v27[4] = self;
+                [v23 enumerateKeysAndObjectsUsingBlock:v27];
               }
 
-              v9 = v19;
+              v9 = v20;
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
         }
 
-        while (v15);
+        while (v16);
       }
 
-      v6 = v24;
-      cacheDirCandidatesForPostLaunch = v25;
+      v6 = v25;
+      cacheDirCandidatesForPostLaunch = v26;
     }
   }
 }
@@ -434,9 +436,9 @@ LABEL_22:
   if ([(NSMutableDictionary *)self->_cache count])
   {
     cache = self->_cache;
-    v16 = 0;
-    v5 = [NSKeyedArchiver archivedDataWithRootObject:cache requiringSecureCoding:1 error:&v16];
-    v6 = v16;
+    v18 = 0;
+    v5 = [NSKeyedArchiver archivedDataWithRootObject:cache requiringSecureCoding:1 error:&v18];
+    v6 = v18;
   }
 
   else
@@ -473,24 +475,24 @@ LABEL_22:
 
   if (!v5 || !v11)
   {
-    v14 = TUIInstallBundleLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = TUIInstallBundleLog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_19A330();
     }
 
-    v13 = v6;
+    v14 = v6;
     goto LABEL_17;
   }
 
-  v15 = v6;
-  v12 = [v5 writeToFile:v11 options:1 error:&v15];
-  v13 = v15;
+  v17 = v6;
+  v13 = [v5 writeToFile:v11 options:1 error:&v17];
+  v14 = v17;
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v14 = TUIInstallBundleLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = TUIInstallBundleLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_19A398();
     }

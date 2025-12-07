@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100266E70();
+  sub_100266E70(selfCopy);
 }
 
 - (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated

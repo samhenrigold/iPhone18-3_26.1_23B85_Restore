@@ -53,7 +53,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  if (!MapsSuggestionsEntriesShouldBeOfOneOfEachType(11, 8, entryCopy, withEntryCopy))
+  if (!MapsSuggestionsEntriesShouldBeOfOneOfEachType(0xB, 8, entryCopy, withEntryCopy))
   {
     goto LABEL_18;
   }

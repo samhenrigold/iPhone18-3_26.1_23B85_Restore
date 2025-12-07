@@ -168,67 +168,67 @@ LABEL_15:
 
 - (id)_locationTripKeywordsForMomentNodes:(id)nodes locationHelper:(id)helper
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   helperCopy = helper;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v35 = objc_alloc_init(MEMORY[0x277CCA940]);
-  v33 = nodesCopy;
+  v31 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v34 = objc_alloc_init(MEMORY[0x277CCA940]);
+  v32 = nodesCopy;
   temporaryArray = [nodesCopy temporaryArray];
-  v31 = helperCopy;
+  v30 = helperCopy;
   v9 = [helperCopy relevantAddressNodesForMomentNodes:temporaryArray applyDensestCloseLocationNode:0];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v10 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v45;
+    v12 = *v44;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v45 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v44 + 1) + 8 * i);
+        v14 = *(*(&v43 + 1) + 8 * i);
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
         keywordsRegions = [(PGMoodKeywordComputer *)self keywordsRegions];
-        v16 = [keywordsRegions countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v16 = [keywordsRegions countByEnumeratingWithState:&v39 objects:v48 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v41;
+          v18 = *v40;
           while (2)
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v41 != v18)
+              if (*v40 != v18)
               {
                 objc_enumerationMutation(keywordsRegions);
               }
 
-              v20 = *(*(&v40 + 1) + 8 * j);
+              v20 = *(*(&v39 + 1) + 8 * j);
               [v14 coordinate];
               if ([v20 containsCoordinate:?])
               {
                 identifier = [v20 identifier];
-                [v35 addObject:identifier];
+                [v34 addObject:identifier];
 
                 goto LABEL_16;
               }
             }
 
-            v17 = [keywordsRegions countByEnumeratingWithState:&v40 objects:v49 count:16];
+            v17 = [keywordsRegions countByEnumeratingWithState:&v39 objects:v48 count:16];
             if (v17)
             {
               continue;
@@ -241,80 +241,76 @@ LABEL_15:
 LABEL_16:
       }
 
-      v11 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v11 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v11);
   }
 
   v22 = [obj count];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v23 = v35;
-  v24 = [v23 countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v23 = v34;
+  v24 = [v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v37;
+    v26 = *v36;
     do
     {
       for (k = 0; k != v25; ++k)
       {
-        if (*v37 != v26)
+        if (*v36 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v36 + 1) + 8 * k);
+        v28 = *(*(&v35 + 1) + 8 * k);
         if ([v23 countForObject:v28] == v22)
         {
-          [v32 addObject:v28];
+          [v31 addObject:v28];
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
     while (v25);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (NSArray)keywordsRegions
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   keywordsRegions = self->_keywordsRegions;
   if (!keywordsRegions)
   {
     v4 = objc_alloc(MEMORY[0x277CBFBC8]);
     v5 = CLLocationCoordinate2DMake(40.7004225, -73.9530945);
     v6 = [v4 initWithCenter:@"New York City" radius:v5.latitude identifier:{v5.longitude, 26000.0}];
-    v20[0] = v6;
+    v19[0] = v6;
     v7 = objc_alloc(MEMORY[0x277CBFBC8]);
     v8 = CLLocationCoordinate2DMake(51.5001944, -0.118103027);
     v9 = [v7 initWithCenter:@"London" radius:v8.latitude identifier:{v8.longitude, 15000.0}];
-    v20[1] = v9;
+    v19[1] = v9;
     v10 = objc_alloc(MEMORY[0x277CBFBC8]);
     v11 = CLLocationCoordinate2DMake(48.8583905, 2.34352112);
     v12 = [v10 initWithCenter:@"Paris" radius:v11.latitude identifier:{v11.longitude, 10000.0}];
-    v20[2] = v12;
+    v19[2] = v12;
     v13 = objc_alloc(MEMORY[0x277CBFBC8]);
     v14 = CLLocationCoordinate2DMake(26.7259868, -157.631836);
     v15 = [v13 initWithCenter:@"Hawaii" radius:v14.latitude identifier:{v14.longitude, 1460000.0}];
-    v20[3] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+    v19[3] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
     v17 = self->_keywordsRegions;
     self->_keywordsRegions = v16;
 
     keywordsRegions = self->_keywordsRegions;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return keywordsRegions;
 }
@@ -363,22 +359,20 @@ LABEL_16:
 
 - (id)_keywordsSortedByPriority:(id)priority
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   priorityCopy = priority;
   orderedKeywords = [(PGMoodKeywordComputer *)self orderedKeywords];
   v6 = MEMORY[0x277CCAC98];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51__PGMoodKeywordComputer__keywordsSortedByPriority___block_invoke;
-  v13[3] = &unk_278889330;
-  v14 = orderedKeywords;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __51__PGMoodKeywordComputer__keywordsSortedByPriority___block_invoke;
+  v12[3] = &unk_278889330;
+  v13 = orderedKeywords;
   v7 = orderedKeywords;
-  v8 = [v6 sortDescriptorWithKey:0 ascending:1 comparator:v13];
-  v15[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v8 = [v6 sortDescriptorWithKey:0 ascending:1 comparator:v12];
+  v14[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v10 = [priorityCopy sortedArrayUsingDescriptors:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -403,39 +397,37 @@ uint64_t __51__PGMoodKeywordComputer__keywordsSortedByPriority___block_invoke(ui
 
 - (NSOrderedSet)orderedKeywords
 {
-  v10[19] = *MEMORY[0x277D85DE8];
+  v9[19] = *MEMORY[0x277D85DE8];
   orderedKeywords = self->_orderedKeywords;
   if (!orderedKeywords)
   {
     v4 = MEMORY[0x277CBEB70];
-    v10[0] = @"Wedding";
-    v10[1] = @"Disney";
-    v10[2] = @"Universal";
-    v10[3] = @"Paris";
-    v10[4] = @"New York City";
-    v10[5] = @"London";
-    v10[6] = @"Hawaii";
-    v10[7] = @"ChineseLunarNewYear";
-    v10[8] = @"Babies";
-    v10[9] = @"Pets";
-    v10[10] = @"Birthday";
-    v10[11] = @"Anniversary";
-    v10[12] = @"Winter Holiday";
-    v10[13] = @"Beach";
-    v10[14] = @"Family";
-    v10[15] = @"Nature";
-    v10[16] = @"Sports";
-    v10[17] = @"Party";
-    v10[18] = @"Gathering";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:19];
+    v9[0] = @"Wedding";
+    v9[1] = @"Disney";
+    v9[2] = @"Universal";
+    v9[3] = @"Paris";
+    v9[4] = @"New York City";
+    v9[5] = @"London";
+    v9[6] = @"Hawaii";
+    v9[7] = @"ChineseLunarNewYear";
+    v9[8] = @"Babies";
+    v9[9] = @"Pets";
+    v9[10] = @"Birthday";
+    v9[11] = @"Anniversary";
+    v9[12] = @"Winter Holiday";
+    v9[13] = @"Beach";
+    v9[14] = @"Family";
+    v9[15] = @"Nature";
+    v9[16] = @"Sports";
+    v9[17] = @"Party";
+    v9[18] = @"Gathering";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:19];
     v6 = [v4 orderedSetWithArray:v5];
     v7 = self->_orderedKeywords;
     self->_orderedKeywords = v6;
 
     orderedKeywords = self->_orderedKeywords;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return orderedKeywords;
 }

@@ -35,14 +35,14 @@
       goto LABEL_12;
     }
 
-    if ([v9 isEqualToString:@"number"])
+    if (objc_msgSend_isEqualToString_(v9))
     {
       v10 = 0;
     }
 
     else
     {
-      if (![v9 isEqualToString:@"timer"])
+      if (!objc_msgSend_isEqualToString_(v9))
       {
         goto LABEL_12;
       }
@@ -57,7 +57,7 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v11 isEqualToString:@"number"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v12 = 0;
 LABEL_17:
@@ -65,7 +65,7 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      if ([v11 isEqualToString:@"timer"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v12 = 1;
         goto LABEL_17;
@@ -95,10 +95,10 @@ LABEL_18:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v18 = [v17 isEqualToString:@"dhms"];
-      v19 = [v17 isEqualToString:@"dhm"];
-      v20 = [v17 isEqualToString:@"hms"];
-      if ((([v17 isEqualToString:@"hm"] | v20) | (v19 | v18)))
+      isEqualToString = objc_msgSend_isEqualToString_(v17);
+      v19 = objc_msgSend_isEqualToString_(v17);
+      v20 = objc_msgSend_isEqualToString_(v17);
+      if (((objc_msgSend_isEqualToString_(v17) | v20) | (v19 | isEqualToString)))
       {
         v21 = 3;
       }

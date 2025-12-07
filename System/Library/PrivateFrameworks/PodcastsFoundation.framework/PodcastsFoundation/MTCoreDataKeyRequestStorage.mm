@@ -34,29 +34,28 @@
   dCopy = d;
   dsidCopy = dsid;
   v13 = sub_1D9176E3C();
-  v31 = *(v13 - 8);
-  v32 = v13;
-  v14 = *(v31 + 64);
+  v30 = *(v13 - 8);
+  v31 = v13;
   MEMORY[0x1EEE9AC00](v13);
-  v16 = &dCopy - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = _Block_copy(completion);
-  v18 = sub_1D917820C();
-  v20 = v19;
+  v15 = &dCopy - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = _Block_copy(completion);
+  v17 = sub_1D917820C();
+  v19 = v18;
   dataCopy = data;
   dateCopy = date;
   queueCopy = queue;
   selfCopy = self;
-  v25 = sub_1D9176C8C();
-  v27 = v26;
+  v24 = sub_1D9176C8C();
+  v26 = v25;
 
   sub_1D9176DFC();
-  v28 = swift_allocObject();
-  *(v28 + 16) = v17;
-  sub_1D8FF3F9C(v18, v20, dCopy, v25, v27, v16, dsidCopy, queueCopy, sub_1D8FF7E60, v28);
+  v27 = swift_allocObject();
+  *(v27 + 16) = v16;
+  sub_1D8FF3F9C(v17, v19, dCopy, v24, v26, v15, dsidCopy, queueCopy, sub_1D8FF7E60, v27);
 
-  sub_1D8D7567C(v25, v27);
+  sub_1D8D7567C(v24, v26);
 
-  (*(v31 + 8))(v16, v32);
+  (*(v30 + 8))(v15, v31);
 }
 
 - (void)removeKeyDataFor:(id)for

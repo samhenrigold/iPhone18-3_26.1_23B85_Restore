@@ -11,6 +11,7 @@
 - (void)dealloc;
 - (void)fixFMIPAuthTokenShouldForce:(BOOL)force;
 - (void)forceUserAuthForiCloudAccountForApp:(id)app message:(id)message really:(BOOL)really withCompletion:(id)completion;
+- (void)setFMIPDataclass:(BOOL)dataclass;
 - (void)syncFMIPAccountInfo;
 @end
 
@@ -26,7 +27,7 @@
   v2 = qword_100314658;
   if (!qword_100314658)
   {
-    v3 = sub_100002880();
+    v3 = sub_100002880(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -41,7 +42,7 @@
 
 - (FMDAppleAccountManager)init
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1002295C8();
@@ -67,7 +68,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1002258DC(self, v3);
@@ -86,31 +87,32 @@
   iCloudACAccount = [(FMDAppleAccountManager *)self iCloudACAccount];
   v4 = kAccountDataclassDeviceLocator;
   v5 = [iCloudACAccount isProvisionedForDataclass:kAccountDataclassDeviceLocator];
-  v6 = sub_100002880();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v6 = v5;
+  v7 = sub_100002880(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_1002295FC(v5, v6);
+    sub_1002295FC(v6, v7);
   }
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    account = sub_100002880();
+    account = sub_100002880(v8);
     if (os_log_type_enabled(&account->super.super, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20[0]) = 0;
-      _os_log_impl(&_mh_execute_header, &account->super.super, OS_LOG_TYPE_DEFAULT, "device locator is not provisioned. fmdd may not work", v20, 2u);
+      LOWORD(v24[0]) = 0;
+      _os_log_impl(&_mh_execute_header, &account->super.super, OS_LOG_TYPE_DEFAULT, "device locator is not provisioned. fmdd may not work", v24, 2u);
     }
 
     goto LABEL_22;
   }
 
-  v7 = +[FMSystemInfo sharedInstance];
-  if ([v7 isInternalBuild])
+  v9 = +[FMSystemInfo sharedInstance];
+  if ([v9 isInternalBuild])
   {
-    v8 = +[NSFileManager defaultManager];
-    v9 = [v8 fileExistsAtPath:@"/var/tmp/fmipAccountInfo.plist"];
+    v10 = +[NSFileManager defaultManager];
+    v11 = [v10 fileExistsAtPath:@"/var/tmp/fmipAccountInfo.plist"];
 
-    if (v9)
+    if (v11)
     {
       goto LABEL_23;
     }
@@ -118,19 +120,19 @@
     if (!iCloudACAccount)
     {
 LABEL_12:
-      v11 = +[FMDServiceProvider activeServiceProvider];
-      account = [v11 account];
+      v13 = +[FMDServiceProvider activeServiceProvider];
+      account = [v13 account];
 
       if (!iCloudACAccount || [(FMDAccount *)account unregisterState])
       {
         goto LABEL_22;
       }
 
-      v12 = objc_alloc_init(FMDFMIPAccount);
-      [(FMDFMIPAccount *)v12 copyInfoFromAccount:account];
-      [(FMDFMIPAccount *)v12 applyPropertiesFromACAccount:iCloudACAccount];
-      v13 = +[FMDServiceProvider activeServiceProvider];
-      [v13 updateAccount:v12];
+      v14 = objc_alloc_init(FMDFMIPAccount);
+      [(FMDFMIPAccount *)v14 copyInfoFromAccount:account];
+      [(FMDFMIPAccount *)v14 applyPropertiesFromACAccount:iCloudACAccount];
+      v15 = +[FMDServiceProvider activeServiceProvider];
+      [v15 updateAccount:v14];
 
 LABEL_21:
 LABEL_22:
@@ -153,36 +155,37 @@ LABEL_22:
     goto LABEL_12;
   }
 
-  v14 = [iCloudACAccount isEnabledForDataclass:v4];
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = [iCloudACAccount isEnabledForDataclass:v4];
+  v17 = v16;
+  v18 = sub_100002880(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v20[0] = 67109120;
-    v20[1] = v14;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "isDeviceLocatorEnabled %d", v20, 8u);
+    v24[0] = 67109120;
+    v24[1] = v17;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "isDeviceLocatorEnabled %d", v24, 8u);
   }
 
-  if (v14)
+  if (v17)
   {
-    v16 = sub_100002880();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100002880(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "iCloud account has FMIP dataclass enabled but findmydeviced has no record of it. Looks like an upgrade from an older version", v20, 2u);
+      LOWORD(v24[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "iCloud account has FMIP dataclass enabled but findmydeviced has no record of it. Looks like an upgrade from an older version", v24, 2u);
     }
 
     account = objc_alloc_init(FMDFMIPAccount);
     [(FMDFMIPAccount *)account applyPropertiesFromACAccount:iCloudACAccount];
     [(FMDFMIPAccount *)account setFmipEnableContext:1];
-    v17 = +[NSDate date];
-    [(FMDAccount *)account setAccountAddTime:v17];
+    v21 = +[NSDate date];
+    [(FMDAccount *)account setAccountAddTime:v21];
 
     _currentFMDFMIPAccount = [(FMDAppleAccountManager *)self _currentFMDFMIPAccount];
     dsid = [_currentFMDFMIPAccount dsid];
     [(FMDFMIPAccount *)account setLastLoggedInDsid:dsid];
 
-    v12 = +[FMDServiceProvider activeServiceProvider];
-    [(FMDFMIPAccount *)v12 addAccount:account];
+    v14 = +[FMDServiceProvider activeServiceProvider];
+    [(FMDFMIPAccount *)v14 addAccount:account];
     goto LABEL_21;
   }
 
@@ -242,8 +245,8 @@ LABEL_23:
   v6 = iCloudACAccount;
   if (!iCloudACAccount)
   {
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100002880(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1002296AC();
     }
@@ -257,15 +260,15 @@ LABEL_23:
   {
 
 LABEL_8:
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100002880(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100229678();
     }
 
 LABEL_10:
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
@@ -277,10 +280,10 @@ LABEL_10:
   }
 
   [accountCopy applyPropertiesFromACAccount:v6];
-  v10 = 1;
+  v11 = 1;
 LABEL_11:
 
-  return v10;
+  return v11;
 }
 
 - (void)forceUserAuthForiCloudAccountForApp:(id)app message:(id)message really:(BOOL)really withCompletion:(id)completion
@@ -290,7 +293,7 @@ LABEL_11:
   messageCopy = message;
   appCopy = app;
   iCloudACAccount = [(FMDAppleAccountManager *)self iCloudACAccount];
-  v14 = sub_100002880();
+  v14 = sub_100002880(iCloudACAccount);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     aa_personID = [iCloudACAccount aa_personID];
@@ -327,34 +330,35 @@ LABEL_11:
 {
   forceCopy = force;
   iCloudACAccount = [(FMDAppleAccountManager *)self iCloudACAccount];
-  if ([(FMDAppleAccountManager *)self isKnownFMIPAccount:iCloudACAccount])
+  v7 = [(FMDAppleAccountManager *)self isKnownFMIPAccount:iCloudACAccount];
+  if (v7)
   {
     aa_fmipAccount = [iCloudACAccount aa_fmipAccount];
     accountStore = [(FMDAppleAccountManager *)self accountStore];
-    v30 = 0;
-    v9 = [accountStore credentialForAccount:aa_fmipAccount error:&v30];
-    v10 = v30;
+    v34 = 0;
+    v10 = [accountStore credentialForAccount:aa_fmipAccount error:&v34];
+    v11 = v34;
 
-    oauthToken = [v9 oauthToken];
+    oauthToken = [v10 oauthToken];
 
-    if (!oauthToken && v10)
+    if (!oauthToken && v11)
     {
-      v12 = sub_100002880();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100002880(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v10;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Token not available due to error : %@", buf, 0xCu);
+        v36 = v11;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Token not available due to error : %@", buf, 0xCu);
       }
 
-      domain = [v10 domain];
+      domain = [v11 domain];
       if ([domain isEqualToString:ACErrorKeychainDomain])
       {
-        code = [v10 code];
+        code = [v11 code];
 
         if (code == -34019)
         {
-          account = sub_100002880();
+          account = sub_100002880(v17);
           if (os_log_type_enabled(account, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -370,12 +374,12 @@ LABEL_11:
       }
     }
 
-    v26 = forceCopy;
-    v27 = v10;
-    v16 = +[FMDServiceProvider activeServiceProvider];
-    account = [v16 account];
+    v30 = forceCopy;
+    v31 = v11;
+    v19 = +[FMDServiceProvider activeServiceProvider];
+    account = [v19 account];
 
-    token = [v9 token];
+    token = [v10 token];
     if (!token)
     {
       fmipAuthToken = [account fmipAuthToken];
@@ -385,35 +389,35 @@ LABEL_11:
       }
     }
 
-    token2 = [v9 token];
+    token2 = [v10 token];
     fmipAuthToken2 = [account fmipAuthToken];
-    v20 = [token2 isEqualToString:fmipAuthToken2];
+    v23 = [token2 isEqualToString:fmipAuthToken2];
 
     if (token)
     {
 
-      if (v20)
+      if (v23)
       {
 LABEL_17:
         aa_personID = [iCloudACAccount aa_personID];
-        v22 = sub_100002880();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v26 = sub_100002880(aa_personID);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Requesting renewal of account credentials...", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Requesting renewal of account credentials...", buf, 2u);
         }
 
         accountStore2 = [(FMDAppleAccountManager *)self accountStore];
-        v28[0] = _NSConcreteStackBlock;
-        v28[1] = 3221225472;
-        v28[2] = sub_10016617C;
-        v28[3] = &unk_1002CF1F8;
-        v29 = aa_personID;
-        v24 = aa_personID;
-        [accountStore2 renewCredentialsForAccount:iCloudACAccount force:v26 reason:0 completion:v28];
+        v32[0] = _NSConcreteStackBlock;
+        v32[1] = 3221225472;
+        v32[2] = sub_10016617C;
+        v32[3] = &unk_1002CF1F8;
+        v33 = aa_personID;
+        v28 = aa_personID;
+        [accountStore2 renewCredentialsForAccount:iCloudACAccount force:v30 reason:0 completion:v32];
 
 LABEL_24:
-        v10 = v27;
+        v11 = v31;
 LABEL_25:
 
         goto LABEL_26;
@@ -423,24 +427,24 @@ LABEL_25:
     else
     {
 
-      if (v20)
+      if (v23)
       {
         goto LABEL_17;
       }
     }
 
-    v25 = sub_100002880();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100002880(v24);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Accounts has a different token, trying to use the new token via sync account info.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Accounts has a different token, trying to use the new token via sync account info.", buf, 2u);
     }
 
     [(FMDAppleAccountManager *)self syncFMIPAccountInfo];
     goto LABEL_24;
   }
 
-  aa_fmipAccount = sub_100002880();
+  aa_fmipAccount = sub_100002880(v7);
   if (os_log_type_enabled(aa_fmipAccount, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -448,6 +452,28 @@ LABEL_25:
   }
 
 LABEL_26:
+}
+
+- (void)setFMIPDataclass:(BOOL)dataclass
+{
+  dataclassCopy = dataclass;
+  iCloudACAccount = [(FMDAppleAccountManager *)self iCloudACAccount];
+  v6 = iCloudACAccount;
+  if (iCloudACAccount)
+  {
+    v7 = kAccountDataclassDeviceLocator;
+    if ([iCloudACAccount isEnabledForDataclass:kAccountDataclassDeviceLocator] != dataclassCopy)
+    {
+      [v6 setEnabled:dataclassCopy forDataclass:v7];
+      accountStore = [(FMDAppleAccountManager *)self accountStore];
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_100166380;
+      v9[3] = &unk_1002CF220;
+      v10 = v6;
+      [accountStore saveVerifiedAccount:v10 withCompletionHandler:v9];
+    }
+  }
 }
 
 - (BOOL)_isBeneficiaryAccount
@@ -463,12 +489,12 @@ LABEL_26:
     v6 = +[AKAccountManager sharedInstance];
     v7 = [v6 isBeneficiaryForAccount:v5];
 
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109120;
-      v10[1] = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "isBeneficiaryAccount %d", v10, 8u);
+      v11[0] = 67109120;
+      v11[1] = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "isBeneficiaryAccount %d", v11, 8u);
     }
   }
 

@@ -7,6 +7,7 @@
 - (id)behaviorSettingsWithError:(id *)error;
 - (id)phoneCallBypassSettingsWithError:(id *)error;
 - (id)scheduleSettingsWithError:(id *)error;
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted;
 - (unint64_t)_saveBehaviorSettings:(id)settings scheduleSettings:(id)scheduleSettings error:(id *)error;
 - (unint64_t)_saveConfiguration:(id)configuration forModeIdentifier:(id)identifier error:(id *)error;
 - (unint64_t)_writeSettingsRecord:(id)record error:(id *)error;
@@ -359,12 +360,12 @@ LABEL_30:
 
 - (unint64_t)_writeSettingsRecord:(id)record error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   backingStore = self->_backingStore;
-  v18 = 0;
-  v8 = [(DNDSBackingStore *)backingStore writeRecord:recordCopy error:&v18];
-  v9 = v18;
+  v17 = 0;
+  v8 = [(DNDSBackingStore *)backingStore writeRecord:recordCopy error:&v17];
+  v9 = v17;
   v10 = v9;
   if (v8)
   {
@@ -374,7 +375,7 @@ LABEL_30:
       if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v20 = v10;
+        v19 = v10;
         _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Failed to save settings, but error can be ignored; error=%{public}@", buf, 0xCu);
       }
     }
@@ -385,7 +386,7 @@ LABEL_30:
       if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v20 = recordCopy;
+        v19 = recordCopy;
         _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Saved settings; settingsRecord=%{public}@", buf, 0xCu);
       }
 
@@ -413,7 +414,6 @@ LABEL_30:
   v12 = 0;
 LABEL_16:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -422,6 +422,123 @@ LABEL_16:
   settingsCopy = settings;
   delegate = [(DNDSSettingsManager *)self delegate];
   [delegate settingsManager:self didReceiveUpdatedSyncSettings:settingsCopy];
+}
+
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
+{
+  v55[1] = *MEMORY[0x277D85DE8];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v6 = [(DNDSSettingsManager *)self behaviorSettingsWithError:0];
+  v7 = v6;
+  if (v6)
+  {
+    [v6 interruptionBehaviorSetting];
+    v8 = DNDStringFromInterruptionBehaviorSetting();
+    [v7 interruptionBehaviorSetting];
+    DNDResolvedInterruptionBehaviorSetting();
+    v9 = DNDStringFromInterruptionBehaviorSetting();
+    v54 = @"interruption-behavior";
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%@)", v8, v9];
+    v55[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+
+    [dictionary setObject:v11 forKey:@"behavior-settings"];
+  }
+
+  v12 = [(DNDSSettingsManager *)self scheduleSettingsWithError:0];
+  v13 = v12;
+  if (v12)
+  {
+    [v12 scheduleEnabledSetting];
+    v45 = DNDEnabledSettingToString();
+    [v13 scheduleEnabledSetting];
+    DNDResolvedScheduleEnabledSetting();
+    v44 = DNDEnabledSettingToString();
+    [v13 bedtimeBehaviorEnabledSetting];
+    v40 = DNDEnabledSettingToString();
+    [v13 bedtimeBehaviorEnabledSetting];
+    DNDResolvedBedtimeBehaviorEnabledSetting();
+    v34 = DNDEnabledSettingToString();
+    v52[0] = @"creation-date-local";
+    v14 = MEMORY[0x277CCA968];
+    creationDate = [v13 creationDate];
+    v43 = [v14 localizedStringFromDate:creationDate dateStyle:1 timeStyle:1];
+    v53[0] = v43;
+    v52[1] = @"creation-date-timestamp";
+    v15 = MEMORY[0x277CCABB0];
+    creationDate2 = [v13 creationDate];
+    [creationDate2 timeIntervalSinceReferenceDate];
+    v41 = [v15 numberWithDouble:?];
+    v53[1] = v41;
+    v52[2] = @"enabled";
+    v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%@)", v45, v44];
+    v53[2] = v39;
+    v52[3] = @"start-time";
+    v16 = MEMORY[0x277CCACA8];
+    timePeriod = [v13 timePeriod];
+    startTime = [timePeriod startTime];
+    hour = [startTime hour];
+    timePeriod2 = [v13 timePeriod];
+    startTime2 = [timePeriod2 startTime];
+    v48 = v7;
+    v18 = [v16 stringWithFormat:@"%lu:%lu", hour, objc_msgSend(startTime2, "minute")];
+    v53[3] = v18;
+    v52[4] = @"end-time";
+    v19 = MEMORY[0x277CCACA8];
+    [v13 timePeriod];
+    v20 = v49 = dictionary;
+    endTime = [v20 endTime];
+    hour2 = [endTime hour];
+    [v13 timePeriod];
+    v23 = v47 = self;
+    endTime2 = [v23 endTime];
+    v25 = [v19 stringWithFormat:@"%lu:%lu", hour2, objc_msgSend(endTime2, "minute")];
+    v53[4] = v25;
+    v52[5] = @"bedtime-enabled";
+    v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%@)", v40, v34];
+    v53[5] = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:6];
+
+    self = v47;
+    dictionary = v49;
+
+    [v49 setObject:v27 forKey:@"schedule-settings"];
+    v7 = v48;
+  }
+
+  v28 = [(DNDSSettingsManager *)self syncSettingsWithError:0];
+  v29 = v28;
+  if (v28)
+  {
+    v50[0] = @"cloud-enabled";
+    if ([v28 isCloudSyncEnabled])
+    {
+      v30 = @"YES";
+    }
+
+    else
+    {
+      v30 = @"NO";
+    }
+
+    v50[1] = @"local-enabled";
+    v51[0] = v30;
+    if ([v29 isPairSyncEnabled])
+    {
+      v31 = @"YES";
+    }
+
+    else
+    {
+      v31 = @"NO";
+    }
+
+    v51[1] = v31;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
+    [dictionary setObject:v32 forKey:@"sync-settings"];
+  }
+
+  return dictionary;
 }
 
 - (DNDSSettingsManagerDelegate)delegate
@@ -433,22 +550,20 @@ LABEL_16:
 
 - (void)_readSettingsReturningError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Failed to load settings, will request a radar; error=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Failed to load settings, will request a radar; error=%{public}@", &v2, 0xCu);
 }
 
 - (void)_writeSettingsRecord:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_24912E000, log, OS_LOG_TYPE_ERROR, "Failed to save settings, will request a radar; settingsRecord=%{public}@, error=%{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_24912E000, log, OS_LOG_TYPE_ERROR, "Failed to save settings, will request a radar; settingsRecord=%{public}@, error=%{public}@", &v3, 0x16u);
 }
 
 @end

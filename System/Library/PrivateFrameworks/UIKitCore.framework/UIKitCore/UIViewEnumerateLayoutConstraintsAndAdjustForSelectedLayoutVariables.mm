@@ -3,7 +3,7 @@
 
 @implementation UIViewEnumerateLayoutConstraintsAndAdjustForSelectedLayoutVariables
 
-uint64_t ___UIViewEnumerateLayoutConstraintsAndAdjustForSelectedLayoutVariables_block_invoke(void *a1)
+void *___UIViewEnumerateLayoutConstraintsAndAdjustForSelectedLayoutVariables_block_invoke(void *a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   for (result = a1[4]; result; result = [v10 superview])

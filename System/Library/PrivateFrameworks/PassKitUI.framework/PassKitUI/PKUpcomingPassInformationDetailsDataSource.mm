@@ -131,7 +131,7 @@
 
 - (id)titleForSection:(unint64_t)section
 {
-  [(PKUpcomingPassInformationDetailsDataSource *)self _dataSourceIndicesForIndexSection:section];
+  objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
 
   return 0;
 }
@@ -155,10 +155,10 @@
   return v3 + 3;
 }
 
-uint64_t __62__PKUpcomingPassInformationDetailsDataSource_numberOfSections__block_invoke(uint64_t result, uint64_t a2, void *a3)
+void *__62__PKUpcomingPassInformationDetailsDataSource_numberOfSections__block_invoke(void *result, uint64_t a2, void *a3)
 {
   v3 = result;
-  if (*(*(result + 32) + 57) == 1)
+  if (*(result[4] + 57) == 1)
   {
     result = [a3 integerValue];
     v4 = result - 1;
@@ -169,7 +169,7 @@ uint64_t __62__PKUpcomingPassInformationDetailsDataSource_numberOfSections__bloc
     v4 = -1;
   }
 
-  *(*(*(v3 + 40) + 8) + 24) += v4;
+  *(*(v3[5] + 8) + 24) += v4;
   return result;
 }
 
@@ -178,7 +178,7 @@ uint64_t __62__PKUpcomingPassInformationDetailsDataSource_numberOfSections__bloc
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  result = [(PKUpcomingPassInformationDetailsDataSource *)self _dataSourceIndicesForIndexSection:section];
+  result = objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
   if (v7 == 1)
   {
     if (self->_allContentIsLoaded)
@@ -214,7 +214,7 @@ uint64_t __62__PKUpcomingPassInformationDetailsDataSource_numberOfSections__bloc
 - (id)itemAtIndexPath:(id)path
 {
   pathCopy = path;
-  [(PKUpcomingPassInformationDetailsDataSource *)self _dataSourceIndicesForIndexPath:pathCopy];
+  objc_msgSend__dataSourceIndicesForIndexPath_(self);
   _headerItem = [(PKUpcomingPassInformationDetailsDataSource *)self _headerItem];
 
   return _headerItem;
@@ -250,7 +250,7 @@ uint64_t __62__PKUpcomingPassInformationDetailsDataSource_numberOfSections__bloc
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)_dataSourceIndicesForIndexSection:(SEL)section
 {
   v6 = [MEMORY[0x1E696AC88] indexPathForItem:-1 inSection:a4];
-  [(PKUpcomingPassInformationDetailsDataSource *)self _dataSourceIndicesForIndexPath:v6];
+  objc_msgSend__dataSourceIndicesForIndexPath_(self);
 
   return result;
 }

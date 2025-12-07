@@ -25,7 +25,7 @@
 
 - (void)layoutSubviews
 {
-  [(_SSSScreenshotFullsizeStaticImageView *)self cropInfo];
+  objc_msgSend_cropInfo(self, a2);
   if (!CGRectIsEmpty(*v9))
   {
     [(_SSSScreenshotFullsizeStaticImageView *)self sizeMultiplier];

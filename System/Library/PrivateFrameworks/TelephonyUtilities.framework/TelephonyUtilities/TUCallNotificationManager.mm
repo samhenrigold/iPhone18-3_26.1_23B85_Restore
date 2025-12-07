@@ -51,6 +51,7 @@
 - (void)providerContextChangedForCall:(id)call;
 - (void)receptionistMessageChangedForCall:(id)call;
 - (void)receptionistSessionChangedForCall:(id)call;
+- (void)receptionistStateChangedForCall:(id)call oldValue:(int)value;
 - (void)remoteAspectRatioChangedForCall:(id)call;
 - (void)remoteCameraOrientationChangedForCall:(id)call;
 - (void)remoteScreenAspectRatioChangedForCall:(id)call;
@@ -1140,7 +1141,7 @@ LABEL_205:
   }
 }
 
-uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_afterUpdatesInBlock___block_invoke(void *a1)
+void *__83__TUCallNotificationManager_postNotificationsForCallContainer_afterUpdatesInBlock___block_invoke(void *a1)
 {
   result = a1[4];
   if (result != a1[5])
@@ -1161,7 +1162,7 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
 
 - (void)deferNotificationsUntilAfterPerformingBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   deferredNotificationBlocks = [(TUCallNotificationManager *)self deferredNotificationBlocks];
 
@@ -1187,73 +1188,69 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
   blockCopy[2](blockCopy);
   deferredNotificationBlocks3 = [(TUCallNotificationManager *)self deferredNotificationBlocks];
   [(TUCallNotificationManager *)self setDeferredNotificationBlocks:0];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = deferredNotificationBlocks3;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v17 + 1) + 8 * v15++) + 16))();
+        (*(*(*(&v16 + 1) + 8 * v15++) + 16))();
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postNotificationName:(id)name object:(id)object userInfo:(id)info
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   objectCopy = object;
   infoCopy = info;
-  v11 = TUDefaultLog();
+  v11 = TUDefaultLog(infoCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412802;
-    v15 = nameCopy;
-    v16 = 2112;
-    v17 = objectCopy;
-    v18 = 2112;
-    v19 = infoCopy;
-    _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Posting %@ with object %@ userInfo %@", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = nameCopy;
+    v15 = 2112;
+    v16 = objectCopy;
+    v17 = 2112;
+    v18 = infoCopy;
+    _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Posting %@ with object %@ userInfo %@", &v13, 0x20u);
   }
 
   notificationCenter = [(TUCallNotificationManager *)self notificationCenter];
   [notificationCenter postNotificationName:nameCopy object:objectCopy userInfo:infoCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)statusChangedForCall:(id)call
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "statusChangedForCall %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "statusChangedForCall %@", &v8, 0xCu);
   }
 
   if ([callCopy isVideo])
@@ -1274,20 +1271,18 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
 
     [(TUCallNotificationManager *)self _postNotificationName:v6 object:callCopy];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolvedStatusChangedForCall:(id)call
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "resolvedStatusChangedForCall %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "resolvedStatusChangedForCall %@", &v8, 0xCu);
   }
 
   if ([callCopy isVideo])
@@ -1308,156 +1303,144 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
 
     [(TUCallNotificationManager *)self _postNotificationName:v6 object:callCopy];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectingChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "connectingChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "connectingChangedForCall %@", &v6, 0xCu);
   }
 
   if ([callCopy isConnecting])
   {
     [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterCallStartedConnectingNotification" object:callCopy];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "connectedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "connectedChangedForCall %@", &v6, 0xCu);
   }
 
   if ([callCopy isConnected])
   {
     [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterCallConnectedNotification" object:callCopy];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)wantsHoldMusicChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "wantsHoldMusicChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "wantsHoldMusicChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterCallWantsHoldMusicChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endpointOnCurrentDeviceChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "endpointOnCurrentDeviceChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "endpointOnCurrentDeviceChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterCallContinuityStateChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shouldSuppressRingtoneChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "shouldSuppressRingtoneChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "shouldSuppressRingtoneChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallShouldSuppressRingingChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)faceTimeIDStatusChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "faceTimeIDStatusChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "faceTimeIDStatusChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallFaceTimeIDStatusChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hardPauseDigitsStateChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "hardPauseDigitsStateChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "hardPauseDigitsStateChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallHardPauseDigitsStateChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)needsManualInCallSoundsChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "needsManualInCallSoundsChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "needsManualInCallSoundsChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallNeedsManualInCallSoundsChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hasSentInvitationChangedForCall:(id)call
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "hasSentInvitationChangedForCall %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "hasSentInvitationChangedForCall %@", &v8, 0xCu);
   }
 
   isVideo = [callCopy isVideo];
@@ -1468,502 +1451,470 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:*v7 object:callCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isUsingBasebandChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isUsingBasebandChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isUsingBasebandChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsUsingBasebandChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isOnHoldChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isOnHoldChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isOnHoldChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsOnHoldChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isUplinkMutedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isUplinkMutedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isUplinkMutedChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsUplinkMutedChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)destinationIDChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "destinationIDChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "destinationIDChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterCallerIDChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)displayContextChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "displayContextChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "displayContextChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallDisplayContextChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isEmergencyChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isEmergencyChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isEmergencyChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterIsEmergencyChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isFailureExpectedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isFailureExpectedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isFailureExpectedChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterIsFailureExpectedChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)supportsEmergencyFallbackChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "supportsEmergencyFallbackChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "supportsEmergencyFallbackChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterSupportsEmergencyFallbackChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isSendingAudioChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isSendingAudioChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isSendingAudioChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsSendingAudioChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isSendingVideoChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isSendingVideoChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isSendingVideoChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsSendingVideoChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sharingScreenChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "sharingScreenChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "sharingScreenChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsSharingScreenChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isThirdPartyVideoChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isThirdPartyVideoChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isThirdPartyVideoChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsThirdPartyVideoChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mediaStalledChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "mediaStalledChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "mediaStalledChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterVideoCallMediaStalledChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)videoDegradedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoDegradedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoDegradedChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterVideoCallVideoQualityChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)videoPausedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoPausedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoPausedChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterVideoCallPauseChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioPropertiesChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "audioPropertiesChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "audioPropertiesChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallAudioPropertiesChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callSubtypeChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callSubtypeChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callSubtypeChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallSubtypeChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ttyTypeChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "ttyTypeChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "ttyTypeChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallTTYTypeChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bluetoothAudioFormatChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "bluetoothAudioFormatChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "bluetoothAudioFormatChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallBluetoothAudioFormatChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteUplinkMutedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteUplinkMutedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteUplinkMutedChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRemoteUplinkMutedChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)localSenderIdentityAccountUUIDChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "localSenderIdentityAccountUUIDChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "localSenderIdentityAccountUUIDChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallLocalSenderIdentityAccountUUIDChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)supportsTTYWithVoiceChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "supportsTTYWithVoiceChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "supportsTTYWithVoiceChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallSupportsTTYWithVoiceChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteAspectRatioChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteAspectRatioChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteAspectRatioChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRemoteAspectRatioChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteVideoContentRectChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteVideoContentRectChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteVideoContentRectChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRemoteVideoContentRectChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cameraTypeChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "cameraTypeChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "cameraTypeChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCameraTypeChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)videoMirroredChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoMirroredChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoMirroredChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUVideoMirroredChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteCameraOrientationChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteCameraOrientationChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteCameraOrientationChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRemoteCameraOrientationChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteScreenOrientationChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteScreenOrientationChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteScreenOrientationChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRemoteScreenOrientationChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteScreenAspectRatioChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteScreenAspectRatioChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "remoteScreenAspectRatioChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRemoteScreenAspectRatioChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)providerContextChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "providerContextChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "providerContextChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallProviderContextChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mediaPropertiesChangedForCall:(id)call remoteAspectRatioDidChange:(BOOL)change remoteCameraOrientationDidChange:(BOOL)didChange
 {
   didChangeCopy = didChange;
   changeCopy = change;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v9 = TUDefaultLog();
+  v9 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = callCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "mediaPropertiesChangedForCall %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = callCopy;
+    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "mediaPropertiesChangedForCall %@", &v15, 0xCu);
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -1983,111 +1934,103 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
 
   v14 = [dictionary copy];
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterVideoCallMediaPropertiesChangedNotification" object:callCopy userInfo:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)videoStreamTokenChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoStreamTokenChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "videoStreamTokenChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallVideoStreamTokenChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)answeringMachineStreamTokenChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "answeringMachineStreamTokenChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "answeringMachineStreamTokenChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallAnsewringMachineStreamTokenChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)conversationChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "conversationChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "conversationChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallConversationChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isSharePlayCapableChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isSharePlayCapableChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isSharePlayCapableChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallIsSharePlayCapableChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)anyRemoteSupportsRequestToScreenShareChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "anyRemoteSupportsRequestToScreenShareChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "anyRemoteSupportsRequestToScreenShareChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallAnyRemoteSupportsRequestToScreenShareChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)conversationGroupUUIDChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "conversationGroupUUIDChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "conversationGroupUUIDChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallConversationGroupUUIDChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nearbyModeChangedForCall:(id)call
 {
   v10 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -2095,234 +2038,240 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
     _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "nearbyModeChangedForCall %@", &v8, 0xCu);
   }
 
-  v6 = TUDefaultLog();
-  if (os_signpost_enabled(v6))
+  v7 = TUDefaultLog(v6);
+  if (os_signpost_enabled(v7))
   {
     LOWORD(v8) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1956FD000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TUCallNotificationManager", "nearbyModeChangedForCall", &v8, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1956FD000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TUCallNotificationManager", "nearbyModeChangedForCall", &v8, 2u);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallNearbyModeChangedNotification" object:callCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callGroupUUIDChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callGroupUUIDChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callGroupUUIDChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallGroupUUIDChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mixesVoiceWithMediaChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "mixesVoiceWithMediaChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "mixesVoiceWithMediaChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallMixesVoiceWithMediaChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prefersExclusiveAccessToCellularNetworkChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "prefersExclusiveAccessToCellularNetworkChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "prefersExclusiveAccessToCellularNetworkChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallPrefersExclusiveAccessToCellularNetworkChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isScreeningChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isScreeningChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isScreeningChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterIsScreeningChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
+}
+
+- (void)receptionistStateChangedForCall:(id)call oldValue:(int)value
+{
+  v4 = *&value;
+  v14 = *MEMORY[0x1E69E9840];
+  callCopy = call;
+  v7 = TUDefaultLog(callCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v13 = callCopy;
+    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "receptionistStateChangedForCall %@", buf, 0xCu);
+  }
+
+  v8 = [MEMORY[0x1E696AD98] numberWithInt:{v4, @"TUCallCenterOldReceptionistStateKey"}];
+  v11 = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+
+  [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterReceptionistStateChangedNotification" object:callCopy userInfo:v9];
 }
 
 - (void)receptionistMessageChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "receptionistMesssageChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "receptionistMesssageChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterLastReceptionistMessageChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receptionistSessionChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "receptionistSessionChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "receptionistSessionChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterReceptionistSessionChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)screeningAnnouncementFinishedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isScreeningAnnouncementFinishedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isScreeningAnnouncementFinishedChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallScreeningDidFinishAnnouncementNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hasBeenRedirectedChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "hasBeenRedirectedChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "hasBeenRedirectedChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallHasBeenRedirectedChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)supportsDTMFUpdatesChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "supportsDTMFUpdatesChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "supportsDTMFUpdatesChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallSupportsDTMFUpdatesChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callRecordingStateChanged:(id)changed
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     recordingSession = [changedCopy recordingSession];
-    v8 = 138412546;
-    v9 = changedCopy;
-    v10 = 1024;
+    v7 = 138412546;
+    v8 = changedCopy;
+    v9 = 1024;
     recordingState = [recordingSession recordingState];
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callRecordingStateChangedForCall %@, changed to %d", &v8, 0x12u);
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callRecordingStateChangedForCall %@, changed to %d", &v7, 0x12u);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRecordingStateChangedNotification" object:changedCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callRecordingAvailabilityChangedForCall:(id)call
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = callCopy;
-    v9 = 1024;
+    v6 = 138412546;
+    v7 = callCopy;
+    v8 = 1024;
     recordingAvailability = [callCopy recordingAvailability];
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callRecordingAvailabilityChangedForCall %@, changed to %d", &v7, 0x12u);
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callRecordingAvailabilityChangedForCall %@, changed to %d", &v6, 0x12u);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallRecordingAvailabilityChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callTranslationStateChanged:(id)changed
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     translationSession = [changedCopy translationSession];
-    v8[0] = 67109378;
-    v8[1] = [translationSession translationState];
-    v9 = 2112;
-    v10 = changedCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callTranslationStateChanged to %d for call %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = [translationSession translationState];
+    v8 = 2112;
+    v9 = changedCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "callTranslationStateChanged to %d for call %@", v7, 0x12u);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallTranslationStateChangedNotification" object:changedCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callTranslationAvailabilityChangedForCall:(id)call newValue:(BOOL)value
 {
   valueCopy = value;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v7 = TUDefaultLog();
+  v7 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = callCopy;
-    v11 = 1024;
-    v12 = valueCopy;
-    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "callTranslationAvailabilityChangedForCall %@, changed to %d", &v9, 0x12u);
+    v8 = 138412546;
+    v9 = callCopy;
+    v10 = 1024;
+    v11 = valueCopy;
+    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "callTranslationAvailabilityChangedForCall %@, changed to %d", &v8, 0x12u);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallTranslationAvailabilityChangedNotification" object:callCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasReceptionistSessionChangedFromOldSession:(id)session newSession:(id)newSession
@@ -2353,74 +2302,69 @@ uint64_t __83__TUCallNotificationManager_postNotificationsForCallContainer_after
 
 - (void)smartHoldingSessionChanged:(id)changed
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     smartHoldingSession = [changedCopy smartHoldingSession];
-    v8 = 138412546;
-    v9 = smartHoldingSession;
-    v10 = 2112;
-    v11 = changedCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "smartHoldingSessionChanged to %@ forCall %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = smartHoldingSession;
+    v9 = 2112;
+    v10 = changedCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "smartHoldingSessionChanged to %@ forCall %@", &v7, 0x16u);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallSmartHoldingSessionChangedNotification" object:changedCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mediaTokensChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "mediaTokensChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "mediaTokensChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallMediaTokensChangedNotification" object:callCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)modelChangedForCall:(id)call
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   callCopy = call;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = callCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "modelChangedForCall %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = callCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "modelChangedForCall %@", &v6, 0xCu);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallModelChangedNotification" object:callCopy];
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterModelStateChangedNotification" object:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)conferenceParticipantCallsChangedForCallContainer:(id)container conferenceParticipantCalls:(id)calls
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   callsCopy = calls;
-  v8 = TUDefaultLog();
+  v8 = TUDefaultLog(callsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = containerCopy;
-    v12 = 2112;
-    v13 = callsCopy;
-    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "conferenceParticipantCallsChangedForCallContainer %@ conferenceParticipantCalls %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = containerCopy;
+    v11 = 2112;
+    v12 = callsCopy;
+    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "conferenceParticipantCallsChangedForCallContainer %@ conferenceParticipantCalls %@", &v9, 0x16u);
   }
 
   [(TUCallNotificationManager *)self _postNotificationName:@"TUCallCenterConferenceParticipantsChangedNotification" object:callsCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deferNotificationsUntilAfterPerformingBlock:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

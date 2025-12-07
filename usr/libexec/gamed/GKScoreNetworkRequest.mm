@@ -54,7 +54,7 @@
     requestData = [(GKScoreNetworkRequest *)v11 requestData];
     v33 = @"RequestDataKey";
     v34 = v16;
-    v18 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v19 = mergeValuesForKeyWithDictionary(requestData, v18);
     [(GKScoreNetworkRequest *)v11 setRequestData:v19];
 
@@ -237,7 +237,7 @@ LABEL_13:
   v15 = @"RequestDataKey";
   v12 = [NSMutableSet setWithArray:v10];
   v16 = v12;
-  v13 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v14 = mergeValuesForKeyWithDictionary(requestData, v13);
   [(GKScoreNetworkRequest *)self setRequestData:v14];
 }

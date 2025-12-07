@@ -146,28 +146,28 @@
 
   *buf = *&stamp->var0;
   *&buf[16] = stamp->var3;
-  if ([(HMIBackgroundEstimator *)self _invalidateBackgroundForPixelBuffer:buffer timeStamp:buf])
+  if ([HMIBackgroundEstimator _invalidateBackgroundForPixelBuffer:"_invalidateBackgroundForPixelBuffer:timeStamp:" timeStamp:?])
   {
     [(HMIBackgroundEstimator *)self reset];
     *buf = *&stamp->var0;
     *&buf[16] = stamp->var3;
-    [(HMIBackgroundEstimator *)self setBackgroundChangeTimeStamp:buf];
+    [(HMIBackgroundEstimator *)self setBackgroundChangeTimeStamp:?];
   }
 
-  [(HMIBackgroundEstimator *)self _ensureInternalBuffersForPixelBuffer:buffer];
+  [(HMIBackgroundEstimator *)self _ensureInternalBuffersForPixelBuffer:?];
   numImages = [(HMIBackgroundEstimator *)self numImages];
   if (numImages >= [(HMIBackgroundEstimator *)self minSampleSize])
   {
     *buf = *&stamp->var0;
     *&buf[16] = stamp->var3;
-    v15 = [(HMIBackgroundEstimator *)self _predictForegroundFromPixelBuffer:buffer timeStamp:buf];
+    v15 = [HMIBackgroundEstimator _predictForegroundFromPixelBuffer:"_predictForegroundFromPixelBuffer:timeStamp:" timeStamp:?];
   }
 
   else
   {
     *buf = *&stamp->var0;
     *&buf[16] = stamp->var3;
-    if (![(HMIBackgroundEstimator *)self _updateBackgroundFromPixelBuffer:buffer timeStamp:buf])
+    if (![HMIBackgroundEstimator _updateBackgroundFromPixelBuffer:"_updateBackgroundFromPixelBuffer:timeStamp:" timeStamp:?])
     {
       v8 = objc_autoreleasePoolPush();
       selfCopy = self;
@@ -207,27 +207,22 @@
     return 0;
   }
 
-  [(HMIBackgroundEstimator *)self foregroundTimeStamp];
+  [&time1 foregroundTimeStamp];
   v5 = **&MEMORY[0x277CC08F0];
   return CMTimeCompare(&time1, &v5) == 0;
 }
 
 - (void)assignBackgroundEvents:(id)events timeStamp:(id *)stamp
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  [(HMIBackgroundEstimator *)self backgroundTimeStamp];
+  [&time1 backgroundTimeStamp];
   time2 = *stamp;
   if (!CMTimeCompare(&time1, &time2))
   {
     if ([(HMIBackgroundEstimator *)self assignment])
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __59__HMIBackgroundEstimator_assignBackgroundEvents_timeStamp___block_invoke;
-      v12[3] = &unk_278752F68;
-      v12[4] = self;
-      [eventsCopy na_each:v12];
+      [eventsCopy na_each:{MEMORY[0x277D85DD0], 3221225472, __59__HMIBackgroundEstimator_assignBackgroundEvents_timeStamp___block_invoke, &unk_278752F68, self}];
     }
 
     else
@@ -238,7 +233,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        [(HMIBackgroundEstimator *)selfCopy backgroundTimeStamp];
+        [&time1 backgroundTimeStamp];
         Seconds = CMTimeGetSeconds(&time1);
         LODWORD(time2.value) = 138543618;
         *(&time2.value + 4) = v10;
@@ -254,63 +249,50 @@
 
 void __59__HMIBackgroundEstimator_assignBackgroundEvents_timeStamp___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v3 = objc_opt_class();
-  v4 = v3 != objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = [v5 assignment];
-  [v7 boundingBox];
-  [v5 _setAssignment:v6 greaterThanType:1 value:v4 boundingBox:? scale:?];
+  v4 = a2;
+  objc_opt_class();
+  objc_opt_class();
+  v3 = *(a1 + 32);
+  [v3 assignment];
+  [v4 boundingBox];
+  [v3 _setAssignment:? greaterThanType:? value:? boundingBox:? scale:?];
 }
 
 - (void)assignForegroundEvents:(id)events timeStamp:(id *)stamp
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if ([(HMIBackgroundEstimator *)self assignment])
   {
-    v7 = [eventsCopy na_filter:&__block_literal_global_7];
+    v6 = [eventsCopy na_filter:?];
     tracks = [(HMIBackgroundEstimator *)self tracks];
     allValues = [tracks allValues];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_2;
-    v19[3] = &unk_278752FD8;
-    v22 = *&stamp->var0;
-    var3 = stamp->var3;
-    v10 = v7;
-    v20 = v10;
-    selfCopy = self;
-    [allValues na_each:v19];
+    v16 = v6;
+    [allValues na_each:?];
 
     tracks2 = [(HMIBackgroundEstimator *)self tracks];
     allValues2 = [tracks2 allValues];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_4;
-    v18[3] = &unk_278753000;
-    v18[4] = self;
-    [allValues2 na_each:v18];
+    [allValues2 na_each:?];
   }
 
   else
   {
-    v13 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v11 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = HMFGetLogIdentifier();
-      [(HMIBackgroundEstimator *)selfCopy2 backgroundTimeStamp];
+      v14 = HMFGetLogIdentifier();
+      [&time backgroundTimeStamp];
       Seconds = CMTimeGetSeconds(&time);
       *buf = 138543618;
-      v26 = v16;
-      v27 = 2048;
-      v28 = Seconds;
-      _os_log_impl(&dword_22D12F000, v15, OS_LOG_TYPE_ERROR, "%{public}@Background model assignment is NULL %.2f", buf, 0x16u);
+      v19 = v14;
+      v20 = 2048;
+      v21 = Seconds;
+      _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_ERROR, "%{public}@Background model assignment is NULL %.2f", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v13);
+    objc_autoreleasePoolPop(v11);
   }
 }
 
@@ -388,137 +370,135 @@ LABEL_19:
 void __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 64);
-  v4 = [v3 blobAtTimeStamp:&v8];
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 64);
+  v4 = [v3 blobAtTimeStamp:?];
   if (v4)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_3;
-    v6[3] = &unk_278752FB0;
+    v6 = MEMORY[0x277D85DD0];
+    v7 = 3221225472;
+    v8 = __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_3;
+    v9 = &unk_278752FB0;
     v5 = *(a1 + 32);
-    v6[4] = *(a1 + 40);
-    v7 = v3;
-    [v5 na_each:v6];
+    v10 = *(a1 + 40);
+    v11 = v3;
+    [v5 na_each:{v6, 3221225472, __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_3, &unk_278752FB0, v10}];
   }
 }
 
 void __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v11 = a2;
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) lastBlob];
-  [v15 boundingBox];
-  [v3 _intersectionOverUnionFromBlob:v4 boundingBox:objc_msgSend(*(a1 + 32) assignment:{"assignment"), v5, v6, v7, v8}];
-  v10 = v9;
+  [v11 boundingBox];
+  [*(a1 + 32) assignment];
+  [v3 _intersectionOverUnionFromBlob:? boundingBox:? assignment:?];
+  v6 = v5;
 
-  v11 = objc_opt_class();
-  v12 = objc_opt_class();
-  v13 = 0.1;
-  if (v11 != v12)
+  v7 = objc_opt_class();
+  v8 = objc_opt_class();
+  v9 = 0.1;
+  if (v7 != v8)
   {
-    v13 = 0.5;
+    v9 = 0.5;
   }
 
-  if (v10 > v13)
+  if (v6 > v9)
   {
-    v14 = [*(a1 + 40) eventClasses];
-    [v14 addObject:objc_opt_class()];
+    v10 = [*(a1 + 40) eventClasses];
+    objc_opt_class();
+    [v10 addObject:?];
   }
 }
 
 void __59__HMIBackgroundEstimator_assignForegroundEvents_timeStamp___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  v3 = [v8 eventClasses];
-  v4 = [v3 containsObject:objc_opt_class()];
+  v7 = a2;
+  v3 = [v7 eventClasses];
+  objc_opt_class();
+  v4 = [v3 containsObject:?];
 
   if (v4)
   {
     v5 = *(a1 + 32);
-    v6 = [v5 assignment];
-    v7 = [v8 lastBlob];
-    [v7 boundingBox];
-    [v5 _setAssignment:v6 greaterThanType:1 value:0 boundingBox:? scale:?];
+    [v5 assignment];
+    v6 = [v7 lastBlob];
+    [v6 boundingBox];
+    [v5 _setAssignment:? greaterThanType:? value:? boundingBox:? scale:?];
   }
 }
 
 - (void)handleMotionDetection:(id)detection inFrame:(opaqueCMSampleBuffer *)frame
 {
-  v6 = [HMIMotionDetection firstMotionDetectionInArray:detection withMode:2];
-  memset(&v11, 0, sizeof(v11));
-  CMSampleBufferGetPresentationTimeStamp(&v11, frame);
+  v6 = [HMIMotionDetection firstMotionDetectionInArray:"firstMotionDetectionInArray:withMode:" withMode:?];
+  memset(&v14, 0, sizeof(v14));
+  CMSampleBufferGetPresentationTimeStamp(&v14, frame);
   if (v6)
   {
     motionVectors = [v6 motionVectors];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __56__HMIBackgroundEstimator_handleMotionDetection_inFrame___block_invoke;
-    v9[3] = &unk_278753028;
-    v9[4] = self;
-    v10 = v11;
-    [motionVectors na_each:v9];
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __56__HMIBackgroundEstimator_handleMotionDetection_inFrame___block_invoke;
+    v11 = &unk_278753028;
+    selfCopy = self;
+    v13 = v14;
+    [motionVectors na_each:?];
   }
 
-  v8 = v11;
-  [(HMIBackgroundEstimator *)self _expireMotionDetectionsAtTimeStamp:&v8];
+  [(HMIBackgroundEstimator *)self _expireMotionDetectionsAtTimeStamp:v14.value, *&v14.timescale, v14.epoch];
 }
 
 void __56__HMIBackgroundEstimator_handleMotionDetection_inFrame___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [*(a1 + 32) motionTimeStamps];
-  v14 = *(a1 + 40);
-  v15 = *(a1 + 56);
-  v5 = [MEMORY[0x277CCAE60] valueWithCMTime:&v14];
-  [v4 addObject:v5];
+  v13 = *(a1 + 40);
+  v14 = *(a1 + 56);
+  v5 = [MEMORY[0x277CCAE60] valueWithCMTime:?];
+  [v4 addObject:?];
 
   v6 = [*(a1 + 32) motionDetections];
   v7 = MEMORY[0x277CCAE60];
   [v3 boundingBox];
-  v13[0] = v8;
-  v13[1] = v9;
-  v13[2] = v10;
-  v13[3] = v11;
-  v12 = [v7 valueWithBytes:v13 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-  [v6 addObject:v12];
+  v12 = [v7 valueWithBytes:v8 objCType:{v9, v10, v11}];
+  [v6 addObject:?];
 }
 
 - (BOOL)_invalidateBackgroundForPixelBuffer:(__CVBuffer *)buffer timeStamp:(id *)stamp
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   time1 = *stamp;
-  [(HMIBackgroundEstimator *)self backgroundTimeStamp];
+  [&time2 backgroundTimeStamp];
   if (CMTimeCompare(&time1, &time2) < 0)
   {
-    v29 = objc_autoreleasePoolPush();
+    v28 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v31 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v30 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      v32 = HMFGetLogIdentifier();
+      v31 = HMFGetLogIdentifier();
       time2 = *stamp;
       Seconds = CMTimeGetSeconds(&time2);
-      [(HMIBackgroundEstimator *)selfCopy backgroundTimeStamp];
-      v34 = CMTimeGetSeconds(&time2);
+      [&time2 backgroundTimeStamp];
+      v33 = CMTimeGetSeconds(&time2);
       LODWORD(time1.value) = 138543874;
-      *(&time1.value + 4) = v32;
+      *(&time1.value + 4) = v31;
       LOWORD(time1.flags) = 2048;
       *(&time1.flags + 2) = Seconds;
       HIWORD(time1.epoch) = 2048;
-      v41 = v34;
-      _os_log_impl(&dword_22D12F000, v31, OS_LOG_TYPE_DEBUG, "%{public}@BackgroundEstimator(PTS:%.2f) Reset background model due to past timestamp %.2f", &time1, 0x20u);
+      v40 = v33;
+      _os_log_impl(&dword_22D12F000, v30, OS_LOG_TYPE_DEBUG, "%{public}@BackgroundEstimator(PTS:%.2f) Reset background model due to past timestamp %.2f", &time1, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v29);
+    objc_autoreleasePoolPop(v28);
     return 1;
   }
 
   time1 = *stamp;
-  [(HMIBackgroundEstimator *)self backgroundTimeStamp];
-  [(HMIBackgroundEstimator *)self backgroundExpireInterval];
-  CMTimeAdd(&time2, &lhs, &v38);
+  [&lhs backgroundTimeStamp];
+  [&v37 backgroundExpireInterval];
+  CMTimeAdd(&time2, &lhs, &v37);
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
     motionDetections = [(HMIBackgroundEstimator *)self motionDetections];
@@ -534,14 +514,14 @@ void __56__HMIBackgroundEstimator_handleMotionDetection_inFrame___block_invoke(u
         v12 = HMFGetLogIdentifier();
         time2 = *stamp;
         v13 = CMTimeGetSeconds(&time2);
-        [(HMIBackgroundEstimator *)selfCopy3 backgroundTimeStamp];
+        [&time2 backgroundTimeStamp];
         v14 = CMTimeGetSeconds(&time2);
         LODWORD(time1.value) = 138543874;
         *(&time1.value + 4) = v12;
         LOWORD(time1.flags) = 2048;
         *(&time1.flags + 2) = v13;
         HIWORD(time1.epoch) = 2048;
-        v41 = v14;
+        v40 = v14;
         _os_log_impl(&dword_22D12F000, v11, OS_LOG_TYPE_DEBUG, "%{public}@BackgroundEstimator(PTS:%.2f) Reset outdated background model %.2f", &time1, 0x20u);
       }
 
@@ -561,13 +541,13 @@ LABEL_19:
     v11 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v35 = HMFGetLogIdentifier();
+      v34 = HMFGetLogIdentifier();
       time1 = *stamp;
-      v36 = CMTimeGetSeconds(&time1);
+      v35 = CMTimeGetSeconds(&time1);
       LODWORD(time2.value) = 138543618;
-      *(&time2.value + 4) = v35;
+      *(&time2.value + 4) = v34;
       LOWORD(time2.flags) = 2048;
-      *(&time2.flags + 2) = v36;
+      *(&time2.flags + 2) = v35;
       _os_log_impl(&dword_22D12F000, v11, OS_LOG_TYPE_DEBUG, "%{public}@BackgroundEstimator(PTS:%.2f) Reset background model due to image size change", &time2, 0x16u);
     }
 
@@ -575,9 +555,9 @@ LABEL_19:
   }
 
   time1 = *stamp;
-  [(HMIBackgroundEstimator *)self backgroundChangeTimeStamp];
-  [(HMIBackgroundEstimator *)self backgroundChangeResetInterval];
-  CMTimeAdd(&time2, &lhs, &v38);
+  [&lhs backgroundChangeTimeStamp];
+  [&v37 backgroundChangeResetInterval];
+  CMTimeAdd(&time2, &lhs, &v37);
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
     motionDetections2 = [(HMIBackgroundEstimator *)self motionDetections];
@@ -601,11 +581,11 @@ LABEL_19:
       }
 
       objc_autoreleasePoolPop(v21);
-      [(HMIBackgroundEstimator *)selfCopy4 backgroundTimeStamp];
-      v26 = CMTimeGetSeconds(&time1);
+      [&time1 backgroundTimeStamp];
+      CMTimeGetSeconds(&time1);
       configuration = [(HMIBackgroundEstimator *)selfCopy4 configuration];
       camera = [configuration camera];
-      [HMIAnalytics videoPackageAnalyzerDidResetReferenceImageWithInterval:camera camera:v26];
+      [HMIAnalytics videoPackageAnalyzerDidResetReferenceImageWithInterval:"videoPackageAnalyzerDidResetReferenceImageWithInterval:camera:" camera:?];
 
       return 1;
     }
@@ -616,120 +596,117 @@ LABEL_19:
 
 - (BOOL)_updateBackgroundFromPixelBuffer:(__CVBuffer *)buffer timeStamp:(id *)stamp
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_runningMean && self->_runningStd)
   {
-    v23 = *stamp;
-    [(HMIBackgroundEstimator *)self setBackgroundTimeStamp:&v23];
+    [(HMIBackgroundEstimator *)self setBackgroundTimeStamp:*&stamp->var0, stamp->var3];
     [(HMIBackgroundEstimator *)self modelSize];
-    v8 = v7;
+    v7 = v6;
     [(HMIBackgroundEstimator *)self modelSize];
-    v10 = malloc_type_malloc(4 * (v8 * 3.0 * v9), 0x100004052888210uLL);
+    v9 = malloc_type_malloc(4 * (v7 * 3.0 * v8), 0x100004052888210uLL);
     for (i = 0; i != 5; ++i)
     {
-      [(HMIBackgroundEstimator *)self _copyFromPixelBuffer:buffer toInputBuffer:v10 translateCol:kHMIBackgroundEstimatorTranslateCol[i] translateRow:kHMIBackgroundEstimatorTranslateRow[i]];
-      numImages = [(HMIBackgroundEstimator *)self numImages];
-      runningMean = [(HMIBackgroundEstimator *)self runningMean];
-      runningStd = [(HMIBackgroundEstimator *)self runningStd];
-      *&v15 = (i + 5 * numImages) / ((i + 5 * numImages) + 1.0);
-      [(HMIBackgroundEstimator *)self _updateRunningMean:runningMean runningSquaredMean:runningStd fromInputBuffer:v10 decay:v15];
+      [HMIBackgroundEstimator _copyFromPixelBuffer:"_copyFromPixelBuffer:toInputBuffer:translateCol:translateRow:" toInputBuffer:? translateCol:? translateRow:?];
+      [(HMIBackgroundEstimator *)self numImages];
+      [(HMIBackgroundEstimator *)self runningMean];
+      [(HMIBackgroundEstimator *)self runningStd];
+      [HMIBackgroundEstimator _updateRunningMean:"_updateRunningMean:runningSquaredMean:fromInputBuffer:decay:" runningSquaredMean:? fromInputBuffer:? decay:?];
     }
 
     ++self->_numImages;
-    numImages2 = [(HMIBackgroundEstimator *)self numImages];
-    if (numImages2 == [(HMIBackgroundEstimator *)self minSampleSize])
+    numImages = [(HMIBackgroundEstimator *)self numImages];
+    if (numImages == [(HMIBackgroundEstimator *)self minSampleSize])
     {
-      [(HMIBackgroundEstimator *)self _updateRunningStd:[(HMIBackgroundEstimator *)self runningStd] withAuxBuffer:v10 runningMean:[(HMIBackgroundEstimator *)self runningMean] runningSquaredMean:[(HMIBackgroundEstimator *)self runningStd]];
+      [(HMIBackgroundEstimator *)self runningStd];
+      [(HMIBackgroundEstimator *)self runningMean];
+      [(HMIBackgroundEstimator *)self runningStd];
+      [HMIBackgroundEstimator _updateRunningStd:"_updateRunningStd:withAuxBuffer:runningMean:runningSquaredMean:" withAuxBuffer:? runningMean:? runningSquaredMean:?];
     }
 
-    free(v10);
+    free(v9);
     return 1;
   }
 
   else
   {
-    v18 = objc_autoreleasePoolPush();
+    v13 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
-      v23 = *stamp;
-      Seconds = CMTimeGetSeconds(&v23);
+      v16 = HMFGetLogIdentifier();
+      v18 = *stamp;
+      Seconds = CMTimeGetSeconds(&v18);
       *buf = 138543618;
-      v25 = v21;
-      v26 = 2048;
-      v27 = Seconds;
-      _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@BackgroundEstimator(PTS:%.2f) Unable to alloc buffer", buf, 0x16u);
+      v20 = v16;
+      v21 = 2048;
+      v22 = Seconds;
+      _os_log_impl(&dword_22D12F000, v15, OS_LOG_TYPE_ERROR, "%{public}@BackgroundEstimator(PTS:%.2f) Unable to alloc buffer", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
+    objc_autoreleasePoolPop(v13);
     return 0;
   }
 }
 
 - (id)_predictForegroundFromPixelBuffer:(__CVBuffer *)buffer timeStamp:(id *)stamp
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self->_runningMean && self->_runningStd && self->_assignment)
   {
-    v24 = *stamp;
-    [(HMIBackgroundEstimator *)self _expireMotionDetectionsAtTimeStamp:&v24];
-    v24 = *stamp;
-    [(HMIBackgroundEstimator *)self setForegroundTimeStamp:&v24];
+    [(HMIBackgroundEstimator *)self _expireMotionDetectionsAtTimeStamp:*&stamp->var0, stamp->var3];
+    [(HMIBackgroundEstimator *)self setForegroundTimeStamp:*&stamp->var0, stamp->var3];
     [(HMIBackgroundEstimator *)self modelSize];
-    v8 = v7;
+    v7 = v6;
     [(HMIBackgroundEstimator *)self modelSize];
-    v10 = malloc_type_calloc((v8 * v9), 1uLL, 0x100004077774924uLL);
-    [(HMIBackgroundEstimator *)self _foregroundPixelsFromPixelBuffer:buffer attribute:v10 assignment:[(HMIBackgroundEstimator *)self assignment] useChromaOnly:[(HMIBackgroundEstimator *)self adjustBrightness]];
-    assignment = [(HMIBackgroundEstimator *)self assignment];
-    v24 = *stamp;
-    v12 = [(HMIBackgroundEstimator *)self _blobsFromAssignment:assignment timeStamp:&v24];
+    v9 = malloc_type_calloc((v7 * v8), 1uLL, 0x100004077774924uLL);
+    [(HMIBackgroundEstimator *)self assignment];
+    [(HMIBackgroundEstimator *)self adjustBrightness];
+    [HMIBackgroundEstimator _foregroundPixelsFromPixelBuffer:"_foregroundPixelsFromPixelBuffer:attribute:assignment:useChromaOnly:" attribute:? assignment:? useChromaOnly:?];
+    [(HMIBackgroundEstimator *)self assignment];
+    v10 = [(HMIBackgroundEstimator *)self _blobsFromAssignment:*&stamp->var0 timeStamp:stamp->var3];
     buf[0] = 0;
-    v13 = [(HMIBackgroundEstimator *)self _foregroundBlobsFromBlobs:v12 backgroundChanged:buf];
+    v11 = [HMIBackgroundEstimator _foregroundBlobsFromBlobs:"_foregroundBlobsFromBlobs:backgroundChanged:" backgroundChanged:?];
     tracks = [(HMIBackgroundEstimator *)self tracks];
     inactiveTracks = [(HMIBackgroundEstimator *)self inactiveTracks];
-    v24 = *stamp;
-    [(HMIBackgroundEstimator *)self _updateCurrentTracks:tracks inactiveTracks:inactiveTracks blobs:v13 timeStamp:&v24];
+    [HMIBackgroundEstimator _updateCurrentTracks:"_updateCurrentTracks:inactiveTracks:blobs:timeStamp:" inactiveTracks:*&stamp->var0 blobs:stamp->var3 timeStamp:?];
 
-    v24 = *stamp;
-    LODWORD(tracks) = [(HMIBackgroundEstimator *)self _adjustBackgroundAtAttribute:v10 backgroundChanged:buf[0] timeStamp:&v24];
-    free(v10);
+    LODWORD(tracks) = [(HMIBackgroundEstimator *)self _adjustBackgroundAtAttribute:*&stamp->var0 backgroundChanged:stamp->var3 timeStamp:?];
+    free(v9);
     if (tracks)
     {
-      v16 = [MEMORY[0x277CBEB98] set];
+      v14 = [MEMORY[0x277CBEB98] set];
     }
 
     else
     {
       tracks2 = [(HMIBackgroundEstimator *)self tracks];
-      v24 = *stamp;
-      v16 = [(HMIBackgroundEstimator *)self _stationaryTracks:tracks2 timeStamp:&v24];
+      v14 = [(HMIBackgroundEstimator *)self _stationaryTracks:*&stamp->var0 timeStamp:stamp->var3];
     }
   }
 
   else
   {
-    v17 = objc_autoreleasePoolPush();
+    v15 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
-      v24 = *stamp;
-      Seconds = CMTimeGetSeconds(&v24);
+      v18 = HMFGetLogIdentifier();
+      v22 = *stamp;
+      Seconds = CMTimeGetSeconds(&v22);
       *buf = 138543618;
-      v26 = v20;
-      v27 = 2048;
-      v28 = Seconds;
-      _os_log_impl(&dword_22D12F000, v19, OS_LOG_TYPE_ERROR, "%{public}@BackgroundEstimator(PTS:%.2f) No background model", buf, 0x16u);
+      v24 = v18;
+      v25 = 2048;
+      v26 = Seconds;
+      _os_log_impl(&dword_22D12F000, v17, OS_LOG_TYPE_ERROR, "%{public}@BackgroundEstimator(PTS:%.2f) No background model", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v16 = [MEMORY[0x277CBEB98] set];
+    objc_autoreleasePoolPop(v15);
+    v14 = [MEMORY[0x277CBEB98] set];
   }
 
-  return v16;
+  return v14;
 }
 
 - (BOOL)_adjustBackgroundAtAttribute:(const char *)attribute backgroundChanged:(BOOL)changed timeStamp:(id *)stamp
@@ -737,18 +714,18 @@ LABEL_19:
   if (!changed)
   {
     time1 = *stamp;
-    [(HMIBackgroundEstimator *)self setBackgroundChangeTimeStamp:&time1];
+    [(HMIBackgroundEstimator *)self setBackgroundChangeTimeStamp:?];
   }
 
   if (![(HMIBackgroundEstimator *)self adjustBrightness])
   {
     time1 = *stamp;
-    [(HMIBackgroundEstimator *)self backgroundChangeTimeStamp];
-    [(HMIBackgroundEstimator *)self backgroundChangeInterval];
+    [&lhs backgroundChangeTimeStamp];
+    [&rhs backgroundChangeInterval];
     CMTimeAdd(&time2, &lhs, &rhs);
     if (CMTimeCompare(&time1, &time2) >= 1)
     {
-      [(HMIBackgroundEstimator *)self setAdjustBrightness:1];
+      [(HMIBackgroundEstimator *)self setAdjustBrightness:?];
     }
   }
 
@@ -768,10 +745,9 @@ LABEL_19:
     time1 = *stamp;
     motionTimeStamps2 = [(HMIBackgroundEstimator *)self motionTimeStamps];
     firstObject = [motionTimeStamps2 firstObject];
-    v8 = firstObject;
     if (firstObject)
     {
-      [firstObject CMTimeValue];
+      [&lhs CMTimeValue];
     }
 
     else
@@ -779,11 +755,11 @@ LABEL_19:
       memset(&lhs, 0, sizeof(lhs));
     }
 
-    [(HMIBackgroundEstimator *)self motionValidInterval];
+    [&rhs motionValidInterval];
     CMTimeAdd(&time2, &lhs, &rhs);
-    v9 = CMTimeCompare(&time1, &time2);
+    v8 = CMTimeCompare(&time1, &time2);
 
-    if (v9 < 1)
+    if (v8 < 1)
     {
       return;
     }
@@ -799,24 +775,19 @@ LABEL_19:
 - (id)_foregroundBlobsFromBlobs:(id)blobs backgroundChanged:(BOOL *)changed
 {
   blobsCopy = blobs;
-  v11[0] = 0;
-  v11[1] = v11;
-  v11[2] = 0x5012000000;
-  v11[3] = __Block_byref_object_copy__1;
-  v11[4] = __Block_byref_object_dispose__1;
-  v11[5] = &unk_22D2C2491;
+  v10[0] = 0;
+  v10[1] = v10;
+  v10[2] = 0x5012000000;
+  v10[3] = __Block_byref_object_copy__1;
+  v10[4] = __Block_byref_object_dispose__1;
+  v10[5] = &unk_22D2C2491;
   v6 = *(MEMORY[0x277CBF398] + 16);
-  v12 = *MEMORY[0x277CBF398];
-  v13 = v6;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __70__HMIBackgroundEstimator__foregroundBlobsFromBlobs_backgroundChanged___block_invoke;
-  v10[3] = &unk_278753050;
-  v10[4] = v11;
-  v7 = [blobsCopy na_filter:v10];
+  v11 = *MEMORY[0x277CBF398];
+  v12 = v6;
+  v7 = [blobsCopy na_filter:?];
   v8 = [v7 count];
   *changed = v8 < [blobsCopy count];
-  _Block_object_dispose(v11, 8);
+  _Block_object_dispose(v10, 8);
 
   return v7;
 }
@@ -853,179 +824,153 @@ BOOL __70__HMIBackgroundEstimator__foregroundBlobsFromBlobs_backgroundChanged___
   allValues = [tracksCopy allValues];
   allObjects = [blobsCopy allObjects];
   array = [MEMORY[0x277CBEB18] array];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke;
-  v48[3] = &unk_2787530A0;
-  v13 = allObjects;
-  v49 = v13;
-  v14 = array;
-  v50 = v14;
-  [allValues enumerateObjectsUsingBlock:v48];
-  v29 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(tracksCopy, "count")}];
-  v15 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(blobsCopy, "count")}];
-  v16 = [v14 sortedArrayUsingComparator:{&__block_literal_global_2, v15}];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_3;
-  v43[3] = &unk_2787530C8;
-  v17 = v29;
-  v44 = v17;
-  v18 = v15;
-  v45 = v18;
-  v19 = allValues;
-  v46 = v19;
-  v20 = v13;
-  v47 = v20;
-  [v16 na_each:v43];
+  v30 = allObjects;
+  v31 = array;
+  [allValues enumerateObjectsUsingBlock:?];
+  v11 = MEMORY[0x277CCAB58];
+  [tracksCopy count];
+  v17 = [v11 indexSetWithIndexesInRange:?];
+  v12 = MEMORY[0x277CCAB58];
+  [blobsCopy count];
+  v13 = [v12 indexSetWithIndexesInRange:?];
+  v14 = [v31 sortedArrayUsingComparator:v13];
+  v26 = v17;
+  v27 = v13;
+  v28 = allValues;
+  v29 = v30;
+  [v14 na_each:?];
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_4;
-  v38[3] = &unk_2787530F0;
-  v21 = v19;
-  v39 = v21;
-  v42 = *stamp;
-  v22 = inactiveTracksCopy;
-  v40 = v22;
-  v23 = tracksCopy;
-  v41 = v23;
-  [v17 enumerateIndexesUsingBlock:v38];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_5;
-  v35[3] = &unk_278753118;
-  v35[4] = self;
-  v24 = v23;
-  v36 = v24;
-  v25 = v20;
-  v37 = v25;
-  [v18 enumerateIndexesUsingBlock:v35];
-  allValues2 = [v22 allValues];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_6;
-  v32[3] = &unk_278753140;
-  v34 = *stamp;
-  v27 = v22;
-  v33 = v27;
-  [allValues2 na_each:v32];
+  v23 = v28;
+  v24 = inactiveTracksCopy;
+  v25 = tracksCopy;
+  [v26 enumerateIndexesUsingBlock:?];
+  v21 = v25;
+  v22 = v29;
+  [v27 enumerateIndexesUsingBlock:?];
+  allValues2 = [v24 allValues];
+  v20 = v24;
+  [allValues2 na_each:?];
 }
 
 void __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_2;
-  v8[3] = &unk_278753078;
-  v9 = v5;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_2;
+  v11 = &unk_278753078;
+  v12 = v5;
   v6 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  v11 = a3;
+  v13 = *(a1 + 40);
+  v14 = a3;
   v7 = v5;
-  [v6 enumerateObjectsUsingBlock:v8];
+  [v6 enumerateObjectsUsingBlock:?];
 }
 
 void __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = a2;
+  v7 = a2;
   [*(a1 + 32) similarityToBlob:?];
-  v6 = v5;
-  if (v5 > 0.0)
+  if (v4 > 0.0)
   {
-    v7 = *(a1 + 40);
-    v8 = [HMIPairwiseMatch alloc];
-    *&v9 = v6;
-    v10 = [(HMIPairwiseMatch *)v8 initWithFirstIndex:*(a1 + 48) secondIndex:a3 score:v9];
-    [v7 addObject:v10];
+    v5 = *(a1 + 40);
+    v6 = [HMIPairwiseMatch initWithFirstIndex:"initWithFirstIndex:secondIndex:score:" secondIndex:? score:?];
+    [v5 addObject:?];
   }
 }
 
 void __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_3(id *a1, void *a2)
 {
-  v5 = a2;
-  if ([a1[4] containsIndex:{objc_msgSend(v5, "firstIndex")}] && objc_msgSend(a1[5], "containsIndex:", objc_msgSend(v5, "secondIndex")))
+  v3 = a2;
+  v4 = a1[4];
+  v12 = v3;
+  [v3 firstIndex];
+  if ([v4 containsIndex:?])
   {
-    v3 = [a1[6] objectAtIndexedSubscript:{objc_msgSend(v5, "firstIndex")}];
-    v4 = [a1[7] objectAtIndexedSubscript:{objc_msgSend(v5, "secondIndex")}];
-    [v3 appendBlob:v4];
+    v5 = a1[5];
+    [v12 secondIndex];
+    if ([v5 containsIndex:?])
+    {
+      v6 = a1[6];
+      [v12 firstIndex];
+      v7 = [v6 objectAtIndexedSubscript:?];
+      v8 = a1[7];
+      [v12 secondIndex];
+      v9 = [v8 objectAtIndexedSubscript:?];
+      [v7 appendBlob:?];
 
-    [a1[4] removeIndex:{objc_msgSend(v5, "firstIndex")}];
-    [a1[5] removeIndex:{objc_msgSend(v5, "secondIndex")}];
+      v10 = a1[4];
+      [v12 firstIndex];
+      [v10 removeIndex:?];
+      v11 = a1[5];
+      [v12 secondIndex];
+      [v11 removeIndex:?];
+    }
   }
 }
 
 void __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v4 = [*(a1 + 32) objectAtIndexedSubscript:a2];
-  v15 = *(a1 + 56);
-  v16 = *(a1 + 72);
-  v5 = [v4 isLostAtTimeStamp:&v15];
+  v3 = [*(a1 + 32) objectAtIndexedSubscript:?];
+  v4 = [v3 isLostAtTimeStamp:{*(a1 + 56), *(a1 + 72)}];
 
-  if (v5)
+  if (v4)
   {
-    v6 = [*(a1 + 32) objectAtIndexedSubscript:a2];
-    v7 = MEMORY[0x277CCABB0];
-    v8 = *(a1 + 40);
-    v9 = [*(a1 + 32) objectAtIndexedSubscript:a2];
-    v10 = [v7 numberWithUnsignedInteger:{objc_msgSend(v9, "trackIndex")}];
-    [v8 setObject:v6 forKeyedSubscript:v10];
+    v5 = [*(a1 + 32) objectAtIndexedSubscript:?];
+    v6 = MEMORY[0x277CCABB0];
+    v7 = *(a1 + 40);
+    v8 = [*(a1 + 32) objectAtIndexedSubscript:?];
+    [v8 trackIndex];
+    v9 = [v6 numberWithUnsignedInteger:?];
+    [v7 setObject:? forKeyedSubscript:?];
 
-    v11 = *(a1 + 48);
-    v12 = MEMORY[0x277CCABB0];
-    v13 = [*(a1 + 32) objectAtIndexedSubscript:a2];
-    v14 = [v12 numberWithUnsignedInteger:{objc_msgSend(v13, "trackIndex")}];
-    [v11 removeObjectForKey:v14];
+    v10 = *(a1 + 48);
+    v11 = MEMORY[0x277CCABB0];
+    v12 = [*(a1 + 32) objectAtIndexedSubscript:?];
+    [v12 trackIndex];
+    v13 = [v11 numberWithUnsignedInteger:?];
+    [v10 removeObjectForKey:?];
   }
 }
 
 void __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v5 = [v4 numTracks];
-  [v4 setNumTracks:v5 + 1];
-  v6 = [HMIVideoAnalyzerTrack alloc];
-  v10 = [*(a1 + 48) objectAtIndexedSubscript:a2];
-  v7 = [HMIVideoAnalyzerTrack initWithBlob:v6 trackIndex:"initWithBlob:trackIndex:"];
-  v8 = *(a1 + 40);
-  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5];
-  [v8 setObject:v7 forKeyedSubscript:v9];
+  v3 = *(a1 + 32);
+  [v3 numTracks];
+  [v3 setNumTracks:?];
+  v4 = [HMIVideoAnalyzerTrack alloc];
+  v8 = [*(a1 + 48) objectAtIndexedSubscript:?];
+  v5 = [HMIVideoAnalyzerTrack initWithBlob:v4 trackIndex:"initWithBlob:trackIndex:"];
+  v6 = *(a1 + 40);
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+  [v6 setObject:? forKeyedSubscript:?];
 }
 
 void __78__HMIBackgroundEstimator__updateCurrentTracks_inactiveTracks_blobs_timeStamp___block_invoke_6(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 56);
-  if ([v3 isExpiredAtTimeStamp:&v6])
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 56);
+  if ([v3 isExpiredAtTimeStamp:{v7, v8}])
   {
     v4 = *(a1 + 32);
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "trackIndex")}];
-    [v4 removeObjectForKey:v5];
+    v5 = MEMORY[0x277CCABB0];
+    [v3 trackIndex];
+    v6 = [v5 numberWithUnsignedInteger:?];
+    [v4 removeObjectForKey:?];
   }
 }
 
 - (id)_stationaryTracks:(id)tracks timeStamp:(id *)stamp
 {
-  v6 = MEMORY[0x277CBEB98];
+  v5 = MEMORY[0x277CBEB98];
   allValues = [tracks allValues];
-  v8 = [v6 setWithArray:allValues];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke;
-  v13[3] = &__block_descriptor_56_e31_B16__0__HMIVideoAnalyzerTrack_8l;
-  v14 = *stamp;
-  v9 = [v8 na_filter:v13];
+  v7 = [v5 setWithArray:?];
+  v8 = [v7 na_filter:?];
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke_2;
-  v12[3] = &unk_2787531B0;
-  v12[4] = self;
-  v10 = [v9 na_filter:v12];
+  v9 = [v8 na_filter:{MEMORY[0x277D85DD0], 3221225472, __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke_2, &unk_2787531B0, self}];
 
-  return v10;
+  return v9;
 }
 
 uint64_t __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke(uint64_t a1, void *a2)
@@ -1033,7 +978,7 @@ uint64_t __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke
   v3 = a2;
   v6 = *(a1 + 32);
   v7 = *(a1 + 48);
-  if ([v3 isStationaryAtTimeStamp:&v6])
+  if ([v3 isStationaryAtTimeStamp:{v6, v7}])
   {
     v4 = [v3 isClassified] ^ 1;
   }
@@ -1050,15 +995,15 @@ uint64_t __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke
 {
   v3 = a2;
   v4 = [*(a1 + 32) motionDetections];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke_3;
-  v8[3] = &unk_278753188;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke_3;
+  v11 = &unk_278753188;
   v5 = v3;
-  v9 = v5;
-  v6 = [v4 na_any:v8];
+  v12 = v5;
+  v6 = [v4 na_any:?];
 
-  return v6 ^ 1u;
+  return v6 ^ 1;
 }
 
 BOOL __54__HMIBackgroundEstimator__stationaryTracks_timeStamp___block_invoke_3(uint64_t a1, void *a2)
@@ -1755,36 +1700,36 @@ LABEL_23:
 - (id)_blobsFromAssignment:(unsigned __int16 *)assignment timeStamp:(id *)stamp
 {
   selfCopy2 = self;
-  v83 = *MEMORY[0x277D85DE8];
+  *&v68 = *MEMORY[0x277D85DE8];
   {
     __asm { FMOV            V1.2D, #-1.0 }
 
-    v67 = _Q1;
-    v68 = xmmword_22D297FE0;
-    v69 = xmmword_22D297FF0;
-    v70 = xmmword_22D298000;
-    v71 = xmmword_22D298010;
-    v72 = xmmword_22D298020;
+    v52 = _Q1;
+    v53 = xmmword_22D297FE0;
+    v54 = xmmword_22D297FF0;
+    v55 = xmmword_22D298000;
+    v56 = xmmword_22D298010;
+    v57 = xmmword_22D298020;
     __asm { FMOV            V1.2D, #1.0 }
 
-    v73 = xmmword_22D298030;
-    v74 = _Q1;
+    v58 = xmmword_22D298030;
+    v59 = _Q1;
     __asm { FMOV            V0.2D, #-3.0 }
 
-    v75 = _Q0;
-    v76 = xmmword_22D298040;
-    v77 = xmmword_22D298050;
-    v78 = xmmword_22D298060;
-    v79 = xmmword_22D298070;
-    v80 = xmmword_22D298080;
+    v60 = _Q0;
+    v61 = xmmword_22D298040;
+    v62 = xmmword_22D298050;
+    v63 = xmmword_22D298060;
+    v64 = xmmword_22D298070;
+    v65 = xmmword_22D298080;
     __asm { FMOV            V1.2D, #3.0 }
 
-    v81 = xmmword_22D298090;
-    v82 = _Q1;
+    v66 = xmmword_22D298090;
+    v67 = _Q1;
     qword_27D9FABC8 = 0;
     unk_27D9FABD0 = 0;
     [HMIBackgroundEstimator _blobsFromAssignment:timeStamp:]::neighbors = 0;
-    std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint const*,CGPoint const*>(&-[HMIBackgroundEstimator _blobsFromAssignment:timeStamp:]::neighbors, &v67, &v83, 0x10uLL);
+    std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint const*,CGPoint const*>(&-[HMIBackgroundEstimator _blobsFromAssignment:timeStamp:]::neighbors, &v52, &v68, 0x10uLL);
     selfCopy2 = self;
   }
 
@@ -1792,7 +1737,7 @@ LABEL_23:
   v7 = v6;
   [(HMIBackgroundEstimator *)selfCopy2 modelSize];
   v9 = v8;
-  v58 = [MEMORY[0x277CBEB58] set];
+  v43 = [MEMORY[0x277CBEB58] set];
   v10 = v7;
   v11 = v9;
   v12 = (v9 * v7);
@@ -1805,28 +1750,28 @@ LABEL_23:
       if (assignment[v13] == 2)
       {
         __p = 0;
-        v65 = 0;
-        v66 = 0;
-        v68 = 0u;
-        v69 = 0u;
-        v67 = 0u;
-        v63.n128_f64[0] = (v13 % v10);
-        v63.n128_f64[1] = (v13 / v10);
-        std::vector<CGPoint>::push_back[abi:ne200100](&__p, &v63);
-        std::deque<CGPoint>::push_back(&v67, &v63);
-        assignment[v63.n128_f64[0] + v63.n128_f64[1] * v10] = 4;
-        while (*(&v69 + 1))
+        v50 = 0;
+        v51 = 0;
+        v53 = 0u;
+        v54 = 0u;
+        v52 = 0u;
+        v48.n128_f64[0] = (v13 % v10);
+        v48.n128_f64[1] = (v13 / v10);
+        std::vector<CGPoint>::push_back[abi:ne200100](&__p, &v48);
+        std::deque<CGPoint>::push_back(&v52, &v48);
+        assignment[v48.n128_f64[0] + v48.n128_f64[1] * v10] = 4;
+        while (*(&v54 + 1))
         {
-          v15 = *(*(*(&v67 + 1) + ((v69 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v69);
-          *&v69 = v69 + 1;
-          --*(&v69 + 1);
-          v60 = v15;
-          if (v69 >= 0x200)
+          v15 = *(*(*(&v52 + 1) + ((v54 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v54);
+          *&v54 = v54 + 1;
+          --*(&v54 + 1);
+          v45 = v15;
+          if (v54 >= 0x200)
           {
-            operator delete(**(&v67 + 1));
-            v15 = v60;
-            *(&v67 + 1) += 8;
-            *&v69 = v69 - 256;
+            operator delete(**(&v52 + 1));
+            v15 = v45;
+            *(&v52 + 1) += 8;
+            *&v54 = v54 - 256;
           }
 
           assignment[v15.f64[0] + v15.f64[1] * v10] = v14;
@@ -1845,11 +1790,11 @@ LABEL_23:
               {
                 v22.i64[0] = v20.u32[0];
                 v22.i64[1] = v20.u32[1];
-                v61 = vcvtq_f64_u64(v22);
-                std::vector<CGPoint>::push_back[abi:ne200100](&__p, &v61);
-                std::deque<CGPoint>::push_back(&v67, &v61);
+                v46 = vcvtq_f64_u64(v22);
+                std::vector<CGPoint>::push_back[abi:ne200100](&__p, &v46);
+                std::deque<CGPoint>::push_back(&v52, &v46);
                 assignment[v21] = 4;
-                v15 = v60;
+                v15 = v45;
               }
             }
 
@@ -1858,9 +1803,9 @@ LABEL_23:
         }
 
         v23 = __p;
-        if ((v65 - __p) >= 0x81)
+        if ((v50 - __p) >= 0x81)
         {
-          if (__p == v65)
+          if (__p == v50)
           {
             v25 = 0;
             v24 = 0;
@@ -1900,32 +1845,23 @@ LABEL_23:
               }
             }
 
-            while (v23 != v65);
+            while (v23 != v50);
           }
 
           HMICGRectNormalizedFromPixel(v10, v11, v27, v26, (v24 - v27 + 1), (v25 - v26 + 1));
-          v31 = v30;
-          v33 = v32;
-          v35 = v34;
-          v37 = v36;
-          v39 = __p;
-          v38 = v65;
           [(HMIBackgroundEstimator *)self modelSize];
-          v41 = v40;
           [(HMIBackgroundEstimator *)self modelSize];
-          v43 = v42;
-          v44 = [HMIVideoAnalyzerBlob alloc];
-          *&v45 = ((v38 - v39) >> 4) / (v41 * v43);
-          v61 = *&stamp->var0;
+          v30 = [HMIVideoAnalyzerBlob alloc];
+          v46 = *&stamp->var0;
           var3 = stamp->var3;
-          v46 = [(HMIVideoAnalyzerBlob *)v44 initWithBoundingBox:&v61 timeStamp:v14 blobArea:v31 blobID:v33, v35, v37, v45];
-          [v58 addObject:v46];
+          v31 = [HMIVideoAnalyzerBlob initWithBoundingBox:v30 timeStamp:"initWithBoundingBox:timeStamp:blobArea:blobID:" blobArea:? blobID:?];
+          [v43 addObject:?];
         }
 
-        std::deque<CGPoint>::~deque[abi:ne200100](&v67);
+        std::deque<CGPoint>::~deque[abi:ne200100](&v52);
         if (__p)
         {
-          v65 = __p;
+          v50 = __p;
           operator delete(__p);
         }
 
@@ -1939,45 +1875,44 @@ LABEL_23:
     while (v13 != v12);
   }
 
-  v47 = [v58 copy];
+  v32 = [v43 copy];
 
-  return v47;
+  return v32;
 }
 
 - (id)_exportInternalStateForPixelBuffer:(__CVBuffer *)buffer exportMode:(unint64_t)mode
 {
-  memset(&v27, 0, sizeof(v27));
-  [(HMIBackgroundEstimator *)self foregroundTimeStamp];
-  v25 = **&MEMORY[0x277CC08F0];
-  if (CMTimeCompare(&time1, &v25))
+  memset(&v21, 0, sizeof(v21));
+  [&time1 foregroundTimeStamp];
+  v19 = **&MEMORY[0x277CC08F0];
+  if (CMTimeCompare(&time1, &v19))
   {
-    [(HMIBackgroundEstimator *)self foregroundTimeStamp];
+    [&v21 foregroundTimeStamp];
   }
 
   else
   {
-    [(HMIBackgroundEstimator *)self backgroundTimeStamp];
+    [&v21 backgroundTimeStamp];
   }
 
   [(HMIBackgroundEstimator *)self modelSize];
-  v8 = v7;
+  v7 = v6;
   [(HMIBackgroundEstimator *)self modelSize];
-  v10 = v9;
+  v9 = v8;
   [(HMIBackgroundEstimator *)self modelSize];
-  v12 = v11 + v11;
   [(HMIBackgroundEstimator *)self modelSize];
-  v14 = [HMIVisionUtilities createPixelBufferWithSize:875704422 pixelFormat:0 useIOSurface:v12, (v13 + v13)];
-  if (v14)
+  v10 = [HMIVisionUtilities createPixelBufferWithSize:"createPixelBufferWithSize:pixelFormat:useIOSurface:" pixelFormat:? useIOSurface:?];
+  if (v10)
   {
-    v15 = [HMIVideoFrame alloc];
-    time1 = v27;
-    v16 = [(HMIVideoFrame *)v15 initWithPixelBuffer:v14 presentationTimeStamp:&time1];
-    CVPixelBufferRelease(v14);
+    v11 = [HMIVideoFrame alloc];
+    time1 = v21;
+    v12 = [HMIVideoFrame initWithPixelBuffer:v11 presentationTimeStamp:"initWithPixelBuffer:presentationTimeStamp:"];
+    CVPixelBufferRelease(v10);
   }
 
   else
   {
-    v16 = 0;
+    v12 = 0;
   }
 
   if (![(HMIBackgroundEstimator *)self runningMean]|| ![(HMIBackgroundEstimator *)self runningStd]|| ![(HMIBackgroundEstimator *)self assignment])
@@ -1985,56 +1920,49 @@ LABEL_23:
     goto LABEL_31;
   }
 
-  v17 = 0;
+  v13 = 0;
   if (mode > 1)
   {
-    v20 = (v8 * v10);
+    v14 = (v7 * v9);
     if (mode == 2)
     {
-      v17 = malloc_type_calloc(3 * v20, 4uLL, 0x100004052888210uLL);
-      [(HMIBackgroundEstimator *)self _foregroundDifferencesFromPixelBuffer:buffer differences:v17];
-      v18 = v17;
+      v13 = malloc_type_calloc(3 * v14, 4uLL, 0x100004052888210uLL);
+      [HMIBackgroundEstimator _foregroundDifferencesFromPixelBuffer:"_foregroundDifferencesFromPixelBuffer:differences:" differences:?];
     }
 
-    else
+    else if (mode == 3)
     {
-      v18 = 0;
-      if (mode == 3)
+      v13 = malloc_type_calloc(3 * v14, 4uLL, 0x100004052888210uLL);
+      LODWORD(time1.value) = 1124073472;
+      vDSP_vfill(&time1, &v13[v14], 1, 2 * v14);
+      if (v14)
       {
-        v17 = malloc_type_calloc(3 * v20, 4uLL, 0x100004052888210uLL);
-        LODWORD(time1.value) = 1124073472;
-        vDSP_vfill(&time1, &v17[v20], 1, 2 * v20);
-        if (v20)
+        v15 = 0;
+        v16 = v13;
+        v17 = (v7 * v9);
+        do
         {
-          v21 = 0;
-          v22 = v17;
-          v23 = (v8 * v10);
-          do
+          if (*([(HMIBackgroundEstimator *)self assignment]+ v15) >= 5u)
           {
-            if ([(HMIBackgroundEstimator *)self assignment][v21] >= 5u)
-            {
-              *v22 = 255.0;
-            }
-
-            if ([(HMIBackgroundEstimator *)self assignment][v21] == 1)
-            {
-              v22[2 * v20] = 255.0;
-            }
-
-            if (![(HMIBackgroundEstimator *)self assignment][v21])
-            {
-              v22[v20] = 255.0;
-            }
-
-            v21 += 2;
-            ++v22;
-            --v23;
+            *v16 = 255.0;
           }
 
-          while (v23);
+          if (*([(HMIBackgroundEstimator *)self assignment]+ v15) == 1)
+          {
+            v16[2 * v14] = 255.0;
+          }
+
+          if (!*([(HMIBackgroundEstimator *)self assignment]+ v15))
+          {
+            v16[v14] = 255.0;
+          }
+
+          v15 += 2;
+          ++v16;
+          --v17;
         }
 
-        v18 = v17;
+        while (v17);
       }
     }
 
@@ -2043,32 +1971,30 @@ LABEL_23:
 
   if (mode)
   {
-    v18 = 0;
     if (mode != 1)
     {
       goto LABEL_29;
     }
 
-    runningStd = [(HMIBackgroundEstimator *)self runningStd];
+    [(HMIBackgroundEstimator *)self runningStd];
   }
 
   else
   {
-    runningStd = [(HMIBackgroundEstimator *)self runningMean];
+    [(HMIBackgroundEstimator *)self runningMean];
   }
 
-  v18 = runningStd;
-  v17 = 0;
+  v13 = 0;
 LABEL_29:
-  [(HMIBackgroundEstimator *)self _copyFromOutputBuffer:v18 toPixelBuffer:v14];
-  if (v17)
+  [HMIBackgroundEstimator _copyFromOutputBuffer:"_copyFromOutputBuffer:toPixelBuffer:" toPixelBuffer:?];
+  if (v13)
   {
-    free(v17);
+    free(v13);
   }
 
 LABEL_31:
 
-  return v16;
+  return v12;
 }
 
 - (CGSize)imageSize

@@ -4,6 +4,7 @@
 - (void)connectBaseband;
 - (void)createCommandHandlerForAriVersion:(unsigned int)version;
 - (void)handleEvent:(id)event;
+- (void)handleRc1DynamicPolicy:(id)policy SubId:(unsigned int)id;
 - (void)setAntennaBlockingPolicyForPlatformId:(unint64_t)id activeSubId:(unint64_t)subId AntBlockPowerLimitPlist:(id)plist;
 - (void)setCellularController:(id)controller;
 @end
@@ -129,6 +130,23 @@ LABEL_7:
   else
   {
     [WCM_Logging logLevel:0 message:@"Error: ARI driver connect baseband -- WCM_AriCoexCommandHandler is NULL..."];
+  }
+}
+
+- (void)handleRc1DynamicPolicy:(id)policy SubId:(unsigned int)id
+{
+  v4 = *&id;
+  policyCopy = policy;
+  mAriCoexCommandHandler = self->mAriCoexCommandHandler;
+  v8 = policyCopy;
+  if (mAriCoexCommandHandler)
+  {
+    [(WCM_AriCoexCommandHandler *)mAriCoexCommandHandler handleRc1DynamicPolicy:policyCopy SubId:v4];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:0 message:@"Error: ARI driver set RC1 policy -- WCM_AriCoexCommandHandler is NULL..."];
   }
 }
 

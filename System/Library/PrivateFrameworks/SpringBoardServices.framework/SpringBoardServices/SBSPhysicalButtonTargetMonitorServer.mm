@@ -122,7 +122,7 @@ void __51__SBSPhysicalButtonTargetMonitorServer_startServer__block_invoke(uint64
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
@@ -133,28 +133,28 @@ void __51__SBSPhysicalButtonTargetMonitorServer_startServer__block_invoke(uint64
 
   if (v13)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __82__SBSPhysicalButtonTargetMonitorServer_listener_didReceiveConnection_withContext___block_invoke;
-    v15[3] = &unk_1E735F0A8;
-    v15[4] = self;
-    objc_copyWeak(&v16, &location);
-    [connectionCopy configureConnection:v15];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __82__SBSPhysicalButtonTargetMonitorServer_listener_didReceiveConnection_withContext___block_invoke;
+    v16[3] = &unk_1E735F0A8;
+    v16[4] = self;
+    objc_copyWeak(&v17, &location);
+    [connectionCopy configureConnection:v16];
     os_unfair_lock_lock(&self->_lock);
     [(NSMutableArray *)self->_lock_connections addObject:connectionCopy];
     os_unfair_lock_unlock(&self->_lock);
     [connectionCopy activate];
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
   }
 
   else
   {
-    v14 = SBLogCameraCaptureAppConfiguration();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogCameraCaptureAppConfiguration(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = connectionCopy;
-      _os_log_impl(&dword_19169D000, v14, OS_LOG_TYPE_DEFAULT, "SBSCaptureButtonAppConfigurationServer invalidating connection because client process is missing required entitlement %@.", buf, 0xCu);
+      v20 = connectionCopy;
+      _os_log_impl(&dword_19169D000, v15, OS_LOG_TYPE_DEFAULT, "SBSCaptureButtonAppConfigurationServer invalidating connection because client process is missing required entitlement %@.", buf, 0xCu);
     }
 
     [connectionCopy invalidate];
@@ -194,7 +194,7 @@ void __82__SBSPhysicalButtonTargetMonitorServer_listener_didReceiveConnection_wi
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCameraCaptureAppConfiguration();
+  v3 = SBLogCameraCaptureAppConfiguration(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -208,7 +208,7 @@ void __82__SBSPhysicalButtonTargetMonitorServer_listener_didReceiveConnection_wi
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCameraCaptureAppConfiguration();
+  v5 = SBLogCameraCaptureAppConfiguration(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -229,7 +229,7 @@ void __82__SBSPhysicalButtonTargetMonitorServer_listener_didReceiveConnection_wi
   v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCameraCaptureAppConfiguration();
+  v5 = SBLogCameraCaptureAppConfiguration(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;

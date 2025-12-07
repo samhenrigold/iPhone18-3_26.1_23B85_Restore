@@ -14,7 +14,7 @@
   v14 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy, v13, v14);
   }
 
   v9 = [(ServiceDelegate *)self _auditToken:&v13 hasEntitlement:@"com.apple.DiagnosticsSessionAvailability.client"];

@@ -11,17 +11,17 @@
 - (RUIXMLSanitizer)init
 {
   ObjectType = swift_getObjectType();
-  v4 = _sSo11RUIPlatformC8RemoteUIE17isSolariumEnabledSbvgZ_0(ObjectType, v3);
-  v5 = 20;
-  if ((v4 & 1) == 0)
+  v3 = _sSo11RUIPlatformC8RemoteUIE17isSolariumEnabledSbvgZ_0(ObjectType);
+  v4 = 20;
+  if ((v3 & 1) == 0)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v8 = v5;
-  v6 = (*(ObjectType + 112))(&v8);
+  v7 = v4;
+  v5 = (*(ObjectType + 112))(&v7);
   swift_deallocPartialClassInstance();
-  return v6;
+  return v5;
 }
 
 - (id)sanitizedXML:(id)l error:(id *)error
@@ -31,7 +31,7 @@
   v7 = sub_21BA864DC();
   v9 = v8;
 
-  v10 = sub_21BA5D6B8();
+  v10 = sub_21BA5D6B8(v7, v9);
   v12 = v11;
 
   sub_21B9B37F0(v7, v9);
@@ -61,7 +61,7 @@
   v7 = sub_21BA864DC();
   v9 = v8;
 
-  v10 = Data.xmlElement()();
+  v10 = Data.xmlElement()(v7, v9);
   v11 = (*((*MEMORY[0x277D85000] & selfCopy->super.isa) + 0x90))();
 
   sub_21B9B37F0(v7, v9);

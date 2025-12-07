@@ -332,44 +332,44 @@ LABEL_45:
 
 - (int)run
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   atomic_store(1u, &self->_started);
-  v3 = VCPSignPostLog();
+  v3 = VCPSignPostLog(self);
   v4 = os_signpost_id_generate(v3);
 
-  v5 = VCPSignPostLog();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = VCPSignPostLog(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    *v16 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPVideoStabilizationAssetProcessingTask", "", v16, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPVideoStabilizationAssetProcessingTask", "", v17, 2u);
   }
 
   main = [(VCPVideoStabilizationAssetProcessingTask *)self main];
-  v8 = VCPSignPostLog();
-  v9 = v8;
-  if (v4 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v8))
+  v9 = VCPSignPostLog(main);
+  v10 = v9;
+  if (v4 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v9))
   {
-    *v16 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_END, v4, "VCPVideoStabilizationAssetProcessingTask", "", v16, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v4, "VCPVideoStabilizationAssetProcessingTask", "", v17, 2u);
   }
 
   if (main)
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Video Stabilization processing failed", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Video Stabilization processing failed", v17, 2u);
     }
 
     completionHandler = self->_completionHandler;
-    v11 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A578];
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Video stabilization processing failed"];
-    v18[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-    v14 = [v11 errorWithDomain:*MEMORY[0x1E696A768] code:main userInfo:v13];
-    completionHandler[2](completionHandler, 0, v14);
+    v12 = MEMORY[0x1E696ABC0];
+    v18 = *MEMORY[0x1E696A578];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Video stabilization processing failed"];
+    v19[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v15 = [v12 errorWithDomain:*MEMORY[0x1E696A768] code:main userInfo:v14];
+    completionHandler[2](completionHandler, 0, v15);
   }
 
   return main;

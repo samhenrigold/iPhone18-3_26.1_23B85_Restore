@@ -43,7 +43,7 @@ uint64_t __75__RBTargetsSelfDomainRestriction_domainRestrictionForDictionary_wit
 
 - (BOOL)allowsContext:(id)context withError:(id *)error
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   targetProcess = [contextCopy targetProcess];
   identity = [targetProcess identity];
@@ -57,17 +57,16 @@ uint64_t __75__RBTargetsSelfDomainRestriction_domainRestrictionForDictionary_wit
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277D47050];
     v14 = *MEMORY[0x277CCA470];
-    v21[0] = @"Target isn't originator";
+    v20[0] = @"Target isn't originator";
     v15 = *MEMORY[0x277D47048];
-    v20[0] = v14;
-    v20[1] = v15;
+    v19[0] = v14;
+    v19[1] = v15;
     v16 = [(RBTargetsSelfDomainRestriction *)self description];
-    v21[1] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v20[1] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
     *error = [v12 errorWithDomain:v13 code:3 userInfo:v17];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

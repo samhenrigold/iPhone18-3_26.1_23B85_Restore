@@ -51,7 +51,7 @@
 - (id)_silhouetteMonogram
 {
   v2 = MEMORY[0x1E69DCAB8];
-  v3 = PSPreferencesFrameworkBundle();
+  v3 = PSPreferencesFrameworkBundle(self);
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
   traitCollection = [mainScreen traitCollection];
   v6 = [v2 imageNamed:@"PaddedSilhouetteMonogram" inBundle:v3 compatibleWithTraitCollection:traitCollection];
@@ -616,7 +616,7 @@ void __57__PSAppleIDSplashViewController__reloadPasswordSpecifier__block_invoke(
 
   else
   {
-    v10 = _PSLoggingFacility();
+    v10 = _PSLoggingFacility(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -669,30 +669,31 @@ void __62__PSAppleIDSplashViewController__signInWithUsername_password___block_in
 
 - (void)didFinishAuthWithContext:(id)context results:(id)results error:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   resultsCopy = results;
   errorCopy = error;
+  v11 = errorCopy;
   if (errorCopy)
   {
-    v11 = _PSLoggingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _PSLoggingFacility(errorCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = errorCopy;
-      _os_log_impl(&dword_18B008000, v11, OS_LOG_TYPE_DEFAULT, "No dice with auth: %@", buf, 0xCu);
+      v21 = v11;
+      _os_log_impl(&dword_18B008000, v12, OS_LOG_TYPE_DEFAULT, "No dice with auth: %@", buf, 0xCu);
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __72__PSAppleIDSplashViewController_didFinishAuthWithContext_results_error___block_invoke_153;
-    v13[3] = &unk_1E71DC598;
-    v13[4] = self;
-    v12 = &v14;
-    v14 = resultsCopy;
-    v15 = errorCopy;
-    v16 = contextCopy;
-    dispatch_async(MEMORY[0x1E69E96A0], v13);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __72__PSAppleIDSplashViewController_didFinishAuthWithContext_results_error___block_invoke_153;
+    v14[3] = &unk_1E71DC598;
+    v14[4] = self;
+    v13 = &v15;
+    v15 = resultsCopy;
+    v16 = v11;
+    v17 = contextCopy;
+    dispatch_async(MEMORY[0x1E69E96A0], v14);
   }
 
   else
@@ -702,8 +703,8 @@ void __62__PSAppleIDSplashViewController__signInWithUsername_password___block_in
     block[2] = __72__PSAppleIDSplashViewController_didFinishAuthWithContext_results_error___block_invoke;
     block[3] = &unk_1E71DC570;
     block[4] = self;
-    v12 = &v18;
-    v18 = resultsCopy;
+    v13 = &v19;
+    v19 = resultsCopy;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 }
@@ -734,13 +735,13 @@ LABEL_8:
 LABEL_9:
     if ([*(a1 + 56) needsCredentialRecovery])
     {
-      v15 = [*(a1 + 48) domain];
-      v16 = getAKAppleIDAuthenticationErrorDomain();
-      if ([v15 isEqualToString:v16])
+      v16 = [*(a1 + 48) domain];
+      v17 = getAKAppleIDAuthenticationErrorDomain();
+      if ([v16 isEqualToString:v17])
       {
-        v17 = [*(a1 + 48) code];
+        v18 = [*(a1 + 48) code];
 
-        if (v17 == -7017)
+        if (v18 == -7017)
         {
           [*(a1 + 32) hideBusyUI];
           [*(a1 + 32) _openWebBasedCredentialRecoveryFlow];
@@ -755,13 +756,13 @@ LABEL_9:
 
     if ([*(a1 + 56) needsNewAppleID])
     {
-      v18 = [*(a1 + 48) domain];
-      v19 = getAKAppleIDAuthenticationErrorDomain();
-      if ([v18 isEqualToString:v19])
+      v19 = [*(a1 + 48) domain];
+      v20 = getAKAppleIDAuthenticationErrorDomain();
+      if ([v19 isEqualToString:v20])
       {
-        v20 = [*(a1 + 48) code];
+        v21 = [*(a1 + 48) code];
 
-        if (v20 == -7016)
+        if (v21 == -7016)
         {
           [*(a1 + 32) createNewAppleIDWithCompletion:v2];
           goto LABEL_20;
@@ -784,18 +785,18 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v10 = _PSLoggingFacility();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _PSLoggingFacility(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v21 = 0;
-    _os_log_impl(&dword_18B008000, v10, OS_LOG_TYPE_DEFAULT, "AuthKit wants us to start the U-13 flow.", v21, 2u);
+    *v22 = 0;
+    _os_log_impl(&dword_18B008000, v11, OS_LOG_TYPE_DEFAULT, "AuthKit wants us to start the U-13 flow.", v22, 2u);
   }
 
-  v12 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v13 = getAKAuthenticationNewAppleIDSetupInfoKey();
-  v14 = [v11 objectForKey:v13];
-  [v12 _beginiCloudCreationFlowWithContinuationData:v14 completion:v2];
+  v13 = *(a1 + 32);
+  v12 = *(a1 + 40);
+  v14 = getAKAuthenticationNewAppleIDSetupInfoKey();
+  v15 = [v12 objectForKey:v14];
+  [v13 _beginiCloudCreationFlowWithContinuationData:v15 completion:v2];
 
 LABEL_20:
 }
@@ -850,8 +851,7 @@ void __72__PSAppleIDSplashViewController_didFinishAuthWithContext_results_error_
 
     else
     {
-      [v9 hideBusyUI];
-      v10 = _PSLoggingFacility();
+      v10 = _PSLoggingFacility([v9 hideBusyUI]);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;

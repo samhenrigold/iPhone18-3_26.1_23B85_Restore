@@ -7,30 +7,30 @@
 
 + (id)redactUserParse:(id)parse
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   parseCopy = parse;
   userDialogActs = [parseCopy userDialogActs];
-  v79 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
+  v78 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   obj = userDialogActs;
-  v5 = [obj countByEnumeratingWithState:&v80 objects:v84 count:16];
+  v5 = [obj countByEnumeratingWithState:&v79 objects:v83 count:16];
   if (v5)
   {
     v6 = 0;
-    v78 = *v81;
+    v77 = *v80;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v81 != v78)
+        if (*v80 != v77)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v80 + 1) + 8 * i);
+        v8 = *(*(&v79 + 1) + 8 * i);
         v9 = [v8 copy];
         if ([v8 hasUserStatedTask])
         {
@@ -198,12 +198,12 @@
           goto LABEL_46;
         }
 
-        [v79 addObject:v9];
+        [v78 addObject:v9];
 
         v6 = 1;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v80 objects:v84 count:16];
+      v5 = [obj countByEnumeratingWithState:&v79 objects:v83 count:16];
       if (v5)
       {
         continue;
@@ -213,7 +213,7 @@
     }
 
     v73 = [parseCopy copy];
-    [v73 setUserDialogActs:v79];
+    [v73 setUserDialogActs:v78];
   }
 
   else
@@ -223,39 +223,26 @@ LABEL_46:
     v73 = 0;
   }
 
-  v74 = *MEMORY[0x1E69E9840];
-
   return v73;
 }
 
 + (id)getRedactedUsoGraph:(id)graph
 {
-  graphCopy = graph;
-  SharedUsoVocabManager = siri::ontology::getSharedUsoVocabManager(graphCopy);
-  v6 = *SharedUsoVocabManager;
-  v5 = SharedUsoVocabManager[1];
-  if (v5)
+  v3 = *(siri::ontology::getSharedUsoVocabManager(graph) + 8);
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [SiriNLUTypesConverterUtils convertUsoGraphFromObjCToCpp:graphCopy];
-  if (v5)
+  objc_msgSend_convertUsoGraphFromObjCToCpp_(SiriNLUTypesConverterUtils);
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-    v8 = v6;
-    v9 = v5;
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
-  else
-  {
-    v8 = v6;
-    v9 = 0;
-  }
-
-  siri::ontology::UsoGraphProtoReader::fromProtobuf(&v8, v10);
+  siri::ontology::UsoGraphProtoReader::fromProtobuf();
 }
 
 @end

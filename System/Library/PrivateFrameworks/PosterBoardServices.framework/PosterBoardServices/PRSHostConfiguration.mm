@@ -67,7 +67,6 @@
 
     if (v9)
     {
-      entries = self->_entries;
       entries = [(PRSHostConfiguration *)v9 entries];
       v8 = BSEqualArrays();
     }
@@ -83,40 +82,39 @@
 
 - (unint64_t)hash
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   builder = [MEMORY[0x1E698E6B8] builder];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_entries;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [builder appendObject:{*(*(&v13 + 1) + 8 * v8++), v13}];
+        v9 = [builder appendObject:{*(*(&v12 + 1) + 8 * v8++), v12}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [builder hash];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

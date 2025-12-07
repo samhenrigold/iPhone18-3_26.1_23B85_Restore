@@ -68,22 +68,20 @@
 
 - (void)playerID
 {
-  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = GKStackTraceWithFrameLimit(5);
-  OUTLINED_FUNCTION_0_10(&dword_227904000, v3, v4, "asking for GKLocalPlayer playerID when player is not authenticated. Might be in the process of being authenticated or this is a race condition.Call stack:%@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_10(&dword_227904000, v3, v4, "asking for GKLocalPlayer playerID when player is not authenticated. Might be in the process of being authenticated or this is a race condition.Call stack:%@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)alias
 {
-  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = GKStackTraceWithFrameLimit(5);
-  OUTLINED_FUNCTION_0_10(&dword_227904000, v3, v4, "asking for GKLocalPlayer playerID when player is not authenticated.Might be in the process of being authenticated or this is a race condition.Call stack:%@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_10(&dword_227904000, v3, v4, "asking for GKLocalPlayer playerID when player is not authenticated.Might be in the process of being authenticated or this is a race condition.Call stack:%@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

@@ -19,11 +19,11 @@
 
 - (GCGenericDeviceInputEventDriverModel)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = GCGenericDeviceInputEventDriverModel;
+  v16[2] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = GCGenericDeviceInputEventDriverModel;
   coderCopy = coder;
-  v4 = [(GCGenericDeviceInputEventDriverModel *)&v16 init];
+  v4 = [(GCGenericDeviceInputEventDriverModel *)&v15 init];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"gamepadLeftThumbstickDeadzoneRadius"];
   gamepadLeftThumbstickDeadzoneRadius = v4->_gamepadLeftThumbstickDeadzoneRadius;
   v4->_gamepadLeftThumbstickDeadzoneRadius = v5;
@@ -33,16 +33,15 @@
   v4->_gamepadRightThumbstickDeadzoneRadius = v7;
 
   v9 = MEMORY[0x1E695DFD8];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"gamepadEventFields"];
 
   gamepadEventFields = v4->_gamepadEventFields;
   v4->_gamepadEventFields = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -166,11 +165,11 @@ LABEL_21:
 
 + (id)modelWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v70[2] = *MEMORY[0x1E69E9840];
-  v49 = objc_opt_new();
-  v62[0] = 0;
-  v5 = [representation gc_objectForKey:@"GamepadLeftThumbstickDeadzoneRadius" ofClass:objc_opt_class() error:v62];
-  v6 = v62[0];
+  v69[2] = *MEMORY[0x1E69E9840];
+  v48 = objc_opt_new();
+  v61[0] = 0;
+  v5 = [representation gc_objectForKey:@"GamepadLeftThumbstickDeadzoneRadius" ofClass:objc_opt_class() error:v61];
+  v6 = v61[0];
   v7 = v6;
   if (v5)
   {
@@ -186,15 +185,15 @@ LABEL_21:
   {
     if (error)
     {
-      v30 = MEMORY[0x1E696ABC0];
-      v69[0] = *MEMORY[0x1E696A578];
-      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v70[0] = v31;
-      v69[1] = *MEMORY[0x1E696A588];
+      v29 = MEMORY[0x1E696ABC0];
+      v68[0] = *MEMORY[0x1E696A578];
+      v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v69[0] = v30;
+      v68[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v7 localizedFailureReason];
-      v70[1] = localizedFailureReason;
-      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:2];
-      *error = [(NSError *)v30 gc_modelError:v33 userInfo:?];
+      v69[1] = localizedFailureReason;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:2];
+      *error = [(NSError *)v29 gc_modelError:v32 userInfo:?];
     }
 
 LABEL_42:
@@ -204,26 +203,26 @@ LABEL_42:
 
   if (v5)
   {
-    [v49 setGamepadLeftThumbstickDeadzoneRadius:v5];
+    [v48 setGamepadLeftThumbstickDeadzoneRadius:v5];
   }
 
-  v61 = 0;
-  v9 = [representation gc_objectForKey:@"GamepadRightThumbstickDeadzoneRadius" ofClass:objc_opt_class() error:&v61];
-  v10 = v61;
+  v60 = 0;
+  v9 = [representation gc_objectForKey:@"GamepadRightThumbstickDeadzoneRadius" ofClass:objc_opt_class() error:&v60];
+  v10 = v60;
   v7 = v10;
   if (!v9 && v10)
   {
     if (error)
     {
-      v34 = MEMORY[0x1E696ABC0];
-      v67[0] = *MEMORY[0x1E696A578];
-      v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v68[0] = v35;
-      v67[1] = *MEMORY[0x1E696A588];
+      v33 = MEMORY[0x1E696ABC0];
+      v66[0] = *MEMORY[0x1E696A578];
+      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v67[0] = v34;
+      v66[1] = *MEMORY[0x1E696A588];
       localizedFailureReason2 = [v7 localizedFailureReason];
-      v68[1] = localizedFailureReason2;
-      v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:2];
-      *error = [(NSError *)v34 gc_modelError:v37 userInfo:?];
+      v67[1] = localizedFailureReason2;
+      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:2];
+      *error = [(NSError *)v33 gc_modelError:v36 userInfo:?];
     }
 
     goto LABEL_42;
@@ -231,98 +230,98 @@ LABEL_42:
 
   if (v9)
   {
-    [v49 setGamepadRightThumbstickDeadzoneRadius:v9];
+    [v48 setGamepadRightThumbstickDeadzoneRadius:v9];
   }
 
-  v60 = 0;
-  v11 = [representation gc_requiredObjectForKey:@"GamepadEventFields" ofClass:objc_opt_class() error:&v60];
-  v7 = v60;
+  v59 = 0;
+  v11 = [representation gc_requiredObjectForKey:@"GamepadEventFields" ofClass:objc_opt_class() error:&v59];
+  v7 = v59;
   if (!v11)
   {
     if (error)
     {
-      v38 = MEMORY[0x1E696ABC0];
-      v65[0] = *MEMORY[0x1E696A578];
-      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v66[0] = v39;
-      v65[1] = *MEMORY[0x1E696A588];
+      v37 = MEMORY[0x1E696ABC0];
+      v64[0] = *MEMORY[0x1E696A578];
+      v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v65[0] = v38;
+      v64[1] = *MEMORY[0x1E696A588];
       localizedFailureReason3 = [v7 localizedFailureReason];
-      v66[1] = localizedFailureReason3;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:2];
-      *error = [(NSError *)v38 gc_modelError:v41 userInfo:?];
+      v65[1] = localizedFailureReason3;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
+      *error = [(NSError *)v37 gc_modelError:v40 userInfo:?];
     }
 
     goto LABEL_42;
   }
 
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__0;
-  v58 = __Block_byref_object_dispose__0;
-  v59 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__0;
+  v57 = __Block_byref_object_dispose__0;
+  v58 = 0;
   v12 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v11, "count")}];
   v13 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v11, "count")}];
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __95__GCGenericDeviceInputEventDriverModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke;
-  v50[3] = &unk_1E8413C58;
-  v53 = &v54;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __95__GCGenericDeviceInputEventDriverModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke;
+  v49[3] = &unk_1E8413C58;
+  v52 = &v53;
   v14 = v12;
-  v51 = v14;
+  v50 = v14;
   v15 = v13;
-  v52 = v15;
-  [v11 gc_enumerateObjectsUsingBlock:v50];
+  v51 = v15;
+  [v11 gc_enumerateObjectsUsingBlock:v49];
   v16 = [v15 count];
   v17 = [v11 count];
   if (v16 == v17)
   {
-    [v49 setGamepadEventFields:v15];
+    [v48 setGamepadEventFields:v15];
   }
 
   else if (error)
   {
-    v43 = MEMORY[0x1E696ABC0];
-    v63[0] = *MEMORY[0x1E696A578];
-    localizedDescription = [v55[5] localizedDescription];
+    v42 = MEMORY[0x1E696ABC0];
+    v62[0] = *MEMORY[0x1E696A578];
+    localizedDescription = [v54[5] localizedDescription];
     if ([localizedDescription length])
     {
-      [v55[5] localizedDescription];
+      [v54[5] localizedDescription];
     }
 
     else
     {
       [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
     }
-    v45 = ;
-    v64[0] = v45;
-    v63[1] = *MEMORY[0x1E696A588];
-    localizedFailureReason4 = [v55[5] localizedFailureReason];
-    v44 = localizedFailureReason4;
+    v44 = ;
+    v63[0] = v44;
+    v62[1] = *MEMORY[0x1E696A588];
+    localizedFailureReason4 = [v54[5] localizedFailureReason];
+    v43 = localizedFailureReason4;
     v19 = &stru_1F4E1BE30;
     if (localizedFailureReason4)
     {
       v19 = localizedFailureReason4;
     }
 
-    v64[1] = v19;
-    v63[2] = *MEMORY[0x1E696AA08];
-    v20 = v55[5];
+    v63[1] = v19;
+    v62[2] = *MEMORY[0x1E696AA08];
+    v20 = v54[5];
     if (v20)
     {
-      v21 = v55[5];
+      v21 = v54[5];
       null = v21;
     }
 
     else
     {
       null = [MEMORY[0x1E695DFB0] null];
-      v21 = v55[5];
+      v21 = v54[5];
     }
 
-    v42 = null;
-    v64[2] = null;
-    v63[3] = @"GCFailingKeyPathErrorKey";
+    v41 = null;
+    v63[2] = null;
+    v62[3] = @"GCFailingKeyPathErrorKey";
     gc_failingKeyPath = [v21 gc_failingKeyPath];
     v24 = gc_failingKeyPath;
     if (!gc_failingKeyPath)
@@ -331,21 +330,21 @@ LABEL_42:
     }
 
     v25 = [gc_failingKeyPath arrayByAddingObject:@"GamepadEventFields"];
-    v64[3] = v25;
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:4];
-    *error = [(NSError *)v43 gc_modelError:v26 userInfo:?];
+    v63[3] = v25;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:4];
+    *error = [(NSError *)v42 gc_modelError:v26 userInfo:?];
 
     if (!v20)
     {
     }
   }
 
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v53, 8);
   if (v16 == v17)
   {
-    v7 = v49;
-    build = [v49 build];
-    v49 = 0;
+    v7 = v48;
+    build = [v48 build];
+    v48 = 0;
 LABEL_31:
 
     goto LABEL_33;
@@ -354,14 +353,12 @@ LABEL_31:
   build = 0;
 LABEL_33:
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return build;
 }
 
-void __95__GCGenericDeviceInputEventDriverModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, _BYTE *a4)
+void __95__GCGenericDeviceInputEventDriverModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke(uint64_t a1, uint64_t (**a2)(void, void, void), uint64_t a3, _BYTE *a4)
 {
-  v67[2] = *MEMORY[0x1E69E9840];
+  v66[2] = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = objc_opt_class();
   v10 = *(*(a1 + 48) + 8);
@@ -371,91 +368,91 @@ void __95__GCGenericDeviceInputEventDriverModel_Serialization__modelWithDictiona
   objc_storeStrong((v10 + 40), obj);
   if (!v11)
   {
-    v30 = MEMORY[0x1E696ABC0];
-    v66[0] = *MEMORY[0x1E696A588];
-    v31 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
-    v67[0] = v31;
-    v66[1] = @"GCFailingKeyPathErrorKey";
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-    v65 = v32;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
-    v67[1] = v33;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:2];
-    v35 = [(NSError *)v30 gc_modelError:v34 userInfo:?];
-    v36 = *(*(a1 + 48) + 8);
-    v37 = *(v36 + 40);
-    *(v36 + 40) = v35;
+    v29 = MEMORY[0x1E696ABC0];
+    v65[0] = *MEMORY[0x1E696A588];
+    v30 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
+    v66[0] = v30;
+    v65[1] = @"GCFailingKeyPathErrorKey";
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
+    v64 = v31;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+    v66[1] = v32;
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:2];
+    v34 = [(NSError *)v29 gc_modelError:v33 userInfo:?];
+    v35 = *(*(a1 + 48) + 8);
+    v36 = *(v35 + 40);
+    *(v35 + 40) = v34;
 
     *a4 = 1;
     goto LABEL_9;
   }
 
   v12 = *(*(a1 + 48) + 8);
-  v58 = 0;
-  v13 = [GCGenericDeviceInputGamepadEventFieldModel modelWithDictionaryRepresentation:v11 error:&v58];
-  objc_storeStrong((v12 + 40), v58);
+  v57 = 0;
+  v13 = [GCGenericDeviceInputGamepadEventFieldModel modelWithDictionaryRepresentation:v11 error:&v57];
+  objc_storeStrong((v12 + 40), v57);
   if (!v13)
   {
-    v55 = MEMORY[0x1E696ABC0];
-    v63[0] = *MEMORY[0x1E696A578];
-    v38 = [*(*(*(a1 + 48) + 8) + 40) localizedDescription];
-    v39 = &stru_1F4E1BE30;
-    v57 = v38;
-    if (v38)
+    v54 = MEMORY[0x1E696ABC0];
+    v62[0] = *MEMORY[0x1E696A578];
+    v37 = [*(*(*(a1 + 48) + 8) + 40) localizedDescription];
+    v38 = &stru_1F4E1BE30;
+    v56 = v37;
+    if (v37)
     {
-      v39 = v38;
+      v38 = v37;
     }
 
-    v64[0] = v39;
-    v63[1] = *MEMORY[0x1E696A588];
-    v40 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
-    v56 = v40;
+    v63[0] = v38;
+    v62[1] = *MEMORY[0x1E696A588];
+    v39 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
+    v55 = v39;
+    if (!v39)
+    {
+      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model.", objc_opt_class()];
+    }
+
+    v53 = v39;
+    v63[1] = v39;
+    v62[2] = *MEMORY[0x1E696AA08];
+    v40 = *(*(*(a1 + 48) + 8) + 40);
+    v41 = v40;
+    v42 = v40;
     if (!v40)
     {
-      v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model.", objc_opt_class()];
+      v42 = [MEMORY[0x1E695DFB0] null];
+      v41 = *(*(*(a1 + 48) + 8) + 40);
     }
 
-    v54 = v40;
-    v64[1] = v40;
-    v63[2] = *MEMORY[0x1E696AA08];
-    v41 = *(*(*(a1 + 48) + 8) + 40);
-    v42 = v41;
-    v43 = v41;
-    if (!v41)
+    v52 = v42;
+    v63[2] = v42;
+    v62[3] = @"GCFailingKeyPathErrorKey";
+    v43 = [v41 gc_failingKeyPath];
+    v44 = v43;
+    if (v43)
     {
-      v43 = [MEMORY[0x1E695DFB0] null];
-      v42 = *(*(*(a1 + 48) + 8) + 40);
-    }
-
-    v53 = v43;
-    v64[2] = v43;
-    v63[3] = @"GCFailingKeyPathErrorKey";
-    v44 = [v42 gc_failingKeyPath];
-    v45 = v44;
-    if (v44)
-    {
-      v46 = v44;
+      v45 = v43;
     }
 
     else
     {
-      v46 = MEMORY[0x1E695E0F0];
+      v45 = MEMORY[0x1E695E0F0];
     }
 
-    v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-    v48 = [v46 arrayByAddingObject:v47];
-    v64[3] = v48;
-    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:4];
-    v50 = [(NSError *)v55 gc_modelError:v49 userInfo:?];
-    v51 = *(*(a1 + 48) + 8);
-    v52 = *(v51 + 40);
-    *(v51 + 40) = v50;
+    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
+    v47 = [v45 arrayByAddingObject:v46];
+    v63[3] = v47;
+    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:4];
+    v49 = [(NSError *)v54 gc_modelError:v48 userInfo:?];
+    v50 = *(*(a1 + 48) + 8);
+    v51 = *(v50 + 40);
+    *(v50 + 40) = v49;
 
-    if (!v41)
+    if (!v40)
     {
     }
 
-    if (!v56)
+    if (!v55)
     {
     }
 
@@ -486,15 +483,15 @@ LABEL_7:
   }
 
   v19 = MEMORY[0x1E696ABC0];
-  v61[0] = *MEMORY[0x1E696A588];
+  v60[0] = *MEMORY[0x1E696A588];
   v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Duplicate definition of '%@' with ExtendedIndex '%zi'.", objc_opt_class(), v15];
-  v62[0] = v20;
-  v61[1] = @"GCFailingKeyPathErrorKey";
+  v61[0] = v20;
+  v60[1] = @"GCFailingKeyPathErrorKey";
   v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-  v60 = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
-  v62[1] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
+  v59 = v21;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+  v61[1] = v22;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
   v24 = [(NSError *)v19 gc_modelError:v23 userInfo:?];
   v25 = *(*(a1 + 48) + 8);
   v26 = *(v25 + 40);
@@ -504,7 +501,6 @@ LABEL_7:
 LABEL_8:
 
 LABEL_9:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 @end

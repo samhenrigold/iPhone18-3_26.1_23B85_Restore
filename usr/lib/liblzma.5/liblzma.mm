@@ -15,26 +15,23 @@ uint64_t tuklib_physmem()
 
 uint64_t tuklib_cpucores()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  *v6 = 0x300000006;
-  v5 = 0;
-  v4 = 4;
-  v0 = sysctl(v6, 2u, &v5, &v4, 0, 0);
-  if (v4 != 4 || v0 == -1)
+  v6 = *MEMORY[0x29EDCA608];
+  *v5 = 0x300000006;
+  v4 = 0;
+  v3 = 4;
+  v0 = sysctl(v5, 2u, &v4, &v3, 0, 0);
+  if (v3 != 4 || v0 == -1)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = v5 & ~(v5 >> 31);
+    return v4 & ~(v4 >> 31);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void *lzma_alloc(unint64_t a1, uint64_t a2)
+void *lzma_alloc(size_t a1, uint64_t a2)
 {
   if (a1 <= 1)
   {
@@ -57,7 +54,7 @@ void *lzma_alloc(unint64_t a1, uint64_t a2)
   }
 }
 
-void *lzma_alloc_zero(unint64_t a1, uint64_t a2)
+void *lzma_alloc_zero(size_t a1, uint64_t a2)
 {
   if (a1 <= 1)
   {
@@ -126,7 +123,7 @@ size_t lzma_bufcpy(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   return v10;
 }
 
-uint64_t lzma_next_filter_init(uint64_t a1, uint64_t a2, void *a3, __n128 a4)
+uint64_t lzma_next_filter_init(uint64_t a1, void *a2, void *a3, __n128 a4)
 {
   v7 = a3[1];
   if (*(a1 + 16) != v7)
@@ -145,7 +142,7 @@ uint64_t lzma_next_filter_init(uint64_t a1, uint64_t a2, void *a3, __n128 a4)
   return v7(a1, a2, a3, a4);
 }
 
-double lzma_next_end(uint64_t a1, uint64_t a2)
+double lzma_next_end(uint64_t a1, void *a2)
 {
   v2 = (a1 + 16);
   if (*(a1 + 16))
@@ -159,16 +156,17 @@ double lzma_next_end(uint64_t a1, uint64_t a2)
 
     else
     {
-      if (!a2 || (v4 = *(a2 + 8)) == 0)
+      if (!a2 || (v4 = a2[1]) == 0)
       {
         free(*a1);
         goto LABEL_9;
       }
 
-      v6 = *(a2 + 16);
+      v6 = a2[2];
+      a2 = v5;
     }
 
-    v4(v6);
+    v4(v6, a2);
 LABEL_9:
     *a1 = 0;
     *(a1 + 8) = -1;
@@ -308,7 +306,7 @@ uint64_t lzma_code(uint64_t a1, unsigned int a2)
     return 8;
   }
 
-  v12 = a1;
+  v10 = a1;
   if (*(a1 + 132))
   {
     return 8;
@@ -358,7 +356,7 @@ uint64_t lzma_code(uint64_t a1, unsigned int a2)
     }
 
 LABEL_39:
-    if (*(v3 + 88) == v12[1])
+    if (*(v3 + 88) == v10[1])
     {
       goto LABEL_40;
     }
@@ -372,21 +370,19 @@ LABEL_39:
   }
 
 LABEL_40:
-  v7 = v12[1];
-  v8 = v12[4];
-  result = v5(*v3, v12[6]);
-  v9 = v12[7];
-  *(v9 + 88) = v12[1];
+  result = v5(*v3, v10[6]);
+  v7 = v10[7];
+  *(v7 + 88) = v10[1];
   if (result > 5)
   {
     if (result != 6)
     {
       if (result == 12)
       {
-        *(v9 + 101) = 0;
-        if (*(v9 + 80) == 3)
+        *(v7 + 101) = 0;
+        if (*(v7 + 80) == 3)
         {
-          *(v9 + 80) = 0;
+          *(v7 + 80) = 0;
         }
 
         return 12;
@@ -401,7 +397,7 @@ LABEL_40:
     }
 
 LABEL_59:
-    *(v9 + 101) = 0;
+    *(v7 + 101) = 0;
     return result;
   }
 
@@ -414,33 +410,33 @@ LABEL_59:
   {
     if (result == 1)
     {
-      v10 = *(v9 + 80) - 1;
-      if (v10 > 3)
+      v8 = *(v7 + 80) - 1;
+      if (v8 > 3)
       {
-        v11 = 5;
+        v9 = 5;
       }
 
       else
       {
-        v11 = dword_2990BAD00[v10];
+        v9 = dword_2990BAD00[v8];
       }
 
-      *(v9 + 80) = v11;
+      *(v7 + 80) = v9;
       goto LABEL_59;
     }
 
 LABEL_51:
-    *(v9 + 80) = 6;
+    *(v7 + 80) = 6;
     return result;
   }
 
-  if (*(v9 + 101))
+  if (*(v7 + 101))
   {
     return 10;
   }
 
   result = 0;
-  *(v9 + 101) = 1;
+  *(v7 + 101) = 1;
   return result;
 }
 
@@ -474,7 +470,7 @@ void *lzma_get_progress(void *result, void *a2, void *a3)
   v4 = v3[5];
   if (v4)
   {
-    return v4(*v3);
+    return v4(*v3, a2, a3);
   }
 
   *a2 = result[2];
@@ -700,11 +696,11 @@ BOOL lzma_easy_preset(void *a1, int a2)
 
 uint64_t lzma_filters_copy(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v3 = 11;
   if (!a1 || !a2)
   {
-    goto LABEL_24;
+    return v3;
   }
 
   v6 = *a1;
@@ -739,7 +735,7 @@ uint64_t lzma_filters_copy(uint64_t *a1, void *a2, uint64_t a3)
           v3 = 8;
           if (!v8)
           {
-            goto LABEL_24;
+            return v3;
           }
 
 LABEL_22:
@@ -753,7 +749,7 @@ LABEL_22:
           }
 
           while (v8);
-          goto LABEL_24;
+          return v3;
         }
 
 LABEL_11:
@@ -765,7 +761,7 @@ LABEL_11:
           v3 = 5;
           if (!v8)
           {
-            goto LABEL_24;
+            return v3;
           }
 
           goto LABEL_22;
@@ -797,10 +793,7 @@ LABEL_19:
   *v19 = -1;
   v19[1] = 0;
   memcpy(a2, __src, 16 * v8 + 16);
-  v3 = 0;
-LABEL_24:
-  v22 = *MEMORY[0x29EDCA608];
-  return v3;
+  return 0;
 }
 
 void lzma_filters_free(void *a1, uint64_t a2)
@@ -888,33 +881,33 @@ LABEL_8:
   return result;
 }
 
-uint64_t lzma_raw_coder_init(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t), char a5)
+uint64_t lzma_raw_coder_init(uint64_t a1, void *a2, uint64_t *a3, uint64_t (*a4)(uint64_t), char a5)
 {
   v7 = a3;
-  v30[13] = *MEMORY[0x29EDCA608];
-  v28 = 0;
-  filter_init = lzma_validate_chain(a3, &v28);
+  v29[13] = *MEMORY[0x29EDCA608];
+  v27 = 0;
+  filter_init = lzma_validate_chain(a3, &v27);
   if (!filter_init)
   {
-    v12 = v28;
+    v12 = v27;
     if (a5)
     {
-      if (v28)
+      if (v27)
       {
-        v13 = &v29[3 * v28 - 1];
-        v14 = v28;
-        while (1)
+        v13 = &v28[3 * v27 - 1];
+        v14 = v27;
+        do
         {
           v15 = a4(*v7);
           if (!v15)
           {
-            break;
+            return 8;
           }
 
           v16 = *(v15 + 8);
           if (!v16)
           {
-            break;
+            return 8;
           }
 
           v17 = *v7;
@@ -924,34 +917,28 @@ uint64_t lzma_raw_coder_init(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t (*
           *(v13 - 1) = v16;
           *v13 = v18;
           v13 -= 3;
-          if (!--v14)
-          {
-            goto LABEL_14;
-          }
         }
 
-LABEL_16:
-        filter_init = 8;
-        goto LABEL_17;
+        while (--v14);
       }
     }
 
-    else if (v28)
+    else if (v27)
     {
-      v19 = v30;
-      v20 = v28;
+      v19 = v29;
+      v20 = v27;
       do
       {
         v21 = a4(*v7);
         if (!v21)
         {
-          goto LABEL_16;
+          return 8;
         }
 
         v22 = *(v21 + 8);
         if (!v22)
         {
-          goto LABEL_16;
+          return 8;
         }
 
         v23 = *v7;
@@ -966,19 +953,16 @@ LABEL_16:
       while (--v20);
     }
 
-LABEL_14:
-    v25 = &v29[3 * v12];
+    v25 = &v28[3 * v12];
     *v25 = -1;
     v25[1] = 0;
-    filter_init = lzma_next_filter_init(a1, a2, v29, v11);
+    filter_init = lzma_next_filter_init(a1, a2, v28, v11);
     if (filter_init)
     {
       lzma_next_end(a1, a2);
     }
   }
 
-LABEL_17:
-  v26 = *MEMORY[0x29EDCA608];
   return filter_init;
 }
 
@@ -1201,7 +1185,7 @@ unint64_t lzma_index_stream_size(void *a1)
   return v1 + ((v2 + lzma_vli_size(a1[6]) + 1 + 7) & 0xFFFFFFFFFFFFFFFCLL) + 24;
 }
 
-uint64_t lzma_index_file_size(uint64_t a1)
+unint64_t lzma_index_file_size(uint64_t a1)
 {
   v1 = *(a1 + 16);
   v2 = v1[9];
@@ -1267,7 +1251,7 @@ uint64_t lzma_index_stream_padding(uint64_t a1, uint64_t a2)
     v6 = *(v5 + 160);
     *(v5 + 160) = 0;
     v7 = lzma_index_file_size(a1);
-    if (v7 + a2 >= 0)
+    if ((v7 + a2) >= 0)
     {
       v8 = a2;
     }
@@ -1377,26 +1361,26 @@ uint64_t lzma_index_append(void *a1, uint64_t a2, unint64_t a3, unint64_t a4)
   return result;
 }
 
-uint64_t lzma_index_cat(int64x2_t *a1, uint64_t a2, uint64_t a3)
+uint64_t lzma_index_cat(int64x2_t *a1, int64x2_t *a2, uint64_t a3)
 {
   result = 11;
   if (a1 && a2)
   {
     v7 = lzma_index_file_size(a1);
-    if (lzma_index_file_size(a2) + v7 < 0)
+    if ((lzma_index_file_size(a2) + v7) < 0)
     {
       return 9;
     }
 
-    if (*(a2 + 32) + a1[2].i64[0] < 0)
+    if (a2[2].i64[0] + a1[2].i64[0] < 0)
     {
       return 9;
     }
 
     v8 = a1[3].i64[1];
     v9 = lzma_vli_size(a1[3].u64[0]) + 1;
-    v10 = *(a2 + 56);
-    if (((v8 + v10 + v9 + lzma_vli_size(*(a2 + 48)) + 1 + 11) & 0xFFFFFFFFFFFFFFFCLL) > 0x400000000)
+    v10 = a2[3].i64[1];
+    if (((v8 + v10 + v9 + lzma_vli_size(a2[3].u64[0]) + 1 + 11) & 0xFFFFFFFFFFFFFFFCLL) > 0x400000000)
     {
       return 9;
     }
@@ -1458,11 +1442,11 @@ uint64_t lzma_index_cat(int64x2_t *a1, uint64_t a2, uint64_t a3)
       v24 = 0;
       LODWORD(v24) = a1[1].i32[2];
       v25 = a1;
-      index_cat_helper(&v22, *a2);
-      v21 = vaddq_s64(a1[3], *(a2 + 48));
-      a1[2] = vaddq_s64(a1[2], *(a2 + 32));
+      index_cat_helper(&v22, a2->i64[0]);
+      v21 = vaddq_s64(a1[3], a2[3]);
+      a1[2] = vaddq_s64(a1[2], a2[2]);
       a1[3] = v21;
-      a1[4].i32[2] |= *(a2 + 72);
+      a1[4].i32[2] |= a2[4].u32[2];
       lzma_free(a2, a3);
       return 0;
     }
@@ -1475,20 +1459,21 @@ uint64_t index_cat_helper(int64x2_t *a1, int64x2_t *a2)
 {
   do
   {
-    v4 = a2[2].i64[0];
-    if (a2[1].i64[1])
+    v4 = a2[1].i64[1];
+    v5 = a2[2].i64[0];
+    if (v4)
     {
-      index_cat_helper(a1);
+      index_cat_helper(a1, v4);
     }
 
     *a2 = vaddq_s64(*a2, *a1);
     a2[2].i32[2] += a1[1].i32[2];
     a2[3].i64[0] += a1[1].i64[0];
     result = index_tree_append(a1[2].i64[0], a2);
-    a2 = v4;
+    a2 = v5;
   }
 
-  while (v4);
+  while (v5);
   return result;
 }
 
@@ -1667,15 +1652,15 @@ double lzma_index_iter_rewind(uint64_t a1)
   return result;
 }
 
-uint64_t lzma_index_iter_next(uint64_t a1, unsigned int a2)
+uint64_t lzma_index_iter_next(uint64_t **a1, uint64_t a2)
 {
   if (a2 > 3)
   {
     return 1;
   }
 
-  v3 = *(a1 + 264);
-  v4 = *(a1 + 280);
+  v3 = a1[33];
+  v4 = a1[35];
   if (a2 == 1)
   {
 LABEL_4:
@@ -1683,10 +1668,10 @@ LABEL_4:
     goto LABEL_17;
   }
 
-  v6 = *(a1 + 288);
+  v6 = a1[36];
   if (v6 == 2)
   {
-    v7 = (v3 + 64);
+    v7 = (v3 + 8);
     goto LABEL_16;
   }
 
@@ -1697,14 +1682,14 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v7 = (a1 + 272);
+    v7 = a1 + 34;
 LABEL_16:
     v5 = *v7;
     goto LABEL_17;
   }
 
-  v8 = *(a1 + 272);
-  v9 = *(v8 + 32);
+  v8 = a1[34];
+  v9 = v8[4];
   if (v9)
   {
     do
@@ -1720,14 +1705,14 @@ LABEL_16:
   {
     do
     {
-      v5 = *(v8 + 16);
+      v5 = v8[2];
       if (!v5)
       {
         break;
       }
 
       v10 = v5[4] == v8;
-      v8 = *(v8 + 16);
+      v8 = v8[2];
     }
 
     while (v10);
@@ -1767,7 +1752,7 @@ LABEL_17:
 LABEL_35:
         while (1)
         {
-          v14 = *(v3 + 32);
+          v14 = v3[4];
           v15 = v3;
           if (!v14)
           {
@@ -1777,7 +1762,7 @@ LABEL_35:
           do
           {
             v3 = v14;
-            v14 = *(v14 + 24);
+            v14 = v14[3];
           }
 
           while (v14);
@@ -1787,7 +1772,7 @@ LABEL_40:
             goto LABEL_50;
           }
 
-          v5 = *(v3 + 64);
+          v5 = v3[8];
           if (v5)
           {
             goto LABEL_42;
@@ -1796,14 +1781,14 @@ LABEL_40:
 
         while (1)
         {
-          v3 = *(v15 + 16);
+          v3 = v15[2];
           if (!v3)
           {
             return 1;
           }
 
-          v10 = *(v3 + 32) == v15;
-          v15 = *(v15 + 16);
+          v10 = v3[4] == v15;
+          v15 = v15[2];
           if (!v10)
           {
             goto LABEL_40;
@@ -1846,13 +1831,13 @@ LABEL_43:
     }
   }
 
-  v3 = *(*(a1 + 256) + 8);
+  v3 = a1[32][1];
   if (a2 >= 2)
   {
     while (1)
     {
 LABEL_22:
-      v5 = *(v3 + 64);
+      v5 = v3[8];
       if (v5)
       {
 LABEL_42:
@@ -1860,7 +1845,7 @@ LABEL_42:
         goto LABEL_43;
       }
 
-      v11 = *(v3 + 32);
+      v11 = v3[4];
       v12 = v3;
       if (!v11)
       {
@@ -1870,7 +1855,7 @@ LABEL_42:
       do
       {
         v3 = v11;
-        v11 = *(v11 + 24);
+        v11 = v11[3];
       }
 
       while (v11);
@@ -1878,14 +1863,14 @@ LABEL_42:
 
     while (1)
     {
-      v3 = *(v12 + 16);
+      v3 = v12[2];
       if (!v3)
       {
         return 1;
       }
 
-      v10 = *(v3 + 32) == v12;
-      v12 = *(v12 + 16);
+      v10 = v3[4] == v12;
+      v12 = v12[2];
       if (!v10)
       {
         goto LABEL_22;
@@ -1895,11 +1880,11 @@ LABEL_42:
 
 LABEL_50:
   v4 = 0;
-  v5 = *(v3 + 64);
+  v5 = v3[8];
 LABEL_51:
-  *(a1 + 264) = v3;
-  *(a1 + 272) = v5;
-  *(a1 + 280) = v4;
+  a1[33] = v3;
+  a1[34] = v5;
+  a1[35] = v4;
   iter_set_info(a1);
   return 0;
 }
@@ -1978,7 +1963,7 @@ uint64_t iter_set_info(uint64_t **a1)
     if (v4)
     {
       v15 = v4 - 1;
-      v16 = (v2[2 * (v4 - 1) + 9] + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      v16 = ((v2[2 * (v4 - 1) + 9] + 3) & 0xFFFFFFFFFFFFFFFCLL);
     }
 
     else
@@ -1997,11 +1982,11 @@ uint64_t iter_set_info(uint64_t **a1)
     v18 = *v17;
     v19 = &v2[2 * v4 + 8];
     v20 = (*v19 - v18);
-    v21 = v19[1] - v16;
+    v21 = (v19[1] - v16);
     a1[21] = v20;
     a1[22] = v21;
     a1[23] = ((v21 + 3) & 0xFFFFFFFFFFFFFFFCLL);
-    v22 = v16 + 12;
+    v22 = (v16 + 12);
     a1[19] = v22;
     a1[20] = v18;
     a1[16] = (v6 + v22);
@@ -2202,7 +2187,7 @@ uint64_t lzma_alone_encoder(void *a1, _DWORD *a2)
   v4 = lzma_strm_init(a1);
   if (!v4)
   {
-    v4 = alone_encoder_init(a1[7], a1[6], a2);
+    v4 = alone_encoder_init(a1[7], a1[6], a2, v5);
     if (v4)
     {
       lzma_end(a1);
@@ -2210,16 +2195,16 @@ uint64_t lzma_alone_encoder(void *a1, _DWORD *a2)
 
     else
     {
-      v5 = a1[7];
-      *(v5 + 96) = 1;
-      *(v5 + 99) = 1;
+      v6 = a1[7];
+      *(v6 + 96) = 1;
+      *(v6 + 99) = 1;
     }
   }
 
   return v4;
 }
 
-uint64_t alone_encoder_init(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t alone_encoder_init(uint64_t a1, void *a2, _DWORD *a3, __n128 a4)
 {
   v16[6] = *MEMORY[0x29EDCA608];
   if (*(a1 + 16) != alone_encoder_init)
@@ -2228,59 +2213,51 @@ uint64_t alone_encoder_init(uint64_t a1, uint64_t a2, _DWORD *a3)
   }
 
   *(a1 + 16) = alone_encoder_init;
-  v6 = *a1;
+  v7 = *a1;
   if (!*a1)
   {
-    v7 = lzma_alloc(0x70uLL, a2);
-    if (!v7)
+    v8 = lzma_alloc(0x70uLL, a2);
+    if (!v8)
     {
-      result = 5;
-      goto LABEL_14;
+      return 5;
     }
 
-    v6 = v7;
-    *a1 = v7;
+    v7 = v8;
+    *a1 = v8;
     *(a1 + 24) = alone_encode;
     *(a1 + 32) = alone_encoder_end;
-    *v7 = 0;
-    v7[1] = -1;
-    *(v7 + 1) = 0u;
-    *(v7 + 2) = 0u;
-    *(v7 + 3) = 0u;
-    *(v7 + 4) = 0u;
+    *v8 = 0;
+    v8[1] = -1;
+    *(v8 + 1) = 0u;
+    *(v8 + 2) = 0u;
+    *(v8 + 3) = 0u;
+    *(v8 + 4) = 0u;
   }
 
-  *(v6 + 80) = 0;
-  *(v6 + 88) = 0;
-  if ((lzma_lzma_lclppb_encode(a3, (v6 + 96)) & 1) != 0 || *a3 < 0x1000u)
+  *(v7 + 80) = 0;
+  *(v7 + 88) = 0;
+  if ((lzma_lzma_lclppb_encode(a3, (v7 + 96)) & 1) != 0 || *a3 < 0x1000u)
   {
-    result = 8;
+    return 8;
   }
 
-  else
+  v11 = (*a3 - 1) | ((*a3 - 1) >> 2) | (((*a3 - 1) | ((*a3 - 1) >> 2)) >> 3);
+  v12 = v11 | (v11 >> 4) | ((v11 | (v11 >> 4)) >> 8);
+  v13 = v12 | HIWORD(v12);
+  v14 = __CFADD__(v13, 1);
+  v15 = v13 + 1;
+  if (v14)
   {
-    v10 = (*a3 - 1) | ((*a3 - 1) >> 2) | (((*a3 - 1) | ((*a3 - 1) >> 2)) >> 3);
-    v11 = v10 | (v10 >> 4) | ((v10 | (v10 >> 4)) >> 8);
-    v12 = v11 | HIWORD(v11);
-    v13 = __CFADD__(v12, 1);
-    v14 = v12 + 1;
-    if (v13)
-    {
-      v14 = -1;
-    }
-
-    *(v6 + 97) = v14;
-    *(v6 + 101) = -1;
-    v16[0] = 0x4000000000000001;
-    v16[1] = lzma_lzma_encoder_init;
-    v16[2] = a3;
-    memset(&v16[3], 0, 24);
-    result = lzma_next_filter_init(v6, a2, v16, v8);
+    v15 = -1;
   }
 
-LABEL_14:
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  *(v7 + 97) = v15;
+  *(v7 + 101) = -1;
+  v16[0] = 0x4000000000000001;
+  v16[1] = lzma_lzma_encoder_init;
+  v16[2] = a3;
+  memset(&v16[3], 0, 24);
+  return lzma_next_filter_init(v7, a2, v16, v9);
 }
 
 uint64_t alone_encode(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8)
@@ -2318,7 +2295,7 @@ uint64_t alone_encode(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return v18(v19, a2, a3, a4, a5, a6, a7, a8);
 }
 
-void alone_encoder_end(void *a1, uint64_t a2)
+void alone_encoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1, a2);
 
@@ -2351,13 +2328,12 @@ unint64_t lzma_block_buffer_bound(unint64_t a1)
   }
 }
 
-uint64_t block_buffer_encode(uint64_t a1, uint64_t a2, char *a3, unint64_t a4, uint64_t a5, uint64_t *a6, unint64_t a7, int a8)
+uint64_t block_buffer_encode(uint64_t a1, void *a2, char *a3, unint64_t a4, uint64_t a5, unint64_t *a6, unint64_t a7, int a8)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
-    result = 11;
-    goto LABEL_12;
+    return 11;
   }
 
   if (a4)
@@ -2382,89 +2358,81 @@ uint64_t block_buffer_encode(uint64_t a1, uint64_t a2, char *a3, unint64_t a4, u
         {
           if (*a1 > 1u)
           {
-            result = 8;
-            goto LABEL_12;
+            return 8;
           }
 
-          v18 = *(a1 + 8);
-          if (v18 <= 0xF && (!a8 || *(a1 + 32)))
+          v17 = *(a1 + 8);
+          if (v17 <= 0xF && (!a8 || *(a1 + 32)))
           {
             if (!lzma_check_is_supported(*(a1 + 8)))
             {
-              result = 3;
-              goto LABEL_12;
+              return 3;
             }
 
-            v21 = a7 - ((a7 - v16) & 3);
-            v22 = lzma_check_size(v18);
-            if (v21 - v16 <= v22)
+            v20 = a7 - ((a7 - v16) & 3);
+            v21 = lzma_check_size(v17);
+            if (v20 - v16 <= v21)
             {
-              result = 10;
-              goto LABEL_12;
+              return 10;
             }
 
             *(a1 + 24) = a4;
-            if (a4 > 0x7FFFFFFFFFFFFBBCLL || (v23 = 3 * ((a4 + 0xFFFF) >> 16), 0x7FFFFFFFFFFFFBBBLL - v23 < a4))
+            if (a4 > 0x7FFFFFFFFFFFFBBCLL || (v24 = 3 * ((a4 + 0xFFFF) >> 16), 0x7FFFFFFFFFFFFBBBLL - v24 < a4))
             {
               *(a1 + 16) = 0;
-              result = 9;
-              goto LABEL_12;
+              return 9;
             }
 
-            v24 = v22;
-            v25 = v21 - v22;
-            *(a1 + 16) = a4 + v23 + 1;
+            v25 = v21;
+            v26 = v20 - v21;
+            *(a1 + 16) = a4 + v24 + 1;
             if (a8)
             {
-              result = block_encode_normal(a1, a2, a3, a4, a5, a6, v25);
+              result = block_encode_normal(a1, a2, a3, a4, a5, a6, v26);
               if (!result)
               {
 LABEL_27:
-                v26 = *(a1 + 16);
-                if ((v26 & 3) != 0)
+                v27 = *(a1 + 16);
+                if ((v27 & 3) != 0)
                 {
-                  v27 = v26 + 1;
+                  v28 = v27 + 1;
                   do
                   {
-                    v28 = (*a6)++;
-                    *(a5 + v28) = 0;
-                    v11 = (v27++ & 3) == 0;
+                    v29 = (*a6)++;
+                    *(a5 + v29) = 0;
+                    v11 = (v28++ & 3) == 0;
                   }
 
                   while (!v11);
                 }
 
-                if (v24)
+                if (!v25)
                 {
-                  v30 = 0;
-                  memset(v29, 0, sizeof(v29));
-                  lzma_check_init(v29, *(a1 + 8));
-                  lzma_check_update(v29, *(a1 + 8), a3, a4);
-                  lzma_check_finish(v29, *(a1 + 8));
-                  memcpy((a1 + 40), v29, v24);
-                  memcpy((a5 + *a6), v29, v24);
-                  result = 0;
-                  *a6 += v24;
+                  return 0;
                 }
 
-                else
-                {
-                  result = 0;
-                }
-
-                goto LABEL_12;
+                v31 = 0;
+                memset(v30, 0, sizeof(v30));
+                lzma_check_init(v30, *(a1 + 8));
+                lzma_check_update(v30, *(a1 + 8), a3, a4);
+                lzma_check_finish(v30, *(a1 + 8));
+                memcpy((a1 + 40), v30, v25);
+                memcpy((a5 + *a6), v30, v25);
+                result = 0;
+                *a6 += v25;
+                return result;
               }
 
               if (result != 10)
               {
-                goto LABEL_12;
+                return result;
               }
             }
 
-            result = block_encode_uncompressed(a1, a3, a4, a5, a6, v25);
+            result = block_encode_uncompressed(a1, a3, a4, a5, a6, v26, v22, v23);
             if (result)
             {
-              goto LABEL_12;
+              return result;
             }
 
             goto LABEL_27;
@@ -2474,12 +2442,10 @@ LABEL_27:
     }
   }
 
-LABEL_12:
-  v17 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t block_encode_normal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
+uint64_t block_encode_normal(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
 {
   v14 = lzma_block_header_size(a1);
   if (!v14)
@@ -2546,80 +2512,79 @@ uint64_t block_encode_normal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return v14;
 }
 
-uint64_t block_encode_uncompressed(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5, uint64_t a6)
+uint64_t block_encode_uncompressed(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v23[4] = *MEMORY[0x29EDCA608];
-  memset(v22, 0, sizeof(v22));
-  LODWORD(v22[0]) = 4096;
-  v23[0] = 33;
-  v23[1] = v22;
-  v23[2] = -1;
-  v12 = *(a1 + 32);
-  *(a1 + 32) = v23;
+  v24[4] = *MEMORY[0x29EDCA608];
+  memset(v23, 0, sizeof(v23));
+  LODWORD(v23[0]) = 4096;
+  v24[0] = 33;
+  v24[1] = v23;
+  v24[2] = -1;
+  v14 = *(a1 + 32);
+  *(a1 + 32) = v24;
   if (lzma_block_header_size(a1))
   {
-    *(a1 + 32) = v12;
-LABEL_3:
-    result = 11;
-    goto LABEL_14;
+    *(a1 + 32) = v14;
+    return 11;
   }
 
-  if (a6 - *a5 < *(a1 + 16) + *(a1 + 4))
+  if (a6 - *a5 >= *(a1 + 16) + *(a1 + 4))
   {
-    *(a1 + 32) = v12;
-    result = 10;
-    goto LABEL_14;
-  }
-
-  v14 = lzma_block_header_encode(a1, (a4 + *a5));
-  *(a1 + 32) = v12;
-  if (v14)
-  {
-    goto LABEL_3;
-  }
-
-  v15 = *a5 + *(a1 + 4);
-  if (a3)
-  {
-    v16 = 0;
-    v17 = 1;
-    do
+    v16 = lzma_block_header_encode(a1, (a4 + *a5));
+    *(a1 + 32) = v14;
+    if (v16)
     {
-      *a5 = v15 + 1;
-      *(a4 + v15) = v17;
-      if (a3 - v16 >= 0x10000)
-      {
-        v18 = 0x10000;
-      }
-
-      else
-      {
-        v18 = a3 - v16;
-      }
-
-      v19 = (*a5)++;
-      *(a4 + v19) = (v18 - 1) >> 8;
-      v20 = (*a5)++;
-      *(a4 + v20) = v18 - 1;
-      memcpy((a4 + *a5), (a2 + v16), v18);
-      v16 += v18;
-      v15 = *a5 + v18;
-      *a5 = v15;
-      v17 = 2;
+      return 11;
     }
 
-    while (v16 < a3);
+    v17 = *a5 + *(a1 + 4);
+    if (a3)
+    {
+      v18 = 0;
+      v19 = 1;
+      do
+      {
+        *a5 = v17 + 1;
+        *(a4 + v17) = v19;
+        if (a3 - v18 >= 0x10000)
+        {
+          v20 = 0x10000;
+        }
+
+        else
+        {
+          v20 = a3 - v18;
+        }
+
+        v21 = (*a5)++;
+        *(a4 + v21) = (v20 - 1) >> 8;
+        v22 = (*a5)++;
+        *(a4 + v22) = v20 - 1;
+        memcpy((a4 + *a5), (a2 + v18), v20);
+        v18 += v20;
+        v17 = *a5 + v20;
+        *a5 = v17;
+        v19 = 2;
+      }
+
+      while (v18 < a3);
+    }
+
+    result = 0;
+    *a5 = v17 + 1;
+    *(a4 + v17) = 0;
   }
 
-  result = 0;
-  *a5 = v15 + 1;
-  *(a4 + v15) = 0;
-LABEL_14:
-  v21 = *MEMORY[0x29EDCA608];
+  else
+  {
+    *(a1 + 32) = v14;
+    return 10;
+  }
+
   return result;
 }
 
-uint64_t lzma_block_encoder_init(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t lzma_block_encoder_init(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*(a1 + 16) != lzma_block_encoder_init)
   {
@@ -2755,7 +2720,7 @@ LABEL_15:
   }
 
   v27 = *a7;
-  v28 = (*(a1 + 24))(*a1);
+  v28 = (*(a1 + 24))(*a1, a2);
   v29 = *a7 - v27;
   v30 = *(a1 + 96);
   if (0x7FFFFFFFFFFFFBBCLL - v30 < v29)
@@ -2787,7 +2752,7 @@ LABEL_15:
   return v10;
 }
 
-void block_encoder_end(void *a1, uint64_t a2)
+void block_encoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1, a2);
 
@@ -2952,7 +2917,7 @@ uint64_t lzma_block_header_encode(uint64_t a1, char *a2)
   return 11;
 }
 
-uint64_t lzma_easy_buffer_encode(int a1, unsigned int a2, uint64_t a3, char *a4, unint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8)
+uint64_t lzma_easy_buffer_encode(uint64_t a1, uint64_t a2, void *a3, char *a4, unint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8)
 {
   memset(v16, 0, sizeof(v16));
   if (lzma_easy_preset(v16, a1))
@@ -2966,7 +2931,7 @@ uint64_t lzma_easy_buffer_encode(int a1, unsigned int a2, uint64_t a3, char *a4,
   }
 }
 
-uint64_t lzma_easy_encoder(void *a1, int a2, int a3)
+uint64_t lzma_easy_encoder(void *a1, uint64_t a2, uint64_t a3)
 {
   memset(v6, 0, sizeof(v6));
   if (lzma_easy_preset(v6, a2))
@@ -2999,7 +2964,7 @@ uint64_t lzma_microlzma_encoder(void *a1, _DWORD *a2)
   v4 = lzma_strm_init(a1);
   if (!v4)
   {
-    v4 = microlzma_encoder_init(a1[7], a1[6], a2);
+    v4 = microlzma_encoder_init(a1[7], a1[6], a2, v5);
     if (v4)
     {
       lzma_end(a1);
@@ -3014,7 +2979,7 @@ uint64_t lzma_microlzma_encoder(void *a1, _DWORD *a2)
   return v4;
 }
 
-uint64_t microlzma_encoder_init(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t microlzma_encoder_init(uint64_t a1, void *a2, _DWORD *a3, __n128 a4)
 {
   v11[6] = *MEMORY[0x29EDCA608];
   if (*(a1 + 16) != microlzma_encoder_init)
@@ -3023,45 +2988,37 @@ uint64_t microlzma_encoder_init(uint64_t a1, uint64_t a2, _DWORD *a3)
   }
 
   *(a1 + 16) = microlzma_encoder_init;
-  v6 = *a1;
+  v7 = *a1;
   if (!*a1)
   {
-    v7 = lzma_alloc(0x58uLL, a2);
-    if (!v7)
+    v8 = lzma_alloc(0x58uLL, a2);
+    if (!v8)
     {
-      result = 5;
-      goto LABEL_10;
+      return 5;
     }
 
-    v6 = v7;
-    *a1 = v7;
+    v7 = v8;
+    *a1 = v8;
     *(a1 + 24) = microlzma_encode;
     *(a1 + 32) = microlzma_encoder_end;
-    *v7 = 0;
-    v7[1] = -1;
-    *(v7 + 1) = 0u;
-    *(v7 + 2) = 0u;
-    *(v7 + 3) = 0u;
-    *(v7 + 4) = 0u;
+    *v8 = 0;
+    v8[1] = -1;
+    *(v8 + 1) = 0u;
+    *(v8 + 2) = 0u;
+    *(v8 + 3) = 0u;
+    *(v8 + 4) = 0u;
   }
 
-  if (lzma_lzma_lclppb_encode(a3, (v6 + 80)))
+  if (lzma_lzma_lclppb_encode(a3, (v7 + 80)))
   {
-    result = 8;
+    return 8;
   }
 
-  else
-  {
-    v11[0] = 0x4000000000000001;
-    v11[1] = lzma_lzma_encoder_init;
-    v11[2] = a3;
-    memset(&v11[3], 0, 24);
-    result = lzma_next_filter_init(v6, a2, v11, v8);
-  }
-
-LABEL_10:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  v11[0] = 0x4000000000000001;
+  v11[1] = lzma_lzma_encoder_init;
+  v11[2] = a3;
+  memset(&v11[3], 0, 24);
+  return lzma_next_filter_init(v7, a2, v11, v9);
 }
 
 uint64_t microlzma_encode(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, int a9)
@@ -3089,14 +3046,14 @@ uint64_t microlzma_encode(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint
   return result;
 }
 
-void microlzma_encoder_end(void *a1, uint64_t a2)
+void microlzma_encoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1, a2);
 
   lzma_free(a1, a2);
 }
 
-uint64_t lzma_raw_buffer_encode(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6, unint64_t a7)
+uint64_t lzma_raw_buffer_encode(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6, unint64_t a7)
 {
   if (a4)
   {
@@ -3188,53 +3145,44 @@ uint64_t *encoder_find(uint64_t a1)
 
 uint64_t lzma_filters_update(uint64_t a1, uint64_t *a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  if (*(*(a1 + 56) + 64))
+  v12 = *MEMORY[0x29EDCA608];
+  if (!*(*(a1 + 56) + 64))
   {
-    if (lzma_raw_coder_memusage(encoder_find, a2) == -1)
-    {
-      result = 8;
-    }
-
-    else
-    {
-      v4 = 0;
-      v5 = 0;
-      do
-      {
-        v6 = a2[v5 + 2];
-        v5 += 2;
-        ++v4;
-      }
-
-      while (v6 != -1);
-      if (v4)
-      {
-        v7 = &v12[v5 * 8 - 16];
-        v8 = a2;
-        do
-        {
-          v9 = *v8;
-          v8 += 2;
-          *v7-- = v9;
-          --v4;
-        }
-
-        while (v4);
-      }
-
-      *&v12[v5 * 8] = -1;
-      result = (*(*(a1 + 56) + 64))(**(a1 + 56), *(a1 + 48), a2, v12);
-    }
+    return 11;
   }
 
-  else
+  if (lzma_raw_coder_memusage(encoder_find, a2) == -1)
   {
-    result = 11;
+    return 8;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  v4 = 0;
+  v5 = 0;
+  do
+  {
+    v6 = a2[v5 + 2];
+    v5 += 2;
+    ++v4;
+  }
+
+  while (v6 != -1);
+  if (v4)
+  {
+    v7 = &v11[v5 * 8 - 16];
+    v8 = a2;
+    do
+    {
+      v9 = *v8;
+      v8 += 2;
+      *v7-- = v9;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  *&v11[v5 * 8] = -1;
+  return (*(*(a1 + 56) + 64))(**(a1 + 56), *(a1 + 48), a2, v11);
 }
 
 uint64_t lzma_raw_encoder(void *a1, uint64_t *a2)
@@ -3386,7 +3334,7 @@ uint64_t lzma_filter_flags_size(int *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t lzma_filter_flags_encode(uint64_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4)
+uint64_t lzma_filter_flags_encode(unint64_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4)
 {
   v5 = *a1;
   if (v5 >> 62)
@@ -3421,7 +3369,7 @@ uint64_t lzma_filter_flags_encode(uint64_t *a1, uint64_t a2, unint64_t *a3, unin
   return result;
 }
 
-uint64_t lzma_index_encoder_init(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t lzma_index_encoder_init(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*(a1 + 16) != lzma_index_encoder_init)
   {
@@ -3468,7 +3416,7 @@ uint64_t index_encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
     return 0;
   }
 
-  v14 = a1 + 16;
+  v14 = (a1 + 16);
   v13 = *a1;
   v15 = *a1;
   v16 = *a7;
@@ -3533,7 +3481,7 @@ LABEL_23:
 
   if (v15 == 4)
   {
-    if (!lzma_index_iter_next(v14, 2u))
+    if (!lzma_index_iter_next(v14, 2))
     {
       *a1 = 2;
 LABEL_20:
@@ -3672,128 +3620,126 @@ int64_t lzma_stream_buffer_bound(unint64_t a1)
   }
 }
 
-uint64_t lzma_stream_buffer_encode(unint64_t a1, unsigned int a2, uint64_t a3, char *a4, unint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8)
+uint64_t lzma_stream_buffer_encode(unint64_t a1, uint64_t a2, void *a3, char *a4, unint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8)
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   v8 = 11;
-  if (a1 && a2 <= 0xF)
+  if (a1)
   {
-    v12 = a5 && a4 == 0;
-    if (!v12 && a6 && a7)
+    v9 = a2;
+    if (a2 <= 0xF)
     {
-      v16 = *a7;
-      v17 = a8 - *a7;
-      if (a8 < *a7)
+      v12 = a5 && a4 == 0;
+      if (!v12 && a6 && a7)
       {
-        goto LABEL_10;
-      }
-
-      if (!lzma_check_is_supported(a2))
-      {
-        v8 = 3;
-        goto LABEL_15;
-      }
-
-      if (v17 < 0x19)
-      {
-        v8 = 10;
-        goto LABEL_15;
-      }
-
-      v31 = 0;
-      v29 = 0u;
-      v30 = 0u;
-      v28 = 0u;
-      LODWORD(v29) = a2;
-      if (lzma_stream_header_encode(&v28, a6 + v16))
-      {
-        goto LABEL_10;
-      }
-
-      v32 = v16 + 12;
-      v22 = a8 - 12;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
-      v33 = 0u;
-      DWORD2(v33) = a2;
-      v35 = a1;
-      if (a5)
-      {
-        v23 = lzma_block_buffer_encode(&v33, a3, a4, a5, a6, &v32, v22);
-        if (v23)
+        v16 = *a7;
+        v17 = a8 - *a7;
+        if (a8 < *a7)
         {
-          v8 = v23;
-          goto LABEL_15;
+          return 11;
         }
 
-        v25 = lzma_index_init(a3);
-        if (v25)
+        if (!lzma_check_is_supported(a2))
         {
-          v24 = v25;
-          v26 = lzma_block_unpadded_size(&v33);
-          v27 = lzma_index_append(v24, a3, v26, *(&v34 + 1));
-          if (v27)
+          return 3;
+        }
+
+        if (v17 < 0x19)
+        {
+          return 10;
+        }
+
+        v30 = 0;
+        v28 = 0u;
+        v29 = 0u;
+        v27 = 0u;
+        LODWORD(v28) = v9;
+        if (lzma_stream_header_encode(&v27, a6 + v16))
+        {
+          return 11;
+        }
+
+        v31 = v16 + 12;
+        v21 = a8 - 12;
+        v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v32 = 0u;
+        DWORD2(v32) = v9;
+        v34 = a1;
+        if (a5)
+        {
+          v22 = lzma_block_buffer_encode(&v32, a3, a4, a5, a6, &v31, v21);
+          if (v22)
           {
-            v8 = v27;
-            lzma_index_end(v24, a3);
-            goto LABEL_15;
+            return v22;
           }
 
-          goto LABEL_21;
-        }
-      }
+          v24 = lzma_index_init(a3);
+          if (v24)
+          {
+            v23 = v24;
+            v25 = lzma_block_unpadded_size(&v32);
+            v26 = lzma_index_append(v23, a3, v25, *(&v33 + 1));
+            if (v26)
+            {
+              v8 = v26;
+              lzma_index_end(v23, a3);
+              return v8;
+            }
 
-      else
-      {
-        v24 = lzma_index_init(a3);
-        if (v24)
+            goto LABEL_21;
+          }
+        }
+
+        else
         {
+          v23 = lzma_index_init(a3);
+          if (v23)
+          {
 LABEL_21:
-          v8 = lzma_index_buffer_encode(v24, a6, &v32, v22);
-          *(&v28 + 1) = lzma_index_size(v24);
-          lzma_index_end(v24, a3);
-          if (v8)
-          {
-            goto LABEL_15;
-          }
+            v8 = lzma_index_buffer_encode(v23, a6, &v31, v21);
+            *(&v27 + 1) = lzma_index_size(v23);
+            lzma_index_end(v23, a3);
+            if (v8)
+            {
+              return v8;
+            }
 
-          if (!lzma_stream_footer_encode(&v28, a6 + v32))
-          {
-            v8 = 0;
-            *a7 = v32 + 12;
-            goto LABEL_15;
-          }
+            if (!lzma_stream_footer_encode(&v27, a6 + v31))
+            {
+              v8 = 0;
+              *a7 = v31 + 12;
+              return v8;
+            }
 
-LABEL_10:
-          v8 = 11;
-          goto LABEL_15;
+            return 11;
+          }
         }
-      }
 
-      v8 = 5;
+        return 5;
+      }
     }
   }
 
-LABEL_15:
-  v20 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
-uint64_t lzma_stream_encoder(void *a1, uint64_t *a2, int a3)
+uint64_t lzma_stream_encoder(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = lzma_strm_init(a1);
   if (!v6)
   {
-    v6 = stream_encoder_init(a1[7], a1[6], a2, a3);
+    v6 = stream_encoder_init(a1[7], a1[6], a2, v3);
     if (v6)
     {
       lzma_end(a1);
@@ -3810,7 +3756,7 @@ uint64_t lzma_stream_encoder(void *a1, uint64_t *a2, int a3)
   return v6;
 }
 
-uint64_t stream_encoder_init(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
+uint64_t stream_encoder_init(uint64_t a1, void *a2, uint64_t *a3, int a4)
 {
   if (*(a1 + 16) != stream_encoder_init)
   {
@@ -3885,7 +3831,7 @@ uint64_t stream_encoder_init(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
   return result;
 }
 
-uint64_t stream_encode(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8, int a9)
+uint64_t stream_encode(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8, int a9)
 {
   if (*a7 >= a8)
   {
@@ -4032,7 +3978,7 @@ LABEL_11:
   return a9 != 0;
 }
 
-void stream_encoder_end(uint64_t a1, uint64_t a2)
+void stream_encoder_end(uint64_t a1, void *a2)
 {
   lzma_next_end(a1 + 8, a2);
   lzma_next_end(a1 + 376, a2);
@@ -4042,10 +3988,10 @@ void stream_encoder_end(uint64_t a1, uint64_t a2)
   lzma_free(a1, a2);
 }
 
-uint64_t stream_encoder_update(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+uint64_t stream_encoder_update(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4)
 {
-  v16 = *MEMORY[0x29EDCA608];
-  v8 = lzma_filters_copy(a3, v15, a2);
+  v15 = *MEMORY[0x29EDCA608];
+  v8 = lzma_filters_copy(a3, v14, a2);
   if (!v8)
   {
     if (*a1 > 1u)
@@ -4066,7 +4012,7 @@ uint64_t stream_encoder_update(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t 
     else
     {
       *(a1 + 4) = 0;
-      *(a1 + 120) = v15;
+      *(a1 + 120) = v14;
       v9 = block_encoder_init(a1, a2);
       *(a1 + 120) = a1 + 296;
       if (!v9)
@@ -4076,28 +4022,26 @@ LABEL_8:
         v10 = a1 + 296;
         lzma_filters_free(v10, a2);
         v8 = 0;
-        v11 = v15[3];
-        *(v10 + 32) = v15[2];
+        v11 = v14[3];
+        *(v10 + 32) = v14[2];
         *(v10 + 48) = v11;
-        *(v10 + 64) = v15[4];
-        v12 = v15[1];
-        *v10 = v15[0];
+        *(v10 + 64) = v14[4];
+        v12 = v14[1];
+        *v10 = v14[0];
         *(v10 + 16) = v12;
-        goto LABEL_11;
+        return v8;
       }
     }
 
     v8 = v9;
 LABEL_10:
-    lzma_filters_free(v15, a2);
+    lzma_filters_free(v14, a2);
   }
 
-LABEL_11:
-  v13 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
-uint64_t block_encoder_init(uint64_t a1, uint64_t a2)
+uint64_t block_encoder_init(uint64_t a1, void *a2)
 {
   *(a1 + 104) = -1;
   *(a1 + 112) = -1;
@@ -4222,7 +4166,7 @@ uint64_t lzma_vli_encode(unint64_t a1, uint64_t *a2, uint64_t a3, unint64_t *a4,
   return result;
 }
 
-uint64_t lzma_alone_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, char a4)
+uint64_t lzma_alone_decoder_init(uint64_t a1, void *a2, unint64_t a3, char a4)
 {
   if (*(a1 + 16) != lzma_alone_decoder_init)
   {
@@ -4274,143 +4218,132 @@ uint64_t lzma_alone_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, char a4
   return v9;
 }
 
-uint64_t alone_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, unint64_t *a7, unint64_t a8, __n128 a9, int a10)
+uint64_t alone_decode(uint64_t a1, void *a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, unint64_t *a7, unint64_t a8, __n128 q0_0, int a9)
 {
-  v29[6] = *MEMORY[0x29EDCA608];
+  v28[6] = *MEMORY[0x29EDCA608];
   if (*a7 >= a8)
   {
-LABEL_30:
-    result = 0;
+    return 0;
   }
 
-  else
+  v17 = *(a1 + 80);
+  while (v17 != 4)
   {
-    v17 = *(a1 + 80);
-    while (v17 != 4)
+    v18 = *a4;
+    if (*a4 >= a5)
     {
-      v18 = *a4;
-      if (*a4 >= a5)
-      {
-        goto LABEL_30;
-      }
-
-      result = 11;
-      if (v17 <= 1)
-      {
-        if (v17)
-        {
-          if (v17 != 1)
-          {
-            goto LABEL_31;
-          }
-
-          v20 = *(a1 + 88);
-          v21 = *(a1 + 120) | (*(a3 + v18) << (8 * v20));
-          *(a1 + 120) = v21;
-          *(a1 + 88) = ++v20;
-          if (v20 == 4)
-          {
-            if (*(a1 + 84) == 1 && v21 != -1)
-            {
-              v22 = (v21 - 1) | ((v21 - 1) >> 2) | (((v21 - 1) | ((v21 - 1) >> 2)) >> 3);
-              v23 = v22 | (v22 >> 4) | ((v22 | (v22 >> 4)) >> 8);
-              if ((v23 | HIWORD(v23)) + 1 != v21)
-              {
-                goto LABEL_32;
-              }
-            }
-
-            *(a1 + 88) = 0;
-            v17 = 2;
-LABEL_17:
-            *(a1 + 80) = v17;
-          }
-
-          else
-          {
-            v17 = 1;
-          }
-
-          *a4 = v18 + 1;
-          continue;
-        }
-
-        if (lzma_lzma_lclppb_decode((a1 + 120), *(a3 + v18)))
-        {
-          goto LABEL_32;
-        }
-
-        v17 = 1;
-        goto LABEL_17;
-      }
-
-      if (v17 == 2)
-      {
-        v25 = *(a1 + 88);
-        v26 = (*(a3 + v18) << (8 * v25)) | *(a1 + 96);
-        *a4 = v18 + 1;
-        *(a1 + 88) = ++v25;
-        *(a1 + 96) = v26;
-        if (v25 < 8)
-        {
-          v17 = 2;
-          continue;
-        }
-
-        if (*(a1 + 84) == 1 && v26 - 0x4000000000 < 0xFFFFFFBFFFFFFFFFLL)
-        {
-LABEL_32:
-          result = 7;
-          goto LABEL_31;
-        }
-
-        *(a1 + 168) = 1;
-        *(a1 + 172) = v26;
-        v24 = lzma_lzma_decoder_memusage((a1 + 120)) + 0x8000;
-        *(a1 + 112) = v24;
-        *(a1 + 88) = 0;
-        *(a1 + 80) = 3;
-      }
-
-      else
-      {
-        if (v17 != 3)
-        {
-          goto LABEL_31;
-        }
-
-        v24 = *(a1 + 112);
-      }
-
-      if (v24 > *(a1 + 104))
-      {
-        result = 6;
-        goto LABEL_31;
-      }
-
-      v29[0] = 0x4000000000000002;
-      v29[1] = lzma_lzma_decoder_init;
-      v29[2] = a1 + 120;
-      memset(&v29[3], 0, 24);
-      result = lzma_next_filter_init(a1, a2, v29, a9);
-      if (result)
-      {
-        goto LABEL_31;
-      }
-
-      v17 = 4;
-      *(a1 + 80) = 4;
+      return 0;
     }
 
-    result = (*(a1 + 24))(*a1, a2, a3, a4, a5, a6, a7, a8, a10);
+    result = 11;
+    if (v17 <= 1)
+    {
+      if (v17)
+      {
+        if (v17 != 1)
+        {
+          return result;
+        }
+
+        v20 = *(a1 + 88);
+        v21 = *(a1 + 120) | (*(a3 + v18) << (8 * v20));
+        *(a1 + 120) = v21;
+        *(a1 + 88) = ++v20;
+        if (v20 == 4)
+        {
+          if (*(a1 + 84) == 1 && v21 != -1)
+          {
+            v22 = (v21 - 1) | ((v21 - 1) >> 2) | (((v21 - 1) | ((v21 - 1) >> 2)) >> 3);
+            v23 = v22 | (v22 >> 4) | ((v22 | (v22 >> 4)) >> 8);
+            if ((v23 | HIWORD(v23)) + 1 != v21)
+            {
+              return 7;
+            }
+          }
+
+          *(a1 + 88) = 0;
+          v17 = 2;
+LABEL_17:
+          *(a1 + 80) = v17;
+        }
+
+        else
+        {
+          v17 = 1;
+        }
+
+        *a4 = v18 + 1;
+        continue;
+      }
+
+      if (lzma_lzma_lclppb_decode((a1 + 120), *(a3 + v18)))
+      {
+        return 7;
+      }
+
+      v17 = 1;
+      goto LABEL_17;
+    }
+
+    if (v17 == 2)
+    {
+      v25 = *(a1 + 88);
+      v26 = (*(a3 + v18) << (8 * v25)) | *(a1 + 96);
+      *a4 = v18 + 1;
+      *(a1 + 88) = ++v25;
+      *(a1 + 96) = v26;
+      if (v25 < 8)
+      {
+        v17 = 2;
+        continue;
+      }
+
+      if (*(a1 + 84) == 1 && v26 - 0x4000000000 < 0xFFFFFFBFFFFFFFFFLL)
+      {
+        return 7;
+      }
+
+      *(a1 + 168) = 1;
+      *(a1 + 172) = v26;
+      v24 = lzma_lzma_decoder_memusage((a1 + 120)) + 0x8000;
+      *(a1 + 112) = v24;
+      *(a1 + 88) = 0;
+      *(a1 + 80) = 3;
+    }
+
+    else
+    {
+      if (v17 != 3)
+      {
+        return result;
+      }
+
+      v24 = *(a1 + 112);
+    }
+
+    if (v24 > *(a1 + 104))
+    {
+      return 6;
+    }
+
+    v28[0] = 0x4000000000000002;
+    v28[1] = lzma_lzma_decoder_init;
+    v28[2] = a1 + 120;
+    memset(&v28[3], 0, 24);
+    result = lzma_next_filter_init(a1, a2, v28, q0_0);
+    if (result)
+    {
+      return result;
+    }
+
+    v17 = 4;
+    *(a1 + 80) = 4;
   }
 
-LABEL_31:
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(a1 + 24))(*a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
-void alone_decoder_end(void *a1, uint64_t a2)
+void alone_decoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1, a2);
 
@@ -4458,12 +4391,13 @@ uint64_t lzma_alone_decoder(void *a1, unint64_t a2)
   return v4;
 }
 
-uint64_t lzma_auto_decoder(void *a1, unint64_t a2, unsigned int a3)
+uint64_t lzma_auto_decoder(void *a1, unint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = lzma_strm_init(a1);
   if (!v6)
   {
-    v6 = auto_decoder_init(a1[7], a1[6], a2, a3);
+    v6 = auto_decoder_init(a1[7], a1[6], a2, v3);
     if (v6)
     {
       lzma_end(a1);
@@ -4480,7 +4414,7 @@ uint64_t lzma_auto_decoder(void *a1, unint64_t a2, unsigned int a3)
   return v6;
 }
 
-uint64_t auto_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsigned int a4)
+uint64_t auto_decoder_init(uint64_t a1, void *a2, unint64_t a3, unsigned int a4)
 {
   if (*(a1 + 16) != auto_decoder_init)
   {
@@ -4532,9 +4466,9 @@ uint64_t auto_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsigned int 
   return v9;
 }
 
-uint64_t auto_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t auto_decode(void *a1, void *a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
-  v11 = *(a1 + 92);
+  v11 = *(a1 + 23);
   if (v11 != 2)
   {
     if (v11 != 1)
@@ -4550,12 +4484,12 @@ uint64_t auto_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint
         return 0;
       }
 
-      *(a1 + 92) = 1;
+      *(a1 + 23) = 1;
       v19 = *(a3 + v18);
-      v20 = *(a1 + 80);
+      v20 = a1[10];
       if (v19 == 76)
       {
-        result = lzma_lzip_decoder_init(a1, a2, v20, *(a1 + 88));
+        result = lzma_lzip_decoder_init(a1, a2, v20, *(a1 + 22));
         if (result)
         {
           return result;
@@ -4564,7 +4498,7 @@ uint64_t auto_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint
 
       else if (v19 == 253)
       {
-        result = lzma_stream_decoder_init(a1, a2, v20, *(a1 + 88));
+        result = lzma_stream_decoder_init(a1, a2, v20, *(a1 + 22));
         if (result)
         {
           return result;
@@ -4579,7 +4513,7 @@ uint64_t auto_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint
           return result;
         }
 
-        v22 = *(a1 + 88);
+        v22 = *(a1 + 22);
         if (v22)
         {
           return 2;
@@ -4592,18 +4526,18 @@ uint64_t auto_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint
       }
     }
 
-    result = (*(a1 + 24))(*a1, a2, a3, a4, a5, a6, a7, a8, a9);
+    result = (a1[3])(*a1, a2, a3, a4, a5, a6, a7, a8, a9);
     if (result != 1)
     {
       return result;
     }
 
-    if ((*(a1 + 88) & 8) == 0)
+    if ((a1[11] & 8) == 0)
     {
       return 1;
     }
 
-    *(a1 + 92) = 2;
+    *(a1 + 23) = 2;
   }
 
   if (*a4 >= a5)
@@ -4617,7 +4551,7 @@ uint64_t auto_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint
   }
 }
 
-void auto_decoder_end(void *a1, uint64_t a2)
+void auto_decoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1, a2);
 
@@ -4678,7 +4612,7 @@ uint64_t auto_decoder_memconfig(void *a1, unint64_t *a2, void *a3, unint64_t a4)
   return result;
 }
 
-uint64_t lzma_block_buffer_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, unint64_t *a7, unint64_t a8)
+uint64_t lzma_block_buffer_decode(int *a1, void *a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, unint64_t *a7, unint64_t a8)
 {
   if (!a4)
   {
@@ -4742,15 +4676,15 @@ uint64_t lzma_block_buffer_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64
   return v16;
 }
 
-uint64_t lzma_block_decoder_init(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t lzma_block_decoder_init(char **a1, void *a2, int *a3)
 {
-  if (*(a1 + 16) != lzma_block_decoder_init)
+  if (a1[2] != lzma_block_decoder_init)
   {
     lzma_next_end(a1, a2);
   }
 
-  *(a1 + 16) = lzma_block_decoder_init;
-  if (!lzma_block_unpadded_size(a3) || *(a3 + 24) < -1)
+  a1[2] = lzma_block_decoder_init;
+  if (!lzma_block_unpadded_size(a3) || *(a3 + 3) < -1)
   {
     return 11;
   }
@@ -4766,8 +4700,8 @@ uint64_t lzma_block_decoder_init(uint64_t a1, uint64_t a2, uint64_t a3)
 
     v6 = v7;
     *a1 = v7;
-    *(a1 + 24) = block_decode;
-    *(a1 + 32) = block_decoder_end;
+    a1[3] = block_decode;
+    a1[4] = block_decoder_end;
     *(v7 + 1) = 0;
     *(v7 + 2) = -1;
     *(v7 + 24) = 0u;
@@ -4780,20 +4714,20 @@ uint64_t lzma_block_decoder_init(uint64_t a1, uint64_t a2, uint64_t a3)
   *(v6 + 12) = 0;
   *(v6 + 13) = 0;
   *(v6 + 11) = a3;
-  v8 = *(a3 + 16);
+  v8 = *(a3 + 2);
   if (v8 == -1)
   {
-    v11 = *(a3 + 4);
-    v9 = *(a3 + 8);
+    v11 = a3[1];
+    v9 = a3[2];
     v8 = 0x7FFFFFFFFFFFFFFCLL - (v11 + lzma_check_size(v9));
   }
 
   else
   {
-    v9 = *(a3 + 8);
+    v9 = a3[2];
   }
 
-  v12 = *(a3 + 24);
+  v12 = *(a3 + 3);
   if (v12 == -1)
   {
     v12 = 0x7FFFFFFFFFFFFFFFLL;
@@ -4810,7 +4744,7 @@ uint64_t lzma_block_decoder_init(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6[304] = v13;
-  v14 = *(a3 + 32);
+  v14 = *(a3 + 4);
 
   return lzma_raw_decoder_init((v6 + 8), a2, v14);
 }
@@ -4828,8 +4762,6 @@ uint64_t block_decode(int *a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t
       v20 = a5 - *a4;
     }
 
-    *(a1 + 15);
-    *(a1 + 13);
     v21 = (*(a1 + 4))(*(a1 + 1), a2, a3, a4, v20 + v18);
     v22 = *a4;
     v23 = *a7;
@@ -4949,14 +4881,14 @@ LABEL_37:
   return 11;
 }
 
-void block_decoder_end(void *a1, uint64_t a2)
+void block_decoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1 + 8, a2);
 
   lzma_free(a1, a2);
 }
 
-uint64_t lzma_block_decoder(void *a1, uint64_t a2)
+uint64_t lzma_block_decoder(void *a1, int *a2)
 {
   v4 = lzma_strm_init(a1);
   if (!v4)
@@ -5117,7 +5049,7 @@ uint64_t lzma_easy_decoder_memusage(int a1)
   }
 }
 
-uint64_t lzma_raw_buffer_decode(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, unint64_t *a7, unint64_t a8)
+uint64_t lzma_raw_buffer_decode(uint64_t *a1, void *a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, unint64_t *a7, unint64_t a8)
 {
   v9 = 11;
   if (a3)
@@ -5268,7 +5200,7 @@ uint64_t lzma_properties_decode(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t
   v9 = v6[3];
   if (v9)
   {
-    return v9(v5);
+    return v9(v5, a2, a3, a4);
   }
 
   else
@@ -5305,7 +5237,7 @@ uint64_t lzma_filter_flags_decode(unint64_t *a1, uint64_t a2, uint64_t a3, unint
   return result;
 }
 
-uint64_t lzma_index_decoder_init(uint64_t a1, uint64_t a2, void *a3, unint64_t a4)
+uint64_t lzma_index_decoder_init(uint64_t a1, void *a2, void *a3, unint64_t a4)
 {
   if (*(a1 + 16) != lzma_index_decoder_init)
   {
@@ -5758,9 +5690,7 @@ uint64_t hash_append(int64x2_t *a1, unint64_t a2, unint64_t a3)
   a1[1] = vaddq_s64(a1[1], v9);
   data[0] = a2;
   data[1] = a3;
-  result = lzma_check_update(a1[2].i64, 10, data, 0x10uLL);
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  return lzma_check_update(a1[2].i64, 10, data, 0x10uLL);
 }
 
 uint64_t lzma_index_hash_decode(int64x2_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4)
@@ -5771,7 +5701,7 @@ uint64_t lzma_index_hash_decode(int64x2_t *a1, uint64_t a2, unint64_t *a3, unint
     return 10;
   }
 
-  v9 = &a1[26];
+  v9 = a1 + 26;
   v10 = &a1[26].u64[1];
   v12 = a1 + 13;
   v11 = a1->i32[0];
@@ -5982,7 +5912,7 @@ LABEL_47:
   return 0;
 }
 
-uint64_t lzma_stream_buffer_decode(unint64_t *a1, char a2, uint64_t a3, uint64_t a4, unint64_t *a5, unint64_t a6, uint64_t a7, unint64_t *a8, unint64_t a9)
+uint64_t lzma_stream_buffer_decode(unint64_t *a1, uint64_t a2, void *a3, uint64_t a4, unint64_t *a5, unint64_t a6, uint64_t a7, unint64_t *a8, unint64_t a9)
 {
   if (!a5)
   {
@@ -6054,12 +5984,13 @@ uint64_t lzma_stream_buffer_decode(unint64_t *a1, char a2, uint64_t a3, uint64_t
   return v17;
 }
 
-uint64_t lzma_microlzma_decoder(void *a1, uint64_t a2, uint64_t a3, int a4, int a5)
+uint64_t lzma_microlzma_decoder(void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = lzma_strm_init(a1);
   if (!v10)
   {
-    v10 = microlzma_decoder_init(a1[7], a1[6], a2, a3, a4 != 0, a5);
+    v10 = microlzma_decoder_init(a1[7], a1[6], a2, a3, a4 != 0, v5);
     if (v10)
     {
       lzma_end(a1);
@@ -6076,7 +6007,7 @@ uint64_t lzma_microlzma_decoder(void *a1, uint64_t a2, uint64_t a3, int a4, int 
   return v10;
 }
 
-uint64_t microlzma_decoder_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, int a6)
+uint64_t microlzma_decoder_init(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, char a5, int a6)
 {
   if (*(a1 + 16) != microlzma_decoder_init)
   {
@@ -6125,13 +6056,13 @@ LABEL_5:
   return v13;
 }
 
-uint64_t microlzma_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, int a9)
+uint64_t microlzma_decode(void *a1, void *a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, int a9)
 {
   v9 = a8;
-  v36[6] = *MEMORY[0x29EDCA608];
+  v35[6] = *MEMORY[0x29EDCA608];
   v16 = *a4;
   v17 = *a7;
-  v18 = *(a1 + 80);
+  v18 = a1[10];
   if (a5 - *a4 <= v18)
   {
     v19 = a5;
@@ -6145,132 +6076,127 @@ uint64_t microlzma_decode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, 
   v20 = *(a1 + 100);
   if ((v20 & 1) == 0)
   {
-    v21 = *(a1 + 88);
+    v21 = a1[11];
     if (a8 - v17 > v21)
     {
       v9 = v21 + v17;
     }
   }
 
-  if ((*(a1 + 101) & 1) == 0)
+  if (*(a1 + 101))
   {
-    if (v16 >= v19)
+LABEL_8:
+    LODWORD(result) = (a1[3])(*a1, a2, a3, a4, v19, a6, a7, v9, a9);
+    v23 = v16 - *a4 + a1[10];
+    a1[10] = v23;
+    if (*(a1 + 100) == 1)
     {
-      result = 0;
-      goto LABEL_30;
+      if (v23)
+      {
+        v24 = 9;
+      }
+
+      else
+      {
+        v24 = 1;
+      }
+
+      if (result == 1)
+      {
+        return v24;
+      }
+
+      else
+      {
+        return result;
+      }
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    memset(v31, 0, sizeof(v31));
-    LODWORD(v31[0]) = *(a1 + 96);
-    *(&v32 + 4) = -1;
-    if (v20)
+    else
     {
-      *(&v32 + 4) = *(a1 + 88);
-    }
+      v26 = v17 - *a7 + a1[11] == 0;
+      a1[11] += v17 - *a7;
+      if (v26)
+      {
+        v27 = 1;
+      }
 
-    if (lzma_lzma_lclppb_decode(v31, *(a3 + v16) ^ 0xFF))
-    {
-      result = 8;
-      goto LABEL_30;
-    }
+      else
+      {
+        v27 = result;
+      }
 
-    *a4 = v16 + 1;
-    v36[0] = 0x4000000000000002;
-    v36[1] = lzma_lzma_decoder_init;
-    v36[2] = v31;
-    memset(&v36[3], 0, 24);
-    result = lzma_next_filter_init(a1, a2, v36, v25);
-    if (result)
-    {
-      goto LABEL_30;
-    }
+      if (result == 1)
+      {
+        return 9;
+      }
 
-    v30 = 0;
+      else
+      {
+        return v27;
+      }
+    }
+  }
+
+  if (v16 >= v19)
+  {
+    return 0;
+  }
+
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  memset(v30, 0, sizeof(v30));
+  LODWORD(v30[0]) = *(a1 + 24);
+  *(&v31 + 4) = -1;
+  if (v20)
+  {
+    *(&v31 + 4) = a1[11];
+  }
+
+  if (lzma_lzma_lclppb_decode(v30, *(a3 + v16) ^ 0xFF))
+  {
+    return 8;
+  }
+
+  *a4 = v16 + 1;
+  v35[0] = 0x4000000000000002;
+  v35[1] = lzma_lzma_decoder_init;
+  v35[2] = v30;
+  memset(&v35[3], 0, 24);
+  result = lzma_next_filter_init(a1, a2, v35, v25);
+  if (!result)
+  {
     v29 = 0;
-    if ((*(a1 + 24))(*a1, a2, &v30, &v29, 1, a6, a7, v9, 0))
+    v28 = 0;
+    if ((a1[3])(*a1, a2, &v29, &v28, 1, a6, a7, v9, 0))
     {
-      result = 11;
-      goto LABEL_30;
+      return 11;
     }
 
     *(a1 + 101) = 1;
+    goto LABEL_8;
   }
 
-  LODWORD(result) = (*(a1 + 24))(*a1, a2, a3, a4, v19, a6, a7, v9, a9);
-  v23 = v16 - *a4 + *(a1 + 80);
-  *(a1 + 80) = v23;
-  if (*(a1 + 100) == 1)
-  {
-    if (v23)
-    {
-      v24 = 9;
-    }
-
-    else
-    {
-      v24 = 1;
-    }
-
-    if (result == 1)
-    {
-      result = v24;
-    }
-
-    else
-    {
-      result = result;
-    }
-  }
-
-  else
-  {
-    v26 = v17 - *a7 + *(a1 + 88) == 0;
-    *(a1 + 88) += v17 - *a7;
-    if (v26)
-    {
-      v27 = 1;
-    }
-
-    else
-    {
-      v27 = result;
-    }
-
-    if (result == 1)
-    {
-      result = 9;
-    }
-
-    else
-    {
-      result = v27;
-    }
-  }
-
-LABEL_30:
-  v28 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void microlzma_decoder_end(void *a1, uint64_t a2)
+void microlzma_decoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1, a2);
 
   lzma_free(a1, a2);
 }
 
-uint64_t lzma_stream_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsigned int a4)
+uint64_t lzma_stream_decoder_init(char **a1, void *a2, unint64_t a3, unsigned int a4)
 {
-  if (*(a1 + 16) != lzma_stream_decoder_init)
+  if (a1[2] != lzma_stream_decoder_init)
   {
     lzma_next_end(a1, a2);
   }
 
-  *(a1 + 16) = lzma_stream_decoder_init;
+  a1[2] = lzma_stream_decoder_init;
   if (a4 > 0x3F)
   {
     return 8;
@@ -6293,10 +6219,10 @@ uint64_t lzma_stream_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsign
     v8 = v11;
     v9 = 0;
     *a1 = v8;
-    *(a1 + 24) = stream_decode;
-    *(a1 + 32) = stream_decoder_end;
-    *(a1 + 48) = stream_decoder_get_check;
-    *(a1 + 56) = stream_decoder_memconfig;
+    a1[3] = stream_decode;
+    a1[4] = stream_decoder_end;
+    a1[6] = stream_decoder_get_check;
+    a1[7] = stream_decoder_memconfig;
     *(v8 + 1) = 0;
     *(v8 + 2) = -1;
     *(v8 + 24) = 0u;
@@ -6335,11 +6261,11 @@ uint64_t lzma_stream_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsign
   return 5;
 }
 
-uint64_t stream_decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t stream_decode(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v15 = (a1 + 384);
-  v17 = a1 + 8;
+  v17 = (a1 + 8);
   for (i = *a1; ; i = 0)
   {
     while (1)
@@ -6358,27 +6284,27 @@ uint64_t stream_decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unin
           {
             if (i != 2)
             {
-              goto LABEL_74;
+              return v18;
             }
 
 LABEL_42:
             *(a1 + 88) = 1;
-            *(a1 + 120) = v34;
+            *(a1 + 120) = v33;
             v19 = lzma_block_header_decode(a1 + 88, a2, (a1 + 392));
             if (v19)
             {
-              goto LABEL_56;
+              return v19;
             }
 
             *(a1 + 288) = *(a1 + 379);
-            v27 = lzma_raw_decoder_memusage(v34);
+            v27 = lzma_raw_decoder_memusage(v33);
             if (v27 == -1)
             {
               v18 = 8;
 LABEL_59:
-              lzma_filters_free(v34, a2);
+              lzma_filters_free(v33, a2);
               *(a1 + 120) = 0;
-              goto LABEL_74;
+              return v18;
             }
 
             *(a1 + 368) = v27;
@@ -6388,12 +6314,12 @@ LABEL_59:
               goto LABEL_59;
             }
 
-            v18 = lzma_block_decoder_init(v17, a2, a1 + 88);
-            lzma_filters_free(v34, a2);
+            v18 = lzma_block_decoder_init(v17, a2, (a1 + 88));
+            lzma_filters_free(v33, a2);
             *(a1 + 120) = 0;
             if (v18)
             {
-              goto LABEL_74;
+              return v18;
             }
 
             *a1 = 3;
@@ -6406,7 +6332,7 @@ LABEL_59:
           lzma_bufcpy(a3, a4, a5, a1 + 392, v15, 12);
           if (*v15 < 0xC)
           {
-            goto LABEL_55;
+            return 0;
           }
 
           *v15 = 0;
@@ -6418,16 +6344,16 @@ LABEL_59:
             {
               if (*(a1 + 381) == 1)
               {
-                v18 = 7;
+                return 7;
               }
 
               else
               {
-                v18 = 9;
+                return 9;
               }
             }
 
-            goto LABEL_74;
+            return v18;
           }
 
           *(a1 + 381) = 0;
@@ -6436,26 +6362,23 @@ LABEL_59:
           *a1 = 1;
           if (*(a1 + 376) == 1 && !v25)
           {
-            v18 = 2;
-            goto LABEL_74;
+            return 2;
           }
 
           if (*(a1 + 377) == 1 && !lzma_check_is_supported(v25))
           {
-            v18 = 3;
-            goto LABEL_74;
+            return 3;
           }
 
           if (*(a1 + 378))
           {
-            v18 = 4;
-            goto LABEL_74;
+            return 4;
           }
         }
 
         if (*a4 >= a5)
         {
-          goto LABEL_55;
+          return 0;
         }
 
         if (*v15)
@@ -6465,7 +6388,7 @@ LABEL_40:
           lzma_bufcpy(a3, a4, a5, a1 + 392, v15, v26);
           if (*(a1 + 384) < *(a1 + 92))
           {
-            goto LABEL_55;
+            return 0;
           }
 
           *(a1 + 384) = 0;
@@ -6493,13 +6416,13 @@ LABEL_40:
       {
         if (*a4 >= a5)
         {
-          goto LABEL_55;
+          return 0;
         }
 
         v19 = lzma_index_hash_decode(*(a1 + 352), a3, a4, a5);
         if (v19 != 1)
         {
-          goto LABEL_56;
+          return v19;
         }
 
         *a1 = 5;
@@ -6510,7 +6433,7 @@ LABEL_47:
       v19 = (*(a1 + 32))(*(a1 + 8), a2, a3, a4, a5, a6, a7, a8, a9);
       if (v19 != 1)
       {
-        goto LABEL_56;
+        return v19;
       }
 
       v28 = *(a1 + 352);
@@ -6518,7 +6441,7 @@ LABEL_47:
       v19 = lzma_index_hash_append(v28, v29, *(a1 + 112));
       if (v19)
       {
-        goto LABEL_56;
+        return v19;
       }
 
       i = 1;
@@ -6529,7 +6452,7 @@ LABEL_47:
     {
       if (i != 6)
       {
-        goto LABEL_74;
+        return v18;
       }
 
       goto LABEL_21;
@@ -6539,46 +6462,41 @@ LABEL_15:
     lzma_bufcpy(a3, a4, a5, a1 + 392, v15, 12);
     if (*v15 < 0xC)
     {
-      goto LABEL_55;
+      return 0;
     }
 
     *v15 = 0;
-    v35 = 0;
-    memset(v34, 0, sizeof(v34));
-    v20 = lzma_stream_footer_decode(v34, a1 + 392);
+    v34 = 0;
+    memset(v33, 0, sizeof(v33));
+    v20 = lzma_stream_footer_decode(v33, a1 + 392);
     if (v20)
     {
       if (v20 == 7)
       {
-        v18 = 9;
+        return 9;
       }
 
       else
       {
-        v18 = v20;
+        return v20;
       }
-
-      goto LABEL_74;
     }
 
     v21 = lzma_index_hash_size(*(a1 + 352));
-    if (v21 != *(&v34[0] + 1))
+    if (v21 != *(&v33[0] + 1))
     {
-      goto LABEL_69;
+      return 9;
     }
 
-    v19 = lzma_stream_flags_compare(a1 + 296, v34);
+    v19 = lzma_stream_flags_compare(a1 + 296, v33);
     if (v19)
     {
-LABEL_56:
-      v18 = v19;
-      goto LABEL_74;
+      return v19;
     }
 
     if ((*(a1 + 380) & 1) == 0)
     {
-      v18 = 1;
-      goto LABEL_74;
+      return 1;
     }
 
     *a1 = 6;
@@ -6602,17 +6520,14 @@ LABEL_21:
     if (*v15)
     {
       *a4 = v22 + 1;
-LABEL_69:
-      v18 = 9;
-      goto LABEL_74;
+      return 9;
     }
 
     v23 = lzma_index_hash_init(*(a1 + 352), a2);
     *(a1 + 352) = v23;
     if (!v23)
     {
-      v18 = 5;
-      goto LABEL_74;
+      return 5;
     }
 
     *a1 = 0;
@@ -6622,30 +6537,24 @@ LABEL_69:
 LABEL_51:
   if (a9 != 3)
   {
-LABEL_55:
-    v18 = 0;
-    goto LABEL_74;
+    return 0;
   }
 
   if (*v15)
   {
-    v18 = 9;
+    return 9;
   }
 
   else
   {
-    v18 = 1;
+    return 1;
   }
-
-LABEL_74:
-  v30 = *MEMORY[0x29EDCA608];
-  return v18;
 }
 
-void stream_decoder_end(void *a1, uint64_t a2)
+void stream_decoder_end(void **a1, void *a2)
 {
-  end = lzma_next_end((a1 + 1), a2);
-  lzma_index_hash_end(a1[44], a2, end);
+  lzma_next_end((a1 + 1), a2);
+  lzma_index_hash_end(a1[44], a2);
 
   lzma_free(a1, a2);
 }
@@ -6999,7 +6908,7 @@ uint64_t lzma_crc32(char *a1, unint64_t a2, int a3)
   return ~v3;
 }
 
-uint64_t lzma_crc64(unint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t lzma_crc64(unsigned __int8 *a1, unint64_t a2, uint64_t a3)
 {
   v3 = ~a3;
   if (a2 >= 5)
@@ -7016,14 +6925,14 @@ uint64_t lzma_crc64(unint64_t a1, unint64_t a2, uint64_t a3)
       }
 
       while ((v4++ & 3) != 0);
-      a1 = a1 - (a1 & 3) + 4;
+      a1 = &a1[-(a1 & 3) + 4];
     }
 
     v8 = a2 & 0xFFFFFFFFFFFFFFFCLL;
     a2 &= 3u;
     if (v8 >= 1)
     {
-      v9 = a1 + v8;
+      v9 = &a1[v8];
       do
       {
         v10 = *a1;
@@ -7044,14 +6953,14 @@ uint64_t lzma_crc64(unint64_t a1, unint64_t a2, uint64_t a3)
   return ~v3;
 }
 
-uint64_t lzma_lzip_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsigned int a4)
+uint64_t lzma_lzip_decoder_init(char **a1, void *a2, unint64_t a3, unsigned int a4)
 {
-  if (*(a1 + 16) != lzma_lzip_decoder_init)
+  if (a1[2] != lzma_lzip_decoder_init)
   {
     lzma_next_end(a1, a2);
   }
 
-  *(a1 + 16) = lzma_lzip_decoder_init;
+  a1[2] = lzma_lzip_decoder_init;
   if (a4 > 0x3F)
   {
     return 8;
@@ -7067,10 +6976,10 @@ uint64_t lzma_lzip_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsigned
     }
 
     *a1 = v8;
-    *(a1 + 24) = lzip_decode;
-    *(a1 + 32) = lzip_decoder_end;
-    *(a1 + 48) = lzip_decoder_get_check;
-    *(a1 + 56) = lzip_decoder_memconfig;
+    a1[3] = lzip_decode;
+    a1[4] = lzip_decoder_end;
+    a1[6] = lzip_decoder_get_check;
+    a1[7] = lzip_decoder_memconfig;
     *(v8 + 25) = 0;
     *(v8 + 26) = -1;
     *(v8 + 232) = 0u;
@@ -7101,12 +7010,12 @@ uint64_t lzma_lzip_decoder_init(uint64_t a1, uint64_t a2, unint64_t a3, unsigned
   return v9;
 }
 
-uint64_t lzip_decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, int a9)
+uint64_t lzip_decode(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, int a9)
 {
-  v43[6] = *MEMORY[0x29EDCA608];
+  v42[6] = *MEMORY[0x29EDCA608];
   v16 = a1 + 64;
   v15 = *a1;
-  v41 = (a1 + 88);
+  v40 = (a1 + 88);
   v17 = xmmword_2990BEE90;
   while (1)
   {
@@ -7125,26 +7034,24 @@ uint64_t lzip_decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint6
     {
       if (v15 != 3)
       {
-        goto LABEL_58;
+        return v18;
       }
 
       v20 = *(a1 + 40);
 LABEL_28:
       if (v20 > *(a1 + 32))
       {
-        v18 = 6;
-        goto LABEL_58;
+        return 6;
       }
 
-      v43[0] = 0x4000000000000001;
-      v43[1] = lzma_lzma_decoder_init;
-      v43[2] = v41;
-      memset(&v43[3], 0, 24);
-      filter_init = lzma_next_filter_init(a1 + 200, a2, v43, v17);
+      v42[0] = 0x4000000000000001;
+      v42[1] = lzma_lzma_decoder_init;
+      v42[2] = v40;
+      memset(&v42[3], 0, 24);
+      filter_init = lzma_next_filter_init(a1 + 200, a2, v42, v17);
       if (filter_init)
       {
-        v18 = filter_init;
-        goto LABEL_58;
+        return filter_init;
       }
 
       *(a1 + 8) = 0;
@@ -7166,7 +7073,7 @@ LABEL_28:
 
     if (v18 != 1)
     {
-      goto LABEL_58;
+      return v18;
     }
 
     *a1 = 5;
@@ -7184,9 +7091,7 @@ LABEL_36:
     lzma_bufcpy(a3, a4, a5, v16, (a1 + 56), v36);
     if (*(a1 + 56) < v36)
     {
-LABEL_48:
-      v18 = 0;
-      goto LABEL_58;
+      return 0;
     }
 
     *(a1 + 56) = 0;
@@ -7194,13 +7099,12 @@ LABEL_48:
     *(a1 + 24) = v37;
     if ((*(a1 + 49) & 1) == 0 && *(a1 + 8) != *(a1 + 64) || *(a1 + 16) != *(a1 + 68) || *(a1 + 4) && v37 != *(a1 + 76))
     {
-      goto LABEL_47;
+      return 9;
     }
 
     if (*(a1 + 50) != 1)
     {
-      v18 = 1;
-      goto LABEL_58;
+      return 1;
     }
 
     v15 = 0;
@@ -7214,32 +7118,35 @@ LABEL_48:
     {
       if (v15 != 2)
       {
-        goto LABEL_58;
+        return v18;
       }
 
       v19 = *a4;
 LABEL_21:
       if (v19 >= a5)
       {
-        goto LABEL_48;
+        return 0;
       }
 
       *a4 = v19 + 1;
       v27 = *(a3 + v19);
       ++*(a1 + 24);
       v28 = v27 & 0x1F;
-      if ((v28 - 30) < 0xFFFFFFEE || (v27 >= 0x20 ? (v29 = v28 == 12) : (v29 = 0), v29))
+      if ((v28 - 30) < 0xFFFFFFEE)
       {
-LABEL_47:
-        v18 = 9;
-        goto LABEL_58;
+        return 9;
+      }
+
+      if (v27 >= 0x20 && v28 == 12)
+      {
+        return 9;
       }
 
       *(a1 + 88) = (1 << v28) - (v27 >> 5 << (v28 - 4));
       *(a1 + 96) = 0;
       *(a1 + 108) = 3;
       *(a1 + 116) = 2;
-      v20 = lzma_lzma_decoder_memusage(v41) + 0x8000;
+      v20 = lzma_lzma_decoder_memusage(v40) + 0x8000;
       *(a1 + 40) = v20;
       *a1 = 3;
       goto LABEL_28;
@@ -7249,7 +7156,7 @@ LABEL_18:
     v25 = *a4;
     if (*a4 >= a5)
     {
-      goto LABEL_48;
+      return 0;
     }
 
     v19 = v25 + 1;
@@ -7258,16 +7165,14 @@ LABEL_18:
     *(a1 + 4) = v26;
     if (v26 > 1)
     {
-      v18 = 8;
-      goto LABEL_58;
+      return 8;
     }
 
     ++*(a1 + 24);
     *a1 = 2;
     if (*(a1 + 48))
     {
-      v18 = 4;
-      goto LABEL_58;
+      return 4;
     }
 
     goto LABEL_21;
@@ -7296,8 +7201,7 @@ LABEL_17:
   {
     if (v24 == v22)
     {
-      v18 = (a9 == 3) & (*(a1 + 51) ^ 1u);
-      goto LABEL_58;
+      return (a9 == 3) & (*(a1 + 51) ^ 1u);
     }
 
     if (*(a3 + v23 + v22) != aLzip[v21 + v22])
@@ -7315,20 +7219,16 @@ LABEL_17:
 
   if (*(a1 + 51))
   {
-    v18 = 7;
+    return 7;
   }
 
   else
   {
-    v18 = 1;
+    return 1;
   }
-
-LABEL_58:
-  v38 = *MEMORY[0x29EDCA608];
-  return v18;
 }
 
-void lzip_decoder_end(void *a1, uint64_t a2)
+void lzip_decoder_end(void *a1, void *a2)
 {
   lzma_next_end(a1 + 200, a2);
 
@@ -7553,7 +7453,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t lzma_lz_encoder_init(void *a1, uint64_t a2, void *a3, uint64_t (*a4)(void *, uint64_t, void, void, _OWORD *))
+uint64_t lzma_lz_encoder_init(void *a1, void *a2, void *a3, uint64_t (*a4)(void *, uint64_t, void, void, _OWORD *))
 {
   v7 = *a1;
   if (!*a1)
@@ -7766,7 +7666,7 @@ LABEL_18:
   return 0;
 }
 
-void lz_encoder_end(void **a1, uint64_t a2)
+void lz_encoder_end(void **a1, void *a2)
 {
   lzma_next_end((a1 + 20), a2);
   lzma_free(a1[14], a2);
@@ -7795,7 +7695,7 @@ uint64_t lz_encoder_update(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     return 11;
   }
 
-  result = v4(*a1, a4);
+  result = v4(*a1, a4, a3);
   if (!result)
   {
 
@@ -7927,7 +7827,7 @@ LABEL_10:
   return v8;
 }
 
-uint64_t lzma_mf_hc3_find(uint64_t a1, unsigned int *a2)
+uint64_t lzma_mf_hc3_find(uint64_t a1, char *a2)
 {
   v4 = *(a1 + 24);
   v5 = (*(a1 + 36) - v4);
@@ -7955,7 +7855,7 @@ uint64_t lzma_mf_hc3_find(uint64_t a1, unsigned int *a2)
         {
 LABEL_10:
           *a2 = v6;
-          a2[1] = v14 - 1;
+          *(a2 + 1) = v14 - 1;
         }
 
         else
@@ -8009,7 +7909,7 @@ LABEL_10:
           }
 
           *a2 = v21;
-          a2[1] = v14 - 1;
+          *(a2 + 1) = v14 - 1;
           if (v6 > v25)
           {
             v20 = 1;
@@ -8026,7 +7926,7 @@ LABEL_10:
     v20 = 0;
     v21 = 2;
 LABEL_13:
-    v7 = (hc_find_func(v6, v9, v8, v15, *(a1 + 92), *(a1 + 72), *(a1 + 80), v16, &a2[2 * v20], v21) - a2) >> 3;
+    v7 = (hc_find_func(v6, v9, v8, v15, *(a1 + 92), *(a1 + 72), *(a1 + 80), v16, &a2[8 * v20], v21) - a2) >> 3;
     move_pos(a1);
     return v7;
   }
@@ -8037,10 +7937,10 @@ LABEL_13:
   return v7;
 }
 
-uint64_t move_pos(uint64_t result)
+_DWORD *move_pos(_DWORD *result)
 {
-  v1 = *(result + 80);
-  if (v1 + 1 == *(result + 84))
+  v1 = result[20];
+  if (v1 + 1 == result[21])
   {
     v2 = 0;
   }
@@ -8050,10 +7950,10 @@ uint64_t move_pos(uint64_t result)
     v2 = v1 + 1;
   }
 
-  *(result + 80) = v2;
-  v3 = *(result + 20);
-  v4 = *(result + 24) + 1;
-  *(result + 24) = v4;
+  result[20] = v2;
+  v3 = result[5];
+  v4 = result[6] + 1;
+  result[6] = v4;
   if (v3 + v4 == -1)
   {
     return normalize(result);
@@ -8172,32 +8072,32 @@ LABEL_25:
   return result;
 }
 
-uint64_t lzma_mf_hc3_skip(uint64_t result, int a2)
+_DWORD *lzma_mf_hc3_skip(_DWORD *result, int a2)
 {
   v3 = result;
   do
   {
-    v4 = *(v3 + 24);
-    if ((*(v3 + 36) - v4) > 2)
+    v4 = v3[6];
+    if ((v3[9] - v4) > 2)
     {
       v5 = (*v3 + v4);
-      v6 = *(v3 + 20) + v4;
+      v6 = v3[5] + v4;
       v7 = lzma_crc32_table[*v5] ^ v5[1];
       v8 = v7 & 0x3FF;
-      LODWORD(v5) = ((v7 ^ (v5[2] << 8)) & *(v3 + 88)) + 1024;
-      v9 = *(v3 + 64);
-      v10 = *(v3 + 72);
+      LODWORD(v5) = ((v7 ^ (v5[2] << 8)) & v3[22]) + 1024;
+      v9 = *(v3 + 8);
+      v10 = *(v3 + 9);
       v11 = *(v9 + 4 * v5);
       *(v9 + 4 * v8) = v6;
       *(v9 + 4 * v5) = v6;
-      *(v10 + 4 * *(v3 + 80)) = v11;
+      *(v10 + 4 * v3[20]) = v11;
       result = move_pos(v3);
     }
 
     else
     {
-      *(v3 + 24) = v4 + 1;
-      ++*(v3 + 40);
+      v3[6] = v4 + 1;
+      ++v3[10];
     }
 
     --a2;
@@ -8263,7 +8163,7 @@ unint64_t lzma_mf_hc4_find(uint64_t a1, char *a2)
     else
     {
       v26 = -v20;
-      v7 = v24 + 1;
+      v7 = (v24 + 1);
       *&a2[8 * v24 + 4] = v20 - 1;
       v23 = 3;
     }
@@ -8348,34 +8248,34 @@ LABEL_16:
   return v7;
 }
 
-uint64_t lzma_mf_hc4_skip(uint64_t result, int a2)
+_DWORD *lzma_mf_hc4_skip(_DWORD *result, int a2)
 {
   v3 = result;
   do
   {
-    v4 = *(v3 + 24);
-    if ((*(v3 + 36) - v4) > 3)
+    v4 = v3[6];
+    if ((v3[9] - v4) > 3)
     {
       v5 = (*v3 + v4);
-      v6 = *(v3 + 20) + v4;
+      v6 = v3[5] + v4;
       v7 = lzma_crc32_table[*v5] ^ v5[1];
       v8 = v7 & 0x3FF;
       v9 = v7 ^ (v5[2] << 8);
-      LODWORD(v5) = ((v9 ^ (32 * lzma_crc32_table[v5[3]])) & *(v3 + 88)) + 66560;
-      v10 = *(v3 + 64);
-      v11 = *(v3 + 72);
+      LODWORD(v5) = ((v9 ^ (32 * lzma_crc32_table[v5[3]])) & v3[22]) + 66560;
+      v10 = *(v3 + 8);
+      v11 = *(v3 + 9);
       v12 = *(v10 + 4 * v5);
       *(v10 + 4 * v8) = v6;
       *(v10 + 4 * v9 + 4096) = v6;
       *(v10 + 4 * v5) = v6;
-      *(v11 + 4 * *(v3 + 80)) = v12;
+      *(v11 + 4 * v3[20]) = v12;
       result = move_pos(v3);
     }
 
     else
     {
-      *(v3 + 24) = v4 + 1;
-      ++*(v3 + 40);
+      v3[6] = v4 + 1;
+      ++v3[10];
     }
 
     --a2;
@@ -8385,28 +8285,28 @@ uint64_t lzma_mf_hc4_skip(uint64_t result, int a2)
   return result;
 }
 
-unint64_t lzma_mf_bt2_find(uint64_t a1, unsigned int *a2)
+unint64_t lzma_mf_bt2_find(uint64_t *a1, unsigned int *a2)
 {
-  v4 = *(a1 + 24);
-  v5 = *(a1 + 36) - v4;
-  v6 = *(a1 + 96);
-  if (v6 > v5 && (v5 < 2 || (v6 = v5, *(a1 + 104) == 1)))
+  v4 = *(a1 + 6);
+  v5 = *(a1 + 9) - v4;
+  v6 = *(a1 + 24);
+  if (v6 > v5 && (v5 < 2 || (v6 = v5, *(a1 + 26) == 1)))
   {
     v7 = 0;
-    *(a1 + 24) = v4 + 1;
-    ++*(a1 + 40);
+    *(a1 + 6) = v4 + 1;
+    ++*(a1 + 10);
   }
 
   else
   {
     v8 = *a1;
     v9 = *(*a1 + v4);
-    v11 = *(a1 + 64);
-    v10 = *(a1 + 72);
+    v11 = a1[8];
+    v10 = a1[9];
     v12 = *(v11 + 4 * v9);
-    v13 = *(a1 + 20) + v4;
+    v13 = *(a1 + 5) + v4;
     *(v11 + 4 * v9) = v13;
-    v7 = (bt_find_func(v6, v13, v8 + v4, v12, *(a1 + 92), v10, *(a1 + 80), *(a1 + 84), a2, 1u) - a2) >> 3;
+    v7 = (bt_find_func(v6, v13, v8 + v4, v12, *(a1 + 23), v10, *(a1 + 20), *(a1 + 21), a2, 1u) - a2) >> 3;
     move_pos(a1);
   }
 
@@ -8548,29 +8448,29 @@ LABEL_25:
   return result;
 }
 
-uint64_t lzma_mf_bt2_skip(uint64_t a1, int a2)
+uint64_t lzma_mf_bt2_skip(uint64_t *a1, int a2)
 {
   do
   {
-    v4 = *(a1 + 24);
-    v5 = *(a1 + 36) - v4;
-    result = *(a1 + 96);
-    if (result > v5 && (v5 < 2 || (result = (*(a1 + 36) - v4), *(a1 + 104) == 1)))
+    v4 = *(a1 + 6);
+    v5 = *(a1 + 9) - v4;
+    result = *(a1 + 24);
+    if (result > v5 && (v5 < 2 || (result = (*(a1 + 9) - v4), *(a1 + 26) == 1)))
     {
-      *(a1 + 24) = v4 + 1;
-      ++*(a1 + 40);
+      *(a1 + 6) = v4 + 1;
+      ++*(a1 + 10);
     }
 
     else
     {
       v7 = *a1;
       v8 = *(*a1 + v4);
-      v10 = *(a1 + 64);
-      v9 = *(a1 + 72);
+      v10 = a1[8];
+      v9 = a1[9];
       v11 = *(v10 + 4 * v8);
-      v12 = *(a1 + 20) + v4;
+      v12 = *(a1 + 5) + v4;
       *(v10 + 4 * v8) = v12;
-      bt_skip_func(result, v12, v7 + v4, v11, *(a1 + 92), v9, *(a1 + 80), *(a1 + 84));
+      bt_skip_func(result, v12, v7 + v4, v11, *(a1 + 23), v9, *(a1 + 20), *(a1 + 21));
       result = move_pos(a1);
     }
 
@@ -8675,7 +8575,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t lzma_mf_bt3_find(uint64_t a1, unsigned int *a2)
+uint64_t lzma_mf_bt3_find(uint64_t a1, char *a2)
 {
   v4 = *(a1 + 24);
   v5 = (*(a1 + 36) - v4);
@@ -8703,7 +8603,7 @@ uint64_t lzma_mf_bt3_find(uint64_t a1, unsigned int *a2)
         {
 LABEL_11:
           *a2 = v6;
-          a2[1] = v14 - 1;
+          *(a2 + 1) = v14 - 1;
         }
 
         else
@@ -8757,7 +8657,7 @@ LABEL_11:
           }
 
           *a2 = v21;
-          a2[1] = v14 - 1;
+          *(a2 + 1) = v14 - 1;
           if (v6 > v25)
           {
             v20 = 1;
@@ -8774,7 +8674,7 @@ LABEL_11:
     v20 = 0;
     v21 = 2;
 LABEL_14:
-    v7 = (bt_find_func(v6, v9, v8, v15, *(a1 + 92), *(a1 + 72), *(a1 + 80), v16, &a2[2 * v20], v21) - a2) >> 3;
+    v7 = (bt_find_func(v6, v9, v8, v15, *(a1 + 92), *(a1 + 72), *(a1 + 80), v16, &a2[8 * v20], v21) - a2) >> 3;
     move_pos(a1);
     return v7;
   }
@@ -8877,7 +8777,7 @@ unint64_t lzma_mf_bt4_find(uint64_t a1, char *a2)
     else
     {
       v26 = -v20;
-      v7 = v24 + 1;
+      v7 = (v24 + 1);
       *&a2[8 * v24 + 4] = v20 - 1;
       v23 = 3;
     }
@@ -9049,17 +8949,16 @@ uint64_t normalize(uint64_t result)
 
 const char *lzma_str_to_filters(uint64_t a1, int *a2, void *a3, unsigned int a4, uint64_t a5)
 {
-  v51 = *MEMORY[0x29EDCA608];
+  v50 = *MEMORY[0x29EDCA608];
   v5 = "Unexpected NULL pointer argument(s) to lzma_str_to_filters()";
   if (!a1 || !a3)
   {
-    goto LABEL_79;
+    return v5;
   }
 
   if (a4 > 3)
   {
-    v5 = "Unsupported flags to lzma_str_to_filters()";
-    goto LABEL_79;
+    return "Unsupported flags to lzma_str_to_filters()";
   }
 
   v9 = a2;
@@ -9074,13 +8973,13 @@ const char *lzma_str_to_filters(uint64_t a1, int *a2, void *a3, unsigned int a4,
 
   if (!*(i - 1))
   {
-    v48 = i - 1;
+    v47 = i - 1;
     v5 = "Empty string is not allowed, try 6 if a default value is needed";
     goto LABEL_75;
   }
 
   v13 = (i - 1);
-  v48 = i - 1;
+  v47 = i - 1;
   if ((v12 - 48) < 0xA)
   {
     --i;
@@ -9092,7 +8991,7 @@ const char *lzma_str_to_filters(uint64_t a1, int *a2, void *a3, unsigned int a4,
     v17 = *i;
     if ((v17 - 48) <= 9)
     {
-      v48 = i;
+      v47 = i;
       LOBYTE(v12) = v17;
 LABEL_12:
       v14 = strlen(i);
@@ -9115,14 +9014,14 @@ LABEL_12:
 
       v36 = v12 - 48;
       v37 = i + 1;
-      v48 = i + 1;
+      v47 = i + 1;
       if (i + 1 < v15)
       {
         v36 |= 0x80000000;
         v5 = "Unsupported preset flag";
         while (*v37 == 101)
         {
-          v48 = ++v37;
+          v47 = ++v37;
           if (v37 == v15)
           {
             goto LABEL_69;
@@ -9181,7 +9080,7 @@ LABEL_61:
     if (v12 == 45 && v13[1] == 45)
     {
       v13 += 2;
-      v48 = v13;
+      v47 = v13;
     }
 
     for (k = 0; ; ++k)
@@ -9248,9 +9147,9 @@ LABEL_59:
       goto LABEL_60;
     }
 
-    v45 = v23;
-    v46 = v21;
-    v44 = &__src[2 * v18];
+    v44 = v23;
+    v45 = v21;
+    v43 = &__src[2 * v18];
     v26 = filter_name_map;
     v27 = 10;
     while (memcmp(v13, v26, v25) || v26[v25])
@@ -9282,26 +9181,26 @@ LABEL_60:
     }
 
     v29 = v28;
-    v48 = v45;
-    v30 = (*(v26 + 3))(&v48, v46, v28);
+    v47 = v44;
+    v30 = (*(v26 + 3))(&v47, v45, v28);
     if (v30)
     {
-      v43 = v30;
+      v42 = v30;
       lzma_free(v29, a5);
-      v5 = v43;
+      v5 = v42;
       goto LABEL_60;
     }
 
-    *v44 = *(v26 + 2);
-    v44[1] = v29;
-    v13 = v48;
-    v12 = *v48;
+    *v43 = *(v26 + 2);
+    v43[1] = v29;
+    v13 = v47;
+    v12 = *v47;
     if (v12 == 32)
     {
-      v31 = v48 + 1;
+      v31 = v47 + 1;
       do
       {
-        v48 = v31;
+        v47 = v31;
         v32 = *v31++;
         v12 = v32;
       }
@@ -9319,8 +9218,8 @@ LABEL_60:
   v33[1] = 0;
   if (a4 <= 1)
   {
-    v49 = 0;
-    if (lzma_validate_chain(__src, &v49))
+    v48 = 0;
+    if (lzma_validate_chain(__src, &v48))
     {
       v5 = "Invalid filter chain ('lzma2' missing at the end?)";
       goto LABEL_61;
@@ -9334,8 +9233,8 @@ LABEL_63:
 LABEL_75:
   if (v9)
   {
-    v40 = v48 - a1;
-    if (&v48[-a1] >= 0x7FFFFFFF)
+    v40 = v47 - a1;
+    if (&v47[-a1] >= 0x7FFFFFFF)
     {
       v40 = 0x7FFFFFFF;
     }
@@ -9343,8 +9242,6 @@ LABEL_75:
     *v9 = v40;
   }
 
-LABEL_79:
-  v41 = *MEMORY[0x29EDCA608];
   return v5;
 }
 

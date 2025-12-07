@@ -322,13 +322,14 @@ LABEL_7:
 void __45__PSDocumentsPolicyController_documentSource__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = a2;
+  v7 = v6;
   if (a3)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PSLoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "Error getting selected document source.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "Error getting selected document source.", v9, 2u);
     }
   }
 

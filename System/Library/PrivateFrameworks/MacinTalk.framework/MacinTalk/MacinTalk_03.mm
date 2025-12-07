@@ -1,6 +1,6 @@
-void sub_257B3E058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B3E058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -128,9 +128,9 @@ uint64_t MEOWReader::MappedSize(MEOWReader *this, uint64_t a2)
   return a2;
 }
 
-void MEOWReader::AdvisePreload(MEOWReader *this, __int128 *a2, unint64_t a3)
+void MEOWReader::AdvisePreload(MEOWReader *this, __int128 *a2, unint64_t a3, uint64_t a4)
 {
-  v5 = this;
+  v6 = this;
   if (kPreloadVoice)
   {
     MTBEDebugParams::GetParam(kPreloadVoice, &qword_27F8F21F8, qword_27F8F21F8);
@@ -139,11 +139,11 @@ void MEOWReader::AdvisePreload(MEOWReader *this, __int128 *a2, unint64_t a3)
 
   if (qword_27F8F21F8)
   {
-    v6 = a2[1];
-    v23 = *a2;
-    *v24 = v6;
-    *&v24[12] = *(a2 + 28);
-    ComputeSectionLengths(&v23, &v17);
+    v7 = a2[1];
+    v24 = *a2;
+    *v25 = v7;
+    *&v25[12] = *(a2 + 28);
+    ComputeSectionLengths(&v24, &v18);
     if (kPreloadVoice)
     {
       MTBEDebugParams::GetParam(kPreloadVoice, &qword_27F8F21F8, qword_27F8F21F8);
@@ -154,26 +154,26 @@ void MEOWReader::AdvisePreload(MEOWReader *this, __int128 *a2, unint64_t a3)
     {
       if (qword_27F8F21F8 == 2)
       {
-        v15 = bswap32(HIDWORD(v23));
-        v16 = bswap32(HIDWORD(v17));
-        fcntl(v5, 44, &v15);
-        v14[0] = bswap32(*&v24[12]);
+        v16 = bswap32(HIDWORD(v24));
+        v17 = bswap32(HIDWORD(v18));
+        fcntl(v6, 44, &v16);
+        v15[0] = bswap32(*&v25[12]);
+        v15[1] = bswap32(v21);
+        fcntl(v6, 44, v15);
+        v14[0] = bswap32(*&v25[8]);
         v14[1] = bswap32(v20);
-        fcntl(v5, 44, v14);
-        v13[0] = bswap32(*&v24[8]);
+        fcntl(v6, 44, v14);
+        v13[0] = bswap32(*&v25[4]);
         v13[1] = bswap32(v19);
-        fcntl(v5, 44, v13);
-        v12[0] = bswap32(*&v24[4]);
-        v12[1] = bswap32(v18);
-        fcntl(v5, 44, v12);
-        if (!v22)
+        fcntl(v6, 44, v13);
+        if (!v23)
         {
           return;
         }
 
-        v11[0] = bswap32(*&v24[16]);
-        v11[1] = bswap32(v21);
-        v8 = v11;
+        v12[0] = bswap32(*&v25[16]);
+        v12[1] = bswap32(v22);
+        v9 = v12;
         goto LABEL_18;
       }
 
@@ -182,55 +182,57 @@ void MEOWReader::AdvisePreload(MEOWReader *this, __int128 *a2, unint64_t a3)
         return;
       }
 
-      v15 = bswap32(*&v24[4]);
-      v16 = 0;
-      v7 = bswap32(v18);
+      v16 = bswap32(*&v25[4]);
+      v17 = 0;
+      v8 = bswap32(v19);
 LABEL_17:
-      LODWORD(v16) = v7;
-      v8 = &v15;
+      LODWORD(v17) = v8;
+      v9 = &v16;
 LABEL_18:
-      fcntl(v5, 44, v8);
+      fcntl(v6, 44, v9);
       return;
     }
 
-    if (v22)
+    if (v23)
     {
-      v9 = bswap32(*&v24[24]);
-      v10 = v9 + bswap32(v22);
-      if (!v9)
+      v10 = bswap32(*&v25[24]);
+      v11 = v10 + bswap32(v23);
+      if (!v10)
       {
 LABEL_15:
-        if (v10 >= a3)
+        if (v11 >= a3)
         {
           return;
         }
 
-        v15 = v10;
-        v16 = 0;
-        v7 = a3 - v10;
+        v16 = v11;
+        v17 = 0;
+        v8 = a3 - v11;
         goto LABEL_17;
       }
     }
 
     else
     {
-      v9 = bswap32(*&v24[16]);
-      v10 = bswap32(v21) + v9;
-      if (!v9)
+      v10 = bswap32(*&v25[16]);
+      v11 = bswap32(v22) + v10;
+      if (!v10)
       {
         goto LABEL_15;
       }
     }
 
-    v15 = 0;
-    v16 = v9;
-    fcntl(v5, 44, &v15);
+    v16 = 0;
+    v17 = v10;
+    fcntl(v6, 44, &v16);
     goto LABEL_15;
   }
 }
 
-void MEOWReader::MEOWAdvanceDemi(void *a1, unint64_t *a2, unsigned int a3, unsigned int a4, int a5)
+void MEOWReader::MEOWAdvanceDemi(void *a1, char **a2, uint64_t a3, _BOOL8 a4, int a5)
 {
+  v6 = a4;
+  v7 = a3;
   if (kUseHeapBasedDemis)
   {
     MTBEDebugParams::GetParam(kUseHeapBasedDemis, &byte_27F8F21E8, byte_27F8F21E8);
@@ -239,7 +241,7 @@ void MEOWReader::MEOWAdvanceDemi(void *a1, unint64_t *a2, unsigned int a3, unsig
 
   if (byte_27F8F21E8)
   {
-    v10 = MEOWReader::HeapDemiForMappedDemi(a1, *a2, a3, a4, 1);
+    v10 = MEOWReader::HeapDemiForMappedDemi(a1, *a2, v7, v6, 1);
     if (a5)
     {
       LODWORD(v11) = 0;
@@ -259,7 +261,7 @@ void MEOWReader::MEOWAdvanceDemi(void *a1, unint64_t *a2, unsigned int a3, unsig
       v11 = 0;
     }
 
-    v13 = (*a2 + 4 * v11);
+    v13 = &(*a2)[4 * v11];
   }
 
   else
@@ -282,7 +284,7 @@ void MEOWReader::MEOWAdvanceDemi(void *a1, unint64_t *a2, unsigned int a3, unsig
   *a2 = v13;
 }
 
-unint64_t MEOWReader::HeapDemiForMappedDemi(void *a1, unint64_t a2, unsigned int a3, unsigned int a4, int a5)
+char *MEOWReader::HeapDemiForMappedDemi(void *a1, char *a2, unsigned int a3, unsigned int a4, int a5)
 {
   if (a5)
   {
@@ -298,7 +300,7 @@ unint64_t MEOWReader::HeapDemiForMappedDemi(void *a1, unint64_t a2, unsigned int
   else
   {
     v11 = *(&a1[25 * a3 + 52] + a4);
-    v10 = a1[3807] + bswap32(*(a1[3806] + 200 * a3 + 4 * a4));
+    v10 = (a1[3807] + bswap32(*(a1[3806] + 200 * a3 + 4 * a4)));
     a2 = v10;
   }
 
@@ -314,148 +316,145 @@ LABEL_16:
       goto LABEL_59;
     }
 
-    if (a4 | a3)
+    if (a4 | a3 || v10)
     {
-      v20 = a1[3807] + bswap32(*(a1[3806] + 200 * a3 + 4 * a4));
+      goto LABEL_45;
     }
 
-    else if (!v10)
-    {
-      v26 = 0;
-      v27 = a1 + 1302;
-      v28 = a1 + 52;
-      do
-      {
-        for (i = 0; i != 50; ++i)
-        {
-          v30 = v27[i];
-          if (v30)
-          {
-            v31 = *v30;
-            v32 = *v30 && a2 >= v31;
-            if (v32 && *(v28 + i) + v31 > a2)
-            {
-              a3 = v26;
-              a4 = i;
-              goto LABEL_45;
-            }
-          }
-        }
-
-        v27 += 50;
-        v28 += 25;
-        v32 = v26++ >= 0x31;
-      }
-
-      while (!v32);
-    }
-
-LABEL_45:
-    v33 = a1[3829];
-    if (v33)
-    {
-      v34 = *(v33 + 50 * a3 + a4);
-    }
-
-    else
-    {
-      v34 = bswap32(*(a1[3830] + 100 * a3 + 2 * a4)) >> 16;
-    }
-
-    if (!v34)
-    {
-LABEL_58:
-      puts("Help, attempting to read 0 bytes for a demi.");
-      v11 = 0;
-      goto LABEL_59;
-    }
-
-    v11 = 0;
-    v35 = (2 * v34 + 31) >> 5;
-    v36 = a1[50 * a3 + 1302 + a4];
-    v37 = v35 - 1;
-    v38 = v36 + 1;
+    v25 = 0;
+    v26 = a1 + 1302;
+    v27 = a1 + 52;
     while (1)
     {
-      if (v35 == 1)
+      for (i = 0; i != 50; ++i)
       {
-        v39 = v36[v37];
-        if (a2 >= v39)
+        v29 = v26[i];
+        if (v29)
         {
-          v40 = *(&a1[25 * a3 + 52] + a4) + *v36;
-          v41 = v40 - v39;
-          if (v40 > a2)
+          v30 = *v29;
+          v31 = *v29 && a2 >= v30;
+          if (v31 && *(v27 + i) + v30 > a2)
           {
-            v11 = v41;
-          }
-        }
-      }
-
-      else
-      {
-        v42 = *(v38 - 1);
-        if (a2 >= v42)
-        {
-          v43 = *v38;
-          if (a2 < *v38)
-          {
-            v11 = v43 - v42;
-            if (v43 == v42)
+            a3 = v25;
+            a4 = i;
+LABEL_45:
+            v32 = a1[3829];
+            if (v32)
             {
-              goto LABEL_58;
+              v33 = *(v32 + 50 * a3 + a4);
             }
 
-LABEL_59:
-            if (v11 + v15 > 0x80000 && v14 != 0)
+            else
             {
-              do
+              v33 = bswap32(*(a1[3830] + 100 * a3 + 2 * a4)) >> 16;
+            }
+
+            if (!v33)
+            {
+LABEL_58:
+              puts("Help, attempting to read 0 bytes for a demi.");
+              v11 = 0;
+              goto LABEL_59;
+            }
+
+            v11 = 0;
+            v34 = (2 * v33 + 31) >> 5;
+            v35 = a1[50 * a3 + 1302 + a4];
+            v36 = v34 - 1;
+            v37 = v35 + 1;
+            while (1)
+            {
+              if (v34 == 1)
               {
-                v45 = a1[3803];
-                if (v45)
+                v38 = v35[v36];
+                if (a2 >= v38)
                 {
-                  v47 = *v45;
-                  v46 = *(v45 + 8);
-                  if (v46)
+                  v39 = *(&a1[25 * a3 + 52] + a4) + *v35;
+                  v40 = v39 - v38;
+                  if (v39 > a2)
                   {
-                    v48 = *(v45 + 8);
+                    v11 = v40;
                   }
-
-                  else
-                  {
-                    v48 = a1 + 3802;
-                  }
-
-                  *v48 = v47;
-                  if (!v47)
-                  {
-                    v47 = a1 + 3802;
-                  }
-
-                  v47[1] = v46;
                 }
-
-                --v14;
-                free(*(v45 + 32));
-                MEMORY[0x259C6DA90](v45, 0x10E0C40A8F1378CLL);
               }
 
-              while (v14);
-            }
+              else
+              {
+                v41 = *(v37 - 1);
+                if (a2 >= v41)
+                {
+                  v42 = *v37;
+                  if (a2 < *v37)
+                  {
+                    v11 = v42 - v41;
+                    if (v42 == v41)
+                    {
+                      goto LABEL_58;
+                    }
 
-            operator new();
+LABEL_59:
+                    if ((v11 + v15) > 0x80000 && v14 != 0)
+                    {
+                      do
+                      {
+                        v44 = a1[3803];
+                        if (v44)
+                        {
+                          v46 = *v44;
+                          v45 = *(v44 + 8);
+                          if (v45)
+                          {
+                            v47 = *(v44 + 8);
+                          }
+
+                          else
+                          {
+                            v47 = a1 + 3802;
+                          }
+
+                          *v47 = v46;
+                          if (!v46)
+                          {
+                            v46 = a1 + 3802;
+                          }
+
+                          v46[1] = v45;
+                        }
+
+                        --v14;
+                        free(*(v44 + 32));
+                        MEMORY[0x259C6DA90](v44, 0x10E0C40A8F1378CLL);
+                      }
+
+                      while (v14);
+                    }
+
+                    operator new();
+                  }
+                }
+              }
+
+              ++v37;
+              if (!--v34)
+              {
+                if (!v11)
+                {
+                  goto LABEL_58;
+                }
+
+                goto LABEL_59;
+              }
+            }
           }
         }
       }
 
-      ++v38;
-      if (!--v35)
+      v26 += 50;
+      v27 += 25;
+      v31 = v25++ >= 0x31;
+      if (v31)
       {
-        if (!v11)
-        {
-          goto LABEL_58;
-        }
-
-        goto LABEL_59;
+        goto LABEL_45;
       }
     }
   }
@@ -470,13 +469,13 @@ LABEL_59:
     {
       v18 = *(v16 + 6);
       v19 = v18 + v17;
-      if (v19 <= a2 && a2 + v11 < v19 + *(v16 + 7))
+      if (v19 <= a2 && &a2[v11] < v19 + *(v16 + 7))
       {
         break;
       }
     }
 
-    if (v15 + v11 > 0x80000)
+    if ((v15 + v11) > 0x80000)
     {
       ++v14;
     }
@@ -491,47 +490,47 @@ LABEL_59:
 
   if (v16 != v13)
   {
-    v22 = *v16;
-    v21 = v16[1];
-    if (v21)
+    v21 = *v16;
+    v20 = v16[1];
+    if (v20)
     {
-      v23 = v16[1];
+      v22 = v16[1];
     }
 
     else
     {
-      v23 = a1 + 3802;
-    }
-
-    *v23 = v22;
-    if (!v22)
-    {
       v22 = a1 + 3802;
     }
 
-    v22[1] = v21;
-    v24 = *v12;
-    if (*v12)
+    *v22 = v21;
+    if (!v21)
     {
-      *(v24 + 8) = v16;
+      v21 = a1 + 3802;
     }
 
-    *v16 = v24;
+    v21[1] = v20;
+    v23 = *v12;
+    if (*v12)
+    {
+      *(v23 + 8) = v16;
+    }
+
+    *v16 = v23;
     v16[1] = 0;
     *v12 = v16;
     v19 = v18 + v16[2];
   }
 
-  v25 = a2 + v16[4] - v19;
+  v24 = &a2[v16[4] - v19];
   if (a5)
   {
     pthread_mutex_unlock(&sDemiCacheLock);
   }
 
-  return v25;
+  return v24;
 }
 
-unint64_t MEOWReader::GetDemiRecord(MEOWReader *this, unsigned int a2, unsigned int a3, unint64_t a4, int a5)
+char *MEOWReader::GetDemiRecord(MEOWReader *this, uint64_t a2, _BOOL8 a3, unint64_t a4, int a5)
 {
   v10 = this + 400 * a2 + 8 * a3;
   v11 = *(v10 + 1302);
@@ -554,7 +553,7 @@ unint64_t MEOWReader::GetDemiRecord(MEOWReader *this, unsigned int a2, unsigned 
   return v14;
 }
 
-uint64_t MEOWReader::ComputeDemiCache(MEOWReader *this, unsigned int a2, unsigned int a3)
+void *MEOWReader::ComputeDemiCache(MEOWReader *this, unsigned int a2, unsigned int a3)
 {
   v3 = *(this + 3829);
   if (v3)
@@ -574,14 +573,14 @@ LABEL_3:
   return 0;
 }
 
-void sub_257B3EE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_257B3EE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
 
-double MEOWReader::GetDemi(uint64_t a1, unint64_t a2, int a3, uint64_t a4)
+double MEOWReader::GetDemi(uint64_t a1, char *a2, int a3, uint64_t a4)
 {
   if (kUseHeapBasedDemis)
   {
@@ -594,9 +593,9 @@ double MEOWReader::GetDemi(uint64_t a1, unint64_t a2, int a3, uint64_t a4)
     a2 = MEOWReader::HeapDemiForMappedDemi(a1, a2, 0, 0, 1);
   }
 
-  if ((*(a2 + 1) & 0x3F) == 2)
+  if ((a2[1] & 0x3F) == 2)
   {
-    a2 = *(a1 + 30456) + bswap32(*(a2 + 4));
+    a2 = (*(a1 + 30456) + bswap32(*(a2 + 1)));
     v8 = byte_27F8F21E8;
     if (kUseHeapBasedDemis)
     {
@@ -614,7 +613,7 @@ double MEOWReader::GetDemi(uint64_t a1, unint64_t a2, int a3, uint64_t a4)
   *(a4 + 67) = -1;
   *(a4 + 68) = -1;
   *(a4 + 65) = 0;
-  v9 = *(a2 + 1);
+  v9 = a2[1];
   v10 = v9 & 0x3F;
   *(a4 + 64) = v9 & 0x3F;
   if (v10 <= 3)
@@ -633,7 +632,7 @@ LABEL_41:
     if (v10 == 1 || v10 == 3)
     {
       v12 = 0;
-      *(a4 + 24) = bswap32(*(a2 + 6)) >> 16;
+      *(a4 + 24) = bswap32(*(a2 + 3)) >> 16;
       goto LABEL_27;
     }
 
@@ -651,13 +650,13 @@ LABEL_40:
 
     if (v10 == 6)
     {
-      *(a4 + 68) = bswap32(*(a2 + 42)) >> 16;
-      *(a4 + 67) = *(a2 + 41);
+      *(a4 + 68) = bswap32(*(a2 + 21)) >> 16;
+      *(a4 + 67) = a2[41];
       if ((a3 & 1) == 0)
       {
         v11 = 40;
 LABEL_25:
-        *(a4 + 65) = *(a2 + v11);
+        *(a4 + 65) = a2[v11];
         goto LABEL_26;
       }
 
@@ -683,8 +682,8 @@ LABEL_25:
     goto LABEL_40;
   }
 
-  *(a4 + 68) = bswap32(*(a2 + 10)) >> 16;
-  *(a4 + 67) = *(a2 + 9);
+  *(a4 + 68) = bswap32(*(a2 + 5)) >> 16;
+  *(a4 + 67) = a2[9];
   if ((a3 & 1) == 0)
   {
     v11 = 8;
@@ -692,8 +691,8 @@ LABEL_25:
   }
 
 LABEL_26:
-  *(a4 + 24) = *(a2 + 6);
-  v12 = *(a2 + 7);
+  *(a4 + 24) = a2[6];
+  v12 = a2[7];
 LABEL_27:
   *(a4 + 66) = v12;
   v14 = 1 << v10;
@@ -710,11 +709,11 @@ LABEL_31:
     *(a4 + 56) = v15;
   }
 
-  v16 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(a2 + 2)) >> 16) & 0xFFFCFFFF | ((((v9 & 0xC0) >> 6) & 3) << 16), *(a2 + 4));
-  (*(*v16 + 24))(v16, *(a2 + 5));
-  *a4 = (bswap32(*(a2 + 2)) >> 16) & 0xFFFCFFFF | ((((*(a2 + 1) & 0xC0) >> 6) & 3) << 16);
-  *(a4 + 4) = *(a2 + 4);
-  *(a4 + 6) = *(a2 + 5);
+  v16 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(a2 + 1)) >> 16) & 0xFFFCFFFF | ((((v9 & 0xC0) >> 6) & 3) << 16), a2[4]);
+  (*(*v16 + 24))(v16, a2[5]);
+  *a4 = (bswap32(*(a2 + 1)) >> 16) & 0xFFFCFFFF | ((((a2[1] & 0xC0) >> 6) & 3) << 16);
+  *(a4 + 4) = a2[4];
+  *(a4 + 6) = a2[5];
   *(a4 + 40) = v16[4];
   *(a4 + 8) = 0;
   *(a4 + 88) = 0;
@@ -747,7 +746,7 @@ LABEL_31:
   return result;
 }
 
-void MEOWReader::GetDemiCookie(uint64_t a1, unint64_t a2, int a3, int a4, uint64_t a5)
+void MEOWReader::GetDemiCookie(uint64_t a1, char *a2, int a3, _BOOL4 a4, uint64_t a5)
 {
   if (kUseHeapBasedDemis)
   {
@@ -760,9 +759,9 @@ void MEOWReader::GetDemiCookie(uint64_t a1, unint64_t a2, int a3, int a4, uint64
     a2 = MEOWReader::HeapDemiForMappedDemi(a1, a2, 0, 0, 1);
   }
 
-  if ((*(a2 + 1) & 0x3F) == 2)
+  if ((a2[1] & 0x3F) == 2)
   {
-    a2 = *(a1 + 30456) + bswap32(*(a2 + 4));
+    a2 = (*(a1 + 30456) + bswap32(*(a2 + 1)));
     v10 = byte_27F8F21E8;
     if (kUseHeapBasedDemis)
     {
@@ -778,12 +777,12 @@ void MEOWReader::GetDemiCookie(uint64_t a1, unint64_t a2, int a3, int a4, uint64
   }
 
   *(a5 + 52) = 255;
-  v11 = *(a2 + 1) & 0x3F;
+  v11 = a2[1] & 0x3F;
   if (v11 <= 5)
   {
     if (v11 == 3)
     {
-      v12 = bswap32(*(a2 + 6)) >> 16;
+      v12 = bswap32(*(a2 + 3)) >> 16;
       goto LABEL_28;
     }
 
@@ -817,8 +816,8 @@ LABEL_18:
         return;
       }
 
-      *(a5 + 52) = *(a2 + 9);
-      if ((a3 & 1) != 0 || (*(a2 + 8) & 0x80000000) == 0)
+      *(a5 + 52) = a2[9];
+      if ((a3 & 1) != 0 || (a2[8] & 0x80000000) == 0)
       {
         goto LABEL_26;
       }
@@ -826,8 +825,8 @@ LABEL_18:
       goto LABEL_25;
     }
 
-    *(a5 + 52) = *(a2 + 41);
-    if ((a3 & 1) == 0 && *(a2 + 40) < 0)
+    *(a5 + 52) = a2[41];
+    if ((a3 & 1) == 0 && a2[40] < 0)
     {
 LABEL_25:
       *(a5 + 53) = 1;
@@ -839,11 +838,11 @@ LABEL_25:
   }
 
 LABEL_26:
-  v12 = *(a2 + 6);
+  v12 = a2[6];
 LABEL_28:
-  MEOWSVDDistanceEncoder::UnpackCookie((a2 + 8), a5);
-  v13 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(a2 + 2)) >> 16) & 0xFFFCFFFF | ((((*(a2 + 1) & 0xC0) >> 6) & 3) << 16), *(a2 + 4));
-  (*(*v13 + 16))(v13, *(a2 + 5));
+  MEOWSVDDistanceEncoder::UnpackCookie(a2 + 4, a5);
+  v13 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(a2 + 1)) >> 16) & 0xFFFCFFFF | ((((a2[1] & 0xC0) >> 6) & 3) << 16), a2[4]);
+  (*(*v13 + 16))(v13, a2[5]);
   if (a3)
   {
     (*(*v13 + 16))(v13, v12);
@@ -855,7 +854,7 @@ LABEL_28:
   v14(v13);
 }
 
-uint64_t MEOWReader::IsWordOnly(void *a1, unint64_t a2)
+BOOL MEOWReader::IsWordOnly(void *a1, char *a2, uint64_t a3, BOOL a4)
 {
   if (kUseHeapBasedDemis)
   {
@@ -868,40 +867,40 @@ uint64_t MEOWReader::IsWordOnly(void *a1, unint64_t a2)
     a2 = MEOWReader::HeapDemiForMappedDemi(a1, a2, 0, 0, 1);
   }
 
-  if ((*(a2 + 1) & 0x3F) == 2)
+  if ((a2[1] & 0x3F) == 2)
   {
-    a2 = a1[3807] + bswap32(*(a2 + 4));
-    v4 = byte_27F8F21E8;
+    a2 = (a1[3807] + bswap32(*(a2 + 1)));
+    v6 = byte_27F8F21E8;
     if (kUseHeapBasedDemis)
     {
       MTBEDebugParams::GetParam(kUseHeapBasedDemis, &byte_27F8F21E8, (byte_27F8F21E8 & 1));
       kUseHeapBasedDemis = 0;
-      v4 = byte_27F8F21E8;
+      v6 = byte_27F8F21E8;
     }
 
-    if (v4)
+    if (v6)
     {
       a2 = MEOWReader::HeapDemiForMappedDemi(a1, a2, 0, 0, 1);
     }
   }
 
-  v5 = *(a2 + 1) & 0x3F;
-  switch(v5)
+  v7 = a2[1] & 0x3F;
+  switch(v7)
   {
     case 6:
-      v6 = *(a2 + 40);
-      return v6 < 0;
+      v8 = a2[40];
+      return v8 < 0;
     case 8:
       return 1;
     case 7:
-      v6 = *(a2 + 8);
-      return v6 < 0;
+      v8 = a2[8];
+      return v8 < 0;
   }
 
   return 0;
 }
 
-void MEOWReader::GetAdjacent(void *a1, unint64_t a2, _BYTE *a3, char *a4)
+void MEOWReader::GetAdjacent(void *a1, char *a2, _BYTE *a3, char *a4)
 {
   if (kUseHeapBasedDemis)
   {
@@ -914,9 +913,9 @@ void MEOWReader::GetAdjacent(void *a1, unint64_t a2, _BYTE *a3, char *a4)
     a2 = MEOWReader::HeapDemiForMappedDemi(a1, a2, 0, 0, 1);
   }
 
-  if ((*(a2 + 1) & 0x3F) == 2)
+  if ((a2[1] & 0x3F) == 2)
   {
-    a2 = a1[3807] + bswap32(*(a2 + 4));
+    a2 = (a1[3807] + bswap32(*(a2 + 1)));
     v8 = byte_27F8F21E8;
     if (kUseHeapBasedDemis)
     {
@@ -933,13 +932,13 @@ void MEOWReader::GetAdjacent(void *a1, unint64_t a2, _BYTE *a3, char *a4)
 
   *a3 = -1;
   *a4 = 0;
-  v9 = *(a2 + 1) & 0x3F;
-  if ((*(a2 + 1) & 0x3F) != 0)
+  v9 = a2[1] & 0x3F;
+  if ((a2[1] & 0x3F) != 0)
   {
     if (v9 == 6)
     {
-      *a3 = *(a2 + 41);
-      v10 = *(a2 + 40);
+      *a3 = a2[41];
+      v10 = a2[40];
     }
 
     else
@@ -949,8 +948,8 @@ void MEOWReader::GetAdjacent(void *a1, unint64_t a2, _BYTE *a3, char *a4)
         return;
       }
 
-      *a3 = *(a2 + 9);
-      v10 = *(a2 + 8);
+      *a3 = a2[9];
+      v10 = a2[8];
     }
   }
 
@@ -962,7 +961,7 @@ void MEOWReader::GetAdjacent(void *a1, unint64_t a2, _BYTE *a3, char *a4)
   *a4 = v10;
 }
 
-void MEOWReader::PrefetchDemi(MEOWReader *this, unsigned int a2, unsigned int a3, unint64_t a4, int a5)
+void MEOWReader::PrefetchDemi(MEOWReader *this, uint64_t a2, _BOOL8 a3, unint64_t a4, int a5)
 {
   MEOWVectorBase::MEOWVectorBase(v12, 2);
   DemiRecord = MEOWReader::GetDemiRecord(this, a2, a3, a4, a5);
@@ -1491,7 +1490,7 @@ LABEL_45:
   return v40;
 }
 
-BOOL MEOWReader::IsAlias(void *a1, unint64_t a2, _WORD *a3)
+BOOL MEOWReader::IsAlias(void *a1, char *a2, _WORD *a3, BOOL a4)
 {
   if (kUseHeapBasedDemis)
   {
@@ -1504,16 +1503,16 @@ BOOL MEOWReader::IsAlias(void *a1, unint64_t a2, _WORD *a3)
     a2 = MEOWReader::HeapDemiForMappedDemi(a1, a2, 0, 0, 1);
   }
 
-  v6 = *(a2 + 1) & 0x3F;
-  if (a3 && v6 == 2)
+  v7 = a2[1] & 0x3F;
+  if (a3 && v7 == 2)
   {
-    *a3 = bswap32(*(a2 + 2)) >> 16;
+    *a3 = bswap32(*(a2 + 1)) >> 16;
   }
 
-  return v6 == 2;
+  return v7 == 2;
 }
 
-void MEOWReader::GetDistanceCookies(uint64_t a1, unsigned int a2, unsigned int a3, int a4, MEOWVectorBase *a5, void *a6)
+void MEOWReader::GetDistanceCookies(uint64_t a1, uint64_t a2, unsigned int a3, int a4, MEOWVectorBase *a5, void *a6)
 {
   v11 = a1 + 28672;
   v12 = *(a1 + 30538);
@@ -1702,14 +1701,14 @@ LABEL_52:
   MEOWVectorBase::~MEOWVectorBase(v42);
 }
 
-void sub_257B40614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_257B40614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
 
-void MEOWReader::GetDistanceCookie(uint64_t a1, unsigned int a2, unsigned int a3, unint64_t a4, int a5, uint64_t a6)
+void MEOWReader::GetDistanceCookie(uint64_t a1, uint64_t a2, _BOOL8 a3, unint64_t a4, int a5, uint64_t a6)
 {
   v12 = a1 + 28672;
   v13 = *(a1 + 30538);
@@ -1785,7 +1784,7 @@ LABEL_23:
   MEOWVectorBase::~MEOWVectorBase(v28);
 }
 
-void MEOWReader::GetAdjacent(MEOWReader *this, unsigned int a2, unsigned int a3, int a4, MEOWVectorBase *a5, MEOWVectorBase *a6)
+void MEOWReader::GetAdjacent(MEOWReader *this, uint64_t a2, _BOOL8 a3, int a4, MEOWVectorBase *a5, MEOWVectorBase *a6)
 {
   v11 = *(this + 3829);
   if (v11)
@@ -1838,8 +1837,10 @@ void MEOWReader::GetAdjacent(MEOWReader *this, unsigned int a2, unsigned int a3,
   while (v12 != v14);
 }
 
-uint64_t MEOWReader::DescribeDemi(MEOWReader *a1, unsigned int a2, unsigned int a3, unint64_t a4, int a5, uint64_t a6, uint64_t a7, MEOWVectorBase *a8)
+uint64_t MEOWReader::DescribeDemi(MEOWReader *a1, uint64_t a2, _BOOL8 a3, unint64_t a4, int a5, uint64_t a6, uint64_t a7, MEOWVectorBase *a8)
 {
+  v13 = a3;
+  v14 = a2;
   DemiRecord = MEOWReader::GetDemiRecord(a1, a2, a3, a4, a5);
   MEOWReader::GetDemi(a1, DemiRecord, a5, a6);
   v17 = *(a6 + 24);
@@ -1894,7 +1895,7 @@ LABEL_16:
       v23 = 62;
     }
 
-    return fprintf(*MEMORY[0x277D85DF8], "Empty demi %d%c%d#%lu\n", a2, v23, a3, a4);
+    return fprintf(*MEMORY[0x277D85DF8], "Empty demi %d%c%d#%lu\n", v14, v23, v13, a4);
   }
 }
 
@@ -1951,38 +1952,6 @@ uint64_t MEOWReader::GetVoicelessPPs(MEOWReader *this, int *a2, uint64_t a3, MEO
   return result;
 }
 
-void MEOWReader::GetUnitCosts(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  if (a12)
-  {
-    a14 = 0;
-  }
-
-  MEOWUnitCostWindow::MEOWUnitCostWindow(v23, a5 + a4, 1, 0.0);
-  v18 = *(a1 + 30632);
-  if (v18)
-  {
-    v19 = *(v18 + 50 * a2 + a3);
-    if (!a14)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    v21 = bswap32(*(*(a1 + 30640) + 100 * a2 + 2 * a3)) >> 16;
-    if (!a14)
-    {
-LABEL_7:
-      SLML::Vector<float>::Vector(&v22, 0);
-    }
-  }
-
-  v20 = *(a14 + 16);
-  goto LABEL_7;
-}
-
 void sub_257B411CC(_Unwind_Exception *a1)
 {
   SLML::Storage<float>::RemoveReference(*(v1 - 168));
@@ -1990,29 +1959,29 @@ void sub_257B411CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MEOWReader::GetUnitCost(MEOWReader *a1, unsigned int a2, unsigned int a3, unint64_t a4, uint64_t a5, uint64_t a6)
+void MEOWReader::GetUnitCost(MEOWReader *a1, uint64_t a2, _BOOL8 a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, char a9, uint64_t a10, float *a11, unint64_t *a12, uint64_t a13)
 {
-  MEOWUnitCostWindow::MEOWUnitCostWindow(v12, a6 + a5, 1, 0.0);
-  v11[4] = MEOWReader::GetDemiRecord(a1, a2, a3, a4, 0);
-  MEOWVectorBase::MEOWVectorBase(v11, 2);
-  SLML::Vector<float>::Vector(&v10, 0);
+  MEOWUnitCostWindow::MEOWUnitCostWindow(v19, a6 + a5, 1, 0.0);
+  v18[4] = MEOWReader::GetDemiRecord(a1, a2, a3, a4, 0);
+  MEOWVectorBase::MEOWVectorBase(v18, 2);
+  SLML::Vector<float>::Vector(&v17, 0);
 }
 
-void sub_257B41488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_257B41488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   MEOWVectorBase::~MEOWVectorBase(va);
-  MEOWVectorBase::~MEOWVectorBase((v15 - 136));
+  MEOWVectorBase::~MEOWVectorBase((v22 - 136));
   _Unwind_Resume(a1);
 }
 
-void MEOWReader::GetSpectralCosts(MEOWReader *this, int a2, unsigned int a3, int a4, unsigned int a5, unsigned int a6, unsigned int a7, float *a8)
+void MEOWReader::GetSpectralCosts(MEOWReader *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7, float *a8)
 {
   v12 = *(this + 3819);
-  if (v12 && (MEOWSpectralCost::GetSpectralCookie(v12, a2, a3, a4, a7, v21) & 1) != 0)
+  if (v12 && (v13 = a7, (MEOWSpectralCost::GetSpectralCookie(v12, a2, a3, a4, a7, v21) & 1) != 0))
   {
     MEOWVectorBase::MEOWVectorBase(v19, 60);
-    MEOWReader::GetDistanceCookies(this, a5, a6, a7, v19, 0);
+    MEOWReader::GetDistanceCookies(this, a5, a6, v13, v19, 0);
     if (v20)
     {
       v14 = 0;
@@ -2044,13 +2013,13 @@ void MEOWReader::GetSpectralCosts(MEOWReader *this, int a2, unsigned int a3, int
   }
 }
 
-void MEOWReader::GetSpectralCost(MEOWReader *this, int a2, unsigned int a3, int a4, unsigned int a5, unsigned int a6, uint64_t a7, unsigned int a8, float *a9)
+void MEOWReader::GetSpectralCost(MEOWReader *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t a8, float *a9)
 {
   v10 = *(this + 3819);
-  if (v10 && (MEOWSpectralCost::GetSpectralCookie(v10, a2, a3, a4, a8, v17) & 1) != 0)
+  if (v10 && (v11 = a8, (MEOWSpectralCost::GetSpectralCookie(v10, a2, a3, a4, a8, v17) & 1) != 0))
   {
     MEOWVectorBase::MEOWVectorBase(v16, 60);
-    MEOWReader::GetDistanceCookies(this, a5, a6, a8, v16, 0);
+    MEOWReader::GetDistanceCookies(this, a5, a6, v11, v16, 0);
     v15 = MEOWRawSVDDistance(v17, v16[0] + 15 * a7);
     *a9 = powf(v15, 0.33333);
     MEOWVectorBase::~MEOWVectorBase(v16);
@@ -2260,11 +2229,10 @@ LABEL_50:
         *a5 = 0;
         do
         {
-          v18 = *a2;
-          v19 = *(this + 3829);
-          if (v19)
+          v18 = *(this + 3829);
+          if (v18)
           {
-            if (*(v19 + 50 * *a2 + v17))
+            if (*(v18 + 50 * *a2 + v17))
             {
               goto LABEL_59;
             }
@@ -2284,58 +2252,58 @@ LABEL_50:
     }
 
     *a5 = v16;
-    v19 = *(this + 3829);
+    v18 = *(this + 3829);
 LABEL_59:
-    v20 = 0;
-    v21 = *a3;
-    v22 = 42;
+    v19 = 0;
+    v20 = *a3;
+    v21 = 42;
     do
     {
-      if (v19)
+      if (v18)
       {
-        if (*(v19 + 50 * v22 + v21))
+        if (*(v18 + 50 * v21 + v20))
         {
           goto LABEL_77;
         }
       }
 
-      else if (bswap32(*(*(this + 3830) + 100 * v22 + 2 * v21)) >> 16)
+      else if (bswap32(*(*(this + 3830) + 100 * v21 + 2 * v20)) >> 16)
       {
 LABEL_77:
-        *a6 = v22;
+        *a6 = v21;
         return v14;
       }
 
-      v22 = asc_257B98D8B[++v20];
+      v21 = asc_257B98D8B[++v19];
     }
 
-    while (v20 != 4);
-    v23 = 0;
+    while (v19 != 4);
+    v22 = 0;
     *a6 = 0;
-    v24 = 1;
+    v23 = 1;
     do
     {
-      v25 = *a3;
-      v26 = *(this + 3829);
-      if (v26)
+      v24 = *a3;
+      v25 = *(this + 3829);
+      if (v25)
       {
-        if (*(v26 + v25 + v23))
+        if (*(v25 + v24 + v22))
         {
           return v14;
         }
       }
 
-      else if (bswap32(*(*(this + 3830) + 2 * v25 + 2 * v23)) >> 16)
+      else if (bswap32(*(*(this + 3830) + 2 * v24 + 2 * v22)) >> 16)
       {
         return v14;
       }
 
-      *a6 = v24;
-      v23 += 50;
-      ++v24;
+      *a6 = v23;
+      v22 += 50;
+      ++v23;
     }
 
-    while (v23 != 2500);
+    while (v22 != 2500);
     if (!*a3)
     {
       return 0xFFFFFFFFLL;
@@ -2346,17 +2314,17 @@ LABEL_77:
     v8 = *(this + 3829);
     if (v8)
     {
-      v27 = *(v8 + 50 * *a2);
+      v26 = *(v8 + 50 * *a2);
     }
 
     else
     {
-      v27 = bswap32(*(*(this + 3830) + 100 * *a2)) >> 16;
+      v26 = bswap32(*(*(this + 3830) + 100 * *a2)) >> 16;
     }
 
     v10 = 2;
     v14 = 3;
-    if (!v27)
+    if (!v26)
     {
       continue;
     }
@@ -2426,15 +2394,14 @@ uint64_t MEOWReader::SubstituteSecond(MEOWReader *this, unsigned __int8 *a2, uns
   while (1)
   {
     *a3 = 42;
-    v3 = *a2;
-    v4 = *(this + 3829);
-    if (!v4)
+    v3 = *(this + 3829);
+    if (!v3)
     {
       break;
     }
 
-    v5 = *(v4 + 50 * *a2 + 42);
-    if (*(v4 + 50 * *a2 + 42))
+    v4 = *(v3 + 50 * *a2 + 42);
+    if (*(v3 + 50 * *a2 + 42))
     {
       return 1;
     }
@@ -2443,30 +2410,29 @@ LABEL_5:
     *a3 = 0;
     do
     {
-      v6 = *a2;
-      v7 = *(this + 3829);
-      if (v7)
+      v5 = *(this + 3829);
+      if (v5)
       {
-        if (*(v7 + 50 * *a2 + v5))
+        if (*(v5 + 50 * *a2 + v4))
         {
           return 1;
         }
       }
 
-      else if (bswap32(*(*(this + 3830) + 100 * *a2 + 2 * v5)) >> 16)
+      else if (bswap32(*(*(this + 3830) + 100 * *a2 + 2 * v4)) >> 16)
       {
         return 1;
       }
 
-      *a3 = ++v5;
+      *a3 = ++v4;
     }
 
-    while (v5 != 50);
+    while (v4 != 50);
     *a2 = 0;
   }
 
-  v5 = bswap32(*(*(this + 3830) + 100 * *a2 + 84)) >> 16;
-  if (!v5)
+  v4 = bswap32(*(*(this + 3830) + 100 * *a2 + 84)) >> 16;
+  if (!v4)
   {
     goto LABEL_5;
   }
@@ -2655,8 +2621,8 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
     return result;
   }
 
-  v122 = a2;
-  v116 = *a3;
+  v117 = a2;
+  v111 = *a3;
   v7 = *(a1 + 30512);
   v8 = *(a1 + 30496);
   v9 = *(v7 + 24);
@@ -2684,8 +2650,8 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
     v13 = 0;
   }
 
-  v123 = (v11 + v13);
-  if (!v123)
+  v118 = (v11 + v13);
+  if (!v118)
   {
     v89 = v12 + 1;
     v90 = *v12;
@@ -2693,21 +2659,21 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
     {
       v91 = *v89;
       v92 = *v89;
-      v93 = v122;
+      v93 = v117;
       if (v91 < 0)
       {
-        v100 = 0;
-        v101 = v12 + 2;
+        v98 = 0;
+        v99 = v12 + 2;
         do
         {
-          v102 = v92 & 0x7F | (v100 << 7);
-          v103 = *v101++;
-          v92 = v103;
-          v100 = v102;
+          v100 = v92 & 0x7F | (v98 << 7);
+          v101 = *v99++;
+          v92 = v101;
+          v98 = v100;
         }
 
-        while (v103 < 0);
-        v94 = v102 << 7;
+        while (v101 < 0);
+        v94 = v100 << 7;
       }
 
       else
@@ -2720,20 +2686,20 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
 
     else
     {
-      v93 = v122;
+      v93 = v117;
       if ((v90 & 0x80) != 0)
       {
-        v104 = 0;
+        v102 = 0;
         do
         {
-          v105 = v90 & 0x7F | (v104 << 7);
-          v106 = *v89++;
-          v90 = v106;
-          v104 = v105;
+          v103 = v90 & 0x7F | (v102 << 7);
+          v104 = *v89++;
+          v90 = v104;
+          v102 = v103;
         }
 
-        while (v106 < 0);
-        v95 = v105 << 7;
+        while (v104 < 0);
+        v95 = v103 << 7;
       }
 
       else
@@ -2742,29 +2708,29 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
       }
 
       a3[2] = (v90 + v95);
-      v107 = *v89;
+      v105 = *v89;
       if (*v89 < 0)
       {
-        v109 = 0;
-        v110 = v89 + 1;
+        v107 = 0;
+        v108 = v89 + 1;
         do
         {
-          v111 = v107 & 0x7F | (v109 << 7);
-          v112 = *v110++;
-          v107 = v112;
-          v109 = v111;
+          v109 = v105 & 0x7F | (v107 << 7);
+          v110 = *v108++;
+          v105 = v110;
+          v107 = v109;
         }
 
-        while (v112 < 0);
-        v108 = v111 << 7;
+        while (v110 < 0);
+        v106 = v109 << 7;
       }
 
       else
       {
-        v108 = 0;
+        v106 = 0;
       }
 
-      a3[3] = (v107 + v108);
+      a3[3] = (v105 + v106);
     }
 
     if (kDebugHomographs)
@@ -2780,7 +2746,7 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
     return 1;
   }
 
-  v117 = a3;
+  v112 = a3;
   v17 = bswap32(v9);
   v18 = bswap32(v10);
   if (kDebugHomographs)
@@ -2789,31 +2755,31 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
     kDebugHomographs = 0;
   }
 
-  v118 = v8 + v17;
+  v113 = v8 + v17;
   v19 = v8 + v18;
   v20 = MEMORY[0x277D85DF8];
   if (byte_27F8F2298 == 1)
   {
     v21 = "";
-    if (*(v122 + 26))
+    if (*(v117 + 26))
     {
       v21 = "!";
     }
 
-    v22 = *(v122 + 10);
+    v22 = *(v117 + 10);
     if (v22)
     {
       v23 = 0;
       do
       {
-        v24 = *(v122 + 18);
+        v24 = *(v117 + 18);
         v25 = *v20;
-        *v125.var0 = v22;
-        *&v125.var0[4] = v24;
+        *v120.var0 = v22;
+        *&v120.var0[4] = v24;
         v26 = v23 + 1;
-        v27 = SLTagEng::Name(v125.var0[v23 + 1]);
+        v27 = SLTagEng::Name(v120.var0[v23 + 1]);
         fprintf(v25, " %s", v27);
-        v22 = *(v122 + 10);
+        v22 = *(v117 + 10);
         v23 = v26;
       }
 
@@ -2823,9 +2789,9 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
     fputc(10, *v20);
   }
 
-  v119 = 0;
+  v114 = 0;
   v28 = 0;
-  v29 = v122;
+  v29 = v117;
   do
   {
     v30 = v12 + 1;
@@ -2850,7 +2816,7 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
       v32 = 0;
     }
 
-    v36 = *(v118 + 4 * (v31 + v32));
+    v36 = *(v113 + 4 * (v31 + v32));
     v37 = bswap32(v36);
     if (v36)
     {
@@ -2888,7 +2854,7 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
 
       while (v40 != 32);
       fputc(125, *v20);
-      v29 = v122;
+      v29 = v117;
     }
 
     v42 = *(v29 + 8);
@@ -2918,11 +2884,11 @@ uint64_t MEOWReader::GetWordDescriptor(uint64_t a1, const char **a2, void *a3)
       }
     }
 
-    v120 = v28;
-    v121 = 0;
-    --v123;
+    v115 = v28;
+    v116 = 0;
+    --v118;
 LABEL_45:
-    v29 = v122;
+    v29 = v117;
     while (1)
     {
       v43 = *v30++;
@@ -2959,8 +2925,8 @@ LABEL_45:
 LABEL_55:
         if (v50)
         {
-          v125 = *(v122 + 10);
-          if (SLWordTagSet::find(&v125))
+          v120 = *(v117 + 10);
+          if (SLWordTagSet::find(&v120))
           {
             if ((v50 & 0xFFFE) == 0x42)
             {
@@ -2978,8 +2944,8 @@ LABEL_55:
 
           else
           {
-            v125 = *(v122 + 10);
-            if (SLWordTagSet::find(&v125))
+            v120 = *(v117 + 10);
+            if (SLWordTagSet::find(&v120))
             {
               v38 += 5;
               v52 = 43;
@@ -2989,9 +2955,9 @@ LABEL_55:
             {
               if (v50 == 74)
               {
-                v125 = *(v122 + 10);
-                v53 = SLWordTagSet::find(&v125);
-                v121 |= v53 ^ 1;
+                v120 = *(v117 + 10);
+                v53 = SLWordTagSet::find(&v120);
+                v116 |= v53 ^ 1;
                 if (v53)
                 {
                   v38 -= 50;
@@ -3055,14 +3021,14 @@ LABEL_69:
       v56 = byte_27F8F2298;
     }
 
-    v28 = v120;
+    v28 = v115;
     if (v56)
     {
       fprintf(*v20, " -> %d", v38);
     }
 
-    v124 = 0;
-    *v125.var0 = 0;
+    v119 = 0;
+    *v120.var0 = 0;
     v58 = v30 + 1;
     v57 = *v30;
     if (v57 == 128)
@@ -3072,7 +3038,7 @@ LABEL_69:
       if (v30[1] < 0)
       {
         v63 = 0;
-        v61 = v121;
+        v61 = v116;
         do
         {
           v64 = v59 & 0x7F | (v63 << 7);
@@ -3088,13 +3054,13 @@ LABEL_69:
       else
       {
         v60 = 0;
-        v61 = v121;
+        v61 = v116;
       }
 
-      *v125.var0 = (v59 + v60);
-      if ((v61 & (v38 > v120)) != 0 || v38 > v119)
+      *v120.var0 = (v59 + v60);
+      if ((v61 & (v38 > v115)) != 0 || v38 > v114)
       {
-        HomophoneClusterEntry = MEOWReader::GetHomophoneClusterEntry(a1, (v59 + v60), v125.var0, &v124);
+        HomophoneClusterEntry = MEOWReader::GetHomophoneClusterEntry(a1, (v59 + v60), v120.var0, &v119);
       }
 
       else
@@ -3108,7 +3074,7 @@ LABEL_69:
       if ((v57 & 0x80) != 0)
       {
         v67 = 0;
-        v61 = v121;
+        v61 = v116;
         do
         {
           v68 = v57 & 0x7F | (v67 << 7);
@@ -3124,10 +3090,10 @@ LABEL_69:
       else
       {
         v62 = 0;
-        v61 = v121;
+        v61 = v116;
       }
 
-      *v125.var0 = (v57 + v62);
+      *v120.var0 = (v57 + v62);
       v70 = *v58;
       v12 = v58 + 1;
       v71 = v70;
@@ -3152,33 +3118,33 @@ LABEL_69:
       }
 
       HomophoneClusterEntry = 0;
-      v124 = (v71 + v72);
+      v119 = (v71 + v72);
     }
 
-    if ((v61 & (v38 > v120)) != 1)
+    if ((v61 & (v38 > v115)) != 1)
     {
-      if (v38 <= v119)
+      if (v38 <= v114)
       {
         goto LABEL_119;
       }
 
-      v78 = v116;
+      v78 = v111;
       if (HomophoneClusterEntry)
       {
         v78 = HomophoneClusterEntry;
       }
 
-      *v117 = v78;
-      v79 = v124;
-      v117[2] = *v125.var0;
-      v117[3] = v79;
+      *v112 = v78;
+      v79 = v119;
+      v112[2] = *v120.var0;
+      v112[3] = v79;
       if (kDebugHomographs)
       {
         MTBEDebugParams::GetParam(kDebugHomographs, &byte_27F8F2298, (byte_27F8F2298 & 1));
         kDebugHomographs = 0;
         if ((byte_27F8F2298 & 1) == 0)
         {
-          v119 = v38;
+          v114 = v38;
 LABEL_113:
           v80 = byte_27F8F2298;
           goto LABEL_121;
@@ -3187,25 +3153,25 @@ LABEL_113:
 
       else if ((byte_27F8F2298 & 1) == 0)
       {
-        v119 = v38;
+        v114 = v38;
         goto LABEL_119;
       }
 
       v81 = 33;
-      v119 = v38;
+      v114 = v38;
       goto LABEL_118;
     }
 
-    v76 = v116;
+    v76 = v111;
     if (HomophoneClusterEntry)
     {
       v76 = HomophoneClusterEntry;
     }
 
-    v117[1] = v76;
-    v77 = v124;
-    v117[4] = *v125.var0;
-    v117[5] = v77;
+    v112[1] = v76;
+    v77 = v119;
+    v112[4] = *v120.var0;
+    v112[5] = v77;
     if (kDebugHomographs)
     {
       MTBEDebugParams::GetParam(kDebugHomographs, &byte_27F8F2298, (byte_27F8F2298 & 1));
@@ -3249,34 +3215,34 @@ LABEL_121:
     }
   }
 
-  while (v123);
+  while (v118);
   if (v28 < 1)
   {
-    v83 = v117;
+    v83 = v112;
   }
 
   else
   {
-    v83 = v117;
-    if (v28 < v119 - 3)
+    v83 = v112;
+    if (v28 < v114 - 3)
     {
       goto LABEL_149;
     }
 
-    if (v119 <= 0)
+    if (v114 <= 0)
     {
-      *v117 = v117[1];
-      v88 = v117[5];
-      v117[2] = v117[4];
+      *v112 = v112[1];
+      v88 = v112[5];
+      v112[2] = v112[4];
       goto LABEL_148;
     }
 
-    if (*v117 == v117[1])
+    if (*v112 == v112[1])
     {
-      v85 = v117[2];
-      v84 = v117[3];
-      v87 = v117[4];
-      v86 = v117[5];
+      v85 = v112[2];
+      v84 = v112[3];
+      v87 = v112[4];
+      v86 = v112[5];
       if (v87 == v84 + v85)
       {
         goto LABEL_140;
@@ -3284,15 +3250,15 @@ LABEL_121:
 
       if (v85 == v86 + v87)
       {
-        v117[2] = v87;
+        v112[2] = v87;
 LABEL_140:
         v88 = v86 + v84;
-        v28 = v119;
+        v28 = v114;
 LABEL_148:
-        v117[3] = v88;
-        v119 = v28;
+        v112[3] = v88;
+        v114 = v28;
 LABEL_149:
-        v117[5] = 0;
+        v112[5] = 0;
       }
     }
   }
@@ -3307,7 +3273,7 @@ LABEL_149:
 
   if (v96)
   {
-    if (v119 < 1)
+    if (v114 < 1)
     {
       fwrite("  -> No matching instances.\n", 0x1CuLL, 1uLL, *v20);
     }
@@ -3315,24 +3281,19 @@ LABEL_149:
     else
     {
       v97 = *v20;
-      v99 = v83[2];
-      v98 = v83[3];
       if (v83[5])
       {
-        v114 = v83[5];
-        v115 = v83[4];
         fprintf(v97, "  -> %lu@%lu, %lu@%lu\n");
       }
 
       else
       {
-        v113 = v83[3];
         fprintf(v97, "  -> %lu@%lu\n");
       }
     }
   }
 
-  return v119 > 0;
+  return v114 > 0;
 }
 
 uint64_t MEOWReader::TranslateTag(MEOWReader *this, uint64_t a2)
@@ -3357,7 +3318,7 @@ void MEOWReader::GetWordData(int a1, unsigned __int16 **a2, MEOWVectorBase *this
 {
   v7 = *a2 + (bswap32((*a2)[1]) >> 16);
   v8 = *a2 + (bswap32(**a2) >> 16);
-  v10 = (a2 + 5);
+  v10 = a2 + 5;
   v9 = a2[5];
   if (v9)
   {
@@ -3409,13 +3370,13 @@ void MEOWReader::GetWordData(int a1, unsigned __int16 **a2, MEOWVectorBase *this
   else
   {
     v21 = a2 + 2;
-    v10 = (a2 + 3);
+    v10 = a2 + 3;
     MEOWVectorBase::Map(this, &v7[8 * a2[2]], a2[3]);
     v13 = v8;
   }
 
   v22 = *v10;
-  v23 = &v13[*v21];
+  v23 = *v21 + v13;
 
   MEOWVectorBase::Map(a4, v23, v22);
 }
@@ -3485,11 +3446,11 @@ uint64_t MEOWReader::GetWord(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int 
     v11 = MEOWReader::HeapDemiForMappedDemi(a1, v11, 0, 0, 1);
   }
 
-  v12 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(DemiRecord + 2)) >> 16) & 0xFFFCFFFF | ((((*(DemiRecord + 1) & 0xC0) >> 6) & 3) << 16), *(DemiRecord + 4));
-  v13 = *(DemiRecord + 1);
-  *a3 = (bswap32(*(DemiRecord + 2)) >> 16) & 0xFFFCFFFF | ((((v13 & 0xC0) >> 6) & 3) << 16);
-  *(a3 + 4) = *(DemiRecord + 4);
-  v14 = *(DemiRecord + 5);
+  v12 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(DemiRecord + 1)) >> 16) & 0xFFFCFFFF | ((((DemiRecord[1] & 0xC0) >> 6) & 3) << 16), DemiRecord[4]);
+  v13 = DemiRecord[1];
+  *a3 = (bswap32(*(DemiRecord + 1)) >> 16) & 0xFFFCFFFF | ((((v13 & 0xC0) >> 6) & 3) << 16);
+  *(a3 + 4) = DemiRecord[4];
+  v14 = DemiRecord[5];
   *(a3 + 6) = v14;
   if (a4)
   {
@@ -3498,7 +3459,7 @@ uint64_t MEOWReader::GetWord(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int 
     {
       if (v15 == 3 || v15 == 1)
       {
-        v14 = v14 + (bswap32(*(DemiRecord + 6)) >> 16);
+        v14 = v14 + (bswap32(*(DemiRecord + 3)) >> 16);
       }
 
       else
@@ -3509,56 +3470,54 @@ uint64_t MEOWReader::GetWord(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int 
 
     else
     {
-      v14 = *(DemiRecord + 6) + v14;
+      v14 = DemiRecord[6] + v14;
     }
   }
 
   (*(*v12 + 24))(v12, v14);
-  v17 = (bswap32(*(v11 + 2)) >> 16) & 0xFFFCFFFF | ((((*(v11 + 1) & 0xC0) >> 6) & 3) << 16);
-  v18 = *(v11 + 4);
-  v19 = (***(a1 + 30576))();
-  v20 = *(v11 + 5);
+  v17 = (***(a1 + 30576))();
+  v18 = v11[5];
   if ((a5 & 1) == 0)
   {
-    v21 = *(v11 + 1) & 0x3F;
-    if ((v21 - 4) >= 4)
+    v19 = v11[1] & 0x3F;
+    if ((v19 - 4) >= 4)
     {
-      if (v21 == 3 || v21 == 1)
+      if (v19 == 3 || v19 == 1)
       {
-        v20 = v20 + (bswap32(*(v11 + 6)) >> 16);
+        v18 = v18 + (bswap32(*(v11 + 3)) >> 16);
       }
 
       else
       {
-        fprintf(*MEMORY[0x277D85DF8], "MEOW: Bad Demi Format %d @ %08x\n", *(v11 + 1) & 0x3F, v11 - *(a1 + 30432));
+        fprintf(*MEMORY[0x277D85DF8], "MEOW: Bad Demi Format %d @ %08x\n", v11[1] & 0x3F, v11 - *(a1 + 30432));
       }
     }
 
     else
     {
-      v20 = *(v11 + 6) + v20;
+      v18 = v11[6] + v18;
     }
   }
 
-  (*(*v19 + 24))(v19, v20);
-  v23 = (*(*v19 + 64))(v19);
-  (*(*v19 + 8))(v19);
+  (*(*v17 + 24))(v17, v18);
+  v21 = (*(*v17 + 64))(v17);
+  (*(*v17 + 8))(v17);
   *(a3 + 40) = v12[4];
   *(a3 + 8) = 0;
   *(a3 + 88) = 0;
-  (*(*v12 + 40))(v12, v23, a3 + 72);
+  (*(*v12 + 40))(v12, v21, a3 + 72);
   *(a3 + 44) = v12[4] - *(a3 + 40);
   *(a3 + 48) = (*(*v12 + 64))(v12) - *(a1 + 30432);
-  v24 = *(a3 + 88);
+  v22 = *(a3 + 88);
   *(a3 + 16) = 0;
-  *(a3 + 24) = v24;
+  *(a3 + 24) = v22;
   *(a3 + 32) = *(a3 + 72);
-  v25 = *(*v12 + 8);
+  v23 = *(*v12 + 8);
 
-  return v25(v12);
+  return v23(v12);
 }
 
-void MEOWReader::GetInclusion(uint64_t a1, unsigned int a2, unsigned int a3, unint64_t a4, uint64_t a5)
+void MEOWReader::GetInclusion(uint64_t a1, uint64_t a2, _BOOL8 a3, unint64_t a4, uint64_t a5)
 {
   DemiRecord = MEOWReader::GetDemiRecord(a1, a2, a3, a4, 0);
   v11 = MEOWReader::GetDemiRecord(a1, a2, a3, a4, 1);
@@ -3574,7 +3533,7 @@ void MEOWReader::GetInclusion(uint64_t a1, unsigned int a2, unsigned int a3, uni
     v11 = MEOWReader::HeapDemiForMappedDemi(a1, v11, 0, 0, 1);
   }
 
-  v12 = *(DemiRecord + 1);
+  v12 = DemiRecord[1];
   if ((v12 & 0x3F) == 6)
   {
     v13 = 40;
@@ -3591,7 +3550,7 @@ void MEOWReader::GetInclusion(uint64_t a1, unsigned int a2, unsigned int a3, uni
     v13 = 8;
   }
 
-  v14 = *(DemiRecord + v13);
+  v14 = DemiRecord[v13];
   *(a5 + 65) = v14;
   if ((v14 & 3) == 0)
   {
@@ -3603,16 +3562,16 @@ LABEL_13:
     return;
   }
 
-  v15 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(DemiRecord + 2)) >> 16) & 0xFFFCFFFF | ((((v12 & 0xC0) >> 6) & 3) << 16), *(DemiRecord + 4));
-  *a5 = (bswap32(*(DemiRecord + 2)) >> 16) & 0xFFFCFFFF | ((((*(DemiRecord + 1) & 0xC0) >> 6) & 3) << 16);
-  *(a5 + 4) = *(DemiRecord + 4);
-  v16 = *(DemiRecord + 5);
+  v15 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(DemiRecord + 1)) >> 16) & 0xFFFCFFFF | ((((v12 & 0xC0) >> 6) & 3) << 16), DemiRecord[4]);
+  *a5 = (bswap32(*(DemiRecord + 1)) >> 16) & 0xFFFCFFFF | ((((DemiRecord[1] & 0xC0) >> 6) & 3) << 16);
+  *(a5 + 4) = DemiRecord[4];
+  v16 = DemiRecord[5];
   *(a5 + 6) = v16;
-  (*(*v15 + 24))(v15, *(DemiRecord + 6) + v16);
-  if ((*(v11 + 1) & 0x3F) != 0)
+  (*(*v15 + 24))(v15, DemiRecord[6] + v16);
+  if ((v11[1] & 0x3F) != 0)
   {
-    v17 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(v11 + 2)) >> 16) & 0xFFFCFFFF | ((((*(v11 + 1) & 0xC0) >> 6) & 3) << 16), *(v11 + 4));
-    (*(*v17 + 24))(v17, *(v11 + 5));
+    v17 = (***(a1 + 30576))(*(a1 + 30576), a1, (bswap32(*(v11 + 1)) >> 16) & 0xFFFCFFFF | ((((v11[1] & 0xC0) >> 6) & 3) << 16), v11[4]);
+    (*(*v17 + 24))(v17, v11[5]);
     v18 = (*(*v17 + 64))(v17);
     (*(*v17 + 8))(v17);
   }
@@ -3740,19 +3699,6 @@ uint64_t MEOWReader::MakeMetadataResident(MEOWReader *this, int a2)
   return 1;
 }
 
-void MEOWReader::PercentageResidentMetadata(MEOWReader *this)
-{
-  v2 = getpagesize();
-  v3 = 40;
-  if (!*(this + 3813))
-  {
-    v3 = 32;
-  }
-
-  v4 = (*(this + 3804) - (v2 * (*(this + 3804) / v2) + v2) + bswap32(*(*(this + 3804) + v3))) / v2;
-  operator new[]();
-}
-
 uint64_t *std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,MEOWWordInstance const*,MEOWWordInstance const*,std::back_insert_iterator<MEOWVector<MEOWWordInstance>>,0>(uint64_t *a1, uint64_t *a2, MEOWVectorBase *this)
 {
   v4 = a1;
@@ -3843,10 +3789,8 @@ BOOL MEOWTreePage::Insert(uint64_t a1, int a2, void *__src, unsigned __int16 *a4
   return *(a1 + 10) == v12;
 }
 
-uint64_t MEOWTreePage::Rebalance(MEOWTreePage *this, uint64_t a2, unsigned int a3)
+uint64_t MEOWTreePage::Rebalance(MEOWTreePage *this)
 {
-  v4 = *(*(*(*(this + 2) + 40) + 8 * a2 + 8) + 8);
-  v5 = *(this + 4) + a3;
   result = (*(*this + 32))(this);
   ++*(*(this + 3) + 40);
   return result;
@@ -4071,7 +4015,7 @@ uint64_t MEOWTreeBranch::Insert(uint64_t a1, int a2, uint64_t a3, unsigned __int
 
   v6 = *v5;
   v7 = *(*(a1 + 40) + 8 * v6);
-  result = (*(*v7 + 24))(v7, (a2 + 1));
+  result = (*(*v7 + 24))(v7, (a2 + 1), a3);
   if (result)
   {
     v10 = *(a1 + 40);
@@ -4108,44 +4052,42 @@ uint64_t MEOWTreeBranch::Insert(uint64_t a1, int a2, uint64_t a3, unsigned __int
       v15 = 0;
     }
 
-    v17 = v6 - 1;
-    v18 = *(v10 + 8 * (v6 - 1));
-    if (v13 > v18[4])
+    v17 = *(v10 + 8 * (v6 - 1));
+    if (v13 > v17[4])
     {
-      v12 = v18;
-LABEL_19:
-      MEOWTreePage::Rebalance(v12, v17, 1u);
+      v12 = v17;
+LABEL_18:
+      MEOWTreePage::Rebalance(v12);
       return 0;
     }
 
 LABEL_16:
     if (!v15)
     {
-LABEL_20:
+LABEL_19:
       v9 = *(*(a1 + 24) + 16);
       memmove((*(a1 + 32) + v9 + v9 * v6), (*(a1 + 32) + v9 * v6), (v14 - v6) * v9);
       memmove((*(a1 + 40) + 8 * v6 + 16), (*(a1 + 40) + 8 * v6 + 8), 8 * (*(a1 + 8) - v6));
-      v19 = *(*(a1 + 40) + 8 * v6);
-      (*(*v19 + 40))(v19, v6);
-      v20 = *(a1 + 8) + 1;
-      *(a1 + 8) = v20;
-      return *(a1 + 10) == v20;
+      v18 = *(*(a1 + 40) + 8 * v6);
+      (*(*v18 + 40))(v18, v6);
+      v19 = *(a1 + 8) + 1;
+      *(a1 + 8) = v19;
+      return *(a1 + 10) == v19;
     }
 
 LABEL_17:
     if (v13 > *(v11[1] + 4))
     {
-      v17 = v6;
-      goto LABEL_19;
+      goto LABEL_18;
     }
 
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   return result;
 }
 
-void *MEOWTreeBranch::DoRebalance(MEOWTreeBranch *this, uint64_t a2, unint64_t a3, uint64_t a4, unsigned int a5)
+void *MEOWTreeBranch::DoRebalance(MEOWTreeBranch *this, uint64_t a2, unint64_t a3, uint64_t a4, int a5)
 {
   v10 = *(*(*(this + 2) + 40) + 8 * a2 + 8);
   v11 = *(this + 4);
@@ -4377,12 +4319,12 @@ uint64_t MEOWTreeBase::Dump(MEOWTreeBase *this)
   return result;
 }
 
-uint64_t MEOWTreeIterBase::operator++(uint64_t result)
+unsigned __int16 *MEOWTreeIterBase::operator++(unsigned __int16 *result)
 {
   if (*result)
   {
     v1 = result;
-    result = (*(**(result + 8) + 56))(*(result + 8));
+    result = (*(**(result + 1) + 56))(*(result + 1));
     v2 = *v1;
     if (*v1)
     {
@@ -4428,13 +4370,13 @@ BOOL MEOWTreeIterBase::Equal(MEOWTreeIterBase *this, const MEOWTreeIterBase *a2)
   return result;
 }
 
-void *MTMBCFArrayBuilder::AddElement(void *this, const void *a2)
+MEOWVectorBase *MTMBCFArrayBuilder::AddElement(MEOWVectorBase *this, const void *a2)
 {
   if (a2)
   {
     v3 = this;
     this = MEOWVectorBase::Append(this);
-    *(*v3 + 8 * v3[2] - 8) = a2;
+    *(*v3 + 8 * *(v3 + 2) - 8) = a2;
   }
 
   return this;
@@ -4464,7 +4406,7 @@ void MTMBCFDictBuilder::MTMBCFDictBuilder(MTMBCFDictBuilder *this, const __CFStr
   MTMBCFDictBuilder::AddPair(this, v5, a2);
 }
 
-void *MTMBCFDictBuilder::AddPair(void *this, const void *a2, const void *a3)
+MEOWVectorBase *MTMBCFDictBuilder::AddPair(MEOWVectorBase *this, const void *a2, const void *a3)
 {
   if (a2)
   {
@@ -4472,9 +4414,9 @@ void *MTMBCFDictBuilder::AddPair(void *this, const void *a2, const void *a3)
     {
       v5 = this;
       MEOWVectorBase::Append(this);
-      *(*v5 + 8 * v5[2] - 8) = a2;
-      this = MEOWVectorBase::Append(v5 + 4);
-      *(v5[4] + 8 * v5[6] - 8) = a3;
+      *(*v5 + 8 * *(v5 + 2) - 8) = a2;
+      this = MEOWVectorBase::Append((v5 + 32));
+      *(*(v5 + 4) + 8 * *(v5 + 6) - 8) = a3;
     }
   }
 
@@ -4542,9 +4484,9 @@ void MTMBLogDiphones::VisitSentence(MTMBLogDiphones *this, MTFESpeechElement *a2
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(v7);
 }
 
-void sub_257B44FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_257B44FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4575,7 +4517,7 @@ void MTMBLogDiphones::VisitIntonationalPhrase(MTMBLogDiphones *this, MTFESpeechE
     if (v10)
     {
       MEOWVectorBase::Append(v4);
-      *(*v4 + 8 * v4[2] - 8) = v10;
+      *(*v4 + 8 * *(v4 + 2) - 8) = v10;
     }
 
     MTMBCFDictBuilder::~MTMBCFDictBuilder(keys);
@@ -4584,9 +4526,9 @@ void MTMBLogDiphones::VisitIntonationalPhrase(MTMBLogDiphones *this, MTFESpeechE
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(v12);
 }
 
-void sub_257B45134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_257B45134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4615,7 +4557,7 @@ void MTMBLogDiphones::VisitIntermediatePhrase(MTMBLogDiphones *this, MTFESpeechE
     if (v9)
     {
       MEOWVectorBase::Append(v4);
-      *(*v4 + 8 * v4[2] - 8) = v9;
+      *(*v4 + 8 * *(v4 + 2) - 8) = v9;
     }
 
     MTMBCFDictBuilder::~MTMBCFDictBuilder(keys);
@@ -4624,9 +4566,9 @@ void MTMBLogDiphones::VisitIntermediatePhrase(MTMBLogDiphones *this, MTFESpeechE
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(v11);
 }
 
-void sub_257B45284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_257B45284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4717,7 +4659,7 @@ void MTMBLogDiphones::VisitWord(MTMBLogDiphones *this, MTFESpeechElement *a2)
     if (v25)
     {
       MEOWVectorBase::Append(v4);
-      *(*v4 + 8 * v4[2] - 8) = v25;
+      *(*v4 + 8 * *(v4 + 2) - 8) = v25;
     }
 
     MTMBCFDictBuilder::~MTMBCFDictBuilder(v29);
@@ -4726,11 +4668,11 @@ void MTMBLogDiphones::VisitWord(MTMBLogDiphones *this, MTFESpeechElement *a2)
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(v30);
 }
 
-void sub_257B45610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_257B45610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   MTMBCFDictBuilder::~MTMBCFDictBuilder(va);
-  MTMBCFArrayBuilder::~MTMBCFArrayBuilder((v9 - 80));
+  MTMBCFArrayBuilder::~MTMBCFArrayBuilder((v16 - 80));
   _Unwind_Resume(a1);
 }
 
@@ -4750,7 +4692,7 @@ void MTMBLogDiphones::VisitSyllable(MTMBLogDiphones *this, MTFESpeechElement *a2
     if (v6)
     {
       MEOWVectorBase::Append(v4);
-      *(*v4 + 8 * v4[2] - 8) = v6;
+      *(*v4 + 8 * *(v4 + 2) - 8) = v6;
     }
 
     MTMBCFDictBuilder::~MTMBCFDictBuilder(keys);
@@ -4759,9 +4701,9 @@ void MTMBLogDiphones::VisitSyllable(MTMBLogDiphones *this, MTFESpeechElement *a2
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(v8);
 }
 
-void sub_257B45740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_257B45740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   MTMBCFArrayBuilder::~MTMBCFArrayBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4824,7 +4766,7 @@ LABEL_8:
   if (v19)
   {
     MEOWVectorBase::Append(v18);
-    *(*v18 + 8 * v18[2] - 8) = v19;
+    *(*v18 + 8 * *(v18 + 2) - 8) = v19;
   }
 
   MTMBCFDictBuilder::~MTMBCFDictBuilder(v22);
@@ -4842,9 +4784,9 @@ LABEL_16:
   return result;
 }
 
-void sub_257B459C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_257B459C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   MTMBCFDictBuilder::~MTMBCFDictBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4878,7 +4820,7 @@ void MTMBLogDiphones::~MTMBLogDiphones(MTMBLogDiphones *this)
 
 void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theString)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   *(this + 8) = 0u;
   v4 = (this + 8);
   *this = &unk_2868F6E68;
@@ -4888,31 +4830,31 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
   *(this + 7) = 0;
   Length = CFStringGetLength(theString);
   CharactersPtr = CFStringGetCharactersPtr(theString);
+  v44 = 0;
   v45 = 0;
   v46 = 0;
-  v47 = 0;
   isCurrentlyProcessingEmoji = 0;
   if (!CharactersPtr)
   {
-    std::vector<unsigned short>::resize(&v45, Length);
-    CharactersPtr = v45;
-    v50.location = 0;
-    v50.length = Length;
-    CFStringGetCharacters(theString, v50, v45);
+    std::vector<unsigned short>::resize(&v44, Length);
+    CharactersPtr = v44;
+    v49.location = 0;
+    v49.length = Length;
+    CFStringGetCharacters(theString, v49, v44);
   }
 
-  v44 = 0;
+  v43 = 0;
   uiter_setString(&iter, CharactersPtr, Length);
   v7 = 24;
-  v8 = v48;
+  v8 = v47;
   while (1)
   {
     v9 = (iter.getIndex)(&iter, 1);
     v10 = unorm_next();
     v11 = v10;
-    if (v44 == 15 && v10 > v7)
+    if (v43 == 15 && v10 > v7)
     {
-      if (v48 != v8)
+      if (v47 != v8)
       {
         free(v8);
       }
@@ -4921,7 +4863,7 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
       if (v8)
       {
         iter.index = v9;
-        v44 = 0;
+        v43 = 0;
         v7 = v11;
         v11 = unorm_next();
       }
@@ -4939,35 +4881,35 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
 
     do
     {
-      v35 = v9;
-      std::vector<long>::push_back[abi:ne200100](v4, &v35);
+      v34 = v9;
+      std::vector<long>::push_back[abi:ne200100](v4, &v34);
       --v11;
     }
 
     while (v11);
   }
 
-  v35 = v9;
-  std::vector<long>::push_back[abi:ne200100](v4, &v35);
-  if (v48 != v8 && v8)
+  v34 = v9;
+  std::vector<long>::push_back[abi:ne200100](v4, &v34);
+  if (v47 != v8 && v8)
   {
     free(v8);
   }
 
   if (CEMStringContainsEmoji())
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x4002000000;
-    v38 = __Block_byref_object_copy_;
-    v39 = __Block_byref_object_dispose_;
-    __p = 0;
-    v41 = 0;
-    v42 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2000000000;
     v34 = 0;
+    v35 = &v34;
+    v36 = 0x4002000000;
+    v37 = __Block_byref_object_copy_;
+    v38 = __Block_byref_object_dispose_;
+    __p = 0;
+    v40 = 0;
+    v41 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2000000000;
+    v33 = 0;
     v13 = CFStringGetLength(theString);
     MutableCopy = CFStringCreateMutableCopy(0, v13, theString);
     if (EmojiLocaleData(void)::token != -1)
@@ -4977,8 +4919,8 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
 
     CFStringGetLength(theString);
     CEMEnumerateEmojiTokensInStringWithLocaleAndBlock();
-    v15 = v36[5];
-    v16 = v36[6];
+    v15 = v35[5];
+    v16 = v35[6];
     if (v15 != v16)
     {
       v17 = (v16 - v15) >> 4;
@@ -4988,8 +4930,8 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
         v19 = 16 * v17;
         do
         {
-          v20 = v36[5];
-          if (v18 - 2 >= (v36[6] - v20) >> 4)
+          v20 = v35[5];
+          if (v18 - 2 >= (v35[6] - v20) >> 4)
           {
             std::vector<CFRange>::__throw_out_of_range[abi:ne200100]();
           }
@@ -4999,7 +4941,7 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
           v23 = *(v21 - 8);
           if (v22 < CFStringGetLength(MutableCopy) - 1)
           {
-            CFArrayGetValueAtIndex(v32[3], v18 - 2);
+            CFArrayGetValueAtIndex(v31[3], v18 - 2);
             v24 = CEMEmojiTokenCreateWithString();
             v25 = CEMEmojiTokenCopyName();
             CFRelease(v24);
@@ -5012,9 +4954,9 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
               CFRelease(v25);
               CFStringInsert(v28, 0, @"( ");
               CFStringAppend(v28, @""));
-              v51.location = v22;
-              v51.length = v23;
-              CFStringReplace(MutableCopy, v51, v28);
+              v50.location = v22;
+              v50.length = v23;
+              CFStringReplace(MutableCopy, v50, v28);
               operator new();
             }
           }
@@ -5027,18 +4969,18 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
       }
     }
 
-    v29 = v32[3];
+    v29 = v31[3];
     if (v29)
     {
       CFRelease(v29);
     }
 
     *(this + 4) = MutableCopy;
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v34, 8);
     if (__p)
     {
-      v41 = __p;
+      v40 = __p;
       operator delete(__p);
     }
   }
@@ -5048,33 +4990,31 @@ void MT3UnicodeString::MT3UnicodeString(MT3UnicodeString *this, CFStringRef theS
     *(this + 4) = CFRetain(theString);
   }
 
-  if (v45)
+  if (v44)
   {
-    v46 = v45;
-    operator delete(v45);
+    v45 = v44;
+    operator delete(v44);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
 }
 
-void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5123,7 +5063,7 @@ void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -5282,20 +5222,20 @@ void MT3UnicodeString::AddMapping(MT3UnicodeString *this, uint64_t a2, uint64_t 
   v26[1] = v27;
 }
 
-void std::vector<long>::resize(void *a1, unint64_t a2)
+void std::vector<long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<long>::__append(a1, a2 - v2);
+    std::vector<long>::__append(result, a2 - v2);
   }
 }
 
@@ -5380,41 +5320,32 @@ uint64_t MT3UnicodeString::MapRangeToSrc(MT3UnicodeString *this, CFRange a2)
 {
   if (isCurrentlyProcessingEmoji == 1)
   {
-    v3 = *(this + 1);
-    if (a2.location >= ((*(this + 2) - v3) >> 3))
+    v2 = *(this + 1);
+    if (a2.location >= ((*(this + 2) - v2) >> 3))
     {
-      result = -1;
+      return -1;
     }
 
     else
     {
-      result = *(v3 + 8 * a2.location);
+      return *(v2 + 8 * a2.location);
     }
-
-    v7 = (*(this + 6) + 16);
-    goto LABEL_11;
-  }
-
-  v5 = *(this + 1);
-  v6 = (*(this + 2) - v5) >> 3;
-  if (v6 <= a2.location)
-  {
-    result = -1;
   }
 
   else
   {
-    result = *(v5 + 8 * a2.location);
-  }
+    v4 = *(this + 1);
+    v5 = (*(this + 2) - v4) >> 3;
+    if (v5 <= a2.location)
+    {
+      return -1;
+    }
 
-  if (v6 > a2.location + a2.length)
-  {
-    v7 = (v5 + 8 * (a2.location + a2.length));
-LABEL_11:
-    v8 = *v7;
+    else
+    {
+      return *(v4 + 8 * a2.location);
+    }
   }
-
-  return result;
 }
 
 uint64_t ___ZL15EmojiLocaleDatav_block_invoke()
@@ -5583,16 +5514,16 @@ void std::vector<long>::__append(uint64_t a1, unint64_t a2)
 MTMBDiphoneStatistics *MTMBDiphoneStatistics::LogDiphone(MTMBDiphoneStatistics *this, int a2, unsigned int a3, unint64_t a4)
 {
   v5 = (this + 1600 * a2 + 32 * a3);
-  if (v5[2] <= a4)
+  if (*(v5 + 2) <= a4)
   {
     do
     {
       this = MEOWVectorBase::Append(v5);
       v6 = *v5;
-      *(*v5 + 8 * v5[2] - 8) = 0;
+      *(*v5 + 8 * *(v5 + 2) - 8) = 0;
     }
 
-    while (v5[2] <= a4);
+    while (*(v5 + 2) <= a4);
   }
 
   else
@@ -5676,9 +5607,9 @@ uint64_t MTMBDiphoneStatistics::CreateArray(MTMBDiphoneStatistics *this)
   return Array;
 }
 
-void sub_257B46CEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B46CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SLCFArrayBuilder::~SLCFArrayBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5823,14 +5754,14 @@ CFPropertyListRef GetParam(CFStringRef key)
   return result;
 }
 
-void sub_257B4706C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_257B4706C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void *);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void *);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   MEOWVectorBase::~MEOWVectorBase(va);
   MEOWVectorBase::~MEOWVectorBase(va1);
   _Unwind_Resume(a1);
@@ -6008,10 +5939,10 @@ void sub_257B47538(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_257B47678(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257B47678(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MTFVoice;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6111,7 +6042,7 @@ uint64_t MEOWUnitWeightStrategy::WordDurationStrategy(MEOWUnitWeightStrategy *th
   return MEOWUnitWeightStrategy::sWordDurationStrategy;
 }
 
-void MEOWUnitCostWindow::MEOWUnitCostWindow(MEOWUnitCostWindow *this, int64_t a2, int a3, float a4)
+void MEOWUnitCostWindow::MEOWUnitCostWindow(MEOWUnitCostWindow *this, unint64_t a2, int a3, float a4)
 {
   MEOWVectorBase::MEOWVectorBase(this, 4, a2);
   if (!a3)
@@ -6568,7 +6499,6 @@ void MEOWComputeAccentCost(int a1, int a2, uint64_t a3)
 void MEOWPowerStrategy::weigh(MEOWPowerStrategy *this, float a2, float a3, uint64_t a4, float *a5)
 {
   v7 = *(this + 2);
-  v8 = *(this + 3);
   if (kPowerClipMax)
   {
     MTBEDebugParams::GetParam(kPowerClipMax, &dword_27F8F2478, a5, *&dword_27F8F2478);
@@ -7036,7 +6966,7 @@ uint64_t MEOWACDecoder::MEOWACDecoder(uint64_t a1, unsigned __int16 *a2)
   return a1;
 }
 
-void MEOWACDecoder::LoadOpus(MEOWACDecoder *this)
+void MEOWACDecoder::LoadOpus(uint64_t this)
 {
   if (MEOWACDecoder::LoadOpus(void)::sHasOpus != -1)
   {
@@ -7611,13 +7541,6 @@ uint64_t MTMBSmartSegmentAssembler::AdjustWantSamples(MTMBSmartSegmentAssembler 
   return result;
 }
 
-void MTMBSmartSegmentAssembler::Assemble(MTMBSmartSegmentAssembler *this, MTMBDemi *a2, MTMBDemi *a3)
-{
-  v3 = *(*(a2 + 13) + 32);
-  v4 = *(*(a3 + 13) + 32);
-  MTMBPitchInterpolator::CreatePhonemeInterpolator(a2, a3, a3);
-}
-
 uint64_t MTMBSmartSegmentAssembler::StretchDemi(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, unsigned int a5)
 {
   MEOWVectorBase::clear((a1 + 32));
@@ -7922,7 +7845,7 @@ uint64_t MTMBSmartSegmentAssembler::ShrinkDemi(uint64_t a1, uint64_t a2, _DWORD 
   return 0;
 }
 
-void MTMBSmartSegmentAssembler::Assemble(MTMBSmartSegmentAssembler *this, MTMBDemi *a2)
+void MTMBSmartSegmentAssembler::Assemble(uint64_t this, MTMBDemi *a2)
 {
   if (*(a2 + 2))
   {
@@ -7939,17 +7862,16 @@ void MTMBSmartSegmentAssembler::Assemble(MTMBSmartSegmentAssembler *this, MTMBDe
   }
 }
 
-void *MTMBSmartSegmentAssembler::CopySegment(MTMBSmartSegmentAssembler *this, const MTMBSegment *a2)
+MEOWVectorBase *MTMBSmartSegmentAssembler::CopySegment(MTMBSmartSegmentAssembler *this, const MTMBSegment *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v4 = *(a2 + 4);
   v5 = *(a2 + 5);
   v6 = *(a2 + 6);
   v7 = *(a2 + 7);
   v8 = *(a2 + 8);
-  *v14 = *(a2 + 18);
-  *&v14[6] = *(a2 + 3);
+  *v13 = *(a2 + 18);
+  *&v13[6] = *(a2 + 3);
   v9 = *(this + 6);
   if (v9)
   {
@@ -7979,7 +7901,7 @@ LABEL_6:
 
 LABEL_7:
   *(this + 17) += v6;
-  result = MEOWVectorBase::Append(this + 4);
+  result = MEOWVectorBase::Append((this + 32));
   v12 = *(this + 4) + 32 * *(this + 6);
   *(v12 - 32) = v3;
   *(v12 - 24) = v4;
@@ -7987,13 +7909,12 @@ LABEL_7:
   *(v12 - 20) = v6;
   *(v12 - 18) = v7;
   *(v12 - 16) = v8;
-  *(v12 - 14) = *v14;
-  *(v12 - 8) = *&v14[6];
-  v13 = *MEMORY[0x277D85DE8];
+  *(v12 - 14) = *v13;
+  *(v12 - 8) = *&v13[6];
   return result;
 }
 
-void *MTMBSmartSegmentAssembler::StretchVoicedRange(void *this, const MTMBSegment *a2, const MTMBSegment *a3, int a4, int a5)
+MEOWVectorBase *MTMBSmartSegmentAssembler::StretchVoicedRange(MEOWVectorBase *this, const MTMBSegment *a2, const MTMBSegment *a3, int a4, int a5)
 {
   if (a2 < a3)
   {
@@ -8004,7 +7925,7 @@ void *MTMBSmartSegmentAssembler::StretchVoicedRange(void *this, const MTMBSegmen
     v11 = a2;
     do
     {
-      this = (*(**(v7 + 8) + 16))(*(v7 + 8), (*(v7 + 68) + *(v7 + 24) + (v11[4] >> 1)), v11[4]);
+      this = (*(**(v7 + 1) + 16))(*(v7 + 1), (*(v7 + 17) + *(v7 + 6) + (v11[4] >> 1)), v11[4]);
       if ((v9 + v9 * ((v11 - a2) >> 5)) / v10 <= v8 + this / 2)
       {
         v11 += 16;
@@ -8013,7 +7934,7 @@ void *MTMBSmartSegmentAssembler::StretchVoicedRange(void *this, const MTMBSegmen
       else
       {
         this = MTMBSmartSegmentAssembler::CopySegment(v7, v11);
-        v8 += *(*(v7 + 32) + 32 * *(v7 + 48) - 20);
+        v8 += *(*(v7 + 4) + 32 * *(v7 + 6) - 20);
       }
     }
 
@@ -8065,56 +7986,55 @@ MTMBSmartSegmentAssembler *MTMBSmartSegmentAssembler::StretchUnvoicedRange(MTMBS
   }
 
   v15 = vcvtps_s32_f32(v14 / v12);
-  v16 = *a2;
-  v17 = *(a2 + 1);
+  v16 = *(a2 + 1);
   if (v13 - 1 >= v15)
   {
-    v18 = v15;
+    v17 = v15;
   }
 
   else
   {
-    v18 = v13 - 1;
+    v17 = v13 - 1;
   }
 
-  v29[0] = *a2;
-  v29[1] = v17;
+  v28[0] = *a2;
+  v28[1] = v16;
   if (v13)
   {
-    v20 = this;
-    v21 = 0;
-    v22 = a4 / (v18 + 1);
-    v23 = v22;
+    v19 = this;
+    v20 = 0;
+    v21 = a4 / (v17 + 1);
+    v22 = v21;
     if (v8 >= 16)
     {
-      v24 = a5;
+      v23 = a5;
     }
 
     else
     {
-      v24 = a4;
+      v23 = a4;
     }
 
-    v25 = v5 + 4 * v6 + 4 * v7;
-    v26 = v22;
+    v24 = v5 + 4 * v6 + 4 * v7;
+    v25 = v21;
     do
     {
-      v27 = v24 / v13;
-      WORD4(v29[0]) = v24 / v13;
-      WORD6(v29[0]) = WORD4(v29[0]);
-      if (v21 && v18 && v26 < (v27 + v21))
+      v26 = v23 / v13;
+      WORD4(v28[0]) = v23 / v13;
+      WORD6(v28[0]) = WORD4(v28[0]);
+      if (v20 && v17 && v25 < (v26 + v20))
       {
-        v28 = v14 / v18--;
-        v14 -= v28;
-        v21 -= v28;
-        v26 = v26 + v23;
+        v27 = v14 / v17--;
+        v14 -= v27;
+        v20 -= v27;
+        v25 = v25 + v22;
       }
 
-      *&v29[0] = *a2 + 4 * v21;
-      HIWORD(v29[0]) = ((v25 - LODWORD(v29[0])) >> 2) - v27;
-      this = MTMBSmartSegmentAssembler::CopySegment(v20, v29);
-      v21 += v27;
-      v24 -= v27;
+      *&v28[0] = *a2 + 4 * v20;
+      HIWORD(v28[0]) = ((v24 - LODWORD(v28[0])) >> 2) - v26;
+      this = MTMBSmartSegmentAssembler::CopySegment(v19, v28);
+      v20 += v26;
+      v23 -= v26;
       --v13;
     }
 
@@ -8124,7 +8044,7 @@ MTMBSmartSegmentAssembler *MTMBSmartSegmentAssembler::StretchUnvoicedRange(MTMBS
   return this;
 }
 
-void *MTMBSmartSegmentAssembler::ShrinkVoicedRange(void *this, const MTMBSegment *a2, const MTMBSegment *a3, int a4, int a5)
+MEOWVectorBase *MTMBSmartSegmentAssembler::ShrinkVoicedRange(MEOWVectorBase *this, const MTMBSegment *a2, const MTMBSegment *a3, int a4, int a5)
 {
   if (a2 < a3)
   {
@@ -8135,7 +8055,7 @@ void *MTMBSmartSegmentAssembler::ShrinkVoicedRange(void *this, const MTMBSegment
     v11 = a2;
     do
     {
-      this = (*(**(v7 + 8) + 16))(*(v7 + 8), (*(v7 + 68) + *(v7 + 24) + (v11[4] >> 1)), v11[4]);
+      this = (*(**(v7 + 1) + 16))(*(v7 + 1), (*(v7 + 17) + *(v7 + 6) + (v11[4] >> 1)), v11[4]);
       if ((v9 + v9 * ((v11 - a2) >> 5)) / v10 <= v8 + this / 2)
       {
         v11 += 16;
@@ -8144,7 +8064,7 @@ void *MTMBSmartSegmentAssembler::ShrinkVoicedRange(void *this, const MTMBSegment
       else
       {
         this = MTMBSmartSegmentAssembler::CopySegment(v7, v11);
-        v8 += *(*(v7 + 32) + 32 * *(v7 + 48) - 20);
+        v8 += *(*(v7 + 4) + 32 * *(v7 + 6) - 20);
       }
     }
 
@@ -8248,7 +8168,7 @@ MTMBSmartSegmentAssembler *MTMBSmartSegmentAssembler::ShrinkUnvoicedRange(MTMBSm
   return this;
 }
 
-void MTMBSmartSegmentAssembler::SmoothAmplitude(MTMBSmartSegmentAssembler *this, MTMBDemi *a2, MTMBDemi *a3)
+void MTMBSmartSegmentAssembler::SmoothAmplitude(size_t this, MTMBDemi *a2, MTMBDemi *a3)
 {
   v3 = *(a2 + 2);
   if (v3 >= 2 && *(a3 + 2) > 1uLL)
@@ -8256,32 +8176,30 @@ void MTMBSmartSegmentAssembler::SmoothAmplitude(MTMBSmartSegmentAssembler *this,
     v5 = *(a2 + 13);
     v6 = *(v5 + 72);
     v7 = *(v5 + 76);
-    v8 = *(a3 + 13);
-    v17 = *(v8 + 72);
-    v18 = v6;
-    v9 = *a2;
+    v15 = *(*(a3 + 13) + 72);
+    v16 = v6;
+    v8 = *a2;
     if (v3 != 2)
     {
-      v10 = (v9 + 8);
-      v11 = v3 - 2;
+      v9 = (v8 + 8);
+      v10 = v3 - 2;
       do
       {
-        v12 = *v10;
-        v10 += 16;
-        v6 = v6 + (v12 * v7);
-        --v11;
+        v11 = *v9;
+        v9 += 16;
+        v6 = v6 + (v11 * v7);
+        --v10;
       }
 
-      while (v11);
-      v18 = v6;
+      while (v10);
+      v16 = v6;
     }
 
-    v13 = *(v8 + 76);
     __dst[0] = 0;
     __dst[1] = 0;
-    v15 = 1;
-    v16 = 0;
-    MTMBSegment::Allocate(__dst, *(v9 + 32 * v3 - 24) + *(v9 + 32 * (v3 - 2) + 8));
+    v13 = 1;
+    v14 = 0;
+    MTMBSegment::Allocate(__dst, *(v8 + 32 * v3 - 24) + *(v8 + 32 * (v3 - 2) + 8));
   }
 
   if (MTBEDebugFlags::sMEOWDebug)
@@ -8339,7 +8257,7 @@ uint64_t MTMBWsolaSegmentAssembler::ProcessDemi(uint64_t a1, unsigned __int16 **
   return v5;
 }
 
-void MTMBWsolaSegmentAssembler::Assemble(MTMBWsolaSegmentAssembler *this, MTMBDemi *a2)
+void MTMBWsolaSegmentAssembler::Assemble(void *this, MTMBDemi *a2)
 {
   if (*(a2 + 25))
   {
@@ -8435,9 +8353,9 @@ void MTMBSimpleSignalProcessor::~MTMBSimpleSignalProcessor(MTMBSimpleSignalProce
   JUMPOUT(0x259C6DA90);
 }
 
-MTMBSegment *MTMBSimpleSignalProcessor::BlendSegments(MTMBSimpleSignalProcessor *this, MTMBSegment *a2, const float **a3)
+MTFESpeechElement *MTMBSimpleSignalProcessor::BlendSegments(MTMBSimpleSignalProcessor *this, MTFESpeechElement *a2, const float **a3)
 {
-  if (*(a2 + 8) & 1) != 0 && (a3[2])
+  if (a2->var3 & 1) != 0 && (a3[2])
   {
     return MTMBSimpleSignalProcessor::BlendVoicedSegments(this, a2, a3);
   }
@@ -8448,33 +8366,33 @@ MTMBSegment *MTMBSimpleSignalProcessor::BlendSegments(MTMBSimpleSignalProcessor 
   }
 }
 
-uint64_t MTMBSimpleSignalProcessor::BlendVoicedSegments(MTMBSimpleSignalProcessor *this, MTMBSegment *a2, MTMBSegment *a3)
+uint64_t MTMBSimpleSignalProcessor::BlendVoicedSegments(MTMBSimpleSignalProcessor *this, MTFESpeechElement *a2, MTFESpeechElement *a3)
 {
   MTMBSegment::Modify(a2);
   MTMBSegment::Modify(a3);
-  v6 = *(a2 + 4);
-  v7 = 512 - v6;
-  if (512 - v6 >= v6)
+  var1 = a2->var1;
+  v7 = 512 - var1;
+  if (512 - var1 >= var1)
   {
-    v7 = *(a2 + 4);
+    v7 = a2->var1;
   }
 
   if (v7)
   {
-    memmove((*a2 + 4 * v6), *a2, 4 * v7);
-    LODWORD(v6) = *(a2 + 4);
+    memmove(a2->var0 + 4 * var1, a2->var0, 4 * v7);
+    LODWORD(var1) = a2->var1;
   }
 
-  v8 = *a2;
-  if (v6 >= 2)
+  var0 = a2->var0;
+  if (var1 >= 2)
   {
-    v9 = v8[2] + ((*v8 - v8[1]) * 3.0);
-    v10 = &v8[v6];
+    v9 = var0[2] + ((*var0 - var0[1]) * 3.0);
+    v10 = &var0[var1];
     v12 = *(v10 - 1);
     v11 = v10 - 1;
     v13 = v9 - v12;
-    v14 = *v8 - v12;
-    if (vabds_f32(v9, v12) <= vabds_f32(*v8, v12))
+    v14 = *var0 - v12;
+    if (vabds_f32(v9, v12) <= vabds_f32(*var0, v12))
     {
       v15 = v13;
     }
@@ -8484,7 +8402,7 @@ uint64_t MTMBSimpleSignalProcessor::BlendVoicedSegments(MTMBSimpleSignalProcesso
       v15 = v14;
     }
 
-    v16 = v6 >> 1;
+    v16 = var1 >> 1;
     do
     {
       *v11 = v15 + *v11;
@@ -8497,13 +8415,13 @@ uint64_t MTMBSimpleSignalProcessor::BlendVoicedSegments(MTMBSimpleSignalProcesso
   }
 
   v17 = 0;
-  v18 = a3 + 8;
-  if (*(a3 + 4) >= v6)
+  p_var1 = &a3->var1;
+  if (a3->var1 >= var1)
   {
-    v18 = a2 + 8;
+    p_var1 = &a2->var1;
   }
 
-  v19 = *v18;
+  v19 = *p_var1;
   LODWORD(v20) = 512 - v19;
   if (512 - v19 >= v19)
   {
@@ -8518,7 +8436,7 @@ uint64_t MTMBSimpleSignalProcessor::BlendVoicedSegments(MTMBSimpleSignalProcesso
   v21 = 1.0e20;
 LABEL_17:
   result = v20;
-  v23 = &v8[(v20 - 1) + 1];
+  v23 = &var0[(v20 - 1) + 1];
   while (1)
   {
     v24 = __OFSUB__(v20, 1);
@@ -8529,7 +8447,7 @@ LABEL_17:
     }
 
     v23 -= 4;
-    if (result > (v6 >> 1) || v20 <= 512 - v6)
+    if (result > (var1 >> 1) || v20 <= 512 - var1)
     {
       if (v19)
       {
@@ -8537,11 +8455,11 @@ LABEL_17:
         v26 = 0.0;
         do
         {
-          v26 = v26 + vabds_f32(*(*a3 + v25), *(v23 + v25));
-          v25 += 16;
+          v26 = v26 + vabds_f32(*&a3->var0[v25], *(v23 + v25 * 8));
+          v25 += 2;
         }
 
-        while (((4 * v19 + 12) & 0x7FFF0) != v25);
+        while (((4 * v19 + 12) & 0x7FFF0) != (v25 * 8));
       }
 
       else
@@ -8559,12 +8477,12 @@ LABEL_17:
     }
   }
 
-  if (v17 >= (v6 >> 1))
+  if (v17 >= (var1 >> 1))
   {
-    LOWORD(v6) = 0;
+    LOWORD(var1) = 0;
   }
 
-  *(a2 + 4) = v6 + v17;
+  a2->var1 = var1 + v17;
   if (512 - v17 >= v19)
   {
     v27 = v19;
@@ -8577,17 +8495,17 @@ LABEL_17:
 
   if (v27)
   {
-    v28 = *a3;
+    v28 = a3->var0;
     v29 = *(this + 2);
-    v30 = *a3;
+    v30 = a3->var0;
 
-    return MTMBCrossfader::CrossfadePartial(v29, v27, 1, v27, &v8[v17], v28, v30);
+    return MTMBCrossfader::CrossfadePartial(v29, v27, 1, v27, &var0[v17], v28, v30);
   }
 
   return result;
 }
 
-MTMBSegment *MTMBSimpleSignalProcessor::BlendUnvoicedSegments(MTMBSimpleSignalProcessor *this, MTMBSegment *a2, const float **a3)
+MTFESpeechElement *MTMBSimpleSignalProcessor::BlendUnvoicedSegments(MTMBSimpleSignalProcessor *this, MTFESpeechElement *a2, const float **a3)
 {
   if (kBlendUnvoicedWindow)
   {
@@ -8595,29 +8513,29 @@ MTMBSegment *MTMBSimpleSignalProcessor::BlendUnvoicedSegments(MTMBSimpleSignalPr
     kBlendUnvoicedWindow = 0;
   }
 
-  v6 = *(a3 + 4);
-  if (v6 >= *(a2 + 4))
+  var1 = *(a3 + 4);
+  if (var1 >= a2->var1)
   {
-    v6 = *(a2 + 4);
+    var1 = a2->var1;
   }
 
-  if (v6 >= qword_27F8F2578)
+  if (var1 >= qword_27F8F2578)
   {
     v7 = qword_27F8F2578;
   }
 
   else
   {
-    v7 = v6;
+    v7 = var1;
   }
 
   result = MTMBSegment::Modify(a2);
-  v9 = *(a2 + 4) - v7;
-  *(a2 + 4) = v9;
+  v9 = a2->var1 - v7;
+  a2->var1 = v9;
   if (v7)
   {
     v10 = *a3;
-    v11 = (*a2 + 4 * v9);
+    v11 = a2->var0 + v9;
     v12 = *(this + 2);
     v13 = *a3;
 
@@ -8797,32 +8715,32 @@ LABEL_33:
   }
 }
 
-void sub_257B4C950(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B4C950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MTMBSimpleSignalProcessor::SmoothSegment(MTMBCrossfader **this, MTMBSegment *a2, MTMBSegment *a3)
+uint64_t MTMBSimpleSignalProcessor::SmoothSegment(MTMBCrossfader **this, MTMBSegment *a2, MTFESpeechElement *a3)
 {
   MTMBSegment::Modify(a3);
-  v7 = *(a3 + 8);
-  if ((v7 & 6) != 0)
+  var3 = a3->var3;
+  if ((var3 & 6) != 0)
   {
-    if (*(a2 + 7) >= *(a3 + 4))
+    if (*(a2 + 7) >= a3->var1)
     {
-      v8 = *(a3 + 4);
+      var1 = a3->var1;
     }
 
     else
     {
-      v8 = *(a2 + 7);
+      var1 = *(a2 + 7);
     }
 
-    if ((v7 & 1) != 0 || v8 < 0x10)
+    if ((var3 & 1) != 0 || var1 < 0x10)
     {
-      if (!v8)
+      if (!var1)
       {
         goto LABEL_11;
       }
@@ -8833,19 +8751,19 @@ uint64_t MTMBSimpleSignalProcessor::SmoothSegment(MTMBCrossfader **this, MTMBSeg
     else
     {
       v9 = (*a2 + 4 * *(a2 + 4));
-      v8 = 15;
+      var1 = 15;
     }
 
-    MTMBCrossfader::CrossfadePartial(this[2], v8, 1, v8, v9, *a3, *a3);
+    MTMBCrossfader::CrossfadePartial(this[2], var1, 1, var1, v9, a3->var0, a3->var0);
   }
 
 LABEL_11:
-  v10 = *(a3 + 3);
-  v6.n128_u32[0] = *(v10 + 76);
-  v11 = *(v10 + 80);
+  var4 = a3->var4;
+  v6.n128_u32[0] = HIDWORD(var4[1].var3);
+  var4_low = LOBYTE(var4[1].var4);
   v12 = *(*this + 4);
 
-  return v12(this, a3, v10 + 72, v11, v6);
+  return v12(this, a3, &var4[1].var3, var4_low, v6);
 }
 
 void MTMBSimpleSignalProcessor::ChangePitch(MTMBCrossfader **this, MTMBSegment *a2, const float **a3)
@@ -8989,7 +8907,7 @@ LABEL_38:
   }
 }
 
-void MTMBAltSignalProcessor::ChangePitch(MTMBCrossfader **this, MTMBSegment *a2, MTMBSegment *a3)
+void MTMBAltSignalProcessor::ChangePitch(void (***this)(MTMBCrossfader **, MTMBSegment *, MTMBSegment *), MTMBSegment *a2, MTMBSegment *a3)
 {
   v3 = *(a2 + 4);
   if (v3 == *(a2 + 6))
@@ -9231,16 +9149,16 @@ LABEL_59:
     }
 
     *(a2 + 6) = v18;
-    (*(*this + 5))(this, a2, a3);
+    (*this)[5](this, a2, a3);
     v14 = *(a2 + 4);
   }
 
   while (v14 < v17);
 }
 
-void sub_257B4D1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_257B4D1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -9544,13 +9462,12 @@ _DWORD *MTMBSegment::Free(MTMBSegment *this)
   return result;
 }
 
-uint64_t MTMBSegment::Grow(uint64_t this)
+MTFESpeechElement *MTMBSegment::Grow(MTFESpeechElement *this, int a2)
 {
-  if (*(this + 16) < 0)
+  if (SLOWORD(this->var3) < 0)
   {
-    if (*this)
+    if (this->var0)
     {
-      v1 = *(this + 8);
       operator new[]();
     }
   }
@@ -9558,22 +9475,21 @@ uint64_t MTMBSegment::Grow(uint64_t this)
   return this;
 }
 
-MTMBSegment *MTMBSegment::Modify(MTMBSegment *this)
+MTFESpeechElement *MTMBSegment::Modify(MTFESpeechElement *this)
 {
-  if ((*(this + 8) & 0x80000000) == 0)
+  if ((SLOWORD(this->var3) & 0x80000000) == 0)
   {
-    v1 = *this;
-    MTMBSegment::Allocate(this, *(this + 4));
+    MTMBSegment::Allocate(this, this->var1);
   }
 
   return this;
 }
 
-int *MTMBSegment::Abstract(MTMBSegment **this)
+int *MTMBSegment::Abstract(MTMBSegment **this, uint64_t a2, uint64_t a3, BOOL a4)
 {
-  v2 = *this;
-  v3 = (this[2] & 0x80000000) == 0 || *(v2 - 1) == -1091585519 && *(v2 + *(this + 5)) == -1091585519;
-  MTMBSegment::Abstract(v2, *(this + 4), v3);
+  v5 = *this;
+  v6 = (this[2] & 0x80000000) == 0 || *(v5 - 1) == -1091585519 && *(v5 + *(this + 5)) == -1091585519;
+  MTMBSegment::Abstract(v5, *(this + 4), v6);
   return &MTMBSegment::Abstract(float const*,int,BOOL)::sBuf;
 }
 
@@ -9836,4 +9752,62 @@ LABEL_83:
   }
 
   return &MTMBSegment::Abstract(float const*,int,BOOL)::sBuf;
+}
+
+float MTMBSegment::RawPower(MTMBSegment *this)
+{
+  v2 = *(this + 4);
+  if (!v2 || (*(this + 8) & 1) == 0)
+  {
+    return 0.0;
+  }
+
+  v4 = cblas_sdot(v2, *this, 1, *this, 1);
+  LOWORD(v5) = *(this + 4);
+  return sqrtf(v4 / v5);
+}
+
+float MTMBSegment::LinPower(const float **this)
+{
+  v2 = *(this + 4);
+  result = 0.0;
+  if (v2)
+  {
+    if (this[2])
+    {
+      v4 = cblas_sdot(v2, *this, 1, *this, 1);
+      LOWORD(v5) = *(this + 4);
+      return v4 / v5;
+    }
+  }
+
+  return result;
+}
+
+MTFESpeechElement *MTMBSegment::Check(MTFESpeechElement *this)
+{
+  if (SLOWORD(this->var3) < 0 && (*(this->var0 - 1) != -1091585519 || *(this->var0 + *&this->var2) != -1091585519))
+  {
+
+    return MTBEAbort(0);
+  }
+
+  return this;
+}
+
+void MTMBDemiProperties::MTMBDemiProperties(MTMBDemiProperties *this)
+{
+  *this = 1;
+  *(this + 6) = 0;
+  *(this + 17) = 0;
+  *(this + 9) = 1065353216;
+  *(this + 80) = 0;
+}
+
+{
+  *this = 1;
+  *(this + 6) = 0;
+  *(this + 17) = 0;
+  *(this + 9) = 1065353216;
+  *(this + 80) = 0;
 }

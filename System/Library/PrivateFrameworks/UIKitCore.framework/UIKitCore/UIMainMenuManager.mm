@@ -375,7 +375,7 @@ void __88___UIMainMenuManager__categoryMenuIdentifierForInvokedKeyboardShortcutM
   {
     v8 = *(a1 + 32);
     v9 = [v10 _localClientMenuLeaf];
-    LODWORD(v8) = [v8 isEqual:v9];
+    LODWORD(v8) = objc_msgSend_isEqual_(v8);
 
     if (v8)
     {

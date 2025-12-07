@@ -197,7 +197,7 @@ LABEL_38:
   }
 
   outputImage = [(PIParallaxStyleEvaluationContext *)v9 outputImage];
-  [v61 extent];
+  objc_msgSend_extent(v61);
   v28 = [outputImage imageByCroppingToRect:?];
 
   if (!v28)

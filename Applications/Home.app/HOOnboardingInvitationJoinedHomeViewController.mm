@@ -5,6 +5,8 @@
 - (HOOnboardingInvitationJoinedHomeViewController)initWithIncomingInvitation:(id)invitation delegate:(id)delegate;
 - (void)_continueButtonTapped:(id)tapped;
 - (void)nextButtonPressed;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOOnboardingInvitationJoinedHomeViewController
@@ -52,6 +54,49 @@
   }
 
   return v12;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = HOOnboardingInvitationJoinedHomeViewController;
+  [(HOOnboardingInvitationJoinedHomeViewController *)&v9 viewWillAppear:appear];
+  v4 = HFLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    invitation = [(HOOnboardingInvitationJoinedHomeViewController *)self invitation];
+    hf_prettyDescription = [invitation hf_prettyDescription];
+    *buf = 136315394;
+    v11 = "[HOOnboardingInvitationJoinedHomeViewController viewWillAppear:]";
+    v12 = 2112;
+    v13 = hf_prettyDescription;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(%s) invitation = %@.", buf, 0x16u);
+  }
+
+  [(HOOnboardingInvitationJoinedHomeViewController *)self setDidUserTriggerOnboardingDismissal:0];
+  v7 = +[UIColor systemGray4Color];
+  headerView = [(HOOnboardingInvitationJoinedHomeViewController *)self headerView];
+  [headerView setTintColor:v7];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    invitation = [(HOOnboardingInvitationJoinedHomeViewController *)self invitation];
+    hf_prettyDescription = [invitation hf_prettyDescription];
+    *buf = 136315394;
+    v10 = "[HOOnboardingInvitationJoinedHomeViewController viewWillDisappear:]";
+    v11 = 2112;
+    v12 = hf_prettyDescription;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "(%s) invitation = %@", buf, 0x16u);
+  }
+
+  v8.receiver = self;
+  v8.super_class = HOOnboardingInvitationJoinedHomeViewController;
+  [(HOOnboardingInvitationJoinedHomeViewController *)&v8 viewWillDisappear:disappearCopy];
 }
 
 - (void)_continueButtonTapped:(id)tapped

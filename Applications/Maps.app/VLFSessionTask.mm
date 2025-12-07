@@ -168,7 +168,7 @@
     memset(buf, 0, sizeof(buf));
     if (originalUserState)
     {
-      [originalUserState originalUserTrackingBehavior];
+      objc_msgSend_originalUserTrackingBehavior(originalUserState);
     }
 
     if ([v13 originalUserTrackingMode] || wasLastLocalizationSuccessful)
@@ -691,7 +691,7 @@ LABEL_9:
     v13 = mapView3;
     if (mapView3)
     {
-      [mapView3 _userTrackingBehavior];
+      objc_msgSend__userTrackingBehavior(mapView3);
     }
 
     else
@@ -710,7 +710,7 @@ LABEL_9:
     v15 = originalUserState;
     if (originalUserState)
     {
-      [originalUserState originalUserTrackingBehavior];
+      objc_msgSend_originalUserTrackingBehavior(originalUserState);
     }
 
     else

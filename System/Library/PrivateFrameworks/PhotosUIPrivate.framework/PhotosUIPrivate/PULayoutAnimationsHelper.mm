@@ -59,7 +59,7 @@ void __65__PULayoutAnimationsHelper__applyDefaultLayoutAttributes_toView___block
   v11 = *(a1 + 40);
   if (v11)
   {
-    [v11 transform3D];
+    objc_msgSend_transform3D(v11);
   }
 
   else
@@ -136,7 +136,7 @@ void __65__PULayoutAnimationsHelper__applyDefaultLayoutAttributes_toView___block
 
   if (attributesCopy)
   {
-    [attributesCopy transform3D];
+    objc_msgSend_transform3D(attributesCopy);
   }
 
   else
@@ -148,7 +148,7 @@ void __65__PULayoutAnimationsHelper__applyDefaultLayoutAttributes_toView___block
   v38 = layer2;
   if (layer2)
   {
-    [layer2 transform];
+    objc_msgSend_transform(layer2);
   }
 
   else
@@ -533,8 +533,8 @@ uint64_t __103__PULayoutAnimationsHelper__configureAnimationsForReusableView_toL
 {
   animationCopy = animation;
   viewCopy = view;
-  indexPath = [attributes indexPath];
-  section = [indexPath section];
+  v10 = objc_msgSend_indexPath(attributes);
+  section = [v10 section];
 
   if (section == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -1054,7 +1054,7 @@ void __116__PULayoutAnimationsHelper_stackedTransitionAnimationsForReusableView_
   v9 = *(a1 + 40);
   if (v9)
   {
-    [v9 transform3D];
+    objc_msgSend_transform3D(v9);
   }
 
   else

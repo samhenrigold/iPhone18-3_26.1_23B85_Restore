@@ -446,7 +446,7 @@ LABEL_22:
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __70__PSSpecifierGroupIndex__manuallyFindSection_row_forSpecifierAtIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__70__PSSpecifierGroupIndex__manuallyFindSection_row_forSpecifierAtIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 cellType];
   if (!result)
@@ -539,16 +539,16 @@ LABEL_9:
   _Block_object_dispose(&v17, 8);
 }
 
-uint64_t __95__PSSpecifierGroupIndex__getSection_row_forSpecifierAtIndex_forInsertion_allowGroupSpecifiers___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+char *__95__PSSpecifierGroupIndex__getSection_row_forSpecifierAtIndex_forInsertion_allowGroupSpecifiers___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   ++*(*(a1[5] + 8) + 24);
   result = [a2 count];
   v8 = *(a1[5] + 8);
   v9 = *(v8 + 24);
   v10 = a1[7] - v9;
-  if (v10 >= a1[8] + result)
+  if (v10 >= &result[a1[8]])
   {
-    *(v8 + 24) = v9 + result;
+    *(v8 + 24) = &result[v9];
   }
 
   else
@@ -610,7 +610,7 @@ uint64_t __69__PSSpecifierGroupIndex__indexOfSpecifierInSection_row_forInsertion
   else
   {
     result = [a2 count];
-    *(*(*(v4 + 32) + 8) + 24) += result;
+    *(*(v4[4] + 8) + 24) += result;
   }
 
   return result;
@@ -887,7 +887,7 @@ void __61__PSSpecifierGroupIndex__synthesizedSpecifiersFromGroupIndex__block_inv
   [v14 appendFormat:@"%@}", v10, v15, v16, v17, v18];
 }
 
-void __73__PSSpecifierGroupIndex__appendDescriptionOfArray_toString_withTabLevel___block_invoke(void *a1, void *a2, unint64_t a3)
+void __73__PSSpecifierGroupIndex__appendDescriptionOfArray_toString_withTabLevel___block_invoke(void *a1, void *a2, char *a3)
 {
   v4 = a1[4];
   v5 = a1[5];
@@ -948,7 +948,7 @@ void __73__PSSpecifierGroupIndex__appendDescriptionOfArray_toString_withTabLevel
   return v10;
 }
 
-uint64_t __36__PSSpecifierGroupIndex_description__block_invoke(uint64_t a1, void *a2, unint64_t a3)
+uint64_t __36__PSSpecifierGroupIndex_description__block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = *(a1 + 32);
   v6 = *(*(a1 + 40) + 24);

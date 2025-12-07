@@ -371,7 +371,7 @@
     }
 
 LABEL_13:
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AXSoundEffect was not recognized");
     v7 = 0;
     goto LABEL_18;
   }

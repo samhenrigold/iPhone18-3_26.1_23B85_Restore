@@ -57,9 +57,8 @@ LABEL_6:
 {
   v9 = sub_195FA0478();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_195FA0428();
   if (attributes)
   {
@@ -69,8 +68,8 @@ LABEL_6:
   }
 
   selfCopy = self;
-  sub_195F3BA78(v13, directories, attributes);
-  (*(v10 + 8))(v13, v9);
+  sub_195F3BA78(v12, directories, attributes);
+  (*(v10 + 8))(v12, v9);
 
   return 1;
 }
@@ -96,61 +95,59 @@ LABEL_6:
 {
   v5 = sub_195FA0478();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_195FA0428();
   selfCopy = self;
-  sub_195F3C148();
-  (*(v6 + 8))(v9, v5);
+  sub_195F3C148(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
 
 - (BOOL)removeItemAtPath:(id)path error:(id *)error
 {
-  sub_195FA08B8();
+  v5 = sub_195FA08B8();
+  v7 = v6;
   selfCopy = self;
-  sub_195F3C4C0();
+  sub_195F3C4C0(v5, v7);
 
   return 1;
 }
 
 - (id)URLForDirectory:(unint64_t)directory inDomain:(unint64_t)domain appropriateForURL:(id)l create:(BOOL)create error:(id *)error
 {
-  v27[0] = error;
+  v25[0] = error;
   createCopy = create;
   v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAEEDAC8, &unk_195FACC70);
-  v13 = *(*(v12 - 8) + 64);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v15 = v27 - v14;
-  v16 = sub_195FA0478();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  v19 = MEMORY[0x1EEE9AC00](v16);
-  v21 = v27 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v23 = v27 - v22;
+  v14 = v25 - v13;
+  v15 = sub_195FA0478();
+  v16 = *(v15 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v15);
+  v19 = v25 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v21 = v25 - v20;
   if (l)
   {
     sub_195FA0428();
-    (*(v17 + 32))(v15, v21, v16);
-    (*(v17 + 56))(v15, 0, 1, v16);
+    (*(v16 + 32))(v14, v19, v15);
+    (*(v16 + 56))(v14, 0, 1, v15);
   }
 
   else
   {
-    (*(v17 + 56))(v15, 1, 1, v16);
+    (*(v16 + 56))(v14, 1, 1, v15);
   }
 
   selfCopy = self;
-  sub_195F3D14C(directory, domain, v15, createCopy, v23);
-  sub_195F3AE44(v15);
+  sub_195F3D14C(directory, domain, v14, createCopy, v21);
+  sub_195F3AE44(v14);
 
-  v25 = sub_195FA0398();
-  (*(v17 + 8))(v23, v16);
+  v23 = sub_195FA0398();
+  (*(v16 + 8))(v21, v15);
 
-  return v25;
+  return v23;
 }
 
 - (_TtC14ChronoServices18AuditedFileManager)init

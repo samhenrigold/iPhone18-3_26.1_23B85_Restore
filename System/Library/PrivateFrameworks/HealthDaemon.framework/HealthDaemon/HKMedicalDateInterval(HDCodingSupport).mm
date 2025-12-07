@@ -7,7 +7,7 @@
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -31,23 +31,23 @@
     {
       if (v7)
       {
-        v20 = 0;
-        v11 = [MEMORY[0x277CCD5E0] medicalDateIntervalWithStartDate:v7 endDate:v10 error:&v20];
-        v12 = v20;
+        v19 = 0;
+        v11 = [MEMORY[0x277CCD5E0] medicalDateIntervalWithStartDate:v7 endDate:v10 error:&v19];
+        v12 = v19;
         if (!v11)
         {
           _HKInitializeLogging();
           v13 = *MEMORY[0x277CCC2C0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
-            v17 = v13;
-            v18 = objc_opt_class();
+            v16 = v13;
+            v17 = objc_opt_class();
             *buf = 138412546;
-            v22 = v18;
-            v23 = 2112;
-            v24 = v12;
-            v19 = v18;
-            _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%@: Unable to create HKMedicalDateInterval from codable, error: %@", buf, 0x16u);
+            v21 = v17;
+            v22 = 2112;
+            v23 = v12;
+            v18 = v17;
+            _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%@: Unable to create HKMedicalDateInterval from codable, error: %@", buf, 0x16u);
           }
         }
 
@@ -72,7 +72,6 @@ LABEL_15:
 LABEL_16:
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

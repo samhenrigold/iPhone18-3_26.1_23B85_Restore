@@ -162,7 +162,7 @@ LABEL_22:
   v15[0] = qword_1EB41BD28;
   v14[0] = @"hostuuid";
   v14[1] = @"hostname";
-  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&unk_1EB41BC24];
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:byte_1EB41BC24];
   v15[1] = v2;
   v14[2] = @"pid";
   v3 = [MEMORY[0x1E696AD98] numberWithInt:processInfo];

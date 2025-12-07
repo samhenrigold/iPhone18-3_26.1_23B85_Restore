@@ -234,7 +234,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -254,7 +253,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  beganTimestamp = self->_beganTimestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -269,7 +267,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  endedTimestamp = self->_endedTimestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -284,7 +281,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  gotIPTimestamp = self->_gotIPTimestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -299,7 +295,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  state = self->_state;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -314,12 +309,10 @@ LABEL_7:
   }
 
 LABEL_18:
-  errors = self->_errors;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_8:
-    trigger = self->_trigger;
     PBDataWriterWriteUint32Field();
   }
 
@@ -327,15 +320,14 @@ LABEL_9:
   p_channelScanCounts = &self->_channelScanCounts;
   if (p_channelScanCounts->count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = p_channelScanCounts->list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v6;
     }
 
-    while (v7 < p_channelScanCounts->count);
+    while (v6 < p_channelScanCounts->count);
   }
 }
 
@@ -557,7 +549,6 @@ LABEL_9:
     return 0;
   }
 
-  v5 = *(equal + 76);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equal + 76) & 8) == 0 || self->_timestamp != *(equal + 7))

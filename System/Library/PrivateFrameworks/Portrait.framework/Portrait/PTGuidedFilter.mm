@@ -13,19 +13,19 @@
 - (PTGuidedFilter)initWithMetalContext:(id)context inputSize:(id *)size epsilon:(float)epsilon
 {
   contextCopy = context;
-  v99.receiver = self;
-  v99.super_class = PTGuidedFilter;
-  v9 = [(PTGuidedFilter *)&v99 init];
+  v107.receiver = self;
+  v107.super_class = PTGuidedFilter;
+  v9 = [(PTGuidedFilter *)&v107 init];
   v10 = v9;
   if (!v9)
   {
-    v30 = 0;
+    v33 = 0;
     goto LABEL_33;
   }
 
-  v97 = 1;
-  v98 = 0;
-  v96 = 0;
+  v105 = 1;
+  v106 = 0;
+  v104 = 0;
   v9->_edgeTolerance = 1.0;
   *&v9->_useHighresGuideForComputingCoefficients = 0;
   v11 = objc_opt_new();
@@ -33,162 +33,162 @@
   [v11 setConstantFloat:@"kFilterEpsilon_float" withName:v12];
   LODWORD(v13) = 981668463;
   [v11 setConstantFloat:@"kFilterWeightEpsilon_float" withName:v13];
-  [v11 setConstantValue:&v97 type:29 withName:@"kFilterRadius"];
-  [v11 setConstantValue:&v98 type:29 withName:@"kFilterSamplePattern"];
-  [v11 setConstantValue:&v96 type:53 withName:@"kFilterSqrtGuide"];
+  [v11 setConstantValue:&v105 type:29 withName:@"kFilterRadius"];
+  [v11 setConstantValue:&v106 type:29 withName:@"kFilterSamplePattern"];
+  [v11 setConstantValue:&v104 type:53 withName:@"kFilterSqrtGuide"];
   v14 = [contextCopy computePipelineStateFor:@"guidedFilterAverageUpsamplingCoefficients" withConstants:v11];
   averageUpsamplingCoefficients = v10->_averageUpsamplingCoefficients;
   v10->_averageUpsamplingCoefficients = v14;
 
   if (v10->_averageUpsamplingCoefficients)
   {
-    v16 = (v98 - 5) >= 5;
-    v10->_useWeightedSampling = (v98 - 5) < 5;
-    if (v16)
+    v17 = (v106 - 5) >= 5;
+    v10->_useWeightedSampling = (v106 - 5) < 5;
+    if (v17)
     {
-      v38 = [contextCopy computePipelineStateFor:@"guidedFilterComputeUpsamplingCoefficients" withConstants:v11];
+      v41 = [contextCopy computePipelineStateFor:@"guidedFilterComputeUpsamplingCoefficients" withConstants:v11];
       computeUpsamplingCoefficients = v10->_computeUpsamplingCoefficients;
-      v10->_computeUpsamplingCoefficients = v38;
+      v10->_computeUpsamplingCoefficients = v41;
 
       if (v10->_computeUpsamplingCoefficients)
       {
         goto LABEL_12;
       }
 
-      v22 = _PTLogSystem();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v25 = _PTLogSystem(v43);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(PTGuidedFilter *)v22 initWithMetalContext:v66 inputSize:v67 epsilon:v68, v69, v70, v71, v72];
+        [(PTGuidedFilter *)v25 initWithMetalContext:v74 inputSize:v75 epsilon:v76, v77, v78, v79, v80];
       }
     }
 
     else
     {
-      v17 = [contextCopy computePipelineStateFor:@"computeWeightedUpsamplingCoefficients" withConstants:v11];
+      v18 = [contextCopy computePipelineStateFor:@"computeWeightedUpsamplingCoefficients" withConstants:v11];
       computeWeightedUpsamplingCoefficients = v10->_computeWeightedUpsamplingCoefficients;
-      v10->_computeWeightedUpsamplingCoefficients = v17;
+      v10->_computeWeightedUpsamplingCoefficients = v18;
 
       if (v10->_computeWeightedUpsamplingCoefficients)
       {
         textureUtil = [contextCopy textureUtil];
-        v20 = [textureUtil createWithWidth:size->var0 height:size->var1 pixelFormat:10];
+        v22 = [textureUtil createWithWidth:size->var0 height:size->var1 pixelFormat:10];
         edges = v10->_edges;
-        v10->_edges = v20;
+        v10->_edges = v22;
 
         if (!v10->_edges)
         {
-          v22 = _PTLogSystem();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v25 = _PTLogSystem(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            [(PTGuidedFilter *)v22 initWithMetalContext:v23 inputSize:v24 epsilon:v25, v26, v27, v28, v29];
+            [(PTGuidedFilter *)v25 initWithMetalContext:v26 inputSize:v27 epsilon:v28, v29, v30, v31, v32];
           }
 
           goto LABEL_31;
         }
 
 LABEL_12:
-        v95 = 0;
+        v103 = 0;
         applyUpsamplingCoefficients = v10->_applyUpsamplingCoefficients;
         do
         {
-          [v11 setConstantValue:&v95 type:33 withName:@"kFilterMode"];
-          v41 = [contextCopy computePipelineStateFor:@"guidedFilterApplyUpsamplingCoefficients" withConstants:v11];
-          v42 = applyUpsamplingCoefficients[v95];
-          applyUpsamplingCoefficients[v95] = v41;
+          [v11 setConstantValue:&v103 type:33 withName:@"kFilterMode"];
+          v45 = [contextCopy computePipelineStateFor:@"guidedFilterApplyUpsamplingCoefficients" withConstants:v11];
+          v46 = applyUpsamplingCoefficients[v103];
+          applyUpsamplingCoefficients[v103] = v45;
 
-          v43 = v95;
-          if (!applyUpsamplingCoefficients[v95])
+          v48 = v103;
+          if (!applyUpsamplingCoefficients[v103])
           {
-            v22 = _PTLogSystem();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v25 = _PTLogSystem(v47);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              [(PTGuidedFilter *)v22 initWithMetalContext:v52 inputSize:v53 epsilon:v54, v55, v56, v57, v58];
+              [(PTGuidedFilter *)v25 initWithMetalContext:v60 inputSize:v61 epsilon:v62, v63, v64, v65, v66];
             }
 
             goto LABEL_31;
           }
 
-          ++v95;
+          ++v103;
         }
 
-        while ((v43 + 1) <= 2);
+        while ((v48 + 1) <= 2);
         textureUtil2 = [contextCopy textureUtil];
-        v45 = [textureUtil2 createWithWidth:size->var0 height:size->var1 pixelFormat:115];
+        v50 = [textureUtil2 createWithWidth:size->var0 height:size->var1 pixelFormat:115];
         coeffTexture = v10->_coeffTexture;
-        v10->_coeffTexture = v45;
+        v10->_coeffTexture = v50;
 
         if (v10->_coeffTexture)
         {
           textureUtil3 = [contextCopy textureUtil];
-          v48 = [textureUtil3 createWithWidth:size->var0 height:size->var1 pixelFormat:115];
+          v54 = [textureUtil3 createWithWidth:size->var0 height:size->var1 pixelFormat:115];
           coeffAveragedTexture = v10->_coeffAveragedTexture;
-          v10->_coeffAveragedTexture = v48;
+          v10->_coeffAveragedTexture = v54;
 
           if (v10->_coeffAveragedTexture)
           {
-            v50 = [[PTRaytracingUtils alloc] initWithMetalContext:contextCopy];
+            v57 = [[PTRaytracingUtils alloc] initWithMetalContext:contextCopy];
             utils = v10->_utils;
-            v10->_utils = v50;
+            v10->_utils = v57;
 
             if (v10->_utils)
             {
-              v30 = v10;
+              v33 = v10;
               goto LABEL_32;
             }
 
-            v22 = _PTLogSystem();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v25 = _PTLogSystem(v59);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              [(PTGuidedFilter *)v22 initWithMetalContext:v87 inputSize:v88 epsilon:v89, v90, v91, v92, v93];
+              [(PTGuidedFilter *)v25 initWithMetalContext:v95 inputSize:v96 epsilon:v97, v98, v99, v100, v101];
             }
           }
 
           else
           {
-            v22 = _PTLogSystem();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v25 = _PTLogSystem(v56);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              [(PTGuidedFilter *)v22 initWithMetalContext:v80 inputSize:v81 epsilon:v82, v83, v84, v85, v86];
+              [(PTGuidedFilter *)v25 initWithMetalContext:v88 inputSize:v89 epsilon:v90, v91, v92, v93, v94];
             }
           }
         }
 
         else
         {
-          v22 = _PTLogSystem();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v25 = _PTLogSystem(v52);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            [(PTGuidedFilter *)v22 initWithMetalContext:v73 inputSize:v74 epsilon:v75, v76, v77, v78, v79];
+            [(PTGuidedFilter *)v25 initWithMetalContext:v81 inputSize:v82 epsilon:v83, v84, v85, v86, v87];
           }
         }
 
         goto LABEL_31;
       }
 
-      v22 = _PTLogSystem();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v25 = _PTLogSystem(v20);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(PTGuidedFilter *)v22 initWithMetalContext:v59 inputSize:v60 epsilon:v61, v62, v63, v64, v65];
+        [(PTGuidedFilter *)v25 initWithMetalContext:v67 inputSize:v68 epsilon:v69, v70, v71, v72, v73];
       }
     }
   }
 
   else
   {
-    v22 = _PTLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v25 = _PTLogSystem(v16);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(PTGuidedFilter *)v22 initWithMetalContext:v31 inputSize:v32 epsilon:v33, v34, v35, v36, v37];
+      [(PTGuidedFilter *)v25 initWithMetalContext:v34 inputSize:v35 epsilon:v36, v37, v38, v39, v40];
     }
   }
 
 LABEL_31:
 
-  v30 = 0;
+  v33 = 0;
 LABEL_32:
 
 LABEL_33:
-  return v30;
+  return v33;
 }
 
 - (int)guidedFilter:(id)filter image:(id)image guideRGBACoefficients:(id)coefficients guideRGBAUpscale:(id)upscale upscaledImage:(id)upscaledImage sourceColorBitDepth:(int)depth postModifierPtr:(PTPostModifier *)ptr
@@ -220,10 +220,11 @@ LABEL_33:
   v21 = [arrayCopy count];
   if (bufferCopy || v21 != 1)
   {
-    if (bufferCopy && [arrayCopy count] <= 2)
+    if (bufferCopy && (v21 = [arrayCopy count], v21 <= 2))
     {
       v24 = 3 * [arrayCopy count];
-      if ([bufferCopy length] >= (4 * v24))
+      v25 = [bufferCopy length];
+      if (v25 >= 4 * v24)
       {
         if ([arrayCopy count] == 1)
         {
@@ -238,19 +239,19 @@ LABEL_33:
         goto LABEL_4;
       }
 
-      v25 = _PTLogSystem();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = _PTLogSystem(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [PTGuidedFilter guidedFilter:bufferCopy image:4 * v24 guideRGBACoefficients:v25 guideRGBAUpscale:? upscaledImageArray:? sourceColorBitDepth:? postModifierBuffer:?];
+        [PTGuidedFilter guidedFilter:bufferCopy image:4 * v24 guideRGBACoefficients:v26 guideRGBAUpscale:? upscaledImageArray:? sourceColorBitDepth:? postModifierBuffer:?];
       }
     }
 
     else
     {
-      v25 = _PTLogSystem();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = _PTLogSystem(v21);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [PTGuidedFilter guidedFilter:arrayCopy image:v25 guideRGBACoefficients:? guideRGBAUpscale:? upscaledImageArray:? sourceColorBitDepth:? postModifierBuffer:?];
+        [PTGuidedFilter guidedFilter:arrayCopy image:v26 guideRGBACoefficients:? guideRGBAUpscale:? upscaledImageArray:? sourceColorBitDepth:? postModifierBuffer:?];
       }
     }
 
@@ -260,8 +261,8 @@ LABEL_33:
 
   v22 = 0;
 LABEL_4:
-  LODWORD(v27) = depth;
-  v23 = [(PTGuidedFilter *)self guidedFilter:filterCopy filterMode:v22 image:imageCopy guideRGBACoefficients:coefficientsCopy guideRGBAUpscale:upscaleCopy upscaledImageArray:arrayCopy sourceColorBitDepth:v27 postModifierBuffer:bufferCopy postModifierPtr:0];
+  LODWORD(v28) = depth;
+  v23 = [(PTGuidedFilter *)self guidedFilter:filterCopy filterMode:v22 image:imageCopy guideRGBACoefficients:coefficientsCopy guideRGBAUpscale:upscaleCopy upscaledImageArray:arrayCopy sourceColorBitDepth:v28 postModifierBuffer:bufferCopy postModifierPtr:0];
 LABEL_13:
 
   return v23;
@@ -338,7 +339,7 @@ LABEL_13:
   computeCommandEncoder = [coefficients computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v19 = _PTLogSystem();
+    v19 = _PTLogSystem(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v19 disparityApplyPostModifier:v20 inDisparity:v21 outDisparity:v22 postModifier:v23, v24, v25, v26];
@@ -378,7 +379,7 @@ LABEL_13:
   computeCommandEncoder = [coefficients computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v11 = _PTLogSystem();
+    v11 = _PTLogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v11 disparityApplyPostModifier:v12 inDisparity:v13 outDisparity:v14 postModifier:v15, v16, v17, v18];
@@ -411,7 +412,7 @@ LABEL_13:
   computeCommandEncoder = [coefficients computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v22 = _PTLogSystem();
+    v22 = _PTLogSystem(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v22 disparityApplyPostModifier:v23 inDisparity:v24 outDisparity:v25 postModifier:v26, v27, v28, v29];
@@ -453,6 +454,62 @@ LABEL_13:
   [computeCommandEncoder dispatchThreads:v37 threadsPerThreadgroup:&v35];
 
   [computeCommandEncoder endEncoding];
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_computeUpsamplingCoefficients";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_utils";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffAveragedTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_applyUpsamplingCoefficients[kFilterMode]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_edges";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_computeWeightedUpsamplingCoefficients";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 inputSize:(uint64_t)a4 epsilon:(uint64_t)a5 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_averageUpsamplingCoefficients";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)guidedFilter:(NSObject *)a3 image:guideRGBACoefficients:guideRGBAUpscale:upscaledImageArray:sourceColorBitDepth:postModifierBuffer:.cold.1(void *a1, uint64_t a2, NSObject *a3)

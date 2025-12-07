@@ -53,7 +53,7 @@
 - (void)postPackedMechanisms:(unint64_t)mechanisms
 {
   mechanismsCopy = mechanisms;
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   array = [MEMORY[0x1E695DF70] array];
@@ -124,13 +124,12 @@
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v10 = @"kPSStoreChangedMechanismsKey";
-  v11[0] = v6;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"kPSStoreChangedMechanismsKey";
+  v10[0] = v6;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [defaultCenter postNotificationName:@"PSStoreChangedNotification" object:0 userInfo:v8];
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

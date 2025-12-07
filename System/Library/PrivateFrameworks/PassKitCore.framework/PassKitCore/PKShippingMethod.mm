@@ -63,8 +63,8 @@ LABEL_7:
   [(PKProtobufShippingMethod *)v3 setCustomPrecisionAmount:v6];
 
   amount3 = [(PKPaymentSummaryItem *)self amount];
-  v8 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount3);
-  [(PKProtobufShippingMethod *)v3 setDecimalAmount:v8];
+  v9 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount3, v8);
+  [(PKProtobufShippingMethod *)v3 setDecimalAmount:v9];
 
   label = [(PKPaymentSummaryItem *)self label];
   [(PKProtobufShippingMethod *)v3 setLabel:label];
@@ -200,9 +200,9 @@ LABEL_7:
       goto LABEL_16;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_17;
     }
@@ -237,7 +237,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v16 = [(NSString *)v6 isEqualToString:v12];
+  v16 = objc_msgSend_isEqualToString_(v6);
 
   if (!v16)
   {

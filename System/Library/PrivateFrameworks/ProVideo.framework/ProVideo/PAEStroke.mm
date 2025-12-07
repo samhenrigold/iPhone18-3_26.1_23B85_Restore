@@ -327,94 +327,94 @@ LABEL_50:
     LOBYTE(v12) = 0;
     if ([input imageType] == 3 && v57)
     {
-      v85[0] = 0;
-      [v8 getIntValue:v85 fromParm:1 atFxTime:info->var0.var1];
-      v83 = 0;
-      v84 = 0;
-      v81 = 0;
+      v84[0] = 0;
+      [v8 getIntValue:v84 fromParm:1 atFxTime:info->var0.var1];
       v82 = 0;
-      [v8 getRedValue:&v84 greenValue:&v83 blueValue:&v82 alphaValue:&v81 fromParm:2 atFxTime:info->var0.var1];
-      v79 = 0;
+      v83 = 0.0;
       v80 = 0;
-      v77 = 0;
+      v81 = 0;
+      [v8 getRedValue:&v83 greenValue:&v82 blueValue:&v81 alphaValue:&v80 fromParm:2 atFxTime:info->var0.var1];
       v78 = 0;
+      v79 = 0;
       v76 = 0;
-      [v8 getGradientStartEnd:&v80 startY:&v79 endX:&v78 endY:&v77 type:&v76 fromParm:3 atFxTime:info->var0.var1];
-      v75 = 0.0;
-      [v8 getFloatValue:&v75 fromParm:4 atFxTime:info->var0.var1];
-      v74 = 0;
-      [v8 getIntValue:&v74 fromParm:5 atFxTime:info->var0.var1];
-      v73 = 0.0;
-      [v8 getFloatValue:&v73 fromParm:6 atFxTime:info->var0.var1];
+      v77 = 0;
+      v75 = 0;
+      [v8 getGradientStartEnd:&v79 startY:&v78 endX:&v77 endY:&v76 type:&v75 fromParm:3 atFxTime:info->var0.var1];
+      v74 = 0.0;
+      [v8 getFloatValue:&v74 fromParm:4 atFxTime:info->var0.var1];
+      v73 = 0;
+      [v8 getIntValue:&v73 fromParm:5 atFxTime:info->var0.var1];
       v72 = 0.0;
-      [v8 getFloatValue:&v72 fromParm:7 atFxTime:info->var0.var1];
-      v72 = fmin(fmax(v72, 0.01), 0.99);
-      v71 = 0;
-      [v8 getFloatValue:&v71 fromParm:8 atFxTime:info->var0.var1];
+      [v8 getFloatValue:&v72 fromParm:6 atFxTime:info->var0.var1];
+      v71 = 0.0;
+      [v8 getFloatValue:&v71 fromParm:7 atFxTime:info->var0.var1];
+      v71 = fmin(fmax(v71, 0.01), 0.99);
       v70 = 0;
-      [v8 getFloatValue:&v70 fromParm:9 atFxTime:info->var0.var1];
+      [v8 getFloatValue:&v70 fromParm:8 atFxTime:info->var0.var1];
       v69 = 0;
-      [v8 getFloatValue:&v69 fromParm:13 atFxTime:info->var0.var1];
+      [v8 getFloatValue:&v69 fromParm:9 atFxTime:info->var0.var1];
       v68 = 0;
-      [v8 getFloatValue:&v68 fromParm:10 atFxTime:info->var0.var1];
+      [v8 getFloatValue:&v68 fromParm:13 atFxTime:info->var0.var1];
       v67 = 0;
-      [v8 getBoolValue:&v67 fromParm:12 atFxTime:info->var0.var1];
+      [v8 getFloatValue:&v67 fromParm:10 atFxTime:info->var0.var1];
       v66 = 0;
-      [v8 getIntValue:&v66 fromParm:11 atFxTime:info->var0.var1];
+      [v8 getBoolValue:&v66 fromParm:12 atFxTime:info->var0.var1];
+      v65 = 0;
+      [v8 getIntValue:&v65 fromParm:11 atFxTime:info->var0.var1];
       if (input)
       {
-        [input heliumRef];
-        v64 = v65;
-        if (v65)
+        objc_msgSend_heliumRef(input);
+        v63 = v64;
+        if (v64)
         {
-          (*(*v65 + 16))(v65);
+          (*(*v64 + 16))(v64);
         }
       }
 
       else
       {
-        v65 = 0;
         v64 = 0;
+        v63 = 0;
       }
 
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-      HGTransform::HGTransform(v59);
-      HGTransform::Scale(v59, v60, v62, 1.0);
-      HGTransform::Translate(v59, v61, v63, 0.0);
+      objc_msgSend_getInversePixelTransformForImage_(self);
+      objc_msgSend_getPixelTransformForImage_(self);
+      HGTransform::HGTransform(v58);
+      HGTransform::Scale(v58, v59, v61, 1.0);
+      HGTransform::Translate(v58, v60, v62, 0.0);
       v13 = HGObject::operator new(0x210uLL);
       HGXForm::HGXForm(v13);
-      (*(*v13 + 576))(v13, v59);
-      (*(*v13 + 120))(v13, 0, v65);
-      if (v64 != v13)
+      (*(*v13 + 576))(v13, v58);
+      (*(*v13 + 120))(v13, 0, v64);
+      if (v63 != v13)
       {
-        if (v64)
+        if (v63)
         {
-          (*(*v64 + 24))();
+          (*(*v63 + 24))();
         }
 
-        v64 = v13;
+        v63 = v13;
         (*(*v13 + 16))(v13);
       }
 
-      v14 = v75 * -0.5;
-      if (v74 != 1)
+      v14 = v74 * -0.5;
+      if (v73 != 1)
       {
         v14 = 0.0;
       }
 
-      v15 = v75;
+      v15 = v74;
       v16 = -v15;
-      if (v74 == 2)
+      if (v73 == 2)
       {
         v14 = v16;
       }
 
-      v17 = v73 + v14;
-      v18 = v75 + v17;
+      v17 = v72 + v14;
+      v18 = v74 + v17;
       if (v18 >= 1.0 || v18 <= 0.0)
       {
-        v20 = v75 + v17;
+        v20 = v74 + v17;
       }
 
       else
@@ -443,13 +443,13 @@ LABEL_50:
       HMaskAlpha::HMaskAlpha(v23, v22);
       v56 = v23;
       (*(*v23 + 120))(v23, 0, v13);
-      v24 = v72;
+      v24 = v71;
       (*(*v23 + 96))(v23, 0, 0.0, v24, 0.0, 0.0);
       v25 = HGObject::operator new(0x1B0uLL);
       HMaskAlpha::HMaskAlpha(v25, v22);
       v55 = v25;
       (*(*v25 + 120))(v25, 0, v13);
-      v26 = v72;
+      v26 = v71;
       (*(*v25 + 96))(v25, 0, 1.0, v26, 0.0, 0.0);
       v27 = HGObject::operator new(0x1B0uLL);
       HGMPSImageEDT::HGMPSImageEDT(v27, vcvtps_s32_f32(v20 + 1.0));
@@ -477,23 +477,23 @@ LABEL_50:
       (*(*v36 + 96))(v36, 0, 1.0, -1.0, 0.0, 0.0);
       HGNode::SetOutputFormatComponents(v36, 4, v37);
       HGNode::SetSupportedFormatPrecisions(v36, 0xC, v38);
-      if (!v85[0])
+      if (!v84[0])
       {
         v52 = HGObject::operator new(0x1A0uLL);
         HgcColorAndGradientStroke::HgcColorAndGradientStroke(v52);
       }
 
-      if (v85[0] == 1)
+      if (v84[0] == 1)
       {
         v39 = 512.0;
       }
 
       else
       {
-        v39 = v75;
+        v39 = v74;
       }
 
-      v40 = HGRectMake4i(0, 0, v39, 1u);
+      v40 = HGRectMake4i(0, 0, v39, 1);
       v42 = v41;
       v12 = HGObject::operator new(0x80uLL);
       HGBitmap::HGBitmap(v12, v40, v42, 28);
@@ -528,13 +528,13 @@ LABEL_50:
       v50 = HGObject::operator new(0x1F0uLL);
       HGBitmapLoader::HGBitmapLoader(v50, v12);
       (*(*v50 + 136))(v50, 0xFFFFFFFFLL, 4);
-      if (v85[0] == 2)
+      if (v84[0] == 2)
       {
         v53 = HGObject::operator new(0x1A0uLL);
         HgcOutlineGradientStroke::HgcOutlineGradientStroke(v53);
       }
 
-      if (v85[0] == 1)
+      if (v84[0] == 1)
       {
         v51 = HGObject::operator new(0x1A0uLL);
         HgcColorAndGradientStroke::HgcColorAndGradientStroke(v51);
@@ -555,15 +555,15 @@ LABEL_50:
       (*(*v55 + 24))(v55);
       (*(*v56 + 24))(v56);
       (*(*v13 + 24))(v13);
-      HGTransform::~HGTransform(v59);
+      HGTransform::~HGTransform(v58);
+      if (v63)
+      {
+        (*(*v63 + 24))(v63);
+      }
+
       if (v64)
       {
         (*(*v64 + 24))(v64);
-      }
-
-      if (v65)
-      {
-        (*(*v65 + 24))(v65);
       }
     }
   }

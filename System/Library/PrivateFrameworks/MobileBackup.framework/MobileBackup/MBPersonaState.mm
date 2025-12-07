@@ -87,7 +87,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10003238C(v8);
+  sub_10003238C(v8, v9);
 }
 
 - (void)setUnboostManualBackupHandler:(id)handler
@@ -112,7 +112,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10003238C(v8);
+  sub_10003238C(v8, v9);
 }
 
 - (void)setDeviceForRestore:(id)restore
@@ -160,15 +160,13 @@
 
 - (OS_os_transaction)restoreTransaction
 {
-  v2 = *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_restoreTransaction);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setRestoreTransaction:(id)transaction
 {
-  v3 = *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_restoreTransaction);
   *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_restoreTransaction) = transaction;
   swift_unknownObjectRetain();
 
@@ -184,14 +182,13 @@
 
 - (NSDictionary)restoreKeyBagsByID
 {
-  v2 = *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_restoreKeyBagsByID);
   sub_100011314(0, &qword_10041EEA8, NSString_ptr);
   sub_100011314(0, &qword_10041F150, off_1003B99E8);
   sub_10003239C();
 
-  v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setRestoreKeyBagsByID:(id)d
@@ -199,9 +196,7 @@
   sub_100011314(0, &qword_10041EEA8, NSString_ptr);
   sub_100011314(0, &qword_10041F150, off_1003B99E8);
   sub_10003239C();
-  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_restoreKeyBagsByID);
-  *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_restoreKeyBagsByID) = v4;
+  *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_restoreKeyBagsByID) = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (void)setServiceGroup:(id)group
@@ -213,20 +208,17 @@
 
 - (NSArray)engines
 {
-  v2 = *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_engines);
   sub_100011314(0, &unk_10041F140, off_1003B99F8);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setEngines:(id)engines
 {
   sub_100011314(0, &unk_10041F140, off_1003B99F8);
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_engines);
-  *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_engines) = v4;
+  *(self + OBJC_IVAR____TtC7backupd14MBPersonaState_engines) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (void)setEnginesByContext:(id)context

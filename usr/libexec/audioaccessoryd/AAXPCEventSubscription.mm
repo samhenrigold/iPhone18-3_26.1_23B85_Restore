@@ -26,7 +26,7 @@
       {
         if (dword_1002F7310 <= 90 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001F991C();
+          sub_1001F991C(descriptorCopy);
         }
 
         v8 = 0;
@@ -45,7 +45,7 @@
     }
 
     v6 = CUPrintXPC();
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_1002F7310, "+[AAXPCEventSubscription subscriptionWithToken:descriptor:]", 90, "%@ is not a valid XPC event subscription descriptor", v6);
   }
 
   v8 = 0;
@@ -136,10 +136,10 @@ LABEL_5:
   v4 = matchesCopy;
   if (matchesCopy && xpc_get_type(matchesCopy) == &_xpc_type_array)
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
-    v14 = 0;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 0;
     GestaltGetDeviceClass();
     v5 = CUGestaltDeviceClassToString();
     applier[0] = _NSConcreteStackBlock;
@@ -147,26 +147,33 @@ LABEL_5:
     applier[2] = sub_1000D175C;
     applier[3] = &unk_1002BB238;
     applier[4] = v5;
-    applier[5] = &v11;
+    applier[5] = &v13;
     xpc_array_apply(v4, applier);
     if (dword_1002F7310 <= 30 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
     {
-      v6 = *(v12 + 24);
+      v6 = *(v14 + 24);
       v7 = CUPrintXPC();
-      LogPrintF_safe();
+      v8 = v7;
+      v9 = "does NOT match";
+      if (v6)
+      {
+        v9 = "matches";
+      }
+
+      LogPrintF_safe(&dword_1002F7310, "+[AAXPCEventSubscription _targetDeviceClassMatches:]", 30, "Current device class is %@, %s target device class %@", v5, v9, v7);
     }
 
-    v8 = *(v12 + 24);
+    v10 = *(v14 + 24);
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v13, 8);
   }
 
   else
   {
-    v8 = 1;
+    v10 = 1;
   }
 
-  return v8 & 1;
+  return v10 & 1;
 }
 
 - (void)deviceLost:(id)lost

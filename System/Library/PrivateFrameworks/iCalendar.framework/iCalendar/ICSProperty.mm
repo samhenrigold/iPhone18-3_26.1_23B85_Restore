@@ -20,7 +20,7 @@
 
 - (void)_ICSStringWithOptions:(unint64_t)options appendingToString:(id)string additionalParameters:(id)parameters
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   parametersCopy = parameters;
   v9 = MEMORY[0x277CBEB38];
@@ -33,37 +33,37 @@
     [v11 addEntriesFromDictionary:parametersCopy];
   }
 
-  v29 = parametersCopy;
+  v28 = parametersCopy;
   allKeys = [v11 allKeys];
   v13 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = v13;
-  v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   v15 = v11;
   if (v14)
   {
     v16 = v14;
-    v17 = *v35;
-    v32 = v15;
+    v17 = *v34;
+    v31 = v15;
     do
     {
       v18 = 0;
       do
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * v18);
+        v19 = *(*(&v33 + 1) + 8 * v18);
         optionsCopy2 = options;
         if ((options & 0x10) != 0)
         {
-          if ([(ICSProperty *)selfCopy shouldObscureParameter:*(*(&v34 + 1) + 8 * v18)])
+          if ([(ICSProperty *)selfCopy shouldObscureParameter:*(*(&v33 + 1) + 8 * v18)])
           {
             optionsCopy2 = options | 0x20;
           }
@@ -158,7 +158,7 @@ LABEL_30:
 
               [v22 appendString:@""];
 LABEL_31:
-              v15 = v32;
+              v15 = v31;
               goto LABEL_32;
             }
 
@@ -172,14 +172,12 @@ LABEL_32:
       }
 
       while (v16 != v18);
-      v27 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v27 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       v16 = v27;
     }
 
     while (v27);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__ICSProperty_ICSWriter___ICSStringWithOptions_appendingToString_additionalParameters___block_invoke()
@@ -198,7 +196,7 @@ uint64_t __87__ICSProperty_ICSWriter___ICSStringWithOptions_appendingToString_ad
 
   v8 = objc_alloc(MEMORY[0x277CBEA80]);
   v9 = [v8 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
-  v10 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
+  v10 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
   [v9 setTimeZone:v10];
 
   v11 = [v9 components:766 fromDate:v7];
@@ -565,8 +563,9 @@ LABEL_51:
 
 void __39__ICSProperty_valueAndParameterClasses__block_invoke()
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
@@ -609,13 +608,10 @@ void __39__ICSProperty_valueAndParameterClasses__block_invoke()
   v44 = objc_opt_class();
   v45 = objc_opt_class();
   v46 = objc_opt_class();
-  v47 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:43];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:43];
+  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45}];
   v3 = valueAndParameterClasses_valueAndParameterClasses;
   valueAndParameterClasses_valueAndParameterClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (ICSProperty)initWithCoder:(id)coder
@@ -1243,7 +1239,7 @@ LABEL_123:
           if (v52 == 92)
           {
             v57 = string;
-            v58 = @"\\"";
+            v58 = @"\";
 LABEL_117:
             [v57 appendString:v58];
             goto LABEL_118;

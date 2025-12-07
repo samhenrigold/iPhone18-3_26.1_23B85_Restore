@@ -40,40 +40,38 @@
 
 - (void)pluginsDidInstall:(id)install
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   installCopy = install;
   v5 = pklog_handle_for_category(6);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     wdriver = [(PKDiscoveryLSWatcher *)self wdriver];
-    v8 = 134218240;
-    v9 = wdriver;
-    v10 = 2048;
-    v11 = [installCopy count];
-    _os_log_impl(&dword_1C6892000, v5, OS_LOG_TYPE_DEFAULT, "<PKDiscoveryDriver:%p> new plugin(s) (count: %lu) installed, re-performing query for continuous discovery", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = wdriver;
+    v9 = 2048;
+    v10 = [installCopy count];
+    _os_log_impl(&dword_1C6892000, v5, OS_LOG_TYPE_DEFAULT, "<PKDiscoveryDriver:%p> new plugin(s) (count: %lu) installed, re-performing query for continuous discovery", &v7, 0x16u);
   }
 
   [(PKDiscoveryLSWatcher *)self update];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pluginsDidUninstall:(id)uninstall
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   uninstallCopy = uninstall;
   v5 = pklog_handle_for_category(6);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     wdriver = [(PKDiscoveryLSWatcher *)self wdriver];
-    v8 = 134218240;
-    v9 = wdriver;
-    v10 = 2048;
-    v11 = [uninstallCopy count];
-    _os_log_impl(&dword_1C6892000, v5, OS_LOG_TYPE_DEFAULT, "<PKDiscoveryDriver:%p> plugin(s) (count: %lu) uninstalled", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = wdriver;
+    v9 = 2048;
+    v10 = [uninstallCopy count];
+    _os_log_impl(&dword_1C6892000, v5, OS_LOG_TYPE_DEFAULT, "<PKDiscoveryDriver:%p> plugin(s) (count: %lu) uninstalled", &v7, 0x16u);
   }
 
   [(PKDiscoveryLSWatcher *)self updateWithUninstalledProxies:uninstallCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithUninstalledProxies:(id)proxies

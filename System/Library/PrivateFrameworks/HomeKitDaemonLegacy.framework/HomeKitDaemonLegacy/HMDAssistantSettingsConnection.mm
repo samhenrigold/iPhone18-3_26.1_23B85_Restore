@@ -26,7 +26,7 @@
 
 - (id)connectionForEndpointUUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -34,19 +34,18 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Device does not support siri endpoint history deletion", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Device does not support siri endpoint history deletion", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)deleteSiriHistoryWithEndpointUUID:(id)d completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -56,9 +55,9 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v11;
-    v32 = 2112;
-    v33 = dCopy;
+    v30 = v11;
+    v31 = 2112;
+    v32 = dCopy;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Deleting siri history for endpoint with uuid: %@", buf, 0x16u);
   }
 
@@ -71,18 +70,18 @@
     if (v14)
     {
       objc_initWeak(buf, v14);
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __86__HMDAssistantSettingsConnection_deleteSiriHistoryWithEndpointUUID_completionHandler___block_invoke;
-      v27[3] = &unk_279730E50;
-      objc_copyWeak(&v29, buf);
-      v27[4] = selfCopy;
-      v28 = handlerCopy;
-      [v14 setCompletionBlock:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __86__HMDAssistantSettingsConnection_deleteSiriHistoryWithEndpointUUID_completionHandler___block_invoke;
+      v26[3] = &unk_279730E50;
+      objc_copyWeak(&v28, buf);
+      v26[4] = selfCopy;
+      v27 = handlerCopy;
+      [v14 setCompletionBlock:v26];
       scheduler = [(HMDAssistantSettingsConnection *)selfCopy scheduler];
       v16 = [scheduler performOperation:v14];
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(buf);
     }
 
@@ -95,11 +94,11 @@
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v31 = v24;
-        v32 = 2112;
-        v33 = dCopy;
-        v34 = 2112;
-        v35 = dataSource;
+        v30 = v24;
+        v31 = 2112;
+        v32 = dCopy;
+        v33 = 2112;
+        v34 = dataSource;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to get a delete operation for endpoint uuid: %@ datasource: %@", buf, 0x20u);
       }
 
@@ -120,11 +119,11 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v31 = v20;
-      v32 = 2112;
-      v33 = dCopy;
-      v34 = 2112;
-      v35 = dataSource;
+      v30 = v20;
+      v31 = 2112;
+      v32 = dCopy;
+      v33 = 2112;
+      v34 = dataSource;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to get a connection for endpoint uuid: %@ datasource: %@", buf, 0x20u);
     }
 
@@ -132,13 +131,11 @@
     v14 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
     (*(handlerCopy + 2))(handlerCopy, v14);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HMDAssistantSettingsConnection_deleteSiriHistoryWithEndpointUUID_completionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained error];
   v4 = objc_autoreleasePoolPush();
@@ -150,26 +147,24 @@ void __86__HMDAssistantSettingsConnection_deleteSiriHistoryWithEndpointUUID_comp
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history operation completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history operation completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Delete siri history operation completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Delete siri history operation completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAssistantSettingsConnection)initWithScheduler:(id)scheduler
@@ -201,12 +196,11 @@ void __86__HMDAssistantSettingsConnection_deleteSiriHistoryWithEndpointUUID_comp
 
 uint64_t __45__HMDAssistantSettingsConnection_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_28786;
-  logCategory__hmf_once_v7_28786 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_28786;
+  logCategory__hmf_once_v7_28786 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -17,28 +17,28 @@
 
 - (id)_personNodesWithMomentNodes:(id)nodes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [nodesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [nodesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(nodesCopy);
         }
 
-        personNodes = [*(*(&v13 + 1) + 8 * i) personNodes];
+        personNodes = [*(*(&v12 + 1) + 8 * i) personNodes];
         v10 = personNodes;
         if (v6)
         {
@@ -56,7 +56,7 @@
         }
       }
 
-      v5 = [nodesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [nodesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -67,14 +67,12 @@
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_personTitleWithFeature:(id)feature graph:(id)graph serviceManager:(id)manager
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   graphCopy = graph;
   managerCopy = manager;
@@ -101,16 +99,14 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v18 = [featureCopy description];
-      v19 = 138412290;
-      v20 = v18;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGTitleSpecPeopleArgument] Could not fetch node in graph for feature %@", &v19, 0xCu);
+      v17 = [featureCopy description];
+      v18 = 138412290;
+      v19 = v17;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGTitleSpecPeopleArgument] Could not fetch node in graph for feature %@", &v18, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -145,7 +141,7 @@
 
 - (id)_groupTitleWithFeature:(id)feature graph:(id)graph allowedGroupsFormat:(unint64_t)format
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   v8 = [featureCopy nodeInGraph:graph];
   v9 = v8;
@@ -162,16 +158,14 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v16 = [featureCopy description];
-      v17 = 138412290;
-      v18 = v16;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGTitleSpecPeopleArgument] Could not fetch node in graph for feature %@", &v17, 0xCu);
+      v15 = [featureCopy description];
+      v16 = 138412290;
+      v17 = v15;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGTitleSpecPeopleArgument] Could not fetch node in graph for feature %@", &v16, 0xCu);
     }
 
     v11 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -217,20 +211,20 @@
 
 - (id)_resolvedStringWithMomentNodes:(id)nodes features:(id)features argumentEvaluationContext:(id)context
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   featuresCopy = features;
   contextCopy = context;
-  v37 = nodesCopy;
+  v36 = nodesCopy;
   anyObject = [nodesCopy anyObject];
   graph = [anyObject graph];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v12 = featuresCopy;
-  v13 = [v12 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (!v13)
   {
     v16 = 0;
@@ -239,21 +233,21 @@
 
   v15 = v13;
   v16 = 0;
-  v17 = *v41;
+  v17 = *v40;
   v18 = &OBJC_IVAR___PGMeaningfulEventMatchingCriteria__cache;
   *&v14 = 138412290;
-  v36 = v14;
-  v38 = v12;
+  v35 = v14;
+  v37 = v12;
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v41 != v17)
+      if (*v40 != v17)
       {
         objc_enumerationMutation(v12);
       }
 
-      v20 = *(*(&v40 + 1) + 8 * i);
+      v20 = *(*(&v39 + 1) + 8 * i);
       type = [v20 type];
       if (type == 3)
       {
@@ -290,14 +284,14 @@
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
           {
             v33 = [v20 description];
-            *buf = v36;
-            v45 = v33;
+            *buf = v35;
+            v44 = v33;
             _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGTitleSpecPeopleArgument] Could not fetch node in graph for feature %@", buf, 0xCu);
           }
         }
 
         graph = v28;
-        v12 = v38;
+        v12 = v37;
         v18 = &OBJC_IVAR___PGMeaningfulEventMatchingCriteria__cache;
       }
 
@@ -344,13 +338,11 @@ LABEL_25:
       }
     }
 
-    v15 = [v12 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v15 = [v12 countByEnumeratingWithState:&v39 objects:v45 count:16];
   }
 
   while (v15);
 LABEL_30:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

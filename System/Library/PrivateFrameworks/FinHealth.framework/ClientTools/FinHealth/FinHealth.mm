@@ -892,16 +892,15 @@ void sub_100002C80(uint64_t a1, void *a2, void *a3)
 {
   if (a3)
   {
-    v5 = [a3 description];
-    [v5 UTF8String];
+    v3 = [a3 description];
+    [v3 UTF8String];
     printf("Error: %s\n");
   }
 
   else
   {
-    v5 = [a2 description];
-    [v5 UTF8String];
-    v4 = *(a1 + 32);
+    v3 = [a2 description];
+    [v3 UTF8String];
     printf("Dispute document suggestions: %s\n for transaction id: %s \n");
   }
 }
@@ -1237,9 +1236,9 @@ void sub_100003A64(uint64_t a1)
   dispatch_after(v4, v5, &stru_1000085F8);
 }
 
-void sub_100003DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100003DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

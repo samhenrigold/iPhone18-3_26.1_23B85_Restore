@@ -17,17 +17,18 @@
 - (W5PeerDebugRequestPayload)initWithRequest:(id)request
 {
   requestCopy = request;
-  v19.receiver = self;
-  v19.super_class = W5PeerDebugRequestPayload;
-  v5 = [(W5PeerDebugRequestPayload *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = W5PeerDebugRequestPayload;
+  v5 = [(W5PeerDebugRequestPayload *)&v21 init];
   if (!v5 || (v6 = [requestCopy objectForKey:@"version"], (v5->_version = v6) == 0) || (objc_msgSend(requestCopy, "objectForKey:", @"type"), (v7 = objc_claimAutoreleasedReturnValue()) == 0))
   {
 
     v13 = sub_100098A04();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_send_and_compose_impl();
+      LOWORD(v22) = 0;
+      v19 = 2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v13, 0, "[wifivelocity] init error!", &v22, v19);
     }
 
     v8 = 0;
@@ -43,9 +44,9 @@
   {
     v10 = objc_opt_class();
     v11 = [NSSet setWithObjects:v10, objc_opt_class(), 0];
-    v18 = 0;
-    v12 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v9 error:&v18];
-    v13 = v18;
+    v20 = 0;
+    v12 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v9 error:&v20];
+    v13 = v20;
     configuration = v5->_configuration;
     v5->_configuration = v12;
 
@@ -54,9 +55,10 @@
       v15 = sub_100098A04();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138543362;
-        v21 = requestCopy;
-        _os_log_send_and_compose_impl();
+        v22 = 138543362;
+        v23 = requestCopy;
+        LODWORD(v18) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v15, 0, "[wifivelocity] failed to decode configuration from raw payload='%{public}@'", &v22, v18);
       }
     }
 
@@ -90,20 +92,18 @@ LABEL_9:
         if (configuration)
         {
           configuration2 = [(W5PeerDebugRequestPayload *)self configuration];
-          v18 = 0;
-          v9 = [NSKeyedArchiver archivedDataWithRootObject:configuration2 requiringSecureCoding:1 error:&v18];
-          v10 = v18;
+          v16 = 0;
+          v9 = [NSKeyedArchiver archivedDataWithRootObject:configuration2 requiringSecureCoding:1 error:&v16];
+          v10 = v16;
 
           if (v10 || !v9)
           {
             v11 = sub_100098A04();
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
-              v19 = 138543362;
-              v20 = v10;
-              LODWORD(v17) = 12;
-              v16 = &v19;
-              _os_log_send_and_compose_impl();
+              v17 = 138543362;
+              v18 = v10;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] failed to encode configuration with error='%{public}@'", &v17, 12);
             }
           }
 

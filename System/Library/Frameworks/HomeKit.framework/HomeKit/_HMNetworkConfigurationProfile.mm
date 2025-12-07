@@ -105,14 +105,14 @@ LABEL_6:
 
 - (void)_handleAccessViolationUpdated:(id)updated
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [updatedCopy dataForKey:@"access-violation"];
   if (v5)
   {
-    v15 = 0;
-    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v15];
-    v7 = v15;
+    v14 = 0;
+    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v14];
+    v7 = v14;
     if (v7)
     {
       v8 = objc_autoreleasePoolPush();
@@ -122,9 +122,9 @@ LABEL_6:
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v17 = v11;
-        v18 = 2112;
-        v19 = v7;
+        v16 = v11;
+        v17 = 2112;
+        v18 = v7;
         _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive accessory network access violation from access violation data: %@", buf, 0x16u);
       }
 
@@ -143,26 +143,24 @@ LABEL_6:
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleHostsUpdated:(id)updated
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [updatedCopy dataForKey:@"allowed"];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
     v8 = [v6 setWithArray:v7];
 
-    v20 = 0;
-    v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v8 fromData:v5 error:&v20];
-    v10 = v20;
+    v19 = 0;
+    v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v8 fromData:v5 error:&v19];
+    v10 = v19;
     if (v10)
     {
       v11 = objc_autoreleasePoolPush();
@@ -172,9 +170,9 @@ LABEL_6:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v14;
-        v23 = 2112;
-        v24 = v10;
+        v21 = v14;
+        v22 = 2112;
+        v23 = v10;
         _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive accessory allowed hosts from allowed hosts data: %@", buf, 0x16u);
       }
 
@@ -195,8 +193,6 @@ LABEL_6:
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyDelegateOfUpdatedWiFiCredentialType
@@ -303,28 +299,28 @@ LABEL_6:
 
 - (void)previewAllowedHostsForAutoProtectionModeWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(_HMAccessoryProfile *)self context];
   if (!handlerCopy)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMNetworkConfigurationProfile previewAllowedHostsForAutoProtectionModeWithCompletionHandler:]", @"completionHandler"];
-    v17 = objc_autoreleasePoolPush();
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMNetworkConfigurationProfile previewAllowedHostsForAutoProtectionModeWithCompletionHandler:]", @"completionHandler"];
+    v16 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *location = 138543618;
-      *&location[4] = v20;
-      v26 = 2112;
-      v27 = v16;
-      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+      *&location[4] = v19;
+      v25 = 2112;
+      v26 = v15;
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
-    objc_exception_throw(v21);
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
+    objc_exception_throw(v20);
   }
 
   v6 = context;
@@ -335,17 +331,17 @@ LABEL_6:
     v9 = [v7 messageWithName:@"HMNCP.pvAllowed" destination:messageDestination payload:0];
 
     objc_initWeak(location, self);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __96___HMNetworkConfigurationProfile_previewAllowedHostsForAutoProtectionModeWithCompletionHandler___block_invoke;
-    v22[3] = &unk_1E754CFF8;
-    objc_copyWeak(&v24, location);
-    v23 = handlerCopy;
-    [v9 setResponseHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __96___HMNetworkConfigurationProfile_previewAllowedHostsForAutoProtectionModeWithCompletionHandler___block_invoke;
+    v21[3] = &unk_1E754CFF8;
+    objc_copyWeak(&v23, location);
+    v22 = handlerCopy;
+    [v9 setResponseHandler:v21];
     messageDispatcher = [v6 messageDispatcher];
     [messageDispatcher sendMessage:v9];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(location);
   }
 
@@ -359,8 +355,8 @@ LABEL_6:
       v14 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v14;
-      v26 = 2080;
-      v27 = "[_HMNetworkConfigurationProfile previewAllowedHostsForAutoProtectionModeWithCompletionHandler:]";
+      v25 = 2080;
+      v26 = "[_HMNetworkConfigurationProfile previewAllowedHostsForAutoProtectionModeWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", location, 0x16u);
     }
 
@@ -368,35 +364,33 @@ LABEL_6:
     v9 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, 0, v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reconfigureWiFiWithOptions:(id)options completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   context = [(_HMAccessoryProfile *)self context];
   if (!handlerCopy)
   {
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMNetworkConfigurationProfile reconfigureWiFiWithOptions:completionHandler:]", @"completionHandler"];
-    v28 = objc_autoreleasePoolPush();
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMNetworkConfigurationProfile reconfigureWiFiWithOptions:completionHandler:]", @"completionHandler"];
+    v27 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v30 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v31 = HMFGetLogIdentifier();
+      v30 = HMFGetLogIdentifier();
       *location = 138543618;
-      *&location[4] = v31;
-      v39 = 2112;
-      v40 = v27;
-      _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+      *&location[4] = v30;
+      v38 = 2112;
+      v39 = v26;
+      _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v28);
-    v32 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v27 userInfo:0];
-    objc_exception_throw(v32);
+    objc_autoreleasePoolPop(v27);
+    v31 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v26 userInfo:0];
+    objc_exception_throw(v31);
   }
 
   v9 = context;
@@ -404,30 +398,30 @@ LABEL_6:
   {
     if ([(_HMNetworkConfigurationProfile *)self supportsWiFiReconfiguration])
     {
-      v36[0] = @"credential-type";
+      v35[0] = @"credential-type";
       v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(optionsCopy, "credentialType")}];
-      v36[1] = @"rotate";
-      v37[0] = v10;
+      v35[1] = @"rotate";
+      v36[0] = v10;
       v11 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(optionsCopy, "rotate")}];
-      v37[1] = v11;
-      context2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v36[1] = v11;
+      context2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
 
       v13 = MEMORY[0x1E69A2A10];
       messageDestination = [(_HMNetworkConfigurationProfile *)self messageDestination];
       v15 = [v13 messageWithName:@"HMNCP.wr" destination:messageDestination payload:context2];
 
       objc_initWeak(location, self);
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __79___HMNetworkConfigurationProfile_reconfigureWiFiWithOptions_completionHandler___block_invoke;
-      v33[3] = &unk_1E754CFF8;
-      objc_copyWeak(&v35, location);
-      v34 = handlerCopy;
-      [v15 setResponseHandler:v33];
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __79___HMNetworkConfigurationProfile_reconfigureWiFiWithOptions_completionHandler___block_invoke;
+      v32[3] = &unk_1E754CFF8;
+      objc_copyWeak(&v34, location);
+      v33 = handlerCopy;
+      [v15 setResponseHandler:v32];
       messageDispatcher = [v9 messageDispatcher];
       [messageDispatcher sendMessage:v15];
 
-      objc_destroyWeak(&v35);
+      objc_destroyWeak(&v34);
       objc_destroyWeak(location);
     }
 
@@ -461,8 +455,8 @@ LABEL_6:
       v20 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v20;
-      v39 = 2080;
-      v40 = "[_HMNetworkConfigurationProfile reconfigureWiFiWithOptions:completionHandler:]";
+      v38 = 2080;
+      v39 = "[_HMNetworkConfigurationProfile reconfigureWiFiWithOptions:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", location, 0x16u);
     }
 
@@ -470,8 +464,6 @@ LABEL_6:
     context2 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, context2);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
@@ -624,7 +616,7 @@ LABEL_23:
 
 - (void)setTargetProtectionMode:(int64_t)mode
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -632,20 +624,19 @@ LABEL_23:
   {
     v8 = HMFGetLogIdentifier();
     targetProtectionMode = selfCopy->_targetProtectionMode;
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2048;
-    v14 = targetProtectionMode;
-    v15 = 2048;
+    v10 = 138543874;
+    v11 = v8;
+    v12 = 2048;
+    v13 = targetProtectionMode;
+    v14 = 2048;
     modeCopy = mode;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Changing target protection mode from: %ld, to: %ld", &v11, 0x20u);
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Changing target protection mode from: %ld, to: %ld", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
   os_unfair_lock_lock_with_options();
   selfCopy->_targetProtectionMode = mode;
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)targetProtectionMode
@@ -674,7 +665,7 @@ LABEL_23:
 
 - (void)setCurrentProtectionMode:(int64_t)mode
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -682,20 +673,19 @@ LABEL_23:
   {
     v8 = HMFGetLogIdentifier();
     currentProtectionMode = selfCopy->_currentProtectionMode;
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2048;
-    v14 = currentProtectionMode;
-    v15 = 2048;
+    v10 = 138543874;
+    v11 = v8;
+    v12 = 2048;
+    v13 = currentProtectionMode;
+    v14 = 2048;
     modeCopy = mode;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Changing current protection mode from: %ld, to: %ld", &v11, 0x20u);
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Changing current protection mode from: %ld, to: %ld", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
   os_unfair_lock_lock_with_options();
   selfCopy->_currentProtectionMode = mode;
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)currentProtectionMode

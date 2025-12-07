@@ -9,6 +9,8 @@
 - (void)_updateVolume:(float)volume;
 - (void)dealloc;
 - (void)reload;
+- (void)setAppWantsVolumeChangeEvents:(BOOL)events;
+- (void)setCanChangeRingtoneWithButtons:(BOOL)buttons;
 - (void)setVolume:(float)volume;
 @end
 
@@ -31,45 +33,42 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SHSRingerControl dealloc]";
+    v6 = "[SHSRingerControl dealloc]";
     _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Start.", buf, 0xCu);
   }
 
   [(SHSRingerControl *)self _tearDown];
   __27__SHSRingerControl_dealloc__block_invoke();
-  v5.receiver = self;
-  v5.super_class = SHSRingerControl;
-  [(SHSRingerControl *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SHSRingerControl;
+  [(SHSRingerControl *)&v4 dealloc];
 }
 
 void __27__SHSRingerControl_dealloc__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl dealloc]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl dealloc]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setup
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[SHSRingerControl _setup]";
+    v13 = "[SHSRingerControl _setup]";
     _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Start.", buf, 0xCu);
   }
 
@@ -79,8 +78,8 @@ void __27__SHSRingerControl_dealloc__block_invoke()
   self->__systemController = mEMORY[0x277D26E58];
 
   v7 = MEMORY[0x277D26BA8];
-  v12 = *MEMORY[0x277D26BA8];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = *MEMORY[0x277D26BA8];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   [(AVSystemController *)self->__systemController setAttribute:v8 forKey:*MEMORY[0x277D26DD0] error:0];
   v9 = *v7;
   _systemController = [(SHSRingerControl *)self _systemController];
@@ -88,32 +87,29 @@ void __27__SHSRingerControl_dealloc__block_invoke()
 
   [defaultCenter addObserver:self selector:sel__handleServerConnectionDiedNotification_ name:*MEMORY[0x277D26D40] object:0];
   __26__SHSRingerControl__setup__block_invoke();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __26__SHSRingerControl__setup__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl _setup]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl _setup]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDown
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[SHSRingerControl _tearDown]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Start.", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[SHSRingerControl _tearDown]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Start.", &v7, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -124,38 +120,35 @@ void __26__SHSRingerControl__setup__block_invoke()
 
   [defaultCenter removeObserver:self name:*MEMORY[0x277D26D40] object:0];
   __29__SHSRingerControl__tearDown__block_invoke();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __29__SHSRingerControl__tearDown__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl _tearDown]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl _tearDown]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canChangeRingtoneWithButtons
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[SHSRingerControl canChangeRingtoneWithButtons]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Start.", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[SHSRingerControl canChangeRingtoneWithButtons]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Start.", &v7, 0xCu);
   }
 
-  LOBYTE(v8) = 0;
-  if (CFPreferencesGetAppBooleanValue(@"buttons-can-change-ringer-volume", @"com.apple.preferences.sounds", &v8))
+  LOBYTE(v7) = 0;
+  if (CFPreferencesGetAppBooleanValue(@"buttons-can-change-ringer-volume", @"com.apple.preferences.sounds", &v7))
   {
-    v4 = v8 == 0;
+    v4 = v7 == 0;
   }
 
   else
@@ -166,96 +159,119 @@ void __29__SHSRingerControl__tearDown__block_invoke()
   v5 = !v4;
   [(SHSRingerControl *)self setAppWantsVolumeChangeEvents:v5];
   __48__SHSRingerControl_canChangeRingtoneWithButtons__block_invoke();
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void __48__SHSRingerControl_canChangeRingtoneWithButtons__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl canChangeRingtoneWithButtons]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl canChangeRingtoneWithButtons]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
+  }
+}
+
+- (void)setCanChangeRingtoneWithButtons:(BOOL)buttons
+{
+  buttonsCopy = buttons;
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = SHSLogForCategory(1uLL);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 136315138;
+    v11 = "[SHSRingerControl setCanChangeRingtoneWithButtons:]";
+    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: Start.", &v10, 0xCu);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:buttonsCopy];
+  v7 = *MEMORY[0x277CBF040];
+  v8 = *MEMORY[0x277CBF010];
+  CFPreferencesSetValue(@"buttons-can-change-ringer-volume", v6, @"com.apple.preferences.sounds", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  CFPreferencesSynchronize(@"com.apple.preferences.sounds", v7, v8);
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.preferences.sounds.buttons-can-change-ringer-volume.changed", 0, 0, 1u);
+  [(SHSRingerControl *)self setAppWantsVolumeChangeEvents:buttonsCopy];
+  __52__SHSRingerControl_setCanChangeRingtoneWithButtons___block_invoke();
 }
 
 void __52__SHSRingerControl_setCanChangeRingtoneWithButtons___block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl setCanChangeRingtoneWithButtons:]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl setCanChangeRingtoneWithButtons:]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
+}
 
-  v1 = *MEMORY[0x277D85DE8];
+- (void)setAppWantsVolumeChangeEvents:(BOOL)events
+{
+  eventsCopy = events;
+  _systemController = [(SHSRingerControl *)self _systemController];
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:eventsCopy];
+  [_systemController setAttribute:v4 forKey:*MEMORY[0x277D26B28] error:0];
 }
 
 - (void)reload
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SHSRingerControl reload]";
+    v9 = "[SHSRingerControl reload]";
     _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Start.", buf, 0xCu);
   }
 
   [(SHSRingerControl *)self set_volumeInitialized:0];
-  v8 = 0.0;
+  v7 = 0.0;
   _systemController = [(SHSRingerControl *)self _systemController];
-  [_systemController getVolume:&v8 forCategory:@"RingtonePreview"];
+  [_systemController getVolume:&v7 forCategory:@"RingtonePreview"];
 
   v5 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "[SHSRingerControl reload]";
-    v11 = 2048;
-    v12 = v8;
+    v9 = "[SHSRingerControl reload]";
+    v10 = 2048;
+    v11 = v7;
     _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: Retrieved AVSystemController volume: %f.", buf, 0x16u);
   }
 
   if (![(SHSRingerControl *)self _volumeInitialized])
   {
-    *&v6 = v8;
+    *&v6 = v7;
     [(SHSRingerControl *)self _updateVolume:v6];
   }
 
   __26__SHSRingerControl_reload__block_invoke();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __26__SHSRingerControl_reload__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl reload]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl reload]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVolume:(float)volume
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SHSRingerControl setVolume:]";
+    v25 = "[SHSRingerControl setVolume:]";
     _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: Start.", buf, 0xCu);
   }
 
@@ -271,13 +287,13 @@ void __26__SHSRingerControl_reload__block_invoke()
         volume = self->_volume;
         _volumeChangeCoalescingCount = [(SHSRingerControl *)self _volumeChangeCoalescingCount];
         *buf = 136315906;
-        v26 = "[SHSRingerControl setVolume:]";
-        v27 = 2048;
+        v25 = "[SHSRingerControl setVolume:]";
+        v26 = 2048;
         volumeCopy = volume;
-        v29 = 2048;
+        v28 = 2048;
         volumeCopy6 = volume;
-        v31 = 2048;
-        v32 = _volumeChangeCoalescingCount;
+        v30 = 2048;
+        v31 = _volumeChangeCoalescingCount;
         _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s: (current: %f, newVolume: %f, coalescingCount: %ld).", buf, 0x2Au);
       }
 
@@ -291,13 +307,13 @@ void __26__SHSRingerControl_reload__block_invoke()
           v12 = self->_volume;
           _volumeChangeCoalescingCount2 = [(SHSRingerControl *)self _volumeChangeCoalescingCount];
           *buf = 136315906;
-          v26 = "[SHSRingerControl setVolume:]";
-          v27 = 2048;
+          v25 = "[SHSRingerControl setVolume:]";
+          v26 = 2048;
           volumeCopy = v12;
-          v29 = 2048;
+          v28 = 2048;
           volumeCopy6 = volume;
-          v31 = 2048;
-          v32 = _volumeChangeCoalescingCount2;
+          v30 = 2048;
+          v31 = _volumeChangeCoalescingCount2;
           v11 = "%s: Called while application state is 'Inactive' (current: %f, newVolume: %f, coalescingCount: %ld).";
           goto LABEL_12;
         }
@@ -307,20 +323,20 @@ LABEL_15:
         break;
       }
 
-      v17 = SHSLogForCategory(1uLL);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v16 = SHSLogForCategory(1uLL);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v19 = self->_volume;
+        v18 = self->_volume;
         _volumeChangeCoalescingCount3 = [(SHSRingerControl *)self _volumeChangeCoalescingCount];
         *buf = 136315906;
-        v26 = "[SHSRingerControl setVolume:]";
-        v27 = 2048;
-        volumeCopy = v19;
-        v29 = 2048;
+        v25 = "[SHSRingerControl setVolume:]";
+        v26 = 2048;
+        volumeCopy = v18;
+        v28 = 2048;
         volumeCopy6 = volume;
-        v31 = 2048;
-        v32 = _volumeChangeCoalescingCount3;
-        _os_log_fault_impl(&dword_265896000, v17, OS_LOG_TYPE_FAULT, "%s: Called while application state is 'Inactive' (current: %f, newVolume: %f, coalescingCount: %ld).", buf, 0x2Au);
+        v30 = 2048;
+        v31 = _volumeChangeCoalescingCount3;
+        _os_log_fault_impl(&dword_265896000, v16, OS_LOG_TYPE_FAULT, "%s: Called while application state is 'Inactive' (current: %f, newVolume: %f, coalescingCount: %ld).", buf, 0x2Au);
       }
 
       [(SHSRingerControl *)self set_logFaultCalledForInactive:1];
@@ -334,13 +350,13 @@ LABEL_15:
           v9 = self->_volume;
           _volumeChangeCoalescingCount4 = [(SHSRingerControl *)self _volumeChangeCoalescingCount];
           *buf = 136315906;
-          v26 = "[SHSRingerControl setVolume:]";
-          v27 = 2048;
+          v25 = "[SHSRingerControl setVolume:]";
+          v26 = 2048;
           volumeCopy = v9;
-          v29 = 2048;
+          v28 = 2048;
           volumeCopy6 = volume;
-          v31 = 2048;
-          v32 = _volumeChangeCoalescingCount4;
+          v30 = 2048;
+          v31 = _volumeChangeCoalescingCount4;
           v11 = "%s: Called while application state is 'Background' (current: %f, newVolume: %f, coalescingCount: %ld).";
 LABEL_12:
           _os_log_error_impl(&dword_265896000, v8, OS_LOG_TYPE_ERROR, v11, buf, 0x2Au);
@@ -350,49 +366,46 @@ LABEL_12:
         goto LABEL_15;
       }
 
-      v18 = SHSLogForCategory(1uLL);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = SHSLogForCategory(1uLL);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        v21 = self->_volume;
+        v20 = self->_volume;
         _volumeChangeCoalescingCount5 = [(SHSRingerControl *)self _volumeChangeCoalescingCount];
         *buf = 136315906;
-        v26 = "[SHSRingerControl setVolume:]";
-        v27 = 2048;
-        volumeCopy = v21;
-        v29 = 2048;
+        v25 = "[SHSRingerControl setVolume:]";
+        v26 = 2048;
+        volumeCopy = v20;
+        v28 = 2048;
         volumeCopy6 = volume;
-        v31 = 2048;
-        v32 = _volumeChangeCoalescingCount5;
-        _os_log_fault_impl(&dword_265896000, v18, OS_LOG_TYPE_FAULT, "%s: Called while application state is 'Background' (current: %f, newVolume: %f, coalescingCount: %ld).", buf, 0x2Au);
+        v30 = 2048;
+        v31 = _volumeChangeCoalescingCount5;
+        _os_log_fault_impl(&dword_265896000, v17, OS_LOG_TYPE_FAULT, "%s: Called while application state is 'Background' (current: %f, newVolume: %f, coalescingCount: %ld).", buf, 0x2Au);
       }
 
       [(SHSRingerControl *)self set_logFaultCalledForBackground:1];
       break;
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __30__SHSRingerControl_setVolume___block_invoke_27;
-  v23[3] = &unk_279BA6720;
-  v23[4] = self;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __30__SHSRingerControl_setVolume___block_invoke_27;
+  v22[3] = &unk_279BA6720;
+  v22[4] = self;
   volumeCopy7 = volume;
-  dispatch_async(MEMORY[0x277D85CD0], v23);
+  dispatch_async(MEMORY[0x277D85CD0], v22);
   __30__SHSRingerControl_setVolume___block_invoke();
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __30__SHSRingerControl_setVolume___block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl setVolume:]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl setVolume:]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 float __30__SHSRingerControl_setVolume___block_invoke_27(uint64_t a1)
@@ -419,7 +432,7 @@ float __30__SHSRingerControl_setVolume___block_invoke_27(uint64_t a1)
 
 void __30__SHSRingerControl_setVolume___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) set_volumeChangeCoalescingCount:{objc_msgSend(*(a1 + 32), "_volumeChangeCoalescingCount") - 1}];
   if (![*(a1 + 32) _volumeChangeCoalescingCount])
   {
@@ -427,11 +440,11 @@ void __30__SHSRingerControl_setVolume___block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
-      v14 = 136315394;
-      v15 = "[SHSRingerControl setVolume:]_block_invoke_2";
-      v16 = 2048;
-      v17 = v3;
-      _os_log_impl(&dword_265896000, v2, OS_LOG_TYPE_DEFAULT, "%s: Setting AVSystemController volume to: %f.", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[SHSRingerControl setVolume:]_block_invoke_2";
+      v15 = 2048;
+      v16 = v3;
+      _os_log_impl(&dword_265896000, v2, OS_LOG_TYPE_DEFAULT, "%s: Setting AVSystemController volume to: %f.", &v13, 0x16u);
     }
 
     v4 = [*(a1 + 32) _systemController];
@@ -448,13 +461,13 @@ void __30__SHSRingerControl_setVolume___block_invoke_2(uint64_t a1)
       {
         v9 = [*(a1 + 32) delegate];
         v10 = *(a1 + 40);
-        v14 = 136315650;
-        v15 = "[SHSRingerControl setVolume:]_block_invoke";
-        v16 = 2114;
-        v17 = *&v9;
-        v18 = 2048;
-        v19 = v10;
-        _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s: Calling delegate %{public}@ with new volume value: %f.", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "[SHSRingerControl setVolume:]_block_invoke";
+        v15 = 2114;
+        v16 = *&v9;
+        v17 = 2048;
+        v18 = v10;
+        _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s: Calling delegate %{public}@ with new volume value: %f.", &v13, 0x20u);
       }
 
       v11 = [*(a1 + 32) delegate];
@@ -462,21 +475,19 @@ void __30__SHSRingerControl_setVolume___block_invoke_2(uint64_t a1)
       [v11 ringerControl:v12 volumeValueDidChange:?];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateVolume:(float)volume
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[SHSRingerControl _updateVolume:]";
-    v16 = 2048;
+    v13 = 136315394;
+    v14 = "[SHSRingerControl _updateVolume:]";
+    v15 = 2048;
     volumeCopy = volume;
-    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: Start (volume %f).", &v14, 0x16u);
+    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: Start (volume %f).", &v13, 0x16u);
   }
 
   v6 = self->_volume - volume;
@@ -498,13 +509,13 @@ void __30__SHSRingerControl_setVolume___block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         delegate2 = [(SHSRingerControl *)self delegate];
-        v14 = 136315650;
-        v15 = "[SHSRingerControl _updateVolume:]";
-        v16 = 2114;
+        v13 = 136315650;
+        v14 = "[SHSRingerControl _updateVolume:]";
+        v15 = 2114;
         volumeCopy = *&delegate2;
-        v18 = 2048;
+        v17 = 2048;
         volumeCopy2 = volume;
-        _os_log_impl(&dword_265896000, v9, OS_LOG_TYPE_DEFAULT, "%s: Calling delegate %{public}@ with new volume value: %f.", &v14, 0x20u);
+        _os_log_impl(&dword_265896000, v9, OS_LOG_TYPE_DEFAULT, "%s: Calling delegate %{public}@ with new volume value: %f.", &v13, 0x20u);
       }
 
       delegate3 = [(SHSRingerControl *)self delegate];
@@ -514,33 +525,30 @@ void __30__SHSRingerControl_setVolume___block_invoke_2(uint64_t a1)
   }
 
   __34__SHSRingerControl__updateVolume___block_invoke();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __34__SHSRingerControl__updateVolume___block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl _updateVolume:]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl _updateVolume:]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEffectiveVolumeDidChangeNotification:(id)notification
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 136315138;
-    v29 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
-    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s Start.", &v28, 0xCu);
+    v27 = 136315138;
+    v28 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
+    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s Start.", &v27, 0xCu);
   }
 
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -551,11 +559,11 @@ void __34__SHSRingerControl__updateVolume___block_invoke()
     userInfo = SHSLogForCategory(1uLL);
     if (os_log_type_enabled(userInfo, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 136315138;
-      v29 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
+      v27 = 136315138;
+      v28 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
       v9 = "%s: App is not active, ignoring.";
 LABEL_11:
-      _os_log_impl(&dword_265896000, userInfo, OS_LOG_TYPE_DEFAULT, v9, &v28, 0xCu);
+      _os_log_impl(&dword_265896000, userInfo, OS_LOG_TYPE_DEFAULT, v9, &v27, 0xCu);
     }
   }
 
@@ -580,15 +588,15 @@ LABEL_11:
     {
       v15 = [MEMORY[0x277CCABB0] numberWithBool:v11];
       v16 = [MEMORY[0x277CCABB0] numberWithBool:v13];
-      v28 = 136315906;
-      v29 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
-      v30 = 2114;
-      v31 = v15;
-      v32 = 2114;
-      v33 = v16;
-      v34 = 2114;
-      v35 = v12;
-      _os_log_impl(&dword_265896000, v14, OS_LOG_TYPE_DEFAULT, "%s: Is volume change '%{public}@', is ringtone related category '%{public}@', category '%{public}@'.", &v28, 0x2Au);
+      v27 = 136315906;
+      v28 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
+      v29 = 2114;
+      v30 = v15;
+      v31 = 2114;
+      v32 = v16;
+      v33 = 2114;
+      v34 = v12;
+      _os_log_impl(&dword_265896000, v14, OS_LOG_TYPE_DEFAULT, "%s: Is volume change '%{public}@', is ringtone related category '%{public}@', category '%{public}@'.", &v27, 0x2Au);
     }
 
     if (v11)
@@ -603,13 +611,13 @@ LABEL_11:
         {
           v20 = NSStringFromSelector(sel_ringerControlDidObserveEffectiveSystemVolumeChange_);
           delegate2 = [(SHSRingerControl *)self delegate];
-          v28 = 136315650;
-          v29 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
-          v30 = 2114;
-          v31 = v20;
-          v32 = 2114;
-          v33 = delegate2;
-          _os_log_impl(&dword_265896000, v19, OS_LOG_TYPE_DEFAULT, "%s: Calling '%{public}@' delegate %{public}@.", &v28, 0x20u);
+          v27 = 136315650;
+          v28 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
+          v29 = 2114;
+          v30 = v20;
+          v31 = 2114;
+          v32 = delegate2;
+          _os_log_impl(&dword_265896000, v19, OS_LOG_TYPE_DEFAULT, "%s: Calling '%{public}@' delegate %{public}@.", &v27, 0x20u);
         }
 
         delegate3 = [(SHSRingerControl *)self delegate];
@@ -633,63 +641,56 @@ LABEL_11:
     userInfo = SHSLogForCategory(0);
     if (os_log_type_enabled(userInfo, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 136315138;
-      v29 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
+      v27 = 136315138;
+      v28 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]";
       v9 = "%s: 'Change with Buttons' is not active, ignoring.";
       goto LABEL_11;
     }
   }
 
   __64__SHSRingerControl__handleEffectiveVolumeDidChangeNotification___block_invoke();
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SHSRingerControl__handleEffectiveVolumeDidChangeNotification___block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl _handleEffectiveVolumeDidChangeNotification:]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleServerConnectionDiedNotification:(id)notification
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SHSRingerControl _handleServerConnectionDiedNotification:]";
-    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: Start.", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SHSRingerControl _handleServerConnectionDiedNotification:]";
+    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: Start.", &v6, 0xCu);
   }
 
   [(SHSRingerControl *)self _tearDown];
   [(SHSRingerControl *)self _setup];
   [(SHSRingerControl *)self reload];
   __60__SHSRingerControl__handleServerConnectionDiedNotification___block_invoke();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SHSRingerControl__handleServerConnectionDiedNotification___block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SHSRingerControl _handleServerConnectionDiedNotification:]_block_invoke";
-    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SHSRingerControl _handleServerConnectionDiedNotification:]_block_invoke";
+    _os_log_impl(&dword_265896000, v0, OS_LOG_TYPE_DEFAULT, "%s: Finish.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (SHSRingerControlDelegate)delegate

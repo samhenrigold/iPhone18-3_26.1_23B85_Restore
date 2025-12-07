@@ -267,7 +267,7 @@
 
 - (id)filterSortedRecordsToPlay:(id)play
 {
-  sub_1A3C52C70(0, &qword_1EB145058);
+  sub_1A3C52C70(0, &qword_1EB145058, &off_1E7721738);
   v4 = sub_1A524CA34();
   selfCopy = self;
   sub_1A4913180(v4);

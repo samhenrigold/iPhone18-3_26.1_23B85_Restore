@@ -20,8 +20,9 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  ParticipantViewButton.isSelected.setter(selected);
+  ParticipantViewButton.isSelected.setter(selectedCopy);
 }
 
 - (BOOL)isHighlighted
@@ -34,8 +35,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  ParticipantViewButton.isHighlighted.setter(highlighted);
+  ParticipantViewButton.isHighlighted.setter(highlightedCopy);
 }
 
 - (BOOL)isEnabled
@@ -48,8 +50,9 @@
 
 - (void)setEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  ParticipantViewButton.isEnabled.setter(enabled);
+  ParticipantViewButton.isEnabled.setter(enabledCopy);
 }
 
 - (void)layoutSubviews

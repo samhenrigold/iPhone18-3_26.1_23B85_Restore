@@ -189,8 +189,8 @@ void __47__PUBrowsingViewModel_debugDetailedDescription__block_invoke(uint64_t a
 uint64_t __47__PUBrowsingViewModel_debugDetailedDescription__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  v5 = [a2 indexPath];
-  v6 = [v4 indexPath];
+  v5 = objc_msgSend_indexPath(a2);
+  v6 = objc_msgSend_indexPath(v4);
 
   v7 = [v5 compare:v6];
   return v7;
@@ -284,7 +284,7 @@ void __65__PUBrowsingViewModel_oneUpVideoPlayerControllerPlayerDidChange___block
   assetsDataSource = [(PUBrowsingViewModel *)self assetsDataSource];
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
   }
 
   else
@@ -518,8 +518,8 @@ PXAssetBadgeInfo *__64__PUBrowsingViewModel__filteredAllowedBadges_forAssetRefer
     [currentHandler handleFailureInMethod:a2 object:self file:@"PUBrowsingViewModel.m" lineNumber:1416 description:{@"Invalid parameter not satisfying: %@", @"[[assetReference dataSourceIdentifier] isEqual:[assetsDataSource identifier]]"}];
   }
 
-  indexPath = [referenceCopy indexPath];
-  v11 = [assetsDataSource badgeInfoPromiseForAssetAtIndexPath:indexPath spatialPresentationEnabled:{objc_msgSend(MEMORY[0x1E69C3740], "enabled")}];
+  v10 = objc_msgSend_indexPath(referenceCopy);
+  v11 = [assetsDataSource badgeInfoPromiseForAssetAtIndexPath:v10 spatialPresentationEnabled:{objc_msgSend(MEMORY[0x1E69C3740], "enabled")}];
 
   v12 = [(PUBrowsingViewModel *)self _filteredAllowedBadges:v11 forAssetReference:referenceCopy];
 
@@ -558,9 +558,9 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  indexPath = [assetCopy indexPath];
-  indexPath2 = [currentAssetReference indexPath];
-  v16 = [indexPath compare:indexPath2];
+  v14 = objc_msgSend_indexPath(assetCopy);
+  v15 = objc_msgSend_indexPath(currentAssetReference);
+  v16 = [v14 compare:v15];
   v17 = 0.0;
   if (v16 == 1)
   {
@@ -585,9 +585,9 @@ LABEL_14:
 {
   assetsDataSource = [(PUBrowsingViewModel *)self assetsDataSource];
   currentAssetReference = [(PUBrowsingViewModel *)self currentAssetReference];
-  indexPath = [currentAssetReference indexPath];
-  v6 = indexPath;
-  if (indexPath)
+  v5 = objc_msgSend_indexPath(currentAssetReference);
+  v6 = v5;
+  if (v5)
   {
     v25 = 0;
     v26 = &v25;
@@ -599,7 +599,7 @@ LABEL_14:
     v22[1] = 3221225472;
     v22[2] = __56__PUBrowsingViewModel__updateNeighboringAssetReferences__block_invoke;
     v22[3] = &unk_1E7B7DD28;
-    v7 = indexPath;
+    v7 = v5;
     v23 = v7;
     v24 = &v25;
     [assetsDataSource enumerateIndexPathsStartingAtIndexPath:v7 reverseDirection:1 usingBlock:v22];
@@ -1658,7 +1658,7 @@ void __47__PUBrowsingViewModel__setVideoContentAllowed___block_invoke(uint64_t a
   [v5 performChanges:v6];
 }
 
-uint64_t __47__PUBrowsingViewModel__setVideoContentAllowed___block_invoke_2(uint64_t a1)
+void *__47__PUBrowsingViewModel__setVideoContentAllowed___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) setLivePhotoLoadingDisabled:(*(a1 + 40) & 1) == 0 forReason:@"VideoContentDisallowed"];
   if ((*(a1 + 40) & 1) == 0)
@@ -2209,9 +2209,9 @@ void __79__PUBrowsingViewModel__resetAccessoryViewsVisibilityToDefaultWithChange
 
     if (v30)
     {
-      indexPath = [(PUAssetReference *)v26 indexPath];
-      indexPath2 = [(PUAssetReference *)referenceCopy indexPath];
-      v33 = [indexPath compare:indexPath2];
+      v31 = objc_msgSend_indexPath(v26);
+      v32 = objc_msgSend_indexPath(referenceCopy);
+      v33 = [v31 compare:v32];
 
       v34 = v33 == -1;
       v35 = v33 == -1;
@@ -2388,13 +2388,13 @@ LABEL_10:
       v24 = &v29;
       v22 = sourceCopy;
       v11 = _Block_copy(aBlock);
-      indexPath = [currentAssetReference indexPath];
+      v12 = objc_msgSend_indexPath(currentAssetReference);
       v13 = _userNavigationDistance >> 63;
-      [(PUTilingDataSource *)v10 enumerateIndexPathsStartingAtIndexPath:indexPath reverseDirection:v13 usingBlock:v11];
+      [(PUTilingDataSource *)v10 enumerateIndexPathsStartingAtIndexPath:v12 reverseDirection:v13 usingBlock:v11];
       v26[3] = 0;
       if (!v30[5])
       {
-        [(PUTilingDataSource *)v10 enumerateIndexPathsStartingAtIndexPath:indexPath reverseDirection:v13 ^ 1 usingBlock:v11];
+        [(PUTilingDataSource *)v10 enumerateIndexPathsStartingAtIndexPath:v12 reverseDirection:v13 ^ 1 usingBlock:v11];
       }
 
       _Block_object_dispose(&v25, 8);

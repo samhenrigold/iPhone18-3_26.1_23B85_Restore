@@ -12,14 +12,14 @@
 {
   descriptionCopy = description;
   cacheableCopy = cacheable;
-  v11.receiver = self;
-  v11.super_class = CAFCachedDescription;
-  v7 = [(CAFCachedDescription *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = CAFCachedDescription;
+  v7 = [(CAFCachedDescription *)&v12 init];
   v8 = v7;
   if (v7)
   {
     v7->_cacheLock._os_unfair_lock_opaque = 0;
-    objc_storeWeak(&v7->_cacheable, cacheableCopy);
+    v9 = objc_storeWeak(&v7->_cacheable, cacheableCopy);
     if (descriptionCopy)
     {
       v8->_lazyRefreshDescription = 1;
@@ -27,8 +27,8 @@
 
     else
     {
-      v9 = CAFGeneralLogging();
-      v8->_lazyRefreshDescription = !os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+      v10 = CAFGeneralLogging(v9);
+      v8->_lazyRefreshDescription = !os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
     }
 
     [(CAFCachedDescription *)v8 setNeedsRefreshDescription];

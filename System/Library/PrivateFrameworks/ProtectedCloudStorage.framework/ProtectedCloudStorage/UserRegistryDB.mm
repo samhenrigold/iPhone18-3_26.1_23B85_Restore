@@ -66,7 +66,7 @@
 
 - (BOOL)setupDatabase
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   errmsg = 0;
   v3 = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, 1uLL, 1);
   if ([v3 count])
@@ -76,9 +76,9 @@
     oslog6 = [v4 stringWithFormat:@"%@/com.apple.ProtectedCloudStorage", v5];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v29 = 0;
-    v8 = [defaultManager createDirectoryAtPath:oslog6 withIntermediateDirectories:1 attributes:0 error:&v29];
-    v9 = v29;
+    v28 = 0;
+    v8 = [defaultManager createDirectoryAtPath:oslog6 withIntermediateDirectories:1 attributes:0 error:&v28];
+    v9 = v28;
 
     if (v8)
     {
@@ -87,29 +87,29 @@
       v12 = [v10 stringWithFormat:@"KeysSyncing{, Version2}-%@-%@*", dsid, kPCSServiceName[0]];
       v13 = [oslog6 stringByAppendingPathComponent:v12];
 
-      memset(&v33, 0, sizeof(v33));
-      if (!glob([v13 UTF8String], 128, 0, &v33))
+      memset(&v32, 0, sizeof(v32));
+      if (!glob([v13 UTF8String], 128, 0, &v32))
       {
-        v28 = v9;
+        v27 = v9;
         oslog = [(UserRegistryDB *)self oslog];
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v32) = v33.gl_matchc;
+          LODWORD(v31) = v32.gl_matchc;
           _os_log_impl(&dword_1B229C000, oslog, OS_LOG_TYPE_DEFAULT, "Found %d PCS databases files to delete", buf, 8u);
         }
 
-        if (v33.gl_matchc >= 1)
+        if (v32.gl_matchc >= 1)
         {
           v15 = 0;
           do
           {
-            v16 = v33.gl_pathv[v15];
+            v16 = v32.gl_pathv[v15];
             oslog2 = [(UserRegistryDB *)self oslog];
             if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v32 = v16;
+              v31 = v16;
               _os_log_impl(&dword_1B229C000, oslog2, OS_LOG_TYPE_DEFAULT, "removing: %s", buf, 0xCu);
             }
 
@@ -117,11 +117,11 @@
             ++v15;
           }
 
-          while (v15 < v33.gl_matchc);
+          while (v15 < v32.gl_matchc);
         }
 
-        globfree(&v33);
-        v9 = v28;
+        globfree(&v32);
+        v9 = v27;
       }
 
       v18 = MEMORY[0x1E696AEC0];
@@ -135,9 +135,9 @@
         if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
         {
           v23 = sqlite3_errmsg(self->_sqliteHandle);
-          LODWORD(v33.gl_pathc) = 136315138;
-          *(&v33.gl_pathc + 4) = v23;
-          _os_log_impl(&dword_1B229C000, oslog3, OS_LOG_TYPE_DEFAULT, "Failed to open userDB database: %s", &v33, 0xCu);
+          LODWORD(v32.gl_pathc) = 136315138;
+          *(&v32.gl_pathc + 4) = v23;
+          _os_log_impl(&dword_1B229C000, oslog3, OS_LOG_TYPE_DEFAULT, "Failed to open userDB database: %s", &v32, 0xCu);
         }
       }
 
@@ -149,9 +149,9 @@
           oslog4 = [(UserRegistryDB *)self oslog];
           if (os_log_type_enabled(oslog4, OS_LOG_TYPE_DEFAULT))
           {
-            LODWORD(v33.gl_pathc) = 136315138;
-            *(&v33.gl_pathc + 4) = errmsg;
-            _os_log_impl(&dword_1B229C000, oslog4, OS_LOG_TYPE_DEFAULT, "Create schema for database: %s", &v33, 0xCu);
+            LODWORD(v32.gl_pathc) = 136315138;
+            *(&v32.gl_pathc + 4) = errmsg;
+            _os_log_impl(&dword_1B229C000, oslog4, OS_LOG_TYPE_DEFAULT, "Create schema for database: %s", &v32, 0xCu);
           }
 
           sqlite3_free(errmsg);
@@ -178,9 +178,9 @@ LABEL_44:
       oslog5 = [(UserRegistryDB *)self oslog];
       if (os_log_type_enabled(oslog5, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v33.gl_pathc) = 138412290;
-        *(&v33.gl_pathc + 4) = v9;
-        _os_log_impl(&dword_1B229C000, oslog5, OS_LOG_TYPE_DEFAULT, "Failed to create ApplicationSupport directory: %@", &v33, 0xCu);
+        LODWORD(v32.gl_pathc) = 138412290;
+        *(&v32.gl_pathc + 4) = v9;
+        _os_log_impl(&dword_1B229C000, oslog5, OS_LOG_TYPE_DEFAULT, "Failed to create ApplicationSupport directory: %@", &v32, 0xCu);
       }
     }
 
@@ -191,14 +191,13 @@ LABEL_44:
   oslog6 = [(UserRegistryDB *)self oslog];
   if (os_log_type_enabled(oslog6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v33.gl_pathc) = 0;
-    _os_log_impl(&dword_1B229C000, oslog6, OS_LOG_TYPE_DEFAULT, "Failed to get ApplicationSupport directory", &v33, 2u);
+    LOWORD(v32.gl_pathc) = 0;
+    _os_log_impl(&dword_1B229C000, oslog6, OS_LOG_TYPE_DEFAULT, "Failed to get ApplicationSupport directory", &v32, 2u);
   }
 
   v24 = 0;
 LABEL_45:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -591,40 +590,30 @@ LABEL_9:
 
 - (void)prepare:(void *)a1 statement:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 oslog];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0_9();
     _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteRecordAll
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(self, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *a2;
     OUTLINED_FUNCTION_0_9();
-    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEscrowKey:(NSObject *)a1 escrowBlob:.cold.1(NSObject *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0_9();
     _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

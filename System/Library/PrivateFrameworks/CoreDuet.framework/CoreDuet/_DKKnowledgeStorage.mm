@@ -1,4 +1,5 @@
 @interface _DKKnowledgeStorage
++ (_DKKnowledgeStorage)storageWithDirectory:(id)directory readOnly:(BOOL)only localOnly:(BOOL)localOnly;
 + (_DKKnowledgeStorage)storageWithShallowCopyFromStorage:(id)storage clientIdentifier:(id)identifier;
 + (id)sourceDeviceIdentityFromDeviceID:(uint64_t)d;
 + (id)sourceDeviceIdentityFromObject:(id)object;
@@ -153,33 +154,33 @@
 
 - (void)_sendEventsNotificationName:(void *)name withObjects:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v5 = a2;
   nameCopy = name;
   selfCopy = self;
   if (self)
   {
     v7 = objc_opt_new();
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v34 = nameCopy;
+    v33 = nameCopy;
     v8 = nameCopy;
-    v9 = [v8 countByEnumeratingWithState:&v47 objects:v58 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v46 objects:v57 count:16];
     if (v9)
     {
-      v10 = *v48;
+      v10 = *v47;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v48 != v10)
+          if (*v47 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v47 + 1) + 8 * i);
+          v12 = *(*(&v46 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -194,7 +195,7 @@
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v47 objects:v58 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v46 objects:v57 count:16];
       }
 
       while (v9);
@@ -202,31 +203,31 @@
 
     if ([v7 count])
     {
-      v33 = *(selfCopy + 56);
-      objc_sync_enter(v33);
+      v32 = *(selfCopy + 56);
+      objc_sync_enter(v32);
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
       obj = *(selfCopy + 56);
-      v16 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
+      v16 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
       if (!v16)
       {
         goto LABEL_31;
       }
 
-      v17 = *v44;
+      v17 = *v43;
       while (1)
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v44 != v17)
+          if (*v43 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v43 + 1) + 8 * j);
-          if ([v5 isEqualToString:{@"_DKKnowledgeStorageDidInsertEventsNotification", v33}])
+          v19 = *(*(&v42 + 1) + 8 * j);
+          if ([v5 isEqualToString:{@"_DKKnowledgeStorageDidInsertEventsNotification", v32}])
           {
             if ((objc_opt_respondsToSelector() & 1) == 0)
             {
@@ -234,26 +235,26 @@
             }
 
             v20 = *(selfCopy + 32);
-            v41[0] = MEMORY[0x1E69E9820];
-            v41[1] = 3221225472;
-            v41[2] = __63___DKKnowledgeStorage__sendEventsNotificationName_withObjects___block_invoke;
-            v41[3] = &unk_1E7367A48;
-            v41[4] = v19;
-            v41[5] = selfCopy;
-            v42 = v7;
-            v21 = v41;
+            v40[0] = MEMORY[0x1E69E9820];
+            v40[1] = 3221225472;
+            v40[2] = __63___DKKnowledgeStorage__sendEventsNotificationName_withObjects___block_invoke;
+            v40[3] = &unk_1E7367A48;
+            v40[4] = v19;
+            v40[5] = selfCopy;
+            v41 = v7;
+            v21 = v40;
             v22 = v20;
             v23 = os_transaction_create();
             block = MEMORY[0x1E69E9820];
-            v52 = 3221225472;
-            v53 = __cd_dispatch_async_capture_tx_block_invoke_5;
-            v54 = &unk_1E7367818;
-            v55 = v23;
-            v56 = v21;
+            v51 = 3221225472;
+            v52 = __cd_dispatch_async_capture_tx_block_invoke_5;
+            v53 = &unk_1E7367818;
+            v54 = v23;
+            v55 = v21;
             v24 = v23;
             dispatch_async(v22, &block);
 
-            v25 = &v42;
+            v25 = &v41;
             goto LABEL_28;
           }
 
@@ -265,123 +266,121 @@
             }
 
             v26 = *(selfCopy + 32);
-            v39[0] = MEMORY[0x1E69E9820];
-            v39[1] = 3221225472;
-            v39[2] = __63___DKKnowledgeStorage__sendEventsNotificationName_withObjects___block_invoke_2;
-            v39[3] = &unk_1E7367A48;
-            v39[4] = v19;
-            v39[5] = selfCopy;
-            v40 = v7;
-            v27 = v39;
+            v38[0] = MEMORY[0x1E69E9820];
+            v38[1] = 3221225472;
+            v38[2] = __63___DKKnowledgeStorage__sendEventsNotificationName_withObjects___block_invoke_2;
+            v38[3] = &unk_1E7367A48;
+            v38[4] = v19;
+            v38[5] = selfCopy;
+            v39 = v7;
+            v27 = v38;
             v22 = v26;
             v28 = os_transaction_create();
             block = MEMORY[0x1E69E9820];
-            v52 = 3221225472;
-            v53 = __cd_dispatch_async_capture_tx_block_invoke_5;
-            v54 = &unk_1E7367818;
-            v55 = v28;
-            v56 = v27;
+            v51 = 3221225472;
+            v52 = __cd_dispatch_async_capture_tx_block_invoke_5;
+            v53 = &unk_1E7367818;
+            v54 = v28;
+            v55 = v27;
             v24 = v28;
             dispatch_async(v22, &block);
 
-            v25 = &v40;
+            v25 = &v39;
             goto LABEL_28;
           }
 
           if ([v5 isEqualToString:@"_DKKnowledgeStorageDidDeleteEventsNotification"] && (objc_opt_respondsToSelector() & 1) != 0)
           {
             v29 = *(selfCopy + 32);
-            v37[0] = MEMORY[0x1E69E9820];
-            v37[1] = 3221225472;
-            v37[2] = __63___DKKnowledgeStorage__sendEventsNotificationName_withObjects___block_invoke_3;
-            v37[3] = &unk_1E7367A48;
-            v37[4] = v19;
-            v37[5] = selfCopy;
-            v38 = v7;
-            v30 = v37;
+            v36[0] = MEMORY[0x1E69E9820];
+            v36[1] = 3221225472;
+            v36[2] = __63___DKKnowledgeStorage__sendEventsNotificationName_withObjects___block_invoke_3;
+            v36[3] = &unk_1E7367A48;
+            v36[4] = v19;
+            v36[5] = selfCopy;
+            v37 = v7;
+            v30 = v36;
             v22 = v29;
             v31 = os_transaction_create();
             block = MEMORY[0x1E69E9820];
-            v52 = 3221225472;
-            v53 = __cd_dispatch_async_capture_tx_block_invoke_5;
-            v54 = &unk_1E7367818;
-            v55 = v31;
-            v56 = v30;
+            v51 = 3221225472;
+            v52 = __cd_dispatch_async_capture_tx_block_invoke_5;
+            v53 = &unk_1E7367818;
+            v54 = v31;
+            v55 = v30;
             v24 = v31;
             dispatch_async(v22, &block);
 
-            v25 = &v38;
+            v25 = &v37;
 LABEL_28:
 
             continue;
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
+        v16 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
         if (!v16)
         {
 LABEL_31:
 
-          objc_sync_exit(v33);
+          objc_sync_exit(v32);
           break;
         }
       }
     }
 
-    nameCopy = v34;
+    nameCopy = v33;
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendTombstoneNotificationsWithStreamNameCounts:(uint64_t)counts
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (counts && v3 && [v3 count])
   {
-    v15 = *(counts + 56);
-    objc_sync_enter(v15);
+    v14 = *(counts + 56);
+    objc_sync_enter(v14);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     obj = *(counts + 56);
-    v5 = [obj countByEnumeratingWithState:&v19 objects:v26 count:16];
+    v5 = [obj countByEnumeratingWithState:&v18 objects:v25 count:16];
     if (v5)
     {
-      v6 = *v20;
+      v6 = *v19;
       do
       {
         v7 = 0;
         do
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v19 + 1) + 8 * v7);
+          v8 = *(*(&v18 + 1) + 8 * v7);
           if (objc_opt_respondsToSelector())
           {
             v9 = *(counts + 32);
-            v17[0] = MEMORY[0x1E69E9820];
-            v17[1] = 3221225472;
-            v17[2] = __71___DKKnowledgeStorage__sendTombstoneNotificationsWithStreamNameCounts___block_invoke;
-            v17[3] = &unk_1E7367A48;
-            v17[4] = v8;
-            v17[5] = counts;
-            v18 = v4;
-            v10 = v17;
+            v16[0] = MEMORY[0x1E69E9820];
+            v16[1] = 3221225472;
+            v16[2] = __71___DKKnowledgeStorage__sendTombstoneNotificationsWithStreamNameCounts___block_invoke;
+            v16[3] = &unk_1E7367A48;
+            v16[4] = v8;
+            v16[5] = counts;
+            v17 = v4;
+            v10 = v16;
             v11 = v9;
             v12 = os_transaction_create();
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __cd_dispatch_async_capture_tx_block_invoke_5;
             block[3] = &unk_1E7367818;
-            v24 = v12;
-            v25 = v10;
+            v23 = v12;
+            v24 = v10;
             v13 = v12;
             dispatch_async(v11, block);
           }
@@ -390,16 +389,14 @@ LABEL_31:
         }
 
         while (v5 != v7);
-        v5 = [obj countByEnumeratingWithState:&v19 objects:v26 count:16];
+        v5 = [obj countByEnumeratingWithState:&v18 objects:v25 count:16];
       }
 
       while (v5);
     }
 
-    objc_sync_exit(v15);
+    objc_sync_exit(v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveObjects:(id)objects responseQueue:(id)queue withCompletion:(id)completion
@@ -434,7 +431,7 @@ LABEL_31:
 
 - (uint64_t)_saveObjects:(void *)objects error:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -465,20 +462,20 @@ LABEL_31:
         goto LABEL_31;
       }
 
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x2020000000;
-      v47 = 1;
-      v38 = 0;
-      v39 = &v38;
-      v40 = 0x3032000000;
-      v41 = __Block_byref_object_copy__13;
-      v42 = __Block_byref_object_dispose__13;
       v43 = 0;
+      v44 = &v43;
+      v45 = 0x2020000000;
+      v46 = 1;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x3032000000;
+      v40 = __Block_byref_object_copy__13;
+      v41 = __Block_byref_object_dispose__13;
+      v42 = 0;
       [v5 count];
       [v6 count];
       kdebug_trace();
-      v31 = [v5 count];
+      v30 = [v5 count];
       v10 = v5;
       lastObject = [v10 lastObject];
       if (lastObject)
@@ -523,7 +520,7 @@ LABEL_23:
       v20 = @"unknown";
 LABEL_24:
 
-      _cdknowledge_signpost_save_begin(v31, v20);
+      _cdknowledge_signpost_save_begin(v30, v20);
       v21 = [[_CDMemoryUsageInterval alloc] initWithName:@"saveObjects" client:0];
       [(_CDMemoryUsageInterval *)v21 begin];
       v22 = +[_CDLogging knowledgeChannel];
@@ -531,44 +528,44 @@ LABEL_24:
       {
         v23 = [v10 count];
         *buf = 134217984;
-        *v49 = v23;
+        *v48 = v23;
         _os_log_impl(&dword_191750000, v22, OS_LOG_TYPE_INFO, "[Storage] Starting saveObjects with %lu objects.", buf, 0xCu);
       }
 
       v24 = [*(self + 96) managedObjectContextFor:*MEMORY[0x1E696A388] identifier:*(self + 72)];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __42___DKKnowledgeStorage__saveObjects_error___block_invoke;
-      v32[3] = &unk_1E7369140;
-      v33 = v6;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __42___DKKnowledgeStorage__saveObjects_error___block_invoke;
+      v31[3] = &unk_1E7369140;
+      v32 = v6;
       v25 = v24;
-      v36 = &v38;
-      v37 = &v44;
-      v34 = v25;
+      v35 = &v37;
+      v36 = &v43;
+      v33 = v25;
       selfCopy = self;
-      [v25 performWithOptions:4 andBlock:v32];
+      [v25 performWithOptions:4 andBlock:v31];
       v26 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v27 = *(v45 + 24);
-        v28 = v39[5];
+        v27 = *(v44 + 24);
+        v28 = v38[5];
         *buf = 67109378;
-        *v49 = v27;
-        *&v49[4] = 2112;
-        *&v49[6] = v28;
+        *v48 = v27;
+        *&v48[4] = 2112;
+        *&v48[6] = v28;
         _os_log_impl(&dword_191750000, v26, OS_LOG_TYPE_INFO, "[Storage] Completed saveObjects with success=%d. Error: %@.", buf, 0x12u);
       }
 
       [(_CDMemoryUsageInterval *)v21 end];
       if (objects)
       {
-        *objects = v39[5];
+        *objects = v38[5];
       }
 
-      LOBYTE(self) = *(v45 + 24);
+      LOBYTE(self) = *(v44 + 24);
 
-      _Block_object_dispose(&v38, 8);
-      _Block_object_dispose(&v44, 8);
+      _Block_object_dispose(&v37, 8);
+      _Block_object_dispose(&v43, 8);
 LABEL_31:
 
       goto LABEL_32;
@@ -588,7 +585,6 @@ LABEL_31:
 
 LABEL_32:
 
-  v29 = *MEMORY[0x1E69E9840];
   return self & 1;
 }
 
@@ -727,7 +723,7 @@ LABEL_32:
 - (dispatch_queue_t)_tombstoneObjectsMatchingPredicate:(uint64_t)predicate batchSize:(void *)size error:
 {
   sizeCopy = size;
-  v76[1] = *MEMORY[0x1E69E9840];
+  v78[1] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (self)
   {
@@ -735,85 +731,85 @@ LABEL_32:
     if (v6)
     {
       predicateCopy = predicate;
-      v35 = v6;
+      v34 = v6;
       selfCopy = self;
-      v72 = 0;
-      v73[0] = &v72;
-      v73[1] = 0x3032000000;
-      v73[2] = __Block_byref_object_copy__13;
-      v73[3] = __Block_byref_object_dispose__13;
-      v74 = 0;
-      v68 = 0;
-      v69 = &v68;
-      v70 = 0x2020000000;
       v71 = 0;
+      v72 = &v71;
+      v73 = 0x3032000000;
+      v74 = __Block_byref_object_copy__13;
+      v75 = __Block_byref_object_dispose__13;
+      v76 = 0;
+      v67 = 0;
+      v68 = &v67;
+      v69 = 0x2020000000;
+      v70 = 0;
       v7 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"creationDate" ascending:1];
-      v76[0] = v7;
-      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:1];
+      v78[0] = v7;
+      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:1];
 
       v8 = objc_alloc_init(MEMORY[0x1E696AB50]);
-      v28 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v27 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
       storage = [(dispatch_queue_t *)selfCopy storage];
-      v31 = [storage managedObjectContextFor:*MEMORY[0x1E696A388] identifier:selfCopy[9]];
+      v30 = [storage managedObjectContextFor:*MEMORY[0x1E696A388] identifier:selfCopy[9]];
 
       v10 = 0;
       while (1)
       {
         context = objc_autoreleasePoolPush();
-        v62 = 0;
-        v63 = &v62;
-        v64 = 0x3032000000;
-        v65 = __Block_byref_object_copy__13;
-        v66 = __Block_byref_object_dispose__13;
-        v67 = 0;
-        v56 = 0;
-        v57 = &v56;
-        v58 = 0x3032000000;
-        v59 = __Block_byref_object_copy__13;
-        v60 = __Block_byref_object_dispose__13;
         v61 = 0;
-        v44[0] = MEMORY[0x1E69E9820];
-        v44[1] = 3221225472;
-        v44[2] = __74___DKKnowledgeStorage__tombstoneObjectsMatchingPredicate_batchSize_error___block_invoke;
-        v44[3] = &unk_1E7369168;
-        v45 = v35;
-        v54 = v10;
-        v55 = predicateCopy;
-        v29 = v33;
-        v46 = v29;
-        v47 = selfCopy;
-        v11 = v31;
-        v48 = v11;
-        v50 = &v72;
-        v34 = v32;
-        v49 = v34;
-        v51 = &v62;
-        v52 = &v56;
-        v53 = &v68;
-        v30 = v11;
-        [v11 performWithOptions:4 andBlock:v44];
-        if ([v63[5] count])
+        v62 = &v61;
+        v63 = 0x3032000000;
+        v64 = __Block_byref_object_copy__13;
+        v65 = __Block_byref_object_dispose__13;
+        v66 = 0;
+        v55 = 0;
+        v56 = &v55;
+        v57 = 0x3032000000;
+        v58 = __Block_byref_object_copy__13;
+        v59 = __Block_byref_object_dispose__13;
+        v60 = 0;
+        v43[0] = MEMORY[0x1E69E9820];
+        v43[1] = 3221225472;
+        v43[2] = __74___DKKnowledgeStorage__tombstoneObjectsMatchingPredicate_batchSize_error___block_invoke;
+        v43[3] = &unk_1E7369168;
+        v44 = v34;
+        v53 = v10;
+        v54 = predicateCopy;
+        v28 = v32;
+        v45 = v28;
+        v46 = selfCopy;
+        v11 = v30;
+        v47 = v11;
+        v49 = &v71;
+        v33 = v31;
+        v48 = v33;
+        v50 = &v61;
+        v51 = &v55;
+        v52 = &v67;
+        v29 = v11;
+        [v11 performWithOptions:4 andBlock:v43];
+        if ([v62[5] count])
         {
-          v42 = 0u;
-          v43 = 0u;
-          v40 = 0u;
           v41 = 0u;
-          v12 = v63[5];
-          v13 = [v12 countByEnumeratingWithState:&v40 objects:v75 count:16];
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
+          v12 = v62[5];
+          v13 = [v12 countByEnumeratingWithState:&v39 objects:v77 count:16];
           if (v13)
           {
-            v14 = *v41;
+            v14 = *v40;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v41 != v14)
+                if (*v40 != v14)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                metadata = [*(*(&v40 + 1) + 8 * i) metadata];
+                metadata = [*(*(&v39 + 1) + 8 * i) metadata];
                 v17 = +[_DKTombstoneMetadataKey eventStreamName];
                 v18 = [metadata objectForKeyedSubscript:v17];
 
@@ -823,32 +819,32 @@ LABEL_32:
                 }
               }
 
-              v13 = [v12 countByEnumeratingWithState:&v40 objects:v75 count:16];
+              v13 = [v12 countByEnumeratingWithState:&v39 objects:v77 count:16];
             }
 
             while (v13);
           }
 
-          v19 = v63[5];
-          v20 = (v73[0] + 40);
-          obj = *(v73[0] + 40);
+          v19 = v62[5];
+          v20 = (v72 + 5);
+          obj = v72[5];
           [(_DKKnowledgeStorage *)selfCopy _saveObjects:v19 error:&obj];
           objc_storeStrong(v20, obj);
         }
 
-        v21 = v57[5];
+        v21 = v56[5];
         if (v21 && [v21 count])
         {
-          allObjects = [v57[5] allObjects];
-          [v28 addObjectsFromArray:allObjects];
+          allObjects = [v56[5] allObjects];
+          [v27 addObjectsFromArray:allObjects];
         }
 
-        _Block_object_dispose(&v56, 8);
-        _Block_object_dispose(&v62, 8);
+        _Block_object_dispose(&v55, 8);
+        _Block_object_dispose(&v61, 8);
 
         objc_autoreleasePoolPop(context);
-        v23 = *(v73[0] + 40);
-        if (v69[3] != predicateCopy)
+        v23 = v72[5];
+        if (v68[3] != predicateCopy)
         {
           break;
         }
@@ -866,34 +862,34 @@ LABEL_23:
         v24 = +[_CDLogging knowledgeChannel];
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [_DKKnowledgeStorage _tombstoneObjectsMatchingPredicate:v73 batchSize:? error:?];
+          [_DKKnowledgeStorage _tombstoneObjectsMatchingPredicate:batchSize:error:];
         }
 
         goto LABEL_27;
       }
 
       [(_DKKnowledgeStorage *)selfCopy _sendTombstoneNotificationsWithStreamNameCounts:v8];
-      if (![v28 count])
+      if (![v27 count])
       {
         goto LABEL_28;
       }
 
-      v24 = [v28 copy];
+      v24 = [v27 copy];
       [_DKTombstoneNotifier sendDistributedNotificationsForTombstoneRequirementIdentifiers:v24 queue:selfCopy[11]];
 LABEL_27:
 
 LABEL_28:
       if (sizeCopy)
       {
-        *sizeCopy = *(v73[0] + 40);
+        *sizeCopy = v72[5];
       }
 
-      self = [v34 copy];
+      self = [v33 copy];
 
-      _Block_object_dispose(&v68, 8);
-      _Block_object_dispose(&v72, 8);
+      _Block_object_dispose(&v67, 8);
+      _Block_object_dispose(&v71, 8);
 
-      v6 = v35;
+      v6 = v34;
     }
 
     else
@@ -901,8 +897,6 @@ LABEL_28:
       self = MEMORY[0x1E695E0F0];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -1158,7 +1152,7 @@ LABEL_5:
 
 - (unint64_t)deleteObjectsOlderThanDate:(id)date excludingPredicate:(id)predicate limit:(unint64_t)limit
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   date = [MEMORY[0x1E696AE18] predicateWithFormat:@"creationDate < %@", date];
   if (predicateCopy)
@@ -1166,9 +1160,9 @@ LABEL_5:
     v10 = [MEMORY[0x1E696AB28] notPredicateWithSubpredicate:predicateCopy];
 
     v11 = MEMORY[0x1E696AB28];
-    v23[0] = date;
-    v23[1] = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+    v22[0] = date;
+    v22[1] = v10;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
     v13 = [v11 andPredicateWithSubpredicates:v12];
 
     date = v13;
@@ -1182,18 +1176,17 @@ LABEL_5:
   v14 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"creationDate" ascending:1];
   v15 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388] identifier:self->_clientID];
   v16 = +[_DKEvent entityName];
-  v22 = v14;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-  LOBYTE(v21) = 0;
-  v18 = [_DKCoreDataStorage deleteObjectsInContext:v15 entityName:v16 predicate:date sortDescriptors:v17 fetchLimit:limit includeSubentities:0 includePendingChanges:v21];
+  v21 = v14;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  LOBYTE(v20) = 0;
+  v18 = [_DKCoreDataStorage deleteObjectsInContext:v15 entityName:v16 predicate:date sortDescriptors:v17 fetchLimit:limit includeSubentities:0 includePendingChanges:v20];
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (unint64_t)deleteEventsStartingEarlierThanDate:(id)date limit:(unint64_t)limit
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEB0];
   dateCopy = date;
   v8 = [v6 sortDescriptorWithKey:@"startDate" ascending:1];
@@ -1201,35 +1194,33 @@ LABEL_5:
   v10 = +[_DKEvent entityName];
   dateCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"startDate < %@", dateCopy];
 
-  v17[0] = v8;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-  LOBYTE(v16) = 0;
-  v13 = [_DKCoreDataStorage deleteObjectsInContext:v9 entityName:v10 predicate:dateCopy sortDescriptors:v12 fetchLimit:limit includeSubentities:0 includePendingChanges:v16];
+  v16[0] = v8;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  LOBYTE(v15) = 0;
+  v13 = [_DKCoreDataStorage deleteObjectsInContext:v9 entityName:v10 predicate:dateCopy sortDescriptors:v12 fetchLimit:limit includeSubentities:0 includePendingChanges:v15];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (unint64_t)deleteEventsMatchingPredicate:(id)predicate limit:(unint64_t)limit
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEB0];
   predicateCopy = predicate;
   v8 = [v6 sortDescriptorWithKey:@"startDate" ascending:1];
   v9 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388] identifier:self->_clientID];
   v10 = +[_DKEvent entityName];
-  v16[0] = v8;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
-  LOBYTE(v15) = 0;
-  v12 = [_DKCoreDataStorage deleteObjectsInContext:v9 entityName:v10 predicate:predicateCopy sortDescriptors:v11 fetchLimit:limit includeSubentities:0 includePendingChanges:v15];
+  v15[0] = v8;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  LOBYTE(v14) = 0;
+  v12 = [_DKCoreDataStorage deleteObjectsInContext:v9 entityName:v10 predicate:predicateCopy sortDescriptors:v11 fetchLimit:limit includeSubentities:0 includePendingChanges:v14];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (unint64_t)deleteOldObjectsIfNeededToLimitTotalNumber:(unint64_t)number excludingPredicate:(id)predicate limit:(unint64_t)limit
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v9 = [MEMORY[0x1E696AE18] predicateWithValue:1];
   if (predicateCopy)
@@ -1242,12 +1233,11 @@ LABEL_5:
   v11 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"creationDate" ascending:0];
   v12 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388] identifier:self->_clientID];
   v13 = +[_DKEvent entityName];
-  v19[0] = v11;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-  LOWORD(v18) = 0;
-  v15 = [_DKCoreDataStorage deleteObjectsIfNeededToLimitTotal:number context:v12 entityName:v13 predicate:v9 sortDescriptors:v14 fetchLimit:limit includeSubentities:v18 includePendingChanges:?];
+  v18[0] = v11;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  LOWORD(v17) = 0;
+  v15 = [_DKCoreDataStorage deleteObjectsIfNeededToLimitTotal:number context:v12 entityName:v13 predicate:v9 sortDescriptors:v14 fetchLimit:limit includeSubentities:v17 includePendingChanges:?];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1271,37 +1261,37 @@ LABEL_5:
 
 - (unint64_t)totalEventCountForStreams:(id)streams
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   streamsCopy = streams;
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(streamsCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = streamsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [_DKEventStream eventStreamWithName:*(*(&v19 + 1) + 8 * v10), v19];
+        v11 = [_DKEventStream eventStreamWithName:*(*(&v18 + 1) + 8 * v10), v18];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -1315,7 +1305,6 @@ LABEL_5:
   firstObject = [v14 firstObject];
 
   unsignedIntegerValue = [firstObject unsignedIntegerValue];
-  v17 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue;
 }
 
@@ -1345,50 +1334,48 @@ LABEL_5:
 
 - (id)eventCountsForStreams:(id)streams
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   streamsCopy = streams;
   v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(streamsCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = streamsCopy;
-  v6 = [obj countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v6 = [obj countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
         v11 = MEMORY[0x1E696AD98];
-        v21 = *(*(&v17 + 1) + 8 * i);
-        v10 = v21;
-        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+        v20 = *(*(&v16 + 1) + 8 * i);
+        v10 = v20;
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
         v13 = [v11 numberWithUnsignedInteger:{-[_DKKnowledgeStorage totalEventCountForStreams:](self, "totalEventCountForStreams:", v12)}];
         [v5 setObject:v13 forKeyedSubscript:v10];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (unint64_t)deleteObjectsInEventStreams:(id)streams olderThanDate:(id)date limit:(unint64_t)limit
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   streamsCopy = streams;
   dateCopy = date;
   if (streamsCopy && ([streamsCopy isEqual:MEMORY[0x1E695E0F0]] & 1) == 0)
@@ -1396,10 +1383,10 @@ LABEL_5:
     v11 = [_DKQuery predicateForEventsWithStreamNames:streamsCopy];
     dateCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"creationDate < %@ OR startDate < %@", dateCopy, dateCopy];
     v13 = MEMORY[0x1E696AB28];
-    v27 = v11;
-    v35[0] = v11;
-    v35[1] = dateCopy;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+    v26 = v11;
+    v34[0] = v11;
+    v34[1] = dateCopy;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
     v15 = [v13 andPredicateWithSubpredicates:v14];
 
     v16 = +[_CDLogging knowledgeChannel];
@@ -1409,21 +1396,21 @@ LABEL_5:
       predicateFormat2 = [dateCopy predicateFormat];
       [v15 predicateFormat];
       *buf = 138412802;
-      v30 = predicateFormat;
-      v31 = 2112;
-      v32 = predicateFormat2;
-      v34 = v33 = 2112;
-      v24 = v34;
+      v29 = predicateFormat;
+      v30 = 2112;
+      v31 = predicateFormat2;
+      v33 = v32 = 2112;
+      v23 = v33;
       _os_log_debug_impl(&dword_191750000, v16, OS_LOG_TYPE_DEBUG, "deleteObjectsInEventStreams:olderThanDate:\n namePredicate = %@\n agePredicate = %@\n andPred = %@\n", buf, 0x20u);
     }
 
     v17 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"creationDate" ascending:1];
     v18 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388] identifier:self->_clientID];
     v19 = +[_DKEvent entityName];
-    v28 = v17;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-    LOBYTE(v25) = 0;
-    v10 = [_DKCoreDataStorage deleteObjectsInContext:v18 entityName:v19 predicate:v15 sortDescriptors:v20 fetchLimit:limit includeSubentities:0 includePendingChanges:v25];
+    v27 = v17;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+    LOBYTE(v24) = 0;
+    v10 = [_DKCoreDataStorage deleteObjectsInContext:v18 entityName:v19 predicate:v15 sortDescriptors:v20 fetchLimit:limit includeSubentities:0 includePendingChanges:v24];
   }
 
   else
@@ -1431,23 +1418,21 @@ LABEL_5:
     v10 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (unint64_t)deleteObjectsInEventStream:(id)stream ifNeededToLimitEventCount:(unint64_t)count batchLimit:(unint64_t)limit
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v8 = [_DKQuery predicateForEventsWithStreamName:stream];
   v9 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"creationDate" ascending:0];
   v10 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388] identifier:self->_clientID];
   v11 = +[_DKEvent entityName];
-  v17[0] = v9;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-  LOWORD(v16) = 0;
-  v13 = [_DKCoreDataStorage deleteObjectsIfNeededToLimitTotal:count context:v10 entityName:v11 predicate:v8 sortDescriptors:v12 fetchLimit:limit includeSubentities:v16 includePendingChanges:?];
+  v16[0] = v9;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  LOWORD(v15) = 0;
+  v13 = [_DKCoreDataStorage deleteObjectsIfNeededToLimitTotal:count context:v10 entityName:v11 predicate:v8 sortDescriptors:v12 fetchLimit:limit includeSubentities:v15 includePendingChanges:?];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1469,7 +1454,7 @@ LABEL_5:
 
 - (id)migrationStreamsWithMOC:(uint64_t)c
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (c)
   {
@@ -1478,29 +1463,29 @@ LABEL_5:
     [v4 setResultType:2];
     propertiesByName = [v5 propertiesByName];
     v7 = [propertiesByName objectForKey:@"streamName"];
-    v23[0] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [v4 setPropertiesToFetch:v8];
 
     [v4 setReturnsDistinctResults:1];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3032000000;
-    v20 = __Block_byref_object_copy__13;
-    v21 = __Block_byref_object_dispose__13;
-    v22 = 0;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __47___DKKnowledgeStorage_migrationStreamsWithMOC___block_invoke;
-    v13[3] = &unk_1E7367248;
-    v16 = &v17;
-    v14 = v3;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__13;
+    v20 = __Block_byref_object_dispose__13;
+    v21 = 0;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __47___DKKnowledgeStorage_migrationStreamsWithMOC___block_invoke;
+    v12[3] = &unk_1E7367248;
+    v15 = &v16;
+    v13 = v3;
     v9 = v4;
-    v15 = v9;
-    [v14 performBlockAndWait:v13];
-    v10 = [v18[5] _pas_mappedArrayWithTransform:&__block_literal_global_682];
+    v14 = v9;
+    [v13 performBlockAndWait:v12];
+    v10 = [v17[5] _pas_mappedArrayWithTransform:&__block_literal_global_682];
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
   else
@@ -1508,81 +1493,79 @@ LABEL_5:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (BOOL)migrateEventBatchToBiomeStream:(void *)stream fetchRequest:(void *)request managedObjectContex:(void *)contex converter:(void *)converter eventCount:(void *)count offset:
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v13 = a2;
   streamCopy = stream;
   requestCopy = request;
   contexCopy = contex;
-  v32 = streamCopy;
-  v33 = requestCopy;
+  v31 = streamCopy;
+  v32 = requestCopy;
   if (self)
   {
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x3032000000;
-    v53 = __Block_byref_object_copy__13;
-    v54 = __Block_byref_object_dispose__13;
-    v55 = 0;
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x3032000000;
-    v47 = __Block_byref_object_copy__13;
-    v48 = __Block_byref_object_dispose__13;
     v49 = 0;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __115___DKKnowledgeStorage_migrateEventBatchToBiomeStream_fetchRequest_managedObjectContex_converter_eventCount_offset___block_invoke;
-    v38[3] = &unk_1E7369140;
-    v39 = requestCopy;
+    v50 = &v49;
+    v51 = 0x3032000000;
+    v52 = __Block_byref_object_copy__13;
+    v53 = __Block_byref_object_dispose__13;
+    v54 = 0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x3032000000;
+    v46 = __Block_byref_object_copy__13;
+    v47 = __Block_byref_object_dispose__13;
+    v48 = 0;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __115___DKKnowledgeStorage_migrateEventBatchToBiomeStream_fetchRequest_managedObjectContex_converter_eventCount_offset___block_invoke;
+    v37[3] = &unk_1E7369140;
+    v38 = requestCopy;
     v17 = streamCopy;
-    v40 = v17;
-    v42 = &v50;
-    v43 = &v44;
-    v41 = contexCopy;
-    [v39 performBlockAndWait:v38];
-    *converter = [v45[5] count];
+    v39 = v17;
+    v41 = &v49;
+    v42 = &v43;
+    v40 = contexCopy;
+    [v38 performBlockAndWait:v37];
+    *converter = [v44[5] count];
     *count += [v17 fetchLimit];
-    v18 = v51[5];
-    v31 = v18 == 0;
+    v18 = v50[5];
+    v30 = v18 == 0;
     if (v18)
     {
       v19 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         identifier = [v13 identifier];
-        [_DKKnowledgeStorage migrateEventBatchToBiomeStream:identifier fetchRequest:v57 managedObjectContex:v19 converter:? eventCount:? offset:?];
+        [_DKKnowledgeStorage migrateEventBatchToBiomeStream:identifier fetchRequest:v56 managedObjectContex:v19 converter:? eventCount:? offset:?];
       }
     }
 
     else
     {
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
-      v19 = v45[5];
-      v21 = [v19 countByEnumeratingWithState:&v34 objects:v56 count:16];
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v19 = v44[5];
+      v21 = [v19 countByEnumeratingWithState:&v33 objects:v55 count:16];
       if (v21)
       {
-        v22 = *v35;
+        v22 = *v34;
         do
         {
           v23 = 0;
           do
           {
-            if (*v35 != v22)
+            if (*v34 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v34 + 1) + 8 * v23);
+            v24 = *(*(&v33 + 1) + 8 * v23);
             v25 = objc_autoreleasePoolPush();
             v26 = [getBMDKEventClass() eventWithDKEvent:v24];
             creationDate = [v24 creationDate];
@@ -1595,46 +1578,45 @@ LABEL_5:
           }
 
           while (v21 != v23);
-          v21 = [v19 countByEnumeratingWithState:&v34 objects:v56 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v33 objects:v55 count:16];
         }
 
         while (v21);
       }
     }
 
-    _Block_object_dispose(&v44, 8);
-    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v49, 8);
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-  return v31;
+  return v30;
 }
 
 - (BOOL)verifyBiomeMigration:(uint64_t)migration expectedEventCount:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (self)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
     v7 = [v5 publisherFromStartTime:0.0];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __63___DKKnowledgeStorage_verifyBiomeMigration_expectedEventCount___block_invoke_2;
-    v17[3] = &unk_1E7369270;
-    v17[4] = &v18;
-    v8 = [v7 sinkWithCompletion:&__block_literal_global_685 receiveInput:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __63___DKKnowledgeStorage_verifyBiomeMigration_expectedEventCount___block_invoke_2;
+    v16[3] = &unk_1E7369270;
+    v16[4] = &v17;
+    v8 = [v7 sinkWithCompletion:&__block_literal_global_685 receiveInput:v16];
 
-    v9 = v19[3];
+    v9 = v18[3];
     self = v9 == migration;
     if (v9 != migration)
     {
@@ -1642,23 +1624,22 @@ LABEL_5:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         identifier = [v6 identifier];
-        v14 = identifier;
+        v13 = identifier;
         uTF8String = [identifier UTF8String];
-        v16 = v19[3];
+        v15 = v18[3];
         *buf = 136446722;
-        v23 = uTF8String;
-        v24 = 2048;
-        v25 = v16;
-        v26 = 2048;
+        v22 = uTF8String;
+        v23 = 2048;
+        v24 = v15;
+        v25 = 2048;
         migrationCopy = migration;
         _os_log_error_impl(&dword_191750000, v10, OS_LOG_TYPE_ERROR, "Unexpected mismatch in Biome stream event count encountered during migration of stream %{public}s Biome count: %lu CD count: %lu", buf, 0x20u);
       }
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -1694,26 +1675,26 @@ LABEL_5:
 
 - (BOOL)migrateDataToBiomeWithManagedObjectContext:(id)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (contextCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = [(_DKKnowledgeStorage *)self migrationStreamsWithMOC:contextCopy];
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       v9 = 1;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
@@ -1721,7 +1702,7 @@ LABEL_5:
           v9 &= [(_DKKnowledgeStorage *)self migrateStream:contextCopy context:?];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -1744,7 +1725,6 @@ LABEL_5:
     LOBYTE(v9) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1792,13 +1772,13 @@ LABEL_5:
 
 - (BOOL)coreDataStorage:(id)storage willAutoMigrateStoreAtURL:(id)l fromManagedObjectModel:(id)model havingVersion:(unint64_t)version error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ([(_DKKnowledgeStorage *)self finalMigrationVersion]> version)
   {
-    v18 = 0;
-    v11 = [(_DKKnowledgeStorage *)self updateDataBeforeAutoMigrationFromVersion:version inStoreAtURL:lCopy error:&v18];
-    v12 = v18;
+    v17 = 0;
+    v11 = [(_DKKnowledgeStorage *)self updateDataBeforeAutoMigrationFromVersion:version inStoreAtURL:lCopy error:&v17];
+    v12 = v17;
     if (!error)
     {
       goto LABEL_8;
@@ -1813,9 +1793,9 @@ LABEL_5:
   }
 
   v13 = MEMORY[0x1E696ABC0];
-  v19 = *MEMORY[0x1E696A578];
-  v20[0] = @"Unexpected model version number";
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = *MEMORY[0x1E696A578];
+  v19[0] = @"Unexpected model version number";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v12 = [v13 errorWithDomain:@"com.apple.coreduet.DKKnowledgeStorage" code:1 userInfo:v14];
 
   v11 = 0;
@@ -1828,19 +1808,18 @@ LABEL_7:
 
 LABEL_8:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)coreDataStorage:(id)storage didAutoMigratePersistentStore:(id)store toManagedObjectModel:(id)model havingVersion:(unint64_t)version error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   if ([(_DKKnowledgeStorage *)self finalMigrationVersion]>= version)
   {
-    v18 = 0;
-    v14 = [(_DKKnowledgeStorage *)self updateDataAfterAutoMigrationToVersion:version inPersistentStore:storeCopy error:&v18];
-    v13 = v18;
+    v17 = 0;
+    v14 = [(_DKKnowledgeStorage *)self updateDataAfterAutoMigrationToVersion:version inPersistentStore:storeCopy error:&v17];
+    v13 = v17;
     if (!error)
     {
       goto LABEL_8;
@@ -1858,9 +1837,9 @@ LABEL_7:
   }
 
   v11 = MEMORY[0x1E696ABC0];
-  v19 = *MEMORY[0x1E696A578];
-  v20[0] = @"Unexpected model version number";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = *MEMORY[0x1E696A578];
+  v19[0] = @"Unexpected model version number";
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v13 = [v11 errorWithDomain:@"com.apple.coreduet.DKKnowledgeStorage" code:1 userInfo:v12];
 
   v14 = 0;
@@ -1871,7 +1850,6 @@ LABEL_7:
 
 LABEL_8:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -2222,11 +2200,11 @@ LABEL_11:
   queueCopy = queue;
   completionCopy = completion;
   v28 = 0;
-  v29[0] = &v28;
-  v29[1] = 0x3032000000;
-  v29[2] = __Block_byref_object_copy__13;
-  v29[3] = __Block_byref_object_dispose__13;
-  v30 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__13;
+  v32 = __Block_byref_object_dispose__13;
+  v33 = 0;
   v8 = [[_CDMemoryUsageInterval alloc] initWithName:@"startSyncDown" client:0];
   executionQueue = self->_executionQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -2243,12 +2221,12 @@ LABEL_11:
   v27 = &v28;
   dispatch_sync(executionQueue, block);
   [(_CDMemoryUsageInterval *)v10 end];
-  if (*(v29[0] + 40))
+  if (v29[5])
   {
     v13 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [_DKKnowledgeStorage startSyncDownFromCloudWithResponseQueue:v29 withCompletion:?];
+      [_DKKnowledgeStorage startSyncDownFromCloudWithResponseQueue:withCompletion:];
     }
 
     if (v11)
@@ -2268,14 +2246,14 @@ LABEL_11:
       v15 = v19;
       v16 = defaultResponseQueue;
       v17 = os_transaction_create();
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __cd_dispatch_async_capture_tx_block_invoke_5;
-      v31[3] = &unk_1E7367818;
-      v32 = v17;
-      v33 = v15;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __cd_dispatch_async_capture_tx_block_invoke_5;
+      v34[3] = &unk_1E7367818;
+      v35 = v17;
+      v36 = v15;
       v18 = v17;
-      dispatch_async(v16, v31);
+      dispatch_async(v16, v34);
     }
   }
 
@@ -2287,11 +2265,11 @@ LABEL_11:
   queueCopy = queue;
   completionCopy = completion;
   v28 = 0;
-  v29[0] = &v28;
-  v29[1] = 0x3032000000;
-  v29[2] = __Block_byref_object_copy__13;
-  v29[3] = __Block_byref_object_dispose__13;
-  v30 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__13;
+  v32 = __Block_byref_object_dispose__13;
+  v33 = 0;
   v8 = [[_CDMemoryUsageInterval alloc] initWithName:@"startSyncUp" client:0];
   executionQueue = self->_executionQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -2308,12 +2286,12 @@ LABEL_11:
   v27 = &v28;
   dispatch_sync(executionQueue, block);
   [(_CDMemoryUsageInterval *)v10 end];
-  if (*(v29[0] + 40))
+  if (v29[5])
   {
     v13 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [_DKKnowledgeStorage startSyncUpToCloudWithResponseQueue:v29 withCompletion:?];
+      [_DKKnowledgeStorage startSyncUpToCloudWithResponseQueue:withCompletion:];
     }
 
     if (v11)
@@ -2333,14 +2311,14 @@ LABEL_11:
       v15 = v19;
       v16 = defaultResponseQueue;
       v17 = os_transaction_create();
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __cd_dispatch_async_capture_tx_block_invoke_5;
-      v31[3] = &unk_1E7367818;
-      v32 = v17;
-      v33 = v15;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __cd_dispatch_async_capture_tx_block_invoke_5;
+      v34[3] = &unk_1E7367818;
+      v35 = v17;
+      v36 = v15;
       v18 = v17;
-      dispatch_async(v16, v31);
+      dispatch_async(v16, v34);
     }
   }
 
@@ -2438,7 +2416,7 @@ LABEL_11:
 
 - (void)_databaseChangedWithNotification:(id)notification
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   if (_databaseChangedWithNotification__syncCounterInitialized != -1)
   {
@@ -2448,31 +2426,31 @@ LABEL_11:
   object = [notificationCopy object];
   if ([(_DKCoreDataStorage *)self->_storage isManagedObjectContextFor:*MEMORY[0x1E696A388] equalToManagedObjectContext:object])
   {
-    v24 = object;
+    v23 = object;
     v6 = objc_opt_new();
     v7 = objc_opt_new();
     obj = self->_knowledgeStorageEventNotificationDelegates;
     objc_sync_enter(obj);
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
     selfCopy = self;
     v8 = self->_knowledgeStorageEventNotificationDelegates;
-    v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v50 objects:v57 count:16];
+    v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v49 objects:v56 count:16];
     if (v9)
     {
-      v10 = *v51;
+      v10 = *v50;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v51 != v10)
+          if (*v50 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v50 + 1) + 8 * i);
+          v12 = *(*(&v49 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             [v6 addObject:v12];
@@ -2484,72 +2462,70 @@ LABEL_11:
           }
         }
 
-        v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v50 objects:v57 count:16];
+        v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v49 objects:v56 count:16];
       }
 
       while (v9);
     }
 
-    object = v24;
+    object = v23;
     objc_sync_exit(obj);
 
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x3032000000;
-    v47 = __Block_byref_object_copy__13;
-    v48 = __Block_byref_object_dispose__13;
-    v49 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__13;
-    v42 = __Block_byref_object_dispose__13;
     v43 = 0;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2;
-    v32[3] = &unk_1E73693B0;
-    v33 = notificationCopy;
+    v44 = &v43;
+    v45 = 0x3032000000;
+    v46 = __Block_byref_object_copy__13;
+    v47 = __Block_byref_object_dispose__13;
+    v48 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__13;
+    v41 = __Block_byref_object_dispose__13;
+    v42 = 0;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2;
+    v31[3] = &unk_1E73693B0;
+    v32 = notificationCopy;
     v13 = v6;
-    v34 = v13;
-    v36 = &v44;
+    v33 = v13;
+    v35 = &v43;
     v14 = v7;
-    v35 = v14;
-    v37 = &v38;
-    [v24 performWithOptions:4 andBlock:v32];
-    v15 = [v45[5] count];
-    v16 = [v39[5] count] + v15;
+    v34 = v14;
+    v36 = &v37;
+    [v23 performWithOptions:4 andBlock:v31];
+    v15 = [v44[5] count];
+    v16 = [v38[5] count] + v15;
     if (v16)
     {
       executionQueue = selfCopy->_executionQueue;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_799;
-      v26[3] = &unk_1E7369400;
-      v26[4] = selfCopy;
-      v31 = v16;
-      v27 = v13;
-      v29 = &v44;
-      v28 = v14;
-      v30 = &v38;
-      v18 = v26;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_799;
+      v25[3] = &unk_1E7369400;
+      v25[4] = selfCopy;
+      v30 = v16;
+      v26 = v13;
+      v28 = &v43;
+      v27 = v14;
+      v29 = &v37;
+      v18 = v25;
       v19 = executionQueue;
       v20 = os_transaction_create();
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __cd_dispatch_async_capture_tx_block_invoke_5;
       block[3] = &unk_1E7367818;
-      v55 = v20;
-      v56 = v18;
+      v54 = v20;
+      v55 = v18;
       v21 = v20;
       dispatch_async(v19, block);
     }
 
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v43, 8);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)incrementInsertsAndDeletesObserverCount
@@ -2601,20 +2577,20 @@ LABEL_11:
 
 + (id)sourceDeviceIdentityFromDeviceID:(uint64_t)d
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   v3 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v2];
 
   if (v3)
   {
-    v12[0] = 0;
-    v12[1] = 0;
-    [v3 getUUIDBytes:v12];
-    BYTE4(v11) = 0;
-    LODWORD(v11) = 0;
-    v4 = [MEMORY[0x1E695DF88] dataWithBytes:v12 length:{16, v11}];
-    [v4 replaceBytesInRange:11 withBytes:{5, &v11}];
+    v11[0] = 0;
+    v11[1] = 0;
+    [v3 getUUIDBytes:v11];
+    BYTE4(v10) = 0;
+    LODWORD(v10) = 0;
+    v4 = [MEMORY[0x1E695DF88] dataWithBytes:v11 length:{16, v10}];
+    [v4 replaceBytesInRange:11 withBytes:{5, &v10}];
     v5 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:{objc_msgSend(v4, "bytes")}];
     uUIDString = [v5 UUIDString];
     v7 = [uUIDString mutableCopy];
@@ -2627,8 +2603,6 @@ LABEL_11:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2840,7 +2814,7 @@ LABEL_11:
 
 - (BOOL)updateDataBeforeAutoMigrationFromVersion:(void *)version inStoreAtURL:(void *)l error:
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v57[1] = *MEMORY[0x1E69E9840];
   versionCopy = version;
   if (self)
   {
@@ -2850,22 +2824,22 @@ LABEL_11:
 
     if (v10)
     {
-      v51 = 0;
-      v52[0] = &v51;
-      v52[1] = 0x3032000000;
-      v52[2] = __Block_byref_object_copy__24;
-      v52[3] = __Block_byref_object_dispose__24;
-      v53 = 0;
+      v50 = 0;
+      v51 = &v50;
+      v52 = 0x3032000000;
+      v53 = __Block_byref_object_copy__24;
+      v54 = __Block_byref_object_dispose__24;
+      v55 = 0;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:];
       }
 
-      v11 = (v52[0] + 40);
-      obj = *(v52[0] + 40);
+      v11 = (v51 + 5);
+      obj = v51[5];
       v12 = [MEMORY[0x1E695D6C0] removePersistentHistoryFromPersistentStoreAtURL:versionCopy options:0 error:&obj];
       objc_storeStrong(v11, obj);
-      if (((*(v52[0] + 40) == 0) & v12) != 0)
+      if (((v51[5] == 0) & v12) != 0)
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
@@ -2877,74 +2851,74 @@ LABEL_11:
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:v52 inStoreAtURL:? error:?];
+          [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:];
         }
 
-        v14 = *(v52[0] + 40);
-        *(v52[0] + 40) = 0;
+        v14 = v51[5];
+        v51[5] = 0;
       }
 
       v15 = objc_alloc(MEMORY[0x1E695D6C0]);
-      v16 = (v52[0] + 40);
-      v49 = *(v52[0] + 40);
-      v17 = [MEMORY[0x1E695D6B8] cachedModelForPersistentStoreWithURL:versionCopy options:0 error:&v49];
-      objc_storeStrong(v16, v49);
+      v16 = (v51 + 5);
+      v48 = v51[5];
+      v17 = [MEMORY[0x1E695D6B8] cachedModelForPersistentStoreWithURL:versionCopy options:0 error:&v48];
+      objc_storeStrong(v16, v48);
       v18 = [v15 initWithManagedObjectModel:v17];
 
-      if (v18 && (v19 = (v52[0] + 40), !*(v52[0] + 40)))
+      if (v18 && (v19 = (v51 + 5), !v51[5]))
       {
         v21 = *MEMORY[0x1E695D4A8];
-        v48 = 0;
-        v22 = [v18 addPersistentStoreWithType:v21 configuration:0 URL:versionCopy options:0 error:&v48];
-        objc_storeStrong(v19, v48);
-        if (!*(v52[0] + 40))
+        v47 = 0;
+        v22 = [v18 addPersistentStoreWithType:v21 configuration:0 URL:versionCopy options:0 error:&v47];
+        objc_storeStrong(v19, v47);
+        if (!v51[5])
         {
           v23 = [objc_alloc(MEMORY[0x1E695D628]) initWithConcurrencyType:1];
           [v23 setPersistentStoreCoordinator:v18];
           [v23 setMergePolicy:*MEMORY[0x1E695D370]];
           [v23 setUndoManager:0];
-          v43 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"Object"];
+          v42 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"Object"];
           v24 = objc_alloc_init(MEMORY[0x1E695D5C8]);
           [v24 setName:@"SELF"];
           expressionForEvaluatedObject = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
           [v24 setExpression:expressionForEvaluatedObject];
 
           [v24 setExpressionResultType:2000];
-          v55[0] = v24;
-          v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
-          [v43 setPropertiesToFetch:v26];
+          v57[0] = v24;
+          v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
+          [v42 setPropertiesToFetch:v26];
 
-          [v43 setPropertiesToGroupBy:&unk_1F05EF668];
-          [v43 setResultType:2];
-          v42 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"Object"];
+          [v42 setPropertiesToGroupBy:&unk_1F05EF668];
+          [v42 setResultType:2];
+          v41 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"Object"];
           v27 = MEMORY[0x1E695D5F0];
-          v28 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v43];
+          v28 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v42];
           v29 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v23];
-          v41 = [v27 expressionForFetch:v28 context:v29 countOnly:0];
+          v40 = [v27 expressionForFetch:v28 context:v29 countOnly:0];
 
-          v30 = [MEMORY[0x1E696AE18] predicateWithFormat:@"NOT SELF IN %@", v41];
-          [v42 setPredicate:v30];
+          v30 = [MEMORY[0x1E696AE18] predicateWithFormat:@"NOT SELF IN %@", v40];
+          [v41 setPredicate:v30];
 
-          v31 = [objc_alloc(MEMORY[0x1E695D538]) initWithFetchRequest:v42];
+          v31 = [objc_alloc(MEMORY[0x1E695D538]) initWithFetchRequest:v41];
           [v31 setResultType:2];
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __98___DKKnowledgeStorage_DataMigration__updateDataBeforeAutoMigrationFromVersion_inStoreAtURL_error___block_invoke;
-          v44[3] = &unk_1E736A6C0;
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __98___DKKnowledgeStorage_DataMigration__updateDataBeforeAutoMigrationFromVersion_inStoreAtURL_error___block_invoke;
+          v43[3] = &unk_1E736A6C0;
           v32 = v23;
-          v45 = v32;
+          v44 = v32;
           v33 = v31;
-          v46 = v33;
-          v47 = &v51;
-          v34 = [v32 performBlockWithResult:v44];
-          v35 = *(v52[0] + 40);
+          v45 = v33;
+          v46 = &v50;
+          v34 = [v32 performBlockWithResult:v43];
+          v35 = v51[5];
           v13 = v35 == 0;
           if (v35)
           {
             v36 = +[_CDLogging knowledgeChannel];
             if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
-              [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:v52 inStoreAtURL:? error:?];
+              [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:];
             }
           }
 
@@ -2957,7 +2931,7 @@ LABEL_11:
 
           if (l)
           {
-            *l = *(v52[0] + 40);
+            *l = v51[5];
           }
 
           goto LABEL_33;
@@ -2966,7 +2940,7 @@ LABEL_11:
         v20 = +[_CDLogging knowledgeChannel];
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:v52 inStoreAtURL:? error:?];
+          [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:];
         }
       }
 
@@ -2975,19 +2949,19 @@ LABEL_11:
         v20 = +[_CDLogging knowledgeChannel];
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:v52 inStoreAtURL:? error:?];
+          [_DKKnowledgeStorage updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:];
         }
       }
 
       v13 = 0;
       if (l)
       {
-        *l = *(v52[0] + 40);
+        *l = v51[5];
       }
 
 LABEL_33:
 
-      _Block_object_dispose(&v51, 8);
+      _Block_object_dispose(&v50, 8);
       goto LABEL_34;
     }
 
@@ -3000,13 +2974,12 @@ LABEL_33:
   v13 = 0;
 LABEL_34:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (uint64_t)updateDataAfterAutoMigrationToVersion:(void *)version inPersistentStore:(void *)store error:
 {
-  v47[3] = *MEMORY[0x1E69E9840];
+  v46[3] = *MEMORY[0x1E69E9840];
   versionCopy = version;
   if (!self)
   {
@@ -3028,10 +3001,10 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
   v8 = objc_alloc_init(_DKObjectFromMOCache);
   v9 = objc_alloc_init(_DKObject);
   persistentStoreCoordinator = [versionCopy persistentStoreCoordinator];
@@ -3039,41 +3012,41 @@ LABEL_10:
   [v10 setPersistentStoreCoordinator:persistentStoreCoordinator];
   [v10 setMergePolicy:*MEMORY[0x1E695D370]];
   [v10 setUndoManager:0];
-  v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"metadata != NULL"];
-  v31 = [MEMORY[0x1E696AE18] predicateWithFormat:@"value != NULL AND valueTypeCode == NULL"];
+  v31 = [MEMORY[0x1E696AE18] predicateWithFormat:@"metadata != NULL"];
+  v30 = [MEMORY[0x1E696AE18] predicateWithFormat:@"value != NULL AND valueTypeCode == NULL"];
   v11 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY objectAttributeValue != NULL"];
   v12 = MEMORY[0x1E696AB28];
-  v47[0] = v32;
-  v47[1] = v31;
-  v30 = v11;
-  v47[2] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:3];
+  v46[0] = v31;
+  v46[1] = v30;
+  v29 = v11;
+  v46[2] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
   v14 = [v12 orPredicateWithSubpredicates:v13];
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __100___DKKnowledgeStorage_DataMigration__updateDataAfterAutoMigrationToVersion_inPersistentStore_error___block_invoke;
-  v36[3] = &unk_1E736A6E8;
-  v40 = &v41;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __100___DKKnowledgeStorage_DataMigration__updateDataAfterAutoMigrationToVersion_inPersistentStore_error___block_invoke;
+  v35[3] = &unk_1E736A6E8;
+  v39 = &v40;
   v15 = v9;
-  v37 = v15;
-  v29 = v8;
-  v38 = v29;
+  v36 = v15;
+  v28 = v8;
+  v37 = v28;
   selfCopy = self;
-  v16 = MEMORY[0x193B00C50](v36);
-  LOBYTE(v28) = 1;
-  v17 = [_DKCoreDataStorage updateObjectsInContext:v10 entityName:@"Object" predicate:v14 sortDescriptors:0 batchFetchLimit:1024 totalFetchLimit:0 includeSubentities:v28 updateBlock:v16];
+  v16 = MEMORY[0x193B00C50](v35);
+  LOBYTE(v27) = 1;
+  v17 = [_DKCoreDataStorage updateObjectsInContext:v10 entityName:@"Object" predicate:v14 sortDescriptors:0 batchFetchLimit:1024 totalFetchLimit:0 includeSubentities:v27 updateBlock:v16];
   v18 = v17;
   if (store)
   {
-    v19 = v42[3];
+    v19 = v41[3];
     if (v17 != v19)
     {
       v20 = MEMORY[0x1E696ABC0];
-      v45 = *MEMORY[0x1E696A578];
+      v44 = *MEMORY[0x1E696A578];
       v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Only able to convert %lu/%lu objects during v%lu migration.", v17, v19, a2];
-      v46 = v21;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      v45 = v21;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
       v23 = [v20 errorWithDomain:@"com.apple.coreduet.DKKnowledgeStorage" code:1 userInfo:v22];
 
       v24 = v23;
@@ -3088,13 +3061,12 @@ LABEL_10:
 
   else
   {
-    v25 = v18 == v42[3];
+    v25 = v18 == v41[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v40, 8);
 LABEL_13:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -3256,6 +3228,16 @@ LABEL_10:
   return v8;
 }
 
++ (_DKKnowledgeStorage)storageWithDirectory:(id)directory readOnly:(BOOL)only localOnly:(BOOL)localOnly
+{
+  localOnlyCopy = localOnly;
+  onlyCopy = only;
+  directoryCopy = directory;
+  v9 = [(_DKKnowledgeStorage *)[self alloc] initWithDirectory:directoryCopy readOnly:onlyCopy localOnly:localOnlyCopy];
+
+  return v9;
+}
+
 - (id)syncStorageIfAvailable
 {
   if (self)
@@ -3368,11 +3350,11 @@ LABEL_8:
 
 - (id)errorForException:(uint64_t)exception
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (exception)
   {
     v2 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
+    v9 = *MEMORY[0x1E696A578];
     reason = [a2 reason];
     v4 = reason;
     v5 = @"Exception Caught";
@@ -3381,8 +3363,8 @@ LABEL_8:
       v5 = reason;
     }
 
-    v11[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v2 errorWithDomain:@"com.apple.coreduet.DKKnowledgeStorage" code:0 userInfo:v6];
   }
 
@@ -3390,8 +3372,6 @@ LABEL_8:
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -3422,7 +3402,7 @@ LABEL_8:
 
 - (BOOL)_deleteObjects:(void *)objects error:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!self)
   {
@@ -3444,155 +3424,155 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v9 = [(_DKKnowledgeStorage *)self removeBadObjects:v5];
-  v10 = [v9 count];
-  if (v10 != [v5 count])
+  v8 = [(_DKKnowledgeStorage *)self removeBadObjects:v5];
+  v9 = [v8 count];
+  if (v9 != [v5 count])
   {
-    v11 = [v5 mutableCopy];
-    [v11 removeObjectsInArray:v9];
-    v12 = +[_CDLogging knowledgeChannel];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = [v5 mutableCopy];
+    [v10 removeObjectsInArray:v8];
+    v11 = +[_CDLogging knowledgeChannel];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      *v51 = "[_DKKnowledgeStorage _deleteObjects:error:]";
-      *&v51[8] = 2112;
-      *&v51[10] = v11;
-      _os_log_error_impl(&dword_191750000, v12, OS_LOG_TYPE_ERROR, "%s: found foreign objects: %@", buf, 0x16u);
+      *v50 = "[_DKKnowledgeStorage _deleteObjects:error:]";
+      *&v50[8] = 2112;
+      *&v50[10] = v10;
+      _os_log_error_impl(&dword_191750000, v11, OS_LOG_TYPE_ERROR, "%s: found foreign objects: %@", buf, 0x16u);
     }
   }
 
-  if ([v9 count])
+  if ([v8 count])
   {
-    v13 = [v9 valueForKey:@"UUID"];
-    v14 = [v13 mutableCopy];
+    v12 = [v8 valueForKey:@"UUID"];
+    v13 = [v12 mutableCopy];
 
-    v42 = [*(self + 96) managedObjectContextFor:*MEMORY[0x1E696A388] identifier:*(self + 72)];
-    v15 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v41 = [*(self + 96) managedObjectContextFor:*MEMORY[0x1E696A388] identifier:*(self + 72)];
+    v14 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v16 = v14;
-    v17 = [v16 countByEnumeratingWithState:&v45 objects:v49 count:16];
-    if (v17)
+    v15 = v13;
+    v16 = [v15 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    if (v16)
     {
-      v18 = v17;
-      v19 = *v46;
+      v17 = v16;
+      v18 = *v45;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v46 != v19)
+          if (*v45 != v18)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v15);
           }
 
-          uUIDString = [*(*(&v45 + 1) + 8 * i) UUIDString];
-          [v15 addObject:uUIDString];
+          uUIDString = [*(*(&v44 + 1) + 8 * i) UUIDString];
+          [v14 addObject:uUIDString];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
-      while (v18);
+      while (v17);
     }
 
-    v22 = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", v15];
-    v23 = [[_CDMemoryUsageInterval alloc] initWithName:@"deleteObjects" client:0];
-    [(_CDMemoryUsageInterval *)v23 begin];
-    v24 = +[_CDLogging knowledgeChannel];
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v21 = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", v14];
+    v22 = [[_CDMemoryUsageInterval alloc] initWithName:@"deleteObjects" client:0];
+    [(_CDMemoryUsageInterval *)v22 begin];
+    v23 = +[_CDLogging knowledgeChannel];
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v25 = [v5 count];
+      v24 = [v5 count];
       *buf = 134217984;
-      *v51 = v25;
-      _os_log_impl(&dword_191750000, v24, OS_LOG_TYPE_INFO, "[Storage] Starting deleteObjects with %lu objects.", buf, 0xCu);
+      *v50 = v24;
+      _os_log_impl(&dword_191750000, v23, OS_LOG_TYPE_INFO, "[Storage] Starting deleteObjects with %lu objects.", buf, 0xCu);
     }
 
-    v40 = v23;
+    v39 = v22;
     if (_os_feature_enabled_impl())
     {
-      v26 = [[_DKBiomeQuery alloc] initWithDeletionArray:v9];
-      v27 = v26;
-      if (v26)
+      v25 = [[_DKBiomeQuery alloc] initWithDeletionArray:v8];
+      v26 = v25;
+      if (v25)
       {
-        v44 = 0;
-        v28 = [(_DKBiomeQuery *)v26 executeDeletionQuery:&v44];
-        v29 = v44;
-        if (objects && v29)
+        v43 = 0;
+        v27 = [(_DKBiomeQuery *)v25 executeDeletionQuery:&v43];
+        v28 = v43;
+        if (objects && v28)
         {
-          v29 = v29;
-          *objects = v29;
+          v28 = v28;
+          *objects = v28;
         }
       }
 
       else
       {
-        v28 = 0;
+        v27 = 0;
       }
     }
 
     else
     {
-      v28 = 0;
+      v27 = 0;
     }
 
-    v39 = objc_autoreleasePoolPush();
-    v30 = +[_DKObject entityName];
-    LOBYTE(v38) = 1;
-    v41 = v22;
-    v31 = [_DKCoreDataStorage deleteObjectsInContext:v42 entityName:v30 predicate:v22 sortDescriptors:0 fetchLimit:0x7FFFFFFFFFFFFFFFLL includeSubentities:1 includePendingChanges:v38];
+    v38 = objc_autoreleasePoolPush();
+    v29 = +[_DKObject entityName];
+    LOBYTE(v37) = 1;
+    v40 = v21;
+    v30 = [_DKCoreDataStorage deleteObjectsInContext:v41 entityName:v29 predicate:v21 sortDescriptors:0 fetchLimit:0x7FFFFFFFFFFFFFFFLL includeSubentities:1 includePendingChanges:v37];
 
-    v6 = v31 >= [v16 count];
-    if (v31 > [v16 count])
+    v6 = v30 >= [v15 count];
+    if (v30 > [v15 count])
     {
-      v32 = +[_CDLogging knowledgeChannel];
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v31 = +[_CDLogging knowledgeChannel];
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v37 = [v16 count];
+        v36 = [v15 count];
         *buf = 134218240;
-        *v51 = v31;
-        *&v51[8] = 2048;
-        *&v51[10] = v37;
-        _os_log_debug_impl(&dword_191750000, v32, OS_LOG_TYPE_DEBUG, "Duplicate objects detected during deletion: %lu deleted vs. %lu requested.", buf, 0x16u);
+        *v50 = v30;
+        *&v50[8] = 2048;
+        *&v50[10] = v36;
+        _os_log_debug_impl(&dword_191750000, v31, OS_LOG_TYPE_DEBUG, "Duplicate objects detected during deletion: %lu deleted vs. %lu requested.", buf, 0x16u);
       }
     }
 
-    v33 = +[_CDLogging knowledgeChannel];
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    v32 = +[_CDLogging knowledgeChannel];
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      v34 = v31 >= [v16 count];
+      v33 = v30 >= [v15 count];
       *buf = 67109376;
-      *v51 = v34;
-      *&v51[4] = 2048;
-      *&v51[6] = v31;
-      _os_log_impl(&dword_191750000, v33, OS_LOG_TYPE_INFO, "[Storage] Completed deleteObjects with success=%d. Deleted: %lu.", buf, 0x12u);
+      *v50 = v33;
+      *&v50[4] = 2048;
+      *&v50[6] = v30;
+      _os_log_impl(&dword_191750000, v32, OS_LOG_TYPE_INFO, "[Storage] Completed deleteObjects with success=%d. Deleted: %lu.", buf, 0x12u);
     }
 
-    if (v31 + v28)
+    if (v30 + v27)
     {
-      v43 = 0;
-      [(_DKKnowledgeStorage *)self _tombstoneObjects:v9 error:&v43];
-      v35 = v43;
-      [(_DKKnowledgeStorage *)self _sendEventsNotificationName:v9 withObjects:?];
+      v42 = 0;
+      [(_DKKnowledgeStorage *)self _tombstoneObjects:v8 error:&v42];
+      v34 = v42;
+      [(_DKKnowledgeStorage *)self _sendEventsNotificationName:v8 withObjects:?];
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
     }
 
-    objc_autoreleasePoolPop(v39);
-    [(_CDMemoryUsageInterval *)v40 end];
+    objc_autoreleasePoolPop(v38);
+    [(_CDMemoryUsageInterval *)v39 end];
     if (objects)
     {
-      v36 = v35;
-      *objects = v35;
+      v35 = v34;
+      *objects = v34;
     }
 
     if (_os_feature_enabled_impl())
     {
-      v6 = v28 >= [v16 count];
+      v6 = v27 >= [v15 count];
     }
   }
 
@@ -3602,13 +3582,12 @@ LABEL_4:
   }
 
 LABEL_5:
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)_tombstoneObjects:(void *)objects error:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (self)
   {
@@ -3617,9 +3596,9 @@ LABEL_5:
     objc_claimAutoreleasedReturnValue();
     v7 = [OUTLINED_FUNCTION_13_3() filteredArrayUsingPredicate:?];
     tombstonePolicy = [(dispatch_queue_t *)self tombstonePolicy];
-    v36 = 0;
-    v9 = [tombstonePolicy tombstonesForEvents:v7 resultingFromRequirementsWithIdentifiers:&v36];
-    v30 = v36;
+    v35 = 0;
+    v9 = [tombstonePolicy tombstonesForEvents:v7 resultingFromRequirementsWithIdentifiers:&v35];
+    v29 = v35;
 
     v10 = objc_alloc_init(MEMORY[0x1E696AB50]);
     if (![v9 count])
@@ -3627,30 +3606,30 @@ LABEL_5:
       goto LABEL_17;
     }
 
-    v26 = v7;
-    v27 = v3;
+    v25 = v7;
+    v26 = v3;
     objectsCopy = objects;
-    v29 = v6;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
+    v28 = v6;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v32 objects:v41 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v33;
+      v14 = *v32;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v33 != v14)
+          if (*v32 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          metadata = [*(*(&v32 + 1) + 8 * i) metadata];
+          metadata = [*(*(&v31 + 1) + 8 * i) metadata];
           v17 = +[_DKTombstoneMetadataKey eventStreamName];
           v18 = [OUTLINED_FUNCTION_23_2() objectForKeyedSubscript:?];
 
@@ -3660,34 +3639,34 @@ LABEL_5:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v32 objects:v41 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
       while (v13);
     }
 
-    v31 = 0;
-    [(_DKKnowledgeStorage *)self _saveObjects:v11 error:&v31];
-    v19 = v31;
+    v30 = 0;
+    [(_DKKnowledgeStorage *)self _saveObjects:v11 error:&v30];
+    v19 = v30;
     objects = objectsCopy;
-    v6 = v29;
-    v7 = v26;
-    v3 = v27;
+    v6 = v28;
+    v7 = v25;
+    v3 = v26;
     if (v19)
     {
       v20 = v19;
       v21 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v25 = [v11 count];
+        v24 = [v11 count];
         *buf = 134218242;
-        v38 = v25;
-        v39 = 2112;
-        v40 = v20;
+        v37 = v24;
+        v38 = 2112;
+        v39 = v20;
         _os_log_error_impl(&dword_191750000, v21, OS_LOG_TYPE_ERROR, "Error saving %lu tombstones: %@", buf, 0x16u);
       }
 
-      v22 = v30;
+      v22 = v29;
       if (!objectsCopy)
       {
         goto LABEL_21;
@@ -3698,10 +3677,10 @@ LABEL_5:
     {
 LABEL_17:
       [(_DKKnowledgeStorage *)self _sendTombstoneNotificationsWithStreamNameCounts:v10];
-      v22 = v30;
-      if ([v30 count])
+      v22 = v29;
+      if ([v29 count])
       {
-        [_DKTombstoneNotifier sendDistributedNotificationsForTombstoneRequirementIdentifiers:v30 queue:self[11]];
+        [_DKTombstoneNotifier sendDistributedNotificationsForTombstoneRequirementIdentifiers:v29 queue:self[11]];
       }
 
       v20 = 0;
@@ -3715,8 +3694,6 @@ LABEL_17:
     *objects = v20;
 LABEL_21:
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (dispatch_queue_t)_deleteAllEventsMatchingPredicate:(void *)predicate error:
@@ -3762,7 +3739,7 @@ LABEL_21:
 
 - (BOOL)deleteKnowledgeStream:(void *)stream context:(uint64_t)context expectedEventCount:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (self)
   {
@@ -3771,8 +3748,8 @@ LABEL_21:
     v10 = [(_DKQuery *)_DKEventQuery predicateForEventsWithStreamName:name];
 
     v11 = +[_DKEvent entityName];
-    LOBYTE(v17) = 1;
-    v12 = [_DKCoreDataStorage deleteObjectsInContext:streamCopy entityName:v11 predicate:v10 sortDescriptors:0 fetchLimit:0x7FFFFFFFFFFFFFFFLL includeSubentities:0 includePendingChanges:v17];
+    LOBYTE(v16) = 1;
+    v12 = [_DKCoreDataStorage deleteObjectsInContext:streamCopy entityName:v11 predicate:v10 sortDescriptors:0 fetchLimit:0x7FFFFFFFFFFFFFFFLL includeSubentities:0 includePendingChanges:v16];
 
     self = v12 == context;
     if (v12 != context)
@@ -3783,22 +3760,21 @@ LABEL_21:
         name2 = [v7 name];
         *buf = 136446722;
         uTF8String = [name2 UTF8String];
-        v20 = 2048;
+        v19 = 2048;
         contextCopy = context;
-        v22 = 2048;
-        v23 = v12;
+        v21 = 2048;
+        v22 = v12;
         _os_log_impl(&dword_191750000, v13, OS_LOG_TYPE_DEFAULT, "Unexpected number of events deleted after Biome migration of stream: %{public}s expected: %lu deleted: %lu", buf, 0x20u);
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (uint64_t)migrateStream:(void *)stream context:
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v5 = a2;
   streamCopy = stream;
   if (self)
@@ -3825,7 +3801,7 @@ LABEL_21:
         v10 = [_CDEventStreams eventStreamPropertiesForEventStream:v5];
         v11 = v10;
         v12 = 2419200.0;
-        v53 = v7;
+        v52 = v7;
         if (v10)
         {
           [v10 timeToLive];
@@ -3837,8 +3813,8 @@ LABEL_21:
         }
 
         selfCopy = self;
-        v49 = v11;
-        v50 = name;
+        v48 = v11;
+        v49 = name;
         v15 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-v12];
         distantFuture = [MEMORY[0x1E695DF00] distantFuture];
         v17 = +[_CDLogging knowledgeChannel];
@@ -3846,35 +3822,35 @@ LABEL_21:
         {
           name3 = [v5 name];
           OUTLINED_FUNCTION_22_2(name3, 5.8382e-34);
-          v62 = 2114;
-          v63 = v15;
+          v61 = 2114;
+          v62 = v15;
           OUTLINED_FUNCTION_27_1(&dword_191750000, v19, v20, "Migrating events to Biome from stream %{public}@ since %{public}@");
         }
 
-        v51 = v5;
+        v50 = v5;
         name4 = [v5 name];
-        v59 = name4;
+        v58 = name4;
         v22 = 1;
-        [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+        [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
         objc_claimAutoreleasedReturnValue();
         v23 = [OUTLINED_FUNCTION_13_3() predicateForEventsWithStreamNames:?];
 
-        v47 = distantFuture;
-        v48 = v15;
-        v45 = [_DKQuery predicateForEventsBetweenStartDate:v15 endDate:distantFuture];
-        v46 = v23;
-        v58[0] = v23;
-        v58[1] = v45;
-        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
+        v46 = distantFuture;
+        v47 = v15;
+        v44 = [_DKQuery predicateForEventsBetweenStartDate:v15 endDate:distantFuture];
+        v45 = v23;
+        v57[0] = v23;
+        v57[1] = v44;
+        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
         v25 = [OUTLINED_FUNCTION_23_2() andPredicateWithSubpredicates:?];
 
         v26 = [_DKQuery creationDateSortDescriptorAscending:1];
-        v57 = v26;
-        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
+        v56 = v26;
+        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
 
         v28 = 0;
+        v54 = 0;
         v55 = 0;
-        v56 = 0;
         do
         {
           v29 = objc_autoreleasePoolPush();
@@ -3885,23 +3861,23 @@ LABEL_21:
           [v30 setEntity:v31];
 
           [v30 setFetchLimit:500];
-          [v30 setFetchOffset:v56];
+          [v30 setFetchOffset:v55];
           [v30 setPredicate:v25];
           [v30 setSortDescriptors:v27];
           v32 = objc_alloc_init(_DKObjectMOConverter);
           [(_DKObjectMOConverter *)v32 setReadMetadata:1];
           [(_DKObjectMOConverter *)v32 setDeduplicateValues:1];
-          v33 = [(_DKKnowledgeStorage *)selfCopy migrateEventBatchToBiomeStream:v53 fetchRequest:v30 managedObjectContex:streamCopy converter:v32 eventCount:&v55 offset:&v56];
-          v34 = v55;
+          v33 = [(_DKKnowledgeStorage *)selfCopy migrateEventBatchToBiomeStream:v52 fetchRequest:v30 managedObjectContex:streamCopy converter:v32 eventCount:&v54 offset:&v55];
+          v34 = v54;
           if (!v33)
           {
             name = +[_CDLogging knowledgeChannel];
             if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
             {
-              name5 = [v51 name];
+              name5 = [v50 name];
               OUTLINED_FUNCTION_22_2(name5, 5.8382e-34);
-              v62 = 2048;
-              v63 = v35;
+              v61 = 2048;
+              v62 = v35;
               _os_log_error_impl(&dword_191750000, name, OS_LOG_TYPE_ERROR, "Error migrating event batch for stream: %{public}@ offset: %lu", buf, 0x16u);
             }
           }
@@ -3914,26 +3890,26 @@ LABEL_21:
 
         while (v34 == 500);
         v36 = +[_CDLogging knowledgeChannel];
-        v5 = v51;
+        v5 = v50;
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
-          name6 = [v51 name];
+          name6 = [v50 name];
           *buf = 134218242;
-          v61 = v28;
-          v62 = 2114;
-          v63 = name6;
+          v60 = v28;
+          v61 = 2114;
+          v62 = name6;
           OUTLINED_FUNCTION_27_1(&dword_191750000, v38, v39, "Migrated %lu events to Biome from stream %{public}@");
         }
 
-        v7 = v53;
-        self = v22 & [(_DKKnowledgeStorage *)selfCopy verifyBiomeMigration:v53 expectedEventCount:v28];
-        name = v50;
+        v7 = v52;
+        self = v22 & [(_DKKnowledgeStorage *)selfCopy verifyBiomeMigration:v52 expectedEventCount:v28];
+        name = v49;
         if (*(selfCopy + 8) == 1)
         {
-          self = self & [(_DKKnowledgeStorage *)selfCopy deleteKnowledgeStream:v51 context:streamCopy expectedEventCount:v28];
+          self = self & [(_DKKnowledgeStorage *)selfCopy deleteKnowledgeStream:v50 context:streamCopy expectedEventCount:v28];
         }
 
-        v8 = v49;
+        v8 = v48;
       }
     }
 
@@ -3944,14 +3920,13 @@ LABEL_21:
       {
         name7 = [v5 name];
         OUTLINED_FUNCTION_22_2(name7, 5.8381e-34);
-        OUTLINED_FUNCTION_10(&dword_191750000, v8, v43, "Unexpected nil Biome stream encountered during migration of stream %{public}@", buf);
+        OUTLINED_FUNCTION_10(&dword_191750000, v8, v42, "Unexpected nil Biome stream encountered during migration of stream %{public}@", buf);
       }
 
       self = 0;
     }
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -3973,19 +3948,16 @@ LABEL_21:
 
 - (void)_saveObjects:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_tombstoneObjectsMatchingPredicate:(uint64_t)a1 batchSize:error:.cold.1(uint64_t a1)
+- (void)_tombstoneObjectsMatchingPredicate:batchSize:error:.cold.1()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)migrateEventBatchToBiomeStream:(NSObject *)a3 fetchRequest:managedObjectContex:converter:eventCount:offset:.cold.1(void *a1, uint64_t a2, NSObject *a3)
@@ -4004,26 +3976,20 @@ LABEL_21:
 
 - (void)coreDataStorage:(uint64_t)a1 willAutoMigrateStoreAtURL:(uint64_t)a2 fromManagedObjectModel:havingVersion:error:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:-[_DKKnowledgeStorage finalMigrationVersion](a2)];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)coreDataStorage:(uint64_t)a1 didAutoMigratePersistentStore:(uint64_t)a2 toManagedObjectModel:havingVersion:error:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:-[_DKKnowledgeStorage finalMigrationVersion](a2)];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchLocalChangesSinceDate:error:.cold.2()
@@ -4035,71 +4001,66 @@ LABEL_21:
 
 - (void)lastSequenceNumberForChangeSetWithEntityName:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)startSyncDownFromCloudWithResponseQueue:(uint64_t)a1 withCompletion:.cold.1(uint64_t a1)
+- (void)startSyncDownFromCloudWithResponseQueue:withCompletion:.cold.1()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-- (void)startSyncUpToCloudWithResponseQueue:(uint64_t)a1 withCompletion:.cold.1(uint64_t a1)
+- (void)startSyncUpToCloudWithResponseQueue:withCompletion:.cold.1()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)setKeyValueObject:(void *)object forKey:(void *)key domain:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a2;
   objectCopy = object;
   keyCopy = key;
   if (self)
   {
     [MEMORY[0x1E696AE90] allowedTopLevelClasses];
+    v22 = 0u;
+    v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v10 = v27 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v10 = v25 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v23;
       while (2)
       {
         v14 = 0;
         do
         {
-          if (*v25 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * v14);
           if (objc_opt_isKindOfClass())
           {
 
             executionQueue = [(_DKKnowledgeStorage *)self executionQueue];
-            v20[0] = MEMORY[0x1E69E9820];
-            v20[1] = 3221225472;
-            v20[2] = __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain___block_invoke;
-            v20[3] = &unk_1E736A018;
-            v20[4] = self;
-            v21 = keyCopy;
-            v22 = objectCopy;
-            v23 = v7;
-            dispatch_sync(executionQueue, v20);
+            v18[0] = MEMORY[0x1E69E9820];
+            v18[1] = 3221225472;
+            v18[2] = __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain___block_invoke;
+            v18[3] = &unk_1E736A018;
+            v18[4] = self;
+            v19 = keyCopy;
+            v20 = objectCopy;
+            v21 = v7;
+            dispatch_sync(executionQueue, v18);
 
             goto LABEL_14;
           }
@@ -4108,7 +4069,7 @@ LABEL_21:
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v12)
         {
           continue;
@@ -4118,21 +4079,19 @@ LABEL_21:
       }
     }
 
-    v16 = +[_CDLogging knowledgeChannel];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = +[_CDLogging knowledgeChannel];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v19 = objc_opt_class();
+      v17 = objc_opt_class();
       *buf = 138412546;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v10;
-      _os_log_fault_impl(&dword_191750000, v16, OS_LOG_TYPE_FAULT, "Attempt to set value of class %@ in key-value store is unsupported. Supported classes: %@", buf, 0x16u);
+      v27 = v17;
+      v28 = 2112;
+      v29 = v10;
+      _os_log_fault_impl(&dword_191750000, v15, OS_LOG_TYPE_FAULT, "Attempt to set value of class %@ in key-value store is unsupported. Supported classes: %@", buf, 0x16u);
     }
 
 LABEL_14:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeKeyValueObjectForKey:(void *)key domain:
@@ -4158,7 +4117,7 @@ LABEL_14:
 
 - (void)updateToFinalMetadata:(uint64_t)metadata
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (metadata)
   {
@@ -4167,27 +4126,27 @@ LABEL_14:
       dispatch_once(&qword_1EADBD620, &__block_literal_global_74);
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v4 = _MergedGlobals_4;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
-          v10 = [v3 objectForKeyedSubscript:{v9, v14}];
+          v9 = *(*(&v13 + 1) + 8 * i);
+          v10 = [v3 objectForKeyedSubscript:{v9, v13}];
 
           if (v10)
           {
@@ -4199,7 +4158,7 @@ LABEL_14:
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -4207,8 +4166,6 @@ LABEL_14:
 
     [v3 removeObjectsForKeys:qword_1EADBD618];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)versionsRequiringManualSetup
@@ -4300,44 +4257,37 @@ LABEL_12:
 
 - (void)updateDataBeforeAutoMigrationFromVersion:(uint64_t)a1 inStoreAtURL:error:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, MEMORY[0x1E69E9C10], v2, "Pre-migration update called at unexpected version: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_2(&dword_191750000, MEMORY[0x1E69E9C10], v2, "Pre-migration update called at unexpected version: %@", v3, v4, v5, v6);
 }
 
 - (void)updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:.cold.2()
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Attempting to remove persistent history from store: %@", v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Attempting to remove persistent history from store: %@", v0, 0xCu);
 }
 
-- (void)updateDataBeforeAutoMigrationFromVersion:(uint64_t)a1 inStoreAtURL:error:.cold.3(uint64_t a1)
+- (void)updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:.cold.3()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, MEMORY[0x1E69E9C10], v1, "Failed to remove persistent history from store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_2(&dword_191750000, MEMORY[0x1E69E9C10], v0, "Failed to remove persistent history from store: %@", v1, v2, v3, v4);
 }
 
-- (void)updateDataBeforeAutoMigrationFromVersion:(uint64_t)a1 inStoreAtURL:error:.cold.5(uint64_t a1)
+- (void)updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:.cold.5()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v1, v2, "Failed to create persistent store coordinator: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Failed to create persistent store coordinator: %@", v2, v3, v4, v5);
 }
 
-- (void)updateDataBeforeAutoMigrationFromVersion:(uint64_t)a1 inStoreAtURL:error:.cold.6(uint64_t a1)
+- (void)updateDataBeforeAutoMigrationFromVersion:inStoreAtURL:error:.cold.6()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v1, v2, "Failed to delete duplicate events: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Failed to delete duplicate events: %@", v2, v3, v4, v5);
 }
 
 - (void)updateDataBeforeAutoMigrationFromVersion:(void *)a1 inStoreAtURL:(uint8_t *)buf error:(os_log_t)log .cold.8(void *a1, uint8_t *buf, os_log_t log)
@@ -4349,12 +4299,9 @@ LABEL_12:
 
 - (void)updateDataAfterAutoMigrationToVersion:(uint64_t)a1 inPersistentStore:error:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, MEMORY[0x1E69E9C10], v2, "Migration called at unexpected version: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_2(&dword_191750000, MEMORY[0x1E69E9C10], v2, "Migration called at unexpected version: %@", v3, v4, v5, v6);
 }
 
 @end

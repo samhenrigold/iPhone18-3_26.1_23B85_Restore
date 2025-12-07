@@ -1,5 +1,6 @@
 @interface FIWorkoutSplit
 - (FIWorkoutSplit)initWithCoder:(id)coder;
+- (FIWorkoutSplit)initWithDateInterval:(id)interval duration:(double)duration distanceInMeters:(double)meters totalDistanceUpToThisPointInMeters:(double)inMeters measurementSystem:(int64_t)system isPartialSplit:(BOOL)split averagePowerQuantityInWatts:(double)watts;
 - (FIWorkoutSplit)initWithDistance:(double)distance duration:(double)duration;
 - (FIWorkoutSplit)initWithDistance:(double)distance duration:(double)duration dateInterval:(id)interval;
 - (FIWorkoutSplit)initWithEvent:(id)event;
@@ -47,6 +48,28 @@
   }
 
   return v10;
+}
+
+- (FIWorkoutSplit)initWithDateInterval:(id)interval duration:(double)duration distanceInMeters:(double)meters totalDistanceUpToThisPointInMeters:(double)inMeters measurementSystem:(int64_t)system isPartialSplit:(BOOL)split averagePowerQuantityInWatts:(double)watts
+{
+  splitCopy = split;
+  intervalCopy = interval;
+  v20.receiver = self;
+  v20.super_class = FIWorkoutSplit;
+  v17 = [(FIWorkoutSplit *)&v20 init];
+  v18 = v17;
+  if (v17)
+  {
+    [(FIWorkoutSplit *)v17 setDateInterval:intervalCopy];
+    [(FIWorkoutSplit *)v18 setDuration:duration];
+    [(FIWorkoutSplit *)v18 setDistanceInMeters:meters];
+    [(FIWorkoutSplit *)v18 setTotalDistanceUpToThisPointInMeters:inMeters];
+    [(FIWorkoutSplit *)v18 setMeasurementSystem:system];
+    [(FIWorkoutSplit *)v18 setIsPartialSplit:splitCopy];
+    [(FIWorkoutSplit *)v18 setAveragePowerQuantityInWatts:watts];
+  }
+
+  return v18;
 }
 
 - (FIWorkoutSplit)initWithEvent:(id)event

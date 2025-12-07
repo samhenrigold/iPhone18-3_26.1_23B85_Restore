@@ -150,7 +150,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -170,12 +169,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  accountType = self->_accountType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_4:
-    fromStorage = self->_fromStorage;
     PBDataWriterWriteBOOLField();
   }
 
@@ -185,17 +182,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 2) != 0)
+  v5 = self->_has;
+  if ((v5 & 2) != 0)
   {
-    servertimestamp = self->_servertimestamp;
     PBDataWriterWriteUint64Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if (v6)
+  if (v5)
   {
-    localtimedelta = self->_localtimedelta;
 
     PBDataWriterWriteUint64Field();
   }
@@ -321,7 +316,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v7 = *(equal + 52);
   if ((has & 4) != 0)
   {
     if ((*(equal + 52) & 4) == 0 || self->_timestamp != *(equal + 3))
@@ -365,7 +359,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v9 = *(equal + 48);
   if (self->_fromStorage)
   {
     if ((*(equal + 48) & 1) == 0)

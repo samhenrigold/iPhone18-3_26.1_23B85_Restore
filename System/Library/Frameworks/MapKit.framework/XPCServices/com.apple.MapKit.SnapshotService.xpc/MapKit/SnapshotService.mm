@@ -118,35 +118,33 @@
     while (1)
     {
       v4 = [(NSMutableDictionary *)self->_requestIdToSnapshotter count];
-      v54 = 0;
-      v55 = &v54;
-      v56 = 0x2020000000;
+      v53 = 0;
+      v54 = &v53;
+      v55 = 0x2020000000;
       v5 = qword_10000CAC8;
-      v57 = qword_10000CAC8;
+      v56 = qword_10000CAC8;
       if (!qword_10000CAC8)
       {
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_100002514;
         *&buf[24] = &unk_100008370;
-        v59 = &v54;
+        v58 = &v53;
         v6 = sub_100002564();
         v7 = dlsym(v6, "MapKitConfig_SnapshotServiceQueueWidth");
-        *(*(v59 + 1) + 24) = v7;
-        qword_10000CAC8 = *(*(v59 + 1) + 24);
-        v5 = v55[3];
+        *(*(v58 + 1) + 24) = v7;
+        qword_10000CAC8 = *(*(v58 + 1) + 24);
+        v5 = v54[3];
       }
 
-      _Block_object_dispose(&v54, 8);
+      _Block_object_dispose(&v53, 8);
       if (!v5)
       {
-        dlerror();
-        abort_report_np();
+        v45 = dlerror();
+        abort_report_np("%s", v45);
         __break(1u);
       }
 
-      v8 = *v5;
-      v9 = v5[1];
       if (v4 >= GEOConfigGetUInteger())
       {
         goto LABEL_41;
@@ -155,27 +153,27 @@
       _nextSnapshotRequest = [(SnapshotService *)self _nextSnapshotRequest];
       if (!_nextSnapshotRequest)
       {
-        v45 = sub_100000E38();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        v43 = sub_100000E38();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "All pending snapshots are waiting on other snapshots to complete trying again as soon as the current snapshot(s) are finished.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "All pending snapshots are waiting on other snapshots to complete trying again as soon as the current snapshot(s) are finished.", buf, 2u);
         }
 
         _nextSnapshotRequest = 0;
         goto LABEL_40;
       }
 
-      v11 = [(SnapshotService *)self pixelsForRequest:_nextSnapshotRequest];
-      if ([(NSMutableDictionary *)self->_requestIdToSnapshotter count]&& ![(SnapshotService *)self hasEnoughPixelsForRequest:v11])
+      v9 = [(SnapshotService *)self pixelsForRequest:_nextSnapshotRequest];
+      if ([(NSMutableDictionary *)self->_requestIdToSnapshotter count]&& ![(SnapshotService *)self hasEnoughPixelsForRequest:v9])
       {
-        v45 = sub_100000E38();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v43 = sub_100000E38();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           requestId = [_nextSnapshotRequest requestId];
           *buf = 134349056;
           *&buf[4] = requestId;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Not enough memory to take snapshot for request %{public}llu. Trying again as soon as the current snapshot(s) are finished.", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Not enough memory to take snapshot for request %{public}llu. Trying again as soon as the current snapshot(s) are finished.", buf, 0xCu);
         }
 
 LABEL_40:
@@ -183,8 +181,8 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      v12 = sub_100000E38();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v10 = sub_100000E38();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         requestId2 = [_nextSnapshotRequest requestId];
         processIdentifier = [_nextSnapshotRequest processIdentifier];
@@ -192,16 +190,16 @@ LABEL_40:
         *&buf[4] = requestId2;
         *&buf[12] = 1024;
         *&buf[14] = processIdentifier;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Starting snapshot request %{public}llu for process %d", buf, 0x12u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Starting snapshot request %{public}llu for process %d", buf, 0x12u);
       }
 
       [(NSMutableArray *)self->_pendingSnapshotRequests removeObject:_nextSnapshotRequest];
       self->_lastRequestPID = [_nextSnapshotRequest processIdentifier];
-      self->_usedPixels += v11;
+      self->_usedPixels += v9;
       proccessIdToPendingSerialSnapshot = self->_proccessIdToPendingSerialSnapshot;
-      v16 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [_nextSnapshotRequest requestId]);
-      v17 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [_nextSnapshotRequest processIdentifier]);
-      [(NSMutableDictionary *)proccessIdToPendingSerialSnapshot setObject:v16 forKey:v17];
+      v14 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [_nextSnapshotRequest requestId]);
+      v15 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [_nextSnapshotRequest processIdentifier]);
+      [(NSMutableDictionary *)proccessIdToPendingSerialSnapshot setObject:v14 forKey:v15];
 
       completionHandler = [_nextSnapshotRequest completionHandler];
       connection = [_nextSnapshotRequest connection];
@@ -213,9 +211,9 @@ LABEL_40:
         goto LABEL_17;
       }
 
-      v22 = [connection valueForEntitlement:@"com.apple.private.network.socket-delegate"];
-      v23 = v22;
-      if (!v22 || ([v22 BOOLValue] & 1) == 0)
+      v20 = [connection valueForEntitlement:@"com.apple.private.network.socket-delegate"];
+      v21 = v20;
+      if (!v20 || ([v20 BOOLValue] & 1) == 0)
       {
         break;
       }
@@ -229,79 +227,79 @@ LABEL_40:
       }
 
 LABEL_20:
-      v27 = [VKMapSnapshotCreator alloc];
+      v25 = [VKMapSnapshotCreator alloc];
       options3 = [_nextSnapshotRequest options];
-      v29 = [v27 initWithSnapshotOptions:options3 homeQueue:self->_homeQueue auditToken:_auditToken2];
+      v27 = [v25 initWithSnapshotOptions:options3 homeQueue:self->_homeQueue auditToken:_auditToken2];
 
-      if (v29)
+      if (v27)
       {
         options4 = [_nextSnapshotRequest options];
         _customFeatureAnnotations = [options4 _customFeatureAnnotations];
-        v32 = [_customFeatureAnnotations count] == 0;
+        v30 = [_customFeatureAnnotations count] == 0;
 
-        if (!v32)
+        if (!v30)
         {
-          v33 = objc_alloc_init(NSClassFromString(@"_MKCustomFeatureStore"));
+          v31 = objc_alloc_init(NSClassFromString(@"_MKCustomFeatureStore"));
           options5 = [_nextSnapshotRequest options];
           _customFeatureAnnotations2 = [options5 _customFeatureAnnotations];
-          [v33 addAnnotations:_customFeatureAnnotations2];
+          [v31 addAnnotations:_customFeatureAnnotations2];
 
-          [v29 addCustomFeatureDataSource:v33];
+          [v27 addCustomFeatureDataSource:v31];
         }
 
-        v36 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [_nextSnapshotRequest requestId]);
-        [(NSMutableDictionary *)self->_requestIdToSnapshotter setObject:v29 forKey:v36];
+        v34 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [_nextSnapshotRequest requestId]);
+        [(NSMutableDictionary *)self->_requestIdToSnapshotter setObject:v27 forKey:v34];
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
         *&buf[24] = sub_100002230;
-        v59 = sub_100002240;
-        v60 = v29;
-        [v60 setClearFontCache:1];
-        v37 = *(*&buf[8] + 40);
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = sub_100002248;
-        v48[3] = &unk_1000083E8;
-        v48[4] = self;
-        v49 = connection;
-        v38 = v36;
-        v50 = v38;
-        v51 = _nextSnapshotRequest;
-        v53 = buf;
-        v52 = completionHandler;
-        [v37 renderSnapshot:v48];
+        v58 = sub_100002240;
+        v59 = v27;
+        [v59 setClearFontCache:1];
+        v35 = *(*&buf[8] + 40);
+        v47[0] = _NSConcreteStackBlock;
+        v47[1] = 3221225472;
+        v47[2] = sub_100002248;
+        v47[3] = &unk_1000083E8;
+        v47[4] = self;
+        v48 = connection;
+        v36 = v34;
+        v49 = v36;
+        v50 = _nextSnapshotRequest;
+        v52 = buf;
+        v51 = completionHandler;
+        [v35 renderSnapshot:v47];
 
         _Block_object_dispose(buf, 8);
       }
 
       else
       {
-        v39 = sub_100000E38();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+        v37 = sub_100000E38();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_FAULT, "Invalid MKMapSnapshotOptions", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_FAULT, "Invalid MKMapSnapshotOptions", buf, 2u);
         }
 
         if (completionHandler)
         {
           options6 = [_nextSnapshotRequest options];
-          v41 = [NSString stringWithFormat:@"Invalid MKMapSnapshotOptions: %@.", options6];
+          v39 = [NSString stringWithFormat:@"Invalid MKMapSnapshotOptions: %@.", options6];
 
-          v42 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v40 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            *&buf[4] = v41;
-            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+            *&buf[4] = v39;
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
 
-          v61 = NSLocalizedFailureReasonErrorKey;
-          v62 = v41;
-          v43 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-          v44 = [NSError errorWithDomain:@"MKErrorDomain" code:1 userInfo:v43];
-          (completionHandler)[2](completionHandler, 0, v44);
+          v60 = NSLocalizedFailureReasonErrorKey;
+          v61 = v39;
+          v41 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+          v42 = [NSError errorWithDomain:@"MKErrorDomain" code:1 userInfo:v41];
+          (completionHandler)[2](completionHandler, 0, v42);
           if (connection)
           {
             [(NSMapTable *)self->_connectionToSnapshotRequest removeObjectForKey:connection];
@@ -321,11 +319,11 @@ LABEL_17:
     memset(buf, 0, sizeof(buf));
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
-    v26 = [NSData dataWithBytes:buf length:32];
-    _auditToken2 = [[GEOApplicationAuditToken alloc] initWithAuditTokenData:v26];
+    v24 = [NSData dataWithBytes:buf length:32];
+    _auditToken2 = [[GEOApplicationAuditToken alloc] initWithAuditTokenData:v24];
 
     goto LABEL_20;
   }
@@ -347,45 +345,43 @@ LABEL_41:
 
 - (id)_nextSnapshotRequest
 {
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
   v3 = qword_10000CAD0;
-  v29 = qword_10000CAD0;
+  v28 = qword_10000CAD0;
   if (!qword_10000CAD0)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_100002B18;
-    v31 = &unk_100008370;
-    v32 = &v26;
+    v30 = &unk_100008370;
+    v31 = &v25;
     v4 = sub_100002564();
     v5 = dlsym(v4, "MapKitConfig_SnapshotServicePerProcessSerializationEnabled");
-    *(v32[1] + 24) = v5;
-    qword_10000CAD0 = *(v32[1] + 24);
-    v3 = v27[3];
+    *(v31[1] + 24) = v5;
+    qword_10000CAD0 = *(v31[1] + 24);
+    v3 = v26[3];
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v25, 8);
   if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v24 = dlerror();
+    abort_report_np("%s", v24);
   }
 
-  v6 = *v3;
-  v7 = v3[1];
   BOOL = GEOConfigGetBOOL();
   pendingSnapshotRequests = self->_pendingSnapshotRequests;
   if (BOOL)
   {
     if ([(NSMutableArray *)pendingSnapshotRequests count])
     {
-      v10 = 0;
+      v8 = 0;
       while (1)
       {
-        v11 = [(NSMutableArray *)self->_pendingSnapshotRequests objectAtIndex:v10];
-        options = [v11 options];
+        v9 = [(NSMutableArray *)self->_pendingSnapshotRequests objectAtIndex:v8];
+        options = [v9 options];
         _snapshotServiceSerialPerProcess = [options _snapshotServiceSerialPerProcess];
 
         if (!_snapshotServiceSerialPerProcess)
@@ -394,41 +390,41 @@ LABEL_41:
         }
 
         proccessIdToPendingSerialSnapshot = self->_proccessIdToPendingSerialSnapshot;
-        v15 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v11 processIdentifier]);
-        v16 = [(NSMutableDictionary *)proccessIdToPendingSerialSnapshot objectForKey:v15];
-        LOBYTE(proccessIdToPendingSerialSnapshot) = v16 == 0;
+        v13 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v9 processIdentifier]);
+        v14 = [(NSMutableDictionary *)proccessIdToPendingSerialSnapshot objectForKey:v13];
+        LOBYTE(proccessIdToPendingSerialSnapshot) = v14 == 0;
 
         if (proccessIdToPendingSerialSnapshot)
         {
           break;
         }
 
-        v17 = self->_proccessIdToPendingSerialSnapshot;
-        v18 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v11 processIdentifier]);
-        v19 = [(NSMutableDictionary *)v17 objectForKey:v18];
-        unsignedIntegerValue = [v19 unsignedIntegerValue];
+        v15 = self->_proccessIdToPendingSerialSnapshot;
+        v16 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v9 processIdentifier]);
+        v17 = [(NSMutableDictionary *)v15 objectForKey:v16];
+        unsignedIntegerValue = [v17 unsignedIntegerValue];
 
-        v21 = sub_100000E38();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v19 = sub_100000E38();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          requestId = [v11 requestId];
-          processIdentifier = [v11 processIdentifier];
+          requestId = [v9 requestId];
+          processIdentifier = [v9 processIdentifier];
           *buf = 134218496;
           *&buf[4] = requestId;
           *&buf[12] = 2048;
           *&buf[14] = processIdentifier;
           *&buf[22] = 2048;
-          v31 = unsignedIntegerValue;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Skipping request %llu from process %llu due to per process serialization waiting on request %llu.", buf, 0x20u);
+          v30 = unsignedIntegerValue;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Skipping request %llu from process %llu due to per process serialization waiting on request %llu.", buf, 0x20u);
         }
 
-        if (++v10 >= [(NSMutableArray *)self->_pendingSnapshotRequests count])
+        if (++v8 >= [(NSMutableArray *)self->_pendingSnapshotRequests count])
         {
           goto LABEL_12;
         }
       }
 
-      firstObject = v11;
+      firstObject = v9;
     }
 
     else
@@ -463,30 +459,28 @@ LABEL_12:
 - (BOOL)hasEnoughPixelsForRequest:(int64_t)request
 {
   usedPixels = self->_usedPixels;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v5 = qword_10000CAD8;
-  v14 = qword_10000CAD8;
+  v13 = qword_10000CAD8;
   if (!qword_10000CAD8)
   {
     v6 = sub_100002564();
-    v12[3] = dlsym(v6, "MapKitConfig_SnapshotServiceMaxPixels");
-    qword_10000CAD8 = v12[3];
-    v5 = v12[3];
+    v11[3] = dlsym(v6, "MapKitConfig_SnapshotServiceMaxPixels");
+    qword_10000CAD8 = v11[3];
+    v5 = v11[3];
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v5)
   {
-    dlerror();
-    v10 = abort_report_np();
-    _Block_object_dispose(&v11, 8);
-    _Unwind_Resume(v10);
+    v8 = dlerror();
+    v9 = abort_report_np("%s", v8);
+    _Block_object_dispose(&v10, 8);
+    _Unwind_Resume(v9);
   }
 
-  v7 = *v5;
-  v8 = v5[1];
   return usedPixels + request <= GEOConfigGetInteger();
 }
 

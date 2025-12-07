@@ -10,10 +10,10 @@
 
 - (id)dependentUUIDs
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = HMDMediaPlaybackActionModel;
-  dependentUUIDs = [(HMDBackingStoreModelObject *)&v29 dependentUUIDs];
+  v31 = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = HMDMediaPlaybackActionModel;
+  dependentUUIDs = [(HMDBackingStoreModelObject *)&v28 dependentUUIDs];
   v4 = [dependentUUIDs mutableCopy];
 
   parentUUID = [(HMDBackingStoreModelObject *)self parentUUID];
@@ -24,65 +24,63 @@
     [v4 addObject:parentUUID2];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   accessories = [(HMDMediaPlaybackActionModel *)self accessories];
-  v8 = [accessories countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v8 = [accessories countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v25 + 1) + 8 * i)];
+        v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v24 + 1) + 8 * i)];
         [v4 addObject:v12];
       }
 
-      v9 = [accessories countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v9 = [accessories countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v9);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   services = [(HMDMediaPlaybackActionModel *)self services];
-  v14 = [services countByEnumeratingWithState:&v21 objects:v30 count:16];
+  v14 = [services countByEnumeratingWithState:&v20 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(services);
         }
 
-        v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v21 + 1) + 8 * j)];
+        v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v20 + 1) + 8 * j)];
         [v4 addObject:v18];
       }
 
-      v15 = [services countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v15 = [services countByEnumeratingWithState:&v20 objects:v29 count:16];
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -201,46 +199,44 @@
 
 void __41__HMDMediaPlaybackActionModel_properties__block_invoke(uint64_t a1)
 {
-  v24[6] = *MEMORY[0x277D85DE8];
-  v19.receiver = *(a1 + 32);
-  v19.super_class = &OBJC_METACLASS___HMDMediaPlaybackActionModel;
-  v1 = objc_msgSendSuper2(&v19, sel_properties);
+  v23[6] = *MEMORY[0x277D85DE8];
+  v18.receiver = *(a1 + 32);
+  v18.super_class = &OBJC_METACLASS___HMDMediaPlaybackActionModel;
+  v1 = objc_msgSendSuper2(&v18, sel_properties);
   v2 = [v1 mutableCopy];
   v3 = properties__properties_177519;
   properties__properties_177519 = v2;
 
-  v18 = properties__properties_177519;
-  v23[0] = @"accessories";
+  v17 = properties__properties_177519;
+  v22[0] = @"accessories";
   v4 = objc_opt_class();
-  v22 = objc_opt_class();
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-  v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v4 additionalDecodeClasses:v17];
-  v24[0] = v5;
-  v23[1] = @"state";
-  v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v24[1] = v6;
-  v23[2] = @"volume";
-  v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v24[2] = v7;
-  v23[3] = @"profiles";
-  v8 = objc_opt_class();
   v21 = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-  v10 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v8 additionalDecodeClasses:v9];
-  v24[3] = v10;
-  v23[4] = @"encodedPlaybackArchive";
-  v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v24[4] = v11;
-  v23[5] = @"services";
-  v12 = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v4 additionalDecodeClasses:v16];
+  v23[0] = v5;
+  v22[1] = @"state";
+  v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v23[1] = v6;
+  v22[2] = @"volume";
+  v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v23[2] = v7;
+  v22[3] = @"profiles";
+  v8 = objc_opt_class();
   v20 = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v10 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v8 additionalDecodeClasses:v9];
+  v23[3] = v10;
+  v22[4] = @"encodedPlaybackArchive";
+  v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v23[4] = v11;
+  v22[5] = @"services";
+  v12 = objc_opt_class();
+  v19 = objc_opt_class();
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   v14 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v12 additionalDecodeClasses:v13];
-  v24[5] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:6];
-  [v18 addEntriesFromDictionary:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v23[5] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
+  [v17 addEntriesFromDictionary:v15];
 }
 
 @end

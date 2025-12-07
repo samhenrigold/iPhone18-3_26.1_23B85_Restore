@@ -23,7 +23,7 @@
 
 + (BOOL)shouldGenerateDemoData
 {
-  if (HKIsUnitTesting())
+  if (HKIsUnitTesting(self, a2))
   {
     return 0;
   }

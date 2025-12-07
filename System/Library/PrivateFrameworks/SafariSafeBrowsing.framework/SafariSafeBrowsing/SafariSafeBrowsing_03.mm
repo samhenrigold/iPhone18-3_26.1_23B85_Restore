@@ -533,21 +533,20 @@ void Backend::Google::FetchThreatListUpdatesResponseParser::FetchThreatListUpdat
 {
   if ((*(__p + 17) & 1) == 0)
   {
-    v2 = __p[20];
     (*(__p[20] + 8))();
-    v3 = *__p[19];
-    if (v3)
+    v2 = *__p[19];
+    if (v2)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v2);
     }
 
     std::__function::__value_func<void ()(std::optional<Backend::Google::FetchThreatListUpdatesResponse> &&)>::~__value_func[abi:sn200100]((__p + 9));
   }
 
-  v4 = __p[18];
-  if (v4)
+  v3 = __p[18];
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v3);
   }
 
   operator delete(__p);
@@ -559,8 +558,7 @@ __n128 Platform::FileOutputStream::FileOutputStream(uint64_t a1, __n128 *a2)
   result = *a2;
   *(a1 + 24) = a2[1].n128_u64[0];
   *(a1 + 8) = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   *(a1 + 32) = 0;
   return result;
@@ -716,23 +714,23 @@ void Backend::Google::FindFullHashesRequestJSONSerializer::~FindFullHashesReques
   std::__tree<Backend::Google::HashView>::destroy(this + 8, *(this + 2));
 }
 
-uint64_t *Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(uint64_t **a1, unsigned __int8 *a2, int *a3, uint64_t a4, uint64_t a5)
+uint64_t *Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(uint64_t a1, unsigned __int8 *a2, int *a3, uint64_t a4, uint64_t a5)
 {
   *&v8 = a4;
   *(&v8 + 1) = a5;
-  std::__tree<Backend::Google::HashView>::__emplace_unique_key_args<Backend::Google::HashView,Backend::Google::HashView const&>(a1 + 1, a2, a2);
-  std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(a1 + 4, a3, a3);
-  std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(a1 + 7, a3 + 1, a3 + 1);
-  std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(a1 + 10, a3 + 2, a3 + 2);
-  return std::__tree<Platform::ArrayView<unsigned char>>::__emplace_unique_key_args<Platform::ArrayView<unsigned char>,Platform::ArrayView<unsigned char> const&>(a1 + 13, &v8, &v8);
+  std::__tree<Backend::Google::HashView>::__emplace_unique_key_args<Backend::Google::HashView,Backend::Google::HashView const&>((a1 + 8), a2, a2);
+  std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(a1 + 32, a3, a3);
+  std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(a1 + 56, a3 + 1, a3 + 1);
+  std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(a1 + 80, a3 + 2, a3 + 2);
+  return std::__tree<Platform::ArrayView<unsigned char>>::__emplace_unique_key_args<Platform::ArrayView<unsigned char>,Platform::ArrayView<unsigned char> const&>((a1 + 104), &v8, &v8);
 }
 
 id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend::Google::FindFullHashesRequestJSONSerializer *this)
 {
-  v49[1] = *MEMORY[0x277D85DE8];
-  v42 = [MEMORY[0x277CBEB38] dictionary];
+  v48[1] = *MEMORY[0x277D85DE8];
+  v41 = [MEMORY[0x277CBEB38] dictionary];
   v2 = *this;
-  v40 = [MEMORY[0x277CBEB38] dictionary];
+  v39 = [MEMORY[0x277CBEB38] dictionary];
   if (*(v2 + 23) >= 0)
   {
     v3 = v2;
@@ -743,8 +741,8 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     v3 = *v2;
   }
 
-  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v3, v40}];
-  [v41 setObject:v4 forKeyedSubscript:@"clientId"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v3, v39}];
+  [v40 setObject:v4 forKeyedSubscript:@"clientId"];
 
   v7 = v2[3];
   v6 = v2 + 3;
@@ -760,10 +758,10 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
   }
 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
-  [v41 setObject:v9 forKeyedSubscript:@"clientVersion"];
+  [v40 setObject:v9 forKeyedSubscript:@"clientVersion"];
 
-  [v42 setObject:v41 forKeyedSubscript:@"client"];
-  v46 = [MEMORY[0x277CBEB18] array];
+  [v41 setObject:v40 forKeyedSubscript:@"client"];
+  v45 = [MEMORY[0x277CBEB18] array];
   v10 = *(this + 13);
   if (v10 != (this + 112))
   {
@@ -771,7 +769,7 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     {
       v11 = [MEMORY[0x277CBEA90] dataWithBytes:*(v10 + 4) length:*(v10 + 5)];
       v12 = [v11 base64EncodedStringWithOptions:0];
-      [v46 addObject:v12];
+      [v45 addObject:v12];
 
       v13 = *(v10 + 1);
       if (v13)
@@ -803,16 +801,16 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     while (v14 != (this + 112));
   }
 
-  [v42 setObject:v46 forKeyedSubscript:@"clientStates"];
-  v43 = [MEMORY[0x277CBEB38] dictionary];
-  v45 = [MEMORY[0x277CBEB18] array];
+  [v41 setObject:v45 forKeyedSubscript:@"clientStates"];
+  v42 = [MEMORY[0x277CBEB38] dictionary];
+  v44 = [MEMORY[0x277CBEB18] array];
   v16 = *(this + 4);
   if (v16 != (this + 40))
   {
     do
     {
       v17 = EnumTraits::toNSStringFromEnum<Backend::Google::ThreatType>(*(v16 + 7));
-      [v45 addObject:v17];
+      [v44 addObject:v17];
 
       v18 = *(v16 + 1);
       if (v18)
@@ -844,15 +842,15 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     while (v19 != (this + 40));
   }
 
-  [v43 setObject:v45 forKeyedSubscript:@"threatTypes"];
-  v44 = [MEMORY[0x277CBEB18] array];
+  [v42 setObject:v44 forKeyedSubscript:@"threatTypes"];
+  v43 = [MEMORY[0x277CBEB18] array];
   v20 = *(this + 7);
   if (v20 != (this + 64))
   {
     do
     {
       v21 = EnumTraits::toNSStringFromEnum<Backend::Google::PlatformType>(*(v20 + 7));
-      [v44 addObject:v21];
+      [v43 addObject:v21];
 
       v22 = *(v20 + 1);
       if (v22)
@@ -884,7 +882,7 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     while (v23 != (this + 64));
   }
 
-  [v43 setObject:v44 forKeyedSubscript:@"platformTypes"];
+  [v42 setObject:v43 forKeyedSubscript:@"platformTypes"];
   v24 = [MEMORY[0x277CBEB18] array];
   v25 = *(this + 10);
   if (v25 != (this + 88))
@@ -924,7 +922,7 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     while (v28 != (this + 88));
   }
 
-  [v43 setObject:v24 forKeyedSubscript:@"threatEntryTypes"];
+  [v42 setObject:v24 forKeyedSubscript:@"threatEntryTypes"];
   v29 = [MEMORY[0x277CBEB18] array];
   v30 = *(this + 1);
   v31 = this + 16;
@@ -934,9 +932,9 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     {
       v32 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(v30 + 5) length:v30[32]];
       v33 = [v32 base64EncodedStringWithOptions:0];
-      v48 = @"hash";
-      v49[0] = v33;
-      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+      v47 = @"hash";
+      v48[0] = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
 
       [v29 addObject:v34];
       v35 = *(v30 + 1);
@@ -969,13 +967,11 @@ id Backend::Google::FindFullHashesRequestJSONSerializer::serializedData(Backend:
     while (v36 != v31);
   }
 
-  [v43 setObject:v29 forKeyedSubscript:@"threatEntries"];
+  [v42 setObject:v29 forKeyedSubscript:@"threatEntries"];
 
-  [v42 setObject:v43 forKeyedSubscript:@"threatInfo"];
-  v47 = 0;
-  v37 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v42 options:0 error:&v47];
-
-  v38 = *MEMORY[0x277D85DE8];
+  [v41 setObject:v42 forKeyedSubscript:@"threatInfo"];
+  v46 = 0;
+  v37 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v41 options:0 error:&v46];
 
   return v37;
 }
@@ -991,7 +987,7 @@ void std::__tree<Backend::Google::HashView>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *std::__tree<Backend::Google::HashView>::__emplace_unique_key_args<Backend::Google::HashView,Backend::Google::HashView const&>(uint64_t **a1, unsigned __int8 *a2, _OWORD *a3)
+uint64_t *std::__tree<Backend::Google::HashView>::__emplace_unique_key_args<Backend::Google::HashView,Backend::Google::HashView const&>(uint64_t ***a1, unsigned __int8 *a2, _OWORD *a3)
 {
   v5 = std::__tree<Backend::Google::HashView>::__find_equal<Backend::Google::HashView>(a1, &v9, a2);
   v6 = *v5;
@@ -1080,7 +1076,7 @@ LABEL_17:
   return v5;
 }
 
-uint64_t *std::__tree<Backend::Google::HashView>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<Backend::Google::HashView>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1106,12 +1102,12 @@ uint64_t *std::__tree_balance_after_insert[abi:sn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1125,22 +1121,22 @@ uint64_t *std::__tree_balance_after_insert[abi:sn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1174,13 +1170,13 @@ uint64_t *std::__tree_balance_after_insert[abi:sn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1222,10 +1218,10 @@ uint64_t *std::__tree_balance_after_insert[abi:sn200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t **std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(uint64_t **a1, int *a2, _DWORD *a3)
+uint64_t **std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<Backend::Google::ThreatType,Backend::Google::ThreatType const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v6 = a1 + 1;
-  v5 = a1[1];
+  v6 = (a1 + 8);
+  v5 = *(a1 + 8);
   if (v5)
   {
     v7 = *a2;
@@ -1264,7 +1260,7 @@ uint64_t **std::__tree<Backend::Google::ThreatType>::__emplace_unique_key_args<B
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
 LABEL_10:
     v10 = operator new(0x20uLL);
     *(v10 + 7) = *a3;
@@ -1275,7 +1271,7 @@ LABEL_10:
   return v8;
 }
 
-uint64_t *std::__tree<Platform::ArrayView<unsigned char>>::__emplace_unique_key_args<Platform::ArrayView<unsigned char>,Platform::ArrayView<unsigned char> const&>(uint64_t **a1, uint64_t a2, _OWORD *a3)
+uint64_t *std::__tree<Platform::ArrayView<unsigned char>>::__emplace_unique_key_args<Platform::ArrayView<unsigned char>,Platform::ArrayView<unsigned char> const&>(uint64_t ***a1, uint64_t a2, _OWORD *a3)
 {
   v5 = std::__tree<Platform::ArrayView<unsigned char>>::__find_equal<Platform::ArrayView<unsigned char>>(a1, &v9, a2);
   v6 = *v5;
@@ -1366,20 +1362,20 @@ LABEL_17:
 
 void Backend::Google::FindFullHashesRequestSerializer::serializedData(Backend::Google::FindFullHashesRequestSerializer *this@<X0>, uint64_t a2@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  Backend::Google::ProtocolMessageWriter::ProtocolMessageWriter(v11);
+  v13 = *MEMORY[0x277D85DE8];
+  Backend::Google::ProtocolMessageWriter::ProtocolMessageWriter(v10);
   v4 = *this;
-  v12[0] = &unk_2838CD790;
-  v12[1] = v4;
-  v13 = v12;
-  Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(v11, 1, v12);
-  std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](v12);
+  v11[0] = &unk_2838CD790;
+  v11[1] = v4;
+  v12 = v11;
+  Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(v10, 1, v11);
+  std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](v11);
   v5 = *(this + 13);
   if (v5 != (this + 112))
   {
     do
     {
-      Backend::Google::ProtocolMessageWriter::writeBytes(v11, 2, *(v5 + 4), (*(v5 + 4) + *(v5 + 5)));
+      Backend::Google::ProtocolMessageWriter::writeBytes(v10, 2, *(v5 + 4), (*(v5 + 4) + *(v5 + 5)));
       v6 = *(v5 + 1);
       if (v6)
       {
@@ -1416,17 +1412,17 @@ void Backend::Google::FindFullHashesRequestSerializer::serializedData(Backend::G
   v9[2] = this + 56;
   v9[3] = this + 80;
   v9[4] = this + 8;
-  v13 = v9;
-  Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(v11, 3, v12);
-  std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](v12);
-  Backend::Google::ProtocolMessageWriter::finish(v11, a2);
-  Backend::Google::LexicographicallyOrderedHashEnumerator::~LexicographicallyOrderedHashEnumerator(v11);
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = v9;
+  Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(v10, 3, v11);
+  std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](v11);
+  Backend::Google::ProtocolMessageWriter::finish(v10, a2);
+  Backend::Google::LexicographicallyOrderedHashEnumerator::~LexicographicallyOrderedHashEnumerator(v10);
 }
 
-void sub_225614410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_225614410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](&a12);
+  va_start(va, a11);
+  std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](va);
   Backend::Google::LexicographicallyOrderedHashEnumerator::~LexicographicallyOrderedHashEnumerator(&a9);
   _Unwind_Resume(a1);
 }
@@ -1450,10 +1446,10 @@ __n128 std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google:
   return result;
 }
 
-void std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google::ProtocolMessageWriter &,unsigned int,std::set<Backend::Google::ThreatType> const&,std::set<Backend::Google::PlatformType> const&,std::set<Backend::Google::ThreatEntryType> const&,std::set<Backend::Google::HashView> const&)::$_0,std::allocator<Backend::Google::writeThreatInfo(Backend::Google::ProtocolMessageWriter &,unsigned int,std::set<Backend::Google::ThreatType> const&,std::set<Backend::Google::PlatformType> const&,std::set<Backend::Google::ThreatEntryType> const&,std::set<Backend::Google::HashView> const&)::$_0>,void ()(Backend::Google::ProtocolMessageWriter &)>::operator()(void *a1, Backend::Google::ProtocolMessageWriter *this)
+void std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google::ProtocolMessageWriter &,unsigned int,std::set<Backend::Google::ThreatType> const&,std::set<Backend::Google::PlatformType> const&,std::set<Backend::Google::ThreatEntryType> const&,std::set<Backend::Google::HashView> const&)::$_0,std::allocator<Backend::Google::writeThreatInfo(Backend::Google::ProtocolMessageWriter &,unsigned int,std::set<Backend::Google::ThreatType> const&,std::set<Backend::Google::PlatformType> const&,std::set<Backend::Google::ThreatEntryType> const&,std::set<Backend::Google::HashView> const&)::$_0>,void ()(Backend::Google::ProtocolMessageWriter &)>::operator()(void *result, Backend::Google::ProtocolMessageWriter *this)
 {
-  v31[4] = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
+  v30[4] = *MEMORY[0x277D85DE8];
+  v4 = result[1];
   v7 = *v4;
   v5 = v4 + 1;
   v6 = v7;
@@ -1492,7 +1488,7 @@ void std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google::P
     while (v9 != v5);
   }
 
-  v11 = a1[2];
+  v11 = result[2];
   v14 = *v11;
   v12 = v11 + 1;
   v13 = v14;
@@ -1531,7 +1527,7 @@ void std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google::P
     while (v16 != v12);
   }
 
-  v17 = a1[3];
+  v17 = result[3];
   v20 = *v17;
   v18 = v17 + 1;
   v19 = v20;
@@ -1570,7 +1566,7 @@ void std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google::P
     while (v22 != v18);
   }
 
-  v23 = a1[4];
+  v23 = result[4];
   v26 = *v23;
   v24 = v23 + 1;
   v25 = v26;
@@ -1578,12 +1574,12 @@ void std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google::P
   {
     do
     {
-      v30 = *(v25 + 2);
-      v31[0] = &unk_2838CE420;
-      v31[1] = &v30;
-      v31[3] = v31;
-      Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(this, 3, v31);
-      std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](v31);
+      v29 = *(v25 + 2);
+      v30[0] = &unk_2838CE420;
+      v30[1] = &v29;
+      v30[3] = v30;
+      Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(this, 3, v30);
+      std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](v30);
       v27 = v25[1];
       if (v27)
       {
@@ -1613,13 +1609,11 @@ void std::__function::__func<Backend::Google::writeThreatInfo(Backend::Google::P
 
     while (v28 != v24);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2256147AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2256147AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(Backend::Google::ProtocolMessageWriter &)>::~__value_func[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -1644,9 +1638,9 @@ uint64_t std::__function::__func<Backend::Google::writeThreatEntry(Backend::Goog
 void Backend::Google::FindFullHashesResponseJSONParser::parseFindFullHashesResponse(Backend::Google::FindFullHashesResponseJSONParser *this@<X0>, _BYTE *a2@<X8>)
 {
   v2 = a2;
-  v52 = *MEMORY[0x277D85DE8];
-  v43 = 0uLL;
-  v44 = 0;
+  v51 = *MEMORY[0x277D85DE8];
+  v42 = 0uLL;
+  v43 = 0;
   v3 = *this;
   if (!*this)
   {
@@ -1655,9 +1649,9 @@ void Backend::Google::FindFullHashesResponseJSONParser::parseFindFullHashesRespo
     goto LABEL_40;
   }
 
-  v42 = 0;
-  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v42];
-  v37 = v42;
+  v41 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v41];
+  v36 = v41;
   if ((Backend::Google::SSBUtilities::isKindOfNSDictionary(v4, v5) & 1) == 0)
   {
     *v2 = 0;
@@ -1674,30 +1668,30 @@ void Backend::Google::FindFullHashesResponseJSONParser::parseFindFullHashesRespo
     goto LABEL_38;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v9 = v8;
-  v11 = [(Backend::Google::SSBUtilities *)v9 countByEnumeratingWithState:&v38 objects:v51 count:16];
+  v11 = [(Backend::Google::SSBUtilities *)v9 countByEnumeratingWithState:&v37 objects:v50 count:16];
   if (!v11)
   {
     goto LABEL_21;
   }
 
-  v12 = *v39;
-  v35 = *v2;
-  v36 = v2[56];
+  v12 = *v38;
+  v34 = *v2;
+  v35 = v2[56];
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v39 != v12)
+      if (*v38 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v38 + 1) + 8 * i);
+      v14 = *(*(&v37 + 1) + 8 * i);
       if ((Backend::Google::SSBUtilities::isKindOfNSDictionary(v14, v10) & 1) == 0)
       {
         v33 = v2;
@@ -1709,53 +1703,53 @@ LABEL_33:
         goto LABEL_38;
       }
 
-      Backend::Google::FindFullHashesResponseJSONParser::parseThreatMatch(v14, &v46);
-      if (v50 != 1)
+      Backend::Google::FindFullHashesResponseJSONParser::parseThreatMatch(v14, &v45);
+      if (v49 != 1)
       {
         v33 = v2 + 56;
         goto LABEL_33;
       }
 
-      v15 = *(&v43 + 1);
-      if (*(&v43 + 1) >= v44)
+      v15 = *(&v42 + 1);
+      if (*(&v42 + 1) >= v43)
       {
-        v18 = std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__emplace_back_slow_path<Backend::Google::FindFullHashesResponse::ThreatMatch>(&v43, &v46);
+        v18 = std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__emplace_back_slow_path<Backend::Google::FindFullHashesResponse::ThreatMatch>(&v42, &v45);
       }
 
       else
       {
-        if (!*(&v43 + 1))
+        if (!*(&v42 + 1))
         {
-          v2[56] = v36;
-          *v2 = v35;
+          v2[56] = v35;
+          *v2 = v34;
           __break(1u);
         }
 
-        v16 = v46;
-        v17 = *&v47[16];
-        *(*(&v43 + 1) + 16) = *v47;
+        v16 = v45;
+        v17 = *&v46[16];
+        *(*(&v42 + 1) + 16) = *v46;
         *(v15 + 32) = v17;
         *v15 = v16;
         *(v15 + 56) = 0;
         *(v15 + 64) = 0;
         *(v15 + 48) = 0;
-        *(v15 + 48) = *&v47[32];
-        *(v15 + 64) = v48;
-        *&v47[32] = 0uLL;
-        v48 = 0;
-        *(v15 + 72) = v49;
+        *(v15 + 48) = *&v46[32];
+        *(v15 + 64) = v47;
+        *&v46[32] = 0uLL;
+        v47 = 0;
+        *(v15 + 72) = v48;
         v18 = v15 + 80;
       }
 
-      *(&v43 + 1) = v18;
-      if (v50)
+      *(&v42 + 1) = v18;
+      if (v49)
       {
-        v45 = &v47[32];
-        std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v45);
+        v44 = &v46[32];
+        std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v44);
       }
     }
 
-    v11 = [(Backend::Google::SSBUtilities *)v9 countByEnumeratingWithState:&v38 objects:v51 count:16];
+    v11 = [(Backend::Google::SSBUtilities *)v9 countByEnumeratingWithState:&v37 objects:v50 count:16];
     if (v11)
     {
       continue;
@@ -1764,8 +1758,8 @@ LABEL_33:
     break;
   }
 
-  *v2 = v35;
-  v2[56] = v36;
+  *v2 = v34;
+  v2[56] = v35;
 LABEL_21:
 
   v19 = [(Backend::Google::SSBUtilities *)v4 objectForKeyedSubscript:@"minimumWaitDuration"];
@@ -1777,23 +1771,23 @@ LABEL_21:
     v28 = v26;
     if (!v26 || (Backend::Google::SSBUtilities::isKindOfNSString(v26, v27)) && (v29 = Backend::Google::FindFullHashesResponseJSONParser::parseDuration(v28, &v27->isa), (v30))
     {
-      v31 = v44;
-      v32 = v43;
-      v44 = 0;
-      v43 = 0uLL;
-      v47[16] = v24;
-      *&v47[24] = v29;
-      v47[32] = v30;
+      v31 = v43;
+      v32 = v42;
+      v43 = 0;
+      v42 = 0uLL;
+      v46[16] = v24;
+      *&v46[24] = v29;
+      v46[32] = v30;
       *v2 = v32;
       *(v2 + 2) = v31;
-      *v47 = 0;
-      *&v47[8] = v25;
-      v46 = 0uLL;
-      *(v2 + 24) = *&v47[8];
-      *(v2 + 33) = *&v47[17];
+      *v46 = 0;
+      *&v46[8] = v25;
+      v45 = 0uLL;
+      *(v2 + 24) = *&v46[8];
+      *(v2 + 33) = *&v46[17];
       v2[56] = 1;
-      v45 = &v46;
-      std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__destroy_vector::operator()[abi:sn200100](&v45);
+      v44 = &v45;
+      std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__destroy_vector::operator()[abi:sn200100](&v44);
     }
 
     else
@@ -1813,12 +1807,11 @@ LABEL_38:
 LABEL_39:
 
 LABEL_40:
-  *&v46 = &v43;
-  std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__destroy_vector::operator()[abi:sn200100](&v46);
-  v34 = *MEMORY[0x277D85DE8];
+  *&v45 = &v42;
+  std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__destroy_vector::operator()[abi:sn200100](&v45);
 }
 
-void sub_225614BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void **a25)
+void sub_225614BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char *a25)
 {
   a25 = &a21;
   std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__destroy_vector::operator()[abi:sn200100](&a25);
@@ -1827,10 +1820,10 @@ void sub_225614BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void Backend::Google::FindFullHashesResponseJSONParser::parseThreatMatch(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v28 = 0uLL;
-  v29 = 0;
+  v27 = 0uLL;
+  v28 = 0;
   v4 = [v3 ssb_stringForKey:@"threatType"];
   v5 = [v3 ssb_stringForKey:@"threatEntryType"];
   v6 = [v3 ssb_stringForKey:@"platformType"];
@@ -1855,39 +1848,39 @@ void Backend::Google::FindFullHashesResponseJSONParser::parseThreatMatch(void *a
   else
   {
     v15 = [v3 objectForKeyedSubscript:@"threat"];
-    if (Backend::Google::SSBUtilities::isKindOfNSDictionary(v15, v16) & 1) != 0 && (Backend::Google::FindFullHashesResponseJSONParser::parseThreatEntry(v15, v31), (v31[32]))
+    if (Backend::Google::SSBUtilities::isKindOfNSDictionary(v15, v16) & 1) != 0 && (Backend::Google::FindFullHashesResponseJSONParser::parseThreatEntry(v15, v30), (v30[32]))
     {
-      v27 = v31[0];
-      v33[0] = *&v31[1];
-      *(v33 + 15) = *&v31[16];
+      v26 = v30[0];
+      v32[0] = *&v30[1];
+      *(v32 + 15) = *&v30[16];
       v17 = [v3 objectForKeyedSubscript:@"cacheDuration"];
       v19 = v17;
       if (!v17 || (Backend::Google::SSBUtilities::isKindOfNSString(v17, v18)) && (v20 = Backend::Google::FindFullHashesResponseJSONParser::parseDuration(v19, &v18->isa), (v21))
       {
-        *v31 = v10;
-        *&v31[4] = v13;
-        *&v31[8] = v11;
-        *&v31[12] = 2;
-        v31[16] = v27;
-        *&v31[17] = v33[0];
-        *&v31[32] = *(v33 + 15);
-        v22 = v29;
-        v23 = v28;
-        v29 = 0;
-        v28 = 0uLL;
-        v24 = *&v31[16];
-        v25 = *(v33 + 15);
-        *a2 = *v31;
+        *v30 = v10;
+        *&v30[4] = v13;
+        *&v30[8] = v11;
+        *&v30[12] = 2;
+        v30[16] = v26;
+        *&v30[17] = v32[0];
+        *&v30[32] = *(v32 + 15);
+        v22 = v28;
+        v23 = v27;
+        v28 = 0;
+        v27 = 0uLL;
+        v24 = *&v30[16];
+        v25 = *(v32 + 15);
+        *a2 = *v30;
         *(a2 + 16) = v24;
         *(a2 + 32) = v25;
         *(a2 + 48) = v23;
-        memset(v32, 0, 24);
-        v32[3] = v20;
+        memset(v31, 0, 24);
+        v31[3] = v20;
         *(a2 + 64) = v22;
         *(a2 + 72) = v20;
         *(a2 + 80) = 1;
-        v30 = v32;
-        std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v30);
+        v29 = v31;
+        std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v29);
       }
 
       else
@@ -1904,13 +1897,11 @@ void Backend::Google::FindFullHashesResponseJSONParser::parseThreatMatch(void *a
     }
   }
 
-  *v31 = &v28;
-  std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](v31);
-
-  v26 = *MEMORY[0x277D85DE8];
+  *v30 = &v27;
+  std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](v30);
 }
 
-void sub_225614F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, void **a15)
+void sub_225614F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15)
 {
   a15 = &a11;
   std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&a15);
@@ -1949,11 +1940,11 @@ unint64_t Backend::Google::FindFullHashesResponseJSONParser::parseDuration(Backe
 
 void Backend::Google::FindFullHashesResponseJSONParser::parseThreatEntry(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [a1 ssb_stringForKey:@"hash"];
   if (v3)
   {
-    v9 = v3;
+    v8 = v3;
     v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v3 options:1];
     if ([v4 length] == 32)
     {
@@ -1976,7 +1967,7 @@ void Backend::Google::FindFullHashesResponseJSONParser::parseThreatEntry(void *a
       *(a2 + 32) = 0;
     }
 
-    v3 = v9;
+    v3 = v8;
   }
 
   else
@@ -1984,13 +1975,11 @@ void Backend::Google::FindFullHashesResponseJSONParser::parseThreatEntry(void *a
     *a2 = 0;
     *(a2 + 32) = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__emplace_back_slow_path<Backend::Google::FindFullHashesResponse::ThreatMatch>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__emplace_back_slow_path<Backend::Google::FindFullHashesResponse::ThreatMatch>(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x333333333333333)
   {
@@ -1998,12 +1987,12 @@ LABEL_13:
     std::vector<unsigned char>::__throw_length_error[abi:sn200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 4) >= 0x199999999999999)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) >= 0x199999999999999)
   {
     v6 = 0x333333333333333;
   }
@@ -2050,14 +2039,14 @@ LABEL_13:
   *(a2 + 6) = 0;
   *(v8 + 9) = v11;
   *&v20 = v8 + 5;
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = v8 + *a1 - v12;
   std::__uninitialized_allocator_relocate[abi:sn200100]<std::allocator<Backend::Google::FindFullHashesResponse::ThreatMatch>,Backend::Google::FindFullHashesResponse::ThreatMatch*>(a1, *a1, v12, v13);
   v14 = *a1;
   *a1 = v13;
-  v15 = *(a1 + 16);
+  v15 = a1[2];
   v17 = v20;
-  *(a1 + 8) = v20;
+  *(a1 + 1) = v20;
   *&v20 = v14;
   *(&v20 + 1) = v15;
   v18 = v14;
@@ -2066,9 +2055,9 @@ LABEL_13:
   return v17;
 }
 
-void sub_2256152C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2256152C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Backend::Google::FindFullHashesResponse::ThreatMatch>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2143,12 +2132,12 @@ void **std::__split_buffer<Backend::Google::FindFullHashesResponse::ThreatMatch>
   return a1;
 }
 
-void std::__split_buffer<Backend::Google::FindFullHashesResponse::ThreatMatch>::clear[abi:sn200100](uint64_t a1)
+void std::__split_buffer<Backend::Google::FindFullHashesResponse::ThreatMatch>::clear[abi:sn200100](uint64_t result)
 {
-  v2 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v2; i = *(a1 + 16))
+  v2 = *(result + 8);
+  for (i = *(result + 16); i != v2; i = *(result + 16))
   {
-    *(a1 + 16) = i - 80;
+    *(result + 16) = i - 80;
     v4 = (i - 32);
     std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v4);
   }
@@ -2223,36 +2212,35 @@ void std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataE
 
 void *Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v4 = a2[1];
-  v7 = *a2;
-  v8 = v4;
+  v6 = *a2;
+  v7 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9[0] = &unk_2838CD820;
-  v9[1] = a3;
-  v9[3] = v9;
-  CoroutineCaller<std::shared_ptr<ReadStream>>::CoroutineCaller(a1, &v7, v9);
-  std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](v9);
-  if (v8)
+  v8[0] = &unk_2838CD820;
+  v8[1] = a3;
+  v8[3] = v8;
+  CoroutineCaller<std::shared_ptr<ReadStream>>::CoroutineCaller(a1, &v6, v8);
+  std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](v8);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_225615640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_225615640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](va);
-  if (a4)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](a7);
   }
 
   _Unwind_Resume(a1);
@@ -2378,11 +2366,11 @@ void *Backend::Google::FindFullHashesResponseParser::parseThreatEntryMetadataEnt
   return result;
 }
 
-uint64_t *std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::push_back[abi:sn200100](uint64_t *result, uint64_t a2)
+unint64_t std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::push_back[abi:sn200100](unint64_t result, __int128 *a2)
 {
   v2 = result;
-  v3 = result[1];
-  if (v3 >= result[2])
+  v3 = *(result + 8);
+  if (v3 >= *(result + 16))
   {
     result = std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__emplace_back_slow_path<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>(result, a2);
     goto LABEL_5;
@@ -2391,20 +2379,18 @@ uint64_t *std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::Meta
   if (v3)
   {
     v4 = *a2;
-    *(v3 + 16) = *(a2 + 16);
+    *(v3 + 16) = *(a2 + 2);
     *v3 = v4;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v5 = *(a2 + 24);
-    *(v3 + 40) = *(a2 + 40);
+    *(v3 + 40) = *(a2 + 5);
     *(v3 + 24) = v5;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
-    result = (v3 + 48);
+    a2[2] = 0uLL;
+    *(a2 + 3) = 0;
+    result = v3 + 48;
 LABEL_5:
-    v2[1] = result;
+    *(v2 + 8) = result;
     return result;
   }
 
@@ -2468,7 +2454,7 @@ std::string *std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::M
   return result;
 }
 
-char *std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__vallocate[abi:sn200100](void *a1, unint64_t a2)
+void *std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__vallocate[abi:sn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 >= 0x555555555555556)
   {
@@ -2478,7 +2464,7 @@ char *std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::Metadata
   result = std::allocator<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::allocate_at_least[abi:sn200100](a1, a2);
   *a1 = result;
   a1[1] = result;
-  a1[2] = &result[48 * v4];
+  a1[2] = result + 48 * v4;
   return result;
 }
 
@@ -2612,7 +2598,7 @@ std::string *std::construct_at[abi:sn200100]<std::vector<Backend::Google::FindFu
   return result;
 }
 
-void std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__vdeallocate(void **a1)
+void std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -2724,7 +2710,7 @@ void sub_22561614C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__emplace_back_slow_path<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__emplace_back_slow_path<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>(char **a1, __int128 *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -2799,9 +2785,9 @@ LABEL_13:
   return v16;
 }
 
-void sub_2256162C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2256162C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2928,8 +2914,7 @@ uint64_t std::__function::__func<Backend::Google::FindFullHashesResponseParser::
 void std::__function::__func<Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)> &&)::$_0,std::allocator<std::function<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)> &>,Task ()(std::shared_ptr<ReadStream>)>::operator()(uint64_t a1@<X0>, __int128 *a2@<X1>, void *a3@<X8>)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>((a1 + 8), &v4, a3);
   v3 = *(&v4 + 1);
   if (*(&v4 + 1))
@@ -2949,7 +2934,7 @@ void sub_225616590(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+uint64_t Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v6 = operator new(0xB8uLL);
   *v6 = Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>;
@@ -4913,7 +4898,7 @@ LABEL_39:
       goto LABEL_44;
     }
 
-    std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::push_back[abi:sn200100](v4, a1 + 64);
+    std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::push_back[abi:sn200100](v4, (a1 + 64));
     if (*(a1 + 112))
     {
       if (*(a1 + 111) < 0)
@@ -5276,13 +5261,13 @@ LABEL_9:
 
 uint64_t Backend::Google::FindFullHashesResponseParser::parseThreatMatch(uint64_t a1, uint64_t a2, int a3)
 {
-  v77[4] = *MEMORY[0x277D85DE8];
+  v76[4] = *MEMORY[0x277D85DE8];
   v8 = a1 + 152;
   v9 = a1 + 184;
   v10 = a1 + 216;
   v11 = (a1 + 336);
-  v72 = a1 + 120;
-  v73 = a1 + 248;
+  v71 = a1 + 120;
+  v72 = a1 + 248;
   v12 = *(a1 + 367);
   if (v12 <= 3)
   {
@@ -5322,10 +5307,10 @@ uint64_t Backend::Google::FindFullHashesResponseParser::parseThreatMatch(uint64_
         v22 = 0;
         v23 = 0;
         v24 = 0;
-        v25 = v73;
-        *v73 = 0;
-        *(v73 + 8) = 0;
-        *(v73 + 16) = 0;
+        v25 = v72;
+        *v72 = 0;
+        *(v72 + 8) = 0;
+        *(v72 + 16) = 0;
         goto LABEL_26;
       }
 
@@ -5460,9 +5445,9 @@ LABEL_26:
 
     if (*v26)
     {
-      v68 = 1;
+      v67 = 1;
 LABEL_102:
-      *(a1 + 367) = v68;
+      *(a1 + 367) = v67;
       v26[2] = a1;
       v64 = *(a1 + 272);
       goto LABEL_98;
@@ -5505,7 +5490,7 @@ LABEL_28:
 
         if (*v26)
         {
-          v68 = 5;
+          v67 = 5;
           goto LABEL_102;
         }
 
@@ -5524,7 +5509,7 @@ LABEL_61:
           goto LABEL_96;
         }
 
-        std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__vdeallocate(v73);
+        std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__vdeallocate(v72);
         *(a1 + 248) = *(a1 + 184);
         *(a1 + 264) = *(a1 + 200);
         *(v9 + 8) = 0;
@@ -5543,8 +5528,8 @@ LABEL_61:
       {
         *(a1 + 120) = &unk_2838CDAA8;
         *(a1 + 128) = Backend::Google::FindFullHashesResponseParser::parseDuration;
-        *(a1 + 144) = v72;
-        Backend::Google::ProtocolMessageReader::readEmbeddedMessageField<std::chrono::duration<long long,std::ratio<1l,1l>>>(v32, v72, (a1 + 272));
+        *(a1 + 144) = v71;
+        Backend::Google::ProtocolMessageReader::readEmbeddedMessageField<std::chrono::duration<long long,std::ratio<1l,1l>>>(v32, v71, (a1 + 272));
         v13 = *(a1 + 272);
         *v9 = v13;
         if (!v13)
@@ -5554,7 +5539,7 @@ LABEL_61:
 
         if (*v13)
         {
-          v69 = 6;
+          v68 = 6;
           goto LABEL_110;
         }
 
@@ -5568,7 +5553,7 @@ LABEL_80:
           (*(v53 + 8))();
         }
 
-        std::__function::__value_func<Lazy<std::optional<std::chrono::duration<long long,std::ratio<1l,1l>>>> ()(Backend::Google::ProtocolMessageReader &)>::~__value_func[abi:sn200100](v72);
+        std::__function::__value_func<Lazy<std::optional<std::chrono::duration<long long,std::ratio<1l,1l>>>> ()(Backend::Google::ProtocolMessageReader &)>::~__value_func[abi:sn200100](v71);
         if ((v52 & 1) == 0)
         {
           goto LABEL_96;
@@ -5608,7 +5593,7 @@ LABEL_66:
 
         if (*v13)
         {
-          v69 = 8;
+          v68 = 8;
           goto LABEL_110;
         }
 
@@ -5654,9 +5639,9 @@ LABEL_71:
 
       if (*v13)
       {
-        v69 = 7;
+        v68 = 7;
 LABEL_110:
-        *(a1 + 367) = v69;
+        *(a1 + 367) = v68;
         v13[2] = a1;
         v64 = *(a1 + 184);
         goto LABEL_98;
@@ -5677,7 +5662,7 @@ LABEL_110:
 
       if (*v26)
       {
-        v68 = 2;
+        v67 = 2;
         goto LABEL_102;
       }
 
@@ -5731,7 +5716,7 @@ LABEL_55:
 
       if (*v26)
       {
-        v68 = 4;
+        v67 = 4;
         goto LABEL_102;
       }
 
@@ -5792,7 +5777,7 @@ LABEL_37:
 
     if (*v13)
     {
-      v69 = 3;
+      v68 = 3;
       goto LABEL_110;
     }
 
@@ -5830,12 +5815,12 @@ LABEL_74:
   if (HIDWORD(v28))
   {
     std::__throw_bad_variant_access[abi:sn200100]();
-    v71 = v70;
-    *&v75 = v73;
-    std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v75);
+    v70 = v69;
+    *&v74 = v72;
+    std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v74);
     *a1 = 0;
     *(a1 + 367) = 9;
-    _Unwind_Resume(v71);
+    _Unwind_Resume(v70);
   }
 
   if (v28 & 1) != 0 && *(a1 + 369) == 1 && *(a1 + 370) && *(a1 + 373) && (*(a1 + 375) & 1) != 0 && (*(a1 + 377))
@@ -5846,32 +5831,32 @@ LABEL_74:
     v57 = *(a1 + 318);
     v58 = *(a1 + 316);
     v59 = (*(a1 + 312) << 8) | (*(a1 + 314) << 24) | *(a1 + 368);
-    LODWORD(v75) = (*(a1 + 320) << 8) | (*(a1 + 322) << 24) | *(a1 + 372);
-    DWORD1(v75) = v59;
-    DWORD2(v75) = (v58 << 8) | (v57 << 24) | v56;
-    HIDWORD(v75) = 1;
-    v76[0] = v55;
-    *&v76[1] = *v11;
-    *&v76[16] = *(v11 + 15);
+    LODWORD(v74) = (*(a1 + 320) << 8) | (*(a1 + 322) << 24) | *(a1 + 372);
+    DWORD1(v74) = v59;
+    DWORD2(v74) = (v58 << 8) | (v57 << 24) | v56;
+    HIDWORD(v74) = 1;
+    v75[0] = v55;
+    *&v75[1] = *v11;
+    *&v75[16] = *(v11 + 15);
     v60 = *(a1 + 264);
     v61 = *(a1 + 248);
-    *(v73 + 8) = 0;
-    *(v73 + 16) = 0;
-    *v73 = 0;
-    v62 = *v76;
-    v63 = *&v76[16];
-    *(a1 + 32) = v75;
+    *(v72 + 8) = 0;
+    *(v72 + 16) = 0;
+    *v72 = 0;
+    v62 = *v75;
+    v63 = *&v75[16];
+    *(a1 + 32) = v74;
     *(a1 + 48) = v62;
     *(a1 + 64) = v63;
     *(a1 + 80) = v61;
-    memset(v77, 0, 24);
-    v77[3] = v54;
+    memset(v76, 0, 24);
+    v76[3] = v54;
     *(a1 + 96) = v60;
     *(a1 + 104) = v54;
     *(a1 + 112) = 1;
     *(a1 + 24) = 1;
-    v74 = v77;
-    std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v74);
+    v73 = v76;
+    std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v73);
     goto LABEL_97;
   }
 
@@ -5880,14 +5865,13 @@ LABEL_96:
   *(a1 + 112) = 0;
   *(a1 + 24) = 1;
 LABEL_97:
-  *&v75 = v73;
-  std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v75);
+  *&v74 = v72;
+  std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::__destroy_vector::operator()[abi:sn200100](&v74);
   *a1 = 0;
   *(a1 + 367) = 9;
   v64 = *(a1 + 16);
 LABEL_98:
   v65 = *v64;
-  v66 = *MEMORY[0x277D85DE8];
 
   return v65();
 }
@@ -6543,21 +6527,20 @@ void Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser
 {
   if ((*(__p + 17) & 1) == 0)
   {
-    v2 = __p[22];
     (*(__p[22] + 8))();
-    v3 = *__p[21];
-    if (v3)
+    v2 = *__p[21];
+    if (v2)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v2);
     }
 
     std::__function::__value_func<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)>::~__value_func[abi:sn200100]((__p + 11));
   }
 
-  v4 = __p[20];
-  if (v4)
+  v3 = __p[20];
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v3);
   }
 
   operator delete(__p);
@@ -6592,7 +6575,7 @@ void Backend::Google::FullHashCache::~FullHashCache(Backend::Google::FullHashCac
 
 void Backend::Google::FullHashCache::lookup(uint64_t a1@<X0>, void *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 16));
   *a4 = 0;
   *(a4 + 8) = 0;
@@ -6663,7 +6646,7 @@ LABEL_38:
             }
 
             v28 = &v26[v21];
-            v34 = &v26[16 * v27];
+            v33 = &v26[16 * v27];
             *v28 = v18;
             *(v28 + 4) = 0x100000006;
             *(v28 + 3) = v19;
@@ -6675,7 +6658,7 @@ LABEL_38:
             v32 = *(a4 + 8);
             *(a4 + 8) = v31;
             *(a4 + 16) = v13;
-            *(a4 + 24) = v34;
+            *(a4 + 24) = v33;
             if (v32)
             {
               operator delete(v32);
@@ -6700,7 +6683,7 @@ LABEL_38:
           v14 = 1;
           if (v11 == v12)
           {
-            goto LABEL_36;
+            return;
           }
         }
 
@@ -6710,7 +6693,7 @@ LABEL_38:
       while (v11 != v12);
       if (v14)
       {
-        goto LABEL_36;
+        return;
       }
     }
 
@@ -6719,9 +6702,6 @@ LABEL_38:
       *a4 = 1;
     }
   }
-
-LABEL_36:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22561B398(_Unwind_Exception *exception_object)
@@ -6736,19 +6716,19 @@ void sub_22561B398(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Backend::Google::FullHashCache::addSafePrefix(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
+void Backend::Google::FullHashCache::addSafePrefix(dispatch_queue_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  dispatch_assert_queue_V2(*(a1 + 16));
+  dispatch_assert_queue_V2(a1[2]);
   v8 = a3;
-  v7 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>((a1 + 24), a3, &std::piecewise_construct, &v8);
-  v7[12] = v7[11];
-  v7[15] = v7[14];
-  if ((v7[10] & 1) == 0)
+  v7 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>(a1 + 3, a3, &std::piecewise_construct, &v8);
+  *(v7 + 12) = *(v7 + 11);
+  *(v7 + 15) = *(v7 + 14);
+  if ((v7[80] & 1) == 0)
   {
-    *(v7 + 80) = 1;
+    v7[80] = 1;
   }
 
-  v7[9] = a4;
+  *(v7 + 9) = a4;
   Backend::Google::FullHashCache::updateExpirationTimer(a1);
 }
 
@@ -6880,17 +6860,17 @@ void sub_22561B698(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void Backend::Google::FullHashCache::handleFullHashResponse(uint64_t a1, int a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5)
+void Backend::Google::FullHashCache::handleFullHashResponse(dispatch_queue_t *a1, int a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5)
 {
-  v17[6] = *MEMORY[0x277D85DE8];
-  dispatch_assert_queue_V2(*(a1 + 16));
-  v17[0] = a4;
-  v10 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>((a1 + 24), a4, &std::piecewise_construct, v17);
+  v15[6] = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(a1[2]);
+  v15[0] = a4;
+  v10 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>(a1 + 3, a4, &std::piecewise_construct, v15);
   v11 = v10;
   if (*(a3 + 56) == 1)
   {
-    v12 = std::remove[abi:sn200100]<std::__wrap_iter<std::array<unsigned char,32ul> *>,std::array<unsigned char,32ul>>(v10[14], v10[15], a3);
-    v13 = v11[15];
+    v12 = std::remove[abi:sn200100]<std::__wrap_iter<std::array<unsigned char,32ul> *>,std::array<unsigned char,32ul>>(*(v10 + 14), *(v10 + 15), a3);
+    v13 = *(v11 + 15);
     if (v12 > v13)
     {
       goto LABEL_10;
@@ -6898,32 +6878,30 @@ void Backend::Google::FullHashCache::handleFullHashResponse(uint64_t a1, int a2,
 
     if (v12 != v13)
     {
-      v14 = v11[15];
-      v11[15] = v12;
+      *(v11 + 15) = v12;
     }
 
-    LODWORD(v17[0]) = a2;
+    LODWORD(v15[0]) = a2;
     if ((*(a3 + 56) & 1) == 0)
     {
 LABEL_10:
       __break(1u);
     }
 
-    v15 = *(a3 + 16);
-    *(v17 + 4) = *a3;
-    *(&v17[2] + 4) = v15;
-    v17[5] = a5;
-    std::vector<Backend::Google::FullHashCache::Value::Entry>::push_back[abi:sn200100]((v11 + 11), v17);
+    v14 = *(a3 + 16);
+    *(v15 + 4) = *a3;
+    *(&v15[2] + 4) = v14;
+    v15[5] = a5;
+    std::vector<Backend::Google::FullHashCache::Value::Entry>::push_back[abi:sn200100]((v11 + 88), v15);
   }
 
-  if ((v11[10] & 1) == 0)
+  if ((v11[80] & 1) == 0)
   {
-    *(v11 + 80) = 1;
+    v11[80] = 1;
   }
 
-  v11[9] = a5;
+  *(v11 + 9) = a5;
   Backend::Google::FullHashCache::updateExpirationTimer(a1);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void *std::remove[abi:sn200100]<std::__wrap_iter<std::array<unsigned char,32ul> *>,std::array<unsigned char,32ul>>(void *a1, void *a2, void *a3)
@@ -7042,49 +7020,46 @@ LABEL_14:
   *(a1 + 8) = v8;
 }
 
-void Backend::Google::FullHashCache::addUnsafeFullHash(uint64_t a1, int *a2, __int128 *a3, unsigned int a4, uint64_t a5, uint64_t a6, char a7)
+void Backend::Google::FullHashCache::addUnsafeFullHash(dispatch_queue_t *a1, int *a2, __int128 *a3, unsigned int a4, uint64_t a5, uint64_t a6, char a7)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  dispatch_assert_queue_V2(*(a1 + 16));
-  BYTE12(v23) = a4;
+  v22 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(a1[2]);
+  BYTE12(v20) = a4;
   if (a4)
   {
     memcpy(&__dst, a3, a4);
   }
 
   p_dst = &__dst;
-  v14 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>((a1 + 24), &__dst, &std::piecewise_construct, &p_dst);
-  v15 = v14 + 15;
-  v16 = std::remove[abi:sn200100]<std::__wrap_iter<std::array<unsigned char,32ul> *>,std::array<unsigned char,32ul>>(v14[14], v14[15], a3);
-  if (v16 > v14[15])
+  v14 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>(a1 + 3, &__dst, &std::piecewise_construct, &p_dst);
+  v15 = std::remove[abi:sn200100]<std::__wrap_iter<std::array<unsigned char,32ul> *>,std::array<unsigned char,32ul>>(*(v14 + 14), *(v14 + 15), a3);
+  if (v15 > *(v14 + 15))
   {
     __break(1u);
   }
 
-  if (v16 != *v15)
+  if (v15 != *(v14 + 15))
   {
-    v17 = *v15;
-    v14[15] = v16;
+    *(v14 + 15) = v15;
   }
 
   __dst = *a2;
-  v18 = a3[1];
-  v22 = *a3;
-  v23 = v18;
-  v24 = a5;
-  std::vector<Backend::Google::FullHashCache::Value::Entry>::push_back[abi:sn200100]((v14 + 11), &__dst);
+  v16 = a3[1];
+  v19 = *a3;
+  v20 = v16;
+  v21 = a5;
+  std::vector<Backend::Google::FullHashCache::Value::Entry>::push_back[abi:sn200100]((v14 + 88), &__dst);
   if (a7)
   {
-    if ((v14[10] & 1) == 0)
+    if ((v14[80] & 1) == 0)
     {
-      *(v14 + 80) = 1;
+      v14[80] = 1;
     }
 
-    v14[9] = a6;
+    *(v14 + 9) = a6;
   }
 
   Backend::Google::FullHashCache::updateExpirationTimer(a1);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t Backend::Google::FullHashCache::nextCacheExpirationTime(dispatch_queue_t *this)
@@ -7101,22 +7076,22 @@ uint64_t Backend::Google::FullHashCache::nextCacheExpirationTime(dispatch_queue_
   {
     do
     {
-      v4 = *(v2 + 11);
-      v5 = *(v2 + 12);
-      for (i = v4; i != v5; i += 48)
+      isa = v2[11].isa;
+      v5 = v2[12].isa;
+      for (i = isa; i != v5; i = (i + 48))
       {
-        if (*(i + 40) < result)
+        if (*(i + 5) < result)
         {
-          result = *(i + 40);
+          result = *(i + 5);
         }
       }
 
-      if (v4 == v5 && (*(v2 + 80) & 1) != 0 && *(v2 + 9) < result)
+      if (isa == v5 && (v2[10].isa & 1) != 0 && v2[9].isa < result)
       {
-        result = *(v2 + 9);
+        result = v2[9].isa;
       }
 
-      v7 = *(v2 + 1);
+      v7 = v2[1].isa;
       if (v7)
       {
         do
@@ -7132,7 +7107,7 @@ uint64_t Backend::Google::FullHashCache::nextCacheExpirationTime(dispatch_queue_
       {
         do
         {
-          v8 = *(v2 + 2);
+          v8 = v2[2].isa;
           v9 = *v8 == v2;
           v2 = v8;
         }
@@ -7143,7 +7118,7 @@ uint64_t Backend::Google::FullHashCache::nextCacheExpirationTime(dispatch_queue_
       v2 = v8;
     }
 
-    while (v8 != (this + 4));
+    while (v8 != this + 4);
   }
 
   return result;
@@ -7191,37 +7166,37 @@ void __destroy_helper_block_ea8_32c67_ZTSKZN7Backend6Google13FullHashCache21upda
   }
 }
 
-uint64_t Backend::Google::FullHashCache::expirationTimerFired(dispatch_queue_t *this)
+void Backend::Google::FullHashCache::expirationTimerFired(dispatch_queue_t *this)
 {
   dispatch_assert_queue_V2(this[2]);
   v2.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-  v50 = this;
+  v49 = this;
   v3 = this[3];
-  v51 = (this + 3);
-  v52 = (this + 4);
+  v50 = (this + 3);
+  v51 = this + 4;
   if (v3 != (this + 4))
   {
     rep = v2.__d_.__rep_;
     do
     {
-      v7 = v3[11];
-      v5 = v3[12];
+      isa = v3[11].isa;
+      v5 = v3[12].isa;
       v6 = v3 + 11;
-      v3[12] = 0;
-      v3[13] = 0;
-      v3[11] = 0;
-      if (v7 != v5)
+      v3[12].isa = 0;
+      v3[13].isa = 0;
+      v3[11].isa = 0;
+      if (isa != v5)
       {
-        for (i = v7; i != v5; i += 3)
+        for (i = isa; i != v5; i = (i + 48))
         {
           if (*(i + 5) <= rep)
           {
-            v14 = v3[15];
-            v15 = v3[16];
+            v14 = v3[15].isa;
+            v15 = v3[16].isa;
             if (v14 >= v15)
             {
-              v32 = v3[14];
-              v33 = v14 - v32;
+              v32 = v3[14].isa;
+              v33 = (v14 - v32);
               v34 = ((v14 - v32) >> 5) + 1;
               if (v34 >> 59)
               {
@@ -7249,26 +7224,26 @@ uint64_t Backend::Google::FullHashCache::expirationTimerFired(dispatch_queue_t *
                 goto LABEL_51;
               }
 
-              v37 = std::allocator<std::array<unsigned char,32ul>>::allocate_at_least[abi:sn200100]((v3 + 14), v36);
+              v37 = std::allocator<std::array<unsigned char,32ul>>::allocate_at_least[abi:sn200100](&v3[14], v36);
               if (!v37)
               {
                 goto LABEL_51;
               }
 
               v39 = &v33[v37];
-              v40 = v37 + 32 * v38;
+              v40 = (v37 + 32 * v38);
               v41 = *(i + 20);
               *v39 = *(i + 4);
               *(v39 + 1) = v41;
               v17 = &v33[v37 + 32];
-              v42 = v3[14];
-              v43 = v3[15] - v42;
+              v42 = v3[14].isa;
+              v43 = v3[15].isa - v42;
               v44 = &v39[-v43];
               memcpy(&v39[-v43], v42, v43);
-              v45 = v3[14];
-              v3[14] = v44;
-              v3[15] = v17;
-              v3[16] = v40;
+              v45 = v3[14].isa;
+              v3[14].isa = v44;
+              v3[15].isa = v17;
+              v3[16].isa = v40;
               if (v45)
               {
                 operator delete(v45);
@@ -7284,27 +7259,27 @@ uint64_t Backend::Google::FullHashCache::expirationTimerFired(dispatch_queue_t *
 
               v16 = *(i + 20);
               *v14 = *(i + 4);
-              v14[1] = v16;
-              v17 = (v14 + 2);
+              *(v14 + 1) = v16;
+              v17 = (v14 + 32);
             }
 
-            v3[15] = v17;
+            v3[15].isa = v17;
           }
 
           else
           {
-            v9 = v3[12];
-            v10 = v3[13];
+            v9 = v3[12].isa;
+            v10 = v3[13].isa;
             if (v9 >= v10)
             {
-              v18 = v9 - *v6;
+              v18 = v9 - v6->isa;
               v19 = 0xAAAAAAAAAAAAAAABLL * (v18 >> 4) + 1;
               if (v19 > 0x555555555555555)
               {
                 goto LABEL_52;
               }
 
-              v20 = 0xAAAAAAAAAAAAAAABLL * ((v10 - *v6) >> 4);
+              v20 = 0xAAAAAAAAAAAAAAABLL * ((v10 - v6->isa) >> 4);
               if (2 * v20 > v19)
               {
                 v19 = 2 * v20;
@@ -7320,7 +7295,7 @@ uint64_t Backend::Google::FullHashCache::expirationTimerFired(dispatch_queue_t *
                 v21 = v19;
               }
 
-              if (!v21 || (v22 = std::allocator<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::allocate_at_least[abi:sn200100]((v3 + 11), v21)) == 0)
+              if (!v21 || (v22 = std::allocator<Backend::Google::FindFullHashesResponse::ThreatMatch::MetadataEntry>::allocate_at_least[abi:sn200100](&v3[11], v21)) == 0)
               {
 LABEL_51:
                 __break(1u);
@@ -7331,19 +7306,19 @@ LABEL_52:
               v24 = &v22[v18];
               v25 = &v22[48 * v23];
               v26 = *i;
-              v27 = i[2];
-              *(v24 + 1) = i[1];
+              v27 = *(i + 2);
+              *(v24 + 1) = *(i + 1);
               *(v24 + 2) = v27;
               *v24 = v26;
               v13 = &v22[v18 + 48];
-              v28 = v3[11];
-              v29 = v3[12] - v28;
+              v28 = v3[11].isa;
+              v29 = v3[12].isa - v28;
               v30 = &v22[v18 - v29];
               memcpy(v30, v28, v29);
-              v31 = v3[11];
-              v3[11] = v30;
-              v3[12] = v13;
-              v3[13] = v25;
+              v31 = v3[11].isa;
+              v3[11].isa = v30;
+              v3[12].isa = v13;
+              v3[13].isa = v25;
               if (v31)
               {
                 operator delete(v31);
@@ -7358,26 +7333,26 @@ LABEL_52:
               }
 
               v11 = *i;
-              v12 = i[2];
-              v9[1] = i[1];
-              v9[2] = v12;
+              v12 = *(i + 2);
+              *(v9 + 1) = *(i + 1);
+              *(v9 + 2) = v12;
               *v9 = v11;
-              v13 = (v9 + 3);
+              v13 = (v9 + 48);
             }
 
-            v3[12] = v13;
+            v3[12].isa = v13;
           }
         }
       }
 
-      if (v7)
+      if (isa)
       {
-        operator delete(v7);
+        operator delete(isa);
       }
 
-      if (v3[11] != v3[12] || *(v3 + 80) == 1 && v3[9] > rep)
+      if (v3[11].isa != v3[12].isa || LOBYTE(v3[10].isa) == 1 && v3[9].isa > rep)
       {
-        v46 = v3[1];
+        v46 = v3[1].isa;
         if (v46)
         {
           do
@@ -7393,7 +7368,7 @@ LABEL_52:
         {
           do
           {
-            v47 = v3[2];
+            v47 = v3[2].isa;
             v48 = *v47 == v3;
             v3 = v47;
           }
@@ -7404,16 +7379,16 @@ LABEL_52:
 
       else
       {
-        v47 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::erase(v51, v3);
+        v47 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::erase(v50, v3);
       }
 
       v3 = v47;
     }
 
-    while (v47 != v52);
+    while (v47 != v51);
   }
 
-  return Backend::Google::FullHashCache::updateExpirationTimer(v50);
+  Backend::Google::FullHashCache::updateExpirationTimer(v49);
 }
 
 void sub_22561BFA8(_Unwind_Exception *exception_object)
@@ -7553,7 +7528,7 @@ uint64_t std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::Fu
   return a4;
 }
 
-uint64_t *std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>(uint64_t **a1, unsigned __int8 *__s1, uint64_t a3, uint64_t a4)
+char *std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__emplace_unique_key_args<Backend::Google::Hash,std::piecewise_construct_t const&,std::tuple<Backend::Google::Hash const&>,std::tuple<>>(uint64_t ***a1, unsigned __int8 *__s1, uint64_t a3, uint64_t a4)
 {
   v6 = std::__tree<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::__map_value_compare<Backend::Google::Hash,std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>,std::less<Backend::Google::Hash>,true>,std::allocator<std::__value_type<Backend::Google::Hash,Backend::Google::FullHashCache::Value>>>::__find_equal<Backend::Google::Hash>(a1, &v13, __s1);
   v7 = *v6;
@@ -7790,31 +7765,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -7823,208 +7797,207 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
 void *Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v4 = a2[1];
-  v7 = *a2;
-  v8 = v4;
+  v6 = *a2;
+  v7 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9[0] = &unk_2838CE468;
-  v9[1] = a3;
-  v9[3] = v9;
-  CoroutineCaller<std::shared_ptr<ReadStream>>::CoroutineCaller(a1, &v7, v9);
-  std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](v9);
-  if (v8)
+  v8[0] = &unk_2838CE468;
+  v8[1] = a3;
+  v8[3] = v8;
+  CoroutineCaller<std::shared_ptr<ReadStream>>::CoroutineCaller(a1, &v6, v8);
+  std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](v8);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_22561C84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_22561C84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](va);
-  if (a4)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](a7);
   }
 
   _Unwind_Resume(a1);
@@ -8150,7 +8123,7 @@ void sub_22561CC58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<Backend::Google::HashesSearchResponse::FullHash>::__emplace_back_slow_path<Backend::Google::HashesSearchResponse::FullHash>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<Backend::Google::HashesSearchResponse::FullHash>::__emplace_back_slow_path<Backend::Google::HashesSearchResponse::FullHash>(char **a1, uint64_t a2)
 {
   v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -8224,9 +8197,9 @@ LABEL_13:
   return v15;
 }
 
-void sub_22561CDD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22561CDD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Backend::Google::HashesSearchResponse::FullHash>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8287,12 +8260,12 @@ void **std::__split_buffer<Backend::Google::HashesSearchResponse::FullHash>::~__
   return a1;
 }
 
-void std::__split_buffer<Backend::Google::HashesSearchResponse::FullHash>::clear[abi:sn200100](uint64_t a1)
+void std::__split_buffer<Backend::Google::HashesSearchResponse::FullHash>::clear[abi:sn200100](uint64_t result)
 {
-  v2 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v2; i = *(a1 + 16))
+  v2 = *(result + 8);
+  for (i = *(result + 16); i != v2; i = *(result + 16))
   {
-    *(a1 + 16) = i - 56;
+    *(result + 16) = i - 56;
     v4 = (i - 24);
     std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v4);
   }
@@ -8365,7 +8338,7 @@ void sub_22561D048(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__emplace_back_slow_path<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__emplace_back_slow_path<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>(char **a1, uint64_t a2)
 {
   v2 = a1[1] - *a1;
   v3 = (v2 >> 5) + 1;
@@ -8424,9 +8397,9 @@ LABEL_11:
   return v16;
 }
 
-void sub_22561D184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22561D184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8511,7 +8484,7 @@ void std::__split_buffer<Backend::Google::HashesSearchResponse::FullHash::FullHa
   }
 }
 
-void *std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__init_with_size[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*>(void *result, _DWORD *a2, _DWORD *a3, unint64_t a4)
+uint64_t *std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__init_with_size[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*>(uint64_t *result, _DWORD *a2, _DWORD *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8538,28 +8511,27 @@ char *std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetai
   return result;
 }
 
-void *std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__construct_at_end<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*>(void *result, _DWORD *a2, _DWORD *a3)
+uint64_t *std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__construct_at_end<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*>(uint64_t *result, _DWORD *a2, _DWORD *a3)
 {
   v3 = result;
-  v4 = result[1];
   if (a2 == a3)
   {
-    v7 = result[1];
+    v6 = result[1];
 LABEL_7:
-    v3[1] = v7;
+    v3[1] = v6;
   }
 
   else
   {
-    v6 = a2;
-    v7 = result[1];
-    while (v7)
+    v5 = a2;
+    v6 = result[1];
+    while (v6)
     {
-      *v7 = *v6;
-      result = std::vector<unsigned int>::vector[abi:sn200100]((v7 + 8), (v6 + 2));
-      v6 += 8;
-      v7 += 32;
-      if (v6 == a3)
+      *v6 = *v5;
+      result = std::vector<unsigned int>::vector[abi:sn200100]((v6 + 8), (v5 + 2));
+      v5 += 8;
+      v6 += 32;
+      if (v5 == a3)
       {
         goto LABEL_7;
       }
@@ -8660,8 +8632,7 @@ uint64_t std::__function::__func<Backend::Google::HashesSearchResponseParser::Ha
 void std::__function::__func<Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)> &&)::$_0,std::allocator<std::function<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)> &>,Task ()(std::shared_ptr<ReadStream>)>::operator()(uint64_t a1@<X0>, __int128 *a2@<X1>, void *a3@<X8>)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>((a1 + 8), &v4, a3);
   v3 = *(&v4 + 1);
   if (*(&v4 + 1))
@@ -8681,7 +8652,7 @@ void sub_22561D61C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+uint64_t Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v6 = operator new(0xA0uLL);
   *v6 = Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)> &&)::$_0::operator()<std::shared_ptr<ReadStream>>;

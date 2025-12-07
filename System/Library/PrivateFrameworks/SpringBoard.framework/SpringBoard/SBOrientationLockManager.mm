@@ -216,7 +216,7 @@ void __34__SBOrientationLockManager_unlock__block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  if (([(NSMutableSet *)self->_lockOverrideReasons containsObject:reasonCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_lockOverrideReasons) & 1) == 0)
   {
     v7 = BKLogOrientationGlobal();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -240,7 +240,7 @@ void __34__SBOrientationLockManager_unlock__block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  if ([(NSMutableSet *)self->_lockOverrideReasons containsObject:reasonCopy])
+  if (objc_msgSend_containsObject_(self->_lockOverrideReasons))
   {
     v5 = BKLogOrientationGlobal();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -577,7 +577,7 @@ void __95__SBOrientationLockManager__setupRunLoopObserverIfNecessaryForOrientati
   return build;
 }
 
-- (void)_updateLockStateWithOrientation:(uint64_t)a1 forceUpdateHID:(uint64_t)a2 changes:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
+- (void)_updateLockStateWithOrientation:(void *)a1 forceUpdateHID:(void *)a2 changes:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = BSDeviceOrientationDescription();

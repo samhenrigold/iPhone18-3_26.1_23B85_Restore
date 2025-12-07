@@ -38,7 +38,7 @@ void __71__ICMentionsController_UI__sendPendingNotificationsAfterDelay_forNote__
 
 void __60__ICMentionsController_UI__hasMentionInTextStorage_inRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [a2 objectForKeyedSubscript:*MEMORY[0x1E69B7958]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(a2, a2, *MEMORY[0x1E69B7958], a4);
 
   if (v7)
   {

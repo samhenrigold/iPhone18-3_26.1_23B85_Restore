@@ -38,7 +38,7 @@
 LABEL_3:
   time = *time;
   CMTimeGetSeconds(&time);
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v12;
   CMTimeGetSeconds(&time);
   PXClamp();
@@ -46,7 +46,7 @@ LABEL_3:
 
 - (double)clipAlphaForTime:(id *)time
 {
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v12;
   if (CMTimeGetSeconds(&time) > 0.0)
   {

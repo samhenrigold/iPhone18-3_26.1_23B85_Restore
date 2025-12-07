@@ -63,14 +63,13 @@
 
 - (MIOModelLayer)initWithMessageStream:(CodedInputStream *)stream error:(id *)error
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = 0;
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v7 = 0u;
   v8 = 0u;
-  v9 = 0u;
-  MIOParseNeuralNetworkLayerSpecification(stream, &v8);
-  v5 = [MIOModelLayer initWithName:"initWithName:type:histogram:computePrecision:storagePrecision:" type:v8 histogram:v9 computePrecision:v10 storagePrecision:?];
+  MIOParseNeuralNetworkLayerSpecification(stream, &v7);
+  v5 = [MIOModelLayer initWithName:"initWithName:type:histogram:computePrecision:storagePrecision:" type:v7 histogram:v8 computePrecision:v9 storagePrecision:?];
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -133,20 +132,18 @@
 
 - (BOOL)initWithMessageStream:(uint64_t)a3 error:(void *)a4 .cold.1(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = __cxa_begin_catch(a1);
   *a4 = v6;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = (*(*v6 + 16))(v6);
-    v10 = 136315138;
-    v11 = v9;
-    _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to parse the Layer specification. Error: %s", &v10, 0xCu);
+    v8 = (*(*v6 + 16))(v6);
+    v9 = 136315138;
+    v10 = v8;
+    _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to parse the Layer specification. Error: %s", &v9, 0xCu);
   }
 
-  result = a3 == 0;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return a3 == 0;
 }
 
 @end

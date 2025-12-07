@@ -94,12 +94,12 @@ void sub_23A4AAE00(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23A4AC7A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23A4AC7A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PHASESoundPrototype;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -112,7 +112,7 @@ void sub_23A4ACEA8(_Unwind_Exception *a1)
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ClientTapRegistryProxy>(Phase::Logger *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -120,9 +120,9 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ClientTap
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 112;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -139,13 +139,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ClientTap
       Phase::GetBacktraceFrame<1ul>(&__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 121;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2080;
-      v20 = v10;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
       _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -154,7 +154,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ClientTap
     }
 
     v11 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<Phase::Controller::ClientTapRegistryProxy * const>(v4);
@@ -221,17 +221,17 @@ uint64_t (**std::any_cast[abi:ne200100]<Phase::Controller::ClientTapRegistryProx
   return result;
 }
 
-void sub_23A4B06CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A4B06CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::RenderSourceView const*)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A4B09F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A4B09F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::AudibleTriangleView const*)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -422,7 +422,7 @@ const char *Phase::Controller::DVM23::PlaystateToString(unsigned int a1)
   }
 }
 
-void Phase::SpatialModeler::PresetEarlyReflectionsErrorCategory::message(Phase::SpatialModeler::PresetEarlyReflectionsErrorCategory *this, int a2)
+void Phase::SpatialModeler::PresetEarlyReflectionsErrorCategory::message(Phase::SpatialModeler::PresetEarlyReflectionsErrorCategory *this, uint64_t a2)
 {
   if (a2 < 8)
   {
@@ -449,43 +449,43 @@ void Phase::SpatialModeler::PresetEarlyReflectionsErrorCategory::~PresetEarlyRef
   JUMPOUT(0x23EE864A0);
 }
 
-void Phase::SpatialModeler::PresetEarlyReflections::GetSupportedQueryDescs(void *a1@<X8>)
+void Phase::SpatialModeler::PresetEarlyReflections::GetSupportedQueryDescs(uint64_t *a1@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(v6, "CULL");
-  v7 = 0;
-  v8 = 0x100000001;
-  v9 = 1;
-  v10 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(v5, "CULL");
+  v5[3] = 0;
+  v5[4] = 0x100000001;
+  v6 = 1;
+  v7 = 0u;
+  v8 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(v9, "CLUSTER");
+  v9[3] = 1;
+  v9[4] = 0x200000003;
+  v10 = 1;
   v11 = 0u;
-  std::string::basic_string[abi:ne200100]<0>(v12, "CLUSTER");
-  v13 = 1;
-  v14 = 0x200000003;
-  v15 = 1;
-  v16 = 0u;
-  v17 = 0u;
-  std::string::basic_string[abi:ne200100]<0>(v18, "SPATIAL");
-  v19 = 2;
-  v20 = 0x300000002;
-  v21 = 1;
-  memset(v22, 0, sizeof(v22));
+  v12 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(v13, "SPATIAL");
+  v13[3] = 2;
+  v13[4] = 0x300000002;
+  v14 = 1;
+  memset(v15, 0, sizeof(v15));
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v6, &v23, 3uLL);
-  for (i = 0; i != -15; i -= 5)
+  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v5, &v16, 3uLL);
+  for (i = 0; i != -240; i -= 80)
   {
-    v4 = &v6[i * 16];
-    v5 = *&v22[i];
-    if (v5)
+    v3 = &v5[i / 8];
+    v4 = *&v15[i / 0x10];
+    if (v4)
     {
-      *(v4 + 27) = v5;
-      operator delete(v5);
+      v3[27] = v4;
+      operator delete(v4);
     }
 
-    if (v4[183] < 0)
+    if (*(v3 + 183) < 0)
     {
-      operator delete(*(v4 + 20));
+      operator delete(v3[20]);
     }
   }
 }
@@ -1435,16 +1435,16 @@ std::string *Phase::SpatialModeler::PresetEarlyReflections::GetGraphDescription@
   {
     std::string::__assign_external(a2, "PresetEarlyReflectionsSpatialQueryGraph", 0x27uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullPresetEarlyReflectionsSpatialGraph", 0x26uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullPresetEarlyReflectionsSpatialGraph", 0x26uLL);
   }
 
   else if (a1 == 1)
   {
     std::string::__assign_external(a2, "PresetEarlyReflectionsClusterQueryGraph", 0x27uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullPresetEarlyReflectionsClusterGraph", 0x26uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullPresetEarlyReflectionsClusterGraph", 0x26uLL);
   }
 
   else
@@ -1456,11 +1456,11 @@ std::string *Phase::SpatialModeler::PresetEarlyReflections::GetGraphDescription@
 
     std::string::__assign_external(a2, "PresetEarlyReflectionsCullQueryGraph", 0x24uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullPresetEarlyReflectionsCullGraph", 0x23uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullPresetEarlyReflectionsCullGraph", 0x23uLL);
   }
 
-  v4[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
+  v3[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
   return result;
 }
 
@@ -1582,7 +1582,7 @@ void Phase::SpatialModeler::PresetEarlyReflections::~PresetEarlyReflections(Phas
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1136);
   std::unique_ptr<Phase::Vector<float,3ul> [],std::function<void ()(void *)>>::reset[abi:ne200100](this + 135);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1088);
-  Phase::HeapAllocator::Destroy(v2);
+  Phase::HeapAllocator::Destroy(v2, v3, v4);
   std::error_category::~error_category(this + 4);
   *this = &unk_284D2F570;
   std::error_category::~error_category(this + 1);
@@ -1599,7 +1599,7 @@ void Phase::SpatialModeler::PresetEarlyReflections::~PresetEarlyReflections(Phas
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1136);
   std::unique_ptr<Phase::Vector<float,3ul> [],std::function<void ()(void *)>>::reset[abi:ne200100](this + 135);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1088);
-  Phase::HeapAllocator::Destroy(v2);
+  Phase::HeapAllocator::Destroy(v2, v3, v4);
   std::error_category::~error_category(this + 4);
   *this = &unk_284D2F570;
   std::error_category::~error_category(this + 1);
@@ -1740,7 +1740,7 @@ uint64_t Phase::AllocPackedSubbandArray<float,Phase::HeapAllocator>@<X0>(Phase::
   result = std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v11);
   v10 = *a4;
   *v10 = a2;
-  *(v10 + 1) = a3;
+  v10[1] = a3;
   return result;
 }
 
@@ -1847,16 +1847,16 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::PackedSubbandArray<float
   return result;
 }
 
-void Phase::SpatialModeler::PresetLateReverbErrorCategory::message(int a1@<W1>, uint64_t a2@<X8>)
+void Phase::SpatialModeler::PresetLateReverbErrorCategory::message(uint64_t a2@<X1>, uint64_t x8_0@<X8>)
 {
-  if (a1 >= 8)
+  if (a2 >= 8)
   {
     std::terminate();
   }
 
   v4 = 19;
   strcpy(__p, "Preset late reverb ");
-  Phase::SpatialModeler::ModelerErrorMessage(a1, __p, a2);
+  Phase::SpatialModeler::ModelerErrorMessage(a2, __p, x8_0);
   if (v4 < 0)
   {
     operator delete(*__p);
@@ -1880,43 +1880,43 @@ void Phase::SpatialModeler::PresetLateReverbErrorCategory::~PresetLateReverbErro
   JUMPOUT(0x23EE864A0);
 }
 
-void Phase::SpatialModeler::PresetLateReverb::GetSupportedQueryDescs(void *a1@<X8>)
+void Phase::SpatialModeler::PresetLateReverb::GetSupportedQueryDescs(uint64_t *a1@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(v6, "CULL");
-  v7 = 0;
-  v8 = 0x100000001;
-  v9 = 1;
-  v10 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(v5, "CULL");
+  v5[3] = 0;
+  v5[4] = 0x100000001;
+  v6 = 1;
+  v7 = 0u;
+  v8 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(v9, "CLUSTER");
+  v9[3] = 1;
+  v9[4] = 0x200000003;
+  v10 = 1;
   v11 = 0u;
-  std::string::basic_string[abi:ne200100]<0>(v12, "CLUSTER");
-  v13 = 1;
-  v14 = 0x200000003;
-  v15 = 1;
-  v16 = 0u;
-  v17 = 0u;
-  std::string::basic_string[abi:ne200100]<0>(v18, "SPATIAL");
-  v19 = 2;
-  v20 = 0x300000002;
-  v21 = 1;
-  memset(v22, 0, sizeof(v22));
+  v12 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(v13, "SPATIAL");
+  v13[3] = 2;
+  v13[4] = 0x300000002;
+  v14 = 1;
+  memset(v15, 0, sizeof(v15));
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v6, &v23, 3uLL);
-  for (i = 0; i != -15; i -= 5)
+  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v5, &v16, 3uLL);
+  for (i = 0; i != -240; i -= 80)
   {
-    v4 = &v6[i * 16];
-    v5 = *&v22[i];
-    if (v5)
+    v3 = &v5[i / 8];
+    v4 = *&v15[i / 0x10];
+    if (v4)
     {
-      *(v4 + 27) = v5;
-      operator delete(v5);
+      v3[27] = v4;
+      operator delete(v4);
     }
 
-    if (v4[183] < 0)
+    if (*(v3 + 183) < 0)
     {
-      operator delete(*(v4 + 20));
+      operator delete(v3[20]);
     }
   }
 }
@@ -2553,9 +2553,9 @@ LABEL_40:
   *(a3 + 24) = v8;
 }
 
-void sub_23A4B5CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A4B5CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Phase::SpatialModeler::DirectionalMetadataOutput<float>::~DirectionalMetadataOutput(va);
   _Unwind_Resume(a1);
 }
@@ -2569,16 +2569,16 @@ std::string *Phase::SpatialModeler::PresetLateReverb::GetGraphDescription@<X0>(u
   {
     std::string::__assign_external(a2, "PresetLateReverbSpatialQueryGraph", 0x21uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullPresetLateReverbSpatialGraph", 0x20uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullPresetLateReverbSpatialGraph", 0x20uLL);
   }
 
   else if (a1 == 1)
   {
     std::string::__assign_external(a2, "PresetLateReverbClusterQueryGraph", 0x21uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullPresetLateReverbClusterGraph", 0x20uLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullPresetLateReverbClusterGraph", 0x20uLL);
   }
 
   else
@@ -2590,11 +2590,11 @@ std::string *Phase::SpatialModeler::PresetLateReverb::GetGraphDescription@<X0>(u
 
     std::string::__assign_external(a2, "PresetLateReverbCullQueryGraph", 0x1EuLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullPresetLateReverbCullGraph", 0x1DuLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullPresetLateReverbCullGraph", 0x1DuLL);
   }
 
-  v4[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
+  v3[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
   return result;
 }
 
@@ -2610,7 +2610,7 @@ void Phase::SpatialModeler::PresetLateReverb::~PresetLateReverb(Phase::SpatialMo
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1120);
   std::unique_ptr<Phase::Vector<float,3ul> [],std::function<void ()(void *)>>::reset[abi:ne200100](this + 133);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1072);
-  Phase::HeapAllocator::Destroy(v2);
+  Phase::HeapAllocator::Destroy(v2, v3, v4);
   std::error_category::~error_category(this + 4);
   *this = &unk_284D2F570;
   std::error_category::~error_category(this + 1);
@@ -2627,7 +2627,7 @@ void Phase::SpatialModeler::PresetLateReverb::~PresetLateReverb(Phase::SpatialMo
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1120);
   std::unique_ptr<Phase::Vector<float,3ul> [],std::function<void ()(void *)>>::reset[abi:ne200100](this + 133);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](this + 1072);
-  Phase::HeapAllocator::Destroy(v2);
+  Phase::HeapAllocator::Destroy(v2, v3, v4);
   std::error_category::~error_category(this + 4);
   *this = &unk_284D2F570;
   std::error_category::~error_category(this + 1);
@@ -2804,7 +2804,7 @@ void Phase::Controller::PreSpatialTapSourceObject::RegisterTap(Phase::Controller
     v6 = *(this + 13);
     v7 = *(this + 14);
     std::__function::__value_func<void ()(float *,unsigned long)>::__value_func[abi:ne200100](v37, this + 152);
-    LODWORD(v5) = Phase::Controller::DVM23::DvmAdapter::AddTap(v5, v6, v7);
+    LODWORD(v5) = Phase::Controller::DVM23::DvmAdapter::AddTap(v5, v6, v7, v37, *(this + 18));
     std::__function::__value_func<void ()(float *,unsigned long)>::~__value_func[abi:ne200100](v37);
     if (v5 == 5)
     {
@@ -2833,7 +2833,7 @@ void Phase::Controller::PreSpatialTapSourceObject::RegisterTap(Phase::Controller
 
       v14 = *(this + 16);
       std::__function::__value_func<void ()(float *,unsigned long)>::__value_func[abi:ne200100](v27, this + 152);
-      LODWORD(v14) = Phase::Controller::DVM23::DvmAdapter::AddTap(v14, v9, v10);
+      LODWORD(v14) = Phase::Controller::DVM23::DvmAdapter::AddTap(v14, v9, v10, v27, *(this + 18));
       v15 = std::__function::__value_func<void ()(float *,unsigned long)>::~__value_func[abi:ne200100](v27);
       if (v14)
       {
@@ -2914,7 +2914,7 @@ void Phase::Controller::PreSpatialTapSourceObject::RegisterTap(Phase::Controller
   }
 }
 
-void *Phase::Controller::PreSpatialTapSourceObject::AddMixer(uint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t *Phase::Controller::PreSpatialTapSourceObject::AddMixer(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   v4[0] = a2;
   v4[1] = a3;
@@ -3082,7 +3082,7 @@ void Phase::Controller::PreSpatialTapSourceObject::Update(Phase::Controller::Pre
         v15 = Phase::Controller::SubmixSystem::GetSubmix(*(this + 17), *i, i[1]);
         (*(*v15 + 272))(v42);
         LOBYTE(v39) = 0;
-        std::vector<char>::vector[abi:ne200100](__p, 32);
+        std::vector<char>::vector[abi:ne200100](__p, 32, &v39);
         v16 = __p[0];
         *__p[0] = 6553601;
         v16[2] = 0;
@@ -3172,7 +3172,7 @@ void Phase::Controller::PreSpatialTapSourceObject::Update(Phase::Controller::Pre
         v34 = Phase::Controller::DVM23::DvmAdapter::AddSubmixToTap(*(this + 16), *(this + 13), *(this + 14), *i, i[1], &__src);
         if (v34 == 5 || !v34)
         {
-          std::__tree<Phase::UniqueObjectId>::__emplace_unique_key_args<Phase::UniqueObjectId,Phase::UniqueObjectId const&>(this + 80, i);
+          std::__tree<Phase::UniqueObjectId>::__emplace_unique_key_args<Phase::UniqueObjectId,Phase::UniqueObjectId const&>(this + 10, i, i);
         }
 
         if (__src)
@@ -3496,7 +3496,7 @@ uint64_t std::__function::__value_func<void ()(float *,unsigned long)>::~__value
 
 void std::__tree<Phase::UniqueObjectId>::__erase_unique<Phase::UniqueObjectId>(uint64_t **a1, unint64_t a2, unint64_t a3)
 {
-  v5 = (a1 + 1);
+  v5 = a1 + 1;
   v4 = a1[1];
   if (v4)
   {
@@ -3595,20 +3595,20 @@ void Phase::Controller::DVM23::PreSpatialTapController::~PreSpatialTapController
 
 uint64_t Phase::Controller::DVM23::PreSpatialTapController::ConfigureTapGraph(Phase::Controller::DVM23::PreSpatialTapController *this, int64x2_t *a2, unint64_t a3, uint64_t a4)
 {
-  v10[5] = *MEMORY[0x277D85DE8];
-  v10[0] = a3;
-  v7 = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(a2, v10, 0x1EuLL);
+  v11[5] = *MEMORY[0x277D85DE8];
+  v11[0] = a3;
+  v7 = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(a2, v11, 0x1EuLL, *(this + 3));
   if (!v7)
   {
-    v8 = v10[0];
-    *(this + 10) = v10[0];
+    v8 = v11[0];
+    *(this + 10) = v11[0];
     v7 = Phase::Controller::DVM23::DspVoiceManager23::AddConnection(a2, *(this + 3), 0, v8, 0);
     if (!v7)
     {
       v7 = 1;
-      if (!Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(a2, *(this + 10), 1uLL, this + 40, 0))
+      if (!Phase::Controller::DVM23::DspVoiceManager23::SetVoiceData(a2, *(this + 10), 1, this + 40, 0))
       {
-        malloc_type_malloc(4 * a4, 0x100004052888210uLL);
+        v10 = malloc_type_malloc(4 * a4, 0x100004052888210uLL);
         operator new();
       }
     }
@@ -3617,32 +3617,33 @@ uint64_t Phase::Controller::DVM23::PreSpatialTapController::ConfigureTapGraph(Ph
   return v7;
 }
 
-void sub_23A4B788C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A4B788C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
-  if (v5)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   _Unwind_Resume(a1);
 }
 
 void Phase::Controller::DVM23::PreSpatialTapController::SetPlaystate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4[9] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v4, a4);
-  v4[8] = 0;
+  v5[9] = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 8);
+  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v5, a4);
+  v5[8] = 0;
   operator new();
 }
 
-void sub_23A4B7A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23A4B7A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(unsigned long long,Phase::Controller::DVM23::Playstate)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v10 + 16);
+  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v17 + 16);
   _Unwind_Resume(a1);
 }
 
@@ -3723,10 +3724,10 @@ void sub_23A4B7D48(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t std::__tree<std::shared_ptr<float>>::__emplace_unique_key_args<std::shared_ptr<float>,std::shared_ptr<float> const&>(uint64_t result, unint64_t a2)
+uint64_t *std::__tree<std::shared_ptr<float>>::__emplace_unique_key_args<std::shared_ptr<float>,std::shared_ptr<float> const&>(uint64_t *result, unint64_t a2, uint64_t *a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -3736,27 +3737,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -4153,11 +4154,12 @@ LABEL_11:
   goto LABEL_12;
 }
 
-void sub_23A4B8CF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_23A4B8CF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  __cxa_free_exception(v17);
-  Phase::Controller::ProcedureInfo::~ProcedureInfo(&a16);
-  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>>>::~__hash_table(v16);
+  va_start(va, a15);
+  __cxa_free_exception(v16);
+  Phase::Controller::ProcedureInfo::~ProcedureInfo(va);
+  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::ProcedureInfo>>>::~__hash_table(v15);
   _Unwind_Resume(a1);
 }
 
@@ -5242,7 +5244,7 @@ void sub_23A4BBB08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x23A4BC0B8);
 }
 
-void sub_23A4BBBEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t *a31)
+void sub_23A4BBBEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void **a31)
 {
   a31 = &a22;
   std::vector<Phase::Envelope<double>::Segment,std::allocator<Phase::Envelope<double>::Segment>>::__destroy_vector::operator()[abi:ne200100](&a31);
@@ -5282,7 +5284,7 @@ void sub_23A4BBE90(_Unwind_Exception *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   _Unwind_Resume(a1);
@@ -7170,7 +7172,7 @@ LABEL_192:
             v83 = 0;
           }
 
-          v85 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v84 - v83));
+          v85 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v84 - v83) >> 3));
           if (v84 == v83)
           {
             v86 = 0;
@@ -7521,12 +7523,12 @@ void sub_23A4C1E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Controller::ProfileRegistry::FindProfileId@<X0>(uint64_t this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *Phase::Controller::ProfileRegistry::FindProfileId@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, uint64_t a3@<X1>)
 {
-  *a3 = 0;
-  *(a3 + 8) = &str_20;
-  *(a3 + 16) = 1;
-  v4 = (this + 16);
+  *a1 = 0;
+  a1[1] = &str_20;
+  *(a1 + 16) = 1;
+  v4 = this + 2;
   while (1)
   {
     v4 = *v4;
@@ -7535,9 +7537,9 @@ uint64_t Phase::Controller::ProfileRegistry::FindProfileId@<X0>(uint64_t this@<X
       break;
     }
 
-    if (v4[2] == a2)
+    if (v4[2] == a3)
     {
-      return Phase::StringId::operator=(a3, (v4 + 2));
+      return Phase::StringId::operator=(a1, (v4 + 2));
     }
   }
 
@@ -7557,13 +7559,13 @@ void sub_23A4C1ED4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Phase::Controller::ProfileRegistry::GetModelers(Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a2@<X1>, uint64_t a3@<X8>)
+void Phase::Controller::ProfileRegistry::GetModelers(uint64_t *__return_ptr a1@<X8>, Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a3@<X1>)
 {
   v29 = *MEMORY[0x277D85DE8];
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 1065353216;
-  v5 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a2);
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  v5 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a3);
   if (v5)
   {
     v7 = v5[13];
@@ -7575,7 +7577,7 @@ void Phase::Controller::ProfileRegistry::GetModelers(Phase::Controller::ProfileR
     while (1)
     {
       SpatialCategoryFromStringId = Phase::Controller::GetSpatialCategoryFromStringId((v7 + 2), v6);
-      v9 = *(a3 + 8);
+      v9 = a1[1];
       if (!v9)
       {
         goto LABEL_19;
@@ -7597,7 +7599,7 @@ void Phase::Controller::ProfileRegistry::GetModelers(Phase::Controller::ProfileR
         v11 = (v9 - 1) & SpatialCategoryFromStringId;
       }
 
-      v12 = *(*a3 + 8 * v11);
+      v12 = *(*a1 + 8 * v11);
       if (!v12 || (v13 = *v12) == 0)
       {
 LABEL_19:
@@ -7670,7 +7672,7 @@ LABEL_18:
   v19 = **(Phase::Logger::GetInstance(0) + 800);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v20 = *(a2 + 1);
+    v20 = *(a3 + 1);
     *buf = 136315650;
     v22 = "ProfileRegistry.mm";
     v23 = 1024;
@@ -7681,15 +7683,15 @@ LABEL_18:
   }
 }
 
-void Phase::Controller::ProfileRegistry::GetParameters(Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a2@<X1>, double a3@<D0>, const void **a4@<X8>)
+void Phase::Controller::ProfileRegistry::GetParameters(const void **__return_ptr a1@<X8>, Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a3@<X1>, double a4@<D0>)
 {
   v44 = *MEMORY[0x277D85DE8];
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  if (a3 >= 0.0 && a3 <= 1.0)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a4 >= 0.0 && a4 <= 1.0)
   {
-    v9 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a2);
+    v9 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a3);
     if (v9)
     {
       v11 = v9[13];
@@ -7771,13 +7773,13 @@ LABEL_28:
             break;
           }
 
-          v19 = Phase::Envelope<double>::operator()(v17 + 8, a3);
-          v20 = a4[1];
-          v21 = a4[2];
+          v19 = Phase::Envelope<double>::operator()(v17 + 8, a4);
+          v20 = a1[1];
+          v21 = a1[2];
           if (v20 >= v21)
           {
-            v23 = *a4;
-            v24 = v20 - *a4;
+            v23 = *a1;
+            v24 = v20 - *a1;
             v25 = 0xAAAAAAAAAAAAAAABLL * (v24 >> 3) + 1;
             if (v25 > 0xAAAAAAAAAAAAAAALL)
             {
@@ -7797,7 +7799,7 @@ LABEL_28:
 
             if (v25)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<Phase::Controller::SpatialModelerParameterAddress>>(a4, v25);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<Phase::Controller::SpatialModelerParameterAddress>>(a1, v25);
             }
 
             v27 = 8 * (v24 >> 3);
@@ -7806,13 +7808,13 @@ LABEL_28:
             *(v27 + 8) = SpatialModelerStageFromStringId;
             *(v27 + 12) = SpatialModelerParameterFromStringId;
             *(v27 + 16) = v19;
-            v22 = v27 + 24;
-            v28 = v27 - v24;
+            v22 = (v27 + 24);
+            v28 = (v27 - v24);
             memcpy((v27 - v24), v23, v24);
-            v29 = *a4;
-            *a4 = v28;
-            a4[1] = v22;
-            a4[2] = 0;
+            v29 = *a1;
+            *a1 = v28;
+            a1[1] = v22;
+            a1[2] = 0;
             if (v29)
             {
               operator delete(v29);
@@ -7825,11 +7827,11 @@ LABEL_28:
             *(v20 + 1) = SpatialModelerGraphFromStringId;
             *(v20 + 2) = SpatialModelerStageFromStringId;
             *(v20 + 3) = SpatialModelerParameterFromStringId;
-            v22 = (v20 + 24);
+            v22 = v20 + 24;
             *(v20 + 2) = v19;
           }
 
-          a4[1] = v22;
+          a1[1] = v22;
           v17 = *v17;
           if (!v17)
           {
@@ -7847,7 +7849,7 @@ LABEL_32:
       v30 = **(Phase::Logger::GetInstance(0) + 800);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v31 = *(a2 + 1);
+        v31 = *(a3 + 1);
         *buf = 136315650;
         v35 = "ProfileRegistry.mm";
         v36 = 1024;
@@ -7869,7 +7871,7 @@ LABEL_32:
       v36 = 1024;
       v37 = 773;
       v38 = 2048;
-      v39 = a3;
+      v39 = a4;
       v40 = 2048;
       v41 = 0;
       v42 = 2048;
@@ -7879,13 +7881,13 @@ LABEL_32:
   }
 }
 
-void Phase::Controller::ProfileRegistry::GetComputeWeights(Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a2@<X1>, uint64_t a3@<X8>)
+void Phase::Controller::ProfileRegistry::GetComputeWeights(uint64_t *__return_ptr a1@<X8>, Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a3@<X1>)
 {
   v34 = *MEMORY[0x277D85DE8];
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 1065353216;
-  v5 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a2);
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  v5 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a3);
   if (v5)
   {
     v7 = v5[13];
@@ -7894,9 +7896,9 @@ void Phase::Controller::ProfileRegistry::GetComputeWeights(Phase::Controller::Pr
       return;
     }
 
-    v8 = (a3 + 16);
+    v8 = a1 + 2;
     SpatialCategoryFromStringId = Phase::Controller::GetSpatialCategoryFromStringId((v7 + 2), v6);
-    v10 = *(a3 + 8);
+    v10 = a1[1];
     if (!v10)
     {
       goto LABEL_19;
@@ -7918,7 +7920,7 @@ void Phase::Controller::ProfileRegistry::GetComputeWeights(Phase::Controller::Pr
       v12 = (v10 - 1) & SpatialCategoryFromStringId;
     }
 
-    v13 = *(*a3 + 8 * v12);
+    v13 = *(*a1 + 8 * v12);
     if (!v13 || (v14 = *v13) == 0)
     {
 LABEL_19:
@@ -7948,7 +7950,7 @@ LABEL_19:
             _os_log_impl(&dword_23A302000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: Failed to insert [%s, %s]!", &v26, 0x26u);
           }
 
-          if (*(a3 + 24))
+          if (a1[3])
           {
             v22 = *v8;
             if (*v8)
@@ -7963,17 +7965,17 @@ LABEL_19:
               while (v23);
             }
 
-            *(a3 + 16) = 0;
-            v24 = *(a3 + 8);
+            a1[2] = 0;
+            v24 = a1[1];
             if (v24)
             {
               for (i = 0; i != v24; ++i)
               {
-                *(*a3 + 8 * i) = 0;
+                *(*a1 + 8 * i) = 0;
               }
             }
 
-            *(a3 + 24) = 0;
+            a1[3] = 0;
           }
 
           return;
@@ -8012,7 +8014,7 @@ LABEL_19:
   v16 = **(Phase::Logger::GetInstance(0) + 800);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v17 = *(a2 + 1);
+    v17 = *(a3 + 1);
     v26 = 136315650;
     v27 = "ProfileRegistry.mm";
     v28 = 1024;
@@ -8048,13 +8050,13 @@ uint64_t Phase::Controller::ProfileRegistry::GetComputeTime(Phase::Controller::P
   return 0;
 }
 
-void Phase::Controller::ProfileRegistry::GetOverflowParameters(Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a2@<X1>, uint64_t a3@<X8>)
+void Phase::Controller::ProfileRegistry::GetOverflowParameters(uint64_t *__return_ptr a1@<X8>, Phase::Controller::ProfileRegistry *this@<X0>, const Phase::StringId *a3@<X1>)
 {
   v15 = *MEMORY[0x277D85DE8];
-  v5 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a2);
+  v5 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this, a3);
   if (v5)
   {
-    *a3 = *(v5 + 9);
+    *a1 = *(v5 + 9);
     v6 = 1;
   }
 
@@ -8063,7 +8065,7 @@ void Phase::Controller::ProfileRegistry::GetOverflowParameters(Phase::Controller
     v7 = **(Phase::Logger::GetInstance(0) + 800);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a2 + 1);
+      v8 = *(a3 + 1);
       v9 = 136315650;
       v10 = "ProfileRegistry.mm";
       v11 = 1024;
@@ -8074,10 +8076,10 @@ void Phase::Controller::ProfileRegistry::GetOverflowParameters(Phase::Controller
     }
 
     v6 = 0;
-    *a3 = 0;
+    *a1 = 0;
   }
 
-  *(a3 + 16) = v6;
+  *(a1 + 16) = v6;
 }
 
 void Phase::Controller::ProfileRegistryException::MissingRequiredField::~MissingRequiredField(std::logic_error *this)
@@ -8642,19 +8644,19 @@ void Phase::Controller::ProfileRegistryException::InvalidEnvelopeRange::~Invalid
   JUMPOUT(0x23EE864A0);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,false>(unint64_t *a1, unint64_t *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,false>(const Phase::StringId *a1, char *a2, uint64_t a3, char a4)
 {
 LABEL_1:
-  v8 = a2 - 3;
-  v97 = a2 - 6;
+  v8 = a2 - 24;
+  v97 = a2 - 48;
   v98 = a2;
-  v9 = a2 - 9;
+  v9 = a2 - 72;
   v10 = a1;
   while (1)
   {
     a1 = v10;
-    v11 = a2 - v10;
-    v12 = 0xAAAAAAAAAAAAAAABLL * (a2 - v10);
+    v11 = &a2[-v10];
+    v12 = 0xAAAAAAAAAAAAAAABLL * (&a2[-v10] >> 3);
     v13 = v12 - 2;
     if (v12 <= 2)
     {
@@ -8666,7 +8668,7 @@ LABEL_1:
       if (v12 == 2)
       {
         v57 = *(a2 - 3);
-        v56 = a2 - 3;
+        v56 = a2 - 24;
         if (v57 >= *a1)
         {
           return;
@@ -8686,19 +8688,19 @@ LABEL_117:
 
     if (v12 == 3)
     {
-      v58 = a1[3];
+      v58 = *(a1 + 3);
       v60 = *(a2 - 3);
-      v56 = a2 - 3;
+      v56 = a2 - 24;
       v59 = v60;
       if (v58 >= *a1)
       {
         if (v59 < v58)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 3), v56);
-          if (a1[3] < *a1)
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 24), v56);
+          if (*(a1 + 3) < *a1)
           {
             v55 = a1;
-            v54 = (a1 + 3);
+            v54 = a1 + 24;
             goto LABEL_117;
           }
         }
@@ -8711,10 +8713,10 @@ LABEL_117:
           goto LABEL_115;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(a1, (a1 + 3));
-        if (*v56 < a1[3])
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(a1, a1 + 24);
+        if (*v56 < *(a1 + 3))
         {
-          v55 = (a1 + 3);
+          v55 = (a1 + 24);
           goto LABEL_116;
         }
       }
@@ -8724,7 +8726,7 @@ LABEL_117:
 
     if (v12 == 4)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, a1 + 3, a1 + 6, v8);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, (a1 + 24), (a1 + 48), v8);
       return;
     }
 
@@ -8736,7 +8738,7 @@ LABEL_117:
 LABEL_9:
     if (v11 <= 575)
     {
-      v61 = (a1 + 3);
+      v61 = a1 + 24;
       v63 = a1 == a2 || v61 == a2;
       if (a4)
       {
@@ -8746,7 +8748,7 @@ LABEL_9:
           v65 = a1;
           do
           {
-            v66 = v65[3];
+            v66 = *(v65 + 3);
             v67 = *v65;
             v65 = v61;
             if (v66 < v67)
@@ -8765,7 +8767,7 @@ LABEL_9:
                 v68 -= 24;
                 if (v102 >= v69)
                 {
-                  v70 = a1 + v68 + 24;
+                  v70 = (a1 + v68 + 24);
                   goto LABEL_134;
                 }
               }
@@ -8779,11 +8781,11 @@ LABEL_134:
               }
             }
 
-            v61 = (v65 + 3);
+            v61 = v65 + 24;
             v64 += 24;
           }
 
-          while (v65 + 3 != a2);
+          while (v65 + 24 != a2);
         }
       }
 
@@ -8792,29 +8794,29 @@ LABEL_134:
         do
         {
           v95 = v61;
-          if (a1[3] < *a1)
+          if (*(a1 + 3) < *a1)
           {
             Phase::StringId::StringId(&v102, v61);
             do
             {
-              Phase::StringId::operator=((a1 + 3), a1);
+              Phase::StringId::operator=(a1 + 24, a1);
               v96 = *(a1 - 3);
-              a1 -= 3;
+              a1 = (a1 - 24);
             }
 
             while (v102 < v96);
-            Phase::StringId::operator=((a1 + 3), &v102);
+            Phase::StringId::operator=(a1 + 24, &v102);
             if ((v104 & 1) == 0)
             {
               free(v103);
             }
           }
 
-          v61 = (v95 + 3);
+          v61 = v95 + 24;
           a1 = v95;
         }
 
-        while (v95 + 3 != a2);
+        while (v95 + 24 != a2);
       }
 
       return;
@@ -8832,7 +8834,7 @@ LABEL_134:
           if (v71 >= v72)
           {
             v74 = (2 * v72) | 1;
-            v75 = &a1[3 * v74];
+            v75 = a1 + 24 * v74;
             if (2 * v72 + 2 >= v12)
             {
               v76 = *v75;
@@ -8841,23 +8843,23 @@ LABEL_134:
             else
             {
               v76 = *v75;
-              v77 = v75[3];
+              v77 = *(v75 + 3);
               if (*v75 <= v77)
               {
-                v76 = v75[3];
+                v76 = *(v75 + 3);
               }
 
               if (*v75 < v77)
               {
-                v75 += 3;
+                v75 += 24;
                 v74 = 2 * v73 + 2;
               }
             }
 
-            v78 = &a1[3 * v73];
+            v78 = (a1 + 24 * v73);
             if (v76 >= *v78)
             {
-              Phase::StringId::StringId(&v102, &a1[3 * v73]);
+              Phase::StringId::StringId(&v102, a1 + 24 * v73);
               do
               {
                 v79 = v75;
@@ -8867,7 +8869,7 @@ LABEL_134:
                   break;
                 }
 
-                v75 = &a1[3 * ((2 * v74) | 1)];
+                v75 = a1 + 24 * ((2 * v74) | 1);
                 if (2 * v74 + 2 >= v12)
                 {
                   v80 = *v75;
@@ -8877,10 +8879,10 @@ LABEL_134:
                 else
                 {
                   v80 = *v75;
-                  v81 = v75[3];
+                  v81 = *(v75 + 3);
                   if (*v75 <= v81)
                   {
-                    v80 = v75[3];
+                    v80 = *(v75 + 3);
                   }
 
                   if (*v75 >= v81)
@@ -8890,7 +8892,7 @@ LABEL_134:
 
                   else
                   {
-                    v75 += 3;
+                    v75 += 24;
                     v74 = 2 * v74 + 2;
                   }
                 }
@@ -8929,7 +8931,7 @@ LABEL_134:
 
             else
             {
-              v89 = *(v86 + 48);
+              v89 = *(v86 + 6);
               v88 = (v86 + 48);
               if (*(v88 - 3) >= v89)
               {
@@ -8962,7 +8964,7 @@ LABEL_134:
             if (v90 >= 25)
             {
               v91 = (-2 - 0x5555555555555555 * (v90 >> 3)) >> 1;
-              v92 = &a1[3 * v91];
+              v92 = (a1 + 24 * v91);
               if (*v92 < *v87)
               {
                 Phase::StringId::StringId(&v102, v87);
@@ -8976,7 +8978,7 @@ LABEL_134:
                   }
 
                   v91 = (v91 - 1) >> 1;
-                  v92 = &a1[3 * v91];
+                  v92 = (a1 + 24 * v91);
                   v87 = v93;
                 }
 
@@ -9002,7 +9004,7 @@ LABEL_134:
       return;
     }
 
-    v14 = &a1[3 * (v12 >> 1)];
+    v14 = a1 + 24 * (v12 >> 1);
     v15 = *v8;
     if (v11 >= 0xC01)
     {
@@ -9012,27 +9014,27 @@ LABEL_134:
         if (v15 >= v16 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v14, v8), *v14 >= *a1))
         {
 LABEL_26:
-          v23 = v14 - 3;
+          v23 = v14 - 24;
           v22 = *(v14 - 3);
           v24 = *v97;
-          if (v22 >= a1[3])
+          if (v22 >= *(a1 + 3))
           {
-            if (v24 >= v22 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((v14 - 3), v97), *v23 >= a1[3]))
+            if (v24 >= v22 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((v14 - 24), v97), *v23 >= *(a1 + 3)))
             {
 LABEL_39:
-              v28 = v14 + 3;
-              v27 = v14[3];
+              v28 = v14 + 24;
+              v27 = *(v14 + 3);
               v29 = *v9;
-              if (v27 >= a1[6])
+              if (v27 >= *(a1 + 6))
               {
-                if (v29 >= v27 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((v14 + 3), v9), *v28 >= a1[6]))
+                if (v29 >= v27 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((v14 + 24), v9), *v28 >= *(a1 + 6)))
                 {
 LABEL_48:
                   v32 = *v14;
-                  v33 = v14[3];
+                  v33 = *(v14 + 3);
                   if (*v14 >= *(v14 - 3))
                   {
-                    if (v33 >= v32 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v14, (v14 + 3)), *v14 >= *(v14 - 3)))
+                    if (v33 >= v32 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v14, (v14 + 24)), *v14 >= *(v14 - 3)))
                     {
 LABEL_57:
                       Phase::StringId::StringId(&v102, a1);
@@ -9047,17 +9049,17 @@ LABEL_57:
                       goto LABEL_59;
                     }
 
-                    v34 = (v14 - 3);
+                    v34 = (v14 - 24);
                     v35 = v14;
                   }
 
                   else
                   {
-                    v34 = (v14 - 3);
+                    v34 = (v14 - 24);
                     if (v33 >= v32)
                     {
                       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v34, v14);
-                      if (v14[3] >= *v14)
+                      if (*(v14 + 3) >= *v14)
                       {
                         goto LABEL_57;
                       }
@@ -9065,29 +9067,29 @@ LABEL_57:
                       v34 = v14;
                     }
 
-                    v35 = (v14 + 3);
+                    v35 = (v14 + 24);
                   }
 
                   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v34, v35);
                   goto LABEL_57;
                 }
 
-                v30 = (a1 + 6);
-                v31 = (v14 + 3);
+                v30 = (a1 + 48);
+                v31 = (v14 + 24);
               }
 
               else
               {
-                v30 = (a1 + 6);
+                v30 = (a1 + 48);
                 if (v29 >= v27)
                 {
-                  std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v30, (v14 + 3));
+                  std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v30, (v14 + 24));
                   if (*v9 >= *v28)
                   {
                     goto LABEL_48;
                   }
 
-                  v30 = (v14 + 3);
+                  v30 = (v14 + 24);
                 }
 
                 v31 = v9;
@@ -9097,22 +9099,22 @@ LABEL_57:
               goto LABEL_48;
             }
 
-            v25 = (a1 + 3);
-            v26 = (v14 - 3);
+            v25 = (a1 + 24);
+            v26 = (v14 - 24);
           }
 
           else
           {
-            v25 = (a1 + 3);
+            v25 = (a1 + 24);
             if (v24 >= v22)
             {
-              std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v25, (v14 - 3));
+              std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v25, (v14 - 24));
               if (*v97 >= *v23)
               {
                 goto LABEL_39;
               }
 
-              v25 = (v14 - 3);
+              v25 = (v14 - 24);
             }
 
             v26 = v97;
@@ -9191,13 +9193,13 @@ LABEL_59:
       v36 = 0;
       do
       {
-        v37 = a1[v36 + 3];
-        v36 += 3;
+        v37 = *(a1 + v36 + 24);
+        v36 += 24;
       }
 
       while (v37 < v102);
-      v38 = &a1[v36];
-      if (v36 == 3)
+      v38 = a1 + v36;
+      if (v36 == 24)
       {
         a2 = v98;
         do
@@ -9208,7 +9210,7 @@ LABEL_59:
           }
 
           v40 = *(a2 - 3);
-          a2 -= 3;
+          a2 -= 24;
         }
 
         while (v40 >= v102);
@@ -9219,13 +9221,13 @@ LABEL_59:
         do
         {
           v39 = *(a2 - 3);
-          a2 -= 3;
+          a2 -= 24;
         }
 
         while (v39 >= v102);
       }
 
-      v10 = &a1[v36];
+      v10 = a1 + v36;
       if (v38 < a2)
       {
         v41 = a2;
@@ -9234,14 +9236,14 @@ LABEL_59:
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v10, v41);
           do
           {
-            v42 = v10[3];
-            v10 += 3;
+            v42 = *(v10 + 24);
+            v10 += 24;
           }
 
           while (v42 < v102);
           do
           {
-            v43 = *(v41 - 24);
+            v43 = *(v41 - 3);
             v41 -= 24;
           }
 
@@ -9251,12 +9253,12 @@ LABEL_59:
         while (v10 < v41);
       }
 
-      if (v10 - 3 != a1)
+      if ((v10 - 24) != a1)
       {
-        Phase::StringId::operator=(a1, (v10 - 3));
+        Phase::StringId::operator=(a1, v10 - 24);
       }
 
-      Phase::StringId::operator=((v10 - 3), &v102);
+      Phase::StringId::operator=(v10 - 24, &v102);
       if ((v104 & 1) == 0)
       {
         free(v103);
@@ -9269,11 +9271,11 @@ LABEL_59:
         goto LABEL_83;
       }
 
-      v45 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *>(a1, v10 - 3);
+      v45 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *>(a1, (v10 - 24));
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *>(v10, v98))
       {
-        a2 = v10 - 3;
-        if ((v45 & 1) == 0)
+        a2 = (v10 - 24);
+        if (!v45)
         {
           goto LABEL_1;
         }
@@ -9281,10 +9283,10 @@ LABEL_59:
         return;
       }
 
-      if ((v45 & 1) == 0)
+      if (!v45)
       {
 LABEL_83:
-        std::__introsort<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,false>(a1, v10 - 3, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,false>(a1, (v10 - 24), a3, a4 & 1);
         goto LABEL_84;
       }
     }
@@ -9294,7 +9296,7 @@ LABEL_83:
       Phase::StringId::StringId(&v102, a1);
       if (v102 >= *v8)
       {
-        v47 = a1 + 3;
+        v47 = a1 + 24;
         do
         {
           v10 = v47;
@@ -9303,7 +9305,7 @@ LABEL_83:
             break;
           }
 
-          v47 += 3;
+          v47 += 24;
         }
 
         while (v102 >= *v10);
@@ -9314,8 +9316,8 @@ LABEL_83:
         v10 = a1;
         do
         {
-          v46 = v10[3];
-          v10 += 3;
+          v46 = *(v10 + 24);
+          v10 += 24;
         }
 
         while (v102 >= v46);
@@ -9327,7 +9329,7 @@ LABEL_83:
         v48 = a2;
         do
         {
-          v49 = *(v48 - 24);
+          v49 = *(v48 - 3);
           v48 -= 24;
         }
 
@@ -9339,26 +9341,26 @@ LABEL_83:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(v10, v48);
         do
         {
-          v50 = v10[3];
-          v10 += 3;
+          v50 = *(v10 + 24);
+          v10 += 24;
         }
 
         while (v102 >= v50);
         do
         {
-          v51 = *(v48 - 24);
+          v51 = *(v48 - 3);
           v48 -= 24;
         }
 
         while (v102 < v51);
       }
 
-      if (v10 - 3 != a1)
+      if ((v10 - 24) != a1)
       {
-        Phase::StringId::operator=(a1, (v10 - 3));
+        Phase::StringId::operator=(a1, v10 - 24);
       }
 
-      Phase::StringId::operator=((v10 - 3), &v102);
+      Phase::StringId::operator=(v10 - 24, &v102);
       if ((v104 & 1) == 0)
       {
         free(v103);
@@ -9369,21 +9371,21 @@ LABEL_84:
     }
   }
 
-  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, a1 + 3, a1 + 6, a1 + 9);
+  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, (a1 + 24), (a1 + 48), a1 + 9);
   v53 = *(a2 - 3);
-  v52 = (a2 - 3);
-  if (v53 < a1[9])
+  v52 = a2 - 24;
+  if (v53 < *(a1 + 9))
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 9), v52);
-    if (a1[9] < a1[6])
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 72), v52);
+    if (*(a1 + 9) < *(a1 + 6))
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 6), (a1 + 9));
-      if (a1[6] < a1[3])
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 48), a1 + 72);
+      if (*(a1 + 6) < *(a1 + 3))
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 3), (a1 + 6));
-        if (a1[3] < *a1)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>((a1 + 24), a1 + 48);
+        if (*(a1 + 3) < *a1)
         {
-          v54 = (a1 + 3);
+          v54 = a1 + 24;
           v55 = a1;
           goto LABEL_117;
         }
@@ -9402,7 +9404,7 @@ void sub_23A4C49CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(uint64_t a1, uint64_t a2)
+void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(const Phase::StringId *a1, uint64_t a2)
 {
   Phase::StringId::StringId(v4, a1);
   Phase::StringId::operator=(a1, a2);
@@ -9423,7 +9425,7 @@ void sub_23A4C4AA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(const Phase::StringId *a1, const Phase::StringId *a2, const Phase::StringId *a3, void *a4)
 {
   v7 = a1;
   v8 = *a2;
@@ -9477,17 +9479,17 @@ LABEL_10:
   }
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *>(unint64_t *a1, unint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *>(unint64_t *a1, const Phase::StringId *a2)
 {
   v3 = a1;
-  v4 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v4 > 2)
   {
     switch(v4)
     {
       case 3:
         v9 = a1[3];
-        v5 = a2 - 3;
+        v5 = (a2 - 24);
         v10 = *(a2 - 3);
         if (v9 >= *a1)
         {
@@ -9524,12 +9526,12 @@ LABEL_17:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::StringId *&,Phase::StringId *&>(a1, v8);
         return 1;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, a1 + 3, a1 + 6, a2 - 3);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, (a1 + 3), (a1 + 6), a2 - 3);
         return 1;
       case 5:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, a1 + 3, a1 + 6, a1 + 9);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,sValidateProfile(Phase::Controller::ProfileRegistry::Profile const&,Phase::Controller::SpatialModelerRegistry *)::$_0 &,Phase::StringId *,0>(a1, (a1 + 3), (a1 + 6), a1 + 9);
         v7 = *(a2 - 3);
-        v6 = (a2 - 3);
+        v6 = a2 - 24;
         if (v7 >= v3[9])
         {
           return 1;
@@ -9568,7 +9570,7 @@ LABEL_17:
 
     if (v4 == 2)
     {
-      v5 = a2 - 3;
+      v5 = (a2 - 24);
       if (*(a2 - 3) >= *a1)
       {
         return 1;
@@ -9616,7 +9618,7 @@ LABEL_30:
   }
 
 LABEL_31:
-  v15 = v3 + 9;
+  v15 = (v3 + 9);
   if (v3 + 9 == a2)
   {
     return 1;
@@ -9629,7 +9631,7 @@ LABEL_31:
 LABEL_42:
     v12 = v15;
     v16 += 24;
-    v15 += 3;
+    v15 = (v15 + 24);
     if (v15 == a2)
     {
       return 1;
@@ -9668,7 +9670,7 @@ LABEL_39:
     goto LABEL_42;
   }
 
-  v21 = v15 + 3 == a2;
+  v21 = (v15 + 24) == a2;
   if ((v25 & 1) == 0)
   {
     free(v24);

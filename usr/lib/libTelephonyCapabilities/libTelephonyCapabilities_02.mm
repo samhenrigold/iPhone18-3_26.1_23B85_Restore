@@ -240,9 +240,9 @@ void capabilities::ipc::ABPLogExtension(std::string *a1@<X8>)
 
   if (byte_1ED7FDFB7 < 0)
   {
-    v3 = xmmword_1ED7FDFA0;
+    v2 = xmmword_1ED7FDFA0;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -364,7 +364,7 @@ LABEL_12:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -1011,9 +1011,9 @@ void capabilities::radio::firmwarePath(std::string *a1@<X8>)
 
   if (byte_1ED7FE1C7 < 0)
   {
-    v3 = xmmword_1ED7FE1B0;
+    v2 = xmmword_1ED7FE1B0;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -1071,9 +1071,9 @@ void capabilities::radio::firmwarePrefix(std::string *a1@<X8>)
 
   if (byte_1ED7FE1DF < 0)
   {
-    v3 = xmmword_1ED7FE1C8;
+    v2 = xmmword_1ED7FE1C8;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -1344,9 +1344,9 @@ void capabilities::radio::firmwarePathSuffix(std::string *a1@<X8>)
 
   if (byte_1ED7FE1F7 < 0)
   {
-    v3 = xmmword_1ED7FE1E0;
+    v2 = xmmword_1ED7FE1E0;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -1582,9 +1582,9 @@ void capabilities::radio::radioType(std::string *a1@<X8>)
 
   if (byte_1ED7FE20F < 0)
   {
-    v3 = xmmword_1ED7FE1F8;
+    v2 = xmmword_1ED7FE1F8;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -2414,48 +2414,48 @@ uint64_t capabilities::updater::EUICCCertIDSizeBytes(capabilities::updater *this
 
 void capabilities::radio::personalizedFirmwarePath(void **a1@<X8>)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   memset(a1, 170, 24);
-  v3 = std::string::basic_string[abi:ne200100]<0>(a1, &unk_1CAE5DA75);
-  capabilities::radio::vendor(v3);
-  v4 = operator new[](0x400uLL);
-  bzero(v4, 0x400uLL);
-  v5 = lookupPathForPersonalizedData();
-  if (v5)
+  v2 = std::string::basic_string[abi:ne200100]<0>(a1, &unk_1CAE5DA75);
+  capabilities::radio::vendor(v2);
+  v3 = operator new[](0x400uLL);
+  bzero(v3, 0x400uLL);
+  v4 = lookupPathForPersonalizedData();
+  if (v4)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf.__r_.__value_.__l.__data_) = 134218242;
-      *(buf.__r_.__value_.__r.__words + 4) = v5;
+      *(buf.__r_.__value_.__r.__words + 4) = v4;
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2082;
-      *(&buf.__r_.__value_.__r.__words[1] + 6) = v4;
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = v3;
       _os_log_error_impl(&dword_1CAE37000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "MSU error: 0x%lx, FW base path: %{public}s", &buf, 0x16u);
     }
 
-    goto LABEL_63;
+    goto LABEL_58;
   }
 
   memset(&buf, 170, sizeof(buf));
-  v6 = std::string::basic_string[abi:ne200100]<0>(&buf, v4);
-  v7 = capabilities::radio::initium(v6);
-  if (v7)
+  v5 = std::string::basic_string[abi:ne200100]<0>(&buf, v3);
+  v6 = capabilities::radio::initium(v5);
+  if (v6)
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "/Baseband");
-    v8 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-    v9 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(__p.__r_.__value_.__r.__words[2]) : __p.__r_.__value_.__l.__size_;
-    v7 = std::string::append(&buf, v8, v9);
+    v7 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+    v8 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(__p.__r_.__value_.__r.__words[2]) : __p.__r_.__value_.__l.__size_;
+    v6 = std::string::append(&buf, v7, v8);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if (capabilities::radio::dal(v7))
+  if (capabilities::radio::dal(v6))
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "/Baseband");
-    v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-    v11 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(__p.__r_.__value_.__r.__words[2]) : __p.__r_.__value_.__l.__size_;
-    std::string::append(&buf, v10, v11);
+    v9 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+    v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(__p.__r_.__value_.__r.__words[2]) : __p.__r_.__value_.__l.__size_;
+    std::string::append(&buf, v9, v10);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -2464,7 +2464,7 @@ void capabilities::radio::personalizedFirmwarePath(void **a1@<X8>)
 
   memset(&__p, 170, sizeof(__p));
   capabilities::radio::firmwarePathSuffix(&__p);
-  v12 = SHIBYTE(buf.__r_.__value_.__r.__words[2]);
+  v11 = SHIBYTE(buf.__r_.__value_.__r.__words[2]);
   if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     size = HIBYTE(buf.__r_.__value_.__r.__words[2]);
@@ -2475,39 +2475,39 @@ void capabilities::radio::personalizedFirmwarePath(void **a1@<X8>)
     size = buf.__r_.__value_.__l.__size_;
   }
 
-  v14 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v13 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v14 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v15 = __p.__r_.__value_.__l.__size_;
+    v14 = __p.__r_.__value_.__l.__size_;
   }
 
-  v16 = v15 + size;
-  if (v15 + size >= 0x7FFFFFFFFFFFFFF8)
+  v15 = v14 + size;
+  if (v14 + size >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v16 > 0x16)
+  if (v15 > 0x16)
   {
-    if ((v16 | 7) == 0x17)
+    if ((v15 | 7) == 0x17)
     {
-      v17 = 25;
+      v16 = 25;
     }
 
     else
     {
-      v17 = (v16 | 7) + 1;
+      v16 = (v15 | 7) + 1;
     }
 
-    v18 = operator new(v17);
-    *&v29[8] = v15 + size;
-    v30 = v17 | 0x8000000000000000;
-    *v29 = v18;
+    v17 = operator new(v16);
+    *&v24[8] = v14 + size;
+    v25 = (v16 | 0x8000000000000000);
+    *v24 = v17;
     if (!size)
     {
       goto LABEL_40;
@@ -2516,14 +2516,14 @@ void capabilities::radio::personalizedFirmwarePath(void **a1@<X8>)
     goto LABEL_36;
   }
 
-  v30 = 0;
-  memset(v29, 0, sizeof(v29));
-  v18 = v29;
-  HIBYTE(v30) = v15 + size;
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
+  v17 = v24;
+  HIBYTE(v25) = v14 + size;
   if (size)
   {
 LABEL_36:
-    if (v12 >= 0)
+    if (v11 >= 0)
     {
       p_buf = &buf;
     }
@@ -2533,14 +2533,14 @@ LABEL_36:
       p_buf = buf.__r_.__value_.__r.__words[0];
     }
 
-    memmove(v18, p_buf, size);
+    memmove(v17, p_buf, size);
   }
 
 LABEL_40:
-  v20 = &v18[size];
-  if (v15)
+  v19 = &v17[size];
+  if (v14)
   {
-    if (v14 >= 0)
+    if (v13 >= 0)
     {
       p_p = &__p;
     }
@@ -2550,50 +2550,34 @@ LABEL_40:
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    memmove(v20, p_p, v15);
+    memmove(v19, p_p, v14);
   }
 
-  v20[v15] = 0;
+  v19[v14] = 0;
   if (*(a1 + 23) < 0)
   {
     operator delete(*a1);
   }
 
-  *a1 = *v29;
-  a1[2] = v30;
-  v22 = *(a1 + 23);
-  if (v22 < 0)
-  {
-    v23 = *a1;
-  }
-
-  if (v22 >= 0)
-  {
-    v24 = *(a1 + 23);
-  }
-
-  else
-  {
-    v24 = a1[1];
-  }
-
+  *a1 = *v24;
+  a1[2] = v25;
   if (ctu::fs::file_exists())
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       if (*(a1 + 23) >= 0)
       {
-        v25 = a1;
+        v21 = a1;
       }
 
       else
       {
-        v25 = *a1;
+        v21 = *a1;
       }
 
-      *v29 = 136446210;
-      *&v29[4] = v25;
-      _os_log_impl(&dword_1CAE37000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "FW path %{public}s exists", v29, 0xCu);
+      *v24 = 136446210;
+      *&v24[4] = v21;
+      _os_log_impl(&dword_1CAE37000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "FW path %{public}s exists", v24, 0xCu);
     }
   }
 
@@ -2601,17 +2585,17 @@ LABEL_40:
   {
     if (*(a1 + 23) >= 0)
     {
-      v27 = a1;
+      v22 = a1;
     }
 
     else
     {
-      v27 = *a1;
+      v22 = *a1;
     }
 
-    *v29 = 136446210;
-    *&v29[4] = v27;
-    _os_log_error_impl(&dword_1CAE37000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "FW path %{public}s does not exist (did you remember to enable update baseband?)", v29, 0xCu);
+    *v24 = 136446210;
+    *&v24[4] = v22;
+    _os_log_error_impl(&dword_1CAE37000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "FW path %{public}s does not exist (did you remember to enable update baseband?)", v24, 0xCu);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2624,9 +2608,8 @@ LABEL_40:
     operator delete(buf.__r_.__value_.__l.__data_);
   }
 
-LABEL_63:
-  operator delete[](v4);
-  v26 = *MEMORY[0x1E69E9840];
+LABEL_58:
+  operator delete[](v3);
 }
 
 void sub_1CAE59FF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -3128,9 +3111,9 @@ void capabilities::txpower::settingsPlistName(std::string *a1@<X8>)
 
   if (byte_1ED7FE327 < 0)
   {
-    v3 = xmmword_1ED7FE310;
+    v2 = xmmword_1ED7FE310;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -3409,7 +3392,7 @@ LABEL_12:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);

@@ -77,7 +77,7 @@
   {
     v6 = v4[1];
     selfCopy = self;
-    sub_1000915B4(v5);
+    sub_1000915B4(v5, v6);
     v8 = sub_1002AB7D4(v5, v6);
 
     v5 = v8[2];
@@ -213,18 +213,18 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
   v13 = &v17 - v12;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100091F6C(v13, v11);
+  sub_100091F6C(v13, v10);
 
   v16 = *(v8 + 8);
-  v16(v11, v7);
+  v16(v10, v7);
   v16(v13, v7);
 }
 
@@ -232,21 +232,21 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v9);
-  v14 = &v22 - v13;
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v7);
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v13 = &v22 - v12;
+  __chkstk_darwin(v14);
   v16 = &v22 - v15;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10008FF78(v14, v11, v16);
+  sub_10008FF78(v13, v10, v16);
 
   v19 = *(v8 + 8);
-  v19(v11, v7);
-  v19(v14, v7);
+  v19(v10, v7);
+  v19(v13, v7);
   v20.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
   v19(v16, v7);
 

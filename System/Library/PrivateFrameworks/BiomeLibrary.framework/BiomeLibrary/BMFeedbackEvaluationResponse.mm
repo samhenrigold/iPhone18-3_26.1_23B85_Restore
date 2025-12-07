@@ -17,14 +17,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"evaluationUuid" dataType:6 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:3];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userResponse" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -87,28 +85,28 @@ LABEL_9:
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   evaluationUuid = [(BMFeedbackEvaluationResponse *)self evaluationUuid];
   uUIDString = [evaluationUuid UUIDString];
 
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMFeedbackEvaluationResponse userResponse](self, "userResponse")}];
-  v11[0] = @"evaluationUuid";
+  v10[0] = @"evaluationUuid";
   null = uUIDString;
   if (!uUIDString)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"userResponse";
-  v12[0] = null;
+  v10[1] = @"userResponse";
+  v11[0] = null;
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v5)
   {
     if (uUIDString)
@@ -127,14 +125,13 @@ LABEL_9:
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMFeedbackEvaluationResponse)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"evaluationUuid"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -157,13 +154,13 @@ LABEL_4:
         {
           if (error)
           {
-            v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v21 = *MEMORY[0x1E698F240];
-            v27 = *MEMORY[0x1E696A578];
-            v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"userResponse"];
-            v28 = v22;
-            v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-            *error = [v20 initWithDomain:v21 code:2 userInfo:v23];
+            v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v20 = *MEMORY[0x1E698F240];
+            v26 = *MEMORY[0x1E696A578];
+            v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"userResponse"];
+            v27 = v21;
+            v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+            *error = [v19 initWithDomain:v20 code:2 userInfo:v22];
           }
 
           v10 = 0;
@@ -200,10 +197,10 @@ LABEL_18:
 
     v14 = objc_alloc(MEMORY[0x1E696ABC0]);
     v15 = *MEMORY[0x1E698F240];
-    v29 = *MEMORY[0x1E696A578];
+    v28 = *MEMORY[0x1E696A578];
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"evaluationUuid"];
-    v30 = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v29 = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v16 = [v14 initWithDomain:v15 code:2 userInfo:v10];
     selfCopy = 0;
     *error = v16;
@@ -226,13 +223,13 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v24 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v25 = *MEMORY[0x1E698F240];
-  v31 = *MEMORY[0x1E696A578];
+  v23 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v24 = *MEMORY[0x1E698F240];
+  v30 = *MEMORY[0x1E696A578];
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"evaluationUuid"];
-  v32[0] = v10;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-  *error = [v24 initWithDomain:v25 code:2 userInfo:v26];
+  v31[0] = v10;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  *error = [v23 initWithDomain:v24 code:2 userInfo:v25];
 
   selfCopy = 0;
 LABEL_19:
@@ -240,7 +237,6 @@ LABEL_19:
 LABEL_20:
 LABEL_21:
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -261,7 +257,6 @@ LABEL_21:
     PBDataWriterWriteDataField();
   }
 
-  userResponse = self->_userResponse;
   PBDataWriterWriteUint32Field();
 }
 
@@ -422,20 +417,20 @@ LABEL_40:
 
 - (BMFeedbackEvaluationResponse)initWithEvaluationUuid:(id)uuid userResponse:(int)response
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   uuidCopy = uuid;
-  v12.receiver = self;
-  v12.super_class = BMFeedbackEvaluationResponse;
-  v7 = [(BMEventBase *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = BMFeedbackEvaluationResponse;
+  v7 = [(BMEventBase *)&v11 init];
   if (v7)
   {
     v7->_dataVersion = [objc_opt_class() latestDataVersion];
     if (uuidCopy)
     {
-      v13[0] = 0;
-      v13[1] = 0;
-      [uuidCopy getUUIDBytes:v13];
-      v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v13 length:16];
+      v12[0] = 0;
+      v12[1] = 0;
+      [uuidCopy getUUIDBytes:v12];
+      v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 length:16];
       raw_evaluationUuid = v7->_raw_evaluationUuid;
       v7->_raw_evaluationUuid = v8;
     }
@@ -449,20 +444,17 @@ LABEL_40:
     v7->_userResponse = response;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"evaluationUuid" number:1 type:14 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userResponse" number:2 type:4 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

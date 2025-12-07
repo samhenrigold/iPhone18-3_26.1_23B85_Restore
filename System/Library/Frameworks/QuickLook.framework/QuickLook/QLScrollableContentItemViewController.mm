@@ -8,8 +8,12 @@
 - (void)_doubleTapRecognized:(id)recognized;
 - (void)_updateScrollViewZoomUpdate:(CGSize)update;
 - (void)loadView;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
 - (void)previewScrollViewDidScroll:(id)scroll;
 - (void)previewScrollViewDidZoom:(id)zoom;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setContentView:(id)view;
 - (void)transitionWillFinish:(BOOL)finish didComplete:(BOOL)complete;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -219,6 +223,73 @@ uint64_t __74__QLScrollableContentItemViewController_transitionWillFinish_didCom
   [v1 minZoomScale];
 
   return [v1 setZoomScale:?];
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (!self->_isVisible)
+  {
+    [(QLPreviewScrollView *)self->_scrollView setNeedsZoomUpdate:1];
+  }
+
+  [(QLPreviewScrollView *)self->_scrollView setClipsToBounds:0];
+  v5.receiver = self;
+  v5.super_class = QLScrollableContentItemViewController;
+  [(QLItemViewController *)&v5 previewWillAppear:appearCopy];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLScrollableContentItemViewController;
+  [(QLItemViewController *)&v4 previewDidAppear:appear];
+  self->_isVisible = 1;
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = QLScrollableContentItemViewController;
+  [(QLItemViewController *)&v4 previewDidDisappear:disappear];
+  [(QLPreviewScrollView *)self->_scrollView setClipsToBounds:1];
+  self->_isVisible = 0;
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLItemViewController *)self appearance];
+  presentationMode = [appearance presentationMode];
+
+  v14.receiver = self;
+  v14.super_class = QLScrollableContentItemViewController;
+  [(QLItemViewController *)&v14 setAppearance:appearanceCopy animated:animatedCopy];
+  if (presentationMode == 4)
+  {
+    [(QLPreviewScrollView *)self->_scrollView setNeedsZoomUpdate:1];
+  }
+
+  view = [(QLScrollableContentItemViewController *)self view];
+  window = [view window];
+  _windowInterfaceOrientation = [window _windowInterfaceOrientation];
+
+  [appearanceCopy peripheryInsets];
+  scrollView = self->_scrollView;
+  if (_windowInterfaceOrientation == 1)
+  {
+    [(QLPreviewScrollView *)scrollView setPeripheryInsetsPortrait:?];
+  }
+
+  else
+  {
+    [(QLPreviewScrollView *)scrollView setPeripheryInsetsLandscape:?];
+  }
+
+  view2 = [(QLScrollableContentItemViewController *)self view];
+  [view2 size];
+  [(QLScrollableContentItemViewController *)self _updateScrollViewZoomUpdate:?];
 }
 
 - (BOOL)canPinchToDismiss

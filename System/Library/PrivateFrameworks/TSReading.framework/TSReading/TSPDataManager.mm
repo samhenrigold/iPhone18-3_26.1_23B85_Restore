@@ -390,11 +390,11 @@ void __101__TSPDataManager_findExistingDataForReadChannel_dataURL_temporaryPath_
   }
 }
 
-void __101__TSPDataManager_findExistingDataForReadChannel_dataURL_temporaryPath_shouldWriteIfFound_completion___block_invoke_5(uint64_t a1, int a2, void *a3)
+void __101__TSPDataManager_findExistingDataForReadChannel_dataURL_temporaryPath_shouldWriteIfFound_completion___block_invoke_5(uint64_t a1, int a2, void *a3, uint64_t a4)
 {
-  v5 = a3;
-  v6 = v5;
-  if (a2 && (!v5 || *(a1 + 72) == 1))
+  v6 = a3;
+  v7 = v6;
+  if (a2 && (!v6 || *(a1 + 72) == 1))
   {
     operator new();
   }
@@ -524,33 +524,33 @@ LABEL_5:
   [v21 readWithChannel:channelCopy handler:v25];
 }
 
-void __80__TSPDataManager_findExistingDataForReadChannel_dataURL_readHandler_completion___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __80__TSPDataManager_findExistingDataForReadChannel_dataURL_readHandler_completion___block_invoke(uint64_t a1, int a2, void *a3, void *a4, uint64_t a5)
 {
-  v7 = a3;
-  v8 = a4;
-  v9 = v8;
+  v8 = a3;
+  v9 = a4;
+  v10 = v9;
   if (a2)
   {
-    if (!v7)
+    if (!v8)
     {
       operator new();
     }
 
-    v10 = *(*(a1 + 32) + 16);
+    v11 = *(*(a1 + 32) + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __80__TSPDataManager_findExistingDataForReadChannel_dataURL_readHandler_completion___block_invoke_4;
     block[3] = &unk_279D46BB8;
-    v13 = *(a1 + 56);
-    dispatch_async(v10, block);
+    v14 = *(a1 + 56);
+    dispatch_async(v11, block);
   }
 
-  else if (v8)
+  else if (v9)
   {
-    v11 = *(a1 + 48);
-    if (v11)
+    v12 = *(a1 + 48);
+    if (v12)
     {
-      (*(v11 + 16))(v11, v9, 0, 0);
+      (*(v12 + 16))(v12, v10, 0, 0);
     }
   }
 }
@@ -836,11 +836,11 @@ void __42__TSPDataManager_dataFromNSData_filename___block_invoke_3(void *a1, voi
 
 - (id)documentResourceDataWithStorage:(id)storage digestString:(id)string filename:(id)filename
 {
-  v14 = *MEMORY[0x277D85DE8];
+  *&v13[5] = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   stringCopy = string;
   filenameCopy = filename;
-  TSP::DataDigestForString(stringCopy, v13);
+  TSP::DataDigestForString(v13, stringCopy);
   v11 = [(TSPDataManager *)self dataWithStorage:storageCopy digest:v13 filename:filenameCopy skipDocumentResourcesLookup:1 accessorBlock:0];
 
   return v11;
@@ -1680,10 +1680,10 @@ void __92__TSPDataManager_dataWithStorage_digest_filename_skipDocumentResourcesL
   dataCopy = data;
   identifier = [dataCopy identifier];
   digest = &identifier;
-  v5 = std::__hash_table<std::__hash_value_type<long long const,TSPData * {__weak}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,TSP::ObjectIdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,std::equal_to<long long const>,TSP::ObjectIdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,TSPData * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_identifierToDataMap.__table_.__bucket_list_.__ptr_, &identifier);
+  v5 = std::__hash_table<std::__hash_value_type<long long const,TSPData * {__weak}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,TSP::ObjectIdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,std::equal_to<long long const>,TSP::ObjectIdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,TSPData * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_identifierToDataMap.__table_.__bucket_list_.__ptr_, &identifier, &std::piecewise_construct, &digest);
   objc_storeWeak(v5 + 3, dataCopy);
   digest = [dataCopy digest];
-  v6 = std::__hash_table<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,std::__unordered_map_hasher<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestHash,TSP::DataDigestEqualTo,true>,std::__unordered_map_equal<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestEqualTo,TSP::DataDigestHash,true>,std::allocator<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>>>::__emplace_unique_key_args<std::array<unsigned char,20ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,20ul> const&>,std::tuple<>>(&self->_digestToDataMap.__table_.__bucket_list_.__ptr_, digest);
+  v6 = std::__hash_table<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,std::__unordered_map_hasher<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestHash,TSP::DataDigestEqualTo,true>,std::__unordered_map_equal<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestEqualTo,TSP::DataDigestHash,true>,std::allocator<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>>>::__emplace_unique_key_args<std::array<unsigned char,20ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,20ul> const&>,std::tuple<>>(&self->_digestToDataMap.__table_.__bucket_list_.__ptr_, digest, &std::piecewise_construct, &digest);
   objc_storeWeak(v6 + 5, dataCopy);
   if (self->_hasExternalReferences)
   {

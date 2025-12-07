@@ -401,7 +401,7 @@ void __63__AVMobileGlassPlaybackControlButton__setupMicaPackageIfNeeded__block_i
     v4 = buttonMicaPackageContainerView;
     if (buttonMicaPackageContainerView)
     {
-      [buttonMicaPackageContainerView transform];
+      objc_msgSend_transform(buttonMicaPackageContainerView);
     }
 
     else

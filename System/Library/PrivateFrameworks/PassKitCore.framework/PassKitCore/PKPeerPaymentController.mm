@@ -1936,7 +1936,7 @@ void __67__PKPeerPaymentController__requestQuoteWithRequest_withCompletion___blo
   }
 
   v12 = [v5 domain];
-  if ([v12 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = [v5 code];
 
@@ -2832,10 +2832,10 @@ void __67__PKPeerPaymentController_performNearbyAuthorizedQuote_completion___blo
   {
     v10 = v6;
     v11 = [v10 domain];
-    v12 = [v11 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
     v9 = v10;
-    if (v12)
+    if (isEqualToString)
     {
       v9 = v10;
       if ([v10 code] == 40311)
@@ -2924,7 +2924,7 @@ void __67__PKPeerPaymentController_performNearbyAuthorizedQuote_completion___blo
   v5 = a2;
   v6 = a3;
   v7 = [v6 domain];
-  if (![v7 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"])
+  if (!objc_msgSend_isEqualToString_(v7))
   {
 
     goto LABEL_7;
@@ -3073,9 +3073,9 @@ void __62__PKPeerPaymentController__performAuthorizedQuote_completion___block_in
 
     objc_storeStrong((a1[4] + 120), a3);
     v18 = [v8 domain];
-    v19 = [v18 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"];
+    isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-    if (v19 && [v8 code] == 40311)
+    if (isEqualToString && [v8 code] == 40311)
     {
       v20 = +[PKPassLibrary sharedInstance];
       v21 = [v20 passWithDPANIdentifier:a1[6]];
@@ -3317,7 +3317,7 @@ void __73__PKPeerPaymentController_formalRequestTokenForAmount_source_completion
   }
 
   v13 = [v6 domain];
-  if ([v13 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v13))
   {
     v14 = [v6 code];
 
@@ -3513,9 +3513,9 @@ void __83__PKPeerPaymentController_performPendingRequestAction_withRequestToken_
 
   if (v7 && @"reject")
   {
-    v9 = [(__CFString *)v7 isEqualToString:@"reject"];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (v9)
+    if (isEqualToString)
     {
       goto LABEL_25;
     }
@@ -3536,7 +3536,7 @@ LABEL_24:
 
   if (v15 && @"cancel")
   {
-    v16 = [(__CFString *)v15 isEqualToString:@"cancel"];
+    v16 = objc_msgSend_isEqualToString_(v15);
 
     if ((v16 & 1) == 0)
     {
@@ -3634,9 +3634,9 @@ void __69__PKPeerPaymentController_statusForPaymentIdentifier_withCompletion___b
   if ([objc_opt_class() errorIsIdentityVerificationRequiredError:errorCopy])
   {
     domain = [errorCopy domain];
-    v9 = [domain isEqualToString:@"PKDisplayableError"];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-    if (v9)
+    if (isEqualToString)
     {
       userInfo = [errorCopy userInfo];
       v11 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
@@ -3779,9 +3779,9 @@ void __49__PKPeerPaymentController__handleAccountChanged___block_invoke(uint64_t
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v6 = [domain isEqualToString:@"PKDisplayableError"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = errorCopy;
   }
@@ -3816,12 +3816,12 @@ void __49__PKPeerPaymentController__handleAccountChanged___block_invoke(uint64_t
   account = [v4 account];
 
   domain = [errorCopy domain];
-  v7 = [domain isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (!v7)
+  if (!isEqualToString)
   {
     domain2 = [errorCopy domain];
-    v20 = [domain2 isEqualToString:*MEMORY[0x1E696A978]];
+    v20 = objc_msgSend_isEqualToString_(domain2);
 
     if (v20)
     {
@@ -3841,7 +3841,7 @@ LABEL_21:
     }
 
     domain3 = [errorCopy domain];
-    v23 = [domain3 isEqualToString:@"PKWebServiceErrorDomain"];
+    v23 = objc_msgSend_isEqualToString_(domain3);
 
     if (v23)
     {
@@ -3864,7 +3864,7 @@ LABEL_21:
     else
     {
       domain4 = [errorCopy domain];
-      v26 = [domain4 isEqualToString:@"PKPaymentWebServiceErrorDomain"];
+      v26 = objc_msgSend_isEqualToString_(domain4);
 
       if (v26)
       {
@@ -4020,10 +4020,10 @@ LABEL_37:
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v6 = [domain isEqualToString:@"PKDisplayableError"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
   v7 = errorCopy;
-  if (v6)
+  if (isEqualToString)
   {
     userInfo = [errorCopy userInfo];
     v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
@@ -4042,7 +4042,7 @@ LABEL_37:
   else
   {
     domain2 = [v7 domain];
-    if ([domain2 isEqualToString:@"PKWebServiceErrorDomain"])
+    if (objc_msgSend_isEqualToString_(domain2))
     {
       v9 = [v7 code] != 1;
     }
@@ -4576,7 +4576,7 @@ void __68__PKPeerPaymentController_paymentAuthorizationCoordinatorDidFinish___bl
     if (dpanIdentifier)
     {
       dpanIdentifier2 = [(PKPeerPaymentQuoteRequest *)self->_is->quoteRequest dpanIdentifier];
-      v17 = [dpanIdentifier2 isEqualToString:dpanIdentifier] ^ 1;
+      v17 = objc_msgSend_isEqualToString_(dpanIdentifier2) ^ 1;
     }
 
     else
@@ -5068,7 +5068,7 @@ void __96__PKPeerPaymentController_paymentAuthorizationCoordinator_didAuthorizeP
 
   [(PKPaymentAuthorizationResult *)v9 setStatus:1];
   v18 = [v8 domain];
-  if (![v18 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"])
+  if (!objc_msgSend_isEqualToString_(v18))
   {
     goto LABEL_12;
   }

@@ -27,10 +27,10 @@
 
 - (id)spotlightDomainIdentifier
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = SGTextMessage;
-  spotlightDomainIdentifier = [(SGMessage *)&v14 spotlightDomainIdentifier];
+  v16 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = SGTextMessage;
+  spotlightDomainIdentifier = [(SGMessage *)&v13 spotlightDomainIdentifier];
   if (spotlightDomainIdentifier || ([(SGTextMessage *)self conversationIdentifier], (spotlightDomainIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v5 = spotlightDomainIdentifier;
@@ -38,13 +38,13 @@
 
   else
   {
-    v9 = sgLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = sgLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       spotlightUniqueIdentifier = [(SGMessage *)self spotlightUniqueIdentifier];
       *buf = 138412290;
-      v16 = spotlightUniqueIdentifier;
-      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "Cannot get domain identifier for text message %@", buf, 0xCu);
+      v15 = spotlightUniqueIdentifier;
+      _os_log_fault_impl(&dword_231E60000, v8, OS_LOG_TYPE_FAULT, "Cannot get domain identifier for text message %@", buf, 0xCu);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -52,9 +52,9 @@
       abort();
     }
 
-    v10 = objc_alloc(MEMORY[0x277CCACA8]);
+    v9 = objc_alloc(MEMORY[0x277CCACA8]);
     uniqueIdentifier = [(SGMessage *)self uniqueIdentifier];
-    v5 = [v10 initWithFormat:@"SGMissingDomainIdentifier.uniqueIdentifierFallback.%@", uniqueIdentifier];
+    v5 = [v9 initWithFormat:@"SGMissingDomainIdentifier.uniqueIdentifierFallback.%@", uniqueIdentifier];
 
     if (!v5)
     {
@@ -64,8 +64,6 @@
   }
 
   v6 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -116,11 +114,11 @@
 
 - (SGTextMessage)initWithMessagesContentEvent:(id)event contentProtection:(id)protection
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v38.receiver = self;
-  v38.super_class = SGTextMessage;
-  v7 = [(SGMessage *)&v38 initWithMessagesContentEvent:eventCopy contentProtection:protection];
+  v37.receiver = self;
+  v37.super_class = SGTextMessage;
+  v7 = [(SGMessage *)&v37 initWithMessagesContentEvent:eventCopy contentProtection:protection];
   if (v7)
   {
     content = [eventCopy content];
@@ -140,8 +138,8 @@
 
     v14 = objc_alloc(MEMORY[0x277CC3450]);
     handle2 = [fromHandle handle];
-    v39[0] = handle2;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+    v38[0] = handle2;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
     handleType = [fromHandle handleType];
     v18 = [v14 initWithDisplayName:name handles:v16 handleIdentifier:handleType];
 
@@ -193,13 +191,12 @@
     v7->_nickname = suggestedNickname;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (SGTextMessage)initWithSearchableItem:(id)item
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   domainIdentifier = [itemCopy domainIdentifier];
 
@@ -209,25 +206,25 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGTextMessage.m" lineNumber:33 description:{@"Invalid parameter not satisfying: %@", @"searchableItem.domainIdentifier"}];
   }
 
-  v64.receiver = self;
-  v64.super_class = SGTextMessage;
-  v7 = [(SGMessage *)&v64 initWithSearchableItem:itemCopy];
+  v63.receiver = self;
+  v63.super_class = SGTextMessage;
+  v7 = [(SGMessage *)&v63 initWithSearchableItem:itemCopy];
   if (v7)
   {
     v8 = objc_autoreleasePoolPush();
     attributeSet = [itemCopy attributeSet];
     authors = [attributeSet authors];
-    if ([authors count])
+    if (objc_msgSend_count(authors))
     {
-      v56 = authors;
+      v55 = authors;
       v11 = [authors objectAtIndexedSubscript:0];
       v12 = MEMORY[0x277D41E30];
       handles = [v11 handles];
       v14 = [v12 sanitizeHandles:handles];
 
       displayName = [v11 displayName];
-      v57 = v8;
-      v58 = itemCopy;
+      v56 = v8;
+      v57 = itemCopy;
       if (displayName)
       {
         v16 = displayName;
@@ -259,30 +256,30 @@
 
       v24 = v7;
       [(SGTextMessage *)v7 setSender:v11];
-      v55 = v11;
+      v54 = v11;
       handleIdentifier2 = [v11 handleIdentifier];
       v26 = [handleIdentifier2 isEqual:*MEMORY[0x277CBD038]];
 
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v27 = v14;
-      v28 = [v27 countByEnumeratingWithState:&v59 objects:v65 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v58 objects:v64 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v60;
+        v30 = *v59;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v60 != v30)
+            if (*v59 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v59 + 1) + 8 * i);
+            v32 = *(*(&v58 + 1) + 8 * i);
             accountHandles = [v17 accountHandles];
             v34 = [accountHandles containsObject:v32];
 
@@ -298,17 +295,17 @@
             }
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v59 objects:v65 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v58 objects:v64 count:16];
         }
 
         while (v29);
       }
 
       v7 = v24;
-      v8 = v57;
-      itemCopy = v58;
+      v8 = v56;
+      itemCopy = v57;
       attributeSet = v17;
-      authors = v56;
+      authors = v55;
     }
 
     primaryRecipients = [attributeSet primaryRecipients];
@@ -396,38 +393,37 @@
     objc_autoreleasePoolPop(v8);
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (BOOL)isSent:(id)sent
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   attributeSet = [sent attributeSet];
   authors = [attributeSet authors];
-  if ([authors count])
+  if (objc_msgSend_count(authors))
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     firstObject = [authors firstObject];
     handles = [firstObject handles];
 
-    v7 = [handles countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [handles countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(handles);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           accountHandles = [attributeSet accountHandles];
           LOBYTE(v10) = [accountHandles containsObject:v10];
 
@@ -438,7 +434,7 @@
           }
         }
 
-        v7 = [handles countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [handles countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -456,7 +452,6 @@ LABEL_12:
     LOBYTE(v7) = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -474,9 +469,11 @@ LABEL_12:
 
 uint64_t __35__SGTextMessage__nicknameCustomKey__block_invoke()
 {
-  _nicknameCustomKey__nicknameCustomKey = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"com_apple_mobilesms_suggested_contact_name" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+  v0 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"com_apple_mobilesms_suggested_contact_name" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+  v1 = _nicknameCustomKey__nicknameCustomKey;
+  _nicknameCustomKey__nicknameCustomKey = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)_photoPathCustomKey
@@ -493,9 +490,11 @@ uint64_t __35__SGTextMessage__nicknameCustomKey__block_invoke()
 
 uint64_t __36__SGTextMessage__photoPathCustomKey__block_invoke()
 {
-  _photoPathCustomKey__photoPathCustomKey = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"com_apple_mobilesms_suggested_contact_photo" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+  v0 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"com_apple_mobilesms_suggested_contact_photo" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+  v1 = _photoPathCustomKey__photoPathCustomKey;
+  _photoPathCustomKey__photoPathCustomKey = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

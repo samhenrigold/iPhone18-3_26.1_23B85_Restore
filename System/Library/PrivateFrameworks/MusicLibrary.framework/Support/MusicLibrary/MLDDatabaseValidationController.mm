@@ -10,6 +10,7 @@
 - (void)dealloc;
 - (void)resumeValidations;
 - (void)suspendValidations;
+- (void)validateMusicLibrary:(id)library shouldTruncateDatabase:(BOOL)database completion:(id)completion;
 @end
 
 @implementation MLDDatabaseValidationController
@@ -201,6 +202,86 @@ LABEL_8:
 
   _Block_object_dispose(&v11, 8);
   return validationQueue;
+}
+
+- (void)validateMusicLibrary:(id)library shouldTruncateDatabase:(BOOL)database completion:(id)completion
+{
+  databaseCopy = database;
+  libraryCopy = library;
+  completionCopy = completion;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 1;
+  validationQueue = self->_validationQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100008A54;
+  block[3] = &unk_1000318F0;
+  v34 = &v35;
+  block[4] = self;
+  v11 = libraryCopy;
+  v33 = v11;
+  dispatch_sync(validationQueue, block);
+  if (databaseCopy || (v36[3] & 1) != 0)
+  {
+    databasePath = [v11 databasePath];
+    v13 = os_log_create("com.apple.amp.medialibraryd", "Service");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v40 = databasePath;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Enqueueing database validation for media library at path: %{public}@", buf, 0xCu);
+    }
+
+    v14 = self->_validationQueue;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100008A8C;
+    v30[3] = &unk_100031BA8;
+    v30[4] = self;
+    v15 = databasePath;
+    v31 = v15;
+    dispatch_sync(v14, v30);
+    v16 = [ML3DatabaseValidation alloc];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_100008A98;
+    v27[3] = &unk_100031580;
+    v27[4] = self;
+    v17 = v15;
+    v28 = v17;
+    v29 = completionCopy;
+    v18 = [v16 initWithLibrary:v11 delegate:self completion:v27];
+    [v18 setTruncateBeforeValidating:databaseCopy];
+    v19 = self->_validationQueue;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100008C00;
+    v24[3] = &unk_100031760;
+    v24[4] = self;
+    v25 = v17;
+    v26 = v18;
+    v20 = v18;
+    v21 = v17;
+    dispatch_sync(v19, v24);
+  }
+
+  else if (completionCopy)
+  {
+    v22 = os_log_create("com.apple.amp.medialibraryd", "Service");
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      databasePath2 = [v11 databasePath];
+      *buf = 138543362;
+      v40 = databasePath2;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Database at path %{public}@ already validated - Bypassing validation work", buf, 0xCu);
+    }
+
+    (*(completionCopy + 2))(completionCopy, 1, 0);
+  }
+
+  _Block_object_dispose(&v35, 8);
 }
 
 - (void)dealloc

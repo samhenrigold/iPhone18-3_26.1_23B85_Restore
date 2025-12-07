@@ -96,13 +96,14 @@ uint64_t __63__CMIOExtensionStreamProperties_initWithPropertyValues_client___blo
   if (value)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      value = v5;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      value = v7;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionStreamProperties activeFormatIndex];
         }
@@ -127,14 +128,15 @@ LABEL_4:
 
   v4 = activeFormatIndex;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     activeFormatIndex = [CMIOExtensionPropertyState propertyStateWithValue:v4];
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStreamProperties setActiveFormatIndex:];
   }
@@ -149,13 +151,14 @@ LABEL_4:
   if (value)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      value = v5;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      value = v7;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionStreamProperties frameDuration];
         }
@@ -180,14 +183,15 @@ LABEL_4:
 
   v4 = frameDuration;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     frameDuration = [CMIOExtensionPropertyState propertyStateWithValue:v4];
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStreamProperties setFrameDuration:];
   }
@@ -202,13 +206,14 @@ LABEL_4:
   if (value)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      value = v5;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      value = v7;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionStreamProperties maxFrameDuration];
         }
@@ -233,14 +238,15 @@ LABEL_4:
 
   v4 = maxFrameDuration;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     maxFrameDuration = [CMIOExtensionPropertyState propertyStateWithValue:v4];
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStreamProperties setMaxFrameDuration:];
   }
@@ -255,13 +261,14 @@ LABEL_4:
   if (value)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      value = v5;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      value = v7;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionStreamProperties sinkBufferQueueSize];
         }
@@ -286,14 +293,15 @@ LABEL_4:
 
   v4 = sinkBufferQueueSize;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     sinkBufferQueueSize = [CMIOExtensionPropertyState propertyStateWithValue:v4];
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStreamProperties setSinkBufferQueueSize:];
   }
@@ -308,13 +316,14 @@ LABEL_4:
   if (value)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      value = v5;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      value = v7;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionStreamProperties sinkBuffersRequiredForStartup];
         }
@@ -339,14 +348,15 @@ LABEL_4:
 
   v4 = sinkBuffersRequiredForStartup;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     sinkBuffersRequiredForStartup = [CMIOExtensionPropertyState propertyStateWithValue:v4];
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStreamProperties setSinkBuffersRequiredForStartup:];
   }
@@ -361,13 +371,14 @@ LABEL_4:
   if (value)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      value = v5;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      value = v7;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionStreamProperties sinkBufferUnderrunCount];
         }
@@ -392,14 +403,15 @@ LABEL_4:
 
   v4 = sinkBufferUnderrunCount;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     sinkBufferUnderrunCount = +[CMIOExtensionPropertyState propertyStateWithValue:attributes:](CMIOExtensionPropertyState, "propertyStateWithValue:attributes:", v4, +[CMIOExtensionPropertyAttributes readOnlyPropertyAttribute]);
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStreamProperties setSinkBufferUnderrunCount:];
   }
@@ -414,13 +426,14 @@ LABEL_4:
   if (value)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      value = v5;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      value = v7;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionStreamProperties sinkEndOfData];
         }
@@ -445,14 +458,15 @@ LABEL_4:
 
   v4 = sinkEndOfData;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     sinkEndOfData = [CMIOExtensionPropertyState propertyStateWithValue:v4];
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStreamProperties setSinkEndOfData:];
   }
@@ -503,156 +517,128 @@ LABEL_4:
 
 - (void)activeFormatIndex
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActiveFormatIndex:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)frameDuration
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFrameDuration:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)maxFrameDuration
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMaxFrameDuration:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sinkBufferQueueSize
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSinkBufferQueueSize:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sinkBuffersRequiredForStartup
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSinkBuffersRequiredForStartup:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sinkBufferUnderrunCount
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSinkBufferUnderrunCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sinkEndOfData
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSinkEndOfData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

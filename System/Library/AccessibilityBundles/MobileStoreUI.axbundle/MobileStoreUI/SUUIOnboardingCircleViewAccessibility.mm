@@ -81,10 +81,7 @@
 void __70__SUUIOnboardingCircleViewAccessibility__accessibilityScrollToVisible__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 48);
-  v5 = v3;
-  v4 = v3;
+  v2 = v3;
   AXPerformSafeBlock();
 }
 

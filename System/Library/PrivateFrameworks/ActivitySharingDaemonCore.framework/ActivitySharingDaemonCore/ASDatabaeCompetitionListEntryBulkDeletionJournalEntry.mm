@@ -53,12 +53,4 @@ uint64_t __82__ASDatabaeCompetitionListEntryBulkDeletionJournalEntry_applyEntrie
   return v6;
 }
 
-+ (void)applyEntries:withProfile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error applying journal deletes for all competition lists %@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 @end

@@ -287,13 +287,13 @@ void __67__PLPersistentHistoryChangeDistributor_localEventFromTransactions___blo
   eventCopy = event;
   dispatch_assert_queue_V2(self->_isolationQueue);
   v11 = qos_class_self();
-  [eventCopy setTransactionCount:{objc_msgSend(transactionsCopy, "count")}];
-  if ([transactionsCopy count] || v11 > 0x18)
+  [eventCopy setTransactionCount:objc_msgSend_count(transactionsCopy)];
+  if (objc_msgSend_count(transactionsCopy) || v11 > 0x18)
   {
     v13 = v11 > 0x18;
     v14 = [(PLPersistentHistoryChangeDistributor *)self localEventFromTransactions:transactionsCopy];
-    [eventCopy setLocalEventCount:{objc_msgSend(v14, "count")}];
-    if ([v14 count] != 0 || v13)
+    [eventCopy setLocalEventCount:objc_msgSend_count(v14)];
+    if (objc_msgSend_count(v14) != 0 || v13)
     {
       v15 = [v14 objectForKeyedSubscript:@"PLUnknownMergeEvent"];
       bOOLValue = [v15 BOOLValue];
@@ -324,7 +324,7 @@ void __67__PLPersistentHistoryChangeDistributor_localEventFromTransactions___blo
         if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
         {
           *buf = 134217984;
-          v42 = [transactionsCopy count];
+          v42 = objc_msgSend_count(transactionsCopy);
           _os_signpost_emit_with_name_impl(&dword_19BF1F000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "DistributeTransactions", "transaction count: %lu", buf, 0xCu);
         }
 

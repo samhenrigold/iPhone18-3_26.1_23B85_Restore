@@ -20,9 +20,11 @@
 
 uint64_t __24__CNLogging_apiUsageLog__block_invoke()
 {
-  apiUsageLog_cn_once_object_2 = os_log_create("com.apple.contacts", "api");
+  v0 = os_log_create("com.apple.contacts", "api");
+  v1 = apiUsageLog_cn_once_object_2;
+  apiUsageLog_cn_once_object_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)notificationOSLog

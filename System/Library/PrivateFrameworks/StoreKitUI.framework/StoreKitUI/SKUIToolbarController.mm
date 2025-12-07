@@ -62,13 +62,14 @@
 
 void __62__SKUIToolbarController_updateToolbarForNavigationController___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (SKUIIKViewElementTypeIsButton([v4 elementType]))
+  v6 = a2;
+  v3 = [v6 elementType];
+  if (SKUIIKViewElementTypeIsButton(v3, v4))
   {
-    v3 = [*(a1 + 32) _barButtonItemWithElement:v4];
-    if (v3)
+    v5 = [*(a1 + 32) _barButtonItemWithElement:v6];
+    if (v5)
     {
-      [*(a1 + 40) addObject:v3];
+      [*(a1 + 40) addObject:v5];
     }
   }
 
@@ -113,17 +114,18 @@ void __62__SKUIToolbarController_updateToolbarForNavigationController___block_in
 - (id)_barButtonItemWithElement:(id)element
 {
   elementCopy = element;
-  if (SKUIIKViewElementTypeIsButton([elementCopy elementType]))
+  elementType = [elementCopy elementType];
+  if (SKUIIKViewElementTypeIsButton(elementType, v6))
   {
-    v5 = [(SKUIToolbarController *)self _barButtonItemWithButtonElement:elementCopy];
+    v7 = [(SKUIToolbarController *)self _barButtonItemWithButtonElement:elementCopy];
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 - (id)_barButtonItemWithButtonElement:(id)element

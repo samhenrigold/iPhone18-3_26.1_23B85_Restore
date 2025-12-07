@@ -5,10 +5,12 @@
 - (id)getLocalAudioRequest:(id)request;
 - (id)getLocalRequest:(id)request;
 - (void)audioRequest:(id)request didReportInstrumentMetrics:(id)metrics error:(id)error;
+- (void)audioRequest:(id)request didStopAtEnd:(BOOL)end error:(id)error;
 - (void)audioRequestDidStart:(id)start;
 - (void)speechRequest:(id)request didReceiveTimingInfo:(id)info;
 - (void)speechRequest:(id)request didReportInstrumentMetrics:(id)metrics;
 - (void)speechRequest:(id)request didStartWithMark:(int64_t)mark forRange:(_NSRange)range;
+- (void)speechRequest:(id)request didStopWithSuccess:(BOOL)success phonemesSpoken:(id)spoken error:(id)error;
 - (void)speechRequestDidContinue:(id)continue;
 - (void)speechRequestDidPause:(id)pause;
 - (void)speechRequestDidStart:(id)start;
@@ -52,6 +54,33 @@
         v14 = objc_loadWeakRetained(&self->_delegate);
         v15 = objc_loadWeakRetained(&self->_connection);
         [v14 connection:v15 presynthesizedAudioRequest:v13 successWithInstrumentMetrics:metricsCopy error:errorCopy];
+      }
+    }
+  }
+}
+
+- (void)audioRequest:(id)request didStopAtEnd:(BOOL)end error:(id)error
+{
+  endCopy = end;
+  requestCopy = request;
+  errorCopy = error;
+  WeakRetained = objc_loadWeakRetained(&self->_connection);
+  if (WeakRetained)
+  {
+    v10 = WeakRetained;
+    v11 = objc_loadWeakRetained(&self->_delegate);
+
+    if (v11)
+    {
+      v12 = [(VSSpeechConnectionDelegateWrapper *)self getLocalAudioRequest:requestCopy];
+      if (v12)
+      {
+        audioRequests = [(VSSpeechConnectionDelegateWrapper *)self audioRequests];
+        [audioRequests removeObject:v12];
+
+        v14 = objc_loadWeakRetained(&self->_delegate);
+        v15 = objc_loadWeakRetained(&self->_connection);
+        [v14 connection:v15 presynthesizedAudioRequest:v12 didStopAtEnd:endCopy error:errorCopy];
       }
     }
   }
@@ -131,6 +160,34 @@
         v13 = objc_loadWeakRetained(&self->_delegate);
         v14 = objc_loadWeakRetained(&self->_connection);
         [v13 connection:v14 speechRequest:v12 didGenerateAudioChunk:chunkCopy];
+      }
+    }
+  }
+}
+
+- (void)speechRequest:(id)request didStopWithSuccess:(BOOL)success phonemesSpoken:(id)spoken error:(id)error
+{
+  successCopy = success;
+  requestCopy = request;
+  spokenCopy = spoken;
+  errorCopy = error;
+  WeakRetained = objc_loadWeakRetained(&self->_connection);
+  if (WeakRetained)
+  {
+    v13 = WeakRetained;
+    v14 = objc_loadWeakRetained(&self->_delegate);
+
+    if (v14)
+    {
+      v15 = [(VSSpeechConnectionDelegateWrapper *)self getLocalRequest:requestCopy];
+      if (v15)
+      {
+        requests = [(VSSpeechConnectionDelegateWrapper *)self requests];
+        [requests removeObject:v15];
+
+        v17 = objc_loadWeakRetained(&self->_delegate);
+        v18 = objc_loadWeakRetained(&self->_connection);
+        [v17 connection:v18 speechRequest:v15 didStopAtEnd:successCopy phonemesSpoken:spokenCopy error:errorCopy];
       }
     }
   }
@@ -300,27 +357,27 @@
 
 - (id)getLocalAudioRequest:(id)request
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   requestCopy = request;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   audioRequests = [(VSSpeechConnectionDelegateWrapper *)self audioRequests];
-  v6 = [audioRequests countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [audioRequests countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(audioRequests);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         requestCreatedTimestamp = [requestCopy requestCreatedTimestamp];
         if (requestCreatedTimestamp == [v9 requestCreatedTimestamp])
         {
@@ -329,7 +386,7 @@
         }
       }
 
-      v6 = [audioRequests countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [audioRequests countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -340,35 +397,33 @@
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)getLocalRequest:(id)request
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   requestCopy = request;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   requests = [(VSSpeechConnectionDelegateWrapper *)self requests];
-  v6 = [requests countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [requests countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(requests);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         requestCreatedTimestamp = [requestCopy requestCreatedTimestamp];
         if (requestCreatedTimestamp == [v9 requestCreatedTimestamp])
         {
@@ -377,7 +432,7 @@ LABEL_11:
         }
       }
 
-      v6 = [requests countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [requests countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -388,8 +443,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

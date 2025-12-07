@@ -16,193 +16,187 @@
 
 + (id)_accessibilityTransitArtworkTextForDataList:(id)list
 {
-  v62 = *MEMORY[0x29EDCA608];
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0u;
+  v58 = *MEMORY[0x29EDCA608];
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obj = list;
-  v39 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v35 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
   v3 = 0;
-  if (v39)
+  if (v35)
   {
-    v4 = 0x29EDB8000uLL;
-    v5 = 0x29F2C1000uLL;
-    v38 = *v56;
+    v4 = 0x29F2C1000uLL;
+    v34 = *v52;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v56 != v38)
+        if (*v52 != v34)
         {
-          v7 = v6;
+          v6 = v5;
           objc_enumerationMutation(obj);
-          v6 = v7;
+          v5 = v6;
         }
 
-        v40 = v6;
-        v8 = *(*(&v55 + 1) + 8 * v6);
+        v36 = v5;
+        v7 = *(*(&v51 + 1) + 8 * v5);
         if ([v3 length])
         {
-          v35 = accessibilityLocalizedString(@"TRANSIT_ARTWORK_SEPARATOR");
-          v36 = @"__AXStringForVariablesSentinel";
-          v9 = __AXStringForVariables();
+          v31 = accessibilityLocalizedString(@"TRANSIT_ARTWORK_SEPARATOR");
+          v32 = @"__AXStringForVariablesSentinel";
+          v8 = __AXStringForVariables();
 
-          v3 = v9;
+          v3 = v8;
         }
 
-        v10 = *(v4 + 3456);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v53 = 0u;
-          v54 = 0u;
-          v51 = 0u;
-          v52 = 0u;
-          v42 = v8;
-          v43 = [v42 countByEnumeratingWithState:&v51 objects:v60 count:16];
-          if (v43)
+          v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v38 = v7;
+          v39 = [v38 countByEnumeratingWithState:&v47 objects:v56 count:16];
+          if (v39)
           {
-            v11 = *v52;
-            v41 = *v52;
+            v9 = *v48;
+            v37 = *v48;
             do
             {
-              v12 = 0;
+              v10 = 0;
               do
               {
-                if (*v52 != v11)
+                if (*v48 != v9)
                 {
-                  objc_enumerationMutation(v42);
+                  objc_enumerationMutation(v38);
                 }
 
-                v44 = v12;
-                v13 = *(*(&v51 + 1) + 8 * v12);
-                v14 = *(v4 + 3456);
+                v40 = v10;
+                v11 = *(*(&v47 + 1) + 8 * v10);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v49 = 0u;
-                  v50 = 0u;
-                  v47 = 0u;
-                  v48 = 0u;
-                  v46 = v13;
-                  v15 = [v46 countByEnumeratingWithState:&v47 objects:v59 count:16];
-                  if (v15)
+                  v45 = 0u;
+                  v46 = 0u;
+                  v43 = 0u;
+                  v44 = 0u;
+                  v42 = v11;
+                  v12 = [v42 countByEnumeratingWithState:&v43 objects:v55 count:16];
+                  if (v12)
                   {
-                    v16 = v15;
-                    v17 = *v48;
+                    v13 = v12;
+                    v14 = *v44;
                     do
                     {
-                      for (i = 0; i != v16; ++i)
+                      for (i = 0; i != v13; ++i)
                       {
-                        if (*v48 != v17)
+                        if (*v44 != v14)
                         {
-                          objc_enumerationMutation(v46);
+                          objc_enumerationMutation(v42);
                         }
 
-                        v19 = *(*(&v47 + 1) + 8 * i);
-                        if ([v19 conformsToProtocol:{*(v5 + 1848), v35}])
+                        v16 = *(*(&v43 + 1) + 8 * i);
+                        if ([v16 conformsToProtocol:{*(v4 + 1848), v31}])
                         {
-                          accessibilityText = [v19 accessibilityText];
-                          if (![accessibilityText length] && objc_msgSend(v19, "artworkSourceType") == 3)
+                          accessibilityText = [v16 accessibilityText];
+                          if (![accessibilityText length] && objc_msgSend(v16, "artworkSourceType") == 3)
                           {
-                            v21 = MEMORY[0x29C2D7700](@"MKServerFormattedStringParameters");
-                            v22 = MEMORY[0x29C2D7700](@"MKServerFormattedString");
-                            if (v21)
+                            v18 = MEMORY[0x29C2D7700](@"MKServerFormattedStringParameters");
+                            v19 = MEMORY[0x29C2D7700](@"MKServerFormattedString");
+                            if (v18)
                             {
-                              v23 = v22;
-                              if (v22)
+                              v20 = v19;
+                              if (v19)
                               {
-                                v45 = [[v21 alloc] initWithInstructionsDistanceDetailLevel:0 variableOverrides:0];
-                                v24 = [v23 alloc];
-                                textDataSource = [v19 textDataSource];
+                                v41 = [[v18 alloc] initWithInstructionsDistanceDetailLevel:0 variableOverrides:0];
+                                v21 = [v20 alloc];
+                                textDataSource = [v16 textDataSource];
                                 text = [textDataSource text];
-                                v27 = [v24 initWithGeoServerString:text parameters:v45];
+                                v24 = [v21 initWithGeoServerString:text parameters:v41];
 
-                                v28 = [v27 multiPartAttributedStringWithAttributes:MEMORY[0x29EDB8EA0]];
-                                attributedString = [v28 attributedString];
+                                v25 = [v24 multiPartAttributedStringWithAttributes:MEMORY[0x29EDB8EA0]];
+                                attributedString = [v25 attributedString];
                                 [attributedString string];
-                                v31 = v30 = v3;
+                                v28 = v27 = v3;
 
-                                v5 = 0x29F2C1000;
-                                accessibilityText = v31;
-                                v3 = v30;
+                                v4 = 0x29F2C1000;
+                                accessibilityText = v28;
+                                v3 = v27;
                               }
                             }
                           }
 
                           if ([accessibilityText length])
                           {
-                            v35 = accessibilityText;
-                            v36 = @"__AXStringForVariablesSentinel";
-                            v32 = __AXStringForVariables();
+                            v31 = accessibilityText;
+                            v32 = @"__AXStringForVariablesSentinel";
+                            v29 = __AXStringForVariables();
 
-                            if ([v19 hasRoutingIncidentBadge])
+                            if ([v16 hasRoutingIncidentBadge])
                             {
-                              v35 = accessibilityLocalizedString(@"TRANSIT_INCIDENT");
-                              v36 = @"__AXStringForVariablesSentinel";
+                              v31 = accessibilityLocalizedString(@"TRANSIT_INCIDENT");
+                              v32 = @"__AXStringForVariablesSentinel";
                               v3 = __AXStringForVariables();
                             }
 
                             else
                             {
-                              v3 = v32;
+                              v3 = v29;
                             }
                           }
                         }
 
                         else
                         {
-                          v35 = v19;
+                          v31 = v16;
                           _AXAssert();
                         }
                       }
 
-                      v16 = [v46 countByEnumeratingWithState:&v47 objects:v59 count:16];
+                      v13 = [v42 countByEnumeratingWithState:&v43 objects:v55 count:16];
                     }
 
-                    while (v16);
+                    while (v13);
                   }
 
-                  v4 = 0x29EDB8000;
-                  v11 = v41;
+                  v9 = v37;
                 }
 
                 else
                 {
-                  v35 = v13;
+                  v31 = v11;
                   _AXAssert();
                 }
 
-                v12 = v44 + 1;
+                v10 = v40 + 1;
               }
 
-              while (v44 + 1 != v43);
-              v43 = [v42 countByEnumeratingWithState:&v51 objects:v60 count:16];
+              while (v40 + 1 != v39);
+              v39 = [v38 countByEnumeratingWithState:&v47 objects:v56 count:16];
             }
 
-            while (v43);
+            while (v39);
           }
         }
 
         else
         {
-          v35 = v8;
+          v31 = v7;
           _AXAssert();
         }
 
-        v6 = v40 + 1;
+        v5 = v36 + 1;
       }
 
-      while (v40 + 1 != v39);
-      v39 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+      while (v36 + 1 != v35);
+      v35 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
-    while (v39);
+    while (v35);
   }
-
-  v33 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

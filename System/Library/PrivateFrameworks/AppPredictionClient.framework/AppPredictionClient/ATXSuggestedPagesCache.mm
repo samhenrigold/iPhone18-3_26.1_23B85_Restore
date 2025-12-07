@@ -134,7 +134,7 @@ BOOL __58__ATXSuggestedPagesCache_cachedSuggestedPagesForPageType___block_invoke
   v7 = [(NSString *)basePath stringByAppendingPathComponent:v6];
 
   v8 = objc_alloc(MEMORY[0x1E698AFF0]);
-  v9 = __atxlog_handle_modes();
+  v9 = __atxlog_handle_modes(v8);
   v10 = [v8 initWithCacheFilePath:v7 loggingHandle:v9 debugName:@"suggested pages"];
 
   return v10;

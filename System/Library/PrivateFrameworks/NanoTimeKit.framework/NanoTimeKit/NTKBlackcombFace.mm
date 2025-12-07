@@ -16,8 +16,8 @@
 + (id)_complicationSlotDescriptors
 {
   v15[4] = *MEMORY[0x277D85DE8];
-  v2 = NTKAllSignatureCircularTypes();
-  v13 = NTKAllExtendedSignatureCircularTypes();
+  v2 = NTKAllSignatureCircularTypes(self);
+  v13 = NTKAllExtendedSignatureCircularTypes(v2);
   v3 = NTKComplicationTypeRankedListWithDefaultTypes(&unk_284189EE0);
   v4 = NTKComplicationTypeRankedListWithDefaultTypes(&unk_284189EF8);
   v5 = NTKComplicationTypeRankedListWithDefaultTypes(&unk_284189F10);

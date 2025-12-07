@@ -474,7 +474,7 @@ void __42__FCNewsTabiConfiguration_packageAssetIDs__block_invoke_2(uint64_t a1, 
   return selfCopy;
 }
 
-uint64_t __46__FCNewsTabiConfiguration_initWithDictionary___block_invoke_2(uint64_t a1)
+char *__46__FCNewsTabiConfiguration_initWithDictionary___block_invoke_2(uint64_t a1)
 {
   result = FCAppConfigurationIntegerValue(*(a1 + 32), @"mlComputeUnits", 0);
   if ((result - 1) >= 3)

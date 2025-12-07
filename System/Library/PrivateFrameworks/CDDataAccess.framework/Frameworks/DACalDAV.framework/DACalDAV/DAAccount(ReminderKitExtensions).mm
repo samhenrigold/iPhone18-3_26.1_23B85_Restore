@@ -16,19 +16,17 @@
 
   if (!rem_storeForDataAccess)
   {
-    v3 = DALoggingwithCategory();
-    v4 = *(MEMORY[0x277CF3AF0] + 3);
-    if (os_log_type_enabled(v3, v4))
+    v4 = DALoggingwithCategory();
+    v5 = *(MEMORY[0x277CF3AF0] + 3);
+    if (os_log_type_enabled(v4, v5))
     {
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_242490000, v3, v4, "Couldn't get an REMStore from %{public}@.", &v9, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_242490000, v4, v5, "Couldn't get an REMStore from %{public}@.", &v9, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return rem_storeForDataAccess;
 }
@@ -42,31 +40,29 @@
 
   if (!rem_saveRequestForDataAccess)
   {
-    v3 = DALoggingwithCategory();
-    v4 = *(MEMORY[0x277CF3AF0] + 3);
-    if (os_log_type_enabled(v3, v4))
+    v4 = DALoggingwithCategory();
+    v5 = *(MEMORY[0x277CF3AF0] + 3);
+    if (os_log_type_enabled(v4, v5))
     {
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_242490000, v3, v4, "Couldn't get an REMSaveRequest from %{public}@.", &v9, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_242490000, v4, v5, "Couldn't get an REMSaveRequest from %{public}@.", &v9, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return rem_saveRequestForDataAccess;
 }
 
 - (id)rem_account
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   rem_store = [self rem_store];
   accountID = [self accountID];
-  v12 = 0;
-  v4 = [rem_store fetchAccountWithExternalIdentifier:accountID error:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [rem_store fetchAccountWithExternalIdentifier:accountID error:&v11];
+  v5 = v11;
 
   if (v5)
   {
@@ -81,7 +77,7 @@ LABEL_5:
 
     accountID2 = [self accountID];
     *buf = 138543362;
-    v14 = accountID2;
+    v13 = accountID2;
     v9 = "Error when fetching account from ReminderKit %{public}@.";
 LABEL_4:
     _os_log_impl(&dword_242490000, v6, v7, v9, buf, 0xCu);
@@ -100,14 +96,12 @@ LABEL_4:
 
     accountID2 = [self accountID];
     *buf = 138543362;
-    v14 = accountID2;
+    v13 = accountID2;
     v9 = "Could not find account from ReminderKit %{public}@.";
     goto LABEL_4;
   }
 
 LABEL_7:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -40,63 +40,63 @@
 - (BOOL)convertRecordsForMigration
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Prepare records for migration", &v19, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Prepare records for migration", &v22, 2u);
   }
 
-  v5 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyLocalIDsInFolderWithLocalID:0 database:[(CloudBookmarkSyncMigrationHierarchyConverter *)self databaseRef]];
-  allObjects = [v5 allObjects];
-  v7 = [allObjects mutableCopy];
+  v6 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyLocalIDsInFolderWithLocalID:0 database:[(CloudBookmarkSyncMigrationHierarchyConverter *)self databaseRef]];
+  allObjects = [v6 allObjects];
+  v8 = [allObjects mutableCopy];
 
-  v8 = 0;
-  while ([v7 count])
+  v9 = [v8 count];
+  for (i = 0; v9; v9 = [v8 count])
   {
-    v9 = objc_autoreleasePoolPush();
-    v10 = [v7 objectAtIndexedSubscript:0];
-    [v7 removeObjectAtIndex:0];
+    v12 = objc_autoreleasePoolPush();
+    v13 = [v8 objectAtIndexedSubscript:0];
+    [v8 removeObjectAtIndex:0];
     databaseAccessor = [(CloudBookmarkSyncMigrationHierarchyConverter *)self databaseAccessor];
-    v12 = [databaseAccessor copyItemWithLocalID:v10 database:{-[CloudBookmarkSyncMigrationHierarchyConverter databaseRef](self, "databaseRef")}];
+    v15 = [databaseAccessor copyItemWithLocalID:v13 database:{-[CloudBookmarkSyncMigrationHierarchyConverter databaseRef](self, "databaseRef")}];
 
-    if ([(WBSBookmarkDBAccess *)self->_databaseAccessor itemTypeWithItem:v12]== 1)
+    if ([(WBSBookmarkDBAccess *)self->_databaseAccessor itemTypeWithItem:v15]== 1)
     {
-      v13 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyLocalIDsInFolderWithLocalID:v10 database:[(CloudBookmarkSyncMigrationHierarchyConverter *)self databaseRef]];
-      allObjects2 = [v13 allObjects];
-      v15 = allObjects2;
+      v16 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyLocalIDsInFolderWithLocalID:v13 database:[(CloudBookmarkSyncMigrationHierarchyConverter *)self databaseRef]];
+      allObjects2 = [v16 allObjects];
+      v18 = allObjects2;
       if (allObjects2)
       {
-        v16 = allObjects2;
+        v19 = allObjects2;
       }
 
       else
       {
-        v16 = &__NSArray0__struct;
+        v19 = &__NSArray0__struct;
       }
 
-      [v7 addObjectsFromArray:v16];
+      [v8 addObjectsFromArray:v19];
     }
 
-    [(CloudBookmarkSyncMigrationHierarchyConverter *)self _convertItem:v12];
-    CFRelease(v12);
-    ++v8;
+    [(CloudBookmarkSyncMigrationHierarchyConverter *)self _convertItem:v15];
+    CFRelease(v15);
+    ++i;
 
-    objc_autoreleasePoolPop(v9);
+    objc_autoreleasePoolPop(v12);
   }
 
-  v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v9, v10);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134217984;
-    v20 = v8;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Number of records prepared for migration: %ld", &v19, 0xCu);
+    v22 = 134217984;
+    v23 = i;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Number of records prepared for migration: %ld", &v22, 0xCu);
   }
 
   [(WBSBookmarkDBAccess *)self->_databaseAccessor saveDatabase:[(CloudBookmarkSyncMigrationHierarchyConverter *)self databaseRef]];
 
   objc_autoreleasePoolPop(v3);
-  return v8 != 0;
+  return i != 0;
 }
 
 - (void)_convertItem:(void *)item
@@ -106,18 +106,19 @@
   if ([(WBSBookmarkDBAccess *)self->_databaseAccessor itemTypeWithItem:item]!= 1 || ([CKRecord safari_recordNameForFolderType:[(WBSBookmarkDBAccess *)self->_databaseAccessor folderTypeWithFolder:item]], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     v6 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyServerIdWithItem:item];
-    if ([CKRecord safari_folderTypeForRecordName:v6])
+    v10 = [CKRecord safari_folderTypeForRecordName:v6];
+    if (v10)
     {
-      v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         databaseAccessor = self->_databaseAccessor;
-        v14 = v8;
-        v15 = 134218242;
-        v16 = [(WBSBookmarkDBAccess *)databaseAccessor itemTypeWithItem:item];
-        v17 = 2114;
-        v18 = v6;
-        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Record of type %ld has built-in record name %{public}@ despite not being a built-in folder, generating a new record name", &v15, 0x16u);
+        v23 = v12;
+        v24 = 134218242;
+        v25 = [(WBSBookmarkDBAccess *)databaseAccessor itemTypeWithItem:item];
+        v26 = 2114;
+        v27 = v6;
+        _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Record of type %ld has built-in record name %{public}@ despite not being a built-in folder, generating a new record name", &v24, 0x16u);
       }
 
       v6 = 0;
@@ -128,26 +129,26 @@
       uUIDString = [(CloudBookmarkSyncMigrationHierarchyConverter *)self _cloudKitRecordNameForBookmarkDAVServerSyncId:v6];
       if ([uUIDString length])
       {
-        [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:uUIDString item:item];
-        v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v15 = [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:uUIDString item:item];
+        v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v15 = 138543362;
-          v16 = uUIDString;
-          v11 = "Convert Bookmark DAV record with recordName %{public}@ for migration";
+          v24 = 138543362;
+          v25 = uUIDString;
+          v18 = "Convert Bookmark DAV record with recordName %{public}@ for migration";
 LABEL_17:
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, v11, &v15, 0xCu);
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, v18, &v24, 0xCu);
         }
       }
 
       else
       {
-        v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v14);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v15 = 138543362;
-          v16 = uUIDString;
-          v11 = "Already converted record with recordName %{public}@ for migration";
+          v24 = 138543362;
+          v25 = uUIDString;
+          v18 = "Already converted record with recordName %{public}@ for migration";
           goto LABEL_17;
         }
       }
@@ -155,16 +156,16 @@ LABEL_17:
 
     else
     {
-      v12 = +[NSUUID UUID];
-      uUIDString = [v12 UUIDString];
+      v19 = +[NSUUID UUID];
+      uUIDString = [v19 UUIDString];
 
-      [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:uUIDString item:item];
-      v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v20 = [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:uUIDString item:item];
+      v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v20, v21);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v15 = 138543362;
-        v16 = uUIDString;
-        v11 = "Convert new local record with created recordName %{public}@ for migration";
+        v24 = 138543362;
+        v25 = uUIDString;
+        v18 = "Convert new local record with created recordName %{public}@ for migration";
         goto LABEL_17;
       }
     }
@@ -173,13 +174,13 @@ LABEL_17:
   }
 
   v6 = v5;
-  [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:v5 item:item];
-  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v7 = [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:v5 item:item];
+  v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v15 = 138543362;
-    v16 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Convert built-in record with recordName %{public}@ for migration", &v15, 0xCu);
+    v24 = 138543362;
+    v25 = v6;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Convert built-in record with recordName %{public}@ for migration", &v24, 0xCu);
   }
 
 LABEL_19:

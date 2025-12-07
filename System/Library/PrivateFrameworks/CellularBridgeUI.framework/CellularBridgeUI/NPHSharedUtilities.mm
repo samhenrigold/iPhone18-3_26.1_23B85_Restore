@@ -12,17 +12,16 @@
   activeDevice = [MEMORY[0x277D37B48] activeDevice];
   isTinker = [activeDevice isTinker];
 
-  v4 = nph_general_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = nph_general_log(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
     v8 = "+[NPHSharedUtilities isActiveDeviceTinker]";
     v9 = 1024;
     v10 = isTinker;
-    _os_log_impl(&dword_243333000, v4, OS_LOG_TYPE_DEFAULT, "%s : %d", &v7, 0x12u);
+    _os_log_impl(&dword_243333000, v5, OS_LOG_TYPE_DEFAULT, "%s : %d", &v7, 0x12u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return isTinker;
 }
 

@@ -6,7 +6,7 @@
 
 - (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   oldAccountCopy = oldAccount;
   mEMORY[0x29EDBFA68] = [MEMORY[0x29EDBFA68] sharedPluginConfig];
@@ -18,12 +18,12 @@
   oSLogObject = [mEMORY[0x29EDBFA68] OSLogObject];
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    *v29 = 138543618;
-    *&v29[4] = objc_opt_class();
-    *&v29[12] = 1026;
-    *&v29[14] = type;
-    v12 = *&v29[4];
-    _os_log_impl(&dword_29C91F000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Proccessing account change. Change type: %{public}u", v29, 0x12u);
+    *v28 = 138543618;
+    *&v28[4] = objc_opt_class();
+    *&v28[12] = 1026;
+    *&v28[14] = type;
+    v12 = *&v28[4];
+    _os_log_impl(&dword_29C91F000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Proccessing account change. Change type: %{public}u", v28, 0x12u);
   }
 
   if ([accountCopy ams_isiTunesAccount] && (objc_msgSend(accountCopy, "isActive") & 1) == 0 && objc_msgSend(oldAccountCopy, "isActive"))
@@ -38,10 +38,10 @@
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
       v15 = objc_opt_class();
-      *v29 = 138543362;
-      *&v29[4] = v15;
+      *v28 = 138543362;
+      *&v28[4] = v15;
       v16 = v15;
-      _os_log_impl(&dword_29C91F000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: iTunes account deactivated - resetting requester account", v29, 0xCu);
+      _os_log_impl(&dword_29C91F000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: iTunes account deactivated - resetting requester account", v28, 0xCu);
     }
 
     v17 = MEMORY[0x29EDBFA70];
@@ -64,10 +64,10 @@ LABEL_20:
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
       v22 = objc_opt_class();
-      *v29 = 138543362;
-      *&v29[4] = v22;
+      *v28 = 138543362;
+      *&v28[4] = v22;
       v23 = v22;
-      _os_log_impl(&dword_29C91F000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: iCloud account deleted - resetting approver account", v29, 0xCu);
+      _os_log_impl(&dword_29C91F000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: iCloud account deleted - resetting approver account", v28, 0xCu);
     }
 
     v17 = MEMORY[0x29EDBFA70];
@@ -86,19 +86,17 @@ LABEL_20:
     oSLogObject4 = [mEMORY[0x29EDBFA68]4 OSLogObject];
     if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = objc_opt_class();
-      *v29 = 138543362;
-      *&v29[4] = v27;
-      v28 = v27;
-      _os_log_impl(&dword_29C91F000, oSLogObject4, OS_LOG_TYPE_DEFAULT, "%{public}@: Restarting APNS Connection due to account change.", v29, 0xCu);
+      v26 = objc_opt_class();
+      *v28 = 138543362;
+      *&v28[4] = v26;
+      v27 = v26;
+      _os_log_impl(&dword_29C91F000, oSLogObject4, OS_LOG_TYPE_DEFAULT, "%{public}@: Restarting APNS Connection due to account change.", v28, 0xCu);
     }
 
     [MEMORY[0x29EDBFA70] restartAPNSConnection];
   }
 
 LABEL_21:
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 @end

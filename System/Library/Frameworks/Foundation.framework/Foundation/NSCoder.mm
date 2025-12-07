@@ -1758,8 +1758,8 @@ LABEL_19:
     parseFloats(v3, 4, &v8);
     v5 = *(&v8 + 1);
     v4 = *&v8;
-    v7 = v9[1];
     v6 = v9[0];
+    v7 = v9[1];
   }
 
   else

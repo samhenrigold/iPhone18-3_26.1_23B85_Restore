@@ -52,9 +52,9 @@ id numberArrayToString(void *a1)
   return v4;
 }
 
-void sub_2557BC870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2557BC870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -83,9 +83,9 @@ id getFBSceneManagerClass()
   return v1;
 }
 
-void sub_2557BC950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2557BC950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -114,9 +114,9 @@ id getFBSceneManagerClass_0()
   return v1;
 }
 
-void sub_2557BCA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2557BCA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -161,74 +161,70 @@ void __getFBDisplayManagerClass_block_invoke_0(uint64_t a1)
 
 void FrontBoardLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!FrontBoardLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __FrontBoardLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2797F4D18;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __FrontBoardLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2797F4D18;
+    v5 = 0;
     FrontBoardLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!FrontBoardLibraryCore_frameworkLibrary)
   {
-    v2 = [MEMORY[0x277CCA890] currentHandler];
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *FrontBoardLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"_UIKeyboardArbiter.m" lineNumber:51 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x277CCA890] currentHandler];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *FrontBoardLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"_UIKeyboardArbiter.m" lineNumber:51 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void FrontBoardLibrary_0()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!FrontBoardLibraryCore_frameworkLibrary_0)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __FrontBoardLibraryCore_block_invoke_0;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2797F4E18;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __FrontBoardLibraryCore_block_invoke_0;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2797F4E18;
+    v5 = 0;
     FrontBoardLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   if (!FrontBoardLibraryCore_frameworkLibrary_0)
   {
-    v2 = [MEMORY[0x277CCA890] currentHandler];
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *FrontBoardLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"_UIKeyboardArbiterHost.m" lineNumber:24 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x277CCA890] currentHandler];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *FrontBoardLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"_UIKeyboardArbiterHost.m" lineNumber:24 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __getFBSceneManagerClass_block_invoke(uint64_t a1)
@@ -346,11 +342,11 @@ void sub_2557BF240(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2557BF96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2557BF96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -363,11 +359,8 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t __FrontBoardLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FrontBoardLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -389,9 +382,9 @@ void __TIGetDisableArbiterConnectionTimeoutValue_block_invoke()
   [v0 _configureKey:@"DisableArbiterConnectionTimeout" domain:@"com.apple.keyboard" defaultValue:MEMORY[0x277CBEC28]];
 }
 
-void sub_2557D4118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2557D4118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -427,20 +420,17 @@ id getFBLocalSynchronousSceneClientProviderClass()
   return v1;
 }
 
-void sub_2557D4528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2557D4528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __FrontBoardLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FrontBoardLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 

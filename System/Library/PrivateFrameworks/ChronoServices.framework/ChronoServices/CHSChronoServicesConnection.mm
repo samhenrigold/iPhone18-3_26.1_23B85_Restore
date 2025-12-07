@@ -98,8 +98,8 @@
 
 void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_cold_1(a1, v2);
@@ -110,27 +110,26 @@ void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke(uint
   {
     objc_initWeak(&location, *(a1 + 32));
     v4 = *(*(a1 + 32) + 64);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_111;
-    v11[3] = &unk_1E7453CF8;
-    objc_copyWeak(&v12, &location);
-    v11[4] = *(a1 + 40);
-    [v3 subscribeToExtensionsWithProviderOptions:v4 completion:v11];
-    v5 = CHSLogChronoServices();
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_111;
+    v10[3] = &unk_1E7453CF8;
+    objc_copyWeak(&v11, &location);
+    v10[4] = *(a1 + 40);
+    v5 = CHSLogChronoServices([v3 subscribeToExtensionsWithProviderOptions:v4 completion:v10]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = [*(*(*(a1 + 40) + 8) + 40) value];
       __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_cold_2(v6, buf, v5);
     }
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v7 = CHSLogChronoServices();
+    v7 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -141,8 +140,6 @@ void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke(uint
     v9 = [MEMORY[0x1E696ABC0] serverUnavailable];
     [v8 setError:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_111(uint64_t a1, void *a2, void *a3, void *a4)
@@ -152,21 +149,22 @@ void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_111(
   v8 = a3;
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v11 = WeakRetained;
   if (WeakRetained)
   {
     if (v7)
     {
       [*(*(*(a1 + 32) + 8) + 40) setAssertion:v8];
-      v11 = [v7 sequenceNumber];
-      v12 = CHSLogChronoServices();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v12 = [v7 sequenceNumber];
+      v13 = CHSLogChronoServices(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [v7 extensions];
+        v14 = [v7 extensions];
         v17 = 134218240;
-        v18 = v11;
+        v18 = v12;
         v19 = 2048;
-        v20 = [v13 count];
-        _os_log_impl(&dword_195EB2000, v12, OS_LOG_TYPE_DEFAULT, "Subscription initial extensions box sequence %lu, with %lu extensions", &v17, 0x16u);
+        v20 = [v14 count];
+        _os_log_impl(&dword_195EB2000, v13, OS_LOG_TYPE_DEFAULT, "Subscription initial extensions box sequence %lu, with %lu extensions", &v17, 0x16u);
       }
 
       [*(*(*(a1 + 32) + 8) + 40) setValue:v7];
@@ -175,16 +173,14 @@ void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_111(
 
     else if (v9)
     {
-      v14 = CHSLogChronoServices();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = CHSLogChronoServices(WeakRetained);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = [v9 description];
-        __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_111_cold_1(v15, &v17, v14);
+        v16 = [v9 description];
+        __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_111_cold_1(v16, &v17, v15);
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_debugRestartServer
@@ -242,11 +238,11 @@ void __49__CHSChronoServicesConnection_ncBridgeConnection__block_invoke()
 - (id)_initWithMachServiceName:(id)name listenForReconnect:(BOOL)reconnect
 {
   reconnectCopy = reconnect;
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v67.receiver = self;
-  v67.super_class = CHSChronoServicesConnection;
-  v7 = [(CHSChronoServicesConnection *)&v67 init];
+  v66.receiver = self;
+  v66.super_class = CHSChronoServicesConnection;
+  v7 = [(CHSChronoServicesConnection *)&v66 init];
   if (v7)
   {
     v8 = [nameCopy copy];
@@ -281,69 +277,69 @@ void __49__CHSChronoServicesConnection_ncBridgeConnection__block_invoke()
     {
 LABEL_8:
       v26 = [CHSServerSubscription alloc];
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 3221225472;
-      v63[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_2;
-      v63[3] = &unk_1E74539B0;
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_2;
+      v62[3] = &unk_1E74539B0;
       v27 = v7;
-      v64 = v27;
-      v28 = [(CHSServerSubscription *)v26 initWithIdentifier:@"extensions" serverSubscriptionBlock:v63];
+      v63 = v27;
+      v28 = [(CHSServerSubscription *)v26 initWithIdentifier:@"extensions" serverSubscriptionBlock:v62];
       notQueue_extensionsSubscription = v27->_notQueue_extensionsSubscription;
       v27->_notQueue_extensionsSubscription = v28;
 
       v30 = [CHSServerSubscription alloc];
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_3;
-      v61[3] = &unk_1E74539B0;
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_3;
+      v60[3] = &unk_1E74539B0;
       v31 = v27;
-      v62 = v31;
-      v32 = [(CHSServerSubscription *)v30 initWithIdentifier:@"remoteDevices" serverSubscriptionBlock:v61];
+      v61 = v31;
+      v32 = [(CHSServerSubscription *)v30 initWithIdentifier:@"remoteDevices" serverSubscriptionBlock:v60];
       notQueue_remoteDevicesSubscription = v31->_notQueue_remoteDevicesSubscription;
       v31->_notQueue_remoteDevicesSubscription = v32;
 
       v34 = [CHSServerSubscription alloc];
-      v59[0] = MEMORY[0x1E69E9820];
-      v59[1] = 3221225472;
-      v59[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_4;
-      v59[3] = &unk_1E74539B0;
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_4;
+      v58[3] = &unk_1E74539B0;
       v35 = v31;
-      v60 = v35;
-      v36 = [(CHSServerSubscription *)v34 initWithIdentifier:@"timelineEntryRelevance" serverSubscriptionBlock:v59];
+      v59 = v35;
+      v36 = [(CHSServerSubscription *)v34 initWithIdentifier:@"timelineEntryRelevance" serverSubscriptionBlock:v58];
       notQueue_timelineEntryRelevanceSubscription = v35->_notQueue_timelineEntryRelevanceSubscription;
       v35->_notQueue_timelineEntryRelevanceSubscription = v36;
 
       v38 = [CHSServerSubscription alloc];
-      v57[0] = MEMORY[0x1E69E9820];
-      v57[1] = 3221225472;
-      v57[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_5;
-      v57[3] = &unk_1E74539B0;
+      v56[0] = MEMORY[0x1E69E9820];
+      v56[1] = 3221225472;
+      v56[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_5;
+      v56[3] = &unk_1E74539B0;
       v39 = v35;
-      v58 = v39;
-      v40 = [(CHSServerSubscription *)v38 initWithIdentifier:@"widgetRelevance" serverSubscriptionBlock:v57];
+      v57 = v39;
+      v40 = [(CHSServerSubscription *)v38 initWithIdentifier:@"widgetRelevance" serverSubscriptionBlock:v56];
       notQueue_widgetRelevanceSubscription = v39->_notQueue_widgetRelevanceSubscription;
       v39->_notQueue_widgetRelevanceSubscription = v40;
 
       v42 = [CHSServerSubscription alloc];
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_6;
-      v55[3] = &unk_1E74539B0;
+      v54[0] = MEMORY[0x1E69E9820];
+      v54[1] = 3221225472;
+      v54[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke_6;
+      v54[3] = &unk_1E74539B0;
       v43 = v39;
-      v56 = v43;
-      v44 = [(CHSServerSubscription *)v42 initWithIdentifier:@"activityService" serverSubscriptionBlock:v55];
+      v55 = v43;
+      v44 = [(CHSServerSubscription *)v42 initWithIdentifier:@"activityService" serverSubscriptionBlock:v54];
       notQueue_activityServiceSubscription = v43->_notQueue_activityServiceSubscription;
       v43->_notQueue_activityServiceSubscription = v44;
 
       v46 = MEMORY[0x1E695DFD8];
       v47 = v31->_notQueue_remoteDevicesSubscription;
-      v69[0] = v27->_notQueue_extensionsSubscription;
-      v69[1] = v47;
+      v68[0] = v27->_notQueue_extensionsSubscription;
+      v68[1] = v47;
       v48 = v39->_notQueue_widgetRelevanceSubscription;
-      v69[2] = v35->_notQueue_timelineEntryRelevanceSubscription;
-      v69[3] = v48;
-      v69[4] = v43->_notQueue_activityServiceSubscription;
-      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:5];
+      v68[2] = v35->_notQueue_timelineEntryRelevanceSubscription;
+      v68[3] = v48;
+      v68[4] = v43->_notQueue_activityServiceSubscription;
+      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:5];
       v50 = [v46 setWithArray:v49];
       notQueue_subscriptions = v43->_notQueue_subscriptions;
       v43->_notQueue_subscriptions = v50;
@@ -351,23 +347,23 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v68[0] = 0;
+    v67[0] = 0;
     if (!ProactiveSuggestionClientModelLibraryCore_frameworkLibrary)
     {
-      v68[1] = MEMORY[0x1E69E9820];
-      v68[2] = 3221225472;
-      v68[3] = __ProactiveSuggestionClientModelLibraryCore_block_invoke;
-      v68[4] = &__block_descriptor_40_e5_v8__0l;
-      v68[5] = v68;
-      v70 = xmmword_1E7453D90;
-      v71 = 0;
+      v67[1] = MEMORY[0x1E69E9820];
+      v67[2] = 3221225472;
+      v67[3] = __ProactiveSuggestionClientModelLibraryCore_block_invoke;
+      v67[4] = &__block_descriptor_40_e5_v8__0l;
+      v67[5] = v67;
+      v69 = xmmword_1E7453D90;
+      v70 = 0;
       ProactiveSuggestionClientModelLibraryCore_frameworkLibrary = _sl_dlopen();
     }
 
     if (ProactiveSuggestionClientModelLibraryCore_frameworkLibrary)
     {
-      v23 = v68[0];
-      if (!v68[0])
+      v23 = v67[0];
+      if (!v67[0])
       {
 LABEL_7:
         v24 = CHSChronodStartupNotification;
@@ -376,7 +372,7 @@ LABEL_7:
         handler[1] = 3221225472;
         handler[2] = __75__CHSChronoServicesConnection__initWithMachServiceName_listenForReconnect___block_invoke;
         handler[3] = &unk_1E7453988;
-        v66 = v7;
+        v65 = v7;
         notify_register_dispatch(v24, p_serverStartupToken, v25, handler);
 
         goto LABEL_8;
@@ -387,7 +383,7 @@ LABEL_7:
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       p_serverStartupToken = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ProactiveSuggestionClientModelLibrary(void)"];
-      [currentHandler handleFailureInFunction:p_serverStartupToken file:@"CHSChronoServicesConnection.m" lineNumber:43 description:{@"%s", v68[0]}];
+      [currentHandler handleFailureInFunction:p_serverStartupToken file:@"CHSChronoServicesConnection.m" lineNumber:43 description:{@"%s", v67[0]}];
 
       __break(1u);
     }
@@ -398,7 +394,6 @@ LABEL_7:
 
 LABEL_9:
 
-  v52 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -437,30 +432,29 @@ LABEL_9:
   {
     cachedValue = [(CHSServerSubscription *)self->_notQueue_extensionsSubscription cachedValue];
     extensions = [cachedValue extensions];
-    v9 = [(CHSChronoServicesConnection *)self _filterExtensions:extensions toOptions:v6];
+    v10 = [(CHSChronoServicesConnection *)self _filterExtensions:extensions toOptions:v6];
   }
 
   else
   {
-    cachedValue = CHSLogChronoServices();
+    cachedValue = CHSLogChronoServices(v7);
     if (os_log_type_enabled(cachedValue, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v6 description];
+      v11 = [v6 description];
       *buf = 138543362;
-      v22 = v10;
+      v22 = v11;
       _os_log_impl(&dword_195EB2000, cachedValue, OS_LOG_TYPE_DEFAULT, "cachedExtensionsWithOptions: Not using cache for %{public}@", buf, 0xCu);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   _Block_object_dispose(&v17, 8);
-  v11 = *MEMORY[0x1E69E9840];
 
-  return v9;
+  return v10;
 }
 
-uint64_t __59__CHSChronoServicesConnection_cachedExtensionsWithOptions___block_invoke(uint64_t a1)
+void *__59__CHSChronoServicesConnection_cachedExtensionsWithOptions___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isSubsetOf:*(*(a1 + 40) + 64)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -519,7 +513,7 @@ uint64_t __59__CHSChronoServicesConnection_cachedExtensionsWithOptions___block_i
 
 void __47__CHSChronoServicesConnection_allPairedDevices__block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __47__CHSChronoServicesConnection_allPairedDevices__block_invoke_cold_1();
@@ -538,7 +532,7 @@ void __47__CHSChronoServicesConnection_allPairedDevices__block_invoke(uint64_t a
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __47__CHSChronoServicesConnection_allPairedDevices__block_invoke_cold_2();
@@ -566,7 +560,7 @@ void __47__CHSChronoServicesConnection_allPairedDevices__block_invoke(uint64_t a
 void __53__CHSChronoServicesConnection_pairDevice_completion___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -575,33 +569,31 @@ void __53__CHSChronoServicesConnection_pairDevice_completion___block_invoke(uint
     _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "Pairing device %@", &v11, 0xCu);
   }
 
-  v4 = CHSLogChronoServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = CHSLogChronoServices(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __53__CHSChronoServicesConnection_pairDevice_completion___block_invoke_cold_1();
   }
 
-  v5 = [*(a1 + 40) _queue_remoteTargetCreatingConnectionIfNecessary:1];
-  v6 = v5;
-  if (v5)
+  v6 = [*(a1 + 40) _queue_remoteTargetCreatingConnectionIfNecessary:1];
+  v7 = v6;
+  if (v6)
   {
-    [v5 pairDeviceWith:*(a1 + 32) completion:*(a1 + 48)];
+    [v6 pairDeviceWith:*(a1 + 32) completion:*(a1 + 48)];
   }
 
   else
   {
-    v7 = CHSLogChronoServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CHSLogChronoServices(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __53__CHSChronoServicesConnection_pairDevice_completion___block_invoke_cold_2();
     }
 
-    v8 = *(a1 + 48);
-    v9 = [MEMORY[0x1E696ABC0] serverUnavailable];
-    (*(v8 + 16))(v8, v9);
+    v9 = *(a1 + 48);
+    v10 = [MEMORY[0x1E696ABC0] serverUnavailable];
+    (*(v9 + 16))(v9, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)unpairDevice:(id)device error:(id *)error
@@ -643,49 +635,47 @@ void __53__CHSChronoServicesConnection_pairDevice_completion___block_invoke(uint
 
 void __50__CHSChronoServicesConnection_unpairDevice_error___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v17 = v3;
+    v18 = v3;
     _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "Unpairing device %@", buf, 0xCu);
   }
 
-  v4 = CHSLogChronoServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = CHSLogChronoServices(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __50__CHSChronoServicesConnection_unpairDevice_error___block_invoke_cold_1();
   }
 
-  v5 = [*(a1 + 40) _queue_remoteTargetCreatingConnectionIfNecessary:1];
-  v6 = v5;
-  if (v5)
+  v6 = [*(a1 + 40) _queue_remoteTargetCreatingConnectionIfNecessary:1];
+  v7 = v6;
+  if (v6)
   {
-    v7 = *(a1 + 32);
-    v8 = *(*(a1 + 56) + 8);
-    obj = *(v8 + 40);
-    v9 = [v5 unpairDeviceWith:v7 error:&obj];
-    objc_storeStrong((v8 + 40), obj);
-    *(*(*(a1 + 48) + 8) + 24) = v9;
+    v8 = *(a1 + 32);
+    v9 = *(*(a1 + 56) + 8);
+    obj = *(v9 + 40);
+    v10 = [v6 unpairDeviceWith:v8 error:&obj];
+    objc_storeStrong((v9 + 40), obj);
+    *(*(*(a1 + 48) + 8) + 24) = v10;
   }
 
   else
   {
-    v10 = [MEMORY[0x1E696ABC0] serverUnavailable];
-    v11 = *(*(a1 + 56) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v11 = [MEMORY[0x1E696ABC0] serverUnavailable];
+    v12 = *(*(a1 + 56) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
 
-    v13 = CHSLogChronoServices();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = CHSLogChronoServices(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __50__CHSChronoServicesConnection_unpairDevice_error___block_invoke_cold_2();
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)toggleRemoteWidgetsEnabled:(BOOL)enabled error:(id *)error
@@ -724,8 +714,8 @@ void __50__CHSChronoServicesConnection_unpairDevice_error___block_invoke(uint64_
 
 void __64__CHSChronoServicesConnection_toggleRemoteWidgetsEnabled_error___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     if (*(a1 + 56))
@@ -739,42 +729,40 @@ void __64__CHSChronoServicesConnection_toggleRemoteWidgetsEnabled_error___block_
     }
 
     *buf = 136315138;
-    v15 = v3;
+    v16 = v3;
     _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "Setting remote widgets to %s", buf, 0xCu);
   }
 
-  v4 = CHSLogChronoServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = CHSLogChronoServices(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __64__CHSChronoServicesConnection_toggleRemoteWidgetsEnabled_error___block_invoke_cold_1();
   }
 
-  v5 = [*(a1 + 32) _queue_remoteTargetCreatingConnectionIfNecessary:1];
-  if (v5)
+  v6 = [*(a1 + 32) _queue_remoteTargetCreatingConnectionIfNecessary:1];
+  if (v6)
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
-    v7 = *(*(a1 + 48) + 8);
-    obj = *(v7 + 40);
-    v8 = [v5 toggleRemoteWidgetsEnabled:v6 error:&obj];
-    objc_storeStrong((v7 + 40), obj);
-    *(*(*(a1 + 40) + 8) + 24) = v8;
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
+    v8 = *(*(a1 + 48) + 8);
+    obj = *(v8 + 40);
+    v9 = [v6 toggleRemoteWidgetsEnabled:v7 error:&obj];
+    objc_storeStrong((v8 + 40), obj);
+    *(*(*(a1 + 40) + 8) + 24) = v9;
   }
 
   else
   {
-    v9 = [MEMORY[0x1E696ABC0] serverUnavailable];
-    v10 = *(*(a1 + 48) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v10 = [MEMORY[0x1E696ABC0] serverUnavailable];
+    v11 = *(*(a1 + 48) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
 
-    v6 = CHSLogChronoServices();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CHSLogChronoServices(v13);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __64__CHSChronoServicesConnection_toggleRemoteWidgetsEnabled_error___block_invoke_cold_2();
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)reloadRemoteWidgetsWithError:(id *)error
@@ -812,39 +800,39 @@ void __64__CHSChronoServicesConnection_toggleRemoteWidgetsEnabled_error___block_
 
 void __60__CHSChronoServicesConnection_reloadRemoteWidgetsWithError___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "Reloading remote widgets", buf, 2u);
   }
 
-  v3 = CHSLogChronoServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = CHSLogChronoServices(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __60__CHSChronoServicesConnection_reloadRemoteWidgetsWithError___block_invoke_cold_1();
   }
 
-  v4 = [*(a1 + 32) _queue_remoteTargetCreatingConnectionIfNecessary:1];
-  v5 = v4;
-  if (v4)
+  v5 = [*(a1 + 32) _queue_remoteTargetCreatingConnectionIfNecessary:1];
+  v6 = v5;
+  if (v5)
   {
-    v6 = *(*(a1 + 48) + 8);
-    obj = *(v6 + 40);
-    v7 = [v4 reloadRemoteWidgetsWithError:&obj];
-    objc_storeStrong((v6 + 40), obj);
-    *(*(*(a1 + 40) + 8) + 24) = v7;
+    v7 = *(*(a1 + 48) + 8);
+    obj = *(v7 + 40);
+    v8 = [v5 reloadRemoteWidgetsWithError:&obj];
+    objc_storeStrong((v7 + 40), obj);
+    *(*(*(a1 + 40) + 8) + 24) = v8;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E696ABC0] serverUnavailable];
-    v9 = *(*(a1 + 48) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v9 = [MEMORY[0x1E696ABC0] serverUnavailable];
+    v10 = *(*(a1 + 48) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
-    v11 = CHSLogChronoServices();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CHSLogChronoServices(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __60__CHSChronoServicesConnection_reloadRemoteWidgetsWithError___block_invoke_cold_2();
     }
@@ -872,7 +860,7 @@ void __60__CHSChronoServicesConnection_reloadRemoteWidgetsWithError___block_invo
 
 void __51__CHSChronoServicesConnection_remoteWidgetsEnabled__block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __51__CHSChronoServicesConnection_remoteWidgetsEnabled__block_invoke_cold_1();
@@ -887,7 +875,7 @@ void __51__CHSChronoServicesConnection_remoteWidgetsEnabled__block_invoke(uint64
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__CHSChronoServicesConnection_remoteWidgetsEnabled__block_invoke_cold_2();
@@ -910,7 +898,7 @@ void __44__CHSChronoServicesConnection_flushPowerlog__block_invoke(uint64_t a1)
 {
   if (*(*(a1 + 32) + 32) == 1)
   {
-    v2 = CHSLogChronoServices();
+    v2 = CHSLogChronoServices(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __44__CHSChronoServicesConnection_flushPowerlog__block_invoke_cold_1();
@@ -938,7 +926,7 @@ void __44__CHSChronoServicesConnection_flushPowerlog__block_invoke(uint64_t a1)
 
 void __55__CHSChronoServicesConnection_retryStuckRemotePairings__block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __55__CHSChronoServicesConnection_retryStuckRemotePairings__block_invoke_cold_1();
@@ -953,7 +941,7 @@ void __55__CHSChronoServicesConnection_retryStuckRemotePairings__block_invoke(ui
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __55__CHSChronoServicesConnection_retryStuckRemotePairings__block_invoke_cold_2();
@@ -980,7 +968,7 @@ void __55__CHSChronoServicesConnection_retryStuckRemotePairings__block_invoke(ui
 
 void __69__CHSChronoServicesConnection_modifyDescriptorEnablement_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __69__CHSChronoServicesConnection_modifyDescriptorEnablement_completion___block_invoke_cold_1();
@@ -995,7 +983,7 @@ void __69__CHSChronoServicesConnection_modifyDescriptorEnablement_completion___b
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __69__CHSChronoServicesConnection_modifyDescriptorEnablement_completion___block_invoke_cold_2();
@@ -1023,7 +1011,7 @@ void __69__CHSChronoServicesConnection_modifyDescriptorEnablement_completion___b
 
 void __65__CHSChronoServicesConnection_performDescriptorDiscoveryForHost___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __65__CHSChronoServicesConnection_performDescriptorDiscoveryForHost___block_invoke_cold_1();
@@ -1038,7 +1026,7 @@ void __65__CHSChronoServicesConnection_performDescriptorDiscoveryForHost___block
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __65__CHSChronoServicesConnection_performDescriptorDiscoveryForHost___block_invoke_cold_2();
@@ -1065,7 +1053,7 @@ void __65__CHSChronoServicesConnection_performDescriptorDiscoveryForHost___block
 
 void __88__CHSChronoServicesConnection_reloadDescriptorsForContainerBundleIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __88__CHSChronoServicesConnection_reloadDescriptorsForContainerBundleIdentifier_completion___block_invoke_cold_1();
@@ -1080,7 +1068,7 @@ void __88__CHSChronoServicesConnection_reloadDescriptorsForContainerBundleIdenti
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __88__CHSChronoServicesConnection_reloadDescriptorsForContainerBundleIdentifier_completion___block_invoke_cold_2();
@@ -1111,7 +1099,7 @@ void __88__CHSChronoServicesConnection_reloadDescriptorsForContainerBundleIdenti
 
 void __87__CHSChronoServicesConnection_fetchDescriptorsForContainerBundleIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __87__CHSChronoServicesConnection_fetchDescriptorsForContainerBundleIdentifier_completion___block_invoke_cold_1();
@@ -1126,7 +1114,7 @@ void __87__CHSChronoServicesConnection_fetchDescriptorsForContainerBundleIdentif
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __87__CHSChronoServicesConnection_fetchDescriptorsForContainerBundleIdentifier_completion___block_invoke_cold_2();
@@ -1170,7 +1158,7 @@ void __87__CHSChronoServicesConnection_fetchDescriptorsForContainerBundleIdentif
 
 void __52__CHSChronoServicesConnection_reloadTimeline_error___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __52__CHSChronoServicesConnection_reloadTimeline_error___block_invoke_cold_1();
@@ -1182,9 +1170,9 @@ void __52__CHSChronoServicesConnection_reloadTimeline_error___block_invoke(uint6
   {
     v5 = *(a1 + 40);
     v6 = *(*(a1 + 48) + 8);
-    v12 = *(v6 + 40);
-    [v3 reloadTimeline:v5 error:&v12];
-    v7 = v12;
+    v13 = *(v6 + 40);
+    [v3 reloadTimeline:v5 error:&v13];
+    v7 = v13;
     v8 = *(v6 + 40);
     *(v6 + 40) = v7;
   }
@@ -1196,7 +1184,7 @@ void __52__CHSChronoServicesConnection_reloadTimeline_error___block_invoke(uint6
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
 
-    v8 = CHSLogChronoServices();
+    v8 = CHSLogChronoServices(v12);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __52__CHSChronoServicesConnection_reloadTimeline_error___block_invoke_cold_2();
@@ -1232,7 +1220,7 @@ void __52__CHSChronoServicesConnection_reloadTimeline_error___block_invoke(uint6
 
 void __72__CHSChronoServicesConnection_widgetEnvironmentDataForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __72__CHSChronoServicesConnection_widgetEnvironmentDataForBundleIdentifier___block_invoke_cold_1();
@@ -1247,7 +1235,7 @@ void __72__CHSChronoServicesConnection_widgetEnvironmentDataForBundleIdentifier_
 
   else
   {
-    v6 = CHSLogChronoServices();
+    v6 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __72__CHSChronoServicesConnection_widgetEnvironmentDataForBundleIdentifier___block_invoke_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -1292,7 +1280,7 @@ void __72__CHSChronoServicesConnection_widgetEnvironmentDataForBundleIdentifier_
 
 void __91__CHSChronoServicesConnection__URLSessionDidCompleteForExtensionWithBundleIdentifier_info___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __91__CHSChronoServicesConnection__URLSessionDidCompleteForExtensionWithBundleIdentifier_info___block_invoke_cold_1();
@@ -1307,7 +1295,7 @@ void __91__CHSChronoServicesConnection__URLSessionDidCompleteForExtensionWithBun
 
   else
   {
-    v6 = CHSLogChronoServices();
+    v6 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __91__CHSChronoServicesConnection__URLSessionDidCompleteForExtensionWithBundleIdentifier_info___block_invoke_cold_2();
@@ -1338,8 +1326,7 @@ void __91__CHSChronoServicesConnection__URLSessionDidCompleteForExtensionWithBun
 void __48__CHSChronoServicesConnection_removeWidgetHost___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) identifier];
-  [*(*(a1 + 40) + 56) setObject:0 forKeyedSubscript:v2];
-  v3 = CHSLogChronoServices();
+  v3 = CHSLogChronoServices([*(*(a1 + 40) + 56) setObject:0 forKeyedSubscript:v2]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __48__CHSChronoServicesConnection_removeWidgetHost___block_invoke_cold_1();
@@ -1354,7 +1341,7 @@ void __48__CHSChronoServicesConnection_removeWidgetHost___block_invoke(uint64_t 
 
   else
   {
-    v6 = CHSLogChronoServices();
+    v6 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __48__CHSChronoServicesConnection_removeWidgetHost___block_invoke_cold_2(v2, v6, v7, v8, v9, v10, v11, v12);
@@ -1379,8 +1366,7 @@ void __48__CHSChronoServicesConnection_removeWidgetHost___block_invoke(uint64_t 
 void __62__CHSChronoServicesConnection_updateWidgetHostConfigurations___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) identifier];
-  [*(*(a1 + 40) + 56) setObject:*(a1 + 32) forKeyedSubscript:v2];
-  v3 = CHSLogChronoServices();
+  v3 = CHSLogChronoServices([*(*(a1 + 40) + 56) setObject:*(a1 + 32) forKeyedSubscript:v2]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __62__CHSChronoServicesConnection_updateWidgetHostConfigurations___block_invoke_cold_1(v2, v3);
@@ -1396,7 +1382,7 @@ void __62__CHSChronoServicesConnection_updateWidgetHostConfigurations___block_in
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __62__CHSChronoServicesConnection_updateWidgetHostConfigurations___block_invoke_cold_2(v2, v5, v7, v8, v9, v10, v11, v12);
@@ -1421,8 +1407,7 @@ void __62__CHSChronoServicesConnection_updateWidgetHostConfigurations___block_in
 void __63__CHSChronoServicesConnection_updateWidgetHostActivationState___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) identifier];
-  [*(*(a1 + 40) + 56) setObject:*(a1 + 32) forKeyedSubscript:v2];
-  v3 = CHSLogChronoServices();
+  v3 = CHSLogChronoServices([*(*(a1 + 40) + 56) setObject:*(a1 + 32) forKeyedSubscript:v2]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __63__CHSChronoServicesConnection_updateWidgetHostActivationState___block_invoke_cold_1();
@@ -1438,7 +1423,7 @@ void __63__CHSChronoServicesConnection_updateWidgetHostActivationState___block_i
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __63__CHSChronoServicesConnection_updateWidgetHostActivationState___block_invoke_cold_2();
@@ -1462,7 +1447,7 @@ void __63__CHSChronoServicesConnection_updateWidgetHostActivationState___block_i
 
 void __75__CHSChronoServicesConnection_allWidgetConfigurationsByHostWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __75__CHSChronoServicesConnection_allWidgetConfigurationsByHostWithCompletion___block_invoke_cold_1();
@@ -1477,7 +1462,7 @@ void __75__CHSChronoServicesConnection_allWidgetConfigurationsByHostWithCompleti
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __75__CHSChronoServicesConnection_allWidgetConfigurationsByHostWithCompletion___block_invoke_cold_2();
@@ -1508,7 +1493,7 @@ void __75__CHSChronoServicesConnection_allWidgetConfigurationsByHostWithCompleti
 
 void __94__CHSChronoServicesConnection_getAppIntentsXPCListenerEndpointForBundleIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __94__CHSChronoServicesConnection_getAppIntentsXPCListenerEndpointForBundleIdentifier_completion___block_invoke_cold_1();
@@ -1523,7 +1508,7 @@ void __94__CHSChronoServicesConnection_getAppIntentsXPCListenerEndpointForBundle
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __94__CHSChronoServicesConnection_getAppIntentsXPCListenerEndpointForBundleIdentifier_completion___block_invoke_cold_2();
@@ -1557,7 +1542,7 @@ void __94__CHSChronoServicesConnection_getAppIntentsXPCListenerEndpointForBundle
 
 void __69__CHSChronoServicesConnection_launchLiveActivityWithID_deviceID_url___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __69__CHSChronoServicesConnection_launchLiveActivityWithID_deviceID_url___block_invoke_cold_1();
@@ -1572,7 +1557,7 @@ void __69__CHSChronoServicesConnection_launchLiveActivityWithID_deviceID_url___b
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __69__CHSChronoServicesConnection_launchLiveActivityWithID_deviceID_url___block_invoke_cold_2();
@@ -1647,29 +1632,27 @@ void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOpti
   *(*(*(a1 + 56) + 8) + 24) = [v2 isEqual:v3] ^ 1;
   [*(*(a1 + 32) + 48) setObject:*(a1 + 40) forKey:*(a1 + 48)];
   objc_storeStrong((*(a1 + 32) + 64), v3);
-  v4 = CHSLogChronoServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CHSLogChronoServices(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [v3 description];
-    v6 = v5;
+    v6 = [v3 description];
+    v7 = v6;
     if (*(*(*(a1 + 56) + 8) + 24))
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
     else
     {
-      v7 = @"NO";
+      v8 = @"NO";
     }
 
     v9 = 138543618;
-    v10 = v5;
+    v10 = v6;
     v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_195EB2000, v4, OS_LOG_TYPE_DEFAULT, "Extension subscription updating options to %{public}@, forcing update %@", &v9, 0x16u);
+    v12 = v8;
+    _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "Extension subscription updating options to %{public}@, forcing update %@", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOptions_outExtensions___block_invoke_69(uint64_t a1)
@@ -1696,7 +1679,7 @@ void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOpti
 void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOptions_outExtensions___block_invoke_2(uint64_t a1)
 {
   v24 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1746,30 +1729,28 @@ void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOpti
   }
 
   objc_storeStrong((*(a1 + 32) + 64), v4);
-  v11 = CHSLogChronoServices();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = CHSLogChronoServices(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [(CHSWidgetExtensionProviderOptions *)v4 description];
+    v13 = [(CHSWidgetExtensionProviderOptions *)v4 description];
     *buf = 138543362;
-    v22 = v12;
-    _os_log_impl(&dword_195EB2000, v11, OS_LOG_TYPE_DEFAULT, "Extension subscription updating options to %{public}@", buf, 0xCu);
+    v22 = v13;
+    _os_log_impl(&dword_195EB2000, v12, OS_LOG_TYPE_DEFAULT, "Extension subscription updating options to %{public}@", buf, 0xCu);
   }
 
-  v13 = dispatch_get_global_queue(33, 0);
+  v14 = dispatch_get_global_queue(33, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOptions_outExtensions___block_invoke_71;
   block[3] = &unk_1E7453B18;
   v16 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
   block[4] = *(a1 + 32);
-  dispatch_async(v13, block);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_async(v14, block);
 }
 
 void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOptions_outExtensions___block_invoke_71(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [*(*(a1[5] + 8) + 40) invalidate];
   v2 = *(a1[5] + 8);
   v3 = *(v2 + 40);
@@ -1778,16 +1759,16 @@ void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOpti
   if (*(*(a1[6] + 8) + 24) == 1)
   {
     v4 = *(a1[4] + 96);
-    v16 = 0;
-    v5 = [v4 updateSubscription:&v16];
-    v6 = v16;
+    v15 = 0;
+    v5 = [v4 updateSubscription:&v15];
+    v6 = v15;
     v7 = [v5 extensions];
-    v8 = CHSLogChronoServices();
+    v8 = CHSLogChronoServices(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [v7 count];
       *buf = 134217984;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "Extension subscription new extension count: %lu", buf, 0xCu);
     }
 
@@ -1798,12 +1779,10 @@ void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOpti
     block[2] = __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOptions_outExtensions___block_invoke_72;
     block[3] = &unk_1E7453000;
     block[4] = v10;
-    v15 = v7;
+    v14 = v7;
     v12 = v7;
     dispatch_async(v11, block);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadSuggestedWidget:(id)widget metrics:(id)metrics stackIdentifier:(id)identifier reason:(id)reason completion:(id)completion
@@ -1834,7 +1813,7 @@ void __90__CHSChronoServicesConnection_subscribeToExtensions_fromClient_withOpti
 
 void __93__CHSChronoServicesConnection_loadSuggestedWidget_metrics_stackIdentifier_reason_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __93__CHSChronoServicesConnection_loadSuggestedWidget_metrics_stackIdentifier_reason_completion___block_invoke_cold_1();
@@ -1849,7 +1828,7 @@ void __93__CHSChronoServicesConnection_loadSuggestedWidget_metrics_stackIdentifi
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __93__CHSChronoServicesConnection_loadSuggestedWidget_metrics_stackIdentifier_reason_completion___block_invoke_cold_2();
@@ -1876,7 +1855,7 @@ void __93__CHSChronoServicesConnection_loadSuggestedWidget_metrics_stackIdentifi
 
 void __79__CHSChronoServicesConnection_suggestionBudgetsForStackIdentifiers_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __79__CHSChronoServicesConnection_suggestionBudgetsForStackIdentifiers_completion___block_invoke_cold_1();
@@ -1898,7 +1877,7 @@ void __79__CHSChronoServicesConnection_suggestionBudgetsForStackIdentifiers_comp
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __79__CHSChronoServicesConnection_suggestionBudgetsForStackIdentifiers_completion___block_invoke_cold_2();
@@ -1958,7 +1937,7 @@ void __79__CHSChronoServicesConnection_suggestionBudgetsForStackIdentifiers_comp
 
 void __98__CHSChronoServicesConnection_acquireKeepAliveAssertionForExtensionBundleIdentifier_reason_error___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __98__CHSChronoServicesConnection_acquireKeepAliveAssertionForExtensionBundleIdentifier_reason_error___block_invoke_cold_1();
@@ -1979,7 +1958,7 @@ void __98__CHSChronoServicesConnection_acquireKeepAliveAssertionForExtensionBund
 
   else
   {
-    v10 = CHSLogChronoServices();
+    v10 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __98__CHSChronoServicesConnection_acquireKeepAliveAssertionForExtensionBundleIdentifier_reason_error___block_invoke_cold_2();
@@ -2016,7 +1995,7 @@ void __98__CHSChronoServicesConnection_acquireKeepAliveAssertionForExtensionBund
 
 void __89__CHSChronoServicesConnection_reloadWidgetRelevanceForExtensionIdentity_kind_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __89__CHSChronoServicesConnection_reloadWidgetRelevanceForExtensionIdentity_kind_completion___block_invoke_cold_1();
@@ -2058,7 +2037,7 @@ void __89__CHSChronoServicesConnection_reloadWidgetRelevanceForExtensionIdentity
 
 void __78__CHSChronoServicesConnection_invalidateRelevancesOfKind_inBundle_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __78__CHSChronoServicesConnection_invalidateRelevancesOfKind_inBundle_completion___block_invoke_cold_1();
@@ -2106,7 +2085,7 @@ void __78__CHSChronoServicesConnection_invalidateRelevancesOfKind_inBundle_compl
 
 void __100__CHSChronoServicesConnection_acquireLifetimeAssertionForWidget_metrics_prewarm_timeout_completion___block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __100__CHSChronoServicesConnection_acquireLifetimeAssertionForWidget_metrics_prewarm_timeout_completion___block_invoke_cold_1();
@@ -2129,71 +2108,68 @@ void __100__CHSChronoServicesConnection_acquireLifetimeAssertionForWidget_metric
 - (void)timelineEntryRelevanceDidChange:(id)change
 {
   changeCopy = change;
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
   timelineRelevanceEntries = [changeCopy timelineRelevanceEntries];
   [(CHSServerSubscription *)self->_notQueue_timelineEntryRelevanceSubscription setCachedValue:timelineRelevanceEntries];
-  v7 = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __63__CHSChronoServicesConnection_timelineEntryRelevanceDidChange___block_invoke;
-  v9[3] = &unk_1E7453000;
-  v9[4] = self;
-  v10 = timelineRelevanceEntries;
-  v8 = timelineRelevanceEntries;
-  dispatch_async(v7, v9);
+  queue = self->_queue;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __63__CHSChronoServicesConnection_timelineEntryRelevanceDidChange___block_invoke;
+  v8[3] = &unk_1E7453000;
+  v8[4] = self;
+  v9 = timelineRelevanceEntries;
+  v7 = timelineRelevanceEntries;
+  dispatch_async(queue, v8);
 }
 
 - (void)widgetExtensionsDidChange:(id)change
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
   sequenceNumber = [changeCopy sequenceNumber];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__2;
-  v25 = __Block_byref_object_dispose__2;
-  v26 = 0;
-  v7 = CHSLogChronoServices();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__2;
+  v23 = __Block_byref_object_dispose__2;
+  v24 = 0;
+  v6 = CHSLogChronoServices(sequenceNumber);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     extensions = [changeCopy extensions];
-    v9 = [extensions count];
+    v8 = [extensions count];
     *buf = 134218240;
-    v28 = sequenceNumber;
-    v29 = 2048;
-    v30 = v9;
-    _os_log_impl(&dword_195EB2000, v7, OS_LOG_TYPE_DEFAULT, "Received extensions box sequence %lu, with %lu extensions", buf, 0x16u);
+    v26 = sequenceNumber;
+    v27 = 2048;
+    v28 = v8;
+    _os_log_impl(&dword_195EB2000, v6, OS_LOG_TYPE_DEFAULT, "Received extensions box sequence %lu, with %lu extensions", buf, 0x16u);
   }
 
   notQueue_extensionsSubscription = self->_notQueue_extensionsSubscription;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke;
-  v17[3] = &unk_1E7453C58;
-  v19 = &v21;
-  v20 = sequenceNumber;
-  v11 = changeCopy;
-  v18 = v11;
-  [(CHSServerSubscription *)notQueue_extensionsSubscription updateCachedValue:v17];
-  if (v22[5])
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke;
+  v15[3] = &unk_1E7453C58;
+  v17 = &v19;
+  v18 = sequenceNumber;
+  v10 = changeCopy;
+  v16 = v10;
+  [(CHSServerSubscription *)notQueue_extensionsSubscription updateCachedValue:v15];
+  if (v20[5])
   {
-    v12 = self->_queue;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke_78;
-    v14[3] = &unk_1E7453A78;
-    v14[4] = self;
-    v16 = &v21;
-    v15 = v11;
-    dispatch_async(v12, v14);
+    queue = self->_queue;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke_78;
+    v12[3] = &unk_1E7453A78;
+    v12[4] = self;
+    v14 = &v19;
+    v13 = v10;
+    dispatch_async(queue, v12);
   }
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
 }
 
 void *__57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke(uint64_t a1, void *a2)
@@ -2201,34 +2177,34 @@ void *__57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 48);
-  if (v4 <= [v3 sequenceNumber])
+  v5 = [v3 sequenceNumber];
+  if (v4 <= v5)
   {
-    v9 = CHSLogChronoServices();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CHSLogChronoServices(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 48);
+      v11 = *(a1 + 48);
       v14 = 134217984;
-      v15 = v10;
-      _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring stale extensions box change %lu", &v14, 0xCu);
+      v15 = v11;
+      _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring stale extensions box change %lu", &v14, 0xCu);
     }
 
-    v8 = v3;
+    v9 = v3;
   }
 
   else
   {
-    v5 = [*(a1 + 32) extensions];
-    v6 = *(*(a1 + 40) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v6 = [*(a1 + 32) extensions];
+    v7 = *(*(a1 + 40) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    v8 = *(a1 + 32);
+    v9 = *(a1 + 32);
   }
 
-  v11 = v8;
+  v12 = v9;
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 void __57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke_78(uint64_t a1)
@@ -2242,167 +2218,156 @@ void __57__CHSChronoServicesConnection_widgetExtensionsDidChange___block_invoke_
 - (void)handleWidgetRelevanceEvent:(id)event
 {
   eventCopy = event;
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v6 = self->_queue;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __58__CHSChronoServicesConnection_handleWidgetRelevanceEvent___block_invoke;
-  v8[3] = &unk_1E7453000;
-  v8[4] = self;
-  v9 = eventCopy;
-  v7 = eventCopy;
-  dispatch_async(v6, v8);
+  queue = self->_queue;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __58__CHSChronoServicesConnection_handleWidgetRelevanceEvent___block_invoke;
+  v7[3] = &unk_1E7453000;
+  v7[4] = self;
+  v8 = eventCopy;
+  v6 = eventCopy;
+  dispatch_async(queue, v7);
 }
 
 - (void)nearbyDevicesDidChange:(id)change
 {
   changeCopy = change;
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
   devices = [changeCopy devices];
   [(CHSServerSubscription *)self->_notQueue_remoteDevicesSubscription setCachedValue:devices];
-  v7 = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __54__CHSChronoServicesConnection_nearbyDevicesDidChange___block_invoke;
-  v9[3] = &unk_1E7453000;
-  v9[4] = self;
-  v10 = devices;
-  v8 = devices;
-  dispatch_async(v7, v9);
+  queue = self->_queue;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __54__CHSChronoServicesConnection_nearbyDevicesDidChange___block_invoke;
+  v8[3] = &unk_1E7453000;
+  v8[4] = self;
+  v9 = devices;
+  v7 = devices;
+  dispatch_async(queue, v8);
 }
 
 - (void)activityDidUpdate:(id)update payloadID:(id)d
 {
   updateCopy = update;
   dCopy = d;
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v9 = self->_queue;
+  queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __59__CHSChronoServicesConnection_activityDidUpdate_payloadID___block_invoke;
   block[3] = &unk_1E7453278;
   block[4] = self;
-  v13 = updateCopy;
-  v14 = dCopy;
-  v10 = dCopy;
-  v11 = updateCopy;
-  dispatch_async(v9, block);
+  v12 = updateCopy;
+  v13 = dCopy;
+  v9 = dCopy;
+  v10 = updateCopy;
+  dispatch_async(queue, block);
 }
 
 - (void)_queue_notifyDevicesDidChange:(id)change
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  v6 = CHSLogChronoServices();
+  v5 = BSDispatchQueueAssert();
+  v6 = CHSLogChronoServices(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [changeCopy count];
+    v15 = [changeCopy count];
     _os_log_impl(&dword_195EB2000, v6, OS_LOG_TYPE_DEFAULT, "Notifying of %lu remote devices changed.", buf, 0xCu);
   }
 
   v7 = [(NSHashTable *)self->_queue_observers copy];
   callOutQueue = self->_callOutQueue;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __61__CHSChronoServicesConnection__queue_notifyDevicesDidChange___block_invoke;
-  v12[3] = &unk_1E7453000;
-  v13 = v7;
-  v14 = changeCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __61__CHSChronoServicesConnection__queue_notifyDevicesDidChange___block_invoke;
+  v11[3] = &unk_1E7453000;
+  v12 = v7;
+  v13 = changeCopy;
   v9 = changeCopy;
   v10 = v7;
-  dispatch_async(callOutQueue, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  dispatch_async(callOutQueue, v11);
 }
 
 void __61__CHSChronoServicesConnection__queue_notifyDevicesDidChange___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
-          [v6 nearbyDevicesDidChange:{*(a1 + 40), v8}];
+          [v6 nearbyDevicesDidChange:{*(a1 + 40), v7}];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_notifyExtensionsDidChange:(id)change generatedWithOptions:(id)options
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   optionsCopy = options;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v9 = [(NSHashTable *)self->_queue_observers copy];
-  v10 = CHSLogChronoServices();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v8 = [(NSHashTable *)self->_queue_observers copy];
+  v9 = CHSLogChronoServices(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v9 count];
-    v12 = [changeCopy count];
-    v13 = [optionsCopy description];
+    v10 = [v8 count];
+    v11 = [changeCopy count];
+    v12 = [optionsCopy description];
     *buf = 134218498;
+    v26 = v10;
+    v27 = 2048;
     v28 = v11;
-    v29 = 2048;
+    v29 = 2112;
     v30 = v12;
-    v31 = 2112;
-    v32 = v13;
-    _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, "Notifying %lu clients of %lu widget extensions changed for opt %@.", buf, 0x20u);
+    _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "Notifying %lu clients of %lu widget extensions changed for opt %@.", buf, 0x20u);
   }
 
-  v14 = [(NSMapTable *)self->_queue_extensionProviderOptionsByClient copy];
+  v13 = [(NSMapTable *)self->_queue_extensionProviderOptionsByClient copy];
   callOutQueue = self->_callOutQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __85__CHSChronoServicesConnection__queue_notifyExtensionsDidChange_generatedWithOptions___block_invoke;
   block[3] = &unk_1E7453C80;
-  v22 = v9;
-  v23 = v14;
-  v24 = optionsCopy;
+  v20 = v8;
+  v21 = v13;
+  v22 = optionsCopy;
   selfCopy = self;
-  v26 = changeCopy;
-  v16 = changeCopy;
-  v17 = optionsCopy;
-  v18 = v14;
-  v19 = v9;
+  v24 = changeCopy;
+  v15 = changeCopy;
+  v16 = optionsCopy;
+  v17 = v13;
+  v18 = v8;
   dispatch_async(callOutQueue, block);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __85__CHSChronoServicesConnection__queue_notifyExtensionsDidChange_generatedWithOptions___block_invoke(uint64_t a1)
@@ -2434,38 +2399,38 @@ void __85__CHSChronoServicesConnection__queue_notifyExtensionsDidChange_generate
         {
           v6 = [*(a1 + 40) objectForKey:v5];
           v7 = v6;
-          if (*(a1 + 48) && ![v6 isSubsetOf:?])
+          if (*(a1 + 48) && (v8 = [v6 isSubsetOf:?], !v8))
           {
-            v8 = CHSLogChronoServices();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+            v9 = CHSLogChronoServices(v8);
+            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
             {
-              v12 = [v7 description];
+              v13 = [v7 description];
               *buf = v15;
               v23 = v5;
               v24 = 2114;
-              v25 = v12;
-              _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "Not notifying client:%p because options don't match, wanted %{public}@", buf, 0x16u);
+              v25 = v13;
+              _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "Not notifying client:%p because options don't match, wanted %{public}@", buf, 0x16u);
             }
           }
 
           else
           {
-            v8 = [*(a1 + 56) _filterExtensions:*(a1 + 64) toOptions:{v7, v15}];
-            v9 = CHSLogChronoServices();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+            v9 = [*(a1 + 56) _filterExtensions:*(a1 + 64) toOptions:{v7, v15}];
+            v10 = CHSLogChronoServices(v9);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              v10 = [v8 count];
-              v11 = [v7 description];
+              v11 = [v9 count];
+              v12 = [v7 description];
               *buf = 134218498;
               v23 = v5;
               v24 = 2048;
-              v25 = v10;
+              v25 = v11;
               v26 = 2114;
-              v27 = v11;
-              _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "Notifying client:%p of %lu widget extensions changed, opts: %{public}@.", buf, 0x20u);
+              v27 = v12;
+              _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, "Notifying client:%p of %lu widget extensions changed, opts: %{public}@.", buf, 0x20u);
             }
 
-            [v5 widgetExtensionsDidChange:v8];
+            [v5 widgetExtensionsDidChange:v9];
           }
         }
 
@@ -2473,238 +2438,224 @@ void __85__CHSChronoServicesConnection__queue_notifyExtensionsDidChange_generate
       }
 
       while (v2 != v4);
-      v13 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
-      v2 = v13;
+      v14 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v2 = v14;
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_filterExtensions:(id)extensions toOptions:(id)options
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __59__CHSChronoServicesConnection__filterExtensions_toOptions___block_invoke;
-  v32[3] = &unk_1E7453CA8;
-  v23 = optionsCopy;
-  v33 = v23;
-  v20 = [extensions bs_filter:v32];
-  v22 = [MEMORY[0x1E695DFA8] set];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __59__CHSChronoServicesConnection__filterExtensions_toOptions___block_invoke;
+  v31[3] = &unk_1E7453CA8;
+  v22 = optionsCopy;
+  v32 = v22;
+  v19 = [extensions bs_filter:v31];
+  v21 = [MEMORY[0x1E695DFA8] set];
   v29 = 0u;
-  obj = v20;
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  obj = v19;
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v6)
   {
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         orderedWidgetDescriptors = [v9 orderedWidgetDescriptors];
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __59__CHSChronoServicesConnection__filterExtensions_toOptions___block_invoke_2;
-        v26[3] = &unk_1E7453138;
-        v11 = v23;
-        v27 = v11;
-        v12 = [orderedWidgetDescriptors bs_filter:v26];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __59__CHSChronoServicesConnection__filterExtensions_toOptions___block_invoke_2;
+        v25[3] = &unk_1E7453138;
+        v11 = v22;
+        v26 = v11;
+        v12 = [orderedWidgetDescriptors bs_filter:v25];
 
         orderedControlDescriptors = [v9 orderedControlDescriptors];
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __59__CHSChronoServicesConnection__filterExtensions_toOptions___block_invoke_3;
-        v24[3] = &unk_1E7453780;
-        v25 = v11;
-        v14 = [orderedControlDescriptors bs_filter:v24];
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __59__CHSChronoServicesConnection__filterExtensions_toOptions___block_invoke_3;
+        v23[3] = &unk_1E7453780;
+        v24 = v11;
+        v14 = [orderedControlDescriptors bs_filter:v23];
 
         v15 = [v9 mutableCopy];
         [v15 setOrderedWidgetDescriptors:v12];
         [v15 setOrderedControlDescriptors:v14];
         v16 = [v15 copy];
-        [v22 addObject:v16];
+        [v21 addObject:v16];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v6);
   }
 
-  v17 = [v22 copy];
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = [v21 copy];
 
   return v17;
 }
 
 - (void)_queue_notifyTimelineEntryRelevanceDidChange:(id)change
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  v6 = CHSLogChronoServices();
+  v5 = BSDispatchQueueAssert();
+  v6 = CHSLogChronoServices(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [changeCopy count];
+    v15 = [changeCopy count];
     _os_log_impl(&dword_195EB2000, v6, OS_LOG_TYPE_DEFAULT, "Notifying of %lu timeline entry relevance sets changed.", buf, 0xCu);
   }
 
   v7 = [(NSHashTable *)self->_queue_observers copy];
   callOutQueue = self->_callOutQueue;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __76__CHSChronoServicesConnection__queue_notifyTimelineEntryRelevanceDidChange___block_invoke;
-  v12[3] = &unk_1E7453000;
-  v13 = v7;
-  v14 = changeCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __76__CHSChronoServicesConnection__queue_notifyTimelineEntryRelevanceDidChange___block_invoke;
+  v11[3] = &unk_1E7453000;
+  v12 = v7;
+  v13 = changeCopy;
   v9 = changeCopy;
   v10 = v7;
-  dispatch_async(callOutQueue, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  dispatch_async(callOutQueue, v11);
 }
 
 void __76__CHSChronoServicesConnection__queue_notifyTimelineEntryRelevanceDidChange___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
-          [v6 timelineEntryRelevanceDidChange:{*(a1 + 40), v8}];
+          [v6 timelineEntryRelevanceDidChange:{*(a1 + 40), v7}];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_notifyHandleWidgetRelevanceEvent:(id)event
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   eventCopy = event;
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  v6 = CHSLogChronoServices();
+  v5 = BSDispatchQueueAssert();
+  v6 = CHSLogChronoServices(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [eventCopy description];
     *buf = 138412290;
-    v17 = v7;
+    v16 = v7;
     _os_log_impl(&dword_195EB2000, v6, OS_LOG_TYPE_DEFAULT, "Notifying of widget relevance event %@", buf, 0xCu);
   }
 
   v8 = [(NSHashTable *)self->_queue_observers copy];
   callOutQueue = self->_callOutQueue;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __71__CHSChronoServicesConnection__queue_notifyHandleWidgetRelevanceEvent___block_invoke;
-  v13[3] = &unk_1E7453000;
-  v14 = v8;
-  v15 = eventCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__CHSChronoServicesConnection__queue_notifyHandleWidgetRelevanceEvent___block_invoke;
+  v12[3] = &unk_1E7453000;
+  v13 = v8;
+  v14 = eventCopy;
   v10 = eventCopy;
   v11 = v8;
-  dispatch_async(callOutQueue, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  dispatch_async(callOutQueue, v12);
 }
 
 void __71__CHSChronoServicesConnection__queue_notifyHandleWidgetRelevanceEvent___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
-          [v6 handleWidgetRelevanceEvent:{*(a1 + 40), v8}];
+          [v6 handleWidgetRelevanceEvent:{*(a1 + 40), v7}];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_notifyDidReceiveActivityUpdate:(id)update payloadID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   dCopy = d;
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  v9 = CHSLogChronoServices();
+  v8 = BSDispatchQueueAssert();
+  v9 = CHSLogChronoServices(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v21 = updateCopy;
-    v22 = 2112;
-    v23 = dCopy;
+    v20 = updateCopy;
+    v21 = 2112;
+    v22 = dCopy;
     _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "Notifying of activity update %@ payload ID %@", buf, 0x16u);
   }
 
@@ -2714,81 +2665,76 @@ void __71__CHSChronoServicesConnection__queue_notifyHandleWidgetRelevanceEvent__
   block[1] = 3221225472;
   block[2] = __79__CHSChronoServicesConnection__queue_notifyDidReceiveActivityUpdate_payloadID___block_invoke;
   block[3] = &unk_1E7453278;
-  v17 = v10;
-  v18 = updateCopy;
-  v19 = dCopy;
+  v16 = v10;
+  v17 = updateCopy;
+  v18 = dCopy;
   v12 = dCopy;
   v13 = updateCopy;
   v14 = v10;
   dispatch_async(callOutQueue, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __79__CHSChronoServicesConnection__queue_notifyDidReceiveActivityUpdate_payloadID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
-          [v6 activityDidUpdate:*(a1 + 40) payloadID:{*(a1 + 48), v8}];
+          [v6 activityDidUpdate:*(a1 + 40) payloadID:{*(a1 + 48), v7}];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_remoteTargetCreatingConnectionIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   remoteTarget = [(BSServiceConnection *)self->_queue_connection remoteTarget];
   if (remoteTarget)
   {
-    v7 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v7 = !necessaryCopy;
+    v6 = !necessaryCopy;
   }
 
-  if (!v7)
+  if (!v6)
   {
-    v8 = CHSLogChronoServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = CHSLogChronoServices(remoteTarget);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "Creating connection", v10, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_195EB2000, v7, OS_LOG_TYPE_DEFAULT, "Creating connection", v9, 2u);
     }
 
     [(CHSChronoServicesConnection *)self _queue_invalidateConnection];
@@ -2801,26 +2747,25 @@ void __79__CHSChronoServicesConnection__queue_notifyDidReceiveActivityUpdate_pay
 
 - (void)_queue_createConnection
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   if (!self->_queue_connection)
   {
-    v4 = MEMORY[0x1E698F498];
+    v3 = MEMORY[0x1E698F498];
     machServiceName = self->_machServiceName;
-    v6 = +[CHSChronoWidgetServiceSpecification identifier];
-    v7 = [v4 endpointForMachName:machServiceName service:v6 instance:0];
+    v5 = +[CHSChronoWidgetServiceSpecification identifier];
+    v6 = [v3 endpointForMachName:machServiceName service:v5 instance:0];
 
-    v8 = [MEMORY[0x1E698F490] connectionWithEndpoint:v7];
+    v7 = [MEMORY[0x1E698F490] connectionWithEndpoint:v6];
     queue_connection = self->_queue_connection;
-    self->_queue_connection = v8;
+    self->_queue_connection = v7;
 
-    v10 = self->_queue_connection;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __54__CHSChronoServicesConnection__queue_createConnection__block_invoke;
-    v11[3] = &unk_1E7453570;
-    v11[4] = self;
-    [(BSServiceConnection *)v10 configureConnection:v11];
+    v9 = self->_queue_connection;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __54__CHSChronoServicesConnection__queue_createConnection__block_invoke;
+    v10[3] = &unk_1E7453570;
+    v10[4] = self;
+    [(BSServiceConnection *)v9 configureConnection:v10];
     [(BSServiceConnection *)self->_queue_connection activate];
   }
 }
@@ -2858,7 +2803,7 @@ void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke(uin
 void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CHSLogChronoServices();
+  v4 = CHSLogChronoServices(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2926,27 +2871,27 @@ void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_2(u
 
 void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_96(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 32) = 1;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   obj = [*(*(a1 + 32) + 56) allKeys];
-  v2 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = [obj countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v2)
   {
-    v3 = *v13;
+    v3 = *v12;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v13 != v3)
+        if (*v12 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v12 + 1) + 8 * i);
+        v5 = *(*(&v11 + 1) + 8 * i);
         v6 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:v5];
         v7 = [*(a1 + 40) remoteTarget];
         v8 = [v6 configuration];
@@ -2954,19 +2899,17 @@ void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_96(
         [v7 setWidgetConfiguration:v8 activationState:v9 forWidgetHostWithIdentifier:v5];
       }
 
-      v2 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v2 = [obj countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v2);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_5(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2981,36 +2924,34 @@ void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_5(u
   block[3] = &unk_1E74530E8;
   block[4] = v3;
   dispatch_async(v4, block);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = *(*(a1 + 32) + 88);
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) noteConnectionTerminated];
+        [*(*(&v9 + 1) + 8 * v8++) noteConnectionTerminated];
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_2_100(uint64_t a1)
@@ -3053,25 +2994,22 @@ void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_2_1
     while (v5);
   }
 
-  v8 = CHSLogChronoServices();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = CHSLogChronoServices(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
-    _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "chrono widget service (service-side) connection invalidated", v10, 2u);
+    _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "chrono widget service (service-side) connection invalidated", v10, 2u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_invalidateConnection
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   queue_connection = self->_queue_connection;
   if (queue_connection)
   {
     [(BSServiceConnection *)queue_connection invalidate];
-    v5 = self->_queue_connection;
+    v4 = self->_queue_connection;
     self->_queue_connection = 0;
   }
 }
@@ -3079,35 +3017,33 @@ void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_2_1
 - (void)_queue_addClient:(id)client
 {
   clientCopy = client;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v6 = clientCopy;
+  v5 = clientCopy;
   if (!clientCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"CHSChronoServicesConnection.m" lineNumber:1066 description:{@"Invalid parameter not satisfying: %@", @"client != nil"}];
 
-    v6 = 0;
+    v5 = 0;
   }
 
-  [(NSHashTable *)self->_queue_observers addObject:v6];
+  [(NSHashTable *)self->_queue_observers addObject:v5];
 }
 
 - (void)_queue_removeClient:(id)client
 {
   clientCopy = client;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v6 = clientCopy;
+  v5 = clientCopy;
   if (!clientCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"CHSChronoServicesConnection.m" lineNumber:1073 description:{@"Invalid parameter not satisfying: %@", @"client != nil"}];
 
-    v6 = 0;
+    v5 = 0;
   }
 
-  [(NSHashTable *)self->_queue_observers removeObject:v6];
+  [(NSHashTable *)self->_queue_observers removeObject:v5];
   [(NSMapTable *)self->_queue_extensionProviderOptionsByClient removeObjectForKey:clientCopy];
 }
 
@@ -3152,7 +3088,7 @@ void __54__CHSChronoServicesConnection__queue_createConnection__block_invoke_2_1
 
 void __65__CHSChronoServicesConnection__subscribeToTimelineEntryRelevance__block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __65__CHSChronoServicesConnection__subscribeToTimelineEntryRelevance__block_invoke_cold_1();
@@ -3172,7 +3108,7 @@ void __65__CHSChronoServicesConnection__subscribeToTimelineEntryRelevance__block
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -3222,7 +3158,7 @@ void __65__CHSChronoServicesConnection__subscribeToTimelineEntryRelevance__block
 
 void __56__CHSChronoServicesConnection__subscribeToRemoteDevices__block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __56__CHSChronoServicesConnection__subscribeToRemoteDevices__block_invoke_cold_1();
@@ -3242,7 +3178,7 @@ void __56__CHSChronoServicesConnection__subscribeToRemoteDevices__block_invoke(u
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -3292,7 +3228,7 @@ void __56__CHSChronoServicesConnection__subscribeToRemoteDevices__block_invoke_1
 
 void __58__CHSChronoServicesConnection__subscribeToWidgetRelevance__block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__CHSChronoServicesConnection__subscribeToWidgetRelevance__block_invoke_cold_1();
@@ -3312,7 +3248,7 @@ void __58__CHSChronoServicesConnection__subscribeToWidgetRelevance__block_invoke
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -3357,7 +3293,7 @@ void __58__CHSChronoServicesConnection__subscribeToWidgetRelevance__block_invoke
 
 void __58__CHSChronoServicesConnection__subscribeToActivityService__block_invoke(uint64_t a1)
 {
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__CHSChronoServicesConnection__subscribeToActivityService__block_invoke_cold_1();
@@ -3377,7 +3313,7 @@ void __58__CHSChronoServicesConnection__subscribeToActivityService__block_invoke
 
   else
   {
-    v5 = CHSLogChronoServices();
+    v5 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -3400,42 +3336,40 @@ void __58__CHSChronoServicesConnection__subscribeToActivityService__block_invoke
 
 void __72__CHSChronoServicesConnection_widgetEnvironmentDataForBundleIdentifier___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_0(&dword_195EB2000, a1, a3, "Completing %s failed; unable to obtain the remote target", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CHSChronoServicesConnection widgetEnvironmentDataForBundleIdentifier:]_block_invoke";
+  OUTLINED_FUNCTION_3_0(&dword_195EB2000, a1, a3, "Completing %s failed; unable to obtain the remote target", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __48__CHSChronoServicesConnection_removeWidgetHost___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_0(&dword_195EB2000, a2, a3, "Failed to remove widget host with identifier %@; unable to obtain the remote target", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3_0(&dword_195EB2000, a2, a3, "Failed to remove widget host with identifier %@; unable to obtain the remote target", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __62__CHSChronoServicesConnection_updateWidgetHostConfigurations___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_195EB2000, a2, OS_LOG_TYPE_DEBUG, "xpc: setWidgetConfiguration with identifier=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_195EB2000, a2, OS_LOG_TYPE_DEBUG, "xpc: setWidgetConfiguration with identifier=%{public}@", &v2, 0xCu);
 }
 
 void __62__CHSChronoServicesConnection_updateWidgetHostConfigurations___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_0(&dword_195EB2000, a2, a3, "Failed to set configuration for widget host with identifier %@; unable to obtain the remote target", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3_0(&dword_195EB2000, a2, a3, "Failed to set configuration for widget host with identifier %@; unable to obtain the remote target", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 64);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_195EB2000, a2, OS_LOG_TYPE_DEBUG, "xpc: extension subscription - options=%{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_195EB2000, a2, OS_LOG_TYPE_DEBUG, "xpc: extension subscription - options=%{public}@", &v3, 0xCu);
 }
 
 void __53__CHSChronoServicesConnection__subscribeToExtensions__block_invoke_cold_2(void *a1, uint8_t *buf, os_log_t log)

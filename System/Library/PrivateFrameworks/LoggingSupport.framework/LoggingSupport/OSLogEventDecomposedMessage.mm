@@ -3,6 +3,7 @@
 - (id)argumentAtIndex:(unint64_t)index;
 - (id)literalPrefixAtIndex:(unint64_t)index;
 - (id)placeholderAtIndex:(unint64_t)index;
+- (os_log_fmt_raw_placeholder)_rawPlaceholderForIndex:(unsigned __int16)index;
 - (unint64_t)placeholderCount;
 - (void)_initializePlaceholders;
 - (void)_populateFields;
@@ -406,6 +407,20 @@ LABEL_25:
   v8 = self->_fmt;
 
   return [v7 stringWithCString:v8 encoding:4];
+}
+
+- (os_log_fmt_raw_placeholder)_rawPlaceholderForIndex:(unsigned __int16)index
+{
+  indexCopy = index;
+  if ([(OSLogEventDecomposedMessage *)self placeholderCount:index]<= index)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return (self->_rawPlaceholders + 104 * indexCopy);
+  }
 }
 
 @end

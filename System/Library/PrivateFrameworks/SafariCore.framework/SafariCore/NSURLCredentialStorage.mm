@@ -61,21 +61,21 @@ id __71__NSURLCredentialStorage_SafariCoreExtras__safari_allSafariCredentials__b
   return v7;
 }
 
-uint64_t __123__NSURLCredentialStorage_SafariCoreExtras__safari_migrateKeychainItemsWithInvalidAuthenticationTypesWithCompletionHandler___block_invoke(uint64_t a1)
+uint64_t __123__NSURLCredentialStorage_SafariCoreExtras__safari_migrateKeychainItemsWithInvalidAuthenticationTypesWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1B8447000, v2, OS_LOG_TYPE_INFO, "Starting migration for keychain items with invalid authentication types", buf, 2u);
-  }
-
-  [*(a1 + 32) _safari_migrateKeychainItemsWithInvalidAuthenticationTypes];
-  v3 = WBS_LOG_CHANNEL_PREFIXKeychain();
+  v3 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_INFO, "Finished migration for keychain items with invalid authentication types", v5, 2u);
+    *buf = 0;
+    _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_INFO, "Starting migration for keychain items with invalid authentication types", buf, 2u);
+  }
+
+  v4 = [*(a1 + 32) _safari_migrateKeychainItemsWithInvalidAuthenticationTypes];
+  v6 = WBS_LOG_CHANNEL_PREFIXKeychain(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *v8 = 0;
+    _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_INFO, "Finished migration for keychain items with invalid authentication types", v8, 2u);
   }
 
   result = *(a1 + 40);
@@ -145,11 +145,11 @@ BOOL __102__NSURLCredentialStorage_SafariCoreExtras___safari_migrateKeychainItem
     v12[0] = v3;
     v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v6 = SecItemDelete(v5);
-    v7 = v6 == 0;
+    v8 = v6 == 0;
     if (v6)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXKeychain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = WBS_LOG_CHANNEL_PREFIXKeychain(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __102__NSURLCredentialStorage_SafariCoreExtras___safari_migrateKeychainItemsWithInvalidAuthenticationTypes__block_invoke_94_cold_1();
       }
@@ -158,11 +158,10 @@ BOOL __102__NSURLCredentialStorage_SafariCoreExtras___safari_migrateKeychainItem
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
 void __107__NSURLCredentialStorage_SafariCoreExtras___safari_getSidecarKeychainItemsByTypeForPasswordOnSavedAccount___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -388,46 +387,42 @@ void __97__NSURLCredentialStorage_SafariCoreExtras__safari_test_purgeKeychainIte
   v9 = SecItemDelete([MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4]);
   if (v9)
   {
-    v10 = v9;
+    v11 = v9;
     if (v9 == -25300)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXKeychain();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = WBS_LOG_CHANNEL_PREFIXKeychain(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 138543618;
         v15 = v4;
         v16 = 2114;
         v17 = v5;
-        _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_DEFAULT, "No %{public}@ entries found to delete in %{public}@", &v14, 0x16u);
+        _os_log_impl(&dword_1B8447000, v12, OS_LOG_TYPE_DEFAULT, "No %{public}@ entries found to delete in %{public}@", &v14, 0x16u);
       }
     }
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXKeychain();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXKeychain(v9, v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = 138543874;
         v15 = v4;
         v16 = 2114;
         v17 = v5;
         v18 = 2048;
-        v19 = v10;
-        _os_log_error_impl(&dword_1B8447000, v12, OS_LOG_TYPE_ERROR, "Failed to delete all %{public}@ entries in %{public}@, result %ld", &v14, 0x20u);
+        v19 = v11;
+        _os_log_error_impl(&dword_1B8447000, v13, OS_LOG_TYPE_ERROR, "Failed to delete all %{public}@ entries in %{public}@, result %ld", &v14, 0x20u);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __102__NSURLCredentialStorage_SafariCoreExtras___safari_migrateKeychainItemsWithInvalidAuthenticationTypes__block_invoke_94_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -34,9 +34,9 @@
 - (int64_t)preferredUserInterfaceStyle
 {
   selfCopy = self;
-  v3 = sub_2747E281C();
+  v4 = sub_2747E281C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (_TtC10WorkflowUI37SmartShortcutPickerBaseViewController)initWithNibName:(id)name bundle:(id)bundle

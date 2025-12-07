@@ -44,7 +44,7 @@
   {
     peripheralsPendingRSSI = self->_peripheralsPendingRSSI;
     identifier = [peripheralCopy identifier];
-    v12 = [(NSMutableDictionary *)peripheralsPendingRSSI objectForKey:identifier];
+    v12 = objc_msgSend_objectForKey_(peripheralsPendingRSSI);
 
     if (v12)
     {

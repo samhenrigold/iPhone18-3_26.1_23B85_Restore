@@ -139,7 +139,7 @@
 
 - (void)initPlayer
 {
-  v3 = PencilPairingUIBundle();
+  v3 = PencilPairingUIBundle(self);
   v4 = [v3 URLForResource:@"autoRefineSample" withExtension:@"mov"];
 
   v5 = [MEMORY[0x277CE65B0] playerItemWithURL:v4];

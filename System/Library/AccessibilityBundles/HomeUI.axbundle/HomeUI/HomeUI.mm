@@ -70,19 +70,19 @@ LABEL_10:
 
 id accessibilityLabelForCustomWallpaper(void *a1)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   v1 = MEMORY[0x29EDBB9F8];
-  v12[0] = a1;
+  v11[0] = a1;
   v2 = MEMORY[0x29EDB8D80];
   v3 = a1;
-  v4 = [v2 arrayWithObjects:v12 count:1];
+  v4 = [v2 arrayWithObjects:v11 count:1];
   v5 = [v1 fetchAssetsWithLocalIdentifiers:v4 options:0];
 
   if (v5 && [v5 count])
   {
     v6 = [v5 firstObject];
     v7 = [v6 accessibilityLabel];
-    v11 = [v6 accessibilityValue];
+    v10 = [v6 accessibilityValue];
     v8 = __AXStringForVariables();
   }
 
@@ -90,8 +90,6 @@ id accessibilityLabelForCustomWallpaper(void *a1)
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -182,46 +180,46 @@ LABEL_9:
 
 id _accessibilityItemAccessoryType(void *a1)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   MEMORY[0x29C2DA460](@"HFItem");
   if (objc_opt_isKindOfClass())
   {
-    v21 = 0;
+    v20 = 0;
     objc_opt_class();
     v3 = [v1 safeValueForKey:@"accessories"];
     v4 = __UIAccessibilityCastAsClass();
 
     if (v4)
     {
-      v16 = v1;
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
+      v15 = v1;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v18;
+        v8 = *v17;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v18 != v8)
+            if (*v17 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v17 + 1) + 8 * i);
-            v21 = 0;
+            v10 = *(*(&v16 + 1) + 8 * i);
+            v20 = 0;
             objc_opt_class();
             v11 = [v10 safeValueForKeyPath:@"category.localizedDescription"];
             v12 = __UIAccessibilityCastAsClass();
 
-            if (v21 == 1)
+            if (v20 == 1)
             {
               abort();
             }
@@ -229,26 +227,24 @@ id _accessibilityItemAccessoryType(void *a1)
             [v2 axSafelyAddObject:v12];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
         }
 
         while (v7);
       }
 
-      v1 = v16;
+      v1 = v15;
     }
   }
 
   v13 = AXLabelForElements();
 
-  v14 = *MEMORY[0x29EDCA608];
-
   return v13;
 }
 
-void sub_29BE88A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29BE88A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -303,9 +299,9 @@ void sub_29BE8CF24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29BE8DD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29BE8DD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -363,9 +359,9 @@ void sub_29BE96A14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29BE96D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29BE96D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -377,9 +373,9 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_29BE98754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29BE98754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

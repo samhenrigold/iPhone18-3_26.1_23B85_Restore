@@ -51,10 +51,10 @@
     {
       v11 = [(WFVariableSubstitutableParameterState *)[WFFileParameterState alloc] initWithValue:v10];
       serializedRepresentation = [(WFVariableSubstitutableParameterState *)v11 serializedRepresentation];
-LABEL_21:
-      v22 = serializedRepresentation;
+LABEL_19:
+      v19 = serializedRepresentation;
 
-      goto LABEL_23;
+      goto LABEL_21;
     }
   }
 
@@ -85,36 +85,29 @@ LABEL_21:
 
   v17 = v16;
 
-  bOOLValue2 = [v17 BOOLValue];
+  [v17 BOOLValue];
   if (v10)
   {
-    v19 = 0x1E695DEC8;
-    if (!bOOLValue2)
-    {
-      v19 = 0x1E695DF20;
-    }
-
-    v20 = *v19;
     v11 = v10;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = v11;
+      v18 = v11;
     }
 
     else
     {
-      v21 = 0;
+      v18 = 0;
     }
 
-    serializedRepresentation = v21;
-    goto LABEL_21;
+    serializedRepresentation = v18;
+    goto LABEL_19;
   }
 
-  v22 = 0;
-LABEL_23:
+  v19 = 0;
+LABEL_21:
 
-  return v22;
+  return v19;
 }
 
 - (BOOL)parameterStateIsValid:(id)valid
@@ -139,11 +132,11 @@ LABEL_23:
 
 - (WFFilePickerParameter)initWithDefinition:(id)definition
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
-  v22.receiver = self;
-  v22.super_class = WFFilePickerParameter;
-  v5 = [(WFParameter *)&v22 initWithDefinition:definitionCopy];
+  v21.receiver = self;
+  v21.super_class = WFFilePickerParameter;
+  v5 = [(WFParameter *)&v21 initWithDefinition:definitionCopy];
   if (v5)
   {
     v6 = [definitionCopy objectForKey:@"AllowsMultipleValues"];
@@ -165,8 +158,8 @@ LABEL_23:
 
     if (![(NSArray *)v5->_supportedTypes count])
     {
-      v23[0] = *MEMORY[0x1E6982E48];
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+      v22[0] = *MEMORY[0x1E6982E48];
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
       v18 = v5->_supportedTypes;
       v5->_supportedTypes = v17;
     }
@@ -174,7 +167,6 @@ LABEL_23:
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -121,7 +121,7 @@
           LODWORD(buf) = 138412290;
           *(&buf + 4) = v28;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No device %@ to call RemoveDomain on", &buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "No device %@ to call RemoveDomain on", v28);
         }
 
         v21 = 1;
@@ -153,7 +153,7 @@ LABEL_12:
   {
     LOWORD(buf) = 0;
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No account to call RemoveDomain on", &buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "No account to call RemoveDomain on");
   }
 
   v21 = 1;

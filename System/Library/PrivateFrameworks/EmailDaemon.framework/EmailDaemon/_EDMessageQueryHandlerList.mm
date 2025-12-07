@@ -55,36 +55,36 @@
 
 - (id)movesForExistingMessages:(id)messages
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   entryComparator = [(_EDMessageQueryHandlerList *)self entryComparator];
   sortDescriptors = [(_EDMessageQueryHandlerList *)self sortDescriptors];
   sectionPredicates = [(_EDMessageQueryHandlerList *)self sectionPredicates];
-  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v26 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
   entryList = [(_EDMessageQueryHandlerList *)self entryList];
-  v33 = [entryList copy];
+  v32 = [entryList copy];
   selfCopy = self;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = messagesCopy;
-  v5 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v5 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v5)
   {
-    v35 = *v43;
+    v34 = *v42;
     do
     {
-      v37 = v5;
-      for (i = 0; i != v37; ++i)
+      v36 = v5;
+      for (i = 0; i != v36; ++i)
       {
-        if (*v43 != v35)
+        if (*v42 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v42 + 1) + 8 * i);
+        v7 = *(*(&v41 + 1) + 8 * i);
         v8 = [[_EDMessageQueryHelperEntry alloc] initWithMessage:v7 sortDescriptors:sortDescriptors sectionPredicates:sectionPredicates];
         v9 = [entryList indexOfObject:v8];
         if (v9 != 0x7FFFFFFFFFFFFFFFLL)
@@ -95,14 +95,14 @@
 
           if ((sectionIndex & 1) == 0)
           {
-            v39[0] = MEMORY[0x1E69E9820];
-            v39[1] = 3221225472;
-            v39[2] = __55___EDMessageQueryHandlerList_movesForExistingMessages___block_invoke;
-            v39[3] = &unk_1E8254FE8;
-            v41 = entryComparator;
+            v38[0] = MEMORY[0x1E69E9820];
+            v38[1] = 3221225472;
+            v38[2] = __55___EDMessageQueryHandlerList_movesForExistingMessages___block_invoke;
+            v38[3] = &unk_1E8254FE8;
+            v40 = entryComparator;
             v12 = v8;
-            v40 = v12;
-            v13 = [v33 ef_firstObjectPassingTest:v39];
+            v39 = v12;
+            v13 = [v32 ef_firstObjectPassingTest:v38];
             null = v13;
             if (!v13)
             {
@@ -115,12 +115,12 @@
 
             if (v16 != v9)
             {
-              v17 = [v30 objectForKeyedSubscript:null];
+              v17 = [v29 objectForKeyedSubscript:null];
               if (!v17)
               {
                 v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
                 null2 = [MEMORY[0x1E695DFB0] null];
-                v29 = v18;
+                v28 = v18;
                 if (null == null2)
                 {
                   v23 = null;
@@ -135,10 +135,10 @@
                   v23 = [v19 initWithGlobalMessageID:globalMessageID mailboxScope:mailboxScope];
                 }
 
-                [v27 setObject:v29 forKeyedSubscript:v23];
-                [v30 setObject:v29 forKeyedSubscript:null];
+                [v26 setObject:v28 forKeyedSubscript:v23];
+                [v29 setObject:v28 forKeyedSubscript:null];
 
-                v17 = v29;
+                v17 = v28;
               }
 
               [v17 ef_insertObject:v7 usingSortDescriptors:sortDescriptors];
@@ -147,60 +147,58 @@
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v5 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v5);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v26;
 }
 
 - (id)insertMessagesReturningMessagesByPreviousObjectID:(id)d
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dCopy = d;
   entryComparator = [(_EDMessageQueryHandlerList *)self entryComparator];
   sortDescriptors = [(_EDMessageQueryHandlerList *)self sortDescriptors];
   sectionPredicates = [(_EDMessageQueryHandlerList *)self sectionPredicates];
-  v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
   entryList = [(_EDMessageQueryHandlerList *)self entryList];
-  v26 = [entryList copy];
+  v25 = [entryList copy];
   selfCopy = self;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = dCopy;
-  v5 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v5 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v5)
   {
-    v30 = *v39;
+    v29 = *v38;
     do
     {
-      v32 = v5;
-      for (i = 0; i != v32; ++i)
+      v31 = v5;
+      for (i = 0; i != v31; ++i)
       {
-        if (*v39 != v30)
+        if (*v38 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v38 + 1) + 8 * i);
+        v7 = *(*(&v37 + 1) + 8 * i);
         v8 = [[_EDMessageQueryHelperEntry alloc] initWithMessage:v7 sortDescriptors:sortDescriptors sectionPredicates:sectionPredicates];
         if (([entryList containsObject:v8] & 1) == 0)
         {
-          v35[0] = MEMORY[0x1E69E9820];
-          v35[1] = 3221225472;
-          v35[2] = __80___EDMessageQueryHandlerList_insertMessagesReturningMessagesByPreviousObjectID___block_invoke;
-          v35[3] = &unk_1E8254FE8;
-          v37 = entryComparator;
+          v34[0] = MEMORY[0x1E69E9820];
+          v34[1] = 3221225472;
+          v34[2] = __80___EDMessageQueryHandlerList_insertMessagesReturningMessagesByPreviousObjectID___block_invoke;
+          v34[3] = &unk_1E8254FE8;
+          v36 = entryComparator;
           v9 = v8;
-          v36 = v9;
-          v10 = [v26 ef_firstObjectPassingTest:v35];
+          v35 = v9;
+          v10 = [v25 ef_firstObjectPassingTest:v34];
           null = v10;
           if (!v10)
           {
@@ -210,12 +208,12 @@
           entryComparator2 = [(_EDMessageQueryHandlerList *)selfCopy entryComparator];
           [entryList ef_insertObjectIfAbsent:v9 usingComparator:entryComparator2];
 
-          v13 = [v29 objectForKeyedSubscript:null];
+          v13 = [v28 objectForKeyedSubscript:null];
           if (!v13)
           {
             v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
             null2 = [MEMORY[0x1E695DFB0] null];
-            v28 = v14;
+            v27 = v14;
             if (null == null2)
             {
               v20 = null;
@@ -230,25 +228,23 @@
               v20 = [v16 initWithGlobalMessageID:globalMessageID mailboxScope:mailboxScope];
             }
 
-            [v23 setObject:v28 forKeyedSubscript:v20];
-            [v29 setObject:v28 forKeyedSubscript:null];
+            [v22 setObject:v27 forKeyedSubscript:v20];
+            [v28 setObject:v27 forKeyedSubscript:null];
 
-            v13 = v28;
+            v13 = v27;
           }
 
           [v13 ef_insertObject:v7 usingSortDescriptors:sortDescriptors];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v5 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v5);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 - (BOOL)hasItemsInList

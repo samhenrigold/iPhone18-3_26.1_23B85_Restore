@@ -50,13 +50,13 @@
     [(UIImageView *)v4->_imageView setContentMode:1];
     [(UIImageView *)v4->_imageView setTranslatesAutoresizingMaskIntoConstraints:0];
     widthAnchor = [(UIImageView *)v4->_imageView widthAnchor];
-    [(SBHAddWidgetSheetAppCollectionViewCell *)v4 iconImageInfo];
+    objc_msgSend_iconImageInfo(v4);
     v9 = [widthAnchor constraintEqualToConstant:?];
     iconWidthConstraint = v4->_iconWidthConstraint;
     v4->_iconWidthConstraint = v9;
 
     heightAnchor = [(UIImageView *)v4->_imageView heightAnchor];
-    [(SBHAddWidgetSheetAppCollectionViewCell *)v4 iconImageInfo];
+    objc_msgSend_iconImageInfo(v4);
     v13 = [heightAnchor constraintEqualToConstant:v12];
     iconHeightConstraint = v4->_iconHeightConstraint;
     v4->_iconHeightConstraint = v13;

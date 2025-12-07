@@ -6,7 +6,7 @@
 + (BOOL)enumerateRelationshipsWithSubjectID:(int64_t)d skipDeleted:(BOOL)deleted database:(id)database error:(id *)error enumerationHandler:(id)handler;
 + (BOOL)removeRelationshipWithType:(int64_t)type subjectNodeID:(int64_t)d objectNodeID:(int64_t)iD database:(id)database error:(id *)error;
 + (BOOL)updateSlots:(unint64_t)slots subjectNodeID:(int64_t)d relationshipID:(int64_t)iD database:(id)database error:(id *)error;
-+ (HDSimpleGraphRelationship)_relationshipForRow:;
++ (HDSimpleGraphRelationship)_relationshipForRow:(uint64_t)row;
 + (id)_sqlForRelationshipsOfNodeSkipDeleted:(uint64_t)deleted;
 + (id)foreignKeys;
 + (id)indices;
@@ -203,7 +203,7 @@ uint64_t __104__HDSimpleGraphDatabaseRelationshipEntity_maxVersion_slots_subject
   return sqlite3_bind_int64(a2, 2, v4);
 }
 
-uint64_t __104__HDSimpleGraphDatabaseRelationshipEntity_maxVersion_slots_subjectNodeID_relationshipID_database_error___block_invoke_3(void *a1)
+uint64_t __104__HDSimpleGraphDatabaseRelationshipEntity_maxVersion_slots_subjectNodeID_relationshipID_database_error___block_invoke_3(void *a1, uint64_t a2)
 {
   *(*(a1[4] + 8) + 24) = HDSQLiteColumnAsInt64();
   *(*(a1[5] + 8) + 24) = HDSQLiteColumnAsInt64();
@@ -272,25 +272,24 @@ uint64_t __112__HDSimpleGraphDatabaseRelationshipEntity_removeRelationshipWithTy
 
 uint64_t __125__HDSimpleGraphDatabaseRelationshipEntity_enumerateRelationshipsWithPredicate_skipDeleted_database_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = +[HDSimpleGraphDatabaseRelationshipEntity _relationshipForRow:];
-  v8 = (*(v6 + 16))(v6, v7, a4);
+  v5 = *(a1 + 32);
+  v6 = [(HDSimpleGraphDatabaseRelationshipEntity *)*(a1 + 40) _relationshipForRow:a3];
+  v7 = (*(v5 + 16))(v5, v6, a4);
 
-  return v8;
+  return v7;
 }
 
-+ (HDSimpleGraphRelationship)_relationshipForRow:
++ (HDSimpleGraphRelationship)_relationshipForRow:(uint64_t)row
 {
   objc_opt_self();
-  v0 = HDSQLiteColumnAsInt64();
-  v1 = HDSQLiteColumnAsInt64();
   v2 = HDSQLiteColumnAsInt64();
   v3 = HDSQLiteColumnAsInt64();
   v4 = HDSQLiteColumnAsInt64();
-  v5 = [[HDSimpleGraphRelationship alloc] initWithRowID:v0 subjectID:v1 type:v2 objectID:v3 version:v4 slots:HDSQLiteColumnAsInt64()];
+  v5 = HDSQLiteColumnAsInt64();
+  v6 = HDSQLiteColumnAsInt64();
+  v7 = [[HDSimpleGraphRelationship alloc] initWithRowID:v2 subjectID:v3 type:v4 objectID:v5 version:v6 slots:HDSQLiteColumnAsInt64()];
 
-  return v5;
+  return v7;
 }
 
 + (BOOL)enumerateRelationshipsWithSubjectID:(int64_t)d skipDeleted:(BOOL)deleted database:(id)database error:(id *)error enumerationHandler:(id)handler
@@ -366,54 +365,48 @@ uint64_t __125__HDSimpleGraphDatabaseRelationshipEntity_enumerateRelationshipsWi
 
 uint64_t __125__HDSimpleGraphDatabaseRelationshipEntity_enumerateRelationshipsWithSubjectID_skipDeleted_database_error_enumerationHandler___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v6 = +[HDSimpleGraphDatabaseRelationshipEntity _relationshipForRow:];
-  v7 = (*(v5 + 16))(v5, v6, a3);
+  v4 = *(a1 + 32);
+  v5 = [(HDSimpleGraphDatabaseRelationshipEntity *)*(a1 + 40) _relationshipForRow:a2];
+  v6 = (*(v4 + 16))(v4, v5, a3);
 
-  return v7;
+  return v6;
 }
 
 + (id)foreignKeys
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"subject_id";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"subject_id";
   v2 = +[HDSimpleGraphDatabaseNodeEntity nodeEntityForeignKey];
-  v7[1] = @"object_id";
-  v8[0] = v2;
+  v6[1] = @"object_id";
+  v7[0] = v2;
   v3 = +[HDSimpleGraphDatabaseNodeEntity nodeEntityForeignKey];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"subject_id";
-  v5[1] = @"relationship_type";
-  v5[2] = @"object_id";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"subject_id";
+  v4[1] = @"relationship_type";
+  v4[2] = @"object_id";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }
 
 + (id)indices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v9 = @"object_id";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v8 = @"object_id";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
   v5 = [v2 initWithEntity:v3 name:@"object_id_index" columns:v4];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v6;
 }

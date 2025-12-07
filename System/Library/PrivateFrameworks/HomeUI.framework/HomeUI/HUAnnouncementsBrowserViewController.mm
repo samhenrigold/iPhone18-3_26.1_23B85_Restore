@@ -1224,24 +1224,24 @@ void __61__HUAnnouncementsBrowserViewController__beginRecordingReply___block_inv
   [v22 setAlpha:0.0];
 }
 
-uint64_t __61__HUAnnouncementsBrowserViewController__beginRecordingReply___block_invoke_2(uint64_t result, int a2)
+id *__61__HUAnnouncementsBrowserViewController__beginRecordingReply___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
     v3 = _HULocalizedStringWithDefaultValue(@"HUAnnounceStopRecordButton_AX_Label_Title", @"HUAnnounceStopRecordButton_AX_Label_Title", 1);
-    v4 = [*(v2 + 32) recordButton];
+    v4 = [v2[4] recordButton];
     [v4 setAccessibilityLabel:v3];
 
     v5 = _HULocalizedStringWithDefaultValue(@"HUAnnounceStopRecordButton_AX_Label_Hint", @"HUAnnounceStopRecordButton_AX_Label_Hint", 1);
-    v6 = [*(v2 + 32) recordButton];
+    v6 = [v2[4] recordButton];
     [v6 setAccessibilityHint:v5];
 
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
     v8[2] = __61__HUAnnouncementsBrowserViewController__beginRecordingReply___block_invoke_3;
     v8[3] = &unk_277DB8488;
-    v9 = *(v2 + 32);
+    v9 = v2[4];
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
     v7[2] = __61__HUAnnouncementsBrowserViewController__beginRecordingReply___block_invoke_4;
@@ -1368,8 +1368,8 @@ void __63__HUAnnouncementsBrowserViewController__sendAnnouncementReply___block_i
   notificationPayload2 = [(HUAnnouncementsBrowserViewController *)self notificationPayload];
   v7 = [notificationPayload2 objectForKeyedSubscript:*MEMORY[0x277CEA9F8]];
 
-  allKeys = [v5 allKeys];
-  if ([allKeys count])
+  v8 = objc_msgSend_allKeys(v5);
+  if ([v8 count])
   {
     v9 = objc_opt_new();
     v24[0] = MEMORY[0x277D85DD0];
@@ -1378,7 +1378,7 @@ void __63__HUAnnouncementsBrowserViewController__sendAnnouncementReply___block_i
     v24[3] = &unk_277DC2600;
     v10 = v9;
     v25 = v10;
-    [allKeys na_each:v24];
+    [v8 na_each:v24];
     announce = [(HUAnnouncementsBrowserViewController *)self announce];
     recordedAnnouncementURL = [(HUAnnouncementsBrowserViewController *)self recordedAnnouncementURL];
     v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v7];
@@ -1899,10 +1899,10 @@ void __56__HUAnnouncementsBrowserViewController__hideRecordingUI__block_invoke_3
     notificationPayload = [(HUAnnouncementsBrowserViewController *)self notificationPayload];
     v5 = [notificationPayload objectForKeyedSubscript:*MEMORY[0x277CEAA80]];
 
-    allKeys = [v5 allKeys];
+    v6 = objc_msgSend_allKeys(v5);
     currentHome = [(HUAnnouncementsBrowserViewController *)self currentHome];
     v8 = objc_alloc(MEMORY[0x277CCAD78]);
-    firstObject = [allKeys firstObject];
+    firstObject = [v6 firstObject];
     v10 = [v8 initWithUUIDString:firstObject];
     v11 = [currentHome hf_roomWithIdentifier:v10];
 

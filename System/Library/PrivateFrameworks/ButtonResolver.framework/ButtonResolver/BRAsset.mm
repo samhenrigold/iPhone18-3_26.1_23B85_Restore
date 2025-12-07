@@ -32,7 +32,7 @@
   return nullAsset_null;
 }
 
-uint64_t __20__BRAsset_nullAsset__block_invoke(uint64_t a1)
+void *__20__BRAsset_nullAsset__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) initWithType:0 andParameters:0 null:1];
   nullAsset_null = result;

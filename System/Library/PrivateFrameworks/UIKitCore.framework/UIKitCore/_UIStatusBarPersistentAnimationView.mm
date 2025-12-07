@@ -9,7 +9,7 @@
 {
   layerCopy = layer;
   keyCopy = key;
-  if ([keyCopy isEqualToString:*MEMORY[0x1E6979EE8]])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v8 = [UIViewBlockBasedCAAction alloc];
     v15[0] = MEMORY[0x1E69E9820];
@@ -23,7 +23,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([keyCopy isEqualToString:*MEMORY[0x1E6979EE0]])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v8 = [UIViewBlockBasedCAAction alloc];
     v14[0] = MEMORY[0x1E69E9820];

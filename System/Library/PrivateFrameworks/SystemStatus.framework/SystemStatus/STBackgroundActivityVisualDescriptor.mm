@@ -6,6 +6,7 @@
 - (STBackgroundActivityVisualDescriptor)init;
 - (STBackgroundActivityVisualDescriptor)initWithCoder:(id)coder;
 - (STBackgroundActivityVisualDescriptor)initWithPlistRepresentation:(id)representation;
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
@@ -529,7 +530,7 @@ uint64_t __102__STBackgroundActivityVisualDescriptor_BuiltIns__visualDescriptorF
 
 - (unint64_t)hash
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   builder = [MEMORY[0x1E698E6B8] builder];
   packageName = [(STBackgroundActivityVisualDescriptor *)self packageName];
   v5 = [builder appendString:packageName];
@@ -558,38 +559,37 @@ uint64_t __102__STBackgroundActivityVisualDescriptor_BuiltIns__visualDescriptorF
   v20 = [builder appendString:preferredContinuousAnimationName];
 
   v21 = [builder appendBool:{-[STBackgroundActivityVisualDescriptor prefersToSuppressDefaultUserInteractionHandler](self, "prefersToSuppressDefaultUserInteractionHandler")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   crossfadableActivities = [(STBackgroundActivityVisualDescriptor *)self crossfadableActivities];
-  v23 = [crossfadableActivities countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v23 = [crossfadableActivities countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v32;
+    v25 = *v31;
     do
     {
       v26 = 0;
       do
       {
-        if (*v32 != v25)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(crossfadableActivities);
         }
 
-        v27 = [builder appendString:*(*(&v31 + 1) + 8 * v26++)];
+        v27 = [builder appendString:*(*(&v30 + 1) + 8 * v26++)];
       }
 
       while (v24 != v26);
-      v24 = [crossfadableActivities countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v24 = [crossfadableActivities countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v24);
   }
 
   v28 = [builder hash];
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -622,6 +622,28 @@ uint64_t __102__STBackgroundActivityVisualDescriptor_BuiltIns__visualDescriptorF
   build = [v3 build];
 
   return build;
+}
+
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug
+{
+  debugCopy = debug;
+  prefixCopy = prefix;
+  succinctDescriptionBuilder = [(STBackgroundActivityVisualDescriptor *)self succinctDescriptionBuilder];
+  [succinctDescriptionBuilder setUseDebugDescription:debugCopy];
+  [succinctDescriptionBuilder setActiveMultilinePrefix:prefixCopy];
+
+  activeMultilinePrefix = [succinctDescriptionBuilder activeMultilinePrefix];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultilinePrefix_forDebug___block_invoke;
+  v12[3] = &unk_1E85DDD00;
+  v9 = succinctDescriptionBuilder;
+  v13 = v9;
+  selfCopy = self;
+  [v9 appendBodySectionWithName:0 multilinePrefix:activeMultilinePrefix block:v12];
+
+  v10 = v9;
+  return v9;
 }
 
 void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultilinePrefix_forDebug___block_invoke(uint64_t a1)
@@ -726,7 +748,7 @@ void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultiline
 
 - (STBackgroundActivityVisualDescriptor)initWithCoder:(id)coder
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = objc_opt_class();
@@ -740,11 +762,11 @@ void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultiline
   v14 = v13;
   [coderCopy decodeDoubleForKey:@"fontSizeAdjustment"];
   v16 = v15;
-  v38 = [coderCopy decodeBoolForKey:@"prefersToKeepContentVisible"];
+  v37 = [coderCopy decodeBoolForKey:@"prefersToKeepContentVisible"];
   v17 = [coderCopy decodeObjectOfClass:v5 forKey:@"preferredVisualEffectName"];
   v18 = [coderCopy decodeObjectOfClass:v5 forKey:@"preferredContinuousAnimationName"];
-  v39 = [coderCopy decodeBoolForKey:@"prefersToSuppressDefaultUserInteractionHandler"];
-  v40 = v7;
+  v38 = [coderCopy decodeBoolForKey:@"prefersToSuppressDefaultUserInteractionHandler"];
+  v39 = v7;
   v19 = [coderCopy decodeObjectOfClasses:v7 forKey:@"crossfadableActivities"];
 
   v20 = [(STBackgroundActivityVisualDescriptor *)self init];
@@ -769,7 +791,7 @@ void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultiline
     objc_storeStrong(&v20->_backgroundColorRepresentation, v12);
     v20->_verticalOffsetInPixels = v14;
     v20->_fontSizeAdjustment = v16;
-    v20->_prefersToKeepContentVisible = v38;
+    v20->_prefersToKeepContentVisible = v37;
     if (STBackgroundActivityIsVisualEffect(v17))
     {
       v29 = [v17 copy];
@@ -783,7 +805,7 @@ void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultiline
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = v17;
+        v41 = v17;
         _os_log_error_impl(&dword_1DA9C2000, v31, OS_LOG_TYPE_ERROR, "Expected a visual effect name, got: %@", buf, 0xCu);
       }
     }
@@ -801,24 +823,23 @@ void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultiline
       if (os_log_type_enabled(preferredContinuousAnimationName, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = v18;
+        v41 = v18;
         _os_log_error_impl(&dword_1DA9C2000, preferredContinuousAnimationName, OS_LOG_TYPE_ERROR, "Expected a continuous animation name, got: %@", buf, 0xCu);
       }
     }
 
-    v20->_prefersToSuppressDefaultUserInteractionHandler = v39;
+    v20->_prefersToSuppressDefaultUserInteractionHandler = v38;
     v34 = [v19 copy];
     crossfadableActivities = v20->_crossfadableActivities;
     v20->_crossfadableActivities = v34;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (STBackgroundActivityVisualDescriptor)initWithPlistRepresentation:(id)representation
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [(STBackgroundActivityVisualDescriptor *)self init];
   if (!v5)
@@ -863,9 +884,9 @@ void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultiline
     v22 = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v33 = 138412290;
-      v34 = v7;
-      _os_log_error_impl(&dword_1DA9C2000, v22, OS_LOG_TYPE_ERROR, "Expected a visual effect name, got: %@", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = v7;
+      _os_log_error_impl(&dword_1DA9C2000, v22, OS_LOG_TYPE_ERROR, "Expected a visual effect name, got: %@", &v32, 0xCu);
     }
   }
 
@@ -886,9 +907,9 @@ void __88__STBackgroundActivityVisualDescriptor__descriptionBuilderWithMultiline
     preferredContinuousAnimationName = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(preferredContinuousAnimationName, OS_LOG_TYPE_ERROR))
     {
-      v33 = 138412290;
-      v34 = v8;
-      _os_log_error_impl(&dword_1DA9C2000, preferredContinuousAnimationName, OS_LOG_TYPE_ERROR, "Expected a continuous animation name, got: %@", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = v8;
+      _os_log_error_impl(&dword_1DA9C2000, preferredContinuousAnimationName, OS_LOG_TYPE_ERROR, "Expected a continuous animation name, got: %@", &v32, 0xCu);
     }
   }
 
@@ -905,8 +926,8 @@ LABEL_14:
     v29 = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v33) = 0;
-      _os_log_error_impl(&dword_1DA9C2000, v29, OS_LOG_TYPE_ERROR, "It's not valid to specify 'pulseSymbol' for a visualDescriptor without a system image", &v33, 2u);
+      LOWORD(v32) = 0;
+      _os_log_error_impl(&dword_1DA9C2000, v29, OS_LOG_TYPE_ERROR, "It's not valid to specify 'pulseSymbol' for a visualDescriptor without a system image", &v32, 2u);
     }
   }
 
@@ -915,13 +936,12 @@ LABEL_14:
     v30 = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v33) = 0;
-      _os_log_error_impl(&dword_1DA9C2000, v30, OS_LOG_TYPE_ERROR, "A visual descriptor should have a systemImage, image, package, or textLabel — but this one doesn't!", &v33, 2u);
+      LOWORD(v32) = 0;
+      _os_log_error_impl(&dword_1DA9C2000, v30, OS_LOG_TYPE_ERROR, "A visual descriptor should have a systemImage, image, package, or textLabel — but this one doesn't!", &v32, 2u);
     }
   }
 
 LABEL_27:
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

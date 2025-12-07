@@ -53,7 +53,7 @@
 
 - (HMFaceClassification)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMFC.ck.pmu"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMFC.ck.p"];
@@ -72,18 +72,17 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = 0;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded personManagerUUID: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = 0;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded personManagerUUID: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

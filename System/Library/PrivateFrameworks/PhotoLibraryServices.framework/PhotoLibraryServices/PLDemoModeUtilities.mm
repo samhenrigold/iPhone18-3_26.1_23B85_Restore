@@ -107,7 +107,7 @@ void __87__PLDemoModeUtilities_cleanupForStoreDemoModeByRemovingNonDemoContentFr
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 assetsToRevert];
-    v6 = [v5 count];
+    v6 = objc_msgSend_count(v5);
     *buf = 134217984;
     v79 = v6;
     _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Reverting %lu demo content assets that have adjustments", buf, 0xCu);
@@ -163,14 +163,14 @@ void __87__PLDemoModeUtilities_cleanupForStoreDemoModeByRemovingNonDemoContentFr
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = [v3 assetIDsToDelete];
-    v19 = [v18 count];
+    v19 = objc_msgSend_count(v18);
     *buf = 134217984;
     v79 = v19;
     _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Deleting %lu assets that are not demo content", buf, 0xCu);
   }
 
   v20 = [v3 assetIDsToDelete];
-  v21 = [v20 count];
+  v21 = objc_msgSend_count(v20);
 
   if (v21)
   {
@@ -223,7 +223,7 @@ void __87__PLDemoModeUtilities_cleanupForStoreDemoModeByRemovingNonDemoContentFr
   v37 = PLStoreDemoModeGetLog();
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v38 = [v34 count];
+    v38 = objc_msgSend_count(v34);
     *buf = 134217984;
     v79 = v38;
     _os_log_impl(&dword_19BF1F000, v37, OS_LOG_TYPE_DEFAULT, "Deleting %lu empty albums", buf, 0xCu);
@@ -571,25 +571,25 @@ void __81__PLDemoModeUtilities_markAssetOriginalsInTargetPhotoLibraryAsLegacyDem
   return selfCopy;
 }
 
-void __85__PLDemoModeUtilities_prepareForStoreDemoModeByStagingDemoLibraryContentFromTemplate__block_invoke_2(uint64_t a1)
+void __85__PLDemoModeUtilities_prepareForStoreDemoModeByStagingDemoLibraryContentFromTemplate__block_invoke_2(id *a1)
 {
   v46[2] = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 56) + 8);
+  v2 = *(a1[7] + 1);
   if (*(v2 + 24) == 1)
   {
-    if ([*(a1 + 32) fileExistsAtPath:*(a1 + 40)])
+    if ([a1[4] fileExistsAtPath:a1[5]])
     {
       v3 = PLStoreDemoModeGetLog();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(a1 + 40);
+        v4 = a1[5];
         *buf = 138543362;
         v40 = v4;
         _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Staging demo library content from template %{public}@", buf, 0xCu);
       }
 
-      v5 = [*(a1 + 48) demoContentPhotoLibraryStagingPath];
-      [*(a1 + 48) demoContentPhotoLibraryPrestagingPath];
+      v5 = [a1[6] demoContentPhotoLibraryStagingPath];
+      [a1[6] demoContentPhotoLibraryPrestagingPath];
       v31 = v30 = v5;
       v46[0] = v5;
       v46[1] = v31;
@@ -614,7 +614,7 @@ void __85__PLDemoModeUtilities_prepareForStoreDemoModeByStagingDemoLibraryConten
             }
 
             v12 = *(*(&v35 + 1) + 8 * i);
-            if ([*(a1 + 32) fileExistsAtPath:v12])
+            if ([a1[4] fileExistsAtPath:v12])
             {
               v13 = PLStoreDemoModeGetLog();
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -624,7 +624,7 @@ void __85__PLDemoModeUtilities_prepareForStoreDemoModeByStagingDemoLibraryConten
                 _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "Removing demo library content from staging folder: %{public}@", buf, 0xCu);
               }
 
-              v14 = *(a1 + 32);
+              v14 = a1[4];
               v34 = v9;
               v15 = [v14 removeItemAtPath:v12 error:&v34];
               v16 = v34;
@@ -657,24 +657,24 @@ void __85__PLDemoModeUtilities_prepareForStoreDemoModeByStagingDemoLibraryConten
         v9 = 0;
       }
 
-      v20 = *(a1 + 32);
-      v21 = *(a1 + 40);
+      v20 = a1[4];
+      v21 = a1[5];
       v33 = v9;
       v22 = [v20 copyItemAtPath:v21 toPath:v31 error:&v33];
       v23 = v33;
 
-      *(*(*(a1 + 56) + 8) + 24) = v22;
-      if (*(*(*(a1 + 56) + 8) + 24) == 1)
+      *(*(a1[7] + 1) + 24) = v22;
+      if (*(*(a1[7] + 1) + 24) == 1)
       {
-        v24 = *(a1 + 32);
+        v24 = a1[4];
         v32 = v23;
         v25 = v30;
         v26 = [v24 moveItemAtPath:v31 toPath:v30 error:&v32];
         v18 = v32;
 
-        *(*(*(a1 + 56) + 8) + 24) = v26;
+        *(*(a1[7] + 1) + 24) = v26;
         v27 = v31;
-        if (*(*(*(a1 + 56) + 8) + 24))
+        if (*(*(a1[7] + 1) + 24))
         {
 LABEL_33:
 
@@ -700,7 +700,7 @@ LABEL_33:
         v25 = v30;
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v29 = *(a1 + 40);
+          v29 = a1[5];
           *buf = 138543874;
           v40 = v29;
           v41 = 2114;
@@ -722,14 +722,14 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    v2 = *(*(a1 + 56) + 8);
+    v2 = *(a1[7] + 1);
   }
 
   *(v2 + 24) = 0;
   v18 = PLStoreDemoModeGetLog();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(a1 + 40);
+    v19 = a1[5];
     *buf = 138543362;
     v40 = v19;
     _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "No demo library content template found at %{public}@", buf, 0xCu);

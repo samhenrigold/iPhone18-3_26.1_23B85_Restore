@@ -51,7 +51,7 @@ void __17__EFWatchdog_log__block_invoke(uint64_t a1)
 
 - (void)start
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_monitor)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -66,33 +66,30 @@ void __17__EFWatchdog_log__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     monitoredBundleIdentifier = [(EFWatchdog *)self monitoredBundleIdentifier];
-    v10 = 138543362;
-    v11 = monitoredBundleIdentifier;
-    _os_log_impl(&dword_1C6152000, v5, OS_LOG_TYPE_DEFAULT, "Monitoring for user termination of bundle identifier %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = monitoredBundleIdentifier;
+    _os_log_impl(&dword_1C6152000, v5, OS_LOG_TYPE_DEFAULT, "Monitoring for user termination of bundle identifier %{public}@", &v9, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[EFWatchdog log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     monitoredBundleIdentifier = [(EFWatchdog *)self monitoredBundleIdentifier];
-    v6 = 138543362;
-    v7 = monitoredBundleIdentifier;
-    _os_log_impl(&dword_1C6152000, v3, OS_LOG_TYPE_DEFAULT, "Stopping monitoring for user termination of bundle identifier %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = monitoredBundleIdentifier;
+    _os_log_impl(&dword_1C6152000, v3, OS_LOG_TYPE_DEFAULT, "Stopping monitoring for user termination of bundle identifier %{public}@", &v5, 0xCu);
   }
 
   [(SBSApplicationUserQuitMonitor *)self->_monitor invalidate];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)quitMonitor:(id)monitor userClosedLastSceneOfApplicationWithBundleID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   monitorCopy = monitor;
   dCopy = d;
   monitoredBundleIdentifier = [(EFWatchdog *)self monitoredBundleIdentifier];
@@ -100,18 +97,16 @@ void __17__EFWatchdog_log__block_invoke(uint64_t a1)
 
   if (v8)
   {
-    v10 = +[EFWatchdog log];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = +[EFWatchdog log];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v13 = dCopy;
-      _os_log_impl(&dword_1C6152000, v10, OS_LOG_TYPE_DEFAULT, "App with bundle identifier %{public}@ was quit by the user, terminating", buf, 0xCu);
+      v12 = dCopy;
+      _os_log_impl(&dword_1C6152000, v9, OS_LOG_TYPE_DEFAULT, "App with bundle identifier %{public}@ was quit by the user, terminating", buf, 0xCu);
     }
 
     exit(0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

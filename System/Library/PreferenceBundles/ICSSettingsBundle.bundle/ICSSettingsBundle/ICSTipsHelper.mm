@@ -7,15 +7,15 @@
 
 + (void)donateEventAnnouceCallsEnabled
 {
-  v2 = (*(*(sub_3938(&qword_11008, &qword_80E0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_3938(&qword_11008, &qword_80E0);
   __chkstk_darwin();
-  v4 = &v7 - v3;
-  v5 = sub_560C();
-  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
-  v6 = swift_allocObject();
-  *(v6 + 16) = 0;
-  *(v6 + 24) = 0;
-  sub_3D10(0, 0, v4, &unk_8120, v6);
+  v3 = &v6 - v2;
+  v4 = sub_560C();
+  (*(*(v4 - 8) + 56))(v3, 1, 1, v4);
+  v5 = swift_allocObject();
+  *(v5 + 16) = 0;
+  *(v5 + 24) = 0;
+  sub_3D10(0, 0, v3, &unk_8120, v5);
 }
 
 - (_TtC17ICSSettingsBundle13ICSTipsHelper)init

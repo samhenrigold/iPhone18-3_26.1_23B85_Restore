@@ -37,27 +37,27 @@
   imageCopy = image;
   context = [v5 context];
   memset(&v31, 0, sizeof(v31));
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v10 = 1024.0 / v9;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   CGAffineTransformMakeScale(&v31, v10, 1024.0 / v11);
   memset(&v30, 0, sizeof(v30));
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v13 = v12 * 0.0009765625;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   CGAffineTransformMakeScale(&v30, v13, v14 * 0.0009765625);
   memset(&v29, 0, sizeof(v29));
-  [matteCopy extent];
+  objc_msgSend_extent(matteCopy);
   v16 = 1024.0 / v15;
-  [matteCopy extent];
+  objc_msgSend_extent(matteCopy);
   CGAffineTransformMakeScale(&v29, v16, 1024.0 / v17);
   v28 = v31;
   v18 = [imageCopy imageByApplyingTransform:&v28 highQualityDownsample:1];
   v28 = v29;
   v19 = [matteCopy imageByApplyingTransform:&v28 highQualityDownsample:1];
-  [v18 extent];
+  objc_msgSend_extent(v18);
   v20 = [context createCGImage:v18 fromRect:?];
-  [v19 extent];
+  objc_msgSend_extent(v19);
   v21 = [context createCGImage:v19 fromRect:?];
   v22 = [PIRepairUtilities newWatchInfillFromImage:v20 mask:v21];
   v23 = [MEMORY[0x1E695F658] imageWithCGImage:v22];
@@ -86,10 +86,10 @@
 
   [blendWithRedMaskFilter setMaskImage:v9];
   outputImage = [blendWithRedMaskFilter outputImage];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v11 = [outputImage imageByCroppingToRect:?];
 
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v13 = v12;
   v15 = v14;
   v17 = v16;
@@ -118,7 +118,7 @@
 
   [blendWithMaskFilter setMaskImage:v12];
   outputImage = [blendWithMaskFilter outputImage];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v15 = v14;
   v17 = v16;
   v19 = v18;

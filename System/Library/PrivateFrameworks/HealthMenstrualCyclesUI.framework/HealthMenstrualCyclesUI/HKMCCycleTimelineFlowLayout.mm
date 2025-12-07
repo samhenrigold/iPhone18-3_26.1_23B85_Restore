@@ -17,7 +17,7 @@
 
 - (HKMCCycleTimelineFlowLayout)initWithYOffset:(double)offset pillConfigurations:(id)configurations introPillConfiguration:(id)configuration pillAspectRatio:(double)ratio
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   configurationCopy = configuration;
   if (![configurationsCopy count])
@@ -25,13 +25,13 @@
     [HKMCCycleTimelineFlowLayout initWithYOffset:a2 pillConfigurations:self introPillConfiguration:? pillAspectRatio:?];
   }
 
-  v36.receiver = self;
-  v36.super_class = HKMCCycleTimelineFlowLayout;
-  v14 = [(UICollectionViewFlowLayout *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = HKMCCycleTimelineFlowLayout;
+  v14 = [(UICollectionViewFlowLayout *)&v35 init];
   v15 = v14;
   if (v14)
   {
-    v31 = configurationCopy;
+    v30 = configurationCopy;
     v14->_yOffset = offset;
     objc_storeStrong(&v14->_pillConfigurations, configurations);
     objc_storeStrong(&v15->_introPillConfiguration, configuration);
@@ -44,33 +44,33 @@
     v15->_cellSize.width = v19;
     v15->_cellSize.height = v18;
     v15->_totalZoomWidth = 0.0;
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v20 = v15->_pillConfigurations;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v33;
+      v23 = *v32;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v33 != v23)
+          if (*v32 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v32 + 1) + 8 * i);
+          v25 = *(*(&v31 + 1) + 8 * i);
           [v25 width];
           v27 = v26;
           [v25 spacing];
           v15->_totalZoomWidth = v15->_totalZoomWidth + v27 + v28;
         }
 
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v22);
@@ -81,10 +81,9 @@
     [(UICollectionViewFlowLayout *)v15 setMinimumInteritemSpacing:0.0];
     [(UICollectionViewFlowLayout *)v15 setItemSize:v15->_cellSize.width, v15->_cellSize.height];
 
-    configurationCopy = v31;
+    configurationCopy = v30;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -99,38 +98,36 @@
 
 - (id)layoutAttributesForElementsInRect:(CGRect)rect
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HKMCCycleTimelineFlowLayout;
-  v4 = [(UICollectionViewFlowLayout *)&v15 layoutAttributesForElementsInRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HKMCCycleTimelineFlowLayout;
+  v4 = [(UICollectionViewFlowLayout *)&v14 layoutAttributesForElementsInRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [(HKMCCycleTimelineFlowLayout *)self _configureLayoutAttributes:*(*(&v11 + 1) + 8 * i)];
+        [(HKMCCycleTimelineFlowLayout *)self _configureLayoutAttributes:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

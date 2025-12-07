@@ -33,7 +33,7 @@
   v8 = 0u;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   v6[0] = v7;
@@ -49,7 +49,7 @@
   v6 = 0u;
   if (detection)
   {
-    [detection auditToken];
+    objc_msgSend_auditToken(detection, a2);
   }
 
   v4[0] = v5;
@@ -65,7 +65,7 @@
   v8 = 0u;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   v6[0] = v7;
@@ -81,7 +81,7 @@
   v6 = 0u;
   if (emergency)
   {
-    [emergency auditToken];
+    objc_msgSend_auditToken(emergency, a2);
   }
 
   v4[0] = v5;
@@ -108,7 +108,7 @@
   v3 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   v4 = [SAAuthorization authorizationStatusWithTCCPreflightResult:TCCAccessPreflightWithAuditToken(), 0, 0];
@@ -238,143 +238,142 @@ LABEL_19:
 
 + (void)showAuthorizationPrompt
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, self, a3, "%s - Asked to display authorization prompt but not currently authorizing.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SAAuthorization showAuthorizationPrompt]";
+  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, self, a3, "%s - Asked to display authorization prompt but not currently authorizing.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __42__SAAuthorization_showAuthorizationPrompt__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [*(a1 + 32) fromApp];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [*(a1 + 32) fromApp];
 
-  v48 = v3;
-  if (v6)
+  v49 = v3;
+  if (v5)
   {
-    v7 = MEMORY[0x277CCACA8];
+    v6 = MEMORY[0x277CCACA8];
     if (v3)
     {
-      v8 = [v5 localizedStringForKey:@"ALERT_HEADER_LONG_PHONE" value:&stru_284DA6B88 table:0];
-      v9 = [*(a1 + 32) getToBundleLocalizedName];
-      [v7 stringWithFormat:v8, v9, v3];
+      v7 = [v4 localizedStringForKey:@"ALERT_HEADER_LONG_PHONE" value:&stru_284DA6B88 table:0];
+      v8 = [*(a1 + 32) getToBundleLocalizedName];
+      [v6 stringWithFormat:v7, v8, v3];
     }
 
     else
     {
-      v8 = [v5 localizedStringForKey:@"ALERT_HEADER_LONG_MISSING_APP_PHONE" value:&stru_284DA6B88 table:0];
-      v9 = [*(a1 + 32) getToBundleLocalizedName];
-      [v7 stringWithFormat:v8, v9, v45];
+      v7 = [v4 localizedStringForKey:@"ALERT_HEADER_LONG_MISSING_APP_PHONE" value:&stru_284DA6B88 table:0];
+      v8 = [*(a1 + 32) getToBundleLocalizedName];
+      [v6 stringWithFormat:v7, v8, v46];
     }
-    v46 = ;
-    v23 = v3;
+    v47 = ;
+    v22 = v3;
 
-    v14 = [v5 localizedStringForKey:@"ALERT_LONG_PHONE" value:&stru_284DA6B88 table:0];
-    v24 = MEMORY[0x277CCACA8];
-    v25 = [*(a1 + 32) getToBundleLocalizedName];
-    v17 = [v24 stringWithFormat:v14, v25];
+    v13 = [v4 localizedStringForKey:@"ALERT_LONG_PHONE" value:&stru_284DA6B88 table:0];
+    v23 = MEMORY[0x277CCACA8];
+    v24 = [*(a1 + 32) getToBundleLocalizedName];
+    v16 = [v23 stringWithFormat:v13, v24];
 
-    v26 = MEMORY[0x277CCACA8];
-    v27 = [v5 localizedStringForKey:@"DEFAULT_BUTTON_TITLE_LONG" value:&stru_284DA6B88 table:0];
-    v28 = [*(a1 + 32) getToBundleLocalizedName];
-    v21 = [v26 stringWithFormat:v27, v28];
+    v25 = MEMORY[0x277CCACA8];
+    v26 = [v4 localizedStringForKey:@"DEFAULT_BUTTON_TITLE_LONG" value:&stru_284DA6B88 table:0];
+    v27 = [*(a1 + 32) getToBundleLocalizedName];
+    v20 = [v25 stringWithFormat:v26, v27];
 
-    if (v23)
+    if (v22)
     {
-      v29 = MEMORY[0x277CCACA8];
-      v30 = [v5 localizedStringForKey:@"ALTERNATE_BUTTON_TITLE_LONG" value:&stru_284DA6B88 table:0];
-      v22 = [v29 stringWithFormat:v30, v23];
+      v28 = MEMORY[0x277CCACA8];
+      v29 = [v4 localizedStringForKey:@"ALTERNATE_BUTTON_TITLE_LONG" value:&stru_284DA6B88 table:0];
+      v21 = [v28 stringWithFormat:v29, v22];
     }
 
     else
     {
-      v22 = [v5 localizedStringForKey:@"ALTERNATE_BUTTON_TITLE_MISSING_APP_LONG" value:&stru_284DA6B88 table:0];
+      v21 = [v4 localizedStringForKey:@"ALTERNATE_BUTTON_TITLE_MISSING_APP_LONG" value:&stru_284DA6B88 table:0];
     }
 
-    v13 = v46;
+    v12 = v47;
   }
 
   else
   {
-    v10 = MEMORY[0x277CCACA8];
-    v11 = [v5 localizedStringForKey:@"ALERT_HEADER_SHORT_PHONE" value:&stru_284DA6B88 table:0];
-    v12 = [*(a1 + 32) getToBundleLocalizedName];
-    v13 = [v10 stringWithFormat:v11, v12];
+    v9 = MEMORY[0x277CCACA8];
+    v10 = [v4 localizedStringForKey:@"ALERT_HEADER_SHORT_PHONE" value:&stru_284DA6B88 table:0];
+    v11 = [*(a1 + 32) getToBundleLocalizedName];
+    v12 = [v9 stringWithFormat:v10, v11];
 
-    v14 = [v5 localizedStringForKey:@"ALERT_SHORT_PHONE" value:&stru_284DA6B88 table:0];
-    v15 = MEMORY[0x277CCACA8];
-    v16 = [*(a1 + 32) getToBundleLocalizedName];
-    v17 = [v15 stringWithFormat:v14, v16];
+    v13 = [v4 localizedStringForKey:@"ALERT_SHORT_PHONE" value:&stru_284DA6B88 table:0];
+    v14 = MEMORY[0x277CCACA8];
+    v15 = [*(a1 + 32) getToBundleLocalizedName];
+    v16 = [v14 stringWithFormat:v13, v15];
 
-    v18 = MEMORY[0x277CCACA8];
-    v19 = [v5 localizedStringForKey:@"DEFAULT_BUTTON_TITLE_SHORT" value:&stru_284DA6B88 table:0];
-    v20 = [*(a1 + 32) getToBundleLocalizedName];
-    v21 = [v18 stringWithFormat:v19, v20];
+    v17 = MEMORY[0x277CCACA8];
+    v18 = [v4 localizedStringForKey:@"DEFAULT_BUTTON_TITLE_SHORT" value:&stru_284DA6B88 table:0];
+    v19 = [*(a1 + 32) getToBundleLocalizedName];
+    v20 = [v17 stringWithFormat:v18, v19];
 
-    v22 = [v5 localizedStringForKey:@"ALTERNATE_BUTTON_TITLE_SHORT" value:&stru_284DA6B88 table:0];
+    v21 = [v4 localizedStringForKey:@"ALTERNATE_BUTTON_TITLE_SHORT" value:&stru_284DA6B88 table:0];
   }
 
-  v31 = objc_opt_new();
-  [v31 setObject:v13 forKeyedSubscript:*MEMORY[0x277CBF188]];
-  [v31 setObject:v17 forKeyedSubscript:*MEMORY[0x277CBF198]];
-  [v31 setObject:v21 forKeyedSubscript:*MEMORY[0x277CBF1E8]];
-  [v31 setObject:v22 forKeyedSubscript:*MEMORY[0x277CBF1C0]];
-  v32 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v33 = [v32 valueForKey:@"SAServerMockAuthorizationPromptAnswer"];
+  v30 = objc_opt_new();
+  [v30 setObject:v12 forKeyedSubscript:*MEMORY[0x277CBF188]];
+  [v30 setObject:v16 forKeyedSubscript:*MEMORY[0x277CBF198]];
+  [v30 setObject:v20 forKeyedSubscript:*MEMORY[0x277CBF1E8]];
+  [v30 setObject:v21 forKeyedSubscript:*MEMORY[0x277CBF1C0]];
+  v31 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v32 = [v31 valueForKey:@"SAServerMockAuthorizationPromptAnswer"];
 
-  if (v33)
+  if (v32)
   {
-    v34 = sa_default_log();
+    v34 = sa_default_log(v33);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       __42__SAAuthorization_showAuthorizationPrompt__block_invoke_cold_1();
     }
 
-    v35 = [v33 BOOLValue] ^ 1;
-    v36 = sa_default_log();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v35 = [v32 BOOLValue];
+    v36 = v35 ^ 1;
+    v37 = sa_default_log(v35);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       __42__SAAuthorization_showAuthorizationPrompt__block_invoke_cold_2();
     }
 
-    authorizationPromptResponseHandler(0, v35);
+    authorizationPromptResponseHandler(0, v36);
     goto LABEL_19;
   }
 
   error = 0;
-  v37 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, &error, v31);
-  if (v37 && !error)
+  v38 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, &error, v30);
+  if (v38 && !error)
   {
-    RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v37, authorizationPromptResponseHandler, 0);
+    RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v38, authorizationPromptResponseHandler, 0);
     Main = CFRunLoopGetMain();
     CFRunLoopAddSource(Main, RunLoopSource, *MEMORY[0x277CBF048]);
     CFRelease(RunLoopSource);
 LABEL_19:
-    v40 = v48;
+    v41 = v49;
     goto LABEL_20;
   }
 
-  v47 = v13;
-  if (v37)
+  v48 = v12;
+  if (v38)
   {
-    CFRelease(v37);
+    CFRelease(v38);
   }
 
-  v41 = [*(a1 + 32) completionHandler];
-  v42 = [*(a1 + 32) preflightAuthorizationStatus];
-  v43 = [SAError errorWithCode:4];
-  (v41)[2](v41, v42, v43);
+  v42 = [*(a1 + 32) completionHandler];
+  v43 = [*(a1 + 32) preflightAuthorizationStatus];
+  v44 = [SAError errorWithCode:4];
+  (v42)[2](v42, v43, v44);
 
-  [*(a1 + 32) reset];
-  v44 = sa_default_log();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+  v45 = sa_default_log([*(a1 + 32) reset]);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
   {
-    __42__SAAuthorization_showAuthorizationPrompt__block_invoke_cold_3(&error, v44);
+    __42__SAAuthorization_showAuthorizationPrompt__block_invoke_cold_3(&error, v45);
   }
 
-  v13 = v47;
-  v40 = v48;
+  v12 = v48;
+  v41 = v49;
 LABEL_20:
 }
 
@@ -388,10 +387,10 @@ LABEL_20:
   {
     if (accessCopy)
     {
-      v10 = sa_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sa_default_log(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(SAAuthorization *)idCopy setAccess:v10 forBundleId:v11, v12, v13, v14, v15, v16];
+        [(SAAuthorization *)idCopy setAccess:v11 forBundleId:v12, v13, v14, v15, v16, v17];
       }
     }
 
@@ -401,7 +400,7 @@ LABEL_20:
     }
 
 LABEL_12:
-    v17 = 0;
+    v18 = 0;
     goto LABEL_13;
   }
 
@@ -414,18 +413,18 @@ LABEL_12:
   {
 LABEL_10:
     selfCopy2 = self;
-    v9 = 0;
+    v10 = 0;
     goto LABEL_11;
   }
 
   selfCopy2 = self;
-  v9 = idCopy;
+  v10 = idCopy;
 LABEL_11:
-  [selfCopy2 setThirdPartyBundleId:v9];
-  v17 = 1;
+  [selfCopy2 setThirdPartyBundleId:v10];
+  v18 = 1;
 LABEL_13:
 
-  return v17;
+  return v18;
 }
 
 + (id)SASyncedBundleId
@@ -438,13 +437,13 @@ LABEL_13:
 
 + (void)setThirdPartyBundleId:(id)id
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v5 = sa_default_log();
+  v5 = sa_default_log(idCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = idCopy;
+    v10 = idCopy;
     _os_log_impl(&dword_23AA4D000, v5, OS_LOG_TYPE_DEFAULT, "setting third party bundleId: %@", buf, 0xCu);
   }
 
@@ -460,8 +459,6 @@ LABEL_13:
     block[4] = self;
     dispatch_async(v7, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SAAuthorization_setThirdPartyBundleId___block_invoke(uint64_t a1)
@@ -474,41 +471,38 @@ void __41__SAAuthorization_setThirdPartyBundleId___block_invoke(uint64_t a1)
 
 void __42__SAAuthorization_showAuthorizationPrompt__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_DEBUG, "%s - Would have presented notification, details: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_DEBUG, "%s - Would have presented notification, details: %@", v1, 0x16u);
 }
 
 void __42__SAAuthorization_showAuthorizationPrompt__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315650;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_debug_impl(&dword_23AA4D000, v1, OS_LOG_TYPE_DEBUG, "%s - Mocking answer to authorization prompt, mockAnswer: %@, responseFlags: %lu", v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_debug_impl(&dword_23AA4D000, v1, OS_LOG_TYPE_DEBUG, "%s - Mocking answer to authorization prompt, mockAnswer: %@, responseFlags: %lu", v2, 0x20u);
 }
 
 void __42__SAAuthorization_showAuthorizationPrompt__block_invoke_cold_3(int *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 136315394;
-  v5 = "+[SAAuthorization showAuthorizationPrompt]_block_invoke";
-  v6 = 1024;
-  v7 = v2;
-  _os_log_error_impl(&dword_23AA4D000, a2, OS_LOG_TYPE_ERROR, "%s - CFUserNotificationCreate failed, error: %d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "+[SAAuthorization showAuthorizationPrompt]_block_invoke";
+  v5 = 1024;
+  v6 = v2;
+  _os_log_error_impl(&dword_23AA4D000, a2, OS_LOG_TYPE_ERROR, "%s - CFUserNotificationCreate failed, error: %d", &v3, 0x12u);
 }
 
 + (void)setAccess:(uint64_t)a3 forBundleId:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, a2, a3, "attempting to set third party bundleId that doesn't exist: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, a2, a3, "attempting to set third party bundleId that doesn't exist: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

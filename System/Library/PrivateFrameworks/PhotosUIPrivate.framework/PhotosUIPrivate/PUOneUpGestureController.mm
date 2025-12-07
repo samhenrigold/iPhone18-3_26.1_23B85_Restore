@@ -24,7 +24,7 @@
 
 - (PUOneUpGestureControllerDelegate)delegate
 {
-  v2 = sub_1B3819F08();
+  v2 = sub_1B3819F08(self, a2);
 
   return v2;
 }
@@ -33,7 +33,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B3819FA4();
+  sub_1B3819FA4(delegate);
 }
 
 - (UIEdgeInsets)interactionInsets

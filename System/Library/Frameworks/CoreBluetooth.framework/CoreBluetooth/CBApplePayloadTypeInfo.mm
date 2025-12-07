@@ -33,25 +33,26 @@
 
 - (id)description
 {
-  maxAge = self->_maxAge;
   applePayloadType = self->_applePayloadType;
   rssiThreshold = self->_rssiThreshold;
-  NSAppendPrintF_safe();
-  v2 = 0;
-  v3 = v2;
-  if (v2)
+  maxAge = self->_maxAge;
+  v10 = 0;
+  NSAppendPrintF_safe(&v10, "type %d rssiThreshold %d maxAge %d", applePayloadType, rssiThreshold, maxAge);
+  v4 = v10;
+  v5 = v4;
+  if (v4)
   {
-    v4 = v2;
+    v6 = v4;
   }
 
   else
   {
-    v4 = @"?";
+    v6 = @"?";
   }
 
-  v5 = v4;
+  v7 = v6;
 
-  return v4;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -111,7 +112,7 @@ LABEL_7:
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_3_4();
-      *v5 = CBErrorF(-6756, "%@ init failed", v39, v40, v41, v42, v43, v44, v46);
+      *v5 = CBErrorF(-6756, "%@ init failed", v49, v50, v51, v52, v53, v54, v56);
     }
 
     goto LABEL_18;
@@ -121,42 +122,42 @@ LABEL_7:
   {
     if (v5)
     {
-      v45 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v46);
-      OUTLINED_FUNCTION_16(v45);
+      v55 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v56);
+      OUTLINED_FUNCTION_16(v55);
       goto LABEL_13;
     }
 
     goto LABEL_18;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_3_1();
-  if (v14 == 6)
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_3_1(v14, v15, v16, v17, v18);
+  if (v19 == 6)
   {
-    OUTLINED_FUNCTION_5_4(v14, v15, v16, v17, v18, v19, v20, v21, v46, 0);
+    OUTLINED_FUNCTION_5_4(v19, v20, v21, v22, v23, v24, v25, v26, v56, 0);
   }
 
-  else if (v14 == 5)
+  else if (v19 == 5)
   {
     goto LABEL_18;
   }
 
-  v22 = OUTLINED_FUNCTION_1_3();
-  if (v22 == 6)
+  v27 = OUTLINED_FUNCTION_1_3(v19, "blRS", v21);
+  if (v27 == 6)
   {
-    OUTLINED_FUNCTION_11(v22, v23, v24, v25, v26, v27, v28, v29, v46, 0);
+    OUTLINED_FUNCTION_11(v27, v28, v29, v30, v31, v32, v33, v34, v56, 0);
   }
 
-  else if (v22 == 5)
+  else if (v27 == 5)
   {
     goto LABEL_18;
   }
 
-  OUTLINED_FUNCTION_0();
-  v30 = OUTLINED_FUNCTION_3_1();
-  if (v30 != 6)
+  v35 = OUTLINED_FUNCTION_0();
+  v40 = OUTLINED_FUNCTION_3_1(v35, v36, v37, v38, v39);
+  if (v40 != 6)
   {
-    if (v30 != 5)
+    if (v40 != 5)
     {
       goto LABEL_12;
     }
@@ -166,7 +167,7 @@ LABEL_18:
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_10_1(v30, v31, v32, v33, v34, v35, v36, v37, v46, 0);
+  OUTLINED_FUNCTION_10_1(v40, v41, v42, v43, v44, v45, v46, v47, v56, 0);
 LABEL_12:
   v6 = v7;
 LABEL_13:

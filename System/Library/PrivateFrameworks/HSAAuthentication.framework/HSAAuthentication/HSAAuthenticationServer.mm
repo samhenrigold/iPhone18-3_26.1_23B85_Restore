@@ -25,20 +25,20 @@
 
 - (HSAAuthenticationServer)init
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HSAAuthenticationServer;
-  v2 = [(HSAAuthenticationServer *)&v15 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HSAAuthenticationServer;
+  v2 = [(HSAAuthenticationServer *)&v14 init];
   v3 = v2;
   if (v2)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_250998220;
-    v13[3] = &unk_2796A48B0;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_250998220;
+    v12[3] = &unk_2796A48B0;
     v4 = v2;
-    v14 = v4;
-    v5 = MEMORY[0x253065C00](v13);
+    v13 = v4;
+    v5 = MEMORY[0x253065C00](v12);
     v6 = IMXPCCreateServerConnection();
     connection = v4->_connection;
     p_connection = &v4->_connection;
@@ -55,7 +55,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = @"com.apple.hsa-authentication-server";
+        v16 = @"com.apple.hsa-authentication-server";
         _os_log_impl(&dword_250996000, v9, OS_LOG_TYPE_DEFAULT, "Could not configure server: %@", buf, 0xCu);
       }
     }
@@ -68,32 +68,31 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)parseIncomingMessageFromNumber:(id)number forService:(id)service messageBody:(id)body
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   serviceCopy = service;
   bodyCopy = body;
-  v42 = bodyCopy;
+  v41 = bodyCopy;
   v9 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412803;
-    v52 = numberCopy;
-    v53 = 2112;
-    v54 = serviceCopy;
-    v55 = 2117;
-    v56 = bodyCopy;
+    v51 = numberCopy;
+    v52 = 2112;
+    v53 = serviceCopy;
+    v54 = 2117;
+    v55 = bodyCopy;
     _os_log_impl(&dword_250996000, v9, OS_LOG_TYPE_DEFAULT, "HSA - Processing incoming message from number: %@   service: %@   body: %{sensitive}@", buf, 0x20u);
   }
 
   if ([(NSMutableArray *)self->_clients count])
   {
-    v40 = sub_2509993A0(@"HSAOriginatingAddressList");
+    v39 = sub_2509993A0(@"HSAOriginatingAddressList");
     v10 = sub_2509993A0(@"HSAVerificationCodePattern");
     v11 = @"([0-9]+)";
     if (v10)
@@ -101,12 +100,12 @@
       v11 = v10;
     }
 
-    v41 = v11;
+    v40 = v11;
     v12 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v52 = v40;
+      v51 = v39;
       _os_log_impl(&dword_250996000, v12, OS_LOG_TYPE_DEFAULT, "HSA - Allowed source number list: %@", buf, 0xCu);
     }
 
@@ -114,73 +113,73 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v52 = v41;
+      v51 = v40;
       _os_log_impl(&dword_250996000, v13, OS_LOG_TYPE_DEFAULT, "HSA - Pattern: %@", buf, 0xCu);
     }
 
-    if ([(__CFString *)v41 length])
+    if ([(__CFString *)v40 length])
     {
-      if (![(__CFString *)v40 count]|| ([(__CFString *)numberCopy lowercaseString], v14 = objc_claimAutoreleasedReturnValue(), v15 = [(__CFString *)v40 containsObject:v14], v14, (v15 & 1) != 0))
+      if (![(__CFString *)v39 count]|| ([(__CFString *)numberCopy lowercaseString], v14 = objc_claimAutoreleasedReturnValue(), v15 = [(__CFString *)v39 containsObject:v14], v14, (v15 & 1) != 0))
       {
-        v49 = 0;
-        v39 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v41 options:1 error:&v49];
-        v16 = v49;
-        v38 = v16;
-        if (!v39 || v16)
+        v48 = 0;
+        v38 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v40 options:1 error:&v48];
+        v16 = v48;
+        v37 = v16;
+        if (!v38 || v16)
         {
           v35 = OSLogHandleForIDSCategory();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v52 = v41;
-            v53 = 2112;
-            v54 = v38;
+            v51 = v40;
+            v52 = 2112;
+            v53 = v37;
             _os_log_impl(&dword_250996000, v35, OS_LOG_TYPE_DEFAULT, "Ignoring incoming message, could not generate expression from: %@   (Error: %@)", buf, 0x16u);
           }
         }
 
         else
         {
-          v17 = [v39 firstMatchInString:v42 options:1 range:{0, -[__CFString length](v42, "length")}];
+          v17 = [v38 firstMatchInString:v41 options:1 range:{0, -[__CFString length](v41, "length")}];
           if (v17)
           {
-            v37 = v17;
+            v36 = v17;
             v18 = [v17 rangeAtIndex:0];
-            v20 = [(__CFString *)v42 substringWithRange:v18, v19];
+            v20 = [(__CFString *)v41 substringWithRange:v18, v19];
             if (v20)
             {
               v21 = OSLogHandleForIDSCategory();
               if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412803;
-                v52 = numberCopy;
-                v53 = 2117;
-                v54 = v42;
-                v55 = 2117;
-                v56 = v20;
+                v51 = numberCopy;
+                v52 = 2117;
+                v53 = v41;
+                v54 = 2117;
+                v55 = v20;
                 _os_log_impl(&dword_250996000, v21, OS_LOG_TYPE_DEFAULT, "Incoming message from: %@  body: %{sensitive}@  --  found token: %{sensitive}@", buf, 0x20u);
               }
 
-              v47 = 0u;
-              v48 = 0u;
-              v45 = 0u;
               v46 = 0u;
+              v47 = 0u;
+              v44 = 0u;
+              v45 = 0u;
               v22 = self->_clients;
-              v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v45 objects:v50 count:16];
+              v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v44 objects:v49 count:16];
               if (v23)
               {
-                v24 = *v46;
+                v24 = *v45;
                 do
                 {
                   v25 = 0;
                   do
                   {
-                    if (*v46 != v24)
+                    if (*v45 != v24)
                     {
                       objc_enumerationMutation(v22);
                     }
 
-                    v26 = *(*(&v45 + 1) + 8 * v25);
+                    v26 = *(*(&v44 + 1) + 8 * v25);
                     v27 = xpc_dictionary_create(0, 0, 0);
                     if (v27)
                     {
@@ -200,11 +199,11 @@
                       if (os_log_type_enabled(qword_27F3E0C30, OS_LOG_TYPE_DEFAULT))
                       {
                         v30 = v29;
-                        v31 = [(_xpc_connection_s *)v26 debugDescription:v42];
+                        v31 = [(_xpc_connection_s *)v26 debugDescription:v41];
                         *buf = 138412546;
-                        v52 = v31;
-                        v53 = 2112;
-                        v54 = v27;
+                        v51 = v31;
+                        v52 = 2112;
+                        v53 = v27;
                         _os_log_impl(&dword_250996000, v30, OS_LOG_TYPE_DEFAULT, "  => Notifying client: %@  (message: %@)", buf, 0x16u);
                       }
                     }
@@ -213,7 +212,7 @@
                   }
 
                   while (v23 != v25);
-                  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v45 objects:v50 count:16];
+                  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v44 objects:v49 count:16];
                 }
 
                 while (v23);
@@ -234,9 +233,9 @@
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412547;
-            v52 = numberCopy;
-            v53 = 2117;
-            v54 = v42;
+            v51 = numberCopy;
+            v52 = 2117;
+            v53 = v41;
             _os_log_impl(&dword_250996000, v35, OS_LOG_TYPE_DEFAULT, "Ignoring incoming message from: %@  body: %{sensitive}@  --  no results found", buf, 0x16u);
           }
         }
@@ -249,9 +248,9 @@ LABEL_50:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v52 = numberCopy;
-        v53 = 2112;
-        v54 = v40;
+        v51 = numberCopy;
+        v52 = 2112;
+        v53 = v39;
         _os_log_impl(&dword_250996000, v34, OS_LOG_TYPE_DEFAULT, "Ignoring incoming message from: %@  it is not in the originator list: %@", buf, 0x16u);
       }
     }
@@ -278,7 +277,6 @@ LABEL_51:
   }
 
 LABEL_52:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientConnected
@@ -312,16 +310,16 @@ LABEL_52:
 
 - (void)_cleanupClient:(id)client
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (clientCopy)
   {
     v5 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 67109120;
+      v9 = 67109120;
       pid = xpc_connection_get_pid(clientCopy);
-      _os_log_impl(&dword_250996000, v5, OS_LOG_TYPE_DEFAULT, "HSA - Removing client %d", &v10, 8u);
+      _os_log_impl(&dword_250996000, v5, OS_LOG_TYPE_DEFAULT, "HSA - Removing client %d", &v9, 8u);
     }
 
     [(NSMutableArray *)self->_clients removeObject:clientCopy];
@@ -329,9 +327,9 @@ LABEL_52:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [(NSMutableArray *)self->_clients count];
-      v10 = 67109120;
+      v9 = 67109120;
       pid = v7;
-      _os_log_impl(&dword_250996000, v6, OS_LOG_TYPE_DEFAULT, "HSA - We have %d clients left", &v10, 8u);
+      _os_log_impl(&dword_250996000, v6, OS_LOG_TYPE_DEFAULT, "HSA - We have %d clients left", &v9, 8u);
     }
 
     if (![(NSMutableArray *)self->_clients count])
@@ -341,20 +339,18 @@ LABEL_52:
       self->_clients = 0;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureWithClient:(id)client
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = clientCopy;
-    _os_log_impl(&dword_250996000, v5, OS_LOG_TYPE_DEFAULT, "HSA - Configuring with client: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = clientCopy;
+    _os_log_impl(&dword_250996000, v5, OS_LOG_TYPE_DEFAULT, "HSA - Configuring with client: %@", &v10, 0xCu);
   }
 
   if (clientCopy && ([(NSMutableArray *)self->_clients containsObject:clientCopy]& 1) == 0)
@@ -370,16 +366,14 @@ LABEL_52:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       pid = xpc_connection_get_pid(clientCopy);
-      v11 = 67109120;
-      LODWORD(v12) = pid;
-      _os_log_impl(&dword_250996000, v8, OS_LOG_TYPE_DEFAULT, "HSA - Adding client %d", &v11, 8u);
+      v10 = 67109120;
+      LODWORD(v11) = pid;
+      _os_log_impl(&dword_250996000, v8, OS_LOG_TYPE_DEFAULT, "HSA - Adding client %d", &v10, 8u);
     }
 
     [(NSMutableArray *)self->_clients addObject:clientCopy];
     [(HSAAuthenticationServer *)self _clientConnected];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

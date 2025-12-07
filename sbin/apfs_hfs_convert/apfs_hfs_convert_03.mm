@@ -1,3 +1,65 @@
+uint64_t sub_10002675C(uint64_t a1, int a2, unsigned __int16 a3, _WORD *a4)
+{
+  v14 = -1;
+  v13 = -1;
+  sub_100026068(a1, a2, a3, &v13, &v14);
+  if (v14 == 0xFFFF)
+  {
+    if ((*(a1 + 400) & 0x40) != 0)
+    {
+      v10 = a3;
+    }
+
+    else
+    {
+      v10 = (a3 + 7) & 0xFFF8;
+    }
+
+    v11 = *(a1 + 56);
+    v12 = *(v11 + 46);
+    if (v12 < v10)
+    {
+      return 28;
+    }
+
+    if (a2 == 1)
+    {
+      LOWORD(v9) = *(v11 + 44);
+      *(v11 + 44) = v9 + v10;
+      *(v11 + 46) = v12 - v10;
+    }
+
+    else
+    {
+      *(v11 + 46) = v12 - v10;
+      if (a2 == 2)
+      {
+        v9 = *(a1 + 392) - *(v11 + 44) - (*(a1 + 384) + (v12 - v10));
+      }
+
+      else
+      {
+        LOWORD(v9) = -1;
+      }
+    }
+  }
+
+  else
+  {
+    result = sub_10002666C(a1, a2, a3, v13, v14);
+    if (result)
+    {
+      return result;
+    }
+
+    LOWORD(v9) = v14;
+  }
+
+  result = 0;
+  *a4 = v9;
+  return result;
+}
+
 void sub_100026868(uint64_t a1, unsigned int a2)
 {
   v3 = *(a1 + 56);
@@ -334,7 +396,7 @@ LABEL_60:
           break;
         }
 
-        v21 = sub_10001D1CC(a2, (v8 + ~v19), *&__n[10], *__n, *&__n[2]);
+        v21 = sub_10001D1CC(a2, (v8 + ~v19), *&__n[10], *__n, *&__n[2], v58, a4);
         if (v21)
         {
           break;
@@ -491,399 +553,397 @@ void sub_100026F14(uint64_t a1, int a2, uint64_t a3)
   sub_10004C7D8(a1, a3, 0);
 }
 
-uint64_t sub_100026FD8(uint64_t result, uint64_t a2, uint64_t a3)
+void *sub_100026FD8(void *result, uint64_t a2, uint64_t a3)
 {
-  if (*(result + 432) == *(a3 + 112))
+  if (result[54] == *(a3 + 112))
   {
     v4 = result;
     v5 = *(a2 + 56);
     if ((*(v5 + 32) & 2) != 0 || !*(v5 + 36))
     {
-      *(result + 432) = *(a2 + 112);
+      result[54] = *(a2 + 112);
     }
 
     else
     {
-      v6 = *(result + 400);
       __chkstk_darwin(result);
-      v8 = (&v13 - v7);
-      bzero(&v13 - v7, v9);
-      result = sub_10001B084(a2, (*(*(a2 + 56) + 36) - 1), v8);
+      v7 = (&v12 - v6);
+      bzero(&v12 - v6, v8);
+      result = sub_10001B084(a2, (*(*(a2 + 56) + 36) - 1), v7);
       if (result)
       {
-        v10 = v4[1];
-        if (v10)
+        v9 = v4[1];
+        if (v9)
         {
-          v11 = (v10 + 4040);
+          v10 = (v9 + 4040);
         }
 
         else
         {
-          v11 = (*(*(*v4 + 392) + 384) + 212);
+          v10 = (*(*(*v4 + 392) + 384) + 212);
         }
 
-        result = sub_10003E5FC("%s:%d: %s failed to update rightmost leaf field: %d\n", "bt_update_last_leaf", 2521, v11, result);
-        v12 = 0;
+        result = sub_10003E5FC("%s:%d: %s failed to update rightmost leaf field: %d\n", "bt_update_last_leaf", 2521, v10, result);
+        v11 = 0;
       }
 
       else
       {
-        v12 = *v8;
+        v11 = *v7;
       }
 
-      v4[54] = v12;
+      v4[54] = v11;
     }
   }
 
   return result;
 }
 
-void sub_100027138(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100027138(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, unint64_t a7, uint64_t a8)
 {
   v10 = a6;
-  v72 = a6;
-  v16 = a1[50];
+  v71 = a6;
   __chkstk_darwin(a1);
-  v18 = (&v63 - v17);
-  bzero(&v63 - v17, v19);
-  v70 = 0xAAAAAAAAAAAAAAAALL;
-  v69 = -21846;
-  v20 = *(a4 + 56);
+  v17 = (&v62 - v16);
+  bzero(&v62 - v16, v18);
+  v69 = 0xAAAAAAAAAAAAAAAALL;
+  v68 = -21846;
+  v19 = *(a4 + 56);
   if (!a2)
   {
-    if ((*(v20 + 32) & 2) != 0 || *(v20 + 36) != 1)
+    if ((*(v19 + 32) & 2) != 0 || *(v19 + 36) != 1)
     {
       return;
     }
 
     if (a5 || v10 && (*(v10 + 16) & 0x10) != 0)
     {
-      if (sub_10001B084(a4, 0, v18) || sub_10001A958(a1, v18, a7, 3u, *(*(a4 + 56) + 34) - 1, a8, &v72))
+      if (sub_10001B084(a4, 0, v17) || sub_10001A958(a1, v17, a7, 3u, *(*(a4 + 56) + 34) - 1, a8, &v71))
       {
         return;
       }
 
-      v10 = v72;
-      if ((a1[50] & 0x10) != 0 && *(v72 + 112) != *v18)
+      v10 = v71;
+      if ((*(a1 + 400) & 0x10) != 0 && *(v71 + 112) != *v17)
       {
-        sub_10001DFEC(a4, 0, (v72 + 112), a8);
+        sub_10001DFEC(a4, 0, (v71 + 112), a8);
       }
 
-      v45 = 1;
+      v44 = 1;
     }
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
     if (sub_100025FE8(v10) > 0x27)
     {
-      v47 = *(v10 + 56);
-      if (*(v47 + 46) > 0x27u || ((*(v47 + 32) & 4) == 0 || (*(v10 + 400) & 4) != 0) && (sub_100026288(v10, 0, a8), *(*(v10 + 56) + 46) > 0x27u))
+      v46 = *(v10 + 56);
+      if (*(v46 + 46) > 0x27u || ((*(v46 + 32) & 4) == 0 || (*(v10 + 400) & 4) != 0) && (sub_100026288(v10, 0, a8), *(*(v10 + 56) + 46) > 0x27u))
       {
         sub_100022060(a4, 0, a8);
         sub_100026F14(a4, (*(*(a4 + 56) + 34) - 1), a8);
-        v48 = sub_1000269AC(a4, v10, -*(*(v10 + 56) + 36), a8);
-        if (!v48)
+        v47 = sub_1000269AC(a4, v10, -*(*(v10 + 56) + 36), a8);
+        if (!v47)
         {
           sub_100026FD8(a1, a4, v10);
           sub_100049B88(v10, a8);
-          if (v45)
+          if (v44)
           {
             sub_10004BE88(v10, 2);
             sub_100046D50(v10);
           }
 
-          atomic_fetch_add_explicit((a1[49] + 32), 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((*(a1 + 392) + 32), 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
           sub_10004C7D8(a1, a8, 0);
           return;
         }
 
-        v49 = a1[1];
-        if (v49)
+        v48 = *(a1 + 8);
+        if (v48)
         {
-          v50 = (v49 + 4040);
+          v49 = (v48 + 4040);
         }
 
         else
         {
-          v50 = (*(*(*a1 + 392) + 384) + 212);
+          v49 = (*(*(*a1 + 392) + 384) + 212);
         }
 
-        sub_10003E5FC("%s:%d: %s failed to move all entries: %d\n", "bt_merge_nodes", 4374, v50, v48);
+        sub_10003E5FC("%s:%d: %s failed to move all entries: %d\n", "bt_merge_nodes", 4374, v49, v47);
         sub_1000269AC(a4, v10, *(*(a4 + 56) + 36), a8);
         sub_100026F14(a4, (*(*(a4 + 56) + 34) + 1), a8);
-        if (!sub_10001AD80(v10, 0, &v70, &v69))
+        if (!sub_10001AD80(v10, 0, &v69, &v68))
         {
-          *v18 = *(v10 + 112);
-          sub_10001DB30(a4, 0, v70, v69, v18, (*(a4 + 407) & 0x7F) + 8, a8);
+          *v17 = *(v10 + 112);
+          sub_10001DB30(a4, 0, v69, v68, v17, (*(a4 + 407) & 0x7F) + 8, a8);
         }
       }
     }
 
-    if (!v45)
+    if (!v44)
     {
       return;
     }
 
     sub_10004BE88(v10, 2);
-    v62 = v10;
+    v61 = v10;
     goto LABEL_106;
   }
 
-  if (*(v20 + 36))
+  if (*(v19 + 36))
   {
     if (*(*(a2 + 56) + 36) - 1 > a3)
     {
-      v21 = a3 + 1;
-      if (!sub_10001B084(a2, v21, v18))
+      v20 = (a3 + 1);
+      if (!sub_10001B084(a2, v20, v17))
       {
-        v71 = 0xAAAAAAAAAAAAAAAALL;
-        if (!sub_10001A958(a1, v18, a7, 3u, *(*(a2 + 56) + 34) - 1, a8, &v71))
+        v70 = 0xAAAAAAAAAAAAAAAALL;
+        if (!sub_10001A958(a1, v17, a7, 3u, *(*(a2 + 56) + 34) - 1, a8, &v70))
         {
-          if ((a1[50] & 0x10) != 0 && v71[14] != *v18)
+          if ((*(a1 + 400) & 0x10) != 0 && v70[14] != *v17)
           {
-            sub_10001DFEC(a2, v21, v71 + 14, a8);
+            sub_10001DFEC(a2, v20, v70 + 14, a8);
           }
 
-          v22 = *(a4 + 56);
-          if ((*(v22 + 32) & 4) != 0)
+          v21 = *(a4 + 56);
+          if ((*(v21 + 32) & 4) != 0)
           {
-            v51 = *(v22 + 36);
-            v25 = v71;
-            v67 = v71[7];
-            v44 = *(v67 + 36);
-            v52 = v44 + v51;
-            if (v44 + v51 <= sub_10001ABEC(a4, 0))
+            v50 = *(v21 + 36);
+            v24 = v70;
+            v66 = v70[7];
+            v43 = *(v66 + 36);
+            v51 = v43 + v50;
+            if (v43 + v50 <= sub_10001ABEC(a4, 0))
             {
-              v68 = 0;
-              LOWORD(v30) = v44;
+              v67 = 0;
+              LOWORD(v29) = v43;
             }
 
             else
             {
-              if (v51 >= (v52 >> 1))
+              if (v50 >= (v51 >> 1))
               {
-                v30 = 0;
+                v29 = 0;
               }
 
               else
               {
-                v30 = (v52 >> 1) - v51;
+                v29 = (v51 >> 1) - v50;
               }
 
-              v68 = v30;
+              v67 = v29;
             }
           }
 
           else
           {
-            v64 = v21;
-            v23 = 8 * sub_10001ABEC(a4, 0);
-            v24 = sub_100025FE8(a4);
-            v25 = v71;
-            v26 = sub_100025FE8(v71);
+            v63 = v20;
+            v22 = 8 * sub_10001ABEC(a4, 0);
+            v23 = sub_100025FE8(a4);
+            v24 = v70;
+            v25 = sub_100025FE8(v70);
+            v26 = 0;
             v27 = 0;
-            v28 = 0;
-            v67 = v25[7];
-            v68 = 0;
-            v29 = *(v67 + 36);
-            v65 = v24 - ((v26 + v24) >> 1);
-            v66 = v29;
+            v66 = v24[7];
+            v67 = 0;
+            v28 = *(v66 + 36);
+            v64 = v23 - ((v25 + v23) >> 1);
+            v65 = v28;
             do
             {
-              LOWORD(v30) = v27;
-              if (v66 <= v27)
+              LOWORD(v29) = v26;
+              if (v65 <= v26)
               {
                 break;
               }
 
-              if (v27 && !v68)
+              if (v26 && !v67)
               {
-                v31 = 8 * (sub_10001ABEC(a4, v27) & 0x1FFF);
-                v32 = v31 >= v23;
-                v33 = v31 - v23;
-                if (!v32)
+                v30 = 8 * (sub_10001ABEC(a4, v26) & 0x1FFF);
+                v31 = v30 >= v22;
+                v32 = v30 - v22;
+                if (!v31)
+                {
+                  v32 = 0;
+                }
+
+                if ((v32 + v27) <= v64)
                 {
                   v33 = 0;
                 }
 
-                if ((v33 + v28) <= v65)
-                {
-                  v34 = 0;
-                }
-
                 else
                 {
-                  v34 = v27;
+                  v33 = v26;
                 }
 
-                v68 = v34;
+                v67 = v33;
               }
 
-              v35 = v25[50];
-              v36 = *(v67 + 32);
-              if ((v35 & 0x40) != 0)
+              v34 = v24[50];
+              v35 = *(v66 + 32);
+              if ((v34 & 0x40) != 0)
               {
-                if ((v36 & 4) != 0)
+                if ((v35 & 4) != 0)
                 {
-                  v38 = (v35 >> 9) & 0x3FFF;
+                  v37 = (v34 >> 9) & 0x3FFF;
                 }
 
                 else
                 {
-                  v38 = *(v25[47] + 8 * v30 + 2);
+                  v37 = *(v24[47] + 8 * v29 + 2);
                 }
               }
 
               else
               {
-                if ((v36 & 4) != 0)
+                if ((v35 & 4) != 0)
                 {
-                  v37 = (v35 >> 9) & 0x3FFF;
+                  v36 = (v34 >> 9) & 0x3FFF;
                 }
 
                 else
                 {
-                  v37 = *(v25[47] + 8 * v30 + 2);
+                  v36 = *(v24[47] + 8 * v29 + 2);
                 }
 
-                v38 = (v37 + 7) & 0x1FFF8;
+                v37 = (v36 + 7) & 0x1FFF8;
               }
 
-              v39 = v38 + v28;
-              v40 = sub_10001AD08(v25, v30);
-              if (v40 == 65534)
+              v38 = v37 + v27;
+              v39 = sub_10001AD08(v24, v29);
+              if (v39 == 65534)
               {
-                v41 = 0;
+                v40 = 0;
               }
 
               else
               {
-                v41 = v40;
+                v40 = v39;
               }
 
-              if ((v35 & 0x40) == 0)
+              if ((v34 & 0x40) == 0)
               {
-                v41 = (v41 + 7) & 0x1FFF8;
+                v40 = (v40 + 7) & 0x1FFF8;
               }
 
-              v28 = v39 + v41;
-              v27 = (v30 + 1);
-              v42 = 8 * (sub_10001ABEC(a4, v27) & 0x1FFF);
-              v32 = v42 >= v23;
-              v43 = v42 - v23;
-              if (!v32)
+              v27 = v38 + v40;
+              v26 = (v29 + 1);
+              v41 = 8 * (sub_10001ABEC(a4, v26) & 0x1FFF);
+              v31 = v41 >= v22;
+              v42 = v41 - v22;
+              if (!v31)
               {
-                v43 = 0;
+                v42 = 0;
               }
             }
 
-            while (v43 + v28 <= v24);
-            LOWORD(v21) = v64;
-            v44 = v66;
+            while (v42 + v27 <= v23);
+            LOWORD(v20) = v63;
+            v43 = v65;
           }
 
-          if (v44 != v30)
+          if (v43 != v29)
           {
             if ((*(*(a2 + 56) + 32) & 4) != 0)
             {
-              v53 = (*(a2 + 400) >> 9) & 0x3FFF;
+              v52 = (*(a2 + 400) >> 9) & 0x3FFF;
             }
 
             else
             {
-              v53 = *(*(a2 + 376) + 8 * v21 + 2);
+              v52 = *(*(a2 + 376) + 8 * v20 + 2);
             }
 
-            if ((*(v67 + 32) & 4) != 0)
+            if ((*(v66 + 32) & 4) != 0)
             {
-              v54 = (*(v25 + 100) >> 9) & 0x3FFF;
+              v53 = (*(v24 + 100) >> 9) & 0x3FFF;
             }
 
             else
             {
-              v54 = *(v25[47] + 8 * v68 + 2);
+              v53 = *(v24[47] + 8 * v67 + 2);
             }
 
-            v69 = v54;
-            v55 = *(a2 + 400);
-            if ((v55 & 0x40) != 0)
+            v68 = v53;
+            v54 = *(a2 + 400);
+            if ((v54 & 0x40) != 0)
+            {
+              v55 = v52;
+            }
+
+            else
+            {
+              v55 = (v52 + 7) & 0x1FFF8;
+            }
+
+            v56 = (v53 + 7) & 0x1FFF8;
+            if ((v54 & 0x40) != 0)
             {
               v56 = v53;
             }
 
-            else
+            if (v55 >= v56)
             {
-              v56 = (v53 + 7) & 0x1FFF8;
-            }
-
-            v57 = (v54 + 7) & 0x1FFF8;
-            if ((v55 & 0x40) != 0)
-            {
-              v57 = v54;
-            }
-
-            if (v56 >= v57)
-            {
-              LOWORD(v30) = v68;
+              LOWORD(v29) = v67;
             }
 
             else
             {
-              if ((v55 & 0x40) == 0)
+              if ((v54 & 0x40) == 0)
               {
-                LOWORD(v54) = (v54 + 7) & 0xFFF8;
                 LOWORD(v53) = (v53 + 7) & 0xFFF8;
+                LOWORD(v52) = (v52 + 7) & 0xFFF8;
               }
 
-              v58 = sub_10001E0C4(a2, 0, 0, 0, v54 - v53, 0, 0);
-              LOWORD(v30) = v68;
-              if (!v58)
+              v57 = sub_10001E0C4(a2, 0, 0, 0, v53 - v52, 0, 0);
+              LOWORD(v29) = v67;
+              if (!v57)
               {
                 goto LABEL_105;
               }
             }
           }
 
-          if (v30 && !sub_1000269AC(a4, v25, -v30, a8))
+          if (v29 && !sub_1000269AC(a4, v24, -v29, a8))
           {
-            if (*(v25[7] + 36))
+            if (*(v24[7] + 36))
             {
-              v59 = sub_10001AD80(v25, 0, &v70, &v69);
-              if (v59 || (v59 = sub_10001D1CC(a2, v21, v70, v69, 0)) != 0)
+              v58 = sub_10001AD80(v24, 0, &v69, &v68);
+              if (v58 || (v58 = sub_10001D1CC(a2, v20, v69, v68, 0, 0, a8)) != 0)
               {
-                v60 = a1[1];
-                if (v60)
+                v59 = *(a1 + 8);
+                if (v59)
                 {
-                  v61 = (v60 + 4040);
+                  v60 = (v59 + 4040);
                 }
 
                 else
                 {
-                  v61 = (*(*(*a1 + 392) + 384) + 212);
+                  v60 = (*(*(*a1 + 392) + 384) + 212);
                 }
 
-                sub_10003E5FC("%s:%d: %s btree_node_key_update failed: %d\n", "bt_merge_nodes", 4515, v61, v59);
+                sub_10003E5FC("%s:%d: %s btree_node_key_update failed: %d\n", "bt_merge_nodes", 4515, v60, v58);
               }
             }
 
             else
             {
-              sub_100022060(a2, v21, a8);
-              sub_100026FD8(a1, a2, v25);
-              sub_100049B88(v25, a8);
-              atomic_fetch_add_explicit((a1[49] + 32), 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
+              sub_100022060(a2, v20, a8);
+              sub_100026FD8(a1, a2, v24);
+              sub_100049B88(v24, a8);
+              atomic_fetch_add_explicit((*(a1 + 392) + 32), 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
               sub_10004C7D8(a1, a8, 0);
             }
           }
 
 LABEL_105:
-          sub_10004BE88(v25, 2);
-          v62 = v25;
+          sub_10004BE88(v24, 2);
+          v61 = v24;
 LABEL_106:
-          sub_100046D50(v62);
+          sub_100046D50(v61);
         }
       }
     }
@@ -892,15 +952,15 @@ LABEL_106:
   else
   {
     sub_100022060(a2, a3, a8);
-    v46 = *(a2 + 56);
-    if ((*(v46 + 32) & 1) != 0 && !*(v46 + 36))
+    v45 = *(a2 + 56);
+    if ((*(v45 + 32) & 1) != 0 && !*(v45 + 36))
     {
       sub_100026F14(a2, 0, a8);
     }
 
     sub_100026FD8(a1, a2, a4);
     sub_100049B88(a4, a8);
-    atomic_fetch_add_explicit((a1[49] + 32), 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(a1 + 392) + 32), 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
 
     sub_10004C7D8(a1, a8, 0);
   }
@@ -1077,7 +1137,7 @@ uint64_t sub_100027A74(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
   return v9;
 }
 
-uint64_t sub_100027E04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6, uint64_t a7, int a8, uint64_t a9, char a10, unsigned __int8 a11)
+uint64_t sub_100027E04(void *a1, unint64_t a2, _BYTE *a3, uint64_t a4, void *a5, unsigned int a6, uint64_t a7, int a8, uint64_t a9, char a10, unsigned __int8 a11)
 {
   if (!a5 || (v12 = a5[7]) == 0)
   {
@@ -1098,1753 +1158,100 @@ uint64_t sub_100027E04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
 
   v15 = a6;
   v16 = a1;
-  v347 = a2;
-  v348 = a4;
-  v350 = a3;
+  v284 = a2;
+  v285 = a4;
+  v287 = a3;
   v17 = a5[1];
   if (!v17)
   {
     v17 = *(*a5 + 392);
   }
 
-  v349 = v17;
-  if (!a9 || (a1 = sub_100027A74(a1, a5, a6, a9), v18 = a1, !a1))
+  v286 = v17;
+  if (a9)
   {
-    if (!v16 && (a5[4] & 1) == 0)
+    a1 = sub_100027A74(a1, a5, a6, a9);
+    v18 = a1;
+    if (a1)
     {
-      return 0;
+      return v18;
     }
-
-    v345 = a9;
-    v344 = a11;
-    v346 = v15;
-    if ((a11 & 1) == 0)
-    {
-      v18 = 0;
-      if (v350 && (*(v12 + 32) & 1) != 0)
-      {
-        v26 = a5[1];
-        if (v26)
-        {
-          v27 = (v26 + 4040);
-        }
-
-        else
-        {
-          v27 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v28 = sub_100047D10(a5);
-        v29 = *(a5[7] + 34);
-        v30 = sub_100047D10(v350);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): root node has a parent 0x%llx (level %d)\n", "btree_node_check", 183, v27, v28, v29, v30, *(*(v350 + 7) + 34));
-        v18 = 22;
-        v15 = v346;
-      }
-
-      if ((*(v12 + 32) & 2) != 0 && *(v12 + 34))
-      {
-        v31 = a5[1];
-        if (v31)
-        {
-          v32 = (v31 + 4040);
-        }
-
-        else
-        {
-          v32 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v34 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): leaf node has non-zero level\n", "btree_node_check", 186, v32, v34, *(v12 + 34));
-        v18 = 22;
-      }
-
-      if (v16)
-      {
-        if (*(a5[7] + 34) > *(v16[7] + 34))
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          v35 = a5[1];
-          if (v35)
-          {
-            v36 = (v35 + 4040);
-          }
-
-          else
-          {
-            v36 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v37 = sub_100047D10(a5);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node level greater than root level %d\n", "btree_node_check", 189, v36, v37, *(v12 + 34), *(v16[7] + 34));
-        }
-
-        v38 = v15 - 1;
-        if (*(v16[7] + 34) - (v15 - 1) != *(a5[7] + 34))
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          v39 = a5[1];
-          if (v39)
-          {
-            v40 = (v39 + 4040);
-          }
-
-          else
-          {
-            v40 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v41 = sub_100047D10(a5);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node level should be %d\n", "btree_node_check", 192, v40, v41, *(v12 + 34), *(v16[7] + 34) - v38);
-        }
-      }
-
-      if (*(v12 + 32))
-      {
-        v42 = -96;
-      }
-
-      else
-      {
-        v42 = -56;
-      }
-
-      v43 = v42 + ((a5[50] >> 27) & 0xF000);
-      if (*(v12 + 40))
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v44 = a5[1];
-        if (v44)
-        {
-          v45 = (v44 + 4040);
-        }
-
-        else
-        {
-          v45 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v46 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid table space offset\n", "btree_node_check", 203, v45, v46, *(a5[7] + 34));
-      }
-
-      if (*(v12 + 42) > v43)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v47 = a5[1];
-        if (v47)
-        {
-          v48 = (v47 + 4040);
-        }
-
-        else
-        {
-          v48 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v49 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): table space length larger than available data space\n", "btree_node_check", 206, v48, v49, *(a5[7] + 34));
-      }
-
-      if ((*(v12 + 32) & 4) == 0)
-      {
-        v50 = *(v12 + 42);
-        if (v50 < 8 * sub_10001ABD0(a5))
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          if (!a5[1])
-          {
-            v54 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v305 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): table space length smaller than minimum\n");
-          return v18;
-        }
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      v51 = (v43 - *(v12 + 42));
-      if (*(v12 + 44) <= (v43 - *(v12 + 42)))
-      {
-        v18 = 0;
-      }
-
-      else
-      {
-        v52 = a5[1];
-        if (v52)
-        {
-          v53 = (v52 + 4040);
-        }
-
-        else
-        {
-          v53 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v56 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): free space offset too large\n", "btree_node_check", 218, v53, v56, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if (*(v12 + 46) + *(v12 + 44) > v51)
-      {
-        v57 = a5[1];
-        if (v57)
-        {
-          v58 = (v57 + 4040);
-        }
-
-        else
-        {
-          v58 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v59 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): free space extends beyond end of node\n", "btree_node_check", 221, v58, v59, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      v341 = *(v12 + 44);
-      v60 = *(v12 + 46);
-      if (*(v12 + 36) > v51)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v61 = a5[1];
-        if (v61)
-        {
-          v62 = (v61 + 4040);
-        }
-
-        else
-        {
-          v62 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v63 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key count larger than possible\n", "btree_node_check", 228, v62, v63, *(a5[7] + 34));
-      }
-
-      v64 = *(v12 + 36);
-      v340 = v51;
-      if (v64 > v341 && (*(v12 + 32) & 0x80000000) == 0)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v65 = a5[1];
-        if (v65)
-        {
-          v66 = (v65 + 4040);
-        }
-
-        else
-        {
-          v66 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v68 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key count larger than gross key space\n", "btree_node_check", 231, v66, v68, *(a5[7] + 34));
-      }
-
-      v69 = *(v12 + 36);
-      v70 = *(v12 + 42);
-      if (v69 > v70 / sub_10001ABD0(a5))
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        if (!a5[1])
-        {
-          v73 = *(*(*a5 + 392) + 384) + 212;
-        }
-
-        sub_100047D10(a5);
-        v306 = *(a5[7] + 34);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key count larger than TOC space\n");
-        return v18;
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      if (a5[47] == v12 + 56)
-      {
-        v18 = 0;
-      }
-
-      else
-      {
-        v71 = a5[1];
-        if (v71)
-        {
-          v72 = (v71 + 4040);
-        }
-
-        else
-        {
-          v72 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v75 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid TOC[] pointer\n", "btree_node_check", 242, v72, v75, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if (a5[48] != v12 + 56 + *(v12 + 42))
-      {
-        v76 = a5[1];
-        if (v76)
-        {
-          v77 = (v76 + 4040);
-        }
-
-        else
-        {
-          v77 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v78 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid keys[] pointer\n", "btree_node_check", 245, v77, v78, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if ((*(v12 + 32) & 1) != 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000) - 40)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v79 = a5[1];
-        if (v79)
-        {
-          v80 = (v79 + 4040);
-        }
-
-        else
-        {
-          v80 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v81 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n", "btree_node_check", 248, v80, v81, *(a5[7] + 34));
-      }
-
-      if ((*(v12 + 32) & 1) == 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000))
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        if (!a5[1])
-        {
-          v86 = *(*(*a5 + 392) + 384) + 212;
-        }
-
-        sub_100047D10(a5);
-        v308 = *(a5[7] + 34);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n");
-        return v18;
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      v82 = v341 + v60;
-      if (*(v12 + 50) <= v341)
-      {
-        v18 = 0;
-        v85 = v340;
-      }
-
-      else
-      {
-        v83 = a5[1];
-        if (v83)
-        {
-          v84 = (v83 + 4040);
-        }
-
-        else
-        {
-          v84 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v85 = v340;
-        v139 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list space larger than key space available\n", "btree_node_check", 259, v84, v139, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      v140 = v85 - v82;
-      v141 = *(v12 + 48);
-      if (v141 != 0xFFFF && v341 - 4 < v141)
-      {
-        v142 = a5[1];
-        if (v142)
-        {
-          v143 = (v142 + 4040);
-        }
-
-        else
-        {
-          v143 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v144 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list head beyond key space available\n", "btree_node_check", 263, v143, v144, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if (*(v12 + 54) > v140)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v145 = a5[1];
-        if (v145)
-        {
-          v146 = (v145 + 4040);
-        }
-
-        else
-        {
-          v146 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v147 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list space larger than val space available\n", "btree_node_check", 266, v146, v147, *(a5[7] + 34));
-      }
-
-      v148 = *(v12 + 52);
-      if (v148 != 0xFFFF)
-      {
-        if (v148 > v140)
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          v149 = a5[1];
-          if (v149)
-          {
-            v150 = (v149 + 4040);
-          }
-
-          else
-          {
-            v150 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v155 = sub_100047D10(a5);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list head beyond val space available\n", "btree_node_check", 270, v150, v155, *(a5[7] + 34));
-          v148 = *(v12 + 52);
-        }
-
-        if (v148 <= 3)
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          if (!a5[1])
-          {
-            v173 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v314 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list head beyond end of node\n");
-          return v18;
-        }
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      v339 = v341 - 4;
-      v156 = sub_10003FA58((v340 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
-      v157 = sub_10003FA58((v340 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
-      v337 = (v340 + 63) >> 6;
-      v338 = v157;
-      if (!v156 || !v157)
-      {
-        v171 = a5[1];
-        if (v171)
-        {
-          v172 = (v171 + 4040);
-        }
-
-        else
-        {
-          v172 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v174 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): couldn't allocate bitmap to check btree node space usage\n", "btree_node_check", 286, v172, v174, *(a5[7] + 34));
-        v18 = 12;
-        goto LABEL_398;
-      }
-
-      v336 = v140;
-      v342 = a7;
-      v343 = a8;
-      sub_100019AA8(v156, *(v12 + 44), *(v12 + 46), v158);
-      v159 = 0;
-      LOWORD(v160) = *(v12 + 48);
-      v161 = v156;
-      while (1)
-      {
-        v162 = v160;
-        if (v160 == 0xFFFF)
-        {
-          break;
-        }
-
-        if (v160 >= v341 || v339 < v160)
-        {
-          if (!a5[1])
-          {
-            v191 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v315 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry starts beyond key space available\n");
-          goto LABEL_396;
-        }
-
-        v163 = (a5[48] + v160);
-        v164 = v163[1];
-        if (v164 <= 3)
-        {
-          if (!a5[1])
-          {
-            v192 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-LABEL_389:
-          sub_100047D10(a5);
-          v316 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry len value too small\n");
-          goto LABEL_396;
-        }
-
-        v165 = v164 + v160;
-        if (v165 > v341)
-        {
-          if (!a5[1])
-          {
-            v193 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v317 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry extends beyond key space available\n");
-          goto LABEL_396;
-        }
-
-        if (!sub_1000199B8(v156, v162, v164, v165))
-        {
-          if (!a5[1])
-          {
-            v194 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v318 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry overlaps with other free space\n");
-          goto LABEL_396;
-        }
-
-        sub_100019AA8(v156, v162, v163[1], v166);
-        v159 += v163[1];
-        v167 = *(v12 + 50);
-        if (v159 <= v167)
-        {
-          v18 = 0;
-        }
-
-        else
-        {
-          v168 = a5[1];
-          if (v168)
-          {
-            v169 = (v168 + 4040);
-          }
-
-          else
-          {
-            v169 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v170 = sub_100047D10(a5);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entries total space exceeds free list space\n", "btree_node_check", 326, v169, v170, *(a5[7] + 34));
-          v18 = 22;
-        }
-
-        v160 = *v163;
-        if (v162 == v160)
-        {
-          if (!a5[1])
-          {
-            v195 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-LABEL_395:
-          sub_100047D10(a5);
-          v319 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry points to itself\n");
-          goto LABEL_396;
-        }
-
-        v156 = v161;
-        if (v159 > v167)
-        {
-          goto LABEL_398;
-        }
-      }
-
-      v176 = 0;
-      LOWORD(v177) = *(v12 + 52);
-      while (1)
-      {
-        v178 = v177;
-        if (v177 == 0xFFFF)
-        {
-          break;
-        }
-
-        if (v177 <= 3u)
-        {
-          v179 = a5[1];
-          if (v179)
-          {
-            v180 = (v179 + 4040);
-          }
-
-          else
-          {
-            v180 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v181 = sub_100047D10(a5);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry beyond end of node\n", "btree_node_check", 342, v180, v181, *(a5[7] + 34));
-          v18 = 22;
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        if (v178 > v336)
-        {
-          if (!a5[1])
-          {
-            v198 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v320 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry starts beyond val space available\n");
-          goto LABEL_396;
-        }
-
-        v156 = v161;
-        if (v178 < 4)
-        {
-          goto LABEL_398;
-        }
-
-        v182 = (a5[49] - v178);
-        v183 = v182[1];
-        if (v183 <= 3)
-        {
-          if (!a5[1])
-          {
-            v199 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          goto LABEL_389;
-        }
-
-        if (v178 < v183)
-        {
-          if (!a5[1])
-          {
-            v200 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v321 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry extends beyond val space available\n");
-          goto LABEL_396;
-        }
-
-        v184 = v340 - v178;
-        v185 = v184;
-        if (!sub_1000199B8(v161, v184, v183, v184))
-        {
-          if (!a5[1])
-          {
-            v201 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v322 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry overlaps with other free space\n");
-          goto LABEL_396;
-        }
-
-        sub_100019AA8(v161, v185, v182[1], v186);
-        v176 += v182[1];
-        v187 = *(v12 + 54);
-        if (v176 <= v187)
-        {
-          v18 = 0;
-        }
-
-        else
-        {
-          v188 = a5[1];
-          if (v188)
-          {
-            v189 = (v188 + 4040);
-          }
-
-          else
-          {
-            v189 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v190 = sub_100047D10(a5);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entries total space exceeds free list space\n", "btree_node_check", 372, v189, v190, *(a5[7] + 34));
-          v18 = 22;
-        }
-
-        v177 = *v182;
-        if (v178 == v177)
-        {
-          if (!a5[1])
-          {
-            v202 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          goto LABEL_395;
-        }
-
-        v156 = v161;
-        if (v176 > v187)
-        {
-          goto LABEL_398;
-        }
-      }
-
-      if ((*(v12 + 32) & 4) != 0 && (*(a5 + 401) & 0x7FFE) == 0)
-      {
-        v203 = a5[1];
-        if (v203)
-        {
-          v204 = (v203 + 4040);
-        }
-
-        else
-        {
-          v204 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v205 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says key size is variable\n", "btree_node_check", 387, v204, v205, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      else
-      {
-        v18 = 0;
-      }
-
-      if ((*(a5[7] + 32) & 2) == 0 && (*(a5 + 401) & 0x7FFE) != 0 && (*(v12 + 32) & 4) == 0)
-      {
-        v196 = a5[1];
-        if (v196)
-        {
-          v197 = (v196 + 4040);
-        }
-
-        else
-        {
-          v197 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v206 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): tree says key size is fixed, but node says kv size is variable\n", "btree_node_check", 390, v197, v206, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if ((*(v12 + 32) & 4) != 0 && (*(a5[7] + 32) & 2) != 0 && (*(a5 + 401) & 0x7FFF8000) == 0)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v207 = a5[1];
-        if (v207)
-        {
-          v208 = (v207 + 4040);
-        }
-
-        else
-        {
-          v208 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v209 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says val size is variable\n", "btree_node_check", 393, v208, v209, *(a5[7] + 34));
-      }
-
-      v210 = a5[7];
-      v211 = *(v210 + 32);
-      if ((v211 & 2) != 0)
-      {
-        v255 = a5[50];
-        if ((v255 & 0x7FFF800000) != 0 && (v255 & 4) == 0 && (v255 & 0x7FFE00) != 0 && (*(v12 + 32) & 4) == 0)
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          if (!a5[1])
-          {
-            v294 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v323 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): tree says kv sizes are fixed, but leaf says kv size is variable\n");
-          goto LABEL_397;
-        }
-      }
-
-      v156 = v161;
-      if (v18)
-      {
-LABEL_398:
-        if (v156)
-        {
-          sub_10003FB5C(v156, (8 * v337));
-        }
-
-        if (v338)
-        {
-          sub_10003FB5C(v338, (8 * v337));
-        }
-
-        return v18;
-      }
-
-      v212 = a5[47];
-      if ((*(v12 + 32) & 4) != 0)
-      {
-        v256 = a5[50];
-        if ((v211 & 2) != 0)
-        {
-          v257 = v256 >> 23;
-        }
-
-        else
-        {
-          v257 = 8;
-        }
-
-        if (*(v210 + 36))
-        {
-          v258 = 0;
-          v335 = (v256 >> 9) & 0x3FFF;
-          v332 = (v335 + 7) & 0x7FF8;
-          v334 = v257;
-          v333 = (v257 + 7) & 0x1FFF8;
-          v259 = (v212 + 2);
-          do
-          {
-            v260 = *(v259 - 1);
-            v339 = *v259;
-            if (v260 == 0xFFFF)
-            {
-              if ((*(v12 + 32) & 0x80000000) == 0)
-              {
-                if (!a5[1])
-                {
-                  v297 = *(*(*a5 + 392) + 384) + 212;
-                }
-
-                sub_100047D10(a5);
-                v326 = *(a5[7] + 34);
-LABEL_662:
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid key offset\n");
-LABEL_396:
-                v18 = 22;
-LABEL_397:
-                v156 = v161;
-                goto LABEL_398;
-              }
-
-              v18 = 0;
-            }
-
-            else
-            {
-              v261 = *(v210 + 32);
-              if ((v261 & 2) != 0 && (v16 && *(v16[49] + 16) < v335 || (v261 & 1) != 0 && *(a5[49] + 16) < v335))
-              {
-                v262 = a5[1];
-                if (v262)
-                {
-                  v263 = (v262 + 4040);
-                }
-
-                else
-                {
-                  v263 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v264 = sub_100047D10(a5);
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 452, v263, v264, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              else
-              {
-                v18 = 0;
-              }
-
-              if (v260 >= v341)
-              {
-                v265 = a5[1];
-                if (v265)
-                {
-                  v266 = (v265 + 4040);
-                }
-
-                else
-                {
-                  v266 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v267 = sub_100047D10(a5);
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 452, v266, v267, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              if (v335 + v260 <= v341)
-              {
-                if (!v18)
-                {
-                  if (sub_1000199B8(v161, v260, v335, &v359))
-                  {
-                    v18 = 0;
-                  }
-
-                  else
-                  {
-                    v271 = a5[1];
-                    if (v271)
-                    {
-                      v272 = (v271 + 4040);
-                    }
-
-                    else
-                    {
-                      v272 = (*(*(*a5 + 392) + 384) + 212);
-                    }
-
-                    v273 = sub_100047D10(a5);
-                    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 452, v272, v273, *(a5[7] + 34));
-                    v18 = 22;
-                  }
-
-                  if (!sub_1000199B8(v338, v260, v335, &v359))
-                  {
-                    v274 = a5[1];
-                    if (v274)
-                    {
-                      v275 = (v274 + 4040);
-                    }
-
-                    else
-                    {
-                      v275 = (*(*(*a5 + 392) + 384) + 212);
-                    }
-
-                    v276 = sub_100047D10(a5);
-                    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 452, v275, v276, *(a5[7] + 34));
-                    v18 = 22;
-                  }
-
-                  if ((a5[50] & 0x40) != 0)
-                  {
-                    v277 = v335;
-                  }
-
-                  else
-                  {
-                    v277 = v332;
-                  }
-
-                  sub_100019AA8(v338, v260, v277, v332);
-                }
-              }
-
-              else
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                v268 = a5[1];
-                if (v268)
-                {
-                  v269 = (v268 + 4040);
-                }
-
-                else
-                {
-                  v269 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v270 = sub_100047D10(a5);
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 452, v269, v270, *(a5[7] + 34));
-              }
-            }
-
-            if (v339 <= 0xFFFD)
-            {
-              v278 = *(a5[7] + 32);
-              if ((v278 & 2) != 0 && (v16 && *(v16[49] + 20) < v334 || (v278 & 1) != 0 && *(a5[49] + 20) < v334))
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                v279 = a5[1];
-                if (v279)
-                {
-                  v280 = (v279 + 4040);
-                }
-
-                else
-                {
-                  v280 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v281 = sub_100047D10(a5);
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 455, v280, v281, *(a5[7] + 34));
-              }
-
-              if (v339 > v336)
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                v282 = a5[1];
-                if (v282)
-                {
-                  v283 = (v282 + 4040);
-                }
-
-                else
-                {
-                  v283 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v284 = sub_100047D10(a5);
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 455, v283, v284, *(a5[7] + 34));
-              }
-
-              if (v339 < v257)
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                if (!a5[1])
-                {
-                  v295 = *(*(*a5 + 392) + 384) + 212;
-                }
-
-                sub_100047D10(a5);
-                v324 = *(a5[7] + 34);
-LABEL_657:
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val location extends beyond val space\n");
-                goto LABEL_397;
-              }
-
-              v156 = v161;
-              if (v18)
-              {
-                goto LABEL_398;
-              }
-
-              v285 = v340 - v339;
-              if (sub_1000199B8(v161, v340 - v339, v257, v340))
-              {
-                v18 = 0;
-              }
-
-              else
-              {
-                v287 = a5[1];
-                if (v287)
-                {
-                  v288 = (v287 + 4040);
-                }
-
-                else
-                {
-                  v288 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v289 = sub_100047D10(a5);
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 455, v288, v289, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              if (!sub_1000199B8(v338, v285, v257, v286))
-              {
-                v290 = a5[1];
-                if (v290)
-                {
-                  v291 = (v290 + 4040);
-                }
-
-                else
-                {
-                  v291 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v292 = sub_100047D10(a5);
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 455, v291, v292, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              if ((a5[50] & 0x40) != 0)
-              {
-                v293 = v334;
-              }
-
-              else
-              {
-                v293 = v333;
-              }
-
-              sub_100019AA8(v338, v285, v293, v334);
-            }
-
-            v156 = v161;
-            if (v18)
-            {
-              goto LABEL_398;
-            }
-
-            v259 += 2;
-            ++v258;
-            v210 = a5[7];
-          }
-
-          while (v258 < *(v210 + 36));
-        }
-      }
-
-      else if (*(v210 + 36))
-      {
-        v213 = 0;
-        v214 = (v212 + 4);
-        do
-        {
-          v215 = *(v214 - 2);
-          v339 = *v214;
-          v216 = v214[1];
-          if (v215 == 0xFFFF)
-          {
-            if ((*(v12 + 32) & 0x80000000) == 0)
-            {
-              if (!a5[1])
-              {
-                v298 = *(*(*a5 + 392) + 384) + 212;
-              }
-
-              sub_100047D10(a5);
-              v327 = *(a5[7] + 34);
-              goto LABEL_662;
-            }
-
-            v18 = 0;
-          }
-
-          else
-          {
-            v217 = *(v214 - 1);
-            v218 = *(v210 + 32);
-            if ((v218 & 2) != 0 && (v16 && *(v16[49] + 16) < v217 || (v218 & 1) != 0 && *(a5[49] + 16) < v217))
-            {
-              v219 = a5[1];
-              if (v219)
-              {
-                v220 = (v219 + 4040);
-              }
-
-              else
-              {
-                v220 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v221 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 475, v220, v221, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            else
-            {
-              v18 = 0;
-            }
-
-            if (v215 >= v341)
-            {
-              v222 = a5[1];
-              if (v222)
-              {
-                v223 = (v222 + 4040);
-              }
-
-              else
-              {
-                v223 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v224 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 475, v223, v224, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            v225 = (v217 + v215);
-            if (v225 <= v341)
-            {
-              if (!v18)
-              {
-                if (sub_1000199B8(v161, v215, v217, v225))
-                {
-                  v18 = 0;
-                }
-
-                else
-                {
-                  v230 = a5[1];
-                  if (v230)
-                  {
-                    v231 = (v230 + 4040);
-                  }
-
-                  else
-                  {
-                    v231 = (*(*(*a5 + 392) + 384) + 212);
-                  }
-
-                  v232 = sub_100047D10(a5);
-                  sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 475, v231, v232, *(a5[7] + 34));
-                  v18 = 22;
-                }
-
-                if (!sub_1000199B8(v338, v215, v217, v228))
-                {
-                  v233 = a5[1];
-                  if (v233)
-                  {
-                    v234 = (v233 + 4040);
-                  }
-
-                  else
-                  {
-                    v234 = (*(*(*a5 + 392) + 384) + 212);
-                  }
-
-                  v235 = sub_100047D10(a5);
-                  sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 475, v234, v235, *(a5[7] + 34));
-                  v18 = 22;
-                }
-
-                v236 = a5[50];
-                if ((v236 & 0x40) != 0)
-                {
-                  v237 = v217;
-                }
-
-                else
-                {
-                  v237 = (v217 + 7) & 0x1FFF8;
-                }
-
-                sub_100019AA8(v338, v215, v237, v236);
-              }
-            }
-
-            else
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v226 = a5[1];
-              if (v226)
-              {
-                v227 = (v226 + 4040);
-              }
-
-              else
-              {
-                v227 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v229 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 475, v227, v229, *(a5[7] + 34));
-            }
-          }
-
-          if (v339 > 0xFFFD)
-          {
-            if (v216 && v216 != 65534)
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              if (!a5[1])
-              {
-                v299 = *(*(*a5 + 392) + 384) + 212;
-              }
-
-              sub_100047D10(a5);
-              v328 = *(a5[7] + 34);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid val offset has non-zero length\n");
-              goto LABEL_397;
-            }
-          }
-
-          else
-          {
-            v238 = *(a5[7] + 32);
-            if ((v238 & 2) != 0 && (v16 && *(v16[49] + 20) < v216 || (v238 & 1) != 0 && *(a5[49] + 20) < v216))
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v239 = a5[1];
-              if (v239)
-              {
-                v240 = (v239 + 4040);
-              }
-
-              else
-              {
-                v240 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v241 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 478, v240, v241, *(a5[7] + 34));
-            }
-
-            if (v339 > v336)
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v242 = a5[1];
-              if (v242)
-              {
-                v243 = (v242 + 4040);
-              }
-
-              else
-              {
-                v243 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v244 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 478, v243, v244, *(a5[7] + 34));
-            }
-
-            if (v339 < v216)
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              if (!a5[1])
-              {
-                v296 = *(*(*a5 + 392) + 384) + 212;
-              }
-
-              sub_100047D10(a5);
-              v325 = *(a5[7] + 34);
-              goto LABEL_657;
-            }
-
-            v156 = v161;
-            if (v18)
-            {
-              goto LABEL_398;
-            }
-
-            v245 = v340 - v339;
-            if (sub_1000199B8(v161, v340 - v339, v216, v340))
-            {
-              v18 = 0;
-            }
-
-            else
-            {
-              v247 = a5[1];
-              if (v247)
-              {
-                v248 = (v247 + 4040);
-              }
-
-              else
-              {
-                v248 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v249 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 478, v248, v249, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            if (!sub_1000199B8(v338, v245, v216, v246))
-            {
-              v250 = a5[1];
-              if (v250)
-              {
-                v251 = (v250 + 4040);
-              }
-
-              else
-              {
-                v251 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v252 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 478, v251, v252, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            v253 = a5[50];
-            if ((v253 & 0x40) != 0)
-            {
-              v254 = v216;
-            }
-
-            else
-            {
-              v254 = (v216 + 7) & 0x1FFF8;
-            }
-
-            sub_100019AA8(v338, v245, v254, v253);
-          }
-
-          v156 = v161;
-          if (v18)
-          {
-            goto LABEL_398;
-          }
-
-          v214 += 4;
-          ++v213;
-          v210 = a5[7];
-        }
-
-        while (v213 < *(v210 + 36));
-      }
-
-      sub_10003FB5C(v161, 8 * v337);
-      sub_10003FB5C(v338, 8 * v337);
-      a8 = v343;
-      a7 = v342;
-      v15 = v346;
-    }
-
-    v357 = 0;
-    v358 = 0xAAAAAAAAAAAAAAAALL;
-    v356 = -21846;
-    v355 = 0;
-    v354 = 0;
+  }
+
+  if (!v16 && (a5[4] & 1) == 0)
+  {
+    return 0;
+  }
+
+  v282 = a9;
+  v281 = a11;
+  v283 = v15;
+  if (a11)
+  {
+LABEL_17:
+    v294 = 0;
+    v295 = 0xAAAAAAAAAAAAAAAALL;
+    v293 = -21846;
+    v292 = 0;
+    v291 = 0;
     v22 = a5[7];
-    v23 = v350;
-    v24 = v348;
-    if (v350 && *(v22 + 36))
+    v23 = v287;
+    v24 = v285;
+    if (v287 && *(v22 + 36))
     {
-      v25 = sub_10001AD80(v350, v348, &v358, &v356);
+      v25 = sub_10001AD80(v287, v285, &v295, &v293);
       if (v25)
       {
         v18 = v25;
-        if (!a5[1])
-        {
-          v55 = *(*(*a5 + 392) + 384) + 212;
-        }
-
-        sub_100047D10(v350);
-        v300 = *(*(v350 + 7) + 34);
-LABEL_282:
+        sub_100047D10(v287);
+LABEL_249:
         sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n");
         return v18;
       }
 
-      v33 = sub_10001AD80(a5, 0, &v357, &v355);
+      v33 = sub_10001AD80(a5, 0, &v294, &v292);
       if (v33)
       {
         v18 = v33;
-        if (!a5[1])
-        {
-          v67 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100047D10(a5);
-        v301 = *(a5[7] + 34);
-        goto LABEL_282;
+        goto LABEL_249;
       }
 
-      a1 = (a5[52])(v349, v358, v356, v357, v355, &v354);
+      a1 = (a5[52])(v286, v295, v293, v294, v292, &v291);
       if (a1)
       {
         v18 = a1;
-        if (!a5[1])
-        {
-          v74 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100047D10(a5);
-        v307 = *(a5[7] + 34);
         sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): minkey compare error: %d\n");
         return v18;
       }
 
-      if (v354 >= 1)
+      if (v291 >= 1)
       {
-        if (!a5[1])
-        {
-          v87 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100047D10(a5);
-        v309 = *(a5[7] + 34);
         sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): minkey not correct\n");
         return 22;
       }
 
-      if (v354)
+      if (v291)
       {
-        if (!a5[1])
-        {
-          v151 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100047D10(a5);
-        v313 = *(a5[7] + 34);
         sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): minkey not in sync\n");
         return 22;
       }
 
       v22 = a5[7];
-      v23 = v350;
-      v24 = v348;
+      v23 = v287;
+      v24 = v285;
     }
 
-    v88 = *(v22 + 36);
-    if (v88 >= 2)
+    v81 = *(v22 + 36);
+    if (v81 >= 2)
     {
-      v342 = a7;
-      v343 = a8;
+      v279 = a7;
+      v280 = a8;
       v18 = 0;
-      for (i = 1; i < v88; ++i)
+      for (i = 1; i < v81; ++i)
       {
         a1 = sub_10001AC90(a5, (i - 1));
         if (a1 != 0xFFFF)
@@ -2852,10 +1259,10 @@ LABEL_282:
           a1 = sub_10001AC90(a5, i);
           if (a1 != 0xFFFF)
           {
-            v90 = sub_10001AD80(a5, (i - 1), &v358, &v356);
-            if (v90)
+            v83 = sub_10001AD80(a5, (i - 1), &v295, &v293);
+            if (v83)
             {
-              v91 = v90;
+              v84 = v83;
               if (v18)
               {
                 v18 = v18;
@@ -2863,30 +1270,30 @@ LABEL_282:
 
               else
               {
-                v18 = v90;
+                v18 = v83;
               }
 
-              v92 = a5[1];
-              if (v92)
+              v85 = a5[1];
+              if (v85)
               {
-                v93 = (v92 + 4040);
+                v86 = (v85 + 4040);
               }
 
               else
               {
-                v93 = (*(*(*a5 + 392) + 384) + 212);
+                v86 = (*(*(*a5 + 392) + 384) + 212);
               }
 
-              v94 = sub_100047D10(a5);
-              a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 536, v93, v94, *(a5[7] + 34), i - 1, v91);
+              v87 = sub_100047D10(a5);
+              a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 536, v86, v87, *(a5[7] + 34), i - 1, v84);
             }
 
             else
             {
-              a1 = sub_10001AD80(a5, i, &v357, &v355);
+              a1 = sub_10001AD80(a5, i, &v294, &v292);
               if (a1)
               {
-                v95 = a1;
+                v88 = a1;
                 if (v18)
                 {
                   v18 = v18;
@@ -2897,257 +1304,195 @@ LABEL_282:
                   v18 = a1;
                 }
 
-                v96 = a5[1];
-                if (v96)
+                v89 = a5[1];
+                if (v89)
                 {
-                  v97 = (v96 + 4040);
+                  v90 = (v89 + 4040);
                 }
 
                 else
                 {
-                  v97 = (*(*(*a5 + 392) + 384) + 212);
+                  v90 = (*(*(*a5 + 392) + 384) + 212);
                 }
 
-                v98 = sub_100047D10(a5);
-                a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 543, v97, v98, *(a5[7] + 34), i, v95);
+                v91 = sub_100047D10(a5);
+                a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 543, v90, v91, *(a5[7] + 34), i, v88);
               }
             }
 
             if (!v18)
             {
-              a1 = (a5[52])(v349, v358, v356, v357, v355, &v354);
+              a1 = (a5[52])(v286, v295, v293, v294, v292, &v291);
               if (a1)
               {
                 v18 = a1;
-                v99 = a5[1];
-                if (v99)
+                v92 = a5[1];
+                if (v92)
                 {
-                  v100 = (v99 + 4040);
+                  v93 = (v92 + 4040);
                 }
 
                 else
                 {
-                  v100 = (*(*(*a5 + 392) + 384) + 212);
+                  v93 = (*(*(*a5 + 392) + 384) + 212);
                 }
 
-                v101 = sub_100047D10(a5);
-                a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n", "btree_node_check", 547, v100, v101, *(a5[7] + 34), i, v18);
+                v94 = sub_100047D10(a5);
+                a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n", "btree_node_check", 547, v93, v94, *(a5[7] + 34), i, v18);
               }
 
-              else if (v354 < 0)
+              else if (v291 < 0)
               {
                 v18 = 0;
               }
 
               else
               {
-                v102 = a5[1];
-                if (v102)
+                v95 = a5[1];
+                if (v95)
                 {
-                  v103 = (v102 + 4040);
+                  v96 = (v95 + 4040);
                 }
 
                 else
                 {
-                  v103 = (*(*(*a5 + 392) + 384) + 212);
+                  v96 = (*(*(*a5 + 392) + 384) + 212);
                 }
 
-                v104 = sub_100047D10(a5);
-                a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): keys out of order: %d\n", "btree_node_check", 550, v103, v104, *(a5[7] + 34), i);
+                v97 = sub_100047D10(a5);
+                a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): keys out of order: %d\n", "btree_node_check", 550, v96, v97, *(a5[7] + 34), i);
                 v18 = 22;
               }
             }
           }
         }
 
-        v88 = *(a5[7] + 36);
+        v81 = *(a5[7] + 36);
       }
 
-      a8 = v343;
-      a7 = v342;
-      v15 = v346;
+      a8 = v280;
+      a7 = v279;
+      v15 = v283;
       if (v18)
       {
         return v18;
       }
 
-      v23 = v350;
-      v24 = v348;
+      v23 = v287;
+      v24 = v285;
     }
 
-    if (v23)
+    if (!v23)
     {
-      a1 = sub_10001AD80(a5, (v88 - 1), &v358, &v356);
-      if (a1)
+      goto LABEL_203;
+    }
+
+    a1 = sub_10001AD80(a5, (v81 - 1), &v295, &v293);
+    if (a1)
+    {
+      v98 = a1;
+      v99 = a5[1];
+      if (v99)
       {
-        v105 = a1;
-        v106 = a5[1];
-        if (v106)
-        {
-          v107 = (v106 + 4040);
-        }
-
-        else
-        {
-          v107 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v108 = sub_100047D10(a5);
-        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 559, v107, v108, *(a5[7] + 34), *(a5[7] + 36) - 1, v105);
-        return 22;
-      }
-
-      if (*(*(v23 + 56) + 36) - 1 <= v24)
-      {
-        v357 = a7;
-        v355 = a8;
-        v109 = a8;
-        v110 = a7;
+        v100 = (v99 + 4040);
       }
 
       else
       {
-        a1 = sub_10001AD80(v23, (v24 + 1), &v357, &v355);
-        if (a1)
-        {
-          v18 = a1;
-          if (!a5[1])
-          {
-            v134 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(v350);
-          v302 = *(*(v350 + 7) + 34);
-          goto LABEL_282;
-        }
-
-        v110 = v357;
-        v109 = v355;
+        v100 = (*(*(*a5 + 392) + 384) + 212);
       }
 
-      if (v110 && v109 && v356)
-      {
-        a1 = (a5[52])(v349, v358);
-        if (a1)
-        {
-          v18 = a1;
-          if (!a5[1])
-          {
-            v136 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v137 = a5[7];
-          v304 = (*(v137 + 36) - 1);
-          v303 = *(v137 + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n");
-          return v18;
-        }
-
-        if ((v354 & 0x80000000) == 0)
-        {
-          if (!a5[1])
-          {
-            v138 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100047D10(a5);
-          v312 = *(a5[7] + 34);
-          sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node's max key is not less than next sibling's entry in parent\n");
-          return 22;
-        }
-      }
+      v101 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 559, v100, v101, *(a5[7] + 34), *(a5[7] + 36) - 1, v98);
+      return 22;
     }
 
-    if (!v16)
+    if (*(*(v23 + 56) + 36) - 1 <= v24)
     {
-      return 0;
-    }
-
-    v111 = a5[7];
-    if ((*(v111 + 32) & 2) != 0 || *(v111 + 36))
-    {
-      v18 = 0;
+      v294 = a7;
+      v292 = a8;
+      v102 = a8;
+      v103 = a7;
     }
 
     else
     {
-      v132 = a5[1];
-      if (v132)
+      a1 = sub_10001AD80(v23, (v24 + 1), &v294, &v292);
+      if (a1)
       {
-        v133 = (v132 + 4040);
+        v18 = a1;
+        sub_100047D10(v287);
+        goto LABEL_249;
       }
 
-      else
-      {
-        v133 = (*(*(*a5 + 392) + 384) + 212);
-      }
-
-      v135 = sub_100047D10(a5);
-      a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): non-leaf node has no children?\n", "btree_node_check", 595, v133, v135, *(a5[7] + 34));
-      v18 = 22;
+      v103 = v294;
+      v102 = v292;
     }
 
-    if ((*(a5[7] + 32) & 2) == 0 && (a10 & 1) == 0)
+    if (!v103 || !v102 || !v293)
     {
-      v350 = v331;
-      v112 = a5[50];
-      __chkstk_darwin(a1);
-      v114 = &v331[-v113];
-      bzero(&v331[-v113], v115);
-      if (*(a5[7] + 36))
+      goto LABEL_203;
+    }
+
+    a1 = (a5[52])(v286, v295);
+    if (a1)
+    {
+      v18 = a1;
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n");
+      return v18;
+    }
+
+    if (v291 < 0)
+    {
+LABEL_203:
+      if (v16)
       {
-        v343 = a8;
-        v116 = v15;
-        v117 = 0;
-        LODWORD(v349) = v116 + 1;
-        do
+        v104 = a5[7];
+        if ((*(v104 + 32) & 2) != 0 || *(v104 + 36))
         {
-          if (sub_10001AC90(a5, v117) != 0xFFFF && sub_10001ACDC(a5, v117) != 0xFFFF)
+          v18 = 0;
+        }
+
+        else
+        {
+          v122 = a5[1];
+          if (v122)
           {
-            v118 = sub_10001B084(a5, v117, v114);
-            if (v118)
+            v123 = (v122 + 4040);
+          }
+
+          else
+          {
+            v123 = (*(*(*a5 + 392) + 384) + 212);
+          }
+
+          v124 = sub_100047D10(a5);
+          a1 = sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): non-leaf node has no children?\n", "btree_node_check", 595, v123, v124, *(a5[7] + 34));
+          v18 = 22;
+        }
+
+        if ((*(a5[7] + 32) & 2) == 0 && (a10 & 1) == 0)
+        {
+          v287 = v268;
+          __chkstk_darwin(a1);
+          v106 = &v268[-v105];
+          bzero(&v268[-v105], v107);
+          if (*(a5[7] + 36))
+          {
+            v280 = a8;
+            v108 = v15;
+            v109 = 0;
+            LODWORD(v286) = v108 + 1;
+            while (1)
             {
-              v119 = v118;
-              v120 = a7;
-              if (v18)
+              if (sub_10001AC90(a5, v109) != 0xFFFF && sub_10001ACDC(a5, v109) != 0xFFFF)
               {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v121 = a5[1];
-              if (v121)
-              {
-                v122 = (v121 + 4040);
-              }
-
-              else
-              {
-                v122 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v123 = sub_100047D10(a5);
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get child %d oid: %d\n", "btree_node_check", 606, v122, v123, *(a5[7] + 34), v117, v119);
-              a7 = v120;
-            }
-
-            else if (*v114)
-            {
-              v352 = a7;
-              v353 = 0xAAAAAAAAAAAAAAAALL;
-              v351 = v343;
-              v124 = a5[7];
-              if (v117 < *(v124 + 36) - 1)
-              {
-                v125 = sub_10001AD80(a5, (v117 + 1), &v352, &v351);
-                if (v125)
+                v110 = sub_10001B084(a5, v109, v106);
+                if (v110)
                 {
-                  v152 = v125;
+                  v111 = v110;
+                  v112 = a7;
                   if (v18)
                   {
                     v18 = v18;
@@ -3158,129 +1503,1668 @@ LABEL_282:
                     v18 = 22;
                   }
 
-                  v153 = a5[1];
-                  if (v153)
+                  v113 = a5[1];
+                  if (v113)
                   {
-                    v154 = (v153 + 4040);
+                    v114 = (v113 + 4040);
                   }
 
                   else
                   {
-                    v154 = (*(*(*a5 + 392) + 384) + 212);
+                    v114 = (*(*(*a5 + 392) + 384) + 212);
                   }
 
-                  v175 = sub_100047D10(a5);
-                  sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 625, v154, v175, *(a5[7] + 34), v117 + 1, v152);
-                  return v18;
+                  v115 = sub_100047D10(a5);
+                  sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get child %d oid: %d\n", "btree_node_check", 606, v114, v115, *(a5[7] + 34), v109, v111);
+                  a7 = v112;
                 }
 
-                v124 = a5[7];
-              }
-
-              v126 = v347;
-              if (sub_10001A958(v16, v114, v347, 0x202u, *(v124 + 34) - 1, 0, &v353))
-              {
-                v127 = 1;
-              }
-
-              else
-              {
-                v127 = v353 == 0;
-              }
-
-              if (v127)
-              {
-                if (v18)
+                else if (*v106)
                 {
-                  v18 = v18;
+                  v289 = a7;
+                  v290 = 0xAAAAAAAAAAAAAAAALL;
+                  v288 = v280;
+                  v116 = a5[7];
+                  if (v109 < *(v116 + 36) - 1)
+                  {
+                    v117 = sub_10001AD80(a5, (v109 + 1), &v289, &v288);
+                    if (v117)
+                    {
+                      v137 = v117;
+                      if (v18)
+                      {
+                        v18 = v18;
+                      }
+
+                      else
+                      {
+                        v18 = 22;
+                      }
+
+                      v138 = a5[1];
+                      if (v138)
+                      {
+                        v139 = (v138 + 4040);
+                      }
+
+                      else
+                      {
+                        v139 = (*(*(*a5 + 392) + 384) + 212);
+                      }
+
+                      v159 = sub_100047D10(a5);
+                      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 625, v139, v159, *(a5[7] + 34), v109 + 1, v137);
+                      return v18;
+                    }
+
+                    v116 = a5[7];
+                  }
+
+                  v118 = v284;
+                  if (sub_10001A958(v16, v106, v284, 0x202u, *(v116 + 34) - 1, 0, &v290))
+                  {
+                    v119 = 1;
+                  }
+
+                  else
+                  {
+                    v119 = v290 == 0;
+                  }
+
+                  if (v119)
+                  {
+                    if (v18)
+                    {
+                      v18 = v18;
+                    }
+
+                    else
+                    {
+                      v18 = 22;
+                    }
+
+                    sub_100047D10(a5);
+                    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get child: 0x%llx\n");
+                  }
+
+                  else
+                  {
+                    v120 = sub_100027E04(v16, v118, a5, v109, v290, v286, v289, v288, v282, 0, v281);
+                    if (v18)
+                    {
+                      v121 = 1;
+                    }
+
+                    else
+                    {
+                      v121 = v120 == 0;
+                    }
+
+                    if (v121)
+                    {
+                      v18 = v18;
+                    }
+
+                    else
+                    {
+                      v18 = v120;
+                    }
+
+                    sub_10004BE88(v290, 1);
+                    sub_100046D50(v290);
+                  }
                 }
 
                 else
                 {
-                  v18 = 22;
-                }
+                  if (v18)
+                  {
+                    v18 = v18;
+                  }
 
-                if (!a5[1])
-                {
-                  v131 = *(*(*a5 + 392) + 384) + 212;
-                }
+                  else
+                  {
+                    v18 = 22;
+                  }
 
-                sub_100047D10(a5);
-                v311 = *(a5[7] + 34);
-                v330 = *v114;
-                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): can't get child: 0x%llx\n");
+                  sub_100047D10(a5);
+                  sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid child oid: 0x%llx\n");
+                }
               }
 
-              else
+              if (++v109 >= *(a5[7] + 36))
               {
-                v128 = sub_100027E04(v16, v126, a5, v117);
-                if (v18)
-                {
-                  v129 = 1;
-                }
-
-                else
-                {
-                  v129 = v128 == 0;
-                }
-
-                if (v129)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = v128;
-                }
-
-                sub_10004BE88(v353, 1);
-                sub_100046D50(v353);
+                return v18;
               }
+            }
+          }
+        }
+
+        return v18;
+      }
+
+      return 0;
+    }
+
+    sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node's max key is not less than next sibling's entry in parent\n");
+    return 22;
+  }
+
+  v18 = 0;
+  if (v287 && (*(v12 + 32) & 1) != 0)
+  {
+    v26 = a5[1];
+    if (v26)
+    {
+      v27 = (v26 + 4040);
+    }
+
+    else
+    {
+      v27 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v28 = sub_100047D10(a5);
+    v29 = *(a5[7] + 34);
+    v30 = sub_100047D10(v287);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): root node has a parent 0x%llx (level %d)\n", "btree_node_check", 183, v27, v28, v29, v30, *(*(v287 + 7) + 34));
+    v18 = 22;
+    v15 = v283;
+  }
+
+  if ((*(v12 + 32) & 2) != 0 && *(v12 + 34))
+  {
+    v31 = a5[1];
+    if (v31)
+    {
+      v32 = (v31 + 4040);
+    }
+
+    else
+    {
+      v32 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v34 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): leaf node has non-zero level\n", "btree_node_check", 186, v32, v34, *(v12 + 34));
+    v18 = 22;
+  }
+
+  if (v16)
+  {
+    if (*(a5[7] + 34) > *(v16[7] + 34))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v35 = a5[1];
+      if (v35)
+      {
+        v36 = (v35 + 4040);
+      }
+
+      else
+      {
+        v36 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v37 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node level greater than root level %d\n", "btree_node_check", 189, v36, v37, *(v12 + 34), *(v16[7] + 34));
+    }
+
+    v38 = v15 - 1;
+    if (*(v16[7] + 34) - (v15 - 1) != *(a5[7] + 34))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v39 = a5[1];
+      if (v39)
+      {
+        v40 = (v39 + 4040);
+      }
+
+      else
+      {
+        v40 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v41 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node level should be %d\n", "btree_node_check", 192, v40, v41, *(v12 + 34), *(v16[7] + 34) - v38);
+    }
+  }
+
+  if (*(v12 + 32))
+  {
+    v42 = -96;
+  }
+
+  else
+  {
+    v42 = -56;
+  }
+
+  v43 = v42 + ((a5[50] >> 27) & 0xF000);
+  if (*(v12 + 40))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v44 = a5[1];
+    if (v44)
+    {
+      v45 = (v44 + 4040);
+    }
+
+    else
+    {
+      v45 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v46 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid table space offset\n", "btree_node_check", 203, v45, v46, *(a5[7] + 34));
+  }
+
+  if (*(v12 + 42) > v43)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v47 = a5[1];
+    if (v47)
+    {
+      v48 = (v47 + 4040);
+    }
+
+    else
+    {
+      v48 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v49 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): table space length larger than available data space\n", "btree_node_check", 206, v48, v49, *(a5[7] + 34));
+  }
+
+  if ((*(v12 + 32) & 4) == 0)
+  {
+    v50 = *(v12 + 42);
+    if (v50 < 8 * sub_10001ABD0(a5))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): table space length smaller than minimum\n");
+      return v18;
+    }
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v51 = (v43 - *(v12 + 42));
+  if (*(v12 + 44) <= (v43 - *(v12 + 42)))
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v52 = a5[1];
+    if (v52)
+    {
+      v53 = (v52 + 4040);
+    }
+
+    else
+    {
+      v53 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v54 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): free space offset too large\n", "btree_node_check", 218, v53, v54, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (*(v12 + 46) + *(v12 + 44) > v51)
+  {
+    v55 = a5[1];
+    if (v55)
+    {
+      v56 = (v55 + 4040);
+    }
+
+    else
+    {
+      v56 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v57 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): free space extends beyond end of node\n", "btree_node_check", 221, v56, v57, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  v278 = *(v12 + 44);
+  v58 = *(v12 + 46);
+  if (*(v12 + 36) > v51)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v59 = a5[1];
+    if (v59)
+    {
+      v60 = (v59 + 4040);
+    }
+
+    else
+    {
+      v60 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v61 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key count larger than possible\n", "btree_node_check", 228, v60, v61, *(a5[7] + 34));
+  }
+
+  v62 = *(v12 + 36);
+  v277 = v51;
+  if (v62 > v278 && (*(v12 + 32) & 0x80000000) == 0)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v63 = a5[1];
+    if (v63)
+    {
+      v64 = (v63 + 4040);
+    }
+
+    else
+    {
+      v64 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v65 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key count larger than gross key space\n", "btree_node_check", 231, v64, v65, *(a5[7] + 34));
+  }
+
+  v66 = *(v12 + 36);
+  v67 = *(v12 + 42);
+  if (v66 > v67 / sub_10001ABD0(a5))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key count larger than TOC space\n");
+    return v18;
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  if (a5[47] == v12 + 56)
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v68 = a5[1];
+    if (v68)
+    {
+      v69 = (v68 + 4040);
+    }
+
+    else
+    {
+      v69 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v70 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid TOC[] pointer\n", "btree_node_check", 242, v69, v70, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (a5[48] != v12 + 56 + *(v12 + 42))
+  {
+    v71 = a5[1];
+    if (v71)
+    {
+      v72 = (v71 + 4040);
+    }
+
+    else
+    {
+      v72 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v73 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid keys[] pointer\n", "btree_node_check", 245, v72, v73, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if ((*(v12 + 32) & 1) != 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000) - 40)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v74 = a5[1];
+    if (v74)
+    {
+      v75 = (v74 + 4040);
+    }
+
+    else
+    {
+      v75 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v76 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n", "btree_node_check", 248, v75, v76, *(a5[7] + 34));
+  }
+
+  if ((*(v12 + 32) & 1) == 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n");
+    return v18;
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v77 = v278 + v58;
+  if (*(v12 + 50) <= v278)
+  {
+    v18 = 0;
+    v80 = v277;
+  }
+
+  else
+  {
+    v78 = a5[1];
+    if (v78)
+    {
+      v79 = (v78 + 4040);
+    }
+
+    else
+    {
+      v79 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v80 = v277;
+    v125 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list space larger than key space available\n", "btree_node_check", 259, v79, v125, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  v126 = v80 - v77;
+  v127 = *(v12 + 48);
+  if (v127 != 0xFFFF && v278 - 4 < v127)
+  {
+    v128 = a5[1];
+    if (v128)
+    {
+      v129 = (v128 + 4040);
+    }
+
+    else
+    {
+      v129 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v130 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list head beyond key space available\n", "btree_node_check", 263, v129, v130, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (*(v12 + 54) > v126)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v131 = a5[1];
+    if (v131)
+    {
+      v132 = (v131 + 4040);
+    }
+
+    else
+    {
+      v132 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v133 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list space larger than val space available\n", "btree_node_check", 266, v132, v133, *(a5[7] + 34));
+  }
+
+  v134 = *(v12 + 52);
+  if (v134 != 0xFFFF)
+  {
+    if (v134 > v126)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v135 = a5[1];
+      if (v135)
+      {
+        v136 = (v135 + 4040);
+      }
+
+      else
+      {
+        v136 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v140 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list head beyond val space available\n", "btree_node_check", 270, v136, v140, *(a5[7] + 34));
+      v134 = *(v12 + 52);
+    }
+
+    if (v134 <= 3)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list head beyond end of node\n");
+      return v18;
+    }
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v276 = v278 - 4;
+  v141 = sub_10003FA58((v277 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
+  v142 = sub_10003FA58((v277 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
+  v274 = (v277 + 63) >> 6;
+  v275 = v142;
+  if (!v141 || !v142)
+  {
+    v156 = a5[1];
+    if (v156)
+    {
+      v157 = (v156 + 4040);
+    }
+
+    else
+    {
+      v157 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v158 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): couldn't allocate bitmap to check btree node space usage\n", "btree_node_check", 286, v157, v158, *(a5[7] + 34));
+    v18 = 12;
+    goto LABEL_343;
+  }
+
+  v273 = v126;
+  v279 = a7;
+  v280 = a8;
+  sub_100019AA8(v141, *(v12 + 44), *(v12 + 46), v143);
+  v144 = 0;
+  LOWORD(v145) = *(v12 + 48);
+  v146 = v141;
+  while (1)
+  {
+    v147 = v145;
+    if (v145 == 0xFFFF)
+    {
+      break;
+    }
+
+    if (v145 >= v278 || v276 < v145)
+    {
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry starts beyond key space available\n");
+LABEL_341:
+      v18 = 22;
+      goto LABEL_342;
+    }
+
+    v148 = (a5[48] + v145);
+    v149 = v148[1];
+    if (v149 <= 3)
+    {
+LABEL_339:
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry len value too small\n");
+      goto LABEL_341;
+    }
+
+    v150 = v149 + v145;
+    if (v150 > v278)
+    {
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry extends beyond key space available\n");
+      goto LABEL_341;
+    }
+
+    if (!sub_1000199B8(v141, v147, v149, v150))
+    {
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry overlaps with other free space\n");
+      goto LABEL_341;
+    }
+
+    sub_100019AA8(v141, v147, v148[1], v151);
+    v144 += v148[1];
+    v152 = *(v12 + 50);
+    if (v144 <= v152)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v153 = a5[1];
+      if (v153)
+      {
+        v154 = (v153 + 4040);
+      }
+
+      else
+      {
+        v154 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v155 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entries total space exceeds free list space\n", "btree_node_check", 326, v154, v155, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    v145 = *v148;
+    if (v147 == v145)
+    {
+LABEL_340:
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key free list entry points to itself\n");
+      goto LABEL_341;
+    }
+
+    v141 = v146;
+    if (v144 > v152)
+    {
+      goto LABEL_343;
+    }
+  }
+
+  v160 = 0;
+  LOWORD(v161) = *(v12 + 52);
+  while (1)
+  {
+    v162 = v161;
+    if (v161 == 0xFFFF)
+    {
+      break;
+    }
+
+    if (v161 <= 3u)
+    {
+      v163 = a5[1];
+      if (v163)
+      {
+        v164 = (v163 + 4040);
+      }
+
+      else
+      {
+        v164 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v165 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry beyond end of node\n", "btree_node_check", 342, v164, v165, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    if (v162 > v273)
+    {
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry starts beyond val space available\n");
+      goto LABEL_341;
+    }
+
+    v141 = v146;
+    if (v162 < 4)
+    {
+      goto LABEL_343;
+    }
+
+    v166 = (a5[49] - v162);
+    v167 = v166[1];
+    if (v167 <= 3)
+    {
+      goto LABEL_339;
+    }
+
+    if (v162 < v167)
+    {
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry extends beyond val space available\n");
+      goto LABEL_341;
+    }
+
+    v168 = v277 - v162;
+    v169 = v168;
+    if (!sub_1000199B8(v146, v168, v167, v168))
+    {
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entry overlaps with other free space\n");
+      goto LABEL_341;
+    }
+
+    sub_100019AA8(v146, v169, v166[1], v170);
+    v160 += v166[1];
+    v171 = *(v12 + 54);
+    if (v160 <= v171)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v172 = a5[1];
+      if (v172)
+      {
+        v173 = (v172 + 4040);
+      }
+
+      else
+      {
+        v173 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v174 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val free list entries total space exceeds free list space\n", "btree_node_check", 372, v173, v174, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    v161 = *v166;
+    if (v162 == v161)
+    {
+      goto LABEL_340;
+    }
+
+    v141 = v146;
+    if (v160 > v171)
+    {
+      goto LABEL_343;
+    }
+  }
+
+  if ((*(v12 + 32) & 4) != 0 && (*(a5 + 401) & 0x7FFE) == 0)
+  {
+    v177 = a5[1];
+    if (v177)
+    {
+      v178 = (v177 + 4040);
+    }
+
+    else
+    {
+      v178 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v179 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says key size is variable\n", "btree_node_check", 387, v178, v179, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if ((*(a5[7] + 32) & 2) == 0 && (*(a5 + 401) & 0x7FFE) != 0 && (*(v12 + 32) & 4) == 0)
+  {
+    v175 = a5[1];
+    if (v175)
+    {
+      v176 = (v175 + 4040);
+    }
+
+    else
+    {
+      v176 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v180 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): tree says key size is fixed, but node says kv size is variable\n", "btree_node_check", 390, v176, v180, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if ((*(v12 + 32) & 4) != 0 && (*(a5[7] + 32) & 2) != 0 && (*(a5 + 401) & 0x7FFF8000) == 0)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v181 = a5[1];
+    if (v181)
+    {
+      v182 = (v181 + 4040);
+    }
+
+    else
+    {
+      v182 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v183 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says val size is variable\n", "btree_node_check", 393, v182, v183, *(a5[7] + 34));
+  }
+
+  v184 = a5[7];
+  v185 = *(v184 + 32);
+  if ((v185 & 2) != 0)
+  {
+    v229 = a5[50];
+    if ((v229 & 0x7FFF800000) != 0 && (v229 & 4) == 0 && (v229 & 0x7FFE00) != 0 && (*(v12 + 32) & 4) == 0)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): tree says kv sizes are fixed, but leaf says kv size is variable\n");
+      goto LABEL_342;
+    }
+  }
+
+  v141 = v146;
+  if (v18)
+  {
+    goto LABEL_343;
+  }
+
+  v186 = a5[47];
+  if ((*(v12 + 32) & 4) == 0)
+  {
+    if (*(v184 + 36))
+    {
+      v187 = 0;
+      v188 = (v186 + 4);
+      while (1)
+      {
+        v189 = *(v188 - 2);
+        v276 = *v188;
+        v190 = v188[1];
+        if (v189 == 0xFFFF)
+        {
+          if ((*(v12 + 32) & 0x80000000) == 0)
+          {
+            sub_100047D10(a5);
+            goto LABEL_577;
+          }
+
+          v18 = 0;
+        }
+
+        else
+        {
+          v191 = *(v188 - 1);
+          v192 = *(v184 + 32);
+          if ((v192 & 2) != 0 && (v16 && *(v16[49] + 16) < v191 || (v192 & 1) != 0 && *(a5[49] + 16) < v191))
+          {
+            v193 = a5[1];
+            if (v193)
+            {
+              v194 = (v193 + 4040);
             }
 
             else
             {
-              if (v18)
+              v194 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v195 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 475, v194, v195, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          else
+          {
+            v18 = 0;
+          }
+
+          if (v189 >= v278)
+          {
+            v196 = a5[1];
+            if (v196)
+            {
+              v197 = (v196 + 4040);
+            }
+
+            else
+            {
+              v197 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v198 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 475, v197, v198, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          v199 = (v191 + v189);
+          if (v199 <= v278)
+          {
+            if (!v18)
+            {
+              if (sub_1000199B8(v146, v189, v191, v199))
               {
-                v18 = v18;
+                v18 = 0;
               }
 
               else
               {
+                v204 = a5[1];
+                if (v204)
+                {
+                  v205 = (v204 + 4040);
+                }
+
+                else
+                {
+                  v205 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v206 = sub_100047D10(a5);
+                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 475, v205, v206, *(a5[7] + 34));
                 v18 = 22;
               }
 
-              if (!a5[1])
+              if (!sub_1000199B8(v275, v189, v191, v202))
               {
-                v130 = *(*(*a5 + 392) + 384) + 212;
+                v207 = a5[1];
+                if (v207)
+                {
+                  v208 = (v207 + 4040);
+                }
+
+                else
+                {
+                  v208 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v209 = sub_100047D10(a5);
+                sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 475, v208, v209, *(a5[7] + 34));
+                v18 = 22;
               }
 
-              sub_100047D10(a5);
-              v310 = *(a5[7] + 34);
-              v329 = *v114;
-              sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid child oid: 0x%llx\n");
+              v210 = a5[50];
+              if ((v210 & 0x40) != 0)
+              {
+                v211 = v191;
+              }
+
+              else
+              {
+                v211 = (v191 + 7) & 0x1FFF8;
+              }
+
+              sub_100019AA8(v275, v189, v211, v210);
             }
           }
 
-          ++v117;
+          else
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v200 = a5[1];
+            if (v200)
+            {
+              v201 = (v200 + 4040);
+            }
+
+            else
+            {
+              v201 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v203 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 475, v201, v203, *(a5[7] + 34));
+          }
         }
 
-        while (v117 < *(a5[7] + 36));
+        if (v276 > 0xFFFD)
+        {
+          if (v190 && v190 != 65534)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid val offset has non-zero length\n");
+            goto LABEL_342;
+          }
+        }
+
+        else
+        {
+          v212 = *(a5[7] + 32);
+          if ((v212 & 2) != 0 && (v16 && *(v16[49] + 20) < v190 || (v212 & 1) != 0 && *(a5[49] + 20) < v190))
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v213 = a5[1];
+            if (v213)
+            {
+              v214 = (v213 + 4040);
+            }
+
+            else
+            {
+              v214 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v215 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 478, v214, v215, *(a5[7] + 34));
+          }
+
+          if (v276 > v273)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v216 = a5[1];
+            if (v216)
+            {
+              v217 = (v216 + 4040);
+            }
+
+            else
+            {
+              v217 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v218 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 478, v217, v218, *(a5[7] + 34));
+          }
+
+          if (v276 < v190)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            sub_100047D10(a5);
+            goto LABEL_576;
+          }
+
+          v141 = v146;
+          if (v18)
+          {
+            goto LABEL_343;
+          }
+
+          v219 = v277 - v276;
+          if (sub_1000199B8(v146, v277 - v276, v190, v277))
+          {
+            v18 = 0;
+          }
+
+          else
+          {
+            v221 = a5[1];
+            if (v221)
+            {
+              v222 = (v221 + 4040);
+            }
+
+            else
+            {
+              v222 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v223 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 478, v222, v223, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if (!sub_1000199B8(v275, v219, v190, v220))
+          {
+            v224 = a5[1];
+            if (v224)
+            {
+              v225 = (v224 + 4040);
+            }
+
+            else
+            {
+              v225 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v226 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 478, v225, v226, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          v227 = a5[50];
+          if ((v227 & 0x40) != 0)
+          {
+            v228 = v190;
+          }
+
+          else
+          {
+            v228 = (v190 + 7) & 0x1FFF8;
+          }
+
+          sub_100019AA8(v275, v219, v228, v227);
+        }
+
+        v141 = v146;
+        if (v18)
+        {
+          goto LABEL_343;
+        }
+
+        v188 += 4;
+        ++v187;
+        v184 = a5[7];
+        if (v187 >= *(v184 + 36))
+        {
+          goto LABEL_561;
+        }
       }
     }
+
+    goto LABEL_561;
+  }
+
+  v230 = a5[50];
+  if ((v185 & 2) != 0)
+  {
+    v231 = v230 >> 23;
+  }
+
+  else
+  {
+    v231 = 8;
+  }
+
+  if (!*(v184 + 36))
+  {
+LABEL_561:
+    sub_10003FB5C(v146, 8 * v274);
+    sub_10003FB5C(v275, 8 * v274);
+    a8 = v280;
+    a7 = v279;
+    v15 = v283;
+    goto LABEL_17;
+  }
+
+  v232 = 0;
+  v272 = (v230 >> 9) & 0x3FFF;
+  v269 = (v272 + 7) & 0x7FF8;
+  v271 = v231;
+  v270 = (v231 + 7) & 0x1FFF8;
+  v233 = (v186 + 2);
+  while (1)
+  {
+    v234 = *(v233 - 1);
+    v276 = *v233;
+    if (v234 == 0xFFFF)
+    {
+      if ((*(v12 + 32) & 0x80000000) == 0)
+      {
+        sub_100047D10(a5);
+LABEL_577:
+        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): invalid key offset\n");
+        goto LABEL_341;
+      }
+
+      v18 = 0;
+    }
+
+    else
+    {
+      v235 = *(v184 + 32);
+      if ((v235 & 2) != 0 && (v16 && *(v16[49] + 16) < v272 || (v235 & 1) != 0 && *(a5[49] + 16) < v272))
+      {
+        v236 = a5[1];
+        if (v236)
+        {
+          v237 = (v236 + 4040);
+        }
+
+        else
+        {
+          v237 = (*(*(*a5 + 392) + 384) + 212);
+        }
+
+        v238 = sub_100047D10(a5);
+        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 452, v237, v238, *(a5[7] + 34));
+        v18 = 22;
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      if (v234 >= v278)
+      {
+        v239 = a5[1];
+        if (v239)
+        {
+          v240 = (v239 + 4040);
+        }
+
+        else
+        {
+          v240 = (*(*(*a5 + 392) + 384) + 212);
+        }
+
+        v241 = sub_100047D10(a5);
+        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 452, v240, v241, *(a5[7] + 34));
+        v18 = 22;
+      }
+
+      if (v272 + v234 <= v278)
+      {
+        if (!v18)
+        {
+          if (sub_1000199B8(v146, v234, v272, &v296))
+          {
+            v18 = 0;
+          }
+
+          else
+          {
+            v245 = a5[1];
+            if (v245)
+            {
+              v246 = (v245 + 4040);
+            }
+
+            else
+            {
+              v246 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v247 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 452, v246, v247, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if (!sub_1000199B8(v275, v234, v272, &v296))
+          {
+            v248 = a5[1];
+            if (v248)
+            {
+              v249 = (v248 + 4040);
+            }
+
+            else
+            {
+              v249 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v250 = sub_100047D10(a5);
+            sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 452, v249, v250, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if ((a5[50] & 0x40) != 0)
+          {
+            v251 = v272;
+          }
+
+          else
+          {
+            v251 = v269;
+          }
+
+          sub_100019AA8(v275, v234, v251, v269);
+        }
+      }
+
+      else
+      {
+        v18 = v18 ? v18 : 22;
+        v242 = a5[1];
+        v243 = (v242 ? v242 + 4040 : *(*(*a5 + 392) + 384) + 212);
+        v244 = sub_100047D10(a5);
+        sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 452, v243, v244, *(a5[7] + 34));
+      }
+    }
+
+    if (v276 <= 0xFFFD)
+    {
+      break;
+    }
+
+LABEL_559:
+    v141 = v146;
+    if (v18)
+    {
+      goto LABEL_343;
+    }
+
+    v233 += 2;
+    ++v232;
+    v184 = a5[7];
+    if (v232 >= *(v184 + 36))
+    {
+      goto LABEL_561;
+    }
+  }
+
+  v252 = *(a5[7] + 32);
+  if ((v252 & 2) != 0 && (v16 && *(v16[49] + 20) < v271 || (v252 & 1) != 0 && *(a5[49] + 20) < v271))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v253 = a5[1];
+    if (v253)
+    {
+      v254 = (v253 + 4040);
+    }
+
+    else
+    {
+      v254 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v255 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 455, v254, v255, *(a5[7] + 34));
+  }
+
+  if (v276 > v273)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v256 = a5[1];
+    if (v256)
+    {
+      v257 = (v256 + 4040);
+    }
+
+    else
+    {
+      v257 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v258 = sub_100047D10(a5);
+    sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 455, v257, v258, *(a5[7] + 34));
+  }
+
+  if (v276 >= v231)
+  {
+    v141 = v146;
+    if (v18)
+    {
+      goto LABEL_343;
+    }
+
+    v259 = v277 - v276;
+    if (sub_1000199B8(v146, v277 - v276, v231, v277))
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v261 = a5[1];
+      if (v261)
+      {
+        v262 = (v261 + 4040);
+      }
+
+      else
+      {
+        v262 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v263 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 455, v262, v263, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    if (!sub_1000199B8(v275, v259, v231, v260))
+    {
+      v264 = a5[1];
+      if (v264)
+      {
+        v265 = (v264 + 4040);
+      }
+
+      else
+      {
+        v265 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v266 = sub_100047D10(a5);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 455, v265, v266, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    if ((a5[50] & 0x40) != 0)
+    {
+      v267 = v271;
+    }
+
+    else
+    {
+      v267 = v270;
+    }
+
+    sub_100019AA8(v275, v259, v267, v271);
+    goto LABEL_559;
+  }
+
+  if (v18)
+  {
+    v18 = v18;
+  }
+
+  else
+  {
+    v18 = 22;
+  }
+
+  sub_100047D10(a5);
+LABEL_576:
+  sub_10003E5FC("%s:%d: %s oid 0x%llx (level %d): val location extends beyond val space\n");
+LABEL_342:
+  v141 = v146;
+LABEL_343:
+  if (v141)
+  {
+    sub_10003FB5C(v141, (8 * v274));
+  }
+
+  if (v275)
+  {
+    sub_10003FB5C(v275, (8 * v274));
   }
 
   return v18;
 }
 
-uint64_t sub_10002AB44(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
+uint64_t sub_10002AB44(FILE *a1, void *a2, unint64_t a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   if (sub_100046328(a2) == 2)
   {
-    v36 = 0;
-    v34 = 0u;
-    v35 = 0u;
+    v34 = 0;
     v32 = 0u;
     v33 = 0u;
     v30 = 0u;
@@ -3295,10 +3179,12 @@ uint64_t sub_10002AB44(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
     v23 = 0u;
     v20 = 0u;
     v21 = 0u;
+    v18 = 0u;
     v19 = 0u;
-    v10 = sub_100027E04(a2, a3, 0, 0, a2, 1u, 0, 0, &v19, 0, 0);
+    v17 = 0u;
+    v10 = sub_100027E04(a2, a3, 0, 0, a2, 1u, 0, 0, &v17, 0, 0);
     v11 = v10;
-    if (*(a2[49] + 24) != v20)
+    if (*(a2[49] + 24) != v18)
     {
       if (v10)
       {
@@ -3322,12 +3208,12 @@ uint64_t sub_10002AB44(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
       }
 
       v14 = sub_100047D10(a2);
-      sub_10003E5FC("%s:%d: %s oid 0x%llx: btree key count (%llu) doesn't match # leaf entries (%u)\n", "btree_check_ext", 681, v13, v14, *(a2[49] + 24), v20);
+      sub_10003E5FC("%s:%d: %s oid 0x%llx: btree key count (%llu) doesn't match # leaf entries (%u)\n", "btree_check_ext", 681, v13, v14, *(a2[49] + 24), v18);
     }
 
-    if (*(a2[49] + 32) == DWORD1(v19) + v19)
+    if (*(a2[49] + 32) == DWORD1(v17) + v17)
     {
-      if (a5 && a4 && !v11)
+      if (v5 && a4 && !v11)
       {
         if (a1)
         {
@@ -3339,7 +3225,7 @@ uint64_t sub_10002AB44(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
           v15 = __stdoutp;
         }
 
-        sub_10002AD9C(v15, a2, &v19, a5);
+        sub_10002AD9C(v15, a2, &v17, v5);
       }
     }
 
@@ -3355,13 +3241,7 @@ uint64_t sub_10002AB44(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
         v11 = 22;
       }
 
-      if (!a2[1])
-      {
-        v16 = *(*(*a2 + 392) + 384) + 212;
-      }
-
       sub_100047D10(a2);
-      v18 = *(a2[49] + 32);
       sub_10003E5FC("%s:%d: %s oid 0x%llx: btree node count (%llu) doesn't match # nodes traversed (%u)\n");
     }
   }
@@ -3492,19 +3372,19 @@ uint64_t sub_10002AD9C(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
     {
       *&v28 = 0xAAAAAAAAAAAAAAAALL;
       *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v74 = v28;
-      v75 = v28;
-      v72 = v28;
-      v73 = v28;
+      v66 = v28;
+      v67 = v28;
+      v64 = v28;
+      v65 = v28;
       *__str = v28;
-      v71 = v28;
+      v63 = v28;
       snprintf(__str, 0x10uLL, "<%d", *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v71, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v72, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v73, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v74, 0x10uLL, "<%d", *(*(a2 + 392) + 16));
-      snprintf(&v75, 0x10uLL, "=%d", *(*(a2 + 392) + 16));
-      fprintf(v7, "    keys: %9s %9s %9s %9s %9s %9s\n", __str, &v71, &v72, &v73, &v74, &v75);
+      snprintf(&v63, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 16) / 5u);
+      snprintf(&v64, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 16) / 5u);
+      snprintf(&v65, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 16) / 5u);
+      snprintf(&v66, 0x10uLL, "<%d", *(*(a2 + 392) + 16));
+      snprintf(&v67, 0x10uLL, "=%d", *(*(a2 + 392) + 16));
+      fprintf(v7, "    keys: %9s %9s %9s %9s %9s %9s\n", __str, &v63, &v64, &v65, &v66, &v67);
       fprintf(v7, "    keys: %9d %9d %9d %9d %9d %9d\n", a3[40], a3[41], a3[42], a3[43], a3[44], a3[45]);
       LODWORD(v34) = a3[40];
       v35 = a3[4];
@@ -3522,12 +3402,12 @@ uint64_t sub_10002AD9C(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
       LODWORD(v33) = a3[45];
       fprintf(v7, "    keys: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n", v37 / v36, v29 * 100.0 / v36, v30 * 100.0 / v36, v31 * 100.0 / v36, v32 * 100.0 / v36, v33 * 100.0 / v36);
       snprintf(__str, 0x10uLL, "<%d", *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v71, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v72, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v73, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v74, 0x10uLL, "<%d", *(*(a2 + 392) + 20));
-      snprintf(&v75, 0x10uLL, "=%d", *(*(a2 + 392) + 20));
-      fprintf(v7, "  values: %9s %9s %9s %9s %9s %9s\n", __str, &v71, &v72, &v73, &v74, &v75);
+      snprintf(&v63, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 20) / 5u);
+      snprintf(&v64, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 20) / 5u);
+      snprintf(&v65, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 20) / 5u);
+      snprintf(&v66, 0x10uLL, "<%d", *(*(a2 + 392) + 20));
+      snprintf(&v67, 0x10uLL, "=%d", *(*(a2 + 392) + 20));
+      fprintf(v7, "  values: %9s %9s %9s %9s %9s %9s\n", __str, &v63, &v64, &v65, &v66, &v67);
       fprintf(v7, "  values: %9d %9d %9d %9d %9d %9d\n", a3[46], a3[47], a3[48], a3[49], a3[50], a3[51]);
       LODWORD(v43) = a3[46];
       v44 = v43 * 100.0;
@@ -3547,8 +3427,6 @@ uint64_t sub_10002AD9C(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
       fprintf(v7, "capacity: all    %llu / %llu => %.2f %% used\n", *(a3 + 7), *(a3 + 6), *(a3 + 7) * 100.0 / *(a3 + 6));
       if (a4 == 4)
       {
-        v68 = *(a3 + 12);
-        v69 = *(a3 + 11);
         fprintf(v7, "capacity: nodes  %llu / %llu => %.2f %% used\n");
       }
 
@@ -3567,13 +3445,6 @@ uint64_t sub_10002AD9C(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
         fprintf(v7, "capacity: nodes  %llu / %llu => %.2f %% used\n", *(a3 + 12), *(a3 + 11), *(a3 + 12) * 100.0 / *(a3 + 11));
         fprintf(v7, "capacity: %9s %9s %9s %9s %9s %9s\n", "<20", "<40", "<60", "<80", "<100", "FULL");
         fprintf(v7, "capacity: %9d %9d %9d %9d %9d %9d\n", a3[16], a3[17], a3[18], a3[19], a3[20], a3[21]);
-        v54 = a3[16];
-        *a3;
-        v55 = a3[17];
-        v56 = a3[18];
-        v57 = a3[19];
-        v58 = a3[20];
-        v59 = a3[21];
         fprintf(v7, "capacity: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n");
       }
 
@@ -3582,15 +3453,15 @@ uint64_t sub_10002AD9C(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
       {
         fprintf(v7, "capacity: %9s %9s %9s %9s %9s %9s\n", "<20", "<40", "<60", "<80", "<100", "FULL");
         fprintf(v7, "capacity: %9d %9d %9d %9d %9d %9d\n", a3[26], a3[27], a3[28], a3[29], a3[30], a3[31]);
-        LODWORD(v60) = a3[26];
-        LODWORD(v61) = a3[27];
-        LODWORD(v62) = a3[1];
-        v63 = v62;
-        LODWORD(v64) = a3[28];
-        LODWORD(v65) = a3[29];
-        LODWORD(v66) = a3[30];
-        LODWORD(v67) = a3[31];
-        return fprintf(v7, "capacity: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n", v60 * 100.0 / v63, v61 * 100.0 / v63, v64 * 100.0 / v63, v65 * 100.0 / v63, v66 * 100.0 / v63, v67 * 100.0 / v63);
+        LODWORD(v54) = a3[26];
+        LODWORD(v55) = a3[27];
+        LODWORD(v56) = a3[1];
+        v57 = v56;
+        LODWORD(v58) = a3[28];
+        LODWORD(v59) = a3[29];
+        LODWORD(v60) = a3[30];
+        LODWORD(v61) = a3[31];
+        return fprintf(v7, "capacity: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n", v54 * 100.0 / v57, v55 * 100.0 / v57, v58 * 100.0 / v57, v59 * 100.0 / v57, v60 * 100.0 / v57, v61 * 100.0 / v57);
       }
     }
   }
@@ -3652,7 +3523,7 @@ uint64_t sub_10002B810(uint64_t a1, int a2)
     *(v3 + 10) = &off_100084E20;
     v3[5] = 2048;
     v3[7] = 102;
-    v5 = sub_100062480(2048, v3 + 3);
+    v5 = sub_100062480(0x800u, v3 + 3);
     *(v4 + 4) = v5;
     if (v5)
     {
@@ -3746,8 +3617,9 @@ uint64_t sub_10002B9F8(uint64_t result)
   return result;
 }
 
-uint64_t sub_10002BAB4(uint64_t a1, int a2)
+uint64_t sub_10002BAB4(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v14 = 0;
   if (!a1)
   {
@@ -3806,14 +3678,14 @@ uint64_t sub_10002BAB4(uint64_t a1, int a2)
     sub_10003FB5C(v14[4], 8 * *(v14 + 2));
     sub_10003FB5C(v14, 88);
     v10 = a1;
-    v11 = a2;
+    v11 = v2;
     v12 = 1;
   }
 
   else
   {
     v10 = a1;
-    v11 = a2;
+    v11 = v2;
     v12 = 0;
   }
 
@@ -4270,7 +4142,7 @@ uint64_t sub_10002C464(uint64_t a1, uint64_t a2, uint64_t a3)
   return 0;
 }
 
-uint64_t sub_10002C480(uint64_t a1, unsigned int a2)
+unint64_t sub_10002C480(uint64_t a1, unsigned int a2)
 {
   if (a2 > 0x40)
   {
@@ -4434,13 +4306,13 @@ uint64_t sub_10002C79C(uint64_t a1, uint64_t a2, void *a3, unsigned int a4, uint
   if (a3[2])
   {
     HIDWORD(v40) |= 4u;
-    sub_100062AD8(&v39, 1, 0, a3 + 2, 8);
+    sub_100062AD8(&v39, 1, 0, a3 + 2, 8uLL);
   }
 
   if (a3[3])
   {
     HIDWORD(v40) |= 8u;
-    sub_100062AD8(&v39, 3, 0, a3 + 3, 8);
+    sub_100062AD8(&v39, 3, 0, a3 + 3, 8uLL);
   }
 
   v10 = (a4 >> 5) & 1;
@@ -4448,7 +4320,7 @@ uint64_t sub_10002C79C(uint64_t a1, uint64_t a2, void *a3, unsigned int a4, uint
   if (a3[5])
   {
     HIDWORD(v40) |= 0x800u;
-    sub_100062AD8(&v39, 4, 0, a3 + 5, 8);
+    sub_100062AD8(&v39, 4, 0, a3 + 5, 8uLL);
   }
 
   v12 = 0;
@@ -4832,7 +4704,7 @@ LABEL_14:
   return pthread_mutex_unlock(a1);
 }
 
-uint64_t sub_10002CF30(uint64_t result, unsigned __int8 *a2, uint64_t a3, int *a4)
+const char *sub_10002CF30(const char *result, unsigned __int8 *a2, uint64_t a3, int *a4)
 {
   v7 = result;
   v8 = *a2;
@@ -4848,12 +4720,10 @@ uint64_t sub_10002CF30(uint64_t result, unsigned __int8 *a2, uint64_t a3, int *a
   *a3 = v12 & 0xF000000000000000 | *(a2 + 1) & 0xFFFFFFFFFFFFFFFLL;
   if (v9 >= 0x10)
   {
-    if ((*(*(result + 376) + 57) & 2) == 0)
+    if ((*(*(result + 47) + 57) & 2) == 0)
     {
-      v13 = sub_10003FC54(*(result + 392));
-      v41 = *a2;
-      v43 = *(a2 + 1);
-      result = sub_10003E64C(v13, "%s:%d: %s ***: expanded obj type %d (obj_id %llu) found on unsupported volume\n", v14, v15, v16, v17, v18, v19, "make_jkey_from_jobj");
+      v13 = sub_10003FC54(*(result + 49));
+      result = sub_10003E64C(v13, "%s:%d: %s ***: expanded obj type %d (obj_id %llu) found on unsupported volume\n", "make_jkey_from_jobj", 1209, v7 + 4040, *a2, *(a2 + 1));
       *a4 = 0;
       return result;
     }
@@ -4865,10 +4735,8 @@ uint64_t sub_10002CF30(uint64_t result, unsigned __int8 *a2, uint64_t a3, int *a
 
     else
     {
-      v20 = sub_10003FC54(*(result + 392));
-      v42 = *a2;
-      v44 = *(a2 + 1);
-      result = sub_10003E64C(v20, "%s:%d: %s Cannot make large jkey from unknown type %d (obj_id %llu)\n", v21, v22, v23, v24, v25, v26, "make_large_jkey_header_from_jobj");
+      v14 = sub_10003FC54(*(result + 49));
+      result = sub_10003E64C(v14, "%s:%d: %s Cannot make large jkey from unknown type %d (obj_id %llu)\n", "make_large_jkey_header_from_jobj", 1186, v7 + 4040, *a2, *(a2 + 1));
       v9 = *a2;
     }
   }
@@ -4876,45 +4744,45 @@ uint64_t sub_10002CF30(uint64_t result, unsigned __int8 *a2, uint64_t a3, int *a
   switch(v9)
   {
     case 4u:
-      v38 = *(a2 + 10);
-      *(a3 + 8) = v38;
-      result = memcpy((a3 + 10), a2 + 24, v38);
-      v39 = *(a2 + 10);
+      v20 = *(a2 + 10);
+      *(a3 + 8) = v20;
+      result = memcpy((a3 + 10), a2 + 24, v20);
+      v21 = *(a2 + 10);
       goto LABEL_23;
     case 5u:
     case 8u:
       *(a3 + 8) = *(a2 + 2);
-      v27 = 16;
+      v15 = 16;
       goto LABEL_26;
     case 9u:
-      v35 = *(a2 + 31);
-      if ((*(*(v7 + 376) + 56) & 9) != 0)
+      v17 = *(a2 + 31);
+      if ((*(*(v7 + 47) + 56) & 9) != 0)
       {
         *(a3 + 8) = *(a2 + 31) & 0x3FF | (*(a2 + 14) << 10);
-        v36 = 12;
-        v37 = 12;
+        v18 = 12;
+        v19 = 12;
       }
 
       else
       {
-        *(a3 + 8) = v35;
-        v36 = 10;
-        v37 = 10;
+        *(a3 + 8) = v17;
+        v18 = 10;
+        v19 = 10;
       }
 
-      result = memcpy((a3 + v36), *(a2 + 8), v35);
-      v27 = v37 + *(a2 + 31);
+      result = memcpy((a3 + v18), *(a2 + 8), v17);
+      v15 = v19 + *(a2 + 31);
       goto LABEL_26;
     case 0xAu:
-      v27 = 96;
+      v15 = 96;
       goto LABEL_26;
     case 0xBu:
-      v40 = *(a2 + 12);
-      *(a3 + 8) = v40;
-      result = memcpy((a3 + 10), a2 + 26, v40);
-      v39 = *(a2 + 12);
+      v22 = *(a2 + 12);
+      *(a3 + 8) = v22;
+      result = memcpy((a3 + 10), a2 + 26, v22);
+      v21 = *(a2 + 12);
 LABEL_23:
-      v27 = v39 + 10;
+      v15 = v21 + 10;
       goto LABEL_26;
     case 0xDu:
       *a4 = 16;
@@ -4922,31 +4790,31 @@ LABEL_23:
       return result;
     case 0xEu:
       *a4 = 0;
-      v28 = sub_10003FC54(*(v7 + 392));
-      return sub_10003E64C(v28, "%s:%d: %s ***: expanded type seen on in-memory obj!\n", v29, v30, v31, v32, v33, v34, "make_jkey_from_jobj");
+      v16 = sub_10003FC54(*(v7 + 49));
+      return sub_10003E64C(v16, "%s:%d: %s ***: expanded type seen on in-memory obj!\n", "make_jkey_from_jobj", 1324, v7 + 4040);
     case 0x10u:
     case 0x13u:
       *(a3 + 12) = *(a2 + 1);
-      v27 = 28;
+      v15 = 28;
       goto LABEL_26;
     case 0x11u:
       *(a3 + 12) = *(a2 + 2);
-      v27 = 20;
+      v15 = 20;
       goto LABEL_26;
     case 0x12u:
-      v27 = 12;
+      v15 = 12;
       goto LABEL_26;
     default:
-      v27 = 8;
+      v15 = 8;
 LABEL_26:
-      *a4 = v27;
+      *a4 = v15;
       break;
   }
 
   return result;
 }
 
-uint64_t sub_10002D1DC(uint64_t a1, unsigned __int16 *__src, uint64_t a3, int *a4, uint64_t a5, unsigned int a6)
+uint64_t sub_10002D1DC(uint64_t a1, unsigned __int16 *__src, uint64_t a3, unsigned int *a4, uint64_t a5, unsigned int a6)
 {
   v8 = *(__src + 1);
   v9 = *__src;
@@ -4963,8 +4831,8 @@ uint64_t sub_10002D1DC(uint64_t a1, unsigned __int16 *__src, uint64_t a3, int *a
     return 22;
   }
 
-  v65[7] = v6;
-  v65[8] = v7;
+  v45[7] = v6;
+  v45[8] = v7;
   if (v9 >= 0x10u)
   {
     if ((*(*(a1 + 376) + 57) & 2) == 0)
@@ -4976,9 +4844,7 @@ uint64_t sub_10002D1DC(uint64_t a1, unsigned __int16 *__src, uint64_t a3, int *a
     if (v11 <= 0xB)
     {
       v19 = sub_10003FC54(*(a1 + 392));
-      v57 = *a4;
-      v63 = *(__src + 1);
-      sub_10003E64C(v19, "%s:%d: %s large key size (%u) on record (%llu) is too small\n", v20, v21, v22, v23, v24, v25, "jobj_to_key_val");
+      sub_10003E64C(v19, "%s:%d: %s large key size (%u) on record (%llu) is too small\n");
       return 22;
     }
 
@@ -4988,37 +4854,36 @@ uint64_t sub_10002D1DC(uint64_t a1, unsigned __int16 *__src, uint64_t a3, int *a
       if (v9 != 16)
       {
         result = 0;
-        v26 = *(__src + 3);
+        v20 = *(__src + 3);
         *(a3 + 12) = *(__src + 2);
-        *a5 = v26;
-        v27 = 20;
+        *a5 = v20;
+        v21 = 20;
 LABEL_40:
-        *a4 = v27;
+        *a4 = v21;
         return result;
       }
 
-      v52 = __src[28];
+      v40 = __src[28];
       *(a3 + 12) = *(__src + 1);
       *a5 = *(__src + 4);
       *(a5 + 8) = *(__src + 5);
       *(a5 + 16) = *(__src + 12);
       *(a5 + 20) = *(__src + 13);
-      if (v52 && sub_100062A58(__src + 28, (a5 + 24), a6 - 24))
+      if (v40 && sub_100062A58(__src + 28, (a5 + 24), a6 - 24))
       {
-        v60 = *(__src + 1);
         sub_10003E5FC("%s:%d: %s failed to serialize purgeable %llu into jval of size %u\n");
         return 7;
       }
 
 LABEL_55:
       result = 0;
-      v27 = 28;
+      v21 = 28;
       goto LABEL_40;
     }
 
     if (v9 == 18)
     {
-      v53 = __src[32];
+      v41 = __src[32];
       *(a5 + 24) = *(__src + 2);
       *a5 = *(__src + 3);
       *(a5 + 8) = *(__src + 4);
@@ -5026,9 +4891,8 @@ LABEL_55:
       *(a5 + 32) = *(__src + 7);
       *(a5 + 40) = *(__src + 6);
       *(a5 + 48) = *(__src + 23);
-      if (v53 && sub_100062A58(__src + 32, (a5 + 52), a6 - 52))
+      if (v41 && sub_100062A58(__src + 32, (a5 + 52), a6 - 52))
       {
-        v61 = *(__src + 1);
         sub_10003E5FC("%s:%d: %s failed to serialize dir-stats %lld into jval of size %u\n");
         return 7;
       }
@@ -5036,22 +4900,20 @@ LABEL_55:
 
     else if (v9 == 19)
     {
-      v28 = __src[24];
+      v22 = __src[24];
       *(a3 + 12) = *(__src + 1);
       *a5 = *(__src + 4) & 0xFFFFFFFFFFFFFFLL | (*(__src + 10) << 56);
-      if (!v28 || !sub_100062A58(__src + 24, (a5 + 8), a6 - 8))
+      if (!v22 || !sub_100062A58(__src + 24, (a5 + 8), a6 - 8))
       {
         goto LABEL_55;
       }
 
-      v64 = *(__src + 3);
-      v58 = *(__src + 2);
       sub_10003E5FC("%s:%d: %s failed to serialize clone mapping <%llu/%llu> into jval of size %u\n");
       return 7;
     }
 
     result = 0;
-    v27 = 12;
+    v21 = 12;
     goto LABEL_40;
   }
 
@@ -5067,16 +4929,16 @@ LABEL_55:
       strlcpy((a5 + 50), *(__src + 9), v18);
       goto LABEL_37;
     case 2:
-      v65[0] = __src;
-      v38 = *(__src + 1);
-      v39 = *(__src + 3);
-      *a5 = *(__src + 2) & 0xFFFFFFFFFFFFFFFLL | (v38 << 60);
-      *(a5 + 8) = v39;
-      v40 = *(__src + 8);
-      *(a5 + 16) = v40;
-      if (v40 < 0 && v38 == 1)
+      v45[0] = __src;
+      v32 = *(__src + 1);
+      v33 = *(__src + 3);
+      *a5 = *(__src + 2) & 0xFFFFFFFFFFFFFFFLL | (v32 << 60);
+      *(a5 + 8) = v33;
+      v34 = *(__src + 8);
+      *(a5 + 16) = v34;
+      if (v34 < 0 && v32 == 1)
       {
-        sub_10003E50C("%s:%d: inserting bad phy ext @ %p : kind %d refcnt %d\n", "jobj_to_key_val", 1538, v65, 1, v40);
+        sub_10003E50C("%s:%d: inserting bad phy ext @ %p : kind %d refcnt %d\n", "jobj_to_key_val", 1538, v45, 1, v34);
         panic("bad pext.\n");
       }
 
@@ -5110,32 +4972,31 @@ LABEL_55:
         return result;
       }
 
-      v59 = *(__src + 1);
       sub_10003E50C("%s:%d: %s failed to serialize ino %lld into jval of size %u\n");
       return 7;
     case 4:
-      v34 = __src[10];
-      *(a3 + 8) = v34;
-      if (v34 + 10 > v11)
+      v28 = __src[10];
+      *(a3 + 8) = v28;
+      if (v28 + 10 > v11)
       {
         return 7;
       }
 
-      strlcpy((a3 + 10), __src + 24, v34);
+      strlcpy((a3 + 10), __src + 24, v28);
       *a4 = *(a3 + 8) + 10;
       *a5 = *(__src + 4);
-      v35 = __src[11];
-      *(a5 + 2) = v35;
-      memcpy((a5 + 4), __src + __src[10] + 24, v35);
+      v29 = __src[11];
+      *(a5 + 2) = v29;
+      memcpy((a5 + 4), __src + __src[10] + 24, v29);
       return 0;
     case 5:
-      v30 = *(__src + 3);
+      v24 = *(__src + 3);
       *(a3 + 8) = *(__src + 2);
       *a4 = 16;
-      *a5 = v30;
-      v31 = __src[16];
-      *(a5 + 8) = v31;
-      strlcpy((a5 + 10), __src + 34, v31);
+      *a5 = v24;
+      v25 = __src[16];
+      *(a5 + 8) = v25;
+      strlcpy((a5 + 10), __src + 34, v25);
       return 0;
     case 6:
       result = 0;
@@ -5146,61 +5007,61 @@ LABEL_55:
       sub_10002DA00(__src, a5);
       return 0;
     case 8:
-      v36 = *(__src + 2);
-      *(a3 + 8) = v36;
+      v30 = *(__src + 2);
+      *(a3 + 8) = v30;
       *a4 = 16;
-      v37 = *(__src + 5);
-      if (HIBYTE(v37))
+      v31 = *(__src + 5);
+      if (HIBYTE(v31))
       {
-        sub_10003E50C("%s:%d: %s File extent too large (%llu > %llu): laddr %llu, paddr %llu\n", "jobj_to_key_val", 1573, (a1 + 4040), v37, 0xFFFFFFFFFFFFFFLL, v36, *(__src + 3));
+        sub_10003E50C("%s:%d: %s File extent too large (%llu > %llu): laddr %llu, paddr %llu\n", "jobj_to_key_val", 1573, (a1 + 4040), v31, 0xFFFFFFFFFFFFFFLL, v30, *(__src + 3));
         return 22;
       }
 
-      v54 = *(__src + 4);
-      if (v54 == -1)
+      v42 = *(__src + 4);
+      if (v42 == -1)
       {
-        panic("fext %lld (pos %lld len %lld flags %x can not have crypto-id -1\n", v8, v36, *(__src + 5), *(__src + 48));
+        panic("fext %lld (pos %lld len %lld flags %x can not have crypto-id -1\n", v8, v30, *(__src + 5), *(__src + 48));
       }
 
       result = 0;
-      v55 = *(__src + 3);
-      *a5 = v37 & 0xFFFFFFFFFFFFFFLL | (*(__src + 48) << 56);
-      *(a5 + 8) = v55;
-      *(a5 + 16) = v54;
+      v43 = *(__src + 3);
+      *a5 = v31 & 0xFFFFFFFFFFFFFFLL | (*(__src + 48) << 56);
+      *(a5 + 8) = v43;
+      *(a5 + 16) = v42;
       return result;
     case 9:
-      v49 = __src[31];
+      v37 = __src[31];
       if ((*(*(a1 + 376) + 56) & 9) != 0)
       {
-        if (v49 + 12 > v11)
+        if (v37 + 12 > v11)
         {
           return 7;
         }
 
-        *(a3 + 8) = v49 & 0x3FF | (*(__src + 14) << 10);
-        v50 = 12;
-        v51 = 12;
+        *(a3 + 8) = v37 & 0x3FF | (*(__src + 14) << 10);
+        v38 = 12;
+        v39 = 12;
       }
 
       else
       {
-        if (v49 + 10 > v11)
+        if (v37 + 10 > v11)
         {
           return 7;
         }
 
-        *(a3 + 8) = v49;
-        v50 = 10;
-        v51 = 10;
+        *(a3 + 8) = v37;
+        v38 = 10;
+        v39 = 10;
       }
 
-      strlcpy((a3 + v50), *(__src + 8), v49);
-      *a4 = v51 + __src[31];
+      strlcpy((a3 + v38), *(__src + 8), v37);
+      *a4 = v39 + __src[31];
       *(a5 + 16) = __src[30];
-      v56 = __src[16];
+      v44 = __src[16];
       *a5 = *(__src + 2);
       *(a5 + 8) = *(__src + 3);
-      if (!v56)
+      if (!v44)
       {
         return 0;
       }
@@ -5219,31 +5080,30 @@ LABEL_55:
       *(a5 + 16) = vextq_s8(*(__src + 3), *(__src + 3), 8uLL);
       goto LABEL_39;
     case 11:
-      v48 = __src[12];
-      *(a3 + 8) = v48;
-      if (v48 + 10 > v11)
+      v36 = __src[12];
+      *(a3 + 8) = v36;
+      if (v36 + 10 > v11)
       {
         return 7;
       }
 
-      strlcpy((a3 + 10), __src + 26, v48);
+      strlcpy((a3 + 10), __src + 26, v36);
       result = 0;
-      v29 = *(a3 + 8) + 10;
+      v23 = *(a3 + 8) + 10;
       goto LABEL_48;
     case 12:
       result = 0;
-      v29 = 8;
+      v23 = 8;
 LABEL_48:
-      *a4 = v29;
+      *a4 = v23;
       *a5 = *(__src + 2);
       return result;
     case 13:
-      v32 = *(__src + 16);
-      if (v32 == 2)
+      v26 = *(__src + 16);
+      if (v26 == 2)
       {
         if (__src[28] && sub_100062A58(__src + 28, (a5 + 26), a6 - 26))
         {
-          v62 = *(__src + 1);
           sub_10003E50C("%s:%d: %s failed to serialize file info with obj_id <%lld> into jval of size <%u>\n");
           return 7;
         }
@@ -5256,36 +5116,36 @@ LABEL_48:
 
       else
       {
-        if (v32 != 1)
+        if (v26 != 1)
         {
           return 22;
         }
 
-        v33 = *(__src + 26);
-        if (v33 + 3 > a6)
+        v27 = *(__src + 26);
+        if (v27 + 3 > a6)
         {
           return 7;
         }
 
-        *(a5 + 2) = v33;
+        *(a5 + 2) = v27;
         *a5 = __src[12];
-        memcpy((a5 + 3), __src + 27, v33);
+        memcpy((a5 + 3), __src + 27, v27);
       }
 
       result = 0;
       *(a3 + 8) = __ROR8__(*(__src + 2), 8);
-      v27 = 16;
+      v21 = 16;
       goto LABEL_40;
     case 14:
       *a4 = 0;
-      v41 = sub_10003FC54(*(a1 + 392));
-      sub_10003E64C(v41, "%s:%d: %s ***: expanded type seen on in-memory obj!\n", v42, v43, v44, v45, v46, v47, "jobj_to_key_val");
+      v35 = sub_10003FC54(*(a1 + 392));
+      sub_10003E64C(v35, "%s:%d: %s ***: expanded type seen on in-memory obj!\n");
       return 22;
     default:
 LABEL_37:
       result = 0;
 LABEL_39:
-      v27 = 8;
+      v21 = 8;
       goto LABEL_40;
   }
 }
@@ -5324,29 +5184,29 @@ uint64_t sub_10002DA34(uint64_t a1, unsigned __int8 *a2)
       case 0xCu:
         return result;
       case 4u:
-        v12 = *(a2 + 10);
+        v5 = *(a2 + 10);
         goto LABEL_12;
       case 5u:
       case 8u:
       case 0xDu:
         return 16;
       case 9u:
-        v12 = *(a2 + 31);
+        v5 = *(a2 + 31);
         if ((*(*(a1 + 376) + 56) & 9) == 0)
         {
           goto LABEL_12;
         }
 
-        result = v12 + 12;
+        result = v5 + 12;
         break;
       case 0xBu:
-        v12 = *(a2 + 12);
+        v5 = *(a2 + 12);
 LABEL_12:
-        result = v12 + 10;
+        result = v5 + 10;
         break;
       case 0xEu:
-        v13 = sub_10003FC54(*(a1 + 392));
-        sub_10003E64C(v13, "%s:%d: %s ***: expanded type seen on in-memory obj!\n", v14, v15, v16, v17, v18, v19, "key_size_for_jobj");
+        v6 = sub_10003FC54(*(a1 + 392));
+        sub_10003E64C(v6, "%s:%d: %s ***: expanded type seen on in-memory obj!\n");
         return 0;
       case 0x10u:
       case 0x13u:
@@ -5366,9 +5226,8 @@ LABEL_12:
 
   else
   {
-    v4 = sub_10003FC54(*(a1 + 392));
-    v20 = *a2;
-    sub_10003E64C(v4, "%s:%d: %s ***: expanded obj type %d found on unsupported volume\n", v5, v6, v7, v8, v9, v10, "key_size_for_jobj");
+    v3 = sub_10003FC54(*(a1 + 392));
+    sub_10003E64C(v3, "%s:%d: %s ***: expanded obj type %d found on unsupported volume\n");
     return 0;
   }
 
@@ -5406,15 +5265,15 @@ uint64_t sub_10002DBCC(uint64_t a1, unsigned __int16 *a2)
       case 7:
         if (a2[10] == 6)
         {
-          v12 = HIBYTE(a2[19]) + a2[19];
+          v7 = HIBYTE(a2[19]) + a2[19];
         }
 
         else
         {
-          v12 = a2[19];
+          v7 = a2[19];
         }
 
-        return v12 + 24;
+        return v7 + 24;
       case 8:
         return 24;
       case 9:
@@ -5435,8 +5294,8 @@ uint64_t sub_10002DBCC(uint64_t a1, unsigned __int16 *a2)
       case 0x11:
         return 8;
       case 0xD:
-        v11 = *(a2 + 2);
-        if (v11 == 2)
+        v6 = *(a2 + 2);
+        if (v6 == 2)
         {
           if (a2[28])
           {
@@ -5449,12 +5308,11 @@ uint64_t sub_10002DBCC(uint64_t a1, unsigned __int16 *a2)
           }
         }
 
-        if (v11 == 1)
+        if (v6 == 1)
         {
           return *(a2 + 26) + 3;
         }
 
-        v15 = *(a2 + 1);
         sub_10003E5FC("%s:%d: Unknown subtype %d for file info object %lld\n");
         break;
       case 0xE:
@@ -5466,8 +5324,8 @@ uint64_t sub_10002DBCC(uint64_t a1, unsigned __int16 *a2)
           return 24;
         }
 
-        v12 = sub_100062A44(a2 + 28);
-        return v12 + 24;
+        v7 = sub_100062A44(a2 + 28);
+        return v7 + 24;
       case 0x12:
         if (a2[32])
         {
@@ -5491,7 +5349,6 @@ uint64_t sub_10002DBCC(uint64_t a1, unsigned __int16 *a2)
         }
 
       default:
-        v13 = *a2;
         sub_10003E5FC("%s:%d: ***: unknown obj type %d\n");
         return 0;
     }
@@ -5499,9 +5356,8 @@ uint64_t sub_10002DBCC(uint64_t a1, unsigned __int16 *a2)
 
   else
   {
-    v3 = sub_10003FC54(*(a1 + 392));
-    v14 = *a2;
-    sub_10003E64C(v3, "%s:%d: %s ***: expanded obj type %d found on unsupported volume\n", v4, v5, v6, v7, v8, v9, "val_size_for_jobj");
+    v4 = sub_10003FC54(*(a1 + 392));
+    sub_10003E64C(v4, "%s:%d: %s ***: expanded obj type %d found on unsupported volume\n", "val_size_for_jobj", 1945, (a1 + 4040), *a2);
   }
 
   return 0;
@@ -5705,12 +5561,11 @@ uint64_t sub_10002E100(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unin
 {
   if ((*(*(a1 + 376) + 57) & 2) == 0)
   {
-    sub_10003E5FC("%s:%d: %s ***: expanded obj type found on unsupported volume\n");
+    sub_10003E5FC("%s:%d: %s ***: expanded obj type found on unsupported volume\n", a2, a3, a4, a5);
     return 22;
   }
 
   v7 = *(a2 + 8);
-  v8 = *a2 & 0xFFFFFFFFFFFFFFFLL;
   if (v7 > 0x11)
   {
     if (v7 == 18)
@@ -5718,7 +5573,7 @@ uint64_t sub_10002E100(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unin
       v5 = 0;
       if (a4 && a5 <= 0x33)
       {
-        sub_10003E5FC("%s:%d: %s value size (%zu) on dir stats (%llu) is too small\n");
+        sub_10003E5FC("%s:%d: %s value size (%zu) on dir stats (%llu) is too small\n", a2, a3, a4, a5);
         return 22;
       }
 
@@ -5729,14 +5584,14 @@ uint64_t sub_10002E100(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unin
     {
       if (a3 <= 0x1B)
       {
-        sub_10003E5FC("%s:%d: %s key size (%zu) on clone mapping (%llu) is too small\n");
+        sub_10003E5FC("%s:%d: %s key size (%zu) on clone mapping (%llu) is too small\n", a2, a3, a4, a5);
         return 22;
       }
 
       v5 = 0;
       if (a4 && a5 <= 7)
       {
-        sub_10003E5FC("%s:%d: %s value size (%zu) on clone mapping (%llu) is too small\n");
+        sub_10003E5FC("%s:%d: %s value size (%zu) on clone mapping (%llu) is too small\n", a2, a3, a4, a5);
         return 22;
       }
 
@@ -5747,7 +5602,7 @@ LABEL_14:
     v5 = 0;
     if (a4 && a5 <= 3)
     {
-      sub_10003E5FC("%s:%d: %s value size (%zu) on unknown record (%llu) is too small\n");
+      sub_10003E5FC("%s:%d: %s value size (%zu) on unknown record (%llu) is too small\n", a2, a3, a4, a5);
       return 22;
     }
 
@@ -5758,14 +5613,14 @@ LABEL_14:
   {
     if (a3 <= 0x1B)
     {
-      sub_10003E5FC("%s:%d: %s key size (%zu) on purgeable record (%llu) is too small\n");
+      sub_10003E5FC("%s:%d: %s key size (%zu) on purgeable record (%llu) is too small\n", a2, a3, a4, a5);
       return 22;
     }
 
     v5 = 0;
     if (a4 && a5 <= 0x17)
     {
-      sub_10003E5FC("%s:%d: %s value size (%zu) on purgeable record (%llu) is too small\n");
+      sub_10003E5FC("%s:%d: %s value size (%zu) on purgeable record (%llu) is too small\n", a2, a3, a4, a5);
       return 22;
     }
 
@@ -5779,14 +5634,14 @@ LABEL_14:
 
   if (a3 <= 0x13)
   {
-    sub_10003E5FC("%s:%d: %s key size (%zu) on purgeable tombstone (%llu) is too small\n");
+    sub_10003E5FC("%s:%d: %s key size (%zu) on purgeable tombstone (%llu) is too small\n", a2, a3, a4, a5);
     return 22;
   }
 
   v5 = 0;
   if (a4 && a5 <= 7)
   {
-    sub_10003E5FC("%s:%d: %s value size (%zu) on purgeable tombstone (%llu) is too small\n");
+    sub_10003E5FC("%s:%d: %s value size (%zu) on purgeable tombstone (%llu) is too small\n", a2, a3, a4, a5);
     return 22;
   }
 
@@ -6148,7 +6003,7 @@ LABEL_9:
   return v6;
 }
 
-uint64_t sub_10002E668(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, unint64_t a4, int a5)
+uint64_t sub_10002E668(uint64_t a1, atomic_ullong *a2, unsigned __int8 *a3, uint64_t a4, int a5)
 {
   v10 = sub_10002DBCC(a1, a3);
   v11 = sub_10002DA34(a1, a3);
@@ -6197,7 +6052,7 @@ uint64_t sub_10002E668(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, unint64_t
   {
     if (a5 == 1)
     {
-      v18 = sub_10001B234(a2, *(a1 + 440), v17, v38, (v17 + v13), v10, v31);
+      v18 = sub_10001B234(a2, *(a1 + 440), v17, v38, v17 + v13, v10, v31);
 LABEL_11:
       v12 = v18;
       goto LABEL_12;
@@ -6219,7 +6074,7 @@ LABEL_11:
       v21 = sub_100020594(a2, *(a1 + 440), v17, v38, v17 + v13, v10, v31, v19);
       if (v21 == 28)
       {
-        v21 = sub_10001B234(a2, *(a1 + 440), v17, v38, (v17 + v13), v10, v20);
+        v21 = sub_10001B234(a2, *(a1 + 440), v17, v38, v17 + v13, v10, v20);
       }
 
 LABEL_27:
@@ -6292,8 +6147,8 @@ LABEL_40:
         *(a3 + 5) = v34[5];
         *(a3 + 6) = v30;
         *(a3 + 23) = v37;
-        sub_100062AD8(a3 + 32, 1, 0, &v35, 8);
-        sub_100062AD8(a3 + 32, 3, 0, &v35 + 8, 8);
+        sub_100062AD8(a3 + 32, 1, 0, &v35, 8uLL);
+        sub_100062AD8(a3 + 32, 3, 0, &v35 + 8, 8uLL);
         v28 = (a3 + 64);
         v29 = &v36;
       }
@@ -6328,7 +6183,7 @@ LABEL_40:
         v32 = v27 - v36;
         __dst -= *(&v35 + 1);
         *(a3 + 23) |= 8u;
-        sub_100062AD8(a3 + 32, 3, 0, &__dst, 8);
+        sub_100062AD8(a3 + 32, 3, 0, &__dst, 8uLL);
         if (!v32)
         {
           goto LABEL_53;
@@ -6339,7 +6194,7 @@ LABEL_40:
         v29 = &v32;
       }
 
-      sub_100062AD8(v28, 4, 0, v29, 8);
+      sub_100062AD8(v28, 4, 0, v29, 8uLL);
 LABEL_53:
       *(a3 + 7) = v34[2];
       *(a3 + 22) = HIDWORD(v37);
@@ -6378,15 +6233,17 @@ uint64_t sub_10002EAE8(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10002EB84(uint64_t a1, int a2, uint64_t a3, char *__s, size_t a5, uint64_t a6, unsigned int a7, int a8, int a9, int a10, int a11, uint64_t a12, int a13, void *a14, unint64_t a15, int a16, int a17)
+uint64_t sub_10002EB84(uint64_t a1, uint64_t a2, uint64_t a3, char *__s, size_t a5, uint64_t a6, uint64_t a7, int a8, int a9, int a10, int a11, uint64_t a12, int a13, uint64_t *a14, unint64_t a15, int a16, int a17)
 {
+  v18 = a7;
+  v23 = a2;
   v24 = a14;
   v25 = a11;
   v27 = a16;
   v26 = a17;
-  v74 = 0;
-  v72 = a17;
-  v73 = -1431655766;
+  v69 = 0;
+  v67 = a17;
+  v68 = -1431655766;
   *a14 = 0;
   if (v27)
   {
@@ -6405,55 +6262,55 @@ LABEL_10:
     v33 = a1;
     v34 = a5;
     v35 = v29;
-    result = sub_100034C64(a1, 1, __s, v34, v26, v29, a6, &v74);
-    v73 = result;
+    result = sub_100034C64(a1, 1, __s, v34, v26, v29, a6, &v69);
+    v68 = result;
     if (result)
     {
       return result;
     }
 
-    v65 = v35;
+    v60 = v35;
     v36 = sub_10003FA04(2u);
     if (!v36)
     {
-      sub_10002CA94(0, v74);
+      sub_10002CA94(0, v69);
       return 12;
     }
 
     v37 = v36;
-    v63 = v25;
-    v64 = v24;
+    v58 = v25;
+    v59 = v24;
     v38 = a15;
     v39 = sub_100062550();
-    *(v74 + 3) = v39;
-    v40 = sub_100062458(a7);
-    v41 = v74;
-    *(v74 + 30) = v40;
+    *(v69 + 3) = v39;
+    v40 = sub_100062458(v18);
+    v41 = v69;
+    *(v69 + 30) = v40;
     v42 = sub_100030EB4(v33, v28, v41, v38);
-    v73 = v42;
+    v68 = v42;
     if (v42)
     {
       v43 = strerror(v42);
-      v44 = sub_10003E5FC("%s:%d: %s %s: could not insert dir rec for obj-id %lld (name: %s)\n", "fs_obj_create_name_checked", 13474, (v33 + 4040), v43, *(v74 + 1), __s);
-      sub_10002CA94(v44, v74);
+      v44 = sub_10003E5FC("%s:%d: %s %s: could not insert dir rec for obj-id %lld (name: %s)\n", "fs_obj_create_name_checked", 13474, (v33 + 4040), v43, *(v69 + 1), __s);
+      sub_10002CA94(v44, v69);
       sub_10003FB10(v37, 2u);
       return 22;
     }
 
     *v37 = 42467587;
     *(v37 + 1) = a6;
-    *(v37 + 2) = v65;
+    *(v37 + 2) = v60;
     *(v37 + 6) = v39;
     *(v37 + 7) = v39;
     *(v37 + 4) = v39;
     *(v37 + 5) = v39;
     *(v37 + 3) = a6;
-    *(v37 + 48) = a7;
+    *(v37 + 48) = v18;
     v37[22] = a8;
     v37[23] = a9;
     v37[20] = 1;
     v37[21] = a10;
-    if ((a7 & 0xF000) != 0x4000)
+    if ((v18 & 0xF000) != 0x4000)
     {
       v37[18] = 1;
     }
@@ -6462,27 +6319,26 @@ LABEL_10:
     sub_10003E3C8((v37 + 30));
     *(v37 + 14) |= 0x100000000000uLL;
     v45 = 48;
-    if ((a7 & 0xF000) != 0x8000)
+    if ((v18 & 0xF000) != 0x8000)
     {
       v45 = 0;
     }
 
-    sub_100062624((v37 + 102), v45 + *(v74 + 31));
-    sub_100062AD8(v37 + 204, 4, 2, *(v74 + 8), *(v74 + 31));
-    v46 = v64;
+    sub_100062624((v37 + 102), v45 + *(v69 + 31));
+    sub_100062AD8(v37 + 204, 4, 2, *(v69 + 8), *(v69 + 31));
+    v46 = v59;
     if ((v37[24] & 0xB000 | 0x4000) == 0x6000)
     {
       if ((*(*(v33 + 376) + 57) & 2) != 0)
       {
-        v37[26] = v63;
+        v37[26] = v58;
       }
 
       else
       {
-        v73 = sub_100062AD8(v37 + 204, 14, 34, &a11, 4);
-        if (v73)
+        v68 = sub_100062AD8(v37 + 204, 14, 34, &a11, 4uLL);
+        if (v68)
         {
-          v58 = *(v37 + 1);
           v47 = sub_10003E5FC("%s:%d: %s *** failed to set rdev as an extended field of ino %lld (ret %d)\n");
           goto LABEL_56;
         }
@@ -6505,7 +6361,7 @@ LABEL_10:
 
         else
         {
-          sub_100062AD8(v37 + 204, 10, 34, &__dst, 8);
+          sub_100062AD8(v37 + 204, 10, 34, &__dst, 8uLL);
         }
       }
 
@@ -6513,7 +6369,7 @@ LABEL_10:
       {
         *(v37 + 8) |= 0x100000uLL;
         __dst = sub_100001AE4(a3);
-        sub_100062AD8(v37 + 204, 15, 2, &__dst, 8);
+        sub_100062AD8(v37 + 204, 15, 2, &__dst, 8uLL);
       }
     }
 
@@ -6542,28 +6398,26 @@ LABEL_10:
     }
 
     v54 = sub_100030EB4(v33, v28, v37, v38);
-    v73 = v54;
+    v68 = v54;
     if (v54)
     {
       v55 = strerror(v54);
-      sub_10003E5FC("%s:%d: %s %s: could not insert inode obj-id %lld (name: %s)\n", "fs_obj_create_name_checked", 13609, (v33 + 4040), v55, *(v37 + 1), *(v74 + 8));
-      v56 = v74;
-      v74[1] = 3;
+      sub_10003E5FC("%s:%d: %s %s: could not insert inode obj-id %lld (name: %s)\n", "fs_obj_create_name_checked", 13609, (v33 + 4040), v55, *(v37 + 1), *(v69 + 8));
+      v56 = v69;
+      v69[1] = 3;
       v47 = sub_10003135C(v33, v28, v56, v38);
-      v46 = v64;
+      v46 = v59;
       if (v47)
       {
         strerror(v47);
-        v60 = *(v37 + 1);
-        v62 = *(v74 + 8);
         v47 = sub_10003E5FC("%s:%d: %s %s: could not remove dir rec for obj-id %lld (name: %s)\n");
       }
     }
 
     else
     {
-      v46 = v64;
-      if (!a3 || v28 == 4 && v65 == 2)
+      v46 = v59;
+      if (!a3 || v28 == 4 && v60 == 2)
       {
         goto LABEL_57;
       }
@@ -6572,11 +6426,11 @@ LABEL_10:
       *(a3 + 40) = v57;
       *(a3 + 48) = v57;
       *(a3 + 112) |= 0x40000uLL;
-      v68 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 1;
-      sub_10002C5E0(v33, a3, &v67, v38);
+      v63 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 1;
+      sub_10002C5E0(v33, a3, &v62, v38);
       if ((v37[24] & 0xF000) == 0x4000)
       {
         sub_100034E94(v33, a3);
@@ -6586,14 +6440,12 @@ LABEL_10:
       ++*(a3 + 80);
       *(a3 + 1) = 2;
       v54 = sub_100030EB4(v33, v28, a3, v38);
-      v73 = v54;
+      v68 = v54;
       if (!v54)
       {
         goto LABEL_57;
       }
 
-      v61 = *(v74 + 8);
-      v59 = *(a3 + 8);
       v47 = sub_10003E5FC("%s:%d: %s failed to update parent ino %lld nchildren field on create of %s (err %d)\n");
     }
 
@@ -6601,9 +6453,9 @@ LABEL_56:
     sub_10002CA94(v47, v37);
     v37 = 0;
 LABEL_57:
-    sub_10002CA94(v54, v74);
+    sub_10002CA94(v54, v69);
     *v46 = v37;
-    return v73;
+    return v68;
   }
 
   if (!a5)
@@ -6618,19 +6470,19 @@ LABEL_57:
     return 63;
   }
 
-  v66 = a1;
-  v31 = sub_10003516C(__s, a5, 1u, 0, &v73);
+  v61 = a1;
+  v31 = sub_10003516C(__s, a5, 1u, 0, &v68);
   if (v31 > 0xFF)
   {
     return 63;
   }
 
-  if (!v31 && v73)
+  if (!v31 && v68)
   {
     return 22;
   }
 
-  v28 = a2;
+  v28 = v23;
   if (a3)
   {
     v48 = *(a3 + 8);
@@ -6652,18 +6504,18 @@ LABEL_57:
   }
 
   v50 = v48;
-  result = sub_100035828(v66, v48, __s, a5, v49, &v72, 0);
-  v73 = result;
+  result = sub_100035828(v61, v48, __s, a5, v49, &v67, 0);
+  v68 = result;
   if (!result)
   {
-    sub_10002CA94(result, v74);
+    sub_10002CA94(result, v69);
     return 17;
   }
 
   if (result == 2)
   {
-    v26 = v72;
-    a1 = v66;
+    v26 = v67;
+    a1 = v61;
     v29 = v50;
     goto LABEL_10;
   }
@@ -6671,9 +6523,9 @@ LABEL_57:
   return result;
 }
 
-uint64_t sub_10002F2B4(uint64_t a1, int a2, unint64_t a3, unint64_t a4, uint64_t **a5)
+uint64_t sub_10002F2B4(uint64_t a1, int a2, unint64_t a3, unint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = 22;
+  v12 = 22;
   if (a2 > 4)
   {
     if (a2 > 6)
@@ -6681,86 +6533,86 @@ uint64_t sub_10002F2B4(uint64_t a1, int a2, unint64_t a3, unint64_t a4, uint64_t
       if (a2 == 7)
       {
         pthread_mutex_lock((a1 + 1664));
-        if (*(a1 + 440) == a4 && (v22 = *(a1 + 3616)) != 0)
+        if (*(a1 + 440) == a4 && (v37 = *(a1 + 3616)) != 0)
         {
           sub_10004C19C(*(a1 + 3616));
-          if (a3 && (v23 = sub_10004B964(v22, 0, a3), v23))
+          if (a3 && (v38 = sub_10004B964(v37, 0, a3), v38))
           {
-            v9 = v23;
-            sub_100046D50(v22);
+            v12 = v38;
+            sub_100046D50(v37);
           }
 
           else
           {
-            v9 = 0;
-            *a5 = v22;
+            v12 = 0;
+            *a5 = v37;
           }
         }
 
         else
         {
-          v9 = sub_1000191DC(a1, 0, a4, a3, a5);
-          if (!v9)
+          v12 = sub_1000191DC(a1, 0, a4, a3, a5, v34, v35, v36, v60, v61, v62, v63, v64, v65, v66, v67, v68, *(&v68 + 1), v69, *(&v69 + 1));
+          if (!v12)
           {
             if (*(a1 + 440) == a4)
             {
-              v25 = *a5;
-              sub_10004C19C(v25);
-              v9 = 0;
-              *(a1 + 3616) = v25;
+              v40 = *a5;
+              sub_10004C19C(v40);
+              v12 = 0;
+              *(a1 + 3616) = v40;
             }
 
             else
             {
-              v9 = 0;
+              v12 = 0;
             }
           }
         }
 
-        v21 = (a1 + 1664);
+        v33 = (a1 + 1664);
         goto LABEL_110;
       }
 
       if (a2 != 8)
       {
-        return v9;
+        return v12;
       }
 
-      if (*(a1 + 440) != a4 || (v14 = *(a1 + 3576)) == 0)
+      if (*(a1 + 440) != a4 || (v21 = *(a1 + 3576)) == 0)
       {
-        v9 = sub_1000190BC(a1, a4, a3, a5);
-        if (!v9)
+        v12 = sub_1000190BC(a1, a4, a3, a5, a5, a6, a7, a8, v60, v61, v62, v63, v64, v65, v66, v67, v68, *(&v68 + 1), v69, *(&v69 + 1));
+        if (!v12)
         {
-          v27 = *(a1 + 440);
-          v28 = v27 && *(a1 + 504) == 0;
-          if (!v28 && v27 == a4)
+          v42 = *(a1 + 440);
+          v43 = v42 && *(a1 + 504) == 0;
+          if (!v43 && v42 == a4)
           {
-            v29 = *a5;
-            sub_10004C19C(v29);
-            v9 = 0;
-            *(a1 + 3576) = v29;
+            v44 = *a5;
+            sub_10004C19C(v44);
+            v12 = 0;
+            *(a1 + 3576) = v44;
           }
         }
 
-        return v9;
+        return v12;
       }
 
       sub_10004C19C(*(a1 + 3576));
       if (!a3)
       {
 LABEL_72:
-        v9 = 0;
-        *a5 = v14;
-        return v9;
+        v12 = 0;
+        *a5 = v21;
+        return v12;
       }
 
 LABEL_51:
-      v24 = sub_10004B964(v14, 0, a3);
-      if (v24)
+      v39 = sub_10004B964(v21, 0, a3);
+      if (v39)
       {
-        v9 = v24;
-        sub_100046D50(v14);
-        return v9;
+        v12 = v39;
+        sub_100046D50(v21);
+        return v12;
       }
 
       goto LABEL_72;
@@ -6771,125 +6623,125 @@ LABEL_51:
       if ((*(*(a1 + 376) + 56) & 0x40) != 0)
       {
         pthread_mutex_lock((a1 + 1600));
-        v12 = *(a1 + 3608);
-        if (v12)
+        v19 = *(a1 + 3608);
+        if (v19)
         {
-          sub_10004C19C(v12);
+          sub_10004C19C(v19);
           if (a3)
           {
-            v9 = sub_10004B964(*(a1 + 3608), 2, a3);
-            v13 = *(a1 + 3608);
-            if (v9)
+            v12 = sub_10004B964(*(a1 + 3608), 2, a3);
+            v20 = *(a1 + 3608);
+            if (v12)
             {
-              sub_100046D50(v13);
+              sub_100046D50(v20);
 LABEL_109:
-              v21 = (a1 + 1600);
+              v33 = (a1 + 1600);
               goto LABEL_110;
             }
 
-            *(*(a1 + 376) + 1048) = sub_100047D10(v13);
+            *(*(a1 + 376) + 1048) = sub_100047D10(v20);
           }
 
-          v9 = 0;
+          v12 = 0;
           *a5 = *(a1 + 3608);
           goto LABEL_109;
         }
 
-        v34 = *(a1 + 384);
-        if (!v34)
+        v49 = *(a1 + 384);
+        if (!v49)
         {
-          v34 = *(a1 + 376);
+          v49 = *(a1 + 376);
         }
 
-        v35 = *(v34 + 1044);
-        v36 = *(v34 + 1048);
-        v46 = 0u;
-        v47 = 0u;
-        v51 = 0;
-        v49 = 0u;
-        v50 = 0u;
-        v48 = 0u;
-        v45 = sub_100004D10;
-        DWORD2(v46) = 32;
-        if (v35 == 2)
+        v50 = *(v49 + 1044);
+        v51 = *(v49 + 1048);
+        v68 = 0u;
+        v69 = 0u;
+        v73 = 0;
+        v71 = 0u;
+        v72 = 0u;
+        v70 = 0u;
+        v67 = sub_100004D10;
+        DWORD2(v68) = 32;
+        if (v50 == 2)
         {
-          v37 = sub_10002462C(a1, v35 & 0xFFFF0000, v36, a4, a3 != 0, &v45, a3, a5);
-          v38 = v37;
-          if (a3 && !v37)
+          v52 = sub_10002462C(a1, v50 & 0xFFFF0000, v51, a4, a3 != 0, &v67, a3, a5);
+          v53 = v52;
+          if (a3 && !v52)
           {
-            v9 = 0;
+            v12 = 0;
             *(*(a1 + 376) + 1048) = sub_100047D10(*a5);
             goto LABEL_109;
           }
 
-          if (!v37)
+          if (!v52)
           {
-            v9 = 0;
+            v12 = 0;
             goto LABEL_109;
           }
 
-          v36 = *(v34 + 1048);
+          v51 = *(v49 + 1048);
         }
 
         else
         {
-          v38 = 22;
+          v53 = 22;
         }
 
-        v43 = strerror(v38);
-        sub_10003E5FC("%s:%d: %s Failed to get pfkur tree w/oid %llu (modify_xid %llu): %d (%s)\n", "jfs_get_tree_in_snap", 3946, (a1 + 4040), v36, a3, v38, v43);
-        v9 = v38;
+        v58 = strerror(v53);
+        sub_10003E5FC("%s:%d: %s Failed to get pfkur tree w/oid %llu (modify_xid %llu): %d (%s)\n", "jfs_get_tree_in_snap", 3946, (a1 + 4040), v51, a3, v53, v58);
+        v12 = v53;
         goto LABEL_109;
       }
 
       return 45;
     }
 
-    v20 = *(a1 + 376);
-    if ((*(v20 + 56) & 0x20) == 0)
+    v27 = *(a1 + 376);
+    if ((*(v27 + 56) & 0x20) == 0)
     {
       return 45;
     }
 
-    v26 = *(v20 + 1040);
+    v41 = *(v27 + 1040);
     if (a3 && *(a1 + 448))
     {
       return 30;
     }
 
     pthread_mutex_lock((a1 + 1536));
-    v31 = *(a1 + 3600);
-    if (v31)
+    v46 = *(a1 + 3600);
+    if (v46)
     {
-      if ((v26 & 0xC0000000) != 0)
+      if ((v41 & 0xC0000000) != 0)
       {
-        if ((v26 & 0xC0000000) == 0x40000000)
+        if ((v41 & 0xC0000000) == 0x40000000)
         {
-          v32 = *(a1 + 448);
-          if (v32)
+          v47 = *(a1 + 448);
+          if (v47)
           {
-            v33 = *(a1 + 376);
+            v48 = *(a1 + 376);
             goto LABEL_98;
           }
 
 LABEL_93:
-          sub_10004C19C(v31);
+          sub_10004C19C(v46);
           if (a3)
           {
-            v9 = sub_10004B964(*(a1 + 3600), 2, a3);
-            v39 = *(a1 + 3600);
-            if (v9)
+            v12 = sub_10004B964(*(a1 + 3600), 2, a3);
+            v54 = *(a1 + 3600);
+            if (v12)
             {
-              sub_100046D50(v39);
+              sub_100046D50(v54);
 LABEL_105:
-              v21 = (a1 + 1536);
+              v33 = (a1 + 1536);
               goto LABEL_110;
             }
 
-            *(*(a1 + 376) + 1032) = sub_100047D10(v39);
+            *(*(a1 + 376) + 1032) = sub_100047D10(v54);
           }
 
-          v9 = 0;
+          v12 = 0;
           *a5 = *(a1 + 3600);
           goto LABEL_105;
         }
@@ -6901,34 +6753,34 @@ LABEL_105:
       }
     }
 
-    v32 = *(a1 + 448);
-    v33 = *(a1 + 376);
-    if (!v32)
+    v47 = *(a1 + 448);
+    v48 = *(a1 + 376);
+    if (!v47)
     {
-      v32 = *(v33 + 1032);
+      v47 = *(v48 + 1032);
     }
 
 LABEL_98:
-    v40 = *(v33 + 1040);
-    *&v46 = 0;
-    v47 = 0u;
-    v51 = 0;
-    v49 = 0u;
-    v50 = 0u;
-    v48 = 0u;
-    v45 = sub_100003350;
-    *(&v46 + 1) = 0x20000001FLL;
-    if (v40 == 2)
+    v55 = *(v48 + 1040);
+    *&v68 = 0;
+    v69 = 0u;
+    v73 = 0;
+    v71 = 0u;
+    v72 = 0u;
+    v70 = 0u;
+    v67 = sub_100003350;
+    *(&v68 + 1) = 0x20000001FLL;
+    if (v55 == 2)
     {
-      v41 = sub_10002462C(a1, v40 & 0xFFFF0000, v32, a4, a3 != 0, &v45, a3, a5);
-      v9 = v41;
-      if (a3 && !v41)
+      v56 = sub_10002462C(a1, v55 & 0xFFFF0000, v47, a4, a3 != 0, &v67, a3, a5);
+      v12 = v56;
+      if (a3 && !v56)
       {
         *(*(a1 + 376) + 1032) = sub_100047D10(*a5);
         goto LABEL_105;
       }
 
-      if (!v41)
+      if (!v56)
       {
         goto LABEL_105;
       }
@@ -6936,11 +6788,11 @@ LABEL_98:
 
     else
     {
-      v9 = 22;
+      v12 = 22;
     }
 
-    v42 = strerror(v9);
-    sub_10003E5FC("%s:%d: %s Failed to get fext tree w/oid %llu (modify_xid %llu): %d (%s)\n", "jfs_get_tree_in_snap", 3898, (a1 + 4040), v32, a3, v9, v42);
+    v57 = strerror(v12);
+    sub_10003E5FC("%s:%d: %s Failed to get fext tree w/oid %llu (modify_xid %llu): %d (%s)\n", "jfs_get_tree_in_snap", 3898, (a1 + 4040), v47, a3, v12, v57);
     goto LABEL_105;
   }
 
@@ -6949,18 +6801,18 @@ LABEL_98:
     if (a2 == 3)
     {
       pthread_mutex_lock((a1 + 1472));
-      v9 = sub_100019114(a1, a3, a5);
-      if (!v9)
+      v12 = sub_100019114(a1, a3, a5, v28, v29, v30, v31, v32, v60, v61, v62, v63, v64, v65, v66, v67, v68, *(&v68 + 1), v69, *(&v69 + 1));
+      if (!v12)
       {
         *(*(a1 + 376) + 152) = sub_100047D10(*a5);
       }
 
-      v21 = (a1 + 1472);
+      v33 = (a1 + 1472);
       goto LABEL_110;
     }
 
-    v14 = *(a1 + 3584);
-    if (v14)
+    v21 = *(a1 + 3584);
+    if (v21)
     {
       sub_10004C19C(*(a1 + 3584));
       if (!a3)
@@ -6968,41 +6820,41 @@ LABEL_98:
         goto LABEL_72;
       }
 
-      v15 = sub_10004B964(v14, 0, a3);
-      if (!v15)
+      v22 = sub_10004B964(v21, 0, a3);
+      if (!v22)
       {
         goto LABEL_72;
       }
 
-      v9 = v15;
-      sub_100046D50(v14);
+      v12 = v22;
+      sub_100046D50(v21);
 LABEL_28:
-      v14 = *(a1 + 3568);
-      if (*(a1 + 440) != a4 || v14 == 0)
+      v21 = *(a1 + 3568);
+      if (*(a1 + 440) != a4 || v21 == 0)
       {
-        v9 = sub_1000190A8(a1, a4, a3, a5);
-        if (!v9)
+        v12 = sub_1000190A8(a1, a4, a3, a5);
+        if (!v12)
         {
-          v17 = *(a1 + 440);
-          v18 = v17 && *(a1 + 504) == 0;
-          if (!v18 && v17 == a4)
+          v24 = *(a1 + 440);
+          v25 = v24 && *(a1 + 504) == 0;
+          if (!v25 && v24 == a4)
           {
-            v19 = *a5;
-            sub_10004C19C(v19);
-            v9 = 0;
-            *(a1 + 3568) = v19;
+            v26 = *a5;
+            sub_10004C19C(v26);
+            v12 = 0;
+            *(a1 + 3568) = v26;
           }
         }
 
-        return v9;
+        return v12;
       }
 
       sub_10004C19C(*(a1 + 3568));
       if (!a3)
       {
-        if (v9)
+        if (v12)
         {
-          return v9;
+          return v12;
         }
 
         goto LABEL_72;
@@ -7012,7 +6864,7 @@ LABEL_28:
     }
 
 LABEL_27:
-    v9 = 0;
+    v12 = 0;
     goto LABEL_28;
   }
 
@@ -7024,53 +6876,53 @@ LABEL_27:
   if (a2 == 2)
   {
     pthread_mutex_lock((a1 + 1408));
-    v10 = *(a1 + 3592);
-    if (!v10)
+    v17 = *(a1 + 3592);
+    if (!v17)
     {
-      v9 = sub_1000190D0(a1, *(*(a1 + 376) + 144), a3, a5);
-      if (!v9)
+      v12 = sub_1000190D0(a1, *(*(a1 + 376) + 144), a3, a5, v13, v14, v15, v16, v60, v61, v62, v63, v64, v65, v66, v67, v68, *(&v68 + 1), v69, *(&v69 + 1));
+      if (!v12)
       {
         if (a3)
         {
           *(*(a1 + 376) + 144) = sub_100047D10(*a5);
         }
 
-        v30 = *a5;
+        v45 = *a5;
         *(a1 + 3592) = *a5;
-        sub_10004C19C(v30);
-        v9 = 0;
+        sub_10004C19C(v45);
+        v12 = 0;
       }
 
       goto LABEL_86;
     }
 
-    sub_10004C19C(v10);
+    sub_10004C19C(v17);
     if (a3)
     {
-      v9 = sub_10004B964(*(a1 + 3592), 2, a3);
-      v11 = *(a1 + 3592);
-      if (v9)
+      v12 = sub_10004B964(*(a1 + 3592), 2, a3);
+      v18 = *(a1 + 3592);
+      if (v12)
       {
-        sub_100046D50(v11);
+        sub_100046D50(v18);
 LABEL_86:
-        v21 = (a1 + 1408);
+        v33 = (a1 + 1408);
 LABEL_110:
-        pthread_mutex_unlock(v21);
-        return v9;
+        pthread_mutex_unlock(v33);
+        return v12;
       }
 
-      *(*(a1 + 376) + 144) = sub_100047D10(v11);
+      *(*(a1 + 376) + 144) = sub_100047D10(v18);
     }
 
-    v9 = 0;
+    v12 = 0;
     *a5 = *(a1 + 3592);
     goto LABEL_86;
   }
 
-  return v9;
+  return v12;
 }
 
-uint64_t sub_10002F944(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6, int *a7, unsigned int a8, uint64_t a9)
+uint64_t sub_10002F944(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6, int *a7, unsigned int a8, uint64_t *a9)
 {
   v14 = sub_10003399C(*a9, a1);
   if (a6 < a8 && v14 != 18)
@@ -7086,11 +6938,11 @@ uint64_t sub_10002F944(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
     {
       case 2uLL:
         result = 0;
-        *(a9 + 16) = *(a5 + 4);
+        *(a9 + 4) = *(a5 + 4);
         *(a5 + 4) += a7[4];
         return result;
       case 6uLL:
-        *(a9 + 16) = *a5;
+        *(a9 + 4) = *a5;
         v64 = *a5 + *a7;
         v65 = v64 << 31 >> 31;
         if (v65 == v64 && (v65 & 0x8000000000000000) == 0)
@@ -7101,14 +6953,11 @@ uint64_t sub_10002F944(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
         }
 
         v66 = sub_10003FC54(*(*a9 + 392));
-        v181 = *a5;
-        v182 = *a7;
-        v177 = *a9 + 4040;
-        sub_10003E64C(v66, "%s:%d: %s dstream id %llu refcnt %u (delta: %d) would overflow\n", v67, v68, v69, v70, v71, v72, "jobj_refcnt_merge");
+        sub_10003E64C(v66, "%s:%d: %s dstream id %llu refcnt %u (delta: %d) would overflow\n");
         return 0;
       case 7uLL:
         v31 = *a5;
-        *(a9 + 16) = *a5;
+        *(a9 + 4) = *a5;
         v32 = v31 + *a7;
         *a5 = v32;
         if (v32 < 0)
@@ -7122,13 +6971,13 @@ uint64_t sub_10002F944(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
     goto LABEL_49;
   }
 
-  if (*a1 >> 60 <= 0xCuLL)
+  if (*a1 >> 60 <= 0xC)
   {
     if (v17 != 9)
     {
       if (v17 == 10)
       {
-        v18 = *(a9 + 84);
+        v18 = *(a9 + 21);
         if ((v18 & 2) != 0)
         {
           if ((v18 & 4) != 0)
@@ -7191,12 +7040,12 @@ uint64_t sub_10002F944(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
           }
 
           a5[1] = v28;
-          v18 = *(a9 + 84);
+          v18 = *(a9 + 21);
           if ((v18 & 4) != 0)
           {
 LABEL_26:
             a5[2] = *(a7 + 2);
-            if (*(a9 + 84))
+            if (*(a9 + 21))
             {
               goto LABEL_85;
             }
@@ -7210,12 +7059,12 @@ LABEL_26:
 LABEL_85:
           if ((*(a9 + 84) & 8) != 0)
           {
-            *(a9 + 24) = *a5;
-            *(a9 + 32) = a5[1];
+            a9[3] = *a5;
+            a9[4] = a5[1];
           }
 
           result = 0;
-          *(a9 + 16) = a5[2];
+          a9[2] = a5[2];
           return result;
         }
 
@@ -7253,19 +7102,18 @@ LABEL_82:
       {
         if (v33 != 18)
         {
-          v178 = *(a1 + 8);
           sub_10003E5FC("%s:%d: don't know how to merge refcounts on objects of expanded type %d\n");
           return 22;
         }
 
-        v34 = *(a9 + 84);
-        *(a9 + 84) = 0;
+        v34 = *(a9 + 21);
+        *(a9 + 21) = 0;
         if ((v34 & 0x800000) != 0)
         {
           result = 0;
-          v78 = a7[12];
+          v72 = a7[12];
           a5[3] = *(a7 + 3);
-          *(a5 + 12) = v78 | 0x80;
+          *(a5 + 12) = v72 | 0x80;
           a5[4] = *(a7 + 4);
           return result;
         }
@@ -7297,18 +7145,18 @@ LABEL_82:
           }
         }
 
-        v198 = a5[4];
+        v173 = a5[4];
         v39 = a6 - 52;
         v40 = a5[2];
-        v197 = a5[1];
+        v172 = a5[1];
         if ((v35 & 8) != 0)
         {
-          v203[0] = 0;
-          LODWORD(v201) = 0;
-          v199 = 0;
-          if (!sub_10006281C(a5 + 26, v39, 3, 0, v203, &v201) && v201 == 8)
+          v178[0] = 0;
+          LODWORD(v176) = 0;
+          v174 = 0;
+          if (!sub_10006281C(a5 + 26, v39, 3, 0, v178, &v176) && v176 == 8)
           {
-            v199 = *v203[0];
+            v174 = *v178[0];
           }
 
           v41 = *(a5 + 12);
@@ -7316,19 +7164,19 @@ LABEL_82:
 
         else
         {
-          v199 = 0;
+          v174 = 0;
           v41 = *(a5 + 12);
         }
 
         if ((v41 & 0x800) != 0)
         {
-          v203[0] = 0;
-          LODWORD(v201) = 0;
-          v80 = sub_10006281C(a5 + 26, v39, 4, 0, v203, &v201);
-          v79 = 0;
-          if (!v80 && v201 == 8)
+          v178[0] = 0;
+          LODWORD(v176) = 0;
+          v74 = sub_10006281C(a5 + 26, v39, 4, 0, v178, &v176);
+          v73 = 0;
+          if (!v74 && v176 == 8)
           {
-            v79 = *v203[0];
+            v73 = *v178[0];
           }
 
           v41 = *(a5 + 12);
@@ -7336,18 +7184,18 @@ LABEL_82:
 
         else
         {
-          v79 = 0;
+          v73 = 0;
         }
 
         if ((v34 & 2) == 0 && (v41 & 0x200) != 0)
         {
           result = 0;
-          *(a9 + 16) = *a1 & 0xFFFFFFFFFFFFFFFLL;
-          v81 = *(a9 + 84) | 0x400000;
+          a9[2] = *a1 & 0xFFFFFFFFFFFFFFFLL;
+          v75 = *(a9 + 21) | 0x400000;
           goto LABEL_300;
         }
 
-        v194 = v79;
+        v169 = v73;
         if (v41 >= 0x1000)
         {
           v41 |= 0x100u;
@@ -7360,303 +7208,303 @@ LABEL_82:
           a5[4] = 0;
         }
 
-        v196 = (v34 >> 1) & 1;
-        if (!(v196 | v37 & 1))
+        v171 = (v34 >> 1) & 1;
+        if (!(v171 | v37 & 1))
         {
-          v195 = v40;
-          v190 = a8;
-          v193 = v39;
-          v82 = *a9;
-          v83 = *a1;
-          v84 = *a5;
-          v85 = *a7;
-          v86 = *a5 + *a7;
+          v170 = v40;
+          v165 = a8;
+          v168 = v39;
+          v76 = *a9;
+          v77 = *a1;
+          v78 = *a5;
+          v79 = *a7;
+          v80 = *a5 + *a7;
           if (__CFADD__(*a5, *a7))
           {
-            v87 = (*a7 >> 63) + 1;
+            v81 = (*a7 >> 63) + 1;
           }
 
           else
           {
-            v87 = *a7 >> 63;
+            v81 = *a7 >> 63;
           }
 
-          v88 = v87 << 63 >> 63;
-          if (v88 != v87 || v88 < 0)
+          v82 = v81 << 63 >> 63;
+          if (v82 != v81 || v82 < 0)
           {
-            if (sub_100042AEC(*(v82 + 392)))
+            if (sub_100042AEC(*(v76 + 392)))
             {
-              sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v82 + 4040), "descendants", "exp-dir-stats", v83 & 0xFFFFFFFFFFFFFFFLL, "descendants", v84, v85);
+              sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v76 + 4040), "descendants", "exp-dir-stats", v77 & 0xFFFFFFFFFFFFFFFLL, "descendants", v78, v79);
             }
 
-            v86 = v84;
+            v80 = v78;
           }
 
-          *a5 = v86;
-          v89 = *a9;
-          v90 = *a1;
-          v91 = a5[1];
-          v92 = *(a7 + 1);
-          v93 = v91 + v92;
-          if (__CFADD__(v91, v92))
+          *a5 = v80;
+          v83 = *a9;
+          v84 = *a1;
+          v85 = a5[1];
+          v86 = *(a7 + 1);
+          v87 = v85 + v86;
+          if (__CFADD__(v85, v86))
           {
-            v94 = (v92 >> 63) + 1;
+            v88 = (v86 >> 63) + 1;
           }
 
           else
           {
-            v94 = v92 >> 63;
+            v88 = v86 >> 63;
           }
 
-          v95 = v94 << 63 >> 63;
-          if (v95 != v94 || v95 < 0)
+          v89 = v88 << 63 >> 63;
+          if (v89 != v88 || v89 < 0)
           {
-            if (sub_100042AEC(*(v89 + 392)))
+            if (sub_100042AEC(*(v83 + 392)))
             {
-              sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v89 + 4040), "physical size", "exp-dir-stats", v90 & 0xFFFFFFFFFFFFFFFLL, "physical size", v91, v92);
+              sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v83 + 4040), "physical size", "exp-dir-stats", v84 & 0xFFFFFFFFFFFFFFFLL, "physical size", v85, v86);
             }
 
-            v93 = v91;
+            v87 = v85;
           }
 
-          v191 = v190 - 52;
-          a5[1] = v93;
-          v96 = *(a5 + 12);
-          if (v96)
+          v166 = v165 - 52;
+          a5[1] = v87;
+          v90 = *(a5 + 12);
+          if (v90)
           {
-            v97 = *a9;
-            v98 = *a1;
-            v99 = a5[2];
-            v100 = *(a7 + 2);
-            v101 = v99 + v100;
-            if (__CFADD__(v99, v100))
+            v91 = *a9;
+            v92 = *a1;
+            v93 = a5[2];
+            v94 = *(a7 + 2);
+            v95 = v93 + v94;
+            if (__CFADD__(v93, v94))
             {
-              v102 = (v100 >> 63) + 1;
+              v96 = (v94 >> 63) + 1;
             }
 
             else
             {
-              v102 = v100 >> 63;
+              v96 = v94 >> 63;
             }
 
-            v103 = v102 << 63 >> 63;
-            if (v103 != v102 || v103 < 0)
+            v97 = v96 << 63 >> 63;
+            if (v97 != v96 || v97 < 0)
             {
-              if (sub_100042AEC(*(v97 + 392)))
+              if (sub_100042AEC(*(v91 + 392)))
               {
-                sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v97 + 4040), "resource fork size", "exp-dir-stats", v98 & 0xFFFFFFFFFFFFFFFLL, "resource fork size", v99, v100);
+                sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v91 + 4040), "resource fork size", "exp-dir-stats", v92 & 0xFFFFFFFFFFFFFFFLL, "resource fork size", v93, v94);
               }
 
-              v101 = v99;
+              v95 = v93;
             }
 
-            a5[2] = v101;
-            v96 = *(a5 + 12);
+            a5[2] = v95;
+            v90 = *(a5 + 12);
           }
 
-          v39 = v193;
-          v40 = v195;
-          if ((v96 & 4) != 0 && (a7[12] & 4) != 0)
+          v39 = v168;
+          v40 = v170;
+          if ((v90 & 4) != 0 && (a7[12] & 4) != 0)
           {
-            v104 = *a9;
-            v105 = *a1;
-            v203[0] = 0;
-            v201 = 0;
-            v202 = 0;
-            v106 = sub_10006281C(a5 + 26, v193, 1, 0, v203, &v202);
-            v107 = 0;
-            if (!v106)
+            v98 = *a9;
+            v99 = *a1;
+            v178[0] = 0;
+            v176 = 0;
+            v177 = 0;
+            v100 = sub_10006281C(a5 + 26, v168, 1, 0, v178, &v177);
+            v101 = 0;
+            if (!v100)
             {
-              v187 = v105;
-              if (v202 == 8)
+              v162 = v99;
+              if (v177 == 8)
               {
-                v202 = 0;
-                if (!sub_10006281C(a7 + 26, v191, 1, 0, &v201, &v202) && v202 == 8 && (v108 = *v201) != 0)
+                v177 = 0;
+                if (!sub_10006281C(a7 + 26, v166, 1, 0, &v176, &v177) && v177 == 8 && (v102 = *v176) != 0)
                 {
-                  v184 = *v203[0];
-                  v107 = *v203[0] + v108;
-                  if (__CFADD__(*v203[0], v108))
+                  v159 = *v178[0];
+                  v101 = *v178[0] + v102;
+                  if (__CFADD__(*v178[0], v102))
                   {
-                    v109 = (v108 >> 63) + 1;
+                    v103 = (v102 >> 63) + 1;
                   }
 
                   else
                   {
-                    v109 = v108 >> 63;
+                    v103 = v102 >> 63;
                   }
 
-                  v110 = v109 << 63 >> 63;
-                  if (v110 != v109 || v110 < 0)
+                  v104 = v103 << 63 >> 63;
+                  if (v104 != v103 || v104 < 0)
                   {
-                    if (sub_100042AEC(*(v104 + 392)))
+                    if (sub_100042AEC(*(v98 + 392)))
                     {
-                      sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v104 + 4040), "clone size", "exp-dir-stats", v187 & 0xFFFFFFFFFFFFFFFLL, "clone size", v184, v108);
+                      sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v98 + 4040), "clone size", "exp-dir-stats", v162 & 0xFFFFFFFFFFFFFFFLL, "clone size", v159, v102);
                     }
 
-                    v107 = v184;
-                    v39 = v193;
-                    v40 = v195;
+                    v101 = v159;
+                    v39 = v168;
+                    v40 = v170;
                   }
                 }
 
                 else
                 {
-                  v107 = *v203[0];
+                  v101 = *v178[0];
                 }
               }
             }
 
-            v203[0] = v107;
-            v132 = sub_1000628C0(a5 + 26, v39, 1, v203, 8);
+            v178[0] = v101;
+            v112 = sub_1000628C0(a5 + 26, v39, 1, v178, 8);
+            if (v112)
+            {
+              v113 = v112;
+              if (sub_100042AEC(*(*a9 + 392)))
+              {
+                v114 = *a9 + 4040;
+                v115 = *a1 & 0xFFFFFFFFFFFFFFFLL;
+                v116 = strerror(v113);
+                v156 = v114;
+                v40 = v170;
+                sub_10003E5FC("%s:%d: %s could not update clone size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3060, v156, v115, v116, v113);
+              }
+            }
+
+            v90 = *(a5 + 12);
+          }
+
+          if ((v90 & 8) != 0 && (a7[12] & 8) != 0)
+          {
+            v117 = *a9;
+            v163 = *a1;
+            v178[0] = 0;
+            v176 = 0;
+            v177 = 0;
+            v118 = 0;
+            if (!sub_10006281C(a5 + 26, v39, 3, 0, v178, &v177) && v177 == 8)
+            {
+              v160 = v117;
+              v177 = 0;
+              if (!sub_10006281C(a7 + 26, v166, 3, 0, &v176, &v177) && v177 == 8 && (v119 = *v176) != 0)
+              {
+                v158 = *v178[0];
+                v118 = *v178[0] + v119;
+                if (__CFADD__(*v178[0], v119))
+                {
+                  v120 = (v119 >> 63) + 1;
+                }
+
+                else
+                {
+                  v120 = v119 >> 63;
+                }
+
+                v121 = v120 << 63 >> 63;
+                if (v121 != v120 || v121 < 0)
+                {
+                  if (sub_100042AEC(*(v160 + 392)))
+                  {
+                    sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v160 + 4040), "purgeable size", "exp-dir-stats", v163 & 0xFFFFFFFFFFFFFFFLL, "purgeable size", v158, v119);
+                  }
+
+                  v39 = v168;
+                  v40 = v170;
+                }
+              }
+
+              else
+              {
+                v118 = *v178[0];
+              }
+            }
+
+            v178[0] = v118;
+            v122 = sub_1000628C0(a5 + 26, v39, 3, v178, 8);
+            if (v122)
+            {
+              v123 = v122;
+              if (sub_100042AEC(*(*a9 + 392)))
+              {
+                v124 = *a9 + 4040;
+                v125 = *a1 & 0xFFFFFFFFFFFFFFFLL;
+                v126 = strerror(v123);
+                v157 = v124;
+                v40 = v170;
+                sub_10003E5FC("%s:%d: %s could not update purgeable size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3073, v157, v125, v126, v123);
+              }
+            }
+
+            v90 = *(a5 + 12);
+          }
+
+          if ((v90 & 0x800) != 0 && (*(a7 + 49) & 8) != 0)
+          {
+            v127 = *a9;
+            v164 = *a1;
+            v178[0] = 0;
+            v176 = 0;
+            v177 = 0;
+            v128 = 0;
+            if (!sub_10006281C(a5 + 26, v39, 4, 0, v178, &v177) && v177 == 8)
+            {
+              v161 = v127;
+              v177 = 0;
+              if (!sub_10006281C(a7 + 26, v166, 4, 0, &v176, &v177) && v177 == 8 && (v129 = *v176) != 0)
+              {
+                v167 = *v178[0];
+                v128 = *v178[0] + v129;
+                if (__CFADD__(*v178[0], v129))
+                {
+                  v130 = (v129 >> 63) + 1;
+                }
+
+                else
+                {
+                  v130 = v129 >> 63;
+                }
+
+                v131 = v130 << 63 >> 63;
+                if (v131 != v130 || v131 < 0)
+                {
+                  if (sub_100042AEC(*(v161 + 392)))
+                  {
+                    sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v161 + 4040), "purgeable rsrc size", "exp-dir-stats", v164 & 0xFFFFFFFFFFFFFFFLL, "purgeable rsrc size", v167, v129);
+                  }
+
+                  v39 = v168;
+                  v40 = v170;
+                }
+              }
+
+              else
+              {
+                v128 = *v178[0];
+              }
+            }
+
+            v178[0] = v128;
+            v132 = sub_1000628C0(a5 + 26, v39, 4, v178, 8);
             if (v132)
             {
               v133 = v132;
-              if (sub_100042AEC(*(*a9 + 392)))
-              {
-                v134 = *a9 + 4040;
-                v135 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-                v136 = strerror(v133);
-                v179 = v134;
-                v40 = v195;
-                sub_10003E5FC("%s:%d: %s could not update clone size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3060, v179, v135, v136, v133);
-              }
-            }
-
-            v96 = *(a5 + 12);
-          }
-
-          if ((v96 & 8) != 0 && (a7[12] & 8) != 0)
-          {
-            v137 = *a9;
-            v188 = *a1;
-            v203[0] = 0;
-            v201 = 0;
-            v202 = 0;
-            v138 = 0;
-            if (!sub_10006281C(a5 + 26, v39, 3, 0, v203, &v202) && v202 == 8)
-            {
-              v185 = v137;
-              v202 = 0;
-              if (!sub_10006281C(a7 + 26, v191, 3, 0, &v201, &v202) && v202 == 8 && (v139 = *v201) != 0)
-              {
-                v183 = *v203[0];
-                v138 = *v203[0] + v139;
-                if (__CFADD__(*v203[0], v139))
-                {
-                  v140 = (v139 >> 63) + 1;
-                }
-
-                else
-                {
-                  v140 = v139 >> 63;
-                }
-
-                v141 = v140 << 63 >> 63;
-                if (v141 != v140 || v141 < 0)
-                {
-                  if (sub_100042AEC(*(v185 + 392)))
-                  {
-                    sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v185 + 4040), "purgeable size", "exp-dir-stats", v188 & 0xFFFFFFFFFFFFFFFLL, "purgeable size", v183, v139);
-                  }
-
-                  v39 = v193;
-                  v40 = v195;
-                }
-              }
-
-              else
-              {
-                v138 = *v203[0];
-              }
-            }
-
-            v203[0] = v138;
-            v142 = sub_1000628C0(a5 + 26, v39, 3, v203, 8);
-            if (v142)
-            {
-              v143 = v142;
-              if (sub_100042AEC(*(*a9 + 392)))
-              {
-                v144 = *a9 + 4040;
-                v145 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-                v146 = strerror(v143);
-                v180 = v144;
-                v40 = v195;
-                sub_10003E5FC("%s:%d: %s could not update purgeable size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3073, v180, v145, v146, v143);
-              }
-            }
-
-            v96 = *(a5 + 12);
-          }
-
-          if ((v96 & 0x800) != 0 && (*(a7 + 49) & 8) != 0)
-          {
-            v147 = *a9;
-            v189 = *a1;
-            v203[0] = 0;
-            v201 = 0;
-            v202 = 0;
-            v148 = 0;
-            if (!sub_10006281C(a5 + 26, v39, 4, 0, v203, &v202) && v202 == 8)
-            {
-              v186 = v147;
-              v202 = 0;
-              if (!sub_10006281C(a7 + 26, v191, 4, 0, &v201, &v202) && v202 == 8 && (v149 = *v201) != 0)
-              {
-                v192 = *v203[0];
-                v148 = *v203[0] + v149;
-                if (__CFADD__(*v203[0], v149))
-                {
-                  v150 = (v149 >> 63) + 1;
-                }
-
-                else
-                {
-                  v150 = v149 >> 63;
-                }
-
-                v151 = v150 << 63 >> 63;
-                if (v151 != v150 || v151 < 0)
-                {
-                  if (sub_100042AEC(*(v186 + 392)))
-                  {
-                    sub_10003E5FC("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v186 + 4040), "purgeable rsrc size", "exp-dir-stats", v189 & 0xFFFFFFFFFFFFFFFLL, "purgeable rsrc size", v192, v149);
-                  }
-
-                  v39 = v193;
-                  v40 = v195;
-                }
-              }
-
-              else
-              {
-                v148 = *v203[0];
-              }
-            }
-
-            v203[0] = v148;
-            v152 = sub_1000628C0(a5 + 26, v39, 4, v203, 8);
-            if (v152)
-            {
-              v153 = v152;
               if (sub_100042AEC(*(**a9 + 392)))
               {
-                v154 = sub_100046328(*a9);
-                v155 = *a9;
-                if (v154 == 13)
+                v134 = sub_100046328(*a9);
+                v135 = *a9;
+                if (v134 == 13)
                 {
-                  v156 = (v155 + 4040);
+                  v136 = (v135 + 4040);
                 }
 
                 else
                 {
-                  v156 = (*(v155 + 384) + 212);
+                  v136 = (*(v135 + 384) + 212);
                 }
 
-                v157 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-                v158 = strerror(v153);
-                sub_10003E5FC("%s:%d: %s could not update purgeable rsrc size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3087, v156, v157, v158, v153);
-                v40 = v195;
+                v137 = *a1 & 0xFFFFFFFFFFFFFFFLL;
+                v138 = strerror(v133);
+                sub_10003E5FC("%s:%d: %s could not update purgeable rsrc size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3087, v136, v137, v138, v133);
+                v40 = v170;
               }
             }
           }
@@ -7672,23 +7520,23 @@ LABEL_82:
           a5[4] = *(a7 + 4);
         }
 
-        v159 = *(a5 + 12);
-        if ((v159 & 8) != 0)
+        v139 = *(a5 + 12);
+        if ((v139 & 8) != 0)
         {
           if ((v34 & 0x400) != 0 && (v35 & 0x40) == 0)
           {
-            v160 = v159 | 0x40;
-            v161 = 1024;
+            v140 = v139 | 0x40;
+            v141 = 1024;
 LABEL_234:
-            *(a5 + 12) = v160;
-            *(a9 + 84) |= v161;
+            *(a5 + 12) = v140;
+            *(a9 + 21) |= v141;
             goto LABEL_235;
           }
 
           if ((v34 & 0x800) != 0 && (v35 & 0x40) != 0)
           {
-            v160 = v159 & 0xFFFFFFBF;
-            v161 = 2048;
+            v140 = v139 & 0xFFFFFFBF;
+            v141 = 2048;
             goto LABEL_234;
           }
         }
@@ -7696,23 +7544,23 @@ LABEL_234:
 LABEL_235:
         if ((v34 & 1) == 0)
         {
-          v162 = *(a7 + 5);
-          if (v162 <= 1)
+          v142 = *(a7 + 5);
+          if (v142 <= 1)
           {
-            v162 = 1;
+            v142 = 1;
           }
 
-          a5[5] += v162;
-          v163 = v196;
+          a5[5] += v142;
+          v143 = v171;
           if ((v35 & 0x40) == 0)
           {
-            v163 = 1;
+            v143 = 1;
           }
 
-          if ((v163 & 1) == 0)
+          if ((v143 & 1) == 0)
           {
             *(a5 + 12) &= ~0x40u;
-            *(a9 + 84) |= 0x800u;
+            *(a9 + 21) |= 0x800u;
           }
         }
 
@@ -7720,45 +7568,45 @@ LABEL_235:
         {
           if ((v34 & 0x200) != 0)
           {
-            *(a9 + 72) = a5[5];
-            *(a9 + 80) = *(a5 + 12);
+            a9[9] = a5[5];
+            *(a9 + 20) = *(a5 + 12);
           }
 
-          v164 = *(a9 + 84);
-          if ((v35 & 0x20) == 0 && (v164 & 0x800) != 0)
+          v144 = *(a9 + 21);
+          if ((v35 & 0x20) == 0 && (v144 & 0x800) != 0)
           {
-            *(a9 + 56) = v197 - v199;
+            a9[7] = v172 - v174;
             if ((*(a5 + 49) & 8) != 0)
             {
-              *(a9 + 64) = v40 - v194;
+              a9[8] = v40 - v169;
             }
           }
 
 LABEL_266:
-          *(a9 + 16) = a5[4];
-          if ((v34 & 0xA0) != 0 || (v34 & 0x100) != 0 || (v35 & 0x20) == 0 || (v203[0] = 0, LODWORD(v201) = 0, sub_10006281C(a5 + 26, v39, 2, 0, v203, &v201)) || v201 != 8 || !*v203[0])
+          a9[2] = a5[4];
+          if ((v34 & 0xA0) != 0 || (v34 & 0x100) != 0 || (v35 & 0x20) == 0 || (v178[0] = 0, LODWORD(v176) = 0, sub_10006281C(a5 + 26, v39, 2, 0, v178, &v176)) || v176 != 8 || !*v178[0])
           {
-            if ((v34 & 0x2000) != 0 && (v35 & 0x40) != 0 && (v164 & 0xC00) == 0)
+            if ((v34 & 0x2000) != 0 && (v35 & 0x40) != 0 && (v144 & 0xC00) == 0)
             {
-              *(a9 + 16) = 0;
+              a9[2] = 0;
             }
           }
 
           else
           {
-            *(a9 + 16) = *v203[0];
-            *(a9 + 84) |= 0x100000u;
+            a9[2] = *v178[0];
+            *(a9 + 21) |= 0x100000u;
           }
 
           if ((v34 & 0x10) != 0)
           {
-            v173 = *(a5 + 12);
+            v153 = *(a5 + 12);
             a5[3] = 0;
-            *(a5 + 12) = v173 & 0xFFFFFF6F | 0x10;
-            v203[0] = 0;
-            sub_1000628C0(a5 + 26, v39, 2, v203, 8);
+            *(a5 + 12) = v153 & 0xFFFFFF6F | 0x10;
+            v178[0] = 0;
+            sub_1000628C0(a5 + 26, v39, 2, v178, 8);
             *(a5 + 12) &= 0xFFFFFBDF;
-            *(a9 + 16) = v198;
+            a9[2] = v173;
             if ((v34 & 0x80) == 0)
             {
 LABEL_279:
@@ -7775,9 +7623,9 @@ LABEL_280:
                   goto LABEL_290;
                 }
 
-                v174 = a5[6] & 0xFFFFFEFF;
+                v154 = a5[6] & 0xFFFFFEFF;
 LABEL_289:
-                *(a5 + 12) = v174;
+                *(a5 + 12) = v154;
                 if ((v34 & 0x200000) == 0)
                 {
 LABEL_282:
@@ -7797,9 +7645,9 @@ LABEL_293:
                           }
 
                           result = 0;
-                          v81 = *(a9 + 84) | 0x40;
+                          v75 = *(a9 + 21) | 0x40;
 LABEL_300:
-                          *(a9 + 84) = v81;
+                          *(a9 + 21) = v75;
                           return result;
                         }
                       }
@@ -7815,25 +7663,25 @@ LABEL_300:
                       }
 
                       result = 0;
-                      v81 = *(a9 + 84) | 0x20;
+                      v75 = *(a9 + 21) | 0x20;
                       goto LABEL_300;
                     }
 
-                    v172 = a5[6] & 0xFFFFFDFF;
+                    v152 = a5[6] & 0xFFFFFDFF;
 LABEL_292:
-                    *(a5 + 12) = v172;
+                    *(a5 + 12) = v152;
                     goto LABEL_293;
                   }
 
 LABEL_291:
-                  v172 = *(a5 + 12) | 0x200;
+                  v152 = *(a5 + 12) | 0x200;
                   goto LABEL_292;
                 }
 
 LABEL_290:
-                v175 = *(a5 + 12);
+                v155 = *(a5 + 12);
                 a5[3] = 0;
-                *(a5 + 12) = v175 & 0xFFFFFE4F | 0x100;
+                *(a5 + 12) = v155 & 0xFFFFFE4F | 0x100;
                 if ((v34 & 0x40000) == 0)
                 {
                   goto LABEL_283;
@@ -7843,7 +7691,7 @@ LABEL_290:
               }
 
 LABEL_287:
-              v174 = *(a5 + 12) | 0x100;
+              v154 = *(a5 + 12) | 0x100;
               goto LABEL_289;
             }
           }
@@ -7853,8 +7701,8 @@ LABEL_287:
             goto LABEL_279;
           }
 
-          v203[0] = 0;
-          sub_1000628C0(a5 + 26, v39, 2, v203, 8);
+          v178[0] = 0;
+          sub_1000628C0(a5 + 26, v39, 2, v178, 8);
           *(a5 + 12) &= ~0x20u;
           if ((v34 & 0x10000) == 0)
           {
@@ -7864,65 +7712,65 @@ LABEL_287:
           goto LABEL_287;
         }
 
-        *(a9 + 24) = *a5;
-        *(a9 + 32) = a5[1];
-        *(a9 + 40) = a5[2];
-        v165 = *(a5 + 12);
-        if ((v165 & 4) != 0)
+        a9[3] = *a5;
+        a9[4] = a5[1];
+        a9[5] = a5[2];
+        v145 = *(a5 + 12);
+        if ((v145 & 4) != 0)
         {
-          v203[0] = 0;
-          LODWORD(v201) = 0;
-          v166 = sub_10006281C(a5 + 26, v39, 1, 0, v203, &v201);
-          v167 = 0;
-          if (!v166 && v201 == 8)
+          v178[0] = 0;
+          LODWORD(v176) = 0;
+          v146 = sub_10006281C(a5 + 26, v39, 1, 0, v178, &v176);
+          v147 = 0;
+          if (!v146 && v176 == 8)
           {
-            v167 = *v203[0];
+            v147 = *v178[0];
           }
 
-          *(a9 + 48) = v167;
-          v165 = *(a5 + 12);
-          if ((v165 & 8) == 0)
+          a9[6] = v147;
+          v145 = *(a5 + 12);
+          if ((v145 & 8) == 0)
           {
 LABEL_251:
-            if ((v165 & 0x800) == 0)
+            if ((v145 & 0x800) == 0)
             {
 LABEL_265:
-              *(a9 + 72) = a5[5];
-              *(a9 + 80) = *(a5 + 12);
-              v164 = *(a9 + 84);
+              a9[9] = a5[5];
+              *(a9 + 20) = *(a5 + 12);
+              v144 = *(a9 + 21);
               goto LABEL_266;
             }
 
 LABEL_261:
-            v203[0] = 0;
-            LODWORD(v201) = 0;
-            v170 = sub_10006281C(a5 + 26, v39, 4, 0, v203, &v201);
-            v171 = 0;
-            if (!v170 && v201 == 8)
+            v178[0] = 0;
+            LODWORD(v176) = 0;
+            v150 = sub_10006281C(a5 + 26, v39, 4, 0, v178, &v176);
+            v151 = 0;
+            if (!v150 && v176 == 8)
             {
-              v171 = *v203[0];
+              v151 = *v178[0];
             }
 
-            *(a9 + 64) = v171;
+            a9[8] = v151;
             goto LABEL_265;
           }
         }
 
-        else if ((v165 & 8) == 0)
+        else if ((v145 & 8) == 0)
         {
           goto LABEL_251;
         }
 
-        v203[0] = 0;
-        LODWORD(v201) = 0;
-        v168 = sub_10006281C(a5 + 26, v39, 3, 0, v203, &v201);
-        v169 = 0;
-        if (!v168 && v201 == 8)
+        v178[0] = 0;
+        LODWORD(v176) = 0;
+        v148 = sub_10006281C(a5 + 26, v39, 3, 0, v178, &v176);
+        v149 = 0;
+        if (!v148 && v176 == 8)
         {
-          v169 = *v203[0];
+          v149 = *v178[0];
         }
 
-        *(a9 + 56) = v169;
+        a9[7] = v149;
         if ((a5[6] & 0x800) == 0)
         {
           goto LABEL_265;
@@ -7932,28 +7780,28 @@ LABEL_261:
       }
 
       *a5 |= *(a7 + 7) << 56;
-      v73 = (a5 + 1);
-      v74 = a6 - 8;
-      v75 = a8 - 8;
-      v203[0] = 0;
-      v202 = 0;
-      if (!sub_10006281C(a7 + 4, v75, 2, 0, v203, &v202) && v202 == 8)
+      v67 = (a5 + 1);
+      v68 = a6 - 8;
+      v69 = a8 - 8;
+      v178[0] = 0;
+      v177 = 0;
+      if (!sub_10006281C(a7 + 4, v69, 2, 0, v178, &v177) && v177 == 8)
       {
-        v76 = *v203[0];
-        v201 = v76;
-        if (v76)
+        v70 = *v178[0];
+        v176 = v70;
+        if (v70)
         {
-          v203[0] = 0;
-          v202 = 0;
-          if (!sub_10006281C(v73, a6 - 8, 2, 0, v203, &v202) && v202 == 8 && *v203[0])
+          v178[0] = 0;
+          v177 = 0;
+          if (!sub_10006281C(v67, a6 - 8, 2, 0, v178, &v177) && v177 == 8 && *v178[0])
           {
-            if (*v203[0] == v76)
+            if (*v178[0] == v70)
             {
               goto LABEL_165;
             }
 
-            v77 = sub_1000628C0(v73, a6 - 8, 2, &v201, 8);
-            if (!v77)
+            v71 = sub_1000628C0(v67, a6 - 8, 2, &v176, 8);
+            if (!v71)
             {
               goto LABEL_165;
             }
@@ -7961,49 +7809,49 @@ LABEL_261:
 
           else
           {
-            v77 = 22;
+            v71 = 22;
           }
 
-          v200 = sub_10003FC54(*(*a9 + 392));
-          v111 = *a9 + 4040;
-          v112 = *(a1 + 12);
-          v113 = *(a1 + 20);
-          strerror(v77);
-          sub_10003E64C(v200, "%s:%d: %s clone mapping <%llu, %llu>: failed to update dir-stats key: %s (%d)\n", v114, v115, v116, v117, v118, v119, "jobj_refcnt_merge");
+          v175 = sub_10003FC54(*(*a9 + 392));
+          v105 = (*a9 + 4040);
+          v106 = *(a1 + 12);
+          v107 = *(a1 + 20);
+          v108 = strerror(v71);
+          sub_10003E64C(v175, "%s:%d: %s clone mapping <%llu, %llu>: failed to update dir-stats key: %s (%d)\n", "jobj_refcnt_merge", 3426, v105, v106, v107, v108, v71);
         }
       }
 
 LABEL_165:
-      v203[0] = 0;
-      v202 = 0;
-      if (sub_10006281C(a7 + 4, v75, 1, 0, v203, &v202))
+      v178[0] = 0;
+      v177 = 0;
+      if (sub_10006281C(a7 + 4, v69, 1, 0, v178, &v177))
       {
         return 0;
       }
 
-      if (v202 != 8)
+      if (v177 != 8)
       {
         return 0;
       }
 
-      v120 = *v203[0];
-      v201 = v120;
-      if (!v120)
+      v109 = *v178[0];
+      v176 = v109;
+      if (!v109)
       {
         return 0;
       }
 
-      v203[0] = 0;
-      v202 = 0;
-      if (!sub_10006281C(v73, v74, 1, 0, v203, &v202) && v202 == 8 && *v203[0])
+      v178[0] = 0;
+      v177 = 0;
+      if (!sub_10006281C(v67, v68, 1, 0, v178, &v177) && v177 == 8 && *v178[0])
       {
-        if (*v203[0] == v120)
+        if (*v178[0] == v109)
         {
           return 0;
         }
 
-        result = sub_1000628C0(v73, v74, 1, &v201, 8);
-        v121 = result;
+        result = sub_1000628C0(v67, v68, 1, &v176, 8);
+        v110 = result;
         if (!result)
         {
           return result;
@@ -8012,25 +7860,21 @@ LABEL_165:
 
       else
       {
-        v121 = 22;
+        v110 = 22;
       }
 
-      v122 = sub_10003FC54(*(*a9 + 392));
-      v123 = *a9 + 4040;
-      v124 = *(a1 + 12);
-      v125 = *(a1 + 20);
-      strerror(v121);
-      sub_10003E64C(v122, "%s:%d: %s clone mapping <%llu, %llu>: failed to update attribution tag: %s (%d)\n", v126, v127, v128, v129, v130, v131, "jobj_refcnt_merge");
+      v111 = sub_10003FC54(*(*a9 + 392));
+      strerror(v110);
+      sub_10003E64C(v111, "%s:%d: %s clone mapping <%llu, %llu>: failed to update attribution tag: %s (%d)\n", "jobj_refcnt_merge");
       return 0;
     }
 
 LABEL_49:
-    v176 = *a1 >> 60;
     sub_10003E5FC("%s:%d: don't know how to merge refcounts on objects of type %d\n");
     return 22;
   }
 
-  v42 = *(a1 + 8);
+  v42 = a1[1];
   if (HIBYTE(v42) != 2)
   {
     sub_10003E5FC("%s:%d: don't know how to merge refcounts on objects of file info type %llu\n");
@@ -8044,7 +7888,7 @@ LABEL_49:
     *(a5 + 12) = v44 | 1;
   }
 
-  *(a9 + 16) = *a5;
+  a9[2] = *a5;
   v45 = *a9;
   v46 = a5[1];
   v47 = *(a7 + 1);
@@ -8127,7 +7971,7 @@ LABEL_49:
   return result;
 }
 
-uint64_t sub_100030D10(uint64_t a1, int a2, int a3)
+uint64_t sub_100030D10(uint64_t a1, unsigned int a2, int a3)
 {
   if (a2 >= 0x10)
   {
@@ -8170,7 +8014,7 @@ uint64_t sub_100030D10(uint64_t a1, int a2, int a3)
     return a3;
   }
 
-  if ((a2 - 6) < 2)
+  if (a2 - 6 < 2)
   {
     goto LABEL_18;
   }
@@ -8230,45 +8074,45 @@ uint64_t sub_100030EB4(uint64_t a1, int a2, unsigned __int8 *a3, unint64_t a4)
   v7 = sub_100030D10(a1, *a3, a2);
   if (v7 != 5)
   {
-    v10 = v7;
-    v15 = 0xAAAAAAAAAAAAAAAALL;
-    v16 = 0;
-    v9 = sub_10002F2B4(a1, v7, a4, *(a1 + 440), &v16);
-    if (v9)
+    v15 = v7;
+    v22 = 0xAAAAAAAAAAAAAAAALL;
+    v23 = 0;
+    v14 = sub_10002F2B4(a1, v7, a4, *(a1 + 440), &v23, v10, v11, v12);
+    if (v14)
     {
-      return v9;
+      return v14;
     }
 
-    v11 = a3[1];
-    if ((v11 - 1) >= 2)
+    v16 = a3[1];
+    if ((v16 - 1) >= 2)
     {
-      if (v11 != 4)
+      if (v16 != 4)
       {
-        sub_10003E5FC("%s:%d: %s X %d\n", "insert_jobj", 4331, (a1 + 4040), v11);
-        v9 = 22;
+        sub_10003E5FC("%s:%d: %s X %d\n", "insert_jobj", 4331, (a1 + 4040), v16);
+        v14 = 22;
 LABEL_13:
-        sub_100046D50(v16);
-        return v9;
+        sub_100046D50(v23);
+        return v14;
       }
 
-      v12 = 3;
+      v17 = 3;
     }
 
     else
     {
-      v12 = 1;
+      v17 = 1;
     }
 
-    v13 = sub_100031058(a1, a3, v10, &v15, "addition");
-    if (v13 || (v13 = sub_10002E668(a1, v16, a3, a4, v12), v13))
+    v18 = sub_100031058(a1, a3, v15, &v22, "addition");
+    if (v18 || (v18 = sub_10002E668(a1, v23, a3, a4, v17), v18))
     {
-      v9 = v13;
+      v14 = v18;
     }
 
     else
     {
-      sub_100031100(a1, v10, v16, a3, a4, v12);
-      v9 = 0;
+      sub_100031100(a1, v15, v23, a3, a4, v17, v19, v20);
+      v14 = 0;
       if (*a3 == 3)
       {
         *(a3 + 14) &= 0xFFFFFFFFFBFBFFFFLL;
@@ -8278,14 +8122,14 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v8 = sub_100003408(a1, a4, a3);
-  v9 = v8;
-  if (v8)
+  v13 = sub_100003408(a1, a4, a3, v8, v9, v10, v11, v12);
+  v14 = v13;
+  if (v13)
   {
-    sub_10003E5FC("%s:%d: %s failed to insert fext in fext_tree: %d\n", "insert_jobj", 4293, (a1 + 4040), v8);
+    sub_10003E5FC("%s:%d: %s failed to insert fext in fext_tree: %d\n", "insert_jobj", 4293, (a1 + 4040), v13);
   }
 
-  return v9;
+  return v14;
 }
 
 uint64_t sub_100031058(uint64_t a1, uint64_t a2, int a3, uint64_t *a4, const char *a5)
@@ -8322,33 +8166,34 @@ uint64_t sub_100031058(uint64_t a1, uint64_t a2, int a3, uint64_t *a4, const cha
   return v8;
 }
 
-void sub_100031100(uint64_t a1, int a2, uint64_t *a3, uint64_t a4, unint64_t a5, int a6)
+void sub_100031100(uint64_t result, int a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a4 + 8) == 2)
   {
-    v15[7] = v6;
-    v15[8] = v7;
-    if (!*(a1 + 1108) && a2 == 1)
+    v17[7] = v8;
+    v17[8] = v9;
+    if (!*(result + 1108) && a2 == 1)
     {
-      if (*(a1 + 3584))
+      if (*(result + 3584))
       {
-        v15[0] = 0xAAAAAAAAAAAAAAAALL;
-        if (!sub_10002F2B4(a1, 4, a5, *(a1 + 440), v15))
+        v11 = a6;
+        v17[0] = 0xAAAAAAAAAAAAAAAALL;
+        if (!sub_10002F2B4(result, 4, a5, *(result + 440), v17, a6, a7, a8))
         {
-          if (v15[0] != a3)
+          if (v17[0] != a3)
           {
-            v13 = sub_10002E668(a1, v15[0], a4, a5, a6);
-            if (v13)
+            v15 = sub_10002E668(result, v17[0], a4, a5, v11);
+            if (v15)
             {
-              v14 = v13;
-              if (sub_100042AEC(*(a1 + 392)))
+              v16 = v15;
+              if (sub_100042AEC(*(result + 392)))
               {
-                sub_10003E5FC("%s:%d: %s Shadow create_or_modify_jobj(jobj %p id %lld xid %lld op %d) failed with error %d\n", "duplicate_jobj_op_to_shadow_fs_root", 4191, (a1 + 4040), a4, *(a4 + 8), a5, a6, v14);
+                sub_10003E5FC("%s:%d: %s Shadow create_or_modify_jobj(jobj %p id %lld xid %lld op %d) failed with error %d\n", "duplicate_jobj_op_to_shadow_fs_root", 4191, (result + 4040), a4, *(a4 + 8), a5, v11, v16);
               }
             }
           }
 
-          sub_100046D50(v15[0]);
+          sub_100046D50(v17[0]);
         }
       }
     }
@@ -8360,43 +8205,43 @@ uint64_t sub_100031204(uint64_t a1, int a2, unsigned __int8 *a3, unint64_t a4)
   v7 = sub_100030D10(a1, *a3, a2);
   if (v7 == 5)
   {
-    v8 = sub_100003484(a1, a4, 0, a3);
-    v9 = v8;
-    if (v8)
+    v12 = sub_100003484(a1, a4, 0, a3, v8, v9, v10, v11);
+    v13 = v12;
+    if (v12)
     {
-      sub_10003E5FC("%s:%d: %s fext_tree_update returned %d\n", "update_jobj", 4385, (a1 + 4040), v8);
+      sub_10003E5FC("%s:%d: %s fext_tree_update returned %d\n", "update_jobj", 4385, (a1 + 4040), v12);
     }
   }
 
   else
   {
-    v10 = v7;
-    v13 = 0xAAAAAAAAAAAAAAAALL;
-    v14 = 0;
-    v9 = sub_10002F2B4(a1, v7, a4, *(a1 + 440), &v14);
-    if (!v9)
+    v14 = v7;
+    v19 = 0xAAAAAAAAAAAAAAAALL;
+    v20 = 0;
+    v13 = sub_10002F2B4(a1, v7, a4, *(a1 + 440), &v20, v9, v10, v11);
+    if (!v13)
     {
-      v11 = sub_100031058(a1, a3, v10, &v13, "modification");
-      if (v11 || (v11 = sub_10002E668(a1, v14, a3, a4, 2), v11))
+      v15 = sub_100031058(a1, a3, v14, &v19, "modification");
+      if (v15 || (v15 = sub_10002E668(a1, v20, a3, a4, 2), v15))
       {
-        v9 = v11;
+        v13 = v15;
       }
 
       else
       {
-        sub_100031100(a1, v10, v14, a3, a4, 2);
-        v9 = 0;
+        sub_100031100(a1, v14, v20, a3, a4, 2, v16, v17);
+        v13 = 0;
         if (*a3 == 3)
         {
           *(a3 + 14) &= 0xFFFFFFFFFBFBFFFFLL;
         }
       }
 
-      sub_100046D50(v14);
+      sub_100046D50(v20);
     }
   }
 
-  return v9;
+  return v13;
 }
 
 uint64_t sub_10003135C(uint64_t a1, int a2, unsigned __int8 *a3, unint64_t a4)
@@ -8404,45 +8249,45 @@ uint64_t sub_10003135C(uint64_t a1, int a2, unsigned __int8 *a3, unint64_t a4)
   v7 = sub_100030D10(a1, *a3, a2);
   if (v7 == 5)
   {
-    v8 = sub_100003530(a1, a4, *(a3 + 1), *(a3 + 2));
-    v9 = v8;
-    if (v8)
+    v12 = sub_100003530(a1, a4, *(a3 + 1), *(a3 + 2), v8, v9, v10, v11);
+    v13 = v12;
+    if (v12)
     {
-      sub_10003E5FC("%s:%d: %s fext_tree_remove returned %d\n", "remove_jobj", 4462, (a1 + 4040), v8);
+      sub_10003E5FC("%s:%d: %s fext_tree_remove returned %d\n", "remove_jobj", 4462, (a1 + 4040), v12);
     }
   }
 
   else
   {
-    v10 = v7;
-    v13 = 0xAAAAAAAAAAAAAAAALL;
-    v14 = 0;
-    v9 = sub_10002F2B4(a1, v7, a4, *(a1 + 440), &v14);
-    if (!v9)
+    v14 = v7;
+    v19 = 0xAAAAAAAAAAAAAAAALL;
+    v20 = 0;
+    v13 = sub_10002F2B4(a1, v7, a4, *(a1 + 440), &v20, v9, v10, v11);
+    if (!v13)
     {
-      v11 = sub_100031058(a1, a3, v10, &v13, "removal");
-      if (v11)
+      v15 = sub_100031058(a1, a3, v14, &v19, "removal");
+      if (v15)
       {
-        v9 = v11;
+        v13 = v15;
       }
 
       else
       {
-        v9 = sub_10002E668(a1, v14, a3, a4, 4);
-        if (!v9)
+        v13 = sub_10002E668(a1, v20, a3, a4, 4);
+        if (!v13)
         {
-          sub_100031100(a1, v10, v14, a3, a4, 4);
+          sub_100031100(a1, v14, v20, a3, a4, 4, v16, v17);
         }
       }
 
-      sub_100046D50(v14);
+      sub_100046D50(v20);
     }
   }
 
-  return v9;
+  return v13;
 }
 
-unsigned __int16 *sub_10003148C(uint64_t a1, uint64_t a2, unint64_t a3, unsigned __int16 *a4, unint64_t a5)
+unsigned __int16 *sub_10003148C(uint64_t a1, uint64_t *a2, unint64_t a3, unsigned __int16 *a4, unint64_t a5)
 {
   if (sub_10002DE7C(a1, a2, a3, a4, a5))
   {
@@ -8472,7 +8317,7 @@ unsigned __int16 *sub_10003148C(uint64_t a1, uint64_t a2, unint64_t a3, unsigned
         return 0;
       }
 
-      v14 = *(a2 + 8) + a4[1] + 24;
+      v14 = *(a2 + 4) + a4[1] + 24;
       goto LABEL_32;
     case 5:
       if (!a4)
@@ -8511,24 +8356,24 @@ LABEL_19:
     case 9:
       if ((*(*(a1 + 376) + 56) & 9) != 0)
       {
-        LODWORD(v13) = (*(a2 + 8) & 0x3FF) + 72;
+        LODWORD(v13) = (a2[1] & 0x3FF) + 72;
         goto LABEL_36;
       }
 
-      v14 = *(a2 + 8) + 72;
+      v14 = *(a2 + 4) + 72;
 LABEL_32:
       LODWORD(v13) = v14;
       if (v14 >> 16)
       {
-        v24 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v24 = v14 == 0;
+        v19 = v14 == 0;
       }
 
-      if (!v24)
+      if (!v19)
       {
         goto LABEL_36;
       }
@@ -8538,7 +8383,7 @@ LABEL_32:
       LODWORD(v13) = 96;
       goto LABEL_36;
     case 11:
-      v14 = *(a2 + 8) + 32;
+      v14 = *(a2 + 4) + 32;
       goto LABEL_32;
     case 13:
       if (!a4)
@@ -8564,21 +8409,21 @@ LABEL_32:
 
       goto LABEL_36;
     case 14:
-      if ((*(a2 + 8) & 0xFC) != 0x10)
+      v17 = *(a2 + 2);
+      if ((a2[1] & 0xFC) != 0x10)
       {
-        v17 = sub_10003FC54(*(a1 + 392));
-        sub_10003E64C(v17, "%s:%d: %s *** unknown expanded obj type %hhu\n", v18, v19, v20, v21, v22, v23, "jobj_size_for_large_key_val");
+        v18 = sub_10003FC54(*(a1 + 392));
+        sub_10003E64C(v18, "%s:%d: %s *** unknown expanded obj type %hhu\n", "jobj_size_for_large_key_val", 2464, (a1 + 4040), v17);
         return 0;
       }
 
-      v13 = (0x48006000200050uLL >> (16 * (*(a2 + 8) & 0xFu))) & 0x78;
+      v13 = (0x48006000200050uLL >> (16 * (v17 & 0xFu))) & 0x78;
 LABEL_36:
       if (v12 == 14)
       {
-        LODWORD(v25) = *(a2 + 8);
-        if (v25 <= 0xF)
+        LODWORD(v20) = *(a2 + 8);
+        if (v20 <= 0xF)
         {
-          v73 = *(a2 + 8);
           sub_10003E5FC("%s:%d: unknown expanded type (%hhu) on record (%u)\n");
           return 0;
         }
@@ -8586,10 +8431,10 @@ LABEL_36:
 
       else
       {
-        v25 = *a2 >> 60;
+        v20 = *a2 >> 60;
       }
 
-      switch(v25)
+      switch(v20)
       {
         case 1:
           v10 = sub_10003FA58(1uLL, 0x50uLL, 0x10100406569770FuLL);
@@ -8598,41 +8443,41 @@ LABEL_36:
             return v10;
           }
 
-          v32 = sub_10003FA58(1uLL, v13 - 80, 0xDA2D0A4CuLL);
-          *(v10 + 9) = v32;
-          if (v32)
+          v27 = sub_10003FA58(1uLL, v13 - 80, 0xDA2D0A4CuLL);
+          *(v10 + 9) = v27;
+          if (v27)
           {
             goto LABEL_73;
           }
 
-          v33 = v10;
-          v34 = 80;
+          v28 = v10;
+          v29 = 80;
           goto LABEL_66;
         case 2:
-          v26 = 0x10000407607B2BCLL;
-          v27 = 40;
+          v21 = 0x10000407607B2BCLL;
+          v22 = 40;
           goto LABEL_71;
         case 3:
-          v35 = sub_10003FA04(2u);
+          v30 = sub_10003FA04(2u);
           goto LABEL_72;
         case 4:
-          v29 = v13;
-          v30 = -753538664;
+          v24 = v13;
+          v25 = -753538664;
           goto LABEL_59;
         case 5:
-          v29 = v13;
-          v30 = -2067986874;
+          v24 = v13;
+          v25 = -2067986874;
           goto LABEL_59;
         case 6:
-          v31 = 887226456;
+          v26 = 887226456;
           goto LABEL_51;
         case 7:
-          v29 = v13;
-          v30 = -1260340143;
+          v24 = v13;
+          v25 = -1260340143;
           goto LABEL_59;
         case 8:
-          v26 = 0x1000040C6EC63FFLL;
-          v27 = 56;
+          v21 = 0x1000040C6EC63FFLL;
+          v22 = 56;
           goto LABEL_71;
         case 9:
           v10 = sub_10003FA58(1uLL, 0x48uLL, 0x10B004060F4C5C5uLL);
@@ -8641,94 +8486,93 @@ LABEL_36:
             return v10;
           }
 
-          v37 = sub_10003FB98(v13 - 72, 0xEA9F5E2EuLL);
-          *(v10 + 8) = v37;
-          if (v37)
+          v32 = sub_10003FB98(v13 - 72, 0xEA9F5E2EuLL);
+          *(v10 + 8) = v32;
+          if (v32)
           {
             goto LABEL_73;
           }
 
-          v33 = v10;
-          v34 = 72;
+          v28 = v10;
+          v29 = 72;
 LABEL_66:
-          sub_10003FB5C(v33, v34);
+          sub_10003FB5C(v28, v29);
           return 0;
         case 10:
         case 18:
-          v26 = 0x10A004019B037CALL;
-          v27 = 96;
+          v21 = 0x10A004019B037CALL;
+          v22 = 96;
           goto LABEL_71;
         case 11:
-          v29 = v13;
-          v30 = 173046394;
+          v24 = v13;
+          v25 = 173046394;
           goto LABEL_59;
         case 12:
-          v31 = -753538664;
+          v26 = -753538664;
 LABEL_51:
-          v26 = v31 | 0x100004000000000;
-          v27 = 24;
+          v21 = v26 | 0x100004000000000;
+          v22 = 24;
           goto LABEL_71;
         case 13:
-          v28 = HIBYTE(*(a2 + 8));
-          if (v28 == 2)
+          v23 = HIBYTE(a2[1]);
+          if (v23 == 2)
           {
-            v36 = 1202085462;
+            v31 = 1202085462;
 LABEL_70:
-            v26 = v36 | 0x10A004000000000;
-            v27 = 80;
+            v21 = v31 | 0x10A004000000000;
+            v22 = 80;
 LABEL_71:
-            v35 = sub_10003FA58(1uLL, v27, v26);
+            v30 = sub_10003FA58(1uLL, v22, v21);
           }
 
           else
           {
-            if (v28 != 1)
+            if (v23 != 1)
             {
-              v75 = HIBYTE(*(a2 + 8));
               sub_10003E5FC("%s:%d: *** Unknown file info type %llu\n");
               return 0;
             }
 
-            v29 = v13;
-            v30 = 130634920;
+            v24 = v13;
+            v25 = 130634920;
 LABEL_59:
-            v35 = sub_10003FB98(v29, v30 | 0x100004000000000);
+            v30 = sub_10003FB98(v24, v25 | 0x100004000000000);
           }
 
 LABEL_72:
-          v10 = v35;
-          if (!v35)
+          v10 = v30;
+          if (!v30)
           {
             return v10;
           }
 
 LABEL_73:
-          v38 = *a2;
-          v39 = *a2 & 0xFFFFFFFFFFFFFFFLL;
-          *(v10 + 1) = v39;
-          v38 >>= 60;
-          *v10 = v38;
+          v33 = *a2;
+          v34 = *a2 & 0xFFFFFFFFFFFFFFFLL;
+          *(v10 + 1) = v34;
+          v33 >>= 60;
+          *v10 = v33;
           *(v10 + 1) = 1;
           v10[1] = v13;
-          switch(v38)
+          switch(v33)
           {
             case 1:
               *(v10 + 1) = *a4;
               *(v10 + 2) = *(a4 + 1);
               *(v10 + 6) = *(a4 + 4);
               *(v10 + 7) = *(a4 + 5);
-              v40 = a4[24];
-              v10[32] = v40;
-              v41 = *(v10 + 9);
-              v42 = (a4 + 25);
+              v35 = a4[24];
+              v10[32] = v35;
+              v36 = *(v10 + 9);
+              v37 = a4 + 25;
               goto LABEL_78;
             case 2:
-              v52 = *(a4 + 1);
-              v53 = *a4 & 0xFFFFFFFFFFFFFFFLL;
+              v47 = *(a4 + 1);
+              v48 = *a4 & 0xFFFFFFFFFFFFFFFLL;
               *(v10 + 1) = *a4 >> 60;
               *(v10 + 8) = *(a4 + 4);
-              *(v10 + 2) = v53;
-              *(v10 + 3) = v52;
+              *(v10 + 2) = v48;
+              *(v10 + 3) = v47;
               return v10;
             case 3:
               *(v10 + 2) = *a4;
@@ -8754,88 +8598,87 @@ LABEL_73:
 
               if (sub_1000626B0(v10 + 204, a4 + 46, a5 - 92))
               {
-                v74 = *(v10 + 1);
                 sub_10003E50C("%s:%d: failed to init extended fields on inode %lld from blob (xfret %d).\n");
                 return v10;
               }
 
-              v63 = v10[204];
+              v57 = v10[204];
               if (!v10[204])
               {
                 return v10;
               }
 
-              v64 = 0;
-              v65 = (*(v10 + 52) + 2);
+              v58 = 0;
+              v59 = (*(v10 + 52) + 2);
               break;
             case 4:
-              v50 = *(a2 + 8);
-              v10[10] = v50;
-              strlcpy(v10 + 24, (a2 + 10), v50);
+              v45 = *(a2 + 4);
+              v10[10] = v45;
+              strlcpy(v10 + 24, a2 + 10, v45);
               *(v10 + 4) = *a4;
-              v47 = a4[1];
-              v10[11] = v47;
-              v48 = v10 + v10[10] + 24;
-              v49 = a4 + 2;
+              v42 = a4[1];
+              v10[11] = v42;
+              v43 = v10 + v10[10] + 24;
+              v44 = a4 + 2;
               goto LABEL_98;
             case 5:
-              v44 = *a4;
-              *(v10 + 2) = *(a2 + 8);
-              *(v10 + 3) = v44;
-              v40 = a4[4];
-              v10[16] = v40;
-              v41 = (v10 + 17);
-              v42 = (a4 + 5);
+              v39 = *a4;
+              *(v10 + 2) = a2[1];
+              *(v10 + 3) = v39;
+              v35 = a4[4];
+              v10[16] = v35;
+              v36 = (v10 + 17);
+              v37 = a4 + 5;
 LABEL_78:
-              strlcpy(v41, v42, v40);
+              strlcpy(v36, v37, v35);
               return v10;
             case 6:
               *(v10 + 4) = *a4;
               return v10;
             case 7:
               *(v10 + 4) = *a4;
-              LODWORD(v55) = a4[11];
-              v57 = a4[2];
-              v56 = a4 + 2;
-              if (v57 == 6)
+              LODWORD(v50) = a4[11];
+              v52 = a4[2];
+              v51 = a4 + 2;
+              if (v52 == 6)
               {
-                v55 = (v55 >> 8) + v55;
+                v50 = (v50 >> 8) + v50;
               }
 
               else
               {
-                v55 = v55;
+                v50 = v50;
               }
 
-              v48 = (v10 + 10);
-              v47 = v55 + 20;
-              v49 = v56;
+              v43 = (v10 + 10);
+              v42 = v50 + 20;
+              v44 = v51;
               goto LABEL_98;
             case 8:
-              *(v10 + 2) = *(a2 + 8);
-              v51 = *a4;
+              *(v10 + 2) = a2[1];
+              v46 = *a4;
               *(v10 + 5) = *a4 & 0xFFFFFFFFFFFFFFLL;
               *(v10 + 12) = *(a4 + 4);
-              *(v10 + 48) = HIBYTE(v51);
+              *(v10 + 48) = HIBYTE(v46);
               return v10;
             case 9:
               if ((*(*(a1 + 376) + 56) & 9) != 0)
               {
-                v58 = *(a2 + 8);
-                *(v10 + 14) = v58 >> 10;
-                v59 = v58 & 0x3FF;
-                v60 = 12;
+                v53 = *(a2 + 2);
+                *(v10 + 14) = v53 >> 10;
+                v54 = v53 & 0x3FF;
+                v55 = 12;
               }
 
               else
               {
                 *(v10 + 14) = 0;
-                v59 = *(a2 + 8);
-                v60 = 10;
+                v54 = *(a2 + 4);
+                v55 = 10;
               }
 
-              v10[31] = v59;
-              strlcpy(*(v10 + 8), (a2 + v60), v59);
+              v10[31] = v54;
+              strlcpy(*(v10 + 8), a2 + v55, v54);
               *(v10 + 2) = *a4;
               *(v10 + 3) = *(a4 + 1);
               v10[30] = a4[8];
@@ -8846,7 +8689,6 @@ LABEL_78:
 
               else if (sub_1000626B0(v10 + 16, a4 + 9, a5 - 18))
               {
-                v76 = *(v10 + 1);
                 sub_10003E50C("%s:%d: failed to init extended fields on drec %lld from blob.\n");
               }
 
@@ -8856,21 +8698,21 @@ LABEL_78:
               *(v10 + 3) = vextq_s8(*(a4 + 1), *(a4 + 1), 8uLL);
               return v10;
             case 11:
-              v43 = *(a2 + 8);
-              v10[12] = v43;
-              strlcpy(v10 + 26, (a2 + 10), v43);
+              v38 = *(a2 + 4);
+              v10[12] = v38;
+              strlcpy(v10 + 26, a2 + 10, v38);
               goto LABEL_76;
             case 12:
 LABEL_76:
               *(v10 + 2) = *a4;
               return v10;
             case 13:
-              v45 = *(a2 + 8);
-              *(v10 + 16) = HIBYTE(v45);
-              *(&v46 + 1) = *(a2 + 8);
-              *&v46 = v45;
-              *(v10 + 2) = v46 >> 56;
-              if (HIBYTE(v45) == 2)
+              v40 = a2[1];
+              *(v10 + 16) = HIBYTE(v40);
+              *(&v41 + 1) = a2[1];
+              *&v41 = v40;
+              *(v10 + 2) = v41 >> 56;
+              if (HIBYTE(v40) == 2)
               {
                 *(v10 + 3) = *a4;
                 *(v10 + 4) = *(a4 + 1);
@@ -8882,54 +8724,52 @@ LABEL_76:
                   return v10;
                 }
 
-                v61 = sub_1000626B0(v10 + 28, a4 + 13, a5 - 26);
-                if (v61)
+                v56 = sub_1000626B0(v10 + 28, a4 + 13, a5 - 26);
+                if (v56)
                 {
-                  v62 = *(v10 + 1);
-                  strerror(v61);
+                  strerror(v56);
                   sub_10003E50C("%s:%d: failed to init extended fields on attribution tag record with objid <%lld> from blob due to error <%d> %s\n");
                   return v10;
                 }
 
-                v67 = v10[28];
+                v61 = v10[28];
                 if (v10[28])
                 {
-                  v68 = 0;
+                  v62 = 0;
                   for (i = (*(v10 + 8) + 2); ; i += 2)
                   {
-                    v70 = *i;
+                    v64 = *i;
                     if (*(i - 2) == 1)
                     {
                       break;
                     }
 
-                    v68 += (v70 + 7) & 0x1FFF8;
-                    if (!--v67)
+                    v62 += (v64 + 7) & 0x1FFF8;
+                    if (!--v61)
                     {
                       return v10;
                     }
                   }
 
-                  if (v70 > 0)
+                  if (v64 > 0)
                   {
-                    v71 = *(v10 + 9) + (v68 + v70);
+                    v65 = *(v10 + 9) + (v62 + v64);
                     goto LABEL_126;
                   }
 
-                  v77 = *(v10 + 2) >> 8;
                   sub_10003E5FC("%s:%d: %s size (%d) of FILE_INFO_TAG_EXT_TYPE_SIGNING_ID in attribution tag record with s_hash <%llu> <= 0 \n");
                 }
               }
 
-              else if (HIBYTE(v45) == 1)
+              else if (HIBYTE(v40) == 1)
               {
                 v10[12] = *a4;
-                v47 = *(a4 + 2);
-                *(v10 + 26) = v47;
-                v48 = v10 + 27;
-                v49 = (a4 + 3);
+                v42 = *(a4 + 2);
+                *(v10 + 26) = v42;
+                v43 = v10 + 27;
+                v44 = (a4 + 3);
 LABEL_98:
-                memcpy(v48, v49, v47);
+                memcpy(v43, v44, v42);
               }
 
               return v10;
@@ -8944,10 +8784,10 @@ LABEL_98:
                 return v10;
               }
 
-              v39 = *(v10 + 1);
+              v34 = *(v10 + 1);
 LABEL_93:
-              v54 = sub_10003E5FC("%s:%d: %s cannot translate key-val (%llu) into valid jobj\n", "key_val_to_jobj", 4935, (a1 + 4040), v39);
-              sub_10002CA94(v54, v10);
+              v49 = sub_10003E5FC("%s:%d: %s cannot translate key-val (%llu) into valid jobj\n", "key_val_to_jobj", 4935, (a1 + 4040), v34);
+              sub_10002CA94(v49, v10);
               return 0;
             default:
               return v10;
@@ -8955,15 +8795,15 @@ LABEL_93:
 
           break;
         case 16:
-          v36 = -624060581;
+          v31 = -624060581;
           goto LABEL_70;
         case 17:
-          v26 = 0x100004089CA3EB1;
-          v27 = 32;
+          v21 = 0x100004089CA3EB1;
+          v22 = 32;
           goto LABEL_71;
         case 19:
-          v26 = 0x10A0040D41B49CCLL;
-          v27 = 72;
+          v21 = 0x10A0040D41B49CCLL;
+          v22 = 72;
           goto LABEL_71;
         default:
           sub_10003E5FC("%s:%d: *** Can't allocate unknown obj type %d\n");
@@ -8972,41 +8812,40 @@ LABEL_93:
 
       break;
     default:
-      v72 = *a2 >> 60;
       sub_10003E5FC("%s:%d: *** unknown obj type %d\n");
       return 0;
   }
 
   while (1)
   {
-    v66 = *v65;
-    if (*(v65 - 2) != 4)
+    v60 = *v59;
+    if (*(v59 - 2) != 4)
     {
-      v66 = (v66 + 7) & 0x1FFF8;
+      v60 = (v60 + 7) & 0x1FFF8;
       goto LABEL_116;
     }
 
-    if (*v65)
+    if (*v59)
     {
       break;
     }
 
 LABEL_116:
-    v65 += 2;
-    v64 += v66;
-    if (!--v63)
+    v59 += 2;
+    v58 += v60;
+    if (!--v57)
     {
       return v10;
     }
   }
 
-  v71 = *(v10 + 53) + (v64 + v66);
+  v65 = *(v10 + 53) + (v58 + v60);
 LABEL_126:
-  *(v71 - 1) = 0;
+  *(v65 - 1) = 0;
   return v10;
 }
 
-void *sub_100031F38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5)
+uint64_t sub_100031F38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5)
 {
   v5 = *(a3 + 8);
   if (v5 <= 0xF)
@@ -9036,7 +8875,6 @@ void *sub_100031F38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64
     {
       if (sub_1000626B0((a2 + 56), a4 + 12, a5 - 24))
       {
-        v11 = v6[1];
         sub_10003E5FC("%s:%d: %s failed to init extended fields on purgeable %llu from blob\n");
       }
 
@@ -9066,7 +8904,6 @@ LABEL_20:
 
     if (sub_1000626B0((a2 + 64), a4 + 26, a5 - 52))
     {
-      v12 = v6[1];
       sub_10003E5FC("%s:%d: %s failed to init extended fields on dir-stats %llu from blob\n");
     }
   }
@@ -9089,8 +8926,6 @@ LABEL_20:
 
     if (sub_1000626B0((a2 + 48), a4 + 4, a5 - 8))
     {
-      v10 = v6[2];
-      v13 = v6[3];
       sub_10003E5FC("%s:%d: %s failed to init extended fields on clone mapping <%llu/%llu> from blob\n");
     }
   }
@@ -9108,27 +8943,27 @@ uint64_t sub_100032160(uint64_t a1, int a2, uint64_t *a3, unsigned __int8 *a4, u
   }
 
   v13 = v12;
-  v18 = 832;
-  v19 = 3808;
-  sub_10002CF30(a1, a4, v12, &v18);
-  v17 = 0xAAAAAAAAAAAAAAAALL;
-  v14 = sub_10002F2B4(a1, v11, 0, a5, &v17);
-  if (v14)
+  v21 = 832;
+  v22 = 3808;
+  sub_10002CF30(a1, a4, v12, &v21);
+  v20 = 0xAAAAAAAAAAAAAAAALL;
+  v17 = sub_10002F2B4(a1, v11, 0, a5, &v20, v14, v15, v16);
+  if (v17)
   {
-    v15 = v14;
+    v18 = v17;
 LABEL_6:
     sub_10003FB10(v13, 3u);
-    return v15;
+    return v18;
   }
 
-  v15 = sub_100022D54(v17, a5, v13, &v18, 0x340u, (v13 + 832), &v19, 0, 0, a3);
-  sub_100046D50(v17);
-  if (v15)
+  v18 = sub_100022D54(v20, a5, v13, &v21, 832, v13 + 832, &v22, 0, 0, a3);
+  sub_100046D50(v20);
+  if (v18)
   {
     goto LABEL_6;
   }
 
-  *a6 = sub_10003148C(a1, v13, v18, (v13 + 832), v19);
+  *a6 = sub_10003148C(a1, v13, v21, v13 + 416, v22);
   sub_10003FB10(v13, 3u);
   if (*a6)
   {
@@ -9141,74 +8976,75 @@ LABEL_6:
   }
 }
 
-uint64_t sub_1000322C0(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t *a4, uint64_t a5, int a6)
+uint64_t sub_1000322C0(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a6;
   if ((*(*(a1 + 376) + 56) & 0x20) != 0)
   {
     if (a6)
     {
 
-      return sub_1000036FC(a1, a2, a4, a5);
+      return sub_1000036FC(a1, a2, a4, a5, a5, a6, a7, a8);
     }
 
     else
     {
 
-      return sub_1000035B0(a1, a2, a3, a4, a5);
+      return sub_1000035B0(a1, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   else
   {
-    *&v21 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v26 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
     if (sub_100018FAC(a1))
     {
-      v12 = 8;
+      v17 = 8;
     }
 
     else
     {
-      v12 = 1;
+      v17 = 1;
     }
 
-    v19 = 0xAAAAAAAAAAAAAAAALL;
-    v20 = 0xAAAAAAAAAAAAAAAALL;
-    v24 = 16;
-    v25 = 24;
-    v22 = a2 & 0xFFFFFFFFFFFFFFFLL | 0x8000000000000000;
-    v23 = a3;
-    v13 = sub_10002F2B4(a1, v12, 0, *(a1 + 440), &v19);
-    if (!v13)
+    v24 = 0xAAAAAAAAAAAAAAAALL;
+    v25 = 0xAAAAAAAAAAAAAAAALL;
+    v29 = 16;
+    v30 = 24;
+    v27 = a2 & 0xFFFFFFFFFFFFFFFLL | 0x8000000000000000;
+    v28 = a3;
+    v18 = sub_10002F2B4(a1, v17, 0, *(a1 + 440), &v24, v14, v15, v16);
+    if (!v18)
     {
-      if (a3 != -2 && a6 == 1)
+      if (a3 != -2 && v8 == 1)
       {
         panic("invalid offset (%llu) for last fext lookup\n", a3);
       }
 
-      v14 = sub_100022D54(v19, *(a1 + 440), &v22, &v24, 0x10u, &v20, &v25, 1u, 0, a4);
-      if (v14 == 34)
+      v19 = sub_100022D54(v24, *(a1 + 440), &v27, &v29, 16, &v25, &v30, 1, 0, a4);
+      if (v19 == 34)
       {
-        v13 = 2;
+        v18 = 2;
       }
 
       else
       {
-        v13 = v14;
+        v18 = v19;
       }
 
-      sub_100046D50(v19);
-      if (!v13)
+      sub_100046D50(v24);
+      if (!v18)
       {
-        if (v22 == (a2 & 0xFFFFFFFFFFFFFFFLL | 0x8000000000000000) && ((v15 = HIBYTE(v20), v16 = v20 & 0xFFFFFFFFFFFFFFLL, v17 = v23, a6) || v23 == a3 || v23 + v16 > a3))
+        if (v27 == (a2 & 0xFFFFFFFFFFFFFFFLL | 0x8000000000000000) && ((v20 = HIBYTE(v25), v21 = v25 & 0xFFFFFFFFFFFFFFLL, v22 = v28, v8) || v28 == a3 || v28 + v21 > a3))
         {
-          v13 = 0;
+          v18 = 0;
           *a5 = 3670280;
           *(a5 + 8) = a2 & 0xFFFFFFFFFFFFFFFLL;
-          *(a5 + 16) = v17;
-          *(a5 + 40) = v16;
-          *(a5 + 24) = v21;
-          *(a5 + 48) = v15;
+          *(a5 + 16) = v22;
+          *(a5 + 40) = v21;
+          *(a5 + 24) = v26;
+          *(a5 + 48) = v20;
         }
 
         else
@@ -9218,32 +9054,32 @@ uint64_t sub_1000322C0(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t *a4, ui
       }
     }
 
-    return v13;
+    return v18;
   }
 }
 
-uint64_t sub_1000324BC(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t a4)
+uint64_t sub_1000324BC(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((*(*(a1 + 376) + 56) & 0x20) != 0)
   {
     if (a2)
     {
-      v7 = (a2 + 336);
+      v11 = (a2 + 336);
     }
 
     else
     {
-      v7 = 0;
+      v11 = 0;
     }
 
-    v8 = sub_100003484(a1, a4, v7, a3);
-    v9 = v8;
-    if (v8)
+    v12 = sub_100003484(a1, a4, v11, a3, a5, a6, a7, a8);
+    v13 = v12;
+    if (v12)
     {
-      sub_10003E5FC("%s:%d: %s fext_tree_update returned %d\n", "update_file_extent", 5266, (a1 + 4040), v8);
+      sub_10003E5FC("%s:%d: %s fext_tree_update returned %d\n", "update_file_extent", 5266, (a1 + 4040), v12);
     }
 
-    return v9;
+    return v13;
   }
 
   else
@@ -9254,38 +9090,38 @@ uint64_t sub_1000324BC(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t 
   }
 }
 
-uint64_t sub_100032574(uint64_t a1, unsigned int a2)
+uint64_t sub_100032574(uint64_t *a1, unsigned int a2)
 {
-  *(a1 + 96) = 0;
-  *(a1 + 64) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
+  a1[12] = 0;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   v4 = a2;
-  *(a1 + 92) = a2;
+  *(a1 + 23) = a2;
   v5 = sub_10003FA58(a2, 0x10uLL, 0x1000040451B5BE8uLL);
   *a1 = v5;
   if (v5)
   {
     v6 = (a2 + 63) >> 6;
-    *(a1 + 88) = v6;
+    *(a1 + 22) = v6;
     v7 = sub_10003FA58(v6, 8uLL, 0x100004000313F17uLL);
-    *(a1 + 72) = v7;
+    a1[9] = v7;
     if (v7)
     {
-      v8 = sub_10003FA58(*(a1 + 88), 8uLL, 0x100004000313F17uLL);
-      *(a1 + 80) = v8;
+      v8 = sub_10003FA58(*(a1 + 22), 8uLL, 0x100004000313F17uLL);
+      a1[10] = v8;
       if (v8)
       {
-        sub_10003E3BC((a1 + 8));
+        sub_10003E3BC((a1 + 1));
         return 0;
       }
 
       sub_10003FB5C(*a1, 16 * v4);
-      v10 = *(a1 + 72);
-      v11 = 8 * *(a1 + 88);
+      v10 = a1[9];
+      v11 = 8 * *(a1 + 22);
     }
 
     else
@@ -9355,7 +9191,7 @@ uint64_t sub_1000326D0(uint64_t a1, atomic_ullong *a2, unint64_t a3, uint64_t a4
 
     *a5 = 0;
     v29 = v12;
-    result = sub_100022D54(a2, 0, &v29, &v31, 8u, v28, &v30, 2u, 0, v32);
+    result = sub_100022D54(a2, 0, &v29, &v31, 8, v28, &v30, 2, 0, v32);
     if (result != 2)
     {
       if (result)
@@ -9385,7 +9221,7 @@ uint64_t sub_1000326D0(uint64_t a1, atomic_ullong *a2, unint64_t a3, uint64_t a4
     }
 
     v29 = v13;
-    result = sub_100022D54(a2, 0, &v29, &v31, v31, v28, &v30, 1u, 0, v32);
+    result = sub_100022D54(a2, 0, &v29, &v31, v31, v28, &v30, 1, 0, v32);
     if (result == 2)
     {
       break;
@@ -9447,7 +9283,7 @@ LABEL_34:
   }
 
   v29 = v13;
-  result = sub_100022D54(a2, 0, &v29, &v31, v31, v28, &v30, 4u, 0, v32);
+  result = sub_100022D54(a2, 0, &v29, &v31, v31, v28, &v30, 4, 0, v32);
   if (!result)
   {
     v19 = v29;
@@ -9522,13 +9358,13 @@ uint64_t sub_100032A20(uint64_t a1, uint64_t a2, atomic_ullong *a3, unint64_t a4
   memset(v76, 170, sizeof(v76));
   if (a6 != -1 && a10)
   {
-    sub_10003E5FC("%s:%d: %s invalid ref count %d for non NULL zero ref tree\n");
+    sub_10003E5FC("%s:%d: %s invalid ref count %d for non NULL zero ref tree\n", a2);
     return 22;
   }
 
   if (!a5)
   {
-    sub_10003E5FC("%s:%d: %s invalid zero len, paddr %llu\n");
+    sub_10003E5FC("%s:%d: %s invalid zero len, paddr %llu\n", a2);
     return 22;
   }
 
@@ -9660,7 +9496,7 @@ LABEL_29:
     goto LABEL_45;
   }
 
-  sub_1000236D0(&v68, a3, 0, 0, &v78, 8, 8u, v76, 0x14u, 0);
+  sub_1000236D0(&v68, a3, 0, 0, &v78, 8, 8, v76, 0x14u, 0);
   if (!v32)
   {
     while (!sub_100023848(&v68) && (v78 & 0xFFFFFFFFFFFFFFFLL) == v30)
@@ -9799,7 +9635,7 @@ LABEL_15:
       }
 
       v43 = v77;
-      if (v16 < (*v76 & 0xFFFFFFFFFFFFFFFLL) + (v78 & 0xFFFFFFFFFFFFFFFLL))
+      if (v16 < (*v76 & 0xFFFFFFFFFFFFFFFLL) + (v78 & 0xFFFFFFFFFFFFFFFuLL))
       {
         v77 = v16 & 0xFFFFFFFFFFFFFFFLL | 0x2000000000000000;
         *&v68 = *v76 & 0xF000000000000000 | (v78 - v16 + *v76) & 0xFFFFFFFFFFFFFFFLL;
@@ -9831,7 +9667,7 @@ LABEL_81:
     v66[2] = v44;
     v66[3] = v44;
     v67 = 0xAAAAAAAAAAAAAAAALL;
-    sub_1000236D0(v66, a3, 0, 0, &v78, 8, 8u, v76, 0x14u, 0);
+    sub_1000236D0(v66, a3, 0, 0, &v78, 8, 8, v76, 0x14u, 0);
     v18 = v45;
     if ((v45 & 0xFFFFFFFD) == 0 && v13 < v16)
     {
@@ -9860,9 +9696,9 @@ LABEL_81:
       *(&v60 + 1) = v47;
       v59 = v16 & 0xFFFFFFFFFFFFFFFLL | 0x2000000000000000;
       v63 = v16;
-      while (!sub_100023848(v66) && (v78 & 0xFFFFFFFFFFFFFFFLL) < v16)
+      while (!sub_100023848(v66) && (v78 & 0xFFFFFFFFFFFFFFFuLL) < v16)
       {
-        if (v13 < (v78 & 0xFFFFFFFFFFFFFFFLL))
+        if (v13 < (v78 & 0xFFFFFFFFFFFFFFFuLL))
         {
           v77 = v13 | 0x2000000000000000;
           v48 = (v78 - v13) & 0xFFFFFFFFFFFFFFFLL;

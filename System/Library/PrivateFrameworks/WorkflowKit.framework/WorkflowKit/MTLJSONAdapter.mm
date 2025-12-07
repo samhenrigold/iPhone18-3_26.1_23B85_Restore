@@ -55,7 +55,7 @@
 
 - (id)modelFromJSONDictionary:(id)dictionary error:(id *)error
 {
-  v61[2] = *MEMORY[0x1E69E9840];
+  v58[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   [(MTLJSONAdapter *)self modelClass];
   if (objc_opt_respondsToSelector())
@@ -65,17 +65,17 @@
     {
       if (error)
       {
-        v60[0] = *MEMORY[0x1E696A578];
+        v57[0] = *MEMORY[0x1E696A578];
         mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-        v36 = [mainBundle localizedStringForKey:@"Could not parse JSON" value:&stru_1F4A1C408 table:0];
-        v60[1] = *MEMORY[0x1E696A588];
-        v61[0] = v36;
+        v34 = [mainBundle localizedStringForKey:@"Could not parse JSON" value:&stru_1F4A1C408 table:0];
+        v57[1] = *MEMORY[0x1E696A588];
+        v58[0] = v34;
         mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
-        v38 = [mainBundle2 localizedStringForKey:@"No model class could be found to parse the JSON dictionary." value:&stru_1F4A1C408 table:0];
-        v61[1] = v38;
-        v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
+        v36 = [mainBundle2 localizedStringForKey:@"No model class could be found to parse the JSON dictionary." value:&stru_1F4A1C408 table:0];
+        v58[1] = v36;
+        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:2];
 
-        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLJSONAdapterErrorDomain" code:2 userInfo:v39];
+        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLJSONAdapterErrorDomain" code:2 userInfo:v37];
       }
 
       v10 = 0;
@@ -98,75 +98,73 @@
     }
   }
 
-  v47 = dictionaryCopy;
-  v42 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
+  v44 = dictionaryCopy;
+  v39 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
   selfCopy = self;
   obj = [(objc_class *)[(MTLJSONAdapter *)self modelClass] propertyKeys];
-  v44 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (v44)
+  v41 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+  if (v41)
   {
-    v43 = *v55;
-    v11 = &selRef_temporaryDirectoryURL;
+    v40 = *v52;
 LABEL_9:
-    v12 = 0;
-    v41 = v11[77];
+    v11 = 0;
     while (1)
     {
-      if (*v55 != v43)
+      if (*v52 != v40)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v54 + 1) + 8 * v12);
+      v12 = *(*(&v51 + 1) + 8 * v11);
       jSONKeyPathsByPropertyKey = [(MTLJSONAdapter *)selfCopy JSONKeyPathsByPropertyKey];
-      v15 = [jSONKeyPathsByPropertyKey objectForKeyedSubscript:v13];
+      v14 = [jSONKeyPathsByPropertyKey objectForKeyedSubscript:v12];
 
-      if (v15)
+      if (v14)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           dictionary = [MEMORY[0x1E695DF90] dictionary];
-          v52 = 0u;
-          v53 = 0u;
+          v49 = 0u;
           v50 = 0u;
-          v51 = 0u;
-          v17 = v15;
-          v18 = [v17 countByEnumeratingWithState:&v50 objects:v58 count:16];
-          if (v18)
+          v47 = 0u;
+          v48 = 0u;
+          v16 = v14;
+          v17 = [v16 countByEnumeratingWithState:&v47 objects:v55 count:16];
+          if (v17)
           {
-            v19 = *v51;
+            v18 = *v48;
             while (2)
             {
-              for (i = 0; i != v18; ++i)
+              for (i = 0; i != v17; ++i)
               {
-                if (*v51 != v19)
+                if (*v48 != v18)
                 {
-                  objc_enumerationMutation(v17);
+                  objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v50 + 1) + 8 * i);
-                v49 = 0;
-                v22 = [v47 mtl_valueForJSONKeyPath:v21 success:&v49 error:error];
-                v23 = v22;
-                if (v49 != 1)
+                v20 = *(*(&v47 + 1) + 8 * i);
+                v46 = 0;
+                v21 = [v44 mtl_valueForJSONKeyPath:v20 success:&v46 error:error];
+                v22 = v21;
+                if (v46 != 1)
                 {
 
                   goto LABEL_45;
                 }
 
-                if (v22)
+                if (v21)
                 {
-                  [dictionary setObject:v22 forKeyedSubscript:v21];
+                  [dictionary setObject:v21 forKeyedSubscript:v20];
                 }
               }
 
-              v18 = [v17 countByEnumeratingWithState:&v50 objects:v58 count:16];
-              if (v18)
+              v17 = [v16 countByEnumeratingWithState:&v47 objects:v55 count:16];
+              if (v17)
               {
                 continue;
               }
@@ -178,11 +176,11 @@ LABEL_9:
 
         else
         {
-          v49 = 0;
-          dictionary = [v47 mtl_valueForJSONKeyPath:v15 success:&v49 error:error];
-          if (v49 != 1)
+          v46 = 0;
+          dictionary = [v44 mtl_valueForJSONKeyPath:v14 success:&v46 error:error];
+          if (v46 != 1)
           {
-            v17 = v15;
+            v16 = v14;
             goto LABEL_45;
           }
         }
@@ -190,14 +188,14 @@ LABEL_9:
         if (dictionary)
         {
           valueTransformersByPropertyKey = [(MTLJSONAdapter *)selfCopy valueTransformersByPropertyKey];
-          v25 = [valueTransformersByPropertyKey objectForKeyedSubscript:v13];
+          v24 = [valueTransformersByPropertyKey objectForKeyedSubscript:v12];
 
-          if (v25)
+          if (v24)
           {
             null = [MEMORY[0x1E695DFB0] null];
-            v27 = [dictionary isEqual:null];
+            v26 = [dictionary isEqual:null];
 
-            if (v27)
+            if (v26)
             {
 
               dictionary = 0;
@@ -205,45 +203,44 @@ LABEL_9:
 
             if (objc_opt_respondsToSelector())
             {
-              v28 = v25;
-              v49 = 1;
-              v29 = [v28 transformedValue:dictionary success:&v49 error:error];
+              v27 = v24;
+              v46 = 1;
+              v28 = [v27 transformedValue:dictionary success:&v46 error:error];
 
-              v30 = v49;
-              if ((v30 & 1) == 0)
+              v29 = v46;
+              if ((v29 & 1) == 0)
               {
 
-                v17 = v15;
-                dictionary = v29;
+                v16 = v14;
+                dictionary = v28;
 LABEL_45:
 
                 v10 = 0;
-                v31 = obj;
+                v30 = obj;
                 goto LABEL_46;
               }
             }
 
             else
             {
-              v29 = [v25 transformedValue:dictionary];
+              v28 = [v24 transformedValue:dictionary];
             }
 
-            dictionary = v29;
-            if (!v29)
+            dictionary = v28;
+            if (!v28)
             {
               dictionary = [MEMORY[0x1E695DFB0] null];
             }
           }
 
-          [v42 setObject:dictionary forKeyedSubscript:v13];
+          [v39 setObject:dictionary forKeyedSubscript:v12];
         }
       }
 
-      if (++v12 == v44)
+      if (++v11 == v41)
       {
-        v44 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-        v11 = &selRef_temporaryDirectoryURL;
-        if (v44)
+        v41 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+        if (v41)
         {
           goto LABEL_9;
         }
@@ -253,24 +250,22 @@ LABEL_45:
     }
   }
 
-  v31 = [(objc_class *)[(MTLJSONAdapter *)selfCopy modelClass] modelWithDictionary:v42 error:error];
-  if ([v31 validate:error])
+  v30 = [(objc_class *)[(MTLJSONAdapter *)selfCopy modelClass] modelWithDictionary:v39 error:error];
+  if ([v30 validate:error])
   {
-    v32 = v31;
+    v31 = v30;
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
-  v10 = v32;
+  v10 = v31;
 LABEL_46:
 
-  dictionaryCopy = v47;
+  dictionaryCopy = v44;
 LABEL_47:
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -354,7 +349,7 @@ LABEL_47:
 
 void __48__MTLJSONAdapter_JSONDictionaryFromModel_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = [*(a1 + 32) JSONKeyPathsByPropertyKey];
@@ -427,78 +422,76 @@ LABEL_24:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v30 = v12;
-      v31 = v7;
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
+      v29 = v12;
+      v30 = v7;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v21 = v10;
-      v22 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v33;
+        v24 = *v32;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v33 != v24)
+            if (*v32 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v32 + 1) + 8 * i);
+            v26 = *(*(&v31 + 1) + 8 * i);
             __48__MTLJSONAdapter_JSONDictionaryFromModel_error___block_invoke_2(*(a1 + 40), v26);
             v27 = *(a1 + 40);
             v28 = [v17 objectForKeyedSubscript:v26];
             [v27 setValue:v28 forKeyPath:v26];
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v31 objects:v36 count:16];
         }
 
         while (v23);
       }
 
-      v12 = v30;
-      v7 = v31;
+      v12 = v29;
+      v7 = v30;
     }
 
     goto LABEL_24;
   }
 
 LABEL_25:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __48__MTLJSONAdapter_JSONDictionaryFromModel_error___block_invoke_2(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 componentsSeparatedByString:@"."];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       v9 = v3;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v8);
+        v10 = *(*(&v13 + 1) + 8 * v8);
         v11 = [v9 valueForKey:v10];
 
         if (!v11)
@@ -514,19 +507,17 @@ void __48__MTLJSONAdapter_JSONDictionaryFromModel_error___block_invoke_2(void *a
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (MTLJSONAdapter)initWithModelClass:(Class)class
 {
   classCopy = class;
-  v50 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (!class)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -539,9 +530,9 @@ void __48__MTLJSONAdapter_JSONDictionaryFromModel_error___block_invoke_2(void *a
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"MTLJSONAdapter.m" lineNumber:136 description:{@"Invalid parameter not satisfying: %@", @"[modelClass conformsToProtocol:@protocol(MTLJSONSerializing)]"}];
   }
 
-  v47.receiver = self;
-  v47.super_class = MTLJSONAdapter;
-  v6 = [(MTLJSONAdapter *)&v47 init];
+  v45.receiver = self;
+  v45.super_class = MTLJSONAdapter;
+  v6 = [(MTLJSONAdapter *)&v45 init];
   v7 = v6;
   if (v6)
   {
@@ -551,30 +542,30 @@ void __48__MTLJSONAdapter_JSONDictionaryFromModel_error___block_invoke_2(void *a
     v7->_JSONKeyPathsByPropertyKey = jSONKeyPathsByPropertyKey;
 
     propertyKeys = [(objc_class *)[(MTLJSONAdapter *)v7 modelClass] propertyKeys];
-    v45 = 0u;
-    v46 = 0u;
     v43 = 0u;
     v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v11 = v7->_JSONKeyPathsByPropertyKey;
-    v38 = [(NSDictionary *)v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
-    if (v38)
+    v36 = [(NSDictionary *)v11 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    if (v36)
     {
-      v12 = *v44;
-      v35 = a2;
-      v36 = v11;
-      v37 = propertyKeys;
-      v33 = classCopy;
-      v34 = *v44;
+      v12 = *v42;
+      v33 = a2;
+      v34 = v11;
+      v35 = propertyKeys;
+      v31 = classCopy;
+      v32 = *v42;
 LABEL_8:
       v13 = 0;
       while (1)
       {
-        if (*v44 != v12)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(v11);
         }
 
-        v14 = *(*(&v43 + 1) + 8 * v13);
+        v14 = *(*(&v41 + 1) + 8 * v13);
         if (([propertyKeys containsObject:v14] & 1) == 0)
         {
           break;
@@ -584,40 +575,39 @@ LABEL_8:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v41 = 0u;
-          v42 = 0u;
           v39 = 0u;
           v40 = 0u;
+          v37 = 0u;
+          v38 = 0u;
           currentHandler5 = v15;
-          v17 = [currentHandler5 countByEnumeratingWithState:&v39 objects:v48 count:16];
+          v17 = [currentHandler5 countByEnumeratingWithState:&v37 objects:v46 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v40;
+            v19 = *v38;
             while (2)
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v40 != v19)
+                if (*v38 != v19)
                 {
                   objc_enumerationMutation(currentHandler5);
                 }
 
-                v21 = *(*(&v39 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
                   currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-                  [currentHandler3 handleFailureInMethod:v35 object:v7 file:@"MTLJSONAdapter.m" lineNumber:159 description:{@"%@ must either map to a JSON key path or a JSON array of key paths, got: %@.", v14, currentHandler5}];
+                  [currentHandler3 handleFailureInMethod:v33 object:v7 file:@"MTLJSONAdapter.m" lineNumber:159 description:{@"%@ must either map to a JSON key path or a JSON array of key paths, got: %@.", v14, currentHandler5}];
 
                   currentHandler4 = currentHandler5;
-                  v11 = v36;
-                  propertyKeys = v37;
+                  v11 = v34;
+                  propertyKeys = v35;
                   goto LABEL_28;
                 }
               }
 
-              v18 = [currentHandler5 countByEnumeratingWithState:&v39 objects:v48 count:16];
+              v18 = [currentHandler5 countByEnumeratingWithState:&v37 objects:v46 count:16];
               if (v18)
               {
                 continue;
@@ -627,9 +617,9 @@ LABEL_8:
             }
           }
 
-          v11 = v36;
-          propertyKeys = v37;
-          v12 = v34;
+          v11 = v34;
+          propertyKeys = v35;
+          v12 = v32;
         }
 
         else
@@ -638,7 +628,7 @@ LABEL_8:
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
-            [currentHandler4 handleFailureInMethod:v35 object:v7 file:@"MTLJSONAdapter.m" lineNumber:163 description:{@"%@ must either map to a JSON key path or a JSON array of key paths, got: %@.", v14, v15}];
+            [currentHandler4 handleFailureInMethod:a2 object:v7 file:@"MTLJSONAdapter.m" lineNumber:163 description:{@"%@ must either map to a JSON key path or a JSON array of key paths, got: %@.", v14, v15}];
             currentHandler5 = v15;
 LABEL_28:
 
@@ -646,11 +636,11 @@ LABEL_28:
           }
         }
 
-        if (++v13 == v38)
+        if (++v13 == v36)
         {
-          classCopy = v33;
-          v38 = [(NSDictionary *)v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
-          if (v38)
+          classCopy = v31;
+          v36 = [(NSDictionary *)v11 countByEnumeratingWithState:&v41 objects:v47 count:16];
+          if (v36)
           {
             goto LABEL_8;
           }
@@ -660,34 +650,33 @@ LABEL_28:
       }
 
       currentHandler5 = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler5 handleFailureInMethod:v35 object:v7 file:@"MTLJSONAdapter.m" lineNumber:149 description:{@"%@ is not a property of %@.", v14, v33}];
+      [currentHandler5 handleFailureInMethod:a2 object:v7 file:@"MTLJSONAdapter.m" lineNumber:149 description:{@"%@ is not a property of %@.", v14, v31}];
 LABEL_29:
 
-      v26 = 0;
+      v25 = 0;
       goto LABEL_30;
     }
 
 LABEL_25:
 
-    v22 = [objc_opt_class() valueTransformersForModelClass:classCopy];
+    v21 = [objc_opt_class() valueTransformersForModelClass:classCopy];
     valueTransformersByPropertyKey = v7->_valueTransformersByPropertyKey;
-    v7->_valueTransformersByPropertyKey = v22;
+    v7->_valueTransformersByPropertyKey = v21;
 
     strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
     JSONAdaptersByModelClass = v7->_JSONAdaptersByModelClass;
     v7->_JSONAdaptersByModelClass = strongToStrongObjectsMapTable;
 
-    v26 = v7;
+    v25 = v7;
 LABEL_30:
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-  return v26;
+  return v25;
 }
 
 - (MTLJSONAdapter)init
@@ -745,7 +734,7 @@ LABEL_30:
 
 + (id)valueTransformersForModelClass:(Class)class
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!class)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -759,25 +748,25 @@ LABEL_30:
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = [(objc_class *)class propertyKeys];
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v6)
   {
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         v10 = MTLSelectorWithKeyPattern(v9, "JSONTransformer");
         if ((objc_opt_respondsToSelector() & 1) == 0)
         {
@@ -867,20 +856,18 @@ LABEL_12:
 LABEL_31:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 + (id)JSONArrayFromModels:(id)models error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   modelsCopy = models;
   if (!modelsCopy)
   {
@@ -896,26 +883,26 @@ LABEL_31:
   }
 
   v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(modelsCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v9 = modelsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [self JSONDictionaryFromModel:*(*(&v21 + 1) + 8 * i) error:error];
+        v14 = [self JSONDictionaryFromModel:*(*(&v20 + 1) + 8 * i) error:error];
         if (!v14)
         {
 
@@ -927,7 +914,7 @@ LABEL_31:
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v11)
       {
         continue;
@@ -939,8 +926,6 @@ LABEL_31:
 
   v16 = v8;
 LABEL_15:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -956,31 +941,31 @@ LABEL_15:
 
 + (id)modelsOfClass:(Class)class fromJSONArray:(id)array error:(id *)error
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   if (arrayCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v10 = arrayCopy;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v27;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [self modelOfClass:class fromJSONDictionary:*(*(&v27 + 1) + 8 * i) error:error];
+          v15 = [self modelOfClass:class fromJSONDictionary:*(*(&v26 + 1) + 8 * i) error:error];
           if (!v15)
           {
 
@@ -992,7 +977,7 @@ LABEL_15:
           [v9 addObject:v15];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v12)
         {
           continue;
@@ -1014,18 +999,18 @@ LABEL_15:
       goto LABEL_17;
     }
 
-    v32[0] = *MEMORY[0x1E696A578];
+    v31[0] = *MEMORY[0x1E696A578];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     v19 = [mainBundle localizedStringForKey:@"Missing JSON array" value:&stru_1F4A1C408 table:0];
-    v32[1] = *MEMORY[0x1E696A588];
-    v33[0] = v19;
+    v31[1] = *MEMORY[0x1E696A588];
+    v32[0] = v19;
     v20 = MEMORY[0x1E696AEC0];
     mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
     v22 = [mainBundle2 localizedStringForKey:@"%@ could not be created because an invalid JSON array was provided: %@" value:&stru_1F4A1C408 table:0];
     v23 = NSStringFromClass(class);
     v24 = [v20 stringWithFormat:v22, v23, objc_opt_class()];
-    v33[1] = v24;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v32[1] = v24;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
     [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLJSONAdapterErrorDomain" code:3 userInfo:v9];
     *error = v17 = 0;
@@ -1034,7 +1019,6 @@ LABEL_15:
 LABEL_16:
 
 LABEL_17:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1069,7 +1053,7 @@ LABEL_17:
 
 id __68__MTLJSONAdapter_ValueTransformers__arrayTransformerWithModelClass___block_invoke(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v45[3] = *MEMORY[0x1E69E9840];
+  v44[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (v7)
   {
@@ -1078,27 +1062,27 @@ id __68__MTLJSONAdapter_ValueTransformers__arrayTransformerWithModelClass___bloc
     {
       v8 = a4;
       v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      v35 = v7;
+      v34 = v7;
       obj = v7;
-      v10 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v10 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v38;
+        v12 = *v37;
 LABEL_5:
         v13 = 0;
         while (1)
         {
-          if (*v38 != v12)
+          if (*v37 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v37 + 1) + 8 * v13);
+          v14 = *(*(&v36 + 1) + 8 * v13);
           v15 = [MEMORY[0x1E695DFB0] null];
 
           if (v14 == v15)
@@ -1109,22 +1093,22 @@ LABEL_5:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v7 = v35;
+            v7 = v34;
             if (v8)
             {
-              v41[0] = *MEMORY[0x1E696A578];
+              v40[0] = *MEMORY[0x1E696A578];
               v26 = [MEMORY[0x1E696AAE8] mainBundle];
-              v34 = [v26 localizedStringForKey:@"Could not convert JSON array to model array" value:&stru_1F4A1C408 table:0];
-              v42[0] = v34;
-              v41[1] = *MEMORY[0x1E696A588];
+              v33 = [v26 localizedStringForKey:@"Could not convert JSON array to model array" value:&stru_1F4A1C408 table:0];
+              v41[0] = v33;
+              v40[1] = *MEMORY[0x1E696A588];
               v27 = MEMORY[0x1E696AEC0];
               v28 = [MEMORY[0x1E696AAE8] mainBundle];
               v29 = [v28 localizedStringForKey:@"Expected an NSDictionary or an NSNull value:got: %@." table:{&stru_1F4A1C408, 0}];
               v30 = [v27 stringWithFormat:v29, v14];
-              v41[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-              v42[1] = v30;
-              v42[2] = v14;
-              v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
+              v40[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+              v41[1] = v30;
+              v41[2] = v14;
+              v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:3];
 
               *v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v31];
             }
@@ -1138,7 +1122,7 @@ LABEL_5:
           if (!*a3)
           {
 
-            v7 = v35;
+            v7 = v34;
 LABEL_26:
 
             v18 = 0;
@@ -1154,7 +1138,7 @@ LABEL_15:
 
           if (v11 == ++v13)
           {
-            v11 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+            v11 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
             if (v11)
             {
               goto LABEL_5;
@@ -1173,7 +1157,7 @@ LABEL_14:
 LABEL_17:
 
       v18 = v9;
-      v7 = v35;
+      v7 = v34;
 LABEL_27:
     }
 
@@ -1181,19 +1165,19 @@ LABEL_27:
     {
       if (a4)
       {
-        v44[0] = *MEMORY[0x1E696A578];
+        v43[0] = *MEMORY[0x1E696A578];
         v19 = [MEMORY[0x1E696AAE8] mainBundle];
         v20 = [v19 localizedStringForKey:@"Could not convert JSON array to model array" value:&stru_1F4A1C408 table:0];
-        v45[0] = v20;
-        v44[1] = *MEMORY[0x1E696A588];
+        v44[0] = v20;
+        v43[1] = *MEMORY[0x1E696A588];
         v21 = MEMORY[0x1E696AEC0];
         v22 = [MEMORY[0x1E696AAE8] mainBundle];
         v23 = [v22 localizedStringForKey:@"Expected an NSArray value:got: %@." table:{&stru_1F4A1C408, 0}];
         v24 = [v21 stringWithFormat:v23, v7];
-        v44[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v45[1] = v24;
-        v45[2] = v7;
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
+        v43[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v44[1] = v24;
+        v44[2] = v7;
+        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v25];
       }
@@ -1208,14 +1192,12 @@ LABEL_27:
     v18 = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 id __68__MTLJSONAdapter_ValueTransformers__arrayTransformerWithModelClass___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v45[3] = *MEMORY[0x1E69E9840];
+  v44[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (v7)
   {
@@ -1224,27 +1206,27 @@ id __68__MTLJSONAdapter_ValueTransformers__arrayTransformerWithModelClass___bloc
     {
       v8 = a4;
       v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      v35 = v7;
+      v34 = v7;
       obj = v7;
-      v10 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v10 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v38;
+        v12 = *v37;
 LABEL_5:
         v13 = 0;
         while (1)
         {
-          if (*v38 != v12)
+          if (*v37 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v37 + 1) + 8 * v13);
+          v14 = *(*(&v36 + 1) + 8 * v13);
           v15 = [MEMORY[0x1E695DFB0] null];
 
           if (v14 == v15)
@@ -1257,19 +1239,19 @@ LABEL_5:
           {
             if (v8)
             {
-              v41[0] = *MEMORY[0x1E696A578];
+              v40[0] = *MEMORY[0x1E696A578];
               v26 = [MEMORY[0x1E696AAE8] mainBundle];
               v27 = [v26 localizedStringForKey:@"Could not convert JSON array to model array" value:&stru_1F4A1C408 table:0];
-              v42[0] = v27;
-              v41[1] = *MEMORY[0x1E696A588];
+              v41[0] = v27;
+              v40[1] = *MEMORY[0x1E696A588];
               v28 = MEMORY[0x1E696AEC0];
               v29 = [MEMORY[0x1E696AAE8] mainBundle];
               v30 = [v29 localizedStringForKey:@"Expected a MTLModel or an NSNull value:got: %@." table:{&stru_1F4A1C408, 0}];
               v31 = [v28 stringWithFormat:v30, v14];
-              v41[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-              v42[1] = v31;
-              v42[2] = v14;
-              v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
+              v40[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+              v41[1] = v31;
+              v41[2] = v14;
+              v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:3];
 
               *v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v32];
             }
@@ -1297,7 +1279,7 @@ LABEL_15:
 
           if (v11 == ++v13)
           {
-            v11 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+            v11 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
             if (v11)
             {
               goto LABEL_5;
@@ -1317,26 +1299,26 @@ LABEL_17:
 
       v18 = v9;
 LABEL_27:
-      v7 = v35;
+      v7 = v34;
     }
 
     else
     {
       if (a4)
       {
-        v44[0] = *MEMORY[0x1E696A578];
+        v43[0] = *MEMORY[0x1E696A578];
         v19 = [MEMORY[0x1E696AAE8] mainBundle];
         v20 = [v19 localizedStringForKey:@"Could not convert model array to JSON array" value:&stru_1F4A1C408 table:0];
-        v45[0] = v20;
-        v44[1] = *MEMORY[0x1E696A588];
+        v44[0] = v20;
+        v43[1] = *MEMORY[0x1E696A588];
         v21 = MEMORY[0x1E696AEC0];
         v22 = [MEMORY[0x1E696AAE8] mainBundle];
         v23 = [v22 localizedStringForKey:@"Expected an NSArray value:got: %@." table:{&stru_1F4A1C408, 0}];
         v24 = [v21 stringWithFormat:v23, v7];
-        v44[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v45[1] = v24;
-        v45[2] = v7;
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
+        v43[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v44[1] = v24;
+        v44[2] = v7;
+        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v25];
       }
@@ -1350,8 +1332,6 @@ LABEL_27:
   {
     v18 = 0;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1398,7 +1378,7 @@ LABEL_27:
 
 id __73__MTLJSONAdapter_ValueTransformers__dictionaryTransformerWithModelClass___block_invoke(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v23[3] = *MEMORY[0x1E69E9840];
+  v22[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (!v7)
   {
@@ -1411,19 +1391,19 @@ id __73__MTLJSONAdapter_ValueTransformers__dictionaryTransformerWithModelClass__
   {
     if (a4)
     {
-      v22[0] = *MEMORY[0x1E696A578];
+      v21[0] = *MEMORY[0x1E696A578];
       v13 = [MEMORY[0x1E696AAE8] mainBundle];
       v14 = [v13 localizedStringForKey:@"Could not convert JSON dictionary to model object" value:&stru_1F4A1C408 table:0];
-      v23[0] = v14;
-      v22[1] = *MEMORY[0x1E696A588];
+      v22[0] = v14;
+      v21[1] = *MEMORY[0x1E696A588];
       v15 = MEMORY[0x1E696AEC0];
       v16 = [MEMORY[0x1E696AAE8] mainBundle];
       v17 = [v16 localizedStringForKey:@"Expected an NSDictionary value:got: %@" table:{&stru_1F4A1C408, 0}];
       v18 = [v15 stringWithFormat:v17, v7];
-      v22[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-      v23[1] = v18;
-      v23[2] = v7;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+      v21[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+      v22[1] = v18;
+      v22[2] = v7;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
 
       *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v19];
     }
@@ -1452,14 +1432,12 @@ LABEL_10:
 
 LABEL_11:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 id __73__MTLJSONAdapter_ValueTransformers__dictionaryTransformerWithModelClass___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = v7;
   if (v7)
@@ -1468,19 +1446,19 @@ id __73__MTLJSONAdapter_ValueTransformers__dictionaryTransformerWithModelClass__
     {
       if (a4)
       {
-        v23[0] = *MEMORY[0x1E696A578];
+        v22[0] = *MEMORY[0x1E696A578];
         v14 = [MEMORY[0x1E696AAE8] mainBundle];
         v15 = [v14 localizedStringForKey:@"Could not convert model object to JSON dictionary" value:&stru_1F4A1C408 table:0];
-        v24[0] = v15;
-        v23[1] = *MEMORY[0x1E696A588];
+        v23[0] = v15;
+        v22[1] = *MEMORY[0x1E696A588];
         v16 = MEMORY[0x1E696AEC0];
         v17 = [MEMORY[0x1E696AAE8] mainBundle];
         v18 = [v17 localizedStringForKey:@"Expected a MTLModel object conforming to <MTLJSONSerializing> value:got: %@." table:{&stru_1F4A1C408, 0}];
         v19 = [v16 stringWithFormat:v18, v8];
-        v23[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v24[1] = v19;
-        v24[2] = v8;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+        v22[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v23[1] = v19;
+        v23[2] = v8;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v20];
       }
@@ -1512,8 +1490,6 @@ LABEL_10:
   {
     v13 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

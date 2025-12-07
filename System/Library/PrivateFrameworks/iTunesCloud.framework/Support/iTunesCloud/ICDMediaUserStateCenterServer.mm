@@ -9,9 +9,14 @@
 - (id)_supportedInterfaceForXPCConnection;
 - (id)_updatedUserStateFromState:(id)state withUserProfile:(id)profile;
 - (unint64_t)_userStateAccessForConnection:(id)connection;
+- (void)_buildUserStateFromUserIdentity:(id)identity storeRequestContext:(id)context tokensDictionary:(id)dictionary ignoreResponseCache:(BOOL)cache completion:(id)completion;
+- (void)_fetchAccountsWithForceRefresh:(BOOL)refresh ignoreResponseCache:(BOOL)cache completion:(id)completion;
 - (void)_fetchUpdatedUserProfilesForUserStates:(id)states completion:(id)completion;
+- (void)_getTokenStatusesForDSIDs:(id)ds forceRefresh:(BOOL)refresh completion:(id)completion;
+- (void)_getUserStateFromIdentity:(id)identity tokensDictionary:(id)dictionary ignoreResponseCache:(BOOL)cache completion:(id)completion;
 - (void)_notifyServerStateUpdatedIfNeeded:(id)needed;
 - (void)getCachedUserStatesWithReply:(id)reply;
+- (void)getUserStatesForcingRefresh:(BOOL)refresh withReply:(id)reply;
 - (void)notificationsManager:(id)manager didReceiveNotificationChangingUserState:(id)state;
 - (void)refreshSocialProfilesWithReply:(id)reply;
 - (void)start;
@@ -333,6 +338,62 @@ LABEL_13:
   return v15;
 }
 
+- (void)_getUserStateFromIdentity:(id)identity tokensDictionary:(id)dictionary ignoreResponseCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  identityCopy = identity;
+  completionCopy = completion;
+  dictionaryCopy = dictionary;
+  v13 = [(ICDMediaUserStateCenterServer *)self _storeRequestContextFromUserIdentity:identityCopy];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10004DE4C;
+  v16[3] = &unk_1001DB220;
+  v16[4] = self;
+  v17 = identityCopy;
+  v18 = completionCopy;
+  v14 = completionCopy;
+  v15 = identityCopy;
+  [(ICDMediaUserStateCenterServer *)self _buildUserStateFromUserIdentity:v15 storeRequestContext:v13 tokensDictionary:dictionaryCopy ignoreResponseCache:cacheCopy completion:v16];
+}
+
+- (void)_getTokenStatusesForDSIDs:(id)ds forceRefresh:(BOOL)refresh completion:(id)completion
+{
+  refreshCopy = refresh;
+  dsCopy = ds;
+  completionCopy = completion;
+  v10 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    *&buf[4] = self;
+    *&buf[12] = 2114;
+    *&buf[14] = dsCopy;
+    *&buf[22] = 1024;
+    LODWORD(v17) = refreshCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ _getTokenStatusesForDSIDs:%{public}@, forceRefresh: %{BOOL}u", buf, 0x1Cu);
+  }
+
+  v11 = +[ICLibraryAuthServiceClientTokenProvider sharedProvider];
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x3032000000;
+  v17 = sub_10004E7DC;
+  v18 = sub_10004E7EC;
+  v19 = 0;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10004E7F4;
+  v13[3] = &unk_1001DB1F8;
+  v13[4] = self;
+  v12 = completionCopy;
+  v14 = v12;
+  v15 = buf;
+  [v11 getTokenStatusForDSIDs:dsCopy forcingRefresh:refreshCopy completion:v13];
+
+  _Block_object_dispose(buf, 8);
+}
+
 - (void)_fetchUpdatedUserProfilesForUserStates:(id)states completion:(id)completion
 {
   statesCopy = states;
@@ -417,6 +478,288 @@ LABEL_13:
   dispatch_group_notify(v8, v20, block);
 
   _Block_object_dispose(v39, 8);
+}
+
+- (void)_fetchAccountsWithForceRefresh:(BOOL)refresh ignoreResponseCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  refreshCopy = refresh;
+  completionCopy = completion;
+  v9 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    selfCopy4 = self;
+    v36 = 1024;
+    *v37 = refreshCopy;
+    *&v37[4] = 1024;
+    *&v37[6] = cacheCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ _fetchAccountsWithForceRefresh: %{BOOL}u ignoreResponseCache:%{BOOL}u", buf, 0x18u);
+  }
+
+  _getUserIdentitiesfromDefaultStore = [(ICDMediaUserStateCenterServer *)self _getUserIdentitiesfromDefaultStore];
+  if ([_getUserIdentitiesfromDefaultStore count])
+  {
+    os_unfair_lock_lock(&self->_lock);
+    v11 = [(NSMutableArray *)self->_pendingCompletionHandlers count];
+    if (v11)
+    {
+      v12 = v11;
+      self->_coalescedIgnoreCacheValue |= cacheCopy;
+      self->_coalescedForceRefreshValue |= refreshCopy;
+      pendingCompletionHandlers = self->_pendingCompletionHandlers;
+      v14 = objc_retainBlock(completionCopy);
+      [(NSMutableArray *)pendingCompletionHandlers addObject:v14];
+
+      os_unfair_lock_unlock(&self->_lock);
+      v15 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543618;
+        selfCopy4 = self;
+        v36 = 2048;
+        *v37 = v12;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ userState account fetch in-flight with %lu pending completions. Coalescing request.", buf, 0x16u);
+      }
+    }
+
+    else
+    {
+      v17 = self->_pendingCompletionHandlers;
+      v18 = objc_retainBlock(completionCopy);
+      [(NSMutableArray *)v17 addObject:v18];
+
+      os_unfair_lock_unlock(&self->_lock);
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 3221225472;
+      v31[2] = sub_10004F6F8;
+      v31[3] = &unk_1001DB0A0;
+      v31[4] = self;
+      v32 = refreshCopy;
+      v33 = cacheCopy;
+      v19 = objc_retainBlock(v31);
+      v20 = [_getUserIdentitiesfromDefaultStore msv_map:&stru_1001DB0E0];
+      v21 = [NSSet setWithArray:v20];
+
+      v22 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [_getUserIdentitiesfromDefaultStore count]);
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_10004F958;
+      v25[3] = &unk_1001DB130;
+      v29 = v19;
+      v26 = _getUserIdentitiesfromDefaultStore;
+      selfCopy3 = self;
+      v30 = cacheCopy;
+      v28 = v22;
+      v23 = v22;
+      v24 = v19;
+      [(ICDMediaUserStateCenterServer *)self _getTokenStatusesForDSIDs:v21 forceRefresh:refreshCopy completion:v25];
+    }
+  }
+
+  else
+  {
+    v16 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      selfCopy4 = self;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@ No user identities are found.", buf, 0xCu);
+    }
+
+    (*(completionCopy + 2))(completionCopy, &__NSArray0__struct, 0);
+  }
+}
+
+- (void)_buildUserStateFromUserIdentity:(id)identity storeRequestContext:(id)context tokensDictionary:(id)dictionary ignoreResponseCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  identityCopy = identity;
+  contextCopy = context;
+  dictionaryCopy = dictionary;
+  completionCopy = completion;
+  v15 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    *&buf[4] = self;
+    *&buf[12] = 2114;
+    *&buf[14] = identityCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ _buildUserStateFromUserIdentity: building userState for userIdentity=%{public}@", buf, 0x16u);
+  }
+
+  group = dispatch_group_create();
+  v40 = +[ICUserIdentityStore defaultIdentityStore];
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x3032000000;
+  v86 = sub_10004E7DC;
+  v87 = sub_10004E7EC;
+  v88 = 0;
+  v79[0] = 0;
+  v79[1] = v79;
+  v79[2] = 0x3032000000;
+  v79[3] = sub_10004E7DC;
+  v79[4] = sub_10004E7EC;
+  v80 = 0;
+  v77[0] = 0;
+  v77[1] = v77;
+  v77[2] = 0x3032000000;
+  v77[3] = sub_10004E7DC;
+  v77[4] = sub_10004E7EC;
+  v78 = 0;
+  v76 = 0;
+  v38 = [v40 getPropertiesForUserIdentity:identityCopy error:&v76];
+  v16 = v76;
+  if (v16)
+  {
+    completionCopy[2](completionCopy, 0, v16);
+  }
+
+  else
+  {
+    v17 = +[ICAgeVerificationManager defaultManager];
+    v18 = [v17 ageVerificationStateForUserIdentity:identityCopy];
+    v35 = [v18 status] == 2;
+
+    dispatch_group_enter(group);
+    v36 = [[ICMusicSubscriptionStatusRequest alloc] initWithStoreRequestContext:contextCopy];
+    v19 = +[ICMusicSubscriptionStatusController sharedStatusController];
+    v70[0] = _NSConcreteStackBlock;
+    v70[1] = 3221225472;
+    v70[2] = sub_100050714;
+    v70[3] = &unk_1001DAED0;
+    v70[4] = self;
+    v20 = contextCopy;
+    v71 = v20;
+    v73 = buf;
+    v74 = v77;
+    v21 = group;
+    v72 = v21;
+    v75 = v79;
+    [v19 performSubscriptionStatusRequest:v36 withCompletionHandler:v70];
+
+    v68[0] = 0;
+    v68[1] = v68;
+    v68[2] = 0x3032000000;
+    v68[3] = sub_10004E7DC;
+    v68[4] = sub_10004E7EC;
+    v69 = 0;
+    dispatch_group_enter(v21);
+    userSocialProfileProvider = self->_userSocialProfileProvider;
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_100050A54;
+    v64[3] = &unk_1001DAEF8;
+    v64[4] = self;
+    v23 = v20;
+    v65 = v23;
+    v67 = v68;
+    v24 = v21;
+    v66 = v24;
+    [(ICDMusicUserSocialProfileProvider *)userSocialProfileProvider fetchMusicUserProfileWithStoreRequestContext:v23 ignoreCache:cacheCopy completion:v64];
+    v62[0] = 0;
+    v62[1] = v62;
+    v62[2] = 0x3032000000;
+    v62[3] = sub_10004E7DC;
+    v62[4] = sub_10004E7EC;
+    v63 = 0;
+    dispatch_group_enter(v24);
+    v25 = +[ICURLBagProvider sharedBagProvider];
+    v59[0] = _NSConcreteStackBlock;
+    v59[1] = 3221225472;
+    v59[2] = sub_100050CF8;
+    v59[3] = &unk_1001DAF20;
+    v59[4] = self;
+    v61 = v62;
+    v26 = v24;
+    v60 = v26;
+    [v25 getBagForRequestContext:v23 withCompletionHandler:v59];
+
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x2020000000;
+    v58 = 0;
+    if ([v38 isActive] && (MSVDeviceIsAudioAccessory() & 1) == 0)
+    {
+      v81 = 0;
+      v82 = &v81;
+      v83 = 0x2050000000;
+      v27 = qword_100213BC0;
+      v84 = qword_100213BC0;
+      if (!qword_100213BC0)
+      {
+        *&v89 = _NSConcreteStackBlock;
+        *(&v89 + 1) = 3221225472;
+        v90 = sub_100050E7C;
+        v91 = &unk_1001DF318;
+        v92 = &v81;
+        sub_100050E7C(&v89);
+        v27 = v82[3];
+      }
+
+      v28 = v27;
+      _Block_object_dispose(&v81, 8);
+      sharedInstance = [v27 sharedInstance];
+      storedConfiguration = [sharedInstance storedConfiguration];
+
+      if (storedConfiguration)
+      {
+        activeUser = [storedConfiguration activeUser];
+        *(v56 + 24) = activeUser;
+      }
+
+      else if (sub_100050F44())
+      {
+        dispatch_group_enter(v26);
+        v32 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        {
+          LODWORD(v89) = 138543362;
+          *(&v89 + 4) = self;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ Fetching watchKit configuration", &v89, 0xCu);
+        }
+
+        sharedInstance2 = [sub_100050F44() sharedInstance];
+        v52[0] = _NSConcreteStackBlock;
+        v52[1] = 3221225472;
+        v52[2] = sub_100051024;
+        v52[3] = &unk_1001DAF48;
+        v52[4] = self;
+        v54 = &v55;
+        v53 = v26;
+        [sharedInstance2 fetchConfigurationWithCompletionHandler:v52];
+      }
+    }
+
+    queue = self->_queue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100051190;
+    block[3] = &unk_1001DB050;
+    block[4] = self;
+    v42 = v38;
+    v45 = v62;
+    v51 = v35;
+    v46 = v79;
+    v47 = v77;
+    v43 = dictionaryCopy;
+    v48 = v68;
+    v49 = &v55;
+    v50 = buf;
+    v44 = completionCopy;
+    dispatch_group_notify(v26, queue, block);
+
+    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(v62, 8);
+
+    _Block_object_dispose(v68, 8);
+  }
+
+  _Block_object_dispose(v77, 8);
+  _Block_object_dispose(v79, 8);
+
+  _Block_object_dispose(buf, 8);
 }
 
 - (void)_notifyServerStateUpdatedIfNeeded:(id)needed
@@ -619,6 +962,54 @@ LABEL_13:
     v12 = replyCopy;
     v13 = v5;
     [(ICDMediaUserStateCenterServer *)self _fetchAccountsWithForceRefresh:1 ignoreResponseCache:1 completion:v14];
+  }
+}
+
+- (void)getUserStatesForcingRefresh:(BOOL)refresh withReply:(id)reply
+{
+  refreshCopy = refresh;
+  replyCopy = reply;
+  v7 = +[NSXPCConnection currentConnection];
+  v8 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    selfCopy2 = self;
+    v18 = 2114;
+    v19 = v7;
+    v20 = 1024;
+    LODWORD(v21) = refreshCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Received request for user states from client connection %{public}@. forceRefresh=%{BOOL}u", buf, 0x1Cu);
+  }
+
+  if (refreshCopy || (-[ICDMediaUserStateCenterServer userStatesCache](self, "userStatesCache"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 count], v9, !v10))
+  {
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000540D8;
+    v13[3] = &unk_1001DADD0;
+    v13[4] = self;
+    v15 = replyCopy;
+    v14 = v7;
+    [(ICDMediaUserStateCenterServer *)self _fetchAccountsWithForceRefresh:refreshCopy completion:v13];
+  }
+
+  else
+  {
+    v11 = [(ICDMediaUserStateCenterServer *)self _sanitizedUserStatesForRemoteClientConnection:v7];
+    v12 = os_log_create("com.apple.amp.itunescloudd", "UserState");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543874;
+      selfCopy2 = self;
+      v18 = 2114;
+      v19 = v7;
+      v20 = 2114;
+      v21 = v11;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ Returning cached user states to client connection %{public}@: %{public}@", buf, 0x20u);
+    }
+
+    (*(replyCopy + 2))(replyCopy, v11, 0);
   }
 }
 

@@ -26,9 +26,9 @@
     +[NSCharacterSet(MailCoreAdditions) ef_unsafeAddressLocalPartCharacterSet];
   }
 
-  v1 = ef_unsafeAddressLocalPartCharacterSet_unsafeAddressLocalPartCharacterSet;
+  v2 = ef_unsafeAddressLocalPartCharacterSet_unsafeAddressLocalPartCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)ef_asciiAlphaNumericCharacterSet
@@ -38,9 +38,9 @@
     +[NSCharacterSet(MailCoreAdditions) ef_asciiAlphaNumericCharacterSet];
   }
 
-  v1 = ef_asciiAlphaNumericCharacterSet_sAsciiAlphaNumericCharacterSet;
+  v2 = ef_asciiAlphaNumericCharacterSet_sAsciiAlphaNumericCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)ef_rfc6376WhitespaceCharacterSet
@@ -50,9 +50,9 @@
     +[NSCharacterSet(MailCoreAdditions) ef_rfc6376WhitespaceCharacterSet];
   }
 
-  v1 = ef_rfc6376WhitespaceCharacterSet_rfc6376WhitespaceCharacterSet;
+  v2 = ef_rfc6376WhitespaceCharacterSet_rfc6376WhitespaceCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

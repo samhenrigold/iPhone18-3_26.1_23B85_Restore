@@ -36,46 +36,8 @@
       goto LABEL_13;
     }
 
-    v4 = JavaNetURLConnection_guessContentTypeFromNameWithNSString_([(JavaNetURL *)url getFile]);
-    if (!JreStrongAssign(&self->contentType_, v4))
-    {
-      v5 = JavaNetURLConnection_guessContentTypeFromStreamWithJavaIoInputStream_([(JavaNetURLConnection *)self getInputStream]);
-      JreStrongAssign(&self->contentType_, v5);
-    }
-  }
-
-  contentType = self->contentType_;
-  if (!contentType)
-  {
-    return 0;
-  }
-
-  v7 = sub_100214000(self, contentType);
-  if (!v7)
-  {
-LABEL_13:
-    JreThrowNullPointerException();
-  }
-
-  return [v7 getContentWithJavaNetURLConnection:self];
-}
-
-- (id)getContentWithIOSClassArray:(id)array
-{
-  if (!self->connected_)
-  {
-    [(JavaNetURLConnection *)self connect];
-  }
-
-  if (!JreStrongAssign(&self->contentType_, [(JavaNetURLConnection *)self getContentType]))
-  {
-    url = self->url_;
-    if (!url)
-    {
-      goto LABEL_13;
-    }
-
-    v6 = JavaNetURLConnection_guessContentTypeFromNameWithNSString_([(JavaNetURL *)url getFile]);
+    getFile = [(JavaNetURL *)url getFile];
+    v6 = JavaNetURLConnection_guessContentTypeFromNameWithNSString_(getFile, v5);
     if (!JreStrongAssign(&self->contentType_, v6))
     {
       v7 = JavaNetURLConnection_guessContentTypeFromStreamWithJavaIoInputStream_([(JavaNetURLConnection *)self getInputStream]);
@@ -96,7 +58,47 @@ LABEL_13:
     JreThrowNullPointerException();
   }
 
-  return [v9 getContentWithJavaNetURLConnection:self withIOSClassArray:array];
+  return [v9 getContentWithJavaNetURLConnection:self];
+}
+
+- (id)getContentWithIOSClassArray:(id)array
+{
+  if (!self->connected_)
+  {
+    [(JavaNetURLConnection *)self connect];
+  }
+
+  if (!JreStrongAssign(&self->contentType_, [(JavaNetURLConnection *)self getContentType]))
+  {
+    url = self->url_;
+    if (!url)
+    {
+      goto LABEL_13;
+    }
+
+    getFile = [(JavaNetURL *)url getFile];
+    v8 = JavaNetURLConnection_guessContentTypeFromNameWithNSString_(getFile, v7);
+    if (!JreStrongAssign(&self->contentType_, v8))
+    {
+      v9 = JavaNetURLConnection_guessContentTypeFromStreamWithJavaIoInputStream_([(JavaNetURLConnection *)self getInputStream]);
+      JreStrongAssign(&self->contentType_, v9);
+    }
+  }
+
+  contentType = self->contentType_;
+  if (!contentType)
+  {
+    return 0;
+  }
+
+  v11 = sub_100214000(self, contentType);
+  if (!v11)
+  {
+LABEL_13:
+    JreThrowNullPointerException();
+  }
+
+  return [v11 getContentWithJavaNetURLConnection:self withIOSClassArray:array];
 }
 
 + (BOOL)getDefaultAllowUserInteraction
@@ -121,9 +123,9 @@ LABEL_13:
 
 - (id)getRequestProperties
 {
-  [JavaNetURLConnection checkNotConnected]_0(self);
+  v2 = [JavaNetURLConnection checkNotConnected]_0(self);
 
-  return JavaUtilCollections_emptyMap();
+  return JavaUtilCollections_emptyMap(v2, v3);
 }
 
 - (uint64_t)checkNotConnected

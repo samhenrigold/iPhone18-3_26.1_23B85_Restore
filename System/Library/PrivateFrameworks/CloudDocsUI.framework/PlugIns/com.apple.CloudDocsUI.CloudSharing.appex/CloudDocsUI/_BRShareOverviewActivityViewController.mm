@@ -7,6 +7,7 @@
 - (void)mailComposeController:(id)controller shouldSendMail:(id)mail toRecipients:(id)recipients completion:(id)completion;
 - (void)messageComposeViewController:(id)controller didFinishWithResult:(int64_t)result;
 - (void)messageComposeViewController:(id)controller shouldSendMessage:(id)message toRecipients:(id)recipients completion:(id)completion;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)setupActivityDelegate;
 @end
 
@@ -61,6 +62,40 @@
   else
   {
     [activityCopy activityDidFinish:0];
+  }
+}
+
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  vcForActivityPresentation = [(_BRShareOverviewActivityViewController *)self vcForActivityPresentation];
+  activity = [(_BRShareOverviewActivityViewController *)self activity];
+
+  if (activity && vcForActivityPresentation)
+  {
+    v12 = cdui_default_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10002D828(controllerCopy, v12);
+    }
+
+    +[NSDate timeIntervalSinceReferenceDate];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000299D0;
+    v14[3] = &unk_10004D2D0;
+    v15 = completionCopy;
+    [vcForActivityPresentation presentViewController:controllerCopy animated:animatedCopy completion:v14];
+  }
+
+  else
+  {
+    v13.receiver = self;
+    v13.super_class = _BRShareOverviewActivityViewController;
+    [(_BRShareOverviewActivityViewController *)&v13 presentViewController:controllerCopy animated:animatedCopy completion:completionCopy];
   }
 }
 

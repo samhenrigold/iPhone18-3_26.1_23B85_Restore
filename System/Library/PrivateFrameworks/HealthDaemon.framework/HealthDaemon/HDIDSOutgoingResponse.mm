@@ -78,12 +78,12 @@
   persistentUserInfo = [(HDIDSOutgoingResponse *)self persistentUserInfo];
   v4 = [HDCodableNanoSyncMessage messageFromPersistentUserInfo:persistentUserInfo];
 
-  LODWORD(persistentUserInfo) = [(HDIDSOutgoingResponse *)self messageID];
+  messageID = [(HDIDSOutgoingResponse *)self messageID];
   idsIdentifier = [(HDIDSOutgoingResponse *)self idsIdentifier];
   nanoSyncDescription = [v4 nanoSyncDescription];
-  v7 = FormattedMessageDescription(persistentUserInfo, 0, 0, idsIdentifier, nanoSyncDescription);
+  v8 = FormattedMessageDescription(messageID, 0, 0, idsIdentifier, nanoSyncDescription);
 
-  return v7;
+  return v8;
 }
 
 - (void)dealloc
@@ -146,25 +146,19 @@
 {
   responseCopy = response;
   v6 = [(HDIDSMessageCenter *)self->_messageCenter _pbMappingForMessageID:?];
-  v7 = v6;
-  if (v6)
-  {
-    v8 = *(v6 + 16);
-  }
-
   isKindOfClass = objc_opt_isKindOfClass();
 
   if ((isKindOfClass & 1) == 0)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"HDIDSMessageCenter.m" lineNumber:859 description:{@"Invalid pbResponse of type %@", v15}];
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDIDSMessageCenter.m" lineNumber:859 description:{@"Invalid pbResponse of type %@", v13}];
   }
 
   pbResponse = self->_pbResponse;
   self->_pbResponse = responseCopy;
-  v16 = responseCopy;
+  v14 = responseCopy;
 
   data = [(PBCodable *)self->_pbResponse data];
   data = self->_data;

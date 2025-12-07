@@ -16,13 +16,13 @@
 - (void)propertyChangeWithJavaBeansPropertyChangeEvent:(id)event
 {
   getListener = [(JavaUtilEventListenerProxy *)self getListener];
-  v5 = JavaBeansPropertyChangeListener_class_();
+  v6 = JavaBeansPropertyChangeListener_class_(getListener, v5);
   if (!getListener)
   {
     JreThrowNullPointerException();
   }
 
-  if (([v5 isInstance:getListener] & 1) == 0)
+  if (([v6 isInstance:getListener] & 1) == 0)
   {
     JreThrowClassCastException();
   }

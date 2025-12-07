@@ -47,7 +47,6 @@
 uint64_t __92__HDWorkoutZonesSampleEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, [*(a1 + 32) longLongValue]);
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

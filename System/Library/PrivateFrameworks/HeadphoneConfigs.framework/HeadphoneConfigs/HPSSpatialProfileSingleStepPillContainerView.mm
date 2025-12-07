@@ -11,10 +11,10 @@
 
 - (HPSSpatialProfileSingleStepPillContainerView)initWithFrame:(CGRect)frame
 {
-  v35[4] = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = HPSSpatialProfileSingleStepPillContainerView;
-  v3 = [(HPSSpatialProfileSingleStepPillContainerView *)&v34 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v34[4] = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = HPSSpatialProfileSingleStepPillContainerView;
+  v3 = [(HPSSpatialProfileSingleStepPillContainerView *)&v33 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -55,31 +55,30 @@
     layerMappingRight = v4->_layerMappingRight;
     v4->_layerMappingRight = &unk_28634DAB0;
 
-    v28 = MEMORY[0x277CCAAD0];
+    v27 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(BSUICAPackageView *)v4->_micaView leadingAnchor];
     leadingAnchor2 = [(HPSSpatialProfileSingleStepPillContainerView *)v4 leadingAnchor];
-    v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v35[0] = v31;
+    v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v34[0] = v30;
     trailingAnchor = [(BSUICAPackageView *)v4->_micaView trailingAnchor];
     trailingAnchor2 = [(HPSSpatialProfileSingleStepPillContainerView *)v4 trailingAnchor];
     v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v35[1] = v17;
+    v34[1] = v17;
     topAnchor = [(BSUICAPackageView *)v4->_micaView topAnchor];
     topAnchor2 = [(HPSSpatialProfileSingleStepPillContainerView *)v4 topAnchor];
     v20 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v35[2] = v20;
+    v34[2] = v20;
     bottomAnchor = [(BSUICAPackageView *)v4->_micaView bottomAnchor];
     bottomAnchor2 = [(HPSSpatialProfileSingleStepPillContainerView *)v4 bottomAnchor];
     v23 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v35[3] = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
-    [v28 activateConstraints:v24];
+    v34[3] = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
+    [v27 activateConstraints:v24];
 
     v25 = [(BSUICAPackageView *)v4->_micaView publishedObjectWithName:@"mid_0"];
     [(BSUICAPackageView *)v4->_micaView setState:@"Min" onLayer:v25 animated:0 transitionSpeed:0 completion:1.0];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

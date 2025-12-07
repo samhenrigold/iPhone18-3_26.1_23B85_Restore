@@ -35,7 +35,7 @@ uint64_t __32__DEDPersistence_sharedInstance__block_invoke()
 
 - (BOOL)canProceedWithDevice:(id)device
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (+[DEDUtils isInternalInstall])
   {
@@ -50,9 +50,9 @@ uint64_t __32__DEDPersistence_sharedInstance__block_invoke()
         v8 = [(DEDPersistence *)self log];
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138543362;
-          v13 = hashingKey;
-          _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "should not proceed with device [%{public}@]", &v12, 0xCu);
+          v11 = 138543362;
+          v12 = hashingKey;
+          _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "should not proceed with device [%{public}@]", &v11, 0xCu);
         }
 
         v9 = 0;
@@ -69,7 +69,6 @@ LABEL_10:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -94,7 +93,7 @@ LABEL_11:
 
 - (id)loadSavedSessionsFromPlist:(id)plist
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:plist];
   v5 = MEMORY[0x277CBEB98];
   v6 = [v4 objectForKey:@"sessionIdentifiers"];
@@ -112,108 +111,106 @@ LABEL_11:
 
   v10 = v9;
 
-  v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
+  v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v11 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v11)
   {
     v13 = v11;
-    v14 = *v31;
+    v14 = *v30;
     *&v12 = 138543362;
-    v26 = v12;
+    v25 = v12;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = [(DEDPersistence *)self _indexKeyForBugSessionIdentifier:*(*(&v30 + 1) + 8 * i), v26];
+        v16 = [(DEDPersistence *)self _indexKeyForBugSessionIdentifier:*(*(&v29 + 1) + 8 * i), v25];
         v17 = [v4 objectForKey:v16];
         v18 = MEMORY[0x277CCAAC8];
         v19 = +[DEDBugSession archivedClasses];
-        v29 = 0;
-        v20 = [v18 unarchivedObjectOfClasses:v19 fromData:v17 error:&v29];
-        v21 = v29;
+        v28 = 0;
+        v20 = [v18 unarchivedObjectOfClasses:v19 fromData:v17 error:&v28];
+        v21 = v28;
 
         if (v21)
         {
           v22 = [(DEDPersistence *)self log];
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            *buf = v26;
-            v35 = v21;
+            *buf = v25;
+            v34 = v21;
             _os_log_error_impl(&dword_248AD7000, v22, OS_LOG_TYPE_ERROR, "failed to load bug session from plist with error: [%{public}@]", buf, 0xCu);
           }
         }
 
         else
         {
-          [v27 addObject:v20];
+          [v26 addObject:v20];
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v13 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v13);
   }
 
-  v23 = [MEMORY[0x277CBEA60] arrayWithArray:v27];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = [MEMORY[0x277CBEA60] arrayWithArray:v26];
 
   return v23;
 }
 
 - (id)loadSavedBugSessions
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   bugSessionIdentifiers = [(DEDPersistence *)self bugSessionIdentifiers];
-  v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(bugSessionIdentifiers, "count")}];
+  v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(bugSessionIdentifiers, "count")}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = bugSessionIdentifiers;
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v27;
+    v7 = *v26;
     *&v5 = 138543362;
-    v20 = v5;
+    v19 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [(DEDPersistence *)self _indexKeyForBugSessionIdentifier:*(*(&v26 + 1) + 8 * v8), v20];
+        v9 = [(DEDPersistence *)self _indexKeyForBugSessionIdentifier:*(*(&v25 + 1) + 8 * v8), v19];
         v10 = [(NSUserDefaults *)self->_userDefaults objectForKey:v9];
         v11 = MEMORY[0x277CCAAC8];
         v12 = +[DEDBugSession archivedClasses];
-        v25 = 0;
-        v13 = [v11 unarchivedObjectOfClasses:v12 fromData:v10 error:&v25];
-        v14 = v25;
+        v24 = 0;
+        v13 = [v11 unarchivedObjectOfClasses:v12 fromData:v10 error:&v24];
+        v14 = v24;
 
         if (v14)
         {
           v15 = [(DEDPersistence *)self log];
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            *buf = v20;
-            v31 = v14;
+            *buf = v19;
+            v30 = v14;
             _os_log_error_impl(&dword_248AD7000, v15, OS_LOG_TYPE_ERROR, "Failed to load Bug Session from disk with error [%{public}@]", buf, 0xCu);
           }
 
@@ -227,29 +224,27 @@ LABEL_9:
           v15 = [(DEDPersistence *)self log];
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            [(DEDPersistence *)&v23 loadSavedBugSessions];
+            [(DEDPersistence *)&v22 loadSavedBugSessions];
           }
 
           goto LABEL_9;
         }
 
-        [v21 addObject:v13];
+        [v20 addObject:v13];
 LABEL_12:
 
         ++v8;
       }
 
       while (v6 != v8);
-      v16 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v16 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
       v6 = v16;
     }
 
     while (v16);
   }
 
-  v17 = [MEMORY[0x277CBEA60] arrayWithArray:v21];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [MEMORY[0x277CBEA60] arrayWithArray:v20];
 
   return v17;
 }
@@ -386,29 +381,26 @@ LABEL_12:
 
 - (void)updateBugSession:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "[DEDPersistence updateBugSession:]";
-  _os_log_debug_impl(&dword_248AD7000, log, OS_LOG_TYPE_DEBUG, "[%{public}s]", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "[DEDPersistence updateBugSession:]";
+  _os_log_debug_impl(&dword_248AD7000, log, OS_LOG_TYPE_DEBUG, "[%{public}s]", &v1, 0xCu);
 }
 
 - (void)updateBugSession:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to archive bug session with error: [%{public}@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to archive bug session with error: [%{public}@]", &v2, 0xCu);
 }
 
 - (void)removeBugSession:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "[DEDPersistence removeBugSession:]";
-  _os_log_debug_impl(&dword_248AD7000, log, OS_LOG_TYPE_DEBUG, "[%{public}s]", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "[DEDPersistence removeBugSession:]";
+  _os_log_debug_impl(&dword_248AD7000, log, OS_LOG_TYPE_DEBUG, "[%{public}s]", &v1, 0xCu);
 }
 
 @end

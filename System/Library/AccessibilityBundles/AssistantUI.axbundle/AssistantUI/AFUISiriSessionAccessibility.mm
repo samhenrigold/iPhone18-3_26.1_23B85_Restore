@@ -19,7 +19,7 @@
 
 - (void)cancelRequest
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v3 = [(AFUISiriSessionAccessibility *)self _accessibilityBoolValueForKey:@"VoiceOverCancelRequestInProgress"];
   v4 = [(AFUISiriSessionAccessibility *)self safeValueForKey:@"_connection"];
   if (AXIsInternalInstall())
@@ -29,25 +29,23 @@
     {
       v6 = [MEMORY[0x29EDBA070] numberWithBool:v3];
       *buf = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v4;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v4;
       _os_log_impl(&dword_29BB96000, v5, OS_LOG_TYPE_DEFAULT, "Transferring voice cancel request in progress %@ to connection %@", buf, 0x16u);
     }
   }
 
   [v4 _accessibilitySetBoolValue:v3 forKey:@"VoiceOverCancelRequestInProgress"];
-  v8.receiver = self;
-  v8.super_class = AFUISiriSessionAccessibility;
-  [(AFUISiriSessionAccessibility *)&v8 cancelRequest];
+  v7.receiver = self;
+  v7.super_class = AFUISiriSessionAccessibility;
+  [(AFUISiriSessionAccessibility *)&v7 cancelRequest];
   [v4 _accessibilitySetBoolValue:0 forKey:@"VoiceOverCancelRequestInProgress"];
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (void)assistantConnection:(id)connection receivedCommand:(id)command completion:(id)completion
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   connectionCopy = connection;
   commandCopy = command;
   completionCopy = completion;
@@ -56,30 +54,28 @@
 
   if (isClarityBoardEnabled && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ![(AFUISiriSessionAccessibility *)self _axIsAddViewsCommandAllowed:commandCopy])
   {
-    v14 = AXLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = AXLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = commandCopy;
-      _os_log_impl(&dword_29BB96000, v14, OS_LOG_TYPE_DEFAULT, "Command %@ is unallowed in custom accessibility mode", buf, 0xCu);
+      v21 = commandCopy;
+      _os_log_impl(&dword_29BB96000, v13, OS_LOG_TYPE_DEFAULT, "Command %@ is unallowed in custom accessibility mode", buf, 0xCu);
     }
 
-    v16 = MEMORY[0x29EDCA5F8];
-    v17 = 3221225472;
-    v18 = __79__AFUISiriSessionAccessibility_assistantConnection_receivedCommand_completion___block_invoke;
-    v19 = &unk_29F2A28B0;
+    v15 = MEMORY[0x29EDCA5F8];
+    v16 = 3221225472;
+    v17 = __79__AFUISiriSessionAccessibility_assistantConnection_receivedCommand_completion___block_invoke;
+    v18 = &unk_29F2A28B0;
     selfCopy = self;
     AXPerformSafeBlock();
   }
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = AFUISiriSessionAccessibility;
-    [(AFUISiriSessionAccessibility *)&v15 assistantConnection:connectionCopy receivedCommand:commandCopy completion:completionCopy];
+    v14.receiver = self;
+    v14.super_class = AFUISiriSessionAccessibility;
+    [(AFUISiriSessionAccessibility *)&v14 assistantConnection:connectionCopy receivedCommand:commandCopy completion:completionCopy];
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void __79__AFUISiriSessionAccessibility_assistantConnection_receivedCommand_completion___block_invoke(uint64_t a1)
@@ -93,7 +89,7 @@ void __79__AFUISiriSessionAccessibility_assistantConnection_receivedCommand_comp
 
 - (BOOL)_axIsAddViewsCommandAllowed:(id)allowed
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   allowedCopy = allowed;
   v5 = MEMORY[0x29EDB8DC0];
   v6 = [MEMORY[0x29EDB9F48] bundleForClass:objc_opt_class()];
@@ -101,39 +97,36 @@ void __79__AFUISiriSessionAccessibility_assistantConnection_receivedCommand_comp
   v8 = [v5 dictionaryWithContentsOfFile:v7];
 
   v9 = [v8 objectForKey:@"SAUIAddViewsUnallowedSiriCommands"];
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   views = [allowedCopy views];
-  v11 = [views countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v11 = [views countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
     selfCopy = self;
-    v34 = v8;
+    v30 = v8;
     v13 = 0x29EDC6000uLL;
     v14 = @"StartCall";
-    v37 = *v39;
-    v35 = allowedCopy;
+    v33 = *v35;
+    v31 = allowedCopy;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v39 != v37)
+        if (*v35 != v33)
         {
           objc_enumerationMutation(views);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * i);
-        v17 = *(v13 + 1328);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v18 = *(v13 + 1328);
           objc_opt_class();
-          v19 = __UIAccessibilityCastAsClass();
-          dialogIdentifier = [v19 dialogIdentifier];
+          v16 = __UIAccessibilityCastAsClass();
+          dialogIdentifier = [v16 dialogIdentifier];
         }
 
         else
@@ -144,23 +137,23 @@ void __79__AFUISiriSessionAccessibility_assistantConnection_receivedCommand_comp
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v36 = i;
-          v21 = v12;
-          v22 = views;
-          v23 = v14;
-          v24 = v9;
-          v25 = v13;
+          v32 = i;
+          v18 = v12;
+          v19 = views;
+          v20 = v14;
+          v21 = v9;
+          v22 = v13;
           objc_opt_class();
-          v26 = __UIAccessibilityCastAsClass();
-          sash = [v26 sash];
+          v23 = __UIAccessibilityCastAsClass();
+          sash = [v23 sash];
           applicationBundleIdentifier = [sash applicationBundleIdentifier];
 
-          v13 = v25;
-          v9 = v24;
-          v14 = v23;
-          views = v22;
-          v12 = v21;
-          i = v36;
+          v13 = v22;
+          v9 = v21;
+          v14 = v20;
+          views = v19;
+          v12 = v18;
+          i = v32;
         }
 
         else
@@ -170,57 +163,57 @@ void __79__AFUISiriSessionAccessibility_assistantConnection_receivedCommand_comp
 
         if ([dialogIdentifier containsString:{v14, selfCopy}])
         {
-          v30 = @"com.apple.mobilephone";
+          v27 = @"com.apple.mobilephone";
           goto LABEL_33;
         }
 
         if ([dialogIdentifier containsString:@"ReadMail"] & 1) != 0 || (objc_msgSend(dialogIdentifier, "containsString:", @"SendMail"))
         {
-          v30 = @"com.apple.mobilemail";
+          v27 = @"com.apple.mobilemail";
           goto LABEL_33;
         }
 
         if ([dialogIdentifier containsString:@"FindEvents"] & 1) != 0 || (objc_msgSend(dialogIdentifier, "containsString:", @"CreateEvent"))
         {
-          v30 = @"com.apple.mobilecal";
+          v27 = @"com.apple.mobilecal";
           goto LABEL_33;
         }
 
         if ([dialogIdentifier containsString:@"WEBINDEX"])
         {
-          v30 = @"com.apple.mobilesafari";
+          v27 = @"com.apple.mobilesafari";
           goto LABEL_33;
         }
 
         if ([dialogIdentifier containsString:@"STOCKS"])
         {
-          v30 = @"com.apple.stocks";
+          v27 = @"com.apple.stocks";
           goto LABEL_33;
         }
 
         if ([v9 containsObject:dialogIdentifier])
         {
-          v29 = 0;
+          v26 = 0;
           goto LABEL_34;
         }
 
         if (applicationBundleIdentifier && ([(__CFString *)applicationBundleIdentifier isEqualToString:@"com.apple.weather"]& 1) == 0)
         {
-          v30 = applicationBundleIdentifier;
+          v27 = applicationBundleIdentifier;
 LABEL_33:
-          v29 = [(AFUISiriSessionAccessibility *)selfCopy _axIsAppInClarity:v30];
+          v26 = [(AFUISiriSessionAccessibility *)selfCopy _axIsAppInClarity:v27];
 LABEL_34:
-          allowedCopy = v35;
+          allowedCopy = v31;
 
-          v8 = v34;
+          v8 = v30;
           goto LABEL_35;
         }
       }
 
-      v12 = [views countByEnumeratingWithState:&v38 objects:v42 count:16];
-      v29 = 1;
-      v8 = v34;
-      allowedCopy = v35;
+      v12 = [views countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v26 = 1;
+      v8 = v30;
+      allowedCopy = v31;
       if (v12)
       {
         continue;
@@ -232,13 +225,12 @@ LABEL_34:
 
   else
   {
-    v29 = 1;
+    v26 = 1;
   }
 
 LABEL_35:
 
-  v31 = *MEMORY[0x29EDCA608];
-  return v29;
+  return v26;
 }
 
 - (BOOL)_axIsAppInClarity:(id)clarity

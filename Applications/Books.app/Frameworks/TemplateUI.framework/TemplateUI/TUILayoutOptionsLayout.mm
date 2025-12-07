@@ -28,8 +28,8 @@
   v9 = invalidateCopy;
   if (chosenChild != invalidateCopy)
   {
-    children = [(TUILayout *)self children];
-    v7 = [children indexOfObjectIdenticalTo:v9];
+    v6 = objc_msgSend_children(self);
+    v7 = [v6 indexOfObjectIdenticalTo:v9];
     chosenIndex = self->_chosenIndex;
 
     if (v7 >= chosenIndex)
@@ -85,8 +85,8 @@ LABEL_5:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   validatedIntrinsicWidthConsideringSpecified = [firstObject validatedIntrinsicWidthConsideringSpecified];
   return validatedIntrinsicWidthConsideringSpecified;
@@ -94,8 +94,8 @@ LABEL_5:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   validatedIntrinsicHeightConsideringSpecified = [firstObject validatedIntrinsicHeightConsideringSpecified];
   return validatedIntrinsicHeightConsideringSpecified;
@@ -106,27 +106,27 @@ LABEL_5:
   chosenChild = self->_chosenChild;
   if (!chosenChild)
   {
-    children = [(TUILayout *)self children];
+    v4 = objc_msgSend_children(self, a2);
     v7[0] = _NSConcreteStackBlock;
     v7[1] = 3221225472;
     v7[2] = sub_7D574;
     v7[3] = &unk_260448;
     v7[4] = self;
-    [children enumerateObjectsUsingBlock:v7];
-    if (!self->_chosenChild && [children count])
+    [v4 enumerateObjectsUsingBlock:v7];
+    if (!self->_chosenChild && [v4 count])
     {
-      lastObject = [children lastObject];
+      lastObject = [v4 lastObject];
       v6 = self->_chosenChild;
       self->_chosenChild = lastObject;
 
-      self->_chosenIndex = [children count] - 1;
+      self->_chosenIndex = [v4 count] - 1;
     }
 
     chosenChild = self->_chosenChild;
   }
 
   [(TUILayout *)chosenChild setComputedOrigin:CGPointZero.x, CGPointZero.y];
-  [(TUILayout *)self->_chosenChild computedTransformedSize];
+  objc_msgSend_computedTransformedSize(self->_chosenChild);
   [(TUILayout *)self setComputedNaturalSize:?];
 }
 

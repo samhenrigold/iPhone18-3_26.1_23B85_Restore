@@ -66,12 +66,12 @@
   return v6;
 }
 
-void __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke()
+void __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke_cold_1(v0);
+    __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke_cold_1(v1);
   }
 }
 
@@ -82,7 +82,7 @@ void __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke()
   v18 = *MEMORY[0x1E69E9840];
   if (type <= 0x31u && ((1 << type) & 0x2400000200000) != 0)
   {
-    v7 = __atxlog_handle_blending();
+    v7 = __atxlog_handle_blending(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [MEMORY[0x1E698B028] safeStringForConsumerSubtype:typeCopy];
@@ -126,7 +126,7 @@ void __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke()
   suggestionLayoutFromCache = [(ATXProactiveSuggestionClient *)v7 suggestionLayoutFromCache];
   v9 = [(ATXEngagementRecordManager *)self->_engagementRecordManager engagedExecutablesOfType:35 queryOptions:1];
   allSuggestionsInLayout = [suggestionLayoutFromCache allSuggestionsInLayout];
-  v11 = __atxlog_handle_blending();
+  v11 = __atxlog_handle_blending(allSuggestionsInLayout);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
@@ -148,7 +148,7 @@ void __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke()
   v12 = v9;
   v25 = v12;
   v13 = [allSuggestionsInLayout _pas_filteredArrayWithIndexedTest:&v20];
-  v14 = __atxlog_handle_blending();
+  v14 = __atxlog_handle_blending(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = [v13 count];
@@ -168,32 +168,33 @@ void __51__ATXActionPredictionClient_initWithCacheBasePath___block_invoke()
 
 uint64_t __104__ATXActionPredictionClient_atxActionResponseFromBlendingActionPredictionCacheForConsumerSubType_limit___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(*(*(a1 + 48) + 8) + 24) < *(a1 + 56))
   {
-    if (![*(*(a1 + 32) + 32) hasEngagedWithSuggestion:v3 engagedExecutables:*(a1 + 40)])
+    v4 = [*(*(a1 + 32) + 32) hasEngagedWithSuggestion:v3 engagedExecutables:*(a1 + 40)];
+    if (!v4)
     {
       ++*(*(*(a1 + 48) + 8) + 24);
-      v7 = 1;
+      v8 = 1;
       goto LABEL_8;
     }
 
-    v4 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = __atxlog_handle_blending(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = [v3 executableSpecification];
-      v6 = [v5 executableDescription];
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_INFO, "recently engaged cache filtered action prediction %@", &v9, 0xCu);
+      v6 = [v3 executableSpecification];
+      v7 = [v6 executableDescription];
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_INFO, "recently engaged cache filtered action prediction %@", &v10, 0xCu);
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 - (id)_atxActionFromProactiveSuggestion:(id)suggestion
@@ -295,11 +296,11 @@ void __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIden
   [MEMORY[0x1E69C5D10] waitForSemaphore:v4 timeoutSeconds:5.0];
 }
 
-intptr_t __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIdentifiers_candidateActionTypes_consumerType_consumerSubType_limit_reply___block_invoke_2(uint64_t a1)
+intptr_t __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIdentifiers_candidateActionTypes_consumerType_consumerSubType_limit_reply___block_invoke_2(void *a1)
 {
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
   v2 = objc_opt_self();
-  v3 = *(a1 + 40);
+  v3 = a1[5];
 
   return dispatch_semaphore_signal(v3);
 }
@@ -307,7 +308,7 @@ intptr_t __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundle
 void __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIdentifiers_candidateActionTypes_consumerType_consumerSubType_limit_reply___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIdentifiers_candidateActionTypes_consumerType_consumerSubType_limit_reply___block_invoke_3_cold_1();
@@ -368,7 +369,7 @@ id __89__ATXActionPredictionClient_removeActionPredictionNotificationsMatchingSu
 void __89__ATXActionPredictionClient_removeActionPredictionNotificationsMatchingSuggestion_reply___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIdentifiers_candidateActionTypes_consumerType_consumerSubType_limit_reply___block_invoke_3_cold_1();
@@ -417,7 +418,7 @@ void __89__ATXActionPredictionClient_removeActionPredictionNotificationsMatching
 void __71__ATXActionPredictionClient_shouldDisplayDailyRoutineForContext_reply___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIdentifiers_candidateActionTypes_consumerType_consumerSubType_limit_reply___block_invoke_3_cold_1();
@@ -472,7 +473,7 @@ void __71__ATXActionPredictionClient_shouldDisplayDailyRoutineForContext_reply__
 void __144__ATXActionPredictionClient_getActionPredictionsForContext_includeBundleIds_excludeBundleIds_includeActionTypes_excludeActionTypes_limit_reply___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __141__ATXActionPredictionClient_getActionPredictionsForCandidateBundleIdentifiers_candidateActionTypes_consumerType_consumerSubType_limit_reply___block_invoke_3_cold_1();

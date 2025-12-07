@@ -5,6 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
@@ -103,6 +104,21 @@ LABEL_6:
   return v12;
 }
 
+- (id)domainAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E793F010[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDomain:(id)domain
 {
   domainCopy = domain;
@@ -172,9 +188,7 @@ LABEL_6:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  domain = self->_domain;
   PBDataWriterWriteInt32Field();
-  code = self->_code;
   PBDataWriterWriteSint64Field();
   if (self->_customDomain)
   {

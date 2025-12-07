@@ -106,7 +106,7 @@
     v7 = fminf(fmaxf(v6, 10.0), 3200.0);
     v8 = log10(v7);
     _interpolateGrainKernel = [(PIPhotoGrainHDR *)self _interpolateGrainKernel];
-    [outputImage_inputGrain extent];
+    objc_msgSend_extent(outputImage_inputGrain);
     v11 = v10;
     v13 = v12;
     v15 = v14;
@@ -118,9 +118,9 @@
     v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
     v20 = [_interpolateGrainKernel applyWithExtent:v19 arguments:{v11, v13, v15, v17}];
 
-    [v20 extent];
+    objc_msgSend_extent(v20);
     v22 = v21 + -2.0;
-    [v20 extent];
+    objc_msgSend_extent(v20);
     v24 = v23;
     v26 = v25;
     v28 = v27;
@@ -162,7 +162,7 @@
     v40 = v39;
     imageByUnpremultiplyingAlpha = [(CIImage *)self->inputImage imageByUnpremultiplyingAlpha];
     _grainBlendAndMixKernel = [(PIPhotoGrainHDR *)self _grainBlendAndMixKernel];
-    [imageByUnpremultiplyingAlpha extent];
+    objc_msgSend_extent(imageByUnpremultiplyingAlpha);
     v44 = v43;
     v46 = v45;
     v48 = v47;
@@ -208,7 +208,7 @@ void __30__PIPhotoGrainHDR_outputImage__block_invoke()
   v7 = applyGrainParams(v4, 400.0);
   v8 = applyGrainParams(v4, 3200.0);
   v9 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 _grainGenCombineHDR (__sample r, __sample g, __sample b, __sample a)\n{ return vec4(r.x, g.x, b.x, a.x) }"}];;
-  [v8 extent];
+  objc_msgSend_extent(v8);
   v11 = v10;
   v13 = v12;
   v15 = v14;

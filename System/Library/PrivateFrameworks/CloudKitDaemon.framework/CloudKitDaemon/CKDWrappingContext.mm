@@ -8,7 +8,7 @@
 
 - (id)assetContextString
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_fileSignature(self, a2, v2);
   if (!v4 || (v7 = v4, objc_msgSend_referenceSignature(self, v5, v6), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, !v8))
   {
@@ -20,14 +20,14 @@
     v11 = *MEMORY[0x277CBC858];
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_FAULT))
     {
-      v61 = v11;
-      v64 = objc_msgSend_fileSignature(self, v62, v63);
-      v67 = objc_msgSend_referenceSignature(self, v65, v66);
+      v60 = v11;
+      v63 = objc_msgSend_fileSignature(self, v61, v62);
+      v66 = objc_msgSend_referenceSignature(self, v64, v65);
       *buf = 138412546;
-      v69 = v64;
-      v70 = 2112;
-      v71 = v67;
-      _os_log_fault_impl(&dword_22506F000, v61, OS_LOG_TYPE_FAULT, "Invalid wrapping context for generating asset context string. File signature: %@. Reference signature: %@.", buf, 0x16u);
+      v68 = v63;
+      v69 = 2112;
+      v70 = v66;
+      _os_log_fault_impl(&dword_22506F000, v60, OS_LOG_TYPE_FAULT, "Invalid wrapping context for generating asset context string. File signature: %@. Reference signature: %@.", buf, 0x16u);
     }
   }
 
@@ -58,14 +58,12 @@
   v57 = objc_msgSend_base64EncodedStringWithOptions_(v55, v56, 0);
   objc_msgSend_appendFormat_(v30, v58, @"-%@-%@", v52, v57);
 
-  v59 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 - (CKDWrappingContext)initWithRecordID:(id)d fieldName:(id)name mergeableDeltaID:(id)iD fileSignature:(id)signature referenceSignature:(id)referenceSignature
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   iDCopy = iD;
@@ -73,9 +71,9 @@
   referenceSignatureCopy = referenceSignature;
   if (dCopy && nameCopy)
   {
-    v29.receiver = self;
-    v29.super_class = CKDWrappingContext;
-    v17 = [(CKDWrappingContext *)&v29 init];
+    v28.receiver = self;
+    v28.super_class = CKDWrappingContext;
+    v17 = [(CKDWrappingContext *)&v28 init];
     if (v17)
     {
       v18 = CKProcessIndexedArrayKey();
@@ -83,13 +81,13 @@
       v20 = v19;
       if (v19)
       {
-        v27 = signatureCopy;
+        v26 = signatureCopy;
         v21 = iDCopy;
         v22 = v19;
 
         nameCopy = v22;
         iDCopy = v21;
-        signatureCopy = v27;
+        signatureCopy = v26;
       }
 
       objc_storeStrong(&v17->_recordID, d);
@@ -114,16 +112,15 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412546;
-      v31 = dCopy;
-      v32 = 2114;
-      v33 = nameCopy;
+      v30 = dCopy;
+      v31 = 2114;
+      v32 = nameCopy;
       _os_log_fault_impl(&dword_22506F000, v24, OS_LOG_TYPE_FAULT, "Wrapping context requires a non-nil recordID and field. RecordID: %@, field: %{public}@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

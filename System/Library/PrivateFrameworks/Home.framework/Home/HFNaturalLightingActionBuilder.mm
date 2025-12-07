@@ -59,8 +59,8 @@
 - (id)copyForCreatingNewAction
 {
   v3 = objc_alloc(objc_opt_class());
-  home = [(HFItemBuilder *)self home];
-  v5 = [v3 initWithHome:home];
+  v4 = objc_msgSend_home(self);
+  v5 = [v3 initWithHome:v4];
 
   lightProfile = [(HFNaturalLightingActionBuilder *)self lightProfile];
   [v5 setLightProfile:lightProfile];

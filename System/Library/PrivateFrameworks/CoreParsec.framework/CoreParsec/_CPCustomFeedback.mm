@@ -58,7 +58,6 @@ LABEL_9:
   to;
   if ([(_CPCustomFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -66,13 +65,11 @@ LABEL_9:
 
   if (jsonFeedback)
   {
-    jsonFeedback = self->_jsonFeedback;
     PBDataWriterWriteDataField();
   }
 
   if ([(_CPCustomFeedback *)self feedbackType])
   {
-    feedbackType = self->_feedbackType;
     PBDataWriterWriteInt32Field();
   }
 

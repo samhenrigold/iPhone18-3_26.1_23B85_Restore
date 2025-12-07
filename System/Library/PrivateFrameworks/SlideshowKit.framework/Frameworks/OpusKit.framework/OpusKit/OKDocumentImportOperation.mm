@@ -591,7 +591,7 @@ LABEL_88:
   return 1;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
   result = [a2 isCancelled];
   if (!a4 && (result & 1) == 0)
@@ -606,7 +606,7 @@ uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke(uint64_t 
   return result;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
   result = [a2 isCancelled];
   if (!a4 && (result & 1) == 0)
@@ -656,7 +656,7 @@ id __44__OKDocumentImportOperation_launchOperation__block_invoke_5(uint64_t a1, 
   return result;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_6(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke_6(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   result = [a2 isCancelled];
   if (a3 && !a4 && !result)
@@ -669,7 +669,7 @@ uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_6(uint64_
   return result;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_7(uint64_t a1, double a2, uint64_t a3, _BYTE *a4)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke_7(uint64_t a1, double a2, uint64_t a3, _BYTE *a4)
 {
   *&a2 = (*&a2 * 0.4) + 0.2;
   [*(a1 + 32) setProgress:a2];
@@ -678,7 +678,7 @@ uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_7(uint64_
   return result;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_8(uint64_t a1, _BYTE *a2, double a3)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke_8(uint64_t a1, _BYTE *a2, double a3)
 {
   v5 = *(a1 + 40);
   v6 = *(a1 + 32);
@@ -707,7 +707,7 @@ id __44__OKDocumentImportOperation_launchOperation__block_invoke_9(uint64_t a1, 
   return result;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_10(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke_10(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   result = [a2 isCancelled];
   if (a3 && !a4 && !result)
@@ -720,7 +720,7 @@ uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_10(uint64
   return result;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_11(uint64_t a1, double a2, uint64_t a3, _BYTE *a4)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke_11(uint64_t a1, double a2, uint64_t a3, _BYTE *a4)
 {
   *&a2 = (*&a2 * 0.4) + 0.2;
   [*(a1 + 32) setProgress:a2];
@@ -729,7 +729,7 @@ uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_11(uint64
   return result;
 }
 
-uint64_t __44__OKDocumentImportOperation_launchOperation__block_invoke_12(uint64_t a1, _BYTE *a2, double a3)
+void *__44__OKDocumentImportOperation_launchOperation__block_invoke_12(uint64_t a1, _BYTE *a2, double a3)
 {
   v5 = *(a1 + 40);
   v6 = *(a1 + 32);

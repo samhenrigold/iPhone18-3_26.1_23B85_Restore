@@ -6,7 +6,9 @@
 - (CAFAppearanceModeCharacteristic)appearanceModeCharacteristic;
 - (CAFBoolCharacteristic)nightModeCharacteristic;
 - (unsigned)appearanceMode;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setAppearanceMode:(unsigned __int8)mode;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -121,6 +123,63 @@
   appearanceModeValue = [appearanceModeCharacteristic appearanceModeValue];
 
   return appearanceModeValue;
+}
+
+- (void)setAppearanceMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  appearanceModeCharacteristic = [(CAFUIAppearance *)self appearanceModeCharacteristic];
+  [appearanceModeCharacteristic setAppearanceModeValue:modeCopy];
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000047000005"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    nightModeCharacteristic = [(CAFUIAppearance *)self nightModeCharacteristic];
+    uniqueIdentifier2 = [nightModeCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers uiAppearanceService:self didUpdateNightMode:{-[CAFUIAppearance nightMode](self, "nightMode")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000047000006"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  appearanceModeCharacteristic = [(CAFUIAppearance *)self appearanceModeCharacteristic];
+  uniqueIdentifier4 = [appearanceModeCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers uiAppearanceService:self didUpdateAppearanceMode:{-[CAFUIAppearance appearanceMode](self, "appearanceMode")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFUIAppearance;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForNightMode

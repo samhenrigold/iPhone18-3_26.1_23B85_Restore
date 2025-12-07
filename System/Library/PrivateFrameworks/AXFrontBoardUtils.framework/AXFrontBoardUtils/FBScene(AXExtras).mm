@@ -149,26 +149,13 @@
     v10 = [settings3 safeValueForKey:@"_legacyOtherSettings"];
     v11 = __UIAccessibilityCastAsClass();
 
-    if (![settings isForeground])
-    {
-      goto LABEL_5;
-    }
-
-    v12 = [v8 objectForKey:@"<_UIViewServiceSceneSettings>"];
-    v13 = __UIAccessibilitySafeClass();
-
-    v14 = [v13 objectForKey:@"serviceViewControllerClassName"];
-    v15 = __UIAccessibilitySafeClass();
-
-    LOBYTE(v13) = [v15 isEqualToString:@"PHEmergencyDialerViewController"];
-    if (v13)
+    if ([settings isForeground] && (objc_msgSend(v8, "objectForKey:", @"<_UIViewServiceSceneSettings>"), v12 = objc_claimAutoreleasedReturnValue(), __UIAccessibilitySafeClass(), v13 = objc_claimAutoreleasedReturnValue(), v12, objc_msgSend(v13, "objectForKey:", @"serviceViewControllerClassName"), v14 = objc_claimAutoreleasedReturnValue(), __UIAccessibilitySafeClass(), v15 = objc_claimAutoreleasedReturnValue(), v14, v13, LOBYTE(v13) = objc_msgSend(v15, "isEqualToString:", @"PHEmergencyDialerViewController"), v15, (v13 & 1) != 0))
     {
       v4 = 0;
     }
 
     else
     {
-LABEL_5:
       v16 = [v11 objectForSetting:3001];
       integerValue = [v16 integerValue];
 

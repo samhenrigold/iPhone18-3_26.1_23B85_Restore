@@ -1,12 +1,39 @@
 @interface MFPlainTextDocument
 - (id)archivedRepresentation;
+- (id)quotedString:(unsigned int)string;
 - (void)appendArchivedRepresentation:(id)representation;
 - (void)appendString:(id)string withQuoteLevel:(unsigned int)level;
 - (void)dealloc;
+- (void)getFormatFlowedString:(id *)string insertedTrailingSpaces:(BOOL *)spaces encoding:(unsigned int)encoding;
 - (void)getString:(id *)string quoteLevel:(unsigned int *)level ofFragmentAtIndex:(unint64_t)index;
 @end
 
 @implementation MFPlainTextDocument
+
+- (void)getFormatFlowedString:(id *)string insertedTrailingSpaces:(BOOL *)spaces encoding:(unsigned int)encoding
+{
+  v10 = [_MFFormatFlowedWriter newWithPlainTextDocument:self encoding:*&encoding];
+  outputString = [v10 outputString];
+  v8 = outputString;
+  if (string)
+  {
+    v9 = outputString;
+    *string = v8;
+  }
+
+  if (spaces)
+  {
+    *spaces = [v10 addedTrailingSpaces];
+  }
+}
+
+- (id)quotedString:(unsigned int)string
+{
+  v3 = [_MFFormatFlowedWriter newWithPlainTextDocument:self encoding:*&string];
+  quotedString = [v3 quotedString];
+
+  return quotedString;
+}
 
 - (void)dealloc
 {

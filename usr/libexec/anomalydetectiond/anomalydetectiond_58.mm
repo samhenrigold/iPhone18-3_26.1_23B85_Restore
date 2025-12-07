@@ -3327,7 +3327,7 @@ float CMMsl::SafetyTrustedAudioResult::SafetyTrustedAudioResult(uint64_t a1, uin
   return result;
 }
 
-CMMsl *CMMsl::SafetyTrustedAudioResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::SafetyTrustedAudioResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -8554,16 +8554,16 @@ void CMMsl::SimActivityEvent::~SimActivityEvent(CMMsl::SimActivityEvent *this)
   operator delete();
 }
 
-uint64_t CMMsl::SimActivityEvent::SimActivityEvent(uint64_t this, const CMMsl::SimActivityEvent *a2)
+CMMsl::SimActivityEvent *CMMsl::SimActivityEvent::SimActivityEvent(CMMsl::SimActivityEvent *this, const CMMsl::SimActivityEvent *a2)
 {
   *this = off_100421D08;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 6) = 0;
   if (*(a2 + 24))
   {
     v2 = *(a2 + 2);
     *(this + 24) = 1;
-    *(this + 16) = v2;
+    *(this + 2) = v2;
   }
 
   if (*(a2 + 1))
@@ -8973,9 +8973,9 @@ uint64_t CMMsl::SimActivityEvent::hash_value(CMMsl::SimActivityEvent *this)
   return v2 ^ v1;
 }
 
-uint64_t CMMsl::SimActivityEvent::makeMotionState(uint64_t this)
+void *CMMsl::SimActivityEvent::makeMotionState(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }

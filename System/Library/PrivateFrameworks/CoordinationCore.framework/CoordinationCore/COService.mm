@@ -26,13 +26,13 @@
 
 - (COService)initWithListenerProvider:(id)provider addOnProvider:(id)onProvider delegate:(id)delegate
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   onProviderCopy = onProvider;
   delegateCopy = delegate;
-  v30.receiver = self;
-  v30.super_class = COService;
-  v12 = [(COService *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = COService;
+  v12 = [(COService *)&v29 init];
   v13 = v12;
   if (v12)
   {
@@ -68,22 +68,21 @@
       v26 = NSStringFromClass(v25);
       v27 = v13->_listener;
       *buf = 134218498;
-      v32 = v13;
-      v33 = 2112;
-      v34 = v26;
-      v35 = 2112;
-      v36 = v27;
+      v31 = v13;
+      v32 = 2112;
+      v33 = v26;
+      v34 = 2112;
+      v35 = v27;
       _os_log_impl(&dword_244378000, v24, OS_LOG_TYPE_DEFAULT, "%p <%@> created with listener %@", buf, 0x20u);
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 + (BOOL)_isAllowedClient:(id)client
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -97,7 +96,7 @@
 
   if (clientCopy)
   {
-    [clientCopy auditToken];
+    objc_msgSend_auditToken(clientCopy);
   }
 
   memset(buf, 0, 32);
@@ -140,13 +139,12 @@
   }
 
 LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void __30__COService__isAllowedClient___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.coordinated", @"com.apple.willowd", @"com.apple.SoundBoard", @"com.apple.homehubd", @"com.apple.Coordination.cmdmesh", @"com.apple.nexusd", @"com.apple.homepodsettingsd", @"com.apple.HomePlatformSettingsUI.HPSUIViewService", @"com.apple.conductord", @"com.apple.Home", @"com.apple.homed", 0}];
   v3 = _isAllowedClient__sAllowedClients;
   _isAllowedClient__sAllowedClients = v2;
@@ -171,26 +169,26 @@ void __30__COService__isAllowedClient___block_invoke(uint64_t a1)
       v11 = [v10 componentsSeparatedByString:{@", "}];
 
       v12 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v25;
+        v16 = *v24;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v25 != v16)
+            if (*v24 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = [*(*(&v24 + 1) + 8 * i) stringByTrimmingCharactersInSet:v12];
+            v18 = [*(*(&v23 + 1) + 8 * i) stringByTrimmingCharactersInSet:v12];
             if ([v18 length])
             {
               v19 = [_isAllowedClient__sAllowedClients setByAddingObject:v18];
@@ -199,7 +197,7 @@ void __30__COService__isAllowedClient___block_invoke(uint64_t a1)
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
         }
 
         while (v15);
@@ -212,13 +210,11 @@ void __30__COService__isAllowedClient___block_invoke(uint64_t a1)
   {
     v22 = *(a1 + 32);
     *buf = 134218242;
-    v29 = v22;
-    v30 = 2112;
-    v31 = _isAllowedClient__sAllowedClients;
+    v28 = v22;
+    v29 = 2112;
+    v30 = _isAllowedClient__sAllowedClients;
     _os_log_impl(&dword_244378000, v21, OS_LOG_TYPE_DEFAULT, "%p allowing %@", buf, 0x16u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientForConnection:(id)connection
@@ -293,7 +289,7 @@ uint64_t __60__COService_leaveClusters_withClusterIdentifier_completion___block_
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = COCoreLogForCategory(1);
@@ -301,7 +297,7 @@ uint64_t __60__COService_leaveClusters_withClusterIdentifier_completion___block_
   {
     *buf = 134218240;
     selfCopy = self;
-    v27 = 1024;
+    v26 = 1024;
     processIdentifier = [connectionCopy processIdentifier];
     _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p received new connection from %d", buf, 0x12u);
   }
@@ -315,23 +311,23 @@ uint64_t __60__COService_leaveClusters_withClusterIdentifier_completion___block_
 
     objc_initWeak(buf, self);
     objc_initWeak(&location, connectionCopy);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __48__COService_listener_shouldAcceptNewConnection___block_invoke;
-    v20 = &unk_278E183D8;
-    objc_copyWeak(&v22, buf);
-    objc_copyWeak(&v23, &location);
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __48__COService_listener_shouldAcceptNewConnection___block_invoke;
+    v19 = &unk_278E183D8;
+    objc_copyWeak(&v21, buf);
+    objc_copyWeak(&v22, &location);
     selfCopy2 = self;
-    v11 = MEMORY[0x245D5FF10](&v17);
-    [connectionCopy setInterruptionHandler:{v11, v17, v18, v19, v20}];
+    v11 = MEMORY[0x245D5FF10](&v16);
+    [connectionCopy setInterruptionHandler:{v11, v16, v17, v18, v19}];
     [connectionCopy setInvalidationHandler:v11];
     v12 = [(COService *)self _newClientForConnection:connectionCopy];
     clients = [(COService *)self clients];
     [clients addServiceClient:v12];
 
     [connectionCopy resume];
-    objc_destroyWeak(&v23);
     objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
     v14 = 1;
@@ -342,13 +338,12 @@ uint64_t __60__COService_leaveClusters_withClusterIdentifier_completion___block_
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
   v4 = v3;
@@ -358,11 +353,11 @@ void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v9 = 134218240;
-      v10 = v6;
-      v11 = 1024;
-      v12 = [v4 processIdentifier];
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "Service %p lost connection from %d", &v9, 0x12u);
+      v8 = 134218240;
+      v9 = v6;
+      v10 = 1024;
+      v11 = [v4 processIdentifier];
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "Service %p lost connection from %d", &v8, 0x12u);
     }
 
     v7 = [WeakRetained clientForConnection:v4];
@@ -371,13 +366,11 @@ void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
       [WeakRetained _clientLost:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_takeAssertionForCluster:(id)cluster
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   dispatchQueue = [(COService *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -411,25 +404,23 @@ void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
       v14 = COCoreLogForCategory(1);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 134218754;
+        v15 = 134218754;
         selfCopy = self;
-        v18 = 2048;
-        v19 = v9;
-        v20 = 2112;
-        v21 = clusterCopy;
-        v22 = 2048;
-        v23 = [v12 count];
-        _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p took assertion %p for %@ (now %lu)", &v16, 0x2Au);
+        v17 = 2048;
+        v18 = v9;
+        v19 = 2112;
+        v20 = clusterCopy;
+        v21 = 2048;
+        v22 = [v12 count];
+        _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p took assertion %p for %@ (now %lu)", &v15, 0x2Au);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_releaseAssertionForCluster:(id)cluster
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   dispatchQueue = [(COService *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -462,38 +453,36 @@ void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
     v11 = COCoreLogForCategory(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134218498;
+      v12 = 134218498;
       selfCopy = self;
-      v15 = 2112;
-      v16 = clusterCopy;
-      v17 = 2048;
-      v18 = [v9 count];
-      _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p released assertion for %@ (remaining %lu)", &v13, 0x20u);
+      v14 = 2112;
+      v15 = clusterCopy;
+      v16 = 2048;
+      v17 = [v9 count];
+      _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p released assertion for %@ (remaining %lu)", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addOnForCluster:(id)cluster completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   completionCopy = completion;
   dispatchQueue = [(COService *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__21;
-  v25 = __Block_byref_object_dispose__21;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__21;
+  v24 = __Block_byref_object_dispose__21;
+  v25 = 0;
   v9 = [(COService *)self _addOnForCluster:clusterCopy];
-  v10 = v22[5];
-  v22[5] = v9;
+  v10 = v21[5];
+  v21[5] = v9;
 
-  if (v22[5])
+  if (v21[5])
   {
     completionCopy[2](completionCopy);
   }
@@ -508,23 +497,23 @@ void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
       {
         *buf = 134218242;
         selfCopy3 = self;
-        v29 = 2112;
-        v30 = clusterCopy;
+        v28 = 2112;
+        v29 = clusterCopy;
         _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p not in cluster %@ and will request creation", buf, 0x16u);
       }
 
       objc_initWeak(buf, self);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __41__COService__addOnForCluster_completion___block_invoke;
-      v16[3] = &unk_278E15EB8;
-      objc_copyWeak(&v20, buf);
-      v19 = &v21;
-      v17 = clusterCopy;
-      v18 = completionCopy;
-      [delegate waitForClusterBootstrap:v17 completion:v16];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __41__COService__addOnForCluster_completion___block_invoke;
+      v15[3] = &unk_278E15EB8;
+      objc_copyWeak(&v19, buf);
+      v18 = &v20;
+      v16 = clusterCopy;
+      v17 = completionCopy;
+      [delegate waitForClusterBootstrap:v16 completion:v15];
 
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(buf);
     }
 
@@ -535,8 +524,8 @@ void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
       {
         *buf = 134218242;
         selfCopy3 = self;
-        v29 = 2112;
-        v30 = clusterCopy;
+        v28 = 2112;
+        v29 = clusterCopy;
         _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p not in cluster %@ and does not have delegate", buf, 0x16u);
       }
 
@@ -551,17 +540,15 @@ void __48__COService_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
     {
       *buf = 134218242;
       selfCopy3 = self;
-      v29 = 2112;
-      v30 = clusterCopy;
+      v28 = 2112;
+      v29 = clusterCopy;
       _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p not in cluster %@ and cannot request creation", buf, 0x16u);
     }
 
     (completionCopy[2])(completionCopy, 0);
   }
 
-  _Block_object_dispose(&v21, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 void __41__COService__addOnForCluster_completion___block_invoke(uint64_t a1)
@@ -590,7 +577,7 @@ void __41__COService__addOnForCluster_completion___block_invoke(uint64_t a1)
 
 uint64_t __41__COService__addOnForCluster_completion___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _addOnForCluster:*(a1 + 40)];
   v3 = *(*(a1 + 56) + 8);
   v4 = *(v3 + 40);
@@ -602,24 +589,21 @@ uint64_t __41__COService__addOnForCluster_completion___block_invoke_2(uint64_t a
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
     v8 = *(*(*(a1 + 56) + 8) + 40);
-    v12 = 134218498;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v8;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p after cluster %@ creation request got %p", &v12, 0x20u);
+    v10 = 134218498;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v8;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p after cluster %@ creation request got %p", &v10, 0x20u);
   }
 
-  v9 = *(*(*(a1 + 56) + 8) + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)_addMesh:(id)mesh forClusters:(id)clusters
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   meshCopy = mesh;
   clustersCopy = clusters;
   dispatchQueue = [(COService *)self dispatchQueue];
@@ -630,38 +614,38 @@ uint64_t __41__COService__addOnForCluster_completion___block_invoke_2(uint64_t a
   {
     *buf = 134218498;
     selfCopy3 = self;
-    v43 = 2048;
-    v44 = meshCopy;
-    v45 = 2112;
-    v46 = clustersCopy;
+    v42 = 2048;
+    v43 = meshCopy;
+    v44 = 2112;
+    v45 = clustersCopy;
     _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p will add %p for clusters %@", buf, 0x20u);
   }
 
   addOns = [(COService *)self addOns];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v11 = clustersCopy;
-  v12 = [v11 countByEnumeratingWithState:&v36 objects:v49 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v35 objects:v48 count:16];
   if (v12)
   {
     v13 = v12;
     serviceAddOn = 0;
     v15 = 0;
-    v16 = *v37;
+    v16 = *v36;
     while (2)
     {
       v17 = 0;
       v18 = serviceAddOn;
       do
       {
-        if (*v37 != v16)
+        if (*v36 != v16)
         {
           objc_enumerationMutation(v11);
         }
 
-        serviceAddOn = [addOns objectForKey:*(*(&v36 + 1) + 8 * v17)];
+        serviceAddOn = [addOns objectForKey:*(*(&v35 + 1) + 8 * v17)];
 
         if (serviceAddOn)
         {
@@ -689,7 +673,7 @@ uint64_t __41__COService__addOnForCluster_completion___block_invoke_2(uint64_t a
       }
 
       while (v13 != v17);
-      v13 = [v11 countByEnumeratingWithState:&v36 objects:v49 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v35 objects:v48 count:16];
       if (v13)
       {
         continue;
@@ -705,10 +689,10 @@ uint64_t __41__COService__addOnForCluster_completion___block_invoke_2(uint64_t a
       {
         *buf = 134218498;
         selfCopy3 = self;
-        v43 = 2048;
-        v44 = meshCopy;
-        v45 = 2112;
-        v46 = v11;
+        v42 = 2048;
+        v43 = meshCopy;
+        v44 = 2112;
+        v45 = v11;
         _os_log_debug_impl(&dword_244378000, v21, OS_LOG_TYPE_DEBUG, "%p already associated with %p for clusters %@", buf, 0x20u);
       }
 
@@ -732,12 +716,12 @@ LABEL_21:
   {
     *buf = 134218754;
     selfCopy3 = self;
-    v43 = 2048;
-    v44 = serviceAddOn;
-    v45 = 2048;
-    v46 = meshCopy;
-    v47 = 2112;
-    v48 = v11;
+    v42 = 2048;
+    v43 = serviceAddOn;
+    v44 = 2048;
+    v45 = meshCopy;
+    v46 = 2112;
+    v47 = v11;
     _os_log_impl(&dword_244378000, v25, OS_LOG_TYPE_DEFAULT, "%p associating %p with %p for clusters %@", buf, 0x2Au);
   }
 
@@ -745,29 +729,29 @@ LABEL_21:
   {
     [meshCopy addAddOn:serviceAddOn];
     v21 = [addOns mutableCopy];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v26 = v11;
-    v27 = [v26 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v33;
+      v29 = *v32;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v33 != v29)
+          if (*v32 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          [v21 setObject:serviceAddOn forKey:*(*(&v32 + 1) + 8 * i), v32];
+          [v21 setObject:serviceAddOn forKey:*(*(&v31 + 1) + 8 * i), v31];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v28);
@@ -777,13 +761,11 @@ LABEL_21:
     [(COService *)self _addOnAdded:serviceAddOn];
 LABEL_32:
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeMeshForClusters:(id)clusters
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   clustersCopy = clusters;
   dispatchQueue = [(COService *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -793,8 +775,8 @@ LABEL_32:
   {
     *buf = 134218242;
     selfCopy2 = self;
-    v26 = 2112;
-    v27 = clustersCopy;
+    v25 = 2112;
+    v26 = clustersCopy;
     _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p will remove from clusters %@", buf, 0x16u);
   }
 
@@ -808,12 +790,12 @@ LABEL_32:
   {
     *buf = 134218754;
     selfCopy2 = self;
-    v26 = 2048;
-    v27 = v9;
-    v28 = 2048;
-    v29 = meshController;
-    v30 = 2112;
-    v31 = clustersCopy;
+    v25 = 2048;
+    v26 = v9;
+    v27 = 2048;
+    v28 = meshController;
+    v29 = 2112;
+    v30 = clustersCopy;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p disassociating %p with %p for clusters %@", buf, 0x2Au);
   }
 
@@ -826,31 +808,31 @@ LABEL_32:
 
     [(COService *)self _addOnRemoved:v9];
     v12 = [addOns mutableCopy];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v13 = clustersCopy;
-    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         v17 = 0;
         do
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [v12 removeObjectForKey:{*(*(&v19 + 1) + 8 * v17++), v19}];
+          [v12 removeObjectForKey:{*(*(&v18 + 1) + 8 * v17++), v18}];
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v15);
@@ -858,38 +840,36 @@ LABEL_32:
 
     [(COService *)self setAddOns:v12];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clustersForAddOn:(id)on
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   onCopy = on;
   dispatchQueue = [(COService *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
   addOns = [(COService *)self addOns];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [addOns countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [addOns countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(addOns);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         v13 = [addOns objectForKey:v12];
         if ([v13 isEqual:onCopy])
         {
@@ -897,13 +877,11 @@ LABEL_32:
         }
       }
 
-      v9 = [addOns countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [addOns countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -949,7 +927,7 @@ LABEL_32:
 
 - (void)_clientLost:(id)lost
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   lostCopy = lost;
   dispatchQueue = [(COService *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -957,17 +935,15 @@ LABEL_32:
   v6 = COCoreLogForCategory(1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 134218242;
+    v8 = 134218242;
     selfCopy = self;
-    v11 = 2112;
-    v12 = lostCopy;
-    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_INFO, "%p lost connection for client %@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = lostCopy;
+    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_INFO, "%p lost connection for client %@", &v8, 0x16u);
   }
 
   clients = [(COService *)self clients];
   [clients removeServiceClient:lostCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addOnAdded:(id)added
@@ -989,28 +965,11 @@ LABEL_32:
   return WeakRetained;
 }
 
-- (void)_takeAssertionForCluster:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p attempting to take assertion for %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_releaseAssertionForCluster:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p attempting to release assertion for %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_addMesh:forClusters:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "%p will remove existing use before add of clusters %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "%p will remove existing use before add of clusters %@", v1, 0x16u);
 }
 
 @end

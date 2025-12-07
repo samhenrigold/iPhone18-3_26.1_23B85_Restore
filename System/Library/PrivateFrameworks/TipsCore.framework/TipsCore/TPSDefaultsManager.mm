@@ -103,35 +103,34 @@
 + (NSDate)lastMajorVersionUpdateDate
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE06688, &qword_1C0156730);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v14 - v4;
-  sub_1C01254E8(16, &v14);
-  if (v15)
+  v4 = &v13 - v3;
+  sub_1C01254E8(16, &v13);
+  if (v14)
   {
-    v6 = sub_1C014BD40();
-    v7 = swift_dynamicCast();
-    v8 = *(v6 - 8);
-    (*(v8 + 56))(v5, v7 ^ 1u, 1, v6);
-    v9 = (*(v8 + 48))(v5, 1, v6);
-    v10 = 0;
-    if (v9 != 1)
+    v5 = sub_1C014BD40();
+    v6 = swift_dynamicCast();
+    v7 = *(v5 - 8);
+    (*(v7 + 56))(v4, v6 ^ 1u, 1, v5);
+    v8 = (*(v7 + 48))(v4, 1, v5);
+    v9 = 0;
+    if (v8 != 1)
     {
-      v11 = sub_1C014BCE0();
-      (*(v8 + 8))(v5, v6);
-      v10 = v11;
+      v10 = sub_1C014BCE0();
+      (*(v7 + 8))(v4, v5);
+      v9 = v10;
     }
   }
 
   else
   {
-    sub_1C00FC158(&v14);
-    v12 = sub_1C014BD40();
-    (*(*(v12 - 8) + 56))(v5, 1, 1, v12);
-    v10 = 0;
+    sub_1C00FC158(&v13);
+    v11 = sub_1C014BD40();
+    (*(*(v11 - 8) + 56))(v4, 1, 1, v11);
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (TPSDefaultsManager)init

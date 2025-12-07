@@ -30,7 +30,7 @@
 
 - ($A5A652246548B43F8BC05201A1C72A70)reactionForHotfixDeployment:(id)deployment hotfixDeploymentDate:(id)date
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deploymentCopy = deployment;
   dateCopy = date;
   if ([(TRINotificationReactionChecker *)self _isOutdatedDeploymentDate:dateCopy])
@@ -38,13 +38,13 @@
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = dateCopy;
+      v14 = 138412290;
+      v15 = dateCopy;
       v9 = "Ignoring outdated notification with deployment date %@";
       v10 = v8;
       v11 = 12;
 LABEL_7:
-      _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
+      _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
     }
   }
 
@@ -59,8 +59,8 @@ LABEL_7:
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109120;
-      LODWORD(v16) = [deploymentCopy deploymentId];
+      v14 = 67109120;
+      LODWORD(v15) = [deploymentCopy deploymentId];
       v9 = "Ignoring notification with existing deploymentId %u";
       v10 = v8;
       v11 = 8;
@@ -71,7 +71,6 @@ LABEL_7:
   v12.var0 = 0;
 LABEL_10:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

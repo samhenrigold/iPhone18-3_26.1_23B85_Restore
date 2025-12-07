@@ -3,41 +3,41 @@
 
 @implementation AddToPlayQueue
 
-void __papc_AddToPlayQueue_block_invoke(uint64_t a1)
+void __papc_AddToPlayQueue_block_invoke(void *a1)
 {
-  FigReadWriteLockLockForRead();
-  if (*(*(a1 + 32) + 24))
+  v2 = FigReadWriteLockLockForRead();
+  if (*(a1[4] + 24))
   {
-    __papc_AddToPlayQueue_block_invoke_cold_1();
+    __papc_AddToPlayQueue_block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9, v13, v14, SHIDWORD(v14), vars0);
   }
 
   else
   {
-    papc_checkStartStopAirPlay(*(a1 + 40), NAN);
-    if (*(*(a1 + 32) + 72) == 1)
+    papc_checkStartStopAirPlay(a1[5], NAN);
+    if (*(a1[4] + 72) == 1)
     {
-      __papc_AddToPlayQueue_block_invoke_cold_2((a1 + 40), a1);
+      __papc_AddToPlayQueue_block_invoke_cold_2(a1 + 5, a1);
     }
   }
 
   FigReadWriteLockUnlockForRead();
-  v2 = *(a1 + 56);
-  if (v2)
+  v10 = a1[7];
+  if (v10)
   {
-    CFRetain(v2);
+    CFRetain(v10);
   }
 
-  v3 = *(a1 + 48);
-  if (v3)
+  v11 = a1[6];
+  if (v11)
   {
-    CFRetain(v3);
+    CFRetain(v11);
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v12 = a1[5];
+  if (v12)
   {
 
-    CFRelease(v4);
+    CFRelease(v12);
   }
 }
 
@@ -56,7 +56,7 @@ void __playerairplay_AddToPlayQueue_block_invoke(uint64_t a1)
       v3 = 1;
     }
 
-    if (v3 || (v4 = *(a1 + 32), *(v4 + 216) == 11) && *(v4 + 56) == 0.0 && !playerairplay_isPrimaryForNativeInterstitialsInAPVPlayback())
+    if (v3 || (v4 = *(a1 + 32), *(v4 + 216) == 11) && *(v4 + 56) == 0.0 && !playerairplay_isPrimaryForNativeInterstitialsInAPVPlayback(*(a1 + 40)))
     {
       playerairplay_addItemToSubPlayerPlayQueue(*(a1 + 40), *(a1 + 48), *(a1 + 56));
     }

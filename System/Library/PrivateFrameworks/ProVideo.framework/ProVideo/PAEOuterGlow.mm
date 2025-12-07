@@ -200,7 +200,7 @@
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v48);
     }
 
     else
@@ -217,7 +217,7 @@
 
   else
   {
-    [(PAESharedDefaultBase *)self getScaleForImage:input, v48];
+    objc_msgSend_getScaleForImage_(self, v48);
     v14 = v46;
     v15 = v47;
     if (v46 <= v47)
@@ -263,7 +263,7 @@
     v43 = v43 / 12.5;
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else

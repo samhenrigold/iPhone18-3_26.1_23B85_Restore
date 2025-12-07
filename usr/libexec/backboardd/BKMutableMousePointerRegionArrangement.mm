@@ -3,6 +3,7 @@
 - (void)_computeFrameForRegion:(id)region layoutDescriptor:(id)descriptor accumulatedFrames:(id)frames;
 - (void)_updateFrames;
 - (void)addPrimaryRegion:(id)region;
+- (void)addRegion:(id)region relativeToRegion:(id)toRegion alongEdge:(unsigned int)edge atPosition:(double)position;
 - (void)removeRegion:(id)region;
 @end
 
@@ -125,6 +126,56 @@
     self->super._regionToLayoutDescriptor = 0;
   }
 
+  [(BKMutableMousePointerRegionArrangement *)self _updateFrames];
+}
+
+- (void)addRegion:(id)region relativeToRegion:(id)toRegion alongEdge:(unsigned int)edge atPosition:(double)position
+{
+  v7 = *&edge;
+  regionCopy = region;
+  toRegionCopy = toRegion;
+  if (!toRegionCopy)
+  {
+    v17 = [NSString stringWithFormat:@"Regions must be relative to another region if there are existing regions"];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v18 = NSStringFromSelector(a2);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      *buf = 138544642;
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
+      v26 = 2048;
+      selfCopy = self;
+      v28 = 2114;
+      v29 = @"BKMousePointerRegionArrangement.m";
+      v30 = 1024;
+      v31 = 348;
+      v32 = 2114;
+      v33 = v17;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
+    }
+
+    [v17 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x10009BF48);
+  }
+
+  v12 = toRegionCopy;
+  v13 = [[_BKMousePointerRegionLayoutDescriptor alloc] initWithRelativeRegion:toRegionCopy edge:v7 edgePosition:position];
+  regionToLayoutDescriptor = self->super._regionToLayoutDescriptor;
+  if (!regionToLayoutDescriptor)
+  {
+    v15 = objc_alloc_init(NSMutableDictionary);
+    v16 = self->super._regionToLayoutDescriptor;
+    self->super._regionToLayoutDescriptor = v15;
+
+    regionToLayoutDescriptor = self->super._regionToLayoutDescriptor;
+  }
+
+  [(NSMutableDictionary *)regionToLayoutDescriptor setObject:v13 forKey:regionCopy];
   [(BKMutableMousePointerRegionArrangement *)self _updateFrames];
 }
 

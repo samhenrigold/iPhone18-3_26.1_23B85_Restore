@@ -11,54 +11,24 @@
 
 - (CWFSCNetworkReachability)init
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = CWFSCNetworkReachability;
-  v2 = [(CWFSCNetworkReachability *)&v13 init];
-  if (!v2)
+  v14 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = CWFSCNetworkReachability;
+  v2 = [(CWFSCNetworkReachability *)&v12 init];
+  if (v2 && (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v3 = objc_claimAutoreleasedReturnValue(), v4 = dispatch_queue_create("com.apple.corewifi.SC-reach-mutex", v3), mutexQueue = v2->_mutexQueue, v2->_mutexQueue = v4, mutexQueue, v3, v2->_mutexQueue) && (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v6 = objc_claimAutoreleasedReturnValue(), v7 = dispatch_queue_create("com.apple.corewifi.SC-reach-event", v6), eventQueue = v2->_eventQueue, v2->_eventQueue = v7, eventQueue, v6, v2->_eventQueue) && (address = xmmword_1E0D81800, v9 = SCNetworkReachabilityCreateWithAddress(*MEMORY[0x1E695E480], &address), (v2->_reachabilityRef = v9) != 0))
   {
-    goto LABEL_7;
-  }
-
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create("com.apple.corewifi.SC-reach-mutex", v3);
-  mutexQueue = v2->_mutexQueue;
-  v2->_mutexQueue = v4;
-
-  if (!v2->_mutexQueue)
-  {
-    goto LABEL_7;
-  }
-
-  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v7 = dispatch_queue_create("com.apple.corewifi.SC-reach-event", v6);
-  eventQueue = v2->_eventQueue;
-  v2->_eventQueue = v7;
-
-  if (!v2->_eventQueue)
-  {
-    goto LABEL_7;
-  }
-
-  address = xmmword_1E0D81800;
-  v9 = SCNetworkReachabilityCreateWithAddress(*MEMORY[0x1E695E480], &address);
-  v2->_reachabilityRef = v9;
-  if (v9)
-  {
-    v12.version = 0;
-    memset(&v12.retain, 0, 24);
-    v12.info = v2;
-    SCNetworkReachabilitySetCallback(v9, sub_1E0BF3464, &v12);
+    v11.version = 0;
+    memset(&v11.retain, 0, 24);
+    v11.info = v2;
+    SCNetworkReachabilitySetCallback(v9, sub_1E0BF3464, &v11);
   }
 
   else
   {
-LABEL_7:
 
-    v2 = 0;
+    return 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

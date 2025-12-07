@@ -1,5 +1,6 @@
 @interface _CPLCloudKitTaskContext
 - (BOOL)_operationAllowsCellular:(id)cellular;
+- (BOOL)hasBlockedOperationsIncludingBackground:(BOOL)background;
 - (NSDictionary)statusPerOperationType;
 - (_CPLCloudKitTaskContext)initWithTask:(id)task;
 - (id)_priorityDescriptionForOperation:(id)operation forTask:(id)task;
@@ -59,6 +60,72 @@
 
     self->_lastOperationClass = objc_opt_class();
   }
+}
+
+- (BOOL)hasBlockedOperationsIncludingBackground:(BOOL)background
+{
+  if (![(NSMapTable *)self->_contexts count])
+  {
+    return 0;
+  }
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v4 = self->_contexts;
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v17;
+    while (2)
+    {
+      for (i = 0; i != v6; i = i + 1)
+      {
+        if (*v17 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = *(*(&v16 + 1) + 8 * i);
+        resolvedConfiguration = [v9 resolvedConfiguration];
+        cplDiscretionary = [resolvedConfiguration cplDiscretionary];
+
+        if (cplDiscretionary)
+        {
+          v12 = [(NSMapTable *)self->_contexts objectForKey:v9];
+          mightBeBlocked = [v12 mightBeBlocked];
+
+          if (mightBeBlocked)
+          {
+            continue;
+          }
+        }
+
+        v14 = 0;
+        goto LABEL_15;
+      }
+
+      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v14 = 1;
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+LABEL_15:
+
+  return v14;
 }
 
 - (void)cancelAllOperations
@@ -151,126 +218,123 @@
   if (![(NSMapTable *)selfCopy->_contexts count])
   {
     lastOperationDate = selfCopy->_lastOperationDate;
-    v57 = [NSString alloc];
+    v56 = [NSString alloc];
     if (lastOperationDate)
     {
       lastOperationClass = selfCopy->_lastOperationClass;
-      task = selfCopy->_task;
-      v60 = objc_opt_class();
-      v61 = CPLSimplifiedStringFromClass(v60);
-      v54 = [v57 initWithFormat:@"%@ (for %@%@)", lastOperationClass, v61, v6];
+      v58 = objc_opt_class();
+      v59 = CPLSimplifiedStringFromClass(v58);
+      v53 = [v56 initWithFormat:@"%@ (for %@%@)", lastOperationClass, v59, v6];
 
-      v62 = [NSString alloc];
-      v63 = selfCopy->_lastOperationClass;
+      v60 = [NSString alloc];
+      v61 = selfCopy->_lastOperationClass;
       idleDescription = [CPLDateFormatter stringFromDateAgo:selfCopy->_lastOperationDate now:0];
-      v65 = [v62 initWithFormat:@"%@ finished %@", v63, idleDescription];
+      v63 = [v60 initWithFormat:@"%@ finished %@", v61, idleDescription];
     }
 
     else
     {
-      v66 = selfCopy->_task;
-      v67 = objc_opt_class();
-      v68 = CPLSimplifiedStringFromClass(v67);
-      v69 = [CPLDateFormatter stringFromDateAgo:selfCopy->_startDate now:0];
-      v54 = [v57 initWithFormat:@"Started %@%@ %@", v68, v6, v69];
+      v64 = objc_opt_class();
+      v65 = CPLSimplifiedStringFromClass(v64);
+      v66 = [CPLDateFormatter stringFromDateAgo:selfCopy->_startDate now:0];
+      v53 = [v56 initWithFormat:@"Started %@%@ %@", v65, v6, v66];
 
       idleDescription = [(CPLCloudKitTrackableTask *)selfCopy->_task idleDescription];
       if (!idleDescription)
       {
-        v53 = @"no operation launched yet";
+        v52 = @"no operation launched yet";
         goto LABEL_56;
       }
 
-      v65 = [[NSString alloc] initWithFormat:@"%@", idleDescription, v71];
+      v63 = [[NSString alloc] initWithFormat:@"%@", idleDescription, v68];
     }
 
-    v53 = v65;
+    v52 = v63;
 LABEL_56:
 
-    v91 = v54;
-    v92 = v53;
-    v55 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+    v88 = v53;
+    v89 = v52;
+    v54 = [NSDictionary dictionaryWithObjects:&v89 forKeys:&v88 count:1];
     goto LABEL_57;
   }
 
-  v77 = +[NSDate date];
-  v75 = objc_alloc_init(NSMutableDictionary);
-  v7 = selfCopy->_task;
-  v8 = objc_opt_class();
-  v76 = CPLSimplifiedStringFromClass(v8);
+  v74 = +[NSDate date];
+  v72 = objc_alloc_init(NSMutableDictionary);
+  v7 = objc_opt_class();
+  v73 = CPLSimplifiedStringFromClass(v7);
+  v83 = 0u;
+  v84 = 0u;
+  v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
   obj = selfCopy->_contexts;
-  v78 = [(NSMapTable *)obj countByEnumeratingWithState:&v86 objects:v90 count:16];
-  if (v78)
+  v75 = [(NSMapTable *)obj countByEnumeratingWithState:&v83 objects:v87 count:16];
+  if (v75)
   {
-    v74 = *v87;
-    v79 = selfCopy;
+    v71 = *v84;
+    v76 = selfCopy;
     do
     {
-      for (i = 0; i != v78; i = i + 1)
+      for (i = 0; i != v75; i = i + 1)
       {
-        if (*v87 != v74)
+        if (*v84 != v71)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v86 + 1) + 8 * i);
-        v11 = [(NSMapTable *)selfCopy->_contexts objectForKey:v10];
-        group = [v10 group];
-        v13 = objc_alloc(v5[200]);
-        cplOperationClassDescription = [v10 cplOperationClassDescription];
-        v15 = cplOperationClassDescription;
-        v82 = group;
+        v9 = *(*(&v83 + 1) + 8 * i);
+        v10 = [(NSMapTable *)selfCopy->_contexts objectForKey:v9];
+        group = [v9 group];
+        v12 = objc_alloc(v5[200]);
+        cplOperationClassDescription = [v9 cplOperationClassDescription];
+        v14 = cplOperationClassDescription;
+        v79 = group;
         if (group)
         {
           name = [group name];
-          v17 = [v13 initWithFormat:@"%@ (for %@/%@%@)", v15, v76, name, v6];
+          v16 = [v12 initWithFormat:@"%@ (for %@/%@%@)", v14, v73, name, v6];
         }
 
         else
         {
-          v17 = [v13 initWithFormat:@"%@ (for %@%@)", cplOperationClassDescription, v76, v6];
+          v16 = [v12 initWithFormat:@"%@ (for %@%@)", cplOperationClassDescription, v73, v6];
         }
 
-        v83 = v17;
+        v80 = v16;
 
-        v85 = [v11 startDateDescriptionWithNow:v77];
-        mightBeBlocked = [v11 mightBeBlocked];
-        isCancelled = [v10 isCancelled];
-        isCancelled2 = [v11 isCancelled];
-        v20 = "";
+        v82 = [v10 startDateDescriptionWithNow:v74];
+        mightBeBlocked = [v10 mightBeBlocked];
+        isCancelled = [v9 isCancelled];
+        isCancelled2 = [v10 isCancelled];
+        v19 = "";
         if (isCancelled2)
         {
-          v20 = "- cancelled by engine";
+          v19 = "- cancelled by engine";
         }
 
         if (isCancelled)
         {
-          v20 = "- cancelled";
+          v19 = "- cancelled";
         }
 
-        v81 = v20;
-        [v11 progress];
-        v22 = v21;
-        operationDescription = [v11 operationDescription];
+        v78 = v19;
+        [v10 progress];
+        v21 = v20;
+        operationDescription = [v10 operationDescription];
         if (operationDescription)
         {
-          v24 = objc_alloc(v5[200]);
-          operationID = [v10 operationID];
-          operationID2 = [v24 initWithFormat:@"%@ %@", operationID, operationDescription];
+          v23 = objc_alloc(v5[200]);
+          operationID = [v9 operationID];
+          operationID2 = [v23 initWithFormat:@"%@ %@", operationID, operationDescription];
         }
 
         else
         {
-          operationID2 = [v10 operationID];
+          operationID2 = [v9 operationID];
         }
 
-        configuration = [v10 configuration];
+        configuration = [v9 configuration];
         applicationBundleIdentifierOverrideForNetworkAttribution = [configuration applicationBundleIdentifierOverrideForNetworkAttribution];
-        v28 = applicationBundleIdentifierOverrideForNetworkAttribution;
+        v27 = applicationBundleIdentifierOverrideForNetworkAttribution;
         if (applicationBundleIdentifierOverrideForNetworkAttribution)
         {
           applicationBundleIdentifierOverrideForNetworkAttribution2 = applicationBundleIdentifierOverrideForNetworkAttribution;
@@ -278,127 +342,127 @@ LABEL_56:
 
         else
         {
-          [v10 group];
-          v31 = v30 = v6;
-          defaultConfiguration = [v31 defaultConfiguration];
+          [v9 group];
+          v30 = v29 = v6;
+          defaultConfiguration = [v30 defaultConfiguration];
           applicationBundleIdentifierOverrideForNetworkAttribution2 = [defaultConfiguration applicationBundleIdentifierOverrideForNetworkAttribution];
 
           v5 = &CPLFeatureNameEPP_ptr;
-          v6 = v30;
-          selfCopy = v79;
+          v6 = v29;
+          selfCopy = v76;
         }
 
-        v33 = objc_alloc(v5[200]);
-        v34 = [(_CPLCloudKitTaskContext *)selfCopy _priorityDescriptionForOperation:v10 forTask:selfCopy->_task];
-        if ([(_CPLCloudKitTaskContext *)selfCopy _operationAllowsCellular:v10])
+        v32 = objc_alloc(v5[200]);
+        v33 = [(_CPLCloudKitTaskContext *)selfCopy _priorityDescriptionForOperation:v9 forTask:selfCopy->_task];
+        if ([(_CPLCloudKitTaskContext *)selfCopy _operationAllowsCellular:v9])
         {
-          v35 = "";
+          v34 = "";
         }
 
         else
         {
-          v35 = " (no cell)";
+          v34 = " (no cell)";
         }
 
-        isExecuting = [v10 isExecuting];
-        v38 = "exc";
-        if (v22 <= 0.0)
+        isExecuting = [v9 isExecuting];
+        v37 = "exc";
+        if (v21 <= 0.0)
         {
-          v39 = v75;
+          v38 = v72;
           if ((isExecuting & 1) == 0)
           {
-            isFinished = [v10 isFinished];
-            v38 = "pen";
+            isFinished = [v9 isFinished];
+            v37 = "pen";
             if (isFinished)
             {
-              v38 = "fin";
+              v37 = "fin";
             }
           }
 
-          v45 = @"no bundle";
+          v44 = @"no bundle";
           if (applicationBundleIdentifierOverrideForNetworkAttribution2)
           {
-            v45 = applicationBundleIdentifierOverrideForNetworkAttribution2;
+            v44 = applicationBundleIdentifierOverrideForNetworkAttribution2;
           }
 
-          v46 = "";
+          v45 = "";
           if (mightBeBlocked)
           {
-            v46 = " (blocked?)";
+            v45 = " (blocked?)";
           }
 
-          v43 = [v33 initWithFormat:@"  [%@](%@)%s [%s]%s - %@ - %@%s", v37, operationID2, v34, v35, v38, v81, v45, v85, v46, v72];
+          v42 = [v32 initWithFormat:@"  [%@](%@)%s [%s]%s - %@ - %@%s", v36, operationID2, v33, v34, v37, v78, v44, v82, v45, v69];
         }
 
         else
         {
-          v39 = v75;
+          v38 = v72;
           if ((isExecuting & 1) == 0)
           {
-            isFinished2 = [v10 isFinished];
-            v38 = "pen";
+            isFinished2 = [v9 isFinished];
+            v37 = "pen";
             if (isFinished2)
             {
-              v38 = "fin";
+              v37 = "fin";
             }
           }
 
-          v41 = @"no bundle";
+          v40 = @"no bundle";
           if (applicationBundleIdentifierOverrideForNetworkAttribution2)
           {
-            v41 = applicationBundleIdentifierOverrideForNetworkAttribution2;
+            v40 = applicationBundleIdentifierOverrideForNetworkAttribution2;
           }
 
-          v42 = "";
+          v41 = "";
           if (mightBeBlocked)
           {
-            v42 = " (blocked?)";
+            v41 = " (blocked?)";
           }
 
-          v43 = [v33 initWithFormat:@"  [%@](%@)%s [%s]%s - %@ - %@ - %.0f%%%s", v22 * 100.0, operationID2, v34, v35, v38, v81, v41, v85, v22 * 100.0, v42];
+          v42 = [v32 initWithFormat:@"  [%@](%@)%s [%s]%s - %@ - %@ - %.0f%%%s", v21 * 100.0, operationID2, v33, v34, v37, v78, v40, v82, v21 * 100.0, v41];
         }
 
-        v47 = v43;
+        v46 = v42;
 
-        v48 = v83;
-        v49 = [v39 objectForKeyedSubscript:v83];
+        v47 = v80;
+        v48 = [v38 objectForKeyedSubscript:v80];
         v5 = &CPLFeatureNameEPP_ptr;
-        if (v49)
+        if (v48)
         {
-          v50 = v49;
-          [v49 appendFormat:@"\n%@", v47];
+          v49 = v48;
+          [v48 appendFormat:@"\n%@", v46];
         }
 
         else
         {
-          v50 = [v47 mutableCopy];
-          [v39 setObject:v50 forKeyedSubscript:v83];
+          v49 = [v46 mutableCopy];
+          [v38 setObject:v49 forKeyedSubscript:v80];
         }
 
-        extendedStatusDescriptionStrings = [v11 extendedStatusDescriptionStrings];
+        extendedStatusDescriptionStrings = [v10 extendedStatusDescriptionStrings];
         if ([extendedStatusDescriptionStrings count])
         {
-          v52 = [extendedStatusDescriptionStrings componentsJoinedByString:@"\n      "];
-          [v50 appendFormat:@"\n      %@", v52];
+          v51 = [extendedStatusDescriptionStrings componentsJoinedByString:@"\n      "];
+          [v49 appendFormat:@"\n      %@", v51];
 
-          v48 = v83;
+          v47 = v80;
         }
 
-        selfCopy = v79;
+        selfCopy = v76;
       }
 
-      v78 = [(NSMapTable *)obj countByEnumeratingWithState:&v86 objects:v90 count:16];
+      v75 = [(NSMapTable *)obj countByEnumeratingWithState:&v83 objects:v87 count:16];
     }
 
-    while (v78);
+    while (v75);
   }
 
-  v53 = v76;
-  v54 = v77;
-  v55 = v75;
+  v52 = v73;
+  v53 = v74;
+  v54 = v72;
 LABEL_57:
 
-  return v55;
+  return v54;
 }
 
 @end

@@ -23,6 +23,7 @@
 - (void)invalidateWithReply:(id)reply;
 - (void)isCredentialSet:(int64_t)set reply:(id)reply;
 - (void)optionsForInternalOperation:(int64_t)operation reply:(id)reply;
+- (void)pauseProcessedEvent:(int64_t)event pause:(BOOL)pause reply:(id)reply;
 - (void)resetProcessedEvent:(int64_t)event reply:(id)reply;
 - (void)retryProcessedEvent:(int64_t)event reply:(id)reply;
 - (void)serverPropertyForOption:(int64_t)option reply:(id)reply;
@@ -31,6 +32,7 @@
 - (void)setCredentialsUUID:(id)d reply:(id)reply;
 - (void)setOptions:(id)options forInternalOperation:(int64_t)operation reply:(id)reply;
 - (void)setServerPropertyForOption:(int64_t)option value:(id)value reply:(id)reply;
+- (void)setShowingCoachingHint:(BOOL)hint event:(int64_t)event reply:(id)reply;
 - (void)tokenForTransferToUnknownProcess:(id)process;
 - (void)verifyFileVaultUser:(id)user volumeUuid:(id)uuid options:(unint64_t)options reply:(id)reply;
 @end
@@ -266,7 +268,7 @@
     v24 = +[PreflightCache sharedInstance];
     if (originatorCopy)
     {
-      [originatorCopy auditToken];
+      objc_msgSend_auditToken(originatorCopy);
     }
 
     else
@@ -364,7 +366,7 @@ LABEL_19:
     v19 = +[PreflightCache sharedInstance];
     if (originatorCopy)
     {
-      [originatorCopy auditToken];
+      objc_msgSend_auditToken(originatorCopy);
     }
 
     else
@@ -653,6 +655,84 @@ LABEL_15:
   {
     v10 = [LAErrorHelper missingEntitlementError:@"com.apple.private.CoreAuthentication.SPI"];
     (*(replyCopy + 2))(replyCopy, 0, v10);
+  }
+}
+
+- (void)pauseProcessedEvent:(int64_t)event pause:(BOOL)pause reply:(id)reply
+{
+  pauseCopy = pause;
+  replyCopy = reply;
+  v9 = +[Request requestFromCurrentConnection];
+  v10 = [v9 log];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109634;
+    eventCopy = event;
+    v18 = 2114;
+    selfCopy = self;
+    v20 = 1024;
+    identifier = [v9 identifier];
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "pauseProcessedEvent:%d on %{public}@ rid:%u", buf, 0x18u);
+  }
+
+  if ([(ContextProxy *)self checkEntitlement:@"com.apple.private.CoreAuthentication.SPI"])
+  {
+    managedContext = self->_managedContext;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000A238;
+    v13[3] = &unk_1000551B0;
+    v14 = v9;
+    v15 = replyCopy;
+    [managedContext pauseProcessedEvent:event pause:pauseCopy reply:v13];
+
+    v12 = v14;
+  }
+
+  else
+  {
+    v12 = [LAErrorHelper missingEntitlementError:@"com.apple.private.CoreAuthentication.SPI"];
+    (*(replyCopy + 2))(replyCopy, 0, v12);
+  }
+}
+
+- (void)setShowingCoachingHint:(BOOL)hint event:(int64_t)event reply:(id)reply
+{
+  hintCopy = hint;
+  replyCopy = reply;
+  v9 = +[Request requestFromCurrentConnection];
+  v10 = [v9 log];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109890;
+    v17 = hintCopy;
+    v18 = 1024;
+    eventCopy = event;
+    v20 = 2114;
+    selfCopy = self;
+    v22 = 1024;
+    identifier = [v9 identifier];
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "setShowingCoachingHint:%d event:%d on %{public}@ rid:%u", buf, 0x1Eu);
+  }
+
+  if ([(ContextProxy *)self checkEntitlement:@"com.apple.private.CoreAuthentication.SPI"])
+  {
+    managedContext = self->_managedContext;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000A508;
+    v13[3] = &unk_1000551B0;
+    v14 = v9;
+    v15 = replyCopy;
+    [managedContext setShowingCoachingHint:hintCopy event:event originator:self reply:v13];
+
+    v12 = v14;
+  }
+
+  else
+  {
+    v12 = [LAErrorHelper missingEntitlementError:@"com.apple.private.CoreAuthentication.SPI"];
+    (*(replyCopy + 2))(replyCopy, 0, v12);
   }
 }
 

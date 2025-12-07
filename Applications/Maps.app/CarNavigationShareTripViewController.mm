@@ -62,7 +62,7 @@
 
 - (NSArray)searchResults
 {
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -71,7 +71,7 @@
 
 - (void)setSearchResults:(id)results
 {
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
   *(self + OBJC_IVAR____TtC4Maps36CarNavigationShareTripViewController_searchResults) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
@@ -93,7 +93,7 @@
 
 - (_TtC4Maps36CarNavigationShareTripViewController)initWithDelegate:(id)delegate dataSource:(id)source sharingIdentity:(id)identity searchResults:(id)results searchQuery:(id)query
 {
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v13 = v12;
@@ -105,7 +105,7 @@
 
 - (NSDictionary)contactByHandle
 {
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
 
   v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -114,7 +114,7 @@
 
 - (void)setContactByHandle:(id)handle
 {
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
   *(self + OBJC_IVAR____TtC4Maps36CarNavigationShareTripViewController_contactByHandle) = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
@@ -122,7 +122,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CarNavigationShareTripViewController();
+  v7.super_class = type metadata accessor for CarNavigationShareTripViewController(0);
   v4 = v7.receiver;
   [(CarNavigationShareTripViewController *)&v7 viewWillAppear:appearCopy];
   sub_100278BF4();
@@ -139,7 +139,7 @@
 {
   disappearCopy = disappear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CarNavigationShareTripViewController();
+  v7.super_class = type metadata accessor for CarNavigationShareTripViewController(0);
   v4 = v7.receiver;
   [(CarNavigationShareTripViewController *)&v7 viewWillDisappear:disappearCopy];
   sharedFetcher = [objc_opt_self() sharedFetcher];

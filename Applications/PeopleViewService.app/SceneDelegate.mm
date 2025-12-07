@@ -58,7 +58,7 @@
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
   sub_10000C0C0();
-  sub_10000CFCC(&qword_1000261A0, sub_10000C0C0);
+  sub_10000CFCC(&qword_1000261A0, sub_10000C0C0, &protocol conformance descriptor for NSObject);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
@@ -81,24 +81,23 @@
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static PeopleLogger.viewService.getter();
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v5, v6))
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v4, v5))
   {
+    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v11 = v8;
-    *v7 = 136315138;
-    *(v7 + 4) = sub_1000141EC(0xD000000000000018, 0x8000000100019F00, &v11);
-    _os_log_impl(&_mh_execute_header, v5, v6, "%s -- app reloading all widget timeline", v7, 0xCu);
-    sub_100004208(v8);
+    v10 = v7;
+    *v6 = 136315138;
+    *(v6 + 4) = sub_1000141EC(0xD000000000000018, 0x8000000100019F00, &v10);
+    _os_log_impl(&_mh_execute_header, v4, v5, "%s -- app reloading all widget timeline", v6, 0xCu);
+    sub_100004208(v7);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   type metadata accessor for WidgetCenter();
   static WidgetCenter.shared.getter();
   dispatch thunk of WidgetCenter.reloadAllTimelines()();
@@ -108,24 +107,23 @@
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static PeopleLogger.viewService.getter();
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v5, v6))
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v4, v5))
   {
+    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v11 = v8;
-    *v7 = 136315138;
-    *(v7 + 4) = sub_1000141EC(0xD000000000000019, 0x8000000100019EC0, &v11);
-    _os_log_impl(&_mh_execute_header, v5, v6, "%s", v7, 0xCu);
-    sub_100004208(v8);
+    v10 = v7;
+    *v6 = 136315138;
+    *(v6 + 4) = sub_1000141EC(0xD000000000000019, 0x8000000100019EC0, &v10);
+    _os_log_impl(&_mh_execute_header, v4, v5, "%s", v6, 0xCu);
+    sub_100004208(v7);
   }
 
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 @end

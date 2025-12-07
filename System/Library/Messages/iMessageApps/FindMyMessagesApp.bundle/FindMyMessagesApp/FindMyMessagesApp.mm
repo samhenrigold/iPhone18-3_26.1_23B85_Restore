@@ -8,38 +8,35 @@ uint64_t sub_1748()
 
 id variable initialization expression of FindMyMessagesAppViewController.viewModel()
 {
-  v0 = *(*(sub_E634() - 8) + 64);
-  (__chkstk_darwin)();
+  v0 = sub_E634();
+  __chkstk_darwin(v0 - 8);
   v1 = sub_E434();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  v4 = (__chkstk_darwin)();
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v8 = &v18 - v7;
-  v9 = sub_E524();
-  v10 = *(v9 + 48);
-  v11 = *(v9 + 52);
+  v3 = __chkstk_darwin(v1);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v7 = &v14 - v6;
+  sub_E524();
   swift_allocObject();
-  v12 = sub_E514();
+  v8 = sub_E514();
 
   sub_E424();
-  (*(v2 + 16))(v6, v8, v1);
-  v13 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
-  v14 = sub_E614();
+  (*(v2 + 16))(v5, v7, v1);
+  v9 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
+  v10 = sub_E614();
   sub_E624();
   sub_E5F4();
   sub_E5E4();
   sub_E604();
-  result = [v14 view];
+  result = [v10 view];
   if (result)
   {
-    v16 = result;
-    v17 = [objc_opt_self() clearColor];
-    [v16 setBackgroundColor:v17];
+    v12 = result;
+    v13 = [objc_opt_self() clearColor];
+    [v12 setBackgroundColor:v13];
 
-    (*(v2 + 8))(v8, v1);
-    return v12;
+    (*(v2 + 8))(v7, v1);
+    return v8;
   }
 
   else
@@ -55,7 +52,6 @@ uint64_t sub_19DC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -142,13 +138,12 @@ void sub_1EC0(uint64_t a1)
   v2 = v1;
   v4 = sub_E374();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = v57 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v55 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_E364();
-  if (!v58[3])
+  if (!v56[3])
   {
-    sub_E1B0(v58, &qword_18530, &qword_EFD8);
+    sub_E1B0(v56, &qword_18530, &qword_EFD8);
     goto LABEL_14;
   }
 
@@ -161,35 +156,35 @@ LABEL_14:
       swift_once();
     }
 
-    v32 = sub_E5D4();
-    sub_1BD8(v32, qword_18628);
-    (*(v5 + 16))(v8, a1, v4);
-    v33 = v2;
-    v34 = sub_E5B4();
-    v35 = sub_E714();
+    v31 = sub_E5D4();
+    sub_1BD8(v31, qword_18628);
+    (*(v5 + 16))(v7, a1, v4);
+    v32 = v2;
+    v33 = sub_E5B4();
+    v34 = sub_E714();
 
-    if (os_log_type_enabled(v34, v35))
+    if (os_log_type_enabled(v33, v34))
     {
+      v35 = swift_slowAlloc();
       v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v57[0] = swift_slowAlloc();
-      v58[0] = v57[0];
-      *v36 = 138412802;
-      *(v36 + 4) = v33;
-      *v37 = v33;
-      *(v36 + 12) = 2080;
-      v38 = v33;
-      *(v36 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v58);
-      *(v36 + 22) = 2080;
-      sub_E168(&qword_18538, &type metadata accessor for Notification);
-      v39 = sub_E7A4();
-      v41 = v40;
-      (*(v5 + 8))(v8, v4);
-      v42 = sub_C740(v39, v41, v58);
+      v55[0] = swift_slowAlloc();
+      v56[0] = v55[0];
+      *v35 = 138412802;
+      *(v35 + 4) = v32;
+      *v36 = v32;
+      *(v35 + 12) = 2080;
+      v37 = v32;
+      *(v35 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v56);
+      *(v35 + 22) = 2080;
+      sub_E168(&qword_18538, &type metadata accessor for Notification, &protocol conformance descriptor for Notification);
+      v38 = sub_E7A4();
+      v40 = v39;
+      (*(v5 + 8))(v7, v4);
+      v41 = sub_C740(v38, v40, v56);
 
-      *(v36 + 24) = v42;
-      _os_log_impl(&dword_0, v34, v35, "FindMyMessagesAppViewController: %@ - %s - No Scene %s", v36, 0x20u);
-      sub_E1B0(v37, &qword_184B0, &qword_EE68);
+      *(v35 + 24) = v41;
+      _os_log_impl(&dword_0, v33, v34, "FindMyMessagesAppViewController: %@ - %s - No Scene %s", v35, 0x20u);
+      sub_E1B0(v36, &qword_184B0, &qword_EE68);
 
       swift_arrayDestroy();
     }
@@ -197,124 +192,123 @@ LABEL_14:
     else
     {
 
-      (*(v5 + 8))(v8, v4);
+      (*(v5 + 8))(v7, v4);
     }
 
     return;
   }
 
-  v9 = v57[1];
+  v8 = v55[1];
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v10 = sub_E5D4();
-  sub_1BD8(v10, qword_18628);
-  v11 = v2;
-  v12 = sub_E5B4();
-  v13 = sub_E724();
+  v9 = sub_E5D4();
+  sub_1BD8(v9, qword_18628);
+  v10 = v2;
+  v11 = sub_E5B4();
+  v12 = sub_E724();
 
-  if (os_log_type_enabled(v12, v13))
+  if (os_log_type_enabled(v11, v12))
   {
+    v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
     v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v58[0] = v16;
-    *v14 = 138412546;
-    *(v14 + 4) = v11;
-    *v15 = v11;
-    *(v14 + 12) = 2080;
-    v17 = v11;
-    *(v14 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v58);
-    _os_log_impl(&dword_0, v12, v13, "FindMyMessagesAppViewController: %@ - %s", v14, 0x16u);
-    sub_E1B0(v15, &qword_184B0, &qword_EE68);
+    v56[0] = v15;
+    *v13 = 138412546;
+    *(v13 + 4) = v10;
+    *v14 = v10;
+    *(v13 + 12) = 2080;
+    v16 = v10;
+    *(v13 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v56);
+    _os_log_impl(&dword_0, v11, v12, "FindMyMessagesAppViewController: %@ - %s", v13, 0x16u);
+    sub_E1B0(v14, &qword_184B0, &qword_EE68);
 
-    sub_C80C(v16);
+    sub_C80C(v15);
   }
 
-  v18 = [v11 view];
-  if (v18)
+  v17 = [v10 view];
+  if (v17)
   {
-    v19 = v18;
-    v20 = [v18 window];
+    v18 = v17;
+    v19 = [v17 window];
 
-    if (!v20 || (v21 = [v20 windowScene], v20, !v21))
+    if (!v19 || (v20 = [v19 windowScene], v19, !v20))
     {
-      v43 = v11;
-      v44 = sub_E5B4();
-      v45 = sub_E724();
+      v42 = v10;
+      v43 = sub_E5B4();
+      v44 = sub_E724();
 
-      if (os_log_type_enabled(v44, v45))
+      if (os_log_type_enabled(v43, v44))
       {
+        v45 = swift_slowAlloc();
         v46 = swift_slowAlloc();
         v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        v58[0] = v48;
-        *v46 = 138412546;
-        *(v46 + 4) = v43;
-        *v47 = v43;
-        *(v46 + 12) = 2080;
-        v49 = v43;
-        *(v46 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v58);
-        _os_log_impl(&dword_0, v44, v45, "MessagesAppViewController: %@ - %s - Can't find view scene", v46, 0x16u);
-        sub_E1B0(v47, &qword_184B0, &qword_EE68);
+        v56[0] = v47;
+        *v45 = 138412546;
+        *(v45 + 4) = v42;
+        *v46 = v42;
+        *(v45 + 12) = 2080;
+        v48 = v42;
+        *(v45 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v56);
+        _os_log_impl(&dword_0, v43, v44, "MessagesAppViewController: %@ - %s - Can't find view scene", v45, 0x16u);
+        sub_E1B0(v46, &qword_184B0, &qword_EE68);
 
-        sub_C80C(v48);
+        sub_C80C(v47);
       }
 
       goto LABEL_27;
     }
 
-    v22 = [v9 session];
-    v23 = [v22 role];
+    v21 = [v8 session];
+    v22 = [v21 role];
 
-    v24 = sub_E644();
-    v25 = sub_E654();
-    v27 = v26;
-    v28 = sub_E654();
-    v30 = v29;
+    v23 = sub_E644();
+    v24 = sub_E654();
+    v26 = v25;
+    v27 = sub_E654();
+    v29 = v28;
 
-    if (v25 == v28 && v27 == v30)
+    if (v24 == v27 && v26 == v29)
     {
-      v31 = 1;
+      v30 = 1;
     }
 
     else
     {
-      v31 = sub_E7B4();
+      v30 = sub_E7B4();
     }
 
     sub_DC18(0, &qword_18548, NSObject_ptr);
-    if ((sub_E734() & 1) == 0 && (v31 & 1) == 0)
+    if ((sub_E734() & 1) == 0 && (v30 & 1) == 0)
     {
-      v50 = v11;
-      v44 = sub_E5B4();
-      v51 = sub_E724();
+      v49 = v10;
+      v43 = sub_E5B4();
+      v50 = sub_E724();
 
-      if (os_log_type_enabled(v44, v51))
+      if (os_log_type_enabled(v43, v50))
       {
+        v51 = swift_slowAlloc();
         v52 = swift_slowAlloc();
         v53 = swift_slowAlloc();
-        v54 = swift_slowAlloc();
-        v58[0] = v54;
-        *v52 = 138412546;
-        *(v52 + 4) = v50;
-        *v53 = v50;
-        *(v52 + 12) = 2080;
-        v55 = v50;
-        *(v52 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v58);
-        _os_log_impl(&dword_0, v44, v51, "MessagesAppViewController: %@ - %s - Skipping, not same view scene", v52, 0x16u);
-        sub_E1B0(v53, &qword_184B0, &qword_EE68);
+        v56[0] = v53;
+        *v51 = 138412546;
+        *(v51 + 4) = v49;
+        *v52 = v49;
+        *(v51 + 12) = 2080;
+        v54 = v49;
+        *(v51 + 14) = sub_C740(0xD000000000000027, 0x80000000000102E0, v56);
+        _os_log_impl(&dword_0, v43, v50, "MessagesAppViewController: %@ - %s - Skipping, not same view scene", v51, 0x16u);
+        sub_E1B0(v52, &qword_184B0, &qword_EE68);
 
-        sub_C80C(v54);
+        sub_C80C(v53);
       }
 
 LABEL_27:
       return;
     }
 
-    v56 = *&v11[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
     sub_E4A4();
   }
 
@@ -329,13 +323,12 @@ void sub_2778(uint64_t a1)
   v2 = v1;
   v4 = sub_E374();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = v57 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v55 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_E364();
-  if (!v58[3])
+  if (!v56[3])
   {
-    sub_E1B0(v58, &qword_18530, &qword_EFD8);
+    sub_E1B0(v56, &qword_18530, &qword_EFD8);
     goto LABEL_14;
   }
 
@@ -348,35 +341,35 @@ LABEL_14:
       swift_once();
     }
 
-    v32 = sub_E5D4();
-    sub_1BD8(v32, qword_18628);
-    (*(v5 + 16))(v8, a1, v4);
-    v33 = v2;
-    v34 = sub_E5B4();
-    v35 = sub_E714();
+    v31 = sub_E5D4();
+    sub_1BD8(v31, qword_18628);
+    (*(v5 + 16))(v7, a1, v4);
+    v32 = v2;
+    v33 = sub_E5B4();
+    v34 = sub_E714();
 
-    if (os_log_type_enabled(v34, v35))
+    if (os_log_type_enabled(v33, v34))
     {
+      v35 = swift_slowAlloc();
       v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v57[0] = swift_slowAlloc();
-      v58[0] = v57[0];
-      *v36 = 138412802;
-      *(v36 + 4) = v33;
-      *v37 = v33;
-      *(v36 + 12) = 2080;
-      v38 = v33;
-      *(v36 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v58);
-      *(v36 + 22) = 2080;
-      sub_E168(&qword_18538, &type metadata accessor for Notification);
-      v39 = sub_E7A4();
-      v41 = v40;
-      (*(v5 + 8))(v8, v4);
-      v42 = sub_C740(v39, v41, v58);
+      v55[0] = swift_slowAlloc();
+      v56[0] = v55[0];
+      *v35 = 138412802;
+      *(v35 + 4) = v32;
+      *v36 = v32;
+      *(v35 + 12) = 2080;
+      v37 = v32;
+      *(v35 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v56);
+      *(v35 + 22) = 2080;
+      sub_E168(&qword_18538, &type metadata accessor for Notification, &protocol conformance descriptor for Notification);
+      v38 = sub_E7A4();
+      v40 = v39;
+      (*(v5 + 8))(v7, v4);
+      v41 = sub_C740(v38, v40, v56);
 
-      *(v36 + 24) = v42;
-      _os_log_impl(&dword_0, v34, v35, "FindMyMessagesAppViewController: %@ - %s - No Scene %s", v36, 0x20u);
-      sub_E1B0(v37, &qword_184B0, &qword_EE68);
+      *(v35 + 24) = v41;
+      _os_log_impl(&dword_0, v33, v34, "FindMyMessagesAppViewController: %@ - %s - No Scene %s", v35, 0x20u);
+      sub_E1B0(v36, &qword_184B0, &qword_EE68);
 
       swift_arrayDestroy();
     }
@@ -384,124 +377,123 @@ LABEL_14:
     else
     {
 
-      (*(v5 + 8))(v8, v4);
+      (*(v5 + 8))(v7, v4);
     }
 
     return;
   }
 
-  v9 = v57[1];
+  v8 = v55[1];
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v10 = sub_E5D4();
-  sub_1BD8(v10, qword_18628);
-  v11 = v2;
-  v12 = sub_E5B4();
-  v13 = sub_E724();
+  v9 = sub_E5D4();
+  sub_1BD8(v9, qword_18628);
+  v10 = v2;
+  v11 = sub_E5B4();
+  v12 = sub_E724();
 
-  if (os_log_type_enabled(v12, v13))
+  if (os_log_type_enabled(v11, v12))
   {
+    v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
     v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v58[0] = v16;
-    *v14 = 138412546;
-    *(v14 + 4) = v11;
-    *v15 = v11;
-    *(v14 + 12) = 2080;
-    v17 = v11;
-    *(v14 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v58);
-    _os_log_impl(&dword_0, v12, v13, "FindMyMessagesAppViewController: %@ - %s", v14, 0x16u);
-    sub_E1B0(v15, &qword_184B0, &qword_EE68);
+    v56[0] = v15;
+    *v13 = 138412546;
+    *(v13 + 4) = v10;
+    *v14 = v10;
+    *(v13 + 12) = 2080;
+    v16 = v10;
+    *(v13 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v56);
+    _os_log_impl(&dword_0, v11, v12, "FindMyMessagesAppViewController: %@ - %s", v13, 0x16u);
+    sub_E1B0(v14, &qword_184B0, &qword_EE68);
 
-    sub_C80C(v16);
+    sub_C80C(v15);
   }
 
-  v18 = [v11 view];
-  if (v18)
+  v17 = [v10 view];
+  if (v17)
   {
-    v19 = v18;
-    v20 = [v18 window];
+    v18 = v17;
+    v19 = [v17 window];
 
-    if (!v20 || (v21 = [v20 windowScene], v20, !v21))
+    if (!v19 || (v20 = [v19 windowScene], v19, !v20))
     {
-      v43 = v11;
-      v44 = sub_E5B4();
-      v45 = sub_E724();
+      v42 = v10;
+      v43 = sub_E5B4();
+      v44 = sub_E724();
 
-      if (os_log_type_enabled(v44, v45))
+      if (os_log_type_enabled(v43, v44))
       {
+        v45 = swift_slowAlloc();
         v46 = swift_slowAlloc();
         v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        v58[0] = v48;
-        *v46 = 138412546;
-        *(v46 + 4) = v43;
-        *v47 = v43;
-        *(v46 + 12) = 2080;
-        v49 = v43;
-        *(v46 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v58);
-        _os_log_impl(&dword_0, v44, v45, "MessagesAppViewController: %@ - %s - Can't find view scene", v46, 0x16u);
-        sub_E1B0(v47, &qword_184B0, &qword_EE68);
+        v56[0] = v47;
+        *v45 = 138412546;
+        *(v45 + 4) = v42;
+        *v46 = v42;
+        *(v45 + 12) = 2080;
+        v48 = v42;
+        *(v45 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v56);
+        _os_log_impl(&dword_0, v43, v44, "MessagesAppViewController: %@ - %s - Can't find view scene", v45, 0x16u);
+        sub_E1B0(v46, &qword_184B0, &qword_EE68);
 
-        sub_C80C(v48);
+        sub_C80C(v47);
       }
 
       goto LABEL_27;
     }
 
-    v22 = [v9 session];
-    v23 = [v22 role];
+    v21 = [v8 session];
+    v22 = [v21 role];
 
-    v24 = sub_E644();
-    v25 = sub_E654();
-    v27 = v26;
-    v28 = sub_E654();
-    v30 = v29;
+    v23 = sub_E644();
+    v24 = sub_E654();
+    v26 = v25;
+    v27 = sub_E654();
+    v29 = v28;
 
-    if (v25 == v28 && v27 == v30)
+    if (v24 == v27 && v26 == v29)
     {
-      v31 = 1;
+      v30 = 1;
     }
 
     else
     {
-      v31 = sub_E7B4();
+      v30 = sub_E7B4();
     }
 
     sub_DC18(0, &qword_18548, NSObject_ptr);
-    if ((sub_E734() & 1) == 0 && (v31 & 1) == 0)
+    if ((sub_E734() & 1) == 0 && (v30 & 1) == 0)
     {
-      v50 = v11;
-      v44 = sub_E5B4();
-      v51 = sub_E724();
+      v49 = v10;
+      v43 = sub_E5B4();
+      v50 = sub_E724();
 
-      if (os_log_type_enabled(v44, v51))
+      if (os_log_type_enabled(v43, v50))
       {
+        v51 = swift_slowAlloc();
         v52 = swift_slowAlloc();
         v53 = swift_slowAlloc();
-        v54 = swift_slowAlloc();
-        v58[0] = v54;
-        *v52 = 138412546;
-        *(v52 + 4) = v50;
-        *v53 = v50;
-        *(v52 + 12) = 2080;
-        v55 = v50;
-        *(v52 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v58);
-        _os_log_impl(&dword_0, v44, v51, "MessagesAppViewController: %@ - %s - Skipping, not same view scene", v52, 0x16u);
-        sub_E1B0(v53, &qword_184B0, &qword_EE68);
+        v56[0] = v53;
+        *v51 = 138412546;
+        *(v51 + 4) = v49;
+        *v52 = v49;
+        *(v51 + 12) = 2080;
+        v54 = v49;
+        *(v51 + 14) = sub_C740(0xD000000000000026, 0x80000000000102B0, v56);
+        _os_log_impl(&dword_0, v43, v50, "MessagesAppViewController: %@ - %s - Skipping, not same view scene", v51, 0x16u);
+        sub_E1B0(v52, &qword_184B0, &qword_EE68);
 
-        sub_C80C(v54);
+        sub_C80C(v53);
       }
 
 LABEL_27:
       return;
     }
 
-    v56 = *&v11[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
     sub_E484();
   }
 
@@ -516,13 +508,12 @@ void sub_3030(uint64_t a1)
   v2 = v1;
   v4 = sub_E374();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = v57 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v55 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_E364();
-  if (!v58[3])
+  if (!v56[3])
   {
-    sub_E1B0(v58, &qword_18530, &qword_EFD8);
+    sub_E1B0(v56, &qword_18530, &qword_EFD8);
     goto LABEL_14;
   }
 
@@ -535,35 +526,35 @@ LABEL_14:
       swift_once();
     }
 
-    v32 = sub_E5D4();
-    sub_1BD8(v32, qword_18628);
-    (*(v5 + 16))(v8, a1, v4);
-    v33 = v2;
-    v34 = sub_E5B4();
-    v35 = sub_E714();
+    v31 = sub_E5D4();
+    sub_1BD8(v31, qword_18628);
+    (*(v5 + 16))(v7, a1, v4);
+    v32 = v2;
+    v33 = sub_E5B4();
+    v34 = sub_E714();
 
-    if (os_log_type_enabled(v34, v35))
+    if (os_log_type_enabled(v33, v34))
     {
+      v35 = swift_slowAlloc();
       v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v57[0] = swift_slowAlloc();
-      v58[0] = v57[0];
-      *v36 = 138412802;
-      *(v36 + 4) = v33;
-      *v37 = v33;
-      *(v36 + 12) = 2080;
-      v38 = v33;
-      *(v36 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v58);
-      *(v36 + 22) = 2080;
-      sub_E168(&qword_18538, &type metadata accessor for Notification);
-      v39 = sub_E7A4();
-      v41 = v40;
-      (*(v5 + 8))(v8, v4);
-      v42 = sub_C740(v39, v41, v58);
+      v55[0] = swift_slowAlloc();
+      v56[0] = v55[0];
+      *v35 = 138412802;
+      *(v35 + 4) = v32;
+      *v36 = v32;
+      *(v35 + 12) = 2080;
+      v37 = v32;
+      *(v35 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v56);
+      *(v35 + 22) = 2080;
+      sub_E168(&qword_18538, &type metadata accessor for Notification, &protocol conformance descriptor for Notification);
+      v38 = sub_E7A4();
+      v40 = v39;
+      (*(v5 + 8))(v7, v4);
+      v41 = sub_C740(v38, v40, v56);
 
-      *(v36 + 24) = v42;
-      _os_log_impl(&dword_0, v34, v35, "FindMyMessagesAppViewController: %@ - %s - No Scene %s", v36, 0x20u);
-      sub_E1B0(v37, &qword_184B0, &qword_EE68);
+      *(v35 + 24) = v41;
+      _os_log_impl(&dword_0, v33, v34, "FindMyMessagesAppViewController: %@ - %s - No Scene %s", v35, 0x20u);
+      sub_E1B0(v36, &qword_184B0, &qword_EE68);
 
       swift_arrayDestroy();
     }
@@ -571,124 +562,123 @@ LABEL_14:
     else
     {
 
-      (*(v5 + 8))(v8, v4);
+      (*(v5 + 8))(v7, v4);
     }
 
     return;
   }
 
-  v9 = v57[1];
+  v8 = v55[1];
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v10 = sub_E5D4();
-  sub_1BD8(v10, qword_18628);
-  v11 = v2;
-  v12 = sub_E5B4();
-  v13 = sub_E724();
+  v9 = sub_E5D4();
+  sub_1BD8(v9, qword_18628);
+  v10 = v2;
+  v11 = sub_E5B4();
+  v12 = sub_E724();
 
-  if (os_log_type_enabled(v12, v13))
+  if (os_log_type_enabled(v11, v12))
   {
+    v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
     v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v58[0] = v16;
-    *v14 = 138412546;
-    *(v14 + 4) = v11;
-    *v15 = v11;
-    *(v14 + 12) = 2080;
-    v17 = v11;
-    *(v14 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v58);
-    _os_log_impl(&dword_0, v12, v13, "FindMyMessagesAppViewController: %@ - %s", v14, 0x16u);
-    sub_E1B0(v15, &qword_184B0, &qword_EE68);
+    v56[0] = v15;
+    *v13 = 138412546;
+    *(v13 + 4) = v10;
+    *v14 = v10;
+    *(v13 + 12) = 2080;
+    v16 = v10;
+    *(v13 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v56);
+    _os_log_impl(&dword_0, v11, v12, "FindMyMessagesAppViewController: %@ - %s", v13, 0x16u);
+    sub_E1B0(v14, &qword_184B0, &qword_EE68);
 
-    sub_C80C(v16);
+    sub_C80C(v15);
   }
 
-  v18 = [v11 view];
-  if (v18)
+  v17 = [v10 view];
+  if (v17)
   {
-    v19 = v18;
-    v20 = [v18 window];
+    v18 = v17;
+    v19 = [v17 window];
 
-    if (!v20 || (v21 = [v20 windowScene], v20, !v21))
+    if (!v19 || (v20 = [v19 windowScene], v19, !v20))
     {
-      v43 = v11;
-      v44 = sub_E5B4();
-      v45 = sub_E724();
+      v42 = v10;
+      v43 = sub_E5B4();
+      v44 = sub_E724();
 
-      if (os_log_type_enabled(v44, v45))
+      if (os_log_type_enabled(v43, v44))
       {
+        v45 = swift_slowAlloc();
         v46 = swift_slowAlloc();
         v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        v58[0] = v48;
-        *v46 = 138412546;
-        *(v46 + 4) = v43;
-        *v47 = v43;
-        *(v46 + 12) = 2080;
-        v49 = v43;
-        *(v46 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v58);
-        _os_log_impl(&dword_0, v44, v45, "MessagesAppViewController: %@ - %s - Can't find view scene", v46, 0x16u);
-        sub_E1B0(v47, &qword_184B0, &qword_EE68);
+        v56[0] = v47;
+        *v45 = 138412546;
+        *(v45 + 4) = v42;
+        *v46 = v42;
+        *(v45 + 12) = 2080;
+        v48 = v42;
+        *(v45 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v56);
+        _os_log_impl(&dword_0, v43, v44, "MessagesAppViewController: %@ - %s - Can't find view scene", v45, 0x16u);
+        sub_E1B0(v46, &qword_184B0, &qword_EE68);
 
-        sub_C80C(v48);
+        sub_C80C(v47);
       }
 
       goto LABEL_27;
     }
 
-    v22 = [v9 session];
-    v23 = [v22 role];
+    v21 = [v8 session];
+    v22 = [v21 role];
 
-    v24 = sub_E644();
-    v25 = sub_E654();
-    v27 = v26;
-    v28 = sub_E654();
-    v30 = v29;
+    v23 = sub_E644();
+    v24 = sub_E654();
+    v26 = v25;
+    v27 = sub_E654();
+    v29 = v28;
 
-    if (v25 == v28 && v27 == v30)
+    if (v24 == v27 && v26 == v29)
     {
-      v31 = 1;
+      v30 = 1;
     }
 
     else
     {
-      v31 = sub_E7B4();
+      v30 = sub_E7B4();
     }
 
     sub_DC18(0, &qword_18548, NSObject_ptr);
-    if ((sub_E734() & 1) == 0 && (v31 & 1) == 0)
+    if ((sub_E734() & 1) == 0 && (v30 & 1) == 0)
     {
-      v50 = v11;
-      v44 = sub_E5B4();
-      v51 = sub_E724();
+      v49 = v10;
+      v43 = sub_E5B4();
+      v50 = sub_E724();
 
-      if (os_log_type_enabled(v44, v51))
+      if (os_log_type_enabled(v43, v50))
       {
+        v51 = swift_slowAlloc();
         v52 = swift_slowAlloc();
         v53 = swift_slowAlloc();
-        v54 = swift_slowAlloc();
-        v58[0] = v54;
-        *v52 = 138412546;
-        *(v52 + 4) = v50;
-        *v53 = v50;
-        *(v52 + 12) = 2080;
-        v55 = v50;
-        *(v52 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v58);
-        _os_log_impl(&dword_0, v44, v51, "MessagesAppViewController: %@ - %s - Skipping, not same view scene", v52, 0x16u);
-        sub_E1B0(v53, &qword_184B0, &qword_EE68);
+        v56[0] = v53;
+        *v51 = 138412546;
+        *(v51 + 4) = v49;
+        *v52 = v49;
+        *(v51 + 12) = 2080;
+        v54 = v49;
+        *(v51 + 14) = sub_C740(0xD000000000000021, 0x8000000000010250, v56);
+        _os_log_impl(&dword_0, v43, v50, "MessagesAppViewController: %@ - %s - Skipping, not same view scene", v51, 0x16u);
+        sub_E1B0(v52, &qword_184B0, &qword_EE68);
 
-        sub_C80C(v54);
+        sub_C80C(v53);
       }
 
 LABEL_27:
       return;
     }
 
-    v56 = *&v11[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
     sub_E474();
   }
 
@@ -702,63 +692,60 @@ uint64_t sub_38E8(void *a1, uint64_t a2, uint64_t a3, void (*a4)(char *))
 {
   v6 = sub_E374();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_E354();
-  v11 = a1;
-  a4(v10);
+  v10 = a1;
+  a4(v9);
 
-  return (*(v7 + 8))(v10, v6);
+  return (*(v7 + 8))(v9, v6);
 }
 
 Swift::Void __swiftcall FindMyMessagesAppViewController.willBecomeActive(with:)(MSConversation with)
 {
   v3 = sub_E584();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MyMessagesAppViewController = type metadata accessor for FindMyMessagesAppViewController();
-  v21.receiver = v1;
-  v21.super_class = MyMessagesAppViewController;
-  objc_msgSendSuper2(&v21, "willBecomeActiveWithConversation:", with.super.isa);
+  v19.receiver = v1;
+  v19.super_class = MyMessagesAppViewController;
+  objc_msgSendSuper2(&v19, "willBecomeActiveWithConversation:", with.super.isa);
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v9 = sub_E5D4();
-  sub_1BD8(v9, qword_18628);
-  v10 = v1;
-  v11 = sub_E5B4();
-  v12 = sub_E724();
+  v8 = sub_E5D4();
+  sub_1BD8(v8, qword_18628);
+  v9 = v1;
+  v10 = sub_E5B4();
+  v11 = sub_E724();
 
-  if (os_log_type_enabled(v11, v12))
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v19 = v4;
-    v20 = v15;
-    v16 = v15;
-    *v13 = 138412546;
-    *(v13 + 4) = v10;
-    *v14 = v10;
-    *(v13 + 12) = 2080;
-    v17 = v10;
-    *(v13 + 14) = sub_C740(0xD000000000000017, 0x800000000000FE10, &v20);
-    _os_log_impl(&dword_0, v11, v12, "FindMyMessagesAppViewController: %@ - %s", v13, 0x16u);
-    sub_E1B0(v14, &qword_184B0, &qword_EE68);
+    v17 = v4;
+    v18 = v14;
+    v15 = v14;
+    *v12 = 138412546;
+    *(v12 + 4) = v9;
+    *v13 = v9;
+    *(v12 + 12) = 2080;
+    v16 = v9;
+    *(v12 + 14) = sub_C740(0xD000000000000017, 0x800000000000FE10, &v18);
+    _os_log_impl(&dword_0, v10, v11, "FindMyMessagesAppViewController: %@ - %s", v12, 0x16u);
+    sub_E1B0(v13, &qword_184B0, &qword_EE68);
 
-    sub_C80C(v16);
-    v4 = v19;
+    sub_C80C(v15);
+    v4 = v17;
   }
 
-  sub_72CC(with.super.isa, [v10 presentationStyle], v7);
-  v18 = *&v10[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
+  sub_72CC(with.super.isa, [v9 presentationStyle], v6);
   sub_E494();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 id FindMyMessagesAppViewController.preferredContentSizeDidChange(forChildContentContainer:)(void *a1)
@@ -809,59 +796,58 @@ id FindMyMessagesAppViewController.preferredContentSizeDidChange(forChildContent
 Swift::Void __swiftcall FindMyMessagesAppViewController.didBecomeActive(with:)(MSConversation with)
 {
   v3 = sub_19DC(&qword_184C0, &qword_EE70);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v21 - v5;
+  v5 = &v20 - v4;
   MyMessagesAppViewController = type metadata accessor for FindMyMessagesAppViewController();
-  v23.receiver = v1;
-  v23.super_class = MyMessagesAppViewController;
-  objc_msgSendSuper2(&v23, "didBecomeActiveWithConversation:", with.super.isa);
+  v22.receiver = v1;
+  v22.super_class = MyMessagesAppViewController;
+  objc_msgSendSuper2(&v22, "didBecomeActiveWithConversation:", with.super.isa);
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v8 = sub_E5D4();
-  sub_1BD8(v8, qword_18628);
-  v9 = v1;
-  v10 = sub_E5B4();
-  v11 = sub_E724();
+  v7 = sub_E5D4();
+  sub_1BD8(v7, qword_18628);
+  v8 = v1;
+  v9 = sub_E5B4();
+  v10 = sub_E724();
 
-  if (os_log_type_enabled(v10, v11))
+  if (os_log_type_enabled(v9, v10))
   {
+    v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v22 = v14;
-    *v12 = 138412546;
-    *(v12 + 4) = v9;
-    *v13 = v9;
-    *(v12 + 12) = 2080;
-    v15 = v9;
-    *(v12 + 14) = sub_C740(0xD000000000000016, 0x800000000000FE70, &v22);
-    _os_log_impl(&dword_0, v10, v11, "FindMyMessagesAppViewController: %@ - %s", v12, 0x16u);
-    sub_E1B0(v13, &qword_184B0, &qword_EE68);
+    v21 = v13;
+    *v11 = 138412546;
+    *(v11 + 4) = v8;
+    *v12 = v8;
+    *(v11 + 12) = 2080;
+    v14 = v8;
+    *(v11 + 14) = sub_C740(0xD000000000000016, 0x800000000000FE70, &v21);
+    _os_log_impl(&dword_0, v9, v10, "FindMyMessagesAppViewController: %@ - %s", v11, 0x16u);
+    sub_E1B0(v12, &qword_184B0, &qword_EE68);
 
-    sub_C80C(v14);
+    sub_C80C(v13);
   }
 
-  if ([v9 presentationStyle] == &dword_0 + 2)
+  if ([v8 presentationStyle] == &dword_0 + 2)
   {
-    v16 = *&v9[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController];
-    [v9 _balloonMaskEdgeInsets];
-    [v16 setAdditionalSafeAreaInsets:?];
+    v15 = *&v8[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController];
+    [v8 _balloonMaskEdgeInsets];
+    [v15 setAdditionalSafeAreaInsets:?];
   }
 
-  v17 = sub_E6F4();
-  (*(*(v17 - 8) + 56))(v6, 1, 1, v17);
+  v16 = sub_E6F4();
+  (*(*(v16 - 8) + 56))(v5, 1, 1, v16);
   sub_E6D4();
-  v18 = v9;
-  v19 = sub_E6C4();
-  v20 = swift_allocObject();
-  v20[2] = v19;
-  v20[3] = &protocol witness table for MainActor;
-  v20[4] = v18;
-  sub_4658(0, 0, v6, &unk_EE80, v20);
+  v17 = v8;
+  v18 = sub_E6C4();
+  v19 = swift_allocObject();
+  v19[2] = v18;
+  v19[3] = &protocol witness table for MainActor;
+  v19[4] = v17;
+  sub_4658(0, 0, v5, &unk_EE80, v19);
 }
 
 uint64_t sub_4288(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -869,28 +855,24 @@ uint64_t sub_4288(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[2] = a4;
   v5 = sub_E784();
   v4[3] = v5;
-  v6 = *(v5 - 8);
-  v4[4] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4[4] = *(v5 - 8);
   v4[5] = swift_task_alloc();
   sub_E6D4();
   v4[6] = sub_E6C4();
-  v9 = sub_E6B4();
-  v4[7] = v9;
-  v4[8] = v8;
+  v7 = sub_E6B4();
+  v4[7] = v7;
+  v4[8] = v6;
 
-  return _swift_task_switch(sub_437C, v9, v8);
+  return _swift_task_switch(sub_437C, v7, v6);
 }
 
 uint64_t sub_437C()
 {
-  v1 = *(v0 + 40);
   sub_E7E4();
-  v2 = swift_task_alloc();
-  *(v0 + 72) = v2;
-  *v2 = v0;
-  v2[1] = sub_4448;
-  v3 = *(v0 + 40);
+  v1 = swift_task_alloc();
+  *(v0 + 72) = v1;
+  *v1 = v0;
+  v1[1] = sub_4448;
 
   return sub_BBE0(600000000000000000, 0, 0, 0, 1);
 }
@@ -899,41 +881,37 @@ uint64_t sub_4448()
 {
   v3 = *v1;
   v2 = *v1;
-  v4 = *(*v1 + 72);
-  v5 = *v1;
 
-  v6 = v2[5];
-  v7 = v2[4];
-  v8 = v2[3];
+  v4 = v2[5];
+  v5 = v2[4];
+  v6 = v2[3];
   if (v0)
   {
 
-    (*(v7 + 8))(v6, v8);
-    v9 = v3[7];
-    v10 = v3[8];
-    v11 = sub_E2F8;
+    (*(v5 + 8))(v4, v6);
+    v7 = v3[7];
+    v8 = v3[8];
+    v9 = sub_E2F8;
   }
 
   else
   {
-    (*(v7 + 8))(v6, v8);
-    v9 = v3[7];
-    v10 = v3[8];
-    v11 = sub_45DC;
+    (*(v5 + 8))(v4, v6);
+    v7 = v3[7];
+    v8 = v3[8];
+    v9 = sub_45DC;
   }
 
-  return _swift_task_switch(v11, v9, v10);
+  return _swift_task_switch(v9, v7, v8);
 }
 
-uint64_t sub_45DC()
+uint64_t sub_45DC(uint64_t a1, uint64_t a2)
 {
-  v2 = v0[5];
-  v1 = v0[6];
-  v3 = v0[2];
+  v3 = *(v2 + 16);
 
   [v3 setReadyForDisplay];
 
-  v4 = v0[1];
+  v4 = *(v2 + 8);
 
   return v4();
 }
@@ -941,72 +919,70 @@ uint64_t sub_45DC()
 uint64_t sub_4658(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = sub_19DC(&qword_184C0, &qword_EE70);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = v27 - v11;
-  sub_DF50(a3, v27 - v11);
-  v13 = sub_E6F4();
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 48))(v12, 1, v13);
+  v11 = v25 - v10;
+  sub_DF50(a3, v25 - v10);
+  v12 = sub_E6F4();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v11, 1, v12);
 
-  if (v15 == 1)
+  if (v14 == 1)
   {
-    sub_E1B0(v12, &qword_184C0, &qword_EE70);
+    sub_E1B0(v11, &qword_184C0, &qword_EE70);
   }
 
   else
   {
     sub_E6E4();
-    (*(v14 + 8))(v12, v13);
+    (*(v13 + 8))(v11, v12);
   }
 
-  v17 = *(a5 + 16);
-  v16 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v17)
+  if (v15)
   {
     swift_getObjectType();
-    v18 = sub_E6B4();
-    v20 = v19;
+    v16 = sub_E6B4();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v21 = sub_E674() + 32;
-      v22 = swift_allocObject();
-      *(v22 + 16) = a4;
-      *(v22 + 24) = a5;
+      v19 = sub_E674() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v20 | v18)
+      if (v18 | v16)
       {
-        v28[0] = 0;
-        v28[1] = 0;
-        v23 = v28;
-        v28[2] = v18;
-        v28[3] = v20;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v23 = 0;
+        v21 = 0;
       }
 
-      v27[1] = 7;
-      v27[2] = v23;
-      v27[3] = v21;
-      v25 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       sub_E1B0(a3, &qword_184C0, &qword_EE70);
 
-      return v25;
+      return v23;
     }
   }
 
   else
   {
+    v16 = 0;
     v18 = 0;
-    v20 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -1014,15 +990,15 @@ LABEL_6:
   }
 
   sub_E1B0(a3, &qword_184C0, &qword_EE70);
-  v24 = swift_allocObject();
-  *(v24 + 16) = a4;
-  *(v24 + 24) = a5;
-  if (v20 | v18)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v28[4] = 0;
-    v28[5] = 0;
-    v28[6] = v18;
-    v28[7] = v20;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -1064,9 +1040,9 @@ Swift::Bool __swiftcall FindMyMessagesAppViewController.displaysAfterAppearance(
 
 Swift::Void __swiftcall FindMyMessagesAppViewController.didResignActive(with:)(MSConversation with)
 {
-  v13.receiver = v1;
-  v13.super_class = type metadata accessor for FindMyMessagesAppViewController();
-  objc_msgSendSuper2(&v13, "didResignActiveWithConversation:", with.super.isa);
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for FindMyMessagesAppViewController();
+  objc_msgSendSuper2(&v12, "didResignActiveWithConversation:", with.super.isa);
   if (qword_184A0 != -1)
   {
     swift_once();
@@ -1083,20 +1059,19 @@ Swift::Void __swiftcall FindMyMessagesAppViewController.didResignActive(with:)(M
     v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v12 = v9;
+    v11 = v9;
     *v7 = 138412546;
     *(v7 + 4) = v4;
     *v8 = v4;
     *(v7 + 12) = 2080;
     v10 = v4;
-    *(v7 + 14) = sub_C740(0xD000000000000016, 0x800000000000FEB0, &v12);
+    *(v7 + 14) = sub_C740(0xD000000000000016, 0x800000000000FEB0, &v11);
     _os_log_impl(&dword_0, v5, v6, "FindMyMessagesAppViewController: %@ - %s", v7, 0x16u);
     sub_E1B0(v8, &qword_184B0, &qword_EE68);
 
     sub_C80C(v9);
   }
 
-  v11 = *&v4[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
   sub_E474();
 }
 
@@ -1207,42 +1182,40 @@ Swift::Void __swiftcall FindMyMessagesAppViewController.didCancelSending(_:conve
 
 void FindMyMessagesAppViewController.willTransition(to:)(uint64_t a1)
 {
-  v2 = v1;
-  v16.receiver = v1;
-  v16.super_class = type metadata accessor for FindMyMessagesAppViewController();
-  objc_msgSendSuper2(&v16, "willTransitionToPresentationStyle:", a1);
-  v4 = *&v1[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
+  v14.receiver = v1;
+  v14.super_class = type metadata accessor for FindMyMessagesAppViewController();
+  objc_msgSendSuper2(&v14, "willTransitionToPresentationStyle:", a1);
   sub_E464();
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_E5D4();
-  sub_1BD8(v5, qword_18628);
-  v6 = v2;
-  v7 = sub_E5B4();
-  v8 = sub_E724();
+  v3 = sub_E5D4();
+  sub_1BD8(v3, qword_18628);
+  v4 = v1;
+  v5 = sub_E5B4();
+  v6 = sub_E724();
 
-  if (os_log_type_enabled(v7, v8))
+  if (os_log_type_enabled(v5, v6))
   {
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    *v9 = 138412802;
-    *(v9 + 4) = v6;
-    *v10 = v6;
-    *(v9 + 12) = 2080;
-    v11 = v6;
-    *(v9 + 14) = sub_C740(0xD000000000000013, 0x800000000000FF50, &v15);
-    *(v9 + 22) = 2080;
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    *v7 = 138412802;
+    *(v7 + 4) = v4;
+    *v8 = v4;
+    *(v7 + 12) = 2080;
+    v9 = v4;
+    *(v7 + 14) = sub_C740(0xD000000000000013, 0x800000000000FF50, &v13);
+    *(v7 + 22) = 2080;
     type metadata accessor for MSMessagesAppPresentationStyle(0);
-    v12 = sub_E664();
-    v14 = sub_C740(v12, v13, &v15);
+    v10 = sub_E664();
+    v12 = sub_C740(v10, v11, &v13);
 
-    *(v9 + 24) = v14;
-    _os_log_impl(&dword_0, v7, v8, "FindMyMessagesAppViewController: %@ - %s presentationStyle: %s", v9, 0x20u);
-    sub_E1B0(v10, &qword_184B0, &qword_EE68);
+    *(v7 + 24) = v12;
+    _os_log_impl(&dword_0, v5, v6, "FindMyMessagesAppViewController: %@ - %s presentationStyle: %s", v7, 0x20u);
+    sub_E1B0(v8, &qword_184B0, &qword_EE68);
 
     swift_arrayDestroy();
   }
@@ -1321,9 +1294,9 @@ UIScrollView_optional __swiftcall FindMyMessagesAppViewController.contentScrollV
 
 Swift::Void __swiftcall FindMyMessagesAppViewController.viewDidLoad()()
 {
-  v50.receiver = v0;
-  v50.super_class = type metadata accessor for FindMyMessagesAppViewController();
-  objc_msgSendSuper2(&v50, "viewDidLoad");
+  v48.receiver = v0;
+  v48.super_class = type metadata accessor for FindMyMessagesAppViewController();
+  objc_msgSendSuper2(&v48, "viewDidLoad");
   if (qword_184A0 != -1)
   {
     swift_once();
@@ -1340,13 +1313,13 @@ Swift::Void __swiftcall FindMyMessagesAppViewController.viewDidLoad()()
     v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v49 = v7;
+    v47 = v7;
     *v5 = 138412546;
     *(v5 + 4) = v2;
     *v6 = v2;
     *(v5 + 12) = 2080;
     v8 = v2;
-    *(v5 + 14) = sub_C740(0x4C64694477656976, 0xED0000292864616FLL, &v49);
+    *(v5 + 14) = sub_C740(0x4C64694477656976, 0xED0000292864616FLL, &v47);
     _os_log_impl(&dword_0, v3, v4, "FindMyMessagesAppViewController: %@ - %s", v5, 0x16u);
     sub_E1B0(v6, &qword_184B0, &qword_EE68);
 
@@ -1485,9 +1458,7 @@ LABEL_26:
     [v43 activateConstraints:isa];
 
     [v2 addChildViewController:v9];
-    v47 = v2;
-    [v9 didMoveToParentViewController:v47];
-    v48 = *&v47[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
+    [v9 didMoveToParentViewController:v2];
     sub_E4F4();
     swift_allocObject();
     swift_unknownObjectWeakInit();
@@ -1537,51 +1508,46 @@ uint64_t sub_633C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_63D4()
 {
-  v1 = v0[6];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   v0[10] = Strong;
   if (Strong)
   {
-    v3 = swift_task_alloc();
-    v0[11] = v3;
-    *v3 = v0;
-    v3[1] = sub_64CC;
-    v4 = v0[5];
+    v2 = swift_task_alloc();
+    v0[11] = v2;
+    *v2 = v0;
+    v2[1] = sub_64CC;
+    v3 = v0[5];
 
-    return sub_8610(v4);
+    return sub_8610(v3);
   }
 
   else
   {
-    v6 = v0[7];
 
-    v7 = v0[1];
+    v5 = v0[1];
 
-    return v7();
+    return v5();
   }
 }
 
 uint64_t sub_64CC()
 {
   v1 = *v0;
-  v2 = *(*v0 + 88);
-  v3 = *(*v0 + 80);
-  v7 = *v0;
+  v2 = *(*v0 + 80);
 
-  v4 = *(v1 + 72);
-  v5 = *(v1 + 64);
+  v3 = *(v1 + 72);
+  v4 = *(v1 + 64);
 
-  return _swift_task_switch(sub_660C, v5, v4);
+  return _swift_task_switch(sub_660C, v4, v3);
 }
 
-uint64_t sub_660C()
+uint64_t sub_660C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 56);
 
-  v2 = *(v0 + 8);
+  v3 = *(v2 + 8);
 
-  return v2();
+  return v3();
 }
 
 uint64_t sub_6670(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7)
@@ -1604,56 +1570,51 @@ uint64_t sub_6670(uint64_t a1, double a2, double a3, double a4, double a5, doubl
 
 uint64_t sub_6714()
 {
-  v1 = *(v0 + 11);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   *(v0 + 15) = Strong;
   if (Strong)
   {
-    v3 = swift_task_alloc();
-    *(v0 + 16) = v3;
-    *v3 = v0;
-    v3[1] = sub_6810;
-    v4 = v0[9];
-    v5 = v0[10];
-    v6 = v0[7];
-    v7 = v0[8];
-    v8 = v0[5];
-    v9 = v0[6];
+    v2 = swift_task_alloc();
+    *(v0 + 16) = v2;
+    *v2 = v0;
+    v2[1] = sub_6810;
+    v3 = v0[9];
+    v4 = v0[10];
+    v5 = v0[7];
+    v6 = v0[8];
+    v7 = v0[5];
+    v8 = v0[6];
 
-    return sub_9B6C(v8, v9, v6, v7, v4, v5);
+    return sub_9B6C(v7, v8, v5, v6, v3, v4);
   }
 
   else
   {
-    v11 = *(v0 + 12);
 
-    v12 = *(v0 + 1);
+    v10 = *(v0 + 1);
 
-    return v12();
+    return v10();
   }
 }
 
 uint64_t sub_6810()
 {
   v1 = *v0;
-  v2 = *(*v0 + 128);
-  v3 = *(*v0 + 120);
-  v7 = *v0;
+  v2 = *(*v0 + 120);
 
-  v4 = *(v1 + 112);
-  v5 = *(v1 + 104);
+  v3 = *(v1 + 112);
+  v4 = *(v1 + 104);
 
-  return _swift_task_switch(sub_6950, v5, v4);
+  return _swift_task_switch(sub_6950, v4, v3);
 }
 
-uint64_t sub_6950()
+uint64_t sub_6950(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 96);
 
-  v2 = *(v0 + 8);
+  v3 = *(v2 + 8);
 
-  return v2();
+  return v3();
 }
 
 uint64_t sub_69B4(uint64_t a1)
@@ -1670,93 +1631,89 @@ uint64_t sub_69B4(uint64_t a1)
 
 uint64_t sub_6A50()
 {
-  v1 = v0[5];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   v0[10] = Strong;
   if (Strong)
   {
-    v3 = v0[6];
     v0[11] = sub_E6C4();
-    v5 = sub_E6B4();
+    v3 = sub_E6B4();
 
-    return _swift_task_switch(sub_6B40, v5, v4);
+    return _swift_task_switch(sub_6B40, v3, v2);
   }
 
   else
   {
-    v6 = v0[7];
 
-    v7 = v0[1];
+    v4 = v0[1];
 
-    return v7();
+    return v4();
   }
 }
 
-uint64_t sub_6B40()
+uint64_t sub_6B40(uint64_t a1, uint64_t a2)
 {
-  v2 = v0[10];
-  v1 = v0[11];
+  v3 = v2[10];
 
-  [v2 dismissViewControllerAnimated:1 completion:0];
+  [v3 dismissViewControllerAnimated:1 completion:0];
 
-  v3 = v0[8];
-  v4 = v0[9];
+  v4 = v2[8];
+  v5 = v2[9];
 
-  return _swift_task_switch(sub_E2FC, v3, v4);
+  return _swift_task_switch(sub_E2FC, v4, v5);
 }
 
-void sub_6BC0()
+void sub_6BC0(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     [Strong dismissViewControllerAnimated:1 completion:0];
   }
 }
 
-void sub_6C24()
+void sub_6C24(uint64_t a1)
 {
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v0 = sub_E5D4();
-  sub_1BD8(v0, qword_18628);
+  v1 = sub_E5D4();
+  sub_1BD8(v1, qword_18628);
 
-  v1 = sub_E5B4();
-  v2 = sub_E724();
+  v2 = sub_E5B4();
+  v3 = sub_E724();
 
-  if (os_log_type_enabled(v1, v2))
+  if (os_log_type_enabled(v2, v3))
   {
-    v3 = swift_slowAlloc();
     v4 = swift_slowAlloc();
-    *v3 = 138412290;
+    v5 = swift_slowAlloc();
+    *v4 = 138412290;
     swift_beginAccess();
     Strong = swift_unknownObjectWeakLoadStrong();
-    *(v3 + 4) = Strong;
-    *v4 = Strong;
-    _os_log_impl(&dword_0, v1, v2, "MessagesAppViewController: %@ - setTintColorDidInvalidate", v3, 0xCu);
-    sub_E1B0(v4, &qword_184B0, &qword_EE68);
+    *(v4 + 4) = Strong;
+    *v5 = Strong;
+    _os_log_impl(&dword_0, v2, v3, "MessagesAppViewController: %@ - setTintColorDidInvalidate", v4, 0xCu);
+    sub_E1B0(v5, &qword_184B0, &qword_EE68);
   }
 
   swift_beginAccess();
-  v6 = swift_unknownObjectWeakLoadStrong();
-  if (v6)
+  v7 = swift_unknownObjectWeakLoadStrong();
+  if (v7)
   {
-    v7 = v6;
-    [v6 invalidateMessageTintColor];
+    v8 = v7;
+    [v7 invalidateMessageTintColor];
   }
 }
 
 Swift::Void __swiftcall FindMyMessagesAppViewController.viewWillAppear(_:)(Swift::Bool a1)
 {
-  v13.receiver = v1;
-  v13.super_class = type metadata accessor for FindMyMessagesAppViewController();
-  objc_msgSendSuper2(&v13, "viewWillAppear:", a1);
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for FindMyMessagesAppViewController();
+  objc_msgSendSuper2(&v12, "viewWillAppear:", a1);
   if (qword_184A0 != -1)
   {
     swift_once();
@@ -1773,28 +1730,27 @@ Swift::Void __swiftcall FindMyMessagesAppViewController.viewWillAppear(_:)(Swift
     v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v12 = v9;
+    v11 = v9;
     *v7 = 138412546;
     *(v7 + 4) = v4;
     *v8 = v4;
     *(v7 + 12) = 2080;
     v10 = v4;
-    *(v7 + 14) = sub_C740(0xD000000000000012, 0x800000000000FF90, &v12);
+    *(v7 + 14) = sub_C740(0xD000000000000012, 0x800000000000FF90, &v11);
     _os_log_impl(&dword_0, v5, v6, "MessagesAppViewController: %@ - %s", v7, 0x16u);
     sub_E1B0(v8, &qword_184B0, &qword_EE68);
 
     sub_C80C(v9);
   }
 
-  v11 = *&v4[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
   sub_E4A4();
 }
 
 Swift::Void __swiftcall FindMyMessagesAppViewController.viewDidDisappear(_:)(Swift::Bool a1)
 {
-  v13.receiver = v1;
-  v13.super_class = type metadata accessor for FindMyMessagesAppViewController();
-  objc_msgSendSuper2(&v13, "viewDidDisappear:", a1);
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for FindMyMessagesAppViewController();
+  objc_msgSendSuper2(&v12, "viewDidDisappear:", a1);
   if (qword_184A0 != -1)
   {
     swift_once();
@@ -1811,131 +1767,119 @@ Swift::Void __swiftcall FindMyMessagesAppViewController.viewDidDisappear(_:)(Swi
     v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v12 = v9;
+    v11 = v9;
     *v7 = 138412546;
     *(v7 + 4) = v4;
     *v8 = v4;
     *(v7 + 12) = 2080;
     v10 = v4;
-    *(v7 + 14) = sub_C740(0xD000000000000014, 0x800000000000FFB0, &v12);
+    *(v7 + 14) = sub_C740(0xD000000000000014, 0x800000000000FFB0, &v11);
     _os_log_impl(&dword_0, v5, v6, "MessagesAppViewController: %@ - %s", v7, 0x16u);
     sub_E1B0(v8, &qword_184B0, &qword_EE68);
 
     sub_C80C(v9);
   }
 
-  v11 = *&v4[OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel];
   sub_E484();
 }
 
 uint64_t sub_72CC@<X0>(void *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v135 = a2;
+  v122 = a2;
   v5 = sub_19DC(&qword_18560, &qword_F048);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v141 = &v122 - v7;
-  v8 = sub_19DC(&qword_18568, &qword_F050);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v131 = &v122 - v10;
-  v11 = sub_E544();
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v130 = &v122 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v128 = sub_E554();
-  v127 = *(v128 - 8);
-  v14 = *(v127 + 64);
-  __chkstk_darwin(v128);
-  v129 = &v122 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_19DC(&qword_18570, &qword_F058);
-  v17 = *(*(v16 - 8) + 64);
-  __chkstk_darwin(v16 - 8);
-  v134 = &v122 - v18;
-  v19 = sub_E414();
-  v144 = *(v19 - 8);
-  v145 = v19;
-  v20 = *(v144 + 64);
-  __chkstk_darwin(v19);
-  v143 = &v122 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = sub_E564();
-  v139 = *(v22 - 8);
-  v140 = v22;
-  v23 = *(v139 + 64);
-  v24 = __chkstk_darwin(v22);
-  v138 = &v122 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v24);
-  v146 = &v122 - v26;
-  v148 = sub_E5A4();
-  v27 = *(v148 - 8);
-  v28 = *(v27 + 64);
-  v29 = __chkstk_darwin(v148);
-  v126 = &v122 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = __chkstk_darwin(v29);
-  v132 = &v122 - v32;
-  __chkstk_darwin(v31);
-  v34 = &v122 - v33;
-  v137 = sub_E344();
-  v136 = *(v137 - 8);
-  v35 = *(v136 + 64);
-  __chkstk_darwin(v137);
-  v147 = &v122 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37 = [a1 recipientAddresses];
-  v38 = sub_E6A4();
+  v128 = &v109 - v6;
+  v7 = sub_19DC(&qword_18568, &qword_F050);
+  __chkstk_darwin(v7 - 8);
+  v118 = &v109 - v8;
+  v9 = sub_E544();
+  __chkstk_darwin(v9 - 8);
+  v117 = &v109 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v115 = sub_E554();
+  v114 = *(v115 - 8);
+  __chkstk_darwin(v115);
+  v116 = &v109 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = sub_19DC(&qword_18570, &qword_F058);
+  __chkstk_darwin(v12 - 8);
+  v121 = &v109 - v13;
+  v14 = sub_E414();
+  v131 = *(v14 - 8);
+  v132 = v14;
+  __chkstk_darwin(v14);
+  v130 = &v109 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = sub_E564();
+  v126 = *(v16 - 8);
+  v127 = v16;
+  v17 = __chkstk_darwin(v16);
+  v125 = &v109 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v133 = &v109 - v19;
+  v135 = sub_E5A4();
+  v20 = *(v135 - 8);
+  v21 = __chkstk_darwin(v135);
+  v113 = &v109 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = __chkstk_darwin(v21);
+  v119 = &v109 - v24;
+  __chkstk_darwin(v23);
+  v26 = &v109 - v25;
+  v124 = sub_E344();
+  v123 = *(v124 - 8);
+  __chkstk_darwin(v124);
+  v134 = &v109 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = [a1 recipientAddresses];
+  v29 = sub_E6A4();
 
-  v39 = *(v38 + 16);
-  v142 = a3;
-  if (v39)
+  v30 = *(v29 + 16);
+  v129 = a3;
+  if (v30)
   {
-    v133 = a1;
-    *&v152 = &_swiftEmptyArrayStorage;
-    sub_D0A8(0, v39, 0);
-    v40 = v152;
-    v41 = (v38 + 40);
+    v120 = a1;
+    *&v139 = &_swiftEmptyArrayStorage;
+    sub_D0A8(0, v30, 0);
+    v31 = v139;
+    v32 = v29 + 40;
     do
     {
-      v42 = *(v41 - 1);
-      v43 = *v41;
 
       sub_E594();
-      *&v152 = v40;
-      v45 = *(v40 + 16);
-      v44 = *(v40 + 24);
-      if (v45 >= v44 >> 1)
+      *&v139 = v31;
+      v34 = *(v31 + 16);
+      v33 = *(v31 + 24);
+      if (v34 >= v33 >> 1)
       {
-        sub_D0A8(v44 > 1, v45 + 1, 1);
-        v40 = v152;
+        sub_D0A8((v33 > 1), v34 + 1, 1);
+        v31 = v139;
       }
 
-      *(v40 + 16) = v45 + 1;
-      (*(v27 + 32))(v40 + ((*(v27 + 80) + 32) & ~*(v27 + 80)) + *(v27 + 72) * v45, v34, v148);
-      v41 += 2;
-      --v39;
+      *(v31 + 16) = v34 + 1;
+      (*(v20 + 32))(v31 + ((*(v20 + 80) + 32) & ~*(v20 + 80)) + *(v20 + 72) * v34, v26, v135);
+      v32 += 16;
+      --v30;
     }
 
-    while (v39);
+    while (v30);
 
-    a1 = v133;
+    a1 = v120;
   }
 
   else
   {
   }
 
-  v46 = [a1 senderAddress];
+  v35 = [a1 senderAddress];
   sub_E654();
 
   sub_E334();
   if (([a1 respondsToSelector:sub_E3A4()] & 1) == 0)
   {
-    v49 = 1;
+    v38 = 1;
     goto LABEL_23;
   }
 
-  v47 = sub_E644();
-  v48 = [a1 valueForKey:v47];
+  v36 = sub_E644();
+  v37 = [a1 valueForKey:v36];
 
-  if (v48)
+  if (v37)
   {
     sub_E744();
     swift_unknownObjectRelease();
@@ -1943,61 +1887,61 @@ uint64_t sub_72CC@<X0>(void *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 
   else
   {
-    v150 = 0u;
-    v151 = 0u;
+    v137 = 0u;
+    v138 = 0u;
   }
 
-  v152 = v150;
-  v153 = v151;
-  if (!*(&v151 + 1))
+  v139 = v137;
+  v140 = v138;
+  if (!*(&v138 + 1))
   {
-    sub_E1B0(&v152, &qword_18530, &qword_EFD8);
+    sub_E1B0(&v139, &qword_18530, &qword_EFD8);
     goto LABEL_17;
   }
 
   if (!swift_dynamicCast())
   {
 LABEL_17:
-    v49 = 1;
+    v38 = 1;
     goto LABEL_18;
   }
 
-  v49 = v149;
+  v38 = v136;
 LABEL_18:
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v50 = sub_E5D4();
-  sub_1BD8(v50, qword_18628);
-  v51 = sub_E5B4();
-  v52 = sub_E724();
-  if (os_log_type_enabled(v51, v52))
+  v39 = sub_E5D4();
+  sub_1BD8(v39, qword_18628);
+  v40 = sub_E5B4();
+  v41 = sub_E724();
+  if (os_log_type_enabled(v40, v41))
   {
-    v53 = swift_slowAlloc();
-    v54 = swift_slowAlloc();
-    *&v152 = v54;
-    *v53 = 136315394;
-    *(v53 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v152);
-    *(v53 + 12) = 1024;
-    *(v53 + 14) = v49;
-    _os_log_impl(&dword_0, v51, v52, "FindMyMessagesAppViewController: %s - isiMessage: %{BOOL}d", v53, 0x12u);
-    sub_C80C(v54);
+    v42 = swift_slowAlloc();
+    v43 = swift_slowAlloc();
+    *&v139 = v43;
+    *v42 = 136315394;
+    *(v42 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v139);
+    *(v42 + 12) = 1024;
+    *(v42 + 14) = v38;
+    _os_log_impl(&dword_0, v40, v41, "FindMyMessagesAppViewController: %s - isiMessage: %{BOOL}d", v42, 0x12u);
+    sub_C80C(v43);
   }
 
 LABEL_23:
   if (![a1 respondsToSelector:sub_E3A4()])
   {
-    v57 = a1;
-    v58 = 0;
+    v46 = a1;
+    v47 = 0;
     goto LABEL_38;
   }
 
-  v55 = sub_E644();
-  v56 = [a1 valueForKey:v55];
+  v44 = sub_E644();
+  v45 = [a1 valueForKey:v44];
 
-  if (v56)
+  if (v45)
   {
     sub_E744();
     swift_unknownObjectRelease();
@@ -2005,48 +1949,48 @@ LABEL_23:
 
   else
   {
-    v150 = 0u;
-    v151 = 0u;
+    v137 = 0u;
+    v138 = 0u;
   }
 
-  v152 = v150;
-  v153 = v151;
-  if (!*(&v151 + 1))
+  v139 = v137;
+  v140 = v138;
+  if (!*(&v138 + 1))
   {
-    sub_E1B0(&v152, &qword_18530, &qword_EFD8);
+    sub_E1B0(&v139, &qword_18530, &qword_EFD8);
     goto LABEL_32;
   }
 
   if (!swift_dynamicCast())
   {
 LABEL_32:
-    v58 = 0;
+    v47 = 0;
     goto LABEL_33;
   }
 
-  v58 = v149;
+  v47 = v136;
 LABEL_33:
   if (qword_184A0 != -1)
   {
     swift_once();
   }
 
-  v59 = sub_E5D4();
-  sub_1BD8(v59, qword_18628);
-  v60 = sub_E5B4();
-  v61 = sub_E724();
-  v57 = a1;
-  if (os_log_type_enabled(v60, v61))
+  v48 = sub_E5D4();
+  sub_1BD8(v48, qword_18628);
+  v49 = sub_E5B4();
+  v50 = sub_E724();
+  v46 = a1;
+  if (os_log_type_enabled(v49, v50))
   {
-    v62 = swift_slowAlloc();
-    v63 = swift_slowAlloc();
-    *&v152 = v63;
-    *v62 = 136315394;
-    *(v62 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v152);
-    *(v62 + 12) = 1024;
-    *(v62 + 14) = v58;
-    _os_log_impl(&dword_0, v60, v61, "FindMyMessagesAppViewController: %s - isBusiness: %{BOOL}d", v62, 0x12u);
-    sub_C80C(v63);
+    v51 = swift_slowAlloc();
+    v52 = swift_slowAlloc();
+    *&v139 = v52;
+    *v51 = 136315394;
+    *(v51 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v139);
+    *(v51 + 12) = 1024;
+    *(v51 + 14) = v47;
+    _os_log_impl(&dword_0, v49, v50, "FindMyMessagesAppViewController: %s - isBusiness: %{BOOL}d", v51, 0x12u);
+    sub_C80C(v52);
   }
 
 LABEL_38:
@@ -2055,216 +1999,214 @@ LABEL_38:
     swift_once();
   }
 
-  v64 = v49 ^ 1 | v58;
-  v65 = sub_E5D4();
-  sub_1BD8(v65, qword_18628);
-  v66 = sub_E5B4();
-  v67 = sub_E724();
-  v68 = os_log_type_enabled(v66, v67);
-  LODWORD(v133) = v49 ^ 1 | v58;
-  if (v68)
+  v53 = v38 ^ 1 | v47;
+  v54 = sub_E5D4();
+  sub_1BD8(v54, qword_18628);
+  v55 = sub_E5B4();
+  v56 = sub_E724();
+  v57 = os_log_type_enabled(v55, v56);
+  LODWORD(v120) = v38 ^ 1 | v47;
+  if (v57)
   {
-    v69 = swift_slowAlloc();
-    v70 = swift_slowAlloc();
-    *&v152 = v70;
-    *v69 = 136315394;
-    *(v69 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v152);
-    *(v69 + 12) = 1024;
-    *(v69 + 14) = v64 & 1;
-    _os_log_impl(&dword_0, v66, v67, "FindMyMessagesAppViewController: %s - disableFindMyFeatures: %{BOOL}d", v69, 0x12u);
-    sub_C80C(v70);
+    v58 = swift_slowAlloc();
+    v59 = swift_slowAlloc();
+    *&v139 = v59;
+    *v58 = 136315394;
+    *(v58 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v139);
+    *(v58 + 12) = 1024;
+    *(v58 + 14) = v53 & 1;
+    _os_log_impl(&dword_0, v55, v56, "FindMyMessagesAppViewController: %s - disableFindMyFeatures: %{BOOL}d", v58, 0x12u);
+    sub_C80C(v59);
   }
 
-  v72 = v144;
-  v71 = v145;
-  v73 = v143;
-  v74 = v134;
-  if (v135 < 2)
+  v61 = v131;
+  v60 = v132;
+  v62 = v130;
+  v63 = v121;
+  if (v122 < 2)
   {
-    v75 = &enum case for CompositeAppViewState.app(_:);
+    v64 = &enum case for CompositeAppViewState.app(_:);
     goto LABEL_72;
   }
 
-  if (v135 == 2)
+  if (v122 == 2)
   {
-    v76 = [v57 selectedMessage];
-    if (v76)
+    v65 = [v46 selectedMessage];
+    if (v65)
     {
-      v77 = v76;
+      v66 = v65;
       sub_E3E4();
-      if ((*(v72 + 48))(v74, 1, v71) == 1)
+      if ((*(v61 + 48))(v63, 1, v60) == 1)
       {
-        sub_E1B0(v74, &qword_18570, &qword_F058);
-        v78 = sub_E5B4();
-        v79 = sub_E714();
-        if (os_log_type_enabled(v78, v79))
+        sub_E1B0(v63, &qword_18570, &qword_F058);
+        v67 = sub_E5B4();
+        v68 = sub_E714();
+        if (os_log_type_enabled(v67, v68))
         {
-          v80 = swift_slowAlloc();
-          v81 = swift_slowAlloc();
-          *&v152 = v81;
-          *v80 = 136315138;
-          *(v80 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v152);
-          _os_log_impl(&dword_0, v78, v79, "FindMyMessagesAppViewController: %s - No message payload while in transcript", v80, 0xCu);
-          sub_C80C(v81);
+          v69 = swift_slowAlloc();
+          v70 = swift_slowAlloc();
+          *&v139 = v70;
+          *v69 = 136315138;
+          *(v69 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v139);
+          _os_log_impl(&dword_0, v67, v68, "FindMyMessagesAppViewController: %s - No message payload while in transcript", v69, 0xCu);
+          sub_C80C(v70);
         }
       }
 
       else
       {
-        (*(v72 + 32))(v73, v74, v71);
-        v92 = [v77 senderAddress];
-        if (v92)
+        (*(v61 + 32))(v62, v63, v60);
+        v81 = [v66 senderAddress];
+        if (v81)
         {
-          v93 = v92;
+          v82 = v81;
           sub_E654();
 
-          v94 = [v57 recipientAddresses];
-          v95 = sub_E6A4();
+          v83 = [v46 recipientAddresses];
+          v84 = sub_E6A4();
 
-          v96 = [v57 conversationIdentifier];
-          v135 = sub_E654();
-          v134 = v97;
+          v85 = [v46 conversationIdentifier];
+          v122 = sub_E654();
+          v121 = v86;
 
-          v125 = sub_E3D4();
-          v124 = v98;
+          v112 = sub_E3D4();
+          v111 = v87;
           sub_E594();
-          v99 = *(v95 + 16);
-          if (v99)
+          v88 = *(v84 + 16);
+          if (v88)
           {
-            v123 = v77;
-            *&v152 = &_swiftEmptyArrayStorage;
-            sub_D0A8(0, v99, 0);
-            v100 = v152;
-            v122 = v95;
-            v101 = (v95 + 40);
-            v102 = v126;
+            v110 = v66;
+            *&v139 = &_swiftEmptyArrayStorage;
+            sub_D0A8(0, v88, 0);
+            v89 = v139;
+            v109 = v84;
+            v90 = v84 + 40;
+            v91 = v113;
             do
             {
-              v103 = *(v101 - 1);
-              v104 = *v101;
 
               sub_E594();
-              *&v152 = v100;
-              v106 = *(v100 + 16);
-              v105 = *(v100 + 24);
-              if (v106 >= v105 >> 1)
+              *&v139 = v89;
+              v93 = *(v89 + 16);
+              v92 = *(v89 + 24);
+              if (v93 >= v92 >> 1)
               {
-                sub_D0A8(v105 > 1, v106 + 1, 1);
-                v100 = v152;
+                sub_D0A8((v92 > 1), v93 + 1, 1);
+                v89 = v139;
               }
 
-              *(v100 + 16) = v106 + 1;
-              (*(v27 + 32))(v100 + ((*(v27 + 80) + 32) & ~*(v27 + 80)) + *(v27 + 72) * v106, v102, v148);
-              v101 += 2;
-              --v99;
+              *(v89 + 16) = v93 + 1;
+              (*(v20 + 32))(v89 + ((*(v20 + 80) + 32) & ~*(v20 + 80)) + *(v20 + 72) * v93, v91, v135);
+              v90 += 16;
+              --v88;
             }
 
-            while (v99);
+            while (v88);
 
-            v77 = v123;
+            v66 = v110;
           }
 
           else
           {
           }
 
-          v112 = [v77 isFromMe];
-          v113 = &enum case for CompositeAppViewState.TranscriptInfo.Direction.outgoing(_:);
-          if (!v112)
+          v99 = [v66 isFromMe];
+          v100 = &enum case for CompositeAppViewState.TranscriptInfo.Direction.outgoing(_:);
+          if (!v99)
           {
-            v113 = &enum case for CompositeAppViewState.TranscriptInfo.Direction.incoming(_:);
+            v100 = &enum case for CompositeAppViewState.TranscriptInfo.Direction.incoming(_:);
           }
 
-          (*(v127 + 104))(v129, *v113, v128);
-          [v77 isPending];
-          v114 = v143;
+          (*(v114 + 104))(v116, *v100, v115);
+          [v66 isPending];
+          v101 = v130;
           sub_E3F4();
           sub_E404();
           sub_E3C4();
           sub_D2A0();
           sub_E534();
 
-          (*(v144 + 8))(v114, v145);
-          v75 = &enum case for CompositeAppViewState.transcript(_:);
+          (*(v131 + 8))(v101, v132);
+          v64 = &enum case for CompositeAppViewState.transcript(_:);
           goto LABEL_72;
         }
 
-        v107 = sub_E5B4();
-        v108 = sub_E714();
-        if (os_log_type_enabled(v107, v108))
+        v94 = sub_E5B4();
+        v95 = sub_E714();
+        if (os_log_type_enabled(v94, v95))
         {
-          v109 = v73;
-          v110 = swift_slowAlloc();
-          v111 = swift_slowAlloc();
-          *&v152 = v111;
-          *v110 = 136315138;
-          *(v110 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v152);
-          _os_log_impl(&dword_0, v107, v108, "MessagesAppViewController: %s - No sender address", v110, 0xCu);
-          sub_C80C(v111);
+          v96 = v62;
+          v97 = swift_slowAlloc();
+          v98 = swift_slowAlloc();
+          *&v139 = v98;
+          *v97 = 136315138;
+          *(v97 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v139);
+          _os_log_impl(&dword_0, v94, v95, "MessagesAppViewController: %s - No sender address", v97, 0xCu);
+          sub_C80C(v98);
 
-          (*(v72 + 8))(v109, v71);
+          (*(v61 + 8))(v96, v60);
         }
 
         else
         {
 
-          (*(v72 + 8))(v73, v71);
+          (*(v61 + 8))(v62, v60);
         }
       }
     }
 
     else
     {
-      v88 = sub_E5B4();
-      v89 = sub_E714();
-      if (os_log_type_enabled(v88, v89))
+      v77 = sub_E5B4();
+      v78 = sub_E714();
+      if (os_log_type_enabled(v77, v78))
       {
-        v90 = swift_slowAlloc();
-        v91 = swift_slowAlloc();
-        *&v152 = v91;
-        *v90 = 136315138;
-        *(v90 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v152);
-        _os_log_impl(&dword_0, v88, v89, "FindMyMessagesAppViewController: %s - No selected message while in transcript", v90, 0xCu);
-        sub_C80C(v91);
+        v79 = swift_slowAlloc();
+        v80 = swift_slowAlloc();
+        *&v139 = v80;
+        *v79 = 136315138;
+        *(v79 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v139);
+        _os_log_impl(&dword_0, v77, v78, "FindMyMessagesAppViewController: %s - No selected message while in transcript", v79, 0xCu);
+        sub_C80C(v80);
       }
     }
 
-    v75 = &enum case for CompositeAppViewState.loading(_:);
+    v64 = &enum case for CompositeAppViewState.loading(_:);
 LABEL_72:
-    v85 = v141;
+    v74 = v128;
     goto LABEL_73;
   }
 
-  v82 = sub_E5B4();
-  v83 = sub_E714();
-  v84 = os_log_type_enabled(v82, v83);
-  v85 = v141;
-  if (v84)
+  v71 = sub_E5B4();
+  v72 = sub_E714();
+  v73 = os_log_type_enabled(v71, v72);
+  v74 = v128;
+  if (v73)
   {
-    v86 = swift_slowAlloc();
-    v87 = swift_slowAlloc();
-    *&v152 = v87;
-    *v86 = 136315138;
-    *(v86 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v152);
-    _os_log_impl(&dword_0, v82, v83, "FindMyMessagesAppViewController: %s - Unknown presentation style", v86, 0xCu);
-    sub_C80C(v87);
+    v75 = swift_slowAlloc();
+    v76 = swift_slowAlloc();
+    *&v139 = v76;
+    *v75 = 136315138;
+    *(v75 + 4) = sub_C740(0xD000000000000035, 0x8000000000010310, &v139);
+    _os_log_impl(&dword_0, v71, v72, "FindMyMessagesAppViewController: %s - Unknown presentation style", v75, 0xCu);
+    sub_C80C(v76);
   }
 
-  v75 = &enum case for CompositeAppViewState.loading(_:);
+  v64 = &enum case for CompositeAppViewState.loading(_:);
 LABEL_73:
-  v116 = v139;
-  v115 = v140;
-  v117 = v146;
-  (*(v139 + 104))(v146, *v75, v140);
-  v118 = v136;
-  v119 = v147;
-  v120 = v137;
-  (*(v136 + 16))(v85, v147, v137);
-  (*(v118 + 56))(v85, 0, 1, v120);
-  (*(v116 + 16))(v138, v117, v115);
+  v103 = v126;
+  v102 = v127;
+  v104 = v133;
+  (*(v126 + 104))(v133, *v64, v127);
+  v105 = v123;
+  v106 = v134;
+  v107 = v124;
+  (*(v123 + 16))(v74, v134, v124);
+  (*(v105 + 56))(v74, 0, 1, v107);
+  (*(v103 + 16))(v125, v104, v102);
   sub_E574();
-  (*(v116 + 8))(v117, v115);
-  return (*(v118 + 8))(v119, v120);
+  (*(v103 + 8))(v104, v102);
+  return (*(v105 + 8))(v106, v107);
 }
 
 uint64_t sub_8610(uint64_t a1)
@@ -2273,35 +2215,29 @@ uint64_t sub_8610(uint64_t a1)
   v2[35] = v1;
   v3 = sub_E394();
   v2[36] = v3;
-  v4 = *(v3 - 8);
-  v2[37] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[37] = *(v3 - 8);
   v2[38] = swift_task_alloc();
-  v6 = sub_E544();
-  v2[39] = v6;
-  v7 = *(v6 - 8);
-  v2[40] = v7;
-  v8 = *(v7 + 64) + 15;
+  v4 = sub_E544();
+  v2[39] = v4;
+  v2[40] = *(v4 - 8);
   v2[41] = swift_task_alloc();
-  v9 = sub_E414();
-  v2[42] = v9;
-  v10 = *(v9 - 8);
-  v2[43] = v10;
-  v11 = *(v10 + 64) + 15;
+  v5 = sub_E414();
+  v2[42] = v5;
+  v2[43] = *(v5 - 8);
   v2[44] = swift_task_alloc();
   v2[45] = swift_task_alloc();
   sub_E6D4();
   v2[46] = sub_E6C4();
-  v13 = sub_E6B4();
-  v2[47] = v13;
-  v2[48] = v12;
+  v7 = sub_E6B4();
+  v2[47] = v7;
+  v2[48] = v6;
 
-  return _swift_task_switch(sub_87C8, v13, v12);
+  return _swift_task_switch(sub_87C8, v7, v6);
 }
 
 uint64_t sub_87C8()
 {
-  v47 = v0;
+  v38 = v0;
   if (qword_184A0 != -1)
   {
     swift_once();
@@ -2325,15 +2261,15 @@ uint64_t sub_87C8()
     v12 = *(v0 + 352);
     v13 = *(v0 + 336);
     v14 = swift_slowAlloc();
-    v46 = swift_slowAlloc();
+    v37 = swift_slowAlloc();
     *v14 = 136315394;
-    *(v14 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v46);
+    *(v14 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v37);
     *(v14 + 12) = 2080;
     v6(v12, v10, v13);
     v15 = sub_E664();
     v17 = v16;
     (*(v11 + 8))(v10, v13);
-    v18 = sub_C740(v15, v17, &v46);
+    v18 = sub_C740(v15, v17, &v37);
 
     *(v14 + 14) = v18;
     _os_log_impl(&dword_0, v7, v8, "FindMyMessagesAppViewController: %s payload: %s", v14, 0x16u);
@@ -2356,47 +2292,43 @@ uint64_t sub_87C8()
     v24 = *(v0 + 320);
     v23 = *(v0 + 328);
     v25 = *(v0 + 312);
-    v26 = *(v0 + 272);
     sub_E3F4();
-    v27 = (*(v24 + 88))(v23, v25);
-    v28 = *(v0 + 320);
-    v29 = *(v0 + 328);
-    v30 = *(v0 + 312);
-    if (v27 == enum case for CompositeAppViewState.TranscriptInfo.Kind.share(_:))
+    v26 = (*(v24 + 88))(v23, v25);
+    v27 = *(v0 + 320);
+    v28 = *(v0 + 328);
+    v29 = *(v0 + 312);
+    if (v26 == enum case for CompositeAppViewState.TranscriptInfo.Kind.share(_:))
     {
-      (*(v28 + 96))(*(v0 + 328), v30);
-      if (*v29 == 3)
+      (*(v27 + 96))(*(v0 + 328), v29);
+      if (*v28 == 3)
       {
-        v31 = *(*(v0 + 280) + OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel);
-        v32 = *(&async function pointer to dispatch thunk of MessagesAppViewModel.createMapsURLForThisDeviceCurrentLocation() + 1);
-        v45 = (&async function pointer to dispatch thunk of MessagesAppViewModel.createMapsURLForThisDeviceCurrentLocation() + async function pointer to dispatch thunk of MessagesAppViewModel.createMapsURLForThisDeviceCurrentLocation());
-        v33 = swift_task_alloc();
-        *(v0 + 408) = v33;
-        *v33 = v0;
-        v33[1] = sub_8C98;
-        v34 = *(v0 + 304);
+        v36 = (&async function pointer to dispatch thunk of MessagesAppViewModel.createMapsURLForThisDeviceCurrentLocation() + async function pointer to dispatch thunk of MessagesAppViewModel.createMapsURLForThisDeviceCurrentLocation());
+        v30 = swift_task_alloc();
+        *(v0 + 408) = v30;
+        *v30 = v0;
+        v30[1] = sub_8C98;
+        v31 = *(v0 + 304);
 
-        return v45(v34);
+        return v36(v31);
       }
     }
 
     else
     {
-      (*(v28 + 8))(*(v0 + 328), v30);
+      (*(v27 + 8))(*(v0 + 328), v29);
     }
 
-    v42 = *(v0 + 272);
     isa = sub_E3B4().super.isa;
     *(v0 + 448) = isa;
     *(v0 + 16) = v0;
     *(v0 + 24) = sub_94E8;
-    v44 = swift_continuation_init();
+    v35 = swift_continuation_init();
     *(v0 + 200) = sub_19DC(&qword_18518, &qword_EFC0);
     *(v0 + 144) = _NSConcreteStackBlock;
     *(v0 + 152) = 1107296256;
     *(v0 + 160) = sub_9AC0;
     *(v0 + 168) = &unk_148B0;
-    *(v0 + 176) = v44;
+    *(v0 + 176) = v35;
     [v22 insertMessage:isa completionHandler:v0 + 144];
 
     return _swift_continuation_await(v0 + 16);
@@ -2404,49 +2336,40 @@ uint64_t sub_87C8()
 
   else
   {
-    v36 = *(v0 + 368);
 
-    v38 = *(v0 + 352);
-    v37 = *(v0 + 360);
-    v39 = *(v0 + 328);
-    v40 = *(v0 + 304);
+    v33 = *(v0 + 8);
 
-    v41 = *(v0 + 8);
-
-    return v41();
+    return v33();
   }
 }
 
 uint64_t sub_8C98()
 {
-  v2 = *(*v1 + 408);
-  v3 = *v1;
-  v3[52] = v0;
+  v2 = *v1;
+  v2[52] = v0;
 
   if (v0)
   {
-    v4 = v3[47];
-    v5 = v3[48];
+    v3 = v2[47];
+    v4 = v2[48];
 
-    return _swift_task_switch(sub_96CC, v4, v5);
+    return _swift_task_switch(sub_96CC, v3, v4);
   }
 
   else
   {
-    v6 = swift_task_alloc();
-    v3[53] = v6;
-    *v6 = v3;
-    v6[1] = sub_8E04;
-    v7 = v3[38];
+    v5 = swift_task_alloc();
+    v2[53] = v5;
+    *v5 = v2;
+    v5[1] = sub_8E04;
+    v6 = v2[38];
 
-    return sub_D548(v7);
+    return sub_D548(v6);
   }
 }
 
 uint64_t sub_8E04(uint64_t a1)
 {
-  v2 = *(*v1 + 424);
-  v4 = *v1;
   *(*v1 + 432) = a1;
 
   return _swift_task_switch(sub_8F04, 0, 0);
@@ -2472,20 +2395,19 @@ uint64_t sub_8F04()
 
 uint64_t sub_9028()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 112);
-  *(*v0 + 440) = v2;
-  if (v2)
+  v1 = *(*v0 + 112);
+  *(*v0 + 440) = v1;
+  if (v1)
   {
-    v3 = sub_9264;
+    v2 = sub_9264;
   }
 
   else
   {
-    v3 = sub_9138;
+    v2 = sub_9138;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_9138()
@@ -2496,178 +2418,40 @@ uint64_t sub_9138()
   return _swift_task_switch(sub_919C, v1, v2);
 }
 
-uint64_t sub_919C()
+uint64_t sub_919C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 368);
-  v3 = *(v0 + 296);
-  v2 = *(v0 + 304);
-  v4 = *(v0 + 288);
+  v4 = *(v2 + 296);
+  v3 = *(v2 + 304);
+  v5 = *(v2 + 288);
 
-  (*(v3 + 8))(v2, v4);
-  v5 = *(v0 + 400);
-  [*(v0 + 280) dismiss];
+  (*(v4 + 8))(v3, v5);
+  v6 = *(v2 + 400);
+  [*(v2 + 280) dismiss];
 
-  v7 = *(v0 + 352);
-  v6 = *(v0 + 360);
-  v8 = *(v0 + 328);
-  v9 = *(v0 + 304);
+  v7 = *(v2 + 8);
 
-  v10 = *(v0 + 8);
-
-  return v10();
+  return v7();
 }
 
 uint64_t sub_9264()
 {
   v1 = v0[54];
-  v2 = v0[55];
   swift_willThrow();
 
-  v3 = v0[47];
-  v4 = v0[48];
+  v2 = v0[47];
+  v3 = v0[48];
 
-  return _swift_task_switch(sub_92D4, v3, v4);
+  return _swift_task_switch(sub_92D4, v2, v3);
 }
 
-uint64_t sub_92D4()
+uint64_t sub_92D4(uint64_t a1, uint64_t a2)
 {
-  v21 = v0;
-  v1 = *(v0 + 368);
-  v3 = *(v0 + 296);
-  v2 = *(v0 + 304);
-  v4 = *(v0 + 288);
+  v16 = v2;
+  v4 = *(v2 + 296);
+  v3 = *(v2 + 304);
+  v5 = *(v2 + 288);
 
-  (*(v3 + 8))(v2, v4);
-  v5 = *(v0 + 440);
-  v6 = *(v0 + 392);
-  swift_errorRetain();
-  v7 = sub_E5B4();
-  v8 = sub_E714();
-
-  if (os_log_type_enabled(v7, v8))
-  {
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v20 = v11;
-    *v9 = 136315394;
-    *(v9 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v20);
-    *(v9 + 12) = 2112;
-    swift_errorRetain();
-    v12 = _swift_stdlib_bridgeErrorToNSError();
-    *(v9 + 14) = v12;
-    *v10 = v12;
-    _os_log_impl(&dword_0, v7, v8, "FindMyMessagesAppViewController: %s failed to insert message with error: %@", v9, 0x16u);
-    sub_E1B0(v10, &qword_184B0, &qword_EE68);
-
-    sub_C80C(v11);
-  }
-
-  v13 = *(v0 + 400);
-  [*(v0 + 280) dismiss];
-
-  v15 = *(v0 + 352);
-  v14 = *(v0 + 360);
-  v16 = *(v0 + 328);
-  v17 = *(v0 + 304);
-
-  v18 = *(v0 + 8);
-
-  return v18();
-}
-
-uint64_t sub_94E8()
-{
-  v1 = *v0;
-  v2 = *v0;
-  v3 = *(*v0 + 48);
-  *(*v0 + 456) = v3;
-  v4 = *(v1 + 384);
-  v5 = *(v1 + 376);
-  if (v3)
-  {
-    v6 = sub_98C0;
-  }
-
-  else
-  {
-    v6 = sub_9618;
-  }
-
-  return _swift_task_switch(v6, v5, v4);
-}
-
-uint64_t sub_9618()
-{
-  v1 = *(v0 + 368);
-
-  v2 = *(v0 + 400);
-  [*(v0 + 280) dismiss];
-
-  v4 = *(v0 + 352);
-  v3 = *(v0 + 360);
-  v5 = *(v0 + 328);
-  v6 = *(v0 + 304);
-
-  v7 = *(v0 + 8);
-
-  return v7();
-}
-
-uint64_t sub_96CC()
-{
-  v18 = v0;
-  v1 = *(v0 + 368);
-
-  v2 = *(v0 + 416);
-  v3 = *(v0 + 392);
-  swift_errorRetain();
-  v4 = sub_E5B4();
-  v5 = sub_E714();
-
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v17 = v8;
-    *v6 = 136315394;
-    *(v6 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v17);
-    *(v6 + 12) = 2112;
-    swift_errorRetain();
-    v9 = _swift_stdlib_bridgeErrorToNSError();
-    *(v6 + 14) = v9;
-    *v7 = v9;
-    _os_log_impl(&dword_0, v4, v5, "FindMyMessagesAppViewController: %s failed to insert message with error: %@", v6, 0x16u);
-    sub_E1B0(v7, &qword_184B0, &qword_EE68);
-
-    sub_C80C(v8);
-  }
-
-  v10 = *(v0 + 400);
-  [*(v0 + 280) dismiss];
-
-  v12 = *(v0 + 352);
-  v11 = *(v0 + 360);
-  v13 = *(v0 + 328);
-  v14 = *(v0 + 304);
-
-  v15 = *(v0 + 8);
-
-  return v15();
-}
-
-uint64_t sub_98C0()
-{
-  v20 = v0;
-  v1 = *(v0 + 448);
-  v2 = *(v0 + 456);
-  v3 = *(v0 + 368);
-
-  swift_willThrow();
-
-  v4 = *(v0 + 456);
-  v5 = *(v0 + 392);
+  (*(v4 + 8))(v3, v5);
   swift_errorRetain();
   v6 = sub_E5B4();
   v7 = sub_E714();
@@ -2677,9 +2461,9 @@ uint64_t sub_98C0()
     v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v19 = v10;
+    v15 = v10;
     *v8 = 136315394;
-    *(v8 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v19);
+    *(v8 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v15);
     *(v8 + 12) = 2112;
     swift_errorRetain();
     v11 = _swift_stdlib_bridgeErrorToNSError();
@@ -2691,17 +2475,116 @@ uint64_t sub_98C0()
     sub_C80C(v10);
   }
 
-  v12 = *(v0 + 400);
+  v12 = *(v2 + 400);
+  [*(v2 + 280) dismiss];
+
+  v13 = *(v2 + 8);
+
+  return v13();
+}
+
+uint64_t sub_94E8()
+{
+  v1 = *v0;
+  v2 = *(*v0 + 48);
+  *(*v0 + 456) = v2;
+  v3 = *(v1 + 384);
+  v4 = *(v1 + 376);
+  if (v2)
+  {
+    v5 = sub_98C0;
+  }
+
+  else
+  {
+    v5 = sub_9618;
+  }
+
+  return _swift_task_switch(v5, v4, v3);
+}
+
+uint64_t sub_9618()
+{
+
+  v1 = *(v0 + 400);
   [*(v0 + 280) dismiss];
 
-  v14 = *(v0 + 352);
-  v13 = *(v0 + 360);
-  v15 = *(v0 + 328);
-  v16 = *(v0 + 304);
+  v2 = *(v0 + 8);
 
-  v17 = *(v0 + 8);
+  return v2();
+}
 
-  return v17();
+uint64_t sub_96CC(uint64_t a1, uint64_t a2)
+{
+  v13 = v2;
+
+  swift_errorRetain();
+  v3 = sub_E5B4();
+  v4 = sub_E714();
+
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = swift_slowAlloc();
+    v6 = swift_slowAlloc();
+    v7 = swift_slowAlloc();
+    v12 = v7;
+    *v5 = 136315394;
+    *(v5 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v12);
+    *(v5 + 12) = 2112;
+    swift_errorRetain();
+    v8 = _swift_stdlib_bridgeErrorToNSError();
+    *(v5 + 14) = v8;
+    *v6 = v8;
+    _os_log_impl(&dword_0, v3, v4, "FindMyMessagesAppViewController: %s failed to insert message with error: %@", v5, 0x16u);
+    sub_E1B0(v6, &qword_184B0, &qword_EE68);
+
+    sub_C80C(v7);
+  }
+
+  v9 = *(v2 + 400);
+  [*(v2 + 280) dismiss];
+
+  v10 = *(v2 + 8);
+
+  return v10();
+}
+
+uint64_t sub_98C0(uint64_t a1, uint64_t a2)
+{
+  v14 = v2;
+  v3 = *(v2 + 448);
+
+  swift_willThrow();
+
+  swift_errorRetain();
+  v4 = sub_E5B4();
+  v5 = sub_E714();
+
+  if (os_log_type_enabled(v4, v5))
+  {
+    v6 = swift_slowAlloc();
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v13 = v8;
+    *v6 = 136315394;
+    *(v6 + 4) = sub_C740(0xD000000000000020, 0x8000000000010220, &v13);
+    *(v6 + 12) = 2112;
+    swift_errorRetain();
+    v9 = _swift_stdlib_bridgeErrorToNSError();
+    *(v6 + 14) = v9;
+    *v7 = v9;
+    _os_log_impl(&dword_0, v4, v5, "FindMyMessagesAppViewController: %s failed to insert message with error: %@", v6, 0x16u);
+    sub_E1B0(v7, &qword_184B0, &qword_EE68);
+
+    sub_C80C(v8);
+  }
+
+  v10 = *(v2 + 400);
+  [*(v2 + 280) dismiss];
+
+  v11 = *(v2 + 8);
+
+  return v11();
 }
 
 uint64_t sub_9AC0(uint64_t a1, void *a2)
@@ -2737,22 +2620,20 @@ uint64_t sub_9B6C(double a1, double a2, double a3, double a4, double a5, double 
   *(v7 + 168) = a2;
   v8 = sub_E394();
   *(v7 + 216) = v8;
-  v9 = *(v8 - 8);
-  *(v7 + 224) = v9;
-  v10 = *(v9 + 64) + 15;
+  *(v7 + 224) = *(v8 - 8);
   *(v7 + 232) = swift_task_alloc();
   sub_E6D4();
   *(v7 + 240) = sub_E6C4();
-  v12 = sub_E6B4();
-  *(v7 + 248) = v12;
-  *(v7 + 256) = v11;
+  v10 = sub_E6B4();
+  *(v7 + 248) = v10;
+  *(v7 + 256) = v9;
 
-  return _swift_task_switch(sub_9C6C, v12, v11);
+  return _swift_task_switch(sub_9C6C, v10, v9);
 }
 
 uint64_t sub_9C6C()
 {
-  v26 = v0;
+  v16 = v0;
   if (qword_184A0 != -1)
   {
     swift_once();
@@ -2767,15 +2648,15 @@ uint64_t sub_9C6C()
     v5 = *(v0 + 160);
     v4 = *(v0 + 168);
     v6 = swift_slowAlloc();
-    v25[0] = swift_slowAlloc();
+    v15[0] = swift_slowAlloc();
     *v6 = 136315395;
-    *(v6 + 4) = sub_C740(0xD000000000000028, 0x8000000000010180, v25);
+    *(v6 + 4) = sub_C740(0xD000000000000028, 0x8000000000010180, v15);
     *(v6 + 12) = 2081;
     *(v0 + 144) = v5;
     *(v0 + 152) = v4;
     type metadata accessor for CLLocationCoordinate2D(0);
     v7 = sub_E664();
-    v9 = sub_C740(v7, v8, v25);
+    v9 = sub_C740(v7, v8, v15);
 
     *(v6 + 14) = v9;
     _os_log_impl(&dword_0, v2, v3, "FindMyMessagesAppViewController: %s payload: %{private}s", v6, 0x16u);
@@ -2786,40 +2667,27 @@ uint64_t sub_9C6C()
   *(v0 + 272) = v10;
   if (v10)
   {
-    v11 = *(v0 + 232);
-    v12 = *(v0 + 192);
-    v13 = *(v0 + 200);
-    v14 = *(v0 + 176);
-    v15 = *(v0 + 184);
-    v16 = *(v0 + 160);
-    v17 = *(v0 + 168);
-    v18 = *(*(v0 + 208) + OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel);
     sub_E454();
-    v23 = swift_task_alloc();
-    *(v0 + 280) = v23;
-    *v23 = v0;
-    v23[1] = sub_A078;
-    v24 = *(v0 + 232);
+    v13 = swift_task_alloc();
+    *(v0 + 280) = v13;
+    *v13 = v0;
+    v13[1] = sub_A078;
+    v14 = *(v0 + 232);
 
-    return sub_D548(v24);
+    return sub_D548(v14);
   }
 
   else
   {
-    v19 = *(v0 + 240);
 
-    v20 = *(v0 + 232);
+    v11 = *(v0 + 8);
 
-    v21 = *(v0 + 8);
-
-    return v21();
+    return v11();
   }
 }
 
 uint64_t sub_A078(uint64_t a1)
 {
-  v2 = *(*v1 + 280);
-  v4 = *v1;
   *(*v1 + 288) = a1;
 
   return _swift_task_switch(sub_A178, 0, 0);
@@ -2845,20 +2713,19 @@ uint64_t sub_A178()
 
 uint64_t sub_A29C()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 296) = v2;
-  if (v2)
+  v1 = *(*v0 + 48);
+  *(*v0 + 296) = v1;
+  if (v1)
   {
-    v3 = sub_A4C0;
+    v2 = sub_A4C0;
   }
 
   else
   {
-    v3 = sub_A3AC;
+    v2 = sub_A3AC;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_A3AC()
@@ -2869,79 +2736,71 @@ uint64_t sub_A3AC()
   return _swift_task_switch(sub_A410, v1, v2);
 }
 
-uint64_t sub_A410()
+uint64_t sub_A410(uint64_t a1, uint64_t a2)
 {
-  v1 = v0[34];
-  v3 = v0[29];
-  v2 = v0[30];
-  v4 = v0[27];
-  v5 = v0[28];
-  v6 = v0[26];
+  v3 = v2[34];
+  v4 = v2[29];
+  v5 = v2[27];
+  v6 = v2[28];
+  v7 = v2[26];
 
-  [v6 dismiss];
+  [v7 dismiss];
 
-  (*(v5 + 8))(v3, v4);
-  v7 = v0[29];
+  (*(v6 + 8))(v4, v5);
 
-  v8 = v0[1];
+  v8 = v2[1];
 
   return v8();
 }
 
-uint64_t sub_A4C0()
+uint64_t sub_A4C0(uint64_t a1)
 {
-  v1 = v0[36];
-  v2 = v0[37];
+  v2 = v1[36];
   swift_willThrow();
 
-  v3 = v0[31];
-  v4 = v0[32];
+  v3 = v1[31];
+  v4 = v1[32];
 
   return _swift_task_switch(sub_A530, v3, v4);
 }
 
-uint64_t sub_A530()
+uint64_t sub_A530(uint64_t a1, uint64_t a2)
 {
-  v18 = v0;
-  v2 = *(v0 + 232);
-  v1 = *(v0 + 240);
-  v3 = *(v0 + 216);
-  v4 = *(v0 + 224);
+  v16 = v2;
+  v3 = *(v2 + 232);
+  v4 = *(v2 + 216);
+  v5 = *(v2 + 224);
 
-  (*(v4 + 8))(v2, v3);
-  v5 = *(v0 + 296);
-  v6 = *(v0 + 264);
+  (*(v5 + 8))(v3, v4);
   swift_errorRetain();
-  v7 = sub_E5B4();
-  v8 = sub_E714();
+  v6 = sub_E5B4();
+  v7 = sub_E714();
 
-  if (os_log_type_enabled(v7, v8))
+  if (os_log_type_enabled(v6, v7))
   {
+    v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v17 = v11;
-    *v9 = 136315394;
-    *(v9 + 4) = sub_C740(0xD000000000000028, 0x8000000000010180, &v17);
-    *(v9 + 12) = 2112;
+    v15 = v10;
+    *v8 = 136315394;
+    *(v8 + 4) = sub_C740(0xD000000000000028, 0x8000000000010180, &v15);
+    *(v8 + 12) = 2112;
     swift_errorRetain();
-    v12 = _swift_stdlib_bridgeErrorToNSError();
-    *(v9 + 14) = v12;
-    *v10 = v12;
-    _os_log_impl(&dword_0, v7, v8, "FindMyMessagesAppViewController: %s failed to insert message with error: %@", v9, 0x16u);
-    sub_E1B0(v10, &qword_184B0, &qword_EE68);
+    v11 = _swift_stdlib_bridgeErrorToNSError();
+    *(v8 + 14) = v11;
+    *v9 = v11;
+    _os_log_impl(&dword_0, v6, v7, "FindMyMessagesAppViewController: %s failed to insert message with error: %@", v8, 0x16u);
+    sub_E1B0(v9, &qword_184B0, &qword_EE68);
 
-    sub_C80C(v11);
+    sub_C80C(v10);
   }
 
-  v13 = *(v0 + 272);
-  [*(v0 + 208) dismiss];
+  v12 = *(v2 + 272);
+  [*(v2 + 208) dismiss];
 
-  v14 = *(v0 + 232);
+  v13 = *(v2 + 8);
 
-  v15 = *(v0 + 8);
-
-  return v15();
+  return v13();
 }
 
 uint64_t FindMyMessagesAppViewController._validateMessage(forSending:conversation:associatedText:)(uint64_t a1)
@@ -2959,44 +2818,39 @@ uint64_t FindMyMessagesAppViewController._validateMessage(forSending:conversatio
 
 uint64_t sub_A7B8()
 {
-  v1 = *(v0[3] + OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel);
-  v2 = *(&async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:) + 1);
-  v6 = (&async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:) + async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:));
-  v3 = swift_task_alloc();
-  v0[7] = v3;
-  *v3 = v0;
-  v3[1] = sub_A870;
-  v4 = v0[2];
+  v4 = (&async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:) + async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:));
+  v1 = swift_task_alloc();
+  *(v0 + 56) = v1;
+  *v1 = v0;
+  v1[1] = sub_A870;
+  v2 = *(v0 + 16);
 
-  return v6(v4);
+  return v4(v2);
 }
 
 uint64_t sub_A870(char a1, uint64_t a2, uint64_t a3)
 {
   v4 = *v3;
   v5 = *v3;
-  v6 = *(*v3 + 56);
-  v10 = *v3;
   *(v5 + 80) = a1;
   *(v5 + 64) = a2;
   *(v5 + 72) = a3;
 
-  v7 = *(v4 + 48);
-  v8 = *(v4 + 40);
+  v6 = *(v4 + 48);
+  v7 = *(v4 + 40);
 
-  return _swift_task_switch(sub_A99C, v8, v7);
+  return _swift_task_switch(sub_A99C, v7, v6);
 }
 
-uint64_t sub_A99C()
+uint64_t sub_A99C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 32);
 
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 64);
-  v4 = *(v0 + 72);
-  v5 = *(v0 + 80);
+  v3 = *(v2 + 8);
+  v4 = *(v2 + 64);
+  v5 = *(v2 + 72);
+  v6 = *(v2 + 80);
 
-  return v2(v5, v3, v4);
+  return v3(v6, v4, v5);
 }
 
 uint64_t sub_ABA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -3011,81 +2865,71 @@ uint64_t sub_ABA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   return _swift_task_switch(sub_AC48, v7, v6);
 }
 
-uint64_t sub_AC48()
+uint64_t sub_AC48(uint64_t a1, uint64_t a2)
 {
-  v2 = v0[9];
-  v1 = v0[10];
-  v3 = v0[7];
-  v4 = v0[8];
-  v5 = v0[6];
+  v3 = v2[7];
+  v4 = v2[8];
+  v5 = v2[6];
 
-  v0[11] = _Block_copy(v3);
+  v2[11] = _Block_copy(v3);
   v6 = v5;
   v7 = v4;
-  v0[12] = sub_E6C4();
+  v2[12] = sub_E6C4();
   v9 = sub_E6B4();
-  v0[13] = v9;
-  v0[14] = v8;
+  v2[13] = v9;
+  v2[14] = v8;
 
   return _swift_task_switch(sub_ACFC, v9, v8);
 }
 
 uint64_t sub_ACFC()
 {
-  v1 = *(v0[8] + OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel);
-  v2 = *(&async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:) + 1);
-  v6 = (&async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:) + async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:));
-  v3 = swift_task_alloc();
-  v0[15] = v3;
-  *v3 = v0;
-  v3[1] = sub_ADB4;
-  v4 = v0[6];
+  v4 = (&async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:) + async function pointer to dispatch thunk of MessagesAppViewModel.validateAndInitiate(message:));
+  v1 = swift_task_alloc();
+  *(v0 + 120) = v1;
+  *v1 = v0;
+  v1[1] = sub_ADB4;
+  v2 = *(v0 + 48);
 
-  return v6(v4);
+  return v4(v2);
 }
 
 uint64_t sub_ADB4(char a1, uint64_t a2, uint64_t a3)
 {
   v4 = *v3;
   v5 = *v3;
-  v5[4] = a2;
-  v5[5] = a3;
+  *(v5 + 32) = a2;
+  *(v5 + 40) = a3;
   *(v5 + 24) = a1;
-  v5[2] = v3;
-  v6 = v4[15];
-  v10 = *v3;
-  v5[16] = a3;
+  *(v5 + 16) = v3;
+  *(v5 + 128) = a3;
 
-  v7 = v4[14];
-  v8 = v4[13];
+  v6 = *(v4 + 112);
+  v7 = *(v4 + 104);
 
-  return _swift_task_switch(sub_AEE0, v8, v7);
+  return _swift_task_switch(sub_AEE0, v7, v6);
 }
 
-uint64_t sub_AEE0()
+uint64_t sub_AEE0(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 128);
-  v2 = *(v0 + 96);
-  v3 = *(v0 + 64);
-  v4 = *(v0 + 48);
+  v3 = *(v2 + 128);
+  v4 = *(v2 + 64);
+  v5 = *(v2 + 48);
 
-  v5 = *(v0 + 128);
-  if (v1)
+  if (v3)
   {
-    v6 = *(v0 + 32);
-    v7 = *(v0 + 128);
 
-    v1 = sub_E644();
+    v3 = sub_E644();
   }
 
-  v8 = *(v0 + 88);
-  (v8)[2](v8, *(v0 + 24), v1);
+  v6 = *(v2 + 88);
+  (v6)[2](v6, *(v2 + 24), v3);
 
-  _Block_release(v8);
+  _Block_release(v6);
 
-  v9 = *(v0 + 8);
+  v7 = *(v2 + 8);
 
-  return v9();
+  return v7();
 }
 
 id FindMyMessagesAppViewController.__allocating_init(nibName:bundle:)(uint64_t a1, uint64_t a2, void *a3)
@@ -3109,62 +2953,58 @@ id FindMyMessagesAppViewController.__allocating_init(nibName:bundle:)(uint64_t a
 id FindMyMessagesAppViewController.init(nibName:bundle:)(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = v3;
-  v31 = a2;
-  v32 = a3;
-  v30[1] = a1;
+  v26 = a2;
+  v27 = a3;
+  v25[1] = a1;
   v5 = sub_E634();
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v7 = sub_E434();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v7);
-  v12 = v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = v30 - v13;
-  v15 = sub_E524();
-  v16 = *(v15 + 48);
-  v17 = *(v15 + 52);
+  v6 = sub_E434();
+  v7 = *(v6 - 8);
+  v8 = __chkstk_darwin(v6);
+  v10 = v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v12 = v25 - v11;
+  sub_E524();
   swift_allocObject();
-  v18 = sub_E514();
+  v13 = sub_E514();
 
   sub_E424();
-  (*(v8 + 16))(v12, v14, v7);
-  v19 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
-  v20 = sub_E614();
+  (*(v7 + 16))(v10, v12, v6);
+  v14 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
+  v15 = sub_E614();
   sub_E624();
   sub_E5F4();
   sub_E5E4();
   sub_E604();
-  result = [v20 view];
+  result = [v15 view];
   if (result)
   {
-    v22 = result;
-    v23 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel;
-    v24 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController;
-    v25 = [objc_opt_self() clearColor];
-    [v22 setBackgroundColor:v25];
+    v17 = result;
+    v18 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel;
+    v19 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController;
+    v20 = [objc_opt_self() clearColor];
+    [v17 setBackgroundColor:v20];
 
-    (*(v8 + 8))(v14, v7);
-    *&v4[v23] = v18;
-    *&v4[v24] = v20;
-    if (v31)
+    (*(v7 + 8))(v12, v6);
+    *&v4[v18] = v13;
+    *&v4[v19] = v15;
+    if (v26)
     {
-      v26 = sub_E644();
+      v21 = sub_E644();
     }
 
     else
     {
-      v26 = 0;
+      v21 = 0;
     }
 
     MyMessagesAppViewController = type metadata accessor for FindMyMessagesAppViewController();
-    v33.receiver = v4;
-    v33.super_class = MyMessagesAppViewController;
-    v28 = v32;
-    v29 = objc_msgSendSuper2(&v33, "initWithNibName:bundle:", v26, v32);
+    v28.receiver = v4;
+    v28.super_class = MyMessagesAppViewController;
+    v23 = v27;
+    v24 = objc_msgSendSuper2(&v28, "initWithNibName:bundle:", v21, v27);
 
-    return v29;
+    return v24;
   }
 
   else
@@ -3185,54 +3025,50 @@ id FindMyMessagesAppViewController.__allocating_init(coder:)(void *a1)
 id FindMyMessagesAppViewController.init(coder:)(void *a1)
 {
   v2 = v1;
-  v28 = a1;
+  v23 = a1;
   v3 = sub_E634();
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v5 = sub_E434();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v12 = &v27 - v11;
-  v13 = sub_E524();
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
+  v4 = sub_E434();
+  v5 = *(v4 - 8);
+  v6 = __chkstk_darwin(v4);
+  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v22 - v9;
+  sub_E524();
   swift_allocObject();
-  v16 = sub_E514();
+  v11 = sub_E514();
 
   sub_E424();
-  (*(v6 + 16))(v10, v12, v5);
-  v17 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
-  v18 = sub_E614();
+  (*(v5 + 16))(v8, v10, v4);
+  v12 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
+  v13 = sub_E614();
   sub_E624();
   sub_E5F4();
   sub_E5E4();
   sub_E604();
-  result = [v18 view];
+  result = [v13 view];
   if (result)
   {
-    v20 = result;
-    v21 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel;
-    v22 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController;
-    v23 = [objc_opt_self() clearColor];
-    [v20 setBackgroundColor:v23];
+    v15 = result;
+    v16 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel;
+    v17 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController;
+    v18 = [objc_opt_self() clearColor];
+    [v15 setBackgroundColor:v18];
 
-    (*(v6 + 8))(v12, v5);
-    *&v2[v21] = v16;
-    *&v2[v22] = v18;
+    (*(v5 + 8))(v10, v4);
+    *&v2[v16] = v11;
+    *&v2[v17] = v13;
     MyMessagesAppViewController = type metadata accessor for FindMyMessagesAppViewController();
-    v29.receiver = v2;
-    v29.super_class = MyMessagesAppViewController;
-    v25 = v28;
-    v26 = objc_msgSendSuper2(&v29, "initWithCoder:", v28);
+    v24.receiver = v2;
+    v24.super_class = MyMessagesAppViewController;
+    v20 = v23;
+    v21 = objc_msgSendSuper2(&v24, "initWithCoder:", v23);
 
-    if (v26)
+    if (v21)
     {
     }
 
-    return v26;
+    return v21;
   }
 
   else
@@ -3253,47 +3089,43 @@ id FindMyMessagesAppViewController.__allocating_init(shouldBeSheetPresentationCo
 id FindMyMessagesAppViewController.init(shouldBeSheetPresentationControllerDelegate:)(int a1)
 {
   v2 = v1;
-  v26 = a1;
+  v21 = a1;
   v3 = sub_E634();
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v5 = sub_E434();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v10 = &v25[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v8);
-  v12 = &v25[-v11];
-  v13 = sub_E524();
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
+  v4 = sub_E434();
+  v5 = *(v4 - 8);
+  v6 = __chkstk_darwin(v4);
+  v8 = &v20[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v6);
+  v10 = &v20[-v9];
+  sub_E524();
   swift_allocObject();
-  v16 = sub_E514();
+  v11 = sub_E514();
 
   sub_E424();
-  (*(v6 + 16))(v10, v12, v5);
-  v17 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
-  v18 = sub_E614();
+  (*(v5 + 16))(v8, v10, v4);
+  v12 = objc_allocWithZone(sub_19DC(&qword_184A8, &qword_EE60));
+  v13 = sub_E614();
   sub_E624();
   sub_E5F4();
   sub_E5E4();
   sub_E604();
-  result = [v18 view];
+  result = [v13 view];
   if (result)
   {
-    v20 = result;
-    v21 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel;
-    v22 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController;
-    v23 = [objc_opt_self() clearColor];
-    [v20 setBackgroundColor:v23];
+    v15 = result;
+    v16 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_viewModel;
+    v17 = OBJC_IVAR____TtC17FindMyMessagesApp31FindMyMessagesAppViewController_hostingViewController;
+    v18 = [objc_opt_self() clearColor];
+    [v15 setBackgroundColor:v18];
 
-    (*(v6 + 8))(v12, v5);
-    *&v2[v21] = v16;
-    *&v2[v22] = v18;
+    (*(v5 + 8))(v10, v4);
+    *&v2[v16] = v11;
+    *&v2[v17] = v13;
     MyMessagesAppViewController = type metadata accessor for FindMyMessagesAppViewController();
-    v27.receiver = v2;
-    v27.super_class = MyMessagesAppViewController;
-    return objc_msgSendSuper2(&v27, "initWithShouldBeSheetPresentationControllerDelegate:", v26 & 1);
+    v22.receiver = v2;
+    v22.super_class = MyMessagesAppViewController;
+    return objc_msgSendSuper2(&v22, "initWithShouldBeSheetPresentationControllerDelegate:", v21 & 1);
   }
 
   else
@@ -3345,24 +3177,22 @@ void *sub_B9D4@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_B9F0(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_BAE8;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_BAE8;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_BAE8()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_BBE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
@@ -3370,9 +3200,7 @@ uint64_t sub_BBE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
   *(v6 + 56) = v5;
   v12 = sub_E774();
   *(v6 + 64) = v12;
-  v13 = *(v12 - 8);
-  *(v6 + 72) = v13;
-  v14 = *(v13 + 64) + 15;
+  *(v6 + 72) = *(v12 - 8);
   *(v6 + 80) = swift_task_alloc();
   *(v6 + 88) = swift_task_alloc();
   *(v6 + 40) = a1;
@@ -3387,41 +3215,35 @@ uint64_t sub_BBE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 uint64_t sub_BCE0()
 {
   v1 = v0[10];
-  v2 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-  v5 = v0[7];
-  v6 = sub_E784();
-  v7 = sub_E168(&qword_18550, &type metadata accessor for ContinuousClock);
+  v2 = v0[8];
+  v3 = v0[9];
+  v4 = sub_E784();
+  v5 = sub_E168(&qword_18550, &type metadata accessor for ContinuousClock, &protocol conformance descriptor for ContinuousClock);
   sub_E7C4();
-  sub_E168(&qword_18558, &type metadata accessor for ContinuousClock.Instant);
+  sub_E168(&qword_18558, &type metadata accessor for ContinuousClock.Instant, &protocol conformance descriptor for ContinuousClock.Instant);
   sub_E794();
-  v8 = *(v4 + 8);
-  v0[12] = v8;
-  v0[13] = (v4 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v8(v1, v3);
-  v9 = async function pointer to dispatch thunk of Clock.sleep(until:tolerance:)[1];
-  v10 = swift_task_alloc();
-  v0[14] = v10;
-  *v10 = v0;
-  v10[1] = sub_BE70;
-  v11 = v0[11];
-  v12 = v0[7];
+  v6 = *(v3 + 8);
+  v0[12] = v6;
+  v0[13] = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v6(v1, v2);
+  v7 = swift_task_alloc();
+  v0[14] = v7;
+  *v7 = v0;
+  v7[1] = sub_BE70;
+  v8 = v0[11];
 
-  return dispatch thunk of Clock.sleep(until:tolerance:)(v11, v0 + 2, v6, v7);
+  return dispatch thunk of Clock.sleep(until:tolerance:)(v8, v0 + 2, v4, v5);
 }
 
 uint64_t sub_BE70()
 {
-  v2 = *(*v1 + 112);
-  v3 = *(*v1 + 104);
-  v4 = *(*v1 + 96);
-  v5 = *(*v1 + 88);
-  v6 = *(*v1 + 64);
-  v7 = *v1;
-  v7[15] = v0;
+  v2 = *(*v1 + 96);
+  v3 = *(*v1 + 88);
+  v4 = *(*v1 + 64);
+  v5 = *v1;
+  *(v5 + 120) = v0;
 
-  v4(v5, v6);
+  v2(v3, v4);
   if (v0)
   {
 
@@ -3430,80 +3252,71 @@ uint64_t sub_BE70()
 
   else
   {
-    v9 = v7[10];
-    v8 = v7[11];
 
-    v10 = v7[1];
+    v6 = *(v5 + 8);
 
-    return v10();
+    return v6();
   }
 }
 
 uint64_t sub_C02C()
 {
-  v2 = v0[10];
-  v1 = v0[11];
 
-  v3 = v0[1];
-  v4 = v0[15];
+  v1 = *(v0 + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t sub_C098(uint64_t a1, uint64_t a2, int *a3)
 {
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = sub_E2E8;
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = sub_E2E8;
 
-  return v7();
+  return v6();
 }
 
 uint64_t sub_C180(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = sub_C268;
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = sub_C268;
 
-  return v8();
+  return v7();
 }
 
 uint64_t sub_C268()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_C35C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = sub_19DC(&qword_184C0, &qword_EE70);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = v25 - v11;
-  sub_DF50(a3, v25 - v11);
-  v13 = sub_E6F4();
-  v14 = *(v13 - 8);
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
+  v11 = v23 - v10;
+  sub_DF50(a3, v23 - v10);
+  v12 = sub_E6F4();
+  v13 = *(v12 - 8);
+  if ((*(v13 + 48))(v11, 1, v12) == 1)
   {
-    sub_E1B0(v12, &qword_184C0, &qword_EE70);
+    sub_E1B0(v11, &qword_184C0, &qword_EE70);
     if (*(a5 + 16))
     {
       goto LABEL_3;
     }
 
 LABEL_7:
+    v14 = 0;
     v16 = 0;
-    v18 = 0;
     if (a2)
     {
       goto LABEL_4;
@@ -3513,62 +3326,61 @@ LABEL_7:
   }
 
   sub_E6E4();
-  (*(v14 + 8))(v12, v13);
+  (*(v13 + 8))(v11, v12);
   if (!*(a5 + 16))
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  v15 = *(a5 + 24);
   swift_getObjectType();
   swift_unknownObjectRetain();
-  v16 = sub_E6B4();
-  v18 = v17;
+  v14 = sub_E6B4();
+  v16 = v15;
   swift_unknownObjectRelease();
   if (a2)
   {
 LABEL_4:
-    v19 = sub_E674() + 32;
-    v20 = swift_allocObject();
-    *(v20 + 16) = a4;
-    *(v20 + 24) = a5;
+    v17 = sub_E674() + 32;
+    v18 = swift_allocObject();
+    *(v18 + 16) = a4;
+    *(v18 + 24) = a5;
 
-    if (v18 | v16)
+    if (v16 | v14)
     {
-      v26[0] = 0;
-      v26[1] = 0;
-      v21 = v26;
-      v26[2] = v16;
-      v26[3] = v18;
+      v24[0] = 0;
+      v24[1] = 0;
+      v19 = v24;
+      v24[2] = v14;
+      v24[3] = v16;
     }
 
     else
     {
-      v21 = 0;
+      v19 = 0;
     }
 
-    v25[1] = 7;
-    v25[2] = v21;
-    v25[3] = v19;
-    v23 = swift_task_create();
+    v23[1] = 7;
+    v23[2] = v19;
+    v23[3] = v17;
+    v21 = swift_task_create();
 
     sub_E1B0(a3, &qword_184C0, &qword_EE70);
 
-    return v23;
+    return v21;
   }
 
 LABEL_8:
   sub_E1B0(a3, &qword_184C0, &qword_EE70);
-  v22 = swift_allocObject();
-  *(v22 + 16) = a4;
-  *(v22 + 24) = a5;
-  if (v18 | v16)
+  v20 = swift_allocObject();
+  *(v20 + 16) = a4;
+  *(v20 + 24) = a5;
+  if (v16 | v14)
   {
-    v26[4] = 0;
-    v26[5] = 0;
-    v26[6] = v16;
-    v26[7] = v18;
+    v24[4] = 0;
+    v24[5] = 0;
+    v24[6] = v14;
+    v24[7] = v16;
   }
 
   return swift_task_create();
@@ -3576,17 +3388,16 @@ LABEL_8:
 
 uint64_t sub_C648(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_E2EC;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_E2EC;
 
-  return v7(a1);
+  return v6(a1);
 }
 
-uint64_t sub_C740(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_C740(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_CBCC(v11, 0, 0, 1, a1, a2);
@@ -3622,20 +3433,21 @@ LABEL_4:
   return v7;
 }
 
-uint64_t sub_C80C(uint64_t *a1)
+uint64_t sub_C80C(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_C86C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 40, 7);
@@ -3762,11 +3574,9 @@ LABEL_8:
 
 char *sub_CCD8(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_CD24(a1, a2);
+  v3 = sub_CD24(a1, a2);
   sub_CE54(&off_14748);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_CD24(uint64_t a1, unint64_t a2)
@@ -3866,7 +3676,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -3880,15 +3689,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_CFB4(result, v12, 1, v3);
+  result = sub_CFB4(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -3903,15 +3712,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -3920,12 +3729,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -4033,14 +3842,14 @@ char *sub_CFB4(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-size_t sub_D0A8(size_t a1, int64_t a2, char a3)
+void *sub_D0A8(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_D0C8(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t sub_D0C8(size_t result, int64_t a2, char a3, void *a4)
+void *sub_D0C8(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -4100,7 +3909,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -4203,48 +4012,46 @@ LABEL_24:
 
 uint64_t sub_D568()
 {
-  v1 = v0[19];
-  v2 = objc_allocWithZone(MSRichLink);
-  sub_E384(v3);
-  v5 = v4;
-  v0[20] = [v2 initWithURL:v4];
+  v1 = objc_allocWithZone(MSRichLink);
+  sub_E384(v2);
+  v4 = v3;
+  v0[20] = [v1 initWithURL:v3];
 
-  v6 = [objc_allocWithZone(LPMetadataProvider) init];
-  v0[21] = v6;
-  sub_E384(v7);
-  v9 = v8;
-  v0[22] = v8;
+  v5 = [objc_allocWithZone(LPMetadataProvider) init];
+  v0[21] = v5;
+  sub_E384(v6);
+  v8 = v7;
+  v0[22] = v7;
   v0[2] = v0;
   v0[7] = v0 + 18;
   v0[3] = sub_D6F0;
-  v10 = swift_continuation_init();
+  v9 = swift_continuation_init();
   v0[17] = sub_19DC(&qword_18528, &qword_EFD0);
   v0[10] = _NSConcreteStackBlock;
   v0[11] = 1107296256;
   v0[12] = sub_B8FC;
   v0[13] = &unk_14888;
-  v0[14] = v10;
-  [v6 startFetchingMetadataForURL:v9 completionHandler:v0 + 10];
+  v0[14] = v9;
+  [v5 startFetchingMetadataForURL:v8 completionHandler:v0 + 10];
 
   return _swift_continuation_await(v0 + 2);
 }
 
 uint64_t sub_D6F0()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 184) = v2;
-  if (v2)
+  v1 = *(*v0 + 48);
+  *(*v0 + 184) = v1;
+  if (v1)
   {
-    v3 = sub_D890;
+    v2 = sub_D890;
   }
 
   else
   {
-    v3 = sub_D800;
+    v2 = sub_D800;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_D800()
@@ -4261,11 +4068,10 @@ uint64_t sub_D800()
   return v4(v5);
 }
 
-uint64_t sub_D890()
+uint64_t sub_D890(uint64_t a1)
 {
-  v23 = v0;
-  v1 = *(v0 + 176);
-  v2 = *(v0 + 184);
+  v19 = v1;
+  v2 = *(v1 + 176);
   swift_willThrow();
 
   if (qword_184A0 != -1)
@@ -4273,47 +4079,43 @@ uint64_t sub_D890()
     swift_once();
   }
 
-  v3 = *(v0 + 184);
-  v4 = sub_E5D4();
-  sub_1BD8(v4, qword_18628);
+  v3 = sub_E5D4();
+  sub_1BD8(v3, qword_18628);
   swift_errorRetain();
-  v5 = sub_E5B4();
-  v6 = sub_E714();
+  v4 = sub_E5B4();
+  v5 = sub_E714();
 
-  if (os_log_type_enabled(v5, v6))
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = *(v0 + 184);
+    v6 = swift_slowAlloc();
+    v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v22 = v10;
-    *v8 = 136315394;
-    *(v8 + 4) = sub_C740(0xD000000000000014, 0x8000000000010200, &v22);
-    *(v8 + 12) = 2112;
+    v18 = v8;
+    *v6 = 136315394;
+    *(v6 + 4) = sub_C740(0xD000000000000014, 0x8000000000010200, &v18);
+    *(v6 + 12) = 2112;
     swift_errorRetain();
-    v11 = _swift_stdlib_bridgeErrorToNSError();
-    *(v8 + 14) = v11;
-    *v9 = v11;
-    _os_log_impl(&dword_0, v5, v6, "FindMyMessagesAppViewController: %s failed to insert metadata with error: %@", v8, 0x16u);
-    sub_E1B0(v9, &qword_184B0, &qword_EE68);
+    v9 = _swift_stdlib_bridgeErrorToNSError();
+    *(v6 + 14) = v9;
+    *v7 = v9;
+    _os_log_impl(&dword_0, v4, v5, "FindMyMessagesAppViewController: %s failed to insert metadata with error: %@", v6, 0x16u);
+    sub_E1B0(v7, &qword_184B0, &qword_EE68);
 
-    sub_C80C(v10);
+    sub_C80C(v8);
   }
 
-  v12 = *(v0 + 184);
-  v13 = *(v0 + 152);
-  v14 = [objc_allocWithZone(LPLinkMetadata) init];
-  sub_E384(v15);
-  v17 = v16;
-  [v14 setOriginalURL:v16];
+  v10 = [objc_allocWithZone(LPLinkMetadata) init];
+  sub_E384(v11);
+  v13 = v12;
+  [v10 setOriginalURL:v12];
 
-  v18 = *(v0 + 168);
-  [*(v0 + 160) set_linkMetadata:v14];
+  v14 = *(v1 + 168);
+  [*(v1 + 160) set_linkMetadata:v10];
 
-  v19 = *(v0 + 8);
-  v20 = *(v0 + 160);
+  v15 = *(v1 + 8);
+  v16 = *(v1 + 160);
 
-  return v19(v20);
+  return v15(v16);
 }
 
 uint64_t sub_DB10(uint64_t a1, uint64_t a2)
@@ -4324,12 +4126,12 @@ uint64_t sub_DB10(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-void sub_DB88(uint64_t a1, unint64_t *a2)
+void sub_DB88(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -4346,12 +4148,11 @@ void *sub_DBD4(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_DC18(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_DC18(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -4386,21 +4187,18 @@ uint64_t sub_DD84()
 {
   v2 = v0[2];
   v3 = v0[3];
-  v5 = v0[4];
-  v4 = v0[5];
-  v6 = swift_task_alloc();
-  *(v1 + 16) = v6;
-  *v6 = v1;
-  v6[1] = sub_E2E8;
+  v4 = v0[4];
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = sub_E2E8;
 
-  return sub_C098(v2, v3, v5);
+  return sub_C098(v2, v3, v4);
 }
 
 uint64_t sub_DE44()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -4409,14 +4207,13 @@ uint64_t sub_DE84(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = sub_E2E8;
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = sub_E2E8;
 
-  return sub_C180(a1, v4, v5, v7);
+  return sub_C180(a1, v4, v5, v6);
 }
 
 uint64_t sub_DF50(uint64_t a1, uint64_t a2)
@@ -4426,38 +4223,35 @@ uint64_t sub_DF50(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_DFC0()
+uint64_t sub_DFC0(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 24);
 
-  return _swift_deallocObject(v0, 32, 7);
+  return _swift_deallocObject(v2, 32, 7);
 }
 
 uint64_t sub_DFF8(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_E2E8;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_E2E8;
 
-  return sub_C648(a1, v5);
+  return sub_C648(a1, v4);
 }
 
 uint64_t sub_E0B0(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_E2E8;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_E2E8;
 
-  return sub_B9F0(a1, v5);
+  return sub_B9F0(a1, v4);
 }
 
-uint64_t sub_E168(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_E168(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4479,14 +4273,11 @@ uint64_t sub_E1B0(uint64_t a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t *sub_E214(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

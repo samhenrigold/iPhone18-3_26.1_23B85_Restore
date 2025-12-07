@@ -40,9 +40,11 @@
 
 + (void)initialize
 {
-  __manager = objc_alloc_init(__HMFActivityManager);
+  v2 = objc_alloc_init(__HMFActivityManager);
+  v3 = __manager;
+  __manager = v2;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (HMFActivity)_currentActivity
@@ -68,7 +70,7 @@
 
 - (void)start
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (self && ([self hasStarted] & 1) == 0)
   {
     v2 = NSStringFromSelector(sel_hasStarted);
@@ -78,87 +80,87 @@
     *(self + 96) = mach_continuous_time();
     parent = [self parent];
     selfCopy = self;
-    v4 = HMFGetOSLogHandle();
+    v5 = HMFGetOSLogHandle(selfCopy, v4);
 
-    v5 = os_signpost_enabled(v4);
-    if (v5)
+    v6 = os_signpost_enabled(v5);
+    if (v6)
     {
-      v6 = selfCopy;
-      v7 = HMFGetOSLogHandle();
+      v7 = selfCopy;
+      v9 = HMFGetOSLogHandle(v7, v8);
 
-      v8 = v6;
-      v42 = 0;
+      v10 = v7;
+      v45 = 0;
       *buf = 0;
       *&buf[8] = 0;
-      [v8[7] getUUIDBytes:buf];
-      v9 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:buf length:16 freeWhenDone:0];
-      [v9 getBytes:&v42 range:{objc_msgSend(v9, "length") - 8, 8}];
+      [v10[7] getUUIDBytes:buf];
+      v11 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:buf length:16 freeWhenDone:0];
+      [v11 getBytes:&v45 range:{objc_msgSend(v11, "length") - 8, 8}];
 
-      if (v42 + 1 >= 2)
+      if (v45 + 1 >= 2)
       {
-        v10 = v42;
+        v12 = v45;
       }
 
       else
       {
-        v10 = 0xEEEEB0B5B2B2EEEELL;
+        v12 = 0xEEEEB0B5B2B2EEEELL;
       }
 
-      if (os_signpost_enabled(v7))
+      if (os_signpost_enabled(v9))
       {
-        identifier = [v8 identifier];
+        identifier = [v10 identifier];
         uUIDString = [identifier UUIDString];
         identifier2 = [parent identifier];
         uUIDString2 = [identifier2 UUIDString];
-        name = [v8 name];
+        name = [v10 name];
         *buf = 138412802;
         *&buf[4] = uUIDString;
         *&buf[12] = 2112;
         *&buf[14] = uUIDString2;
-        v44 = 2112;
-        v45 = name;
-        _os_signpost_emit_with_name_impl(&dword_22ADEC000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v10, "HMFActivity", "Identifier = %@, Parent = %@, Name = %@", buf, 0x20u);
+        v47 = 2112;
+        v48 = name;
+        _os_signpost_emit_with_name_impl(&dword_22ADEC000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v12, "HMFActivity", "Identifier = %@, Parent = %@, Name = %@", buf, 0x20u);
       }
     }
 
-    v16 = objc_autoreleasePoolPush();
-    v17 = selfCopy[1];
+    v18 = objc_autoreleasePoolPush();
+    v19 = selfCopy[1];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __20__HMFActivity_start__block_invoke;
     block[3] = &unk_2786E6C80;
     block[4] = selfCopy;
-    os_activity_apply(v17, block);
-    objc_autoreleasePoolPop(v16);
+    os_activity_apply(v19, block);
+    objc_autoreleasePoolPop(v18);
     options = [selfCopy options];
-    if ((options & 4) != 0 || ([selfCopy shortDescription], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(parent, "markWithFormat:", @"Started child activity: %@", v19), v19, options))
+    if ((options & 4) != 0 || ([selfCopy shortDescription], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(parent, "markWithFormat:", @"Started child activity: %@", v21), v21, options))
     {
-      v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-      v21 = MEMORY[0x277CCACA8];
+      v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
+      v23 = MEMORY[0x277CCACA8];
       name2 = [selfCopy name];
       identifier3 = [selfCopy identifier];
       uUIDString3 = [identifier3 UUIDString];
-      v25 = [v21 stringWithFormat:@"%@.%@", name2, uUIDString3];
+      v27 = [v23 stringWithFormat:@"%@.%@", name2, uUIDString3];
 
       if (options)
       {
-        v26 = [[HMFMemoryAssertion alloc] initWithName:v25];
-        if (v26)
+        v28 = [[HMFMemoryAssertion alloc] initWithName:v27];
+        if (v28)
         {
-          [v20 addObject:v26];
+          [v22 addObject:v28];
         }
 
         else
         {
           context = objc_autoreleasePoolPush();
-          v27 = selfCopy;
-          v28 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v29 = selfCopy;
+          v31 = HMFGetOSLogHandle(v29, v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            v29 = HMFGetLogIdentifier(v27);
+            v32 = HMFGetLogIdentifier(v29);
             *buf = 138543362;
-            *&buf[4] = v29;
-            _os_log_impl(&dword_22ADEC000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to create memory assertion", buf, 0xCu);
+            *&buf[4] = v32;
+            _os_log_impl(&dword_22ADEC000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to create memory assertion", buf, 0xCu);
           }
 
           objc_autoreleasePoolPop(context);
@@ -167,43 +169,41 @@
 
       if ((options & 2) != 0)
       {
-        v30 = [[HMFPowerAssertion alloc] initWithName:v25];
-        if (v30)
+        v33 = [[HMFPowerAssertion alloc] initWithName:v27];
+        if (v33)
         {
-          [v20 addObject:v30];
+          [v22 addObject:v33];
         }
 
         else
         {
-          v31 = objc_autoreleasePoolPush();
-          v32 = selfCopy;
-          v33 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v34 = objc_autoreleasePoolPush();
+          v35 = selfCopy;
+          v37 = HMFGetOSLogHandle(v35, v36);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            v34 = HMFGetLogIdentifier(v32);
+            v38 = HMFGetLogIdentifier(v35);
             *buf = 138543362;
-            *&buf[4] = v34;
-            _os_log_impl(&dword_22ADEC000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to create power assertion", buf, 0xCu);
+            *&buf[4] = v38;
+            _os_log_impl(&dword_22ADEC000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to create power assertion", buf, 0xCu);
           }
 
-          objc_autoreleasePoolPop(v31);
+          objc_autoreleasePoolPop(v34);
         }
       }
 
-      if (([v20 hmf_isEmpty] & 1) == 0)
+      if (([v22 hmf_isEmpty] & 1) == 0)
       {
-        v35 = [v20 copy];
-        v36 = selfCopy[11];
-        selfCopy[11] = v35;
+        v39 = [v22 copy];
+        v40 = selfCopy[11];
+        selfCopy[11] = v39;
       }
     }
 
     os_unfair_lock_unlock((self + 32));
-    v37 = NSStringFromSelector(sel_hasStarted);
-    [selfCopy didChangeValueForKey:v37];
+    v41 = NSStringFromSelector(sel_hasStarted);
+    [selfCopy didChangeValueForKey:v41];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasStarted
@@ -244,9 +244,11 @@
 
 uint64_t __26__HMFActivity_logCategory__block_invoke()
 {
-  qword_280AFC2A0 = HMFCreateOSLogHandle(@"Activity", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"Activity", @"com.apple.HMFoundation");
+  v1 = qword_280AFC2A0;
+  qword_280AFC2A0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __20__HMFActivity_start__block_invoke(uint64_t a1)
@@ -254,17 +256,16 @@ void __20__HMFActivity_start__block_invoke(uint64_t a1)
   v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Started", &v7, 0xCu);
+    v8 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Started", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)shortDescription
@@ -362,19 +363,19 @@ void __20__HMFActivity_start__block_invoke(uint64_t a1)
         v7 = *(*(&v17 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v10 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = HMFGetOSLogHandle(selfCopy, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          v11 = HMFGetLogIdentifier(selfCopy);
-          v12 = [v7 count];
+          v12 = HMFGetLogIdentifier(selfCopy);
+          v13 = [v7 count];
           thread = [v7 thread];
           *buf = 138543874;
-          v22 = v11;
+          v22 = v12;
           v23 = 2048;
-          v24 = v12;
+          v24 = v13;
           v25 = 2112;
           v26 = thread;
-          _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Thread left active (%tu): %@", buf, 0x20u);
+          _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Thread left active (%tu): %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v8);
@@ -389,7 +390,6 @@ void __20__HMFActivity_start__block_invoke(uint64_t a1)
   v16.receiver = self;
   v16.super_class = HMFActivity;
   [(HMFActivity *)&v16 dealloc];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (HMFActivity)activityWithName:(id)name parent:(id)parent options:(unint64_t)options block:(id)block
@@ -523,21 +523,19 @@ void __57__HMFActivity_initWithIdentifier_name_parent_assertions___block_invoke(
   {
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = HMFGetOSLogHandle(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = HMFGetLogIdentifier(v5);
+      v8 = HMFGetLogIdentifier(v5);
       v9 = 138543618;
-      v10 = v7;
+      v10 = v8;
       v11 = 2112;
       v12 = v3;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unable to acquire the assertion : %@", &v9, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to acquire the assertion : %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFActivity)initWithIdentifier:(id)identifier name:(id)name parent:(id)parent options:(unint64_t)options
@@ -687,7 +685,7 @@ uint64_t __54__HMFActivity_initWithIdentifier_name_parent_options___block_invoke
   v4 = *(v3 + 16);
   *(v3 + 16) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 void __54__HMFActivity_initWithIdentifier_name_parent_options___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -702,7 +700,7 @@ void __54__HMFActivity_initWithIdentifier_name_parent_options___block_invoke_2(u
 
 - (NSArray)attributeDescriptions
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   parent = [(HMFActivity *)self parent];
   identifier = [parent identifier];
@@ -742,14 +740,12 @@ void __54__HMFActivity_initWithIdentifier_name_parent_options___block_invoke_2(u
   }
 
   v14 = [(HMFAttributeDescription *)v8 initWithName:@"Assertions" value:v13];
-  v21[1] = v14;
+  v20[1] = v14;
   v15 = [HMFAttributeDescription alloc];
   v16 = HMFBooleanToString([(HMFActivity *)self isValid]);
   v17 = [(HMFAttributeDescription *)v15 initWithName:@"Valid" value:v16];
-  v21[2] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20[2] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
 
   return v18;
 }
@@ -765,63 +761,61 @@ void __54__HMFActivity_initWithIdentifier_name_parent_options___block_invoke_2(u
 
 - (void)markWithReason:(id)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   [(HMFActivity *)self start];
   os_unfair_lock_lock_with_options();
   if (self->_valid)
   {
     selfCopy = self;
-    v6 = HMFGetOSLogHandle();
+    v7 = HMFGetOSLogHandle(selfCopy, v6);
 
-    v7 = os_signpost_enabled(v6);
-    if (v7)
+    v8 = os_signpost_enabled(v7);
+    if (v8)
     {
-      v8 = selfCopy;
-      v9 = HMFGetOSLogHandle();
+      v9 = selfCopy;
+      v11 = HMFGetOSLogHandle(v9, v10);
 
-      v10 = v8;
-      v20 = 0;
+      v12 = v9;
+      v21 = 0;
       *buf = 0uLL;
-      [v10[7] getUUIDBytes:buf];
-      v11 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:buf length:16 freeWhenDone:0];
-      [v11 getBytes:&v20 range:{objc_msgSend(v11, "length") - 8, 8}];
+      [v12[7] getUUIDBytes:buf];
+      v13 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:buf length:16 freeWhenDone:0];
+      [v13 getBytes:&v21 range:{objc_msgSend(v13, "length") - 8, 8}];
 
-      v12 = v20;
-      if (os_signpost_enabled(v9))
+      v14 = v21;
+      if (os_signpost_enabled(v11))
       {
-        if (v12 + 1 >= 2)
+        if (v14 + 1 >= 2)
         {
-          v13 = v12;
+          v15 = v14;
         }
 
         else
         {
-          v13 = 0xEEEEB0B5B2B2EEEELL;
+          v15 = 0xEEEEB0B5B2B2EEEELL;
         }
 
         *buf = 138412290;
         *&buf[4] = reasonCopy;
-        _os_signpost_emit_with_name_impl(&dword_22ADEC000, v9, OS_SIGNPOST_EVENT, v13, "HMFActivity", "Reason = %@", buf, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_22ADEC000, v11, OS_SIGNPOST_EVENT, v15, "HMFActivity", "Reason = %@", buf, 0xCu);
       }
     }
 
-    v14 = objc_autoreleasePoolPush();
+    v16 = objc_autoreleasePoolPush();
     internal = selfCopy->_internal;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __30__HMFActivity_markWithReason___block_invoke;
     block[3] = &unk_2786E6D18;
-    v18 = reasonCopy;
-    v19 = selfCopy;
+    v19 = reasonCopy;
+    v20 = selfCopy;
     os_activity_apply(internal, block);
 
-    objc_autoreleasePoolPop(v14);
+    objc_autoreleasePoolPop(v16);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __30__HMFActivity_markWithReason___block_invoke(uint64_t a1)
@@ -830,42 +824,42 @@ void __30__HMFActivity_markWithReason___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
-  v5 = HMFGetOSLogHandle();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+  v6 = HMFGetOSLogHandle(v4, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (v2)
   {
-    if (!v6)
+    if (!v7)
     {
       goto LABEL_7;
     }
 
-    v7 = HMFGetLogIdentifier(v4);
-    v8 = *(a1 + 32);
+    v8 = HMFGetLogIdentifier(v4);
+    v9 = *(a1 + 32);
     *buf = 138543618;
-    v25 = v7;
+    v25 = v8;
     v26 = 2112;
-    v27 = v8;
-    v9 = "%{public}@Marked with reason: %@";
-    v10 = v5;
-    v11 = 22;
+    v27 = v9;
+    v10 = "%{public}@Marked with reason: %@";
+    v11 = v6;
+    v12 = 22;
   }
 
   else
   {
-    if (!v6)
+    if (!v7)
     {
       goto LABEL_7;
     }
 
-    v7 = HMFGetLogIdentifier(v4);
+    v8 = HMFGetLogIdentifier(v4);
     *buf = 138543362;
-    v25 = v7;
-    v9 = "%{public}@Marked";
-    v10 = v5;
-    v11 = 12;
+    v25 = v8;
+    v10 = "%{public}@Marked";
+    v11 = v6;
+    v12 = 12;
   }
 
-  _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, v9, buf, v11);
+  _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, v10, buf, v12);
 
 LABEL_7:
   objc_autoreleasePoolPop(v3);
@@ -873,37 +867,35 @@ LABEL_7:
   v22 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v12 = *(a1 + 40);
-  if (v12)
+  v13 = *(a1 + 40);
+  if (v13)
   {
-    v12 = v12[11];
+    v13 = v13[11];
   }
 
-  v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v14)
+  v14 = v13;
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v20;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v20 != v16)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
         [*(*(&v19 + 1) + 8 * i) mark];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)blockWithBlock:(id)block
@@ -916,10 +908,9 @@ LABEL_7:
 
   v5 = blockCopy;
   [(HMFActivity *)self start];
-  voucher = self->_voucher;
-  v7 = dispatch_block_create_with_voucher();
+  v6 = dispatch_block_create_with_voucher();
 
-  return v7;
+  return v6;
 }
 
 - (id)blockWithQualityOfService:(int64_t)service block:(id)block
@@ -932,10 +923,9 @@ LABEL_7:
 
   v6 = blockCopy;
   [(HMFActivity *)self start];
-  voucher = self->_voucher;
-  v8 = dispatch_block_create_with_voucher_and_qos_class();
+  v7 = dispatch_block_create_with_voucher_and_qos_class();
 
-  return v8;
+  return v7;
 }
 
 - (void)performBlock:(id)block
@@ -1016,18 +1006,18 @@ void __65__HMFActivity_ClientMetricIdentifier__setClientMetricIdentifier___block
   {
     v3 = objc_autoreleasePoolPush();
     v4 = *(a1 + 32);
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = HMFGetOSLogHandle(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = HMFGetLogIdentifier(v4);
-      v7 = *(a1 + 40);
+      v7 = HMFGetLogIdentifier(v4);
+      v8 = *(a1 + 40);
       v9 = 138543874;
-      v10 = v6;
+      v10 = v7;
       v11 = 2112;
       v12 = v2;
       v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_ERROR, "%{public}@Using existing clientMetricIdentifier: %@ and dropping: %@", &v9, 0x20u);
+      v14 = v8;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_ERROR, "%{public}@Using existing clientMetricIdentifier: %@ and dropping: %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -1037,8 +1027,6 @@ void __65__HMFActivity_ClientMetricIdentifier__setClientMetricIdentifier___block
   {
     [*(a1 + 32) _setAssociatedObject:*(a1 + 40) forKey:@"HMFClientMetricIdentifier"];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)clientMetricIdentifier

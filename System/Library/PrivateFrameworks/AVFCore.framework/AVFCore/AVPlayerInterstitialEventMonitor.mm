@@ -85,17 +85,17 @@ LABEL_6:
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCE50)
   {
-    v9 = 0;
+    v7 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVPlayerInterstitialEventMonitor *)self _removeMonitorListeners:v5];
+  [(AVPlayerInterstitialEventMonitor *)self _removeMonitorListeners];
 
   ivarQueue = self->_ivarQueue;
   if (ivarQueue)
@@ -103,9 +103,9 @@ LABEL_6:
     dispatch_release(ivarQueue);
   }
 
-  v7.receiver = self;
-  v7.super_class = AVPlayerInterstitialEventMonitor;
-  [(AVPlayerInterstitialEventMonitor *)&v7 dealloc];
+  v5.receiver = self;
+  v5.super_class = AVPlayerInterstitialEventMonitor;
+  [(AVPlayerInterstitialEventMonitor *)&v5 dealloc];
 }
 
 - (id)makeCopyOf:(id)of immutable:(BOOL)immutable
@@ -156,7 +156,7 @@ LABEL_6:
 
 - (NSArray)events
 {
-  v12[16] = *MEMORY[0x1E69E9840];
+  v10[16] = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCE50)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -165,18 +165,18 @@ LABEL_6:
   }
 
   _copyInterstitialCoordinator = [objc_loadWeak(&self->_primaryPlayer) _copyInterstitialCoordinator];
-  v12[0] = 0;
+  v10[0] = 0;
   if (_copyInterstitialCoordinator)
   {
     v5 = _copyInterstitialCoordinator;
     v6 = *(*(CMBaseObjectGetVTable() + 16) + 8);
     if (v6)
     {
-      v6(v5, v12);
+      v6(v5, v10);
     }
 
     CFRelease(v5);
-    v7 = v12[0];
+    v7 = v10[0];
   }
 
   else
@@ -184,7 +184,7 @@ LABEL_6:
     v7 = 0;
   }
 
-  v8 = [(AVPlayerInterstitialEventMonitor *)self makeCopyOf:v7 immutable:1, v10, v11];
+  v8 = [(AVPlayerInterstitialEventMonitor *)self makeCopyOf:v7 immutable:1];
 
   return v8;
 }
@@ -210,7 +210,7 @@ LABEL_6:
   return v3;
 }
 
-uint64_t __48__AVPlayerInterstitialEventMonitor_currentEvent__block_invoke(uint64_t a1)
+void *__48__AVPlayerInterstitialEventMonitor_currentEvent__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -294,7 +294,7 @@ uint64_t __48__AVPlayerInterstitialEventMonitor_currentEvent__block_invoke(uint6
   dispatch_sync(ivarQueue, v4);
 }
 
-uint64_t __59__AVPlayerInterstitialEventMonitor__setCachedCurrentEvent___block_invoke(uint64_t a1)
+void *__59__AVPlayerInterstitialEventMonitor__setCachedCurrentEvent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(a1 + 32) + 48) = result;

@@ -40,10 +40,8 @@
   name = [(MRDSystemGroupSessionTransport *)selfCopy name];
   [v5 setName:name];
 
-  v7 = *&selfCopy->MRExternalDeviceTransport_opaque[OBJC_IVAR___MRDSystemGroupSessionTransport_sessionIdentifier];
-  v8 = *&selfCopy->sessionIdentifier[OBJC_IVAR___MRDSystemGroupSessionTransport_sessionIdentifier];
-  v9 = String._bridgeToObjectiveC()();
-  [v5 setDeviceUID:v9];
+  v7 = String._bridgeToObjectiveC()();
+  [v5 setDeviceUID:v7];
 
   return v5;
 }

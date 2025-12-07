@@ -1,11 +1,13 @@
 @interface RPSystemBroadcastSession
 - (BOOL)showAlertForBroadcastSessionWithError:(id)error;
+- (RPSystemBroadcastSession)initWithClientProxy:(id)proxy callingPID:(int)d bundleID:(id)iD delegate:(id)delegate;
 - (id)dispatchCaptureQueue;
 - (id)enableBroadcastWithListenerEndpoint:(id)endpoint;
 - (id)systemBroadcastSessionAudioQueue;
 - (id)systemBroadcastSessionVideoQueue;
 - (unsigned)orientationFromFigTransform:(unint64_t)transform;
 - (void)captureDidFailWithError:(id)error;
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags;
 - (void)disableBroadcast;
 - (void)enableBroadcastStartCaptureWithListenerEndpoint:(id)endpoint withHandler:(id)handler;
 - (void)handleBroadcastError:(id)error;
@@ -19,16 +21,104 @@
 - (void)loadBroadcastUploadExtensionWithBaseIdentifier:(id)identifier broadcastExtensionBundleID:(id)d withHandler:(id)handler;
 - (void)notifyExtensionOfAction:(int64_t)action completion:(id)completion;
 - (void)notifyExtensionOfAudioSampleBuffer:(opaqueCMSampleBuffer *)buffer withType:(int64_t)type;
+- (void)notifyExtensionOfVideoSampleBuffer:(opaqueCMSampleBuffer *)buffer withType:(int64_t)type sampleOrientation:(unsigned int)orientation;
 - (void)pauseSession;
+- (void)processAcknowledgementSetupBroadcastWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler;
 - (void)processSampleBuffer:(opaqueCMSampleBuffer *)buffer transformFlags:(unint64_t)flags;
 - (void)resumeSessionWithWindowLayerContextID:(id)d completionHandler:(id)handler;
 - (void)setCaptureMicrophoneEnabled:(BOOL)enabled;
 - (void)setupSystemBroadcastWithHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info handler:(id)handler;
 - (void)startCaptureWithHandler:(id)handler;
+- (void)startSystemBroadcastWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled contextID:(id)d windowSize:(CGSize)size listenerEndpoint:(id)endpoint withHandler:(id)handler;
 - (void)stopSystemBroadcastWithHandler:(id)handler;
 @end
 
 @implementation RPSystemBroadcastSession
+
+- (RPSystemBroadcastSession)initWithClientProxy:(id)proxy callingPID:(int)d bundleID:(id)iD delegate:(id)delegate
+{
+  v10.receiver = self;
+  v10.super_class = RPSystemBroadcastSession;
+  v6 = [(RPSession *)&v10 initWithClientProxy:proxy sessionType:6 callingPID:*&d bundleID:iD delegate:delegate];
+  v7 = v6;
+  if (v6)
+  {
+    broadcastURL = v6->_broadcastURL;
+    v6->_broadcastURL = 0;
+  }
+
+  return v7;
+}
+
+- (void)startSystemBroadcastWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled contextID:(id)d windowSize:(CGSize)size listenerEndpoint:(id)endpoint withHandler:(id)handler
+{
+  height = size.height;
+  width = size.width;
+  realityCameraEnabledCopy = realityCameraEnabled;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  dCopy = d;
+  endpointCopy = endpoint;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446978;
+    v23 = "[RPSystemBroadcastSession startSystemBroadcastWithMicrophoneEnabled:cameraEnabled:mixedRealityCameraEnabled:contextID:windowSize:listenerEndpoint:withHandler:]";
+    v24 = 1024;
+    v25 = 72;
+    v26 = 2048;
+    selfCopy = self;
+    v28 = 1024;
+    sessionState = [(RPSession *)self sessionState];
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p starting in session state %d", buf, 0x22u);
+  }
+
+  if ([(RPSession *)self sessionState]!= 3)
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v23 = "[RPSystemBroadcastSession startSystemBroadcastWithMicrophoneEnabled:cameraEnabled:mixedRealityCameraEnabled:contextID:windowSize:listenerEndpoint:withHandler:]";
+      v24 = 1024;
+      v25 = 94;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d attempting to start broadcast session when session was not in stopped state", buf, 0x12u);
+    }
+
+    height = [NSError _rpUserErrorForCode:-5830 userInfo:0];
+    [(RPSession *)self reportSessionEndReason:height];
+    if (!handlerCopy)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_15:
+    handlerCopy[2](handlerCopy, height);
+    goto LABEL_17;
+  }
+
+  v21.receiver = self;
+  v21.super_class = RPSystemBroadcastSession;
+  [(RPSession *)&v21 startWithContextID:dCopy windowSize:width, height];
+  height = [(RPSession *)self checkCaptureRequirementsWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy windowSize:width, height];
+  if (!height)
+  {
+    [(RPSystemBroadcastSession *)self processAcknowledgementSetupBroadcastWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy mixedRealityCameraEnabled:realityCameraEnabledCopy listenerEndpoint:endpointCopy withHandler:handlerCopy];
+    goto LABEL_17;
+  }
+
+  if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100063378();
+  }
+
+  [(RPSession *)self setSessionState:3];
+  if (handlerCopy)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_17:
+}
 
 - (void)stopSystemBroadcastWithHandler:(id)handler
 {
@@ -263,6 +353,53 @@
   }
 
   return v8;
+}
+
+- (void)processAcknowledgementSetupBroadcastWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler
+{
+  realityCameraEnabledCopy = realityCameraEnabled;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  endpointCopy = endpoint;
+  handlerCopy = handler;
+  if ([(RPSession *)self getAcknowledgementAlertResultsWithMicrophone:enabledCopy cameraEnabled:cameraEnabledCopy])
+  {
+    if ([(RPSystemBroadcastSession *)self isBroadcastSetup])
+    {
+      [(RPSession *)self setMixedRealityCameraEnabled:realityCameraEnabledCopy];
+      [(RPSystemBroadcastSession *)self enableBroadcastStartCaptureWithListenerEndpoint:endpointCopy withHandler:handlerCopy];
+    }
+
+    else
+    {
+      if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = 136446466;
+        v17 = "[RPSystemBroadcastSession processAcknowledgementSetupBroadcastWithMicrophoneEnabled:cameraEnabled:mixedRealityCameraEnabled:listenerEndpoint:withHandler:]";
+        v18 = 1024;
+        v19 = 282;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d attempted to start broadcast without a session, bailing out", &v16, 0x12u);
+      }
+
+      [(RPSession *)self setSessionState:3];
+      v15 = [NSError _rpUserErrorForCode:-5808 userInfo:0];
+      [(RPSession *)self reportSessionEndReason:v15];
+      if (handlerCopy)
+      {
+        handlerCopy[2](handlerCopy, v15);
+      }
+    }
+  }
+
+  else
+  {
+    [(RPSystemBroadcastSession *)self disableBroadcast];
+    if (handlerCopy)
+    {
+      v14 = [NSError _rpUserErrorForCode:-5801 userInfo:0];
+      handlerCopy[2](handlerCopy, v14);
+    }
+  }
 }
 
 - (void)enableBroadcastStartCaptureWithListenerEndpoint:(id)endpoint withHandler:(id)handler
@@ -537,6 +674,50 @@
   return v3;
 }
 
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags
+{
+  v7 = *&type;
+  if ([(RPSession *)self sessionState]!= 1)
+  {
+    return;
+  }
+
+  [(RPSession *)self updateReportingSampleCount:v7];
+  if (v7 == 2)
+  {
+    if (![(RPSession *)self microphoneEnabled])
+    {
+      DataBuffer = CMSampleBufferGetDataBuffer(buffer);
+      DataLength = CMBlockBufferGetDataLength(DataBuffer);
+      CMBlockBufferFillDataBytes(0, DataBuffer, 0, DataLength);
+    }
+
+    selfCopy2 = self;
+    bufferCopy2 = buffer;
+    v11 = 3;
+  }
+
+  else
+  {
+    if (v7 != 1)
+    {
+      if (!v7)
+      {
+
+        [(RPSystemBroadcastSession *)self processSampleBuffer:buffer transformFlags:flags];
+      }
+
+      return;
+    }
+
+    selfCopy2 = self;
+    bufferCopy2 = buffer;
+    v11 = 2;
+  }
+
+  [(RPSystemBroadcastSession *)selfCopy2 notifyExtensionOfAudioSampleBuffer:bufferCopy2 withType:v11];
+}
+
 - (void)captureDidFailWithError:(id)error
 {
   v5[0] = _NSConcreteStackBlock;
@@ -615,6 +796,81 @@
   else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     sub_100063A2C();
+  }
+}
+
+- (void)notifyExtensionOfVideoSampleBuffer:(opaqueCMSampleBuffer *)buffer withType:(int64_t)type sampleOrientation:(unsigned int)orientation
+{
+  if (!self->_broadcastExtension)
+  {
+    if (dword_1000B6840 > 1 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    LODWORD(timingInfoOut.duration.value) = 136446466;
+    *(&timingInfoOut.duration.value + 4) = "[RPSystemBroadcastSession notifyExtensionOfVideoSampleBuffer:withType:sampleOrientation:]";
+    LOWORD(timingInfoOut.duration.flags) = 1024;
+    *(&timingInfoOut.duration.flags + 2) = 663;
+    v18 = " [INFO] %{public}s:%d no broadcast extension found!";
+LABEL_13:
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v18, &timingInfoOut, 0x12u);
+    return;
+  }
+
+  if (!self->_broadcastUploadExtensionProxy)
+  {
+    if (dword_1000B6840 > 1 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    LODWORD(timingInfoOut.duration.value) = 136446466;
+    *(&timingInfoOut.duration.value + 4) = "[RPSystemBroadcastSession notifyExtensionOfVideoSampleBuffer:withType:sampleOrientation:]";
+    LOWORD(timingInfoOut.duration.flags) = 1024;
+    *(&timingInfoOut.duration.flags + 2) = 668;
+    v18 = " [INFO] %{public}s:%d broadcast extension not ready";
+    goto LABEL_13;
+  }
+
+  v6 = *&orientation;
+  if (![(RPSession *)self dispatchLimitReached:type])
+  {
+    if (buffer)
+    {
+      CFRetain(buffer);
+    }
+
+    v9 = +[NSMutableDictionary dictionary];
+    v10 = [NSNumber numberWithUnsignedInt:v6];
+    [v9 setObject:v10 forKeyedSubscript:@"RPSampleBufferVideoOrientation"];
+
+    v11 = [NSNumber numberWithInteger:type];
+    [v9 setObject:v11 forKeyedSubscript:@"RPBroadcastProcessExtensionPayloadKeySampleType"];
+
+    ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
+    CFRetain(ImageBuffer);
+    IOSurface = CVPixelBufferGetIOSurface(ImageBuffer);
+    v14 = objc_alloc_init(RPIOSurfaceObject);
+    [(RPIOSurfaceObject *)v14 setIOSurface:IOSurface];
+    [v9 setObject:v14 forKeyedSubscript:@"RPBroadcastProcessExtensionPayloadKeyIOSurface"];
+    memset(&timingInfoOut, 0, sizeof(timingInfoOut));
+    CMSampleBufferGetSampleTimingInfo(buffer, 0, &timingInfoOut);
+    v15 = [NSData dataWithBytes:&timingInfoOut length:72];
+    [v9 setObject:v15 forKeyedSubscript:@"RPBroadcastProcessExtensionPayloadKeyTimingInfo"];
+    systemBroadcastSessionVideoQueue = [(RPSystemBroadcastSession *)self systemBroadcastSessionVideoQueue];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100037B60;
+    v19[3] = &unk_1000A2280;
+    v19[4] = self;
+    v20 = v9;
+    bufferCopy = buffer;
+    typeCopy = type;
+    v17 = v9;
+    dispatch_async(systemBroadcastSessionVideoQueue, v19);
+
+    CFRelease(ImageBuffer);
   }
 }
 

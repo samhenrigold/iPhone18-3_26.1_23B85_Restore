@@ -40,7 +40,7 @@
 
   selfCopy = self;
   FairPlayValidationManager.validateDownloadedEpisodes(completion:)(v7, v6);
-  sub_1D8D15664(v7);
+  sub_1D8D15664(v7, v6);
 }
 
 - (PFFairPlayValidationManager)init

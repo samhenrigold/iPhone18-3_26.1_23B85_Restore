@@ -80,7 +80,7 @@
     {
       if ([descriptorCopy automaticInstall] && objc_msgSend(descriptorCopy, "eventType") == 10)
       {
-        v9 = sub_10001060C();
+        v9 = sub_10001060C(10);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
@@ -293,9 +293,9 @@ LABEL_6:
       else
       {
         lowercaseString3 = [_baassets_validUTI lowercaseString];
-        v29 = [lowercaseString3 isEqualToString:@"yes"];
+        v34 = [lowercaseString3 isEqualToString:@"yes"];
 
-        if (v29)
+        if (v34)
         {
           v14 = +[BAAgentCore sharedCore];
           v15 = v14;
@@ -305,9 +305,9 @@ LABEL_6:
         else
         {
           lowercaseString4 = [_baassets_validUTI lowercaseString];
-          v37 = [lowercaseString4 isEqualToString:@"no"];
+          v45 = [lowercaseString4 isEqualToString:@"no"];
 
-          if (!v37)
+          if (!v45)
           {
             goto LABEL_77;
           }
@@ -330,9 +330,10 @@ LABEL_76:
     {
       if ([lowercaseString isEqualToString:@"reset-extension-time"])
       {
-        if ([v9 count] != 1)
+        v27 = [v9 count];
+        if (v27 != 1)
         {
-          _baassets_validUTI = sub_100010584();
+          _baassets_validUTI = sub_100010584(v27);
           if (os_log_type_enabled(_baassets_validUTI, OS_LOG_TYPE_ERROR))
           {
             sub_1000486C8();
@@ -341,12 +342,12 @@ LABEL_76:
           goto LABEL_77;
         }
 
-        v25 = [v9 objectAtIndex:0];
-        _baassets_validUTI = [v25 _baassets_validUTI];
+        v28 = [v9 objectAtIndex:0];
+        _baassets_validUTI = [v28 _baassets_validUTI];
 
-        if (!_baassets_validUTI || ![_baassets_validUTI length])
+        if (!_baassets_validUTI || (v29 = [_baassets_validUTI length]) == 0)
         {
-          v15 = sub_100010584();
+          v15 = sub_100010584(v29);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             sub_1000486FC();
@@ -355,27 +356,27 @@ LABEL_76:
           goto LABEL_76;
         }
 
-        v26 = +[BAAgentCore sharedCore];
-        v15 = [v26 applicationInfoForIdentifier:_baassets_validUTI];
+        v30 = +[BAAgentCore sharedCore];
+        v15 = [v30 applicationInfoForIdentifier:_baassets_validUTI];
 
-        v19 = sub_100010584();
-        v27 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+        v20 = sub_100010584(v31);
+        v32 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
         if (v15)
         {
-          if (v27)
+          if (v32)
           {
             *buf = 138543362;
-            v48 = _baassets_validUTI;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Resetting extension runtime for %{public}@", buf, 0xCu);
+            v58 = _baassets_validUTI;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Resetting extension runtime for %{public}@", buf, 0xCu);
           }
 
           [v15 resetExtensionRuntime];
-          v19 = +[BAAgentCore sharedCore];
-          [v19 saveApplicationState];
+          v20 = +[BAAgentCore sharedCore];
+          [v20 saveApplicationState];
           goto LABEL_75;
         }
 
-        if (!v27)
+        if (!v32)
         {
 LABEL_75:
 
@@ -383,7 +384,7 @@ LABEL_75:
         }
 
         *buf = 138543362;
-        v48 = _baassets_validUTI;
+        v58 = _baassets_validUTI;
       }
 
       else
@@ -393,9 +394,10 @@ LABEL_75:
           goto LABEL_78;
         }
 
-        if ([v9 count] != 1)
+        v35 = [v9 count];
+        if (v35 != 1)
         {
-          _baassets_validUTI = sub_100010584();
+          _baassets_validUTI = sub_100010584(v35);
           if (os_log_type_enabled(_baassets_validUTI, OS_LOG_TYPE_ERROR))
           {
             sub_100048660();
@@ -404,12 +406,12 @@ LABEL_75:
           goto LABEL_77;
         }
 
-        v30 = [v9 objectAtIndex:0];
-        _baassets_validUTI = [v30 _baassets_validUTI];
+        v36 = [v9 objectAtIndex:0];
+        _baassets_validUTI = [v36 _baassets_validUTI];
 
-        if (!_baassets_validUTI || ![_baassets_validUTI length])
+        if (!_baassets_validUTI || (v37 = [_baassets_validUTI length]) == 0)
         {
-          v15 = sub_100010584();
+          v15 = sub_100010584(v37);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             sub_100048694();
@@ -418,38 +420,39 @@ LABEL_75:
           goto LABEL_76;
         }
 
-        v31 = +[BAAgentCore sharedCore];
-        v15 = [v31 applicationInfoIfExistsForIdentifier:_baassets_validUTI];
+        v38 = +[BAAgentCore sharedCore];
+        v15 = [v38 applicationInfoIfExistsForIdentifier:_baassets_validUTI];
 
         if (v15)
         {
-          v19 = [_baassets_validUTI stringByAppendingString:@"1CB2CF25-5012-4A61-85D5-2FF468AE9203"];
-          v32 = [BAContentRequestTelemetry alloc];
+          v20 = [_baassets_validUTI stringByAppendingString:@"1CB2CF25-5012-4A61-85D5-2FF468AE9203"];
+          v40 = [BAContentRequestTelemetry alloc];
           installSource = [v15 installSource];
-          v34 = +[NSSet set];
-          v23 = [(BAContentRequestTelemetry *)v32 initWithContentRequest:3 applicationIdentifier:v19 installSource:installSource downloads:v34];
+          v42 = +[NSSet set];
+          v24 = [(BAContentRequestTelemetry *)v40 initWithContentRequest:3 applicationIdentifier:v20 installSource:installSource downloads:v42];
 
-          [BATelemetrySender sendContentRequestTelemetryEvent:v23];
+          [BATelemetrySender sendContentRequestTelemetryEvent:v24];
           goto LABEL_74;
         }
 
-        v19 = sub_100010584();
-        if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v20 = sub_100010584(v39);
+        if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           goto LABEL_75;
         }
 
         *buf = 138543362;
-        v48 = _baassets_validUTI;
+        v58 = _baassets_validUTI;
       }
 
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Unable to get application runtime info for identifier: %{public}@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Unable to get application runtime info for identifier: %{public}@", buf, 0xCu);
       goto LABEL_75;
     }
 
-    if ([v9 count] != 2)
+    v18 = [v9 count];
+    if (v18 != 2)
     {
-      _baassets_validUTI = sub_100010584();
+      _baassets_validUTI = sub_100010584(v18);
       if (os_log_type_enabled(_baassets_validUTI, OS_LOG_TYPE_ERROR))
       {
         sub_100048730();
@@ -458,62 +461,64 @@ LABEL_75:
       goto LABEL_77;
     }
 
-    v18 = [v9 objectAtIndex:0];
-    _baassets_validUTI = [v18 _baassets_validUTI];
+    v19 = [v9 objectAtIndex:0];
+    _baassets_validUTI = [v19 _baassets_validUTI];
 
     v15 = [v9 objectAtIndex:1];
-    v19 = [NSScanner scannerWithString:v15];
-    v46 = 0;
-    [v19 scanInteger:&v46];
-    v20 = [v15 substringFromIndex:[v19 scanLocation]];
-    lowercaseString5 = [v20 lowercaseString];
-    v22 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
-    v23 = [lowercaseString5 stringByTrimmingCharactersInSet:v22];
+    v20 = [NSScanner scannerWithString:v15];
+    v56 = 0;
+    [v20 scanInteger:&v56];
+    v21 = [v15 substringFromIndex:[v20 scanLocation]];
+    lowercaseString5 = [v21 lowercaseString];
+    v23 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
+    v24 = [lowercaseString5 stringByTrimmingCharactersInSet:v23];
 
-    if ([(BAContentRequestTelemetry *)v23 length]== 1)
+    v25 = [(BAContentRequestTelemetry *)v24 length];
+    if (v25 == 1)
     {
-      if ([(BAContentRequestTelemetry *)v23 isEqualToString:@"m"])
+      if ([(BAContentRequestTelemetry *)v24 isEqualToString:@"m"])
       {
-        v24 = 60 * v46;
+        v26 = 60 * v56;
         goto LABEL_54;
       }
 
-      if ([(BAContentRequestTelemetry *)v23 isEqualToString:@"h"])
+      v46 = [(BAContentRequestTelemetry *)v24 isEqualToString:@"h"];
+      if (v46)
       {
-        v24 = 3600 * v46;
+        v26 = 3600 * v56;
 LABEL_54:
-        v46 = v24;
-        if (v24)
+        v56 = v26;
+        if (v26)
         {
-          v38 = +[BAAgentCore sharedCore];
-          v39 = [v38 applicationInfoForIdentifier:_baassets_validUTI];
+          v47 = +[BAAgentCore sharedCore];
+          v48 = [v47 applicationInfoForIdentifier:_baassets_validUTI];
 
-          if (!v39)
+          if (!v48)
           {
-            sharedCore = sub_100010584();
+            sharedCore = sub_100010584(v49);
             if (os_log_type_enabled(sharedCore, OS_LOG_TYPE_INFO))
             {
               *buf = 138543362;
-              v48 = _baassets_validUTI;
+              v58 = _baassets_validUTI;
               _os_log_impl(&_mh_execute_header, sharedCore, OS_LOG_TYPE_INFO, "Unable to get application runtime info for identifier: %{public}@", buf, 0xCu);
             }
 
             goto LABEL_73;
           }
 
-          v40 = v46;
-          v41 = sub_100010584();
-          v42 = os_log_type_enabled(v41, OS_LOG_TYPE_INFO);
-          if (v40 < 1)
+          v50 = v56;
+          v51 = sub_100010584(v49);
+          v52 = os_log_type_enabled(v51, OS_LOG_TYPE_INFO);
+          if (v50 < 1)
           {
             p_vtable = BAURLSession.vtable;
-            if (v42)
+            if (v52)
             {
               *buf = 134218242;
-              v48 = v46;
-              v49 = 2114;
-              v50 = _baassets_validUTI;
-              v44 = "Removing %ld seconds to %{public}@";
+              v58 = v56;
+              v59 = 2114;
+              v60 = _baassets_validUTI;
+              v54 = "Removing %ld seconds to %{public}@";
               goto LABEL_71;
             }
           }
@@ -521,19 +526,19 @@ LABEL_54:
           else
           {
             p_vtable = (BAURLSession + 24);
-            if (v42)
+            if (v52)
             {
               *buf = 134218242;
-              v48 = v46;
-              v49 = 2114;
-              v50 = _baassets_validUTI;
-              v44 = "Added %ld seconds to %{public}@";
+              v58 = v56;
+              v59 = 2114;
+              v60 = _baassets_validUTI;
+              v54 = "Added %ld seconds to %{public}@";
 LABEL_71:
-              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, v44, buf, 0x16u);
+              _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, v54, buf, 0x16u);
             }
           }
 
-          [v39 _debugConsumeTime:v46];
+          [v48 _debugConsumeTime:v56];
           sharedCore = [p_vtable + 107 sharedCore];
           [sharedCore saveApplicationState];
 LABEL_73:
@@ -544,28 +549,28 @@ LABEL_74:
         goto LABEL_75;
       }
 
-      v35 = sub_100010584();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v43 = sub_100010584(v46);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v48 = v23;
+        v58 = v24;
         goto LABEL_42;
       }
     }
 
     else
     {
-      v35 = sub_100010584();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v43 = sub_100010584(v25);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v48 = v23;
+        v58 = v24;
 LABEL_42:
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "Invalid unit string: %{public}@\nShould be 'm' or 'h'.", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Invalid unit string: %{public}@\nShould be 'm' or 'h'.", buf, 0xCu);
       }
     }
 
-    v46 = 0;
+    v56 = 0;
     goto LABEL_74;
   }
 

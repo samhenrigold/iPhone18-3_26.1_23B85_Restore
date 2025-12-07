@@ -1,7 +1,6 @@
 @interface GQSSpiceTable
 - (GQSSpiceTable)init;
 - (float)alongValueForVectorUid:(const char *)uid;
-- (void)aboutToReadCells;
 - (void)dealloc;
 - (void)setAlongValue:(float)value forOwnedVectorUid:(char *)uid;
 @end
@@ -59,18 +58,6 @@
   v8.receiver = self;
   v8.super_class = GQSSpiceTable;
   [(GQSTable *)&v8 dealloc];
-}
-
-- (void)aboutToReadCells
-{
-  mRowPositions = self->mRowPositions;
-  v4 = *mRowPositions;
-  v5 = mRowPositions[1];
-  std::__sort<std::__less<float,float> &,float *>();
-  mColumnPositions = self->mColumnPositions;
-  v7 = *mColumnPositions;
-  v8 = mColumnPositions[1];
-  std::__sort<std::__less<float,float> &,float *>();
 }
 
 - (float)alongValueForVectorUid:(const char *)uid

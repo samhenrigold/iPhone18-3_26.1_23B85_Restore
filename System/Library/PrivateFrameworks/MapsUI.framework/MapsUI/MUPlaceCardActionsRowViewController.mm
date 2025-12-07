@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad
 {
-  v29[4] = *MEMORY[0x1E69E9840];
+  v28[4] = *MEMORY[0x1E69E9840];
   v3 = MUGetPlaceCardLog();
   if (os_signpost_enabled(v3))
   {
@@ -33,9 +33,9 @@
     _os_signpost_emit_with_name_impl(&dword_1C5620000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PlaceCardActionsRowViewDidLoad", "", buf, 2u);
   }
 
-  v27.receiver = self;
-  v27.super_class = MUPlaceCardActionsRowViewController;
-  [(MUPlaceCardActionsRowViewController *)&v27 viewDidLoad];
+  v26.receiver = self;
+  v26.super_class = MUPlaceCardActionsRowViewController;
+  [(MUPlaceCardActionsRowViewController *)&v26 viewDidLoad];
   view = [(MUPlaceCardActionsRowViewController *)self view];
   [view setPreservesSuperviewLayoutMargins:1];
 
@@ -47,29 +47,29 @@
   view2 = [(MUPlaceCardActionsRowViewController *)self view];
   [view2 addSubview:self->_actionsRowView];
 
-  v19 = MEMORY[0x1E696ACD8];
+  v18 = MEMORY[0x1E696ACD8];
   topAnchor = [(MUPlaceCardActionsRowView *)self->_actionsRowView topAnchor];
   view3 = [(MUPlaceCardActionsRowViewController *)self view];
   topAnchor2 = [view3 topAnchor];
-  v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v29[0] = v23;
+  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v28[0] = v22;
   leadingAnchor = [(MUPlaceCardActionsRowView *)self->_actionsRowView leadingAnchor];
   view4 = [(MUPlaceCardActionsRowViewController *)self view];
   leadingAnchor2 = [view4 leadingAnchor];
   v7 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v29[1] = v7;
+  v28[1] = v7;
   trailingAnchor = [(MUPlaceCardActionsRowView *)self->_actionsRowView trailingAnchor];
   view5 = [(MUPlaceCardActionsRowViewController *)self view];
   trailingAnchor2 = [view5 trailingAnchor];
   v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v29[2] = v11;
+  v28[2] = v11;
   bottomAnchor = [(MUPlaceCardActionsRowView *)self->_actionsRowView bottomAnchor];
   view6 = [(MUPlaceCardActionsRowViewController *)self view];
   bottomAnchor2 = [view6 bottomAnchor];
   v15 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v29[3] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:4];
-  [v19 activateConstraints:v16];
+  v28[3] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:4];
+  [v18 activateConstraints:v16];
 
   v17 = MUGetPlaceCardLog();
   if (os_signpost_enabled(v17))
@@ -77,8 +77,6 @@
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1C5620000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PlaceCardActionsRowViewDidLoad", "", buf, 2u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMenuProvider:(id)provider

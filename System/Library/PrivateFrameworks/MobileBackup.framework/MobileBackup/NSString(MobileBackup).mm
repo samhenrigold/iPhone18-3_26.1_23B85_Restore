@@ -78,34 +78,34 @@ LABEL_8:
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v2 = MBSQLiteJournalSuffixes();
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v3)
+  v3 = MBSQLiteJournalSuffixes(self, a2);
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
   {
-    v4 = v3;
-    v5 = *v11;
+    v5 = v4;
+    v6 = *v11;
     while (2)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v11 != v6)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v3);
         }
 
-        if ([self hasSuffix:{*(*(&v10 + 1) + 8 * v6), v10}])
+        if ([self hasSuffix:{*(*(&v10 + 1) + 8 * v7), v10}])
         {
-          v7 = 1;
+          v8 = 1;
           goto LABEL_11;
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v4)
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v5)
       {
         continue;
       }
@@ -114,11 +114,10 @@ LABEL_8:
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
 - (id)mb_stringByAppendingGreenteaSuffix

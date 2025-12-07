@@ -54,29 +54,33 @@
   v5 = self->_device;
   if (v5)
   {
-    self->_uniqueIdentifier = [(GCController *)v5 identifier];
+    identifier = [(GCController *)v5 identifier];
+    uniqueIdentifier = self->_uniqueIdentifier;
+    self->_uniqueIdentifier = identifier;
   }
 
   else
   {
     navigationController = [(GCSettingsLightController *)self navigationController];
     viewControllers = [navigationController viewControllers];
-    v8 = [viewControllers indexOfObject:self];
+    v10 = [viewControllers indexOfObject:self];
 
-    if (!v8 || v8 == 0x7FFFFFFFFFFFFFFFLL)
+    if (!v10 || v10 == 0x7FFFFFFFFFFFFFFFLL)
     {
       return;
     }
 
     navigationController2 = [(GCSettingsLightController *)self navigationController];
     viewControllers2 = [navigationController2 viewControllers];
-    v13 = [viewControllers2 objectAtIndex:v8 - 1];
+    v15 = [viewControllers2 objectAtIndex:v10 - 1];
 
     navigationController3 = [(GCSettingsLightController *)self navigationController];
-    v12 = [navigationController3 popToViewController:v13 animated:1];
+    v14 = [navigationController3 popToViewController:v15 animated:1];
+
+    uniqueIdentifier = v15;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(identifier, uniqueIdentifier);
 }
 
 - (void)setBrightness:(id)brightness specifier:(id)specifier

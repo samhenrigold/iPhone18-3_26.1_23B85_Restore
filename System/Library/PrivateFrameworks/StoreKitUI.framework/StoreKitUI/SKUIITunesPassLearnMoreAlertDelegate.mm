@@ -40,21 +40,8 @@
 
 + (void)beginThrottleInterval
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v2)
-      {
-        [(SKUIITunesPassLearnMoreAlertDelegate *)v2 beginThrottleInterval:v3];
-      }
-    }
-  }
-
-  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  [standardUserDefaults setDouble:@"SKUILastITunesPassLearnMoreAlertTime" forKey:CFAbsoluteTimeGetCurrent()];
-  [standardUserDefaults synchronize];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIITunesPassLearnMoreAlertDelegate beginThrottleInterval]";
 }
 
 + (BOOL)shouldShowAlertForRedeem:(id)redeem configuration:(id)configuration
@@ -144,6 +131,18 @@
   WeakRetained = objc_loadWeakRetained(&self->_presentingViewController);
 
   return WeakRetained;
+}
+
+- (void)initWithRedeemConfiguration:(uint64_t)a3 clientContext:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIITunesPassLearnMoreAlertDelegate initWithRedeemConfiguration:clientContext:]";
+}
+
++ (void)shouldShowAlertForRedeem:(uint64_t)a3 configuration:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIITunesPassLearnMoreAlertDelegate shouldShowAlertForRedeem:configuration:]";
 }
 
 @end

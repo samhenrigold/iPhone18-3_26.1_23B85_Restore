@@ -4,6 +4,7 @@
 + (id)logHandle;
 + (int)migrationVersionFromDictionary:(id)dictionary;
 + (unint64_t)subscribedCalendarRefreshFlagsFromDictionary:(id)dictionary;
++ (void)setMigrationVersion:(int)version inDictionary:(id)dictionary;
 + (void)setSubscribedCalendarRefreshFlags:(unint64_t)flags inDictionary:(id)dictionary;
 @end
 
@@ -47,13 +48,13 @@ uint64_t __56__CalSubscribedCalendarExternalRepresentation_logHandle__block_invo
 
 + (id)dictionaryWithExternalRepresentationData:(id)data
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
-    v17 = 0;
-    logHandle2 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:1 format:0 error:&v17];
-    v6 = v17;
+    v16 = 0;
+    logHandle2 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:1 format:0 error:&v16];
+    v6 = v16;
     if (logHandle2)
     {
       objc_opt_class();
@@ -91,8 +92,6 @@ LABEL_10:
   logHandle2 = [MEMORY[0x1E695DF90] dictionary];
 LABEL_12:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return logHandle2;
 }
 
@@ -128,11 +127,20 @@ LABEL_12:
   return intValue;
 }
 
++ (void)setMigrationVersion:(int)version inDictionary:(id)dictionary
+{
+  v4 = *&version;
+  v5 = MEMORY[0x1E696AD98];
+  dictionaryCopy = dictionary;
+  v7 = [v5 numberWithInt:v4];
+  [dictionaryCopy setObject:v7 forKeyedSubscript:@"migrationVersion"];
+}
+
 + (void)externalRepresentationDataWithDictionary:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "Failed to serialize subscribed calendar external representation data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "Failed to serialize subscribed calendar external representation data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)dictionaryWithExternalRepresentationData:(os_log_t)log .cold.1(uint64_t a1, uint8_t *buf, os_log_t log)
@@ -144,16 +152,16 @@ LABEL_12:
 
 + (void)dictionaryWithExternalRepresentationData:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "Exception caught while deserializating subscribed calendar external representation data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "Exception caught while deserializating subscribed calendar external representation data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)dictionaryWithExternalRepresentationData:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "Failed to deserialize subscribed calendar external representation data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "Failed to deserialize subscribed calendar external representation data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

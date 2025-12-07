@@ -21,7 +21,7 @@
 - (void)willMoveToWindow:(id)window
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ReactionPickerView();
+  v4.super_class = type metadata accessor for ReactionPickerView(0);
   [(ReactionPickerView *)&v4 willMoveToWindow:window];
 }
 

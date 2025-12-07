@@ -13,15 +13,15 @@
 - (CGPoint)topLeftCornerPoint;
 - (CGPoint)topRightCornerPoint;
 - (id)description;
+- (id)initWithTextSegmentFrame:withRun:;
 - (id)nextSegment;
+- (id)prevSegment;
 - (uint64_t)calculateCGPath;
-- (uint64_t)initWithTextSegmentFrame:withRun:;
 - (uint64_t)needsLeftOutset;
 - (uint64_t)needsRightOutset;
 - (void)_calculateHighlightSegmentShape;
 - (void)cornerOutset;
 - (void)cornerRadius;
-- (void)prevSegment;
 - (void)setTextRange:(uint64_t)range;
 @end
 
@@ -144,7 +144,7 @@ LABEL_4:
   return [(_NSTextHighlightRunSegment *)self anyRunHasBottomBorderOnPoint:distance withLeftCornerExtensionDistance:extensionDistance withRightCornerExtensionDistance:x, y];
 }
 
-- (uint64_t)initWithTextSegmentFrame:withRun:
+- (id)initWithTextSegmentFrame:withRun:
 {
   OUTLINED_FUNCTION_6_1();
   v5 = v4;
@@ -328,7 +328,7 @@ LABEL_4:
   return v4;
 }
 
-- (void)prevSegment
+- (id)prevSegment
 {
   selfCopy = self;
   if (self)

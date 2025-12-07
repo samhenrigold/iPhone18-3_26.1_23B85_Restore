@@ -115,131 +115,131 @@
 
 - (void)layoutSubviews
 {
-  v50.receiver = self;
-  v50.super_class = DirectionsStartEndContentView;
-  [(DirectionsStartEndContentView *)&v50 layoutSubviews];
-  v49 = 0;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
+  v49.receiver = self;
+  v49.super_class = DirectionsStartEndContentView;
+  [(DirectionsStartEndContentView *)&v49 layoutSubviews];
+  v48 = 0;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v3 = objc_opt_class();
   traitCollection = [(DirectionsStartEndContentView *)self traitCollection];
-  userInterfaceIdiom = [traitCollection userInterfaceIdiom];
+  [traitCollection userInterfaceIdiom];
   if (v3)
   {
-    [v3 cellMetricsForIdiom:userInterfaceIdiom];
+    objc_msgSend_cellMetricsForIdiom_(v3);
   }
 
   else
   {
-    v49 = 0;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v48 = 0;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
   }
 
   [(DirectionsStartEndContentView *)self bounds];
-  y = v53.origin.y;
-  v53.origin.x = *&v48 + *&v47 + v7 + *(&v48 + 1);
-  x = v53.origin.x;
-  v9 = v53.size.width - (CGRectGetMinX(v53) + *(&v47 + 1));
+  y = v52.origin.y;
+  v52.origin.x = *&v47 + *&v46 + v6 + *(&v47 + 1);
+  x = v52.origin.x;
+  v8 = v52.size.width - (CGRectGetMinX(v52) + *(&v46 + 1));
   text = [(UILabel *)self->_overviewLabel text];
   overviewFontProvider = [objc_opt_class() overviewFontProvider];
-  [(DirectionsStartEndContentView *)self _heightForText:text width:overviewFontProvider fontProvider:v9];
-  v13 = v12;
+  [(DirectionsStartEndContentView *)self _heightForText:text width:overviewFontProvider fontProvider:v8];
+  v12 = v11;
 
   attributedText = [(UILabel *)self->_subtitleLabel attributedText];
-  [(DirectionsStartEndContentView *)self _heightForAttributedText:attributedText width:v9];
-  v16 = v15;
+  [(DirectionsStartEndContentView *)self _heightForAttributedText:attributedText width:v8];
+  v15 = v14;
 
+  v53.origin.x = x;
+  v53.origin.y = y;
+  v53.size.width = v8;
+  v53.size.height = v12;
+  MinX = CGRectGetMinX(v53);
   v54.origin.x = x;
   v54.origin.y = y;
-  v54.size.width = v9;
-  v54.size.height = v13;
-  MinX = CGRectGetMinX(v54);
-  v55.origin.x = x;
-  v55.origin.y = y;
-  v55.size.width = v9;
-  v55.size.height = v13;
-  Width = CGRectGetWidth(v55);
-  v19 = 0.0;
-  v56.origin.y = 0.0;
-  v56.origin.x = MinX;
-  v56.size.width = Width;
-  v56.size.height = v16;
-  if (CGRectGetHeight(v56) > 0.0)
+  v54.size.width = v8;
+  v54.size.height = v12;
+  Width = CGRectGetWidth(v54);
+  v18 = 0.0;
+  v55.origin.y = 0.0;
+  v55.origin.x = MinX;
+  v55.size.width = Width;
+  v55.size.height = v15;
+  if (CGRectGetHeight(v55) > 0.0)
   {
     [objc_opt_class() labelSpacing];
-    v19 = v20;
+    v18 = v19;
   }
 
-  v57.origin.x = x;
-  v57.origin.y = y;
-  v57.size.width = v9;
-  v57.size.height = v13;
-  Height = CGRectGetHeight(v57);
-  v58.origin.y = 0.0;
-  v58.origin.x = MinX;
-  v58.size.width = Width;
-  v58.size.height = v16;
-  v40 = v16;
-  v22 = CGRectGetHeight(v58);
+  v56.origin.x = x;
+  v56.origin.y = y;
+  v56.size.width = v8;
+  v56.size.height = v12;
+  Height = CGRectGetHeight(v56);
+  v57.origin.y = 0.0;
+  v57.origin.x = MinX;
+  v57.size.width = Width;
+  v57.size.height = v15;
+  v39 = v15;
+  v21 = CGRectGetHeight(v57);
   [(DirectionsStartEndContentView *)self bounds];
-  v23 = (CGRectGetHeight(v59) - (v22 + v19 + Height)) * 0.5;
-  v60.origin.x = x;
-  v60.origin.y = v23;
-  v60.size.width = v9;
-  v60.size.height = v13;
-  MaxY = CGRectGetMaxY(v60);
+  v22 = (CGRectGetHeight(v58) - (v21 + v18 + Height)) * 0.5;
+  v59.origin.x = x;
+  v59.origin.y = v22;
+  v59.size.width = v8;
+  v59.size.height = v12;
+  MaxY = CGRectGetMaxY(v59);
   [objc_opt_class() labelSpacing];
-  v26 = v25 + MaxY;
-  [(UILabel *)self->_overviewLabel setFrame:x, v23, v9, v13];
-  [(UILabel *)self->_subtitleLabel setFrame:MinX, v26, Width, v40];
+  v25 = v24 + MaxY;
+  [(UILabel *)self->_overviewLabel setFrame:x, v22, v8, v12];
+  [(UILabel *)self->_subtitleLabel setFrame:MinX, v25, Width, v39];
   [(DirectionsStartEndContentView *)self _updateStyleValuesFromTheme];
   [(DirectionsStartEndContentView *)self bounds];
   [(UIImageView *)self->_pinView setFrame:?];
-  v27 = +[UIApplication sharedApplication];
-  userInterfaceLayoutDirection = [v27 userInterfaceLayoutDirection];
+  v26 = +[UIApplication sharedApplication];
+  userInterfaceLayoutDirection = [v26 userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
     subtitleLabel = self->_subtitleLabel;
-    v52[0] = self->_overviewLabel;
-    v52[1] = subtitleLabel;
-    v52[2] = self->_pinView;
-    v30 = [NSArray arrayWithObjects:v52 count:3];
+    v51[0] = self->_overviewLabel;
+    v51[1] = subtitleLabel;
+    v51[2] = self->_pinView;
+    v29 = [NSArray arrayWithObjects:v51 count:3];
     [(DirectionsStartEndContentView *)self bounds];
-    MaxX = CGRectGetMaxX(v61);
+    MaxX = CGRectGetMaxX(v60);
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v32 = v30;
-    v33 = [v32 countByEnumeratingWithState:&v41 objects:v51 count:16];
-    if (v33)
+    v31 = v29;
+    v32 = [v31 countByEnumeratingWithState:&v40 objects:v50 count:16];
+    if (v32)
     {
-      v34 = v33;
-      v35 = *v42;
+      v33 = v32;
+      v34 = *v41;
       do
       {
-        for (i = 0; i != v34; i = i + 1)
+        for (i = 0; i != v33; i = i + 1)
         {
-          if (*v42 != v35)
+          if (*v41 != v34)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v31);
           }
 
-          v37 = *(*(&v41 + 1) + 8 * i);
-          [v37 frame];
-          [v37 setFrame:MaxX - (v38 + v39)];
+          v36 = *(*(&v40 + 1) + 8 * i);
+          [v36 frame];
+          [v36 setFrame:MaxX - (v37 + v38)];
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v41 objects:v51 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v40 objects:v50 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
   }
 }
@@ -344,103 +344,103 @@
 - (double)heightForWaypoint:(id)waypoint route:(id)route selectedVehicle:(id)vehicle displayedInRoutePlanning:(BOOL)planning width:(double)width
 {
   planningCopy = planning;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   vehicleCopy = vehicle;
   routeCopy = route;
   waypointCopy = waypoint;
   v15 = objc_opt_class();
   traitCollection = [(DirectionsStartEndContentView *)self traitCollection];
-  userInterfaceIdiom = [traitCollection userInterfaceIdiom];
+  [traitCollection userInterfaceIdiom];
   if (v15)
   {
-    [v15 cellMetricsForIdiom:userInterfaceIdiom];
+    objc_msgSend_cellMetricsForIdiom_(v15);
   }
 
   else
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
   }
 
   overviewFontProvider = [objc_opt_class() overviewFontProvider];
-  v19 = overviewFontProvider[2]();
-  *v47 = v44;
-  *&v47[16] = v45;
+  v18 = overviewFontProvider[2]();
+  *v46 = v43;
+  *&v46[16] = v44;
   widthCopy = 0.0;
-  *buf = v42;
-  *&buf[16] = v43;
-  [(DirectionsStartEndContentView *)self _topPaddingUsingFont:v19 metrics:buf];
-  v21 = v20;
+  *buf = v41;
+  *&buf[16] = v42;
+  [(DirectionsStartEndContentView *)self _topPaddingUsingFont:v18 metrics:buf];
+  v20 = v19;
 
   UIFloorToViewScale();
-  v23 = v22;
-  v24 = [objc_opt_class() _overviewTitleForWaypoint:waypointCopy route:routeCopy];
+  v22 = v21;
+  v23 = [objc_opt_class() _overviewTitleForWaypoint:waypointCopy route:routeCopy];
   overviewFontProvider2 = [objc_opt_class() overviewFontProvider];
-  [(DirectionsStartEndContentView *)self _heightForText:v24 width:overviewFontProvider2 fontProvider:v23];
-  v27 = v26;
+  [(DirectionsStartEndContentView *)self _heightForText:v23 width:overviewFontProvider2 fontProvider:v22];
+  v26 = v25;
 
-  v28 = v27 + v21;
-  v29 = [objc_opt_class() _subtitleForWaypoint:waypointCopy route:routeCopy selectedVehicle:vehicleCopy displayedInRoutePlanning:planningCopy];
+  v27 = v26 + v20;
+  v28 = [objc_opt_class() _subtitleForWaypoint:waypointCopy route:routeCopy selectedVehicle:vehicleCopy displayedInRoutePlanning:planningCopy];
 
-  if (v29)
+  if (v28)
   {
     [objc_opt_class() labelSpacing];
-    v31 = v30;
-    [(DirectionsStartEndContentView *)self _heightForAttributedText:v29 width:v23];
-    v28 = v31 + v32 + v28;
+    v30 = v29;
+    [(DirectionsStartEndContentView *)self _heightForAttributedText:v28 width:v22];
+    v27 = v30 + v31 + v27;
   }
 
   subtitleFontProvider = [objc_opt_class() subtitleFontProvider];
-  v34 = subtitleFontProvider[2]();
-  *v47 = v44;
-  *&v47[16] = v45;
+  v33 = subtitleFontProvider[2]();
+  *v46 = v43;
+  *&v46[16] = v44;
   widthCopy = 0.0;
-  *buf = v42;
-  *&buf[16] = v43;
-  [(DirectionsStartEndContentView *)self _bottomPaddingUsingFont:v34 metrics:buf];
-  v36 = v35;
+  *buf = v41;
+  *&buf[16] = v42;
+  [(DirectionsStartEndContentView *)self _bottomPaddingUsingFont:v33 metrics:buf];
+  v35 = v34;
 
-  if (v36 + v28 >= 0.0)
+  if (v35 + v27 >= 0.0)
   {
     UIFloorToViewScale();
-    v39 = v40;
+    v38 = v39;
   }
 
   else
   {
-    v37 = sub_100035E6C();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+    v36 = sub_100035E6C();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
     {
       [(DirectionsStartEndContentView *)self bounds];
-      v38 = NSStringFromCGRect(v51);
+      v37 = NSStringFromCGRect(v50);
       *buf = 134219778;
-      *&buf[4] = v21;
+      *&buf[4] = v20;
       *&buf[12] = 2048;
-      *&buf[14] = v27;
+      *&buf[14] = v26;
       *&buf[22] = 2112;
-      *&buf[24] = v24;
-      *v47 = 2112;
-      *&v47[2] = v29;
-      *&v47[10] = 2048;
-      *&v47[12] = v36;
-      *&v47[20] = 2048;
-      *&v47[22] = v36 + v28;
-      *&v47[30] = 2048;
+      *&buf[24] = v23;
+      *v46 = 2112;
+      *&v46[2] = v28;
+      *&v46[10] = 2048;
+      *&v46[12] = v35;
+      *&v46[20] = 2048;
+      *&v46[22] = v35 + v27;
+      *&v46[30] = 2048;
       widthCopy = width;
-      v49 = 2112;
-      v50 = v38;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_FAULT, "Invalid height for start/end, topPadding: %f textHeight: %f topText: %@ bottomText: %@ bottomPadding: %f totalHeight: %f width: %f bounds: %@", buf, 0x52u);
+      v48 = 2112;
+      v49 = v37;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_FAULT, "Invalid height for start/end, topPadding: %f textHeight: %f topText: %@ bottomText: %@ bottomPadding: %f totalHeight: %f width: %f bounds: %@", buf, 0x52u);
     }
 
-    v39 = 0.0;
+    v38 = 0.0;
   }
 
-  return v39;
+  return v38;
 }
 
 - (void)configureForWaypoint:(id)waypoint route:(id)route selectedVehicle:(id)vehicle displayedInRoutePlanning:(BOOL)planning
@@ -657,7 +657,7 @@ LABEL_10:
   *&retstr->var6 = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var2 = 0u;
-  result = [DirectionsStepTableViewCell cellMetricsForIdiom:?];
+  result = objc_msgSend_cellMetricsForIdiom_(DirectionsStepTableViewCell, idiom);
   if (a4 != 5)
   {
     *&retstr->var0 = xmmword_101212840;

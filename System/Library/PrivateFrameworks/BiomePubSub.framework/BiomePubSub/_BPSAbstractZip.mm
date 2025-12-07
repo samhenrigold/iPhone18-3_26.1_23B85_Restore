@@ -63,7 +63,7 @@
 
 - (void)receiveSubscription:(id)subscription index:(int64_t)index
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   if ([(_BPSAbstractZip *)self upstreamCount]<= index)
   {
@@ -71,61 +71,40 @@
   }
 
   os_unfair_lock_lock(&self->_lock);
-  if ([(_BPSAbstractZip *)self cancelled])
+  if (-[_BPSAbstractZip cancelled](self, "cancelled") || -[_BPSAbstractZip errored](self, "errored") || -[_BPSAbstractZip finished](self, "finished") || (-[_BPSAbstractZip subscriptions](self, "subscriptions"), v8 = objc_claimAutoreleasedReturnValue(), [v8 objectAtIndexedSubscript:index], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E695DFB0], "null"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v8, (v11 & 1) == 0))
   {
-    goto LABEL_16;
-  }
-
-  if ([(_BPSAbstractZip *)self errored])
-  {
-    goto LABEL_16;
-  }
-
-  if ([(_BPSAbstractZip *)self finished])
-  {
-    goto LABEL_16;
-  }
-
-  subscriptions = [(_BPSAbstractZip *)self subscriptions];
-  v9 = [subscriptions objectAtIndexedSubscript:index];
-  null = [MEMORY[0x1E695DFB0] null];
-  v11 = [v9 isEqual:null];
-
-  if ((v11 & 1) == 0)
-  {
-LABEL_16:
     os_unfair_lock_unlock(&self->_lock);
     [subscriptionCopy cancel];
   }
 
   else
   {
-    subscriptions2 = [(_BPSAbstractZip *)self subscriptions];
-    [subscriptions2 setObject:subscriptionCopy atIndexedSubscript:index];
+    subscriptions = [(_BPSAbstractZip *)self subscriptions];
+    [subscriptions setObject:subscriptionCopy atIndexedSubscript:index];
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    subscriptions3 = [(_BPSAbstractZip *)self subscriptions];
-    v14 = [subscriptions3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    subscriptions2 = [(_BPSAbstractZip *)self subscriptions];
+    v14 = [subscriptions2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       while (2)
       {
         v17 = 0;
         do
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
-            objc_enumerationMutation(subscriptions3);
+            objc_enumerationMutation(subscriptions2);
           }
 
-          v18 = *(*(&v22 + 1) + 8 * v17);
-          null2 = [MEMORY[0x1E695DFB0] null];
-          LOBYTE(v18) = [v18 isEqual:null2];
+          v18 = *(*(&v21 + 1) + 8 * v17);
+          null = [MEMORY[0x1E695DFB0] null];
+          LOBYTE(v18) = [v18 isEqual:null];
 
           if (v18)
           {
@@ -139,7 +118,7 @@ LABEL_16:
         }
 
         while (v15 != v17);
-        v15 = [subscriptions3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [subscriptions2 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v15)
         {
           continue;
@@ -162,13 +141,11 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)receiveInput:(id)input index:(int64_t)index
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   selfCopy = self;
   if ([(_BPSAbstractZip *)selfCopy upstreamCount]<= index)
@@ -192,26 +169,26 @@ LABEL_38:
     v10 = [buffers objectAtIndexedSubscript:index];
     [v10 addObject:inputCopy];
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     buffers2 = [(_BPSAbstractZip *)selfCopy buffers];
-    v12 = [buffers2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v12 = [buffers2 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v52;
+      v14 = *v51;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v52 != v14)
+          if (*v51 != v14)
           {
             objc_enumerationMutation(buffers2);
           }
 
-          if (![*(*(&v51 + 1) + 8 * i) count])
+          if (![*(*(&v50 + 1) + 8 * i) count])
           {
 
             if ([(_BPSAbstractZip *)selfCopy upstreamCount]>= 1)
@@ -232,8 +209,8 @@ LABEL_38:
                   if (!v41)
                   {
                     [(_BPSAbstractZip *)selfCopy setFinished:1];
-                    v44 = +[BPSCompletion success];
-                    [(_BPSAbstractZip *)selfCopy lockSendCompletion:v44 index:indexCopy];
+                    v43 = +[BPSCompletion success];
+                    [(_BPSAbstractZip *)selfCopy lockSendCompletion:v43 index:indexCopy];
 
                     goto LABEL_38;
                   }
@@ -254,7 +231,7 @@ LABEL_38:
           }
         }
 
-        v13 = [buffers2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v13 = [buffers2 countByEnumeratingWithState:&v50 objects:v55 count:16];
         if (v13)
         {
           continue;
@@ -264,31 +241,31 @@ LABEL_38:
       }
     }
 
-    v45 = inputCopy;
+    v44 = inputCopy;
 
     v16 = MEMORY[0x1E695E0F0];
     v17 = [MEMORY[0x1E695E0F0] mutableCopy];
     v18 = [v16 mutableCopy];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     buffers4 = [(_BPSAbstractZip *)selfCopy buffers];
-    v20 = [buffers4 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v20 = [buffers4 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v48;
+      v22 = *v47;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v48 != v22)
+          if (*v47 != v22)
           {
             objc_enumerationMutation(buffers4);
           }
 
-          v24 = *(*(&v47 + 1) + 8 * j);
+          v24 = *(*(&v46 + 1) + 8 * j);
           v25 = [v24 objectAtIndexedSubscript:0];
           [v24 removeObjectAtIndex:0];
           [v18 addObject:v25];
@@ -296,7 +273,7 @@ LABEL_38:
           [v17 addObject:v26];
         }
 
-        v21 = [buffers4 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v21 = [buffers4 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v21);
@@ -350,10 +327,9 @@ LABEL_38:
       }
     }
 
-    inputCopy = v45;
+    inputCopy = v44;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -458,7 +434,7 @@ LABEL_5:
 
 - (void)cancel
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
   if ([(_BPSAbstractZip *)selfCopy cancelled])
@@ -493,27 +469,27 @@ LABEL_5:
     }
 
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = v4;
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         v15 = 0;
         do
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v18 + 1) + 8 * v15);
+          v16 = *(*(&v17 + 1) + 8 * v15);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -524,19 +500,17 @@ LABEL_5:
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v13);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolvePendingDemandAndUnlock
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   subscriptions = [(_BPSAbstractZip *)self subscriptions];
   v4 = [subscriptions copy];
 
@@ -545,50 +519,48 @@ LABEL_5:
   os_unfair_lock_unlock(&self->_lock);
   if (pendingDemand >= 1)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v13 + 1) + 8 * v10);
+          v11 = *(*(&v12 + 1) + 8 * v10);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            [v11 requestDemand:{pendingDemand, v13}];
+            [v11 requestDemand:{pendingDemand, v12}];
           }
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestDemand:(int64_t)demand
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if (demand <= 0)
   {
@@ -610,48 +582,47 @@ LABEL_8:
   }
 
   subscriptions = [(_BPSAbstractZip *)selfCopy subscriptions];
-  v8 = [subscriptions copy];
+  v7 = [subscriptions copy];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v10)
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = v7;
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v16;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      v13 = 0;
+      v12 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v15 + 1) + 8 * v13);
+        v13 = *(*(&v14 + 1) + 8 * v12);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          [v14 requestDemand:{demand, v15}];
+          [v13 requestDemand:{demand, v14}];
         }
 
-        ++v13;
+        ++v12;
       }
 
-      while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
 LABEL_9:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveSubscription:(uint64_t)a1 index:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

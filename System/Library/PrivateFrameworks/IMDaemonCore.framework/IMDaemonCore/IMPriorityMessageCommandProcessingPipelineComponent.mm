@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   priorityMessageGUIDs = [inputCopy priorityMessageGUIDs];
   v6 = priorityMessageGUIDs;
@@ -33,8 +33,8 @@
       v15 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Ignoring priority message command, no message guid received", &v21, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Ignoring priority message command, no message guid received", &v20, 2u);
       }
     }
 
@@ -46,9 +46,9 @@
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v21 = 138412290;
-      v22 = v6;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "<IMPriorityMessageCommandProcessingPipelineComponent> Started processing priority message command for message GUIDs: %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v6;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "<IMPriorityMessageCommandProcessingPipelineComponent> Started processing priority message command for message GUIDs: %@", &v20, 0xCu);
     }
   }
 
@@ -59,9 +59,9 @@
       v16 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v21 = 138412290;
-        v22 = v6;
-        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Ignoring priority message command not from me for messages: %@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = v6;
+        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Ignoring priority message command not from me for messages: %@", &v20, 0xCu);
       }
     }
 
@@ -83,19 +83,18 @@ LABEL_20:
 
   else if (IMOSLoggingEnabled())
   {
-    v20 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v21 = 138412290;
-      v22 = v6;
-      _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Ignoring priority message command not from my local paired device for messages: %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v6;
+      _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Ignoring priority message command not from my local paired device for messages: %@", &v20, 0xCu);
     }
   }
 
   v17 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
 
 LABEL_21:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

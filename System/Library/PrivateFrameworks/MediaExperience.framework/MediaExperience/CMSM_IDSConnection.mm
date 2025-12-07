@@ -51,27 +51,27 @@
 
 - (void)updateNearbyPairedDevice
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   devices = [(IDSService *)self->pIdsService devices];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [devices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [devices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(devices);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 isLocallyPaired] && objc_msgSend(v8, "isNearby"))
         {
           v9 = v8;
@@ -79,7 +79,7 @@
         }
       }
 
-      v5 = [devices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [devices countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -101,8 +101,6 @@ LABEL_12:
     CMSM_IDSConnection_HandleNearbyDeviceStatusChange();
     cmsm_IDSConnection_UpdateOtherDevicesConnectedInfoInPickableRoutesCache();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyNearbyPairedDeviceUniqueID

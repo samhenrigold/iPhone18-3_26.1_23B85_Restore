@@ -13,13 +13,11 @@ uint64_t IOMobileFramebufferSwapWait(uint64_t a1)
 
 uint64_t kern_SwapWait(uint64_t a1, unsigned int a2, unsigned int a3)
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = a2;
-  v5[1] = a3;
-  v5[2] = 0;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 6u, v5, 3u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = a2;
+  v4[1] = a3;
+  v4[2] = 0;
+  return IOConnectCallScalarMethod(*(a1 + 20), 6u, v4, 3u, 0, 0);
 }
 
 uint64_t IOMobileFramebufferSwapBegin(uint64_t a1)
@@ -43,31 +41,26 @@ uint64_t kern_SwapBegin(uint64_t a1, _DWORD *a2)
   outputCnt = 1;
   if (IOConnectCallScalarMethod(*(a1 + 20), 4u, 0, 0, output, &outputCnt))
   {
-    result = 3758097084;
+    return 3758097084;
   }
 
-  else
+  bzero((a1 + 24), 0x560uLL);
+  v5 = *(a1 + 3464);
+  if (v5)
   {
-    bzero((a1 + 24), 0x560uLL);
-    v5 = *(a1 + 3464);
-    if (v5)
-    {
-      IOMFBGainMapRelease(a1, v5);
-      *(a1 + 3464) = 0;
-    }
-
-    v6 = output[0];
-    *(a1 + 176) = output[0];
-    if (a2)
-    {
-      *a2 = v6;
-    }
-
-    result = 0;
-    *(a1 + 404) = 0;
+    IOMFBGainMapRelease(a1, v5);
+    *(a1 + 3464) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = output[0];
+  *(a1 + 176) = output[0];
+  if (a2)
+  {
+    *a2 = v6;
+  }
+
+  result = 0;
+  *(a1 + 404) = 0;
   return result;
 }
 
@@ -195,90 +188,90 @@ uint64_t IOMobileFramebufferSwapSetTimestamps(uint64_t a1)
   }
 }
 
-void PackAndDispatchFrameInfoNotifictionData(uint64_t a1)
+void PackAndDispatchFrameInfoNotifictionData(uint64_t a1, unsigned int a2)
 {
-  v2 = *(a1 + 3584);
-  v3 = *(a1 + 3592);
-  v20 = v2;
-  if (v2 < 0)
+  v3 = *(a1 + 3584);
+  v4 = *(a1 + 3592);
+  v21 = v3;
+  if (v3 < 0)
   {
-    v4 = v2 & 0x7FFFFFFF;
+    v5 = v3 & 0x7FFFFFFF;
   }
 
   else
   {
-    v4 = v2;
+    v5 = v3;
   }
 
-  v5 = *MEMORY[0x277CBECE8];
+  v6 = *MEMORY[0x277CBECE8];
   theDict = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (theDict)
   {
-    v19 = v3;
-    if (v4)
+    v20 = v4;
+    if (v5)
     {
-      v6 = 0;
-      v7 = a1 + 3584;
-      v8 = 2;
+      v7 = 0;
+      v8 = a1 + 3584;
+      v9 = 2;
       do
       {
-        v9 = 1 << v6;
-        v10 = ((1 << v6) & v4) == 0;
-        v11 = 1 << v6 < v4 && ((1 << v6) & v4) == 0;
-        if (v11)
+        v10 = 1 << v7;
+        v11 = ((1 << v7) & v5) == 0;
+        v12 = 1 << v7 < v5 && ((1 << v7) & v5) == 0;
+        if (v12)
         {
           do
           {
-            ++v6;
-            v12 = v4 & (2 * v9);
-            v9 *= 2;
-            v10 = v12 == 0;
+            ++v7;
+            v13 = v5 & (2 * v10);
+            v10 *= 2;
+            v11 = v13 == 0;
           }
 
-          while (v9 < v4 && !v12);
+          while (v10 < v5 && !v13);
         }
 
-        if (v10)
+        if (v11)
         {
           break;
         }
 
-        v13 = v8 + 1;
-        v14 = *(v7 + 8 * v8);
-        if (v20 < 0)
+        v14 = v9 + 1;
+        v15 = *(v8 + 8 * v9);
+        if (v21 < 0)
         {
-          v8 += 2;
-          v14 |= *(v7 + 8 * v13) << 32;
+          v9 += 2;
+          v15 |= *(v8 + 8 * v14) << 32;
         }
 
         else
         {
-          ++v8;
+          ++v9;
         }
 
-        v15 = CFStringCreateWithCString(v5, *(*(a1 + 2032) + 8 * v6), 0x600u);
-        valuePtr = adjust_ni_timestamp(a1, *(*(a1 + 2032) + 8 * v6), v14);
-        v16 = CFNumberCreate(v5, kCFNumberLongLongType, &valuePtr);
-        v17 = v16;
-        if (v15)
+        v16 = CFStringCreateWithCString(v6, *(*(a1 + 2032) + 8 * v7), 0x600u);
+        valuePtr = adjust_ni_timestamp(a1, *(*(a1 + 2032) + 8 * v7), v15);
+        v17 = CFNumberCreate(v6, kCFNumberLongLongType, &valuePtr);
+        v18 = v17;
+        if (v16)
         {
-          v18 = v16 == 0;
+          v19 = v17 == 0;
         }
 
         else
         {
-          v18 = 1;
+          v19 = 1;
         }
 
-        if (v18)
+        if (v19)
         {
           CFRelease(theDict);
-          if (v15)
+          if (v16)
           {
-            CFRelease(v15);
+            CFRelease(v16);
           }
 
-          if (v17)
+          if (v18)
           {
             goto LABEL_27;
           }
@@ -286,14 +279,14 @@ void PackAndDispatchFrameInfoNotifictionData(uint64_t a1)
           return;
         }
 
-        CFDictionarySetValue(theDict, v15, v16);
-        CFRelease(v17);
-        CFRelease(v15);
-        v11 = v9 == v4;
-        v4 ^= v9;
+        CFDictionarySetValue(theDict, v16, v17);
+        CFRelease(v18);
+        CFRelease(v16);
+        v12 = v10 == v5;
+        v5 ^= v10;
       }
 
-      while (!v11);
+      while (!v12);
     }
 
     if (*(a1 + 3512) == 1)
@@ -301,10 +294,10 @@ void PackAndDispatchFrameInfoNotifictionData(uint64_t a1)
       kdebug_trace();
     }
 
-    v17 = theDict;
-    (*(a1 + 1768))(a1, v19, theDict, *(a1 + 1712));
+    v18 = theDict;
+    (*(a1 + 1768))(a1, v20, theDict, *(a1 + 1712));
 LABEL_27:
-    CFRelease(v17);
+    CFRelease(v18);
   }
 }
 
@@ -322,7 +315,7 @@ void FrameInfoNotifyFuncIOShq(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
       do
       {
         memcpy((a4 + 3584), v7->data, v7->size);
-        PackAndDispatchFrameInfoNotifictionData(a4);
+        PackAndDispatchFrameInfoNotifictionData(a4, v8);
         IODataQueueDequeue(*(a4 + 1752), 0, &dataSize);
         v7 = IODataQueuePeek(*(a4 + 1752));
         ++v8;
@@ -334,7 +327,7 @@ void FrameInfoNotifyFuncIOShq(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
 
   else
   {
-    syslog(3, "FrameInfoNotifyFunc IO Data Queue not available");
+    syslog(3, "FrameInfoNotifyFunc IO Data Queue not available", a3);
   }
 }
 
@@ -683,7 +676,7 @@ LABEL_24:
 
 uint64_t kern_GetDisplaySize(uint64_t a1, float64x2_t *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((a1 + 2072));
   v4 = (a1 + 1432);
   if (*(a1 + 1432) == 0.0)
@@ -705,7 +698,6 @@ uint64_t kern_GetDisplaySize(uint64_t a1, float64x2_t *a2)
 
   pthread_mutex_unlock((a1 + 2072));
   *a2 = *v4;
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -782,9 +774,7 @@ uint64_t kern_SetBrightnessCorrection(uint64_t a1, unsigned int a2)
   v2 = *(a1 + 2144);
   input[0] = a2;
   input[1] = v2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x32u, input, 2u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x32u, input, 2u, 0, 0);
 }
 
 uint64_t kern_SetIdleBufferEvent(uint64_t a1, __IOSurface *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1115,13 +1105,13 @@ uint64_t IOMobileFramebufferSwapEnd(uint64_t a1)
 
 uint64_t kern_GetBlock(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, int a6)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v12 = (a6 + 2);
   MEMORY[0x28223BE20]();
-  v14 = v24 - v13;
+  v14 = v23 - v13;
   if (v12)
   {
-    memset(v24 - v13, 170, 8 * v12);
+    memset(v23 - v13, 170, 8 * v12);
     *v14 = a2;
     *(v14 + 1) = 0;
     v15 = (v14 + 8);
@@ -1151,31 +1141,26 @@ uint64_t kern_GetBlock(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
 LABEL_8:
   if (v16 >= a4)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  do
   {
-    do
+    v18 = (v16 + a3);
+    v19 = v16 + 4096;
+    v20 = a4 - v16;
+    if (v19 <= a4)
     {
-      v18 = (v16 + a3);
-      v19 = v16 + 4096;
-      v20 = a4 - v16;
-      if (v19 <= a4)
-      {
-        v20 = 4096;
-      }
-
-      v24[0] = v20;
-      result = IOConnectCallMethod(*(a1 + 20), 0x4Fu, v14, v12, 0, 0, 0, 0, v18, v24);
-      v16 = *(v14 + 1) + 4096;
-      *(v14 + 1) = v16;
+      v20 = 4096;
     }
 
-    while (v16 < a4 && result == 0);
+    v23[0] = v20;
+    result = IOConnectCallMethod(*(a1 + 20), 0x4Fu, v14, v12, 0, 0, 0, 0, v18, v23);
+    v16 = *(v14 + 1) + 4096;
+    *(v14 + 1) = v16;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
+  while (v16 < a4 && result == 0);
   return result;
 }
 
@@ -1256,7 +1241,7 @@ uint64_t kern_SwapSetDisplayEdr(uint64_t a1, double a2)
   return 0;
 }
 
-uint64_t IOMFBGainEncoderCreate(int a1, void *a2, double a3, double a4, double a5, double a6)
+uint64_t IOMFBGainEncoderCreate(int a1, uint64_t *a2, double a3, double a4, double a5, double a6)
 {
   v9 = IOMFBgainencoder_new(a5, a6, a1 != 0, 0);
   if (!v9)
@@ -1278,7 +1263,7 @@ uint64_t IOMFBgainencoder_set_origin(uint64_t result, int a2, int a3)
   return result;
 }
 
-void *IOMFBgainencoder_new(int a1, int a2, char a3, char a4)
+void *IOMFBgainencoder_new(int a1, unsigned int a2, char a3, char a4)
 {
   v8 = malloc_type_malloc(0x138uLL, 0x103004008784C41uLL);
   v9 = v8;
@@ -1320,7 +1305,7 @@ void *IOMFBgainencoder_new(int a1, int a2, char a3, char a4)
 
       v11 = 3 * a1 * a2;
       *v8 = malloc_type_malloc(v10, 0x7BB2836DuLL);
-      v9[1] = malloc_type_malloc(200 * a2, 0x28BD334BuLL);
+      v9[1] = malloc_type_malloc((200 * a2), 0x28BD334BuLL);
       v9[2] = malloc_type_malloc(v11, 0xF969614FuLL);
       v12 = malloc_type_malloc(0x18uLL, 0x10100406F90CC4AuLL);
       v9[3] = v12;
@@ -1674,10 +1659,10 @@ double update_run_map(uint64_t a1, int a2)
   return result;
 }
 
-unsigned int *append_gain_map(uint64_t a1, int a2, uint64_t a3)
+unsigned int *append_gain_map(uint64_t a1, int a2, unsigned int **a3)
 {
   v4 = *a3;
-  if (*(a3 + 8) == a2)
+  if (*(a3 + 2) == a2)
   {
     result = bw_set(v4, 1, 0);
   }
@@ -1701,7 +1686,7 @@ unsigned int *append_gain_map(uint64_t a1, int a2, uint64_t a3)
     }
 
     result = bw_set(v8, v9, v10);
-    *(a3 + 8) = a2;
+    *(a3 + 2) = a2;
   }
 
   ++*(a1 + 292);
@@ -2128,7 +2113,6 @@ void IOMFBGainMapRelease(uint64_t a1, atomic_uint *a2)
 {
   if (a2 && atomic_fetch_add(a2 + 1, 0xFFFFFFFF) == 1)
   {
-    v4 = *a2;
     if (a1)
     {
       v3 = *(a1 + 2912);
@@ -2280,7 +2264,7 @@ uint64_t IOMobileFramebufferGetMainDisplay(uint64_t *a1)
     return 3758097088;
   }
 
-  for (i = &s_display_infos; *(i + 152) != 1; i += 20)
+  for (i = s_display_infos; *(i + 152) != 1; i += 20)
   {
     if (!--v2)
     {
@@ -2293,7 +2277,7 @@ uint64_t IOMobileFramebufferGetMainDisplay(uint64_t *a1)
 
 void __iomfb_populate_all_display_infos_block_invoke()
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&s_cond_mutex);
   if (!s_number_display_pipes)
   {
@@ -2314,7 +2298,7 @@ void __iomfb_populate_all_display_infos_block_invoke()
 
       if (!v2)
       {
-        v32 = v1;
+        v31 = v1;
         v3 = IOIteratorNext(iterator);
         if (v3)
         {
@@ -2335,7 +2319,7 @@ void __iomfb_populate_all_display_infos_block_invoke()
                 *&v11 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
                 *&buffer[16] = v11;
-                v38 = v11;
+                v37 = v11;
                 *buffer = v11;
                 if (CFDataGetLength(v9) <= 0x30)
                 {
@@ -2379,7 +2363,7 @@ void __iomfb_populate_all_display_infos_block_invoke()
                   *&v21 = 0xAAAAAAAAAAAAAAAALL;
                   *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
                   *&buffer[16] = v21;
-                  v38 = v21;
+                  v37 = v21;
                   *buffer = v21;
                   if (CFDataGetLength(v19) <= 0x30)
                   {
@@ -2475,7 +2459,7 @@ LABEL_57:
         }
 
         IOObjectRelease(iterator);
-        v1 = v32;
+        v1 = v31;
       }
 
       IOObjectRelease(v1);
@@ -2510,8 +2494,6 @@ LABEL_57:
       syslog(3, "%s: Timeout: expect: %d current: %d\n", "iomfb_populate_all_display_infos_block_invoke", s_number_display_pipes, s_number_display_instances);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t iomfb_populate_thread()
@@ -2674,7 +2656,7 @@ uint64_t IOMobileFramebufferInstallVirtualDisplays(__int128 *a1, const void *a2,
   s_virt_context_len = a3;
   if (a3)
   {
-    memcpy(&s_virt_contexts, a2, ((8 * a3 + 0x7FFFFFFF8) & 0x7FFFFFFF8) + 8);
+    memcpy(s_virt_contexts, a2, ((8 * a3 + 0x7FFFFFFF8) & 0x7FFFFFFF8) + 8);
   }
 
   return 0;
@@ -3548,13 +3530,11 @@ uint64_t kern_RequestPowerChange(uint64_t a1, unsigned int a2)
   input[0] = a2;
   if (!a2 && core_analytics_send_data(a1, 3, "com.apple.TritiumVSHCompensation.CumulativeOnTime"))
   {
-    v5 = 3;
-    (*(a1 + 2912))(a1, 17, 1, &v5);
+    v4 = 3;
+    (*(a1 + 2912))(a1, 17, 1, &v4);
   }
 
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0xCu, input, 1u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0xCu, input, 1u, 0, 0);
 }
 
 uint64_t IOMobileFramebufferGetDigitalOutMode(uint64_t a1, _DWORD *a2, _DWORD *a3)
@@ -3710,8 +3690,8 @@ uint64_t virt_SwapEnd(uint64_t a1)
   if (!v7)
   {
 LABEL_16:
-    v12 = (a1 + 16 * v5);
-    v2 = (*(*(a1 + 3040) + 24))(*(a1 + 3032), 0, v7, *(a1 + 176), v4, *(a1 + 4 * v5 + 372), v12[49], v12[50], v12[51], v12[52], v12[73], v12[74], v12[75], v12[76]);
+    v10 = (a1 + 16 * v5);
+    v2 = (*(*(a1 + 3040) + 24))(*(a1 + 3032), 0, v7, *(a1 + 176), v4, *(a1 + 4 * v5 + 372), v10[49], v10[50], v10[51], v10[52], v10[73], v10[74], v10[75], v10[76]);
     if (*(a1 + 3064))
     {
       ++*(a1 + 3056);
@@ -3729,7 +3709,6 @@ LABEL_16:
   if (v8)
   {
     v9 = v8;
-    v10 = *MEMORY[0x277CD29D8];
     IOSurfaceSetTimestamp();
     if (*(a1 + 32))
     {
@@ -3739,7 +3718,6 @@ LABEL_16:
 
     if (*(a1 + 40))
     {
-      v11 = *MEMORY[0x277CD2B78];
       (*(a1 + 2984))(a1);
       IOSurfaceSetTimestamp();
     }
@@ -3751,27 +3729,27 @@ LABEL_16:
   v2 = 3758097084;
   syslog(3, "IOMFB: surface lookup failure for id: %d\n", v7);
 LABEL_21:
-  v13 = a1 + 3072;
-  v14 = -1;
-  while (*(v13 + 8) != v7)
+  v11 = a1 + 3072;
+  v12 = -1;
+  while (*(v11 + 8) != v7)
   {
-    ++v14;
-    v13 += 24;
-    if (v14 > 0xE)
+    ++v12;
+    v11 += 24;
+    if (v12 > 0xE)
     {
       goto LABEL_28;
     }
   }
 
-  (*(*(a1 + 3040) + 128))(*(a1 + 3032), v7, *(v13 + 16), v2);
-  if (*v13)
+  (*(*(a1 + 3040) + 128))(*(a1 + 3032), v7, *(v11 + 16), v2);
+  if (*v11)
   {
-    CFRelease(*v13);
+    CFRelease(*v11);
   }
 
-  *v13 = 0;
-  *(v13 + 8) = 0;
-  *(v13 + 16) = 0;
+  *v11 = 0;
+  *(v11 + 8) = 0;
+  *(v11 + 16) = 0;
 LABEL_28:
   pthread_mutex_unlock((a1 + 2072));
   return v2;
@@ -3913,53 +3891,45 @@ uint64_t IOMobileFramebufferIsMainDisplay(uint64_t a1, _DWORD *a2)
   output[1] = *MEMORY[0x277D85DE8];
   outputCnt = 1;
   *a2 = 0;
-  if (a1)
+  if (!a1)
   {
-    if (*(a1 + 20))
+    return 3758097090;
+  }
+
+  if (!*(a1 + 20))
+  {
+    return 0;
+  }
+
+  output[0] = 0xAAAAAAAAAAAAAAAALL;
+  pthread_mutex_lock((a1 + 2072));
+  v4 = *(a1 + 2140);
+  if (v4 == -1)
+  {
+    v5 = IOConnectCallScalarMethod(*(a1 + 20), 0x12u, 0, 0, output, &outputCnt);
+    if (v5)
     {
-      output[0] = 0xAAAAAAAAAAAAAAAALL;
-      pthread_mutex_lock((a1 + 2072));
       v4 = *(a1 + 2140);
-      if (v4 == -1)
-      {
-        v5 = IOConnectCallScalarMethod(*(a1 + 20), 0x12u, 0, 0, output, &outputCnt);
-        if (v5)
-        {
-          v4 = *(a1 + 2140);
-        }
-
-        else
-        {
-          v4 = LODWORD(output[0]) == 1;
-          *(a1 + 2140) = v4;
-        }
-      }
-
-      else
-      {
-        v5 = 0;
-      }
-
-      if (v4 == 1)
-      {
-        *a2 = 1;
-      }
-
-      pthread_mutex_unlock((a1 + 2072));
     }
 
     else
     {
-      v5 = 0;
+      v4 = LODWORD(output[0]) == 1;
+      *(a1 + 2140) = v4;
     }
   }
 
   else
   {
-    v5 = 3758097090;
+    v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  if (v4 == 1)
+  {
+    *a2 = 1;
+  }
+
+  pthread_mutex_unlock((a1 + 2072));
   return v5;
 }
 
@@ -4003,7 +3973,6 @@ uint64_t virt_SwapCancel(uint64_t a1, int a2)
       }
     }
 
-    v10 = *(v8 + 16);
     (*(*(a1 + 3040) + 128))(*(a1 + 3032));
     if (*v8)
     {
@@ -4069,10 +4038,11 @@ uint64_t appleDisplayManageClassInitialize()
   return result;
 }
 
-uint64_t AppleDisplayManagerOpen(io_service_t a1, task_port_t a2, uint32_t a3, uint64_t a4)
+uint64_t AppleDisplayManagerOpen(io_service_t a1, task_port_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
+    v5 = a3;
     if (!kAppleDisplayManagerID)
     {
       pthread_once(&AppleDisplayManagerGetTypeID_once, appleDisplayManageClassInitialize);
@@ -4083,33 +4053,33 @@ uint64_t AppleDisplayManagerOpen(io_service_t a1, task_port_t a2, uint32_t a3, u
     pthread_mutex_init((Instance + 24), 0);
     *a4 = Instance;
     *(Instance + 16) = a1;
-    v9 = IOServiceOpen(a1, a2, a3, (Instance + 20));
-    v10 = *a4;
-    if (v9)
+    v10 = IOServiceOpen(a1, a2, v5, (Instance + 20));
+    v11 = *a4;
+    if (v10)
     {
-      CFRelease(v10);
+      CFRelease(v11);
       *a4 = 0;
-      syslog(3, " %s:  failed IOServiceOpen. return %d \n", "AppleDisplayManagerOpen", v9);
+      syslog(3, " %s:  failed IOServiceOpen. return %d \n", "AppleDisplayManagerOpen", v10);
     }
 
     else
     {
-      v10[11] = kern_DisplayWallEnumerate;
+      v11[11] = kern_DisplayWallEnumerate;
       *(*a4 + 96) = kern_DisplayWallValidateConfig;
       *(*a4 + 104) = kern_DisplayWallEnable;
       *(*a4 + 112) = kern_DisplayWallDisable;
       *(*a4 + 120) = kern_DisplayWallStatus;
-      syslog(3, " %s:  success, return %d \n");
+      syslog(3, " %s:  success, return %d \n", v9);
     }
   }
 
   else
   {
-    v9 = 3758097090;
-    syslog(3, " %s:  failed, bad argument return %d \n");
+    v10 = 3758097090;
+    syslog(3, " %s:  failed, bad argument return %d \n", a3);
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t kern_DisplayWallEnumerate(uint64_t a1, void *a2)
@@ -4427,11 +4397,11 @@ LABEL_13:
 uint64_t IOMobileFramebufferSetCanvasSize(_DWORD *a1, double a2, double a3)
 {
   input[2] = *MEMORY[0x277D85DE8];
-  v15 = a3;
+  v14 = a3;
   valuePtr = a2;
   v4 = *MEMORY[0x277CBECE8];
   v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
-  v6 = CFNumberCreate(v4, kCFNumberSInt32Type, &v15);
+  v6 = CFNumberCreate(v4, kCFNumberSInt32Type, &v14);
   v7 = v6;
   if (v5)
   {
@@ -4445,18 +4415,18 @@ uint64_t IOMobileFramebufferSetCanvasSize(_DWORD *a1, double a2, double a3)
 
   if (!v8)
   {
-    v13 = v15;
+    v12 = v14;
     input[0] = valuePtr;
-    input[1] = v15;
+    input[1] = v14;
     a1[377] = valuePtr;
-    a1[378] = v13;
+    a1[378] = v12;
     CFPreferencesSetAppValue(@"canvas_width", v5, @"com.apple.iokit.IOMobileGraphicsFamily");
     CFPreferencesSetAppValue(@"canvas_height", v7, @"com.apple.iokit.IOMobileGraphicsFamily");
     CFPreferencesAppSynchronize(@"com.apple.iokit.IOMobileGraphicsFamily");
-    v14 = a1[5];
-    if (v14)
+    v13 = a1[5];
+    if (v13)
     {
-      v9 = IOConnectCallScalarMethod(v14, 0x35u, input, 2u, 0, 0);
+      v9 = IOConnectCallScalarMethod(v13, 0x35u, input, 2u, 0, 0);
     }
 
     else
@@ -4469,7 +4439,7 @@ LABEL_13:
     v10 = v9;
     if (!v7)
     {
-      goto LABEL_9;
+      return v10;
     }
 
     goto LABEL_8;
@@ -4488,8 +4458,6 @@ LABEL_8:
     CFRelease(v7);
   }
 
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -4691,7 +4659,7 @@ uint64_t IOMobileFramebufferSwapSetParams(uint64_t a1, uint64_t a2, uint64_t a3,
 {
   if (a1 && a4 <= 4)
   {
-    return (*(a1 + 2320))();
+    return (*(a1 + 2320))(a1, a2, a3);
   }
 
   else
@@ -5729,43 +5697,42 @@ uint64_t IOMobileFramebufferGetBufBlock(uint64_t a1)
 
 uint64_t IOMobileFramebufferSwapSetICCMatrix(uint64_t a1, int a2, int a3, __int128 *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = 3758097095;
-  v9 = 1;
+  v8 = 1;
   if (a1)
   {
     v5 = *(a1 + 2896);
     if (v5)
     {
       v6 = a4[1];
-      v10 = *a4;
-      v11 = v6;
-      *v12 = a4[2];
-      *&v12[12] = *(a4 + 44);
-      v13 = *(a1 + 176);
-      v14 = a2;
-      v15 = a3;
-      v4 = v5();
+      v9 = *a4;
+      v10 = v6;
+      *v11 = a4[2];
+      *&v11[12] = *(a4 + 44);
+      v12 = *(a1 + 176);
+      v13 = a2;
+      v14 = a3;
+      return v5();
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t IOMobileFramebufferSwapSetICCCurve(uint64_t a1, int a2, int a3, int a4, uint64_t a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v10 = 3758097095;
-  bzero(v15, 0x290uLL);
-  v15[0] = 1;
+  bzero(v14, 0x290uLL);
+  v14[0] = 1;
   if (a1)
   {
     v11 = *(a1 + 2896);
     if (v11)
     {
       v12 = *a5;
-      v15[2] = *a5;
+      v14[2] = *a5;
       if (a2 != 17 || *(a1 + 2144))
       {
         if (v12 > 13)
@@ -5774,14 +5741,14 @@ uint64_t IOMobileFramebufferSwapSetICCCurve(uint64_t a1, int a2, int a3, int a4,
           {
             if (v12 == 14)
             {
-              v25 = *(a5 + 8);
-              v26 = *(a5 + 24);
+              v24 = *(a5 + 8);
+              v25 = *(a5 + 24);
             }
 
             else
             {
-              v23 = *(a5 + 8);
-              v24 = *(a5 + 24);
+              v22 = *(a5 + 8);
+              v23 = *(a5 + 24);
             }
 
             goto LABEL_24;
@@ -5789,13 +5756,13 @@ uint64_t IOMobileFramebufferSwapSetICCCurve(uint64_t a1, int a2, int a3, int a4,
 
           if (v12 == 16)
           {
-            v27 = *(a5 + 8);
+            v26 = *(a5 + 8);
             goto LABEL_24;
           }
 
           if (v12 == 17)
           {
-            v22 = *(a5 + 8);
+            v21 = *(a5 + 8);
             goto LABEL_24;
           }
         }
@@ -5806,13 +5773,13 @@ uint64_t IOMobileFramebufferSwapSetICCCurve(uint64_t a1, int a2, int a3, int a4,
           {
             if (v12 == 12)
             {
-              memcpy(v21, (a5 + 8), sizeof(v21));
+              memcpy(v20, (a5 + 8), sizeof(v20));
             }
 
             else
             {
-              v28 = *(a5 + 8);
-              v29 = *(a5 + 16);
+              v27 = *(a5 + 8);
+              v28 = *(a5 + 16);
             }
 
             goto LABEL_24;
@@ -5820,39 +5787,36 @@ uint64_t IOMobileFramebufferSwapSetICCCurve(uint64_t a1, int a2, int a3, int a4,
 
           if (v12 == 8)
           {
-            v17 = *(a5 + 12);
-            v18 = *(a5 + 8);
-            v19 = *(a5 + 16);
-            v20 = 4 * v18;
+            v16 = *(a5 + 12);
+            v17 = *(a5 + 8);
+            v18 = *(a5 + 16);
+            v19 = 4 * v17;
           }
 
           else if (v12 == 9)
           {
-            v17 = *(a5 + 24);
-            v18 = *(a5 + 8);
-            v19 = *(a5 + 32);
-            v20 = 4 * v18;
+            v16 = *(a5 + 24);
+            v17 = *(a5 + 8);
+            v18 = *(a5 + 32);
+            v19 = 4 * v17;
 LABEL_24:
-            v30[0] = *(a1 + 176);
-            v30[1] = a2;
-            v30[2] = a4;
-            v30[3] = a3;
-            v10 = v11(a1, 51, v15, 656, v30, 4);
-            goto LABEL_25;
+            v29[0] = *(a1 + 176);
+            v29[1] = a2;
+            v29[2] = a4;
+            v29[3] = a3;
+            return v11(a1, 51, v14, 656, v29, 4);
           }
         }
 
-        *v16 = *(a5 + 8);
-        *&v16[12] = *(a5 + 20);
+        *v15 = *(a5 + 8);
+        *&v15[12] = *(a5 + 20);
         goto LABEL_24;
       }
 
-      v10 = 3758097126;
+      return 3758097126;
     }
   }
 
-LABEL_25:
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -6315,7 +6279,7 @@ LABEL_14:
 
 uint64_t InfoKeyInitialize(uint64_t result)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ((*(result + 2040) & 1) == 0)
   {
     v1 = result;
@@ -6328,15 +6292,15 @@ uint64_t InfoKeyInitialize(uint64_t result)
         {
           *&v2 = 0xAAAAAAAAAAAAAAAALL;
           *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v15 = v2;
-          v16 = v2;
-          *__s1 = v2;
           v14 = v2;
-          v11 = 0;
-          v12 = -1431655766;
+          v15 = v2;
+          *__s1 = v2;
+          v13 = v2;
+          v10 = 0;
+          v11 = -1431655766;
           *(v1 + 2040) = 1;
-          v3 = (*(v1 + 2936))(v1, 0, &v12, __s1, &v11);
-          v4 = v12;
+          v3 = (*(v1 + 2936))(v1, 0, &v11, __s1, &v10);
+          v4 = v11;
           if (v3)
           {
             v5 = 1;
@@ -6344,7 +6308,7 @@ uint64_t InfoKeyInitialize(uint64_t result)
 
           else
           {
-            v5 = v12 == 0;
+            v5 = v11 == 0;
           }
 
           if (v5)
@@ -6352,17 +6316,17 @@ uint64_t InfoKeyInitialize(uint64_t result)
             break;
           }
 
-          *(v1 + 2044) = v12;
+          *(v1 + 2044) = v11;
           v6 = malloc_type_calloc((v4 + 1), 8uLL, 0x50040EE9192B6uLL);
           *(v1 + 2032) = v6;
           *v6 = strndup(__s1, 0x40uLL);
-          *(v1 + 3840) = v11;
+          *(v1 + 3840) = v10;
           if (*(v1 + 2044) >= 2u)
           {
             v7 = 1;
             while (1)
             {
-              v8 = (*(v1 + 2936))(v1, v7, &v12, __s1, &v11) ? 0 : strndup(__s1, 0x40uLL);
+              v8 = (*(v1 + 2936))(v1, v7, &v11, __s1, &v10) ? 0 : strndup(__s1, 0x40uLL);
               *(*(v1 + 2032) + 8 * v7) = v8;
               if (!*(*(v1 + 2032) + 8 * v7))
               {
@@ -6393,11 +6357,10 @@ LABEL_19:
         while (*(v1 + 2040) != 1);
       }
 
-      result = pthread_mutex_unlock((v1 + 2072));
+      return pthread_mutex_unlock((v1 + 2072));
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6415,7 +6378,7 @@ void FrameInfoNotifyFuncIOShqDispatchQueue(uint64_t a1)
       do
       {
         memcpy((a1 + 3584), v4->data, v4->size);
-        PackAndDispatchFrameInfoNotifictionData(a1);
+        PackAndDispatchFrameInfoNotifictionData(a1, v5);
         IODataQueueDequeue(*(a1 + 1752), 0, &dataSize);
         v4 = IODataQueuePeek(*(a1 + 1752));
         ++v5;
@@ -6497,28 +6460,29 @@ uint64_t IOMobileFramebufferSupportedFrameInfo(uint64_t a1)
   return *(a1 + 2032);
 }
 
-uint64_t IOMobileFramebufferRelbufInfo(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t IOMobileFramebufferRelbufInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
-    v10 = 3758097095;
-    syslog(3, "IOMFB: IOMobileFramebufferRelbufInfo : fb passed is NULL\n");
-    return v10;
+    v12 = 3758097095;
+    syslog(3, "IOMFB: IOMobileFramebufferRelbufInfo : fb passed is NULL\n", a3, a4);
+    return v12;
   }
 
+  v4 = a4;
   if (!getDriverIntProp(a1, @"SupportRelbufInfoCb"))
   {
-    v10 = 3758097095;
-    syslog(3, "IOMFB: IOMobileFramebufferRelbufInfo API is not supported\n");
-    return v10;
+    v12 = 3758097095;
+    syslog(3, "IOMFB: IOMobileFramebufferRelbufInfo API is not supported\n", v8, v9);
+    return v12;
   }
 
-  if (a2 && a4)
+  if (a2 && v4)
   {
     syslog(5, "IOMFB: IOMobileFramebufferRelbufInfo API is enabled\n");
-    v8 = *(a1 + 2544);
+    v10 = *(a1 + 2544);
 
-    return v8(a1, 7, a2, a3);
+    return v10(a1, 7, a2, a3);
   }
 
   if (!*(a1 + 2552))
@@ -6527,12 +6491,12 @@ uint64_t IOMobileFramebufferRelbufInfo(uint64_t a1, uint64_t a2, uint64_t a3, in
   }
 
   syslog(5, "IOMFB: IOMobileFramebufferRelbufInfo API is disabled\n");
-  v11 = *(a1 + 2552);
+  v13 = *(a1 + 2552);
 
-  return v11(a1, 7);
+  return v13(a1, 7);
 }
 
-uint64_t IOMobileFramebufferFrameInfo(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const char *a9)
+uint64_t IOMobileFramebufferFrameInfo(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   result = 3758097090;
   if (a2 && a4)
@@ -6977,7 +6941,7 @@ uint64_t kern_SwapSetPulseWidthMaximization(uint64_t a1, char a2)
   return 0;
 }
 
-uint64_t kern_SwapSetLayerEDRCompensation(uint64_t a1, unsigned int a2, int a3, double a4)
+uint64_t kern_SwapSetLayerEDRCompensation(uint64_t a1, unsigned int a2, uint64_t a3, double a4)
 {
   if (a2 < 4)
   {
@@ -6995,14 +6959,14 @@ uint64_t kern_SwapSetLayerEDRCompensation(uint64_t a1, unsigned int a2, int a3, 
     else
     {
       v5 = 3758097090;
-      syslog(3, "%s - Cannot use zero gamma value for %d layer\n");
+      syslog(3, "%s - Cannot use zero gamma value for %d layer\n", a3, a4);
     }
   }
 
   else
   {
     v5 = 3758097090;
-    syslog(3, "%s - Exceeded max number of layers: %d\n");
+    syslog(3, "%s - Exceeded max number of layers: %d\n", a3, a4);
   }
 
   return v5;
@@ -7052,9 +7016,7 @@ uint64_t kern_SwapSignal(uint64_t a1, unsigned int a2, unsigned int a3)
   input[2] = *MEMORY[0x277D85DE8];
   input[0] = a2;
   input[1] = a3;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x14u, input, 2u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x14u, input, 2u, 0, 0);
 }
 
 uint64_t kern_SwapWaitWithTimeout(uint64_t a1, unsigned int a2, unsigned int a3, double a4)
@@ -7064,18 +7026,14 @@ uint64_t kern_SwapWaitWithTimeout(uint64_t a1, unsigned int a2, unsigned int a3,
   input[1] = a3;
   input[2] = (a4 * 1000.0);
   input[3] = 0xAAAAAAAAAAAAAAAALL;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 6u, input, 3u, 0, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 6u, input, 3u, 0, 0);
 }
 
 uint64_t kern_SwapCancel(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x34u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x34u, v3, 1u, 0, 0);
 }
 
 uint64_t kern_SwapCancelAll(uint64_t a1)
@@ -7084,9 +7042,7 @@ uint64_t kern_SwapCancelAll(uint64_t a1)
   v2 = (*(a1 + 2984))();
   input[0] = HIDWORD(v2);
   input[1] = v2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x51u, input, 2u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x51u, input, 2u, 0, 0);
 }
 
 uint64_t kern_SwapGetCurrent(uint64_t a1, _DWORD *a2)
@@ -7155,19 +7111,15 @@ uint64_t kern_EnableNotifications(uint64_t a1, unsigned int a2, uint64_t a3, uin
   v4 = a1 + (a2 << 6);
   *(v4 + 1576) = a3;
   *(v4 + 1520) = a4;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x48u, input, 4u, 0, 0);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x48u, input, 4u, 0, 0);
 }
 
 uint64_t kern_DisableNotifications(uint64_t a1, unsigned int a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4[0] = 0u;
-  v4[1] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x48u, v4, 4u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = *MEMORY[0x277D85DE8];
+  v3[0] = 0u;
+  v3[1] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x48u, v3, 4u, 0, 0);
 }
 
 uint64_t kern_ChangeFrameInfo(uint64_t a1, unsigned int a2)
@@ -7175,34 +7127,29 @@ uint64_t kern_ChangeFrameInfo(uint64_t a1, unsigned int a2)
   input[2] = *MEMORY[0x277D85DE8];
   input[0] = 3;
   input[1] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x49u, input, 2u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x49u, input, 2u, 0, 0);
 }
 
 uint64_t kern_SupportedFrameInfo(uint64_t a1, unsigned int a2, _DWORD *a3, void *outputStruct, _DWORD *a5)
 {
   input[1] = *MEMORY[0x277D85DE8];
   input[0] = a2;
-  v11 = 64;
+  v10 = 64;
   outputCnt = 2;
   output = 0xAAAAAAAAAAAAAAAALL;
-  v13 = 0xAAAAAAAAAAAAAAAALL;
-  result = IOConnectCallMethod(*(a1 + 20), 0x4Au, input, 1u, 0, 0, &output, &outputCnt, outputStruct, &v11);
-  v8 = v13;
+  v12 = 0xAAAAAAAAAAAAAAAALL;
+  result = IOConnectCallMethod(*(a1 + 20), 0x4Au, input, 1u, 0, 0, &output, &outputCnt, outputStruct, &v10);
+  v8 = v12;
   *a3 = output;
   *a5 = v8;
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t kern_SetColorRemapMode(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x33u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x33u, v3, 1u, 0, 0);
 }
 
 uint64_t kern_SwapSetBlit(uint64_t a1, IOSurfaceRef buffer, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
@@ -7248,10 +7195,10 @@ uint64_t kern_SwapSetBlit(uint64_t a1, IOSurfaceRef buffer, double a3, double a4
 
 uint64_t kern_GetLayerDefaultSurface(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   input[0] = 0xAAAAAAAAAAAAAAAALL;
   input[1] = 0xAAAAAAAAAAAAAAAALL;
-  v12 = 1;
+  v11 = 1;
   if (!a2)
   {
     connect = -1431655766;
@@ -7263,14 +7210,14 @@ uint64_t kern_GetLayerDefaultSurface(uint64_t a1, int a2, void *a3)
       *&v7 = v6;
       *(&v7 + 1) = HIDWORD(v6);
       *input = v7;
-      v8 = IOConnectCallScalarMethod(*(a1 + 20), 3u, input, 2u, &output, &v12);
+      v8 = IOConnectCallScalarMethod(*(a1 + 20), 3u, input, 2u, &output, &v11);
       if (v8)
       {
         v3 = v8;
         goto LABEL_7;
       }
 
-      v11 = output;
+      v10 = output;
       connect = output;
       if (!output)
       {
@@ -7285,20 +7232,17 @@ uint64_t kern_GetLayerDefaultSurface(uint64_t a1, int a2, void *a3)
       }
 
       *(a1 + 1400) = IOSurfaceLookupFromMachPort(output);
-      mach_port_deallocate(*MEMORY[0x277D85F48], v11);
+      mach_port_deallocate(*MEMORY[0x277D85F48], v10);
     }
 
     v3 = 0;
 LABEL_7:
     *a3 = *(a1 + 1400);
     pthread_mutex_unlock((a1 + 2072));
-    goto LABEL_8;
+    return v3;
   }
 
-  v3 = 3758097084;
-LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 3758097084;
 }
 
 uint64_t kern_CopyLayerDisplayedSurface(uint64_t a1, unsigned int a2, IOSurfaceRef *a3)
@@ -7372,7 +7316,7 @@ uint64_t kern_GetRunLoopSource(uint64_t a1, uint64_t a2)
   memset(&context, 0, sizeof(context));
   InfoKeyInitialize(a1);
   pthread_mutex_lock((a1 + 2072));
-  if (!*(v5 + 1544) && !*(v5 + 1536))
+  if (*(v5 + 1536) == 0)
   {
     if (a2 == 3 && *(a1 + 3840) == 1)
     {
@@ -7381,13 +7325,13 @@ uint64_t kern_GetRunLoopSource(uint64_t a1, uint64_t a2)
       if (!NotificationPort)
       {
         syslog(3, "IODataQueueAllocateNotificationPort failed\n");
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       if (MEMORY[0x223DF82D0](*(a1 + 20), 3, NotificationPort, 0))
       {
         syslog(3, "IOConnectSetNotificationPort failed, error: %d\n");
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       *(v5 + 1560) = 0;
@@ -7396,7 +7340,7 @@ uint64_t kern_GetRunLoopSource(uint64_t a1, uint64_t a2)
       if (MEMORY[0x223DF82C0](*(a1 + 20), 3, *MEMORY[0x277D85F48], &v17, &v16, 1))
       {
         syslog(3, "IOConnectMapMemory failed, error: %d\n");
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       *(v5 + 1560) = v17;
@@ -7428,34 +7372,31 @@ uint64_t kern_GetRunLoopSource(uint64_t a1, uint64_t a2)
     *(v5 + 1536) = RunLoopSource;
   }
 
-LABEL_15:
+LABEL_14:
   pthread_mutex_unlock((a1 + 2072));
   return *(v5 + 1536);
 }
 
 uint64_t kern_SetTVOutMode(uint64_t a1, unsigned int a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((a1 + 2072));
   if ((*(a1 + 1448) & 1) == 0)
   {
     *(a1 + 1432) = 0u;
   }
 
-  v7[0] = a2;
-  v4 = IOConnectCallScalarMethod(*(a1 + 20), 0xAu, v7, 1u, 0, 0);
+  v6[0] = a2;
+  v4 = IOConnectCallScalarMethod(*(a1 + 20), 0xAu, v6, 1u, 0, 0);
   pthread_mutex_unlock((a1 + 2072));
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t kern_SetTVOutSignalType(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x10u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x10u, v3, 1u, 0, 0);
 }
 
 uint64_t kern_SetWSSInfo(uint64_t a1, unsigned int a2, unsigned int a3)
@@ -7463,53 +7404,42 @@ uint64_t kern_SetWSSInfo(uint64_t a1, unsigned int a2, unsigned int a3)
   input[2] = *MEMORY[0x277D85DE8];
   input[0] = a2;
   input[1] = a3;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0xBu, input, 2u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0xBu, input, 2u, 0, 0);
 }
 
 uint64_t kern_SetWhiteOnBlackMode(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x13u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x13u, v3, 1u, 0, 0);
 }
 
 uint64_t kern_GetColorRemapMode(uint64_t a1, int *a2)
 {
   output[1] = *MEMORY[0x277D85DE8];
   outputCnt = 1;
-  if (a2)
+  if (!a2)
   {
-    output[0] = 0xAAAAAAAAAAAAAAAALL;
-    result = IOConnectCallScalarMethod(*(a1 + 20), 0x39u, 0, 0, output, &outputCnt);
-    v4 = output[0];
-    if (result)
-    {
-      v4 = 6;
-    }
-
-    *a2 = v4;
+    return 3758097090;
   }
 
-  else
+  output[0] = 0xAAAAAAAAAAAAAAAALL;
+  result = IOConnectCallScalarMethod(*(a1 + 20), 0x39u, 0, 0, output, &outputCnt);
+  v4 = output[0];
+  if (result)
   {
-    result = 3758097090;
+    v4 = 6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  *a2 = v4;
   return result;
 }
 
 uint64_t kern_EnableStatistics(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0xDu, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0xDu, v3, 1u, 0, 0);
 }
 
 uint64_t kern_SetDebugFlags(uint64_t a1, unsigned int a2, unsigned int a3, _DWORD *a4)
@@ -7525,7 +7455,6 @@ uint64_t kern_SetDebugFlags(uint64_t a1, unsigned int a2, unsigned int a3, _DWOR
     *a4 = output;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7542,7 +7471,6 @@ uint64_t kern_SetFlags(uint64_t a1, unsigned int a2, unsigned int a3, _DWORD *a4
     *a4 = output;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7607,26 +7535,21 @@ LABEL_16:
 
 uint64_t kern_SetDisplayDevice(uint64_t a1, unsigned int a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  if (a2 <= 4)
+  v6[1] = *MEMORY[0x277D85DE8];
+  if (a2 > 4)
   {
-    pthread_mutex_lock((a1 + 2072));
-    if ((*(a1 + 1448) & 1) == 0)
-    {
-      *(a1 + 1432) = 0u;
-    }
-
-    v7[0] = a2;
-    v2 = IOConnectCallScalarMethod(*(a1 + 20), 0x16u, v7, 1u, 0, 0);
-    pthread_mutex_unlock((a1 + 2072));
+    return 3758097090;
   }
 
-  else
+  pthread_mutex_lock((a1 + 2072));
+  if ((*(a1 + 1448) & 1) == 0)
   {
-    v2 = 3758097090;
+    *(a1 + 1432) = 0u;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = a2;
+  v2 = IOConnectCallScalarMethod(*(a1 + 20), 0x16u, v6, 1u, 0, 0);
+  pthread_mutex_unlock((a1 + 2072));
   return v2;
 }
 
@@ -7643,7 +7566,6 @@ uint64_t kern_SetDigitalOutMode(uint64_t a1, unsigned int a2, unsigned int a3)
   input[1] = a3;
   v6 = IOConnectCallScalarMethod(*(a1 + 20), 0x17u, input, 2u, 0, 0);
   pthread_mutex_unlock((a1 + 2072));
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -7746,7 +7668,7 @@ uint64_t kern_HDCPSendRequest(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(
     if (*(a1 + 2064) == 1)
     {
       a4();
-      v5 = 0;
+      return 0;
     }
 
     else
@@ -7757,17 +7679,16 @@ uint64_t kern_HDCPSendRequest(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(
       input[3] = a1;
       *(a1 + 1704) = a4;
       *(a1 + 1648) = a5;
-      v5 = IOConnectCallScalarMethod(*(a1 + 20), 0x2Fu, input, 4u, 0, 0);
+      return IOConnectCallScalarMethod(*(a1 + 20), 0x2Fu, input, 4u, 0, 0);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t kern_HDCPGetReply(uint64_t a1, _OWORD *a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   HDCPDownstreamState = 3758097090;
   if (a1 && a2 && a3)
   {
@@ -7807,7 +7728,6 @@ uint64_t kern_HDCPGetReply(uint64_t a1, _OWORD *a2, uint64_t *a3)
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return HDCPDownstreamState;
 }
 
@@ -7860,56 +7780,45 @@ uint64_t kern_GetDisplayArea(uint64_t a1, void *outputStruct)
 
 uint64_t kern_EnableDisableDithering(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x1Eu, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x1Eu, v3, 1u, 0, 0);
 }
 
 uint64_t kern_SetUnderrunColor(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x1Fu, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x1Fu, v3, 1u, 0, 0);
 }
 
 uint64_t kern_EnableDisableVideoPowerSavings(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x21u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x21u, v3, 1u, 0, 0);
 }
 
 uint64_t kern_SetVideoDACGain(uint64_t a1, float a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = vcvtd_n_u64_f64(a2, 0xBuLL);
-  if (v4[0] <= 0xFFF)
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = vcvtd_n_u64_f64(a2, 0xBuLL);
+  if (v3[0] <= 0xFFF)
   {
-    result = IOConnectCallScalarMethod(*(a1 + 20), 0x22u, v4, 1u, 0, 0);
+    return IOConnectCallScalarMethod(*(a1 + 20), 0x22u, v3, 1u, 0, 0);
   }
 
   else
   {
-    result = 3758097090;
+    return 3758097090;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t kern_SetLine21Data(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x23u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x23u, v3, 1u, 0, 0);
 }
 
 uint64_t kern_SPLCSetBrightness(uint64_t a1, unsigned int a2)
@@ -7918,9 +7827,7 @@ uint64_t kern_SPLCSetBrightness(uint64_t a1, unsigned int a2)
   v2 = *(a1 + 2144);
   input[0] = a2;
   input[1] = v2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x42u, input, 2u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x42u, input, 2u, 0, 0);
 }
 
 uint64_t kern_SPLCGetBrightness(uint64_t a1, _DWORD *a2)
@@ -7939,23 +7846,22 @@ uint64_t kern_SPLCGetBrightness(uint64_t a1, _DWORD *a2)
 
     else
     {
-      result = 3758097090;
+      return 3758097090;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t kern_SetBlock(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, int a6)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v12 = (a6 + 2);
   MEMORY[0x28223BE20]();
-  v14 = v22 - v13;
+  v14 = v21 - v13;
   if (v12)
   {
-    memset(v22 - v13, 170, 8 * v12);
+    memset(v21 - v13, 170, 8 * v12);
     *v14 = a2;
     *(v14 + 1) = 0;
     v15 = (v14 + 8);
@@ -7985,32 +7891,27 @@ uint64_t kern_SetBlock(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
 LABEL_8:
   if (v16 >= a4)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  do
   {
-    do
+    if (v16 + 4096 <= a4)
     {
-      if (v16 + 4096 <= a4)
-      {
-        v18 = 4096;
-      }
-
-      else
-      {
-        v18 = a4 - v16;
-      }
-
-      result = IOConnectCallMethod(*(a1 + 20), 0x4Eu, v14, v12, (v16 + a3), v18, 0, 0, 0, 0);
-      v16 = *(v14 + 1) + 4096;
-      *(v14 + 1) = v16;
+      v18 = 4096;
     }
 
-    while (v16 < a4 && result == 0);
+    else
+    {
+      v18 = a4 - v16;
+    }
+
+    result = IOConnectCallMethod(*(a1 + 20), 0x4Eu, v14, v12, (v16 + a3), v18, 0, 0, 0, 0);
+    v16 = *(v14 + 1) + 4096;
+    *(v14 + 1) = v16;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
+  while (v16 < a4 && result == 0);
   return result;
 }
 
@@ -8030,27 +7931,24 @@ uint64_t kern_GetLinkQuality(uint64_t a1)
   output[0] = 0;
   if (IOConnectCallScalarMethod(*(a1 + 20), 0x50u, 0, 0, output, &outputCnt))
   {
-    result = 0x80000000;
+    return 0x80000000;
   }
 
   else
   {
-    result = LODWORD(output[0]);
+    return LODWORD(output[0]);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t kern_GetBufBlock(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, int a6)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v12 = (a6 + 2);
   MEMORY[0x28223BE20]();
-  v14 = v22 - v13;
+  v14 = v21 - v13;
   if (v12)
   {
-    memset(v22 - v13, 170, 8 * v12);
+    memset(v21 - v13, 170, 8 * v12);
     *v14 = a2;
     *(v14 + 1) = 0;
     v15 = (v14 + 8);
@@ -8080,42 +7978,35 @@ uint64_t kern_GetBufBlock(uint64_t a1, unsigned int a2, uint64_t a3, unsigned in
 LABEL_8:
   if (v16 >= a4)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  do
   {
-    do
+    if (v16 + 4096 <= a4)
     {
-      if (v16 + 4096 <= a4)
-      {
-        v18 = 4096;
-      }
-
-      else
-      {
-        v18 = a4 - v16;
-      }
-
-      result = IOConnectCallMethod(*(a1 + 20), 0x55u, v14, v12, (v16 + a3), v18, 0, 0, 0, 0);
-      v16 = *(v14 + 1) + 4096;
-      *(v14 + 1) = v16;
+      v18 = 4096;
     }
 
-    while (v16 < a4 && result == 0);
+    else
+    {
+      v18 = a4 - v16;
+    }
+
+    result = IOConnectCallMethod(*(a1 + 20), 0x55u, v14, v12, (v16 + a3), v18, 0, 0, 0, 0);
+    v16 = *(v14 + 1) + 4096;
+    *(v14 + 1) = v16;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
+  while (v16 < a4 && result == 0);
   return result;
 }
 
 uint64_t kern_SetClamshellState(uint64_t a1, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(a1 + 20), 0x59u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(a1 + 20), 0x59u, v3, 1u, 0, 0);
 }
 
 uint64_t kern_egest_timestamp(uint64_t a1, uint64_t a2)
@@ -8215,17 +8106,17 @@ uint64_t IOMobileFramebufferSwapSetGammaTable(uint64_t a1, unsigned int a2)
 uint64_t IOMobileFramebufferSetContrast()
 {
   v0 = MEMORY[0x28223BE20]();
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   result = 3758097090;
   if (v0 && *(v0 + 2656))
   {
     v3 = v1;
-    memset(v30, 170, sizeof(v30));
+    memset(v29, 170, sizeof(v29));
     v4 = *(v0 + 2664);
-    if (v4 && !v4(v0, v30))
+    if (v4 && !v4(v0, v29))
     {
-      memset(v33, 170, sizeof(v33));
       memset(v32, 170, sizeof(v32));
+      memset(v31, 170, sizeof(v31));
       memset(__b, 170, sizeof(__b));
       v5 = vcvtms_u32_f32((v3 * 0.5) * 257.0);
       LODWORD(v6) = vcvtmd_u64_f64((1.0 - (v3 * 0.5)) * 257.0);
@@ -8256,13 +8147,13 @@ uint64_t IOMobileFramebufferSetContrast()
 
       else
       {
-        v8 = v30[0];
-        v9 = v30[257];
+        v8 = v29[0];
+        v9 = v29[257];
         v10 = __b;
-        v11 = v32;
-        v12 = v33;
+        v11 = v31;
+        v12 = v32;
         v13 = v7;
-        v14 = v30[514];
+        v14 = v29[514];
         do
         {
           *v12++ = v8;
@@ -8281,15 +8172,15 @@ uint64_t IOMobileFramebufferSetContrast()
         v17 = v6 - v15;
         v18 = 257.0 / v16;
         v19 = &__b[4 * v15];
-        v20 = &v32[4 * v15];
-        v21 = &v33[4 * v15];
+        v20 = &v31[4 * v15];
+        v21 = &v32[4 * v15];
         v22 = 0.0;
         do
         {
           v23 = vcvtms_u32_f32(v22);
-          *v21++ = v30[v23];
-          *v20++ = v30[v23 + 257];
-          *v19++ = v30[v23 + 514];
+          *v21++ = v29[v23];
+          *v20++ = v29[v23 + 257];
+          *v19++ = v29[v23 + 514];
           v22 = v18 + v22;
           --v17;
         }
@@ -8300,14 +8191,14 @@ uint64_t IOMobileFramebufferSetContrast()
 
       if (v15 <= 0x100)
       {
-        v24 = v30[256];
-        v25 = v30[513];
+        v24 = v29[256];
+        v25 = v29[513];
         v26 = 4 * v15;
-        v27 = v30[770];
+        v27 = v29[770];
         do
         {
-          *&v33[v26] = v24;
-          *&v32[v26] = v25;
+          *&v32[v26] = v24;
+          *&v31[v26] = v25;
           *&__b[v26] = v27;
           v26 += 4;
         }
@@ -8315,20 +8206,19 @@ uint64_t IOMobileFramebufferSetContrast()
         while (v26 != 1028);
       }
 
-      memcpy(v30, v33, 0x404uLL);
-      memcpy(&v30[257], v32, 0x404uLL);
-      memcpy(&v30[514], __b, 0x404uLL);
+      memcpy(v29, v32, 0x404uLL);
+      memcpy(&v29[257], v31, 0x404uLL);
+      memcpy(&v29[514], __b, 0x404uLL);
       v28 = *(v0 + 2648);
       if (v28)
       {
-        v28(v0, v30);
+        v28(v0, v29);
       }
     }
 
-    result = (*(v0 + 2656))(v0, v3);
+    return (*(v0 + 2656))(v0, v3);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8346,13 +8236,12 @@ CFArrayRef IOMobileFramebufferCreateDisplayList(const __CFAllocator *a1)
 
 uint64_t IOMobileFramebufferOpenByName(const __CFString *a1, uint64_t *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   iomfb_populate_all_display_infos();
   if (!a1 || !a2)
   {
     syslog(3, " %s:  Bad Argument\n", "IOMobileFramebufferOpenByName");
-    result = 3758097090;
-    goto LABEL_34;
+    return 3758097090;
   }
 
   v4 = 0;
@@ -8533,29 +8422,25 @@ LABEL_30:
   }
 
 LABEL_31:
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  *input = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  *input = 0u;
+  v23 = 0u;
   CFStringGetCString(a1, input, 128, 0x8000100u);
   syslog(3, " %s: Framebuffer found=%d return %d Name = %s\n", "IOMobileFramebufferOpenByName", v7, v8, input);
   if (v7)
   {
-    result = v8;
+    return v8;
   }
 
   else
   {
-    result = 3758097090;
+    return 3758097090;
   }
-
-LABEL_34:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t IOMobileFramebufferInstallVirtualDisplay(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
@@ -8579,7 +8464,7 @@ uint64_t IOMobileFramebufferInstallVirtualDisplay(uint64_t a1, uint64_t a2, __in
   unk_280B0AA28 = v11;
   xmmword_280B0A9F8 = v9;
   unk_280B0AA08 = v10;
-  s_virt_contexts = a4;
+  s_virt_contexts[0] = a4;
   s_virt_context_len = 1;
   return 0;
 }
@@ -8604,68 +8489,65 @@ uint64_t IOMobileFramebufferGetSecondaryDisplay(uint64_t *a1)
   return iomfb_get_display(i, a1);
 }
 
-uint64_t IOMobileFramebufferEnableMirroring(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t IOMobileFramebufferEnableMirroring(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   input[1] = *MEMORY[0x277D85DE8];
-  v10 = -1431655766;
-  v11 = -1;
-  v12 = 0xAAAAAAAAFFFFFFFFLL;
+  v9 = -1431655766;
+  v10 = -1;
+  v11 = 0xAAAAAAAAFFFFFFFFLL;
   if (!a1 || !a2)
   {
     v7 = 3758097090;
-    syslog(4, "IOMFB: missing framebuffer for mirorr enable\n");
-    goto LABEL_6;
+    syslog(4, "IOMFB: missing framebuffer for mirorr enable\n", a3);
+    return v7;
   }
 
-  v13 = -1431655766;
-  IsMainDisplay = IOMobileFramebufferIsMainDisplay(a1, &v13);
+  v4 = a3;
+  v12 = -1431655766;
+  IsMainDisplay = IOMobileFramebufferIsMainDisplay(a1, &v12);
   if (!IsMainDisplay)
   {
     v7 = 3758097090;
-    if (!v13)
+    if (!v12)
     {
-      goto LABEL_6;
+      return v7;
     }
 
-    if (a3)
+    if (v4)
     {
-      IsMainDisplay = IOMobileFrameBufferGetMirroringCapability(a2, &v10);
+      IsMainDisplay = IOMobileFrameBufferGetMirroringCapability(a2, &v9);
       if (IsMainDisplay)
       {
-        goto LABEL_4;
+        return IsMainDisplay;
       }
 
-      if (v10 != 1)
+      if (v9 != 1)
       {
-        goto LABEL_6;
+        return v7;
       }
     }
 
-    input[0] = a3;
+    input[0] = v4;
     v7 = IOConnectCallScalarMethod(*(a1 + 20), 0x29u, input, 1u, 0, 0);
     if (v7)
     {
       syslog(4, "IOMFB: mirror enable kernel failure\n");
     }
 
-    else if (a3)
+    else if (v4)
     {
       v7 = 0;
       *(a2 + 3488) = a1;
       *(a1 + 3496) = a2;
-      goto LABEL_6;
+      return v7;
     }
 
     *(a2 + 3488) = 0;
     *(a1 + 3496) = 0;
-    goto LABEL_6;
+    return v7;
   }
 
-LABEL_4:
-  v7 = IsMainDisplay;
-LABEL_6:
-  v8 = *MEMORY[0x277D85DE8];
-  return v7;
+  return IsMainDisplay;
 }
 
 uint64_t IOMobileFrameBufferGetMirroringCapability(uint64_t a1, void *a2)
@@ -8834,7 +8716,7 @@ uint64_t IOMobileFramebufferReadyForSwap(void *a1, BOOL *a2, uint64_t a3)
 
 uint64_t IOMobileFramebufferGetWirelessSurface(uint64_t a1, double a2, double a3, uint64_t a4, IOSurfaceRef *a5)
 {
-  v9 = (*(a1 + 2992))();
+  v9 = (*(a1 + 2992))(a1, a4);
 
   return IOMobileFramebufferGetWirelessSurfaceWithOptions(a1, v9, a5, 0, a2, a3);
 }
@@ -9374,7 +9256,7 @@ LABEL_78:
 
 uint64_t UserCalibration_ReadEAN(void **a1, _DWORD *a2)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v4 = 3758097090;
   v5 = IOServiceMatching("AppleNVMeEAN");
   MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD28A0], v5);
@@ -9401,16 +9283,13 @@ uint64_t UserCalibration_ReadEAN(void **a1, _DWORD *a2)
           *a1 = v11;
           if (v11)
           {
-            v18[0] = 1430470988;
-            v18[1] = v11;
-            v18[2] = output;
-            if (!IOConnectCallMethod(connect, 4u, v18, 3u, 0, 0, 0, 0, 0, 0))
+            v17[0] = 1430470988;
+            v17[1] = v11;
+            v17[2] = output;
+            if (!IOConnectCallMethod(connect, 4u, v17, 3u, 0, 0, 0, 0, 0, 0))
             {
               IOServiceClose(connect);
-              v9 = 0;
-LABEL_12:
-              v4 = v9;
-              goto LABEL_13;
+              return 0;
             }
 
             v9 = 3758097136;
@@ -9431,12 +9310,10 @@ LABEL_12:
 
       *a1 = 0;
       syslog(3, "UserCalibration_ReadEAN failed: 0x%X", v9);
-      goto LABEL_12;
+      return v9;
     }
   }
 
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -9561,7 +9438,6 @@ uint64_t UserCalibration_WriteEAN(const void *a1, size_t a2)
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -9697,4 +9573,134 @@ IONotificationPort *IOMobileFramebufferHotPlugNotifyFunc(uint64_t a1, uint64_t a
   }
 
   return result;
+}
+
+void FrameInfoNotifyFunc(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4)
+{
+  if (a4 > 1)
+  {
+    v7 = a3[1];
+    v25 = *a3;
+    if (*a3 < 0)
+    {
+      v8 = *a3 & 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v8 = *a3;
+    }
+
+    v9 = *MEMORY[0x277CBECE8];
+    theDict = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (theDict)
+    {
+      v24 = v7;
+      if (v8)
+      {
+        v10 = 0;
+        v11 = 0;
+        v12 = a3 + 2;
+        v26 = a4 - 2;
+        do
+        {
+          v13 = 1 << v10;
+          v14 = ((1 << v10) & v8) == 0;
+          v15 = 1 << v10 < v8 && ((1 << v10) & v8) == 0;
+          if (v15)
+          {
+            do
+            {
+              ++v10;
+              v16 = v8 & (2 * v13);
+              v13 *= 2;
+              v14 = v16 == 0;
+            }
+
+            while (v13 < v8 && !v16);
+          }
+
+          if (v14)
+          {
+            break;
+          }
+
+          v17 = CFStringCreateWithCString(v9, *(*(a1 + 2032) + 8 * v10), 0x600u);
+          if (v11 >= v26)
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v18 = v11 + 1;
+            v19 = v12[v11];
+            if ((v25 & 0x80000000) != 0)
+            {
+              v11 += 2;
+              v19 |= v12[v18] << 32;
+            }
+
+            else
+            {
+              ++v11;
+            }
+          }
+
+          valuePtr = adjust_ni_timestamp(a1, *(*(a1 + 2032) + 8 * v10), v19);
+          v20 = CFNumberCreate(v9, kCFNumberLongLongType, &valuePtr);
+          v21 = v20;
+          if (v17)
+          {
+            v22 = v20 == 0;
+          }
+
+          else
+          {
+            v22 = 1;
+          }
+
+          if (v22)
+          {
+            CFRelease(theDict);
+            if (v17)
+            {
+              CFRelease(v17);
+            }
+
+            if (v21)
+            {
+              v23 = v21;
+              goto LABEL_31;
+            }
+
+            return;
+          }
+
+          CFDictionarySetValue(theDict, v17, v20);
+          CFRelease(v21);
+          CFRelease(v17);
+          v15 = v13 == v8;
+          v8 ^= v13;
+        }
+
+        while (!v15);
+      }
+
+      if (*(a1 + 3512) == 1)
+      {
+        kdebug_trace();
+      }
+
+      (*(a1 + 1768))(a1, v24, theDict, *(a1 + 1712));
+      v23 = theDict;
+LABEL_31:
+      CFRelease(v23);
+    }
+  }
+
+  else
+  {
+    syslog(3, "IOMFB: FrameInfoNotifyFunc dropped notification, numArgs is %u, expected %u", a4, 2);
+  }
 }

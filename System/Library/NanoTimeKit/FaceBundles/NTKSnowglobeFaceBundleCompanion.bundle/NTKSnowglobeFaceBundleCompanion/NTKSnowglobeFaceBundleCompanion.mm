@@ -91,32 +91,32 @@ void sub_23C083490(uint64_t a1, void *a2)
 
 void sub_23C083928(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CDBB18] begin];
   [MEMORY[0x277CDBB18] setAnimationDuration:0.0];
   if (*(a1 + 32))
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v2 = *(a1 + 40);
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v13;
+      v5 = *v12;
       do
       {
         v6 = 0;
         do
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * v6);
+          v7 = *(*(&v11 + 1) + 8 * v6);
           v8 = [*(a1 + 48) physicsWorld];
           [v8 removeBehavior:v7];
 
@@ -124,7 +124,7 @@ void sub_23C083928(uint64_t a1)
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
       }
 
       while (v4);
@@ -142,14 +142,12 @@ void sub_23C083928(uint64_t a1)
     {
       v10 = *(a1 + 64);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_23C07F000, v9, OS_LOG_TYPE_DEFAULT, "Snowglobe destroyed digit while loading %@", buf, 0xCu);
     }
 
     dispatch_group_leave(*(a1 + 56));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_23C083D64(uint64_t a1, void *a2, _BYTE *a3)
@@ -246,7 +244,7 @@ void sub_23C085918(void *a1, void *a2)
 
 void sub_23C0859D4(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CDBB18] begin];
   [MEMORY[0x277CDBB18] setAnimationDuration:0.0];
   v2 = [*(a1 + 32) _copyAndConfigureDigitNode:*(a1 + 40)];
@@ -254,27 +252,25 @@ void sub_23C0859D4(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 56);
-    v6 = 134217984;
-    v7 = v4;
-    _os_log_impl(&dword_23C07F000, v3, OS_LOG_TYPE_DEFAULT, "Snowglobe: created a copy of digit %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v4;
+    _os_log_impl(&dword_23C07F000, v3, OS_LOG_TYPE_DEFAULT, "Snowglobe: created a copy of digit %lu", &v5, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))();
   [MEMORY[0x277CDBB18] commit];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-id sub_23C085C88()
+id sub_23C085C88(uint64_t a1)
 {
   if (qword_27E1EDE00 != -1)
   {
     sub_23C08ED64();
   }
 
-  v1 = qword_27E1EDDF8;
+  v2 = qword_27E1EDDF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_23C085D84(uint64_t a1, void *a2, void *a3)
@@ -318,16 +314,16 @@ void sub_23C085E48(id *a1, void *a2)
 
 id sub_23C0861EC(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CDBAB0];
   v3 = a2;
   v4 = [v2 dynamicBody];
   v5 = MEMORY[0x277CDBAD0];
   v6 = [v3 geometry];
 
-  v11 = *MEMORY[0x277CDBBD0];
-  v12[0] = *MEMORY[0x277CDBBC0];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CDBBD0];
+  v11[0] = *MEMORY[0x277CDBBC0];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v5 shapeWithGeometry:v6 options:v7];
   [v4 setPhysicsShape:v8];
 
@@ -336,7 +332,6 @@ id sub_23C0861EC(uint64_t a1, void *a2)
   [v4 setLinearRestingThreshold:0.000001];
   [v4 setAngularRestingThreshold:0.000001];
   [v4 setContactTestBitMask:-1];
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -458,16 +453,14 @@ uint64_t sub_23C087B14()
 
 void sub_23C087C90()
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_284EDC760;
-  v3[1] = &unk_284EDC778;
-  v4[0] = @"on";
-  v4[1] = @"off";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_284EDC760;
+  v2[1] = &unk_284EDC778;
+  v3[0] = @"on";
+  v3[1] = @"off";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = qword_27E1EDE18;
   qword_27E1EDE18 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_23C0883F8(uint64_t a1)
@@ -758,13 +751,11 @@ id sub_23C08BB14(uint64_t a1, double a2, double a3)
     {
       for (i = v15; i <= v14; ++i)
       {
-        v17 = *(a1 + 64);
-        v18 = *(a1 + 72);
-        v19 = (*(*(a1 + 40) + 16))();
-        if (v19 != -1)
+        v17 = (*(*(a1 + 40) + 16))();
+        if (v17 != -1)
         {
-          v20 = [*(a1 + 32) objectAtIndexedSubscript:v19];
-          [v6 addObject:v20];
+          v18 = [*(a1 + 32) objectAtIndexedSubscript:v17];
+          [v6 addObject:v18];
         }
       }
 
@@ -924,7 +915,7 @@ void sub_23C08C9F0(uint64_t a1, void *a2)
 
 void sub_23C08CAD0(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -934,13 +925,13 @@ void sub_23C08CAD0(uint64_t a1, void *a2)
     [*(a1 + 32) simdPosition];
     v8 = v7;
     [*(a1 + 32) simdPosition];
-    v12 = 134218496;
-    v13 = v6;
-    v14 = 2048;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v9;
-    _os_log_impl(&dword_23C07F000, v4, OS_LOG_TYPE_DEFAULT, "Placed Dainty at %f %f %f", &v12, 0x20u);
+    v11 = 134218496;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v8;
+    v15 = 2048;
+    v16 = v9;
+    _os_log_impl(&dword_23C07F000, v4, OS_LOG_TYPE_DEFAULT, "Placed Dainty at %f %f %f", &v11, 0x20u);
   }
 
   [*(a1 + 32) position];
@@ -949,7 +940,6 @@ void sub_23C08CAD0(uint64_t a1, void *a2)
   [v3 setSimdScale:{*vmulq_f32(v10, vdupq_n_s32(0x3BB60B61u)).i64}];
 
   dispatch_group_leave(*(a1 + 40));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C08CD90(uint64_t a1, void *a2)
@@ -1099,14 +1089,14 @@ void sub_23C08E138(id *a1, void *a2)
 
 void sub_23C08E2B4(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  if ((*(a1 + 48) & 1) != 0 || (v3 = *(a1 + 32), [v10 primaryColor], v4 = objc_claimAutoreleasedReturnValue(), CLKContrastRatioForColors(), v6 = v5, v4, v7 = v10, v6 > 1.4))
+  v9 = a2;
+  if ((*(a1 + 48) & 1) != 0 || ([v9 primaryColor], v3 = objc_claimAutoreleasedReturnValue(), CLKContrastRatioForColors(), v5 = v4, v3, v6 = v9, v5 > 1.4))
   {
-    v8 = *(a1 + 40);
-    v9 = [v10 primaryColor];
-    [v8 addObject:v9];
+    v7 = *(a1 + 40);
+    v8 = [v9 primaryColor];
+    [v7 addObject:v8];
 
-    v7 = v10;
+    v6 = v9;
   }
 }
 
@@ -1149,30 +1139,30 @@ void NTKMakeEulerAnglesFromAxisAngle(float32x4_t a1)
   v8.i32[3] = 0;
   v9 = vbslq_s8(vcltzq_s32(v8), vmulq_f32(a1, vmulq_f32(v7, vrsqrtsq_f32(v5, vmulq_f32(v7, v7)))), a1);
   v10 = vmuls_lane_f32(v2.__sinval, v9, 2) + (vmuls_lane_f32(v9.f32[0], *v9.f32, 1) * (1.0 - v2.__cosval));
-  v18 = v9.f32[0];
-  if (v10 > 0.998)
+  v16 = v9.f32[0];
+  if (v10 <= 0.998)
+  {
+    if (v10 >= -0.998)
+    {
+      v13 = v9.f32[1];
+      v14 = v9.f32[2];
+      atan2f((v3 * -(v9.f32[0] * v9.f32[2])) + (v9.f32[1] * v2.__sinval), 1.0 - (((v14 * v14) + (v13 * v13)) * v3));
+      asinf(v10);
+      atan2f((v3 * -(v13 * v14)) + (v16 * v2.__sinval), 1.0 - (((v14 * v14) + (v16 * v16)) * v3));
+    }
+
+    else
+    {
+      v12 = __sincosf_stret(v1 * 0.5);
+      atan2f(v12.__sinval * v16, v12.__cosval);
+    }
+  }
+
+  else
   {
     v11 = __sincosf_stret(v1 * 0.5);
-    atan2f(v11.__sinval * v18, v11.__cosval);
-    v12 = &unk_23C090888;
-LABEL_5:
-    v14 = *v12;
-    return;
+    atan2f(v11.__sinval * v16, v11.__cosval);
   }
-
-  if (v10 < -0.998)
-  {
-    v13 = __sincosf_stret(v1 * 0.5);
-    atan2f(v13.__sinval * v18, v13.__cosval);
-    v12 = &dword_23C090774;
-    goto LABEL_5;
-  }
-
-  v15 = v9.f32[1];
-  v16 = v9.f32[2];
-  atan2f((v3 * -(v9.f32[0] * v9.f32[2])) + (v9.f32[1] * v2.__sinval), 1.0 - (((v16 * v16) + (v15 * v15)) * v3));
-  asinf(v10);
-  atan2f((v3 * -(v15 * v16)) + (v18 * v2.__sinval), 1.0 - (((v16 * v16) + (v18 * v18)) * v3));
 }
 
 __n128 NTKMakeAxisAngleFromQuat(float32x4_t a1, double a2)
@@ -1224,37 +1214,37 @@ uint64_t sub_23C08EAF4(uint64_t a1)
 
 void -[NTKSnowglobePromise _blockCompletedWithObject:](NTKSnowglobePromise *self, SEL a2, id a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = self;
   objc_sync_enter(v6);
   objc_storeStrong(&v6->_object, a3);
   v6->_state = 2;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = v6->_completions;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
+        (*(*(*(&v11 + 1) + 8 * v10) + 16))(*(*(&v11 + 1) + 8 * v10));
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -1262,35 +1252,30 @@ void -[NTKSnowglobePromise _blockCompletedWithObject:](NTKSnowglobePromise *self
 
   [(NSMutableArray *)v6->_completions removeAllObjects];
   objc_sync_exit(v6);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C08ED78(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23C07F000, a2, OS_LOG_TYPE_ERROR, "Error loading Snowglobe background objects: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23C07F000, a2, OS_LOG_TYPE_ERROR, "Error loading Snowglobe background objects: %@", &v2, 0xCu);
 }
 
 void sub_23C08EDF0(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23C07F000, a2, OS_LOG_TYPE_ERROR, "Snowglobe: Error loading lighting scene: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23C07F000, a2, OS_LOG_TYPE_ERROR, "Snowglobe: Error loading lighting scene: %@", &v2, 0xCu);
 }
 
 void sub_23C08EECC(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_23C07F000, a2, OS_LOG_TYPE_FAULT, "Snowglobe synchronous flush timed out %i", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_23C07F000, a2, OS_LOG_TYPE_FAULT, "Snowglobe synchronous flush timed out %i", v2, 8u);
 }
 
 __double2 __sincos_stret(double a1)

@@ -17,7 +17,7 @@
   v17 = taskingsCopy;
   if (!dCopy)
   {
-    v19 = DPLogHandle_TaskingMessageError();
+    v19 = DPLogHandle_TaskingMessageError(taskingsCopy);
     if (!os_signpost_enabled(v19))
     {
       goto LABEL_13;
@@ -32,7 +32,7 @@ LABEL_12:
 
   if (!taskingsCopy)
   {
-    v19 = DPLogHandle_TaskingMessageError();
+    v19 = DPLogHandle_TaskingMessageError(0);
     if (!os_signpost_enabled(v19))
     {
       goto LABEL_13;
@@ -45,7 +45,7 @@ LABEL_12:
 
   if (![taskingsCopy count])
   {
-    v19 = DPLogHandle_TaskingMessageError();
+    v19 = DPLogHandle_TaskingMessageError(0);
     if (os_signpost_enabled(v19))
     {
       *buf = 0;
@@ -105,21 +105,19 @@ void __89__DRSTaskingMessage_initWithVersion_messageUUID_dateBroadcast_dateRecei
 
   if ((v8 & 1) == 0)
   {
-    v9 = DPLogHandle_TaskingMessageError();
-    if (os_signpost_enabled(v9))
+    v10 = DPLogHandle_TaskingMessageError(v9);
+    if (os_signpost_enabled(v10))
     {
-      v10 = [v6 teamID];
+      v11 = [v6 teamID];
       v12 = 138543618;
       v13 = v5;
       v14 = 2114;
-      v15 = v10;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DRSTaskingMessageFailedInit", "Malformed team tasking dict (key: %{public}@, value: %{public}@)", &v12, 0x16u);
+      v15 = v11;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DRSTaskingMessageFailedInit", "Malformed team tasking dict (key: %{public}@, value: %{public}@)", &v12, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 1;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isEqualToMessage:(id)message
@@ -137,19 +135,7 @@ void __89__DRSTaskingMessage_initWithVersion_messageUUID_dateBroadcast_dateRecei
     [dateBroadcast2 timeIntervalSince1970];
     v11 = v10;
 
-    if (v8 != v11)
-    {
-      goto LABEL_4;
-    }
-
-    dateReceived = [(DRSTaskingSystemMessage *)self dateReceived];
-    [dateReceived timeIntervalSince1970];
-    v14 = v13;
-    dateReceived2 = [v5 dateReceived];
-    [dateReceived2 timeIntervalSince1970];
-    v17 = v16;
-
-    if (v14 == v17)
+    if (v8 == v11 && (-[DRSTaskingSystemMessage dateReceived](self, "dateReceived"), v12 = objc_claimAutoreleasedReturnValue(), [v12 timeIntervalSince1970], v14 = v13, objc_msgSend(v5, "dateReceived"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "timeIntervalSince1970"), v17 = v16, v15, v12, v14 == v17))
     {
       teamTaskings = [(DRSTaskingMessage *)self teamTaskings];
       teamTaskings2 = [v5 teamTaskings];
@@ -158,7 +144,6 @@ void __89__DRSTaskingMessage_initWithVersion_messageUUID_dateBroadcast_dateRecei
 
     else
     {
-LABEL_4:
       v18 = 0;
     }
   }
@@ -173,43 +158,41 @@ LABEL_4:
 
 - (id)jsonDictRepresentation
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   teamTaskings = [(DRSTaskingMessage *)self teamTaskings];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __43__DRSTaskingMessage_jsonDictRepresentation__block_invoke;
-  v19[3] = &unk_27899FC38;
-  v20 = dictionary;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __43__DRSTaskingMessage_jsonDictRepresentation__block_invoke;
+  v18[3] = &unk_27899FC38;
+  v19 = dictionary;
   v5 = dictionary;
-  [teamTaskings enumerateKeysAndObjectsUsingBlock:v19];
+  [teamTaskings enumerateKeysAndObjectsUsingBlock:v18];
 
-  v21[0] = kDRSTaskingSystemMessage_messageUUIDKey;
+  v20[0] = kDRSTaskingSystemMessage_messageUUIDKey;
   messageUUID = [(DRSTaskingSystemMessage *)self messageUUID];
   uUIDString = [messageUUID UUIDString];
-  v22[0] = uUIDString;
-  v21[1] = kDRSTaskingSystemMessage_DateReceivedKey;
+  v21[0] = uUIDString;
+  v20[1] = kDRSTaskingSystemMessage_DateReceivedKey;
   v8 = MEMORY[0x277CCABB0];
   dateReceived = [(DRSTaskingSystemMessage *)self dateReceived];
   [dateReceived timeIntervalSince1970];
   v10 = [v8 numberWithDouble:?];
-  v22[1] = v10;
-  v21[2] = kDRSTaskingSystemMessage_DateBroadcastKey;
+  v21[1] = v10;
+  v20[2] = kDRSTaskingSystemMessage_DateBroadcastKey;
   v11 = MEMORY[0x277CCABB0];
   dateBroadcast = [(DRSTaskingSystemMessage *)self dateBroadcast];
   [dateBroadcast timeIntervalSince1970];
   v13 = [v11 numberWithDouble:?];
-  v21[3] = kDRSTaskingMessage_TeamTaskingsKey;
-  v22[2] = v13;
-  v22[3] = v5;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v20[3] = kDRSTaskingMessage_TeamTaskingsKey;
+  v21[2] = v13;
+  v21[3] = v5;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
-  v18.receiver = self;
-  v18.super_class = DRSTaskingMessage;
-  _mutableJSONDictRepresentation = [(DRSTaskingSystemMessage *)&v18 _mutableJSONDictRepresentation];
+  v17.receiver = self;
+  v17.super_class = DRSTaskingMessage;
+  _mutableJSONDictRepresentation = [(DRSTaskingSystemMessage *)&v17 _mutableJSONDictRepresentation];
   [_mutableJSONDictRepresentation addEntriesFromDictionary:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return _mutableJSONDictRepresentation;
 }
@@ -224,62 +207,65 @@ void __43__DRSTaskingMessage_jsonDictRepresentation__block_invoke(uint64_t a1, v
 - (DRSTaskingMessage)initWithJSONDict:(id)dict
 {
   dictCopy = dict;
-  if ([objc_opt_class() isJSONDictForClass:dictCopy])
+  v5 = [objc_opt_class() isJSONDictForClass:dictCopy];
+  if (v5)
   {
-    v5 = [dictCopy objectForKeyedSubscript:kDRSTaskingSystemMessage_messageUUIDKey];
-    if (!v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    isKindOfClass = [dictCopy objectForKeyedSubscript:kDRSTaskingSystemMessage_messageUUIDKey];
+    v7 = isKindOfClass;
+    if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      v7 = DPLogHandle_TaskingMessageError();
-      if (os_signpost_enabled(v7))
+      v9 = DPLogHandle_TaskingMessageError(isKindOfClass);
+      if (os_signpost_enabled(v9))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid taskingMessageUUID", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid taskingMessageUUID", buf, 2u);
       }
 
       selfCopy = 0;
-      v6 = v5;
+      v8 = v7;
       goto LABEL_21;
     }
 
-    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v5];
+    v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v7];
 
-    v7 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateReceivedKey);
-    v8 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateBroadcastKey);
-    v9 = [dictCopy objectForKeyedSubscript:kDRSTaskingMessage_TeamTaskingsKey];
-    if (v9)
+    v9 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateReceivedKey);
+    v10 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateBroadcastKey);
+    v11 = [dictCopy objectForKeyedSubscript:kDRSTaskingMessage_TeamTaskingsKey];
+    if (v11)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v12 = objc_opt_isKindOfClass();
+      if ((v12 & 1) == 0)
       {
-        v14 = DPLogHandle_TaskingMessageError();
-        if (os_signpost_enabled(v14))
+        v17 = DPLogHandle_TaskingMessageError(v12);
+        if (os_signpost_enabled(v17))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid teamTaskingsDict", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_232906000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid teamTaskingsDict", buf, 2u);
         }
 
-        v11 = 0;
+        v14 = 0;
         goto LABEL_19;
       }
 
       *buf = 0;
-      v21 = buf;
-      v22 = 0x2020000000;
-      v23 = 0;
+      v24 = buf;
+      v25 = 0x2020000000;
+      v26 = 0;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __38__DRSTaskingMessage_initWithJSONDict___block_invoke;
-      v16[3] = &unk_27899FC60;
-      v19 = buf;
-      v17 = v7;
-      v11 = dictionary;
-      v18 = v11;
-      [v9 enumerateKeysAndObjectsUsingBlock:v16];
-      v12 = v21[24];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __38__DRSTaskingMessage_initWithJSONDict___block_invoke;
+      v19[3] = &unk_27899FC60;
+      v22 = buf;
+      v20 = v9;
+      v14 = dictionary;
+      v21 = v14;
+      [v11 enumerateKeysAndObjectsUsingBlock:v19];
+      v15 = v24[24];
 
       _Block_object_dispose(buf, 8);
-      if (v12)
+      if (v15)
       {
 LABEL_19:
         selfCopy = 0;
@@ -289,11 +275,11 @@ LABEL_19:
 
     else
     {
-      v11 = 0;
+      v14 = 0;
     }
 
-    v9 = [(DRSTaskingSystemMessage *)self _versionFromJSONDict:dictCopy];
-    self = [(DRSTaskingMessage *)self initWithVersion:v9 messageUUID:v6 dateBroadcast:v8 dateReceived:v7 teamTaskings:v11];
+    v11 = [(DRSTaskingSystemMessage *)self _versionFromJSONDict:dictCopy];
+    self = [(DRSTaskingMessage *)self initWithVersion:v11 messageUUID:v8 dateBroadcast:v10 dateReceived:v9 teamTaskings:v14];
     selfCopy = self;
 LABEL_20:
 
@@ -301,11 +287,11 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v6 = DPLogHandle_TaskingMessageError();
-  if (os_signpost_enabled(v6))
+  v8 = DPLogHandle_TaskingMessageError(v5);
+  if (os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "JSON dictionary of wrong type", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_232906000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "JSON dictionary of wrong type", buf, 2u);
   }
 
   selfCopy = 0;
@@ -319,21 +305,22 @@ void __38__DRSTaskingMessage_initWithJSONDict___block_invoke(uint64_t a1, void *
   v7 = a2;
   v8 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = [[DRSTeamTasking alloc] initWithJSONDict:v8 receivedDate:*(a1 + 32)];
-    if (v9)
+    v10 = [[DRSTeamTasking alloc] initWithJSONDict:v8 receivedDate:*(a1 + 32)];
+    if (v10)
     {
-      [*(a1 + 40) setObject:v9 forKeyedSubscript:v7];
+      [*(a1 + 40) setObject:v10 forKeyedSubscript:v7];
     }
 
     else
     {
-      v11 = DPLogHandle_TaskingMessageError();
-      if (os_signpost_enabled(v11))
+      v12 = DPLogHandle_TaskingMessageError(0);
+      if (os_signpost_enabled(v12))
       {
-        *v12 = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid teamTasking value", v12, 2u);
+        *v13 = 0;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid teamTasking value", v13, 2u);
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -343,11 +330,11 @@ void __38__DRSTaskingMessage_initWithJSONDict___block_invoke(uint64_t a1, void *
 
   else
   {
-    v10 = DPLogHandle_TaskingMessageError();
-    if (os_signpost_enabled(v10))
+    v11 = DPLogHandle_TaskingMessageError(isKindOfClass);
+    if (os_signpost_enabled(v11))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid teamTaskingsDict class", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid teamTaskingsDict class", buf, 2u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;

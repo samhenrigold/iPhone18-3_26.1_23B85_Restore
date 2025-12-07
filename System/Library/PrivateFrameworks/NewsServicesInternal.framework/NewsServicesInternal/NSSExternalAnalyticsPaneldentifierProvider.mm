@@ -27,15 +27,15 @@
 
 - (id)panelIdentifierWithHostNames:(id)names
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   namesCopy = names;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __75__NSSExternalAnalyticsPaneldentifierProvider_panelIdentifierWithHostNames___block_invoke;
-  v33[3] = &unk_279980C30;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __75__NSSExternalAnalyticsPaneldentifierProvider_panelIdentifierWithHostNames___block_invoke;
+  v32[3] = &unk_279980C30;
   v4 = namesCopy;
-  v34 = v4;
-  v5 = MEMORY[0x25F882600](v33);
+  v33 = v4;
+  v5 = MEMORY[0x25F882600](v32);
   v6 = CFNetworkCopySystemProxySettings();
   v7 = [(__CFDictionary *)v6 objectForKeyedSubscript:@"ProxyAutoConfigEnable"];
   bOOLValue = [v7 BOOLValue];
@@ -76,11 +76,11 @@
   }
 
   [(__CFDictionary *)v6 objectForKeyedSubscript:@"__SCOPED__"];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v13 = v32 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v13 = v31 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (!v14)
   {
     v10 = 0;
@@ -88,19 +88,19 @@
   }
 
   v15 = v14;
-  v27 = v6;
-  v28 = v4;
-  v16 = *v30;
+  v26 = v6;
+  v27 = v4;
+  v16 = *v29;
   while (2)
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v30 != v16)
+      if (*v29 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v29 + 1) + 8 * i);
+      v18 = *(*(&v28 + 1) + 8 * i);
       if ([v18 hasPrefix:@"pdp"])
       {
         v19 = [v13 objectForKeyedSubscript:v18];
@@ -138,7 +138,7 @@ LABEL_31:
       }
     }
 
-    v15 = [v13 countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v15 = [v13 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v15)
     {
       continue;
@@ -149,46 +149,45 @@ LABEL_31:
 
   v10 = 0;
 LABEL_32:
-  v6 = v27;
-  v4 = v28;
+  v6 = v26;
+  v4 = v27;
 LABEL_33:
 
 LABEL_34:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 uint64_t __75__NSSExternalAnalyticsPaneldentifierProvider_panelIdentifierWithHostNames___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([v3 containsString:{*(*(&v10 + 1) + 8 * i), v10}])
+        if ([v3 containsString:{*(*(&v9 + 1) + 8 * i), v9}])
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -200,7 +199,6 @@ uint64_t __75__NSSExternalAnalyticsPaneldentifierProvider_panelIdentifierWithHos
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

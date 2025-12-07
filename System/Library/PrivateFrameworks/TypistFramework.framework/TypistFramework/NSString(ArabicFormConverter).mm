@@ -16,9 +16,9 @@
     +[NSString(ArabicFormConverter) combinedArabicCharacterFormMap];
   }
 
-  v1 = combinedArabicCharacterFormMap_combinedArabicCharacterFormMap;
+  v2 = combinedArabicCharacterFormMap_combinedArabicCharacterFormMap;
 
-  return v1;
+  return v2;
 }
 
 + (id)arabicNonPresentationFormCharacterSet
@@ -28,9 +28,9 @@
     +[NSString(ArabicFormConverter) arabicNonPresentationFormCharacterSet];
   }
 
-  v1 = arabicNonPresentationFormCharacterSet_arabicNonPresentationFormCharacterSet;
+  v2 = arabicNonPresentationFormCharacterSet_arabicNonPresentationFormCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)arabicCharacterFormMap
@@ -40,9 +40,9 @@
     +[NSString(ArabicFormConverter) arabicCharacterFormMap];
   }
 
-  v1 = arabicCharacterFormMap_arabicCharacterFormMap;
+  v2 = arabicCharacterFormMap_arabicCharacterFormMap;
 
-  return v1;
+  return v2;
 }
 
 + (id)arabicDiacriticCharacterSet
@@ -52,9 +52,9 @@
     +[NSString(ArabicFormConverter) arabicDiacriticCharacterSet];
   }
 
-  v1 = arabicDiacriticCharacterSet_arabicDiacriticCharacterSet;
+  v2 = arabicDiacriticCharacterSet_arabicDiacriticCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)arabicFinalFormsCharacterSet
@@ -64,157 +64,157 @@
     +[NSString(ArabicFormConverter) arabicFinalFormsCharacterSet];
   }
 
-  v1 = arabicFinalFormsCharacterSet_arabicFinalFormsCharacterSet;
+  v2 = arabicFinalFormsCharacterSet_arabicFinalFormsCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 - (id)stringByConvertingArabicCharactersToPresentationForms
 {
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   arabicCharacterFormMap = [MEMORY[0x277CCACA8] arabicCharacterFormMap];
   combinedArabicCharacterFormMap = [MEMORY[0x277CCACA8] combinedArabicCharacterFormMap];
   arabicDiacriticCharacterSet = [MEMORY[0x277CCACA8] arabicDiacriticCharacterSet];
   if ([self length])
   {
-    v4 = 0;
-    v5 = 0x7FFFFFFFFFFFFFFFLL;
+    v5 = 0;
+    v6 = 0x7FFFFFFFFFFFFFFFLL;
     while (1)
     {
-      v6 = [self characterAtIndex:v4];
-      v7 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v6];
-      v8 = [arabicCharacterFormMap objectForKey:v7];
+      v7 = [self characterAtIndex:v5];
+      v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v7];
+      v9 = [arabicCharacterFormMap objectForKey:v8];
 
-      if (v8)
+      if (v9)
       {
         break;
       }
 
-      [v2 appendFormat:@"%C", v6];
+      [v3 appendFormat:@"%C", v7];
 LABEL_39:
 
-      if (++v4 >= [self length])
+      if (++v5 >= [self length])
       {
         goto LABEL_42;
       }
     }
 
-    v9 = 0x7FFFFFFFFFFFFFFFLL;
-    if (v5 != 0x7FFFFFFFFFFFFFFFLL)
+    v10 = 0x7FFFFFFFFFFFFFFFLL;
+    if (v6 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v10 = v8;
-      v11 = [self characterAtIndex:v5];
-      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v11];
-      v13 = [arabicCharacterFormMap objectForKeyedSubscript:v12];
+      v11 = v9;
+      v12 = [self characterAtIndex:v6];
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v12];
+      v14 = [arabicCharacterFormMap objectForKeyedSubscript:v13];
 
-      if (!v13 || ([v13 arabicCharacterValue] & 0xFFFF0000) == 0 && (objc_msgSend(v13, "arabicCharacterValue") & 0xFFFF00000000) == 0)
+      if (!v14 || ([v14 arabicCharacterValue] & 0xFFFF0000) == 0 && (objc_msgSend(v14, "arabicCharacterValue") & 0xFFFF00000000) == 0)
       {
-        v5 = 0x7FFFFFFFFFFFFFFFLL;
+        v6 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      v9 = v5;
-      v8 = v10;
+      v10 = v6;
+      v9 = v11;
     }
 
-    v5 = v4 + 1;
-    v14 = v4 + 1;
-    if (v4 + 1 < [self length])
+    v6 = v5 + 1;
+    v15 = v5 + 1;
+    if (v5 + 1 < [self length])
     {
-      v14 = v4 + 1;
+      v15 = v5 + 1;
       do
       {
-        if (![arabicDiacriticCharacterSet characterIsMember:{objc_msgSend(self, "characterAtIndex:", v14)}])
+        if (![arabicDiacriticCharacterSet characterIsMember:{objc_msgSend(self, "characterAtIndex:", v15)}])
         {
           break;
         }
 
-        ++v14;
+        ++v15;
       }
 
-      while (v14 < [self length]);
+      while (v15 < [self length]);
     }
 
-    if (v14 < [self length])
+    if (v15 < [self length])
     {
-      v28 = v6;
-      v29 = v8;
-      v15 = v2;
-      v16 = [self characterAtIndex:v14];
-      v17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v16];
-      v18 = [arabicCharacterFormMap objectForKeyedSubscript:v17];
+      v29 = v7;
+      v30 = v9;
+      v16 = v3;
+      v17 = [self characterAtIndex:v15];
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v17];
+      v19 = [arabicCharacterFormMap objectForKeyedSubscript:v18];
 
-      if (!v16)
+      if (!v17)
       {
-        v2 = v15;
+        v3 = v16;
 LABEL_28:
-        v8 = v29;
+        v9 = v30;
 LABEL_29:
 
 LABEL_30:
-        arabicCharacterValue = [v8 arabicCharacterValue];
-        if (v9 != 0x7FFFFFFFFFFFFFFFLL && v16 && (arabicCharacterValue & 0xFFFF00000000) != 0)
+        arabicCharacterValue = [v9 arabicCharacterValue];
+        if (v10 != 0x7FFFFFFFFFFFFFFFLL && v17 && (arabicCharacterValue & 0xFFFF00000000) != 0)
         {
-          v25 = HIDWORD(arabicCharacterValue);
+          v26 = HIDWORD(arabicCharacterValue);
         }
 
-        else if (v9 == 0x7FFFFFFFFFFFFFFFLL || (v25 = HIWORD(arabicCharacterValue)) == 0)
+        else if (v10 == 0x7FFFFFFFFFFFFFFFLL || (v26 = HIWORD(arabicCharacterValue)) == 0)
         {
-          v25 = arabicCharacterValue >> 16;
-          if ((v16 & ((arabicCharacterValue & 0xFFFF0000) != 0)) == 0)
+          v26 = arabicCharacterValue >> 16;
+          if ((v17 & ((arabicCharacterValue & 0xFFFF0000) != 0)) == 0)
           {
-            LOWORD(v25) = arabicCharacterValue;
+            LOWORD(v26) = arabicCharacterValue;
           }
         }
 
-        [v2 appendFormat:@"%C", v25];
-        v5 = v4;
+        [v3 appendFormat:@"%C", v26];
+        v6 = v5;
         goto LABEL_39;
       }
 
-      v2 = v15;
-      if (([v18 arabicCharacterValue] & 0xFFFF00000000) == 0)
+      v3 = v16;
+      if (([v19 arabicCharacterValue] & 0xFFFF00000000) == 0)
       {
-        arabicCharacterValue2 = [v18 arabicCharacterValue];
-        if (v16 != 1600 && !HIWORD(arabicCharacterValue2))
+        arabicCharacterValue2 = [v19 arabicCharacterValue];
+        if (v17 != 1600 && !HIWORD(arabicCharacterValue2))
         {
-          LODWORD(v16) = 0;
+          LODWORD(v17) = 0;
           goto LABEL_28;
         }
       }
 
-      v8 = v29;
-      if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+      v9 = v30;
+      if (v15 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%C%C", v28, v16];
-        v19 = [combinedArabicCharacterFormMap objectForKey:v18];
-        if (v19)
+        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%C%C", v29, v17];
+        v20 = [combinedArabicCharacterFormMap objectForKey:v19];
+        if (v20)
         {
-          v20 = v19;
-          arabicCharacterValue3 = [v19 arabicCharacterValue];
-          v22 = HIWORD(arabicCharacterValue3);
-          if (v9 == 0x7FFFFFFFFFFFFFFFLL)
+          v21 = v20;
+          arabicCharacterValue3 = [v20 arabicCharacterValue];
+          v23 = HIWORD(arabicCharacterValue3);
+          if (v10 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            LOWORD(v22) = arabicCharacterValue3;
+            LOWORD(v23) = arabicCharacterValue3;
           }
 
-          [v2 appendFormat:@"%C", v22];
+          [v3 appendFormat:@"%C", v23];
 
-          ++v4;
+          ++v5;
           goto LABEL_39;
         }
 
-        LODWORD(v16) = 1;
+        LODWORD(v17) = 1;
         goto LABEL_29;
       }
     }
 
-    LODWORD(v16) = 0;
+    LODWORD(v17) = 0;
     goto LABEL_30;
   }
 
 LABEL_42:
 
-  return v2;
+  return v3;
 }
 
 @end

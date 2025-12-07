@@ -30,7 +30,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2591EBD18(v7);
+  sub_2591EBD18(v7, v8);
 }
 
 - (void)setDeviceDisconnectedHandler:(id)handler
@@ -55,7 +55,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2591EBD18(v7);
+  sub_2591EBD18(v7, v8);
 }
 
 - (void)updateTrackedDevice
@@ -80,7 +80,7 @@
 
     v7(class);
 
-    sub_2591EBD18(v7);
+    sub_2591EBD18(v7, v8);
   }
 
   else
@@ -104,7 +104,7 @@
 
     v7(class);
 
-    sub_2591EBD18(v7);
+    sub_2591EBD18(v7, v8);
   }
 
   else

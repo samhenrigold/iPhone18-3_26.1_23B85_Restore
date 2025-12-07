@@ -43,28 +43,28 @@
 
 - (NSUInteger)sequenceLength
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = self->_tokenDictionaries;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * i) objectForKey:{@"SubtokenRanges", v12}];
+        v8 = [*(*(&v11 + 1) + 8 * i) objectForKey:{@"SubtokenRanges", v11}];
         v9 = v8;
         if (v8)
         {
@@ -72,7 +72,7 @@
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -83,7 +83,6 @@
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -115,53 +114,53 @@
 
 - (NSArray)tokenVectorAtIndex:(NSUInteger)characterIndex tokenRange:(NSRangePointer)tokenRange
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = self->_tokenDictionaries;
-  v24 = 0x7FFFFFFFFFFFFFFFLL;
-  v29 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-  if (v29)
+  v23 = 0x7FFFFFFFFFFFFFFFLL;
+  v28 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v28)
   {
-    v23 = tokenRange;
+    v22 = tokenRange;
     v6 = 0;
-    v26 = 0;
-    v30 = 0;
-    v28 = *v36;
+    v25 = 0;
+    v29 = 0;
+    v27 = *v35;
     while (2)
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v36 != v28)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [*(*(&v35 + 1) + 8 * i) objectForKey:{@"SubtokenRanges", v23}];
+        v8 = [*(*(&v34 + 1) + 8 * i) objectForKey:{@"SubtokenRanges", v22}];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v9 = v8;
-        v10 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v32;
+          v12 = *v31;
 LABEL_8:
           v13 = 0;
           v14 = v6;
           v6 += v11;
           while (1)
           {
-            if (*v32 != v12)
+            if (*v31 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            rangeValue = [*(*(&v31 + 1) + 8 * v13) rangeValue];
+            rangeValue = [*(*(&v30 + 1) + 8 * v13) rangeValue];
             if (rangeValue <= characterIndex && rangeValue + v16 > characterIndex)
             {
               break;
@@ -170,7 +169,7 @@ LABEL_8:
             ++v14;
             if (v11 == ++v13)
             {
-              v11 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
               if (v11)
               {
                 goto LABEL_8;
@@ -186,21 +185,21 @@ LABEL_8:
 
           if (v18 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v30 = v20;
-            v26 = v19;
+            v29 = v20;
+            v25 = v19;
             v6 = v14;
             continue;
           }
 
-          v24 = v18;
+          v23 = v18;
           goto LABEL_24;
         }
 
 LABEL_17:
       }
 
-      v29 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-      if (v29)
+      v28 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      if (v28)
       {
         continue;
       }
@@ -208,11 +207,11 @@ LABEL_17:
       break;
     }
 
-    v24 = 0x7FFFFFFFFFFFFFFFLL;
-    v19 = v26;
-    v20 = v30;
+    v23 = 0x7FFFFFFFFFFFFFFFLL;
+    v19 = v25;
+    v20 = v29;
 LABEL_24:
-    tokenRange = v23;
+    tokenRange = v22;
   }
 
   else
@@ -223,11 +222,9 @@ LABEL_24:
 
   if (tokenRange)
   {
-    tokenRange->location = v24;
+    tokenRange->location = v23;
     tokenRange->length = v19;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -236,64 +233,64 @@ LABEL_24:
 {
   length = range.length;
   location = range.location;
-  v43 = *MEMORY[0x1E69E9840];
-  v29 = block;
-  v40 = 0;
+  v42 = *MEMORY[0x1E69E9840];
+  v28 = block;
+  v39 = 0;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = self->_tokenDictionaries;
-  v26 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-  if (v26)
+  v25 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  if (v25)
   {
     v5 = 0;
-    v25 = *v37;
+    v24 = *v36;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v37 != v25)
+      if (*v36 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v36 + 1) + 8 * v6);
+      v7 = *(*(&v35 + 1) + 8 * v6);
       v8 = [v7 objectForKey:@"TokenRange"];
       rangeValue = [v8 rangeValue];
       v11 = v10;
 
       v12 = [v7 objectForKey:@"SubtokenRanges"];
+      v31 = 0u;
       v32 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v35 = 0u;
-      v30 = v12;
-      v13 = [v30 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v29 = v12;
+      v13 = [v29 countByEnumeratingWithState:&v31 objects:v40 count:16];
       if (v13)
       {
         v14 = v13;
-        v27 = v6;
-        v15 = *v33;
+        v26 = v6;
+        v15 = *v32;
 LABEL_8:
         v16 = 0;
         while (1)
         {
           v17 = v5;
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v29);
           }
 
-          rangeValue2 = [*(*(&v32 + 1) + 8 * v16) rangeValue];
+          rangeValue2 = [*(*(&v31 + 1) + 8 * v16) rangeValue];
           v20 = v19;
           if (rangesMatch(location, length, rangeValue, v11) && rangesMatch(location, length, rangeValue2, v20))
           {
             v21 = [(NLContextualEmbeddingResult *)self _tokenVectorAtIndex:v5];
-            v29[2](v29, v21, rangeValue2, v20, &v40);
+            v28[2](v28, v21, rangeValue2, v20, &v39);
           }
 
-          if (v40)
+          if (v39)
           {
             break;
           }
@@ -302,7 +299,7 @@ LABEL_8:
           v5 = v17 + 1;
           if (v14 == v16)
           {
-            v14 = [v30 countByEnumeratingWithState:&v32 objects:v41 count:16];
+            v14 = [v29 countByEnumeratingWithState:&v31 objects:v40 count:16];
             if (v14)
             {
               goto LABEL_8;
@@ -313,19 +310,19 @@ LABEL_8:
         }
 
         v5 = v17 + 1;
-        v6 = v27;
+        v6 = v26;
       }
 
-      v22 = v40;
+      v22 = v39;
       if (v22)
       {
         break;
       }
 
-      if (++v6 == v26)
+      if (++v6 == v25)
       {
-        v26 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-        if (v26)
+        v25 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+        if (v25)
         {
           goto LABEL_3;
         }
@@ -334,8 +331,6 @@ LABEL_8:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

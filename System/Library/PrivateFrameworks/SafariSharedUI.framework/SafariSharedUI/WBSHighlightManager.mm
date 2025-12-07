@@ -172,67 +172,67 @@ void __40__WBSHighlightManager__updateHighlights__block_invoke(uint64_t a1)
 
 void __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
   {
     v7 = [*(a1 + 32) identifier];
-    v8 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-    v9 = v8;
+    v9 = WBS_LOG_CHANNEL_PREFIXInterstellar(v7, v8);
+    v10 = v9;
     if (v6)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler___block_invoke_cold_1(v7, v9, v6);
+        __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler___block_invoke_cold_1(v7, v10, v6);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v29 = v7;
-      _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Highlight <%{public}@> has no metadata", buf, 0xCu);
+      v30 = v7;
+      _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Highlight <%{public}@> has no metadata", buf, 0xCu);
     }
 
     v5 = objc_alloc_init(MEMORY[0x1E696ECA0]);
   }
 
-  v10 = [v5 URL];
+  v11 = [v5 URL];
 
-  if (!v10)
+  if (!v11)
   {
-    v11 = [*(a1 + 32) resourceURL];
-    [v5 setURL:v11];
+    v12 = [*(a1 + 32) resourceURL];
+    [v5 setURL:v12];
 
-    v12 = [v5 URL];
-    [v5 setOriginalURL:v12];
+    v13 = [v5 URL];
+    [v5 setOriginalURL:v13];
   }
 
-  v13 = [v5 title];
+  v14 = [v5 title];
 
-  if (!v13)
+  if (!v14)
   {
-    v14 = [v5 URL];
-    v15 = [v14 safari_canonicalURL];
-    v16 = [v15 safari_originalDataAsString];
-    v17 = [v16 safari_simplifiedUserVisibleURLStringWithSimplifications:135 forDisplayOnly:1 simplifiedStringOffset:0];
-    [v5 setTitle:v17];
+    v15 = [v5 URL];
+    v16 = [v15 safari_canonicalURL];
+    v17 = [v16 safari_originalDataAsString];
+    v18 = [v17 safari_simplifiedUserVisibleURLStringWithSimplifications:135 forDisplayOnly:1 simplifiedStringOffset:0];
+    [v5 setTitle:v18];
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler___block_invoke_22;
   block[3] = &unk_1E8284E18;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 48);
-  v23 = v6;
-  v24 = v18;
-  v25 = v5;
-  v26 = v19;
-  v27 = *(a1 + 56);
-  v20 = v5;
-  v21 = v6;
+  v19 = *(a1 + 40);
+  v20 = *(a1 + 48);
+  v24 = v6;
+  v25 = v19;
+  v26 = v5;
+  v27 = v20;
+  v28 = *(a1 + 56);
+  v21 = v5;
+  v22 = v6;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -251,32 +251,34 @@ uint64_t __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler__
 - (void)updateHighlightForAttributionPresenter:(id)presenter
 {
   presenterCopy = presenter;
+  v6 = presenterCopy;
   if (self->_isFetchingHighlights)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXInterstellar(presenterCopy, v5);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+    if (v8)
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "Defer checking for Highlight until the Highlight Center finishes fetching.", v10, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1C6968000, v7, OS_LOG_TYPE_INFO, "Defer checking for Highlight until the Highlight Center finishes fetching.", v14, 2u);
     }
 
-    v6 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXInterstellar(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [(WBSHighlightManager *)v6 updateHighlightForAttributionPresenter:presenterCopy];
+      [(WBSHighlightManager *)v10 updateHighlightForAttributionPresenter:v6];
     }
 
     deferredAttributionPresenters = self->_deferredAttributionPresenters;
     if (!deferredAttributionPresenters)
     {
       array = [MEMORY[0x1E695DF70] array];
-      v9 = self->_deferredAttributionPresenters;
+      v13 = self->_deferredAttributionPresenters;
       self->_deferredAttributionPresenters = array;
 
       deferredAttributionPresenters = self->_deferredAttributionPresenters;
     }
 
-    [(NSMutableArray *)deferredAttributionPresenters addObject:presenterCopy];
+    [(NSMutableArray *)deferredAttributionPresenters addObject:v6];
   }
 
   else
@@ -289,30 +291,32 @@ uint64_t __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler__
 {
   presenterCopy = presenter;
   highlights = self->_highlights;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __55__WBSHighlightManager__showBannerIfNeededForPresenter___block_invoke;
-  v11[3] = &unk_1E82856A0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __55__WBSHighlightManager__showBannerIfNeededForPresenter___block_invoke;
+  v15[3] = &unk_1E82856A0;
   v6 = presenterCopy;
-  v12 = v6;
-  v7 = [(NSArray *)highlights safari_firstObjectPassingTest:v11];
+  v16 = v6;
+  v7 = [(NSArray *)highlights safari_firstObjectPassingTest:v15];
+  v9 = v7;
   if (v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXInterstellar(v7, v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    if (v11)
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1C6968000, v8, OS_LOG_TYPE_INFO, "Found a matching Highlight", v10, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Found a matching Highlight", v14, 2u);
     }
 
-    v9 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v13 = WBS_LOG_CHANNEL_PREFIXInterstellar(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [(WBSHighlightManager *)v9 _showBannerIfNeededForPresenter:v6];
+      [(WBSHighlightManager *)v13 _showBannerIfNeededForPresenter:v6];
     }
   }
 
-  [v6 displayAttributionBannerForHighlightIfNeeded:v7];
+  [v6 displayAttributionBannerForHighlightIfNeeded:v9];
 }
 
 uint64_t __55__WBSHighlightManager__showBannerIfNeededForPresenter___block_invoke(uint64_t a1, void *a2)
@@ -331,15 +335,16 @@ uint64_t __55__WBSHighlightManager__showBannerIfNeededForPresenter___block_invok
 - (void)sendFeedbackForHighlight:(id)highlight withType:(unint64_t)type inPrivateBrowsing:(BOOL)browsing
 {
   highlightCopy = highlight;
+  v10 = highlightCopy;
   if (!browsing)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXInterstellar(highlightCopy, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [WBSHighlightManager sendFeedbackForHighlight:v9 withType:highlightCopy inPrivateBrowsing:type];
+      [WBSHighlightManager sendFeedbackForHighlight:v11 withType:v10 inPrivateBrowsing:type];
     }
 
-    [(SLHighlightCenter *)self->_highlightCenter feedbackForHighlight:highlightCopy withType:type completionBlock:0];
+    [(SLHighlightCenter *)self->_highlightCenter feedbackForHighlight:v10 withType:type completionBlock:0];
   }
 }
 
@@ -456,48 +461,48 @@ uint64_t __38__WBSHighlightManager__setHighlights___block_invoke(uint64_t a1, vo
 
 void __40__WBSHighlightManager__updateHighlights__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-  v8 = v7;
+  v8 = WBS_LOG_CHANNEL_PREFIXInterstellar(v6, v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __40__WBSHighlightManager__updateHighlights__block_invoke_2_cold_1(v8, v6);
+      __40__WBSHighlightManager__updateHighlights__block_invoke_2_cold_1(v9, v6);
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __40__WBSHighlightManager__updateHighlights__block_invoke_30;
     block[3] = &unk_1E8283A38;
-    v9 = &v15;
-    objc_copyWeak(&v15, (a1 + 32));
+    v10 = &v16;
+    objc_copyWeak(&v16, (a1 + 32));
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = v8;
+      v11 = v9;
       *buf = 134217984;
-      v17 = [v5 count];
-      _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Fetched %ld Highlights.", buf, 0xCu);
+      v18 = [v5 count];
+      _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Fetched %ld Highlights.", buf, 0xCu);
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __40__WBSHighlightManager__updateHighlights__block_invoke_31;
-    v11[3] = &unk_1E8283C90;
-    v9 = &v13;
-    objc_copyWeak(&v13, (a1 + 32));
-    v12 = v5;
-    dispatch_async(MEMORY[0x1E69E96A0], v11);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __40__WBSHighlightManager__updateHighlights__block_invoke_31;
+    v12[3] = &unk_1E8283C90;
+    v10 = &v14;
+    objc_copyWeak(&v14, (a1 + 32));
+    v13 = v5;
+    dispatch_async(MEMORY[0x1E69E96A0], v12);
   }
 
-  objc_destroyWeak(v9);
+  objc_destroyWeak(v10);
 }
 
 void __40__WBSHighlightManager__updateHighlights__block_invoke_30(uint64_t a1)
@@ -575,36 +580,36 @@ void __40__WBSHighlightManager__updateHighlights__block_invoke_31(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-void __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_invoke(uint64_t a1)
+void __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXInterstellar(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
+    v4 = *(a1 + 32);
+    v5 = v3;
     *buf = 134217984;
-    v17 = [v3 count];
-    _os_log_impl(&dword_1C6968000, v4, OS_LOG_TYPE_INFO, "%ld Highlight(s) removed.", buf, 0xCu);
+    v18 = [v4 count];
+    _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "%ld Highlight(s) removed.", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_invoke_33;
-  v15[3] = &unk_1E8285710;
-  v5 = *(a1 + 32);
-  v15[4] = *(a1 + 40);
-  v6 = [v5 safari_setByApplyingBlock:v15];
-  [*(a1 + 40) _handleRemovalOfHighlights:v6];
-  v7 = *(*(a1 + 40) + 64);
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_invoke_2;
-  v13 = &unk_1E82856A0;
-  v14 = v6;
-  v8 = v6;
-  v9 = [v7 safari_filterObjectsUsingBlock:&v10];
-  [*(a1 + 40) _setHighlights:{v9, v10, v11, v12, v13}];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_invoke_33;
+  v16[3] = &unk_1E8285710;
+  v6 = *(a1 + 32);
+  v16[4] = *(a1 + 40);
+  v7 = [v6 safari_setByApplyingBlock:v16];
+  [*(a1 + 40) _handleRemovalOfHighlights:v7];
+  v8 = *(*(a1 + 40) + 64);
+  v11 = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_invoke_2;
+  v14 = &unk_1E82856A0;
+  v15 = v7;
+  v9 = v7;
+  v10 = [v8 safari_filterObjectsUsingBlock:&v11];
+  [*(a1 + 40) _setHighlights:{v10, v11, v12, v13, v14}];
 }
 
 id __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_invoke_33(uint64_t a1, void *a2)
@@ -634,13 +639,13 @@ uint64_t __59__WBSHighlightManager_highlightCenter_didRemoveHighlights___block_i
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __55__WBSHighlightManager_highlightCenterDidAddHighlights___block_invoke(uint64_t a1)
+uint64_t __55__WBSHighlightManager_highlightCenterDidAddHighlights___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXInterstellar(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C6968000, v2, OS_LOG_TYPE_INFO, "Highlight Center did add Highlights.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C6968000, v3, OS_LOG_TYPE_INFO, "Highlight Center did add Highlights.", v5, 2u);
   }
 
   return [*(a1 + 32) _updateHighlights];
@@ -667,7 +672,9 @@ void __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler___blo
   v3 = a1;
   v4 = [a2 attributionPresenterURL];
   v5 = [v4 safari_userVisibleString];
-  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v6, v7, "Defer checking for Highlight for tab with URL: %{private}@", v8, v9, v10, v11, 3u);
+  LODWORD(v12) = 138477827;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v6, v7, "Defer checking for Highlight for tab with URL: %{private}@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (void)_showBannerIfNeededForPresenter:(void *)a1 .cold.1(void *a1, void *a2)
@@ -675,7 +682,9 @@ void __67__WBSHighlightManager_fetchMetadataForHighlight_completionHandler___blo
   v3 = a1;
   v4 = [a2 attributionPresenterURL];
   v5 = [v4 safari_userVisibleString];
-  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v6, v7, "Found a matching Highlight for tab with URL: %{private}@", v8, v9, v10, v11, 3u);
+  LODWORD(v12) = 138477827;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v6, v7, "Found a matching Highlight for tab with URL: %{private}@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (void)sendFeedbackForHighlight:(void *)a1 withType:(void *)a2 inPrivateBrowsing:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)

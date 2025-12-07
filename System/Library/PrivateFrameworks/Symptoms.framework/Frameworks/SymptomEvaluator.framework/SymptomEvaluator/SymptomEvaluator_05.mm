@@ -174,7 +174,7 @@ void *RemovePMDependencies(void *result, uint64_t a2)
       v5 = v3[1];
       result = DetachAssociatedDependencies(v4, *(*v3 + 8), a2);
       *(v6 + 8) = result;
-      v7 = *(v4 + 48);
+      v7 = v4[6];
       *(*(v7 + 472) + 32) = v3;
       **(*(v7 + 472) + 32) = *(*(*(v7 + 472) + 40) + 128);
       *(*(*(v7 + 472) + 40) + 128) = *(*(v7 + 472) + 32);
@@ -224,7 +224,7 @@ void *RemoveLogicalSupport(void *result, uint64_t a2)
       v5[1] = result;
       if (result)
       {
-        v7 = *(v4 + 48);
+        v7 = v4[6];
         *(*(v7 + 472) + 32) = v2;
         **(*(v7 + 472) + 32) = *(*(*(v7 + 472) + 40) + 128);
         v8 = *(v7 + 472);
@@ -236,7 +236,7 @@ void *RemoveLogicalSupport(void *result, uint64_t a2)
       else
       {
         result = (*(*v5 + 64))(v4, v5);
-        v11 = *(v4 + 48);
+        v11 = v4[6];
         v12 = *(v11 + 144);
         v9 = (v11 + 144);
         v2[1] = *(v12 + 32);
@@ -413,7 +413,7 @@ uint64_t DependentsCommand(uint64_t a1)
   return result;
 }
 
-uint64_t Function0Parse(uint64_t a1, char *a2)
+unsigned __int16 *Function0Parse(uint64_t a1, char *a2)
 {
   memset(v5, 0, sizeof(v5));
   GetToken(a1, a2, v5);
@@ -426,7 +426,7 @@ uint64_t Function0Parse(uint64_t a1, char *a2)
   return 0;
 }
 
-uint64_t Function1Parse(uint64_t a1, char *a2)
+unsigned __int16 *Function1Parse(uint64_t a1, char *a2)
 {
   v5 = 0;
   v6 = 0;
@@ -723,10 +723,11 @@ LABEL_9:
     }
 
 LABEL_17:
-    if (*(v8 + 2))
+    v16 = *(v8 + 2);
+    if (v16)
     {
-      *v8;
-      if (ReplaceSequenceExpansionOps(a1))
+      v17 = *v8 - 30 >= 3 ? a3 : v8;
+      if (ReplaceSequenceExpansionOps(a1, v16, v17, a4, a5))
       {
         return 1;
       }
@@ -766,7 +767,7 @@ LABEL_8:
       v8 = v6;
       if (v7)
       {
-        v9 = v7 + 3;
+        v9 = (v7 + 12);
       }
 
       else
@@ -793,7 +794,7 @@ LABEL_8:
   return a2;
 }
 
-uint64_t CheckExpressionAgainstRestrictions(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
+uint64_t CheckExpressionAgainstRestrictions(void *a1, uint64_t a2, uint64_t a3, char *a4)
 {
   v4 = a3;
   v23[1] = 0;
@@ -929,7 +930,7 @@ LABEL_18:
   return v4;
 }
 
-void *ArgumentParse(uint64_t a1, char *a2, _DWORD *a3)
+unsigned __int16 *ArgumentParse(uint64_t a1, char *a2, _DWORD *a3)
 {
   v8 = 0;
   v9 = 0;
@@ -964,7 +965,7 @@ void *ArgumentParse(uint64_t a1, char *a2, _DWORD *a3)
   return result;
 }
 
-void *ParseAtomOrExpression(uint64_t a1, char *a2, unsigned __int16 *a3)
+unsigned __int16 *ParseAtomOrExpression(uint64_t a1, char *a2, unsigned __int16 *a3)
 {
   v3 = a3;
   memset(v9, 0, sizeof(v9));
@@ -1154,7 +1155,7 @@ uint64_t RemoveUnneededProgn(uint64_t a1, uint64_t a2)
 
 uint64_t extractLibtraceSymptomElements(void *a1, __CFString **a2, void *a3, __CFString **a4, void *a5)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v9 = a1;
   if ([v9 processName] && !strcmp(objc_msgSend(v9, "processName"), "assistantd"))
   {
@@ -1241,91 +1242,91 @@ LABEL_19:
     goto LABEL_17;
   }
 
+  v27 = [v9 eventQualifiers];
+  v56 = [v27 objectForKeyedSubscript:@"4"];
+
   v28 = [v9 eventQualifiers];
-  v57 = [v28 objectForKeyedSubscript:@"4"];
+  v54 = [v28 objectForKeyedSubscript:@"5"];
 
   v29 = [v9 eventQualifiers];
-  v55 = [v29 objectForKeyedSubscript:@"5"];
+  v53 = [v29 objectForKeyedSubscript:@"6"];
 
   v30 = [v9 eventQualifiers];
-  v54 = [v30 objectForKeyedSubscript:@"6"];
+  v57 = [v30 objectForKeyedSubscript:@"7"];
 
-  v31 = [v9 eventQualifiers];
-  v58 = [v31 objectForKeyedSubscript:@"7"];
-
-  if ([v54 length])
+  if ([v53 length])
   {
-    v56 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v54, "bytes")}];
-    v32 = uuid_to_pid(v56);
-    if (v32 == -1)
+    v55 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v53, "bytes")}];
+    v31 = uuid_to_pid(v55);
+    if (v31 == -1)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
     else
     {
-      v33 = pid_to_process_name(v32);
+      v32 = pid_to_process_name(v31);
     }
 
-    uuid_to_bundleid(v56);
-    v34 = v35 = v55;
+    uuid_to_bundleid(v55);
+    v33 = v34 = v54;
   }
 
   else
   {
+    v32 = 0;
     v33 = 0;
-    v34 = 0;
-    v56 = 0;
-    v35 = v55;
+    v55 = 0;
+    v34 = v54;
   }
 
-  if (v33 | v34)
+  if (v32 | v33)
   {
-    v36 = v33;
+    v35 = v32;
   }
 
-  else if ([v35 length])
+  else if ([v34 length])
   {
-    v37 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v35, "bytes")}];
+    v36 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v34, "bytes")}];
 
-    v38 = uuid_to_pid(v37);
-    if (v38 == -1)
+    v37 = uuid_to_pid(v36);
+    if (v37 == -1)
     {
-      v36 = 0;
+      v35 = 0;
     }
 
     else
     {
-      v36 = pid_to_process_name(v38);
+      v35 = pid_to_process_name(v37);
     }
 
-    uuid_to_bundleid(v37);
-    v34 = v56 = v37;
+    uuid_to_bundleid(v36);
+    v33 = v55 = v36;
   }
 
   else
   {
-    v36 = 0;
-    v34 = 0;
+    v35 = 0;
+    v33 = 0;
   }
 
-  v59 = 0;
-  v39 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v57 options:0 error:{&v59, v34}];
-  v40 = v59;
-  v53 = v39;
-  if (!v39 || v40)
+  v58 = 0;
+  v38 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v56 options:0 error:{&v58, v33}];
+  v39 = v58;
+  v52 = v38;
+  if (!v38 || v39)
   {
-    v51 = v40;
-    v44 = rnfLogHandle;
+    v50 = v39;
+    v43 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v45 = v44;
-      v46 = [v57 description];
+      v44 = v43;
+      v45 = [v56 description];
       *buf = 138412546;
-      v61 = v46;
-      v62 = 2112;
-      v63 = v51;
-      _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "libtrace symptom unable to create JSON object from libtrace data %@ because %@. This would be ok for older clients.", buf, 0x16u);
+      v60 = v45;
+      v61 = 2112;
+      v62 = v50;
+      _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, "libtrace symptom unable to create JSON object from libtrace data %@ because %@. This would be ok for older clients.", buf, 0x16u);
     }
 
     goto LABEL_52;
@@ -1334,37 +1335,37 @@ LABEL_19:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v51 = 0;
+    v50 = 0;
 LABEL_52:
     v18 = 0;
     v20 = 0;
     goto LABEL_53;
   }
 
-  v20 = [v39 objectForKeyedSubscript:@"name"];
-  v41 = [v53 objectForKeyedSubscript:@"interfaceType"];
-  v42 = v41;
-  if (v41)
+  v20 = [v38 objectForKeyedSubscript:@"name"];
+  v40 = [v52 objectForKeyedSubscript:@"interfaceType"];
+  v41 = v40;
+  if (v40)
   {
-    v43 = stringFromPayloadInterfaceType(v41);
+    v42 = stringFromPayloadInterfaceType(v40);
   }
 
   else
   {
-    v43 = @"Other";
+    v42 = @"Other";
   }
 
-  v18 = v43;
+  v18 = v42;
 
-  v51 = 0;
+  v50 = 0;
 LABEL_53:
-  v47 = v36;
-  if (!v36)
+  v46 = v35;
+  if (!v35)
   {
-    v47 = [v9 processName];
-    if (v47)
+    v46 = [v9 processName];
+    if (v46)
     {
-      v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:{objc_msgSend(v9, "processName")}];
+      v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:{objc_msgSend(v9, "processName")}];
     }
   }
 
@@ -1373,10 +1374,10 @@ LABEL_53:
     v20 = @"SYMPTOM_LIBTRACE_OS_LOG";
   }
 
-  v52 = v47;
-  if ([v47 length])
+  v51 = v46;
+  if ([v46 length])
   {
-    v19 = v52;
+    v19 = v51;
   }
 
   else
@@ -1384,11 +1385,11 @@ LABEL_53:
     v19 = 0;
   }
 
-  if ([v58 length])
+  if ([v57 length])
   {
-    v48 = objc_alloc(MEMORY[0x277CCACA8]);
-    v49 = v58;
-    v17 = [v48 initWithBytes:objc_msgSend(v58 length:"bytes") encoding:{objc_msgSend(v58, "length"), 4}];
+    v47 = objc_alloc(MEMORY[0x277CCACA8]);
+    v48 = v57;
+    v17 = [v47 initWithBytes:objc_msgSend(v57 length:"bytes") encoding:{objc_msgSend(v57, "length"), 4}];
   }
 
   else
@@ -1423,7 +1424,6 @@ LABEL_21:
     *a5 = v17;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -1571,7 +1571,7 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void *DefmoduleBasicCommands(uint64_t a1)
+_DWORD *DefmoduleBasicCommands(uint64_t a1)
 {
   EnvAddClearFunction(a1, "defmodule", ClearDefmodules, 2000);
   AddSaveFunction(a1, "defmodule", SaveDefmodules, 1100);
@@ -1582,20 +1582,20 @@ void *DefmoduleBasicCommands(uint64_t a1)
   return DefmoduleBinarySetup(a1);
 }
 
-uint64_t ClearDefmodules(uint64_t a1)
+uint64_t ClearDefmodules(void *a1)
 {
   result = Bloaded(a1);
   if (result != 1)
   {
     RemoveAllDefmodules(a1);
     result = CreateMainModule(a1);
-    *(*(*(a1 + 48) + 32) + 80) = 1;
+    *(*(a1[6] + 32) + 80) = 1;
   }
 
   return result;
 }
 
-uint64_t SaveDefmodules(uint64_t a1, uint64_t a2, FILE *a3)
+char *SaveDefmodules(uint64_t a1, uint64_t a2, FILE *a3)
 {
   result = EnvGetActivationBasis(a1, a2);
   if (result)
@@ -1682,7 +1682,7 @@ char *PPDefmoduleCommand(uint64_t a1)
   return result;
 }
 
-uint64_t PPDefmodule(uint64_t a1, char *a2, uint64_t a3)
+uint64_t PPDefmodule(uint64_t a1, char *a2, FILE *a3)
 {
   Defmodule = EnvFindDefmodule(a1, a2);
   if (Defmodule)
@@ -1738,11 +1738,11 @@ uint64_t SortFunctionDefinitions(uint64_t a1)
   return EnvDefineFunction2(a1, "sort", 117, SortFunction, "SortFunction", "1**w");
 }
 
-uint64_t SortFunction(uint64_t a1, uint64_t a2)
+uint64_t SortFunction(void *a1, uint64_t a2)
 {
   *(a2 + 8) = 2;
   *(a2 + 16) = EnvFalseSymbol(a1);
-  result = EnvArgCountCheck(a1, "sort", 1u, 1);
+  result = EnvArgCountCheck(a1, "sort", 1, 1);
   if (result == -1)
   {
     return result;
@@ -1752,7 +1752,7 @@ uint64_t SortFunction(uint64_t a1, uint64_t a2)
   v48 = 0u;
   v49 = 0u;
   v47 = 0u;
-  result = EnvArgTypeCheck(a1, "sort", 1, 2, &v47);
+  result = EnvArgTypeCheck(a1, "sort", 1, 2u, &v47);
   if (!result)
   {
     return result;
@@ -1882,7 +1882,7 @@ LABEL_39:
 
   while (v24++ != v12);
   genfree(a1, v15, v13);
-  v37 = *(a1 + 48);
+  v37 = a1[6];
   *(v7 + 3) = **(v37 + 56);
   **(v37 + 56) = v7;
   if (v16 < 1)
@@ -1915,7 +1915,7 @@ LABEL_39:
     while (v41);
   }
 
-  **(*(a1 + 48) + 56) = *(**(*(a1 + 48) + 56) + 24);
+  **(a1[6] + 56) = *(**(a1[6] + 56) + 24);
   *(v7 + 3) = 0;
   ReturnExpression(a1, v7);
   Multifield = EnvCreateMultifield(a1, v16);
@@ -1945,7 +1945,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t MergeSort(uint64_t result, unint64_t a2, uint64_t a3, unsigned int (*a4)(uint64_t, uint64_t, uint64_t))
+uint64_t MergeSort(uint64_t result, unint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
   if (a2 >= 2)
   {
@@ -1960,20 +1960,20 @@ uint64_t MergeSort(uint64_t result, unint64_t a2, uint64_t a3, unsigned int (*a4
   return result;
 }
 
-BOOL DefaultCompareSwapFunction(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL DefaultCompareSwapFunction(void *a1, uint64_t a2, uint64_t a3)
 {
   v10 = 0u;
   v11 = 0u;
   v9 = 0u;
-  *(**(*(a1 + 48) + 56) + 16) = GenConstant(a1, *(a2 + 8), *(a2 + 16));
+  *(**(a1[6] + 56) + 16) = GenConstant(a1, *(a2 + 8), *(a2 + 16));
   v5 = GenConstant(a1, *(a3 + 8), *(a3 + 16));
-  v6 = *(a1 + 48);
+  v6 = a1[6];
   *(*(**(v6 + 56) + 16) + 24) = v5;
   ExpressionInstall(a1, **(v6 + 56));
-  EvaluateExpression(a1, **(*(a1 + 48) + 56), &v9);
-  ExpressionDeinstall(a1, **(*(a1 + 48) + 56));
-  ReturnExpression(a1, *(**(*(a1 + 48) + 56) + 16));
-  *(**(*(a1 + 48) + 56) + 16) = 0;
+  EvaluateExpression(a1, **(a1[6] + 56), &v9);
+  ExpressionDeinstall(a1, **(a1[6] + 56));
+  ReturnExpression(a1, *(**(a1[6] + 56) + 16));
+  *(**(a1[6] + 56) + 16) = 0;
   result = 1;
   if (WORD4(v9) == 2)
   {
@@ -1987,7 +1987,7 @@ BOOL DefaultCompareSwapFunction(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void DoMergeSort(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, unsigned int (*a8)(uint64_t, uint64_t, uint64_t))
+void DoMergeSort(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t))
 {
   v11 = a4;
   memset(v22, 0, sizeof(v22));
@@ -1995,7 +1995,7 @@ void DoMergeSort(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t 
   {
     if (a4 + 1 == a5)
     {
-      if (a8(a1, a2 + 48 * a4, a2 + 48 * a5))
+      if (a8(result, a2 + 48 * a4, a2 + 48 * a5))
       {
         TransferDataObjectValues(v22, a2 + 48 * v11);
         TransferDataObjectValues(a2 + 48 * v11, a2 + 48 * a5);
@@ -2005,7 +2005,7 @@ void DoMergeSort(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t 
 
     else
     {
-      DoMergeSort(a1, a2, a3, a4, a4 + ((a5 - a4 + 2) >> 1) - 1, a4 + ((a5 - a4 + 2) >> 1), a5, a8);
+      DoMergeSort(result, a2, a3, a4, a4 + ((a5 - a4 + 2) >> 1) - 1, a4 + ((a5 - a4 + 2) >> 1), a5, a8);
     }
   }
 
@@ -2013,7 +2013,7 @@ void DoMergeSort(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t 
   {
     if (a6 + 1 == a7)
     {
-      if (a8(a1, a2 + 48 * a6, a2 + 48 * a7))
+      if (a8(result, a2 + 48 * a6, a2 + 48 * a7))
       {
         TransferDataObjectValues(v22, a2 + 48 * a6);
         TransferDataObjectValues(a2 + 48 * a6, a2 + 48 * a7);
@@ -2023,7 +2023,7 @@ void DoMergeSort(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t 
 
     else
     {
-      DoMergeSort(a1, a2, a3, a6, a6 + ((a7 - a6 + 2) >> 1) - 1, a6 + ((a7 - a6 + 2) >> 1), a7, a8);
+      DoMergeSort(result, a2, a3, a6, a6 + ((a7 - a6 + 2) >> 1) - 1, a6 + ((a7 - a6 + 2) >> 1), a7, a8);
     }
   }
 
@@ -2035,7 +2035,7 @@ void DoMergeSort(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t 
     v16 = v11;
     do
     {
-      if (v16 > a5 || a6 <= a7 && a8(a1, a2 + 48 * v16, a2 + 48 * a6))
+      if (v16 > a5 || a6 <= a7 && a8(result, a2 + 48 * v16, a2 + 48 * a6))
       {
         TransferDataObjectValues(v14, a2 + 48 * a6++);
       }
@@ -2108,21 +2108,19 @@ BOOL BsaveCommand(void *a1)
 
 uint64_t EnvBsave(void *a1, char *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (Bloaded(a1))
   {
     PrintErrorID(a1, "BSAVE", 1, 0);
     EnvPrintRouter(a1, "werror", "Cannot perform a binary save while a binary load is in effect.\n");
-LABEL_3:
-    result = 0;
-    goto LABEL_47;
+    return 0;
   }
 
   v5 = GenOpen(a1, a2, "wb");
   if (!v5)
   {
     OpenErrorMessage(a1, "bsave", a2);
-    goto LABEL_3;
+    return 0;
   }
 
   v6 = v5;
@@ -2183,9 +2181,9 @@ LABEL_3:
     v14 = 0;
   }
 
-  *v28 = v14;
-  GenWrite(v28, 8uLL, v6);
-  if (*v28)
+  *v27 = v14;
+  GenWrite(v27, 8uLL, v6);
+  if (*v27)
   {
     v15 = GetFunctionList(a1);
     if (v15)
@@ -2233,7 +2231,7 @@ LABEL_3:
 
   else
   {
-    GenWrite(v28, 8uLL, v6);
+    GenWrite(v27, 8uLL, v6);
   }
 
   WriteNeededAtomicValues(a1, v6);
@@ -2258,8 +2256,8 @@ LABEL_3:
     v21 = a1[6];
   }
 
-  genstrncpy(v28, **(v21 + 304), 0x14uLL);
-  GenWrite(v28, 0x14uLL, v6);
+  genstrncpy(v27, **(v21 + 304), 0x14uLL);
+  GenWrite(v27, 0x14uLL, v6);
   *(*(a1[6] + 360) + 64) = 0;
   BsaveHashedExpressions(a1, v6);
   v23 = *(*(a1[6] + 360) + 64);
@@ -2286,15 +2284,12 @@ LABEL_3:
     v24 = a1[6];
   }
 
-  genstrncpy(v28, **(v24 + 304), 0x14uLL);
-  GenWrite(v28, 0x14uLL, v6);
+  genstrncpy(v27, **(v24 + 304), 0x14uLL);
+  GenWrite(v27, 0x14uLL, v6);
   RestoreAtomicValueBuckets(a1);
   GenClose(a1, v6);
   RestoreCurrentModule(a1);
-  result = 1;
-LABEL_47:
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 void *SaveBloadCount(uint64_t a1, uint64_t a2)
@@ -2400,9 +2395,10 @@ LABEL_11:
       }
 
 LABEL_13:
-      if (*(v2 + 2))
+      v6 = *(v2 + 2);
+      if (v6)
       {
-        result = MarkNeededItems(v3);
+        result = MarkNeededItems(v3, v6);
       }
 
       v2 = *(v2 + 3);
@@ -2446,17 +2442,16 @@ uint64_t AddBinaryItem(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   if (!v23)
   {
     v22[9] = 0;
-LABEL_14:
+LABEL_13:
     v26 = *(v21 + 312);
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   if (*(v23 + 64) <= a3)
   {
-    v27 = **(v21 + 312);
-LABEL_13:
+LABEL_12:
     v22[9] = v23;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   v24 = **(v21 + 312);
@@ -2473,7 +2468,7 @@ LABEL_13:
     {
       if (!v25)
       {
-        goto LABEL_13;
+        goto LABEL_12;
       }
 
       break;
@@ -2482,7 +2477,7 @@ LABEL_13:
 
   v22[9] = v24;
   v26 = (v25 + 72);
-LABEL_15:
+LABEL_14:
   *v26 = v22;
   return 1;
 }
@@ -2824,21 +2819,14 @@ LABEL_92:
             v58 = 0;
             do
             {
-              v59 = *v57;
-              v60 = *(v57 + 1);
-              if (CheckAllowedClassesConstraint())
+              if (CheckAllowedClassesConstraint() && CheckAllowedClassesConstraint())
               {
-                v61 = *v57;
-                v62 = *(v57 + 1);
-                if (CheckAllowedClassesConstraint())
-                {
-                  v63 = GenConstant(a1, *v57, *(v57 + 1));
-                  *(v63 + 3) = v58;
-                  v58 = v63;
-                }
+                v59 = GenConstant(a1, *v57, *(v57 + 8));
+                *(v59 + 3) = v58;
+                v58 = v59;
               }
 
-              v57 = *(v57 + 3);
+              v57 = *(v57 + 24);
             }
 
             while (v57);
@@ -2853,11 +2841,11 @@ LABEL_92:
           {
             if (v58)
             {
-              v65 = v58;
-              while (*v65 != *j || *(v65 + 1) != *(j + 1))
+              v61 = v58;
+              while (*v61 != *j || *(v61 + 1) != *(j + 1))
               {
-                v65 = *(v65 + 3);
-                if (!v65)
+                v61 = *(v61 + 3);
+                if (!v61)
                 {
                   goto LABEL_110;
                 }
@@ -2867,16 +2855,11 @@ LABEL_92:
             else
             {
 LABEL_110:
-              if (CheckAllowedClassesConstraint())
+              if (CheckAllowedClassesConstraint() && CheckAllowedClassesConstraint())
               {
-                v66 = *j;
-                v67 = *(j + 1);
-                if (CheckAllowedClassesConstraint())
-                {
-                  v68 = GenConstant(a1, *j, *(j + 1));
-                  *(v68 + 3) = v58;
-                  v58 = v68;
-                }
+                v62 = GenConstant(a1, *j, *(j + 1));
+                *(v62 + 3) = v58;
+                v58 = v62;
               }
             }
           }
@@ -2890,9 +2873,9 @@ LABEL_110:
             return ConstraintRecord;
           }
 
-          v69 = IntersectConstraints(a1, *(v6 + 56), *(a3 + 56));
-          *(ConstraintRecord + 7) = v69;
-          if (!UnmatchableConstraint(v69))
+          v63 = IntersectConstraints(a1, *(v6 + 56), *(a3 + 56));
+          *(ConstraintRecord + 7) = v63;
+          if (!UnmatchableConstraint(v63))
           {
             return ConstraintRecord;
           }
@@ -2916,7 +2899,7 @@ LABEL_110:
   return CopyConstraintRecord(a1, a2);
 }
 
-uint64_t IntersectNumericExpressions(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4, int a5)
+uint64_t IntersectNumericExpressions(uint64_t result, uint64_t a2, uint64_t a3, unsigned __int32 *a4, int a5)
 {
   v5 = a4;
   v6 = 24;
@@ -3033,18 +3016,18 @@ uint64_t IntersectNumericExpressions(uint64_t result, uint64_t a2, uint64_t a3, 
   {
     if (v26)
     {
-      ReturnExpression(v8, a4[3]);
-      result = ReturnExpression(v8, a4[4]);
-      a4[3] = v32;
-      a4[4] = v31;
+      ReturnExpression(v8, *(a4 + 3));
+      result = ReturnExpression(v8, *(a4 + 4));
+      *(a4 + 3) = v32;
+      *(a4 + 4) = v31;
     }
 
     else
     {
-      ReturnExpression(v8, a4[5]);
-      result = ReturnExpression(v8, a4[6]);
-      a4[5] = v32;
-      a4[6] = v31;
+      ReturnExpression(v8, *(a4 + 5));
+      result = ReturnExpression(v8, *(a4 + 6));
+      *(a4 + 5) = v32;
+      *(a4 + 6) = v31;
     }
   }
 
@@ -3198,7 +3181,7 @@ LABEL_38:
   return result;
 }
 
-void *UnionConstraints(uint64_t a1, uint64_t a2, uint64_t a3)
+void *UnionConstraints(unsigned __int32 *a1, uint64_t a2, uint64_t a3)
 {
   if (!(a2 | a3))
   {
@@ -3489,7 +3472,7 @@ LABEL_55:
   return CopyConstraintRecord(a1, a2);
 }
 
-uint64_t UnionNumericExpressions(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+unsigned __int32 *UnionNumericExpressions(unsigned __int32 *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   v8 = result;
   v22 = 0;
@@ -4015,7 +3998,7 @@ uint64_t ClearBload_0(uint64_t result)
   return result;
 }
 
-const void *BsaveDriver(const void *result, int a2, FILE *a3, uint64_t a4)
+void *BsaveDriver(void *result, int a2, FILE *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4090,7 +4073,7 @@ const void *BsaveDriver(const void *result, int a2, FILE *a3, uint64_t a4)
 
         else
         {
-          v10 = *(*(v6 + 48) + 496);
+          v10 = *(v6[6] + 496);
           v11 = *(v10 + 8);
           *(v10 + 8) = v11 + 1;
           *(a4 + 40) = v11;
@@ -4207,7 +4190,7 @@ void __libnetcoreSymptomTrampoline_block_invoke(uint64_t a1, uint64_t a2, uint64
 
 void cell_server_connection_callback(const void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   v7 = a3;
   if (CFEqual(a1, *MEMORY[0x277CC3BB8]))
   {
@@ -4218,7 +4201,7 @@ void cell_server_connection_callback(const void *a1, void *a2, void *a3, uint64_
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v81 = v8;
+        *v80 = v8;
         _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "eLQM: CT payload containing eLQM supported metrics: %@", buf, 0xCu);
       }
 
@@ -4229,8 +4212,8 @@ void cell_server_connection_callback(const void *a1, void *a2, void *a3, uint64_
         block[1] = 3221225472;
         block[2] = __cell_server_connection_callback_block_invoke;
         block[3] = &unk_27898A7D0;
-        v78 = v7;
-        v79 = v8;
+        v77 = v7;
+        v78 = v8;
         dispatch_async(v10, block);
       }
 
@@ -4264,7 +4247,7 @@ LABEL_18:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v81 = a2;
+      *v80 = a2;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "eLQM: RegistrationCell notification: %@", buf, 0xCu);
     }
 
@@ -4274,14 +4257,14 @@ LABEL_18:
     }
 
     v12 = [v7 queue];
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __cell_server_connection_callback_block_invoke_175;
-    v75[3] = &unk_27898A0C8;
-    v76 = v7;
-    dispatch_async(v12, v75);
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __cell_server_connection_callback_block_invoke_175;
+    v74[3] = &unk_27898A0C8;
+    v75 = v7;
+    dispatch_async(v12, v74);
 
-    v13 = v76;
+    v13 = v75;
 LABEL_13:
 
 LABEL_17:
@@ -4296,12 +4279,12 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v21 = netepochsLogHandle;
+    v20 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v81 = a2;
-      _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "eLQM: RegistrationDataStatus notification: %@", buf, 0xCu);
+      *v80 = a2;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "eLQM: RegistrationDataStatus notification: %@", buf, 0xCu);
     }
 
     Value = CFDictionaryGetValue(a2, *MEMORY[0x277CC3C30]);
@@ -4310,31 +4293,31 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v23 = Value;
-    v87.length = CFArrayGetCount(Value);
-    v87.location = 0;
-    if (!CFArrayContainsValue(v23, v87, *MEMORY[0x277CC39E0]))
+    v22 = Value;
+    v86.length = CFArrayGetCount(Value);
+    v86.location = 0;
+    if (!CFArrayContainsValue(v22, v86, *MEMORY[0x277CC39E0]))
     {
       goto LABEL_17;
     }
 
-    v24 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3C20]);
-    if (!v24)
+    v23 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3C20]);
+    if (!v23)
     {
       goto LABEL_17;
     }
 
-    v25 = v24;
-    v26 = CFGetTypeID(v24);
-    if (v26 != CFBooleanGetTypeID())
+    v24 = v23;
+    v25 = CFGetTypeID(v23);
+    if (v25 != CFBooleanGetTypeID())
     {
       goto LABEL_17;
     }
 
-    v27 = CFBooleanGetValue(v25);
+    v26 = CFBooleanGetValue(v24);
     valuePtr = 0;
-    v28 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3C38]);
-    if (!v28 || (v29 = v28, v30 = CFGetTypeID(v28), v30 != CFNumberGetTypeID()) || !CFNumberGetValue(v29, kCFNumberIntType, &valuePtr))
+    v27 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3C38]);
+    if (!v27 || (v28 = v27, v29 = CFGetTypeID(v27), v29 != CFNumberGetTypeID()) || !CFNumberGetValue(v28, kCFNumberIntType, &valuePtr))
     {
       v15 = 0;
       v16 = 0;
@@ -4343,19 +4326,19 @@ LABEL_91:
       goto LABEL_19;
     }
 
-    v31 = netepochsLogHandle;
+    v30 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v81 = v27;
-      *&v81[4] = 1024;
-      *&v81[6] = valuePtr;
-      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "CIS: Notification status = %d, PDP context id = %d", buf, 0xEu);
+      *v80 = v26;
+      *&v80[4] = 1024;
+      *&v80[6] = valuePtr;
+      _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "CIS: Notification status = %d, PDP context id = %d", buf, 0xEu);
     }
 
     if ([v7 _getCellSPIType] == 3)
     {
-      if (!v27)
+      if (!v26)
       {
         v15 = dword_2814D3014 != -2;
         if (dword_2814D3014 != -2)
@@ -4382,15 +4365,15 @@ LABEL_102:
           v16 = 0;
           if (a4)
           {
-            v32 = 100;
+            v31 = 100;
           }
 
           else
           {
-            v32 = -1;
+            v31 = -1;
           }
 
-          cellLqmState = v32;
+          cellLqmState = v31;
         }
 
         else
@@ -4402,15 +4385,15 @@ LABEL_102:
 LABEL_103:
         if (v7)
         {
-          v61 = [v7 queue];
-          v70[0] = MEMORY[0x277D85DD0];
-          v70[1] = 3221225472;
-          v70[2] = __cell_server_connection_callback_block_invoke_177;
-          v70[3] = &unk_27898D8C8;
-          v71 = v7;
-          v73 = v27;
-          v72 = valuePtr;
-          dispatch_async(v61, v70);
+          v60 = [v7 queue];
+          v69[0] = MEMORY[0x277D85DD0];
+          v69[1] = 3221225472;
+          v69[2] = __cell_server_connection_callback_block_invoke_177;
+          v69[3] = &unk_27898D8C8;
+          v70 = v7;
+          v72 = v26;
+          v71 = valuePtr;
+          dispatch_async(v60, v69);
         }
 
         goto LABEL_91;
@@ -4426,46 +4409,46 @@ LABEL_103:
     valuePtr = 0;
     if (a2)
     {
-      v33 = netepochsLogHandle;
+      v32 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v81 = a2;
-        _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "eLQM: EnhancedLinkQuality notification: %@", buf, 0xCu);
+        *v80 = a2;
+        _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEFAULT, "eLQM: EnhancedLinkQuality notification: %@", buf, 0xCu);
       }
 
-      v34 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3BB0]);
-      if (v34)
+      v33 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3BB0]);
+      if (v33)
       {
-        v35 = v34;
-        v36 = CFGetTypeID(v34);
-        if (v36 == CFNumberGetTypeID())
+        v34 = v33;
+        v35 = CFGetTypeID(v33);
+        if (v35 == CFNumberGetTypeID())
         {
-          if (CFNumberGetValue(v35, kCFNumberIntType, &valuePtr))
+          if (CFNumberGetValue(v34, kCFNumberIntType, &valuePtr))
           {
-            v37 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3BA8]);
-            a2 = v37;
+            v36 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3BA8]);
+            a2 = v36;
             buffer = 0;
-            if (v37 && (v38 = CFGetTypeID(v37), v38 == CFDataGetTypeID()))
+            if (v36 && (v37 = CFGetTypeID(v36), v37 == CFDataGetTypeID()))
             {
-              v88.location = 0;
-              v88.length = 1;
-              CFDataGetBytes(a2, v88, &buffer);
+              v87.location = 0;
+              v87.length = 1;
+              CFDataGetBytes(a2, v87, &buffer);
               if (buffer - 1 <= 1)
               {
-                v39 = a2;
+                v38 = a2;
                 if (valuePtr > 19)
                 {
                   if (valuePtr <= 21)
                   {
                     if (valuePtr == 20)
                     {
-                      [v7 processCellDataTransferTimeEnabledNotification:v39];
+                      [v7 processCellDataTransferTimeEnabledNotification:v38];
                     }
 
                     else
                     {
-                      [v7 processCellLinkPowerCostNotification:v39];
+                      [v7 processCellLinkPowerCostNotification:v38];
                     }
 
                     goto LABEL_127;
@@ -4473,16 +4456,16 @@ LABEL_103:
 
                   if (valuePtr == 22)
                   {
-                    [v7 processCellDataStallNotification:v39];
+                    [v7 processCellDataStallNotification:v38];
                     goto LABEL_127;
                   }
 
                   if (valuePtr == 23)
                   {
-                    v63 = +[CoreTelephonyShim sharedInstance];
-                    v64 = [v63 processEnhancedLinkQualityHighThroughputNotification:v39];
-                    v65 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v64];
-                    [v7 processCellHighThroughputState:v65];
+                    v62 = +[CoreTelephonyShim sharedInstance];
+                    v63 = [v62 processEnhancedLinkQualityHighThroughputNotification:v38];
+                    v64 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v63];
+                    [v7 processCellHighThroughputState:v64];
 
                     goto LABEL_127;
                   }
@@ -4494,12 +4477,12 @@ LABEL_103:
                   {
                     if (valuePtr == 18)
                     {
-                      [v7 processCellTrafficClassNotification:v39];
+                      [v7 processCellTrafficClassNotification:v38];
                     }
 
                     else
                     {
-                      [v7 processCellDataTransferTimeNotification:v39];
+                      [v7 processCellDataTransferTimeNotification:v38];
                     }
 
                     goto LABEL_127;
@@ -4507,60 +4490,60 @@ LABEL_103:
 
                   if (valuePtr == 16)
                   {
-                    [v7 processCellLinkStateNotification:v39];
+                    [v7 processCellLinkStateNotification:v38];
                     goto LABEL_127;
                   }
 
                   if (valuePtr == 17)
                   {
-                    [v7 processCellLinkFingerprintNotification:v39];
+                    [v7 processCellLinkFingerprintNotification:v38];
 LABEL_127:
 
                     goto LABEL_18;
                   }
                 }
 
-                v66 = netepochsLogHandle;
+                v65 = netepochsLogHandle;
                 if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 67109120;
-                  *v81 = valuePtr;
-                  _os_log_impl(&dword_23255B000, v66, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB notification with unknown type, ntype = %u", buf, 8u);
+                  *v80 = valuePtr;
+                  _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB notification with unknown type, ntype = %u", buf, 8u);
                 }
 
                 goto LABEL_127;
               }
 
-              v62 = netepochsLogHandle;
+              v61 = netepochsLogHandle;
               if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_18;
               }
 
               *buf = 67109378;
-              *v81 = buffer;
-              *&v81[4] = 2112;
-              *&v81[6] = a2;
-              v57 = "eLQM: Received BB notification with unknown version = %d, payload = %@";
-              v58 = v62;
-              v59 = 18;
+              *v80 = buffer;
+              *&v80[4] = 2112;
+              *&v80[6] = a2;
+              v56 = "eLQM: Received BB notification with unknown version = %d, payload = %@";
+              v57 = v61;
+              v58 = 18;
             }
 
             else
             {
-              v56 = netepochsLogHandle;
+              v55 = netepochsLogHandle;
               if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_18;
               }
 
               *buf = 0;
-              v57 = "eLQM: Received BB notification with payload nil";
-              v58 = v56;
-              v59 = 2;
+              v56 = "eLQM: Received BB notification with payload nil";
+              v57 = v55;
+              v58 = 2;
             }
 
-            _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEFAULT, v57, buf, v59);
+            _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_DEFAULT, v56, buf, v58);
             goto LABEL_18;
           }
         }
@@ -4577,116 +4560,116 @@ LABEL_127:
 
     if (a2)
     {
-      v49 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3EC0]);
-      if (v49)
+      v48 = CFDictionaryGetValue(a2, *MEMORY[0x277CC3EC0]);
+      if (v48)
       {
-        v50 = CFGetTypeID(v49);
-        if (v50 != CFNullGetTypeID())
+        v49 = CFGetTypeID(v48);
+        if (v49 != CFNullGetTypeID())
         {
           if (!v7)
           {
             goto LABEL_17;
           }
 
-          v60 = [v7 queue];
-          v67[0] = MEMORY[0x277D85DD0];
-          v67[1] = 3221225472;
-          v67[2] = __cell_server_connection_callback_block_invoke_183;
-          v67[3] = &unk_27898A0C8;
-          v68 = v7;
-          dispatch_async(v60, v67);
+          v59 = [v7 queue];
+          v66[0] = MEMORY[0x277D85DD0];
+          v66[1] = 3221225472;
+          v66[2] = __cell_server_connection_callback_block_invoke_183;
+          v66[3] = &unk_27898A0C8;
+          v67 = v7;
+          dispatch_async(v59, v66);
 
-          v13 = v68;
+          v13 = v67;
           goto LABEL_13;
         }
       }
 
-      v51 = rnfLogHandle;
+      v50 = rnfLogHandle;
       if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_17;
       }
 
       *buf = 138412290;
-      *v81 = a2;
-      v46 = "kCTSIMSupportSIMStatusChangeNotification notificationInfo = %@";
-      v47 = v51;
-      v48 = OS_LOG_TYPE_ERROR;
+      *v80 = a2;
+      v45 = "kCTSIMSupportSIMStatusChangeNotification notificationInfo = %@";
+      v46 = v50;
+      v47 = OS_LOG_TYPE_ERROR;
       goto LABEL_82;
     }
 
-    v55 = rnfLogHandle;
+    v54 = rnfLogHandle;
     if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
     }
 
     *buf = 0;
-    v46 = "kCTSIMSupportSIMStatusChangeNotification with no info";
-    v47 = v55;
-    v48 = OS_LOG_TYPE_ERROR;
+    v45 = "kCTSIMSupportSIMStatusChangeNotification with no info";
+    v46 = v54;
+    v47 = OS_LOG_TYPE_ERROR;
 LABEL_94:
-    v52 = 2;
+    v51 = 2;
     goto LABEL_95;
   }
 
-  v40 = netepochsLogHandle;
-  v41 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
+  v39 = netepochsLogHandle;
+  v40 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
   if (!a2)
   {
-    if (!v41)
+    if (!v40)
     {
       goto LABEL_17;
     }
 
     *buf = 0;
-    v46 = "Invalid CT notification for key kCTCellularTransmitStateNotification, no info";
-    v47 = v40;
-    v48 = OS_LOG_TYPE_DEFAULT;
+    v45 = "Invalid CT notification for key kCTCellularTransmitStateNotification, no info";
+    v46 = v39;
+    v47 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_94;
   }
 
-  if (v41)
+  if (v40)
   {
     *buf = 138412290;
-    *v81 = a2;
-    _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "eLQM: CellularTransmitState notification: %@", buf, 0xCu);
+    *v80 = a2;
+    _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEFAULT, "eLQM: CellularTransmitState notification: %@", buf, 0xCu);
   }
 
-  v42 = CFDictionaryGetValue(a2, *MEMORY[0x277CC43B0]);
-  if (!v42 || (v43 = v42, v44 = CFGetTypeID(v42), v44 == CFNullGetTypeID()))
+  v41 = CFDictionaryGetValue(a2, *MEMORY[0x277CC43B0]);
+  if (!v41 || (v42 = v41, v43 = CFGetTypeID(v41), v43 == CFNullGetTypeID()))
   {
-    v45 = netepochsLogHandle;
+    v44 = netepochsLogHandle;
     if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
     *buf = 138412290;
-    *v81 = a2;
-    v46 = "Unexpected format in CT notification for key kCTCellularTransmitStateNotification, info: %@";
-    v47 = v45;
-    v48 = OS_LOG_TYPE_DEFAULT;
+    *v80 = a2;
+    v45 = "Unexpected format in CT notification for key kCTCellularTransmitStateNotification, info: %@";
+    v46 = v44;
+    v47 = OS_LOG_TYPE_DEFAULT;
 LABEL_82:
-    v52 = 12;
+    v51 = 12;
 LABEL_95:
-    _os_log_impl(&dword_23255B000, v47, v48, v46, buf, v52);
+    _os_log_impl(&dword_23255B000, v46, v47, v45, buf, v51);
     goto LABEL_17;
   }
 
-  v53 = v43;
-  v54 = netepochsLogHandle;
+  v52 = v42;
+  v53 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v81 = v53;
-    _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEFAULT, "Received CT notification for key kCTCellularTransmitStateNotification, cellTransmitState = %@", buf, 0xCu);
+    *v80 = v52;
+    _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_DEFAULT, "Received CT notification for key kCTCellularTransmitStateNotification, cellTransmitState = %@", buf, 0xCu);
   }
 
   v16 = v7 != 0;
   if (v7)
   {
-    cellRrcState = [v53 isEqualToString:@"CTCellularTransmitStarted"];
+    cellRrcState = [v52 isEqualToString:@"CTCellularTransmitStarted"];
   }
 
   a2 = 0;
@@ -4698,13 +4681,13 @@ LABEL_19:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      *v81 = a2;
-      *&v81[8] = 1024;
-      *&v81[10] = cellLqmState;
-      v82 = 1024;
-      v83 = cellRrcState;
-      v84 = 1024;
-      v85 = cellInterfaceState;
+      *v80 = a2;
+      *&v80[8] = 1024;
+      *&v80[10] = cellLqmState;
+      v81 = 1024;
+      v82 = cellRrcState;
+      v83 = 1024;
+      v84 = cellInterfaceState;
       _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "eLQM: Updated cell states (payload = %@): (LQM = %d, RRC = %d, INTF = %d)", buf, 0x1Eu);
     }
   }
@@ -4730,13 +4713,11 @@ LABEL_19:
   {
     [v7 handleLQMChange];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __cell_server_connection_callback_block_invoke_175(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [NetworkStateRelay getStateRelayFor:5];
   v3 = [v2 interfaceName];
 
@@ -4755,9 +4736,9 @@ void __cell_server_connection_callback_block_invoke_175(uint64_t a1)
         {
           v8 = v7;
           v9 = [v2 interfaceName];
-          v13 = 138412290;
-          v14 = v9;
-          _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "CT cell change notification on interface = %@, roaming = 1", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = v9;
+          _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "CT cell change notification on interface = %@, roaming = 1", &v12, 0xCu);
         }
 
         v10 = *(a1 + 32);
@@ -4766,13 +4747,11 @@ void __cell_server_connection_callback_block_invoke_175(uint64_t a1)
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void resync_tether_state(const __SCDynamicStore *a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v1 = SCDynamicStoreCopyValue(a1, @"com.apple.MobileInternetSharing");
   if (v1)
   {
@@ -4792,16 +4771,14 @@ void resync_tether_state(const __SCDynamicStore *a1)
     CFRelease(v2);
     v11 = +[PersonalHotspotRelay sharedInstance];
     [v11 updateWithState:v4 softAPClientCount:v10 wifiNanClientCount:v8];
-    v16 = @"State";
+    v15 = @"State";
     v12 = [MEMORY[0x277CCABB0] numberWithBool:v4 == 1023];
-    v17[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
     v14 = [MEMORY[0x277CCAB98] defaultCenter];
     [v14 postNotificationName:@"kNotificationOfTetheringState" object:_SCDynamicStoreCaller userInfo:v13];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __config_callback_block_invoke_205(uint64_t a1)
@@ -4845,7 +4822,7 @@ void __config_callback_block_invoke_206(uint64_t a1)
 
 void __config_callback_block_invoke_207(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _epochForInterfaceType:*(a1 + 56)];
   if (v2)
   {
@@ -4855,13 +4832,13 @@ void __config_callback_block_invoke_207(uint64_t a1)
       v4 = *(a1 + 56);
       v5 = *(a1 + 48);
       v6 = *(a1 + 52);
-      v12 = 134218496;
-      v13 = v4;
-      v14 = 1024;
-      v15 = v5;
-      v16 = 1024;
-      v17 = v6;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM upon DS notification on interface type %ld, LQM(old/new) = (%d/%d)", &v12, 0x18u);
+      v11 = 134218496;
+      v12 = v4;
+      v13 = 1024;
+      v14 = v5;
+      v15 = 1024;
+      v16 = v6;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM upon DS notification on interface type %ld, LQM(old/new) = (%d/%d)", &v11, 0x18u);
     }
 
     [*(a1 + 32) _computeAndApplyLoadedLqmFrom:**(a1 + 40) oldLqm:*(a1 + 48) onInterfaceType:*(a1 + 56)];
@@ -4876,26 +4853,43 @@ void __config_callback_block_invoke_207(uint64_t a1)
       v8 = *(a1 + 56);
       v9 = *(a1 + 48);
       v10 = *(a1 + 52);
-      v12 = 134218496;
-      v13 = v8;
-      v14 = 1024;
-      v15 = v9;
-      v16 = 1024;
-      v17 = v10;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Epoch is nil upon DS notification, defer computing loaded LQM on interface type %ld, LQM(pended/new) = (%d/%d)", &v12, 0x18u);
+      v11 = 134218496;
+      v12 = v8;
+      v13 = 1024;
+      v14 = v9;
+      v15 = 1024;
+      v16 = v10;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Epoch is nil upon DS notification, defer computing loaded LQM on interface type %ld, LQM(pended/new) = (%d/%d)", &v11, 0x18u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __config_callback_block_invoke_208(uint64_t a1)
 {
-  *&v15[5] = *MEMORY[0x277D85DE8];
+  *&v14[5] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 52);
   if (v2 != 7)
   {
-    goto LABEL_4;
+LABEL_4:
+    v5 = realTimeLqm[v2];
+    realTimeLqm[v2] = *(a1 + 48);
+    [*(a1 + 40) _trackRealTimeLqmLastUpdatedOnInterfaceType:*(a1 + 52)];
+    v6 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1 + 52);
+      v8 = *(a1 + 48);
+      v11 = 134218496;
+      v12 = v7;
+      v13 = 1024;
+      *v14 = v5;
+      v14[2] = 1024;
+      *&v14[3] = v8;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM upon DS notification on interface type %ld, LQM(old/new) = (%d/%d)", &v11, 0x18u);
+    }
+
+    [*(a1 + 40) _computeAndApplyLoadedLqmFrom:realTimeLqm[v2] oldLqm:v5 onInterfaceType:*(a1 + 52)];
+    return;
   }
 
   v3 = [NetworkStateRelay getStateRelayFor:7];
@@ -4904,76 +4898,54 @@ void __config_callback_block_invoke_208(uint64_t a1)
   {
 
     v2 = *(a1 + 52);
-LABEL_4:
-    v5 = *(&realTimeLqm + v2);
-    *(&realTimeLqm + v2) = *(a1 + 48);
-    [*(a1 + 40) _trackRealTimeLqmLastUpdatedOnInterfaceType:*(a1 + 52)];
-    v6 = netepochsLogHandle;
-    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = *(a1 + 52);
-      v8 = *(a1 + 48);
-      v12 = 134218496;
-      v13 = v7;
-      v14 = 1024;
-      *v15 = v5;
-      v15[2] = 1024;
-      *&v15[3] = v8;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM upon DS notification on interface type %ld, LQM(old/new) = (%d/%d)", &v12, 0x18u);
-    }
-
-    [*(a1 + 40) _computeAndApplyLoadedLqmFrom:*(&realTimeLqm + v2) oldLqm:v5 onInterfaceType:*(a1 + 52)];
-    goto LABEL_10;
+    goto LABEL_4;
   }
 
   v9 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v12 = 138412546;
-    v13 = v4;
-    v14 = 2112;
-    *v15 = v10;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Companion link interface name %@ doesn't match, ignoring LQM notification for %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v4;
+    v13 = 2112;
+    *v14 = v10;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Companion link interface name %@ doesn't match, ignoring LQM notification for %@", &v11, 0x16u);
   }
-
-LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t combinedStats(void *a1, double *a2, double *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a1;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
   v7 = 0.0;
   v8 = 0.0;
   v9 = 0.0;
   if (v6)
   {
     v10 = v6;
-    v11 = *v37;
+    v11 = *v36;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
+        v13 = *(*(&v35 + 1) + 8 * i);
         [v13 epochs];
         v8 = v8 + v14;
         [v13 overallStay];
         v9 = v9 + v15;
       }
 
-      v10 = [v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v10 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v10);
@@ -4981,27 +4953,27 @@ unint64_t combinedStats(void *a1, double *a2, double *a3)
 
   v16 = v9 / v8;
   *a2 = v9 / v8;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v17 = v5;
-  v18 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v33;
+    v20 = *v32;
     v7 = 0.0;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v33 != v20)
+        if (*v32 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v32 + 1) + 8 * j);
+        v22 = *(*(&v31 + 1) + 8 * j);
         [v22 overallStay];
         v24 = v23;
         [v22 epochs];
@@ -5012,36 +4984,35 @@ unint64_t combinedStats(void *a1, double *a2, double *a3)
         v7 = v7 + v28 + v26 * v29 * v26;
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v19);
   }
 
   *a3 = (v7 + -(v8 * v16) * v16) / (v8 + -1.0);
-  v30 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-void sub_232698358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_232698358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v13 - 144), 8);
+  _Block_object_dispose((v20 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232698DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_232698DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5052,9 +5023,9 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23269984C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23269984C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5082,7 +5053,7 @@ uint64_t primary_key_has_bssid(void *a1, uint64_t a2)
 
 uint64_t bssidFromString(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1 && CFStringGetCString(v1, buffer, 19, 0) && (v3 = ether_aton(buffer)) != 0)
@@ -5105,7 +5076,6 @@ uint64_t bssidFromString(void *a1)
     v5 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -5132,36 +5102,36 @@ void sub_2326AA0DC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2326ADD14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2326ADD14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2326AF168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2326AF168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2326B42B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2326B42B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2326B76EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2326B76EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5187,9 +5157,9 @@ uint64_t DeallocateBloadData(uint64_t a1)
   return DeallocateCallList(a1, v2);
 }
 
-uint64_t ClearBload_1(uint64_t a1)
+uint64_t ClearBload_1(void *a1)
 {
-  v1 = *(*(a1 + 48) + 304);
+  v1 = *(a1[6] + 304);
   if (!*(v1 + 24))
   {
     return 1;
@@ -5199,7 +5169,7 @@ uint64_t ClearBload_1(uint64_t a1)
   if (!v3)
   {
 LABEL_15:
-    for (i = **(*(a1 + 48) + 312); i; i = *(i + 72))
+    for (i = **(a1[6] + 312); i; i = *(i + 72))
     {
       v9 = *(i + 32);
       if (v9)
@@ -5210,7 +5180,7 @@ LABEL_15:
 
     ClearBloadedExpressions(a1);
     ClearBloadedConstraints(a1);
-    *(*(*(a1 + 48) + 304) + 24) = 0;
+    *(*(a1[6] + 304) + 24) = 0;
     return 1;
   }
 
@@ -5270,20 +5240,20 @@ LABEL_14:
   return 0;
 }
 
-uint64_t EnvBload(uint64_t a1, char *__filename)
+uint64_t EnvBload(void *a1, char *__filename)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   result = GenOpenReadBinary(a1, "bload", __filename);
   if (!result)
   {
-    goto LABEL_9;
+    return result;
   }
 
-  v40 = 0;
+  v39 = 0;
   __ptr = 0;
-  v5 = strlen(**(*(a1 + 48) + 304));
+  v5 = strlen(**(a1[6] + 304));
   GenReadBinary(a1, __s1, v5 + 1);
-  v6 = *(*(a1 + 48) + 304);
+  v6 = *(a1[6] + 304);
   if (strcmp(__s1, *v6))
   {
     PrintErrorID(a1, "BLOAD", 2, 0);
@@ -5294,14 +5264,12 @@ LABEL_6:
     EnvPrintRouter(a1, "werror", v7);
 LABEL_7:
     GenCloseBinary(a1);
-LABEL_8:
-    result = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v8 = strlen(v6[1]);
   GenReadBinary(a1, __s1, v8 + 1);
-  v9 = *(*(a1 + 48) + 304);
+  v9 = *(a1[6] + 304);
   if (strcmp(__s1, *(v9 + 8)))
   {
     PrintErrorID(a1, "BLOAD", 3, 0);
@@ -5323,76 +5291,76 @@ LABEL_8:
     EnvPrintRouter(a1, "werror", "CLIPS");
     EnvPrintRouter(a1, "werror", " environment could not be cleared.\n");
     EnvPrintRouter(a1, "werror", "Binary load cannot continue.\n");
-    goto LABEL_8;
+    return 0;
   }
 
-  v11 = *(a1 + 48);
-  v12 = *(v11 + 336);
-  *(v12 + 4) = 1;
-  v13 = *(*(v11 + 304) + 32);
-  if (v13)
+  v10 = a1[6];
+  v11 = *(v10 + 336);
+  *(v11 + 4) = 1;
+  v12 = *(*(v10 + 304) + 32);
+  if (v12)
   {
     do
     {
-      v14 = *(v13 + 8);
-      if (*(v13 + 32))
+      v13 = *(v12 + 8);
+      if (*(v12 + 32))
       {
-        (v14)(a1);
+        (v13)(a1);
       }
 
       else
       {
-        v14();
+        v13();
       }
 
-      v13 = *(v13 + 24);
+      v12 = *(v12 + 24);
     }
 
-    while (v13);
-    v12 = *(*(a1 + 48) + 336);
+    while (v12);
+    v11 = *(a1[6] + 336);
   }
 
-  *(v12 + 4) = 0;
+  *(v11 + 4) = 0;
   *__s2 = 0;
   GenReadBinary(a1, &__ptr, 8uLL);
   GenReadBinary(a1, __s2, 8uLL);
   if (!__ptr)
   {
-    v17 = 0;
+    v16 = 0;
 LABEL_45:
-    *(*(*(a1 + 48) + 304) + 16) = v17;
+    *(*(a1[6] + 304) + 16) = v16;
     ReadNeededAtomicValues(a1);
     AllocateExpressions(a1);
     GenReadBinary(a1, __s2, 0x14uLL);
-    for (i = *(a1 + 48); strncmp(__s2, **(i + 304), 0x14uLL); i = *(a1 + 48))
+    for (i = a1[6]; strncmp(__s2, **(i + 304), 0x14uLL); i = a1[6])
     {
-      v28 = **(i + 312);
-      if (!v28)
+      v27 = **(i + 312);
+      if (!v27)
       {
         goto LABEL_52;
       }
 
-      while (strncmp(*v28, __s2, 0x14uLL))
+      while (strncmp(*v27, __s2, 0x14uLL))
       {
-        v28 = *(v28 + 72);
-        if (!v28)
+        v27 = *(v27 + 72);
+        if (!v27)
         {
           goto LABEL_52;
         }
       }
 
-      v29 = *(v28 + 16);
-      if (v29)
+      v28 = *(v27 + 16);
+      if (v28)
       {
-        v29(a1);
+        v28(a1);
       }
 
       else
       {
 LABEL_52:
-        GenReadBinary(a1, &v40, 8uLL);
-        GetSeekCurBinary(a1, v40);
-        if (v40)
+        GenReadBinary(a1, &v39, 8uLL);
+        GetSeekCurBinary(a1, v39);
+        if (v39)
         {
           EnvPrintRouter(a1, "wdialog", "\nSkipping ");
           EnvPrintRouter(a1, "wdialog", __s2);
@@ -5408,124 +5376,124 @@ LABEL_52:
     while (1)
     {
       GenReadBinary(a1, __s2, 0x14uLL);
-      v30 = *(a1 + 48);
-      if (!strncmp(__s2, **(v30 + 304), 0x14uLL))
+      v29 = a1[6];
+      if (!strncmp(__s2, **(v29 + 304), 0x14uLL))
       {
         break;
       }
 
-      v31 = **(v30 + 312);
-      if (!v31)
+      v30 = **(v29 + 312);
+      if (!v30)
       {
         goto LABEL_63;
       }
 
-      while (strncmp(*v31, __s2, 0x14uLL))
+      while (strncmp(*v30, __s2, 0x14uLL))
       {
-        v31 = *(v31 + 72);
-        if (!v31)
+        v30 = *(v30 + 72);
+        if (!v30)
         {
           goto LABEL_63;
         }
       }
 
-      v32 = *(v31 + 24);
-      if (v32)
+      v31 = *(v30 + 24);
+      if (v31)
       {
-        v32(a1);
+        v31(a1);
       }
 
       else
       {
 LABEL_63:
-        GenReadBinary(a1, &v40, 8uLL);
-        GetSeekCurBinary(a1, v40);
+        GenReadBinary(a1, &v39, 8uLL);
+        GetSeekCurBinary(a1, v39);
       }
     }
 
     GenCloseBinary(a1);
-    v33 = *(*(*(a1 + 48) + 304) + 16);
-    if (v33)
+    v32 = *(*(a1[6] + 304) + 16);
+    if (v32)
     {
-      genfree(a1, v33, 8 * __ptr);
+      genfree(a1, v32, 8 * __ptr);
     }
 
-    v34.n128_f64[0] = FreeAtomicValueStorage(a1);
-    v35 = *(*(a1 + 48) + 304);
-    v36 = *(v35 + 40);
-    if (v36)
+    v33.n128_f64[0] = FreeAtomicValueStorage(a1);
+    v34 = *(a1[6] + 304);
+    v35 = *(v34 + 40);
+    if (v35)
     {
       do
       {
-        v37 = *(v36 + 8);
-        if (*(v36 + 32))
+        v36 = *(v35 + 8);
+        if (*(v35 + 32))
         {
-          (v37)(a1, v34);
+          (v36)(a1, v33);
         }
 
         else
         {
-          v37(v34);
+          v36(v33);
         }
 
-        v36 = *(v36 + 24);
+        v35 = *(v35 + 24);
       }
 
-      while (v36);
-      v35 = *(*(a1 + 48) + 304);
+      while (v35);
+      v34 = *(a1[6] + 304);
     }
 
     result = 1;
-    *(v35 + 24) = 1;
-    goto LABEL_9;
+    *(v34 + 24) = 1;
+    return result;
   }
 
-  v15 = genalloc(a1, *__s2);
-  GenReadBinary(a1, v15, *__s2);
-  v16 = 8 * __ptr;
-  v17 = genalloc(a1, 8 * __ptr);
+  v14 = genalloc(a1, *__s2);
+  GenReadBinary(a1, v14, *__s2);
+  v15 = 8 * __ptr;
+  v16 = genalloc(a1, 8 * __ptr);
   if (__ptr < 1)
   {
-    genfree(a1, v15, *__s2);
+    genfree(a1, v14, *__s2);
     goto LABEL_45;
   }
 
-  v38 = v16;
-  ptr = v15;
+  v37 = v15;
+  ptr = v14;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
   for (j = 0; j < __ptr; ++j)
   {
     FunctionList = GetFunctionList(a1);
     if (FunctionList)
     {
-      v22 = FunctionList;
-      if (v19)
+      v21 = FunctionList;
+      if (v18)
       {
-        v23 = v19[7];
+        v22 = v18[7];
       }
 
       else
       {
-        v23 = FunctionList;
+        v22 = FunctionList;
       }
 
-      while (strcmp(v15, *(*v23 + 24)))
+      while (strcmp(v14, *(*v22 + 24)))
       {
-        v24 = v23[7];
-        if (v24 == v19)
+        v23 = v22[7];
+        if (v23 == v18)
         {
           goto LABEL_31;
         }
 
-        if (v24)
+        if (v23)
         {
-          v23 = v23[7];
+          v22 = v22[7];
         }
 
         else
         {
-          v23 = v22;
+          v22 = v21;
         }
       }
     }
@@ -5533,7 +5501,7 @@ LABEL_63:
     else
     {
 LABEL_31:
-      if (!v18)
+      if (!v17)
       {
         PrintErrorID(a1, "BLOAD", 6, 0);
         EnvPrintRouter(a1, "werror", "The following undefined functions are ");
@@ -5541,52 +5509,50 @@ LABEL_31:
       }
 
       EnvPrintRouter(a1, "werror", "   ");
-      EnvPrintRouter(a1, "werror", v15);
+      EnvPrintRouter(a1, "werror", v14);
       EnvPrintRouter(a1, "werror", "\n");
-      v23 = 0;
-      v18 = 1;
+      v22 = 0;
+      v17 = 1;
     }
 
-    v17[j] = v23;
-    v15 += strlen(v15) + 1;
-    v19 = v23;
+    v16[j] = v22;
+    v14 += strlen(v14) + 1;
+    v18 = v22;
   }
 
   genfree(a1, ptr, *__s2);
-  if (!v18)
+  if (!v17)
   {
     goto LABEL_45;
   }
 
-  genfree(a1, v17, v38);
-  *(*(*(a1 + 48) + 304) + 16) = 0;
+  genfree(a1, v16, v37);
+  *(*(a1[6] + 304) + 16) = 0;
   result = GenCloseBinary(a1);
-  v25 = *(*(*(a1 + 48) + 304) + 56);
-  if (!v25)
+  v24 = *(*(a1[6] + 304) + 56);
+  if (!v24)
   {
-    goto LABEL_8;
+    return 0;
   }
 
   do
   {
-    v26 = *(v25 + 8);
-    if (*(v25 + 32))
+    v25 = *(v24 + 8);
+    if (*(v24 + 32))
     {
-      v26(a1);
+      v25(a1);
     }
 
     else
     {
-      v26(result);
+      v25(result);
     }
 
     result = 0;
-    v25 = *(v25 + 24);
+    v24 = *(v24 + 24);
   }
 
-  while (v25);
-LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
+  while (v24);
   return result;
 }
 
@@ -5664,28 +5630,28 @@ LABEL_12:
   return genfree(v7, v11, v9);
 }
 
-void *AddBeforeBloadFunction(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+_DWORD *AddBeforeBloadFunction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = AddFunctionToCallList(a1, a2, a4, a3, *(*(*(a1 + 48) + 304) + 32), 1);
   *(*(*(a1 + 48) + 304) + 32) = result;
   return result;
 }
 
-void *AddAfterBloadFunction(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+_DWORD *AddAfterBloadFunction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = AddFunctionToCallList(a1, a2, a4, a3, *(*(*(a1 + 48) + 304) + 40), 1);
   *(*(*(a1 + 48) + 304) + 40) = result;
   return result;
 }
 
-void *AddClearBloadReadyFunction(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+_DWORD *AddClearBloadReadyFunction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = AddFunctionToCallList(a1, a2, a4, a3, *(*(*(a1 + 48) + 304) + 48), 1);
   *(*(*(a1 + 48) + 304) + 48) = result;
   return result;
 }
 
-void *AddAbortBloadFunction(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+_DWORD *AddAbortBloadFunction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = AddFunctionToCallList(a1, a2, a4, a3, *(*(*(a1 + 48) + 304) + 56), 1);
   *(*(*(a1 + 48) + 304) + 56) = result;
@@ -5701,7 +5667,7 @@ uint64_t CannotLoadWithBloadMessage(uint64_t a1, char *a2)
   return EnvPrintRouter(a1, "werror", " construct with binary load in effect.\n");
 }
 
-uint64_t BloadCommand(uint64_t a1)
+uint64_t BloadCommand(void *a1)
 {
   if (EnvArgCountCheck(a1, "bload", 0, 1) == -1)
   {
@@ -6297,7 +6263,7 @@ LABEL_141:
   return [a2 hasError] ^ 1;
 }
 
-void *BuildRHSAssert(uint64_t a1, char *a2, unsigned __int16 *a3, int *a4, int a5, int a6, char *a7)
+void *BuildRHSAssert(char *a1, char *a2, unsigned __int16 *a3, int *a4, int a5, uint64_t a6, char *a7)
 {
   v10 = a1;
   *a4 = 0;
@@ -6385,8 +6351,10 @@ LABEL_21:
   return v19;
 }
 
-void *GetRHSPattern(uint64_t a1, char *a2, unsigned __int16 *a3, int *a4, int a5, int a6, int a7, int a8)
+void *GetRHSPattern(char *a1, char *a2, unsigned __int16 *a3, int *a4, uint64_t a5, int a6, int a7, uint64_t a8)
 {
+  v8 = a8;
+  v10 = a5;
   *a4 = 0;
   if (a6)
   {
@@ -6396,7 +6364,7 @@ void *GetRHSPattern(uint64_t a1, char *a2, unsigned __int16 *a3, int *a4, int a5
   if (a7)
   {
     v15 = *a3;
-    if (v15 == a8)
+    if (v15 == v8)
     {
       return 0;
     }
@@ -6444,7 +6412,7 @@ LABEL_16:
   ImpliedDeftemplate = ImportedConstruct;
   if (!ImportedConstruct)
   {
-    if (Bloaded(a1) && !*(*(*(a1 + 48) + 336) + 40))
+    if (Bloaded(a1) && !*(*(*(a1 + 6) + 336) + 40))
     {
       NoSuchTemplateError(a1, *(v17 + 24));
       goto LABEL_16;
@@ -6457,7 +6425,7 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    if (*(*(*(a1 + 48) + 336) + 40))
+    if (*(*(*(a1 + 6) + 336) + 40))
     {
       ImpliedDeftemplate = 0;
       goto LABEL_34;
@@ -6475,14 +6443,14 @@ LABEL_16:
 LABEL_34:
     v37 = 0;
     v16 = GenConstant(a1, 63, ImpliedDeftemplate);
-    v28 = *(*(a1 + 48) + 336);
+    v28 = *(*(a1 + 6) + 336);
     if (!*(v28 + 44))
     {
       ++*(v28 + 20);
     }
 
     SavePPBuffer(a1, " ");
-    AssertArgument = GetAssertArgument(a1, a2, a3, a4, a8, a5, &v37);
+    AssertArgument = GetAssertArgument(a1, a2, a3, a4, v8, v10, &v37);
     if (AssertArgument)
     {
       v30 = 0;
@@ -6493,12 +6461,12 @@ LABEL_34:
         v33 = AssertArgument;
         if (v30)
         {
-          v31[3] = AssertArgument;
+          *(v31 + 3) = AssertArgument;
           v33 = v30;
         }
 
         SavePPBuffer(a1, " ");
-        AssertArgument = GetAssertArgument(a1, a2, a3, a4, a8, a5, &v37);
+        AssertArgument = GetAssertArgument(a1, a2, a3, a4, v8, v10, &v37);
         v30 = v33;
         v31 = v32;
       }
@@ -6516,7 +6484,7 @@ LABEL_34:
       PPBackup(a1);
       PPBackup(a1);
       SavePPBuffer(a1, *(a3 + 2));
-      v34 = EnvAddBitMap(a1, byte_232816E10, 1u);
+      v34 = EnvAddBitMap(a1, byte_232816E10, 1);
       v35 = GenConstant(a1, 62, v34);
       v16[3] = v35;
       v35[2] = v33;
@@ -6535,8 +6503,8 @@ LABEL_34:
   }
 
   v16 = GenConstant(a1, 63, ImpliedDeftemplate);
-  v16[3] = ParseAssertTemplate(a1, a2, a3, a4, a8, a5, ImpliedDeftemplate);
-  v24 = *(*(a1 + 48) + 336);
+  v16[3] = ParseAssertTemplate(a1, a2, a3, a4, v8, v10, ImpliedDeftemplate);
+  v24 = *(*(a1 + 6) + 336);
   if (!*(v24 + 44))
   {
     ++*(v24 + 20);
@@ -6563,7 +6531,7 @@ uint64_t NoSuchTemplateError(uint64_t a1, char *a2)
   return EnvPrintRouter(a1, "werror", " does not exist for assert.\n");
 }
 
-void *GetAssertArgument(uint64_t a1, char *a2, unsigned __int16 *a3, _DWORD *a4, int a5, int a6, _DWORD *a7)
+unsigned __int16 *GetAssertArgument(uint64_t a1, char *a2, unsigned __int16 *a3, _DWORD *a4, int a5, int a6, _DWORD *a7)
 {
   *a7 = 1;
   GetToken(a1, a2, a3);
@@ -6638,7 +6606,7 @@ LABEL_12:
   return GenConstant(a1, v14, v18);
 }
 
-uint64_t StringToFact(uint64_t a1, char *a2)
+uint64_t StringToFact(char *a1, char *a2)
 {
   memset(v19, 0, sizeof(v19));
   v18 = 0;
@@ -6674,7 +6642,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v9 = RHSPattern[3];
+  v9 = *(RHSPattern + 3);
   if (v9)
   {
     v10 = 0;
@@ -6694,10 +6662,10 @@ LABEL_7:
 
   CreateFactBySize(a1, v10);
   v7 = v11;
-  *(v11 + 32) = RHSPattern[1];
+  *(v11 + 32) = *(RHSPattern + 1);
   EnvIncrementClearReadyLocks(a1);
   ExpressionInstall(a1, RHSPattern);
-  v12 = RHSPattern[3];
+  v12 = *(RHSPattern + 3);
   if (v12)
   {
     v13 = 0;
@@ -6720,9 +6688,9 @@ LABEL_7:
   return v7;
 }
 
-void sub_2326C31A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2326C31A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6736,21 +6704,19 @@ uint64_t __Block_byref_object_copy__10(uint64_t result, uint64_t a2)
 
 BOOL pid_is_valid(int a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  memset(v3, 0, sizeof(v3));
-  result = proc_pidinfo(a1, 13, 1uLL, v3, 64) == 64;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v3 = *MEMORY[0x277D85DE8];
+  memset(v2, 0, sizeof(v2));
+  return proc_pidinfo(a1, 13, 1uLL, v2, 64) == 64;
 }
 
 uint64_t uuid_to_pid(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  *v15 = 0x600000001;
+  *v14 = 0x600000001;
   *count = 0;
-  v11 = 4;
-  if (sysctl(v15, 2u, count, &v11, 0, 0) < 0)
+  v10 = 4;
+  if (sysctl(v14, 2u, count, &v10, 0, 0) < 0)
   {
     v8 = attributionLogHandle;
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_DEBUG))
@@ -6771,7 +6737,7 @@ uint64_t uuid_to_pid(void *a1)
 
     v3 = v2;
     *uu2 = 0;
-    v14 = 0;
+    v13 = 0;
     [v1 getUUIDBytes:uu2];
     v4 = proc_listallpids(v3, 4 * *count);
     if (v4 < 1)
@@ -6805,7 +6771,6 @@ LABEL_10:
     free(v3);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6931,15 +6896,8 @@ void __stringByRemovingTrailingUUIDsAndLaunchServicesStuff_block_invoke()
 id pid_to_coalitionID(int a1)
 {
   v1 = pid_to_coalition_bundleid(a1);
-  if (!v1)
+  if (!v1 || ([MEMORY[0x277CC1ED8] pluginKitProxyForIdentifier:v1], (v2 = objc_claimAutoreleasedReturnValue()) == 0) || (v3 = v2, objc_msgSend(v2, "containingBundle"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "bundleIdentifier"), v5 = objc_claimAutoreleasedReturnValue(), v4, v3, !v5))
   {
-    goto LABEL_4;
-  }
-
-  v2 = [MEMORY[0x277CC1ED8] pluginKitProxyForIdentifier:v1];
-  if (!v2 || (v3 = v2, [v2 containingBundle], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "bundleIdentifier"), v5 = objc_claimAutoreleasedReturnValue(), v4, v3, !v5))
-  {
-LABEL_4:
     v5 = v1;
   }
 
@@ -6948,7 +6906,7 @@ LABEL_4:
 
 id uuid_to_bundleid(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 UUIDString];
   v3 = [v2 length];
@@ -6961,9 +6919,9 @@ id uuid_to_bundleid(void *a1)
 
   v4 = [MEMORY[0x277CC1E80] defaultWorkspace];
   v5 = [MEMORY[0x277CBEB98] setWithObject:v1];
-  v19 = 0;
-  v6 = [v4 bundleIdentifiersForMachOUUIDs:v5 error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [v4 bundleIdentifiersForMachOUUIDs:v5 error:&v18];
+  v7 = v18;
 
   if (v7)
   {
@@ -6971,9 +6929,9 @@ id uuid_to_bundleid(void *a1)
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v21 = v1;
-      v22 = 2112;
-      v23 = v7;
+      v20 = v1;
+      v21 = 2112;
+      v22 = v7;
       v9 = "bundleIdentifiersForMachOUUIDs failed for %@ [%@]";
       v10 = v8;
       v11 = 22;
@@ -6999,7 +6957,7 @@ LABEL_5:
         if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v21 = v1;
+          v20 = v1;
           _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "no bundleID for %@", buf, 0xCu);
         }
 
@@ -7013,7 +6971,7 @@ LABEL_5:
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v21 = v1;
+      v20 = v1;
       v9 = "no bundleID for %@";
       v10 = v15;
       v11 = 12;
@@ -7025,14 +6983,13 @@ LABEL_5:
 LABEL_17:
 
 LABEL_18:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id bundleid_to_uuids(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (![v1 length])
   {
@@ -7042,9 +6999,9 @@ id bundleid_to_uuids(void *a1)
 
   v2 = [MEMORY[0x277CC1E80] defaultWorkspace];
   v3 = [MEMORY[0x277CBEB98] setWithObject:v1];
-  v14 = 0;
-  v4 = [v2 machOUUIDsForBundleIdentifiers:v3 error:&v14];
-  v5 = v14;
+  v13 = 0;
+  v4 = [v2 machOUUIDsForBundleIdentifiers:v3 error:&v13];
+  v5 = v13;
 
   if (v5)
   {
@@ -7052,9 +7009,9 @@ id bundleid_to_uuids(void *a1)
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v16 = v1;
-      v17 = 2112;
-      v18 = v5;
+      v15 = v1;
+      v16 = 2112;
+      v17 = v5;
       v7 = "machOUUIDsForBundleIdentifiers failed for %@ [%@]";
       v8 = v6;
       v9 = 22;
@@ -7071,13 +7028,13 @@ LABEL_5:
       goto LABEL_10;
     }
 
-    v13 = attributionLogHandle;
+    v12 = attributionLogHandle;
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v16 = v1;
+      v15 = v1;
       v7 = "no uuids for %@";
-      v8 = v13;
+      v8 = v12;
       v9 = 12;
       goto LABEL_5;
     }
@@ -7087,7 +7044,6 @@ LABEL_5:
 LABEL_10:
 
 LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -7464,7 +7420,7 @@ LABEL_60:
   return v6;
 }
 
-uint64_t InstallDeftemplate(uint64_t result, void *a2)
+unsigned __int16 *InstallDeftemplate(unsigned __int16 *result, void *a2)
 {
   ++*(*a2 + 8);
   v2 = a2[6];
@@ -7619,9 +7575,9 @@ LABEL_25:
   return 1;
 }
 
-void sub_2326CACC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2326CACC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7812,7 +7768,7 @@ LABEL_35:
   return v6;
 }
 
-void *AddDeffunction(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, int a5, int a6, int a7)
+void *AddDeffunction(void *a1, uint64_t a2, void *a3, int a4, int a5, int a6, int a7)
 {
   DeffunctionInModule = EnvFindDeffunctionInModule(a1, *(a2 + 24));
   if (DeffunctionInModule)
@@ -7834,14 +7790,14 @@ void *AddDeffunction(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, int a5, int
 
   else
   {
-    v19 = *(a1 + 48);
+    v19 = a1[6];
     v20 = *(v19 + 472);
     v21 = *(*(v20 + 40) + 704);
     if (v21)
     {
       *(v20 + 32) = v21;
       *(*(*(v19 + 472) + 40) + 704) = **(*(v19 + 472) + 32);
-      v15 = *(*(*(a1 + 48) + 472) + 32);
+      v15 = *(*(a1[6] + 472) + 32);
     }
 
     else
@@ -7870,7 +7826,7 @@ void *AddDeffunction(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, int a5, int
 
   if (v18)
   {
-    v23 = *(*(*(a1 + 48) + 184) + 128);
+    v23 = *(*(a1[6] + 184) + 128);
   }
 
   else
@@ -7942,7 +7898,7 @@ uint64_t FactSlotValueFunction(uint64_t a1, uint64_t a2)
       v7 = 0u;
       v8 = 0u;
       v6 = 0u;
-      result = EnvArgTypeCheck(a1, "fact-slot-value", 2, 2, &v6);
+      result = EnvArgTypeCheck(a1, "fact-slot-value", 2, 2u, &v6);
       if (result)
       {
         return FactSlotValue(a1, v5, *(v7 + 24), a2);
@@ -7976,7 +7932,7 @@ void GetFactListFunction(uint64_t a1, uint64_t a2)
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  v4 = EnvArgCountCheck(a1, "get-fact-list", 2u, 1);
+  v4 = EnvArgCountCheck(a1, "get-fact-list", 2, 1);
   if (v4 == 1)
   {
     EnvRtnUnknown(a1, 1, &v8);
@@ -8024,7 +7980,7 @@ LABEL_10:
   EnvSetMultifieldErrorValue(a1, a2);
 }
 
-uint64_t PPFactFunction(char *a1)
+uint64_t PPFactFunction(uint64_t *a1)
 {
   result = EnvArgRangeCheck(a1, "ppfact", 1, 3);
   if (result == -1)
@@ -8090,52 +8046,48 @@ LABEL_17:
   return SetEvaluationError(a1, 1);
 }
 
-uint64_t GetFactAddressOrIndexArgument(uint64_t a1, char *a2, int a3, int a4)
+uint64_t GetFactAddressOrIndexArgument(uint64_t a1, char *a2, uint64_t a3, int a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18 = 0u;
-  v19 = 0u;
-  v17 = 0u;
-  EnvRtnUnknown(a1, a3, &v17);
-  if (WORD4(v17) != 1)
+  v5 = a3;
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v10 = 0u;
+  EnvRtnUnknown(a1, a3, &v10);
+  if (WORD4(v10) != 1)
   {
-    if (WORD4(v17) == 6)
+    if (WORD4(v10) == 6)
     {
-      if (*(v18 + 64))
+      if (*(v11 + 64))
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = v18;
+        return v11;
       }
-
-      goto LABEL_12;
     }
 
     goto LABEL_10;
   }
 
-  v9 = *(v18 + 24);
+  v9 = *(v11 + 24);
   if (v9 < 0)
   {
 LABEL_10:
-    ExpectedTypeError1(a1, a2, a3, "fact-address or fact-index");
-    goto LABEL_11;
+    ExpectedTypeError1(a1, a2, v5, "fact-address or fact-index");
+    return 0;
   }
 
-  result = FindIndexedFact(a1, *(v18 + 24));
+  result = FindIndexedFact(a1, *(v11 + 24));
   if (a4 && !result)
   {
-    gensprintf(v20, "f-%lld", v10, v11, v12, v13, v14, v15, v9);
-    CantFindItemErrorMessage(a1, "fact", v20);
-LABEL_11:
-    result = 0;
+    gensprintf(v13, "f-%lld", v9);
+    CantFindItemErrorMessage(a1, "fact", v13);
+    return 0;
   }
 
-LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8329,7 +8281,7 @@ LABEL_11:
   return UpdateDeftemplateScope(a1);
 }
 
-char *EnvPPFact(char *result, uint64_t a2, FILE *__s2, int a4)
+uint64_t *EnvPPFact(uint64_t *result, uint64_t a2, FILE *__s2, int a4)
 {
   if (a2 && (*(a2 + 64) & 1) == 0)
   {
@@ -8462,7 +8414,7 @@ LABEL_7:
 
 uint64_t scaleFromString(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 isEqualToString:@"VeryLow"])
   {
@@ -8506,16 +8458,15 @@ uint64_t scaleFromString(void *a1)
       v3 = configurationLogHandle;
       if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v6 = 138412290;
-        v7 = v1;
-        _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Unknown flow property string %@", &v6, 0xCu);
+        v5 = 138412290;
+        v6 = v1;
+        _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Unknown flow property string %@", &v5, 0xCu);
       }
     }
 
     v2 = 0;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -9297,13 +9248,13 @@ LABEL_30:
   return 0;
 }
 
-uint64_t PlaceActivation(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
+uint64_t PlaceActivation(uint64_t a1, void *a2, void *a3, void *a4)
 {
   result = EnvSetAgendaChanged(a1, 1);
   if (!*a2)
   {
-    *(a4 + 8) = a3;
-    *(a4 + 16) = a3;
+    a4[1] = a3;
+    a4[2] = a3;
     goto LABEL_146;
   }
 
@@ -9314,7 +9265,7 @@ uint64_t PlaceActivation(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
     {
       if (v9 == 5)
       {
-        v10 = *(a4 + 32);
+        v10 = a4[4];
         if (v10)
         {
           v11 = *(v10 + 16);
@@ -9325,7 +9276,7 @@ uint64_t PlaceActivation(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
           v11 = 0;
         }
 
-        v39 = *(a4 + 8);
+        v39 = a4[1];
         if (v39)
         {
           v40 = *(*a3 + 56) & 0x7FF;
@@ -9338,7 +9289,7 @@ uint64_t PlaceActivation(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
               break;
             }
 
-            if (v15 != *(a4 + 16))
+            if (v15 != a4[2])
             {
               v39 = v15[6];
               v11 = v15;
@@ -9360,7 +9311,7 @@ uint64_t PlaceActivation(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
           goto LABEL_146;
         }
 
-        v10 = *(a4 + 32);
+        v10 = a4[4];
         if (v10)
         {
           v11 = *(v10 + 16);
@@ -9371,7 +9322,7 @@ uint64_t PlaceActivation(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
           v11 = 0;
         }
 
-        v45 = *(a4 + 8);
+        v45 = a4[1];
         if (v45)
         {
           v46 = *(a3 + 8);
@@ -9384,7 +9335,7 @@ uint64_t PlaceActivation(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
               break;
             }
 
-            if (v15 != *(a4 + 16))
+            if (v15 != a4[2])
             {
               v45 = v15[6];
               v11 = v15;
@@ -9407,8 +9358,8 @@ LABEL_117:
         if (!v10 || *(v10 + 16) != v15)
         {
 LABEL_120:
-          v17 = *(a4 + 16);
-          v18 = (a4 + 16);
+          v17 = a4[2];
+          v18 = a4 + 2;
           if (!v17)
           {
             goto LABEL_145;
@@ -9418,13 +9369,13 @@ LABEL_120:
         }
       }
 
-      *(a4 + 8) = a3;
+      a4[1] = a3;
       goto LABEL_120;
     }
 
     if (v9 != 3)
     {
-      v10 = *(a4 + 32);
+      v10 = a4[4];
       if (v10)
       {
         v11 = *(v10 + 16);
@@ -9435,7 +9386,7 @@ LABEL_120:
         v11 = 0;
       }
 
-      v42 = *(a4 + 8);
+      v42 = a4[1];
       if (v42)
       {
         v43 = *(*a3 + 56) & 0x7FF;
@@ -9448,7 +9399,7 @@ LABEL_120:
             break;
           }
 
-          if (v15 != *(a4 + 16))
+          if (v15 != a4[2])
           {
             v42 = v15[6];
             v11 = v15;
@@ -9465,7 +9416,7 @@ LABEL_120:
       goto LABEL_116;
     }
 
-    v16 = *(a4 + 32);
+    v16 = a4[4];
     if (v16)
     {
       v13 = *(v16 + 16);
@@ -9477,8 +9428,8 @@ LABEL_120:
     }
 
     v26 = a3[3];
-    v18 = (a4 + 16);
-    v15 = *(a4 + 16);
+    v18 = a4 + 2;
+    v15 = a4[2];
     if (!v15)
     {
       goto LABEL_68;
@@ -9521,11 +9472,11 @@ LABEL_120:
       goto LABEL_68;
     }
 
-    result = ComparePartialMatches(a1, *(a4 + 16), a3);
+    result = ComparePartialMatches(a1, a4[2], a3);
     if (result && (result != 2 || v26 <= v15[3]))
     {
 LABEL_68:
-      v32 = *(a4 + 8);
+      v32 = a4[1];
       if (v32)
       {
         while (1)
@@ -9616,7 +9567,7 @@ LABEL_142:
         goto LABEL_146;
       }
 
-      v12 = *(a4 + 32);
+      v12 = a4[4];
       if (v12)
       {
         v13 = *(v12 + 16);
@@ -9628,11 +9579,11 @@ LABEL_142:
       }
 
       v48 = a3[3];
-      v18 = (a4 + 16);
-      v15 = *(a4 + 16);
-      if (!v15 || (result = ComparePartialMatches(a1, *(a4 + 16), a3), result) && (result != 2 || v48 <= v15[3]))
+      v18 = a4 + 2;
+      v15 = a4[2];
+      if (!v15 || (result = ComparePartialMatches(a1, a4[2], a3), result) && (result != 2 || v48 <= v15[3]))
       {
-        v49 = *(a4 + 8);
+        v49 = a4[1];
         if (v49)
         {
           while (1)
@@ -9666,14 +9617,14 @@ LABEL_134:
         if (v13)
         {
 LABEL_135:
-          v50 = *(a4 + 32);
+          v50 = a4[4];
           if (!v50 || *(v50 + 16) != v15)
           {
             goto LABEL_138;
           }
         }
 
-        *(a4 + 8) = a3;
+        a4[1] = a3;
 LABEL_138:
         v17 = *v18;
         goto LABEL_139;
@@ -9682,14 +9633,14 @@ LABEL_138:
       goto LABEL_145;
     }
 
-    v18 = (a4 + 16);
-    v17 = *(a4 + 16);
+    v18 = a4 + 2;
+    v17 = a4[2];
     if (v17)
     {
-      v15 = *(a4 + 16);
+      v15 = a4[2];
       while (a3[3] < v15[3])
       {
-        if (v15 == *(a4 + 8))
+        if (v15 == a4[1])
         {
           goto LABEL_31;
         }
@@ -9697,12 +9648,12 @@ LABEL_138:
         v15 = v15[5];
         if (!v15)
         {
-          v15 = *(a4 + 16);
+          v15 = a4[2];
           break;
         }
       }
 
-      v19 = *(a4 + 32);
+      v19 = a4[4];
       if (!v19)
       {
 LABEL_139:
@@ -9724,7 +9675,7 @@ LABEL_140:
     else
     {
 LABEL_31:
-      v19 = *(a4 + 32);
+      v19 = a4[4];
       if (!v19)
       {
         v15 = 0;
@@ -9744,7 +9695,7 @@ LABEL_31:
     }
 
 LABEL_144:
-    *(a4 + 8) = a3;
+    a4[1] = a3;
     if (!v17)
     {
       goto LABEL_145;
@@ -9753,7 +9704,7 @@ LABEL_144:
     goto LABEL_140;
   }
 
-  v14 = *(a4 + 32);
+  v14 = a4[4];
   if (v14)
   {
     v15 = *(v14 + 16);
@@ -9764,7 +9715,7 @@ LABEL_144:
     v15 = 0;
   }
 
-  v20 = *(a4 + 8);
+  v20 = a4[1];
   if (v20)
   {
     v21 = a3[3];
@@ -9773,7 +9724,7 @@ LABEL_144:
       do
       {
         v15 = v20;
-        if (v20 == *(a4 + 16))
+        if (v20 == a4[2])
         {
           break;
         }
@@ -9802,10 +9753,10 @@ LABEL_43:
   }
 
 LABEL_45:
-  *(a4 + 8) = a3;
+  a4[1] = a3;
 LABEL_46:
-  v24 = *(a4 + 16);
-  v23 = (a4 + 16);
+  v24 = a4[2];
+  v23 = a4 + 2;
   v22 = v24;
   if (v24)
   {

@@ -512,7 +512,7 @@ LABEL_26:
   }
 
   pipelineCopy2 = pipeline;
-  v10 = pipeline + 240;
+  v10 = (pipeline + 240);
   v11 = *(pipeline + 491);
   if (v11)
   {
@@ -586,8 +586,8 @@ LABEL_10:
         }
 
 LABEL_25:
-        AGX::SpecializableRenderPipelineState::specialize<MTL4RenderPipelineDescriptor>(*(p_impl + 3688), descriptor);
-        if (AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::linkSpecialization(p_impl, device))
+        AGX::SpecializableRenderPipelineState::specialize<MTL4RenderPipelineDescriptor>(p_impl[11].resource_info[20].iosurface, descriptor);
+        if (AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::linkSpecialization(p_impl, device, v10, 1))
         {
           return v22;
         }
@@ -999,7 +999,7 @@ LABEL_59:
 
 - (id)_newRenderPipelineStateWithAdditionalBinaryFunctions:(id)functions vertexFunctionResourceIndices:(const unint64_t *)indices fragmentAdditionalBinaryFunctions:(id)binaryFunctions fragmentFunctionResourceIndices:(const unint64_t *)resourceIndices error:(id *)error
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v63 = *MEMORY[0x29EDCA608];
   if (self->_basePipeline)
   {
     basePipeline = self->_basePipeline;
@@ -1013,18 +1013,18 @@ LABEL_59:
   v13 = [[AGXG18PFamilyRenderPipeline alloc] initWithParent:basePipeline];
   device = [(_MTLRenderPipelineState *)self device];
   v15 = @"Failed to allocate a new pipeline";
-  v56 = @"Failed to allocate a new pipeline";
-  v52 = v13;
+  v54 = @"Failed to allocate a new pipeline";
+  v50 = v13;
   if (!v13)
   {
     goto LABEL_92;
   }
 
   p_impl = &v13->_impl;
-  v54 = device;
-  v51 = &self->_impl;
+  v52 = device;
+  v49 = &self->_impl;
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyStateAndFunctionsFromOriginal(p_impl, device, &self->_impl, [binaryFunctions count] + objc_msgSend(functions, "count"));
-  v55 = p_impl;
+  v53 = p_impl;
   prime = vcvtps_u32_f32(([functions count] + *(p_impl + 2736)) / *(p_impl + 2744));
   if (prime == 1)
   {
@@ -1071,11 +1071,11 @@ LABEL_59:
     if (prime < *&v18)
     {
 LABEL_10:
-      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(v55 + 2712, prime);
+      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(v53 + 2712, prime);
     }
   }
 
-  v24 = vcvtps_u32_f32(([binaryFunctions count] + *(v55 + 2776)) / *(v55 + 2784));
+  v24 = vcvtps_u32_f32(([binaryFunctions count] + *(v53 + 2776)) / *(v53 + 2784));
   if (v24 == 1)
   {
     v24 = 2;
@@ -1086,7 +1086,7 @@ LABEL_10:
     v24 = std::__next_prime(v24);
   }
 
-  v25 = *(v55 + 2760);
+  v25 = *(v53 + 2760);
   if (v24 > *&v25)
   {
     goto LABEL_28;
@@ -1094,7 +1094,7 @@ LABEL_10:
 
   if (v24 < *&v25)
   {
-    v26 = vcvtps_u32_f32(*(v55 + 2776) / *(v55 + 2784));
+    v26 = vcvtps_u32_f32(*(v53 + 2776) / *(v53 + 2784));
     if (*&v25 < 3uLL || (v27 = vcnt_s8(v25), v27.i16[0] = vaddlv_u8(v27), v27.u32[0] > 1uLL))
     {
       v29 = v24;
@@ -1119,14 +1119,14 @@ LABEL_10:
     if (v24 < *&v25)
     {
 LABEL_28:
-      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(v55 + 2752, v24);
+      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(v53 + 2752, v24);
     }
   }
 
-  v30 = AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(v54, functions, indices, (v55 + 2712), v55 + 3408, &v51[10].resource_info[24].iosurface, LODWORD(v51[3].resource_info[9].iosurface), &v56) ^ 1;
-  if (!*v55 || (v30 & 1) != 0)
+  v30 = AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(v52, functions, indices, (v53 + 2712), v53 + 3408, &v49[10].resource_info[24].iosurface, LODWORD(v49[3].resource_info[9].iosurface), &v54) ^ 1;
+  if (!*v53 || (v30 & 1) != 0)
   {
-    if (*v55)
+    if (*v53)
     {
       v31 = 1;
     }
@@ -1142,25 +1142,25 @@ LABEL_28:
     }
   }
 
-  else if ((AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(v54, binaryFunctions, resourceIndices, (v55 + 2752), v55 + 3432, &v51[11].fragment_variant, LODWORD(v51[4].resource_info[9].iosurface), &v56) & 1) == 0)
+  else if ((AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(v52, binaryFunctions, resourceIndices, (v53 + 2752), v53 + 3432, &v49[11].fragment_variant, LODWORD(v49[4].resource_info[9].iosurface), &v54) & 1) == 0)
   {
     goto LABEL_74;
   }
 
+  v59 = 0;
+  v60 = 0;
   v61 = 0;
-  v62 = 0;
-  v63 = 0;
+  v55 = 0u;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v32 = [functions countByEnumeratingWithState:&v57 objects:v64 count:16];
+  v32 = [functions countByEnumeratingWithState:&v55 objects:v62 count:16];
   if (!v32)
   {
     v39 = 0;
     v38 = 0;
 LABEL_63:
-    if ((((v38 - v39) >> 1) + ((v51[10].resource_info[25].iosurface - v51[10].resource_info[24].iosurface) >> 1) + 1) <= 0x2AAAAAAAAAAAAAALL)
+    if ((((v38 - v39) >> 1) + ((v49[10].resource_info[25].iosurface - v49[10].resource_info[24].iosurface) >> 1) + 1) <= 0x2AAAAAAAAAAAAAALL)
     {
       operator new();
     }
@@ -1168,18 +1168,18 @@ LABEL_63:
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  v33 = *v58;
+  v33 = *v56;
 LABEL_49:
   v34 = 0;
   while (1)
   {
-    if (*v58 != v33)
+    if (*v56 != v33)
     {
       objc_enumerationMutation(functions);
     }
 
-    v35 = *(*(&v57 + 1) + 8 * v34);
-    if (([v54 requiresRaytracingEmulation] & 1) == 0 && objc_msgSend(v35, "functionType") == 6)
+    v35 = *(*(&v55 + 1) + 8 * v34);
+    if (([v52 requiresRaytracingEmulation] & 1) == 0 && objc_msgSend(v35, "functionType") == 6)
     {
       goto LABEL_50;
     }
@@ -1204,15 +1204,15 @@ LABEL_49:
     }
 
     AGX::applySPIRelocations<AGX::HAL300::ObjClasses,AGX::HAL300::DynamicLibrary>(vendorPrivate[7], [vendorPrivate relocations]);
-    std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::push_back[abi:nn200100](&v61, (v37 + 7));
+    std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::push_back[abi:nn200100](&v59, (v37 + 7));
 LABEL_50:
     if (v32 == ++v34)
     {
-      v32 = [functions countByEnumeratingWithState:&v57 objects:v64 count:16];
+      v32 = [functions countByEnumeratingWithState:&v55 objects:v62 count:16];
       if (!v32)
       {
-        v39 = v61;
-        v38 = v62;
+        v39 = v59;
+        v38 = v60;
         goto LABEL_63;
       }
 
@@ -1220,11 +1220,11 @@ LABEL_50:
     }
   }
 
-  v40 = v61;
-  if (v61)
+  v40 = v59;
+  if (v59)
   {
-    v41 = v62;
-    if (v62 != v61)
+    v41 = v60;
+    if (v60 != v59)
     {
       do
       {
@@ -1239,52 +1239,52 @@ LABEL_50:
       }
 
       while (v41 != v40);
-      v40 = v61;
+      v40 = v59;
     }
 
     operator delete(v40);
   }
 
 LABEL_74:
-  if (([v54 requiresRaytracingEmulation] & 1) == 0)
+  if (([v52 requiresRaytracingEmulation] & 1) == 0)
   {
-    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(v55);
-    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(v55);
-    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(v55, v54[106]);
+    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(v53);
+    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(v53, v52);
+    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(v53, *(v52 + 848));
   }
 
-  if (*v55 && (*(*v55 + 2407) & 0x18) != 0)
+  if (*v53 && (*(*v53 + 2407) & 0x18) != 0)
   {
-    *(v55 + 790) = 1;
+    *(v53 + 790) = 1;
   }
 
-  v43 = *(v55 + 8);
+  v43 = *(v53 + 8);
   if (v43 && (*(v43 + 2407) & 0x18) != 0)
   {
-    *(v55 + 790) = 1;
+    *(v53 + 790) = 1;
   }
 
-  v44 = *(v55 + 16);
+  v44 = *(v53 + 16);
   if (v44 && (*(v44 + 2407) & 0x18) != 0)
   {
-    *(v55 + 790) = 1;
+    *(v53 + 790) = 1;
   }
 
-  v45 = *(v55 + 24);
+  v45 = *(v53 + 24);
   if (v45 && (*(v45 + 2407) & 0x18) != 0)
   {
-    *(v55 + 790) = 1;
+    *(v53 + 790) = 1;
   }
 
-  v46 = *(v55 + 32);
+  v46 = *(v53 + 32);
   if (v46 && (*(v46 + 2407) & 0x18) != 0)
   {
-    *(v55 + 790) = 1;
+    *(v53 + 790) = 1;
   }
 
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParams(v55, v54[106]);
-  *(v55 + 1024) = v54;
-  v15 = v56;
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParams(v53, *(v52 + 848));
+  *(v53 + 1024) = v52;
+  v15 = v54;
 LABEL_92:
   if (error && v15)
   {

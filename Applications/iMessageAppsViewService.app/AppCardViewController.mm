@@ -10,6 +10,7 @@
 - (void)overrideDropPointWithCompletion:(id)completion;
 - (void)requestPasteSticker:(id)sticker;
 - (void)updateCompactCardHeight:(double)height;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -50,6 +51,26 @@
   [(IMAAppPresenter *)self->_appPresenter setDelegate:self];
   [(AppCardViewController *)self compactHeight];
   [(IMAAppPresenter *)self->_appPresenter setCompactHeight:?];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = AppCardViewController;
+  [(AppCardViewController *)&v6 viewDidAppear:appear];
+  v4 = IMBalloonExtensionIDWithSuffix();
+  appPresenter = self->_appPresenter;
+  if (byte_100015E48 == 1)
+  {
+    [(IMAAppPresenter *)appPresenter presentFullScreenModalAppWithBundleIdentifier:v4 completion:0];
+    self->_isPresentingStandaloneFullscreenModal = 1;
+    byte_100015E48 = 0;
+  }
+
+  else
+  {
+    [(IMAAppPresenter *)appPresenter presentAppWithBundleIdentifier:v4 completion:0];
+  }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator

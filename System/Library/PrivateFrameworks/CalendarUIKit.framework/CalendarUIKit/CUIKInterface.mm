@@ -23,9 +23,11 @@
 
 uint64_t __23__CUIKInterface_shared__block_invoke()
 {
-  shared_interface = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = shared_interface;
+  shared_interface = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CUIKInterface)init

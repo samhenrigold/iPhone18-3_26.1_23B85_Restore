@@ -49,27 +49,21 @@
 
 - (BOOL)isCelebratingForDateScore:(double)score sceneScore:(double)sceneScore locationScore:(double)locationScore
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (score == 0.0)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v7 = self->_dateWeight * score + self->_locationWeight * locationScore + self->_sceneWeight * sceneScore;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v7 = self->_dateWeight * score + self->_locationWeight * locationScore + self->_sceneWeight * sceneScore;
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-    {
-      v9 = 134217984;
-      v10 = v7;
-      _os_log_debug_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "[HolidayProcessor] celebrationScore: %f", &v9, 0xCu);
-    }
-
-    result = v7 > self->_celebrationThreshold;
+    v8 = 134217984;
+    v9 = v7;
+    _os_log_debug_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "[HolidayProcessor] celebrationScore: %f", &v8, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 > self->_celebrationThreshold;
 }
 
 - (PGHolidayClassifier)init

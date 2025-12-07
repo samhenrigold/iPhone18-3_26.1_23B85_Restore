@@ -163,25 +163,26 @@ LABEL_5:
 - (void)updateParticipantsAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  if ([(PHCallParticipantsView *)self shouldIgnoreUpdates])
+  shouldIgnoreUpdates = [(PHCallParticipantsView *)self shouldIgnoreUpdates];
+  if (shouldIgnoreUpdates)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(shouldIgnoreUpdates);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Ignoring request to update participants because updates to the call participants view are disabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring request to update participants because updates to the call participants view are disabled", buf, 2u);
     }
 
     return;
   }
 
   delegate = [(PHCallParticipantsView *)self delegate];
-  v7 = [delegate numberOfParticipantsForParticipantsView:self];
+  v8 = [delegate numberOfParticipantsForParticipantsView:self];
 
   delegate2 = [(PHCallParticipantsView *)self delegate];
-  v9 = [delegate2 overrideStringForParticipantsView:self];
+  v10 = [delegate2 overrideStringForParticipantsView:self];
 
-  if (v9)
+  if (v10)
   {
     singleCallLabelView = [(PHCallParticipantsView *)self singleCallLabelView];
     [singleCallLabelView removeFromSuperview];
@@ -202,19 +203,19 @@ LABEL_5:
     [(PHCallParticipantsView *)self setShouldShowSingleDurationLabel:0];
     if (!self->_nameOverrideLabel)
     {
-      v15 = objc_alloc_init(UILabel);
+      v17 = objc_alloc_init(UILabel);
       nameOverrideLabel = self->_nameOverrideLabel;
-      self->_nameOverrideLabel = v15;
+      self->_nameOverrideLabel = v17;
 
       [(UILabel *)self->_nameOverrideLabel setTranslatesAutoresizingMaskIntoConstraints:0];
       callDisplayStyleManager = [(PHCallParticipantsView *)self callDisplayStyleManager];
       callDisplayStyle = [callDisplayStyleManager callDisplayStyle];
       callDisplayStyleManager2 = [(PHCallParticipantsView *)self callDisplayStyleManager];
-      v20 = +[PHUIConfiguration singleCallParticipantLabelFontForCallDisplayStyle:usesLargeFormatUI:](PHUIConfiguration, "singleCallParticipantLabelFontForCallDisplayStyle:usesLargeFormatUI:", callDisplayStyle, [callDisplayStyleManager2 usesLargeFormatUI]);
-      [(UILabel *)self->_nameOverrideLabel setFont:v20];
+      v22 = +[PHUIConfiguration singleCallParticipantLabelFontForCallDisplayStyle:usesLargeFormatUI:](PHUIConfiguration, "singleCallParticipantLabelFontForCallDisplayStyle:usesLargeFormatUI:", callDisplayStyle, [callDisplayStyleManager2 usesLargeFormatUI]);
+      [(UILabel *)self->_nameOverrideLabel setFont:v22];
 
-      v21 = [UIColor colorWithWhite:1.0 alpha:1.0];
-      [(UILabel *)self->_nameOverrideLabel setTextColor:v21];
+      v23 = [UIColor colorWithWhite:1.0 alpha:1.0];
+      [(UILabel *)self->_nameOverrideLabel setTextColor:v23];
 
       [(UILabel *)self->_nameOverrideLabel setTextAlignment:1];
       [(UILabel *)self->_nameOverrideLabel setLineBreakMode:3];
@@ -223,38 +224,38 @@ LABEL_5:
       [(PHCallParticipantsView *)self addSubview:self->_nameOverrideLabel];
       leadingAnchor = [(UILabel *)self->_nameOverrideLabel leadingAnchor];
       leadingAnchor2 = [(PHCallParticipantsView *)self leadingAnchor];
-      v165 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:24.0];
-      v198[0] = v165;
+      v167 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:24.0];
+      v200[0] = v167;
       trailingAnchor = [(UILabel *)self->_nameOverrideLabel trailingAnchor];
       trailingAnchor2 = [(PHCallParticipantsView *)self trailingAnchor];
-      v22 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-24.0];
-      v198[1] = v22;
+      v24 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-24.0];
+      v200[1] = v24;
       centerYAnchor = [(UILabel *)self->_nameOverrideLabel centerYAnchor];
       centerYAnchor2 = [(PHCallParticipantsView *)self centerYAnchor];
-      v25 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-      v198[2] = v25;
+      v27 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+      v200[2] = v27;
       bottomAnchor = [(UILabel *)self->_nameOverrideLabel bottomAnchor];
       bottomAnchor2 = [(PHCallParticipantsView *)self bottomAnchor];
-      v28 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v198[3] = v28;
-      v29 = [NSArray arrayWithObjects:v198 count:4];
-      [NSLayoutConstraint activateConstraints:v29];
+      v30 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v200[3] = v30;
+      v31 = [NSArray arrayWithObjects:v200 count:4];
+      [NSLayoutConstraint activateConstraints:v31];
     }
 
     delegate3 = [(PHCallParticipantsView *)self delegate];
-    v31 = [delegate3 overrideStringForParticipantsView:self];
-    [(UILabel *)self->_nameOverrideLabel setText:v31];
+    v33 = [delegate3 overrideStringForParticipantsView:self];
+    [(UILabel *)self->_nameOverrideLabel setText:v33];
 
     goto LABEL_9;
   }
 
-  if (v7 == 2)
+  if (v8 == 2)
   {
-    v64 = sub_100004F84();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+    v66 = sub_100004F84(v11);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "Configuring the call participants view for multiple participants", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "Configuring the call participants view for multiple participants", buf, 2u);
     }
 
     callDisplayStyleManager3 = [(PHCallParticipantsView *)self callDisplayStyleManager];
@@ -262,8 +263,8 @@ LABEL_5:
 
     if (!callDisplayStyle2)
     {
-      v67 = +[UIApplication sharedApplication];
-      delegate4 = [v67 delegate];
+      v69 = +[UIApplication sharedApplication];
+      delegate4 = [v69 delegate];
       currentInCallScene = [delegate4 currentInCallScene];
       [currentInCallScene requestTransitionToPresentationMode:2 shouldDismissCMASAlerts:0];
     }
@@ -277,35 +278,35 @@ LABEL_5:
 
       if (!multiCallLabelLayoutGuide)
       {
-        v73 = objc_alloc_init(UILayoutGuide);
-        [(PHCallParticipantsView *)self setMultiCallLabelLayoutGuide:v73];
+        v75 = objc_alloc_init(UILayoutGuide);
+        [(PHCallParticipantsView *)self setMultiCallLabelLayoutGuide:v75];
       }
 
       multiCallLabelLayoutGuide2 = [(PHCallParticipantsView *)self multiCallLabelLayoutGuide];
       [(PHCallParticipantsView *)self addLayoutGuide:multiCallLabelLayoutGuide2];
 
-      v75 = 0;
+      v77 = 0;
     }
 
     else
     {
-      v75 = objc_alloc_init(UILayoutGuide);
-      [(PHCallParticipantsView *)self addLayoutGuide:v75];
+      v77 = objc_alloc_init(UILayoutGuide);
+      [(PHCallParticipantsView *)self addLayoutGuide:v77];
     }
 
-    centerYAnchor3 = [v75 centerYAnchor];
+    centerYAnchor3 = [v77 centerYAnchor];
     centerYAnchor4 = [(PHCallParticipantsView *)self centerYAnchor];
-    v92 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-    [v92 setActive:1];
+    v94 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+    [v94 setActive:1];
 
     if (!self->_bottomMultipleCallLabelView)
     {
-      v171 = v75;
-      v93 = [PHMultipleCallParticipantLabelView alloc];
+      v173 = v77;
+      v95 = [PHMultipleCallParticipantLabelView alloc];
       callDisplayStyleManager5 = [(PHCallParticipantsView *)self callDisplayStyleManager];
-      v95 = [(PHMultipleCallParticipantLabelView *)v93 initWithCallDisplayStyleManager:callDisplayStyleManager5];
+      v97 = [(PHMultipleCallParticipantLabelView *)v95 initWithCallDisplayStyleManager:callDisplayStyleManager5];
       bottomMultipleCallLabelView = self->_bottomMultipleCallLabelView;
-      self->_bottomMultipleCallLabelView = v95;
+      self->_bottomMultipleCallLabelView = v97;
 
       [(PHMultipleCallParticipantLabelView *)self->_bottomMultipleCallLabelView setAccessibilityIdentifier:@"PHMultipleCallParticipantLabelView_Bottom"];
       [(PHMultipleCallParticipantLabelView *)self->_bottomMultipleCallLabelView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -314,27 +315,27 @@ LABEL_5:
       [(PHCallParticipantsView *)self addSubview:self->_bottomMultipleCallLabelView];
       leadingAnchor3 = [(PHMultipleCallParticipantLabelView *)self->_bottomMultipleCallLabelView leadingAnchor];
       leadingAnchor4 = [(PHCallParticipantsView *)self leadingAnchor];
-      v99 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-      v195[0] = v99;
+      v101 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+      v197[0] = v101;
       trailingAnchor3 = [(PHMultipleCallParticipantLabelView *)self->_bottomMultipleCallLabelView trailingAnchor];
       trailingAnchor4 = [(PHCallParticipantsView *)self trailingAnchor];
-      v102 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-      v195[1] = v102;
-      v103 = [NSArray arrayWithObjects:v195 count:2];
-      v168 = [v103 mutableCopy];
+      v104 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+      v197[1] = v104;
+      v105 = [NSArray arrayWithObjects:v197 count:2];
+      v170 = [v105 mutableCopy];
 
       callDisplayStyleManager6 = [(PHCallParticipantsView *)self callDisplayStyleManager];
       callDisplayStyle3 = [callDisplayStyleManager6 callDisplayStyle];
 
       if (callDisplayStyle3 == 1)
       {
-        v75 = v171;
-        bottomAnchor3 = [v171 bottomAnchor];
+        v77 = v173;
+        bottomAnchor3 = [v173 bottomAnchor];
         participantMarqueeLabel = [(PHAbstractCallParticipantLabelView *)self->_bottomMultipleCallLabelView participantMarqueeLabel];
         bottomAnchor4 = [participantMarqueeLabel bottomAnchor];
-        v109 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-        v110 = v168;
-        [v168 addObject:v109];
+        v111 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+        v112 = v170;
+        [v170 addObject:v111];
       }
 
       else
@@ -342,11 +343,11 @@ LABEL_5:
         participantMarqueeLabel2 = [(PHAbstractCallParticipantLabelView *)self->_bottomMultipleCallLabelView participantMarqueeLabel];
         firstBaselineAnchor = [participantMarqueeLabel2 firstBaselineAnchor];
         bottomAnchor5 = [(PHCallParticipantsView *)self bottomAnchor];
-        v115 = [firstBaselineAnchor constraintLessThanOrEqualToAnchor:bottomAnchor5];
-        v194 = v115;
-        v116 = [NSArray arrayWithObjects:&v194 count:1];
-        v110 = v168;
-        [v168 addObjectsFromArray:v116];
+        v117 = [firstBaselineAnchor constraintLessThanOrEqualToAnchor:bottomAnchor5];
+        v196 = v117;
+        v118 = [NSArray arrayWithObjects:&v196 count:1];
+        v112 = v170;
+        [v170 addObjectsFromArray:v118];
 
         callDisplayStyleManager7 = [(PHCallParticipantsView *)self callDisplayStyleManager];
         LODWORD(bottomAnchor5) = [callDisplayStyleManager7 usesLargeFormatUI];
@@ -356,35 +357,35 @@ LABEL_5:
         if (bottomAnchor5)
         {
           bottomAnchor4 = [bottomAnchor3 constraintEqualToAnchor:participantMarqueeLabel];
-          v193 = bottomAnchor4;
-          v118 = &v193;
+          v195 = bottomAnchor4;
+          v120 = &v195;
         }
 
         else
         {
           bottomAnchor4 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:participantMarqueeLabel];
-          v192 = bottomAnchor4;
-          v118 = &v192;
+          v194 = bottomAnchor4;
+          v120 = &v194;
         }
 
-        v109 = [NSArray arrayWithObjects:v118 count:1];
-        [v168 addObjectsFromArray:v109];
-        v75 = v171;
+        v111 = [NSArray arrayWithObjects:v120 count:1];
+        [v170 addObjectsFromArray:v111];
+        v77 = v173;
       }
 
-      [NSLayoutConstraint activateConstraints:v110];
-      v120 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"participantLabelWasTapped:"];
-      [(PHMultipleCallParticipantLabelView *)self->_bottomMultipleCallLabelView addGestureRecognizer:v120];
+      [NSLayoutConstraint activateConstraints:v112];
+      v122 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"participantLabelWasTapped:"];
+      [(PHMultipleCallParticipantLabelView *)self->_bottomMultipleCallLabelView addGestureRecognizer:v122];
     }
 
     if (!self->_topMultipleCallLabelView)
     {
-      v172 = v75;
-      v121 = [PHMultipleCallParticipantLabelView alloc];
+      v174 = v77;
+      v123 = [PHMultipleCallParticipantLabelView alloc];
       callDisplayStyleManager8 = [(PHCallParticipantsView *)self callDisplayStyleManager];
-      v123 = [(PHMultipleCallParticipantLabelView *)v121 initWithCallDisplayStyleManager:callDisplayStyleManager8];
+      v125 = [(PHMultipleCallParticipantLabelView *)v123 initWithCallDisplayStyleManager:callDisplayStyleManager8];
       topMultipleCallLabelView = self->_topMultipleCallLabelView;
-      self->_topMultipleCallLabelView = v123;
+      self->_topMultipleCallLabelView = v125;
 
       [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView setAccessibilityIdentifier:@"PHMultipleCallParticipantLabelView_Top"];
       [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -393,35 +394,35 @@ LABEL_5:
       [(PHCallParticipantsView *)self addSubview:self->_topMultipleCallLabelView];
       leadingAnchor5 = [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView leadingAnchor];
       leadingAnchor6 = [(PHCallParticipantsView *)self leadingAnchor];
-      v127 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-      v191[0] = v127;
+      v129 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+      v193[0] = v129;
       trailingAnchor5 = [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView trailingAnchor];
       trailingAnchor6 = [(PHCallParticipantsView *)self trailingAnchor];
-      v130 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-      v191[1] = v130;
-      v131 = [NSArray arrayWithObjects:v191 count:2];
-      v169 = [v131 mutableCopy];
+      v132 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+      v193[1] = v132;
+      v133 = [NSArray arrayWithObjects:v193 count:2];
+      v171 = [v133 mutableCopy];
 
       callDisplayStyleManager9 = [(PHCallParticipantsView *)self callDisplayStyleManager];
       callDisplayStyle4 = [callDisplayStyleManager9 callDisplayStyle];
 
       if (callDisplayStyle4 == 1)
       {
-        v75 = v172;
-        topAnchor = [v172 topAnchor];
+        v77 = v174;
+        topAnchor = [v174 topAnchor];
         participantMarqueeLabel3 = [(PHAbstractCallParticipantLabelView *)self->_topMultipleCallLabelView participantMarqueeLabel];
         topAnchor2 = [participantMarqueeLabel3 topAnchor];
-        v162 = [topAnchor constraintEqualToAnchor:?];
-        v190[0] = v162;
+        v164 = [topAnchor constraintEqualToAnchor:?];
+        v192[0] = v164;
         participantMarqueeLabel4 = [(PHAbstractCallParticipantLabelView *)self->_topMultipleCallLabelView participantMarqueeLabel];
         bottomAnchor6 = [participantMarqueeLabel4 bottomAnchor];
         participantMarqueeLabel5 = [(PHAbstractCallParticipantLabelView *)self->_bottomMultipleCallLabelView participantMarqueeLabel];
         topAnchor3 = [participantMarqueeLabel5 topAnchor];
-        v166 = bottomAnchor6;
+        v168 = bottomAnchor6;
         bottomAnchor7 = [bottomAnchor6 constraintEqualToAnchor:topAnchor3];
-        v190[1] = bottomAnchor7;
-        participantMarqueeLabel7 = [NSArray arrayWithObjects:v190 count:2];
-        [v169 addObjectsFromArray:participantMarqueeLabel7];
+        v192[1] = bottomAnchor7;
+        participantMarqueeLabel7 = [NSArray arrayWithObjects:v192 count:2];
+        [v171 addObjectsFromArray:participantMarqueeLabel7];
       }
 
       else
@@ -431,30 +432,30 @@ LABEL_5:
         topAnchor2 = [(PHAbstractCallParticipantLabelView *)self->_bottomMultipleCallLabelView participantMarqueeLabel];
         firstBaselineAnchor3 = [topAnchor2 firstBaselineAnchor];
         [(PHCallParticipantsView *)self multipleCallLabelBaselineOffset];
-        v162 = firstBaselineAnchor3;
-        participantMarqueeLabel4 = [firstBaselineAnchor2 constraintEqualToAnchor:firstBaselineAnchor3 constant:-v142];
-        v189[0] = participantMarqueeLabel4;
+        v164 = firstBaselineAnchor3;
+        participantMarqueeLabel4 = [firstBaselineAnchor2 constraintEqualToAnchor:firstBaselineAnchor3 constant:-v144];
+        v191[0] = participantMarqueeLabel4;
         topAnchor4 = [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView topAnchor];
         participantMarqueeLabel5 = [(PHCallParticipantsView *)self topAnchor];
-        v166 = topAnchor4;
+        v168 = topAnchor4;
         topAnchor3 = [topAnchor4 constraintEqualToAnchor:participantMarqueeLabel5];
-        v189[1] = topAnchor3;
+        v191[1] = topAnchor3;
         bottomAnchor7 = [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView bottomAnchor];
         participantMarqueeLabel7 = [(PHAbstractCallParticipantLabelView *)self->_topMultipleCallLabelView participantMarqueeLabel];
         lastBaselineAnchor = [participantMarqueeLabel7 lastBaselineAnchor];
-        v145 = [bottomAnchor7 constraintEqualToAnchor:lastBaselineAnchor];
-        v189[2] = v145;
-        v146 = [NSArray arrayWithObjects:v189 count:3];
-        [v169 addObjectsFromArray:v146];
+        v147 = [bottomAnchor7 constraintEqualToAnchor:lastBaselineAnchor];
+        v191[2] = v147;
+        v148 = [NSArray arrayWithObjects:v191 count:3];
+        [v171 addObjectsFromArray:v148];
 
         participantMarqueeLabel3 = firstBaselineAnchor2;
         topAnchor = participantMarqueeLabel6;
-        v75 = v172;
+        v77 = v174;
       }
 
-      [NSLayoutConstraint activateConstraints:v169];
-      v147 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"participantLabelWasTapped:"];
-      [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView addGestureRecognizer:v147];
+      [NSLayoutConstraint activateConstraints:v171];
+      v149 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"participantLabelWasTapped:"];
+      [(PHMultipleCallParticipantLabelView *)self->_topMultipleCallLabelView addGestureRecognizer:v149];
     }
 
     [(PHCallParticipantsView *)self updateParticipantAtIndex:0 animated:animatedCopy];
@@ -488,22 +489,22 @@ LABEL_67:
 
       singleCallLabelView4 = [(PHCallParticipantsView *)self singleCallLabelView];
       nameOverrideLabel2 = [(PHCallParticipantsView *)self nameOverrideLabel];
-      v176[0] = _NSConcreteStackBlock;
-      v176[1] = 3221225472;
-      v176[2] = sub_100060C48;
-      v176[3] = &unk_100357318;
-      v177 = singleCallLabelView4;
-      v178 = nameOverrideLabel2;
+      v178[0] = _NSConcreteStackBlock;
+      v178[1] = 3221225472;
+      v178[2] = sub_100060C48;
+      v178[3] = &unk_100357318;
+      v179 = singleCallLabelView4;
+      v180 = nameOverrideLabel2;
       selfCopy = self;
-      v173[0] = _NSConcreteStackBlock;
-      v173[1] = 3221225472;
-      v173[2] = sub_100060CD0;
-      v173[3] = &unk_100356D10;
-      v174 = v177;
-      v175 = v178;
-      v154 = v178;
-      nameOverrideLabel3 = v177;
-      [UIView animateWithDuration:v176 animations:v173 completion:0.5];
+      v175[0] = _NSConcreteStackBlock;
+      v175[1] = 3221225472;
+      v175[2] = sub_100060CD0;
+      v175[3] = &unk_100356D10;
+      v176 = v179;
+      v177 = v180;
+      v156 = v180;
+      nameOverrideLabel3 = v179;
+      [UIView animateWithDuration:v178 animations:v175 completion:0.5];
     }
 
     else
@@ -520,38 +521,37 @@ LABEL_67:
     goto LABEL_67;
   }
 
-  if (v7 != 1)
+  if (v8 != 1)
   {
     goto LABEL_9;
   }
 
-  v33 = sub_100004F84();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v35 = sub_100004F84(v11);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Configuring the call participants view for a single participant", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Configuring the call participants view for a single participant", buf, 2u);
   }
 
   singleCallLabelView6 = [(PHCallParticipantsView *)self singleCallLabelView];
 
   if (!singleCallLabelView6)
   {
-    v35 = [PHSingleCallParticipantLabelView alloc];
+    v37 = [PHSingleCallParticipantLabelView alloc];
     callDisplayStyleManager10 = [(PHCallParticipantsView *)self callDisplayStyleManager];
-    v37 = [(PHSingleCallParticipantLabelView *)v35 initWithCallDisplayStyleManager:callDisplayStyleManager10 delegate:self];
+    v39 = [(PHSingleCallParticipantLabelView *)v37 initWithCallDisplayStyleManager:callDisplayStyleManager10 delegate:self];
     singleCallLabelView = self->_singleCallLabelView;
-    self->_singleCallLabelView = v37;
+    self->_singleCallLabelView = v39;
 
     [(PHSingleCallParticipantLabelView *)self->_singleCallLabelView setPreservesSuperviewLayoutMargins:1];
     [(PHSingleCallParticipantLabelView *)self->_singleCallLabelView setTranslatesAutoresizingMaskIntoConstraints:0];
-    [(PHSingleCallParticipantLabelView *)self->_singleCallLabelView setOverrideUserInterfaceStyle:2];
-    v39 = sub_100004F84();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v41 = sub_100004F84([(PHSingleCallParticipantLabelView *)self->_singleCallLabelView setOverrideUserInterfaceStyle:2]);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = self->_singleCallLabelView;
+      v42 = self->_singleCallLabelView;
       *buf = 138412290;
-      v197 = v40;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Adding a new single-participant view to the view hierarchy: %@", buf, 0xCu);
+      v199 = v42;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Adding a new single-participant view to the view hierarchy: %@", buf, 0xCu);
     }
 
     [(PHCallParticipantsView *)self addSubview:self->_singleCallLabelView];
@@ -561,72 +561,72 @@ LABEL_67:
     trailingSideLayoutGuide = [(PHCallParticipantsView *)self trailingSideLayoutGuide];
     [(PHSingleCallParticipantLabelView *)self->_singleCallLabelView setTrailingSideLayoutGuide:trailingSideLayoutGuide];
 
-    v43 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:5 relatedBy:0 toItem:self attribute:5 multiplier:1.0 constant:0.0];
-    [(PHCallParticipantsView *)self addConstraint:v43];
-
-    v44 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:6 relatedBy:0 toItem:self attribute:6 multiplier:1.0 constant:0.0];
-    [(PHCallParticipantsView *)self addConstraint:v44];
-
-    v45 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:4 relatedBy:-1 toItem:self attribute:4 multiplier:1.0 constant:0.0];
+    v45 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:5 relatedBy:0 toItem:self attribute:5 multiplier:1.0 constant:0.0];
     [(PHCallParticipantsView *)self addConstraint:v45];
 
-    LODWORD(v46) = 1132068864;
-    v47 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:4 relatedBy:0 toItem:self attribute:4 multiplier:1.0 constant:0.0 priority:v46];
+    v46 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:6 relatedBy:0 toItem:self attribute:6 multiplier:1.0 constant:0.0];
+    [(PHCallParticipantsView *)self addConstraint:v46];
+
+    v47 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:4 relatedBy:-1 toItem:self attribute:4 multiplier:1.0 constant:0.0];
     [(PHCallParticipantsView *)self addConstraint:v47];
 
-    v48 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:3 relatedBy:0 toItem:self attribute:3 multiplier:1.0 constant:0.0];
-    [(PHCallParticipantsView *)self addConstraint:v48];
+    LODWORD(v48) = 1132068864;
+    v49 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:4 relatedBy:0 toItem:self attribute:4 multiplier:1.0 constant:0.0 priority:v48];
+    [(PHCallParticipantsView *)self addConstraint:v49];
+
+    v50 = [NSLayoutConstraint constraintWithItem:self->_singleCallLabelView attribute:3 relatedBy:0 toItem:self attribute:3 multiplier:1.0 constant:0.0];
+    [(PHCallParticipantsView *)self addConstraint:v50];
   }
 
   delegate6 = [(PHCallParticipantsView *)self delegate];
-  v50 = objc_opt_respondsToSelector();
+  v52 = objc_opt_respondsToSelector();
 
-  if (v50)
+  if (v52)
   {
-    v51 = self->_singleCallLabelView;
+    v53 = self->_singleCallLabelView;
     delegate7 = [(PHCallParticipantsView *)self delegate];
-    v53 = [delegate7 colorForStatusLabelForParticipantAtIndex:0 inParticipantsView:self];
-    [(PHSingleCallParticipantLabelView *)v51 setStatusLabelTextColor:v53];
+    v55 = [delegate7 colorForStatusLabelForParticipantAtIndex:0 inParticipantsView:self];
+    [(PHSingleCallParticipantLabelView *)v53 setStatusLabelTextColor:v55];
   }
 
   delegate8 = [(PHCallParticipantsView *)self delegate];
-  v55 = objc_opt_respondsToSelector();
+  v57 = objc_opt_respondsToSelector();
 
-  if (v55)
+  if (v57)
   {
-    v56 = self->_singleCallLabelView;
+    v58 = self->_singleCallLabelView;
     delegate9 = [(PHCallParticipantsView *)self delegate];
-    v58 = [delegate9 colorForParticipantLabelView:self->_singleCallLabelView];
-    [(PHSingleCallParticipantLabelView *)v56 setParticipantMarqueeLabelTextColor:v58];
+    v60 = [delegate9 colorForParticipantLabelView:self->_singleCallLabelView];
+    [(PHSingleCallParticipantLabelView *)v58 setParticipantMarqueeLabelTextColor:v60];
   }
 
   delegate10 = [(PHCallParticipantsView *)self delegate];
-  v60 = objc_opt_respondsToSelector();
+  v62 = objc_opt_respondsToSelector();
 
-  v61 = self->_singleCallLabelView;
-  if (v60)
+  v63 = self->_singleCallLabelView;
+  if (v62)
   {
     delegate11 = [(PHCallParticipantsView *)self delegate];
-    v63 = [delegate11 fontForParticipantLabelView:self->_singleCallLabelView];
-    [(PHSingleCallParticipantLabelView *)v61 setParticipantMarqueeLabelFont:v63];
+    v65 = [delegate11 fontForParticipantLabelView:self->_singleCallLabelView];
+    [(PHSingleCallParticipantLabelView *)v63 setParticipantMarqueeLabelFont:v65];
   }
 
   else
   {
     delegate11 = [(PHSingleCallParticipantLabelView *)self->_singleCallLabelView updatedParticipantMarqueeLabelFont];
-    [(PHSingleCallParticipantLabelView *)v61 setParticipantMarqueeLabelFont:delegate11];
+    [(PHSingleCallParticipantLabelView *)v63 setParticipantMarqueeLabelFont:delegate11];
   }
 
   [(PHCallParticipantsView *)self updateParticipantAtIndex:0 animated:animatedCopy];
   delegate12 = [(PHCallParticipantsView *)self delegate];
-  v77 = objc_opt_respondsToSelector();
+  v79 = objc_opt_respondsToSelector();
 
-  if (v77)
+  if (v79)
   {
-    v78 = self->_singleCallLabelView;
+    v80 = self->_singleCallLabelView;
     delegate13 = [(PHCallParticipantsView *)self delegate];
-    v80 = [delegate13 fontForParticipantLabelViewStatusLabel:self->_singleCallLabelView];
-    [(PHSingleCallParticipantLabelView *)v78 setStatusLabelTextFont:v80];
+    v82 = [delegate13 fontForParticipantLabelViewStatusLabel:self->_singleCallLabelView];
+    [(PHSingleCallParticipantLabelView *)v80 setStatusLabelTextFont:v82];
   }
 
   topMultipleCallLabelView3 = [(PHCallParticipantsView *)self topMultipleCallLabelView];
@@ -645,7 +645,7 @@ LABEL_67:
   }
 
   topMultipleCallLabelView4 = [(PHCallParticipantsView *)self topMultipleCallLabelView];
-  v83 = topMultipleCallLabelView4;
+  v85 = topMultipleCallLabelView4;
   if (animatedCopy)
   {
     bottomMultipleCallLabelView3 = [(PHCallParticipantsView *)self bottomMultipleCallLabelView];
@@ -653,25 +653,25 @@ LABEL_67:
     singleCallLabelView7 = [(PHCallParticipantsView *)self singleCallLabelView];
     [singleCallLabelView7 setAlpha:0.0];
 
-    v184[0] = _NSConcreteStackBlock;
-    v184[1] = 3221225472;
-    v184[2] = sub_100060B8C;
-    v184[3] = &unk_1003572C8;
-    v185 = v83;
-    v186 = bottomMultipleCallLabelView3;
-    v187 = nameOverrideLabel5;
+    v186[0] = _NSConcreteStackBlock;
+    v186[1] = 3221225472;
+    v186[2] = sub_100060B8C;
+    v186[3] = &unk_1003572C8;
+    v187 = v85;
+    v188 = bottomMultipleCallLabelView3;
+    v189 = nameOverrideLabel5;
     selfCopy2 = self;
-    v180[0] = _NSConcreteStackBlock;
-    v180[1] = 3221225472;
-    v180[2] = sub_100060C04;
-    v180[3] = &unk_1003572F0;
-    v181 = v185;
-    v182 = v186;
+    v182[0] = _NSConcreteStackBlock;
+    v182[1] = 3221225472;
+    v182[2] = sub_100060C04;
+    v182[3] = &unk_1003572F0;
     v183 = v187;
-    v87 = v187;
-    v88 = v186;
-    nameOverrideLabel6 = v185;
-    [UIView animateWithDuration:v184 animations:v180 completion:0.5];
+    v184 = v188;
+    v185 = v189;
+    v89 = v189;
+    v90 = v188;
+    nameOverrideLabel6 = v187;
+    [UIView animateWithDuration:v186 animations:v182 completion:0.5];
   }
 
   else
@@ -707,121 +707,122 @@ LABEL_9:
 - (void)updateParticipantAtIndex:(unint64_t)index animated:(BOOL)animated
 {
   animatedCopy = animated;
-  if (![(PHCallParticipantsView *)self shouldIgnoreUpdates])
+  shouldIgnoreUpdates = [(PHCallParticipantsView *)self shouldIgnoreUpdates];
+  if (!shouldIgnoreUpdates)
   {
     delegate = [(PHCallParticipantsView *)self delegate];
-    v9 = [delegate numberOfParticipantsForParticipantsView:self];
+    v10 = [delegate numberOfParticipantsForParticipantsView:self];
 
     delegate2 = [(PHCallParticipantsView *)self delegate];
-    v11 = [delegate2 callForParticipantAtIndex:index inParticipantsView:self];
+    v12 = [delegate2 callForParticipantAtIndex:index inParticipantsView:self];
 
-    objc_storeStrong(&self->_currentCall, v11);
-    if (v9 == 2)
+    objc_storeStrong(&self->_currentCall, v12);
+    if (v10 == 2)
     {
-      v35 = &OBJC_IVAR___PHCallParticipantsView__bottomMultipleCallLabelView;
+      v37 = &OBJC_IVAR___PHCallParticipantsView__bottomMultipleCallLabelView;
       if (!index)
       {
-        v35 = &OBJC_IVAR___PHCallParticipantsView__topMultipleCallLabelView;
+        v37 = &OBJC_IVAR___PHCallParticipantsView__topMultipleCallLabelView;
       }
 
-      v7 = *(&self->super.super.super.isa + *v35);
+      p_super = *(&self->super.super.super.isa + *v37);
       previousURL = self->_previousURL;
       self->_previousURL = 0;
 
-      if (v7)
+      if (p_super)
       {
 LABEL_7:
         delegate3 = [(PHCallParticipantsView *)self delegate];
-        v13 = [delegate3 nameForParticipantAtIndex:index inParticipantsView:self];
+        v15 = [delegate3 nameForParticipantAtIndex:index inParticipantsView:self];
 
-        displayContext = [v11 displayContext];
+        displayContext = [v12 displayContext];
 
         if (displayContext)
         {
-          displayContext2 = [v11 displayContext];
+          displayContext2 = [v12 displayContext];
           callDirectoryLabel = [displayContext2 callDirectoryLabel];
           if (callDirectoryLabel)
           {
-            v17 = callDirectoryLabel;
-            isOutgoing = [v11 isOutgoing];
+            v19 = callDirectoryLabel;
+            isOutgoing = [v12 isOutgoing];
 
             if (isOutgoing)
             {
               callDirectoryLabel2 = [displayContext2 callDirectoryLabel];
 
-              v13 = callDirectoryLabel2;
+              v15 = callDirectoryLabel2;
             }
           }
         }
 
         delegate4 = [(PHCallParticipantsView *)self delegate];
-        v21 = [delegate4 labelForParticipantAtIndex:index inParticipantsView:self allowsDuration:1];
+        v23 = [delegate4 labelForParticipantAtIndex:index inParticipantsView:self allowsDuration:1];
 
         delegate5 = [(PHCallParticipantsView *)self delegate];
-        v23 = [delegate5 supplementalParticipantLabelFormatStringAtIndex:index inParticipantsView:self];
+        v25 = [delegate5 supplementalParticipantLabelFormatStringAtIndex:index inParticipantsView:self];
 
-        v24 = +[CNKFeatures sharedInstance];
-        isHeroImageEnabled = [v24 isHeroImageEnabled];
+        v26 = +[CNKFeatures sharedInstance];
+        isHeroImageEnabled = [v26 isHeroImageEnabled];
 
         objc_opt_class();
-        v105 = v23;
+        v109 = v25;
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          if ([v23 length])
+          if ([v25 length])
           {
-            [NSString stringWithFormat:v23, v13];
-            v13 = v37 = v13;
+            [NSString stringWithFormat:v25, v15];
+            v15 = v39 = v15;
           }
 
           else
           {
             delegate6 = [(PHCallParticipantsView *)self delegate];
-            v41 = objc_opt_respondsToSelector();
+            v43 = objc_opt_respondsToSelector();
 
-            if ((v41 & 1) == 0)
+            if ((v43 & 1) == 0)
             {
               goto LABEL_53;
             }
 
             delegate7 = [(PHCallParticipantsView *)self delegate];
-            v37 = [delegate7 localizedSenderIdentityForParticipantAtIndex:index inParticipantsView:self];
+            v39 = [delegate7 localizedSenderIdentityForParticipantAtIndex:index inParticipantsView:self];
 
-            if ([v37 length])
+            if ([v39 length])
             {
-              [v21 setLocalizedSenderIdentity:v37];
+              [v23 setLocalizedSenderIdentity:v39];
             }
           }
 
 LABEL_53:
-          [(PHAbstractCallParticipantLabelView *)v7 setParticipantName:v13];
-          [(PHSingleCallParticipantLabelView *)v7 setLabelDescriptor:v21];
+          [p_super setParticipantName:v15];
+          [p_super setLabelDescriptor:v23];
           goto LABEL_54;
         }
 
         delegate8 = [(PHCallParticipantsView *)self delegate];
-        v27 = objc_opt_respondsToSelector();
+        v29 = objc_opt_respondsToSelector();
 
-        if (v27)
+        if (v29)
         {
           delegate9 = [(PHCallParticipantsView *)self delegate];
-          v29 = [delegate9 iconInParticipantsView:self];
-          [(PHSingleCallParticipantLabelView *)v7 setIcon:v29];
+          v31 = [delegate9 iconInParticipantsView:self];
+          [p_super setIcon:v31];
         }
 
         delegate10 = [(PHCallParticipantsView *)self delegate];
-        v31 = objc_opt_respondsToSelector();
+        v33 = objc_opt_respondsToSelector();
 
-        if (v31)
+        if (v33)
         {
           delegate11 = [(PHCallParticipantsView *)self delegate];
-          v33 = [delegate11 linkNameForCall:v11];
+          v35 = [delegate11 linkNameForCall:v12];
 
-          isTelephonyProvider = v33 != 0;
-          if (v33)
+          isTelephonyProvider = v35 != 0;
+          if (v35)
           {
-            v34 = v33;
+            v36 = v35;
 
-            v13 = v34;
+            v15 = v36;
           }
         }
 
@@ -830,70 +831,70 @@ LABEL_53:
           isTelephonyProvider = 0;
         }
 
-        v38 = v7;
-        v104 = v38;
-        if (![v11 isIncoming])
+        v40 = p_super;
+        v108 = v40;
+        if (![v12 isIncoming])
         {
 LABEL_39:
-          if ((isHeroImageEnabled & 1) != 0 || (-[PHCallParticipantsView callDisplayStyleManager](self, "callDisplayStyleManager"), v50 = objc_claimAutoreleasedReturnValue(), v51 = [v50 callDisplayStyle], v50, v51 == 3))
+          if ((isHeroImageEnabled & 1) != 0 || (-[PHCallParticipantsView callDisplayStyleManager](self, "callDisplayStyleManager"), v52 = objc_claimAutoreleasedReturnValue(), v53 = [v52 callDisplayStyle], v52, v53 == 3))
           {
             delegate12 = [(PHCallParticipantsView *)self delegate];
-            v53 = [delegate12 contactForParticipantAtIndex:0 inParticipantsView:self];
-            [(PHSingleCallParticipantLabelView *)v104 setContact:v53];
+            v55 = [delegate12 contactForParticipantAtIndex:0 inParticipantsView:self];
+            [v108 setContact:v55];
           }
 
-          v49 = v105;
-          if (!v105)
+          v51 = v109;
+          if (!v109)
           {
 LABEL_47:
             delegate13 = [(PHCallParticipantsView *)self delegate];
-            v60 = objc_opt_respondsToSelector();
+            v62 = objc_opt_respondsToSelector();
 
-            if (v60)
+            if (v62)
             {
               delegate14 = [(PHCallParticipantsView *)self delegate];
-              v62 = [delegate14 localizedSenderIdentityForParticipantAtIndex:index inParticipantsView:self];
+              v64 = [delegate14 localizedSenderIdentityForParticipantAtIndex:index inParticipantsView:self];
 
-              if ([v62 length])
+              if ([v64 length])
               {
-                [v21 setLocalizedSenderIdentity:v62];
+                [v23 setLocalizedSenderIdentity:v64];
               }
             }
 
             if (isTelephonyProvider)
             {
-              strings = [v21 strings];
+              strings = [v23 strings];
               firstObject = [strings firstObject];
-              [(PHAbstractCallParticipantLabelView *)v104 setParticipantName:firstObject];
+              [v108 setParticipantName:firstObject];
 
               labelDescriptorFactory = self->_labelDescriptorFactory;
-              secondaryString = [v21 secondaryString];
-              v67 = -[CNKCallParticipantLabelDescriptorFactory makeLabelWithString:secondaryString:layoutState:](labelDescriptorFactory, "makeLabelWithString:secondaryString:layoutState:", v13, secondaryString, [v21 layoutState]);
+              secondaryString = [v23 secondaryString];
+              v69 = -[CNKCallParticipantLabelDescriptorFactory makeLabelWithString:secondaryString:layoutState:](labelDescriptorFactory, "makeLabelWithString:secondaryString:layoutState:", v15, secondaryString, [v23 layoutState]);
 
-              sourceString = [v21 sourceString];
-              [v67 setSourceString:sourceString];
+              sourceString = [v23 sourceString];
+              [v69 setSourceString:sourceString];
 
-              localizedSenderIdentity = [v21 localizedSenderIdentity];
-              [v67 setLocalizedSenderIdentity:localizedSenderIdentity];
+              localizedSenderIdentity = [v23 localizedSenderIdentity];
+              [v69 setLocalizedSenderIdentity:localizedSenderIdentity];
 
-              [(PHSingleCallParticipantLabelView *)v104 setLabelDescriptor:v67];
+              [v108 setLabelDescriptor:v69];
 LABEL_54:
               delegate15 = [(PHCallParticipantsView *)self delegate];
-              -[PHSingleCallParticipantLabelView setActivityState:animated:](v7, "setActivityState:animated:", [delegate15 activityStateForParticipantAtIndex:index inParticipantsView:self], animatedCopy);
+              -[NSObject setActivityState:animated:](p_super, "setActivityState:animated:", [delegate15 activityStateForParticipantAtIndex:index inParticipantsView:self], animatedCopy);
 
               delegate16 = [(PHCallParticipantsView *)self delegate];
-              v72 = [delegate16 shouldShowInfoButtonForParticipantAtIndex:index inParticipantsView:self];
+              v74 = [delegate16 shouldShowInfoButtonForParticipantAtIndex:index inParticipantsView:self];
 
-              [(PHSingleCallParticipantLabelView *)v7 setShowsConferenceParticipantsButton:v72];
-              if (v72)
+              [p_super setShowsConferenceParticipantsButton:v74];
+              if (v74)
               {
-                [(PHSingleCallParticipantLabelView *)v7 setShowsCallDetailsViewButton:0];
+                [p_super setShowsCallDetailsViewButton:0];
               }
 
               else
               {
                 delegate17 = [(PHCallParticipantsView *)self delegate];
-                -[PHSingleCallParticipantLabelView setShowsCallDetailsViewButton:](v7, "setShowsCallDetailsViewButton:", [delegate17 shouldShowCallDetailsViewButton]);
+                -[NSObject setShowsCallDetailsViewButton:](p_super, "setShowsCallDetailsViewButton:", [delegate17 shouldShowCallDetailsViewButton]);
               }
 
 LABEL_58:
@@ -906,28 +907,28 @@ LABEL_58:
 LABEL_43:
           if (isTelephonyProvider)
           {
-            [NSString stringWithFormat:v49, v13];
-            v13 = v54 = v13;
+            [NSString stringWithFormat:v51, v15];
+            v15 = v56 = v15;
           }
 
           else
           {
-            [v21 strings];
-            v101 = animatedCopy;
-            v55 = v21;
-            v57 = v56 = v49;
-            firstObject2 = [v57 firstObject];
-            v54 = [NSString stringWithFormat:v56, firstObject2];
+            [v23 strings];
+            v105 = animatedCopy;
+            v57 = v23;
+            v59 = v58 = v51;
+            firstObject2 = [v59 firstObject];
+            v56 = [NSString stringWithFormat:v58, firstObject2];
 
-            v21 = [(CNKCallParticipantLabelDescriptorFactory *)self->_labelDescriptorFactory makeLabelWithString:v54];
+            v23 = [(CNKCallParticipantLabelDescriptorFactory *)self->_labelDescriptorFactory makeLabelWithString:v56];
 
-            animatedCopy = v101;
+            animatedCopy = v105;
           }
 
           goto LABEL_47;
         }
 
-        contact = [(PHSingleCallParticipantLabelView *)v38 contact];
+        contact = [v40 contact];
         if (contact)
         {
 
@@ -935,34 +936,34 @@ LABEL_43:
         }
 
         delegate18 = [(PHCallParticipantsView *)self delegate];
-        v44 = [delegate18 shouldShowParticipantImageAtIndex:0 inParticipantsView:self];
+        v46 = [delegate18 shouldShowParticipantImageAtIndex:0 inParticipantsView:self];
 
-        if (!v44)
+        if (!v46)
         {
           goto LABEL_39;
         }
 
         delegate19 = [(PHCallParticipantsView *)self delegate];
         suggestedDisplayName = [delegate19 contactForParticipantAtIndex:0 inParticipantsView:self];
-        [(PHSingleCallParticipantLabelView *)v104 setContact:suggestedDisplayName];
+        [v108 setContact:suggestedDisplayName];
 
-        contact2 = [(PHSingleCallParticipantLabelView *)v104 contact];
+        contact2 = [v108 contact];
         if (contact2)
         {
           suggestedDisplayName = contact2;
-          contact3 = [(PHSingleCallParticipantLabelView *)v104 contact];
-          v49 = v105;
+          contact3 = [v108 contact];
+          v51 = v109;
           if ([contact3 imageDataAvailable])
           {
 
             goto LABEL_97;
           }
 
-          if (!v11)
+          if (!v12)
           {
 LABEL_97:
-            [(PHSingleCallParticipantLabelView *)v104 updateLabelsOrderAndText];
-            if (!v49)
+            [v108 updateLabelsOrderAndText];
+            if (!v51)
             {
               goto LABEL_47;
             }
@@ -973,19 +974,19 @@ LABEL_97:
 
         else
         {
-          v49 = v105;
-          if (!v11)
+          v51 = v109;
+          if (!v12)
           {
             goto LABEL_97;
           }
         }
 
-        if (![v11 isScreening] || (objc_msgSend(v11, "smartHoldingSession"), v74 = objc_claimAutoreleasedReturnValue(), v74, v74))
+        if (![v12 isScreening] || (objc_msgSend(v12, "smartHoldingSession"), v76 = objc_claimAutoreleasedReturnValue(), v76, v76))
         {
-          callDirectoryName = [v11 callDirectoryName];
-          if (callDirectoryName || ([v11 imageURL], (suggestedDisplayName = objc_claimAutoreleasedReturnValue()) != 0))
+          callDirectoryName = [v12 callDirectoryName];
+          if (callDirectoryName || ([v12 imageURL], (suggestedDisplayName = objc_claimAutoreleasedReturnValue()) != 0))
           {
-            provider = [v11 provider];
+            provider = [v12 provider];
             isTelephonyProvider = [provider isTelephonyProvider];
 
             if (callDirectoryName)
@@ -1006,92 +1007,92 @@ LABEL_79:
           goto LABEL_80;
         }
 
-        v77 = +[CNKFeatures sharedInstance];
-        if ([v77 isHeroImageEnabled])
+        v79 = +[CNKFeatures sharedInstance];
+        if ([v79 isHeroImageEnabled])
         {
-          imageURL = [v11 imageURL];
+          imageURL = [v12 imageURL];
           if (imageURL)
           {
-            v79 = imageURL;
-            provider2 = [v11 provider];
+            v81 = imageURL;
+            provider2 = [v12 provider];
             if ([provider2 isTelephonyProvider])
             {
-              [v11 localizedLabel];
-              v81 = v102 = provider2;
+              [v12 localizedLabel];
+              v83 = v106 = provider2;
 
-              if (v81)
+              if (v83)
               {
 LABEL_81:
-                imageURL2 = [v11 imageURL];
+                imageURL2 = [v12 imageURL];
 
-                v83 = &selRef_numberOfSectionsInTableView_;
+                v86 = &selRef_numberOfSectionsInTableView_;
                 if (imageURL2)
                 {
-                  imageURL3 = [v11 imageURL];
+                  imageURL3 = [v12 imageURL];
                   relativePath = [imageURL3 relativePath];
-                  v86 = [relativePath isEqualToString:@"/stock"];
+                  v89 = [relativePath isEqualToString:@"/stock"];
 
-                  v87 = sub_100004F84();
-                  v88 = os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT);
-                  if (v86)
+                  v91 = sub_100004F84(v90);
+                  v92 = os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT);
+                  if (v89)
                   {
-                    if (v88)
+                    if (v92)
                     {
                       *buf = 0;
-                      _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "Attempting to display generic business logo", buf, 2u);
+                      _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "Attempting to display generic business logo", buf, 2u);
                     }
 
-                    v89 = +[UIImage genericBusinessLogo];
+                    v93 = +[UIImage genericBusinessLogo];
                   }
 
                   else
                   {
-                    if (v88)
+                    if (v92)
                     {
-                      imageURL4 = [v11 imageURL];
+                      imageURL4 = [v12 imageURL];
                       relativePath2 = [imageURL4 relativePath];
                       *buf = 138412290;
                       indexCopy = relativePath2;
-                      _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "Attempting to display call imageURL: %@", buf, 0xCu);
+                      _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "Attempting to display call imageURL: %@", buf, 0xCu);
                     }
 
-                    v93 = [UIImage alloc];
-                    imageURL5 = [v11 imageURL];
+                    v97 = [UIImage alloc];
+                    imageURL5 = [v12 imageURL];
                     relativePath3 = [imageURL5 relativePath];
-                    v89 = [v93 initWithContentsOfFile:relativePath3];
+                    v93 = [v97 initWithContentsOfFile:relativePath3];
                   }
 
-                  v83 = &selRef_numberOfSectionsInTableView_;
-                  if (v89)
+                  v86 = &selRef_numberOfSectionsInTableView_;
+                  if (v93)
                   {
-                    v96 = self->_previousURL;
-                    imageURL6 = [v11 imageURL];
-                    LOBYTE(v96) = [(NSURL *)v96 isEqual:imageURL6];
+                    v100 = self->_previousURL;
+                    imageURL6 = [v12 imageURL];
+                    LOBYTE(v100) = [(NSURL *)v100 isEqual:imageURL6];
 
-                    v83 = &selRef_numberOfSectionsInTableView_;
-                    if ((v96 & 1) == 0)
+                    v86 = &selRef_numberOfSectionsInTableView_;
+                    if ((v100 & 1) == 0)
                     {
-                      -[PHSingleCallParticipantLabelView setBusinessLogo:isPerson:](v104, "setBusinessLogo:isPerson:", v89, [v11 callDirectoryIdentityType] == 1);
+                      -[NSObject setBusinessLogo:isPerson:](v108, "setBusinessLogo:isPerson:", v93, [v12 callDirectoryIdentityType] == 1);
                     }
                   }
                 }
 
                 else
                 {
-                  v90 = sub_100004F84();
-                  if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+                  v94 = sub_100004F84(v85);
+                  if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
                   {
-                    sub_100254664(v90);
+                    sub_100254664(v94);
                   }
 
-                  [(PHSingleCallParticipantLabelView *)v104 setBusinessLogo:0 isPerson:0];
+                  [v108 setBusinessLogo:0 isPerson:0];
                 }
 
-                v49 = v105;
-                imageURL7 = [v11 imageURL];
-                v99 = *(v83 + 645);
-                v100 = *(&self->super.super.super.isa + v99);
-                *(&self->super.super.super.isa + v99) = imageURL7;
+                v51 = v109;
+                imageURL7 = [v12 imageURL];
+                v103 = *(v86 + 645);
+                v104 = *(&self->super.super.super.isa + v103);
+                *(&self->super.super.super.isa + v103) = imageURL7;
 
                 goto LABEL_97;
               }
@@ -1102,45 +1103,46 @@ LABEL_81:
         }
 
 LABEL_77:
-        callDirectoryName = [v11 suggestedDisplayName];
+        callDirectoryName = [v12 suggestedDisplayName];
         if (!callDirectoryName)
         {
           isTelephonyProvider = 0;
           goto LABEL_80;
         }
 
-        suggestedDisplayName = [v11 suggestedDisplayName];
+        suggestedDisplayName = [v12 suggestedDisplayName];
         isTelephonyProvider = [suggestedDisplayName length] != 0;
         goto LABEL_79;
       }
     }
 
-    else if (v9 == 1)
+    else if (v10 == 1)
     {
-      v7 = self->_singleCallLabelView;
-      if (v7)
+      v13 = self->_singleCallLabelView;
+      p_super = &v13->super.super.super.super;
+      if (v13)
       {
         goto LABEL_7;
       }
     }
 
-    v13 = sub_100004F84();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100004F84(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Ignoring request to update participants because there's no participantLabelView", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Ignoring request to update participants because there's no participantLabelView", buf, 2u);
     }
 
-    v7 = 0;
+    p_super = 0;
     goto LABEL_58;
   }
 
-  v7 = sub_100004F84();
-  if (os_log_type_enabled(&v7->super.super.super.super, OS_LOG_TYPE_DEFAULT))
+  p_super = sub_100004F84(shouldIgnoreUpdates);
+  if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     indexCopy = index;
-    _os_log_impl(&_mh_execute_header, &v7->super.super.super.super, OS_LOG_TYPE_DEFAULT, "Ignoring request to update participant at index %lu because updates to the call participants view are disabled", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_DEFAULT, "Ignoring request to update participant at index %lu because updates to the call participants view are disabled", buf, 0xCu);
   }
 
 LABEL_59:
@@ -1492,7 +1494,7 @@ LABEL_59:
 - (void)setAllowsFieldModeSendButton:(BOOL)button
 {
   buttonCopy = button;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -1548,7 +1550,7 @@ LABEL_59:
 
 - (void)fieldModeButtonTapped:(id)tapped
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -1567,7 +1569,7 @@ LABEL_59:
 
 - (void)showSendButtonGestureRecognizer:(id)recognizer
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

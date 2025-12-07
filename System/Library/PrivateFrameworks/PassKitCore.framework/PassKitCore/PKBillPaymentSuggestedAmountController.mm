@@ -499,7 +499,7 @@ void __135__PKBillPaymentSuggestedAmountController_defaultControllerForAccount_a
 
 - (PKBillPaymentSuggestedAmountController)initWithAccount:(id)account accountUserCollection:(id)collection transactionSource:(id)source currentStatementSelectedSuggestedAmountEvents:(id)events previousStatementSelectedSuggestedAmountEvents:(id)amountEvents currentStatementPaymentsSum:(id)sum previousStatementPaymentsSum:(id)paymentsSum currentStatementPurchasesSum:(id)self0 previousStatementPurchasesSum:(id)self1 currentStatementMerchantCategoryTransactionSums:(id)self2 previousStatementMerchantCategoryTransactionSums:(id)self3 configuration:(id)self4
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   collectionCopy = collection;
   collectionCopy2 = collection;
@@ -514,9 +514,9 @@ void __135__PKBillPaymentSuggestedAmountController_defaultControllerForAccount_a
   sumsCopy = sums;
   transactionSumsCopy = transactionSums;
   configurationCopy = configuration;
-  v88.receiver = self;
-  v88.super_class = PKBillPaymentSuggestedAmountController;
-  v22 = [(PKBillPaymentSuggestedAmountController *)&v88 init];
+  v89.receiver = self;
+  v89.super_class = PKBillPaymentSuggestedAmountController;
+  v22 = [(PKBillPaymentSuggestedAmountController *)&v89 init];
   v23 = v22;
   if (!v22)
   {
@@ -606,7 +606,7 @@ void __135__PKBillPaymentSuggestedAmountController_defaultControllerForAccount_a
     _os_log_impl(&dword_1AD337000, v28, OS_LOG_TYPE_DEFAULT, "Bill payment suggested amount controller using previousStatementSelectedSuggestedAmountEvents: %@", buf, 0xCu);
   }
 
-  v78 = transactionSumsCopy;
+  v79 = transactionSumsCopy;
   v37 = sumsCopy;
 
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
@@ -720,13 +720,13 @@ LABEL_28:
 
   v23->_currentStatementIsLastMonthsStatement = [(PKBillPaymentSuggestedAmountController *)v23 _calculateCurrentStatementIsLastMonthsStatement];
   [(PKBillPaymentSuggestedAmountController *)v23 _initializeDifferentialPrivacy:amountEventsCopy2 accountSummary:accountSummary];
-  [(PKBillPaymentSuggestedAmountController *)v23 _initializePaymentRingInstrumentationRecord:amountEventsCopy2 accountSummary:accountSummary];
-  v71 = objc_alloc_init(getFHPaymentRingSuggestionControllerClass[0]());
+  v71 = [(PKBillPaymentSuggestedAmountController *)v23 _initializePaymentRingInstrumentationRecord:amountEventsCopy2 accountSummary:accountSummary];
+  v72 = objc_alloc_init(getFHPaymentRingSuggestionControllerClass(v71));
   fhController = v23->_fhController;
-  v23->_fhController = v71;
+  v23->_fhController = v72;
 
   sumsCopy = v37;
-  transactionSumsCopy = v78;
+  transactionSumsCopy = v79;
 LABEL_33:
 
   return v23;

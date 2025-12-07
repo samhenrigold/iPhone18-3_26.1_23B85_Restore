@@ -13,7 +13,7 @@
   sampleCopy = sample;
   v9 = [v7 init];
   sub_1C3CC1AD0(sampleCopy, ear);
-  sub_1C3C77FEC(0, &qword_1EC085850);
+  sub_1C3C77FEC(0, &qword_1EC085850, &protocolRef_HKChartPoint);
   v10 = sub_1C3D202A4();
 
   [v9 setChartPoints_];
@@ -31,7 +31,7 @@
   swift_unknownObjectRetain();
   sub_1C3D20774();
   swift_unknownObjectRelease();
-  result = __swift_destroy_boxed_opaque_existential_0(&v8);
+  result = __swift_destroy_boxed_opaque_existential_0(v8);
   *&retstr->index = xmmword_1C3D62480;
   retstr->resolution = 0;
   return result;

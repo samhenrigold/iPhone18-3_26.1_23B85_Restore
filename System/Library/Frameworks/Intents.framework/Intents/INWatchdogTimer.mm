@@ -103,7 +103,7 @@
   return v3;
 }
 
-uint64_t __29__INWatchdogTimer_isCanceled__block_invoke(uint64_t a1)
+void *__29__INWatchdogTimer_isCanceled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isCanceled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -121,7 +121,7 @@ uint64_t __29__INWatchdogTimer_isCanceled__block_invoke(uint64_t a1)
   dispatch_sync(internalQueue, block);
 }
 
-uint64_t __45__INWatchdogTimer_cancelIfNotAlreadyCanceled__block_invoke(uint64_t a1)
+void *__45__INWatchdogTimer_cancelIfNotAlreadyCanceled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cancelIfNotAlreadyCanceled];
   *(*(*(a1 + 40) + 8) + 24) = result;

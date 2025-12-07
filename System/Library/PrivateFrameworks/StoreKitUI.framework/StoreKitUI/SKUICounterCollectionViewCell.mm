@@ -166,7 +166,7 @@
       v17 = v29[5];
       if (v17)
       {
-        [v17 transform];
+        objc_msgSend_transform(v17);
       }
 
       else

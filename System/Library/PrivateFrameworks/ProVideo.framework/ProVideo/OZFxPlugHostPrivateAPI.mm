@@ -52,7 +52,7 @@
     }
 
     v9 = *v14[0];
-    OZFxPlugSharedBase::getPluginUUID(*v14[0], &v11);
+    OZFxPlugSharedBase::getPluginUUID(&v11, *v14[0]);
     v5->_pluginUUID = [(__CFString *)PCString::ns_str(&v11) copy];
     PCString::~PCString(&v11);
     v5->_sessionID = OZFxPlugSharedBase::getPluginSessionID(v9);
@@ -101,7 +101,7 @@
     PCSharedCount::PCSharedCount(&v10);
     if (v5)
     {
-      OZDocument::getFilename(v5, &v9);
+      OZDocument::getFilename(&v9, v5);
       PCString::set(&v10, &v9);
       PCString::~PCString(&v9);
     }

@@ -89,7 +89,7 @@ void __66__NSString_TSULogAdditions__tsu_initRedactedWithFormat_arguments___bloc
 void __59__NSString_SFUJsonAdditions__sfu_appendJsonStringToString___block_invoke()
 {
   sfu_appendJsonStringToString__escapeCharacters = [MEMORY[0x277CCAB50] characterSetWithRange:{0, 32}];
-  [sfu_appendJsonStringToString__escapeCharacters addCharactersInString:@"\"\\""];
+  [sfu_appendJsonStringToString__escapeCharacters addCharactersInString:@"\"];
   v1 = 539566120;
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v1 length:2];
   [sfu_appendJsonStringToString__escapeCharacters addCharactersInString:v0];

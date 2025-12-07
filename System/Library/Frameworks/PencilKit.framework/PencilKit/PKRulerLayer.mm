@@ -181,7 +181,7 @@
   v6 = rulerLayer;
   if (rulerLayer)
   {
-    [rulerLayer affineTransform];
+    objc_msgSend_affineTransform(rulerLayer);
   }
 
   else
@@ -315,7 +315,7 @@
       [(PKRulerLayer *)self rulerZoomStartCenterTValueOnScreen];
       v32 = v31;
       rulerController = [(PKRulerLayer *)self rulerController];
-      [(PKRulerLayer *)self rulerZoomStartTransform];
+      objc_msgSend_rulerZoomStartTransform(self);
       CGAffineTransformTranslate(&v37, &v36, (v32 - v28 * 50.0 / floor(v30 * 50.0)) * 4000.0, 0.0);
       rulerLayer3 = [(PKRulerLayer *)self rulerLayer];
       v37 = v38;
@@ -567,11 +567,11 @@
 
   if (!rulerLayer)
   {
-    [(PKRulerLayer *)self previousRulerTransform];
+    objc_msgSend_previousRulerTransform(self);
     v4 = sqrt(*(v34 + 1) * *(v34 + 1) + *v34 * *v34);
     if (v4 > 0.01)
     {
-      [(PKRulerLayer *)self previousRulerTransform];
+      objc_msgSend_previousRulerTransform(self);
     }
 
     else
@@ -696,7 +696,7 @@
     v12 = rulerLayer4;
     if (rulerLayer4)
     {
-      [rulerLayer4 affineTransform];
+      objc_msgSend_affineTransform(rulerLayer4);
     }
 
     else
@@ -847,7 +847,7 @@
   v67 = rulerLayer3;
   if (rulerLayer3)
   {
-    [rulerLayer3 affineTransform];
+    objc_msgSend_affineTransform(rulerLayer3);
   }
 
   else
@@ -888,7 +888,7 @@
 
 - (int64_t)currentAngle
 {
-  [(PKRulerLayer *)self rulerTransform];
+  objc_msgSend_rulerTransform(self, a2);
   v2 = DKDTransformAngle(&v6);
   v3 = fmod(-v2, 360.0);
   if (v2 >= -360.0 && v2 <= 0.0)
@@ -961,7 +961,7 @@
   v6 = rulerLayer;
   if (rulerLayer)
   {
-    [rulerLayer affineTransform];
+    objc_msgSend_affineTransform(rulerLayer);
   }
 
   else
@@ -975,7 +975,7 @@
   if (rulerController && (WeakRetained = objc_loadWeakRetained((rulerController + 40))) != 0)
   {
     v10 = WeakRetained;
-    [WeakRetained strokeTransform];
+    objc_msgSend_strokeTransform(WeakRetained);
   }
 
   else
@@ -1295,7 +1295,7 @@ LABEL_11:
   v60 = rulerLayer2;
   if (rulerLayer2)
   {
-    [rulerLayer2 affineTransform];
+    objc_msgSend_affineTransform(rulerLayer2);
     v80 = v82;
     v81 = v84;
     v61 = vmulq_f64(v83, 0);

@@ -34,64 +34,61 @@
 - (MILaunchServicesSetPersonasOperation)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = MILaunchServicesSetPersonasOperation;
-  v5 = [(MILaunchServicesOperation *)&v25 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = MILaunchServicesSetPersonasOperation;
+  v5 = [(MILaunchServicesOperation *)&v22 initWithCoder:coderCopy];
   if (!v5)
   {
     goto LABEL_5;
   }
 
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleID"];
-  bundleID = v5->_bundleID;
-  v5->_bundleID = v6;
+  v7 = *(v5 + 3);
+  *(v5 + 3) = v6;
 
-  if (!v5->_bundleID)
+  if (!*(v5 + 3))
   {
-    v17 = MIInstallerErrorDomain;
-    v18 = @"Missing bundle ID when deserializing registration";
-    v19 = 43;
+    v16 = MIInstallerErrorDomain;
+    v17 = @"Missing bundle ID when deserializing registration";
+    v18 = 43;
 LABEL_9:
-    sub_100010734("[MILaunchServicesSetPersonasOperation initWithCoder:]", v19, v17, 186, 0, 0, v18, v8, v23);
+    sub_100010734("[MILaunchServicesSetPersonasOperation initWithCoder:]", v18, v16, 186, 0, 0, v17, v8, v21);
     goto LABEL_10;
   }
 
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"domain"];
-  v5->_domain = [v9 unsignedIntegerValue];
+  *(v5 + 4) = [v9 unsignedIntegerValue];
 
-  domain = v5->_domain;
   if ((MIIsValidInstallationDomain() & 1) == 0)
   {
-    v20 = v5->_bundleID;
-    v24 = v5->_domain;
-    sub_100010734("[MILaunchServicesSetPersonasOperation initWithCoder:]", 49, MIInstallerErrorDomain, 186, 0, 0, @"Invalid installation domain value when deserializing registration for %@: %lu", v11, v20);
-    v21 = LABEL_10:;
-    [coderCopy failWithError:v21];
+    sub_100010734("[MILaunchServicesSetPersonasOperation initWithCoder:]", 49, MIInstallerErrorDomain, 186, 0, 0, @"Invalid installation domain value when deserializing registration for %@: %lu", v10, *(v5 + 3));
+    v19 = LABEL_10:;
+    [coderCopy failWithError:v19];
 
-    v16 = 0;
+    v15 = 0;
     goto LABEL_11;
   }
 
-  v12 = objc_opt_class();
-  v23 = objc_opt_class();
-  v13 = [NSSet setWithObjects:v12];
-  v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"personaUniqueStrings"];
-  personaUniqueStrings = v5->_personaUniqueStrings;
-  v5->_personaUniqueStrings = v14;
+  v11 = objc_opt_class();
+  v21 = objc_opt_class();
+  v12 = [NSSet setWithObjects:v11];
+  v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"personaUniqueStrings"];
+  v14 = *(v5 + 5);
+  *(v5 + 5) = v13;
 
-  if (!v5->_personaUniqueStrings)
+  if (!*(v5 + 5))
   {
-    v17 = MIInstallerErrorDomain;
-    v18 = @"Missing persona unique strings when deserializing registration";
-    v19 = 55;
+    v16 = MIInstallerErrorDomain;
+    v17 = @"Missing persona unique strings when deserializing registration";
+    v18 = 55;
     goto LABEL_9;
   }
 
 LABEL_5:
-  v16 = v5;
+  v15 = v5;
 LABEL_11:
 
-  return v16;
+  return v15;
 }
 
 - (void)encodeWithCoder:(id)coder

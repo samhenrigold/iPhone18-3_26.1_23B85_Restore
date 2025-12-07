@@ -12,7 +12,7 @@
   v2 = [(DiagnosticClock *)&v9 init];
   if (v2)
   {
-    v2->_timeOffset = sub_1003D47A8();
+    v2->_timeOffset = sub_1003D47A8(AppDefaultsManager);
     v3 = ASDLogHandleForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {

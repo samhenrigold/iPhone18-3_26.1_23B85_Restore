@@ -16,6 +16,8 @@
 - (void)_setLowerBound:(id)bound specifier:(id)specifier;
 - (void)_setUpperBound:(id)bound specifier:(id)specifier;
 - (void)setConfiguration:(id)configuration;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HPRFSessionTrackerAppCyclingPowerZoneViewController
@@ -39,6 +41,33 @@
   }
 
   return v12;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HPRFSessionTrackerAppCyclingPowerZoneViewController;
+  [(HPRFSessionTrackerAppCyclingPowerZoneViewController *)&v7 viewWillAppear:appear];
+  table = [(HPRFSessionTrackerAppCyclingPowerZoneViewController *)self table];
+  tapGesture = [(HPRFSessionTrackerAppCyclingPowerZoneViewController *)self tapGesture];
+  [table addGestureRecognizer:tapGesture];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 addObserver:self selector:"_didBeginEditing:" name:UITextFieldTextDidBeginEditingNotification object:0];
+
+  [(HPRFSessionTrackerAppCyclingPowerZoneViewController *)self reloadSpecifiers];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = HPRFSessionTrackerAppCyclingPowerZoneViewController;
+  [(HPRFSessionTrackerAppCyclingPowerZoneViewController *)&v6 viewWillDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:UITextFieldTextDidBeginEditingNotification object:0];
+
+  table = [(HPRFSessionTrackerAppCyclingPowerZoneViewController *)self table];
+  [table endEditing:1];
 }
 
 - (id)localizedPaneTitle

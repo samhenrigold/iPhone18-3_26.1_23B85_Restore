@@ -287,7 +287,7 @@ uint64_t __42__PXImportAssetCollection_arrangedObjects__block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __40__PXImportAssetCollection_numberOfItems__block_invoke(uint64_t a1)
+void *__40__PXImportAssetCollection_numberOfItems__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -388,7 +388,7 @@ void __48__PXImportAssetCollection_removeObjectsInRange___block_invoke(uint64_t 
   dispatch_sync(assetQueue, block);
 }
 
-uint64_t __43__PXImportAssetCollection_removeAllObjects__block_invoke(uint64_t a1)
+void *__43__PXImportAssetCollection_removeAllObjects__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   if (result)

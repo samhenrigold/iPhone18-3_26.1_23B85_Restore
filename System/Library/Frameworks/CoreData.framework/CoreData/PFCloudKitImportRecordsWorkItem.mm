@@ -5,6 +5,7 @@
 - (NSString)description;
 - (PFCloudKitImportRecordsWorkItem)initWithOptions:(id)options request:(id)request;
 - (id)cloudKitSerializer:(id)serializer safeSaveURLForAsset:(id)asset;
+- (id)createMirroringResultForRequest:(id)request storeIdentifier:(id)identifier success:(BOOL)success madeChanges:(BOOL)changes error:(id)error;
 - (void)addDeletedRecordID:(uint64_t)d ofType:;
 - (void)addUpdatedRecord:(id)record;
 - (void)checkAndApplyChangesIfNeeded:(uint64_t)needed;
@@ -116,16 +117,16 @@
 
 - (void)doWorkForStore:(id)store inMonitor:(id)monitor completion:(id)completion
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   newBackgroundContextForMonitoredCoordinator = [(PFCloudKitStoreMonitor *)monitor newBackgroundContextForMonitoredCoordinator];
   if (self && (request = self->super._request) != 0 && (([(CKSchedulerActivity *)request->super._schedulerActivity shouldDefer]& 1) != 0 || request->super._deferredByBackgroundTimeout))
   {
     if (completion)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A588];
-      v16[0] = @"The request was aborted because it was deferred by the system.";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696A588];
+      v15[0] = @"The request was aborted because it was deferred by the system.";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v12 = -[PFCloudKitImportRecordsWorkItem createMirroringResultForRequest:storeIdentifier:success:madeChanges:error:](self, "createMirroringResultForRequest:storeIdentifier:success:madeChanges:error:", self->super._request, [store identifier], 0, 0, objc_msgSend(v10, "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 134419, v11));
       (*(completion + 2))(completion, v12);
     }
@@ -133,24 +134,22 @@
 
   else
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __71__PFCloudKitImportRecordsWorkItem_doWorkForStore_inMonitor_completion___block_invoke;
-    v14[3] = &unk_1E6EC19D8;
-    v14[4] = newBackgroundContextForMonitoredCoordinator;
-    v14[5] = self;
-    v14[6] = store;
-    [(NSManagedObjectContext *)newBackgroundContextForMonitoredCoordinator performBlockAndWait:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __71__PFCloudKitImportRecordsWorkItem_doWorkForStore_inMonitor_completion___block_invoke;
+    v13[3] = &unk_1E6EC19D8;
+    v13[4] = newBackgroundContextForMonitoredCoordinator;
+    v13[5] = self;
+    v13[6] = store;
+    [(NSManagedObjectContext *)newBackgroundContextForMonitoredCoordinator performBlockAndWait:v13];
     [(PFCloudKitImportRecordsWorkItem *)self executeImportOperationsAndAccumulateRecordsWithManagedObjectContext:newBackgroundContextForMonitoredCoordinator completion:completion];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __71__PFCloudKitImportRecordsWorkItem_doWorkForStore_inMonitor_completion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9 = 0;
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0;
   v2 = +[NSEntityDescription insertNewObjectForEntityForName:inManagedObjectContext:](NSEntityDescription, "insertNewObjectForEntityForName:inManagedObjectContext:", +[NSCKImportOperation entityPath], *(a1 + 32));
   v3 = v2;
   v4 = *(a1 + 40);
@@ -167,13 +166,13 @@ void __71__PFCloudKitImportRecordsWorkItem_doWorkForStore_inMonitor_completion__
   [(NSManagedObject *)v2 setOperationUUID:v5];
   -[NSManagedObject setImportDate:](v3, "setImportDate:", [MEMORY[0x1E695DF00] date]);
   [*(a1 + 32) assignObject:v3 toPersistentStore:*(a1 + 48)];
-  if (([*(a1 + 32) save:&v9] & 1) == 0)
+  if (([*(a1 + 32) save:&v8] & 1) == 0)
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v9;
+      v10 = v8;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to save import operation: %@\n", buf, 0xCu);
     }
 
@@ -181,35 +180,33 @@ void __71__PFCloudKitImportRecordsWorkItem_doWorkForStore_inMonitor_completion__
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v11 = v9;
+      v10 = v8;
       _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Failed to save import operation: %@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executeImportOperationsAndAccumulateRecordsWithManagedObjectContext:(id)context completion:(id)completion
 {
-  objc_opt_class();
+  v6 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v6, v7, v8, v9, v10, v11);
 }
 
 void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulatedChanges__block_invoke(uint64_t a1)
 {
-  v68 = *MEMORY[0x1E69E9840];
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3052000000;
-  v54 = __Block_byref_object_copy__42;
-  v55 = __Block_byref_object_dispose__42;
-  v56 = 0;
+  v67 = *MEMORY[0x1E69E9840];
   v50 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 1;
+  v51 = &v50;
+  v52 = 0x3052000000;
+  v53 = __Block_byref_object_copy__42;
+  v54 = __Block_byref_object_dispose__42;
+  v55 = 0;
+  v49 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 1;
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
@@ -228,15 +225,15 @@ void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulat
 
     v6 = [(PFCloudKitStoreMonitor *)v5 newBackgroundContextForMonitoredCoordinator];
     [(NSManagedObjectContext *)v6 setTransactionAuthor:@"NSCloudKitMirroringDelegate.import"];
-    v7 = [*(a1 + 40) applyAccumulatedChangesToStore:v2 inManagedObjectContext:v6 withStoreMonitor:*(a1 + 32) madeChanges:&v50 error:v52 + 5];
-    *(v47 + 24) = v7;
+    v7 = [*(a1 + 40) applyAccumulatedChangesToStore:v2 inManagedObjectContext:v6 withStoreMonitor:*(a1 + 32) madeChanges:&v49 error:v51 + 5];
+    *(v46 + 24) = v7;
     if (v7)
     {
       v8 = *(a1 + 32);
       if (v8 && (*(v8 + 21) & 1) != 0)
       {
         v9 = MEMORY[0x1E696ABC0];
-        v59 = *MEMORY[0x1E696A588];
+        v58 = *MEMORY[0x1E696A588];
         v10 = *(a1 + 40);
         if (v10)
         {
@@ -248,8 +245,8 @@ void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulat
           v11 = 0;
         }
 
-        v60 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v11, "requestIdentifier")];
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v59 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v11 requestIdentifier]);
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
         v13 = [v9 errorWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v12];
         v14 = *(a1 + 40);
         if (v14)
@@ -267,17 +264,17 @@ void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulat
 
       else
       {
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulatedChanges__block_invoke_2;
-        v45[3] = &unk_1E6EC1900;
-        v45[4] = v2;
-        v45[5] = v6;
-        v45[6] = *(a1 + 40);
-        v45[7] = &v51;
-        v45[8] = &v46;
-        [(NSManagedObjectContext *)v6 performBlockAndWait:v45];
-        if (*(v47 + 24) == 1)
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulatedChanges__block_invoke_2;
+        v44[3] = &unk_1E6EC1900;
+        v44[4] = v2;
+        v44[5] = v6;
+        v44[6] = *(a1 + 40);
+        v44[7] = &v50;
+        v44[8] = &v45;
+        [(NSManagedObjectContext *)v6 performBlockAndWait:v44];
+        if (*(v46 + 24) == 1)
         {
           v28 = objc_autoreleasePoolPush();
           Stream = __PFCloudKitLoggingGetStream();
@@ -301,48 +298,48 @@ void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulat
             }
 
             *buf = 136315650;
-            v63 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke";
-            v64 = 1024;
-            v65 = 244;
-            v66 = 2112;
-            v67 = v32;
+            v62 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke";
+            v63 = 1024;
+            v64 = 244;
+            v65 = 2112;
+            v66 = v32;
             _os_log_impl(&dword_18565F000, v30, v31, "CoreData+CloudKit: %s(%d): Finished importing changes for request: %@", buf, 0x1Cu);
           }
 
           objc_autoreleasePoolPop(v28);
         }
 
-        if ((v50 & 1) == 0)
+        if ((v49 & 1) == 0)
         {
           if ([*(*(a1 + 40) + 104) count])
           {
-            v43 = 0u;
-            v44 = 0u;
-            v41 = 0u;
             v42 = 0u;
-            v37 = *(*(a1 + 40) + 104);
-            v38 = [v37 countByEnumeratingWithState:&v41 objects:v61 count:16];
-            if (v38)
+            v43 = 0u;
+            v40 = 0u;
+            v41 = 0u;
+            v36 = *(*(a1 + 40) + 104);
+            v37 = [v36 countByEnumeratingWithState:&v40 objects:v60 count:16];
+            if (v37)
             {
-              v39 = *v42;
+              v38 = *v41;
               while (2)
               {
-                for (i = 0; i != v38; ++i)
+                for (i = 0; i != v37; ++i)
                 {
-                  if (*v42 != v39)
+                  if (*v41 != v38)
                   {
-                    objc_enumerationMutation(v37);
+                    objc_enumerationMutation(v36);
                   }
 
-                  if ([*(*(&v41 + 1) + 8 * i) madeChanges])
+                  if ([*(*(&v40 + 1) + 8 * i) madeChanges])
                   {
-                    v50 = 1;
+                    v49 = 1;
                     goto LABEL_30;
                   }
                 }
 
-                v38 = [v37 countByEnumeratingWithState:&v41 objects:v61 count:16];
-                if (v38)
+                v37 = [v36 countByEnumeratingWithState:&v40 objects:v60 count:16];
+                if (v37)
                 {
                   continue;
                 }
@@ -366,13 +363,13 @@ LABEL_30:
         }
 
         v35 = [v2 identifier];
-        v16 = [v33 createMirroringResultForRequest:v34 storeIdentifier:v35 success:*(v47 + 24) madeChanges:v50 error:v52[5]];
+        v16 = [v33 createMirroringResultForRequest:v34 storeIdentifier:v35 success:*(v46 + 24) madeChanges:v49 error:v51[5]];
       }
     }
 
     else
     {
-      v24 = v52[5];
+      v24 = v51[5];
       v25 = *(a1 + 40);
       if (v25)
       {
@@ -385,7 +382,7 @@ LABEL_30:
       }
 
       v27 = [v2 identifier];
-      v16 = [v25 createMirroringResultForRequest:v26 storeIdentifier:v27 success:0 madeChanges:0 error:v52[5]];
+      v16 = [v25 createMirroringResultForRequest:v26 storeIdentifier:v27 success:0 madeChanges:0 error:v51[5]];
     }
 
     *(*(*(a1 + 48) + 8) + 40) = v16;
@@ -394,7 +391,7 @@ LABEL_30:
   else
   {
     v17 = MEMORY[0x1E696ABC0];
-    v57 = *MEMORY[0x1E696A588];
+    v56 = *MEMORY[0x1E696A588];
     v18 = *(a1 + 40);
     if (v18)
     {
@@ -406,8 +403,8 @@ LABEL_30:
       v19 = 0;
     }
 
-    v58 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v19, "requestIdentifier")];
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v57 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v19 requestIdentifier]);
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
     v21 = [v17 errorWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v20];
     v22 = *(a1 + 40);
     if (v22)
@@ -423,19 +420,18 @@ LABEL_30:
     *(*(*(a1 + 48) + 8) + 40) = [v22 createMirroringResultForRequest:v23 storeIdentifier:objc_msgSend(0 success:"identifier") madeChanges:0 error:{0, v21}];
   }
 
-  v52[5] = 0;
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v51, 8);
-  v36 = *MEMORY[0x1E69E9840];
+  v51[5] = 0;
+  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v50, 8);
 }
 
 void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulatedChanges__block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (![_PFRoutines _isInMemoryStore:?])
   {
-    v21[0] = 0;
-    if (([*(a1 + 40) setQueryGenerationFromToken:+[NSQueryGenerationToken currentQueryGenerationToken](NSQueryGenerationToken error:{"currentQueryGenerationToken"), v21}] & 1) == 0)
+    v20[0] = 0;
+    if (([*(a1 + 40) setQueryGenerationFromToken:+[NSQueryGenerationToken currentQueryGenerationToken](NSQueryGenerationToken error:{"currentQueryGenerationToken"), v20}] & 1) == 0)
     {
       v2 = objc_autoreleasePoolPush();
       Stream = __PFCloudKitLoggingGetStream();
@@ -454,13 +450,13 @@ void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulat
       {
         v6 = *(a1 + 48);
         *buf = 136315906;
-        v23 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke_2";
-        v24 = 1024;
-        v25 = 207;
-        v26 = 2112;
-        v27 = v6;
-        v28 = 2112;
-        v29 = v21[0];
+        v22 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke_2";
+        v23 = 1024;
+        v24 = 207;
+        v25 = 2112;
+        v26 = v6;
+        v27 = 2112;
+        v28 = v20[0];
         _os_log_impl(&dword_18565F000, v4, v5, "CoreData+CloudKit: %s(%d): %@: Unable to set query generation on moc: %@", buf, 0x26u);
       }
 
@@ -489,13 +485,13 @@ void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulat
       v11 = *(*(a1 + 48) + 32);
       v12 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 136315906;
-      v23 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke";
-      v24 = 1024;
-      v25 = 231;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v12;
+      v22 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke";
+      v23 = 1024;
+      v24 = 231;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v12;
       _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Failed to fetch import operation with identifier '%@': %@", buf, 0x26u);
     }
 
@@ -508,7 +504,7 @@ void __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulat
     *(*(*(a1 + 64) + 8) + 24) = 0;
 LABEL_20:
     v13 = *(*(*(a1 + 56) + 8) + 40);
-    goto LABEL_21;
+    return;
   }
 
   if ([*(a1 + 40) save:*(*(a1 + 56) + 8) + 40])
@@ -519,60 +515,56 @@ LABEL_20:
   else if (*(*(*(a1 + 56) + 8) + 40))
   {
     *(*(*(a1 + 64) + 8) + 24) = 0;
-    v15 = *(*(*(a1 + 56) + 8) + 40);
-    v16 = objc_autoreleasePoolPush();
-    v17 = __PFCloudKitLoggingGetStream();
-    v18 = v17;
+    v14 = *(*(*(a1 + 56) + 8) + 40);
+    v15 = objc_autoreleasePoolPush();
+    v16 = __PFCloudKitLoggingGetStream();
+    v17 = v16;
     if (__ckLoggingOverride == 17)
     {
-      v19 = OS_LOG_TYPE_FAULT;
+      v18 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      v19 = OS_LOG_TYPE_ERROR;
+      v18 = OS_LOG_TYPE_ERROR;
     }
 
-    if (os_log_type_enabled(v17, v19))
+    if (os_log_type_enabled(v16, v18))
     {
-      v20 = *(*(*(a1 + 56) + 8) + 40);
+      v19 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 136315650;
-      v23 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke";
-      v24 = 1024;
-      v25 = 222;
-      v26 = 2112;
-      v27 = v20;
-      _os_log_impl(&dword_18565F000, v18, v19, "CoreData+CloudKit: %s(%d): Failed to save changes from import: %@", buf, 0x1Cu);
+      v22 = "[PFCloudKitImportRecordsWorkItem newMirroringResultByApplyingAccumulatedChanges]_block_invoke";
+      v23 = 1024;
+      v24 = 222;
+      v25 = 2112;
+      v26 = v19;
+      _os_log_impl(&dword_18565F000, v17, v18, "CoreData+CloudKit: %s(%d): Failed to save changes from import: %@", buf, 0x1Cu);
     }
 
-    objc_autoreleasePoolPop(v16);
+    objc_autoreleasePoolPop(v15);
   }
-
-LABEL_21:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)checkForActiveImportOperationInStore:(void *)store inManagedObjectContext:(uint64_t *)context error:
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v8 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
-  v15 = 0;
-  v6 = [NSCKImportOperation fetchOperationWithIdentifier:a2 fromStore:store inManagedObjectContext:&v15 error:?];
-  v7 = v15;
+  v14 = 0;
+  v6 = [NSCKImportOperation fetchOperationWithIdentifier:a2 fromStore:store inManagedObjectContext:&v14 error:?];
+  v7 = v14;
   v8 = v6 != 0;
-  if (v6 | v15)
+  if (v6 | v14)
   {
     if (v6)
     {
-      goto LABEL_12;
+      return v8;
     }
 
-    if (v15)
+    if (v14)
     {
       goto LABEL_5;
     }
@@ -582,10 +574,10 @@ LABEL_21:
   {
     v9 = MEMORY[0x1E696ABC0];
     v10 = *MEMORY[0x1E696A250];
-    v20 = *MEMORY[0x1E696A588];
-    v21[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"The request '%@' was cancelled because it conflicted with another active import operation.", *(self + 16)];
-    v7 = [v9 errorWithDomain:v10 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v21, &v20, 1)}];
-    v15 = v7;
+    v19 = *MEMORY[0x1E696A588];
+    v20[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16));
+    v7 = [v9 errorWithDomain:v10 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v20, &v19, 1)}];
+    v14 = v7;
     if (v7)
     {
 LABEL_5:
@@ -594,7 +586,7 @@ LABEL_5:
         *context = v7;
       }
 
-      goto LABEL_12;
+      return v8;
     }
   }
 
@@ -602,9 +594,9 @@ LABEL_5:
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
-    v18 = 1024;
-    v19 = 858;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
+    v17 = 1024;
+    v18 = 858;
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
@@ -612,61 +604,59 @@ LABEL_5:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
-    v18 = 1024;
-    v19 = 858;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
+    v17 = 1024;
+    v18 = 858;
     _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
   }
 
-LABEL_12:
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)applyAccumulatedChangesToStore:(id)store inManagedObjectContext:(id)context withStoreMonitor:(id)monitor madeChanges:(BOOL *)changes error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 1;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
+  v49 = *MEMORY[0x1E69E9840];
   v37 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3052000000;
-  v31 = __Block_byref_object_copy__42;
-  v32 = __Block_byref_object_dispose__42;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 1;
   v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3052000000;
+  v30 = __Block_byref_object_copy__42;
+  v31 = __Block_byref_object_dispose__42;
+  v32 = 0;
   if ([(NSMutableArray *)self->_updatedRecords count]|| [(NSMutableDictionary *)self->_recordTypeToDeletedRecordID count]|| [(NSMutableArray *)self->_unknownItemRecordIDs count]|| [(NSMutableDictionary *)self->_updatedShares count])
   {
     if (monitor && (*(monitor + 21) & 1) != 0)
     {
-      *(v39 + 24) = 0;
+      *(v38 + 24) = 0;
       v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v42 = *MEMORY[0x1E696A588];
-      v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", -[NSCloudKitMirroringRequest requestIdentifier](self->super._request, "requestIdentifier")];
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = *MEMORY[0x1E696A588];
+      v42 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSCloudKitMirroringRequest *)self->super._request requestIdentifier]);
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       v15 = [v13 initWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v14];
-      v29[5] = v15;
+      v28[5] = v15;
     }
 
     else
     {
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inManagedObjectContext_withStoreMonitor_madeChanges_error___block_invoke;
-      v27[3] = &unk_1E6EC1AA0;
-      v27[4] = store;
-      v27[5] = context;
-      v27[6] = self;
-      v27[7] = &v28;
-      v27[8] = &v34;
-      v27[9] = &v38;
-      [context performBlockAndWait:v27];
-      if (*(v39 + 24) == 1)
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inManagedObjectContext_withStoreMonitor_madeChanges_error___block_invoke;
+      v26[3] = &unk_1E6EC1AA0;
+      v26[4] = store;
+      v26[5] = context;
+      v26[6] = self;
+      v26[7] = &v27;
+      v26[8] = &v33;
+      v26[9] = &v37;
+      [context performBlockAndWait:v26];
+      if (*(v38 + 24) == 1)
       {
         v16 = objc_autoreleasePoolPush();
         Stream = __PFCloudKitLoggingGetStream();
@@ -685,11 +675,11 @@ LABEL_12:
         {
           request = self->super._request;
           *buf = 136315650;
-          v45 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]";
-          v46 = 1024;
-          v47 = 510;
-          v48 = 2112;
-          v49 = request;
+          v44 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]";
+          v45 = 1024;
+          v46 = 510;
+          v47 = 2112;
+          v48 = request;
           _os_log_impl(&dword_18565F000, v18, v19, "CoreData+CloudKit: %s(%d): Finished importing applying changes for request: %@", buf, 0x1Cu);
         }
 
@@ -700,19 +690,19 @@ LABEL_12:
 
   else
   {
-    *(v39 + 24) = 1;
-    *(v35 + 24) = 0;
+    *(v38 + 24) = 1;
+    *(v34 + 24) = 0;
   }
 
-  *changes = *(v35 + 24);
-  if ((v39[3] & 1) == 0)
+  *changes = *(v34 + 24);
+  if ((v38[3] & 1) == 0)
   {
-    v24 = v29[5];
-    if (v24)
+    v23 = v28[5];
+    if (v23)
     {
       if (error)
       {
-        *error = v24;
+        *error = v23;
       }
     }
 
@@ -722,40 +712,39 @@ LABEL_12:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
-        v46 = 1024;
-        v47 = 528;
+        v44 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
+        v45 = 1024;
+        v46 = 528;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v26 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v25 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
-        v46 = 1024;
-        v47 = 528;
-        _os_log_fault_impl(&dword_18565F000, v26, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v44 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
+        v45 = 1024;
+        v46 = 528;
+        _os_log_fault_impl(&dword_18565F000, v25, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v29[5] = 0;
-  v21 = *(v39 + 24);
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  v28[5] = 0;
+  v21 = *(v38 + 24);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
   return v21;
 }
 
 void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inManagedObjectContext_withStoreMonitor_madeChanges_error___block_invoke(uint64_t a1)
 {
-  v132 = *MEMORY[0x1E69E9840];
+  v131 = *MEMORY[0x1E69E9840];
   if (![_PFRoutines _isInMemoryStore:?])
   {
-    v116[0] = 0;
-    if (([*(a1 + 40) setQueryGenerationFromToken:+[NSQueryGenerationToken currentQueryGenerationToken](NSQueryGenerationToken error:{"currentQueryGenerationToken"), v116}] & 1) == 0)
+    v115[0] = 0;
+    if (([*(a1 + 40) setQueryGenerationFromToken:+[NSQueryGenerationToken currentQueryGenerationToken](NSQueryGenerationToken error:{"currentQueryGenerationToken"), v115}] & 1) == 0)
     {
       v2 = objc_autoreleasePoolPush();
       Stream = __PFCloudKitLoggingGetStream();
@@ -774,13 +763,13 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
       {
         v6 = *(a1 + 48);
         *buf = 136315906;
-        v118 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
-        v119 = 1024;
-        *v120 = 332;
-        *&v120[4] = 2112;
-        *&v120[6] = v6;
-        v121 = 2112;
-        v122 = v116[0];
+        v117 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
+        v118 = 1024;
+        *v119 = 332;
+        *&v119[4] = 2112;
+        *&v119[6] = v6;
+        v120 = 2112;
+        v121 = v115[0];
         _os_log_impl(&dword_18565F000, v4, v5, "CoreData+CloudKit: %s(%d): %@: Unable to set query generation on managedObjectContext: %@", buf, 0x26u);
       }
 
@@ -791,13 +780,13 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
   if (![(PFCloudKitImportRecordsWorkItem *)*(a1 + 48) checkForActiveImportOperationInStore:*(a1 + 40) inManagedObjectContext:(*(*(a1 + 56) + 8) + 40) error:?])
   {
     *(*(*(a1 + 72) + 8) + 24) = 0;
-    v101 = 0;
-    v103 = 0;
+    v100 = 0;
+    v102 = 0;
     v48 = *(*(*(a1 + 56) + 8) + 40);
     goto LABEL_73;
   }
 
-  v103 = objc_alloc_init(PFCloudKitMetadataCache);
+  v102 = objc_alloc_init(PFCloudKitMetadataCache);
   v7 = [PFCloudKitSerializer alloc];
   v8 = *(a1 + 48);
   if (v8 && (v9 = *(v8 + 8)) != 0)
@@ -810,8 +799,8 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
     v10 = 0;
   }
 
-  v11 = [(PFCloudKitSerializer *)v7 initWithMirroringOptions:v10 metadataCache:v103 recordNamePrefix:0];
-  v101 = v11;
+  v11 = [(PFCloudKitSerializer *)v7 initWithMirroringOptions:v10 metadataCache:v102 recordNamePrefix:0];
+  v100 = v11;
   if (v11)
   {
     objc_storeWeak((v11 + 32), *(a1 + 48));
@@ -830,32 +819,32 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
     v15 = 0;
   }
 
-  if (![(PFCloudKitMetadataCache *)&v103->super.isa cacheMetadataForObjectsWithIDs:v13 andRecordsWithIDs:*(a1 + 32) inStore:*(a1 + 40) withManagedObjectContext:v15 mirroringOptions:(*(*(a1 + 56) + 8) + 40) error:?])
+  if (![(PFCloudKitMetadataCache *)&v102->super.isa cacheMetadataForObjectsWithIDs:v13 andRecordsWithIDs:*(a1 + 32) inStore:*(a1 + 40) withManagedObjectContext:v15 mirroringOptions:(*(*(a1 + 56) + 8) + 40) error:?])
   {
     goto LABEL_72;
   }
 
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
   v113 = 0u;
+  v114 = 0u;
+  v111 = 0u;
+  v112 = 0u;
   v16 = *(*(a1 + 48) + 112);
-  v17 = [v16 countByEnumeratingWithState:&v112 objects:v131 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v111 objects:v130 count:16];
   if (v17)
   {
-    v18 = *v113;
+    v18 = *v112;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v113 != v18)
+        if (*v112 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v112 + 1) + 8 * i);
+        v20 = *(*(&v111 + 1) + 8 * i);
         v21 = objc_autoreleasePoolPush();
-        v22 = [(PFCloudKitMetadataCache *)v103 recordMetadataForRecordID:v20];
+        v22 = [(PFCloudKitMetadataCache *)v102 recordMetadataForRecordID:v20];
         if (v22)
         {
           v23 = [objc_msgSend(objc_msgSend(*(a1 + 32) "model")];
@@ -878,9 +867,9 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v118 = v20;
-              v119 = 2112;
-              *v120 = v22;
+              v117 = v20;
+              v118 = 2112;
+              *v119 = v22;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: CloudKit Import: Failed to find entity for unknown item recordID: %@ - %@\n", buf, 0x16u);
             }
 
@@ -888,9 +877,9 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
             if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v118 = v20;
-              v119 = 2112;
-              *v120 = v22;
+              v117 = v20;
+              v118 = 2112;
+              *v119 = v22;
               _os_log_fault_impl(&dword_18565F000, v27, OS_LOG_TYPE_FAULT, "CoreData: CloudKit Import: Failed to find entity for unknown item recordID: %@ - %@", buf, 0x16u);
             }
           }
@@ -899,7 +888,7 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
         objc_autoreleasePoolPop(v21);
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v112 objects:v131 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v111 objects:v130 count:16];
     }
 
     while (v17);
@@ -954,20 +943,20 @@ void __124__PFCloudKitImportRecordsWorkItem_applyAccumulatedChangesToStore_inMan
     v35 = *(v34 + 40);
     v36 = *(v34 + 72);
     *buf = 136316162;
-    v118 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
-    v119 = 1024;
-    *v120 = 374;
-    *&v120[4] = 2112;
-    *&v120[6] = v34;
-    v121 = 2112;
-    v122 = v35;
-    v123 = 2112;
-    v124 = v36;
+    v117 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
+    v118 = 1024;
+    *v119 = 374;
+    *&v119[4] = 2112;
+    *&v119[6] = v34;
+    v120 = 2112;
+    v121 = v35;
+    v122 = 2112;
+    v123 = v36;
     _os_log_impl(&dword_18565F000, v30, v33, "CoreData+CloudKit: %s(%d): %@ - Importing updated records:\n%@\nDeleted RecordIDs:\n%@", buf, 0x30u);
   }
 
   objc_autoreleasePoolPop(v28);
-  if (!-[PFCloudKitSerializer applyUpdatedRecords:deletedRecordIDs:toStore:inManagedObjectContext:onlyUpdatingAttributes:andRelationships:madeChanges:error:](v101, *(*(a1 + 48) + 40), *(*(a1 + 48) + 72), *(a1 + 32), *(a1 + 40), [*(a1 + 48) entityNameToAttributesToUpdate], objc_msgSend(*(a1 + 48), "entityNameToRelationshipsToUpdate"), *(*(a1 + 64) + 8) + 24, (*(*(a1 + 56) + 8) + 40)))
+  if (!-[PFCloudKitSerializer applyUpdatedRecords:deletedRecordIDs:toStore:inManagedObjectContext:onlyUpdatingAttributes:andRelationships:madeChanges:error:](v100, *(*(a1 + 48) + 40), *(*(a1 + 48) + 72), *(a1 + 32), *(a1 + 40), [*(a1 + 48) entityNameToAttributesToUpdate], objc_msgSend(*(a1 + 48), "entityNameToRelationshipsToUpdate"), *(*(a1 + 64) + 8) + 24, (*(*(a1 + 56) + 8) + 40)))
   {
 LABEL_72:
     *(*(*(a1 + 72) + 8) + 24) = 0;
@@ -985,8 +974,8 @@ LABEL_72:
 
     if (![_PFRoutines _isInMemoryStore:?])
     {
-      v116[0] = 0;
-      if (([*(a1 + 40) setQueryGenerationFromToken:+[NSQueryGenerationToken currentQueryGenerationToken](NSQueryGenerationToken error:{"currentQueryGenerationToken"), v116}] & 1) == 0)
+      v115[0] = 0;
+      if (([*(a1 + 40) setQueryGenerationFromToken:+[NSQueryGenerationToken currentQueryGenerationToken](NSQueryGenerationToken error:{"currentQueryGenerationToken"), v115}] & 1) == 0)
       {
         v37 = objc_autoreleasePoolPush();
         v38 = __PFCloudKitLoggingGetStream();
@@ -1005,13 +994,13 @@ LABEL_72:
         {
           v41 = *(a1 + 48);
           *buf = 136315906;
-          v118 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
-          v119 = 1024;
-          *v120 = 397;
-          *&v120[4] = 2112;
-          *&v120[6] = v41;
-          v121 = 2112;
-          v122 = v116[0];
+          v117 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
+          v118 = 1024;
+          *v119 = 397;
+          *&v119[4] = 2112;
+          *&v119[6] = v41;
+          v120 = 2112;
+          v121 = v115[0];
           _os_log_impl(&dword_18565F000, v39, v40, "CoreData+CloudKit: %s(%d): %@: Unable to set query generation on managedObjectContext: %@", buf, 0x26u);
         }
 
@@ -1022,20 +1011,20 @@ LABEL_72:
     v42 = [NSCKImportOperation fetchOperationWithIdentifier:*(a1 + 32) fromStore:*(a1 + 40) inManagedObjectContext:*(*(a1 + 56) + 8) + 40 error:?];
     if (v42)
     {
-      v110 = 0u;
-      v111 = 0u;
-      v108 = 0u;
       v109 = 0u;
+      v110 = 0u;
+      v107 = 0u;
+      v108 = 0u;
       v43 = *(*(a1 + 48) + 96);
-      v44 = [v43 countByEnumeratingWithState:&v108 objects:v130 count:16];
+      v44 = [v43 countByEnumeratingWithState:&v107 objects:v129 count:16];
       if (v44)
       {
-        v45 = *v109;
+        v45 = *v108;
         do
         {
           for (j = 0; j != v44; ++j)
           {
-            if (*v109 != v45)
+            if (*v108 != v45)
             {
               objc_enumerationMutation(v43);
             }
@@ -1043,7 +1032,7 @@ LABEL_72:
             [NSCKImportPendingRelationship insertPendingRelationshipForFailedRelationship:v42 forOperation:*(a1 + 32) inStore:*(a1 + 40) withManagedObjectContext:?];
           }
 
-          v44 = [v43 countByEnumeratingWithState:&v108 objects:v130 count:16];
+          v44 = [v43 countByEnumeratingWithState:&v107 objects:v129 count:16];
         }
 
         while (v44);
@@ -1054,33 +1043,33 @@ LABEL_72:
         if (*(*(*(a1 + 56) + 8) + 40))
         {
           *(*(*(a1 + 72) + 8) + 24) = 0;
-          v90 = *(*(*(a1 + 56) + 8) + 40);
-          v91 = objc_autoreleasePoolPush();
-          v92 = __PFCloudKitLoggingGetStream();
-          v93 = v92;
+          v89 = *(*(*(a1 + 56) + 8) + 40);
+          v90 = objc_autoreleasePoolPush();
+          v91 = __PFCloudKitLoggingGetStream();
+          v92 = v91;
           if (__ckLoggingOverride == 17)
           {
-            v94 = OS_LOG_TYPE_FAULT;
+            v93 = OS_LOG_TYPE_FAULT;
           }
 
           else
           {
-            v94 = OS_LOG_TYPE_ERROR;
+            v93 = OS_LOG_TYPE_ERROR;
           }
 
-          if (os_log_type_enabled(v92, v94))
+          if (os_log_type_enabled(v91, v93))
           {
-            v95 = *(*(*(a1 + 56) + 8) + 40);
+            v94 = *(*(*(a1 + 56) + 8) + 40);
             *buf = 136315650;
-            v118 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
-            v119 = 1024;
-            *v120 = 419;
-            *&v120[4] = 2112;
-            *&v120[6] = v95;
-            _os_log_impl(&dword_18565F000, v93, v94, "CoreData+CloudKit: %s(%d): Failed to save applied changes from import: %@", buf, 0x1Cu);
+            v117 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
+            v118 = 1024;
+            *v119 = 419;
+            *&v119[4] = 2112;
+            *&v119[6] = v94;
+            _os_log_impl(&dword_18565F000, v92, v93, "CoreData+CloudKit: %s(%d): Failed to save applied changes from import: %@", buf, 0x1Cu);
           }
 
-          objc_autoreleasePoolPop(v91);
+          objc_autoreleasePoolPop(v90);
         }
 
         goto LABEL_135;
@@ -1091,57 +1080,57 @@ LABEL_72:
 
     else
     {
-      v82 = objc_autoreleasePoolPush();
-      v83 = __PFCloudKitLoggingGetStream();
-      v84 = v83;
+      v81 = objc_autoreleasePoolPush();
+      v82 = __PFCloudKitLoggingGetStream();
+      v83 = v82;
       if (__ckLoggingOverride == 17)
       {
-        v85 = OS_LOG_TYPE_FAULT;
+        v84 = OS_LOG_TYPE_FAULT;
       }
 
       else
       {
-        v85 = OS_LOG_TYPE_ERROR;
+        v84 = OS_LOG_TYPE_ERROR;
       }
 
-      if (os_log_type_enabled(v83, v85))
+      if (os_log_type_enabled(v82, v84))
       {
-        v86 = *(*(a1 + 48) + 32);
-        v87 = *(*(*(a1 + 56) + 8) + 40);
+        v85 = *(*(a1 + 48) + 32);
+        v86 = *(*(*(a1 + 56) + 8) + 40);
         *buf = 136315906;
-        v118 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
-        v119 = 1024;
-        *v120 = 422;
-        *&v120[4] = 2112;
-        *&v120[6] = v86;
-        v121 = 2112;
-        v122 = v87;
-        _os_log_impl(&dword_18565F000, v84, v85, "CoreData+CloudKit: %s(%d): Failed to fetch import operation with identifier '%@': %@", buf, 0x26u);
+        v117 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
+        v118 = 1024;
+        *v119 = 422;
+        *&v119[4] = 2112;
+        *&v119[6] = v85;
+        v120 = 2112;
+        v121 = v86;
+        _os_log_impl(&dword_18565F000, v83, v84, "CoreData+CloudKit: %s(%d): Failed to fetch import operation with identifier '%@': %@", buf, 0x26u);
       }
 
-      objc_autoreleasePoolPop(v82);
-      v88 = *(*(*(a1 + 56) + 8) + 40);
-      if (v88)
+      objc_autoreleasePoolPop(v81);
+      v87 = *(*(*(a1 + 56) + 8) + 40);
+      if (v87)
       {
-        v89 = v88;
+        v88 = v87;
         v47 = 0;
       }
 
       else
       {
-        v96 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v128 = *MEMORY[0x1E696A588];
-        v97 = *(a1 + 48);
-        if (v97)
+        v95 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v127 = *MEMORY[0x1E696A588];
+        v96 = *(a1 + 48);
+        if (v96)
         {
-          v97 = *(v97 + 16);
+          v96 = *(v96 + 16);
         }
 
-        v129 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The request '%@' was cancelled because it conflicted with another active import operation.", v97];
-        v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
-        v99 = [v96 initWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v98];
+        v128 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v96);
+        v97 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+        v98 = [v95 initWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v97];
         v47 = 0;
-        *(*(*(a1 + 56) + 8) + 40) = v99;
+        *(*(*(a1 + 56) + 8) + 40) = v98;
       }
     }
 
@@ -1150,7 +1139,7 @@ LABEL_72:
 
   else
   {
-    v81 = *(*(*(a1 + 56) + 8) + 40);
+    v80 = *(*(*(a1 + 56) + 8) + 40);
   }
 
 LABEL_135:
@@ -1162,25 +1151,25 @@ LABEL_135:
 LABEL_73:
   if (*(*(*(a1 + 72) + 8) + 24) == 1)
   {
-    v106 = 0u;
-    v107 = 0u;
-    v104 = 0u;
     v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
     obj = *(*(a1 + 48) + 120);
-    v50 = [obj countByEnumeratingWithState:&v104 objects:v127 count:16];
+    v50 = [obj countByEnumeratingWithState:&v103 objects:v126 count:16];
     if (v50)
     {
-      v102 = *v105;
+      v101 = *v104;
 LABEL_76:
       v51 = 0;
       while (1)
       {
-        if (*v105 != v102)
+        if (*v104 != v101)
         {
           objc_enumerationMutation(obj);
         }
 
-        v52 = *(*(&v104 + 1) + 8 * v51);
+        v52 = *(*(&v103 + 1) + 8 * v51);
         v53 = objc_autoreleasePoolPush();
         v54 = *(a1 + 48);
         if (v54 && (v55 = *(v54 + 8)) != 0)
@@ -1229,11 +1218,11 @@ LABEL_76:
           if (os_log_type_enabled(v61, v64))
           {
             *buf = 136315650;
-            v118 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
-            v119 = 1024;
-            *v120 = 465;
-            *&v120[4] = 2112;
-            *&v120[6] = v58;
+            v117 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
+            v118 = 1024;
+            *v119 = 465;
+            *&v119[4] = 2112;
+            *&v119[6] = v58;
             _os_log_impl(&dword_18565F000, v62, v64, "CoreData+CloudKit: %s(%d): Importing updated share: %@", buf, 0x1Cu);
           }
 
@@ -1266,17 +1255,17 @@ LABEL_76:
             {
               v76 = *(*(*(a1 + 56) + 8) + 40);
               *buf = 136316418;
-              v118 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
-              v119 = 1024;
-              *v120 = 474;
-              *&v120[4] = 2112;
-              *&v120[6] = v52;
-              v121 = 2112;
-              v122 = v58;
-              v123 = 2112;
-              v124 = v76;
-              v125 = 2112;
-              v126 = v57;
+              v117 = "[PFCloudKitImportRecordsWorkItem applyAccumulatedChangesToStore:inManagedObjectContext:withStoreMonitor:madeChanges:error:]_block_invoke";
+              v118 = 1024;
+              *v119 = 474;
+              *&v119[4] = 2112;
+              *&v119[6] = v52;
+              v120 = 2112;
+              v121 = v58;
+              v122 = 2112;
+              v123 = v76;
+              v124 = 2112;
+              v125 = v57;
               _os_log_impl(&dword_18565F000, v74, v75, "CoreData+CloudKit: %s(%d): Failed to encode an updated share: %@\n%@\n%@\n%@", buf, 0x3Au);
             }
 
@@ -1301,7 +1290,7 @@ LABEL_76:
 
         if (v50 == ++v51)
         {
-          v78 = [obj countByEnumeratingWithState:&v104 objects:v127 count:16];
+          v78 = [obj countByEnumeratingWithState:&v103 objects:v126 count:16];
           v50 = v78;
           if (v78)
           {
@@ -1321,41 +1310,39 @@ LABEL_76:
   }
 
   [(PFCloudKitImportRecordsWorkItem *)*(a1 + 48) removeDownloadedAssetFiles];
-
-  v80 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeDownloadedAssetFiles
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v21 = 0;
+    v20 = 0;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     allValues = [*(self + 24) allValues];
-    v4 = [allValues countByEnumeratingWithState:&v17 objects:v30 count:16];
+    v4 = [allValues countByEnumeratingWithState:&v16 objects:v29 count:16];
     if (v4)
     {
       v6 = v4;
-      v7 = *v18;
+      v7 = *v17;
       v8 = *MEMORY[0x1E696A250];
       *&v5 = 136315906;
-      v16 = v5;
+      v15 = v5;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
-          if (([defaultManager removeItemAtURL:v10 error:{&v21, v16}] & 1) == 0 && (!objc_msgSend(objc_msgSend(v21, "domain"), "isEqualToString:", v8) || objc_msgSend(v21, "code") != 4))
+          v10 = *(*(&v16 + 1) + 8 * i);
+          if (([defaultManager removeItemAtURL:v10 error:{&v20, v15}] & 1) == 0 && (!objc_msgSend(objc_msgSend(v20, "domain"), "isEqualToString:", v8) || objc_msgSend(v20, "code") != 4))
           {
             v11 = objc_autoreleasePoolPush();
             Stream = __PFCloudKitLoggingGetStream();
@@ -1372,14 +1359,14 @@ LABEL_76:
 
             if (os_log_type_enabled(Stream, v14))
             {
-              *buf = v16;
-              v23 = "[PFCloudKitImportRecordsWorkItem removeDownloadedAssetFiles]";
-              v24 = 1024;
-              v25 = 732;
-              v26 = 2112;
-              v27 = v10;
-              v28 = 2112;
-              v29 = v21;
+              *buf = v15;
+              v22 = "[PFCloudKitImportRecordsWorkItem removeDownloadedAssetFiles]";
+              v23 = 1024;
+              v24 = 732;
+              v25 = 2112;
+              v26 = v10;
+              v27 = 2112;
+              v28 = v20;
               _os_log_impl(&dword_18565F000, v13, v14, "CoreData+CloudKit: %s(%d): Unable to delete processed asset file: %@\n%@", buf, 0x26u);
             }
 
@@ -1387,21 +1374,19 @@ LABEL_76:
           }
         }
 
-        v6 = [allValues countByEnumeratingWithState:&v17 objects:v30 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v16 objects:v29 count:16];
       }
 
       while (v6);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)commitMetadataChangesWithContext:(id)context forStore:(id)store error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  if (![NSCKImportOperation purgeFinishedImportOperationsInStore:store withManagedObjectContext:context error:&v19])
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  if (![NSCKImportOperation purgeFinishedImportOperationsInStore:store withManagedObjectContext:context error:&v18])
   {
     v9 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
@@ -1422,20 +1407,20 @@ LABEL_76:
     }
 
     *buf = 136315650;
-    v21 = "[PFCloudKitImportRecordsWorkItem commitMetadataChangesWithContext:forStore:error:]";
-    v22 = 1024;
-    v23 = 556;
-    v24 = 2112;
-    v25 = v19;
+    v20 = "[PFCloudKitImportRecordsWorkItem commitMetadataChangesWithContext:forStore:error:]";
+    v21 = 1024;
+    v22 = 556;
+    v23 = 2112;
+    v24 = v18;
     v13 = "CoreData+CloudKit: %s(%d): Failed to purge mirrored relationships during import: %@";
     goto LABEL_14;
   }
 
-  v7 = [context save:&v19];
+  v7 = [context save:&v18];
   LOBYTE(v8) = 1;
-  if ((v7 & 1) != 0 || !v19)
+  if ((v7 & 1) != 0 || !v18)
   {
-    goto LABEL_23;
+    return v8;
   }
 
   v9 = objc_autoreleasePoolPush();
@@ -1454,11 +1439,11 @@ LABEL_76:
   if (os_log_type_enabled(v10, v12))
   {
     *buf = 136315650;
-    v21 = "[PFCloudKitImportRecordsWorkItem commitMetadataChangesWithContext:forStore:error:]";
-    v22 = 1024;
-    v23 = 552;
-    v24 = 2112;
-    v25 = v19;
+    v20 = "[PFCloudKitImportRecordsWorkItem commitMetadataChangesWithContext:forStore:error:]";
+    v21 = 1024;
+    v22 = 552;
+    v23 = 2112;
+    v24 = v18;
     v13 = "CoreData+CloudKit: %s(%d): Failed to save changes from import: %@";
 LABEL_14:
     _os_log_impl(&dword_18565F000, v11, v12, v13, buf, 0x1Cu);
@@ -1466,27 +1451,27 @@ LABEL_14:
 
 LABEL_15:
   objc_autoreleasePoolPop(v9);
-  if (v19)
+  if (v18)
   {
     if (error)
     {
       LOBYTE(v8) = 0;
-      *error = v19;
-      goto LABEL_23;
+      *error = v18;
+      return v8;
     }
 
 LABEL_22:
     LOBYTE(v8) = 0;
-    goto LABEL_23;
+    return v8;
   }
 
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
-    v22 = 1024;
-    v23 = 560;
+    v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
+    v21 = 1024;
+    v22 = 560;
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
@@ -1495,21 +1480,19 @@ LABEL_22:
   if (v8)
   {
     *buf = 136315394;
-    v21 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
-    v22 = 1024;
-    v23 = 560;
+    v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportRecordsWorkItem.m";
+    v21 = 1024;
+    v22 = 560;
     _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     goto LABEL_22;
   }
 
-LABEL_23:
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)addUpdatedRecord:(id)record
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (![(NSMutableArray *)self->_encounteredErrors count])
   {
     v5 = self->super._options;
@@ -1529,34 +1512,29 @@ LABEL_23:
     self->_totalOperationBytes += [record size];
     self->_currentOperationBytes += [record size];
     ++self->_countUpdatedRecords;
-    -[PFCloudKitSizeMetric addByteSize:](self->_fetchedRecordBytesMetric, [record size]);
-    if (v5)
-    {
-      options = v5->_options;
-    }
-
+    -[PFCloudKitSizeMetric addByteSize:](&self->_fetchedRecordBytesMetric->super.super.super.isa, [record size]);
     recordCopy = record;
+    v31 = 0u;
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
     obj = [PFCloudKitSerializer assetsOnRecord:record withOptions:?];
-    v9 = [obj countByEnumeratingWithState:&v33 objects:v49 count:16];
-    if (v9)
+    v8 = [obj countByEnumeratingWithState:&v31 objects:v47 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v31 = *v34;
+      v9 = v8;
+      v29 = *v32;
       do
       {
-        v11 = 0;
+        v10 = 0;
         do
         {
-          if (*v34 != v31)
+          if (*v32 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v33 + 1) + 8 * v11);
+          v11 = *(*(&v31 + 1) + 8 * v10);
           if (v5)
           {
             assetStorageURL = v5->_assetStorageURL;
@@ -1567,110 +1545,108 @@ LABEL_23:
             assetStorageURL = 0;
           }
 
-          v14 = -[NSURL URLByAppendingPathComponent:isDirectory:](assetStorageURL, "URLByAppendingPathComponent:isDirectory:", [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")], 0);
-          v32 = 0;
-          if (![defaultManager moveItemAtURL:objc_msgSend(v12 toURL:"fileURL") error:{v14, &v32}])
+          v13 = -[NSURL URLByAppendingPathComponent:isDirectory:](assetStorageURL, "URLByAppendingPathComponent:isDirectory:", [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")], 0);
+          v30 = 0;
+          if (![defaultManager moveItemAtURL:objc_msgSend(v11 toURL:"fileURL") error:{v13, &v30}])
           {
-            v17 = objc_autoreleasePoolPush();
+            v16 = objc_autoreleasePoolPush();
             Stream = __PFCloudKitLoggingGetStream();
-            v19 = Stream;
+            v18 = Stream;
             if (__ckLoggingOverride == 17)
             {
-              v20 = OS_LOG_TYPE_FAULT;
+              v19 = OS_LOG_TYPE_FAULT;
             }
 
             else
             {
-              v20 = OS_LOG_TYPE_ERROR;
+              v19 = OS_LOG_TYPE_ERROR;
             }
 
-            if (!os_log_type_enabled(Stream, v20))
+            if (!os_log_type_enabled(Stream, v19))
             {
-              goto LABEL_28;
+              goto LABEL_26;
             }
 
             *buf = 136316418;
-            v38 = "[PFCloudKitImportRecordsWorkItem addUpdatedRecord:]";
-            v39 = 1024;
-            v40 = 605;
+            v36 = "[PFCloudKitImportRecordsWorkItem addUpdatedRecord:]";
+            v37 = 1024;
+            v38 = 605;
+            v39 = 2112;
+            v40 = v13;
             v41 = 2112;
-            v42 = v14;
+            v42 = v11;
             v43 = 2112;
-            v44 = v12;
+            v44 = v30;
             v45 = 2112;
-            v46 = v32;
-            v47 = 2112;
-            v48 = recordCopy;
-            v21 = v20;
-            v22 = v19;
-            v23 = "CoreData+CloudKit: %s(%d): Failed to copy asset to URL: %@\n%@\n%@\n%@";
+            v46 = recordCopy;
+            v20 = v19;
+            v21 = v18;
+            v22 = "CoreData+CloudKit: %s(%d): Failed to copy asset to URL: %@\n%@\n%@\n%@";
+            goto LABEL_25;
+          }
+
+          -[NSMutableDictionary setObject:forKey:](self->_assetPathToSafeSaveURL, "setObject:forKey:", v13, [objc_msgSend(v11 "fileURL")]);
+          v14 = [defaultManager attributesOfItemAtPath:-[NSURL path](v13 error:{"path"), &v30}];
+          if (v14)
+          {
+            v15 = v14;
+            self->_totalOperationBytes += [v14 fileSize];
+            self->_currentOperationBytes += [v15 fileSize];
+            -[PFCloudKitSizeMetric addByteSize:](&self->_fetchedAssetBytesMetric->super.super.super.isa, [v15 fileSize]);
             goto LABEL_27;
           }
 
-          -[NSMutableDictionary setObject:forKey:](self->_assetPathToSafeSaveURL, "setObject:forKey:", v14, [objc_msgSend(v12 "fileURL")]);
-          v15 = [defaultManager attributesOfItemAtPath:-[NSURL path](v14 error:{"path"), &v32}];
-          if (v15)
-          {
-            v16 = v15;
-            self->_totalOperationBytes += [v15 fileSize];
-            self->_currentOperationBytes += [v16 fileSize];
-            -[PFCloudKitSizeMetric addByteSize:](self->_fetchedAssetBytesMetric, [v16 fileSize]);
-            goto LABEL_29;
-          }
-
-          v17 = objc_autoreleasePoolPush();
-          v24 = __PFCloudKitLoggingGetStream();
-          v25 = v24;
+          v16 = objc_autoreleasePoolPush();
+          v23 = __PFCloudKitLoggingGetStream();
+          v24 = v23;
           if (__ckLoggingOverride == 17)
           {
-            v26 = OS_LOG_TYPE_FAULT;
+            v25 = OS_LOG_TYPE_FAULT;
           }
 
           else
           {
-            v26 = OS_LOG_TYPE_ERROR;
+            v25 = OS_LOG_TYPE_ERROR;
           }
 
-          if (os_log_type_enabled(v24, v26))
+          if (os_log_type_enabled(v23, v25))
           {
             *buf = 136316418;
-            v38 = "[PFCloudKitImportRecordsWorkItem addUpdatedRecord:]";
-            v39 = 1024;
-            v40 = 601;
+            v36 = "[PFCloudKitImportRecordsWorkItem addUpdatedRecord:]";
+            v37 = 1024;
+            v38 = 601;
+            v39 = 2112;
+            v40 = v13;
             v41 = 2112;
-            v42 = v14;
+            v42 = v11;
             v43 = 2112;
-            v44 = v12;
+            v44 = v30;
             v45 = 2112;
-            v46 = v32;
-            v47 = 2112;
-            v48 = recordCopy;
-            v21 = v26;
-            v22 = v25;
-            v23 = "CoreData+CloudKit: %s(%d): Failed to read attributes of asset file at URL: %@\n%@\n%@\n%@";
-LABEL_27:
-            _os_log_impl(&dword_18565F000, v22, v21, v23, buf, 0x3Au);
+            v46 = recordCopy;
+            v20 = v25;
+            v21 = v24;
+            v22 = "CoreData+CloudKit: %s(%d): Failed to read attributes of asset file at URL: %@\n%@\n%@\n%@";
+LABEL_25:
+            _os_log_impl(&dword_18565F000, v21, v20, v22, buf, 0x3Au);
           }
 
-LABEL_28:
-          objc_autoreleasePoolPop(v17);
-          [(NSMutableArray *)self->_encounteredErrors addObject:v32];
-LABEL_29:
-          ++v11;
+LABEL_26:
+          objc_autoreleasePoolPop(v16);
+          [(NSMutableArray *)self->_encounteredErrors addObject:v30];
+LABEL_27:
+          ++v10;
         }
 
-        while (v10 != v11);
-        v27 = [obj countByEnumeratingWithState:&v33 objects:v49 count:16];
-        v10 = v27;
+        while (v9 != v10);
+        v26 = [obj countByEnumeratingWithState:&v31 objects:v47 count:16];
+        v9 = v26;
       }
 
-      while (v27);
+      while (v26);
     }
 
     [(PFCloudKitImportRecordsWorkItem *)self checkAndApplyChangesIfNeeded:?];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAndApplyChangesIfNeeded:(uint64_t)needed
@@ -1746,7 +1722,7 @@ LABEL_29:
 
 id __78__PFCloudKitImportRecordsWorkItem_fetchOperationFinishedWithError_completion___block_invoke(uint64_t *a1)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v3 = a1[4];
   if (v3)
@@ -1761,27 +1737,27 @@ id __78__PFCloudKitImportRecordsWorkItem_fetchOperationFinishedWithError_complet
   {
     if (v6)
     {
-      v63 = 0;
-      v64 = &v63;
-      v65 = 0x2020000000;
-      LOBYTE(v66) = 0;
+      v62 = 0;
+      v63 = &v62;
+      v64 = 0x2020000000;
+      LOBYTE(v65) = 0;
       v7 = [v5 domain];
       if ([v7 isEqualToString:getCloudKitCKErrorDomain()] && objc_msgSend(v5, "code") == 2)
       {
         v8 = [v5 userInfo];
         v9 = [v8 objectForKey:getCloudKitCKPartialErrorsByItemIDKey()];
-        *(v64 + 24) = 1;
+        *(v63 + 24) = 1;
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __53__PFCloudKitImportRecordsWorkItem_handleImportError___block_invoke;
         *&buf[24] = &unk_1E6EC4F60;
         *&buf[32] = v6;
-        v73 = &v63;
+        v72 = &v62;
         [v9 enumerateKeysAndObjectsUsingBlock:buf];
       }
 
-      v10 = *(v64 + 24);
-      _Block_object_dispose(&v63, 8);
+      v10 = *(v63 + 24);
+      _Block_object_dispose(&v62, 8);
       if ((v10 & 1) == 0)
       {
         v11 = 0;
@@ -1820,21 +1796,21 @@ id __78__PFCloudKitImportRecordsWorkItem_fetchOperationFinishedWithError_complet
           LogStream = _PFLogGetLogStream(17);
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
-            v57 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1[4] + 128)];
+            v56 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1[4] + 128)];
             if (v4)
             {
-              v58 = v4[3];
+              v57 = v4[3];
             }
 
             else
             {
-              v58 = 0;
+              v57 = 0;
             }
 
             *buf = 138412546;
-            *&buf[4] = v57;
+            *&buf[4] = v56;
             *&buf[12] = 2112;
-            *&buf[14] = v58;
+            *&buf[14] = v57;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Importer didn't obey operation memory threshold, finished operation with more than the threshold worth of work to do (%@ bytes): %@\n", buf, 0x16u);
           }
 
@@ -1880,9 +1856,9 @@ LABEL_9:
     else
     {
       v19 = MEMORY[0x1E696ABC0];
-      v70 = @"NSDetailedErrors";
-      v71 = *(a1[4] + 88);
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v69 = @"NSDetailedErrors";
+      v70 = *(a1[4] + 88);
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
       v12 = [v19 errorWithDomain:*MEMORY[0x1E696A250] code:134404 userInfo:v20];
     }
 
@@ -1918,32 +1894,32 @@ LABEL_32:
   }
 
   [(PFMetricsClient *)v24 logMetric:?];
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v25 = *(a1[4] + 104);
-  v26 = [v25 countByEnumeratingWithState:&v59 objects:v69 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v58 objects:v68 count:16];
   if (v26)
   {
-    v27 = *v60;
+    v27 = *v59;
 LABEL_37:
     v28 = 0;
     while (1)
     {
-      if (*v60 != v27)
+      if (*v59 != v27)
       {
         objc_enumerationMutation(v25);
       }
 
-      if ([*(*(&v59 + 1) + 8 * v28) madeChanges])
+      if ([*(*(&v58 + 1) + 8 * v28) madeChanges])
       {
         break;
       }
 
       if (v26 == ++v28)
       {
-        v26 = [v25 countByEnumeratingWithState:&v59 objects:v69 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v58 objects:v68 count:16];
         if (v26)
         {
           goto LABEL_37;
@@ -1963,13 +1939,13 @@ LABEL_56:
     v40 = a1[4];
     if (v40)
     {
-      v63 = 0;
-      v64 = &v63;
-      v65 = 0x3052000000;
-      v66 = __Block_byref_object_copy__42;
-      v67 = __Block_byref_object_dispose__42;
-      v68 = 0;
-      v41 = v40[1];
+      v62 = 0;
+      v63 = &v62;
+      v64 = 0x3052000000;
+      v65 = __Block_byref_object_copy__42;
+      v66 = __Block_byref_object_dispose__42;
+      v67 = 0;
+      v41 = *(v40 + 8);
       if (v41)
       {
         v41 = v41[2];
@@ -1981,12 +1957,12 @@ LABEL_56:
       *&buf[16] = __81__PFCloudKitImportRecordsWorkItem_newMirroringResultByApplyingAccumulatedChanges__block_invoke;
       *&buf[24] = &unk_1E6EC1388;
       *&buf[32] = v42;
-      v73 = v40;
-      v74 = &v63;
+      v72 = v40;
+      v73 = &v62;
       [(PFCloudKitStoreMonitor *)v42 performBlock:buf];
 
-      v43 = v64[5];
-      _Block_object_dispose(&v63, 8);
+      v43 = v63[5];
+      _Block_object_dispose(&v62, 8);
       if (v43)
       {
         if (![v43 success] || ((objc_msgSend(v43, "madeChanges") | v29 ^ 1) & 1) != 0)
@@ -2148,9 +2124,7 @@ LABEL_77:
   [(PFCloudKitImportRecordsWorkItem *)a1[4] removeDownloadedAssetFiles];
 
   [v2 drain];
-  result = 0;
-  v56 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 uint64_t __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke(uint64_t a1)
@@ -2165,7 +2139,7 @@ uint64_t __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___bl
 
 id __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v4 = Stream;
@@ -2199,13 +2173,13 @@ id __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_in
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     *buf = 136315906;
-    v16 = "[PFCloudKitImportRecordsWorkItem checkAndApplyChangesIfNeeded:]_block_invoke_2";
-    v17 = 1024;
-    v18 = 755;
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v8;
+    v15 = "[PFCloudKitImportRecordsWorkItem checkAndApplyChangesIfNeeded:]_block_invoke_2";
+    v16 = 1024;
+    v17 = 755;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v8;
     _os_log_impl(&dword_18565F000, v4, v6, "CoreData+CloudKit: %s(%d): %@: Applying accumulated changes at change token: %@", buf, 0x26u);
   }
 
@@ -2221,14 +2195,14 @@ id __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_in
   }
 
   v10 = v9;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke_45;
-  v14[3] = &unk_1E6EC1600;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke_45;
+  v13[3] = &unk_1E6EC1600;
   v11 = *(a1 + 32);
-  v14[4] = v10;
-  v14[5] = v11;
-  [(PFCloudKitStoreMonitor *)v10 performBlock:v14];
+  v13[4] = v10;
+  v13[5] = v11;
+  [(PFCloudKitStoreMonitor *)v10 performBlock:v13];
 
   *(*(a1 + 32) + 80) = objc_alloc_init(MEMORY[0x1E695DF70]);
   *(*(a1 + 32) + 40) = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -2241,14 +2215,13 @@ id __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_in
 
   result = objc_alloc_init(MEMORY[0x1E695DF90]);
   *(*(a1 + 32) + 120) = result;
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke_45(uint64_t a1)
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v38 = 0;
+  v50 = *MEMORY[0x1E69E9840];
+  v37 = 0;
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
@@ -2267,17 +2240,17 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
 
     v6 = [(PFCloudKitStoreMonitor *)v5 newBackgroundContextForMonitoredCoordinator];
     [(NSManagedObjectContext *)v6 setTransactionAuthor:@"NSCloudKitMirroringDelegate.import"];
-    v37 = 0;
-    if ([*(a1 + 40) applyAccumulatedChangesToStore:v2 inManagedObjectContext:v6 withStoreMonitor:*(a1 + 32) madeChanges:&v37 error:&v38])
+    v36 = 0;
+    if ([*(a1 + 40) applyAccumulatedChangesToStore:v2 inManagedObjectContext:v6 withStoreMonitor:*(a1 + 32) madeChanges:&v36 error:&v37])
     {
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke_2_46;
-      v36[3] = &unk_1E6EC1600;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke_2_46;
+      v35[3] = &unk_1E6EC1600;
       v7 = *(a1 + 40);
-      v36[4] = v6;
-      v36[5] = v7;
-      [(NSManagedObjectContext *)v6 performBlockAndWait:v36];
+      v35[4] = v6;
+      v35[5] = v7;
+      [(NSManagedObjectContext *)v6 performBlockAndWait:v35];
       v8 = objc_autoreleasePoolPush();
       Stream = __PFCloudKitLoggingGetStream();
       v10 = Stream;
@@ -2320,13 +2293,13 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
         }
 
         *buf = 136315906;
-        v42 = "[PFCloudKitImportRecordsWorkItem checkAndApplyChangesIfNeeded:]_block_invoke";
-        v43 = 1024;
-        v44 = 778;
-        v45 = 2112;
-        v46 = v13;
-        v47 = 2112;
-        v48 = v14;
+        v41 = "[PFCloudKitImportRecordsWorkItem checkAndApplyChangesIfNeeded:]_block_invoke";
+        v42 = 1024;
+        v43 = 778;
+        v44 = 2112;
+        v45 = v13;
+        v46 = 2112;
+        v47 = v14;
         _os_log_impl(&dword_18565F000, v10, v12, "CoreData+CloudKit: %s(%d): %@: Successfully applied incremental changes during request: %@", buf, 0x26u);
       }
 
@@ -2353,7 +2326,7 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
         v18 = 0;
       }
 
-      v19 = [v15 createMirroringResultForRequest:v16 storeIdentifier:v18 success:1 madeChanges:v37 error:0];
+      v19 = [v15 createMirroringResultForRequest:v16 storeIdentifier:v18 success:1 madeChanges:v36 error:0];
       [*(*(a1 + 40) + 104) addObject:v19];
       if (([v19 success] & 1) == 0)
       {
@@ -2402,15 +2375,15 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
         }
 
         *buf = 136316162;
-        v42 = "[PFCloudKitImportRecordsWorkItem checkAndApplyChangesIfNeeded:]_block_invoke";
-        v43 = 1024;
-        v44 = 789;
-        v45 = 2112;
-        v46 = v32;
-        v47 = 2112;
-        v48 = v33;
-        v49 = 2112;
-        v50 = v38;
+        v41 = "[PFCloudKitImportRecordsWorkItem checkAndApplyChangesIfNeeded:]_block_invoke";
+        v42 = 1024;
+        v43 = 789;
+        v44 = 2112;
+        v45 = v32;
+        v46 = 2112;
+        v47 = v33;
+        v48 = 2112;
+        v49 = v37;
         _os_log_impl(&dword_18565F000, v30, v31, "CoreData+CloudKit: %s(%d): %@: Failed to incrementally apply changes during request: %@\n%@", buf, 0x30u);
       }
 
@@ -2418,7 +2391,7 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
       v34 = *(a1 + 40);
       if (v34)
       {
-        [*(v34 + 88) addObject:v38];
+        [*(v34 + 88) addObject:v37];
       }
 
       v19 = 0;
@@ -2428,7 +2401,7 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
   else
   {
     v22 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A588];
+    v38 = *MEMORY[0x1E696A588];
     v23 = *(a1 + 40);
     if (v23)
     {
@@ -2440,27 +2413,39 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
       v24 = 0;
     }
 
-    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v24, "requestIdentifier")];
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v39 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v24 requestIdentifier]);
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     v26 = [v22 errorWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v25];
-    v38 = v26;
+    v37 = v26;
     v27 = *(a1 + 40);
     if (v27)
     {
       [*(v27 + 88) addObject:v26];
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_invoke_2_46(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) hasChanges])
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    {
+      v4 = *(a1 + 40);
+      if (v4)
+      {
+        v4 = *(v4 + 16);
+      }
+
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Incremental import left uncommitted changes in the managed object context: %@\n", &v6, 0xCu);
+    }
+
+    v3 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       v5 = *(a1 + 40);
       if (v5)
@@ -2468,33 +2453,26 @@ void __64__PFCloudKitImportRecordsWorkItem_checkAndApplyChangesIfNeeded___block_
         v5 = *(v5 + 16);
       }
 
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Incremental import left uncommitted changes in the managed object context: %@\n", &v7, 0xCu);
-    }
-
-    v3 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-    {
-      v6 = *(a1 + 40);
-      if (v6)
-      {
-        v6 = *(v6 + 16);
-      }
-
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: Incremental import left uncommitted changes in the managed object context: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: Incremental import left uncommitted changes in the managed object context: %@", &v6, 0xCu);
     }
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (id)createMirroringResultForRequest:(id)request storeIdentifier:(id)identifier success:(BOOL)success madeChanges:(BOOL)changes error:(id)error
+{
+  changesCopy = changes;
+  successCopy = success;
+  v12 = [NSCloudKitMirroringResult alloc];
+
+  return [(NSCloudKitMirroringResult *)v12 initWithRequest:request storeIdentifier:identifier success:successCopy madeChanges:changesCopy error:error];
 }
 
 void __53__PFCloudKitImportRecordsWorkItem_handleImportError___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  getCloudKitCKRecordIDClass[0]();
+  v16 = *MEMORY[0x1E69E9840];
+  getCloudKitCKRecordIDClass();
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2505,21 +2483,21 @@ void __53__PFCloudKitImportRecordsWorkItem_handleImportError___block_invoke(uint
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412546;
-        v15 = a2;
-        v16 = 2112;
-        v17 = a3;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: CloudKit Import: Failed to handle item error for unknown itemID type: %@ - %@\n", &v14, 0x16u);
+        v12 = 138412546;
+        v13 = a2;
+        v14 = 2112;
+        v15 = a3;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: CloudKit Import: Failed to handle item error for unknown itemID type: %@ - %@\n", &v12, 0x16u);
       }
 
-      v12 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v11 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v14 = 138412546;
-        v15 = a2;
-        v16 = 2112;
-        v17 = a3;
-        _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: CloudKit Import: Failed to handle item error for unknown itemID type: %@ - %@", &v14, 0x16u);
+        v12 = 138412546;
+        v13 = a2;
+        v14 = 2112;
+        v15 = a3;
+        _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: CloudKit Import: Failed to handle item error for unknown itemID type: %@ - %@", &v12, 0x16u);
       }
     }
 
@@ -2532,13 +2510,11 @@ void __53__PFCloudKitImportRecordsWorkItem_handleImportError___block_invoke(uint
 LABEL_12:
     *(*(*(a1 + 40) + 8) + 24) = 0;
     *a4 = 1;
-    v13 = *MEMORY[0x1E69E9840];
     return;
   }
 
   [*(*(a1 + 32) + 112) addObject:a2];
   v9 = *(*(a1 + 32) + 80);
-  v10 = *MEMORY[0x1E69E9840];
 
   [v9 addObject:a2];
 }

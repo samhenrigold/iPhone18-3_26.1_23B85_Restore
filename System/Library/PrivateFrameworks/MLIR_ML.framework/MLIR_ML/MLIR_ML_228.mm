@@ -13,17 +13,17 @@ llvm::yaml::Document *llvm::yaml::Document::Document(llvm::yaml::Document *this,
   *(this + 16) = 0;
   *(this + 15) = 0;
   *(this + 14) = this + 120;
-  v3 = this + 112;
+  v3 = (this + 112);
   v10 = "!";
   v11 = 1;
   v12 = &v10;
-  v4 = std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(this + 112, &v10);
+  v4 = std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(this + 14, &v10, &std::piecewise_construct, &v12);
   v4[6] = "!";
   v4[7] = 1;
   v10 = "!!";
   v11 = 2;
   v12 = &v10;
-  v5 = std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(v3, &v10);
+  v5 = std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(v3, &v10, &std::piecewise_construct, &v12);
   v5[6] = "tag:yaml.org,2002:";
   v5[7] = 18;
   if (llvm::yaml::Document::parseDirectives(this))
@@ -33,7 +33,7 @@ llvm::yaml::Document *llvm::yaml::Document::Document(llvm::yaml::Document *this,
 
   if (*llvm::yaml::Scanner::peekNext(**this) == 5)
   {
-    llvm::yaml::Scanner::getNext(**this, &v7);
+    llvm::yaml::Scanner::getNext(&v7, **this);
     if (v9 < 0)
     {
       operator delete(__p);
@@ -95,7 +95,7 @@ LABEL_14:
       }
     }
 
-    llvm::yaml::Scanner::getNext(**this, v10);
+    llvm::yaml::Scanner::getNext(&v10, **this);
     if (v12 < 0)
     {
       operator delete(__p);
@@ -113,27 +113,27 @@ LABEL_14:
   return v2 & 1;
 }
 
-BOOL llvm::yaml::Document::expectToken(llvm::yaml::Scanner ***this, int a2)
+BOOL llvm::yaml::Document::expectToken(llvm *****this, int a2)
 {
-  llvm::yaml::Scanner::getNext(**this, &v13);
-  v4 = v13;
-  if (v13 != a2)
+  llvm::yaml::Scanner::getNext(&v13, **this);
+  data = v13.__r_.__value_.__l.__data_;
+  if (LODWORD(v13.__r_.__value_.__l.__data_) != a2)
   {
     v11 = "Unexpected token";
     v12 = 259;
     v5 = **this;
-    v6 = *(v5 + 6);
-    if (v6 <= v14)
+    v6 = *(v5 + 48);
+    if (v6 <= v13.__r_.__value_.__l.__size_)
     {
-      v7 = (v6 - 1);
+      size = (v6 - 1);
     }
 
     else
     {
-      v7 = v14;
+      size = v13.__r_.__value_.__l.__size_;
     }
 
-    v8 = *(v5 + 42);
+    v8 = *(v5 + 336);
     if (v8)
     {
       v9 = std::generic_category();
@@ -143,25 +143,25 @@ BOOL llvm::yaml::Document::expectToken(llvm::yaml::Scanner ***this, int a2)
 
     if ((*(v5 + 75) & 1) == 0)
     {
-      llvm::SourceMgr::PrintMessage(*v5, v7, 0, &v11, 0, 0, 0, 0, *(v5 + 76));
+      llvm::SourceMgr::PrintMessage(*v5, size, 0, &v11, 0, 0, 0, 0, *(v5 + 76));
     }
 
     *(v5 + 75) = 1;
   }
 
-  if (v16 < 0)
+  if (v15 < 0)
   {
     operator delete(__p);
   }
 
-  return v4 == a2;
+  return data == a2;
 }
 
-void llvm::yaml::Document::parseTAGDirective(llvm::yaml::Scanner ***this)
+void llvm::yaml::Document::parseTAGDirective(llvm *****this)
 {
   v1 = (this + 14);
-  llvm::yaml::Scanner::getNext(**this, v18);
-  v17 = v19;
+  llvm::yaml::Scanner::getNext(&v18, **this);
+  v17 = *&v18.__r_.__value_.__r.__words[1];
   first_of = llvm::StringRef::find_first_of(&v17, " \t", 2, 0);
   if (*(&v17 + 1) >= first_of)
   {
@@ -217,18 +217,18 @@ void llvm::yaml::Document::parseTAGDirective(llvm::yaml::Scanner ***this)
   v10 = v13 + v9;
   v11 = v14 - v9;
   v13 = &v15;
-  v12 = std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(v1, &v15);
+  v12 = std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(v1, &v15, &std::piecewise_construct, &v13);
   v12[6] = v10;
   v12[7] = v11;
-  if (v21 < 0)
+  if (v20 < 0)
   {
     operator delete(__p);
   }
 }
 
-void llvm::yaml::Document::parseYAMLDirective(llvm::yaml::Scanner ***this)
+void llvm::yaml::Document::parseYAMLDirective(llvm *****this)
 {
-  llvm::yaml::Scanner::getNext(**this, &v1);
+  llvm::yaml::Scanner::getNext(&v1, **this);
   if (v3 < 0)
   {
     operator delete(__p);
@@ -343,7 +343,7 @@ LABEL_25:
       v17 = &__srca[v15 & 0xFFFFFFFFFFFFFFE0];
       v18 = v15 & 0x1F;
       v19 = &__src[v15 & 0xFFFFFFFFFFFFFFE0];
-      v28 = (__src + 16);
+      v28 = __src + 16;
       v29 = (v9 + v8 + 16);
       v30 = v15 & 0xFFFFFFFFFFFFFFE0;
       do
@@ -351,7 +351,7 @@ LABEL_25:
         v31 = *v28;
         *(v29 - 1) = *(v28 - 1);
         *v29 = v31;
-        v28 += 2;
+        v28 += 32;
         v29 += 2;
         v30 -= 32;
       }
@@ -489,7 +489,7 @@ LABEL_43:
   return memmove(__srca, __src, v10);
 }
 
-std::string::size_type std::string::__insert_with_size<char *,char *>(std::string *this, uint64_t a2, unint64_t a3, std::string::value_type *a4, std::string::size_type __n_add)
+std::string::size_type std::string::__insert_with_size<char *,char *>(std::string *this, uint64_t a2, std::string::value_type *a3, std::string::value_type *a4, std::string::size_type __n_add)
 {
   v7 = a3;
   v8 = this;
@@ -499,7 +499,7 @@ std::string::size_type std::string::__insert_with_size<char *,char *>(std::strin
     v10 = a2 - this;
     if (__n_add)
     {
-      if (this > a3 || this->__r_.__value_.__r.__words + v9 + 1 <= a3)
+      if (this > a3 || &this->__r_.__value_.__l.__data_ + v9 + 1 <= a3)
       {
         v11 = 22;
         v12 = this;
@@ -687,7 +687,7 @@ LABEL_51:
   }
 
   v14 = this->__r_.__value_.__l.__size_;
-  if (v12 <= a3 && v12->__r_.__value_.__r.__words + v14 + 1 > a3)
+  if (v12 <= a3 && &v12->__r_.__value_.__l.__data_ + v14 + 1 > a3)
   {
     goto LABEL_21;
   }
@@ -709,7 +709,7 @@ LABEL_6:
 LABEL_48:
     v8->__r_.__value_.__l.__size_ = v13;
     v12->__r_.__value_.__s.__data_[v13] = 0;
-    v16 = a4 - v7;
+    v16 = (a4 - v7);
     if (a4 == v7)
     {
       goto LABEL_18;
@@ -721,7 +721,7 @@ LABEL_48:
 LABEL_16:
   *(&v8->__r_.__value_.__s + 23) = v13 & 0x7F;
   v12->__r_.__value_.__s.__data_[v13] = 0;
-  v16 = a4 - v7;
+  v16 = (a4 - v7);
   if (a4 != v7)
   {
 LABEL_17:
@@ -737,47 +737,47 @@ LABEL_18:
   return v8 + v10;
 }
 
-void *std::unique_ptr<llvm::yaml::Scanner>::reset[abi:nn200100](void *result, uint64_t a2)
+uint64_t *std::unique_ptr<llvm::yaml::Scanner>::reset[abi:nn200100](uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v2 = *result;
+  v4 = *result;
   *result = a2;
-  if (v2)
+  if (v4)
   {
-    v3 = v2[28];
-    if (v3 != v2 + 30)
+    v5 = v4[28];
+    if (v5 != v4 + 30)
     {
-      free(v3);
+      free(v5);
     }
 
-    v4 = v2[24];
-    if (v4 != v2 + 26)
+    v6 = v4[24];
+    if (v6 != v4 + 26)
     {
-      free(v4);
+      free(v6);
     }
 
-    v5 = v2[23];
-    if (v5 != v2 + 22)
+    v7 = v4[23];
+    if (v7 != v4 + 22)
     {
       do
       {
-        v6 = *v5;
-        v7 = v5[1];
-        *v7 = *v5;
-        *(v6 + 8) = v7;
-        *v5 = 0;
-        v5[1] = 0;
-        if (*(v5 + 63) < 0)
+        v8 = *v7;
+        v9 = v7[1];
+        *v9 = *v7;
+        *(v8 + 8) = v9;
+        *v7 = 0;
+        v7[1] = 0;
+        if (*(v7 + 63) < 0)
         {
-          operator delete(v5[5]);
+          operator delete(v7[5]);
         }
 
-        v5 = v7;
+        v7 = v9;
       }
 
-      while (v7 != v2 + 22);
+      while (v9 != v4 + 22);
     }
 
-    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl((v2 + 10));
+    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl((v4 + 10), a2, a3, a4);
 
     JUMPOUT(0x259C63180);
   }
@@ -793,7 +793,7 @@ uint64_t std::__function::__func<llvm::yaml::ScalarNode::getDoubleQuotedValue(ll
   return result;
 }
 
-char *std::__function::__func<llvm::yaml::ScalarNode::getDoubleQuotedValue(llvm::StringRef,llvm::SmallVectorImpl<char> &)::$_0,std::allocator<llvm::yaml::ScalarNode::getDoubleQuotedValue(llvm::StringRef,llvm::SmallVectorImpl<char> &)::$_0>,llvm::StringRef ()(llvm::StringRef,llvm::SmallVectorImpl<char> &)>::operator()(uint64_t a1, char **a2, uint64_t *a3)
+const char *std::__function::__func<llvm::yaml::ScalarNode::getDoubleQuotedValue(llvm::StringRef,llvm::SmallVectorImpl<char> &)::$_0,std::allocator<llvm::yaml::ScalarNode::getDoubleQuotedValue(llvm::StringRef,llvm::SmallVectorImpl<char> &)::$_0>,llvm::StringRef ()(llvm::StringRef,llvm::SmallVectorImpl<char> &)>::operator()(uint64_t a1, const char **a2, uint64_t *a3)
 {
   v4 = *(a1 + 8);
   v5 = *a2;
@@ -850,7 +850,7 @@ LABEL_7:
     switch(*v9)
     {
       case 9:
-      case 116:
+      case 0x74:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -860,12 +860,12 @@ LABEL_7:
         v15 = *a3;
         v16 = 9;
         goto LABEL_74;
-      case 10:
+      case 0xA:
         goto LABEL_42;
-      case 13:
+      case 0xD:
         if (v13 >= 2)
         {
-          v20 = v9[1] == 10;
+          v20 = *(v9 + 1) == 10;
           if (v9[1] == 10)
           {
             ++v9;
@@ -899,7 +899,7 @@ LABEL_42:
         }
 
         return (v33 + v23);
-      case 32:
+      case 0x20:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -909,7 +909,7 @@ LABEL_42:
         v15 = *a3;
         v16 = 32;
         goto LABEL_74;
-      case 34:
+      case 0x22:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -919,7 +919,7 @@ LABEL_42:
         v15 = *a3;
         v16 = 34;
         goto LABEL_74;
-      case 47:
+      case 0x2F:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -929,7 +929,7 @@ LABEL_42:
         v15 = *a3;
         v16 = 47;
         goto LABEL_74;
-      case 48:
+      case 0x30:
         v19 = a3[1];
         if (v19 + 1 > a3[2])
         {
@@ -938,10 +938,10 @@ LABEL_42:
 
         *(*a3 + v19) = 0;
         goto LABEL_75;
-      case 76:
+      case 0x4C:
         v27 = 8232;
         goto LABEL_68;
-      case 78:
+      case 0x4E:
         v24 = a3[1];
         if (v24 + 1 > a3[2])
         {
@@ -961,12 +961,12 @@ LABEL_42:
         v15 = *a3;
         v16 = -123;
         goto LABEL_74;
-      case 80:
+      case 0x50:
         v27 = 8233;
 LABEL_68:
         encodeUTF8(v27, a3);
         goto LABEL_76;
-      case 85:
+      case 0x55:
         if (v13 < 9)
         {
           goto LABEL_76;
@@ -980,7 +980,7 @@ LABEL_68:
 
         encodeUTF8(v17, a3);
         return v9 + 9;
-      case 92:
+      case 0x5C:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -990,7 +990,7 @@ LABEL_68:
         v15 = *a3;
         v16 = 92;
         goto LABEL_74;
-      case 95:
+      case 0x5F:
         v29 = a3[1];
         if (v29 + 1 > a3[2])
         {
@@ -1010,7 +1010,7 @@ LABEL_68:
         v15 = *a3;
         v16 = -96;
         goto LABEL_74;
-      case 97:
+      case 0x61:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -1020,7 +1020,7 @@ LABEL_68:
         v15 = *a3;
         v16 = 7;
         goto LABEL_74;
-      case 98:
+      case 0x62:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -1030,7 +1030,7 @@ LABEL_68:
         v15 = *a3;
         v16 = 8;
         goto LABEL_74;
-      case 101:
+      case 0x65:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -1040,7 +1040,7 @@ LABEL_68:
         v15 = *a3;
         v16 = 27;
         goto LABEL_74;
-      case 102:
+      case 0x66:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -1050,7 +1050,7 @@ LABEL_68:
         v15 = *a3;
         v16 = 12;
         goto LABEL_74;
-      case 110:
+      case 0x6E:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -1060,7 +1060,7 @@ LABEL_68:
         v15 = *a3;
         v16 = 10;
         goto LABEL_74;
-      case 114:
+      case 0x72:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -1070,7 +1070,7 @@ LABEL_68:
         v15 = *a3;
         v16 = 13;
         goto LABEL_74;
-      case 117:
+      case 0x75:
         if (v13 < 5)
         {
           goto LABEL_76;
@@ -1084,7 +1084,7 @@ LABEL_68:
 
         encodeUTF8(v32, a3);
         return v9 + 5;
-      case 118:
+      case 0x76:
         v14 = a3[1];
         if (v14 + 1 > a3[2])
         {
@@ -1098,7 +1098,7 @@ LABEL_74:
 LABEL_75:
         ++a3[1];
         goto LABEL_76;
-      case 120:
+      case 0x78:
         if (v13 < 3)
         {
 LABEL_76:
@@ -1218,36 +1218,36 @@ uint64_t std::__function::__func<llvm::yaml::ScalarNode::getSingleQuotedValue(ll
   return 0;
 }
 
-void *std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t *std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::__emplace_unique_key_args<llvm::StringRef,std::piecewise_construct_t const&,std::tuple<llvm::StringRef&&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_19:
     operator new();
   }
 
-  v3 = *a2;
-  v4 = *(a2 + 8);
+  v5 = *a2;
+  v6 = *(a2 + 8);
   while (1)
   {
     while (1)
     {
-      v5 = v2;
-      v6 = v2[5];
-      if (v6 >= v4)
+      v7 = v4;
+      v8 = v4[5];
+      if (v8 >= v6)
       {
-        v7 = v4;
+        v9 = v6;
       }
 
       else
       {
-        v7 = v2[5];
+        v9 = v4[5];
       }
 
-      if (!v7)
+      if (!v9)
       {
-        if (v4 >= v6)
+        if (v6 >= v8)
         {
           goto LABEL_17;
         }
@@ -1255,52 +1255,52 @@ LABEL_19:
         goto LABEL_3;
       }
 
-      v8 = v2[4];
-      v9 = memcmp(v3, v8, v7);
-      if (v9)
+      v10 = v4[4];
+      v11 = memcmp(v5, v10, v9);
+      if (v11)
       {
         break;
       }
 
-      if (v4 >= v6)
+      if (v6 >= v8)
       {
         goto LABEL_14;
       }
 
 LABEL_3:
-      v2 = *v5;
-      if (!*v5)
+      v4 = *v7;
+      if (!*v7)
       {
         goto LABEL_19;
       }
     }
 
-    if (v9 < 0)
+    if (v11 < 0)
     {
       goto LABEL_3;
     }
 
 LABEL_14:
-    v10 = memcmp(v8, v3, v7);
-    if (v10)
+    v12 = memcmp(v10, v5, v9);
+    if (v12)
     {
-      if ((v10 & 0x80000000) == 0)
+      if ((v12 & 0x80000000) == 0)
       {
-        return v5;
+        return v7;
       }
 
       goto LABEL_18;
     }
 
 LABEL_17:
-    if (v6 >= v4)
+    if (v8 >= v6)
     {
-      return v5;
+      return v7;
     }
 
 LABEL_18:
-    v2 = v5[1];
-    if (!v2)
+    v4 = v7[1];
+    if (!v4)
     {
       goto LABEL_19;
     }
@@ -1314,7 +1314,7 @@ void *llvm::yaml::IO::IO(void *this, void *a2)
   return this;
 }
 
-void llvm::yaml::Input::Input(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void llvm::yaml::Input::Input(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7)
 {
   *a1 = &unk_2868A3930;
   a1[1] = a4;
@@ -1322,7 +1322,7 @@ void llvm::yaml::Input::Input(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   operator new();
 }
 
-void llvm::yaml::Input::Input(void *a1, uint64_t a2, uint64_t a3)
+void llvm::yaml::Input::Input(void *a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *a1 = &unk_2868A3930;
   a1[1] = a3;
@@ -1340,73 +1340,73 @@ void llvm::yaml::Input::~Input(llvm::yaml::Input *this)
   }
 
   llvm::SpecificBumpPtrAllocator<llvm::yaml::Input::SequenceHNode>::DestroyAll(this + 504);
-  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 504);
+  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 504, v3, v4, v5);
   llvm::SpecificBumpPtrAllocator<llvm::yaml::Input::MapHNode>::DestroyAll(this + 408);
-  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 408);
+  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 408, v6, v7, v8);
   if (*(this + 96))
   {
     llvm::deallocate_buffer(**(this + 47), *(*(this + 47) + 8));
   }
 
   *(this + 96) = 0;
-  v3 = *(this + 84);
-  if (v3)
+  v12 = *(this + 84);
+  if (v12)
   {
     *(this + 49) = 0;
-    v4 = *(this + 41);
-    v5 = *v4 + 4096;
-    *(this + 39) = *v4;
-    *(this + 40) = v5;
-    if (v3 != 1)
+    v13 = *(this + 41);
+    v14 = *v13 + 4096;
+    *(this + 39) = *v13;
+    *(this + 40) = v14;
+    if (v12 != 1)
     {
-      v6 = ((v4 + 8 - *(this + 41)) >> 10) & 0x1FFFFFF;
-      if (v6 >= 0x1E)
+      v15 = ((v13 + 8 - *(this + 41)) >> 10) & 0x1FFFFFF;
+      if (v15 >= 0x1E)
       {
-        LOBYTE(v6) = 30;
+        LOBYTE(v15) = 30;
       }
 
-      llvm::deallocate_buffer(*(v4 + 8), (4096 << v6));
+      llvm::deallocate_buffer(*(v13 + 8), (4096 << v15));
     }
 
     *(this + 84) = 1;
   }
 
-  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 312);
+  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 312, v9, v10, v11);
   if (*(this + 72))
   {
     llvm::deallocate_buffer(**(this + 35), *(*(this + 35) + 8));
   }
 
   *(this + 72) = 0;
-  v7 = *(this + 60);
-  if (v7)
+  v19 = *(this + 60);
+  if (v19)
   {
     *(this + 37) = 0;
-    v8 = *(this + 29);
-    v9 = *v8 + 4096;
-    *(this + 27) = *v8;
-    *(this + 28) = v9;
-    if (v7 != 1)
+    v20 = *(this + 29);
+    v21 = *v20 + 4096;
+    *(this + 27) = *v20;
+    *(this + 28) = v21;
+    if (v19 != 1)
     {
-      v10 = ((v8 + 8 - *(this + 29)) >> 10) & 0x1FFFFFF;
-      if (v10 >= 0x1E)
+      v22 = ((v20 + 8 - *(this + 29)) >> 10) & 0x1FFFFFF;
+      if (v22 >= 0x1E)
       {
-        LOBYTE(v10) = 30;
+        LOBYTE(v22) = 30;
       }
 
-      llvm::deallocate_buffer(*(v8 + 8), (4096 << v10));
+      llvm::deallocate_buffer(*(v20 + 8), (4096 << v22));
     }
 
     *(this + 60) = 1;
   }
 
-  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 216);
-  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 120);
-  v11 = *(this + 11);
+  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 216, v16, v17, v18);
+  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this + 120, v23, v24, v25);
+  v29 = *(this + 11);
   *(this + 11) = 0;
-  if (v11)
+  if (v29)
   {
-    llvm::yaml::Stream::~Stream(v11);
+    llvm::yaml::Stream::~Stream(v29, v26, v27, v28);
     MEMORY[0x259C63180]();
   }
 
@@ -1519,7 +1519,7 @@ void llvm::yaml::Input::releaseHNodeBuffers(llvm ***this)
   {
     this[37] = 0;
     v3 = this[29];
-    v4 = *v3 + 4096;
+    v4 = (*v3 + 4096);
     this[27] = *v3;
     this[28] = v4;
     if (v2 != 1)
@@ -1547,7 +1547,7 @@ void llvm::yaml::Input::releaseHNodeBuffers(llvm ***this)
   {
     this[49] = 0;
     v7 = this[41];
-    v8 = *v7 + 4096;
+    v8 = (*v7 + 4096);
     this[39] = *v7;
     this[40] = v8;
     if (v6 != 1)
@@ -1571,26 +1571,26 @@ void llvm::yaml::Input::releaseHNodeBuffers(llvm ***this)
 
 void *llvm::yaml::Input::createHNodes(llvm::yaml::Input *this, llvm::yaml::Node *a2)
 {
-  v57[16] = *MEMORY[0x277D85DE8];
-  __src = v57;
+  v59[16] = *MEMORY[0x277D85DE8];
+  __src = v59;
   *__len = xmmword_257371870;
   v4 = *(a2 + 8);
   if (v4 <= 1)
   {
     if (!v4)
     {
-      v42 = (this + 216);
-      v41 = *(this + 27);
+      v44 = (this + 216);
+      v43 = *(this + 27);
       *(this + 37) += 8;
-      if (v41 && (Slow = ((v41 + 7) & 0xFFFFFFFFFFFFFFF8), (Slow + 1) <= *(this + 28)))
+      if (v43 && (Slow = ((v43 + 7) & 0xFFFFFFFFFFFFFFF8), (Slow + 1) <= *(this + 28)))
       {
-        *v42 = Slow + 1;
+        *v44 = Slow + 1;
         *Slow = a2;
       }
 
       else
       {
-        Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(v42, 8, 8, 3);
+        Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(v44, 8, 8, 3);
         *Slow = a2;
       }
 
@@ -1617,10 +1617,10 @@ void *llvm::yaml::Input::createHNodes(llvm::yaml::Input *this, llvm::yaml::Node 
 
       else
       {
-        v49 = v10;
-        v50 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(v11, v9, v9, 0);
-        v10 = v49;
-        v12 = v50;
+        v51 = v10;
+        v52 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(v11, v9, v9, 0);
+        v10 = v51;
+        v12 = v52;
       }
 
       memmove(v12, v10, v9);
@@ -1645,7 +1645,7 @@ void *llvm::yaml::Input::createHNodes(llvm::yaml::Input *this, llvm::yaml::Node 
     }
 
     Slow = ((v13 + 7) & 0xFFFFFFFFFFFFFFF8);
-    v44 = Slow + 3;
+    v46 = Slow + 3;
     if ((Slow + 3) <= *(this + 40))
     {
       goto LABEL_64;
@@ -1671,10 +1671,10 @@ LABEL_73:
 
       else
       {
-        v47 = v14;
-        v48 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(this + 120, v9, v9, 0);
-        v14 = v47;
-        v12 = v48;
+        v49 = v14;
+        v50 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(this + 120, v9, v9, 0);
+        v14 = v49;
+        v12 = v50;
       }
 
       memmove(v12, v14, v9);
@@ -1687,14 +1687,14 @@ LABEL_73:
 
 LABEL_60:
       Slow = ((v15 + 7) & 0xFFFFFFFFFFFFFFF8);
-      v44 = Slow + 3;
+      v46 = Slow + 3;
       if ((Slow + 3) > *(this + 40))
       {
         goto LABEL_73;
       }
 
 LABEL_64:
-      *(this + 39) = v44;
+      *(this + 39) = v46;
 LABEL_65:
       *Slow = a2;
       Slow[1] = v12;
@@ -1739,13 +1739,13 @@ LABEL_65:
       {
         do
         {
-          v53[0] = llvm::yaml::Input::createHNodes(this, *(a2 + 10));
+          v55[0] = llvm::yaml::Input::createHNodes(this, *(a2 + 10));
           if (*(this + 26))
           {
             break;
           }
 
-          std::vector<mlir::Operation *>::push_back[abi:nn200100]((Slow + 1), v53);
+          std::vector<mlir::Operation *>::push_back[abi:nn200100]((Slow + 1), v55);
           llvm::yaml::SequenceNode::increment(a2);
           if (!*(a2 + 10))
           {
@@ -1760,10 +1760,10 @@ LABEL_65:
     }
 
 LABEL_57:
-    v53[0] = "unknown node kind";
-    v54 = 259;
-    llvm::yaml::Stream::printError(*(this + 11), a2, v53, 0);
-    v43 = std::generic_category();
+    v55[0] = "unknown node kind";
+    v56 = 259;
+    llvm::yaml::Stream::printError(*(this + 11), a2, v55, 0);
+    v45 = std::generic_category();
     Slow = 0;
     goto LABEL_58;
   }
@@ -1821,16 +1821,16 @@ LABEL_57:
 
     __len[0] = 0;
     v22 = llvm::yaml::ScalarNode::getValue(v20, &__src);
-    v25 = __len[0];
+    v26 = __len[0];
     if (__len[0])
     {
-      v26 = __src;
+      v27 = __src;
       *(this + 25) += __len[0];
-      v27 = *(this + 15);
-      if (v27 && &v27[v25] <= *(this + 16))
+      v28 = *(this + 15);
+      if (v28 && &v28[v26] <= *(this + 16))
       {
-        *(this + 15) = &v27[v25];
-        memmove(v27, v26, v25);
+        *(this + 15) = &v28[v26];
+        memmove(v28, v27, v26);
         if ((*(this + 690) & 1) == 0)
         {
           goto LABEL_45;
@@ -1839,29 +1839,29 @@ LABEL_57:
 
       else
       {
-        v38 = v26;
-        v39 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(this + 120, v25, v25, 0);
-        v40 = v38;
-        v27 = v39;
-        memmove(v39, v40, v25);
+        v40 = v27;
+        v41 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(this + 120, v26, v26, 0);
+        v42 = v40;
+        v28 = v41;
+        memmove(v41, v42, v26);
         if ((*(this + 690) & 1) == 0)
         {
 LABEL_45:
-          v28 = llvm::StringMapImpl::hash(v27, v25, v24);
-          v29 = llvm::StringMapImpl::FindKey(Slow + 1, v27, v25, v28);
-          if (v29 != -1 && v29 != *(Slow + 4))
+          v29 = llvm::StringMapImpl::hash(v28, v26, v24, v25);
+          v30 = llvm::StringMapImpl::FindKey(Slow + 1, v28, v26, v29);
+          if (v30 != -1 && v30 != *(Slow + 4))
           {
-            v51[0] = "duplicated mapping key '";
-            v51[2] = v27;
-            v51[3] = v25;
-            v52 = 1283;
-            v53[0] = v51;
-            v53[2] = "'";
-            v54 = 770;
-            llvm::yaml::Stream::printError(*(this + 11), v19, v53, 0);
-            v30 = std::generic_category();
+            v53[0] = "duplicated mapping key '";
+            v53[2] = v28;
+            v53[3] = v26;
+            v54 = 1283;
+            v55[0] = v53;
+            v55[2] = "'";
+            v56 = 770;
+            llvm::yaml::Stream::printError(*(this + 11), v19, v55, 0);
+            v31 = std::generic_category();
             *(this + 13) = 22;
-            *(this + 14) = v30;
+            *(this + 14) = v31;
           }
         }
       }
@@ -1869,8 +1869,8 @@ LABEL_45:
 
     else
     {
-      v27 = v22;
-      v25 = v23;
+      v28 = v22;
+      v26 = v23;
       if ((*(this + 690) & 1) == 0)
       {
         goto LABEL_45;
@@ -1880,14 +1880,14 @@ LABEL_45:
     HNodes = llvm::yaml::Input::createHNodes(this, v21);
     if (!*(this + 26))
     {
-      v33 = HNodes;
-      v35 = *(v19 + 16);
-      v34 = *(v19 + 24);
-      v36 = llvm::StringMapImpl::hash(v27, v25, v32);
-      v37 = *llvm::StringMap<std::string,llvm::MallocAllocator>::try_emplace_with_hash<>((Slow + 1), v27, v25, v36);
-      v37[1] = v33;
-      v37[2] = v35;
-      v37[3] = v34;
+      v35 = HNodes;
+      v37 = *(v19 + 16);
+      v36 = *(v19 + 24);
+      v38 = llvm::StringMapImpl::hash(v28, v26, v33, v34);
+      v39 = *llvm::StringMap<std::string,llvm::MallocAllocator>::try_emplace_with_hash<>((Slow + 1), v28, v26, v38);
+      v39[1] = v35;
+      v39[2] = v37;
+      v39[3] = v36;
       llvm::yaml::MappingNode::increment(a2);
       if (*(a2 + 10))
       {
@@ -1906,27 +1906,27 @@ LABEL_45:
 LABEL_69:
   if (!v20)
   {
-    v53[0] = "Map key must be a scalar";
-    v54 = 259;
-    llvm::yaml::Stream::printError(*(this + 11), v19, v53, 0);
-    v46 = std::generic_category();
+    v55[0] = "Map key must be a scalar";
+    v56 = 259;
+    llvm::yaml::Stream::printError(*(this + 11), v19, v55, 0);
+    v48 = std::generic_category();
     *(this + 13) = 22;
-    *(this + 14) = v46;
+    *(this + 14) = v48;
   }
 
   if (!v21)
   {
-    v53[0] = "Map value must not be empty";
-    v54 = 259;
-    llvm::yaml::Stream::printError(*(this + 11), v19, v53, 0);
-    v43 = std::generic_category();
+    v55[0] = "Map value must not be empty";
+    v56 = 259;
+    llvm::yaml::Stream::printError(*(this + 11), v19, v55, 0);
+    v45 = std::generic_category();
 LABEL_58:
     *(this + 13) = 22;
-    *(this + 14) = v43;
+    *(this + 14) = v45;
   }
 
 LABEL_66:
-  if (__src != v57)
+  if (__src != v59)
   {
     free(__src);
   }
@@ -2199,12 +2199,12 @@ uint64_t llvm::yaml::Input::preflightKey(llvm::yaml::Input *this, char *__s, int
   {
     if (a3)
     {
-      v19 = this;
+      v20 = this;
 LABEL_15:
-      v21 = std::generic_category();
+      v22 = std::generic_category();
       result = 0;
-      *(v19 + 13) = 22;
-      *(v19 + 14) = v21;
+      *(v20 + 13) = 22;
+      *(v20 + 14) = v22;
       return result;
     }
 
@@ -2220,19 +2220,19 @@ LABEL_16:
   {
     if (v11)
     {
-      v20 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v20 = a3 == 0;
+      v21 = a3 == 0;
     }
 
-    if (!v20)
+    if (!v21)
     {
       *&__dst = "not a mapping";
-      v40 = 259;
-      v19 = this;
+      v41 = 259;
+      v20 = this;
       llvm::yaml::Stream::printError(*(this + 11), v10, &__dst, 0);
       goto LABEL_15;
     }
@@ -2247,98 +2247,98 @@ LABEL_16:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v18 = v16;
+  v19 = v16;
   if (v16 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v39) = v16;
+  HIBYTE(v40) = v16;
   if (v16)
   {
     memcpy(&__dst, __s, v16);
   }
 
-  *(&__dst + v18) = 0;
-  v22 = *(v8 + 40);
-  v23 = *(v8 + 32);
-  if (v22 >= *(v8 + 44))
+  *(&__dst + v19) = 0;
+  v23 = *(v8 + 40);
+  v24 = *(v8 + 32);
+  if (v23 >= *(v8 + 44))
   {
-    if (v23 > &__dst || v23 + 24 * v22 <= &__dst)
+    if (v24 > &__dst || v24 + 24 * v23 <= &__dst)
     {
-      llvm::SmallVectorTemplateBase<std::string,false>::grow();
+      llvm::SmallVectorTemplateBase<std::string,false>::grow(v8 + 32);
     }
 
-    llvm::SmallVectorTemplateBase<std::string,false>::grow();
+    llvm::SmallVectorTemplateBase<std::string,false>::grow(v8 + 32);
   }
 
-  v24 = v23 + 24 * *(v8 + 40);
-  v25 = __dst;
-  *(v24 + 16) = v39;
-  *v24 = v25;
-  v39 = 0;
+  v25 = v24 + 24 * *(v8 + 40);
+  v26 = __dst;
+  *(v25 + 16) = v40;
+  *v25 = v26;
+  v40 = 0;
   __dst = 0uLL;
   ++*(v8 + 40);
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(v40) < 0)
   {
     operator delete(__dst);
   }
 
   if (__s)
   {
-    v26 = strlen(__s);
+    v27 = strlen(__s);
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
-  v27 = llvm::StringMapImpl::hash(__s, v26, v17);
-  v28 = *(*llvm::StringMap<std::string,llvm::MallocAllocator>::try_emplace_with_hash<>((v8 + 8), __s, v26, v27) + 8);
-  if (v28)
+  v28 = llvm::StringMapImpl::hash(__s, v27, v17, v18);
+  v29 = *(*llvm::StringMap<std::string,llvm::MallocAllocator>::try_emplace_with_hash<>((v8 + 8), __s, v27, v28) + 8);
+  if (v29)
   {
     *a6 = *(v15 + 85);
-    *(v15 + 85) = v28;
+    *(v15 + 85) = v29;
     return 1;
   }
 
   else if (a3)
   {
-    v29 = *(v15 + 85);
-    v30 = *__s;
+    v30 = *(v15 + 85);
+    v31 = *__s;
     if (*__s)
     {
-      v35[2] = __s;
-      v31 = 3;
-      v32 = 2;
+      v36[2] = __s;
+      v32 = 3;
+      v33 = 2;
     }
 
     else
     {
-      v31 = 1;
-      v32 = 3;
+      v32 = 1;
+      v33 = 3;
     }
 
-    v35[0] = "missing required key '";
-    v36 = 3;
-    v37 = v31;
-    v20 = v30 == 0;
-    v33 = v35;
-    if (v20)
+    v36[0] = "missing required key '";
+    v37 = 3;
+    v38 = v32;
+    v21 = v31 == 0;
+    v34 = v36;
+    if (v21)
     {
-      v33 = "missing required key '";
+      v34 = "missing required key '";
     }
 
-    *&__dst = v33;
-    v39 = "'";
-    LOBYTE(v40) = v32;
-    HIBYTE(v40) = 3;
-    llvm::yaml::Stream::printError(*(v15 + 11), *v29, &__dst, 0);
-    v34 = std::generic_category();
+    *&__dst = v34;
+    v40 = "'";
+    LOBYTE(v41) = v33;
+    HIBYTE(v41) = 3;
+    llvm::yaml::Stream::printError(*(v15 + 11), *v30, &__dst, 0);
+    v35 = std::generic_category();
     result = 0;
     *(v15 + 13) = 22;
-    *(v15 + 14) = v34;
+    *(v15 + 14) = v35;
   }
 
   else
@@ -3453,7 +3453,7 @@ LABEL_10:
   return a4;
 }
 
-void *llvm::yaml::Output::newLineCheck(llvm::yaml::Output *this, char a2)
+llvm::raw_ostream *llvm::yaml::Output::newLineCheck(llvm::yaml::Output *this, char a2)
 {
   v4 = *(this + 12);
   v3 = *(this + 13);
@@ -3461,8 +3461,8 @@ void *llvm::yaml::Output::newLineCheck(llvm::yaml::Output *this, char a2)
   if (v3 == 1 && *v4 == 10)
   {
     result = *(this + 2);
-    v7 = result[4];
-    if (result[3] == v7)
+    v7 = *(result + 4);
+    if (*(result + 3) == v7)
     {
       v11 = a2;
       result = llvm::raw_ostream::write(result, "\n", 1uLL);
@@ -3480,7 +3480,7 @@ void *llvm::yaml::Output::newLineCheck(llvm::yaml::Output *this, char a2)
     else
     {
       *v7 = 10;
-      ++result[4];
+      ++*(result + 4);
       *(this + 20) = 0;
       *v5 = 0;
       v5[1] = 0;
@@ -3535,14 +3535,14 @@ LABEL_26:
         {
           *(this + 20) += 2;
           result = *(this + 2);
-          v19 = result[4];
-          if (result[3] - v19 <= 1uLL)
+          v19 = *(result + 4);
+          if (*(result + 3) - v19 <= 1uLL)
           {
             break;
           }
 
           *v19 = 8224;
-          result[4] += 2;
+          *(result + 4) += 2;
           if (!--v12)
           {
             goto LABEL_28;
@@ -3560,11 +3560,11 @@ LABEL_28:
 LABEL_29:
         *(this + 20) += 2;
         result = *(this + 2);
-        v20 = result[4];
-        if (result[3] - v20 > 1uLL)
+        v20 = *(result + 4);
+        if (*(result + 3) - v20 > 1uLL)
         {
           *v20 = 8237;
-          result[4] += 2;
+          *(result + 4) += 2;
         }
 
         else
@@ -3660,7 +3660,7 @@ void *llvm::yaml::Output::endMapping(void *this)
   return this;
 }
 
-uint64_t llvm::yaml::Output::preflightKey(llvm::yaml::Output *this, const char *__s, char a3, int a4, BOOL *a5, void **a6)
+uint64_t llvm::yaml::Output::preflightKey(llvm::yaml::Output *this, char *__s, char a3, int a4, BOOL *a5, void **a6)
 {
   *a5 = 0;
   *a6 = 0;
@@ -3703,7 +3703,7 @@ uint64_t llvm::yaml::Output::preflightKey(llvm::yaml::Output *this, const char *
   }
 }
 
-void *llvm::yaml::Output::flowKey(uint64_t a1, const char *a2, size_t a3)
+llvm::raw_ostream *llvm::yaml::Output::flowKey(uint64_t a1, char *a2, size_t a3)
 {
   if (*(*(a1 + 32) + 4 * *(a1 + 40) - 4) != 7)
   {
@@ -3883,11 +3883,11 @@ LABEL_43:
   llvm::yaml::Output::output(a1, a2, a3, v24);
   *(a1 + 80) += 2;
   result = *(a1 + 16);
-  v29 = result[4];
-  if (result[3] - v29 > 1uLL)
+  v29 = *(result + 4);
+  if (*(result + 3) - v29 > 1uLL)
   {
     *v29 = 8250;
-    result[4] += 2;
+    *(result + 4) += 2;
   }
 
   else
@@ -3899,7 +3899,7 @@ LABEL_43:
   return result;
 }
 
-size_t llvm::yaml::Output::paddedKey(uint64_t a1, const char *a2, size_t a3)
+size_t llvm::yaml::Output::paddedKey(uint64_t a1, char *a2, size_t a3)
 {
   if (a3)
   {
@@ -4043,7 +4043,7 @@ uint64_t llvm::yaml::Output::postflightKey(uint64_t this, void *a2)
   return this;
 }
 
-void *llvm::yaml::Output::beginFlowMapping(llvm::yaml::Output *this)
+llvm::raw_ostream *llvm::yaml::Output::beginFlowMapping(llvm::yaml::Output *this)
 {
   v2 = *(this + 10);
   if (v2 >= *(this + 11))
@@ -4058,11 +4058,11 @@ void *llvm::yaml::Output::beginFlowMapping(llvm::yaml::Output *this)
   *(this + 22) = v3;
   *(this + 20) = v3 + 2;
   result = *(this + 2);
-  v5 = result[4];
-  if (result[3] - v5 > 1uLL)
+  v5 = *(result + 4);
+  if (*(result + 3) - v5 > 1uLL)
   {
     *v5 = 8315;
-    result[4] += 2;
+    *(result + 4) += 2;
   }
 
   else
@@ -4074,13 +4074,13 @@ void *llvm::yaml::Output::beginFlowMapping(llvm::yaml::Output *this)
   return result;
 }
 
-void *llvm::yaml::Output::endFlowMapping(llvm::yaml::Output *this)
+llvm::raw_ostream *llvm::yaml::Output::endFlowMapping(llvm::yaml::Output *this)
 {
   --*(this + 10);
   *(this + 20) += 2;
   result = *(this + 2);
-  v3 = result[4];
-  if (result[3] - v3 <= 1uLL)
+  v3 = *(result + 4);
+  if (*(result + 3) - v3 <= 1uLL)
   {
     result = llvm::raw_ostream::write(result, " }", 2uLL);
     v4 = *(this + 10);
@@ -4099,7 +4099,7 @@ LABEL_5:
   }
 
   *v3 = 32032;
-  result[4] += 2;
+  *(result + 4) += 2;
   v4 = *(this + 10);
   if (v4)
   {
@@ -4141,12 +4141,12 @@ void *llvm::yaml::Output::outputUpToEndOfLine(uint64_t a1, const void *a2, size_
   return result;
 }
 
-void *llvm::yaml::Output::beginDocuments(llvm::yaml::Output *this)
+llvm::raw_ostream *llvm::yaml::Output::beginDocuments(llvm::yaml::Output *this)
 {
   *(this + 20) += 3;
   result = *(this + 2);
-  v3 = result[4];
-  if ((result[3] - v3) <= 2)
+  v3 = *(result + 4);
+  if ((*(result + 3) - v3) <= 2)
   {
     result = llvm::raw_ostream::write(result, "---", 3uLL);
     v4 = *(this + 10);
@@ -4166,7 +4166,7 @@ LABEL_5:
 
   *(v3 + 2) = 45;
   *v3 = 11565;
-  result[4] += 3;
+  *(result + 4) += 3;
   v4 = *(this + 10);
   if (v4)
   {
@@ -4221,19 +4221,19 @@ LABEL_7:
   return 1;
 }
 
-void *llvm::yaml::Output::endDocuments(llvm::yaml::Output *this)
+llvm::raw_ostream *llvm::yaml::Output::endDocuments(llvm::yaml::Output *this)
 {
   *(this + 20) += 5;
   result = *(this + 2);
-  v2 = result[4];
-  if ((result[3] - v2) <= 4)
+  v2 = *(result + 4);
+  if ((*(result + 3) - v2) <= 4)
   {
     return llvm::raw_ostream::write(result, "\n...\n", 5uLL);
   }
 
   *(v2 + 4) = 10;
   *v2 = 774778378;
-  result[4] += 5;
+  *(result + 4) += 5;
   return result;
 }
 
@@ -4401,13 +4401,13 @@ uint64_t llvm::yaml::Output::beginFlowSequence(llvm::yaml::Output *this)
   return 0;
 }
 
-void *llvm::yaml::Output::endFlowSequence(llvm::yaml::Output *this)
+llvm::raw_ostream *llvm::yaml::Output::endFlowSequence(llvm::yaml::Output *this)
 {
   --*(this + 10);
   *(this + 20) += 2;
   result = *(this + 2);
-  v3 = result[4];
-  if (result[3] - v3 <= 1uLL)
+  v3 = *(result + 4);
+  if (*(result + 3) - v3 <= 1uLL)
   {
     result = llvm::raw_ostream::write(result, " ]", 2uLL);
     v4 = *(this + 10);
@@ -4426,7 +4426,7 @@ LABEL_5:
   }
 
   *v3 = 23840;
-  result[4] += 2;
+  *(result + 4) += 2;
   v4 = *(this + 10);
   if (v4)
   {
@@ -4545,7 +4545,7 @@ LABEL_19:
   return 1;
 }
 
-uint64_t llvm::yaml::Output::matchEnumScalar(llvm::yaml::Output *this, const char *a2, int a3)
+uint64_t llvm::yaml::Output::matchEnumScalar(llvm::raw_ostream **this, const char *a2, int a3)
 {
   if (a3 && (*(this + 94) & 1) == 0)
   {
@@ -4561,29 +4561,29 @@ uint64_t llvm::yaml::Output::matchEnumScalar(llvm::yaml::Output *this, const cha
     }
 
     *(this + 20) += v5;
-    v6 = *(this + 2);
-    v7 = *(v6 + 32);
-    if (v5 <= *(v6 + 24) - v7)
+    v6 = this[2];
+    v7 = *(v6 + 4);
+    if (v5 <= *(v6 + 3) - v7)
     {
       if (v5)
       {
         v8 = a2;
         v9 = v5;
         memcpy(v7, v8, v5);
-        *(v6 + 32) += v9;
+        *(v6 + 4) += v9;
       }
     }
 
     else
     {
-      llvm::raw_ostream::write(*(this + 2), a2, v5);
+      llvm::raw_ostream::write(this[2], a2, v5);
     }
 
     v10 = *(this + 10);
-    if (!v10 || (*(*(this + 4) + 4 * v10 - 4) & 0xFFFFFFFA | 4) != 6)
+    if (!v10 || (*(this[4] + v10 - 1) & 0xFFFFFFFA | 4) != 6)
     {
-      *(this + 12) = "\n";
-      *(this + 13) = 1;
+      this[12] = "\n";
+      this[13] = 1;
     }
 
     *(this + 94) = 1;
@@ -4603,16 +4603,16 @@ uint64_t llvm::yaml::Output::matchEnumFallback(llvm::yaml::Output *this)
   return v1 ^ 1u;
 }
 
-uint64_t llvm::yaml::Output::beginBitSetScalar(llvm::yaml::Output *this, BOOL *a2)
+uint64_t llvm::yaml::Output::beginBitSetScalar(llvm::raw_ostream **this, BOOL *a2)
 {
   llvm::yaml::Output::newLineCheck(this, 0);
   *(this + 20) += 2;
-  v4 = *(this + 2);
-  v5 = v4[4];
-  if (v4[3] - v5 > 1uLL)
+  v4 = this[2];
+  v5 = *(v4 + 4);
+  if (*(v4 + 3) - v5 > 1uLL)
   {
     *v5 = 8283;
-    v4[4] += 2;
+    *(v4 + 4) += 2;
   }
 
   else
@@ -4685,12 +4685,12 @@ LABEL_9:
   return 0;
 }
 
-void *llvm::yaml::Output::endBitSetScalar(llvm::yaml::Output *this)
+llvm::raw_ostream *llvm::yaml::Output::endBitSetScalar(llvm::yaml::Output *this)
 {
   *(this + 20) += 2;
   result = *(this + 2);
-  v3 = result[4];
-  if (result[3] - v3 <= 1uLL)
+  v3 = *(result + 4);
+  if (*(result + 3) - v3 <= 1uLL)
   {
     result = llvm::raw_ostream::write(result, " ]", 2uLL);
     v4 = *(this + 10);
@@ -4709,7 +4709,7 @@ LABEL_5:
   }
 
   *v3 = 23840;
-  result[4] += 2;
+  *(result + 4) += 2;
   v4 = *(this + 10);
   if (v4)
   {
@@ -4722,7 +4722,7 @@ LABEL_6:
   return result;
 }
 
-void *llvm::yaml::Output::scalarString(uint64_t a1, uint64_t a2, int a3)
+llvm::raw_ostream *llvm::yaml::Output::scalarString(uint64_t a1, uint64_t a2, int a3)
 {
   llvm::yaml::Output::newLineCheck(a1, 0);
   v6 = *(a2 + 8);
@@ -4746,8 +4746,8 @@ LABEL_8:
 
   *(a1 + 80) += 2;
   result = *(a1 + 16);
-  v9 = result[4];
-  if (result[3] - v9 <= 1uLL)
+  v9 = *(result + 4);
+  if (*(result + 3) - v9 <= 1uLL)
   {
     result = llvm::raw_ostream::write(result, "''", 2uLL);
     v8 = *(a1 + 40);
@@ -4760,7 +4760,7 @@ LABEL_8:
   }
 
   *v9 = 10023;
-  result[4] += 2;
+  *(result + 4) += 2;
   v8 = *(a1 + 40);
   if (v8)
   {
@@ -4773,7 +4773,7 @@ LABEL_9:
   return result;
 }
 
-void *llvm::yaml::Output::output(uint64_t a1, const char *__src, size_t __n, int a4)
+llvm::raw_ostream *llvm::yaml::Output::output(uint64_t a1, std::string::value_type *__src, size_t __n, int a4)
 {
   v4 = __n;
   v5 = __src;
@@ -4842,8 +4842,8 @@ LABEL_9:
 
         ++*(a1 + 80);
         result = *(a1 + 16);
-        v26 = result[4];
-        if (result[3] == v26)
+        v26 = *(result + 4);
+        if (*(result + 3) == v26)
         {
           return llvm::raw_ostream::write(result, v9, 1uLL);
         }
@@ -4949,8 +4949,8 @@ LABEL_40:
 
     ++*(a1 + 80);
     result = *(a1 + 16);
-    v26 = result[4];
-    if (result[3] == v26)
+    v26 = *(result + 4);
+    if (*(result + 3) == v26)
     {
       __src = v9;
       __n = 1;
@@ -4959,7 +4959,7 @@ LABEL_40:
 
 LABEL_45:
     *v26 = *v9;
-    ++result[4];
+    ++*(result + 4);
     return result;
   }
 
@@ -4983,7 +4983,7 @@ LABEL_48:
   return result;
 }
 
-llvm::MemoryBuffer *llvm::yaml::Output::blockScalarString(llvm::yaml::Output *this, llvm::StringRef *a2)
+llvm::MemoryBuffer *llvm::yaml::Output::blockScalarString(llvm::raw_ostream **this, llvm::StringRef *a2)
 {
   if (*(this + 10))
   {
@@ -4991,15 +4991,15 @@ llvm::MemoryBuffer *llvm::yaml::Output::blockScalarString(llvm::yaml::Output *th
   }
 
   *(this + 20) += 2;
-  v4 = *(this + 2);
-  v5 = v4[4];
-  if (v4[3] - v5 > 1uLL)
+  v4 = this[2];
+  v5 = *(v4 + 4);
+  if (*(v4 + 3) - v5 > 1uLL)
   {
     *v5 = 31776;
-    v4[4] += 2;
-    v6 = *(this + 2);
-    v7 = v6[4];
-    if (v6[3] != v7)
+    *(v4 + 4) += 2;
+    v6 = this[2];
+    v7 = *(v6 + 4);
+    if (*(v6 + 3) != v7)
     {
       goto LABEL_5;
     }
@@ -5008,13 +5008,13 @@ llvm::MemoryBuffer *llvm::yaml::Output::blockScalarString(llvm::yaml::Output *th
   else
   {
     llvm::raw_ostream::write(v4, " |", 2uLL);
-    v6 = *(this + 2);
-    v7 = v6[4];
-    if (v6[3] != v7)
+    v6 = this[2];
+    v7 = *(v6 + 4);
+    if (*(v6 + 3) != v7)
     {
 LABEL_5:
       *v7 = 10;
-      ++v6[4];
+      ++*(v6 + 4);
       goto LABEL_8;
     }
   }
@@ -5043,9 +5043,9 @@ LABEL_8:
       while (1)
       {
         *(this + 20) += 2;
-        v11 = *(this + 2);
-        v12 = v11[4];
-        if (v11[3] - v12 > 1uLL)
+        v11 = this[2];
+        v12 = *(v11 + 4);
+        if (*(v11 + 3) - v12 > 1uLL)
         {
           break;
         }
@@ -5058,33 +5058,33 @@ LABEL_8:
       }
 
       *v12 = 8224;
-      v11[4] += 2;
+      *(v11 + 4) += 2;
       if (++v9 == v10)
       {
 LABEL_19:
         v13 = v23;
         v14 = v24;
         *(this + 20) += v24;
-        v15 = *(this + 2);
-        v16 = *(v15 + 32);
-        if (v14 <= *(v15 + 24) - v16)
+        v15 = this[2];
+        v16 = *(v15 + 4);
+        if (v14 <= *(v15 + 3) - v16)
         {
           if (v14)
           {
             v17 = v14;
             memcpy(v16, v13, v14);
-            *(v15 + 32) += v17;
+            *(v15 + 4) += v17;
           }
         }
 
         else
         {
-          llvm::raw_ostream::write(*(this + 2), v13, v14);
+          llvm::raw_ostream::write(this[2], v13, v14);
         }
 
-        v18 = *(this + 2);
-        v19 = v18[4];
-        if (v18[3] == v19)
+        v18 = this[2];
+        v19 = *(v18 + 4);
+        if (*(v18 + 3) == v19)
         {
           llvm::raw_ostream::write(v18, "\n", 1uLL);
         }
@@ -5092,7 +5092,7 @@ LABEL_19:
         else
         {
           *v19 = 10;
-          ++v18[4];
+          ++*(v18 + 4);
         }
 
         *(this + 20) = 0;
@@ -5116,11 +5116,11 @@ LABEL_19:
   return result;
 }
 
-void *llvm::yaml::Output::outputNewLine(llvm::yaml::Output *this)
+llvm::raw_ostream *llvm::yaml::Output::outputNewLine(llvm::yaml::Output *this)
 {
   result = *(this + 2);
-  v3 = result[4];
-  if (result[3] == v3)
+  v3 = *(result + 4);
+  if (*(result + 3) == v3)
   {
     result = llvm::raw_ostream::write(result, "\n", 1uLL);
   }
@@ -5128,7 +5128,7 @@ void *llvm::yaml::Output::outputNewLine(llvm::yaml::Output *this)
   else
   {
     *v3 = 10;
-    ++result[4];
+    ++*(result + 4);
   }
 
   *(this + 20) = 0;
@@ -5504,7 +5504,7 @@ const char *llvm::yaml::ScalarTraits<long long,void>::input(_BYTE *a1, uint64_t 
   return result;
 }
 
-void *llvm::yaml::ScalarTraits<double,void>::output(void *a1, uint64_t a2, void *a3)
+llvm::raw_ostream *llvm::yaml::ScalarTraits<double,void>::output(void *a1, uint64_t a2, llvm::raw_ostream *a3)
 {
   v4[0] = &unk_28689DAF0;
   v4[1] = "%g";
@@ -5512,7 +5512,7 @@ void *llvm::yaml::ScalarTraits<double,void>::output(void *a1, uint64_t a2, void 
   return llvm::raw_ostream::operator<<(a3, v4);
 }
 
-const char *llvm::yaml::ScalarTraits<double,void>::input(uint64_t a1, uint64_t a2, uint64_t a3, double *a4)
+const char *llvm::yaml::ScalarTraits<double,void>::input(const char *a1, const char *a2, uint64_t a3, double *a4)
 {
   v14[4] = *MEMORY[0x277D85DE8];
   v10 = 261;
@@ -5545,7 +5545,7 @@ const char *llvm::yaml::ScalarTraits<double,void>::input(uint64_t a1, uint64_t a
   }
 }
 
-void *llvm::yaml::ScalarTraits<float,void>::output(int *a1, uint64_t a2, void *a3)
+llvm::raw_ostream *llvm::yaml::ScalarTraits<float,void>::output(int *a1, uint64_t a2, llvm::raw_ostream *a3)
 {
   v4[0] = &unk_2868A19B0;
   v4[1] = "%g";
@@ -5553,7 +5553,7 @@ void *llvm::yaml::ScalarTraits<float,void>::output(int *a1, uint64_t a2, void *a
   return llvm::raw_ostream::operator<<(a3, v4);
 }
 
-const char *llvm::yaml::ScalarTraits<float,void>::input(uint64_t a1, uint64_t a2, uint64_t a3, float *a4)
+const char *llvm::yaml::ScalarTraits<float,void>::input(const char *a1, const char *a2, uint64_t a3, float *a4)
 {
   v14[4] = *MEMORY[0x277D85DE8];
   v10 = 261;
@@ -5586,7 +5586,7 @@ const char *llvm::yaml::ScalarTraits<float,void>::input(uint64_t a1, uint64_t a2
   }
 }
 
-void *llvm::yaml::ScalarTraits<llvm::yaml::Hex8,void>::output(char *a1, uint64_t a2, void *a3)
+llvm::raw_ostream *llvm::yaml::ScalarTraits<llvm::yaml::Hex8,void>::output(char *a1, uint64_t a2, llvm::raw_ostream *a3)
 {
   v3 = *a1;
   v5[0] = &unk_2868A3BA0;
@@ -5613,7 +5613,7 @@ const char *llvm::yaml::ScalarTraits<llvm::yaml::Hex8,void>::input(uint64_t a1, 
   return result;
 }
 
-void *llvm::yaml::ScalarTraits<llvm::yaml::Hex16,void>::output(__int16 *a1, uint64_t a2, void *a3)
+llvm::raw_ostream *llvm::yaml::ScalarTraits<llvm::yaml::Hex16,void>::output(__int16 *a1, uint64_t a2, llvm::raw_ostream *a3)
 {
   v3 = *a1;
   v5[0] = &unk_2868A3BD8;
@@ -5640,7 +5640,7 @@ const char *llvm::yaml::ScalarTraits<llvm::yaml::Hex16,void>::input(uint64_t a1,
   return result;
 }
 
-void *llvm::yaml::ScalarTraits<llvm::yaml::Hex32,void>::output(int *a1, uint64_t a2, void *a3)
+llvm::raw_ostream *llvm::yaml::ScalarTraits<llvm::yaml::Hex32,void>::output(int *a1, uint64_t a2, llvm::raw_ostream *a3)
 {
   v3 = *a1;
   v5[0] = &unk_2868A3C10;
@@ -5667,7 +5667,7 @@ const char *llvm::yaml::ScalarTraits<llvm::yaml::Hex32,void>::input(uint64_t a1,
   return result;
 }
 
-void *llvm::yaml::ScalarTraits<llvm::yaml::Hex64,void>::output(uint64_t *a1, uint64_t a2, void *a3)
+llvm::raw_ostream *llvm::yaml::ScalarTraits<llvm::yaml::Hex64,void>::output(uint64_t *a1, uint64_t a2, llvm::raw_ostream *a3)
 {
   v3 = *a1;
   v5[0] = &unk_2868A01E8;
@@ -5689,7 +5689,7 @@ const char *llvm::yaml::ScalarTraits<llvm::yaml::Hex64,void>::input(uint64_t a1,
   return result;
 }
 
-void llvm::yaml::ScalarTraits<llvm::VersionTuple,void>::output(llvm::VersionTuple *a1, uint64_t a2, void *a3)
+void llvm::yaml::ScalarTraits<llvm::VersionTuple,void>::output(llvm::VersionTuple *a1, uint64_t a2, llvm::raw_ostream *a3)
 {
   llvm::VersionTuple::getAsString(a1, __p);
   if ((v7 & 0x80u) == 0)
@@ -5873,6 +5873,12 @@ llvm::raw_ostream *llvm::raw_ostream::operator<<(llvm::raw_ostream *a1, unint64_
 }
 
 {
+  llvm::write_hex(a1, a2, 3, 0, 0);
+  return a1;
+}
+
+llvm::raw_ostream *llvm::raw_ostream::operator<<(llvm::raw_ostream *a1, int64_t a2)
+{
   llvm::write_integer(a1, a2, 0, 0);
   return a1;
 }
@@ -5898,7 +5904,7 @@ uint64_t *llvm::raw_ostream::operator<<(uint64_t *a1, uint64_t a2)
   return a1;
 }
 
-void *llvm::raw_ostream::write_uuid(void *this, const unsigned __int8 *a2)
+llvm::raw_ostream *llvm::raw_ostream::write_uuid(llvm::raw_ostream *this, const unsigned __int8 *a2)
 {
   for (i = 0; i != 16; ++i)
   {
@@ -5908,8 +5914,8 @@ void *llvm::raw_ostream::write_uuid(void *this, const unsigned __int8 *a2)
     this = llvm::raw_ostream::operator<<(this, v5);
     if ((i & 0xB) == 3 || i == 9 || i == 5)
     {
-      v4 = this[4];
-      if (this[3] == v4)
+      v4 = *(this + 4);
+      if (*(this + 3) == v4)
       {
         this = llvm::raw_ostream::write(this, "-", 1uLL);
       }
@@ -5917,7 +5923,7 @@ void *llvm::raw_ostream::write_uuid(void *this, const unsigned __int8 *a2)
       else
       {
         *v4 = 45;
-        ++this[4];
+        ++*(this + 4);
       }
     }
   }
@@ -5925,10 +5931,10 @@ void *llvm::raw_ostream::write_uuid(void *this, const unsigned __int8 *a2)
   return this;
 }
 
-void *llvm::raw_ostream::operator<<(void *a1, uint64_t a2)
+llvm::raw_ostream *llvm::raw_ostream::operator<<(llvm::raw_ostream *a1, uint64_t a2)
 {
   v15 = *MEMORY[0x277D85DE8];
-  v4 = a1[3] - a1[4];
+  v4 = *(a1 + 3) - *(a1 + 4);
   if (v4 <= 3)
   {
     v7 = 127;
@@ -5959,7 +5965,7 @@ void *llvm::raw_ostream::operator<<(void *a1, uint64_t a2)
 
     if (v4 >= v7)
     {
-      a1[4] += v7;
+      *(a1 + 4) += v7;
       return a1;
     }
   }
@@ -7318,7 +7324,7 @@ llvm::raw_ostream *llvm::raw_ostream::operator<<(llvm::raw_ostream *this, unsign
       }
 
       v40 = v40 & 0xFFFFFFFFFFFFFF00 | 1;
-      llvm::write_hex(this, &a2[2][v11], v44 ^ 1, v39, 1);
+      llvm::write_hex(this, &v11[a2[2]], v44 ^ 1, v39, 1);
       v18 = *(this + 4);
       if (*(this + 3) - v18 <= 1uLL)
       {
@@ -7426,7 +7432,7 @@ LABEL_49:
       if (*(this + 3) == v27)
       {
         llvm::raw_ostream::write(this, "|", 1uLL);
-        v28 = &v5[v4];
+        v28 = &v4[v5];
         v29 = v5;
         if (v19)
         {
@@ -7520,7 +7526,7 @@ LABEL_74:
       {
         *v27 = 124;
         ++*(this + 4);
-        v28 = &v5[v4];
+        v28 = &v4[v5];
         v29 = v5;
         if (v19)
         {
@@ -7557,8 +7563,8 @@ LABEL_74:
 
         v45 = 124;
         (*(*this + 72))(this, &v45, 1);
-        v11 = v4 + v42;
-        if (v4 + v42 < v41)
+        v11 = &v42[v4];
+        if (&v42[v4] < v41)
         {
           while (1)
           {
@@ -7600,15 +7606,15 @@ LABEL_63:
       *(this + 4) = v30 + 1;
       *v30 = 124;
 LABEL_64:
-      v11 = v4 + v42;
-      if (v4 + v42 < v41)
+      v11 = &v42[v4];
+      if (&v42[v4] < v41)
       {
         goto LABEL_14;
       }
 
 LABEL_20:
-      v5 += v4;
-      v4 = v43 - v4;
+      v5 = &v4[v5];
+      v4 = (v43 - v4);
       if (!v4)
       {
         return this;
@@ -7793,7 +7799,7 @@ llvm::raw_ostream *llvm::raw_ostream::reverseColor(llvm::raw_ostream *this)
   return this;
 }
 
-uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
+uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, const char *a2, const char *a3, uint64_t a4)
 {
   if (a3 == 1 && *a2 == 45)
   {
@@ -7860,7 +7866,7 @@ uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a
   return llvm::raw_fd_ostream::raw_fd_ostream(a1, v7, 1, 0, 0);
 }
 
-uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, int a5, char a6, int a7)
+uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   FD = getFD(a2, a3, a4, a5, a6, a7);
 
@@ -7873,7 +7879,7 @@ uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a
   return llvm::raw_fd_ostream::raw_fd_ostream(a1, FD, 1, 0, 0);
 }
 
-uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5)
 {
   if (a3 == 1 && *a2 == 45)
   {
@@ -7938,6 +7944,18 @@ uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a
   }
 
   return llvm::raw_fd_ostream::raw_fd_ostream(a1, v8, 1, 0, 0);
+}
+
+{
+  FD = getFD(a2, a3, a4, 0, a5, 0);
+
+  return llvm::raw_fd_ostream::raw_fd_ostream(a1, FD, 1, 0, 0);
+}
+
+{
+  FD = getFD(a2, a3, a4, 0, a5, 0);
+
+  return llvm::raw_fd_ostream::raw_fd_ostream(a1, FD, 1, 0, 0);
 }
 
 {
@@ -8006,20 +8024,7 @@ uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a
   return llvm::raw_fd_ostream::raw_fd_ostream(a1, v8, 1, 0, 0);
 }
 
-uint64_t llvm::raw_fd_ostream::raw_fd_ostream(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, char a5)
-{
-  FD = getFD(a2, a3, a4, 0, a5, 0);
-
-  return llvm::raw_fd_ostream::raw_fd_ostream(a1, FD, 1, 0, 0);
-}
-
-{
-  FD = getFD(a2, a3, a4, 0, a5, 0);
-
-  return llvm::raw_fd_ostream::raw_fd_ostream(a1, FD, 1, 0, 0);
-}
-
-uint64_t getFD(_BYTE *a1, uint64_t a2, uint64_t a3, int a4, char a5, int a6)
+uint64_t getFD(const char *a1, const char *a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
 {
   if (a2 == 1 && *a1 == 45)
   {
@@ -8036,6 +8041,7 @@ uint64_t getFD(_BYTE *a1, uint64_t a2, uint64_t a3, int a4, char a5, int a6)
     v14 = 261;
     v13[0] = a1;
     v13[1] = a2;
+    v9 = a4;
     if (a5)
     {
       v10 = 3;
@@ -8046,7 +8052,7 @@ uint64_t getFD(_BYTE *a1, uint64_t a2, uint64_t a3, int a4, char a5, int a6)
       v10 = 2;
     }
 
-    v11 = llvm::sys::fs::openFile(v13, &v15, a4, v10, a6, 438);
+    v11 = llvm::sys::fs::openFile(v13, &v15, v9, v10, a6, 438);
     *a3 = v11;
     *(a3 + 8) = v12;
     if (v11)
@@ -8331,7 +8337,7 @@ uint64_t llvm::raw_fd_ostream::preferred_buffer_size(llvm::raw_fd_ostream *this)
   return v3.st_blksize;
 }
 
-uint64_t llvm::raw_fd_ostream::has_colors(llvm::raw_fd_ostream *this)
+uint64_t llvm::raw_fd_ostream::has_colors(llvm::raw_fd_ostream *this, int a2)
 {
   if (*(this + 56) == 1)
   {
@@ -8343,21 +8349,21 @@ uint64_t llvm::raw_fd_ostream::has_colors(llvm::raw_fd_ostream *this)
   return HasColors & 1;
 }
 
-llvm *llvm::raw_fd_ostream::lock@<X0>(llvm::raw_fd_ostream *this@<X0>, uint64_t a2@<X8>)
+llvm *llvm::raw_fd_ostream::lock@<X0>(llvm::raw_fd_ostream *this@<X0>, uint64_t a3@<X8>)
 {
   result = llvm::sys::fs::lockFile(*(this + 12), 1);
   if (result)
   {
-    result = llvm::errorCodeToError(result, v5, &v7);
-    *(a2 + 8) |= 1u;
-    *a2 = v7;
+    result = llvm::errorCodeToError(result, v6, &v8);
+    *(a3 + 8) |= 1u;
+    *a3 = v8;
   }
 
   else
   {
-    v6 = *(this + 12);
-    *(a2 + 8) &= ~1u;
-    *a2 = v6;
+    v7 = *(this + 12);
+    *(a3 + 8) &= ~1u;
+    *a3 = v7;
   }
 
   return result;
@@ -8386,7 +8392,7 @@ llvm *llvm::raw_fd_ostream::tryLockFor@<X0>(llvm::raw_fd_ostream *this@<X0>, con
 void *llvm::outs(llvm *this)
 {
   std::system_category();
-  if ((atomic_load_explicit(&_MergedGlobals_18, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_18, memory_order_acquire) & 1) == 0)
   {
     llvm::outs();
   }
@@ -8396,7 +8402,7 @@ void *llvm::outs(llvm *this)
 
 void *llvm::errs(llvm *this)
 {
-  if ((atomic_load_explicit(&qword_27F875660, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27F875660, memory_order_acquire) & 1) == 0)
   {
     llvm::errs();
   }
@@ -8406,7 +8412,7 @@ void *llvm::errs(llvm *this)
 
 uint64_t *llvm::nulls(llvm *this)
 {
-  if ((atomic_load_explicit(&qword_27F875668, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27F875668, memory_order_acquire) & 1) == 0)
   {
     llvm::nulls();
   }
@@ -8453,7 +8459,7 @@ void llvm::raw_null_ostream::~raw_null_ostream(llvm::raw_null_ostream *this)
   JUMPOUT(0x259C63180);
 }
 
-uint64_t llvm::raw_fd_stream::raw_fd_stream(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
+uint64_t llvm::raw_fd_stream::raw_fd_stream(uint64_t a1, const char *a2, const char *a3, uint64_t a4)
 {
   if (a3 == 1 && *a2 == 45)
   {
@@ -8550,7 +8556,7 @@ void *llvm::raw_svector_ostream::write_impl(void *this, const char *a2, size_t _
   return this;
 }
 
-void llvm::writeToOutput(void (**a1)(void **)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void llvm::writeToOutput(void (**a1)(void **)@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v34 = *MEMORY[0x277D85DE8];
   if (a2 != 9)
@@ -8559,7 +8565,7 @@ void llvm::writeToOutput(void (**a1)(void **)@<X0>, uint64_t a2@<X1>, uint64_t a
     {
       LODWORD(v23) = 0;
       v24 = std::system_category();
-      if (atomic_load_explicit(&_MergedGlobals_18, memory_order_acquire))
+      if (atomic_load_explicit(_MergedGlobals_18, memory_order_acquire))
       {
         v8 = *(a3 + 24);
         if (v8)
@@ -8615,7 +8621,7 @@ LABEL_13:
     (*(*v13 + 48))(&v22);
     if (v22)
     {
-      llvm::sys::fs::TempFile::discard(v31, &v21);
+      llvm::sys::fs::TempFile::discard(&v21, v31);
       v14 = v21;
       if (!v21)
       {
@@ -8683,7 +8689,7 @@ LABEL_15:
       v20 = 261;
       v19[0] = a1;
       v19[1] = a2;
-      llvm::sys::fs::TempFile::keep(v31, v19, v16, a4);
+      llvm::sys::fs::TempFile::keep(a4, v31, v19, v16);
     }
 
     llvm::raw_fd_ostream::~raw_fd_ostream(&v23);
@@ -9195,7 +9201,7 @@ LABEL_57:
   v12();
 }
 
-uint64_t OUTLINED_FUNCTION_1_21(uint64_t a1, _BYTE *a2)
+uint64_t OUTLINED_FUNCTION_1_21(uint64_t a1, const char *a2)
 {
 
   return llvm::raw_fd_ostream::raw_fd_ostream(v2 + 72, a2, 1, v3, 0);
@@ -9523,7 +9529,7 @@ void llvm::ListeningSocket::createUnix(const void *a1@<X0>, size_t a2@<X1>, int 
   llvm::ListeningSocket::~ListeningSocket(&v19);
 }
 
-uint64_t getSocketFD(uint64_t a1, const void *a2, size_t a3)
+llvm::StringError *getSocketFD(uint64_t a1, const void *a2, size_t a3)
 {
   v15 = *MEMORY[0x277D85DE8];
   v6 = socket(1, 1, 0);
@@ -9613,17 +9619,17 @@ LABEL_11:
 
 void llvm::ListeningSocket::accept(unsigned int *a1, std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7[0] = &unk_2868A44D0;
-  v7[1] = a1;
-  v8 = v7;
-  v5 = a1[8];
-  v6 = 1;
-  v3 = manageTimeout(a2, v7, &v5);
-  if (v8 == v7)
+  v10 = *MEMORY[0x277D85DE8];
+  v8[0] = &unk_2868A44D0;
+  v8[1] = a1;
+  v9 = v8;
+  v6 = a1[8];
+  v7 = 1;
+  v4 = manageTimeout(a2, v8, &v6);
+  if (v9 == v8)
   {
-    (*(*v8 + 32))(v8);
-    if (v3)
+    (*(*v9 + 32))(v9);
+    if (v4)
     {
       goto LABEL_5;
     }
@@ -9631,20 +9637,20 @@ void llvm::ListeningSocket::accept(unsigned int *a1, std::chrono::duration<long 
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      (*(*v8 + 40))();
+      (*(*v9 + 40))();
     }
 
-    if (v3)
+    if (v4)
     {
 LABEL_5:
       operator new();
     }
   }
 
-  v4 = atomic_load(a1);
-  if (accept(v4, 0, 0) != -1)
+  v5 = atomic_load(a1);
+  if (accept(v5, 0, 0) != -1)
   {
     operator new();
   }
@@ -9753,29 +9759,4 @@ LABEL_26:
 
   std::system_category();
   return 0;
-}
-
-ssize_t llvm::ListeningSocket::shutdown(llvm::ListeningSocket *this)
-{
-  result = atomic_load(this);
-  if (result != -1)
-  {
-    v3 = result;
-    atomic_compare_exchange_strong(this, &v3, 0xFFFFFFFF);
-    if (v3 == result)
-    {
-      close(result);
-      v4 = this + 8;
-      if (*(this + 31) < 0)
-      {
-        v4 = *v4;
-      }
-
-      unlink(v4);
-      __buf = 65;
-      return write(*(this + 9), &__buf, 1uLL);
-    }
-  }
-
-  return result;
 }

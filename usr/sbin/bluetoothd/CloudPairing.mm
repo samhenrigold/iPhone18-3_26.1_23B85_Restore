@@ -68,14 +68,14 @@
 
 - (CloudPairing)init
 {
-  v48.receiver = self;
-  v48.super_class = CloudPairing;
-  v2 = [(CloudPairing *)&v48 init];
+  v52.receiver = self;
+  v52.super_class = CloudPairing;
+  v2 = [(CloudPairing *)&v52 init];
   v3 = v2;
   if (!v2)
   {
 LABEL_32:
-    v36 = v3;
+    v38 = v3;
     goto LABEL_33;
   }
 
@@ -118,7 +118,7 @@ LABEL_32:
       v18 = qword_100BCE8E8;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_10084F354([(NSString *)v2->_localDeviceName UTF8String], v51);
+        sub_10084F354([(NSString *)v2->_localDeviceName UTF8String], v55);
       }
     }
 
@@ -130,19 +130,19 @@ LABEL_32:
     cloudUploadedKeys = v2->_cloudUploadedKeys;
     v2->_cloudUploadedKeys = v21;
 
-    v47 = 0;
-    v46 = 0;
-    v23 = sub_10009BD9C();
-    if (!(*(*v23 + 32))(v23, &v46))
+    v51 = 0;
+    v50 = 0;
+    v25 = sub_10009BD9C(v23, v24);
+    if (!(*(*v25 + 32))(v25, &v50))
     {
-      v24 = [NSString alloc];
-      sub_1000BE6F8(&v46, buf);
-      v25 = v50 >= 0 ? buf : *buf;
-      v26 = [v24 initWithUTF8String:v25];
+      v26 = [NSString alloc];
+      sub_1000BE6F8(&v50, buf);
+      v27 = v54 >= 0 ? buf : *buf;
+      v28 = [v26 initWithUTF8String:v27];
       publicAddress = v3->_publicAddress;
-      v3->_publicAddress = v26;
+      v3->_publicAddress = v28;
 
-      if (v50 < 0)
+      if (v54 < 0)
       {
         operator delete(*buf);
       }
@@ -167,18 +167,18 @@ LABEL_32:
       v3->_multipleAdvInitialized = 0;
       cloudClient = [(CloudPairing *)v3 cloudClient];
       v3->_accessibilityHeadTrackingEnabled = 1;
-      v45 = 0;
-      v32 = sub_100017E6C();
-      (*(*v32 + 112))(v32, &v45);
-      if (v45 == 1)
+      v49 = 0;
+      v34 = sub_100017E6C();
+      (*(*v34 + 112))(v34, &v49);
+      if (v49 == 1)
       {
-        v33 = qword_100BCE8E8;
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v35 = qword_100BCE8E8;
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = MKBDeviceUnlockedSinceBoot();
+          v36 = MKBDeviceUnlockedSinceBoot();
           *buf = 67109120;
-          *&buf[4] = v34;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Already first unlocked: %d", buf, 8u);
+          *&buf[4] = v36;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Already first unlocked: %d", buf, 8u);
         }
 
         [(CloudPairing *)v3 startUpServices];
@@ -187,17 +187,17 @@ LABEL_32:
       else
       {
         out_token = -1;
-        objc_initWeak(buf, v3);
-        v37 = *(sub_100017F4C() + 8);
+        inited = objc_initWeak(buf, v3);
+        v41 = *(sub_100017F4C(inited, v40) + 8);
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3221225472;
         handler[2] = sub_1005EC650;
         handler[3] = &unk_100AF8888;
-        objc_copyWeak(&v43, buf);
-        v38 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, v37, handler);
+        objc_copyWeak(&v47, buf);
+        v42 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, v41, handler);
 
-        v39 = qword_100BCE8E8;
-        if (v38)
+        v43 = qword_100BCE8E8;
+        if (v42)
         {
           if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_ERROR))
           {
@@ -207,11 +207,11 @@ LABEL_32:
 
         else if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
         {
-          *v41 = 0;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Successfully registered for MKB first unlock notification", v41, 2u);
+          *v45 = 0;
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Successfully registered for MKB first unlock notification", v45, 2u);
         }
 
-        objc_destroyWeak(&v43);
+        objc_destroyWeak(&v47);
         objc_destroyWeak(buf);
       }
 
@@ -226,30 +226,31 @@ LABEL_32:
 
   else
   {
-    v35 = qword_100BCE8E8;
+    v37 = qword_100BCE8E8;
     if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "CloudPairing not supported on this platform (LE)", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "CloudPairing not supported on this platform (LE)", buf, 2u);
     }
   }
 
-  v36 = 0;
+  v38 = 0;
 LABEL_33:
 
-  return v36;
+  return v38;
 }
 
 - (void)startUpServices
 {
-  v3 = sub_100432918();
+  v3 = sub_100432918(self, a2);
   (*(*v3 + 200))(v3);
   if (_os_feature_enabled_impl() && NSClassFromString(@"PowerUISmartChargeClientAudioAccessories"))
   {
     [(CloudPairing *)self startListeningToPowerUIStatusChanges];
   }
 
-  if (_os_feature_enabled_impl() && sub_1005FCCC4())
+  v4 = _os_feature_enabled_impl();
+  if (v4 && sub_1005FCCC4(v4, v5))
   {
     self->_cloudSoundProfileChangedNotifyToken = -1;
     uTF8String = [BTCloudSoundProfileChangedNotification UTF8String];
@@ -259,25 +260,25 @@ LABEL_33:
     handler[2] = sub_1005EC928;
     handler[3] = &unk_100ADF848;
     handler[4] = self;
-    v6 = notify_register_dispatch(uTF8String, &self->_cloudSoundProfileChangedNotifyToken, serialQueue, handler);
-    v7 = qword_100BCE8E8;
-    v8 = os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    v8 = notify_register_dispatch(uTF8String, &self->_cloudSoundProfileChangedNotifyToken, serialQueue, handler);
+    v9 = qword_100BCE8E8;
+    v10 = os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
-      if (v8)
+      if (v10)
       {
         *buf = 67109120;
-        v11 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BTAudioCloudSyncMonitor: Failed registration for CloudSoundProfileChangedNotification with error : %u", buf, 8u);
+        v13 = v8;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BTAudioCloudSyncMonitor: Failed registration for CloudSoundProfileChangedNotification with error : %u", buf, 8u);
       }
     }
 
     else
     {
-      if (v8)
+      if (v10)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BTAudioCloudSyncMonitor: Successfully registered for CloudSoundProfileChangedNotification", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BTAudioCloudSyncMonitor: Successfully registered for CloudSoundProfileChangedNotification", buf, 2u);
       }
 
       [(CloudPairing *)self fetchSoundProfile];
@@ -328,21 +329,22 @@ LABEL_33:
 
 - (BOOL)generateKeys
 {
+  selfCopy = self;
   v6 = 0;
   v7 = &v6;
   v8 = 0x2020000000;
   v9 = 0;
-  v3 = sub_100007EE8();
+  v3 = sub_100007EE8(self, a2);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_1005ECC20;
   v5[3] = &unk_100AF5548;
-  v5[4] = self;
+  v5[4] = selfCopy;
   v5[5] = &v6;
   sub_1005711EC(v3, v5);
-  LOBYTE(self) = *(v7 + 24);
+  LOBYTE(selfCopy) = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
-  return self;
+  return selfCopy;
 }
 
 - (BOOL)_generateKeys
@@ -542,9 +544,9 @@ LABEL_24:
     v6 = qword_100BCE8E8;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v575 = 136315138;
-      *&v575[4] = string;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Cloudpairing got msg: %s", v575, 0xCu);
+      *v617 = 136315138;
+      *&v617[4] = string;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Cloudpairing got msg: %s", v617, 0xCu);
     }
 
     v7 = xpc_dictionary_get_value(msgCopy, "kMsgArgs");
@@ -566,7 +568,7 @@ LABEL_24:
       {
         type = xpc_get_type(v8);
         name = xpc_type_get_name(type);
-        sub_10084F658(name, v575);
+        sub_10084F658(name, v617);
       }
 
       goto LABEL_118;
@@ -612,9 +614,9 @@ LABEL_24:
             v25 = "Yes";
           }
 
-          *v575 = 136315138;
-          *&v575[4] = v25;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Smart Route Support: Set to %s", v575, 0xCu);
+          *v617 = 136315138;
+          *&v617[4] = v25;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Smart Route Support: Set to %s", v617, 0xCu);
         }
 
         if (qword_100B508F0 != -1)
@@ -642,19 +644,20 @@ LABEL_24:
         v30 = [v12 objectForKey:@"kSignInAppleID"];
         [(CloudPairing *)self setICloudSignedIn:bOOLValue3];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
 
           v30 = &stru_100B0F9E0;
         }
 
-        v31 = sub_100432918();
-        v32 = v30;
-        sub_100007E30(v563, [(__CFString *)v30 UTF8String]);
-        (*(*v31 + 80))(v31, bOOLValue3, v563);
-        if (v564 < 0)
+        v33 = sub_100432918(isKindOfClass, v32);
+        v34 = v30;
+        sub_100007E30(v605, [(__CFString *)v30 UTF8String]);
+        (*(*v33 + 80))(v33, bOOLValue3, v605);
+        if (v606 < 0)
         {
-          operator delete(v563[0]);
+          operator delete(v605[0]);
         }
       }
 
@@ -664,17 +667,17 @@ LABEL_24:
     if (!strcmp(string, "MasterKeysAvailable"))
     {
       v12 = _CFXPCCreateCFObjectFromXPCMessage();
-      v33 = [v12 objectForKey:@"kMasterKeyBlob"];
-      v34 = v33 == 0;
+      v35 = [v12 objectForKey:@"kMasterKeyBlob"];
+      v36 = v35 == 0;
 
-      if (!v34)
+      if (!v36)
       {
-        v35 = [v12 objectForKey:@"kMasterKeyBlob"];
-        v36 = [v35 length];
-        v37 = v35;
-        bytes = [v35 bytes];
-        v39 = sub_100432918();
-        (*(*v39 + 88))(v39, bytes, v36);
+        v37 = [v12 objectForKey:@"kMasterKeyBlob"];
+        v38 = [v37 length];
+        v39 = v37;
+        bytes = [v37 bytes];
+        v42 = sub_100432918(bytes, v41);
+        (*(*v42 + 88))(v42, bytes, v38);
       }
 
       goto LABEL_117;
@@ -683,13 +686,13 @@ LABEL_24:
     if (!strcmp(string, "MasterKeysNotAvailable"))
     {
       v12 = _CFXPCCreateCFObjectFromXPCMessage();
-      v40 = [v12 objectForKey:@"kMasterKeyBlob"];
-      v41 = v40 == 0;
+      v43 = [v12 objectForKey:@"kMasterKeyBlob"];
+      v44 = v43 == 0;
 
-      if (!v41)
+      if (!v44)
       {
-        v42 = sub_100432918();
-        (*(*v42 + 96))(v42);
+        v47 = sub_100432918(v45, v46);
+        (*(*v47 + 96))(v47);
       }
 
       goto LABEL_117;
@@ -698,54 +701,54 @@ LABEL_24:
     if (!strcmp(string, "DeviceInfoAvailable"))
     {
       v12 = _CFXPCCreateCFObjectFromXPCMessage();
-      v43 = [v12 objectForKey:@"kDeviceInfoBlob"];
-      v44 = [v12 objectForKeyedSubscript:@"loginID"];
-      v580.__r_.__value_.__s.__data_[0] = 0;
-      memset(v575, 0, 24);
+      v48 = [v12 objectForKey:@"kDeviceInfoBlob"];
+      v49 = [v12 objectForKeyedSubscript:@"loginID"];
+      v622.__r_.__value_.__s.__data_[0] = 0;
+      memset(v617, 0, 24);
       if (qword_100B50AB0 != -1)
       {
         sub_10084F69C();
       }
 
-      sub_100560E64(off_100B50AA8, &v580, v575);
-      if ([v44 length])
+      sub_100560E64(off_100B50AA8, &v622, v617);
+      if ([v49 length])
       {
-        v45 = v44;
-        if (std::string::compare(v575, [v44 UTF8String]))
+        v50 = v49;
+        if (std::string::compare(v617, [v49 UTF8String]))
         {
-          v46 = qword_100BCE960;
+          v51 = qword_100BCE960;
           if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT))
           {
-            LODWORD(v581[0]) = 138412546;
-            *(v581 + 4) = v44;
-            WORD2(v581[1]) = 2112;
-            *(&v581[1] + 6) = v43;
-            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Cloud: Dropping other user's legacy magic info message: %@ - %@", v581, 0x16u);
+            LODWORD(v623[0]) = 138412546;
+            *(v623 + 4) = v49;
+            WORD2(v623[1]) = 2112;
+            *(&v623[1] + 6) = v48;
+            _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Cloud: Dropping other user's legacy magic info message: %@ - %@", v623, 0x16u);
           }
 
-          if ((v575[23] & 0x80000000) != 0)
+          if ((v617[23] & 0x80000000) != 0)
           {
-            operator delete(*v575);
+            operator delete(*v617);
           }
 
           goto LABEL_118;
         }
       }
 
-      if (v43)
+      if (v48)
       {
-        v52 = [v43 length];
-        v54 = &v481 - ((__chkstk_darwin(v52, v53) + 15) & 0xFFFFFFFFFFFFFFF0);
-        bzero(v54, v52);
-        v55 = v43;
-        memmove(v54, [v43 bytes], v52);
-        v56 = sub_100432918();
-        (*(*v56 + 104))(v56, v54, v52);
+        v59 = [v48 length];
+        v60 = &v523 - ((__chkstk_darwin(v59) + 15) & 0xFFFFFFFFFFFFFFF0);
+        bzero(v60, v59);
+        v61 = v48;
+        v62 = memmove(v60, [v48 bytes], v59);
+        v64 = sub_100432918(v62, v63);
+        (*(*v64 + 104))(v64, v60, v59);
       }
 
-      if ((v575[23] & 0x80000000) != 0)
+      if ((v617[23] & 0x80000000) != 0)
       {
-        operator delete(*v575);
+        operator delete(*v617);
       }
 
       goto LABEL_117;
@@ -754,16 +757,16 @@ LABEL_24:
     if (!strcmp(string, "DeviceInfoUploadStatus"))
     {
       v12 = _CFXPCCreateCFObjectFromXPCMessage();
-      v47 = [v12 objectForKey:@"kUploadStatus"];
-      v48 = v47 == 0;
+      v52 = [v12 objectForKey:@"kUploadStatus"];
+      v53 = v52 == 0;
 
-      if (!v48)
+      if (!v53)
       {
-        v49 = [v12 objectForKey:@"kUploadStatus"];
-        bOOLValue4 = [v49 BOOLValue];
+        v54 = [v12 objectForKey:@"kUploadStatus"];
+        bOOLValue4 = [v54 BOOLValue];
 
-        v51 = sub_100432918();
-        (*(*v51 + 112))(v51, bOOLValue4);
+        v58 = sub_100432918(v56, v57);
+        (*(*v58 + 112))(v58, bOOLValue4);
       }
 
       goto LABEL_117;
@@ -772,19 +775,19 @@ LABEL_24:
     if (!strcmp(string, "ManateeBlobUpdate"))
     {
       v12 = _CFXPCCreateCFObjectFromXPCMessage();
-      v57 = [v12 objectForKey:@"kDeviceInfoBlob"];
-      v58 = v57 == 0;
+      v65 = [v12 objectForKey:@"kDeviceInfoBlob"];
+      v66 = v65 == 0;
 
-      if (!v58)
+      if (!v66)
       {
-        v59 = [v12 objectForKey:@"kDeviceInfoBlob"];
-        v60 = [v59 length];
-        v62 = &v481 - ((__chkstk_darwin(v60, v61) + 15) & 0xFFFFFFFFFFFFFFF0);
-        bzero(v62, v60);
-        v63 = v59;
-        memmove(v62, [v59 bytes], v60);
-        v64 = sub_100432918();
-        (*(*v64 + 160))(v64, v62, v60);
+        v67 = [v12 objectForKey:@"kDeviceInfoBlob"];
+        v68 = [v67 length];
+        v69 = &v523 - ((__chkstk_darwin(v68) + 15) & 0xFFFFFFFFFFFFFFF0);
+        bzero(v69, v68);
+        v70 = v67;
+        v71 = memmove(v69, [v67 bytes], v68);
+        v73 = sub_100432918(v71, v72);
+        (*(*v73 + 160))(v73, v69, v68);
       }
 
       goto LABEL_117;
@@ -793,29 +796,29 @@ LABEL_24:
     if (!strcmp(string, "oldContainerDeleted"))
     {
       v12 = _CFXPCCreateCFObjectFromXPCMessage();
-      v65 = [v12 objectForKey:@"kDeleteSuccess"];
-      v66 = v65 == 0;
+      v74 = [v12 objectForKey:@"kDeleteSuccess"];
+      v75 = v74 == 0;
 
-      if (v66)
+      if (v75)
       {
         goto LABEL_117;
       }
 
-      v67 = [v12 objectForKey:@"kDeleteSuccess"];
-      bOOLValue5 = [v67 BOOLValue];
+      v76 = [v12 objectForKey:@"kDeleteSuccess"];
+      bOOLValue5 = [v76 BOOLValue];
 
-      v69 = qword_100BCE8E8;
+      v78 = qword_100BCE8E8;
       if (!os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_117;
       }
 
-      *v575 = 67109120;
-      *&v575[4] = bOOLValue5;
-      v70 = "Status for old container deletion %d";
-      v71 = v69;
-      v72 = OS_LOG_TYPE_DEFAULT;
-      v73 = 8;
+      *v617 = 67109120;
+      *&v617[4] = bOOLValue5;
+      v79 = "Status for old container deletion %d";
+      v80 = v78;
+      v81 = OS_LOG_TYPE_DEFAULT;
+      v82 = 8;
     }
 
     else
@@ -823,26 +826,26 @@ LABEL_24:
       if (!strcmp(string, "forceManateeUpgrade"))
       {
         v12 = _CFXPCCreateCFObjectFromXPCMessage();
-        v74 = qword_100BCE8E8;
+        v83 = qword_100BCE8E8;
         if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
         {
-          *v575 = 138412290;
-          *&v575[4] = v12;
-          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "Process forceManateeUpgrade: %@", v575, 0xCu);
+          *v617 = 138412290;
+          *&v617[4] = v12;
+          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "Process forceManateeUpgrade: %@", v617, 0xCu);
         }
 
-        v75 = [v12 objectForKey:@"kEncryptionSupport"];
-        v76 = v75 == 0;
+        v84 = [v12 objectForKey:@"kEncryptionSupport"];
+        v85 = v84 == 0;
 
-        if (!v76)
+        if (!v85)
         {
-          v77 = [v12 objectForKey:@"kEncryptionSupport"];
-          bOOLValue6 = [v77 BOOLValue];
+          v86 = [v12 objectForKey:@"kEncryptionSupport"];
+          bOOLValue6 = [v86 BOOLValue];
 
           if (bOOLValue6)
           {
-            v79 = sub_100432918();
-            (*(*v79 + 136))(v79, 1);
+            v90 = sub_100432918(v88, v89);
+            (*(*v90 + 136))(v90, 1);
           }
         }
 
@@ -851,75 +854,75 @@ LABEL_24:
 
       if (!strcmp(string, "GenerateCloudPairingKeys"))
       {
-        v80 = qword_100BCE8E8;
+        v91 = qword_100BCE8E8;
         if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
         {
-          *v575 = 0;
-          _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_INFO, "Process GenerateCloudPairingKeys", v575, 2u);
+          *v617 = 0;
+          _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_INFO, "Process GenerateCloudPairingKeys", v617, 2u);
         }
 
         v12 = _CFXPCCreateCFObjectFromXPCObject();
-        *&v509 = [v12 objectForKey:@"kCloudPairingKeyTypes"];
-        v81 = [v12 objectForKey:@"kCloudPairingKeyLength"];
-        unsignedIntegerValue = [v81 unsignedIntegerValue];
+        *&v551 = [v12 objectForKey:@"kCloudPairingKeyTypes"];
+        v92 = [v12 objectForKey:@"kCloudPairingKeyLength"];
+        unsignedIntegerValue = [v92 unsignedIntegerValue];
 
-        v83 = [v12 objectForKeyedSubscript:@"kLocalRandomAddress"];
-        v84 = [(CloudPairing *)self generateKeyDictForTypes:v509 keyLength:unsignedIntegerValue forAddress:v83];
-        v85 = qword_100BCE8E8;
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
+        v94 = [v12 objectForKeyedSubscript:@"kLocalRandomAddress"];
+        v95 = [(CloudPairing *)self generateKeyDictForTypes:v551 keyLength:unsignedIntegerValue forAddress:v94];
+        v96 = qword_100BCE8E8;
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
         {
-          v86 = IsAppleInternalBuild();
-          v87 = v84;
-          if (!v86)
+          v97 = IsAppleInternalBuild();
+          v98 = v95;
+          if (!v97)
           {
-            v87 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v84 count]);
+            v98 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v95 count]);
           }
 
-          *v575 = 138412290;
-          *&v575[4] = v87;
-          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_INFO, "Replying GenerateCloudPairingKeys: %@", v575, 0xCu);
-          if (!v86)
+          *v617 = 138412290;
+          *&v617[4] = v98;
+          _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_INFO, "Replying GenerateCloudPairingKeys: %@", v617, 0xCu);
+          if (!v97)
           {
           }
         }
 
-        [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v84];
+        [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v95];
         goto LABEL_117;
       }
 
       if (!strcmp(string, "CloudPairingComplete"))
       {
         v12 = _CFXPCCreateCFObjectFromXPCObject();
-        v88 = [v12 objectForKey:@"kCloudPairingCompleteResponse"];
-        v89 = [v12 objectForKey:@"kCloudPairingLocalKeys"];
-        *&v508 = v89;
-        *&v509 = [v12 objectForKey:@"kCloudDeviceUniqueID"];
-        v90 = [v12 objectForKey:@"kCloudPairingProtocolID"];
-        v91 = qword_100BCE8E8;
+        v99 = [v12 objectForKey:@"kCloudPairingCompleteResponse"];
+        v100 = [v12 objectForKey:@"kCloudPairingLocalKeys"];
+        *&v550 = v100;
+        *&v551 = [v12 objectForKey:@"kCloudDeviceUniqueID"];
+        v101 = [v12 objectForKey:@"kCloudPairingProtocolID"];
+        v102 = qword_100BCE8E8;
         if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
         {
-          *v575 = 138412290;
-          *&v575[4] = v12;
-          _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "MUC - Args for CloudPairingComplete: %@", v575, 0xCu);
+          *v617 = 138412290;
+          *&v617[4] = v12;
+          _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "MUC - Args for CloudPairingComplete: %@", v617, 0xCu);
         }
 
-        v92 = [(CloudPairing *)self generateCloudPairingIDWithResponse:v88 localKeys:v89 from:v509 forProtocolID:v90];
-        v93 = qword_100BCE8E8;
-        v94 = v88;
-        if (v92)
+        v103 = [(CloudPairing *)self generateCloudPairingIDWithResponse:v99 localKeys:v100 from:v551 forProtocolID:v101];
+        v104 = qword_100BCE8E8;
+        v105 = v99;
+        if (v103)
         {
           if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
           {
-            *v575 = 138412290;
-            *&v575[4] = v92;
-            _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "Got pairingID: %@", v575, 0xCu);
+            *v617 = 138412290;
+            *&v617[4] = v103;
+            _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEFAULT, "Got pairingID: %@", v617, 0xCu);
           }
 
-          v590 = @"kCloudPairingID";
-          uUIDString = [v92 UUIDString];
-          v591 = uUIDString;
-          v96 = [NSDictionary dictionaryWithObjects:&v591 forKeys:&v590 count:1];
-          [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v96];
+          v632 = @"kCloudPairingID";
+          uUIDString = [v103 UUIDString];
+          v633 = uUIDString;
+          v107 = [NSDictionary dictionaryWithObjects:&v633 forKeys:&v632 count:1];
+          [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v107];
         }
 
         else
@@ -937,78 +940,78 @@ LABEL_24:
 
       if (!strcmp(string, "UnpairCloudDevice"))
       {
-        v97 = qword_100BCE8E8;
+        v108 = qword_100BCE8E8;
         if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
         {
-          *v575 = 0;
-          _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_INFO, "Process UnpairCloudDevice", v575, 2u);
+          *v617 = 0;
+          _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_INFO, "Process UnpairCloudDevice", v617, 2u);
         }
 
-        v98 = _CFXPCCreateCFObjectFromXPCObject();
-        *v575 = 0;
-        *&v575[8] = v575;
-        *&v575[16] = 0x2020000000;
-        v575[24] = 0;
-        v99 = sub_100007EE8();
-        v560[0] = _NSConcreteStackBlock;
-        v560[1] = 3221225472;
-        v560[2] = sub_1005F3F5C;
-        v560[3] = &unk_100B01230;
-        v562 = v575;
-        v560[4] = self;
-        v12 = v98;
-        v561 = v12;
-        sub_1005711EC(v99, v560);
-        v588 = @"kSuccess";
-        v100 = [NSNumber numberWithBool:*(*&v575[8] + 24)];
-        v589 = v100;
-        v101 = [NSDictionary dictionaryWithObjects:&v589 forKeys:&v588 count:1];
-        [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v101];
+        v109 = _CFXPCCreateCFObjectFromXPCObject();
+        *v617 = 0;
+        *&v617[8] = v617;
+        *&v617[16] = 0x2020000000;
+        v617[24] = 0;
+        v111 = sub_100007EE8(v109, v110);
+        v602[0] = _NSConcreteStackBlock;
+        v602[1] = 3221225472;
+        v602[2] = sub_1005F3F5C;
+        v602[3] = &unk_100B01230;
+        v604 = v617;
+        v602[4] = self;
+        v12 = v109;
+        v603 = v12;
+        sub_1005711EC(v111, v602);
+        v630 = @"kSuccess";
+        v112 = [NSNumber numberWithBool:*(*&v617[8] + 24)];
+        v631 = v112;
+        v113 = [NSDictionary dictionaryWithObjects:&v631 forKeys:&v630 count:1];
+        [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v113];
 
-        v102 = qword_100BCE8E8;
+        v114 = qword_100BCE8E8;
         if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v581[0]) = 0;
-          _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_INFO, "Replying UnpairCloudDevice", v581, 2u);
+          LOWORD(v623[0]) = 0;
+          _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_INFO, "Replying UnpairCloudDevice", v623, 2u);
         }
 
-        _Block_object_dispose(v575, 8);
+        _Block_object_dispose(v617, 8);
         goto LABEL_117;
       }
 
       if (!strcmp(string, "FetchPublicAddress"))
       {
-        v103 = qword_100BCE8E8;
+        v115 = qword_100BCE8E8;
         if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
         {
-          *v575 = 0;
-          _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "Process FetchPublicAddress", v575, 2u);
+          *v617 = 0;
+          _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_INFO, "Process FetchPublicAddress", v617, 2u);
         }
 
         publicAddress = [(CloudPairing *)self publicAddress];
-        v105 = publicAddress == 0;
+        v117 = publicAddress == 0;
 
-        if (v105)
+        if (v117)
         {
           [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:&__NSDictionary0__struct];
         }
 
         else
         {
-          v586 = @"kPublicAddress";
+          v628 = @"kPublicAddress";
           publicAddress2 = [(CloudPairing *)self publicAddress];
-          v587 = publicAddress2;
-          v107 = [NSDictionary dictionaryWithObjects:&v587 forKeys:&v586 count:1];
-          [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v107];
+          v629 = publicAddress2;
+          v119 = [NSDictionary dictionaryWithObjects:&v629 forKeys:&v628 count:1];
+          [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v119];
         }
 
         v12 = qword_100BCE8E8;
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           publicAddress3 = [(CloudPairing *)self publicAddress];
-          *v575 = 138412290;
-          *&v575[4] = publicAddress3;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Replying FetchPublicAddress: %@", v575, 0xCu);
+          *v617 = 138412290;
+          *&v617[4] = publicAddress3;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Replying FetchPublicAddress: %@", v617, 0xCu);
         }
 
         goto LABEL_117;
@@ -1019,35 +1022,36 @@ LABEL_24:
         if (!strcmp(string, "RemoveStaleLEPairedDevice"))
         {
           v12 = _CFXPCCreateCFObjectFromXPCMessage();
-          v114 = qword_100BCE8E8;
+          v128 = qword_100BCE8E8;
           if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
           {
-            *v575 = 138412290;
-            *&v575[4] = v12;
-            _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "MUC - Process RemoveCloudPairedDevice: %@", v575, 0xCu);
+            *v617 = 138412290;
+            *&v617[4] = v12;
+            _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_DEFAULT, "MUC - Process RemoveCloudPairedDevice: %@", v617, 0xCu);
           }
 
-          v115 = [v12 objectForKey:@"kCloudDeviceID"];
-          if (v115 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v129 = [v12 objectForKey:@"kCloudDeviceID"];
+          if (v129 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v116 = qword_100BCE8E8;
+            v130 = qword_100BCE8E8;
             if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
             {
-              *v575 = 138412290;
-              *&v575[4] = v115;
-              _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "MUC - Removing Stale CloudPairedDevice: %@", v575, 0xCu);
+              *v617 = 138412290;
+              *&v617[4] = v129;
+              _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_DEFAULT, "MUC - Removing Stale CloudPairedDevice: %@", v617, 0xCu);
             }
 
-            v117 = [[NSUUID alloc] initWithUUIDString:v115];
-            if (v117)
+            v131 = [[NSUUID alloc] initWithUUIDString:v129];
+            v133 = v131;
+            if (v131)
             {
-              v118 = sub_100007EE8();
-              v556[0] = _NSConcreteStackBlock;
-              v556[1] = 3221225472;
-              v556[2] = sub_1005F402C;
-              v556[3] = &unk_100ADF820;
-              v557 = v117;
-              sub_10000CA94(v118, v556);
+              v134 = sub_100007EE8(v131, v132);
+              v598[0] = _NSConcreteStackBlock;
+              v598[1] = 3221225472;
+              v598[2] = sub_1005F402C;
+              v598[3] = &unk_100ADF820;
+              v599 = v133;
+              sub_10000CA94(v134, v598);
             }
 
             else if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_ERROR))
@@ -1066,76 +1070,76 @@ LABEL_24:
 
         if (!strcmp(string, "checkIn"))
         {
-          v132 = qword_100BCE8E8;
+          v152 = qword_100BCE8E8;
           if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
           {
-            *v575 = 0;
-            _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_INFO, "Process checkIn", v575, 2u);
+            *v617 = 0;
+            _os_log_impl(&_mh_execute_header, v152, OS_LOG_TYPE_INFO, "Process checkIn", v617, 2u);
           }
 
           v12 = _CFXPCCreateCFObjectFromXPCObject();
-          v133 = qword_100BCE8E8;
+          v153 = qword_100BCE8E8;
           if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
           {
-            *v575 = 138412290;
-            *&v575[4] = v12;
-            _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_INFO, "Process checkIn: %@", v575, 0xCu);
+            *v617 = 138412290;
+            *&v617[4] = v12;
+            _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_INFO, "Process checkIn: %@", v617, 0xCu);
           }
 
-          v134 = [v12 objectForKey:@"kCheckInVersion"];
-          v135 = v134;
-          if (v134)
+          v154 = [v12 objectForKey:@"kCheckInVersion"];
+          v155 = v154;
+          if (v154)
           {
-            if (([v134 isEqualToNumber:&off_100B33978] & 1) == 0 && os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_FAULT))
+            if (([v154 isEqualToNumber:&off_100B33978] & 1) == 0 && os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_FAULT))
             {
               sub_10084F7B0();
             }
 
-            v136 = [v12 objectForKey:@"kIDSLocalDeviceUniqueID"];
+            v156 = [v12 objectForKey:@"kIDSLocalDeviceUniqueID"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              *&v509 = [v12 objectForKey:@"kIDSLocalDeviceUniqueID"];
+              *&v551 = [v12 objectForKey:@"kIDSLocalDeviceUniqueID"];
             }
 
             else
             {
-              *&v509 = 0;
+              *&v551 = 0;
             }
 
-            *&v508 = [(CloudPairing *)self getPairedDeviceForIDSIdentifier:v509];
-            v137 = qword_100BCE8E8;
+            *&v550 = [(CloudPairing *)self getPairedDeviceForIDSIdentifier:v551];
+            v157 = qword_100BCE8E8;
             if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
             {
-              *v575 = 138412546;
-              *&v575[4] = v508;
-              *&v575[12] = 2112;
-              *&v575[14] = v509;
-              _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_DEFAULT, "MUC - sending BTUUID-IDS device mapping %@ for local IDS %@", v575, 0x16u);
+              *v617 = 138412546;
+              *&v617[4] = v550;
+              *&v617[12] = 2112;
+              *&v617[14] = v551;
+              _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_DEFAULT, "MUC - sending BTUUID-IDS device mapping %@ for local IDS %@", v617, 0x16u);
             }
 
-            v138 = +[NSMutableDictionary dictionary];
+            v158 = +[NSMutableDictionary dictionary];
             publicAddress4 = [(CloudPairing *)self publicAddress];
-            v140 = publicAddress4 == 0;
+            v160 = publicAddress4 == 0;
 
-            if (!v140)
+            if (!v160)
             {
               publicAddress5 = [(CloudPairing *)self publicAddress];
-              [v138 setObject:publicAddress5 forKey:@"kPublicAddress"];
+              [v158 setObject:publicAddress5 forKey:@"kPublicAddress"];
             }
 
-            v142 = qword_100BCE8E8;
-            if (os_log_type_enabled(v142, OS_LOG_TYPE_INFO))
+            v162 = qword_100BCE8E8;
+            if (os_log_type_enabled(v162, OS_LOG_TYPE_INFO))
             {
               publicAddress6 = [(CloudPairing *)self publicAddress];
-              *v575 = 138412290;
-              *&v575[4] = publicAddress6;
-              _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_INFO, "Check in replying with Public Address: %@", v575, 0xCu);
+              *v617 = 138412290;
+              *&v617[4] = publicAddress6;
+              _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_INFO, "Check in replying with Public Address: %@", v617, 0xCu);
             }
 
-            [v138 setObject:v508 forKey:@"kCachedLEDevices"];
-            [v138 setObject:&off_100B33978 forKey:@"kCheckInVersion"];
-            [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v138];
+            [v158 setObject:v550 forKey:@"kCachedLEDevices"];
+            [v158 setObject:&off_100B33978 forKey:@"kCheckInVersion"];
+            [(CloudPairing *)self cloudpairdReplyMsg:msgCopy args:v158];
           }
 
           goto LABEL_117;
@@ -1144,69 +1148,71 @@ LABEL_24:
         if (!strcmp(string, "AllDevicesRemovedWithRecords") || !strcmp(string, "DevicesRemovedWithRecords"))
         {
           v12 = _CFXPCCreateCFObjectFromXPCMessage();
-          v121 = qword_100BCE960;
-          if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT))
+          v137 = qword_100BCE960;
+          v138 = os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT);
+          if (v138)
           {
-            *v575 = 0;
-            _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_DEFAULT, "Devices majestic info removed", v575, 2u);
+            *v617 = 0;
+            _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_DEFAULT, "Devices majestic info removed", v617, 2u);
           }
 
-          if (sub_100432918() && v12)
+          if (sub_100432918(v138, v139) && v12)
           {
-            *&v509 = [v12 objectForKeyedSubscript:@"devices"];
+            *&v551 = [v12 objectForKeyedSubscript:@"devices"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v585[0] = objc_opt_class();
-              v585[1] = objc_opt_class();
-              v585[2] = objc_opt_class();
-              v122 = [NSArray arrayWithObjects:v585 count:3];
-              v123 = [NSSet setWithArray:v122];
-              *&v508 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v123 fromData:v509 error:0];
+              v627[0] = objc_opt_class();
+              v627[1] = objc_opt_class();
+              v627[2] = objc_opt_class();
+              v140 = [NSArray arrayWithObjects:v627 count:3];
+              v141 = [NSSet setWithArray:v140];
+              *&v550 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v141 fromData:v551 error:0];
 
-              if (v508)
+              if (v550)
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v554 = 0u;
-                  v555 = 0u;
-                  v552 = 0u;
-                  v553 = 0u;
-                  v124 = v508;
-                  v125 = [v124 countByEnumeratingWithState:&v552 objects:v584 count:16];
-                  if (v125)
+                  v596 = 0u;
+                  v597 = 0u;
+                  v594 = 0u;
+                  v595 = 0u;
+                  v142 = v550;
+                  v143 = [v142 countByEnumeratingWithState:&v594 objects:v626 count:16];
+                  if (v143)
                   {
-                    v126 = *v553;
+                    v144 = *v595;
                     do
                     {
-                      for (i = 0; i != v125; i = i + 1)
+                      for (i = 0; i != v143; i = i + 1)
                       {
-                        if (*v553 != v126)
+                        if (*v595 != v144)
                         {
-                          objc_enumerationMutation(v124);
+                          objc_enumerationMutation(v142);
                         }
 
-                        v128 = *(*(&v552 + 1) + 8 * i);
+                        v146 = *(*(&v594 + 1) + 8 * i);
                         objc_opt_class();
-                        if (objc_opt_isKindOfClass())
+                        v147 = objc_opt_isKindOfClass();
+                        if (v147)
                         {
-                          v129 = sub_100432918();
-                          bluetoothAddress = [v128 bluetoothAddress];
-                          v131 = bluetoothAddress;
-                          sub_100007E30(v550, [bluetoothAddress UTF8String]);
-                          (*(*v129 + 184))(v129, v550);
-                          if (v551 < 0)
+                          v149 = sub_100432918(v147, v148);
+                          bluetoothAddress = [v146 bluetoothAddress];
+                          v151 = bluetoothAddress;
+                          sub_100007E30(v592, [bluetoothAddress UTF8String]);
+                          (*(*v149 + 184))(v149, v592);
+                          if (v593 < 0)
                           {
-                            operator delete(v550[0]);
+                            operator delete(v592[0]);
                           }
                         }
                       }
 
-                      v125 = [v124 countByEnumeratingWithState:&v552 objects:v584 count:16];
+                      v143 = [v142 countByEnumeratingWithState:&v594 objects:v626 count:16];
                     }
 
-                    while (v125);
+                    while (v143);
                   }
                 }
               }
@@ -1221,69 +1227,70 @@ LABEL_24:
           if (!strcmp(string, "AllDeviceSupportInformationRecordsRemoved") || !strcmp(string, "DeviceSupportInformationRecordsRemoved"))
           {
             v12 = _CFXPCCreateCFObjectFromXPCMessage();
-            v144 = qword_100BCE960;
-            if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT))
+            v164 = qword_100BCE960;
+            v165 = os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT);
+            if (v165)
             {
-              *v575 = 0;
-              _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEFAULT, "Devices support info removed", v575, 2u);
+              *v617 = 0;
+              _os_log_impl(&_mh_execute_header, v164, OS_LOG_TYPE_DEFAULT, "Devices support info removed", v617, 2u);
             }
 
-            if (sub_100432918() && v12)
+            if (sub_100432918(v165, v166) && v12)
             {
-              *&v508 = [v12 objectForKeyedSubscript:@"records"];
+              *&v550 = [v12 objectForKeyedSubscript:@"records"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v579[0] = objc_opt_class();
-                v579[1] = objc_opt_class();
-                v579[2] = objc_opt_class();
-                v145 = [NSArray arrayWithObjects:v579 count:3];
-                v146 = [NSSet setWithArray:v145];
-                *&v507 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v146 fromData:v508 error:0];
+                v621[0] = objc_opt_class();
+                v621[1] = objc_opt_class();
+                v621[2] = objc_opt_class();
+                v167 = [NSArray arrayWithObjects:v621 count:3];
+                v168 = [NSSet setWithArray:v167];
+                *&v549 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v168 fromData:v550 error:0];
 
-                if (v507)
+                if (v549)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v540 = 0u;
-                    v541 = 0u;
-                    v538 = 0u;
-                    v539 = 0u;
-                    v147 = v507;
-                    v148 = [v147 countByEnumeratingWithState:&v538 objects:v578 count:16];
-                    if (v148)
+                    v582 = 0u;
+                    v583 = 0u;
+                    v580 = 0u;
+                    v581 = 0u;
+                    v169 = v549;
+                    v170 = [v169 countByEnumeratingWithState:&v580 objects:v620 count:16];
+                    if (v170)
                     {
-                      v150 = *v539;
-                      *&v149 = 138412290;
-                      v509 = v149;
+                      v172 = *v581;
+                      *&v171 = 138412290;
+                      v551 = v171;
                       do
                       {
-                        for (j = 0; j != v148; j = j + 1)
+                        for (j = 0; j != v170; j = j + 1)
                         {
-                          if (*v539 != v150)
+                          if (*v581 != v172)
                           {
-                            objc_enumerationMutation(v147);
+                            objc_enumerationMutation(v169);
                           }
 
-                          v152 = *(*(&v538 + 1) + 8 * j);
+                          v174 = *(*(&v580 + 1) + 8 * j);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v153 = qword_100BCE960;
+                            v175 = qword_100BCE960;
                             if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT))
                             {
-                              *v575 = v509;
-                              *&v575[4] = v152;
-                              _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "Device Support Info to be removed: %@", v575, 0xCu);
+                              *v617 = v551;
+                              *&v617[4] = v174;
+                              _os_log_impl(&_mh_execute_header, v175, OS_LOG_TYPE_DEFAULT, "Device Support Info to be removed: %@", v617, 0xCu);
                             }
                           }
                         }
 
-                        v148 = [v147 countByEnumeratingWithState:&v538 objects:v578 count:16];
+                        v170 = [v169 countByEnumeratingWithState:&v580 objects:v620 count:16];
                       }
 
-                      while (v148);
+                      while (v170);
                     }
                   }
                 }
@@ -1301,17 +1308,19 @@ LABEL_24:
               {
                 if (!strcmp(string, "ManateeIdentityLost"))
                 {
-                  v475 = qword_100BCE960;
-                  if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT))
+                  v510 = qword_100BCE960;
+                  v511 = os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT);
+                  if (v511)
                   {
-                    *v575 = 0;
-                    _os_log_impl(&_mh_execute_header, v475, OS_LOG_TYPE_DEFAULT, "ManateeIdentityLost in cloudkit. Push local data again to resync.", v575, 2u);
+                    *v617 = 0;
+                    _os_log_impl(&_mh_execute_header, v510, OS_LOG_TYPE_DEFAULT, "ManateeIdentityLost in cloudkit. Push local data again to resync.", v617, 2u);
                   }
 
-                  if (sub_100432918())
+                  v513 = sub_100432918(v511, v512);
+                  if (v513)
                   {
-                    v476 = sub_100432918();
-                    (*(*v476 + 192))(v476);
+                    v515 = sub_100432918(v513, v514);
+                    (*(*v515 + 192))(v515);
                   }
 
                   goto LABEL_118;
@@ -1319,25 +1328,26 @@ LABEL_24:
 
                 if (!strcmp(string, "OnlineStatusChanged"))
                 {
-                  v477 = xpc_dictionary_get_BOOL(v8, "kOnlineStatus");
-                  if (sub_100432918())
+                  v516 = xpc_dictionary_get_BOOL(v8, "kOnlineStatus");
+                  if (sub_100432918(v516, v517))
                   {
-                    v478 = qword_100BCE960;
-                    if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT))
+                    v518 = qword_100BCE960;
+                    v519 = os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT);
+                    if (v519)
                     {
-                      v479 = "no";
-                      if (v477)
+                      v521 = "no";
+                      if (v516)
                       {
-                        v479 = "yes";
+                        v521 = "yes";
                       }
 
-                      *v575 = 136315138;
-                      *&v575[4] = v479;
-                      _os_log_impl(&_mh_execute_header, v478, OS_LOG_TYPE_DEFAULT, "Network changed to %s. Push local data if any to cloud.", v575, 0xCu);
+                      *v617 = 136315138;
+                      *&v617[4] = v521;
+                      _os_log_impl(&_mh_execute_header, v518, OS_LOG_TYPE_DEFAULT, "Network changed to %s. Push local data if any to cloud.", v617, 0xCu);
                     }
 
-                    v480 = sub_100432918();
-                    (*(*v480 + 72))(v480, v477);
+                    v522 = sub_100432918(v519, v520);
+                    (*(*v522 + 72))(v522, v516);
                   }
 
                   goto LABEL_118;
@@ -1354,8 +1364,8 @@ LABEL_118:
                 v13 = qword_100BCE8E8;
                 if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v575 = 0;
-                  _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received kBTAccessHeadTrackUpdate for call", v575, 2u);
+                  *v617 = 0;
+                  _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received kBTAccessHeadTrackUpdate for call", v617, 2u);
                 }
 
                 v14 = [v12 objectForKey:@"kAccessHeadTracking"];
@@ -1367,15 +1377,15 @@ LABEL_118:
               }
 
               v12 = _CFXPCCreateCFObjectFromXPCMessage();
-              v254 = qword_100BCE960;
-              if (os_log_type_enabled(v254, OS_LOG_TYPE_DEFAULT))
+              v284 = qword_100BCE960;
+              if (os_log_type_enabled(v284, OS_LOG_TYPE_DEFAULT))
               {
-                v255 = [v12 debugDescription];
-                v256 = v255;
-                uTF8String = [v255 UTF8String];
-                *v575 = 136446210;
-                *&v575[4] = uTF8String;
-                _os_log_impl(&_mh_execute_header, v254, OS_LOG_TYPE_DEFAULT, "Devices magic info updated from cloudkit = %{public}s", v575, 0xCu);
+                v285 = [v12 debugDescription];
+                v286 = v285;
+                uTF8String = [v285 UTF8String];
+                *v617 = 136446210;
+                *&v617[4] = uTF8String;
+                _os_log_impl(&_mh_execute_header, v284, OS_LOG_TYPE_DEFAULT, "Devices magic info updated from cloudkit = %{public}s", v617, 0xCu);
               }
 
               if (qword_100B50AB0 != -1)
@@ -1383,118 +1393,119 @@ LABEL_118:
                 sub_10084F69C();
               }
 
-              if (!sub_1000E25D8() || !sub_100432918())
+              v289 = sub_1000E25D8(off_100B50AA8, v288);
+              if (!v289 || !sub_100432918(v289, v290))
               {
                 goto LABEL_117;
               }
 
               iCloudSignedIn = [(CloudPairing *)self iCloudSignedIn];
-              v259 = v12 ? iCloudSignedIn : 0;
-              if (v259 != 1)
+              v292 = v12 ? iCloudSignedIn : 0;
+              if (v292 != 1)
               {
                 goto LABEL_117;
               }
 
-              v496 = [v12 objectForKeyedSubscript:@"records"];
+              v538 = [v12 objectForKeyedSubscript:@"records"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v572[0] = objc_opt_class();
-                v572[1] = objc_opt_class();
-                v572[2] = objc_opt_class();
-                v260 = [NSArray arrayWithObjects:v572 count:3];
-                v261 = [NSSet setWithArray:v260];
-                v492 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v261 fromData:v496 error:0];
+                v614[0] = objc_opt_class();
+                v614[1] = objc_opt_class();
+                v614[2] = objc_opt_class();
+                v293 = [NSArray arrayWithObjects:v614 count:3];
+                v294 = [NSSet setWithArray:v293];
+                v534 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v294 fromData:v538 error:0];
 
-                if (v492)
+                if (v534)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v525 = 0u;
-                    v523 = 0u;
-                    v524 = 0u;
-                    v522 = 0u;
-                    *&v504 = v492;
-                    v506 = [v504 countByEnumeratingWithState:&v522 objects:v571 count:16];
-                    if (!v506)
+                    v567 = 0u;
+                    v565 = 0u;
+                    v566 = 0u;
+                    v564 = 0u;
+                    *&v546 = v534;
+                    v548 = [v546 countByEnumeratingWithState:&v564 objects:v613 count:16];
+                    if (!v548)
                     {
                       goto LABEL_771;
                     }
 
-                    *&v505 = *v523;
-                    *&v262 = 138412290;
-                    v503 = v262;
-                    *&v262 = 67110146;
-                    v501 = v262;
-                    *&v262 = 67109890;
-                    v499 = v262;
-                    *&v262 = 136315138;
-                    v495 = v262;
-                    *&v262 = 136446210;
-                    v490 = v262;
-                    *&v262 = 68158466;
-                    v484 = v262;
-                    *&v262 = 68158722;
-                    v483 = v262;
-                    *&v262 = 67109120;
-                    v487 = v262;
-                    *&v262 = 136446722;
-                    v498 = v262;
-                    *&v262 = 136446466;
-                    v485 = v262;
-                    *&v262 = 67109376;
-                    v481 = v262;
-                    *&v262 = 67109378;
-                    v482 = v262;
-                    *&v262 = 136315394;
-                    v497 = v262;
-                    *&v262 = 136315650;
-                    v494 = v262;
-                    *&v262 = 136446467;
-                    v500 = v262;
+                    *&v547 = *v565;
+                    *&v295 = 138412290;
+                    v545 = v295;
+                    *&v295 = 67110146;
+                    v543 = v295;
+                    *&v295 = 67109890;
+                    v541 = v295;
+                    *&v295 = 136315138;
+                    v537 = v295;
+                    *&v295 = 136446210;
+                    v532 = v295;
+                    *&v295 = 68158466;
+                    v526 = v295;
+                    *&v295 = 68158722;
+                    v525 = v295;
+                    *&v295 = 67109120;
+                    v529 = v295;
+                    *&v295 = 136446722;
+                    v540 = v295;
+                    *&v295 = 136446466;
+                    v527 = v295;
+                    *&v295 = 67109376;
+                    v523 = v295;
+                    *&v295 = 67109378;
+                    v524 = v295;
+                    *&v295 = 136315394;
+                    v539 = v295;
+                    *&v295 = 136315650;
+                    v536 = v295;
+                    *&v295 = 136446467;
+                    v542 = v295;
                     while (1)
                     {
-                      *&v508 = 0;
+                      *&v550 = 0;
                       do
                       {
-                        if (*v523 != v505)
+                        if (*v565 != v547)
                         {
-                          objc_enumerationMutation(v504);
+                          objc_enumerationMutation(v546);
                         }
 
-                        *&v509 = *(*(&v522 + 1) + 8 * v508);
+                        *&v551 = *(*(&v564 + 1) + 8 * v550);
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v263 = qword_100BCE960;
-                          if (os_log_type_enabled(v263, OS_LOG_TYPE_DEFAULT))
+                          v296 = qword_100BCE960;
+                          if (os_log_type_enabled(v296, OS_LOG_TYPE_DEFAULT))
                           {
-                            *v575 = v503;
-                            *&v575[4] = v509;
-                            _os_log_impl(&_mh_execute_header, v263, OS_LOG_TYPE_DEFAULT, "Cloud: Device magic pairing records to be updated: %@", v575, 0xCu);
+                            *v617 = v545;
+                            *&v617[4] = v551;
+                            _os_log_impl(&_mh_execute_header, v296, OS_LOG_TYPE_DEFAULT, "Cloud: Device magic pairing records to be updated: %@", v617, 0xCu);
                           }
 
-                          v521 = 0;
-                          v520 = 0;
-                          memset(v581, 0, sizeof(v581));
-                          bluetoothAddress2 = [v509 bluetoothAddress];
-                          v265 = bluetoothAddress2;
-                          sub_100007E30(v581, [bluetoothAddress2 UTF8String]);
+                          v563 = 0;
+                          v562 = 0;
+                          memset(v623, 0, sizeof(v623));
+                          bluetoothAddress2 = [v551 bluetoothAddress];
+                          v298 = bluetoothAddress2;
+                          sub_100007E30(v623, [bluetoothAddress2 UTF8String]);
 
-                          if (SHIBYTE(v581[2]) >= 0)
+                          if (SHIBYTE(v623[2]) >= 0)
                           {
-                            v266 = v581;
+                            v299 = v623;
                           }
 
                           else
                           {
-                            v266 = v581[0];
+                            v299 = v623[0];
                           }
 
-                          if (sub_10009D0B4(&v520, v266))
+                          if (sub_10009D0B4(&v562, v299))
                           {
-                            if (v520)
+                            if (v562)
                             {
 LABEL_425:
                               if (qword_100B508F0 != -1)
@@ -1502,432 +1513,432 @@ LABEL_425:
                                 sub_10084F6C4();
                               }
 
-                              *&v507 = sub_1000E6554(off_100B508E8, &v520, 1);
-                              v517 = 1;
-                              v516 = 0;
-                              v515 = 0;
-                              sub_1000C2364(v507, &v515, &v516, &v515 + 1, &v517);
-                              v267 = qword_100BCE960;
-                              if (os_log_type_enabled(v267, OS_LOG_TYPE_DEFAULT))
+                              *&v549 = sub_1000E6554(off_100B508E8, &v562, 1);
+                              v559 = 1;
+                              v558 = 0;
+                              v557 = 0;
+                              sub_1000C2364(v549, &v557, &v558, &v557 + 1, &v559);
+                              v300 = qword_100BCE960;
+                              if (os_log_type_enabled(v300, OS_LOG_TYPE_DEFAULT))
                               {
-                                v268 = v516;
-                                v269 = HIDWORD(v515);
-                                v270 = v515;
-                                v271 = v517;
-                                sub_1000E5A58(v507, &v580);
-                                v272 = &v580;
-                                if ((v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                v301 = v558;
+                                v302 = HIDWORD(v557);
+                                v303 = v557;
+                                v304 = v559;
+                                sub_1000E5A58(v549, &v622);
+                                v305 = &v622;
+                                if ((v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                 {
-                                  v272 = v580.__r_.__value_.__r.__words[0];
+                                  v305 = v622.__r_.__value_.__r.__words[0];
                                 }
 
-                                *v575 = __PAIR64__(v268, v501);
-                                *&v575[8] = 1024;
-                                *&v575[10] = v269;
-                                *&v575[14] = 1024;
-                                *&v575[16] = v270;
-                                *&v575[20] = 1024;
-                                *&v575[22] = v271;
-                                *&v575[26] = 2082;
-                                *&v575[28] = v272;
-                                _os_log_impl(&_mh_execute_header, v267, OS_LOG_TYPE_DEFAULT, "[MP] Local Device ID; vid: %x, pid: %x, vidSrc: %d, version: %d for device: %{public}s", v575, 0x24u);
-                                if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                *v617 = __PAIR64__(v301, v543);
+                                *&v617[8] = 1024;
+                                *&v617[10] = v302;
+                                *&v617[14] = 1024;
+                                *&v617[16] = v303;
+                                *&v617[20] = 1024;
+                                *&v617[22] = v304;
+                                *&v617[26] = 2082;
+                                *&v617[28] = v305;
+                                _os_log_impl(&_mh_execute_header, v300, OS_LOG_TYPE_DEFAULT, "[MP] Local Device ID; vid: %x, pid: %x, vidSrc: %d, version: %d for device: %{public}s", v617, 0x24u);
+                                if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                 {
-                                  operator delete(v580.__r_.__value_.__l.__data_);
+                                  operator delete(v622.__r_.__value_.__l.__data_);
                                 }
                               }
 
-                              vendorID = [v509 vendorID];
+                              vendorID = [v551 vendorID];
                               integerValue = [vendorID integerValue];
 
-                              productID = [v509 productID];
+                              productID = [v551 productID];
                               integerValue2 = [productID integerValue];
 
                               if (integerValue && integerValue2)
                               {
-                                if (v515 <= 1)
+                                if (v557 <= 1)
                                 {
-                                  v277 = 1;
+                                  v310 = 1;
                                 }
 
                                 else
                                 {
-                                  v277 = v515;
+                                  v310 = v557;
                                 }
 
-                                v278 = qword_100BCE960;
-                                if (os_log_type_enabled(v278, OS_LOG_TYPE_DEFAULT))
+                                v311 = qword_100BCE960;
+                                if (os_log_type_enabled(v311, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  sub_1000E5A58(v507, &v580);
-                                  v279 = &v580;
-                                  if ((v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                  sub_1000E5A58(v549, &v622);
+                                  v312 = &v622;
+                                  if ((v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                   {
-                                    v279 = v580.__r_.__value_.__r.__words[0];
+                                    v312 = v622.__r_.__value_.__r.__words[0];
                                   }
 
-                                  *v575 = __PAIR64__(integerValue, v499);
-                                  *&v575[8] = 1024;
-                                  *&v575[10] = integerValue2;
-                                  *&v575[14] = 1024;
-                                  *&v575[16] = v277;
-                                  *&v575[20] = 2082;
-                                  *&v575[22] = v279;
-                                  _os_log_impl(&_mh_execute_header, v278, OS_LOG_TYPE_DEFAULT, "[MP] Updating Device ID from cloud; vid: %x, cloud pid: %x, vidSrc: %x for device: %{public}s", v575, 0x1Eu);
-                                  if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                  *v617 = __PAIR64__(integerValue, v541);
+                                  *&v617[8] = 1024;
+                                  *&v617[10] = integerValue2;
+                                  *&v617[14] = 1024;
+                                  *&v617[16] = v310;
+                                  *&v617[20] = 2082;
+                                  *&v617[22] = v312;
+                                  _os_log_impl(&_mh_execute_header, v311, OS_LOG_TYPE_DEFAULT, "[MP] Updating Device ID from cloud; vid: %x, cloud pid: %x, vidSrc: %x for device: %{public}s", v617, 0x1Eu);
+                                  if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                   {
-                                    operator delete(v580.__r_.__value_.__l.__data_);
+                                    operator delete(v622.__r_.__value_.__l.__data_);
                                   }
                                 }
 
-                                sub_10053D890(v507, v277, integerValue, integerValue2, v517);
-                                sub_10053E630(v507);
+                                sub_10053D890(v549, v310, integerValue, integerValue2, v559);
+                                sub_10053E630(v549);
                               }
 
-                              v481 = [CBProductInfo productInfoWithProductID:integerValue2, v481];
-                              productName = [v481 productName];
+                              v523 = [CBProductInfo productInfoWithProductID:integerValue2, v523];
+                              productName = [v523 productName];
 
                               if (productName && ([productName isEqualToString:@"Unknown"] & 1) == 0 && objc_msgSend(productName, "length"))
                               {
-                                sub_1000C23E0(v507, v575);
-                                v282 = v575[23];
-                                v283 = v575[23];
-                                if (v575[23] < 0)
+                                sub_1000C23E0(v549, v617);
+                                v315 = v617[23];
+                                v316 = v617[23];
+                                if (v617[23] < 0)
                                 {
-                                  v282 = *&v575[8];
+                                  v315 = *&v617[8];
                                 }
 
-                                if (v282)
+                                if (v315)
                                 {
-                                  sub_1000C23E0(v507, &v580);
-                                  v284 = productName;
-                                  v285 = std::string::compare(&v580, [productName UTF8String]) != 0;
-                                  if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                  sub_1000C23E0(v549, &v622);
+                                  v317 = productName;
+                                  v318 = std::string::compare(&v622, [productName UTF8String]) != 0;
+                                  if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                   {
-                                    operator delete(v580.__r_.__value_.__l.__data_);
+                                    operator delete(v622.__r_.__value_.__l.__data_);
                                   }
 
-                                  v283 = v575[23];
+                                  v316 = v617[23];
                                 }
 
                                 else
                                 {
-                                  v285 = 1;
+                                  v318 = 1;
                                 }
 
-                                if (v283 < 0)
+                                if (v316 < 0)
                                 {
-                                  operator delete(*v575);
+                                  operator delete(*v617);
                                 }
 
-                                if (v285)
+                                if (v318)
                                 {
-                                  sub_100007E30(v575, [productName utf8ValueSafe]);
-                                  *&v570 = 0;
-                                  sub_100016250(&v570);
-                                  v580.__r_.__value_.__r.__words[0] = v570;
-                                  v580.__r_.__value_.__l.__size_ = SWORD2(v570);
-                                  sub_100538494(v507, v575, &v580);
-                                  if ((v575[23] & 0x80000000) != 0)
+                                  sub_100007E30(v617, [productName utf8ValueSafe]);
+                                  *&v612 = 0;
+                                  sub_100016250(&v612);
+                                  v622.__r_.__value_.__r.__words[0] = v612;
+                                  v622.__r_.__value_.__l.__size_ = SWORD2(v612);
+                                  sub_100538494(v549, v617, &v622);
+                                  if ((v617[23] & 0x80000000) != 0)
                                   {
-                                    operator delete(*v575);
+                                    operator delete(*v617);
                                   }
 
-                                  v288 = qword_100BCE960;
-                                  if (os_log_type_enabled(v288, OS_LOG_TYPE_DEFAULT))
+                                  v321 = qword_100BCE960;
+                                  if (os_log_type_enabled(v321, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    sub_1000E5A58(v507, v575);
-                                    v289 = v575;
-                                    if (v575[23] < 0)
+                                    sub_1000E5A58(v549, v617);
+                                    v322 = v617;
+                                    if (v617[23] < 0)
                                     {
-                                      v289 = *v575;
+                                      v322 = *v617;
                                     }
 
-                                    LODWORD(v580.__r_.__value_.__l.__data_) = v490;
-                                    *(v580.__r_.__value_.__r.__words + 4) = v289;
-                                    _os_log_impl(&_mh_execute_header, v288, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings updated productname %{public}s", &v580, 0xCu);
-                                    if ((v575[23] & 0x80000000) != 0)
+                                    LODWORD(v622.__r_.__value_.__l.__data_) = v532;
+                                    *(v622.__r_.__value_.__r.__words + 4) = v322;
+                                    _os_log_impl(&_mh_execute_header, v321, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings updated productname %{public}s", &v622, 0xCu);
+                                    if ((v617[23] & 0x80000000) != 0)
                                     {
-                                      operator delete(*v575);
+                                      operator delete(*v617);
                                     }
                                   }
                                 }
                               }
 
-                              name = [v509 name];
-                              v291 = [name length] == 0;
+                              name = [v551 name];
+                              v324 = [name length] == 0;
 
-                              if (!v291)
+                              if (!v324)
                               {
-                                v292 = qword_100BCE960;
-                                if (os_log_type_enabled(v292, OS_LOG_TYPE_DEFAULT))
+                                v325 = qword_100BCE960;
+                                if (os_log_type_enabled(v325, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  sub_1000E5A58(v507, v575);
-                                  v293 = v575[23] >= 0 ? v575 : *v575;
-                                  name2 = [v509 name];
-                                  v295 = name2;
+                                  sub_1000E5A58(v549, v617);
+                                  v326 = v617[23] >= 0 ? v617 : *v617;
+                                  name2 = [v551 name];
+                                  v328 = name2;
                                   uTF8String2 = [name2 UTF8String];
-                                  LODWORD(v580.__r_.__value_.__l.__data_) = v500;
-                                  *(v580.__r_.__value_.__r.__words + 4) = v293;
-                                  WORD2(v580.__r_.__value_.__r.__words[1]) = 2081;
-                                  *(&v580.__r_.__value_.__r.__words[1] + 6) = uTF8String2;
-                                  _os_log_impl(&_mh_execute_header, v292, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings updating %{public}s username to -> %{private}s", &v580, 0x16u);
+                                  LODWORD(v622.__r_.__value_.__l.__data_) = v542;
+                                  *(v622.__r_.__value_.__r.__words + 4) = v326;
+                                  WORD2(v622.__r_.__value_.__r.__words[1]) = 2081;
+                                  *(&v622.__r_.__value_.__r.__words[1] + 6) = uTF8String2;
+                                  _os_log_impl(&_mh_execute_header, v325, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings updating %{public}s username to -> %{private}s", &v622, 0x16u);
 
-                                  if ((v575[23] & 0x80000000) != 0)
+                                  if ((v617[23] & 0x80000000) != 0)
                                   {
-                                    operator delete(*v575);
+                                    operator delete(*v617);
                                   }
                                 }
 
-                                name3 = [v509 name];
-                                sub_100007E30(v575, [name3 utf8ValueSafe]);
-                                sub_100538D30(v507, v575, 0);
-                                if ((v575[23] & 0x80000000) != 0)
+                                name3 = [v551 name];
+                                sub_100007E30(v617, [name3 utf8ValueSafe]);
+                                sub_100538D30(v549, v617, 0);
+                                if ((v617[23] & 0x80000000) != 0)
                                 {
-                                  operator delete(*v575);
+                                  operator delete(*v617);
                                 }
 
-                                v298 = sub_100432918();
-                                bluetoothAddress3 = [v509 bluetoothAddress];
-                                v300 = bluetoothAddress3;
-                                sub_100007E30(v513, [bluetoothAddress3 UTF8String]);
-                                name4 = [v509 name];
-                                sub_100007E30(v511, [name4 utf8ValueSafe]);
-                                (*(*v298 + 176))(v298, v513, v511);
-                                if (v512 < 0)
+                                v333 = sub_100432918(v331, v332);
+                                bluetoothAddress3 = [v551 bluetoothAddress];
+                                v335 = bluetoothAddress3;
+                                sub_100007E30(v555, [bluetoothAddress3 UTF8String]);
+                                name4 = [v551 name];
+                                sub_100007E30(v553, [name4 utf8ValueSafe]);
+                                (*(*v333 + 176))(v333, v555, v553);
+                                if (v554 < 0)
                                 {
-                                  operator delete(v511[0]);
+                                  operator delete(v553[0]);
                                 }
 
-                                if (v514 < 0)
+                                if (v556 < 0)
                                 {
-                                  operator delete(v513[0]);
+                                  operator delete(v555[0]);
                                 }
                               }
 
-                              sub_1000C23E0(v507, v575);
-                              if ((v575[23] & 0x80000000) != 0)
+                              sub_1000C23E0(v549, v617);
+                              if ((v617[23] & 0x80000000) != 0)
                               {
-                                v302 = *&v575[8];
-                                operator delete(*v575);
-                                if (!v302)
+                                v337 = *&v617[8];
+                                operator delete(*v617);
+                                if (!v337)
                                 {
                                   goto LABEL_488;
                                 }
                               }
 
-                              else if (!v575[23])
+                              else if (!v617[23])
                               {
 LABEL_488:
-                                v303 = qword_100BCE960;
-                                if (os_log_type_enabled(v303, OS_LOG_TYPE_DEFAULT))
+                                v338 = qword_100BCE960;
+                                if (os_log_type_enabled(v338, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  sub_1000E5A58(v507, v575);
-                                  v304 = v575;
-                                  if (v575[23] < 0)
+                                  sub_1000E5A58(v549, v617);
+                                  v339 = v617;
+                                  if (v617[23] < 0)
                                   {
-                                    v304 = *v575;
+                                    v339 = *v617;
                                   }
 
-                                  LODWORD(v580.__r_.__value_.__l.__data_) = v495;
-                                  *(v580.__r_.__value_.__r.__words + 4) = v304;
-                                  _os_log_impl(&_mh_execute_header, v303, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings No Name for device: %s", &v580, 0xCu);
-                                  if ((v575[23] & 0x80000000) != 0)
+                                  LODWORD(v622.__r_.__value_.__l.__data_) = v537;
+                                  *(v622.__r_.__value_.__r.__words + 4) = v339;
+                                  _os_log_impl(&_mh_execute_header, v338, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings No Name for device: %s", &v622, 0xCu);
+                                  if ((v617[23] & 0x80000000) != 0)
                                   {
-                                    operator delete(*v575);
+                                    operator delete(*v617);
                                   }
                                 }
 
                                 cloudClient = [(CloudPairing *)self cloudClient];
-                                bluetoothAddress4 = [v509 bluetoothAddress];
+                                bluetoothAddress4 = [v551 bluetoothAddress];
                                 [cloudClient deviceRecord:bluetoothAddress4 completion:&stru_100B01250];
                               }
 
-                              deviceIDFeatureBitsV1 = [v509 deviceIDFeatureBitsV1];
-                              v308 = [deviceIDFeatureBitsV1 length] == 0;
+                              deviceIDFeatureBitsV1 = [v551 deviceIDFeatureBitsV1];
+                              v343 = [deviceIDFeatureBitsV1 length] == 0;
 
-                              if (!v308)
+                              if (!v343)
                               {
-                                LODWORD(v580.__r_.__value_.__l.__data_) = 0;
-                                deviceIDFeatureBitsV12 = [v509 deviceIDFeatureBitsV1];
-                                v310 = deviceIDFeatureBitsV12;
-                                sub_100007E30(v575, [deviceIDFeatureBitsV12 UTF8String]);
-                                v311 = std::stoul(v575, 0, 0);
-                                if ((v575[23] & 0x80000000) != 0)
+                                LODWORD(v622.__r_.__value_.__l.__data_) = 0;
+                                deviceIDFeatureBitsV12 = [v551 deviceIDFeatureBitsV1];
+                                v345 = deviceIDFeatureBitsV12;
+                                sub_100007E30(v617, [deviceIDFeatureBitsV12 UTF8String]);
+                                v346 = std::stoul(v617, 0, 0);
+                                if ((v617[23] & 0x80000000) != 0)
                                 {
-                                  operator delete(*v575);
+                                  operator delete(*v617);
                                 }
 
-                                v312 = sub_10053E4A8(v507, &v580);
-                                if (LODWORD(v580.__r_.__value_.__l.__data_) == v311)
+                                v347 = sub_10053E4A8(v549, &v622);
+                                if (LODWORD(v622.__r_.__value_.__l.__data_) == v346)
                                 {
-                                  v313 = v312;
+                                  v348 = v347;
                                 }
 
                                 else
                                 {
-                                  v313 = 0;
+                                  v348 = 0;
                                 }
 
-                                if ((v313 & 1) == 0)
+                                if ((v348 & 1) == 0)
                                 {
-                                  v314 = qword_100BCE960;
-                                  if (os_log_type_enabled(v314, OS_LOG_TYPE_DEFAULT))
+                                  v349 = qword_100BCE960;
+                                  if (os_log_type_enabled(v349, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v315 = v581;
-                                    if (SHIBYTE(v581[2]) < 0)
+                                    v350 = v623;
+                                    if (SHIBYTE(v623[2]) < 0)
                                     {
-                                      v315 = v581[0];
+                                      v350 = v623[0];
                                     }
 
-                                    *v575 = v497;
-                                    *&v575[4] = v315;
-                                    *&v575[12] = 1024;
-                                    *&v575[14] = v311;
-                                    _os_log_impl(&_mh_execute_header, v314, OS_LOG_TYPE_DEFAULT, "Cloud: Received iCloud update for DID supported feature bits version 1, address: %s, supported feature bits 0x%x", v575, 0x12u);
+                                    *v617 = v539;
+                                    *&v617[4] = v350;
+                                    *&v617[12] = 1024;
+                                    *&v617[14] = v346;
+                                    _os_log_impl(&_mh_execute_header, v349, OS_LOG_TYPE_DEFAULT, "Cloud: Received iCloud update for DID supported feature bits version 1, address: %s, supported feature bits 0x%x", v617, 0x12u);
                                   }
 
-                                  sub_10053DCEC(v507, v311, 1);
+                                  sub_10053DCEC(v549, v346, 1);
                                 }
                               }
 
-                              deviceIDFeatureBitsV2 = [v509 deviceIDFeatureBitsV2];
-                              v317 = [deviceIDFeatureBitsV2 length] == 0;
+                              deviceIDFeatureBitsV2 = [v551 deviceIDFeatureBitsV2];
+                              v352 = [deviceIDFeatureBitsV2 length] == 0;
 
-                              if (!v317)
+                              if (!v352)
                               {
-                                v580.__r_.__value_.__r.__words[0] = 0;
-                                deviceIDFeatureBitsV22 = [v509 deviceIDFeatureBitsV2];
-                                v319 = deviceIDFeatureBitsV22;
-                                sub_100007E30(v575, [deviceIDFeatureBitsV22 UTF8String]);
-                                v320 = std::stoull(v575, 0, 0);
-                                if ((v575[23] & 0x80000000) != 0)
+                                v622.__r_.__value_.__r.__words[0] = 0;
+                                deviceIDFeatureBitsV22 = [v551 deviceIDFeatureBitsV2];
+                                v354 = deviceIDFeatureBitsV22;
+                                sub_100007E30(v617, [deviceIDFeatureBitsV22 UTF8String]);
+                                v355 = std::stoull(v617, 0, 0);
+                                if ((v617[23] & 0x80000000) != 0)
                                 {
-                                  operator delete(*v575);
+                                  operator delete(*v617);
                                 }
 
-                                *&v570 = __ROR8__(v320, 32);
-                                if ((!sub_10053E4E0(v507, &v580) || v580.__r_.__value_.__r.__words[0] != v570) && v320 != -1)
+                                *&v612 = __ROR8__(v355, 32);
+                                if ((!sub_10053E4E0(v549, &v622) || v622.__r_.__value_.__r.__words[0] != v612) && v355 != -1)
                                 {
-                                  v321 = qword_100BCE960;
-                                  if (os_log_type_enabled(v321, OS_LOG_TYPE_DEFAULT))
+                                  v356 = qword_100BCE960;
+                                  if (os_log_type_enabled(v356, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v322 = v581;
-                                    if (SHIBYTE(v581[2]) < 0)
+                                    v357 = v623;
+                                    if (SHIBYTE(v623[2]) < 0)
                                     {
-                                      v322 = v581[0];
+                                      v357 = v623[0];
                                     }
 
-                                    *v575 = v494;
-                                    *&v575[4] = v322;
-                                    *&v575[12] = 1024;
-                                    *&v575[14] = HIDWORD(v320);
-                                    *&v575[18] = 1024;
-                                    *&v575[20] = v320;
-                                    _os_log_impl(&_mh_execute_header, v321, OS_LOG_TYPE_DEFAULT, "Cloud: Apply Received iCloud update for DID extended supported feature bits version 2, address: %s, extended supported feature bits I1: 0x%x, I2: 0x%x", v575, 0x18u);
+                                    *v617 = v536;
+                                    *&v617[4] = v357;
+                                    *&v617[12] = 1024;
+                                    *&v617[14] = HIDWORD(v355);
+                                    *&v617[18] = 1024;
+                                    *&v617[20] = v355;
+                                    _os_log_impl(&_mh_execute_header, v356, OS_LOG_TYPE_DEFAULT, "Cloud: Apply Received iCloud update for DID extended supported feature bits version 2, address: %s, extended supported feature bits I1: 0x%x, I2: 0x%x", v617, 0x18u);
                                   }
 
-                                  HIDWORD(v580.__r_.__value_.__r.__words[0]) |= v320;
-                                  sub_10053DFDC(v507, v580.__r_.__value_.__r.__words[0], 1);
+                                  HIDWORD(v622.__r_.__value_.__r.__words[0]) |= v355;
+                                  sub_10053DFDC(v549, v622.__r_.__value_.__r.__words[0], 1);
                                 }
                               }
 
-                              accessoryKey = [v509 accessoryKey];
+                              accessoryKey = [v551 accessoryKey];
                               if ([accessoryKey length] == 16)
                               {
-                                accessoryHint = [v509 accessoryHint];
+                                accessoryHint = [v551 accessoryHint];
                                 if ([accessoryHint length] == 16)
                                 {
-                                  encryptionKey = [v509 encryptionKey];
+                                  encryptionKey = [v551 encryptionKey];
                                   if ([encryptionKey length] == 16)
                                   {
-                                    v326 = [v509 irk];
-                                    if ([v326 length] == 16)
+                                    v361 = [v551 irk];
+                                    if ([v361 length] == 16)
                                     {
-                                      *&v502 = [v509 ratchet];
-                                      if ([v502 length])
+                                      *&v544 = [v551 ratchet];
+                                      if ([v544 length])
                                       {
-                                        settingsMask = [v509 settingsMask];
+                                        settingsMask = [v551 settingsMask];
                                         if ([settingsMask length])
                                         {
-                                          supportedServices = [v509 supportedServices];
+                                          supportedServices = [v551 supportedServices];
                                           if ([supportedServices length])
                                           {
-                                            buttonModes = [v509 buttonModes];
+                                            buttonModes = [v551 buttonModes];
                                             if ([buttonModes length])
                                             {
-                                              color = [v509 color];
+                                              color = [v551 color];
                                               if ([color length])
                                               {
-                                                listeningServices = [v509 listeningServices];
-                                                v486 = [listeningServices length] == 0;
+                                                listeningServices = [v551 listeningServices];
+                                                v528 = [listeningServices length] == 0;
 
-                                                if ((v486 & 1) == 0)
+                                                if ((v528 & 1) == 0)
                                                 {
-                                                  v570 = 0uLL;
-                                                  v569 = 0uLL;
-                                                  accessoryKey2 = [v509 accessoryKey];
-                                                  v329 = accessoryKey2;
-                                                  v570 = *[accessoryKey2 bytes];
+                                                  v612 = 0uLL;
+                                                  v611 = 0uLL;
+                                                  accessoryKey2 = [v551 accessoryKey];
+                                                  v364 = accessoryKey2;
+                                                  v612 = *[accessoryKey2 bytes];
 
-                                                  accessoryHint2 = [v509 accessoryHint];
-                                                  v331 = accessoryHint2;
-                                                  v569 = *[accessoryHint2 bytes];
+                                                  accessoryHint2 = [v551 accessoryHint];
+                                                  v366 = accessoryHint2;
+                                                  v611 = *[accessoryHint2 bytes];
 
-                                                  masterKey = [v509 masterKey];
+                                                  masterKey = [v551 masterKey];
                                                   if ([masterKey length] == 16)
                                                   {
-                                                    masterHint = [v509 masterHint];
-                                                    v334 = [masterHint length] == 16;
+                                                    masterHint = [v551 masterHint];
+                                                    v369 = [masterHint length] == 16;
 
-                                                    if (v334)
+                                                    if (v369)
                                                     {
-                                                      *&v580.__r_.__value_.__l.__data_ = 0uLL;
-                                                      v568 = 0uLL;
-                                                      v335 = qword_100BCE960;
-                                                      if (os_log_type_enabled(v335, OS_LOG_TYPE_DEFAULT))
+                                                      *&v622.__r_.__value_.__l.__data_ = 0uLL;
+                                                      v610 = 0uLL;
+                                                      v370 = qword_100BCE960;
+                                                      if (os_log_type_enabled(v370, OS_LOG_TYPE_DEFAULT))
                                                       {
-                                                        masterKey2 = [v509 masterKey];
-                                                        *v575 = v503;
-                                                        *&v575[4] = masterKey2;
-                                                        _os_log_impl(&_mh_execute_header, v335, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved Master Key: %@", v575, 0xCu);
+                                                        masterKey2 = [v551 masterKey];
+                                                        *v617 = v545;
+                                                        *&v617[4] = masterKey2;
+                                                        _os_log_impl(&_mh_execute_header, v370, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved Master Key: %@", v617, 0xCu);
                                                       }
 
-                                                      v337 = qword_100BCE960;
-                                                      if (os_log_type_enabled(v337, OS_LOG_TYPE_DEFAULT))
+                                                      v372 = qword_100BCE960;
+                                                      if (os_log_type_enabled(v372, OS_LOG_TYPE_DEFAULT))
                                                       {
-                                                        masterHint2 = [v509 masterHint];
-                                                        *v575 = v503;
-                                                        *&v575[4] = masterHint2;
-                                                        _os_log_impl(&_mh_execute_header, v337, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved Master Hint: %@", v575, 0xCu);
+                                                        masterHint2 = [v551 masterHint];
+                                                        *v617 = v545;
+                                                        *&v617[4] = masterHint2;
+                                                        _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved Master Hint: %@", v617, 0xCu);
                                                       }
 
-                                                      masterKey3 = [v509 masterKey];
-                                                      v340 = masterKey3;
-                                                      *&v580.__r_.__value_.__l.__data_ = *[masterKey3 bytes];
+                                                      masterKey3 = [v551 masterKey];
+                                                      v375 = masterKey3;
+                                                      *&v622.__r_.__value_.__l.__data_ = *[masterKey3 bytes];
 
-                                                      masterHint3 = [v509 masterHint];
-                                                      v342 = masterHint3;
-                                                      v568 = *[masterHint3 bytes];
+                                                      masterHint3 = [v551 masterHint];
+                                                      v377 = masterHint3;
+                                                      v610 = *[masterHint3 bytes];
 
-                                                      v567 = 0uLL;
-                                                      if (!sub_1002D898C(&v568, &v569, &v567, 0x10uLL) && v567 == *(v507 + 128) && WORD2(v567) == *(v507 + 132))
+                                                      v609 = 0uLL;
+                                                      if (!sub_1002D898C(&v610, &v611, &v609, 0x10uLL) && v609 == *(v549 + 128) && WORD2(v609) == *(v549 + 132))
                                                       {
-                                                        v344 = qword_100BCE960;
-                                                        if (os_log_type_enabled(v344, OS_LOG_TYPE_INFO))
+                                                        v379 = qword_100BCE960;
+                                                        if (os_log_type_enabled(v379, OS_LOG_TYPE_INFO))
                                                         {
-                                                          sub_1000E5A58(v507, v575);
-                                                          v345 = v575;
-                                                          if (v575[23] < 0)
+                                                          sub_1000E5A58(v549, v617);
+                                                          v380 = v617;
+                                                          if (v617[23] < 0)
                                                           {
-                                                            v345 = *v575;
+                                                            v380 = *v617;
                                                           }
 
-                                                          v565 = v490;
-                                                          v566 = v345;
-                                                          _os_log_impl(&_mh_execute_header, v344, OS_LOG_TYPE_INFO, "Valid Main Account Keys from cloud magic device %{public}s", &v565, 0xCu);
-                                                          if ((v575[23] & 0x80000000) != 0)
+                                                          v607 = v532;
+                                                          v608 = v380;
+                                                          _os_log_impl(&_mh_execute_header, v379, OS_LOG_TYPE_INFO, "Valid Main Account Keys from cloud magic device %{public}s", &v607, 0xCu);
+                                                          if ((v617[23] & 0x80000000) != 0)
                                                           {
-                                                            operator delete(*v575);
+                                                            operator delete(*v617);
                                                           }
                                                         }
 
@@ -1936,7 +1947,7 @@ LABEL_488:
                                                           sub_10084F69C();
                                                         }
 
-                                                        (*(*off_100B50AA8 + 56))(off_100B50AA8, &v580, &v568);
+                                                        (*(*off_100B50AA8 + 56))(off_100B50AA8, &v622, &v610);
                                                       }
                                                     }
                                                   }
@@ -1945,77 +1956,77 @@ LABEL_488:
                                                   {
                                                   }
 
-                                                  v346 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v346, OS_LOG_TYPE_DEBUG))
+                                                  v381 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v381, OS_LOG_TYPE_DEBUG))
                                                   {
-                                                    *v575 = v484 | 0x1000000000;
-                                                    *&v575[8] = 2096;
-                                                    *&v575[10] = &v570;
-                                                    *&v575[18] = 1040;
-                                                    *&v575[20] = 16;
-                                                    *&v575[24] = 2096;
-                                                    *&v575[26] = &v569;
-                                                    _os_log_debug_impl(&_mh_execute_header, v346, OS_LOG_TYPE_DEBUG, "Cloud keys AccKeyPtr %.16P, HintPtr %.16P", v575, 0x22u);
+                                                    *v617 = v526 | 0x1000000000;
+                                                    *&v617[8] = 2096;
+                                                    *&v617[10] = &v612;
+                                                    *&v617[18] = 1040;
+                                                    *&v617[20] = 16;
+                                                    *&v617[24] = 2096;
+                                                    *&v617[26] = &v611;
+                                                    _os_log_debug_impl(&_mh_execute_header, v381, OS_LOG_TYPE_DEBUG, "Cloud keys AccKeyPtr %.16P, HintPtr %.16P", v617, 0x22u);
                                                   }
 
-                                                  v568 = 0uLL;
-                                                  v567 = 0uLL;
-                                                  ratchet = [v509 ratchet];
-                                                  v348 = ratchet;
-                                                  v349 = atol([ratchet UTF8String]);
+                                                  v610 = 0uLL;
+                                                  v609 = 0uLL;
+                                                  ratchet = [v551 ratchet];
+                                                  v383 = ratchet;
+                                                  v384 = atol([ratchet UTF8String]);
 
-                                                  v350 = [v509 irk];
-                                                  v351 = v350;
-                                                  v568 = *[v350 bytes];
+                                                  v385 = [v551 irk];
+                                                  v386 = v385;
+                                                  v610 = *[v385 bytes];
 
-                                                  encryptionKey2 = [v509 encryptionKey];
-                                                  v353 = encryptionKey2;
-                                                  v567 = *[encryptionKey2 bytes];
+                                                  encryptionKey2 = [v551 encryptionKey];
+                                                  v388 = encryptionKey2;
+                                                  v609 = *[encryptionKey2 bytes];
 
                                                   for (k = 0; k != 31; ++k)
                                                   {
-                                                    supportedServices2 = [v509 supportedServices];
-                                                    v356 = ([supportedServices2 integerValue] & (1 << k)) == 0;
+                                                    supportedServices2 = [v551 supportedServices];
+                                                    v391 = ([supportedServices2 integerValue] & (1 << k)) == 0;
 
-                                                    if (!v356)
+                                                    if (!v391)
                                                     {
-                                                      v357 = qword_100BCE960;
-                                                      if (os_log_type_enabled(v357, OS_LOG_TYPE_DEFAULT))
+                                                      v392 = qword_100BCE960;
+                                                      if (os_log_type_enabled(v392, OS_LOG_TYPE_DEFAULT))
                                                       {
-                                                        v358 = v581;
-                                                        if (SHIBYTE(v581[2]) < 0)
+                                                        v393 = v623;
+                                                        if (SHIBYTE(v623[2]) < 0)
                                                         {
-                                                          v358 = v581[0];
+                                                          v393 = v623[0];
                                                         }
 
-                                                        *v575 = v497;
-                                                        *&v575[4] = v358;
-                                                        *&v575[12] = 1024;
-                                                        *&v575[14] = 1 << k;
-                                                        _os_log_impl(&_mh_execute_header, v357, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Paired Device with address: %s, ServiceID: %d", v575, 0x12u);
+                                                        *v617 = v539;
+                                                        *&v617[4] = v393;
+                                                        *&v617[12] = 1024;
+                                                        *&v617[14] = 1 << k;
+                                                        _os_log_impl(&_mh_execute_header, v392, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Paired Device with address: %s, ServiceID: %d", v617, 0x12u);
                                                       }
 
-                                                      v580.__r_.__value_.__r.__words[0] = 0;
-                                                      sub_100016250(&v580);
-                                                      *v575 = SLODWORD(v580.__r_.__value_.__l.__data_);
-                                                      *&v575[8] = SWORD2(v580.__r_.__value_.__r.__words[0]);
-                                                      sub_100539554(v507, 1 << k, 4, v575, 0);
+                                                      v622.__r_.__value_.__r.__words[0] = 0;
+                                                      sub_100016250(&v622);
+                                                      *v617 = SLODWORD(v622.__r_.__value_.__l.__data_);
+                                                      *&v617[8] = SWORD2(v622.__r_.__value_.__r.__words[0]);
+                                                      sub_100539554(v549, 1 << k, 4, v617, 0);
                                                     }
                                                   }
 
-                                                  v359 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v359, OS_LOG_TYPE_DEBUG))
+                                                  v394 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v394, OS_LOG_TYPE_DEBUG))
                                                   {
-                                                    *v575 = v483 | 0x1000000000;
-                                                    *&v575[8] = 2096;
-                                                    *&v575[10] = &v568;
-                                                    *&v575[18] = 1040;
-                                                    *&v575[20] = 16;
-                                                    *&v575[24] = 2096;
-                                                    *&v575[26] = &v567;
-                                                    *&v575[34] = 1024;
-                                                    *&v575[36] = v349;
-                                                    _os_log_debug_impl(&_mh_execute_header, v359, OS_LOG_TYPE_DEBUG, "Cloud IRK %.16P, EncKey %.16P, Ratchet: %d", v575, 0x28u);
+                                                    *v617 = v525 | 0x1000000000;
+                                                    *&v617[8] = 2096;
+                                                    *&v617[10] = &v610;
+                                                    *&v617[18] = 1040;
+                                                    *&v617[20] = 16;
+                                                    *&v617[24] = 2096;
+                                                    *&v617[26] = &v609;
+                                                    *&v617[34] = 1024;
+                                                    *&v617[36] = v384;
+                                                    _os_log_debug_impl(&_mh_execute_header, v394, OS_LOG_TYPE_DEBUG, "Cloud IRK %.16P, EncKey %.16P, Ratchet: %d", v617, 0x28u);
                                                   }
 
                                                   if (qword_100B50AB0 != -1)
@@ -2023,145 +2034,145 @@ LABEL_488:
                                                     sub_10084F69C();
                                                   }
 
-                                                  v360 = sub_100558DB8(off_100B50AA8, v507);
-                                                  v361 = qword_100BCE960;
-                                                  v362 = os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT);
-                                                  if (!v360)
+                                                  v395 = sub_100558DB8(off_100B50AA8, v549);
+                                                  v396 = qword_100BCE960;
+                                                  v397 = os_log_type_enabled(v396, OS_LOG_TYPE_DEFAULT);
+                                                  if (!v395)
                                                   {
-                                                    if (v362)
+                                                    if (v397)
                                                     {
-                                                      v365 = v581;
-                                                      if (SHIBYTE(v581[2]) < 0)
+                                                      v400 = v623;
+                                                      if (SHIBYTE(v623[2]) < 0)
                                                       {
-                                                        v365 = v581[0];
+                                                        v400 = v623[0];
                                                       }
 
-                                                      *v575 = v495;
-                                                      *&v575[4] = v365;
-                                                      _os_log_impl(&_mh_execute_header, v361, OS_LOG_TYPE_DEFAULT, "Cloud: Create new Magic Paired Device with address: %s", v575, 0xCu);
+                                                      *v617 = v537;
+                                                      *&v617[4] = v400;
+                                                      _os_log_impl(&_mh_execute_header, v396, OS_LOG_TYPE_DEFAULT, "Cloud: Create new Magic Paired Device with address: %s", v617, 0xCu);
                                                     }
 
                                                     operator new();
                                                   }
 
-                                                  if (v362)
+                                                  if (v397)
                                                   {
-                                                    v363 = v581;
-                                                    if (SHIBYTE(v581[2]) < 0)
+                                                    v398 = v623;
+                                                    if (SHIBYTE(v623[2]) < 0)
                                                     {
-                                                      v363 = v581[0];
+                                                      v398 = v623[0];
                                                     }
 
-                                                    *v575 = v495;
-                                                    *&v575[4] = v363;
-                                                    _os_log_impl(&_mh_execute_header, v361, OS_LOG_TYPE_DEFAULT, "Cloud: Update new Magic Paired Device with address: %s", v575, 0xCu);
+                                                    *v617 = v537;
+                                                    *&v617[4] = v398;
+                                                    _os_log_impl(&_mh_execute_header, v396, OS_LOG_TYPE_DEFAULT, "Cloud: Update new Magic Paired Device with address: %s", v617, 0xCu);
                                                   }
 
-                                                  v364 = v569;
-                                                  *(v360 + 5) = v570;
-                                                  *(v360 + 7) = v364;
-                                                  if (v349)
+                                                  v399 = v611;
+                                                  *(v395 + 5) = v612;
+                                                  *(v395 + 7) = v399;
+                                                  if (v384)
                                                   {
-                                                    *(v360 + 18) = v349;
+                                                    *(v395 + 18) = v384;
                                                   }
 
-                                                  sub_10055C750(v360, &v568);
-                                                  *(v360 + 3) = v567;
+                                                  sub_10055C750(v395, &v610);
+                                                  *(v395 + 3) = v609;
                                                   if (qword_100B50AB0 != -1)
                                                   {
                                                     sub_10084F69C();
                                                   }
 
-                                                  sub_10055D510(off_100B50AA8, v360);
-                                                  settingsMask2 = [v509 settingsMask];
+                                                  sub_10055D510(off_100B50AA8, v395);
+                                                  settingsMask2 = [v551 settingsMask];
                                                   LODWORD(supportedServices) = [settingsMask2 intValue];
 
-                                                  v367 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v367, OS_LOG_TYPE_DEFAULT))
+                                                  v402 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v402, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    *v575 = v487;
-                                                    *&v575[4] = supportedServices;
-                                                    _os_log_impl(&_mh_execute_header, v367, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved settings mask from cloud: %d", v575, 8u);
+                                                    *v617 = v529;
+                                                    *&v617[4] = supportedServices;
+                                                    _os_log_impl(&_mh_execute_header, v402, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved settings mask from cloud: %d", v617, 8u);
                                                   }
 
-                                                  color2 = [v509 color];
+                                                  color2 = [v551 color];
                                                   LODWORD(color) = [color2 intValue];
 
-                                                  v369 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v369, OS_LOG_TYPE_DEFAULT))
+                                                  v404 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v404, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    *v575 = v487;
-                                                    *&v575[4] = color;
-                                                    _os_log_impl(&_mh_execute_header, v369, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved color from cloud: %d", v575, 8u);
+                                                    *v617 = v529;
+                                                    *&v617[4] = color;
+                                                    _os_log_impl(&_mh_execute_header, v404, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved color from cloud: %d", v617, 8u);
                                                   }
 
-                                                  listeningServices2 = [v509 listeningServices];
-                                                  *&v502 = [listeningServices2 integerValue];
+                                                  listeningServices2 = [v551 listeningServices];
+                                                  *&v544 = [listeningServices2 integerValue];
 
-                                                  v371 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v371, OS_LOG_TYPE_DEFAULT))
+                                                  v406 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v406, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    *v575 = v487;
-                                                    v486 = v502;
-                                                    *&v575[4] = v502;
-                                                    _os_log_impl(&_mh_execute_header, v371, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved listening services from cloud: %d", v575, 8u);
+                                                    *v617 = v529;
+                                                    v528 = v544;
+                                                    *&v617[4] = v544;
+                                                    _os_log_impl(&_mh_execute_header, v406, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved listening services from cloud: %d", v617, 8u);
                                                   }
 
                                                   else
                                                   {
-                                                    v486 = v502;
+                                                    v528 = v544;
                                                   }
 
-                                                  LODWORD(buttonModes) = (v502 >> 7) & 7;
-                                                  v372 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v372, OS_LOG_TYPE_DEFAULT))
+                                                  LODWORD(buttonModes) = (v544 >> 7) & 7;
+                                                  v407 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v407, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    *v575 = __PAIR64__(buttonModes, v487);
-                                                    _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved listening services V1 from cloud: %d", v575, 8u);
+                                                    *v617 = __PAIR64__(buttonModes, v529);
+                                                    _os_log_impl(&_mh_execute_header, v407, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved listening services V1 from cloud: %d", v617, 8u);
                                                   }
 
-                                                  listeningServicesV2 = [v509 listeningServicesV2];
+                                                  listeningServicesV2 = [v551 listeningServicesV2];
                                                   settingsMask = [listeningServicesV2 integerValue];
 
-                                                  v374 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v374, OS_LOG_TYPE_DEFAULT))
+                                                  v409 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v409, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    *v575 = __PAIR64__(settingsMask, v487);
-                                                    _os_log_impl(&_mh_execute_header, v374, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved listening services V2 from cloud: %d", v575, 8u);
+                                                    *v617 = __PAIR64__(settingsMask, v529);
+                                                    _os_log_impl(&_mh_execute_header, v409, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved listening services V2 from cloud: %d", v617, 8u);
                                                   }
 
-                                                  if ((v502 & 2) != 0 && !sub_1000E31D0(v507))
+                                                  if ((v544 & 2) != 0 && !sub_1000E31D0(v549))
                                                   {
-                                                    v375 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v375, OS_LOG_TYPE_DEFAULT))
+                                                    v410 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v410, OS_LOG_TYPE_DEFAULT))
                                                     {
-                                                      *v575 = v487 | 0x100000000;
-                                                      _os_log_impl(&_mh_execute_header, v375, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved GAPA from cloud: %d", v575, 8u);
+                                                      *v617 = v529 | 0x100000000;
+                                                      _os_log_impl(&_mh_execute_header, v410, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved GAPA from cloud: %d", v617, 8u);
                                                     }
 
-                                                    sub_100540890(v507, 1, 1);
+                                                    sub_100540890(v549, 1, 1);
                                                   }
 
-                                                  buttonModes2 = [v509 buttonModes];
+                                                  buttonModes2 = [v551 buttonModes];
                                                   intValue = [buttonModes2 intValue];
 
-                                                  v378 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v378, OS_LOG_TYPE_DEFAULT))
+                                                  v413 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v413, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    *v575 = v487;
-                                                    *&v575[4] = intValue;
-                                                    _os_log_impl(&_mh_execute_header, v378, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved button Modes from cloud: %d", v575, 8u);
+                                                    *v617 = v529;
+                                                    *&v617[4] = intValue;
+                                                    _os_log_impl(&_mh_execute_header, v413, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved button Modes from cloud: %d", v617, 8u);
                                                   }
 
-                                                  v379 = intValue & 0xF;
-                                                  v380 = v379 | (intValue >> 4 << 8);
-                                                  v381 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v381, OS_LOG_TYPE_DEFAULT))
+                                                  v414 = intValue & 0xF;
+                                                  v415 = v414 | (intValue >> 4 << 8);
+                                                  v416 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v416, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    *v575 = v487;
-                                                    v575[4] = intValue & 0xF;
-                                                    v575[5] = intValue >> 4;
-                                                    _os_log_impl(&_mh_execute_header, v381, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved double tap from cloud: %d", v575, 8u);
+                                                    *v617 = v529;
+                                                    v617[4] = intValue & 0xF;
+                                                    v617[5] = intValue >> 4;
+                                                    _os_log_impl(&_mh_execute_header, v416, OS_LOG_TYPE_DEFAULT, "Cloud: Retrieved double tap from cloud: %d", v617, 8u);
                                                   }
 
                                                   if (qword_100B50950 != -1)
@@ -2169,34 +2180,34 @@ LABEL_488:
                                                     sub_10084F6EC();
                                                   }
 
-                                                  v382 = sub_10033BE98(off_100B50948, v507, intValue & 0xF | ((intValue >> 4) << 8), (supportedServices >> 4) & 1);
-                                                  if (v380 == v382)
+                                                  v417 = sub_10033BE98(off_100B50948, v549, intValue & 0xF | ((intValue >> 4) << 8), (supportedServices >> 4) & 1);
+                                                  if (v415 == v417)
                                                   {
-                                                    v383 = intValue >> 4;
+                                                    v418 = intValue >> 4;
                                                   }
 
                                                   else
                                                   {
-                                                    v383 = BYTE1(v382);
+                                                    v418 = BYTE1(v417);
                                                   }
 
-                                                  if (v380 == v382)
+                                                  if (v415 == v417)
                                                   {
-                                                    v384 = v379;
+                                                    v419 = v414;
                                                   }
 
                                                   else
                                                   {
-                                                    v384 = v382;
+                                                    v419 = v417;
                                                   }
 
-                                                  if (sub_1000E3188(v507) != v382)
+                                                  if (sub_1000E3188(v549) != v417)
                                                   {
-                                                    v385 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v385, OS_LOG_TYPE_DEFAULT))
+                                                    v420 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
                                                     {
-                                                      *v575 = 0;
-                                                      _os_log_impl(&_mh_execute_header, v385, OS_LOG_TYPE_DEFAULT, "Cloud: Updating double tap settings from cloud", v575, 2u);
+                                                      *v617 = 0;
+                                                      _os_log_impl(&_mh_execute_header, v420, OS_LOG_TYPE_DEFAULT, "Cloud: Updating double tap settings from cloud", v617, 2u);
                                                     }
 
                                                     if ((supportedServices & 8) != 0)
@@ -2206,461 +2217,461 @@ LABEL_488:
                                                         sub_10084F6EC();
                                                       }
 
-                                                      sub_10033DD54(off_100B50948, v507, v383, v384, 4);
+                                                      sub_10033DD54(off_100B50948, v549, v418, v419, 4);
                                                     }
                                                   }
 
                                                   if ((supportedServices & 3) == 2)
                                                   {
-                                                    v386 = 2;
+                                                    v421 = 2;
                                                   }
 
                                                   else
                                                   {
-                                                    v386 = (supportedServices & 3) == 1;
+                                                    v421 = (supportedServices & 3) == 1;
                                                   }
 
-                                                  if (sub_1000E3314(v507) != v386)
+                                                  if (sub_1000E3314(v549) != v421)
                                                   {
                                                     if (qword_100B50950 != -1)
                                                     {
                                                       sub_10084F6EC();
                                                     }
 
-                                                    sub_10033DA80(off_100B50948, v507, v386, 4u);
+                                                    sub_10033DA80(off_100B50948, v549, v421, 4);
                                                   }
 
                                                   if (color)
                                                   {
-                                                    sub_10054AE4C(v507, color);
-                                                    v387 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v387, OS_LOG_TYPE_DEFAULT))
+                                                    sub_10054AE4C(v549, color);
+                                                    v422 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v422, OS_LOG_TYPE_DEFAULT))
                                                     {
-                                                      sub_1000E5A58(v507, v575);
-                                                      v388 = v575[23];
-                                                      v389 = *v575;
-                                                      v390 = sub_1000C2398(v507);
-                                                      LODWORD(v580.__r_.__value_.__l.__data_) = v485;
-                                                      v391 = v575;
-                                                      if (v388 < 0)
+                                                      sub_1000E5A58(v549, v617);
+                                                      v423 = v617[23];
+                                                      v424 = *v617;
+                                                      v425 = sub_1000C2398(v549);
+                                                      LODWORD(v622.__r_.__value_.__l.__data_) = v527;
+                                                      v426 = v617;
+                                                      if (v423 < 0)
                                                       {
-                                                        v391 = v389;
+                                                        v426 = v424;
                                                       }
 
-                                                      *(v580.__r_.__value_.__r.__words + 4) = v391;
-                                                      WORD2(v580.__r_.__value_.__r.__words[1]) = 1024;
-                                                      *(&v580.__r_.__value_.__r.__words[1] + 6) = v390;
-                                                      _os_log_impl(&_mh_execute_header, v387, OS_LOG_TYPE_DEFAULT, "Cloud: Color info updated for device %{public}s ,color code %d", &v580, 0x12u);
-                                                      if ((v575[23] & 0x80000000) != 0)
+                                                      *(v622.__r_.__value_.__r.__words + 4) = v426;
+                                                      WORD2(v622.__r_.__value_.__r.__words[1]) = 1024;
+                                                      *(&v622.__r_.__value_.__r.__words[1] + 6) = v425;
+                                                      _os_log_impl(&_mh_execute_header, v422, OS_LOG_TYPE_DEFAULT, "Cloud: Color info updated for device %{public}s ,color code %d", &v622, 0x12u);
+                                                      if ((v617[23] & 0x80000000) != 0)
                                                       {
-                                                        operator delete(*v575);
+                                                        operator delete(*v617);
                                                       }
                                                     }
                                                   }
 
-                                                  v392 = supportedServices & 4;
-                                                  v393 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
+                                                  v427 = supportedServices & 4;
+                                                  v428 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v428, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    sub_1000E5A58(v507, &v580);
-                                                    v394 = SHIBYTE(v580.__r_.__value_.__r.__words[2]);
-                                                    v395 = v580.__r_.__value_.__r.__words[0];
-                                                    v396 = sub_1000E356C(v507);
-                                                    v397 = &v580;
-                                                    if (v394 < 0)
+                                                    sub_1000E5A58(v549, &v622);
+                                                    v429 = SHIBYTE(v622.__r_.__value_.__r.__words[2]);
+                                                    v430 = v622.__r_.__value_.__r.__words[0];
+                                                    v431 = sub_1000E356C(v549);
+                                                    v432 = &v622;
+                                                    if (v429 < 0)
                                                     {
-                                                      v397 = v395;
+                                                      v432 = v430;
                                                     }
 
                                                     if ((supportedServices & 4) != 0)
                                                     {
-                                                      v398 = "Enabled";
+                                                      v433 = "Enabled";
                                                     }
 
                                                     else
                                                     {
-                                                      v398 = "Disabled";
+                                                      v433 = "Disabled";
                                                     }
 
-                                                    *v575 = v498;
-                                                    *&v575[4] = v397;
-                                                    *&v575[12] = 2080;
-                                                    if (v396)
+                                                    *v617 = v540;
+                                                    *&v617[4] = v432;
+                                                    *&v617[12] = 2080;
+                                                    if (v431)
                                                     {
-                                                      v399 = "Enabled";
+                                                      v434 = "Enabled";
                                                     }
 
                                                     else
                                                     {
-                                                      v399 = "Disabled";
+                                                      v434 = "Disabled";
                                                     }
 
-                                                    *&v575[14] = v398;
-                                                    *&v575[22] = 2080;
-                                                    *&v575[24] = v399;
-                                                    _os_log_impl(&_mh_execute_header, v393, OS_LOG_TYPE_DEFAULT, "Cloud: In Ear Detection state update from cloud for device %{public}s is %s, local state %s", v575, 0x20u);
-                                                    if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                                    *&v617[14] = v433;
+                                                    *&v617[22] = 2080;
+                                                    *&v617[24] = v434;
+                                                    _os_log_impl(&_mh_execute_header, v428, OS_LOG_TYPE_DEFAULT, "Cloud: In Ear Detection state update from cloud for device %{public}s is %s, local state %s", v617, 0x20u);
+                                                    if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                                     {
-                                                      operator delete(v580.__r_.__value_.__l.__data_);
+                                                      operator delete(v622.__r_.__value_.__l.__data_);
                                                     }
                                                   }
 
-                                                  if (sub_1000E356C(v507) != v392 >> 2)
+                                                  if (sub_1000E356C(v549) != v427 >> 2)
                                                   {
                                                     if (qword_100B50950 != -1)
                                                     {
                                                       sub_10084F6EC();
                                                     }
 
-                                                    sub_10033DF90(off_100B50948, v507, v392 != 0, 4u);
+                                                    sub_10033DF90(off_100B50948, v549, v427 != 0, 4);
                                                   }
 
-                                                  v400 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v400, OS_LOG_TYPE_DEFAULT))
+                                                  v435 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v435, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    sub_1000E5A58(v507, v575);
-                                                    v401 = v575;
-                                                    if (v575[23] < 0)
+                                                    sub_1000E5A58(v549, v617);
+                                                    v436 = v617;
+                                                    if (v617[23] < 0)
                                                     {
-                                                      v401 = *v575;
+                                                      v436 = *v617;
                                                     }
 
-                                                    LODWORD(v580.__r_.__value_.__l.__data_) = v485;
-                                                    *(v580.__r_.__value_.__r.__words + 4) = v401;
-                                                    WORD2(v580.__r_.__value_.__r.__words[1]) = 1024;
-                                                    *(&v580.__r_.__value_.__r.__words[1] + 6) = v486;
-                                                    _os_log_impl(&_mh_execute_header, v400, OS_LOG_TYPE_DEFAULT, "Cloud: Update listening mode services for device %{public}s with service - %d", &v580, 0x12u);
-                                                    if ((v575[23] & 0x80000000) != 0)
+                                                    LODWORD(v622.__r_.__value_.__l.__data_) = v527;
+                                                    *(v622.__r_.__value_.__r.__words + 4) = v436;
+                                                    WORD2(v622.__r_.__value_.__r.__words[1]) = 1024;
+                                                    *(&v622.__r_.__value_.__r.__words[1] + 6) = v528;
+                                                    _os_log_impl(&_mh_execute_header, v435, OS_LOG_TYPE_DEFAULT, "Cloud: Update listening mode services for device %{public}s with service - %d", &v622, 0x12u);
+                                                    if ((v617[23] & 0x80000000) != 0)
                                                     {
-                                                      operator delete(*v575);
+                                                      operator delete(*v617);
                                                     }
                                                   }
 
-                                                  v402 = (v502 >> 10) & 7;
-                                                  v403 = v402 | (v502 >> 13 << 8);
-                                                  v404 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v404, OS_LOG_TYPE_DEFAULT))
+                                                  v437 = (v544 >> 10) & 7;
+                                                  v438 = v437 | (v544 >> 13 << 8);
+                                                  v439 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v439, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    sub_1000E5A58(v507, &v580);
-                                                    v405 = SHIBYTE(v580.__r_.__value_.__r.__words[2]);
-                                                    v406 = v580.__r_.__value_.__r.__words[0];
-                                                    v407 = sub_1000E06EC(v507);
-                                                    *v575 = v498;
-                                                    v408 = &v580;
-                                                    if (v405 < 0)
+                                                    sub_1000E5A58(v549, &v622);
+                                                    v440 = SHIBYTE(v622.__r_.__value_.__r.__words[2]);
+                                                    v441 = v622.__r_.__value_.__r.__words[0];
+                                                    v442 = sub_1000E06EC(v549);
+                                                    *v617 = v540;
+                                                    v443 = &v622;
+                                                    if (v440 < 0)
                                                     {
-                                                      v408 = v406;
+                                                      v443 = v441;
                                                     }
 
-                                                    *&v575[4] = v408;
-                                                    *&v575[12] = 1024;
-                                                    *&v575[14] = v407;
-                                                    *&v575[18] = 1024;
-                                                    *&v575[20] = v402 | (v502 >> 13 << 8);
-                                                    _os_log_impl(&_mh_execute_header, v404, OS_LOG_TYPE_DEFAULT, "Cloud: Click Hold mode info update for device %{public}s, current value: %d, cloud value %d", v575, 0x18u);
-                                                    if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                                    *&v617[4] = v443;
+                                                    *&v617[12] = 1024;
+                                                    *&v617[14] = v442;
+                                                    *&v617[18] = 1024;
+                                                    *&v617[20] = v437 | (v544 >> 13 << 8);
+                                                    _os_log_impl(&_mh_execute_header, v439, OS_LOG_TYPE_DEFAULT, "Cloud: Click Hold mode info update for device %{public}s, current value: %d, cloud value %d", v617, 0x18u);
+                                                    if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                                     {
-                                                      operator delete(v580.__r_.__value_.__l.__data_);
+                                                      operator delete(v622.__r_.__value_.__l.__data_);
                                                     }
                                                   }
 
-                                                  if (v502 >> 13 && v402 && sub_1000E06EC(v507) != v403 && !sub_1000E2140(v507, 38))
+                                                  if (v544 >> 13 && v437 && sub_1000E06EC(v549) != v438 && !sub_1000E2140(v549, 0x26u))
                                                   {
                                                     if (qword_100B50950 != -1)
                                                     {
                                                       sub_10084F6EC();
                                                     }
 
-                                                    sub_100331844(off_100B50948, v507, 22, v403, 4u);
-                                                    v409 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v409, OS_LOG_TYPE_DEFAULT))
+                                                    sub_100331844(off_100B50948, v549, 22, v438, 4);
+                                                    v444 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v444, OS_LOG_TYPE_DEFAULT))
                                                     {
-                                                      sub_1000E5A58(v507, v575);
-                                                      v469 = v575[23];
-                                                      v470 = *v575;
-                                                      v471 = sub_1000E06EC(v507);
-                                                      LODWORD(v580.__r_.__value_.__l.__data_) = v485;
-                                                      v472 = v575;
-                                                      if (v469 < 0)
+                                                      sub_1000E5A58(v549, v617);
+                                                      v504 = v617[23];
+                                                      v505 = *v617;
+                                                      v506 = sub_1000E06EC(v549);
+                                                      LODWORD(v622.__r_.__value_.__l.__data_) = v527;
+                                                      v507 = v617;
+                                                      if (v504 < 0)
                                                       {
-                                                        v472 = v470;
+                                                        v507 = v505;
                                                       }
 
-                                                      *(v580.__r_.__value_.__r.__words + 4) = v472;
-                                                      WORD2(v580.__r_.__value_.__r.__words[1]) = 1024;
-                                                      *(&v580.__r_.__value_.__r.__words[1] + 6) = v471;
-                                                      _os_log_impl(&_mh_execute_header, v409, OS_LOG_TYPE_DEFAULT, "Cloud: Click Hold mode info updated for device %{public}s, new mode %d", &v580, 0x12u);
-                                                      if ((v575[23] & 0x80000000) != 0)
+                                                      *(v622.__r_.__value_.__r.__words + 4) = v507;
+                                                      WORD2(v622.__r_.__value_.__r.__words[1]) = 1024;
+                                                      *(&v622.__r_.__value_.__r.__words[1] + 6) = v506;
+                                                      _os_log_impl(&_mh_execute_header, v444, OS_LOG_TYPE_DEFAULT, "Cloud: Click Hold mode info updated for device %{public}s, new mode %d", &v622, 0x12u);
+                                                      if ((v617[23] & 0x80000000) != 0)
                                                       {
-                                                        operator delete(*v575);
+                                                        operator delete(*v617);
                                                       }
                                                     }
 
 LABEL_668:
                                                   }
 
-                                                  else if (!(v502 >> 13) || !v402)
+                                                  else if (!(v544 >> 13) || !v437)
                                                   {
-                                                    v409 = &_os_log_default;
-                                                    v410 = &_os_log_default;
+                                                    v444 = &_os_log_default;
+                                                    v445 = &_os_log_default;
                                                     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
                                                     {
-                                                      *v575 = v481;
-                                                      *&v575[4] = v502 >> 13;
-                                                      *&v575[8] = 1024;
-                                                      *&v575[10] = (v502 >> 10) & 7;
-                                                      _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "CloudPairing: Unknown value caught for Press and Hold configs. Left: %d, Right %d", v575, 0xEu);
+                                                      *v617 = v523;
+                                                      *&v617[4] = v544 >> 13;
+                                                      *&v617[8] = 1024;
+                                                      *&v617[10] = (v544 >> 10) & 7;
+                                                      _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "CloudPairing: Unknown value caught for Press and Hold configs. Left: %d, Right %d", v617, 0xEu);
                                                     }
 
                                                     goto LABEL_668;
                                                   }
 
-                                                  v411 = qword_100BCE960;
-                                                  v412 = os_log_type_enabled(v411, OS_LOG_TYPE_DEFAULT);
+                                                  v446 = qword_100BCE960;
+                                                  v447 = os_log_type_enabled(v446, OS_LOG_TYPE_DEFAULT);
                                                   if (settingsMask && (settingsMask & 7) == buttonModes)
                                                   {
-                                                    if (v412)
+                                                    if (v447)
                                                     {
-                                                      sub_1000E5A58(v507, &v580);
-                                                      v413 = SHIBYTE(v580.__r_.__value_.__r.__words[2]);
-                                                      v414 = v580.__r_.__value_.__r.__words[0];
-                                                      v415 = sub_1000E32CC(v507);
-                                                      *v575 = v498;
-                                                      v416 = &v580;
-                                                      if (v413 < 0)
+                                                      sub_1000E5A58(v549, &v622);
+                                                      v448 = SHIBYTE(v622.__r_.__value_.__r.__words[2]);
+                                                      v449 = v622.__r_.__value_.__r.__words[0];
+                                                      v450 = sub_1000E32CC(v549);
+                                                      *v617 = v540;
+                                                      v451 = &v622;
+                                                      if (v448 < 0)
                                                       {
-                                                        v416 = v414;
+                                                        v451 = v449;
                                                       }
 
-                                                      *&v575[4] = v416;
-                                                      *&v575[12] = 1024;
-                                                      *&v575[14] = v415;
-                                                      *&v575[18] = 1024;
-                                                      *&v575[20] = settingsMask;
-                                                      _os_log_impl(&_mh_execute_header, v411, OS_LOG_TYPE_DEFAULT, "Cloud: Listening mode config update is from new services layer for device %{public}s, current value: %d, cloud configs(LSv2): %d", v575, 0x18u);
-                                                      if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                                      *&v617[4] = v451;
+                                                      *&v617[12] = 1024;
+                                                      *&v617[14] = v450;
+                                                      *&v617[18] = 1024;
+                                                      *&v617[20] = settingsMask;
+                                                      _os_log_impl(&_mh_execute_header, v446, OS_LOG_TYPE_DEFAULT, "Cloud: Listening mode config update is from new services layer for device %{public}s, current value: %d, cloud configs(LSv2): %d", v617, 0x18u);
+                                                      if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                                       {
-                                                        operator delete(v580.__r_.__value_.__l.__data_);
+                                                        operator delete(v622.__r_.__value_.__l.__data_);
                                                       }
                                                     }
                                                   }
 
                                                   else
                                                   {
-                                                    if (v412)
+                                                    if (v447)
                                                     {
-                                                      sub_1000E5A58(v507, &v580);
-                                                      v417 = (v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v580 : v580.__r_.__value_.__r.__words[0];
-                                                      v418 = sub_1000E32CC(v507);
-                                                      v419 = sub_1000E32CC(v507);
-                                                      *v575 = v498;
-                                                      *&v575[4] = v417;
-                                                      *&v575[12] = 1024;
-                                                      *&v575[14] = v418;
-                                                      *&v575[18] = 1024;
-                                                      *&v575[20] = v419 | buttonModes;
-                                                      _os_log_impl(&_mh_execute_header, v411, OS_LOG_TYPE_DEFAULT, "Cloud: Listening mode config update for device %{public}s, current value: %d, cloud configs(+adaptive support): %d", v575, 0x18u);
-                                                      if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                                      sub_1000E5A58(v549, &v622);
+                                                      v452 = (v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v622 : v622.__r_.__value_.__r.__words[0];
+                                                      v453 = sub_1000E32CC(v549);
+                                                      v454 = sub_1000E32CC(v549);
+                                                      *v617 = v540;
+                                                      *&v617[4] = v452;
+                                                      *&v617[12] = 1024;
+                                                      *&v617[14] = v453;
+                                                      *&v617[18] = 1024;
+                                                      *&v617[20] = v454 | buttonModes;
+                                                      _os_log_impl(&_mh_execute_header, v446, OS_LOG_TYPE_DEFAULT, "Cloud: Listening mode config update for device %{public}s, current value: %d, cloud configs(+adaptive support): %d", v617, 0x18u);
+                                                      if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                                       {
-                                                        operator delete(v580.__r_.__value_.__l.__data_);
+                                                        operator delete(v622.__r_.__value_.__l.__data_);
                                                       }
                                                     }
 
-                                                    settingsMask = sub_1000E32CC(v507) | buttonModes;
+                                                    settingsMask = sub_1000E32CC(v549) | buttonModes;
                                                   }
 
-                                                  if (!sub_100546C50(v507, settingsMask))
+                                                  if (!sub_100546C50(v549, settingsMask))
                                                   {
-                                                    v420 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v420, OS_LOG_TYPE_ERROR))
+                                                    v455 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v455, OS_LOG_TYPE_ERROR))
                                                     {
-                                                      sub_1000E5A58(v507, v575);
-                                                      v473 = v575;
-                                                      if (v575[23] < 0)
+                                                      sub_1000E5A58(v549, v617);
+                                                      v508 = v617;
+                                                      if (v617[23] < 0)
                                                       {
-                                                        v473 = *v575;
+                                                        v508 = *v617;
                                                       }
 
-                                                      v580.__r_.__value_.__r.__words[0] = v482 | 0x600000000;
-                                                      LOWORD(v580.__r_.__value_.__r.__words[1]) = 2082;
-                                                      *(&v580.__r_.__value_.__r.__words[1] + 2) = v473;
-                                                      _os_log_error_impl(&_mh_execute_header, v420, OS_LOG_TYPE_ERROR, "Cloud: Using default listening mode configs %d for device %{public}s", &v580, 0x12u);
-                                                      if ((v575[23] & 0x80000000) != 0)
+                                                      v622.__r_.__value_.__r.__words[0] = v524 | 0x600000000;
+                                                      LOWORD(v622.__r_.__value_.__r.__words[1]) = 2082;
+                                                      *(&v622.__r_.__value_.__r.__words[1] + 2) = v508;
+                                                      _os_log_error_impl(&_mh_execute_header, v455, OS_LOG_TYPE_ERROR, "Cloud: Using default listening mode configs %d for device %{public}s", &v622, 0x12u);
+                                                      if ((v617[23] & 0x80000000) != 0)
                                                       {
-                                                        operator delete(*v575);
+                                                        operator delete(*v617);
                                                       }
                                                     }
 
                                                     settingsMask = 6;
                                                   }
 
-                                                  if (sub_1000E32CC(v507) != settingsMask)
+                                                  if (sub_1000E32CC(v549) != settingsMask)
                                                   {
                                                     if (qword_100B50950 != -1)
                                                     {
                                                       sub_10084F6EC();
                                                     }
 
-                                                    sub_100331844(off_100B50948, v507, 26, settingsMask, 4u);
-                                                    v421 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v421, OS_LOG_TYPE_DEFAULT))
+                                                    sub_100331844(off_100B50948, v549, 26, settingsMask, 4);
+                                                    v456 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v456, OS_LOG_TYPE_DEFAULT))
                                                     {
-                                                      sub_1000E5A58(v507, v575);
-                                                      v422 = v575[23];
-                                                      v423 = *v575;
-                                                      v424 = sub_1000E32CC(v507);
-                                                      LODWORD(v580.__r_.__value_.__l.__data_) = v485;
-                                                      v425 = v575;
-                                                      if (v422 < 0)
+                                                      sub_1000E5A58(v549, v617);
+                                                      v457 = v617[23];
+                                                      v458 = *v617;
+                                                      v459 = sub_1000E32CC(v549);
+                                                      LODWORD(v622.__r_.__value_.__l.__data_) = v527;
+                                                      v460 = v617;
+                                                      if (v457 < 0)
                                                       {
-                                                        v425 = v423;
+                                                        v460 = v458;
                                                       }
 
-                                                      *(v580.__r_.__value_.__r.__words + 4) = v425;
-                                                      WORD2(v580.__r_.__value_.__r.__words[1]) = 1024;
-                                                      *(&v580.__r_.__value_.__r.__words[1] + 6) = v424;
-                                                      _os_log_impl(&_mh_execute_header, v421, OS_LOG_TYPE_DEFAULT, "Cloud: Listening mode config updated for device %{public}s, new configs %d", &v580, 0x12u);
-                                                      if ((v575[23] & 0x80000000) != 0)
+                                                      *(v622.__r_.__value_.__r.__words + 4) = v460;
+                                                      WORD2(v622.__r_.__value_.__r.__words[1]) = 1024;
+                                                      *(&v622.__r_.__value_.__r.__words[1] + 6) = v459;
+                                                      _os_log_impl(&_mh_execute_header, v456, OS_LOG_TYPE_DEFAULT, "Cloud: Listening mode config updated for device %{public}s, new configs %d", &v622, 0x12u);
+                                                      if ((v617[23] & 0x80000000) != 0)
                                                       {
-                                                        operator delete(*v575);
+                                                        operator delete(*v617);
                                                       }
                                                     }
                                                   }
 
-                                                  v426 = (v502 >> 2) & 3;
-                                                  v427 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v427, OS_LOG_TYPE_DEFAULT))
+                                                  v461 = (v544 >> 2) & 3;
+                                                  v462 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v462, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    sub_1000E5A58(v507, &v580);
-                                                    v428 = SHIBYTE(v580.__r_.__value_.__r.__words[2]);
-                                                    v429 = v580.__r_.__value_.__r.__words[0];
-                                                    v430 = sub_1005493C4(v507);
-                                                    *v575 = v498;
-                                                    v431 = &v580;
-                                                    if (v428 < 0)
+                                                    sub_1000E5A58(v549, &v622);
+                                                    v463 = SHIBYTE(v622.__r_.__value_.__r.__words[2]);
+                                                    v464 = v622.__r_.__value_.__r.__words[0];
+                                                    v465 = sub_1005493C4(v549);
+                                                    *v617 = v540;
+                                                    v466 = &v622;
+                                                    if (v463 < 0)
                                                     {
-                                                      v431 = v429;
+                                                      v466 = v464;
                                                     }
 
-                                                    *&v575[4] = v431;
-                                                    *&v575[12] = 1024;
-                                                    *&v575[14] = v430;
-                                                    *&v575[18] = 1024;
-                                                    *&v575[20] = (v502 >> 2) & 3;
-                                                    _os_log_impl(&_mh_execute_header, v427, OS_LOG_TYPE_DEFAULT, "Cloud: One Bud ANC mode update for device %{public}s, current value: %d, cloud value %d", v575, 0x18u);
-                                                    if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                                    *&v617[4] = v466;
+                                                    *&v617[12] = 1024;
+                                                    *&v617[14] = v465;
+                                                    *&v617[18] = 1024;
+                                                    *&v617[20] = (v544 >> 2) & 3;
+                                                    _os_log_impl(&_mh_execute_header, v462, OS_LOG_TYPE_DEFAULT, "Cloud: One Bud ANC mode update for device %{public}s, current value: %d, cloud value %d", v617, 0x18u);
+                                                    if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                                     {
-                                                      operator delete(v580.__r_.__value_.__l.__data_);
+                                                      operator delete(v622.__r_.__value_.__l.__data_);
                                                     }
                                                   }
 
-                                                  v432 = sub_1000E2140(v507, 43);
-                                                  v433 = ((v502 >> 2) & 3) == 0 || v432;
-                                                  if ((v433 & 1) == 0 && sub_1005493C4(v507) != v426)
+                                                  v467 = sub_1000E2140(v549, 0x2Bu);
+                                                  v468 = ((v544 >> 2) & 3) == 0 || v467;
+                                                  if ((v468 & 1) == 0 && sub_1005493C4(v549) != v461)
                                                   {
                                                     if (qword_100B50950 != -1)
                                                     {
                                                       sub_10084F6EC();
                                                     }
 
-                                                    sub_100331844(off_100B50948, v507, 27, v426, 4u);
-                                                    v434 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
+                                                    sub_100331844(off_100B50948, v549, 27, v461, 4);
+                                                    v469 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v469, OS_LOG_TYPE_DEFAULT))
                                                     {
-                                                      sub_1000E5A58(v507, v575);
-                                                      v435 = v575[23];
-                                                      v436 = *v575;
-                                                      v437 = sub_1005493C4(v507);
-                                                      LODWORD(v580.__r_.__value_.__l.__data_) = v485;
-                                                      v438 = v575;
-                                                      if (v435 < 0)
+                                                      sub_1000E5A58(v549, v617);
+                                                      v470 = v617[23];
+                                                      v471 = *v617;
+                                                      v472 = sub_1005493C4(v549);
+                                                      LODWORD(v622.__r_.__value_.__l.__data_) = v527;
+                                                      v473 = v617;
+                                                      if (v470 < 0)
                                                       {
-                                                        v438 = v436;
+                                                        v473 = v471;
                                                       }
 
-                                                      *(v580.__r_.__value_.__r.__words + 4) = v438;
-                                                      WORD2(v580.__r_.__value_.__r.__words[1]) = 1024;
-                                                      *(&v580.__r_.__value_.__r.__words[1] + 6) = v437;
-                                                      _os_log_impl(&_mh_execute_header, v434, OS_LOG_TYPE_DEFAULT, "Cloud: One Bud ANC mode updated for device %{public}s, new mode %d", &v580, 0x12u);
-                                                      if ((v575[23] & 0x80000000) != 0)
+                                                      *(v622.__r_.__value_.__r.__words + 4) = v473;
+                                                      WORD2(v622.__r_.__value_.__r.__words[1]) = 1024;
+                                                      *(&v622.__r_.__value_.__r.__words[1] + 6) = v472;
+                                                      _os_log_impl(&_mh_execute_header, v469, OS_LOG_TYPE_DEFAULT, "Cloud: One Bud ANC mode updated for device %{public}s, new mode %d", &v622, 0x12u);
+                                                      if ((v617[23] & 0x80000000) != 0)
                                                       {
-                                                        operator delete(*v575);
+                                                        operator delete(*v617);
                                                       }
                                                     }
                                                   }
 
-                                                  if (sub_1000E2140(v507, 32) && !sub_1000E5DB8(v507))
+                                                  if (sub_1000E2140(v549, 0x20u) && !sub_1000E5DB8(v549))
                                                   {
-                                                    v439 = qword_100BCE960;
-                                                    if (os_log_type_enabled(v439, OS_LOG_TYPE_DEFAULT))
+                                                    v474 = qword_100BCE960;
+                                                    if (os_log_type_enabled(v474, OS_LOG_TYPE_DEFAULT))
                                                     {
-                                                      sub_1000E5A58(v507, &v580);
-                                                      if ((v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                      sub_1000E5A58(v549, &v622);
+                                                      if ((v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                       {
-                                                        v440 = &v580;
+                                                        v475 = &v622;
                                                       }
 
                                                       else
                                                       {
-                                                        v440 = v580.__r_.__value_.__r.__words[0];
+                                                        v475 = v622.__r_.__value_.__r.__words[0];
                                                       }
 
-                                                      v441 = sub_1000E2140(v507, 32);
-                                                      v442 = sub_1000E5DB8(v507);
-                                                      *v575 = v498;
-                                                      v443 = "No";
-                                                      if (v441)
+                                                      v476 = sub_1000E2140(v549, 0x20u);
+                                                      v477 = sub_1000E5DB8(v549);
+                                                      *v617 = v540;
+                                                      v478 = "No";
+                                                      if (v476)
                                                       {
-                                                        v443 = "Yes";
+                                                        v478 = "Yes";
                                                       }
 
-                                                      *&v575[4] = v440;
-                                                      *&v575[12] = 2080;
-                                                      *&v575[14] = v443;
-                                                      *&v575[22] = 1024;
-                                                      *&v575[24] = v442;
-                                                      _os_log_impl(&_mh_execute_header, v439, OS_LOG_TYPE_DEFAULT, "Cloud: %{public}s Initialize setSmartRouteMode via cloud Tipi Support = %s current SR Mode =%d", v575, 0x1Cu);
-                                                      if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                                      *&v617[4] = v475;
+                                                      *&v617[12] = 2080;
+                                                      *&v617[14] = v478;
+                                                      *&v617[22] = 1024;
+                                                      *&v617[24] = v477;
+                                                      _os_log_impl(&_mh_execute_header, v474, OS_LOG_TYPE_DEFAULT, "Cloud: %{public}s Initialize setSmartRouteMode via cloud Tipi Support = %s current SR Mode =%d", v617, 0x1Cu);
+                                                      if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                                       {
-                                                        operator delete(v580.__r_.__value_.__l.__data_);
+                                                        operator delete(v622.__r_.__value_.__l.__data_);
                                                       }
                                                     }
 
-                                                    sub_100546280(v507, 1);
+                                                    sub_100546280(v549, 1);
                                                   }
 
-                                                  v444 = qword_100BCE960;
-                                                  if (os_log_type_enabled(v444, OS_LOG_TYPE_DEFAULT))
+                                                  v479 = qword_100BCE960;
+                                                  if (os_log_type_enabled(v479, OS_LOG_TYPE_DEFAULT))
                                                   {
-                                                    sub_1000E5A58(v507, &v580);
-                                                    v445 = SHIBYTE(v580.__r_.__value_.__r.__words[2]);
-                                                    v446 = v580.__r_.__value_.__r.__words[0];
-                                                    v447 = sub_1000E2140(v507, 32);
-                                                    *v575 = v498;
-                                                    v448 = &v580;
-                                                    if (v445 < 0)
+                                                    sub_1000E5A58(v549, &v622);
+                                                    v480 = SHIBYTE(v622.__r_.__value_.__r.__words[2]);
+                                                    v481 = v622.__r_.__value_.__r.__words[0];
+                                                    v482 = sub_1000E2140(v549, 0x20u);
+                                                    *v617 = v540;
+                                                    v483 = &v622;
+                                                    if (v480 < 0)
                                                     {
-                                                      v448 = v446;
+                                                      v483 = v481;
                                                     }
 
-                                                    *&v575[4] = v448;
-                                                    *&v575[12] = 1024;
-                                                    *&v575[14] = v447;
-                                                    *&v575[18] = 1024;
-                                                    *&v575[20] = (v502 & 0x40) >> 6;
-                                                    _os_log_impl(&_mh_execute_header, v444, OS_LOG_TYPE_DEFAULT, "Cloud: TiPi supported flag update from listeningServices mask %{public}s, current local value: %d, listeningServices mask value: %d", v575, 0x18u);
-                                                    if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                                    *&v617[4] = v483;
+                                                    *&v617[12] = 1024;
+                                                    *&v617[14] = v482;
+                                                    *&v617[18] = 1024;
+                                                    *&v617[20] = (v544 & 0x40) >> 6;
+                                                    _os_log_impl(&_mh_execute_header, v479, OS_LOG_TYPE_DEFAULT, "Cloud: TiPi supported flag update from listeningServices mask %{public}s, current local value: %d, listeningServices mask value: %d", v617, 0x18u);
+                                                    if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                                     {
-                                                      operator delete(v580.__r_.__value_.__l.__data_);
+                                                      operator delete(v622.__r_.__value_.__l.__data_);
                                                     }
                                                   }
 
-                                                  if ((v502 & 0x40) != 0 && !sub_1000E2140(v507, 32))
+                                                  if ((v544 & 0x40) != 0 && !sub_1000E2140(v549, 0x20u))
                                                   {
-                                                    sub_10053E4FC(v507, 32, 1);
-                                                    if (!sub_1000E5DB8(v507))
+                                                    sub_10053E4FC(v549, 32, 1);
+                                                    if (!sub_1000E5DB8(v549))
                                                     {
-                                                      sub_100546280(v507, 1);
+                                                      sub_100546280(v549, 1);
                                                     }
                                                   }
                                                 }
@@ -2712,107 +2723,107 @@ LABEL_668:
 
                               if (_os_feature_enabled_impl() && NSClassFromString(@"PowerUISmartChargeClientAudioAccessories"))
                               {
-                                v449 = qword_100BCE960;
-                                if (os_log_type_enabled(v449, OS_LOG_TYPE_DEFAULT))
+                                v484 = qword_100BCE960;
+                                if (os_log_type_enabled(v484, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  sub_1000E5A58(v507, &v580);
-                                  v450 = (v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v580 : v580.__r_.__value_.__r.__words[0];
-                                  optimizedBatteryCharging = [v509 optimizedBatteryCharging];
-                                  optimizedBatteryFullChargeDeadline = [v509 optimizedBatteryFullChargeDeadline];
-                                  *v575 = v498;
-                                  *&v575[4] = v450;
-                                  *&v575[12] = 2112;
-                                  *&v575[14] = optimizedBatteryCharging;
-                                  *&v575[22] = 2112;
-                                  *&v575[24] = optimizedBatteryFullChargeDeadline;
-                                  _os_log_impl(&_mh_execute_header, v449, OS_LOG_TYPE_DEFAULT, "Cloud: OBC PowerUI values updated for device %{public}s, optimizedBatteryCharging %@, optimizedBatteryFullChargeDeadline %@", v575, 0x20u);
+                                  sub_1000E5A58(v549, &v622);
+                                  v485 = (v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v622 : v622.__r_.__value_.__r.__words[0];
+                                  optimizedBatteryCharging = [v551 optimizedBatteryCharging];
+                                  optimizedBatteryFullChargeDeadline = [v551 optimizedBatteryFullChargeDeadline];
+                                  *v617 = v540;
+                                  *&v617[4] = v485;
+                                  *&v617[12] = 2112;
+                                  *&v617[14] = optimizedBatteryCharging;
+                                  *&v617[22] = 2112;
+                                  *&v617[24] = optimizedBatteryFullChargeDeadline;
+                                  _os_log_impl(&_mh_execute_header, v484, OS_LOG_TYPE_DEFAULT, "Cloud: OBC PowerUI values updated for device %{public}s, optimizedBatteryCharging %@, optimizedBatteryFullChargeDeadline %@", v617, 0x20u);
 
-                                  if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                  if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                   {
-                                    operator delete(v580.__r_.__value_.__l.__data_);
+                                    operator delete(v622.__r_.__value_.__l.__data_);
                                   }
                                 }
 
-                                optimizedBatteryCharging2 = [v509 optimizedBatteryCharging];
-                                v454 = [optimizedBatteryCharging2 length] == 0;
+                                optimizedBatteryCharging2 = [v551 optimizedBatteryCharging];
+                                v489 = [optimizedBatteryCharging2 length] == 0;
 
-                                if (!v454)
+                                if (!v489)
                                 {
-                                  optimizedBatteryCharging3 = [v509 optimizedBatteryCharging];
+                                  optimizedBatteryCharging3 = [v551 optimizedBatteryCharging];
                                   longLongValue = [optimizedBatteryCharging3 longLongValue];
 
-                                  sub_10054B188(v507, longLongValue);
-                                  [(CloudPairing *)self audioAccessorySmartChargeStatusHasChangedFromCloud:v507];
+                                  sub_10054B188(v549, longLongValue);
+                                  [(CloudPairing *)self audioAccessorySmartChargeStatusHasChangedFromCloud:v549];
                                 }
 
-                                optimizedBatteryFullChargeDeadline2 = [v509 optimizedBatteryFullChargeDeadline];
-                                v458 = [optimizedBatteryFullChargeDeadline2 length] == 0;
+                                optimizedBatteryFullChargeDeadline2 = [v551 optimizedBatteryFullChargeDeadline];
+                                v493 = [optimizedBatteryFullChargeDeadline2 length] == 0;
 
-                                if (!v458)
+                                if (!v493)
                                 {
-                                  *&v502 = objc_alloc_init(NSDateFormatter);
-                                  v459 = +[NSTimeZone localTimeZone];
-                                  [v502 setTimeZone:v459];
+                                  *&v544 = objc_alloc_init(NSDateFormatter);
+                                  v494 = +[NSTimeZone localTimeZone];
+                                  [v544 setTimeZone:v494];
 
-                                  [v502 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZZZZZ"];
-                                  optimizedBatteryFullChargeDeadline3 = [v509 optimizedBatteryFullChargeDeadline];
-                                  v461 = [v502 dateFromString:optimizedBatteryFullChargeDeadline3];
+                                  [v544 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZZZZZ"];
+                                  optimizedBatteryFullChargeDeadline3 = [v551 optimizedBatteryFullChargeDeadline];
+                                  v496 = [v544 dateFromString:optimizedBatteryFullChargeDeadline3];
 
-                                  v462 = [[PowerUISmartChargeClientAudioAccessories alloc] initWithClientName:@"com.apple.bluetooth"];
-                                  bluetoothAddress5 = [v509 bluetoothAddress];
-                                  v510 = 0;
-                                  v464 = [v462 unfilteredDeadlineForDevice:bluetoothAddress5 withError:&v510];
-                                  v465 = v510;
+                                  v497 = [[PowerUISmartChargeClientAudioAccessories alloc] initWithClientName:@"com.apple.bluetooth"];
+                                  bluetoothAddress5 = [v551 bluetoothAddress];
+                                  v552 = 0;
+                                  v499 = [v497 unfilteredDeadlineForDevice:bluetoothAddress5 withError:&v552];
+                                  v500 = v552;
 
-                                  if (v464 && ([v461 timeIntervalSinceDate:v464], v466 <= 0.0))
+                                  if (v499 && ([v496 timeIntervalSinceDate:v499], v501 <= 0.0))
                                   {
-                                    v467 = qword_100BCE960;
-                                    if (os_log_type_enabled(v467, OS_LOG_TYPE_INFO))
+                                    v502 = qword_100BCE960;
+                                    if (os_log_type_enabled(v502, OS_LOG_TYPE_INFO))
                                     {
-                                      sub_1000E5A58(v507, &v580);
-                                      v468 = &v580;
-                                      if ((v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                      sub_1000E5A58(v549, &v622);
+                                      v503 = &v622;
+                                      if ((v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                       {
-                                        v468 = v580.__r_.__value_.__r.__words[0];
+                                        v503 = v622.__r_.__value_.__r.__words[0];
                                       }
 
-                                      *v575 = v498;
-                                      *&v575[4] = v468;
-                                      *&v575[12] = 2112;
-                                      *&v575[14] = v461;
-                                      *&v575[22] = 2112;
-                                      *&v575[24] = v464;
-                                      _os_log_impl(&_mh_execute_header, v467, OS_LOG_TYPE_INFO, "Cloud: Skip OBC PowerUI values updated for device %{public}s with older deadline %@ to keep newer deadline %@", v575, 0x20u);
-                                      if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                                      *v617 = v540;
+                                      *&v617[4] = v503;
+                                      *&v617[12] = 2112;
+                                      *&v617[14] = v496;
+                                      *&v617[22] = 2112;
+                                      *&v617[24] = v499;
+                                      _os_log_impl(&_mh_execute_header, v502, OS_LOG_TYPE_INFO, "Cloud: Skip OBC PowerUI values updated for device %{public}s with older deadline %@ to keep newer deadline %@", v617, 0x20u);
+                                      if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                                       {
-                                        operator delete(v580.__r_.__value_.__l.__data_);
+                                        operator delete(v622.__r_.__value_.__l.__data_);
                                       }
                                     }
                                   }
 
                                   else
                                   {
-                                    sub_10054B26C(v507, v461);
-                                    [(CloudPairing *)self audioAccessorySmartChargeDeadlineHasChangedFromCloud:v507];
+                                    sub_10054B26C(v549, v496);
+                                    [(CloudPairing *)self audioAccessorySmartChargeDeadlineHasChangedFromCloud:v549];
                                   }
                                 }
                               }
 
 LABEL_755:
-                              if (SHIBYTE(v581[2]) < 0)
+                              if (SHIBYTE(v623[2]) < 0)
                               {
-                                operator delete(v581[0]);
+                                operator delete(v623[0]);
                               }
 
                               goto LABEL_757;
                             }
 
-                            v286 = 1;
-                            while (v286 != 6)
+                            v319 = 1;
+                            while (v319 != 6)
                             {
-                              if (*(&v520 + v286++))
+                              if (*(&v562 + v319++))
                               {
-                                if ((v286 - 2) < 5)
+                                if ((v319 - 2) < 5)
                                 {
                                   goto LABEL_425;
                                 }
@@ -2824,20 +2835,20 @@ LABEL_755:
 
                           if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_ERROR))
                           {
-                            sub_10084F714(&v518, v519);
+                            sub_10084F714(&v560, v561);
                           }
 
                           goto LABEL_755;
                         }
 
 LABEL_757:
-                        *&v508 = v508 + 1;
+                        *&v550 = v550 + 1;
                       }
 
-                      while (v508 != v506);
-                      v474 = [v504 countByEnumeratingWithState:&v522 objects:v571 count:16];
-                      v506 = v474;
-                      if (!v474)
+                      while (v550 != v548);
+                      v509 = [v546 countByEnumeratingWithState:&v564 objects:v613 count:16];
+                      v548 = v509;
+                      if (!v509)
                       {
 LABEL_771:
 
@@ -2852,101 +2863,102 @@ LABEL_771:
             }
 
             v12 = _CFXPCCreateCFObjectFromXPCMessage();
-            v231 = qword_100BCE8E8;
-            if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
+            v259 = qword_100BCE8E8;
+            v260 = os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT);
+            if (v260)
             {
-              *v575 = 0;
-              _os_log_impl(&_mh_execute_header, v231, OS_LOG_TYPE_DEFAULT, "Devices magic info removed", v575, 2u);
+              *v617 = 0;
+              _os_log_impl(&_mh_execute_header, v259, OS_LOG_TYPE_DEFAULT, "Devices magic info removed", v617, 2u);
             }
 
-            if (!sub_100432918())
+            if (!sub_100432918(v260, v261))
             {
               goto LABEL_117;
             }
 
             iCloudSignedIn2 = [(CloudPairing *)self iCloudSignedIn];
-            v233 = v12 ? iCloudSignedIn2 : 0;
-            if (v233 != 1)
+            v263 = v12 ? iCloudSignedIn2 : 0;
+            if (v263 != 1)
             {
               goto LABEL_117;
             }
 
-            v506 = [v12 objectForKeyedSubscript:@"records"];
+            v548 = [v12 objectForKeyedSubscript:@"records"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v574[0] = objc_opt_class();
-              v574[1] = objc_opt_class();
-              v574[2] = objc_opt_class();
-              v234 = [NSArray arrayWithObjects:v574 count:3];
-              v235 = [NSSet setWithArray:v234];
-              *&v504 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v235 fromData:v506 error:0];
+              v616[0] = objc_opt_class();
+              v616[1] = objc_opt_class();
+              v616[2] = objc_opt_class();
+              v264 = [NSArray arrayWithObjects:v616 count:3];
+              v265 = [NSSet setWithArray:v264];
+              *&v546 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v265 fromData:v548 error:0];
 
-              if (v504)
+              if (v546)
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v528 = 0u;
-                  v529 = 0u;
-                  v526 = 0u;
-                  v527 = 0u;
-                  *&v509 = v504;
-                  v236 = [v509 countByEnumeratingWithState:&v526 objects:v573 count:16];
-                  if (!v236)
+                  v570 = 0u;
+                  v571 = 0u;
+                  v568 = 0u;
+                  v569 = 0u;
+                  *&v551 = v546;
+                  v266 = [v551 countByEnumeratingWithState:&v568 objects:v615 count:16];
+                  if (!v266)
                   {
                     goto LABEL_396;
                   }
 
-                  v238 = *v527;
-                  *&v237 = 138412290;
-                  v508 = v237;
-                  *&v237 = 136446210;
-                  v507 = v237;
-                  *&v237 = 136315138;
-                  v505 = v237;
+                  v268 = *v569;
+                  *&v267 = 138412290;
+                  v550 = v267;
+                  *&v267 = 136446210;
+                  v549 = v267;
+                  *&v267 = 136315138;
+                  v547 = v267;
                   while (1)
                   {
-                    v239 = 0;
+                    v269 = 0;
                     do
                     {
-                      if (*v527 != v238)
+                      if (*v569 != v268)
                       {
-                        objc_enumerationMutation(v509);
+                        objc_enumerationMutation(v551);
                       }
 
-                      v240 = *(*(&v526 + 1) + 8 * v239);
+                      v270 = *(*(&v568 + 1) + 8 * v269);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v241 = qword_100BCE960;
+                        v271 = qword_100BCE960;
                         if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v575 = v508;
-                          *&v575[4] = v240;
-                          _os_log_impl(&_mh_execute_header, v241, OS_LOG_TYPE_DEFAULT, "Device magic Info to be removed: %@", v575, 0xCu);
+                          *v617 = v550;
+                          *&v617[4] = v270;
+                          _os_log_impl(&_mh_execute_header, v271, OS_LOG_TYPE_DEFAULT, "Device magic Info to be removed: %@", v617, 0xCu);
                         }
 
-                        WORD2(v570) = 0;
-                        LODWORD(v570) = 0;
-                        memset(v575, 0, 24);
-                        bluetoothAddress6 = [v240 bluetoothAddress];
-                        v243 = bluetoothAddress6;
-                        sub_100007E30(v575, [bluetoothAddress6 UTF8String]);
+                        WORD2(v612) = 0;
+                        LODWORD(v612) = 0;
+                        memset(v617, 0, 24);
+                        bluetoothAddress6 = [v270 bluetoothAddress];
+                        v273 = bluetoothAddress6;
+                        sub_100007E30(v617, [bluetoothAddress6 UTF8String]);
 
-                        if (v575[23] >= 0)
+                        if (v617[23] >= 0)
                         {
-                          v244 = v575;
+                          v274 = v617;
                         }
 
                         else
                         {
-                          v244 = *v575;
+                          v274 = *v617;
                         }
 
-                        if (sub_10009D0B4(&v570, v244))
+                        if (sub_10009D0B4(&v612, v274))
                         {
-                          if (v570)
+                          if (v612)
                           {
 LABEL_363:
                             if (qword_100B508F0 != -1)
@@ -2954,15 +2966,15 @@ LABEL_363:
                               sub_10084F6C4();
                             }
 
-                            v245 = sub_1000E6554(off_100B508E8, &v570, 0);
-                            if (v245)
+                            v275 = sub_1000E6554(off_100B508E8, &v612, 0);
+                            if (v275)
                             {
                               if (qword_100B50AB0 != -1)
                               {
                                 sub_10084F69C();
                               }
 
-                              if (sub_100558DB8(off_100B50AA8, v245))
+                              if (sub_100558DB8(off_100B50AA8, v275))
                               {
                                 if (qword_100B50950 != -1)
                                 {
@@ -2970,22 +2982,22 @@ LABEL_363:
                                 }
 
                                 *(off_100B50948 + 431) = 1;
-                                v246 = qword_100BCE960;
-                                if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
+                                v276 = qword_100BCE960;
+                                if (os_log_type_enabled(v276, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  sub_1000E5A58(v245, v581);
-                                  v247 = v581;
-                                  if (SHIBYTE(v581[2]) < 0)
+                                  sub_1000E5A58(v275, v623);
+                                  v277 = v623;
+                                  if (SHIBYTE(v623[2]) < 0)
                                   {
-                                    v247 = v581[0];
+                                    v277 = v623[0];
                                   }
 
-                                  LODWORD(v580.__r_.__value_.__l.__data_) = v507;
-                                  *(v580.__r_.__value_.__r.__words + 4) = v247;
-                                  _os_log_impl(&_mh_execute_header, v246, OS_LOG_TYPE_DEFAULT, "Remove magic paired device: %{public}s", &v580, 0xCu);
-                                  if (SHIBYTE(v581[2]) < 0)
+                                  LODWORD(v622.__r_.__value_.__l.__data_) = v549;
+                                  *(v622.__r_.__value_.__r.__words + 4) = v277;
+                                  _os_log_impl(&_mh_execute_header, v276, OS_LOG_TYPE_DEFAULT, "Remove magic paired device: %{public}s", &v622, 0xCu);
+                                  if (SHIBYTE(v623[2]) < 0)
                                   {
-                                    operator delete(v581[0]);
+                                    operator delete(v623[0]);
                                   }
                                 }
 
@@ -2994,47 +3006,47 @@ LABEL_363:
                                   sub_10084F69C();
                                 }
 
-                                sub_100558E48(off_100B50AA8, v245, 0);
+                                sub_100558E48(off_100B50AA8, v275, 0);
                               }
 
                               else
                               {
-                                v251 = qword_100BCE960;
-                                if (os_log_type_enabled(v251, OS_LOG_TYPE_INFO))
+                                v281 = qword_100BCE960;
+                                if (os_log_type_enabled(v281, OS_LOG_TYPE_INFO))
                                 {
-                                  sub_1000E5A58(v245, v581);
-                                  v252 = v581;
-                                  if (SHIBYTE(v581[2]) < 0)
+                                  sub_1000E5A58(v275, v623);
+                                  v282 = v623;
+                                  if (SHIBYTE(v623[2]) < 0)
                                   {
-                                    v252 = v581[0];
+                                    v282 = v623[0];
                                   }
 
-                                  LODWORD(v580.__r_.__value_.__l.__data_) = v507;
-                                  *(v580.__r_.__value_.__r.__words + 4) = v252;
-                                  _os_log_impl(&_mh_execute_header, v251, OS_LOG_TYPE_INFO, "Cannot find magic paired device to remove: %{public}s", &v580, 0xCu);
-                                  if (SHIBYTE(v581[2]) < 0)
+                                  LODWORD(v622.__r_.__value_.__l.__data_) = v549;
+                                  *(v622.__r_.__value_.__r.__words + 4) = v282;
+                                  _os_log_impl(&_mh_execute_header, v281, OS_LOG_TYPE_INFO, "Cannot find magic paired device to remove: %{public}s", &v622, 0xCu);
+                                  if (SHIBYTE(v623[2]) < 0)
                                   {
-                                    operator delete(v581[0]);
+                                    operator delete(v623[0]);
                                   }
                                 }
                               }
                             }
 
 LABEL_385:
-                            if ((v575[23] & 0x80000000) != 0)
+                            if ((v617[23] & 0x80000000) != 0)
                             {
-                              operator delete(*v575);
+                              operator delete(*v617);
                             }
 
                             goto LABEL_387;
                           }
 
-                          v248 = 1;
-                          while (v248 != 6)
+                          v278 = 1;
+                          while (v278 != 6)
                           {
-                            if (v571[v248++ - 16])
+                            if (v613[v278++ - 16])
                             {
-                              if ((v248 - 2) < 5)
+                              if ((v278 - 2) < 5)
                               {
                                 goto LABEL_363;
                               }
@@ -3044,25 +3056,25 @@ LABEL_385:
                           }
                         }
 
-                        v250 = qword_100BCE960;
+                        v280 = qword_100BCE960;
                         if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_ERROR))
                         {
-                          LODWORD(v581[0]) = v505;
-                          *(v581 + 4) = v244;
-                          _os_log_error_impl(&_mh_execute_header, v250, OS_LOG_TYPE_ERROR, "Received invalid device address for device record: %s", v581, 0xCu);
+                          LODWORD(v623[0]) = v547;
+                          *(v623 + 4) = v274;
+                          _os_log_error_impl(&_mh_execute_header, v280, OS_LOG_TYPE_ERROR, "Received invalid device address for device record: %s", v623, 0xCu);
                         }
 
                         goto LABEL_385;
                       }
 
 LABEL_387:
-                      v239 = v239 + 1;
+                      v269 = v269 + 1;
                     }
 
-                    while (v239 != v236);
-                    v253 = [v509 countByEnumeratingWithState:&v526 objects:v573 count:16];
-                    v236 = v253;
-                    if (!v253)
+                    while (v269 != v266);
+                    v283 = [v551 countByEnumeratingWithState:&v568 objects:v615 count:16];
+                    v266 = v283;
+                    if (!v283)
                     {
 LABEL_396:
 
@@ -3077,198 +3089,198 @@ LABEL_396:
           }
 
           v12 = _CFXPCCreateCFObjectFromXPCMessage();
-          v197 = qword_100BCE960;
-          if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
+          v223 = qword_100BCE960;
+          if (os_log_type_enabled(v223, OS_LOG_TYPE_DEFAULT))
           {
-            v198 = [v12 debugDescription];
-            v199 = v198;
-            uTF8String3 = [v198 UTF8String];
-            *v575 = 136446210;
-            *&v575[4] = uTF8String3;
-            _os_log_impl(&_mh_execute_header, v197, OS_LOG_TYPE_DEFAULT, "Device support info updated from cloudkit = %{public}s", v575, 0xCu);
+            v224 = [v12 debugDescription];
+            v225 = v224;
+            uTF8String3 = [v224 UTF8String];
+            *v617 = 136446210;
+            *&v617[4] = uTF8String3;
+            _os_log_impl(&_mh_execute_header, v223, OS_LOG_TYPE_DEFAULT, "Device support info updated from cloudkit = %{public}s", v617, 0xCu);
           }
 
-          if (!sub_100432918() || !v12)
+          if (!sub_100432918(v227, v228) || !v12)
           {
             goto LABEL_117;
           }
 
-          *&v501 = [v12 objectForKeyedSubscript:@"records"];
+          *&v543 = [v12 objectForKeyedSubscript:@"records"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v577[0] = objc_opt_class();
-            v577[1] = objc_opt_class();
-            v577[2] = objc_opt_class();
-            v201 = [NSArray arrayWithObjects:v577 count:3];
-            v202 = [NSSet setWithArray:v201];
-            *&v500 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v202 fromData:v501 error:0];
+            v619[0] = objc_opt_class();
+            v619[1] = objc_opt_class();
+            v619[2] = objc_opt_class();
+            v229 = [NSArray arrayWithObjects:v619 count:3];
+            v230 = [NSSet setWithArray:v229];
+            *&v542 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v230 fromData:v543 error:0];
 
-            if (v500)
+            if (v542)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v536 = 0u;
-                v537 = 0u;
-                v534 = 0u;
-                v535 = 0u;
-                *&v507 = v500;
-                *&v509 = [v507 countByEnumeratingWithState:&v534 objects:v576 count:16];
-                if (!v509)
+                v578 = 0u;
+                v579 = 0u;
+                v576 = 0u;
+                v577 = 0u;
+                *&v549 = v542;
+                *&v551 = [v549 countByEnumeratingWithState:&v576 objects:v618 count:16];
+                if (!v551)
                 {
                   goto LABEL_337;
                 }
 
-                *&v508 = *v535;
-                *&v503 = v533;
-                *&v203 = 136446210;
-                v502 = v203;
+                *&v550 = *v577;
+                *&v545 = v575;
+                *&v231 = 136446210;
+                v544 = v231;
                 while (1)
                 {
-                  v204 = 0;
+                  v232 = 0;
                   do
                   {
-                    if (*v535 != v508)
+                    if (*v577 != v550)
                     {
-                      objc_enumerationMutation(v507);
+                      objc_enumerationMutation(v549);
                     }
 
-                    v205 = *(*(&v534 + 1) + 8 * v204);
+                    v233 = *(*(&v576 + 1) + 8 * v232);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      bluetoothAddress7 = [v205 bluetoothAddress];
-                      v207 = sub_100777FF4(bluetoothAddress7);
+                      bluetoothAddress7 = [v233 bluetoothAddress];
+                      v235 = sub_100777FF4(bluetoothAddress7);
 
-                      if (v207)
+                      if (v235)
                       {
                         if (qword_100B508F0 != -1)
                         {
                           sub_10084F6C4();
                         }
 
-                        v208 = sub_1000504C8(off_100B508E8, v207, 0);
-                        v209 = v208;
-                        if (v208)
+                        v236 = sub_1000504C8(off_100B508E8, v235, 0);
+                        v237 = v236;
+                        if (v236)
                         {
-                          if (*(v208 + 128))
+                          if (*(v236 + 128))
                           {
 LABEL_304:
-                            v210 = qword_100BCE960;
-                            if (os_log_type_enabled(v210, OS_LOG_TYPE_DEFAULT))
+                            v238 = qword_100BCE960;
+                            if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
                             {
-                              sub_1000E5A58(v209, v575);
-                              v211 = v575;
-                              if (v575[23] < 0)
+                              sub_1000E5A58(v237, v617);
+                              v239 = v617;
+                              if (v617[23] < 0)
                               {
-                                v211 = *v575;
+                                v239 = *v617;
                               }
 
-                              LODWORD(v581[0]) = v502;
-                              *(v581 + 4) = v211;
-                              _os_log_impl(&_mh_execute_header, v210, OS_LOG_TYPE_DEFAULT, "DeviceSupportInformationRecordsUpdated for %{public}s", v581, 0xCu);
-                              if ((v575[23] & 0x80000000) != 0)
+                              LODWORD(v623[0]) = v544;
+                              *(v623 + 4) = v239;
+                              _os_log_impl(&_mh_execute_header, v238, OS_LOG_TYPE_DEFAULT, "DeviceSupportInformationRecordsUpdated for %{public}s", v623, 0xCu);
+                              if ((v617[23] & 0x80000000) != 0)
                               {
-                                operator delete(*v575);
+                                operator delete(*v617);
                               }
                             }
 
                             cloudClient2 = [(CloudPairing *)self cloudClient];
-                            bluetoothAddress8 = [v205 bluetoothAddress];
-                            v532[0] = _NSConcreteStackBlock;
-                            v532[1] = 3221225472;
-                            v533[0] = sub_1005F4080;
-                            v533[1] = &unk_100AFC8B8;
-                            v533[3] = v209;
-                            v533[2] = v205;
-                            [cloudClient2 deviceRecord:bluetoothAddress8 completion:v532];
+                            bluetoothAddress8 = [v233 bluetoothAddress];
+                            v574[0] = _NSConcreteStackBlock;
+                            v574[1] = 3221225472;
+                            v575[0] = sub_1005F4080;
+                            v575[1] = &unk_100AFC8B8;
+                            v575[3] = v237;
+                            v575[2] = v233;
+                            [cloudClient2 deviceRecord:bluetoothAddress8 completion:v574];
 
-                            ancAssetVersion = [v205 ancAssetVersion];
+                            ancAssetVersion = [v233 ancAssetVersion];
                             LODWORD(bluetoothAddress8) = [ancAssetVersion length] > 1;
 
                             if (bluetoothAddress8)
                             {
-                              ancAssetVersion2 = [v205 ancAssetVersion];
-                              v216 = ancAssetVersion2;
-                              sub_100007E30(&v531, [ancAssetVersion2 UTF8String]);
-                              sub_100541E60(v209, &v531);
-                              if (SHIBYTE(v531.__r_.__value_.__r.__words[2]) < 0)
+                              ancAssetVersion2 = [v233 ancAssetVersion];
+                              v244 = ancAssetVersion2;
+                              sub_100007E30(&v573, [ancAssetVersion2 UTF8String]);
+                              sub_100541E60(v237, &v573);
+                              if (SHIBYTE(v573.__r_.__value_.__r.__words[2]) < 0)
                               {
-                                operator delete(v531.__r_.__value_.__l.__data_);
+                                operator delete(v573.__r_.__value_.__l.__data_);
                               }
                             }
 
-                            memset(v575, 0, 56);
-                            sub_100007E30(&v575[32], "");
-                            sub_1000E0610(v209, v575);
-                            caseFirmwareVersion = [v205 caseFirmwareVersion];
-                            v218 = caseFirmwareVersion == 0;
+                            memset(v617, 0, 56);
+                            sub_100007E30(&v617[32], "");
+                            sub_1000E0610(v237, v617);
+                            caseFirmwareVersion = [v233 caseFirmwareVersion];
+                            v246 = caseFirmwareVersion == 0;
 
-                            if (v218 || ([v205 caseFirmwareVersion], v219 = objc_claimAutoreleasedReturnValue(), v220 = objc_msgSend(v219, "longLongValue"), v219, !v220))
+                            if (v246 || ([v233 caseFirmwareVersion], v247 = objc_claimAutoreleasedReturnValue(), v248 = objc_msgSend(v247, "longLongValue"), v247, !v248))
                             {
-                              LODWORD(v506) = 0;
+                              LODWORD(v548) = 0;
                             }
 
                             else
                             {
-                              *&v575[16] = v220;
-                              LODWORD(v506) = 1;
+                              *&v617[16] = v248;
+                              LODWORD(v548) = 1;
                             }
 
-                            caseName = [v205 caseName];
-                            v222 = [caseName length] > 1;
+                            caseName = [v233 caseName];
+                            v250 = [caseName length] > 1;
 
-                            if (v222)
+                            if (v250)
                             {
-                              caseName2 = [v205 caseName];
-                              v224 = caseName2;
-                              std::string::assign(&v575[32], [caseName2 UTF8String]);
+                              caseName2 = [v233 caseName];
+                              v252 = caseName2;
+                              std::string::assign(&v617[32], [caseName2 UTF8String]);
 
 LABEL_328:
-                              v228 = v575[0];
-                              v229 = *&v575[2];
-                              v230 = *&v575[4];
-                              LODWORD(v506) = *&v575[8];
-                              LODWORD(v505) = v575[10];
-                              *&v504 = *&v575[16];
-                              if ((v575[55] & 0x80000000) != 0)
+                              v256 = v617[0];
+                              v257 = *&v617[2];
+                              v258 = *&v617[4];
+                              LODWORD(v548) = *&v617[8];
+                              LODWORD(v547) = v617[10];
+                              *&v546 = *&v617[16];
+                              if ((v617[55] & 0x80000000) != 0)
                               {
-                                sub_100008904(&v530, *&v575[32], *&v575[40]);
+                                sub_100008904(&v572, *&v617[32], *&v617[40]);
                               }
 
                               else
                               {
-                                v530 = *&v575[32];
+                                v572 = *&v617[32];
                               }
 
-                              sub_100541F64(v209, v228, v229, v230, v506, v505, v504, 0, &v530);
-                              if (SHIBYTE(v530.__r_.__value_.__r.__words[2]) < 0)
+                              sub_100541F64(v237, v256, v257, v258, v548, v547, v546, 0, &v572);
+                              if (SHIBYTE(v572.__r_.__value_.__r.__words[2]) < 0)
                               {
-                                operator delete(v530.__r_.__value_.__l.__data_);
+                                operator delete(v572.__r_.__value_.__l.__data_);
                               }
                             }
 
-                            else if (v506)
+                            else if (v548)
                             {
                               goto LABEL_328;
                             }
 
-                            if ((v575[55] & 0x80000000) != 0)
+                            if ((v617[55] & 0x80000000) != 0)
                             {
-                              operator delete(*&v575[32]);
+                              operator delete(*&v617[32]);
                             }
 
                             goto LABEL_335;
                           }
 
-                          v225 = 0;
-                          while (v225 != 5)
+                          v253 = 0;
+                          while (v253 != 5)
                           {
-                            v226 = v225;
-                            if (*(v208 + 129 + v225++))
+                            v254 = v253;
+                            if (*(v236 + 129 + v253++))
                             {
-                              if (v226 < 5)
+                              if (v254 < 5)
                               {
                                 goto LABEL_304;
                               }
@@ -3280,23 +3292,23 @@ LABEL_328:
 
                         if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_ERROR))
                         {
-                          sub_10084F748(&v570, &v570 + 1);
+                          sub_10084F748(&v612, &v612 + 1);
                         }
                       }
 
                       else if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_ERROR))
                       {
-                        sub_10084F77C(&v580, &v580.__r_.__value_.__s.__data_[1]);
+                        sub_10084F77C(&v622, &v622.__r_.__value_.__s.__data_[1]);
                       }
                     }
 
 LABEL_335:
-                    ++v204;
+                    ++v232;
                   }
 
-                  while (v204 != v509);
-                  *&v509 = [v507 countByEnumeratingWithState:&v534 objects:v576 count:16];
-                  if (!v509)
+                  while (v232 != v551);
+                  *&v551 = [v549 countByEnumeratingWithState:&v576 objects:v618 count:16];
+                  if (!v551)
                   {
 LABEL_337:
 
@@ -3311,94 +3323,94 @@ LABEL_337:
         }
 
         v12 = _CFXPCCreateCFObjectFromXPCMessage();
-        v154 = qword_100BCE960;
-        if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
+        v176 = qword_100BCE960;
+        if (os_log_type_enabled(v176, OS_LOG_TYPE_DEFAULT))
         {
-          v155 = [v12 debugDescription];
-          v156 = v155;
-          uTF8String4 = [v155 UTF8String];
-          *v575 = 141558275;
-          *&v575[4] = 1752392040;
-          *&v575[12] = 2081;
-          *&v575[14] = uTF8String4;
-          _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_DEFAULT, "Devices nickname info updated from cloudkit = %{private, mask.hash}s", v575, 0x16u);
+          v177 = [v12 debugDescription];
+          v178 = v177;
+          uTF8String4 = [v177 UTF8String];
+          *v617 = 141558275;
+          *&v617[4] = 1752392040;
+          *&v617[12] = 2081;
+          *&v617[14] = uTF8String4;
+          _os_log_impl(&_mh_execute_header, v176, OS_LOG_TYPE_DEFAULT, "Devices nickname info updated from cloudkit = %{private, mask.hash}s", v617, 0x16u);
         }
 
-        if (!sub_100432918() || !v12)
+        if (!sub_100432918(v180, v181) || !v12)
         {
           goto LABEL_117;
         }
 
-        *&v503 = [v12 objectForKeyedSubscript:@"devices"];
+        *&v545 = [v12 objectForKeyedSubscript:@"devices"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v583[0] = objc_opt_class();
-          v583[1] = objc_opt_class();
-          v583[2] = objc_opt_class();
-          v158 = [NSArray arrayWithObjects:v583 count:3];
-          v159 = [NSSet setWithArray:v158];
-          *&v500 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v159 fromData:v503 error:0];
+          v625[0] = objc_opt_class();
+          v625[1] = objc_opt_class();
+          v625[2] = objc_opt_class();
+          v182 = [NSArray arrayWithObjects:v625 count:3];
+          v183 = [NSSet setWithArray:v182];
+          *&v542 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v183 fromData:v545 error:0];
 
-          if (v500)
+          if (v542)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v548 = 0u;
-              v549 = 0u;
-              v546 = 0u;
-              v547 = 0u;
-              v506 = v500;
-              *&v509 = [v506 countByEnumeratingWithState:&v546 objects:v582 count:16];
-              if (!v509)
+              v590 = 0u;
+              v591 = 0u;
+              v588 = 0u;
+              v589 = 0u;
+              v548 = v542;
+              *&v551 = [v548 countByEnumeratingWithState:&v588 objects:v624 count:16];
+              if (!v551)
               {
                 goto LABEL_279;
               }
 
-              *&v508 = *v547;
-              *&v160 = 136315138;
-              v501 = v160;
-              *&v160 = 67110146;
-              v504 = v160;
-              *&v160 = 67109890;
-              v502 = v160;
-              *&v160 = 136446210;
-              v499 = v160;
+              *&v550 = *v589;
+              *&v184 = 136315138;
+              v543 = v184;
+              *&v184 = 67110146;
+              v546 = v184;
+              *&v184 = 67109890;
+              v544 = v184;
+              *&v184 = 136446210;
+              v541 = v184;
               while (1)
               {
-                v161 = 0;
+                v185 = 0;
                 do
                 {
-                  if (*v547 != v508)
+                  if (*v589 != v550)
                   {
-                    objc_enumerationMutation(v506);
+                    objc_enumerationMutation(v548);
                   }
 
-                  v162 = *(*(&v546 + 1) + 8 * v161);
+                  v186 = *(*(&v588 + 1) + 8 * v185);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    WORD2(v569) = 0;
-                    LODWORD(v569) = 0;
-                    memset(v581, 0, sizeof(v581));
-                    bluetoothAddress9 = [v162 bluetoothAddress];
-                    v164 = bluetoothAddress9;
-                    sub_100007E30(v581, [bluetoothAddress9 UTF8String]);
+                    WORD2(v611) = 0;
+                    LODWORD(v611) = 0;
+                    memset(v623, 0, sizeof(v623));
+                    bluetoothAddress9 = [v186 bluetoothAddress];
+                    v188 = bluetoothAddress9;
+                    sub_100007E30(v623, [bluetoothAddress9 UTF8String]);
 
-                    if (SHIBYTE(v581[2]) >= 0)
+                    if (SHIBYTE(v623[2]) >= 0)
                     {
-                      v165 = v581;
+                      v189 = v623;
                     }
 
                     else
                     {
-                      v165 = v581[0];
+                      v189 = v623[0];
                     }
 
-                    if (sub_10009D0B4(&v569, v165))
+                    if (sub_10009D0B4(&v611, v189))
                     {
-                      if (v569)
+                      if (v611)
                       {
 LABEL_221:
                         if (qword_100B508F0 != -1)
@@ -3406,173 +3418,174 @@ LABEL_221:
                           sub_10084F6C4();
                         }
 
-                        *&v507 = sub_1000E6554(off_100B508E8, &v569, 0);
-                        if (v507)
+                        v190 = sub_1000E6554(off_100B508E8, &v611, 0);
+                        *&v549 = v190;
+                        if (v190)
                         {
-                          v166 = sub_100432918();
-                          bluetoothAddress10 = [v162 bluetoothAddress];
-                          v168 = bluetoothAddress10;
-                          sub_100007E30(v544, [bluetoothAddress10 UTF8String]);
-                          nickname = [v162 nickname];
-                          v170 = nickname;
-                          sub_100007E30(v542, [nickname UTF8String]);
-                          (*(*v166 + 176))(v166, v544, v542);
-                          if (v543 < 0)
+                          v192 = sub_100432918(v190, v191);
+                          bluetoothAddress10 = [v186 bluetoothAddress];
+                          v194 = bluetoothAddress10;
+                          sub_100007E30(v586, [bluetoothAddress10 UTF8String]);
+                          nickname = [v186 nickname];
+                          v196 = nickname;
+                          sub_100007E30(v584, [nickname UTF8String]);
+                          (*(*v192 + 176))(v192, v586, v584);
+                          if (v585 < 0)
                           {
-                            operator delete(v542[0]);
+                            operator delete(v584[0]);
                           }
 
-                          if (v545 < 0)
+                          if (v587 < 0)
                           {
-                            operator delete(v544[0]);
+                            operator delete(v586[0]);
                           }
 
-                          v568.n128_u32[0] = 1;
-                          LODWORD(v567) = 0;
-                          v565 = 0;
-                          v520 = 0;
-                          sub_1000C2364(v507, &v520, &v567, &v565, &v568);
-                          *&v505 = qword_100BCE960;
-                          if (os_log_type_enabled(v505, OS_LOG_TYPE_DEFAULT))
+                          v610.n128_u32[0] = 1;
+                          LODWORD(v609) = 0;
+                          v607 = 0;
+                          v562 = 0;
+                          sub_1000C2364(v549, &v562, &v609, &v607, &v610);
+                          *&v547 = qword_100BCE960;
+                          if (os_log_type_enabled(v547, OS_LOG_TYPE_DEFAULT))
                           {
-                            v171 = v567;
-                            v172 = v565;
-                            v173 = v520;
-                            v174 = v568.n128_u32[0];
-                            sub_1000E5A58(v507, &v580);
-                            v175 = &v580;
-                            if ((v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                            v197 = v609;
+                            v198 = v607;
+                            v199 = v562;
+                            v200 = v610.n128_u32[0];
+                            sub_1000E5A58(v549, &v622);
+                            v201 = &v622;
+                            if ((v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                             {
-                              v175 = v580.__r_.__value_.__r.__words[0];
+                              v201 = v622.__r_.__value_.__r.__words[0];
                             }
 
-                            *v575 = __PAIR64__(v171, v504);
-                            *&v575[8] = 1024;
-                            *&v575[10] = v172;
-                            *&v575[14] = 1024;
-                            *&v575[16] = v173;
-                            *&v575[20] = 1024;
-                            *&v575[22] = v174;
-                            *&v575[26] = 2082;
-                            *&v575[28] = v175;
-                            _os_log_impl(&_mh_execute_header, v505, OS_LOG_TYPE_DEFAULT, "Local Device ID; vid: %x, pid: %x, vidSrc: %d, version: %d for device: %{public}s", v575, 0x24u);
-                            if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                            *v617 = __PAIR64__(v197, v546);
+                            *&v617[8] = 1024;
+                            *&v617[10] = v198;
+                            *&v617[14] = 1024;
+                            *&v617[16] = v199;
+                            *&v617[20] = 1024;
+                            *&v617[22] = v200;
+                            *&v617[26] = 2082;
+                            *&v617[28] = v201;
+                            _os_log_impl(&_mh_execute_header, v547, OS_LOG_TYPE_DEFAULT, "Local Device ID; vid: %x, pid: %x, vidSrc: %d, version: %d for device: %{public}s", v617, 0x24u);
+                            if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                             {
-                              operator delete(v580.__r_.__value_.__l.__data_);
+                              operator delete(v622.__r_.__value_.__l.__data_);
                             }
                           }
 
-                          vendorID2 = [v162 vendorID];
+                          vendorID2 = [v186 vendorID];
                           integerValue3 = [vendorID2 integerValue];
 
-                          productID2 = [v162 productID];
+                          productID2 = [v186 productID];
                           integerValue4 = [productID2 integerValue];
 
                           if (integerValue3 && integerValue4)
                           {
-                            if (v520 <= 1)
+                            if (v562 <= 1)
                             {
-                              v180 = 1;
+                              v206 = 1;
                             }
 
                             else
                             {
-                              v180 = v520;
+                              v206 = v562;
                             }
 
-                            v181 = qword_100BCE960;
-                            if (os_log_type_enabled(v181, OS_LOG_TYPE_DEFAULT))
+                            v207 = qword_100BCE960;
+                            if (os_log_type_enabled(v207, OS_LOG_TYPE_DEFAULT))
                             {
-                              sub_1000E5A58(v507, &v580);
-                              v182 = &v580;
-                              if ((v580.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                              sub_1000E5A58(v549, &v622);
+                              v208 = &v622;
+                              if ((v622.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                               {
-                                v182 = v580.__r_.__value_.__r.__words[0];
+                                v208 = v622.__r_.__value_.__r.__words[0];
                               }
 
-                              *v575 = __PAIR64__(integerValue3, v502);
-                              *&v575[8] = 1024;
-                              *&v575[10] = integerValue4;
-                              *&v575[14] = 1024;
-                              *&v575[16] = v180;
-                              *&v575[20] = 2082;
-                              *&v575[22] = v182;
-                              _os_log_impl(&_mh_execute_header, v181, OS_LOG_TYPE_DEFAULT, "Updating Device ID from cloud; vid: %x, cloud pid: %x, vidSrc: %x for device: %{public}s", v575, 0x1Eu);
-                              if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                              *v617 = __PAIR64__(integerValue3, v544);
+                              *&v617[8] = 1024;
+                              *&v617[10] = integerValue4;
+                              *&v617[14] = 1024;
+                              *&v617[16] = v206;
+                              *&v617[20] = 2082;
+                              *&v617[22] = v208;
+                              _os_log_impl(&_mh_execute_header, v207, OS_LOG_TYPE_DEFAULT, "Updating Device ID from cloud; vid: %x, cloud pid: %x, vidSrc: %x for device: %{public}s", v617, 0x1Eu);
+                              if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                               {
-                                operator delete(v580.__r_.__value_.__l.__data_);
+                                operator delete(v622.__r_.__value_.__l.__data_);
                               }
                             }
 
-                            sub_10053D890(v507, v180, integerValue3, integerValue4, v568.n128_i32[0]);
-                            sub_10053E630(v507);
+                            sub_10053D890(v549, v206, integerValue3, integerValue4, v610.n128_i32[0]);
+                            sub_10053E630(v549);
                           }
 
-                          v183 = [CBProductInfo productInfoWithProductID:integerValue4];
-                          productName2 = [v183 productName];
+                          v209 = [CBProductInfo productInfoWithProductID:integerValue4];
+                          productName2 = [v209 productName];
 
                           if (productName2 && ([productName2 isEqualToString:@"Unknown"] & 1) == 0 && objc_msgSend(productName2, "length"))
                           {
-                            sub_1000C23E0(v507, v575);
-                            v185 = v575[23];
-                            v186 = v575[23];
-                            if (v575[23] < 0)
+                            sub_1000C23E0(v549, v617);
+                            v211 = v617[23];
+                            v212 = v617[23];
+                            if (v617[23] < 0)
                             {
-                              v185 = *&v575[8];
+                              v211 = *&v617[8];
                             }
 
-                            if (v185)
+                            if (v211)
                             {
-                              sub_1000C23E0(v507, &v580);
-                              v187 = productName2;
-                              v188 = std::string::compare(&v580, [productName2 UTF8String]) != 0;
-                              if (SHIBYTE(v580.__r_.__value_.__r.__words[2]) < 0)
+                              sub_1000C23E0(v549, &v622);
+                              v213 = productName2;
+                              v214 = std::string::compare(&v622, [productName2 UTF8String]) != 0;
+                              if (SHIBYTE(v622.__r_.__value_.__r.__words[2]) < 0)
                               {
-                                operator delete(v580.__r_.__value_.__l.__data_);
+                                operator delete(v622.__r_.__value_.__l.__data_);
                               }
 
-                              v186 = v575[23];
+                              v212 = v617[23];
                             }
 
                             else
                             {
-                              v188 = 1;
+                              v214 = 1;
                             }
 
-                            if (v186 < 0)
+                            if (v212 < 0)
                             {
-                              operator delete(*v575);
+                              operator delete(*v617);
                             }
 
-                            if (v188)
+                            if (v214)
                             {
-                              sub_100007E30(v575, [productName2 utf8ValueSafe]);
-                              *&v570 = 0;
-                              sub_100016250(&v570);
-                              v580.__r_.__value_.__r.__words[0] = v570;
-                              v580.__r_.__value_.__l.__size_ = SWORD2(v570);
-                              sub_100538494(v507, v575, &v580);
-                              if ((v575[23] & 0x80000000) != 0)
+                              sub_100007E30(v617, [productName2 utf8ValueSafe]);
+                              *&v612 = 0;
+                              sub_100016250(&v612);
+                              v622.__r_.__value_.__r.__words[0] = v612;
+                              v622.__r_.__value_.__l.__size_ = SWORD2(v612);
+                              sub_100538494(v549, v617, &v622);
+                              if ((v617[23] & 0x80000000) != 0)
                               {
-                                operator delete(*v575);
+                                operator delete(*v617);
                               }
 
-                              v195 = qword_100BCE960;
-                              if (os_log_type_enabled(v195, OS_LOG_TYPE_DEFAULT))
+                              v221 = qword_100BCE960;
+                              if (os_log_type_enabled(v221, OS_LOG_TYPE_DEFAULT))
                               {
-                                sub_1000E5A58(v507, v575);
-                                v196 = v575;
-                                if (v575[23] < 0)
+                                sub_1000E5A58(v549, v617);
+                                v222 = v617;
+                                if (v617[23] < 0)
                                 {
-                                  v196 = *v575;
+                                  v222 = *v617;
                                 }
 
-                                LODWORD(v580.__r_.__value_.__l.__data_) = v499;
-                                *(v580.__r_.__value_.__r.__words + 4) = v196;
-                                _os_log_impl(&_mh_execute_header, v195, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings updated productname %{public}s", &v580, 0xCu);
-                                if ((v575[23] & 0x80000000) != 0)
+                                LODWORD(v622.__r_.__value_.__l.__data_) = v541;
+                                *(v622.__r_.__value_.__r.__words + 4) = v222;
+                                _os_log_impl(&_mh_execute_header, v221, OS_LOG_TYPE_DEFAULT, "Cloud: Magic Settings updated productname %{public}s", &v622, 0xCu);
+                                if ((v617[23] & 0x80000000) != 0)
                                 {
-                                  operator delete(*v575);
+                                  operator delete(*v617);
                                 }
                               }
                             }
@@ -3581,26 +3594,26 @@ LABEL_221:
                           goto LABEL_275;
                         }
 
-                        v194 = qword_100BCE960;
+                        v220 = qword_100BCE960;
                         if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_ERROR))
                         {
-                          *v575 = v501;
-                          *&v575[4] = v165;
-                          v192 = v194;
-                          v193 = "[DeviceRecord] No device record for device address: %s";
+                          *v617 = v543;
+                          *&v617[4] = v189;
+                          v218 = v220;
+                          v219 = "[DeviceRecord] No device record for device address: %s";
 LABEL_259:
-                          _os_log_error_impl(&_mh_execute_header, v192, OS_LOG_TYPE_ERROR, v193, v575, 0xCu);
+                          _os_log_error_impl(&_mh_execute_header, v218, OS_LOG_TYPE_ERROR, v219, v617, 0xCu);
                         }
 
                         goto LABEL_275;
                       }
 
-                      v189 = 1;
-                      while (v189 != 6)
+                      v215 = 1;
+                      while (v215 != 6)
                       {
-                        if (*(&v569 + v189++))
+                        if (*(&v611 + v215++))
                         {
-                          if ((v189 - 2) < 5)
+                          if ((v215 - 2) < 5)
                           {
                             goto LABEL_221;
                           }
@@ -3610,29 +3623,29 @@ LABEL_259:
                       }
                     }
 
-                    v191 = qword_100BCE960;
+                    v217 = qword_100BCE960;
                     if (os_log_type_enabled(qword_100BCE960, OS_LOG_TYPE_ERROR))
                     {
-                      *v575 = v501;
-                      *&v575[4] = v165;
-                      v192 = v191;
-                      v193 = "Received invalid device address for device record: %s";
+                      *v617 = v543;
+                      *&v617[4] = v189;
+                      v218 = v217;
+                      v219 = "Received invalid device address for device record: %s";
                       goto LABEL_259;
                     }
 
 LABEL_275:
-                    if (SHIBYTE(v581[2]) < 0)
+                    if (SHIBYTE(v623[2]) < 0)
                     {
-                      operator delete(v581[0]);
+                      operator delete(v623[0]);
                     }
                   }
 
-                  ++v161;
+                  ++v185;
                 }
 
-                while (v161 != v509);
-                *&v509 = [v506 countByEnumeratingWithState:&v546 objects:v582 count:16];
-                if (!v509)
+                while (v185 != v551);
+                *&v551 = [v548 countByEnumeratingWithState:&v588 objects:v624 count:16];
+                if (!v551)
                 {
 LABEL_279:
 
@@ -3647,38 +3660,39 @@ LABEL_279:
       }
 
       v12 = _CFXPCCreateCFObjectFromXPCMessage();
-      v108 = qword_100BCE8E8;
+      v120 = qword_100BCE8E8;
       if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
       {
-        *v575 = 138412290;
-        *&v575[4] = v12;
-        _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_INFO, "Process RemoveCloudPairedDevice: %@", v575, 0xCu);
+        *v617 = 138412290;
+        *&v617[4] = v12;
+        _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_INFO, "Process RemoveCloudPairedDevice: %@", v617, 0xCu);
       }
 
-      v109 = [v12 objectForKey:@"kCloudDeviceUniqueID"];
+      v121 = [v12 objectForKey:@"kCloudDeviceUniqueID"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v110 = [v12 objectForKey:@"kCloudDeviceUniqueID"];
+        v122 = [v12 objectForKey:@"kCloudDeviceUniqueID"];
 
-        if (v110)
+        if (v122)
         {
-          v111 = qword_100BCE8E8;
-          if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
+          v123 = qword_100BCE8E8;
+          v124 = os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT);
+          if (v124)
           {
-            *v575 = 138412290;
-            *&v575[4] = v110;
-            _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "Removing CloudPairedDevice value: %@", v575, 0xCu);
+            *v617 = 138412290;
+            *&v617[4] = v122;
+            _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_DEFAULT, "Removing CloudPairedDevice value: %@", v617, 0xCu);
           }
 
-          v112 = sub_100007EE8();
-          v558[0] = _NSConcreteStackBlock;
-          v558[1] = 3221225472;
-          v558[2] = sub_1005F3F94;
-          v558[3] = &unk_100ADF820;
-          v113 = v110;
-          v559 = v113;
-          sub_10000CA94(v112, v558);
+          v126 = sub_100007EE8(v124, v125);
+          v600[0] = _NSConcreteStackBlock;
+          v600[1] = 3221225472;
+          v600[2] = sub_1005F3F94;
+          v600[3] = &unk_100ADF820;
+          v127 = v122;
+          v601 = v127;
+          sub_10000CA94(v126, v600);
 
           goto LABEL_117;
         }
@@ -3688,7 +3702,7 @@ LABEL_279:
       {
       }
 
-      v120 = qword_100BCE8E8;
+      v136 = qword_100BCE8E8;
       if (!os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_INFO))
       {
 LABEL_117:
@@ -3696,15 +3710,15 @@ LABEL_117:
         goto LABEL_118;
       }
 
-      *v575 = 138412290;
-      *&v575[4] = 0;
-      v70 = "Invalid RemoveCloudPairedDevice value: %@";
-      v71 = v120;
-      v72 = OS_LOG_TYPE_INFO;
-      v73 = 12;
+      *v617 = 138412290;
+      *&v617[4] = 0;
+      v79 = "Invalid RemoveCloudPairedDevice value: %@";
+      v80 = v136;
+      v81 = OS_LOG_TYPE_INFO;
+      v82 = 12;
     }
 
-    _os_log_impl(&_mh_execute_header, v71, v72, v70, v575, v73);
+    _os_log_impl(&_mh_execute_header, v80, v81, v79, v617, v82);
     goto LABEL_117;
   }
 
@@ -3713,7 +3727,8 @@ LABEL_119:
 
 - (void)fetchSoundProfile
 {
-  if (_os_feature_enabled_impl() && (sub_1005FCCC4() & 1) != 0)
+  v3 = _os_feature_enabled_impl();
+  if (v3 && (sub_1005FCCC4(v3, v4) & 1) != 0)
   {
     cloudClient = [(CloudPairing *)self cloudClient];
     [cloudClient fetchSoundProfileRecordWithCompletion:&stru_100B01290];
@@ -3721,11 +3736,11 @@ LABEL_119:
 
   else
   {
-    v3 = qword_100BCE8E8;
+    v5 = qword_100BCE8E8;
     if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "BTAudioCloudSyncMonitor: Spatial Profile Not supported hardware ", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BTAudioCloudSyncMonitor: Spatial Profile Not supported hardware ", buf, 2u);
     }
   }
 }
@@ -4159,7 +4174,7 @@ LABEL_53:
       v29 = qword_100BCE8E8;
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = sub_100063D0C();
+        v30 = sub_100063D0C(v9);
         *src = 138412290;
         v39 = v30;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "No static random device found with address %@", src, 0xCu);
@@ -4190,7 +4205,7 @@ LABEL_53:
       v32 = qword_100BCE8E8;
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = sub_100063D0C();
+        v33 = sub_100063D0C(v6);
         *src = 138412290;
         v39 = v33;
         _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "No local device found with address %@", src, 0xCu);
@@ -4355,33 +4370,33 @@ LABEL_29:
   keysCopy = keys;
   fromCopy = from;
   dCopy = d;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_10004239C;
-  v31 = sub_100042664;
-  v32 = 0;
-  v14 = sub_100007EE8();
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_1005F6C40;
-  v21[3] = &unk_100B01338;
-  v26 = &v27;
-  v21[4] = self;
-  v15 = responseCopy;
-  v22 = v15;
-  v16 = keysCopy;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_10004239C;
+  v32 = sub_100042664;
+  v33 = 0;
+  v15 = sub_100007EE8(dCopy, v14);
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1005F6C40;
+  v22[3] = &unk_100B01338;
+  v27 = &v28;
+  v22[4] = self;
+  v16 = responseCopy;
   v23 = v16;
-  v17 = fromCopy;
+  v17 = keysCopy;
   v24 = v17;
-  v18 = dCopy;
+  v18 = fromCopy;
   v25 = v18;
-  sub_1005711EC(v14, v21);
-  v19 = v28[5];
+  v19 = dCopy;
+  v26 = v19;
+  sub_1005711EC(v15, v22);
+  v20 = v29[5];
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v28, 8);
 
-  return v19;
+  return v20;
 }
 
 - (id)_generateCloudPairingIDWithResponse:(id)response localKeys:(id)keys from:(id)from forProtocolID:(id)d
@@ -4474,23 +4489,23 @@ LABEL_29:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v40 = sub_10004239C;
-  v41 = sub_100042664;
-  v42 = 0;
+  v41 = sub_10004239C;
+  v42 = sub_100042664;
+  v43 = 0;
   if (!self->_supportsVirtualAddress)
   {
     goto LABEL_6;
   }
 
   v8 = self->_idsMultiUsersDictionary;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_1005F94A4;
-  v28[3] = &unk_100B01360;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_1005F94A4;
+  v29[3] = &unk_100B01360;
   v9 = deviceCopy;
-  v29 = v9;
-  v30 = buf;
-  [(NSMutableDictionary *)v8 enumerateKeysAndObjectsUsingBlock:v28];
+  v30 = v9;
+  v31 = buf;
+  [(NSMutableDictionary *)v8 enumerateKeysAndObjectsUsingBlock:v29];
   if (*(*&buf[8] + 40))
   {
 LABEL_5:
@@ -4501,61 +4516,62 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v27 = 0;
+  v28 = 0;
   __buf = 0;
   arc4random_buf(&__buf, 6uLL);
+  v12 = __buf | 0xC0;
   LOBYTE(__buf) = __buf | 0xC0;
-  v12 = sub_1007774DC();
-  v13 = *(*&buf[8] + 40);
-  *(*&buf[8] + 40) = v12;
+  v13 = sub_1007774DC((v12 << 40) | (BYTE1(__buf) << 32) | (BYTE2(__buf) << 24) | (HIBYTE(__buf) << 16) | (v28 << 8) | HIBYTE(v28));
+  v14 = *(*&buf[8] + 40);
+  *(*&buf[8] + 40) = v13;
 
-  v14 = qword_100BCE8E8;
+  v15 = qword_100BCE8E8;
   if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *(*&buf[8] + 40);
-    *v31 = 138412290;
-    v32 = v15;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "MUC - RSA generated: %@", v31, 0xCu);
+    v16 = *(*&buf[8] + 40);
+    *v32 = 138412290;
+    v33 = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "MUC - RSA generated: %@", v32, 0xCu);
   }
 
-  v38 = 0uLL;
-  arc4random_buf(&v38, 0x10uLL);
-  v37[0] = 0;
-  v37[1] = 0;
-  if (!sub_100240328(&v38, 1, 0, v37))
+  v39 = 0uLL;
+  arc4random_buf(&v39, 0x10uLL);
+  v38[0] = 0;
+  v38[1] = 0;
+  if (!sub_100240328(&v39, 1, 0, v38))
   {
     if (!self->_idsMultiUsersDictionary)
     {
-      v16 = [NSMutableDictionary dictionaryWithCapacity:1];
-      v17 = self->_idsMultiUsersDictionary;
-      self->_idsMultiUsersDictionary = v16;
+      v17 = [NSMutableDictionary dictionaryWithCapacity:1];
+      v18 = self->_idsMultiUsersDictionary;
+      self->_idsMultiUsersDictionary = v17;
     }
 
-    v18 = qword_100BCE8E8;
+    v19 = qword_100BCE8E8;
     if (os_log_type_enabled(qword_100BCE8E8, OS_LOG_TYPE_DEFAULT))
     {
       publicAddress = self->_publicAddress;
-      *v31 = 138412290;
-      v32 = publicAddress;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "MUC - local public address %@", v31, 0xCu);
+      *v32 = 138412290;
+      v33 = publicAddress;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "MUC - local public address %@", v32, 0xCu);
     }
 
-    v35[0] = @"IDSLocalID";
-    v35[1] = @"IRK";
-    v36[0] = v9;
-    v20 = [NSData dataWithBytes:v37 length:16];
-    v36[1] = v20;
-    v21 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:2];
-    [(NSMutableDictionary *)self->_idsMultiUsersDictionary setObject:v21 forKeyedSubscript:*(*&buf[8] + 40)];
+    v36[0] = @"IDSLocalID";
+    v36[1] = @"IRK";
+    v37[0] = v9;
+    v21 = [NSData dataWithBytes:v38 length:16];
+    v37[1] = v21;
+    v22 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
+    [(NSMutableDictionary *)self->_idsMultiUsersDictionary setObject:v22 forKeyedSubscript:*(*&buf[8] + 40)];
 
-    v22 = [NSDictionary dictionaryWithObject:self->_idsMultiUsersDictionary forKey:self->_publicAddress];
+    v23 = [NSDictionary dictionaryWithObject:self->_idsMultiUsersDictionary forKey:self->_publicAddress];
     [(CloudPairing *)self removeuserPreference:@"IDSMultiUsers" sync:1];
-    [(CloudPairing *)self setuserPreference:@"IDSMultiUsers" value:v22 sync:1];
-    v23 = qword_100BCE8E8;
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    [(CloudPairing *)self setuserPreference:@"IDSMultiUsers" value:v23 sync:1];
+    v24 = qword_100BCE8E8;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = IsAppleInternalBuild();
-      if (v24)
+      v25 = IsAppleInternalBuild();
+      if (v25)
       {
         p_isa = &self->_idsMultiUsersDictionary->super.super.isa;
       }
@@ -4565,12 +4581,12 @@ LABEL_6:
         p_isa = [NSNumber numberWithUnsignedInteger:[(NSMutableDictionary *)self->_idsMultiUsersDictionary count]];
       }
 
-      *v31 = 138412546;
-      v32 = p_isa;
-      v33 = 2112;
-      v34 = v22;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "MUC - MUC dictionary = %@, dictToStore %@", v31, 0x16u);
-      if (!v24)
+      *v32 = 138412546;
+      v33 = p_isa;
+      v34 = 2112;
+      v35 = v23;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "MUC - MUC dictionary = %@, dictToStore %@", v32, 0x16u);
+      if (!v25)
       {
       }
     }
@@ -4788,7 +4804,7 @@ LABEL_7:
           sub_10084F45C();
         }
 
-        nullsub_21(off_100B508B8);
+        nullsub_21();
         if (qword_100B50C68 != -1)
         {
           sub_10084FF18();
@@ -4812,7 +4828,7 @@ LABEL_7:
           sub_10084F45C();
         }
 
-        nullsub_21(off_100B508B8);
+        nullsub_21();
         currentUserRandomAddress6 = [(CloudPairing *)self currentUserRandomAddress];
         [(CloudPairing *)self updateRandomAddressContinuityAdvInstance:currentUserRandomAddress6];
       }
@@ -4823,27 +4839,27 @@ LABEL_7:
 - (id)getPairedDeviceForIDSIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_10004239C;
-  v16 = sub_100042664;
-  v17 = +[NSDictionary dictionary];
-  v5 = sub_100007EE8();
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_1005FA2C8;
-  v9[3] = &unk_100B01230;
-  v11 = &v12;
-  v9[4] = self;
-  v6 = identifierCopy;
-  v10 = v6;
-  sub_1005711EC(v5, v9);
-  v7 = v13[5];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_10004239C;
+  v17 = sub_100042664;
+  v18 = +[NSDictionary dictionary];
+  v6 = sub_100007EE8(v18, v5);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1005FA2C8;
+  v10[3] = &unk_100B01230;
+  v12 = &v13;
+  v10[4] = self;
+  v7 = identifierCopy;
+  v11 = v7;
+  sub_1005711EC(v6, v10);
+  v8 = v14[5];
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
 
-  return v7;
+  return v8;
 }
 
 - (id)_getPairedDeviceForIDSIdentifier:(id)identifier
@@ -5239,7 +5255,7 @@ LABEL_48:
   }
 
   v4 = [[PowerUISmartChargeClientAudioAccessories alloc] initWithClientName:@"com.apple.bluetooth"];
-  v5 = sub_1007774DC();
+  v5 = sub_1007774DC((*(cloud + 128) << 40) | (*(cloud + 129) << 32) | (*(cloud + 130) << 24) | (*(cloud + 131) << 16) | (*(cloud + 132) << 8) | *(cloud + 133));
   v6 = sub_10054B398(cloud);
   v7 = v6;
   if (v6 > 1)
@@ -5307,7 +5323,7 @@ LABEL_16:
   if (_os_feature_enabled_impl() && NSClassFromString(@"PowerUISmartChargeClientAudioAccessories"))
   {
     v4 = [[PowerUISmartChargeClientAudioAccessories alloc] initWithClientName:@"com.apple.bluetooth"];
-    v5 = sub_1007774DC();
+    v5 = sub_1007774DC((*(cloud + 128) << 40) | (*(cloud + 129) << 32) | (*(cloud + 130) << 24) | (*(cloud + 131) << 16) | (*(cloud + 132) << 8) | *(cloud + 133));
     v6 = sub_10054B3E0(cloud);
     v10 = 0;
     [v4 updateOBCDeadline:v6 forDevice:v5 withError:&v10];

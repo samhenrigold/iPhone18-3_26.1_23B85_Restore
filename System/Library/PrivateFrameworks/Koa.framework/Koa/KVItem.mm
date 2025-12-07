@@ -329,48 +329,48 @@ LABEL_9:
 - (id)initFromDictionary:(id)dictionary error:(id *)error
 {
   selfCopy = self;
-  v106[1] = *MEMORY[0x277D85DE8];
+  v105[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v97 = objc_alloc_init(KVItemBuilder);
+  v96 = objc_alloc_init(KVItemBuilder);
   v9 = objc_msgSend_objectForKey_(dictionaryCopy, v5, @"itemType", v6, v7, v8);
   v10 = KVItemTypeFromName(v9);
 
-  v93 = objc_msgSend_objectForKey_(dictionaryCopy, v11, @"itemId", v12, v13, v14);
-  v17 = objc_msgSend_setItemType_itemId_error_(v97, v15, v10, v93, error, v16);
+  v92 = objc_msgSend_objectForKey_(dictionaryCopy, v11, @"itemId", v12, v13, v14);
+  v17 = objc_msgSend_setItemType_itemId_error_(v96, v15, v10, v92, error, v16);
 
   if (v17)
   {
-    v94 = objc_msgSend_objectForKey_(dictionaryCopy, v18, @"fields", v19, v20, v21);
+    v93 = objc_msgSend_objectForKey_(dictionaryCopy, v18, @"fields", v19, v20, v21);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v100 = 0u;
-      v101 = 0u;
-      v98 = 0u;
       v99 = 0u;
-      obj = v94;
-      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v26, &v98, v104, 16, v27);
+      v100 = 0u;
+      v97 = 0u;
+      v98 = 0u;
+      obj = v93;
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v26, &v97, v103, 16, v27);
       if (v28)
       {
-        v29 = *v99;
+        v29 = *v98;
         while (2)
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v99 != v29)
+            if (*v98 != v29)
             {
               objc_enumerationMutation(obj);
             }
 
-            v31 = *(*(&v98 + 1) + 8 * i);
+            v31 = *(*(&v97 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               v84 = MEMORY[0x277CCA9B8];
-              v102 = *MEMORY[0x277CCA450];
+              v101 = *MEMORY[0x277CCA450];
               v40 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v32, @"Unexpected field dictionary: %@ in item: %@", v33, v34, v35, v31, dictionaryCopy, selfCopy);
-              v103 = v40;
-              v82 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v85, &v103, &v102, 1, v86);
+              v102 = v40;
+              v82 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v85, &v102, &v101, 1, v86);
               v89 = objc_msgSend_errorWithDomain_code_userInfo_(v84, v87, @"com.apple.koa.item.builder", 6, v82, v88);
               if (error && v89)
               {
@@ -389,7 +389,7 @@ LABEL_9:
               v43 = KVLocaleTypeFromName(v40);
               v48 = objc_msgSend_objectForKey_(v31, v44, @"label", v45, v46, v47);
               v53 = objc_msgSend_objectForKey_(v31, v49, @"value", v50, v51, v52);
-              v55 = objc_msgSend_addFieldWithType_localeType_label_value_error_(v97, v54, v42, v43, v48, v53, error);
+              v55 = objc_msgSend_addFieldWithType_localeType_label_value_error_(v96, v54, v42, v43, v48, v53, error);
               LOBYTE(v42) = v55 == 0;
 
               if (v42)
@@ -404,7 +404,7 @@ LABEL_9:
               v57 = KVFieldTypeFromName(v56);
               v62 = objc_msgSend_objectForKey_(v31, v58, @"label", v59, v60, v61);
               v67 = objc_msgSend_objectForKey_(v31, v63, @"value", v64, v65, v66);
-              v69 = objc_msgSend_addFieldWithType_label_value_error_(v97, v68, v57, v62, v67, error);
+              v69 = objc_msgSend_addFieldWithType_label_value_error_(v96, v68, v57, v62, v67, error);
               LOBYTE(v57) = v69 == 0;
 
               if (v57)
@@ -415,7 +415,7 @@ LABEL_9:
             }
           }
 
-          v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v70, &v98, v104, 16, v71);
+          v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v70, &v97, v103, 16, v71);
           if (v28)
           {
             continue;
@@ -425,16 +425,16 @@ LABEL_9:
         }
       }
 
-      v17 = objc_msgSend_buildItemWithError_(v97, v72, error, v73, v74, v75);
+      v17 = objc_msgSend_buildItemWithError_(v96, v72, error, v73, v74, v75);
     }
 
     else
     {
       v76 = MEMORY[0x277CCA9B8];
-      v105 = *MEMORY[0x277CCA450];
+      v104 = *MEMORY[0x277CCA450];
       obj = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"Unexpected fields array in item: %@", v23, v24, v25, dictionaryCopy);
-      v106[0] = obj;
-      v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v77, v106, &v105, 1, v78);
+      v105[0] = obj;
+      v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v77, v105, &v104, 1, v78);
       v81 = objc_msgSend_errorWithDomain_code_userInfo_(v76, v79, @"com.apple.koa.item.builder", 6, v40, v80);
       v82 = v81;
       if (error && v81)
@@ -450,7 +450,6 @@ LABEL_24:
     }
   }
 
-  v90 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -535,11 +534,11 @@ LABEL_24:
 {
   copyCopy = copy;
   verifyCopy = verify;
-  v162[1] = *MEMORY[0x277D85DE8];
+  v161[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
-  v150.receiver = self;
-  v150.super_class = KVItem;
-  v15 = [(KVItem *)&v150 init];
+  v149.receiver = self;
+  v149.super_class = KVItem;
+  v15 = [(KVItem *)&v149 init];
   if (!v15)
   {
     goto LABEL_70;
@@ -553,13 +552,13 @@ LABEL_24:
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         v49 = MEMORY[0x277CCA9B8];
-        v159 = *MEMORY[0x277CCA450];
+        v158 = *MEMORY[0x277CCA450];
         v50 = MEMORY[0x277CCACA8];
         v51 = objc_opt_class();
         v52 = NSStringFromClass(v51);
         v57 = objc_msgSend_stringWithFormat_(v50, v53, @"Buffer has unexpected class: %@ expected: NSData", v54, v55, v56, v52);
-        v160 = v57;
-        v60 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, &v160, &v159, 1, v59);
+        v159 = v57;
+        v60 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, &v159, &v158, 1, v59);
         v63 = objc_msgSend_errorWithDomain_code_userInfo_(v49, v61, @"com.apple.koa.item.builder", 6, v60, v62);
         if (error && v63)
         {
@@ -576,9 +575,9 @@ LABEL_24:
       }
 
       v64 = MEMORY[0x277CCA9B8];
-      v157 = *MEMORY[0x277CCA450];
-      v158 = @"Buffer has length of zero";
-      v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &v158, &v157, 1, v14);
+      v156 = *MEMORY[0x277CCA450];
+      v157 = @"Buffer has length of zero";
+      v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &v157, &v156, 1, v14);
       v48 = objc_msgSend_errorWithDomain_code_userInfo_(v64, v65, @"com.apple.koa.item.builder", 6, v45, v66);
       if (error && v48)
       {
@@ -590,9 +589,9 @@ LABEL_24:
     else
     {
       v44 = MEMORY[0x277CCA9B8];
-      v161 = *MEMORY[0x277CCA450];
-      v162[0] = @"Buffer is nil";
-      v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v162, &v161, 1, v14);
+      v160 = *MEMORY[0x277CCA450];
+      v161[0] = @"Buffer is nil";
+      v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v161, &v160, 1, v14);
       v48 = objc_msgSend_errorWithDomain_code_userInfo_(v44, v46, @"com.apple.koa.item.builder", 6, v45, v47);
       if (error && v48)
       {
@@ -628,11 +627,11 @@ LABEL_6:
   }
 
   v34 = objc_msgSend_length(*(v15 + 2), v28, v29, v30, v31, v32);
-  v145 = v33;
-  v146 = v34;
-  v147 = xmmword_2559D02B0;
-  v148 = 0;
-  v149 = 1;
+  v144 = v33;
+  v145 = v34;
+  v146 = xmmword_2559D02B0;
+  v147 = 0;
+  v148 = 1;
   if (v34 >= 0x7FFFFFFF)
   {
     __assert_rtn("Verifier", "flatbuffers.h", 2285, "size_ < FLATBUFFERS_MAX_BUFFER_SIZE");
@@ -641,7 +640,7 @@ LABEL_6:
   v40 = *(v15 + 1);
   if (v40)
   {
-    if (sub_2559A7668(&v145, *(v15 + 1)) && sub_2559A7720(v40, &v145, 4u))
+    if (sub_2559A7668(&v144, *(v15 + 1)) && sub_2559A7720(v40, &v144, 4u))
     {
       v41 = (v40 - *v40);
       if (*v41 >= 5u && (v42 = v41[2]) != 0)
@@ -654,12 +653,12 @@ LABEL_6:
         v43 = 0;
       }
 
-      if (sub_2559A777C(&v145, v43))
+      if (sub_2559A777C(&v144, v43))
       {
         v67 = *v40;
         v68 = v40 - v67;
         v69 = *(v40 - v67);
-        if ((v69 < 7 || !*(v68 + 3) || v146 >= 3 && v146 - 2 >= v40 + *(v68 + 3) - v145) && sub_2559A7720(v40, &v145, 8u))
+        if ((v69 < 7 || !*(v68 + 3) || v145 >= 3 && v145 - 2 >= v40 + *(v68 + 3) - v144) && sub_2559A7720(v40, &v144, 8u))
         {
           if (v69 < 9)
           {
@@ -672,7 +671,7 @@ LABEL_6:
             goto LABEL_42;
           }
 
-          if (sub_2559A77F8(&v145, (v40 + *(v68 + 4) + *(v40 + *(v68 + 4))), 4uLL, 0))
+          if (sub_2559A77F8(&v144, (v40 + *(v68 + 4) + *(v40 + *(v68 + 4))), 4uLL, 0))
           {
             v70 = *v40;
             if (*(v40 - v70) >= 9u)
@@ -684,32 +683,32 @@ LABEL_42:
               {
                 v73 = (v40 + v72);
                 v74 = *v73;
-                v142 = v73;
+                v141 = v73;
                 if (*(v73 + v74))
                 {
                   v75 = 0;
                   v76 = v73;
-                  v143 = v73 + 1;
+                  v142 = v73 + 1;
                   do
                   {
                     v77 = v74;
                     v78 = v76 + v74;
                     v79 = (v76 + v74 + 4);
                     v80 = *v79;
-                    if (!sub_2559A7668(&v145, (v79 + v80)))
+                    if (!sub_2559A7668(&v144, (v79 + v80)))
                     {
                       goto LABEL_71;
                     }
 
-                    v144 = &v78[v80];
+                    v143 = &v78[v80];
                     v81 = v80 - *&v78[v80 + 4];
                     v82 = *&v78[v81 + 4];
-                    if (v82 >= 5 && *(v76 + v77 + v81 + 8) && (v146 < 3 || v146 - 2 < v143 + v77 + v80 + *(v76 + v77 + v81 + 8) - v145))
+                    if (v82 >= 5 && *(v76 + v77 + v81 + 8) && (v145 < 3 || v145 - 2 < v142 + v77 + v80 + *(v76 + v77 + v81 + 8) - v144))
                     {
                       goto LABEL_71;
                     }
 
-                    if (!sub_2559A7720((v79 + v80), &v145, 6u))
+                    if (!sub_2559A7720((v79 + v80), &v144, 6u))
                     {
                       goto LABEL_71;
                     }
@@ -725,12 +724,12 @@ LABEL_42:
                       v84 = 0;
                     }
 
-                    if (!sub_2559A777C(&v145, v84) || !sub_2559A7720((v79 + v80), &v145, 8u))
+                    if (!sub_2559A777C(&v144, v84) || !sub_2559A7720((v79 + v80), &v144, 8u))
                     {
                       goto LABEL_71;
                     }
 
-                    v85 = v76 + v77 + v80 - *(v144 + 1);
+                    v85 = v76 + v77 + v80 - *(v143 + 1);
                     if (*(v85 + 2) >= 9u && (v86 = *(v85 + 6)) != 0)
                     {
                       v87 = (v76 + v77 + v80 + v86 + *(v76 + v77 + v80 + v86 + 4) + 4);
@@ -741,38 +740,38 @@ LABEL_42:
                       v87 = 0;
                     }
 
-                    if (!sub_2559A777C(&v145, v87))
+                    if (!sub_2559A777C(&v144, v87))
                     {
                       goto LABEL_71;
                     }
 
-                    v88 = v76 + v77 + v80 - *(v144 + 1);
+                    v88 = v76 + v77 + v80 - *(v143 + 1);
                     if (*(v88 + 2) >= 0xBu)
                     {
                       v89 = *(v88 + 7);
                       if (v89)
                       {
-                        if (v146 < 2 || v146 - 1 < v143 + v77 + v80 + v89 - v145)
+                        if (v145 < 2 || v145 - 1 < v142 + v77 + v80 + v89 - v144)
                         {
                           goto LABEL_71;
                         }
                       }
                     }
 
-                    LODWORD(v147) = v147 - 1;
+                    LODWORD(v146) = v146 - 1;
                     ++v75;
                     v74 = v77;
-                    ++v143;
+                    ++v142;
                     ++v76;
                   }
 
-                  while (v75 < *(v142 + v77));
+                  while (v75 < *(v141 + v77));
                 }
               }
             }
 
 LABEL_67:
-            LODWORD(v147) = v147 - 1;
+            LODWORD(v146) = v146 - 1;
             goto LABEL_68;
           }
         }
@@ -781,9 +780,9 @@ LABEL_67:
 
 LABEL_71:
     v108 = MEMORY[0x277CCA9B8];
-    v155 = *MEMORY[0x277CCA450];
-    v156 = @"Buffer failed validation";
-    v109 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, &v156, &v155, 1, v39);
+    v154 = *MEMORY[0x277CCA450];
+    v155 = @"Buffer failed validation";
+    v109 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, &v155, &v154, 1, v39);
     v112 = objc_msgSend_errorWithDomain_code_userInfo_(v108, v110, @"com.apple.koa.item.builder", 6, v109, v111);
     v113 = v112;
     if (error && v112)
@@ -799,12 +798,12 @@ LABEL_68:
   if (objc_msgSend_itemType(v15, v35, v36, v37, v38, v39) - 1 >= 0x1A)
   {
     v115 = MEMORY[0x277CCA9B8];
-    v153 = *MEMORY[0x277CCA450];
+    v152 = *MEMORY[0x277CCA450];
     v116 = MEMORY[0x277CCACA8];
     v117 = objc_msgSend_itemType(v15, v90, v91, v92, v93, v94);
     v109 = objc_msgSend_stringWithFormat_(v116, v118, @"Buffer has invalid itemType: %u", v119, v120, v121, v117);
-    v154 = v109;
-    v113 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v122, &v154, &v153, 1, v123);
+    v153 = v109;
+    v113 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v122, &v153, &v152, 1, v123);
     v126 = objc_msgSend_errorWithDomain_code_userInfo_(v115, v124, @"com.apple.koa.item.builder", 1, v113, v125);
     v127 = v126;
     if (error && v126)
@@ -822,12 +821,12 @@ LABEL_68:
   if (v101)
   {
     v129 = MEMORY[0x277CCA9B8];
-    v151 = *MEMORY[0x277CCA450];
+    v150 = *MEMORY[0x277CCA450];
     v130 = MEMORY[0x277CCACA8];
     v109 = objc_msgSend_itemId(v15, v102, v103, v104, v105, v106);
     v113 = objc_msgSend_stringWithFormat_(v130, v131, @"Buffer has invalid itemId: %@", v132, v133, v134, v109);
-    v152 = v113;
-    v127 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v135, &v152, &v151, 1, v136);
+    v151 = v113;
+    v127 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v135, &v151, &v150, 1, v136);
     v139 = objc_msgSend_errorWithDomain_code_userInfo_(v129, v137, @"com.apple.koa.item.builder", 2, v127, v138);
     if (error && v139)
     {
@@ -845,7 +844,6 @@ LABEL_70:
   v107 = v15;
 LABEL_84:
 
-  v140 = *MEMORY[0x277D85DE8];
   return v107;
 }
 

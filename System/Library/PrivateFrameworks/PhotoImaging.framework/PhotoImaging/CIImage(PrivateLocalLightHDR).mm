@@ -19,15 +19,15 @@
 
   v6 = v1;
   v7 = v5;
-  [v6 extent];
+  objc_msgSend_extent(v6);
   v69 = CGRectIntegral(v68);
   x = v69.origin.x;
   y = v69.origin.y;
   width = v69.size.width;
   height = v69.size.height;
-  [v6 extent];
+  objc_msgSend_extent(v6);
   v13 = v12;
-  [v6 extent];
+  objc_msgSend_extent(v6);
   v15 = v14;
   v16 = 4 * v13;
   v17 = [MEMORY[0x1E695DF88] dataWithLength:4 * v13 * v14];

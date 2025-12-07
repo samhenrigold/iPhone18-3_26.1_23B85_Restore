@@ -10,7 +10,9 @@
 - (void)minimumTimeElapsed;
 - (void)reset;
 - (void)tryToDismissCalibration;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CalibrationViewServiceController
@@ -44,6 +46,63 @@
   v3.super_class = CalibrationViewServiceController;
   [(CalibrationViewServiceController *)&v3 viewDidLoad];
   [(CalibrationViewServiceController *)self reset];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = CalibrationViewServiceController;
+  [(CalibrationViewServiceController *)&v13 viewWillAppear:appear];
+  objc_initWeak(&location, self);
+  motionManager = [(CalibrationViewServiceController *)self motionManager];
+  v5 = +[NSOperationQueue mainQueue];
+  v7 = _NSConcreteStackBlock;
+  v8 = 3221225472;
+  v9 = sub_1000011E0;
+  v10 = &unk_100004158;
+  objc_copyWeak(&v11, &location);
+  [motionManager startDeviceMotionUpdatesUsingReferenceFrame:1 toQueue:v5 withHandler:&v7];
+
+  v6 = [(CalibrationViewServiceController *)self locationManager:v7];
+  [v6 startUpdatingHeading];
+
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = [NSTimer scheduledTimerWithTimeInterval:self target:"finishedCalibrating" selector:0 userInfo:0 repeats:15.0];
+  [(CalibrationViewServiceController *)self setMaximumTimer:v5];
+
+  v6 = [NSTimer scheduledTimerWithTimeInterval:self target:"minimumTimeElapsed" selector:0 userInfo:0 repeats:5.0];
+  [(CalibrationViewServiceController *)self setMinimumTimer:v6];
+
+  self->_minTimeElapsed = 0;
+  self->_maxTimeElapsed = 0;
+  self->_calibrated = 0;
+  self->_hasPresented = 1;
+  view = [(CalibrationViewServiceController *)self view];
+  window = [view window];
+  windowScene = [window windowScene];
+  self->_finalOrientation = [windowScene interfaceOrientation];
+
+  [(CalibrationViewServiceController *)self setNeedsUpdateOfSupportedInterfaceOrientations];
+  [(CalibrationViewServiceController *)self addChildViewController:self->_calibrationViewController];
+  view2 = [(CalibrationViewServiceController *)self view];
+  view3 = [(CalibrationViewController *)self->_calibrationViewController view];
+  [view2 addSubview:view3];
+
+  view4 = [(CalibrationViewServiceController *)self view];
+  layer = [view4 layer];
+  v14 = +[CATransition animation];
+  [layer addAnimation:v14 forKey:@"fade"];
+
+  [(CalibrationViewController *)self->_calibrationViewController didMoveToParentViewController:self];
+  v15.receiver = self;
+  v15.super_class = CalibrationViewServiceController;
+  [(CalibrationViewServiceController *)&v15 viewDidAppear:appearCopy];
 }
 
 - (void)reset

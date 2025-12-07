@@ -256,7 +256,7 @@ LABEL_22:
 
     if (v5)
     {
-      [v5 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v5);
       if (!v7)
       {
 LABEL_12:
@@ -270,7 +270,7 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    [v7 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v7);
     goto LABEL_12;
   }
 
@@ -281,7 +281,7 @@ LABEL_13:
 
 - (int64_t)comparePreferredPrimaryStatusWith:(id)with
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v5 = CFPreferencesCopyAppValue(@"hmd.preferred.primary", @"hmd.preferred.primary.homeutil");
   if (!v5)
@@ -301,15 +301,15 @@ LABEL_13:
         v14 = HMFGetLogIdentifier();
         name = [withCopy name];
         name2 = [(__HMDPrimaryElectionCandidate *)selfCopy name];
-        v19 = 138544130;
-        v20 = v14;
-        v21 = 2112;
-        v22 = name;
-        v23 = 2112;
-        v24 = name2;
-        v25 = 2112;
-        v26 = v5;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Preferring %@ over %@ in resident election due to preferred primary: %@", &v19, 0x2Au);
+        v18 = 138544130;
+        v19 = v14;
+        v20 = 2112;
+        v21 = name;
+        v22 = 2112;
+        v23 = name2;
+        v24 = 2112;
+        v25 = v5;
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Preferring %@ over %@ in resident election due to preferred primary: %@", &v18, 0x2Au);
       }
 
       v12 = -1;
@@ -329,15 +329,15 @@ LABEL_11:
     v9 = HMFGetLogIdentifier();
     name3 = [(__HMDPrimaryElectionCandidate *)selfCopy2 name];
     name4 = [withCopy name];
-    v19 = 138544130;
-    v20 = v9;
-    v21 = 2112;
-    v22 = name3;
-    v23 = 2112;
-    v24 = name4;
-    v25 = 2112;
-    v26 = v5;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Preferring %@ over %@ in resident election due to preferred primary: %@", &v19, 0x2Au);
+    v18 = 138544130;
+    v19 = v9;
+    v20 = 2112;
+    v21 = name3;
+    v22 = 2112;
+    v23 = name4;
+    v24 = 2112;
+    v25 = v5;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Preferring %@ over %@ in resident election due to preferred primary: %@", &v18, 0x2Au);
   }
 
   v12 = 1;
@@ -346,7 +346,6 @@ LABEL_10:
   objc_autoreleasePoolPop(v6);
 LABEL_12:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -404,31 +403,26 @@ LABEL_12:
     name = @"<redacted>";
   }
 
-  v18 = *&self->_homeKitVersion;
+  v15 = *&self->_homeKitVersion;
   currentPrimaryIdentifier = self->_currentPrimaryIdentifier;
-  enabledAsResident = self->_enabledAsResident;
-  v9 = HMFBooleanToString();
+  v8 = HMFBooleanToString();
   [__HMDPrimaryElectionCandidate capabilitiesSupportPingRequest:self->_capabilities];
+  v9 = HMFBooleanToString();
   v10 = HMFBooleanToString();
-  connectionType = self->_connectionType;
-  v12 = HMFBooleanToString();
-  pcsEnabled = self->_pcsEnabled;
-  v14 = HMFBooleanToString();
+  v11 = HMFBooleanToString();
   versionString = [(HMFSoftwareVersion *)self->_swVersion versionString];
-  v16 = [v3 stringWithFormat:@"<%@ name: %@, homekitVersion: %@, id: %@, primary: %@, enabled: %@ supportsPingRequest: %@, wired: %@, pcsEnabled: %@>, swVersion: %@", v5, name, v18, currentPrimaryIdentifier, v9, v10, v12, v14, versionString];
+  v13 = [v3 stringWithFormat:@"<%@ name: %@, homekitVersion: %@, id: %@, primary: %@, enabled: %@ supportsPingRequest: %@, wired: %@, pcsEnabled: %@>, swVersion: %@", v5, name, v15, currentPrimaryIdentifier, v8, v9, v10, v11, versionString];
 
-  return v16;
+  return v13;
 }
 
 - (id)toMessagePayload
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"parameters";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"parameters";
   v2 = encodeRootObject();
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -454,43 +448,16 @@ LABEL_12:
   else
   {
     v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:identifierCopy];
-    if (!v8)
+    v7 = 0;
+    if (v8)
     {
-      goto LABEL_8;
-    }
+      deviceIdentifier = [(__HMDPrimaryElectionCandidate *)self deviceIdentifier];
+      v10 = [deviceIdentifier isEqual:v8];
 
-    deviceIdentifier = [(__HMDPrimaryElectionCandidate *)self deviceIdentifier];
-    v10 = [deviceIdentifier isEqual:v8];
-
-    if (v10)
-    {
-      goto LABEL_7;
-    }
-
-    residentDevice = [(__HMDPrimaryElectionCandidate *)self residentDevice];
-    identifier = [residentDevice identifier];
-    v13 = [identifier isEqual:v8];
-
-    if (v13)
-    {
-      goto LABEL_7;
-    }
-
-    residentDevice2 = [(__HMDPrimaryElectionCandidate *)self residentDevice];
-    device = [residentDevice2 device];
-    identifier2 = [device identifier];
-    v17 = [identifier2 isEqual:v8];
-
-    if (v17)
-    {
-LABEL_7:
-      v7 = 1;
-    }
-
-    else
-    {
-LABEL_8:
-      v7 = 0;
+      if (v10 & 1) != 0 || (-[__HMDPrimaryElectionCandidate residentDevice](self, "residentDevice"), v11 = objc_claimAutoreleasedReturnValue(), [v11 identifier], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqual:", v8), v12, v11, (v13) || (-[__HMDPrimaryElectionCandidate residentDevice](self, "residentDevice"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "device"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "identifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqual:", v8), v16, v15, v14, (v17))
+      {
+        v7 = 1;
+      }
     }
   }
 
@@ -536,14 +503,14 @@ LABEL_8:
 
 + (id)fromMessagePayload:(id)payload
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v4 = [payloadCopy hmf_dataForKey:@"parameters"];
   if (v4)
   {
-    v19 = 0;
-    v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v4 error:&v19];
-    v6 = v19;
+    v18 = 0;
+    v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v4 error:&v18];
+    v6 = v18;
     if (v5)
     {
       v7 = v5;
@@ -558,9 +525,9 @@ LABEL_8:
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v6;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v6;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode election parameters: %@", buf, 0x16u);
       }
 
@@ -578,17 +545,15 @@ LABEL_8:
       v11 = HMFGetLogIdentifier();
       allKeys = [payloadCopy allKeys];
       *buf = 138543618;
-      v21 = v11;
-      v22 = 2112;
-      v23 = allKeys;
+      v20 = v11;
+      v21 = 2112;
+      v22 = allKeys;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to find election parameters in payload (keys: %@)", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v5 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

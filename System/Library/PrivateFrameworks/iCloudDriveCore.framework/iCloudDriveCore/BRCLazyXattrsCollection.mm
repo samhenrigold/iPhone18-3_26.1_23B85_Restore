@@ -8,10 +8,10 @@
 - (BRCLazyXattrsCollection)initWithFD:(int)d sizeLimit:(int64_t)limit syncable:(BOOL)syncable error:(id *)error
 {
   syncableCopy = syncable;
-  v52 = *MEMORY[0x277D85DE8];
-  v47.receiver = self;
-  v47.super_class = BRCLazyXattrsCollection;
-  v10 = [(BRCLazyXattrsCollection *)&v47 init];
+  v51 = *MEMORY[0x277D85DE8];
+  v46.receiver = self;
+  v46.super_class = BRCLazyXattrsCollection;
+  v10 = [(BRCLazyXattrsCollection *)&v46 init];
   v11 = v10;
   if (!v10)
   {
@@ -47,20 +47,20 @@ LABEL_39:
       v19 = brc_default_log();
       if (os_log_type_enabled(v19, 0x90u))
       {
-        v45 = "(passed to caller)";
+        v44 = "(passed to caller)";
         *buf = 136315906;
         *&buf[4] = "[BRCLazyXattrsCollection initWithFD:sizeLimit:syncable:error:]";
         *&buf[12] = 2080;
         if (!error)
         {
-          v45 = "(ignored by caller)";
+          v44 = "(ignored by caller)";
         }
 
-        *&buf[14] = v45;
+        *&buf[14] = v44;
         *&buf[22] = 2112;
-        v49 = br_errorFromErrno;
-        v50 = 2112;
-        v51 = v18;
+        v48 = br_errorFromErrno;
+        v49 = 2112;
+        v50 = v18;
         _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -90,20 +90,20 @@ LABEL_39:
         v29 = brc_default_log();
         if (os_log_type_enabled(v29, 0x90u))
         {
-          v46 = "(passed to caller)";
+          v45 = "(passed to caller)";
           *buf = 136315906;
           *&buf[4] = "[BRCLazyXattrsCollection initWithFD:sizeLimit:syncable:error:]";
           *&buf[12] = 2080;
           if (!error)
           {
-            v46 = "(ignored by caller)";
+            v45 = "(ignored by caller)";
           }
 
-          *&buf[14] = v46;
+          *&buf[14] = v45;
           *&buf[22] = 2112;
-          v49 = br_errorFromErrno2;
-          v50 = 2112;
-          v51 = v28;
+          v48 = br_errorFromErrno2;
+          v49 = 2112;
+          v50 = v28;
           _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -122,8 +122,8 @@ LABEL_39:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __countSyncableXattrs_block_invoke;
-    v49 = &__block_descriptor_33_e9_B16__0r_8l;
-    LOBYTE(v50) = syncableCopy;
+    v48 = &__block_descriptor_33_e9_B16__0r_8l;
+    LOBYTE(v49) = syncableCopy;
     v25 = buf;
     if (xattrNamesListBegin >= xattrNamesListEnd)
     {
@@ -200,13 +200,12 @@ LABEL_25:
   *error = v16 = 0;
 LABEL_40:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)getXattrValue:(id)value error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   cachedXattrs = self->_cachedXattrs;
   if (!cachedXattrs)
@@ -248,7 +247,7 @@ LABEL_15:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v21;
+      v33 = v21;
       _os_log_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEFAULT, "[WARNING] Do not attempt to get xattr size cache is full%@", buf, 0xCu);
     }
 
@@ -258,9 +257,9 @@ LABEL_15:
   fd = self->_fd;
   uTF8String = [valueCopy UTF8String];
   v16 = self->_sizeLimit - self->_cacheSize;
-  v32 = 0;
-  v12 = BRCGetXattrValue(fd, uTF8String, v16, &v32);
-  v17 = v32;
+  v31 = 0;
+  v12 = BRCGetXattrValue(fd, uTF8String, v16, &v31);
+  v17 = v31;
   v18 = v17;
   if (v12)
   {
@@ -279,20 +278,20 @@ LABEL_15:
       v25 = brc_default_log();
       if (os_log_type_enabled(v25, 0x90u))
       {
-        v31 = "(passed to caller)";
+        v30 = "(passed to caller)";
         *buf = 136315906;
-        v34 = "[BRCLazyXattrsCollection getXattrValue:error:]";
-        v35 = 2080;
+        v33 = "[BRCLazyXattrsCollection getXattrValue:error:]";
+        v34 = 2080;
         if (!error)
         {
-          v31 = "(ignored by caller)";
+          v30 = "(ignored by caller)";
         }
 
-        v36 = v31;
-        v37 = 2112;
-        v38 = v23;
-        v39 = 2112;
-        v40 = v24;
+        v35 = v30;
+        v36 = 2112;
+        v37 = v23;
+        v38 = 2112;
+        v39 = v24;
         _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -312,23 +311,19 @@ LABEL_15:
   }
 
 LABEL_24:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)initWithFD:sizeLimit:syncable:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8_3();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getXattrValue:error:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -336,10 +331,8 @@ LABEL_24:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [cached isKindOfClass:[NSData class]]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [cached isKindOfClass:[NSData class]]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

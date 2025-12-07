@@ -2425,7 +2425,7 @@ void __50__ML3DatabaseConnection__handleDatabaseCorruption__block_invoke(uint64_
   databasePath = self->_databasePath;
   if (!databasePath)
   {
-    ML3DatabaseConnectionRaiseNilDatabasePath(0, a2);
+    ML3DatabaseConnectionRaiseNilDatabasePath();
     databasePath = self->_databasePath;
   }
 
@@ -3095,7 +3095,7 @@ LABEL_21:
 
 - (BOOL)_openWithFlags:(int)flags
 {
-  v126 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   if (self->_databasePath)
   {
     selfCopy = self;
@@ -3124,9 +3124,9 @@ LABEL_21:
       *&buf[12] = 2114;
       *&buf[14] = v7;
       *&buf[22] = 2114;
-      *&v121 = databasePath;
-      WORD4(v121) = 1024;
-      *(&v121 + 10) = flags;
+      *&v122 = databasePath;
+      WORD4(v122) = 1024;
+      *(&v122 + 10) = flags;
       _os_log_impl(&dword_22D2FA000, v6, OS_LOG_TYPE_DEFAULT, "Trying to open %{public}@ connection %{public}@ to database at path %{public}@ with flags=%d", buf, 0x26u);
     }
 
@@ -3197,14 +3197,14 @@ LABEL_18:
           *&buf[12] = 2114;
           *&buf[14] = databasePath;
           *&buf[22] = 1024;
-          LODWORD(v121) = v20;
-          WORD2(v121) = 1024;
-          *(&v121 + 6) = _isDeviceMediaLibraryDatabase;
-          WORD5(v121) = 1024;
-          HIDWORD(v121) = v14 != 0;
-          v122 = 1024;
-          v123 = v15;
-          v124 = 1024;
+          LODWORD(v122) = v20;
+          WORD2(v122) = 1024;
+          *(&v122 + 6) = _isDeviceMediaLibraryDatabase;
+          WORD5(v122) = 1024;
+          HIDWORD(v122) = v14 != 0;
+          v123 = 1024;
+          v124 = v15;
+          v125 = 1024;
           flagsCopy = flags;
           _os_log_impl(&dword_22D2FA000, v18, OS_LOG_TYPE_DEFAULT, "Connection %{public}@ attempting to open database at %{public}@ _isReadOnly=%{BOOL}u, isDeviceMediaLibraryDatabase=%{BOOL}u, isMediaLibraryDeamon=%{BOOL}u, canCreateDatabase=%{BOOL}u, openFlags=%d,", buf, 0x34u);
         }
@@ -3253,15 +3253,15 @@ LABEL_18:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __MLSetSQLiteAutoTraceEnabled_block_invoke;
-        *&v121 = &__block_descriptor_33_e5_v8__0l;
-        BYTE8(v121) = 1;
+        *&v122 = &__block_descriptor_33_e5_v8__0l;
+        BYTE8(v122) = 1;
         _MLDispatchToSerialQueue(0, buf);
         fileSystemRepresentation = [(NSString *)selfCopy->_databasePath fileSystemRepresentation];
         v26 = sqlite3_open_v2(fileSystemRepresentation, &ppDb, v24 | flags, 0);
-        v99 = WeakRetained;
-        v103 = selfCopy;
-        v97 = v15;
-        v95 = v24;
+        v100 = WeakRetained;
+        v104 = selfCopy;
+        v98 = v15;
+        v96 = v24;
         if (v26)
         {
           v27 = v26;
@@ -3283,10 +3283,10 @@ LABEL_18:
             *&buf[14] = v27;
             *&buf[18] = 1024;
             *&buf[20] = v28;
-            LOWORD(v121) = 1024;
-            *(&v121 + 2) = v29;
-            WORD3(v121) = 2082;
-            *(&v121 + 1) = v34;
+            LOWORD(v122) = 1024;
+            *(&v122 + 2) = v29;
+            WORD3(v122) = 2082;
+            *(&v122 + 1) = v34;
             _os_log_impl(&dword_22D2FA000, v33, OS_LOG_TYPE_DEFAULT, "SQLite detected while opening database at '%{public}s'. errorCode=%d, minimalCode=%d, corrupted=%{BOOL}u, errorMsg=%{public}s", buf, 0x28u);
           }
 
@@ -3300,7 +3300,7 @@ LABEL_18:
             if (((v27 & 0xFB) == 0xA || v28 == 15) && [(ML3DatabaseConnection *)selfCopy _handleDiskIOError])
             {
               v29 = 0;
-              v102 = 0;
+              v103 = 0;
 LABEL_63:
               v36 = 0;
               v37 = 0;
@@ -3311,7 +3311,7 @@ LABEL_63:
             sqliteError = [(ML3DatabaseConnection *)selfCopy sqliteError];
           }
 
-          v102 = sqliteError;
+          v103 = sqliteError;
           goto LABEL_63;
         }
 
@@ -3322,16 +3322,16 @@ LABEL_63:
         {
           if (journalingMode != 1)
           {
-            v91 = 1;
-            v89 = 0;
-            v93 = 0;
-            v100 = 0;
+            v92 = 1;
+            v90 = 0;
+            v94 = 0;
+            v101 = 0;
             goto LABEL_86;
           }
 
-          v112 = 1;
-          v93 = sqlite3_file_control(ppDb, 0, 10, &v112);
-          if (v93)
+          v113 = 1;
+          v94 = sqlite3_file_control(ppDb, 0, 10, &v113);
+          if (v94)
           {
             v31 = os_log_create("com.apple.amp.medialibrary", "Default");
             if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
@@ -3339,44 +3339,44 @@ LABEL_63:
               *buf = 138543618;
               *&buf[4] = selfCopy;
               *&buf[12] = 1024;
-              *&buf[14] = v93;
+              *&buf[14] = v94;
               _os_log_impl(&dword_22D2FA000, v31, OS_LOG_TYPE_DEFAULT, "Connection %{public}@ could not enable SQLITE_FCNTL_PERSIST_WAL option, result %d", buf, 0x12u);
             }
 
-            v100 = @"enable SQLITE_FCNTL_PERSIST_WAL option failed";
-            if (![(ML3DatabaseConnection *)selfCopy _handleConnectionErrorWhileOpening:v93])
+            v101 = @"enable SQLITE_FCNTL_PERSIST_WAL option failed";
+            if (![(ML3DatabaseConnection *)selfCopy _handleConnectionErrorWhileOpening:v94])
             {
-              v89 = 0;
+              v90 = 0;
 LABEL_72:
-              v91 = 0;
+              v92 = 0;
 LABEL_86:
-              v119[0] = selfCopy->_databasePath;
-              v48 = [v119[0] stringByAppendingString:@"-shm"];
-              v119[1] = v48;
+              v120[0] = selfCopy->_databasePath;
+              v48 = [v120[0] stringByAppendingString:@"-shm"];
+              v120[1] = v48;
               v49 = [(NSString *)selfCopy->_databasePath stringByAppendingString:@"-wal"];
-              v119[2] = v49;
-              v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v119 count:3];
+              v120[2] = v49;
+              v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:3];
 
-              v109 = 0u;
               v110 = 0u;
-              v107 = 0u;
+              v111 = 0u;
               v108 = 0u;
+              v109 = 0u;
               v51 = v50;
-              v52 = [v51 countByEnumeratingWithState:&v107 objects:v118 count:16];
+              v52 = [v51 countByEnumeratingWithState:&v108 objects:v119 count:16];
               if (v52)
               {
                 v53 = v52;
-                v54 = *v108;
+                v54 = *v109;
                 do
                 {
                   for (i = 0; i != v53; ++i)
                   {
-                    if (*v108 != v54)
+                    if (*v109 != v54)
                     {
                       objc_enumerationMutation(v51);
                     }
 
-                    v56 = *(*(&v107 + 1) + 8 * i);
+                    v56 = *(*(&v108 + 1) + 8 * i);
                     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
                     v58 = [defaultManager2 fileExistsAtPath:v56];
 
@@ -3400,11 +3400,11 @@ LABEL_86:
                           if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
                           {
                             *buf = 138543874;
-                            *&buf[4] = v103;
+                            *&buf[4] = v104;
                             *&buf[12] = 2114;
                             *&buf[14] = v59;
                             *&buf[22] = 1024;
-                            LODWORD(v121) = v61;
+                            LODWORD(v122) = v61;
                             _os_log_impl(&dword_22D2FA000, v62, OS_LOG_TYPE_ERROR, "%{public}@ Failed to set can-suspend-locked xattr on file %{public}@. err=%d", buf, 0x1Cu);
                           }
                         }
@@ -3412,40 +3412,40 @@ LABEL_86:
                     }
                   }
 
-                  v53 = [v51 countByEnumeratingWithState:&v107 objects:v118 count:16];
+                  v53 = [v51 countByEnumeratingWithState:&v108 objects:v119 count:16];
                 }
 
                 while (v53);
               }
 
-              if (v91)
+              if (v92)
               {
-                selfCopy = v103;
-                if (__daemonProcessInfo && !v103->_isReadOnly && (v63 = sqlite3_exec(ppDb, "PRAGMA cache_size=500", 0, 0, &errmsg), v63))
+                selfCopy = v104;
+                if (__daemonProcessInfo && !v104->_isReadOnly && (v63 = sqlite3_exec(ppDb, "PRAGMA cache_size=500", 0, 0, &errmsg), v63))
                 {
                   v38 = v63;
                   v64 = _ML3LogCategoryDefault();
                   if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138543874;
-                    *&buf[4] = v103;
+                    *&buf[4] = v104;
                     *&buf[12] = 2082;
                     *&buf[14] = errmsg;
                     *&buf[22] = 1024;
-                    LODWORD(v121) = v38;
+                    LODWORD(v122) = v38;
                     _os_log_impl(&dword_22D2FA000, v64, OS_LOG_TYPE_DEFAULT, "Warning: connection %{public}@ could not set cache size. %{public}s, result %d", buf, 0x1Cu);
                   }
 
-                  v65 = [(ML3DatabaseConnection *)v103 _handleConnectionErrorWhileOpening:v38];
+                  v65 = [(ML3DatabaseConnection *)v104 _handleConnectionErrorWhileOpening:v38];
                   MLSetSQLiteAutoTraceEnabled(0);
                   if (!v65)
                   {
                     v29 = 0;
-                    v102 = 0;
+                    v103 = 0;
                     v28 = 0;
                     v36 = @"set cache size error";
                     flags = flagsCopy2;
-                    v37 = v93;
+                    v37 = v94;
 LABEL_112:
                     selfCopy->_isOpen = 0;
                     v66 = os_log_create("com.apple.amp.medialibrary", "Default");
@@ -3461,7 +3461,7 @@ LABEL_112:
                       *&buf[14] = v69;
                       v38 = v68;
                       *&buf[22] = 2082;
-                      *&v121 = v70;
+                      *&v122 = v70;
                       _os_log_impl(&dword_22D2FA000, v66, OS_LOG_TYPE_ERROR, "[%@] Unable to open database connection to path %{public}@. %{public}s", buf, 0x20u);
                     }
 
@@ -3475,40 +3475,40 @@ LABEL_112:
                       errmsg = &stru_28408B690;
                     }
 
-                    v88 = dispatch_semaphore_create(0);
-                    v90 = MEMORY[0x277D27EF0];
-                    v115[0] = @"corrupted";
-                    v94 = [MEMORY[0x277CCABB0] numberWithBool:v29];
-                    v116[0] = v94;
-                    v115[1] = @"openError";
-                    null = v102;
-                    if (!v102)
+                    v89 = dispatch_semaphore_create(0);
+                    v91 = MEMORY[0x277D27EF0];
+                    v116[0] = @"corrupted";
+                    v95 = [MEMORY[0x277CCABB0] numberWithBool:v29];
+                    v117[0] = v95;
+                    v116[1] = @"openError";
+                    null = v103;
+                    if (!v103)
                     {
                       null = [MEMORY[0x277CBEB68] null];
                     }
 
                     v73 = MEMORY[0x277D27EC0];
-                    v83 = null;
-                    v116[1] = null;
-                    v115[2] = @"minimalCode";
-                    v92 = [MEMORY[0x277CCABB0] numberWithInt:v28];
-                    v116[2] = v92;
-                    v115[3] = @"canCreateDatabase";
-                    v98 = [MEMORY[0x277CCABB0] numberWithBool:v97];
-                    v116[3] = v98;
-                    v115[4] = @"openFlags";
-                    flags = [MEMORY[0x277CCABB0] numberWithInt:v95 | flags];
-                    v116[4] = flags;
-                    v115[5] = @"isReadOnly";
-                    v87 = [MEMORY[0x277CCABB0] numberWithBool:selfCopy->_isReadOnly];
-                    v116[5] = v87;
-                    v115[6] = @"sqliteResult";
-                    v85 = [MEMORY[0x277CCABB0] numberWithInt:v38];
-                    v116[6] = v85;
-                    v115[7] = @"walResult";
-                    v84 = [MEMORY[0x277CCABB0] numberWithInt:v37];
-                    v116[7] = v84;
-                    v115[8] = @"path";
+                    v84 = null;
+                    v117[1] = null;
+                    v116[2] = @"minimalCode";
+                    v93 = [MEMORY[0x277CCABB0] numberWithInt:v28];
+                    v117[2] = v93;
+                    v116[3] = @"canCreateDatabase";
+                    v99 = [MEMORY[0x277CCABB0] numberWithBool:v98];
+                    v117[3] = v99;
+                    v116[4] = @"openFlags";
+                    flags = [MEMORY[0x277CCABB0] numberWithInt:v96 | flags];
+                    v117[4] = flags;
+                    v116[5] = @"isReadOnly";
+                    v88 = [MEMORY[0x277CCABB0] numberWithBool:selfCopy->_isReadOnly];
+                    v117[5] = v88;
+                    v116[6] = @"sqliteResult";
+                    v86 = [MEMORY[0x277CCABB0] numberWithInt:v38];
+                    v117[6] = v86;
+                    v116[7] = @"walResult";
+                    v85 = [MEMORY[0x277CCABB0] numberWithInt:v37];
+                    v117[7] = v85;
+                    v116[8] = @"path";
                     v74 = selfCopy->_databasePath;
                     null2 = v74;
                     if (!v74)
@@ -3517,45 +3517,36 @@ LABEL_112:
                     }
 
                     v76 = *v73;
-                    v116[8] = null2;
-                    v115[9] = @"context";
+                    v117[8] = null2;
+                    v116[9] = @"context";
                     null3 = v36;
                     if (!v36)
                     {
                       null3 = [MEMORY[0x277CBEB68] null];
                     }
 
-                    v101 = v36;
-                    v116[9] = null3;
-                    v115[10] = @"sqlErrorString";
+                    v102 = v36;
+                    v117[9] = null3;
+                    v116[10] = @"sqlErrorString";
                     null4 = errmsg;
                     if (!errmsg)
                     {
                       null4 = [MEMORY[0x277CBEB68] null];
                     }
 
-                    v116[10] = null4;
-                    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v116 forKeys:v115 count:11];
-                    v117 = v79;
-                    v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v117 count:1];
-                    v104[0] = MEMORY[0x277D85DD0];
-                    v104[1] = 3221225472;
-                    v104[2] = __40__ML3DatabaseConnection__openWithFlags___block_invoke;
-                    v104[3] = &unk_278765FB8;
-                    v81 = v88;
-                    v105 = v81;
-                    [v90 snapshotWithDomain:v76 type:@"Bug" subType:@"Database Validation Bug" context:@"database open error" triggerThresholdValues:0 events:v80 completion:v104];
+                    v117[10] = null4;
+                    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:11];
+                    v118 = v79;
+                    v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v118 count:1];
+                    v105[0] = MEMORY[0x277D85DD0];
+                    v105[1] = 3221225472;
+                    v105[2] = __40__ML3DatabaseConnection__openWithFlags___block_invoke;
+                    v105[3] = &unk_278765FB8;
+                    v81 = v89;
+                    v106 = v81;
+                    [v91 snapshotWithDomain:v76 type:@"Bug" subType:@"Database Validation Bug" context:@"database open error" triggerThresholdValues:0 events:v80 completion:v105];
 
                     if (!errmsg)
-                    {
-                    }
-
-                    if (!v101)
-                    {
-                    }
-
-                    WeakRetained = v99;
-                    if (!v74)
                     {
                     }
 
@@ -3563,12 +3554,21 @@ LABEL_112:
                     {
                     }
 
+                    WeakRetained = v100;
+                    if (!v74)
+                    {
+                    }
+
+                    if (!v103)
+                    {
+                    }
+
                     dispatch_semaphore_wait(v81, 0xFFFFFFFFFFFFFFFFLL);
-                    [(ML3DatabaseConnection *)v103 _logDatabaseFileDebugInformation];
+                    [(ML3DatabaseConnection *)v104 _logDatabaseFileDebugInformation];
                     sqlite3_close(ppDb);
                     if (objc_opt_respondsToSelector())
                     {
-                      [v99 connection:v103 didFailToOpenDatabaseWithError:v102];
+                      [v100 connection:v104 didFailToOpenDatabaseWithError:v103];
                     }
 
 LABEL_136:
@@ -3582,35 +3582,37 @@ LABEL_136:
                   *buf = MEMORY[0x277D85DD0];
                   *&buf[8] = 3221225472;
                   *&buf[16] = __MLSetSQLiteAutoTraceEnabled_block_invoke;
-                  *&v121 = &__block_descriptor_33_e5_v8__0l;
-                  BYTE8(v121) = 0;
+                  *&v122 = &__block_descriptor_33_e5_v8__0l;
+                  BYTE8(v122) = 0;
                   _MLDispatchToSerialQueue(0, buf);
                 }
 
-                v103->_isOpen = 1;
-                v103->_sqlitedb = ppDb;
-                if (v103->_iTunesExtensions)
+                v104->_isOpen = 1;
+                sqlitedb = ppDb;
+                v104->_sqlitedb = ppDb;
+                if (v104->_iTunesExtensions)
                 {
-                  DestroySQLExtensions(v103->_iTunesExtensions);
+                  DestroySQLExtensions(v104->_iTunesExtensions);
+                  sqlitedb = v104->_sqlitedb;
                 }
 
-                CreateSQLExtensionsOnSqliteConnection();
+                CreateSQLExtensionsOnSqliteConnection(sqlitedb);
               }
 
               v29 = 0;
-              v102 = 0;
+              v103 = 0;
               v28 = 0;
-              selfCopy = v103;
+              selfCopy = v104;
               flags = flagsCopy2;
-              v36 = v100;
-              v37 = v93;
-              v38 = v89;
+              v36 = v101;
+              v37 = v94;
+              v38 = v90;
 LABEL_111:
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = __MLSetSQLiteAutoTraceEnabled_block_invoke;
-              *&v121 = &__block_descriptor_33_e5_v8__0l;
-              BYTE8(v121) = 0;
+              *&v122 = &__block_descriptor_33_e5_v8__0l;
+              BYTE8(v122) = 0;
               _MLDispatchToSerialQueue(0, buf);
               goto LABEL_112;
             }
@@ -3618,7 +3620,7 @@ LABEL_111:
 
           else
           {
-            v100 = 0;
+            v101 = 0;
           }
 
           v44 = sqlite3_exec(ppDb, "PRAGMA journal_mode=WAL", 0, 0, &errmsg);
@@ -3633,24 +3635,24 @@ LABEL_111:
               *&buf[12] = 2082;
               *&buf[14] = errmsg;
               *&buf[22] = 1024;
-              LODWORD(v121) = v45;
+              LODWORD(v122) = v45;
               _os_log_impl(&dword_22D2FA000, v46, OS_LOG_TYPE_DEFAULT, "Warning: connection %{public}@ could not enable WAL journal mode. %{public}s, result %d", buf, 0x1Cu);
             }
 
-            v89 = 0;
-            v100 = @"enable WAL journal mode failed";
-            v93 = v45;
+            v90 = 0;
+            v101 = @"enable WAL journal mode failed";
+            v94 = v45;
 LABEL_84:
 
-            v91 = [(ML3DatabaseConnection *)selfCopy _handleConnectionErrorWhileOpening:v45];
+            v92 = [(ML3DatabaseConnection *)selfCopy _handleConnectionErrorWhileOpening:v45];
             goto LABEL_86;
           }
         }
 
         else
         {
-          v111 = 0;
-          v41 = sqlite3_file_control(ppDb, 0, 10, &v111);
+          v112 = 0;
+          v41 = sqlite3_file_control(ppDb, 0, 10, &v112);
           if (v41)
           {
             v42 = v41;
@@ -3664,18 +3666,18 @@ LABEL_84:
               _os_log_impl(&dword_22D2FA000, v43, OS_LOG_TYPE_DEFAULT, "Connection %{public}@ could not disable SQLITE_FCNTL_PERSIST_WAL option, result %d", buf, 0x12u);
             }
 
-            v100 = @"disable SQLITE_FCNTL_PERSIST_WAL option failed";
+            v101 = @"disable SQLITE_FCNTL_PERSIST_WAL option failed";
             if (![(ML3DatabaseConnection *)selfCopy _handleConnectionErrorWhileOpening:v42])
             {
-              v89 = v42;
-              v93 = 0;
+              v90 = v42;
+              v94 = 0;
               goto LABEL_72;
             }
           }
 
           else
           {
-            v100 = 0;
+            v101 = 0;
           }
 
           v47 = sqlite3_exec(ppDb, "PRAGMA journal_mode=DELETE", 0, 0, &errmsg);
@@ -3690,20 +3692,20 @@ LABEL_84:
               *&buf[12] = 2082;
               *&buf[14] = errmsg;
               *&buf[22] = 1024;
-              LODWORD(v121) = v45;
+              LODWORD(v122) = v45;
               _os_log_impl(&dword_22D2FA000, v46, OS_LOG_TYPE_DEFAULT, "Warning: connection %{public}@ could not update journaling mode to DELETE. %{public}s, result %d", buf, 0x1Cu);
             }
 
-            v93 = 0;
-            v100 = @"update journaling mode to DELETE failed";
-            v89 = v45;
+            v94 = 0;
+            v101 = @"update journaling mode to DELETE failed";
+            v90 = v45;
             goto LABEL_84;
           }
         }
 
-        v89 = 0;
-        v93 = 0;
-        v91 = 1;
+        v90 = 0;
+        v94 = 0;
+        v92 = 1;
         goto LABEL_86;
       }
 
@@ -3725,7 +3727,7 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  ML3DatabaseConnectionRaiseNilDatabasePath(self, a2);
+  ML3DatabaseConnectionRaiseNilDatabasePath();
   return 0;
 }
 

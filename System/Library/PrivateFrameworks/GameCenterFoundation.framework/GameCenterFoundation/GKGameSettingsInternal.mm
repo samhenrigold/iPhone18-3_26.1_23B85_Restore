@@ -46,18 +46,16 @@
   return v3;
 }
 
-void __49__GKGameSettingsInternal_secureCodedPropertyKeys__block_invoke()
+void __49__GKGameSettingsInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"bundleID";
-  v3[1] = @"allowFriendListAccess";
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_10;
-  secureCodedPropertyKeys_sSecureCodedKeys_10 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"bundleID";
+  v4[1] = @"allowFriendListAccess";
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_10;
+  secureCodedPropertyKeys_sSecureCodedKeys_10 = v2;
 }
 
 - (void)encodeWithCoder:(id)coder

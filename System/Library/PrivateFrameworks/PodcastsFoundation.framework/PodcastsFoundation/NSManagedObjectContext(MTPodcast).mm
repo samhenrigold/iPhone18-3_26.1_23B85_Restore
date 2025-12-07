@@ -1,8 +1,8 @@
 @interface NSManagedObjectContext(MTPodcast)
+- (char)_nextSortOrderWithRequest:()MTPodcast;
 - (id)podcastForFeedUrl:()MTPodcast;
 - (id)podcastForPodcastPID:()MTPodcast;
 - (id)podcastForStoreId:()MTPodcast;
-- (uint64_t)_nextSortOrderWithRequest:()MTPodcast;
 - (uint64_t)countOfPodcasts;
 - (uint64_t)countOfSubscribedAndNotHiddenPodcasts;
 - (uint64_t)nextSortOrderForPodcasts;
@@ -101,24 +101,23 @@
 
 - (uint64_t)nextSortOrderForPodcasts
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"MTPodcast"];
   v3 = +[MTPodcast predicateForNotHiddenNotImplicitlyFollowedPodcasts];
   [v2 setPredicate:v3];
 
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"sortOrder" ascending:0];
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   [v2 setSortDescriptors:v5];
 
   [v2 setFetchLimit:1];
   v6 = [self _nextSortOrderWithRequest:v2];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-- (uint64_t)_nextSortOrderWithRequest:()MTPodcast
+- (char)_nextSortOrderWithRequest:()MTPodcast
 {
   v9 = 0;
   v3 = [self executeFetchRequest:a3 error:&v9];

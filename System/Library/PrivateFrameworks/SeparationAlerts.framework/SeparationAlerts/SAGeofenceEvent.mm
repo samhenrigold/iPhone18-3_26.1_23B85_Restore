@@ -156,25 +156,23 @@ LABEL_16:
 
 - (id)descriptionDictionary
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = @"EventType";
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v14[0] = v4;
-  v13[1] = @"GeofenceEventDate";
+  v13[0] = v4;
+  v12[1] = @"GeofenceEventDate";
   eventDate = [(SAGeofenceEvent *)self eventDate];
   getDateString = [eventDate getDateString];
-  v14[1] = getDateString;
-  v13[2] = @"GeofenceEventType";
+  v13[1] = getDateString;
+  v12[2] = @"GeofenceEventType";
   v7 = SAGeofenceEventTypeToString([(SAGeofenceEvent *)self eventType]);
-  v14[2] = v7;
-  v13[3] = @"GeofenceEventRegion";
+  v13[2] = v7;
+  v12[3] = @"GeofenceEventRegion";
   region = [(SAGeofenceEvent *)self region];
   v9 = [region description];
-  v14[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }

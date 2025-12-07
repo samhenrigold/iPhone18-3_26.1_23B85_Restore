@@ -117,7 +117,7 @@ BLSHInactiveProcessBudget *__52__BLSHInactiveBudgetPolicy_initWithOSTimerProvide
 
 - (void)resetBudgetForProcess:(id)process reason:(id)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   processCopy = process;
   reasonCopy = reason;
   if (processCopy)
@@ -125,42 +125,38 @@ BLSHInactiveProcessBudget *__52__BLSHInactiveBudgetPolicy_initWithOSTimerProvide
     v8 = bls_budget_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = 134218498;
+      v9 = 134218498;
       selfCopy = self;
-      v12 = 2114;
-      v13 = processCopy;
-      v14 = 2114;
-      v15 = reasonCopy;
-      _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_INFO, "%p will reset budget for process:%{public}@ reason:%{public}@", &v10, 0x20u);
+      v11 = 2114;
+      v12 = processCopy;
+      v13 = 2114;
+      v14 = reasonCopy;
+      _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_INFO, "%p will reset budget for process:%{public}@ reason:%{public}@", &v9, 0x20u);
     }
 
     os_unfair_lock_lock(&self->_lock);
     [(NSMutableDictionary *)self->_budgets removeObjectForKey:processCopy];
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAllBudgetsForReason:(id)reason
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = bls_budget_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 134218242;
+    v6 = 134218242;
     selfCopy = self;
-    v9 = 2114;
-    v10 = reasonCopy;
-    _os_log_impl(&dword_21FD11000, v5, OS_LOG_TYPE_INFO, "%p will reset all budgets for reason:%{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = reasonCopy;
+    _os_log_impl(&dword_21FD11000, v5, OS_LOG_TYPE_INFO, "%p will reset all budgets for reason:%{public}@", &v6, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableDictionary *)self->_budgets removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeStaleDataForNowDate:(id)date
@@ -238,7 +234,7 @@ void __53__BLSHInactiveBudgetPolicy_purgeStaleDataForNowDate___block_invoke(uint
 
 void __52__BLSHInactiveBudgetPolicy_chargeRenderedSpecifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = bls_budget_log();
@@ -246,20 +242,18 @@ void __52__BLSHInactiveBudgetPolicy_chargeRenderedSpecifier___block_invoke(uint6
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v13 = 134218498;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v5;
-    _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "%p charge rendered specifier:%{public}@ environment:%{public}@", &v13, 0x20u);
+    v12 = 134218498;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "%p charge rendered specifier:%{public}@ environment:%{public}@", &v12, 0x20u);
   }
 
   v10 = BLSDefaultFidelityForBacklightState(1, v5);
   v11 = [(BLSHInactiveBudgetPolicy *)*(a1 + 32) budgetForEnvironment:v5];
   [v11 chargeRenderedSpecifier:v6 expectedFidelity:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAtRequestDate:(id)date forEnvironment:(id)environment invalidationBlock:(id)block

@@ -96,20 +96,17 @@
 {
   ObjectType = swift_getObjectType();
   v4 = sub_1000C4810(&qword_1001D4F68, &qword_100149690);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v13 - v6;
-  v8 = type metadata accessor for TaskPriority();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = self;
-  v9[5] = ObjectType;
+  v6 = &v10 - v5;
+  v7 = type metadata accessor for TaskPriority();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = self;
+  v8[5] = ObjectType;
   selfCopy = self;
-  v11 = sub_1000C1E34(0, 0, v7, &unk_10014BB48, v9);
-  v12 = *(&selfCopy->super.isa + OBJC_IVAR____TtC8rapportd27RPApplicationServiceMonitor_monitorTask);
-  *(&selfCopy->super.isa + OBJC_IVAR____TtC8rapportd27RPApplicationServiceMonitor_monitorTask) = v11;
+  *(&selfCopy->super.isa + OBJC_IVAR____TtC8rapportd27RPApplicationServiceMonitor_monitorTask) = sub_1000C1E34(0, 0, v6, &unk_10014BB48, v8);
 }
 
 @end

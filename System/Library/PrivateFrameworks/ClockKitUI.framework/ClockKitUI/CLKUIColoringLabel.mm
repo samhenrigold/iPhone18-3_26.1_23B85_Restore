@@ -133,7 +133,7 @@
 
 - (void)sizeToFit
 {
-  [(CLKUIColoringLabel *)self transform];
+  objc_msgSend_transform(self, a2);
   if (CGAffineTransformIsIdentity(&v7))
   {
     [(CLKUIColoringLabel *)self frame];

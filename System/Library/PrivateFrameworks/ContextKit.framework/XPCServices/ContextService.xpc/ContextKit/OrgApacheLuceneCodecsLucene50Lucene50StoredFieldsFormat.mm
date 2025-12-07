@@ -17,7 +17,6 @@
   v11 = [info getAttributeWithNSString:OrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_MODE_KEY_];
   if (!v11)
   {
-    v23 = *(info + 1);
     v21 = JreStrcat("$$$$", v12, v13, v14, v15, v16, v17, v18, @"missing value for ");
     v22 = new_JavaLangIllegalStateException_initWithNSString_(v21);
     objc_exception_throw(v22);
@@ -48,11 +47,10 @@ LABEL_7:
 
   if ([info putAttributeWithNSString:OrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_MODE_KEY_ withNSString:{-[JavaLangEnum name](mode, "name")}])
   {
-    v11 = *(info + 1);
     [(JavaLangEnum *)self->mode_ name];
-    v19 = JreStrcat("$$$$$$$$", v12, v13, v14, v15, v16, v17, v18, @"found existing value for ");
-    v20 = new_JavaLangIllegalStateException_initWithNSString_(v19);
-    objc_exception_throw(v20);
+    v18 = JreStrcat("$$$$$$$$", v11, v12, v13, v14, v15, v16, v17, @"found existing value for ");
+    v19 = new_JavaLangIllegalStateException_initWithNSString_(v18);
+    objc_exception_throw(v19);
   }
 
   v10 = [(OrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat *)self implWithOrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_ModeEnum:self->mode_];

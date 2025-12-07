@@ -55,7 +55,7 @@
   return v6 & 1;
 }
 
-uint64_t __58__CRProtocolRestrictedInvocationChain_conformsToProtocol___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__58__CRProtocolRestrictedInvocationChain_conformsToProtocol___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 conformsToProtocol:*(a1 + 32)];
   if (result)

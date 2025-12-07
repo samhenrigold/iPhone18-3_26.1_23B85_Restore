@@ -242,7 +242,7 @@
       return v4;
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
 LABEL_8:
@@ -255,15 +255,21 @@ LABEL_8:
   shouldLog = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v12 = shouldLog | 2;
+    LODWORD(v12) = shouldLog | 2;
   }
 
   else
   {
-    v12 = shouldLog;
+    LODWORD(v12) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v10 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
@@ -274,13 +280,12 @@ LABEL_8:
     v18 = objc_opt_class();
     v19 = 2112;
     v20 = bundleIdentifier;
-    LODWORD(v16) = 22;
-    v13 = _os_log_send_and_compose_impl();
-    if (v13)
+    v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not find app for identifier: %@", &v17, 22);
+    if (v14)
     {
-      v14 = v13;
-      [NSString stringWithCString:v13 encoding:4, &v17, v16];
-      free(v14);
+      v15 = v14;
+      [NSString stringWithCString:v14 encoding:4];
+      free(v15);
       SSFileLog();
     }
   }
@@ -291,7 +296,7 @@ LABEL_8:
   v4 = 0;
   if (identity)
   {
-LABEL_19:
+LABEL_20:
     if (!v4)
     {
       *identity = v9;

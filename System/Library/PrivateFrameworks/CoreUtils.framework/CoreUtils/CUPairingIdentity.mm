@@ -15,41 +15,36 @@
 {
   if (len == 64)
   {
-    v9 = self->_publicKey;
-    if ([(NSData *)v9 length]== 32)
+    v8 = self->_publicKey;
+    if ([(NSData *)v8 length]== 32)
     {
-      [(NSData *)v9 bytes];
+      [(NSData *)v8 bytes];
       ccsha512_di();
-      v15 = cced25519_verify();
-      v16 = v15 == 0;
-      if (!error || !v15)
+      v9 = cced25519_verify();
+      v10 = v9 == 0;
+      if (!error || !v9)
       {
         goto LABEL_13;
       }
 
-      v17 = *MEMORY[0x1E696A768];
-      v18 = "Signature verify failed";
-      v19 = 4294960542;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960542, "Signature verify failed");
     }
 
     else
     {
       if (!error)
       {
-        v16 = 0;
+        v10 = 0;
         goto LABEL_13;
       }
 
-      v17 = *MEMORY[0x1E696A768];
-      v18 = "No EdPK";
-      v19 = 4294896141;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294896141, "No EdPK");
     }
 
-    NSErrorF_safe(v17, v19, v18, v10, v11, v12, v13, v14, v21);
-    *error = v16 = 0;
+    *error = v10 = 0;
 LABEL_13:
 
-    return v16;
+    return v10;
   }
 
   if (!error)
@@ -57,9 +52,9 @@ LABEL_13:
     return 0;
   }
 
-  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960580, "Bad signature size (%zu)", len, dataPtr, dataLen, error, v7, len);
-  *error = v16 = 0;
-  return v16;
+  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960580, "Bad signature size (%zu)", len);
+  *error = v10 = 0;
+  return v10;
 }
 
 - (BOOL)verifySignature:(id)signature data:(id)data error:(id *)error
@@ -81,35 +76,35 @@ LABEL_13:
   v8 = self->_publicKey;
   if ([(NSData *)v8 length]== 32)
   {
-    v14 = self->_secretKey;
-    v15 = [(NSData *)v14 length];
-    v21 = v15 == 32;
-    if (v15 == 32)
+    v9 = self->_secretKey;
+    v10 = [(NSData *)v9 length];
+    v11 = v10 == 32;
+    if (v10 == 32)
     {
       [(NSData *)v8 bytes];
-      [(NSData *)v14 bytes];
+      [(NSData *)v9 bytes];
       ccsha512_di();
       cced25519_sign();
     }
 
     else if (error)
     {
-      *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896142, "No EdSK", v16, v17, v18, v19, v20, v23);
+      *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896142, "No EdSK");
     }
   }
 
   else if (error)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294896141, "No EdPK", v9, v10, v11, v12, v13, v23);
-    *error = v21 = 0;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294896141, "No EdPK");
+    *error = v11 = 0;
   }
 
   else
   {
-    v21 = 0;
+    v11 = 0;
   }
 
-  return v21;
+  return v11;
 }
 
 - (id)signData:(id)data error:(id *)error

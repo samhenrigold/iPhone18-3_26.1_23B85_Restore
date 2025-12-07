@@ -18,7 +18,7 @@
   return v6;
 }
 
-uint64_t __83__AVWeakObservationBlockFactory_weakObservationBlockForWeakObserver_passedToBlock___block_invoke(uint64_t a1)
+void *__83__AVWeakObservationBlockFactory_weakObservationBlockForWeakObserver_passedToBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) referencedObject];
   if (result)

@@ -18,13 +18,13 @@
   titleCopy = title;
   messageCopy = message;
   iconCopy = icon;
-  v36.receiver = self;
-  v36.super_class = SKUIReviewInAppRatingHeaderView;
+  v40.receiver = self;
+  v40.super_class = SKUIReviewInAppRatingHeaderView;
   v12 = *MEMORY[0x277CBF3A0];
   v13 = *(MEMORY[0x277CBF3A0] + 8);
   v14 = *(MEMORY[0x277CBF3A0] + 16);
   v15 = *(MEMORY[0x277CBF3A0] + 24);
-  v16 = [(SKUIReviewInAppRatingHeaderView *)&v36 initWithFrame:*MEMORY[0x277CBF3A0], v13, v14, v15];
+  v16 = [(SKUIReviewInAppRatingHeaderView *)&v40 initWithFrame:*MEMORY[0x277CBF3A0], v13, v14, v15];
   if (v16)
   {
     v17 = [objc_alloc(MEMORY[0x277D755E8]) initWithFrame:{v12, v13, v14, v15}];
@@ -63,15 +63,15 @@
 
     v27 = v16->_ratingView;
     v28 = MEMORY[0x277D755B8];
-    v29 = SKUIBundle();
-    v30 = [v28 imageNamed:@"LightRateControl" inBundle:v29];
-    [(SKUIStarRatingControl *)v27 setEmptyStarsImage:v30];
+    v31 = SKUIBundle(v29, v30);
+    v32 = [v28 imageNamed:@"LightRateControl" inBundle:v31];
+    [(SKUIStarRatingControl *)v27 setEmptyStarsImage:v32];
 
-    v31 = v16->_ratingView;
-    v32 = MEMORY[0x277D755B8];
-    v33 = SKUIBundle();
-    v34 = [v32 imageNamed:@"RateControlFilled" inBundle:v33];
-    [(SKUIStarRatingControl *)v31 setFilledStarsImage:v34];
+    v33 = v16->_ratingView;
+    v34 = MEMORY[0x277D755B8];
+    v37 = SKUIBundle(v35, v36);
+    v38 = [v34 imageNamed:@"RateControlFilled" inBundle:v37];
+    [(SKUIStarRatingControl *)v33 setFilledStarsImage:v38];
 
     [(SKUIStarRatingControl *)v16->_ratingView setUserInteractionEnabled:0];
     [(SKUIReviewInAppRatingHeaderView *)v16 addSubview:v16->_ratingView];

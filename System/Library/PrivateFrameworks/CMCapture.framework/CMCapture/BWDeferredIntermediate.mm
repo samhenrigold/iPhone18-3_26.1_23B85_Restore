@@ -40,7 +40,7 @@
 {
   if (!tag)
   {
-    [BWDeferredIntermediate initWithTag:URL:];
+    [(BWDeferredIntermediate *)self initWithTag:a2 URL:0, l];
 LABEL_8:
 
     return 0;
@@ -48,7 +48,7 @@ LABEL_8:
 
   if (!l)
   {
-    [BWDeferredIntermediate initWithTag:URL:];
+    [BWDeferredIntermediate initWithTag:a2 URL:?];
     goto LABEL_8;
   }
 
@@ -76,7 +76,7 @@ LABEL_8:
 
   else
   {
-    [BWDeferredIntermediate initWithCoder:?];
+    [(BWDeferredIntermediate *)self initWithCoder:a2];
     return 0;
   }
 
@@ -111,12 +111,6 @@ LABEL_8:
   }
 
   return 0;
-}
-
-- (void)initWithCoder:(void *)a1 .cold.1(void *a1)
-{
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
 }
 
 @end

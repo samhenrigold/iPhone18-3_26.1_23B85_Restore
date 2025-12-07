@@ -5,9 +5,10 @@
 
 uint64_t __30__ICAttachment_UI__imageCache__block_invoke()
 {
-  imageCache_imageCache_2 = objc_alloc_init(MEMORY[0x1E69B7A48]);
+  v0 = objc_alloc_init(MEMORY[0x1E69B7A48]);
+  imageCache_imageCache_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 uint64_t __46__ICAttachment_UI__imageLoadingOperationQueue__block_invoke()
@@ -172,7 +173,7 @@ void __25__ICAttachment_UI__image__block_invoke(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-uint64_t __68__ICAttachment_UI__loadImage_aboutToLoadHandler_forceFullSizeImage___block_invoke(uint64_t a1)
+void *__68__ICAttachment_UI__loadImage_aboutToLoadHandler_forceFullSizeImage___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) media];
   v3 = *(*(a1 + 40) + 8);
@@ -285,23 +286,27 @@ void __61__ICAttachment_SearchIndexable_UI__fileURLForTypeIdentifier___block_inv
 {
   v1 = [*(a1 + 40) shortLoggingDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v2, v3, "Getting %@ file URL for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v2, v3, "Getting %@ file URL for %@", v4, v5, v6, v7);
 }
 
 void __58__ICAttachment_SearchIndexable_UI__dataForTypeIdentifier___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 40) shortLoggingDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v2, v3, "Getting %@ data for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v2, v3, "Getting %@ data for %@", v4, v5, v6, v7);
 }
 
 void __101__ICAttachment_InlineAttachmentManagement_UI__filterInlineAttachmentsInTableColumnTextStorage_range___block_invoke_cold_1(void *a1, NSUInteger a2, NSUInteger a3)
 {
   v5 = [a1 shortLoggingDescription];
-  v13.location = a2;
-  v13.length = a3;
-  v12 = NSStringFromRange(v13);
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v6, v7, "Table: Found a token text attachment that we could not create a text attachment for: %@ at %@", v8, v9, v10, v11, 2u);
+  v14.location = a2;
+  v14.length = a3;
+  v6 = NSStringFromRange(v14);
+  *v13 = 138412546;
+  *&v13[4] = v5;
+  *&v13[12] = 2112;
+  *&v13[14] = v6;
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v7, v8, "Table: Found a token text attachment that we could not create a text attachment for: %@ at %@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 @end

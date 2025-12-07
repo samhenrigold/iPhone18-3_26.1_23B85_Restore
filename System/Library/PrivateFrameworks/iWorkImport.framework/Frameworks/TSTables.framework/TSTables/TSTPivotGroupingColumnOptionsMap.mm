@@ -21,28 +21,28 @@
   v4 = sub_22112C8D0(&self->_optionsForUidMap, &dCopy._lower);
   if (&p_optionsForUidMap->__tree_.__end_node_ == v4)
   {
-    v9 = objc_msgSend_emptyOptions(TSTPivotGroupingColumnOptions, v5, v6, v7, v8);
+    v8 = objc_msgSend_emptyOptions(TSTPivotGroupingColumnOptions, v5, v6, v7);
   }
 
   else
   {
-    v9 = v4[6].__left_;
+    v8 = v4[6].__left_;
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)setPivotOptions:(id)options forUid:(TSKUIDStruct)uid
 {
   uidCopy = uid;
   optionsCopy = options;
-  objc_msgSend_willModify(self, v7, v8, v9, v10, uidCopy._lower, uidCopy._upper);
+  objc_msgSend_willModify(self, v7, v8, v9, uidCopy._lower, uidCopy._upper);
   p_optionsForUidMap = &self->_optionsForUidMap;
-  if (objc_msgSend_isNotEmpty(optionsCopy, v11, v12, v13, v14))
+  if (objc_msgSend_isNotEmpty(optionsCopy, v10, v11, v12))
   {
-    v18 = &uidCopy;
-    v16 = sub_2213D96C4(p_optionsForUidMap, &uidCopy._lower);
-    objc_storeStrong((v16 + 48), options);
+    v16 = &uidCopy;
+    v14 = sub_2213D96C4(p_optionsForUidMap, &uidCopy._lower, &unk_2217E1942, &v16);
+    objc_storeStrong((v14 + 48), options);
   }
 
   else if (&p_optionsForUidMap->__tree_.__end_node_ != sub_22112C8D0(p_optionsForUidMap, &uidCopy._lower))
@@ -213,99 +213,99 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TSTPivotGroupingColumnOptionsMap alloc];
-  v9 = objc_msgSend_context(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_initWithContext_(v4, v10, v9, v11, v12);
+  v8 = objc_msgSend_context(self, v5, v6, v7);
+  v11 = objc_msgSend_initWithContext_(v4, v9, v8, v10);
 
   self = (self + 64);
   isa = self->super.super.isa;
   p_delegate = &self->super._delegate;
-  v16 = isa;
+  v14 = isa;
   if (isa != p_delegate)
   {
     do
     {
-      objc_msgSend_setPivotOptions_forUid_(v13, v14, *(v16 + 6), *(v16 + 4), *(v16 + 5));
-      v18 = *(v16 + 1);
-      if (v18)
+      objc_msgSend_setPivotOptions_forUid_(v11, v12, *(v14 + 6), *(v14 + 4), *(v14 + 5));
+      v16 = *(v14 + 1);
+      if (v16)
       {
         do
         {
-          v19 = v18;
-          v18 = *v18;
+          v17 = v16;
+          v16 = *v16;
         }
 
-        while (v18);
+        while (v16);
       }
 
       else
       {
         do
         {
-          v19 = *(v16 + 2);
-          v20 = *v19 == v16;
-          v16 = v19;
+          v17 = *(v14 + 2);
+          v18 = *v17 == v14;
+          v14 = v17;
         }
 
-        while (!v20);
+        while (!v18);
       }
 
-      v16 = v19;
+      v14 = v17;
     }
 
-    while (v19 != p_delegate);
+    while (v17 != p_delegate);
   }
 
-  return v13;
+  return v11;
 }
 
 - (id)prunedCopyWithUids:(void *)uids
 {
   v5 = [TSTPivotGroupingColumnOptionsMap alloc];
-  v10 = objc_msgSend_context(self, v6, v7, v8, v9);
-  v14 = objc_msgSend_initWithContext_(v5, v11, v10, v12, v13);
+  v9 = objc_msgSend_context(self, v6, v7, v8);
+  v12 = objc_msgSend_initWithContext_(v5, v10, v9, v11);
 
-  v17 = *uids;
-  v18 = *(uids + 1);
-  while (v17 != v18)
+  v14 = *uids;
+  v15 = *(uids + 1);
+  while (v14 != v15)
   {
-    v19 = *v17;
-    v20 = v17[1];
-    v21 = objc_msgSend_pivotOptionsForUID_(self, v15, *v17, v20, v16);
-    objc_msgSend_setPivotOptions_forUid_(v14, v22, v21, v19, v20);
+    v16 = *v14;
+    v17 = v14[1];
+    v18 = objc_msgSend_pivotOptionsForUID_(self, v13, *v14, v17);
+    objc_msgSend_setPivotOptions_forUid_(v12, v19, v18, v16, v17);
 
-    v17 += 2;
+    v14 += 2;
   }
 
-  return v14;
+  return v12;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v8 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[280], v6, v7);
+  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[280], v6);
 
-  v10 = *(v8 + 24);
-  if (v10 >= 1)
+  v9 = *(v7 + 24);
+  if (v9 >= 1)
   {
-    for (i = 0; i != v10; ++i)
+    for (i = 0; i != v9; ++i)
     {
-      if (i >= *(v8 + 64))
+      if (i >= *(v7 + 64))
       {
-        v14 = 0;
-        v12 = 0;
+        v13 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v12 = TSKUIDStruct::loadFromMessage(*(*(v8 + 72) + 8 * i + 8), v9);
-        v14 = v13;
+        v11 = TSKUIDStruct::loadFromMessage(*(*(v7 + 72) + 8 * i + 8), v8);
+        v13 = v12;
       }
 
-      v15 = [TSTPivotGroupingColumnOptions alloc];
-      v17 = objc_msgSend_initWithFlags_sortingAggregateRuleUid_(v15, v16, *(*(v8 + 48) + 4 * i), v12, v14);
-      TSP::UUIDData::UUIDData(v19, *(*(v8 + 32) + 8 * i + 8));
-      objc_msgSend_setPivotOptions_forUid_(self, v18, v17, v19[0], v19[1]);
+      v14 = [TSTPivotGroupingColumnOptions alloc];
+      v16 = objc_msgSend_initWithFlags_sortingAggregateRuleUid_(v14, v15, *(*(v7 + 48) + 4 * i), v11, v13);
+      TSP::UUIDData::UUIDData(v18, *(*(v7 + 32) + 8 * i + 8));
+      objc_msgSend_setPivotOptions_forUid_(self, v17, v16, v18[0], v18[1]);
     }
   }
 }
@@ -314,7 +314,7 @@
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v5, sub_2213D985C, off_2812E4498[280], v6);
+  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v5, sub_2213D985C, off_2812E4498[280]);
 
   p_end_node = &self->_optionsForUidMap.__tree_.__end_node_;
   begin_node = self->_optionsForUidMap.__tree_.__begin_node_;
@@ -322,96 +322,96 @@
   {
     do
     {
-      v40 = *&begin_node[4].__left_;
-      v10 = begin_node[6].__left_;
-      v11 = *(v7 + 32);
-      if (!v11)
+      v37 = *&begin_node[4].__left_;
+      v9 = begin_node[6].__left_;
+      v10 = *(v6 + 32);
+      if (!v10)
       {
         goto LABEL_7;
       }
 
-      v12 = *(v7 + 24);
-      v13 = *v11;
-      if (v12 < *v11)
+      v11 = *(v6 + 24);
+      v12 = *v10;
+      if (v11 < *v10)
       {
-        *(v7 + 24) = v12 + 1;
-        v14 = *&v11[2 * v12 + 2];
+        *(v6 + 24) = v11 + 1;
+        v13 = *&v10[2 * v11 + 2];
         goto LABEL_9;
       }
 
-      if (v13 == *(v7 + 28))
+      if (v12 == *(v6 + 28))
       {
 LABEL_7:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v7 + 16));
-        v11 = *(v7 + 32);
-        v13 = *v11;
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v6 + 16));
+        v10 = *(v6 + 32);
+        v12 = *v10;
       }
 
-      *v11 = v13 + 1;
-      v14 = MEMORY[0x223DA0360](*(v7 + 16));
-      v15 = *(v7 + 24);
-      v16 = *(v7 + 32) + 8 * v15;
-      *(v7 + 24) = v15 + 1;
-      *(v16 + 8) = v14;
+      *v10 = v12 + 1;
+      v13 = MEMORY[0x223DA0360](*(v6 + 16));
+      v14 = *(v6 + 24);
+      v15 = *(v6 + 32) + 8 * v14;
+      *(v6 + 24) = v14 + 1;
+      *(v15 + 8) = v13;
 LABEL_9:
-      TSKUIDStruct::saveToMessage(&v40, v14);
-      v21 = objc_msgSend_flags(v10, v17, v18, v19, v20);
-      v26 = v21;
-      v27 = *(v7 + 40);
-      if (v27 == *(v7 + 44))
+      TSKUIDStruct::saveToMessage(&v37, v13);
+      v19 = objc_msgSend_flags(v9, v16, v17, v18);
+      v23 = v19;
+      v24 = *(v6 + 40);
+      if (v24 == *(v6 + 44))
       {
-        v28 = v27 + 1;
-        sub_2210BBC64((v7 + 40), v27 + 1);
-        *(*(v7 + 48) + 4 * v27) = v26;
+        v25 = v24 + 1;
+        sub_2210BBC64((v6 + 40), v24 + 1);
+        *(*(v6 + 48) + 4 * v24) = v23;
       }
 
       else
       {
-        *(*(v7 + 48) + 4 * v27) = v21;
-        v28 = v27 + 1;
+        *(*(v6 + 48) + 4 * v24) = v19;
+        v25 = v24 + 1;
       }
 
-      *(v7 + 40) = v28;
-      v39._lower = objc_msgSend_sortingAggregateRuleUid(v10, v22, v23, v24, v25, v39._lower, v39._upper);
-      v39._upper = v29;
-      v30 = *(v7 + 72);
-      if (!v30)
+      *(v6 + 40) = v25;
+      v36._lower = objc_msgSend_sortingAggregateRuleUid(v9, v20, v21, v22, v36._lower, v36._upper);
+      v36._upper = v26;
+      v27 = *(v6 + 72);
+      if (!v27)
       {
         goto LABEL_17;
       }
 
-      v31 = *(v7 + 64);
-      v32 = *v30;
-      if (v31 >= *v30)
+      v28 = *(v6 + 64);
+      v29 = *v27;
+      if (v28 >= *v27)
       {
-        if (v32 == *(v7 + 68))
+        if (v29 == *(v6 + 68))
         {
 LABEL_17:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v7 + 56));
-          v30 = *(v7 + 72);
-          v32 = *v30;
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v6 + 56));
+          v27 = *(v6 + 72);
+          v29 = *v27;
         }
 
-        *v30 = v32 + 1;
-        v33 = MEMORY[0x223DA0360](*(v7 + 56));
-        v34 = *(v7 + 64);
-        v35 = *(v7 + 72) + 8 * v34;
-        *(v7 + 64) = v34 + 1;
-        *(v35 + 8) = v33;
+        *v27 = v29 + 1;
+        v30 = MEMORY[0x223DA0360](*(v6 + 56));
+        v31 = *(v6 + 64);
+        v32 = *(v6 + 72) + 8 * v31;
+        *(v6 + 64) = v31 + 1;
+        *(v32 + 8) = v30;
         goto LABEL_19;
       }
 
-      *(v7 + 64) = v31 + 1;
-      v33 = *&v30[2 * v31 + 2];
+      *(v6 + 64) = v28 + 1;
+      v30 = *&v27[2 * v28 + 2];
 LABEL_19:
-      TSKUIDStruct::saveToMessage(&v39, v33);
+      TSKUIDStruct::saveToMessage(&v36, v30);
 
       left = begin_node[1].__left_;
       if (left)
       {
         do
         {
-          v37 = left;
+          v34 = left;
           left = left->__left_;
         }
 
@@ -422,45 +422,55 @@ LABEL_19:
       {
         do
         {
-          v37 = begin_node[2].__left_;
-          v38 = v37->__left_ == begin_node;
-          begin_node = v37;
+          v34 = begin_node[2].__left_;
+          v35 = v34->__left_ == begin_node;
+          begin_node = v34;
         }
 
-        while (!v38);
+        while (!v35);
       }
 
-      begin_node = v37;
+      begin_node = v34;
     }
 
-    while (v37 != p_end_node);
+    while (v34 != p_end_node);
   }
 }
 
 - (id)description
 {
-  v43 = objc_opt_new();
-  objc_msgSend_appendFormat_(v43, v3, @"TSTPivotGroupingColumnOptionsMap %p\n", v4, v5, self);
+  v36 = objc_opt_new();
+  objc_msgSend_appendFormat_(v36, v3, @"TSTPivotGroupingColumnOptionsMap %p\n", v4, self);
   begin_node = self->_optionsForUidMap.__tree_.__begin_node_;
   p_end_node = &self->_optionsForUidMap.__tree_.__end_node_;
   if (begin_node != &self->_optionsForUidMap.__tree_.__end_node_)
   {
     do
     {
-      v45 = *&begin_node[4].__left_;
-      v7 = begin_node[6].__left_;
-      v8 = TSKUIDStruct::description(&v45);
-      if (objc_msgSend_sortByGrandTotal(v7, v9, v10, v11, v12))
+      v38 = *&begin_node[4].__left_;
+      v6 = begin_node[6].__left_;
+      v7 = TSKUIDStruct::description(&v38);
+      if (objc_msgSend_sortByGrandTotal(v6, v8, v9, v10))
       {
-        v17 = @"Y";
+        v14 = @"Y";
       }
 
       else
       {
-        v17 = @"N";
+        v14 = @"N";
       }
 
-      if (objc_msgSend_sortDescending(v7, v13, v14, v15, v16))
+      if (objc_msgSend_sortDescending(v6, v11, v12, v13))
+      {
+        v18 = @"Y";
+      }
+
+      else
+      {
+        v18 = @"N";
+      }
+
+      if (objc_msgSend_repeatLabels(v6, v15, v16, v17))
       {
         v22 = @"Y";
       }
@@ -470,37 +480,27 @@ LABEL_19:
         v22 = @"N";
       }
 
-      if (objc_msgSend_repeatLabels(v7, v18, v19, v20, v21))
+      if (objc_msgSend_hideTotals(v6, v19, v20, v21))
       {
-        v27 = @"Y";
+        v26 = @"Y";
       }
 
       else
       {
-        v27 = @"N";
+        v26 = @"N";
       }
 
-      if (objc_msgSend_hideTotals(v7, v23, v24, v25, v26))
-      {
-        v32 = @"Y";
-      }
-
-      else
-      {
-        v32 = @"N";
-      }
-
-      v44._lower = objc_msgSend_sortingAggregateRuleUid(v7, v28, v29, v30, v31);
-      v44._upper = v33;
-      v34 = TSKUIDStruct::description(&v44);
-      objc_msgSend_appendFormat_(v43, v35, @"uid:%@, sortByGrTotal:%@, sortDesc:%@, repeatLbls:%@, hideTtls:%@, sortAggRuleUid:%@\n", v36, v37, v8, v17, v22, v27, v32, v34);
+      v37._lower = objc_msgSend_sortingAggregateRuleUid(v6, v23, v24, v25);
+      v37._upper = v27;
+      v28 = TSKUIDStruct::description(&v37);
+      objc_msgSend_appendFormat_(v36, v29, @"uid:%@, sortByGrTotal:%@, sortDesc:%@, repeatLbls:%@, hideTtls:%@, sortAggRuleUid:%@\n", v30, v7, v14, v18, v22, v26, v28);
 
       left = begin_node[1].__left_;
       if (left)
       {
         do
         {
-          v39 = left;
+          v32 = left;
           left = left->__left_;
         }
 
@@ -511,21 +511,21 @@ LABEL_19:
       {
         do
         {
-          v39 = begin_node[2].__left_;
-          v40 = v39->__left_ == begin_node;
-          begin_node = v39;
+          v32 = begin_node[2].__left_;
+          v33 = v32->__left_ == begin_node;
+          begin_node = v32;
         }
 
-        while (!v40);
+        while (!v33);
       }
 
-      begin_node = v39;
+      begin_node = v32;
     }
 
-    while (v39 != p_end_node);
+    while (v32 != p_end_node);
   }
 
-  return v43;
+  return v36;
 }
 
 - (id).cxx_construct

@@ -1,4 +1,4 @@
-unint64_t CreateBackwardReferencesDH42(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, void *a6, void *a7, int *a8, double a9, int32x4_t a10, double a11, double a12, double a13, int32x4_t a14, unint64_t *a15, uint64_t a16, void *a17, void *a18)
+unint64_t CreateBackwardReferencesDH42(unint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, void *a6, void *a7, int *a8, double a9, int32x4_t a10, double a11, double a12, double a13, int32x4_t a14, unint64_t *a15, uint64_t a16, void *a17, void *a18)
 {
   v18 = a2;
   v19 = a16;
@@ -3155,7 +3155,7 @@ LABEL_423:
   return result;
 }
 
-unint64_t CreateBackwardReferencesDH65(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
+unint64_t CreateBackwardReferencesDH65(unint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
 {
   v387 = *(a6 + 16);
   v12 = *a9;
@@ -5162,7 +5162,7 @@ LABEL_566:
   return result;
 }
 
-unint64_t CreateBackwardReferencesNH2(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
+unint64_t CreateBackwardReferencesNH2(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
 {
   v12 = a2;
   v13 = *a9;
@@ -5293,7 +5293,7 @@ LABEL_31:
             break;
           }
 
-          ++v37;
+          v37 = (v37 + 1);
           v36 = (v36 + 1);
           if (!--v38)
           {
@@ -5320,7 +5320,7 @@ LABEL_31:
           goto LABEL_38;
         }
 
-        v37 += 8;
+        ++v37;
         ++v36;
         v35 -= 8;
         v38 = v28 + v35;
@@ -5371,7 +5371,7 @@ LABEL_55:
               break;
             }
 
-            ++v49;
+            v49 = (v49 + 1);
             v48 = (v48 + 1);
             if (!--v50)
             {
@@ -5398,7 +5398,7 @@ LABEL_55:
             goto LABEL_62;
           }
 
-          v49 += 8;
+          ++v49;
           ++v48;
           v47 -= 8;
           v50 = v28 + v47;
@@ -6110,7 +6110,7 @@ LABEL_246:
   return result;
 }
 
-void *CreateBackwardReferencesNH3(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, uint64_t a9, void *a10, void *a11)
+void *CreateBackwardReferencesNH3(void *result, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, uint64_t a9, void *a10, void *a11)
 {
   v11 = a2;
   v122[1] = *MEMORY[0x1E69E9840];
@@ -6140,7 +6140,7 @@ void *CreateBackwardReferencesNH3(void *result, uint64_t a2, uint64_t a3, uint64
     v112 = *(a5 + 16);
     v111 = *(a5 + 96);
     result = v122;
-    v16 = v15 + a2;
+    v16 = &a2[v15];
     v117 = v13;
     v109 = 4 * v15;
     v17 = *(a6 + 88);
@@ -6150,7 +6150,7 @@ void *CreateBackwardReferencesNH3(void *result, uint64_t a2, uint64_t a3, uint64
     v113 = v15;
     while (1)
     {
-      v18 = v13 - v11;
+      v18 = &v13[-v11];
       if (v11 >= v120)
       {
         v19 = v120;
@@ -6177,13 +6177,13 @@ void *CreateBackwardReferencesNH3(void *result, uint64_t a2, uint64_t a3, uint64
 
       if (v18 < 8)
       {
-        v27 = v13 - v11;
+        v27 = &v13[-v11];
         v26 = (a3 + (v11 & a4));
         v25 = (a3 + (a4 & (v11 - v22)));
         if (v18)
         {
 LABEL_20:
-          v28 = (v25 + v27);
+          v28 = &v27[v25];
           while (*v25 == *v26)
           {
             v26 = (v26 + 1);
@@ -6213,7 +6213,7 @@ LABEL_20:
           ++v26;
           ++v25;
           v24 -= 8;
-          v27 = v18 + v24;
+          v27 = (v18 + v24);
         }
 
         while (v18 + v24 > 7);
@@ -6252,13 +6252,13 @@ LABEL_29:
         {
           if (v18 < 8)
           {
-            v42 = v13 - v11;
+            v42 = &v13[-v11];
             v41 = (a3 + (v11 & a4));
             v40 = (a3 + (v34 & a4));
             if (v18)
             {
 LABEL_45:
-              v43 = (v40 + v42);
+              v43 = &v42[v40];
               while (*v40 == *v41)
               {
                 v41 = (v41 + 1);
@@ -6288,7 +6288,7 @@ LABEL_45:
               ++v41;
               ++v40;
               v39 -= 8;
-              v42 = v18 + v39;
+              v42 = (v18 + v39);
             }
 
             while (v18 + v39 > 7);
@@ -6805,12 +6805,12 @@ LABEL_124:
   v116 = a9;
   v79 = a2;
 LABEL_187:
-  *a8 = v12 + v13 - v79;
+  *a8 = &v13[v12 - v79];
   *a10 += (v116 - a9) >> 4;
   return result;
 }
 
-unint64_t CreateBackwardReferencesNH4(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *i, unint64_t *a9, uint64_t a10, void *a11, void *a12)
+unint64_t CreateBackwardReferencesNH4(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *i, unint64_t *a9, uint64_t a10, void *a11, void *a12)
 {
   v12 = a2;
   v166 = *MEMORY[0x1E69E9840];

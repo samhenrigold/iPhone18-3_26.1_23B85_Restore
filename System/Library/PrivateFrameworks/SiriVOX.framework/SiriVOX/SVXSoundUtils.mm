@@ -9,13 +9,13 @@
 
 - (id)createAudioPlaybackRequestFromID:(int64_t)d preferences:(id)preferences
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   if (!preferencesCopy)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXSoundUtils createAudioPlaybackRequestFromID:preferences:]"];
-    [currentHandler handleFailureInFunction:v34 file:@"SVXSoundUtils.m" lineNumber:57 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
+    v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXSoundUtils createAudioPlaybackRequestFromID:preferences:]"];
+    [currentHandler handleFailureInFunction:v33 file:@"SVXSoundUtils.m" lineNumber:57 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
   }
 
   v7 = 0;
@@ -28,11 +28,11 @@
         goto LABEL_31;
       }
 
-      v36 = preferencesCopy;
+      v35 = preferencesCopy;
       v10 = [(SVXSpeechSynthesisUtils *)self->_speechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:1 preferences:preferencesCopy];
       v11 = objc_alloc(MEMORY[0x277CCACA8]);
       languageCode = [v10 languageCode];
-      v35 = v10;
+      v34 = v10;
       gender = [v10 gender];
       v14 = @"Female";
       if (gender == 1)
@@ -43,26 +43,26 @@
       v15 = [v11 initWithFormat:@"%@-%@-%@", @"Phatic", languageCode, v14];
 
       v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v39 = 0u;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
       v17 = [(SVXResourceURLSupplier *)self->_resourceURLSupplier URLsForResourcesWithExtension:@"wav" subdirectory:0];
-      v18 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v41;
+        v20 = *v40;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v41 != v20)
+            if (*v40 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v40 + 1) + 8 * i);
+            v22 = *(*(&v39 + 1) + 8 * i);
             lastPathComponent = [v22 lastPathComponent];
             v24 = [lastPathComponent hasPrefix:v15];
 
@@ -72,7 +72,7 @@
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v19);
@@ -89,7 +89,7 @@
         v26 = 0;
       }
 
-      preferencesCopy = v36;
+      preferencesCopy = v35;
       if (v26)
       {
         goto LABEL_27;
@@ -135,14 +135,14 @@ LABEL_26:
   {
 LABEL_27:
     v29 = objc_alloc(MEMORY[0x277CEF188]);
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __62__SVXSoundUtils_createAudioPlaybackRequestFromID_preferences___block_invoke;
-    v37[3] = &unk_279C67798;
-    v38 = v26;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __62__SVXSoundUtils_createAudioPlaybackRequestFromID_preferences___block_invoke;
+    v36[3] = &unk_279C67798;
+    v37 = v26;
     dCopy = d;
     v30 = v26;
-    v7 = [v29 initWithBuilder:v37];
+    v7 = [v29 initWithBuilder:v36];
 
     goto LABEL_31;
   }
@@ -151,14 +151,12 @@ LABEL_30:
   v7 = 0;
 LABEL_31:
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 void __62__SVXSoundUtils_createAudioPlaybackRequestFromID_preferences___block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   [v4 setItemURL:v3];
@@ -167,13 +165,11 @@ void __62__SVXSoundUtils_createAudioPlaybackRequestFromID_preferences___block_in
   [v4 setVolume:v5];
   [v4 setFadeInDuration:0.0];
   [v4 setFadeOutDuration:0.0];
-  v9 = @"_SVXSoundID";
+  v8 = @"_SVXSoundID";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v4 setUserInfo:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)getIDFromAudioPlaybackRequest:(id)request

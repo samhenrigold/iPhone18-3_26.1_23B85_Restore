@@ -31,13 +31,13 @@ uint64_t __97___UIAnimatedImageTransitionButtonConfigurationVisualProvider__upda
   return [*(a1 + 40) setAlpha:0.0];
 }
 
-uint64_t __97___UIAnimatedImageTransitionButtonConfigurationVisualProvider__updateImageViewWithConfiguration___block_invoke_2(uint64_t result, int a2)
+id *__97___UIAnimatedImageTransitionButtonConfigurationVisualProvider__updateImageViewWithConfiguration___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) removeFromSuperview];
-    v3 = *(*(v2 + 40) + 264);
+    [result[4] removeFromSuperview];
+    v3 = *(v2[5] + 33);
 
     return [v3 setHidden:0];
   }

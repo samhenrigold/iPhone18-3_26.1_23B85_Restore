@@ -34,7 +34,7 @@
 
 void __94__HMMTRUserAuthorizationForPairing_requestUserPermissionForBridgeAccessory_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -45,9 +45,9 @@ void __94__HMMTRUserAuthorizationForPairing_requestUserPermissionForBridgeAccess
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v10;
-      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unexpected, got an error response for user permission for bridge accessory. Fail pairing.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v10;
+      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unexpected, got an error response for user permission for bridge accessory. Fail pairing.", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -67,11 +67,11 @@ void __94__HMMTRUserAuthorizationForPairing_requestUserPermissionForBridgeAccess
         v15 = "YES";
       }
 
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2080;
-      v20 = v15;
-      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_DEBUG, "%{public}@User selection for bridge accessory. Should cancel : %s", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2080;
+      v19 = v15;
+      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_DEBUG, "%{public}@User selection for bridge accessory. Should cancel : %s", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -89,8 +89,6 @@ void __94__HMMTRUserAuthorizationForPairing_requestUserPermissionForBridgeAccess
   }
 
   v12();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRUserAuthorizationForPairing)initWithUiDialogPresenter:(id)presenter
@@ -122,12 +120,11 @@ void __94__HMMTRUserAuthorizationForPairing_requestUserPermissionForBridgeAccess
 
 uint64_t __47__HMMTRUserAuthorizationForPairing_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_7358;
-  logCategory__hmf_once_v3_7358 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_7358;
+  logCategory__hmf_once_v3_7358 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

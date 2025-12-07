@@ -12,6 +12,7 @@
 + (id)featureFlags;
 + (id)sharedInstance;
 + (void)dump;
++ (void)setLocationSearchContinuityEnabled:(BOOL)enabled;
 @end
 
 @implementation AFFeatureFlags
@@ -33,7 +34,7 @@
 
 + (BOOL)isAnnounceEnabled
 {
-  ANAnnounceFeatureStatusClass = getANAnnounceFeatureStatusClass();
+  ANAnnounceFeatureStatusClass = getANAnnounceFeatureStatusClass(self, a2);
 
   return [ANAnnounceFeatureStatusClass isEnabled];
 }
@@ -89,8 +90,8 @@
 
 + (id)featureFlags
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v20 = *MEMORY[0x1E69E9840];
+  v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (AFIsInternalInstall_onceToken != -1)
   {
     dispatch_once(&AFIsInternalInstall_onceToken, &__block_literal_global_164_46064);
@@ -99,35 +100,35 @@
   if (AFIsInternalInstall_isInternal == 1)
   {
     v2 = CFPreferencesCopyKeyList(@"com.apple.assistant.features", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     obj = v2;
-    v3 = [(__CFArray *)obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v3 = [(__CFArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v17;
+      v5 = *v16;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v17 != v5)
+          if (*v16 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v16 + 1) + 8 * i);
+          v7 = *(*(&v15 + 1) + 8 * i);
           v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", @"X-Dev-ConfigOverride-", v7];
           v9 = CFPreferencesCopyAppValue(v7, @"com.apple.assistant.features");
           if ((objc_opt_respondsToSelector() & 1) != 0 && [v9 BOOLValue])
           {
-            [v14 setObject:@"true" forKey:v8];
+            [v13 setObject:@"true" forKey:v8];
           }
         }
 
-        v4 = [(__CFArray *)obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v4 = [(__CFArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v4);
@@ -137,18 +138,16 @@
   if (+[AFFeatureFlags isOlympusEnabled])
   {
     v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", @"X-Dev-ConfigOverride-", @"assistant.service.olympus.enabled"];
-    [v14 setObject:@"true" forKey:v10];
+    [v13 setObject:@"true" forKey:v10];
   }
 
   if (+[AFFeatureFlags isInfoDomainsRFEnabled])
   {
     v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", @"X-Dev-ConfigOverride-", @"assistant.service.InfoDomainsRF.enabled"];
-    [v14 setObject:@"true" forKey:v11];
+    [v13 setObject:@"true" forKey:v11];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 + (BOOL)isInfoDomainsRFEnabled
@@ -163,19 +162,24 @@
 
 + (void)dump
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = +[AFFeatureFlags featureFlags];
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "+[AFFeatureFlags dump]";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "+[AFFeatureFlags dump]";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %@", &v4, 0x16u);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
++ (void)setLocationSearchContinuityEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  CFPreferencesSetAppValue(@"assistant.service.location-search.continuity.enabled", v3, @"com.apple.assistant.features");
+  CFPreferencesAppSynchronize(@"com.apple.assistant.features");
 }
 
 + (BOOL)isLocationSearchContinuityEnabled
@@ -221,8 +225,10 @@ void __32__AFFeatureFlags_sharedInstance__block_invoke()
     return 0;
   }
 
-  v3 = off_1E7344608[type];
-  return _os_feature_enabled_impl();
+  else
+  {
+    return _os_feature_enabled_impl();
+  }
 }
 
 + (BOOL)isSiriPommesEnabledForLanguage:(id)language
@@ -265,137 +271,137 @@ LABEL_8:
 
 void __66__AFFeatureFlags_SWEFeatureFlags__isSiriPommesEnabledForLanguage___block_invoke()
 {
-  v50[44] = *MEMORY[0x1E69E9840];
-  v49[0] = @"en-US";
-  v48 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[0] = v48;
-  v49[1] = @"zh-CN";
+  v49[44] = *MEMORY[0x1E69E9840];
+  v48[0] = @"en-US";
   v47 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[1] = v47;
-  v49[2] = @"en-GB";
+  v49[0] = v47;
+  v48[1] = @"zh-CN";
   v46 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[2] = v46;
-  v49[3] = @"en-AU";
+  v49[1] = v46;
+  v48[2] = @"en-GB";
   v45 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[3] = v45;
-  v49[4] = @"en-CA";
+  v49[2] = v45;
+  v48[3] = @"en-AU";
   v44 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[4] = v44;
-  v49[5] = @"en-IN";
+  v49[3] = v44;
+  v48[4] = @"en-CA";
   v43 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[5] = v43;
-  v49[6] = @"de-DE";
+  v49[4] = v43;
+  v48[5] = @"en-IN";
   v42 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[6] = v42;
-  v49[7] = @"ja-JP";
+  v49[5] = v42;
+  v48[6] = @"de-DE";
   v41 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[7] = v41;
-  v49[8] = @"fr-FR";
+  v49[6] = v41;
+  v48[7] = @"ja-JP";
   v40 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[8] = v40;
-  v49[9] = @"es-MX";
+  v49[7] = v40;
+  v48[8] = @"fr-FR";
   v39 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[9] = v39;
-  v49[10] = @"es-ES";
+  v49[8] = v39;
+  v48[9] = @"es-MX";
   v38 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[10] = v38;
-  v49[11] = @"es-US";
+  v49[9] = v38;
+  v48[10] = @"es-ES";
   v37 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[11] = v37;
-  v49[12] = @"zh-HK";
+  v49[10] = v37;
+  v48[11] = @"es-US";
   v36 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[12] = v36;
-  v49[13] = @"ar-SA";
+  v49[11] = v36;
+  v48[12] = @"zh-HK";
   v35 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[13] = v35;
-  v49[14] = @"en-SG";
+  v49[12] = v35;
+  v48[13] = @"ar-SA";
   v34 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[14] = v34;
-  v49[15] = @"it-IT";
+  v49[13] = v34;
+  v48[14] = @"en-SG";
   v33 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[15] = v33;
-  v49[16] = @"ko-KR";
+  v49[14] = v33;
+  v48[15] = @"it-IT";
   v32 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[16] = v32;
-  v49[17] = @"ru-RU";
+  v49[15] = v32;
+  v48[16] = @"ko-KR";
   v31 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[17] = v31;
-  v49[18] = @"tr-TR";
+  v49[16] = v31;
+  v48[17] = @"ru-RU";
   v30 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[18] = v30;
-  v49[19] = @"yue-CN";
+  v49[17] = v30;
+  v48[18] = @"tr-TR";
   v29 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[19] = v29;
-  v49[20] = @"zh-TW";
+  v49[18] = v29;
+  v48[19] = @"yue-CN";
   v28 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[20] = v28;
-  v49[21] = @"da-DK";
+  v49[19] = v28;
+  v48[20] = @"zh-TW";
   v27 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[21] = v27;
-  v49[22] = @"de-AT";
+  v49[20] = v27;
+  v48[21] = @"da-DK";
   v26 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[22] = v26;
-  v49[23] = @"de-CH";
+  v49[21] = v26;
+  v48[22] = @"de-AT";
   v25 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[23] = v25;
-  v49[24] = @"en-IE";
+  v49[22] = v25;
+  v48[23] = @"de-CH";
   v24 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[24] = v24;
-  v49[25] = @"en-NZ";
+  v49[23] = v24;
+  v48[24] = @"en-IE";
   v23 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[25] = v23;
-  v49[26] = @"en-ZA";
+  v49[24] = v23;
+  v48[25] = @"en-NZ";
   v22 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[26] = v22;
-  v49[27] = @"es-CL";
+  v49[25] = v22;
+  v48[26] = @"en-ZA";
   v21 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[27] = v21;
-  v49[28] = @"fi-FI";
+  v49[26] = v21;
+  v48[27] = @"es-CL";
   v20 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[28] = v20;
-  v49[29] = @"fr-BE";
+  v49[27] = v20;
+  v48[28] = @"fi-FI";
   v19 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[29] = v19;
-  v49[30] = @"fr-CA";
+  v49[28] = v19;
+  v48[29] = @"fr-BE";
   v18 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[30] = v18;
-  v49[31] = @"fr-CH";
+  v49[29] = v18;
+  v48[30] = @"fr-CA";
   v17 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[31] = v17;
-  v49[32] = @"he-IL";
+  v49[30] = v17;
+  v48[31] = @"fr-CH";
   v16 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[32] = v16;
-  v49[33] = @"it-CH";
+  v49[31] = v16;
+  v48[32] = @"he-IL";
   v15 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[33] = v15;
-  v49[34] = @"ms-MY";
+  v49[32] = v15;
+  v48[33] = @"it-CH";
   v14 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[34] = v14;
-  v49[35] = @"nb-NO";
+  v49[33] = v14;
+  v48[34] = @"ms-MY";
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
+  v49[34] = v13;
+  v48[35] = @"nb-NO";
   v0 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[35] = v0;
-  v49[36] = @"nl-BE";
+  v49[35] = v0;
+  v48[36] = @"nl-BE";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[36] = v1;
-  v49[37] = @"nl-NL";
+  v49[36] = v1;
+  v48[37] = @"nl-NL";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[37] = v2;
-  v49[38] = @"pt-BR";
+  v49[37] = v2;
+  v48[38] = @"pt-BR";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[38] = v3;
-  v49[39] = @"sv-SE";
+  v49[38] = v3;
+  v48[39] = @"sv-SE";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[39] = v4;
-  v49[40] = @"th-TH";
+  v49[39] = v4;
+  v48[40] = @"th-TH";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[40] = v5;
-  v49[41] = @"id-ID";
+  v49[40] = v5;
+  v48[41] = @"id-ID";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[41] = v6;
-  v49[42] = @"vi-VN";
+  v49[41] = v6;
+  v48[42] = @"vi-VN";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:_os_feature_enabled_impl()];
-  v50[42] = v7;
-  v49[43] = @"pt-PT";
+  v49[42] = v7;
+  v48[43] = @"pt-PT";
   v8 = MEMORY[0x1E696AD98];
   if (_os_feature_enabled_impl())
   {
@@ -408,12 +414,10 @@ void __66__AFFeatureFlags_SWEFeatureFlags__isSiriPommesEnabledForLanguage___bloc
   }
 
   v10 = [v8 numberWithInt:v9];
-  v50[43] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:44];
+  v49[43] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:44];
   v12 = isSiriPommesEnabledForLanguage__supportByLanguage;
   isSiriPommesEnabledForLanguage__supportByLanguage = v11;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __64__AFFeatureFlags_SWEFeatureFlags__isHomePodNoTTSPerfTestEnabled__block_invoke()

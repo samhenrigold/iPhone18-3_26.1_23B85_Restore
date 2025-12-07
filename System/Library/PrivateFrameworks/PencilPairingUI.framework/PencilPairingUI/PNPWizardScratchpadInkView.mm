@@ -124,7 +124,7 @@
     v20 = [v14 objectAtIndex:i];
     v21 = [v17 objectAtIndex:i];
     v22 = MEMORY[0x277D755B8];
-    v23 = PencilPairingUIBundle();
+    v23 = PencilPairingUIBundle(v21);
     v24 = [v22 imageNamed:v19 inBundle:v23 compatibleWithTraitCollection:0];
 
     [__PNPWizardScratchpadInkViewInkImages addObject:v24];

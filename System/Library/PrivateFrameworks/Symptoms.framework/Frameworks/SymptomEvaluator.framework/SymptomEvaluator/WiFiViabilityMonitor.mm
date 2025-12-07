@@ -124,7 +124,7 @@
 
 - (void)possiblySignificantWiFiChange
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   currentWiFiViabilityFlags = [(WiFiViabilityMonitor *)self currentWiFiViabilityFlags];
   if (self->_prevWiFiViability != currentWiFiViabilityFlags)
   {
@@ -143,16 +143,14 @@
         v7 = off_27898EFE8[v6];
       }
 
-      v9 = 136315138;
-      v10 = v7;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "possiblySignificantWiFiChange results in %s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = v7;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "possiblySignificantWiFiChange results in %s", &v8, 0xCu);
     }
 
     self->_prevWiFiViability = v4;
     [NetworkAnalyticsEngine relayWiFiViability:v4];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -172,11 +170,11 @@
 
 - (WiFiViabilityMonitor)initWithQueue:(id)queue
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v34.receiver = self;
-  v34.super_class = WiFiViabilityMonitor;
-  v6 = [(WiFiViabilityMonitor *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = WiFiViabilityMonitor;
+  v6 = [(WiFiViabilityMonitor *)&v33 init];
   v7 = v6;
   if (v6)
   {
@@ -207,27 +205,27 @@
 
     [(CellOutrankHandler *)v7->_outrankRelay addObserver:v7 forKeyPath:@"cellOutranksWiFi" options:7 context:0];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __38__WiFiViabilityMonitor_initWithQueue___block_invoke;
-    v32[3] = &unk_27898A690;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __38__WiFiViabilityMonitor_initWithQueue___block_invoke;
+    v31[3] = &unk_27898A690;
     v15 = v7;
-    v33 = v15;
-    v16 = [defaultCenter addObserverForName:@"fallbackRecommendation" object:0 queue:0 usingBlock:v32];
+    v32 = v15;
+    v16 = [defaultCenter addObserverForName:@"fallbackRecommendation" object:0 queue:0 usingBlock:v31];
     cellFallbackObserver = v15->_cellFallbackObserver;
     v15->_cellFallbackObserver = v16;
 
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __38__WiFiViabilityMonitor_initWithQueue___block_invoke_10;
-    v30 = &unk_27898A690;
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __38__WiFiViabilityMonitor_initWithQueue___block_invoke_10;
+    v29 = &unk_27898A690;
     v18 = v15;
-    v31 = v18;
-    v19 = [defaultCenter addObserverForName:@"adminEnablementChange" object:0 queue:0 usingBlock:&v27];
+    v30 = v18;
+    v19 = [defaultCenter addObserverForName:@"adminEnablementChange" object:0 queue:0 usingBlock:&v26];
     cellFallbackAdminObserver = v18->_cellFallbackAdminObserver;
     v18->_cellFallbackAdminObserver = v19;
 
-    v21 = [(WiFiViabilityMonitor *)v18 currentWiFiViabilityFlags:v27];
+    v21 = [(WiFiViabilityMonitor *)v18 currentWiFiViabilityFlags:v26];
     v22 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
     {
@@ -243,7 +241,7 @@
       }
 
       *buf = 136315138;
-      v36 = v24;
+      v35 = v24;
       _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "WiFiViability startup results in %s", buf, 0xCu);
     }
 
@@ -251,7 +249,6 @@
     v18->_prevWiFiViability = v21;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -272,21 +269,19 @@ void __38__WiFiViabilityMonitor_initWithQueue___block_invoke(uint64_t a1, void *
 
 uint64_t __38__WiFiViabilityMonitor_initWithQueue___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 userInfo];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "WiFi Viability Monitor receives fallback recommendation: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "WiFi Viability Monitor receives fallback recommendation: %{public}@", &v7, 0xCu);
   }
 
-  result = [*(a1 + 40) possiblySignificantWiFiChange];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) possiblySignificantWiFiChange];
 }
 
 void __38__WiFiViabilityMonitor_initWithQueue___block_invoke_10(uint64_t a1, void *a2)
@@ -306,21 +301,19 @@ void __38__WiFiViabilityMonitor_initWithQueue___block_invoke_10(uint64_t a1, voi
 
 uint64_t __38__WiFiViabilityMonitor_initWithQueue___block_invoke_2_11(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 userInfo];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "WiFi Viability Monitor receives admin change notification: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "WiFi Viability Monitor receives admin change notification: %{public}@", &v7, 0xCu);
   }
 
-  result = [*(a1 + 40) possiblySignificantWiFiChange];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) possiblySignificantWiFiChange];
 }
 
 - (void)dealloc

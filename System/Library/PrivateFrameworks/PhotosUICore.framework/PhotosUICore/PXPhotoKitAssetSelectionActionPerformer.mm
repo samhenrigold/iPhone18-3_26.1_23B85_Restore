@@ -17,7 +17,7 @@
     selectionSnapshot = [selectionManager selectionSnapshot];
 
     selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
-    [objectReference indexPath];
+    objc_msgSend_indexPath(objectReference);
     v10 = [selectedIndexPaths containsIndexPath:&v13];
 
     if (v10)
@@ -83,7 +83,7 @@ LABEL_8:
   objectReference = [(PXPhotoKitAssetActionPerformer *)self objectReference];
   if (dataSource)
   {
-    [dataSource indexPathForObjectReference:objectReference];
+    objc_msgSend_indexPathForObjectReference_(dataSource);
   }
 
   else

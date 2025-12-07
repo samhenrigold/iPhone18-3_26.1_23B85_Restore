@@ -240,15 +240,15 @@
 
 - (void)setAsCachedAccountInfoForSetupInfoHash:(id)hash
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   hashCopy = hash;
   if (byte_1EA90C538 == 1)
   {
     v5 = objc_opt_class();
     objc_sync_enter(v5);
-    v32 = 0;
-    v7 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v6, self, 1, &v32);
-    v10 = v32;
+    v31 = 0;
+    v7 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v6, self, 1, &v31);
+    v10 = v31;
     if (v10)
     {
       if (ck_log_initialization_predicate != -1)
@@ -267,8 +267,8 @@
 
     else
     {
-      v31 = objc_msgSend_standardUserDefaults(MEMORY[0x1E695E000], v8, v9);
-      v13 = objc_msgSend_objectForKey_(v31, v12, @"CloudKitAccountInfoCache");
+      v30 = objc_msgSend_standardUserDefaults(MEMORY[0x1E695E000], v8, v9);
+      v13 = objc_msgSend_objectForKey_(v30, v12, @"CloudKitAccountInfoCache");
       v17 = objc_msgSend_mutableCopy(v13, v14, v15);
       if (!v17)
       {
@@ -309,8 +309,6 @@
 
     objc_sync_exit(v5);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (CKAccountInfo)initWithValidationCounter:(unint64_t)counter accountStatus:(int64_t)status accountPartition:(int64_t)partition hasValidCredentials:(BOOL)credentials bypassPCSEncryption:(BOOL)encryption deviceToDeviceEncryptionAvailability:(int64_t)availability walrusStatus:(int64_t)walrusStatus needsToVerifyTerms:(BOOL)self0 accountAccessAuthorization:(int64_t)self1 identifier:(id)self2

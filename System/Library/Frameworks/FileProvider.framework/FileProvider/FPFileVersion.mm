@@ -30,9 +30,9 @@
   dateCopy = date;
   componentsCopy = components;
   sizeCopy = size;
-  v41.receiver = self;
-  v41.super_class = FPFileVersion;
-  v19 = [(FPFileVersion *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = FPFileVersion;
+  v19 = [(FPFileVersion *)&v40 init];
   v20 = v19;
   if (v19)
   {
@@ -46,9 +46,9 @@
     v20->_size = [sizeCopy unsignedIntValue];
     manager = [MEMORY[0x1E69A07C0] manager];
     originalURL = v20->_originalURL;
-    v40 = 0;
-    v23 = [manager permanentStorageForItemAtURL:originalURL allocateIfNone:1 error:&v40];
-    v24 = v40;
+    v39 = 0;
+    v23 = [manager permanentStorageForItemAtURL:originalURL allocateIfNone:1 error:&v39];
+    v24 = v39;
     storage = v20->_storage;
     v20->_storage = v23;
 
@@ -65,7 +65,6 @@
 
         if (physicalURL)
         {
-          v30 = v20->_url;
           [(FPFileVersion *)v20 physicalURL];
           _CFURLPromiseSetPhysicalURL();
         }
@@ -79,22 +78,22 @@
 
     else
     {
-      v32 = fp_current_or_default_log();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = fp_current_or_default_log();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [FPFileVersion initWithVersion:v24 displayName:? originalURL:? physicalURL:? identifier:? modificationDate:? lastEditorNameComponents:? size:?];
       }
     }
 
-    v31 = 0;
+    v30 = 0;
     goto LABEL_12;
   }
 
 LABEL_7:
-  v31 = v20;
+  v30 = v20;
 LABEL_12:
 
-  return v31;
+  return v30;
 }
 
 - (void)dealloc
@@ -202,83 +201,82 @@ void __46__FPFileVersion_registerThumbnailNotification__block_invoke_2(uint64_t 
 - (FPFileVersion)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v33.receiver = self;
-  v33.super_class = FPFileVersion;
-  v5 = [(FPFileVersion *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = FPFileVersion;
+  v5 = [(FPFileVersion *)&v32 init];
   if (!v5)
   {
 LABEL_6:
-    v29 = v5;
+    v28 = v5;
     goto LABEL_10;
   }
 
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"version"];
-  v7 = *(v5 + 4);
-  *(v5 + 4) = v6;
+  version = v5->_version;
+  v5->_version = v6;
 
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"filename"];
-  v9 = *(v5 + 5);
-  *(v5 + 5) = v8;
+  displayName = v5->_displayName;
+  v5->_displayName = v8;
 
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"url"];
-  v11 = *(v5 + 9);
-  *(v5 + 9) = v10;
+  originalURL = v5->_originalURL;
+  v5->_originalURL = v10;
 
   v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"physicalURL"];
-  v13 = *(v5 + 1);
-  *(v5 + 1) = v12;
+  wrapper = v5->_wrapper;
+  v5->_wrapper = v12;
 
   v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fpItemIdentifier"];
-  v15 = *(v5 + 10);
-  *(v5 + 10) = v14;
+  fpItemIdentifier = v5->_fpItemIdentifier;
+  v5->_fpItemIdentifier = v14;
 
   v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"modificationDate"];
-  v17 = *(v5 + 7);
-  *(v5 + 7) = v16;
+  modificationDate = v5->_modificationDate;
+  v5->_modificationDate = v16;
 
   v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lastEditorNameComponents"];
-  v19 = *(v5 + 8);
-  *(v5 + 8) = v18;
+  lastEditorNameComponents = v5->_lastEditorNameComponents;
+  v5->_lastEditorNameComponents = v18;
 
-  *(v5 + 6) = [coderCopy decodeInt64ForKey:@"size"];
+  v5->_size = [coderCopy decodeInt64ForKey:@"size"];
   manager = [MEMORY[0x1E69A07C0] manager];
-  v21 = *(v5 + 9);
-  v32 = 0;
-  v22 = [manager permanentStorageForItemAtURL:v21 allocateIfNone:1 error:&v32];
-  v23 = v32;
-  v24 = *(v5 + 11);
-  *(v5 + 11) = v22;
+  v21 = v5->_originalURL;
+  v31 = 0;
+  v22 = [manager permanentStorageForItemAtURL:v21 allocateIfNone:1 error:&v31];
+  v23 = v31;
+  storage = v5->_storage;
+  v5->_storage = v22;
 
-  if (*(v5 + 11))
+  if (v5->_storage)
   {
     v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"GSURL"];
-    v26 = *(v5 + 2);
-    *(v5 + 2) = v25;
+    url = v5->_url;
+    v5->_url = v25;
 
-    physicalURL = [v5 physicalURL];
+    physicalURL = [(FPFileVersion *)v5 physicalURL];
 
     if (physicalURL)
     {
-      v28 = *(v5 + 2);
-      [v5 physicalURL];
+      [(FPFileVersion *)v5 physicalURL];
       _CFURLPromiseSetPhysicalURL();
-      [v5 registerThumbnailNotification];
-      [v5 checkThumbnailChanged];
+      [(FPFileVersion *)v5 registerThumbnailNotification];
+      [(FPFileVersion *)v5 checkThumbnailChanged];
     }
 
     goto LABEL_6;
   }
 
-  v30 = fp_current_or_default_log();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v29 = fp_current_or_default_log();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     [FPFileVersion initWithVersion:v23 displayName:? originalURL:? physicalURL:? identifier:? modificationDate:? lastEditorNameComponents:? size:?];
   }
 
-  v29 = 0;
+  v28 = 0;
 LABEL_10:
 
-  return v29;
+  return v28;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -415,7 +413,7 @@ LABEL_10:
 
 - (id)fetchGSURLForNamespace:(id)namespace
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   namespaceCopy = namespace;
   version = [(FPFileVersion *)self version];
   fpItemIdentifier = [(FPFileVersion *)self fpItemIdentifier];
@@ -429,10 +427,10 @@ LABEL_10:
   if (v11)
   {
     v12 = MEMORY[0x1E695DFF8];
-    v17[0] = v11;
-    v17[1] = namespaceCopy;
-    v17[2] = v9;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
+    v16[0] = v11;
+    v16[1] = namespaceCopy;
+    v16[2] = v9;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
     v14 = [v12 fileURLWithPathComponents:v13];
   }
 
@@ -440,8 +438,6 @@ LABEL_10:
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -578,39 +574,29 @@ LABEL_5:
   return v5;
 }
 
-- (void)initWithVersion:(uint64_t *)a1 displayName:(void *)a2 originalURL:physicalURL:identifier:modificationDate:lastEditorNameComponents:size:.cold.1(uint64_t *a1, void *a2)
+- (void)initWithVersion:(uint64_t)a1 displayName:(void *)a2 originalURL:physicalURL:identifier:modificationDate:lastEditorNameComponents:size:.cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 + (void)storagePrefixForOriginalURL:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [a1 fp_shortDescription];
   v4 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)storagePrefixForOriginalURL:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = [a1 fp_shortDescription];
-  v8 = *__error();
+  v6 = [a1 fp_shortDescription];
+  __error();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

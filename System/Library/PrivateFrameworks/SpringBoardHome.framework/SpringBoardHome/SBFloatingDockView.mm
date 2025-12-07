@@ -50,11 +50,11 @@
 
 - (SBIconImageInfo)_iconImageInfo
 {
-  userIconListView = [(SBFloatingDockView *)self userIconListView];
-  iconLocation = [userIconListView iconLocation];
-  layoutProvider = [userIconListView layoutProvider];
+  v4 = objc_msgSend_userIconListView(self, a3);
+  iconLocation = [v4 iconLocation];
+  layoutProvider = [v4 layoutProvider];
   v7 = [layoutProvider layoutForIconLocation:iconLocation];
-  [v7 iconImageInfo];
+  objc_msgSend_iconImageInfo(v7);
   traitCollection = [(SBFloatingDockView *)self traitCollection];
   [traitCollection displayScale];
 
@@ -118,8 +118,7 @@
 {
   [self _referenceInterIconSpacingWithIconImageInfo:info];
 
-  UIFloorToScale();
-  return result;
+  return UIFloorToScale(v3);
 }
 
 - (double)maximumInterIconSpacing
@@ -162,13 +161,13 @@
 
 + (CGSize)maximumIconSizeWithIconImageInfo:(SBIconImageInfo *)info
 {
-  UIFloorToScale();
-  v4 = v3;
-  UIFloorToScale();
-  v6 = v5;
-  v7 = v4;
-  result.height = v6;
-  result.width = v7;
+  v5 = v4;
+  v6 = UIFloorToScale(v3);
+  v7.n128_u64[0] = v5;
+  v8 = UIFloorToScale(v7);
+  v9 = v6;
+  result.height = v8;
+  result.width = v9;
   return result;
 }
 
@@ -349,7 +348,7 @@
 
       if ([(SBFloatingDockView *)self _shouldDisplayAccessoryIconView])
       {
-        [(SBFloatingDockView *)self bounds:0];
+        objc_msgSend_bounds(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         [(SBFloatingDockView *)self getMetrics:&v8 forBounds:?];
         [(SBIconView *)viewCopy setIconContentScale:0.001];
         UIRectGetCenter();
@@ -373,7 +372,7 @@
       accessoryIconView = self->_accessoryIconView;
       v9 = 0u;
       v7 = accessoryIconView;
-      [(SBFloatingDockView *)self bounds:0];
+      objc_msgSend_bounds(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
       [(SBFloatingDockView *)self getMetrics:&v8 forBounds:?];
       [(SBIconView *)v7 setIconContentScale:*&v9];
       UIRectGetCenter();
@@ -415,7 +414,7 @@
 {
   v9[3] = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v9[0] = [(SBFloatingDockView *)self userIconListView];
+  v9[0] = objc_msgSend_userIconListView(self);
   v9[1] = [(SBFloatingDockView *)self utilitiesIconListView];
   [(SBFloatingDockView *)self recentIconListView];
   v9[2] = v5 = 0;
@@ -608,7 +607,7 @@
 - (double)contentHeight
 {
   v3 = objc_opt_class();
-  [(SBFloatingDockView *)self bounds];
+  objc_msgSend_bounds(self);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -651,7 +650,7 @@
   v39 = 0u;
   memset(v38, 0, sizeof(v38));
   v12 = objc_opt_class();
-  [(SBFloatingDockView *)self bounds];
+  objc_msgSend_bounds(self);
   v35 = v14;
   v36 = v13;
   v34 = v15;
@@ -692,10 +691,10 @@
 
 - (void)getMetrics:(id *)metrics forBounds:(CGRect)bounds
 {
-  userIconListView = [(SBFloatingDockView *)self userIconListView];
+  v40 = objc_msgSend_userIconListView(self, a2);
   recentIconListView = [(SBFloatingDockView *)self recentIconListView];
   utilitiesIconListView = [(SBFloatingDockView *)self utilitiesIconListView];
-  displayedModel = [userIconListView displayedModel];
+  displayedModel = [v40 displayedModel];
   numberOfIcons = [displayedModel numberOfIcons];
 
   minimumUserIconSpaces = [(SBFloatingDockView *)self minimumUserIconSpaces];
@@ -756,6 +755,7 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
+  iconSpacingCopy = iconSpacing;
   v27 = iconSize.width;
   if (CGRectIsEmpty(bounds))
   {
@@ -907,35 +907,36 @@
 
   v46 = v44;
   v166 = v42;
+  v47 = (v31 + v32 + v33 + v42 + v43 + v38 + 2) * iconSpacing;
   v172 = v28;
   if (BSFloatGreaterThanFloat())
   {
-    UIFloorToScale();
-    v27 = v47;
+    v48.n128_f64[0] = (v28 - v46) / (v47 / iconSize.width + (recentIcons + icons + utilitiesIcons + viewCopy));
+    v27 = UIFloorToScale(v48);
   }
 
   else if (size.width <= iconSize.width)
   {
-    v48 = 1.0;
+    v49 = 1.0;
     goto LABEL_49;
   }
 
-  v48 = 1.0;
+  v49 = 1.0;
   if (v27 / size.width != 1.0)
   {
     v165 = v27 / size.width;
-    UIFloorToScale();
-    iconSpacing = v49;
+    v48.n128_f64[0] = v27 / size.width * spacing;
+    iconSpacingCopy = UIFloorToScale(v48);
     goto LABEL_50;
   }
 
 LABEL_49:
-  v165 = v48;
+  v165 = v49;
 LABEL_50:
   v174 = v27;
   if (icons)
   {
-    v50 = iconSpacing * v31 + icons * v27;
+    v50 = iconSpacingCopy * v31 + icons * v27;
   }
 
   else
@@ -945,7 +946,7 @@ LABEL_50:
 
   if (recentIcons)
   {
-    v51 = iconSpacing * v32 + recentIcons * v27;
+    v51 = iconSpacingCopy * v32 + recentIcons * v27;
   }
 
   else
@@ -953,7 +954,7 @@ LABEL_50:
     v51 = 0.0;
   }
 
-  v52 = iconSpacing * v33 + utilitiesIcons * v27;
+  v52 = iconSpacingCopy * v33 + utilitiesIcons * v27;
   if (viewCopy)
   {
     v53 = v27 * viewCopy;
@@ -970,7 +971,7 @@ LABEL_50:
   v56 = BSFloatGreaterThanFloat();
   if (utilitiesIcons)
   {
-    v57 = iconSpacing * v33 + utilitiesIcons * v27;
+    v57 = iconSpacingCopy * v33 + utilitiesIcons * v27;
   }
 
   else
@@ -994,7 +995,7 @@ LABEL_50:
   v60 = v59 | v56;
   if ((v54 & (v59 | v56)) != 0)
   {
-    v58 = v58 + v38 * iconSpacing;
+    v58 = v58 + v38 * iconSpacingCopy;
   }
 
   v162 = v51;
@@ -1006,7 +1007,7 @@ LABEL_50:
       goto LABEL_73;
     }
 
-    v58 = v58 + v43 * iconSpacing;
+    v58 = v58 + v43 * iconSpacingCopy;
   }
 
   if (utilitiesIcons)
@@ -1014,7 +1015,7 @@ LABEL_50:
     v58 = v52 + v58;
     if (v56)
     {
-      v58 = v58 + v166 * iconSpacing;
+      v58 = v58 + v166 * iconSpacingCopy;
     }
   }
 
@@ -1040,25 +1041,25 @@ LABEL_73:
   v197.origin.y = rect;
   v197.size.width = v172;
   v197.size.height = v170;
-  v64 = CGRectGetMaxY(v197) - v174 - iconSpacing;
-  iconSpacingCopy = margin;
+  v64 = CGRectGetMaxY(v197) - v174 - iconSpacingCopy;
+  marginCopy = margin;
   if (margin <= 0.0)
   {
-    iconSpacingCopy = iconSpacing;
+    marginCopy = iconSpacingCopy;
   }
 
-  v198.origin.y = v64 - iconSpacingCopy;
+  v198.origin.y = v64 - marginCopy;
   v198.origin.x = v63;
   v198.size.width = v61;
   v198.size.height = v174;
-  v199 = CGRectInset(v198, -iconSpacing, -iconSpacing);
+  v199 = CGRectInset(v198, -iconSpacingCopy, -iconSpacingCopy);
   v66 = v199.origin.x;
-  iconSpacingCopy2 = iconSpacing;
+  v67 = iconSpacingCopy;
   v68 = v199.origin.y;
   v69 = v199.size.width;
   v70 = v199.size.height;
-  v187 = iconSpacingCopy2;
-  v71 = iconSpacingCopy2 * 6.0 + v174 * 4.0 + 1.0;
+  v187 = v67;
+  v71 = v67 * 6.0 + v174 * 4.0 + 1.0;
   if (BSFloatLessThanFloat())
   {
     v200.origin.x = v66;
@@ -1467,7 +1468,7 @@ LABEL_73:
 
 - (void)layoutSubviews
 {
-  [(SBFloatingDockView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -1477,7 +1478,7 @@ LABEL_73:
     if (BSFloatGreaterThanFloat())
     {
       v49 = 0u;
-      *v50 = 0u;
+      v50[0] = 0u;
       v47 = 0u;
       v48 = 0u;
       v45 = 0u;
@@ -1515,21 +1516,21 @@ LABEL_73:
         systemRedColor = [MEMORY[0x1E69DC888] systemRedColor];
         [layer2 setBorderColor:{objc_msgSend(systemRedColor, "CGColor")}];
 
-        v16 = v50[1];
-        userIconListView = [(SBFloatingDockView *)self userIconListView];
-        [userIconListView setIconContentScale:v50[0]];
-        [userIconListView setIconSpacing:{v16, v16}];
-        [userIconListView sbf_setBoundsAndPositionFromFrame:{*&v32.origin, *&v32.size}];
+        v16 = *(v50 + 1);
+        v17 = objc_msgSend_userIconListView(self);
+        [v17 setIconContentScale:*v50];
+        [v17 setIconSpacing:{v16, v16}];
+        [v17 sbf_setBoundsAndPositionFromFrame:{*&v32.origin, *&v32.size}];
         recentIconListView = [(SBFloatingDockView *)self recentIconListView];
-        [recentIconListView setIconContentScale:v50[0]];
+        [recentIconListView setIconContentScale:*v50];
         [recentIconListView setIconSpacing:{v16, v16}];
         [recentIconListView sbf_setBoundsAndPositionFromFrame:{*&v35.origin, *&v35.size}];
         utilitiesIconListView = [(SBFloatingDockView *)self utilitiesIconListView];
-        [utilitiesIconListView setIconContentScale:v50[0]];
+        [utilitiesIconListView setIconContentScale:*v50];
         [utilitiesIconListView setIconSpacing:{v16, v16}];
         [utilitiesIconListView sbf_setBoundsAndPositionFromFrame:{v36, v37}];
         accessoryIconView = [(SBFloatingDockView *)self accessoryIconView];
-        [accessoryIconView setIconContentScale:v50[0]];
+        [accessoryIconView setIconContentScale:*v50];
         UIRectGetCenter();
         [accessoryIconView setCenter:?];
         if (recentIconListView)
@@ -1539,7 +1540,7 @@ LABEL_73:
 
         else
         {
-          v21 = userIconListView;
+          v21 = v17;
         }
 
         [v21 cursorHitTestingInsetsForIconSpacing:{v16, v16}];
@@ -1573,7 +1574,7 @@ LABEL_73:
         }
 
         [utilitiesDividerView setAlpha:v27];
-        [(SBFloatingDockView *)self setIconContentScale:v50[0]];
+        [(SBFloatingDockView *)self setIconContentScale:*v50];
         delegate = [(SBFloatingDockView *)self delegate];
         [delegate floatingDockViewMainPlatterDidChangeFrame:self];
       }

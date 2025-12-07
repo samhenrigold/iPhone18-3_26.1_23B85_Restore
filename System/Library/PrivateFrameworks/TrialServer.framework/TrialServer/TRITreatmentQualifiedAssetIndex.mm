@@ -1,7 +1,9 @@
 @interface TRITreatmentQualifiedAssetIndex
++ (id)indexWithTreatmentId:(id)id index:(unsigned int)index;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToIndex:(id)index;
 - (TRITreatmentQualifiedAssetIndex)initWithTreatmentId:(id)id index:(unsigned int)index;
+- (id)copyWithReplacementIndex:(unsigned int)index;
 - (id)copyWithReplacementTreatmentId:(id)id;
 - (id)description;
 @end
@@ -30,6 +32,15 @@
   return v10;
 }
 
++ (id)indexWithTreatmentId:(id)id index:(unsigned int)index
+{
+  v4 = *&index;
+  idCopy = id;
+  v7 = [[self alloc] initWithTreatmentId:idCopy index:v4];
+
+  return v7;
+}
+
 - (id)copyWithReplacementTreatmentId:(id)id
 {
   idCopy = id;
@@ -38,22 +49,21 @@
   return v5;
 }
 
+- (id)copyWithReplacementIndex:(unsigned int)index
+{
+  v3 = *&index;
+  v5 = objc_alloc(objc_opt_class());
+  treatmentId = self->_treatmentId;
+
+  return [v5 initWithTreatmentId:treatmentId index:v3];
+}
+
 - (BOOL)isEqualToIndex:(id)index
 {
   indexCopy = index;
   v5 = indexCopy;
-  if (!indexCopy)
+  if (!indexCopy || (v6 = self->_treatmentId == 0, [indexCopy treatmentId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (treatmentId = self->_treatmentId) != 0 && (objc_msgSend(v5, "treatmentId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](treatmentId, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_treatmentId == 0;
-  treatmentId = [indexCopy treatmentId];
-  v8 = treatmentId != 0;
-
-  if (v6 == v8 || (treatmentId = self->_treatmentId) != 0 && ([v5 treatmentId], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](treatmentId, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 

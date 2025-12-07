@@ -10,7 +10,7 @@
   if (a3)
   {
     type metadata accessor for WFContentItemListThumbnailOption(0);
-    lazy protocol witness table accessor for type WFChooseFromListFlow and conformance WFChooseFromListFlow(&lazy protocol witness table cache variable for type WFContentItemListThumbnailOption and conformance WFContentItemListThumbnailOption, 255, type metadata accessor for WFContentItemListThumbnailOption);
+    lazy protocol witness table accessor for type WFChooseFromListFlow and conformance WFChooseFromListFlow(&lazy protocol witness table cache variable for type WFContentItemListThumbnailOption and conformance WFContentItemListThumbnailOption, 255, type metadata accessor for WFContentItemListThumbnailOption, &protocol conformance descriptor for WFContentItemListThumbnailOption);
     a3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

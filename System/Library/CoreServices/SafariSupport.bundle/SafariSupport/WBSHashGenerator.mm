@@ -38,127 +38,128 @@
     safari_recordName = [recordCopy safari_recordName];
     if ([safari_recordName isEqualToString:WBSCloudBookmarkListRecordNameTopBookmark])
     {
-      LOBYTE(v11) = 1;
+      LOBYTE(v12) = 1;
 LABEL_13:
 
       goto LABEL_14;
     }
 
-    v15 = [configurationCopy identityHashComponentsForRecord:recordCopy];
-    v16 = [(WBSHashGenerator *)self generateHashWithComponents:v15];
-    v17 = [recordCopy objectForKeyedSubscript:@"IdentityHash"];
-    v11 = [v16 isEqualToData:v17];
-    v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v19 = v18;
-    if (v11)
+    v16 = [configurationCopy identityHashComponentsForRecord:recordCopy];
+    v17 = [(WBSHashGenerator *)self generateHashWithComponents:v16];
+    v18 = [recordCopy objectForKeyedSubscript:@"IdentityHash"];
+    v12 = [v17 isEqualToData:v18];
+    v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v12, v19);
+    v21 = v20;
+    if (v12)
     {
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
 LABEL_12:
 
         goto LABEL_13;
       }
 
-      log = v19;
-      v43 = [(WBSHashGenerator *)self key];
-      safari_descriptionWithoutSpaces = [v43 safari_descriptionWithoutSpaces];
+      log = v21;
+      v47 = [(WBSHashGenerator *)self key];
+      safari_descriptionWithoutSpaces = [v47 safari_descriptionWithoutSpaces];
       keyID = [(WBSHashGenerator *)self keyID];
       safari_descriptionWithoutSpaces2 = [keyID safari_descriptionWithoutSpaces];
-      safari_descriptionWithoutSpaces3 = [v17 safari_descriptionWithoutSpaces];
-      [v15 componentsJoinedByString:{@", "}];
+      safari_descriptionWithoutSpaces3 = [v18 safari_descriptionWithoutSpaces];
+      [v16 componentsJoinedByString:{@", "}];
       *buf = 138544387;
-      v47 = safari_recordName;
-      v48 = 2114;
-      v49 = safari_descriptionWithoutSpaces;
-      v50 = 2114;
-      v51 = safari_descriptionWithoutSpaces2;
+      v51 = safari_recordName;
       v52 = 2114;
-      v53 = safari_descriptionWithoutSpaces3;
-      v55 = v54 = 2113;
-      v21 = v55;
+      v53 = safari_descriptionWithoutSpaces;
+      v54 = 2114;
+      v55 = safari_descriptionWithoutSpaces2;
+      v56 = 2114;
+      v57 = safari_descriptionWithoutSpaces3;
+      v59 = v58 = 2113;
+      v23 = v59;
       _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Valid identity hash for remote record with name: %{public}@, key: %{public}@, keyID: %{public}@, identityHash: %{public}@, components: %{private}@", buf, 0x34u);
 
-      v22 = safari_descriptionWithoutSpaces;
+      v24 = safari_descriptionWithoutSpaces;
     }
 
     else
     {
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v25 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      if (v25)
       {
-        v38 = v19;
+        v42 = v21;
         loga = [(WBSHashGenerator *)self key];
         safari_descriptionWithoutSpaces4 = [loga safari_descriptionWithoutSpaces];
         keyID2 = [(WBSHashGenerator *)self keyID];
         safari_descriptionWithoutSpaces5 = [keyID2 safari_descriptionWithoutSpaces];
-        safari_descriptionWithoutSpaces6 = [v17 safari_descriptionWithoutSpaces];
-        [v16 safari_descriptionWithoutSpaces];
+        safari_descriptionWithoutSpaces6 = [v18 safari_descriptionWithoutSpaces];
+        [v17 safari_descriptionWithoutSpaces];
         *buf = 138544386;
-        v47 = safari_recordName;
-        v48 = 2114;
-        v49 = safari_descriptionWithoutSpaces4;
-        v50 = 2114;
-        v51 = safari_descriptionWithoutSpaces5;
+        v51 = safari_recordName;
         v52 = 2114;
-        v53 = safari_descriptionWithoutSpaces6;
-        v55 = v54 = 2114;
-        v25 = v55;
-        _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Identity hash is invalid for remote record with name: %{public}@, key: %{public}@, keyID: %{public}@, identity hash actual: %{public}@, expected: %{public}@", buf, 0x34u);
+        v53 = safari_descriptionWithoutSpaces4;
+        v54 = 2114;
+        v55 = safari_descriptionWithoutSpaces5;
+        v56 = 2114;
+        v57 = safari_descriptionWithoutSpaces6;
+        v59 = v58 = 2114;
+        v29 = v59;
+        _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Identity hash is invalid for remote record with name: %{public}@, key: %{public}@, keyID: %{public}@, identity hash actual: %{public}@, expected: %{public}@", buf, 0x34u);
       }
 
-      v23 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v27 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v25, v26);
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_12;
       }
 
-      v39 = v23;
+      v43 = v27;
       logb = [(WBSHashGenerator *)self key];
       safari_descriptionWithoutSpaces7 = [logb safari_descriptionWithoutSpaces];
       keyID3 = [(WBSHashGenerator *)self keyID];
       safari_descriptionWithoutSpaces8 = [keyID3 safari_descriptionWithoutSpaces];
-      safari_descriptionWithoutSpaces9 = [v17 safari_descriptionWithoutSpaces];
-      safari_descriptionWithoutSpaces10 = [v16 safari_descriptionWithoutSpaces];
-      v27 = [v15 componentsJoinedByString:{@", "}];
+      safari_descriptionWithoutSpaces9 = [v18 safari_descriptionWithoutSpaces];
+      safari_descriptionWithoutSpaces10 = [v17 safari_descriptionWithoutSpaces];
+      v31 = [v16 componentsJoinedByString:{@", "}];
       *buf = 138544643;
-      v47 = safari_recordName;
-      v48 = 2114;
-      v49 = safari_descriptionWithoutSpaces7;
-      v50 = 2114;
-      v51 = safari_descriptionWithoutSpaces8;
+      v51 = safari_recordName;
       v52 = 2114;
-      v53 = safari_descriptionWithoutSpaces9;
+      v53 = safari_descriptionWithoutSpaces7;
       v54 = 2114;
-      v55 = safari_descriptionWithoutSpaces10;
-      v56 = 2113;
-      v57 = v27;
-      v28 = v27;
-      _os_log_debug_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "Identity hash is invalid for remote record with name: %{public}@, key: %{public}@, keyID: %{public}@, identity hash actual: %{public}@, expected: %{public}@, components: %{private}@", buf, 0x3Eu);
+      v55 = safari_descriptionWithoutSpaces8;
+      v56 = 2114;
+      v57 = safari_descriptionWithoutSpaces9;
+      v58 = 2114;
+      v59 = safari_descriptionWithoutSpaces10;
+      v60 = 2113;
+      v61 = v31;
+      v32 = v31;
+      _os_log_debug_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEBUG, "Identity hash is invalid for remote record with name: %{public}@, key: %{public}@, keyID: %{public}@, identity hash actual: %{public}@, expected: %{public}@, components: %{private}@", buf, 0x3Eu);
 
-      v22 = safari_descriptionWithoutSpaces7;
+      v24 = safari_descriptionWithoutSpaces7;
     }
 
     goto LABEL_12;
   }
 
-  v9 = safari_minimumAPIVersion;
-  v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  LOBYTE(v11) = 1;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v10 = safari_minimumAPIVersion;
+  v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(safari_minimumAPIVersion, v9);
+  LOBYTE(v12) = 1;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v12 = v10;
+    v13 = v11;
     safari_recordName2 = [recordCopy safari_recordName];
     *buf = 138543874;
-    v47 = safari_recordName2;
-    v48 = 2048;
-    v49 = v9;
-    v50 = 2048;
-    v51 = 4;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Cannot verify identity hash of CKRecord with name %{public}@ because its minimumAPIVersion %zd is more recent than the version %zd of the client.", buf, 0x20u);
+    v51 = safari_recordName2;
+    v52 = 2048;
+    v53 = v10;
+    v54 = 2048;
+    v55 = 4;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Cannot verify identity hash of CKRecord with name %{public}@ because its minimumAPIVersion %zd is more recent than the version %zd of the client.", buf, 0x20u);
   }
 
 LABEL_14:
 
-  return v11;
+  return v12;
 }
 
 - (id)encryptionInfoRecordWithZone:(id)zone

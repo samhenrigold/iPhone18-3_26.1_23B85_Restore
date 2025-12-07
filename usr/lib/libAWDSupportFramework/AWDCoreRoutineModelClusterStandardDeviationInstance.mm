@@ -57,14 +57,12 @@
   has = self->_has;
   if (has)
   {
-    entryStandardDeviation = self->_entryStandardDeviation;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    exitStandardDeviation = self->_exitStandardDeviation;
 
     PBDataWriterWriteInt32Field();
   }

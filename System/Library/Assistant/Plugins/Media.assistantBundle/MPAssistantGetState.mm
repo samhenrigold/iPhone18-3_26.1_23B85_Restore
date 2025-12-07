@@ -6,57 +6,55 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v5, v6, v7, v8))
   {
-    aceId = [(MPAssistantGetState *)self aceId];
-    v6 = sub_233505670(@"Get State", aceId);
+    v13 = objc_msgSend_aceId(self, v9, v10, v11, v12);
+    v14 = sub_233505670(@"Get State", v13);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v6;
+    self->_requestAceHash = v14;
   }
 
-  v8 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v16 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_requestAceHash;
+    v17 = self->_requestAceHash;
     *buf = 138543362;
-    v33 = v9;
-    _os_log_impl(&dword_2334D9000, v8, OS_LOG_TYPE_DEFAULT, "Get State (invoke) <%{public}@>: invoked", buf, 0xCu);
+    v40 = v17;
+    _os_log_impl(&dword_2334D9000, v16, OS_LOG_TYPE_DEFAULT, "Get State (invoke) <%{public}@>: invoked", buf, 0xCu);
   }
 
-  v10 = objc_alloc_init(MEMORY[0x277D47558]);
-  v11 = dispatch_get_global_queue(0, 0);
-  v12 = dispatch_group_create();
-  dispatch_group_enter(v12);
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3221225472;
-  v28 = sub_2334EA1B0;
-  v29 = &unk_2789DB080;
-  v30 = v10;
-  v31 = v12;
+  v18 = objc_alloc_init(MEMORY[0x277D47558]);
+  v19 = dispatch_get_global_queue(0, 0);
+  v20 = dispatch_group_create();
+  dispatch_group_enter(v20);
+  v33 = MEMORY[0x277D85DD0];
+  v34 = 3221225472;
+  v35 = sub_2334EA1B0;
+  v36 = &unk_2789DB080;
+  v37 = v18;
+  v38 = v20;
   MRMediaRemoteGetNowPlayingInfo();
-  dispatch_group_enter(v31);
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = sub_2334EA2DC;
-  v23 = &unk_2789DB0A8;
-  v24 = v30;
-  v25 = v31;
-  v13 = v31;
+  dispatch_group_enter(v38);
+  v27 = MEMORY[0x277D85DD0];
+  v28 = 3221225472;
+  v29 = sub_2334EA2DC;
+  v30 = &unk_2789DB0A8;
+  v31 = v37;
+  v32 = v38;
+  v21 = v38;
   MRMediaRemoteGetNowPlayingApplicationPlaybackState();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2334EA338;
   block[3] = &unk_2789DB120;
   block[4] = self;
-  v18 = v24;
-  v19 = completionCopy;
-  v14 = completionCopy;
-  v15 = v24;
-  dispatch_group_notify(v13, v11, block);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v25 = v31;
+  v26 = completionCopy;
+  v22 = completionCopy;
+  v23 = v31;
+  dispatch_group_notify(v21, v19, block);
 }
 
 @end

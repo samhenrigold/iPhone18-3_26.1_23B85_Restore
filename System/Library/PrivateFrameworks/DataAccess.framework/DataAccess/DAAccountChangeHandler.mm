@@ -23,7 +23,7 @@
 
 + (BOOL)handleAccountWillChange:(id)change withChangeInfo:(id)info store:(id)store accountUpdater:(id)updater
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   infoCopy = info;
   storeCopy = store;
@@ -32,9 +32,9 @@
   v15 = *(MEMORY[0x277D03988] + 5);
   if (os_log_type_enabled(v14, v15))
   {
-    v21 = 138543362;
-    v22 = infoCopy;
-    _os_log_impl(&dword_24844D000, v14, v15, "Handling account will change %{public}@", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = infoCopy;
+    _os_log_impl(&dword_24844D000, v14, v15, "Handling account will change %{public}@", &v20, 0xCu);
   }
 
   changeType = [infoCopy changeType];
@@ -57,13 +57,12 @@
   v18 = v17;
 LABEL_9:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 + (void)handleAccountDidChange:(id)change withChangeInfo:(id)info store:(id)store
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   infoCopy = info;
   storeCopy = store;
@@ -71,9 +70,9 @@ LABEL_9:
   v12 = *(MEMORY[0x277D03988] + 5);
   if (os_log_type_enabled(v11, v12))
   {
-    v26 = 138543362;
-    v27 = infoCopy;
-    _os_log_impl(&dword_24844D000, v11, v12, "Handling account did change %{public}@", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = infoCopy;
+    _os_log_impl(&dword_24844D000, v11, v12, "Handling account did change %{public}@", &v25, 0xCu);
   }
 
   changeType = [infoCopy changeType];
@@ -131,57 +130,53 @@ LABEL_9:
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_supportedChildAccountTypesForParentAccountType:(id)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if ([typeCopy isEqualToString:*MEMORY[0x277CB8C60]])
   {
-    v15 = *MEMORY[0x277CB8C70];
+    v14 = *MEMORY[0x277CB8C70];
     v4 = MEMORY[0x277CBEA60];
-    v5 = &v15;
+    v5 = &v14;
 LABEL_3:
     v6 = 1;
 LABEL_9:
-    v8 = [v4 arrayWithObjects:v5 count:{v6, v11, v12, v13, v14, v15, v16}];
+    v8 = [v4 arrayWithObjects:v5 count:{v6, v10, v11, v12, v13, v14, v15}];
     goto LABEL_10;
   }
 
   if (([typeCopy isEqualToString:*MEMORY[0x277CB8C40]] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277CB8D38]) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277CB8CC0]) & 1) != 0 || objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277CB8BA0]))
   {
     v7 = *MEMORY[0x277CB8BD8];
-    v12 = *MEMORY[0x277CB8BC8];
-    v13 = v7;
-    v14 = *MEMORY[0x277CB8C70];
+    v11 = *MEMORY[0x277CB8BC8];
+    v12 = v7;
+    v13 = *MEMORY[0x277CB8C70];
     v4 = MEMORY[0x277CBEA60];
-    v5 = &v12;
+    v5 = &v11;
     v6 = 3;
     goto LABEL_9;
   }
 
   if ([typeCopy isEqualToString:*MEMORY[0x277CB8B98]])
   {
-    v11 = *MEMORY[0x277CB8C70];
+    v10 = *MEMORY[0x277CB8C70];
     v4 = MEMORY[0x277CBEA60];
-    v5 = &v11;
+    v5 = &v10;
     goto LABEL_3;
   }
 
   v8 = 0;
 LABEL_10:
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (BOOL)_handleAccountAddOrModify:(id)modify withChangeInfo:(id)info inStore:(id)store accountUpdater:(id)updater
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   modifyCopy = modify;
   infoCopy = info;
   storeCopy = store;
@@ -196,7 +191,7 @@ LABEL_10:
       if (os_log_type_enabled(v20, v21))
       {
         *buf = 138543362;
-        v44 = accountTypeIdentifier;
+        v43 = accountTypeIdentifier;
         _os_log_impl(&dword_24844D000, v20, v21, "Found an account of type %{public}@.  Sanity check enabled dataclasses.", buf, 0xCu);
       }
 
@@ -213,44 +208,44 @@ LABEL_10:
         v22 = [self _supportedChildAccountTypesForParentAccountType:accountTypeIdentifier];
         if ([v22 count])
         {
-          v29 = DALoggingwithCategory();
-          v30 = *(MEMORY[0x277D03988] + 5);
-          if (os_log_type_enabled(v29, v30))
+          v28 = DALoggingwithCategory();
+          v29 = *(MEMORY[0x277D03988] + 5);
+          if (os_log_type_enabled(v28, v29))
           {
             *buf = 138543362;
-            v44 = accountTypeIdentifier;
-            _os_log_impl(&dword_24844D000, v29, v30, "Found a parent account of type %{public}@. Sanity checking child accounts for it.", buf, 0xCu);
+            v43 = accountTypeIdentifier;
+            _os_log_impl(&dword_24844D000, v28, v29, "Found a parent account of type %{public}@. Sanity checking child accounts for it.", buf, 0xCu);
           }
 
-          v35 = accountTypeIdentifier;
+          v34 = accountTypeIdentifier;
 
-          v40 = 0u;
-          v41 = 0u;
-          v38 = 0u;
           v39 = 0u;
+          v40 = 0u;
+          v37 = 0u;
+          v38 = 0u;
           v22 = v22;
-          v31 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
-          if (v31)
+          v30 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          if (v30)
           {
-            v32 = v31;
+            v31 = v30;
             v17 = 0;
-            v33 = *v39;
+            v32 = *v38;
             do
             {
-              for (i = 0; i != v32; ++i)
+              for (i = 0; i != v31; ++i)
               {
-                if (*v39 != v33)
+                if (*v38 != v32)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v17 |= [self _sanityCheckChildAccountOfType:*(*(&v38 + 1) + 8 * i) withParent:modifyCopy accountChangeInfo:infoCopy inStore:storeCopy updater:{updaterCopy, v35}];
+                v17 |= [self _sanityCheckChildAccountOfType:*(*(&v37 + 1) + 8 * i) withParent:modifyCopy accountChangeInfo:infoCopy inStore:storeCopy updater:{updaterCopy, v34}];
               }
 
-              v32 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
+              v31 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
             }
 
-            while (v32);
+            while (v31);
           }
 
           else
@@ -258,7 +253,7 @@ LABEL_10:
             LOBYTE(v17) = 0;
           }
 
-          accountTypeIdentifier = v35;
+          accountTypeIdentifier = v34;
         }
 
         else
@@ -274,7 +269,7 @@ LABEL_10:
       if (os_log_type_enabled(v23, v24))
       {
         *buf = 138543362;
-        v44 = accountTypeIdentifier;
+        v43 = accountTypeIdentifier;
         _os_log_impl(&dword_24844D000, v23, v24, "Found an account of type %{public}@.  Sanity check account properties.", buf, 0xCu);
       }
 
@@ -283,14 +278,14 @@ LABEL_10:
       if ((v25 & 1) != 0 || v26)
       {
 LABEL_11:
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __90__DAAccountChangeHandler__handleAccountAddOrModify_withChangeInfo_inStore_accountUpdater___block_invoke;
-        v36[3] = &unk_278F13560;
-        v37 = modifyCopy;
-        [updaterCopy updateAccount:v37 withCompletionHandler:v36];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __90__DAAccountChangeHandler__handleAccountAddOrModify_withChangeInfo_inStore_accountUpdater___block_invoke;
+        v35[3] = &unk_278F13560;
+        v36 = modifyCopy;
+        [updaterCopy updateAccount:v36 withCompletionHandler:v35];
         LOBYTE(v17) = 1;
-        v22 = v37;
+        v22 = v36;
 LABEL_12:
 
         goto LABEL_19;
@@ -306,7 +301,7 @@ LABEL_12:
   if (os_log_type_enabled(v15, v16))
   {
     *buf = 138543362;
-    v44 = accountTypeIdentifier;
+    v43 = accountTypeIdentifier;
     _os_log_impl(&dword_24844D000, v15, v16, "Found a parent account of type %{public}@. Sanity checking child accounts for it.", buf, 0xCu);
   }
 
@@ -321,13 +316,12 @@ LABEL_12:
 
 LABEL_19:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
 void __90__DAAccountChangeHandler__handleAccountAddOrModify_withChangeInfo_inStore_accountUpdater___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -336,15 +330,13 @@ void __90__DAAccountChangeHandler__handleAccountAddOrModify_withChangeInfo_inSto
     if (os_log_type_enabled(v6, v7))
     {
       v8 = [*(a1 + 32) identifier];
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_24844D000, v6, v7, "_handleAccountAddOrModify: Failed to save account with identifier %{public}@: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_24844D000, v6, v7, "_handleAccountAddOrModify: Failed to save account with identifier %{public}@: %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_handleAccountDelete:(id)delete withChangeInfo:(id)info inStore:(id)store
@@ -396,7 +388,7 @@ void __66__DAAccountChangeHandler__cleanupStoreForDisabledAccount_inStore___bloc
 
 + (void)_setupStoreForNewAccount:(id)account
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   accountType = [accountCopy accountType];
   identifier = [accountType identifier];
@@ -427,7 +419,7 @@ LABEL_5:
     {
       identifier4 = [accountCopy identifier];
       *buf = 138543362;
-      v27 = identifier4;
+      v26 = identifier4;
       _os_log_impl(&dword_24844D000, v9, v10, "Not creating a store for account %{public}@ because it is not appropriate", buf, 0xCu);
     }
 
@@ -444,7 +436,7 @@ LABEL_5:
     {
       identifier5 = [accountCopy identifier];
       *buf = 138543362;
-      v27 = identifier5;
+      v26 = identifier5;
       _os_log_impl(&dword_24844D000, v19, v20, "Not creating a store for account %{public}@ because it is the child of a CalDAV account", buf, 0xCu);
     }
   }
@@ -452,18 +444,17 @@ LABEL_5:
   else
   {
     identifier6 = [accountCopy identifier];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke;
-    v24[3] = &unk_278F135B0;
-    v25 = accountCopy;
-    [self _performBlockWithGenericClientDBForAccount:identifier6 block:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke;
+    v23[3] = &unk_278F135B0;
+    v24 = accountCopy;
+    [self _performBlockWithGenericClientDBForAccount:identifier6 block:v23];
 
-    v19 = v25;
+    v19 = v24;
   }
 
 LABEL_14:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -489,11 +480,11 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
 
 + (id)_accountTypeWithIdentifier:(id)identifier inStore:(id)store
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v12 = 0;
-  v6 = [store accountTypeWithAccountTypeIdentifier:identifierCopy error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [store accountTypeWithAccountTypeIdentifier:identifierCopy error:&v11];
+  v7 = v11;
   if (!v6)
   {
     v8 = DALoggingwithCategory();
@@ -501,63 +492,61 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
     if (os_log_type_enabled(v8, v9))
     {
       *buf = 138543618;
-      v14 = identifierCopy;
-      v15 = 2112;
-      v16 = v7;
+      v13 = identifierCopy;
+      v14 = 2112;
+      v15 = v7;
       _os_log_impl(&dword_24844D000, v8, v9, "Couldn't find an account type with identifier %{public}@, error = %@", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (BOOL)_sanityCheckChildSubCalAccountsWithParent:(id)parent inStore:(id)store accountUpdater:(id)updater
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   parentCopy = parent;
   storeCopy = store;
   updaterCopy = updater;
   calDAVSubscribedCalendarsKey = [MEMORY[0x277D03970] CalDAVSubscribedCalendarsKey];
-  v95 = parentCopy;
+  v94 = parentCopy;
   v9 = [parentCopy objectForKeyedSubscript:calDAVSubscribedCalendarsKey];
 
-  v103 = v9;
+  v102 = v9;
   allKeys = [v9 allKeys];
-  v90 = allKeys;
+  v89 = allKeys;
   if ([allKeys count])
   {
-    v112 = [MEMORY[0x277CBEB98] setWithArray:{allKeys, allKeys}];
+    v111 = [MEMORY[0x277CBEB98] setWithArray:{allKeys, allKeys}];
   }
 
   else
   {
-    v112 = 0;
+    v111 = 0;
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v140 = 0u;
   v141 = 0u;
   v142 = 0u;
   v143 = 0u;
-  v144 = 0u;
   childAccounts = [parentCopy childAccounts];
-  v12 = [childAccounts countByEnumeratingWithState:&v141 objects:v150 count:16];
+  v12 = [childAccounts countByEnumeratingWithState:&v140 objects:v149 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v142;
+    v14 = *v141;
     v15 = *MEMORY[0x277CB8D10];
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v142 != v14)
+        if (*v141 != v14)
         {
           objc_enumerationMutation(childAccounts);
         }
 
-        v17 = *(*(&v141 + 1) + 8 * i);
+        v17 = *(*(&v140 + 1) + 8 * i);
         accountType = [v17 accountType];
         identifier = [accountType identifier];
         v20 = [identifier isEqualToString:v15];
@@ -579,7 +568,7 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
         }
       }
 
-      v13 = [childAccounts countByEnumeratingWithState:&v141 objects:v150 count:16];
+      v13 = [childAccounts countByEnumeratingWithState:&v140 objects:v149 count:16];
     }
 
     while (v13);
@@ -587,63 +576,63 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
+  v136 = 0u;
   v137 = 0u;
   v138 = 0u;
   v139 = 0u;
-  v140 = 0u;
-  v25 = v112;
-  v26 = [v25 countByEnumeratingWithState:&v137 objects:v149 count:16];
+  v25 = v111;
+  v26 = [v25 countByEnumeratingWithState:&v136 objects:v148 count:16];
   v27 = updaterCopy;
   v28 = dictionary;
   if (v26)
   {
     v29 = v26;
-    v30 = *v138;
+    v30 = *v137;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v138 != v30)
+        if (*v137 != v30)
         {
           objc_enumerationMutation(v25);
         }
 
-        v32 = *(*(&v137 + 1) + 8 * j);
+        v32 = *(*(&v136 + 1) + 8 * j);
         v33 = [dictionary objectForKeyedSubscript:v32];
 
         if (!v33)
         {
-          v34 = [v103 objectForKeyedSubscript:v32];
+          v34 = [v102 objectForKeyedSubscript:v32];
           [dictionary2 setObject:v34 forKeyedSubscript:v32];
         }
       }
 
-      v29 = [v25 countByEnumeratingWithState:&v137 objects:v149 count:16];
+      v29 = [v25 countByEnumeratingWithState:&v136 objects:v148 count:16];
     }
 
     while (v29);
   }
 
-  v135 = 0u;
-  v136 = 0u;
-  v133 = 0u;
   v134 = 0u;
+  v135 = 0u;
+  v132 = 0u;
+  v133 = 0u;
   allKeys2 = [dictionary allKeys];
-  v36 = [allKeys2 countByEnumeratingWithState:&v133 objects:v148 count:16];
+  v36 = [allKeys2 countByEnumeratingWithState:&v132 objects:v147 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v134;
+    v38 = *v133;
     do
     {
       for (k = 0; k != v37; ++k)
       {
-        if (*v134 != v38)
+        if (*v133 != v38)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v40 = *(*(&v133 + 1) + 8 * k);
+        v40 = *(*(&v132 + 1) + 8 * k);
         if (([v25 containsObject:v40] & 1) == 0)
         {
           v41 = [dictionary objectForKeyedSubscript:v40];
@@ -651,78 +640,78 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
         }
       }
 
-      v37 = [allKeys2 countByEnumeratingWithState:&v133 objects:v148 count:16];
+      v37 = [allKeys2 countByEnumeratingWithState:&v132 objects:v147 count:16];
     }
 
     while (v37);
   }
 
-  v99 = v25;
+  v98 = v25;
 
-  v131 = 0u;
-  v132 = 0u;
-  v129 = 0u;
   v130 = 0u;
+  v131 = 0u;
+  v128 = 0u;
+  v129 = 0u;
   obj = array;
-  v42 = [obj countByEnumeratingWithState:&v129 objects:v147 count:16];
-  v96 = v42 != 0;
+  v42 = [obj countByEnumeratingWithState:&v128 objects:v146 count:16];
+  v95 = v42 != 0;
   if (v42)
   {
     v43 = v42;
-    v44 = *v130;
+    v44 = *v129;
     do
     {
       for (m = 0; m != v43; ++m)
       {
-        if (*v130 != v44)
+        if (*v129 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v46 = *(*(&v129 + 1) + 8 * m);
-        v124 = MEMORY[0x277D85DD0];
-        v125 = 3221225472;
-        v126 = __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inStore_accountUpdater___block_invoke;
-        v127 = &unk_278F13560;
-        v128 = v46;
+        v46 = *(*(&v128 + 1) + 8 * m);
+        v123 = MEMORY[0x277D85DD0];
+        v124 = 3221225472;
+        v125 = __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inStore_accountUpdater___block_invoke;
+        v126 = &unk_278F13560;
+        v127 = v46;
         [updaterCopy removeAccount:? completion:?];
       }
 
-      v43 = [obj countByEnumeratingWithState:&v129 objects:v147 count:16];
+      v43 = [obj countByEnumeratingWithState:&v128 objects:v146 count:16];
     }
 
     while (v43);
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
-  allKeys3 = [v103 allKeys];
-  v104 = [allKeys3 countByEnumeratingWithState:&v120 objects:v146 count:16];
-  if (v104)
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  allKeys3 = [v102 allKeys];
+  v103 = [allKeys3 countByEnumeratingWithState:&v119 objects:v145 count:16];
+  if (v103)
   {
-    v101 = *v121;
-    v92 = *MEMORY[0x277CB8D10];
+    v100 = *v120;
+    v91 = *MEMORY[0x277CB8D10];
     v47 = 0x277D03000uLL;
-    v48 = v99;
+    v48 = v98;
     while (1)
     {
-      for (n = 0; n != v104; ++n)
+      for (n = 0; n != v103; ++n)
       {
-        if (*v121 != v101)
+        if (*v120 != v100)
         {
           objc_enumerationMutation(allKeys3);
         }
 
-        v50 = *(*(&v120 + 1) + 8 * n);
+        v50 = *(*(&v119 + 1) + 8 * n);
         v51 = [v28 objectForKeyedSubscript:v50];
-        v113 = v51;
+        v112 = v51;
         if (!v51)
         {
-          v52 = [self _accountTypeWithIdentifier:v92 inStore:storeCopy];
+          v52 = [self _accountTypeWithIdentifier:v91 inStore:storeCopy];
           v51 = [objc_alloc(MEMORY[0x277CB8F30]) initWithAccountType:v52];
-          [v51 setParentAccount:v95];
+          [v51 setParentAccount:v94];
           [v51 setAuthenticated:1];
         }
 
@@ -731,8 +720,8 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
         if (v53)
         {
           calDAVURLPath2 = [v53 calDAVURLPath];
-          v111 = n;
-          v109 = calDAVURLPath2;
+          v110 = n;
+          v108 = calDAVURLPath2;
           if (calDAVURLPath2 == v50 || ([calDAVURLPath2 isEqualToString:v50] & 1) != 0)
           {
             v56 = 0;
@@ -744,7 +733,7 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
             v56 = 1;
           }
 
-          v57 = [v103 objectForKeyedSubscript:v50];
+          v57 = [v102 objectForKeyedSubscript:v50];
           shouldRemoveAlarms = [v54 shouldRemoveAlarms];
           subCalFilterAlarmsKey = [*(v47 + 2416) SubCalFilterAlarmsKey];
           v60 = [v57 objectForKeyedSubscript:subCalFilterAlarmsKey];
@@ -779,7 +768,7 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
             v56 = 1;
           }
 
-          v110 = v51;
+          v109 = v51;
           subCalTitleKey = [*(v47 + 2416) SubCalTitleKey];
           v71 = [v57 objectForKeyedSubscript:subCalTitleKey];
 
@@ -801,29 +790,29 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
             }
           }
 
-          v106 = v71;
-          v107 = v67;
-          v108 = absoluteString;
-          v118 = 0u;
-          v119 = 0u;
-          v116 = 0u;
+          v105 = v71;
+          v106 = v67;
+          v107 = absoluteString;
           v117 = 0u;
+          v118 = 0u;
+          v115 = 0u;
+          v116 = 0u;
           v76 = v57;
-          v77 = [v76 countByEnumeratingWithState:&v116 objects:v145 count:16];
+          v77 = [v76 countByEnumeratingWithState:&v115 objects:v144 count:16];
           if (v77)
           {
             v78 = v77;
-            v79 = *v117;
+            v79 = *v116;
             do
             {
               for (ii = 0; ii != v78; ++ii)
               {
-                if (*v117 != v79)
+                if (*v116 != v79)
                 {
                   objc_enumerationMutation(v76);
                 }
 
-                v81 = *(*(&v116 + 1) + 8 * ii);
+                v81 = *(*(&v115 + 1) + 8 * ii);
                 v82 = [v76 objectForKeyedSubscript:v81];
                 v83 = [v54 objectForKeyedSubscript:v81];
                 v84 = [v83 isEqual:v82];
@@ -835,22 +824,22 @@ void __51__DAAccountChangeHandler__setupStoreForNewAccount___block_invoke(uint64
                 }
               }
 
-              v78 = [v76 countByEnumeratingWithState:&v116 objects:v145 count:16];
+              v78 = [v76 countByEnumeratingWithState:&v115 objects:v144 count:16];
             }
 
             while (v78);
           }
 
-          v51 = v110;
-          v85 = [self _updateSubscribedCalendarAccountProperties:v110];
-          if (v113)
+          v51 = v109;
+          v85 = [self _updateSubscribedCalendarAccountProperties:v109];
+          if (v112)
           {
             v86 = v85 | v56;
-            v48 = v99;
+            v48 = v98;
             v27 = updaterCopy;
             v47 = 0x277D03000;
             v28 = dictionary;
-            n = v111;
+            n = v110;
             if ((v86 & 1) == 0)
             {
 LABEL_82:
@@ -862,54 +851,53 @@ LABEL_82:
           else
           {
             [v54 setVersionForNewAccount];
-            v48 = v99;
+            v48 = v98;
             v27 = updaterCopy;
             v47 = 0x277D03000;
             v28 = dictionary;
-            n = v111;
+            n = v110;
           }
 
-          v114[0] = MEMORY[0x277D85DD0];
-          v114[1] = 3221225472;
-          v114[2] = __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inStore_accountUpdater___block_invoke_72;
-          v114[3] = &__block_descriptor_33_e20_v20__0B8__NSError_12l;
-          v115 = v113 == 0;
-          v87 = MEMORY[0x24C1CE570](v114);
-          if (v113)
+          v113[0] = MEMORY[0x277D85DD0];
+          v113[1] = 3221225472;
+          v113[2] = __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inStore_accountUpdater___block_invoke_72;
+          v113[3] = &__block_descriptor_33_e20_v20__0B8__NSError_12l;
+          v114 = v112 == 0;
+          v87 = MEMORY[0x24C1CE570](v113);
+          if (v112)
           {
-            [v27 updateAccount:v110 withCompletionHandler:v87];
+            [v27 updateAccount:v109 withCompletionHandler:v87];
           }
 
           else
           {
-            [v27 addAccount:v110 withCompletionHandler:v87];
+            [v27 addAccount:v109 withCompletionHandler:v87];
           }
 
-          v96 = 1;
+          v95 = 1;
           goto LABEL_82;
         }
 
 LABEL_83:
       }
 
-      v104 = [allKeys3 countByEnumeratingWithState:&v120 objects:v146 count:16];
-      if (!v104)
+      v103 = [allKeys3 countByEnumeratingWithState:&v119 objects:v145 count:16];
+      if (!v103)
       {
         goto LABEL_87;
       }
     }
   }
 
-  v48 = v99;
+  v48 = v98;
 LABEL_87:
 
-  v88 = *MEMORY[0x277D85DE8];
-  return v96;
+  return v95;
 }
 
 void __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inStore_accountUpdater___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -918,20 +906,18 @@ void __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inSt
     if (os_log_type_enabled(v6, v7))
     {
       v8 = [*(a1 + 32) identifier];
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_24844D000, v6, v7, "Failed to remove orphaned subscribed calendar account %{public}@: error = %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_24844D000, v6, v7, "Failed to remove orphaned subscribed calendar account %{public}@: error = %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inStore_accountUpdater___block_invoke_72(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -945,15 +931,13 @@ void __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inSt
         v8 = @"added";
       }
 
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_24844D000, v6, v7, "Failed to save %{public}@ subscribed calendar child account: error = %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_24844D000, v6, v7, "Failed to save %{public}@ subscribed calendar child account: error = %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_handleChangeToSubscribedCalendar:(id)calendar withChangeInfo:(id)info inStore:(id)store accountUpdater:(id)updater
@@ -974,7 +958,7 @@ void __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inSt
 
 + (BOOL)_updateCalendarFromAccount:(id)account
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v5 = [objc_alloc(MEMORY[0x277CC5A40]) initWithEKOptions:128];
   v6 = [self _findSubscribedCalendarForAccount:accountCopy inEventStore:v5];
@@ -1031,9 +1015,9 @@ void __91__DAAccountChangeHandler__sanityCheckChildSubCalAccountsWithParent_inSt
           accountID = [accountCopy accountID];
           accountDescription = [accountCopy accountDescription];
           *buf = 138543618;
-          v34 = accountID;
-          v35 = 2112;
-          v36 = accountDescription;
+          v33 = accountID;
+          v34 = 2112;
+          v35 = accountDescription;
           _os_log_impl(&dword_24844D000, v21, v22, "No calendar updates needed for changes to account %{public}@ (%@)", buf, 0x16u);
         }
 
@@ -1048,9 +1032,9 @@ LABEL_23:
       [v6 setExternalID:calendarExternalId];
     }
 
-    v32 = 0;
-    v25 = [v5 saveCalendar:v6 commit:1 error:&v32];
-    v21 = v32;
+    v31 = 0;
+    v25 = [v5 saveCalendar:v6 commit:1 error:&v31];
+    v21 = v31;
     if ((v25 & 1) == 0)
     {
       v26 = DALoggingwithCategory();
@@ -1060,11 +1044,11 @@ LABEL_23:
         accountID2 = [accountCopy accountID];
         accountDescription2 = [accountCopy accountDescription];
         *buf = 138543874;
-        v34 = accountID2;
-        v35 = 2112;
-        v36 = accountDescription2;
-        v37 = 2112;
-        v38 = v21;
+        v33 = accountID2;
+        v34 = 2112;
+        v35 = accountDescription2;
+        v36 = 2112;
+        v37 = v21;
         _os_log_impl(&dword_24844D000, v26, v27, "Couldn't save calendar with updated properties for change to account %{public}@ (%@): %@", buf, 0x20u);
       }
     }
@@ -1078,41 +1062,40 @@ LABEL_23:
   {
     accountID3 = [accountCopy accountID];
     *buf = 138543362;
-    v34 = accountID3;
+    v33 = accountID3;
     _os_log_impl(&dword_24844D000, absoluteString, v12, "No calendar for account %{public}@, so we can't update it.", buf, 0xCu);
   }
 
 LABEL_24:
 
-  v30 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (id)_findSubscribedCalendarForAccount:(id)account inEventStore:(id)store
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v6 = [store calendarsForEntityType:0];
   accountID = [accountCopy accountID];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         subcalAccountID = [v12 subcalAccountID];
         v14 = [subcalAccountID isEqualToString:accountID];
 
@@ -1123,7 +1106,7 @@ LABEL_24:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -1135,14 +1118,12 @@ LABEL_24:
 
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (BOOL)_sanityCheckCalDAVAccount:(id)account accountChangeInfo:(id)info
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   infoCopy = info;
   v7 = accountCopy;
@@ -1164,15 +1145,15 @@ LABEL_11:
     }
 
     modifiedDataClasses = [infoCopy modifiedDataClasses];
-    v26 = 138413058;
-    v27 = accountDescription;
-    v28 = 2114;
-    v29 = publicDescription;
-    v30 = 2112;
-    v31 = v13;
-    v32 = 2112;
-    v33 = modifiedDataClasses;
-    _os_log_impl(&dword_24844D000, v8, v9, "Sanity checking CalDAV account %@ (%{public}@). This account does %@ use the calendar home sync report. Modified dataclasses are %@.", &v26, 0x2Au);
+    v25 = 138413058;
+    v26 = accountDescription;
+    v27 = 2114;
+    v28 = publicDescription;
+    v29 = 2112;
+    v30 = v13;
+    v31 = 2112;
+    v32 = modifiedDataClasses;
+    _os_log_impl(&dword_24844D000, v8, v9, "Sanity checking CalDAV account %@ (%{public}@). This account does %@ use the calendar home sync report. Modified dataclasses are %@.", &v25, 0x2Au);
   }
 
   modifiedDataClasses2 = [infoCopy modifiedDataClasses];
@@ -1205,29 +1186,28 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v23 = DALoggingwithCategory();
-  if (os_log_type_enabled(v23, v9))
+  v22 = DALoggingwithCategory();
+  if (os_log_type_enabled(v22, v9))
   {
     accountDescription2 = [v7 accountDescription];
     publicDescription2 = [v7 publicDescription];
-    v26 = 138412546;
-    v27 = accountDescription2;
-    v28 = 2114;
-    v29 = publicDescription2;
-    _os_log_impl(&dword_24844D000, v23, v9, "Account %@ (%{public}@) is being added with credentials but is not set as authenticated. Marking it to ignore the authenticated property on next sync.", &v26, 0x16u);
+    v25 = 138412546;
+    v26 = accountDescription2;
+    v27 = 2114;
+    v28 = publicDescription2;
+    _os_log_impl(&dword_24844D000, v22, v9, "Account %@ (%{public}@) is being added with credentials but is not set as authenticated. Marking it to ignore the authenticated property on next sync.", &v25, 0x16u);
   }
 
   [backingAccountInfo setAccountProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CF7930]];
   v19 = 1;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 + (BOOL)_sanityCheckChildDAVAccount:(id)account withParent:(id)parent accountChangeInfo:(id)info
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   parentCopy = parent;
   infoCopy = info;
@@ -1252,23 +1232,23 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v69 = accountCopy;
+  v68 = accountCopy;
   accountType3 = [parentCopy accountType];
   identifier3 = [accountType3 identifier];
   if ([identifier3 isEqualToString:*MEMORY[0x277CB8B98]])
   {
 
-    accountCopy = v69;
+    accountCopy = v68;
     goto LABEL_5;
   }
 
   accountType4 = [parentCopy accountType];
   identifier4 = [accountType4 identifier];
-  v68 = [identifier4 isEqualToString:*MEMORY[0x277CB8CC0]];
+  v67 = [identifier4 isEqualToString:*MEMORY[0x277CB8CC0]];
 
-  accountCopy = v69;
+  accountCopy = v68;
   self = selfCopy;
-  if ((v68 & 1) == 0)
+  if ((v67 & 1) == 0)
   {
     accountType5 = [parentCopy accountType];
     identifier5 = [accountType5 identifier];
@@ -1276,14 +1256,14 @@ LABEL_6:
 
     if (v32)
     {
-      if ([v69 isCalDAVAccount])
+      if ([v68 isCalDAVAccount])
       {
         v33 = MEMORY[0x277CB8958];
       }
 
       else
       {
-        if (![v69 isCardDAVAccount])
+        if (![v68 isCardDAVAccount])
         {
           goto LABEL_40;
         }
@@ -1291,79 +1271,79 @@ LABEL_6:
         v33 = MEMORY[0x277CB8968];
       }
 
-      v46 = *v33;
-      if (v46)
+      v45 = *v33;
+      if (v45)
       {
-        v47 = v46;
-        v48 = [parentCopy propertiesForDataclass:v46];
-        v49 = [v48 objectForKeyedSubscript:@"url"];
-        if ([v49 length])
+        v46 = v45;
+        v47 = [parentCopy propertiesForDataclass:v45];
+        v48 = [v47 objectForKeyedSubscript:@"url"];
+        if ([v48 length])
         {
-          v50 = [MEMORY[0x277CBEBC0] URLWithString:v49];
-          if (v50)
+          v49 = [MEMORY[0x277CBEBC0] URLWithString:v48];
+          if (v49)
           {
-            principalURL = [v69 principalURL];
+            principalURL = [v68 principalURL];
             host = [principalURL host];
-            host2 = [v50 host];
-            v54 = [host isEqualToString:host2];
+            host2 = [v49 host];
+            v53 = [host isEqualToString:host2];
 
-            if ((v54 & 1) == 0)
+            if ((v53 & 1) == 0)
             {
-              host3 = [v50 host];
-              [v69 setHost:host3];
+              host3 = [v49 host];
+              [v68 setHost:host3];
             }
 
-            port = [v69 port];
-            port2 = [v50 port];
+            port = [v68 port];
+            port2 = [v49 port];
             integerValue = [port2 integerValue];
 
             if (port == integerValue)
             {
-              v59 = v54 ^ 1;
+              v58 = v53 ^ 1;
             }
 
             else
             {
-              port3 = [v50 port];
-              [v69 setPort:{objc_msgSend(port3, "integerValue")}];
+              port3 = [v49 port];
+              [v68 setPort:{objc_msgSend(port3, "integerValue")}];
 
-              v59 = 1;
+              v58 = 1;
             }
 
-            scheme = [v50 scheme];
+            scheme = [v49 scheme];
             if ([scheme length])
             {
-              scheme2 = [v50 scheme];
-              v63 = [scheme2 isEqualToString:@"https"];
+              scheme2 = [v49 scheme];
+              v62 = [scheme2 isEqualToString:@"https"];
             }
 
             else
             {
-              v63 = 1;
+              v62 = 1;
             }
 
-            if (v63 != [v69 useSSL])
+            if (v62 != [v68 useSSL])
             {
-              [v69 setUseSSL:v63];
+              [v68 setUseSSL:v62];
 LABEL_49:
-              v64 = DALoggingwithCategory();
-              v65 = *(MEMORY[0x277D03988] + 5);
-              if (os_log_type_enabled(v64, v65))
+              v63 = DALoggingwithCategory();
+              v64 = *(MEMORY[0x277D03988] + 5);
+              if (os_log_type_enabled(v63, v64))
               {
-                principalURL2 = [v69 principalURL];
+                principalURL2 = [v68 principalURL];
                 absoluteString = [principalURL2 absoluteString];
                 *buf = 138412546;
-                v73 = absoluteString;
-                v74 = 2112;
-                v75 = v49;
-                _os_log_impl(&dword_24844D000, v64, v65, "BagURL has changed from %@ to %@, updated account", buf, 0x16u);
+                v72 = absoluteString;
+                v73 = 2112;
+                v74 = v48;
+                _os_log_impl(&dword_24844D000, v63, v64, "BagURL has changed from %@ to %@, updated account", buf, 0x16u);
               }
 
               v43 = 1;
               goto LABEL_53;
             }
 
-            if (v59)
+            if (v58)
             {
               goto LABEL_49;
             }
@@ -1372,7 +1352,7 @@ LABEL_49:
 
         else
         {
-          v50 = 0;
+          v49 = 0;
         }
 
         v43 = 0;
@@ -1475,51 +1455,50 @@ LABEL_28:
     v43 |= [self _sanityCheckCalDAVAccount:accountCopy accountChangeInfo:infoCopy];
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
 + (BOOL)_sanityCheckChildAccountOfType:(id)type withParent:(id)parent accountChangeInfo:(id)info inStore:(id)store updater:(id)updater
 {
-  v182 = *MEMORY[0x277D85DE8];
+  v180 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   parentCopy = parent;
   infoCopy = info;
   storeCopy = store;
   updaterCopy = updater;
-  v158 = infoCopy;
-  v156 = parentCopy;
-  v157 = storeCopy;
+  v157 = infoCopy;
+  v155 = parentCopy;
+  v156 = storeCopy;
   if (![infoCopy changeType] || (objc_msgSend(infoCopy, "oldAccountProperties"), v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
   {
-    v155 = 1;
+    v154 = 1;
     goto LABEL_71;
   }
 
   username = [parentCopy username];
-  v154 = [username length];
-  if (v154 || ([infoCopy username], v142 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v142, "length")))
+  v153 = [username length];
+  if (v153 || ([infoCopy username], v141 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v141, "length")))
   {
     username2 = [parentCopy username];
     username3 = [infoCopy username];
-    v141 = username2;
+    v140 = username2;
     v17 = 1;
     if (![username2 isEqualToString:?])
     {
-      v153 = 1;
-      v147 = 0;
-      v152 = 0;
+      v152 = 1;
+      v146 = 0;
       v151 = 0;
-      v144 = 0;
-      v145 = 0;
       v150 = 0;
-      v149 = 0;
       v143 = 0;
+      v144 = 0;
+      v149 = 0;
       v148 = 0;
+      v142 = 0;
+      v147 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v146 = 0;
+      v145 = 0;
       v21 = 0;
       v22 = 0;
       v23 = 0;
@@ -1527,7 +1506,7 @@ LABEL_28:
       v25 = 0;
       v26 = 0;
 LABEL_14:
-      v155 = 1;
+      v154 = 1;
       goto LABEL_15;
     }
   }
@@ -1537,30 +1516,30 @@ LABEL_14:
     v17 = 0;
   }
 
-  v139 = [parentCopy objectForKeyedSubscript:@"DAAccountHost"];
-  v27 = [v139 length];
-  v152 = v27 == 0;
-  v153 = v17;
-  if (v27 || ([infoCopy oldAccountProperties], v131 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v131, "objectForKeyedSubscript:", @"DAAccountHost"), v130 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v130, "length")))
+  v138 = [parentCopy objectForKeyedSubscript:@"DAAccountHost"];
+  v27 = [v138 length];
+  v151 = v27 == 0;
+  v152 = v17;
+  if (v27 || ([infoCopy oldAccountProperties], v130 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v130, "objectForKeyedSubscript:", @"DAAccountHost"), v129 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v129, "length")))
   {
     v28 = [parentCopy objectForKeyedSubscript:@"DAAccountHost"];
     oldAccountProperties = [infoCopy oldAccountProperties];
     [oldAccountProperties objectForKeyedSubscript:@"DAAccountHost"];
-    v136 = v138 = v28;
+    v135 = v137 = v28;
     if (![v28 isEqualToString:?])
     {
-      v147 = 1;
-      v144 = 0;
-      v145 = 0;
-      v151 = 0x100000000;
-      v150 = 0;
-      v149 = 0;
+      v146 = 1;
       v143 = 0;
+      v144 = 0;
+      v150 = 0x100000000;
+      v149 = 0;
       v148 = 0;
+      v142 = 0;
+      v147 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v146 = 0;
+      v145 = 0;
       v21 = 0;
       v22 = 0;
       v23 = 0;
@@ -1570,168 +1549,168 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    HIDWORD(v151) = 1;
+    HIDWORD(v150) = 1;
   }
 
   else
   {
-    HIDWORD(v151) = 0;
+    HIDWORD(v150) = 0;
   }
 
-  v59 = [parentCopy objectForKeyedSubscript:@"DAAccountPort"];
-  LODWORD(v151) = v59 == 0;
-  v135 = v59;
-  if (!v59)
+  v58 = [parentCopy objectForKeyedSubscript:@"DAAccountPort"];
+  LODWORD(v150) = v58 == 0;
+  v134 = v58;
+  if (!v58)
   {
     oldAccountProperties2 = [infoCopy oldAccountProperties];
-    v60 = [oldAccountProperties2 objectForKeyedSubscript:@"DAAccountPort"];
-    if (!v60)
+    v59 = [oldAccountProperties2 objectForKeyedSubscript:@"DAAccountPort"];
+    if (!v59)
     {
-      v124 = 0;
-      HIDWORD(v150) = 0;
+      v123 = 0;
+      HIDWORD(v149) = 0;
       goto LABEL_129;
     }
 
-    v124 = v60;
+    v123 = v59;
   }
 
-  v61 = [parentCopy objectForKeyedSubscript:@"DAAccountPort"];
+  v60 = [parentCopy objectForKeyedSubscript:@"DAAccountPort"];
   oldAccountProperties3 = [infoCopy oldAccountProperties];
   [oldAccountProperties3 objectForKeyedSubscript:@"DAAccountPort"];
-  v132 = v134 = v61;
-  if (![v61 isEqual:?])
+  v131 = v133 = v60;
+  if (![v60 isEqual:?])
   {
-    v147 = 1;
-    v144 = 0x100000000;
-    v150 = 0x100000000;
-    v149 = 0;
-    v143 = 0;
-    v148 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v145 = 0;
-    v146 = 0;
-    v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    v24 = 0;
-    v25 = 0;
-    v26 = 0;
-    goto LABEL_14;
-  }
-
-  HIDWORD(v150) = 1;
-LABEL_129:
-  v62 = [parentCopy objectForKeyedSubscript:@"DAAccountUseSSL"];
-  LODWORD(v150) = v62 == 0;
-  v129 = v62;
-  if (!v62)
-  {
-    oldAccountProperties4 = [infoCopy oldAccountProperties];
-    v63 = [oldAccountProperties4 objectForKeyedSubscript:@"DAAccountUseSSL"];
-    if (!v63)
-    {
-      v115 = 0;
-      HIDWORD(v149) = 0;
-      goto LABEL_136;
-    }
-
-    v115 = v63;
-  }
-
-  v64 = [parentCopy objectForKeyedSubscript:@"DAAccountUseSSL"];
-  oldAccountProperties5 = [infoCopy oldAccountProperties];
-  [oldAccountProperties5 objectForKeyedSubscript:@"DAAccountUseSSL"];
-  v126 = v128 = v64;
-  if (![v64 isEqual:?])
-  {
-    v147 = 1;
-    v143 = 0;
+    v146 = 1;
+    v143 = 0x100000000;
     v149 = 0x100000000;
     v148 = 0;
+    v142 = 0;
+    v147 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
+    v144 = 0;
     v145 = 0;
-    v146 = 0;
     v21 = 0;
     v22 = 0;
     v23 = 0;
     v24 = 0;
     v25 = 0;
     v26 = 0;
-    v144 = 0x100000001;
     goto LABEL_14;
   }
 
   HIDWORD(v149) = 1;
+LABEL_129:
+  v61 = [parentCopy objectForKeyedSubscript:@"DAAccountUseSSL"];
+  LODWORD(v149) = v61 == 0;
+  v128 = v61;
+  if (!v61)
+  {
+    oldAccountProperties4 = [infoCopy oldAccountProperties];
+    v62 = [oldAccountProperties4 objectForKeyedSubscript:@"DAAccountUseSSL"];
+    if (!v62)
+    {
+      v114 = 0;
+      HIDWORD(v148) = 0;
+      goto LABEL_136;
+    }
+
+    v114 = v62;
+  }
+
+  v63 = [parentCopy objectForKeyedSubscript:@"DAAccountUseSSL"];
+  oldAccountProperties5 = [infoCopy oldAccountProperties];
+  [oldAccountProperties5 objectForKeyedSubscript:@"DAAccountUseSSL"];
+  v125 = v127 = v63;
+  if (![v63 isEqual:?])
+  {
+    v146 = 1;
+    v142 = 0;
+    v148 = 0x100000000;
+    v147 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v144 = 0;
+    v145 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = 0;
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
+    v143 = 0x100000001;
+    goto LABEL_14;
+  }
+
+  HIDWORD(v148) = 1;
 LABEL_136:
   dAAccountPrincipalPath = [MEMORY[0x277D03970] DAAccountPrincipalPath];
-  v122 = [parentCopy objectForKeyedSubscript:?];
-  v65 = [v122 length];
-  LODWORD(v149) = v65 == 0;
-  if (v65 || ([infoCopy oldAccountProperties], v66 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D03970], "DAAccountPrincipalPath"), v109 = objc_claimAutoreleasedReturnValue(), v110 = v66, objc_msgSend(v66, "objectForKeyedSubscript:"), v108 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v108, "length")))
+  v121 = [parentCopy objectForKeyedSubscript:?];
+  v64 = [v121 length];
+  LODWORD(v148) = v64 == 0;
+  if (v64 || ([infoCopy oldAccountProperties], v65 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D03970], "DAAccountPrincipalPath"), v108 = objc_claimAutoreleasedReturnValue(), v109 = v65, objc_msgSend(v65, "objectForKeyedSubscript:"), v107 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v107, "length")))
   {
     dAAccountPrincipalPath2 = [MEMORY[0x277D03970] DAAccountPrincipalPath];
-    v67 = [parentCopy objectForKeyedSubscript:?];
+    v66 = [parentCopy objectForKeyedSubscript:?];
     oldAccountProperties6 = [infoCopy oldAccountProperties];
     dAAccountPrincipalPath3 = [MEMORY[0x277D03970] DAAccountPrincipalPath];
-    v119 = oldAccountProperties6;
+    v118 = oldAccountProperties6;
     [oldAccountProperties6 objectForKeyedSubscript:?];
-    v117 = v120 = v67;
-    if (![v67 isEqualToString:?])
+    v116 = v119 = v66;
+    if (![v66 isEqualToString:?])
     {
-      v147 = 1;
+      v146 = 1;
       v18 = 0;
-      v148 = 0x100000000;
+      v147 = 0x100000000;
       v19 = 0;
       v20 = 0;
+      v144 = 0;
       v145 = 0;
-      v146 = 0;
       v21 = 0;
       v22 = 0;
       v23 = 0;
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      v144 = 0x100000001;
-      v143 = 1;
+      v143 = 0x100000001;
+      v142 = 1;
       goto LABEL_14;
     }
 
-    v69 = 1;
+    v68 = 1;
   }
 
   else
   {
-    v69 = 0;
+    v68 = 0;
   }
 
-  v114 = [parentCopy objectForKeyedSubscript:@"DAAccountEmailAddress"];
-  v70 = [v114 length];
-  LODWORD(v148) = v70 == 0;
-  HIDWORD(v148) = v69;
-  if (v70 || ([infoCopy oldAccountProperties], v103 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v103, "objectForKeyedSubscript:", @"DAAccountEmailAddress"), v102 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v102, "length")))
+  v113 = [parentCopy objectForKeyedSubscript:@"DAAccountEmailAddress"];
+  v69 = [v113 length];
+  LODWORD(v147) = v69 == 0;
+  HIDWORD(v147) = v68;
+  if (v69 || ([infoCopy oldAccountProperties], v102 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v102, "objectForKeyedSubscript:", @"DAAccountEmailAddress"), v101 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v101, "length")))
   {
-    v71 = [parentCopy objectForKeyedSubscript:@"DAAccountEmailAddress"];
+    v70 = [parentCopy objectForKeyedSubscript:@"DAAccountEmailAddress"];
     oldAccountProperties7 = [infoCopy oldAccountProperties];
     [oldAccountProperties7 objectForKeyedSubscript:@"DAAccountEmailAddress"];
-    v111 = v113 = v71;
-    if (![v71 isEqualToString:?])
+    v110 = v112 = v70;
+    if (![v70 isEqualToString:?])
     {
-      v147 = 1;
+      v146 = 1;
       v20 = 0;
+      v144 = 0;
       v145 = 0;
-      v146 = 0;
       v21 = 0;
       v22 = 0;
       v23 = 0;
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      v144 = 0x100000001;
-      v143 = 1;
+      v143 = 0x100000001;
+      v142 = 1;
       v18 = 1;
       v19 = 1;
       goto LABEL_14;
@@ -1745,63 +1724,29 @@ LABEL_136:
     v19 = 0;
   }
 
-  v107 = [parentCopy objectForKeyedSubscript:@"Username"];
-  v72 = [v107 length];
-  HIDWORD(v147) = v72 == 0;
-  if (v72 || ([infoCopy oldAccountProperties], v96 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v96, "objectForKeyedSubscript:", @"Username"), v95 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v95, "length")))
+  v106 = [parentCopy objectForKeyedSubscript:@"Username"];
+  v71 = [v106 length];
+  HIDWORD(v146) = v71 == 0;
+  if (v71 || ([infoCopy oldAccountProperties], v95 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v95, "objectForKeyedSubscript:", @"Username"), v94 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v94, "length")))
   {
-    v73 = [parentCopy objectForKeyedSubscript:@"Username"];
+    v72 = [parentCopy objectForKeyedSubscript:@"Username"];
     oldAccountProperties8 = [infoCopy oldAccountProperties];
     [oldAccountProperties8 objectForKeyedSubscript:@"Username"];
-    v104 = v106 = v73;
-    if (![v73 isEqualToString:?])
+    v103 = v105 = v72;
+    if (![v72 isEqualToString:?])
     {
-      LODWORD(v147) = 1;
+      LODWORD(v146) = 1;
       v21 = 0;
-      v145 = 0;
+      v144 = 0;
       v22 = 0;
       v23 = 0;
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      v144 = 0x100000001;
-      v143 = 1;
+      v143 = 0x100000001;
+      v142 = 1;
       v18 = 1;
       v20 = 1;
-      v146 = 1;
-      goto LABEL_14;
-    }
-
-    LODWORD(v146) = 1;
-  }
-
-  else
-  {
-    LODWORD(v146) = 0;
-  }
-
-  v101 = [parentCopy objectForKeyedSubscript:@"Hostname"];
-  v74 = [v101 length];
-  HIDWORD(v146) = v74 == 0;
-  if (v74 || ([infoCopy oldAccountProperties], v90 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v90, "objectForKeyedSubscript:", @"Hostname"), v89 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v89, "length")))
-  {
-    v75 = [parentCopy objectForKeyedSubscript:@"Hostname"];
-    oldAccountProperties9 = [infoCopy oldAccountProperties];
-    [oldAccountProperties9 objectForKeyedSubscript:@"Hostname"];
-    v98 = v100 = v75;
-    if (![v75 isEqualToString:?])
-    {
-      LODWORD(v147) = 1;
-      v22 = 0;
-      v23 = 0;
-      v24 = 0;
-      v25 = 0;
-      v26 = 0;
-      v144 = 0x100000001;
-      v143 = 1;
-      v18 = 1;
-      v20 = 1;
-      v21 = 1;
       v145 = 1;
       goto LABEL_14;
     }
@@ -1814,36 +1759,70 @@ LABEL_136:
     LODWORD(v145) = 0;
   }
 
-  v76 = [parentCopy objectForKeyedSubscript:@"PortNumber"];
-  HIDWORD(v145) = v76 == 0;
-  v94 = v76;
-  if (!v76)
+  v100 = [parentCopy objectForKeyedSubscript:@"Hostname"];
+  v73 = [v100 length];
+  HIDWORD(v145) = v73 == 0;
+  if (v73 || ([infoCopy oldAccountProperties], v89 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v89, "objectForKeyedSubscript:", @"Hostname"), v88 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v88, "length")))
+  {
+    v74 = [parentCopy objectForKeyedSubscript:@"Hostname"];
+    oldAccountProperties9 = [infoCopy oldAccountProperties];
+    [oldAccountProperties9 objectForKeyedSubscript:@"Hostname"];
+    v97 = v99 = v74;
+    if (![v74 isEqualToString:?])
+    {
+      LODWORD(v146) = 1;
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      v25 = 0;
+      v26 = 0;
+      v143 = 0x100000001;
+      v142 = 1;
+      v18 = 1;
+      v20 = 1;
+      v21 = 1;
+      v144 = 1;
+      goto LABEL_14;
+    }
+
+    LODWORD(v144) = 1;
+  }
+
+  else
+  {
+    LODWORD(v144) = 0;
+  }
+
+  v75 = [parentCopy objectForKeyedSubscript:@"PortNumber"];
+  HIDWORD(v144) = v75 == 0;
+  v93 = v75;
+  if (!v75)
   {
     oldAccountProperties10 = [infoCopy oldAccountProperties];
-    v78 = [oldAccountProperties10 objectForKeyedSubscript:@"PortNumber"];
-    if (!v78)
+    v77 = [oldAccountProperties10 objectForKeyedSubscript:@"PortNumber"];
+    if (!v77)
     {
-      v85 = 0;
+      v84 = 0;
       v23 = 0;
       goto LABEL_167;
     }
 
-    v85 = v78;
-    v97 = oldAccountProperties10;
+    v84 = v77;
+    v96 = oldAccountProperties10;
   }
 
-  v79 = [parentCopy objectForKeyedSubscript:@"PortNumber"];
+  v78 = [parentCopy objectForKeyedSubscript:@"PortNumber"];
   oldAccountProperties11 = [infoCopy oldAccountProperties];
   [oldAccountProperties11 objectForKeyedSubscript:@"PortNumber"];
-  v91 = v93 = v79;
-  if (![v79 isEqual:?])
+  v90 = v92 = v78;
+  if (![v78 isEqual:?])
   {
-    LODWORD(v147) = 1;
+    LODWORD(v146) = 1;
     v24 = 0;
     v25 = 0;
     v26 = 0;
-    v144 = 0x100000001;
-    v143 = 1;
+    v143 = 0x100000001;
+    v142 = 1;
     v18 = 1;
     v20 = 1;
     v21 = 1;
@@ -1853,24 +1832,24 @@ LABEL_136:
   }
 
   v23 = 1;
-  oldAccountProperties10 = v97;
+  oldAccountProperties10 = v96;
 LABEL_167:
-  v80 = [parentCopy objectForKeyedSubscript:@"SSLEnabled"];
-  v25 = v80 == 0;
-  v88 = v80;
-  v97 = oldAccountProperties10;
-  if (v80)
+  v79 = [parentCopy objectForKeyedSubscript:@"SSLEnabled"];
+  v25 = v79 == 0;
+  v87 = v79;
+  v96 = oldAccountProperties10;
+  if (v79)
   {
 LABEL_170:
-    v82 = [parentCopy objectForKeyedSubscript:@"SSLEnabled"];
+    v81 = [parentCopy objectForKeyedSubscript:@"SSLEnabled"];
     oldAccountProperties12 = [infoCopy oldAccountProperties];
     infoCopy = [oldAccountProperties12 objectForKeyedSubscript:@"SSLEnabled"];
-    v87 = v82;
-    v155 = [v82 isEqual:infoCopy] ^ 1;
+    v86 = v81;
+    v154 = [v81 isEqual:infoCopy] ^ 1;
     v26 = 1;
-    LODWORD(v147) = 1;
-    v144 = 0x100000001;
-    v143 = 1;
+    LODWORD(v146) = 1;
+    v143 = 0x100000001;
+    v142 = 1;
     v18 = 1;
     v20 = 1;
     v21 = 1;
@@ -1880,20 +1859,20 @@ LABEL_170:
   }
 
   oldAccountProperties13 = [infoCopy oldAccountProperties];
-  v81 = [oldAccountProperties13 objectForKeyedSubscript:@"SSLEnabled"];
-  if (v81)
+  v80 = [oldAccountProperties13 objectForKeyedSubscript:@"SSLEnabled"];
+  if (v80)
   {
-    v83 = v81;
+    v82 = v80;
     goto LABEL_170;
   }
 
-  v88 = 0;
-  v83 = 0;
+  v87 = 0;
+  v82 = 0;
   v26 = 0;
-  v155 = 0;
-  LODWORD(v147) = 1;
-  v144 = 0x100000001;
-  v143 = 1;
+  v154 = 0;
+  LODWORD(v146) = 1;
+  v143 = 0x100000001;
+  v142 = 1;
   v18 = 1;
   v20 = 1;
   v21 = 1;
@@ -1917,7 +1896,7 @@ LABEL_15:
   {
   }
 
-  if (HIDWORD(v145))
+  if (HIDWORD(v144))
   {
   }
 
@@ -1925,12 +1904,12 @@ LABEL_15:
   {
   }
 
-  if (v145)
+  if (v144)
   {
   }
 
-  parentCopy = v156;
-  if (HIDWORD(v146))
+  parentCopy = v155;
+  if (HIDWORD(v145))
   {
   }
 
@@ -1938,10 +1917,10 @@ LABEL_15:
   {
   }
 
-  if (v146)
+  if (v145)
   {
 
-    if (!HIDWORD(v147))
+    if (!HIDWORD(v146))
     {
 LABEL_35:
       if (!v20)
@@ -1960,7 +1939,7 @@ LABEL_118:
     }
   }
 
-  else if (!HIDWORD(v147))
+  else if (!HIDWORD(v146))
   {
     goto LABEL_35;
   }
@@ -1977,11 +1956,23 @@ LABEL_37:
   }
 
 LABEL_38:
-  if (v148)
+  if (v147)
   {
   }
 
   if (v18)
+  {
+  }
+
+  if (HIDWORD(v147))
+  {
+  }
+
+  if (v148)
+  {
+  }
+
+  if (v142)
   {
   }
 
@@ -2005,7 +1996,7 @@ LABEL_38:
   {
   }
 
-  if (v144)
+  if (HIDWORD(v143))
   {
   }
 
@@ -2017,11 +2008,7 @@ LABEL_38:
   {
   }
 
-  if (HIDWORD(v144))
-  {
-  }
-
-  if (HIDWORD(v151))
+  if (v146)
   {
   }
 
@@ -2029,54 +2016,46 @@ LABEL_38:
   {
   }
 
-  if (v147)
-  {
-  }
-
-  if (v153)
-  {
-  }
-
-  if (!v154)
+  if (!v153)
   {
   }
 
 LABEL_71:
   v29 = objc_opt_new();
+  v166 = 0u;
+  v167 = 0u;
   v168 = 0u;
   v169 = 0u;
-  v170 = 0u;
-  v171 = 0u;
   childAccounts = [parentCopy childAccounts];
-  v31 = [childAccounts countByEnumeratingWithState:&v168 objects:v181 count:16];
+  v31 = [childAccounts countByEnumeratingWithState:&v166 objects:v179 count:16];
   if (!v31)
   {
 
 LABEL_98:
-    v43 = v157;
-    v47 = [self _accountTypeWithIdentifier:typeCopy inStore:v157];
+    v43 = v156;
+    v47 = [self _accountTypeWithIdentifier:typeCopy inStore:v156];
     v33 = [objc_alloc(MEMORY[0x277CB8F30]) initWithAccountType:v47];
     [v33 setParentAccount:parentCopy];
     [v33 setAuthenticationType:*MEMORY[0x277CB90B8]];
     v52 = 1;
-    v42 = v158;
+    v42 = v157;
     goto LABEL_99;
   }
 
   v32 = v31;
-  v160 = updaterCopy;
+  v159 = updaterCopy;
   v33 = 0;
-  v34 = *v169;
+  v34 = *v167;
   do
   {
     for (i = 0; i != v32; ++i)
     {
-      if (*v169 != v34)
+      if (*v167 != v34)
       {
         objc_enumerationMutation(childAccounts);
       }
 
-      v36 = *(*(&v168 + 1) + 8 * i);
+      v36 = *(*(&v166 + 1) + 8 * i);
       accountType = [v36 accountType];
       identifier = [accountType identifier];
       v39 = [identifier isEqualToString:typeCopy];
@@ -2107,20 +2086,20 @@ LABEL_98:
       }
     }
 
-    v32 = [childAccounts countByEnumeratingWithState:&v168 objects:v181 count:16];
+    v32 = [childAccounts countByEnumeratingWithState:&v166 objects:v179 count:16];
   }
 
   while (v32);
 
-  parentCopy = v156;
-  updaterCopy = v160;
+  parentCopy = v155;
+  updaterCopy = v159;
   if (!v33)
   {
     goto LABEL_98;
   }
 
-  v42 = v158;
-  v43 = v157;
+  v42 = v157;
+  v43 = v156;
   if (![v29 count])
   {
     v52 = 0;
@@ -2133,50 +2112,49 @@ LABEL_98:
   {
     identifier2 = [v33 identifier];
     *buf = 138413058;
-    v174 = typeCopy;
+    v172 = typeCopy;
+    v173 = 2112;
+    v174 = v155;
     v175 = 2112;
-    v176 = v156;
+    v176 = identifier2;
     v177 = 2112;
-    v178 = identifier2;
-    v179 = 2112;
-    v180 = v29;
+    v178 = v29;
     _os_log_impl(&dword_24844D000, v44, v45, "Found > 1 child accounts of type %@ under account %@.  Keeping %@ and removing %@", buf, 0x2Au);
   }
 
-  v166 = 0u;
-  v167 = 0u;
   v164 = 0u;
   v165 = 0u;
+  v162 = 0u;
+  v163 = 0u;
   v47 = v29;
-  v48 = [v47 countByEnumeratingWithState:&v164 objects:v172 count:16];
+  v48 = [v47 countByEnumeratingWithState:&v162 objects:v170 count:16];
   if (v48)
   {
     v49 = v48;
-    v50 = *v165;
+    v50 = *v163;
     do
     {
       for (j = 0; j != v49; ++j)
       {
-        if (*v165 != v50)
+        if (*v163 != v50)
         {
           objc_enumerationMutation(v47);
         }
 
-        v163 = *(*(&v164 + 1) + 8 * j);
-        [v160 removeAccount:? completion:?];
+        [v159 removeAccount:? completion:?];
       }
 
-      v49 = [v47 countByEnumeratingWithState:&v164 objects:v172 count:16];
+      v49 = [v47 countByEnumeratingWithState:&v162 objects:v170 count:16];
     }
 
     while (v49);
   }
 
   v52 = 0;
-  v42 = v158;
-  v43 = v157;
-  parentCopy = v156;
-  updaterCopy = v160;
+  v42 = v157;
+  v43 = v156;
+  parentCopy = v155;
+  updaterCopy = v159;
 LABEL_99:
 
 LABEL_100:
@@ -2191,7 +2169,7 @@ LABEL_100:
     v54 = 0;
   }
 
-  if (v155 && ![v53 shouldDoInitialAutodiscovery])
+  if (v154 && ![v53 shouldDoInitialAutodiscovery])
   {
     [v53 setShouldDoInitialAutodiscovery:1];
     if ((v52 & 1) == 0)
@@ -2233,13 +2211,12 @@ LABEL_112:
 
 LABEL_115:
 
-  v57 = *MEMORY[0x277D85DE8];
   return v56;
 }
 
 void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_accountChangeInfo_inStore_updater___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -2248,20 +2225,18 @@ void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_acc
     if (os_log_type_enabled(v6, v7))
     {
       v8 = [*(a1 + 32) identifier];
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_24844D000, v6, v7, "Failed to remove duplicate child account %{public}@: error = %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_24844D000, v6, v7, "Failed to remove duplicate child account %{public}@: error = %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_accountChangeInfo_inStore_updater___block_invoke_141(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -2269,18 +2244,16 @@ void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_acc
     v6 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v5, v6))
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_24844D000, v5, v6, "Failed to add child account: error = %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_24844D000, v5, v6, "Failed to add child account: error = %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_accountChangeInfo_inStore_updater___block_invoke_142(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -2288,13 +2261,11 @@ void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_acc
     v6 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v5, v6))
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_24844D000, v5, v6, "Failed to save child account: error = %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_24844D000, v5, v6, "Failed to save child account: error = %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_pickAccountToKeepWithAccount:(id)account andAccount:(id)andAccount
@@ -2334,14 +2305,14 @@ void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_acc
 
 + (BOOL)_sanityCheckEnabledDataclassesOnExchangeAccountInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   enabledDataclasses = [infoCopy enabledDataclasses];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [enabledDataclasses countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [enabledDataclasses countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (!v5)
   {
     goto LABEL_10;
@@ -2350,23 +2321,23 @@ void __102__DAAccountChangeHandler__sanityCheckChildAccountOfType_withParent_acc
   v6 = v5;
   v7 = 0;
   v8 = 0;
-  v9 = *v17;
+  v9 = *v16;
   v10 = *MEMORY[0x277CB8970];
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(enabledDataclasses);
       }
 
-      v12 = [*(*(&v16 + 1) + 8 * i) isEqualToString:v10];
+      v12 = [*(*(&v15 + 1) + 8 * i) isEqualToString:v10];
       v7 |= v12;
       v8 |= v12 ^ 1;
     }
 
-    v6 = [enabledDataclasses countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [enabledDataclasses countByEnumeratingWithState:&v15 objects:v19 count:16];
   }
 
   while (v6);
@@ -2382,7 +2353,6 @@ LABEL_10:
     v13 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

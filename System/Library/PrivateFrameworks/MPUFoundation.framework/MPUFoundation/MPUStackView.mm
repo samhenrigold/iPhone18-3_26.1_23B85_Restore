@@ -634,7 +634,7 @@ LABEL_6:
   }
 }
 
-uint64_t __41__MPUStackView_reloadDataWithTransition___block_invoke(uint64_t a1)
+void *__41__MPUStackView_reloadDataWithTransition___block_invoke(uint64_t a1)
 {
   v2 = [objc_alloc(*(*(a1 + 32) + 568)) initWithFrame:{0.0, 0.0, *(*(a1 + 32) + 408), *(*(a1 + 32) + 416)}];
   v3 = *(*(a1 + 48) + 8);
@@ -647,7 +647,7 @@ uint64_t __41__MPUStackView_reloadDataWithTransition___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __41__MPUStackView_reloadDataWithTransition___block_invoke_2(uint64_t a1)
+void *__41__MPUStackView_reloadDataWithTransition___block_invoke_2(uint64_t a1)
 {
   v2 = [objc_alloc(*(*(a1 + 32) + 568)) initWithFrame:{0.0, 0.0, *(*(a1 + 32) + 408), *(*(a1 + 32) + 416)}];
   v3 = *(*(a1 + 48) + 8);
@@ -676,11 +676,11 @@ uint64_t __41__MPUStackView_reloadDataWithTransition___block_invoke_3(uint64_t a
   return [v3 setAlpha:0.0];
 }
 
-uint64_t __41__MPUStackView_reloadDataWithTransition___block_invoke_4(uint64_t result)
+id *__41__MPUStackView_reloadDataWithTransition___block_invoke_4(id *result)
 {
-  if (*(*(*(result + 40) + 8) + 24) == 1 && *(*(*(result + 48) + 8) + 24) == 1)
+  if (*(*(result[5] + 1) + 24) == 1 && *(*(result[6] + 1) + 24) == 1)
   {
-    return [*(result + 32) updateForChangedDistanceFromVanishingPoint];
+    return [result[4] updateForChangedDistanceFromVanishingPoint];
   }
 
   return result;

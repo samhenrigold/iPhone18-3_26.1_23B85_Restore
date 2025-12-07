@@ -15,7 +15,7 @@
 
   else
   {
-    v3 = _BYLoggingFacility();
+    v3 = _BYLoggingFacility(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [BYSeedProgramManager currentSeedProgram];
@@ -36,7 +36,7 @@
 
   else
   {
-    v3 = _BYLoggingFacility();
+    v3 = _BYLoggingFacility(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [BYSeedProgramManager currentSeedProgram];
@@ -57,7 +57,7 @@
 
   else
   {
-    v3 = _BYLoggingFacility();
+    v3 = _BYLoggingFacility(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [BYSeedProgramManager currentSeedProgram];

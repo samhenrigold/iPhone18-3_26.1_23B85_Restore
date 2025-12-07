@@ -1018,7 +1018,7 @@ void __76__CatalogViewController_viewWillTransitionToSize_withTransitionCoordina
 
     tableView = [(CompletionListTableViewController *)v4 tableView];
     [tableView setDelegate:self];
-    [tableView setEstimatedRowHeight:+[UITableViewCell safari_defaultHeightOfTrivialInstance]()];
+    [tableView setEstimatedRowHeight:+[UITableViewCell safari_defaultHeightOfTrivialInstance](MEMORY[0x277D75B48])];
     [tableView setLayoutMarginsFollowReadableWidth:0];
     [tableView setRowHeight:*MEMORY[0x277D76F30]];
     [(CatalogViewController *)self _updateVisibilityForCompletionListTableView:tableView];
@@ -1927,7 +1927,7 @@ void __55__CatalogViewController__clearCompletionListCachesSoon__block_invoke(ui
 - (void)_textFieldEditingChangedForUpdatingCompletionListOnRestore:(BOOL)restore
 {
   restoreCopy = restore;
-  v43[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   self->_isCachedCompletionList = 0;
   [(UniversalSearchFirstTimeExperienceViewController *)self->_universalSearchFirstTimeExperienceViewController unifiedFieldDidChange];
   [(CatalogViewController *)self _removeNoRecentSearchesViewIfNecessary];
@@ -1954,156 +1954,156 @@ void __55__CatalogViewController__clearCompletionListCachesSoon__block_invoke(ui
   v9 = [(__CFString *)text stringByTrimmingCharactersInSet:safari_whitespaceAndNewlineCharacterSet];
   v10 = [v9 length];
 
-  v42[0] = @"time";
+  v44[0] = @"time";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:CFAbsoluteTimeGetCurrent()];
-  v42[1] = @"query";
-  v43[0] = v11;
+  v44[1] = @"query";
+  v45[0] = v11;
   v12 = &stru_2827BF158;
   if (text)
   {
     v12 = text;
   }
 
-  v43[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+  v45[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
   [Application postTestNotificationName:@"catalogViewControllerDidStart" object:self userInfo:v13];
 
-  v14 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    [(CatalogViewController *)text _textFieldEditingChangedForUpdatingCompletionListOnRestore:v10, v14];
+    [(CatalogViewController *)text _textFieldEditingChangedForUpdatingCompletionListOnRestore:v10, v16];
   }
 
-  v15 = objc_loadWeakRetained(&self->_browserController);
-  shouldShowRecentSearches = [v15 shouldShowRecentSearches];
+  v17 = objc_loadWeakRetained(&self->_browserController);
+  shouldShowRecentSearches = [v17 shouldShowRecentSearches];
   if (v10)
   {
-    v17 = 1;
+    v19 = 1;
   }
 
   else
   {
-    v17 = shouldShowRecentSearches;
+    v19 = shouldShowRecentSearches;
   }
 
-  [(CatalogViewController *)self _setShowingCompletions:v17 popoverDismissalReason:0 completionHandler:0];
-  if ([WeakRetained catalogViewControllerShouldUsePopoverForCompletions:self] && ((v17 | self->_usesPopoverStyleForFavorites) & 1) == 0)
+  [(CatalogViewController *)self _setShowingCompletions:v19 popoverDismissalReason:0 completionHandler:0];
+  if ([WeakRetained catalogViewControllerShouldUsePopoverForCompletions:self] && ((v19 | self->_usesPopoverStyleForFavorites) & 1) == 0)
   {
     self->_hasKeyboardBeenDismissedForThisQuery = 0;
     goto LABEL_36;
   }
 
-  v40 = v17;
-  v41 = v10;
-  v18 = p_completionList;
-  v19 = WeakRetained;
-  v20 = v18;
-  query = [*v18 query];
+  v42 = v19;
+  v43 = v10;
+  v20 = p_completionList;
+  v21 = WeakRetained;
+  v22 = v20;
+  query = [*v20 query];
   queryString = [query queryString];
-  v23 = [queryString isEqualToString:text];
+  v25 = [queryString isEqualToString:text];
 
-  if (!v23)
+  if (!v25)
   {
     if ([(UnifiedField *)self->_textField voiceSearchState]== 1)
     {
-      v25 = 4;
-      WeakRetained = v19;
+      v27 = 4;
+      WeakRetained = v21;
     }
 
     else
     {
-      WeakRetained = v19;
+      WeakRetained = v21;
       if (![(UnifiedField *)self->_textField performingExternalSearch])
       {
-        v35 = UIKeyboardGetCurrentInputMode();
-        v36 = [v35 isEqualToString:*MEMORY[0x277D76BC0]];
+        v37 = UIKeyboardGetCurrentInputMode();
+        v38 = [v37 isEqualToString:*MEMORY[0x277D76BC0]];
 
-        v26 = v20;
-        if (v36)
+        v28 = v22;
+        if (v38)
         {
-          v25 = 5;
+          v27 = 5;
         }
 
         else
         {
           isPastingText = [(UnifiedField *)self->_textField isPastingText];
-          v38 = 26;
+          v40 = 26;
           if (!restoreCopy)
           {
-            v38 = 1;
+            v40 = 1;
           }
 
           if (isPastingText)
           {
-            v25 = 6;
+            v27 = 6;
           }
 
           else
           {
-            v25 = v38;
+            v27 = v40;
           }
         }
 
         goto LABEL_21;
       }
 
-      v25 = 4;
+      v27 = 4;
     }
 
-    v26 = v20;
+    v28 = v22;
 LABEL_21:
-    v27 = [objc_alloc(MEMORY[0x277D49ED8]) initWithQueryString:text triggerEvent:v25];
-    effectiveProfileIdentifier = [v15 effectiveProfileIdentifier];
-    [v27 setProfileIdentifierToFilterResults:effectiveProfileIdentifier];
+    v29 = [objc_alloc(MEMORY[0x277D49ED8]) initWithQueryString:text triggerEvent:v27];
+    effectiveProfileIdentifier = [v17 effectiveProfileIdentifier];
+    [v29 setProfileIdentifierToFilterResults:effectiveProfileIdentifier];
 
     feedbackDispatcher = [(WBSParsecDSession *)self->_parsecSearchSession feedbackDispatcher];
-    [feedbackDispatcher userDidTypeKey:{objc_msgSend(v27, "queryID")}];
+    [feedbackDispatcher userDidTypeKey:{objc_msgSend(v29, "queryID")}];
 
     if ([(UnifiedField *)self->_textField lastInputWasQuerySuggestion])
     {
-      [v27 setTriggerEvent:8];
+      [v29 setTriggerEvent:8];
     }
 
     if (self->_lastInputWasSearchTextCompletion)
     {
-      [v27 setTriggerEvent:25];
+      [v29 setTriggerEvent:25];
     }
 
     if ([(UnifiedField *)self->_textField voiceSearchState]== 1 || [(UnifiedField *)self->_textField performingExternalSearch])
     {
-      [v27 setTriggerEvent:4];
+      [v29 setTriggerEvent:4];
       mEMORY[0x277D28EB8] = [MEMORY[0x277D28EB8] sharedManager];
       queryItems = [mEMORY[0x277D28EB8] queryItems];
-      [v27 setQueryItems:queryItems];
+      [v29 setQueryItems:queryItems];
     }
 
     querySuggestions = [(UnifiedField *)self->_textField querySuggestions];
-    v33 = [querySuggestions safari_mapObjectsUsingBlock:&__block_literal_global_75];
-    [v27 setQuerySuggestions:v33];
+    v35 = [querySuggestions safari_mapObjectsUsingBlock:&__block_literal_global_75];
+    [v29 setQuerySuggestions:v35];
 
-    [*v26 setUsingPencilInput:{-[UnifiedField isUsingPencilInput](self->_textField, "isUsingPencilInput")}];
-    [*v26 setExecutingVoiceSearch:{-[UnifiedField voiceSearchState](self->_textField, "voiceSearchState") != 0}];
-    if (v40)
+    [*v28 setUsingPencilInput:{-[UnifiedField isUsingPencilInput](self->_textField, "isUsingPencilInput")}];
+    [*v28 setExecutingVoiceSearch:{-[UnifiedField voiceSearchState](self->_textField, "voiceSearchState") != 0}];
+    if (v42)
     {
-      [*v26 setQuery:v27];
+      [*v28 setQuery:v29];
     }
 
     textField = self->_textField;
-    v24 = v41;
+    v26 = v43;
     if (textField && ![(UnifiedField *)textField voiceSearchState])
     {
-      [v15 removeCachedSearchStateForActiveTabDocument];
+      [v17 removeCachedSearchStateForActiveTabDocument];
     }
 
     goto LABEL_34;
   }
 
   [(CatalogViewController *)self _showCompletionsPopoverIfNecessary];
-  WeakRetained = v19;
-  v24 = v10;
+  WeakRetained = v21;
+  v26 = v10;
 LABEL_34:
   self->_hasKeyboardBeenDismissedForThisQuery = 0;
-  if (v24)
+  if (v26)
   {
     [MEMORY[0x277D4C5D0] safari_prewarmSearchUI];
   }
@@ -2263,40 +2263,40 @@ id __84__CatalogViewController__textFieldEditingChangedForUpdatingCompletionList
 
 - (void)_generateVisibleResultsFeedbackForEvent:(int64_t)event
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   if (!self->_feedbackIsBeingGenerated && (event != 3 || !self->_lastFeedbackSentWasScrolling) && [(CompletionList *)self->_completionList hasCompletions]&& [(UnifiedField *)self->_textField voiceSearchState]!= 1)
   {
     self->_feedbackIsBeingGenerated = 1;
     if (event)
     {
-      v48 = [MEMORY[0x277CBEB98] setWithSet:self->_seenVisibleResults];
+      v49 = [MEMORY[0x277CBEB98] setWithSet:self->_seenVisibleResults];
     }
 
     else
     {
-      v48 = 0;
+      v49 = 0;
     }
 
     [(NSMutableSet *)self->_seenVisibleResults removeAllObjects];
-    v49 = objc_opt_new();
+    v50 = objc_opt_new();
     tableView = [(CompletionListTableViewController *)self->_completionsViewController tableView];
     window = [tableView window];
     [window bounds];
-    v53 = v7;
-    v54 = v6;
-    v51 = v9;
-    v52 = v8;
+    v54 = v7;
+    v55 = v6;
+    v52 = v9;
+    v53 = v8;
 
-    v61 = 0u;
     v62 = 0u;
-    v59 = 0u;
+    v63 = 0u;
     v60 = 0u;
+    v61 = 0u;
     indexPathsForVisibleRows = [tableView indexPathsForVisibleRows];
-    v11 = [indexPathsForVisibleRows countByEnumeratingWithState:&v59 objects:v65 count:16];
+    v11 = [indexPathsForVisibleRows countByEnumeratingWithState:&v60 objects:v66 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v60;
+      v13 = *v61;
       v14 = *MEMORY[0x277CBF3A0];
       v15 = *(MEMORY[0x277CBF3A0] + 8);
       v16 = *(MEMORY[0x277CBF3A0] + 16);
@@ -2305,27 +2305,27 @@ id __84__CatalogViewController__textFieldEditingChangedForUpdatingCompletionList
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v60 != v13)
+          if (*v61 != v13)
           {
             objc_enumerationMutation(indexPathsForVisibleRows);
           }
 
-          v18 = *(*(&v59 + 1) + 8 * i);
+          v18 = *(*(&v60 + 1) + 8 * i);
           [tableView rectForRowAtIndexPath:v18];
-          x = v67.origin.x;
-          y = v67.origin.y;
-          width = v67.size.width;
-          height = v67.size.height;
-          v74.origin.x = v14;
-          v74.origin.y = v15;
-          v74.size.width = v16;
-          v74.size.height = rect2;
-          if (!CGRectEqualToRect(v67, v74))
+          x = v68.origin.x;
+          y = v68.origin.y;
+          width = v68.size.width;
+          height = v68.size.height;
+          v75.origin.x = v14;
+          v75.origin.y = v15;
+          v75.size.width = v16;
+          v75.size.height = rect2;
+          if (!CGRectEqualToRect(v68, v75))
           {
             [tableView convertRect:0 toView:{x, y, width, height}];
-            v56 = v24;
-            v57 = v23;
-            v55 = v25;
+            v57 = v24;
+            v58 = v23;
+            v56 = v25;
             v27 = v26;
             window2 = [tableView window];
             [window2 convertRect:0 fromWindow:{self->_keyboardFrame.origin.x, self->_keyboardFrame.origin.y, self->_keyboardFrame.size.width, self->_keyboardFrame.size.height}];
@@ -2337,59 +2337,59 @@ id __84__CatalogViewController__textFieldEditingChangedForUpdatingCompletionList
             v37 = v16;
             v39 = v38;
 
-            v68.origin.x = v30;
-            v68.origin.y = v33;
+            v69.origin.x = v30;
+            v69.origin.y = v33;
             v14 = v31;
-            v68.size.width = v36;
+            v69.size.width = v36;
             v15 = v34;
-            v68.size.height = v39;
+            v69.size.height = v39;
             v16 = v37;
-            v75.origin.x = v57;
-            v75.origin.y = v56;
-            v75.size.width = v55;
-            v75.size.height = v27;
-            v69 = CGRectIntersection(v68, v75);
-            v40 = CGRectGetHeight(v69);
-            v70.origin.x = v57;
-            v70.origin.y = v56;
-            v70.size.width = v55;
-            v70.size.height = v27;
-            if (v40 < CGRectGetHeight(v70) * 0.5)
+            v76.origin.x = v58;
+            v76.origin.y = v57;
+            v76.size.width = v56;
+            v76.size.height = v27;
+            v70 = CGRectIntersection(v69, v76);
+            v40 = CGRectGetHeight(v70);
+            v71.origin.x = v58;
+            v71.origin.y = v57;
+            v71.size.width = v56;
+            v71.size.height = v27;
+            if (v40 < CGRectGetHeight(v71) * 0.5)
             {
-              v71.origin.y = v53;
-              v71.origin.x = v54;
-              v71.size.height = v51;
-              v71.size.width = v52;
-              v76.origin.x = v57;
-              v76.origin.y = v56;
-              v76.size.width = v55;
-              v76.size.height = v27;
-              v72 = CGRectIntersection(v71, v76);
-              v41 = CGRectGetHeight(v72);
-              v73.origin.x = v57;
-              v73.origin.y = v56;
-              v73.size.width = v55;
-              v73.size.height = v27;
-              if (v41 > CGRectGetHeight(v73) * 0.5)
+              v72.origin.y = v54;
+              v72.origin.x = v55;
+              v72.size.height = v52;
+              v72.size.width = v53;
+              v77.origin.x = v58;
+              v77.origin.y = v57;
+              v77.size.width = v56;
+              v77.size.height = v27;
+              v73 = CGRectIntersection(v72, v77);
+              v41 = CGRectGetHeight(v73);
+              v74.origin.x = v58;
+              v74.origin.y = v57;
+              v74.size.width = v56;
+              v74.size.height = v27;
+              if (v41 > CGRectGetHeight(v74) * 0.5)
               {
-                v42 = [(CatalogViewController *)self _completionItemAtIndexPath:v18];
-                if (v42)
+                v43 = [(CatalogViewController *)self _completionItemAtIndexPath:v18];
+                if (v43)
                 {
-                  [(NSMutableSet *)self->_seenVisibleResults addObject:v42];
-                  if (!event || ([v48 containsObject:v42] & 1) == 0)
+                  [(NSMutableSet *)self->_seenVisibleResults addObject:v43];
+                  if (!event || ([v49 containsObject:v43] & 1) == 0)
                   {
-                    [v49 addObject:v42];
+                    [v50 addObject:v43];
                   }
                 }
 
                 else
                 {
-                  v43 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-                  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+                  v44 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v42);
+                  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v64 = v18;
-                    _os_log_error_impl(&dword_215819000, v43, OS_LOG_TYPE_ERROR, "Skipped generating feedback for cell at %@ due to nil completion list item", buf, 0xCu);
+                    v65 = v18;
+                    _os_log_error_impl(&dword_215819000, v44, OS_LOG_TYPE_ERROR, "Skipped generating feedback for cell at %@ due to nil completion list item", buf, 0xCu);
                   }
                 }
               }
@@ -2397,19 +2397,19 @@ id __84__CatalogViewController__textFieldEditingChangedForUpdatingCompletionList
           }
         }
 
-        v12 = [indexPathsForVisibleRows countByEnumeratingWithState:&v59 objects:v65 count:16];
+        v12 = [indexPathsForVisibleRows countByEnumeratingWithState:&v60 objects:v66 count:16];
       }
 
       while (v12);
     }
 
-    v44 = [v49 count];
-    if (event == 3 || v44)
+    v45 = [v50 count];
+    if (event == 3 || v45)
     {
       feedbackDispatcher = [(WBSParsecDSession *)self->_parsecSearchSession feedbackDispatcher];
-      v46 = [v49 copy];
+      v47 = [v50 copy];
       query = [(CompletionList *)self->_completionList query];
-      [feedbackDispatcher didDisplayCompletionListItems:v46 forQuery:query forEvent:event];
+      [feedbackDispatcher didDisplayCompletionListItems:v47 forQuery:query forEvent:event];
     }
 
     self->_feedbackIsBeingGenerated = 0;
@@ -2652,29 +2652,30 @@ id __84__CatalogViewController__textFieldEditingChangedForUpdatingCompletionList
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13 = 0;
+    v16 = 0;
     goto LABEL_13;
   }
 
-  v10 = [viewCopy cellForRowAtIndexPath:pathCopy];
-  if (!v10)
+  v11 = [viewCopy cellForRowAtIndexPath:pathCopy];
+  if (!v11)
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [CatalogViewController tableView:pathCopy contextMenuConfigurationForRowAtIndexPath:v14 point:?];
+      [CatalogViewController tableView:pathCopy contextMenuConfigurationForRowAtIndexPath:v17 point:?];
     }
 
     goto LABEL_11;
   }
 
   getSearchUITableViewCellClass();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(isKindOfClass, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [CatalogViewController tableView:v15 contextMenuConfigurationForRowAtIndexPath:? point:?];
+      [CatalogViewController tableView:v18 contextMenuConfigurationForRowAtIndexPath:v11 point:?];
     }
 
     goto LABEL_11;
@@ -2684,18 +2685,18 @@ id __84__CatalogViewController__textFieldEditingChangedForUpdatingCompletionList
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
 LABEL_11:
-    v13 = 0;
+    v16 = 0;
     goto LABEL_12;
   }
 
-  v11 = MEMORY[0x277D753B0];
-  contextMenuActionProvider = [v10 contextMenuActionProvider];
-  v13 = [v11 configurationWithIdentifier:pathCopy previewProvider:0 actionProvider:contextMenuActionProvider];
+  v14 = MEMORY[0x277D753B0];
+  contextMenuActionProvider = [v11 contextMenuActionProvider];
+  v16 = [v14 configurationWithIdentifier:pathCopy previewProvider:0 actionProvider:contextMenuActionProvider];
 
 LABEL_12:
 LABEL_13:
 
-  return v13;
+  return v16;
 }
 
 - (double)tableView:(id)view heightForRowAtIndexPath:(id)path
@@ -5117,15 +5118,15 @@ uint64_t __43__CatalogViewController_animateTransition___block_invoke_2(uint64_t
   _os_log_debug_impl(&dword_215819000, log, OS_LOG_TYPE_DEBUG, "Text field editing changed; text length: %lu; current text: %{sensitive}@", &v3, 0x16u);
 }
 
-- (void)tableView:(void *)a1 contextMenuConfigurationForRowAtIndexPath:point:.cold.1(void *a1)
+- (void)tableView:(void *)a1 contextMenuConfigurationForRowAtIndexPath:(uint64_t)a2 point:.cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138412290;
-  v5 = v3;
-  _os_log_error_impl(&dword_215819000, v1, OS_LOG_TYPE_ERROR, "Completion list and table view are out of sync. Completion item for context menu configuration is SFSearchResult but table view cell is kind of %@", &v4, 0xCu);
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_215819000, v2, OS_LOG_TYPE_ERROR, "Completion list and table view are out of sync. Completion item for context menu configuration is SFSearchResult but table view cell is kind of %@", &v5, 0xCu);
 }
 
 - (void)tableView:(uint64_t)a1 contextMenuConfigurationForRowAtIndexPath:(NSObject *)a2 point:.cold.2(uint64_t a1, NSObject *a2)

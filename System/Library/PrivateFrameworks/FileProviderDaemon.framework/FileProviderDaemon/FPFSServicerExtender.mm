@@ -9,10 +9,12 @@
 {
   selfCopy = self;
   sub_1CF91A300();
+  v4 = v3;
 
-  v3 = sub_1CF9E6888();
+  v5 = sub_1CF9E6888();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (_TtC18FileProviderDaemon20FPFSServicerExtender)init

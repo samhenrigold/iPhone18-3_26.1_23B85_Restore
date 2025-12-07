@@ -52,18 +52,18 @@
   return v2;
 }
 
-void __47__TabSnapshotGenerator__snapshotRenderingQueue__block_invoke()
+void __47__TabSnapshotGenerator__snapshotRenderingQueue__block_invoke(uint64_t a1)
 {
-  v0 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x277D85CD8], QOS_CLASS_USER_INITIATED, 0);
-  attr = dispatch_queue_attr_make_with_autorelease_frequency(v0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v1 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x277D85CD8], QOS_CLASS_USER_INITIATED, 0);
+  attr = dispatch_queue_attr_make_with_autorelease_frequency(v1, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
 
-  v1 = MEMORY[0x277CCACA8];
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = [v1 stringWithFormat:@"com.apple.mobilesafari.%@", v3];
-  v5 = dispatch_queue_create([v4 UTF8String], attr);
-  v6 = _snapshotRenderingQueue_queue;
-  _snapshotRenderingQueue_queue = v5;
+  v2 = MEMORY[0x277CCACA8];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"com.apple.mobilesafari.%@", v4];
+  v6 = dispatch_queue_create([v5 UTF8String], attr);
+  v7 = _snapshotRenderingQueue_queue;
+  _snapshotRenderingQueue_queue = v6;
 }
 
 - (void)snapshotWithRequest:(id)request contentProvider:(id)provider completion:(id)completion
@@ -328,17 +328,17 @@ uint64_t __44__TabSnapshotGenerator__beginNextItemIfIdle__block_invoke(uint64_t 
   v12 = v11;
   v14 = v13;
   options = [request options];
-  v40 = [(TabSnapshotGenerator *)self backgroundColorForContentProvider:contentProvider];
+  v41 = [(TabSnapshotGenerator *)self backgroundColorForContentProvider:contentProvider];
   [(TabSnapshotGenerator *)self contentRectForContentProvider:contentProvider withSnapshotSize:v12, v14];
   v17 = v16;
   v19 = v18;
   v21 = v20;
   v23 = v22;
-  v37 = [(TabSnapshotGenerator *)self contentShouldUnderlapTopBackdropForContentProvider:contentProvider];
+  v38 = [(TabSnapshotGenerator *)self contentShouldUnderlapTopBackdropForContentProvider:contentProvider];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained topBarsHeightForSnapshotGenerator:self];
   v26 = v25;
-  v38 = WeakRetained;
+  v39 = WeakRetained;
   [WeakRetained contentSizeForSnapshotGenerator:self];
   if (v27 == 0.0)
   {
@@ -354,13 +354,13 @@ uint64_t __44__TabSnapshotGenerator__beginNextItemIfIdle__block_invoke(uint64_t 
   v30 = traitCollection;
   if (traitCollection)
   {
-    v39 = [traitCollection copy];
+    v40 = [traitCollection copy];
   }
 
   else
   {
     _currentTraitCollection = [MEMORY[0x277D75C80] _currentTraitCollection];
-    v39 = [_currentTraitCollection copy];
+    v40 = [_currentTraitCollection copy];
   }
 
   if (v10 & 1 | options & 1 || ([(TabSnapshotGenerator *)self _renderView:snapshotContentView afterScreenUpdates:(options & 0x20) != 0], (v8 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -369,23 +369,23 @@ uint64_t __44__TabSnapshotGenerator__beginNextItemIfIdle__block_invoke(uint64_t 
     aBlock[1] = 3221225472;
     aBlock[2] = __38__TabSnapshotGenerator__snapshotItem___block_invoke;
     aBlock[3] = &unk_2781D74F8;
-    v59 = v37;
-    v53 = v26;
-    v54 = v28;
-    v32 = v8;
-    v51 = v32;
-    v55 = v17;
-    v56 = v19;
-    v57 = v21;
-    v58 = v23;
-    v60 = options & 1;
-    v52 = snapshotContentView;
-    v61 = (options & 0x20) >> 5;
-    v33 = _Block_copy(aBlock);
+    v60 = v38;
+    v54 = v26;
+    v55 = v28;
+    v33 = v8;
+    v52 = v33;
+    v56 = v17;
+    v57 = v19;
+    v58 = v21;
+    v59 = v23;
+    v61 = options & 1;
+    v53 = snapshotContentView;
+    v62 = (options & 0x20) >> 5;
+    v34 = _Block_copy(aBlock);
     if (options)
     {
-      v34 = [(TabSnapshotGenerator *)self renderSnapshotWithSize:v40 backgroundColor:options options:v33 drawing:v12, v14];
-      [(TabSnapshotGenerator *)self _didFinishItem:itemCopy withImage:v34 isRecoverable:0];
+      v35 = [(TabSnapshotGenerator *)self renderSnapshotWithSize:v41 backgroundColor:options options:v34 drawing:v12, v14];
+      [(TabSnapshotGenerator *)self _didFinishItem:itemCopy withImage:v35 isRecoverable:0];
     }
 
     else
@@ -395,26 +395,26 @@ uint64_t __44__TabSnapshotGenerator__beginNextItemIfIdle__block_invoke(uint64_t 
       block[1] = 3221225472;
       block[2] = __38__TabSnapshotGenerator__snapshotItem___block_invoke_2;
       block[3] = &unk_2781D7520;
-      v42 = v39;
+      v43 = v40;
       selfCopy = self;
-      v47 = v12;
-      v48 = v14;
-      v44 = v40;
-      v49 = options;
-      v46 = v33;
-      v45 = itemCopy;
+      v48 = v12;
+      v49 = v14;
+      v45 = v41;
+      v50 = options;
+      v47 = v34;
+      v46 = itemCopy;
       dispatch_async(_snapshotRenderingQueue, block);
 
-      v34 = v42;
+      v35 = v43;
     }
   }
 
   else
   {
-    v36 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(0, v32);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      [TabSnapshotGenerator _snapshotItem:v36];
+      [TabSnapshotGenerator _snapshotItem:v37];
     }
 
     [(TabSnapshotGenerator *)self _didFinishItem:itemCopy withImage:0 isRecoverable:0];
@@ -799,7 +799,7 @@ void __79__TabSnapshotGenerator_renderSnapshotWithSize_backgroundColor_options_d
   return _sf_snapshotImageFromIOSurface;
 }
 
-uint64_t __55__TabSnapshotGenerator__renderView_afterScreenUpdates___block_invoke(uint64_t a1)
+void *__55__TabSnapshotGenerator__renderView_afterScreenUpdates___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [v2 bounds];

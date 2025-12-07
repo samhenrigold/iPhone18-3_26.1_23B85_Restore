@@ -1,6 +1,7 @@
 @interface TSPPackageConverter
 + (BOOL)convertDocumentAtURL:(id)l toPackageType:(int64_t)type removeEntriesMatchingFilter:(id)filter error:(id *)error;
 + (NSArray)regularRexpressionsForCachedCollaborationData;
++ (id)newPackageConverterWithURL:(id)l preserveExtendedAttributes:(BOOL)attributes error:(id *)error;
 - (BOOL)enumeratePackageEntriesWithZipArchive:(id)archive needsReadChannel:(BOOL)channel accessor:(id)accessor;
 - (BOOL)hasEntriesMatchingFilter:(id)filter;
 - (BOOL)isDataPath:(id)path;
@@ -11,6 +12,7 @@
 - (BOOL)writeToURL:(id)l packageType:(int64_t)type removeEntriesMatchingFilter:(id)filter error:(id *)error;
 - (TSPPackageConverter)init;
 - (TSPPackageConverter)initWithURL:(id)l package:(id)package fileCoordinatorDelegate:(id)delegate preserveExtendedAttributes:(BOOL)attributes error:(id *)error;
+- (id)newWriteChannelAtPath:(id)path lastModificationDate:(id)date size:(unint64_t)size CRC:(unsigned int)c packageWriter:(id)writer error:(id *)error;
 - (unint64_t)progressTotalUnitCountWithZipArchive:(id)archive;
 @end
 
@@ -59,6 +61,38 @@
   return v16;
 }
 
++ (id)newPackageConverterWithURL:(id)l preserveExtendedAttributes:(BOOL)attributes error:(id *)error
+{
+  attributesCopy = attributes;
+  lCopy = l;
+  v8 = [TSPPackageConverterFileCoordinatorDelegate alloc];
+  v10 = objc_msgSend_initWithURL_(v8, v9, lCopy);
+  v12 = objc_msgSend_newLazyPackageWithURL_packageIdentifier_decryptionKey_fileCoordinatorDelegate_(TSPPackage, v11, lCopy, 1, 0, v10);
+  v15 = v12;
+  if (v12)
+  {
+    if (objc_msgSend_packageType(v12, v13, v14) >= 3)
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      v16 = objc_opt_class();
+    }
+
+    v18 = [v16 alloc];
+    v17 = objc_msgSend_initWithURL_package_fileCoordinatorDelegate_preserveExtendedAttributes_error_(v18, v19, lCopy, v15, v10, attributesCopy, error);
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
+}
+
 - (TSPPackageConverter)init
 {
   v2 = MEMORY[0x277D81150];
@@ -86,29 +120,7 @@
     v32.receiver = self;
     v32.super_class = TSPPackageConverter;
     v20 = [(TSPPackageConverter *)&v32 init];
-    if (!v20)
-    {
-      goto LABEL_5;
-    }
-
-    v21 = objc_msgSend_copy(lCopy, v18, v19);
-    URL = v20->_URL;
-    v20->_URL = v21;
-
-    objc_storeStrong(&v20->_package, package);
-    objc_storeStrong(&v20->_fileCoordinatorDelegate, delegate);
-    if (!attributesCopy)
-    {
-      goto LABEL_5;
-    }
-
-    v23 = objc_alloc(MEMORY[0x277D811C0]);
-    v26 = objc_msgSend_path(lCopy, v24, v25);
-    v28 = objc_msgSend_initWithPath_options_error_(v23, v27, v26, 0, error);
-    extendedAttributeCollection = v20->_extendedAttributeCollection;
-    v20->_extendedAttributeCollection = v28;
-
-    if (!v20->_extendedAttributeCollection)
+    if (v20 && (v21 = objc_msgSend_copy(lCopy, v18, v19), URL = v20->_URL, v20->_URL = v21, URL, objc_storeStrong(&v20->_package, package), objc_storeStrong(&v20->_fileCoordinatorDelegate, delegate), attributesCopy) && (v23 = objc_alloc(MEMORY[0x277D811C0]), objc_msgSend_path(lCopy, v24, v25), v26 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend_initWithPath_options_error_(v23, v27, v26, 0, error), extendedAttributeCollection = v20->_extendedAttributeCollection, v20->_extendedAttributeCollection = v28, extendedAttributeCollection, v26, !v20->_extendedAttributeCollection))
     {
       selfCopy = 0;
       self = v20;
@@ -116,7 +128,6 @@
 
     else
     {
-LABEL_5:
       self = v20;
       selfCopy = self;
     }
@@ -171,28 +182,28 @@ LABEL_5:
 
 - (BOOL)path:(id)path matchesFilter:(id)filter
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   filterCopy = filter;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(filterCopy, v7, &v18, v22, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(filterCopy, v7, &v17, v21, 16);
   if (v10)
   {
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(filterCopy);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = objc_msgSend_length(pathCopy, v8, v9, v18);
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = objc_msgSend_length(pathCopy, v8, v9, v17);
         if (objc_msgSend_rangeOfFirstMatchInString_options_range_(v13, v15, pathCopy, 0, 0, v14) != 0x7FFFFFFFFFFFFFFFLL)
         {
           LOBYTE(v10) = 1;
@@ -200,7 +211,7 @@ LABEL_5:
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(filterCopy, v8, &v18, v22, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(filterCopy, v8, &v17, v21, 16);
       if (v10)
       {
         continue;
@@ -212,7 +223,6 @@ LABEL_5:
 
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -262,34 +272,33 @@ LABEL_11:
     goto LABEL_37;
   }
 
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x3032000000;
-  v83 = sub_276A09790;
-  v84 = sub_276A097A0;
-  v85 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = sub_276A09790;
+  v83 = sub_276A097A0;
+  v84 = 0;
   v17 = objc_msgSend_zipArchive(self->_package, v14, v15);
   if (!v17)
   {
-    package = self->_package;
-    v27 = objc_opt_class();
-    if ((objc_msgSend_hasZipArchive(v27, v28, v29) & 1) == 0)
+    v26 = objc_opt_class();
+    if ((objc_msgSend_hasZipArchive(v26, v27, v28) & 1) == 0)
     {
       goto LABEL_12;
     }
 
 LABEL_24:
-    v35 = objc_msgSend_lastReloadError(self->_package, v23, v24);
-    updated = v35;
-    if (!v35)
+    v34 = objc_msgSend_lastReloadError(self->_package, v23, v24);
+    updated = v34;
+    if (!v34)
     {
-      updated = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(MEMORY[0x277CCA9B8], v64, 0);
+      updated = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(MEMORY[0x277CCA9B8], v63, 0);
     }
 
-    objc_storeStrong(v81 + 5, updated);
-    v55 = 0;
+    objc_storeStrong(v80 + 5, updated);
+    v54 = 0;
     v25 = 0;
-    if (v35)
+    if (v34)
     {
       goto LABEL_31;
     }
@@ -304,10 +313,10 @@ LABEL_24:
   {
     if (objc_msgSend_packageType(self, v21, v22) == 2)
     {
-      v32 = objc_msgSend_componentZipArchive(self->_package, v30, v31);
-      v34 = objc_msgSend_entryForName_(v32, v33, v18);
+      v31 = objc_msgSend_componentZipArchive(self->_package, v29, v30);
+      v33 = objc_msgSend_entryForName_(v31, v32, v18);
 
-      if (v34)
+      if (v33)
       {
         goto LABEL_12;
       }
@@ -321,50 +330,77 @@ LABEL_24:
   }
 
 LABEL_12:
-  v69 = filterCopy;
-  v35 = objc_msgSend_currentProgress(MEMORY[0x277CCAC48], v23, v24);
+  v68 = filterCopy;
+  v34 = objc_msgSend_currentProgress(MEMORY[0x277CCAC48], v23, v24);
 
-  if (v35)
+  if (v34)
   {
-    v38 = MEMORY[0x277CCAC48];
-    v39 = objc_msgSend_progressTotalUnitCountWithZipArchive_(self, v36, v17);
-    v35 = objc_msgSend_progressWithTotalUnitCount_(v38, v40, v39);
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = sub_276A097A8;
-    v79[3] = &unk_27A6E27F8;
-    v79[4] = self;
-    objc_msgSend_setCancellationHandler_(v35, v41, v79);
+    v37 = MEMORY[0x277CCAC48];
+    v38 = objc_msgSend_progressTotalUnitCountWithZipArchive_(self, v35, v17);
+    v34 = objc_msgSend_progressWithTotalUnitCount_(v37, v39, v38);
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = sub_276A097A8;
+    v78[3] = &unk_27A6E27F8;
+    v78[4] = self;
+    objc_msgSend_setCancellationHandler_(v34, v40, v78);
   }
 
-  v42 = objc_msgSend_documentProperties(self->_package, v36, v37);
-  v43 = self->_package;
+  v41 = objc_msgSend_documentProperties(self->_package, v35, v36);
+  package = self->_package;
   fileCoordinatorDelegate = self->_fileCoordinatorDelegate;
-  v45 = v81;
-  v78 = v81[5];
-  updated = objc_msgSend_newPackageWriterWithPackageType_URL_documentTargetURL_relativeURLForExternalData_packageIdentifier_documentProperties_documentMetadata_fileFormatVersion_updateType_cloneMode_documentSaveValidationPolicy_encryptionKey_originalDocumentPackage_originalSupportPackage_fileCoordinatorDelegate_progress_error_(TSPPackageWriter, v46, type, lCopy, lCopy, lCopy, 1, v42, 0, 0, 2, 0, 0, 0, v43, 0, fileCoordinatorDelegate, 0, &v78);
-  objc_storeStrong(v45 + 5, v78);
+  v44 = v80;
+  v77 = v80[5];
+  updated = objc_msgSend_newPackageWriterWithPackageType_URL_documentTargetURL_relativeURLForExternalData_packageIdentifier_documentProperties_documentMetadata_fileFormatVersion_updateType_cloneMode_documentSaveValidationPolicy_encryptionKey_originalDocumentPackage_originalSupportPackage_fileCoordinatorDelegate_progress_error_(TSPPackageWriter, v45, type, lCopy, lCopy, lCopy, 1, v41, 0, 0, 2, 0, 0, 0, package, 0, fileCoordinatorDelegate, 0, &v77);
+  objc_storeStrong(v44 + 5, v77);
 
   if (updated)
   {
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = sub_276A097B8;
-    v73[3] = &unk_27A6E42C8;
-    v73[4] = self;
-    v74 = filterCopy;
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = sub_276A097B8;
+    v72[3] = &unk_27A6E42C8;
+    v72[4] = self;
+    v73 = filterCopy;
     updated = updated;
-    v75 = updated;
-    v77 = &v80;
-    v35 = v35;
-    v76 = v35;
-    if (objc_msgSend_enumeratePackageEntriesWithZipArchive_needsReadChannel_accessor_(self, v48, v17, 1, v73))
+    v74 = updated;
+    v76 = &v79;
+    v34 = v34;
+    v75 = v34;
+    if (objc_msgSend_enumeratePackageEntriesWithZipArchive_needsReadChannel_accessor_(self, v47, v17, 1, v72))
     {
-      v51 = objc_msgSend_documentProperties(self->_package, v49, v50);
-      v52 = v81;
-      obj = v81[5];
-      v54 = objc_msgSend_writeToPackageWriter_error_(v51, v53, updated, &obj);
-      objc_storeStrong(v52 + 5, obj);
+      v50 = objc_msgSend_documentProperties(self->_package, v48, v49);
+      v51 = v80;
+      obj = v80[5];
+      v53 = objc_msgSend_writeToPackageWriter_error_(v50, v52, updated, &obj);
+      objc_storeStrong(v51 + 5, obj);
+    }
+
+    else
+    {
+      v53 = 0;
+    }
+
+    v55 = v80;
+    v70 = v80[5];
+    v56 = objc_msgSend_closeAndReturnError_(updated, v48, &v70);
+    objc_storeStrong(v55 + 5, v70);
+    if ((v56 & v53) == 1)
+    {
+      extendedAttributeCollection = self->_extendedAttributeCollection;
+      if (extendedAttributeCollection)
+      {
+        v60 = objc_msgSend_path(lCopy, v57, v58);
+        v61 = v80;
+        v69 = v80[5];
+        v54 = objc_msgSend_setAttributeCollectionToPath_intent_options_error_(extendedAttributeCollection, v62, v60, 2, 0, &v69);
+        objc_storeStrong(v61 + 5, v69);
+      }
+
+      else
+      {
+        v54 = 1;
+      }
     }
 
     else
@@ -372,62 +408,35 @@ LABEL_12:
       v54 = 0;
     }
 
-    v56 = v81;
-    v71 = v81[5];
-    v57 = objc_msgSend_closeAndReturnError_(updated, v49, &v71);
-    objc_storeStrong(v56 + 5, v71);
-    if ((v57 & v54) == 1)
-    {
-      extendedAttributeCollection = self->_extendedAttributeCollection;
-      if (extendedAttributeCollection)
-      {
-        v61 = objc_msgSend_path(lCopy, v58, v59);
-        v62 = v81;
-        v70 = v81[5];
-        v55 = objc_msgSend_setAttributeCollectionToPath_intent_options_error_(extendedAttributeCollection, v63, v61, 2, 0, &v70);
-        objc_storeStrong(v62 + 5, v70);
-      }
-
-      else
-      {
-        v55 = 1;
-      }
-    }
-
-    else
-    {
-      v55 = 0;
-    }
-
-    filterCopy = v69;
+    filterCopy = v68;
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
 LABEL_30:
 
-  v25 = v55;
+  v25 = v54;
 LABEL_31:
 
   if (error && !v25)
   {
-    v66 = v81[5];
-    if (v66)
+    v65 = v80[5];
+    if (v65)
     {
-      *error = v66;
+      *error = v65;
     }
 
     else
     {
-      v67 = objc_msgSend_tsp_unknownWriteErrorWithUserInfo_(MEMORY[0x277CCA9B8], v65, 0);
-      *error = v67;
+      v66 = objc_msgSend_tsp_unknownWriteErrorWithUserInfo_(MEMORY[0x277CCA9B8], v64, 0);
+      *error = v66;
     }
   }
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v79, 8);
 LABEL_37:
 
   return v25;
@@ -524,6 +533,30 @@ LABEL_37:
 
   _Block_object_dispose(&v22, 8);
   return archiveCopy;
+}
+
+- (id)newWriteChannelAtPath:(id)path lastModificationDate:(id)date size:(unint64_t)size CRC:(unsigned int)c packageWriter:(id)writer error:(id *)error
+{
+  v9 = *&c;
+  pathCopy = path;
+  dateCopy = date;
+  writerCopy = writer;
+  if (!pathCopy)
+  {
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSPPackageConverter newWriteChannelAtPath:lastModificationDate:size:CRC:packageWriter:error:]");
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageConverter.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 433, 0, "invalid nil value for '%{public}s'", "path");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
+  }
+
+  v24 = objc_msgSend_zipArchiveWriter(writerCopy, v14, v15);
+  objc_msgSend_beginEntryWithName_force32BitSize_lastModificationDate_size_CRC_forceCalculatingSizeAndCRCForPreservingLastModificationDate_(v24, v25, pathCopy, 0, dateCopy, size, v9, 0);
+  v26 = [TSPZipFileWriteChannel alloc];
+  v28 = objc_msgSend_initWithArchiveWriter_(v26, v27, v24);
+
+  return v28;
 }
 
 @end

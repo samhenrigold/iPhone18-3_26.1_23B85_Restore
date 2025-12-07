@@ -8,27 +8,25 @@
 
 - (CFPDCFDataBuffer)initWithCFData:(__CFData *)data
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = CFPDCFDataBuffer;
-  v4 = [(CFPDCFDataBuffer *)&v7 init];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = CFPDCFDataBuffer;
+  v4 = [(CFPDCFDataBuffer *)&v6 init];
   if (v4)
   {
     v4->data = CFRetain(data);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   CFRelease(self->data);
-  v4.receiver = self;
-  v4.super_class = CFPDCFDataBuffer;
-  [(CFPDCFDataBuffer *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = CFPDCFDataBuffer;
+  [(CFPDCFDataBuffer *)&v3 dealloc];
 }
 
 - (id)copyXPCData

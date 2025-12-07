@@ -22,14 +22,14 @@
 
 - (id)initForInterfaceType:(int64_t)type connectionStatusKeyPath:(id)path qualityKeyPath:(id)keyPath predictedQualityKeyPath:(id)qualityKeyPath discretionaryInvitedPath:(id)invitedPath
 {
-  v34[5] = *MEMORY[0x277D85DE8];
+  v33[5] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   keyPathCopy = keyPath;
   qualityKeyPathCopy = qualityKeyPath;
   invitedPathCopy = invitedPath;
-  v32.receiver = self;
-  v32.super_class = _DKNetworkQualityMonitor;
-  v17 = [(_DKMonitor *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = _DKNetworkQualityMonitor;
+  v17 = [(_DKMonitor *)&v31 init];
   v18 = v17;
   if (v17)
   {
@@ -46,23 +46,23 @@
 
     if (type == 2)
     {
-      v34[0] = @"predictionsGeneratedAt";
-      v34[1] = @"linkQuality";
-      v34[2] = @"discretionaryTrafficInvited";
-      v34[3] = @"powerCostUL";
-      v34[4] = @"interfaceClass";
+      v33[0] = @"predictionsGeneratedAt";
+      v33[1] = @"linkQuality";
+      v33[2] = @"discretionaryTrafficInvited";
+      v33[3] = @"powerCostUL";
+      v33[4] = @"interfaceClass";
       v21 = MEMORY[0x277CBEA60];
-      v22 = v34;
+      v22 = v33;
       v23 = 5;
     }
 
     else
     {
-      v33[0] = @"predictionsGeneratedAt";
-      v33[1] = @"linkQuality";
-      v33[2] = @"interfaceClass";
+      v32[0] = @"predictionsGeneratedAt";
+      v32[1] = @"linkQuality";
+      v32[2] = @"interfaceClass";
       v21 = MEMORY[0x277CBEA60];
-      v22 = v33;
+      v22 = v32;
       v23 = 3;
     }
 
@@ -82,7 +82,6 @@
     [(NWNetworkOfInterestManager *)v18->_noiManager setDelegate:v18];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -96,22 +95,22 @@
 
 - (id)predictionTimelineFromNOIPredictions:(id)predictions
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(predictionsCopy, "count")}];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(predictionsCopy, "count")}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v6 = predictionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
-    v26 = v5;
+    v25 = v5;
     v8 = 0;
     changePointAt2 = 0;
-    v10 = *v28;
+    v10 = *v27;
     do
     {
       v11 = v6;
@@ -119,12 +118,12 @@
       v13 = changePointAt2;
       do
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v11);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * v12);
+        v14 = *(*(&v26 + 1) + 8 * v12);
         changePointAt = [v14 changePointAt];
         v16 = changePointAt;
         if (v8)
@@ -133,7 +132,7 @@
           v18 = v17;
 
           v19 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
-          [v26 addObject:v19];
+          [v25 addObject:v19];
         }
 
         else
@@ -154,7 +153,7 @@
       while (v7 != v12);
       v22 = resolutionSeconds;
       v6 = v11;
-      v7 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
@@ -162,16 +161,16 @@
     if (v8)
     {
       v23 = [MEMORY[0x277CCABB0] numberWithDouble:(2 * v22)];
-      v5 = v26;
-      [v26 addObject:v23];
+      v5 = v25;
+      [v25 addObject:v23];
 
-      v7 = [objc_alloc(MEMORY[0x277D06A20]) initWithValues:v4 forDurations:v26 startingAt:v8];
+      v7 = [objc_alloc(MEMORY[0x277D06A20]) initWithValues:v4 forDurations:v25 startingAt:v8];
     }
 
     else
     {
       v7 = 0;
-      v5 = v26;
+      v5 = v25;
     }
   }
 
@@ -181,8 +180,6 @@
     changePointAt2 = 0;
     v8 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -225,7 +222,7 @@
 
 - (void)updateInstantQuality
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   noi = self->_noi;
   if (noi)
   {
@@ -238,11 +235,11 @@
       {
         qualityKeyPath = self->_qualityKeyPath;
         v8 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
-        v22 = 138412546;
-        v23 = qualityKeyPath;
-        v24 = 2112;
-        v25 = v8;
-        _os_log_impl(&dword_22595A000, contextChannel, OS_LOG_TYPE_DEFAULT, "Network quality for %@ is %@", &v22, 0x16u);
+        v21 = 138412546;
+        v22 = qualityKeyPath;
+        v23 = 2112;
+        v24 = v8;
+        _os_log_impl(&dword_22595A000, contextChannel, OS_LOG_TYPE_DEFAULT, "Network quality for %@ is %@", &v21, 0x16u);
       }
 
       v9 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
@@ -281,8 +278,6 @@
       self->_initialized = 1;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDiscretionaryTrafficInvited
@@ -339,97 +334,95 @@
 
 - (void)didStartTrackingNOI:(id)i
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   iCopy = i;
   if (!self->_noi)
   {
     objc_storeStrong(&self->_noi, i);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = self->_noiKeyPaths;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v25 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           if ((![v11 isEqualToString:@"predictionsGeneratedAt"] || self->_predictedQualityKeyPath) && (!objc_msgSend(v11, "isEqualToString:", @"discretionaryTrafficInvited") || self->_discretionaryInvitedKeyPath))
           {
             [iCopy addObserver:self forKeyPath:v11 options:1 context:0];
           }
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v25 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v24 count:16];
       }
 
       while (v8);
     }
 
     queue = [(_DKMonitor *)self queue];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __48___DKNetworkQualityMonitor_didStartTrackingNOI___block_invoke;
-    v17[3] = &unk_27856F060;
-    v17[4] = self;
-    v13 = v17;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __48___DKNetworkQualityMonitor_didStartTrackingNOI___block_invoke;
+    v16[3] = &unk_27856F060;
+    v16[4] = self;
+    v13 = v16;
     v14 = os_transaction_create();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __cd_dispatch_async_capture_tx_block_invoke_7;
     block[3] = &unk_27856F178;
-    v23 = v14;
-    v24 = v13;
+    v22 = v14;
+    v23 = v13;
     v15 = v14;
     dispatch_async(queue, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStopTrackingNOI:(id)i
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   iCopy = i;
   if ([iCopy isEqual:self->_noi])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = self->_noiKeyPaths;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ((![v10 isEqualToString:@"predictionsGeneratedAt"] || self->_predictedQualityKeyPath) && (!objc_msgSend(v10, "isEqualToString:", @"discretionaryTrafficInvited") || self->_discretionaryInvitedKeyPath))
           {
             [iCopy removeObserver:self forKeyPath:v10];
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -438,38 +431,36 @@
     noi = self->_noi;
     self->_noi = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStopTrackingAllNOIs:(id)is
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   isCopy = is;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [isCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [isCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(isCopy);
         }
 
-        [(_DKNetworkQualityMonitor *)self didStopTrackingNOI:*(*(&v10 + 1) + 8 * v8++)];
+        [(_DKNetworkQualityMonitor *)self didStopTrackingNOI:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [isCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [isCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -479,8 +470,6 @@
   {
     [(NWNetworkOfInterestManager *)self->_noiManager trackNOIAnyForInterfaceType:self->_interfaceType options:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

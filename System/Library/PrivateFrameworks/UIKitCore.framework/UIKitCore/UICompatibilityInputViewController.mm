@@ -964,7 +964,7 @@ void __64__UICompatibilityInputViewController_resetInputModeInMainThread__block_
     }
   }
 
-  if (![(UIKeyboardInputMode *)self->_inputMode isEqual:modeCopy]&& !v8)
+  if ((objc_msgSend_isEqual_(self->_inputMode) & 1) == 0 && !v8)
   {
     goto LABEL_17;
   }
@@ -1108,7 +1108,7 @@ LABEL_22:
         }
 
         identifier2 = [(UIKeyboardInputMode *)modeCopy identifier];
-        if ([identifier2 isEqualToString:@"autofillsignup"])
+        if (objc_msgSend_isEqualToString_(identifier2))
         {
           if (!self->_incomingExtensionInputMode)
           {
@@ -1190,9 +1190,9 @@ LABEL_73:
         }
 
         identifier3 = [(UIKeyboardInputMode *)modeCopy identifier];
-        v25 = [identifier3 isEqualToString:@"autofillsignup"];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier3);
 
-        if (v25)
+        if (isEqualToString)
         {
           goto LABEL_74;
         }
@@ -1426,9 +1426,9 @@ void __51__UICompatibilityInputViewController_setInputMode___block_invoke_7(uint
   if (v27)
   {
     v3 = [*(*(a1 + 32) + 1032) identifier];
-    v4 = [v3 isEqualToString:@"autofillsignup"];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-    if (!v4)
+    if (!isEqualToString)
     {
       goto LABEL_9;
     }

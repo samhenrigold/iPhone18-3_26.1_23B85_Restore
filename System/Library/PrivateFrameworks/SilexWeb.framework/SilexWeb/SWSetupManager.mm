@@ -42,36 +42,36 @@
 
 - (void)performTasks
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   logger = [(SWSetupManager *)self logger];
   v4 = MEMORY[0x1E696AEC0];
   tasks = [(SWSetupManager *)self tasks];
   v6 = [v4 stringWithFormat:@"Performing %li setup tasks", objc_msgSend(tasks, "count")];
   [logger log:v6];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   tasks2 = [(SWSetupManager *)self tasks];
   v8 = [tasks2 copy];
 
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       v12 = 0;
       do
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
+        v13 = *(*(&v19 + 1) + 8 * v12);
         logger2 = [(SWSetupManager *)self logger];
         v15 = MEMORY[0x1E696AEC0];
         identifier = [v13 identifier];
@@ -83,7 +83,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -91,8 +91,6 @@
 
   tasks3 = [(SWSetupManager *)self tasks];
   [tasks3 removeAllObjects];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

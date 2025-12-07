@@ -8,6 +8,7 @@
 - (CAFStringCharacteristic)vehicleLayoutKeyCharacteristic;
 - (NSString)vehicleLayoutKey;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -147,6 +148,62 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x000000004200000B"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    latchStateCharacteristic = [(CAFClosureState *)self latchStateCharacteristic];
+    uniqueIdentifier2 = [latchStateCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers closureStateService:self didUpdateLatchState:{-[CAFClosureState latchState](self, "latchState")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFClosureState *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier4 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFClosureState *)self vehicleLayoutKey];
+    [observers2 closureStateService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFClosureState *)self name];
+    [observers closureStateService:self didUpdateName:name];
+
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v20.receiver = self;
+  v20.super_class = CAFClosureState;
+  [(CAFService *)&v20 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForLatchState

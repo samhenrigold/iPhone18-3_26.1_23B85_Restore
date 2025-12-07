@@ -55,54 +55,54 @@ uint64_t __43__PDCPrivacyAlertPresenter_sharedPresenter__block_invoke()
 
 - (void)_ensureAppIsLaunchableWithIdentity:(id)identity completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v18 = 0;
-  v6 = [identity findApplicationRecordWithError:&v18];
-  v7 = v18;
-  if ([v6 applicationMissingRequiredSINF])
+  v19 = 0;
+  v6 = [identity findApplicationRecordWithError:&v19];
+  v7 = v19;
+  applicationMissingRequiredSINF = [v6 applicationMissingRequiredSINF];
+  if (applicationMissingRequiredSINF)
   {
-    v8 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(applicationMissingRequiredSINF, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = v8;
+      v11 = v10;
       bundleIdentifier = [v6 bundleIdentifier];
       *buf = 138412290;
-      v20 = bundleIdentifier;
-      _os_log_impl(&dword_25F701000, v9, OS_LOG_TYPE_INFO, "Request application repair for %@", buf, 0xCu);
+      v21 = bundleIdentifier;
+      _os_log_impl(&dword_25F701000, v11, OS_LOG_TYPE_INFO, "Request application repair for %@", buf, 0xCu);
     }
 
-    v11 = objc_alloc(MEMORY[0x277CEC478]);
+    v13 = objc_alloc(MEMORY[0x277CEC478]);
     bundleIdentifier2 = [v6 bundleIdentifier];
-    v13 = [v11 initWithBundleID:bundleIdentifier2];
+    v15 = [v13 initWithBundleID:bundleIdentifier2];
 
-    [v13 setExitReason:16];
+    [v15 setExitReason:16];
     defaultService = [MEMORY[0x277CEC480] defaultService];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __74__PDCPrivacyAlertPresenter__ensureAppIsLaunchableWithIdentity_completion___block_invoke;
-    v16[3] = &unk_279AA1D40;
-    v17 = completionCopy;
-    [defaultService repairAppWithOptions:v13 replyHandler:v16];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __74__PDCPrivacyAlertPresenter__ensureAppIsLaunchableWithIdentity_completion___block_invoke;
+    v17[3] = &unk_279AA1D40;
+    v18 = completionCopy;
+    [defaultService repairAppWithOptions:v15 replyHandler:v17];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 1);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __74__PDCPrivacyAlertPresenter__ensureAppIsLaunchableWithIdentity_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
+  v7 = v5;
   if (v5)
   {
-    v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __74__PDCPrivacyAlertPresenter__ensureAppIsLaunchableWithIdentity_completion___block_invoke_cold_1(v5, v6);
+      __74__PDCPrivacyAlertPresenter__ensureAppIsLaunchableWithIdentity_completion___block_invoke_cold_1(v7, v8);
     }
   }
 
@@ -139,48 +139,47 @@ void __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHand
     block[2] = __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_2;
     block[3] = &unk_279AA1D90;
     v4 = *(a1 + 40);
-    v14 = *(a1 + 64);
+    v13 = *(a1 + 64);
     *&v5 = v4;
     *(&v5 + 1) = *(a1 + 32);
-    v10 = v5;
+    v9 = v5;
     v6 = *(a1 + 56);
     *&v7 = *(a1 + 48);
     *(&v7 + 1) = v6;
-    v12 = v10;
-    v13 = v7;
+    v11 = v9;
+    v12 = v7;
     dispatch_async(v3, block);
   }
 
   else
   {
-    v8 = *(a1 + 56);
-    v9 = *(*(a1 + 56) + 16);
+    v8 = *(*(a1 + 56) + 16);
 
-    v9();
+    v8();
   }
 }
 
 void __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2050000000;
+  v25 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2050000000;
   v2 = getBSMutableSettingsClass_softClass;
-  v19 = getBSMutableSettingsClass_softClass;
+  v20 = getBSMutableSettingsClass_softClass;
   if (!getBSMutableSettingsClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v21 = __getBSMutableSettingsClass_block_invoke;
-    v22 = &unk_279AA1E30;
-    v23 = &v16;
+    v22 = __getBSMutableSettingsClass_block_invoke;
+    v23 = &unk_279AA1E30;
+    v24 = &v17;
     __getBSMutableSettingsClass_block_invoke(&buf);
-    v2 = v17[3];
+    v2 = v18[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
   v4 = objc_alloc_init(v2);
   v5 = [*(a1 + 32) identityString];
   [v4 setObject:v5 forSetting:0];
@@ -188,62 +187,59 @@ void __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHand
   v6 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 64)];
   [v4 setObject:v6 forSetting:1];
 
-  v7 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v10 = [v8 identityString];
+    v10 = *(a1 + 32);
+    v11 = v9;
+    v12 = [v10 identityString];
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_25F701000, v9, OS_LOG_TYPE_DEFAULT, "Request privacy remote alert for bundle: [%@]", &buf, 0xCu);
+    *(&buf + 4) = v12;
+    _os_log_impl(&dword_25F701000, v11, OS_LOG_TYPE_DEFAULT, "Request privacy remote alert for bundle: [%@]", &buf, 0xCu);
   }
 
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 32);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_11;
-  v14[3] = &unk_279AA1D68;
-  v15 = *(a1 + 56);
-  [v11 _activateAlertHandleForIdentity:v12 settings:v4 repsonseHandler:v14];
+  v13 = *(a1 + 40);
+  v14 = *(a1 + 32);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_11;
+  v15[3] = &unk_279AA1D68;
+  v16 = *(a1 + 56);
+  [v13 _activateAlertHandleForIdentity:v14 settings:v4 repsonseHandler:v15];
   [*(*(a1 + 40) + 24) setObject:*(*(a1 + 40) + 8) forKey:*(a1 + 48)];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_11(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [a2 info];
   v4 = [v3 objectForSetting:0];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = v4;
-    v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = v4;
+    v9 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_25F701000, v6, OS_LOG_TYPE_DEFAULT, "Succeed to get user response from remote alert: [%@]", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_25F701000, v9, OS_LOG_TYPE_DEFAULT, "Succeed to get user response from remote alert: [%@]", &v11, 0xCu);
     }
 
-    (*(*(a1 + 32) + 16))(*(a1 + 32), [v5 integerValue]);
+    (*(*(a1 + 32) + 16))(*(a1 + 32), [v7 integerValue]);
   }
 
   else
   {
-    v7 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(isKindOfClass, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_11_cold_1(v4, v7);
+      __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_11_cold_1(v4, v10);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateAlertHandleForIdentity:(id)identity settings:(id)settings repsonseHandler:(id)handler
@@ -410,27 +406,25 @@ void __51__PDCPrivacyAlertPresenter_didCancelRequestHandle___block_invoke(uint64
 {
   v8 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
-  v4 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(activateCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 134217984;
     v7 = activateCopy;
-    _os_log_impl(&dword_25F701000, v4, OS_LOG_TYPE_INFO, "Did active remote alert, handle : [%p]", &v6, 0xCu);
+    _os_log_impl(&dword_25F701000, v5, OS_LOG_TYPE_INFO, "Did active remote alert, handle : [%p]", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
   v14 = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
-  v5 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(deactivateCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
     v13 = deactivateCopy;
-    _os_log_impl(&dword_25F701000, v5, OS_LOG_TYPE_INFO, "Did deactive remote alert, handle : [%p]", buf, 0xCu);
+    _os_log_impl(&dword_25F701000, v6, OS_LOG_TYPE_INFO, "Did deactive remote alert, handle : [%p]", buf, 0xCu);
   }
 
   queue = self->_queue;
@@ -440,10 +434,8 @@ void __51__PDCPrivacyAlertPresenter_didCancelRequestHandle___block_invoke(uint64
   v9[3] = &unk_279AA1DE0;
   v10 = deactivateCopy;
   selfCopy = self;
-  v7 = deactivateCopy;
+  v8 = deactivateCopy;
   dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __59__PDCPrivacyAlertPresenter_remoteAlertHandleDidDeactivate___block_invoke(uint64_t a1)
@@ -474,54 +466,51 @@ void __59__PDCPrivacyAlertPresenter_remoteAlertHandleDidDeactivate___block_invok
   dispatch_async(queue, block);
 }
 
-void __69__PDCPrivacyAlertPresenter_remoteAlertHandle_didInvalidateWithError___block_invoke(uint64_t a1)
+void __69__PDCPrivacyAlertPresenter_remoteAlertHandle_didInvalidateWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(*(a1 + 32) + 8))
   {
-    v2 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __69__PDCPrivacyAlertPresenter_remoteAlertHandle_didInvalidateWithError___block_invoke_cold_1(a1, v2);
+      __69__PDCPrivacyAlertPresenter_remoteAlertHandle_didInvalidateWithError___block_invoke_cold_1(a1, v3);
     }
 
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 8);
-    if (*(a1 + 40) == v4)
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 8);
+    if (*(a1 + 40) == v5)
     {
-      *(v3 + 8) = 0;
+      *(v4 + 8) = 0;
     }
   }
 }
 
 void __74__PDCPrivacyAlertPresenter__ensureAppIsLaunchableWithIdentity_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Application repair failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Application repair failed with error: %@", &v2, 0xCu);
 }
 
 void __105__PDCPrivacyAlertPresenter_activateRemoteAlertWithIdentity_requestHandle_forcePresent_completionHandler___block_invoke_11_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Error to receive user response from remote alert: [%@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Error to receive user response from remote alert: [%@]", &v2, 0xCu);
 }
 
 void __69__PDCPrivacyAlertPresenter_remoteAlertHandle_didInvalidateWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = *(a1 + 48);
-  v5 = 134218242;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Invalidate remote alert, handle : [%p], error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Invalidate remote alert, handle : [%p], error: %@", &v4, 0x16u);
 }
 
 @end

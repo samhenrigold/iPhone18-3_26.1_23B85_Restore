@@ -19,7 +19,7 @@
   versionCopy = version;
   posterVersionCopy = posterVersion;
   selfCopy = self;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC481D30);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC481D30, &qword_1CAF03C00);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v26 - v12;
   v14 = sub_1CAEF9DBC();

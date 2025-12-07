@@ -8,16 +8,14 @@
 
 + (id)foreignKeys
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"gateway_id";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"gateway_id";
   v2 = +[(HDHealthEntity *)HDClinicalGatewayEntity];
-  v7[1] = @"account_id";
-  v8[0] = v2;
+  v6[1] = @"account_id";
+  v7[0] = v2;
   v3 = +[(HDHealthEntity *)HDClinicalAccountEntity];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -32,14 +30,14 @@
 
 + (id)joinClausesForProperty:(id)property
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v6 = propertyCopy;
   v7 = objc_opt_self();
   v8 = objc_alloc(MEMORY[0x277CBEB98]);
-  v30[0] = @"account.identifier";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = @"account.identifier";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   v10 = [v8 initWithArray:v9];
 
   LOBYTE(v9) = [v10 containsObject:v6];
@@ -62,8 +60,8 @@
   v16 = v6;
   v17 = objc_opt_self();
   v18 = objc_alloc(MEMORY[0x277CBEB98]);
-  v30[0] = @"gateway.external_id";
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = @"gateway.external_id";
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   v20 = [v18 initWithArray:v19];
 
   LOBYTE(v19) = [v20 containsObject:v16];
@@ -89,14 +87,12 @@
 
   else
   {
-    v29.receiver = self;
-    v29.super_class = &OBJC_METACLASS___HDClinicalAuthorizationSessionEntity;
-    v25 = objc_msgSendSuper2(&v29, sel_joinClausesForProperty_, v16);
+    v28.receiver = self;
+    v28.super_class = &OBJC_METACLASS___HDClinicalAuthorizationSessionEntity;
+    v25 = objc_msgSendSuper2(&v28, sel_joinClausesForProperty_, v16);
   }
 
   v26 = v25;
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

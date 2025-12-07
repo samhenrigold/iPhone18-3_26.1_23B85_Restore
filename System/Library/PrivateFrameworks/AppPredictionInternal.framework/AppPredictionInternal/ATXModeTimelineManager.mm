@@ -37,10 +37,10 @@ void __55__ATXModeTimelineManager__modeTimelineDataFrom_toDate___block_invoke(ui
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__ATXModeTimelineManager__modeTimelineDataFrom_toDate___block_invoke_cold_1(v2, v4);
+      __55__ATXModeTimelineManager__modeTimelineDataFrom_toDate___block_invoke_cold_1(v2, v5);
     }
   }
 }
@@ -106,7 +106,7 @@ id __44__ATXModeTimelineManager__formatModeStream___block_invoke(uint64_t a1, vo
   v21 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
-  v8 = __atxlog_handle_modes();
+  v8 = __atxlog_handle_modes(endDateCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v19) = 0;
@@ -149,29 +149,25 @@ id __44__ATXModeTimelineManager__formatModeStream___block_invoke(uint64_t a1, vo
 
 LABEL_9:
   objc_autoreleasePoolPop(v10);
-  v15 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = __atxlog_handle_modes(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     [date timeIntervalSinceNow];
     v19 = 134217984;
-    v20 = -v16;
-    _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "ATXModeAppUsageManager: request finished (%lf seconds)", &v19, 0xCu);
+    v20 = -v17;
+    _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "ATXModeAppUsageManager: request finished (%lf seconds)", &v19, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionaryRepresentation;
 }
 
 void __55__ATXModeTimelineManager__modeTimelineDataFrom_toDate___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeAppUsageManager: Error reading inferred mode stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeAppUsageManager: Error reading inferred mode stream: %@", &v4, 0xCu);
 }
 
 @end

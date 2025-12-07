@@ -61,7 +61,7 @@
     v6 = delegate;
     if (delegate)
     {
-      [delegate gaxStateWithGAXEventProcessor:self];
+      objc_msgSend_gaxStateWithGAXEventProcessor_(delegate);
     }
 
     else
@@ -230,7 +230,7 @@ LABEL_9:
 
   if ((*(state + 24) & 8) != 0)
   {
-    if (!AXEventTypeIsTouch() || (var1 = state->var1, (AX_EventRepresentationContainsOnlyPathsForContextID() & 1) == 0) && (*buf = *&state->var0, *&buf[12] = *&state->var3, ![(GAXEventProcessor *)self _touchEventIsForAccessibilityFeatures:eventCopy gaxState:buf]))
+    if (!AXEventTypeIsTouch() || (AX_EventRepresentationContainsOnlyPathsForContextID() & 1) == 0 && (*buf = *&state->var0, *&buf[12] = *&state->var3, ![(GAXEventProcessor *)self _touchEventIsForAccessibilityFeatures:eventCopy gaxState:buf]))
     {
       v17 = type != 3200;
       goto LABEL_26;
@@ -273,15 +273,15 @@ LABEL_9:
       +[NSDate timeIntervalSinceReferenceDate];
       if ((*(state + 25) & 0x10) != 0)
       {
-        v22 = v21;
-        v23 = v21 - self->_lastD2XSideButtonUpTime;
+        v21 = v20;
+        v22 = v20 - self->_lastD2XSideButtonUpTime;
         _AXSHomeClickSpeed();
-        if (v23 < v24 || self->_lastD2XSideButtonUpTime == 0.0)
+        if (v22 < v23 || self->_lastD2XSideButtonUpTime == 0.0)
         {
-          v25 = self->_sideButtonPresses + 1;
-          self->_sideButtonPresses = v25;
-          self->_lastD2XSideButtonUpTime = v22;
-          if (v25 == 3)
+          v24 = self->_sideButtonPresses + 1;
+          self->_sideButtonPresses = v24;
+          self->_lastD2XSideButtonUpTime = v21;
+          if (v24 == 3)
           {
             delegate3 = [(GAXEventProcessor *)self delegate];
             [delegate3 unlockDeviceWithEventProcessor:self];
@@ -296,21 +296,21 @@ LABEL_9:
         else
         {
           self->_sideButtonPresses = 0;
-          self->_lastD2XSideButtonUpTime = v22;
+          self->_lastD2XSideButtonUpTime = v21;
         }
 
         sideButtonActionTimer = self->_sideButtonActionTimer;
         _AXSHomeClickSpeed();
-        v29 = v28;
-        v30[0] = _NSConcreteStackBlock;
-        v30[1] = 3221225472;
-        v30[2] = sub_111C4;
-        v30[3] = &unk_4D428;
-        v30[4] = self;
-        v32[0] = *&state->var0;
-        *(v32 + 12) = *&state->var3;
-        v31 = eventCopy;
-        [(AXDispatchTimer *)sideButtonActionTimer afterDelay:v30 processBlock:v29];
+        v28 = v27;
+        v29[0] = _NSConcreteStackBlock;
+        v29[1] = 3221225472;
+        v29[2] = sub_111C4;
+        v29[3] = &unk_4D428;
+        v29[4] = self;
+        v31[0] = *&state->var0;
+        *(v31 + 12) = *&state->var3;
+        v30 = eventCopy;
+        [(AXDispatchTimer *)sideButtonActionTimer afterDelay:v29 processBlock:v28];
       }
 
 LABEL_47:
@@ -330,12 +330,12 @@ LABEL_25:
 
   if ([(GAXEventProcessor *)self _eventLooksLikeVolumeButtonPress:eventCopy])
   {
-    v19 = (*(state + 25) & 0x40) == 0;
+    v18 = (*(state + 25) & 0x40) == 0;
   }
 
   else if ((AXEventTypeIsMotion() & 1) != 0 || (AXEventTypeIsShake() & 1) != 0 || AXEventTypeIsOrientationChange())
   {
-    v19 = (*(state + 26) & 1) == 0;
+    v18 = (*(state + 26) & 1) == 0;
   }
 
   else
@@ -353,10 +353,10 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v19 = (*(state + 25) & 0x80) == 0;
+    v18 = (*(state + 25) & 0x80) == 0;
   }
 
-  v17 = v19;
+  v17 = v18;
 LABEL_26:
 
   return v17;

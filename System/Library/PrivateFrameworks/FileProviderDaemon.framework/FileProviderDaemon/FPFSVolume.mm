@@ -22,11 +22,10 @@
   return v8 >= 0;
 }
 
-uint64_t __33__FPFSVolume_setupForPath_error___block_invoke(uint64_t a1)
+uint64_t __33__FPFSVolume_setupForPath_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = 0;
   v10 = xmmword_1CF9F4C58;
-  v2 = *(a1 + 32) + 8;
   if ((fstatfs_ext() & 0x80000000) != 0)
   {
     return 0xFFFFFFFFLL;

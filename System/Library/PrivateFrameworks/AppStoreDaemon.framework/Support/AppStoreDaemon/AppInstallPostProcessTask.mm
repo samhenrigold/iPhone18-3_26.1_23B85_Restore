@@ -141,12 +141,12 @@ LABEL_14:
     if (v24)
     {
 LABEL_17:
-      v26 = sub_10025E74C();
+      v26 = sub_10025E74C(AppInstallObserver);
       v27 = sub_10040908C(self->_install);
       v28 = sub_100408EB0(&self->_install->super.super.isa);
       sub_10025F458(v26, v27, v28);
 
-      v29 = sub_1003C27BC();
+      v29 = sub_1003C27BC(AppInstallsDatabaseStore);
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10036C628;

@@ -505,7 +505,7 @@ id __58__NTKLauncherComplicationDataSource__symbolSizeforMailApp__block_invoke(u
   {
     _block_invoke_2___cachedDevice_12 = v2;
     _block_invoke_2___previousCLKDeviceVersion_12 = [v2 version];
-    v5 = __58__NTKLauncherComplicationDataSource__symbolSizeforMailApp__block_invoke_2();
+    v5 = __58__NTKLauncherComplicationDataSource__symbolSizeforMailApp__block_invoke_2(_block_invoke_2___previousCLKDeviceVersion_12, v2);
     v6 = _block_invoke_2_value_10;
     _block_invoke_2_value_10 = v5;
   }
@@ -516,23 +516,23 @@ id __58__NTKLauncherComplicationDataSource__symbolSizeforMailApp__block_invoke(u
   return v7;
 }
 
-id __58__NTKLauncherComplicationDataSource__symbolSizeforMailApp__block_invoke_2()
+id __58__NTKLauncherComplicationDataSource__symbolSizeforMailApp__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_284185740;
-  v5[1] = &unk_284185758;
-  v6[0] = &unk_284189558;
-  v6[1] = &unk_284189558;
-  v6[2] = &unk_284189568;
-  v5[2] = &unk_284185728;
-  v5[3] = &unk_284185770;
-  v0 = MEMORY[0x277CCABB0];
+  v8[4] = *MEMORY[0x277D85DE8];
+  v7[0] = &unk_284185740;
+  v7[1] = &unk_284185758;
+  v8[0] = &unk_284189558;
+  v8[1] = &unk_284189558;
+  v8[2] = &unk_284189568;
+  v7[2] = &unk_284185728;
+  v7[3] = &unk_284185770;
+  v2 = MEMORY[0x277CCABB0];
   CLKComplicationGraphicExtraLargeCircularScalingFactor();
-  v2 = [v0 numberWithDouble:v1 * 22.0];
-  v6[3] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4 = [v2 numberWithDouble:v3 * 22.0];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
 
-  return v3;
+  return v5;
 }
 
 - (id)_symbolSizeforTinCanApp
@@ -564,7 +564,7 @@ id __60__NTKLauncherComplicationDataSource__symbolSizeforTinCanApp__block_invoke
   {
     _block_invoke_3___cachedDevice_4 = v2;
     _block_invoke_3___previousCLKDeviceVersion_4 = [v2 version];
-    v5 = __60__NTKLauncherComplicationDataSource__symbolSizeforTinCanApp__block_invoke_2();
+    v5 = __60__NTKLauncherComplicationDataSource__symbolSizeforTinCanApp__block_invoke_2(_block_invoke_3___previousCLKDeviceVersion_4, v2);
     v6 = _block_invoke_3_value_4;
     _block_invoke_3_value_4 = v5;
   }
@@ -575,23 +575,23 @@ id __60__NTKLauncherComplicationDataSource__symbolSizeforTinCanApp__block_invoke
   return v7;
 }
 
-id __60__NTKLauncherComplicationDataSource__symbolSizeforTinCanApp__block_invoke_2()
+id __60__NTKLauncherComplicationDataSource__symbolSizeforTinCanApp__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_284185740;
-  v5[1] = &unk_284185758;
-  v6[0] = &unk_284189578;
-  v6[1] = &unk_284189578;
-  v6[2] = &unk_284189588;
-  v5[2] = &unk_284185728;
-  v5[3] = &unk_284185770;
-  v0 = MEMORY[0x277CCABB0];
+  v8[4] = *MEMORY[0x277D85DE8];
+  v7[0] = &unk_284185740;
+  v7[1] = &unk_284185758;
+  v8[0] = &unk_284189578;
+  v8[1] = &unk_284189578;
+  v8[2] = &unk_284189588;
+  v7[2] = &unk_284185728;
+  v7[3] = &unk_284185770;
+  v2 = MEMORY[0x277CCABB0];
   CLKComplicationGraphicExtraLargeCircularScalingFactor();
-  v2 = [v0 numberWithDouble:v1 * 26.5];
-  v6[3] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4 = [v2 numberWithDouble:v3 * 26.5];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
 
-  return v3;
+  return v5;
 }
 
 - (id)_symbolSize

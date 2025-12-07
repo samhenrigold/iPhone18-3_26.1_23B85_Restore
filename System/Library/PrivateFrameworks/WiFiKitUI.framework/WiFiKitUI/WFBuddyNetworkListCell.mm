@@ -10,18 +10,18 @@
 
 - (void)awakeFromNib
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = WFBuddyNetworkListCell;
-  [(WFNetworkListCell *)&v15 awakeFromNib];
-  v16[0] = *MEMORY[0x277D740C0];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = WFBuddyNetworkListCell;
+  [(WFNetworkListCell *)&v14 awakeFromNib];
+  v15[0] = *MEMORY[0x277D740C0];
   systemBlueColor = [MEMORY[0x277D75348] systemBlueColor];
-  v17[0] = systemBlueColor;
-  v16[1] = *MEMORY[0x277D740A8];
+  v16[0] = systemBlueColor;
+  v15[1] = *MEMORY[0x277D740A8];
   mEMORY[0x277D4DAA8] = [MEMORY[0x277D4DAA8] sharedStyle];
   tableCellFont = [mEMORY[0x277D4DAA8] tableCellFont];
-  v17[1] = tableCellFont;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = tableCellFont;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   [@"A" sizeWithAttributes:v6];
   v8 = v7;
@@ -37,8 +37,6 @@
   defaultTextColor = [MEMORY[0x277D75348] defaultTextColor];
   textLabel = [(WFBuddyNetworkListCell *)self textLabel];
   [textLabel setTextColor:defaultTextColor];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutSubviews

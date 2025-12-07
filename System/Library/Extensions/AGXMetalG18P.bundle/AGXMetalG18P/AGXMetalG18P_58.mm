@@ -115,12 +115,12 @@ void AGX::DynamicLibrary<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   os_unfair_lock_unlock((a1 + 1128));
 }
 
-uint64_t AGX::DynamicLibrary<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::enumResources(uint64_t result, uint64_t a2)
+void *AGX::DynamicLibrary<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::enumResources(void *result, uint64_t a2)
 {
   v3 = result;
-  if (*(result + 768))
+  if (result[96])
   {
-    v14 = *(result + 768);
+    v14 = result[96];
     v4 = *(a2 + 24);
     if (!v4)
     {
@@ -183,13 +183,13 @@ LABEL_17:
   return (*(*v8 + 48))(v8, &v14);
 }
 
-void AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::initialize(int8x8_t *a1, void *a2, uint64_t a3, uint64_t a4, int a5)
+void AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::initialize(int8x8_t *a1, int8x8_t *a2, uint64_t a3, uint64_t a4, int a5)
 {
   v6 = a1;
   v307 = *MEMORY[0x29EDCA608];
   if (a2[58])
   {
-    v7 = a2[59] == 0;
+    v7 = *&a2[59] == 0;
   }
 
   else
@@ -219,7 +219,7 @@ void AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
   v11 = v9[1];
   if (v10)
   {
-    v12 = v11 == 0;
+    v12 = *&v11 == 0;
   }
 
   else
@@ -266,7 +266,7 @@ void AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
   }
 
   v291 = a2[224];
-  v20 = HIDWORD(v17);
+  v20 = HIDWORD(*&v17);
   v21 = a2[225];
   a1->i32[0] = v19;
   MEMORY[0x29ED51E00](&a1[1], a4);
@@ -345,8 +345,8 @@ LABEL_34:
     }
   }
 
-  v32 = v21 + 1;
-  v296 = v21 + 1;
+  v32 = *&v21 + 1;
+  v296 = *&v21 + 1;
   v298 = v6;
   if (!v20)
   {
@@ -357,11 +357,11 @@ LABEL_34:
   v270 = 0;
   v275 = v6 + 55;
   v274 = v6 + 59;
-  v278 = v17;
-  v279 = HIDWORD(v17);
+  v278 = v17.i32[0];
+  v279 = HIDWORD(*&v17);
   while (1)
   {
-    v34 = (v291 + 16 * (v33 + v17));
+    v34 = (*&v291 + 16 * (v33 + v17.i32[0]));
     v35 = *v34;
     v292 = *(v34 + 4);
     v36 = *(v34 + 5);
@@ -387,16 +387,16 @@ LABEL_34:
     }
 
     v44 = v297;
-    v45 = *(v297 + 220);
-    if ((v45 & (v45 - 1)) != 0)
+    v45 = v297[220];
+    if ((*&v45 & (*&v45 - 1)) != 0)
     {
       v47 = v36;
-      if (v45 <= v36)
+      if (*&v45 <= v36)
       {
-        v47 = v36 % *(v297 + 220);
+        v47 = v36 % *&v297[220];
       }
 
-      v46 = *(*(v297 + 219) + 8 * v47);
+      v46 = *(*&v297[219] + 8 * v47);
       do
       {
         do
@@ -412,7 +412,7 @@ LABEL_34:
 
     else
     {
-      v46 = *(*(v297 + 219) + 8 * ((v45 - 1) & v36));
+      v46 = *(*&v297[219] + 8 * ((v45.i32[0] - 1) & v36));
       do
       {
         do
@@ -823,9 +823,9 @@ LABEL_240:
     v55 = *(v85 + v92[46]) != 0;
 LABEL_192:
     v98 = 0;
-    if (*(v297 + 58))
+    if (v297[58])
     {
-      v99 = *(v297 + 59) == 0;
+      v99 = *&v297[59] == 0;
     }
 
     else
@@ -833,10 +833,10 @@ LABEL_192:
       v99 = 1;
     }
 
-    v100 = 464;
+    v100 = 58;
     if (v99)
     {
-      v100 = 1024;
+      v100 = 128;
     }
 
     v101 = v273;
@@ -845,8 +845,8 @@ LABEL_192:
       v101 = v272;
     }
 
-    v102 = *(v297 + v100);
-    if (v102 && v101[1])
+    v102 = v297[v100];
+    if (v102 && *&v101[1])
     {
       v98 = (v102 + *v102);
     }
@@ -964,7 +964,7 @@ LABEL_230:
     v57 = v271;
 LABEL_116:
     v298[27].i8[0] |= v54;
-    v68 = (v289 - *(*(v44 + 228) + 4 * v36));
+    v68 = (v289 - *(*&v44[228] + 4 * v36));
     if ((v292 & 0x10) != 0)
     {
       if (!strcmp((v296 + v35), "agc.global_constructor"))
@@ -984,7 +984,7 @@ LABEL_116:
         *v274[2].i8 = 0u;
         v274[4] = 0;
         v32 = v296;
-        LODWORD(v17) = v278;
+        v17.i32[0] = v278;
         v20 = v279;
         if (SHIBYTE(v299.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -1041,9 +1041,9 @@ LABEL_116:
       v306[1] = v285;
       v306[2] = v56;
       memset(&v306[3], 0, 40);
-      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(&v298[39], &__src);
+      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(&v298[39], &__src, &__src);
       v32 = v296;
-      LODWORD(v17) = v278;
+      v17.i32[0] = v278;
       if ((SHIBYTE(__src.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_134:
@@ -1105,9 +1105,9 @@ LABEL_134:
       v306[1] = v285;
       v306[2] = v56;
       memset(&v306[3], 0, 40);
-      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(&v298[34], &__src);
+      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(&v298[34], &__src, &__src);
       v32 = v296;
-      LODWORD(v17) = v278;
+      v17.i32[0] = v278;
       v20 = v279;
       if ((SHIBYTE(__src.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
@@ -1392,7 +1392,7 @@ LABEL_314:
               v304 = v298;
               v305 = 4;
               memset(v306, 0, sizeof(v306));
-              std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(&v298[34], &__src);
+              std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(&v298[34], &__src, &__src);
               if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__src.__r_.__value_.__l.__data_);
@@ -1417,14 +1417,14 @@ LABEL_316:
         }
       }
 
-      v159 = *(v134 + 176);
+      v159 = v134[176];
       v160 = v298;
       if (v159)
       {
         while (2)
         {
-          v162 = (v159 + 2);
-          if (*(v159 + 39) < 0)
+          v162 = (*&v159 + 16);
+          if (*(*&v159 + 39) < 0)
           {
             v162 = *v162;
           }
@@ -1687,8 +1687,8 @@ LABEL_384:
                 }
 
 LABEL_321:
-                v159 = *v159;
-                if (!v159)
+                v159 = **&v159;
+                if (!*&v159)
                 {
                   goto LABEL_399;
                 }
@@ -1715,7 +1715,7 @@ LABEL_399:
           v286 = 0;
           v195 = 0;
           v288 = 0;
-          v196 = *(v297 + 176);
+          v196 = v297[176];
           if (v196)
           {
             goto LABEL_460;
@@ -1730,7 +1730,7 @@ LABEL_399:
           v195 = 0;
           v288 = 0;
           v160[65].i32[1] = 1024;
-          v196 = *(v297 + 176);
+          v196 = v297[176];
           if (v196)
           {
             goto LABEL_460;
@@ -1741,10 +1741,10 @@ LABEL_588:
         operator new();
       }
 
-      v197 = (v297 + 784);
-      if (*(v297 + 28))
+      v197 = v297 + 98;
+      if (v297[28])
       {
-        v198 = *(v297 + 29) == 0;
+        v198 = *&v297[29] == 0;
       }
 
       else
@@ -1752,22 +1752,22 @@ LABEL_588:
         v198 = 1;
       }
 
-      v199 = 224;
+      v199 = 28;
       if (v198)
       {
-        v199 = 784;
+        v199 = 98;
       }
 
       else
       {
-        v197 = (v297 + 224);
+        v197 = v297 + 28;
       }
 
-      v200 = *(v297 + v199);
+      v200 = v297[v199];
       v201 = v197[1];
       if (v200)
       {
-        v202 = v201 == 0;
+        v202 = *&v201 == 0;
       }
 
       else
@@ -1904,24 +1904,24 @@ LABEL_454:
 LABEL_457:
                 v286 = v211;
                 *&v160[69] |= v218;
-                v196 = *(v297 + 176);
-                if (!v196)
+                v196 = v297[176];
+                if (!*&v196)
                 {
                   goto LABEL_588;
                 }
 
 LABEL_460:
-                v219 = (v196 + 2);
-                v220 = *(v196 + 39);
+                v219 = (*&v196 + 16);
+                v220 = *(*&v196 + 39);
                 if ((v220 & 0x8000000000000000) != 0)
                 {
-                  v221 = v196[2];
-                  v220 = v196[3];
+                  v221 = *(*&v196 + 16);
+                  v220 = *(*&v196 + 24);
                 }
 
                 else
                 {
-                  v221 = v196 + 2;
+                  v221 = (*&v196 + 16);
                 }
 
                 if (v220 >= v220 - 3)
@@ -2067,7 +2067,7 @@ LABEL_523:
                       if (!memcmp(v239, v225, size))
                       {
 LABEL_511:
-                        if (*(v196 + 39) < 0)
+                        if (*(*&v196 + 39) < 0)
                         {
                           v219 = *v219;
                         }
@@ -2345,8 +2345,8 @@ LABEL_524:
                           operator delete(v224);
                         }
 
-                        v196 = *v196;
-                        if (!v196)
+                        v196 = **&v196;
+                        if (!*&v196)
                         {
                           goto LABEL_588;
                         }
@@ -2605,92 +2605,91 @@ uint64_t AGCDeserializedReply::getBackendMetadataFBPtr(AGCDeserializedReply *thi
   return v10 + *v10;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(void *a1, uint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = *(a2 + 8);
+    v6 = *(a2 + 8);
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v4, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_41;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v11 = v7;
+    if (v7 >= *&v9)
     {
-      v10 = v6 % *&v8;
+      v11 = v7 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v11 = (*&v9 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_41:
     operator new();
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v10.u32[0] < 2uLL)
   {
     while (1)
     {
-      v13 = v12[1];
-      if (v13 == v7)
+      v14 = v13[1];
+      if (v14 == v8)
       {
-        v14 = *(v12 + 39);
-        v15 = v14;
-        if (v14 < 0)
+        v15 = *(v13 + 39);
+        v16 = v15;
+        if (v15 < 0)
         {
-          v14 = v12[3];
+          v15 = v13[3];
         }
 
-        if (v14 == v5)
+        if (v15 == v6)
         {
-          v16 = v15 >= 0 ? (v12 + 2) : v12[2];
-          result = memcmp(v16, v4, v5);
-          if (!result)
+          v17 = v16 >= 0 ? (v13 + 2) : v13[2];
+          if (!memcmp(v17, v5, v6))
           {
-            return result;
+            return;
           }
         }
       }
 
-      else if ((v13 & (*&v8 - 1)) != v10)
+      else if ((v14 & (*&v9 - 1)) != v11)
       {
         goto LABEL_41;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v13 = *v13;
+      if (!v13)
       {
         goto LABEL_41;
       }
@@ -2699,55 +2698,52 @@ LABEL_41:
 
   while (1)
   {
-    v18 = v12[1];
-    if (v18 == v7)
+    v18 = v13[1];
+    if (v18 == v8)
     {
       break;
     }
 
-    if (v18 >= *&v8)
+    if (v18 >= *&v9)
     {
-      v18 %= *&v8;
+      v18 %= *&v9;
     }
 
-    if (v18 != v10)
+    if (v18 != v11)
     {
       goto LABEL_41;
     }
 
 LABEL_29:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_41;
     }
   }
 
-  v19 = *(v12 + 39);
+  v19 = *(v13 + 39);
   v20 = v19;
   if (v19 < 0)
   {
-    v19 = v12[3];
+    v19 = v13[3];
   }
 
-  if (v19 != v5)
+  if (v19 != v6)
   {
     goto LABEL_29;
   }
 
-  v21 = v20 >= 0 ? (v12 + 2) : v12[2];
-  result = memcmp(v21, v4, v5);
-  if (result)
+  v21 = v20 >= 0 ? (v13 + 2) : v13[2];
+  if (memcmp(v21, v5, v6))
   {
     goto LABEL_29;
   }
-
-  return result;
 }
 
-void sub_29CD4BA7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29CD4BA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -2814,14 +2810,14 @@ void AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
       v23 = 0u;
       v24 = 0u;
       v25 = 0;
-      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>((a1 + 272), &__p);
+      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>((a1 + 272), &__p, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
       __p.__r_.__value_.__r.__words[0] = &v26;
-      v15 = std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 272), &v26);
+      v15 = std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 272), &v26, &__p);
       LODWORD(__p.__r_.__value_.__l.__data_) = v8;
       v16 = *(a4 + 24);
       if (!v16)
@@ -2864,17 +2860,15 @@ uint64_t std::function<void ()(AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL
   return a1;
 }
 
-void *std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>>::reserve(void *result, unint64_t a2)
+void std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>>::reserve(uint64_t *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 3) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) < a2)
   {
     operator new();
   }
-
-  return result;
 }
 
-uint64_t std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>>::__emplace_back_slow_path<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>>::__emplace_back_slow_path<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -2964,7 +2958,7 @@ uint64_t std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Class
   return v7;
 }
 
-void AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::GOTEntryLayout::insert(int8x8_t *a1, char *__s, int a3)
+void AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::GOTEntryLayout::insert(int *a1, char *__s, int a3)
 {
   v5 = strlen(__s);
   if (v5 > 0x7FFFFFFFFFFFFFF7)
@@ -3009,7 +3003,7 @@ LABEL_104:
   }
 
   v11 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](p_dst, v10);
-  v12 = a1[2];
+  v12 = *(a1 + 4);
   if (v12)
   {
     v13 = v11;
@@ -3029,7 +3023,7 @@ LABEL_104:
       v15 = (*&v12 - 1) & v11;
     }
 
-    v17 = *(*&a1[1] + 8 * v15);
+    v17 = *(*(a1 + 1) + 8 * v15);
     if (v17)
     {
       v18 = *v17;
@@ -3148,7 +3142,7 @@ LABEL_50:
   }
 
 LABEL_53:
-  a1->i32[0] = (a3 + a1->i32[0] - 1) & -a3;
+  *a1 = (a3 + *a1 - 1) & -a3;
   v28 = strlen(__s);
   if (v28 > 0x7FFFFFFFFFFFFFF7)
   {
@@ -3170,7 +3164,7 @@ LABEL_53:
   *(&v50 + v29) = 0;
   v53 = v51;
   __dst = v50;
-  v54 = a1->i32[0];
+  v54 = *a1;
   v30 = SHIBYTE(v51);
   __sa = v50;
   if (v51 >= 0)
@@ -3195,7 +3189,7 @@ LABEL_53:
 
   v33 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v31, v32);
   v34 = v33;
-  v35 = a1[2];
+  v35 = *(a1 + 4);
   if (!*&v35)
   {
     goto LABEL_99;
@@ -3217,7 +3211,7 @@ LABEL_53:
     v37 = (*&v35 - 1) & v33;
   }
 
-  v38 = *(*&a1[1] + 8 * v37);
+  v38 = *(*(a1 + 1) + 8 * v37);
   if (!v38 || (v39 = *v38) == 0)
   {
 LABEL_99:
@@ -3311,7 +3305,7 @@ LABEL_100:
     operator delete(__sa);
   }
 
-  a1->i32[0] += a3;
+  *a1 += a3;
 }
 
 void sub_29CD4C67C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, int a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
@@ -3775,91 +3769,91 @@ void sub_29CD4CCF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = *(a2 + 8);
+    v6 = *(a2 + 8);
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v4, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_41;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v11 = v7;
+    if (v7 >= *&v9)
     {
-      v10 = v6 % *&v8;
+      v11 = v7 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v11 = (*&v9 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_41:
     operator new();
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v10.u32[0] < 2uLL)
   {
     while (1)
     {
-      v13 = v12[1];
-      if (v13 == v7)
+      v14 = v13[1];
+      if (v14 == v8)
       {
-        v14 = *(v12 + 39);
-        v15 = v14;
-        if (v14 < 0)
+        v15 = *(v13 + 39);
+        v16 = v15;
+        if (v15 < 0)
         {
-          v14 = v12[3];
+          v15 = v13[3];
         }
 
-        if (v14 == v5)
+        if (v15 == v6)
         {
-          v16 = v15 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v16, v4, v5))
+          v17 = v16 >= 0 ? (v13 + 2) : v13[2];
+          if (!memcmp(v17, v5, v6))
           {
-            return v12;
+            return v13;
           }
         }
       }
 
-      else if ((v13 & (*&v8 - 1)) != v10)
+      else if ((v14 & (*&v9 - 1)) != v11)
       {
         goto LABEL_41;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v13 = *v13;
+      if (!v13)
       {
         goto LABEL_41;
       }
@@ -3868,54 +3862,54 @@ LABEL_41:
 
   while (1)
   {
-    v17 = v12[1];
-    if (v17 == v7)
+    v18 = v13[1];
+    if (v18 == v8)
     {
       break;
     }
 
-    if (v17 >= *&v8)
+    if (v18 >= *&v9)
     {
-      v17 %= *&v8;
+      v18 %= *&v9;
     }
 
-    if (v17 != v10)
+    if (v18 != v11)
     {
       goto LABEL_41;
     }
 
 LABEL_29:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_41;
     }
   }
 
-  v18 = *(v12 + 39);
-  v19 = v18;
-  if (v18 < 0)
+  v19 = *(v13 + 39);
+  v20 = v19;
+  if (v19 < 0)
   {
-    v18 = v12[3];
+    v19 = v13[3];
   }
 
-  if (v18 != v5)
-  {
-    goto LABEL_29;
-  }
-
-  v20 = v19 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v20, v4, v5))
+  if (v19 != v6)
   {
     goto LABEL_29;
   }
 
-  return v12;
+  v21 = v20 >= 0 ? (v13 + 2) : v13[2];
+  if (memcmp(v21, v5, v6))
+  {
+    goto LABEL_29;
+  }
+
+  return v13;
 }
 
-void sub_29CD4D230(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29CD4D230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -4162,7 +4156,7 @@ uint64_t AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   return *(v6 + 10);
 }
 
-unsigned __int8 *AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::revertInternalRelocations(unsigned __int8 *result, _DWORD *a2, uint64_t a3, uint64_t a4, void *a5, _DWORD *a6, _DWORD *a7, void *a8, _DWORD *a9)
+unsigned __int8 *AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::revertInternalRelocations(unsigned __int8 *result, unsigned __int8 *a2, uint64_t a3, uint64_t a4, void *a5, _DWORD *a6, _DWORD *a7, void *a8, _DWORD *a9)
 {
   if (result != a2)
   {
@@ -4171,9 +4165,9 @@ unsigned __int8 *AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
     do
     {
       v23 = *v14;
-      if (*v14 < 0xC || (v23 - 14) < 2)
+      if (*v14 < 0xCu || (v23 - 14) < 2)
       {
-        v24 = v14[8];
+        v24 = *(v14 + 8);
         v25 = (*(a3 + 8) + v24);
         if (v25 == v15)
         {
@@ -4251,7 +4245,7 @@ LABEL_9:
 
       else
       {
-        v24 = v14[8];
+        v24 = *(v14 + 8);
         v25 = (*(a3 + 8) + v24);
         if (v23 > 8)
         {
@@ -4324,7 +4318,7 @@ LABEL_4:
       HIDWORD(v35) = v17;
       result = AGXIotoInstruction_LDIMM::emit(v18, v25, v19, v20, v21, v22);
 LABEL_5:
-      v14 += 10;
+      v14 += 40;
     }
 
     while (v14 != a2);
@@ -4819,7 +4813,7 @@ LABEL_20:
 LABEL_21:
   for (i = *(a2 + 248); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>((a1 + 232), (i + 2));
+    std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>((a1 + 232), (i + 2), (i + 2));
   }
 
   std::unordered_map<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::unordered_map(a1 + 272, a2 + 272);
@@ -4970,13 +4964,13 @@ LABEL_17:
 LABEL_18:
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo> const&>(a1, (i + 2));
+    std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo> const&>(a1, (i + 2), (i + 2));
   }
 
   return a1;
 }
 
-void **std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>>::~vector[abi:nn200100](void **a1)
+void ***std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::Relocation>>::~vector[abi:nn200100](void ***a1)
 {
   v2 = *a1;
   if (*a1)
@@ -5036,92 +5030,91 @@ uint64_t AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   return a1;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo> const&>(void *a1, uint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo> const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = *(a2 + 8);
+    v6 = *(a2 + 8);
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v4, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_41;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v11 = v7;
+    if (v7 >= *&v9)
     {
-      v10 = v6 % *&v8;
+      v11 = v7 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v11 = (*&v9 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_41:
     operator new();
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v10.u32[0] < 2uLL)
   {
     while (1)
     {
-      v13 = v12[1];
-      if (v13 == v7)
+      v14 = v13[1];
+      if (v14 == v8)
       {
-        v14 = *(v12 + 39);
-        v15 = v14;
-        if (v14 < 0)
+        v15 = *(v13 + 39);
+        v16 = v15;
+        if (v15 < 0)
         {
-          v14 = v12[3];
+          v15 = v13[3];
         }
 
-        if (v14 == v5)
+        if (v15 == v6)
         {
-          v16 = v15 >= 0 ? (v12 + 2) : v12[2];
-          result = memcmp(v16, v4, v5);
-          if (!result)
+          v17 = v16 >= 0 ? (v13 + 2) : v13[2];
+          if (!memcmp(v17, v5, v6))
           {
-            return result;
+            return;
           }
         }
       }
 
-      else if ((v13 & (*&v8 - 1)) != v10)
+      else if ((v14 & (*&v9 - 1)) != v11)
       {
         goto LABEL_41;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v13 = *v13;
+      if (!v13)
       {
         goto LABEL_41;
       }
@@ -5130,60 +5123,57 @@ LABEL_41:
 
   while (1)
   {
-    v18 = v12[1];
-    if (v18 == v7)
+    v18 = v13[1];
+    if (v18 == v8)
     {
       break;
     }
 
-    if (v18 >= *&v8)
+    if (v18 >= *&v9)
     {
-      v18 %= *&v8;
+      v18 %= *&v9;
     }
 
-    if (v18 != v10)
+    if (v18 != v11)
     {
       goto LABEL_41;
     }
 
 LABEL_29:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_41;
     }
   }
 
-  v19 = *(v12 + 39);
+  v19 = *(v13 + 39);
   v20 = v19;
   if (v19 < 0)
   {
-    v19 = v12[3];
+    v19 = v13[3];
   }
 
-  if (v19 != v5)
+  if (v19 != v6)
   {
     goto LABEL_29;
   }
 
-  v21 = v20 >= 0 ? (v12 + 2) : v12[2];
-  result = memcmp(v21, v4, v5);
-  if (result)
+  v21 = v20 >= 0 ? (v13 + 2) : v13[2];
+  if (memcmp(v21, v5, v6))
   {
     goto LABEL_29;
   }
-
-  return result;
 }
 
-void sub_29CD4EED8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29CD4EED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::load(uint64_t *a1, void ***a2, uint64_t **a3, void *a4, int a5, void *a6, void *a7, int a8, double a9, int8x16_t a10, uint64_t a11)
+uint64_t AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::load(void **a1, void ***a2, void ***a3, void *a4, int a5, uint64_t *a6, void *a7, int a8, double a9, int8x16_t a10, uint64_t a11)
 {
   v11 = a8;
   v485 = a1;
@@ -5218,7 +5208,7 @@ uint64_t AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     v20 = *v14;
     for (i = *(*v14 + 36); i; i = *i)
     {
-      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo> const&>(&v497, (i + 2));
+      std::__hash_table<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::ExternalSymbolInfo> const&>(&v497, (i + 2), (i + 2));
     }
 
     LODWORD(v490) = (v15 + *(v20 + 130) - 1) & -*(v20 + 130);
@@ -6307,8 +6297,8 @@ LABEL_505:
       while (1)
       {
         v164 = *v162;
-        v165 = *(*v162 + 352);
-        if (v165 != *(*v162 + 360))
+        v165 = *(*v162 + 44);
+        if (v165 != *(*v162 + 45))
         {
           break;
         }
@@ -6316,18 +6306,18 @@ LABEL_505:
         v479 = 0;
 LABEL_451:
         v248 = *(size + 48);
-        if (*(v164 + 448))
+        if (*(v164 + 56))
         {
-          if (v248 <= *(v164 + 432))
+          if (v248 <= *(v164 + 108))
           {
-            v248 = *(v164 + 432);
+            v248 = *(v164 + 108);
           }
 
           *(size + 48) = v248;
           v249 = v479;
-          if (v479 <= *(v164 + 436))
+          if (v479 <= *(v164 + 109))
           {
-            v249 = *(v164 + 436);
+            v249 = *(v164 + 109);
           }
 
           *&v163 = vmax_u32(*&v163, *(v164 + 460));
@@ -6338,13 +6328,13 @@ LABEL_451:
           v249 = v479;
         }
 
-        v250 = *(v164 + 56);
+        v250 = *(v164 + 14);
         if (v249 > v250)
         {
           v250 = v249;
         }
 
-        v251 = *(v164 + 524);
+        v251 = *(v164 + 131);
         v252 = v485;
         if (v251 >= v485)
         {
@@ -6353,7 +6343,7 @@ LABEL_451:
 
         else
         {
-          v253 = *(v164 + 524);
+          v253 = *(v164 + 131);
         }
 
         if (v251)
@@ -6363,40 +6353,40 @@ LABEL_451:
 
         LODWORD(v485) = v252;
         v254 = *(size + 84);
-        if (v254 <= *(v164 + 52))
+        if (v254 <= *(v164 + 13))
         {
-          v254 = *(v164 + 52);
+          v254 = *(v164 + 13);
         }
 
         v255 = *(v164 + 60);
         *&v163 = vmax_u32(*&v163, v255);
         v478 = v163;
-        if (v248 <= *(v164 + 48))
+        if (v248 <= *(v164 + 12))
         {
-          v248 = *(v164 + 48);
+          v248 = *(v164 + 12);
         }
 
-        if (v254 <= *(v164 + 72))
+        if (v254 <= *(v164 + 18))
         {
-          v254 = *(v164 + 72);
+          v254 = *(v164 + 18);
         }
 
         *(size + 84) = v254;
-        if (v248 <= *(v164 + 68))
+        if (v248 <= *(v164 + 17))
         {
-          v248 = *(v164 + 68);
+          v248 = *(v164 + 17);
         }
 
         *(size + 48) = v248;
-        *(size + 228) |= *(v164 + 217);
-        v255.i32[0] = *(v164 + 212);
+        *(size + 228) |= v164[217];
+        v255.i32[0] = *(v164 + 53);
         a10.i32[0] = *(size + 224);
         v256 = vorr_s8(*&vmovl_u8(*a10.i8), *&vmovl_u8(v255));
         *(size + 224) = vuzp1_s8(v256, v256).u32[0];
         v256.i32[0] = v250;
-        v256.i32[1] = *(v164 + 76);
+        v256.i32[1] = *(v164 + 19);
         *(size + 76) = vmax_u32(*(size + 76), v256);
-        AGX::RayPayloadSizeAlignImpl<AGX::HAL300::Classes>::merge((size + 100), (v164 + 88));
+        AGX::RayPayloadSizeAlignImpl<AGX::HAL300::Classes>::merge((size + 100), v164 + 22);
         v163 = v478;
         v162 += 10;
         if (v162 == v476)
@@ -6406,7 +6396,7 @@ LABEL_451:
       }
 
       v479 = 0;
-      v469 = *(*v162 + 360);
+      v469 = *(*v162 + 45);
       v470 = v162;
       v468 = *v162;
       while (2)
@@ -7192,8 +7182,8 @@ LABEL_522:
   {
     v485 = v278;
     v279 = *v278;
-    v280 = *(*v278 + 352);
-    v488 = *(*v278 + 360);
+    v280 = *(*v278 + 44);
+    v488 = *(*v278 + 45);
     if (v280 == v488)
     {
       goto LABEL_1079;
@@ -7556,7 +7546,7 @@ LABEL_596:
             {
               if (v502 == 18)
               {
-                *(v363 + v362) = v361;
+                *&v363[v362] = v361;
                 if ((v504 & 0x80000000) == 0)
                 {
                   goto LABEL_758;
@@ -7567,7 +7557,7 @@ LABEL_596:
 
               if (v502 == 20)
               {
-                *(v363 + v362) = v300[5];
+                *&v363[v362] = v300[5];
                 if ((v504 & 0x80000000) == 0)
                 {
                   goto LABEL_758;
@@ -7648,7 +7638,7 @@ LABEL_756:
             goto LABEL_757;
           }
 
-          v367 = (v485[2] + v362);
+          v367 = v485[2] + v362;
           if (v502 > 15)
           {
             if (v502 == 16)
@@ -9008,7 +8998,7 @@ LABEL_1079:
     if (v279[56])
     {
       v454 = v482;
-      *(v466 + 8 * v482) = v279[53] + v485[1];
+      *(v466 + 8 * v482) = v485[1] + v279[53];
       *(v466 + 8 * (v454 + 1)) = 0;
       v482 = v454 + 1;
     }
@@ -9096,7 +9086,7 @@ LABEL_1094:
   return v455;
 }
 
-void sub_29CD52B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_29CD52B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
 {
   std::unordered_map<unsigned long,AGX::FunctionCompiledEventInfo>::~unordered_map[abi:nn200100](&a39);
   AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::DependentModuleDetails::~DependentModuleDetails(&a45);

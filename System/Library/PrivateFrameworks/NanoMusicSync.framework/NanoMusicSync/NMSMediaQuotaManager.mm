@@ -10,15 +10,15 @@
 
 - (NMSMediaQuotaManager)initWithItemEnumerators:(id)enumerators estimatedItemSizes:(id)sizes quota:(unint64_t)quota
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   enumeratorsCopy = enumerators;
   sizesCopy = sizes;
-  v32.receiver = self;
-  v32.super_class = NMSMediaQuotaManager;
-  v10 = [(NMSMediaQuotaManager *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = NMSMediaQuotaManager;
+  v10 = [(NMSMediaQuotaManager *)&v31 init];
   if (v10)
   {
-    v27 = sizesCopy;
+    v26 = sizesCopy;
     v11 = [enumeratorsCopy mutableCopy];
     itemEnumerators = v10->_itemEnumerators;
     v10->_itemEnumerators = v11;
@@ -30,27 +30,27 @@
     v10->_downloadInfoWithinQuota = v13;
 
     v15 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(enumeratorsCopy, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     keyEnumerator = [enumeratorsCopy keyEnumerator];
-    v17 = [keyEnumerator countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v17 = [keyEnumerator countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         v20 = 0;
         do
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(keyEnumerator);
           }
 
-          v21 = *(*(&v28 + 1) + 8 * v20);
+          v21 = *(*(&v27 + 1) + 8 * v20);
           v22 = objc_alloc_init(NMSMutableMediaDownloadInfo);
           [v15 setObject:v22 forKeyedSubscript:v21];
 
@@ -58,7 +58,7 @@
         }
 
         while (v18 != v20);
-        v18 = [keyEnumerator countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v18 = [keyEnumerator countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v18);
@@ -69,10 +69,9 @@
     v10->_downloadInfoWithinQuotaForIdentifiers = v23;
 
     *&v10->_hasEvaluated = 0;
-    sizesCopy = v27;
+    sizesCopy = v26;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -95,29 +94,29 @@
 
 - (id)_newMutableItemEnumeratorDict
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_itemEnumerators, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   keyEnumerator = [(NSMutableDictionary *)self->_itemEnumerators keyEnumerator];
-  v5 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         v10 = objc_alloc_init(NMSMutableItemEnumerator);
         [v3 setObject:v10 forKeyedSubscript:v9];
 
@@ -125,19 +124,18 @@
       }
 
       while (v6 != v8);
-      v6 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)_evaluateAddedItemsIfNecessary
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   if (!self->_hasEvaluated)
   {
     v3 = NMLogForCategory(5);
@@ -149,7 +147,7 @@
       *&buf[12] = 2080;
       *&buf[14] = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]";
       *&buf[22] = 2112;
-      v104 = date;
+      v103 = date;
       _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "%@ %s ****** Started QuotaEvaluation %@!", buf, 0x20u);
     }
 
@@ -163,37 +161,37 @@
       *&buf[12] = 2080;
       *&buf[14] = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]";
       *&buf[22] = 2048;
-      v104 = quota;
-      LOWORD(v105) = 2114;
-      *(&v105 + 2) = itemEnumerators;
+      v103 = quota;
+      LOWORD(v104) = 2114;
+      *(&v104 + 2) = itemEnumerators;
       _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "%@ %s Evaluating items with quota %llu for container lists %{public}@", buf, 0x2Au);
     }
 
-    v60 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_itemEnumerators, "count")}];
     v59 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_itemEnumerators, "count")}];
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
+    v58 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_itemEnumerators, "count")}];
     v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
     obj = [(NSMutableDictionary *)self->_itemEnumerators keyEnumerator];
-    v8 = [obj countByEnumeratingWithState:&v96 objects:v106 count:16];
+    v8 = [obj countByEnumeratingWithState:&v95 objects:v105 count:16];
     if (v8)
     {
-      v9 = *v97;
+      v9 = *v96;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v97 != v9)
+          if (*v96 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v96 + 1) + 8 * i);
+          v11 = *(*(&v95 + 1) + 8 * i);
           v12 = self->_quota;
           v13 = [(NSMutableDictionary *)self->_itemEnumerators count];
           v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12 / v13];
-          [v60 setObject:v14 forKey:v11];
+          [v59 setObject:v14 forKey:v11];
 
           v15 = [NMLogActionsCoalescer alloc];
           v16 = NMLogForCategory(6);
@@ -202,10 +200,10 @@
           v18 = [@"[MediaQuota]" stringByAppendingString:@" QuotaEvaluation process"];
           [(NMLogActionsCoalescer *)v17 setPrefix:v18];
 
-          [v59 setObject:v17 forKeyedSubscript:v11];
+          [v58 setObject:v17 forKeyedSubscript:v11];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v96 objects:v106 count:16];
+        v8 = [obj countByEnumeratingWithState:&v95 objects:v105 count:16];
       }
 
       while (v8);
@@ -219,7 +217,7 @@
       *&buf[12] = 2080;
       *&buf[14] = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]";
       *&buf[22] = 2114;
-      v104 = v60;
+      v103 = v59;
       _os_log_impl(&dword_25B27B000, v19, OS_LOG_TYPE_DEFAULT, "%@ %s Calculated initial per bundleIdentifier quotas %{public}@", buf, 0x20u);
     }
 
@@ -232,75 +230,75 @@
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v104 = __Block_byref_object_copy_;
-      *&v105 = __Block_byref_object_dispose_;
-      *(&v105 + 1) = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v103 = __Block_byref_object_copy_;
+      *&v104 = __Block_byref_object_dispose_;
+      *(&v104 + 1) = objc_alloc_init(MEMORY[0x277CBEB18]);
       v22 = self->_itemEnumerators;
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke;
-      v89[3] = &unk_27993DBA0;
-      v23 = v59;
-      v90 = v23;
-      v61 = v60;
-      v91 = v61;
+      v88[0] = MEMORY[0x277D85DD0];
+      v88[1] = 3221225472;
+      v88[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke;
+      v88[3] = &unk_27993DBA0;
+      v23 = v58;
+      v89 = v23;
+      v60 = v59;
+      v90 = v60;
       selfCopy = self;
-      v58 = _newMutableItemEnumeratorDict;
-      v93 = v58;
-      v57 = _newMutableItemEnumeratorDict2;
-      v94 = v57;
-      v95 = buf;
-      [(NSMutableDictionary *)v22 enumerateKeysAndObjectsUsingBlock:v89];
+      v57 = _newMutableItemEnumeratorDict;
+      v92 = v57;
+      v56 = _newMutableItemEnumeratorDict2;
+      v93 = v56;
+      v94 = buf;
+      [(NSMutableDictionary *)v22 enumerateKeysAndObjectsUsingBlock:v88];
       if (![*(*&buf[8] + 40) count])
       {
-        v83 = 0;
-        v84 = &v83;
-        v85 = 0x3032000000;
-        v86 = __Block_byref_object_copy_;
-        v87 = __Block_byref_object_dispose_;
-        v88 = 0;
-        v82[0] = 0;
-        v82[1] = v82;
-        v82[2] = 0x2020000000;
-        v82[3] = 0;
+        v82 = 0;
+        v83 = &v82;
+        v84 = 0x3032000000;
+        v85 = __Block_byref_object_copy_;
+        v86 = __Block_byref_object_dispose_;
+        v87 = 0;
+        v81[0] = 0;
+        v81[1] = v81;
+        v81[2] = 0x2020000000;
+        v81[3] = 0;
         v24 = self->_itemEnumerators;
-        v81[0] = MEMORY[0x277D85DD0];
-        v81[1] = 3221225472;
-        v81[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_2;
-        v81[3] = &unk_27993DBC8;
-        v81[4] = self;
-        v81[5] = v82;
-        v81[6] = &v83;
-        [(NSMutableDictionary *)v24 enumerateKeysAndObjectsUsingBlock:v81];
-        [*(*&buf[8] + 40) addObject:v84[5]];
-        if ([v84[5] isEqualToString:@"com.apple.NanoMusic"])
+        v80[0] = MEMORY[0x277D85DD0];
+        v80[1] = 3221225472;
+        v80[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_2;
+        v80[3] = &unk_27993DBC8;
+        v80[4] = self;
+        v80[5] = v81;
+        v80[6] = &v82;
+        [(NSMutableDictionary *)v24 enumerateKeysAndObjectsUsingBlock:v80];
+        [*(*&buf[8] + 40) addObject:v83[5]];
+        if ([v83[5] isEqualToString:@"com.apple.NanoMusic"])
         {
           self->_legacy_musicDidSkipItem = 1;
         }
 
-        _Block_object_dispose(v82, 8);
-        _Block_object_dispose(&v83, 8);
+        _Block_object_dispose(v81, 8);
+        _Block_object_dispose(&v82, 8);
       }
 
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
       v78 = 0u;
+      v79 = 0u;
+      v76 = 0u;
+      v77 = 0u;
       v25 = *(*&buf[8] + 40);
-      v26 = [v25 countByEnumeratingWithState:&v77 objects:v102 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v76 objects:v101 count:16];
       if (v26)
       {
-        v27 = *v78;
+        v27 = *v77;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v78 != v27)
+            if (*v77 != v27)
             {
               objc_enumerationMutation(v25);
             }
 
-            v29 = *(*(&v77 + 1) + 8 * j);
+            v29 = *(*(&v76 + 1) + 8 * j);
             v30 = [(NSMutableDictionary *)self->_itemEnumerators objectForKeyedSubscript:v29];
             [obja setObject:v30 forKeyedSubscript:v29];
             [(NSMutableDictionary *)self->_itemEnumerators removeObjectForKey:v29];
@@ -310,38 +308,38 @@
             [v31 addLogAction:v33];
           }
 
-          v26 = [v25 countByEnumeratingWithState:&v77 objects:v102 count:16];
+          v26 = [v25 countByEnumeratingWithState:&v76 objects:v101 count:16];
         }
 
         while (v26);
       }
 
-      v75 = 0u;
-      v76 = 0u;
-      v73 = 0u;
       v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
       keyEnumerator = [obja keyEnumerator];
       v35 = 0;
-      v36 = [keyEnumerator countByEnumeratingWithState:&v73 objects:v101 count:16];
+      v36 = [keyEnumerator countByEnumeratingWithState:&v72 objects:v100 count:16];
       if (v36)
       {
-        v37 = *v74;
+        v37 = *v73;
         do
         {
           for (k = 0; k != v36; ++k)
           {
-            if (*v74 != v37)
+            if (*v73 != v37)
             {
               objc_enumerationMutation(keyEnumerator);
             }
 
-            v39 = [(NSDictionary *)self->_downloadInfoWithinQuotaForIdentifiers objectForKeyedSubscript:*(*(&v73 + 1) + 8 * k)];
+            v39 = [(NSDictionary *)self->_downloadInfoWithinQuotaForIdentifiers objectForKeyedSubscript:*(*(&v72 + 1) + 8 * k)];
             totalItemSize = [v39 totalItemSize];
 
             v35 += totalItemSize;
           }
 
-          v36 = [keyEnumerator countByEnumeratingWithState:&v73 objects:v101 count:16];
+          v36 = [keyEnumerator countByEnumeratingWithState:&v72 objects:v100 count:16];
         }
 
         while (v36);
@@ -351,17 +349,17 @@
       v42 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_itemEnumerators, "count")}];
 
       v43 = self->_itemEnumerators;
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_3;
-      v69[3] = &unk_27993DBF0;
-      v72 = v41 - v35;
-      v69[4] = self;
-      v60 = v42;
-      v70 = v60;
-      v71 = v23;
-      [(NSMutableDictionary *)v43 enumerateKeysAndObjectsUsingBlock:v69];
-      _newMutableItemEnumeratorDict = v57;
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_3;
+      v68[3] = &unk_27993DBF0;
+      v71 = v41 - v35;
+      v68[4] = self;
+      v59 = v42;
+      v69 = v59;
+      v70 = v23;
+      [(NSMutableDictionary *)v43 enumerateKeysAndObjectsUsingBlock:v68];
+      _newMutableItemEnumeratorDict = v56;
 
       _newMutableItemEnumeratorDict2 = [(NMSMediaQuotaManager *)self _newMutableItemEnumeratorDict];
       _Block_object_dispose(buf, 8);
@@ -369,28 +367,28 @@
       objc_autoreleasePoolPop(context);
     }
 
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
-    allValues = [v59 allValues];
-    v45 = [allValues countByEnumeratingWithState:&v65 objects:v100 count:16];
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    allValues = [v58 allValues];
+    v45 = [allValues countByEnumeratingWithState:&v64 objects:v99 count:16];
     if (v45)
     {
-      v46 = *v66;
+      v46 = *v65;
       do
       {
         for (m = 0; m != v45; ++m)
         {
-          if (*v66 != v46)
+          if (*v65 != v46)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v65 + 1) + 8 * m) flush];
+          [*(*(&v64 + 1) + 8 * m) flush];
         }
 
-        v45 = [allValues countByEnumeratingWithState:&v65 objects:v100 count:16];
+        v45 = [allValues countByEnumeratingWithState:&v64 objects:v99 count:16];
       }
 
       while (v45);
@@ -406,9 +404,9 @@
       *&buf[12] = 2080;
       *&buf[14] = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]";
       *&buf[22] = 2048;
-      v104 = v49;
-      LOWORD(v105) = 2048;
-      *(&v105 + 2) = totalItemCount;
+      v103 = v49;
+      LOWORD(v104) = 2048;
+      *(&v104 + 2) = totalItemCount;
       _os_log_impl(&dword_25B27B000, v48, OS_LOG_TYPE_DEFAULT, "%@ %s QuotaEvaluation result: downloadInfoWithinQuota (quota: %llu) (count: %lu)", buf, 0x2Au);
     }
 
@@ -421,16 +419,16 @@
       *&buf[12] = 2080;
       *&buf[14] = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]";
       *&buf[22] = 2048;
-      v104 = totalItemSize2;
+      v103 = totalItemSize2;
       _os_log_impl(&dword_25B27B000, v51, OS_LOG_TYPE_DEFAULT, "%@ %s QuotaEvaluation result: downloadInfoWithinQuota using %llu bytes", buf, 0x20u);
     }
 
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_122;
-    v64[3] = &unk_27993DC18;
-    v64[4] = self;
-    [obja enumerateKeysAndObjectsUsingBlock:v64];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_122;
+    v63[3] = &unk_27993DC18;
+    v63[4] = self;
+    [obja enumerateKeysAndObjectsUsingBlock:v63];
     v53 = NMLogForCategory(5);
     if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
@@ -440,14 +438,12 @@
       *&buf[12] = 2080;
       *&buf[14] = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]";
       *&buf[22] = 2112;
-      v104 = date2;
+      v103 = date2;
       _os_log_impl(&dword_25B27B000, v53, OS_LOG_TYPE_DEFAULT, "%@ %s ****** Finished QuotaEvaluation! %@", buf, 0x20u);
     }
 
     self->_hasEvaluated = 1;
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -600,7 +596,7 @@ void __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_3(u
 
 void __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_122(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NMLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -608,20 +604,18 @@ void __54__NMSMediaQuotaManager__evaluateAddedItemsIfNecessary__block_invoke_122
     v5 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:v3];
     v6 = [v5 totalItemSize];
     v7 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:v3];
-    v9 = 138413314;
-    v10 = @"[MediaQuota]";
-    v11 = 2080;
-    v12 = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]_block_invoke";
-    v13 = 2114;
-    v14 = v3;
-    v15 = 2048;
-    v16 = v6;
-    v17 = 2048;
-    v18 = [v7 totalItemCount];
-    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "%@ %s Evaluation result: container list %{public}@ used %llu bytes for %lu items", &v9, 0x34u);
+    v8 = 138413314;
+    v9 = @"[MediaQuota]";
+    v10 = 2080;
+    v11 = "[NMSMediaQuotaManager _evaluateAddedItemsIfNecessary]_block_invoke";
+    v12 = 2114;
+    v13 = v3;
+    v14 = 2048;
+    v15 = v6;
+    v16 = 2048;
+    v17 = [v7 totalItemCount];
+    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "%@ %s Evaluation result: container list %{public}@ used %llu bytes for %lu items", &v8, 0x34u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__NMSMediaQuotaManager_Legacy__evaluateAddedItemsIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -772,7 +766,7 @@ void __61__NMSMediaQuotaManager_Legacy__evaluateAddedItemsIfNecessary__block_inv
 
 void __61__NMSMediaQuotaManager_Legacy__evaluateAddedItemsIfNecessary__block_invoke_118(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = NMLogForCategory(5);
@@ -780,20 +774,18 @@ void __61__NMSMediaQuotaManager_Legacy__evaluateAddedItemsIfNecessary__block_inv
   {
     v7 = [v5 sizeForItemListWithinQuota];
     v8 = [v5 downloadInfoWithinQuota];
-    v10 = 138413314;
-    v11 = @"[MediaQuota]";
-    v12 = 2080;
-    v13 = "[NMSMediaQuotaManager_Legacy _evaluateAddedItemsIfNecessary]_block_invoke";
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2048;
-    v17 = v7;
-    v18 = 2048;
-    v19 = [v8 totalItemCount];
-    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "%@ %s Evaluation result: container list %{public}@ used %llu bytes for %lu items", &v10, 0x34u);
+    v9 = 138413314;
+    v10 = @"[MediaQuota]";
+    v11 = 2080;
+    v12 = "[NMSMediaQuotaManager_Legacy _evaluateAddedItemsIfNecessary]_block_invoke";
+    v13 = 2114;
+    v14 = v4;
+    v15 = 2048;
+    v16 = v7;
+    v17 = 2048;
+    v18 = [v8 totalItemCount];
+    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "%@ %s Evaluation result: container list %{public}@ used %llu bytes for %lu items", &v9, 0x34u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -15,30 +15,26 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)indices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v10[0] = @"cache_index";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = @"cache_index";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v5 = [v2 initWithEntity:v3 name:@"cache_index" columns:v4];
 
-  v9 = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
 
   return v6;
 }
@@ -317,8 +313,7 @@ uint64_t __87__HDActivityCacheEntity_insertDataObject_withProvenance_inDatabase_
 
   if ([*(a1 + 40) hasDailyEnergyBurnedStatistics])
   {
-    v34 = *(a1 + 48);
-    v35 = _HDSQLiteValueForData();
+    v34 = _HDSQLiteValueForData();
     HDSQLiteBindFoundationValueToStatement();
   }
 
@@ -329,8 +324,7 @@ uint64_t __87__HDActivityCacheEntity_insertDataObject_withProvenance_inDatabase_
 
   if ([*(a1 + 40) hasDailyMoveMinutesStatistics])
   {
-    v36 = *(a1 + 56);
-    v37 = _HDSQLiteValueForData();
+    v35 = _HDSQLiteValueForData();
     HDSQLiteBindFoundationValueToStatement();
   }
 
@@ -341,8 +335,7 @@ uint64_t __87__HDActivityCacheEntity_insertDataObject_withProvenance_inDatabase_
 
   if ([*(a1 + 40) hasDailyBriskMinutesStatistics])
   {
-    v38 = *(a1 + 64);
-    v39 = _HDSQLiteValueForData();
+    v36 = _HDSQLiteValueForData();
     HDSQLiteBindFoundationValueToStatement();
   }
 
@@ -351,9 +344,9 @@ uint64_t __87__HDActivityCacheEntity_insertDataObject_withProvenance_inDatabase_
     sqlite3_bind_null(a2, 26);
   }
 
-  v40 = [*(a1 + 40) version];
+  v37 = [*(a1 + 40) version];
 
-  return sqlite3_bind_int64(a2, 27, v40);
+  return sqlite3_bind_int64(a2, 27, v37);
 }
 
 + (id)activityCacheForIndex:(int64_t)index profile:(id)profile encodingOptions:(id)options error:(id *)error
@@ -369,7 +362,7 @@ uint64_t __87__HDActivityCacheEntity_insertDataObject_withProvenance_inDatabase_
 
 + (id)mergeDataObject:(id)object provenance:(id)provenance profile:(id)profile transaction:(id)transaction error:(id *)error insertHandler:(id)handler
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   provenanceCopy = provenance;
   profileCopy = profile;
@@ -393,39 +386,39 @@ uint64_t __87__HDActivityCacheEntity_insertDataObject_withProvenance_inDatabase_
 
     v21 = 0;
 LABEL_16:
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
-    v48 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v56 = __Block_byref_object_copy__141;
-    v57 = __Block_byref_object_dispose__141;
-    v58 = 0;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __92__HDActivityCacheEntity_mergeDataObject_provenance_profile_transaction_error_insertHandler___block_invoke;
-    v44[3] = &unk_278622358;
-    v44[4] = &v45;
-    v44[5] = buf;
-    [self deleteSamplesWithPredicate:v18 limit:0 generateDeletedObjects:0 transaction:transactionCopy profile:profileCopy recursiveDeleteAuthorizationBlock:0 completionHandler:v44];
-    if (v46[3])
+    v55 = __Block_byref_object_copy__141;
+    v56 = __Block_byref_object_dispose__141;
+    v57 = 0;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __92__HDActivityCacheEntity_mergeDataObject_provenance_profile_transaction_error_insertHandler___block_invoke;
+    v43[3] = &unk_278622358;
+    v43[4] = &v44;
+    v43[5] = buf;
+    [self deleteSamplesWithPredicate:v18 limit:0 generateDeletedObjects:0 transaction:transactionCopy profile:profileCopy recursiveDeleteAuthorizationBlock:0 completionHandler:v43];
+    if (v45[3])
     {
-      v43 = 0;
-      v28 = handlerCopy[2](handlerCopy, objectCopy, &v43);
-      v29 = v43;
+      v42 = 0;
+      v28 = handlerCopy[2](handlerCopy, objectCopy, &v42);
+      v29 = v42;
       if (!(v28 | v29))
       {
         _HKInitializeLogging();
         v30 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
         {
-          *v51 = 138543618;
-          v52 = objectCopy;
-          v53 = 2114;
-          v54 = provenanceCopy;
-          _os_log_fault_impl(&dword_228986000, v30, OS_LOG_TYPE_FAULT, "Unable to insert %{public}@ for %{public}@ when replacing existing cache, and no error was returned", v51, 0x16u);
+          *v50 = 138543618;
+          v51 = objectCopy;
+          v52 = 2114;
+          v53 = provenanceCopy;
+          _os_log_fault_impl(&dword_228986000, v30, OS_LOG_TYPE_FAULT, "Unable to insert %{public}@ for %{public}@ when replacing existing cache, and no error was returned", v50, 0x16u);
         }
 
         v29 = [MEMORY[0x277CCA9B8] hk_error:124 description:@"Failed to insert activity cache during merge replacement"];
@@ -462,7 +455,7 @@ LABEL_16:
 LABEL_36:
 
         _Block_object_dispose(buf, 8);
-        _Block_object_dispose(&v45, 8);
+        _Block_object_dispose(&v44, 8);
         goto LABEL_37;
       }
 
@@ -474,11 +467,11 @@ LABEL_36:
   }
 
   activityCacheType = [MEMORY[0x277CCD720] activityCacheType];
+  v48 = 0;
   v49 = 0;
-  v50 = 0;
-  v20 = [self mostRecentSampleWithType:activityCacheType profile:profileCopy encodingOptions:0 predicate:v18 anchor:&v50 error:&v49];
-  v21 = v50;
-  v22 = v49;
+  v20 = [self mostRecentSampleWithType:activityCacheType profile:profileCopy encodingOptions:0 predicate:v18 anchor:&v49 error:&v48];
+  v21 = v49;
+  v22 = v48;
 
   if (!v20 && v22)
   {
@@ -536,8 +529,6 @@ LABEL_36:
   v21 = v21;
   v28 = v21;
 LABEL_37:
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -630,29 +621,27 @@ uint64_t __80__HDActivityCacheEntity_validateEntityWithProfile_error_validationE
 
 + (id)_createValidationError:(void *)error rowId:
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = a2;
   v6 = objc_opt_self();
   v7 = [MEMORY[0x277CCA9B8] hk_error:120 description:v5];
 
-  v16[0] = *MEMORY[0x277CCBD78];
+  v15[0] = *MEMORY[0x277CCBD78];
   databaseTable = [v6 databaseTable];
   v9 = *MEMORY[0x277CCA7E8];
-  v17[0] = databaseTable;
-  v17[1] = v7;
+  v16[0] = databaseTable;
+  v16[1] = v7;
   v10 = *MEMORY[0x277CCBD70];
-  v16[1] = v9;
-  v16[2] = v10;
-  v17[2] = errorCopy;
-  v16[3] = *MEMORY[0x277CCBD88];
+  v15[1] = v9;
+  v15[2] = v10;
+  v16[2] = errorCopy;
+  v15[3] = *MEMORY[0x277CCBD88];
   errorCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"ROWID %@", errorCopy];
-  v17[3] = errorCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = errorCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   v13 = [MEMORY[0x277CCA9B8] hk_error:120 userInfo:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

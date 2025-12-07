@@ -129,7 +129,6 @@ LABEL_9:
   toCopy = to;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 
@@ -141,7 +140,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    viewState = self->_viewState;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -161,12 +159,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  needsUnlock = self->_needsUnlock;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    currentlySyncing = self->_currentlySyncing;
     PBDataWriterWriteBOOLField();
   }
 
@@ -285,7 +281,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 24);
   if (has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_version != *(equalCopy + 4))
@@ -317,7 +312,6 @@ LABEL_6:
       goto LABEL_32;
     }
 
-    v9 = *(equalCopy + 22);
     if (self->_viewState)
     {
       if ((*(equalCopy + 22) & 1) == 0)
@@ -344,7 +338,6 @@ LABEL_6:
       goto LABEL_32;
     }
 
-    v10 = *(equalCopy + 21);
     if (self->_needsUnlock)
     {
       if ((*(equalCopy + 21) & 1) == 0)
@@ -364,7 +357,7 @@ LABEL_6:
     goto LABEL_32;
   }
 
-  v8 = (*(equalCopy + 24) & 2) == 0;
+  v7 = (*(equalCopy + 24) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) != 0)
@@ -380,18 +373,18 @@ LABEL_6:
       else if (!*(equalCopy + 20))
       {
 LABEL_34:
-        v8 = 1;
+        v7 = 1;
         goto LABEL_33;
       }
     }
 
 LABEL_32:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_33:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

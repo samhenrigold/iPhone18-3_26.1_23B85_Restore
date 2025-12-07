@@ -12,7 +12,7 @@
 
 - (void)applicationWillEnterForeground
 {
-  v3 = sub_1005B981C(&qword_1019FB750);
+  v3 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = OBJC_IVAR____TtC8Freeform21AASApplicationManager_isSaltRegenerated;

@@ -1,426 +1,3 @@
-uint64_t std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)0>>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
-  {
-    *(a1 + 16) = i - 40;
-    std::__list_imp<char *>::clear((i - 32));
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void *fst::Times<int,(fst::StringType)0>@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  if (*a1 && (*a1 == -2 ? (v6 = *(a1 + 3) == 0) : (v6 = 0), v6) || *a2 && (*a2 == -2 ? (v7 = *(a2 + 24) == 0) : (v7 = 0), v7))
-  {
-    v17 = fst::StringWeight<int,(fst::StringType)0>::NoWeight();
-  }
-
-  else
-  {
-    v8 = fst::StringWeight<int,(fst::StringType)0>::Zero();
-    v9 = *a1;
-    if (*a1)
-    {
-      v10 = *(a1 + 3) + 1;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    if (*v8)
-    {
-      v11 = *(v8 + 24) + 1;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    if (v10 != v11)
-    {
-LABEL_26:
-      v18 = fst::StringWeight<int,(fst::StringType)0>::Zero();
-      v19 = *a2;
-      if (*a2)
-      {
-        v20 = *(a2 + 24) + 1;
-      }
-
-      else
-      {
-        v20 = 0;
-      }
-
-      if (*v18)
-      {
-        v21 = *(v18 + 24) + 1;
-      }
-
-      else
-      {
-        v21 = 0;
-      }
-
-      if (v20 == v21)
-      {
-        v22 = (a2 + 16);
-        v23 = (v18 + 16);
-        for (i = 1; ; i = 0)
-        {
-          v25 = *v22;
-          v26 = *v23;
-          if (i)
-          {
-            if (!v19)
-            {
-              goto LABEL_50;
-            }
-
-            if (v19 != *v18)
-            {
-              break;
-            }
-          }
-
-          if (v25 == a2 + 8)
-          {
-            goto LABEL_50;
-          }
-
-          if (*(v25 + 16) != *(v26 + 16))
-          {
-            break;
-          }
-
-          v22 = (v25 + 8);
-          v23 = (v26 + 8);
-        }
-      }
-
-      *a3 = *a1;
-      result = std::list<int>::list((a3 + 8), (a1 + 2));
-      v28 = (a2 + 16);
-      for (j = 1; ; j = 0)
-      {
-        v30 = *v28;
-        do
-        {
-          v31 = j;
-          if (j)
-          {
-            v32 = *a2;
-            if (!*a2)
-            {
-              return result;
-            }
-          }
-
-          else
-          {
-            if (v30 == a2 + 8)
-            {
-              return result;
-            }
-
-            v32 = *(v30 + 16);
-          }
-
-          result = fst::StringWeight<int,(fst::StringType)0>::PushBack(a3, v32);
-          j = 0;
-        }
-
-        while ((v31 & 1) != 0);
-        v28 = (v30 + 8);
-      }
-    }
-
-    v12 = (a1 + 4);
-    v13 = (v8 + 16);
-    for (k = 1; ; k = 0)
-    {
-      v15 = *v12;
-      v16 = *v13;
-      if (k)
-      {
-        if (!v9)
-        {
-          break;
-        }
-
-        if (v9 != *v8)
-        {
-          goto LABEL_26;
-        }
-      }
-
-      if (v15 == a1 + 2)
-      {
-        break;
-      }
-
-      if (*(v15 + 16) != *(v16 + 16))
-      {
-        goto LABEL_26;
-      }
-
-      v12 = (v15 + 8);
-      v13 = (v16 + 8);
-    }
-
-LABEL_50:
-    v17 = fst::StringWeight<int,(fst::StringType)0>::Zero();
-  }
-
-  *a3 = *v17;
-
-  return std::list<int>::list((a3 + 8), (v17 + 2));
-}
-
-uint64_t fst::ShortestDistanceState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::~ShortestDistanceState(uint64_t a1)
-{
-  v2 = *(a1 + 88);
-  if (v2)
-  {
-    *(a1 + 96) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 64);
-  if (v3)
-  {
-    operator delete(v3);
-  }
-
-  v5 = (a1 + 40);
-  std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  return a1;
-}
-
-void fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::~VectorFst(void *a1)
-{
-  fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::~ImplToFst(a1);
-
-  operator delete();
-}
-
-uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
-{
-  if (a3)
-  {
-    v8 = 0;
-    v5 = fst::TestProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>(a1, a2, &v8);
-    *(*(a1 + 8) + 8) = *(*(a1 + 8) + 8) & (~v8 | 4) | v8 & v5;
-    return v5 & a2;
-  }
-
-  else
-  {
-    v7 = *(**(a1 + 8) + 32);
-
-    return v7();
-  }
-}
-
-uint64_t fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::operator=(uint64_t result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    operator new();
-  }
-
-  return result;
-}
-
-unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::SetStart(uint64_t a1, int a2)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v4 = *(a1 + 8);
-  *(v4 + 88) = a2;
-  result = (*(*v4 + 24))(v4);
-  *(v4 + 8) = result & 0xCCFFFFF0007 | (((result >> 35) & 1) << 37) | *(v4 + 8) & 4;
-  return result;
-}
-
-void *fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::SetFinal(uint64_t a1, int a2, int *a3)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v6 = *(a1 + 8);
-  v8 = *a3;
-  std::list<int>::list(v9, (a3 + 2));
-  v10 = a3[8];
-  fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::SetFinal(v6, a2, &v8);
-  return std::__list_imp<char *>::clear(v9);
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::SetProperties(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = a3 & 4;
-  result = (*(**(a1 + 8) + 32))(*(a1 + 8), v6);
-  if (result != (v6 & a2))
-  {
-    result = fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  }
-
-  *(*(a1 + 8) + 8) = *(*(a1 + 8) + 8) & (~a3 | 4) | a3 & a2;
-  return result;
-}
-
-void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::AddState(uint64_t a1)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v2 = *(a1 + 8);
-  fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::AddState();
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::AddArc(uint64_t a1, int a2, int *a3)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v6 = *(a1 + 8);
-
-  return fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::AddArc(v6, a2, a3);
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::DeleteStates(uint64_t a1, char **a2)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v4 = *(a1 + 8);
-  fst::VectorFstBaseImpl<fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::DeleteStates(v4, a2);
-  result = (*(*v4 + 24))(v4);
-  v4[1] = v4[1] & 4 | result & 0x6A5A950007;
-  return result;
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::DeleteStates(uint64_t a1)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v2 = *(a1 + 8);
-  fst::VectorFstBaseImpl<fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::DeleteStates(v2);
-  result = (*(*v2 + 24))(v2);
-  v2[1] = (*(v2 + 2) | result) & 4 | 0x156A5A950003;
-  return result;
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::DeleteArcs(uint64_t a1, int a2, uint64_t a3)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v6 = *(a1 + 8);
-  fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::DeleteArcs(*(v6[8] + 8 * a2), a3);
-  result = (*(*v6 + 24))(v6);
-  v6[1] = v6[1] & 4 | result & 0xA6A5A950007;
-  return result;
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::DeleteArcs(uint64_t a1, int a2)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v4 = *(a1 + 8);
-
-  return fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::DeleteArcs(v4, a2);
-}
-
-void *fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::ReserveStates(uint64_t a1, int a2)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v4 = (*(a1 + 8) + 64);
-
-  return std::vector<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *,std::allocator<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *>>::reserve(v4, a2);
-}
-
-void *fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::ReserveArcs(uint64_t a1, int a2, unint64_t a3)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v6 = (*(*(*(a1 + 8) + 64) + 8 * a2) + 56);
-
-  return std::vector<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::reserve(v6, a3);
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::SetInputSymbols(uint64_t a1, uint64_t a2)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v4 = *(a1 + 8);
-
-  return fst::FstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::SetInputSymbols(v4, a2);
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::SetOutputSymbols(uint64_t a1, uint64_t a2)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>,fst::MutableFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::MutateCheck(a1);
-  v4 = *(a1 + 8);
-
-  return fst::FstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::SetOutputSymbols(v4, a2);
-}
-
-uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::VectorFstImpl(uint64_t a1)
-{
-  *a1 = off_272B68;
-  *(a1 + 8) = 0;
-  boost::filesystem::path::path((a1 + 16), "null");
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 1;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 88) = -1;
-  *a1 = off_272AB8;
-  boost::filesystem::path::path(&__str, "vector");
-  std::string::operator=((a1 + 16), &__str);
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  *(a1 + 8) = *(a1 + 8) & 4 | 0x156A5A950003;
-  return a1;
-}
-
-void sub_38E18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::~VectorFstBaseImpl(v15);
-  _Unwind_Resume(a1);
-}
-
-uint64_t fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::~VectorFstBaseImpl(void *a1)
-{
-  *a1 = off_272B30;
-  v3 = a1 + 8;
-  v2 = a1[8];
-  if (v3[1] != v2)
-  {
-    v4 = 0;
-    do
-    {
-      fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::Destroy(v2[v4++]);
-      v2 = a1[8];
-    }
-
-    while (v4 < (a1[9] - v2) >> 3);
-  }
-
-  if (v2)
-  {
-    a1[9] = v2;
-    operator delete(v2);
-  }
-
-  return fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::~FstImpl(a1);
-}
-
 void fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::~VectorFstImpl(void *a1)
 {
   fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::~VectorFstBaseImpl(a1);
@@ -608,7 +185,7 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst:
       }
 
 LABEL_10:
-      fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::AddState();
+      fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::AddState(a1);
     }
 
     if (v9)
@@ -674,11 +251,11 @@ LABEL_12:
   return v4;
 }
 
-void sub_399DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_399DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::CountStates<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>(a10);
+    fst::CountStates<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>();
   }
 
   _Unwind_Resume(exception_object);
@@ -720,27 +297,25 @@ uint64_t fst::StringWeight<int,(fst::StringType)1>::Zero()
   return fst::StringWeight<int,(fst::StringType)1>::Zero(void)::zero;
 }
 
-void *std::list<int>::list(void *result, uint64_t a2)
+uint64_t *std::list<int>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
-void *std::vector<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>(result, a2);
     }
 
@@ -750,14 +325,14 @@ void *std::vector<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<f
   return result;
 }
 
-void sub_3A014(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_3A014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -894,9 +469,9 @@ uint64_t std::vector<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTp
   return v13;
 }
 
-void sub_3A2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_3A2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -957,7 +532,7 @@ unint64_t fst::ComputeProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst:
       v87 = 0;
       v88 = 0;
       v89 = &v93;
-      fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(v7, &v86);
+      fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(v7, &v86, 0);
     }
 
     if ((a2 & 0xFFFFF0C3FFFFFFF8) == 0)
@@ -1575,7 +1150,7 @@ uint64_t fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::One
   return fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::One(void)::one;
 }
 
-void fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(uint64_t a1, uint64_t a2)
+void fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(uint64_t a1, void **a2, char a3)
 {
   if ((*(*a1 + 16))(a1))
   {
@@ -1585,25 +1160,25 @@ void fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<
   fst::DfsVisit<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>();
 }
 
-void sub_3B83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3B83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -1806,19 +1381,18 @@ LABEL_36:
   return result;
 }
 
-uint64_t fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::~MemoryPool(void *a1)
-{
-  *a1 = off_272CD8;
-  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::~MemoryPool(void *a1)
 {
   *a1 = off_272CD8;
   fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_272CD8;
+  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -1836,8 +1410,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicA
 
 void sub_3BE9C(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -1848,75 +1422,71 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicA
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_272D18;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-void *std::deque<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *>>::push_back(void *result, void *a2)
+void std::deque<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *>>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *>>::__add_back_capacity(void *a1)
+void std::deque<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>> *>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1924,25 +1494,25 @@ void *std::deque<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::L
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **&>(a1, &v9);
 }
 
 void sub_3C1A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2107,7 +1677,7 @@ void sub_3C71C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::WriteFst<fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>>(void *a1, void *a2, uint64_t a3)
+uint64_t fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::WriteFst<fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>>(void *a1, void *a2, uint64_t **a3)
 {
   v34 = 0u;
   v35 = 0u;
@@ -2164,7 +1734,7 @@ LABEL_6:
     do
     {
       (*(*a1 + 32))(__p, a1, v11);
-      fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Write(__p);
+      fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Write(__p, a2);
       std::__list_imp<char *>::clear(&__p[0].__r_.__value_.__l.__size_);
       __p[0].__r_.__value_.__r.__words[0] = (*(*a1 + 40))(a1, v11);
       std::ostream::write();
@@ -2199,7 +1769,7 @@ LABEL_6:
           std::ostream::write();
           LODWORD(__p[0].__r_.__value_.__l.__data_) = v16[1];
           std::ostream::write();
-          fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Write(v16 + 2);
+          fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Write(v16 + 2, a2);
           LODWORD(__p[0].__r_.__value_.__l.__data_) = v16[12];
           std::ostream::write();
           v16 += 14;
@@ -2241,7 +1811,7 @@ LABEL_6:
 
     else
     {
-      v23 = *(a3 + 8);
+      v23 = a3[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v22, v23);
@@ -2345,7 +1915,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightT
     }
 
     *(a7 + 60) = v16;
-    fst::FstHeader::Write(a7);
+    fst::FstHeader::Write(a7, a2);
   }
 
   if ((*(*a1 + 112))(a1) && a3[25] == 1)
@@ -2365,7 +1935,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightT
   return result;
 }
 
-uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t **a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   std::ostream::sentry::sentry();
   v16 = a2 + *(*a2 - 24);
@@ -2413,7 +1983,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightT
 
     else
     {
-      v23 = *(a3 + 8);
+      v23 = a3[1];
     }
   }
 
@@ -2444,7 +2014,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightT
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
 
@@ -2489,7 +2059,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightT
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
   }
@@ -2515,67 +2085,68 @@ uint64_t fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(f
 
 uint64_t fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::WriteFile(fst *a1, uint64_t a2)
 {
+  v2 = a2;
   if (*(a2 + 23) < 0)
   {
     if (*(a2 + 8))
     {
-      v4 = *a2;
+      a2 = *a2;
 LABEL_6:
-      std::ofstream::basic_ofstream(&v21);
-      if ((v25[*(v21.__r_.__value_.__r.__words[0] - 24)] & 5) != 0)
+      std::ofstream::basic_ofstream(&v20, a2, 20);
+      if ((v24[*(v20.__r_.__value_.__r.__words[0] - 24)] & 5) != 0)
       {
         boost::filesystem::path::path(&__p, "ERROR");
-        v5 = fst::LogMessage::LogMessage(&v20, &__p);
-        v6 = fst::cerr(v5);
-        v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Fst::Write: Can't open file: ", 29);
-        v8 = *(a2 + 23);
-        if (v8 >= 0)
+        v4 = fst::LogMessage::LogMessage(&v19, &__p);
+        v5 = fst::cerr(v4);
+        v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Fst::Write: Can't open file: ", 29);
+        v7 = *(v2 + 23);
+        if (v7 >= 0)
         {
-          v9 = a2;
+          v8 = v2;
         }
 
         else
         {
-          v9 = *a2;
+          v8 = *v2;
         }
 
-        if (v8 >= 0)
+        if (v7 >= 0)
         {
-          v10 = *(a2 + 23);
+          v9 = *(v2 + 23);
         }
 
         else
         {
-          v10 = *(a2 + 8);
+          v9 = *(v2 + 8);
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v9, v10);
-        fst::LogMessage::~LogMessage(&v20);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v9);
+        fst::LogMessage::~LogMessage(&v19);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        v11 = 0;
+        v10 = 0;
       }
 
       else
       {
-        v14 = FLAGS_fst_align;
-        if (*(a2 + 23) < 0)
+        v13 = FLAGS_fst_align;
+        if (*(v2 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+          std::string::__init_copy_ctor_external(&__p, *v2, *(v2 + 8));
         }
 
         else
         {
-          __p = *a2;
+          __p = *v2;
         }
 
-        v17 = 257;
-        v18 = 1;
-        v19 = v14;
-        v11 = (*(*a1 + 96))(a1, &v21, &__p);
+        v16 = 257;
+        v17 = 1;
+        v18 = v13;
+        v10 = (*(*a1 + 96))(a1, &v20, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -2585,7 +2156,7 @@ LABEL_6:
       std::filebuf::~filebuf();
       std::ostream::~ostream();
       std::ios::~ios();
-      return v11;
+      return v10;
     }
   }
 
@@ -2594,26 +2165,26 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v12 = fst::cout(a1);
+  v11 = fst::cout(a1);
   boost::filesystem::path::path(&__p, "standard output");
-  v13 = FLAGS_fst_align;
+  v12 = FLAGS_fst_align;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v21, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v20, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v21 = __p;
+    v20 = __p;
   }
 
-  v22 = 257;
-  v23 = 1;
-  v24 = v13;
-  v11 = (*(*a1 + 96))(a1, v12, &v21);
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  v21 = 257;
+  v22 = 1;
+  v23 = v12;
+  v10 = (*(*a1 + 96))(a1, v11, &v20);
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v21.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2621,7 +2192,7 @@ LABEL_6:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  return v11;
+  return v10;
 }
 
 void *fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::SetFinal(void *a1, int a2, int *a3)
@@ -2656,7 +2227,7 @@ void sub_3D87C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::SetFinalProperties<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>(unint64_t a1, int *a2, int *a3)
+unint64_t fst::SetFinalProperties<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>(unint64_t a1, int *a2, int *a3)
 {
   v6 = fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::Zero();
   v7 = *a2;
@@ -2705,13 +2276,13 @@ uint64_t fst::SetFinalProperties<fst::GallicWeight<int,fst::LogWeightTpl<float>,
       goto LABEL_21;
     }
 
-    if (*(v16 + 16) != *(v17 + 16))
+    if (v16[4] != *(v17 + 16))
     {
       goto LABEL_22;
     }
 
     v14 = 0;
-    v10 = (v16 + 8);
+    v10 = (v16 + 2);
     v11 = (v17 + 8);
   }
 
@@ -2771,13 +2342,13 @@ LABEL_22:
         goto LABEL_42;
       }
 
-      if (*(v28 + 16) != *(v29 + 16))
+      if (v28[4] != *(v29 + 16))
       {
         goto LABEL_43;
       }
 
       v26 = 0;
-      v22 = (v28 + 8);
+      v22 = (v28 + 2);
       v23 = (v29 + 8);
     }
 
@@ -2841,13 +2412,13 @@ LABEL_43:
       goto LABEL_64;
     }
 
-    if (*(v40 + 16) != *(v41 + 16))
+    if (v40[4] != *(v41 + 16))
     {
       goto LABEL_65;
     }
 
     v38 = 0;
-    v34 = (v40 + 8);
+    v34 = (v40 + 2);
     v35 = (v41 + 8);
   }
 
@@ -2907,13 +2478,13 @@ LABEL_65:
         goto LABEL_85;
       }
 
-      if (*(v52 + 16) != *(v53 + 16))
+      if (v52[4] != *(v53 + 16))
       {
         goto LABEL_86;
       }
 
       v50 = 0;
-      v46 = (v52 + 8);
+      v46 = (v52 + 2);
       v47 = (v53 + 8);
     }
 
@@ -2933,8 +2504,9 @@ LABEL_86:
   return a1 & 0x3FFFFFF0007;
 }
 
-uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::AddArc(void *a1, int a2, int *a3)
+uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>::AddArc(void *a1, uint64_t a2, int *a3)
 {
+  v4 = a2;
   v6 = *(*(a1[8] + 8 * a2) + 64);
   if (v6 == *(*(a1[8] + 8 * a2) + 56))
   {
@@ -2947,13 +2519,13 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst:
   }
 
   v8 = (*(*a1 + 24))(a1);
-  a1[1] = a1[1] & 4 | fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>(v8, a2, a3, v7);
-  v9 = *(a1[8] + 8 * a2);
+  a1[1] = a1[1] & 4 | fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>(v8, v4, a3, v7);
+  v9 = *(a1[8] + 8 * v4);
 
   return fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::AddArc(v9, a3);
 }
 
-uint64_t fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>(unint64_t a1, int a2, int *a3, _DWORD *a4)
+unint64_t fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>(unint64_t a1, int a2, int *a3, _DWORD *a4)
 {
   v7 = *a3;
   v6 = a3[1];
@@ -3054,13 +2626,13 @@ uint64_t fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::L
       goto LABEL_37;
     }
 
-    if (*(v22 + 16) != *(v23 + 16))
+    if (v22[4] != *(v23 + 16))
     {
       goto LABEL_38;
     }
 
     v20 = 0;
-    v16 = (v22 + 8);
+    v16 = (v22 + 2);
     v17 = (v23 + 8);
   }
 
@@ -3120,13 +2692,13 @@ LABEL_38:
         goto LABEL_58;
       }
 
-      if (*(v34 + 16) != *(v35 + 16))
+      if (v34[4] != *(v35 + 16))
       {
         goto LABEL_59;
       }
 
       v32 = 0;
-      v28 = (v34 + 8);
+      v28 = (v34 + 2);
       v29 = (v35 + 8);
     }
 
@@ -3189,7 +2761,7 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst:
   return result;
 }
 
-uint64_t fst::MutableArcIterator<fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>>::SetValue(uint64_t a1, uint64_t a2)
+uint64_t fst::MutableArcIterator<fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>>>::SetValue(uint64_t a1, int *a2)
 {
   v4 = *(*(a1 + 8) + 56) + 56 * *(a1 + 24);
   v5 = *v4;
@@ -3360,14 +2932,14 @@ LABEL_51:
   }
 
   v34 = 0x30FC30007;
-  if (*a2 == *v4 && *(a2 + 4) == *(v4 + 4) && *(a2 + 48) == *(v4 + 48))
+  if (*a2 == *v4 && a2[1] == *(v4 + 4) && a2[12] == *(v4 + 48))
   {
     v34 = 0x3FFFFFFF0007;
   }
 
   fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>::SetArc(*(a1 + 8), a2, *(a1 + 24));
   v35 = *a2;
-  v36 = *(a2 + 4);
+  v36 = a2[1];
   if (*a2 != v36)
   {
     **(a1 + 16) = **(a1 + 16) & 0xFFFFFFFFFFFCFFFFLL | 0x20000;
@@ -3398,10 +2970,10 @@ LABEL_63:
   }
 
   result = fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::Zero();
-  v41 = *(a2 + 8);
+  v41 = a2[2];
   if (v41)
   {
-    v42 = *(a2 + 32) + 1;
+    v42 = *(a2 + 4) + 1;
   }
 
   else
@@ -3424,7 +2996,7 @@ LABEL_63:
     goto LABEL_85;
   }
 
-  v44 = (a2 + 24);
+  v44 = (a2 + 6);
   v45 = (result + 16);
   v46 = v41 && v41 == *result;
   v47 = !v46;
@@ -3439,7 +3011,7 @@ LABEL_63:
       break;
     }
 
-    if (v50 == a2 + 16)
+    if (v50 == a2 + 4)
     {
       goto LABEL_84;
     }
@@ -3460,14 +3032,14 @@ LABEL_63:
   }
 
 LABEL_84:
-  if (*(a2 + 40) != *(result + 32))
+  if (*(a2 + 10) != *(result + 32))
   {
 LABEL_85:
     result = fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::One();
-    v52 = *(a2 + 8);
+    v52 = a2[2];
     if (v52)
     {
-      v53 = *(a2 + 32) + 1;
+      v53 = *(a2 + 4) + 1;
     }
 
     else
@@ -3490,7 +3062,7 @@ LABEL_85:
       goto LABEL_106;
     }
 
-    v55 = (a2 + 24);
+    v55 = (a2 + 6);
     v56 = (result + 16);
     v57 = v52 && v52 == *result;
     v58 = !v57;
@@ -3505,7 +3077,7 @@ LABEL_85:
         break;
       }
 
-      if (v61 == a2 + 16)
+      if (v61 == a2 + 4)
       {
         goto LABEL_105;
       }
@@ -3526,7 +3098,7 @@ LABEL_85:
     }
 
 LABEL_105:
-    if (*(a2 + 40) != *(result + 32))
+    if (*(a2 + 10) != *(result + 32))
     {
 LABEL_106:
       **(a1 + 16) = **(a1 + 16) & 0xFFFFFFFCFFFFFFFFLL | 0x100000000;
@@ -3537,12 +3109,12 @@ LABEL_106:
   return result;
 }
 
-void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Reverse@<X0>(_DWORD *a1@<X0>, uint64_t a2@<X8>)
+void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Reverse@<X0>(uint64_t a1@<X8>, _DWORD *a2@<X0>)
 {
-  fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Reverse(a1, &v4);
-  *a2 = v4;
-  std::list<int>::list((a2 + 8), v5);
-  *(a2 + 32) = v6;
+  fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::LogWeightTpl<float>>::Reverse(a2, &v4);
+  *a1 = v4;
+  std::list<int>::list((a1 + 8), v5);
+  *(a1 + 32) = v6;
   return std::__list_imp<char *>::clear(v5);
 }
 
@@ -3582,7 +3154,7 @@ LABEL_9:
       break;
     }
 
-    v3 = *(v6 + 16);
+    v3 = v6[4];
     if (v7)
     {
       goto LABEL_9;
@@ -3594,7 +3166,7 @@ LABEL_10:
     if ((v8 & 1) == 0)
     {
       v5 = 0;
-      v4 = (v6 + 8);
+      v4 = (v6 + 2);
       goto LABEL_2;
     }
   }
@@ -3617,7 +3189,7 @@ _DWORD *fst::StringWeight<int,(fst::StringType)1>::PushFront(_DWORD *result, int
   return result;
 }
 
-void *fst::Times<int,(fst::StringType)1>@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *fst::Times<int,(fst::StringType)1>@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if (*a1 && (*a1 == -2 ? (v6 = *(a1 + 3) == 0) : (v6 = 0), v6) || *a2 && (*a2 == -2 ? (v7 = *(a2 + 24) == 0) : (v7 = 0), v7))
   {
@@ -3770,12 +3342,12 @@ LABEL_26:
         break;
       }
 
-      if (*(v15 + 16) != *(v16 + 16))
+      if (v15[4] != *(v16 + 16))
       {
         goto LABEL_26;
       }
 
-      v12 = (v15 + 8);
+      v12 = (v15 + 2);
       v13 = (v16 + 8);
     }
 
@@ -3823,7 +3395,7 @@ void fst::AutoQueue<int>::AutoQueue<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<f
   *(a1 + 12) = 0;
   *a1 = off_271B40;
   *(a1 + 24) = 0u;
-  v3 = a1 + 48;
+  v3 = (a1 + 48);
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   v4 = (*(*a2 + 64))(a2, 0x4E00000000, 0);
@@ -3836,7 +3408,7 @@ void fst::AutoQueue<int>::AutoQueue<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<f
       v5[1] = 0;
       v5[2] = 0;
       v5[3] = &v6;
-      fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(a2, v5);
+      fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(a2, v5, 0);
     }
 
     operator new();
@@ -3953,7 +3525,7 @@ LABEL_19:
       if (v17 == *(*a2 + 4 * *(v16 + 48)))
       {
         v18 = *a3;
-        if (!a4 || (v19 = fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::One(), fst::NaturalLess<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::operator()(a4, v16 + 8, v19)))
+        if (!a4 || (v19 = fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::One(), fst::NaturalLess<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::operator()(a4, (v16 + 8), v19)))
         {
           v20 = 1;
           goto LABEL_25;
@@ -4013,11 +3585,11 @@ LABEL_34:
   return result;
 }
 
-void sub_3F44C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_3F44C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    (*(*a16 + 8))(a16);
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4032,10 +3604,10 @@ void fst::TopOrderQueue<int>::TopOrderQueue<fst::ReverseArc<fst::GallicArc<fst::
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
-  v4 = 0;
-  v2 = a1 + 24;
-  v3 = &v4;
-  fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::TopOrderVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(a2);
+  v3 = 0;
+  v2[0] = a1 + 24;
+  v2[1] = &v3;
+  fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::TopOrderVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(a2, v2, 0);
 }
 
 void sub_3F624(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
@@ -4063,7 +3635,7 @@ void sub_3F624(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::TopOrderVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(uint64_t a1)
+void fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::TopOrderVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>(uint64_t a1, uint64_t a2, char a3)
 {
   if ((*(*a1 + 16))(a1))
   {
@@ -4073,25 +3645,25 @@ void fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<
   fst::DfsVisit<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>();
 }
 
-void sub_3FE6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3FE6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -4106,16 +3678,16 @@ uint64_t fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::Typ
   return fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::Type(void)::type;
 }
 
-BOOL fst::NaturalLess<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL fst::NaturalLess<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::operator()(uint64_t a1, float *a2, uint64_t a3)
 {
   fst::Plus<int>(a2, a3, &v28);
-  v5 = *(a2 + 32);
+  v5 = a2[8];
   v6 = *(a3 + 32);
   if (v5 != INFINITY)
   {
     if (v6 == INFINITY)
     {
-      v6 = *(a2 + 32);
+      v6 = a2[8];
     }
 
     else if (v5 <= v6)
@@ -4146,7 +3718,7 @@ BOOL fst::NaturalLess<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::Galli
   v10 = *a2;
   if (*a2)
   {
-    v11 = *(a2 + 24) + 1;
+    v11 = *(a2 + 3) + 1;
   }
 
   else
@@ -4160,7 +3732,7 @@ BOOL fst::NaturalLess<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::Galli
   }
 
   v12 = v26[1];
-  v13 = *(a2 + 16);
+  v13 = *(a2 + 2);
   v14 = v13;
   if (v25)
   {
@@ -4183,8 +3755,8 @@ LABEL_36:
     }
   }
 
-  v28 = v27;
-  v15 = *(a2 + 32);
+  *&v28 = v27;
+  v15 = a2[8];
   v30 = v15;
   if (v27 != v15)
   {
@@ -4225,7 +3797,7 @@ LABEL_36:
         break;
       }
 
-      if (v13 == a2 + 8)
+      if (v13 == a2 + 2)
       {
         goto LABEL_40;
       }
@@ -4246,7 +3818,7 @@ LABEL_36:
     }
 
 LABEL_40:
-    v28 = v15;
+    *&v28 = v15;
     v30 = *(a3 + 32);
     v23 = v15 != v30;
   }
@@ -4260,6 +3832,199 @@ LABEL_39:
 LABEL_37:
   std::__list_imp<char *>::clear(v26);
   return v23;
+}
+
+uint64_t *fst::Plus<int>@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v3 = a2;
+  if (*a1 && (*a1 == -2 ? (v6 = *(a1 + 3) == 0) : (v6 = 0), v6) || *a2 && (*a2 == -2 ? (v7 = *(a2 + 24) == 0) : (v7 = 0), v7))
+  {
+    v3 = fst::StringWeight<int,(fst::StringType)1>::NoWeight();
+  }
+
+  else
+  {
+    v8 = fst::StringWeight<int,(fst::StringType)1>::Zero();
+    v9 = *a1;
+    if (*a1)
+    {
+      v10 = *(a1 + 3) + 1;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    if (*v8)
+    {
+      v11 = *(v8 + 24) + 1;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    if (v10 == v11)
+    {
+      v12 = (a1 + 4);
+      v13 = (v8 + 16);
+      for (i = 1; ; i = 0)
+      {
+        v15 = *v12;
+        v16 = *v13;
+        if (i)
+        {
+          if (!v9)
+          {
+            goto LABEL_26;
+          }
+
+          if (v9 != *v8)
+          {
+            break;
+          }
+        }
+
+        if (v15 == a1 + 2)
+        {
+          goto LABEL_26;
+        }
+
+        if (*(v15 + 16) != *(v16 + 16))
+        {
+          break;
+        }
+
+        v12 = (v15 + 8);
+        v13 = (v16 + 8);
+      }
+    }
+
+    result = fst::StringWeight<int,(fst::StringType)1>::Zero();
+    v18 = *v3;
+    if (*v3)
+    {
+      v19 = *(v3 + 24) + 1;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    if (*result)
+    {
+      v20 = result[3] + 1;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    if (v19 != v20)
+    {
+LABEL_43:
+      *(a3 + 8) = a3 + 8;
+      *(a3 + 16) = a3 + 8;
+      *(a3 + 24) = 0;
+      *a3 = 0;
+      if (*a1 && v18)
+      {
+        v26 = (v3 + 8);
+        v27 = a1 + 2;
+        v28 = *(a1 + 2);
+        do
+        {
+          v29 = a1;
+          if (v27 != v28)
+          {
+            v29 = (*v27 + 16);
+          }
+
+          v30 = v3;
+          if (v26 != *(v3 + 16))
+          {
+            v30 = (*v26 + 16);
+          }
+
+          if (*v29 != *v30)
+          {
+            break;
+          }
+
+          v31 = a1;
+          if (v27 != v28)
+          {
+            v31 = (*v27 + 16);
+          }
+
+          result = fst::StringWeight<int,(fst::StringType)1>::PushFront(a3, *v31);
+          v28 = *(a1 + 2);
+          v32 = v27;
+          if (v27 != v28)
+          {
+            v32 = *v27;
+          }
+
+          if (v26 == *(v3 + 16))
+          {
+            break;
+          }
+
+          v26 = *v26;
+          v6 = v27 == v28;
+          v27 = v32;
+        }
+
+        while (!v6);
+      }
+
+      return result;
+    }
+
+    v21 = (v3 + 16);
+    v22 = result + 2;
+    for (j = 1; ; j = 0)
+    {
+      v24 = *v21;
+      v25 = *v22;
+      if (j)
+      {
+        if (!v18)
+        {
+          break;
+        }
+
+        if (v18 != *result)
+        {
+          goto LABEL_43;
+        }
+      }
+
+      if (v24 == v3 + 8)
+      {
+        break;
+      }
+
+      if (*(v24 + 16) != *(v25 + 16))
+      {
+        goto LABEL_43;
+      }
+
+      v21 = (v24 + 8);
+      v22 = (v25 + 8);
+    }
+
+    v3 = a1;
+  }
+
+LABEL_26:
+  *a3 = *v3;
+
+  return std::list<int>::list((a3 + 8), v3 + 8);
 }
 
 void fst::ShortestDistanceState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>>,(fst::GallicType)0>>>>::ShortestDistance(void *a1, int a2)
@@ -4915,7 +4680,7 @@ uint64_t fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::NoW
   return fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>::NoWeight(void)::no_weight;
 }
 
-uint64_t std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
+uint64_t std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::push_back[abi:ne200100](unint64_t *a1, _DWORD *a2)
 {
   v4 = a1[1];
   if (v4 >= a1[2])
@@ -4936,7 +4701,7 @@ uint64_t std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::Gallic
   return result;
 }
 
-uint64_t std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::__emplace_back_slow_path<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1> const&>(uint64_t *a1, _DWORD *a2)
+uint64_t std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::__emplace_back_slow_path<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1> const&>(unint64_t *a1, _DWORD *a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -4990,14 +4755,14 @@ uint64_t std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::Gallic
   return v13;
 }
 
-void sub_416A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_416A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)0>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>,fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>,fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -5121,14 +4886,14 @@ uint64_t *std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::Galli
   return result;
 }
 
-void sub_418EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_418EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)0>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::__construct_at_end(void *result, uint64_t a2, _DWORD *a3)
+uint64_t *std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::__construct_at_end(uint64_t *result, uint64_t a2, _DWORD *a3)
 {
   v3 = result;
   v4 = result[2];
@@ -5250,14 +5015,14 @@ uint64_t *std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::Galli
   return result;
 }
 
-void sub_41CF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_41CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)0>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)0>>::__construct_at_end(void *result, uint64_t a2, _DWORD *a3)
+uint64_t *std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)0>>::__construct_at_end(uint64_t *result, uint64_t a2, _DWORD *a3)
 {
   v3 = result;
   v4 = result[2];
@@ -5354,9 +5119,9 @@ uint64_t std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::Gallic
   return v13;
 }
 
-void sub_420B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_420B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)0>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5373,7 +5138,7 @@ void std::vector<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType
     {
       do
       {
-        v6 = v4 - 40;
+        v6 = v4 - 5;
         std::__list_imp<char *>::clear(v4 - 4);
         v4 = v6;
       }
@@ -5412,7 +5177,7 @@ void fst::ArcMapFst<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWe
   operator delete();
 }
 
-uint64_t fst::ImplToFst<fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::Fst<fst::ArcTpl<fst::LogWeightTpl<float>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
+unint64_t fst::ImplToFst<fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::Fst<fst::ArcTpl<fst::LogWeightTpl<float>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -5509,24 +5274,6 @@ void fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fs
   operator new();
 }
 
-{
-  *a1 = off_272FA8;
-  *(a1 + 8) = 0;
-  boost::filesystem::path::path((a1 + 16), "null");
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 1;
-  *a1 = off_272F70;
-  *(a1 + 60) = 0;
-  *(a1 + 64) = -1;
-  *(a1 + 68) = 0u;
-  *(a1 + 84) = 0u;
-  *(a1 + 100) = -1;
-  *(a1 + 104) = *(a2 + 104);
-  *(a1 + 112) = *(a2 + 112);
-  operator new();
-}
-
 uint64_t fst::FstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>>::~FstImpl(uint64_t a1)
 {
   *a1 = off_272FA8;
@@ -5592,7 +5339,7 @@ void sub_42B54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::Clear(void *a1)
+uint64_t *fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::Clear(void *a1)
 {
   v2 = a1[1];
   if (a1[2] != v2)
@@ -5612,7 +5359,7 @@ void *fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>
   return std::__list_imp<int,fst::PoolAllocator<int>>::clear(a1 + 4);
 }
 
-uint64_t fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::Destroy(uint64_t result, uint64_t *a2)
+uint64_t fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::Destroy(uint64_t result, void *a2)
 {
   if (result)
   {
@@ -5628,10 +5375,10 @@ uint64_t fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocato
   return result;
 }
 
-void std::vector<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::__destroy_vector::operator()[abi:ne200100](uint64_t **a1)
+void std::vector<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::__destroy_vector::operator()[abi:ne200100](void ***result)
 {
-  v1 = *a1;
-  v2 = **a1;
+  v1 = *result;
+  v2 = **result;
   if (v2)
   {
     v1[1] = v2;
@@ -5639,7 +5386,7 @@ void std::vector<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::A
   }
 }
 
-void fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::deallocate(uint64_t *a1, void *__p, unint64_t a3)
+void fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::deallocate(void *a1, void *__p, unint64_t a3)
 {
   if (a3 == 2)
   {
@@ -5730,14 +5477,14 @@ LABEL_22:
   operator delete(__p);
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x80)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x80)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x11uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x11uLL, &v4);
     v1 = *v2;
   }
 
@@ -5749,20 +5496,20 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::Log
   return *(v1 + 128);
 }
 
-void std::vector<fst::MemoryPoolBase *>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<fst::MemoryPoolBase *>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<fst::MemoryPoolBase *>::__append(a1, a2 - v3, a3);
+    std::vector<fst::MemoryPoolBase *>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -5880,19 +5627,18 @@ void std::vector<fst::MemoryPoolBase *>::__append(uint64_t a1, unint64_t a2, uin
   }
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>::~MemoryPool(void *a1)
-{
-  *a1 = off_272FE0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>::~MemoryPool(void *a1)
 {
   *a1 = off_272FE0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_272FE0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -5910,8 +5656,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
 
 void sub_43240(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -5922,39 +5668,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<1>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273020;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x100)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x100)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x21uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x21uLL, &v4);
     v1 = *v2;
   }
 
@@ -5966,19 +5711,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::Log
   return *(v1 + 256);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273060;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>::~MemoryPool(void *a1)
 {
   *a1 = off_273060;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273060;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -5996,8 +5740,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
 
 void sub_435B0(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6008,39 +5752,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<2>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2730A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x200)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x200)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x41uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x41uLL, &v4);
     v1 = *v2;
   }
 
@@ -6052,19 +5795,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::Log
   return *(v1 + 512);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2730E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>::~MemoryPool(void *a1)
 {
   *a1 = off_2730E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2730E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6082,8 +5824,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
 
 void sub_43920(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6094,39 +5836,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<4>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273120;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x400)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x400)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x81uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x81uLL, &v4);
     v1 = *v2;
   }
 
@@ -6138,19 +5879,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::Log
   return *(v1 + 1024);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273160;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>::~MemoryPool(void *a1)
 {
   *a1 = off_273160;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273160;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6168,8 +5908,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
 
 void sub_43C90(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6180,39 +5920,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<8>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2731A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x800)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x800)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x101uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x101uLL, &v4);
     v1 = *v2;
   }
 
@@ -6224,19 +5963,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::Log
   return *(v1 + 2048);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2731E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>::~MemoryPool(void *a1)
 {
   *a1 = off_2731E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2731E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6254,8 +5992,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
 
 void sub_44000(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6266,39 +6004,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<16>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273220;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x1000)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x1000)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x201uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x201uLL, &v4);
     v1 = *v2;
   }
 
@@ -6310,19 +6047,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::Log
   return *(v1 + 4096);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273260;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>::~MemoryPool(void *a1)
 {
   *a1 = off_273260;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273260;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6340,8 +6076,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
 
 void sub_44370(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6352,39 +6088,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<32>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2732A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x2000)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x2000)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x401uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x401uLL, &v4);
     v1 = *v2;
   }
 
@@ -6396,19 +6131,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::ArcTpl<fst::Log
   return *(v1 + 0x2000);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2732E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>::~MemoryPool(void *a1)
 {
   *a1 = off_2732E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2732E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6426,8 +6160,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
 
 void sub_446E0(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6438,39 +6172,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWei
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::TN<64>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273320;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x200)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x200)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x41uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x41uLL, &v4);
     v1 = *v2;
   }
 
@@ -6482,19 +6215,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst:
   return *(v1 + 512);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273360;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>::~MemoryPool(void *a1)
 {
   *a1 = off_273360;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273360;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6512,8 +6244,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
 
 void sub_44A48(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6524,39 +6256,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<1>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2733A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x400)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x400)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x81uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x81uLL, &v4);
     v1 = *v2;
   }
 
@@ -6568,19 +6299,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst:
   return *(v1 + 1024);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2733E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>::~MemoryPool(void *a1)
 {
   *a1 = off_2733E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2733E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6598,8 +6328,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
 
 void sub_44DA8(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6610,39 +6340,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<2>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273420;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x800)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x800)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x101uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x101uLL, &v4);
     v1 = *v2;
   }
 
@@ -6654,19 +6383,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst:
   return *(v1 + 2048);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273460;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>::~MemoryPool(void *a1)
 {
   *a1 = off_273460;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273460;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6684,8 +6412,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
 
 void sub_45108(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6696,39 +6424,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<4>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2734A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x1000)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x1000)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x201uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x201uLL, &v4);
     v1 = *v2;
   }
 
@@ -6740,19 +6467,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst:
   return *(v1 + 4096);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2734E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>::~MemoryPool(void *a1)
 {
   *a1 = off_2734E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2734E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6770,8 +6496,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
 
 void sub_45468(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6782,39 +6508,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<8>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273520;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x2000)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x2000)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x401uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x401uLL, &v4);
     v1 = *v2;
   }
 
@@ -6826,19 +6551,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst:
   return *(v1 + 0x2000);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273560;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>::~MemoryPool(void *a1)
 {
   *a1 = off_273560;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273560;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6856,8 +6580,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
 
 void sub_457C8(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6868,39 +6592,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<16>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2735A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x4000)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x4000)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x801uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x801uLL, &v4);
     v1 = *v2;
   }
 
@@ -6912,19 +6635,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst:
   return *(v1 + 0x4000);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2735E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>::~MemoryPool(void *a1)
 {
   *a1 = off_2735E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2735E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -6942,8 +6664,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
 
 void sub_45B30(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -6954,39 +6676,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<32>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273620;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x8000)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x8000)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x1001uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x1001uLL, &v4);
     v1 = *v2;
   }
 
@@ -6998,19 +6719,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<fst::CacheState<fst:
   return *(v1 + 0x8000);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273660;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>::~MemoryPool(void *a1)
 {
   *a1 = off_273660;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273660;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7028,8 +6748,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
 
 void sub_45EA8(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7040,32 +6760,31 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::Ar
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::TN<64>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2736A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-void *std::__list_imp<int,fst::PoolAllocator<int>>::clear(void *result)
+uint64_t *std::__list_imp<int,fst::PoolAllocator<int>>::clear(uint64_t *result)
 {
   if (result[2])
   {
@@ -7099,7 +6818,7 @@ uint64_t std::__list_imp<int,fst::PoolAllocator<int>>::__delete_node[abi:ne20010
   return result;
 }
 
-void fst::PoolAllocator<std::__list_node<int,void *>>::deallocate(uint64_t *a1, void *__p, unint64_t a3)
+void fst::PoolAllocator<std::__list_node<int,void *>>::deallocate(void *a1, void *__p, unint64_t a3)
 {
   if (a3 == 2)
   {
@@ -7190,14 +6909,14 @@ LABEL_22:
   operator delete(__p);
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0xC7)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0xC7)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x19uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x19uLL, &v4);
     v1 = *v2;
   }
 
@@ -7209,19 +6928,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int
   return *(v1 + 192);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2736E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>::~MemoryPool(void *a1)
 {
   *a1 = off_2736E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2736E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7239,8 +6957,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
 
 void sub_463C8(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7251,39 +6969,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<1>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273720;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x187)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x187)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x31uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x31uLL, &v4);
     v1 = *v2;
   }
 
@@ -7295,19 +7012,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int
   return *(v1 + 384);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273760;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>::~MemoryPool(void *a1)
 {
   *a1 = off_273760;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273760;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7325,8 +7041,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
 
 void sub_46728(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7337,39 +7053,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<2>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2737A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x307)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x307)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x61uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x61uLL, &v4);
     v1 = *v2;
   }
 
@@ -7381,19 +7096,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int
   return *(v1 + 768);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2737E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>::~MemoryPool(void *a1)
 {
   *a1 = off_2737E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2737E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7411,8 +7125,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
 
 void sub_46A90(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7423,39 +7137,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<4>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273820;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0x607)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0x607)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0xC1uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0xC1uLL, &v4);
     v1 = *v2;
   }
 
@@ -7467,19 +7180,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int
   return *(v1 + 1536);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273860;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>::~MemoryPool(void *a1)
 {
   *a1 = off_273860;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273860;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7497,8 +7209,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
 
 void sub_46E00(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7509,39 +7221,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<8>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2738A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) <= 0xC07)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) <= 0xC07)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x181uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x181uLL, &v4);
     v1 = *v2;
   }
 
@@ -7553,19 +7264,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int
   return *(v1 + 3072);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2738E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>::~MemoryPool(void *a1)
 {
   *a1 = off_2738E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2738E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7583,8 +7293,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
 
 void sub_47170(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7595,39 +7305,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<16>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273920;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) >> 3 <= 0x300)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) >> 3 <= 0x300)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x301uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x301uLL, &v4);
     v1 = *v2;
   }
 
@@ -7639,19 +7348,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int
   return *(v1 + 6144);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>::~MemoryPool(void *a1)
-{
-  *a1 = off_273960;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>::~MemoryPool(void *a1)
 {
   *a1 = off_273960;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_273960;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7669,8 +7377,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
 
 void sub_474E4(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7681,39 +7389,38 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<32>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2739A0;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>(uint64_t a1)
+uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>(void *a1)
 {
-  v1 = *(a1 + 16);
-  v2 = (a1 + 16);
-  if ((*(a1 + 24) - v1) >> 3 <= 0x600)
+  v1 = a1[2];
+  v2 = a1 + 2;
+  if ((a1[3] - v1) >> 3 <= 0x600)
   {
     v4 = 0;
-    std::vector<fst::MemoryPoolBase *>::resize((a1 + 16), 0x601uLL, &v4);
+    std::vector<fst::MemoryPoolBase *>::resize(a1 + 2, 0x601uLL, &v4);
     v1 = *v2;
   }
 
@@ -7725,19 +7432,18 @@ uint64_t fst::MemoryPoolCollection::Pool<fst::PoolAllocator<std::__list_node<int
   return *(v1 + 12288);
 }
 
-uint64_t fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>::~MemoryPool(void *a1)
-{
-  *a1 = off_2739E0;
-  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>::~MemoryPool(void *a1)
 {
   *a1 = off_2739E0;
   fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_2739E0;
+  fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -7755,8 +7461,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
 
 void sub_47858(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -7767,29 +7473,28 @@ void fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,vo
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<int,void *>>::TN<64>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_273A20;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
 fst::MemoryPoolCollection **fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::~PoolAllocator(fst::MemoryPoolCollection **a1)
@@ -7930,8 +7635,9 @@ uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fs
   return *(a1 + 64);
 }
 
-float fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Final(uint64_t a1, int a2)
+float fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Final(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasFinal(a1, a2))
   {
     goto LABEL_20;
@@ -7942,7 +7648,7 @@ float fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::
   {
     if (v4 == 2)
     {
-      if (*(a1 + 160) == a2)
+      if (*(a1 + 160) == v2)
       {
         v5 = 0.0;
       }
@@ -7958,8 +7664,8 @@ float fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::
     v7 = *(a1 + 136);
     v6 = *(a1 + 160);
 LABEL_10:
-    v9 = v6 != -1 && v6 <= a2;
-    if ((*(*v7 + 32))(v7, (a2 - v9)) == INFINITY)
+    v9 = v6 != -1 && v6 <= v2;
+    if ((*(*v7 + 32))(v7, (v2 - v9)) == INFINITY)
     {
       v5 = INFINITY;
     }
@@ -7974,26 +7680,26 @@ LABEL_10:
 
   v6 = *(a1 + 160);
   v5 = 0.0;
-  if (v6 != a2)
+  if (v6 != v2)
   {
     v7 = *(a1 + 136);
     goto LABEL_10;
   }
 
 LABEL_19:
-  MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>>::GetMutableState(*(a1 + 120), a2);
+  MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>>::GetMutableState(*(a1 + 120), v2);
   *MutableState = v5;
   *(MutableState + 14) |= 9u;
 LABEL_20:
   v11 = *(a1 + 120);
-  if (*(v11 + 92) == a2)
+  if (*(v11 + 92) == v2)
   {
     v12 = v11 + 96;
   }
 
   else
   {
-    v12 = *(v11 + 8) + 8 * a2 + 8;
+    v12 = *(v11 + 8) + 8 * v2 + 8;
   }
 
   return **v12;
@@ -8102,14 +7808,15 @@ void *fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst
   return fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::GetMutableState(a1, v6);
 }
 
-void fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>>::GC(uint64_t a1, void *a2, char a3, float a4)
+void fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>>::GC(uint64_t a1, void *a2, uint64_t a3, float a4)
 {
   if (*(a1 + 120) == 1)
   {
+    v5 = a3;
     if (FLAGS_v >= 2)
     {
       boost::filesystem::path::path(__p, "INFO");
-      v8 = fst::LogMessage::LogMessage(v41, __p);
+      v8 = fst::LogMessage::LogMessage(v37, __p);
       v9 = fst::cerr(v8);
       v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "GCCacheStore: Enter GC: object = ", 33);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "(", 1);
@@ -8117,64 +7824,62 @@ void fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheStat
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "), free recently cached = ", 26);
       v12 = std::ostream::operator<<();
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ", cache size = ", 15);
-      v13 = *(a1 + 128);
+      v13 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, ", cache frac = ", 15);
       v14 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ", cache frac = ", 15);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ", cache limit = ", 16);
       v15 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ", cache limit = ", 16);
-      v16 = *(a1 + 112);
-      v17 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "\n", 1);
-      fst::LogMessage::~LogMessage(v41);
-      if (v46 < 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "\n", 1);
+      fst::LogMessage::~LogMessage(v37);
+      if (v42 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    v18 = (*(a1 + 112) * a4);
-    v19 = *(a1 + 40);
-    *(a1 + 64) = v19;
-    while (v19 != a1 + 32)
+    v16 = (*(a1 + 112) * a4);
+    v17 = *(a1 + 40);
+    *(a1 + 64) = v17;
+    while (v17 != a1 + 32)
     {
-      v20 = *(v19 + 16);
-      if (v20)
+      v18 = *(v17 + 16);
+      if (v18)
       {
-        v21 = v20 - 1;
+        v19 = v18 - 1;
       }
 
       else
       {
-        v21 = *(a1 + 92);
+        v19 = *(a1 + 92);
       }
 
-      MutableState = fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>::GetMutableState(a1, v21);
-      v23 = *(a1 + 128);
-      if (v23 > v18 && !*(MutableState + 15))
+      MutableState = fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>::GetMutableState(a1, v19);
+      v21 = *(a1 + 128);
+      if (v21 > v16 && !*(MutableState + 15))
       {
-        if (a3)
+        if (v5)
         {
           if (MutableState != a2)
           {
-            v24 = *(MutableState + 14);
+            v22 = *(MutableState + 14);
 LABEL_19:
-            if ((v24 & 4) != 0)
+            if ((v22 & 4) != 0)
             {
-              v25 = MutableState[4] - MutableState[3] + 64;
-              FstCheck(v25 <= v23, "(size) <= (cache_size_)", "../subproject/libquasar/libkaldi/tools/openfst/src/include/fst/cache.h");
-              *(a1 + 128) -= v25;
+              v23 = MutableState[4] - MutableState[3] + 64;
+              FstCheck(v23 <= v21, "(size) <= (cache_size_)", "../subproject/libquasar/libkaldi/tools/openfst/src/include/fst/cache.h", 794);
+              *(a1 + 128) -= v23;
             }
 
             fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>::Delete(a1);
-            v19 = *(a1 + 64);
+            v17 = *(a1 + 64);
             continue;
           }
         }
 
         else
         {
-          v24 = *(MutableState + 14);
-          if ((v24 & 8) == 0 && MutableState != a2)
+          v22 = *(MutableState + 14);
+          if ((v22 & 8) == 0 && MutableState != a2)
           {
             goto LABEL_19;
           }
@@ -8182,31 +7887,31 @@ LABEL_19:
       }
 
       *(MutableState + 14) &= ~8u;
-      v19 = *(*(a1 + 64) + 8);
-      *(a1 + 64) = v19;
+      v17 = *(*(a1 + 64) + 8);
+      *(a1 + 64) = v17;
     }
 
-    if ((a3 & 1) != 0 || *(a1 + 128) <= v18)
+    if ((v5 & 1) != 0 || *(a1 + 128) <= v16)
     {
-      v26 = *(a1 + 128);
-      if (v18)
+      v24 = *(a1 + 128);
+      if (v16)
       {
-        if (v26 > v18)
+        if (v24 > v16)
         {
-          v27 = *(a1 + 112);
+          v25 = *(a1 + 112);
           do
           {
-            v27 *= 2;
-            v28 = v26 > 2 * v18;
-            v18 *= 2;
+            v25 *= 2;
+            v26 = v24 > 2 * v16;
+            v16 *= 2;
           }
 
-          while (v28);
-          *(a1 + 112) = v27;
+          while (v26);
+          *(a1 + 112) = v25;
         }
       }
 
-      else if (v26)
+      else if (v24)
       {
         if (FLAGS_fst_error_fatal == 1)
         {
@@ -8218,11 +7923,11 @@ LABEL_19:
           boost::filesystem::path::path(__p, "ERROR");
         }
 
-        v29 = fst::LogMessage::LogMessage(&v44, __p);
-        v30 = fst::cerr(v29);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "GCCacheStore:GC: Unable to free all cached states", 49);
-        fst::LogMessage::~LogMessage(&v44);
-        if (v46 < 0)
+        v27 = fst::LogMessage::LogMessage(&v40, __p);
+        v28 = fst::cerr(v27);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "GCCacheStore:GC: Unable to free all cached states", 49);
+        fst::LogMessage::~LogMessage(&v40);
+        if (v42 < 0)
         {
           operator delete(__p[0]);
         }
@@ -8236,27 +7941,25 @@ LABEL_19:
 
     if (FLAGS_v >= 2)
     {
-      boost::filesystem::path::path(v41, "INFO");
-      v31 = fst::LogMessage::LogMessage(&v43, v41);
-      v32 = fst::cerr(v31);
-      v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "GCCacheStore: Exit GC: object = ", 32);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, "(", 1);
+      boost::filesystem::path::path(v37, "INFO");
+      v29 = fst::LogMessage::LogMessage(&v39, v37);
+      v30 = fst::cerr(v29);
+      v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "GCCacheStore: Exit GC: object = ", 32);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "(", 1);
+      v32 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "), free recently cached = ", 26);
+      v33 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ", cache size = ", 15);
       v34 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "), free recently cached = ", 26);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, ", cache frac = ", 15);
       v35 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, ", cache size = ", 15);
-      v36 = *(a1 + 128);
-      v37 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, ", cache frac = ", 15);
-      v38 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, ", cache limit = ", 16);
-      v39 = *(a1 + 112);
-      v40 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "\n", 1);
-      fst::LogMessage::~LogMessage(&v43);
-      if (v42 < 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, ", cache limit = ", 16);
+      v36 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "\n", 1);
+      fst::LogMessage::~LogMessage(&v39);
+      if (v38 < 0)
       {
-        operator delete(v41[0]);
+        operator delete(v37[0]);
       }
     }
   }
@@ -8319,7 +8022,7 @@ void *fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>
   return v7;
 }
 
-void *fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::allocate(uint64_t *a1, unint64_t a2)
+void *fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::allocate(void **a1, unint64_t a2)
 {
   if (a2 == 2)
   {
@@ -8610,7 +8313,7 @@ void *std::__list_imp<int,fst::PoolAllocator<int>>::__create_node[abi:ne200100]<
   return v7;
 }
 
-uint64_t *std::__allocation_guard<fst::PoolAllocator<std::__list_node<int,void *>>>::__allocation_guard[abi:ne200100]<fst::PoolAllocator<std::__list_node<int,void *>>>(uint64_t *a1, uint64_t *a2, unint64_t a3)
+void *std::__allocation_guard<fst::PoolAllocator<std::__list_node<int,void *>>>::__allocation_guard[abi:ne200100]<fst::PoolAllocator<std::__list_node<int,void *>>>(void *a1, uint64_t *a2, unint64_t a3)
 {
   v4 = *a2;
   *(v4 + 8) = *(*a2 + 8) + 1;
@@ -8620,7 +8323,7 @@ uint64_t *std::__allocation_guard<fst::PoolAllocator<std::__list_node<int,void *
   return a1;
 }
 
-void *fst::PoolAllocator<std::__list_node<int,void *>>::allocate(uint64_t *a1, unint64_t a2)
+void *fst::PoolAllocator<std::__list_node<int,void *>>::allocate(void **a1, unint64_t a2)
 {
   if (a2 == 2)
   {
@@ -8864,7 +8567,7 @@ uint64_t fst::MemoryArena<fst::MemoryPool<fst::PoolAllocator<std::__list_node<in
   return v7;
 }
 
-fst::MemoryPoolCollection **std::__allocation_guard<fst::PoolAllocator<std::__list_node<int,void *>>>::~__allocation_guard[abi:ne200100](uint64_t *a1)
+fst::MemoryPoolCollection **std::__allocation_guard<fst::PoolAllocator<std::__list_node<int,void *>>>::~__allocation_guard[abi:ne200100](fst::MemoryPoolCollection **a1)
 {
   v2 = a1[2];
   if (v2)
@@ -8875,7 +8578,7 @@ fst::MemoryPoolCollection **std::__allocation_guard<fst::PoolAllocator<std::__li
   return fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::~PoolAllocator(a1);
 }
 
-void *std::vector<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::reserve(void *result, unint64_t a2)
+const void **std::vector<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -8908,7 +8611,7 @@ void *std::vector<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::
   return result;
 }
 
-void *fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::allocate(uint64_t *a1, unint64_t a2)
+void *fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>::allocate(void **a1, unint64_t a2)
 {
   if (a2 == 2)
   {
@@ -9085,23 +8788,23 @@ uint64_t std::__split_buffer<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllo
   return a1;
 }
 
-void FstCheck(char a1, const char *a2, const char *a3)
+void FstCheck(char a1, const char *a2, const char *a3, uint64_t a4)
 {
   if ((a1 & 1) == 0)
   {
     boost::filesystem::path::path(__p, "FATAL");
-    v5 = fst::LogMessage::LogMessage(&v15, __p);
-    v6 = fst::cerr(v5);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Check failed: ", 15);
-    v8 = strlen(a2);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v8);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " file: ", 8);
-    v11 = strlen(a3);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, a3, v11);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " line: ", 7);
+    v6 = fst::LogMessage::LogMessage(&v16, __p);
+    v7 = fst::cerr(v6);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Check failed: ", 15);
+    v9 = strlen(a2);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, a2, v9);
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " file: ", 8);
+    v12 = strlen(a3);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, a3, v12);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " line: ", 7);
     std::ostream::operator<<();
-    fst::LogMessage::~LogMessage(&v15);
-    if (v14 < 0)
+    fst::LogMessage::~LogMessage(&v16);
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
@@ -9145,25 +8848,25 @@ uint64_t fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<flo
   return std::__list_imp<int,fst::PoolAllocator<int>>::__delete_node[abi:ne200100]((a1 + 4), v2);
 }
 
-uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::NumArcs(uint64_t a1, int a2)
+uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::NumArcs(uint64_t a1, uint64_t a2)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasArcs(a1, a2) & 1) == 0)
   {
-    fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(a1, a2);
+    fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(a1, a2, v4);
   }
 
-  v4 = *(a1 + 120);
-  if (*(v4 + 92) == a2)
+  v5 = *(a1 + 120);
+  if (*(v5 + 92) == a2)
   {
-    v5 = v4 + 96;
+    v6 = v5 + 96;
   }
 
   else
   {
-    v5 = *(v4 + 8) + 8 * a2 + 8;
+    v6 = *(v5 + 8) + 8 * a2 + 8;
   }
 
-  return (*(*v5 + 32) - *(*v5 + 24)) >> 4;
+  return (*(*v6 + 32) - *(*v6 + 24)) >> 4;
 }
 
 uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasArcs(uint64_t a1, int a2)
@@ -9203,19 +8906,20 @@ uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>
   return 1;
 }
 
-uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(uint64_t a1, int a2)
+void fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v4 = *(a1 + 160);
-  if (v4 == a2)
+  v5 = *(a1 + 160);
+  if (v5 == a2)
   {
 
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetArcs(a1, a2);
+    fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetArcs(a1, a2);
+    return;
   }
 
   v6 = *(a1 + 136);
-  v8 = v4 != -1 && v4 <= a2;
+  v8 = v5 != -1 && v5 <= a2;
   v30 = 0;
-  (*(*v6 + 136))(v6, (a2 - v8), &v27);
+  (*(*v6 + 136))(v6, (a2 - v8), &v27, a3);
   while (1)
   {
     if (!v27)
@@ -9332,14 +9036,14 @@ LABEL_35:
     }
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetArcs(a1, a2);
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetArcs(a1, a2);
 }
 
-void sub_4A2B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, _DWORD *a14)
+void sub_4A2B0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, _DWORD *a14)
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a14)
@@ -9350,8 +9054,9 @@ void sub_4A2B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetArcs(uint64_t a1, int a2)
+void fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetArcs(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>>::GetMutableState(*(a1 + 120), a2);
   fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>>::SetArcs(*(a1 + 120), MutableState);
   v5 = MutableState[3];
@@ -9383,12 +9088,11 @@ uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>
     while (v7);
   }
 
-  result = fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetExpandedState(a1, a2);
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetExpandedState(a1, v2);
   *(MutableState + 14) |= 0xAu;
-  return result;
 }
 
-void *fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::PushArc(uint64_t a1, int a2, _OWORD *a3)
+void *fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::PushArc(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
   result = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>>::GetMutableState(*(a1 + 120), a2);
   v5 = result;
@@ -9420,7 +9124,7 @@ void *fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,f
       v13 = v11;
     }
 
-    v14 = result + 6;
+    v14 = (result + 6);
     v23[4] = v5 + 6;
     if (v13)
     {
@@ -9477,41 +9181,33 @@ void fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheStat
   }
 }
 
-uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetExpandedState(uint64_t result, int a2)
+void fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetExpandedState(uint64_t a1, int a2)
 {
-  v2 = result;
-  if (*(result + 100) < a2)
+  if (*(a1 + 100) < a2)
   {
-    *(result + 100) = a2;
+    *(a1 + 100) = a2;
   }
 
-  v3 = *(result + 96);
+  v3 = *(a1 + 96);
   if (v3 <= a2)
   {
     if (v3 == a2)
     {
-      *(result + 96) = a2 + 1;
+      *(a1 + 96) = a2 + 1;
     }
 
-    if ((*(result + 104) & 1) != 0 || !*(result + 112))
+    if ((*(a1 + 104) & 1) != 0 || !*(a1 + 112))
     {
       v4 = a2;
-      if (*(result + 80) <= a2)
+      while (*(a1 + 80) <= v4)
       {
-        do
-        {
-          v5 = 0;
-          result = std::vector<BOOL>::push_back(v2 + 72, &v5);
-        }
-
-        while (*(v2 + 80) <= v4);
+        v5 = 0;
+        std::vector<BOOL>::push_back(a1 + 72, &v5);
       }
 
-      *(*(v2 + 72) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v4;
+      *(*(a1 + 72) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v4;
     }
   }
-
-  return result;
 }
 
 void *fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::SetArcs(void *result)
@@ -9549,46 +9245,46 @@ void *fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<f
   return result;
 }
 
-uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::NumInputEpsilons(uint64_t a1, int a2)
+uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::NumInputEpsilons(uint64_t a1, uint64_t a2)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasArcs(a1, a2) & 1) == 0)
   {
-    fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(a1, a2);
+    fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(a1, a2, v4);
   }
 
-  v4 = *(a1 + 120);
-  if (*(v4 + 92) == a2)
+  v5 = *(a1 + 120);
+  if (*(v5 + 92) == a2)
   {
-    v5 = v4 + 96;
+    v6 = v5 + 96;
   }
 
   else
   {
-    v5 = *(v4 + 8) + 8 * a2 + 8;
+    v6 = *(v5 + 8) + 8 * a2 + 8;
   }
 
-  return *(*v5 + 8);
+  return *(*v6 + 8);
 }
 
-uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::NumOutputEpsilons(uint64_t a1, int a2)
+uint64_t fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::NumOutputEpsilons(uint64_t a1, uint64_t a2)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasArcs(a1, a2) & 1) == 0)
   {
-    fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(a1, a2);
+    fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>::Expand(a1, a2, v4);
   }
 
-  v4 = *(a1 + 120);
-  if (*(v4 + 92) == a2)
+  v5 = *(a1 + 120);
+  if (*(v5 + 92) == a2)
   {
-    v5 = v4 + 96;
+    v6 = v5 + 96;
   }
 
   else
   {
-    v5 = *(v4 + 8) + 8 * a2 + 8;
+    v6 = *(v5 + 8) + 8 * a2 + 8;
   }
 
-  return *(*v5 + 16);
+  return *(*v6 + 16);
 }
 
 unint64_t fst::TestProperties<fst::ArcTpl<fst::LogWeightTpl<float>>>(uint64_t a1, uint64_t a2, uint64_t *a3)
@@ -9648,7 +9344,7 @@ unint64_t fst::ComputeProperties<fst::ArcTpl<fst::LogWeightTpl<float>>>(uint64_t
       v44 = 0;
       v45 = 0;
       v46 = &v48;
-      fst::DfsVisit<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::LogWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::LogWeightTpl<float>>>>(a1, &v43);
+      fst::DfsVisit<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::LogWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::LogWeightTpl<float>>>>(a1, &v43, 0);
     }
 
     if ((a2 & 0xFFFFF0C3FFFFFFF8) != 0)
@@ -9973,4 +9669,216 @@ LABEL_17:
 
   *a3 = v12;
   return v11;
+}
+
+void sub_4B020(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a18)
+  {
+    operator delete(a18);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *fst::ImplToFst<fst::ArcMapFstImpl<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>,fst::RmWeightMapper<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::Fst<fst::ArcTpl<fst::LogWeightTpl<float>>>>::ImplToFst(void *a1, uint64_t a2, int a3)
+{
+  *a1 = off_273A60;
+  if (a3)
+  {
+    operator new();
+  }
+
+  v3 = *(a2 + 8);
+  a1[1] = v3;
+  ++*(v3 + 56);
+  return a1;
+}
+
+void fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::CacheBaseImpl(uint64_t a1, uint64_t a2, int a3)
+{
+  *a1 = off_272FA8;
+  *(a1 + 8) = 0;
+  boost::filesystem::path::path((a1 + 16), "null");
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 1;
+  *a1 = off_272F70;
+  *(a1 + 60) = 0;
+  *(a1 + 64) = -1;
+  *(a1 + 68) = 0u;
+  *(a1 + 84) = 0u;
+  *(a1 + 100) = -1;
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 112) = *(a2 + 112);
+  operator new();
+}
+
+uint64_t *std::vector<BOOL>::operator=(uint64_t *a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *(a2 + 8);
+    if (v4)
+    {
+      if (v4 > a1[2] << 6)
+      {
+        v5 = *a1;
+        if (*a1)
+        {
+          operator delete(v5);
+          *a1 = 0;
+          a1[1] = 0;
+          a1[2] = 0;
+          v4 = *(a2 + 8);
+        }
+
+        std::vector<BOOL>::__vallocate[abi:ne200100](a1, v4);
+      }
+
+      memmove(*a1, *a2, (((v4 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8) + 8);
+      v6 = *(a2 + 8);
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    a1[1] = v6;
+  }
+
+  return a1;
+}
+
+uint64_t fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>>::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::CopyStates(a1, a2);
+    *(a1 + 64) = *(a1 + 40);
+    *(a1 + 88) = *(a2 + 88);
+    v4 = *(a2 + 92);
+    *(a1 + 92) = v4;
+    if (v4 == -1)
+    {
+      MutableState = 0;
+    }
+
+    else
+    {
+      MutableState = fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::GetMutableState(a1, 0);
+    }
+
+    *(a1 + 96) = MutableState;
+  }
+
+  return a1;
+}
+
+void fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::CopyStates(uint64_t a1, uint64_t a2)
+{
+  fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::Clear(a1);
+  std::vector<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *,std::allocator<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *>>::reserve((a1 + 8), (*(a2 + 16) - *(a2 + 8)) >> 3);
+  v23 = 0;
+  v4 = *(a2 + 8);
+  if (*(a2 + 16) != v4)
+  {
+    v5 = 0;
+    do
+    {
+      v6 = *(v4 + 8 * v5);
+      if (v6)
+      {
+        v7 = fst::PoolAllocator<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>>::allocate((a1 + 72), 1uLL);
+        *v7 = *v6;
+        *(v7 + 1) = *(v6 + 8);
+        std::vector<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>::vector[abi:ne200100]<std::__wrap_iter<fst::ArcTpl<fst::LogWeightTpl<float>> const*>,0>(v7 + 3, *(v6 + 24), *(v6 + 32), (a1 + 80));
+        *(v7 + 14) = *(v6 + 56);
+        *(v7 + 15) = 0;
+        if (*a1 == 1)
+        {
+          v8 = std::__list_imp<int,fst::PoolAllocator<int>>::__create_node[abi:ne200100]<int const&>(a1 + 32, 0, 0, &v23);
+          v9 = *(a1 + 32);
+          *v8 = v9;
+          v8[1] = a1 + 32;
+          *(v9 + 8) = v8;
+          *(a1 + 32) = v8;
+          ++*(a1 + 48);
+        }
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      v11 = *(a1 + 16);
+      v10 = *(a1 + 24);
+      if (v11 >= v10)
+      {
+        v13 = *(a1 + 8);
+        v14 = (v11 - v13) >> 3;
+        if ((v14 + 1) >> 61)
+        {
+          std::vector<float>::__throw_length_error[abi:ne200100]();
+        }
+
+        v15 = v10 - v13;
+        v16 = v15 >> 2;
+        if (v15 >> 2 <= (v14 + 1))
+        {
+          v16 = v14 + 1;
+        }
+
+        if (v15 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v17 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v17 = v16;
+        }
+
+        if (v17)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *>>(a1 + 8, v17);
+        }
+
+        v18 = (8 * v14);
+        *v18 = v7;
+        v12 = 8 * v14 + 8;
+        v19 = *(a1 + 8);
+        v20 = *(a1 + 16) - v19;
+        v21 = v18 - v20;
+        memcpy(v18 - v20, v19, v20);
+        v22 = *(a1 + 8);
+        *(a1 + 8) = v21;
+        *(a1 + 16) = v12;
+        *(a1 + 24) = 0;
+        if (v22)
+        {
+          operator delete(v22);
+        }
+      }
+
+      else
+      {
+        *v11 = v7;
+        v12 = (v11 + 1);
+      }
+
+      *(a1 + 16) = v12;
+      v5 = ++v23;
+      v4 = *(a2 + 8);
+    }
+
+    while (v5 < (*(a2 + 16) - v4) >> 3);
+  }
 }

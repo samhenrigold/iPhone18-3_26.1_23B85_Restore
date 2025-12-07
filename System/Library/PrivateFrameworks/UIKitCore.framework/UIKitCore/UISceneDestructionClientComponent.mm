@@ -26,9 +26,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v10 = [v7 isEqual:v8];
+  isEqual = objc_msgSend_isEqual_(v7);
 
-  if ((v10 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v11 = [*(a1 + 32) copy];

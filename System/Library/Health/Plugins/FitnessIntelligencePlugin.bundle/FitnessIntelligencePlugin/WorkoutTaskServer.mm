@@ -11,17 +11,16 @@
 - (_TtC25FitnessIntelligencePlugin17WorkoutTaskServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate
 {
   v9 = sub_749B8();
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_74998();
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  v15 = sub_4F1B4(v12, configuration, clientCopy, delegate);
+  v14 = sub_4F1B4(v11, configuration, clientCopy, delegate);
 
   swift_unknownObjectRelease();
-  return v15;
+  return v14;
 }
 
 + (id)taskIdentifier
@@ -50,22 +49,21 @@
 {
   v7 = sub_74968();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v19 - v13;
-  v15 = _Block_copy(completion);
+  v9 = __chkstk_darwin(v7);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v13 = &v18 - v12;
+  v14 = _Block_copy(completion);
   sub_74938();
   sub_74938();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
   selfCopy = self;
-  WorkoutTaskServer.query(startDate:endDate:completion:)(v14, v12, sub_199A0, v16);
+  WorkoutTaskServer.query(startDate:endDate:completion:)(v13, v11, sub_199A0, v15);
 
-  v18 = *(v8 + 8);
-  v18(v12, v7);
-  v18(v14, v7);
+  v17 = *(v8 + 8);
+  v17(v11, v7);
+  v17(v13, v7);
 }
 
 @end

@@ -95,7 +95,7 @@ void __38__ULBleIdentityBridge_startMonitoring__block_invoke_2(uint64_t a1, void
 
 void __38__ULBleIdentityBridge_startMonitoring__block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -125,15 +125,13 @@ void __38__ULBleIdentityBridge_startMonitoring__block_invoke_3(uint64_t a1, void
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_INFO))
       {
         *buf = 68289026;
-        v13 = 0;
-        v14 = 2082;
-        v15 = "";
+        v12 = 0;
+        v13 = 2082;
+        v14 = "";
         _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_INFO, "{msg%{public}.0s:ULBleIdentityBridge: CBDiscovery activated successfully}", buf, 0x12u);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoring
@@ -164,7 +162,7 @@ void __37__ULBleIdentityBridge_stopMonitoring__block_invoke(uint64_t a1)
 
 - (void)_deviceFoundHandler:(id)handler
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   deviceFlags = [handlerCopy deviceFlags];
   nearbyInfoV2DecryptedFlags = [handlerCopy nearbyInfoV2DecryptedFlags];
@@ -186,32 +184,32 @@ void __37__ULBleIdentityBridge_stopMonitoring__block_invoke(uint64_t a1)
       idsDeviceID = [handlerCopy idsDeviceID];
       uTF8String = [idsDeviceID UTF8String];
       identifier = [handlerCopy identifier];
-      v34 = uTF8String;
+      v33 = uTF8String;
       selfCopy = self;
       uTF8String2 = [identifier UTF8String];
       model = [handlerCopy model];
       uTF8String3 = [model UTF8String];
       [handlerCopy bleAdvertisementTimestamp];
       *buf = 68291075;
-      v45 = 0;
-      v46 = 2082;
-      *v47 = "";
-      *&v47[8] = 2081;
-      *&v47[10] = v34;
-      v48 = 2081;
-      v49 = uTF8String2;
-      v50 = 2081;
-      v51 = uTF8String3;
-      LOWORD(v52) = 1025;
-      *(&v52 + 2) = v10 != 0;
-      HIWORD(v52) = 1025;
-      v53 = v11 >> 7;
-      v54 = 1025;
-      v55 = (deviceFlags3 >> 15) & 1;
-      v56 = 2050;
-      v57 = v18;
-      v58 = 1026;
-      *v59 = [handlerCopy rssi];
+      v44 = 0;
+      v45 = 2082;
+      *v46 = "";
+      *&v46[8] = 2081;
+      *&v46[10] = v33;
+      v47 = 2081;
+      v48 = uTF8String2;
+      v49 = 2081;
+      v50 = uTF8String3;
+      LOWORD(v51) = 1025;
+      *(&v51 + 2) = v10 != 0;
+      HIWORD(v51) = 1025;
+      v52 = v11 >> 7;
+      v53 = 1025;
+      v54 = (deviceFlags3 >> 15) & 1;
+      v55 = 2050;
+      v56 = v18;
+      v57 = 1026;
+      *v58 = [handlerCopy rssi];
       _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:ULBleIdentityBridge: Ble Beacon Received, IDS ID:%{private, location:escape_only}s, BT identifier:%{private, location:escape_only}s, Model:%{private, location:escape_only}s, is device nearbyInfo or nearbyAction type?:%{private}hhd, is device same account?:%{private}hhd, is device cloud paired?:%{private}hhd, AdvertisementTimestamp:%{public}.3f, RSSI:%{public}d}", buf, 0x52u);
 
       self = selfCopy;
@@ -237,95 +235,93 @@ void __37__ULBleIdentityBridge_stopMonitoring__block_invoke(uint64_t a1)
       v25 = identifier3;
       if (identifier3)
       {
-        [identifier3 boostUUID];
+        objc_msgSend_boostUUID(identifier3);
       }
 
       else
       {
-        v62 = 0uLL;
-        v63 = 0;
+        v61 = 0uLL;
+        v62 = 0;
       }
 
-      if (v63 == 1)
+      if (v62 == 1)
       {
         name = [handlerCopy name];
         v27 = name;
         if (name)
         {
-          [name stdString];
+          objc_msgSend_stdString(name);
         }
 
         else
         {
-          *v42 = 0u;
-          v43 = 0u;
+          *v41 = 0u;
+          v42 = 0u;
         }
 
         stableIdentifier = [handlerCopy stableIdentifier];
         v29 = stableIdentifier;
         if (stableIdentifier)
         {
-          [stableIdentifier stdString];
+          objc_msgSend_stdString(stableIdentifier);
         }
 
         else
         {
-          *v40 = 0u;
-          v41 = 0u;
+          *v39 = 0u;
+          v40 = 0u;
         }
 
         model2 = [handlerCopy model];
         v31 = model2;
         if (model2)
         {
-          [model2 stdString];
+          objc_msgSend_stdString(model2);
         }
 
         else
         {
-          *v38 = 0u;
-          v39 = 0u;
+          *v37 = 0u;
+          v38 = 0u;
         }
 
-        v37 = cl::chrono::CFAbsoluteTimeClock::now();
-        ULBleIdentityItem::ULBleIdentityItem(buf, &v62, v42, v40, v38, &v37);
+        v36 = cl::chrono::CFAbsoluteTimeClock::now();
+        ULBleIdentityItem::ULBleIdentityItem(buf, &v61, v41, v39, v37, &v36);
         delegate = [(ULBleIdentityBridge *)self delegate];
         [delegate onBleIdentityItem:buf];
 
-        if (v61 == 1 && v60 < 0)
+        if (v60 == 1 && v59 < 0)
         {
-          operator delete(*&v59[2]);
+          operator delete(*&v58[2]);
         }
 
-        if (BYTE4(v57) == 1 && SBYTE3(v57) < 0)
+        if (BYTE4(v56) == 1 && SBYTE3(v56) < 0)
         {
-          operator delete(v52);
+          operator delete(v51);
         }
 
-        if (v51 == 1 && SHIBYTE(v50) < 0)
+        if (v50 == 1 && SHIBYTE(v49) < 0)
         {
-          operator delete(*&v47[6]);
+          operator delete(*&v46[6]);
         }
 
-        if (BYTE8(v39) == 1 && SBYTE7(v39) < 0)
+        if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
         {
-          operator delete(v38[0]);
+          operator delete(v37[0]);
         }
 
-        if (BYTE8(v41) == 1 && SBYTE7(v41) < 0)
+        if (BYTE8(v40) == 1 && SBYTE7(v40) < 0)
         {
-          operator delete(v40[0]);
+          operator delete(v39[0]);
         }
 
-        if (BYTE8(v43) == 1 && SBYTE7(v43) < 0)
+        if (BYTE8(v42) == 1 && SBYTE7(v42) < 0)
         {
-          operator delete(v42[0]);
+          operator delete(v41[0]);
         }
       }
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (ULBleIdentityBridgeDelegate)delegate

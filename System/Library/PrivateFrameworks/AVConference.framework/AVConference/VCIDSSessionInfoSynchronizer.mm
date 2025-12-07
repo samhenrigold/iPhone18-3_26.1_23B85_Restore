@@ -141,7 +141,7 @@ void __71__VCIDSSessionInfoSynchronizer_setVCIDSSessionInfoSubscribedStreamIDs__
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d streamIDsDictionary is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d streamIDsDictionary is nil", v2, v3, v4, v5);
 }
 
 void __72__VCIDSSessionInfoSynchronizer_retryVCIDSSessionInfoSubscribedStreamIDs__block_invoke(uint64_t a1)
@@ -1111,7 +1111,7 @@ LABEL_26:
   }
 }
 
-uint64_t __76__VCIDSSessionInfoSynchronizer_PrivateMethods__optInStreamIDsForConnection___block_invoke(uint64_t a1)
+void *__76__VCIDSSessionInfoSynchronizer_PrivateMethods__optInStreamIDsForConnection___block_invoke(uint64_t a1)
 {
   v21[4] = *MEMORY[0x1E69E9840];
   result = [*(*(a1 + 32) + 32) count];
@@ -1223,7 +1223,7 @@ uint64_t __76__VCIDSSessionInfoSynchronizer_PrivateMethods__optInStreamIDsForCon
 
 - (void)periodicTask:(void *)task
 {
-  v5 = micro();
+  v5 = micro(self, a2);
   v6 = v5 - self->_lastUpdateTimestamp;
   self->_lastUpdateTimestamp = v5;
   sessionInfoRequestBytesUsed = self->_sessionInfoRequestBytesUsed;
@@ -1324,7 +1324,7 @@ uint64_t __76__VCIDSSessionInfoSynchronizer_PrivateMethods__optInStreamIDsForCon
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d streamIDsDictionary is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d streamIDsDictionary is nil", v2, v3, v4, v5);
 }
 
 void __72__VCIDSSessionInfoSynchronizer_retryVCIDSSessionInfoSubscribedStreamIDs__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
@@ -1346,7 +1346,7 @@ void __72__VCIDSSessionInfoSynchronizer_retryVCIDSSessionInfoSubscribedStreamIDs
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Secondary connection is end-to-end when subscribing to streams.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Secondary connection is end-to-end when subscribing to streams.", v2, v3, v4, v5);
 }
 
 - (void)sendVCIDSSessionInfoSubscribedStreamIDs:.cold.2()
@@ -1358,7 +1358,7 @@ void __72__VCIDSSessionInfoSynchronizer_retryVCIDSSessionInfoSubscribedStreamIDs
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Primary connection is end-to-end when subscribing to streams.", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Primary connection is end-to-end when subscribing to streams.", v2, v3, v4, v5);
     }
   }
 }
@@ -1372,7 +1372,7 @@ void __72__VCIDSSessionInfoSynchronizer_retryVCIDSSessionInfoSubscribedStreamIDs
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d primary connection is nil", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d primary connection is nil", v2, v3, v4, v5);
     }
   }
 }
@@ -1386,7 +1386,7 @@ void __70__VCIDSSessionInfoSynchronizer_setVCIDSSessionInfoPublishedStreamIDs___
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Primary connection is end-to-end when publishing streams.", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Primary connection is end-to-end when publishing streams.", v2, v3, v4, v5);
     }
   }
 }
@@ -1400,7 +1400,7 @@ void __70__VCIDSSessionInfoSynchronizer_setVCIDSSessionInfoPublishedStreamIDs___
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d primary connection is nil", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d primary connection is nil", v2, v3, v4, v5);
     }
   }
 }

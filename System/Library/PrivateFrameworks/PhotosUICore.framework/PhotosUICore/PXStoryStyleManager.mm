@@ -140,7 +140,7 @@ void __52__PXStoryStyleManager_observable_didChange_context___block_invoke(uint6
   recipeManager = [(PXStoryStyleManager *)self recipeManager];
   configuration = [recipeManager configuration];
 
-  if (([configuration options] & 0x10) != 0)
+  if ((objc_msgSend_options(configuration) & 0x10) != 0)
   {
     songsConfiguration = [configuration songsConfiguration];
     currentAsset = [songsConfiguration currentAsset];
@@ -438,7 +438,7 @@ void __56__PXStoryStyleManager__handleCueSource_error_requestID___block_invoke(u
 {
   currentStyleInfo = [(PXStoryStyleManager *)self currentStyleInfo];
   songResource = [currentStyleInfo songResource];
-  if ((PXStorySongResourceIsNullResource(songResource) & 1) != 0 || (-[PXStoryStyleManager recipeManager](self, "recipeManager"), v5 = objc_claimAutoreleasedReturnValue(), [v5 configuration], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "options"), v6, v5, (v7 & 2) != 0))
+  if ((PXStorySongResourceIsNullResource(songResource) & 1) != 0 || (-[PXStoryStyleManager recipeManager](self, "recipeManager"), v5 = objc_claimAutoreleasedReturnValue(), [v5 configuration], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend_options(v6), v6, v5, (v7 & 2) != 0))
   {
     px_storyResourceSongAsset = objc_alloc_init(PXConcreteAudioCueSource);
     [(PXStoryStyleManager *)self setCueSource:px_storyResourceSongAsset];
@@ -537,7 +537,7 @@ void __39__PXStoryStyleManager__updateCueSource__block_invoke_2(uint64_t a1)
   recipeManager = [(PXStoryStyleManager *)self recipeManager];
   configuration = [recipeManager configuration];
 
-  v8 = ([configuration options] & 0x10) == 0;
+  v8 = (objc_msgSend_options(configuration) & 0x10) == 0;
   if ([autoEditStyleConfigurations count])
   {
     colorGradingRepository = [(PXStoryStyleManager *)self colorGradingRepository];
@@ -1111,9 +1111,9 @@ LABEL_8:
     styleProducer = v10->_styleProducer;
     v10->_styleProducer = v14;
 
-    options = [configuration options];
+    v16 = objc_msgSend_options(configuration);
     v10->_styleOptions.croppingOptions = 0;
-    *&v10->_styleOptions.preferStillKeySegment = (options & 2) == 0;
+    *&v10->_styleOptions.preferStillKeySegment = (v16 & 2) == 0;
     storyQueue = [(PXStoryRecipeManager *)v10->_recipeManager storyQueue];
     storyQueue = v10->_storyQueue;
     v10->_storyQueue = storyQueue;

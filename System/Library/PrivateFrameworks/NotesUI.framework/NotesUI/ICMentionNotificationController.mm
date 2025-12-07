@@ -138,14 +138,14 @@ void __73__ICMentionNotificationController_sendPendingNotificationsCreatedBefore
   }
 }
 
-void __73__ICMentionNotificationController_sendPendingNotificationsCreatedBefore___block_invoke_2(uint64_t a1)
+void __73__ICMentionNotificationController_sendPendingNotificationsCreatedBefore___block_invoke_2(void *a1)
 {
   v18 = *MEMORY[0x1E69E9840];
-  v2 = [ICMentionNotificationController pendingMentionsInContext:*(a1 + 32) createdBeforeDate:*(a1 + 40)];
+  v2 = [ICMentionNotificationController pendingMentionsInContext:a1[4] createdBeforeDate:a1[5]];
   v3 = os_log_create("com.apple.notes", "Mentions");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __73__ICMentionNotificationController_sendPendingNotificationsCreatedBefore___block_invoke_2_cold_1((a1 + 40), v2, v3);
+    __73__ICMentionNotificationController_sendPendingNotificationsCreatedBefore___block_invoke_2_cold_1(a1 + 5, v2, v3);
   }
 
   v4 = [ICMentionNotificationController coalesceMentions:v2];
@@ -177,7 +177,7 @@ void __73__ICMentionNotificationController_sendPendingNotificationsCreatedBefore
           _os_log_debug_impl(&dword_1D4171000, v10, OS_LOG_TYPE_DEBUG, "Attempting to send notification for coalesced mentions: %@", buf, 0xCu);
         }
 
-        [objc_opt_class() triggerNotificationForMentionAttachments:v9 context:*(a1 + 32)];
+        [objc_opt_class() triggerNotificationForMentionAttachments:v9 context:a1[4]];
         ++v8;
       }
 
@@ -606,7 +606,7 @@ LABEL_14:
             v6 = v27;
           }
 
-          v21 = [v4 objectForKeyedSubscript:v13];
+          v21 = objc_msgSend_objectForKeyedSubscript_(v4);
           if (!v21)
           {
             v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -735,7 +735,7 @@ void __52__ICMentionNotificationController_coalesceMentions___block_invoke(uint6
           if (v27 != 0x7FFFFFFFFFFFFFFFLL)
           {
             v30 = [MEMORY[0x1E696B098] valueWithRange:{v27, v29}];
-            v31 = [v35 objectForKeyedSubscript:v30];
+            v31 = objc_msgSend_objectForKeyedSubscript_(v35);
             if (!v31)
             {
               v31 = objc_alloc_init(MEMORY[0x1E695DF70]);

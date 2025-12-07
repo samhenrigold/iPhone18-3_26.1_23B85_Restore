@@ -24,11 +24,11 @@ uint64_t classInitialize_CVPixelBuffer(void *a1)
 const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __CFDictionary *a2, CFIndex a3, unint64_t a4, __CFDictionary *a5)
 {
   v7 = theDict;
-  v58 = *MEMORY[0x1E69E9840];
-  v57 = 0uLL;
+  v57 = *MEMORY[0x1E69E9840];
+  v56 = 0uLL;
   if (!a2 && a4 > 1 || a4 == 1 && !a5)
   {
-    goto LABEL_126;
+    return theDict;
   }
 
   Value = CFDictionaryGetValue(theDict, @"Planes");
@@ -76,7 +76,7 @@ const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __C
 
   v19 = v11 && v12 == 0;
   v20 = v19;
-  v53 = BoolValueWithDefault;
+  v52 = BoolValueWithDefault;
   if (a4 == 2 && !a3 && v20)
   {
     ++v18;
@@ -114,8 +114,8 @@ const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __C
   }
 
   v24 = a4 > 2 && v11 != 0;
-  v51 = v14;
-  v52 = v12;
+  v50 = v14;
+  v51 = v12;
   if (v12)
   {
     v25 = a3 + 1 == a4;
@@ -131,7 +131,7 @@ const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __C
     ++v24;
   }
 
-  v55 = v13;
+  v54 = v13;
   if (v13)
   {
     ++v24;
@@ -166,7 +166,7 @@ const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __C
   v34 = 4 * v32;
   do
   {
-    *(&v57 + v31) = CVDictionaryGetIntValueWithDefault(v7, @"BitsPerComponent", 8);
+    *(&v56 + v31) = CVDictionaryGetIntValueWithDefault(v7, @"BitsPerComponent", 8);
     v31 += 4;
   }
 
@@ -174,7 +174,7 @@ const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __C
   v35 = *MEMORY[0x1E696D008];
   if (a2)
   {
-    theDict = CVDictionarySetSInt32Array(a2, v35, &v57, v33);
+    theDict = CVDictionarySetSInt32Array(a2, v35, &v56, v33);
     v36 = v27;
     v37 = a5;
   }
@@ -182,13 +182,13 @@ const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __C
   else
   {
     v37 = a5;
-    theDict = CVDictionarySetSInt32Array(a5, v35, &v57, v33);
+    theDict = CVDictionarySetSInt32Array(a5, v35, &v56, v33);
     v36 = v27;
   }
 
   if (theDict)
   {
-    goto LABEL_126;
+    return theDict;
   }
 
   v38 = CFDictionaryGetValue(v7, @"ComponentRange");
@@ -199,7 +199,7 @@ const __CFDictionary *setComponentsProperties(const __CFDictionary *theDict, __C
     {
       v40 = 2;
 LABEL_87:
-      LODWORD(v57) = v40;
+      LODWORD(v56) = v40;
       goto LABEL_89;
     }
 
@@ -217,13 +217,13 @@ LABEL_87:
   }
 
   v40 = 0;
-  LODWORD(v57) = 0;
+  LODWORD(v56) = 0;
 LABEL_89:
   if (v26 >= 2)
   {
     v41 = 0;
     v42 = vdupq_n_s64(v26 - 2);
-    v43 = &v57 + 2;
+    v43 = &v56 + 2;
     do
     {
       v44 = vdupq_n_s64(v41);
@@ -261,17 +261,17 @@ LABEL_89:
     v46 = v37;
   }
 
-  theDict = CVDictionarySetSInt32Array(v46, *MEMORY[0x1E696D018], &v57, v33);
+  theDict = CVDictionarySetSInt32Array(v46, *MEMORY[0x1E696D018], &v56, v33);
   if (!theDict)
   {
-    if (v53)
+    if (v52)
     {
       if (!a3)
       {
-        LODWORD(v57) = 5;
+        LODWORD(v56) = 5;
         if (v26 == 3)
         {
-          *(&v57 + 4) = 0x600000007;
+          *(&v56 + 4) = 0x600000007;
         }
 
         goto LABEL_122;
@@ -281,11 +281,11 @@ LABEL_89:
       {
         v47 = 0x600000007;
 LABEL_106:
-        *&v57 = v47;
+        *&v56 = v47;
         goto LABEL_122;
       }
 
-      if (a3 != 2 || !v52)
+      if (a3 != 2 || !v51)
       {
         goto LABEL_122;
       }
@@ -297,13 +297,13 @@ LABEL_106:
     {
       if (!a3)
       {
-        if (a4 != 2 || v52)
+        if (a4 != 2 || v51)
         {
-          *&v57 = 0x300000004;
-          DWORD2(v57) = 2;
+          *&v56 = 0x300000004;
+          DWORD2(v56) = 2;
           if (v26 == 4)
           {
-            HIDWORD(v57) = 1;
+            HIDWORD(v56) = 1;
           }
 
           goto LABEL_122;
@@ -314,15 +314,15 @@ LABEL_135:
         goto LABEL_121;
       }
 
-      if (a3 != 1 || (v52 & 1) == 0)
+      if (a3 != 1 || (v51 & 1) == 0)
       {
-        if (!v52 && a3 == 1)
+        if (!v51 && a3 == 1)
         {
           v47 = 0x400000003;
           goto LABEL_106;
         }
 
-        if (a3 != 2 || v52)
+        if (a3 != 2 || v51)
         {
 LABEL_122:
           if (a2)
@@ -335,24 +335,23 @@ LABEL_122:
             v49 = v37;
           }
 
-          theDict = CVDictionarySetSInt32Array(v49, *MEMORY[0x1E696D010], &v57, v33);
-          goto LABEL_126;
+          return CVDictionarySetSInt32Array(v49, *MEMORY[0x1E696D010], &v56, v33);
         }
 
         goto LABEL_135;
       }
     }
 
-    else if (!(v55 | v52))
+    else if (!(v54 | v51))
     {
-      if (v51)
+      if (v50)
       {
-        bzero(&v57, 4 * v33);
+        bzero(&v56, 4 * v33);
       }
 
       else
       {
-        LODWORD(v57) = 0;
+        LODWORD(v56) = 0;
       }
 
       goto LABEL_122;
@@ -361,12 +360,10 @@ LABEL_122:
 LABEL_120:
     v48 = 1;
 LABEL_121:
-    LODWORD(v57) = v48;
+    LODWORD(v56) = v48;
     goto LABEL_122;
   }
 
-LABEL_126:
-  v50 = *MEMORY[0x1E69E9840];
   return theDict;
 }
 
@@ -461,7 +458,7 @@ uint64_t CVDictionaryGetIntValueWithDefault(const void *a1, const void *a2, uint
   return v3;
 }
 
-void *CVPixelBuffer::alloc(CVPixelBuffer *this, const __CFAllocator *a2)
+void *CVPixelBuffer::alloc(CVPixelBuffer *this, const __CFAllocator *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   if (_cvUseTrackingAllocator)
   {
@@ -473,21 +470,21 @@ void *CVPixelBuffer::alloc(CVPixelBuffer *this, const __CFAllocator *a2)
     CVPixelBufferGetTypeID_cold_1();
   }
 
-  v3 = CVObject::alloc(kCVPixelBufferID, this, 0x18, 0x80uLL);
-  v4 = v3;
-  if (v3)
+  v6 = CVObject::alloc(kCVPixelBufferID, this, 0x18, 0x80uLL);
+  v7 = v6;
+  if (v6)
   {
-    v5 = v3[2];
-    CVImageBuffer::CVImageBuffer(v5, v3);
-    *v5 = &unk_1F1087E68;
+    v8 = v6[2];
+    CVImageBuffer::CVImageBuffer(v8, v6);
+    *v8 = &unk_1F1087E68;
     CVGetIOSurfacePropertyKeyForCVBufferAttachmentKey(0);
-    *(v5 + 104) = 1;
-    *(v5 + 108) = 0;
-    *(v5 + 120) = 0;
-    *(v5 + 96) = 0;
+    *(v8 + 104) = 1;
+    *(v8 + 108) = 0;
+    *(v8 + 120) = 0;
+    *(v8 + 96) = 0;
   }
 
-  return v4;
+  return v7;
 }
 
 CVBufferBacking *CVPixelBufferBacking::retainUsage(CVPixelBufferBacking *this)
@@ -532,8 +529,8 @@ CVBufferBacking *CVBufferBacking::retainUsage(CVBufferBacking *this)
 
 CVReturn CVPixelBufferCreate(CFAllocatorRef allocator, size_t width, size_t height, OSType pixelFormatType, CFDictionaryRef pixelBufferAttributes, CVPixelBufferRef *pixelBufferOut)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v28 = 0;
+  v37 = *MEMORY[0x1E69E9840];
+  v33 = 0;
   {
     CVPixelBufferCreate::ktrace_seed = arc4random();
   }
@@ -547,9 +544,9 @@ CVReturn CVPixelBufferCreate(CFAllocatorRef allocator, size_t width, size_t heig
   if (!pixelBufferOut || !width || !height)
   {
     v13 = 0;
+    v26 = 0;
     v20 = 0;
-    v17 = 0;
-    v25 = -6661;
+    v31 = -6661;
     goto LABEL_34;
   }
 
@@ -567,10 +564,10 @@ CVReturn CVPixelBufferCreate(CFAllocatorRef allocator, size_t width, size_t heig
   v13 = MutableCopy;
   if (!MutableCopy)
   {
+    v26 = 0;
     v20 = 0;
-    v17 = 0;
 LABEL_47:
-    v25 = -6662;
+    v31 = -6662;
     goto LABEL_34;
   }
 
@@ -582,9 +579,9 @@ LABEL_47:
     }
 
 LABEL_32:
+    v26 = 0;
     v20 = 0;
-    v17 = 0;
-    v25 = -6680;
+    v31 = -6680;
     goto LABEL_34;
   }
 
@@ -598,89 +595,89 @@ LABEL_32:
 LABEL_15:
   if (!CFDictionaryGetValue(v13, @"IOSurfaceProperties") && CVIsPixelFormatCompressed(pixelFormatType))
   {
-    v28 = -6662;
+    v33 = -6662;
     snprintf(__str, 0x80uLL, "CoreVideo: Error, CVPixelBufferCreate() for non-IOSurface backed compressed format %c%c%c%c is not allowed.", HIBYTE(pixelFormatType), BYTE2(pixelFormatType), BYTE1(pixelFormatType), pixelFormatType);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v30 = __str;
+      v35 = __str;
       _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
     goto LABEL_25;
   }
 
-  v16 = CVPixelBufferBacking::alloc(allocator, v15);
-  v17 = v16;
-  if (!v16)
+  v19 = CVPixelBufferBacking::alloc(allocator, v15, v16, v17, v18);
+  v20 = v19;
+  if (!v19)
   {
-    v20 = 0;
+    v26 = 0;
     goto LABEL_47;
   }
 
-  if (!(*(*v16[2] + 248))(v16[2], width, height, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v13, 0, 0, 0, 0, 0, &v28))
+  if (!(*(*v19[2] + 248))(v19[2], width, height, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v13, 0, 0, 0, 0, 0, &v33))
   {
-    if (v28)
+    if (v33)
     {
 LABEL_25:
+      v26 = 0;
       v20 = 0;
-      v17 = 0;
 LABEL_35:
-      v24 = 1;
+      v30 = 1;
       goto LABEL_36;
     }
 
+    v26 = 0;
     v20 = 0;
-    v17 = 0;
-    v25 = -6660;
+    v31 = -6660;
 LABEL_34:
-    v28 = v25;
+    v33 = v31;
     goto LABEL_35;
   }
 
-  v19 = CVPixelBuffer::alloc(allocator, v18);
-  v20 = v19;
-  if (v19)
+  v25 = CVPixelBuffer::alloc(allocator, v21, v22, v23, v24);
+  v26 = v25;
+  if (v25)
   {
-    if ((*(**(v19 + 2) + 248))(*(v19 + 2), v17[2]))
+    if ((*(**(v25 + 2) + 248))(*(v25 + 2), v20[2]))
     {
-      *pixelBufferOut = v20;
-      v20 = 0;
+      *pixelBufferOut = v26;
+      v26 = 0;
       goto LABEL_28;
     }
 
-    v21 = -6660;
+    v27 = -6660;
   }
 
   else
   {
-    v21 = -6662;
+    v27 = -6662;
   }
 
-  v28 = v21;
+  v33 = v27;
 LABEL_28:
-  v22 = v17[2];
-  if (v22 && (*(*v22 + 160))(v22))
+  v28 = v20[2];
+  if (v28 && (*(*v28 + 160))(v28))
   {
-    v23 = (*(*v17[2] + 160))(v17[2]);
-    IOOrEXSurfaceGetID(v23);
+    v29 = (*(*v20[2] + 160))(v20[2]);
+    IOOrEXSurfaceGetID(v29);
     kdebug_trace();
-    v24 = 0;
+    v30 = 0;
     goto LABEL_37;
   }
 
-  v24 = 0;
+  v30 = 0;
 LABEL_36:
   kdebug_trace();
 LABEL_37:
-  if (v20)
+  if (v26)
   {
-    CFRelease(v20);
+    CFRelease(v26);
   }
 
-  if ((v24 & 1) == 0)
+  if ((v30 & 1) == 0)
   {
-    CFRelease(v17);
+    CFRelease(v20);
   }
 
   if (v13)
@@ -688,31 +685,28 @@ LABEL_37:
     CFRelease(v13);
   }
 
-  result = v28;
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return v33;
 }
 
 uint64_t CVPixelBufferBacking::performStandardMemoryLayoutAndCopyIOSurfaceCreationProperties(CVPixelBufferBacking *this, void *a2, uint64_t a3, const __CFAllocator *a4, const __CFDictionary *a5, const __CFDictionary *a6, const __CFDictionary *a7, const __CFDictionary *a8, unint64_t a9, __int128 a10, unint64_t a11, unint64_t a12, unint64_t a13, unint64_t a14, unint64_t a15, unint64_t a16, unint64_t *a17, void **a18, unint64_t *a19, unint64_t *a20, unint64_t *a21, unint64_t *a22, unint64_t *a23, __IOSurface **a24, __IOSurface *a25, __CVBuffer *a26, unsigned int *a27, unint64_t *a28, void **a29, const __CFDictionary **a30)
 {
   MEMORY[0x1EEE9AC00](this, a2, a3, a4, a5, a6, a7, a8);
-  v318 = v30;
+  v317 = v30;
   v32 = v31;
-  v302 = v33;
+  v301 = v33;
   v35 = v34;
   v37 = v36;
   v39 = v38;
-  v392[17] = *MEMORY[0x1E69E9840];
-  memset(v392, 0, 128);
-  v391 = 0u;
+  v391[17] = *MEMORY[0x1E69E9840];
+  memset(v391, 0, 128);
   v390 = 0u;
   v389 = 0u;
   v388 = 0u;
   v387 = 0u;
   v386 = 0u;
   v385 = 0u;
-  *v384 = 0u;
-  memset(v383, 0, sizeof(v383));
+  v384 = 0u;
+  *v383 = 0u;
   memset(v382, 0, sizeof(v382));
   memset(v381, 0, sizeof(v381));
   memset(v380, 0, sizeof(v380));
@@ -735,20 +729,21 @@ uint64_t CVPixelBufferBacking::performStandardMemoryLayoutAndCopyIOSurfaceCreati
   memset(v363, 0, sizeof(v363));
   memset(v362, 0, sizeof(v362));
   memset(v361, 0, sizeof(v361));
-  v358 = 0;
+  memset(v360, 0, sizeof(v360));
   v357 = 0;
   v356 = 0;
-  memset(v360, 0, sizeof(v360));
+  v355 = 0;
+  memset(v359, 0, sizeof(v359));
   v40 = _os_feature_enabled_impl();
   v41 = 8;
-  memset(&v359[6], 0, 32);
+  memset(&v358[6], 0, 32);
   if (v40)
   {
     v41 = 1;
   }
 
-  v332 = v41;
-  memset(v359, 0, 96);
+  v331 = v41;
+  memset(v358, 0, 96);
   if (a25)
   {
     BufferBacking = CVPixelBufferGetBufferBacking(a25);
@@ -766,52 +761,51 @@ uint64_t CVPixelBufferBacking::performStandardMemoryLayoutAndCopyIOSurfaceCreati
   Value = CFDictionaryGetValue(v32, @"Planes");
   v44 = Value;
   theDict = v32;
-  v311 = v39;
-  v307 = v37;
+  v310 = v39;
+  v306 = v37;
   if (Value)
   {
     Count = CFArrayGetCount(Value);
     if (Count == 1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(v44, 0);
-      v349 = 1;
+      v348 = 1;
     }
 
     else
     {
       if (Count > 0x10)
       {
-        v113 = 4294960635;
-        goto LABEL_224;
+        return 4294960635;
       }
 
-      v349 = Count;
+      v348 = Count;
       ValueAtIndex = 0;
     }
   }
 
   else
   {
-    v349 = 0;
+    v348 = 0;
     ValueAtIndex = v32;
   }
 
   v47 = a13;
   v48 = CFDictionaryGetValue(v35, @"IOSurfaceProperties");
-  v345 = v35;
+  v344 = v35;
   if (v48)
   {
     Mutable = v48;
     IntValueWithDefault = CVDictionaryGetIntValueWithDefault(v48, local_kIOSurfaceProtectionOptions, 0);
     v51 = IntValueWithDefault == 0;
-    v301 = IntValueWithDefault != 0;
-    v303 = CVDictionaryGetBoolValueWithDefault(Mutable, local_kIOSurfaceProhibitUseCount, 0) == 0;
+    v300 = IntValueWithDefault != 0;
+    v302 = CVDictionaryGetBoolValueWithDefault(Mutable, local_kIOSurfaceProhibitUseCount, 0) == 0;
     CFRetain(Mutable);
 LABEL_16:
-    v300 = v51;
+    v299 = v51;
     v52 = CFDictionaryGetValue(Mutable, @"Planes");
-    v325 = v52;
-    v314 = 0;
+    v324 = v52;
+    v313 = 0;
     goto LABEL_29;
   }
 
@@ -830,28 +824,28 @@ LABEL_16:
       {
 LABEL_24:
         Mutable = 0;
-        v301 = 0;
-        v325 = 0;
-        v314 = 1;
+        v300 = 0;
+        v324 = 0;
+        v313 = 1;
 LABEL_28:
-        v300 = 1;
-        v303 = 1;
+        v299 = 1;
+        v302 = 1;
         goto LABEL_29;
       }
 
 LABEL_25:
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       CFDictionarySetValue(Mutable, @"IOSurfacePurgeWhenNotInUse", *MEMORY[0x1E695E4D0]);
-      v301 = 0;
+      v300 = 0;
       v51 = 1;
       if (Mutable)
       {
-        v303 = 1;
+        v302 = 1;
         goto LABEL_16;
       }
 
-      v314 = 1;
-      v325 = 0;
+      v313 = 1;
+      v324 = 0;
       goto LABEL_28;
     }
 
@@ -873,12 +867,12 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v301 = 0;
+  v300 = 0;
   Mutable = 0;
-  v325 = 0;
-  v314 = 1;
-  v300 = 1;
-  v303 = 1;
+  v324 = 0;
+  v313 = 1;
+  v299 = 1;
+  v302 = 1;
   v47 = a13;
 LABEL_29:
   DefaultBytesPerRowAlignment = CVPixelBufferBacking::getDefaultBytesPerRowAlignment(v52);
@@ -947,9 +941,9 @@ LABEL_29:
     v62 = v61;
   }
 
-  v316 = DefaultBytesPerRowAlignment * v47 / v62;
+  v315 = DefaultBytesPerRowAlignment * v47 / v62;
   theArray = v44;
-  if (!v349)
+  if (!v348)
   {
     if (a20)
     {
@@ -963,36 +957,36 @@ LABEL_29:
     v83 = CVDictionaryGetIntValueWithDefault(ValueAtIndex, @"BlockHeight", 1);
     v84 = CVDictionaryGetIntValueWithDefault(ValueAtIndex, @"BlockHorizontalAlignment", 1);
     v85 = CVDictionaryGetIntValueWithDefault(ValueAtIndex, @"BlockVerticalAlignment", 1);
-    v86 = CVDictionaryGetIntValueWithDefault(v345, @"ExactBytesPerRow", 0);
-    v87 = CVDictionaryGetIntValueWithDefault(v345, @"ExactHeight", 0);
+    v86 = CVDictionaryGetIntValueWithDefault(v344, @"ExactBytesPerRow", 0);
+    v87 = CVDictionaryGetIntValueWithDefault(v344, @"ExactHeight", 0);
     if (!v87 || v87 == *(&a10 + 1) + a9 + a12)
     {
-      v287 = a25;
-      v288 = a29;
+      v286 = a25;
+      v287 = a29;
       BoolValueWithDefault = CVDictionaryGetBoolValueWithDefault(theDict, @"ContainsSenselArray", 0);
       v89 = CVDictionaryGetBoolValueWithDefault(theDict, @"ContainsRegroupedSenselArray", 0);
       if (!BoolValueWithDefault || v89 || (a9 & 1) == 0 && ((a12 | DWORD2(a10)) & 1) == 0)
       {
-        v358 = 0;
-        v383[0] = 0;
+        v357 = 0;
+        v382[0] = 0;
         if (!a27 || !a24)
         {
-          v184 = 8;
+          v183 = 8;
           if (!v86)
           {
-            v184 = 16;
+            v183 = 16;
           }
 
-          v113 = _CVPixelBufferLayoutPlane(v82, v83, propertiesa, v84, v85, v318, a9, a10, *(&a10 + 1), a11, a12, v184, v332, v316, a15, a16, v86, &v356, v384, &v358, &v357);
+          v113 = _CVPixelBufferLayoutPlane(v82, v83, propertiesa, v84, v85, v317, a9, a10, *(&a10 + 1), a11, a12, v183, v331, v315, a15, a16, v86, &v355, v383, &v357, &v356);
           if (!v113)
           {
             v76 = 0;
             v79 = 0;
             v80 = 0;
-            v78 = v358;
-            v382[0] = v358;
+            v78 = v357;
+            v381[0] = v357;
             v81 = 1;
-            v77 = v345;
+            v77 = v344;
             v44 = theArray;
             goto LABEL_72;
           }
@@ -1003,25 +997,25 @@ LABEL_222:
             CFRelease(Mutable);
           }
 
-          goto LABEL_224;
+          return v113;
         }
 
-        v356 = a13;
+        v355 = a13;
         v78 = a13 * a9;
-        v358 = a13 * a9;
+        v357 = a13 * a9;
         AllocSize = IOSurfaceGetAllocSize(a24);
         v91 = *a27;
         if (*a27 + a13 * a9 <= AllocSize)
         {
-          v384[0] = *a27;
+          v383[0] = *a27;
           if (((v91 + 63) & 0xFFFFFFFFFFFFFFC0) == v91)
           {
             v80 = 0;
             v79 = 0;
             v76 = 0;
-            v296 = 1;
+            v295 = 1;
             v81 = 1;
-            v77 = v345;
+            v77 = v344;
             v44 = theArray;
             goto LABEL_230;
           }
@@ -1036,7 +1030,7 @@ LABEL_222:
   v63 = 0;
   properties = 0;
   v64 = 0;
-  *v355 = 0;
+  *v354 = 0;
   do
   {
     v65 = CFArrayGetValueAtIndex(v44, v63);
@@ -1061,19 +1055,19 @@ LABEL_222:
     ++v63;
   }
 
-  while (v349 != v63);
-  v287 = a25;
-  v288 = a29;
-  v312 = CVDictionaryGetIntValueWithDefault(v345, @"CompressedDataRegionAlignment", 512);
+  while (v348 != v63);
+  v286 = a25;
+  v287 = a29;
+  v311 = CVDictionaryGetIntValueWithDefault(v344, @"CompressedDataRegionAlignment", 512);
   v70 = 0;
   v71 = 0;
   do
   {
     v72 = CFArrayGetValueAtIndex(v44, v70);
     v73 = CVDictionaryGetIntValueWithDefault(v72, @"CompressionType", 0);
-    v380[v70] = v73;
+    v379[v70] = v73;
     v74 = CVDictionaryGetIntValueWithDefault(v72, @"TiledAddressFormat", 0);
-    *&v365[2 * v70] = v74;
+    *&v364[2 * v70] = v74;
     if (v73 || v74 == 5)
     {
       if (v73 > 4)
@@ -1090,21 +1084,21 @@ LABEL_217:
     v44 = theArray;
   }
 
-  while (v349 != v70);
-  v75 = 8 * v349;
+  while (v348 != v70);
+  v75 = 8 * v348;
   if (v71)
   {
     v75 = 0;
   }
 
-  if (v349 == 1 && v71 == 0)
+  if (v348 == 1 && v71 == 0)
   {
     v76 = 0;
   }
 
   else
   {
-    v76 = v349;
+    v76 = v348;
   }
 
   if (a20)
@@ -1112,9 +1106,9 @@ LABEL_217:
     *a20 = v76;
   }
 
-  *v355 = (a14 - 1 + v75) / a14 * a14;
-  v77 = v345;
-  if (v349 == 1 && v71 == 0)
+  *v354 = (a14 - 1 + v75) / a14 * a14;
+  v77 = v344;
+  if (v348 == 1 && v71 == 0)
   {
     v78 = 0;
     v79 = 0;
@@ -1123,10 +1117,10 @@ LABEL_217:
     goto LABEL_71;
   }
 
-  v298 = v76;
-  v330 = 0;
-  v262 = 0;
-  v265 = 0;
+  v297 = v76;
+  v329 = 0;
+  v261 = 0;
+  v264 = 0;
   v92 = 0;
   v93 = 0;
   if (a27)
@@ -1139,47 +1133,47 @@ LABEL_217:
     v94 = 1;
   }
 
-  v267 = *MEMORY[0x1E696D0A0];
-  v264 = *MEMORY[0x1E696D0C0];
-  v261 = *MEMORY[0x1E696D078];
-  v260 = *MEMORY[0x1E696CFD8];
-  v258 = *MEMORY[0x1E696CFF0];
-  v259 = *MEMORY[0x1E696D080];
-  v269 = *MEMORY[0x1E696CE28];
-  v277 = (v318 - 1);
-  v289 = a9 - 1;
+  v266 = *MEMORY[0x1E696D0A0];
+  v263 = *MEMORY[0x1E696D0C0];
+  v260 = *MEMORY[0x1E696D078];
+  v259 = *MEMORY[0x1E696CFD8];
+  v257 = *MEMORY[0x1E696CFF0];
+  v258 = *MEMORY[0x1E696D080];
+  v268 = *MEMORY[0x1E696CE28];
+  v276 = (v317 - 1);
+  v288 = a9 - 1;
   v95 = !v94;
-  v263 = v95;
+  v262 = v95;
   v81 = 1;
-  v96 = v356;
+  v96 = v355;
   while (2)
   {
-    v283 = v96;
+    v282 = v96;
     v97 = CFArrayGetValueAtIndex(v44, v93);
-    v343 = Mutable;
-    if (v325)
+    v342 = Mutable;
+    if (v324)
     {
-      v343 = v92;
-      if (v93 < CFArrayGetCount(v325))
+      v342 = v92;
+      if (v93 < CFArrayGetCount(v324))
       {
-        v343 = CFArrayGetValueAtIndex(v325, v93);
+        v342 = CFArrayGetValueAtIndex(v324, v93);
       }
     }
 
-    v305 = CVDictionaryGetIntValueWithDefault(v97, @"BitsPerBlock", 1);
-    v381[v93] = v305;
+    v304 = CVDictionaryGetIntValueWithDefault(v97, @"BitsPerBlock", 1);
+    v380[v93] = v304;
     v98 = 1;
     v99 = 1;
-    if (v349 != 1)
+    if (v348 != 1)
     {
       v98 = CVDictionaryGetIntValueWithDefault(v97, @"HorizontalSubsampling", 1);
       v99 = CVDictionaryGetIntValueWithDefault(v97, @"VerticalSubsampling", 1);
     }
 
-    v294 = CVDictionaryGetIntValueWithDefault(v97, @"BlockWidth", 1);
-    v309 = CVDictionaryGetIntValueWithDefault(v97, @"BlockHeight", 1);
+    v293 = CVDictionaryGetIntValueWithDefault(v97, @"BlockWidth", 1);
+    v308 = CVDictionaryGetIntValueWithDefault(v97, @"BlockHeight", 1);
     CVDictionaryGetIntValueWithDefault(v97, @"BlockHorizontalAlignment", 1);
-    v327 = v97;
+    v326 = v97;
     CVDictionaryGetIntValueWithDefault(v97, @"BlockVerticalAlignment", 1);
     if (v98 <= 1)
     {
@@ -1203,12 +1197,12 @@ LABEL_217:
 
     IntInArrayWithDefault = CVDictionaryGetIntInArrayWithDefault(v77, @"ExactBytesPerRow", v93, 0);
     v103 = CVDictionaryGetIntValueWithDefault(theDict, @"ExactRatioBetweenBytesPerRowOfPlanes", 0);
-    v320 = v81;
-    if (v349 == 2 && v93 == 1 && v103)
+    v319 = v81;
+    if (v348 == 2 && v93 == 1 && v103)
     {
       if (IntInArrayWithDefault)
       {
-        if (v392[0] * v103 != IntInArrayWithDefault)
+        if (v391[0] * v103 != IntInArrayWithDefault)
         {
           goto LABEL_217;
         }
@@ -1216,7 +1210,7 @@ LABEL_217:
 
       else
       {
-        IntInArrayWithDefault = v392[0] * v103;
+        IntInArrayWithDefault = v391[0] * v103;
       }
     }
 
@@ -1237,44 +1231,44 @@ LABEL_217:
       v106 = v105 / v100;
     }
 
-    v107 = v332 / v101;
-    if (v99 > v332)
+    v107 = v331 / v101;
+    if (v99 > v331)
     {
       v107 = 1;
     }
 
-    v271 = v107;
-    v274 = v106;
-    v108 = v277 + v100;
-    v109 = __CFADD__(v277, v100);
-    v110 = __CFADD__(v289, v101);
-    v364[v93] = a10 / v100;
+    v270 = v107;
+    v273 = v106;
+    v108 = v276 + v100;
+    v109 = __CFADD__(v276, v100);
+    v110 = __CFADD__(v288, v101);
+    v363[v93] = a10 / v100;
     v111 = a11 / v100;
-    v363[v93] = a11 / v100;
+    v362[v93] = a11 / v100;
     v112 = *(&a10 + 1) / v101;
-    v362[v93] = *(&a10 + 1) / v101;
-    v297 = a12 / v101;
-    v361[v93] = a12 / v101;
+    v361[v93] = *(&a10 + 1) / v101;
+    v296 = a12 / v101;
+    v360[v93] = a12 / v101;
     v113 = 4294960634;
     if (v109 || v110)
     {
       goto LABEL_218;
     }
 
-    v270 = a10 / v100;
-    v335 = (v289 + v101) / v101;
+    v269 = a10 / v100;
+    v334 = (v288 + v101) / v101;
     v114 = CVDictionaryGetBoolValueWithDefault(theDict, @"ContainsSenselArray", 0);
     v115 = CVDictionaryGetBoolValueWithDefault(theDict, @"ContainsRegroupedSenselArray", 0);
-    if (v114 && !v115 && v349 != 4 && (v335 & 1) != 0)
+    if (v114 && !v115 && v348 != 4 && (v334 & 1) != 0)
     {
       goto LABEL_217;
     }
 
     v116 = v108 / v100;
     a21[v93] = v108 / v100;
-    a22[v93] = v335;
-    v77 = v345;
-    v117 = CVDictionaryGetIntValueWithDefault(v345, @"ExactHeight", 0);
+    a22[v93] = v334;
+    v77 = v344;
+    v117 = CVDictionaryGetIntValueWithDefault(v344, @"ExactHeight", 0);
     if (v117)
     {
       if (v117 != *(&a10 + 1) + a9 + a12)
@@ -1283,16 +1277,16 @@ LABEL_217:
       }
     }
 
-    v118 = (a14 - 1 + *v355) / a14 * a14;
-    *v355 = v118;
-    v119 = v380[v93];
+    v118 = (a14 - 1 + *v354) / a14 * a14;
+    *v354 = v118;
+    v119 = v379[v93];
     v44 = theArray;
-    v291 = v116;
+    v290 = v116;
     if ((v119 - 1) < 2)
     {
 LABEL_134:
-      v118 = (v118 + v312 - 1) / v312 * v312;
-      *v355 = v118;
+      v118 = (v118 + v311 - 1) / v311 * v311;
+      *v354 = v118;
       goto LABEL_135;
     }
 
@@ -1300,24 +1294,24 @@ LABEL_134:
     {
       if ((v119 - 3) <= 1)
       {
-        v286 = v380[v93];
+        v285 = v379[v93];
         if (areUniversalCompressedBuffers2KAligned())
         {
-          v145 = (v118 + v312 - 1) / v312 * v312;
-          v312 = (v312 + 2047) & 0xFFFFFFFFFFFFF800;
+          v145 = (v118 + v311 - 1) / v311 * v311;
+          v311 = (v311 + 2047) & 0xFFFFFFFFFFFFF800;
           if (v145 != v118)
           {
             CVDictionaryGetIntValueWithDefault(theDict, @"PixelFormat", 0);
           }
         }
 
-        v119 = v286;
+        v119 = v285;
         goto LABEL_134;
       }
 
 LABEL_135:
-      v120 = (v383 + v330);
-      v383[v93] = v118;
+      v120 = (v382 + v329);
+      v382[v93] = v118;
       if ((v119 - 2) >= 3)
       {
         if (v119)
@@ -1327,20 +1321,20 @@ LABEL_135:
             goto LABEL_180;
           }
 
-          v126 = v365[2 * v93];
-          v285 = CVDictionaryGetIntValueWithDefault(v345, @"CompressedTileHeaderGroupBytesPerRowAlignment", 128);
-          v368[v93] = CVDictionaryGetIntValueWithDefault(v343, v261, 1);
-          v127 = CVDictionaryGetIntValueWithDefault(v343, v260, 4);
-          v373[v93] = v127;
+          v126 = v364[2 * v93];
+          v284 = CVDictionaryGetIntValueWithDefault(v344, @"CompressedTileHeaderGroupBytesPerRowAlignment", 128);
+          v367[v93] = CVDictionaryGetIntValueWithDefault(v342, v260, 1);
+          v127 = CVDictionaryGetIntValueWithDefault(v342, v259, 4);
+          v372[v93] = v127;
           if (v127 != 8 && v127 != 4)
           {
             goto LABEL_217;
           }
 
-          v273 = v127;
-          v268 = (v383 + v330);
-          v128 = CVDictionaryGetIntValueWithDefault(v327, @"TileWidth", 1);
-          v379[v93] = v128;
+          v272 = v127;
+          v267 = (v382 + v329);
+          v128 = CVDictionaryGetIntValueWithDefault(v326, @"TileWidth", 1);
+          v378[v93] = v128;
           if ((v128 - 1024) < 0xFFFFFFFFFFFFFC01)
           {
             goto LABEL_217;
@@ -1352,9 +1346,9 @@ LABEL_135:
             goto LABEL_217;
           }
 
-          v275 = v118;
-          v130 = CVDictionaryGetIntValueWithDefault(v327, @"TileHeight", 1);
-          v378[v93] = v130;
+          v274 = v118;
+          v130 = CVDictionaryGetIntValueWithDefault(v326, @"TileHeight", 1);
+          v377[v93] = v130;
           if ((v130 - 1024) < 0xFFFFFFFFFFFFFC01)
           {
             goto LABEL_217;
@@ -1366,25 +1360,25 @@ LABEL_135:
             goto LABEL_217;
           }
 
-          v328 = v126;
-          v132 = CVDictionaryGetIntValueWithDefault(v343, v267, 0);
-          v375[v93] = v132;
+          v327 = v126;
+          v132 = CVDictionaryGetIntValueWithDefault(v342, v266, 0);
+          v374[v93] = v132;
           if (v132 > v129)
           {
             goto LABEL_217;
           }
 
           v133 = v132;
-          v134 = CVDictionaryGetIntValueWithDefault(v343, v264, 0);
-          v374[v93] = v134;
+          v134 = CVDictionaryGetIntValueWithDefault(v342, v263, 0);
+          v373[v93] = v134;
           if (v134 > v131)
           {
             goto LABEL_217;
           }
 
           v135 = v134;
-          v136 = CVDictionaryGetIntValueWithDefault(v343, v259, 0);
-          v366[v93] = v136;
+          v136 = CVDictionaryGetIntValueWithDefault(v342, v258, 0);
+          v365[v93] = v136;
           if (v136 > 3)
           {
             goto LABEL_217;
@@ -1395,79 +1389,79 @@ LABEL_135:
             goto LABEL_217;
           }
 
-          if (v129 % v294)
+          if (v129 % v293)
           {
             goto LABEL_217;
           }
 
-          v137 = (v291 + v129 + v111 + v133 - 1) / v129;
+          v137 = (v290 + v129 + v111 + v133 - 1) / v129;
           if (v137 * v129 < v129)
           {
             goto LABEL_217;
           }
 
-          v372[v93] = v137;
-          if (v131 % v309)
+          v371[v93] = v137;
+          if (v131 % v308)
           {
             goto LABEL_217;
           }
 
-          v138 = ((v131 << v136) + v335 + v297 + v135 - 1) / (v131 << v136) * (v131 << v136);
+          v138 = ((v131 << v136) + v334 + v296 + v135 - 1) / (v131 << v136) * (v131 << v136);
           if (v138 < v131 << v136)
           {
             goto LABEL_217;
           }
 
           v139 = v138 / v131;
-          v371[v93] = v138 / v131;
-          v140 = (v273 * v137) << v136;
+          v370[v93] = v138 / v131;
+          v140 = (v272 * v137) << v136;
           v141 = v136;
-          v142 = CVDictionaryGetIntValueWithDefault(v343, v258, (v140 + v285 - 1) / v285 * v285);
-          v367[v93] = v142;
+          v142 = CVDictionaryGetIntValueWithDefault(v342, v257, (v140 + v284 - 1) / v284 * v284);
+          v366[v93] = v142;
           if (v142 < v140)
           {
             goto LABEL_217;
           }
 
-          v384[v93] = v275;
-          v143 = (v312 + v142 * (v139 >> v141) + v275 - 1) / v312 * v312;
-          v369[v93] = v143;
-          v144 = (v131 * v129 * v305 + 7) >> 3;
-          v360[v93] = v144;
-          *v355 = v143 + v139 * v137 * v144;
-          v265 = 1;
-          v77 = v345;
-          v81 = v320;
+          v383[v93] = v274;
+          v143 = (v311 + v142 * (v139 >> v141) + v274 - 1) / v311 * v311;
+          v368[v93] = v143;
+          v144 = (v131 * v129 * v304 + 7) >> 3;
+          v359[v93] = v144;
+          *v354 = v143 + v139 * v137 * v144;
+          v264 = 1;
+          v77 = v344;
+          v81 = v319;
 LABEL_209:
-          v159 = v328;
+          v159 = v327;
           goto LABEL_210;
         }
 
-        if (*&v365[2 * v93] != 5)
+        if (*&v364[2 * v93] != 5)
         {
           goto LABEL_180;
         }
       }
 
-      v284 = v119;
-      v121 = v365[2 * v93];
-      v122 = CVDictionaryGetIntValueWithDefault(v327, @"BytesPerTileHeader", 2);
+      v283 = v119;
+      v121 = v364[2 * v93];
+      v122 = CVDictionaryGetIntValueWithDefault(v326, @"BytesPerTileHeader", 2);
       v123 = v122;
-      v373[v93] = v122;
-      v268 = (v383 + v330);
+      v372[v93] = v122;
+      v267 = (v382 + v329);
       switch(v122)
       {
         case 32:
-          v272 = 32;
+          v271 = 32;
           v124 = 32;
           break;
         case 8:
-          v272 = 16;
+          v271 = 16;
           v124 = 16;
           break;
         case 2:
           v124 = 16;
-          if (v305 <= 0x20)
+          if (v304 <= 0x20)
           {
             v125 = 16;
           }
@@ -1477,14 +1471,14 @@ LABEL_209:
             v125 = 8;
           }
 
-          v272 = v125;
+          v271 = v125;
           break;
         default:
           goto LABEL_217;
       }
 
-      v146 = CVDictionaryGetIntValueWithDefault(v327, @"TileWidth", 1);
-      v379[v93] = v146;
+      v146 = CVDictionaryGetIntValueWithDefault(v326, @"TileWidth", 1);
+      v378[v93] = v146;
       if ((v146 - 1024) < 0xFFFFFFFFFFFFFC01)
       {
         goto LABEL_217;
@@ -1496,9 +1490,9 @@ LABEL_209:
         goto LABEL_217;
       }
 
-      v276 = v118;
-      v148 = CVDictionaryGetIntValueWithDefault(v327, @"TileHeight", 1);
-      v378[v93] = v148;
+      v275 = v118;
+      v148 = CVDictionaryGetIntValueWithDefault(v326, @"TileHeight", 1);
+      v377[v93] = v148;
       if ((v148 - 1024) < 0xFFFFFFFFFFFFFC01)
       {
         goto LABEL_217;
@@ -1510,65 +1504,65 @@ LABEL_209:
         goto LABEL_217;
       }
 
-      v328 = v121;
-      if (v284 != 2)
+      v327 = v121;
+      if (v283 != 2)
       {
         v150 = CVDictionaryGetBoolValueWithDefault(theDict, @"MultiSlice", 0);
         if (v150)
         {
           v151 = v150;
-          v320 = CVDictionaryGetIntValueWithDefault(v345, @"NumberOfSlices", 0);
-          if (v320 < 2)
+          v319 = CVDictionaryGetIntValueWithDefault(v344, @"NumberOfSlices", 0);
+          if (v319 < 2)
           {
             v113 = 4294960635;
             goto LABEL_218;
           }
 
-          v262 = v151;
+          v261 = v151;
         }
 
         else
         {
-          v262 = 0;
+          v261 = 0;
         }
       }
 
-      v160 = CVDictionaryGetIntValueWithDefault(v343, v267, 0);
-      v375[v93] = v160;
+      v160 = CVDictionaryGetIntValueWithDefault(v342, v266, 0);
+      v374[v93] = v160;
       if (v160 > v147)
       {
         goto LABEL_217;
       }
 
       v161 = v160;
-      v162 = CVDictionaryGetIntValueWithDefault(v343, v264, 0);
-      v374[v93] = v162;
+      v162 = CVDictionaryGetIntValueWithDefault(v342, v263, 0);
+      v373[v93] = v162;
       if (v162 > v149)
       {
         goto LABEL_217;
       }
 
-      v163 = (v291 + v111 + v161 + v147 - 1) / v147;
+      v163 = (v290 + v111 + v161 + v147 - 1) / v147;
       if (v163 * v147 < v147)
       {
         goto LABEL_217;
       }
 
       v164 = v123;
-      v372[v93] = v163;
-      v165 = (v162 + v335 + v149 + v297 - 1) / v149;
+      v371[v93] = v163;
+      v165 = (v162 + v334 + v149 + v296 - 1) / v149;
       if (v165 * v149 < v149)
       {
         goto LABEL_217;
       }
 
-      v371[v93] = v165;
-      if (a10 != 0 || v147 % v294 || v149 % v309)
+      v370[v93] = v165;
+      if (a10 != 0 || v147 % v293 || v149 % v308)
       {
         goto LABEL_217;
       }
 
-      v166 = v163 * v147 / v272;
+      v166 = v163 * v147 / v271;
       v167 = __clz(v166);
       if (0x80000000 >> v167 >= v166)
       {
@@ -1594,10 +1588,10 @@ LABEL_209:
       }
 
       v173 = v164 << v169;
-      v367[v93] = v164 << v169;
-      v174 = (v147 * v149 * v305 + 7) >> 3;
-      v360[v93] = v174;
-      if ((v284 - 3) > 1)
+      v366[v93] = v164 << v169;
+      v174 = (v147 * v149 * v304 + 7) >> 3;
+      v359[v93] = v174;
+      if ((v283 - 3) > 1)
       {
         v177 = 128;
       }
@@ -1616,30 +1610,30 @@ LABEL_209:
 
       v178 = (v165 * v163 * v174 + 127) & 0xFFFFFFFFFFFFFF80;
       v179 = ((v173 << (v172 - v171)) + 127) & 0xFFFFFFFFFFFFFF80;
-      *(v359 + v93) = v179;
-      v384[v93] = v276;
-      v369[v93] = v276;
-      v377[v93] = v178;
-      v81 = v320;
-      v180 = v178 + ((v178 + v177 - 1) & -v177) * (v320 - 1) + v276;
-      v370[v93] = v180;
-      v376[v93] = v179;
-      *v355 = v180 + v179 * v320;
-      v265 = 1;
-      v77 = v345;
+      *(v358 + v93) = v179;
+      v383[v93] = v275;
+      v368[v93] = v275;
+      v376[v93] = v178;
+      v81 = v319;
+      v180 = v178 + ((v178 + v177 - 1) & -v177) * (v319 - 1) + v275;
+      v369[v93] = v180;
+      v375[v93] = v179;
+      *v354 = v180 + v179 * v319;
+      v264 = 1;
+      v77 = v344;
       v44 = theArray;
       goto LABEL_209;
     }
 
-    if (*&v365[2 * v93] == 5)
+    if (*&v364[2 * v93] == 5)
     {
       goto LABEL_134;
     }
 
-    v120 = &v383[v93];
+    v120 = &v382[v93];
     *v120 = v118;
 LABEL_180:
-    if (v263)
+    if (v262)
     {
       if (v104)
       {
@@ -1651,38 +1645,38 @@ LABEL_180:
         v152 = a13;
       }
 
-      v356 = v152;
-      v153 = CVDictionaryGetIntValueWithDefault(v343, @"BytesPerRowAlignment", v152);
-      v392[v93] = v153;
+      v355 = v152;
+      v153 = CVDictionaryGetIntValueWithDefault(v342, @"BytesPerRowAlignment", v152);
+      v391[v93] = v153;
       v154 = IOSurfaceGetAllocSize(a24);
-      v155 = (v309 + v335 - 1) / v309 * v153;
-      *v355 = v155;
+      v155 = (v308 + v334 - 1) / v308 * v153;
+      *v354 = v155;
       v156 = *&a27[2 * v93];
       if (v156 + v155 > v154)
       {
         goto LABEL_217;
       }
 
-      v384[v93] = v156;
+      v383[v93] = v156;
       if (((v156 + 63) & 0xFFFFFFFFFFFFFFC0) != v156)
       {
         goto LABEL_217;
       }
 
       *v120 = v156;
-      v382[v93] = v155;
-      *&v365[2 * v93] = CVDictionaryGetIntValueWithDefault(v343, v269, 0);
+      v381[v93] = v155;
+      *&v364[2 * v93] = CVDictionaryGetIntValueWithDefault(v342, v268, 0);
       v157 = a9;
-      v81 = v320;
+      v81 = v319;
 LABEL_213:
       Mutable = cf;
       goto LABEL_214;
     }
 
-    v268 = v120;
-    v158 = _CVPixelBufferLayoutPlane(v294, v309, v305, properties, v64, v291, v335, v270, v112, v111, v297, v274, v271, v316, 0, 0, v104, (v392 + v330), (v384 + v330), v355, 0);
+    v267 = v120;
+    v158 = _CVPixelBufferLayoutPlane(v293, v308, v304, properties, v64, v290, v334, v269, v112, v111, v296, v273, v270, v315, 0, 0, v104, (v391 + v329), (v383 + v329), v354, 0);
     v159 = 0;
-    v81 = v320;
+    v81 = v319;
     if (v158)
     {
       v113 = v158;
@@ -1692,33 +1686,33 @@ LABEL_218:
     }
 
 LABEL_210:
-    *&v365[2 * v93] = CVDictionaryGetIntValueWithDefault(v343, v269, v159);
+    *&v364[2 * v93] = CVDictionaryGetIntValueWithDefault(v342, v268, v159);
     if (!a24)
     {
-      v181 = *v355;
-      v382[v93] = *v355 - *v268;
+      v181 = *v354;
+      v381[v93] = *v354 - *v267;
       v157 = a9;
-      v152 = (v289 + v181) / a9;
+      v152 = (v288 + v181) / a9;
       goto LABEL_213;
     }
 
     Mutable = cf;
     v157 = a9;
-    v152 = v283;
+    v152 = v282;
 LABEL_214:
     v96 = (v152 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-    v356 = v96;
+    v355 = v96;
     if (!is_mul_ok(v157, v96))
     {
       goto LABEL_217;
     }
 
     v78 = v96 * v157;
-    v358 = v96 * v157;
+    v357 = v96 * v157;
     ++v93;
-    v330 = (v330 + 8);
-    v92 = v343;
-    if (v349 != v93)
+    v329 = (v329 + 8);
+    v92 = v342;
+    if (v348 != v93)
     {
       continue;
     }
@@ -1726,323 +1720,323 @@ LABEL_214:
     break;
   }
 
-  v76 = v298;
-  v79 = v265;
-  v80 = v262;
+  v76 = v297;
+  v79 = v264;
+  v80 = v261;
 LABEL_71:
-  v357 = v78;
+  v356 = v78;
 LABEL_72:
   if (a24)
   {
-    v296 = 1;
+    v295 = 1;
     goto LABEL_230;
   }
 
-  v244 = __CFADD__(v78, v316);
-  v78 += v316;
-  if (v244)
+  v243 = __CFADD__(v78, v315);
+  v78 += v315;
+  if (v243)
   {
 LABEL_221:
     v113 = 4294960634;
     goto LABEL_222;
   }
 
-  v296 = 0;
-  v358 = v78;
+  v295 = 0;
+  v357 = v78;
 LABEL_230:
   v113 = a28;
-  if ((v314 & 1) == 0)
+  if ((v313 & 1) == 0)
   {
-    v355[0] = kIOSurfaceSubsamplingNone;
-    v190 = CFGetTypeID(Mutable);
-    if (v190 != CFDictionaryGetTypeID())
+    v354[0] = kIOSurfaceSubsamplingNone;
+    v189 = CFGetTypeID(Mutable);
+    if (v189 != CFDictionaryGetTypeID())
     {
-      v194 = 0;
+      v193 = 0;
       goto LABEL_373;
     }
 
     MutableCopy = CFDictionaryCreateMutableCopy(0, 0, Mutable);
-    v192 = *MEMORY[0x1E695E4D0];
-    v193 = v77;
-    v194 = MutableCopy;
-    if (v192 != CFDictionaryGetValue(v193, @"IOSurfacePurgeable"))
+    v191 = *MEMORY[0x1E695E4D0];
+    v192 = v77;
+    v193 = MutableCopy;
+    if (v191 != CFDictionaryGetValue(v192, @"IOSurfacePurgeable"))
     {
-      CFDictionarySetValue(v194, *MEMORY[0x1E696CFA0], v192);
+      CFDictionarySetValue(v193, *MEMORY[0x1E696CFA0], v191);
     }
 
-    if (!v303)
+    if (!v302)
     {
-      CFDictionarySetValue(v194, *MEMORY[0x1E696D0E8], v192);
+      CFDictionarySetValue(v193, *MEMORY[0x1E696D0E8], v191);
     }
 
-    v195 = v80;
-    CVDictionarySetSInt64Value(v194, *MEMORY[0x1E696D130], v318);
-    CVDictionarySetSInt64Value(v194, *MEMORY[0x1E696CF58], a9);
+    v194 = v80;
+    CVDictionarySetSInt64Value(v193, *MEMORY[0x1E696D130], v317);
+    CVDictionarySetSInt64Value(v193, *MEMORY[0x1E696CF58], a9);
     if (!v79)
     {
-      CVDictionarySetSInt64Value(v194, *MEMORY[0x1E696CE58], v356);
+      CVDictionarySetSInt64Value(v193, *MEMORY[0x1E696CE58], v355);
     }
 
-    v196 = *MEMORY[0x1E696CFA8];
+    v195 = *MEMORY[0x1E696CFA8];
     if (v76)
     {
-      v197 = 0;
+      v196 = 0;
     }
 
     else
     {
-      v197 = v384[0];
+      v196 = v383[0];
     }
 
-    setIntValue(v194, *MEMORY[0x1E696CFA8], v197);
-    v198 = *MEMORY[0x1E696CE30];
-    if (v296)
+    setIntValue(v193, *MEMORY[0x1E696CFA8], v196);
+    v197 = *MEMORY[0x1E696CE30];
+    if (v295)
     {
-      v199 = v358;
+      v198 = v357;
     }
 
     else
     {
-      v200 = CVDictionaryGetIntValueWithDefault(v194, v198, 0);
-      if (v358 <= v200)
+      v199 = CVDictionaryGetIntValueWithDefault(v193, v197, 0);
+      if (v357 <= v199)
       {
-        v199 = v200;
+        v198 = v199;
       }
 
       else
       {
-        v199 = v358;
+        v198 = v357;
       }
 
-      v358 = v199;
+      v357 = v198;
     }
 
-    CVDictionarySetSInt64Value(v194, v198, v199);
+    CVDictionarySetSInt64Value(v193, v197, v198);
     if (!v79)
     {
-      v201 = *MEMORY[0x1E696CE50];
-      v202 = CVDictionaryGetIntValueWithDefault(theDict, @"BitsPerBlock", 8);
-      setIntValue(v194, v201, v202 / 8);
+      v200 = *MEMORY[0x1E696CE50];
+      v201 = CVDictionaryGetIntValueWithDefault(theDict, @"BitsPerBlock", 8);
+      setIntValue(v193, v200, v201 / 8);
     }
 
-    v203 = *MEMORY[0x1E696CF10];
-    propertiesb = v194;
-    v204 = CVDictionaryGetIntValueWithDefault(theDict, @"BlockWidth", 1);
-    setIntValue(v194, v203, v204);
-    v205 = *MEMORY[0x1E696CF08];
-    v206 = CVDictionaryGetIntValueWithDefault(theDict, @"BlockHeight", 1);
-    setIntValue(v194, v205, v206);
+    v202 = *MEMORY[0x1E696CF10];
+    propertiesb = v193;
+    v203 = CVDictionaryGetIntValueWithDefault(theDict, @"BlockWidth", 1);
+    setIntValue(v193, v202, v203);
+    v204 = *MEMORY[0x1E696CF08];
+    v205 = CVDictionaryGetIntValueWithDefault(theDict, @"BlockHeight", 1);
+    setIntValue(v193, v204, v205);
     if (a24)
     {
-      v207 = CVDictionaryGetIntValueWithDefault(Mutable, v196, 0);
-      if (((v207 + 63) & 0xFFFFFFFFFFFFFFC0) != v207)
+      v206 = CVDictionaryGetIntValueWithDefault(Mutable, v195, 0);
+      if (((v206 + 63) & 0xFFFFFFFFFFFFFFC0) != v206)
       {
         goto LABEL_373;
       }
 
-      setIntValue(v194, v196, v207);
+      setIntValue(v193, v195, v206);
     }
 
-    if (v195)
+    if (v194)
     {
-      v208 = v81 > 1;
+      v207 = v81 > 1;
     }
 
     else
     {
-      v208 = 0;
+      v207 = 0;
     }
 
-    v209 = v208;
-    v295 = v209;
-    if (v209 == 1)
+    v208 = v207;
+    v294 = v208;
+    if (v208 == 1)
     {
-      setIntValue(v194, *MEMORY[0x1E696D100], v81);
+      setIntValue(v193, *MEMORY[0x1E696D100], v81);
     }
 
-    v321 = v81;
-    v210 = CFDictionaryGetValue(theDict, @"PixelFormat");
-    if (v210)
+    v320 = v81;
+    v209 = CFDictionaryGetValue(theDict, @"PixelFormat");
+    if (v209)
     {
-      CFDictionarySetValue(v194, *MEMORY[0x1E696CFC0], v210);
+      CFDictionarySetValue(v193, *MEMORY[0x1E696CFC0], v209);
     }
 
-    v299 = v76;
+    v298 = v76;
     if (v76)
     {
-      v266 = v79;
+      v265 = v79;
       cfa = Mutable;
-      v342 = CFArrayCreateMutable(0, v76, MEMORY[0x1E695E9C0]);
-      v211 = 0;
-      v341 = *MEMORY[0x1E696D0C8];
-      v340 = *MEMORY[0x1E696D090];
-      v337 = *MEMORY[0x1E696CFD0];
-      v336 = *MEMORY[0x1E696D0B0];
-      v334 = *MEMORY[0x1E696D0B8];
-      v350 = *MEMORY[0x1E696D060];
-      v347 = *MEMORY[0x1E696D058];
-      v310 = *MEMORY[0x1E696CE28];
-      v333 = *MEMORY[0x1E696D048];
-      v331 = *MEMORY[0x1E696CFF0];
-      v329 = *MEMORY[0x1E696CFD8];
-      v326 = *MEMORY[0x1E696D038];
-      v324 = *MEMORY[0x1E696D030];
-      v323 = *MEMORY[0x1E696D0A0];
-      v322 = *MEMORY[0x1E696D0C0];
-      v319 = *MEMORY[0x1E696D0D0];
-      v317 = *MEMORY[0x1E696D098];
-      v304 = (LODWORD(v372[0]) * LODWORD(v360[0]));
-      v315 = *MEMORY[0x1E696D020];
-      v313 = *MEMORY[0x1E696D028];
-      v292 = *MEMORY[0x1E696CFF8];
-      v293 = *MEMORY[0x1E696D000];
-      v308 = *MEMORY[0x1E696CFE0];
-      v281 = *MEMORY[0x1E696D088];
-      v282 = *MEMORY[0x1E696D050];
-      v278 = *MEMORY[0x1E696D040];
-      v280 = *MEMORY[0x1E696D078];
-      v279 = *MEMORY[0x1E696D080];
-      v290 = *MEMORY[0x1E696CFE8];
-      v306 = v356;
+      v341 = CFArrayCreateMutable(0, v76, MEMORY[0x1E695E9C0]);
+      v210 = 0;
+      v340 = *MEMORY[0x1E696D0C8];
+      v339 = *MEMORY[0x1E696D090];
+      v336 = *MEMORY[0x1E696CFD0];
+      v335 = *MEMORY[0x1E696D0B0];
+      v333 = *MEMORY[0x1E696D0B8];
+      v349 = *MEMORY[0x1E696D060];
+      v346 = *MEMORY[0x1E696D058];
+      v309 = *MEMORY[0x1E696CE28];
+      v332 = *MEMORY[0x1E696D048];
+      v330 = *MEMORY[0x1E696CFF0];
+      v328 = *MEMORY[0x1E696CFD8];
+      v325 = *MEMORY[0x1E696D038];
+      v323 = *MEMORY[0x1E696D030];
+      v322 = *MEMORY[0x1E696D0A0];
+      v321 = *MEMORY[0x1E696D0C0];
+      v318 = *MEMORY[0x1E696D0D0];
+      v316 = *MEMORY[0x1E696D098];
+      v303 = (LODWORD(v371[0]) * LODWORD(v359[0]));
+      v314 = *MEMORY[0x1E696D020];
+      v312 = *MEMORY[0x1E696D028];
+      v291 = *MEMORY[0x1E696CFF8];
+      v292 = *MEMORY[0x1E696D000];
+      v307 = *MEMORY[0x1E696CFE0];
+      v280 = *MEMORY[0x1E696D088];
+      v281 = *MEMORY[0x1E696D050];
+      v277 = *MEMORY[0x1E696D040];
+      v279 = *MEMORY[0x1E696D078];
+      v278 = *MEMORY[0x1E696D080];
+      v289 = *MEMORY[0x1E696CFE8];
+      v305 = v355;
       while (1)
       {
-        v212 = CFArrayGetValueAtIndex(v44, v211);
-        v213 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        CVDictionarySetSInt64Value(v213, v341, a21[v211]);
-        CVDictionarySetSInt64Value(v213, v340, a22[v211]);
-        CVDictionarySetSInt64Value(v213, v337, v383[v211]);
-        v214 = v384[v211];
-        CVDictionarySetSInt64Value(v213, v336, v214);
-        CVDictionarySetSInt64Value(v213, v334, v382[v211]);
-        v215 = CVDictionaryGetIntValueWithDefault(v212, @"BlockWidth", 1);
-        setIntValue(v213, v350, v215);
-        v216 = v212;
-        v217 = CVDictionaryGetIntValueWithDefault(v212, @"BlockHeight", 1);
-        setIntValue(v213, v347, v217);
-        v218 = v364[v211];
+        v211 = CFArrayGetValueAtIndex(v44, v210);
+        v212 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        CVDictionarySetSInt64Value(v212, v340, a21[v210]);
+        CVDictionarySetSInt64Value(v212, v339, a22[v210]);
+        CVDictionarySetSInt64Value(v212, v336, v382[v210]);
+        v213 = v383[v210];
+        CVDictionarySetSInt64Value(v212, v335, v213);
+        CVDictionarySetSInt64Value(v212, v333, v381[v210]);
+        v214 = CVDictionaryGetIntValueWithDefault(v211, @"BlockWidth", 1);
+        setIntValue(v212, v349, v214);
+        v215 = v211;
+        v216 = CVDictionaryGetIntValueWithDefault(v211, @"BlockHeight", 1);
+        setIntValue(v212, v346, v216);
+        v217 = v363[v210];
+        if (v217)
+        {
+          setIntValue(v212, local_kIOSurfacePlaneExtendedPixelsOnLeft, v217);
+        }
+
+        v218 = v362[v210];
         if (v218)
         {
-          setIntValue(v213, local_kIOSurfacePlaneExtendedPixelsOnLeft, v218);
+          setIntValue(v212, local_kIOSurfacePlaneExtendedPixelsOnRight, v218);
         }
 
-        v219 = v363[v211];
+        v219 = v361[v210];
         if (v219)
         {
-          setIntValue(v213, local_kIOSurfacePlaneExtendedPixelsOnRight, v219);
+          setIntValue(v212, local_kIOSurfacePlaneExtendedPixelsOnTop, v219);
         }
 
-        v220 = v362[v211];
+        v220 = v360[v210];
         if (v220)
         {
-          setIntValue(v213, local_kIOSurfacePlaneExtendedPixelsOnTop, v220);
+          setIntValue(v212, local_kIOSurfacePlaneExtendedPixelsOnBottom, v220);
         }
 
-        v221 = v361[v211];
+        v221 = *&v364[2 * v210];
         if (v221)
         {
-          setIntValue(v213, local_kIOSurfacePlaneExtendedPixelsOnBottom, v221);
+          setIntValue(v212, v309, *&v364[2 * v210]);
         }
 
-        v222 = *&v365[2 * v211];
-        if (v222)
+        v222 = v379[v210];
+        if ((v222 - 1) >= 4 && (v222 || v221 != 5))
         {
-          setIntValue(v213, v310, *&v365[2 * v211]);
-        }
-
-        v223 = v380[v211];
-        if ((v223 - 1) >= 4 && (v223 || v222 != 5))
-        {
-          setIntValue(v213, v308, SLODWORD(v381[v211]) / 8);
-          CVDictionarySetSInt64Value(v213, v290, v392[v211]);
+          setIntValue(v212, v307, SLODWORD(v380[v210]) / 8);
+          CVDictionarySetSInt64Value(v212, v289, v391[v210]);
           goto LABEL_298;
         }
 
-        setIntValue(v213, v333, v380[v211]);
-        setIntValue(v213, v331, v367[v211]);
-        setIntValue(v213, v329, v373[v211]);
-        v224 = v379[v211];
-        setIntValue(v213, v326, v224);
-        v225 = v378[v211];
-        setIntValue(v213, v324, v225);
-        setIntValue(v213, v323, v375[v211]);
-        setIntValue(v213, v322, v374[v211]);
-        v226 = v372[v211];
-        setIntValue(v213, v319, v226);
-        setIntValue(v213, v317, v371[v211]);
-        setIntValue(v213, local_kIOSurfacePlaneBitsPerElement, v381[v211]);
-        if ((v223 - 2) < 3)
+        setIntValue(v212, v332, v379[v210]);
+        setIntValue(v212, v330, v366[v210]);
+        setIntValue(v212, v328, v372[v210]);
+        v223 = v378[v210];
+        setIntValue(v212, v325, v223);
+        v224 = v377[v210];
+        setIntValue(v212, v323, v224);
+        setIntValue(v212, v322, v374[v210]);
+        setIntValue(v212, v321, v373[v210]);
+        v225 = v371[v210];
+        setIntValue(v212, v318, v225);
+        setIntValue(v212, v316, v370[v210]);
+        setIntValue(v212, local_kIOSurfacePlaneBitsPerElement, v380[v210]);
+        if ((v222 - 2) < 3)
         {
           break;
         }
 
-        if (v223)
+        if (v222)
         {
-          setIntValue(v213, v280, v368[v211]);
-          setIntValue(v213, v279, v366[v211]);
-          setIntValue(v213, v313, v214);
-          setIntValue(v213, v315, v369[v211]);
+          setIntValue(v212, v279, v367[v210]);
+          setIntValue(v212, v278, v365[v210]);
+          setIntValue(v212, v312, v213);
+          setIntValue(v212, v314, v368[v210]);
           goto LABEL_298;
         }
 
-        if (v222 == 5)
+        if (v221 == 5)
         {
-          setIntValue(v213, v315, v214);
-          setIntValue(v213, v313, v370[v211]);
+          setIntValue(v212, v314, v213);
+          setIntValue(v212, v312, v369[v210]);
 LABEL_292:
-          v227 = v360[v211];
-          setIntValue(v213, v293, v227);
-          setIntValue(v213, v292, v227 * v226);
-          setIntValue(v213, v350, v224);
-          setIntValue(v213, v347, v225);
-          setIntValue(v213, v308, v227);
-          if (v295)
+          v226 = v359[v210];
+          setIntValue(v212, v292, v226);
+          setIntValue(v212, v291, v226 * v225);
+          setIntValue(v212, v349, v223);
+          setIntValue(v212, v346, v224);
+          setIntValue(v212, v307, v226);
+          if (v294)
           {
-            setIntValue(v213, v282, v377[v211]);
-            setIntValue(v213, v281, v376[v211]);
+            setIntValue(v212, v281, v376[v210]);
+            setIntValue(v212, v280, v375[v210]);
           }
 
-          v306 = v304;
-          if (v223 == 4)
+          v305 = v303;
+          if (v222 == 4)
           {
-            v228 = CVDictionaryGetIntValueWithDefault(v216, @"CompressionFootprint", 0);
-            if (!v228)
+            v227 = CVDictionaryGetIntValueWithDefault(v215, @"CompressionFootprint", 0);
+            if (!v227)
             {
-              v356 = v304;
+              v355 = v303;
               Mutable = cfa;
-              v194 = propertiesb;
+              v193 = propertiesb;
               goto LABEL_373;
             }
 
-            setIntValue(v213, v278, v228);
-            v306 = v304;
+            setIntValue(v212, v277, v227);
+            v305 = v303;
           }
         }
 
 LABEL_298:
-        v76 = v299;
-        setComponentsProperties(theDict, v213, v211, v299, propertiesb);
-        getSubsamplingForIOSurfaceProperty(v216, theDict, v355);
-        CFArrayAppendValue(v342, v213);
-        CFRelease(v213);
-        ++v211;
+        v76 = v298;
+        setComponentsProperties(theDict, v212, v210, v298, propertiesb);
+        getSubsamplingForIOSurfaceProperty(v215, theDict, v354);
+        CFArrayAppendValue(v341, v212);
+        CFRelease(v212);
+        ++v210;
         v44 = theArray;
-        if (v299 == v211)
+        if (v298 == v210)
         {
-          v356 = v306;
-          CFDictionarySetValue(propertiesb, *MEMORY[0x1E696D0A8], v342);
-          setIntValue(propertiesb, *MEMORY[0x1E696D108], v355[0]);
-          CFRelease(v342);
+          v355 = v305;
+          CFDictionarySetValue(propertiesb, *MEMORY[0x1E696D0A8], v341);
+          setIntValue(propertiesb, *MEMORY[0x1E696D108], v354[0]);
+          CFRelease(v341);
           Mutable = cfa;
-          v229 = v287;
-          v230 = v302;
-          v79 = v266;
+          v228 = v286;
+          v229 = v301;
+          v79 = v265;
           goto LABEL_320;
         }
       }
 
-      setIntValue(v213, v315, v214);
-      setIntValue(v213, v313, v370[v211]);
-      if ((v223 - 3) > 1)
+      setIntValue(v212, v314, v213);
+      setIntValue(v212, v312, v369[v210]);
+      if ((v222 - 3) > 1)
       {
         goto LABEL_298;
       }
@@ -2050,16 +2044,16 @@ LABEL_298:
       goto LABEL_292;
     }
 
-    setComponentsProperties(theDict, 0, 0, 1uLL, v194);
-    getSubsamplingForIOSurfaceProperty(theDict, theDict, v355);
-    setIntValue(v194, *MEMORY[0x1E696D108], v355[0]);
+    setComponentsProperties(theDict, 0, 0, 1uLL, v193);
+    getSubsamplingForIOSurfaceProperty(theDict, theDict, v354);
+    setIntValue(v193, *MEMORY[0x1E696D108], v354[0]);
     if (a10)
     {
-      setIntValue(v194, local_kIOSurfacePlaneExtendedPixelsOnLeft, a10);
+      setIntValue(v193, local_kIOSurfacePlaneExtendedPixelsOnLeft, a10);
     }
 
-    v229 = v287;
-    v230 = v302;
+    v228 = v286;
+    v229 = v301;
     if (*(&a10 + 1))
     {
       setIntValue(propertiesb, local_kIOSurfacePlaneExtendedPixelsOnTop, SDWORD2(a10));
@@ -2076,52 +2070,52 @@ LABEL_298:
     }
 
 LABEL_320:
-    v231 = CFDictionaryGetValue(v345, @"CacheMode");
-    if (v231)
-    {
-      v232 = v231;
-      TypeID = CFArrayGetTypeID();
-      if (TypeID == CFGetTypeID(v232) && CFArrayGetCount(v232) >= 1)
-      {
-        v234 = CFArrayGetValueAtIndex(v232, 0);
-        CFDictionarySetValue(propertiesb, *MEMORY[0x1E696CE60], v234);
-      }
-    }
-
+    v230 = CFDictionaryGetValue(v344, @"CacheMode");
     if (v230)
     {
-      v235 = CFDictionaryGetValue(v230, @"PixelBufferPoolNameKey");
-      if (v235)
+      v231 = v230;
+      TypeID = CFArrayGetTypeID();
+      if (TypeID == CFGetTypeID(v231) && CFArrayGetCount(v231) >= 1)
       {
-        CFDictionarySetValue(propertiesb, *MEMORY[0x1E696CF98], v235);
+        v233 = CFArrayGetValueAtIndex(v231, 0);
+        CFDictionarySetValue(propertiesb, *MEMORY[0x1E696CE60], v233);
       }
     }
 
-    if (v311)
+    if (v229)
+    {
+      v234 = CFDictionaryGetValue(v229, @"PixelBufferPoolNameKey");
+      if (v234)
+      {
+        CFDictionarySetValue(propertiesb, *MEMORY[0x1E696CF98], v234);
+      }
+    }
+
+    if (v310)
     {
       if (a24)
       {
-        if (v229)
+        if (v228)
         {
-          v236 = v229;
-          v194 = propertiesb;
-          ChildIOSurface = CreateChildIOSurface(v236, propertiesb, v76, a26);
+          v235 = v228;
+          v193 = propertiesb;
+          ChildIOSurface = CreateChildIOSurface(v235, propertiesb, v76, a26);
         }
 
         else
         {
-          v194 = propertiesb;
+          v193 = propertiesb;
           ChildIOSurface = IOSurfaceCreateChildSurface();
         }
       }
 
       else
       {
-        v194 = propertiesb;
+        v193 = propertiesb;
         ChildIOSurface = IOOrEXSurfaceCreate(propertiesb);
       }
 
-      v238 = ChildIOSurface;
+      v237 = ChildIOSurface;
       if (!ChildIOSurface)
       {
 LABEL_373:
@@ -2129,22 +2123,22 @@ LABEL_373:
         goto LABEL_374;
       }
 
-      v239 = v79;
-      v240 = v300 ^ 1;
+      v238 = v79;
+      v239 = v299 ^ 1;
       if (!v79)
       {
-        v240 = 1;
+        v239 = 1;
       }
 
-      if ((v240 & 1) == 0 && v76)
+      if ((v239 & 1) == 0 && v76)
       {
         for (i = 0; v76 != i; ++i)
         {
-          v242 = CFArrayGetValueAtIndex(theArray, i);
-          v243 = v380[i];
-          if (v243 == 3)
+          v241 = CFArrayGetValueAtIndex(theArray, i);
+          v242 = v379[i];
+          if (v242 == 3)
           {
-            if (v321 <= 1)
+            if (v320 <= 1)
             {
               goto LABEL_346;
             }
@@ -2152,23 +2146,23 @@ LABEL_373:
 
           else
           {
-            v244 = v243 != 4 || v321 >= 2;
-            if (!v244)
+            v243 = v242 != 4 || v320 >= 2;
+            if (!v243)
             {
 LABEL_346:
               BaseAddressOfCompressedTileHeaderRegionOfPlane = IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfPlane();
               valuePtr = 0;
-              v246 = CFDictionaryGetValue(v242, @"CompressionMetadataPatternSignallingConstant");
-              if (v246)
+              v245 = CFDictionaryGetValue(v241, @"CompressionMetadataPatternSignallingConstant");
+              if (v245)
               {
-                v247 = v246;
-                v248 = CFGetTypeID(v246);
-                v94 = v248 == CFNumberGetTypeID();
-                v76 = v299;
+                v246 = v245;
+                v247 = CFGetTypeID(v245);
+                v94 = v247 == CFNumberGetTypeID();
+                v76 = v298;
                 if (v94)
                 {
-                  CFNumberGetValue(v247, kCFNumberSInt8Type, &valuePtr);
-                  memset(BaseAddressOfCompressedTileHeaderRegionOfPlane, valuePtr, *(v359 + i));
+                  CFNumberGetValue(v246, kCFNumberSInt8Type, &valuePtr);
+                  memset(BaseAddressOfCompressedTileHeaderRegionOfPlane, valuePtr, *(v358 + i));
                 }
               }
             }
@@ -2176,29 +2170,29 @@ LABEL_346:
         }
       }
 
-      v249 = v301;
-      if (v239)
+      v248 = v300;
+      if (v238)
       {
-        v249 = 1;
+        v248 = 1;
       }
 
-      if (((v296 | v249) & 1) == 0)
+      if (((v295 | v248) & 1) == 0)
       {
-        BaseAddress = IOOrEXSurfaceGetBaseAddress(v238);
+        BaseAddress = IOOrEXSurfaceGetBaseAddress(v237);
         if (v76)
         {
-          v251 = (BaseAddress + 4);
-          v252 = v392;
-          v253 = v384;
+          v250 = (BaseAddress + 4);
+          v251 = v391;
+          v252 = v383;
           do
           {
-            v255 = *v253++;
-            v254 = v255;
-            v256 = *v252;
-            v252 += 2;
-            *(v251 - 1) = bswap32(v254);
-            *v251 = bswap32(v256);
+            v254 = *v252++;
+            v253 = v254;
+            v255 = *v251;
             v251 += 2;
+            *(v250 - 1) = bswap32(v253);
+            *v250 = bswap32(v255);
+            v250 += 2;
             --v76;
           }
 
@@ -2213,17 +2207,17 @@ LABEL_346:
 
       if (a18)
       {
-        *a18 = v356;
+        *a18 = v355;
       }
 
       if (a19)
       {
-        *a19 = v357;
+        *a19 = v356;
       }
 
       if (a23)
       {
-        *a23 = CFRetain(v238);
+        *a23 = CFRetain(v237);
       }
 
       if (a28)
@@ -2231,76 +2225,76 @@ LABEL_346:
         *a28 = 0;
       }
 
-      CFRelease(v238);
+      CFRelease(v237);
     }
 
     v113 = 0;
-    if (v288)
+    if (v287)
     {
-      v194 = propertiesb;
+      v193 = propertiesb;
       if (propertiesb)
       {
         v113 = 0;
-        *v288 = CFRetain(propertiesb);
+        *v287 = CFRetain(propertiesb);
         goto LABEL_375;
       }
     }
 
     else
     {
-      v194 = propertiesb;
+      v193 = propertiesb;
     }
 
 LABEL_374:
-    if (!v194)
+    if (!v193)
     {
       goto LABEL_222;
     }
 
 LABEL_375:
-    CFRelease(v194);
+    CFRelease(v193);
     goto LABEL_222;
   }
 
-  if (!v311)
+  if (!v310)
   {
     v113 = 0;
     goto LABEL_222;
   }
 
-  v185 = MEMORY[0x19EAF6BD0](v307, v78, 418029834, 0);
-  if (v185)
+  v184 = MEMORY[0x19EAF6BD0](v306, v78, 418029834, 0);
+  if (v184)
   {
-    v186 = (v185 + v316 - 1) / v316 * v316;
+    v185 = (v184 + v315 - 1) / v315 * v315;
     if (v76)
     {
       for (j = 0; j != v76; ++j)
       {
-        v188 = (v186 + j * 8);
-        v189 = bswap32(v392[j]);
-        *v188 = bswap32(v384[j]);
-        v188[1] = v189;
+        v187 = (v185 + j * 8);
+        v188 = bswap32(v391[j]);
+        *v187 = bswap32(v383[j]);
+        v187[1] = v188;
       }
     }
 
     else
     {
-      v186 += v384[0];
+      v185 += v383[0];
     }
 
     if (a17)
     {
-      *a17 = v186;
+      *a17 = v185;
     }
 
     if (a18)
     {
-      *a18 = v356;
+      *a18 = v355;
     }
 
     if (a19)
     {
-      *a19 = v357;
+      *a19 = v356;
     }
 
     if (a23)
@@ -2311,16 +2305,13 @@ LABEL_375:
     if (a28)
     {
       v113 = 0;
-      *a28 = v185;
+      *a28 = v184;
     }
 
     goto LABEL_222;
   }
 
-  v113 = 4294960634;
-LABEL_224:
-  v182 = *MEMORY[0x1E69E9840];
-  return v113;
+  return 4294960634;
 }
 
 CFTypeRef *CVPixelBuffer::initWithPixelBufferBacking(CFTypeRef *this, CVPixelBufferBacking *a2)
@@ -2341,7 +2332,7 @@ CFTypeRef *CVPixelBuffer::initWithPixelBufferBacking(CFTypeRef *this, CVPixelBuf
   return v3;
 }
 
-CFTypeRef *CVPixelBufferBacking::initWithPixelBufferDescription(CFTypeRef *this, unint64_t a2, uint64_t a3, void *a4, unint64_t a5, unint64_t a6, unint64_t a7, void **a8, unint64_t *a9, unint64_t *a10, unint64_t *a11, void (*a12)(void *, const void *), void (*a13)(void *, const void *, unint64_t, unint64_t, const void **), void *a14, const __CFDictionary *a15, const __CFDictionary *a16, __IOSurface *a17, __int128 a18, unint64_t *a19, int *a20)
+CFTypeRef *CVPixelBufferBacking::initWithPixelBufferDescription(CFTypeRef *this, unint64_t a2, uint64_t a3, void *a4, unint64_t a5, unint64_t a6, const void *a7, void **a8, unint64_t *a9, unint64_t *a10, unint64_t *a11, void (*a12)(void *, const void *), void (*a13)(void *, const void *, unint64_t, unint64_t, const void **), void *a14, const __CFDictionary *a15, const __CFDictionary *a16, __IOSurface *a17, __int128 a18, unint64_t *a19, int *a20)
 {
   v27 = this;
   v28 = CFGetAllocator(this[1]);
@@ -2996,18 +2987,18 @@ LABEL_156:
 
 void CVTracePoolAction(int a1, void *a2, void **a3, const char *a4, uint64_t a5, uint64_t a6)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (!CVTracePools(a1))
   {
-    goto LABEL_24;
+    return;
   }
 
-  v24 = 0;
-  v25 = 0;
   v23 = 0;
+  v24 = 0;
+  v22 = 0;
   __str[0] = 0;
-  v29[0] = 0;
   v28[0] = 0;
+  v27[0] = 0;
   if (a2)
   {
     v11 = a2[2];
@@ -3015,8 +3006,8 @@ void CVTracePoolAction(int a1, void *a2, void **a3, const char *a4, uint64_t a5,
     {
       v12 = (*(*a2[2] + 88))(a2[2]);
       CFStringGetCString(v12, buffer, 128, 0x600u);
-      asprintf(&v23, " (%s)", buffer);
-      v13 = v23;
+      asprintf(&v22, " (%s)", buffer);
+      v13 = v22;
     }
 
     else
@@ -3029,7 +3020,7 @@ void CVTracePoolAction(int a1, void *a2, void **a3, const char *a4, uint64_t a5,
       v13 = "";
     }
 
-    asprintf(&v24, " pool %p%s:", a2, v13);
+    asprintf(&v23, " pool %p%s:", a2, v13);
   }
 
   if (a3)
@@ -3041,11 +3032,11 @@ void CVTracePoolAction(int a1, void *a2, void **a3, const char *a4, uint64_t a5,
       v15 = v14;
       ID = IOOrEXSurfaceGetID(v14);
       *buffer = xmmword_19D17B470;
-      v27 = unk_19D17B480;
+      v26 = unk_19D17B480;
       v17 = IOSurfaceCopyValue(v15, *MEMORY[0x1E696CF98]);
       if (!v17)
       {
-        snprintf(v29, 0x40uLL, " (IOSurface ID 0x%llx (%s))", ID, buffer);
+        snprintf(v28, 0x40uLL, " (IOSurface ID 0x%llx (%s))", ID, buffer);
         if (!a2)
         {
           goto LABEL_18;
@@ -3061,7 +3052,7 @@ void CVTracePoolAction(int a1, void *a2, void **a3, const char *a4, uint64_t a5,
         CFStringGetCString(v18, buffer, 32, 0);
       }
 
-      snprintf(v29, 0x40uLL, " (IOSurface ID 0x%llx (%s))", ID, buffer);
+      snprintf(v28, 0x40uLL, " (IOSurface ID 0x%llx (%s))", ID, buffer);
       CFRelease(v18);
     }
   }
@@ -3069,36 +3060,37 @@ void CVTracePoolAction(int a1, void *a2, void **a3, const char *a4, uint64_t a5,
   if (a2)
   {
 LABEL_17:
-    snprintf(v28, 0x40uLL, " [now %ld in pool: %ld in use, %ld free]", a6 + a5, a5, a6);
+    snprintf(v27, 0x40uLL, " [now %ld in pool: %ld in use, %ld free]", a6 + a5, a5, a6);
   }
 
 LABEL_18:
-  v20 = v24;
-  if (!v24)
+  v20 = v23;
+  if (!v23)
   {
     v20 = "";
   }
 
-  asprintf(&v25, "CoreVideo:%s%s%s %s%s", v20, __str, v29, a4, v28);
-  v21 = v25;
-  if (v25 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  asprintf(&v24, "CoreVideo:%s%s%s %s%s", v20, __str, v28, a4, v27);
+  v21 = v24;
+  if (v24)
   {
-    *buffer = 136315138;
-    *&buffer[4] = v21;
-    _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buffer, 0xCu);
-    v21 = v25;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buffer = 136315138;
+      *&buffer[4] = v21;
+      _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buffer, 0xCu);
+      v21 = v24;
+    }
   }
 
   free(v21);
-  free(v24);
   free(v23);
-LABEL_24:
-  v22 = *MEMORY[0x1E69E9840];
+  free(v22);
 }
 
 uint64_t CVTracePools(int a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   keyExistsAndHasValidFormat = 0;
   if ((CVTracePools(int)::sDidCheck & 1) == 0)
   {
@@ -3109,7 +3101,7 @@ uint64_t CVTracePools(int a1)
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v9 = "CoreVideo: will trace pool activity -- thank you for setting defaults write com.apple.corevideo pools_trace -BOOL YES";
+        v8 = "CoreVideo: will trace pool activity -- thank you for setting defaults write com.apple.corevideo pools_trace -BOOL YES";
         _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
       }
 
@@ -3132,16 +3124,13 @@ uint64_t CVTracePools(int a1)
 
   if (CVTracePools(int)::sTraceLevel >= a1)
   {
-    result = CVTracePools(int)::sTracePools;
+    return CVTracePools(int)::sTracePools;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 CFTypeRef *CVImageBuffer::init(CFTypeRef *this)
@@ -3189,12 +3178,12 @@ void IOOrEXSurfaceIncrementUseCount(IOSurfaceRef buffer)
 CFTypeRef *CVBuffer::init(CFTypeRef *this)
 {
   v1 = this;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = CFGetAllocator(this[1]);
-  pthread_mutexattr_init(&v8);
-  pthread_mutexattr_settype(&v8, 2);
-  pthread_mutex_init((v1 + 2), &v8);
-  pthread_mutexattr_destroy(&v8);
+  pthread_mutexattr_init(&v7);
+  pthread_mutexattr_settype(&v7, 2);
+  pthread_mutex_init((v1 + 2), &v7);
+  pthread_mutexattr_destroy(&v7);
   v3 = MEMORY[0x1E695E528];
   v4 = MEMORY[0x1E695E9E8];
   v1[10] = CFDictionaryCreateMutable(v2, 0, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
@@ -3203,10 +3192,9 @@ CFTypeRef *CVBuffer::init(CFTypeRef *this)
   if (!v1[10] || !Mutable)
   {
     (*(*v1 + 5))(v1);
-    v1 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
@@ -3252,11 +3240,10 @@ uint64_t CVDictionaryGetIntInArrayWithDefault(const void *a1, const void *a2, CF
 
 CVBufferBacking *CVBufferBacking::init(CVBufferBacking *this)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  pthread_mutexattr_init(&v4);
-  pthread_mutexattr_settype(&v4, 2);
-  pthread_mutex_init((this + 24), &v4);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  pthread_mutexattr_init(&v3);
+  pthread_mutexattr_settype(&v3, 2);
+  pthread_mutex_init((this + 24), &v3);
   return this;
 }
 
@@ -3522,7 +3509,8 @@ void *_getCVBuffer(void *result)
   {
     v1 = result;
     v2 = CFGetTypeID(result);
-    if (v2 == CVPixelBufferGetTypeID() || v2 == CVDataBufferGetTypeID())
+    TypeID = CVPixelBufferGetTypeID();
+    if (v2 == TypeID || v2 == CVDataBufferGetTypeID(TypeID, v4))
     {
       return v1[2];
     }
@@ -4193,7 +4181,7 @@ void insertColorSpaceIntoDictionaryUsingID(const __CFDictionary *a1, __CFDiction
   }
 }
 
-uint64_t CVBuffer::finalize(CVBuffer *this)
+void CVBuffer::finalize(CVBuffer *this)
 {
   pthread_mutex_destroy((this + 16));
   v2 = *(this + 10);
@@ -4211,7 +4199,7 @@ uint64_t CVBuffer::finalize(CVBuffer *this)
   *(this + 10) = 0;
   *(this + 11) = 0;
 
-  return CVObject::finalize(this);
+  CVObject::finalize(this);
 }
 
 uint64_t CVPixelBuffer::setAttachment(uint64_t a1, const __CFString *a2, void *a3, unsigned int a4)
@@ -4287,7 +4275,7 @@ LABEL_16:
 
 uint64_t CVPixelBuffer::finalize(CVPixelBuffer *this)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(this + 15);
   if (v2)
   {
@@ -4300,7 +4288,7 @@ uint64_t CVPixelBuffer::finalize(CVPixelBuffer *this)
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v10 = __str;
+          v9 = __str;
           _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
         }
 
@@ -4344,9 +4332,7 @@ uint64_t CVPixelBuffer::finalize(CVPixelBuffer *this)
     *(this + 15) = 0;
   }
 
-  result = CVImageBuffer::finalize(this);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return CVImageBuffer::finalize(this);
 }
 
 void CVBufferBacking::releaseUsage(atomic_uint *this)
@@ -4489,18 +4475,15 @@ void _pixelFormatDictionaryInit()
 
 void registerConstantClassesPixelFormat(const __CFDictionary *a1, const char *a2, void *key, CFDictionaryRef theDict, __CFArray *a5)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     registerDescriptionWithPixelFormatTypeInPixelFormatDictionaryAndArray(a1, key, theDict, a5);
   }
 
   else
   {
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
@@ -4513,24 +4496,24 @@ void registerConstantClassesPixelFormat(const __CFDictionary *a1, const char *a2
     v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    *__str = 0u;
+    v9 = 0u;
     v10 = 0u;
+    *__str = 0u;
+    v8 = 0u;
     snprintf(__str, 0x100uLL, "Warning: Could not initialize pixel format: %s", a2);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v8 = __str;
+      v6 = __str;
       _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 
 void registerDescriptionWithPixelFormatTypeInPixelFormatDictionaryAndArray(const __CFDictionary *a1, void *key, CFDictionaryRef theDict, __CFArray *a4)
 {
   v6 = key;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   valuePtr = key;
   v8 = key;
   if (CFDictionaryGetValue(theDict, key))
@@ -4548,7 +4531,7 @@ void registerDescriptionWithPixelFormatTypeInPixelFormatDictionaryAndArray(const
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = __str;
+      v15 = __str;
       _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
   }
@@ -4562,9 +4545,9 @@ void registerDescriptionWithPixelFormatTypeInPixelFormatDictionaryAndArray(const
       v11 = Copy;
       CFDictionarySetValue(theDict, v8, Copy);
       v12 = CFNumberCreate(v9, kCFNumberSInt32Type, &valuePtr);
-      v19.length = CFArrayGetCount(a4);
-      v19.location = 0;
-      if (!CFArrayContainsValue(a4, v19, v12))
+      v18.length = CFArrayGetCount(a4);
+      v18.location = 0;
+      if (!CFArrayContainsValue(a4, v18, v12))
       {
         CFArrayAppendValue(a4, v12);
       }
@@ -4577,8 +4560,6 @@ void registerDescriptionWithPixelFormatTypeInPixelFormatDictionaryAndArray(const
       CFRelease(v11);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZL30isRunningInAppleVirtualMachinev_block_invoke()
@@ -4695,7 +4676,7 @@ LABEL_18:
 
 void _pixelFormatDictionaryInit(void)
 {
-  v650 = *MEMORY[0x1E69E9840];
+  v649 = *MEMORY[0x1E69E9840];
   if ((areHTPCFormatsSupported(void)::didCheck & 1) == 0 && !disableCompression())
   {
     if (isRunningInAppleVirtualMachine(void)::sCheckOnce != -1)
@@ -4754,10 +4735,10 @@ void _pixelFormatDictionaryInit(void)
     }
   }
 
-  v642 = v3;
+  v641 = v3;
   v7 = areAGXFormatsSupported(void)::result;
   v8 = areUniversalCompressionFormatsSupported();
-  v645 = areUniversalLossyCompressionFormatsSupported();
+  v644 = areUniversalLossyCompressionFormatsSupported();
   if ((areUniversalMultiSliceFormatsSupported(void)::didCheck & 1) == 0 && !disableCompression())
   {
     if (isRunningInAppleVirtualMachine(void)::sCheckOnce != -1)
@@ -4808,7 +4789,7 @@ void _pixelFormatDictionaryInit(void)
     }
   }
 
-  v644 = areUniversalMultiSliceFormatsSupported(void)::result;
+  v643 = areUniversalMultiSliceFormatsSupported(void)::result;
   if ((areUniversalpARGB10101010FormatsSupported(void)::didCheck & 1) == 0 && !disableCompression())
   {
     if (isRunningInAppleVirtualMachine(void)::sCheckOnce != -1)
@@ -4859,18 +4840,18 @@ void _pixelFormatDictionaryInit(void)
     }
   }
 
-  v643 = areUniversalpARGB10101010FormatsSupported(void)::result;
+  v642 = areUniversalpARGB10101010FormatsSupported(void)::result;
   v23 = v7 ^ 1;
   if (v8)
   {
     v23 = 1;
   }
 
-  v646 = v23;
-  v647 = v8;
+  v645 = v23;
+  v646 = v8;
   if (arePackedFormatsSupported(void)::didCheck == 1)
   {
-    v641 = arePackedFormatsSupported(void)::result;
+    v640 = arePackedFormatsSupported(void)::result;
   }
 
   else
@@ -4880,7 +4861,7 @@ void _pixelFormatDictionaryInit(void)
       _pixelFormatDictionaryInit();
     }
 
-    v641 = isRunningInAppleVirtualMachine(void)::isAppleVirtualMachine == 0;
+    v640 = isRunningInAppleVirtualMachine(void)::isAppleVirtualMachine == 0;
     arePackedFormatsSupported(void)::result = isRunningInAppleVirtualMachine(void)::isAppleVirtualMachine == 0;
     arePackedFormatsSupported(void)::didCheck = 1;
   }
@@ -5802,7 +5783,7 @@ LABEL_213:
     isCoreAnimation_10BitYCbCrCapable(void)::didCheck = 1;
   }
 
-  v181 = v647;
+  v181 = v646;
   if (v180)
   {
     sGlobalVariantBitfield |= 1u;
@@ -5812,7 +5793,7 @@ LABEL_213:
     }
   }
 
-  if (v641)
+  if (v640)
   {
     PixelFormat_kCVPixelFormatType_420YpCbCr10PackedBiPlanarVideoRange = retrievePixelFormat_kCVPixelFormatType_420YpCbCr10PackedBiPlanarVideoRange(sGlobalVariantBitfield);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_420YpCbCr10PackedBiPlanarVideoRange, "kCVPixelFormatType_420YpCbCr10PackedBiPlanarVideoRange", 0x70343230, Mutable, v27);
@@ -5862,7 +5843,7 @@ LABEL_213:
   }
 
 LABEL_253:
-  if (v641)
+  if (v640)
   {
     PixelFormat_kCVPixelFormatType_420YpCbCr10PackedBiPlanarWideRange = retrievePixelFormat_kCVPixelFormatType_420YpCbCr10PackedBiPlanarWideRange(sGlobalVariantBitfield);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_420YpCbCr10PackedBiPlanarWideRange, "kCVPixelFormatType_420YpCbCr10PackedBiPlanarWideRange", 0x70773230, Mutable, v27);
@@ -5987,14 +5968,14 @@ LABEL_253:
   registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_444YpCbCr12PackedBiPlanarWideGamut, "kCVPixelFormatType_444YpCbCr12PackedBiPlanarWideGamut", 0x70747734, Mutable, v27);
   CFDictionaryRemoveAllValues(v28);
   cleanupContentsOfArrayOfVariants();
-  if (v647)
+  if (v646)
   {
     v230 = 1;
   }
 
   else
   {
-    v230 = v642;
+    v230 = v641;
   }
 
   if (v230 == 1)
@@ -6004,7 +5985,7 @@ LABEL_253:
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_HTPC128x1_14Bayer_BGGR, "kCVPixelFormatType_HTPC128x1_14Bayer_BGGR", 0x7B626734, Mutable, v27);
   }
 
-  if (v642)
+  if (v641)
   {
     v233 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(2, &_pixelFormatDictionaryInit(void)::planeCompressionLumaAndChroma, _pixelFormatDictionaryInit(void)::addressFormatLumaAndChroma, 2);
     PixelFormat_kCVPixelFormatType_HTPC32x4_420YpCbCr8BiPlanarVideoRange = retrievePixelFormat_kCVPixelFormatType_HTPC32x4_420YpCbCr8BiPlanarVideoRange(v233);
@@ -6078,7 +6059,7 @@ LABEL_253:
     v279 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(2, &_pixelFormatDictionaryInit(void)::planeCompressionLumaOnly, _pixelFormatDictionaryInit(void)::addressFormatAVEReference, 2);
     PixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_422YpCbCr10BiPlanarFullRange = retrievePixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_422YpCbCr10BiPlanarFullRange(v279);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_422YpCbCr10BiPlanarFullRange, "kCVPixelFormatType_HTPC16x8LumaOnly_422YpCbCr10BiPlanarFullRange", 0x5D786632, Mutable, v27);
-    v181 = v647;
+    v181 = v646;
     v174 = 0x1ED568000;
     v281 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(2, &_pixelFormatDictionaryInit(void)::planeCompressionLumaOnly, _pixelFormatDictionaryInit(void)::addressFormatAVEReference, 2);
     PixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_444YpCbCr10BiPlanarFullRange = retrievePixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_444YpCbCr10BiPlanarFullRange(v281);
@@ -6139,7 +6120,7 @@ LABEL_253:
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_HTPC16x8_444YpCbCr12BiPlanarFullRange, "kCVPixelFormatType_HTPC16x8_444YpCbCr12BiPlanarFullRange", 0x5B746634, Mutable, v27);
   }
 
-  if (v646)
+  if (v645)
   {
     if (!v181)
     {
@@ -6173,14 +6154,14 @@ LABEL_253:
 
   registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_AGX_40ARGBLEWideGamut_Universal, "kCVPixelFormatType_AGX_40ARGBLEWideGamut", 0x26773461, Mutable, v27);
 LABEL_277:
-  if (v643)
+  if (v642)
   {
     v332 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(1, &_pixelFormatDictionaryInit(void)::planeInterchange, _pixelFormatDictionaryInit(void)::addressFormatInterchange, 41);
     PixelFormat_kCVPixelFormatType_Lossless_Packed40ARGBLEFullRange = retrievePixelFormat_kCVPixelFormatType_Lossless_Packed40ARGBLEFullRange(v332);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_Lossless_Packed40ARGBLEFullRange, "kCVPixelFormatType_Lossless_Packed40ARGBLEFullRange", 0x266C3461, Mutable, v27);
   }
 
-  if (v646)
+  if (v645)
   {
     if (!v181)
     {
@@ -6352,7 +6333,7 @@ LABEL_277:
     v442 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(2, &_pixelFormatDictionaryInit(void)::planeInterchangeUncompressed, _pixelFormatDictionaryInit(void)::addressFormatInterchange, 2);
     PixelFormat_kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarVideoRange = retrievePixelFormat_kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarVideoRange(v442);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarVideoRange, "kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarVideoRange", 0x23387630, Mutable, v27);
-    v181 = v647;
+    v181 = v646;
     v444 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(2, &_pixelFormatDictionaryInit(void)::planeInterchangeUncompressed, _pixelFormatDictionaryInit(void)::addressFormatInterchange, 2);
     PixelFormat_kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarFullRange = retrievePixelFormat_kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarFullRange(v444);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarFullRange, "kCVPixelFormatType_UncompressedTiled_420YpCbCr8BiPlanarFullRange", 0x23386630, Mutable, v27);
@@ -6417,7 +6398,7 @@ LABEL_277:
 
   registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_Lossless_DisparityFloat16, v462, v463, Mutable, v27);
 LABEL_284:
-  if (v644)
+  if (v643)
   {
     v481 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(1, &_pixelFormatDictionaryInit(void)::planeInterchangeMultiSlice, _pixelFormatDictionaryInit(void)::addressFormatInterchange, 4);
     PixelFormat_kCVPixelFormatType_MultiSlice_Lossless_OneComponent16Half = retrievePixelFormat_kCVPixelFormatType_MultiSlice_Lossless_OneComponent16Half(v481);
@@ -6427,7 +6408,7 @@ LABEL_284:
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_MultiSlice_UncompressedTiled_OneComponent16Half, "kCVPixelFormatType_MultiSlice_UncompressedTiled_OneComponent16Half", 0x2A234C68, Mutable, v27);
   }
 
-  if (v645)
+  if (v644)
   {
     v485 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(2, &_pixelFormatDictionaryInit(void)::planeInterchangeLossy75, _pixelFormatDictionaryInit(void)::addressFormatInterchange, 34);
     PixelFormat_kCVPixelFormatType_Lossy75_420YpCbCr8BiPlanarVideoRange = retrievePixelFormat_kCVPixelFormatType_Lossy75_420YpCbCr8BiPlanarVideoRange(v485);
@@ -6537,7 +6518,7 @@ LABEL_284:
     v555 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(1, &_pixelFormatDictionaryInit(void)::planeInterchangeLossy75, _pixelFormatDictionaryInit(void)::addressFormatInterchange, 41);
     PixelFormat_kCVPixelFormatType_Lossy75_64RGBAHalf = retrievePixelFormat_kCVPixelFormatType_Lossy75_64RGBAHalf(v555);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_Lossy75_64RGBAHalf, "kCVPixelFormatType_Lossy75_64RGBAHalf", 0x2D526841, Mutable, v27);
-    v181 = v647;
+    v181 = v646;
     v557 = calculatePixelFormatVariantBitfieldForCompressedTiledFormatOnThisDevice(1, &_pixelFormatDictionaryInit(void)::planeInterchangeLossy62, _pixelFormatDictionaryInit(void)::addressFormatInterchange, 41);
     PixelFormat_kCVPixelFormatType_Lossy62_64RGBAHalf = retrievePixelFormat_kCVPixelFormatType_Lossy62_64RGBAHalf(v557);
     registerConstantClassesPixelFormat(PixelFormat_kCVPixelFormatType_Lossy62_64RGBAHalf, "kCVPixelFormatType_Lossy62_64RGBAHalf", 0x2F526841, Mutable, v27);
@@ -7070,11 +7051,9 @@ LABEL_366:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *keyExistsAndHasValidFormat = 136315138;
-    v649 = "Pixel format registry initialized. Constant classes enabled.";
+    v648 = "Pixel format registry initialized. Constant classes enabled.";
     _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", keyExistsAndHasValidFormat, 0xCu);
   }
-
-  v640 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t disableCompression(void)
@@ -7216,80 +7195,79 @@ CVReturn CVPixelBufferCreateWithIOSurface(CFAllocatorRef allocator, IOSurfaceRef
     MutableCopy = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   }
 
-  v13 = MutableCopy;
+  v16 = MutableCopy;
   if (!MutableCopy)
   {
-    v14 = 0;
-    v16 = 0;
+    v17 = 0;
+    v22 = 0;
     goto LABEL_40;
   }
 
   if (v10)
   {
-    v14 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v14 = IOSurfaceCopyAllValues(surface);
+    v17 = IOSurfaceCopyAllValues(surface);
   }
 
-  cf = CVPixelBufferBacking::alloc(allocator, v12);
+  cf = CVPixelBufferBacking::alloc(allocator, v12, v13, v14, v15);
   if (cf)
   {
-    if (checkIOOrEXSurfaceAndCreatePixelBufferBacking(surface, v13, &cf))
+    if (checkIOOrEXSurfaceAndCreatePixelBufferBacking(surface, v16, &cf))
     {
 LABEL_28:
-      v16 = 0;
+      v22 = 0;
       goto LABEL_30;
     }
 
-    v16 = CVPixelBuffer::alloc(allocator, v15);
-    if (v16)
+    v22 = CVPixelBuffer::alloc(allocator, v18, v19, v20, v21);
+    if (v22)
     {
-      v17 = *MEMORY[0x1E695E4D0];
-      if (v17 == CFDictionaryGetValue(v13, @"IOSurfaceDoNotIncrementUseCount"))
+      v23 = *MEMORY[0x1E695E4D0];
+      if (v23 == CFDictionaryGetValue(v16, @"IOSurfaceDoNotIncrementUseCount"))
       {
-        v18 = CFGetTypeID(v16);
-        if (v18 == CVPixelBufferGetTypeID())
+        v24 = CFGetTypeID(v22);
+        if (v24 == CVPixelBufferGetTypeID())
         {
-          v19 = v16[2];
+          v25 = v22[2];
         }
 
         else
         {
-          v19 = 0;
+          v25 = 0;
         }
 
-        CVPixelBuffer::setDoNotAutomaticallyBumpUseCount(v19);
+        CVPixelBuffer::setDoNotAutomaticallyBumpUseCount(v25);
       }
 
-      v20 = *(cf + 2);
-      v21 = OUTLINED_FUNCTION_2(v16[2]);
-      if ((*(v22 + 248))(v21))
+      OUTLINED_FUNCTION_2();
+      if ((*(v26 + 248))())
       {
         if ((v10 & 1) == 0)
         {
-          v23 = CFGetTypeID(v16);
-          if (v23 == CVPixelBufferGetTypeID())
+          v27 = CFGetTypeID(v22);
+          if (v27 == CVPixelBufferGetTypeID())
           {
-            v24 = v16[2];
-            if (v24)
+            v28 = v22[2];
+            if (v28)
             {
-              CVPixelBuffer::pullAttachmentsFromIOSurface(v24, v14);
+              CVPixelBuffer::pullAttachmentsFromIOSurface(v28, v17);
             }
           }
 
-          if (v14)
+          if (v17)
           {
-            Value = CFDictionaryGetValue(v14, *MEMORY[0x1E696CF98]);
+            Value = CFDictionaryGetValue(v17, *MEMORY[0x1E696CF98]);
             if (Value)
             {
-              v26 = Value;
-              v27 = CFGetTypeID(Value);
-              if (v27 == CFStringGetTypeID())
+              v30 = Value;
+              v31 = CFGetTypeID(Value);
+              if (v31 == CFStringGetTypeID())
               {
-                CVBufferBacking::setPoolName(*(cf + 2), v26);
+                CVBufferBacking::setPoolName(*(cf + 2), v30);
               }
             }
           }
@@ -7297,7 +7275,7 @@ LABEL_28:
 
         CVTracePoolAction(1, 0, cf, "created from IOSurface", 0, 0);
         v9 = 0;
-        *pixelBufferOut = v16;
+        *pixelBufferOut = v22;
         goto LABEL_28;
       }
 
@@ -7308,7 +7286,7 @@ LABEL_30:
         CFRelease(cf);
       }
 
-      if (!v13)
+      if (!v16)
       {
         goto LABEL_34;
       }
@@ -7321,19 +7299,19 @@ LABEL_40:
     goto LABEL_30;
   }
 
-  v16 = 0;
+  v22 = 0;
   v9 = -6662;
 LABEL_33:
-  CFRelease(v13);
+  CFRelease(v16);
 LABEL_34:
-  if (v14)
+  if (v17)
   {
-    CFRelease(v14);
+    CFRelease(v17);
   }
 
-  if (v16)
+  if (v22)
   {
-    CFRelease(v16);
+    CFRelease(v22);
   }
 
   return v9;
@@ -7341,28 +7319,28 @@ LABEL_34:
 
 uint64_t checkIOOrEXSurfaceAndCreatePixelBufferBacking(__IOSurface *a1, const __CFDictionary *a2, void *a3)
 {
-  v120[16] = *MEMORY[0x1E69E9840];
-  v116 = 0;
-  memset(v117, 0, sizeof(v117));
-  v114 = 0;
+  v119[16] = *MEMORY[0x1E69E9840];
   v115 = 0;
-  v112 = 0;
+  memset(v116, 0, sizeof(v116));
   v113 = 0;
+  v114 = 0;
+  v111 = 0;
+  v112 = 0;
   if (!a1)
   {
-    goto LABEL_49;
+    return -6661;
   }
 
   v3 = a2;
   if (!a2)
   {
-    goto LABEL_105;
+    return -6662;
   }
 
   v4 = a3;
   if (!a3 || !*a3)
   {
-    goto LABEL_105;
+    return -6662;
   }
 
   Width = IOOrEXSurfaceGetWidth(a1);
@@ -7373,25 +7351,21 @@ uint64_t checkIOOrEXSurfaceAndCreatePixelBufferBacking(__IOSurface *a1, const __
   PlaneCount = IOOrEXSurfaceGetPlaneCount(a1);
   if (PlaneCount > 0x10)
   {
-LABEL_49:
-    v32 = -6661;
-LABEL_55:
-    v116 = v32;
-    goto LABEL_56;
+    return -6661;
   }
 
   v10 = PlaneCount;
-  v107 = Height;
-  v110 = Width;
+  v106 = Height;
+  v109 = Width;
   if (!PlaneCount)
   {
-    v108 = 1;
+    v107 = 1;
 LABEL_24:
-    v120[0] = IOOrEXSurfaceGetWidth(a1);
-    v119[0] = IOOrEXSurfaceGetHeight(a1);
-    v118[0] = IOOrEXSurfaceGetBytesPerRow(a1);
+    v119[0] = IOOrEXSurfaceGetWidth(a1);
+    v118[0] = IOOrEXSurfaceGetHeight(a1);
+    v117[0] = IOOrEXSurfaceGetBytesPerRow(a1);
     v10 = 0;
-    *&v117[0] = IOOrEXSurfaceGetBaseAddress(a1);
+    *&v116[0] = IOOrEXSurfaceGetBaseAddress(a1);
     goto LABEL_25;
   }
 
@@ -7410,7 +7384,7 @@ LABEL_24:
   }
 
   while (v10 != v12);
-  v108 = v11 == 0;
+  v107 = v11 == 0;
   if (v10 == 1)
   {
     goto LABEL_24;
@@ -7419,10 +7393,10 @@ LABEL_24:
   v17 = 0;
   do
   {
-    v120[v17] = IOOrEXSurfaceGetWidthOfPlane(a1, v17);
-    v119[v17] = IOOrEXSurfaceGetHeightOfPlane(a1, v17);
-    v118[v17] = IOOrEXSurfaceGetBytesPerRowOfPlane(a1, v17);
-    *(v117 + v17) = IOOrEXSurfaceGetBaseAddressOfPlane(a1, v17);
+    v119[v17] = IOOrEXSurfaceGetWidthOfPlane(a1, v17);
+    v118[v17] = IOOrEXSurfaceGetHeightOfPlane(a1, v17);
+    v117[v17] = IOOrEXSurfaceGetBytesPerRowOfPlane(a1, v17);
+    *(v116 + v17) = IOOrEXSurfaceGetBaseAddressOfPlane(a1, v17);
     ++v17;
   }
 
@@ -7437,27 +7411,27 @@ LABEL_25:
       Value = CFDictionaryGetValue(v3, @"PixelFormatDescription");
       if (!Value)
       {
-        goto LABEL_54;
+        return -6680;
       }
 
       DescriptionWithPixelFormatType = Value;
       v34 = CFDictionaryGetValue(Value, @"PixelFormat");
       if (!v34)
       {
-        goto LABEL_54;
+        return -6680;
       }
 
       v35 = v34;
       v36 = CFGetTypeID(v34);
       if (v36 != CFNumberGetTypeID())
       {
-        goto LABEL_54;
+        return -6680;
       }
 
       CFNumberGetValue(v35, kCFNumberIntType, &valuePtr);
       if (PixelFormat != valuePtr)
       {
-        goto LABEL_54;
+        return -6680;
       }
     }
 
@@ -7468,9 +7442,7 @@ LABEL_25:
   {
     if (!CFDictionaryGetValue(v3, @"PixelFormatDescription"))
     {
-LABEL_54:
-      v32 = -6680;
-      goto LABEL_55;
+      return -6680;
     }
 
     DescriptionWithPixelFormatType = 0;
@@ -7489,15 +7461,15 @@ LABEL_54:
       v20 = v10;
     }
 
-    v21 = v117;
-    v22 = v118;
+    v21 = v116;
+    v22 = v117;
     do
     {
       v23 = *v22;
       v22 += 8;
       if ((v23 & 0x3F) != 0 || (*v21 & 0x3F) != 0)
       {
-        goto LABEL_49;
+        return -6661;
       }
 
       v21 += 8;
@@ -7519,20 +7491,20 @@ LABEL_54:
       v25 = v10;
     }
 
-    v26 = v118;
+    v26 = v117;
     do
     {
       v27 = *v26++;
       if (v27 % IntValueWithDefault)
       {
-        goto LABEL_49;
+        return -6661;
       }
     }
 
     while (--v25);
   }
 
-  v104 = DescriptionWithPixelFormatType;
+  v103 = DescriptionWithPixelFormatType;
   v28 = CFDictionaryGetValue(v3, @"ExactBytesPerRow");
   if (v28)
   {
@@ -7541,187 +7513,193 @@ LABEL_54:
     if (TypeID == CFGetTypeID(v29))
     {
       v31 = CVDictionaryGetIntValueWithDefault(v3, @"ExactBytesPerRow", 0);
-      if (v118[0] != v31)
+      if (v117[0] != v31)
       {
-        goto LABEL_49;
+        return -6661;
       }
     }
 
     else
     {
-      v39 = CFArrayGetTypeID();
-      if (v39 == CFGetTypeID(v29))
+      v38 = CFArrayGetTypeID();
+      if (v38 == CFGetTypeID(v29))
       {
-        v40 = 0;
+        v39 = 0;
         if (v10 <= 1)
         {
-          v41 = 1;
+          v40 = 1;
         }
 
         else
         {
-          v41 = v10;
+          v40 = v10;
         }
 
         do
         {
-          IntInArrayWithDefault = CVDictionaryGetIntInArrayWithDefault(v3, @"ExactBytesPerRow", v40, 0);
+          IntInArrayWithDefault = CVDictionaryGetIntInArrayWithDefault(v3, @"ExactBytesPerRow", v39, 0);
           if (IntInArrayWithDefault)
           {
-            if (v118[v40] != IntInArrayWithDefault)
+            if (v117[v39] != IntInArrayWithDefault)
             {
-              goto LABEL_49;
+              return -6661;
             }
           }
         }
 
-        while (v41 != ++v40);
+        while (v40 != ++v39);
       }
     }
   }
 
-  v43 = CVDictionaryGetIntValueWithDefault(v3, @"PlaneAlignment", 0);
-  v44 = v104;
-  if (v43)
+  v42 = CVDictionaryGetIntValueWithDefault(v3, @"PlaneAlignment", 0);
+  v43 = v103;
+  if (v42)
   {
     if (v10 <= 1)
     {
-      v45 = 1;
+      v44 = 1;
     }
 
     else
     {
-      v45 = v10;
+      v44 = v10;
     }
 
-    v46 = v117;
-    while (!(*v46 % v43))
+    v45 = v116;
+    while (!(*v45 % v42))
     {
-      ++v46;
-      if (!--v45)
+      ++v45;
+      if (!--v44)
       {
         goto LABEL_71;
       }
     }
 
-    goto LABEL_49;
+    return -6661;
   }
 
 LABEL_71:
   ParentID = IOSurfaceGetParentID();
-  if (!v108)
+  if (!v107)
   {
-    if (!v104)
+    if (!v103)
     {
-      goto LABEL_105;
+      return -6662;
     }
 
-    v65 = CFDictionaryGetValue(v104, @"Planes");
+    v64 = CFDictionaryGetValue(v103, @"Planes");
     if (IOSurfaceGetCompressionTypeOfPlane() - 3 <= 0xFFFFFFFD)
     {
-      BoolValueWithDefault = CVDictionaryGetBoolValueWithDefault(v104, @"MultiSlice", 0);
+      BoolValueWithDefault = CVDictionaryGetBoolValueWithDefault(v103, @"MultiSlice", 0);
       SliceCount = IOSurfaceGetSliceCount();
       if (BoolValueWithDefault)
       {
         if (SliceCount - 0x100000000 <= 0xFFFFFFFF00000001)
         {
-          goto LABEL_49;
+          return -6661;
         }
 
-        v68 = 0;
+        v67 = 0;
         goto LABEL_108;
       }
 
       if (SliceCount >= 2)
       {
-        goto LABEL_49;
+        return -6661;
       }
     }
 
-    v68 = 1;
+    v67 = 1;
     LODWORD(SliceCount) = 1;
 LABEL_108:
     if (v10)
     {
-      v100 = v3;
-      v101 = v4;
+      v99 = v3;
+      v100 = v4;
+      v74 = 0;
       v75 = 0;
-      v76 = 0;
       if (SliceCount < 2)
       {
-        v68 = 1;
+        v67 = 1;
       }
 
-      v102 = v68;
-      v109 = SliceCount;
-      v77 = v65;
-      v78 = v65;
+      v101 = v67;
+      v108 = SliceCount;
+      v76 = v64;
+      v77 = v64;
       while (1)
       {
-        v103 = v75;
-        ValueAtIndex = CFArrayGetValueAtIndex(v77, v76);
+        v102 = v74;
+        ValueAtIndex = CFArrayGetValueAtIndex(v76, v75);
         NumberFromDict = getNumberFromDict(ValueAtIndex, @"BytesPerTileHeader", 1);
-        v81 = getNumberFromDict(ValueAtIndex, @"TileWidth", 1);
-        v82 = getNumberFromDict(ValueAtIndex, @"TileHeight", 1);
-        v83 = getNumberFromDict(ValueAtIndex, @"BitsPerBlock", 8);
+        v80 = getNumberFromDict(ValueAtIndex, @"TileWidth", 1);
+        v81 = getNumberFromDict(ValueAtIndex, @"TileHeight", 1);
+        v82 = getNumberFromDict(ValueAtIndex, @"BitsPerBlock", 8);
         WidthInCompressedTilesOfPlane = IOSurfaceGetWidthInCompressedTilesOfPlane();
-        if (!is_mul_ok(WidthInCompressedTilesOfPlane, v81))
+        if (!is_mul_ok(WidthInCompressedTilesOfPlane, v80))
         {
-          goto LABEL_105;
+          return -6662;
         }
 
-        v85 = WidthInCompressedTilesOfPlane;
+        v84 = WidthInCompressedTilesOfPlane;
         HeightInCompressedTilesOfPlane = IOSurfaceGetHeightInCompressedTilesOfPlane();
-        if (!is_mul_ok(HeightInCompressedTilesOfPlane, v82))
+        if (!is_mul_ok(HeightInCompressedTilesOfPlane, v81))
         {
-          goto LABEL_105;
+          return -6662;
         }
 
-        v87 = ((v82 * v81 * v83 + 7) >> 3) * v85 * HeightInCompressedTilesOfPlane;
-        v88 = v85 * NumberFromDict * HeightInCompressedTilesOfPlane;
-        v89 = v88 + v103 + v87;
-        if (v103 >= v89)
+        v86 = ((v81 * v80 * v82 + 7) >> 3) * v84 * HeightInCompressedTilesOfPlane;
+        v87 = v84 * NumberFromDict * HeightInCompressedTilesOfPlane;
+        v88 = v87 + v102 + v86;
+        if (v102 >= v88)
         {
-          goto LABEL_105;
+          return -6662;
         }
 
-        if ((v102 & 1) == 0)
+        if ((v101 & 1) == 0)
         {
-          v90 = 1;
-          do
+          v89 = 1;
+          while (1)
           {
-            v91 = v87 + IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfSliceAndPlane();
-            if (v91 != IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfSliceAndPlane())
+            v90 = v86 + IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfSliceAndPlane();
+            if (v90 != IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfSliceAndPlane())
             {
-              goto LABEL_49;
+              break;
             }
 
-            v92 = v88 + IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfSliceAndPlane();
-            if (v92 != IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfSliceAndPlane())
+            v91 = v87 + IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfSliceAndPlane();
+            if (v91 != IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfSliceAndPlane())
             {
-              goto LABEL_49;
+              break;
+            }
+
+            if (v108 == ++v89)
+            {
+              goto LABEL_120;
             }
           }
 
-          while (v109 != ++v90);
+          return -6661;
         }
 
-        ++v76;
-        v75 = v88 + v103 + v87;
-        v77 = v78;
-        if (v76 == v10)
+LABEL_120:
+        ++v75;
+        v74 = v87 + v102 + v86;
+        v76 = v77;
+        if (v75 == v10)
         {
-          v62 = AllocSize;
-          v63 = v89 > AllocSize;
+          v61 = AllocSize;
+          v62 = v88 > AllocSize;
 LABEL_91:
-          v3 = v100;
-          v4 = v101;
-          Width = v110;
-          v44 = v104;
+          v3 = v99;
+          v4 = v100;
+          Width = v109;
+          v43 = v103;
           BytesPerRowOfPlane = BytesPerRow;
-          if (v63)
+          if (v62)
           {
-            goto LABEL_105;
+            return -6662;
           }
 
           goto LABEL_123;
@@ -7730,63 +7708,63 @@ LABEL_91:
     }
 
     BytesPerRowOfPlane = IOSurfaceGetBytesPerRowOfPlane(a1, 0);
-    v62 = AllocSize;
+    v61 = AllocSize;
     goto LABEL_123;
   }
 
   if (v10)
   {
-    v48 = ParentID;
-    v100 = v3;
-    v101 = v4;
-    if (v104)
+    v47 = ParentID;
+    v99 = v3;
+    v100 = v4;
+    if (v103)
     {
-      v44 = CFDictionaryGetValue(v104, @"Planes");
+      v43 = CFDictionaryGetValue(v103, @"Planes");
     }
 
+    v48 = 0;
     v49 = 0;
-    v50 = 0;
     while (1)
     {
-      v51 = v44 ? CFArrayGetValueAtIndex(v44, v50) : 0;
-      BytesPerElementOfPlane = IOOrEXSurfaceGetBytesPerElementOfPlane(a1, v50);
+      v50 = v43 ? CFArrayGetValueAtIndex(v43, v49) : 0;
+      BytesPerElementOfPlane = IOOrEXSurfaceGetBytesPerElementOfPlane(a1, v49);
       if (BytesPerElementOfPlane >> 61)
       {
-        goto LABEL_105;
+        return -6662;
       }
 
-      v53 = getNumberFromDict(v51, @"BitsPerBlock", 8 * BytesPerElementOfPlane);
-      v54 = v53 >= 0 ? v53 : v53 + 7;
-      ElementWidthOfPlane = IOOrEXSurfaceGetElementWidthOfPlane(a1, v50);
-      v56 = getNumberFromDict(v51, @"BlockWidth", ElementWidthOfPlane);
-      v57 = v119[v50];
-      v58 = v118[v50];
-      if (!is_mul_ok(v57, v58))
+      v52 = getNumberFromDict(v50, @"BitsPerBlock", 8 * BytesPerElementOfPlane);
+      v53 = v52 >= 0 ? v52 : v52 + 7;
+      ElementWidthOfPlane = IOOrEXSurfaceGetElementWidthOfPlane(a1, v49);
+      v55 = getNumberFromDict(v50, @"BlockWidth", ElementWidthOfPlane);
+      v56 = v118[v49];
+      v57 = v117[v49];
+      if (!is_mul_ok(v56, v57))
       {
-        goto LABEL_105;
+        return -6662;
       }
 
-      if (!v48)
+      if (!v47)
       {
-        v59 = v49 + v58 * v57;
-        v60 = v49 >= v59;
-        v49 = v59;
-        if (v60)
+        v58 = v48 + v57 * v56;
+        v59 = v48 >= v58;
+        v48 = v58;
+        if (v59)
         {
-          goto LABEL_105;
+          return -6662;
         }
       }
 
-      v61 = v120[v50];
-      if (!is_mul_ok(v61, v54 >> 3) || !is_mul_ok(v58, v56) || v61 * (v54 >> 3) > v58 * v56)
+      v60 = v119[v49];
+      if (!is_mul_ok(v60, v53 >> 3) || !is_mul_ok(v57, v55) || v60 * (v53 >> 3) > v57 * v55)
       {
-        goto LABEL_105;
+        return -6662;
       }
 
-      if (v10 == ++v50)
+      if (v10 == ++v49)
       {
-        v62 = AllocSize;
-        v63 = v49 > AllocSize;
+        v61 = AllocSize;
+        v62 = v48 > AllocSize;
         goto LABEL_91;
       }
     }
@@ -7794,46 +7772,71 @@ LABEL_91:
 
   BytesPerElement = IOOrEXSurfaceGetBytesPerElement(a1);
   BytesPerRowOfPlane = BytesPerRow;
-  if (BytesPerElement >> 61 || (v70 = getNumberFromDict(v104, @"BitsPerBlock", 8 * BytesPerElement) / 8, ElementWidth = IOOrEXSurfaceGetElementWidth(a1), v72 = getNumberFromDict(v104, @"BlockWidth", ElementWidth), ElementHeight = IOOrEXSurfaceGetElementHeight(a1), v74 = getNumberFromDict(v104, @"BlockHeight", ElementHeight), v62 = AllocSize, !is_mul_ok(Width, v70)) || !is_mul_ok(BytesPerRow, v72) || v70 * Width > v72 * BytesPerRow || (v44 = v104, !is_mul_ok(v107, BytesPerRow)) || (v107 + v74 - 1) / v74 * BytesPerRow > AllocSize)
+  if (BytesPerElement >> 61)
   {
-LABEL_105:
-    v32 = -6662;
-    goto LABEL_55;
+    return -6662;
+  }
+
+  v69 = getNumberFromDict(v103, @"BitsPerBlock", 8 * BytesPerElement) / 8;
+  ElementWidth = IOOrEXSurfaceGetElementWidth(a1);
+  v71 = getNumberFromDict(v103, @"BlockWidth", ElementWidth);
+  ElementHeight = IOOrEXSurfaceGetElementHeight(a1);
+  v73 = getNumberFromDict(v103, @"BlockHeight", ElementHeight);
+  v61 = AllocSize;
+  if (!is_mul_ok(Width, v69))
+  {
+    return -6662;
+  }
+
+  if (!is_mul_ok(BytesPerRow, v71))
+  {
+    return -6662;
+  }
+
+  if (v69 * Width > v71 * BytesPerRow)
+  {
+    return -6662;
+  }
+
+  v43 = v103;
+  if (!is_mul_ok(v106, BytesPerRow) || (v106 + v73 - 1) / v73 * BytesPerRow > AllocSize)
+  {
+    return -6662;
   }
 
 LABEL_123:
   IOSurfaceGetExtendedPixelsOfPlane();
-  if (CVDictionaryGetBoolValueWithDefault(v44, @"ContainsSenselArray", 0))
+  if (CVDictionaryGetBoolValueWithDefault(v43, @"ContainsSenselArray", 0))
   {
-    v93 = CFDictionaryGetValue(v44, @"Planes");
-    if (v93)
+    v92 = CFDictionaryGetValue(v43, @"Planes");
+    if (v92)
     {
-      v94 = v93;
-      if (CFArrayGetCount(v93) == 4)
+      v93 = v92;
+      if (CFArrayGetCount(v92) == 4)
       {
-        v95 = CFArrayGetValueAtIndex(v94, 0);
-        if (v95)
+        v94 = CFArrayGetValueAtIndex(v93, 0);
+        if (v94)
         {
-          v96 = v95;
-          v97 = CVDictionaryGetIntValueWithDefault(v95, @"HorizontalSubsampling", 1);
-          v98 = CVDictionaryGetIntValueWithDefault(v96, @"VerticalSubsampling", 1);
-          v114 *= v98;
-          v115 *= v97;
-          v112 *= v98;
+          v95 = v94;
+          v96 = CVDictionaryGetIntValueWithDefault(v94, @"HorizontalSubsampling", 1);
+          v97 = CVDictionaryGetIntValueWithDefault(v95, @"VerticalSubsampling", 1);
           v113 *= v97;
+          v114 *= v96;
+          v111 *= v97;
+          v112 *= v96;
         }
       }
     }
   }
 
-  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsLeft", v115);
-  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsTop", v114);
-  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsRight", v113);
-  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsBottom", v112);
-  if ((*(**(*v4 + 16) + 248))(*(*v4 + 16), Width, v107, 0, v62, BytesPerRowOfPlane, v10, 0, v120, v119, v118, 0, 0, 0, v3, 0, a1, 0, 0, 0, &v116))
+  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsLeft", v114);
+  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsTop", v113);
+  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsRight", v112);
+  CVDictionarySetSInt64Value(v3, @"ExtendedPixelsBottom", v111);
+  if ((*(**(*v4 + 16) + 248))(*(*v4 + 16), Width, v106, 0, v61, BytesPerRowOfPlane, v10, 0, v119, v118, v117, 0, 0, 0, v3, 0, a1, 0, 0, 0, &v115))
   {
-    v99 = *MEMORY[0x1E695E4D0];
-    if (v99 == CFDictionaryGetValue(v3, @"IOSurfaceWiringAssertion"))
+    v98 = *MEMORY[0x1E695E4D0];
+    if (v98 == CFDictionaryGetValue(v3, @"IOSurfaceWiringAssertion"))
     {
       *(*(*v4 + 16) + 488) |= 2u;
     }
@@ -7844,10 +7847,7 @@ LABEL_123:
     *v4 = 0;
   }
 
-LABEL_56:
-  result = v116;
-  v38 = *MEMORY[0x1E69E9840];
-  return result;
+  return v115;
 }
 
 void CVBufferBacking::CVBufferBacking(CVBufferBacking *this, const void *a2)
@@ -7874,7 +7874,7 @@ const void *CVPixelFormatDescriptionGetDescriptionWithPixelFormatType(unsigned i
   return Value;
 }
 
-CVImageBacking **CVPixelBufferBacking::alloc(CVPixelBufferBacking *this, const __CFAllocator *a2)
+CVImageBacking **CVPixelBufferBacking::alloc(CVPixelBufferBacking *this, const __CFAllocator *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   if (_cvUseTrackingAllocator)
   {
@@ -7886,28 +7886,28 @@ CVImageBacking **CVPixelBufferBacking::alloc(CVPixelBufferBacking *this, const _
     CVPixelBufferBackingGetTypeID();
   }
 
-  v3 = CVObject::alloc(kCVPixelBufferBackingID, this, 0x18, 0x498uLL);
-  v4 = v3;
-  if (v3)
+  v6 = CVObject::alloc(kCVPixelBufferBackingID, this, 0x18, 0x498uLL);
+  v7 = v6;
+  if (v6)
   {
-    CVImageBacking::CVImageBacking(v3[2], v3);
-    *v5 = &unk_1F1087728;
-    *(v5 + 496) = 0;
-    *(v5 + 168) = 0;
-    *(v5 + 1080) = 0;
-    *(v5 + 1088) = 0u;
-    *(v5 + 1112) = 0u;
-    *(v5 + 144) = 1;
-    *(v5 + 1136) = 0;
-    *(v5 + 448) = 0;
-    *(v5 + 456) = 0;
-    *(v5 + 476) = 0;
+    CVImageBacking::CVImageBacking(v6[2], v6);
+    *v8 = &unk_1F1087728;
+    *(v8 + 496) = 0;
+    *(v8 + 168) = 0;
+    *(v8 + 1080) = 0;
+    *(v8 + 1088) = 0u;
+    *(v8 + 1112) = 0u;
+    *(v8 + 144) = 1;
+    *(v8 + 1136) = 0;
+    *(v8 + 448) = 0;
+    *(v8 + 456) = 0;
+    *(v8 + 476) = 0;
   }
 
-  return v4;
+  return v7;
 }
 
-uint64_t CVObject::alloc(CVObject *this, unint64_t a2, const __CFAllocator *a3, size_t a4)
+uint64_t CVObject::alloc(CVObject *this, uint64_t a2, const __CFAllocator *a3, size_t a4)
 {
   v5 = (a3 + 15) & 0xFFFFFFFFFFFFFFF0;
   Instance = _CFRuntimeCreateInstance();
@@ -8708,7 +8708,7 @@ void *retrievePixelFormat_kCVPixelFormatType_422YpCbCr16(int a1)
 
 void *CVPixelBufferPool::createPixelBuffer(CVPixelBufferPool *this, const __CFAllocator *a2, const __CFDictionary *a3, int *a4)
 {
-  v48 = 0;
+  v54 = 0;
   (*(**(this + 2) + 160))(*(this + 2));
   {
     CVPixelBufferPool::createPixelBuffer(__CFAllocator const*,__CFDictionary const*,int *)::ktrace_seed = arc4random();
@@ -8736,8 +8736,8 @@ void *CVPixelBufferPool::createPixelBuffer(CVPixelBufferPool *this, const __CFAl
     v13 = v10 == Value;
     if (v10 == Value && v10 == v12)
     {
-      v21 = 0;
-      v22 = -6691;
+      v24 = 0;
+      v25 = -6691;
       goto LABEL_41;
     }
 
@@ -8758,150 +8758,150 @@ void *CVPixelBufferPool::createPixelBuffer(CVPixelBufferPool *this, const __CFAl
     v15 = 0;
   }
 
-  v17 = (*(**(this + 2) + 128))(*(this + 2), &v48, v15);
-  v18 = v48;
-  if (v13 && !v48)
+  v20 = (*(**(this + 2) + 128))(*(this + 2), &v54, v15);
+  v21 = v54;
+  if (v13 && !v54)
   {
-    v17 = (*(**(this + 2) + 128))(*(this + 2), &v48, 0);
-    v18 = v48;
+    v20 = (*(**(this + 2) + 128))(*(this + 2), &v54, 0);
+    v21 = v54;
   }
 
-  if (!v18)
+  if (!v21)
   {
     goto LABEL_68;
   }
 
-  v19 = (*(*v18 + 24))(v18);
-  if (v48)
+  v22 = (*(*v21 + 24))(v21);
+  if (v54)
   {
-    if ((*(*v48 + 160))(v48))
+    if ((*(*v54 + 160))(v54))
     {
-      v20 = (*(*v48 + 160))(v48);
-      IOOrEXSurfaceGetID(v20);
+      v23 = (*(*v54 + 160))(v54);
+      IOOrEXSurfaceGetID(v23);
     }
 
-    else if (v48)
+    else if (v54)
     {
-      (*(*v48 + 24))(v48);
+      (*(*v54 + 24))(v54);
     }
   }
 
   (*(*this + 24))(this);
-  v23 = *(this + 2);
-  if (v23)
+  v26 = *(this + 2);
+  if (v26)
   {
-    (*(*v23 + 96))(v23);
-    v24 = *(this + 2);
-    if (v24)
+    (*(*v26 + 96))(v26);
+    v27 = *(this + 2);
+    if (v27)
     {
-      (*(*v24 + 104))(v24);
+      (*(*v27 + 104))(v27);
     }
   }
 
   kdebug_trace();
-  if (!v19)
+  if (!v22)
   {
 LABEL_68:
-    if (a3 && (v25 = CFDictionaryGetValue(a3, @"BufferPoolAllocationThreshold"), valuePtr = 0, v25) && (v26 = v25, v27 = CFGetTypeID(v25), v27 == CFNumberGetTypeID()) && (CFNumberGetValue(v26, kCFNumberLongType, &valuePtr), v28 = valuePtr, v28 <= (*(**(this + 2) + 96))(*(this + 2)) + v17))
+    if (a3 && (v28 = CFDictionaryGetValue(a3, @"BufferPoolAllocationThreshold"), valuePtr = 0, v28) && (v29 = v28, v30 = CFGetTypeID(v28), v30 == CFNumberGetTypeID()) && (CFNumberGetValue(v29, kCFNumberLongType, &valuePtr), v31 = valuePtr, v31 <= (*(**(this + 2) + 96))(*(this + 2)) + v20))
     {
-      v21 = 0;
-      v22 = -6689;
+      v24 = 0;
+      v25 = -6689;
     }
 
     else
     {
-      v29 = CVPixelBufferBacking::alloc(a2, v16);
-      v19 = v29;
-      if (v29)
+      v32 = CVPixelBufferBacking::alloc(a2, v16, v17, v18, v19);
+      v22 = v32;
+      if (v32)
       {
-        if (!(*(*v29[2] + 248))(v29[2], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, *(this + 5), *(this + 4), 0, 0, 0, 0, a4))
+        if (!(*(*v32[2] + 248))(v32[2], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, *(this + 5), *(this + 4), 0, 0, 0, 0, a4))
         {
-          v21 = 0;
+          v24 = 0;
           goto LABEL_60;
         }
 
-        (*(**(this + 2) + 112))(*(this + 2), *(v19 + 16), 1, 0);
-        v30 = (*(*this + 24))(this);
-        v31 = (*(**(this + 2) + 96))(*(this + 2));
-        v32 = (*(**(this + 2) + 104))(*(this + 2));
-        CVTracePoolAction(1, v30, v19, "created", v31 + 1, v32);
+        (*(**(this + 2) + 112))(*(this + 2), *(v22 + 16), 1, 0);
+        v33 = (*(*this + 24))(this);
+        v34 = (*(**(this + 2) + 96))(*(this + 2));
+        v35 = (*(**(this + 2) + 104))(*(this + 2));
+        CVTracePoolAction(1, v33, v22, "created", v34 + 1, v35);
         if (*(this + 136))
         {
-          (*(**(v19 + 16) + 88))(*(v19 + 16));
+          (*(**(v22 + 16) + 88))(*(v22 + 16));
         }
 
         goto LABEL_46;
       }
 
-      v21 = 0;
-      v22 = -6660;
+      v24 = 0;
+      v25 = -6660;
     }
 
 LABEL_41:
-    *a4 = v22;
+    *a4 = v25;
     goto LABEL_60;
   }
 
-  if ((*(**(v19 + 16) + 152))(*(v19 + 16)))
+  if ((*(**(v22 + 16) + 152))(*(v22 + 16)))
   {
     LODWORD(valuePtr) = 0;
     IOSurfaceGetYCbCrMatrix();
     IOSurfaceClearDataProperties();
   }
 
-  v34 = (*(**(v19 + 16) + 152))(*(v19 + 16));
-  if (v34)
+  v40 = (*(**(v22 + 16) + 152))(*(v22 + 16));
+  if (v40)
   {
-    v35 = v34;
-    v36 = CFDictionaryGetValue(*(this + 5), @"PropagatedAttachments");
-    if (!v36 || !CFDictionaryContainsKey(v36, @"LogTransferFunction"))
+    v41 = v40;
+    v42 = CFDictionaryGetValue(*(this + 5), @"PropagatedAttachments");
+    if (!v42 || !CFDictionaryContainsKey(v42, @"LogTransferFunction"))
     {
-      IOSurfaceRemoveValue(v35, @"LogTransferFunction");
+      IOSurfaceRemoveValue(v41, @"LogTransferFunction");
     }
   }
 
 LABEL_46:
-  v37 = CVPixelBuffer::alloc(a2, v33);
-  v21 = v37;
-  if (v37 && (*(*v37[2] + 248))(v37[2], *(v19 + 16)))
+  v43 = CVPixelBuffer::alloc(a2, v36, v37, v38, v39);
+  v24 = v43;
+  if (v43 && (*(*v43[2] + 248))(v43[2], *(v22 + 16)))
   {
-    (*(*v21[2] + 144))(v21[2], *(this + 5));
+    (*(*v24[2] + 144))(v24[2], *(this + 5));
     if (a3)
     {
-      v38 = CFDictionaryGetValue(a3, @"BaseAddressAdjustment");
+      v44 = CFDictionaryGetValue(a3, @"BaseAddressAdjustment");
       valuePtr = 0;
-      if (v38 && (v39 = v38, v40 = CFGetTypeID(v38), v40 == CFNumberGetTypeID()))
+      if (v44 && (v45 = v44, v46 = CFGetTypeID(v44), v46 == CFNumberGetTypeID()))
       {
-        CFNumberGetValue(v39, kCFNumberLongType, &valuePtr);
-        v41 = valuePtr;
+        CFNumberGetValue(v45, kCFNumberLongType, &valuePtr);
+        v47 = valuePtr;
       }
 
       else
       {
-        v41 = 0;
+        v47 = 0;
       }
 
-      (*(*v21[2] + 256))(v21[2], v41);
+      (*(*v24[2] + 256))(v24[2], v47);
     }
 
-    v42 = 0;
+    v48 = 0;
   }
 
   else
   {
-    (*(**(this + 2) + 120))(*(this + 2), *(v19 + 16));
-    v42 = -6660;
+    (*(**(this + 2) + 120))(*(this + 2), *(v22 + 16));
+    v48 = -6660;
   }
 
-  *a4 = v42;
-  v43 = *(v19 + 16);
-  if (v43 && (*(*v43 + 160))(v43))
+  *a4 = v48;
+  v49 = *(v22 + 16);
+  if (v49 && (*(*v49 + 160))(v49))
   {
     (*(*this + 24))(this);
-    v44 = (*(**(v19 + 16) + 160))(*(v19 + 16));
-    IOOrEXSurfaceGetID(v44);
-    v45 = *(this + 2);
-    if (!v45)
+    v50 = (*(**(v22 + 16) + 160))(*(v22 + 16));
+    IOOrEXSurfaceGetID(v50);
+    v51 = *(this + 2);
+    if (!v51)
     {
       goto LABEL_62;
     }
@@ -8911,22 +8911,23 @@ LABEL_46:
 
 LABEL_60:
   (*(*this + 24))(this);
-  v45 = *(this + 2);
-  if (v45)
+  v51 = *(this + 2);
+  if (v51)
   {
 LABEL_61:
-    (*(*v45 + 104))(v45);
+    (*(*v51 + 104))(v51);
   }
 
 LABEL_62:
   kdebug_trace();
   (*(**(this + 2) + 168))(*(this + 2));
   (*(**(this + 2) + 136))(*(this + 2));
-  return v21;
+  return v24;
 }
 
-uint64_t CVLocklessBunchPair::initNewBacking(CVLocklessBunchPair *this, CVBufferBacking *a2, char a3, char a4)
+uint64_t CVLocklessBunchPair::initNewBacking(CVLocklessBunchPair *this, CVBufferBacking *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a3;
   do
   {
     v13 = *(this + 62);
@@ -8954,8 +8955,8 @@ uint64_t CVLocklessBunchPair::initNewBacking(CVLocklessBunchPair *this, CVBuffer
   while (v8 != v7);
   if (a2)
   {
-    (*(*a2 + 96))(a2, this);
-    if ((a3 & 1) == 0)
+    (*(*a2 + 96))(a2, this, a3, a4);
+    if ((v4 & 1) == 0)
     {
       v9 = *(this + 28);
       v10 = (*(*a2 + 24))(a2);

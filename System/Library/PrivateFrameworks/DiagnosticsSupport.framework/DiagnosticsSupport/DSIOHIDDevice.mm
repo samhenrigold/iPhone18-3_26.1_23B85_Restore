@@ -14,14 +14,12 @@
 
 + (id)deviceWithAccessory:(unint64_t)accessory identifierMask:(unint64_t)mask
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v6 = [DSIODeviceIdentifier identifierForAccessoryModel:accessory];
   v7 = [self alloc];
-  v12[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v9 = [v7 initWithDeviceIdentifiers:v8 identifierMask:mask];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -29,29 +27,29 @@
 + (id)deviceMatchingAccessories:(id)accessories identifierMask:(unint64_t)mask
 {
   selfCopy = self;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   array = [MEMORY[0x277CBEB18] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = accessoriesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         v12 = +[DSIODeviceIdentifier identifierForAccessoryModel:](DSIODeviceIdentifier, "identifierForAccessoryModel:", [v11 intValue]);
         if (v12)
         {
@@ -64,20 +62,19 @@
           if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v24 = v11;
+            v23 = v11;
             _os_log_fault_impl(&dword_248BD5000, v13, OS_LOG_TYPE_FAULT, "Identifier not found for accessory %@", buf, 0xCu);
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v8);
   }
 
   v14 = [[selfCopy alloc] initWithDeviceIdentifiers:array identifierMask:mask];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -85,11 +82,11 @@
 - (DSIOHIDDevice)initWithDeviceIdentifiers:(id)identifiers identifierMask:(unint64_t)mask
 {
   maskCopy = mask;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v42.receiver = self;
-  v42.super_class = DSIOHIDDevice;
-  v7 = [(DSIOHIDDevice *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = DSIOHIDDevice;
+  v7 = [(DSIOHIDDevice *)&v41 init];
   if (!v7)
   {
 LABEL_36:
@@ -98,35 +95,35 @@ LABEL_36:
   }
 
   v8 = IOHIDManagerCreate(*MEMORY[0x277CBECE8], 0);
-  v35 = v7;
+  v34 = v7;
   v7->_manager = v8;
   IOHIDManagerOpen(v8, 0);
   array = [MEMORY[0x277CBEB18] array];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v36 = identifiersCopy;
+  v35 = identifiersCopy;
   obj = identifiersCopy;
-  v10 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+  v10 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (!v10)
   {
     goto LABEL_19;
   }
 
   v11 = v10;
-  v12 = *v39;
+  v12 = *v38;
   do
   {
     v13 = 0;
     do
     {
-      if (*v39 != v12)
+      if (*v38 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v38 + 1) + 8 * v13);
+      v14 = *(*(&v37 + 1) + 8 * v13);
       v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
       if (maskCopy)
       {
@@ -185,15 +182,15 @@ LABEL_12:
     }
 
     while (v11 != v13);
-    v21 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+    v21 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
     v11 = v21;
   }
 
   while (v21);
 LABEL_19:
 
-  v7 = v35;
-  manager = v35->_manager;
+  v7 = v34;
+  manager = v34->_manager;
   if (!manager)
   {
     v24 = DiagnosticLogHandleForCategory(6);
@@ -202,23 +199,23 @@ LABEL_19:
       [DSIOHIDDevice initWithDeviceIdentifiers:identifierMask:];
     }
 
-    identifiersCopy = v36;
+    identifiersCopy = v35;
     goto LABEL_33;
   }
 
   IOHIDManagerSetDeviceMatchingMultiple(manager, array);
-  v23 = IOHIDManagerCopyDevices(v35->_manager);
-  identifiersCopy = v36;
+  v23 = IOHIDManagerCopyDevices(v34->_manager);
+  identifiersCopy = v35;
   if (!v23)
   {
 LABEL_34:
-    if (!v35->_device)
+    if (!v34->_device)
     {
       v24 = DiagnosticLogHandleForCategory(6);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v44 = obj;
+        v43 = obj;
         _os_log_impl(&dword_248BD5000, v24, OS_LOG_TYPE_DEFAULT, "Could not find accessory matching identifiers: %@", buf, 0xCu);
       }
 
@@ -239,7 +236,7 @@ LABEL_34:
   }
 
   anyObject = [v24 anyObject];
-  v35->_device = anyObject;
+  v34->_device = anyObject;
   if (!anyObject)
   {
 LABEL_33:
@@ -260,11 +257,11 @@ LABEL_33:
     goto LABEL_29;
   }
 
-  v33 = [DSIODeviceIdentifier identifierForIOHIDDevice:v35->_device];
-  if (v33)
+  v32 = [DSIODeviceIdentifier identifierForIOHIDDevice:v34->_device];
+  if (v32)
   {
-    v34 = v33;
-    v35->_deviceModel = [v33 accessoryModel];
+    v33 = v32;
+    v34->_deviceModel = [v32 accessoryModel];
 
     goto LABEL_33;
   }
@@ -281,7 +278,6 @@ LABEL_39:
   v30 = 0;
 LABEL_40:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -385,16 +381,16 @@ LABEL_13:
 
 void __37__DSIOHIDDevice_stringFromHIDReport___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
+  v16 = 0;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  *report = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  *report = 0u;
+  v9 = 0u;
   pReportLength = 129;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
@@ -414,8 +410,6 @@ void __37__DSIOHIDDevice_stringFromHIDReport___block_invoke(uint64_t a1)
     v4 = *(v6 + 40);
     *(v6 + 40) = v5;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)reportWithID:(int64_t)d reportType:(int)type object:(char *)object length:(int64_t *)length
@@ -492,41 +486,37 @@ uint64_t __35__DSIOHIDDevice__sharedSerialQueue__block_invoke()
 
 - (void)initWithDeviceIdentifiers:(os_log_t)log identifierMask:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_248BD5000, log, OS_LOG_TYPE_ERROR, "Multiple devices found when matching identifiers (%@) to devices (%@); using one", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_248BD5000, log, OS_LOG_TYPE_ERROR, "Multiple devices found when matching identifiers (%@) to devices (%@); using one", &v3, 0x16u);
 }
 
 - (void)initWithDeviceIdentifiers:(int)a1 identifierMask:(NSObject *)a2 .cold.2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "Failed to open IOHIDDevice %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "Failed to open IOHIDDevice %d", v2, 8u);
 }
 
 - (void)serialNumber
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = CFGetTypeID(self);
-  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "Unable to parse serial number with type = %lu.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = CFGetTypeID(self);
+  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "Unable to parse serial number with type = %lu.", &v3, 0xCu);
 }
 
 - (void)reportWithID:(uint64_t)a1 reportType:(NSObject *)a2 object:length:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 24);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "Unable to retieve HID report. Status code: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "Unable to retieve HID report. Status code: %d", v3, 8u);
 }
 
 @end

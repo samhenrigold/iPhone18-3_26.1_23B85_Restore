@@ -727,7 +727,7 @@
 
 - (NSUUID)voiceOverDefaultPunctuationGroup
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0, &unk_18B2FA470);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -749,7 +749,7 @@
 
 - (void)setVoiceOverDefaultPunctuationGroup:(id)group
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0, &unk_18B2FA470);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (group)
@@ -830,7 +830,7 @@
 
 - (void)speechVoiceIdentifierForLanguage:(NSString *)language completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8, &qword_18B2F9520);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -857,7 +857,7 @@
 
 - (void)setWithVoiceId:(NSString *)id forLanguage:(NSString *)language completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8, &qword_18B2F9520);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

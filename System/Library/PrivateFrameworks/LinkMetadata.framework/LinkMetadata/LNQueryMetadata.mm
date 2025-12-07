@@ -158,20 +158,7 @@ LABEL_80:
 
       parameters4 = [(LNQueryMetadata *)v6 parameters];
 
-      if (!parameters4)
-      {
-        goto LABEL_37;
-      }
-
-      v29 = MEMORY[0x1E695DFD8];
-      parameters5 = [(LNQueryMetadata *)self parameters];
-      v30 = [v29 setWithArray:parameters5];
-      v31 = MEMORY[0x1E695DFD8];
-      parameters6 = [(LNQueryMetadata *)v6 parameters];
-      v32 = [v31 setWithArray:parameters6];
-      v88 = [v30 isEqualToSet:v32];
-
-      if (!v88)
+      if (!parameters4 || (v29 = MEMORY[0x1E695DFD8], -[LNQueryMetadata parameters](self, "parameters"), v91 = objc_claimAutoreleasedReturnValue(), [v29 setWithArray:v91], v30 = objc_claimAutoreleasedReturnValue(), v31 = MEMORY[0x1E695DFD8], -[LNQueryMetadata parameters](v6, "parameters"), v85 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v31, "setWithArray:", v85), v32 = objc_claimAutoreleasedReturnValue(), v88 = objc_msgSend(v30, "isEqualToSet:", v32), v32, v85, v30, v91, !v88))
       {
 LABEL_37:
         LOBYTE(parameters3) = 0;

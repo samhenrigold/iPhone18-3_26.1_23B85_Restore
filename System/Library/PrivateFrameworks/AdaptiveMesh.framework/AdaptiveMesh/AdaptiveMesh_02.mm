@@ -11,7 +11,7 @@ void sub_23E772748(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void amt::Matrix<unsigned char>::resize(uint64_t a1, int a2, int a3)
+void amt::Matrix<unsigned char>::resize(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 < 1 || a3 <= 0)
   {
@@ -37,7 +37,7 @@ void amt::Matrix<unsigned char>::resize(uint64_t a1, int a2, int a3)
   }
 }
 
-void *amt::Matrix<unsigned char>::Matrix(void *a1, uint64_t a2)
+uint64_t *amt::Matrix<unsigned char>::Matrix(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -63,7 +63,7 @@ void sub_23E772850(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -138,7 +138,7 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
   return result;
 }
 
-void amt::Matrix<float>::resize(uint64_t a1, int a2, int a3)
+void amt::Matrix<float>::resize(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 < 1 || a3 <= 0)
   {
@@ -152,7 +152,7 @@ void amt::Matrix<float>::resize(uint64_t a1, int a2, int a3)
   std::vector<int>::resize(a1, v4);
 }
 
-unint64_t _ZN3amt4pullIDv4_fLi3EEEvRNSt3__16vectorINS_6MipmapIT_EENS2_9allocatorIS6_EEEERAT0__AT0__Kf(unint64_t result, uint64_t a2)
+uint64_t _ZN3amt4pullIDv4_fLi3EEEvRNSt3__16vectorINS_6MipmapIT_EENS2_9allocatorIS6_EEEERAT0__AT0__Kf(uint64_t result, uint64_t a2)
 {
   v2 = *(result + 8) - *result;
   if ((v2 >> 6) >= 2)
@@ -454,20 +454,20 @@ void sub_23E773048(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEEC2B8ne200100Em(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEEC2B8ne200100Em(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void _ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -515,7 +515,7 @@ void _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIN3amt6MipmapIDv4_fEE
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *amt::Matrix<float>::Matrix(void *a1, int a2, int a3)
+void *amt::Matrix<float>::Matrix(void *a1, uint64_t a2, int a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -580,7 +580,7 @@ void _ZNSt3__112__destroy_atB8ne200100IN3amt6MipmapIDv4_fEELi0EEEvPT_(uint64_t a
   }
 }
 
-void *_ZN3amt6MatrixIDv4_fEaSERKS2_(void *a1, uint64_t a2)
+uint64_t *_ZN3amt6MatrixIDv4_fEaSERKS2_(uint64_t *a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -591,7 +591,7 @@ void *_ZN3amt6MatrixIDv4_fEaSERKS2_(void *a1, uint64_t a2)
   return a1;
 }
 
-void *_ZN3amt6MatrixIDv4_fEC2ERKS2_(void *a1, uint64_t a2)
+uint64_t *_ZN3amt6MatrixIDv4_fEC2ERKS2_(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -623,7 +623,7 @@ void AMTLog::AMTLog(AMTLog *this)
   *this = AMTLog::AMTLog(void)::log;
 }
 
-_DWORD *amt::Matrix<float>::assign(uint64_t a1, int a2, int a3, int16x4_t a4)
+_DWORD *amt::Matrix<float>::assign(uint64_t a1, uint64_t a2, int a3, int16x4_t a4)
 {
   v5 = a4.i32[0];
   if (a2 < 1 || a3 <= 0)
@@ -636,7 +636,7 @@ _DWORD *amt::Matrix<float>::assign(uint64_t a1, int a2, int a3, int16x4_t a4)
   return std::vector<float>::assign(a1, (a3 * a2), &v5, a4);
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -768,7 +768,7 @@ _DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_
   return result;
 }
 
-void _ZN3amt6MatrixIDv4_fE6resizeEii(uint64_t a1, int a2, int a3)
+void _ZN3amt6MatrixIDv4_fE6resizeEii(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 < 1 || a3 <= 0)
   {
@@ -782,7 +782,7 @@ void _ZN3amt6MatrixIDv4_fE6resizeEii(uint64_t a1, int a2, int a3)
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(a1, v4);
 }
 
-void *amt::Matrix<float>::operator=(void *a1, uint64_t a2)
+uint64_t *amt::Matrix<float>::operator=(uint64_t *a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -793,7 +793,7 @@ void *amt::Matrix<float>::operator=(void *a1, uint64_t a2)
   return a1;
 }
 
-void *amt::Matrix<float>::Matrix(void *a1, uint64_t a2)
+uint64_t *amt::Matrix<float>::Matrix(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -814,27 +814,17 @@ void sub_23E7737E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t amt::rasterizeFlatSideTriangle(int32x2_t *a1, int32x2_t *a2, void *a3, uint64_t a4)
+uint64_t amt::rasterizeFlatSideTriangle(int32x2_t *a1, int32x2_t *a2, void *a3, uint64_t a4, __n128 a5)
 {
-  v4 = *(a4 + 28) - 1;
-  v5 = *a3;
-  v6 = vabd_s32(*a2, *a1);
-  v7 = HIDWORD(*a2);
-  v8 = -v6.i32[1];
-  v9 = *a2;
-  v10 = HIDWORD(*a1);
-  v11 = a1->u32[0];
-  if (v11 < v9)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-    v12 = -1;
-  }
-
-  if (v10 < v7)
+  v5 = *(a4 + 28) - 1;
+  v6 = *a3;
+  v7 = vabd_s32(*a2, *a1);
+  v8 = HIDWORD(*a2);
+  v9 = -v7.i32[1];
+  v10 = *a2;
+  v11 = HIDWORD(*a1);
+  v12 = a1->u32[0];
+  if (v12 < v10)
   {
     v13 = 1;
   }
@@ -844,177 +834,187 @@ uint64_t amt::rasterizeFlatSideTriangle(int32x2_t *a1, int32x2_t *a2, void *a3, 
     v13 = -1;
   }
 
-  result = v6.u32[0];
-  v15 = v6.i32[0] - v6.i32[1];
-  if (v5 > v11)
+  if (v11 < v8)
   {
-    v16 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v16 = -1;
+    v14 = -1;
   }
 
-  if (v5 - v11 >= 0)
+  result = v7.u32[0];
+  v16 = v7.i32[0] - v7.i32[1];
+  if (v6 > v12)
   {
-    v17 = v5 - v11;
+    v17 = 1;
   }
 
   else
   {
-    v17 = v11 - v5;
+    v17 = -1;
   }
 
-  v18 = v17 - v6.i32[1];
-  v19 = v10;
+  if (v6 - v12 >= 0)
+  {
+    v18 = v6 - v12;
+  }
+
+  else
+  {
+    v18 = v12 - v6;
+  }
+
+  v19 = v18 - v7.i32[1];
   v20 = v11;
+  v21 = v12;
   do
   {
-    if (v20 != v9 || v19 != v7)
+    if (v21 != v10 || v20 != v8)
     {
-      v22 = v20;
+      v23 = v21;
       while (1)
       {
-        v23 = 2 * v15;
-        if (2 * v15 <= v6.i32[0])
+        v24 = 2 * v16;
+        if (2 * v16 <= v7.i32[0])
         {
-          if (v19 == v7)
+          if (v20 == v8)
           {
-            v21 = v7;
+            v22 = v8;
             goto LABEL_29;
           }
 
-          v15 += v6.i32[0];
-          v21 = (v19 + v13);
-          v22 = v20;
+          v16 += v7.i32[0];
+          v22 = (v20 + v14);
+          v23 = v21;
         }
 
         else
         {
-          v21 = v19;
+          v22 = v20;
         }
 
-        if (v23 >= v8)
+        if (v24 >= v9)
         {
-          if (v20 == v9)
+          if (v21 == v10)
           {
-            v20 = v9;
+            v21 = v10;
             goto LABEL_29;
           }
 
-          v15 -= v6.i32[1];
-          v20 += v12;
+          v16 -= v7.i32[1];
+          v21 += v13;
         }
 
-        if (v19 != v21)
+        if (v20 != v22)
         {
           goto LABEL_29;
         }
       }
     }
 
-    v20 = v9;
-    v21 = v7;
-    v22 = v9;
+    v21 = v10;
+    v22 = v8;
+    v23 = v10;
 LABEL_29:
-    if (v11 == v5 && v19 == v7)
+    if (v12 == v6 && v20 == v8)
     {
-      v24 = v5;
-      v25 = v7;
-      LODWORD(v11) = v5;
+      v25 = v6;
+      v26 = v8;
+      LODWORD(v12) = v6;
       goto LABEL_44;
     }
 
-    v24 = v11;
+    v25 = v12;
     while (1)
     {
-      v26 = 2 * v18;
-      if (2 * v18 <= v17)
+      v27 = 2 * v19;
+      if (2 * v19 <= v18)
       {
-        if (v19 == v7)
+        if (v20 == v8)
         {
-          v25 = v7;
+          v26 = v8;
           goto LABEL_44;
         }
 
-        v18 += v17;
-        v25 = v19 + v13;
-        LODWORD(v11) = v24;
+        v19 += v18;
+        v26 = v20 + v14;
+        LODWORD(v12) = v25;
       }
 
       else
       {
-        v25 = v19;
+        v26 = v20;
       }
 
-      if (v26 >= v8)
+      if (v27 >= v9)
       {
         break;
       }
 
 LABEL_40:
-      if (v19 != v25)
+      if (v20 != v26)
       {
         goto LABEL_44;
       }
     }
 
-    if (v24 != v5)
+    if (v25 != v6)
     {
-      v18 -= v6.i32[1];
-      v24 = (v24 + v16);
+      v19 -= v7.i32[1];
+      v25 = (v25 + v17);
       goto LABEL_40;
     }
 
-    v24 = v5;
+    v25 = v6;
 LABEL_44:
-    if (v22 <= v11)
+    if (v23 <= v12)
     {
-      v27 = v4 - v19;
-      v28 = v22;
-      v29 = v11 - v22 + 1;
+      v28 = v5 - v20;
+      v29 = v23;
+      v30 = v12 - v23 + 1;
       do
       {
-        if (*(a4 + 28) <= v27)
+        if (*(a4 + 28) <= v28)
         {
           amt::updateSamples();
         }
 
-        *(*a4 + *(a4 + 24) * v27 + v28++) = 1;
-        --v29;
+        *(*a4 + *(a4 + 24) * v28 + v29++) = 1;
+        --v30;
       }
 
-      while (v29);
+      while (v30);
     }
 
-    if (v21 != v25)
+    if (v22 != v26)
     {
       amt::rasterizeFlatSideTriangle();
     }
 
-    v11 = v24;
-    v19 = v21;
+    v12 = v25;
+    v20 = v22;
   }
 
-  while (v21 != v7);
-  if (v10 != v7 && v20 <= v24)
+  while (v22 != v8);
+  if (v11 != v8 && v21 <= v25)
   {
-    v30 = v4 - v7;
-    v31 = v20;
-    v32 = v24 - v20 + 1;
+    v31 = v5 - v8;
+    v32 = v21;
+    v33 = v25 - v21 + 1;
     do
     {
-      if (*(a4 + 28) <= v30)
+      if (*(a4 + 28) <= v31)
       {
         amt::updateSamples();
       }
 
-      *(*a4 + *(a4 + 24) * v30 + v31++) = 1;
-      --v32;
+      *(*a4 + *(a4 + 24) * v31 + v32++) = 1;
+      --v33;
     }
 
-    while (v32);
+    while (v33);
   }
 
   return result;
@@ -1088,21 +1088,15 @@ uint64_t std::__split_buffer<std::future<void>>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t std::async[abi:ne200100]<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1} &,long long &,long long const&>@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, void *a5@<X8>)
+void *std::async[abi:ne200100]<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1} &,long long &,long long const&>@<X0>(void *result@<X0>, void *a5@<X8>)
 {
   if (result)
   {
-    v5 = *a2;
-    v7 = *a3;
-    v9 = *a4;
     std::__make_async_assoc_state[abi:ne200100]<void,std::__async_func<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1},long long,long long>>();
   }
 
   if ((result & 2) != 0)
   {
-    v6 = *a2;
-    v8 = *a3;
-    v10 = *a4;
     std::__make_deferred_assoc_state[abi:ne200100]<void,std::__async_func<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1},long long,long long>>();
   }
 
@@ -1110,11 +1104,11 @@ uint64_t std::async[abi:ne200100]<amt::parallel_for (long long,std::function<voi
   return result;
 }
 
-void sub_23E773D84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::thread a12)
+void sub_23E773D84(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::thread a12)
 {
   if (!atomic_fetch_add(v13, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v12 + 16))(v12);
+    (*(*v12 + 16))(v12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1213,14 +1207,14 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82728], MEMORY[0x277D82660]);
 }
 
-void sub_23E774274(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E774274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (std::__async_assoc_state<void,std::__async_func<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1},long long,long long>>::*)(void),std::__async_assoc_state<void,std::__async_func<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1},long long,long long>>*>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (std::__async_assoc_state<void,std::__async_func<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1},long long,long long>>::*)(void),std::__async_assoc_state<void,std::__async_func<amt::parallel_for (long long,std::function<void ()(long long)>)::{lambda(long long,long long)#1},long long,long long>>*>>(const void **a1)
 {
   v8 = a1;
   v2 = std::__thread_local_data();
@@ -1240,9 +1234,9 @@ uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thr
   return 0;
 }
 
-void sub_23E774344(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E774344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,void (std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>::*)(void),std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>*>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1343,54 +1337,54 @@ const void **amt::Operation::istat(const void **this, const __CFString *a2, int 
   return this;
 }
 
-uint64_t amt::AMTCopySamples<unsigned char>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t amt::AMTCopySamples<unsigned char>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __n128 a6)
 {
-  v5 = *(result + 28);
-  if (v5 >= 1)
+  v6 = *(result + 28);
+  if (v6 >= 1)
   {
-    v6 = 0;
-    v7 = *(result + 24);
+    v7 = 0;
+    v8 = *(result + 24);
     do
     {
-      v8 = v5 + ~v6;
-      if (*(result + 28) <= v8)
+      v9 = v6 + ~v7;
+      if (*(result + 28) <= v9)
       {
         amt::dilatePadding();
       }
 
-      if (v7 >= 1)
+      if (v8 >= 1)
       {
-        v9 = 0;
-        v10 = *result + 16 * *(result + 24) * v8;
-        v11 = a5;
+        v10 = 0;
+        v11 = *result + 16 * *(result + 24) * v9;
+        v12 = a5;
         do
         {
           if (a4 >= 1)
           {
-            v12 = 0;
-            v13 = *(v10 + 16 * v9);
+            v13 = 0;
+            v14 = *(v11 + 16 * v10);
             do
             {
-              v14 = v13;
-              *(v11 + v12) = llroundf(*(&v14 & 0xFFFFFFFFFFFFFFF3 | (4 * (v12 & 3))));
-              ++v12;
+              v15 = v14;
+              *(v12 + v13) = llroundf(*(&v15 & 0xFFFFFFFFFFFFFFF3 | (4 * (v13 & 3))));
+              ++v13;
             }
 
-            while (a4 != v12);
+            while (a4 != v13);
           }
 
-          ++v9;
-          v11 += a3;
+          ++v10;
+          v12 += a3;
         }
 
-        while (v9 != v7);
+        while (v10 != v8);
       }
 
-      ++v6;
+      ++v7;
       a5 += a2;
     }
 
-    while (v6 != v5);
+    while (v7 != v6);
   }
 
   return result;
@@ -1647,7 +1641,7 @@ const void **amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(const void **a1
   return a1;
 }
 
-_OWORD *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE6assignEmRKS1_(void *a1, unint64_t a2, __int128 *a3)
+_OWORD *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE6assignEmRKS1_(uint64_t *a1, unint64_t a2, __int128 *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -1734,7 +1728,7 @@ _OWORD *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE6assignEmRKS1_(void *a1, unint
   return result;
 }
 
-void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int8 *a3)
+void *std::vector<unsigned char>::assign(uint64_t *a1, size_t a2, unsigned __int8 *a3)
 {
   v6 = a1[2];
   result = *a1;
@@ -1797,7 +1791,7 @@ void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int
   {
     v15 = a1[1];
     result = memset(v15, *a3, v14);
-    v16 = &v15[v14];
+    v16 = v15 + v14;
   }
 
   else
@@ -1809,7 +1803,7 @@ void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int
   return result;
 }
 
-void *amt::Matrix<unsigned char>::Matrix(void *a1, int a2, int a3)
+void *amt::Matrix<unsigned char>::Matrix(void *a1, uint64_t a2, int a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1830,7 +1824,7 @@ void sub_23E774E40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZN3amt6MatrixIDv4_fEC2Eii(void *a1, int a2, int a3)
+void *_ZN3amt6MatrixIDv4_fEC2Eii(void *a1, uint64_t a2, int a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1881,13 +1875,13 @@ void std::__function::__func<amt::AMTCreateAttributeMaps(__AMTMesh *,__AMTMesh *
   v3 = 0;
   v4 = *a2;
   v5 = vcvts_n_f32_s32(-*a2, 2uLL);
-  v50 = 4 * *a2;
+  v54 = 4 * *a2;
   do
   {
-    _ZN3amt6MatrixIDv4_fEC2Eii(v57, 1, 1);
-    amt::Matrix<unsigned char>::Matrix(v54, 1, 1);
-    v6 = v3 | v50;
-    v7 = (**(a1 + 24) + 216 * (v3 | v50));
+    _ZN3amt6MatrixIDv4_fEC2Eii(v61, 1, 1);
+    amt::Matrix<unsigned char>::Matrix(v58, 1, 1);
+    v6 = v3 | v54;
+    v7 = (**(a1 + 24) + 216 * (v3 | v54));
     if (((*(v7 + 4) - *(v7 + 3)) & 0xFFFFFFFF0) != 0)
     {
       v8 = (**(a1 + 32) + 216 * v6);
@@ -1895,287 +1889,289 @@ void std::__function::__func<amt::AMTCreateAttributeMaps(__AMTMesh *,__AMTMesh *
       {
         v9 = **(a1 + 16);
         v10 = *(a1 + 48);
-        v52 = *(**(a1 + 40) + 8 * v6);
+        v56 = *(**(a1 + 40) + 8 * v6);
         v11 = **(a1 + 56);
-        amt::Matrix<float>::Matrix(v82, 1, 1);
-        _ZN3amt6MatrixIDv4_fE6assignEiiS1_(v57, v11, v11, 0);
-        amt::Matrix<float>::assign(v82, v11, v11, 0);
-        v49 = v11;
+        amt::Matrix<float>::Matrix(v86, 1, 1);
+        _ZN3amt6MatrixIDv4_fE6assignEiiS1_(v61, v11, v11, 0);
+        amt::Matrix<float>::assign(v86, v11, v11, 0);
+        v53 = v11;
+        v85 = 0;
+        v84 = 0.0;
+        v80 = 0;
         v81 = 0;
-        v80 = 0.0;
-        v76 = 0;
+        v82 = 0;
         v77 = 0;
         v78 = 0;
-        v73 = 0;
-        v74 = 0;
-        v75 = xmmword_23E786AE0;
-        v72 = (v7 + 24);
+        v79 = xmmword_23E786AE0;
+        v76 = (v7 + 24);
         __p[0] = 10;
         __p[1] = 0x100000000;
-        nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::KDTreeSingleIndexAdaptor(v68, 3, &v72, __p);
-        v67 = (v8 + 24);
-        v62.i64[0] = 10;
-        v62.i64[1] = 0x100000000;
-        nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::KDTreeSingleIndexAdaptor(__p, 3, &v67, &v62);
+        nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::KDTreeSingleIndexAdaptor(v72, 3, &v76, __p);
+        v71 = (v8 + 24);
+        v66.i64[0] = 10;
+        v66.i64[1] = 0x100000000;
+        nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::KDTreeSingleIndexAdaptor(__p, 3, &v71, &v66);
         v12 = (vcvts_n_f32_s32(-v3, 2uLL) * v9) | ((v5 * v9) << 32);
-        if (v52)
+        if (v56)
         {
-          for (i = 0; i != v52; ++i)
+          for (i = 0; i != v56; ++i)
           {
             v14 = amt::TriangleMesh::position(v7, i);
-            v73 = &v81;
-            v74 = &v80;
-            *(&v75 + 1) = 0;
-            if (v75)
+            v77 = &v85;
+            v78 = &v84;
+            *(&v79 + 1) = 0;
+            if (v79)
             {
-              *&v79[4 * v75] = 2139095039;
+              *&v83[4 * v79] = 2139095039;
             }
 
-            v62.i32[0] = 0;
-            v62.i8[4] = 1;
-            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(__p, &v73, v14, v62.f32);
-            v61 = nextafterf(v80, v80 + 1.0);
-            v62.i32[0] = 0;
-            v62.i8[4] = 1;
-            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::radiusSearch(__p, v14, &v61, &v76, &v62);
-            v15 = amt::TriangleMesh::texCoord(v7, i);
-            *v16.i64 = amt::AMTImageWrapper::bilinear(v10, COERCE_FLOAT(*v15), COERCE_FLOAT(HIDWORD(*v15)));
-            v62 = v16;
-            v17 = v76;
-            v18 = v77;
-            if (v76 == v77)
+            v66.i32[0] = 0;
+            v66.i8[4] = 1;
+            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(__p, &v77, v14, v66.f32, v15);
+            v16.n128_f32[0] = nextafterf(v84, v84 + 1.0);
+            v65 = v16.n128_u32[0];
+            v66.i32[0] = 0;
+            v66.i8[4] = 1;
+            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::radiusSearch(__p, v14, &v65, &v80, &v66, v16);
+            v17 = amt::TriangleMesh::texCoord(v7, i);
+            *v18.i64 = amt::AMTImageWrapper::bilinear(v10, COERCE_FLOAT(*v17), COERCE_FLOAT(HIDWORD(*v17)));
+            v66 = v18;
+            v19 = v80;
+            v20 = v81;
+            if (v80 == v81)
             {
-              v20 = *amt::TriangleMesh::texCoord(v8, v81);
-              v60 = v12;
-              amt::updateSamples(&v62, v57, v82, &v60, *&v20, *(&v20 + 1), 4.0);
+              v22 = *amt::TriangleMesh::texCoord(v8, v85);
+              v64 = v12;
+              amt::updateSamples(&v66, v61, v86, &v64, *&v22, *(&v22 + 1), 4.0);
             }
 
             else
             {
               do
               {
-                v19 = *amt::TriangleMesh::texCoord(v8, *v17);
-                v60 = v12;
-                amt::updateSamples(&v62, v57, v82, &v60, *&v19, *(&v19 + 1), 4.0);
-                v17 += 2;
+                v21 = *amt::TriangleMesh::texCoord(v8, *v19);
+                v64 = v12;
+                amt::updateSamples(&v66, v61, v86, &v64, *&v21, *(&v21 + 1), 4.0);
+                v19 += 2;
               }
 
-              while (v17 != v18);
+              while (v19 != v20);
             }
           }
         }
 
-        v51 = (*(v8 + 4) - *(v8 + 3)) >> 4;
-        if (v51 >= 1)
+        v55 = (*(v8 + 4) - *(v8 + 3)) >> 4;
+        if (v55 >= 1)
         {
-          v21 = 0;
+          v23 = 0;
           do
           {
-            v22 = amt::TriangleMesh::position(v8, v21);
-            v73 = &v81;
-            v74 = &v80;
-            *(&v75 + 1) = 0;
-            if (v75)
+            v24 = amt::TriangleMesh::position(v8, v23);
+            v77 = &v85;
+            v78 = &v84;
+            *(&v79 + 1) = 0;
+            if (v79)
             {
-              *&v79[4 * v75] = 2139095039;
+              *&v83[4 * v79] = 2139095039;
             }
 
-            v62.i32[0] = 0;
-            v62.i8[4] = 1;
-            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(v68, &v73, v22, v62.f32);
-            v61 = nextafterf(v80, v80 + 1.0);
-            v62.i32[0] = 0;
-            v62.i8[4] = 1;
-            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::radiusSearch(v68, v22, &v61, &v76, &v62);
-            v23 = *amt::TriangleMesh::texCoord(v8, v21);
-            v25 = v76;
-            v24 = v77;
-            v53 = v23;
-            if (v76 == v77)
+            v66.i32[0] = 0;
+            v66.i8[4] = 1;
+            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(v72, &v77, v24, v66.f32, v25);
+            v26.n128_f32[0] = nextafterf(v84, v84 + 1.0);
+            v65 = v26.n128_u32[0];
+            v66.i32[0] = 0;
+            v66.i8[4] = 1;
+            nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::radiusSearch(v72, v24, &v65, &v80, &v66, v26);
+            v27 = *amt::TriangleMesh::texCoord(v8, v23);
+            v29 = v80;
+            v28 = v81;
+            v57 = v27;
+            if (v80 == v81)
             {
-              v29 = amt::TriangleMesh::texCoord(v7, v81);
-              *v30.i64 = amt::AMTImageWrapper::bilinear(v10, COERCE_FLOAT(*v29), COERCE_FLOAT(HIDWORD(*v29)));
-              v62 = v30;
-              v60 = v12;
-              amt::updateSamples(&v62, v57, v82, &v60, *&v53, *(&v53 + 1), 4.0);
+              v33 = amt::TriangleMesh::texCoord(v7, v85);
+              *v34.i64 = amt::AMTImageWrapper::bilinear(v10, COERCE_FLOAT(*v33), COERCE_FLOAT(HIDWORD(*v33)));
+              v66 = v34;
+              v64 = v12;
+              amt::updateSamples(&v66, v61, v86, &v64, *&v57, *(&v57 + 1), 4.0);
             }
 
             else
             {
-              v26 = *(&v23 + 1);
+              v30 = *(&v27 + 1);
               do
               {
-                v27 = amt::TriangleMesh::texCoord(v7, *v25);
-                *v28.i64 = amt::AMTImageWrapper::bilinear(v10, COERCE_FLOAT(*v27), COERCE_FLOAT(HIDWORD(*v27)));
-                v62 = v28;
-                v60 = v12;
-                amt::updateSamples(&v62, v57, v82, &v60, *&v53, v26, 4.0);
-                v25 += 2;
+                v31 = amt::TriangleMesh::texCoord(v7, *v29);
+                *v32.i64 = amt::AMTImageWrapper::bilinear(v10, COERCE_FLOAT(*v31), COERCE_FLOAT(HIDWORD(*v31)));
+                v66 = v32;
+                v64 = v12;
+                amt::updateSamples(&v66, v61, v86, &v64, *&v57, v30, 4.0);
+                v29 += 2;
               }
 
-              while (v25 != v24);
+              while (v29 != v28);
             }
 
-            ++v21;
+            ++v23;
           }
 
-          while (v21 != v51);
+          while (v23 != v55);
         }
 
-        amt::Matrix<unsigned char>::resize(v54, v49, v49);
-        if (v49 >= 1)
+        amt::Matrix<unsigned char>::resize(v58, v53, v53);
+        if (v53 >= 1)
         {
-          v32 = 0;
+          v36 = 0;
           do
           {
-            if (v84 <= v32)
+            if (v88 <= v36)
             {
               __assert_rtn("row", "AMTMatrix.hpp", 517, "rowIndex < _rowCount");
             }
 
-            if (v56 <= v32)
+            if (v60 <= v36)
             {
               __assert_rtn("row", "AMTMatrix.hpp", 517, "rowIndex < _rowCount");
             }
 
-            if (v59 <= v32)
+            if (v63 <= v36)
             {
               __assert_rtn("row", "AMTMatrix.hpp", 517, "rowIndex < _rowCount");
             }
 
-            v33 = (v57[0] + 16 * v58 * v32);
-            v34 = v54[0] + v55 * v32;
-            v35 = (v82[0] + 4 * v83 * v32);
-            v36 = v49;
+            v37 = (v61[0] + 16 * v62 * v36);
+            v38 = v58[0] + v59 * v36;
+            v39 = (v86[0] + 4 * v87 * v36);
+            v40 = v53;
             do
             {
-              if (*v35 <= 0.0)
+              if (*v39 <= 0.0)
               {
-                v37 = 0;
+                v41 = 0;
               }
 
               else
               {
-                v31.i32[0] = *v35;
-                v31 = vdivq_f32(*v33, vdupq_lane_s32(*v31.f32, 0));
-                *v33 = v31;
-                v37 = 1;
+                v35.i32[0] = *v39;
+                v35 = vdivq_f32(*v37, vdupq_lane_s32(*v35.f32, 0));
+                *v37 = v35;
+                v41 = 1;
               }
 
-              *v34++ = v37;
-              ++v33;
-              ++v35;
-              --v36;
+              *v38++ = v41;
+              ++v37;
+              ++v39;
+              --v40;
             }
 
-            while (v36);
-            ++v32;
+            while (v40);
+            ++v36;
           }
 
-          while (v32 != v49);
+          while (v36 != v53);
         }
 
-        v38 = v64;
-        if (v64)
+        v42 = v68;
+        if (v68)
         {
           do
           {
-            v39 = *v38;
-            free(v38);
-            v64 = v39;
-            v38 = v39;
+            v43 = *v42;
+            free(v42);
+            v68 = v43;
+            v42 = v43;
           }
 
-          while (v39);
+          while (v43);
         }
 
         __p[12] = 0;
-        v64 = 0;
-        v65 = 0;
-        v66 = 0;
+        v68 = 0;
+        v69 = 0;
+        v70 = 0;
         if (__p[0])
         {
           __p[1] = __p[0];
           operator delete(__p[0]);
         }
 
-        v40 = v69;
-        if (v69)
+        v44 = v73;
+        if (v73)
         {
           do
           {
-            v41 = *v40;
-            free(v40);
-            v69 = v41;
-            v40 = v41;
+            v45 = *v44;
+            free(v44);
+            v73 = v45;
+            v44 = v45;
           }
 
-          while (v41);
+          while (v45);
         }
 
-        v68[12] = 0;
-        v69 = 0;
-        v70 = 0;
-        v71 = 0;
-        if (v68[0])
+        v72[12] = 0;
+        v73 = 0;
+        v74 = 0;
+        v75 = 0;
+        if (v72[0])
         {
-          v68[1] = v68[0];
-          operator delete(v68[0]);
+          v72[1] = v72[0];
+          operator delete(v72[0]);
         }
 
-        if (v76)
+        if (v80)
         {
-          v77 = v76;
-          operator delete(v76);
+          v81 = v80;
+          operator delete(v80);
         }
 
-        if (v82[0])
+        if (v86[0])
         {
-          v82[1] = v82[0];
-          operator delete(v82[0]);
+          v86[1] = v86[0];
+          operator delete(v86[0]);
         }
 
-        LODWORD(v42) = **(a1 + 56);
-        if (v42 >= 1)
+        LODWORD(v46) = **(a1 + 56);
+        if (v46 >= 1)
         {
-          v43 = 0;
+          v47 = 0;
           do
           {
-            if (v42 >= 1)
+            if (v46 >= 1)
             {
-              v44 = 0;
+              v48 = 0;
               do
               {
-                if (v59 <= v43 || (v45 = v43 + v42 * v4, v46 = *(a1 + 72), *(v46 + 28) <= v45) || (v47 = v44 + v3 * v42, *(*v46 + 16 * *(v46 + 24) * v45 + 16 * v47) = *(v57[0] + v43 * v58 + v44), v56 <= v43) || (v48 = *(a1 + 80), *(v48 + 28) <= v45))
+                if (v63 <= v47 || (v49 = v47 + v46 * v4, v50 = *(a1 + 72), *(v50 + 28) <= v49) || (v51 = v48 + v3 * v46, *(*v50 + 16 * *(v50 + 24) * v49 + 16 * v51) = *(v61[0] + v47 * v62 + v48), v60 <= v47) || (v52 = *(a1 + 80), *(v52 + 28) <= v49))
                 {
                   __assert_rtn("row", "AMTMatrix.hpp", 517, "rowIndex < _rowCount");
                 }
 
-                *(*v48 + *(v48 + 24) * v45 + v47) = *(v54[0] + v55 * v43 + v44++);
-                v42 = **(a1 + 56);
+                *(*v52 + *(v52 + 24) * v49 + v51) = *(v58[0] + v59 * v47 + v48++);
+                v46 = **(a1 + 56);
               }
 
-              while (v44 < v42);
+              while (v48 < v46);
             }
 
-            ++v43;
+            ++v47;
           }
 
-          while (v43 < v42);
+          while (v47 < v46);
         }
       }
     }
 
-    if (v54[0])
+    if (v58[0])
     {
-      v54[1] = v54[0];
-      operator delete(v54[0]);
+      v58[1] = v58[0];
+      operator delete(v58[0]);
     }
 
-    if (v57[0])
+    if (v61[0])
     {
-      v57[1] = v57[0];
-      operator delete(v57[0]);
+      v61[1] = v61[0];
+      operator delete(v61[0]);
     }
 
     ++v3;
@@ -2461,7 +2457,7 @@ uint64_t amt::HashAdjacency::mainNeighbor(amt::HashAdjacency *this, int a2, unsi
   return *(*(this + 3) + 4 * (a3 | (16 * a2)));
 }
 
-_WORD *std::vector<unsigned short>::assign(void *a1, unint64_t a2, __int16 *a3)
+_WORD *std::vector<unsigned short>::assign(uint64_t *a1, unint64_t a2, __int16 *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -2631,7 +2627,7 @@ _WORD *std::vector<unsigned short>::assign(void *a1, unint64_t a2, __int16 *a3)
   return result;
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2699,7 +2695,8 @@ char *std::vector<AMTPair>::__insert_with_size[abi:ne200100]<AMTPair const*,AMTP
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
@@ -2814,10 +2811,10 @@ void amt::AMTAdaptiveMeshTessellatorBasic::tessellate(uint64_t a1, uint64_t a2)
 uint64_t amt::AMTAdaptiveMeshTessellatorBasic::computeBaseMeshTriangleSubdivisionConfigs(int *a1, uint64_t a2)
 {
   v6 = *(a1 + 15);
-  v4 = (a1 + 30);
+  v4 = a1 + 30;
   v5 = v6;
   v7 = 0xAAAAAAAAAAAAAAABLL * ((*(v4 - 8) - *(v4 - 9)) >> 2);
-  v8 = &v4[1][-v6];
+  v8 = *(v4 + 1) - v6;
   if (v7 <= v8)
   {
     if (v7 < v8)
@@ -2896,7 +2893,7 @@ uint64_t amt::AMTAdaptiveMeshTessellatorBasic::computeBaseMeshTriangleSubdivisio
 
 __n128 amt::AMTAdaptiveMeshTessellatorBasic::subdivide(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - *(a1 + 72)) >> 2);
   v5 = (-1431655764 * ((*(a1 + 80) - *(a1 + 72)) >> 2));
   std::vector<amt::Vec<int,3>>::resize((a1 + 96), v5);
@@ -2915,44 +2912,44 @@ __n128 amt::AMTAdaptiveMeshTessellatorBasic::subdivide(uint64_t a1, uint64_t a2)
     std::vector<signed char>::__append((a1 + 144), v5 - v7);
   }
 
-  v31 = (a1 + 144);
+  v30 = (a1 + 144);
   if (v4 >= 1)
   {
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v32 = v4 & 0x7FFFFFFF;
-    v33 = a2;
+    v31 = v4 & 0x7FFFFFFF;
+    v32 = a2;
     while (1)
     {
       v11 = *(a1 + 72) + v8;
-      v39 = *v11;
-      v40 = *(v11 + 8);
+      v38 = *v11;
+      v39 = *(v11 + 8);
       v12 = *(*(a1 + 120) + v9);
       if (!v12)
       {
         goto LABEL_24;
       }
 
-      v37 = 0u;
-      v38 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      v33 = v38;
       v34 = v39;
-      v35 = v40;
-      (*(*a1 + 32))(a1, &v34, &v38, &v37, &v36, v33);
-      v13 = (*(*a1 + 16))(a1, v33, v38);
-      v14 = (*(*a1 + 16))(a1, v33, v37);
-      v15 = (*(*a1 + 16))(a1, v33, v36);
+      (*(*a1 + 32))(a1, &v33, &v37, &v36, &v35, v32);
+      v13 = (*(*a1 + 16))(a1, v32, v37);
+      v14 = (*(*a1 + 16))(a1, v32, v36);
+      v15 = (*(*a1 + 16))(a1, v32, v35);
       v16 = 0;
       if (v12 & 1) != 0 && ((v13 | v14))
       {
-        v16 = (*(*a1 + 24))(a1, v33, v38, v37);
+        v16 = (*(*a1 + 24))(a1, v32, v37, v36);
       }
 
       v17 = 0;
       if (v12 & 2) != 0 && ((v14 | v15))
       {
-        if ((*(*a1 + 24))(a1, v33, v37, v36))
+        if ((*(*a1 + 24))(a1, v32, v36, v35))
         {
           v17 = 2;
         }
@@ -2966,7 +2963,7 @@ __n128 amt::AMTAdaptiveMeshTessellatorBasic::subdivide(uint64_t a1, uint64_t a2)
       v18 = 0;
       if (v12 & 4) != 0 && ((v15 | v13))
       {
-        if ((*(*a1 + 24))(a1, v33, v36, v38))
+        if ((*(*a1 + 24))(a1, v32, v35, v37))
         {
           v18 = 4;
         }
@@ -2982,31 +2979,31 @@ __n128 amt::AMTAdaptiveMeshTessellatorBasic::subdivide(uint64_t a1, uint64_t a2)
       {
         if (v19 > 5)
         {
-          v38.n128_u64[0] = v39;
-          v38.n128_u32[2] = v40;
+          v37.n128_u64[0] = v38;
+          v37.n128_u32[2] = v39;
           if (v19 == 6)
           {
-            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig6(a1, &v38, v10);
+            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig6(a1, &v37, v10);
           }
 
           else
           {
-            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig7(a1, &v38, v10);
+            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig7(a1, &v37, v10);
           }
         }
 
         else
         {
-          v38.n128_u64[0] = v39;
-          v38.n128_u32[2] = v40;
+          v37.n128_u64[0] = v38;
+          v37.n128_u32[2] = v39;
           if (v19 == 4)
           {
-            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig4(a1, &v38, v10);
+            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig4(a1, &v37, v10);
           }
 
           else
           {
-            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig5(a1, &v38, v10);
+            v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig5(a1, &v37, v10);
           }
         }
 
@@ -3015,16 +3012,16 @@ __n128 amt::AMTAdaptiveMeshTessellatorBasic::subdivide(uint64_t a1, uint64_t a2)
 
       if (v19 > 1)
       {
-        v38.n128_u64[0] = v39;
-        v38.n128_u32[2] = v40;
+        v37.n128_u64[0] = v38;
+        v37.n128_u32[2] = v39;
         if (v19 == 2)
         {
-          v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig2(a1, &v38, v10);
+          v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig2(a1, &v37, v10);
         }
 
         else
         {
-          v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig3(a1, &v38, v10);
+          v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig3(a1, &v37, v10);
         }
 
         goto LABEL_25;
@@ -3032,18 +3029,18 @@ __n128 amt::AMTAdaptiveMeshTessellatorBasic::subdivide(uint64_t a1, uint64_t a2)
 
       if (v19)
       {
-        v38.n128_u64[0] = v39;
-        v38.n128_u32[2] = v40;
-        v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig1(a1, &v38, v10);
+        v37.n128_u64[0] = v38;
+        v37.n128_u32[2] = v39;
+        v21 = amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig1(a1, &v37, v10);
       }
 
       else
       {
 LABEL_24:
         v20 = *(a1 + 96) + 12 * v10;
-        *v20 = v39;
-        *(v20 + 8) = v40;
-        (*v31)[v10] = 0;
+        *v20 = v38;
+        *(v20 + 8) = v39;
+        (*v30)[v10] = 0;
         v21 = 1;
       }
 
@@ -3051,7 +3048,7 @@ LABEL_25:
       v10 += v21;
       ++v9;
       v8 += 12;
-      if (v32 == v9)
+      if (v31 == v9)
       {
         v22 = v10;
         goto LABEL_39;
@@ -3074,7 +3071,7 @@ LABEL_39:
 
   else
   {
-    std::vector<signed char>::__append(v31, v22 - (v24 - v23));
+    std::vector<signed char>::__append(v30, v22 - (v24 - v23));
     v23 = *(a1 + 144);
     v24 = *(a1 + 152);
   }
@@ -3093,7 +3090,6 @@ LABEL_39:
   *(a1 + 128) = v24;
   *(a1 + 136) = v29;
   *(a1 + 160) = v28;
-  v30 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3394,7 +3390,7 @@ uint64_t amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig5(uint64_t
   return 3;
 }
 
-uint64_t amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig6(uint64_t a1, signed int *a2, int a3)
+uint64_t amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig6(uint64_t a1, int *a2, int a3)
 {
   v5 = *a2;
   v6 = a2[1];
@@ -3581,7 +3577,7 @@ uint64_t amt::AMTAdaptiveMeshTessellatorBasic::subdivideTriangleConfig7(uint64_t
   return 4;
 }
 
-uint64_t amt::AMTAdaptiveMeshTessellatorBasic::init(amt::AMTAdaptiveMeshTessellatorBasic *this, CFTypeRef *cf)
+uint64_t amt::AMTAdaptiveMeshTessellatorBasic::init(CFTypeRef *this, CFTypeRef *cf)
 {
   if (!cf)
   {
@@ -3616,20 +3612,20 @@ uint64_t amt::AMTAdaptiveMeshTessellatorBasic::init(amt::AMTAdaptiveMeshTessella
     return 0;
   }
 
-  *(this + 2) = __AMTMesh::findSource(v5, 0, 0);
-  *(this + 3) = __AMTMesh::findSource(v6, 0, 0);
-  result = *(this + 2);
+  this[2] = __AMTMesh::findSource(v5, 0, 0);
+  this[3] = __AMTMesh::findSource(v6, 0, 0);
+  result = this[2];
   if (!result)
   {
     return result;
   }
 
-  if (AMTMeshSourceGetVectorCount(result) < 0 || AMTMeshSourceGetComponentsPerVector(*(this + 2)) != 3 || AMTMeshSourceGetDataType(*(this + 2)) != 9)
+  if (AMTMeshSourceGetVectorCount(result) < 0 || AMTMeshSourceGetComponentsPerVector(this[2]) != 3 || AMTMeshSourceGetDataType(this[2]) != 9)
   {
     return 0;
   }
 
-  result = *(this + 3);
+  result = this[3];
   if (!result)
   {
     return result;
@@ -3640,17 +3636,17 @@ uint64_t amt::AMTAdaptiveMeshTessellatorBasic::init(amt::AMTAdaptiveMeshTessella
     return 0;
   }
 
-  if (AMTMeshSourceGetComponentsPerVector(*(this + 3)) != 3)
+  if (AMTMeshSourceGetComponentsPerVector(this[3]) != 3)
   {
     return 0;
   }
 
-  if (AMTMeshSourceGetDataType(*(this + 3)) != 9)
+  if (AMTMeshSourceGetDataType(this[3]) != 9)
   {
     return 0;
   }
 
-  v11 = *(v5 + 24);
+  v11 = v5[3];
   if (!v11)
   {
     return 0;
@@ -3666,7 +3662,7 @@ uint64_t amt::AMTAdaptiveMeshTessellatorBasic::init(amt::AMTAdaptiveMeshTessella
   if (Count < 1)
   {
 LABEL_28:
-    *(this + 4) = cf + 2;
+    this[4] = cf + 2;
     return 1;
   }
 
@@ -3807,9 +3803,9 @@ CFErrorRef AMTErrorCreateWithMessages(int a1, const char *a2, uint64_t a3)
   return v10;
 }
 
-void sub_23E7776E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E7776E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va);
   _Unwind_Resume(a1);
 }
@@ -3887,17 +3883,16 @@ LABEL_18:
         v9 = 1;
       }
 
-      v13 = CFDictionaryCreate(0, keys, values, v9, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v10 = CFErrorCreate(0, @"AMT", a1, v13);
-      amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(&v13);
+      v12 = CFDictionaryCreate(0, keys, values, v9, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v10 = CFErrorCreate(0, @"AMT", a1, v12);
+      amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(&v12);
       CFRelease(v7);
       CFRelease(v4);
-      v11 = *MEMORY[0x277D85DE8];
       return v10;
   }
 }
 
-void amt::computeVertexToTriangle(uint64_t *a1, unsigned int a2, std::vector<int> *a3)
+void amt::computeVertexToTriangle(uint64_t *a1, int a2, std::vector<int> *a3)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
   amt::Adjacency<int>::init(a3, a2);
@@ -3914,7 +3909,7 @@ void amt::computeVertexToTriangle(uint64_t *a1, unsigned int a2, std::vector<int
     {
       v9 = *a1;
       v10 = *(*a1 + v7);
-      if (v10 < 0 || v10 >= a2)
+      if ((v10 & 0x80000000) != 0 || v10 >= a2)
       {
         amt::computeVertexToTriangle();
       }
@@ -3937,7 +3932,7 @@ void amt::computeVertexToTriangle(uint64_t *a1, unsigned int a2, std::vector<int
       if (v14 != *(v9 + v7))
       {
         amt::Adjacency<int>::incrementNeighborCount(a3, v14);
-        v14 = *(v9 + v7);
+        LODWORD(v14) = *(v9 + v7);
       }
 
       v15 = *(v9 + v7 + 8);
@@ -3962,7 +3957,7 @@ void amt::computeVertexToTriangle(uint64_t *a1, unsigned int a2, std::vector<int
       if (v18 != *v17)
       {
         amt::Adjacency<int>::addNeighbor(a3, v18, &v20);
-        v18 = *v17;
+        LODWORD(v18) = *v17;
       }
 
       v19 = v17[2];
@@ -3987,7 +3982,7 @@ void amt::Adjacency<int>::init(std::vector<int> *a1, int a2)
   std::vector<int>::assign(a1 + 1, a2, &v4);
 }
 
-void *amt::Adjacency<int>::incrementNeighborCount(void *result, int a2)
+void *amt::Adjacency<int>::incrementNeighborCount(void *result, uint64_t a2)
 {
   if (((result[4] - result[3]) >> 2) <= a2)
   {
@@ -4023,9 +4018,9 @@ void amt::Adjacency<int>::updateShift(std::vector<unsigned int> *a1)
   std::vector<int>::resize(a1 + 2, *(end - 1));
 }
 
-uint64_t amt::Adjacency<int>::addNeighbor(void *a1, unsigned int a2, int *a3)
+uint64_t amt::Adjacency<int>::addNeighbor(void *a1, uint64_t a2, int *a3)
 {
-  if ((a2 & 0x80000000) != 0 || (v5 = a1[3], ((a1[4] - v5) >> 2) < a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = a2, v5 = a1[3], ((a1[4] - v5) >> 2) < a2))
   {
     amt::Adjacency<int>::addNeighbor();
   }
@@ -4043,15 +4038,15 @@ uint64_t amt::Adjacency<int>::addNeighbor(void *a1, unsigned int a2, int *a3)
   }
 
   v9 = *a3;
-  v10 = *(*a1 + 4 * a2);
+  v10 = *(*a1 + 4 * v3);
   v11 = a1[3];
-  v12 = *(v11 + 4 * a2);
-  *(v11 + 4 * a2) = v12 + 1;
+  v12 = *(v11 + 4 * v3);
+  *(v11 + 4 * v3) = v12 + 1;
   *(a1[6] + 4 * (v12 + v10)) = v9;
   return result;
 }
 
-uint64_t amt::tagAdjacentTriangles(int a1, char a2, void *a3, void *a4)
+uint64_t amt::tagAdjacentTriangles(uint64_t a1, char a2, void *a3, void *a4)
 {
   if (((a3[4] - a3[3]) >> 2) <= a1)
   {
@@ -4074,7 +4069,7 @@ uint64_t amt::tagAdjacentTriangles(int a1, char a2, void *a3, void *a4)
   return result;
 }
 
-uint64_t amt::incrementTagAdjacentTriangles(int a1, void *a2, void *a3)
+uint64_t amt::incrementTagAdjacentTriangles(uint64_t a1, void *a2, void *a3)
 {
   if (((a2[4] - a2[3]) >> 2) <= a1)
   {
@@ -4099,7 +4094,7 @@ uint64_t amt::incrementTagAdjacentTriangles(int a1, void *a2, void *a3)
   return result;
 }
 
-uint64_t amt::computeAdjacentVertexCount(int a1, void *a2, void *a3, void *a4)
+uint64_t amt::computeAdjacentVertexCount(uint64_t a1, void *a2, void *a3, void *a4)
 {
   if (((a3[4] - a3[3]) >> 2) <= a1)
   {
@@ -4157,7 +4152,7 @@ uint64_t amt::computeAdjacentVertexCount(int a1, void *a2, void *a3, void *a4)
   return result;
 }
 
-void amt::computeAdjacentVertices(int a1, void *a2, void *a3, void *a4, std::vector<unsigned int> *this)
+void amt::computeAdjacentVertices(uint64_t a1, void *a2, void *a3, void *a4, std::vector<unsigned int> *this)
 {
   std::vector<int>::resize(this, 0);
   if (((a3[4] - a3[3]) >> 2) <= a1)
@@ -4212,7 +4207,7 @@ void amt::computeAdjacentVertices(int a1, void *a2, void *a3, void *a4, std::vec
   }
 }
 
-void amt::computeAdjacentTriangles(int *a1, void *a2, void *a3, std::vector<unsigned int> *this)
+void amt::computeAdjacentTriangles(unsigned int *a1, void *a2, void *a3, std::vector<unsigned int> *this)
 {
   std::vector<int>::resize(this, 0);
   amt::tagAdjacentTriangles(*a1, 0, a2, a3);
@@ -4250,7 +4245,7 @@ void amt::computeAdjacentTriangles(int *a1, void *a2, void *a3, std::vector<unsi
   }
 }
 
-void amt::computeEdgeAdjacentTriangles(int a1, int a2, void *a3, void *a4, std::vector<unsigned int> *this)
+void amt::computeEdgeAdjacentTriangles(uint64_t a1, uint64_t a2, void *a3, void *a4, std::vector<unsigned int> *this)
 {
   std::vector<int>::resize(this, 0);
   amt::tagAdjacentTriangles(a1, 0, a3, a4);
@@ -4277,7 +4272,7 @@ void amt::computeEdgeAdjacentTriangles(int a1, int a2, void *a3, void *a4, std::
   }
 }
 
-uint64_t amt::computeEdgeAdjacentTriangleCount(int a1, int a2, void *a3, void *a4)
+uint64_t amt::computeEdgeAdjacentTriangleCount(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   amt::tagAdjacentTriangles(a1, 0, a3, a4);
   amt::tagAdjacentTriangles(a2, 1, a3, a4);
@@ -4319,7 +4314,7 @@ void amt::computeBoundaryVertices(void *a1, void *a2, void *a3, void *a4, char *
     v10 = (v5 >> 2);
     v11 = *a5;
     v12 = a5[1];
-    v13 = (v12 - *a5);
+    v13 = v12 - *a5;
     if (v10 <= v13)
     {
       if (v10 < v13)
@@ -4391,13 +4386,13 @@ void sub_23E778430(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t amt::saveMaterial(uint64_t *a1, uint64_t a2)
+uint64_t amt::saveMaterial(uint64_t *a1, double *a2)
 {
-  v42[19] = *MEMORY[0x277D85DE8];
-  std::ofstream::basic_ofstream(&v40, a1);
-  if (v41[15])
+  v41[19] = *MEMORY[0x277D85DE8];
+  std::ofstream::basic_ofstream(&v39, a1, 16);
+  if (v40[15])
   {
-    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "newmtl ", 7);
+    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "newmtl ", 7);
     v4 = *(a2 + 23);
     if (v4 >= 0)
     {
@@ -4416,67 +4411,67 @@ uint64_t amt::saveMaterial(uint64_t *a1, uint64_t a2)
 
     else
     {
-      v6 = *(a2 + 8);
+      v6 = *(a2 + 1);
     }
 
     v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v5, v6);
     std::ios_base::getloc((v7 + *(*v7 - 24)));
-    v8 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v8 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v8->__vftable[2].~facet_0)(v8, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Ka ", 3);
-    v10 = amt::operator<<<double,3>(v9, a2 + 48);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Ka ", 3);
+    v10 = amt::operator<<<double,3>(v9, (a2 + 6));
     std::ios_base::getloc((v10 + *(*v10 - 24)));
-    v11 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v11 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v11->__vftable[2].~facet_0)(v11, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Kd ", 3);
-    v13 = amt::operator<<<double,3>(v12, a2 + 72);
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Kd ", 3);
+    v13 = amt::operator<<<double,3>(v12, (a2 + 9));
     std::ios_base::getloc((v13 + *(*v13 - 24)));
-    v14 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v14 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v14->__vftable[2].~facet_0)(v14, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Ks ", 3);
-    v16 = amt::operator<<<double,3>(v15, a2 + 96);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Ks ", 3);
+    v16 = amt::operator<<<double,3>(v15, (a2 + 12));
     std::ios_base::getloc((v16 + *(*v16 - 24)));
-    v17 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v17 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v17->__vftable[2].~facet_0)(v17, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Tr ", 3);
-    v19 = MEMORY[0x23EF11BF0](v18, *(a2 + 128));
+    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Tr ", 3);
+    v19 = MEMORY[0x23EF11BF0](v18, a2[16]);
     std::ios_base::getloc((v19 + *(*v19 - 24)));
-    v20 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v20 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v20->__vftable[2].~facet_0)(v20, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "illum ", 6);
-    v22 = MEMORY[0x23EF11C10](v21, *(a2 + 136));
+    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "illum ", 6);
+    v22 = MEMORY[0x23EF11C10](v21, *(a2 + 34));
     std::ios_base::getloc((v22 + *(*v22 - 24)));
-    v23 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v23 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v23->__vftable[2].~facet_0)(v23, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Ns ", 3);
-    v25 = MEMORY[0x23EF11BF0](v24, *(a2 + 120));
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Ns ", 3);
+    v25 = MEMORY[0x23EF11BF0](v24, a2[15]);
     std::ios_base::getloc((v25 + *(*v25 - 24)));
-    v26 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v26 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v26->__vftable[2].~facet_0)(v26, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "map_Kd ", 7);
-    v30 = *(a2 + 24);
-    v29 = a2 + 24;
+    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "map_Kd ", 7);
+    v30 = *(a2 + 3);
+    v29 = a2 + 3;
     v28 = v30;
     v31 = *(v29 + 23);
     if (v31 >= 0)
@@ -4496,19 +4491,19 @@ uint64_t amt::saveMaterial(uint64_t *a1, uint64_t a2)
 
     else
     {
-      v33 = *(v29 + 8);
+      v33 = *(v29 + 1);
     }
 
     v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v32, v33);
     std::ios_base::getloc((v34 + *(*v34 - 24)));
-    v35 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+    v35 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
     (v35->__vftable[2].~facet_0)(v35, 10);
-    std::locale::~locale(&v39);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((&v41[-1] + *(v40 - 24)), *(&v41[3] + *(v40 - 24)) | 4);
+      std::ios_base::clear((&v40[-1] + *(v39 - 24)), *(&v40[3] + *(v39 - 24)) | 4);
     }
 
     v36 = 0;
@@ -4519,12 +4514,11 @@ uint64_t amt::saveMaterial(uint64_t *a1, uint64_t a2)
     v36 = 0xFFFFFFFFLL;
   }
 
-  v40 = *MEMORY[0x277D82810];
-  *(&v41[-1] + *(v40 - 24)) = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x23EF11B90](v41);
+  v39 = *MEMORY[0x277D82810];
+  *(&v40[-1] + *(v39 - 24)) = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x23EF11B90](v40);
   std::ostream::~ostream();
-  MEMORY[0x23EF11E10](v42);
-  v37 = *MEMORY[0x277D85DE8];
+  MEMORY[0x23EF11E10](v41);
   return v36;
 }
 
@@ -4731,13 +4725,13 @@ uint64_t _AMTTypeCreateInstance(const __CFAllocator *a1, CFTypeID a2, size_t a3)
   return v4;
 }
 
-uint64_t amt::parameterize(uint64_t *a1, uint64_t a2)
+uint64_t amt::parameterize(amt::TriangleMesh *a1, uint64_t a2)
 {
   v4 = objc_autoreleasePoolPush();
-  v5 = a1[3];
-  v6 = (a1[4] - v5) >> 4;
+  v5 = *(a1 + 3);
+  v6 = (*(a1 + 4) - v5) >> 4;
   v7 = 3 * v6;
-  v8 = a1[9];
+  v8 = *(a1 + 9);
   std::vector<float>::vector[abi:ne200100](__p, v7);
   if (v6)
   {
@@ -4761,7 +4755,7 @@ uint64_t amt::parameterize(uint64_t *a1, uint64_t a2)
   v13 = objc_alloc_init(MEMORY[0x277D0AE88]);
   v14 = objc_alloc_init(MEMORY[0x277D0AE80]);
   [v14 setPositions:__p[0] size:v7];
-  [v14 setFaces:v8 size:((a1[10] - a1[9]) >> 2)];
+  [v14 setFaces:v8 size:((*(a1 + 10) - *(a1 + 9)) >> 2)];
   if ([v14 create:v13])
   {
     v15 = objc_alloc_init(MEMORY[0x277D0AE68]);
@@ -4788,28 +4782,28 @@ uint64_t amt::parameterize(uint64_t *a1, uint64_t a2)
         v21 = [v20 success];
         if (v21)
         {
-          v33 = v20;
-          v34 = v15;
-          memset(&v35, 0, sizeof(v35));
+          v34 = v20;
+          v35 = v15;
+          memset(&v36, 0, sizeof(v36));
           v22 = [v13 vertexSize];
-          std::vector<int>::resize(&v35, 3 * v22);
-          [v13 getPositions:v35.__begin_ size:3 * v22];
-          v37 = 0u;
-          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEmRKS1_(a1 + 3, v22, &v37);
+          std::vector<int>::resize(&v36, 3 * v22);
+          [v13 getPositions:v36.__begin_ size:3 * v22];
+          v38 = 0u;
+          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEmRKS1_(a1 + 3, v22, &v38);
           if (v22 >= 1)
           {
             v24 = 0;
             v25 = 0;
             do
             {
-              v26 = a1[3];
-              if (v25 >= ((a1[4] - v26) >> 4))
+              v26 = *(a1 + 3);
+              if (v25 >= ((*(a1 + 4) - v26) >> 4))
               {
                 __assert_rtn("setPosition", "AMTTriangleMesh.hpp", 306, "posIndex >= 0 && posIndex < positionCount()");
               }
 
-              *&v23 = *&v35.__begin_[v24];
-              DWORD2(v23) = v35.__begin_[v24 + 2];
+              *&v23 = *&v36.__begin_[v24];
+              DWORD2(v23) = v36.__begin_[v24 + 2];
               *(v26 + 16 * v25++) = v23;
               v24 += 3;
             }
@@ -4818,33 +4812,34 @@ uint64_t amt::parameterize(uint64_t *a1, uint64_t a2)
           }
 
           v27 = [v13 texCoordSize];
-          std::vector<int>::resize(&v35, 2 * v27);
-          [v13 getTexCoords:v35.__begin_ size:2 * v27];
-          *&v37 = 0;
-          _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEmRKS1_(a1 + 12, v27, &v37);
+          std::vector<int>::resize(&v36, 2 * v27);
+          [v13 getTexCoords:v36.__begin_ size:2 * v27];
+          *&v38 = 0;
+          _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEmRKS1_(a1 + 12, v27, &v38);
           if (v27 >= 1)
           {
-            v29 = 0;
+            v30 = 0;
             for (i = 0; i != v27; ++i)
             {
-              v28.n64_u32[0] = v35.__begin_[v29];
-              v28.n64_u64[0] = amt::TriangleMesh::setTexCoord(a1, i, v28, *&v35.__begin_[v29 + 1]).n64_u64[0];
-              v29 += 2;
+              v28.n128_u32[0] = v36.__begin_[v30];
+              v29.n128_u32[0] = v36.__begin_[v30 + 1];
+              v28.n128_f64[0] = amt::TriangleMesh::setTexCoord(a1, i, v28, v29);
+              v30 += 2;
             }
           }
 
-          v31 = [v13 faceSize];
-          [v13 getFaces:a1[9] size:3 * v31];
-          *&v37 = -1;
-          DWORD2(v37) = -1;
-          std::vector<amt::Vec<int,3>>::resize(a1 + 15, v31, &v37);
-          [v13 getTexCoordFaces:a1[15] size:3 * v31];
-          v15 = v34;
-          v20 = v33;
-          if (v35.__begin_)
+          v32 = [v13 faceSize];
+          [v13 getFaces:*(a1 + 9) size:3 * v32];
+          *&v38 = -1;
+          DWORD2(v38) = -1;
+          std::vector<amt::Vec<int,3>>::resize(a1 + 15, v32, &v38);
+          [v13 getTexCoordFaces:*(a1 + 15) size:3 * v32];
+          v15 = v35;
+          v20 = v34;
+          if (v36.__begin_)
           {
-            v35.__end_ = v35.__begin_;
-            operator delete(v35.__begin_);
+            v36.__end_ = v36.__begin_;
+            operator delete(v36.__begin_);
           }
         }
       }
@@ -4891,23 +4886,23 @@ void sub_23E7793B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n64 amt::TriangleMesh::setTexCoord(amt::TriangleMesh *this, int a2, __n64 result, float a4)
+double amt::TriangleMesh::setTexCoord(amt::TriangleMesh *this, int a2, __n128 a3, __n128 a4)
 {
   if (a2 < 0 || (v4 = *(this + 12), ((*(this + 13) - v4) >> 3) <= a2))
   {
     amt::TriangleMesh::setTexCoord();
   }
 
-  result.n64_f32[1] = a4;
-  *(v4 + 8 * a2) = result;
-  return result;
+  a3.n128_u32[1] = a4.n128_u32[0];
+  *(v4 + 8 * a2) = a3.n128_u64[0];
+  return a3.n128_f64[0];
 }
 
-void amt::subdivideMeshMidPoint(std::vector<int>::size_type a1, uint64_t a2, int a3, std::vector<int> *a4, void *a5, void *a6)
+void amt::subdivideMeshMidPoint(std::vector<int>::size_type a1, uint64_t a2, unsigned int a3, std::vector<int> *a4, void *a5, unint64_t **a6)
 {
   v10 = a2;
   v12 = a2 << (2 * a3);
-  std::vector<amt::SubdivisionLevelInfo>::resize(a6, a3 + 1);
+  std::vector<amt::SubdivisionLevelInfo>::resize(a6, (a3 + 1));
   v57 = a6;
   **a6 = a1 | (v10 << 32);
   std::vector<amt::Vec<int,3>>::resize(a5, v12);
@@ -4924,7 +4919,7 @@ void amt::subdivideMeshMidPoint(std::vector<int>::size_type a1, uint64_t a2, int
       std::vector<int>::resize(a4, a1 + 1, __x);
       if (v10 >= 1)
       {
-        v16 = (a4->__begin_ + 1);
+        v16 = a4->__begin_ + 1;
         v17 = v10;
         v18 = (*a5 + 8);
         do
@@ -4944,19 +4939,19 @@ void amt::subdivideMeshMidPoint(std::vector<int>::size_type a1, uint64_t a2, int
             v23 = v19;
           }
 
-          ++*(v16 + 4 * v23);
+          ++v16[v23];
           if (v20 <= v21)
           {
             v20 = v21;
           }
 
-          ++*(v16 + 4 * v20);
+          ++v16[v20];
           if (v21 > v19)
           {
             v19 = v21;
           }
 
-          ++*(v16 + 4 * v19);
+          ++v16[v19];
           --v17;
         }
 
@@ -5007,7 +5002,7 @@ void amt::subdivideMeshMidPoint(std::vector<int>::size_type a1, uint64_t a2, int
           begin = a4->__begin_;
           v35 = a4[1].__begin_;
           v36 = a4[2].__begin_;
-          v37 = (a4->__begin_ + 1);
+          v37 = a4->__begin_ + 1;
           do
           {
             v38 = v30 + 1;
@@ -5056,7 +5051,7 @@ void amt::subdivideMeshMidPoint(std::vector<int>::size_type a1, uint64_t a2, int
 LABEL_34:
             if (*(&v59 + v30) == -1)
             {
-              if (v45 >= *(v37 + 4 * v42))
+              if (v45 >= v37[v42])
               {
                 amt::subdivideMeshMidPoint();
               }
@@ -5099,7 +5094,7 @@ LABEL_34:
       }
 
       v13 = v58 + 1;
-      *(*v57 + 8 * (v58 + 1)) = a1 | (v10 << 34);
+      (*v57)[v58 + 1] = a1 | (v10 << 34);
       v10 = (4 * v10);
       v14 = v15;
     }
@@ -5108,20 +5103,20 @@ LABEL_34:
   }
 }
 
-void std::vector<amt::SubdivisionLevelInfo>::resize(void *a1, unint64_t a2)
+void std::vector<amt::SubdivisionLevelInfo>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<amt::SubdivisionLevelInfo>::__append(a1, a2 - v2);
+    std::vector<amt::SubdivisionLevelInfo>::__append(result, a2 - v2);
   }
 }
 
@@ -5598,20 +5593,21 @@ void *AMTMeshGetElements(void *result)
   return result;
 }
 
-unsigned __int8 *AMTMeshGetSourceWithSemantic(const void *a1, int a2, uint64_t a3)
+unsigned __int8 *AMTMeshGetSourceWithSemantic(const void *a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v4 = a2;
   v6 = CFGetTypeID(a1);
   if (v6 != AMTMeshGetTypeID())
   {
     return 0;
   }
 
-  return __AMTMesh::findSource(a1, a2, a3);
+  return __AMTMesh::findSource(a1, v4, a3);
 }
 
 unsigned __int8 *__AMTMesh::findSource(uint64_t a1, int a2, uint64_t a3)
@@ -5755,11 +5751,11 @@ uint64_t AMTMeshCreateWithTriangleMesh(const __CFAllocator *a1, const amt::Trian
   return v24;
 }
 
-void sub_23E77A74C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E77A74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   amt::AMTWrapper<__AMTMeshSource *>::~AMTWrapper(va);
   amt::AMTWrapper<__CFArray *>::~AMTWrapper(va1);
   _Unwind_Resume(a1);
@@ -6071,14 +6067,14 @@ LABEL_51:
   return v12;
 }
 
-void sub_23E77AE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23E77AE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, const void *);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v14 = va_arg(va2, const void *);
+  v21 = va_arg(va2, const void *);
   amt::AMTWrapper<__CFArray *>::~AMTWrapper(va);
   amt::AMTWrapper<__AMTMeshSource *>::~AMTWrapper(va1);
   amt::AMTWrapper<__CFArray *>::~AMTWrapper(va2);
@@ -6319,7 +6315,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::decimate(uint64_t a1, uint64_t a2)
           v14 = *(a1 + 32);
           if (*(v14 + 192 * v13 + 176) == 1 && *(v14 + 192 * v12 + 176) == 1)
           {
-            if ((v126[0] & 0x8000000000000000) != 0)
+            if ((HIDWORD(v126[0]) & 0x80000000) != 0)
             {
               amt::SmallVector<int,8>::reserve(v126, 0);
             }
@@ -6758,11 +6754,11 @@ LABEL_56:
   return result;
 }
 
-void sub_23E77BCD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
+void sub_23E77BCD8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
 {
   if (a20)
   {
-    MEMORY[0x23EF11E60](a20, 0x1000C8052888210);
+    MEMORY[0x23EF11E60](a20, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   if (__p)
@@ -6772,19 +6768,19 @@ void sub_23E77BCD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a31)
   {
-    MEMORY[0x23EF11E60](a31, 0x1000C8052888210);
+    MEMORY[0x23EF11E60](a31, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   if (a38)
   {
-    MEMORY[0x23EF11E60](a38, 0x1000C8052888210);
+    MEMORY[0x23EF11E60](a38, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   v40 = *(v38 - 144);
   *(v38 - 144) = 0;
   if (v40)
   {
-    MEMORY[0x23EF11E60](v40, 0x1000C8052888210);
+    MEMORY[0x23EF11E60](v40, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6802,7 +6798,7 @@ uint64_t std::function<BOOL ()(float)>::operator()(uint64_t a1, float a2)
   return (*(*v2 + 48))(v2, &v4);
 }
 
-uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::extract(uint64_t *a1)
+uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::extract(char **a1)
 {
   v1 = *a1;
   v2 = (a1[1] - *a1) >> 3;
@@ -6813,15 +6809,15 @@ uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::extrac
 
   v3 = v2 - 1;
   v4 = *v1;
-  *v1 = v1[v3];
-  v1[v3] = v4;
+  *v1 = *&v1[8 * v3];
+  *&v1[8 * v3] = v4;
   v5 = *a1;
   v6 = a1[1];
   *(**a1 + 40) = 0;
-  *(*(v5 + 8 * v3) + 40) = v3;
-  v7 = *(v6 - 8);
+  *(*&v5[8 * v3] + 40) = v3;
+  v7 = *(v6 - 1);
   *(v7 + 40) = -1;
-  a1[1] = v6 - 8;
+  a1[1] = (v6 - 1);
   amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::downheap(a1, 0);
   return v7;
 }
@@ -6892,9 +6888,9 @@ void *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::insert(ui
   return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap(a1, v7);
 }
 
-_DWORD *amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles(_DWORD *result, int a2, int a3, int a4, _DWORD *a5, _DWORD *a6)
+const void **amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles(const void **result, int a2, int a3, int a4, const void **a5, const void **a6)
 {
-  v6 = *(result + 4) + 192 * a2;
+  v6 = result[4] + 192 * a2;
   v9 = *(v6 + 64);
   v7 = (v6 + 64);
   v8 = v9;
@@ -6910,7 +6906,7 @@ _DWORD *amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles(_DWORD *result,
       }
 
       v17 = *(*(v7 + 1) + 4 * v15);
-      v16 = *(*(v14 + 7) + (v17 << 6));
+      v16 = *(v14[7] + 16 * v17);
       result = a5;
       if (v16 == a3 || (result = a6, v16 == a4))
       {
@@ -6926,9 +6922,9 @@ _DWORD *amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles(_DWORD *result,
   return result;
 }
 
-_DWORD *amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles(_DWORD *result, int a2, int a3, _DWORD *a4)
+const void **amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles(const void **result, int a2, int a3, const void **a4)
 {
-  v4 = *(result + 4) + 192 * a2;
+  v4 = result[4] + 192 * a2;
   v7 = *(v4 + 64);
   v5 = (v4 + 64);
   v6 = v7;
@@ -6944,7 +6940,7 @@ _DWORD *amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles(_DWORD *result,
       }
 
       v12 = *(*(v5 + 1) + 4 * v11);
-      if (*(*(v10 + 7) + (v12 << 6)) == a3)
+      if (*(v10[7] + 16 * v12) == a3)
       {
         result = amt::SmallVector<int,8>::push_back(a4, &v12);
       }
@@ -6979,20 +6975,20 @@ char *amt::TriangleMeshDecimatorImpl::appendIncidentTrianglesTrackedPoints(char 
   return result;
 }
 
-_DWORD *amt::SmallVector<int,8>::push_back(_DWORD *result, int *a2)
+const void **amt::SmallVector<int,8>::push_back(const void **result, int *a2)
 {
   v3 = result;
   v4 = *result;
-  if (*result == result[1])
+  if (*result == *(result + 1))
   {
     result = amt::SmallVector<int,8>::reserve(result, 2 * v4);
     v4 = *v3;
   }
 
   v5 = *a2;
-  v6 = *(v3 + 1);
+  v6 = v3[1];
   *v3 = v4 + 1;
-  *(v6 + 4 * v4) = v5;
+  v6[v4] = v5;
   return result;
 }
 
@@ -7174,12 +7170,12 @@ uint64_t amt::TriangleMeshDecimatorImpl::trackPoint(void *a1, int a2, unsigned i
   return v13;
 }
 
-uint64_t *amt::TriangleMeshDecimatorImpl::computeEdgeCollapseCost(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *amt::TriangleMeshDecimatorImpl::computeEdgeCollapseCost(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v7 = *(a2 + 32);
   v8 = *(a2 + 36);
-  v9 = *(a1 + 32);
+  v9 = a1[4];
   v10 = (v9 + 192 * v7);
   v11 = (v9 + 192 * v8);
   do
@@ -7196,7 +7192,7 @@ uint64_t *amt::TriangleMeshDecimatorImpl::computeEdgeCollapseCost(uint64_t a1, u
   if (v15 >= 1)
   {
     v16 = *(v14 + 8);
-    v17 = *(a1 + 56);
+    v17 = a1[7];
     v18 = v13;
     do
     {
@@ -7215,7 +7211,7 @@ uint64_t *amt::TriangleMeshDecimatorImpl::computeEdgeCollapseCost(uint64_t a1, u
   if (v23 >= 1)
   {
     v24 = *(v22 + 8);
-    v25 = *(a1 + 56);
+    v25 = a1[7];
     do
     {
       v26 = *v24++;
@@ -7229,7 +7225,7 @@ uint64_t *amt::TriangleMeshDecimatorImpl::computeEdgeCollapseCost(uint64_t a1, u
   if (v13 >= 1)
   {
     v27 = *(v14 + 8);
-    v28 = *(a1 + 56);
+    v28 = a1[7];
     do
     {
       v29 = *v27++;
@@ -7301,7 +7297,7 @@ uint64_t *amt::TriangleMeshDecimatorImpl::computeEdgeCollapseCost(uint64_t a1, u
 
   *(a2 + 16) = v32;
   *a2 = -v33;
-  v38 = (a1 + 104);
+  v38 = a1 + 13;
   if (*(a2 + 40) == -1)
   {
     return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::insert(v38, a2);
@@ -7309,12 +7305,14 @@ uint64_t *amt::TriangleMeshDecimatorImpl::computeEdgeCollapseCost(uint64_t a1, u
 
   else
   {
-    return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::update(v38, a2);
+    return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::update(v38, a2, -v33);
   }
 }
 
-float amt::TriangleMeshDecimatorImpl::computeCost(uint64_t a1, float *a2, float32x2_t *a3, int a4, int a5, double *a6)
+float amt::TriangleMeshDecimatorImpl::computeCost(uint64_t a1, float *a2, float32x2_t *a3, uint64_t a4, uint64_t a5, double *a6)
 {
+  v7 = a5;
+  v8 = a4;
   v11 = fabsf(amt::Quadratic::operator()(a2, a3));
   v12 = *a6;
   v13 = a6[3];
@@ -7323,8 +7321,8 @@ float amt::TriangleMeshDecimatorImpl::computeCost(uint64_t a1, float *a2, float3
     v18 = 1.0;
     v14 = v13;
     v17 = v14;
-    amt::TriangleMeshDecimatorImpl::computeAdjacentTrianglesQuality(a1, a4, a3, &v17, &v18);
-    amt::TriangleMeshDecimatorImpl::computeAdjacentTrianglesQuality(a1, a5, a3, &v17, &v18);
+    amt::TriangleMeshDecimatorImpl::computeAdjacentTrianglesQuality(a1, v8, a3, &v17, &v18);
+    amt::TriangleMeshDecimatorImpl::computeAdjacentTrianglesQuality(a1, v7, a3, &v17, &v18);
     if (v13 > 0.0)
     {
       v11 = v11 / (v17 + 0.0000001);
@@ -7537,27 +7535,27 @@ BOOL amt::Quadratic::minDistPoint(uint64_t a1, _OWORD *a2)
   return result;
 }
 
-uint64_t *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::update(uint64_t *result, uint64_t a2)
+uint64_t *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::update(uint64_t *result, uint64_t a2, float a3)
 {
-  v2 = *(a2 + 40);
-  if ((v2 & 0x80000000) == 0)
+  v3 = *(a2 + 40);
+  if ((v3 & 0x80000000) == 0)
   {
-    v3 = result;
-    if (v2 >= ((result[1] - *result) >> 3))
+    v4 = result;
+    if (v3 >= ((result[1] - *result) >> 3))
     {
       amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::update();
     }
 
-    if (v2 && (v4 = *a2, v4 > **(*result + 8 * amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::parent(result, *(a2 + 40)))))
+    if (v3 && (v5 = *a2, v5 > **(*result + 8 * amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::parent(result, *(a2 + 40)))))
     {
 
-      return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap(v3, v2);
+      return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap(v4, v3);
     }
 
     else
     {
 
-      return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::downheap(v3, v2);
+      return amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::downheap(v4, v3);
     }
   }
 
@@ -7757,29 +7755,27 @@ uint64_t amt::TriangleMeshDecimatorImpl::trackedPoints(float32x4_t *this, float 
 
 uint64_t amt::TriangleMeshDecimator::setCallBack(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  std::__function::__value_func<BOOL ()(float)>::__value_func[abi:ne200100](v5, a2);
-  std::function<BOOL ()(float)>::operator=((v2 + 440), v5);
-  result = std::__function::__value_func<BOOL ()(float)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__function::__value_func<BOOL ()(float)>::__value_func[abi:ne200100](v4, a2);
+  std::function<BOOL ()(float)>::operator=((v2 + 440), v4);
+  return std::__function::__value_func<BOOL ()(float)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23E77D1B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E77D1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(float)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientation(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientation(char *a1, uint64_t a2, uint64_t a3)
 {
   v7 = *(a2 + 32);
   v6 = *(a2 + 36);
   v76 = v6;
   v77[0] = v7;
-  v8 = *(a1 + 32);
+  v8 = *(a1 + 4);
   v9 = v8 + 192 * v7;
   v75 = 0;
   v73[1] = &v74;
@@ -7801,7 +7797,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientat
       }
 
       LODWORD(v67) = *(*(v10 + 1) + 4 * v13);
-      v14 = *(a1 + 56) + (v67 << 6);
+      v14 = *(a1 + 7) + (v67 << 6);
       v16 = *(v14 + 4);
       v15 = v14 + 4;
       if (v16 != v76 && *(v15 + 4) != v76 && *(v15 + 8) != v76)
@@ -7814,7 +7810,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientat
 
     while (v11 != v13);
     v6 = v76;
-    v8 = *(a1 + 32);
+    v8 = *(a1 + 4);
   }
 
   v17 = v8 + 192 * v6;
@@ -7832,7 +7828,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientat
       }
 
       LODWORD(v67) = *(*(v18 + 1) + 4 * v21);
-      v22 = *(a1 + 56) + (v67 << 6);
+      v22 = *(a1 + 7) + (v67 << 6);
       v24 = *(v22 + 4);
       v23 = v22 + 4;
       if (v24 == v77[0] || *(v23 + 4) == v77[0])
@@ -7859,23 +7855,23 @@ uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientat
 
   if (LODWORD(v73[0]))
   {
-    v26 = *(a1 + 32);
+    v26 = *(a1 + 4);
     v27 = 192 * v77[0];
     v28 = 192 * v76;
     v62 = *(v26 + v27);
     v63 = *(v26 + v28);
     *(v26 + v27) = *(a2 + 16);
-    *(*(a1 + 32) + v28) = *(a2 + 16);
+    *(*(a1 + 4) + v28) = *(a2 + 16);
     v67 = 0;
     v68 = 0;
     v69 = 0;
     amt::TriangleMeshDecimatorImpl::appendIncidentTrianglesTrackedPoints(a1, v73, &v67);
     amt::TriangleMeshDecimatorImpl::appendIncidentTrianglesTrackedPoints(a1, v70, &v67);
-    v29 = *(a1 + 344);
+    v29 = *(a1 + 43);
     if (*(v29 + 4 * v77[0]) == -1)
     {
       std::vector<int>::push_back[abi:ne200100](&v67, v77);
-      v29 = *(a1 + 344);
+      v29 = *(a1 + 43);
     }
 
     if (*(v29 + 4 * v76) == -1)
@@ -7899,7 +7895,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientat
       do
       {
         v35 = *(v67 + v33);
-        if (v35 < 0 || v35 >= ((*(a1 + 160) - *(a1 + 152)) >> 4))
+        if ((v35 & 0x80000000) != 0 || v35 >= ((*(a1 + 20) - *(a1 + 19)) >> 4))
         {
           __assert_rtn("preservesTrackedTriangleNormalsOrientation", "AMTTriangleMeshDecimator.cpp", 740, "vindex >= 0 && vindex < _trackedMesh.positionCount()");
         }
@@ -7915,7 +7911,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientat
 
         else
         {
-          amt::TriangleMesh::setPosition(a1 + 128, v35, &v65);
+          amt::TriangleMesh::setPosition((a1 + 128), v35, &v65);
         }
 
         ++v33;
@@ -7932,8 +7928,8 @@ uint64_t amt::TriangleMeshDecimatorImpl::preservesTrackedTriangleNormalsOrientat
       while (1)
       {
         v40 = *(v67 + v38);
-        started = amt::Adjacency<int>::neighborsStartIndex((a1 + 368), v40);
-        v42 = amt::Adjacency<int>::neighborsEndIndex((a1 + 368), v40);
+        started = amt::Adjacency<int>::neighborsStartIndex(a1 + 46, v40);
+        v42 = amt::Adjacency<int>::neighborsEndIndex(a1 + 46, v40);
         if (started < v42)
         {
           break;
@@ -7950,10 +7946,10 @@ LABEL_47:
       v43 = started;
       while (1)
       {
-        v44 = *(*(a1 + 416) + 4 * v43);
-        if ((*(*(a1 + 56) + (v44 << 6) + 32) & 1) == 0)
+        v44 = *(*(a1 + 52) + 4 * v43);
+        if ((*(*(a1 + 7) + (v44 << 6) + 32) & 1) == 0)
         {
-          amt::TriangleMesh::triangle(a1 + 128, *(*(a1 + 416) + 4 * v43), &v65);
+          amt::TriangleMesh::triangle(&v65, a1 + 16, *(*(a1 + 52) + 4 * v43));
           v45 = amt::TriangleMesh::position((a1 + 128), v65.n128_i32[0]);
           v46 = amt::TriangleMesh::position((a1 + 128), v65.n128_i32[1]);
           v47 = amt::TriangleMesh::position((a1 + 128), v65.n128_i32[2]);
@@ -7974,7 +7970,7 @@ LABEL_47:
           while (v48 != 3);
           if (v53 != 0.0)
           {
-            v55 = vmulq_f32(vmulq_n_f32(v52, 1.0 / sqrtf(v53)), *(*(a1 + 56) + (v44 << 6) + 16));
+            v55 = vmulq_f32(vmulq_n_f32(v52, 1.0 / sqrtf(v53)), *(*(a1 + 7) + (v44 << 6) + 16));
             if (*(a3 + 56) >= (v55.f32[2] + vaddv_f32(*v55.f32)))
             {
               break;
@@ -7999,15 +7995,15 @@ LABEL_50:
       v57 = 0;
       do
       {
-        amt::TriangleMesh::setPosition(a1 + 128, *(v67 + v57++), (__p[0] + v56));
+        amt::TriangleMesh::setPosition((a1 + 128), *(v67 + v57++), (__p[0] + v56));
         v56 += 16;
       }
 
       while (v32 != v57);
     }
 
-    *(*(a1 + 32) + 192 * v77[0]) = v62;
-    *(*(a1 + 32) + 192 * v76) = v63;
+    *(*(a1 + 4) + 192 * v77[0]) = v62;
+    *(*(a1 + 4) + 192 * v76) = v63;
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -8044,7 +8040,7 @@ LABEL_50:
   return v37 & 1;
 }
 
-void sub_23E77D768(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
+void sub_23E77D768(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
 {
   if (__p)
   {
@@ -8053,14 +8049,14 @@ void sub_23E77D768(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a31)
   {
-    MEMORY[0x23EF11E60](a31, 0x1000C8052888210);
+    MEMORY[0x23EF11E60](a31, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   v33 = *(v31 - 120);
   *(v31 - 120) = 0;
   if (v33)
   {
-    MEMORY[0x23EF11E60](v33, 0x1000C8052888210);
+    MEMORY[0x23EF11E60](v33, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8114,7 +8110,8 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int co
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
@@ -8270,7 +8267,7 @@ amt::TriangleMeshDecimatorImpl *amt::TriangleMeshDecimatorImpl::TriangleMeshDeci
   return this;
 }
 
-void sub_23E77DBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_23E77DBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   std::__function::__value_func<BOOL ()(float)>::~__value_func[abi:ne200100](v10 + 440);
   amt::Adjacency<int>::~Adjacency(v10 + 368);
@@ -8282,9 +8279,9 @@ void sub_23E77DBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   amt::TriangleMeshDecimatorImpl::TriangleMeshDecimatorImpl(v12, (v10 + 104), v11, v10);
-  a10 = (v10 + 56);
+  a10 = v10 + 56;
   std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = (v10 + 32);
+  a10 = v10 + 32;
   std::vector<amt::TriangleMeshDecimatorImpl::DVertex>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
@@ -8347,20 +8344,20 @@ uint64_t std::allocator_traits<std::allocator<amt::TriangleMeshDecimatorImpl::DV
   return result;
 }
 
-void std::vector<amt::TriangleMeshDecimatorImpl::DEdge *>::resize(void *a1, unint64_t a2)
+void std::vector<amt::TriangleMeshDecimatorImpl::DEdge *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<amt::TriangleMeshDecimatorImpl::DEdge *>::__append(a1, a2 - v2);
+    std::vector<amt::TriangleMeshDecimatorImpl::DEdge *>::__append(result, a2 - v2);
   }
 }
 
@@ -8568,7 +8565,7 @@ LABEL_21:
       do
       {
         v28 = v3;
-        amt::TriangleMesh::triangle(v3, v27, &v109);
+        amt::TriangleMesh::triangle(&v109, v3, v27);
         v29 = *(a1 + 7) + (v105[0] << 6);
         *(v29 + 33) = 1;
         v30 = v109;
@@ -8578,12 +8575,12 @@ LABEL_21:
         *(v29 + 8) = v31;
         *(v29 + 12) = v32;
         v33 = *(a1 + 4);
-        v34 = (v33 + 192 * v30);
-        v35 = (v33 + 192 * v31);
-        v36 = (v33 + 192 * v32);
-        amt::SmallVector<int,8>::push_back(v34[4].i32, v105);
-        amt::SmallVector<int,8>::push_back(v35[4].i32, v105);
-        amt::SmallVector<int,8>::push_back(v36[4].i32, v105);
+        v34 = v33 + 192 * v30;
+        v35 = v33 + 192 * v31;
+        v36 = v33 + 192 * v32;
+        amt::SmallVector<int,8>::push_back((v34 + 64), v105);
+        amt::SmallVector<int,8>::push_back((v35 + 64), v105);
+        amt::SmallVector<int,8>::push_back((v36 + 64), v105);
         v37 = 0;
         v38 = vsubq_f32(*v35, *v34);
         v39 = vsubq_f32(*v36, *v34);
@@ -8635,17 +8632,17 @@ LABEL_21:
 
           for (j = 0; j != 10; ++j)
           {
-            v34[1].f32[j] = v113.f32[j] + v34[1].f32[j];
+            *(v34 + 16 + j * 4) = v113.f32[j] + *(v34 + 16 + j * 4);
           }
 
           for (k = 0; k != 10; ++k)
           {
-            v35[1].f32[k] = v113.f32[k] + v35[1].f32[k];
+            *(v35 + 16 + k * 4) = v113.f32[k] + *(v35 + 16 + k * 4);
           }
 
           for (m = 0; m != 10; ++m)
           {
-            v36[1].f32[m] = v113.f32[m] + v36[1].f32[m];
+            *(v36 + 16 + m * 4) = v113.f32[m] + *(v36 + 16 + m * 4);
           }
         }
 
@@ -8878,19 +8875,19 @@ LABEL_74:
   return v4;
 }
 
-void sub_23E77E87C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
+void sub_23E77E87C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
 {
   v36 = *(v34 - 112);
   *(v34 - 112) = 0;
   if (v36)
   {
-    MEMORY[0x23EF11E60](v36, 0x1000C8052888210);
+    MEMORY[0x23EF11E60](v36, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::vector<amt::TriangleMeshDecimatorImpl::DVertex>::resize(uint64_t *result, unint64_t a2)
+unint64_t *std::vector<amt::TriangleMeshDecimatorImpl::DVertex>::resize(unint64_t *result, unint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 6);
   v3 = a2 >= v2;
@@ -8908,7 +8905,7 @@ uint64_t *std::vector<amt::TriangleMeshDecimatorImpl::DVertex>::resize(uint64_t 
   return result;
 }
 
-void std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::resize(void *a1, unint64_t a2)
+void std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::resize(char **a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = (v3 - *a1) >> 6;
@@ -8916,13 +8913,13 @@ void std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::resize(void *a1, un
   {
     if (a2 < v4)
     {
-      v6 = *a1 + (a2 << 6);
+      v6 = &(*a1)[64 * a2];
       while (v3 != v6)
       {
-        v7 = *(v3 - 24);
+        v7 = *(v3 - 3);
         if (v7)
         {
-          *(v3 - 16) = v7;
+          *(v3 - 2) = v7;
           operator delete(v7);
         }
 
@@ -8955,53 +8952,53 @@ uint64_t amt::TriangleMesh::setTriangle(uint64_t this, signed int a2, int a3, in
   return this;
 }
 
-uint64_t amt::TriangleMeshDecimatorImpl::computeAdjacentVertices(uint64_t result, int a2, _DWORD *a3)
+const void **amt::TriangleMeshDecimatorImpl::computeAdjacentVertices(const void **result, int a2, const void **a3)
 {
   v5 = result;
-  if ((a3[1] & 0x80000000) != 0)
+  if ((*(a3 + 1) & 0x80000000) != 0)
   {
     result = amt::SmallVector<int,8>::reserve(a3, 0);
   }
 
   *a3 = 0;
-  v6 = *(v5 + 32);
-  v7 = v6 + 192 * a2;
-  v8 = *(v7 + 64);
+  v6 = v5[4];
+  v7 = &v6[48 * a2];
+  v8 = v7[16];
   if (v8 <= 0)
   {
-    *(v7 + 56) = 0;
+    v7[14] = 0;
   }
 
   else
   {
-    v9 = *(v7 + 72);
-    v10 = *(v5 + 56);
-    v11 = *(v7 + 64);
+    v9 = *(v7 + 9);
+    v10 = v5[7];
+    v11 = v7[16];
     do
     {
       v12 = *v9++;
-      v13 = (v10 + (v12 << 6));
-      *(v6 + 192 * v13[1] + 56) = 1;
-      *(v6 + 192 * v13[2] + 56) = 1;
-      *(v6 + 192 * v13[3] + 56) = 1;
+      v13 = &v10[64 * v12];
+      v6[48 * v13[1] + 14] = 1;
+      v6[48 * v13[2] + 14] = 1;
+      v6[48 * v13[3] + 14] = 1;
       --v11;
     }
 
     while (v11);
     v14 = 0;
-    *(v7 + 56) = 0;
+    v7[14] = 0;
     do
     {
-      if (v14 >= *(v7 + 64))
+      if (v14 >= v7[16])
       {
         amt::TriangleMeshDecimatorImpl::extractAdjacentTriangles();
       }
 
-      v15 = *(v5 + 56) + (*(*(v7 + 72) + 4 * v14) << 6);
+      v15 = v5[7] + 64 * *(*(v7 + 9) + 4 * v14);
       for (i = 4; i != 16; i += 4)
       {
         v20 = *(v15 + i);
-        v17 = *(v5 + 32) + 192 * v20;
+        v17 = v5[4] + 192 * v20;
         v19 = *(v17 + 56);
         v18 = (v17 + 56);
         if (v19 == 1)
@@ -9020,32 +9017,32 @@ uint64_t amt::TriangleMeshDecimatorImpl::computeAdjacentVertices(uint64_t result
   return result;
 }
 
-void std::vector<amt::TriangleMeshDecimatorImpl::DEdge>::resize(void *a1, unint64_t a2)
+void std::vector<amt::TriangleMeshDecimatorImpl::DEdge>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 4);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<amt::TriangleMeshDecimatorImpl::DEdge>::__append(a1, v4);
+    std::vector<amt::TriangleMeshDecimatorImpl::DEdge>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 48 * a2;
+    result[1] = *result + 48 * a2;
   }
 }
 
-uint64_t amt::TriangleMeshDecimatorImpl::computeEdgeAdjacentTriangles(uint64_t result, int a2, int a3, _DWORD *a4)
+const void **amt::TriangleMeshDecimatorImpl::computeEdgeAdjacentTriangles(const void **result, int a2, int a3, const void **a4)
 {
   v7 = result;
-  if ((a4[1] & 0x80000000) != 0)
+  if ((*(a4 + 1) & 0x80000000) != 0)
   {
     result = amt::SmallVector<int,8>::reserve(a4, 0);
   }
 
   *a4 = 0;
-  v8 = *(v7 + 32);
+  v8 = v7[4];
   v9 = v8 + 192 * a2;
   v12 = *(v9 + 64);
   v10 = (v9 + 64);
@@ -9053,12 +9050,12 @@ uint64_t amt::TriangleMeshDecimatorImpl::computeEdgeAdjacentTriangles(uint64_t r
   if (v12 >= 1)
   {
     v13 = *(v10 + 1);
-    v14 = *(v7 + 56);
+    v14 = v7[7];
     v15 = v11;
     do
     {
       v16 = *v13++;
-      *(v14 + (v16 << 6)) = 0;
+      v14[16 * v16] = 0;
       --v15;
     }
 
@@ -9072,11 +9069,11 @@ uint64_t amt::TriangleMeshDecimatorImpl::computeEdgeAdjacentTriangles(uint64_t r
   if (v20 >= 1)
   {
     v21 = *(v19 + 8);
-    v22 = *(v7 + 56);
+    v22 = v7[7];
     do
     {
       v23 = *v21++;
-      *(v22 + (v23 << 6)) = 1;
+      v22[16 * v23] = 1;
       --v18;
     }
 
@@ -9093,7 +9090,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::computeEdgeAdjacentTriangles(uint64_t r
       }
 
       v25 = *(*(v10 + 1) + 4 * i);
-      if (*(*(v7 + 56) + (v25 << 6)))
+      if (*(v7[7] + 16 * v25))
       {
         result = amt::SmallVector<int,8>::push_back(a4, &v25);
       }
@@ -9103,7 +9100,7 @@ uint64_t amt::TriangleMeshDecimatorImpl::computeEdgeAdjacentTriangles(uint64_t r
   return result;
 }
 
-uint64_t *std::vector<amt::TriangleMeshDecimatorImpl::DVertex>::__append(uint64_t *result, unint64_t a2)
+unint64_t *std::vector<amt::TriangleMeshDecimatorImpl::DVertex>::__append(unint64_t *result, unint64_t a2)
 {
   v3 = result;
   v4 = result[1];
@@ -9217,9 +9214,9 @@ uint64_t *std::vector<amt::TriangleMeshDecimatorImpl::DVertex>::__append(uint64_
   return result;
 }
 
-void sub_23E77EE5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E77EE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<amt::TriangleMeshDecimatorImpl::DVertex>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9300,11 +9297,11 @@ void sub_23E77F030(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-int *amt::SmallVector<int,8>::copy(int *result, int *a2)
+const void **amt::SmallVector<int,8>::copy(const void **result, int *a2)
 {
   v3 = result;
   v4 = *a2;
-  if (result[1] < *a2)
+  if (*(result + 1) < *a2)
   {
     result = amt::SmallVector<int,8>::reserve(result, *a2);
   }
@@ -9314,7 +9311,7 @@ int *amt::SmallVector<int,8>::copy(int *result, int *a2)
   if (v5)
   {
     v6 = *(a2 + 1);
-    v7 = *(v3 + 1);
+    v7 = v3[1];
 
     return memmove(v7, v6, 4 * v5);
   }
@@ -9383,19 +9380,19 @@ uint64_t std::__split_buffer<amt::TriangleMeshDecimatorImpl::DVertex>::__destruc
   return result;
 }
 
-void std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::__append(uint64_t a1, unint64_t a2)
+void std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::__append(char **a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (a2 <= (v4 - v5) >> 6)
   {
     if (a2)
     {
-      bzero(*(a1 + 8), a2 << 6);
-      v5 += a2 << 6;
+      bzero(a1[1], a2 << 6);
+      v5 += 64 * a2;
     }
 
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   else
@@ -9434,13 +9431,13 @@ void std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::__append(uint64_t a
     v16 = v8 << 6;
     bzero((v8 << 6), a2 << 6);
     v17 = (v8 << 6) + (a2 << 6);
-    v11 = *(a1 + 8);
-    v12 = (v8 << 6) + *a1 - v11;
+    v11 = a1[1];
+    v12 = ((v8 << 6) + *a1 - v11);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<amt::TriangleMeshDecimatorImpl::DTriangle>,amt::TriangleMeshDecimatorImpl::DTriangle*>(a1, *a1, v11, v12);
     v13 = *a1;
     *a1 = v12;
-    v14 = *(a1 + 16);
-    *(a1 + 8) = v17;
+    v14 = a1[2];
+    *(a1 + 1) = v17;
     *&v17 = v13;
     *(&v17 + 1) = v14;
     v15 = v13;
@@ -9449,9 +9446,9 @@ void std::vector<amt::TriangleMeshDecimatorImpl::DTriangle>::__append(uint64_t a
   }
 }
 
-void sub_23E77F2FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E77F2FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<amt::TriangleMeshDecimatorImpl::DTriangle>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9493,11 +9490,11 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<am
       v9 = *(v7 + 16);
       LOWORD(v8) = *(v7 + 32);
       *(v4 + 40) = 0;
-      v10 = v4 + 40;
-      *(v10 - 8) = v8;
-      *(v10 - 24) = v9;
-      *(v10 + 8) = 0;
-      *(v10 + 16) = 0;
+      v10 = (v4 + 40);
+      *(v10 - 4) = v8;
+      *(v10 - 3) = v9;
+      v10[1] = 0;
+      v10[2] = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v10, *(v7 + 40), *(v7 + 48), (*(v7 + 48) - *(v7 + 40)) >> 2);
       v7 += 64;
       v4 = v16 + 64;
@@ -9703,17 +9700,16 @@ uint64_t amt::TriangleMeshDecimatorImpl::decimatedPoints(float32x4_t *a1, uint64
 
 void *std::function<BOOL ()(float)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(float)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<BOOL ()(float)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<BOOL ()(float)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(float)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<BOOL ()(float)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<BOOL ()(float)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::__function::__value_func<BOOL ()(float)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -9723,15 +9719,15 @@ void *std::__function::__value_func<BOOL ()(float)>::swap[abi:ne200100](void *re
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -9759,7 +9755,6 @@ void *std::__function::__value_func<BOOL ()(float)>::swap[abi:ne200100](void *re
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9773,9 +9768,9 @@ void sub_23E77FB00(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t amt::SmallVector<int,8>::reserve(uint64_t result, int a2)
+const void **amt::SmallVector<int,8>::reserve(const void **result, int a2)
 {
-  if (*(result + 4) <= a2)
+  if (*(result + 1) <= a2)
   {
     operator new[]();
   }
@@ -9783,12 +9778,12 @@ uint64_t amt::SmallVector<int,8>::reserve(uint64_t result, int a2)
   return result;
 }
 
-uint64_t *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::downheap(uint64_t *result, int a2)
+uint64_t *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::downheap(uint64_t *result, uint64_t a2)
 {
   v2 = (result[1] - *result) >> 3;
   if (v2)
   {
-    if (a2 < 0 || v2 <= a2)
+    if ((a2 & 0x80000000) != 0 || v2 <= a2)
     {
       amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::downheap();
     }
@@ -9828,7 +9823,7 @@ uint64_t *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::downh
         }
       }
 
-      v13 = v8;
+      LODWORD(v13) = v8;
 LABEL_13:
       if (v13 != a2)
       {

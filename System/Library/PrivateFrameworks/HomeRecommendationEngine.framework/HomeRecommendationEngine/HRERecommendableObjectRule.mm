@@ -28,7 +28,7 @@
   return v7;
 }
 
-uint64_t __57__HRERecommendableObjectRule__types_notMatchedByObjects___block_invoke(uint64_t a1, void *a2, BOOL *a3)
+void *__57__HRERecommendableObjectRule__types_notMatchedByObjects___block_invoke(uint64_t a1, void *a2, BOOL *a3)
 {
   v5 = *(a1 + 32);
   v6 = [a2 hre_matchingTypes];

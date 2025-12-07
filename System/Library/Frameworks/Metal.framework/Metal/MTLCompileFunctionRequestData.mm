@@ -76,7 +76,7 @@
 
 + (id)newVisibleRequestWithFunction:(id)function descriptor:(id)descriptor
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = objc_opt_new();
   [v6 setFunction:function];
   [v6 setFunctionOptions:{objc_msgSend(descriptor, "options")}];
@@ -128,16 +128,15 @@
   memset(data, 0, 32);
   if (descriptor)
   {
-    [descriptor hashStableWithFunction:function];
+    objc_msgSend_hashStableWithFunction_(descriptor);
   }
 
   CC_SHA256_Update(&c, bitCodeHash, 0x20u);
   CC_SHA256_Update(&c, data, 0x20u);
   CC_SHA256_Final(md, &c);
-  v16[0] = *md;
-  v16[1] = v19;
-  [v6 setArchiveHashKey:v16];
-  v13 = *MEMORY[0x1E69E9840];
+  v15[0] = *md;
+  v15[1] = v18;
+  [v6 setArchiveHashKey:v15];
   return v6;
 }
 

@@ -11,76 +11,64 @@
 {
   if (*(&self->role + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendContactIdentifier))
   {
-    v2 = *(&self->super.isa + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendContactIdentifier);
-    v3 = *(&self->role + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendContactIdentifier);
 
-    v4 = sub_7F54();
+    v2 = sub_7F54();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)emailAddress
 {
   v3 = objc_opt_self();
-  v4 = (self + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendIdentifier);
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendIdentifier);
-  v6 = *(&self->role + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendIdentifier);
   selfCopy = self;
-  v8 = sub_7F54();
-  LOBYTE(v3) = [v3 isStringEmailAddress:v8];
+  v5 = sub_7F54();
+  LOBYTE(v3) = [v3 isStringEmailAddress:v5];
 
   if (v3)
   {
-    v9 = *v4;
-    v10 = v4[1];
 
-    v11 = sub_7F54();
+    v6 = sub_7F54();
 
-    v12 = v11;
+    v7 = v6;
   }
 
   else
   {
 
-    v12 = 0;
+    v7 = 0;
   }
 
-  return v12;
+  return v7;
 }
 
 - (NSString)phoneNumber
 {
   v3 = objc_opt_self();
-  v4 = (self + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendIdentifier);
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendIdentifier);
-  v6 = *(&self->role + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation8DSFriend_friendIdentifier);
   selfCopy = self;
-  v8 = sub_7F54();
-  LODWORD(v3) = [v3 isStringEmailAddress:v8];
+  v5 = sub_7F54();
+  LODWORD(v3) = [v3 isStringEmailAddress:v5];
 
   if (v3)
   {
 
-    v9 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v10 = *v4;
-    v11 = v4[1];
 
-    v12 = sub_7F54();
+    v7 = sub_7F54();
 
-    v9 = v12;
+    v6 = v7;
   }
 
-  return v9;
+  return v6;
 }
 
 - (_TtC29FindMyPeopleDigitalSeparation8DSFriend)init

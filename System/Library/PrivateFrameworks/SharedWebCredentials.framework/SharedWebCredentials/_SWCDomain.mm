@@ -13,6 +13,7 @@
 - (_SWCDomain)nonWildcardDomain;
 - (_SWCDomain)wildcardDomain;
 - (id)debugDescription;
+- (id)domainRequiringModeOfOperation:(char)operation;
 - (id)redactedDescription;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -21,12 +22,12 @@
 
 - (_SWCDomain)initWithString:(id)string
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v33 = objc_autoreleasePoolPush();
+  v49 = *MEMORY[0x277D85DE8];
+  v32 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v37 = [@"https://" stringByAppendingString:string];
-  v38 = [objc_alloc(MEMORY[0x277CCACE0]) initWithString:v37];
-  host = [v38 host];
+  v36 = [@"https://" stringByAppendingString:string];
+  v37 = [objc_alloc(MEMORY[0x277CCACE0]) initWithString:v36];
+  host = [v37 host];
   v6 = host;
   if (host)
   {
@@ -40,42 +41,42 @@
 
   v8 = v7;
 
-  v39 = v8;
-  v36 = [(__CFString *)v8 hasPrefix:@"*."];
-  if (v36)
+  v38 = v8;
+  v35 = [(__CFString *)v8 hasPrefix:@"*."];
+  if (v35)
   {
     v9 = [(__CFString *)v8 substringFromIndex:2];
 
-    v39 = v9;
+    v38 = v9;
   }
 
-  port = [v38 port];
-  percentEncodedQueryItems = [v38 percentEncodedQueryItems];
+  port = [v37 port];
+  percentEncodedQueryItems = [v37 percentEncodedQueryItems];
   if (!percentEncodedQueryItems)
   {
     goto LABEL_32;
   }
 
   v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(percentEncodedQueryItems, "count")}];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v12 = percentEncodedQueryItems;
-  v13 = [v12 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v13)
   {
-    v14 = *v45;
+    v14 = *v44;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v45 != v14)
+        if (*v44 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v16 = *(*(&v43 + 1) + 8 * i);
         name = [v16 name];
         value = [v16 value];
         v19 = value;
@@ -94,7 +95,7 @@
         [v11 setObject:v21 forKeyedSubscript:name];
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v13);
@@ -107,26 +108,26 @@
 
     if (v23)
     {
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v24 = v23;
       v25 = 0;
-      v26 = [v24 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v39 objects:v47 count:16];
       if (v26)
       {
-        v27 = *v41;
+        v27 = *v40;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v41 != v27)
+            if (*v40 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v40 + 1) + 8 * j);
+            v29 = *(*(&v39 + 1) + 8 * j);
             if ([v29 caseInsensitiveCompare:@"developer"])
             {
               if (![v29 caseInsensitiveCompare:@"managed"])
@@ -141,7 +142,7 @@
             }
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v39 objects:v47 count:16];
         }
 
         while (v26);
@@ -160,10 +161,9 @@ LABEL_32:
     LOBYTE(v25) = 0;
   }
 
-  objc_autoreleasePoolPop(v33);
-  v30 = [(_SWCDomain *)selfCopy initWithHost:v39 port:port wildcard:v36 modeOfOperation:v25];
+  objc_autoreleasePoolPop(v32);
+  v30 = [(_SWCDomain *)selfCopy initWithHost:v38 port:port wildcard:v35 modeOfOperation:v25];
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -256,7 +256,7 @@ LABEL_32:
 - (BOOL)isValid
 {
   selfCopy = self;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   modeOfOperation = self->_modeOfOperation;
   if (modeOfOperation == 1)
   {
@@ -271,7 +271,7 @@ LABEL_32:
       if (os_log_type_enabled(qword_280B21970, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v47 = selfCopy;
+        v46 = selfCopy;
         _os_log_impl(&dword_265F54000, v4, OS_LOG_TYPE_INFO, "Domain %@ is localhost in developer mode, explicitly allowing.", buf, 0xCu);
       }
 
@@ -280,7 +280,7 @@ LABEL_72:
       if (!port || [(NSNumber *)port unsignedLongLongValue]- 0x10000 > 0xFFFFFFFFFFFF0000)
       {
         LOBYTE(v6) = 1;
-        goto LABEL_87;
+        return v6;
       }
 
       if (qword_280B21978 != -1)
@@ -293,9 +293,9 @@ LABEL_72:
       {
         unsignedLongLongValue = [(NSNumber *)selfCopy->_port unsignedLongLongValue];
         *buf = 138412546;
-        v47 = selfCopy;
-        v48 = 2048;
-        v49 = unsignedLongLongValue;
+        v46 = selfCopy;
+        v47 = 2048;
+        v48 = unsignedLongLongValue;
         _os_log_impl(&dword_265F54000, uRLHostAllowedCharacterSet, OS_LOG_TYPE_INFO, "Domain %@ contained an invalid port %llu", buf, 0x16u);
       }
 
@@ -319,12 +319,12 @@ LABEL_21:
     if (v6)
     {
       *buf = 138412290;
-      v47 = selfCopy;
+      v46 = selfCopy;
       _os_log_impl(&dword_265F54000, v5, OS_LOG_TYPE_INFO, "Domain %@ is an IP address in normal mode, explicitly blocking.", buf, 0xCu);
       goto LABEL_86;
     }
 
-    goto LABEL_87;
+    return v6;
   }
 
   uRLHostAllowedCharacterSet = [MEMORY[0x277CCA900] URLHostAllowedCharacterSet];
@@ -342,7 +342,7 @@ LABEL_21:
     if (os_log_type_enabled(qword_280B21970, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v47 = selfCopy;
+      v46 = selfCopy;
       _os_log_impl(&dword_265F54000, v13, OS_LOG_TYPE_INFO, "Domain %@ contained empty hostname", buf, 0xCu);
     }
 
@@ -350,12 +350,12 @@ LABEL_21:
   }
 
   host = selfCopy->_host;
-  v50 = host;
-  v53 = 0;
-  v54 = v8;
+  v49 = host;
+  v52 = 0;
+  v53 = v8;
   CharactersPtr = CFStringGetCharactersPtr(host);
-  v37 = v10;
-  v38 = selfCopy;
+  v36 = v10;
+  v37 = selfCopy;
   if (CharactersPtr)
   {
     CStringPtr = 0;
@@ -370,10 +370,10 @@ LABEL_21:
   v15 = 0;
   v16 = 0;
   v17 = 0;
-  v52 = CStringPtr;
+  v51 = CStringPtr;
   v18 = 64;
+  v54 = 0;
   v55 = 0;
-  v56 = 0;
   do
   {
     if (v17 >= 4)
@@ -386,11 +386,11 @@ LABEL_21:
       v19 = v17;
     }
 
-    v20 = v54;
-    if (v54 <= v17)
+    v20 = v53;
+    if (v53 <= v17)
     {
       v22 = 0;
-      v39 = 0;
+      v38 = 0;
 LABEL_38:
       if (([uRLHostAllowedCharacterSet characterIsMember:v22]& 1) == 0)
       {
@@ -402,14 +402,14 @@ LABEL_38:
         v31 = qword_280B21970;
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          v32 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v39 length:1];
-          *v40 = 138412802;
-          v41 = v38;
-          v42 = 2048;
-          v43 = v22;
-          v44 = 2114;
-          v45 = v32;
-          _os_log_impl(&dword_265F54000, v31, OS_LOG_TYPE_INFO, "Domain %@ contained illegal character %llx ('%{public}@')", v40, 0x20u);
+          v32 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v38 length:1];
+          *v39 = 138412802;
+          v40 = v37;
+          v41 = 2048;
+          v42 = v22;
+          v43 = 2114;
+          v44 = v32;
+          _os_log_impl(&dword_265F54000, v31, OS_LOG_TYPE_INFO, "Domain %@ contained illegal character %llx ('%{public}@')", v39, 0x20u);
         }
 
         goto LABEL_85;
@@ -420,46 +420,46 @@ LABEL_38:
 
     if (CharactersPtr)
     {
-      v21 = &CharactersPtr[v53];
+      v21 = &CharactersPtr[v52];
 LABEL_30:
       v22 = *&v21[2 * v17];
       goto LABEL_34;
     }
 
-    if (!v52)
+    if (!v51)
     {
-      v23 = v55;
-      if (v56 <= v17 || v55 > v17)
+      v23 = v54;
+      if (v55 <= v17 || v54 > v17)
       {
         v25 = v19 + v14;
         v26 = v18 - v19;
         v27 = v17 - v19;
         v28 = v27 + 64;
-        if (v27 + 64 >= v54)
+        if (v27 + 64 >= v53)
         {
-          v28 = v54;
+          v28 = v53;
         }
 
-        v55 = v27;
-        v56 = v28;
-        if (v54 >= v26)
+        v54 = v27;
+        v55 = v28;
+        if (v53 >= v26)
         {
           v20 = v26;
         }
 
-        v58.location = v27 + v53;
-        v58.length = v20 + v25;
-        CFStringGetCharacters(v50, v58, buf);
-        v23 = v55;
+        v57.location = v27 + v52;
+        v57.length = v20 + v25;
+        CFStringGetCharacters(v49, v57, buf);
+        v23 = v54;
       }
 
       v21 = &buf[-2 * v23];
       goto LABEL_30;
     }
 
-    v22 = v52[v53 + v17];
+    v22 = v51[v52 + v17];
 LABEL_34:
-    v39 = v22;
+    v38 = v22;
     if (v22 != 46)
     {
       goto LABEL_38;
@@ -478,8 +478,8 @@ LABEL_34:
         goto LABEL_85;
       }
 
-      *v40 = 138412290;
-      v41 = v38;
+      *v39 = 138412290;
+      v40 = v37;
       v30 = "Domain %@ began with a period character";
       goto LABEL_84;
     }
@@ -497,8 +497,8 @@ LABEL_34:
         goto LABEL_85;
       }
 
-      *v40 = 138412290;
-      v41 = v38;
+      *v39 = 138412290;
+      v40 = v37;
       v30 = "Domain %@ contained two period characters in a row";
       goto LABEL_84;
     }
@@ -515,8 +515,8 @@ LABEL_39:
   while (v9 != v17);
   if (v15 == 1)
   {
-    selfCopy = v38;
-    if ([(NSString *)v38->_host characterAtIndex:v37]!= 46)
+    selfCopy = v37;
+    if ([(NSString *)v37->_host characterAtIndex:v36]!= 46)
     {
       goto LABEL_71;
     }
@@ -532,15 +532,15 @@ LABEL_39:
       goto LABEL_85;
     }
 
-    *v40 = 138412290;
-    v41 = v38;
+    *v39 = 138412290;
+    v40 = v37;
     v30 = "Domain %@ was a TLD";
 LABEL_84:
-    _os_log_impl(&dword_265F54000, v29, OS_LOG_TYPE_INFO, v30, v40, 0xCu);
+    _os_log_impl(&dword_265F54000, v29, OS_LOG_TYPE_INFO, v30, v39, 0xCu);
     goto LABEL_85;
   }
 
-  selfCopy = v38;
+  selfCopy = v37;
   if (v15)
   {
 LABEL_71:
@@ -556,8 +556,8 @@ LABEL_71:
   v29 = qword_280B21970;
   if (os_log_type_enabled(qword_280B21970, OS_LOG_TYPE_INFO))
   {
-    *v40 = 138412290;
-    v41 = v38;
+    *v39 = 138412290;
+    v40 = v37;
     v30 = "Domain %@ did not contain a period character";
     goto LABEL_84;
   }
@@ -566,21 +566,18 @@ LABEL_85:
 
 LABEL_86:
   LOBYTE(v6) = 0;
-LABEL_87:
-  v35 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)isHostIPAddress
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = [(NSString *)self->_host getCString:v6 maxLength:256 encoding:1];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = [(NSString *)self->_host getCString:v5 maxLength:256 encoding:1];
   if (v2)
   {
-    LOBYTE(v2) = v6[0] == 91 || inet_pton(2, v6, v5) == 1;
+    LOBYTE(v2) = v5[0] == 91 || inet_pton(2, v5, v4) == 1;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -603,7 +600,7 @@ LABEL_87:
 
 - (BOOL)encompassesDomain:(id)domain
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   if ([(_SWCDomain *)self isEqual:domainCopy])
   {
@@ -630,11 +627,11 @@ LABEL_87:
     if (os_log_type_enabled(qword_280B21970, OS_LOG_TYPE_DEBUG))
     {
 LABEL_20:
-      *v15 = 138412546;
-      *&v15[4] = self;
-      *&v15[12] = 2112;
-      *&v15[14] = domainCopy;
-      _os_log_debug_impl(&dword_265F54000, v11, OS_LOG_TYPE_DEBUG, "Domain %@ encompasses %@", v15, 0x16u);
+      *v14 = 138412546;
+      *&v14[4] = self;
+      *&v14[12] = 2112;
+      *&v14[14] = domainCopy;
+      _os_log_debug_impl(&dword_265F54000, v11, OS_LOG_TYPE_DEBUG, "Domain %@ encompasses %@", v14, 0x16u);
     }
   }
 
@@ -676,11 +673,11 @@ LABEL_2:
     v12 = qword_280B21970;
     if (os_log_type_enabled(qword_280B21970, OS_LOG_TYPE_DEBUG))
     {
-      *v15 = 138412546;
-      *&v15[4] = domainCopy;
-      *&v15[12] = 2112;
-      *&v15[14] = self;
-      _os_log_debug_impl(&dword_265F54000, v12, OS_LOG_TYPE_DEBUG, "Domain %@ is not valid; discarding matching result against %@", v15, 0x16u);
+      *v14 = 138412546;
+      *&v14[4] = domainCopy;
+      *&v14[12] = 2112;
+      *&v14[14] = self;
+      _os_log_debug_impl(&dword_265F54000, v12, OS_LOG_TYPE_DEBUG, "Domain %@ is not valid; discarding matching result against %@", v14, 0x16u);
     }
 
     goto LABEL_25;
@@ -689,7 +686,6 @@ LABEL_2:
   v6 = 1;
 LABEL_26:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -718,6 +714,21 @@ LABEL_26:
   else
   {
     selfCopy = [[_SWCDomain alloc] initWithHost:self->_host port:self->_port wildcard:1 modeOfOperation:self->_modeOfOperation];
+  }
+
+  return selfCopy;
+}
+
+- (id)domainRequiringModeOfOperation:(char)operation
+{
+  if (self->_modeOfOperation == operation)
+  {
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = [[_SWCDomain alloc] initWithHost:self->_host port:self->_port wildcard:self->_wildcard modeOfOperation:operation];
   }
 
   return selfCopy;
@@ -900,7 +911,7 @@ LABEL_14:
 
 - (_SWCDomain)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy swc_decodeObjectOfClass:objc_opt_class() forKey:@"host"];
   v6 = [coderCopy swc_decodeObjectOfClass:objc_opt_class() forKey:@"port"];
@@ -909,12 +920,12 @@ LABEL_14:
   if (!v5)
   {
     v9 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v16[0] = @"Line";
-    v16[1] = @"Function";
-    v17[0] = &unk_2877A7450;
+    v15[0] = @"Line";
+    v15[1] = @"Function";
+    v16[0] = &unk_2877A7450;
     v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_SWCDomain initWithCoder:]"];
-    v17[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v16[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v12 = [v9 initWithDomain:*MEMORY[0x277CCA050] code:4865 userInfo:v11];
     [coderCopy failWithError:v12];
 
@@ -923,7 +934,6 @@ LABEL_14:
 
   v13 = [(_SWCDomain *)self initWithHost:v5 port:v6 wildcard:v7 modeOfOperation:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -167,7 +167,7 @@
 {
   y = point.y;
   x = point.x;
-  v6 = RCPLogPlayback();
+  v6 = RCPLogPlayback(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [RCPPointerTrackingChildEventStream orientedDestinationPoint:v6];
@@ -225,7 +225,7 @@
 {
   y = point.y;
   x = point.x;
-  v6 = RCPLogPlayback();
+  v6 = RCPLogPlayback(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [RCPPointerTrackingChildEventStream orientedNormalPoint:v6];

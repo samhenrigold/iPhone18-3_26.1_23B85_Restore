@@ -120,21 +120,20 @@ void sub_266EBD8D0(id *a1@<X0>, SEL *a2@<X3>, uint64_t *a3@<X8>)
   a3[1] = v8;
 }
 
-void sub_266EBD940(uint64_t *a1, void **a2, uint64_t a3, uint64_t a4, SEL *a5)
+void sub_266EBD940(void *a1, void **a2, uint64_t a3, uint64_t a4, SEL *a5)
 {
   v6 = *a2;
   if (a1[1])
   {
-    v7 = *a1;
-    v8 = sub_266EC1E68();
+    v7 = sub_266EC1E68();
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = v8;
+  v8 = v7;
   [v6 *a5];
 }
 
@@ -180,11 +179,11 @@ uint64_t sub_266EBDBEC()
   return sub_266EC1EF8();
 }
 
-uint64_t sub_266EBDC60()
+uint64_t sub_266EBDC60(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_266EC1ED8();
-  MEMORY[0x26D5F70A0](v1);
+  MEMORY[0x26D5F70A0](v2);
   return sub_266EC1EF8();
 }
 
@@ -349,7 +348,7 @@ void sub_266EBE574(id *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v5;
 }
 
-void sub_266EBE5E4(void *a1, void **a2)
+void sub_266EBE5E4(uint64_t *a1, void **a2)
 {
   v2 = *a2;
   if (*a1)
@@ -565,21 +564,20 @@ void sub_266EBF334(id *a1@<X0>, uint64_t *a2@<X8>)
   a2[1] = v7;
 }
 
-void sub_266EBF39C(uint64_t *a1, void **a2)
+void sub_266EBF39C(void *a1, void **a2)
 {
   v2 = *a2;
   if (a1[1])
   {
-    v3 = *a1;
-    v4 = sub_266EC1E68();
+    v3 = sub_266EC1E68();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = v4;
+  v4 = v3;
   [v2 setActionIdentifier_];
 }
 
@@ -601,7 +599,7 @@ void sub_266EBF40C(id *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v5;
 }
 
-void sub_266EBF47C(void *a1, void **a2)
+void sub_266EBF47C(uint64_t *a1, void **a2)
 {
   v2 = *a2;
   if (*a1)

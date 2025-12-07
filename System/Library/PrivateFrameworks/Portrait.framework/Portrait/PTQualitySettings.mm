@@ -46,15 +46,15 @@
     [v6 setDisparityUpsampleFactor:?];
   }
 
-  [v6 setDoFocusEdgeMask:v4 > 25];
+  v12 = [v6 setDoFocusEdgeMask:v4 > 25];
   if (v4 > 25)
   {
     if (v4 > 74)
     {
       if (v4 == 75)
       {
-        v12 = v6;
-        v13 = 4;
+        v13 = v6;
+        v14 = 4;
         goto LABEL_25;
       }
 
@@ -68,31 +68,31 @@
     {
       if (v4 == 26)
       {
-        v12 = v6;
-        v13 = 2;
+        v13 = v6;
+        v14 = 2;
         goto LABEL_25;
       }
 
       if (v4 == 51)
       {
-        v12 = v6;
-        v13 = 3;
+        v13 = v6;
+        v14 = 3;
 LABEL_25:
-        [v12 setNumberOfPatternCircles:v13];
+        [v13 setNumberOfPatternCircles:v14];
         goto LABEL_26;
       }
     }
 
 LABEL_18:
-    v14 = _PTLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [PTQualitySettings createWithQuality:v4 options:v14];
+      [PTQualitySettings createWithQuality:v4 options:v15];
     }
 
 LABEL_21:
-    v12 = v6;
-    v13 = 5;
+    v13 = v6;
+    v14 = 5;
     goto LABEL_25;
   }
 
@@ -110,59 +110,59 @@ LABEL_21:
   else
   {
     [v6 setNumberOfPatternCircles:2];
-    LODWORD(v15) = 4.0;
-    [v6 setRenderDownscale:v15];
+    LODWORD(v16) = 4.0;
+    [v6 setRenderDownscale:v16];
   }
 
 LABEL_26:
-  v16 = [optionsCopy objectForKeyedSubscript:&unk_2837F3088];
+  v17 = [optionsCopy objectForKeyedSubscript:&unk_2837F3088];
 
-  if (v16)
+  if (v17)
   {
-    v17 = [optionsCopy objectForKeyedSubscript:&unk_2837F3088];
-    [v17 floatValue];
+    v18 = [optionsCopy objectForKeyedSubscript:&unk_2837F3088];
+    [v18 floatValue];
     [v6 setRenderDownscale:?];
   }
 
   [v6 renderDownscale];
-  [v6 setDoIntermediate2XUpscale:v18 > 3.0];
-  v19 = [optionsCopy objectForKeyedSubscript:&unk_2837F30A0];
+  [v6 setDoIntermediate2XUpscale:v19 > 3.0];
+  v20 = [optionsCopy objectForKeyedSubscript:&unk_2837F30A0];
 
-  if (v19)
+  if (v20)
   {
-    v21 = [optionsCopy objectForKeyedSubscript:&unk_2837F30A0];
-    [v6 setDoMacroApertureLimit:{objc_msgSend(v21, "BOOLValue")}];
+    v22 = [optionsCopy objectForKeyedSubscript:&unk_2837F30A0];
+    [v6 setDoMacroApertureLimit:{objc_msgSend(v22, "BOOLValue")}];
   }
 
-  LODWORD(v20) = 2143289344;
-  [v6 setCircleOfConfusionLimitBackground:v20];
-  LODWORD(v22) = 2143289344;
-  [v6 setCircleOfConfusionLimitForeground:v22];
-  v23 = [optionsCopy objectForKeyedSubscript:&unk_2837F30B8];
+  LODWORD(v21) = 2143289344;
+  [v6 setCircleOfConfusionLimitBackground:v21];
+  LODWORD(v23) = 2143289344;
+  [v6 setCircleOfConfusionLimitForeground:v23];
+  v24 = [optionsCopy objectForKeyedSubscript:&unk_2837F30B8];
 
-  if (v23)
+  if (v24)
   {
-    v24 = [optionsCopy objectForKeyedSubscript:&unk_2837F30B8];
-    [v24 floatValue];
+    v25 = [optionsCopy objectForKeyedSubscript:&unk_2837F30B8];
+    [v25 floatValue];
     [v6 setCircleOfConfusionLimitBackground:?];
   }
 
-  v25 = [optionsCopy objectForKeyedSubscript:&unk_2837F30D0];
+  v26 = [optionsCopy objectForKeyedSubscript:&unk_2837F30D0];
 
-  if (v25)
+  if (v26)
   {
-    v26 = [optionsCopy objectForKeyedSubscript:&unk_2837F30D0];
-    [v26 floatValue];
+    v27 = [optionsCopy objectForKeyedSubscript:&unk_2837F30D0];
+    [v27 floatValue];
     [v6 setCircleOfConfusionLimitForeground:?];
   }
 
   [v6 setPortraitPreviewDeadzone:0];
-  v27 = [optionsCopy objectForKeyedSubscript:&unk_2837F30E8];
+  v28 = [optionsCopy objectForKeyedSubscript:&unk_2837F30E8];
 
-  if (v27)
+  if (v28)
   {
-    v28 = [optionsCopy objectForKeyedSubscript:&unk_2837F30E8];
-    [v6 setPortraitPreviewDeadzone:{objc_msgSend(v28, "BOOLValue")}];
+    v29 = [optionsCopy objectForKeyedSubscript:&unk_2837F30E8];
+    [v6 setPortraitPreviewDeadzone:{objc_msgSend(v29, "BOOLValue")}];
   }
 
   [v6 setRayMarch:{objc_msgSend(v6, "rayMarch")}];
@@ -186,9 +186,9 @@ LABEL_26:
   [v6 setDoFocusEdgeMask:rayMarch];
   [v6 updateDescription];
 LABEL_40:
-  v30 = v6;
+  v31 = v6;
 
-  return v30;
+  return v31;
 }
 
 - (void)updateDescription

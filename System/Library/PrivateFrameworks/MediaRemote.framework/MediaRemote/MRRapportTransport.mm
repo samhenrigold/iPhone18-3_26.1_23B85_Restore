@@ -28,44 +28,44 @@
   v23.receiver = self;
   v23.super_class = MRRapportTransport;
   v9 = [(MRRapportTransport *)&v23 init];
+  v10 = v9;
   if (v9)
   {
-    v10 = MRLogCategoryConnections();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = MRLogCategoryConnections(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v25 = deviceCopy;
-      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRRapportTransport] Create for %@", buf, 0xCu);
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRRapportTransport] Create for %@", buf, 0xCu);
     }
 
-    objc_storeStrong(&v9->_outputDevice, device);
-    objc_storeStrong(&v9->_proxyOutputDevice, outputDevice);
-    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v12 = dispatch_queue_create("com.apple.mediaremote.externalDeviceRapportTransport/workerQueue", v11);
-    workerQueue = v9->_workerQueue;
-    v9->_workerQueue = v12;
+    objc_storeStrong(&v10->_outputDevice, device);
+    objc_storeStrong(&v10->_proxyOutputDevice, outputDevice);
+    v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v13 = dispatch_queue_create("com.apple.mediaremote.externalDeviceRapportTransport/workerQueue", v12);
+    workerQueue = v10->_workerQueue;
+    v10->_workerQueue = v13;
 
-    v14 = +[MRCompanionLinkClient sharedCompanionLinkClient];
-    client = v9->_client;
-    v9->_client = v14;
+    v15 = +[MRCompanionLinkClient sharedCompanionLinkClient];
+    client = v10->_client;
+    v10->_client = v15;
 
-    objc_initWeak(buf, v9);
-    v16 = v9->_client;
+    objc_initWeak(buf, v10);
+    v17 = v10->_client;
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
     v21[2] = __61__MRRapportTransport_initWithOutputDevice_proxyOutputDevice___block_invoke;
     v21[3] = &unk_1E769A450;
     objc_copyWeak(&v22, buf);
-    v17 = [(MRCompanionLinkClient *)v16 registerEvent:@"com.apple.mediaremote.remotecontrol.reset" callback:v21];
-    resetToken = v9->_resetToken;
-    v9->_resetToken = v17;
+    v18 = [(MRCompanionLinkClient *)v17 registerEvent:@"com.apple.mediaremote.remotecontrol.reset" callback:v21];
+    resetToken = v10->_resetToken;
+    v10->_resetToken = v18;
 
     objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 void __61__MRRapportTransport_initWithOutputDevice_proxyOutputDevice___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -76,9 +76,9 @@ void __61__MRRapportTransport_initWithOutputDevice_proxyOutputDevice___block_inv
   {
     v5 = [v9 objectForKeyedSubscript:*MEMORY[0x1E69C6BE8]];
     v6 = [WeakRetained[14] effectiveIdentifier];
-    v7 = [v5 isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (v7)
+    if (isEqualToString)
     {
       v8 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:105 description:@"MRRapportTransport received reset event"];
       [WeakRetained resetWithError:v8];
@@ -319,12 +319,12 @@ void __36__MRRapportTransport_setSessionUID___block_invoke(uint64_t a1, uint64_t
   {
     v5 = [v10 objectForKeyedSubscript:*MEMORY[0x1E69C6BE8]];
     v6 = [WeakRetained[14] effectiveIdentifier];
-    v7 = [v5 isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (v7)
+    if (isEqualToString)
     {
       v8 = [v10 objectForKeyedSubscript:@"session"];
-      if ([v8 isEqualToString:WeakRetained[12]])
+      if (objc_msgSend_isEqualToString_(v8))
       {
         v9 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:105 description:@"MRRapportTransport received disconect event"];
         [WeakRetained resetWithError:v9];
@@ -335,30 +335,30 @@ void __36__MRRapportTransport_setSessionUID___block_invoke(uint64_t a1, uint64_t
 
 + (void)resetPersistedConnections
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   obj = [objc_opt_class() userDefaults];
   objc_sync_enter(obj);
   _readConnectionRecordsFromDisk = [objc_opt_class() _readConnectionRecordsFromDisk];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v4 = _readConnectionRecordsFromDisk;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         deviceUID = [v8 deviceUID];
 
         if (deviceUID)
@@ -368,36 +368,36 @@ void __36__MRRapportTransport_setSessionUID___block_invoke(uint64_t a1, uint64_t
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v5);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = v3;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v12)
   {
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * j);
+        v15 = *(*(&v18 + 1) + 8 * j);
         v16 = +[MRCompanionLinkClient sharedCompanionLinkClient];
         [v16 sendEvent:@"com.apple.mediaremote.remotecontrol.reset" destination:v15 userInfo:0];
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v12);
@@ -405,8 +405,6 @@ void __36__MRRapportTransport_setSessionUID___block_invoke(uint64_t a1, uint64_t
 
   [objc_opt_class() _writeConnectionRecordsToDisk:0];
   objc_sync_exit(obj);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_persistConnectionRecordToDisk
@@ -449,41 +447,41 @@ void __36__MRRapportTransport_setSessionUID___block_invoke(uint64_t a1, uint64_t
 
 - (void)_removeConnectionRecordFromDisk
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   obj = [objc_opt_class() userDefaults];
   objc_sync_enter(obj);
   _readConnectionRecordsFromDisk = [objc_opt_class() _readConnectionRecordsFromDisk];
   v4 = [_readConnectionRecordsFromDisk mutableCopy];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = _readConnectionRecordsFromDisk;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         sessionUID = [v9 sessionUID];
         sessionUID2 = [(MRRapportTransport *)self sessionUID];
-        v12 = [sessionUID isEqualToString:sessionUID2];
+        isEqualToString = objc_msgSend_isEqualToString_(sessionUID);
 
-        if (v12)
+        if (isEqualToString)
         {
           [v4 removeObject:v9];
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -491,23 +489,19 @@ void __36__MRRapportTransport_setSessionUID___block_invoke(uint64_t a1, uint64_t
 
   [objc_opt_class() _writeConnectionRecordsToDisk:v4];
   objc_sync_exit(obj);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_readConnectionRecordsFromDisk
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   userDefaults = [objc_opt_class() userDefaults];
   v3 = [userDefaults objectForKey:@"outgoingRapportConnections"];
   v4 = objc_alloc(MEMORY[0x1E695DFD8]);
-  v10[0] = objc_opt_class();
-  v10[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = objc_opt_class();
+  v9[1] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v6 = [v4 initWithArray:v5];
   v7 = MRCreateFromData(v3, v6);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

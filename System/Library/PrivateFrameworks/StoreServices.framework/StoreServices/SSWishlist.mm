@@ -82,7 +82,7 @@
   return v4 & 1;
 }
 
-uint64_t __32__SSWishlist_deleteBackingStore__block_invoke(uint64_t a1)
+uint64_t __32__SSWishlist_deleteBackingStore__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = CPSqliteDatabaseDelete();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -201,14 +201,14 @@ uint64_t __30__SSWishlist_setLastSyncTime___block_invoke(uint64_t a1)
   return v8;
 }
 
-uint64_t __30__SSWishlist_setLastSyncTime___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__30__SSWishlist_setLastSyncTime___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(*(a1 + 32) + 16) statementDidFinishAfterStepping:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __30__SSWishlist_setLastSyncTime___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
+void *__30__SSWishlist_setLastSyncTime___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
   SSSQLiteBindFoundationValueToStatement(a2, 1, [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld", objc_msgSend(*(a1 + 32), "longLongValue")]);
   result = [*(*(a1 + 40) + 16) statementDidFinishAfterStepping:a2];

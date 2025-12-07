@@ -175,75 +175,57 @@ LABEL_21:
 
 + (BOOL)_isLegacyHardware
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType())
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = MGIsDeviceOfType();
+    return MGIsDeviceOfType();
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (double)_determinDefaultEntryDisplayOnBudget
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (+[TAFilterVisitsSettings _isLegacyHardware])
+  v8 = *MEMORY[0x277D85DE8];
+  if (!+[TAFilterVisitsSettings _isLegacyHardware])
   {
-    v2 = TAStatusLog;
-    if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
-    {
-      v6[0] = 68289026;
-      v6[1] = 0;
-      v7 = 2082;
-      v8 = "";
-      _os_log_impl(&dword_26F2E2000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#TAFilterVisits using special parameters for entry display-on budget for legacy hardware}", v6, 0x12u);
-    }
-
-    v3 = 240.0;
+    return 120.0;
   }
 
-  else
+  v2 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
   {
-    v3 = 120.0;
+    v5[0] = 68289026;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    _os_log_impl(&dword_26F2E2000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#TAFilterVisits using special parameters for entry display-on budget for legacy hardware}", v5, 0x12u);
   }
 
-  result = v3;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return 240.0;
 }
 
 + (double)_determinDefaultExitDisplayOnBudget
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (+[TAFilterVisitsSettings _isLegacyHardware])
+  v8 = *MEMORY[0x277D85DE8];
+  if (!+[TAFilterVisitsSettings _isLegacyHardware])
   {
-    v2 = TAStatusLog;
-    if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
-    {
-      v6[0] = 68289026;
-      v6[1] = 0;
-      v7 = 2082;
-      v8 = "";
-      _os_log_impl(&dword_26F2E2000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#TAFilterVisits using special parameters for exit display-on budget for legacy hardware}", v6, 0x12u);
-    }
-
-    v3 = 240.0;
+    return 120.0;
   }
 
-  else
+  v2 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
   {
-    v3 = 120.0;
+    v5[0] = 68289026;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    _os_log_impl(&dword_26F2E2000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#TAFilterVisits using special parameters for exit display-on budget for legacy hardware}", v5, 0x12u);
   }
 
-  result = v3;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return 240.0;
 }
 
 - (id)sensitiveLOITypesToString

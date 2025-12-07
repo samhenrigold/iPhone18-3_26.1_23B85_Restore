@@ -236,9 +236,9 @@ LABEL_21:
       {
         v29 = [CCAppEntityTypeDisplayRepresentation alloc];
         typeIdentifier = CCPBReaderReadDataNoCopy();
-        v39 = 0;
-        v27 = [(CCItemMessage *)v29 initWithData:typeIdentifier error:&v39];
-        v10 = v39;
+        v37 = 0;
+        v27 = [(CCItemMessage *)v29 initWithData:typeIdentifier error:&v37];
+        v10 = v37;
         v28 = 32;
       }
 
@@ -270,7 +270,6 @@ LABEL_29:
 
             v31 = objc_opt_class();
             typeIdentifier = NSStringFromClass(v31);
-            v32 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
           }
 
@@ -281,9 +280,9 @@ LABEL_28:
 
         v26 = [CCAppEntityDisplayRepresentation alloc];
         typeIdentifier = CCPBReaderReadDataNoCopy();
-        v40 = 0;
-        v27 = [(CCItemMessage *)v26 initWithData:typeIdentifier error:&v40];
-        v10 = v40;
+        v38 = 0;
+        v27 = [(CCItemMessage *)v26 initWithData:typeIdentifier error:&v38];
+        v10 = v38;
         v28 = 24;
       }
 
@@ -306,23 +305,22 @@ LABEL_36:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v37 = 1;
+    v35 = 1;
     goto LABEL_40;
   }
 
 LABEL_37:
-  v33 = objc_opt_class();
-  v34 = NSStringFromClass(v33);
-  v35 = *&v6[*v9];
-  v36 = CCInvalidBufferErrorForMessage();
+  v32 = objc_opt_class();
+  v33 = NSStringFromClass(v32);
+  v34 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_38:
-  v37 = 0;
+  v35 = 0;
 LABEL_40:
 
-  return v37;
+  return v35;
 }
 
 - (CCAppCuratedEntityContent)initWithTypeIdentifier:(id)identifier displayRepresentation:(id)representation typeDisplayRepresentation:(id)displayRepresentation error:(id *)error

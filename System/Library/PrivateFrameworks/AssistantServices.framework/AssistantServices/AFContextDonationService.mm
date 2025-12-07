@@ -53,91 +53,87 @@
 
 void __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke(uint64_t a1)
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
-  if (!v3)
+  if (v3)
   {
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x3032000000;
-    v40 = __Block_byref_object_copy__47966;
-    v41 = __Block_byref_object_dispose__47967;
-    v42 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__47966;
-    v35 = __Block_byref_object_dispose__47967;
-    v36 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke_5;
-    v25[3] = &unk_1E7349500;
-    v25[4] = v2;
-    v28 = &v37;
-    v29 = &v31;
-    v26 = *(a1 + 56);
-    v30 = *(a1 + 72);
-    v27 = *(a1 + 64);
-    v7 = MEMORY[0x193AFB7B0](v25);
-    v8 = [*(*(a1 + 32) + 8) objectForKey:*(a1 + 56)];
-    v9 = [*(a1 + 40) serializedBackingStore];
-    v10 = v9;
-    if (v8)
+    [v3 donateContext:*(a1 + 40) withMetadata:*(a1 + 48) pushToRemote:*(a1 + 72)];
+    v4 = *(a1 + 64);
+    if (v4)
     {
-      v11 = *(a1 + 40);
-      v12 = *(a1 + 48);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke_3;
-      v19[3] = &unk_1E7349550;
-      v19[4] = *(a1 + 32);
-      v23 = &v37;
-      v20 = v9;
-      v24 = &v31;
-      v21 = *(a1 + 48);
-      v22 = v7;
-      [v8 getRedactedContextForContextSnapshot:v11 metadata:v12 privacyPolicy:50 completion:v19];
+      v5 = *(v4 + 16);
+
+      v5();
+    }
+  }
+
+  else
+  {
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__47966;
+    v39 = __Block_byref_object_dispose__47967;
+    v40 = 0;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__47966;
+    v33 = __Block_byref_object_dispose__47967;
+    v34 = 0;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke_5;
+    v23[3] = &unk_1E7349500;
+    v23[4] = v2;
+    v26 = &v35;
+    v27 = &v29;
+    v24 = *(a1 + 56);
+    v28 = *(a1 + 72);
+    v25 = *(a1 + 64);
+    v6 = MEMORY[0x193AFB7B0](v23);
+    v7 = [*(*(a1 + 32) + 8) objectForKey:*(a1 + 56)];
+    v8 = [*(a1 + 40) serializedBackingStore];
+    v9 = v8;
+    if (v7)
+    {
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 48);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke_3;
+      v17[3] = &unk_1E7349550;
+      v17[4] = *(a1 + 32);
+      v21 = &v35;
+      v18 = v8;
+      v22 = &v29;
+      v19 = *(a1 + 48);
+      v20 = v6;
+      [v7 getRedactedContextForContextSnapshot:v10 metadata:v11 privacyPolicy:50 completion:v17];
     }
 
     else
     {
-      v45 = &unk_1F056EFB8;
-      v46[0] = v9;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
-      v14 = v38[5];
-      v38[5] = v13;
-
-      v15 = *(a1 + 48);
       v43 = &unk_1F056EFB8;
-      v44 = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-      v17 = v32[5];
-      v32[5] = v16;
+      v44[0] = v8;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v13 = v36[5];
+      v36[5] = v12;
 
-      v7[2](v7);
+      v14 = *(a1 + 48);
+      v41 = &unk_1F056EFB8;
+      v42 = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v16 = v30[5];
+      v30[5] = v15;
+
+      v6[2](v6);
     }
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v37, 8);
-
-    goto LABEL_10;
+    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v35, 8);
   }
-
-  [v3 donateContext:*(a1 + 40) withMetadata:*(a1 + 48) pushToRemote:*(a1 + 72)];
-  v4 = *(a1 + 64);
-  if (!v4)
-  {
-LABEL_10:
-    v18 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v5 = *(v4 + 16);
-  v6 = *MEMORY[0x1E69E9840];
-
-  v5();
 }
 
 void __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke_5(uint64_t a1)
@@ -183,18 +179,18 @@ void __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_comp
 
 uint64_t __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke_4(void *a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v25 = a1[4];
-    v26 = a1[5];
+    v24 = a1[4];
+    v25 = a1[5];
     *buf = 136315650;
-    v36 = "[AFContextDonationService donateContext:withMetadata:pushToRemote:completion:]_block_invoke_4";
-    v37 = 2112;
-    v38 = v25;
-    v39 = 2112;
-    v40 = v26;
+    v35 = "[AFContextDonationService donateContext:withMetadata:pushToRemote:completion:]_block_invoke_4";
+    v36 = 2112;
+    v37 = v24;
+    v38 = 2112;
+    v39 = v25;
     _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #hal redacted: %@ %@", buf, 0x20u);
   }
 
@@ -202,55 +198,53 @@ uint64_t __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_
   if (v3 && a1[5])
   {
     v4 = a1[6];
-    v33[0] = &unk_1F056EFB8;
-    v33[1] = &unk_1F056EFD0;
-    v34[0] = v4;
+    v32[0] = &unk_1F056EFB8;
+    v32[1] = &unk_1F056EFD0;
+    v33[0] = v4;
     v5 = [v3 serializedBackingStore];
-    v34[1] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v33[1] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
     v7 = *(a1[9] + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
     v9 = a1[7];
-    v31[0] = &unk_1F056EFB8;
-    v31[1] = &unk_1F056EFD0;
+    v30[0] = &unk_1F056EFB8;
+    v30[1] = &unk_1F056EFD0;
     v10 = a1[5];
-    v32[0] = v9;
-    v32[1] = v10;
+    v31[0] = v9;
+    v31[1] = v10;
     v11 = MEMORY[0x1E695DF20];
-    v12 = v32;
-    v13 = v31;
+    v12 = v31;
+    v13 = v30;
     v14 = 2;
   }
 
   else
   {
     v15 = a1[6];
-    v29 = &unk_1F056EFB8;
-    v30 = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = &unk_1F056EFB8;
+    v29 = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v17 = *(a1[9] + 8);
     v18 = *(v17 + 40);
     *(v17 + 40) = v16;
 
     v19 = a1[7];
-    v27 = &unk_1F056EFB8;
-    v28 = v19;
+    v26 = &unk_1F056EFB8;
+    v27 = v19;
     v11 = MEMORY[0x1E695DF20];
-    v12 = &v28;
-    v13 = &v27;
+    v12 = &v27;
+    v13 = &v26;
     v14 = 1;
   }
 
-  v20 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:{v14, v27, v28}];
+  v20 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:{v14, v26, v27}];
   v21 = *(a1[10] + 8);
   v22 = *(v21 + 40);
   *(v21 + 40) = v20;
 
-  result = (*(a1[8] + 16))();
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[8] + 16))();
 }
 
 uint64_t __79__AFContextDonationService_donateContext_withMetadata_pushToRemote_completion___block_invoke_2(uint64_t a1)

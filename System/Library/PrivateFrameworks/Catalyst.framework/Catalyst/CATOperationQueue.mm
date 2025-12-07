@@ -97,32 +97,32 @@ uint64_t __36__CATOperationQueue_backgroundQueue__block_invoke()
 - (void)addOperations:(id)operations waitUntilFinished:(BOOL)finished
 {
   finishedCopy = finished;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v7 = [operationsCopy countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [operationsCopy countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(operationsCopy);
         }
 
-        [(CATOperationQueue *)self addOperation:*(*(&v21 + 1) + 8 * v10++)];
+        [(CATOperationQueue *)self addOperation:*(*(&v20 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [operationsCopy countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [operationsCopy countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
@@ -130,38 +130,36 @@ uint64_t __36__CATOperationQueue_backgroundQueue__block_invoke()
 
   if (finishedCopy)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = operationsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v17 + 1) + 8 * v15++) waitUntilFinished];
+          [*(*(&v16 + 1) + 8 * v15++) waitUntilFinished];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v13);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

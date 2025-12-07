@@ -71,7 +71,7 @@
 
 void __40__HMDSyncOperationManager_timerDidFire___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cloudFetchOperations];
   v3 = [v2 processFiredTimer:*(a1 + 40)];
 
@@ -79,7 +79,6 @@ void __40__HMDSyncOperationManager_timerDidFire___block_invoke(uint64_t a1)
   if (v3)
   {
 LABEL_4:
-    v7 = *MEMORY[0x277D85DE8];
 
     [v4 _handleNextOperation];
     return;
@@ -94,39 +93,39 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v36 = 0u;
-  v37 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v8 = [*(a1 + 32) cloudZoneFetchOperations];
-  v9 = [v8 copy];
+  v32 = 0u;
+  v33 = 0u;
+  v7 = [*(a1 + 32) cloudZoneFetchOperations];
+  v8 = objc_msgSend_copy(v7);
 
-  v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v10)
+  v9 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v35;
+    v10 = v9;
+    v11 = *v33;
     while (2)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v12)
+        if (*v33 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
-        v15 = *(a1 + 40);
-        v16 = [v14 backoffTimer];
-        v17 = v16;
-        if (v15 == v16)
+        v13 = *(*(&v32 + 1) + 8 * i);
+        v14 = *(a1 + 40);
+        v15 = [v13 backoffTimer];
+        v16 = v15;
+        if (v14 == v15)
         {
-          v18 = [v14 countTotal];
+          v17 = [v13 countTotal];
 
-          if (!v18)
+          if (!v17)
           {
-            [v14 processFiredTimer:*(a1 + 40)];
-            [*(a1 + 32) removeCloudZoneFetchOperationQueue:v14];
+            [v13 processFiredTimer:*(a1 + 40)];
+            [*(a1 + 32) removeCloudZoneFetchOperationQueue:v13];
             goto LABEL_33;
           }
         }
@@ -135,7 +134,7 @@ LABEL_4:
         {
         }
 
-        if ([v14 processFiredTimer:*(a1 + 40)])
+        if ([v13 processFiredTimer:*(a1 + 40)])
         {
 LABEL_30:
           [*(a1 + 32) _handleNextOperation];
@@ -143,8 +142,8 @@ LABEL_30:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
-      if (v11)
+      v10 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      if (v10)
       {
         continue;
       }
@@ -153,39 +152,39 @@ LABEL_30:
     }
   }
 
-  v32 = 0u;
-  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v19 = [*(a1 + 32) cloudZonePushOperationQueues];
-  v9 = [v19 copy];
+  v28 = 0u;
+  v29 = 0u;
+  v18 = [*(a1 + 32) cloudZonePushOperationQueues];
+  v8 = objc_msgSend_copy(v18);
 
-  v20 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
-  if (v20)
+  v19 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v19)
   {
-    v21 = v20;
-    v22 = *v31;
+    v20 = v19;
+    v21 = *v29;
     while (2)
     {
-      for (j = 0; j != v21; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        if (*v31 != v22)
+        if (*v29 != v21)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v24 = *(*(&v30 + 1) + 8 * j);
-        v25 = *(a1 + 40);
-        v26 = [v24 backoffTimer];
-        v27 = v26;
-        if (v25 == v26)
+        v23 = *(*(&v28 + 1) + 8 * j);
+        v24 = *(a1 + 40);
+        v25 = [v23 backoffTimer];
+        v26 = v25;
+        if (v24 == v25)
         {
-          v28 = [v24 countTotal];
+          v27 = [v23 countTotal];
 
-          if (!v28)
+          if (!v27)
           {
-            [v24 processFiredTimer:*(a1 + 40)];
-            [*(a1 + 32) removeCloudZonePushOperationQueue:v24];
+            [v23 processFiredTimer:*(a1 + 40)];
+            [*(a1 + 32) removeCloudZonePushOperationQueue:v23];
             goto LABEL_33;
           }
         }
@@ -194,14 +193,14 @@ LABEL_30:
         {
         }
 
-        if ([v24 processFiredTimer:*(a1 + 40)])
+        if ([v23 processFiredTimer:*(a1 + 40)])
         {
           goto LABEL_30;
         }
       }
 
-      v21 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
-      if (v21)
+      v20 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (v20)
       {
         continue;
       }
@@ -211,8 +210,6 @@ LABEL_30:
   }
 
 LABEL_33:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetCloudPushTimer:(id)timer
@@ -231,7 +228,7 @@ LABEL_33:
 
 void __47__HMDSyncOperationManager_resetCloudPushTimer___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -239,7 +236,7 @@ void __47__HMDSyncOperationManager_resetCloudPushTimer___block_invoke(uint64_t a
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v22 = v5;
+    v21 = v5;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Resetting cloud upload timer", buf, 0xCu);
   }
 
@@ -249,26 +246,26 @@ void __47__HMDSyncOperationManager_resetCloudPushTimer___block_invoke(uint64_t a
 
   if (*(a1 + 40))
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = [*(a1 + 32) cloudZonePushOperationQueues];
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
+          v12 = *(*(&v15 + 1) + 8 * i);
           v13 = *(a1 + 40);
           v14 = [v12 name];
           LODWORD(v13) = [v13 isEqualToString:v14];
@@ -279,14 +276,12 @@ void __47__HMDSyncOperationManager_resetCloudPushTimer___block_invoke(uint64_t a
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)killCloudPushAndResume
@@ -302,16 +297,16 @@ void __47__HMDSyncOperationManager_resetCloudPushTimer___block_invoke(uint64_t a
 
 void __49__HMDSyncOperationManager_killCloudPushAndResume__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Dropping current cloud push queue", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Dropping current cloud push queue", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -331,17 +326,15 @@ void __49__HMDSyncOperationManager_killCloudPushAndResume__block_invoke(uint64_t
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Forcing refetch", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Forcing refetch", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     v11 = [*(a1 + 32) dataSource];
     [v11 forceCloudFetch];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeCloudPush
@@ -357,7 +350,7 @@ void __49__HMDSyncOperationManager_killCloudPushAndResume__block_invoke(uint64_t
 
 void __42__HMDSyncOperationManager_resumeCloudPush__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) pauseCloudPushLevel] >= 1)
   {
     [*(a1 + 32) setPauseCloudPushLevel:{objc_msgSend(*(a1 + 32), "pauseCloudPushLevel") - 1}];
@@ -373,9 +366,9 @@ void __42__HMDSyncOperationManager_resumeCloudPush__block_invoke(uint64_t a1)
     if (v6)
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resuming cloud push queue", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resuming cloud push queue", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -388,17 +381,15 @@ void __42__HMDSyncOperationManager_resumeCloudPush__block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) pauseCloudPushLevel];
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2048;
-      v14 = v8;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Cloud push queue is still paused because push level is %tu", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2048;
+      v13 = v8;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Cloud push queue is still paused because push level is %tu", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseCloudPush
@@ -414,7 +405,7 @@ void __42__HMDSyncOperationManager_resumeCloudPush__block_invoke(uint64_t a1)
 
 void __41__HMDSyncOperationManager_pauseCloudPush__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setPauseCloudPushLevel:{objc_msgSend(*(a1 + 32), "pauseCloudPushLevel") + 1}];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
@@ -423,15 +414,14 @@ void __41__HMDSyncOperationManager_pauseCloudPush__block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) pauseCloudPushLevel];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Pausing cloud push queue, level is %tu", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Pausing cloud push queue, level is %tu", &v7, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)kick
@@ -458,7 +448,7 @@ void __41__HMDSyncOperationManager_pauseCloudPush__block_invoke(uint64_t a1)
 
 uint64_t __33__HMDSyncOperationManager_resume__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setPauseQueue:0];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
@@ -466,15 +456,13 @@ uint64_t __33__HMDSyncOperationManager_resume__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Resuming sync manager queue", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Resuming sync manager queue", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _handleNextOperation];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleNextOperation];
 }
 
 - (void)pause
@@ -490,7 +478,7 @@ uint64_t __33__HMDSyncOperationManager_resume__block_invoke(uint64_t a1)
 
 void __32__HMDSyncOperationManager_pause__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setPauseQueue:1];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
@@ -498,13 +486,12 @@ void __32__HMDSyncOperationManager_pause__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Pausing sync manager queue", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Pausing sync manager queue", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCancelledOperations:(id)operations
@@ -523,27 +510,27 @@ void __32__HMDSyncOperationManager_pause__block_invoke(uint64_t a1)
 
 void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v2 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v16;
+    v4 = *v15;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v16 != v4)
+        if (*v15 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v15 + 1) + 8 * i);
+        v6 = *(*(&v14 + 1) + 8 * i);
         v7 = objc_autoreleasePoolPush();
         v8 = *(a1 + 40);
         v9 = HMFGetOSLogHandle();
@@ -551,9 +538,9 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke(uin
         {
           v10 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v20 = v10;
-          v21 = 2114;
-          v22 = v6;
+          v19 = v10;
+          v20 = 2114;
+          v21 = v6;
           _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Cancelling sync operation %{public}@", buf, 0x16u);
         }
 
@@ -568,13 +555,11 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke(uin
         dispatch_async(v11, block);
       }
 
-      v3 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v3 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_177(uint64_t a1)
@@ -592,7 +577,7 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_177
 
 void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -602,50 +587,49 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_2(u
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) identifier];
     *buf = 138543618;
-    v21 = v7;
-    v22 = 2114;
-    v23 = v8;
+    v20 = v7;
+    v21 = 2114;
+    v22 = v8;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Sync operation %{public}@ cancelled", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = [*(a1 + 40) operationCompletions];
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        (*(*(*(&v15 + 1) + 8 * v13++) + 16))();
+        (*(*(*(&v14 + 1) + 8 * v13++) + 16))();
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
 
   [*(a1 + 40) removeAllOperationCompletions];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNextOperation
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSyncOperationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -659,9 +643,9 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_2(u
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v8;
-      v32 = 2114;
-      v33 = _dequeueNextOperation;
+      v30 = v8;
+      v31 = 2114;
+      v32 = _dequeueNextOperation;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Starting sync operation %{public}@", buf, 0x16u);
     }
 
@@ -673,9 +657,9 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_2(u
       zoneName = [_dequeueNextOperation zoneName];
       identifier = [_dequeueNextOperation identifier];
       *buf = 138412546;
-      v31 = zoneName;
-      v32 = 2112;
-      v33 = identifier;
+      v30 = zoneName;
+      v31 = 2112;
+      v32 = identifier;
       _os_signpost_emit_with_name_impl(&dword_2531F8000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SyncOperation", "zone=%{signpost.description:attribute}@ identifier=%{signpost.description:attribute}@ ", buf, 0x16u);
     }
 
@@ -688,9 +672,9 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_2(u
     block[2] = __47__HMDSyncOperationManager__handleNextOperation__block_invoke;
     block[3] = &unk_2797359B0;
     v15 = v13;
-    v28 = v15;
+    v27 = v15;
     v16 = _dequeueNextOperation;
-    v29 = v16;
+    v28 = v16;
     dispatch_async(clientQueue, block);
 
     v17 = objc_autoreleasePoolPush();
@@ -701,25 +685,23 @@ void __54__HMDSyncOperationManager__handleCancelledOperations___block_invoke_2(u
       v20 = HMFGetLogIdentifier();
       identifier2 = [v16 identifier];
       *buf = 138543618;
-      v31 = v20;
-      v32 = 2114;
-      v33 = identifier2;
+      v30 = v20;
+      v31 = 2114;
+      v32 = identifier2;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Waiting for sync operation %{public}@ to complete", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
     workQueue2 = [(HMDSyncOperationManager *)v18 workQueue];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __47__HMDSyncOperationManager__handleNextOperation__block_invoke_176;
-    v24[3] = &unk_279732F10;
-    v24[4] = v18;
-    v25 = v16;
-    v26 = 0xEEEEB0B5B2B2EEEELL;
-    dispatch_group_notify(v15, workQueue2, v24);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __47__HMDSyncOperationManager__handleNextOperation__block_invoke_176;
+    v23[3] = &unk_279732F10;
+    v23[4] = v18;
+    v24 = v16;
+    v25 = 0xEEEEB0B5B2B2EEEELL;
+    dispatch_group_notify(v15, workQueue2, v23);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HMDSyncOperationManager__handleNextOperation__block_invoke(uint64_t a1)
@@ -738,7 +720,7 @@ void __47__HMDSyncOperationManager__handleNextOperation__block_invoke(uint64_t a
 
 uint64_t __47__HMDSyncOperationManager__handleNextOperation__block_invoke_176(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -746,11 +728,11 @@ uint64_t __47__HMDSyncOperationManager__handleNextOperation__block_invoke_176(ui
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) identifier];
-    v12 = 138543618;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Sync operation %@ completed", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Sync operation %@ completed", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -759,58 +741,55 @@ uint64_t __47__HMDSyncOperationManager__handleNextOperation__block_invoke_176(ui
   v9 = *(a1 + 48);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    LOWORD(v12) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2531F8000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SyncOperation", "", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2531F8000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SyncOperation", "", &v11, 2u);
   }
 
   [*(a1 + 32) setCurrentOperation:0];
-  result = [*(a1 + 32) _handleNextOperation];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleNextOperation];
 }
 
 void __47__HMDSyncOperationManager__handleNextOperation__block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   dispatch_group_leave(*(a1 + 32));
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = [*(a1 + 40) operationCompletions];
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8++) + 16))();
+        (*(*(*(&v9 + 1) + 8 * v8++) + 16))();
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   [*(a1 + 40) removeAllOperationCompletions];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dequeueNextOperation
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSyncOperationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -831,7 +810,7 @@ void __47__HMDSyncOperationManager__handleNextOperation__block_invoke_2(uint64_t
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v42 = v18;
+        v41 = v18;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Cannot dequeue operation because sync manager queue is paused", buf, 0xCu);
       }
 
@@ -868,13 +847,13 @@ LABEL_14:
       if (countTotal)
       {
         cloudFetchOperations2 = [(HMDSyncOperationManager *)self cloudFetchOperations];
-        v27 = [cloudFetchOperations2 count];
+        v26 = [cloudFetchOperations2 count];
 
-        if (v27)
+        if (v26)
         {
           cloudFetchOperations3 = [(HMDSyncOperationManager *)self cloudFetchOperations];
 LABEL_23:
-          v29 = cloudFetchOperations3;
+          v28 = cloudFetchOperations3;
           nextOperation = [cloudFetchOperations3 nextOperation];
 
           goto LABEL_12;
@@ -885,23 +864,23 @@ LABEL_23:
 
       if (!isCloudAccountActive)
       {
-        v32 = objc_autoreleasePoolPush();
+        v31 = objc_autoreleasePoolPush();
         selfCopy3 = self;
-        v34 = HMFGetOSLogHandle();
-        if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        v33 = HMFGetOSLogHandle();
+        if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
 LABEL_33:
 
-          objc_autoreleasePoolPop(v32);
+          objc_autoreleasePoolPop(v31);
           goto LABEL_34;
         }
 
-        v35 = HMFGetLogIdentifier();
+        v34 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v42 = v35;
-        v36 = "%{public}@Cannot dequeue as no active account";
+        v41 = v34;
+        v35 = "%{public}@Cannot dequeue as no active account";
 LABEL_32:
-        _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEBUG, v36, buf, 0xCu);
+        _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_DEBUG, v35, buf, 0xCu);
 
         goto LABEL_33;
       }
@@ -916,29 +895,29 @@ LABEL_32:
         goto LABEL_36;
       }
 
-      v40 = 0;
-      v30 = [(HMDSyncOperationManager *)self popCloudZoneFetchOperationAndMoveQueueToEnd:&v40];
-      v31 = v40;
-      nextOperation = v31;
-      if (v30)
+      v39 = 0;
+      v29 = [(HMDSyncOperationManager *)self popCloudZoneFetchOperationAndMoveQueueToEnd:&v39];
+      v30 = v39;
+      nextOperation = v30;
+      if (v29)
       {
-        if (v31)
+        if (v30)
         {
           goto LABEL_12;
         }
 
-        v32 = objc_autoreleasePoolPush();
+        v31 = objc_autoreleasePoolPush();
         selfCopy3 = self;
-        v34 = HMFGetOSLogHandle();
-        if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        v33 = HMFGetOSLogHandle();
+        if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_33;
         }
 
-        v35 = HMFGetLogIdentifier();
+        v34 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v42 = v35;
-        v36 = "%{public}@Waiting for delayed fetches to finish.";
+        v41 = v34;
+        v35 = "%{public}@Waiting for delayed fetches to finish.";
         goto LABEL_32;
       }
 
@@ -955,9 +934,9 @@ LABEL_12:
         {
           v21 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v42 = v21;
-          v43 = 2114;
-          v44 = nextOperation;
+          v41 = v21;
+          v42 = 2114;
+          v43 = nextOperation;
           _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Dequeued operation to process %{public}@", buf, 0x16u);
         }
 
@@ -973,9 +952,9 @@ LABEL_12:
           goto LABEL_34;
         }
 
-        v39 = [(HMDSyncOperationManager *)self pauseCloudPushLevel]> 0;
+        v38 = [(HMDSyncOperationManager *)self pauseCloudPushLevel]> 0;
 
-        if ((v39 | zoneFetchFailed))
+        if ((v38 | zoneFetchFailed))
         {
 LABEL_34:
           nextOperation = 0;
@@ -1001,16 +980,15 @@ LABEL_11:
     v8 = HMFGetLogIdentifier();
     currentOperation2 = [(HMDSyncOperationManager *)selfCopy5 currentOperation];
     *buf = 138543618;
-    v42 = v8;
-    v43 = 2112;
-    v44 = currentOperation2;
+    v41 = v8;
+    v42 = 2112;
+    v43 = currentOperation2;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Already executing operation %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   nextOperation = 0;
 LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
 
   return nextOperation;
 }
@@ -1028,7 +1006,7 @@ LABEL_15:
 
 void __43__HMDSyncOperationManager_cancelOperations__block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1036,7 +1014,7 @@ void __43__HMDSyncOperationManager_cancelOperations__block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v5;
+    v36 = v5;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Cancelling all unprocessed sync operation", buf, 0xCu);
   }
 
@@ -1052,33 +1030,33 @@ void __43__HMDSyncOperationManager_cancelOperations__block_invoke(uint64_t a1)
   v9 = [*(*(a1 + 32) + 96) operationsToCancel];
   [v6 addObjectsFromArray:v9];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = *(*(a1 + 32) + 24);
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v11)
   {
-    v12 = *v31;
+    v12 = *v30;
     do
     {
       v13 = 0;
       do
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [*(*(&v30 + 1) + 8 * v13) operationsToCancel];
+        v14 = [*(*(&v29 + 1) + 8 * v13) operationsToCancel];
         [v6 addObjectsFromArray:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v11);
@@ -1086,33 +1064,33 @@ void __43__HMDSyncOperationManager_cancelOperations__block_invoke(uint64_t a1)
 
   [*(*(a1 + 32) + 24) removeAllObjects];
   [*(*(a1 + 32) + 64) removeAllObjects];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v15 = *(*(a1 + 32) + 32);
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v16)
   {
-    v17 = *v27;
+    v17 = *v26;
     do
     {
       v18 = 0;
       do
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = [*(*(&v26 + 1) + 8 * v18) operationsToCancel];
+        v19 = [*(*(&v25 + 1) + 8 * v18) operationsToCancel];
         [v6 addObjectsFromArray:v19];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v16);
@@ -1134,15 +1112,13 @@ void __43__HMDSyncOperationManager_cancelOperations__block_invoke(uint64_t a1)
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v24;
+    v36 = v24;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Cancelling all sync operations, resuming cloud push queue", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v21);
   [*(a1 + 32) setPauseCloudPushLevel:0];
   [*(a1 + 32) _handleCancelledOperations:v6];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseAndWaitForCurrentOperationCompletion:(id)completion
@@ -1205,7 +1181,7 @@ void __69__HMDSyncOperationManager_pauseAndWaitForCurrentOperationCompletion___b
 
 uint64_t __67__HMDSyncOperationManager_addOperationRespectingOptions_withDelay___block_invoke(uint64_t a1)
 {
-  v143 = *MEMORY[0x277D85DE8];
+  v142 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1214,9 +1190,9 @@ uint64_t __67__HMDSyncOperationManager_addOperationRespectingOptions_withDelay__
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v140 = v5;
-    v141 = 2112;
-    v142 = v6;
+    v139 = v5;
+    v140 = 2112;
+    v141 = v6;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Will attempt to add operation %@", buf, 0x16u);
   }
 
@@ -1240,9 +1216,9 @@ uint64_t __67__HMDSyncOperationManager_addOperationRespectingOptions_withDelay__
         [v15 timeInterval];
         v16 = [v13 numberWithDouble:?];
         *buf = 138543618;
-        v140 = v12;
-        v141 = 2114;
-        v142 = v16;
+        v139 = v12;
+        v140 = 2114;
+        v141 = v16;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Current push delay is: %{public}@", buf, 0x16u);
       }
 
@@ -1261,7 +1237,7 @@ uint64_t __67__HMDSyncOperationManager_addOperationRespectingOptions_withDelay__
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v140 = v22;
+        v139 = v22;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Scheduling legacy push at maximum time interval, maybe in a sync loop", buf, 0xCu);
       }
 
@@ -1282,9 +1258,9 @@ uint64_t __67__HMDSyncOperationManager_addOperationRespectingOptions_withDelay__
         v41 = HMFGetLogIdentifier();
         v42 = *(a1 + 40);
         *buf = 138543618;
-        v140 = v41;
-        v141 = 2114;
-        v142 = v42;
+        v139 = v41;
+        v140 = 2114;
+        v141 = v42;
         _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@Staging cloud push operation %{public}@", buf, 0x16u);
       }
 
@@ -1294,28 +1270,28 @@ uint64_t __67__HMDSyncOperationManager_addOperationRespectingOptions_withDelay__
       goto LABEL_37;
     }
 
-    v135 = 0u;
-    v136 = 0u;
-    v133 = 0u;
     v134 = 0u;
+    v135 = 0u;
+    v132 = 0u;
+    v133 = 0u;
     v25 = [*(a1 + 32) cloudPushOperations];
     v26 = [v25 allOperations];
 
-    v27 = [v26 countByEnumeratingWithState:&v133 objects:v138 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v132 objects:v137 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v134;
+      v29 = *v133;
 LABEL_16:
       v30 = 0;
       while (1)
       {
-        if (*v134 != v29)
+        if (*v133 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v133 + 1) + 8 * v30);
+        v31 = *(*(&v132 + 1) + 8 * v30);
         if ([v31 operationType] == 2)
         {
           break;
@@ -1323,7 +1299,7 @@ LABEL_16:
 
         if (v28 == ++v30)
         {
-          v28 = [v26 countByEnumeratingWithState:&v133 objects:v138 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v132 objects:v137 count:16];
           if (v28)
           {
             goto LABEL_16;
@@ -1343,7 +1319,7 @@ LABEL_16:
 
       v51 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v140 = v51;
+      v139 = v51;
       v52 = "%{public}@Unprocessed cloud force push operation in queue, dropping new push operation";
       v53 = v50;
       v54 = 12;
@@ -1360,9 +1336,9 @@ LABEL_22:
       v35 = HMFGetLogIdentifier();
       v36 = *(a1 + 40);
       *buf = 138543618;
-      v140 = v35;
-      v141 = 2114;
-      v142 = v36;
+      v139 = v35;
+      v140 = 2114;
+      v141 = v36;
       _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Adding cloud push operation %{public}@", buf, 0x16u);
     }
 
@@ -1384,76 +1360,76 @@ LABEL_25:
       v46 = HMFGetLogIdentifier();
       v47 = *(a1 + 40);
       *buf = 138543618;
-      v140 = v46;
-      v141 = 2114;
-      v142 = v47;
+      v139 = v46;
+      v140 = 2114;
+      v141 = v47;
       _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_INFO, "%{public}@Adding cloud verify account operation %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v43);
     [*(a1 + 32) addCloudVerifyAccountOperation:*(a1 + 40)];
-    goto LABEL_38;
+    return [*(a1 + 32) _handleNextOperation];
   }
 
   if ([*(a1 + 40) operationType] != 4)
   {
-    v76 = [*(a1 + 40) operationType];
-    v77 = *(a1 + 40);
-    if (v76 == 5)
+    v75 = [*(a1 + 40) operationType];
+    v76 = *(a1 + 40);
+    if (v75 == 5)
     {
-      v26 = [v77 zoneName];
-      v78 = objc_autoreleasePoolPush();
-      v79 = *(a1 + 32);
-      v80 = HMFGetOSLogHandle();
-      v81 = v80;
+      v26 = [v76 zoneName];
+      v77 = objc_autoreleasePoolPush();
+      v78 = *(a1 + 32);
+      v79 = HMFGetOSLogHandle();
+      v80 = v79;
       if (v26)
       {
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
         {
-          v82 = HMFGetLogIdentifier();
-          v83 = *(a1 + 40);
+          v81 = HMFGetLogIdentifier();
+          v82 = *(a1 + 40);
           *buf = 138543618;
-          v140 = v82;
-          v141 = 2114;
-          v142 = v83;
-          _os_log_impl(&dword_2531F8000, v81, OS_LOG_TYPE_INFO, "%{public}@Adding cloud zone push operation %{public}@", buf, 0x16u);
+          v139 = v81;
+          v140 = 2114;
+          v141 = v82;
+          _os_log_impl(&dword_2531F8000, v80, OS_LOG_TYPE_INFO, "%{public}@Adding cloud zone push operation %{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v78);
+        objc_autoreleasePoolPop(v77);
         if ([*(a1 + 32) addCloudZonePushOperation:*(a1 + 40) delay:*(a1 + 48)])
         {
-          v84 = objc_autoreleasePoolPush();
-          v85 = *(a1 + 32);
-          v86 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+          v83 = objc_autoreleasePoolPush();
+          v84 = *(a1 + 32);
+          v85 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
           {
-            v87 = HMFGetLogIdentifier();
-            v88 = [*(a1 + 40) zoneName];
+            v86 = HMFGetLogIdentifier();
+            v87 = [*(a1 + 40) zoneName];
             *buf = 138543618;
-            v140 = v87;
-            v141 = 2114;
-            v142 = v88;
-            _os_log_impl(&dword_2531F8000, v86, OS_LOG_TYPE_ERROR, "%{public}@Scheduling zone %{public}@ push at maximum time interval, maybe in a sync loop", buf, 0x16u);
+            v139 = v86;
+            v140 = 2114;
+            v141 = v87;
+            _os_log_impl(&dword_2531F8000, v85, OS_LOG_TYPE_ERROR, "%{public}@Scheduling zone %{public}@ push at maximum time interval, maybe in a sync loop", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v84);
+          objc_autoreleasePoolPop(v83);
           [*(a1 + 32) _reportPossibleSyncLoop];
         }
 
         goto LABEL_37;
       }
 
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
       {
-        v100 = HMFGetLogIdentifier();
-        v101 = *(a1 + 40);
+        v99 = HMFGetLogIdentifier();
+        v100 = *(a1 + 40);
         *buf = 138543618;
-        v140 = v100;
-        v141 = 2114;
-        v142 = v101;
-        v102 = "%{public}@Cannot add operation to zone push without a zoneName %{public}@";
+        v139 = v99;
+        v140 = 2114;
+        v141 = v100;
+        v101 = "%{public}@Cannot add operation to zone push without a zoneName %{public}@";
 LABEL_90:
-        _os_log_impl(&dword_2531F8000, v81, OS_LOG_TYPE_ERROR, v102, buf, 0x16u);
+        _os_log_impl(&dword_2531F8000, v80, OS_LOG_TYPE_ERROR, v101, buf, 0x16u);
 
         goto LABEL_91;
       }
@@ -1461,127 +1437,127 @@ LABEL_90:
       goto LABEL_91;
     }
 
-    v90 = [v77 operationType];
-    v91 = *(a1 + 40);
-    if (v90 == 6)
+    v89 = [v76 operationType];
+    v90 = *(a1 + 40);
+    if (v89 == 6)
     {
-      v26 = [v91 zoneName];
-      v78 = objc_autoreleasePoolPush();
-      v79 = *(a1 + 32);
-      v92 = HMFGetOSLogHandle();
-      v81 = v92;
+      v26 = [v90 zoneName];
+      v77 = objc_autoreleasePoolPush();
+      v78 = *(a1 + 32);
+      v91 = HMFGetOSLogHandle();
+      v80 = v91;
       if (v26)
       {
-        if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
         {
-          v93 = HMFGetLogIdentifier();
-          v94 = *(a1 + 40);
+          v92 = HMFGetLogIdentifier();
+          v93 = *(a1 + 40);
           *buf = 138543618;
-          v140 = v93;
-          v141 = 2114;
-          v142 = v94;
-          _os_log_impl(&dword_2531F8000, v81, OS_LOG_TYPE_INFO, "%{public}@Adding cloud zone fetch operation %{public}@", buf, 0x16u);
+          v139 = v92;
+          v140 = 2114;
+          v141 = v93;
+          _os_log_impl(&dword_2531F8000, v80, OS_LOG_TYPE_INFO, "%{public}@Adding cloud zone fetch operation %{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v78);
+        objc_autoreleasePoolPop(v77);
         [*(a1 + 32) addCloudZoneFetchOperation:*(a1 + 40) delay:*(a1 + 48)];
         goto LABEL_37;
       }
 
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
       {
-        v100 = HMFGetLogIdentifier();
-        v118 = *(a1 + 40);
+        v99 = HMFGetLogIdentifier();
+        v117 = *(a1 + 40);
         *buf = 138543618;
-        v140 = v100;
-        v141 = 2114;
-        v142 = v118;
-        v102 = "%{public}@Cannot add operation to zone fetch without a zoneName %{public}@";
+        v139 = v99;
+        v140 = 2114;
+        v141 = v117;
+        v101 = "%{public}@Cannot add operation to zone fetch without a zoneName %{public}@";
         goto LABEL_90;
       }
 
 LABEL_91:
 
-      objc_autoreleasePoolPop(v78);
+      objc_autoreleasePoolPop(v77);
       [*(a1 + 32) _dropWithoutAlreadyScheduledOperation:*(a1 + 40)];
       goto LABEL_37;
     }
 
-    if ([v91 operationType] == 7)
+    if ([v90 operationType] == 7)
     {
-      v95 = objc_autoreleasePoolPush();
-      v96 = *(a1 + 32);
-      v97 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
+      v94 = objc_autoreleasePoolPush();
+      v95 = *(a1 + 32);
+      v96 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
       {
-        v98 = HMFGetLogIdentifier();
-        v99 = *(a1 + 40);
+        v97 = HMFGetLogIdentifier();
+        v98 = *(a1 + 40);
         *buf = 138543618;
-        v140 = v98;
-        v141 = 2112;
-        v142 = v99;
-        _os_log_impl(&dword_2531F8000, v97, OS_LOG_TYPE_INFO, "%{public}@Adding cloud cancel pause operation %@", buf, 0x16u);
+        v139 = v97;
+        v140 = 2112;
+        v141 = v98;
+        _os_log_impl(&dword_2531F8000, v96, OS_LOG_TYPE_INFO, "%{public}@Adding cloud cancel pause operation %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v95);
+      objc_autoreleasePoolPop(v94);
       [*(a1 + 32) addCloudCancelPauseOperation:*(a1 + 40)];
-      goto LABEL_38;
+      return [*(a1 + 32) _handleNextOperation];
     }
 
     if ([*(a1 + 40) operationType] == 8)
     {
-      v103 = objc_autoreleasePoolPush();
-      v104 = *(a1 + 32);
-      v105 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
+      v102 = objc_autoreleasePoolPush();
+      v103 = *(a1 + 32);
+      v104 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
       {
-        v106 = HMFGetLogIdentifier();
-        v107 = *(a1 + 40);
+        v105 = HMFGetLogIdentifier();
+        v106 = *(a1 + 40);
         *buf = 138543618;
-        v140 = v106;
-        v141 = 2114;
-        v142 = v107;
-        _os_log_impl(&dword_2531F8000, v105, OS_LOG_TYPE_INFO, "%{public}@Adding cloud query database operation %{public}@", buf, 0x16u);
+        v139 = v105;
+        v140 = 2114;
+        v141 = v106;
+        _os_log_impl(&dword_2531F8000, v104, OS_LOG_TYPE_INFO, "%{public}@Adding cloud query database operation %{public}@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v103);
+      objc_autoreleasePoolPop(v102);
       if (([*(a1 + 32) addCloudQueryDatabaseOperationIfNonePresent:*(a1 + 40)] & 1) == 0)
       {
-        v108 = objc_autoreleasePoolPush();
-        v109 = *(a1 + 32);
-        v110 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
+        v107 = objc_autoreleasePoolPush();
+        v108 = *(a1 + 32);
+        v109 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v109, OS_LOG_TYPE_INFO))
         {
-          v111 = HMFGetLogIdentifier();
-          v112 = *(a1 + 40);
+          v110 = HMFGetLogIdentifier();
+          v111 = *(a1 + 40);
           *buf = 138543618;
-          v140 = v111;
-          v141 = 2114;
-          v142 = v112;
-          _os_log_impl(&dword_2531F8000, v110, OS_LOG_TYPE_INFO, "%{public}@Already have a query operation scheduled, dropping operation %{public}@", buf, 0x16u);
+          v139 = v110;
+          v140 = 2114;
+          v141 = v111;
+          _os_log_impl(&dword_2531F8000, v109, OS_LOG_TYPE_INFO, "%{public}@Already have a query operation scheduled, dropping operation %{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v108);
+        objc_autoreleasePoolPop(v107);
         [*(a1 + 32) _dropWithoutAlreadyScheduledOperation:*(a1 + 40)];
       }
 
       if (![*(a1 + 32) dropCloudPostFetchOperationsIfPresent])
       {
-        goto LABEL_38;
+        return [*(a1 + 32) _handleNextOperation];
       }
 
-      v113 = objc_autoreleasePoolPush();
-      v114 = *(a1 + 32);
-      v115 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v115, OS_LOG_TYPE_INFO))
+      v112 = objc_autoreleasePoolPush();
+      v113 = *(a1 + 32);
+      v114 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
       {
-        v116 = HMFGetLogIdentifier();
-        v117 = [*(a1 + 32) cloudPostFetchOperations];
+        v115 = HMFGetLogIdentifier();
+        v116 = [*(a1 + 32) cloudPostFetchOperations];
         *buf = 138543618;
-        v140 = v116;
-        v141 = 2114;
-        v142 = v117;
-        _os_log_impl(&dword_2531F8000, v115, OS_LOG_TYPE_INFO, "%{public}@Dropping post fetch because new query was added: %{public}@", buf, 0x16u);
+        v139 = v115;
+        v140 = 2114;
+        v141 = v116;
+        _os_log_impl(&dword_2531F8000, v114, OS_LOG_TYPE_INFO, "%{public}@Dropping post fetch because new query was added: %{public}@", buf, 0x16u);
 
 LABEL_101:
       }
@@ -1589,135 +1565,135 @@ LABEL_101:
 
     else
     {
-      v119 = [*(a1 + 40) operationType];
-      v113 = objc_autoreleasePoolPush();
-      v114 = *(a1 + 32);
-      v120 = HMFGetOSLogHandle();
-      v115 = v120;
-      if (v119 == 9)
+      v118 = [*(a1 + 40) operationType];
+      v112 = objc_autoreleasePoolPush();
+      v113 = *(a1 + 32);
+      v119 = HMFGetOSLogHandle();
+      v114 = v119;
+      if (v118 == 9)
       {
-        if (os_log_type_enabled(v120, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
         {
-          v121 = HMFGetLogIdentifier();
-          v122 = *(a1 + 40);
+          v120 = HMFGetLogIdentifier();
+          v121 = *(a1 + 40);
           *buf = 138543618;
-          v140 = v121;
-          v141 = 2114;
-          v142 = v122;
-          _os_log_impl(&dword_2531F8000, v115, OS_LOG_TYPE_INFO, "%{public}@Adding cloud post fetch operation %{public}@", buf, 0x16u);
+          v139 = v120;
+          v140 = 2114;
+          v141 = v121;
+          _os_log_impl(&dword_2531F8000, v114, OS_LOG_TYPE_INFO, "%{public}@Adding cloud post fetch operation %{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v113);
+        objc_autoreleasePoolPop(v112);
         if (([*(a1 + 32) addCloudPostFetchOperationIfNonePresent:*(a1 + 40)] & 1) == 0)
         {
-          v123 = objc_autoreleasePoolPush();
-          v124 = *(a1 + 32);
-          v125 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v125, OS_LOG_TYPE_INFO))
+          v122 = objc_autoreleasePoolPush();
+          v123 = *(a1 + 32);
+          v124 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v124, OS_LOG_TYPE_INFO))
           {
-            v126 = HMFGetLogIdentifier();
-            v127 = *(a1 + 40);
+            v125 = HMFGetLogIdentifier();
+            v126 = *(a1 + 40);
             *buf = 138543618;
-            v140 = v126;
-            v141 = 2114;
-            v142 = v127;
-            _os_log_impl(&dword_2531F8000, v125, OS_LOG_TYPE_INFO, "%{public}@Already have a post fetch operation scheduled, dropping operation %{public}@", buf, 0x16u);
+            v139 = v125;
+            v140 = 2114;
+            v141 = v126;
+            _os_log_impl(&dword_2531F8000, v124, OS_LOG_TYPE_INFO, "%{public}@Already have a post fetch operation scheduled, dropping operation %{public}@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v123);
+          objc_autoreleasePoolPop(v122);
           [*(a1 + 32) _dropWithoutAlreadyScheduledOperation:*(a1 + 40)];
         }
 
-        goto LABEL_38;
+        return [*(a1 + 32) _handleNextOperation];
       }
 
-      if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
       {
-        v116 = HMFGetLogIdentifier();
-        v128 = *(a1 + 40);
+        v115 = HMFGetLogIdentifier();
+        v127 = *(a1 + 40);
         *buf = 138543618;
-        v140 = v116;
-        v141 = 2114;
-        v142 = v128;
-        _os_log_impl(&dword_2531F8000, v115, OS_LOG_TYPE_ERROR, "%{public}@Unknown sync operation type, dropping %{public}@", buf, 0x16u);
+        v139 = v115;
+        v140 = 2114;
+        v141 = v127;
+        _os_log_impl(&dword_2531F8000, v114, OS_LOG_TYPE_ERROR, "%{public}@Unknown sync operation type, dropping %{public}@", buf, 0x16u);
         goto LABEL_101;
       }
     }
 
-    objc_autoreleasePoolPop(v113);
-    goto LABEL_38;
+    objc_autoreleasePoolPop(v112);
+    return [*(a1 + 32) _handleNextOperation];
   }
 
-  v131 = 0u;
-  v132 = 0u;
-  v129 = 0u;
   v130 = 0u;
-  v58 = [*(a1 + 32) cloudFetchOperations];
-  v26 = [v58 allOperations];
+  v131 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v57 = [*(a1 + 32) cloudFetchOperations];
+  v26 = [v57 allOperations];
 
-  v59 = [v26 countByEnumeratingWithState:&v129 objects:v137 count:16];
-  if (!v59)
+  v58 = [v26 countByEnumeratingWithState:&v128 objects:v136 count:16];
+  if (!v58)
   {
 LABEL_54:
 
-    v71 = objc_autoreleasePoolPush();
-    v72 = *(a1 + 32);
-    v73 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+    v70 = objc_autoreleasePoolPush();
+    v71 = *(a1 + 32);
+    v72 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
     {
-      v74 = HMFGetLogIdentifier();
-      v75 = *(a1 + 40);
+      v73 = HMFGetLogIdentifier();
+      v74 = *(a1 + 40);
       *buf = 138543618;
-      v140 = v74;
-      v141 = 2114;
-      v142 = v75;
-      _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@Adding cloud fetch operation %{public}@", buf, 0x16u);
+      v139 = v73;
+      v140 = 2114;
+      v141 = v74;
+      _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_INFO, "%{public}@Adding cloud fetch operation %{public}@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v71);
+    objc_autoreleasePoolPop(v70);
     v37 = [*(a1 + 32) cloudFetchOperations];
     goto LABEL_25;
   }
 
-  v60 = v59;
-  v61 = *v130;
+  v59 = v58;
+  v60 = *v129;
 LABEL_42:
-  v62 = 0;
+  v61 = 0;
   while (1)
   {
-    if (*v130 != v61)
+    if (*v129 != v60)
     {
       objc_enumerationMutation(v26);
     }
 
-    v31 = *(*(&v129 + 1) + 8 * v62);
-    v63 = [*(a1 + 40) options];
-    if (([v63 isCloudConflict] & 1) == 0)
+    v31 = *(*(&v128 + 1) + 8 * v61);
+    v62 = [*(a1 + 40) options];
+    if (([v62 isCloudConflict] & 1) == 0)
     {
       break;
     }
 
-    v64 = [v31 options];
-    v65 = [v64 isCloudConflict];
+    v63 = [v31 options];
+    v64 = [v63 isCloudConflict];
 
-    if (v65)
+    if (v64)
     {
       goto LABEL_49;
     }
 
-    v66 = [*(a1 + 32) cloudFetchOperations];
-    [v66 dropOperation:v31];
+    v65 = [*(a1 + 32) cloudFetchOperations];
+    [v65 dropOperation:v31];
 
-    v67 = *(a1 + 40);
-    v68 = [v31 operationCompletions];
-    [v67 updateOperationCompletionsWithArray:v68];
+    v66 = *(a1 + 40);
+    v67 = [v31 operationCompletions];
+    [v66 updateOperationCompletionsWithArray:v67];
 LABEL_50:
 
 LABEL_52:
-    if (v60 == ++v62)
+    if (v59 == ++v61)
     {
-      v60 = [v26 countByEnumeratingWithState:&v129 objects:v137 count:16];
-      if (v60)
+      v59 = [v26 countByEnumeratingWithState:&v128 objects:v136 count:16];
+      if (v59)
       {
         goto LABEL_42;
       }
@@ -1727,16 +1703,16 @@ LABEL_52:
   }
 
 LABEL_49:
-  v68 = [*(a1 + 40) options];
-  if ([v68 isCloudConflict])
+  v67 = [*(a1 + 40) options];
+  if ([v67 isCloudConflict])
   {
     goto LABEL_50;
   }
 
-  v69 = [v31 options];
-  v70 = [v69 isCloudConflict];
+  v68 = [v31 options];
+  v69 = [v68 isCloudConflict];
 
-  if (!v70)
+  if (!v69)
   {
     goto LABEL_52;
   }
@@ -1750,11 +1726,11 @@ LABEL_49:
   }
 
   v51 = HMFGetLogIdentifier();
-  v89 = *(a1 + 40);
+  v88 = *(a1 + 40);
   *buf = 138543618;
-  v140 = v51;
-  v141 = 2114;
-  v142 = v89;
+  v139 = v51;
+  v140 = 2114;
+  v141 = v88;
   v52 = "%{public}@Already have a legacy conflict fetch scheduled, dropping non-conflict fetch operation %{public}@";
   v53 = v50;
   v54 = 22;
@@ -1767,53 +1743,48 @@ LABEL_36:
   [v31 updateOperationCompletionsWithArray:v55];
 
 LABEL_37:
-LABEL_38:
-  result = [*(a1 + 32) _handleNextOperation];
-  v57 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleNextOperation];
 }
 
 - (void)_dropWithoutAlreadyScheduledOperation:(id)operation
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   v4 = [MEMORY[0x277CCA9B8] hmErrorWithCode:23 description:@"Operation was dropped before it could run" reason:@"HMDSyncOperationManager dropped the operation" suggestion:0];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   operationCompletions = [operationCopy operationCompletions];
-  v6 = [operationCompletions countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [operationCompletions countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(operationCompletions);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9++) + 16))();
+        (*(*(*(&v10 + 1) + 8 * v9++) + 16))();
       }
 
       while (v7 != v9);
-      v7 = [operationCompletions countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [operationCompletions countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOperation:(id)operation withDelay:(double)delay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (delay > 0.0)
   {
@@ -1825,11 +1796,11 @@ LABEL_38:
       v10 = HMFGetLogIdentifier();
       identifier = [operationCopy identifier];
       uUIDString = [identifier UUIDString];
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = uUIDString;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Adding operation delay, respect this delay: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2112;
+      v17 = uUIDString;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Adding operation delay, respect this delay: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1838,13 +1809,11 @@ LABEL_38:
   }
 
   [(HMDSyncOperationManager *)self addOperationRespectingOptions:operationCopy withDelay:delay];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportPossibleSyncLoop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSyncOperationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1860,9 +1829,9 @@ LABEL_38:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting dialog about possible sync loop", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting dialog about possible sync loop", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1870,41 +1839,39 @@ LABEL_38:
     v10 = +[HMDTTRManager sharedManager];
     [v10 requestRadarWithDisplayReason:@"maximum push delay was reached" radarTitle:@"HomeKit maximum push delay reached"];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpState
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   os_unfair_lock_lock_with_options();
   v4 = [(HMDSyncOperationQueue *)self->_cloudPushOperations description];
   [array addObject:v4];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v5 = self->_cloudVerifyAccountOperations;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v58 objects:v67 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v57 objects:v66 count:16];
   if (v6)
   {
-    v7 = *v59;
+    v7 = *v58;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v59 != v7)
+        if (*v58 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = [*(*(&v58 + 1) + 8 * i) description];
+        v9 = [*(*(&v57 + 1) + 8 * i) description];
         [array addObject:v9];
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v58 objects:v67 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v57 objects:v66 count:16];
     }
 
     while (v6);
@@ -1913,148 +1880,147 @@ LABEL_38:
   v10 = [(HMDSyncOperationQueue *)self->_cloudFetchOperations description];
   [array addObject:v10];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v11 = self->_cloudZonePushOperationQueues;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v54 objects:v66 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v53 objects:v65 count:16];
   if (v12)
   {
-    v13 = *v55;
+    v13 = *v54;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v55 != v13)
+        if (*v54 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = [*(*(&v54 + 1) + 8 * j) description];
+        v15 = [*(*(&v53 + 1) + 8 * j) description];
         [array addObject:v15];
       }
 
-      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v54 objects:v66 count:16];
+      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v53 objects:v65 count:16];
     }
 
     while (v12);
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v16 = self->_cloudZoneFetchOperationQueues;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v50 objects:v65 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v49 objects:v64 count:16];
   if (v17)
   {
-    v18 = *v51;
+    v18 = *v50;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v51 != v18)
+        if (*v50 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = [*(*(&v50 + 1) + 8 * k) description];
+        v20 = [*(*(&v49 + 1) + 8 * k) description];
         [array addObject:v20];
       }
 
-      v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v50 objects:v65 count:16];
+      v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v49 objects:v64 count:16];
     }
 
     while (v17);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v21 = self->_cloudCancelPauseOperations;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v46 objects:v64 count:16];
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v45 objects:v63 count:16];
   if (v22)
   {
-    v23 = *v47;
+    v23 = *v46;
     do
     {
       for (m = 0; m != v22; ++m)
       {
-        if (*v47 != v23)
+        if (*v46 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = [*(*(&v46 + 1) + 8 * m) description];
+        v25 = [*(*(&v45 + 1) + 8 * m) description];
         [array addObject:v25];
       }
 
-      v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v46 objects:v64 count:16];
+      v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v45 objects:v63 count:16];
     }
 
     while (v22);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v26 = self->_cloudQueryDatabaseOperations;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v42 objects:v63 count:16];
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v41 objects:v62 count:16];
   if (v27)
   {
-    v28 = *v43;
+    v28 = *v42;
     do
     {
       for (n = 0; n != v27; ++n)
       {
-        if (*v43 != v28)
+        if (*v42 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        v30 = [*(*(&v42 + 1) + 8 * n) description];
+        v30 = [*(*(&v41 + 1) + 8 * n) description];
         [array addObject:v30];
       }
 
-      v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v42 objects:v63 count:16];
+      v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v41 objects:v62 count:16];
     }
 
     while (v27);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v31 = self->_cloudPostFetchOperations;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v38 objects:v62 count:16];
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v37 objects:v61 count:16];
   if (v32)
   {
-    v33 = *v39;
+    v33 = *v38;
     do
     {
       for (ii = 0; ii != v32; ++ii)
       {
-        if (*v39 != v33)
+        if (*v38 != v33)
         {
           objc_enumerationMutation(v31);
         }
 
-        v35 = [*(*(&v38 + 1) + 8 * ii) description];
+        v35 = [*(*(&v37 + 1) + 8 * ii) description];
         [array addObject:v35];
       }
 
-      v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v38 objects:v62 count:16];
+      v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v37 objects:v61 count:16];
     }
 
     while (v32);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v36 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -2062,14 +2028,10 @@ LABEL_38:
 - (NSString)description
 {
   os_unfair_lock_lock_with_options();
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  cloudPushOperations = self->_cloudPushOperations;
-  cloudQueryDatabaseOperations = self->_cloudQueryDatabaseOperations;
-  v7 = [v3 stringWithFormat:@"<%@, Push Operations = %@, Verify Account Operations = %@, Fetch Operations = %@, Zone Push = %@, Zone Fetch = %@, Cancel = %@, Query = %@>, Post Fetch = %@", v4, cloudPushOperations, self->_cloudVerifyAccountOperations, self->_cloudFetchOperations, self->_cloudZonePushOperationQueues, self->_cloudZoneFetchOperationQueues, self->_cloudCancelPauseOperations, cloudQueryDatabaseOperations, self->_cloudPostFetchOperations];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@, Push Operations = %@, Verify Account Operations = %@, Fetch Operations = %@, Zone Push = %@, Zone Fetch = %@, Cancel = %@, Query = %@>, Post Fetch = %@", objc_opt_class(), self->_cloudPushOperations, self->_cloudVerifyAccountOperations, self->_cloudFetchOperations, self->_cloudZonePushOperationQueues, self->_cloudZoneFetchOperationQueues, self->_cloudCancelPauseOperations, self->_cloudQueryDatabaseOperations, self->_cloudPostFetchOperations];
   os_unfair_lock_unlock(&self->_lock);
 
-  return v7;
+  return v3;
 }
 
 - (id)popCloudPostFetchOperation
@@ -2093,12 +2055,12 @@ LABEL_38:
 
 - (BOOL)dropCloudPostFetchOperationsIfPresent
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   v3 = [(NSMutableArray *)self->_cloudPostFetchOperations count];
   if (v3)
   {
-    v4 = [(NSMutableArray *)self->_cloudPostFetchOperations copy];
+    v4 = objc_msgSend_copy(self->_cloudPostFetchOperations);
     [(NSMutableArray *)self->_cloudPostFetchOperations removeAllObjects];
   }
 
@@ -2108,34 +2070,33 @@ LABEL_38:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HMDSyncOperationManager *)self _dropWithoutAlreadyScheduledOperation:*(*(&v11 + 1) + 8 * i), v11];
+        [(HMDSyncOperationManager *)self _dropWithoutAlreadyScheduledOperation:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3 != 0;
 }
 
@@ -2217,29 +2178,29 @@ LABEL_38:
 
 - (BOOL)popCloudZoneFetchOperationAndMoveQueueToEnd:(id *)end
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v5 = [(NSMutableArray *)self->_cloudZoneFetchOperationQueues copy];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v5 = objc_msgSend_copy(self->_cloudZoneFetchOperationQueues);
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = v5;
   v7 = 0;
-  v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = [v11 countTotal] != 0;
         nextOperation = [v11 nextOperation];
         v7 |= v12;
@@ -2262,7 +2223,7 @@ LABEL_38:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -2275,7 +2236,6 @@ LABEL_38:
 LABEL_13:
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
@@ -2312,27 +2272,27 @@ LABEL_13:
 
 - (id)popCloudZonePushOperationAndMoveQueueToEnd
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v3 = [(NSMutableArray *)self->_cloudZonePushOperationQueues copy];
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = objc_msgSend_copy(self->_cloudZonePushOperationQueues, 0);
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         nextOperation = [v7 nextOperation];
         if (nextOperation)
         {
@@ -2352,7 +2312,7 @@ LABEL_13:
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -2366,7 +2326,6 @@ LABEL_13:
 LABEL_13:
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 
   return nextOperation;
 }
@@ -2439,7 +2398,7 @@ LABEL_13:
 - (NSArray)cloudPostFetchOperations
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_cloudPostFetchOperations copy];
+  v3 = objc_msgSend_copy(self->_cloudPostFetchOperations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2448,7 +2407,7 @@ LABEL_13:
 - (NSArray)cloudQueryDatabaseOperations
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_cloudQueryDatabaseOperations copy];
+  v3 = objc_msgSend_copy(self->_cloudQueryDatabaseOperations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2457,7 +2416,7 @@ LABEL_13:
 - (NSArray)cloudCancelPauseOperations
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_cloudCancelPauseOperations copy];
+  v3 = objc_msgSend_copy(self->_cloudCancelPauseOperations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2466,7 +2425,7 @@ LABEL_13:
 - (id)cloudZoneFetchOperations
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_cloudZoneFetchOperationQueues copy];
+  v3 = objc_msgSend_copy(self->_cloudZoneFetchOperationQueues);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2475,7 +2434,7 @@ LABEL_13:
 - (NSArray)cloudZonePushOperationQueues
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_cloudZonePushOperationQueues copy];
+  v3 = objc_msgSend_copy(self->_cloudZonePushOperationQueues);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2493,7 +2452,7 @@ LABEL_13:
 - (NSArray)cloudVerifyAccountOperations
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_cloudVerifyAccountOperations copy];
+  v3 = objc_msgSend_copy(self->_cloudVerifyAccountOperations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2618,12 +2577,11 @@ id __58__HMDSyncOperationManager_initWithClientQueue_dataSource___block_invoke(d
 
 uint64_t __38__HMDSyncOperationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v54_97270;
-  logCategory__hmf_once_v54_97270 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v54_97270;
+  logCategory__hmf_once_v54_97270 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

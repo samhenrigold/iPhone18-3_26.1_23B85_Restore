@@ -75,7 +75,7 @@
   [(SBAttentionAwarenessSettings *)self setSleepInterval:30.0];
 }
 
-uint64_t __48__SBAttentionAwarenessSettings_setDefaultValues__block_invoke(uint64_t a1)
+void *__48__SBAttentionAwarenessSettings_setDefaultValues__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() attentionSensorSupported];
   *(*(a1 + 32) + 49) = result;

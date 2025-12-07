@@ -18,35 +18,36 @@
   sqliteCopy = sqlite;
   initCopy = init;
   urlCopy = url;
-  v21.receiver = self;
-  v21.super_class = LCFFeatureStore;
-  v11 = [(LCFFeatureStore *)&v21 init];
+  v23.receiver = self;
+  v23.super_class = LCFFeatureStore;
+  v11 = [(LCFFeatureStore *)&v23 init];
+  v13 = v11;
   if (v11)
   {
-    LCFLoggingUtilsInit();
-    objc_storeStrong(&v11->_featureStoreKey, init);
-    v11->_useSqlite = sqliteCopy;
+    LCFLoggingUtilsInit(v11, v12);
+    objc_storeStrong(&v13->_featureStoreKey, init);
+    v13->_useSqlite = sqliteCopy;
     if (sqliteCopy)
     {
-      v12 = [[LCFDatabaseConnection alloc] init:urlCopy databaseName:initCopy tableName:@"featureStore"];
-      dbFeatureStore = v11->_dbFeatureStore;
-      v11->_dbFeatureStore = v12;
+      v14 = [[LCFDatabaseConnection alloc] init:urlCopy databaseName:initCopy tableName:@"featureStore"];
+      dbFeatureStore = v13->_dbFeatureStore;
+      v13->_dbFeatureStore = v14;
     }
 
     else
     {
-      v14 = [LCFBiomeManager alloc];
+      v16 = [LCFBiomeManager alloc];
       dbFeatureStore = BiomeLibrary();
       mLSE = [dbFeatureStore MLSE];
       shareSheet = [mLSE ShareSheet];
       labeledDataStore = [shareSheet LabeledDataStore];
-      v18 = [(LCFBiomeManager *)v14 init:labeledDataStore];
-      biomeManagerLabeledDataStore = v11->_biomeManagerLabeledDataStore;
-      v11->_biomeManagerLabeledDataStore = v18;
+      v20 = [(LCFBiomeManager *)v16 init:labeledDataStore];
+      biomeManagerLabeledDataStore = v13->_biomeManagerLabeledDataStore;
+      v13->_biomeManagerLabeledDataStore = v20;
     }
   }
 
-  return v11;
+  return v13;
 }
 
 - (BOOL)updateFeatureSet:(id)set
@@ -83,7 +84,7 @@
 
 - (id)getFeatureVector:(id)vector atTime:(id)time option:(unint64_t)option
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
   v9 = vectorCopy;
   if (self->_useSqlite)
@@ -94,30 +95,30 @@
 
   else
   {
-    v28 = vectorCopy;
+    v27 = vectorCopy;
     selfCopy = self;
     v12 = [(LCFBiomeManager *)self->_biomeManagerLabeledDataStore readDataWithTimestamp:time endDate:0 reversed:1];
     v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v14 = v12;
-    v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v29 + 1) + 8 * i);
+          v19 = *(*(&v28 + 1) + 8 * i);
           v20 = [v19 objectAtIndexedSubscript:1];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -131,71 +132,69 @@
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v16);
     }
 
-    v9 = v28;
-    v11 = [(LCFFeatureStore *)selfCopy getFeatureVectorWithStoreEvents:v28 storeEventsInReversedOrder:v13 option:option];
+    v9 = v27;
+    v11 = [(LCFFeatureStore *)selfCopy getFeatureVectorWithStoreEvents:v27 storeEventsInReversedOrder:v13 option:option];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)getFeatureVectorWithStoreEvents:(id)events storeEventsInReversedOrder:(id)order option:(unint64_t)option
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   orderCopy = order;
-  v61 = eventsCopy;
+  v60 = eventsCopy;
   v8 = [objc_alloc(MEMORY[0x277CCA940]) initWithArray:eventsCopy];
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   obj = orderCopy;
-  v64 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
-  if (v64)
+  v63 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+  if (v63)
   {
-    v63 = *v80;
+    v62 = *v79;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v80 != v63)
+      if (*v79 != v62)
       {
         objc_enumerationMutation(obj);
       }
 
-      v65 = v10;
-      v11 = *(*(&v79 + 1) + 8 * v10);
+      v64 = v10;
+      v11 = *(*(&v78 + 1) + 8 * v10);
+      v74 = 0u;
       v75 = 0u;
       v76 = 0u;
       v77 = 0u;
-      v78 = 0u;
       featureValues = [v11 featureValues];
       allKeys = [featureValues allKeys];
 
-      v14 = [allKeys countByEnumeratingWithState:&v75 objects:v87 count:16];
+      v14 = [allKeys countByEnumeratingWithState:&v74 objects:v86 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v76;
+        v16 = *v75;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v76 != v16)
+            if (*v75 != v16)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v18 = *(*(&v75 + 1) + 8 * i);
+            v18 = *(*(&v74 + 1) + 8 * i);
             featureValues2 = [v11 featureValues];
             v20 = [featureValues2 objectForKeyedSubscript:v18];
 
@@ -213,7 +212,7 @@ LABEL_3:
             }
           }
 
-          v15 = [allKeys countByEnumeratingWithState:&v75 objects:v87 count:16];
+          v15 = [allKeys countByEnumeratingWithState:&v74 objects:v86 count:16];
         }
 
         while (v15);
@@ -229,11 +228,11 @@ LABEL_3:
         break;
       }
 
-      v10 = v65 + 1;
-      if (v65 + 1 == v64)
+      v10 = v64 + 1;
+      if (v64 + 1 == v63)
       {
-        v64 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
-        if (!v64)
+        v63 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+        if (!v63)
         {
           goto LABEL_20;
         }
@@ -243,26 +242,26 @@ LABEL_3:
     }
 
     v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     v34 = v9;
-    v35 = [v34 countByEnumeratingWithState:&v67 objects:v83 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v66 objects:v82 count:16];
     if (v35)
     {
       v36 = v35;
-      v66 = *v68;
+      v65 = *v67;
 LABEL_35:
       v37 = 0;
       while (1)
       {
-        if (*v68 != v66)
+        if (*v67 != v65)
         {
           objc_enumerationMutation(v34);
         }
 
-        v38 = *(*(&v67 + 1) + 8 * v37);
+        v38 = *(*(&v66 + 1) + 8 * v37);
         timestamp = [v34 objectForKeyedSubscript:v38];
         intValue = [timestamp intValue];
 
@@ -353,7 +352,7 @@ LABEL_43:
 
         if (v36 == ++v37)
         {
-          v55 = [v34 countByEnumeratingWithState:&v67 objects:v83 count:16];
+          v55 = [v34 countByEnumeratingWithState:&v66 objects:v82 count:16];
           v36 = v55;
           if (v55)
           {
@@ -382,25 +381,25 @@ LABEL_20:
       [LCFFeatureStore getFeatureVectorWithStoreEvents:storeEventsInReversedOrder:option:];
     }
 
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
-    v26 = v61;
-    v27 = [v26 countByEnumeratingWithState:&v71 objects:v86 count:16];
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v26 = v60;
+    v27 = [v26 countByEnumeratingWithState:&v70 objects:v85 count:16];
     if (v27)
     {
-      v28 = *v72;
+      v28 = *v71;
       do
       {
         for (j = 0; j != v27; j = j + 1)
         {
-          if (*v72 != v28)
+          if (*v71 != v28)
           {
             objc_enumerationMutation(v26);
           }
 
-          v30 = *(*(&v71 + 1) + 8 * j);
+          v30 = *(*(&v70 + 1) + 8 * j);
           allKeys3 = [v9 allKeys];
           v32 = [allKeys3 containsObject:v30];
 
@@ -410,20 +409,18 @@ LABEL_20:
             if (os_log_type_enabled(LCFLogFeatureStore, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v85 = v30;
+              v84 = v30;
               _os_log_error_impl(&dword_255F22000, v33, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
             }
           }
         }
 
-        v27 = [v26 countByEnumeratingWithState:&v71 objects:v86 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v70 objects:v85 count:16];
       }
 
       while (v27);
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -431,38 +428,38 @@ LABEL_20:
 - (id)getFeatureSets:(id)sets startDate:(id)date endDate:(id)endDate option:(unint64_t)option
 {
   optionCopy = option;
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   setsCopy = sets;
   dateCopy = date;
   endDateCopy = endDate;
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v42 = endDateCopy;
-  v43 = dateCopy;
+  v41 = endDateCopy;
+  v42 = dateCopy;
   if (self->_useSqlite)
   {
     v13 = [(LCFDatabaseConnection *)self->_dbFeatureStore query:0 startDate:dateCopy endDate:endDateCopy reversed:0];
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v62 objects:v69 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v61 objects:v68 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v63;
+      v16 = *v62;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v63 != v16)
+          if (*v62 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [v12 addObject:*(*(&v62 + 1) + 8 * i)];
+          [v12 addObject:*(*(&v61 + 1) + 8 * i)];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v62 objects:v69 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v61 objects:v68 count:16];
       }
 
       while (v15);
@@ -472,26 +469,26 @@ LABEL_20:
   else
   {
     v13 = [(LCFBiomeManager *)self->_biomeManagerLabeledDataStore readDataWithTimestamp:dateCopy endDate:endDateCopy reversed:0];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    v18 = [v13 countByEnumeratingWithState:&v58 objects:v68 count:16];
+    v18 = [v13 countByEnumeratingWithState:&v57 objects:v67 count:16];
     if (v18)
     {
       v19 = v18;
-      v48 = optionCopy;
-      v20 = *v59;
+      v47 = optionCopy;
+      v20 = *v58;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v59 != v20)
+          if (*v58 != v20)
           {
             objc_enumerationMutation(v13);
           }
 
-          v22 = *(*(&v58 + 1) + 8 * j);
+          v22 = *(*(&v57 + 1) + 8 * j);
           v23 = [v22 objectAtIndexedSubscript:1];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -505,58 +502,58 @@ LABEL_20:
           }
         }
 
-        v19 = [v13 countByEnumeratingWithState:&v58 objects:v68 count:16];
+        v19 = [v13 countByEnumeratingWithState:&v57 objects:v67 count:16];
       }
 
       while (v19);
-      optionCopy = v48;
+      optionCopy = v47;
     }
   }
 
   if ((optionCopy & 4) != 0)
   {
-    v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v49 = [objc_alloc(MEMORY[0x277CCA940]) initWithArray:setsCopy];
+    v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v48 = [objc_alloc(MEMORY[0x277CCA940]) initWithArray:setsCopy];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     obj = v12;
-    v28 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+    v28 = [obj countByEnumeratingWithState:&v53 objects:v66 count:16];
     if (v28)
     {
       v29 = v28;
-      v47 = *v55;
+      v46 = *v54;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v55 != v47)
+          if (*v54 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v54 + 1) + 8 * k);
+          v31 = *(*(&v53 + 1) + 8 * k);
+          v49 = 0u;
           v50 = 0u;
           v51 = 0u;
           v52 = 0u;
-          v53 = 0u;
-          v32 = v49;
-          v33 = [v32 countByEnumeratingWithState:&v50 objects:v66 count:16];
+          v32 = v48;
+          v33 = [v32 countByEnumeratingWithState:&v49 objects:v65 count:16];
           if (v33)
           {
             v34 = v33;
-            v35 = *v51;
+            v35 = *v50;
             while (2)
             {
               for (m = 0; m != v34; ++m)
               {
-                if (*v51 != v35)
+                if (*v50 != v35)
                 {
                   objc_enumerationMutation(v32);
                 }
 
-                v37 = *(*(&v50 + 1) + 8 * m);
+                v37 = *(*(&v49 + 1) + 8 * m);
                 featureValues = [v31 featureValues];
                 allKeys = [featureValues allKeys];
                 LODWORD(v37) = [allKeys containsObject:v37];
@@ -568,7 +565,7 @@ LABEL_20:
                 }
               }
 
-              v34 = [v32 countByEnumeratingWithState:&v50 objects:v66 count:16];
+              v34 = [v32 countByEnumeratingWithState:&v49 objects:v65 count:16];
               if (v34)
               {
                 continue;
@@ -578,51 +575,49 @@ LABEL_20:
             }
           }
 
-          [v45 addObject:v31];
+          [v44 addObject:v31];
 LABEL_36:
           ;
         }
 
-        v29 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+        v29 = [obj countByEnumeratingWithState:&v53 objects:v66 count:16];
       }
 
       while (v29);
     }
 
-    v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v45];
+    v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v44];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)featureProviderFromfeatureSet:(id)set featureNames:(id)names
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   setCopy = set;
   namesCopy = names;
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v8 = namesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v40;
+    v11 = *v39;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v40 != v11)
+      if (*v39 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v39 + 1) + 8 * v12);
+      v13 = *(*(&v38 + 1) + 8 * v12);
       featureValues = [setCopy featureValues];
       v15 = [featureValues objectForKeyedSubscript:v13];
 
@@ -716,7 +711,7 @@ LABEL_11:
 
       if (v10 == ++v12)
       {
-        v31 = [v8 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v31 = [v8 countByEnumeratingWithState:&v38 objects:v42 count:16];
         v10 = v31;
         if (v31)
         {
@@ -734,53 +729,51 @@ LABEL_11:
   v35 = [(LCFCoreMLFeatureProvider *)v32 init:featureStoreKey timestamp:timestamp featureValues:v7];
 LABEL_27:
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 - (id)getFeatureVectors:(id)vectors startDate:(id)date endDate:(id)endDate option:(unint64_t)option
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   dateCopy = date;
   endDateCopy = endDate;
-  v81 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v70 = endDateCopy;
-  v71 = dateCopy;
+  v79 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v68 = endDateCopy;
+  v69 = dateCopy;
   selfCopy = self;
   if (self->_useSqlite)
   {
     v12 = [(LCFDatabaseConnection *)self->_dbFeatureStore query:0 startDate:dateCopy endDate:endDateCopy reversed:0];
+    v98 = 0u;
+    v99 = 0u;
     v100 = 0u;
     v101 = 0u;
-    v102 = 0u;
-    v103 = 0u;
-    v13 = [v12 countByEnumeratingWithState:&v100 objects:v108 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v98 objects:v106 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = vectorsCopy;
-      v16 = *v101;
+      v16 = *v99;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v101 != v16)
+          if (*v99 != v16)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v100 + 1) + 8 * i);
+          v18 = *(*(&v98 + 1) + 8 * i);
           v19 = MEMORY[0x277CCABB0];
           timestamp = [v18 timestamp];
           [timestamp timeIntervalSinceReferenceDate];
           v21 = [v19 numberWithDouble:?];
           stringValue = [v21 stringValue];
-          [v81 setValue:v18 forKey:stringValue];
+          [v79 setValue:v18 forKey:stringValue];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v100 objects:v108 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v98 objects:v106 count:16];
       }
 
       while (v14);
@@ -790,17 +783,17 @@ LABEL_27:
 
   else
   {
-    v72 = vectorsCopy;
+    v70 = vectorsCopy;
     v12 = [(LCFBiomeManager *)self->_biomeManagerLabeledDataStore readDataWithTimestamp:dateCopy endDate:endDateCopy reversed:0];
+    v94 = 0u;
+    v95 = 0u;
     v96 = 0u;
     v97 = 0u;
-    v98 = 0u;
-    v99 = 0u;
-    v23 = [v12 countByEnumeratingWithState:&v96 objects:v107 count:16];
+    v23 = [v12 countByEnumeratingWithState:&v94 objects:v105 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v97;
+      v25 = *v95;
       v26 = 0x277CF1000uLL;
       do
       {
@@ -808,33 +801,32 @@ LABEL_27:
         obj = v24;
         do
         {
-          if (*v97 != v25)
+          if (*v95 != v25)
           {
             objc_enumerationMutation(v12);
           }
 
-          v28 = *(*(&v96 + 1) + 8 * v27);
+          v28 = *(*(&v94 + 1) + 8 * v27);
           v29 = [v28 objectAtIndexedSubscript:1];
-          v30 = *(v26 + 736);
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
           if (isKindOfClass)
           {
-            v32 = [v28 objectAtIndexedSubscript:1];
-            v33 = [v28 objectAtIndexedSubscript:0];
-            v34 = [LCFFeatureConverter fromLabeledDataBiomeFeatureStore:v32 timestamp:v33];
-            v35 = v12;
-            v36 = v26;
-            v37 = MEMORY[0x277CCABB0];
-            v38 = [v28 objectAtIndexedSubscript:0];
-            [v38 timeIntervalSinceReferenceDate];
-            v39 = [v37 numberWithDouble:?];
-            stringValue2 = [v39 stringValue];
-            [v81 setValue:v34 forKey:stringValue2];
+            v31 = [v28 objectAtIndexedSubscript:1];
+            v32 = [v28 objectAtIndexedSubscript:0];
+            v33 = [LCFFeatureConverter fromLabeledDataBiomeFeatureStore:v31 timestamp:v32];
+            v34 = v12;
+            v35 = v26;
+            v36 = MEMORY[0x277CCABB0];
+            v37 = [v28 objectAtIndexedSubscript:0];
+            [v37 timeIntervalSinceReferenceDate];
+            v38 = [v36 numberWithDouble:?];
+            stringValue2 = [v38 stringValue];
+            [v79 setValue:v33 forKey:stringValue2];
 
-            v26 = v36;
-            v12 = v35;
+            v26 = v35;
+            v12 = v34;
             v24 = obj;
           }
 
@@ -842,74 +834,74 @@ LABEL_27:
         }
 
         while (v24 != v27);
-        v24 = [v12 countByEnumeratingWithState:&v96 objects:v107 count:16];
+        v24 = [v12 countByEnumeratingWithState:&v94 objects:v105 count:16];
       }
 
       while (v24);
     }
 
-    vectorsCopy = v72;
+    vectorsCopy = v70;
   }
 
-  v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v72 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ((option & 4) != 0)
   {
-    v43 = [objc_alloc(MEMORY[0x277CCA940]) initWithArray:vectorsCopy];
+    v42 = [objc_alloc(MEMORY[0x277CCA940]) initWithArray:vectorsCopy];
+    v90 = 0u;
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
-    v94 = 0u;
-    v95 = 0u;
-    obja = [v81 allValues];
-    v77 = [obja countByEnumeratingWithState:&v92 objects:v106 count:16];
-    if (v77)
+    obja = [v79 allValues];
+    v75 = [obja countByEnumeratingWithState:&v90 objects:v104 count:16];
+    if (v75)
     {
-      v73 = vectorsCopy;
-      v75 = *v93;
+      v71 = vectorsCopy;
+      v73 = *v91;
       do
       {
-        v53 = 0;
+        v52 = 0;
         do
         {
-          if (*v93 != v75)
+          if (*v91 != v73)
           {
             objc_enumerationMutation(obja);
           }
 
-          v54 = *(*(&v92 + 1) + 8 * v53);
+          v53 = *(*(&v90 + 1) + 8 * v52);
+          v86 = 0u;
+          v87 = 0u;
           v88 = 0u;
           v89 = 0u;
-          v90 = 0u;
-          v91 = 0u;
-          v55 = v43;
-          v56 = v43;
-          v57 = [v56 countByEnumeratingWithState:&v88 objects:v105 count:16];
-          if (v57)
+          v54 = v42;
+          v55 = v42;
+          v56 = [v55 countByEnumeratingWithState:&v86 objects:v103 count:16];
+          if (v56)
           {
-            v58 = v57;
-            v59 = *v89;
+            v57 = v56;
+            v58 = *v87;
             while (2)
             {
-              for (j = 0; j != v58; ++j)
+              for (j = 0; j != v57; ++j)
               {
-                if (*v89 != v59)
+                if (*v87 != v58)
                 {
-                  objc_enumerationMutation(v56);
+                  objc_enumerationMutation(v55);
                 }
 
-                v61 = *(*(&v88 + 1) + 8 * j);
-                featureValues = [v54 featureValues];
+                v60 = *(*(&v86 + 1) + 8 * j);
+                featureValues = [v53 featureValues];
                 allKeys = [featureValues allKeys];
-                LODWORD(v61) = [allKeys containsObject:v61];
+                LODWORD(v60) = [allKeys containsObject:v60];
 
-                if (!v61)
+                if (!v60)
                 {
-                  v64 = v56;
+                  v63 = v55;
                   goto LABEL_47;
                 }
               }
 
-              v58 = [v56 countByEnumeratingWithState:&v88 objects:v105 count:16];
-              if (v58)
+              v57 = [v55 countByEnumeratingWithState:&v86 objects:v103 count:16];
+              if (v57)
               {
                 continue;
               }
@@ -918,93 +910,92 @@ LABEL_27:
             }
           }
 
-          v64 = [(LCFFeatureStore *)selfCopy featureProviderFromfeatureSet:v54 featureNames:v73];
-          if (v64)
+          v63 = [(LCFFeatureStore *)selfCopy featureProviderFromfeatureSet:v53 featureNames:v71];
+          if (v63)
           {
-            [v74 addObject:v64];
+            [v72 addObject:v63];
           }
 
           else
           {
-            v65 = LCFLogFeatureStore;
+            v64 = LCFLogFeatureStore;
             if (os_log_type_enabled(LCFLogFeatureStore, OS_LOG_TYPE_ERROR))
             {
-              [LCFFeatureStore getFeatureVectors:v87 startDate:v65 endDate:? option:?];
+              [LCFFeatureStore getFeatureVectors:v85 startDate:v64 endDate:? option:?];
             }
           }
 
 LABEL_47:
-          v43 = v55;
+          v42 = v54;
 
-          ++v53;
+          ++v52;
         }
 
-        while (v53 != v77);
-        v66 = [obja countByEnumeratingWithState:&v92 objects:v106 count:16];
-        v77 = v66;
+        while (v52 != v75);
+        v65 = [obja countByEnumeratingWithState:&v90 objects:v104 count:16];
+        v75 = v65;
       }
 
-      while (v66);
-      v43 = v56;
-      vectorsCopy = v73;
+      while (v65);
+      v42 = v55;
+      vectorsCopy = v71;
     }
   }
 
   else
   {
-    allKeys2 = [v81 allKeys];
-    v42 = [allKeys2 sortedArrayUsingFunction:doubleSort context:0];
+    allKeys2 = [v79 allKeys];
+    v41 = [allKeys2 sortedArrayUsingFunction:doubleSort context:0];
 
     obja = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v80 = 0u;
+    v81 = 0u;
     v82 = 0u;
     v83 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v43 = v42;
-    v44 = [v43 countByEnumeratingWithState:&v82 objects:v104 count:16];
-    if (v44)
+    v42 = v41;
+    v43 = [v42 countByEnumeratingWithState:&v80 objects:v102 count:16];
+    if (v43)
     {
-      v45 = v44;
-      v46 = *v83;
+      v44 = v43;
+      v45 = *v81;
       do
       {
-        for (k = 0; k != v45; ++k)
+        for (k = 0; k != v44; ++k)
         {
-          if (*v83 != v46)
+          if (*v81 != v45)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v42);
           }
 
-          v48 = [v81 objectForKeyedSubscript:*(*(&v82 + 1) + 8 * k)];
-          [obja addObject:v48];
+          v47 = [v79 objectForKeyedSubscript:*(*(&v80 + 1) + 8 * k)];
+          [obja addObject:v47];
 
           reverseObjectEnumerator = [obja reverseObjectEnumerator];
           allObjects = [reverseObjectEnumerator allObjects];
 
-          v51 = [(LCFFeatureStore *)selfCopy getFeatureVectorWithStoreEvents:vectorsCopy storeEventsInReversedOrder:allObjects option:option];
-          if (v51)
+          v50 = [(LCFFeatureStore *)selfCopy getFeatureVectorWithStoreEvents:vectorsCopy storeEventsInReversedOrder:allObjects option:option];
+          if (v50)
           {
-            v52 = [LCFCoreMLFeatureProvider fromMLProvider:v51];
-            [v74 addObject:v52];
+            v51 = [LCFCoreMLFeatureProvider fromMLProvider:v50];
+            [v72 addObject:v51];
           }
         }
 
-        v45 = [v43 countByEnumeratingWithState:&v82 objects:v104 count:16];
+        v44 = [v42 countByEnumeratingWithState:&v80 objects:v102 count:16];
       }
 
-      while (v45);
+      while (v44);
     }
   }
 
-  v67 = [[LCFCoreMLBatchProvider alloc] init:selfCopy->_featureStoreKey featureProviders:v74];
-  v68 = *MEMORY[0x277D85DE8];
+  v66 = [[LCFCoreMLBatchProvider alloc] init:selfCopy->_featureStoreKey featureProviders:v72];
 
-  return v67;
+  return v66;
 }
 
 - (id)getMultiArrayFeatureVectors:(id)vectors vectorName:(id)name srcLabelName:(id)labelName destLabelName:(id)destLabelName startDate:(id)date endDate:(id)endDate option:(unint64_t)option
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   labelNameCopy = labelName;
   v15 = MEMORY[0x277CBEA60];
   endDateCopy = endDate;
@@ -1014,14 +1005,12 @@ LABEL_47:
   nameCopy = name;
   vectorsCopy = vectors;
   v22 = [v15 arrayWithObjects:&labelNameCopy count:1];
-  v23 = [vectorsCopy arrayByAddingObjectsFromArray:{v22, labelNameCopy, v30}];
+  v23 = [vectorsCopy arrayByAddingObjectsFromArray:{v22, labelNameCopy, v29}];
 
   v24 = [(LCFFeatureStore *)self getFeatureVectors:v23 startDate:dateCopy endDate:endDateCopy option:option];
 
   v25 = [LCFCoreMLBatchProvider fromMLProvider:v24];
   v26 = [LCFCoreMLFeatureProviderUtils toMultiArrayTypeBatchProvider:v25 srcFeatureNames:vectorsCopy srcLabelName:labelNameCopy2 destFeatureName:nameCopy destLabelName:destLabelNameCopy];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1046,14 +1035,6 @@ LABEL_47:
   }
 
   return v9;
-}
-
-- (void)getFeatureVectorWithStoreEvents:storeEventsInReversedOrder:option:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getFeatureVectors:(os_log_t)log startDate:endDate:option:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

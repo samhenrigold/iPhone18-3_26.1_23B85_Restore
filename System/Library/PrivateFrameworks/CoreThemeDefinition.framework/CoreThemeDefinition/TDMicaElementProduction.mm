@@ -115,7 +115,7 @@
 
 - (id)copyDataFromAttributes
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:14];
   v4 = [(TDMicaElementProduction *)self valueForKey:@"comment"];
   if (v4)
@@ -157,31 +157,31 @@
   if ([v10 count])
   {
     v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     allObjects = [v10 allObjects];
-    v13 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v13 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         v16 = 0;
         do
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          [v11 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v16++), "copyDataFromAttributes")}];
+          [v11 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v16++), "copyDataFromAttributes")}];
         }
 
         while (v14 != v16);
-        v14 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v14 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v14);
@@ -190,9 +190,7 @@
     [v3 setObject:v11 forKey:@"renditions"];
   }
 
-  result = [objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:{0), "copy"}];
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:{0), "copy"}];
 }
 
 - (void)setAttributesFromCopyData:(id)data

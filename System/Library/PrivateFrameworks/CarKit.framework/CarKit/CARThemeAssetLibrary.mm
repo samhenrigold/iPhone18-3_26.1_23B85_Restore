@@ -15,9 +15,9 @@
 - (CARThemeAssetLibrary)initWithVehicle:(id)vehicle
 {
   vehicleCopy = vehicle;
-  v22.receiver = self;
-  v22.super_class = CARThemeAssetLibrary;
-  v5 = [(CARThemeAssetLibrary *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = CARThemeAssetLibrary;
+  v5 = [(CARThemeAssetLibrary *)&v24 init];
   if (v5)
   {
     identifier = [vehicleCopy identifier];
@@ -30,21 +30,21 @@
 
     if (!v5->_assetIdentifier)
     {
-      v10 = CarThemeAssetsLogging();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = CarThemeAssetsLogging(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [CARThemeAssetLibrary initWithVehicle:];
+        [(CARThemeAssetLibrary *)vehicleCopy initWithVehicle:v11, v12];
       }
     }
 
-    v11 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
-    v12 = dispatch_queue_create("com.apple.carkit.theme_asset_library", v11);
+    v13 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
+    v14 = dispatch_queue_create("com.apple.carkit.theme_asset_library", v13);
     queue = v5->_queue;
-    v5->_queue = v12;
+    v5->_queue = v14;
 
-    v14 = objc_alloc_init(CARThemeAssetLibraryObserverProxy);
+    v16 = objc_alloc_init(CARThemeAssetLibraryObserverProxy);
     observerProxy = v5->_observerProxy;
-    v5->_observerProxy = v14;
+    v5->_observerProxy = v16;
 
     [(CARThemeAssetLibraryObserverProxy *)v5->_observerProxy setAssetLibrary:v5];
     _setupServiceConnection = [(CARThemeAssetLibrary *)v5 _setupServiceConnection];
@@ -56,7 +56,7 @@
     block[1] = 3221225472;
     block[2] = __40__CARThemeAssetLibrary_initWithVehicle___block_invoke;
     block[3] = &unk_1E82FBF70;
-    v21 = v5;
+    v23 = v5;
     dispatch_async(queue, block);
   }
 
@@ -97,8 +97,7 @@ void __34__CARThemeAssetLibrary_invalidate__block_invoke(uint64_t a1)
   v10[3] = &unk_1E82FBF70;
   v10[4] = self;
   [v3 setInterruptionHandler:v10];
-  [v3 setInvalidationHandler:&__block_literal_global_7];
-  v7 = CarThemeAssetsLogging();
+  v7 = CarThemeAssetsLogging([v3 setInvalidationHandler:&__block_literal_global_7]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -112,19 +111,19 @@ void __34__CARThemeAssetLibrary_invalidate__block_invoke(uint64_t a1)
 
 void __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke(uint64_t a1)
 {
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_cold_1();
+    __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_cold_1(v2, v3, v4);
   }
 
-  v3 = [*(a1 + 32) queue];
+  v5 = [*(a1 + 32) queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_87;
   block[3] = &unk_1E82FBF70;
   block[4] = *(a1 + 32);
-  dispatch_async(v3, block);
+  dispatch_async(v5, block);
 }
 
 void __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_87(uint64_t a1)
@@ -141,12 +140,12 @@ void __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_87(uint64_
   }
 }
 
-void __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_2()
+void __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_2(uint64_t a1)
 {
-  v0 = CarThemeAssetsLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = CarThemeAssetsLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_2_cold_1();
+    __47__CARThemeAssetLibrary__setupServiceConnection__block_invoke_2_cold_1(v1, v2, v3);
   }
 }
 
@@ -237,7 +236,7 @@ void __39__CARThemeAssetLibrary_removeObserver___block_invoke(uint64_t a1)
 
   vehicleIdentifier = [(CARThemeAssetLibrary *)self vehicleIdentifier];
   assetIdentifier = [(CARThemeAssetLibrary *)self assetIdentifier];
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(assetIdentifier);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -290,10 +289,10 @@ void __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_in
 
 uint64_t __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_invoke_2_cold_1();
+    __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_invoke_2_cold_1(a1, v2, v3);
   }
 
   result = *(a1 + 40);
@@ -325,7 +324,7 @@ void __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_in
 void __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_invoke_2_90(void *a1)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = a1[4];
@@ -344,7 +343,7 @@ void __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_in
   }
 
   v6 = v5;
-  v7 = CarThemeAssetsLogging();
+  v7 = CarThemeAssetsLogging(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v9 = 138412290;
@@ -372,20 +371,20 @@ void __62__CARThemeAssetLibrary__queue_findCurrentAssetWithCompletion___block_in
 void __45__CARThemeAssetLibrary__queue_startObserving__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarThemeAssetsLogging();
+  v3 = CarThemeAssetsLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __45__CARThemeAssetLibrary__queue_startObserving__block_invoke_cold_1();
+    __45__CARThemeAssetLibrary__queue_startObserving__block_invoke_cold_1(v2, v3, v4);
   }
 }
 
-void __45__CARThemeAssetLibrary__queue_startObserving__block_invoke_94()
+void __45__CARThemeAssetLibrary__queue_startObserving__block_invoke_94(uint64_t a1)
 {
-  v0 = CarThemeAssetsLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CarThemeAssetsLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C81FC000, v0, OS_LOG_TYPE_DEFAULT, "started observing theme asset library", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1C81FC000, v1, OS_LOG_TYPE_DEFAULT, "started observing theme asset library", v2, 2u);
   }
 }
 
@@ -402,20 +401,20 @@ void __45__CARThemeAssetLibrary__queue_startObserving__block_invoke_94()
 void __44__CARThemeAssetLibrary__queue_stopObserving__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarThemeAssetsLogging();
+  v3 = CarThemeAssetsLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __45__CARThemeAssetLibrary__queue_startObserving__block_invoke_cold_1();
+    __45__CARThemeAssetLibrary__queue_startObserving__block_invoke_cold_1(v2, v3, v4);
   }
 }
 
-void __44__CARThemeAssetLibrary__queue_stopObserving__block_invoke_99()
+void __44__CARThemeAssetLibrary__queue_stopObserving__block_invoke_99(uint64_t a1)
 {
-  v0 = CarThemeAssetsLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CarThemeAssetsLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C81FC000, v0, OS_LOG_TYPE_DEFAULT, "stopped observing theme asset library", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1C81FC000, v1, OS_LOG_TYPE_DEFAULT, "stopped observing theme asset library", v2, 2u);
   }
 }
 

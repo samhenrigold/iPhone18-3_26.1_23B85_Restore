@@ -14,6 +14,7 @@
 - (id)getDataBlock:(unint64_t)block offset:(unint64_t)offset;
 - (id)payloadWith4ccTag:(id)tag;
 - (id)payloadsWithout4ccTag:(id)tag;
+- (id)personalizeSuperBinary:(unint64_t)binary signingServer:(id)server ssoOnly:(BOOL)only;
 - (id)personalizedMetaData;
 - (id)requiredTSSOptions;
 - (id)tatsuMeasurements:(unint64_t)measurements;
@@ -36,44 +37,13 @@
   v23.super_class = UARPSuperBinaryBackDeploy;
   v11 = [(UARPSuperBinaryBackDeploy *)&v23 init];
   v12 = v11;
-  if (!v11)
+  if (!v11 || dataCopy && (objc_storeWeak(&v11->_delegate, delegateCopy), objc_storeStrong(&v12->_delegateQueue, queue), v13 = [dataCopy copy], data = v12->_data, v12->_data = v13, data, v15 = objc_opt_new(), tlvs = v12->_tlvs, v12->_tlvs = v15, tlvs, v17 = objc_opt_new(), trimmedTlvs = v12->_trimmedTlvs, v12->_trimmedTlvs = v17, trimmedTlvs, v19 = objc_opt_new(), measurements = v12->_measurements, v12->_measurements = v19, measurements, v12->_totalLength = -[NSData length](v12->_data, "length"), -[UARPSuperBinaryBackDeploy expandSuperBinary](v12, "expandSuperBinary")))
   {
-    goto LABEL_4;
-  }
-
-  if (!dataCopy)
-  {
-    goto LABEL_5;
-  }
-
-  objc_storeWeak(&v11->_delegate, delegateCopy);
-  objc_storeStrong(&v12->_delegateQueue, queue);
-  v13 = [dataCopy copy];
-  data = v12->_data;
-  v12->_data = v13;
-
-  v15 = objc_opt_new();
-  tlvs = v12->_tlvs;
-  v12->_tlvs = v15;
-
-  v17 = objc_opt_new();
-  trimmedTlvs = v12->_trimmedTlvs;
-  v12->_trimmedTlvs = v17;
-
-  v19 = objc_opt_new();
-  measurements = v12->_measurements;
-  v12->_measurements = v19;
-
-  v12->_totalLength = [(NSData *)v12->_data length];
-  if ([(UARPSuperBinaryBackDeploy *)v12 expandSuperBinary])
-  {
-LABEL_4:
     v21 = v12;
   }
 
   else
   {
-LABEL_5:
     v21 = 0;
   }
 
@@ -479,6 +449,88 @@ LABEL_11:
 
   [(UARPSuperBinaryBackDeploy *)self processTLVsForPersonalization];
   return 1;
+}
+
+- (id)personalizeSuperBinary:(unint64_t)binary signingServer:(id)server ssoOnly:(BOOL)only
+{
+  onlyCopy = only;
+  serverCopy = server;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v8 = self->_payloads;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v26;
+    while (2)
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v26 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v25 + 1) + 8 * i);
+        if ([v13 needsHostPersonalization])
+        {
+          [v13 setBoardID:self->_boardID];
+          [v13 setChipID:self->_chipID];
+          [v13 setEcID:self->_ecID];
+          [v13 setNonce:self->_nonce];
+          [v13 setProductionMode:self->_productionMode];
+          [v13 setSecurityDomain:self->_securityDomain];
+          [v13 setSecurityMode:self->_securityMode];
+          [v13 setTrustedOverride:self->_trustedOverride];
+          [v13 setDemote:self->_demote];
+          [(UARPSuperBinaryBackDeploy *)self log:@"Personalizing %@", v13];
+          v14 = [v13 composeTSSRequest:binary];
+          if (!v14 || (v15 = v14, v16 = [v13 tag], -[UARPSuperBinaryBackDeploy log:](self, "log:", @"TSS Request Options for payload %@", v16), v16, v17 = objc_msgSend(v13, "tssRequest"), -[UARPSuperBinaryBackDeploy log:](self, "log:", @"%@", v17), v17, LODWORD(v17) = objc_msgSend(v13, "queryTatsuSigningServer:ssoOnly:error:", serverCopy, onlyCopy, 0), v15, !v17))
+          {
+            v21 = 0;
+            goto LABEL_18;
+          }
+        }
+
+        else
+        {
+          v18 = [v13 tag];
+          [(UARPSuperBinaryBackDeploy *)self log:@"Host Personalization not required for payload %@", v18];
+        }
+      }
+
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v10)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  if (![(UARPSuperBinaryBackDeploy *)self needsHostPersonalization]|| (v19 = [(UARPSuperBinaryBackDeploy *)self composeTSSRequest:binary asMeasurement:0], v20 = [(UARPSuperBinaryBackDeploy *)self queryTatsuSigningServer:serverCopy ssoOnly:onlyCopy error:0], v21 = 0, v20))
+  {
+    generatePersonalizedSuperBinary = [(UARPSuperBinaryBackDeploy *)self generatePersonalizedSuperBinary];
+    v8 = generatePersonalizedSuperBinary;
+    if (generatePersonalizedSuperBinary)
+    {
+      v8 = generatePersonalizedSuperBinary;
+      v21 = v8;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+LABEL_18:
+  }
+
+  return v21;
 }
 
 - (BOOL)queryTatsuSigningServer:(id)server ssoOnly:(BOOL)only error:(id *)error

@@ -39,13 +39,11 @@
 + (id)appearanceWhenContainedInInstancesOfClasses:(id)classes;
 + (int)_degreesToRotateFromInterfaceOrientation:(int64_t)orientation toInterfaceOrientation:(int64_t)interfaceOrientation;
 + (int64_t)_currentAnimationCurve;
-+ (uint64_t)_beginDisablingPromoteDescendantToFirstResponder;
-+ (uint64_t)_endDisablingPromoteDescendantToFirstResponder;
 + (uint64_t)_fluidZoomTransitionsEnabled;
 + (uint64_t)_materialSidebarsEnabled;
 + (uint64_t)_uip_transitionEnabled;
 + (unint64_t)trackedAnimationsCount:(id)count;
-+ (void)__animateUsingSpringWithDampingRatio:(double)ratio response:(double)response interactive:(double)interactive initialDampingRatio:(double)dampingRatio initialResponse:(double)initialResponse dampingRatioSmoothing:(uint64_t)smoothing responseSmoothing:(uint64_t)responseSmoothing targetSmoothing:(void *)self0 projectionDeceleration:(void *)self1 retargetImpulse:(void *)self2 animations:(void *)self3 completion:;
++ (void)__animateUsingSpringWithDampingRatio:(void *)ratio response:(void *)response interactive:(void *)interactive initialDampingRatio:(void *)dampingRatio initialResponse:(double)initialResponse dampingRatioSmoothing:(double)smoothing responseSmoothing:(double)responseSmoothing targetSmoothing:(double)self0 projectionDeceleration:(double)self1 retargetImpulse:(double)self2 animations:(double)self3 completion:;
 + (void)__swift_animateByRetargetingAnimations:(id)animations completion:(id)completion;
 + (void)__swift_animateUsingSpringBehavior:(id)behavior tracking:(BOOL)tracking animations:(id)animations completion:(id)completion;
 + (void)__swift_animateUsingSpringInteractive:(BOOL)interactive animations:(id)animations completion:(id)completion;
@@ -60,7 +58,7 @@
 + (void)__swift_trackVelocity:(id)velocity;
 + (void)_addOrPerformCompletion:(id)completion;
 + (void)_addOrPerformCompletionWithPosition:(id)position;
-+ (void)_animateCollectionTableAnimationWithDuration:(uint64_t)duration delay:(uint64_t)delay options:(void *)options animations:(void *)animations completion:;
++ (void)_animateCollectionTableAnimationWithDuration:(void *)duration delay:(void *)delay options:(double)options animations:(double)animations completion:;
 + (void)_animateInProcessAlongsideTransition:(id)transition;
 + (void)_animateInProcessKeyframesAlongsideTransitionWithOptions:(unint64_t)options animations:(id)animations;
 + (void)_animateKeyframeWithID:(id)d relativeStartTime:(double)time relativeDuration:(double)duration animations:(id)animations;
@@ -81,6 +79,7 @@
 + (void)_disableAnimationTracking:(id)tracking clearTrackedAnimations:(BOOL)animations;
 + (void)_enableToolsDebugAlignmentRects:(BOOL)rects;
 + (void)_enableToolsDebugColorViewBounds:(BOOL)bounds;
++ (void)_endDisablingPromoteDescendantToFirstResponder;
 + (void)_endSuspendingMotionEffectsForReason:(id)reason;
 + (void)_finalizeStoppedAnimationWithUUID:(id)d updatingModelValues:(BOOL)values reverseAnimation:(BOOL)animation state:(id)state performCompletionsImmediately:(BOOL)immediately;
 + (void)_finishAnimationTracking;
@@ -110,7 +109,7 @@
 + (void)_testIfFirstView:(id)view secondView:(id)secondView areDescendantsOfView:(id)ofView results:(BOOL)results[2];
 + (void)_topMostView:(int)view reverse:;
 + (void)_transitionBackingOutermostLayerWithView:(id)view duration:(double)duration options:(unint64_t)options animations:(id)animations completion:(id)completion;
-+ (void)_transitionFromView:(void *)view toView:(void *)toView duration:(uint64_t)duration options:(void *)options animations:(void *)animations completion:;
++ (void)_transitionFromView:(void *)view toView:(uint64_t)toView duration:(void *)duration options:(void *)options animations:(double)animations completion:;
 + (void)_transitionWithView:(id)view duration:(double)duration options:(unint64_t)options transitionOptions:(id)transitionOptions completion:(id)completion;
 + (void)_updateModelValues:(BOOL)values forAnimationWithUUID:(id)d useInitialValues:(BOOL)initialValues animatable:(BOOL)animatable stateBlock:(id)block animationBlock:(id)animationBlock;
 + (void)addKeyframeWithRelativeStartTime:(double)frameStartTime relativeDuration:(double)frameDuration animations:(void *)animations;
@@ -190,6 +189,7 @@
 - (BOOL)_layoutEngineRelativeAlignmentRectOriginIsValid;
 - (BOOL)_layoutEngine_isEngineMergingAllowedBetweenEngine:(id)engine itemEngine:(id)itemEngine forConstraint:(id)constraint initialView:(id)view;
 - (BOOL)_lightStyleRenderConfig;
+- (BOOL)_modifiesTraitCollectionInheritedByChildren;
 - (BOOL)_needsDoubleUpdateConstraintsPass;
 - (BOOL)_needsLayoutOnAnimatedFrameChangeForNewFrame:(CGRect)frame;
 - (BOOL)_ola_shouldUseImprovedMultilineTextDisambiguation;
@@ -588,7 +588,7 @@
 - (id)_uili_existingBaseFrameVariables;
 - (id)_uili_observableLayoutEngineForBaseFrameVariables:(BOOL)variables;
 - (id)_uis_outline;
-- (id)_userActionDescription:(unsigned int)description maxLevel:;
+- (id)_userActionDescription:(signed int)description maxLevel:;
 - (id)_variantOfColor:(const void *)color forKey:(void *)key withCreationBlock:;
 - (id)_velocityForKey:(uint64_t)key target:;
 - (id)_vendAssertionForOverrideAlpha:(double)alpha;
@@ -638,43 +638,28 @@
 - (int64_t)contextIdentifier;
 - (int64_t)focusItemDeferralMode;
 - (int64_t)trackedState;
-- (uint64_t)_areAccessibilityButtonShapesEnabled;
 - (uint64_t)_autoresizingConstraints;
-- (uint64_t)_backing__didMoveFromWindow:(uint64_t)window toWindow:;
-- (uint64_t)_backing__generateDeferredAnimations:(uint64_t)result;
-- (uint64_t)_backing__shouldAnimatePropertyWithKey:(uint64_t)result;
-- (uint64_t)_backing_didMoveToSuperView;
-- (uint64_t)_backing_isHidden;
-- (uint64_t)_backing_needsPreLayoutUpdate;
-- (uint64_t)_backing_setNeedsPreLayoutUpdate;
-- (uint64_t)_backing_traitCollectionDidChangeInternal:(uint64_t)result;
 - (uint64_t)_bitFlagValueAfterIncrementingHiddenManagementCountForKey:(uint64_t)key withIncrement:(int)increment bitFlagValue:;
 - (uint64_t)_constraints_frameDidChange;
 - (uint64_t)_containerStyle;
-- (uint64_t)_containsPreferredFocusableView;
-- (uint64_t)_hasDeferredAnimationForKey:(uint64_t)key;
 - (uint64_t)_hasOpaqueBackground;
 - (uint64_t)_hiddenManagementCountForKey:(int)key bitFlagValue:;
-- (uint64_t)_invalidateAutoresizingConstraints;
-- (uint64_t)_invalidateEngineHostConstraints;
 - (uint64_t)_isDeallocInitiated;
+- (uint64_t)_isInHierarchyAllowingMotionEffects;
 - (uint64_t)_isInVisibleHierarchy;
 - (uint64_t)_isViewHierarchyPreparedForConstraint:(uint64_t)result;
 - (uint64_t)_layoutEngine_didAddLayoutConstraint:(uint64_t)constraint roundingAdjustment:(double)adjustment mutuallyExclusiveConstraints:;
 - (uint64_t)_layoutHash;
-- (uint64_t)_modifiesTraitCollectionInheritedByChildren;
-- (uint64_t)_needsDoubleUpdateConstraintsPassMayHaveChangedFrom:(uint64_t)result;
-- (uint64_t)_performCornersUpdate;
 - (uint64_t)_removeAllGestureRecognizers;
 - (uint64_t)_removeFromSuperviewIfNeeded;
 - (uint64_t)_tryToAddConstraint:(uint64_t)constraint roundingAdjustment:(double)adjustment mutuallyExclusiveConstraints:;
-- (uint64_t)_updateAutoresizingConstraints;
 - (uint64_t)_usesAutoresizingConstraints;
 - (uint64_t)_usesLayoutEngineHostingConstraints;
 - (uint64_t)_viewOrderRelativeToView:(int)view requireIntersection:;
 - (uint64_t)_wantsAutolayoutOrIsGuardingForEngineHosting;
 - (unint64_t)_accessibilityResolvedInterfaceStyle;
 - (unint64_t)_clipCornersOfView:(id)view;
+- (unint64_t)_containsPreferredFocusableView;
 - (unint64_t)_countOfMotionEffectsInSubtree;
 - (unint64_t)_focusSpeedBumpEdges;
 - (unint64_t)_willForceLayoutForBoundsChangeToNewBounds:(double)bounds;
@@ -716,17 +701,24 @@
 - (void)_applyResolvedShape:(id)shape;
 - (void)_applyShape:(id)shape;
 - (void)_applyTraitStorageConstraintsByRemoving:(void *)removing adding:;
+- (void)_areAccessibilityButtonShapesEnabled;
 - (void)_autoresizingConstraints_frameDidChange;
+- (void)_backing__didMoveFromWindow:(uint64_t)window toWindow:;
+- (void)_backing__generateDeferredAnimations:(void *)result;
 - (void)_backing__initialValueForKey:(void *)key;
-- (void)_backing_addPrivateSubview:(uint64_t)subview;
+- (void)_backing__shouldAnimatePropertyWithKey:(void *)result;
+- (void)_backing_addPrivateSubview:(uint64_t)result;
 - (void)_backing_addPrivateSubview:(uint64_t)subview positioned:(uint64_t)positioned relativeTo:;
 - (void)_backing_addSubview:(uint64_t)subview;
+- (void)_backing_didMoveToSuperView;
 - (void)_backing_insertPrivateSubview:(uint64_t)subview aboveLayer:;
 - (void)_backing_insertSubview:(uint64_t)subview atIndex:;
 - (void)_backing_insertSubview:(void *)subview aboveSubview:;
 - (void)_backing_insertSubview:(void *)subview belowSubview:;
 - (void)_backing_invalidateSubviewCache;
+- (void)_backing_isHidden;
 - (void)_backing_layers;
+- (void)_backing_needsPreLayoutUpdate;
 - (void)_backing_outermostLayer;
 - (void)_backing_removeFromSuperview;
 - (void)_backing_removePrivateSubview:(uint64_t)subview;
@@ -735,15 +727,17 @@
 - (void)_backing_setBounds:(double)bounds;
 - (void)_backing_setFrame:(double)y;
 - (void)_backing_setHidden:(uint64_t)hidden;
+- (void)_backing_setNeedsPreLayoutUpdate;
 - (void)_backing_setPosition:(double)position;
 - (void)_backing_setTransform3D:(uint64_t)d;
 - (void)_backing_setTransform:(uint64_t)transform;
 - (void)_backing_setZPosition:(uint64_t)position;
+- (void)_backing_traitCollectionDidChangeInternal:(void *)result;
 - (void)_backing_unwrapIfPossible;
 - (void)_backing_unwrapLayer;
 - (void)_backing_willChangeValueForKeyPath:(uint64_t)path;
 - (void)_backing_wrapLayerInIntermediate;
-- (void)_baselineViewForConstraint:(int)constraint forFirstItem:(void *)item withOffset:;
+- (void)_baselineViewForConstraint:(uint64_t)constraint forFirstItem:(void *)item withOffset:;
 - (void)_beginOcclusion:(id)occlusion suppressHDRIfNecessary:(BOOL)necessary;
 - (void)_bringAncestorControlledCollectionSubviewToFrontAmongCoplanarPeers;
 - (void)_calculateSubviewAlignmentFrame:(CGRect *)frame superviewAlignmentBounds:(CGRect *)bounds forAutoresizingMask:(unint64_t)mask preservingNonzeroSuperviewAlignmentBoundsOriginForCompatibility:(BOOL)compatibility;
@@ -808,6 +802,7 @@
 - (void)_handleLayoutEngineHostingConstraintsIfNecessary;
 - (void)_handleSizeConstraintsAsAppropriate;
 - (void)_handleTraitChangeForHierarchyChangeWithBehavior:(double)behavior;
+- (void)_hasDeferredAnimationForKey:(void *)key;
 - (void)_hasSpringLoadedInteractions;
 - (void)_hasTransparentBackground;
 - (void)_incrementHiddenManagedByLayoutArrangementCount;
@@ -825,10 +820,12 @@
 - (void)_invalidateAppearanceForSubviewsOfClass:(Class)class;
 - (void)_invalidateAppearanceForTraitCollection:(id)collection;
 - (void)_invalidateAppearanceIfNeeded;
+- (void)_invalidateAutoresizingConstraints;
 - (void)_invalidateBackground;
 - (void)_invalidateBaselineConstraints;
 - (void)_invalidateCalculatedSafeAreas;
 - (void)_invalidateCorners;
+- (void)_invalidateEngineHostConstraints;
 - (void)_invalidateForSublayerTransformChange;
 - (void)_invalidateGlassBackground;
 - (void)_invalidateIntrinsicContentSizeNeedingLayout:(BOOL)layout;
@@ -838,7 +835,6 @@
 - (void)_invalidateSystemLayoutSizeFittingSizeAtEngineDelegateLevel;
 - (void)_invalidateTraitCollectionAndSchedulePropagationForSubviews;
 - (void)_invalidateTraitCollectionAsRoot;
-- (void)_isInHierarchyAllowingMotionEffects;
 - (void)_is_layout;
 - (void)_layoutConstraintCleanup;
 - (void)_layoutEngine_willRemoveLayoutConstraint:(void *)result;
@@ -861,6 +857,7 @@
 - (void)_mergeConstraintsBrokenWhileUnsatisfiableConstraintsLoggingSuspendedToAncestor:(id)ancestor;
 - (void)_mirrorMaskingConfigurationForProgrammaticallyModifiedLayerKeyPath:(id)path;
 - (void)_mt_setCaptureGroupName:(uint64_t *)name;
+- (void)_needsDoubleUpdateConstraintsPassMayHaveChangedFrom:(void *)result;
 - (void)_noteTraitsDidChangeRecursively;
 - (void)_notifyArrangementsOfChangeInItem:(uint64_t)item withSelector:;
 - (void)_notifyBoundingPathChangeObserversWithChangeInfo:(uint64_t)info forAncestor:;
@@ -877,6 +874,7 @@
 - (void)_parameterCheckForSystemSpacingBelowView:(void *)view getTopBaselineView:(void *)baselineView bottomBaselineView:;
 - (void)_parentalLayoutEngineDidChangeTo:(id)to;
 - (void)_performChangesDeferringAutoresizingMaskConstraintsUpdate:(void *)update;
+- (void)_performCornersUpdate;
 - (void)_performPreLayoutUpdateOfLayer:(id)layer;
 - (void)_performPropertiesUpdate;
 - (void)_performSelectorTrackingTraitUsage:(SEL)usage withInvalidationSelector:(SEL)selector;
@@ -995,7 +993,7 @@
 - (void)_setIgnoresLayerTransformForSafeAreaInsets:(BOOL)insets;
 - (void)_setInSecondConstraintsPass:(BOOL)pass;
 - (void)_setIntermediateLayerMaskFrameOrigin:(void *)origin;
-- (void)_setInvalidatesCornersForGeometryChange:(void *)change;
+- (void)_setInvalidatesCornersForGeometryChange:(void *)result;
 - (void)_setInvalidatesIntrinsicContentSizeForSubviewAutoLayoutChanges:(BOOL)changes;
 - (void)_setIsAncestorOfFirstResponder:(BOOL)responder;
 - (void)_setLayoutEngine:(id)engine;
@@ -1072,6 +1070,7 @@
 - (void)_updateAppearanceIfNeeded;
 - (void)_updateAutogeneratedNameForLayerIfNeeded;
 - (void)_updateAutomaticCaptureGroupIfNecessary;
+- (void)_updateAutoresizingConstraints;
 - (void)_updateCachedTraitCollectionIfNeeded;
 - (void)_updateCaptureGroupRecursively;
 - (void)_updateCombinedInsetsIfNecessary;
@@ -1110,7 +1109,7 @@
 - (void)_webCustomViewWasRemovedFromSuperview:(void *)superview;
 - (void)_webCustomViewWillBeRemovedFromSuperview;
 - (void)_willChangeToIdiom:(void *)idiom onScreen:(char)screen traverseHierarchy:;
-- (void)_willChangeToIdiomOnScreen:(char)screen traverseHierarchy:;
+- (void)_willChangeToIdiomOnScreen:(uint64_t)screen traverseHierarchy:;
 - (void)_willMoveToWindow:(id)window;
 - (void)_willMoveToWindow:(id)window withAncestorView:(id)view;
 - (void)_willRemoveSubview:(id)subview;
@@ -1263,16 +1262,16 @@
   return self;
 }
 
-- (uint64_t)_backing_isHidden
+- (void)_backing_isHidden
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 176);
+    v2 = result[22];
     if (!v2 || (v3 = *(v2 + 8), (v4 = v3) == 0))
     {
       v4 = 0;
-      v3 = *(v1 + 168);
+      v3 = v1[21];
     }
 
     isHidden = [v3 isHidden];
@@ -1746,7 +1745,7 @@ LABEL_27:
 
 - (void)_updateAutogeneratedNameForLayerIfNeeded
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIViewSetLayerNameDescription, @"UIViewSetLayerNameDescription", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B7D4 || _os_feature_enabled_impl() && ((_os_feature_enabled_impl() & 1) != 0 || [self __isLandmarkView]))
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIViewSetLayerNameDescription, @"UIViewSetLayerNameDescription", _UIInternalPreferenceUpdateBool) && byte_1ED48B7D4 || _os_feature_enabled_impl() && ((_os_feature_enabled_impl() & 1) != 0 || [self __isLandmarkView]))
   {
     v2 = *(self + 168);
     if (!v2)
@@ -1769,7 +1768,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      if (![name isEqual:v4])
+      if (!objc_msgSend_isEqual_(name))
       {
         v5 = 0;
         v9 = object;
@@ -1779,7 +1778,7 @@ LABEL_24:
       }
     }
 
-    if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIViewSetLayerNameDescription, @"UIViewSetLayerNameDescription", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B7D4)
+    if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIViewSetLayerNameDescription, @"UIViewSetLayerNameDescription", _UIInternalPreferenceUpdateBool) && byte_1ED48B7D4)
     {
       if (qword_1EA994778 != -1)
       {
@@ -2004,13 +2003,13 @@ LABEL_22:
   [(UIView *)self _backing_setNeedsPreLayoutUpdate];
 }
 
-- (uint64_t)_backing_setNeedsPreLayoutUpdate
+- (void)_backing_setNeedsPreLayoutUpdate
 {
   if (result)
   {
     v1 = result;
     v2 = _UIViewPreLayoutEnabled();
-    v3 = *(v1 + 168);
+    v3 = v1[21];
     if (v2)
     {
 
@@ -2227,12 +2226,12 @@ LABEL_22:
 
 - (void)_backing_invalidateSubviewCache
 {
-  if (self)
+  if (result)
   {
-    v2 = *(self + 56);
-    *(self + 56) = 0;
+    v2 = *(result + 56);
+    *(result + 56) = 0;
 
-    v3 = *(self + 176);
+    v3 = *(result + 176);
 
     [(UIContentUnavailableImageProperties *)v3 _setTintColor:?];
   }
@@ -2357,13 +2356,13 @@ LABEL_6:
   }
 }
 
-- (uint64_t)_backing_didMoveToSuperView
+- (void)_backing_didMoveToSuperView
 {
   if (result)
   {
     v1 = result;
     [(UIView *)result _updateAutomaticCaptureGroupIfNecessary];
-    v2 = *(v1 + 176);
+    v2 = v1[22];
     if (v2)
     {
       v3 = *(v2 + 40);
@@ -2890,7 +2889,7 @@ LABEL_9:
 
 LABEL_6:
   v8 = v6;
-  [v5 transform];
+  objc_msgSend_transform(v5);
 
   return result;
 }
@@ -3104,7 +3103,7 @@ LABEL_6:
   return result;
 }
 
-- (uint64_t)_invalidateAutoresizingConstraints
+- (void)_invalidateAutoresizingConstraints
 {
   if (result)
   {
@@ -3229,7 +3228,7 @@ LABEL_6:
     goto LABEL_14;
   }
 
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_DebugStaleViewTraitCollection, @"DebugStaleViewTraitCollection", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B804 && ![(UIView *)self _cachedTraitCollectionIsValid])
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_DebugStaleViewTraitCollection, @"DebugStaleViewTraitCollection", _UIInternalPreferenceUpdateBool) && byte_1ED48B804 && ![(UIView *)self _cachedTraitCollectionIsValid])
   {
     selfCopy = self;
     v4 = selfCopy;
@@ -3258,9 +3257,9 @@ LABEL_21:
     {
       if (v8 && v9)
       {
-        v11 = [(UITraitCollection *)v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (v11)
+        if (isEqual)
         {
           goto LABEL_20;
         }
@@ -3627,9 +3626,9 @@ LABEL_24:
       {
         if (v6 && _lastNotifiedTraitCollection)
         {
-          v7 = [_lastNotifiedTraitCollection isEqual:v6];
+          isEqual = objc_msgSend_isEqual_(_lastNotifiedTraitCollection, v6, v6);
 
-          if (v7)
+          if (isEqual)
           {
             goto LABEL_16;
           }
@@ -3814,10 +3813,10 @@ LABEL_16:
   return constraintsExceptingSubviewAutoresizingConstraints;
 }
 
-uint64_t __109__UIView_UIConstraintBasedLayout_EngineDelegate___invalidateSystemLayoutSizeFittingSizeAtEngineDelegateLevel__block_invoke(uint64_t result, uint64_t a2, _BYTE *a3)
+void *__109__UIView_UIConstraintBasedLayout_EngineDelegate___invalidateSystemLayoutSizeFittingSizeAtEngineDelegateLevel__block_invoke(void *result, uint64_t a2, _BYTE *a3)
 {
   v4 = result;
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     if (*(a2 + 95) & 2) == 0 || (result = [a2 _hostsLayoutEngine], (result) || (result = objc_msgSend(a2, "_allowsFittingSizeCachingWithNilLayoutEngine"), (result))
     {
@@ -3836,7 +3835,7 @@ uint64_t __109__UIView_UIConstraintBasedLayout_EngineDelegate___invalidateSystem
       v7 = [a2 _previousFittingSizeInfo];
       if (!v7)
       {
-        v7 = [*(v4 + 40) _dummyFittingSizeInfo];
+        v7 = [v4[5] _dummyFittingSizeInfo];
       }
 
       [v6 _setPreviousFittingSizeInfo:v7];
@@ -4134,9 +4133,9 @@ LABEL_3:
 LABEL_6:
   swift_getObjCClassMetadata();
   sub_188BBB840(interactive, v11, v14, v13, v15, tension, friction);
-  sub_188A55B8C(v13);
+  sub_188A55B8C(v13, v15);
 
-  sub_188A55B8C(v11);
+  sub_188A55B8C(v11, v14);
 }
 
 - (NSLayoutXAxisAnchor)trailingAnchor
@@ -4496,7 +4495,7 @@ LABEL_9:
 
 LABEL_6:
   v8 = v6;
-  [v5 affineTransform];
+  objc_msgSend_affineTransform(v5);
 
   return result;
 }
@@ -4956,7 +4955,7 @@ LABEL_4:
   return objc_getAssociatedObject(self, sel__layoutEngineHostConstraints);
 }
 
-- (uint64_t)_invalidateEngineHostConstraints
+- (void)_invalidateEngineHostConstraints
 {
   if (result)
   {
@@ -5067,7 +5066,7 @@ LABEL_4:
   return result;
 }
 
-- (void)_isInHierarchyAllowingMotionEffects
+- (uint64_t)_isInHierarchyAllowingMotionEffects
 {
   selfCopy = self;
   if (self)
@@ -5076,7 +5075,7 @@ LABEL_4:
     {
       _window = [selfCopy _window];
       _windowHostingScene = [_window _windowHostingScene];
-      selfCopy = ([_windowHostingScene _sceneSessionRoleIsCarPlayOrNonInteractiveExternal] ^ 1);
+      selfCopy = [_windowHostingScene _sceneSessionRoleIsCarPlayOrNonInteractiveExternal] ^ 1;
     }
 
     else
@@ -5390,7 +5389,7 @@ LABEL_16:
         }
 
         v17 = v16;
-        _findFirstSubviewWantingToBecomeFirstResponder = [UIView _findFirstSubviewWantingToBecomeFirstResponder];
+        _findFirstSubviewWantingToBecomeFirstResponder = [(UIView *)v17 _findFirstSubviewWantingToBecomeFirstResponder];
 
         if (_findFirstSubviewWantingToBecomeFirstResponder)
         {
@@ -5745,7 +5744,7 @@ void __66__UIView_UIConstraintBasedLayout___generateContentSizeConstraints__bloc
   return self;
 }
 
-- (uint64_t)_updateAutoresizingConstraints
+- (void)_updateAutoresizingConstraints
 {
   if (result)
   {
@@ -6755,8 +6754,8 @@ LABEL_6:
   swift_getObjCClassMetadata();
   v13 = swift_unknownObjectRetain();
   sub_188A6D088(v13, tracking, v8, v11, v10, v12);
-  sub_188A55B8C(v10);
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v10, v12);
+  sub_188A55B8C(v8, v11);
 
   swift_unknownObjectRelease();
 }
@@ -6964,7 +6963,7 @@ LABEL_27:
   }
 }
 
-uint64_t __74__UIView_UIConstraintBasedLayout___autoresizingConstraints_frameDidChange__block_invoke(uint64_t a1)
+void *__74__UIView_UIConstraintBasedLayout___autoresizingConstraints_frameDidChange__block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   v6 = 0u;
@@ -7002,7 +7001,7 @@ uint64_t __74__UIView_UIConstraintBasedLayout___autoresizingConstraints_frameDid
 
 - (void)sizeToFit
 {
-  [(UIView *)self transform];
+  objc_msgSend_transform(self, a2);
   if (CGAffineTransformIsIdentity(&v19))
   {
     [(UIView *)self frame];
@@ -7057,9 +7056,10 @@ void __40__UIView_Hierarchy__layoutBelowIfNeeded__block_invoke_2(uint64_t a1, vo
 
 - (void)_mirrorMaskingConfigurationForProgrammaticallyModifiedLayerKeyPath:(id)path
 {
-  sub_18A4A7288();
+  v4 = sub_18A4A7288();
+  v6 = v5;
   selfCopy = self;
-  sub_188A74CF8();
+  sub_188A74CF8(v4, v6);
 }
 
 - (void)_applyMaskingConfiguration
@@ -7097,13 +7097,13 @@ void __40__UIView_Hierarchy__layoutBelowIfNeeded__block_invoke_2(uint64_t a1, vo
 
 - (void)_invalidateMaskingConfiguration
 {
-  if (self)
+  if (result)
   {
-    *(self + 14) |= 0x200000uLL;
-    return [self setNeedsUpdateProperties];
+    result[14] |= 0x200000uLL;
+    return [result setNeedsUpdateProperties];
   }
 
-  return self;
+  return result;
 }
 
 - (double)_firstBaselineOffsetFromTop
@@ -7126,19 +7126,19 @@ void __40__UIView_Hierarchy__layoutBelowIfNeeded__block_invoke_2(uint64_t a1, vo
 
 - (void)_clearBecomeFirstResponderWhenCapableOnSubtree
 {
-  if (self)
+  if (result)
   {
-    return [self _makeSubtreePerformSelector:sel__clearBecomeFirstResponderWhenCapable withObject:0];
+    return [result _makeSubtreePerformSelector:sel__clearBecomeFirstResponderWhenCapable withObject:0];
   }
 
-  return self;
+  return result;
 }
 
 + (void)__swift_createTransformerWithInputAnimatableProperties:(id)properties modelValueSetter:(id)setter presentationValueSetter:(id)valueSetter
 {
   v6 = _Block_copy(setter);
   v7 = _Block_copy(valueSetter);
-  sub_188A34624(0, &qword_1ED48F690);
+  sub_188A34624(0, &qword_1ED48F690, off_1E70E9410);
   v8 = sub_18A4A7548();
   v9 = swift_allocObject();
   *(v9 + 16) = v6;
@@ -7162,23 +7162,24 @@ void __40__UIView_Hierarchy__layoutBelowIfNeeded__block_invoke_2(uint64_t a1, vo
 
 - (NSString)description
 {
+  selfCopy = self;
   v55 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
-  v4 = _UIDebugTypeName();
-  v5 = [v3 stringWithFormat:@"<%@: %p ", v4, self];;
+  v4 = _UIDebugTypeName(self);
+  selfCopy = [v3 stringWithFormat:@"<%@: %p ", v4, selfCopy];;
 
-  _UIViewDescriptionAppendBaseClass(self, v5);
-  _identifier = [(UIView *)self _identifier];
+  _UIViewDescriptionAppendBaseClass(selfCopy, selfCopy);
+  _identifier = [(UIView *)selfCopy _identifier];
   v7 = _identifier;
   if (_identifier)
   {
-    [v5 appendFormat:@"identifier = '%@'; ", _identifier];
+    [selfCopy appendFormat:@"identifier = '%@'; ", _identifier];
   }
 
-  _UIViewDescriptionAppendFrame(self, v5);
-  _UIViewDescriptionAppendTransform(self, v5);
-  v8 = v5;
-  layer = [(UIView *)self layer];
+  _UIViewDescriptionAppendFrame(selfCopy, selfCopy);
+  _UIViewDescriptionAppendTransform(selfCopy, selfCopy);
+  v8 = selfCopy;
+  layer = [(UIView *)selfCopy layer];
   [layer anchorPoint];
   v11 = v10;
   v13 = v12;
@@ -7188,13 +7189,13 @@ void __40__UIView_Hierarchy__layoutBelowIfNeeded__block_invoke_2(uint64_t a1, vo
     [v8 appendFormat:@"anchorPoint = (%g, %g); ", *&v11, *&v13];
   }
 
-  _UIViewDescriptionAppendTextIfApplicable(self, v8);
-  if ([(UIView *)self clipsToBounds])
+  _UIViewDescriptionAppendTextIfApplicable(selfCopy, v8);
+  if ([(UIView *)selfCopy clipsToBounds])
   {
     [v8 appendFormat:@"clipsToBounds = YES; "];
   }
 
-  layer2 = [(UIView *)self layer];
+  layer2 = [(UIView *)selfCopy layer];
   isFrozen = [layer2 isFrozen];
 
   if (isFrozen)
@@ -7202,25 +7203,25 @@ void __40__UIView_Hierarchy__layoutBelowIfNeeded__block_invoke_2(uint64_t a1, vo
     [v8 appendFormat:@"layer.frozen = YES; "];
   }
 
-  [(UIView *)self alpha];
+  [(UIView *)selfCopy alpha];
   if (v16 != 1.0)
   {
     [v8 appendFormat:@"alpha = %g; ", *&v16];
   }
 
-  if ([(UIView *)self isHidden])
+  if ([(UIView *)selfCopy isHidden])
   {
     [v8 appendFormat:@"hidden = YES; "];
   }
 
-  if (![(UIView *)self isOpaque])
+  if (![(UIView *)selfCopy isOpaque])
   {
     [v8 appendFormat:@"opaque = NO; "];
   }
 
-  if ([(UIView *)self autoresizingMask])
+  if ([(UIView *)selfCopy autoresizingMask])
   {
-    if (!self)
+    if (!selfCopy)
     {
       v21 = 0;
 LABEL_35:
@@ -7229,7 +7230,7 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    autoresizingMask = [(UIView *)self autoresizingMask];
+    autoresizingMask = [(UIView *)selfCopy autoresizingMask];
     string = [MEMORY[0x1E696AD60] string];
     v19 = string;
     if (autoresizingMask)
@@ -7317,29 +7318,29 @@ LABEL_31:
   }
 
 LABEL_36:
-  if (![(UIView *)self autoresizesSubviews])
+  if (![(UIView *)selfCopy autoresizesSubviews])
   {
     [v8 appendFormat:@"autoresizesSubviews = NO; "];
   }
 
-  if (![(UIView *)self isUserInteractionEnabled])
+  if (![(UIView *)selfCopy isUserInteractionEnabled])
   {
     [v8 appendFormat:@"userInteractionEnabled = NO; "];
   }
 
-  _interactionTintColor = [(UIView *)self _interactionTintColor];
+  _interactionTintColor = [(UIView *)selfCopy _interactionTintColor];
 
   if (_interactionTintColor)
   {
-    _interactionTintColor2 = [(UIView *)self _interactionTintColor];
+    _interactionTintColor2 = [(UIView *)selfCopy _interactionTintColor];
     [v8 appendFormat:@"tintColor = %@; ", _interactionTintColor2];
   }
 
-  _monochromaticTreatment = [(UIView *)self _monochromaticTreatment];
+  _monochromaticTreatment = [(UIView *)selfCopy _monochromaticTreatment];
   if (_monochromaticTreatment)
   {
     v25 = _monochromaticTreatment;
-    _enableMonochromaticTreatment = [(UIView *)self _enableMonochromaticTreatment];
+    _enableMonochromaticTreatment = [(UIView *)selfCopy _enableMonochromaticTreatment];
     if (v25 == 2)
     {
       v27 = @"monochromatic=vibrant(disabled); ";
@@ -7371,26 +7372,26 @@ LABEL_36:
   }
 
 LABEL_51:
-  if ((*(&self->_viewFlags + 20) & 0x40) != 0)
+  if ((*(&selfCopy->_viewFlags + 20) & 0x40) != 0)
   {
-    v30 = [(UIView *)self tag];
+    v30 = [(UIView *)selfCopy tag];
     if (v30)
     {
       [v8 appendFormat:@"tag = %ld; ", v30];
     }
   }
 
-  if ([(UIView *)self isFocused])
+  if ([(UIView *)selfCopy isFocused])
   {
     [v8 appendFormat:@"focused = YES; "];
   }
 
-  if ([(NSArray *)self->_gestureRecognizers count])
+  if ([(NSArray *)selfCopy->_gestureRecognizers count])
   {
-    [v8 appendFormat:@"gestureRecognizers = <NSArray: %p>; ", self->_gestureRecognizers];
+    [v8 appendFormat:@"gestureRecognizers = <NSArray: %p>; ", selfCopy->_gestureRecognizers];
   }
 
-  animationKeys = [(CALayer *)self->_layer animationKeys];
+  animationKeys = [(CALayer *)selfCopy->_layer animationKeys];
   v32 = animationKeys;
   if (animationKeys && [animationKeys count])
   {
@@ -7418,14 +7419,14 @@ LABEL_51:
           }
 
           v39 = *(*(&v50 + 1) + 8 * i);
-          selfCopy = self;
-          v41 = self->_layer;
+          v40 = selfCopy;
+          v41 = selfCopy->_layer;
           v42 = [(CALayer *)v41 animationForKey:v39];
           v47 = v39;
           v8 = v38;
           [v38 appendFormat:@" %@=%@;", v47, v42];
 
-          self = selfCopy;
+          selfCopy = v40;
         }
 
         v35 = [v33 countByEnumeratingWithState:&v50 objects:v54 count:16];
@@ -7439,21 +7440,21 @@ LABEL_51:
     v7 = v49;
   }
 
-  backgroundColor = [(UIView *)self backgroundColor];
+  backgroundColor = [(UIView *)selfCopy backgroundColor];
 
   if (backgroundColor)
   {
-    backgroundColor2 = [(UIView *)self backgroundColor];
+    backgroundColor2 = [(UIView *)selfCopy backgroundColor];
     [v8 appendFormat:@"backgroundColor = %@; ", backgroundColor2];
   }
 
-  v45 = [(CALayer *)self->_layer description];
+  v45 = [(CALayer *)selfCopy->_layer description];
   [v8 appendFormat:@"layer = %@>", v45];
 
   return v8;
 }
 
-- (uint64_t)_modifiesTraitCollectionInheritedByChildren
+- (BOOL)_modifiesTraitCollectionInheritedByChildren
 {
   if ((self[102] & 8) != 0)
   {
@@ -7949,7 +7950,7 @@ LABEL_7:
 - (CGRect)_frameIgnoringLayerTransform
 {
   memset(&v19[1], 0, sizeof(CATransform3D));
-  [(UIView *)self transform3D];
+  objc_msgSend_transform3D(self, a2);
   v19[0] = v19[1];
   if (CATransform3DIsIdentity(v19))
   {
@@ -8018,8 +8019,8 @@ LABEL_6:
 
   sub_188AADE10(v20, v19, maximum, immediate, v16, v18);
 
-  sub_188A3F5FC(v19, &qword_1EA934050);
-  sub_188A3F5FC(v20, &qword_1EA934050);
+  sub_188A3F5FC(v19, &qword_1EA934050, qword_18A64CA10);
+  sub_188A3F5FC(v20, &qword_1EA934050, qword_18A64CA10);
 }
 
 - (void)__swift_removeAllRetargetableAnimationsIfDetatchedFromContext
@@ -8038,19 +8039,19 @@ LABEL_6:
   v6 = sub_18A4A7288();
   v8 = v7;
   selfCopy = self;
-  sub_188ABDAF4(v6, v8, target, &v18);
+  sub_188ABDAF4(v6, v8, target, v18);
 
   v10 = v19;
   if (v19)
   {
-    v11 = __swift_project_boxed_opaque_existential_0(&v18, v19);
+    v11 = __swift_project_boxed_opaque_existential_0(v18, v19);
     v12 = *(v10 - 8);
     v13 = MEMORY[0x1EEE9AC00](v11);
-    v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v12 + 16))(v15, v13);
     v16 = sub_18A4A86A8();
     (*(v12 + 8))(v15, v10);
-    __swift_destroy_boxed_opaque_existential_0Tm(&v18);
+    __swift_destroy_boxed_opaque_existential_0Tm(v18);
   }
 
   else
@@ -8270,9 +8271,9 @@ LABEL_19:
     dispatch_once(&qword_1ED49E478, &__block_literal_global_27_1);
   }
 
-  v0 = qword_1ED49E470;
+  v1 = qword_1ED49E470;
 
-  return v0;
+  return v1;
 }
 
 - (id)_safeMaskView
@@ -8349,7 +8350,7 @@ uint64_t __31__UIView_UIViewRTL___enableRTL__block_invoke()
   return result;
 }
 
-uint64_t __68__UIView_Internal___registerClassForIdiomInitializationIfNeccessary__block_invoke()
+void *__68__UIView_Internal___registerClassForIdiomInitializationIfNeccessary__block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v1 = _UIViewClassesRegisteredForIdiomInitialization;
@@ -8418,7 +8419,7 @@ uint64_t __72__UIView__UIViewBacking___mirroredKeyPathsForCornerMaskingConfigura
     v8 = *(self + 168);
     if (v8)
     {
-      [v8 transform];
+      objc_msgSend_transform(v8);
     }
 
     else
@@ -8782,7 +8783,7 @@ void __54__UIView_FluidTransitions___isOnFluidParallaxDenyList__block_invoke()
 
 - (CGRect)convertRect:(CGRect)rect fromMaskingCoordinateSpace:(id)space
 {
-  sub_188AFC590(self, a2, space, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, &selRef_convertRect_fromCoordinateSpace_);
+  sub_188AFC590(self, a2, space, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, &selRef_convertRect_fromCoordinateSpace_, 673);
   result.size.height = v7;
   result.size.width = v6;
   result.origin.y = v5;
@@ -8792,7 +8793,7 @@ void __54__UIView_FluidTransitions___isOnFluidParallaxDenyList__block_invoke()
 
 - (CGRect)convertRect:(CGRect)rect toMaskingCoordinateSpace:(id)space
 {
-  sub_188AFC590(self, a2, space, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, &selRef_convertRect_toCoordinateSpace_);
+  sub_188AFC590(self, a2, space, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, &selRef_convertRect_toCoordinateSpace_, 668);
   result.size.height = v7;
   result.size.width = v6;
   result.origin.y = v5;
@@ -8860,29 +8861,30 @@ void __54__UIView_FluidTransitions___isOnFluidParallaxDenyList__block_invoke()
 - (_UIViewMaterial)_background
 {
   selfCopy = self;
-  UIView._background.getter(v12);
-  v3 = v13;
-  if (v13)
+  UIView._background.getter(v13);
+  v3 = v14;
+  if (v14)
   {
-    v4 = __swift_project_boxed_opaque_existential_0(v12, v13);
-    v5 = *(v3 - 8);
-    v6 = MEMORY[0x1EEE9AC00](v4);
-    v8 = &v12[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v5 + 16))(v8, v6);
-    sub_188A3F5FC(v12, &unk_1EA93C9A0);
-    v9 = sub_188C8D2B4(v3);
+    v4 = v15;
+    v5 = __swift_project_boxed_opaque_existential_0(v13, v14);
+    v6 = *(v3 - 8);
+    v7 = MEMORY[0x1EEE9AC00](v5);
+    v9 = &v13[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v6 + 16))(v9, v7);
+    sub_188A3F5FC(v13, &unk_1EA93C9A0, qword_18A6513A0);
+    v10 = sub_188C8D2B4(v3, v4);
 
-    (*(v5 + 8))(v8, v3);
+    (*(v6 + 8))(v9, v3);
   }
 
   else
   {
 
-    sub_188A3F5FC(v12, &unk_1EA93C9A0);
-    v9 = 0;
+    sub_188A3F5FC(v13, &unk_1EA93C9A0, qword_18A6513A0);
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 + (id)_currentAnimationAttributes
@@ -9018,7 +9020,7 @@ void __54__UIView_FluidTransitions___isOnFluidParallaxDenyList__block_invoke()
   UIView._background.getter(v3);
   sub_188AF48C4(v3);
 
-  sub_188A3F5FC(v3, &unk_1EA93C9A0);
+  sub_188A3F5FC(v3, &unk_1EA93C9A0, qword_18A6513A0);
 }
 
 - (void)_setEnableMonochromaticTreatment:(BOOL)treatment
@@ -9054,7 +9056,7 @@ void __54__UIView_FluidTransitions___isOnFluidParallaxDenyList__block_invoke()
 + (void)__swift_createTransformerWithInputAnimatableProperties:(id)properties presentationValueChangedCallback:(id)callback
 {
   v4 = _Block_copy(callback);
-  sub_188A34624(0, &qword_1ED48F690);
+  sub_188A34624(0, &qword_1ED48F690, off_1E70E9410);
   v5 = sub_18A4A7548();
   v6 = swift_allocObject();
   *(v6 + 16) = v4;
@@ -9324,7 +9326,7 @@ LABEL_8:
   return self;
 }
 
-- (uint64_t)_areAccessibilityButtonShapesEnabled
+- (void)_areAccessibilityButtonShapesEnabled
 {
   if (result)
   {
@@ -9332,7 +9334,7 @@ LABEL_8:
     result = _AXSButtonShapesEnabled();
     if (result)
     {
-      return [objc_msgSend(v1 "_screen")] != 3;
+      return ([objc_msgSend(v1 "_screen")] != 3);
     }
   }
 
@@ -9622,7 +9624,7 @@ uint64_t __42__UIView__recursivelySuspendMotionEffects__block_invoke(uint64_t a1
     [v6 setBounds:{v8, v10, v12}];
     if (v4)
     {
-      [v4 transform];
+      objc_msgSend_transform(v4);
     }
 
     else
@@ -9801,28 +9803,28 @@ LABEL_6:
   dampingRatioCopy = dampingRatio;
   initialResponseCopy = initialResponse;
   sub_188D716C4(interactive, dampingRatio, initialResponse, v25, v28, v27, v29, ratio, response, smoothing, responseSmoothing, targetSmoothing, deceleration, impulse);
-  sub_188A55B8C(v27);
-  sub_188A55B8C(v25);
+  sub_188A55B8C(v27, v29);
+  sub_188A55B8C(v25, v28);
 }
 
 - (void)_setBackground:(id)background
 {
   if (background)
   {
-    swift_getObjectType();
+    ObjectType = swift_getObjectType();
     selfCopy = self;
     swift_unknownObjectRetain();
-    sub_18901EB8C(v6);
+    sub_18901EB8C(ObjectType, v7);
   }
 
   else
   {
-    v7 = 0;
-    memset(v6, 0, sizeof(v6));
+    v8 = 0;
+    memset(v7, 0, sizeof(v7));
     selfCopy2 = self;
   }
 
-  UIView._background.setter(v6);
+  UIView._background.setter(v7);
   swift_unknownObjectRelease();
 }
 
@@ -9831,7 +9833,7 @@ void __75__UIView__shouldInvalidateTraitCollectionForSemanticContentAttributeCha
   if ((dyld_program_sdk_at_least() & 1) == 0)
   {
     v0 = _UIMainBundleIdentifier();
-    if ([v0 isEqualToString:@"com.zhiliaoapp.musically"])
+    if (objc_msgSend_isEqualToString_(v0))
     {
       byte_1EA9946E1 = 1;
     }
@@ -9839,7 +9841,7 @@ void __75__UIView__shouldInvalidateTraitCollectionForSemanticContentAttributeCha
     else
     {
       v1 = _UIMainBundleIdentifier();
-      byte_1EA9946E1 = [v1 isEqualToString:@"com.blued.international"];
+      byte_1EA9946E1 = objc_msgSend_isEqualToString_(v1);
     }
 
     if ((byte_1EA9946E1 & 1) == 0)
@@ -10621,7 +10623,7 @@ LABEL_15:
 
   v3 = [-[UIView _layoutEngineHostConstraints](self "_layoutEngineHostConstraints")];
   v4 = v3;
-  if (!v3 || ([objc_msgSend(v3 "identifier")] & 1) != 0)
+  if (!v3 || (objc_msgSend_isEqualToString_([v3 identifier]) & 1) != 0)
   {
     return v4;
   }
@@ -10669,7 +10671,7 @@ LABEL_9:
     }
 
     v4 = *(*(&v13 + 1) + 8 * v10);
-    if ([objc_msgSend(v4 "identifier")])
+    if (objc_msgSend_isEqualToString_([v4 identifier]))
     {
       return v4;
     }
@@ -11099,9 +11101,8 @@ id __21__UIView___tintColor__block_invoke(uint64_t a1, void *a2)
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  edgeCopy = edge;
   selfCopy = self;
-  sub_188C9D56C(edgeCopy, x, y, width, height, top);
+  sub_188C9D56C(edge, x, y, width, height, top);
   v13 = v12;
   v15 = v14;
   v17 = v16;
@@ -11152,7 +11153,7 @@ id __21__UIView___tintColor__block_invoke(uint64_t a1, void *a2)
   v12 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [UIView _updateAutomaticCaptureGroupIfNecessary];
+    [(UIView *)self _updateAutomaticCaptureGroupIfNecessary];
     v9 = 0u;
     v10 = 0u;
     v7 = 0u;
@@ -11214,16 +11215,16 @@ id __21__UIView___tintColor__block_invoke(uint64_t a1, void *a2)
   _Block_object_dispose(&v5, 8);
 }
 
-uint64_t __91__UIView_AdditionalLayoutSupport___recalculateStrictDescendantNeedsDoubleUpdateConstraints__block_invoke(uint64_t result, void *a2, _BYTE *a3, _BYTE *a4)
+void **__91__UIView_AdditionalLayoutSupport___recalculateStrictDescendantNeedsDoubleUpdateConstraints__block_invoke(void **result, void *a2, _BYTE *a3, _BYTE *a4)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     v7 = result;
     result = [a2 _needsDoubleUpdateConstraintsPass];
     if (result)
     {
 LABEL_3:
-      *(*(*(v7 + 40) + 8) + 40) = a2;
+      *(v7[5][1] + 40) = a2;
       a3 = a4;
 LABEL_4:
       *a3 = 1;
@@ -11287,9 +11288,9 @@ LABEL_3:
 LABEL_6:
   swift_getObjCClassMetadata();
   sub_188CFE278(v5, v8, v10, v9);
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v10, v9);
 
-  sub_188A55B8C(v5);
+  sub_188A55B8C(v5, v8);
 }
 
 - (double)_continuousCornerRadius
@@ -11440,9 +11441,9 @@ LABEL_3:
 LABEL_6:
   swift_getObjCClassMetadata();
   sub_188D22BB8(interactive, v7, v10, v9, v11);
-  sub_188A55B8C(v9);
+  sub_188A55B8C(v9, v11);
 
-  sub_188A55B8C(v7);
+  sub_188A55B8C(v7, v10);
 }
 
 uint64_t __51__UIView__recursivelyConsiderResumingMotionEffects__block_invoke(uint64_t a1, void *a2)
@@ -11635,7 +11636,7 @@ LABEL_14:
 
   sub_188D49510(v15, v12, v14, target);
 
-  sub_188A3F5FC(v15, &qword_1EA934050);
+  sub_188A3F5FC(v15, &qword_1EA934050, qword_18A64CA10);
 }
 
 - (UIWritingToolsCoordinator)_writingToolsCoordinator
@@ -11762,19 +11763,20 @@ LABEL_14:
 - (id)_suppressBackground
 {
   selfCopy = self;
-  v3 = sub_188D729CC();
+  sub_188D729CC();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (id)_vendAssertionForOverrideAlpha:(double)alpha
 {
   selfCopy = self;
-  v4 = sub_188D71D64();
-  sub_188D71F60();
-  v6 = v5;
+  v5 = sub_188D71D64();
+  sub_188D71F60(alpha);
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 - (id)focusGuides
@@ -12060,22 +12062,22 @@ LABEL_7:
 
 - (void)_prepareDescendantsForWindowHostingSceneRemoval
 {
-  if (self)
+  if (result)
   {
-    return [self _makeSubtreePerformSelector:sel__prepareForWindowHostingSceneRemoval withObject:0];
+    return [result _makeSubtreePerformSelector:sel__prepareForWindowHostingSceneRemoval withObject:0];
   }
 
-  return self;
+  return result;
 }
 
 - (void)_prepareDescendantsForWindowDealloc
 {
-  if (self)
+  if (result)
   {
-    return [self _makeSubtreePerformSelector:sel__prepareForWindowDealloc withObject:0];
+    return [result _makeSubtreePerformSelector:sel__prepareForWindowDealloc withObject:0];
   }
 
-  return self;
+  return result;
 }
 
 - (void)_invalidateAppearance
@@ -12292,7 +12294,8 @@ LABEL_5:
   changeCopy = change;
   ancestorCopy2 = ancestor;
   selfCopy = self;
-  LOBYTE(ancestorCopy) = sub_188E428F4(changeCopy, ancestorCopy);
+  sub_188E428F4(changeCopy, ancestorCopy);
+  LOBYTE(ancestorCopy) = v9;
 
   return ancestorCopy & 1;
 }
@@ -12346,7 +12349,7 @@ LABEL_5:
 - (double)_containerConcentricRadiusForCorner:(unint64_t)corner
 {
   selfCopy = self;
-  if (sub_188E42E98(0) && (v5 = sub_188F2B4B0(corner), v7 = v6, , (v7 & 1) == 0))
+  if (sub_188E42E98() && (v5 = sub_188F2B4B0(corner), v7 = v6, , (v7 & 1) == 0))
   {
 
     return *&v5;
@@ -12370,7 +12373,7 @@ LABEL_5:
 
 - (Class)_intelligenceBaseClass
 {
-  sub_188A34624(0, &qword_1ED48F680);
+  sub_188A34624(0, &qword_1ED48F680, off_1E70EAD78);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -12383,7 +12386,7 @@ LABEL_5:
   x = in.origin.x;
   wrapperCopy = wrapper;
   selfCopy = self;
-  UIView._intelligenceCollectRemoteContent(in:remoteContextWrapper:)(x, y, width, height);
+  UIView._intelligenceCollectRemoteContent(in:remoteContextWrapper:)(wrapperCopy, x, y, width, height);
 }
 
 - (NSArray)_appIntentsAnnotationsDebugDescription
@@ -12392,16 +12395,16 @@ LABEL_5:
   UIView._appIntentsIntelligenceProvider.getter(&v5);
   if (v6)
   {
-    sub_188E4DA48(&v5, &v7);
-    __swift_project_boxed_opaque_existential_0(&v7, v8);
+    sub_188E4DA48(&v5, v7);
+    __swift_project_boxed_opaque_existential_0(v7, v8);
     sub_18A4A41F8();
 
-    __swift_destroy_boxed_opaque_existential_0Tm(&v7);
+    __swift_destroy_boxed_opaque_existential_0Tm(v7);
   }
 
   else
   {
-    sub_188A3F5FC(&v5, &qword_1EA934060);
+    sub_188A3F5FC(&v5, &qword_1EA934060, &qword_18A64BCD8);
   }
 
   v3 = sub_18A4A7518();
@@ -12491,9 +12494,9 @@ LABEL_3:
 LABEL_6:
   swift_getObjCClassMetadata();
   sub_188EB13A0(v5, v8, v10, v9);
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v10, v9);
 
-  sub_188A55B8C(v5);
+  sub_188A55B8C(v5, v8);
 }
 
 - (void)__swift_replaceInProcessAnimationForKey:(id)key behavior:(id)behavior interactive:(BOOL)interactive
@@ -12526,7 +12529,7 @@ LABEL_6:
 {
   v6 = _Block_copy(setter);
   v7 = _Block_copy(valueSetter);
-  sub_188A34624(0, &qword_1ED48F690);
+  sub_188A34624(0, &qword_1ED48F690, off_1E70E9410);
   v8 = sub_18A4A7548();
   v9 = swift_allocObject();
   *(v9 + 16) = v6;
@@ -12554,13 +12557,14 @@ LABEL_6:
   swift_getObjCClassMetadata();
   sub_188EB1A10(v6, v5);
 
-  sub_188A55B8C(v6);
+  sub_188A55B8C(v6, v5);
 }
 
 + (void)__swift_performWithStartingVelocity:(double)velocity actionsWithAnimation:(id)animation
 {
   v5 = _Block_copy(animation);
-  sub_188EB28E8(v5, velocity);
+  v6.n128_f64[0] = velocity;
+  sub_188EB28E8(v5, v6);
 
   _Block_release(v5);
 }
@@ -12965,12 +12969,13 @@ LABEL_6:
 + (id)_makeHybridPropertyAnimatorWithDuration:(double)duration progressValue:(id)value progressValueReversed:(BOOL)reversed progressValueUpdateReason:(unsigned int)reason springAnimationBehavior:(id)behavior
 {
   v8 = *&reason;
-  v12 = objc_allocWithZone(_s22HybridPropertyAnimatorCMa());
+  _s22HybridPropertyAnimatorCMa();
+  v13 = objc_allocWithZone(v12);
   valueCopy = value;
   swift_unknownObjectRetain();
-  v14 = sub_1891FDCEC(value, reversed, v8, behavior, duration);
+  v15 = sub_1891FDCEC(value, reversed, v8, behavior, duration);
 
-  return v14;
+  return v15;
 }
 
 - (void)_applyShape:(id)shape
@@ -13142,16 +13147,16 @@ LABEL_6:
 
 - (id)_enclosingInterfaceActionRepresentationView
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return _enclosingViewOfClass(self);
+  return _enclosingViewOfClass(self, v3);
 }
 
 - (id)_enclosingInterfaceActionGroupView
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return _enclosingViewOfClass(self);
+  return _enclosingViewOfClass(self, v3);
 }
 
 - (id)_uis_outline
@@ -13205,9 +13210,9 @@ LABEL_6:
   v4 = minimumContentSizeCategory;
   if ([(NSString *)v4 length])
   {
-    v5 = [(NSString *)v4 isEqualToString:@"_UICTContentSizeCategoryUnspecified"];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if (!v5)
+    if (!isEqualToString)
     {
       goto LABEL_6;
     }
@@ -13244,9 +13249,9 @@ LABEL_6:
     goto LABEL_17;
   }
 
-  v12 = [value isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(value, value, v10);
 
-  if ((v12 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_17:
     objc_setAssociatedObject(self, &_MergedGlobals_1000, value, 3);
@@ -13262,9 +13267,9 @@ LABEL_18:
   v4 = maximumContentSizeCategory;
   if ([v4 length])
   {
-    v5 = [v4 isEqualToString:@"_UICTContentSizeCategoryUnspecified"];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if (!v5)
+    if (!isEqualToString)
     {
       goto LABEL_6;
     }
@@ -13297,9 +13302,9 @@ LABEL_6:
 
   if (v10 && v11)
   {
-    v13 = [v10 isEqual:v11];
+    isEqual = objc_msgSend_isEqual_(v10);
 
-    if ((v13 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_18;
     }
@@ -13330,7 +13335,7 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    v17 = [(NSString *)value isEqual:v16];
+    v17 = objc_msgSend_isEqual_(value);
 
     if ((v17 & 1) == 0)
     {
@@ -13572,19 +13577,19 @@ void __65__UIView_VisualDescriptionAdditions___visualRecursiveDescription__block
   [v22 addObject:v23];
 }
 
-+ (void)_animateCollectionTableAnimationWithDuration:(uint64_t)duration delay:(uint64_t)delay options:(void *)options animations:(void *)animations completion:
++ (void)_animateCollectionTableAnimationWithDuration:(void *)duration delay:(void *)delay options:(double)options animations:(double)animations completion:
 {
-  animationsCopy = animations;
-  optionsCopy = options;
+  delayCopy = delay;
+  durationCopy = duration;
   v11 = objc_opt_self();
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_CollectionTableAnimationsUseSpringCurve, @"CollectionTableAnimationsUseSpringCurve", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1EA95E22C)
+  if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_CollectionTableAnimationsUseSpringCurve, @"CollectionTableAnimationsUseSpringCurve", _UIInternalPreferenceUpdateBool) || byte_1EA95E22C)
   {
-    [v11 animateWithSpringDuration:delay bounce:optionsCopy initialSpringVelocity:animationsCopy delay:self options:0.0 animations:0.0 completion:a2];
+    [v11 animateWithSpringDuration:a2 bounce:durationCopy initialSpringVelocity:delayCopy delay:options options:0.0 animations:0.0 completion:animations];
   }
 
   else
   {
-    [v11 animateWithDuration:delay delay:optionsCopy options:animationsCopy animations:self completion:a2];
+    [v11 animateWithDuration:a2 delay:durationCopy options:delayCopy animations:options completion:animations];
   }
 }
 
@@ -13822,7 +13827,7 @@ LABEL_26:
       v43 = target;
       if (target)
       {
-        [target transform];
+        objc_msgSend_transform(target);
       }
 
       else
@@ -14389,13 +14394,13 @@ void __50__UIView__UIViewBacking___materialSidebarsEnabled__block_invoke()
   }
 }
 
-- (uint64_t)_backing_needsPreLayoutUpdate
+- (void)_backing_needsPreLayoutUpdate
 {
   if (result)
   {
     v1 = result;
     v2 = _UIViewPreLayoutEnabled();
-    v3 = *(v1 + 168);
+    v3 = v1[21];
     if (v2)
     {
 
@@ -14537,7 +14542,7 @@ void __50__UIView__UIViewBacking___materialSidebarsEnabled__block_invoke()
 {
   if (self)
   {
-    [*(self + 168) setBounds:?];
+    [*(self + 168) setBounds:{a2, bounds}];
     v8 = *(self + 176);
     if (v8)
     {
@@ -14846,7 +14851,7 @@ void __61__UIView__UIViewBacking___backing_willChangeValueForKeyPath___block_inv
 
 - (void)_privateSubview_setValue:(id)value forObservedLayerKeyPath:(id)path
 {
-  if ([path isEqualToString:@"cornerRadius"])
+  if (objc_msgSend_isEqualToString_(path, a2, @"cornerRadius"))
   {
     [value doubleValue];
   }
@@ -14910,11 +14915,11 @@ LABEL_8:
   }
 }
 
-- (void)_backing_addPrivateSubview:(uint64_t)subview
+- (void)_backing_addPrivateSubview:(uint64_t)result
 {
-  if (subview)
+  if (result)
   {
-    [(UIView *)subview _backing_addPrivateSubview:a2 positioned:-1 relativeTo:0];
+    [(UIView *)result _backing_addPrivateSubview:a2 positioned:-1 relativeTo:0];
   }
 }
 
@@ -15121,8 +15126,8 @@ uint64_t __75__UIView__UIViewBacking___backing_addPrivateSubview_positioned_rela
   if (name)
   {
     v4 = name[22];
-    v5 = v4 ? *(v4 + 48) : 0;
-    if (([v5 isEqualToString:a2] & 1) == 0)
+    v5 = v4 ? objc_msgSend_isEqualToString_(*(v4 + 48), a2, a2) : objc_msgSend_isEqualToString_(0, a2, a2);
+    if ((v5 & 1) == 0)
     {
       [(_UICollectionLayoutItemSolver *)name[22] setSolveResult:a2];
       v6 = name[22];
@@ -15169,7 +15174,7 @@ uint64_t __75__UIView__UIViewBacking___backing_addPrivateSubview_positioned_rela
   }
 }
 
-- (uint64_t)_backing_traitCollectionDidChangeInternal:(uint64_t)result
+- (void)_backing_traitCollectionDidChangeInternal:(void *)result
 {
   if (result)
   {
@@ -15179,7 +15184,7 @@ uint64_t __75__UIView__UIViewBacking___backing_addPrivateSubview_positioned_rela
       [(UIView *)result _updateAutomaticCaptureGroupIfNecessary];
     }
 
-    v4 = *(v3 + 176);
+    v4 = v3[22];
     if (v4)
     {
       v5 = *(v4 + 40);
@@ -15198,11 +15203,11 @@ uint64_t __75__UIView__UIViewBacking___backing_addPrivateSubview_positioned_rela
   return result;
 }
 
-- (uint64_t)_backing__generateDeferredAnimations:(uint64_t)result
+- (void)_backing__generateDeferredAnimations:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 176);
+    v2 = result[22];
     if (v2)
     {
       v3 = *(v2 + 40);
@@ -15219,11 +15224,11 @@ uint64_t __75__UIView__UIViewBacking___backing_addPrivateSubview_positioned_rela
   return result;
 }
 
-- (uint64_t)_backing__shouldAnimatePropertyWithKey:(uint64_t)result
+- (void)_backing__shouldAnimatePropertyWithKey:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 176);
+    v2 = result[22];
     if (v2)
     {
       v3 = *(v2 + 40);
@@ -15262,11 +15267,11 @@ uint64_t __75__UIView__UIViewBacking___backing_addPrivateSubview_positioned_rela
   return key;
 }
 
-- (uint64_t)_backing__didMoveFromWindow:(uint64_t)window toWindow:
+- (void)_backing__didMoveFromWindow:(uint64_t)window toWindow:
 {
   if (result)
   {
-    v3 = *(result + 176);
+    v3 = result[22];
     if (v3)
     {
       v4 = *(v3 + 40);
@@ -15289,15 +15294,15 @@ uint64_t __75__UIView__UIViewBacking___backing_addPrivateSubview_positioned_rela
   viewBackingAux = self->_viewBackingAux;
   if (viewBackingAux)
   {
-    captureGroupName = viewBackingAux->_captureGroupName;
+    isEqualToString = objc_msgSend_isEqualToString_(viewBackingAux->_captureGroupName);
   }
 
   else
   {
-    captureGroupName = 0;
+    isEqualToString = objc_msgSend_isEqualToString_(0);
   }
 
-  if (![(NSString *)captureGroupName isEqualToString:name])
+  if ((isEqualToString & 1) == 0)
   {
     [(UIView *)self _mt_setCaptureGroupName:name];
 
@@ -15797,19 +15802,19 @@ LABEL_16:
   return result;
 }
 
-__n128 __68__UIView__UIConstraintBasedLayoutEmbedding___baselineOffsetsAtSize___block_invoke(uint64_t a1, void *a2)
+__n128 __68__UIView__UIConstraintBasedLayoutEmbedding___baselineOffsetsAtSize___block_invoke(void *a1, void *a2)
 {
-  v4 = [(UIView *)*(a1 + 32) _nsis_layoutRectFromHostingViewInEngine:a2];
-  v5 = *(*(a1 + 48) + 8);
+  v4 = [(UIView *)a1[4] _nsis_layoutRectFromHostingViewInEngine:a2];
+  v5 = *(a1[6] + 8);
   *(v5 + 32) = v4;
   *(v5 + 40) = v6;
   *(v5 + 48) = v7;
   *(v5 + 56) = v8;
-  v9 = *(a1 + 40);
-  if (*(a1 + 32) == v9)
+  v9 = a1[5];
+  if (a1[4] == v9)
   {
-    v15 = *(*(a1 + 56) + 8);
-    v16 = *(*(a1 + 48) + 8);
+    v15 = *(a1[7] + 8);
+    v16 = *(a1[6] + 8);
     result = *(v16 + 32);
     v17 = *(v16 + 48);
     *(v15 + 32) = result;
@@ -15819,7 +15824,7 @@ __n128 __68__UIView__UIConstraintBasedLayoutEmbedding___baselineOffsetsAtSize___
   else
   {
     result.n128_f64[0] = [(UIView *)v9 _nsis_layoutRectFromHostingViewInEngine:a2];
-    v11 = *(*(a1 + 56) + 8);
+    v11 = *(a1[7] + 8);
     v11[4] = result.n128_u64[0];
     v11[5] = v12;
     v11[6] = v13;
@@ -16136,7 +16141,7 @@ LABEL_15:
   return [(UIView *)*(a1 + 32) _recursiveCollectTemporaryInternalConstraintsWithEngine:1 ignoreAutoresizingMaskConstraints:*(*(a1 + 72) + 8) + 40 returningConstraintsForViewsNeedingSecondPass:*(a1 + 80) currentTargetWidth:?];
 }
 
-uint64_t __140__UIView__UIConstraintBasedLayoutMeasuring___measureViewWithSize_temporaryConstraints_suspendingSystemConstraints_withOptimizedEngineBlock___block_invoke_2(uint64_t a1)
+void *__140__UIView__UIConstraintBasedLayoutMeasuring___measureViewWithSize_temporaryConstraints_suspendingSystemConstraints_withOptimizedEngineBlock___block_invoke_2(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -16160,7 +16165,7 @@ uint64_t __140__UIView__UIConstraintBasedLayoutMeasuring___measureViewWithSize_t
         }
 
         -[UIView _finishTemporaryInternalConstraints:withEngine:](*(*(&v7 + 1) + 8 * v6), [*(*(*(a1 + 40) + 8) + 40) objectForKey:*(*(&v7 + 1) + 8 * v6)], *(a1 + 32));
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -16174,7 +16179,7 @@ uint64_t __140__UIView__UIConstraintBasedLayoutMeasuring___measureViewWithSize_t
   return result;
 }
 
-uint64_t __140__UIView__UIConstraintBasedLayoutMeasuring___measureViewWithSize_temporaryConstraints_suspendingSystemConstraints_withOptimizedEngineBlock___block_invoke_3(uint64_t a1, _BYTE *a2, _BYTE *a3)
+void *__140__UIView__UIConstraintBasedLayoutMeasuring___measureViewWithSize_temporaryConstraints_suspendingSystemConstraints_withOptimizedEngineBlock___block_invoke_3(uint64_t a1, _BYTE *a2, _BYTE *a3)
 {
   result = [a2 _wantsBaselineUpdatingFollowingConstraintsPass];
   if (result)
@@ -17083,16 +17088,15 @@ BOOL __88__UIView_FluidTransitions___interruptibleParallaxTransitionsEnabledWith
   return byte_1ED4A29D2;
 }
 
-uint64_t __56__UIView_FluidTransitions___fluidZoomTransitionsEnabled__block_invoke()
+void __56__UIView_FluidTransitions___fluidZoomTransitionsEnabled__block_invoke()
 {
-  result = dyld_program_sdk_at_least();
-  if (result)
+  v0 = dyld_program_sdk_at_least();
+  if (v0)
   {
-    result = _os_feature_enabled_impl();
+    LOBYTE(v0) = _os_feature_enabled_impl();
   }
 
-  byte_1ED4A29D2 = result;
-  return result;
+  byte_1ED4A29D2 = v0;
 }
 
 + (BOOL)_fluidParallaxTransitionsEnabledWithTraitCollection:(uint64_t)collection
@@ -17411,7 +17415,7 @@ LABEL_56:
     rect = v19 + v15 + v36;
     v92 = v29;
     memset(&buf, 0, sizeof(buf));
-    [(UIView *)self transform];
+    objc_msgSend_transform(self);
     if (_nsis_origin)
     {
       _minXVariable = [(UIView *)self _minXVariable];
@@ -17585,7 +17589,7 @@ LABEL_56:
   else
   {
     memset(&buf, 0, sizeof(buf));
-    [(UIView *)self transform];
+    objc_msgSend_transform(self);
   }
 }
 
@@ -17827,7 +17831,7 @@ LABEL_45:
   expressionCopy = expression;
   memset(v15, 0, sizeof(v15));
   v14 = 0u;
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
   if (verticalCopy)
   {
     nsli_minYVariable = [(UIView *)self nsli_minYVariable];
@@ -17898,7 +17902,7 @@ LABEL_10:
     memset(&v34, 0, sizeof(v34));
     if (superview)
     {
-      [superview transform];
+      objc_msgSend_transform(superview);
     }
 
     t1 = v34;
@@ -18046,7 +18050,7 @@ LABEL_10:
       v34 = 0u;
       if (v22)
       {
-        [(UIView *)v22 transform:0];
+        objc_msgSend_transform(v22, 0, 0);
       }
 
       [v12 incrementConstant:{0.0, v34, v35}];
@@ -18108,7 +18112,7 @@ LABEL_10:
         memset(v53, 0, sizeof(v53));
         if (v16)
         {
-          [(UIView *)v16 transform];
+          objc_msgSend_transform(v16);
           v17 = v53[0].f64[1];
         }
 
@@ -18363,7 +18367,7 @@ LABEL_77:
 
   else
   {
-    [(UIView *)self transform];
+    objc_msgSend_transform(self);
   }
 
   v15 = v38.f64[0];
@@ -18458,7 +18462,7 @@ LABEL_77:
       {
         if (v25)
         {
-          [(UIView *)v25 transform];
+          objc_msgSend_transform(v25);
         }
 
         else
@@ -19245,7 +19249,7 @@ LABEL_109:
   return v59;
 }
 
-uint64_t __120__UIView_UIConstraintBasedLayout___layoutEngine_didAddLayoutConstraint_roundingAdjustment_mutuallyExclusiveConstraints___block_invoke(uint64_t result, void *a2, int a3, int a4, int a5)
+void *__120__UIView_UIConstraintBasedLayout___layoutEngine_didAddLayoutConstraint_roundingAdjustment_mutuallyExclusiveConstraints___block_invoke(void *result, void *a2, int a3, int a4, int a5)
 {
   if (a2)
   {
@@ -19257,7 +19261,7 @@ uint64_t __120__UIView_UIConstraintBasedLayout___layoutEngine_didAddLayoutConstr
     }
 
     result = [v7 _layoutEngineCreateIfNecessary];
-    if (result != *(v8 + 32))
+    if (result != *(v8 + 4))
     {
       v9 = result;
       if ((*(v8 + 64) & 1) == 0)
@@ -19283,14 +19287,14 @@ uint64_t __120__UIView_UIConstraintBasedLayout___layoutEngine_didAddLayoutConstr
 
       if (a5)
       {
-        result = [*(v8 + 40) _layoutEngine_isEngineMergingAllowedBetweenEngine:*(v8 + 32) itemEngine:v9 forConstraint:*(v8 + 48) initialView:v7];
+        result = [*(v8 + 5) _layoutEngine_isEngineMergingAllowedBetweenEngine:*(v8 + 4) itemEngine:v9 forConstraint:*(v8 + 6) initialView:v7];
         if ((result & 1) == 0)
         {
-          result = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Constraints to the safeAreaAspectFitLayoutGuide not allowed with views deeper in the view controller hierarchy than the window's root view controller. The safeAreaAspectFitLayoutGuide should only be used for displaying full-window/full-screen media content with views that are direct subviews or close descendants of the guide's window. %@", *(v8 + 48)}];
+          result = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Constraints to the safeAreaAspectFitLayoutGuide not allowed with views deeper in the view controller hierarchy than the window's root view controller. The safeAreaAspectFitLayoutGuide should only be used for displaying full-window/full-screen media content with views that are direct subviews or close descendants of the guide's window. %@", *(v8 + 6)}];
         }
       }
 
-      if (v7 != *(v8 + 40))
+      if (v7 != *(v8 + 5))
       {
         do
         {
@@ -19311,7 +19315,7 @@ uint64_t __120__UIView_UIConstraintBasedLayout___layoutEngine_didAddLayoutConstr
           v7 = result;
         }
 
-        while (result != *(v8 + 40));
+        while (result != *(v8 + 5));
       }
     }
   }
@@ -19573,7 +19577,7 @@ LABEL_13:
   }
 }
 
-uint64_t __50__UIView_UIConstraintBasedLayout__addConstraints___block_invoke(uint64_t a1)
+void *__50__UIView_UIConstraintBasedLayout__addConstraints___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -19596,7 +19600,8 @@ uint64_t __50__UIView_UIConstraintBasedLayout__addConstraints___block_invoke(uin
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) addConstraint:*(*(&v7 + 1) + 8 * v6++)];
+        [*(a1 + 40) addConstraint:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -19683,7 +19688,7 @@ uint64_t __50__UIView_UIConstraintBasedLayout__addConstraints___block_invoke(uin
   }
 }
 
-uint64_t __53__UIView_UIConstraintBasedLayout__removeConstraints___block_invoke(uint64_t a1)
+void *__53__UIView_UIConstraintBasedLayout__removeConstraints___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -19706,7 +19711,8 @@ uint64_t __53__UIView_UIConstraintBasedLayout__removeConstraints___block_invoke(
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) removeConstraint:*(*(&v7 + 1) + 8 * v6++)];
+        [*(a1 + 40) removeConstraint:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -21241,7 +21247,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t __110__UIView_UIConstraintBasedLayout___populateEngineWithConstraintsForViewSubtree_forComputingFittingSizeOfView___block_invoke(uint64_t a1, void *a2)
+void *__110__UIView_UIConstraintBasedLayout___populateEngineWithConstraintsForViewSubtree_forComputingFittingSizeOfView___block_invoke(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) containsObject:a2];
   if ((result & 1) == 0)
@@ -21505,7 +21511,7 @@ LABEL_25:
 
 - (_BYTE)_recursiveCollectTemporaryInternalConstraintsWithEngine:(uint64_t)engine ignoreAutoresizingMaskConstraints:(uint64_t)constraints returningConstraintsForViewsNeedingSecondPass:(double)pass currentTargetWidth:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v9 = result;
@@ -21514,35 +21520,36 @@ LABEL_25:
       if (![result _hostsLayoutEngine] || (result = objc_msgSend(v9, "_layoutEngine"), result == a2))
       {
         _allSubviews = [v9 _allSubviews];
-        v14 = 0u;
         v15 = 0u;
         v16 = 0u;
         v17 = 0u;
-        result = [_allSubviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v18 = 0u;
+        result = [_allSubviews countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (result)
         {
           v11 = result;
-          v12 = *v15;
+          v12 = *v16;
           do
           {
             v13 = 0;
             do
             {
-              if (*v15 != v12)
+              if (*v16 != v12)
               {
                 objc_enumerationMutation(_allSubviews);
               }
 
-              if ((~*(*(*(&v14 + 1) + 8 * v13) + 88) & 0x210000000000000) == 0)
+              v14 = *(*(&v15 + 1) + 8 * v13);
+              if ((~*(v14 + 88) & 0x210000000000000) == 0)
               {
-                [UIView _recursiveCollectTemporaryInternalConstraintsWithEngine:pass ignoreAutoresizingMaskConstraints:? returningConstraintsForViewsNeedingSecondPass:? currentTargetWidth:?];
+                [(UIView *)v14 _recursiveCollectTemporaryInternalConstraintsWithEngine:a2 ignoreAutoresizingMaskConstraints:0 returningConstraintsForViewsNeedingSecondPass:constraints currentTargetWidth:pass];
               }
 
               ++v13;
             }
 
             while (v11 != v13);
-            result = [_allSubviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+            result = [_allSubviews countByEnumeratingWithState:&v15 objects:v19 count:16];
             v11 = result;
           }
 
@@ -21832,7 +21839,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t __160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority_hasIntentionallyCollapsedHeight___block_invoke@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void *__160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority_hasIntentionallyCollapsedHeight___block_invoke@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
@@ -21934,7 +21941,7 @@ _BYTE *__160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFitting
   return [(UIView *)v19 _recursiveCollectTemporaryInternalConstraintsWithEngine:v20 ignoreAutoresizingMaskConstraints:1 returningConstraintsForViewsNeedingSecondPass:v22 currentTargetWidth:v21];
 }
 
-uint64_t __160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority_hasIntentionallyCollapsedHeight___block_invoke_2(uint64_t a1)
+void *__160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority_hasIntentionallyCollapsedHeight___block_invoke_2(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -21958,7 +21965,7 @@ uint64_t __160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFitti
         }
 
         -[UIView _finishTemporaryInternalConstraints:withEngine:](*(*(&v7 + 1) + 8 * v6), [*(*(*(a1 + 40) + 8) + 40) objectForKey:*(*(&v7 + 1) + 8 * v6)], *(a1 + 32));
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -21972,7 +21979,7 @@ uint64_t __160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFitti
   return result;
 }
 
-uint64_t __160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority_hasIntentionallyCollapsedHeight___block_invoke_3(uint64_t a1, _BYTE *a2, _BYTE *a3)
+void *__160__UIView_UIConstraintBasedLayout___calculatedSystemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority_hasIntentionallyCollapsedHeight___block_invoke_3(uint64_t a1, _BYTE *a2, _BYTE *a3)
 {
   result = [a2 _wantsBaselineUpdatingFollowingConstraintsPass];
   if (result)
@@ -23983,7 +23990,7 @@ void *__57__UIView_AdditionalLayoutSupport___switchToLayoutEngine___block_invoke
   return result;
 }
 
-uint64_t __57__UIView_AdditionalLayoutSupport___switchToLayoutEngine___block_invoke_2(uint64_t a1)
+void *__57__UIView_AdditionalLayoutSupport___switchToLayoutEngine___block_invoke_2(uint64_t a1)
 {
   v22 = *MEMORY[0x1E69E9840];
   v16 = 0u;
@@ -24006,7 +24013,8 @@ uint64_t __57__UIView_AdditionalLayoutSupport___switchToLayoutEngine___block_inv
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v16 + 1) + 8 * v6++) _parentalLayoutEngineDidChangeTo:*(a1 + 40)];
+        [*(*(&v16 + 1) + 8 * v6) _parentalLayoutEngineDidChangeTo:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -24045,7 +24053,8 @@ uint64_t __57__UIView_AdditionalLayoutSupport___switchToLayoutEngine___block_inv
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v12 + 1) + 8 * v11++) _addToEngine:*(a1 + 40)];
+          [*(*(&v12 + 1) + 8 * v11) _addToEngine:*(a1 + 40)];
+          v11 = v11 + 1;
         }
 
         while (v9 != v11);
@@ -24429,7 +24438,7 @@ LABEL_7:
   }
 }
 
-uint64_t __80__UIView_AdditionalLayoutSupport__setTranslatesAutoresizingMaskIntoConstraints___block_invoke(uint64_t a1)
+void *__80__UIView_AdditionalLayoutSupport__setTranslatesAutoresizingMaskIntoConstraints___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -24452,7 +24461,8 @@ uint64_t __80__UIView_AdditionalLayoutSupport__setTranslatesAutoresizingMaskInto
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) nsli_removeConstraint:*(*(&v7 + 1) + 8 * v6++)];
+        [*(a1 + 40) nsli_removeConstraint:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -24928,7 +24938,7 @@ id __91__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededCollectingVie
   }
 }
 
-uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithViewForVariableChangeNotifications___block_invoke(uint64_t a1)
+void *__100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithViewForVariableChangeNotifications___block_invoke(uint64_t a1)
 {
   v3 = MEMORY[0x1E69E9820];
   v4 = 3221225472;
@@ -24953,7 +24963,7 @@ uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithVi
   return result;
 }
 
-uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithViewForVariableChangeNotifications___block_invoke_5(uint64_t a1)
+void *__100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithViewForVariableChangeNotifications___block_invoke_5(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -24981,7 +24991,7 @@ uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithVi
         v6[12] |= 4uLL;
         [v6 _updateBaselineInformationDependentOnBounds];
         v7[1] &= ~4uLL;
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -24995,7 +25005,7 @@ uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithVi
   return result;
 }
 
-uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithViewForVariableChangeNotifications___block_invoke_6(uint64_t a1)
+void *__100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithViewForVariableChangeNotifications___block_invoke_6(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -25027,7 +25037,7 @@ uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithVi
           }
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -25041,14 +25051,15 @@ uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithVi
   return result;
 }
 
-- (void)_baselineViewForConstraint:(int)constraint forFirstItem:(void *)item withOffset:
+- (void)_baselineViewForConstraint:(uint64_t)constraint forFirstItem:(void *)item withOffset:
 {
   selfCopy = self;
   if (self)
   {
+    constraintCopy = constraint;
     if ([self _recordBaselineLoweringInfo])
     {
-      v8 = [(NSLayoutConstraint *)a2 _baselineLoweringInfoForFirstItem:constraint];
+      v8 = [(NSLayoutConstraint *)a2 _baselineLoweringInfoForFirstItem:constraintCopy];
       [v8 baselineOffset];
       v10 = v9;
       selfCopy = [v8 baselineView];
@@ -25056,7 +25067,7 @@ uint64_t __100__UIView_AdditionalLayoutSupport___updateConstraintsIfNeededWithVi
 
     else
     {
-      if (constraint)
+      if (constraintCopy)
       {
         firstAttribute = [a2 firstAttribute];
       }
@@ -25413,7 +25424,7 @@ void __60__UIView_AdditionalLayoutSupport__viewForLastBaselineLayout__block_invo
   objc_setAssociatedObject(self, &_UIViewMultilineContextWidth, v4, 1);
 }
 
-- (uint64_t)_needsDoubleUpdateConstraintsPassMayHaveChangedFrom:(uint64_t)result
+- (void)_needsDoubleUpdateConstraintsPassMayHaveChangedFrom:(void *)result
 {
   if (result)
   {
@@ -25428,13 +25439,13 @@ void __60__UIView_AdditionalLayoutSupport__viewForLastBaselineLayout__block_invo
           [v3 _resetToBeginningOfDoublePass];
           for (result = [v3 superview]; result; result = objc_msgSend(result, "superview"))
           {
-            v4 = *(result + 88);
+            v4 = result[11];
             if ((v4 & 0x800000000000) != 0)
             {
               break;
             }
 
-            *(result + 88) = v4 | 0x800000000000;
+            result[11] = v4 | 0x800000000000;
           }
         }
       }
@@ -25515,7 +25526,7 @@ void __60__UIView_AdditionalLayoutSupport__viewForLastBaselineLayout__block_invo
 
 - (void)nsis_valueOfVariable:(id)variable didChangeInEngine:(id)engine
 {
-  if (((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UIKitEngineTracking, @"UIKitEngineTracking") & 1) != 0 || byte_1ED48B684) && [engine _UIKitEngineTrackingOn])
+  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UIKitEngineTracking, @"UIKitEngineTracking") || byte_1ED48B684) && [engine _UIKitEngineTrackingOn])
   {
     [engine pivotCount];
     [engine variableChangeCount];
@@ -26856,7 +26867,7 @@ LABEL_216:
   return v19;
 }
 
-uint64_t __122__UIView_AdditionalLayoutSupport__nsli_lowerAttribute_intoExpression_withCoefficient_forConstraint_onBehalfOfLayoutGuide___block_invoke@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void *__122__UIView_AdditionalLayoutSupport__nsli_lowerAttribute_intoExpression_withCoefficient_forConstraint_onBehalfOfLayoutGuide___block_invoke@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
@@ -26924,8 +26935,8 @@ uint64_t __122__UIView_AdditionalLayoutSupport__nsli_lowerAttribute_intoExpressi
 
 - (BOOL)nsli_defaultResolvedValue:(double *)value forSymbolicConstant:(id)constant inConstraint:(id)constraint error:(id *)error
 {
-  v9 = [constant isEqualToString:*MEMORY[0x1E6997768]];
-  if ((v9 & 1) == 0 && ![constant isEqualToString:*MEMORY[0x1E6997760]])
+  isEqualToString = objc_msgSend_isEqualToString_(constant, a2, *MEMORY[0x1E6997768]);
+  if ((isEqualToString & 1) == 0 && !objc_msgSend_isEqualToString_(constant))
   {
     v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unkown symbolic constant: %@", constant, v65, v67, v68, v69, v70];
     goto LABEL_86;
@@ -26947,7 +26958,7 @@ uint64_t __122__UIView_AdditionalLayoutSupport__nsli_lowerAttribute_intoExpressi
 
   firstItem = [constraint firstItem];
   secondItem = [constraint secondItem];
-  if (v9)
+  if (isEqualToString)
   {
     if (!v12 || (v16 = 1.0, !v13))
     {
@@ -27039,7 +27050,7 @@ LABEL_59:
   }
 
   v73 = v22;
-  if (!v9)
+  if (!isEqualToString)
   {
     goto LABEL_19;
   }
@@ -27161,7 +27172,7 @@ LABEL_85:
 
     if (firstAttribute <= 0x25 && ((1 << firstAttribute) & 0x3F001FFE7FLL) != 0 && secondAttribute <= 0x25 && ((1 << secondAttribute) & 0x3F001FFE7FLL) != 0)
     {
-      if (v9)
+      if (isEqualToString)
       {
         if (firstAttribute == 12 && secondAttribute == 3 || firstAttribute == 4 && secondAttribute == 11)
         {
@@ -28416,7 +28427,7 @@ LABEL_5:
       v15[2]();
       update[12] &= ~0x4000uLL;
       [update frame];
-      if ((_UIRectEquivalentToRectWithAccuracy(v4, v6, v8, v10, v11, v12, v13, v14, 0.00000011920929) & 1) == 0)
+      if (!_UIRectEquivalentToRectWithAccuracy(v4, v6, v8, v10, v11, v12, v13, v14, 0.00000011920929))
       {
         [(UIView *)update _constraints_frameDidChange];
       }
@@ -29030,7 +29041,7 @@ LABEL_19:
   }
 }
 
-uint64_t (*__36__UIView__autogeneratedNameForLayer__block_invoke())(void, void)
+void *__36__UIView__autogeneratedNameForLayer__block_invoke()
 {
   qword_1EA994768 = sel_description;
   result = [MEMORY[0x1E69E58C0] instanceMethodForSelector:?];
@@ -29186,9 +29197,9 @@ uint64_t (*__36__UIView__autogeneratedNameForLayer__block_invoke())(void, void)
     {
       [_mutableLayoutGuidesCreateIfNecessary addObject:v15];
       identifier = [v15 identifier];
-      v7 = [identifier isEqualToString:@"UIViewLayoutMarginsGuide"];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v7)
+      if (isEqualToString)
       {
         v8 = &OBJC_IVAR___UIView__layoutMarginsGuide;
       }
@@ -29196,7 +29207,7 @@ uint64_t (*__36__UIView__autogeneratedNameForLayer__block_invoke())(void, void)
       else
       {
         identifier2 = [v15 identifier];
-        v10 = [identifier2 isEqualToString:@"UIViewSafeAreaLayoutGuide"];
+        v10 = objc_msgSend_isEqualToString_(identifier2);
 
         if (v10)
         {
@@ -29206,7 +29217,7 @@ uint64_t (*__36__UIView__autogeneratedNameForLayer__block_invoke())(void, void)
         else
         {
           identifier3 = [v15 identifier];
-          v14 = [identifier3 isEqualToString:@"UIViewKeyboardLayoutGuide"];
+          v14 = objc_msgSend_isEqualToString_(identifier3);
 
           if (!v14)
           {
@@ -29308,7 +29319,7 @@ LABEL_12:
           UIViewCommonInitWithFrame(v5, v24 - v21 * 0.5, v25 - v23 * 0.5, v21, v23);
           if (v4)
           {
-            [(NSCoder *)v4 decodeCGAffineTransformForKey:@"UITransform"];
+            objc_msgSend_decodeCGAffineTransformForKey_(v4);
           }
 
           else
@@ -29730,10 +29741,10 @@ LABEL_111:
   coderCopy = coder;
   [_UIAppearance _applyInvocationsTo:self window:0 matchingSelector:0 onlySystemInvocations:1];
   [(UIView *)self _encodeFrameWithCoder:coderCopy];
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
   if (!CGAffineTransformIsIdentity(&v69))
   {
-    [(UIView *)self transform];
+    objc_msgSend_transform(self);
     [coderCopy encodeCGAffineTransform:&v69 forKey:@"UITransform"];
   }
 
@@ -30086,12 +30097,12 @@ LABEL_29:
 + (void)_setupViewVisualization
 {
   objc_opt_self();
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel_layoutSublayersOfLayer_);
-  v2 = objc_opt_class();
-  v3 = class_getInstanceMethod(v2, sel___vis_layoutSublayersOfLayer_);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel_layoutSublayersOfLayer_);
+  v3 = objc_opt_class();
+  v4 = class_getInstanceMethod(v3, sel___vis_layoutSublayersOfLayer_);
 
-  method_exchangeImplementations(InstanceMethod, v3);
+  method_exchangeImplementations(InstanceMethod, v4);
 }
 
 - (void)setCharge:(float)charge
@@ -30479,7 +30490,7 @@ LABEL_8:
   [(UIViewController *)v9 viewLayoutMarginsDidChange];
 }
 
-uint64_t __48__UIView__layoutMarginsDidChangeFromOldMargins___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__48__UIView__layoutMarginsDidChangeFromOldMargins___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 _needsDoubleUpdateConstraintsPass];
   if (result)
@@ -30569,7 +30580,7 @@ LABEL_7:
       right = v18;
     }
 
-    v21 = _UIViewAdjustedLayoutMarginsForLayoutMargins(self, superviewCopy, (*(&self->_viewFlags + 1) >> 59) & 0xF, self->_rawLayoutMargins.top, self->_rawLayoutMargins.left, self->_rawLayoutMargins.bottom, self->_rawLayoutMargins.right);
+    v21 = _UIViewAdjustedLayoutMarginsForLayoutMargins(self, superviewCopy, (*(&self->_viewFlags + 1) >> 59) & 0xFLL, self->_rawLayoutMargins.top, self->_rawLayoutMargins.left, self->_rawLayoutMargins.bottom, self->_rawLayoutMargins.right);
     v23 = v22;
     v24 = v19;
     v25 = v20;
@@ -31651,7 +31662,7 @@ void __46__UIView_setLayoutMarginsFollowReadableWidth___block_invoke(uint64_t a1
 {
   keyCopy = key;
   objc_opt_self();
-  if (byte_1EA9946D5 != 1 || ([keyCopy isEqualToString:@"contents"] & 1) == 0)
+  if (byte_1EA9946D5 != 1 || (objc_msgSend_isEqualToString_(keyCopy) & 1) == 0)
   {
     if (__currentViewAnimationState)
     {
@@ -31805,11 +31816,11 @@ Method __40__UIView__setAnimatedPropertiesEnabled___block_invoke(uint64_t a1)
   *&self->_viewFlags = *&self->_viewFlags & 0xFFFFFEFFFFFFFFFFLL | v3;
 }
 
-- (void)_setInvalidatesCornersForGeometryChange:(void *)change
+- (void)_setInvalidatesCornersForGeometryChange:(void *)result
 {
-  if (change)
+  if (result)
   {
-    v2 = *(change + 14);
+    v2 = result[14];
     if (((((v2 & 0x800000) == 0) ^ a2) & 1) == 0)
     {
       v3 = 0x800000;
@@ -31818,20 +31829,20 @@ Method __40__UIView__setAnimatedPropertiesEnabled___block_invoke(uint64_t a1)
         v3 = 0;
       }
 
-      *(change + 14) = v2 & 0xFFFFFFFFFF7FFFFFLL | v3;
+      result[14] = v2 & 0xFFFFFFFFFF7FFFFFLL | v3;
       if (a2)
       {
-        return [change _registerForGeometryChanges];
+        return [result _registerForGeometryChanges];
       }
 
       else
       {
-        return [change _unregisterForGeometryChanges];
+        return [result _unregisterForGeometryChanges];
       }
     }
   }
 
-  return change;
+  return result;
 }
 
 - (void)_invalidateCorners
@@ -31842,8 +31853,8 @@ Method __40__UIView__setAnimatedPropertiesEnabled___block_invoke(uint64_t a1)
     result = [result _hasCornerProvider];
     if (result)
     {
-      *(v1 + 112) |= 0x400000uLL;
-      if (*(v1 + 218) || (*(v1 + 88) & 0x8000000000000000) != 0)
+      v1[14] |= 0x400000uLL;
+      if (*(v1 + 109) || (v1[11] & 0x8000000000000000) != 0)
       {
 
         return [(UIView *)v1 _performCornersUpdate];
@@ -31852,7 +31863,7 @@ Method __40__UIView__setAnimatedPropertiesEnabled___block_invoke(uint64_t a1)
       else
       {
         v2 = _UIViewPreLayoutEnabled();
-        v3 = *(v1 + 168);
+        v3 = v1[21];
         if (v2)
         {
 
@@ -31871,12 +31882,12 @@ Method __40__UIView__setAnimatedPropertiesEnabled___block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_performCornersUpdate
+- (void)_performCornersUpdate
 {
   if (result)
   {
     v1 = result;
-    *(result + 112) &= ~0x400000uLL;
+    result[14] &= ~0x400000uLL;
     if (_UIObservationTrackingEnabled())
     {
 
@@ -32315,7 +32326,7 @@ LABEL_10:
   preferredContentSizeCategory = [internal->var0 preferredContentSizeCategory];
   preferredContentSizeCategory2 = [internal->var1 preferredContentSizeCategory];
   v31 = preferredContentSizeCategory;
-  if (([preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
   {
     [(UIView *)self _dynamicLayoutGuidesMayNeedUpdate];
     [(UIView *)self _updateReadableContentGuideConstraintsIfNecessary];
@@ -32555,7 +32566,7 @@ LABEL_10:
         v6 = @"LightweightMaterialBackgroundsExternallyEnabled";
       }
 
-      if ((_UIInternalPreferenceUsesDefault(v5, v6, _UIInternalPreferenceUpdateBool) & 1) != 0 || *(v5 + 4))
+      if (_UIInternalPreferenceUsesDefault(v5, v6, _UIInternalPreferenceUpdateBool) || *(v5 + 4))
       {
         v7 = objc_opt_self();
         v8 = [traitCollection traitCollectionByReplacingNSIntegerValue:2 forTrait:v7];
@@ -32847,9 +32858,9 @@ LABEL_64:
   {
     if (v14 && v8)
     {
-      v9 = [v14 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v14);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_24;
       }
@@ -32963,7 +32974,7 @@ LABEL_24:
 
 - (void)_wrappedProcessTraitChanges:(uint64_t)changes withBehavior:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     return;
@@ -32988,46 +32999,46 @@ LABEL_24:
   v9 = byte_1EA9946EA;
   if ((v6 & 0x2000000000000) != 0 && byte_1EA9946EA && (*(a2 + 56) != 1 || [(UIView *)selfCopy _modifiesTraitCollectionInheritedByChildren]))
   {
+    v53 = 0u;
+    v54 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
     v10 = selfCopy;
     _allSubviews = [selfCopy _allSubviews];
-    v12 = [_allSubviews countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v12 = [_allSubviews countByEnumeratingWithState:&v51 objects:v60 count:16];
     if (v12)
     {
-      v13 = v12;
-      v14 = *v50;
+      v15 = v12;
+      v16 = *v52;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v50 != v14)
+          if (*v52 != v16)
           {
             objc_enumerationMutation(_allSubviews);
           }
 
-          _UIViewInvalidateTraitCollectionAndSchedulePropagation(*(*(&v49 + 1) + 8 * i), 0);
+          _UIViewInvalidateTraitCollectionAndSchedulePropagation(*(*(&v51 + 1) + 8 * i), 0, v13, v14);
         }
 
-        v13 = [_allSubviews countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v15 = [_allSubviews countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
-      while (v13);
+      while (v15);
     }
 
     selfCopy = v10;
   }
 
-  v16 = (selfCopy[13] >> 52) & 1 | *(a2 + 56) ^ 1;
-  v17 = !v7;
-  if (!v16)
+  v18 = (selfCopy[13] >> 52) & 1 | *(a2 + 56) ^ 1;
+  v19 = !v7;
+  if (!v18)
   {
-    v17 = 1;
+    v19 = 1;
   }
 
-  if ((v17 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
     [selfCopy _setLastNotifiedTraitCollection:*(a2 + 8)];
     [selfCopy _traitCollectionDidChangeInternal:a2];
@@ -33039,7 +33050,7 @@ LABEL_24:
     if (_UIPresentationControllersInheritTraitsFromViewHierarchy())
     {
       _presentationControllerToNotifyOnLayoutSubviews = [selfCopy _presentationControllerToNotifyOnLayoutSubviews];
-      v20 = _presentationControllerToNotifyOnLayoutSubviews;
+      v22 = _presentationControllerToNotifyOnLayoutSubviews;
       if (_presentationControllerToNotifyOnLayoutSubviews)
       {
         [_presentationControllerToNotifyOnLayoutSubviews _updateAuxiliaryChildTraitEnvironmentsIfNeeded];
@@ -33049,46 +33060,46 @@ LABEL_24:
 
   else if (changes == 1)
   {
-    if (v16)
+    if (v18)
     {
-      v18 = selfCopy;
+      v20 = selfCopy;
       goto LABEL_78;
     }
 
     goto LABEL_79;
   }
 
-  v42 = v16;
+  v44 = v18;
+  v49 = 0u;
+  v50 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v44 = selfCopy;
+  v46 = selfCopy;
   _allSubviews2 = [selfCopy _allSubviews];
-  v22 = [_allSubviews2 countByEnumeratingWithState:&v45 objects:v57 count:16];
-  if (!v22)
+  v24 = [_allSubviews2 countByEnumeratingWithState:&v47 objects:v59 count:16];
+  if (!v24)
   {
     goto LABEL_77;
   }
 
-  v24 = v22;
-  v25 = *v46;
-  *&v23 = 138412290;
-  v41 = v23;
+  v26 = v24;
+  v27 = *v48;
+  *&v25 = 138412290;
+  v43 = v25;
   do
   {
-    v26 = 0;
+    v28 = 0;
     do
     {
-      if (*v46 != v25)
+      if (*v48 != v27)
       {
         objc_enumerationMutation(_allSubviews2);
       }
 
-      v27 = *(*(&v45 + 1) + 8 * v26);
+      v29 = *(*(&v47 + 1) + 8 * v28);
       if (!v9)
       {
-        __viewDelegate = [(UIView *)*(*(&v45 + 1) + 8 * v26) __viewDelegate];
+        __viewDelegate = [(UIView *)*(*(&v47 + 1) + 8 * v28) __viewDelegate];
 
         if (__viewDelegate)
         {
@@ -33098,42 +33109,42 @@ LABEL_24:
         goto LABEL_52;
       }
 
-      if (!v27 || (*(v27 + 98) & 3) == 0)
+      if (!v29 || (*(v29 + 98) & 3) == 0)
       {
-        __viewDelegate2 = [(UIView *)*(*(&v45 + 1) + 8 * v26) __viewDelegate];
+        __viewDelegate2 = [(UIView *)*(*(&v47 + 1) + 8 * v28) __viewDelegate];
         _lastNotifiedTraitCollection = __viewDelegate2;
         if (__viewDelegate2)
         {
           [(UIViewController *)__viewDelegate2 _updateTraitsIfNecessarySchedulingPropagation:?];
         }
 
-        if (changes != 2 && (*(v27 + 102) & 2) == 0)
+        if (changes != 2 && (*(v29 + 102) & 2) == 0)
         {
           has_internal_diagnostics = os_variant_has_internal_diagnostics();
-          v31 = *(v27 + 104);
+          v33 = *(v29 + 104);
           if (!has_internal_diagnostics)
           {
-            if ((v31 & 0x400) == 0)
+            if ((v33 & 0x400) == 0)
             {
-              v32 = *(__UILogGetCategoryCachedImpl("Assert", &qword_1EA9947D8) + 8);
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+              v34 = *(__UILogGetCategoryCachedImpl("Assert", &qword_1EA9947D8) + 8);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
-                *buf = v41;
-                *&buf[4] = v27;
-                _os_log_impl(&dword_188A29000, v32, OS_LOG_TYPE_ERROR, "UIKit internal inconsistency: subview doesn't need trait propagation but cached trait collection is not valid: %@", buf, 0xCu);
+                *buf = v43;
+                *&buf[4] = v29;
+                _os_log_impl(&dword_188A29000, v34, OS_LOG_TYPE_ERROR, "UIKit internal inconsistency: subview doesn't need trait propagation but cached trait collection is not valid: %@", buf, 0xCu);
               }
             }
 
             goto LABEL_69;
           }
 
-          if ((v31 & 0x400) == 0)
+          if ((v33 & 0x400) == 0)
           {
             traitCollection = __UIFaultDebugAssertLog();
             if (os_log_type_enabled(traitCollection, OS_LOG_TYPE_FAULT))
             {
-              *buf = v41;
-              *&buf[4] = v27;
+              *buf = v43;
+              *&buf[4] = v29;
               _os_log_fault_impl(&dword_188A29000, traitCollection, OS_LOG_TYPE_FAULT, "UIKit internal inconsistency: subview doesn't need trait propagation but cached trait collection is not valid: %@", buf, 0xCu);
             }
 
@@ -33143,25 +33154,25 @@ LABEL_24:
           goto LABEL_69;
         }
 
-        [(UIView *)v27 _updateCachedTraitCollectionIfNeeded];
+        [(UIView *)v29 _updateCachedTraitCollectionIfNeeded];
 
 LABEL_52:
-        _lastNotifiedTraitCollection = [v27 _lastNotifiedTraitCollection];
-        v34 = *a2;
-        v35 = dyld_program_sdk_at_least();
-        if (v34 != _lastNotifiedTraitCollection || v35 == 0)
+        _lastNotifiedTraitCollection = [v29 _lastNotifiedTraitCollection];
+        v36 = *a2;
+        v37 = dyld_program_sdk_at_least();
+        if (v36 != _lastNotifiedTraitCollection || v37 == 0)
         {
-          if (v35)
+          if (v37)
           {
 LABEL_66:
-            traitCollection = [v27 traitCollection];
-            v55 = 0u;
-            v56 = 0u;
+            traitCollection = [v29 traitCollection];
+            v57 = 0u;
+            v58 = 0u;
             *buf = 0u;
-            v54 = 0u;
+            v56 = 0u;
             _UICreateTraitCollectionChangeDescription(_lastNotifiedTraitCollection, traitCollection, buf);
-            [(UIView *)v27 _wrappedProcessTraitChanges:buf withBehavior:changes];
-            if (v54)
+            [(UIView *)v29 _wrappedProcessTraitChanges:buf withBehavior:changes];
+            if (v56)
             {
             }
 
@@ -33174,41 +33185,41 @@ LABEL_69:
 
         else
         {
-          if (*(v27 + 80) || ([(UIView *)v44 _modifiesTraitCollectionInheritedByChildren]& 1) != 0 || (*(v27 + 92) & 0x40) != 0)
+          if (*(v29 + 80) || [(UIView *)v46 _modifiesTraitCollectionInheritedByChildren]|| (*(v29 + 92) & 0x40) != 0)
           {
             goto LABEL_66;
           }
 
-          _traitOverridesIfExist = [(UIView *)v27 _traitOverridesIfExist];
-          v38 = _traitOverridesIfExist;
-          if (_traitOverridesIfExist && (![(_UITraitOverrides *)_traitOverridesIfExist _isEmpty]|| [(_UITraitOverrides *)v38 _hasTransforms]))
+          _traitOverridesIfExist = [(UIView *)v29 _traitOverridesIfExist];
+          v40 = _traitOverridesIfExist;
+          if (_traitOverridesIfExist && (![(_UITraitOverrides *)_traitOverridesIfExist _isEmpty]|| [(_UITraitOverrides *)v40 _hasTransforms]))
           {
 
             goto LABEL_66;
           }
         }
 
-        [(UIView *)v27 _wrappedProcessTraitChanges:a2 withBehavior:changes];
+        [(UIView *)v29 _wrappedProcessTraitChanges:a2 withBehavior:changes];
         goto LABEL_69;
       }
 
 LABEL_70:
-      ++v26;
+      ++v28;
     }
 
-    while (v24 != v26);
-    v40 = [_allSubviews2 countByEnumeratingWithState:&v45 objects:v57 count:16];
-    v24 = v40;
+    while (v26 != v28);
+    v42 = [_allSubviews2 countByEnumeratingWithState:&v47 objects:v59 count:16];
+    v26 = v42;
   }
 
-  while (v40);
+  while (v42);
 LABEL_77:
 
-  v18 = v44;
-  if (v42)
+  v20 = v46;
+  if (v44)
   {
 LABEL_78:
-    [v18 _traitCollectionDidChangeOnSubtreeInternal:{a2, v41}];
+    [v20 _traitCollectionDidChangeOnSubtreeInternal:{a2, v43}];
   }
 
 LABEL_79:
@@ -33416,9 +33427,9 @@ void __31__UIView__addObjectLayoutRule___block_invoke(uint64_t a1, uint64_t a2, 
     {
       if (v5 && _overrideTintColor)
       {
-        v7 = [_overrideTintColor isEqual:v5];
+        isEqual = objc_msgSend_isEqual_(_overrideTintColor);
 
-        if (v7)
+        if (isEqual)
         {
           goto LABEL_20;
         }
@@ -33438,7 +33449,7 @@ void __31__UIView__addObjectLayoutRule___block_invoke(uint64_t a1, uint64_t a2, 
       {
         if (v6 && _overrideTintColor)
         {
-          v10 = [_overrideTintColor isEqual:v5];
+          v10 = objc_msgSend_isEqual_(_overrideTintColor);
 
           if (v10)
           {
@@ -33491,9 +33502,9 @@ LABEL_20:
 
   if (v7 && v6)
   {
-    v8 = [(UIColor *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_15;
     }
@@ -34118,7 +34129,7 @@ LABEL_15:
       v9 = [UIView alloc];
       [(UIView *)self frame];
       v8 = [(UIView *)v9 initWithFrame:?];
-      _generateBackdropMaskImage = +[UIColor blackColor];
+      _generateBackdropMaskImage = objc_msgSend_blackColor(UIColor);
       [(UIImageView *)v8 setBackgroundColor:_generateBackdropMaskImage];
     }
 
@@ -34524,7 +34535,7 @@ uint64_t __49__UIView__dispatchMotionEffectsVisitorWithDelta___block_invoke(uint
         AppBooleanValue = CFPreferencesGetAppBooleanValue(@"EnableTetheredDisplayPortMode", *MEMORY[0x1E695E890], &keyExistsAndHasValidFormat);
         if (keyExistsAndHasValidFormat)
         {
-          if (AppBooleanValue && ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIMotionEffectsEnabledWhenMirroring, @"UIMotionEffectsEnabledWhenMirroring", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1EA95E8A4))
+          if (AppBooleanValue && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIMotionEffectsEnabledWhenMirroring, @"UIMotionEffectsEnabledWhenMirroring", _UIInternalPreferenceUpdateBool) || !byte_1EA95E8A4))
           {
             [_motionEffectEngine beginSuspendingForReason:@"stevenote"];
           }
@@ -34532,7 +34543,7 @@ uint64_t __49__UIView__dispatchMotionEffectsVisitorWithDelta___block_invoke(uint
       }
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-      if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIMotionEffectsEnabledWhenMirroring, @"UIMotionEffectsEnabledWhenMirroring", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1EA95E8A4)
+      if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIMotionEffectsEnabledWhenMirroring, @"UIMotionEffectsEnabledWhenMirroring", _UIInternalPreferenceUpdateBool) || !byte_1EA95E8A4)
       {
         v15 = [defaultCenter addObserverForName:@"UIScreenModeDidChangeNotification" object:0 queue:0 usingBlock:&__block_literal_global_4171];
         v16 = [defaultCenter addObserverForName:@"UISceneWillConnectNotification" object:0 queue:0 usingBlock:&__block_literal_global_4171];
@@ -35017,7 +35028,7 @@ LABEL_11:
     {
       if ((*(self + 95) & 0x40) == 0)
       {
-        if (([*(self + 168) needsLayout] & 1) != 0 || objc_msgSend(*(self + 168), "needsLayoutOnGeometryChange") && (objc_msgSend(self, "bounds"), (_UIRectEquivalentToRectWithAccuracy(bounds, superview, a5, a6, v12, v13, v14, v15, 0.00000011920929) & 1) == 0))
+        if (([*(self + 168) needsLayout] & 1) != 0 || objc_msgSend(*(self + 168), "needsLayoutOnGeometryChange") && (objc_msgSend(self, "bounds"), !_UIRectEquivalentToRectWithAccuracy(bounds, superview, a5, a6, v12, v13, v14, v15, 0.00000011920929)))
         {
           [self _is_setNeedsLayout];
         }
@@ -35093,7 +35104,7 @@ LABEL_10:
 void __84__UIView__synchronizeAutoLayoutWithCALayoutIfNecessaryForOldBounds_updateSuperview___block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA9946DE = [v0 isEqualToString:@"com.dexcom.CLARITYReports"];
+  byte_1EA9946DE = objc_msgSend_isEqualToString_(v0);
 }
 
 - (void)setCenter:(CGPoint)center
@@ -35338,7 +35349,7 @@ void __51__UIView__reestablishConstraintsForTransformChange__block_invoke(uint64
   y = transform.origin.y;
   x = transform.origin.x;
   memset(&v15[1], 0, sizeof(CATransform3D));
-  [(UIView *)self transform3D];
+  objc_msgSend_transform3D(self, a2);
   v15[0] = v15[1];
   if (CATransform3DIsIdentity(v15))
   {
@@ -36643,7 +36654,7 @@ LABEL_22:
   return selfCopy3;
 }
 
-- (uint64_t)_containsPreferredFocusableView
+- (unint64_t)_containsPreferredFocusableView
 {
   selfCopy = self;
   if (self)
@@ -37641,7 +37652,7 @@ void __58__UIView__updateDirectionalConstraintsIfNeededWasFlipped___block_invoke
     v13 = v12;
     layer2 = [selfCopy layer];
     cornerCurve = [layer2 cornerCurve];
-    selfCopy = +[UIBezierPath _roundedRectBezierPath:withRoundedCorners:cornerRadius:segments:legacyCorners:](UIBezierPath, "_roundedRectBezierPath:withRoundedCorners:cornerRadius:segments:legacyCorners:", maskedCorners, 16, [cornerCurve isEqualToString:*MEMORY[0x1E69796E0]], v3, v5, v7, v9, v13);
+    selfCopy = [UIBezierPath _roundedRectBezierPath:maskedCorners withRoundedCorners:16 cornerRadius:objc_msgSend_isEqualToString_(cornerCurve) segments:v3 legacyCorners:v5, v7, v9, v13];
   }
 
   return selfCopy;
@@ -37951,7 +37962,7 @@ LABEL_42:
   memset(&v21[1], 0, sizeof(CATransform3D));
   if (v12)
   {
-    [(CALayer *)v12 transform];
+    objc_msgSend_transform(v12);
   }
 
   v21[0] = v21[1];
@@ -38651,7 +38662,7 @@ LABEL_8:
 - (void)setRotationBy:(float)by
 {
   memset(&v7, 0, sizeof(v7));
-  [(UIView *)self transform];
+  objc_msgSend_transform(self, a2);
   v5 = v7;
   CGAffineTransformRotate(&v6, &v5, by * 3.14159265 / 180.0);
   v7 = v6;
@@ -38731,11 +38742,11 @@ LABEL_8:
   [subviews enumerateObjectsWithOptions:2 usingBlock:v6];
 }
 
-uint64_t __46__UIView_Geometry__resizeSubviewsWithOldSize___block_invoke(uint64_t result, void *a2)
+double *__46__UIView_Geometry__resizeSubviewsWithOldSize___block_invoke(double *result, void *a2)
 {
   if ((a2[11] & 0x2000000007E0000) != 0)
   {
-    return [a2 resizeWithOldSuperviewSize:{*(result + 32), *(result + 40)}];
+    return [a2 resizeWithOldSuperviewSize:{result[4], result[5]}];
   }
 
   return result;
@@ -39508,7 +39519,7 @@ LABEL_47:
   }
 }
 
-- (id)_userActionDescription:(unsigned int)description maxLevel:
+- (id)_userActionDescription:(signed int)description maxLevel:
 {
   if (self)
   {
@@ -40177,24 +40188,25 @@ LABEL_35:
 void __39__UIView_Hierarchy___willMoveToWindow___block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA9946E2 = [v0 isEqualToString:@"com.apple.WorkflowUI.SystemActionConfigurationExtension"];
+  byte_1EA9946E2 = objc_msgSend_isEqualToString_(v0);
 }
 
-- (void)_willChangeToIdiomOnScreen:(char)screen traverseHierarchy:
+- (void)_willChangeToIdiomOnScreen:(uint64_t)screen traverseHierarchy:
 {
-  if (self)
+  if (result)
   {
-    selfCopy = self;
+    screenCopy = screen;
+    v5 = result;
     if (a2)
     {
-      self = a2;
+      result = a2;
     }
 
-    _userInterfaceIdiom = [self _userInterfaceIdiom];
-    if (_userInterfaceIdiom != [selfCopy _userInterfaceIdiom])
+    _userInterfaceIdiom = [result _userInterfaceIdiom];
+    if (_userInterfaceIdiom != [v5 _userInterfaceIdiom])
     {
 
-      [(UIView *)selfCopy _willChangeToIdiom:_userInterfaceIdiom onScreen:a2 traverseHierarchy:screen];
+      [(UIView *)v5 _willChangeToIdiom:_userInterfaceIdiom onScreen:a2 traverseHierarchy:screenCopy];
     }
   }
 }
@@ -40403,7 +40415,7 @@ void __45__UIView_Hierarchy___postMovedFromSuperview___block_invoke(uint64_t a1)
       if (v18 | v19)
       {
         v20 = v19;
-        if (([v18 isEqual:v19] & 1) == 0)
+        if ((objc_msgSend_isEqual_(v18) & 1) == 0)
         {
           *(*(a1 + 40) + 96) |= 0x2000000000000uLL;
           [*(a1 + 40) setNeedsLayout];
@@ -40445,9 +40457,9 @@ LABEL_39:
     {
       if (v20)
       {
-        v24 = [v20 isEqual:v23];
+        isEqual = objc_msgSend_isEqual_(v20);
 
-        if (v24)
+        if (isEqual)
         {
           goto LABEL_37;
         }
@@ -41328,9 +41340,9 @@ LABEL_32:
 {
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v3 = _UIKitBundle();
-  v4 = [v2 isEqual:v3];
+  isEqual = objc_msgSend_isEqual_(v2);
 
-  return v4 ^ 1;
+  return isEqual ^ 1;
 }
 
 - (void)_setShouldRasterize:(BOOL)rasterize
@@ -41930,7 +41942,7 @@ LABEL_48:
     }
   }
 
-  if ([@"backgroundColor" isEqualToString:pathCopy])
+  if (objc_msgSend_isEqualToString_(@"backgroundColor"))
   {
     v11 = +[UIColor clearColor];
     cGColor = [v11 CGColor];
@@ -41961,7 +41973,7 @@ LABEL_9:
   return v8;
 }
 
-- (uint64_t)_hasDeferredAnimationForKey:(uint64_t)key
+- (void)_hasDeferredAnimationForKey:(void *)key
 {
   v3 = a2;
   if (key)
@@ -42271,7 +42283,7 @@ LABEL_9:
   if (trackingCopy)
   {
 LABEL_14:
-    if ([qword_1EA994710 isEqual:trackingCopy])
+    if (objc_msgSend_isEqual_(qword_1EA994710))
     {
       v11 = qword_1EA994710;
       qword_1EA994710 = 0;
@@ -42845,7 +42857,7 @@ void __71__UIView_Animation___completeAnimationWithUUID_duration_curve_reverse__
                     {
                       if ([v13 hasBeenCommitted])
                       {
-                        if ([keyPath isEqualToString:@"position"])
+                        if (objc_msgSend_isEqualToString_(keyPath))
                         {
                           presentationLayer = [v13 presentationLayer];
                           v21 = [presentationLayer valueForKeyPath:keyPath];
@@ -43498,9 +43510,9 @@ void __42__UIView_Animation__setAnimationsEnabled___block_invoke()
     {
       v7 = [v13 objectAtIndex:v6];
       name = [v7 name];
-      v9 = [name isEqualToString:@"curl"];
+      isEqualToString = objc_msgSend_isEqualToString_(name);
 
-      if (v9)
+      if (isEqualToString)
       {
         [v13 removeObjectAtIndex:v6];
       }
@@ -43647,9 +43659,9 @@ void __42__UIView_Animation__setAnimationsEnabled___block_invoke()
         if (objc_opt_isKindOfClass())
         {
           keyPath = [v13 keyPath];
-          v15 = [pathCopy isEqualToString:keyPath];
+          isEqualToString = objc_msgSend_isEqualToString_(pathCopy);
 
-          if (v15)
+          if (isEqualToString)
           {
             [v22 addObject:v12];
           }
@@ -44775,46 +44787,46 @@ LABEL_9:
   return v6;
 }
 
-+ (void)_transitionFromView:(void *)view toView:(void *)toView duration:(uint64_t)duration options:(void *)options animations:(void *)animations completion:
++ (void)_transitionFromView:(void *)view toView:(uint64_t)toView duration:(void *)duration options:(void *)options animations:(double)animations completion:
 {
+  v12 = a2;
   viewCopy = view;
-  toViewCopy = toView;
+  durationCopy = duration;
   optionsCopy = options;
-  animationsCopy = animations;
   v25 = objc_opt_self();
-  v16 = [UIViewController viewControllerForView:toViewCopy];
-  v17 = [UIViewController viewControllerForView:viewCopy];
-  superview = [viewCopy superview];
+  v16 = [UIViewController viewControllerForView:viewCopy];
+  v17 = [UIViewController viewControllerForView:v12];
+  superview = [v12 superview];
   v32[0] = MEMORY[0x1E69E9820];
   v32[1] = 3221225472;
   v32[2] = __86__UIView_Internal___transitionFromView_toView_duration_options_animations_completion___block_invoke;
   v32[3] = &unk_1E712B360;
   v33 = v17;
-  v39 = self > 0.0;
+  v39 = animations > 0.0;
   v34 = v16;
-  v35 = viewCopy;
-  v36 = toViewCopy;
-  v37 = optionsCopy;
-  durationCopy = duration;
+  v35 = v12;
+  v36 = viewCopy;
+  v37 = durationCopy;
+  toViewCopy = toView;
   v26[0] = MEMORY[0x1E69E9820];
   v26[1] = 3221225472;
   v26[2] = __86__UIView_Internal___transitionFromView_toView_duration_options_animations_completion___block_invoke_2;
   v26[3] = &unk_1E712B388;
-  v30 = animationsCopy;
-  durationCopy2 = duration;
+  v30 = optionsCopy;
+  toViewCopy2 = toView;
   v27 = v34;
   v28 = v35;
   v29 = v33;
-  v19 = animationsCopy;
+  v19 = optionsCopy;
   v20 = v33;
   v21 = v35;
   v22 = v34;
-  v23 = optionsCopy;
-  v24 = toViewCopy;
-  [v25 _setupAnimationWithDuration:superview delay:duration view:0 options:v32 factory:0 animations:0 start:self animationStateGenerator:0.0 completion:v26];
+  v23 = durationCopy;
+  v24 = viewCopy;
+  [v25 _setupAnimationWithDuration:superview delay:toView view:0 options:v32 factory:0 animations:0 start:animations animationStateGenerator:0.0 completion:v26];
 }
 
-uint64_t __86__UIView_Internal___transitionFromView_toView_duration_options_animations_completion___block_invoke(uint64_t a1)
+uint64_t (**__86__UIView_Internal___transitionFromView_toView_duration_options_animations_completion___block_invoke(uint64_t a1))(void)
 {
   [*(a1 + 32) beginAppearanceTransition:0 animated:*(a1 + 80)];
   [*(a1 + 40) beginAppearanceTransition:1 animated:*(a1 + 80)];
@@ -44824,7 +44836,7 @@ uint64_t __86__UIView_Internal___transitionFromView_toView_duration_options_anim
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))();
+    result = result[2]();
   }
 
   if ((*(a1 + 74) & 0x70) != 0)
@@ -45664,22 +45676,13 @@ void __88__UIView_Internal___performUpdatesForPossibleChangesOfIdiom_orScreen_tr
   *(&self->_viewFlags + 1) = *(&self->_viewFlags + 1) & 0xFFFFFFFF7FFFFFFFLL | v3;
 }
 
-+ (uint64_t)_beginDisablingPromoteDescendantToFirstResponder
++ (void)_endDisablingPromoteDescendantToFirstResponder
 {
-  result = objc_opt_self();
-  ++__disablePromoteDescendantToFirstResponderCount;
-  return result;
-}
-
-+ (uint64_t)_endDisablingPromoteDescendantToFirstResponder
-{
-  result = objc_opt_self();
+  objc_opt_self();
   if (__disablePromoteDescendantToFirstResponderCount)
   {
     --__disablePromoteDescendantToFirstResponderCount;
   }
-
-  return result;
 }
 
 + (void)_performBlockDelayingTriggeringResponderEvents:(void *)events forScene:
@@ -46276,7 +46279,7 @@ LABEL_52:
     goto LABEL_57;
   }
 
-  _UIViewVisitorEntertainAscendingTrackingVisitors(superview, subview, v75, superview);
+  _UIViewVisitorEntertainAscendingTrackingVisitors(&superview->super.super.isa, subview, v75, superview);
   _UIViewVisitorEntertainDescendingTrackingVisitors(superview, subview, v75, superview);
 LABEL_56:
   v39 = 0;
@@ -47025,14 +47028,14 @@ void __86__UIView_Internal___animatePropertyWithKey_currentValue_targetValue_new
   (*(v1 + 16))(v1, v2);
 }
 
-+ (void)__animateUsingSpringWithDampingRatio:(double)ratio response:(double)response interactive:(double)interactive initialDampingRatio:(double)dampingRatio initialResponse:(double)initialResponse dampingRatioSmoothing:(uint64_t)smoothing responseSmoothing:(uint64_t)responseSmoothing targetSmoothing:(void *)self0 projectionDeceleration:(void *)self1 retargetImpulse:(void *)self2 animations:(void *)self3 completion:
++ (void)__animateUsingSpringWithDampingRatio:(void *)ratio response:(void *)response interactive:(void *)interactive initialDampingRatio:(void *)dampingRatio initialResponse:(double)initialResponse dampingRatioSmoothing:(double)smoothing responseSmoothing:(double)responseSmoothing targetSmoothing:(double)self0 projectionDeceleration:(double)self1 retargetImpulse:(double)self2 animations:(double)self3 completion:
 {
-  animationsCopy = animations;
-  impulseCopy = impulse;
-  decelerationCopy = deceleration;
-  targetSmoothingCopy = targetSmoothing;
+  dampingRatioCopy = dampingRatio;
+  interactiveCopy = interactive;
+  responseCopy = response;
+  ratioCopy = ratio;
   objc_opt_self();
-  [UIView __swift_animateUsingSpringWithDampingRatio:responseSmoothing response:targetSmoothingCopy interactive:decelerationCopy initialDampingRatio:impulseCopy initialResponse:animationsCopy dampingRatioSmoothing:self responseSmoothing:a2 targetSmoothing:ratio projectionDeceleration:response retargetImpulse:interactive animations:dampingRatio completion:initialResponse];
+  [UIView __swift_animateUsingSpringWithDampingRatio:a2 response:ratioCopy interactive:responseCopy initialDampingRatio:interactiveCopy initialResponse:dampingRatioCopy dampingRatioSmoothing:initialResponse responseSmoothing:smoothing targetSmoothing:responseSmoothing projectionDeceleration:targetSmoothing retargetImpulse:deceleration animations:impulse completion:animations];
 }
 
 + (void)_animateUsingSpringWithDampingRatio:(double)ratio response:(double)response tracking:(BOOL)tracking initialDampingRatio:(double)dampingRatio initialResponse:(double)initialResponse dampingRatioSmoothing:(double)smoothing responseSmoothing:(double)responseSmoothing targetSmoothing:(double)self0 projectionDeceleration:(double)self1 animations:(id)self2 completion:(id)self3
@@ -47043,7 +47046,7 @@ void __86__UIView_Internal___animatePropertyWithKey_currentValue_targetValue_new
   animationsCopy = animations;
   v28 = [v24 numberWithDouble:dampingRatio];
   v27 = [MEMORY[0x1E696AD98] numberWithDouble:initialResponse];
-  [(UIView *)ratio __animateUsingSpringWithDampingRatio:response response:smoothing interactive:responseSmoothing initialDampingRatio:targetSmoothing initialResponse:deceleration dampingRatioSmoothing:0.0 responseSmoothing:self targetSmoothing:trackingCopy projectionDeceleration:v28 retargetImpulse:v27 animations:animationsCopy completion:completionCopy];
+  [(UIView *)self __animateUsingSpringWithDampingRatio:trackingCopy response:v28 interactive:v27 initialDampingRatio:animationsCopy initialResponse:completionCopy dampingRatioSmoothing:ratio responseSmoothing:response targetSmoothing:smoothing projectionDeceleration:responseSmoothing retargetImpulse:targetSmoothing animations:deceleration completion:0.0];
 }
 
 - (void)_removeAllRetargetableAnimations:(BOOL)animations
@@ -47256,7 +47259,7 @@ double __133__UIView_Internal___animateUsingSpringWithDuration_delay_options_mas
 {
   if (self)
   {
-    [self setCenter:?];
+    [self setCenter:{a2, d}];
     layer = [self layer];
     [layer setZPosition:a4];
   }
@@ -47753,7 +47756,7 @@ void __47__UIView_CALayerDelegate__drawLayer_inContext___block_invoke(uint64_t a
 {
   valueCopy = value;
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"contentsGravity"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     if ((setValue_forKey____warnOnce & 1) == 0)
     {
@@ -48757,7 +48760,7 @@ void __50__UIView_CALayerDelegate__layoutSublayersOfLayer___block_invoke(uint64_
 
       v14 = [MEMORY[0x1E696AAE8] bundleForClass:v13];
       v15 = _UIKitBundle();
-      *subclass = [v14 isEqual:v15] ^ 1;
+      *subclass = objc_msgSend_isEqual_(v14) ^ 1;
     }
 
     if (name)
@@ -48801,14 +48804,14 @@ void __86__UIView_CALayerDelegate____shouldShowVisualizationWithName_isSubclass_
   qword_1EA9948E0 = v4;
 }
 
-uint64_t __86__UIView_CALayerDelegate____shouldShowVisualizationWithName_isSubclass_isOtherModule___block_invoke_3(uint64_t a1)
+uint64_t __86__UIView_CALayerDelegate____shouldShowVisualizationWithName_isSubclass_isOtherModule___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (objc_opt_isKindOfClass())
   {
     return 1;
   }
 
-  v3 = [*(a1 + 32) layer];
+  v4 = [*(a1 + 32) layer];
   isKindOfClass = objc_opt_isKindOfClass();
 
   if ((isKindOfClass & 1) == 0)
@@ -48928,7 +48931,7 @@ LABEL_17:
       return;
     }
 
-    if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIStrokeClippedViews, @"UIStrokeClippedViews", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E8AC && [(UIView *)self _clippingDetected])
+    if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIStrokeClippedViews, @"UIStrokeClippedViews", _UIInternalPreferenceUpdateBool) && byte_1EA95E8AC && [(UIView *)self _clippingDetected])
     {
       layer = [(UIView *)self layer];
       [layer setBorderWidth:0.0];
@@ -49017,7 +49020,7 @@ LABEL_17:
                 v28 = v25 || v27;
                 v29 = v22 == v26 && v21 == *MEMORY[0x1E695F060];
                 v30 = (v24 || v23) && [delegate length] < 0xF;
-                if ((v30 | v28 || v29) && (_UIInternalPreferenceUsesDefault(&dword_1ED48B838, @"UILogClippedViews", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B83C)
+                if ((v30 | v28 || v29) && !_UIInternalPreferenceUsesDefault(&dword_1ED48B838, @"UILogClippedViews", _UIInternalPreferenceUpdateBool) && byte_1ED48B83C)
                 {
                   v35.origin.x = v12;
                   v35.origin.y = v14;
@@ -49052,7 +49055,7 @@ LABEL_46:
 
 - (void)_strokeClippedViewIfNecessary
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIStrokeClippedViews, @"UIStrokeClippedViews", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E8AC)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIStrokeClippedViews, @"UIStrokeClippedViews", _UIInternalPreferenceUpdateBool) && byte_1EA95E8AC)
   {
     v3 = +[UIColor redColor];
     cGColor = [v3 CGColor];
@@ -49120,7 +49123,7 @@ LABEL_46:
 
     [dictionary setObject:v14 forKey:@"control_class"];
 
-    if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B830, @"UIIncludeTextForClippedViews", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B834)
+    if (!_UIInternalPreferenceUsesDefault(&dword_1ED48B830, @"UIIncludeTextForClippedViews", _UIInternalPreferenceUpdateBool) && byte_1ED48B834)
     {
       if (v4)
       {
@@ -49376,7 +49379,7 @@ __CFString *__64__UIView_UIDebugging___dumpClippedViewWithScreenshotIfNecessary_
 
 void __64__UIView_UIDebugging___dumpClippedViewWithScreenshotIfNecessary__block_invoke_3643(uint64_t a1)
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIScreenshotClippedViews, @"UIScreenshotClippedViews", _UIInternalPreferenceUpdateBool) & 1) == 0)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIScreenshotClippedViews, @"UIScreenshotClippedViews", _UIInternalPreferenceUpdateBool))
   {
     if (byte_1EA95E8B4)
     {
@@ -49589,7 +49592,7 @@ __CFString *__57__UIView_UIDebugging___recursiveDescriptionWithSelector___block_
 - (id)_marginsDescription
 {
   v3 = MEMORY[0x1E696AD60];
-  v4 = _UIDebugTypeName();
+  v4 = _UIDebugTypeName(self);
   v5 = [v3 stringWithFormat:@"<%@: %p ", v4, self];;
 
   _UIViewDescriptionAppendBaseClass(self, v5);
@@ -49759,7 +49762,7 @@ LABEL_8:
 void __59__UIView_UIViewBoundingPathSupport___minimumSafeAreaInsets__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA9946E7 = [v0 isEqualToString:@"net.whatsapp.WhatsApp"];
+  byte_1EA9946E7 = objc_msgSend_isEqualToString_(v0);
 }
 
 - (BOOL)_isBoundingPathNonRectangular
@@ -50526,7 +50529,7 @@ LABEL_16:
 
 - (void)_updateAncestorHiddenForSubtreeBeingNotifiedOfVisibilityChange:(void *)change
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (change)
   {
     v3 = 0x200000000;
@@ -50536,40 +50539,41 @@ LABEL_16:
     }
 
     change[14] = change[14] & 0xFFFFFFFDFFFFFFFFLL | v3;
-    if ((a2 & 1) == 0)
-    {
-      [(UIView *)change _isEffectivelyHidden];
-    }
-
+    v4 = (a2 & 1) != 0 || [(UIView *)change _isEffectivelyHidden];
+    v13 = 0u;
+    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
     _allSubviews = [change _allSubviews];
-    v5 = [_allSubviews countByEnumeratingWithState:&v9 objects:v13 count:16];
-    if (v5)
+    v6 = [_allSubviews countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v10;
+      v7 = v6;
+      v8 = *v12;
       do
       {
-        for (i = 0; i != v6; ++i)
+        v9 = 0;
+        do
         {
-          if (*v10 != v7)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(_allSubviews);
           }
 
-          if (*(*(*(&v9 + 1) + 8 * i) + 116))
+          v10 = *(*(&v11 + 1) + 8 * v9);
+          if (*(v10 + 116))
           {
-            [UIView _updateAncestorHiddenForSubtreeBeingNotifiedOfVisibilityChange:];
+            [(UIView *)v10 _updateAncestorHiddenForSubtreeBeingNotifiedOfVisibilityChange:v4];
           }
+
+          ++v9;
         }
 
-        v6 = [_allSubviews countByEnumeratingWithState:&v9 objects:v13 count:16];
+        while (v7 != v9);
+        v7 = [_allSubviews countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
   }
 }
@@ -50746,7 +50750,7 @@ LABEL_23:
 
 - (id)actionForLayer:(id)layer forKey:(id)key
 {
-  if ([key isEqualToString:@"presentationModifiers"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"presentationModifiers"))
   {
     return *MEMORY[0x1E695E738];
   }
@@ -50767,7 +50771,7 @@ LABEL_23:
     [(UIView *)self _mirrorMaskingConfigurationForProgrammaticallyModifiedLayerKeyPath:key];
   }
 
-  if (self->_swiftAnimationInfo && [key isEqualToString:*MEMORY[0x1E6979EE8]])
+  if (self->_swiftAnimationInfo && objc_msgSend_isEqualToString_(key))
   {
     v7 = [UIViewBlockBasedCAAction alloc];
     v14[0] = MEMORY[0x1E69E9820];

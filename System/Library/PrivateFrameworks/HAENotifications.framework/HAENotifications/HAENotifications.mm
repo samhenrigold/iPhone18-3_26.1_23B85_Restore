@@ -1,13 +1,13 @@
-id HAENotificationsLog()
+id HAENotificationsLog(uint64_t a1)
 {
   if (HAENotificationsLog_once != -1)
   {
     HAENotificationsLog_cold_1();
   }
 
-  v1 = HAENotificationsLog_haeNotificationsLog;
+  v2 = HAENotificationsLog_haeNotificationsLog;
 
-  return v1;
+  return v2;
 }
 
 id GetDeviceSpecificDefaults(const __CFString *a1)
@@ -32,22 +32,23 @@ void __destructor_8_s0_s8_s16(uint64_t a1)
   v2 = *(a1 + 16);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id HAENLocalizationUtilityGetBundle()
+id HAENLocalizationUtilityGetBundle(uint64_t a1)
 {
   if (HAENLocalizationUtilityGetBundle_once != -1)
   {
     HAENLocalizationUtilityGetBundle_cold_1();
   }
 
-  v1 = HAENLocalizationUtilityGetBundle__haeNotificationFrameworkBundle;
+  v2 = HAENLocalizationUtilityGetBundle__haeNotificationFrameworkBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __HAENLocalizationUtilityGetBundle_block_invoke()
@@ -110,14 +111,14 @@ id NSErrorWithHAENErrorCode(uint64_t a1, uint64_t a2)
 
 void settingsChanged(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = HAENotificationsLog();
+  v4 = HAENotificationsLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_25081E000, v4, OS_LOG_TYPE_DEFAULT, "HAENDefaults received notification: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_25081E000, v4, OS_LOG_TYPE_DEFAULT, "HAENDefaults received notification: %@", &v9, 0xCu);
   }
 
   if (+[HAENDefaults isCurrentProcessMediaserverd](HAENDefaults, "isCurrentProcessMediaserverd") && (([v3 isEqualToString:*MEMORY[0x277CEFA88]] & 1) != 0 || objc_msgSend(v3, "isEqualToString:", *MEMORY[0x277CEFA80])))
@@ -156,8 +157,6 @@ void settingsChanged(uint64_t a1, uint64_t a2, void *a3)
       [v6 updateWiredDeviceStatus];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_250827214(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -167,21 +166,22 @@ void sub_250827214(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id errorForIOKitFailure(unsigned int a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"system=%#x subsystem=%#x code=%#x", a1 >> 26, (a1 >> 14) & 0xFFF, a1 & 0x3FFF];
   v3 = objc_alloc(MEMORY[0x277CCA9B8]);
   v4 = *MEMORY[0x277CCA4A8];
-  v14 = *MEMORY[0x277CCA450];
-  v15[0] = v2;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = *MEMORY[0x277CCA450];
+  v14[0] = v2;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v6 = [v3 initWithDomain:v4 code:a1 userInfo:v5];
 
   if (a1 == -536870183)
@@ -194,26 +194,22 @@ id errorForIOKitFailure(unsigned int a1)
     v7 = 3;
   }
 
-  v12 = *MEMORY[0x277CCA7E8];
-  v13 = v6;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CCA7E8];
+  v12 = v6;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v9 = makeError(v8, v7);
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 id errorForBadDeviceInfo(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"Bad value for device info %@", a1];
-  v6 = *MEMORY[0x277CCA450];
-  v7[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x277CCA450];
+  v6[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v3 = makeError(v2, 4u);
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -232,7 +228,7 @@ void GeoLocationDidChange(uint64_t a1, uint64_t a2, void *a3)
 {
   v9 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = HAENotificationsLog();
+  v4 = HAENotificationsLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -240,38 +236,36 @@ void GeoLocationDidChange(uint64_t a1, uint64_t a2, void *a3)
     _os_log_impl(&dword_25081E000, v4, OS_LOG_TYPE_DEFAULT, "HAENLocationGating Received Darwin Notification: %@", &v7, 0xCu);
   }
 
-  if ([v3 isEqualToString:*MEMORY[0x277CEFA78]])
+  v5 = [v3 isEqualToString:*MEMORY[0x277CEFA78]];
+  if (v5)
   {
-    v5 = +[HAENLocationGatingHelper sharedInstance];
-    [v5 deviceDataDispositionDidChange];
+    v6 = +[HAENLocationGatingHelper sharedInstance];
+    [v6 deviceDataDispositionDidChange];
   }
 
   else
   {
-    v5 = HAENotificationsLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = HAENotificationsLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      GeoLocationDidChange_cold_1(v3, v5);
+      GeoLocationDidChange_cold_1(v3, v6);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void RemoveDeviceSpecificDefaultsFor(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = HAENotificationsLog();
+  v2 = HAENotificationsLog(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = v1;
-    _os_log_impl(&dword_25081E000, v2, OS_LOG_TYPE_DEFAULT, "removing key: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v1;
+    _os_log_impl(&dword_25081E000, v2, OS_LOG_TYPE_DEFAULT, "removing key: %@", &v3, 0xCu);
   }
 
   CFPreferencesSetAppValue(v1, 0, *MEMORY[0x277CEFAA8]);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void SetDeviceSpecificDefaultsFor(__CFString *a1, const void *a2)
@@ -296,9 +290,8 @@ uint64_t __HAENotificationsLog_block_invoke()
 
 void GeoLocationDidChange_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25081E000, a2, OS_LOG_TYPE_ERROR, "HAENLocationGating action %@ not handled", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25081E000, a2, OS_LOG_TYPE_ERROR, "HAENLocationGating action %@ not handled", &v2, 0xCu);
 }

@@ -75,14 +75,12 @@
 
 - (FCContentManifest)contentManifest
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [FCContentManifest alloc];
   identifier = [self identifier];
-  v8[0] = identifier;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = identifier;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [(FCContentManifest *)v2 initWithRecordIDs:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

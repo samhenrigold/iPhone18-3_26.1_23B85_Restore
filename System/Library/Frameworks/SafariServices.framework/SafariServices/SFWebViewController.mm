@@ -1110,32 +1110,32 @@ void __85__SFWebViewController_formAutoFillControllerGetAuthenticationForAutoFil
 LABEL_9:
 }
 
-uint64_t __76__SFWebViewController__webView_queryPermission_forOrigin_completionHandler___block_invoke(uint64_t a1)
+uint64_t __76__SFWebViewController__webView_queryPermission_forOrigin_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = WBSUserMediaPermissionToWKPermissionDecision();
-  v3 = *(v1 + 16);
+  v2 = *(a1 + 32);
+  v3 = WBSUserMediaPermissionToWKPermissionDecision();
+  v4 = *(v2 + 16);
 
-  return v3(v1, v2);
+  return v4(v2, v3);
 }
 
-uint64_t __76__SFWebViewController__webView_queryPermission_forOrigin_completionHandler___block_invoke_2(uint64_t a1)
+uint64_t __76__SFWebViewController__webView_queryPermission_forOrigin_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) isEqualToString:@"camera"];
-  v3 = *(a1 + 40);
-  if (v2)
+  v3 = [*(a1 + 32) isEqualToString:@"camera"];
+  v4 = *(a1 + 40);
+  if (v3)
   {
-    v4 = WBSUserMediaPermissionToWKPermissionDecisionCamera();
+    v5 = WBSUserMediaPermissionToWKPermissionDecisionCamera();
   }
 
   else
   {
-    v4 = WBSUserMediaPermissionToWKPermissionDecisionMicrophone();
+    v5 = WBSUserMediaPermissionToWKPermissionDecisionMicrophone();
   }
 
-  v5 = *(v3 + 16);
+  v6 = *(v4 + 16);
 
-  return v5(v3, v4);
+  return v6(v4, v5);
 }
 
 - (BOOL)_webView:(id)view fileUploadPanelContentIsManagedWithInitiatingFrame:(id)frame

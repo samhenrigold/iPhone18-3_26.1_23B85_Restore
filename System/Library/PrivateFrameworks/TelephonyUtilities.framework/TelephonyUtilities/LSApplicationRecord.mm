@@ -10,41 +10,43 @@
 + (id)csd_applicationRecordForApplicationIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v9 = 0;
-  v4 = [LSBundleRecord bundleRecordWithApplicationIdentifier:identifierCopy error:&v9];
-  v5 = v9;
-  if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v10 = 0;
+  v4 = [LSBundleRecord bundleRecordWithApplicationIdentifier:identifierCopy error:&v10];
+  isKindOfClass = v10;
+  v6 = isKindOfClass;
+  if (v4 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v6 = v4;
+    v7 = v4;
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v7 = sub_100004778();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100004778(isKindOfClass);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_100478D14();
       }
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 + (id)csd_applicationRecordForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v8 = 0;
-  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (!v4)
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004778(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100478D7C();
     }

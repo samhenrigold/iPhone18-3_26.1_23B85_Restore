@@ -23,7 +23,7 @@
   sub_1004C0804(_swiftEmptyArrayStorage);
   Handle.init(withID:serverID:pushIdentifiers:expiresByGroupId:siblingIdentifiers:favoriteOrder:)();
   (*(v5 + 32))(self + OBJC_IVAR____TtC4Maps16MapsFindMyHandle_handle, v7, v4);
-  MyHandle = type metadata accessor for MapsFindMyHandle();
+  MyHandle = type metadata accessor for MapsFindMyHandle(0);
   v10.receiver = self;
   v10.super_class = MyHandle;
   return [(MapsFindMyHandle *)&v10 init];
@@ -36,7 +36,7 @@
   v7 = type metadata accessor for Handle();
   (*(*(v7 - 8) + 16))(self + v6, handle + v5, v7);
   v9.receiver = self;
-  v9.super_class = type metadata accessor for MapsFindMyHandle();
+  v9.super_class = type metadata accessor for MapsFindMyHandle(0);
   return [(MapsFindMyHandle *)&v9 init];
 }
 

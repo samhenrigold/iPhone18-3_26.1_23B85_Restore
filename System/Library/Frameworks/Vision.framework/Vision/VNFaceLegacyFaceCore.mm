@@ -130,10 +130,10 @@
     goto LABEL_6;
   }
 
-  [(VNFaceLegacyFaceCore *)self leftEye];
+  objc_msgSend_leftEye(self);
   v34 = v33;
   v36 = v35;
-  [(VNFaceLegacyFaceCore *)v5 leftEye];
+  objc_msgSend_leftEye(v5);
   v13 = 0;
   if (v34 != v38)
   {
@@ -145,10 +145,10 @@
     goto LABEL_7;
   }
 
-  [(VNFaceLegacyFaceCore *)self rightEye];
+  objc_msgSend_rightEye(self);
   v40 = v39;
   v42 = v41;
-  [(VNFaceLegacyFaceCore *)v5 rightEye];
+  objc_msgSend_rightEye(v5);
   v13 = 0;
   if (v40 != v44)
   {
@@ -160,10 +160,10 @@
     goto LABEL_7;
   }
 
-  [(VNFaceLegacyFaceCore *)self mouth];
+  objc_msgSend_mouth(self);
   v46 = v45;
   v48 = v47;
-  [(VNFaceLegacyFaceCore *)v5 mouth];
+  objc_msgSend_mouth(v5);
   v13 = 0;
   if (v46 != v50 || v48 != v49)
   {
@@ -288,11 +288,11 @@ uint64_t __38__VNFaceLegacyFaceCore_initWithCoder___block_invoke()
   [coderCopy vn_encodePoint:@"fcr_center" forKey:?];
   [(VNFaceLegacyFaceCore *)self faceBoundingBox];
   [coderCopy vn_encodeRect:@"fcr_bbox" forKey:?];
-  [(VNFaceLegacyFaceCore *)self leftEye];
+  objc_msgSend_leftEye(self);
   [coderCopy vn_encodePoint:@"fcr_lefteye" forKey:?];
-  [(VNFaceLegacyFaceCore *)self rightEye];
+  objc_msgSend_rightEye(self);
   [coderCopy vn_encodePoint:@"fcr_righteye" forKey:?];
-  [(VNFaceLegacyFaceCore *)self mouth];
+  objc_msgSend_mouth(self);
   [coderCopy vn_encodePoint:@"fcr_mouth" forKey:?];
   [coderCopy encodeInt:-[VNFaceLegacyFaceCore trackID](self forKey:{"trackID"), @"fcr_trackid"}];
   [coderCopy encodeInt:-[VNFaceLegacyFaceCore trackDuration](self forKey:{"trackDuration"), @"fcr_trackduration"}];
@@ -327,16 +327,16 @@ LABEL_6:
   *(v5 + 3) = v14;
   if (faceCopy)
   {
-    [faceCopy face];
+    objc_msgSend_face(faceCopy);
     *(v5 + 56) = v26;
-    [faceCopy face];
+    objc_msgSend_face(faceCopy);
     *(v5 + 120) = v27;
     *(v5 + 136) = v28;
-    [faceCopy leftEye];
+    objc_msgSend_leftEye(faceCopy);
     *(v5 + 72) = v26;
-    [faceCopy rightEye];
+    objc_msgSend_rightEye(faceCopy);
     *(v5 + 88) = v26;
-    [faceCopy mouth];
+    objc_msgSend_mouth(faceCopy);
   }
 
   else

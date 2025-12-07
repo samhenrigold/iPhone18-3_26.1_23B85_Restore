@@ -448,9 +448,9 @@
     {
       audioChannelLayoutDescription3 = [(MRContentItemMetadataAudioFormat *)equalCopy audioChannelLayoutDescription];
       audioChannelLayoutDescription4 = [(MRContentItemMetadataAudioFormat *)self audioChannelLayoutDescription];
-      v28 = [audioChannelLayoutDescription3 isEqualToString:audioChannelLayoutDescription4];
+      isEqualToString = objc_msgSend_isEqualToString_(audioChannelLayoutDescription3);
 
-      if (!v28)
+      if (!isEqualToString)
       {
         goto LABEL_46;
       }
@@ -467,7 +467,7 @@
     {
       groupID3 = [(MRContentItemMetadataAudioFormat *)equalCopy groupID];
       groupID4 = [(MRContentItemMetadataAudioFormat *)self groupID];
-      v35 = [groupID3 isEqualToString:groupID4];
+      v35 = objc_msgSend_isEqualToString_(groupID3);
 
       if (!v35)
       {
@@ -488,7 +488,7 @@ LABEL_46:
     {
       stableVariantID3 = [(MRContentItemMetadataAudioFormat *)equalCopy stableVariantID];
       stableVariantID4 = [(MRContentItemMetadataAudioFormat *)self stableVariantID];
-      v29 = [stableVariantID3 isEqualToString:stableVariantID4];
+      v29 = objc_msgSend_isEqualToString_(stableVariantID3);
     }
   }
 

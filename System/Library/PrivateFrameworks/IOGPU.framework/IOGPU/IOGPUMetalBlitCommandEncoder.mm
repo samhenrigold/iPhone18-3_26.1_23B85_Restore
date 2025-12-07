@@ -23,15 +23,14 @@
 
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color pixelFormat:(unint64_t)format
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   v13 = MTLPackColor();
   v14 = *&region->var0.var2;
-  v16[0] = *&region->var0.var0;
-  v16[1] = v14;
-  v16[2] = *&region->var1.var1;
-  [(IOGPUMetalBlitCommandEncoder *)self fillTexture:texture level:level slice:slice region:v16 bytes:v18 length:v13];
-  v15 = *MEMORY[0x1E69E9840];
+  v15[0] = *&region->var0.var0;
+  v15[1] = v14;
+  v15[2] = *&region->var1.var1;
+  [(IOGPUMetalBlitCommandEncoder *)self fillTexture:texture level:level slice:slice region:v15 bytes:v17 length:v13];
 }
 
 - (void)copyFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level toTexture:(id)toTexture destinationSlice:(unint64_t)destinationSlice destinationLevel:(unint64_t)destinationLevel sliceCount:(unint64_t)count levelCount:(unint64_t)self0

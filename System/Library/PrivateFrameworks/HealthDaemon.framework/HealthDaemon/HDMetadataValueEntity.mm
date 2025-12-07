@@ -10,16 +10,14 @@
 
 + (id)indices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v9 = @"object_id";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v8 = @"object_id";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
   v5 = [v2 initWithEntity:v3 name:@"object" columns:v4];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v6;
 }
@@ -34,7 +32,7 @@
 
 + (uint64_t)_determineMetadataTypeForValue:(__CFString *)value stringValue:(__CFString *)stringValue numberValue:(__CFString *)numberValue dateValue:(__CFString *)dateValue dataValue:(uint64_t *)dataValue type:(uint64_t)type error:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v13 = a2;
   objc_opt_self();
   objc_opt_class();
@@ -155,27 +153,27 @@ LABEL_12:
 
   [MEMORY[0x277CCA9B8] hk_assignError:type code:3 format:{@"Received invalid metadata value type %@ (%@)", v13, objc_opt_class()}];
   _HKInitializeLogging();
-  v30 = *MEMORY[0x277CCC2A0];
+  v29 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v31 = MEMORY[0x277CCDD30];
-    v32 = v30;
-    if ([v31 isAppleInternalInstall])
+    v30 = MEMORY[0x277CCDD30];
+    v31 = v29;
+    if ([v30 isAppleInternalInstall])
     {
-      v33 = v13;
+      v32 = v13;
     }
 
     else
     {
-      v33 = @"<redacted>";
+      v32 = @"<redacted>";
     }
 
     *buf = 138412546;
-    v37 = v33;
-    v38 = 2112;
-    v39 = objc_opt_class();
-    v34 = v39;
-    _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "Received invalid value %@ of type %@", buf, 0x16u);
+    v36 = v32;
+    v37 = 2112;
+    v38 = objc_opt_class();
+    v33 = v38;
+    _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Received invalid value %@ of type %@", buf, 0x16u);
   }
 
   v15 = 0;
@@ -185,7 +183,6 @@ LABEL_12:
   v27 = 0;
 LABEL_22:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -233,19 +230,17 @@ LABEL_22:
 
 id __85__HDMetadataValueEntity__insertMetadataValueWithKeyID_objectID_value_database_error___block_invoke(uint64_t a1)
 {
-  v6[7] = *MEMORY[0x277D85DE8];
+  v5[7] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v6[0] = @"key_id";
-  v6[1] = @"object_id";
-  v6[2] = @"string_value";
-  v6[3] = @"numerical_value";
-  v6[4] = @"date_value";
-  v6[5] = @"data_value";
-  v6[6] = @"value_type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
+  v5[0] = @"key_id";
+  v5[1] = @"object_id";
+  v5[2] = @"string_value";
+  v5[3] = @"numerical_value";
+  v5[4] = @"date_value";
+  v5[5] = @"data_value";
+  v5[6] = @"value_type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:7];
   v3 = [v1 insertSQLForProperties:v2 shouldReplace:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -254,85 +249,81 @@ uint64_t __85__HDMetadataValueEntity__insertMetadataValueWithKeyID_objectID_valu
 {
   sqlite3_bind_int64(a2, 1, a1[8]);
   sqlite3_bind_int64(a2, 2, a1[9]);
-  v4 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
-  v5 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
-  v6 = a1[6];
   HDSQLiteBindFoundationValueToStatement();
-  v7 = a1[7];
   HDSQLiteBindFoundationValueToStatement();
-  v8 = a1[10];
+  v4 = a1[10];
 
-  return sqlite3_bind_int64(a2, 7, v8);
+  return sqlite3_bind_int64(a2, 7, v4);
 }
 
 + (BOOL)_updateMetadataValueForKeyID:(int64_t)d objectID:(int64_t)iD value:(id)value database:(id)database error:(id *)error
 {
-  v55[2] = *MEMORY[0x277D85DE8];
+  v54[2] = *MEMORY[0x277D85DE8];
   databaseCopy = database;
-  v53 = 0;
-  v54 = 0;
   v52 = 0;
-  v50 = 0;
+  v53 = 0;
   v51 = 0;
-  v13 = [(HDMetadataValueEntity *)self _determineMetadataTypeForValue:value stringValue:&v53 numberValue:&v52 dateValue:&v51 dataValue:&v50 type:&v54 error:error];
-  v14 = v53;
-  v15 = v52;
-  v16 = v51;
-  v17 = v50;
+  v49 = 0;
+  v50 = 0;
+  v13 = [(HDMetadataValueEntity *)self _determineMetadataTypeForValue:value stringValue:&v52 numberValue:&v51 dateValue:&v50 dataValue:&v49 type:&v53 error:error];
+  v14 = v52;
+  v15 = v51;
+  v16 = v50;
+  v17 = v49;
   if (v13)
   {
     v18 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
     [MEMORY[0x277CCABB0] numberWithLongLong:iD];
-    v19 = v38 = databaseCopy;
+    v19 = v37 = databaseCopy;
     v20 = v18;
     objc_opt_self();
     v21 = MEMORY[0x277D10B20];
     v22 = v20;
     objc_opt_self();
-    v37 = v17;
+    v36 = v17;
     v23 = v16;
     v24 = v15;
     v25 = v14;
     v26 = [MEMORY[0x277D10B18] predicateWithProperty:@"key_id" equalToValue:v22];
 
-    v55[0] = v26;
+    v54[0] = v26;
     v27 = v19;
     objc_opt_self();
     v28 = [MEMORY[0x277D10B18] predicateWithProperty:@"object_id" equalToValue:v27];
 
-    v55[1] = v28;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+    v54[1] = v28;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
     v30 = [v21 predicateMatchingAllPredicates:v29];
 
     v14 = v25;
     v15 = v24;
     v16 = v23;
-    v17 = v37;
+    v17 = v36;
 
-    databaseCopy = v38;
+    databaseCopy = v37;
     selfCopy = self;
-    v49 = 0;
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __84__HDMetadataValueEntity__updateMetadataValueForKeyID_objectID_value_database_error___block_invoke;
-    v46[3] = &unk_278618EF0;
-    v47 = v30;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __84__HDMetadataValueEntity__updateMetadataValueForKeyID_objectID_value_database_error___block_invoke_2;
-    v39[3] = &unk_27861FD00;
-    v40 = v14;
-    v41 = v15;
-    v42 = v16;
-    v31 = v37;
-    v44 = v47;
-    v45 = v54;
-    v43 = v31;
-    v32 = v47;
-    v33 = [v38 executeCachedStatementForKey:&_updateMetadataValueForKeyID_objectID_value_database_error__updateKey error:&v49 SQLGenerator:v46 bindingHandler:v39 enumerationHandler:0];
-    v34 = v49;
+    v48 = 0;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __84__HDMetadataValueEntity__updateMetadataValueForKeyID_objectID_value_database_error___block_invoke;
+    v45[3] = &unk_278618EF0;
+    v46 = v30;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __84__HDMetadataValueEntity__updateMetadataValueForKeyID_objectID_value_database_error___block_invoke_2;
+    v38[3] = &unk_27861FD00;
+    v39 = v14;
+    v40 = v15;
+    v41 = v16;
+    v31 = v36;
+    v43 = v46;
+    v44 = v53;
+    v42 = v31;
+    v32 = v46;
+    v33 = [v37 executeCachedStatementForKey:&_updateMetadataValueForKeyID_objectID_value_database_error__updateKey error:&v48 SQLGenerator:v45 bindingHandler:v38 enumerationHandler:0];
+    v34 = v48;
   }
 
   else
@@ -340,40 +331,33 @@ uint64_t __85__HDMetadataValueEntity__insertMetadataValueWithKeyID_objectID_valu
     v33 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
 id __84__HDMetadataValueEntity__updateMetadataValueForKeyID_objectID_value_database_error___block_invoke(uint64_t a1)
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v7[0] = @"string_value";
-  v7[1] = @"numerical_value";
-  v7[2] = @"date_value";
-  v7[3] = @"data_value";
-  v7[4] = @"value_type";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
+  v6[0] = @"string_value";
+  v6[1] = @"numerical_value";
+  v6[2] = @"date_value";
+  v6[3] = @"data_value";
+  v6[4] = @"value_type";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
   v4 = [v2 updateSQLForProperties:v3 predicate:*(a1 + 32)];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 uint64_t __84__HDMetadataValueEntity__updateMetadataValueForKeyID_objectID_value_database_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = *(a1 + 48);
   HDSQLiteBindFoundationValueToStatement();
-  v7 = *(a1 + 56);
   HDSQLiteBindFoundationValueToStatement();
-  v9 = 6;
+  v5 = 6;
   sqlite3_bind_int64(a2, 5, *(a1 + 72));
-  return [*(a1 + 64) bindToStatement:a2 bindingIndex:&v9];
+  return [*(a1 + 64) bindToStatement:a2 bindingIndex:&v5];
 }
 
 @end

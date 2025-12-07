@@ -47,30 +47,30 @@
 
 - (void)emitTranscodeBeginFromUTI:(id)i
 {
-  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3, v4, v5, v6);
+  v5 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3);
 
-  MEMORY[0x2821F9670](self, sel__emitSignpostTranscodeRange_begin_, v8, 1, v9, v10, v11);
+  MEMORY[0x2821F9670](self, sel__emitSignpostTranscodeRange_begin_, v5, 1);
 }
 
 - (void)emitTranscodeEndFromUTI:(id)i
 {
-  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3, v4, v5, v6);
+  v5 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3);
 
-  MEMORY[0x2821F9670](self, sel__emitSignpostTranscodeRange_begin_, v8, 0, v9, v10, v11);
+  MEMORY[0x2821F9670](self, sel__emitSignpostTranscodeRange_begin_, v5, 0);
 }
 
 - (void)emitPreviewGenerationBeginFromUTI:(id)i
 {
-  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3, v4, v5, v6);
+  v5 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3);
 
-  MEMORY[0x2821F9670](self, sel__emitSignpostPreviewGenerationRange_begin_, v8, 1, v9, v10, v11);
+  MEMORY[0x2821F9670](self, sel__emitSignpostPreviewGenerationRange_begin_, v5, 1);
 }
 
 - (void)emitPreviewGenerationEndFromUTI:(id)i
 {
-  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3, v4, v5, v6);
+  v5 = objc_msgSend__telemetryImageTypeForUTI_(self, a2, i, v3);
 
-  MEMORY[0x2821F9670](self, sel__emitSignpostPreviewGenerationRange_begin_, v8, 0, v9, v10, v11);
+  MEMORY[0x2821F9670](self, sel__emitSignpostPreviewGenerationRange_begin_, v5, 0);
 }
 
 - (void)_emitSignpostPreviewGenerationRange:(int64_t)range begin:(BOOL)begin
@@ -272,21 +272,21 @@ LABEL_25:
 - (void)emitSignpostNoTranscodeFromUTI:(id)i
 {
   v5 = _iMessageTelemetryLogHandle();
-  v11 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7, v8, v9, v10);
-  if (v11 <= 1)
+  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7);
+  if (v8 <= 1)
   {
-    if (v11)
+    if (v8)
     {
-      if (v11 == 1)
+      if (v8 == 1)
       {
         signpostId = self->_signpostId;
         if (signpostId)
         {
           if (os_signpost_enabled(v5))
           {
-            v18 = 0;
-            v13 = "IMTranscoderImage.transcode.none.jpeg";
-            v14 = &v18;
+            v15 = 0;
+            v10 = "IMTranscoderImage.transcode.none.jpeg";
+            v11 = &v15;
             goto LABEL_22;
           }
         }
@@ -299,8 +299,8 @@ LABEL_25:
       if (signpostId && os_signpost_enabled(v5))
       {
         *buf = 0;
-        v13 = "IMTranscoderImage.transcode.none.other";
-        v14 = buf;
+        v10 = "IMTranscoderImage.transcode.none.other";
+        v11 = buf;
         goto LABEL_22;
       }
     }
@@ -308,15 +308,15 @@ LABEL_25:
 
   else
   {
-    switch(v11)
+    switch(v8)
     {
       case 2:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v17 = 0;
-          v13 = "IMTranscoderImage.transcode.none.heif";
-          v14 = &v17;
+          v14 = 0;
+          v10 = "IMTranscoderImage.transcode.none.heif";
+          v11 = &v14;
           goto LABEL_22;
         }
 
@@ -325,9 +325,9 @@ LABEL_25:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v16 = 0;
-          v13 = "IMTranscoderImage.transcode.none.png";
-          v14 = &v16;
+          v13 = 0;
+          v10 = "IMTranscoderImage.transcode.none.png";
+          v11 = &v13;
           goto LABEL_22;
         }
 
@@ -338,11 +338,11 @@ LABEL_25:
         {
           if (os_signpost_enabled(v5))
           {
-            v15 = 0;
-            v13 = "IMTranscoderImage.transcode.none.gif";
-            v14 = &v15;
+            v12 = 0;
+            v10 = "IMTranscoderImage.transcode.none.gif";
+            v11 = &v12;
 LABEL_22:
-            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v13, " enableTelemetry=YES ", v14, 2u);
+            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v10, " enableTelemetry=YES ", v11, 2u);
           }
         }
 
@@ -354,21 +354,21 @@ LABEL_22:
 - (void)emitSignpostTranscodeStepForDestinationUTI:(id)i
 {
   v5 = _iMessageTelemetryLogHandle();
-  v11 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7, v8, v9, v10);
-  if (v11 <= 1)
+  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7);
+  if (v8 <= 1)
   {
-    if (v11)
+    if (v8)
     {
-      if (v11 == 1)
+      if (v8 == 1)
       {
         signpostId = self->_signpostId;
         if (signpostId)
         {
           if (os_signpost_enabled(v5))
           {
-            v18 = 0;
-            v13 = "IMTranscoderImage.transcode.step.jpeg";
-            v14 = &v18;
+            v15 = 0;
+            v10 = "IMTranscoderImage.transcode.step.jpeg";
+            v11 = &v15;
             goto LABEL_22;
           }
         }
@@ -381,8 +381,8 @@ LABEL_22:
       if (signpostId && os_signpost_enabled(v5))
       {
         *buf = 0;
-        v13 = "IMTranscoderImage.transcode.step.other";
-        v14 = buf;
+        v10 = "IMTranscoderImage.transcode.step.other";
+        v11 = buf;
         goto LABEL_22;
       }
     }
@@ -390,15 +390,15 @@ LABEL_22:
 
   else
   {
-    switch(v11)
+    switch(v8)
     {
       case 2:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v17 = 0;
-          v13 = "IMTranscoderImage.transcode.step.heif";
-          v14 = &v17;
+          v14 = 0;
+          v10 = "IMTranscoderImage.transcode.step.heif";
+          v11 = &v14;
           goto LABEL_22;
         }
 
@@ -407,9 +407,9 @@ LABEL_22:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v16 = 0;
-          v13 = "IMTranscoderImage.transcode.step.png";
-          v14 = &v16;
+          v13 = 0;
+          v10 = "IMTranscoderImage.transcode.step.png";
+          v11 = &v13;
           goto LABEL_22;
         }
 
@@ -420,11 +420,11 @@ LABEL_22:
         {
           if (os_signpost_enabled(v5))
           {
-            v15 = 0;
-            v13 = "IMTranscoderImage.transcode.step.gif";
-            v14 = &v15;
+            v12 = 0;
+            v10 = "IMTranscoderImage.transcode.step.gif";
+            v11 = &v12;
 LABEL_22:
-            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v13, " enableTelemetry=YES ", v14, 2u);
+            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v10, " enableTelemetry=YES ", v11, 2u);
           }
         }
 
@@ -436,21 +436,21 @@ LABEL_22:
 - (void)emitSignpostTranscodeFinalForDestinationUTI:(id)i
 {
   v5 = _iMessageTelemetryLogHandle();
-  v11 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7, v8, v9, v10);
-  if (v11 <= 1)
+  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7);
+  if (v8 <= 1)
   {
-    if (v11)
+    if (v8)
     {
-      if (v11 == 1)
+      if (v8 == 1)
       {
         signpostId = self->_signpostId;
         if (signpostId)
         {
           if (os_signpost_enabled(v5))
           {
-            v18 = 0;
-            v13 = "IMTranscoderImage.transcode.final.jpeg";
-            v14 = &v18;
+            v15 = 0;
+            v10 = "IMTranscoderImage.transcode.final.jpeg";
+            v11 = &v15;
             goto LABEL_22;
           }
         }
@@ -463,8 +463,8 @@ LABEL_22:
       if (signpostId && os_signpost_enabled(v5))
       {
         *buf = 0;
-        v13 = "IMTranscoderImage.transcode.final.other";
-        v14 = buf;
+        v10 = "IMTranscoderImage.transcode.final.other";
+        v11 = buf;
         goto LABEL_22;
       }
     }
@@ -472,15 +472,15 @@ LABEL_22:
 
   else
   {
-    switch(v11)
+    switch(v8)
     {
       case 2:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v17 = 0;
-          v13 = "IMTranscoderImage.transcode.final.heif";
-          v14 = &v17;
+          v14 = 0;
+          v10 = "IMTranscoderImage.transcode.final.heif";
+          v11 = &v14;
           goto LABEL_22;
         }
 
@@ -489,9 +489,9 @@ LABEL_22:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v16 = 0;
-          v13 = "IMTranscoderImage.transcode.final.png";
-          v14 = &v16;
+          v13 = 0;
+          v10 = "IMTranscoderImage.transcode.final.png";
+          v11 = &v13;
           goto LABEL_22;
         }
 
@@ -502,11 +502,11 @@ LABEL_22:
         {
           if (os_signpost_enabled(v5))
           {
-            v15 = 0;
-            v13 = "IMTranscoderImage.transcode.final.gif";
-            v14 = &v15;
+            v12 = 0;
+            v10 = "IMTranscoderImage.transcode.final.gif";
+            v11 = &v12;
 LABEL_22:
-            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v13, " enableTelemetry=YES ", v14, 2u);
+            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v10, " enableTelemetry=YES ", v11, 2u);
           }
         }
 
@@ -518,21 +518,21 @@ LABEL_22:
 - (void)emitSignpostTranscodeSkipSourceUTI:(id)i
 {
   v5 = _iMessageTelemetryLogHandle();
-  v11 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7, v8, v9, v10);
-  if (v11 <= 1)
+  v8 = objc_msgSend__telemetryImageTypeForUTI_(self, v6, i, v7);
+  if (v8 <= 1)
   {
-    if (v11)
+    if (v8)
     {
-      if (v11 == 1)
+      if (v8 == 1)
       {
         signpostId = self->_signpostId;
         if (signpostId)
         {
           if (os_signpost_enabled(v5))
           {
-            v18 = 0;
-            v13 = "IMTranscoderImage.transcode.skip.jpeg";
-            v14 = &v18;
+            v15 = 0;
+            v10 = "IMTranscoderImage.transcode.skip.jpeg";
+            v11 = &v15;
             goto LABEL_22;
           }
         }
@@ -545,8 +545,8 @@ LABEL_22:
       if (signpostId && os_signpost_enabled(v5))
       {
         *buf = 0;
-        v13 = "IMTranscoderImage.transcode.skip.other";
-        v14 = buf;
+        v10 = "IMTranscoderImage.transcode.skip.other";
+        v11 = buf;
         goto LABEL_22;
       }
     }
@@ -554,15 +554,15 @@ LABEL_22:
 
   else
   {
-    switch(v11)
+    switch(v8)
     {
       case 2:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v17 = 0;
-          v13 = "IMTranscoderImage.transcode.skip.heif";
-          v14 = &v17;
+          v14 = 0;
+          v10 = "IMTranscoderImage.transcode.skip.heif";
+          v11 = &v14;
           goto LABEL_22;
         }
 
@@ -571,9 +571,9 @@ LABEL_22:
         signpostId = self->_signpostId;
         if (signpostId && os_signpost_enabled(v5))
         {
-          v16 = 0;
-          v13 = "IMTranscoderImage.transcode.skip.png";
-          v14 = &v16;
+          v13 = 0;
+          v10 = "IMTranscoderImage.transcode.skip.png";
+          v11 = &v13;
           goto LABEL_22;
         }
 
@@ -584,11 +584,11 @@ LABEL_22:
         {
           if (os_signpost_enabled(v5))
           {
-            v15 = 0;
-            v13 = "IMTranscoderImage.transcode.skip.gif";
-            v14 = &v15;
+            v12 = 0;
+            v10 = "IMTranscoderImage.transcode.skip.gif";
+            v11 = &v12;
 LABEL_22:
-            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v13, " enableTelemetry=YES ", v14, 2u);
+            _os_signpost_emit_with_name_impl(&dword_254811000, v5, OS_SIGNPOST_EVENT, signpostId, v10, " enableTelemetry=YES ", v11, 2u);
           }
         }
 

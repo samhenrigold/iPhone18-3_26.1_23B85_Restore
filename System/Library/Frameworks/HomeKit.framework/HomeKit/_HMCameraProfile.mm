@@ -10,19 +10,19 @@
 
 - (_HMCameraProfile)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [[_HMAccessoryProfile alloc] initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
+    v16 = objc_opt_class();
     v17 = objc_opt_class();
     v18 = objc_opt_class();
     v19 = objc_opt_class();
     v20 = objc_opt_class();
-    v21 = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:5];
-    v8 = [v6 setWithArray:{v7, v17, v18, v19, v20}];
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:5];
+    v8 = [v6 setWithArray:{v7, v16, v17, v18, v19}];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HMCP.ck.mostRecentSnapshot"];
 
     v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCP.ck.userSettings"];
@@ -48,7 +48,6 @@
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -63,12 +62,12 @@
 
 - (void)__configureWithContext:(id)context accessory:(id)accessory
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   accessoryCopy = accessory;
-  v41.receiver = self;
-  v41.super_class = _HMCameraProfile;
-  [(_HMAccessoryProfile *)&v41 __configureWithContext:contextCopy accessory:accessoryCopy];
+  v40.receiver = self;
+  v40.super_class = _HMCameraProfile;
+  [(_HMAccessoryProfile *)&v40 __configureWithContext:contextCopy accessory:accessoryCopy];
   home = [accessoryCopy home];
   if (!home)
   {
@@ -80,38 +79,38 @@
       v12 = HMFGetLogIdentifier();
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
       *buf = 138543618;
-      v44 = v12;
-      v45 = 2112;
-      v46 = callStackSymbols;
+      v43 = v12;
+      v44 = 2112;
+      v45 = callStackSymbols;
       _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_FAULT, "%{public}@Home was nil while configuring _HMCameraProfile. Call stack: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   controls = [(_HMCameraProfile *)self controls];
-  v15 = [controls countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v15 = [controls countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v38;
+    v17 = *v37;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v38 != v17)
+        if (*v37 != v17)
         {
           objc_enumerationMutation(controls);
         }
 
-        [*(*(&v37 + 1) + 8 * i) __configureWithContext:contextCopy];
+        [*(*(&v36 + 1) + 8 * i) __configureWithContext:contextCopy];
       }
 
-      v16 = [controls countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v16 = [controls countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v16);
@@ -150,8 +149,6 @@
     v35 = [(HMCameraRecordingEventManager *)v32 initWithContext:contextCopy clipManager:clipManager2 reachabilityEventManager:reachabilityEventManager2 home:home];
     [(_HMCameraProfile *)self setRecordingEventManager:v35];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)controls
@@ -194,15 +191,15 @@
 
 - (_HMCameraProfile)initWithUUID:(id)d services:(id)services mostRecentSnapshot:(id)snapshot userSettings:(id)settings
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   snapshotCopy = snapshot;
   settingsCopy = settings;
-  v54.receiver = self;
-  v54.super_class = _HMCameraProfile;
-  v12 = [(_HMAccessoryProfile *)&v54 initWithUUID:d services:services];
+  v53.receiver = self;
+  v53.super_class = _HMCameraProfile;
+  v12 = [(_HMAccessoryProfile *)&v53 initWithUUID:d services:services];
   if (v12)
   {
-    v46 = settingsCopy;
+    v45 = settingsCopy;
     settingsCopy2 = settings;
     v13 = [_HMCameraStreamControl alloc];
     profileUniqueIdentifier = [(_HMAccessoryProfile *)v12 profileUniqueIdentifier];
@@ -212,31 +209,31 @@
 
     v17 = [_HMCameraSnapshotControl alloc];
     profileUniqueIdentifier2 = [(_HMAccessoryProfile *)v12 profileUniqueIdentifier];
-    v47 = snapshotCopy;
+    v46 = snapshotCopy;
     v19 = [(_HMCameraSnapshotControl *)v17 initWithCameraProfile:v12 profileUniqueIdentifier:profileUniqueIdentifier2 mostRecentSnapshot:snapshotCopy];
     snapshotControl = v12->_snapshotControl;
     v12->_snapshotControl = v19;
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     obj = [(_HMAccessoryProfile *)v12 services];
-    v21 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v21 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v51;
+      v23 = *v50;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v51 != v23)
+          if (*v50 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v50 + 1) + 8 * i);
+          v25 = *(*(&v49 + 1) + 8 * i);
           serviceType = [v25 serviceType];
           v27 = [serviceType isEqualToString:@"00000111-0000-1000-8000-0026BB765291"];
 
@@ -274,18 +271,17 @@
           }
         }
 
-        v22 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v22 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v22);
     }
 
     objc_storeStrong(&v12->_userSettings, settingsCopy2);
-    settingsCopy = v46;
-    snapshotCopy = v47;
+    settingsCopy = v45;
+    snapshotCopy = v46;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

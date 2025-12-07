@@ -230,15 +230,16 @@ BOOL __50__VNShotflowDetector_filterBoxes_usingThresholds___block_invoke(uint64_
 
 - (id)smartMergeBoxes:(id)boxes
 {
-  v123[1] = *MEMORY[0x1E69E9840];
+  v124[1] = *MEMORY[0x1E69E9840];
   boxesCopy = boxes;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"smartDistance" ascending:1];
-  v123[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v123 count:1];
+  v124[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v124 count:1];
   v6 = [boxesCopy sortedArrayUsingDescriptors:v5];
 
   v7 = [v6 count];
-  std::vector<BOOL>::vector(&__p, v7);
+  v122 = 0;
+  std::vector<BOOL>::vector(&__p, v7, &v122);
   [(VNShotflowDetector *)self smartThreshold];
   v117 = v8;
   [(VNShotflowDetector *)self smartDistanceFactor];
@@ -436,15 +437,16 @@ BOOL __50__VNShotflowDetector_filterBoxes_usingThresholds___block_invoke(uint64_
 
 - (id)mergeBoxes:(id)boxes
 {
-  v69[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   boxesCopy = boxes;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"confidence" ascending:0];
-  v69[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:1];
+  v70[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
   v6 = [boxesCopy sortedArrayUsingDescriptors:v5];
 
   v7 = [v6 count];
-  std::vector<BOOL>::vector(&__p, v7);
+  v68 = 0;
+  std::vector<BOOL>::vector(&__p, v7, &v68);
   [(VNShotflowDetector *)self nmsThreshold];
   v67 = v8;
   array = [MEMORY[0x1E695DF70] array];
@@ -552,15 +554,16 @@ BOOL __50__VNShotflowDetector_filterBoxes_usingThresholds___block_invoke(uint64_
 
 - (id)overlappingLowMergeCountSuppression:(id)suppression
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   suppressionCopy = suppression;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"mergesCount" ascending:0];
-  v21[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v22[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v6 = [suppressionCopy sortedArrayUsingDescriptors:v5];
 
   v7 = [v6 count];
-  std::vector<BOOL>::vector(&__p, v7);
+  v20 = 0;
+  std::vector<BOOL>::vector(&__p, v7, &v20);
   [(VNShotflowDetector *)self olmcsThreshold];
   v9 = v8;
   olmcsMergeCountDelta = [(VNShotflowDetector *)self olmcsMergeCountDelta];
@@ -621,15 +624,16 @@ BOOL __50__VNShotflowDetector_filterBoxes_usingThresholds___block_invoke(uint64_
 
 - (id)overlappingSmallFacesSuppression:(id)suppression
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   suppressionCopy = suppression;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"confidence" ascending:0];
-  v23[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v24[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
   v6 = [suppressionCopy sortedArrayUsingDescriptors:v5];
 
   v7 = [v6 count];
-  std::vector<BOOL>::vector(&__p, v7);
+  v22 = 0;
+  std::vector<BOOL>::vector(&__p, v7, &v22);
   [(VNShotflowDetector *)self osfsThreshold];
   v9 = v8;
   [(VNShotflowDetector *)self osfsSizeRatio];

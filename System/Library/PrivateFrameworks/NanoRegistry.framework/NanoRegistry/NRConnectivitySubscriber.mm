@@ -7,10 +7,10 @@
 
 - (NRConnectivitySubscriber)init
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = NRConnectivitySubscriber;
-  v2 = [(NRConnectivitySubscriber *)&v11 init];
+  v14 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = NRConnectivitySubscriber;
+  v2 = [(NRConnectivitySubscriber *)&v10 init];
   if (v2)
   {
     if (init_onceToken != -1)
@@ -33,7 +33,7 @@
           {
             v6 = objc_opt_class();
             *buf = 138412290;
-            v14 = v6;
+            v13 = v6;
             v7 = v6;
             _os_log_impl(&dword_1E0ADF000, v5, OS_LOG_TYPE_DEFAULT, "Failed to read notify token in %@", buf, 0xCu);
           }
@@ -49,13 +49,12 @@
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 void __32__NRConnectivitySubscriber_init__block_invoke()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (notify_register_check("com.apple.nanoregistry.dropoutcounter", &notifyHandle))
   {
     v0 = nr_framework_log();
@@ -66,14 +65,12 @@ void __32__NRConnectivitySubscriber_init__block_invoke()
       v2 = nr_framework_log();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 136315138;
-        v5 = "com.apple.nanoregistry.dropoutcounter";
-        _os_log_impl(&dword_1E0ADF000, v2, OS_LOG_TYPE_DEFAULT, "Failed to register block and get notify token for %s", &v4, 0xCu);
+        v3 = 136315138;
+        v4 = "com.apple.nanoregistry.dropoutcounter";
+        _os_log_impl(&dword_1E0ADF000, v2, OS_LOG_TYPE_DEFAULT, "Failed to register block and get notify token for %s", &v3, 0xCu);
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)getDropoutCounter:(unint64_t *)counter

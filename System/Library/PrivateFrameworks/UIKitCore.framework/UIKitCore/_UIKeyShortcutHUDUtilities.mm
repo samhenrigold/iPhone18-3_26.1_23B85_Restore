@@ -31,27 +31,27 @@
     dispatch_once(&qword_1ED4A3098, &__block_literal_global_730);
   }
 
-  v0 = _MergedGlobals_1403[0];
+  v1 = _MergedGlobals_1403[0];
 
-  return v0;
+  return v1;
 }
 
 + (id)searchIconAttributedString
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56___UIKeyShortcutHUDUtilities_searchIconAttributedString__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (qword_1ED4A30A8 != -1)
   {
     dispatch_once(&qword_1ED4A30A8, block);
   }
 
-  v1 = qword_1ED4A30A0;
+  v2 = qword_1ED4A30A0;
 
-  return v1;
+  return v2;
 }
 
 + (id)modifiersAttributedStringForMenuLeafShortcut:(void *)shortcut font:(int)font shouldDisplayGlobeModiferAsGlobeSymbol:
@@ -228,7 +228,7 @@ LABEL_11:
   {
     currentLocalizedKeyCombination = [shortcutCopy currentLocalizedKeyCombination];
     keyEquivalent = [currentLocalizedKeyCombination keyEquivalent];
-    if ([keyEquivalent isEqualToString:@"UIKeyInputEscape"])
+    if (objc_msgSend_isEqualToString_(keyEquivalent))
     {
       currentLocalizedKeyCombination2 = [v6 currentLocalizedKeyCombination];
       modifierFlags = [currentLocalizedKeyCombination2 modifierFlags];

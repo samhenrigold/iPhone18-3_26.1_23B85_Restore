@@ -49,30 +49,26 @@
 
 + (id)uniqueTextColumnWithName:(id)name
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [SiriCoreSQLiteColumnDescription alloc];
   v5 = [[SiriCoreSQLiteColumnConstraint alloc] initWithName:0 type:3 value:0 options:0];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [(SiriCoreSQLiteColumnDescription *)v4 initWithName:nameCopy type:@"TEXT" constraints:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)integerPrimaryKeyColumnWithName:(id)name
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [SiriCoreSQLiteColumnDescription alloc];
   v5 = [[SiriCoreSQLiteColumnConstraint alloc] initWithName:0 type:1 value:0 options:0];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [(SiriCoreSQLiteColumnDescription *)v4 initWithName:nameCopy type:@"INTEGER" constraints:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

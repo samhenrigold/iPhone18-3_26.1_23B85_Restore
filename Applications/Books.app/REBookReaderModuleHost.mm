@@ -59,7 +59,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  BookReaderModuleHost.assetViewControllerDelegate.setter();
+  BookReaderModuleHost.assetViewControllerDelegate.setter(delegate);
 }
 
 - (void)setContentOpenAnimator:(id)animator

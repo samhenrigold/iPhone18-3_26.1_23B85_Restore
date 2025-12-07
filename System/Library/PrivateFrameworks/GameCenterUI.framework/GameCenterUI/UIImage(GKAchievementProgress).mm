@@ -13,9 +13,9 @@
     [UIImage(GKAchievementProgress) _gkQuestionMarkImage];
   }
 
-  v1 = _gkQuestionMarkImage_sImage;
+  v2 = _gkQuestionMarkImage_sImage;
 
-  return v1;
+  return v2;
 }
 
 - (id)_gkMaskImageWithProgress:()GKAchievementProgress isDetail:

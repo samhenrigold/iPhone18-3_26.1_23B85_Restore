@@ -82,7 +82,7 @@
   v9 = [(CryptexSession *)self cs];
   v10 = cryptex_session_core_get_overrides();
 
-  v11 = codex_bootstrap_launch_agents_to_session(v8, uid);
+  v11 = codex_bootstrap_launch_agents_to_session(v8, uid, v10);
   if (v11)
   {
     v12 = v11;
@@ -297,7 +297,7 @@
       _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Searching for LaunchAgents to remove from the session", buf, 2u);
     }
 
-    codex_unbootstrap_launch_agents_from_session(v38, uid);
+    codex_unbootstrap_launch_agents_from_session(v38, uid, v9);
     session_work_group4 = [(CryptexSession *)self session_work_group];
     dispatch_group_leave(session_work_group4);
 
@@ -396,11 +396,11 @@ id __37__CryptexSession_sessionAddParseXPC___block_invoke(uint64_t a1, uint64_t 
 {
   v4 = a3;
   string = xpc_dictionary_get_string(v4, "BUNDLEID");
-  v23 = xpc_dictionary_dup_fd(v4, "DMG");
-  v22 = xpc_dictionary_dup_fd(v4, "TCH");
-  v21 = xpc_dictionary_dup_fd(v4, "IM4");
-  v20 = xpc_dictionary_dup_fd(v4, "INF");
-  v19 = xpc_dictionary_dup_fd(v4, "VOLHASH");
+  v28 = xpc_dictionary_dup_fd(v4, "DMG");
+  v27 = xpc_dictionary_dup_fd(v4, "TCH");
+  v26 = xpc_dictionary_dup_fd(v4, "IM4");
+  v25 = xpc_dictionary_dup_fd(v4, "INF");
+  v24 = xpc_dictionary_dup_fd(v4, "VOLHASH");
   int64 = xpc_dictionary_get_int64(v4, "TYPE");
   v7 = xpc_dictionary_get_dictionary(v4, "CRYPTEX1_PROPERTIES");
   if (v7)
@@ -413,79 +413,123 @@ id __37__CryptexSession_sessionAddParseXPC___block_invoke(uint64_t a1, uint64_t 
     v8 = 0;
   }
 
-  v9 = [*(a1 + 32) sessionAddCptxWithBundleID:string withType:int64 dmgFd:&v23 trustCacheFD:&v22 manifestFD:&v21 volumeHashFD:&v19 infoPlistFd:&v20 cx1Properties:v8];
+  v9 = [*(a1 + 32) sessionAddCptxWithBundleID:string withType:int64 dmgFd:&v28 trustCacheFD:&v27 manifestFD:&v26 volumeHashFD:&v24 infoPlistFd:&v25 cx1Properties:v8];
 
-  if (v19 != -1 && close(v19) == -1)
+  if (v24 != -1 && close(v24) == -1)
   {
-    v24 = 0;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v11 = *__error();
-    v25 = 67109120;
-    v26 = v11;
-    _os_log_send_and_compose_impl();
-    v12 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v12);
+    v29 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v12 = *__error();
+    if (v11)
+    {
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    v30 = 67109120;
+    v31 = v12;
+    LODWORD(v23) = 8;
+    _os_log_send_and_compose_impl(v13, &v29, &v32, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", &v30, v23);
+    _os_crash_msg();
+    aks_open_bag_for_uid_at_path_cold_1();
   }
 
-  if (v20 != -1 && close(v20) == -1)
+  if (v25 != -1 && close(v25) == -1)
   {
-    v24 = 0;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v13 = *__error();
-    v25 = 67109120;
-    v26 = v13;
-    _os_log_send_and_compose_impl();
-    v14 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v14);
-  }
-
-  if (v21 != -1 && close(v21) == -1)
-  {
-    v24 = 0;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v29 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v14 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
     v15 = *__error();
-    v25 = 67109120;
-    v26 = v15;
-    _os_log_send_and_compose_impl();
-    v16 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v16);
+    if (v14)
+    {
+      v16 = 3;
+    }
+
+    else
+    {
+      v16 = 2;
+    }
+
+    v30 = 67109120;
+    v31 = v15;
+    LODWORD(v23) = 8;
+    _os_log_send_and_compose_impl(v16, &v29, &v32, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", &v30, v23);
+    _os_crash_msg();
+    aks_open_bag_for_uid_at_path_cold_1();
   }
 
-  if (v22 != -1 && close(v22) == -1)
+  if (v26 != -1 && close(v26) == -1)
   {
-    v24 = 0;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v27 = 0u;
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v17 = *__error();
-    v25 = 67109120;
-    v26 = v17;
-    _os_log_send_and_compose_impl();
-    v18 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v18);
+    v29 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v17 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v18 = *__error();
+    if (v17)
+    {
+      v19 = 3;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    v30 = 67109120;
+    v31 = v18;
+    LODWORD(v23) = 8;
+    _os_log_send_and_compose_impl(v19, &v29, &v32, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", &v30, v23);
+    _os_crash_msg();
+    aks_open_bag_for_uid_at_path_cold_1();
   }
 
-  if (v23 != -1 && close(v23) == -1)
+  if (v27 != -1 && close(v27) == -1)
   {
-    __37__CryptexSession_sessionAddParseXPC___block_invoke_cold_5(&v24, &v27);
+    v29 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v20 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v21 = *__error();
+    if (v20)
+    {
+      v22 = 3;
+    }
+
+    else
+    {
+      v22 = 2;
+    }
+
+    v30 = 67109120;
+    v31 = v21;
+    LODWORD(v23) = 8;
+    _os_log_send_and_compose_impl(v22, &v29, &v32, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", &v30, v23);
+    _os_crash_msg();
+    aks_open_bag_for_uid_at_path_cold_1();
+  }
+
+  if (v28 != -1 && close(v28) == -1)
+  {
+    __37__CryptexSession_sessionAddParseXPC___block_invoke_cold_5(&v29, &v32);
   }
 
   return v9;
@@ -979,7 +1023,7 @@ LABEL_12:
   }
 }
 
-void __37__CryptexSession_sessionAddParseXPC___block_invoke_cold_5(uint64_t *a1, _OWORD *a2)
+void __37__CryptexSession_sessionAddParseXPC___block_invoke_cold_5(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -987,10 +1031,21 @@ void __37__CryptexSession_sessionAddParseXPC___block_invoke_cold_5(uint64_t *a1,
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  v4 = *__error();
-  _os_log_send_and_compose_impl();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  v5 = *__error();
+  v7[0] = 67109120;
+  v7[1] = v5;
+  v6 = 8;
+  _os_log_send_and_compose_impl(v4, a1, a2, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", v7, v6);
   _os_crash_msg();
   __break(1u);
 }

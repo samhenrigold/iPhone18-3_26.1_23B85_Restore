@@ -15,7 +15,7 @@
 - (id)br_stringByBackslashEscapingCharactersInString:()BRCAdditions
 {
   v4 = a3;
-  if ([v4 length] && objc_msgSend(v4, "rangeOfString:", @"\\"") == 0x7FFFFFFFFFFFFFFFLL)
+  if ([v4 length] && objc_msgSend(v4, "rangeOfString:", @"\") == 0x7FFFFFFFFFFFFFFFLL)
   {
     [NSString(BRCAdditions) br_stringByBackslashEscapingCharactersInString:];
   }
@@ -30,7 +30,7 @@
     v11 = [MEMORY[0x1E696AD60] stringWithString:selfCopy];
     do
     {
-      [v11 insertString:@"\\"" atIndex:v9];
+      [v11 insertString:@"\" atIndex:v9];
       if (v9 + v10 + 1 >= [v11 length])
       {
         break;
@@ -68,29 +68,29 @@
 
 - (id)br_decodeIndexStringToIndexSet
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AD50]);
   [self componentsSeparatedByString:{@", "}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v3 = v27 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v3 = v26 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
-    v23 = v2;
+    v6 = *v24;
+    v22 = v2;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v25 != v6)
+      if (*v24 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v24 + 1) + 8 * v7);
+      v8 = *(*(&v23 + 1) + 8 * v7);
       v9 = [v8 componentsSeparatedByString:@":"];
       if ([v9 count] == 2)
       {
@@ -108,18 +108,18 @@ LABEL_3:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v29 = v8;
-            v30 = 2112;
-            v31 = v18;
+            v28 = v8;
+            v29 = 2112;
+            v30 = v18;
             _os_log_impl(&dword_1AE2A9000, v19, OS_LOG_TYPE_DEFAULT, "[WARNING] Invalid range components %@%@", buf, 0x16u);
           }
 
-          v2 = v23;
+          v2 = v22;
           goto LABEL_24;
         }
 
-        v2 = v23;
-        [v23 addIndexesInRange:{longLongValue, v14 + 1}];
+        v2 = v22;
+        [v22 addIndexesInRange:{longLongValue, v14 + 1}];
       }
 
       else
@@ -131,9 +131,9 @@ LABEL_3:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v29 = v8;
-            v30 = 2112;
-            v31 = v18;
+            v28 = v8;
+            v29 = 2112;
+            v30 = v18;
             v20 = "[WARNING] Invalid string range %@%@";
             goto LABEL_23;
           }
@@ -151,13 +151,13 @@ LABEL_24:
         {
           v18 = brc_bread_crumbs("[NSString(BRCAdditions) br_decodeIndexStringToIndexSet]", 88);
           v19 = brc_default_log(1, 0);
-          v2 = v23;
+          v2 = v22;
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v29 = v8;
-            v30 = 2112;
-            v31 = v18;
+            v28 = v8;
+            v29 = 2112;
+            v30 = v18;
             v20 = "[WARNING] Invalid string value %@%@";
 LABEL_23:
             _os_log_impl(&dword_1AE2A9000, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 0x16u);
@@ -166,13 +166,13 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        v2 = v23;
-        [v23 addIndex:longLongValue3];
+        v2 = v22;
+        [v22 addIndex:longLongValue3];
       }
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -185,8 +185,6 @@ LABEL_23:
 
   v17 = v2;
 LABEL_25:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -206,7 +204,7 @@ LABEL_25:
 
 - (id)br_stringByJSONEscaping
 {
-  v1 = [self br_stringByBackslashEscapingCharactersInString:@"\\""];
+  v1 = [self br_stringByBackslashEscapingCharactersInString:@"\"];
   v2 = [v1 mutableCopy];
 
   [v2 replaceOccurrencesOfString:@"\n" withString:@"\\n" options:1 range:{0, objc_msgSend(v2, "length")}];
@@ -249,7 +247,7 @@ LABEL_25:
 
 - (id)br_obfuscateAliasTarget
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   if (fp_shouldObfuscateFilenames())
   {
     v2 = [self componentsSeparatedByString:@":"];
@@ -257,10 +255,10 @@ LABEL_25:
     {
       v3 = [v2 objectAtIndexedSubscript:0];
       fp_obfuscatedDotSeparatedComponents = [v3 fp_obfuscatedDotSeparatedComponents];
-      v12[0] = fp_obfuscatedDotSeparatedComponents;
+      v11[0] = fp_obfuscatedDotSeparatedComponents;
       v5 = [v2 objectAtIndexedSubscript:1];
-      v12[1] = v5;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+      v11[1] = v5;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
       selfCopy2 = [v6 componentsJoinedByString:@":"];
     }
 
@@ -281,8 +279,6 @@ LABEL_25:
   {
     selfCopy2 = self;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return selfCopy2;
 }
@@ -305,28 +301,25 @@ LABEL_25:
 
 - (void)br_stringByBackslashEscapingCharactersInString:()BRCAdditions .cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("[NSString(BRCAdditions) br_stringByBackslashEscapingCharactersInString:]", 31);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: charactersToEscape.length == 0 || [charactersToEscape rangeOfString:@\\\\].location != NSNotFound%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: charactersToEscape.length == 0 || [charactersToEscape rangeOfString:@\\\\].location != NSNotFound%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)br_obfuscateAliasTarget
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: malformed alias target: %@%@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: malformed alias target: %@%@", &v3, 0x16u);
 }
 
 @end

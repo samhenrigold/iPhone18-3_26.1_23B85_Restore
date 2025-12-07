@@ -36,7 +36,7 @@
 - (SSSnippetHighlightTool)initWithTerms:(id)terms
 {
   termsCopy = terms;
-  if ([termsCopy count])
+  if (objc_msgSend_count(termsCopy))
   {
     v10.receiver = self;
     v10.super_class = SSSnippetHighlightTool;
@@ -62,29 +62,29 @@
 
 - (id)findAndMergeHighlightRangesInSnippet:(id)snippet
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   snippetCopy = snippet;
   array = [MEMORY[0x1E695DF70] array];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = [(SSSnippetHighlightTool *)self terms];
-  v6 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v6 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v6)
   {
     v7 = v6;
-    v35 = *v37;
+    v34 = *v36;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v35)
+        if (*v36 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v36 + 1) + 8 * i);
+        v9 = *(*(&v35 + 1) + 8 * i);
         if ([v9 length])
         {
           v10 = [snippetCopy length];
@@ -119,13 +119,13 @@
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v7);
   }
 
-  if ([array count])
+  if (objc_msgSend_count(array))
   {
     [array sortUsingComparator:&__block_literal_global_27];
     array2 = [MEMORY[0x1E695DF70] array];
@@ -133,7 +133,7 @@
     rangeValue = [firstObject rangeValue];
     v22 = v21;
 
-    if ([array count] >= 2)
+    if (objc_msgSend_count(array) >= 2)
     {
       v23 = 1;
       do
@@ -165,7 +165,7 @@
         ++v23;
       }
 
-      while (v23 < [array count]);
+      while (v23 < objc_msgSend_count(array));
     }
 
     v30 = [MEMORY[0x1E696B098] valueWithRange:{rangeValue, v22}];
@@ -178,8 +178,6 @@
   {
     v31 = MEMORY[0x1E695E0F0];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -200,39 +198,39 @@ uint64_t __63__SSSnippetHighlightTool_findAndMergeHighlightRangesInSnippet___blo
 
 - (id)makeHighlightedSnippet:(id)snippet
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   snippetCopy = snippet;
   if ([snippetCopy length])
   {
-    v33 = @"com.apple.SSSnippetHighlightTool.TextHighlightAttribute";
-    v34[0] = MEMORY[0x1E695E118];
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = @"com.apple.SSSnippetHighlightTool.TextHighlightAttribute";
+    v33[0] = MEMORY[0x1E695E118];
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v5 = [(SSSnippetHighlightTool *)self findAndMergeHighlightRangesInSnippet:snippetCopy];
-    if ([v5 count])
+    if (objc_msgSend_count(v5))
     {
       array = [MEMORY[0x1E695DF70] array];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      v24 = v5;
+      v23 = v5;
       obj = v5;
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v7)
       {
         v8 = v7;
         v9 = 0;
-        v10 = *v28;
+        v10 = *v27;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v28 != v10)
+            if (*v27 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            rangeValue = [*(*(&v27 + 1) + 8 * i) rangeValue];
+            rangeValue = [*(*(&v26 + 1) + 8 * i) rangeValue];
             v14 = v13;
             if (rangeValue > v9)
             {
@@ -242,12 +240,12 @@ uint64_t __63__SSSnippetHighlightTool_findAndMergeHighlightRangesInSnippet___blo
             }
 
             v17 = [snippetCopy substringWithRange:{rangeValue, v14}];
-            v18 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v17 attributes:v26];
+            v18 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v17 attributes:v25];
             [array addObject:v18];
             v9 = rangeValue + v14;
           }
 
-          v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v8);
@@ -266,14 +264,14 @@ uint64_t __63__SSSnippetHighlightTool_findAndMergeHighlightRangesInSnippet___blo
       }
 
       v19 = [array copy];
-      v5 = v24;
+      v5 = v23;
     }
 
     else
     {
       array = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:snippetCopy];
-      v32 = array;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+      v31 = array;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
     }
   }
 
@@ -281,8 +279,6 @@ uint64_t __63__SSSnippetHighlightTool_findAndMergeHighlightRangesInSnippet___blo
   {
     v19 = MEMORY[0x1E695E0F0];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

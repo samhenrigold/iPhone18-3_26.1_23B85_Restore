@@ -10,7 +10,7 @@ void ___EXAuditTokenForCurrentProcess_block_invoke()
   if (v0)
   {
     v1 = v0;
-    v2 = _EXDefaultLog();
+    v2 = _EXDefaultLog(v0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       ___EXAuditTokenForCurrentProcess_block_invoke_cold_1(v1, v2);
@@ -25,11 +25,10 @@ void ___EXAuditTokenForCurrentProcess_block_invoke()
 
 void ___EXAuditTokenForCurrentProcess_block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1847D1000, a2, OS_LOG_TYPE_ERROR, "Failed to get audit token for current process: %llx", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1847D1000, a2, OS_LOG_TYPE_ERROR, "Failed to get audit token for current process: %llx", &v2, 0xCu);
 }
 
 @end

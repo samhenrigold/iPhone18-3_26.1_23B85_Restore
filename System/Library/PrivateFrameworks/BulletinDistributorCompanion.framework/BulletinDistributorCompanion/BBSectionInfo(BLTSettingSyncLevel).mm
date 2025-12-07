@@ -6,7 +6,7 @@
 
 - (void)bltApplyNotificationLevel:()BLTSettingSyncLevel
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a3 == 3)
   {
     [self setCriticalAlertSetting:1];
@@ -53,35 +53,33 @@
     [self setAuthorizationStatus:1];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   subsections = [self subsections];
-  v12 = [subsections countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [subsections countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(subsections);
         }
 
-        [*(*(&v17 + 1) + 8 * i) bltApplyNotificationLevel:a3];
+        [*(*(&v16 + 1) + 8 * i) bltApplyNotificationLevel:a3];
       }
 
-      v13 = [subsections countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [subsections countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

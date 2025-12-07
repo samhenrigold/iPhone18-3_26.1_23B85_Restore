@@ -94,7 +94,7 @@ uint64_t __60__HMDHierarchicalStateMachineState__registerForEventHandler__block_
 
 - (void)onInitialTransition:(id)transition
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   transitionCopy = transition;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -105,27 +105,25 @@ uint64_t __60__HMDHierarchicalStateMachineState__registerForEventHandler__block_
     name = [(CUState *)selfCopy name];
     name2 = [transitionCopy name];
     userInfo = [transitionCopy userInfo];
-    v14 = 138544130;
-    v15 = v8;
-    v16 = 2112;
-    v17 = name;
-    v18 = 2112;
-    v19 = name2;
-    v20 = 2112;
-    v21 = userInfo;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%@.onInitialTransition: %@ / %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v8;
+    v15 = 2112;
+    v16 = name;
+    v17 = 2112;
+    v18 = name2;
+    v19 = 2112;
+    v20 = userInfo;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%@.onInitialTransition: %@ / %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
   v12 = [(HMDHierarchicalStateMachineState *)selfCopy hsm];
   [v12 setHSMInternalCurrentState:selfCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleExitEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -136,24 +134,23 @@ uint64_t __60__HMDHierarchicalStateMachineState__registerForEventHandler__block_
     name = [(CUState *)selfCopy name];
     name2 = [eventCopy name];
     userInfo = [eventCopy userInfo];
-    v13 = 138544130;
-    v14 = v8;
-    v15 = 2112;
-    v16 = name;
-    v17 = 2112;
-    v18 = name2;
-    v19 = 2112;
-    v20 = userInfo;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%@.handleExitEvent: %@ / %@", &v13, 0x2Au);
+    v12 = 138544130;
+    v13 = v8;
+    v14 = 2112;
+    v15 = name;
+    v16 = 2112;
+    v17 = name2;
+    v18 = 2112;
+    v19 = userInfo;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%@.handleExitEvent: %@ / %@", &v12, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEnterEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -164,19 +161,18 @@ uint64_t __60__HMDHierarchicalStateMachineState__registerForEventHandler__block_
     name = [(CUState *)selfCopy name];
     name2 = [eventCopy name];
     userInfo = [eventCopy userInfo];
-    v13 = 138544130;
-    v14 = v8;
-    v15 = 2112;
-    v16 = name;
-    v17 = 2112;
-    v18 = name2;
-    v19 = 2112;
-    v20 = userInfo;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%@.handleEnterEvent: %@ / %@", &v13, 0x2Au);
+    v12 = 138544130;
+    v13 = v8;
+    v14 = 2112;
+    v15 = name;
+    v16 = 2112;
+    v17 = name2;
+    v18 = 2112;
+    v19 = userInfo;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%@.handleEnterEvent: %@ / %@", &v12, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHierarchicalStateMachineState)initWithName:(id)name parent:(id)parent
@@ -207,10 +203,9 @@ uint64_t __60__HMDHierarchicalStateMachineState__registerForEventHandler__block_
 
 void __47__HMDHierarchicalStateMachineState_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_78827;
-  logCategory__hmf_once_v4_78827 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_78827;
+  logCategory__hmf_once_v4_78827 = v0;
 }
 
 @end

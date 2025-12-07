@@ -57,7 +57,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -72,7 +72,7 @@
 
 - (void)invalidate
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -93,11 +93,11 @@
   queue = [(CSDConversationProviderManagerXPCServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "NOTIFYING CLIENTS TO CONNECT", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "NOTIFYING CLIENTS TO CONNECT", v6, 2u);
   }
 
   notify_set_state(self->_clientsShouldConnectToken, 1uLL);
@@ -270,18 +270,18 @@
   clientManager = [(CSDConversationProviderManagerXPCServer *)self clientManager];
   currentClient = [clientManager currentClient];
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = providerCopy;
-    v14 = 2112;
-    v15 = currentClient;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "registerForCallbacksForProvider received over XPC with providerIdentifier: %@ client: %@", &v12, 0x16u);
+    v13 = 138412546;
+    v14 = providerCopy;
+    v15 = 2112;
+    v16 = currentClient;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "registerForCallbacksForProvider received over XPC with providerIdentifier: %@ client: %@", &v13, 0x16u);
   }
 
-  v11 = +[CSDConversationProviderManager sharedInstance];
-  [v11 startTrackingClient:currentClient forProviderIdentifier:providerCopy];
+  v12 = +[CSDConversationProviderManager sharedInstance];
+  [v12 startTrackingClient:currentClient forProviderIdentifier:providerCopy];
 
   if (handlerCopy)
   {
@@ -296,26 +296,26 @@
   clientManager = [(CSDConversationProviderManagerXPCServer *)self clientManager];
   currentClient = [clientManager currentClient];
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = providerCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "registerConversationProvider received over XPC with provider: %@", buf, 0xCu);
+    v21 = providerCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "registerConversationProvider received over XPC with provider: %@", buf, 0xCu);
   }
 
   providerManager = [(CSDConversationProviderManagerXPCServer *)self providerManager];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_1000D34C4;
-  v15[3] = &unk_10061AFC0;
-  v16 = providerCopy;
-  v17 = currentClient;
-  v18 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = currentClient;
-  v14 = providerCopy;
-  [providerManager registerConversationProvider:v14 completionHandler:v15];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000D34C4;
+  v16[3] = &unk_10061AFC0;
+  v17 = providerCopy;
+  v18 = currentClient;
+  v19 = handlerCopy;
+  v13 = handlerCopy;
+  v14 = currentClient;
+  v15 = providerCopy;
+  [providerManager registerConversationProvider:v15 completionHandler:v16];
 }
 
 @end

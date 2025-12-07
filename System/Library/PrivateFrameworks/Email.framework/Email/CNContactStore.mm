@@ -56,12 +56,11 @@ id __100__CNContactStore_EmailContactUtilities__em_contactsFutureOnScheduler_for
 
 void __100__CNContactStore_EmailContactUtilities__em_contactsFutureOnScheduler_forEmailAddresses_keysToFetch___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = *(*a2 + 40);
-  OUTLINED_FUNCTION_0_1(&dword_1C6655000, a2, a3, "Error fetching contacts for email addresses %@: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = *(*a2 + 40);
+  OUTLINED_FUNCTION_0_1(&dword_1C6655000, a2, a3, "Error fetching contacts for email addresses %@: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

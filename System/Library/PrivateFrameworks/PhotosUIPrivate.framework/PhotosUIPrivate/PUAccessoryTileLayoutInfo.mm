@@ -47,7 +47,7 @@
   v34 = v7;
   [(PUTileLayoutInfo *)self alpha];
   v32 = v9;
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   [(PUTileLayoutInfo *)self zPosition];
   v31 = v10;
   coordinateSystem = [(PUTileLayoutInfo *)self coordinateSystem];
@@ -100,25 +100,25 @@
 
 - (double)initWithTileIdentifier:(uint64_t)identifier center:(_OWORD *)center size:(uint64_t)size alpha:(uint64_t)alpha transform:(uint64_t)transform zPosition:(uint64_t)position coordinateSystem:(double)system untransformedContentFrame:(double)self0 contentInsets:(double)self1 minimumVisibleHeight:(double)self2
 {
-  v21.receiver = self;
-  v21.super_class = PUAccessoryTileLayoutInfo;
-  v17 = center[1];
-  v20[0] = *center;
-  v20[1] = v17;
-  v20[2] = center[2];
-  v18 = objc_msgSendSuper2(&v21, sel_initWithTileIdentifier_center_size_alpha_transform_zPosition_coordinateSystem_, identifier, v20);
-  if (v18)
+  v29.receiver = self;
+  v29.super_class = PUAccessoryTileLayoutInfo;
+  v25 = center[1];
+  v28[0] = *center;
+  v28[1] = v25;
+  v28[2] = center[2];
+  v26 = objc_msgSendSuper2(&v29, sel_initWithTileIdentifier_center_size_alpha_transform_zPosition_coordinateSystem_, identifier, v28, size, alpha, transform, position, system, frame, insets, height, a13, a14);
+  if (v26)
   {
     result = a24;
-    *(v18 + 41) = a17;
-    *(v18 + 42) = a18;
-    *(v18 + 43) = a19;
-    *(v18 + 44) = a20;
-    *(v18 + 45) = a21;
-    *(v18 + 46) = a22;
-    *(v18 + 47) = a23;
-    v18[48] = a24;
-    *(v18 + 40) = a25;
+    *(v26 + 41) = a17;
+    *(v26 + 42) = a18;
+    *(v26 + 43) = a19;
+    *(v26 + 44) = a20;
+    *(v26 + 45) = a21;
+    *(v26 + 46) = a22;
+    *(v26 + 47) = a23;
+    v26[48] = a24;
+    *(v26 + 40) = a25;
   }
 
   return result;

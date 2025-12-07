@@ -1,6 +1,7 @@
 @interface MSVTaskAssertion
 - (BOOL)isValid;
 - (MSVTaskAssertion)init;
+- (id)_initWithName:(id)name bundleID:(id)d pid:(int)pid subsystem:(id)subsystem reason:(unint64_t)reason flags:(unint64_t)flags;
 - (id)description;
 - (unsigned)_BSKReasonForMSVReason:(unint64_t)reason;
 - (void)_cancelInvalidationTimerWithCompletion:(id)completion;
@@ -114,13 +115,13 @@ void __37__MSVTaskAssertion_invalidateOnDate___block_invoke_2(uint64_t a1)
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = os_log_create("com.apple.amp.MediaServices", "SystemUtilities");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1AC81F000, v3, OS_LOG_TYPE_DEBUG, "Invalidating task assertion: %{public}@", &v7, 0xCu);
+    _os_log_impl(&dword_1AC81F000, v3, OS_LOG_TYPE_DEBUG, "Invalidating task assertion: %{public}@", &v6, 0xCu);
   }
 
   [(BKSProcessAssertion *)self->_processAssertion invalidate];
@@ -132,8 +133,6 @@ void __37__MSVTaskAssertion_invalidateOnDate___block_invoke_2(uint64_t a1)
     v5 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -157,7 +156,7 @@ void __37__MSVTaskAssertion_invalidateOnDate___block_invoke_2(uint64_t a1)
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = os_log_create("com.apple.amp.MediaServices", "SystemUtilities");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -173,10 +172,9 @@ void __37__MSVTaskAssertion_invalidateOnDate___block_invoke_2(uint64_t a1)
     dispatch_source_cancel(invalidationTimer);
   }
 
-  v6.receiver = self;
-  v6.super_class = MSVTaskAssertion;
-  [(MSVTaskAssertion *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MSVTaskAssertion;
+  [(MSVTaskAssertion *)&v5 dealloc];
 }
 
 - (MSVTaskAssertion)init
@@ -191,9 +189,108 @@ void __37__MSVTaskAssertion_invalidateOnDate___block_invoke_2(uint64_t a1)
   return 0;
 }
 
+- (id)_initWithName:(id)name bundleID:(id)d pid:(int)pid subsystem:(id)subsystem reason:(unint64_t)reason flags:(unint64_t)flags
+{
+  v11 = *&pid;
+  v48 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  dCopy = d;
+  subsystemCopy = subsystem;
+  v45.receiver = self;
+  v45.super_class = MSVTaskAssertion;
+  v17 = [(MSVTaskAssertion *)&v45 init];
+  if (!v17)
+  {
+    goto LABEL_15;
+  }
+
+  uUID = [MEMORY[0x1E696AFB0] UUID];
+  uUIDString = [uUID UUIDString];
+  uuid = v17->_uuid;
+  v17->_uuid = uUIDString;
+
+  v21 = [subsystemCopy copy];
+  subsystem = v17->_subsystem;
+  v17->_subsystem = v21;
+
+  v23 = [dCopy copy];
+  bundleID = v17->_bundleID;
+  v17->_bundleID = v23;
+
+  v17->_pid = v11;
+  v25 = [nameCopy copy];
+  name = v17->_name;
+  v17->_name = v25;
+
+  v27 = [(MSVTaskAssertion *)v17 _BSKFlagsForMSVFlags:flags];
+  v28 = [(MSVTaskAssertion *)v17 _BSKReasonForMSVReason:reason];
+  nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ %@", subsystemCopy, v17->_uuid, nameCopy];
+  if (v11)
+  {
+    v30 = [objc_alloc(MEMORY[0x1E698D038]) initWithPID:v11 flags:v27 reason:v28 name:nameCopy];
+    processAssertion = v17->_processAssertion;
+    v17->_processAssertion = v30;
+
+    if (!v17->_bundleID)
+    {
+      v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FallbackIdentifier-%d", v11];
+      v33 = v17->_bundleID;
+      v17->_bundleID = v32;
+LABEL_7:
+    }
+  }
+
+  else if (dCopy)
+  {
+    v34 = [objc_alloc(MEMORY[0x1E698D038]) initWithBundleIdentifier:dCopy flags:v27 reason:v28 name:nameCopy];
+    v33 = v17->_processAssertion;
+    v17->_processAssertion = v34;
+    goto LABEL_7;
+  }
+
+  v35 = [MEMORY[0x1E695DF00] now];
+  [v35 timeIntervalSinceReferenceDate];
+  v17->_startTime = v36;
+
+  objc_initWeak(&location, v17);
+  v37 = v17->_processAssertion;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __70__MSVTaskAssertion__initWithName_bundleID_pid_subsystem_reason_flags___block_invoke;
+  v42[3] = &unk_1E7982AB0;
+  objc_copyWeak(&v43, &location);
+  [(BKSProcessAssertion *)v37 setInvalidationHandler:v42];
+  acquire = [(BKSProcessAssertion *)v17->_processAssertion acquire];
+  v17->_acquired = acquire;
+  if ((acquire & 1) == 0)
+  {
+    v39 = os_log_create("com.apple.amp.MediaServices", "SystemUtilities");
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v47 = v17;
+      _os_log_impl(&dword_1AC81F000, v39, OS_LOG_TYPE_ERROR, "Failed to acquire process assertion for task %@", buf, 0xCu);
+    }
+  }
+
+  v40 = os_log_create("com.apple.amp.MediaServices", "SystemUtilities");
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v47 = v17;
+    _os_log_impl(&dword_1AC81F000, v40, OS_LOG_TYPE_DEFAULT, "Began task assertion: %@", buf, 0xCu);
+  }
+
+  objc_destroyWeak(&v43);
+  objc_destroyWeak(&location);
+
+LABEL_15:
+  return v17;
+}
+
 void __70__MSVTaskAssertion__initWithName_bundleID_pid_subsystem_reason_flags___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -205,15 +302,13 @@ void __70__MSVTaskAssertion__initWithName_bundleID_pid_subsystem_reason_flags___
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = v4 - WeakRetained[7];
-      v8 = 138412546;
-      v9 = WeakRetained;
-      v10 = 2048;
-      v11 = v6;
-      _os_log_impl(&dword_1AC81F000, v5, OS_LOG_TYPE_DEFAULT, "Task assertion %@ was invalidated. duration=%f", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = WeakRetained;
+      v9 = 2048;
+      v10 = v6;
+      _os_log_impl(&dword_1AC81F000, v5, OS_LOG_TYPE_DEFAULT, "Task assertion %@ was invalidated. duration=%f", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

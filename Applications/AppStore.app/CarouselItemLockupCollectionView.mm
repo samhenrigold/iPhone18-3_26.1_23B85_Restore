@@ -11,7 +11,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore32CarouselItemLockupCollectionView_artworkViews) = _swiftEmptyArrayStorage;
   v4 = OBJC_IVAR____TtC8AppStore32CarouselItemLockupCollectionView____lazy_storage___artworkViewPool;
-  v5 = sub_10002849C(&qword_100977078);
+  v5 = sub_10002849C(&qword_100977078, qword_1007BC1F8);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore32CarouselItemLockupCollectionView_numberOfArtworks) = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

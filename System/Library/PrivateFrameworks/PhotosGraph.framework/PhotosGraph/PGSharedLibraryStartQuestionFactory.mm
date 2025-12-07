@@ -23,7 +23,7 @@
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (limit)
   {
     v4 = [(PGSharedLibraryStartQuestionFactory *)self existingQuestion:limit];
@@ -35,8 +35,8 @@
     else
     {
       v6 = objc_alloc_init(PGSharedLibraryStartQuestion);
-      v9[0] = v6;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+      v8[0] = v6;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     }
   }
 
@@ -44,8 +44,6 @@
   {
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

@@ -271,9 +271,9 @@ LABEL_39:
       [v77 setKeyTimes:v110];
       v86 = [MEMORY[0x1E6979390] animationWithKeyPath:@"path"];
       currentLayer7 = [(CAShapeLayer *)self->_maskLayer currentLayer];
-      v113[0] = [currentLayer7 path];
+      v113[0] = objc_msgSend_path(currentLayer7);
       currentLayer8 = [(CAShapeLayer *)self->_maskLayer currentLayer];
-      v113[1] = [currentLayer8 path];
+      v113[1] = objc_msgSend_path(currentLayer8);
       v113[2] = v105;
       v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:v113 count:3];
       [v86 setValues:v89];
@@ -727,7 +727,7 @@ LABEL_44:
   v12 = presentationLayer;
   if (presentationLayer)
   {
-    [presentationLayer transform];
+    objc_msgSend_transform(presentationLayer);
   }
 
   else

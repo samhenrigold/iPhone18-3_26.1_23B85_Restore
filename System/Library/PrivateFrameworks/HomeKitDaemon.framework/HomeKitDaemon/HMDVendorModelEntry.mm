@@ -183,38 +183,36 @@ uint64_t __27__HMDVendorModelEntry_hash__block_invoke(uint64_t a1, void *a2)
 
 - (id)attributeDescriptions
 {
-  v27[7] = *MEMORY[0x277D85DE8];
+  v26[7] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   manufacturer = [(HMDVendorModelEntry *)self manufacturer];
-  v25 = [v3 initWithName:@"Manufacturer" value:manufacturer];
-  v27[0] = v25;
+  v24 = [v3 initWithName:@"Manufacturer" value:manufacturer];
+  v26[0] = v24;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   model = [(HMDVendorModelEntry *)self model];
-  v23 = [v4 initWithName:@"Model" value:model];
-  v27[1] = v23;
+  v22 = [v4 initWithName:@"Model" value:model];
+  v26[1] = v22;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   appBundleID = [(HMDVendorModelEntry *)self appBundleID];
   v6 = [v5 initWithName:@"AppBundleID" value:appBundleID];
-  v27[2] = v6;
+  v26[2] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   appStoreID = [(HMDVendorModelEntry *)self appStoreID];
   v9 = [v7 initWithName:@"AppStoreID" value:appStoreID];
-  v27[3] = v9;
+  v26[3] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   firmwareVersion = [(HMDVendorModelEntry *)self firmwareVersion];
   v12 = [v10 initWithName:@"FirmwareVersion" value:firmwareVersion];
-  v27[4] = v12;
+  v26[4] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   productData = [(HMDVendorModelEntry *)self productData];
   v15 = [v13 initWithName:@"ProductData" value:productData];
-  v27[5] = v15;
+  v26[5] = v15;
   v16 = objc_alloc(MEMORY[0x277D0F778]);
   productDataAlternates = [(HMDVendorModelEntry *)self productDataAlternates];
   v18 = [v16 initWithName:@"ProductDataAlternates" value:productDataAlternates];
-  v27[6] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:7];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v26[6] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:7];
 
   return v19;
 }
@@ -231,7 +229,7 @@ uint64_t __27__HMDVendorModelEntry_hash__block_invoke(uint64_t a1, void *a2)
 
   [v3 hmf_appendObject:self->_productData];
   [v3 hmf_appendObject:self->_productDataAlternates];
-  v5 = [v3 copy];
+  v5 = objc_msgSend_copy(v3);
 
   return v5;
 }
@@ -357,19 +355,19 @@ uint64_t __27__HMDVendorModelEntry_hash__block_invoke(uint64_t a1, void *a2)
   v22 = [(HMDVendorModelEntry *)&v38 init];
   if (v22)
   {
-    v23 = [manufacturerCopy copy];
+    v23 = objc_msgSend_copy(manufacturerCopy);
     manufacturer = v22->_manufacturer;
     v22->_manufacturer = v23;
 
-    v25 = [modelCopy copy];
+    v25 = objc_msgSend_copy(modelCopy);
     model = v22->_model;
     v22->_model = v25;
 
-    v27 = [dCopy copy];
+    v27 = objc_msgSend_copy(dCopy);
     appBundleID = v22->_appBundleID;
     v22->_appBundleID = v27;
 
-    v29 = [iDCopy copy];
+    v29 = objc_msgSend_copy(iDCopy);
     appStoreID = v22->_appStoreID;
     v22->_appStoreID = v29;
 
@@ -380,11 +378,11 @@ uint64_t __27__HMDVendorModelEntry_hash__block_invoke(uint64_t a1, void *a2)
       v22->_firmwareVersion = v31;
     }
 
-    v33 = [dataCopy copy];
+    v33 = objc_msgSend_copy(dataCopy);
     productData = v22->_productData;
     v22->_productData = v33;
 
-    v35 = [alternatesCopy copy];
+    v35 = objc_msgSend_copy(alternatesCopy);
     productDataAlternates = v22->_productDataAlternates;
     v22->_productDataAlternates = v35;
   }

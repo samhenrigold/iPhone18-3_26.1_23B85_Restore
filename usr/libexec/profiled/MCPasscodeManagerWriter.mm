@@ -1,6 +1,7 @@
 @interface MCPasscodeManagerWriter
 + (BOOL)didPasscodePolicyChangeWithOldRestrictions:(id)restrictions newRestrictions:(id)newRestrictions;
 + (id)sharedManager;
++ (void)setCurrentEphemeralUserPasscodeTypeFromUnlockScreenType:(int)type simplePasscodeType:(int)passcodeType;
 - (BOOL)changePasscodeWithOldPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext skipRecovery:(BOOL)recovery senderBundleID:(id)d outError:(id *)error;
 - (BOOL)changePasscodeWithRecoveryPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext skipRecovery:(BOOL)recovery senderBundleID:(id)d outError:(id *)error;
 - (BOOL)clearPasscodeWithEscrowKeybagData:(id)data secretContext:(id)context senderBundleID:(id)d outError:(id *)error;
@@ -1104,6 +1105,39 @@ LABEL_94:
   }
 
   return v8;
+}
+
++ (void)setCurrentEphemeralUserPasscodeTypeFromUnlockScreenType:(int)type simplePasscodeType:(int)passcodeType
+{
+  v4 = *&passcodeType;
+  v5 = *&type;
+  v6 = +[MDMCloudConfiguration sharedConfiguration];
+  userMode = [v6 userMode];
+
+  if (userMode == 1)
+  {
+    v8 = +[UMUserManager sharedManager];
+    if ([v8 isSharedIPad])
+    {
+      currentUser = [v8 currentUser];
+      [currentUser refetchUser];
+      v10 = [currentUser mutableCopy];
+      [v10 setPasscodeType:{+[UMUser mc_userPasscodeTypeWithUnlockScreenType:simplePasscodeType:](UMUser, "mc_userPasscodeTypeWithUnlockScreenType:simplePasscodeType:", v5, v4)}];
+      v13 = 0;
+      [v10 commitChangesWithError:&v13];
+      v11 = v13;
+      if (v11)
+      {
+        v12 = _MCLogObjects[0];
+        if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543362;
+          v15 = v11;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to update user with error %{public}@.", buf, 0xCu);
+        }
+      }
+    }
+  }
 }
 
 - (void)updatePasscodeHistoryWithOldPasscodeContext:(id)context oldPasscodeExists:(BOOL)exists oldPasscodeLength:(unint64_t)length newPrivateDictionary:(id)dictionary

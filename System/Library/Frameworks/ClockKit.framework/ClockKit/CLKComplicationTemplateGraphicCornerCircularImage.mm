@@ -91,7 +91,7 @@ void __99__CLKComplicationTemplateGraphicCornerCircularImage__enumerateFullColor
   _enumerateFullColorImageProviderKeysWithBlock___pointSize_1200 = v6;
   qword_27DE91A20 = (v5)[2](v5, v3);
   [v3 setNewestAllowedSizeClass:&unk_284A34128];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1199 = (v5)[2](v5, v3);
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1199[0] = (v5)[2](v5, v3);
 }
 
 double __99__CLKComplicationTemplateGraphicCornerCircularImage__enumerateFullColorImageProviderKeysWithBlock___block_invoke_4(uint64_t a1, void *a2)

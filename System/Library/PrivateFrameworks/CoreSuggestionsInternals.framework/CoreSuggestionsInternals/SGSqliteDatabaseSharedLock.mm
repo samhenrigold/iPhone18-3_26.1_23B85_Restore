@@ -26,23 +26,22 @@
 
 - (SGSqliteDatabaseSharedLock)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6.receiver = self;
-  v6.super_class = SGSqliteDatabaseSharedLock;
-  v2 = [(SGSqliteDatabaseSharedLock *)&v6 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SGSqliteDatabaseSharedLock;
+  v2 = [(SGSqliteDatabaseSharedLock *)&v5 init];
   v3 = v2;
   if (v2)
   {
     v2->_writeTransactionDepth = 0;
-    v7.__sig = 0;
-    *v7.__opaque = 0;
-    pthread_mutexattr_init(&v7);
-    pthread_mutexattr_settype(&v7, 2);
-    pthread_mutex_init(&v3->_lock, &v7);
-    pthread_mutexattr_destroy(&v7);
+    v6.__sig = 0;
+    *v6.__opaque = 0;
+    pthread_mutexattr_init(&v6);
+    pthread_mutexattr_settype(&v6, 2);
+    pthread_mutex_init(&v3->_lock, &v6);
+    pthread_mutexattr_destroy(&v6);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

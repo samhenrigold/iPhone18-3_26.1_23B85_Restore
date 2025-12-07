@@ -3,13 +3,13 @@
 
 @implementation SBSApplicationShortcutSystemIcon
 
-void __66__SBSApplicationShortcutSystemIcon_SBHAdditions__sbh_defaultImage__block_invoke()
+void __66__SBSApplicationShortcutSystemIcon_SBHAdditions__sbh_defaultImage__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E69DCAB8];
-  v3 = SBHBundle();
-  v1 = [v0 imageNamed:@"SBSApplicationShortcutSystemIcon_UnreadDot" inBundle:v3 compatibleWithTraitCollection:0];
-  v2 = sbh_defaultImage___defaultImage;
-  sbh_defaultImage___defaultImage = v1;
+  v1 = MEMORY[0x1E69DCAB8];
+  v4 = SBHBundle(a1);
+  v2 = [v1 imageNamed:@"SBSApplicationShortcutSystemIcon_UnreadDot" inBundle:v4 compatibleWithTraitCollection:0];
+  v3 = sbh_defaultImage___defaultImage;
+  sbh_defaultImage___defaultImage = v2;
 }
 
 @end

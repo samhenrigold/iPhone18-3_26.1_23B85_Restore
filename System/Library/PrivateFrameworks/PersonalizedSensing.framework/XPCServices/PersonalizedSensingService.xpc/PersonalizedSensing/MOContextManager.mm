@@ -325,13 +325,12 @@ void __63__MOContextManager__generateContextWithOption_request_handler___block_i
   v8 = _mo_log_facility_get_os_log(&MOLogFacilityPersonalizedSensing);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = 134217984;
-    v11 = [v7 count];
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "context count generated %ld", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = [v7 count];
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "context count generated %ld", &v9, 0xCu);
   }
 
   [*(a1 + 40) _storeNewContexts:v7 withRequest:*(a1 + 56)];
-  v9 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
 }
 
@@ -1213,32 +1212,7 @@ LABEL_31:
 LABEL_32:
   if ([typesCopy containsObject:&off_1000C87E8])
   {
-    if (![contentCopy activityType])
-    {
-      goto LABEL_38;
-    }
-
-    v39 = [MOContextActivityMetaData alloc];
-    -[MOContextManager _activityStringFromEnum:](self, "_activityStringFromEnum:", [contentCopy activityType]);
-    v40 = contentCopy;
-    v41 = typesCopy;
-    v42 = endDate2;
-    v43 = startDate2;
-    v44 = capitalizedString;
-    v45 = retrievalCopy;
-    v46 = cityName2;
-    v48 = v47 = placeName2;
-    v49 = [(MOContextActivityMetaData *)v39 initWithActivityType:v48];
-
-    placeName2 = v47;
-    cityName2 = v46;
-    retrievalCopy = v45;
-    capitalizedString = v44;
-    startDate2 = v43;
-    endDate2 = v42;
-    typesCopy = v41;
-    contentCopy = v40;
-    if (v49)
+    if ([contentCopy activityType] && (v39 = [MOContextActivityMetaData alloc], -[MOContextManager _activityStringFromEnum:](self, "_activityStringFromEnum:", objc_msgSend(contentCopy, "activityType")), v40 = contentCopy, v41 = typesCopy, v42 = endDate2, v43 = startDate2, v44 = capitalizedString, v45 = retrievalCopy, v46 = cityName2, v47 = placeName2, v48 = objc_claimAutoreleasedReturnValue(), v49 = -[MOContextActivityMetaData initWithActivityType:](v39, "initWithActivityType:", v48), v48, placeName2 = v47, cityName2 = v46, retrievalCopy = v45, capitalizedString = v44, startDate2 = v43, endDate2 = v42, typesCopy = v41, contentCopy = v40, v49))
     {
       v50 = v49;
       v51 = _mo_log_facility_get_os_log(&MOLogFacilityPersonalizedSensing);
@@ -1253,7 +1227,6 @@ LABEL_32:
 
     else
     {
-LABEL_38:
       [retrievalCopy setAssociatedActivities:0];
     }
   }

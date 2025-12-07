@@ -13,13 +13,13 @@
 - (PTSyntheticLight)initWithMetalContext:(id)context msrColorPyramid:(id)pyramid colorSize:(id *)size prewarmOnly:(BOOL)only sharedResources:(id)resources
 {
   onlyCopy = only;
-  v72[2] = *MEMORY[0x277D85DE8];
+  v81[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   pyramidCopy = pyramid;
   resourcesCopy = resources;
-  v70.receiver = self;
-  v70.super_class = PTSyntheticLight;
-  v15 = [(PTSyntheticLight *)&v70 init];
+  v79.receiver = self;
+  v79.super_class = PTSyntheticLight;
+  v15 = [(PTSyntheticLight *)&v79 init];
   v16 = v15;
   v17 = v15;
   if (!v15)
@@ -32,8 +32,8 @@
   asyncMetalContext = v17->_asyncMetalContext;
   v17->_asyncMetalContext = v18;
 
-  device = [(PTMetalContext *)v17->_asyncMetalContext device];
-  newCommandQueue = [device newCommandQueue];
+  v20 = objc_msgSend_device(v17->_asyncMetalContext);
+  newCommandQueue = [v20 newCommandQueue];
   [(PTMetalContext *)v17->_asyncMetalContext setCommandQueue:newCommandQueue];
 
   commandQueue = [(PTMetalContext *)v17->_asyncMetalContext commandQueue];
@@ -41,8 +41,8 @@
 
   if (v23)
   {
-    v30 = _PTLogSystem();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = _PTLogSystem(v24);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
     }
@@ -59,14 +59,14 @@
   *&v17->_config.framesSinceLightEstimate = 0x1E00000000;
   v17->_config.emaCoefficient = 0.3;
   v17->_subjectRelightingRunning = 0;
-  v26 = [contextCopy computePipelineStateFor:@"lightEstimation" withConstants:0];
+  v27 = [contextCopy computePipelineStateFor:@"lightEstimation" withConstants:0];
   lightEstimation = v17->_lightEstimation;
-  v17->_lightEstimation = v26;
+  v17->_lightEstimation = v27;
 
   if (!v17->_lightEstimation)
   {
-    v30 = _PTLogSystem();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = _PTLogSystem(v29);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
     }
@@ -83,15 +83,15 @@
 
   else
   {
-    v31 = [[PTPersonSemanticsNetwork alloc] initWithMetalContext:contextCopy sharedResources:resourcesCopy];
+    v33 = [[PTPersonSemanticsNetwork alloc] initWithMetalContext:contextCopy sharedResources:resourcesCopy];
     p_personSemanticsNetwork = &v17->_personSemanticsNetwork;
-    v32 = v17->_personSemanticsNetwork;
-    v17->_personSemanticsNetwork = v31;
+    v34 = v17->_personSemanticsNetwork;
+    v17->_personSemanticsNetwork = v33;
 
     if (!v17->_personSemanticsNetwork)
     {
-      v30 = _PTLogSystem();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = _PTLogSystem(v35);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
       }
@@ -100,16 +100,16 @@
     }
   }
 
-  v33 = [PTSubjectRelighting alloc];
+  v36 = [PTSubjectRelighting alloc];
   effectUtil2 = [resourcesCopy effectUtil];
-  v35 = [(PTSubjectRelighting *)v33 initWithMetalContext:contextCopy effectUtil:effectUtil2 prewarmOnly:onlyCopy];
+  v38 = [(PTSubjectRelighting *)v36 initWithMetalContext:contextCopy effectUtil:effectUtil2 prewarmOnly:onlyCopy];
   subjectRelighting = v17->_subjectRelighting;
-  v17->_subjectRelighting = v35;
+  v17->_subjectRelighting = v38;
 
   if (!v17->_subjectRelighting)
   {
-    v30 = _PTLogSystem();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = _PTLogSystem(v40);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
     }
@@ -123,47 +123,47 @@
     faceAttributesNetwork = v17->_faceAttributesNetwork;
     v17->_faceAttributesNetwork = faceAttributesNetwork;
 
-    device2 = [contextCopy device];
-    v41 = [device2 newBufferWithLength:64 options:0];
+    v44 = objc_msgSend_device(contextCopy);
+    v45 = [v44 newBufferWithLength:64 options:0];
     lightEstimationBuffer = v17->_lightEstimationBuffer;
-    v17->_lightEstimationBuffer = v41;
+    v17->_lightEstimationBuffer = v45;
 
     targetRGBA = [pyramidCopy targetRGBA];
     width = [targetRGBA width];
     targetRGBA2 = [pyramidCopy targetRGBA];
     height = [targetRGBA2 height];
-    v47 = *MEMORY[0x277CC4D60];
-    v71[0] = *MEMORY[0x277CC4DE8];
-    v71[1] = v47;
-    v72[0] = MEMORY[0x277CBEC10];
-    v72[1] = &unk_2837F3118;
-    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
-    LODWORD(width) = CVPixelBufferCreate(*MEMORY[0x277CBECE8], width, height, 0x42475241u, v48, &v16->_rgbaPixelBufferCopy);
+    v51 = *MEMORY[0x277CC4D60];
+    v80[0] = *MEMORY[0x277CC4DE8];
+    v80[1] = v51;
+    v81[0] = MEMORY[0x277CBEC10];
+    v81[1] = &unk_2837F3118;
+    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:2];
+    LODWORD(width) = CVPixelBufferCreate(*MEMORY[0x277CBECE8], width, height, 0x42475241u, v52, &v16->_rgbaPixelBufferCopy);
 
     if (!width)
     {
-      v49 = MEMORY[0x277CD7058];
+      v54 = MEMORY[0x277CD7058];
       Width = CVPixelBufferGetWidth(v16->_rgbaPixelBufferCopy);
-      v51 = [v49 texture2DDescriptorWithPixelFormat:81 width:Width height:CVPixelBufferGetHeight(v16->_rgbaPixelBufferCopy) mipmapped:0];
-      [v51 setUsage:{+[PTPixelBufferUtil getNoConcurrentAccessHint:](PTPixelBufferUtil, "getNoConcurrentAccessHint:", v16->_rgbaPixelBufferCopy) | 3}];
-      device3 = [contextCopy device];
-      v53 = [device3 newTextureWithDescriptor:v51 iosurface:CVPixelBufferGetIOSurface(v16->_rgbaPixelBufferCopy) plane:0];
+      v56 = [v54 texture2DDescriptorWithPixelFormat:81 width:Width height:CVPixelBufferGetHeight(v16->_rgbaPixelBufferCopy) mipmapped:0];
+      [v56 setUsage:{+[PTPixelBufferUtil getNoConcurrentAccessHint:](PTPixelBufferUtil, "getNoConcurrentAccessHint:", v16->_rgbaPixelBufferCopy) | 3}];
+      v57 = objc_msgSend_device(contextCopy);
+      v58 = [v57 newTextureWithDescriptor:v56 iosurface:CVPixelBufferGetIOSurface(v16->_rgbaPixelBufferCopy) plane:0];
       rgbaTextureCopy = v17->_rgbaTextureCopy;
-      v17->_rgbaTextureCopy = v53;
+      v17->_rgbaTextureCopy = v58;
 
       if (v17->_rgbaTextureCopy)
       {
         textureUtil = [contextCopy textureUtil];
-        v56 = [textureUtil createWithWidth:size->var0 >> 1 height:size->var1 >> 1 pixelFormat:10];
+        v62 = [textureUtil createWithWidth:size->var0 >> 1 height:size->var1 >> 1 pixelFormat:10];
         quarterSizeLumaCopy = v17->_quarterSizeLumaCopy;
-        v17->_quarterSizeLumaCopy = v56;
+        v17->_quarterSizeLumaCopy = v62;
 
         if (v17->_quarterSizeLumaCopy)
         {
           textureUtil2 = [contextCopy textureUtil];
-          v59 = [textureUtil2 createWithWidth:size->var0 >> 2 height:size->var1 >> 2 pixelFormat:30];
+          v66 = [textureUtil2 createWithWidth:size->var0 >> 2 height:size->var1 >> 2 pixelFormat:30];
           quarterSizeChromaCopy = v17->_quarterSizeChromaCopy;
-          v17->_quarterSizeChromaCopy = v59;
+          v17->_quarterSizeChromaCopy = v66;
 
           if (v17->_quarterSizeChromaCopy)
           {
@@ -171,9 +171,9 @@
             inRGBA = [*p_personSemanticsNetwork inRGBA];
             width2 = [inRGBA width];
             inRGBA2 = [*p_personSemanticsNetwork inRGBA];
-            v65 = [textureUtil3 createWithWidth:width2 height:objc_msgSend(inRGBA2 pixelFormat:"height"), 71];
+            v73 = [textureUtil3 createWithWidth:width2 height:objc_msgSend(inRGBA2 pixelFormat:"height"), 71];
             skinMaskRGBA = v17->_skinMaskRGBA;
-            v17->_skinMaskRGBA = v65;
+            v17->_skinMaskRGBA = v73;
 
             if (v17->_skinMaskRGBA)
             {
@@ -181,8 +181,8 @@
               goto LABEL_15;
             }
 
-            v67 = _PTLogSystem();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+            v76 = _PTLogSystem(v75);
+            if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
             {
               [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
             }
@@ -190,8 +190,8 @@
 
           else
           {
-            v67 = _PTLogSystem();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+            v76 = _PTLogSystem(v68);
+            if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
             {
               [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
             }
@@ -200,8 +200,8 @@
 
         else
         {
-          v67 = _PTLogSystem();
-          if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+          v76 = _PTLogSystem(v64);
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
           {
             [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
           }
@@ -210,20 +210,20 @@
 
       else
       {
-        v67 = _PTLogSystem();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        v76 = _PTLogSystem(v60);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
           [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
         }
       }
 
 LABEL_40:
-      v37 = 0;
+      v41 = 0;
       goto LABEL_41;
     }
 
-    v30 = _PTLogSystem();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = _PTLogSystem(v53);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [PTSyntheticLight initWithMetalContext:msrColorPyramid:colorSize:prewarmOnly:sharedResources:];
     }
@@ -234,10 +234,10 @@ LABEL_25:
   }
 
 LABEL_15:
-  v37 = v17;
+  v41 = v17;
 LABEL_41:
 
-  return v37;
+  return v41;
 }
 
 - (void)dealloc
@@ -259,10 +259,10 @@ LABEL_41:
   chromaCopy = chroma;
   [buffer waitUntilScheduled];
   v16 = transform[1];
-  v35 = *transform;
-  v36 = v16;
-  v37 = transform[2];
-  v17 = [PTUtil orientationFromTransform:&v35 inverse:1];
+  v36 = *transform;
+  v37 = v16;
+  v38 = transform[2];
+  v17 = [PTUtil orientationFromTransform:&v36 inverse:1];
   kdebug_trace();
   v18 = 16;
   if (queue)
@@ -276,8 +276,8 @@ LABEL_41:
 
   if (!commandBuffer)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _PTLogSystem(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [PTEspressoGenericExecutor convertBindInput:];
     }
@@ -286,26 +286,26 @@ LABEL_41:
   commandBuffer2 = [v19 commandBuffer];
   [commandBuffer2 setLabel:@"PTSyntheticLight updateSubjectRelighting"];
 
-  v23 = *(rects + 64);
-  v24 = transform[1];
-  v35 = *transform;
-  v36 = v24;
-  v37 = transform[2];
-  v25 = [PTEffectUtil faceRectsForVision:rects numberOfFaceRects:v23 transform:&v35];
-  v26 = [*(self + 104) faceLandmarksInPixelBuffer:relighting faceRects:v25 orientation:v17];
-  v27 = *(self + 96);
-  *(self + 96) = v26;
+  v24 = *(rects + 64);
+  v25 = transform[1];
+  v36 = *transform;
+  v37 = v25;
+  v38 = transform[2];
+  v26 = [PTEffectUtil faceRectsForVision:rects numberOfFaceRects:v24 transform:&v36];
+  v27 = [*(self + 104) faceLandmarksInPixelBuffer:relighting faceRects:v26 orientation:v17];
+  v28 = *(self + 96);
+  *(self + 96) = v27;
 
-  v28 = *(self + 88);
+  v29 = *(self + 88);
   commandBuffer3 = [v19 commandBuffer];
   outSkinMask = [*(self + 32) outSkinMask];
   outPersonMask = [*(self + 32) outPersonMask];
-  v32 = *(self + 96);
-  v33 = transform[1];
-  v35 = *transform;
-  v36 = v33;
-  v37 = transform[2];
-  [v28 runSRLForLivePhotosWithInputBuffer:commandBuffer3 lumaTexture:lumaCopy chromaTexture:chromaCopy skinMaskTexture:outSkinMask personMaskTexture:outPersonMask skinToneClassification:v32 validROI:0.0 expBias:0.0 faceExpRatio:1.0 transform:{1.0, 0.0, 0.0, &v35}];
+  v33 = *(self + 96);
+  v34 = transform[1];
+  v36 = *transform;
+  v37 = v34;
+  v38 = transform[2];
+  [v29 runSRLForLivePhotosWithInputBuffer:commandBuffer3 lumaTexture:lumaCopy chromaTexture:chromaCopy skinMaskTexture:outSkinMask personMaskTexture:outPersonMask skinToneClassification:v33 validROI:0.0 expBias:0.0 faceExpRatio:1.0 transform:{1.0, 0.0, 0.0, &v36}];
 
   if (queue)
   {
@@ -325,13 +325,13 @@ LABEL_41:
 {
   v8 = v7;
   v9 = v6;
-  v47 = v5;
-  v48 = v2;
+  v48 = v5;
+  v49 = v2;
   v10 = v4;
   v12 = v3;
   v13 = v9;
-  v49 = v12;
-  v50 = v8;
+  v50 = v12;
+  v51 = v8;
   asYUV = [v12 asYUV];
   os_unfair_lock_lock(&sSRLAsyncLock);
   LOBYTE(v12) = self->_subjectRelightingRunning;
@@ -350,25 +350,25 @@ LABEL_41:
 
     if (((v10 > 0) & v15) != 0)
     {
-      v65 = 0;
-      v66 = &v65;
-      v67 = 0x8012000000;
-      v68 = __Block_byref_object_copy__0;
-      v69 = __Block_byref_object_dispose__0;
-      v70 = "";
-      v17 = v48[1];
-      v71 = *v48;
-      v72 = v17;
-      v18 = v48[3];
-      v73 = v48[2];
-      v74 = v18;
-      v75 = v10;
+      v66 = 0;
+      v67 = &v66;
+      v68 = 0x8012000000;
+      v69 = __Block_byref_object_copy__0;
+      v70 = __Block_byref_object_dispose__0;
+      v71 = "";
+      v17 = v49[1];
+      v72 = *v49;
+      v73 = v17;
+      v18 = v49[3];
+      v74 = v49[2];
+      v75 = v18;
+      v76 = v10;
       commandBuffer = [(PTMetalContext *)self->_mainMetalContext commandBuffer];
 
       if (!commandBuffer)
       {
-        v20 = _PTLogSystem();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = _PTLogSystem(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [PTEspressoGenericExecutor convertBindInput:];
         }
@@ -404,51 +404,51 @@ LABEL_41:
       if (self->_config.firstFrame || sPTEffectDisableAsyncWork == 1)
       {
         self->_subjectRelightingRunning = 0;
-        v36 = *(v66 + 4);
-        v37 = *(v66 + 5);
-        v38 = *(v66 + 7);
-        v63 = *(v66 + 6);
-        v64 = v38;
+        v37 = *(v67 + 4);
+        v38 = *(v67 + 5);
+        v39 = *(v67 + 7);
+        v64 = *(v67 + 6);
+        v65 = v39;
         rgbaPixelBufferCopy = self->_rgbaPixelBufferCopy;
         quarterSizeLumaCopy = self->_quarterSizeLumaCopy;
         quarterSizeChromaCopy = self->_quarterSizeChromaCopy;
-        v61 = v36;
         v62 = v37;
-        v42 = *(v66 + 3);
-        v43 = v47[1];
-        v59[0] = *v47;
-        v59[1] = v43;
-        v59[2] = v47[2];
-        *location = v42;
-        [(PTSyntheticLight *)self updateSubjectRelighting:rgbaPixelBufferCopy inLuma:quarterSizeLumaCopy inChroma:quarterSizeChromaCopy inFaceRects:location runOnAsyncCommandQueue:0 transform:v59 dependentCommandBuffer:commandBuffer7];
+        v63 = v38;
+        v43 = *(v67 + 3);
+        v44 = v48[1];
+        v60[0] = *v48;
+        v60[1] = v44;
+        v60[2] = v48[2];
+        *location = v43;
+        [(PTSyntheticLight *)self updateSubjectRelighting:rgbaPixelBufferCopy inLuma:quarterSizeLumaCopy inChroma:quarterSizeChromaCopy inFaceRects:location runOnAsyncCommandQueue:0 transform:v60 dependentCommandBuffer:commandBuffer7];
       }
 
       else
       {
-        v44 = self->_rgbaPixelBufferCopy;
-        CVPixelBufferRetain(v44);
+        v45 = self->_rgbaPixelBufferCopy;
+        CVPixelBufferRetain(v45);
         self->_subjectRelightingRunning = 1;
         objc_initWeak(location, self);
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __118__PTSyntheticLight_estimateLightIntensityWithFaceRects_inColor_numberOfFaceRects_transform_humanDetections_asyncWork___block_invoke;
-        v52[3] = &unk_278523338;
-        objc_copyWeak(v55, location);
-        v55[1] = v44;
-        v54 = &v65;
-        v45 = v47[1];
-        v56 = *v47;
-        v57 = v45;
-        v58 = v47[2];
-        v53 = commandBuffer7;
-        v46 = MEMORY[0x22AA50020](v52);
-        [v50 addObject:v46];
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = __118__PTSyntheticLight_estimateLightIntensityWithFaceRects_inColor_numberOfFaceRects_transform_humanDetections_asyncWork___block_invoke;
+        v53[3] = &unk_278523338;
+        objc_copyWeak(v56, location);
+        v56[1] = v45;
+        v55 = &v66;
+        v46 = v48[1];
+        v57 = *v48;
+        v58 = v46;
+        v59 = v48[2];
+        v54 = commandBuffer7;
+        v47 = MEMORY[0x22AA50020](v53);
+        [v51 addObject:v47];
 
-        objc_destroyWeak(v55);
+        objc_destroyWeak(v56);
         objc_destroyWeak(location);
       }
 
-      _Block_object_dispose(&v65, 8);
+      _Block_object_dispose(&v66, 8);
     }
   }
 }

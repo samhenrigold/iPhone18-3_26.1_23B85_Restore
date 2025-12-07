@@ -201,9 +201,7 @@ uint64_t __58__AKNetworkObserver__onqueue_networkReachabilityDidChange__block_in
     }
   }
 
-  result = MEMORY[0x1E69E5920](obj);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return MEMORY[0x1E69E5920](obj);
 }
 
 - (BOOL)isNetworkReachable
@@ -294,13 +292,12 @@ void __58__AKNetworkObserver_addNetworkReachableObserver_selector___block_invoke
   objc_storeStrong(v6, 0);
 }
 
-uint64_t __58__AKNetworkObserver_addNetworkReachableObserver_selector___block_invoke_2(void *a1)
+uint64_t __58__AKNetworkObserver_addNetworkReachableObserver_selector___block_invoke_2(uint64_t a1)
 {
-  v4 = *(a1[4] + 24);
-  v5 = MEMORY[0x193B165F0](a1[6]);
-  v1 = a1[5];
-  [v4 setObject:? forKey:?];
-  return MEMORY[0x1E69E5920](v5);
+  v2 = *(*(a1 + 32) + 24);
+  v3 = MEMORY[0x193B165F0](*(a1 + 48));
+  [v2 setObject:? forKey:?];
+  return MEMORY[0x1E69E5920](v3);
 }
 
 - (void)removeNetworkReachableObserver:(id)observer

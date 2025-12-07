@@ -11,7 +11,6 @@
   stateCopy = state;
   identifierCopy = identifier;
   peerCopy = peer;
-  isolater = self->_isolater;
   geo_assert_isolated();
   if (!deviceCopy)
   {
@@ -26,15 +25,15 @@
   if (([(NSMutableArray *)self->_observingPairedDeviceIdentifiers containsObject:identifierCopy]& 1) != 0)
   {
 LABEL_5:
+    v12 = xpc_dictionary_create(0, 0, 0);
+    [stateCopy encodeToXPCDictionary:v12];
     v13 = xpc_dictionary_create(0, 0, 0);
-    [stateCopy encodeToXPCDictionary:v13];
-    v14 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v14, "message", "subscription_state_did_change");
-    xpc_dictionary_set_value(v14, "state", v13);
-    xpc_dictionary_set_string(v14, "id", [identifierCopy UTF8String]);
-    xpc_dictionary_set_BOOL(v14, "paired_device", deviceCopy);
+    xpc_dictionary_set_string(v13, "message", "subscription_state_did_change");
+    xpc_dictionary_set_value(v13, "state", v12);
+    xpc_dictionary_set_string(v13, "id", [identifierCopy UTF8String]);
+    xpc_dictionary_set_BOOL(v13, "paired_device", deviceCopy);
     connection = [peerCopy connection];
-    [connection sendMessage:v14];
+    [connection sendMessage:v13];
   }
 
 LABEL_6:

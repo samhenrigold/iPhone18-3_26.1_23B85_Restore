@@ -33,15 +33,14 @@
   WeakRetained = objc_loadWeakRetained(&self->super._private->pageLayer);
   if (WeakRetained)
   {
-    v8 = WeakRetained;
+    v6 = WeakRetained;
     geometryInterface = [WeakRetained geometryInterface];
-    v5.n128_u64[0] = 0;
-    v6.n128_u64[0] = 0;
-    [geometryInterface convertRectToRootView:v8 fromPageLayer:{PDFRectMake(v5, v6, 1.0, 1.0)}];
-    [(PDFPageLayerAnnotationEffect *)self setContentsScale:v7];
+    PDFRectMake();
+    [geometryInterface convertRectToRootView:v6 fromPageLayer:?];
+    [(PDFPageLayerAnnotationEffect *)self setContentsScale:v5];
     [(PDFPageLayerAnnotationEffect *)self setNeedsDisplay];
 
-    WeakRetained = v8;
+    WeakRetained = v6;
   }
 }
 

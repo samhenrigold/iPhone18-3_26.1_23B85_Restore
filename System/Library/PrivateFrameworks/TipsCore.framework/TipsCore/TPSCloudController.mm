@@ -27,9 +27,11 @@
 
 uint64_t __36__TPSCloudController_sharedInstance__block_invoke()
 {
-  sharedInstance_gTPSCloudController = objc_alloc_init(TPSCloudController);
+  v0 = objc_alloc_init(TPSCloudController);
+  v1 = sharedInstance_gTPSCloudController;
+  sharedInstance_gTPSCloudController = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)dealloc
@@ -78,7 +80,7 @@ uint64_t __36__TPSCloudController_sharedInstance__block_invoke()
 
 void __37__TPSCloudController_checkForUpdates__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AFB8] defaultStore];
   [v2 synchronize];
   v3 = [v2 objectForKey:@"TPSDCloudHintDisplayed"];
@@ -92,17 +94,15 @@ void __37__TPSCloudController_checkForUpdates__block_invoke(uint64_t a1)
     v7 = +[TPSLogger daemon];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEFAULT, "Current cloud identifiers %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEFAULT, "Current cloud identifiers %@", &v9, 0xCu);
     }
   }
 
   v8 = [MEMORY[0x1E695E000] standardUserDefaults];
   [v8 setObject:v3 forKey:@"TPSDCloudHintDisplayed"];
   [v8 synchronize];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isHintDisplayedForContentID:(id)d
@@ -144,7 +144,7 @@ void __37__TPSCloudController_checkForUpdates__block_invoke(uint64_t a1)
 
 void __48__TPSCloudController_hintDisplayedForContentID___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 24);
   if (!v2)
   {
@@ -168,15 +168,13 @@ void __48__TPSCloudController_hintDisplayedForContentID___block_invoke(uint64_t 
   v10 = +[TPSLogger daemon];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v9;
-    _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_DEFAULT, "Synchronizing displayed content IDs to KVS store: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v9;
+    _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_DEFAULT, "Synchronizing displayed content IDs to KVS store: %@", &v11, 0xCu);
   }
 
   [v8 setArray:v9 forKey:@"TPSDCloudHintDisplayed"];
   [v8 synchronize];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_listDisplayContentIDs
@@ -190,24 +188,24 @@ void __48__TPSCloudController_hintDisplayedForContentID___block_invoke(uint64_t 
 
 - (void)_clearDisplayedContentIDs
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   defaultStore = [MEMORY[0x1E696AFB8] defaultStore];
   v3 = +[TPSLogger daemon];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(defaultStore, "synchronize")}];
-    v12 = 138412290;
-    v13 = v4;
-    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "Synchronizing: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v4;
+    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "Synchronizing: %@", &v11, 0xCu);
   }
 
   dictionaryRepresentation = [defaultStore dictionaryRepresentation];
   v6 = +[TPSLogger daemon];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = dictionaryRepresentation;
-    _os_log_impl(&dword_1C00A7000, v6, OS_LOG_TYPE_DEFAULT, "Current state: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = dictionaryRepresentation;
+    _os_log_impl(&dword_1C00A7000, v6, OS_LOG_TYPE_DEFAULT, "Current state: %@", &v11, 0xCu);
   }
 
   [defaultStore setArray:MEMORY[0x1E695E0F0] forKey:@"TPSDCloudHintDisplayed"];
@@ -215,21 +213,19 @@ void __48__TPSCloudController_hintDisplayedForContentID___block_invoke(uint64_t 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(defaultStore, "synchronize")}];
-    v12 = 138412290;
-    v13 = v8;
-    _os_log_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEFAULT, "Saving: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEFAULT, "Saving: %@", &v11, 0xCu);
   }
 
   v9 = +[TPSLogger daemon];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     dictionaryRepresentation2 = [defaultStore dictionaryRepresentation];
-    v12 = 138412290;
-    v13 = dictionaryRepresentation2;
-    _os_log_impl(&dword_1C00A7000, v9, OS_LOG_TYPE_DEFAULT, "After state: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = dictionaryRepresentation2;
+    _os_log_impl(&dword_1C00A7000, v9, OS_LOG_TYPE_DEFAULT, "After state: %@", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerForNotifications:(id)notifications
@@ -270,35 +266,35 @@ void __48__TPSCloudController_hintDisplayedForContentID___block_invoke(uint64_t 
 
 void __41__TPSCloudController_updateKVStoreItems___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKey:*MEMORY[0x1E696A9E0]];
   v3 = [MEMORY[0x1E696AFB8] defaultStore];
   v4 = [MEMORY[0x1E695E000] standardUserDefaults];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = v2;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [v3 objectForKey:{v10, v17}];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [v3 objectForKey:{v10, v16}];
         [v4 setObject:v11 forKey:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -310,8 +306,6 @@ void __41__TPSCloudController_updateKVStoreItems___block_invoke(uint64_t a1)
   v14 = *(a1 + 40);
   v15 = *(v14 + 24);
   *(v14 + 24) = v13;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

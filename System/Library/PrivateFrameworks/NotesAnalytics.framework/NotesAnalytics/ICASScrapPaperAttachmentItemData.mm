@@ -44,8 +44,8 @@
 
 - (id)toDict
 {
-  v37[10] = *MEMORY[0x277D85DE8];
-  v36[0] = @"totalCountOfScrapPapersWithAttachmentDocScan";
+  v36[10] = *MEMORY[0x277D85DE8];
+  v35[0] = @"totalCountOfScrapPapersWithAttachmentDocScan";
   totalCountOfScrapPapersWithAttachmentDocScan = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentDocScan];
   if (totalCountOfScrapPapersWithAttachmentDocScan)
   {
@@ -57,9 +57,9 @@
     totalCountOfScrapPapersWithAttachmentDocScan2 = objc_opt_new();
   }
 
-  v34 = totalCountOfScrapPapersWithAttachmentDocScan2;
-  v37[0] = totalCountOfScrapPapersWithAttachmentDocScan2;
-  v36[1] = @"totalCountOfScrapPapersWithAttachmentInlineDrawingV1";
+  v33 = totalCountOfScrapPapersWithAttachmentDocScan2;
+  v36[0] = totalCountOfScrapPapersWithAttachmentDocScan2;
+  v35[1] = @"totalCountOfScrapPapersWithAttachmentInlineDrawingV1";
   totalCountOfScrapPapersWithAttachmentInlineDrawingV1 = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentInlineDrawingV1];
   if (totalCountOfScrapPapersWithAttachmentInlineDrawingV1)
   {
@@ -71,9 +71,9 @@
     totalCountOfScrapPapersWithAttachmentInlineDrawingV12 = objc_opt_new();
   }
 
-  v32 = totalCountOfScrapPapersWithAttachmentInlineDrawingV12;
-  v37[1] = totalCountOfScrapPapersWithAttachmentInlineDrawingV12;
-  v36[2] = @"totalCountOfScrapPapersWithAttachmentInlineDrawingV2";
+  v31 = totalCountOfScrapPapersWithAttachmentInlineDrawingV12;
+  v36[1] = totalCountOfScrapPapersWithAttachmentInlineDrawingV12;
+  v35[2] = @"totalCountOfScrapPapersWithAttachmentInlineDrawingV2";
   totalCountOfScrapPapersWithAttachmentInlineDrawingV2 = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentInlineDrawingV2];
   if (totalCountOfScrapPapersWithAttachmentInlineDrawingV2)
   {
@@ -85,9 +85,9 @@
     totalCountOfScrapPapersWithAttachmentInlineDrawingV22 = objc_opt_new();
   }
 
-  v30 = totalCountOfScrapPapersWithAttachmentInlineDrawingV22;
-  v37[2] = totalCountOfScrapPapersWithAttachmentInlineDrawingV22;
-  v36[3] = @"totalCountOfScrapPapersWithAttachmentPaperKit";
+  v29 = totalCountOfScrapPapersWithAttachmentInlineDrawingV22;
+  v36[2] = totalCountOfScrapPapersWithAttachmentInlineDrawingV22;
+  v35[3] = @"totalCountOfScrapPapersWithAttachmentPaperKit";
   totalCountOfScrapPapersWithAttachmentPaperKit = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentPaperKit];
   if (totalCountOfScrapPapersWithAttachmentPaperKit)
   {
@@ -99,9 +99,9 @@
     totalCountOfScrapPapersWithAttachmentPaperKit2 = objc_opt_new();
   }
 
-  v28 = totalCountOfScrapPapersWithAttachmentPaperKit2;
-  v37[3] = totalCountOfScrapPapersWithAttachmentPaperKit2;
-  v36[4] = @"totalCountOfScrapPapersWithAttachmentFullscreenDrawing";
+  v27 = totalCountOfScrapPapersWithAttachmentPaperKit2;
+  v36[3] = totalCountOfScrapPapersWithAttachmentPaperKit2;
+  v35[4] = @"totalCountOfScrapPapersWithAttachmentFullscreenDrawing";
   totalCountOfScrapPapersWithAttachmentFullscreenDrawing = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentFullscreenDrawing];
   if (totalCountOfScrapPapersWithAttachmentFullscreenDrawing)
   {
@@ -113,9 +113,9 @@
     totalCountOfScrapPapersWithAttachmentFullscreenDrawing2 = objc_opt_new();
   }
 
-  v26 = totalCountOfScrapPapersWithAttachmentFullscreenDrawing2;
-  v37[4] = totalCountOfScrapPapersWithAttachmentFullscreenDrawing2;
-  v36[5] = @"totalCountOfScrapPapersWithAttachmentTables";
+  v25 = totalCountOfScrapPapersWithAttachmentFullscreenDrawing2;
+  v36[4] = totalCountOfScrapPapersWithAttachmentFullscreenDrawing2;
+  v35[5] = @"totalCountOfScrapPapersWithAttachmentTables";
   totalCountOfScrapPapersWithAttachmentTables = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentTables];
   if (totalCountOfScrapPapersWithAttachmentTables)
   {
@@ -128,8 +128,8 @@
   }
 
   v9 = totalCountOfScrapPapersWithAttachmentTables2;
-  v37[5] = totalCountOfScrapPapersWithAttachmentTables2;
-  v36[6] = @"totalCountOfScrapPapersWithAttachmentOther";
+  v36[5] = totalCountOfScrapPapersWithAttachmentTables2;
+  v35[6] = @"totalCountOfScrapPapersWithAttachmentOther";
   totalCountOfScrapPapersWithAttachmentOther = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentOther];
   if (totalCountOfScrapPapersWithAttachmentOther)
   {
@@ -142,8 +142,8 @@
   }
 
   v12 = totalCountOfScrapPapersWithAttachmentOther2;
-  v37[6] = totalCountOfScrapPapersWithAttachmentOther2;
-  v36[7] = @"totalCountOfScrapPapersWithAttachmentRichUrl";
+  v36[6] = totalCountOfScrapPapersWithAttachmentOther2;
+  v35[7] = @"totalCountOfScrapPapersWithAttachmentRichUrl";
   totalCountOfScrapPapersWithAttachmentRichUrl = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentRichUrl];
   if (totalCountOfScrapPapersWithAttachmentRichUrl)
   {
@@ -156,8 +156,8 @@
   }
 
   v15 = totalCountOfScrapPapersWithAttachmentRichUrl2;
-  v37[7] = totalCountOfScrapPapersWithAttachmentRichUrl2;
-  v36[8] = @"totalCountOfScrapPapersWithAttachmentMapLink";
+  v36[7] = totalCountOfScrapPapersWithAttachmentRichUrl2;
+  v35[8] = @"totalCountOfScrapPapersWithAttachmentMapLink";
   totalCountOfScrapPapersWithAttachmentMapLink = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentMapLink];
   if (totalCountOfScrapPapersWithAttachmentMapLink)
   {
@@ -170,8 +170,8 @@
   }
 
   v18 = totalCountOfScrapPapersWithAttachmentMapLink2;
-  v37[8] = totalCountOfScrapPapersWithAttachmentMapLink2;
-  v36[9] = @"totalCountOfScrapPapersWithAttachmentDeepLink";
+  v36[8] = totalCountOfScrapPapersWithAttachmentMapLink2;
+  v35[9] = @"totalCountOfScrapPapersWithAttachmentDeepLink";
   totalCountOfScrapPapersWithAttachmentDeepLink = [(ICASScrapPaperAttachmentItemData *)self totalCountOfScrapPapersWithAttachmentDeepLink];
   if (totalCountOfScrapPapersWithAttachmentDeepLink)
   {
@@ -184,10 +184,8 @@
   }
 
   v21 = totalCountOfScrapPapersWithAttachmentDeepLink2;
-  v37[9] = totalCountOfScrapPapersWithAttachmentDeepLink2;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:10];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v36[9] = totalCountOfScrapPapersWithAttachmentDeepLink2;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:10];
 
   return v22;
 }

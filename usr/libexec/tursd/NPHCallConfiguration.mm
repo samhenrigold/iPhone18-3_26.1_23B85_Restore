@@ -1,4 +1,5 @@
 @interface NPHCallConfiguration
++ (id)callConfigurationWithIncomingCallOverrideName:(id)name incomingCallStatus:(int)status activeCallOverrideName:(id)overrideName activeCallStatus:(int)callStatus activeCallDisconnectedReason:(int)reason heldCallOverrideName:(id)callOverrideName heldCallStatus:(int)heldCallStatus outgoingCallOverrideName:(id)self0 outgoingCallStatus:(int)self1 isSOS:(BOOL)self2 audioMessageType:(unint64_t)self3 isAnsweringOnPhone:(BOOL)self4 source:(id)self5;
 + (void)log:(id)log withReason:(id)reason;
 - (BOOL)hasEmergencyCall;
 - (BOOL)hasHostedCall;
@@ -277,24 +278,25 @@
 {
   currentCall = [(NPHCallConfiguration *)self currentCall];
   calls = [(NPHCallConfiguration *)self calls];
-  if ([calls count] == 1)
+  v5 = [calls count];
+  if (v5 == 1)
   {
-    v5 = [NSString stringWithFormat:@"%s", "[NPHCallConfiguration disconnectCurrentCall]"];
-    [currentCall disconnectWithReason:0 fromSource:v5];
+    v6 = [NSString stringWithFormat:@"%s", "[NPHCallConfiguration disconnectCurrentCall]"];
+    [currentCall disconnectWithReason:0 fromSource:v6];
   }
 
   else
   {
-    v6 = sub_100001C24();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100001C24(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v8 = "[NPHCallConfiguration disconnectCurrentCall]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: TUCallCenter.sharedInstance disconnectCurrentCallAndActivateHeld", buf, 0xCu);
+      v9 = "[NPHCallConfiguration disconnectCurrentCall]";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: TUCallCenter.sharedInstance disconnectCurrentCallAndActivateHeld", buf, 0xCu);
     }
 
-    v5 = +[TUCallCenter sharedInstance];
-    [v5 disconnectCurrentCallAndActivateHeld];
+    v6 = +[TUCallCenter sharedInstance];
+    [v6 disconnectCurrentCallAndActivateHeld];
   }
 }
 
@@ -374,39 +376,219 @@
   }
 }
 
++ (id)callConfigurationWithIncomingCallOverrideName:(id)name incomingCallStatus:(int)status activeCallOverrideName:(id)overrideName activeCallStatus:(int)callStatus activeCallDisconnectedReason:(int)reason heldCallOverrideName:(id)callOverrideName heldCallStatus:(int)heldCallStatus outgoingCallOverrideName:(id)self0 outgoingCallStatus:(int)self1 isSOS:(BOOL)self2 audioMessageType:(unint64_t)self3 isAnsweringOnPhone:(BOOL)self4 source:(id)self5
+{
+  v17 = *&status;
+  nameCopy = name;
+  overrideNameCopy = overrideName;
+  callOverrideNameCopy = callOverrideName;
+  outgoingCallOverrideNameCopy = outgoingCallOverrideName;
+  sourceCopy = source;
+  v20 = objc_opt_new();
+  v21 = objc_opt_new();
+  v22 = &CUTWeakLinkClass_ptr;
+  v23 = &selRef_setSOSDisambiguationPrompt_;
+  v77 = v21;
+  v78 = v20;
+  v76 = callOverrideNameCopy;
+  if (nameCopy)
+  {
+    v24 = nameCopy;
+    v25 = objc_opt_new();
+    [v25 setMockDisplayName:v24];
+    [v25 setMockLocalizedLabel:@"iPhone"];
+    v26 = [TUSenderIdentity alloc];
+    v27 = +[NSUUID UUID];
+    v28 = +[NSUUID UUID];
+    v29 = [[TUHandle alloc] initWithType:2 value:@"987654321"];
+    v30 = [v26 initWithUUID:v27 accountUUID:v28 ISOCountryCode:@"us" localizedName:@"Primary" localizedShortName:@"P" localizedServiceName:@"service" handle:v29];
+    [v25 setMockLocalSenderIdentity:v30];
+
+    v23 = &selRef_setSOSDisambiguationPrompt_;
+    v20 = v78;
+
+    v21 = v77;
+    [v25 setMockDestinationID:@"123456789"];
+    [v25 setMockService:1];
+    [v25 setMockStatus:v17];
+    [v25 setEmergency:s];
+    [v25 setMockSOS:s];
+    [v25 setNph_audioMessageType:type];
+    v31 = [[NPHCall alloc] initWithTUCall:v25];
+    [v78 addObject:v31];
+
+    v22 = &CUTWeakLinkClass_ptr;
+    nameCopy = v24;
+    callOverrideNameCopy = v76;
+  }
+
+  v32 = v22;
+  if (overrideNameCopy)
+  {
+    v33 = nameCopy;
+    v34 = [TUDialRequest alloc];
+    v35 = +[TUCallCenter sharedInstance];
+    providerManager = [v35 providerManager];
+    telephonyProvider = [providerManager telephonyProvider];
+    v38 = [v34 initWithProvider:telephonyProvider];
+
+    v39 = objc_alloc(v32[113]);
+    if (s)
+    {
+      v40 = @"911";
+    }
+
+    else
+    {
+      v40 = @"123456789";
+    }
+
+    v41 = [v39 initWithType:2 value:v40];
+    [v38 setHandle:v41];
+
+    if (s)
+    {
+      [v38 setDialType:1];
+      [v38 setSOS:1];
+    }
+
+    v42 = objc_opt_new();
+    [v42 setMockDisplayName:overrideNameCopy];
+    [v42 setMockLocalizedLabel:@"iPhone"];
+    v43 = [TUSenderIdentity alloc];
+    v44 = +[NSUUID UUID];
+    v45 = +[NSUUID UUID];
+    v46 = [objc_alloc(v32[113]) initWithType:2 value:@"987654321"];
+    v47 = [v43 initWithUUID:v44 accountUUID:v45 ISOCountryCode:@"us" localizedName:@"Primary" localizedShortName:@"P" localizedServiceName:@"service" handle:v46];
+    [v42 setMockLocalSenderIdentity:v47];
+
+    [v42 setMockDestinationID:@"123456789"];
+    [v42 setMockService:1];
+    [v42 setMockStatus:callStatus];
+    [v42 setMockStartTime:CFAbsoluteTimeGetCurrent()];
+    [v42 setMockDisconnectedReason:reason];
+    [v42 setMockDialRequestForRedial:v38];
+    [v42 setEmergency:s];
+    [v42 setMockSOS:s];
+    [v42 setNph_audioMessageType:type];
+    v23 = &selRef_setSOSDisambiguationPrompt_;
+    v48 = [[NPHCall alloc] initWithTUCall:v42];
+    v20 = v78;
+    [v78 addObject:v48];
+
+    nameCopy = v33;
+    callOverrideNameCopy = v76;
+    v21 = v77;
+  }
+
+  if (outgoingCallOverrideNameCopy)
+  {
+    v49 = objc_opt_new();
+    [v49 setMockDisplayName:outgoingCallOverrideNameCopy];
+    [v49 setMockLocalizedLabel:@"iPhone"];
+    v50 = [TUSenderIdentity alloc];
+    v51 = +[NSUUID UUID];
+    v52 = +[NSUUID UUID];
+    v53 = [objc_alloc(v32[113]) initWithType:2 value:@"987654321"];
+    v54 = [v50 initWithUUID:v51 accountUUID:v52 ISOCountryCode:@"us" localizedName:@"Primary" localizedShortName:@"P" localizedServiceName:@"service" handle:v53];
+    [v49 setMockLocalSenderIdentity:v54];
+
+    v23 = &selRef_setSOSDisambiguationPrompt_;
+    v20 = v78;
+
+    v21 = v77;
+    [v49 setMockStatus:outgoingCallStatus];
+    [v49 setMockService:1];
+    [v49 setMockDestinationID:@"123456789"];
+    [v49 setMockOutgoing:1];
+    [v49 setEmergency:s];
+    [v49 setMockSOS:s];
+    [v49 setNph_audioMessageType:type];
+    v55 = [[NPHCall alloc] initWithTUCall:v49];
+    [v78 addObject:v55];
+  }
+
+  if (callOverrideNameCopy)
+  {
+    v56 = objc_opt_new();
+    [v56 setMockDisplayName:callOverrideNameCopy];
+    [v56 setMockLocalizedLabel:@"iPhone"];
+    v57 = v32;
+    v58 = v23;
+    v59 = [TUSenderIdentity alloc];
+    v60 = +[NSUUID UUID];
+    v61 = +[NSUUID UUID];
+    v62 = [objc_alloc(v57[113]) initWithType:2 value:@"987654321"];
+    v63 = [v59 initWithUUID:v60 accountUUID:v61 ISOCountryCode:@"us" localizedName:@"Primary" localizedShortName:@"P" localizedServiceName:@"service" handle:v62];
+    [v56 setMockLocalSenderIdentity:v63];
+
+    v20 = v78;
+    v21 = v77;
+
+    [v56 setMockStatus:heldCallStatus];
+    [v56 setMockService:1];
+    [v56 setMockDestinationID:@"123456789"];
+    [v56 setMockStartTime:CFAbsoluteTimeGetCurrent()];
+    [v56 setEmergency:s];
+    [v56 setMockSOS:s];
+    [v56 setNph_audioMessageType:type];
+    [v56 setWantsHoldMusic:phone];
+    v64 = [objc_alloc((v58 + 151)) initWithTUCall:v56];
+    if (phone)
+    {
+      v65 = v77;
+    }
+
+    else
+    {
+      v65 = v78;
+    }
+
+    [v65 addObject:v64];
+  }
+
+  v66 = [self alloc];
+  v67 = [v20 copy];
+  v68 = v21;
+  v69 = [v21 copy];
+  v70 = [v66 initWithCalls:v67 andCallsOnDefaultPairedDevice:v69 source:sourceCopy];
+
+  return v70;
+}
+
 + (void)log:(id)log withReason:(id)reason
 {
   logCopy = log;
   reasonCopy = reason;
-  v7 = sub_100001C24();
+  v7 = sub_100001C24(reasonCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     logCopy = [NSString stringWithValidatedFormat:reasonCopy validFormatSpecifiers:@"%p" error:0, logCopy];
     *buf = 138412290;
-    v12 = logCopy;
+    v14 = logCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   if (logCopy)
   {
-    [logCopy _log];
+    _log = [logCopy _log];
   }
 
   else
   {
-    v9 = sub_100001C24();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100001C24(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "\t<none>", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "\t<none>", buf, 2u);
     }
   }
 
-  v10 = sub_100001C24();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100001C24(_log);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "", buf, 2u);
   }
 }
 

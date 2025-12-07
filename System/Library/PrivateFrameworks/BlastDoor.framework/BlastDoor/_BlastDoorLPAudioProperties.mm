@@ -22,11 +22,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v9.receiver = self;
-  v9.super_class = _BlastDoorLPAudioProperties;
-  if ([(_BlastDoorLPAudioProperties *)&v9 isEqual:equalCopy])
+  v8.receiver = self;
+  v8.super_class = _BlastDoorLPAudioProperties;
+  if ([(_BlastDoorLPAudioProperties *)&v8 isEqual:equalCopy])
   {
     goto LABEL_2;
   }
@@ -52,7 +52,6 @@ LABEL_2:
 
 LABEL_7:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

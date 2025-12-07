@@ -1,6 +1,8 @@
 @interface ClientCommonAudioProfile
 + (id)eventToString:(unsigned __int8)string;
++ (id)procTypeToString:(unsigned __int8)string;
 + (id)stateToString:(unsigned __int8)string withCurrentSM:(const CAPStateMachine *)m;
++ (id)statusToString:(unsigned __int8)string;
 - (BOOL)anyAcceptorPendingStateTransition;
 - (BOOL)buildCIG;
 - (BOOL)coordinatedSetMembersUnLocked;
@@ -9,8 +11,13 @@
 - (BOOL)isPeripheralResolvable:(id)resolvable;
 - (BOOL)matchCentralToPeripheralQosParams:(id)params withCIS:(id)s;
 - (BOOL)matchPeripheralToCentralQosParams:(id)params withCIS:(id)s;
+- (BOOL)sendAbsoluteVolumeRequest:(id)request forVolume:(unsigned __int8)volume;
+- (BOOL)sendMicrophoneGainSettingRequest:(id)request forMicrophoneGainSetting:(char)setting inputType:(unsigned __int8)type;
+- (BOOL)sendMicrophoneMuteRequest:(id)request forMicrophoneMute:(unsigned __int8)mute;
 - (BOOL)sendRelativeVolumeDownRequest:(id)request;
 - (BOOL)sendRelativeVolumeUpRequest:(id)request;
+- (BOOL)sendVolumeMuteRequest:(id)request forMute:(BOOL)mute;
+- (BOOL)sendVolumeOffsetRequest:(id)request forVolumeOffset:(signed __int16)offset audioLocation:(unsigned int)location;
 - (BOOL)useCSIPOrderedAccessProcedure;
 - (BOOL)validateQoSParamsForAcceptor:(id)acceptor withCIS:(id)s;
 - (ClientCommonAudioProfile)init;
@@ -29,6 +36,11 @@
 - (unsigned)matchConnectedDevices:(id)devices;
 - (unsigned)translatePhyMask:(unsigned __int8)mask;
 - (unsigned)updateMetadataForDevice:(id)device;
+- (void)CAPCommanderChangeMicrophoneGainSetting:(id)setting withGainSetting:(char)gainSetting forInputType:(unsigned __int8)type;
+- (void)CAPCommanderChangeVolume:(id)volume withVolume:(unsigned __int8)withVolume;
+- (void)CAPCommanderChangeVolumeMuteState:(id)state withMute:(unsigned __int8)mute;
+- (void)CAPCommanderChangeVolumeOffset:(id)offset withOffset:(signed __int16)withOffset forAudioLocation:(unsigned int)location;
+- (void)CAPCommanderMicrophoneMuteState:(id)state withMute:(unsigned __int8)mute;
 - (void)CAPSmActionChangeMicGainSettingNext;
 - (void)CAPSmActionChangeVolumeMuteNext;
 - (void)CAPSmActionChangeVolumeNext;
@@ -53,6 +65,7 @@
 - (void)CAPSmActionUnlockNext;
 - (void)CAPSmActionUpdateMetadataNext;
 - (void)CAPSmActionValidate;
+- (void)CAPUnicastAudioJoin:(id)join withCigID:(unsigned __int8)d;
 - (void)CAPUnicastAudioStart:(id)start withAudioChanConfig:(id)config;
 - (void)CAPUnicastAudioStopDisable:(id)disable;
 - (void)CAPUnicastAudioStopRelease:(id)release;
@@ -63,15 +76,21 @@
 - (void)clearAudioConfigList;
 - (void)clearPendingStateTransition;
 - (void)createCIG;
+- (void)createISOPathForSession:(id)session withDirection:(BOOL)direction forCigID:(unsigned __int8)d forCisID:(unsigned __int8)iD;
 - (void)determineAudioConfigFromHALConfig:(id)config;
 - (void)disconnectCISRequestHandler;
+- (void)disconnectCISforCIG:(unsigned __int8)g withCisID:(unsigned __int8)d;
 - (void)initPendingStateTransition;
 - (void)joinCIG;
 - (void)peripheralDisconnected:(id)disconnected;
 - (void)procedureTimeoutTimerFired;
+- (void)processAcceptorRsp:(id)rsp withEvent:(unsigned __int8)event;
 - (void)processSM:(id)m;
 - (void)publishHALDevice:(id)device;
+- (void)queueAudioCapturingProcedure:(id)procedure withNextProcedure:(const CAPStateMachine *)nextProcedure withOptionalMute:(unsigned __int8)mute withOptionalGain:(char)gain withOptionalInputType:(unsigned __int8)type;
+- (void)queueAudioRenderingProcedure:(id)procedure withNextProcedure:(const CAPStateMachine *)nextProcedure withOptionalVolume:(unsigned __int8)volume withOptionalVolOffset:(signed __int16)offset withOptionalMute:(unsigned __int8)mute withOptionalAudioLocation:(unsigned int)location;
 - (void)queueAudioStreamProcedure:(id)procedure withNextProcedure:(const CAPStateMachine *)nextProcedure;
+- (void)removeISOPathForSession:(id)session withDirection:(BOOL)direction forCigID:(unsigned __int8)d forCisID:(unsigned __int8)iD;
 - (void)resolvePeripheral:(id)peripheral withAdv:(id)adv;
 - (void)sendAbsoluteVolumeRequest:(unsigned __int8)request;
 - (void)sendCIGCreate:(id)create additionalCIS:(BOOL)s bidirectionCIS:(BOOL)iS;
@@ -97,6 +116,8 @@
 - (void)sendVolumeMuteRequest:(BOOL)request;
 - (void)sendVolumeOffsetRequest:(signed __int16)request audioLocation:(unsigned int)location;
 - (void)sessionCompleteHandler:(id)handler withAttributes:(id)attributes;
+- (void)setCoordinateSetSize:(unsigned __int8)size;
+- (void)setRequiresInput:(BOOL)input;
 - (void)setSIRK:(id)k withIdentifier:(id)identifier;
 - (void)setTargetLatency:(unsigned __int8)latency;
 - (void)setUnicastAudioConfig:(id)config;
@@ -542,6 +563,108 @@ LABEL_7:
   }
 
   return setRelativeVolumeDown;
+}
+
+- (BOOL)sendVolumeMuteRequest:(id)request forMute:(BOOL)mute
+{
+  muteCopy = mute;
+  requestCopy = request;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v8 = [coordinatedSet objectForKey:requestCopy];
+
+  if (v8)
+  {
+    v9 = [v8 setVolumeMute:muteCopy];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+- (BOOL)sendAbsoluteVolumeRequest:(id)request forVolume:(unsigned __int8)volume
+{
+  volumeCopy = volume;
+  requestCopy = request;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v8 = [coordinatedSet objectForKey:requestCopy];
+
+  if (v8)
+  {
+    v9 = [v8 setAbsoluteVolume:volumeCopy];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+- (BOOL)sendVolumeOffsetRequest:(id)request forVolumeOffset:(signed __int16)offset audioLocation:(unsigned int)location
+{
+  v5 = *&location;
+  offsetCopy = offset;
+  requestCopy = request;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v10 = [coordinatedSet objectForKey:requestCopy];
+
+  if (v10)
+  {
+    v11 = [v10 setVolumeOffset:offsetCopy audioLocation:v5];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
+- (BOOL)sendMicrophoneMuteRequest:(id)request forMicrophoneMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  requestCopy = request;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v8 = [coordinatedSet objectForKey:requestCopy];
+
+  if (v8)
+  {
+    v9 = [v8 setMicrophoneMute:muteCopy];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+- (BOOL)sendMicrophoneGainSettingRequest:(id)request forMicrophoneGainSetting:(char)setting inputType:(unsigned __int8)type
+{
+  typeCopy = type;
+  settingCopy = setting;
+  requestCopy = request;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v10 = [coordinatedSet objectForKey:requestCopy];
+
+  if (v10)
+  {
+    v11 = [v10 setMicrophoneGainSetting:settingCopy inputType:typeCopy];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (void)sendCodecConfigRequest
@@ -1135,6 +1258,46 @@ LABEL_42:
   else
   {
     return [(ClientCommonAudioProfile *)self outputAudioConfigIdx];
+  }
+}
+
+- (void)setRequiresInput:(BOOL)input
+{
+  inputCopy = input;
+  self->_requiresInput = input;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v6 = [coordinatedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v14;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v14 != v8)
+        {
+          objc_enumerationMutation(coordinatedSet);
+        }
+
+        v10 = *(*(&v13 + 1) + 8 * v9);
+        coordinatedSet2 = [(ClientCommonAudioProfile *)self coordinatedSet];
+        v12 = [coordinatedSet2 objectForKeyedSubscript:v10];
+        [v12 setRequiresInput:inputCopy];
+
+        v9 = v9 + 1;
+      }
+
+      while (v7 != v9);
+      v7 = [coordinatedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v7);
   }
 }
 
@@ -2835,12 +2998,186 @@ LABEL_25:
   return v44;
 }
 
+- (void)disconnectCISforCIG:(unsigned __int8)g withCisID:(unsigned __int8)d
+{
+  dCopy = d;
+  gCopy = g;
+  v6 = qword_1000A9FE0;
+  if (g == 255 || d == 255)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C15C(dCopy, gCopy, v6);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      v11[0] = 67109376;
+      v11[1] = dCopy;
+      v12 = 1024;
+      v13 = gCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Disconnecting CIS %u for CIG %u", v11, 0xEu);
+    }
+
+    v7 = +[NSMutableDictionary dictionary];
+    v8 = [NSNumber numberWithUnsignedChar:gCopy];
+    [v7 setObject:v8 forKey:@"kCBLEAudioArgCigId"];
+
+    v9 = [NSNumber numberWithUnsignedChar:dCopy];
+    [v7 setObject:v9 forKey:@"kCBLEAudioArgCisId"];
+
+    v10 = +[ConnectionManager instance];
+    [v10 disconnectCIS:v7];
+  }
+}
+
+- (void)createISOPathForSession:(id)session withDirection:(BOOL)direction forCigID:(unsigned __int8)d forCisID:(unsigned __int8)iD
+{
+  iDCopy = iD;
+  dCopy = d;
+  directionCopy = direction;
+  sessionCopy = session;
+  connIsoGroup = [(ClientCommonAudioProfile *)self connIsoGroup];
+  v12 = [connIsoGroup getCISwithID:iDCopy];
+
+  v13 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = v13;
+    connIsoGroup2 = [(ClientCommonAudioProfile *)self connIsoGroup];
+    cigParams = [connIsoGroup2 cigParams];
+    cigID = [cigParams cigID];
+    cisParams = [v12 cisParams];
+    v27 = 67109376;
+    LODWORD(v28[0]) = cigID;
+    WORD2(v28[0]) = 1024;
+    *(v28 + 6) = [cisParams cisID];
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Creating Data Path for CIG: %u CIS: %u", &v27, 0xEu);
+  }
+
+  if ([v12 established])
+  {
+    if (directionCopy)
+    {
+      if (([v12 inputDataPathCreated] & 1) == 0)
+      {
+        [v12 setInputDataPathCreated:1];
+LABEL_13:
+        v20 = objc_alloc_init(NSMutableDictionary);
+        uUIDString = [sessionCopy UUIDString];
+        [v20 setValue:uUIDString forKey:@"kLEAudioXPCMsgArgSessionID"];
+
+        v22 = [NSNumber numberWithBool:directionCopy];
+        [v20 setValue:v22 forKey:@"kLEAudioXPCMsgArgDirection"];
+
+        v23 = [NSNumber numberWithUnsignedInt:dCopy];
+        [v20 setValue:v23 forKey:@"kLEAudioXPCMsgArgCigID"];
+
+        v24 = [NSNumber numberWithUnsignedInt:iDCopy];
+        [v20 setValue:v24 forKey:@"kLEAudioXPCMsgArgCisID"];
+
+        v25 = qword_1000A9FE0;
+        if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+        {
+          v27 = 138412290;
+          v28[0] = v20;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Sending Create ISO Data path with options: %@", &v27, 0xCu);
+        }
+
+        v26 = +[LEAudioXPCListener instance];
+        [v26 createISODataPathWithOptions:v20];
+
+        goto LABEL_16;
+      }
+    }
+
+    else if (([v12 outputDataPathCreated] & 1) == 0)
+    {
+      [v12 setOutputDataPathCreated:1];
+      goto LABEL_13;
+    }
+
+    v19 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C218(directionCopy, v19, v12);
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005C1E4();
+  }
+
+LABEL_16:
+}
+
+- (void)removeISOPathForSession:(id)session withDirection:(BOOL)direction forCigID:(unsigned __int8)d forCisID:(unsigned __int8)iD
+{
+  iDCopy = iD;
+  dCopy = d;
+  directionCopy = direction;
+  sessionCopy = session;
+  v10 = objc_alloc_init(NSMutableDictionary);
+  uUIDString = [sessionCopy UUIDString];
+
+  [v10 setValue:uUIDString forKey:@"kLEAudioXPCMsgArgSessionID"];
+  v12 = [NSNumber numberWithBool:directionCopy];
+  [v10 setValue:v12 forKey:@"kLEAudioXPCMsgArgDirection"];
+
+  v13 = [NSNumber numberWithUnsignedInt:dCopy];
+  [v10 setValue:v13 forKey:@"kLEAudioXPCMsgArgCigID"];
+
+  v14 = [NSNumber numberWithUnsignedInt:iDCopy];
+  [v10 setValue:v14 forKey:@"kLEAudioXPCMsgArgCisID"];
+
+  v15 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 138412290;
+    v18 = v10;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Sending Remove ISO Data path with options: %@", &v17, 0xCu);
+  }
+
+  v16 = +[LEAudioXPCListener instance];
+  [v16 removeISODataPathWithOptions:v10];
+}
+
 - (unsigned)getNumOfConnectedPeripherals
 {
   coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
   v3 = [coordinatedSet count];
 
   return v3;
+}
+
+- (void)setCoordinateSetSize:(unsigned __int8)size
+{
+  [(ClientCommonAudioProfile *)self setSetSize:size];
+  v4 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v4;
+    setSize = [(ClientCommonAudioProfile *)self setSize];
+    resolvedPeripherals = [(ClientCommonAudioProfile *)self resolvedPeripherals];
+    v12 = 138412802;
+    selfCopy = self;
+    v14 = 1024;
+    v15 = setSize;
+    v16 = 2048;
+    v17 = [resolvedPeripherals count];
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "self setSize: %@, setSize %hhu, resolvedPeripherals: %lu", &v12, 0x1Cu);
+  }
+
+  resolvedPeripherals2 = [(ClientCommonAudioProfile *)self resolvedPeripherals];
+  v9 = [resolvedPeripherals2 count];
+  v10 = v9 < [(ClientCommonAudioProfile *)self setSize];
+
+  v11 = +[ConnectionManager instance];
+  [v11 scanPeripherals:v10];
 }
 
 - (void)setSIRK:(id)k withIdentifier:(id)identifier
@@ -3359,6 +3696,74 @@ LABEL_24:
   }
 }
 
+- (void)CAPUnicastAudioJoin:(id)join withCigID:(unsigned __int8)d
+{
+  dCopy = d;
+  joinCopy = join;
+  currentCAPProcedure = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+
+  v8 = qword_1000A9FE0;
+  if (currentCAPProcedure)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C2D4();
+    }
+
+    currentCAPProcedure2 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure2 description];
+
+    [(ClientCommonAudioProfile *)self queueAudioStreamProcedure:joinCopy withNextProcedure:&unk_1000A9AC8];
+    v10 = +[LEAudioXPCListener instance];
+    sessionID = [(ClientCommonAudioProfile *)self sessionID];
+    [v10 notifyCAPProcedureComplete:sessionID withInfo:&off_10009B368];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "***********************************************", buf, 2u);
+    }
+
+    v12 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "*** Begin CAP Unicast Audio Join Procedure ***", buf, 2u);
+    }
+
+    v13 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "***********************************************", buf, 2u);
+    }
+
+    [(ClientCommonAudioProfile *)self setCigToJoin:dCopy];
+    [(ClientCommonAudioProfile *)self initPendingStateTransition];
+    v14 = objc_alloc_init(CAPProcedure);
+    [(ClientCommonAudioProfile *)self setCurrentCAPProcedure:v14];
+
+    v15 = [(ClientCommonAudioProfile *)self sortAcceptorsByRank:joinCopy];
+
+    [(ClientCommonAudioProfile *)self setOrderedSet:v15];
+    currentCAPProcedure3 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure3 setNextEvent:3];
+
+    currentCAPProcedure4 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure4 setCurrentStateMachine:&unk_1000A9AC8];
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100018A0C;
+    block[3] = &unk_100094CB8;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
 - (void)CAPUnicastAudioUpdate:(id)update withAudioChanConfig:(id)config
 {
   updateCopy = update;
@@ -3557,6 +3962,349 @@ LABEL_24:
   }
 }
 
+- (void)CAPCommanderChangeVolume:(id)volume withVolume:(unsigned __int8)withVolume
+{
+  withVolumeCopy = withVolume;
+  volumeCopy = volume;
+  currentCAPProcedure = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+
+  v8 = qword_1000A9FE0;
+  if (currentCAPProcedure)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C2D4();
+    }
+
+    currentCAPProcedure2 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure2 description];
+
+    [(ClientCommonAudioProfile *)self queueAudioRenderingProcedure:volumeCopy withNextProcedure:&unk_1000A9B78 withOptionalVolume:withVolumeCopy withOptionalVolOffset:0 withOptionalMute:0 withOptionalAudioLocation:0];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "***************************************************", buf, 2u);
+    }
+
+    v10 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "*** Begin CAP Commander Change Volume Procedure ***", buf, 2u);
+    }
+
+    v11 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "***************************************************", buf, 2u);
+    }
+
+    [(ClientCommonAudioProfile *)self initPendingStateTransition];
+    v12 = objc_alloc_init(CAPProcedure);
+    [(ClientCommonAudioProfile *)self setCurrentCAPProcedure:v12];
+
+    v13 = [(ClientCommonAudioProfile *)self sortAcceptorsByRank:volumeCopy];
+
+    [(ClientCommonAudioProfile *)self setOrderedSet:v13];
+    currentCAPProcedure3 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure3 setNextEvent:3];
+
+    currentCAPProcedure4 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure4 setCurrentStateMachine:&unk_1000A9B78];
+
+    currentCAPProcedure5 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure5 setVolume:withVolumeCopy];
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10001950C;
+    block[3] = &unk_100094CB8;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
+- (void)CAPCommanderChangeVolumeOffset:(id)offset withOffset:(signed __int16)withOffset forAudioLocation:(unsigned int)location
+{
+  v5 = *&location;
+  withOffsetCopy = withOffset;
+  offsetCopy = offset;
+  currentCAPProcedure = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+
+  v10 = qword_1000A9FE0;
+  if (currentCAPProcedure)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C2D4();
+    }
+
+    currentCAPProcedure2 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure2 description];
+
+    [(ClientCommonAudioProfile *)self queueAudioRenderingProcedure:offsetCopy withNextProcedure:&unk_1000A9BC8 withOptionalVolume:0 withOptionalVolOffset:withOffsetCopy withOptionalMute:0 withOptionalAudioLocation:v5];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "**********************************************************", buf, 2u);
+    }
+
+    v12 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "*** Begin CAP Commander Change Volume Offset Procedure ***", buf, 2u);
+    }
+
+    v13 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "**********************************************************", buf, 2u);
+    }
+
+    [(ClientCommonAudioProfile *)self initPendingStateTransition];
+    v14 = objc_alloc_init(CAPProcedure);
+    [(ClientCommonAudioProfile *)self setCurrentCAPProcedure:v14];
+
+    v15 = [(ClientCommonAudioProfile *)self sortAcceptorsByRank:offsetCopy];
+
+    [(ClientCommonAudioProfile *)self setOrderedSet:v15];
+    currentCAPProcedure3 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure3 setNextEvent:3];
+
+    currentCAPProcedure4 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure4 setCurrentStateMachine:&unk_1000A9BC8];
+
+    currentCAPProcedure5 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure5 setVolumeOffset:withOffsetCopy];
+
+    currentCAPProcedure6 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure6 setAudioLocation:v5];
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000197E8;
+    block[3] = &unk_100094CB8;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
+- (void)CAPCommanderChangeVolumeMuteState:(id)state withMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  stateCopy = state;
+  currentCAPProcedure = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+
+  v8 = qword_1000A9FE0;
+  if (currentCAPProcedure)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C2D4();
+    }
+
+    currentCAPProcedure2 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure2 description];
+
+    [(ClientCommonAudioProfile *)self queueAudioRenderingProcedure:stateCopy withNextProcedure:&unk_1000A9BA0 withOptionalVolume:0 withOptionalVolOffset:0 withOptionalMute:muteCopy withOptionalAudioLocation:0];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "********************************************************", buf, 2u);
+    }
+
+    v10 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "*** Begin CAP Commander Change Volume Mute Procedure ***", buf, 2u);
+    }
+
+    v11 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "********************************************************", buf, 2u);
+    }
+
+    [(ClientCommonAudioProfile *)self initPendingStateTransition];
+    v12 = objc_alloc_init(CAPProcedure);
+    [(ClientCommonAudioProfile *)self setCurrentCAPProcedure:v12];
+
+    v13 = [(ClientCommonAudioProfile *)self sortAcceptorsByRank:stateCopy];
+
+    [(ClientCommonAudioProfile *)self setOrderedSet:v13];
+    currentCAPProcedure3 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure3 setNextEvent:3];
+
+    currentCAPProcedure4 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure4 setCurrentStateMachine:&unk_1000A9BA0];
+
+    currentCAPProcedure5 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure5 setVolumeMute:muteCopy];
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100019A9C;
+    block[3] = &unk_100094CB8;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
+- (void)CAPCommanderMicrophoneMuteState:(id)state withMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  stateCopy = state;
+  currentCAPProcedure = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+
+  v8 = qword_1000A9FE0;
+  if (currentCAPProcedure)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C2D4();
+    }
+
+    currentCAPProcedure2 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure2 description];
+
+    [(ClientCommonAudioProfile *)self queueAudioCapturingProcedure:stateCopy withNextProcedure:&unk_1000A9B28 withOptionalMute:muteCopy withOptionalGain:0 withOptionalInputType:0];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "*****************************************************", buf, 2u);
+    }
+
+    v10 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "*** Begin CAP Commander Microphone Mute Procedure ***", buf, 2u);
+    }
+
+    v11 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "*****************************************************", buf, 2u);
+    }
+
+    [(ClientCommonAudioProfile *)self initPendingStateTransition];
+    v12 = objc_alloc_init(CAPProcedure);
+    [(ClientCommonAudioProfile *)self setCurrentCAPProcedure:v12];
+
+    v13 = [(ClientCommonAudioProfile *)self sortAcceptorsByRank:stateCopy];
+
+    [(ClientCommonAudioProfile *)self setOrderedSet:v13];
+    currentCAPProcedure3 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure3 setNextEvent:3];
+
+    currentCAPProcedure4 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure4 setCurrentStateMachine:&unk_1000A9B28];
+
+    currentCAPProcedure5 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure5 setMicrophoneMute:muteCopy];
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100019D4C;
+    block[3] = &unk_100094CB8;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
+- (void)CAPCommanderChangeMicrophoneGainSetting:(id)setting withGainSetting:(char)gainSetting forInputType:(unsigned __int8)type
+{
+  typeCopy = type;
+  gainSettingCopy = gainSetting;
+  settingCopy = setting;
+  currentCAPProcedure = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+
+  v10 = qword_1000A9FE0;
+  if (currentCAPProcedure)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C2D4();
+    }
+
+    currentCAPProcedure2 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure2 description];
+
+    [(ClientCommonAudioProfile *)self queueAudioCapturingProcedure:settingCopy withNextProcedure:&unk_1000A9B28 withOptionalMute:0 withOptionalGain:gainSettingCopy withOptionalInputType:typeCopy];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "********************************************************************", buf, 2u);
+    }
+
+    v12 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "*** Begin CAP Commander Change Microphone Gain Setting Procedure ***", buf, 2u);
+    }
+
+    v13 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "********************************************************************", buf, 2u);
+    }
+
+    [(ClientCommonAudioProfile *)self initPendingStateTransition];
+    v14 = objc_alloc_init(CAPProcedure);
+    [(ClientCommonAudioProfile *)self setCurrentCAPProcedure:v14];
+
+    v15 = [(ClientCommonAudioProfile *)self sortAcceptorsByRank:settingCopy];
+
+    [(ClientCommonAudioProfile *)self setOrderedSet:v15];
+    currentCAPProcedure3 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure3 setNextEvent:3];
+
+    currentCAPProcedure4 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure4 setCurrentStateMachine:&unk_1000A9B50];
+
+    currentCAPProcedure5 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure5 setGainSetting:gainSettingCopy];
+
+    currentCAPProcedure6 = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure6 setInputType:typeCopy];
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10001A024;
+    block[3] = &unk_100094CB8;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
 - (void)queueAudioStreamProcedure:(id)procedure withNextProcedure:(const CAPStateMachine *)nextProcedure
 {
   procedureCopy = procedure;
@@ -3582,6 +4330,87 @@ LABEL_24:
   {
     sub_10005C308();
   }
+}
+
+- (void)queueAudioCapturingProcedure:(id)procedure withNextProcedure:(const CAPStateMachine *)nextProcedure withOptionalMute:(unsigned __int8)mute withOptionalGain:(char)gain withOptionalInputType:(unsigned __int8)type
+{
+  typeCopy = type;
+  gainCopy = gain;
+  muteCopy = mute;
+  procedureCopy = procedure;
+  v13 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Queuing Capturing Procedure", v16, 2u);
+  }
+
+  v14 = objc_alloc_init(CAPProcedure);
+  v15 = [procedureCopy mutableCopy];
+  [(CAPProcedure *)v14 setDevices:v15];
+
+  [(CAPProcedure *)v14 setCurrentStateMachine:nextProcedure];
+  if (nextProcedure == &unk_1000A9B28)
+  {
+    [(CAPProcedure *)v14 setMicrophoneMute:muteCopy];
+  }
+
+  else if (nextProcedure == &unk_1000A9B50)
+  {
+    [(CAPProcedure *)v14 setGainSetting:gainCopy];
+    [(CAPProcedure *)v14 setInputType:typeCopy];
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005C33C();
+  }
+
+  [(NSMutableArray *)self->_capturingCAPProcQueue addObject:v14];
+}
+
+- (void)queueAudioRenderingProcedure:(id)procedure withNextProcedure:(const CAPStateMachine *)nextProcedure withOptionalVolume:(unsigned __int8)volume withOptionalVolOffset:(signed __int16)offset withOptionalMute:(unsigned __int8)mute withOptionalAudioLocation:(unsigned int)location
+{
+  v8 = *&location;
+  muteCopy = mute;
+  offsetCopy = offset;
+  volumeCopy = volume;
+  procedureCopy = procedure;
+  v15 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    *v18 = 0;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Queuing Rendering Procedure", v18, 2u);
+  }
+
+  v16 = objc_alloc_init(CAPProcedure);
+  v17 = [procedureCopy mutableCopy];
+  [(CAPProcedure *)v16 setDevices:v17];
+
+  [(CAPProcedure *)v16 setCurrentStateMachine:nextProcedure];
+  [(CAPProcedure *)v16 setNextEvent:3];
+  if (nextProcedure == &unk_1000A9B78)
+  {
+    [(CAPProcedure *)v16 setVolume:volumeCopy];
+  }
+
+  else if (nextProcedure == &unk_1000A9BC8)
+  {
+    [(CAPProcedure *)v16 setVolumeOffset:offsetCopy];
+    [(CAPProcedure *)v16 setAudioLocation:v8];
+  }
+
+  else if (nextProcedure == &unk_1000A9BA0)
+  {
+    [(CAPProcedure *)v16 setVolumeMute:muteCopy];
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005C370();
+  }
+
+  [(NSMutableArray *)self->_renderingCAPProcQueue addObject:v16];
 }
 
 - (void)checkNextUpcomingProcedure
@@ -4030,6 +4859,19 @@ LABEL_22:
     v18 = 2;
 LABEL_24:
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v16, &v29, v18);
+  }
+}
+
+- (void)processAcceptorRsp:(id)rsp withEvent:(unsigned __int8)event
+{
+  if (rsp)
+  {
+    eventCopy = event;
+    rspCopy = rsp;
+    currentCAPProcedure = [(ClientCommonAudioProfile *)self currentCAPProcedure];
+    [currentCAPProcedure setNextEvent:eventCopy];
+
+    [(ClientCommonAudioProfile *)self processSM:rspCopy];
   }
 }
 
@@ -6710,6 +7552,36 @@ LABEL_30:
   {
     return *(&off_100095060 + string);
   }
+}
+
++ (id)statusToString:(unsigned __int8)string
+{
+  if (string >= 0x1Au)
+  {
+    string = [NSString stringWithFormat:@"Unknown (0x%02x)", string];
+  }
+
+  else
+  {
+    string = *(&off_100095210 + string);
+  }
+
+  return string;
+}
+
++ (id)procTypeToString:(unsigned __int8)string
+{
+  if (string >= 0xAu)
+  {
+    string = [NSString stringWithFormat:@"Unknown (0x%02x)", string];
+  }
+
+  else
+  {
+    string = *(&off_1000952E0 + string);
+  }
+
+  return string;
 }
 
 @end

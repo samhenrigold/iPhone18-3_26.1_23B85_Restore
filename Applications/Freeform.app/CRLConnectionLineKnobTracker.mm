@@ -154,7 +154,7 @@
   self->mInitialPosition.y = v21;
   if (v6)
   {
-    [v6 transformInRoot];
+    objc_msgSend_transformInRoot(v6);
   }
 
   else
@@ -306,7 +306,7 @@
     convexHullPath = geometry;
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else
@@ -342,7 +342,7 @@
       v23 = geometry2;
       if (geometry2)
       {
-        [geometry2 transform];
+        objc_msgSend_transform(geometry2);
       }
 
       else
@@ -441,7 +441,7 @@ LABEL_29:
   v17 = 0.0;
   if (v6)
   {
-    [v6 transform];
+    objc_msgSend_transform(v6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     v17 = v29;
     v14 = v30;
     v16 = v31;
@@ -464,7 +464,7 @@ LABEL_29:
   v27 = 0.0;
   if (v6)
   {
-    [v6 transform];
+    objc_msgSend_transform(v6, 0.0, 0.0, 0.0, 0.0, 0.0);
     v27 = v29;
     v24 = v30;
     v26 = v31;
@@ -739,7 +739,7 @@ LABEL_29:
     v8 = geometryInRoot;
     if (geometryInRoot)
     {
-      [geometryInRoot transform];
+      objc_msgSend_transform(geometryInRoot);
     }
 
     else
@@ -1184,7 +1184,7 @@ LABEL_42:
     v7 = layout;
     if (layout)
     {
-      [layout pureTransformInRoot];
+      objc_msgSend_pureTransformInRoot(layout);
     }
 
     else
@@ -1700,7 +1700,7 @@ LABEL_16:
     v22 = originalGeometry;
     if (originalGeometry)
     {
-      [originalGeometry transform];
+      objc_msgSend_transform(originalGeometry);
     }
 
     else

@@ -28,20 +28,20 @@
 
     if (!_mainViewController2)
     {
-      v6 = sub_3FBC();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_3FBC(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_4044(v6);
+        sub_4044(v7);
       }
     }
 
     _mainViewController3 = [(FMIPLockScreenController *)self _mainViewController];
     [_mainViewController3 setPluginController:self];
 
-    v8 = sub_3FBC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = sub_3FBC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      sub_4088(self, v8);
+      sub_4088(self, v10);
     }
   }
 
@@ -61,7 +61,7 @@
 - (void)simStatusDidChange:(id)change status:(id)status
 {
   statusCopy = status;
-  v5 = sub_3FBC();
+  v5 = sub_3FBC(statusCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -75,7 +75,7 @@
 - (void)operatorNameChanged:(id)changed name:(id)name
 {
   nameCopy = name;
-  v5 = sub_3FBC();
+  v5 = sub_3FBC(nameCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -96,9 +96,9 @@
 
 - (FMIPLockScreenController)init
 {
-  v8.receiver = self;
-  v8.super_class = FMIPLockScreenController;
-  v2 = [(FMIPLockScreenController *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = FMIPLockScreenController;
+  v2 = [(FMIPLockScreenController *)&v9 init];
   if (v2)
   {
     v3 = objc_alloc_init(CoreTelephonyClient);
@@ -107,11 +107,11 @@
     ctClient = [(FMIPLockScreenController *)v2 ctClient];
     [ctClient setDelegate:v2];
 
-    v5 = sub_3FBC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_3FBC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "init - setting up notifications", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "init - setting up notifications", v8, 2u);
     }
 
     [(FMIPLockScreenController *)v2 _addObservers];
@@ -122,7 +122,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_3FBC();
+  v3 = sub_3FBC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -131,22 +131,22 @@
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, kLostModeChangedRestrictedNotification, 0);
-  v5 = sub_3FBC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_3FBC(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Destroying myself", buf, 2u);
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Destroying myself", buf, 2u);
   }
 
-  v6.receiver = self;
-  v6.super_class = FMIPLockScreenController;
-  [(FMIPLockScreenController *)&v6 dealloc];
+  v7.receiver = self;
+  v7.super_class = FMIPLockScreenController;
+  [(FMIPLockScreenController *)&v7 dealloc];
 }
 
 - (void)pluginWillActivateWithContext:(id)context
 {
   contextCopy = context;
-  v4 = sub_3FBC();
+  v4 = sub_3FBC(contextCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -158,7 +158,7 @@
 - (void)pluginDidDeactivateWithContext:(id)context
 {
   contextCopy = context;
-  v4 = sub_3FBC();
+  v4 = sub_3FBC(contextCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -214,8 +214,7 @@
     v11 = 502;
   }
 
-  [v2 setRestrictedCapabilities:v11];
-  v12 = sub_3FBC();
+  v12 = sub_3FBC([v2 setRestrictedCapabilities:v11]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     sub_4120(v8, v12);
@@ -226,7 +225,7 @@
 
 - (BOOL)pluginHandleEvent:(int64_t)event
 {
-  v5 = sub_3FBC();
+  v5 = sub_3FBC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;

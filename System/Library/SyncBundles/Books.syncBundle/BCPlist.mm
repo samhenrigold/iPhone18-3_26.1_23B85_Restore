@@ -63,30 +63,35 @@
   v5 = +[NSFileManager defaultManager];
   v6 = objc_opt_class();
   v7 = BCDynamicCast(v6, [entry objectForKey:@"Path"]);
-  if ([v7 length] && -[NSFileManager fileExistsAtPath:](v5, "fileExistsAtPath:", -[NSString stringByAppendingPathComponent:](-[NSString stringByDeletingLastPathComponent](-[BCPlist path](self, "path"), "stringByDeletingLastPathComponent"), "stringByAppendingPathComponent:", v7)))
+  v8 = [v7 length];
+  if (v8)
   {
-    return 1;
+    v8 = [(NSFileManager *)v5 fileExistsAtPath:[[(NSString *)[(BCPlist *)self path] stringByDeletingLastPathComponent] stringByAppendingPathComponent:v7]];
+    if (v8)
+    {
+      return 1;
+    }
   }
 
-  v9 = BCDefaultLog();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v11 = BCDefaultLog(v8, v9);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   result = 0;
-  if (v10)
+  if (v12)
   {
     path = [(BCPlist *)self path];
-    v12 = @"is not nil";
-    v13 = 138543874;
-    v14 = path;
-    v15 = 2112;
+    v14 = @"is not nil";
+    v15 = 138543874;
+    v16 = path;
+    v17 = 2112;
     if (!v7)
     {
-      v12 = @"is nil";
+      v14 = @"is nil";
     }
 
-    v16 = v7;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Existing entry doesn't exist for plist %{public}@. EntryPath: %@ (%@)", &v13, 0x20u);
+    v18 = v7;
+    v19 = 2112;
+    v20 = v14;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Existing entry doesn't exist for plist %{public}@. EntryPath: %@ (%@)", &v15, 0x20u);
     return 0;
   }
 
@@ -95,78 +100,79 @@
 
 - (id)existingPersistentIDs
 {
-  v23 = +[NSMutableArray array];
+  v26 = +[NSMutableArray array];
   books = [(BCPlist *)self books];
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  v4 = [books countByEnumeratingWithState:&v24 objects:v36 count:16];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v4 = [books countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
-    v22 = books;
+    v6 = *v28;
+    v25 = books;
     do
     {
       v7 = 0;
       do
       {
-        if (*v25 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(books);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * v7);
+        v8 = *(*(&v27 + 1) + 8 * v7);
         v9 = objc_opt_class();
         v10 = BCDynamicCast(v9, v8);
         v11 = objc_opt_class();
         v12 = BCDynamicCast(v11, [v10 objectForKey:@"Persistent ID"]);
         if (v12)
         {
-          v13 = v12;
-          if ([(BCPlist *)self isExistingEntry:v10])
+          v14 = v12;
+          v15 = [(BCPlist *)self isExistingEntry:v10];
+          if (v15)
           {
-            [v23 addObject:v13];
+            [v26 addObject:v14];
           }
 
           else
           {
-            v18 = BCDefaultLog();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v21 = BCDefaultLog(v15, v16);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               path = [(BCPlist *)self path];
-              v20 = [v10 objectForKey:@"Path"];
+              v23 = [v10 objectForKey:@"Path"];
               *buf = 138543874;
-              v29 = path;
-              books = v22;
-              v30 = 2112;
-              v31 = v20;
-              v32 = 2112;
-              v33 = v13;
-              _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Collecting persistentIDs - File Not Found: %@ - [%@]", buf, 0x20u);
+              v32 = path;
+              books = v25;
+              v33 = 2112;
+              v34 = v23;
+              v35 = 2112;
+              v36 = v14;
+              _os_log_error_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "[%{public}@] Collecting persistentIDs - File Not Found: %@ - [%@]", buf, 0x20u);
             }
           }
         }
 
         else
         {
-          v14 = BCDefaultLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v17 = BCDefaultLog(0, v13);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             path2 = [(BCPlist *)self path];
-            v16 = [v10 objectForKey:@"Artist"];
-            v17 = [v10 objectForKey:@"Name"];
+            v19 = [v10 objectForKey:@"Artist"];
+            v20 = [v10 objectForKey:@"Name"];
             *buf = 138544130;
-            v29 = path2;
-            v30 = 2112;
-            v31 = v16;
-            books = v22;
-            v32 = 2112;
-            v33 = v17;
-            v34 = 2112;
-            v35 = 0;
-            _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Collecting persistentIDs - No Path || PersistentID -- {%@, %@} - [%@]", buf, 0x2Au);
+            v32 = path2;
+            v33 = 2112;
+            v34 = v19;
+            books = v25;
+            v35 = 2112;
+            v36 = v20;
+            v37 = 2112;
+            v38 = 0;
+            _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Collecting persistentIDs - No Path || PersistentID -- {%@, %@} - [%@]", buf, 0x2Au);
           }
         }
 
@@ -174,13 +180,13 @@
       }
 
       while (v5 != v7);
-      v5 = [books countByEnumeratingWithState:&v24 objects:v36 count:16];
+      v5 = [books countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v5);
   }
 
-  return v23;
+  return v26;
 }
 
 - (id)entriesWithPath
@@ -462,39 +468,39 @@
   v2 = [(BCPlist *)self objectForKey:@"Books"];
   v3 = objc_opt_class();
   v4 = BCDynamicCast(v3, v2);
-  v5 = v4;
+  v6 = v4;
   if (v4)
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = v2 == 0;
+    v7 = v2 == 0;
   }
 
-  if (v6)
+  if (v7)
   {
     if (!v4)
     {
-      v7 = BCDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = BCDefaultLog(0, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_11E64(v7);
+        sub_11E64(v8);
       }
     }
   }
 
   else
   {
-    v8 = BCDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BCDefaultLog(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_11EA8(v8);
+      sub_11EA8(v9);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)booksSortedByKey:(id)key
@@ -525,7 +531,7 @@
 
 - (BOOL)removeItemsByPersistentID:(id)d
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -542,68 +548,69 @@
 + (id)promisableItemsFromItems:(id)items
 {
   v4 = +[NSMutableArray array];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v5 = [items countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v5 = [items countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v22 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(items);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         v10 = objc_opt_class();
         v11 = BCDynamicCast(v10, v9);
-        if ([BCPlist canPromiseItem:v11])
+        v12 = [BCPlist canPromiseItem:v11];
+        if (v12)
         {
-          [v4 addObject:v11];
-          v12 = BCDefaultLog();
-          if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = [v4 addObject:v11];
+          v16 = BCDefaultLog(v14, v15);
+          if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             continue;
           }
 
-          v13 = [v11 objectForKey:@"Artist"];
-          v14 = [v11 objectForKey:@"Name"];
+          v17 = [v11 objectForKey:@"Artist"];
+          v18 = [v11 objectForKey:@"Name"];
           *buf = 138412546;
-          v26 = v13;
-          v27 = 2112;
-          v28 = v14;
-          v15 = v12;
-          v16 = "Can Promise: {%@ - %@}";
+          v30 = v17;
+          v31 = 2112;
+          v32 = v18;
+          v19 = v16;
+          v20 = "Can Promise: {%@ - %@}";
         }
 
         else
         {
-          v17 = BCDefaultLog();
-          if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v21 = BCDefaultLog(v12, v13);
+          if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             continue;
           }
 
-          v18 = [v11 objectForKey:@"Artist"];
-          v19 = [v11 objectForKey:@"Name"];
+          v22 = [v11 objectForKey:@"Artist"];
+          v23 = [v11 objectForKey:@"Name"];
           *buf = 138412546;
-          v26 = v18;
-          v27 = 2112;
-          v28 = v19;
-          v15 = v17;
-          v16 = "Cannot Promise: {%@ - %@}";
+          v30 = v22;
+          v31 = 2112;
+          v32 = v23;
+          v19 = v21;
+          v20 = "Cannot Promise: {%@ - %@}";
         }
 
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 0x16u);
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 0x16u);
       }
 
-      v6 = [items countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v6 = [items countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v6);
@@ -614,7 +621,7 @@
 
 - (void)resetPaths
 {
-  v3 = BCDefaultLog();
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -622,153 +629,159 @@
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Resetting paths in %{public}@.", buf, 0xCu);
   }
 
-  v37 = objc_alloc_init(NSAutoreleasePool);
+  v41 = objc_alloc_init(NSAutoreleasePool);
   [(BCPlist *)self regenerateMissingPersistentIDs];
   books = [(BCPlist *)self books];
-  v41 = objc_alloc_init(NSMutableArray);
-  v40 = +[NSFileManager defaultManager];
+  v45 = objc_alloc_init(NSMutableArray);
+  v44 = +[NSFileManager defaultManager];
   selfCopy = self;
   stringByDeletingLastPathComponent = [(NSString *)[(BCPlist *)self path] stringByDeletingLastPathComponent];
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = books;
-  v6 = [books countByEnumeratingWithState:&v42 objects:v50 count:16];
+  v6 = [books countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = *v43;
+    v8 = v6;
+    v9 = *v47;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      v10 = 0;
+      do
       {
-        if (*v43 != v8)
+        if (*v47 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
-        v11 = objc_opt_class();
-        v12 = BCDynamicCast(v11, v10);
-        v13 = [BCPlist canPromiseItem:v12];
-        v14 = objc_opt_class();
-        v15 = BCDynamicCast(v14, [v12 objectForKey:@"Path"]);
-        if ([v15 length])
+        v11 = *(*(&v46 + 1) + 8 * v10);
+        v12 = objc_opt_class();
+        v13 = BCDynamicCast(v12, v11);
+        v14 = [BCPlist canPromiseItem:v13];
+        v15 = objc_opt_class();
+        v16 = BCDynamicCast(v15, [v13 objectForKey:@"Path"]);
+        if ([v16 length])
         {
-          v16 = [(NSString *)stringByDeletingLastPathComponent stringByAppendingPathComponent:v15];
-          v17 = [(NSFileManager *)v40 fileExistsAtPath:v16];
-          v18 = BCDefaultLog();
-          v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-          if (v17)
+          v18 = [(NSString *)stringByDeletingLastPathComponent stringByAppendingPathComponent:v16];
+          v19 = [(NSFileManager *)v44 fileExistsAtPath:v18];
+          v20 = v19;
+          v22 = BCDefaultLog(v19, v21);
+          v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+          if (v20)
           {
-            if (v19)
+            if (v23)
             {
-              v20 = [v12 objectForKey:@"Persistent ID"];
+              v24 = [v13 objectForKey:@"Persistent ID"];
               *buf = 138412546;
-              path = v20;
-              v48 = 2112;
-              v49 = v16;
-              v21 = v18;
-              v22 = "resetting paths -- Entry exists: %@ -- [%@]";
-              v23 = 22;
+              path = v24;
+              v52 = 2112;
+              v53 = v18;
+              v25 = v22;
+              v26 = "resetting paths -- Entry exists: %@ -- [%@]";
+              v27 = 22;
               goto LABEL_15;
             }
 
             goto LABEL_16;
           }
 
-          if (!v13)
+          if (!v14)
           {
-            if (!v19)
+            if (!v23)
             {
-              continue;
+              goto LABEL_26;
             }
 
-            v33 = [v12 objectForKey:@"Persistent ID"];
+            v37 = [v13 objectForKey:@"Persistent ID"];
             *buf = 138412546;
-            path = v33;
-            v48 = 2112;
-            v49 = v16;
-            v30 = v18;
-            v31 = "resetting paths -- Entry does not stat: %@ -- [%@] -- Cannot promise";
-            v32 = 22;
+            path = v37;
+            v52 = 2112;
+            v53 = v18;
+            v34 = v22;
+            v35 = "resetting paths -- Entry does not stat: %@ -- [%@] -- Cannot promise";
+            v36 = 22;
             goto LABEL_25;
           }
 
-          if (v19)
+          if (v23)
           {
-            v27 = [v12 objectForKey:@"Persistent ID"];
+            v31 = [v13 objectForKey:@"Persistent ID"];
             *buf = 138412546;
-            path = v27;
-            v48 = 2112;
-            v49 = v16;
-            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "resetting paths -- Entry does not stat: %@ -- [%@]", buf, 0x16u);
+            path = v31;
+            v52 = 2112;
+            v53 = v18;
+            _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "resetting paths -- Entry does not stat: %@ -- [%@]", buf, 0x16u);
           }
 
-          v28 = [[NSMutableDictionary alloc] initWithDictionary:v12];
-          [v28 removeObjectForKey:@"Backup-Path"];
-          [v28 removeObjectForKey:@"Path"];
-          [v28 setObject:v16 forKey:@"Backup-Path"];
-          [v41 addObject:v28];
+          v32 = [[NSMutableDictionary alloc] initWithDictionary:v13];
+          [v32 removeObjectForKey:@"Backup-Path"];
+          [v32 removeObjectForKey:@"Path"];
+          [v32 setObject:v18 forKey:@"Backup-Path"];
+          [v45 addObject:v32];
         }
 
         else
         {
-          v24 = BCDefaultLog();
-          v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-          if (v13)
+          v28 = BCDefaultLog(0, v17);
+          v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+          if (v14)
           {
-            if (v25)
+            if (v29)
             {
-              v26 = [v12 objectForKey:@"Persistent ID"];
+              v30 = [v13 objectForKey:@"Persistent ID"];
               *buf = 138412290;
-              path = v26;
-              v21 = v24;
-              v22 = "resetting paths -- Entry without a path: %@";
-              v23 = 12;
+              path = v30;
+              v25 = v28;
+              v26 = "resetting paths -- Entry without a path: %@";
+              v27 = 12;
 LABEL_15:
-              _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, v22, buf, v23);
+              _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, v26, buf, v27);
             }
 
 LABEL_16:
-            [v41 addObject:v12];
-            continue;
+            [v45 addObject:v13];
+            goto LABEL_26;
           }
 
-          if (v25)
+          if (v29)
           {
-            v29 = [v12 objectForKey:@"Persistent ID"];
+            v33 = [v13 objectForKey:@"Persistent ID"];
             *buf = 138412290;
-            path = v29;
-            v30 = v24;
-            v31 = "resetting paths -- Entry without a path: %@ -- Cannot promise";
-            v32 = 12;
+            path = v33;
+            v34 = v28;
+            v35 = "resetting paths -- Entry without a path: %@ -- Cannot promise";
+            v36 = 12;
 LABEL_25:
-            _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, v31, buf, v32);
-            continue;
+            _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, v35, buf, v36);
           }
         }
+
+LABEL_26:
+        v10 = v10 + 1;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+      while (v8 != v10);
+      v6 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v8 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v34 = BCDefaultLog();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v38 = BCDefaultLog(v6, v7);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    v35 = [v41 count];
+    v39 = [v45 count];
     *buf = 134217984;
-    path = v35;
-    _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "resetting paths -- rewriting %lu entries", buf, 0xCu);
+    path = v39;
+    _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "resetting paths -- rewriting %lu entries", buf, 0xCu);
   }
 
-  v36 = [[BCAddEntriesPlistProducer alloc] initWithPath:[(BCPlist *)selfCopy path] entries:v41];
-  [(BCAddEntriesPlistProducer *)v36 replace:1];
-  [(BCPlistProducer *)v36 write];
+  v40 = [[BCAddEntriesPlistProducer alloc] initWithPath:[(BCPlist *)selfCopy path] entries:v45];
+  [(BCAddEntriesPlistProducer *)v40 replace:1];
+  [(BCPlistProducer *)v40 write];
 }
 
 - (void)processDeletesFile

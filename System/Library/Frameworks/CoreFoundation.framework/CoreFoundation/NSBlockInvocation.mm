@@ -7,11 +7,10 @@
 
 - (void)invoke
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3.receiver = self;
-  v3.super_class = NSBlockInvocation;
-  [(NSInvocation *)&v3 invoke];
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2.receiver = self;
+  v2.super_class = NSBlockInvocation;
+  [(NSInvocation *)&v2 invoke];
 }
 
 - (SEL)selector

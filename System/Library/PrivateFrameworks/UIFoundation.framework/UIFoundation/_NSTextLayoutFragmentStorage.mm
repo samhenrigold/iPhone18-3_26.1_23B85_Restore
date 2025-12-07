@@ -191,12 +191,15 @@
 - (void)invalidateTextLayoutFragmentsInTextRange:(id)range delta:(int64_t)delta
 {
   v6 = [(_NSTextLayoutFragmentStorage *)self adjustedTextRangeWithTextRange:range adjustment:6];
+  v7 = v6;
   if (v6)
   {
-    [(_NSTextRunStorage *)self invalidateElementsInRange:v6 delta:delta];
+    v8 = v6;
+    v6 = [(_NSTextRunStorage *)self invalidateElementsInRange:v6 delta:delta];
+    v7 = v8;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v6, v7);
 }
 
 - (void)invalidateTextLayoutFragmentsInTextRange:(id)range adjustTextRange:(BOOL)textRange

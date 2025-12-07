@@ -106,9 +106,9 @@
 
 - (id)description
 {
-  v63.receiver = self;
-  v63.super_class = TSCHSemanticTagAndPropertyPair;
-  v3 = [(TSCHSemanticTagAndPropertyPair *)&v63 description];
+  v62.receiver = self;
+  v62.super_class = TSCHSemanticTagAndPropertyPair;
+  v3 = [(TSCHSemanticTagAndPropertyPair *)&v62 description];
   v8 = objc_msgSend_mutableCopy(v3, v4, v5, v6, v7);
 
   v9 = MEMORY[0x277CCACA8];
@@ -117,17 +117,17 @@
   v20 = sub_2762E6140(v19);
   v21 = MEMORY[0x277CCABB0];
   v26 = objc_msgSend_semanticTag(self, v22, v23, v24, v25);
-  v31 = objc_msgSend_index(v26, v27, v28, v29, v30);
-  v36 = objc_msgSend_numberWithUnsignedInteger_(v21, v32, v33, v34, v35, v31);
-  v41 = objc_msgSend_stringWithFormat_(v9, v37, v38, v39, v40, @"type: %@ index: %@", v20, v36);
+  v30 = objc_msgSend_index(v26, v27, v28, v29);
+  v35 = objc_msgSend_numberWithUnsignedInteger_(v21, v31, v32, v33, v34, v30);
+  v40 = objc_msgSend_stringWithFormat_(v9, v36, v37, v38, v39, @"type: %@ index: %@", v20, v35);
 
-  v42 = MEMORY[0x277CCACA8];
-  objc_msgSend_property(self, v43, v44, v45, v46);
-  v47 = String();
-  v52 = objc_msgSend_stringWithFormat_(v42, v48, v49, v50, v51, @" tag: { %@ } property: %@", v41, v47);
+  v41 = MEMORY[0x277CCACA8];
+  objc_msgSend_property(self, v42, v43, v44, v45);
+  v46 = String();
+  v51 = objc_msgSend_stringWithFormat_(v41, v47, v48, v49, v50, @" tag: { %@ } property: %@", v40, v46);
 
-  v57 = objc_msgSend_length(v8, v53, v54, v55, v56);
-  objc_msgSend_insertString_atIndex_(v8, v58, v59, v60, v61, v52, v57 - 1);
+  v56 = objc_msgSend_length(v8, v52, v53, v54, v55);
+  objc_msgSend_insertString_atIndex_(v8, v57, v58, v59, v60, v51, v56 - 1);
 
   return v8;
 }

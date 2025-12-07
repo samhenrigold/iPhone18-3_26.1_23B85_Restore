@@ -2,6 +2,7 @@
 - (BOOL)_createListenDispatchSource;
 - (BOOL)_listenOnPort:(unsigned __int16)port;
 - (_RWITCPServer)initWithLaunchdSocketName:(const char *)name delegate:(id)delegate;
+- (_RWITCPServer)initWithPort:(unsigned __int16)port delegate:(id)delegate;
 - (_RWITCPServerDelegate)delegate;
 - (id)_initWithDelegate:(id)delegate;
 - (void)connectionClosed:(id)closed;
@@ -31,9 +32,27 @@
   return v6;
 }
 
+- (_RWITCPServer)initWithPort:(unsigned __int16)port delegate:(id)delegate
+{
+  portCopy = port;
+  v5 = [(_RWITCPServer *)self _initWithDelegate:delegate];
+  v6 = v5;
+  if (v5 && [v5 _listenOnPort:portCopy])
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
 - (_RWITCPServer)initWithLaunchdSocketName:(const char *)name delegate:(id)delegate
 {
-  v5 = RWIDefaultLog();
+  v5 = RWIDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [_RWITCPServer initWithLaunchdSocketName:v5 delegate:?];
@@ -62,8 +81,8 @@
   self->_listenSocket = v5;
   if (v5 == -1)
   {
-    v7 = RWIDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = RWIDefaultLog(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [_RWITCPServer _listenOnPort:];
     }
@@ -71,18 +90,19 @@
 
   else
   {
-    v12 = 1;
-    setsockopt(v5, 0xFFFF, 4, &v12, 4u);
-    setsockopt(self->_listenSocket, 0xFFFF, 512, &v12, 4u);
-    v10 = 0uLL;
-    v9 = 7680;
-    v11 = 0;
-    WORD1(v9) = __rev16(portCopy);
-    v10 = *MEMORY[0x277D85EF0];
-    if (bind(self->_listenSocket, &v9, 0x1Cu) == -1)
+    v14 = 1;
+    setsockopt(v5, 0xFFFF, 4, &v14, 4u);
+    setsockopt(self->_listenSocket, 0xFFFF, 512, &v14, 4u);
+    v12 = 0uLL;
+    v11 = 7680;
+    v13 = 0;
+    WORD1(v11) = __rev16(portCopy);
+    v12 = *MEMORY[0x277D85EF0];
+    v6 = bind(self->_listenSocket, &v11, 0x1Cu);
+    if (v6 == -1)
     {
-      v8 = RWIDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = RWIDefaultLog(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_RWITCPServer _listenOnPort:];
       }
@@ -90,13 +110,14 @@
       return 0;
     }
 
-    if (listen(self->_listenSocket, 5) != -1)
+    v7 = listen(self->_listenSocket, 5);
+    if (v7 != -1)
     {
       return [(_RWITCPServer *)self _createListenDispatchSource];
     }
 
-    v7 = RWIDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = RWIDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [_RWITCPServer _listenOnPort:];
     }
@@ -115,28 +136,28 @@
   serverSource = self->_serverSource;
   self->_serverSource = v5;
 
-  v7 = self->_serverSource;
-  if (v7)
+  v8 = self->_serverSource;
+  if (v8)
   {
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __44___RWITCPServer__createListenDispatchSource__block_invoke;
     handler[3] = &unk_279EAA530;
     handler[4] = self;
-    dispatch_source_set_event_handler(v7, handler);
+    dispatch_source_set_event_handler(v8, handler);
     dispatch_resume(self->_serverSource);
   }
 
   else
   {
-    v8 = RWIDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = RWIDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_RWITCPServer *)v8 _createListenDispatchSource];
+      [(_RWITCPServer *)v9 _createListenDispatchSource];
     }
   }
 
-  return v7 != 0;
+  return v8 != 0;
 }
 
 - (void)connectionClosed:(id)closed
@@ -162,32 +183,26 @@
 
 - (void)_listenOnPort:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_listenOnPort:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_listenOnPort:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

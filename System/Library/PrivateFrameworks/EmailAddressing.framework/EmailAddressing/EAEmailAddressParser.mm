@@ -47,7 +47,7 @@ void __27__EAEmailAddressParser_log__block_invoke(uint64_t a1)
 
 + (BOOL)isLegalEmailAddress:(id)address
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   v5 = [self rawAddressRespectingGroupsFromFullAddress:addressCopy];
   v6 = [(__CFString *)v5 length];
@@ -57,12 +57,12 @@ void __27__EAEmailAddressParser_log__block_invoke(uint64_t a1)
     goto LABEL_38;
   }
 
-  v50 = 0u;
-  memset(v48, 0, sizeof(v48));
+  v49 = 0u;
+  memset(v47, 0, sizeof(v47));
   *buffer = 0u;
   theString[0] = v5;
-  v52 = 0;
-  v51 = v6;
+  v51 = 0;
+  v50 = v6;
   theString[1] = CFStringGetCharactersPtr(v5);
   if (theString[1])
   {
@@ -79,9 +79,9 @@ void __27__EAEmailAddressParser_log__block_invoke(uint64_t a1)
   v11 = 0;
   v12 = 0;
   v13 = 0;
-  *(&v51 + 1) = 0;
-  v52 = 0;
-  *&v50 = CStringPtr;
+  *(&v50 + 1) = 0;
+  v51 = 0;
+  *&v49 = CStringPtr;
 LABEL_6:
   v14 = v12 & 1;
   v15 = v13;
@@ -89,21 +89,21 @@ LABEL_6:
   {
     while (1)
     {
-      if ((v15 & 0x8000000000000000) == 0 && v51 > v15)
+      if ((v15 & 0x8000000000000000) == 0 && v50 > v15)
       {
         if (theString[1])
         {
-          v16 = *(&theString[1]->isa + *(&v50 + 1) + v15);
+          v16 = *(&theString[1]->isa + *(&v49 + 1) + v15);
         }
 
-        else if (v50)
+        else if (v49)
         {
-          v16 = *(v50 + *(&v50 + 1) + v15);
+          v16 = *(v49 + *(&v49 + 1) + v15);
         }
 
         else
         {
-          if (v52 <= v15 || v10 > v15)
+          if (v51 <= v15 || v10 > v15)
           {
             v17 = v15 - 4;
             if (v15 < 4)
@@ -112,17 +112,17 @@ LABEL_6:
             }
 
             v18 = v17 + 64;
-            if (v17 + 64 >= v51)
+            if (v17 + 64 >= v50)
             {
-              v18 = v51;
+              v18 = v50;
             }
 
-            *(&v51 + 1) = v17;
-            v52 = v18;
-            v54.length = v18 - v17;
-            v54.location = *(&v50 + 1) + v17;
-            CFStringGetCharacters(theString[0], v54, buffer);
-            v9 = *(&v51 + 1);
+            *(&v50 + 1) = v17;
+            v51 = v18;
+            v53.length = v18 - v17;
+            v53.location = *(&v49 + 1) + v17;
+            CFStringGetCharacters(theString[0], v53, buffer);
+            v9 = *(&v50 + 1);
           }
 
           v16 = buffer[v15 - v9];
@@ -192,10 +192,10 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    v24 = [(__CFString *)v5 substringWithRange:0, v19];
-    v25 = [v24 canBeConvertedToEncoding:1];
+    v23 = [(__CFString *)v5 substringWithRange:0, v19];
+    v24 = [v23 canBeConvertedToEncoding:1];
 
-    if ((v25 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
       goto LABEL_38;
     }
@@ -224,70 +224,70 @@ LABEL_38:
     }
 
     ef_unsafeAddressLocalPartCharacterSet = [MEMORY[0x277CCA900] ef_unsafeAddressLocalPartCharacterSet];
-    v27 = [(__CFString *)v5 rangeOfCharacterFromSet:ef_unsafeAddressLocalPartCharacterSet options:0 range:0, v19]== 0x7FFFFFFFFFFFFFFFLL;
+    v26 = [(__CFString *)v5 rangeOfCharacterFromSet:ef_unsafeAddressLocalPartCharacterSet options:0 range:0, v19]== 0x7FFFFFFFFFFFFFFFLL;
 
-    if (!v27)
+    if (!v26)
     {
       goto LABEL_38;
     }
   }
 
-  v28 = v7 + ~v19;
-  if (!v28)
+  v27 = v7 + ~v19;
+  if (!v27)
   {
     goto LABEL_38;
   }
 
   if ([(__CFString *)v5 characterAtIndex:v19 + 1]== 91)
   {
-    v29 = [(__CFString *)v5 characterAtIndex:v7 - 1];
+    v28 = [(__CFString *)v5 characterAtIndex:v7 - 1];
     v21 = 0;
-    if (v28 >= 9 && v29 == 93)
+    if (v27 >= 9 && v28 == 93)
     {
-      v46[0] = 0;
-      v46[1] = 0;
+      v45[0] = 0;
+      v45[1] = 0;
       *buffer = 0u;
-      memset(v48, 0, 30);
-      v45 = 0;
-      v30 = v19 + 2;
-      v44[0] = 0;
-      v44[1] = 0;
+      memset(v47, 0, 30);
+      v44 = 0;
+      v29 = v19 + 2;
+      v43[0] = 0;
+      v43[1] = 0;
       if ([(__CFString *)v5 rangeOfString:@"IPv6:" options:1 range:v19 + 2, 5]== 0x7FFFFFFFFFFFFFFFLL)
       {
-        v31 = v28 - 2;
-        v32 = 2;
-        v33 = v46;
-        v34 = &v45;
-        v35 = 15;
+        v30 = v27 - 2;
+        v31 = 2;
+        v32 = v45;
+        v33 = &v44;
+        v34 = 15;
       }
 
       else
       {
-        v30 = v19 + 7;
-        v31 = v28 - 7;
-        v32 = 30;
-        v33 = buffer;
-        v34 = v44;
-        v35 = 45;
+        v29 = v19 + 7;
+        v30 = v27 - 7;
+        v31 = 30;
+        v32 = buffer;
+        v33 = v43;
+        v34 = 45;
       }
 
-      v43 = 0;
-      v42 = xmmword_249FB2FC0;
-      v40 = [(__CFString *)v5 getBytes:v33 maxLength:v35 usedLength:&v43 encoding:1 options:0 range:v30 remainingRange:v31, &v42];
-      if (*(&v42 + 1))
+      v42 = 0;
+      v41 = xmmword_249FB2FC0;
+      v39 = [(__CFString *)v5 getBytes:v32 maxLength:v34 usedLength:&v42 encoding:1 options:0 range:v29 remainingRange:v30, &v41];
+      if (*(&v41 + 1))
       {
-        v41 = 0;
+        v40 = 0;
       }
 
       else
       {
-        v41 = v40;
+        v40 = v39;
       }
 
-      if (v41 == 1)
+      if (v40 == 1)
       {
-        *(v33 + v43) = 0;
-        v21 = inet_pton(v32, v33, v34) == 1;
+        *(v32 + v42) = 0;
+        v21 = inet_pton(v31, v32, v33) == 1;
         goto LABEL_39;
       }
 
@@ -297,28 +297,27 @@ LABEL_38:
 
   else
   {
-    v36 = [(__CFString *)v5 characterAtIndex:v19 + 1];
-    v37 = [(__CFString *)v5 characterAtIndex:v7 - 1];
+    v35 = [(__CFString *)v5 characterAtIndex:v19 + 1];
+    v36 = [(__CFString *)v5 characterAtIndex:v7 - 1];
     v21 = 0;
-    if (v28 >= 3 && (v36 - 47) <= 0xFFFDu && (v37 - 47) <= 0xFFFDu)
+    if (v27 >= 3 && (v35 - 47) <= 0xFFFDu && (v36 - 47) <= 0xFFFDu)
     {
-      if ([(__CFString *)v5 rangeOfString:@".-" options:0 range:v19 + 1, v28]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)v5 rangeOfString:@"-." options:0 range:v19 + 1, v28]!= 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v5 rangeOfString:@".-" options:0 range:v19 + 1, v27]!= 0x7FFFFFFFFFFFFFFFLL || [(__CFString *)v5 rangeOfString:@"-." options:0 range:v19 + 1, v27]!= 0x7FFFFFFFFFFFFFFFLL)
       {
         goto LABEL_38;
       }
 
       alphanumericCharacterSet = [MEMORY[0x277CCA900] alphanumericCharacterSet];
-      v39 = [alphanumericCharacterSet mutableCopy];
+      v38 = [alphanumericCharacterSet mutableCopy];
 
-      [v39 addCharactersInString:@".-"];
-      [v39 invert];
-      v21 = [(__CFString *)v5 rangeOfCharacterFromSet:v39 options:0 range:v19 + 1, v28]== 0x7FFFFFFFFFFFFFFFLL;
+      [v38 addCharactersInString:@".-"];
+      [v38 invert];
+      v21 = [(__CFString *)v5 rangeOfCharacterFromSet:v38 options:0 range:v19 + 1, v27]== 0x7FFFFFFFFFFFFFFFLL;
     }
   }
 
 LABEL_39:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

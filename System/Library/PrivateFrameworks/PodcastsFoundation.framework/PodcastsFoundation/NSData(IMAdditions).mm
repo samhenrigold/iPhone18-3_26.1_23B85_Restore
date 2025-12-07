@@ -70,13 +70,13 @@ LABEL_5:
 
 - (id)uniquenessHash
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [self length];
   if (v2)
   {
     v3 = v2;
-    memset(&v10, 0, sizeof(v10));
-    CC_MD5_Init(&v10);
+    memset(&v9, 0, sizeof(v9));
+    CC_MD5_Init(&v9);
     bytes = [self bytes];
     if (v3 < 0x10000)
     {
@@ -85,7 +85,7 @@ LABEL_5:
 
     do
     {
-      CC_MD5_Update(&v10, bytes, 0x10000u);
+      CC_MD5_Update(&v9, bytes, 0x10000u);
       bytes += 0x10000;
       v3 -= 0x10000;
     }
@@ -94,14 +94,14 @@ LABEL_5:
     if (v3)
     {
 LABEL_5:
-      CC_MD5_Update(&v10, bytes, v3);
+      CC_MD5_Update(&v9, bytes, v3);
     }
 
-    CC_MD5_Final(md, &v10);
+    CC_MD5_Final(md, &v9);
     v5 = 0;
-    v12 = 0;
-    memset(v11, 0, sizeof(v11));
-    v6 = v11 + 1;
+    v11 = 0;
+    memset(v10, 0, sizeof(v10));
+    v6 = v10 + 1;
     do
     {
       v7 = md[v5];
@@ -112,17 +112,15 @@ LABEL_5:
     }
 
     while (v5 != 16);
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v11 length:32 encoding:4];
+    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v10 length:32 encoding:4];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 + (id)uniquenessHashForContentsOfFileUrl:()IMAdditions readBufferSize:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a4)
   {
@@ -134,13 +132,13 @@ LABEL_5:
     v6 = 0x4000;
   }
 
-  v17 = 0;
-  v7 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:v5 error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:v5 error:&v16];
+  v8 = v16;
   if (v7)
   {
-    memset(&v16, 0, sizeof(v16));
-    CC_MD5_Init(&v16);
+    memset(&v15, 0, sizeof(v15));
+    CC_MD5_Init(&v15);
     do
     {
       v9 = objc_autoreleasePoolPush();
@@ -149,14 +147,14 @@ LABEL_5:
       if (v11)
       {
         v12 = v10;
-        CC_MD5_Update(&v16, [v10 bytes], objc_msgSend(v10, "length"));
+        CC_MD5_Update(&v15, [v10 bytes], objc_msgSend(v10, "length"));
       }
 
       objc_autoreleasePoolPop(v9);
     }
 
     while (v11);
-    CC_MD5_Final(md, &v16);
+    CC_MD5_Final(md, &v15);
     [v7 closeFile];
     v13 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:16];
   }
@@ -165,8 +163,6 @@ LABEL_5:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

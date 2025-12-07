@@ -197,190 +197,259 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  NSAppendPrintF();
-  v4 = 0;
-  v5 = self->_identifier;
-  v6 = self->_idsDeviceIdentifier;
-  idsDeviceIdentifierConflict = self->_idsDeviceIdentifierConflict;
-  if ([(NSString *)v6 isEqual:v5])
+  if (level <= 49)
   {
-
-    v8 = shouldPrintSensitiveData();
-    v5 = 0;
+    LODWORD(v4) = 100;
   }
 
   else
   {
-    v8 = shouldPrintSensitiveData();
-    if (v5)
-    {
-      formatSensitiveData(", ID ", v8);
-      NSAppendPrintF();
-      v9 = v4;
-
-      v4 = v9;
-    }
+    LODWORD(v4) = 8;
   }
 
-  if (v6)
+  v78 = 0;
+  NSAppendPrintF(&v78, "RPDevice");
+  v5 = v78;
+  v6 = self->_identifier;
+  v7 = self->_idsDeviceIdentifier;
+  idsDeviceIdentifierConflict = self->_idsDeviceIdentifierConflict;
+  v9 = [(NSString *)v7 isEqual:v6];
+  if (v9)
   {
-    formatSensitiveData(", IDS ", v8);
-    NSAppendPrintF();
-    v10 = v4;
 
-    if (idsDeviceIdentifierConflict)
+    v13 = shouldPrintSensitiveData(v11, v12);
+    v6 = 0;
+    if (v13)
     {
-      NSAppendPrintF();
-      v4 = v10;
+      v4 = v4;
     }
 
     else
     {
-      v4 = v10;
+      v4 = 8;
+    }
+  }
+
+  else
+  {
+    v13 = shouldPrintSensitiveData(v9, v10);
+    if (v13)
+    {
+      v4 = v4;
+    }
+
+    else
+    {
+      v4 = 8;
+    }
+
+    if (v6)
+    {
+      v77 = v5;
+      v14 = formatSensitiveData(", ID ", v13);
+      NSAppendPrintF(&v77, v14, v6);
+      v15 = v77;
+
+      v5 = v15;
+    }
+  }
+
+  if (v7)
+  {
+    v76 = v5;
+    v16 = formatSensitiveData(", IDS ", v13);
+    NSAppendPrintF(&v76, v16, v7);
+    v17 = v76;
+
+    if (idsDeviceIdentifierConflict)
+    {
+      v75 = v17;
+      NSAppendPrintF(&v75, " (conflict)");
+      v5 = v75;
+    }
+
+    else
+    {
+      v5 = v17;
     }
   }
 
   name = self->_name;
   if (name)
   {
-    v12 = name;
-    formatSensitiveData(", Nm ", v8);
-    NSAppendPrintF();
-    v13 = v4;
+    v74 = v5;
+    v19 = name;
+    v20 = formatSensitiveData(", Nm ", v13);
+    NSAppendPrintF(&v74, v20, v19);
+    v21 = v74;
 
-    v4 = v13;
+    v5 = v21;
   }
 
   model = self->_model;
   if (model)
   {
-    v15 = model;
-    formatSensitiveData(", Md ", v8);
-    NSAppendPrintF();
-    v16 = v4;
+    v73 = v5;
+    v23 = model;
+    v24 = formatSensitiveData(", Md ", v13);
+    NSAppendPrintF(&v73, v24, v23);
+    v25 = v73;
 
-    v4 = v16;
+    v5 = v25;
   }
 
   accountID = self->_accountID;
   if (accountID)
   {
-    v18 = accountID;
-    formatSensitiveData(", AID ", v8);
-    NSAppendPrintF();
-    v19 = v4;
+    v72 = v5;
+    v27 = accountID;
+    v28 = formatSensitiveData(", AID ", v13);
+    NSAppendPrintF(&v72, v28, v27);
+    v29 = v72;
 
-    v4 = v19;
+    v5 = v29;
   }
 
   udid = self->_udid;
   if (udid)
   {
-    v21 = udid;
-    formatSensitiveData(", UDID ", v8);
-    NSAppendPrintF();
-    v22 = v4;
+    v71 = v5;
+    v31 = udid;
+    v32 = formatSensitiveData(", UDID ", v13);
+    NSAppendPrintF(&v71, v32, v31);
+    v33 = v71;
 
-    v4 = v22;
+    v5 = v33;
   }
 
   contactID = self->_contactID;
   if (contactID)
   {
-    v24 = contactID;
-    formatSensitiveData(", CNID ", v8);
-    NSAppendPrintF();
-    v25 = v4;
+    v70 = v5;
+    v35 = contactID;
+    v36 = formatSensitiveData(", CNID ", v13);
+    NSAppendPrintF(&v70, v36, v35);
+    v37 = v70;
 
-    v4 = v25;
+    v5 = v37;
   }
 
-  if (v8)
+  if (v13)
   {
-    v26 = self->_wifiAddress;
-    if ([(NSData *)v26 length]== 6)
+    v38 = self->_wifiAddress;
+    if ([(NSData *)v38 length]== 6)
     {
-      [(NSData *)v26 bytes];
-      NSAppendPrintF();
-      v27 = v4;
+      v69 = v5;
+      NSAppendPrintF(&v69, ", WiFiAddr %.6a", COERCE_DOUBLE([(NSData *)v38 bytes]));
+      v39 = v69;
 
-      v4 = v27;
+      v5 = v39;
     }
 
     bleAuthTag = self->_bleAuthTag;
     if (bleAuthTag)
     {
-      v47 = bleAuthTag;
-      NSAppendPrintF();
-      v29 = v4;
+      v68 = v5;
+      v41 = bleAuthTag;
+      NSAppendPrintF(&v68, ", ATag <%.*@>", v4, v41);
+      v42 = v68;
 
-      v4 = v29;
+      v5 = v42;
     }
 
     bleDeviceAddress = self->_bleDeviceAddress;
     if (bleDeviceAddress)
     {
+      v67 = v5;
       v44 = bleDeviceAddress;
-      NSAppendPrintF();
-      v31 = v4;
+      NSAppendPrintF(&v67, ", BDA <%@>", v44);
+      v45 = v67;
 
-      v4 = v31;
+      v5 = v45;
     }
 
-    if (self->_proximity)
+    proximity = self->_proximity;
+    if (proximity)
     {
-      NSAppendPrintF();
-      v33 = v4;
+      v66 = v5;
+      switch(proximity)
+      {
+        case 10:
+          v47 = "Immed";
+          break;
+        case 30:
+          v47 = "Far";
+          break;
+        case 20:
+          v47 = "Near";
+          break;
+        default:
+          v47 = "?";
+          break;
+      }
 
-      v4 = v33;
+      NSAppendPrintF(&v66, ", Px %s", v47);
+      v48 = v66;
+
+      v5 = v48;
     }
 
     relativeLocation = self->_relativeLocation;
     if (relativeLocation)
     {
-      v45 = relativeLocation;
-      NSAppendPrintF();
-      v35 = v4;
+      v65 = v5;
+      v50 = relativeLocation;
+      NSAppendPrintF(&v65, ", RL %@", v50);
+      v51 = v65;
 
-      v4 = v35;
+      v5 = v51;
     }
 
     activityLevel = self->_activityLevel;
     if (activityLevel)
     {
-      if (activityLevel <= 0xE)
+      v64 = v5;
+      if (activityLevel > 0xE)
       {
-        v37 = off_1E7C939E0[activityLevel - 1];
+        v53 = "?";
       }
 
-      NSAppendPrintF();
-      v38 = v4;
+      else
+      {
+        v53 = off_1E7C939E0[activityLevel - 1];
+      }
 
-      v4 = v38;
+      NSAppendPrintF(&v64, ", AcLv %s", v53);
+      v54 = v64;
+
+      v5 = v54;
     }
 
     activityLevelTimeStamp = self->_activityLevelTimeStamp;
     if (activityLevelTimeStamp)
     {
-      v46 = activityLevelTimeStamp;
-      NSAppendPrintF();
-      v40 = v4;
+      v63 = v5;
+      v56 = activityLevelTimeStamp;
+      NSAppendPrintF(&v63, ", AcLvTS %f", *&v56);
+      v57 = v63;
 
-      v4 = v40;
+      v5 = v57;
     }
   }
 
-  if (self->_flags)
+  flags = self->_flags;
+  if (flags)
   {
-    NSAppendPrintF();
-    v41 = v4;
+    v62 = v5;
+    NSAppendPrintF(&v62, ", Fl %#{flags}", flags, &unk_1B6F2D814);
+    v59 = v62;
 
-    v4 = v41;
+    v5 = v59;
   }
 
-  v42 = v4;
+  v60 = v5;
 
-  return v4;
+  return v5;
 }
 
 - (double)timeSinceLastActivityLevelChange

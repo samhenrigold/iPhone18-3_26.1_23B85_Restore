@@ -68,17 +68,16 @@
 
 uint64_t __38__SUGetOffTestingAlertItem__yesButton__block_invoke(uint64_t a1)
 {
-  v2 = SULogAlerts();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  SULogInfoForSubsystem(v2, @"[%@] User chose Continue", v5, v6, v7, v8, v9, v10, v4);
+  v2 = SULogAlerts(a1);
+  v3 = objc_opt_class();
+  SULogInfoForSubsystem(v2, @"[%@] User chose Continue", v4, v5, v6, v7, v8, v9, v3);
 
   result = *(*(a1 + 32) + 40);
   if (result)
   {
-    v12 = *(result + 16);
+    v11 = *(result + 16);
 
-    return v12();
+    return v11();
   }
 
   return result;
@@ -99,17 +98,16 @@ uint64_t __38__SUGetOffTestingAlertItem__yesButton__block_invoke(uint64_t a1)
 
 uint64_t __37__SUGetOffTestingAlertItem__noButton__block_invoke(uint64_t a1)
 {
-  v2 = SULogAlerts();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  SULogInfoForSubsystem(v2, @"[%@] User chose Install-Without-Offload", v5, v6, v7, v8, v9, v10, v4);
+  v2 = SULogAlerts(a1);
+  v3 = objc_opt_class();
+  SULogInfoForSubsystem(v2, @"[%@] User chose Install-Without-Offload", v4, v5, v6, v7, v8, v9, v3);
 
   result = *(*(a1 + 32) + 40);
   if (result)
   {
-    v12 = *(result + 16);
+    v11 = *(result + 16);
 
-    return v12();
+    return v11();
   }
 
   return result;

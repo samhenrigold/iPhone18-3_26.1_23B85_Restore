@@ -63,7 +63,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100086EE0(identifierCopy, error);
+      sub_100086EE0();
     }
 
     goto LABEL_42;
@@ -73,7 +73,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100086F50(identifierCopy, error);
+      sub_100086F50();
     }
 
     goto LABEL_42;
@@ -83,7 +83,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100086FC0(identifierCopy, error);
+      sub_100086FC0();
     }
 
     goto LABEL_42;
@@ -93,7 +93,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100087030(identifierCopy, error);
+      sub_100087030();
     }
 
     goto LABEL_42;
@@ -103,7 +103,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000870A0(identifierCopy, error);
+      sub_1000870A0();
     }
 
     goto LABEL_42;
@@ -113,7 +113,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100087110(identifierCopy, error);
+      sub_100087110();
     }
 
     goto LABEL_42;
@@ -123,7 +123,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100087180(identifierCopy, error);
+      sub_100087180();
     }
 
     goto LABEL_42;
@@ -133,7 +133,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000871F0(identifierCopy, error);
+      sub_1000871F0();
     }
 
     goto LABEL_42;
@@ -143,7 +143,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100087260(identifierCopy, error);
+      sub_100087260();
     }
 
     goto LABEL_42;
@@ -153,7 +153,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000872D0(identifierCopy, error);
+      sub_1000872D0();
     }
 
     goto LABEL_42;
@@ -163,7 +163,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100087340(identifierCopy, error);
+      sub_100087340();
     }
 
     goto LABEL_42;
@@ -173,7 +173,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000873B0(identifierCopy, error);
+      sub_1000873B0();
     }
 
 LABEL_42:

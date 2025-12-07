@@ -21,7 +21,7 @@
   selfCopy = self;
   sharedInstance = [v4 sharedInstance];
   v8[3] = sub_1000A0F74(0, &qword_1001E1458, AKAccountManager_ptr);
-  v8[4] = sub_1000B3788(&qword_1001E1460, &qword_1001E1458, AKAccountManager_ptr);
+  v8[4] = sub_1000B3788(&qword_1001E1460, &qword_1001E1458, AKAccountManager_ptr, &unk_100141A54);
   v8[0] = sharedInstance;
   LOBYTE(v3) = sub_1000CF5B4(v3, &off_1001E13E8, v8);
 
@@ -42,7 +42,7 @@
 {
   sharedInstance = [objc_opt_self() sharedInstance];
   v3[3] = sub_1000A0F74(0, &qword_1001E1458, AKAccountManager_ptr);
-  v3[4] = sub_1000B3788(&qword_1001E1460, &qword_1001E1458, AKAccountManager_ptr);
+  v3[4] = sub_1000B3788(&qword_1001E1460, &qword_1001E1458, AKAccountManager_ptr, &unk_100141A54);
   v3[0] = sharedInstance;
   sub_1000D0078(v3);
   sub_1000A5148(v3, &qword_1001E1468, &unk_100141B50);

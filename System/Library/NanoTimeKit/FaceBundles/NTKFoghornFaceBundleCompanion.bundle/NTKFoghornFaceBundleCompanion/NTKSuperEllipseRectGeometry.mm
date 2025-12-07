@@ -46,7 +46,7 @@
 
     else
     {
-      v23 = NTKFoghornFaceBundleLogObject();
+      v23 = NTKFoghornFaceBundleLogObject(v17, v18);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_23BE7D370(deviceCopy, v23, v24, v25);

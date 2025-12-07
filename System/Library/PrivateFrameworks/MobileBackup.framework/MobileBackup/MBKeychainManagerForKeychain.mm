@@ -31,7 +31,7 @@
     *buf = 138543362;
     v18 = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling SecItemCopyMatching with query: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Calling SecItemCopyMatching with query: %{public}@", v9);
   }
 
   v11 = SecItemCopyMatching(v9, &result);
@@ -117,7 +117,7 @@ LABEL_16:
     *buf = 138543362;
     v22 = v15;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Calling SecItemAdd with query: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Calling SecItemAdd with query: %{public}@", v15);
   }
 
   v17 = SecItemAdd(v15, 0);
@@ -183,7 +183,7 @@ LABEL_16:
     v25 = 2114;
     v26 = v17;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling SecItemUpdate with query:%{public}@ attributes:%{public}@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "Calling SecItemUpdate with query:%{public}@ attributes:%{public}@", v15, v17);
   }
 
   v19 = SecItemUpdate(v15, v17);
@@ -237,7 +237,7 @@ LABEL_16:
     *buf = 138543362;
     v16 = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling SecItemDelete with query:%{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Calling SecItemDelete with query:%{public}@", v9);
   }
 
   v11 = SecItemDelete(v9);
@@ -279,7 +279,7 @@ LABEL_16:
     *buf = 138543362;
     v13 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Calling SecItemDelete without accountName for query:%{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Calling SecItemDelete without accountName for query:%{public}@", v6);
   }
 
   v8 = SecItemDelete(v6);

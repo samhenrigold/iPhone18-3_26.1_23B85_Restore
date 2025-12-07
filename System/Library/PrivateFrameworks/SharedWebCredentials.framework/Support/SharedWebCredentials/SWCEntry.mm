@@ -1,9 +1,11 @@
 @interface SWCEntry
 + (BOOL)_shouldIncludeServiceWithDomain:(id)domain fromBundleRecord:(id)record applicationIdentifier:(id)identifier developerModeEnabled:(BOOL)enabled enterpriseContext:(id)context;
++ (id)_associatedDomainsFromEntitlementForBundleRecord:(id)record applicationIdentifier:(id)identifier developerModeEnabled:(BOOL)enabled enterpriseContext:(id)context;
 + (id)_deduplicateServicesByMode:(id)mode;
 + (id)_enterpriseEntriesWithContext:(id)context forBundleRecord:(id)record applicationIdentifier:(id)identifier;
 + (id)_entriesFromBuiltInJSONForBundleRecord:(id)record applicationIdentifier:(id)identifier;
 + (id)additionalServiceDetailsDirectoryURLForApplicationIdentifier:(id)identifier createParentIfNeeded:(BOOL)needed error:(id *)error;
++ (id)entriesForBundleRecord:(id)record enterpriseContext:(id)context developerModeEnabled:(BOOL)enabled;
 + (id)entriesForJSONObject:(id)object domain:(id)domain;
 + (void)_addEntriesToOrderedSet:(id)set forService:(id)service fromAppsArray:(id)array domain:(id)domain;
 + (void)_addEntriesToOrderedSet:(id)set forUniversalLinksFromDetailsArray:(id)array domain:(id)domain substitutionVariables:(id)variables defaults:(id)defaults maximum:(unint64_t)maximum;
@@ -150,27 +152,25 @@
 
   v20 = [NSSet setWithObject:v19];
 LABEL_14:
-  fields = [(SWCEntry *)self fields];
-  relativeOrder = fields->relativeOrder;
-  v23 = *fields;
+  [(SWCEntry *)self fields];
   _SWCFieldsLogDebugDescription();
   lastCheckedDate = [(SWCEntry *)self lastCheckedDate];
-  v25 = lastCheckedDate;
+  v22 = lastCheckedDate;
   if (lastCheckedDate)
   {
     [lastCheckedDate timeIntervalSince1970];
-    if (fabs(v26) < 1.0e10)
+    if (fabs(v23) < 1.0e10)
     {
       _SWCLogValueForKey();
     }
   }
 
   nextCheckDate = [(SWCEntry *)self nextCheckDate];
-  v28 = nextCheckDate;
+  v25 = nextCheckDate;
   if (nextCheckDate)
   {
     [nextCheckDate timeIntervalSince1970];
-    if (fabs(v29) < 1.0e10)
+    if (fabs(v26) < 1.0e10)
     {
       _SWCLogValueForKey();
     }
@@ -186,9 +186,9 @@ LABEL_14:
 
     else
     {
-      v31 = [NSString alloc];
+      v28 = [NSString alloc];
       domain3 = [lastError domain];
-      v33 = [v31 initWithFormat:@"%@ %lli", domain3, objc_msgSend(lastError, "code")];
+      v30 = [v28 initWithFormat:@"%@ %lli", domain3, objc_msgSend(lastError, "code")];
       _SWCLogValueForKey();
     }
   }
@@ -542,13 +542,13 @@ LABEL_6:
   serviceType = [(SWCEntry *)self serviceType];
   applicationIdentifier = [(SWCEntry *)self applicationIdentifier];
   domain = [(SWCEntry *)self domain];
-  v12 = *[(SWCEntry *)self fields];
+  [(SWCEntry *)self fields];
+  v12 = _SWCServiceApprovalStateGetDebugDescription();
+  [(SWCEntry *)self fields];
   v13 = _SWCServiceApprovalStateGetDebugDescription();
-  v14 = *[(SWCEntry *)self fields];
-  v15 = _SWCServiceApprovalStateGetDebugDescription();
-  v16 = [v8 initWithFormat:@"{ s = %@, a = %@, d = %@, ua = %@, sa = %@%@ }", serviceType, applicationIdentifier, domain, v13, v15, v3];
+  v14 = [v8 initWithFormat:@"{ s = %@, a = %@, d = %@, ua = %@, sa = %@%@ }", serviceType, applicationIdentifier, domain, v12, v13, v3];
 
-  return v16;
+  return v14;
 }
 
 - (id)debugDescription
@@ -569,13 +569,13 @@ LABEL_6:
   redactedDescription = [applicationIdentifier redactedDescription];
   domain = [(SWCEntry *)self domain];
   redactedDescription2 = [domain redactedDescription];
-  v9 = *[(SWCEntry *)self fields];
+  [(SWCEntry *)self fields];
+  v9 = _SWCServiceApprovalStateGetDebugDescription();
+  [(SWCEntry *)self fields];
   v10 = _SWCServiceApprovalStateGetDebugDescription();
-  v11 = *[(SWCEntry *)self fields];
-  v12 = _SWCServiceApprovalStateGetDebugDescription();
-  v13 = [v3 initWithFormat:@"{ s = %@, a = %@, d = %@, ua = %@, sa = %@ }", serviceType, redactedDescription, redactedDescription2, v10, v12];
+  v11 = [v3 initWithFormat:@"{ s = %@, a = %@, d = %@, ua = %@, sa = %@ }", serviceType, redactedDescription, redactedDescription2, v9, v10];
 
-  return v13;
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -586,8 +586,6 @@ LABEL_6:
   [coderCopy encodeObject:self->_domain forKey:@"domain"];
   [coderCopy encodeObject:self->_applicationVersion forKey:@"applicationVersion"];
   [coderCopy encodeObject:self->_applicationPersistentIdentifier forKey:@"applicationPersistentIdentifier"];
-  relativeOrder = self->_fields.relativeOrder;
-  fields = self->_fields;
   _SWCFieldsEncodeWithCoder();
   [coderCopy encodeObject:self->_patterns forKey:@"patternList"];
   [coderCopy encodeObject:self->_substitutionVariables forKey:@"substitutionVariableList"];
@@ -666,6 +664,330 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v5);
   return v10;
+}
+
++ (id)entriesForBundleRecord:(id)record enterpriseContext:(id)context developerModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  recordCopy = record;
+  contextCopy = context;
+  v59 = objc_alloc_init(NSMutableOrderedSet);
+  v57 = [[_SWCApplicationIdentifier alloc] initForBundleRecord:recordCopy];
+  if (v57)
+  {
+    entitlements = [recordCopy entitlements];
+    v10 = [entitlements objectForKey:@"com.apple.private.swc.system-app" ofClass:objc_opt_class()];
+    v11 = [v10 isEqual:&__kCFBooleanTrue];
+
+    if (objc_opt_respondsToSelector())
+    {
+      isSystemPlaceholder = [recordCopy isSystemPlaceholder];
+    }
+
+    else
+    {
+      isSystemPlaceholder = 0;
+    }
+
+    v56 = [self _associatedDomainsFromEntitlementForBundleRecord:recordCopy applicationIdentifier:v57 developerModeEnabled:enabledCopy enterpriseContext:contextCopy];
+    if ([v56 count])
+    {
+      if (qword_100032548 != -1)
+      {
+        dispatch_once(&qword_100032548, &stru_10002CAF0);
+      }
+
+      v15 = qword_100032540;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      {
+        bundleVersion = [recordCopy bundleVersion];
+        *buf = 138412546;
+        v84 = recordCopy;
+        v85 = 2114;
+        v86 = bundleVersion;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Adding bundle record %@ (version %{public}@)", buf, 0x16u);
+      }
+
+      v76[0] = _NSConcreteStackBlock;
+      v76[1] = 3221225472;
+      v76[2] = sub_100009AA4;
+      v76[3] = &unk_10002C978;
+      v77 = v57;
+      v78 = v59;
+      [v56 enumerateKeysAndObjectsUsingBlock:v76];
+    }
+
+    else
+    {
+      if (qword_100032548 != -1)
+      {
+        dispatch_once(&qword_100032548, &stru_10002CAF0);
+      }
+
+      v17 = qword_100032540;
+      if (os_log_type_enabled(qword_100032540, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v84 = recordCopy;
+        _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "No associated domains for bundle record %@", buf, 0xCu);
+      }
+    }
+
+    v18 = v11 | isSystemPlaceholder;
+    if (((v11 | isSystemPlaceholder) & (v56 != 0)) == 1)
+    {
+      v19 = objc_autoreleasePoolPush();
+      v20 = [self _entriesFromBuiltInJSONForBundleRecord:recordCopy applicationIdentifier:v57];
+      if (v20)
+      {
+        if (qword_100032548 != -1)
+        {
+          dispatch_once(&qword_100032548, &stru_10002CAF0);
+        }
+
+        v21 = qword_100032540;
+        if (os_log_type_enabled(qword_100032540, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412546;
+          v84 = recordCopy;
+          v85 = 2112;
+          v86 = v20;
+          _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "App %@ had on-disk JSON, adding it to the pile: %@", buf, 0x16u);
+        }
+
+        [v59 unionOrderedSet:v20];
+      }
+
+      objc_autoreleasePoolPop(v19);
+    }
+
+    if (contextCopy)
+    {
+      isManaging = [contextCopy isManaging];
+      v23 = v56 ? isManaging : 0;
+      if (v23 == 1)
+      {
+        v24 = objc_autoreleasePoolPush();
+        v25 = [self _enterpriseEntriesWithContext:contextCopy forBundleRecord:recordCopy applicationIdentifier:v57];
+        if (v25)
+        {
+          if (qword_100032548 != -1)
+          {
+            dispatch_once(&qword_100032548, &stru_10002CAF0);
+          }
+
+          v26 = qword_100032540;
+          if (os_log_type_enabled(qword_100032540, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412546;
+            v84 = recordCopy;
+            v85 = 2112;
+            v86 = v25;
+            _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "App %@ had enterprise-supplied service specifiers, adding them to the pile: %@", buf, 0x16u);
+          }
+
+          [v59 unionOrderedSet:v25];
+        }
+
+        objc_autoreleasePoolPop(v24);
+      }
+    }
+
+    if ([v59 count])
+    {
+      bundleVersion2 = [recordCopy bundleVersion];
+      if (bundleVersion2)
+      {
+        v74 = 0u;
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
+        v28 = v59;
+        v29 = [v28 countByEnumeratingWithState:&v72 objects:v82 count:16];
+        if (v29)
+        {
+          v30 = *v73;
+          do
+          {
+            for (i = 0; i != v29; i = i + 1)
+            {
+              if (*v73 != v30)
+              {
+                objc_enumerationMutation(v28);
+              }
+
+              [*(*(&v72 + 1) + 8 * i) setApplicationVersion:bundleVersion2];
+            }
+
+            v29 = [v28 countByEnumeratingWithState:&v72 objects:v82 count:16];
+          }
+
+          while (v29);
+        }
+      }
+
+      persistentIdentifier = [recordCopy persistentIdentifier];
+      if (persistentIdentifier)
+      {
+        v70 = 0u;
+        v71 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v33 = v59;
+        v34 = [v33 countByEnumeratingWithState:&v68 objects:v81 count:16];
+        if (v34)
+        {
+          v35 = *v69;
+          do
+          {
+            for (j = 0; j != v34; j = j + 1)
+            {
+              if (*v69 != v35)
+              {
+                objc_enumerationMutation(v33);
+              }
+
+              [*(*(&v68 + 1) + 8 * j) setApplicationPersistentIdentifier:persistentIdentifier];
+            }
+
+            v34 = [v33 countByEnumeratingWithState:&v68 objects:v81 count:16];
+          }
+
+          while (v34);
+        }
+      }
+
+      v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v37 = v59;
+      v38 = [v37 countByEnumeratingWithState:&v64 objects:v80 count:16];
+      if (v38)
+      {
+        v39 = *v65;
+        do
+        {
+          for (k = 0; k != v38; k = k + 1)
+          {
+            if (*v65 != v39)
+            {
+              objc_enumerationMutation(v37);
+            }
+
+            fields = [*(*(&v64 + 1) + 8 * k) fields];
+            if (v18)
+            {
+              v42 = *fields & 0xFFD3;
+              *fields = v42 | 0x24;
+              if (!isSystemPlaceholder)
+              {
+                continue;
+              }
+
+              v43 = v42 | 0x224;
+            }
+
+            else
+            {
+              fields[2] = 0;
+              v43 = *fields & 0xFF3F;
+            }
+
+            *fields = v43;
+          }
+
+          v38 = [v37 countByEnumeratingWithState:&v64 objects:v80 count:16];
+        }
+
+        while (v38);
+      }
+    }
+
+    v13 = v57;
+  }
+
+  else
+  {
+    if (qword_100032548 != -1)
+    {
+      dispatch_once(&qword_100032548, &stru_10002CAF0);
+    }
+
+    v13 = 0;
+    v14 = qword_100032540;
+    if (os_log_type_enabled(qword_100032540, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v84 = recordCopy;
+      _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "### Add bundle record %@ failed because of missing app identifier entitlement", buf, 0xCu);
+    }
+  }
+
+  if ([v59 count] && (objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend(recordCopy, "appClipMetadata"), v44 = objc_claimAutoreleasedReturnValue(), v45 = v44 == 0, v44, !v45))
+  {
+    v46 = objc_alloc_init(NSMutableArray);
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v47 = v59;
+    v48 = [v47 countByEnumeratingWithState:&v60 objects:v79 count:16];
+    if (v48)
+    {
+      v49 = *v61;
+      do
+      {
+        for (m = 0; m != v48; m = m + 1)
+        {
+          if (*v61 != v49)
+          {
+            objc_enumerationMutation(v47);
+          }
+
+          v51 = *(*(&v60 + 1) + 8 * m);
+          serviceType = [v51 serviceType];
+          IsWhitelistedForAppClips = _SWCServiceTypeIsWhitelistedForAppClips();
+
+          if ((IsWhitelistedForAppClips & 1) == 0)
+          {
+            [v46 addObject:v51];
+          }
+        }
+
+        v48 = [v47 countByEnumeratingWithState:&v60 objects:v79 count:16];
+      }
+
+      while (v48);
+    }
+
+    if ([v46 count])
+    {
+      if (qword_100032548 != -1)
+      {
+        dispatch_once(&qword_100032548, &stru_10002CAF0);
+      }
+
+      v54 = qword_100032540;
+      if (os_log_type_enabled(qword_100032540, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412546;
+        v84 = recordCopy;
+        v85 = 2112;
+        v86 = v46;
+        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "Ignoring these associated domains for bundle record %@ because it is an app clip: %@", buf, 0x16u);
+      }
+
+      [v47 removeObjectsInArray:v46];
+    }
+  }
+
+  else
+  {
+    [SWCEntry canonicalizeEntries:v59];
+  }
+
+  return v59;
 }
 
 + (id)entriesForJSONObject:(id)object domain:(id)domain
@@ -1248,6 +1570,104 @@ LABEL_35:
   v7 = [v6 copy];
 
   return v7;
+}
+
++ (id)_associatedDomainsFromEntitlementForBundleRecord:(id)record applicationIdentifier:(id)identifier developerModeEnabled:(BOOL)enabled enterpriseContext:(id)context
+{
+  enabledCopy = enabled;
+  recordCopy = record;
+  identifierCopy = identifier;
+  contextCopy = context;
+  context = objc_autoreleasePoolPush();
+  v12 = objc_autoreleasePoolPush();
+  v35 = recordCopy;
+  entitlements = [recordCopy entitlements];
+  v14 = objc_opt_class();
+  v15 = [entitlements objectForKey:@"com.apple.developer.associated-domains" ofClass:v14 valuesOfClass:objc_opt_class()];
+
+  if (!v15 || ([_SWCServiceSpecifier serviceSpecifiersWithEntitlementValue:v15 error:0, context], v16 = objc_claimAutoreleasedReturnValue(), v15, (v32 = v16) == 0))
+  {
+    if (objc_opt_respondsToSelector())
+    {
+      isSystemPlaceholder = [v35 isSystemPlaceholder];
+      v18 = &__NSArray0__struct;
+      if (!isSystemPlaceholder)
+      {
+        v18 = 0;
+      }
+
+      v32 = v18;
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+  }
+
+  objc_autoreleasePoolPop(v12);
+  if (v32)
+  {
+    v19 = objc_alloc_init(NSMutableDictionary);
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    obj = v32;
+    v20 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+    if (v20)
+    {
+      v21 = *v39;
+      do
+      {
+        for (i = 0; i != v20; i = i + 1)
+        {
+          if (*v39 != v21)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v23 = *(*(&v38 + 1) + 8 * i);
+          sWCDomain = [v23 SWCDomain];
+          if ([self _shouldIncludeServiceWithDomain:sWCDomain fromBundleRecord:v35 applicationIdentifier:identifierCopy developerModeEnabled:enabledCopy enterpriseContext:contextCopy])
+          {
+            serviceType = [v23 serviceType];
+            v26 = [v19 objectForKeyedSubscript:serviceType];
+            if (!v26)
+            {
+              v26 = objc_alloc_init(NSMutableSet);
+              [v19 setObject:v26 forKeyedSubscript:serviceType];
+            }
+
+            [v26 addObject:sWCDomain];
+          }
+        }
+
+        v20 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      }
+
+      while (v20);
+    }
+
+    v27 = [self _deduplicateServicesByMode:v19];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_10000BCA4;
+    v36[3] = &unk_10002C9F0;
+    v28 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(v27, "count")}];
+    v37 = v28;
+    [v27 enumerateKeysAndObjectsUsingBlock:v36];
+    v29 = [v28 copy];
+  }
+
+  else
+  {
+    v29 = 0;
+  }
+
+  objc_autoreleasePoolPop(context);
+
+  return v29;
 }
 
 + (id)_enterpriseEntriesWithContext:(id)context forBundleRecord:(id)record applicationIdentifier:(id)identifier

@@ -5,6 +5,7 @@
 - (void)layoutSubviews;
 - (void)setActiveLayoutMode:(int64_t)mode;
 - (void)setCancelAction:(id)action;
+- (void)setMicaViewHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setProgressSuppressionState:(int64_t)state;
 - (void)tintControlWithColor:(id)color animated:(BOOL)animated;
 - (void)touchedDownCancelButton;
@@ -27,6 +28,59 @@
   [(WFProgressAccessoryView *)self setIsTouchingDownButton:1];
 
   [(WFProgressAccessoryView *)self updateMicaViewState];
+}
+
+- (void)setMicaViewHidden:(BOOL)hidden animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  hiddenCopy = hidden;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  micaView = [(WFProgressAccessoryView *)self micaView];
+  isHidden = [micaView isHidden];
+
+  if (isHidden != hiddenCopy)
+  {
+    if (animatedCopy)
+    {
+      if (hiddenCopy)
+      {
+        v15[0] = _NSConcreteStackBlock;
+        v15[1] = 3221225472;
+        v15[2] = sub_100002254;
+        v15[3] = &unk_1000105A8;
+        v15[4] = self;
+        v14[0] = _NSConcreteStackBlock;
+        v14[1] = 3221225472;
+        v14[2] = sub_10000229C;
+        v14[3] = &unk_100010410;
+        v14[4] = self;
+        [UIView animateWithDuration:v15 animations:v14 completion:0.4];
+      }
+
+      else
+      {
+        micaView2 = [(WFProgressAccessoryView *)self micaView];
+        [micaView2 setHidden:0];
+
+        micaView3 = [(WFProgressAccessoryView *)self micaView];
+        [micaView3 setAlpha:0.0];
+
+        v11 = dispatch_time(0, 50000000);
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_1000022E4;
+        block[3] = &unk_1000105A8;
+        block[4] = self;
+        dispatch_after(v11, &_dispatch_main_q, block);
+      }
+    }
+
+    else
+    {
+      micaView4 = [(WFProgressAccessoryView *)self micaView];
+      [micaView4 setHidden:hiddenCopy];
+    }
+  }
 }
 
 - (void)setProgressSuppressionState:(int64_t)state

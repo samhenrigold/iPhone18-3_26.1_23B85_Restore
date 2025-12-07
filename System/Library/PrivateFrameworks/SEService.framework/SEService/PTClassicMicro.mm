@@ -3,7 +3,7 @@
 + (id)getACLfromAssetACL:(id)l error:(id *)error;
 + (id)getNonce:(void *)nonce error:;
 + (id)sign:(id)sign designatedKey:(id)key extAuth:(id)auth seHandle:(id)handle seid:(id)seid error:(id *)error;
-+ (id)sign:(void *)sign aid:(unsigned int)aid slotNumber:(void *)number assetACL:(void *)l assetACLAttesetation:(unsigned __int8)attesetation operationApprovalVersion:(void *)version extAuth:(void *)auth seHandle:(void *)self0 seid:(void *)self1 error:;
++ (id)sign:(void *)sign aid:(unsigned int)aid slotNumber:(void *)number assetACL:(void *)l assetACLAttesetation:(uint64_t)attesetation operationApprovalVersion:(void *)version extAuth:(void *)auth seHandle:(void *)self0 seid:(void *)self1 error:;
 + (uint64_t)evaluateSecureElementACL:(void *)l assetACLAttesetation:(void *)attesetation extAuth:(void *)auth seid:(void *)seid operation:(void *)operation nonce:(unsigned __int8)nonce operationApprovalVersion:(void *)version outOperationApproval:(void *)self0 outOperationApprovalAttestation:(void *)self1 error:;
 + (uint64_t)select:(void *)select seHandle:(uint64_t)handle error:;
 + (void)executeCommand:(uint64_t)command itemData:(uint64_t)data spec:(void *)spec seHandle:(void *)handle error:;
@@ -29,9 +29,10 @@
   return v22;
 }
 
-+ (id)sign:(void *)sign aid:(unsigned int)aid slotNumber:(void *)number assetACL:(void *)l assetACLAttesetation:(unsigned __int8)attesetation operationApprovalVersion:(void *)version extAuth:(void *)auth seHandle:(void *)self0 seid:(void *)self1 error:
++ (id)sign:(void *)sign aid:(unsigned int)aid slotNumber:(void *)number assetACL:(void *)l assetACLAttesetation:(uint64_t)attesetation operationApprovalVersion:(void *)version extAuth:(void *)auth seHandle:(void *)self0 seid:(void *)self1 error:
 {
-  v48 = a2;
+  attesetationCopy = attesetation;
+  v43 = a2;
   signCopy = sign;
   numberCopy = number;
   lCopy = l;
@@ -39,68 +40,66 @@
   authCopy = auth;
   handleCopy = handle;
   objc_opt_self();
-  v60[0] = 0;
-  v20 = [PTClassicMicro select:signCopy seHandle:authCopy error:v60];
-  v21 = v60[0];
+  v55[0] = 0;
+  v20 = [PTClassicMicro select:signCopy seHandle:authCopy error:v55];
+  v21 = v55[0];
   if ((v20 & 1) == 0)
   {
     if (!seid)
     {
-      v28 = v48;
+      v28 = v43;
       goto LABEL_29;
     }
 
     v22 = SESDefaultLogObject();
-    v35 = *MEMORY[0x1E69E5148];
     asHexString = [signCopy asHexString];
     *seid = SESCreateAndLogError();
     goto LABEL_15;
   }
 
-  v59 = v21;
-  v22 = [PTClassicMicro getNonce:authCopy error:&v59];
-  v23 = v59;
+  v54 = v21;
+  v22 = [PTClassicMicro getNonce:authCopy error:&v54];
+  v23 = v54;
 
   if (v22 && !v23)
   {
-    v57 = 0;
-    v58 = 0;
-    v56 = 0;
-    v24 = [PTClassicMicro evaluateSecureElementACL:numberCopy assetACLAttesetation:lCopy extAuth:versionCopy seid:handleCopy operation:@"osgn" nonce:v22 operationApprovalVersion:attesetation outOperationApproval:&v58 outOperationApprovalAttestation:&v57 error:&v56];
-    asHexString = v58;
-    v47 = v57;
-    v26 = v56;
+    v52 = 0;
+    v53 = 0;
+    v51 = 0;
+    v24 = [PTClassicMicro evaluateSecureElementACL:numberCopy assetACLAttesetation:lCopy extAuth:versionCopy seid:handleCopy operation:@"osgn" nonce:v22 operationApprovalVersion:attesetationCopy outOperationApproval:&v53 outOperationApprovalAttestation:&v52 error:&v51];
+    asHexString = v53;
+    v42 = v52;
+    v26 = v51;
     v21 = v26;
-    if (v24 && asHexString && v47 && !v26)
+    if (v24 && asHexString && v42 && !v26)
     {
-      v55 = 1;
-      v54 = bswap32(aid) >> 16;
+      v50 = 1;
+      v49 = bswap32(aid) >> 16;
       hexStringAsData = [@"0001" hexStringAsData];
-      v53[0] = &v55;
-      v53[1] = 1;
-      v53[2] = &v54;
-      v53[3] = 2;
-      v28 = v48;
-      v53[4] = [v48 DERItem];
-      v53[5] = v29;
-      v53[6] = [hexStringAsData DERItem];
-      v53[7] = v30;
-      v53[8] = [asHexString DERItem];
-      v53[9] = v31;
-      v53[10] = [v47 DERItem];
-      v53[11] = v32;
-      v52 = 0;
-      v33 = [PTClassicMicro executeCommand:v53 itemData:&PTSignInputSpec spec:authCopy seHandle:&v52 error:?];
-      v34 = v52;
+      v48[0] = &v50;
+      v48[1] = 1;
+      v48[2] = &v49;
+      v48[3] = 2;
+      v28 = v43;
+      v48[4] = [v43 DERItem];
+      v48[5] = v29;
+      v48[6] = [hexStringAsData DERItem];
+      v48[7] = v30;
+      v48[8] = [asHexString DERItem];
+      v48[9] = v31;
+      v48[10] = [v42 DERItem];
+      v48[11] = v32;
+      v47 = 0;
+      v33 = [PTClassicMicro executeCommand:v48 itemData:&PTSignInputSpec spec:authCopy seHandle:&v47 error:?];
+      v34 = v47;
       v21 = v34;
-      v45 = hexStringAsData;
-      v46 = v33;
+      v40 = hexStringAsData;
+      v41 = v33;
       if (!v33 || v34)
       {
         if (seid)
         {
-          v39 = SESDefaultLogObject();
-          v40 = *MEMORY[0x1E69E5148];
+          v36 = SESDefaultLogObject();
           *seid = SESCreateAndLogError();
         }
       }
@@ -111,12 +110,11 @@
         DERParseSequenceSpec();
         if (seid)
         {
-          v41 = SESDefaultLogObject();
-          v44 = *MEMORY[0x1E69E5148];
-          asHexString2 = [v46 asHexString];
+          v37 = SESDefaultLogObject();
+          asHexString2 = [v41 asHexString];
           *seid = SESCreateAndLogError();
 
-          v28 = v48;
+          v28 = v43;
         }
       }
     }
@@ -125,12 +123,11 @@
     {
       if (seid)
       {
-        v37 = SESDefaultLogObject();
-        v38 = *MEMORY[0x1E69E5148];
+        v35 = SESDefaultLogObject();
         *seid = SESCreateAndLogError();
       }
 
-      v28 = v48;
+      v28 = v43;
     }
 
     goto LABEL_27;
@@ -139,18 +136,17 @@
   if (seid)
   {
     asHexString = SESDefaultLogObject();
-    v36 = *MEMORY[0x1E69E5148];
     *seid = SESCreateAndLogError();
     v21 = v23;
 LABEL_15:
-    v28 = v48;
+    v28 = v43;
 LABEL_27:
 
     goto LABEL_28;
   }
 
   v21 = v23;
-  v28 = v48;
+  v28 = v43;
 LABEL_28:
 
 LABEL_29:
@@ -191,12 +187,12 @@ LABEL_29:
   lCopy = l;
   v22 = a2;
   objc_opt_self();
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
-  v23 = SSEEvaluateSecureElementACL(attesetationCopy, 0xFFFFFFFFLL, authCopy, v22, lCopy, seidCopy, operationCopy, nonce, &v29, &v28);
+  v23 = SSEEvaluateSecureElementACL(attesetationCopy, 0xFFFFFFFFLL, authCopy, v22, lCopy, seidCopy, operationCopy, nonce, &v28, &v27);
 
-  *version = v29;
-  v24 = v28;
+  *version = v28;
+  v24 = v27;
   *approval = v24;
   if (!v23 && *version && v24)
   {
@@ -206,7 +202,6 @@ LABEL_29:
   if (attestation)
   {
     v25 = SESDefaultLogObject();
-    v26 = *MEMORY[0x1E69E5148];
     *attestation = SESCreateAndLogError();
   }
 
@@ -215,7 +210,7 @@ LABEL_29:
 
 + (void)executeCommand:(uint64_t)command itemData:(uint64_t)data spec:(void *)spec seHandle:(void *)handle error:
 {
-  v33 = a2;
+  v32 = a2;
   specCopy = spec;
   objc_opt_self();
   v11 = 0;
@@ -226,31 +221,30 @@ LABEL_29:
 
   else
   {
-    v32 = 1;
-    v33 = __rev16(a2);
-    v26 = &v32;
-    v27 = 1;
-    v28 = &v33;
-    v29 = 2;
+    v31 = 1;
+    v32 = __rev16(a2);
+    v25 = &v31;
+    v26 = 1;
+    v27 = &v32;
+    v28 = 2;
     dERItem = [v11 DERItem];
-    v31 = v12;
+    v30 = v12;
     v13 = encodeSequenceSpec();
-    v25 = 0;
-    v24 = 8429696;
-    v14 = [MEMORY[0x1E695DF88] dataWithBytes:&v24 length:5];
+    v24 = 0;
+    v23 = 8429696;
+    v14 = [MEMORY[0x1E695DF88] dataWithBytes:&v23 length:5];
     [v14 appendU16BE:{objc_msgSend(v13, "length")}];
     [v14 appendData:v13];
     [v14 appendU16BE:0];
-    v23 = 0;
-    v15 = [specCopy transceive:v14 error:&v23];
-    v16 = v23;
+    v22 = 0;
+    v15 = [specCopy transceive:v14 error:&v22];
+    v16 = v22;
     v17 = v16;
     if (!v15 || v16 || [PTClassicMicro isError:v15])
     {
       if (handle)
       {
         v18 = SESDefaultLogObject();
-        v19 = *MEMORY[0x1E69E5148];
         asHexString = [v15 asHexString];
         asHexString2 = [v14 asHexString];
         *handle = SESCreateAndLogError();
@@ -289,13 +283,12 @@ LABEL_29:
 + (id)getACLfromAssetACL:(id)l error:(id *)error
 {
   lCopy = l;
-  memset(v10, 0, sizeof(v10));
+  memset(v9, 0, sizeof(v9));
   if (DERParseSequenceSpec())
   {
     if (error)
     {
       v6 = SESDefaultLogObject();
-      v7 = *MEMORY[0x1E69E5148];
       base64 = [lCopy base64];
       *error = SESCreateAndLogError();
 
@@ -305,7 +298,7 @@ LABEL_29:
 
   else
   {
-    error = [MEMORY[0x1E695DEF0] dataWithDERItem:v10];
+    error = [MEMORY[0x1E695DEF0] dataWithDERItem:v9];
   }
 
   return error;

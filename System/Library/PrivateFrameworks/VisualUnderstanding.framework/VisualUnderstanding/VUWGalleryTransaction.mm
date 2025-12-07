@@ -22,7 +22,7 @@
   v5 = sub_1D225055C();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = (&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_1D225054C();
   selfCopy = self;
 

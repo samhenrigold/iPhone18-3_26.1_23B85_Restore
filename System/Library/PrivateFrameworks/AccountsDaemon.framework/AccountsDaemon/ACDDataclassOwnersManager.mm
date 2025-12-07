@@ -64,7 +64,7 @@
 void __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ACDLogSystem();
+  v4 = _ACDLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1();
@@ -100,7 +100,7 @@ void __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_inv
 void __68__ACDDataclassOwnersManager_isPerformingDataclassActionsForAccount___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _ACDLogSystem();
+  v3 = _ACDLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1();
@@ -158,7 +158,7 @@ void __68__ACDDataclassOwnersManager_isPerformingDataclassActionsForAccount___bl
 void __82__ACDDataclassOwnersManager_actionsForAddingAccount_affectingDataclass_withError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ACDLogSystem();
+  v4 = _ACDLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1();
@@ -234,7 +234,7 @@ void __82__ACDDataclassOwnersManager_actionsForAddingAccount_affectingDataclass_
 void __84__ACDDataclassOwnersManager_actionsForDeletingAccount_affectingDataclass_withError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ACDLogSystem();
+  v4 = _ACDLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1();
@@ -310,7 +310,7 @@ void __84__ACDDataclassOwnersManager_actionsForDeletingAccount_affectingDataclas
 void __77__ACDDataclassOwnersManager_actionsForEnablingDataclass_onAccount_withError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ACDLogSystem();
+  v4 = _ACDLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1();
@@ -386,7 +386,7 @@ void __77__ACDDataclassOwnersManager_actionsForEnablingDataclass_onAccount_withE
 void __78__ACDDataclassOwnersManager_actionsForDisablingDataclass_onAccount_withError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ACDLogSystem();
+  v4 = _ACDLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1();
@@ -465,7 +465,7 @@ void __78__ACDDataclassOwnersManager_actionsForDisablingDataclass_onAccount_with
 void __87__ACDDataclassOwnersManager_performDataclassActions_forAccount_withChildren_withError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ACDLogSystem();
+  v4 = _ACDLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1();
@@ -478,21 +478,21 @@ void __87__ACDDataclassOwnersManager_performDataclassActions_forAccount_withChil
 
 - (id)_dataclassOwnersManagerConnection
 {
-  [(NSLock *)self->_connectionLock lock];
+  lock = [(NSLock *)self->_connectionLock lock];
   if (!self->_connection)
   {
-    v3 = _ACDLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = _ACDLogSystem(lock);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(ACDDataclassOwnersManager *)v3 _dataclassOwnersManagerConnection];
+      [(ACDDataclassOwnersManager *)v4 _dataclassOwnersManagerConnection];
     }
 
-    v4 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.accounts.dom"];
+    v5 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.accounts.dom"];
     connection = self->_connection;
-    self->_connection = v4;
+    self->_connection = v5;
 
-    v6 = +[ACDDataclassOwnersManagerInterface XPCInterface];
-    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v6];
+    v7 = +[ACDDataclassOwnersManagerInterface XPCInterface];
+    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v7];
 
     [(NSXPCConnection *)self->_connection setInterruptionHandler:&__block_literal_global_15];
     [(NSXPCConnection *)self->_connection setInvalidationHandler:&__block_literal_global_18];
@@ -500,36 +500,28 @@ void __87__ACDDataclassOwnersManager_performDataclassActions_forAccount_withChil
   }
 
   [(NSLock *)self->_connectionLock unlock];
-  v7 = self->_connection;
+  v8 = self->_connection;
 
-  return v7;
+  return v8;
 }
 
-void __62__ACDDataclassOwnersManager__dataclassOwnersManagerConnection__block_invoke()
+void __62__ACDDataclassOwnersManager__dataclassOwnersManagerConnection__block_invoke(uint64_t a1)
 {
-  v0 = _ACDLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _ACDLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __62__ACDDataclassOwnersManager__dataclassOwnersManagerConnection__block_invoke_cold_1(v0);
+    __62__ACDDataclassOwnersManager__dataclassOwnersManagerConnection__block_invoke_cold_1(v1);
   }
 }
 
-void __62__ACDDataclassOwnersManager__dataclassOwnersManagerConnection__block_invoke_16()
+void __62__ACDDataclassOwnersManager__dataclassOwnersManagerConnection__block_invoke_16(uint64_t a1)
 {
-  v0 = _ACDLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _ACDLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_221D2F000, v0, OS_LOG_TYPE_DEFAULT, "Connection to remote DOM closed.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_221D2F000, v1, OS_LOG_TYPE_DEFAULT, "Connection to remote DOM closed.", v2, 2u);
   }
-}
-
-void __61__ACDDataclassOwnersManager_preloadDataclassOwnersWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Remote dataclass owners manager returned an error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

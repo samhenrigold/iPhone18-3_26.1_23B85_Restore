@@ -53,9 +53,9 @@
 
 - (TTRICustomRecurrenceEditorViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v13.receiver = self;
-  v13.super_class = TTRICustomRecurrenceEditorViewController;
-  v4 = [(TTRICustomRecurrenceEditorViewController *)&v13 initWithNibName:name bundle:bundle];
+  v14.receiver = self;
+  v14.super_class = TTRICustomRecurrenceEditorViewController;
+  v4 = [(TTRICustomRecurrenceEditorViewController *)&v14 initWithNibName:name bundle:bundle];
   v5 = v4;
   if (v4)
   {
@@ -69,9 +69,9 @@
     timeZone = v5->_timeZone;
     v5->_timeZone = systemTimeZone;
 
-    v10 = RemindersUICoreBundleGet();
-    v11 = [v10 localizedStringForKey:@"CUSTOM_RECURRENCE_LABEL" value:@"Custom" table:@"Localizable"];
-    [(TTRICustomRecurrenceEditorViewController *)v5 setTitle:v11];
+    v11 = RemindersUICoreBundleGet(v10);
+    v12 = [v11 localizedStringForKey:@"CUSTOM_RECURRENCE_LABEL" value:@"Custom" table:@"Localizable"];
+    [(TTRICustomRecurrenceEditorViewController *)v5 setTitle:v12];
   }
 
   return v5;
@@ -196,26 +196,26 @@ uint64_t __76__TTRICustomRecurrenceEditorViewController_queuePreferredContentSiz
   self->_frequencySummaryCell = v18;
 
   v20 = self->_frequencySummaryCell;
-  v21 = RemindersUICoreBundleGet();
-  v22 = [v21 localizedStringForKey:@"Frequency" value:@"Frequency" table:@"Localizable"];
-  [(TTRIPopupMenuTableViewCell *)v20 setTitle:v22];
+  v22 = RemindersUICoreBundleGet(v21);
+  v23 = [v22 localizedStringForKey:@"Frequency" value:@"Frequency" table:@"Localizable"];
+  [(TTRIPopupMenuTableViewCell *)v20 setTitle:v23];
 
-  v23 = self->_frequencySummaryCell;
+  v24 = self->_frequencySummaryCell;
   frequencyTypeMenu = [(TTRICustomRecurrenceEditorViewController *)self frequencyTypeMenu];
-  [(TTRIPopupMenuTableViewCell *)v23 setPopupMenu:frequencyTypeMenu];
+  [(TTRIPopupMenuTableViewCell *)v24 setPopupMenu:frequencyTypeMenu];
 
-  v25 = self->_frequencySummaryCell;
-  v26 = [(TTRICustomRecurrenceEditorViewController *)self _stringForFrequency:self->_cachedFrequency];
-  [(TTRIPopupMenuTableViewCell *)v25 setAccessoryTitle:v26];
+  v26 = self->_frequencySummaryCell;
+  v27 = [(TTRICustomRecurrenceEditorViewController *)self _stringForFrequency:self->_cachedFrequency];
+  [(TTRIPopupMenuTableViewCell *)v26 setAccessoryTitle:v27];
 
-  v27 = [[TTRICustomRecurrenceEditorIntervalChooserTableViewCell alloc] initWithFrame:v14, v15, v16, v17];
+  v28 = [[TTRICustomRecurrenceEditorIntervalChooserTableViewCell alloc] initWithFrame:v14, v15, v16, v17];
   intervalSummaryCell = self->_intervalSummaryCell;
-  self->_intervalSummaryCell = v27;
+  self->_intervalSummaryCell = v28;
 
   [(TTRICustomRecurrenceEditorIntervalChooserTableViewCell *)self->_intervalSummaryCell setIntervalValue:1];
-  v29 = self->_intervalSummaryCell;
+  v30 = self->_intervalSummaryCell;
 
-  [(TTRICustomRecurrenceEditorIntervalChooserTableViewCell *)v29 setDelegate:self];
+  [(TTRICustomRecurrenceEditorIntervalChooserTableViewCell *)v30 setDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -310,7 +310,7 @@ uint64_t __76__TTRICustomRecurrenceEditorViewController_queuePreferredContentSiz
 LABEL_10:
       v10 = [TTRICustomRecurrenceEditorTableViewCell alloc];
       v8 = [(TTRICustomRecurrenceEditorTableViewCell *)v10 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
-      [(TTRICustomRecurrenceEditorIntervalChooserTableViewCell *)v8 setSelectionStyle:0];
+      v6 = [(TTRICustomRecurrenceEditorIntervalChooserTableViewCell *)v8 setSelectionStyle:0];
       break;
     case 1:
       v8 = self->_frequencySummaryCell;
@@ -350,7 +350,7 @@ LABEL_11:
     goto LABEL_16;
   }
 
-  v17 = RemindersUICoreBundleGet();
+  v17 = RemindersUICoreBundleGet(v6);
   v18 = [v17 localizedStringForKey:@"Days of Week" value:@"Days of Week" table:@"Localizable"];
   objc_opt_class();
   v19 = REMDynamicCast();
@@ -1053,7 +1053,7 @@ LABEL_7:
 
   if (frequency == 4)
   {
-    v4 = RemindersUICoreBundleGet();
+    v4 = RemindersUICoreBundleGet(self);
     v3 = [v4 localizedStringForKey:@"Hourly" value:@"Hourly" table:@"Localizable"];
   }
 
@@ -1072,7 +1072,7 @@ LABEL_8:
   else
   {
     v5 = off_27832D580[frequency];
-    v6 = RemindersUICoreBundleGet();
+    v6 = RemindersUICoreBundleGet(self);
     v7 = [v6 localizedStringForKey:v5 value:&stru_282EF0770 table:@"PluralLocalizable"];
   }
 
@@ -1185,7 +1185,7 @@ LABEL_8:
   else
   {
     v5 = off_27832D5A8[frequency];
-    v6 = RemindersUICoreBundleGet();
+    v6 = RemindersUICoreBundleGet(self);
     v7 = [v6 localizedStringForKey:v5 value:@"Every" table:@"PluralLocalizable"];
   }
 

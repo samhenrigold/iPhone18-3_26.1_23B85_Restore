@@ -40,7 +40,7 @@
 
 - (void)didPushWaitScreen
 {
-  v3 = sub_1001379C4(&qword_1002BC790);
+  v3 = sub_1001379C4(&qword_1002BC790, &qword_1001C8320);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();

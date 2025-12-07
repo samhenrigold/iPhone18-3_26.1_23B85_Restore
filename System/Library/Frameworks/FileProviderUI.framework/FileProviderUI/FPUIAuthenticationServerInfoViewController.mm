@@ -36,20 +36,20 @@
 
 - (void)setupTableViewSections
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v11 = FPUILoc(@"SERVER", v4, v5, v6, v7, v8, v9, v10, v20);
+  v11 = FPUILoc(@"SERVER", v4, v5, v6, v7, v8, v9, v10, v19);
   [v3 setHeaderTitle:v11];
 
   [v3 setHeaderHeight:*MEMORY[0x277D76F30]];
   v12 = objc_opt_new();
   [v12 setCellReuseIdentifier:@"ServerAddress"];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __68__FPUIAuthenticationServerInfoViewController_setupTableViewSections__block_invoke;
-  v22[3] = &unk_278A514D8;
-  v22[4] = self;
-  [v12 setCellCustomizationHandler:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __68__FPUIAuthenticationServerInfoViewController_setupTableViewSections__block_invoke;
+  v21[3] = &unk_278A514D8;
+  v21[4] = self;
+  [v12 setCellCustomizationHandler:v21];
   v13 = objc_opt_new();
   [v13 setHeaderHeight:36.0];
   v14 = objc_opt_new();
@@ -57,30 +57,28 @@
   [v14 setCellClass:objc_opt_class()];
   [v14 setCellSelectionStyle:2];
   [v14 setCellCustomizationHandler:&__block_literal_global_2];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __68__FPUIAuthenticationServerInfoViewController_setupTableViewSections__block_invoke_3;
-  v21[3] = &unk_278A51520;
-  v21[4] = self;
-  [v14 setSelectionHandler:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __68__FPUIAuthenticationServerInfoViewController_setupTableViewSections__block_invoke_3;
+  v20[3] = &unk_278A51520;
+  v20[4] = self;
+  [v14 setSelectionHandler:v20];
   [v14 setShouldHighlight:1.0];
-  v27[0] = v3;
-  v27[1] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = v3;
+  v26[1] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   [(FPUIAuthenticationTableViewController *)self setSectionDescriptors:v15];
 
-  v24 = v12;
-  v25[0] = &unk_284B1D620;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
-  v25[1] = &unk_284B1D638;
-  v26[0] = v16;
-  v23 = v14;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-  v26[1] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v23 = v12;
+  v24[0] = &unk_284B1D620;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v24[1] = &unk_284B1D638;
+  v25[0] = v16;
+  v22 = v14;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v25[1] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
   [(FPUIAuthenticationTableViewController *)self setRowDescriptors:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __68__FPUIAuthenticationServerInfoViewController_setupTableViewSections__block_invoke(uint64_t a1, void *a2)

@@ -41,34 +41,7 @@
 {
   idCopy = id;
   v5 = idCopy;
-  if (!idCopy)
-  {
-    goto LABEL_7;
-  }
-
-  v6 = self->_label == 0;
-  label = [idCopy label];
-  v8 = label != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_7;
-  }
-
-  label = self->_label;
-  if (label)
-  {
-    label2 = [v5 label];
-    v11 = [(NSString *)label isEqual:label2];
-
-    if (!v11)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  limit = self->_limit;
-  if (limit == [v5 limit])
+  if (idCopy && (v6 = self->_label == 0, [idCopy label], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 != v8) && ((label = self->_label) == 0 || (objc_msgSend(v5, "label"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](label, "isEqual:", v10), v10, v11)) && (limit = self->_limit, limit == objc_msgSend(v5, "limit")))
   {
     rowId = self->_rowId;
     v14 = rowId == [v5 rowId];
@@ -76,7 +49,6 @@
 
   else
   {
-LABEL_7:
     v14 = 0;
   }
 

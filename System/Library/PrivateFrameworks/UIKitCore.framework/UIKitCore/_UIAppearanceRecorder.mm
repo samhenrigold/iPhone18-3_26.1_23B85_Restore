@@ -112,7 +112,7 @@
 {
   processCopy = process;
   selfCopy = self;
-  v61 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (!name)
   {
     [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
@@ -130,127 +130,124 @@
   if ([objc_msgSend(invocation "methodSignature")] < 3)
   {
 LABEL_96:
-    v39 = stringCopy;
+    v38 = stringCopy;
     if (!stringCopy)
     {
-      v39 = NSStringFromSelector([invocation selector]);
+      v38 = NSStringFromSelector([invocation selector]);
     }
 
-    v40 = [objc_alloc(MEMORY[0x1E695DF90]) initWithObjectsAndKeys:{name, @"_UIARACustomizationsClassNameKey", v39, @"_UIARACustomizationsSelectorNameKey", array, @"_UIARACustomizationsArgsKey", 0}];
-    v41 = v40;
+    v39 = [objc_alloc(MEMORY[0x1E695DF90]) initWithObjectsAndKeys:{name, @"_UIARACustomizationsClassNameKey", v38, @"_UIARACustomizationsSelectorNameKey", array, @"_UIARACustomizationsArgsKey", 0}];
+    v40 = v39;
     if (names)
     {
-      [v40 setObject:names forKey:@"_UIARACustomizationsContainerClassNamesKey"];
+      [v39 setObject:names forKey:@"_UIARACustomizationsContainerClassNamesKey"];
     }
 
     if (collection)
     {
-      [v41 setObject:objc_msgSend(MEMORY[0x1E696ACC8] forKey:{"archivedDataWithRootObject:requiringSecureCoding:error:", collection, 1, 0), @"_UIARACustomizationsTraitCollectionArchiveKey"}];
+      [v40 setObject:objc_msgSend(MEMORY[0x1E696ACC8] forKey:{"archivedDataWithRootObject:requiringSecureCoding:error:", collection, 1, 0), @"_UIARACustomizationsTraitCollectionArchiveKey"}];
     }
 
-    [(NSMutableArray *)selfCopy->_customizations addObject:v41];
+    [(NSMutableArray *)selfCopy->_customizations addObject:v40];
 
     return;
   }
 
   v13 = 2;
-  v14 = *off_1E70EC918;
-  v53 = *off_1E70EC9B0;
-  v52 = *off_1E70EC920;
-  v47 = array;
+  v46 = array;
   while (1)
   {
-    v15 = [objc_msgSend(invocation "methodSignature")];
-    v16 = v15;
-    v17 = *v15;
-    if (v17 == 64 && !v15[1])
+    v14 = [objc_msgSend(invocation "methodSignature")];
+    v15 = v14;
+    v16 = *v14;
+    if (v16 == 64 && !v14[1])
     {
       break;
     }
 
-    if (!strcmp(v15, "{CGPoint=dd}"))
+    if (!strcmp(v14, "{CGPoint=dd}"))
     {
       memset(&buf, 0, 16);
       [invocation getArgument:&buf atIndex:v13];
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"CGPoint", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromCGPoint(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"CGPoint", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromCGPoint(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
     }
 
-    else if (!strcmp(v16, "{CGSize=dd}"))
+    else if (!strcmp(v15, "{CGSize=dd}"))
     {
       memset(&buf, 0, 16);
       [invocation getArgument:&buf atIndex:v13];
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"CGSize", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromCGSize(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"CGSize", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromCGSize(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
     }
 
-    else if (!strcmp(v16, "{UIOffset=dd}"))
+    else if (!strcmp(v15, "{UIOffset=dd}"))
     {
       memset(&buf, 0, 16);
       [invocation getArgument:&buf atIndex:v13];
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"UIOffset", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromUIOffset(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"UIOffset", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromUIOffset(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
     }
 
-    else if (!strcmp(v16, "{CGRect={CGPoint=dd}{CGSize=dd}}"))
+    else if (!strcmp(v15, "{CGRect={CGPoint=dd}{CGSize=dd}}"))
     {
       memset(&buf, 0, sizeof(buf));
       [invocation getArgument:&buf atIndex:v13];
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"CGRect", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromCGRect(buf), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"CGRect", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromCGRect(buf), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
     }
 
-    else if (!strcmp(v16, "{UIEdgeInsets=dddd}"))
+    else if (!strcmp(v15, "{UIEdgeInsets=dddd}"))
     {
       memset(&buf, 0, sizeof(buf));
       [invocation getArgument:&buf atIndex:v13];
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"UIEdgeInsets", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromUIEdgeInsets(buf), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"UIEdgeInsets", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromUIEdgeInsets(buf), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
     }
 
     else
     {
-      if (v17 <= 98)
+      if (v16 <= 98)
       {
-        if (v17 <= 72)
+        if (v16 <= 72)
         {
-          if (v17 == 35)
+          if (v16 == 35)
           {
-            if (v16[1])
+            if (v15[1])
             {
               goto LABEL_104;
             }
 
             buf.top = 0.0;
             [invocation getArgument:&buf atIndex:v13];
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"Class", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromClass(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"Class", @"_UIARACustomizationArgsObjCTypeKey", NSStringFromClass(*&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
           }
 
           else
           {
-            if (v17 != 66 || v16[1])
+            if (v16 != 66 || v15[1])
             {
               goto LABEL_104;
             }
 
             LOBYTE(buf.top) = 0;
             [invocation getArgument:&buf atIndex:v13];
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"BOOL", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", LOBYTE(buf.top)), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"BOOL", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", LOBYTE(buf.top)), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
           }
 
           goto LABEL_47;
         }
 
-        if (v17 == 73)
+        if (v16 == 73)
         {
 LABEL_66:
-          if (v16[1])
+          if (v15[1])
           {
             goto LABEL_104;
           }
 
           LODWORD(buf.top) = 0;
           [invocation getArgument:&buf atIndex:v13];
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"unsigned int", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", LODWORD(buf.top)), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"unsigned int", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", LODWORD(buf.top)), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
           goto LABEL_47;
         }
 
-        if (v17 != 81)
+        if (v16 != 81)
         {
           goto LABEL_104;
         }
@@ -258,120 +255,120 @@ LABEL_66:
 
       else
       {
-        if (v17 <= 101)
+        if (v16 <= 101)
         {
-          if (v17 == 99)
+          if (v16 == 99)
           {
-            if (v16[1])
+            if (v15[1])
             {
               goto LABEL_104;
             }
 
             LOBYTE(buf.top) = 0;
             [invocation getArgument:&buf atIndex:v13];
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"char", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", SLOBYTE(buf.top)), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"char", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", SLOBYTE(buf.top)), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
             goto LABEL_47;
           }
 
-          if (v17 != 100)
+          if (v16 != 100)
           {
             goto LABEL_104;
           }
 
 LABEL_64:
-          if (v16[1])
+          if (v15[1])
           {
             goto LABEL_104;
           }
 
           buf.top = 0.0;
           [invocation getArgument:&buf atIndex:v13];
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"double", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"double", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
           goto LABEL_47;
         }
 
-        if (v17 == 102)
+        if (v16 == 102)
         {
           goto LABEL_64;
         }
 
-        if (v17 == 105)
+        if (v16 == 105)
         {
           goto LABEL_66;
         }
 
-        if (v17 != 113)
+        if (v16 != 113)
         {
           goto LABEL_104;
         }
       }
 
-      if (v16[1])
+      if (v15[1])
       {
         goto LABEL_104;
       }
 
       buf.top = 0.0;
       [invocation getArgument:&buf atIndex:v13];
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"NSUInteger", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", *&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v43, v44}];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"NSUInteger", @"_UIARACustomizationArgsObjCTypeKey", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", *&buf.top), @"_UIARACustomizationArgsRepresentationKey", 0, v42, v43}];
     }
 
 LABEL_47:
-    v18 = v19;
-    if (!v19)
+    v17 = v18;
+    if (!v18)
     {
       goto LABEL_104;
     }
 
-    [array addObject:v19];
+    [array addObject:v18];
     if (++v13 >= [objc_msgSend(invocation "methodSignature")])
     {
       goto LABEL_96;
     }
   }
 
-  v58 = 0;
-  [invocation getArgument:&v58 atIndex:v13];
-  if (!v58)
+  v55 = 0;
+  [invocation getArgument:&v55 atIndex:v13];
+  if (!v55)
   {
     dictionary = 0;
-    v28 = @"_UIARACustomizationArgsHintIsPlistType";
+    v27 = @"_UIARACustomizationArgsHintIsPlistType";
 LABEL_46:
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"id", @"_UIARACustomizationArgsObjCTypeKey", v28, @"_UIARACustomizationArgsHintKey", dictionary, @"_UIARACustomizationArgsRepresentationKey", 0}];
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"id", @"_UIARACustomizationArgsObjCTypeKey", v27, @"_UIARACustomizationArgsHintKey", dictionary, @"_UIARACustomizationArgsRepresentationKey", 0}];
     goto LABEL_47;
   }
 
-  v20 = qword_1ED49E628;
+  v19 = qword_1ED49E628;
   if (!qword_1ED49E628)
   {
-    v21 = objc_alloc(MEMORY[0x1E695DEC8]);
+    v20 = objc_alloc(MEMORY[0x1E695DEC8]);
+    v21 = objc_opt_class();
     v22 = objc_opt_class();
     v23 = objc_opt_class();
-    v24 = objc_opt_class();
-    v20 = [v21 initWithObjects:{v22, v23, v24, objc_opt_class(), 0}];
-    qword_1ED49E628 = v20;
+    v19 = [v20 initWithObjects:{v21, v22, v23, objc_opt_class(), 0}];
+    qword_1ED49E628 = v19;
   }
 
-  if ([v20 count])
+  if ([v19 count])
   {
-    v25 = 1;
+    v24 = 1;
     do
     {
-      [v20 objectAtIndex:v25 - 1];
+      [v19 objectAtIndex:v24 - 1];
       isKindOfClass = objc_opt_isKindOfClass();
-      if (v25 >= [v20 count])
+      if (v24 >= [v19 count])
       {
         break;
       }
 
-      ++v25;
+      ++v24;
     }
 
     while ((isKindOfClass & 1) == 0);
     if (isKindOfClass)
     {
-      dictionary = v58;
-      v28 = @"_UIARACustomizationArgsHintIsPlistType";
+      dictionary = v55;
+      v27 = @"_UIARACustomizationArgsHintIsPlistType";
       goto LABEL_31;
     }
   }
@@ -382,23 +379,23 @@ LABEL_46:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = @"_UIARACustomizationArgsHintIsUIImage";
+      v27 = @"_UIARACustomizationArgsHintIsUIImage";
     }
 
     else
     {
-      v28 = @"_UIARACustomizationArgsHintIsUIColor";
+      v27 = @"_UIARACustomizationArgsHintIsUIColor";
     }
 
-    array = v47;
+    array = v46;
     if (processCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      _serializedData = [v58 _serializedData];
+      _serializedData = [v55 _serializedData];
     }
 
     else
     {
-      _serializedData = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v58 requiringSecureCoding:1 error:0];
+      _serializedData = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v55 requiringSecureCoding:1 error:0];
     }
 
     dictionary = _serializedData;
@@ -406,73 +403,73 @@ LABEL_46:
   }
 
   objc_opt_class();
-  array = v47;
+  array = v46;
   if ((objc_opt_isKindOfClass() & 1) != 0 && [-[NSArray objectAtIndex:](-[NSString componentsSeparatedByString:](NSStringFromSelector(objc_msgSend(invocation "selector"))] != 0x7FFFFFFFFFFFFFFFLL)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    allKeys = [v58 allKeys];
-    v31 = [allKeys countByEnumeratingWithState:&v54 objects:v60 count:16];
-    if (!v31)
+    allKeys = [v55 allKeys];
+    v30 = [allKeys countByEnumeratingWithState:&v51 objects:v57 count:16];
+    if (!v30)
     {
-      v28 = @"_UIARACustomizationArgsHintIsUITextAttribute";
+      v27 = @"_UIARACustomizationArgsHintIsUITextAttribute";
 LABEL_31:
-      array = v47;
+      array = v46;
       goto LABEL_46;
     }
 
-    v32 = v31;
+    v31 = v30;
     collectionCopy = collection;
-    v46 = selfCopy;
-    v33 = *v55;
+    v45 = selfCopy;
+    v32 = *v52;
 LABEL_74:
-    v34 = 0;
+    v33 = 0;
     while (1)
     {
-      if (*v55 != v33)
+      if (*v52 != v32)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v35 = *(*(&v54 + 1) + 8 * v34);
-      if (([v35 isEqual:v14] & 1) != 0 || (objc_msgSend(v35, "isEqual:", v53) & 1) != 0 || (objc_msgSend(v35, "isEqual:", v52) & 1) != 0 || (objc_msgSend(v35, "isEqual:", @"Font") & 1) != 0 || (objc_msgSend(v35, "isEqual:", @"TextColor") & 1) != 0 || (objc_msgSend(v35, "isEqual:", @"NSColor") & 1) != 0 || (objc_msgSend(v35, "isEqual:", @"TextShadowColor") & 1) != 0 || objc_msgSend(v35, "isEqual:", @"NSFont"))
+      v34 = *(*(&v51 + 1) + 8 * v33);
+      if ((objc_msgSend_isEqual_(v34) & 1) != 0 || (objc_msgSend_isEqual_(v34) & 1) != 0 || (objc_msgSend_isEqual_(v34) & 1) != 0 || (objc_msgSend_isEqual_(v34) & 1) != 0 || (objc_msgSend_isEqual_(v34) & 1) != 0 || (objc_msgSend_isEqual_(v34) & 1) != 0 || (objc_msgSend_isEqual_(v34) & 1) != 0 || objc_msgSend_isEqual_(v34))
       {
-        v36 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objc_msgSend(v58 requiringSecureCoding:"objectForKey:" error:{v35), 1, 0}];
+        v35 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objc_msgSend(v55 requiringSecureCoding:"objectForKey:" error:{v34), 1, 0}];
       }
 
       else
       {
-        if (![v35 isEqual:@"TextShadowOffset"])
+        if (!objc_msgSend_isEqual_(v34))
         {
-          v37 = *(__UILogGetCategoryCachedImpl("Appearance", &qword_1ED49E620) + 8);
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v36 = *(__UILogGetCategoryCachedImpl("Appearance", &qword_1ED49E620) + 8);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             LODWORD(buf.top) = 138412290;
-            *(&buf.top + 4) = v35;
-            _os_log_impl(&dword_188A29000, v37, OS_LOG_TYPE_ERROR, "Unknown key, %@ in title text attributes dictionary. Ignoring.", &buf, 0xCu);
+            *(&buf.top + 4) = v34;
+            _os_log_impl(&dword_188A29000, v36, OS_LOG_TYPE_ERROR, "Unknown key, %@ in title text attributes dictionary. Ignoring.", &buf, 0xCu);
           }
 
           goto LABEL_87;
         }
 
-        [objc_msgSend(v58 objectForKey:{v35), "UIOffsetValue"}];
-        v36 = NSStringFromUIOffset(v62);
+        [objc_msgSend(v55 objectForKey:{v34), "UIOffsetValue"}];
+        v35 = NSStringFromUIOffset(v59);
       }
 
-      [dictionary setObject:v36 forKey:v35];
+      [dictionary setObject:v35 forKey:v34];
 LABEL_87:
-      if (v32 == ++v34)
+      if (v31 == ++v33)
       {
-        v38 = [allKeys countByEnumeratingWithState:&v54 objects:v60 count:16];
-        v32 = v38;
-        if (!v38)
+        v37 = [allKeys countByEnumeratingWithState:&v51 objects:v57 count:16];
+        v31 = v37;
+        if (!v37)
         {
-          v28 = @"_UIARACustomizationArgsHintIsUITextAttribute";
+          v27 = @"_UIARACustomizationArgsHintIsUITextAttribute";
           collection = collectionCopy;
-          selfCopy = v46;
+          selfCopy = v45;
           goto LABEL_31;
         }
 
@@ -481,7 +478,7 @@ LABEL_87:
     }
   }
 
-  v18 = 0;
+  v17 = 0;
 LABEL_104:
   if (!processCopy && !array)
   {
@@ -500,38 +497,35 @@ LABEL_104:
 
 - (void)_applyCustomizations
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   unarchivedCustomizations = self->_unarchivedCustomizations;
   if (!unarchivedCustomizations)
   {
     unarchivedCustomizations = self->_customizations;
   }
 
-  v84 = 0u;
-  v85 = 0u;
+  v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
-  v74 = [(NSMutableArray *)unarchivedCustomizations countByEnumeratingWithState:&v82 objects:v92 count:16];
-  if (v74)
+  v79 = 0u;
+  v80 = 0u;
+  v71 = [(NSMutableArray *)unarchivedCustomizations countByEnumeratingWithState:&v79 objects:v89 count:16];
+  if (v71)
   {
     v3 = 0x1E695D000uLL;
-    v73 = *v83;
+    v70 = *v80;
     v4 = *MEMORY[0x1E695D940];
-    v70 = *off_1E70EC918;
-    v64 = *off_1E70EC920;
-    v65 = *off_1E70EC9B0;
     obj = unarchivedCustomizations;
     do
     {
       v5 = 0;
       do
       {
-        if (*v83 != v73)
+        if (*v80 != v70)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v82 + 1) + 8 * v5);
+        v6 = *(*(&v79 + 1) + 8 * v5);
         v7 = [v6 objectForKey:@"_UIARACustomizationsClassNameKey"];
         v8 = NSClassFromString(v7);
         v9 = v8;
@@ -541,7 +535,7 @@ LABEL_104:
         }
 
         v10 = [v6 objectForKey:@"_UIARACustomizationsSelectorNameKey"];
-        v76 = v6;
+        v73 = v6;
         v11 = NSSelectorFromString([v6 objectForKey:@"_UIARACustomizationsSelectorNameKey"]);
         if (v9)
         {
@@ -571,17 +565,17 @@ LABEL_104:
               }
             }
 
-            v71 = v9;
+            v68 = v9;
             v14 = [(objc_class *)v9 instanceMethodSignatureForSelector:v13];
-            v75 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v14];
-            [v75 setSelector:v13];
+            v72 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v14];
+            [v72 setSelector:v13];
             numberOfArguments = [v14 numberOfArguments];
             if (numberOfArguments <= 2)
             {
               [*(v3 + 3888) raise:v4 format:{@"*** Invalid selector for appearance customization: %@", NSStringFromSelector(v13)}];
             }
 
-            v15 = [v76 objectForKey:@"_UIARACustomizationsArgsKey"];
+            v15 = [v73 objectForKey:@"_UIARACustomizationsArgsKey"];
             if ([v15 count] != numberOfArguments - 2)
             {
               [*(v3 + 3888) raise:v4 format:@"*** Number of arguments in appearance customization data does not match method signature"];
@@ -611,7 +605,7 @@ LABEL_104:
                 if ((v19 == 100 || v19 == 102) && !v16[1])
                 {
                   v20 = @"double";
-                  if ([v18 isEqualToString:@"double"])
+                  if (objc_msgSend_isEqualToString_(v18))
                   {
                     [objc_msgSend(v17 objectForKey:{@"_UIARACustomizationArgsRepresentationKey", "doubleValue"}];
                     buf.origin.x = v21;
@@ -637,7 +631,7 @@ LABEL_35:
                 if (!v16[1])
                 {
                   v20 = @"NSUInteger";
-                  if (![v18 isEqualToString:@"NSUInteger"])
+                  if (!objc_msgSend_isEqualToString_(v18))
                   {
                     goto LABEL_76;
                   }
@@ -650,7 +644,7 @@ LABEL_44:
                 if (!strcmp(v16, "{CGPoint=dd}"))
                 {
                   v20 = @"CGPoint";
-                  if (![v18 isEqualToString:@"CGPoint"])
+                  if (!objc_msgSend_isEqualToString_(v18))
                   {
                     goto LABEL_76;
                   }
@@ -663,7 +657,7 @@ LABEL_44:
                 else if (!strcmp(v16, "{CGSize=dd}"))
                 {
                   v20 = @"CGSize";
-                  if (![v18 isEqualToString:@"CGSize"])
+                  if (!objc_msgSend_isEqualToString_(v18))
                   {
                     goto LABEL_76;
                   }
@@ -680,12 +674,12 @@ LABEL_44:
                     if (!strcmp(v16, "{CGRect={CGPoint=dd}{CGSize=dd}}"))
                     {
                       v20 = @"CGRect";
-                      if (![v18 isEqualToString:@"CGRect"])
+                      if (!objc_msgSend_isEqualToString_(v18))
                       {
                         goto LABEL_76;
                       }
 
-                      v96 = CGRectFromString([v17 objectForKey:@"_UIARACustomizationArgsRepresentationKey"]);
+                      v93 = CGRectFromString([v17 objectForKey:@"_UIARACustomizationArgsRepresentationKey"]);
                     }
 
                     else
@@ -699,7 +693,7 @@ LABEL_44:
                             if (v19 == 66 && !v16[1])
                             {
                               v20 = @"BOOL";
-                              if ([v18 isEqualToString:@"BOOL"])
+                              if (objc_msgSend_isEqualToString_(v18))
                               {
                                 LOBYTE(buf.origin.x) = [objc_msgSend(v17 objectForKey:{@"_UIARACustomizationArgsRepresentationKey", "BOOLValue"}];
                                 goto LABEL_62;
@@ -719,10 +713,10 @@ LABEL_75:
                             goto LABEL_75;
                           }
 
-                          v23 = v18;
                           v20 = @"char";
+                          isEqualToString = objc_msgSend_isEqualToString_(v18);
 LABEL_41:
-                          if ([v23 isEqualToString:v20])
+                          if (isEqualToString)
                           {
                             LODWORD(buf.origin.x) = [objc_msgSend(v17 objectForKey:{@"_UIARACustomizationArgsRepresentationKey", "unsignedIntValue"}];
                             goto LABEL_62;
@@ -737,7 +731,7 @@ LABEL_41:
                         }
 
                         v20 = @"Class";
-                        if (![v18 isEqualToString:@"Class"])
+                        if (!objc_msgSend_isEqualToString_(v18))
                         {
                           goto LABEL_76;
                         }
@@ -749,20 +743,20 @@ LABEL_38:
                       }
 
                       v20 = @"UIEdgeInsets";
-                      if (![v18 isEqualToString:@"UIEdgeInsets"])
+                      if (!objc_msgSend_isEqualToString_(v18))
                       {
                         goto LABEL_76;
                       }
 
-                      v96 = UIEdgeInsetsFromString([v17 objectForKey:@"_UIARACustomizationArgsRepresentationKey"]);
+                      v93 = UIEdgeInsetsFromString([v17 objectForKey:@"_UIARACustomizationArgsRepresentationKey"]);
                     }
 
-                    buf = v96;
+                    buf = v93;
                     goto LABEL_62;
                   }
 
                   v20 = @"UIOffset";
-                  if (![v18 isEqualToString:@"UIOffset"])
+                  if (!objc_msgSend_isEqualToString_(v18))
                   {
                     goto LABEL_76;
                   }
@@ -795,8 +789,8 @@ LABEL_38:
 LABEL_39:
               if (!v16[1])
               {
-                v23 = v18;
                 v20 = @"unsigned int";
+                isEqualToString = objc_msgSend_isEqualToString_(v18);
                 goto LABEL_41;
               }
 
@@ -809,7 +803,7 @@ LABEL_39:
             }
 
             v20 = @"id";
-            if (![v18 isEqualToString:@"id"])
+            if (!objc_msgSend_isEqualToString_(v18))
             {
               goto LABEL_76;
             }
@@ -826,51 +820,51 @@ LABEL_39:
               }
             }
 
-            if ([v29 isEqual:@"_UIARACustomizationArgsHintIsPlistType"])
+            if (objc_msgSend_isEqual_(v29))
             {
               v30 = [v17 objectForKey:@"_UIARACustomizationArgsRepresentationKey"];
               goto LABEL_125;
             }
 
-            if (([v29 isEqual:@"_UIARACustomizationArgsHintIsUIImage"] & 1) != 0 || objc_msgSend(v29, "isEqual:", @"_UIARACustomizationArgsHintIsUIColor"))
+            if ((objc_msgSend_isEqual_(v29) & 1) != 0 || objc_msgSend_isEqual_(v29))
             {
-              [v29 isEqual:@"_UIARACustomizationArgsHintIsUIImage"];
+              objc_msgSend_isEqual_(v29);
               v30 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:objc_msgSend(v17 error:{"objectForKey:", @"_UIARACustomizationArgsRepresentationKey", 0}];
               goto LABEL_125;
             }
 
-            if ([v29 isEqual:@"_UIARACustomizationArgsHintIsUITextAttribute"])
+            if (objc_msgSend_isEqual_(v29))
             {
               v51 = [v17 objectForKey:@"_UIARACustomizationArgsRepresentationKey"];
               dictionary = [MEMORY[0x1E695DF90] dictionary];
-              v68 = v51;
+              v66 = v51;
+              v84 = 0u;
+              v85 = 0u;
+              v86 = 0u;
               v87 = 0u;
-              v88 = 0u;
-              v89 = 0u;
-              v90 = 0u;
               allKeys = [v51 allKeys];
-              v52 = [allKeys countByEnumeratingWithState:&v87 objects:v94 count:16];
+              v52 = [allKeys countByEnumeratingWithState:&v84 objects:v91 count:16];
               if (!v52)
               {
                 goto LABEL_152;
               }
 
               v53 = v52;
-              v69 = *v88;
+              v67 = *v85;
               while (1)
               {
                 v54 = 0;
                 do
                 {
-                  if (*v88 != v69)
+                  if (*v85 != v67)
                   {
                     objc_enumerationMutation(allKeys);
                   }
 
-                  v55 = *(*(&v87 + 1) + 8 * v54);
-                  if (([v55 isEqual:v70] & 1) != 0 || (objc_msgSend(v55, "isEqual:", @"Font") & 1) != 0 || (objc_msgSend(v55, "isEqual:", @"NSFont") & 1) != 0 || (objc_msgSend(v55, "isEqual:", v65) & 1) != 0 || (objc_msgSend(v55, "isEqual:", v64) & 1) != 0 || (objc_msgSend(v55, "isEqual:", @"TextColor") & 1) != 0 || (objc_msgSend(v55, "isEqual:", @"NSColor") & 1) != 0 || objc_msgSend(v55, "isEqual:", @"TextShadowColor"))
+                  v55 = *(*(&v84 + 1) + 8 * v54);
+                  if ((objc_msgSend_isEqual_(v55) & 1) != 0 || (objc_msgSend_isEqual_(v55) & 1) != 0 || (objc_msgSend_isEqual_(v55) & 1) != 0 || (objc_msgSend_isEqual_(v55) & 1) != 0 || (objc_msgSend_isEqual_(v55) & 1) != 0 || (objc_msgSend_isEqual_(v55) & 1) != 0 || (objc_msgSend_isEqual_(v55) & 1) != 0 || objc_msgSend_isEqual_(v55))
                   {
-                    v56 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:objc_msgSend(v68 error:{"objectForKey:", v55), 0}];
+                    v56 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:objc_msgSend(v66 error:{"objectForKey:", v55), 0}];
                     if (!v56)
                     {
                       goto LABEL_140;
@@ -879,11 +873,11 @@ LABEL_39:
                     goto LABEL_139;
                   }
 
-                  if ([v55 isEqual:@"TextShadowOffset"])
+                  if (objc_msgSend_isEqual_(v55))
                   {
                     v57 = MEMORY[0x1E696B098];
-                    v86 = UIOffsetFromString([v68 objectForKey:v55]);
-                    v56 = [v57 valueWithBytes:&v86 objCType:"{UIOffset=dd}"];
+                    v83 = UIOffsetFromString([v66 objectForKey:v55]);
+                    v56 = [v57 valueWithBytes:&v83 objCType:"{UIOffset=dd}"];
 LABEL_139:
                     [dictionary setObject:v56 forKey:v55];
                     goto LABEL_140;
@@ -896,7 +890,7 @@ LABEL_140:
                 }
 
                 while (v53 != v54);
-                v59 = [allKeys countByEnumeratingWithState:&v87 objects:v94 count:16];
+                v59 = [allKeys countByEnumeratingWithState:&v84 objects:v91 count:16];
                 v53 = v59;
                 if (!v59)
                 {
@@ -910,7 +904,7 @@ LABEL_125:
                   }
 
 LABEL_62:
-                  [v75 setArgument:&buf atIndex:2];
+                  [v72 setArgument:&buf atIndex:2];
                   break;
                 }
               }
@@ -967,11 +961,11 @@ LABEL_86:
                   }
 
                   v36 = 0x1E695D000;
-                  if ([v34 isEqualToString:@"NSUInteger"])
+                  if (objc_msgSend_isEqualToString_(v34))
                   {
                     *&buf.origin.x = [objc_msgSend(v33 objectForKey:{@"_UIARACustomizationArgsRepresentationKey", "unsignedIntegerValue"}];
 LABEL_96:
-                    [v75 setArgument:&buf atIndex:i];
+                    [v72 setArgument:&buf atIndex:i];
                     continue;
                   }
 
@@ -987,7 +981,7 @@ LABEL_90:
                 }
 
                 v36 = 0x1E695D000;
-                if ([v34 isEqualToString:@"unsigned int"])
+                if (objc_msgSend_isEqualToString_(v34))
                 {
                   LODWORD(buf.origin.x) = [objc_msgSend(v33 objectForKey:{@"_UIARACustomizationArgsRepresentationKey", "unsignedIntValue"}];
                   goto LABEL_96;
@@ -999,20 +993,20 @@ LABEL_91:
             }
 
             v3 = 0x1E695D000;
-            if (v75)
+            if (v72)
             {
-              v38 = [v76 objectForKey:@"_UIARACustomizationsContainerClassNamesKey"];
-              v39 = [v76 objectForKey:@"_UIARACustomizationsTraitCollectionArchiveKey"];
+              v38 = [v73 objectForKey:@"_UIARACustomizationsContainerClassNamesKey"];
+              v39 = [v73 objectForKey:@"_UIARACustomizationsTraitCollectionArchiveKey"];
               if (v39)
               {
                 v40 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v39 error:0];
                 v41 = [v38 count];
-                v42 = v71;
+                v42 = v68;
                 if (!v41)
                 {
                   if (v40)
                   {
-                    appearance = [(objc_class *)v71 appearanceForTraitCollection:v40];
+                    appearance = [(objc_class *)v68 appearanceForTraitCollection:v40];
                   }
 
                   else
@@ -1024,7 +1018,7 @@ LABEL_116:
 LABEL_118:
                   if (appearance)
                   {
-                    [v75 invokeWithTarget:appearance];
+                    [v72 invokeWithTarget:appearance];
                   }
 
                   goto LABEL_120;
@@ -1034,7 +1028,7 @@ LABEL_118:
               else
               {
                 v44 = [v38 count];
-                v42 = v71;
+                v42 = v68;
                 if (!v44)
                 {
                   goto LABEL_116;
@@ -1044,39 +1038,39 @@ LABEL_118:
               }
 
               array = [MEMORY[0x1E695DF70] array];
+              v75 = 0u;
+              v76 = 0u;
+              v77 = 0u;
               v78 = 0u;
-              v79 = 0u;
-              v80 = 0u;
-              v81 = 0u;
-              v46 = [v38 countByEnumeratingWithState:&v78 objects:v91 count:16];
+              v46 = [v38 countByEnumeratingWithState:&v75 objects:v88 count:16];
               if (!v46)
               {
 LABEL_114:
                 if (v40)
                 {
-                  appearance = [_UITraitBasedAppearance _appearanceForTraitCollection:v40 forClass:v71 withContainerList:array];
+                  appearance = [_UITraitBasedAppearance _appearanceForTraitCollection:v40 forClass:v68 withContainerList:array];
                 }
 
                 else
                 {
-                  appearance = [(objc_class *)v71 _appearanceWhenContainedIn:array];
+                  appearance = [(objc_class *)v68 _appearanceWhenContainedIn:array];
                 }
 
                 goto LABEL_118;
               }
 
               v47 = v46;
-              v48 = *v79;
+              v48 = *v76;
 LABEL_108:
               v49 = 0;
               while (1)
               {
-                if (*v79 != v48)
+                if (*v76 != v48)
                 {
                   objc_enumerationMutation(v38);
                 }
 
-                v50 = NSClassFromString(*(*(&v78 + 1) + 8 * v49));
+                v50 = NSClassFromString(*(*(&v75 + 1) + 8 * v49));
                 if (!v50)
                 {
                   break;
@@ -1085,7 +1079,7 @@ LABEL_108:
                 [array addObject:v50];
                 if (v47 == ++v49)
                 {
-                  v47 = [v38 countByEnumeratingWithState:&v78 objects:v91 count:16];
+                  v47 = [v38 countByEnumeratingWithState:&v75 objects:v88 count:16];
                   if (v47)
                   {
                     goto LABEL_108;
@@ -1102,9 +1096,9 @@ LABEL_120:
         ++v5;
       }
 
-      while (v5 != v74);
-      v63 = [(NSMutableArray *)obj countByEnumeratingWithState:&v82 objects:v92 count:16];
-      v74 = v63;
+      while (v5 != v71);
+      v63 = [(NSMutableArray *)obj countByEnumeratingWithState:&v79 objects:v89 count:16];
+      v71 = v63;
     }
 
     while (v63);

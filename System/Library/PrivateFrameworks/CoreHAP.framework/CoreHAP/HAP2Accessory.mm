@@ -512,10 +512,7 @@ void __65__HAP2Accessory_readValuesForCharacteristics_timeout_completion___block
 
 uint64_t __29__HAP2Accessory_setServices___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 88);
-  *(v3 + 88) = v2;
+  *(*(a1 + 32) + 88) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -559,10 +556,7 @@ uint64_t __29__HAP2Accessory_setServices___block_invoke(uint64_t a1)
 
 uint64_t __32__HAP2Accessory_setProductData___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 72);
-  *(v3 + 72) = v2;
+  *(*(a1 + 32) + 72) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -600,10 +594,7 @@ uint64_t __32__HAP2Accessory_setProductData___block_invoke(uint64_t a1)
 
 uint64_t __28__HAP2Accessory_productData__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 72) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -624,10 +615,7 @@ uint64_t __28__HAP2Accessory_productData__block_invoke(uint64_t a1)
 
 uint64_t __42__HAP2Accessory_setInternalSleepInterval___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 80);
-  *(v3 + 80) = v2;
+  *(*(a1 + 32) + 80) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -680,10 +668,7 @@ uint64_t __42__HAP2Accessory_setInternalSleepInterval___block_invoke(uint64_t a1
 
 uint64_t __36__HAP2Accessory_setFirmwareVersion___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 64);
-  *(v3 + 64) = v2;
+  *(*(a1 + 32) + 64) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -713,10 +698,7 @@ uint64_t __36__HAP2Accessory_setFirmwareVersion___block_invoke(uint64_t a1)
 
 uint64_t __32__HAP2Accessory_firmwareVersion__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 64) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 64) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -737,10 +719,7 @@ uint64_t __32__HAP2Accessory_firmwareVersion__block_invoke(uint64_t a1)
 
 uint64_t __33__HAP2Accessory_setSerialNumber___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 56);
-  *(v3 + 56) = v2;
+  *(*(a1 + 32) + 56) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -770,10 +749,7 @@ uint64_t __33__HAP2Accessory_setSerialNumber___block_invoke(uint64_t a1)
 
 uint64_t __29__HAP2Accessory_serialNumber__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 56) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 56) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -794,10 +770,7 @@ uint64_t __29__HAP2Accessory_serialNumber__block_invoke(uint64_t a1)
 
 uint64_t __33__HAP2Accessory_setManufacturer___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 48);
-  *(v3 + 48) = v2;
+  *(*(a1 + 32) + 48) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -827,10 +800,7 @@ uint64_t __33__HAP2Accessory_setManufacturer___block_invoke(uint64_t a1)
 
 uint64_t __29__HAP2Accessory_manufacturer__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -851,10 +821,7 @@ uint64_t __29__HAP2Accessory_manufacturer__block_invoke(uint64_t a1)
 
 uint64_t __26__HAP2Accessory_setModel___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1 + 32) + 40) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -884,10 +851,7 @@ uint64_t __26__HAP2Accessory_setModel___block_invoke(uint64_t a1)
 
 uint64_t __22__HAP2Accessory_model__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -908,10 +872,7 @@ uint64_t __22__HAP2Accessory_model__block_invoke(uint64_t a1)
 
 uint64_t __25__HAP2Accessory_setName___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  *(v3 + 32) = v2;
+  *(*(a1 + 32) + 32) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -941,10 +902,7 @@ uint64_t __25__HAP2Accessory_setName___block_invoke(uint64_t a1)
 
 uint64_t __21__HAP2Accessory_name__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) copy];
 
   return MEMORY[0x2821F96F8]();
 }

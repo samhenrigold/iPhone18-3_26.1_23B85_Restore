@@ -123,7 +123,7 @@
 
 - (id)dataAtIndex:(unint64_t)index
 {
-  [(_WKWebExtensionSQLiteRow *)self uncopiedRawDataAtIndex:index];
+  objc_msgSend_uncopiedRawDataAtIndex_(self, a2, index);
   if (v5)
   {
     v3 = 0;
@@ -139,7 +139,7 @@
 
 - (id)uncopiedDataAtIndex:(unint64_t)index
 {
-  [(_WKWebExtensionSQLiteRow *)self uncopiedRawDataAtIndex:index];
+  objc_msgSend_uncopiedRawDataAtIndex_(self, a2, index);
   if (v5)
   {
     v3 = 0;

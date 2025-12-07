@@ -276,7 +276,7 @@ void __65__CKAttachmentsQueryController_detailsFilterQueriesForChatGUIDs___block
           objc_enumerationMutation(obj);
         }
 
-        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == \"%@\" && %@ == \"%@\", v8, @"at", v9, *(*(&v16 + 1) + 8 * i), v10, *(*(&v16 + 1) + 8 * i), v8, @"lnk"", v11];
+        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == %@ && %@ == %@, v8, @"at", v9, *(*(&v16 + 1) + 8 * i), v10, *(*(&v16 + 1) + 8 * i), v8, @"lnk"", v11];
         [v4 addObject:v13];
       }
 

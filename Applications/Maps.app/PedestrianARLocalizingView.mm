@@ -383,17 +383,17 @@
 
     [(ARSession *)self->_session _removeObserver:self];
     objc_storeStrong(&self->_session, session);
-    configuration = [(ARSession *)self->_session configuration];
-    if (configuration && (-[ARSession configuration](self->_session, "configuration"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 isPedestrianAR], v9, configuration, !v10))
+    v8 = objc_msgSend_configuration(self->_session);
+    if (v8 && (objc_msgSend_configuration(self->_session), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 isPedestrianAR], v9, v8, !v10))
     {
       v16 = sub_1007A4344();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        configuration2 = [(ARSession *)self->_session configuration];
+        v17 = objc_msgSend_configuration(self->_session);
         *buf = 134349314;
         selfCopy3 = self;
         v23 = 2112;
-        v24 = configuration2;
+        v24 = v17;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "[%{public}p] Session is NOT configured with a Pedestrian AR configuration (%@); will wait until it is", buf, 0x16u);
       }
 
@@ -411,11 +411,11 @@
       v11 = sub_1007A4344();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        configuration3 = [(ARSession *)self->_session configuration];
+        v12 = objc_msgSend_configuration(self->_session);
         *buf = 134349314;
         selfCopy3 = self;
         v23 = 2112;
-        v24 = configuration3;
+        v24 = v12;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "[%{public}p] Session is configured with a nil or Pedestrian AR configuration (%@); activating coaching overlay", buf, 0x16u);
       }
 

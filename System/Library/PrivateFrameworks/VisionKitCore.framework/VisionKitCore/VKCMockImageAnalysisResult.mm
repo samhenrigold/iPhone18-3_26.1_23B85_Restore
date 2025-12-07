@@ -123,7 +123,7 @@ void __42__VKCMockImageAnalysisResult_generateText__block_invoke(id *a1, uint64_
   return v5;
 }
 
-void __44__VKCMockImageAnalysisResult_stringForLine___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __44__VKCMockImageAnalysisResult_stringForLine___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = [a2 objectForKeyedSubscript:VKCMockResultTextKey];
   [*(a1 + 32) appendString:?];

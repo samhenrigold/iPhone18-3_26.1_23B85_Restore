@@ -105,26 +105,25 @@ LABEL_3:
 {
   v10 = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
-  if ([chunksCopy count] < 2)
+  v4 = [chunksCopy count];
+  if (v4 < 2)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      +[ATXAppPredictionFeedbackItem feedbackItemsForChunks:].cold.1(v9, [chunksCopy count], v6);
+      +[ATXAppPredictionFeedbackItem feedbackItemsForChunks:].cold.1(v9, [chunksCopy count], v7);
     }
 
-    v5 = MEMORY[0x277CBEBF8];
+    v6 = MEMORY[0x277CBEBF8];
   }
 
   else
   {
-    v4 = [chunksCopy objectAtIndexedSubscript:1];
-    v5 = [ATXAppPredictionFeedbackItem feedbackItemsForFeedbackChunk:v4];
+    v5 = [chunksCopy objectAtIndexedSubscript:1];
+    v6 = [ATXAppPredictionFeedbackItem feedbackItemsForFeedbackChunk:v5];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v6;
 }
 
 + (id)feedbackItemsForFeedbackChunk:(id)chunk
@@ -167,19 +166,20 @@ void __62__ATXAppPredictionFeedbackItem_feedbackItemsForFeedbackChunk___block_in
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
-  if ([v5 count] < 2)
+  v6 = [v5 count];
+  if (v6 < 2)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      +[ATXAppPredictionFeedbackItem predictionItemsInFeedbackChunkFromCacheChunks:].cold.1(buf, [v5 count], v7);
+      +[ATXAppPredictionFeedbackItem predictionItemsInFeedbackChunkFromCacheChunks:].cold.1(buf, [v5 count], v8);
     }
   }
 
   else
   {
-    v6 = [v5 objectAtIndexedSubscript:1];
-    [ATXAppPredictionFeedbackItem predictionItemsForFeedbackChunk:v6];
+    v7 = [v5 objectAtIndexedSubscript:1];
+    objc_msgSend_predictionItemsForFeedbackChunk_(ATXAppPredictionFeedbackItem);
     std::vector<ATXPredictionItem>::__vdeallocate(retstr);
     *&retstr->__begin_ = *buf;
     retstr->__cap_ = v12;
@@ -189,7 +189,6 @@ void __62__ATXAppPredictionFeedbackItem_feedbackItemsForFeedbackChunk___block_in
     std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v10);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 

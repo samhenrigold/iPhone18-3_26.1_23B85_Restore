@@ -29,42 +29,41 @@
 
 void __75__SANANDGarbageCollectionEvent_parseKTrace_findingGarbageCollectionEvents___block_invoke(void *a1, uint64_t a2)
 {
-  v4 = a1[6];
-  newValue = [SATimestamp timestampWithKTraceEvent:a2 fromSession:?];
+  newValue = [SATimestamp timestampWithKTraceEvent:a2 fromSession:a1[6]];
   if (*(a2 + 48))
   {
-    v9 = objc_alloc_init(SANANDGarbageCollectionEvent);
-    v11 = v9;
-    if (v9)
+    v8 = objc_alloc_init(SANANDGarbageCollectionEvent);
+    v10 = v8;
+    if (v8)
     {
-      objc_setProperty_atomic(v9, v10, newValue, 8);
-      v11->_reasonCode = *(a2 + 24);
+      objc_setProperty_atomic(v8, v9, newValue, 8);
+      v10->_reasonCode = *(a2 + 24);
     }
 
     (*(a1[4] + 16))();
-    v12 = *(a1[5] + 8);
-    v8 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v11 = *(a1[5] + 8);
+    v7 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 
   else
   {
-    v6 = *(*(a1[5] + 8) + 40);
-    if (v6)
+    v5 = *(*(a1[5] + 8) + 40);
+    if (v5)
     {
-      objc_setProperty_atomic(v6, v5, newValue, 16);
-      v7 = *(a1[5] + 8);
-      v8 = *(v7 + 40);
-      *(v7 + 40) = 0;
+      objc_setProperty_atomic(v5, v4, newValue, 16);
+      v6 = *(a1[5] + 8);
+      v7 = *(v6 + 40);
+      *(v6 + 40) = 0;
     }
 
     else
     {
-      v13 = objc_alloc_init(SANANDGarbageCollectionEvent);
-      v8 = v13;
-      if (v13)
+      v12 = objc_alloc_init(SANANDGarbageCollectionEvent);
+      v7 = v12;
+      if (v12)
       {
-        objc_setProperty_atomic(v13, v14, newValue, 16);
+        objc_setProperty_atomic(v12, v13, newValue, 16);
       }
 
       (*(a1[4] + 16))();
@@ -102,29 +101,27 @@ void __75__SANANDGarbageCollectionEvent_parseKTrace_findingGarbageCollectionEven
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   if ([(SANANDGarbageCollectionEvent *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v11 = *__error();
-    v12 = _sa_logt();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(SANANDGarbageCollectionEvent *)self debugDescription];
+      v12 = [(SANANDGarbageCollectionEvent *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v13 UTF8String];
-      v24 = 2048;
+      uTF8String = [v12 UTF8String];
+      v16 = 2048;
       sizeInBytesForSerializedVersion = [(SANANDGarbageCollectionEvent *)self sizeInBytesForSerializedVersion];
-      v26 = 2048;
+      v18 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v11;
-    v14 = [(SANANDGarbageCollectionEvent *)self debugDescription];
-    uTF8String2 = [v14 UTF8String];
-    [(SANANDGarbageCollectionEvent *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(128, "%s: size %lu != buffer length %lu", v16, v17, v18, v19, v20, v21, uTF8String2);
+    *__error() = v10;
+    v13 = [(SANANDGarbageCollectionEvent *)self debugDescription];
+    _SASetCrashLogMessage(128, "%s: size %lu != buffer length %lu", [v13 UTF8String], -[SANANDGarbageCollectionEvent sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -135,7 +132,6 @@ void __75__SANANDGarbageCollectionEvent_parseKTrace_findingGarbageCollectionEven
   *(&buffer->var2 + 2) = SASerializableIndexForPointerFromSerializationDictionary(self->_endTimestamp, dictionaryCopy);
   *(&buffer->var3 + 2) = self->_reasonCode;
 
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -154,7 +150,7 @@ void __75__SANANDGarbageCollectionEvent_parseKTrace_findingGarbageCollectionEven
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_9;
@@ -162,24 +158,24 @@ void __75__SANANDGarbageCollectionEvent_parseKTrace_findingGarbageCollectionEven
 
   if (length <= 0x19)
   {
-    v8 = *__error();
-    v9 = _sa_logt();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = *__error();
+    v8 = _sa_logt();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v19 = 2048;
-      v20 = 26;
-      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent struct %lu", buf, 0x16u);
+      v12 = 2048;
+      v13 = 26;
+      _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(154, "bufferLength %lu < serialized SAIOEvent struct %lu", v10, v11, v12, v13, v14, v15, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(154, "bufferLength %lu < serialized SAIOEvent struct %lu", length, 26);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v16 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SANANDGarbageCollectionEvent version" userInfo:0];
-    objc_exception_throw(v16);
+    v9 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SANANDGarbageCollectionEvent version" userInfo:0];
+    objc_exception_throw(v9);
   }
 
   result = objc_alloc_init(SANANDGarbageCollectionEvent);
@@ -188,13 +184,12 @@ LABEL_9:
     *(result + 3) = *(buffer + 18);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   bufferDictionaryCopy = bufferDictionary;
   if (*buffer >= 2u)
@@ -204,24 +199,24 @@ LABEL_9:
 
   if (length <= 0x19)
   {
-    v21 = *__error();
-    v22 = _sa_logt();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v20 = *__error();
+    v21 = _sa_logt();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v33 = 2048;
-      v34 = 26;
-      _os_log_error_impl(&dword_1E0E2F000, v22, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SANANDGarbageCollectionEvent struct %lu", buf, 0x16u);
+      v26 = 2048;
+      v27 = 26;
+      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SANANDGarbageCollectionEvent struct %lu", buf, 0x16u);
     }
 
-    *__error() = v21;
-    _SASetCrashLogMessage(168, "bufferLength %lu < serialized SANANDGarbageCollectionEvent struct %lu", v23, v24, v25, v26, v27, v28, length);
+    *__error() = v20;
+    _SASetCrashLogMessage(168, "bufferLength %lu < serialized SANANDGarbageCollectionEvent struct %lu", length, 26);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v29 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SANANDGarbageCollectionEvent version" userInfo:0];
-    objc_exception_throw(v29);
+    v22 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SANANDGarbageCollectionEvent version" userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v11 = bufferDictionaryCopy;
@@ -236,8 +231,6 @@ LABEL_9:
   v18 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v16, dictionaryCopy, v11, v17, 0);
   endTimestamp = self->_endTimestamp;
   self->_endTimestamp = v18;
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeJSONDictionaryEntriesToStream:(id)stream

@@ -1,5 +1,4 @@
 @interface MCMClientCodeSignInfoCache
-- (MCMCache)cache;
 - (MCMClientCodeSignInfoCache)init;
 - (id)codeSignInfoForCDHash:(id)hash identifier:(id)identifier error:(id *)error generator:(id)generator;
 - (void)flush;
@@ -7,17 +6,9 @@
 
 @implementation MCMClientCodeSignInfoCache
 
-- (MCMCache)cache
-{
-  result = self->_cache;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (id)codeSignInfoForCDHash:(id)hash identifier:(id)identifier error:(id *)error generator:(id)generator
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   generatorCopy = generator;
   hashCopy = hash;
@@ -36,9 +27,9 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v26 = 0;
-    v15 = generatorCopy[2](generatorCopy, &v26);
-    v16 = v26;
+    v25 = 0;
+    v15 = generatorCopy[2](generatorCopy, &v25);
+    v16 = v25;
     if (v15)
     {
       v20 = [v15 clientCodeSignInfoByChangingCached:1];
@@ -62,7 +53,7 @@ LABEL_13:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = identifierCopy;
+      v27 = identifierCopy;
       _os_log_error_impl(&dword_1DF2C3000, v17, OS_LOG_TYPE_ERROR, "Could not generate code sign index for [%@]", buf, 0xCu);
     }
 
@@ -82,24 +73,21 @@ LABEL_13:
 LABEL_14:
   v23 = v15;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)flush
 {
-  v4 = *MEMORY[0x1E69E9840];
   cache = [(MCMClientCodeSignInfoCache *)self cache];
   [cache removeAllObjects];
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (MCMClientCodeSignInfoCache)init
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = MCMClientCodeSignInfoCache;
-  v2 = [(MCMClientCodeSignInfoCache *)&v7 init];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = MCMClientCodeSignInfoCache;
+  v2 = [(MCMClientCodeSignInfoCache *)&v6 init];
   if (v2)
   {
     v3 = [[MCMLRUCache alloc] initWithName:@"clientCodeSignInfo" maxCount:30];
@@ -107,7 +95,6 @@ LABEL_14:
     v2->_cache = v3;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

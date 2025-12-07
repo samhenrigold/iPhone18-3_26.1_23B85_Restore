@@ -25,55 +25,52 @@
 
 - (unint64_t)count
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = nph_general_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = nph_general_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[NPHNanoRespondWithTextStore count]";
-    _os_log_impl(&dword_26D269000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[NPHNanoRespondWithTextStore count]";
+    _os_log_impl(&dword_26D269000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
 - (id)defaultRepliesForLanguage:(id)language
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = nph_general_log();
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[NPHNanoRespondWithTextStore defaultRepliesForLanguage:]";
+    v14 = "[NPHNanoRespondWithTextStore defaultRepliesForLanguage:]";
     _os_log_impl(&dword_26D269000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"Sorry value:I can’t talk right now." table:{&stru_287EA4AF8, 0}];
-  v13[0] = v5;
+  v12[0] = v5;
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v7 = [v6 localizedStringForKey:@"I’m on my way." value:&stru_287EA4AF8 table:0];
-  v13[1] = v7;
+  v12[1] = v7;
   v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v9 = [v8 localizedStringForKey:@"Can I call you later?" value:&stru_287EA4AF8 table:0];
-  v13[2] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[2] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
 
   return v10;
 }
 
 - (id)customReplies
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = nph_general_log();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[NPHNanoRespondWithTextStore customReplies]";
-    _os_log_impl(&dword_26D269000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[NPHNanoRespondWithTextStore customReplies]";
+    _os_log_impl(&dword_26D269000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v9, 0xCu);
   }
 
   array = [(NSUserDefaults *)self->_userDefaults objectForKey:@"TUReplyWithMessageStoreReplyArray"];
@@ -96,20 +93,18 @@
 
   v7 = [MEMORY[0x277CBEA60] arrayWithArray:array];
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)cannedRepliesForLanguage:(id)language
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   languageCopy = language;
-  v5 = nph_general_log();
+  v5 = nph_general_log(languageCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[NPHNanoRespondWithTextStore cannedRepliesForLanguage:]";
+    v16 = "[NPHNanoRespondWithTextStore cannedRepliesForLanguage:]";
     _os_log_impl(&dword_26D269000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -119,16 +114,14 @@
   v8 = [v6 arrayWithArray:v7];
 
   customReplies = [(NPHNanoRespondWithTextStore *)self customReplies];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __56__NPHNanoRespondWithTextStore_cannedRepliesForLanguage___block_invoke;
-  v14[3] = &unk_279D96060;
-  v15 = v8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __56__NPHNanoRespondWithTextStore_cannedRepliesForLanguage___block_invoke;
+  v13[3] = &unk_279D96060;
+  v14 = v8;
   v10 = v8;
-  [customReplies enumerateObjectsUsingBlock:v14];
+  [customReplies enumerateObjectsUsingBlock:v13];
   v11 = [MEMORY[0x277CBEA60] arrayWithArray:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

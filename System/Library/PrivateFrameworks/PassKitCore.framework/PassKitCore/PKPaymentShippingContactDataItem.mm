@@ -230,16 +230,16 @@ LABEL_6:
   paymentRequest3 = [model6 paymentRequest];
   isShippingEditable = [paymentRequest3 isShippingEditable];
 
-  v30 = [v67 isEqualToString:@"phone"];
+  isEqualToString = objc_msgSend_isEqualToString_(v67);
   v31 = [requiredShippingContactFields containsObject:@"phone"];
-  v32 = [v67 isEqualToString:@"email"];
+  v32 = objc_msgSend_isEqualToString_(v67);
   v59 = [requiredShippingContactFields containsObject:@"email"];
-  v33 = [v67 isEqualToString:@"name"];
+  v33 = objc_msgSend_isEqualToString_(v67);
   v56 = [requiredShippingContactFields containsObject:@"name"];
-  v34 = [v67 isEqualToString:@"phoneticName"];
+  v34 = objc_msgSend_isEqualToString_(v67);
   v35 = [requiredShippingContactFields containsObject:@"phoneticName"];
   v36 = [requiredShippingContactFields containsObject:@"post"];
-  if (v30 || ((v31 ^ 1 | v20) & 1) == 0)
+  if (isEqualToString || ((v31 ^ 1 | v20) & 1) == 0)
   {
     v39 = !v20;
     if (v20)
@@ -388,7 +388,7 @@ LABEL_51:
   }
 
 LABEL_44:
-  if (-[PKPaymentDataItem isRejected](self, "isRejected", v55) || ([v67 isEqualToString:@"contactInfo"] & 1) != 0 || (v41 = 0, v48 = 1, v65) && !v67)
+  if ([(PKPaymentDataItem *)self isRejected]|| (objc_msgSend_isEqualToString_(v67) & 1) != 0 || (v41 = 0, v48 = 1, v65) && !v67)
   {
     requiredContactFields = [(PKPaymentShippingContactDataItem *)self requiredContactFields];
     v51 = [requiredContactFields count];

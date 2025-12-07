@@ -1,5 +1,6 @@
 @interface SFAutoUnlockManager
 + (BOOL)autoUnlockEnabled;
++ (BOOL)autoUnlockEnabled:(unsigned int)enabled;
 + (BOOL)mockedPhoneAutoUnlockAWDLUnavailable;
 + (BOOL)mockedPhoneAutoUnlockEnabled;
 + (BOOL)mockedPhoneAutoUnlockFaceIDDisabled;
@@ -68,21 +69,19 @@
   v17 = *MEMORY[0x1E69E9840];
   if (!_os_feature_enabled_impl())
   {
-LABEL_12:
-    bOOLValue = 0;
-    goto LABEL_13;
+    return 0;
   }
 
-  v2 = SCDynamicStoreCopyValue(0, @"com.apple.sharing:/AutoUnlock/Enabled");
-  v3 = v2;
-  if (!v2 || (v4 = CFGetTypeID(v2), v4 != CFDictionaryGetTypeID()))
+  TypeID = SCDynamicStoreCopyValue(0, @"com.apple.sharing:/AutoUnlock/Enabled");
+  v3 = TypeID;
+  if (!TypeID || (v4 = CFGetTypeID(TypeID), TypeID = CFDictionaryGetTypeID(), v4 != TypeID))
   {
-    v11 = auto_unlock_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = auto_unlock_log(TypeID);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v16 = @"com.apple.sharing:/AutoUnlock/Enabled";
-      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "No value at path: %@", buf, 0xCu);
+      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "No value at path: %@", buf, 0xCu);
     }
 
     if (v3)
@@ -90,10 +89,10 @@ LABEL_12:
       CFRelease(v3);
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
-  v5 = auto_unlock_log();
+  v5 = auto_unlock_log(TypeID);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -108,8 +107,8 @@ LABEL_12:
 
   if (isKindOfClass)
   {
-    v9 = [(__CFString *)v3 objectForKeyedSubscript:v6];
-    bOOLValue = [v9 BOOLValue];
+    v10 = [(__CFString *)v3 objectForKeyedSubscript:v6];
+    bOOLValue = [v10 BOOLValue];
   }
 
   else
@@ -117,15 +116,66 @@ LABEL_12:
     bOOLValue = 0;
   }
 
-  v14 = auto_unlock_log();
+  v14 = auto_unlock_log(v9);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     +[(SFAutoUnlockManager *)v6];
   }
 
-LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
   return bOOLValue;
+}
+
++ (BOOL)autoUnlockEnabled:(unsigned int)enabled
+{
+  v3 = *&enabled;
+  v18 = *MEMORY[0x1E69E9840];
+  v4 = copySharingPrefValue(@"AUTestDictionary");
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    goto LABEL_4;
+  }
+
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", v3];
+  v6 = [v4 objectForKeyedSubscript:v5];
+  v7 = [v6 objectForKeyedSubscript:@"AUTestMode"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    bOOLValue = [v7 BOOLValue];
+
+    if ((bOOLValue & 1) == 0)
+    {
+LABEL_4:
+      v10 = 0;
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v11 = [v7 isEqual:@"1"];
+
+    if (!v11)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  v12 = auto_unlock_log(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    v15 = v3;
+    v16 = 2112;
+    v17 = v4;
+    _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "Using test mode (uid: %u, test dictionary %@)", buf, 0x12u);
+  }
+
+  v10 = 1;
+LABEL_9:
+
+  return v10;
 }
 
 - (SFAutoUnlockManager)init
@@ -169,7 +219,7 @@ LABEL_13:
 
 - (void)mockedEligibleAutoUnlockDevicesWithCompletionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v4 = [MEMORY[0x1E695DFA8] setWithCapacity:1];
   if (!+[SFAutoUnlockManager mockedPhoneAutoUnlockNoWatch])
@@ -207,15 +257,13 @@ LABEL_13:
   {
     v8 = v7;
     v9 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A578];
-    v14[0] = @"simulated error";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A578];
+    v13[0] = @"simulated error";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v11 = [v9 errorWithDomain:@"SFAutoUnlockErrorDomain" code:v8 userInfo:v10];
   }
 
   handlerCopy[2](handlerCopy, v4, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)eligibleAutoUnlockDevicesWithCompletionHandler:(id)handler
@@ -223,19 +271,20 @@ LABEL_13:
   handlerCopy = handler;
   if (handlerCopy)
   {
-    if (+[SFAutoUnlockManager autoUnlockSupported])
+    v5 = +[SFAutoUnlockManager autoUnlockSupported];
+    if (v5)
     {
-      v5 = auto_unlock_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = auto_unlock_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Client requesting eligible devices", buf, 2u);
+        _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "Client requesting eligible devices", buf, 2u);
       }
 
       *buf = 0;
-      v13 = buf;
-      v14 = 0x2020000000;
-      v15 = 0;
+      v14 = buf;
+      v15 = 0x2020000000;
+      v16 = 0;
       if (_os_feature_enabled_impl() && +[SFAutoUnlockManager mockedPhoneAutoUnlockEnabled])
       {
         [(SFAutoUnlockManager *)self mockedEligibleAutoUnlockDevicesWithCompletionHandler:handlerCopy];
@@ -243,15 +292,15 @@ LABEL_13:
 
       else
       {
-        v8 = +[SFCompanionXPCManager sharedManager];
-        v9[0] = MEMORY[0x1E69E9820];
-        v9[1] = 3221225472;
-        v9[2] = __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_413;
-        v9[3] = &unk_1E788BD60;
-        v9[4] = self;
-        v11 = buf;
-        v10 = handlerCopy;
-        [v8 unlockManagerWithCompletionHandler:v9];
+        v9 = +[SFCompanionXPCManager sharedManager];
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 3221225472;
+        v10[2] = __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_413;
+        v10[3] = &unk_1E788BD60;
+        v10[4] = self;
+        v12 = buf;
+        v11 = handlerCopy;
+        [v9 unlockManagerWithCompletionHandler:v10];
       }
 
       _Block_object_dispose(buf, 8);
@@ -264,17 +313,17 @@ LABEL_13:
       block[1] = 3221225472;
       block[2] = __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke;
       block[3] = &unk_1E788B1C0;
-      v17 = handlerCopy;
+      v18 = handlerCopy;
       dispatch_async(delegateQueue, block);
     }
   }
 
   else
   {
-    v6 = auto_unlock_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = auto_unlock_log(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [SFAutoUnlockManager eligibleAutoUnlockDevicesWithCompletionHandler:v6];
+      [SFAutoUnlockManager eligibleAutoUnlockDevicesWithCompletionHandler:v7];
     }
   }
 }
@@ -346,14 +395,13 @@ void __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___
   dispatch_async(v4, block);
 }
 
-void *__70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_3(void *result)
+uint64_t __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_3(uint64_t result)
 {
-  if ((*(*(result[6] + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = result[4];
-    result = (*(result[5] + 16))();
-    *(*(v1[6] + 8) + 24) = 1;
+    result = (*(*(result + 40) + 16))();
+    *(*(*(v1 + 48) + 8) + 24) = 1;
   }
 
   return result;
@@ -378,28 +426,25 @@ void __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___
   dispatch_async(v7, block);
 }
 
-void *__70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_5(void *result)
+uint64_t __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_5(uint64_t result)
 {
-  if ((*(*(result[7] + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 56) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = result[4];
-    v3 = result[5];
-    result = (*(result[6] + 16))();
-    *(*(v1[7] + 8) + 24) = 1;
+    result = (*(*(result + 48) + 16))();
+    *(*(*(v1 + 56) + 8) + 24) = 1;
   }
 
   return result;
 }
 
-void *__70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_6(void *result)
+uint64_t __70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler___block_invoke_6(uint64_t result)
 {
-  if ((*(*(result[6] + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = result[4];
-    result = (*(result[5] + 16))();
-    *(*(v1[6] + 8) + 24) = 1;
+    result = (*(*(result + 40) + 16))();
+    *(*(*(v1 + 48) + 8) + 24) = 1;
   }
 
   return result;
@@ -407,14 +452,14 @@ void *__70__SFAutoUnlockManager_eligibleAutoUnlockDevicesWithCompletionHandler__
 
 - (void)mockedEnableAutoUnlockWithDevice:(id)device
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   if (+[SFAutoUnlockManager mockedPhoneAutoUnlockNoWatch])
   {
     v5 = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A578];
-    v37[0] = @"Apple Watch Not Found";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x1E696A578];
+    v36[0] = @"Apple Watch Not Found";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     v7 = v5;
     v8 = 131;
 LABEL_3:
@@ -425,10 +470,10 @@ LABEL_3:
   if (+[SFAutoUnlockManager mockedPhoneAutoUnlockWatchLocked])
   {
     v10 = MEMORY[0x1E696ABC0];
-    v34 = *MEMORY[0x1E696A578];
+    v33 = *MEMORY[0x1E696A578];
     v6 = SFLocalizedStringForKey(@"UNLOCK_WATCH_LOCKED_TITLE");
-    v35 = v6;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v34 = v6;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v12 = v10;
     v13 = 102;
   }
@@ -438,9 +483,9 @@ LABEL_3:
     if (+[SFAutoUnlockManager mockedPhoneAutoUnlockFaceIDDisabled])
     {
       v16 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A578];
-      v33 = @"FaceID disabled";
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A578];
+      v32 = @"FaceID disabled";
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
       v7 = v16;
       v8 = 205;
       goto LABEL_3;
@@ -449,10 +494,10 @@ LABEL_3:
     if (+[SFAutoUnlockManager mockedPhoneAutoUnlockWatchHasWeakPasscode])
     {
       v17 = MEMORY[0x1E696ABC0];
-      v30 = *MEMORY[0x1E696A578];
+      v29 = *MEMORY[0x1E696A578];
       v6 = SFLocalizedStringForKey(@"UNLOCK_PASSCODE_REQUIRED_TITLE");
-      v31 = v6;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v30 = v6;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v12 = v17;
       v13 = 108;
     }
@@ -468,19 +513,19 @@ LABEL_3:
 
         v19 = MEMORY[0x1E696ABC0];
         v20 = +[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateErrorCode];
-        v26 = *MEMORY[0x1E696A578];
-        v27 = @"Custom error code";
-        v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = *MEMORY[0x1E696A578];
+        v26 = @"Custom error code";
+        v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         v7 = v19;
         v8 = v20;
         goto LABEL_3;
       }
 
       v18 = MEMORY[0x1E696ABC0];
-      v28 = *MEMORY[0x1E696A578];
+      v27 = *MEMORY[0x1E696A578];
       v6 = SFLocalizedStringForKey(@"UNLOCK_WRIST_DETECTION_REQUIRED_TITLE");
-      v29 = v6;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v28 = v6;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
       v12 = v18;
       v13 = 158;
     }
@@ -500,18 +545,17 @@ LABEL_17:
   }
 
   delegateQueue = self->_delegateQueue;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __56__SFAutoUnlockManager_mockedEnableAutoUnlockWithDevice___block_invoke;
-  v23[3] = &unk_1E788BD88;
-  v23[4] = self;
-  v24 = v9;
-  v25 = deviceCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __56__SFAutoUnlockManager_mockedEnableAutoUnlockWithDevice___block_invoke;
+  v22[3] = &unk_1E788BD88;
+  v22[4] = self;
+  v23 = v9;
+  v24 = deviceCopy;
   v15 = v9;
-  dispatch_async(delegateQueue, v23);
+  dispatch_async(delegateQueue, v22);
 
 LABEL_18:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableAutoUnlockWithDevice:(id)device passcode:(id)passcode
@@ -636,25 +680,25 @@ void __59__SFAutoUnlockManager_enableAutoUnlockWithDevice_passcode___block_invok
   dispatch_async(v3, block);
 }
 
-uint64_t __59__SFAutoUnlockManager_enableAutoUnlockWithDevice_passcode___block_invoke_4(uint64_t result)
+id *__59__SFAutoUnlockManager_enableAutoUnlockWithDevice_passcode___block_invoke_4(id *result)
 {
-  if ((*(*(*(result + 56) + 8) + 24) & 1) == 0)
+  if ((*(*(result[7] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfEnableError:v1[5] device:v1[6]];
-    *(*(v1[7] + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfEnableError:v1[5] device:v1[6]];
+    *(*(v1[7] + 1) + 24) = 1;
   }
 
   return result;
 }
 
-uint64_t __59__SFAutoUnlockManager_enableAutoUnlockWithDevice_passcode___block_invoke_5(uint64_t result)
+id *__59__SFAutoUnlockManager_enableAutoUnlockWithDevice_passcode___block_invoke_5(id *result)
 {
-  if ((*(*(*(result + 56) + 8) + 24) & 1) == 0)
+  if ((*(*(result[7] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfEnableError:v1[5] device:v1[6]];
-    *(*(v1[7] + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfEnableError:v1[5] device:v1[6]];
+    *(*(v1[7] + 1) + 24) = 1;
   }
 
   return result;
@@ -662,49 +706,49 @@ uint64_t __59__SFAutoUnlockManager_enableAutoUnlockWithDevice_passcode___block_i
 
 void __59__SFAutoUnlockManager_enableAutoUnlockWithDevice_passcode___block_invoke_6(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
     v2 = *(a1 + 32);
     v3 = MEMORY[0x1E696ABC0];
     v4 = *MEMORY[0x1E696A798];
-    v8 = *MEMORY[0x1E696A578];
-    v9[0] = @"nil device";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = *MEMORY[0x1E696A578];
+    v8[0] = @"nil device";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v6 = [v3 errorWithDomain:v4 code:22 userInfo:v5];
     [v2 onDelegateQueue_notifyDelegateOfEnableError:v6 device:0];
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelEnablingAutoUnlockForDevice:(id)device
 {
   v12 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
-  if (deviceCopy && +[SFAutoUnlockManager autoUnlockSupported])
+  if (deviceCopy)
   {
-    v4 = auto_unlock_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = +[SFAutoUnlockManager autoUnlockSupported];
+    if (v4)
     {
-      uniqueID = [deviceCopy uniqueID];
-      *buf = 138412290;
-      v11 = uniqueID;
-      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Cancelling enabling for device %@", buf, 0xCu);
+      v5 = auto_unlock_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        uniqueID = [deviceCopy uniqueID];
+        *buf = 138412290;
+        v11 = uniqueID;
+        _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Cancelling enabling for device %@", buf, 0xCu);
+      }
+
+      v7 = +[SFCompanionXPCManager sharedManager];
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke;
+      v8[3] = &unk_1E788BE50;
+      v9 = deviceCopy;
+      [v7 unlockManagerWithCompletionHandler:v8];
     }
-
-    v6 = +[SFCompanionXPCManager sharedManager];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke;
-    v8[3] = &unk_1E788BE50;
-    v9 = deviceCopy;
-    [v6 unlockManagerWithCompletionHandler:v8];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke(uint64_t a1, void *a2)
@@ -717,7 +761,7 @@ void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke(
 
   else
   {
-    v3 = auto_unlock_log();
+    v3 = auto_unlock_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -728,22 +772,20 @@ void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke(
 
 void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = auto_unlock_log();
+  v3 = auto_unlock_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling enable failed: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling enable failed: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mockedDisableAutoUnlockForDevice:(id)device
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   if (+[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateErrorCode]< 1)
   {
@@ -754,9 +796,9 @@ void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke_
   {
     v5 = MEMORY[0x1E696ABC0];
     v6 = +[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateErrorCode];
-    v17 = *MEMORY[0x1E696A578];
-    v18[0] = @"Custom error code";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17[0] = @"Custom error code";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v8 = [v5 errorWithDomain:@"SFAutoUnlockErrorDomain" code:v6 userInfo:v7];
   }
 
@@ -768,18 +810,16 @@ void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke_
   block[1] = 3221225472;
   block[2] = __56__SFAutoUnlockManager_mockedDisableAutoUnlockForDevice___block_invoke;
   block[3] = &unk_1E788B318;
-  v15 = v8;
-  v16 = deviceCopy;
+  v14 = v8;
+  v15 = deviceCopy;
   v11 = v8;
   v12 = deviceCopy;
   dispatch_async(delegateQueue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableAutoUnlockForDevice:(id)device completionHandler:(id)handler
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   handlerCopy = handler;
   if (handlerCopy)
@@ -793,30 +833,30 @@ void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke_
 
       else if (deviceCopy)
       {
-        v19[0] = 0;
-        v19[1] = v19;
-        v19[2] = 0x2020000000;
-        v20 = 0;
+        v18[0] = 0;
+        v18[1] = v18;
+        v18[2] = 0x2020000000;
+        v19 = 0;
         v10 = +[SFCompanionXPCManager sharedManager];
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke_2;
-        v15[3] = &unk_1E788BEC8;
-        v15[4] = self;
-        v18 = v19;
-        v17 = handlerCopy;
-        v16 = deviceCopy;
-        [v10 unlockManagerWithCompletionHandler:v15];
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke_2;
+        v14[3] = &unk_1E788BEC8;
+        v14[4] = self;
+        v17 = v18;
+        v16 = handlerCopy;
+        v15 = deviceCopy;
+        [v10 unlockManagerWithCompletionHandler:v14];
 
-        _Block_object_dispose(v19, 8);
+        _Block_object_dispose(v18, 8);
       }
 
       else
       {
         v11 = MEMORY[0x1E696ABC0];
-        v23 = *MEMORY[0x1E696A578];
-        v24[0] = @"nil device";
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+        v22 = *MEMORY[0x1E696A578];
+        v23[0] = @"nil device";
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
         v13 = [v11 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v12];
         (*(handlerCopy + 2))(handlerCopy, 0, v13);
       }
@@ -829,21 +869,19 @@ void __57__SFAutoUnlockManager_cancelEnablingAutoUnlockForDevice___block_invoke_
       block[1] = 3221225472;
       block[2] = __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke;
       block[3] = &unk_1E788B1C0;
-      v22 = handlerCopy;
+      v21 = handlerCopy;
       dispatch_async(delegateQueue, block);
     }
   }
 
   else
   {
-    v8 = auto_unlock_log();
+    v8 = auto_unlock_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SFAutoUnlockManager disableAutoUnlockForDevice:v8 completionHandler:?];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke(uint64_t a1)
@@ -914,14 +952,13 @@ void __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___bl
   dispatch_async(v4, block);
 }
 
-void *__68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke_4(void *result)
+uint64_t __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke_4(uint64_t result)
 {
-  if ((*(*(result[6] + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = result[4];
-    result = (*(result[5] + 16))();
-    *(*(v1[6] + 8) + 24) = 1;
+    result = (*(*(result + 40) + 16))();
+    *(*(*(v1 + 48) + 8) + 24) = 1;
   }
 
   return result;
@@ -949,8 +986,6 @@ uint64_t __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler_
   if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = *(result + 56);
-    v3 = *(result + 32);
     result = (*(*(result + 40) + 16))();
     *(*(*(v1 + 48) + 8) + 24) = 1;
   }
@@ -958,14 +993,13 @@ uint64_t __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler_
   return result;
 }
 
-void *__68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke_7(void *result)
+uint64_t __68__SFAutoUnlockManager_disableAutoUnlockForDevice_completionHandler___block_invoke_7(uint64_t result)
 {
-  if ((*(*(result[6] + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = result[4];
-    result = (*(result[5] + 16))();
-    *(*(v1[6] + 8) + 24) = 1;
+    result = (*(*(result + 40) + 16))();
+    *(*(*(v1 + 48) + 8) + 24) = 1;
   }
 
   return result;
@@ -1197,40 +1231,39 @@ LABEL_12:
   }
 
 LABEL_39:
-  +[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateLatency];
-  v37 = v36;
-  v38 = auto_unlock_log();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v36 = +[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateLatency];
+  v38 = v37;
+  v39 = auto_unlock_log(v36);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v47 = v37;
-    _os_log_impl(&dword_1A9662000, v38, OS_LOG_TYPE_DEFAULT, "delaying unlock for %f sec", buf, 0xCu);
+    v47 = v38;
+    _os_log_impl(&dword_1A9662000, v39, OS_LOG_TYPE_DEFAULT, "delaying unlock for %f sec", buf, 0xCu);
   }
 
-  v39 = dispatch_time(0, (v37 * 1000000000.0));
-  v40 = dispatch_get_global_queue(0, 0);
+  v40 = dispatch_time(0, (v38 * 1000000000.0));
+  v41 = dispatch_get_global_queue(0, 0);
   v42[0] = MEMORY[0x1E69E9820];
   v42[1] = 3221225472;
   v42[2] = __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_475;
   v42[3] = &unk_1E788A658;
   v42[4] = self;
   v43 = v3;
-  dispatch_after(v39, v40, v42);
+  dispatch_after(v40, v41, v42);
 
 LABEL_42:
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_475(uint64_t a1)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   if (+[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateDevicesOutOfRange])
   {
     v2 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A578];
+    v32 = *MEMORY[0x1E696A578];
     v3 = SFLocalizedStringForKey(@"UNLOCK_OUT_OF_RANGE");
-    v32[0] = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v33[0] = v3;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v5 = [v2 errorWithDomain:@"SFAutoUnlockErrorDomain" code:130 userInfo:v4];
   }
 
@@ -1239,25 +1272,26 @@ void __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_475(uint64_
     if (+[SFAutoUnlockManager mockedPhoneAutoUnlockSimulatePhoneMissedFinalConfirmationToUnlock])
     {
       v6 = MEMORY[0x1E696ABC0];
-      v29 = *MEMORY[0x1E696A578];
-      v30 = @"Confirmation failed";
-      v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v30 = *MEMORY[0x1E696A578];
+      v31 = @"Confirmation failed";
+      v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       v7 = v6;
       v8 = 136;
     }
 
     else
     {
-      if (!+[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateMagnetBreak])
+      v9 = +[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateMagnetBreak];
+      if (!v9)
       {
         goto LABEL_10;
       }
 
-      v9 = MEMORY[0x1E696ABC0];
-      v27 = *MEMORY[0x1E696A578];
-      v28 = @"Apple Watch Not Found";
-      v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-      v7 = v9;
+      v10 = MEMORY[0x1E696ABC0];
+      v28 = *MEMORY[0x1E696A578];
+      v29 = @"Apple Watch Not Found";
+      v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v7 = v10;
       v8 = 131;
     }
 
@@ -1266,61 +1300,59 @@ void __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_475(uint64_
 
   if (v5)
   {
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 16);
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 16);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_482;
     block[3] = &unk_1E788A658;
-    block[4] = v10;
-    v12 = v5;
-    v24 = v12;
-    dispatch_async(v11, block);
+    block[4] = v11;
+    v13 = v5;
+    v25 = v13;
+    dispatch_async(v12, block);
 
     goto LABEL_13;
   }
 
 LABEL_10:
-  v13 = auto_unlock_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = auto_unlock_log(v9);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "unlocked device", buf, 2u);
+    _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "unlocked device", buf, 2u);
   }
 
   [*(a1 + 32) completedUnlockWithDevice:*(a1 + 40)];
-  v12 = 0;
+  v13 = 0;
 LABEL_13:
-  +[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateManualReLock];
-  if (v14 > 0.0)
+  v15 = +[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateManualReLock];
+  if (v16 > 0.0)
   {
-    v15 = v14;
-    v16 = auto_unlock_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = v16;
+    v18 = auto_unlock_log(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v26 = v15;
-      _os_log_impl(&dword_1A9662000, v16, OS_LOG_TYPE_DEFAULT, "delaying relock for %f sec", buf, 0xCu);
+      v27 = v17;
+      _os_log_impl(&dword_1A9662000, v18, OS_LOG_TYPE_DEFAULT, "delaying relock for %f sec", buf, 0xCu);
     }
 
-    v17 = dispatch_time(0, (v15 * 1000000000.0));
-    v18 = dispatch_get_global_queue(0, 0);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_483;
-    v21[3] = &unk_1E788A658;
-    v19 = *(a1 + 40);
-    v21[4] = *(a1 + 32);
-    v22 = v19;
-    dispatch_after(v17, v18, v21);
+    v19 = dispatch_time(0, (v17 * 1000000000.0));
+    v20 = dispatch_get_global_queue(0, 0);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_483;
+    v22[3] = &unk_1E788A658;
+    v21 = *(a1 + 40);
+    v22[4] = *(a1 + 32);
+    v23 = v21;
+    dispatch_after(v19, v20, v22);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__SFAutoUnlockManager_mockedAttemptAutoUnlock__block_invoke_483(uint64_t a1)
 {
-  v2 = auto_unlock_log();
+  v2 = auto_unlock_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1520,25 +1552,25 @@ void __40__SFAutoUnlockManager_attemptAutoUnlock__block_invoke_3(uint64_t a1, vo
   dispatch_async(v5, block);
 }
 
-uint64_t __40__SFAutoUnlockManager_attemptAutoUnlock__block_invoke_4(uint64_t result)
+id *__40__SFAutoUnlockManager_attemptAutoUnlock__block_invoke_4(id *result)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfAttemptError:*(result + 40)];
-    *(*(*(v1 + 48) + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfAttemptError:result[5]];
+    *(*(v1[6] + 1) + 24) = 1;
   }
 
   return result;
 }
 
-uint64_t __40__SFAutoUnlockManager_attemptAutoUnlock__block_invoke_5(uint64_t result)
+id *__40__SFAutoUnlockManager_attemptAutoUnlock__block_invoke_5(id *result)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfAttemptError:*(result + 40)];
-    *(*(*(v1 + 48) + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfAttemptError:result[5]];
+    *(*(v1[6] + 1) + 24) = 1;
   }
 
   return result;
@@ -1640,25 +1672,25 @@ void __61__SFAutoUnlockManager_attemptAutoUnlockWithoutNotifyingWatch__block_inv
   dispatch_async(v5, block);
 }
 
-uint64_t __61__SFAutoUnlockManager_attemptAutoUnlockWithoutNotifyingWatch__block_invoke_4(uint64_t result)
+id *__61__SFAutoUnlockManager_attemptAutoUnlockWithoutNotifyingWatch__block_invoke_4(id *result)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfAttemptError:*(result + 40)];
-    *(*(*(v1 + 48) + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfAttemptError:result[5]];
+    *(*(v1[6] + 1) + 24) = 1;
   }
 
   return result;
 }
 
-uint64_t __61__SFAutoUnlockManager_attemptAutoUnlockWithoutNotifyingWatch__block_invoke_5(uint64_t result)
+id *__61__SFAutoUnlockManager_attemptAutoUnlockWithoutNotifyingWatch__block_invoke_5(id *result)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfAttemptError:*(result + 40)];
-    *(*(*(v1 + 48) + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfAttemptError:result[5]];
+    *(*(v1[6] + 1) + 24) = 1;
   }
 
   return result;
@@ -1760,25 +1792,25 @@ void __47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_3(uint64_t
   dispatch_async(v5, block);
 }
 
-uint64_t __47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_4(uint64_t result)
+id *__47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_4(id *result)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfAttemptError:*(result + 40)];
-    *(*(*(v1 + 48) + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfAttemptError:result[5]];
+    *(*(v1[6] + 1) + 24) = 1;
   }
 
   return result;
 }
 
-uint64_t __47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_5(uint64_t result)
+id *__47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_5(id *result)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) onDelegateQueue_notifyDelegateOfAttemptError:*(result + 40)];
-    *(*(*(v1 + 48) + 8) + 24) = 1;
+    result = [result[4] onDelegateQueue_notifyDelegateOfAttemptError:result[5]];
+    *(*(v1[6] + 1) + 24) = 1;
   }
 
   return result;
@@ -1786,14 +1818,14 @@ uint64_t __47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_5(uint
 
 - (void)mockedCancelUnlock
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (+[SFAutoUnlockManager mockedPhoneAutoUnlockSimulateDevicesOutOfRange])
   {
     v3 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A578];
+    v15 = *MEMORY[0x1E696A578];
     v4 = SFLocalizedStringForKey(@"UNLOCK_OUT_OF_RANGE");
-    v17[0] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v6 = [v3 errorWithDomain:@"SFAutoUnlockErrorDomain" code:130 userInfo:v5];
   }
 
@@ -1802,9 +1834,9 @@ uint64_t __47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_5(uint
     if (+[SFAutoUnlockManager mockedPhoneAutoUnlockSimulatePhoneMissedFinalConfirmationToUnlock])
     {
       v7 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A578];
-      v15 = @"Confirmation failed";
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x1E696A578];
+      v14 = @"Confirmation failed";
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
       v8 = v7;
       v9 = 136;
     }
@@ -1818,9 +1850,9 @@ uint64_t __47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_5(uint
       }
 
       v10 = MEMORY[0x1E696ABC0];
-      v12 = *MEMORY[0x1E696A578];
-      v13 = @"Apple Watch Not Found";
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      v11 = *MEMORY[0x1E696A578];
+      v12 = @"Apple Watch Not Found";
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
       v8 = v10;
       v9 = 131;
     }
@@ -1830,8 +1862,6 @@ uint64_t __47__SFAutoUnlockManager_attemptAutoUnlockForSiri__block_invoke_5(uint
 
 LABEL_9:
   [(SFAutoUnlockManager *)self failedUnlockWithError:v6];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelAutoUnlock
@@ -2551,15 +2581,14 @@ void __59__SFAutoUnlockManager_authPromptInfoWithCompletionHandler___block_invok
 
 + (void)autoUnlockEnabled
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 138412802;
-  v5 = @"com.apple.sharing:/AutoUnlock/Enabled";
-  v6 = 2112;
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 138412802;
+  v4 = @"com.apple.sharing:/AutoUnlock/Enabled";
+  v5 = 2112;
   selfCopy = self;
-  v8 = 1024;
-  v9 = a2 & 1;
-  _os_log_debug_impl(&dword_1A9662000, log, OS_LOG_TYPE_DEBUG, "Dynamic store path: %@, uid: %@, enabled: %d", &v4, 0x1Cu);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = 1024;
+  v8 = a2 & 1;
+  _os_log_debug_impl(&dword_1A9662000, log, OS_LOG_TYPE_DEBUG, "Dynamic store path: %@, uid: %@, enabled: %d", &v3, 0x1Cu);
 }
 
 @end

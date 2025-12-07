@@ -589,16 +589,16 @@ id __59__PUFlatWhiteInterfaceTheme_photoEditingCropInnerLineColor__block_invoke_
   return regularLoadErrorIcon_icon;
 }
 
-void __49__PUFlatWhiteInterfaceTheme_regularLoadErrorIcon__block_invoke()
+void __49__PUFlatWhiteInterfaceTheme_regularLoadErrorIcon__block_invoke(uint64_t a1)
 {
-  v6 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:28.0];
-  v0 = MEMORY[0x1E69DCAB8];
-  v1 = [objc_opt_class() errorIconSymbolName];
-  v2 = [v0 systemImageNamed:v1 withConfiguration:v6];
-  v3 = [objc_opt_class() errorIconSymbolColor];
-  v4 = [v2 imageWithTintColor:v3 renderingMode:1];
-  v5 = regularLoadErrorIcon_icon;
-  regularLoadErrorIcon_icon = v4;
+  v7 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:28.0];
+  v1 = MEMORY[0x1E69DCAB8];
+  v2 = [objc_opt_class() errorIconSymbolName];
+  v3 = [v1 systemImageNamed:v2 withConfiguration:v7];
+  v4 = [objc_opt_class() errorIconSymbolColor];
+  v5 = [v3 imageWithTintColor:v4 renderingMode:1];
+  v6 = regularLoadErrorIcon_icon;
+  regularLoadErrorIcon_icon = v5;
 }
 
 - (UIImage)compactLoadErrorIcon
@@ -616,16 +616,16 @@ void __49__PUFlatWhiteInterfaceTheme_regularLoadErrorIcon__block_invoke()
   return compactLoadErrorIcon_icon;
 }
 
-void __49__PUFlatWhiteInterfaceTheme_compactLoadErrorIcon__block_invoke()
+void __49__PUFlatWhiteInterfaceTheme_compactLoadErrorIcon__block_invoke(uint64_t a1)
 {
-  v6 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:18.6];
-  v0 = MEMORY[0x1E69DCAB8];
-  v1 = [objc_opt_class() errorIconSymbolName];
-  v2 = [v0 systemImageNamed:v1 withConfiguration:v6];
-  v3 = [objc_opt_class() errorIconSymbolColor];
-  v4 = [v2 imageWithTintColor:v3 renderingMode:1];
-  v5 = compactLoadErrorIcon_icon;
-  compactLoadErrorIcon_icon = v4;
+  v7 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:18.6];
+  v1 = MEMORY[0x1E69DCAB8];
+  v2 = [objc_opt_class() errorIconSymbolName];
+  v3 = [v1 systemImageNamed:v2 withConfiguration:v7];
+  v4 = [objc_opt_class() errorIconSymbolColor];
+  v5 = [v3 imageWithTintColor:v4 renderingMode:1];
+  v6 = compactLoadErrorIcon_icon;
+  compactLoadErrorIcon_icon = v5;
 }
 
 - (UIFont)playbackTimeLabelFont

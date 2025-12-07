@@ -1,4 +1,5 @@
 @interface _ANEOutputSetEnqueue
++ (id)outputSetWithProcedureIndex:(unsigned int)index setIndex:(unsigned int)setIndex signalValue:(unint64_t)value signalNotRequired:(BOOL)required isOpenLoop:(BOOL)loop;
 - (id)initOutputSetWithProcedureIndex:(unsigned int)index setIndex:(unsigned int)setIndex signalValue:(unint64_t)value signalNotRequired:(BOOL)required isOpenLoop:(BOOL)loop;
 @end
 
@@ -19,6 +20,13 @@
   }
 
   return result;
+}
+
++ (id)outputSetWithProcedureIndex:(unsigned int)index setIndex:(unsigned int)setIndex signalValue:(unint64_t)value signalNotRequired:(BOOL)required isOpenLoop:(BOOL)loop
+{
+  v7 = [[self alloc] initOutputSetWithProcedureIndex:*&index setIndex:*&setIndex signalValue:value signalNotRequired:required isOpenLoop:loop];
+
+  return v7;
 }
 
 @end

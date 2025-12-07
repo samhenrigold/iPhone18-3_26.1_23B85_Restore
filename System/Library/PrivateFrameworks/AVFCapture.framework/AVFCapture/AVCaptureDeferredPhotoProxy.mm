@@ -18,15 +18,15 @@
 {
   if (AVCaptureClientHasEntitlement(AVCaptureEntitlementDeferredPhotoProcessor))
   {
-    v5.receiver = self;
-    v5.super_class = AVCaptureDeferredPhotoProxy;
-    return [(AVCaptureDeferredPhotoProxy *)&v5 init];
+    v6.receiver = self;
+    v6.super_class = AVCaptureDeferredPhotoProxy;
+    return [(AVCaptureDeferredPhotoProxy *)&v6 init];
   }
 
   else
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -40,12 +40,12 @@
 {
   if (AVCaptureClientHasEntitlement(AVCaptureEntitlementDeferredPhotoProcessor))
   {
-    v19.receiver = self;
-    v19.super_class = AVCaptureDeferredPhotoProxy;
-    v17 = *&timestamp->var0;
+    v20.receiver = self;
+    v20.super_class = AVCaptureDeferredPhotoProxy;
+    v18 = *&timestamp->var0;
     var3 = timestamp->var3;
     flagsCopy = flags;
-    v13 = [(AVCapturePhoto *)&v19 initWithTimestamp:&v17 photoSurface:0 photoSurfaceSize:0 processedFileType:0 previewPhotoSurface:0 embeddedThumbnailSourceSurface:0 photoLibraryThumbnails:0 metadata:0 depthDataSurface:0 depthMetadataDictionary:0 portraitEffectsMatteSurface:0 portraitEffectsMatteMetadataDictionary:0 hairSegmentationMatteSurface:0 hairSegmentationMatteMetadataDictionary:0 skinSegmentationMatteSurface:0 skinSegmentationMatteMetadataDictionary:0 teethSegmentationMatteSurface:0 teethSegmentationMatteMetadataDictionary:0 glassesSegmentationMatteSurface:0 glassesSegmentationMatteMetadataDictionary:0 constantColorConfidenceMapSurface:0 constantColorMetadataDictionary:0 captureRequest:0 bracketSettings:0 sequenceCount:1 photoCount:1 expectedPhotoProcessingFlags:flagsCopy sourceDeviceType:@"AVCaptureDeviceTypeBuiltInWideAngleCamera"];
+    v13 = [(AVCapturePhoto *)&v20 initWithTimestamp:&v18 photoSurface:0 photoSurfaceSize:0 processedFileType:0 previewPhotoSurface:0 embeddedThumbnailSourceSurface:0 photoLibraryThumbnails:0 metadata:0 depthDataSurface:0 depthMetadataDictionary:0 portraitEffectsMatteSurface:0 portraitEffectsMatteMetadataDictionary:0 hairSegmentationMatteSurface:0 hairSegmentationMatteMetadataDictionary:0 skinSegmentationMatteSurface:0 skinSegmentationMatteMetadataDictionary:0 teethSegmentationMatteSurface:0 teethSegmentationMatteMetadataDictionary:0 glassesSegmentationMatteSurface:0 glassesSegmentationMatteMetadataDictionary:0 constantColorConfidenceMapSurface:0 constantColorMetadataDictionary:0 captureRequest:0 bracketSettings:0 sequenceCount:1 photoCount:1 expectedPhotoProcessingFlags:flagsCopy sourceDeviceType:@"AVCaptureDeviceTypeBuiltInWideAngleCamera"];
     if (v13)
     {
       v13->_applicationIdentifier = [identifier copy];
@@ -57,7 +57,7 @@
   else
   {
     v14 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v14, v15))
     {
       objc_exception_throw(v14);
     }
@@ -115,25 +115,25 @@
 
     if ([v8 length] && objc_msgSend(v9, "length"))
     {
-      v13 = *MEMORY[0x1E6960C70];
-      v14 = *(MEMORY[0x1E6960C70] + 16);
-      return [(AVCaptureDeferredPhotoProxy *)self initWithApplicationIdentifier:applicationIdentifier captureRequestIdentifier:v8 photoIdentifier:v9 timestamp:&v13 expectedPhotoProcessingFlags:0];
+      v16 = *MEMORY[0x1E6960C70];
+      v17 = *(MEMORY[0x1E6960C70] + 16);
+      return [(AVCaptureDeferredPhotoProxy *)self initWithApplicationIdentifier:applicationIdentifier captureRequestIdentifier:v8 photoIdentifier:v9 timestamp:&v16 expectedPhotoProcessingFlags:0];
     }
 
-    v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, identifier}];
+    v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, identifier}];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v14, v15))
     {
-      objc_exception_throw(v12);
+      objc_exception_throw(v13);
     }
 
-    NSLog(&cfstr_SuppressingExc.isa, v12);
+    NSLog(&cfstr_SuppressingExc.isa, v13);
   }
 
   else
   {
     v10 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v10, v11))
     {
       objc_exception_throw(v10);
     }
@@ -199,7 +199,7 @@
   v4 = MEMORY[0x1E696AEC0];
   if (self)
   {
-    [(AVCapturePhoto *)self timestamp];
+    objc_msgSend_timestamp(self);
   }
 
   else

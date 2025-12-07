@@ -462,15 +462,15 @@ LABEL_19:
   x = rectangle.origin.x;
   width = [(CRImage_PixelBuffer *)self width];
   height = [(CRImage_PixelBuffer *)self height];
-  v31.size.width = width;
-  v31.size.height = height;
-  v31.origin.x = 0.0;
-  v31.origin.y = 0.0;
-  v30.origin.x = x;
-  v30.origin.y = y;
   v30.size.width = width;
   v30.size.height = height;
-  if (!CGRectEqualToRect(v30, v31) || backingCopy)
+  v30.origin.x = 0.0;
+  v30.origin.y = 0.0;
+  v29.origin.x = x;
+  v29.origin.y = y;
+  v29.size.width = width;
+  v29.size.height = height;
+  if (!CGRectEqualToRect(v29, v30) || backingCopy)
   {
     if (backingCopy || [(CRImage *)self colorSpace]&& [(CRImage *)self colorSpace]!= 1 && [(CRImage *)self colorSpace]!= 2)
     {
@@ -492,8 +492,8 @@ LABEL_19:
       {
         pixelBuffer = [(CRImage_PixelBuffer *)self pixelBuffer];
         CRCropRectangleFromPixelBuffer(pixelBuffer, texture[0], x, y, width, height);
-        v20 = [CRImage_PixelBuffer alloc];
-        v16 = [(CRImage_PixelBuffer *)v20 initWithCVPixelBuffer:texture[0]];
+        v19 = [CRImage_PixelBuffer alloc];
+        v16 = [(CRImage_PixelBuffer *)v19 initWithCVPixelBuffer:texture[0]];
         CVPixelBufferRelease(texture[0]);
       }
 
@@ -505,47 +505,47 @@ LABEL_19:
       selfCopy = objc_alloc_init(CRImage);
       [(CRImage *)selfCopy setColorSpace:[(CRImage *)self colorSpace]];
       v17 = objc_opt_class();
-      colorSpace = [(CRImage *)self colorSpace];
+      [(CRImage *)self colorSpace];
       if (v17)
       {
-        [v17 allocateVImageBufferWithWidth:width height:height colorSpace:colorSpace];
+        objc_msgSend_allocateVImageBufferWithWidth_height_colorSpace_(v17);
       }
 
       else
       {
+        v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
       }
 
-      *texture = v27;
-      v26 = v28;
+      *texture = v26;
+      v25 = v27;
       [(CRImage *)selfCopy setVImage:texture];
       [(CRImage *)selfCopy setVImageDataIsCopy:1];
       if ([(CRImage *)self colorSpace])
       {
-        v21 = 4;
+        v20 = 4;
       }
 
       else
       {
-        v21 = 1;
+        v20 = 1;
       }
 
       pixelBuffer2 = [(CRImage_PixelBuffer *)self pixelBuffer];
       if (selfCopy)
       {
-        [(CRImage_PixelBuffer *)selfCopy vImage];
-        v23 = texture[0];
+        objc_msgSend_vImage(selfCopy);
+        v22 = texture[0];
       }
 
       else
       {
-        v23 = 0;
+        v22 = 0;
         *texture = 0u;
-        v26 = 0u;
+        v25 = 0u;
       }
 
-      CRCopyRectangleCropMemoryFromPixelBuffer(pixelBuffer2, v23, v21, x, y, width, height);
+      CRCopyRectangleCropMemoryFromPixelBuffer(pixelBuffer2, v22, v20, x, y, width, height);
     }
   }
 
@@ -636,7 +636,7 @@ LABEL_14:
   v6 = v4;
   if (v4)
   {
-    [(CRImage *)v4 vImage];
+    objc_msgSend_vImage(v4);
   }
 
   else

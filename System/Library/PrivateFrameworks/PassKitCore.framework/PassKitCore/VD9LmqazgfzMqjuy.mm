@@ -10,9 +10,9 @@
 {
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"_classType"];
-  v6 = [v5 isEqualToString:@"settings"];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (v6)
+  if (isEqualToString)
   {
     v20.receiver = self;
     v20.super_class = VD9LmqazgfzMqjuy;

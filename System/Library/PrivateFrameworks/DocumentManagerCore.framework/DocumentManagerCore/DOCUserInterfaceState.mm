@@ -18,7 +18,7 @@
   lastUpdatedDate = self->_lastUpdatedDate;
   self->_lastUpdatedDate = date;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](date, lastUpdatedDate);
 }
 
 - (DOCUserInterfaceState)initWithDefaultSettingsForConfiguration:(id)configuration
@@ -374,13 +374,12 @@ LABEL_8:
 
 + (void)unarchivedFromData:(uint64_t)a1 configuration:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[DOCUserInterfaceState unarchivedFromData:configuration:error:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_249340000, a2, OS_LOG_TYPE_ERROR, "%s: Unable to unarchive most recent interface state. Error: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[DOCUserInterfaceState unarchivedFromData:configuration:error:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_249340000, a2, OS_LOG_TYPE_ERROR, "%s: Unable to unarchive most recent interface state. Error: %@", &v2, 0x16u);
 }
 
 @end

@@ -25,7 +25,7 @@
   v9 = &v8;
   v10 = 0x2020000000;
   v11 = 0;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -58,7 +58,7 @@ uint64_t __46__CRUsageInformation_shouldSuggestCarPlayTips__block_invoke(uint64_
 void __46__CRUsageInformation_shouldSuggestCarPlayTips__block_invoke_2(uint64_t a1, int a2)
 {
   v8 = *MEMORY[0x1E69E9840];
-  v4 = CarGeneralLogging();
+  v4 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"NO";

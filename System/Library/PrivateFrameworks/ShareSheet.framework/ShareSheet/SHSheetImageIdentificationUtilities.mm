@@ -7,16 +7,17 @@
 
 + (BOOL)isImageAnalysisFeatureEnabled
 {
-  if (_os_feature_enabled_impl() && (_ShareSheetImageAnalysisAllowed() & 1) != 0)
+  v2 = _os_feature_enabled_impl();
+  if (v2 && (_ShareSheetImageAnalysisAllowed(v2, v3) & 1) != 0)
   {
     return 1;
   }
 
-  v3 = share_sheet_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5 = share_sheet_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_18B359000, v3, OS_LOG_TYPE_DEFAULT, "Feature: PeopleIntelligence is unsupported. No Identification will be performed ", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_18B359000, v5, OS_LOG_TYPE_DEFAULT, "Feature: PeopleIntelligence is unsupported. No Identification will be performed ", v6, 2u);
   }
 
   return 0;

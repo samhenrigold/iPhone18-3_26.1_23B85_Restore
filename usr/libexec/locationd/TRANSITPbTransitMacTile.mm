@@ -168,29 +168,25 @@ LABEL_7:
   if ([(NSMutableArray *)self->_macs count])
   {
     v5 = [[NSMutableArray alloc] initWithCapacity:{-[NSMutableArray count](self->_macs, "count")}];
-    v12 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
     macs = self->_macs;
-    v7 = [(NSMutableArray *)macs countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(macs, 0);
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = MEMORY[0];
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v13 != v9)
+          if (MEMORY[0] != v9)
           {
             objc_enumerationMutation(macs);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)macs countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(macs);
       }
 
       while (v8);
@@ -267,7 +263,7 @@ LABEL_7:
   v10 = 0u;
   v11 = 0u;
   macs = self->_macs;
-  v6 = [(NSMutableArray *)macs countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(macs, a2, &v10, v14, 16);
   if (v6)
   {
     v7 = v6;
@@ -284,7 +280,7 @@ LABEL_7:
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)macs countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(macs);
     }
 
     while (v7);
@@ -443,7 +439,7 @@ LABEL_7:
   v15 = 0u;
   v16 = 0u;
   macs = self->_macs;
-  v9 = [(NSMutableArray *)macs countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(macs, 0);
   if (v9)
   {
     v10 = v9;
@@ -461,7 +457,7 @@ LABEL_7:
         [v6 addMacs:v13];
       }
 
-      v10 = [(NSMutableArray *)macs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(macs);
     }
 
     while (v10);
@@ -717,7 +713,7 @@ LABEL_7:
   v10 = 0u;
   v11 = 0u;
   v5 = *(from + 3);
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, a2, &v10, v14, 16);
   if (v6)
   {
     v7 = v6;
@@ -734,7 +730,7 @@ LABEL_7:
         [(TRANSITPbTransitMacTile *)self addMacs:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5);
     }
 
     while (v7);

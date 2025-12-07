@@ -88,101 +88,96 @@
 - (BOOL)getValue:(id *)value fieldIndex:(unsigned __int16)index
 {
   indexCopy = index;
-  value = self->_value;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v8 = self->_value;
-  if (objc_msgSend_count(v8, v9, v10, v11, v12) <= indexCopy)
+  v7 = self->_value;
+  if (objc_msgSend_count(v7, v8, v9, v10, v11) <= indexCopy)
   {
-    v20 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v16 = objc_msgSend_objectAtIndexedSubscript_(v8, v13, indexCopy, v14, v15);
+    v15 = objc_msgSend_objectAtIndexedSubscript_(v7, v12, indexCopy, v13, v14);
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 || objc_msgSend_conformsToProtocol_(v16, v17, &unk_285A4AE00, v18, v19))
+    if ((objc_opt_isKindOfClass() & 1) != 0 || objc_msgSend_conformsToProtocol_(v15, v16, &unk_285A4AE00, v17, v18))
     {
-      objc_storeStrong(value, v16);
-      v20 = 1;
+      objc_storeStrong(value, v15);
+      v19 = 1;
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
   }
 
-  return v20;
+  return v19;
 }
 
 - (BOOL)getLengthOfUint64Representation:(unint64_t *)representation
 {
-  value = self->_value;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v11 = isKindOfClass;
+  v10 = isKindOfClass;
   if (representation && (isKindOfClass & 1) != 0)
   {
-    *representation = objc_msgSend_count(self->_value, v7, v8, v9, v10);
+    *representation = objc_msgSend_count(self->_value, v6, v7, v8, v9);
   }
 
-  return v11 & 1;
+  return v10 & 1;
 }
 
 - (void)enumerateUint64Values:(id)values
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
-  value = self->_value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = self->_value;
+    v5 = self->_value;
+    v18 = 0u;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v20, v24, 16);
-    if (v8)
+    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v18, v22, 16);
+    if (v7)
     {
-      v9 = v8;
-      v10 = 0;
-      v11 = *v21;
+      v8 = v7;
+      v9 = 0;
+      v10 = *v19;
       do
       {
-        v12 = 0;
+        v11 = 0;
         do
         {
-          if (*v21 != v11)
+          if (*v19 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v5);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * v12);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           if (objc_opt_respondsToSelector())
           {
-            v18 = objc_msgSend_unsignedLongLongValue(v13, v14, v15, v16, v17);
-            valuesCopy[2](valuesCopy, v10, v18);
+            v17 = objc_msgSend_unsignedLongLongValue(v12, v13, v14, v15, v16);
+            valuesCopy[2](valuesCopy, v9, v17);
           }
 
-          ++v10;
-          ++v12;
+          ++v9;
+          ++v11;
         }
 
-        while (v9 != v12);
-        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v14, &v20, v24, 16);
+        while (v8 != v11);
+        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v13, &v18, v22, 16);
       }
 
-      while (v9);
+      while (v8);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqualToConstantEngineeringValue:(id)value

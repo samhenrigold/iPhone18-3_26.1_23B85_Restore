@@ -113,155 +113,153 @@ LABEL_6:
 
 - (id)filterSoftwareUpdateAssetArray:(id)array
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v89 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v90 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v86 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v87 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v101 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v107 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v104 objects:v121 count:16];
-  v91 = v5;
+  v6 = [v5 countByEnumeratingWithState:&v101 objects:v118 count:16];
+  v88 = v5;
   if (!v6)
   {
     goto LABEL_46;
   }
 
   v7 = v6;
-  v8 = 0x277D28000uLL;
-  v97 = *v105;
+  v94 = *v102;
   selfCopy = self;
   do
   {
-    v9 = 0;
-    v95 = v7;
+    v8 = 0;
+    v92 = v7;
     do
     {
-      if (*v105 != v97)
+      if (*v102 != v94)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v104 + 1) + 8 * v9);
-      v11 = *(v8 + 2496);
+      v9 = *(*(&v101 + 1) + 8 * v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        attributes = [v10 attributes];
+        attributes = [v9 attributes];
         oslog4 = [attributes safeStringForKey:@"ReleaseType"];
 
-        v14 = MEMORY[0x277D643F8];
+        v12 = MEMORY[0x277D643F8];
         mEMORY[0x277D64418] = [MEMORY[0x277D64418] sharedDevice];
         releaseType = [mEMORY[0x277D64418] releaseType];
-        LOBYTE(v14) = [v14 stringIsEqual:oslog4 to:releaseType];
+        LOBYTE(v12) = [v12 stringIsEqual:oslog4 to:releaseType];
 
-        if (v14)
+        if (v12)
         {
           selfCopy2 = self;
-          v18 = v5;
-          attributes2 = [v10 attributes];
-          v20 = [attributes2 safeObjectForKey:@"Revoked" ofClass:objc_opt_class()];
+          v16 = v5;
+          attributes2 = [v9 attributes];
+          v18 = [attributes2 safeObjectForKey:@"Revoked" ofClass:objc_opt_class()];
 
-          v94 = v20;
-          bOOLValue = [v20 BOOLValue];
-          attributes3 = [v10 attributes];
-          v23 = [attributes3 safeStringForKey:@"RestoreVersion"];
+          v91 = v18;
+          bOOLValue = [v18 BOOLValue];
+          attributes3 = [v9 attributes];
+          v21 = [attributes3 safeStringForKey:@"RestoreVersion"];
 
-          v24 = objc_alloc(MEMORY[0x277D64490]);
-          v25 = selfCopy2;
+          v22 = objc_alloc(MEMORY[0x277D64490]);
+          v23 = selfCopy2;
           installedSplatRestoreVersion = [(SUCorePolicyExtensionSplatUpdate *)selfCopy2 installedSplatRestoreVersion];
-          v27 = [v24 initWithRestoreVersion:installedSplatRestoreVersion];
+          v25 = [v22 initWithRestoreVersion:installedSplatRestoreVersion];
 
-          v28 = [objc_alloc(MEMORY[0x277D64490]) initWithRestoreVersion:v23];
-          v93 = v27;
-          v96 = v28;
-          if ([v27 isComparable:v28])
+          v26 = [objc_alloc(MEMORY[0x277D64490]) initWithRestoreVersion:v21];
+          v90 = v25;
+          v93 = v26;
+          if ([v25 isComparable:v26])
           {
-            v29 = [v27 compare:v28];
-            v30 = v29;
+            v27 = [v25 compare:v26];
+            v28 = v27;
             if (bOOLValue)
             {
-              v5 = v18;
-              if (v29)
+              v5 = v16;
+              if (v27)
               {
                 mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
                 oslog = [mEMORY[0x277D64460] oslog];
 
-                oslog3 = v94;
+                oslog3 = v91;
                 if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543874;
-                  selfCopy7 = v23;
-                  v111 = 2114;
-                  v112 = oslog4;
-                  v113 = 2114;
-                  v114 = @"NO";
-                  v34 = oslog;
+                  selfCopy7 = v21;
+                  v108 = 2114;
+                  v109 = oslog4;
+                  v110 = 2114;
+                  v111 = @"NO";
+                  v32 = oslog;
                   goto LABEL_26;
                 }
               }
 
               else
               {
-                [v89 addObject:v10];
+                [v86 addObject:v9];
                 mEMORY[0x277D64460]2 = [MEMORY[0x277D64460] sharedLogger];
                 oslog = [mEMORY[0x277D64460]2 oslog];
 
-                oslog3 = v94;
+                oslog3 = v91;
                 if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543874;
-                  selfCopy7 = v23;
-                  v111 = 2114;
-                  v112 = oslog4;
-                  v113 = 2114;
-                  v114 = @"YES";
-                  v34 = oslog;
+                  selfCopy7 = v21;
+                  v108 = 2114;
+                  v109 = oslog4;
+                  v110 = 2114;
+                  v111 = @"YES";
+                  v32 = oslog;
 LABEL_26:
-                  _os_log_impl(&dword_23193C000, v34, OS_LOG_TYPE_DEFAULT, "[POLICY] filtering revoked asset by restore version, restoreVersion=%{public}@, releaseType=%{public}@ | keep=%{public}@", buf, 0x20u);
+                  _os_log_impl(&dword_23193C000, v32, OS_LOG_TYPE_DEFAULT, "[POLICY] filtering revoked asset by restore version, restoreVersion=%{public}@, releaseType=%{public}@ | keep=%{public}@", buf, 0x20u);
                 }
               }
             }
 
             else
             {
-              installedSplatProductVersionExtra = [(SUCorePolicyExtensionSplatUpdate *)v25 installedSplatProductVersionExtra];
-              v43 = [(SUCorePolicyExtensionSplatUpdate *)v25 _stringRemovingParenthesis:installedSplatProductVersionExtra];
-              v44 = v43;
-              v45 = &stru_28469CC48;
-              if (v43)
+              installedSplatProductVersionExtra = [(SUCorePolicyExtensionSplatUpdate *)v23 installedSplatProductVersionExtra];
+              v41 = [(SUCorePolicyExtensionSplatUpdate *)v23 _stringRemovingParenthesis:installedSplatProductVersionExtra];
+              v42 = v41;
+              v43 = &stru_28469CC48;
+              if (v41)
               {
-                v45 = v43;
+                v43 = v41;
               }
 
-              oslog = v45;
+              oslog = v43;
 
-              attributes4 = [v10 attributes];
-              v47 = [attributes4 safeStringForKey:@"ProductVersionExtra"];
-              v48 = [(SUCorePolicyExtensionSplatUpdate *)v25 _stringRemovingParenthesis:v47];
+              attributes4 = [v9 attributes];
+              v45 = [attributes4 safeStringForKey:@"ProductVersionExtra"];
+              v46 = [(SUCorePolicyExtensionSplatUpdate *)v23 _stringRemovingParenthesis:v45];
 
-              if (v48)
+              if (v46)
               {
-                v49 = [oslog compare:v48 options:1]== -1;
+                v47 = [oslog compare:v46 options:1]== -1;
+              }
+
+              else
+              {
+                v47 = 0;
+              }
+
+              oslog3 = v91;
+              if (v28 == -1 || !v28 && ([(SUCorePolicyExtensionSplatUpdate *)selfCopy allowSameRestoreVersion]|| v47))
+              {
+                [v87 addObject:v9];
+                v49 = 1;
               }
 
               else
               {
                 v49 = 0;
-              }
-
-              oslog3 = v94;
-              if (v30 == -1 || !v30 && ([(SUCorePolicyExtensionSplatUpdate *)selfCopy allowSameRestoreVersion]|| v49))
-              {
-                [v90 addObject:v10];
-                v51 = 1;
-              }
-
-              else
-              {
-                v51 = 0;
               }
 
               mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
@@ -271,40 +269,40 @@ LABEL_26:
               {
                 allowSameRestoreVersion = [(SUCorePolicyExtensionSplatUpdate *)selfCopy allowSameRestoreVersion];
                 *buf = 138544642;
-                v55 = @"YES";
+                v53 = @"YES";
                 if (allowSameRestoreVersion)
                 {
-                  v56 = @"YES";
+                  v54 = @"YES";
                 }
 
                 else
                 {
-                  v56 = @"NO";
+                  v54 = @"NO";
                 }
 
-                selfCopy7 = v23;
-                if (!v51)
+                selfCopy7 = v21;
+                if (!v49)
                 {
-                  v55 = @"NO";
+                  v53 = @"NO";
                 }
 
-                v111 = 2114;
-                v112 = oslog4;
-                v113 = 2114;
-                v114 = oslog;
-                v115 = 2114;
-                v116 = v48;
-                v117 = 2114;
-                v118 = v56;
-                v119 = 2114;
-                v120 = v55;
+                v108 = 2114;
+                v109 = oslog4;
+                v110 = 2114;
+                v111 = oslog;
+                v112 = 2114;
+                v113 = v46;
+                v114 = 2114;
+                v115 = v54;
+                v116 = 2114;
+                v117 = v53;
                 _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[POLICY] filtering update asset by restore version, restoreVersion=%{public}@, releaseType=%{public}@ installedProductVersionExtra=%{public}@ targetProductVersionExtra=%{public}@ allowSameRestoreVersion=%{public}@ | keep=%{public}@", buf, 0x3Eu);
               }
 
-              v5 = v91;
+              v5 = v88;
             }
 
-            v7 = v95;
+            v7 = v92;
           }
 
           else
@@ -312,20 +310,20 @@ LABEL_26:
             mEMORY[0x277D64460]4 = [MEMORY[0x277D64460] sharedLogger];
             oslog = [mEMORY[0x277D64460]4 oslog];
 
-            v5 = v18;
+            v5 = v16;
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543874;
               selfCopy7 = selfCopy;
-              v111 = 2114;
-              v112 = v27;
-              v113 = 2114;
-              v114 = v96;
+              v108 = 2114;
+              v109 = v25;
+              v110 = 2114;
+              v111 = v93;
               _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ Incomparable RestoreVersion. Skipping asset for installedSplatRestoreVersion=%{public}@ targetSplatRestoreVersion=%{public}@", buf, 0x20u);
             }
 
-            v7 = v95;
-            oslog3 = v94;
+            v7 = v92;
+            oslog3 = v91;
           }
 
           self = selfCopy;
@@ -336,22 +334,21 @@ LABEL_26:
           mEMORY[0x277D64460]5 = [MEMORY[0x277D64460] sharedLogger];
           oslog3 = [mEMORY[0x277D64460]5 oslog];
 
-          v7 = v95;
+          v7 = v92;
           if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
           {
             mEMORY[0x277D64418]2 = [MEMORY[0x277D64418] sharedDevice];
             releaseType2 = [mEMORY[0x277D64418]2 releaseType];
             *buf = 138543874;
             selfCopy7 = self;
-            v111 = 2114;
-            v112 = oslog4;
-            v113 = 2114;
-            v114 = releaseType2;
+            v108 = 2114;
+            v109 = oslog4;
+            v110 = 2114;
+            v111 = releaseType2;
             _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "%{public}@ Incompatible asset ReleaseType: %{public}@ Device ReleaseType: %{public}@", buf, 0x20u);
           }
         }
 
-        v8 = 0x277D28000;
         goto LABEL_44;
       }
 
@@ -360,73 +357,73 @@ LABEL_26:
 
       if (os_log_type_enabled(oslog4, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
+        v34 = objc_opt_class();
+        v35 = NSStringFromClass(v34);
         *buf = 138543618;
         selfCopy7 = self;
-        v111 = 2112;
-        v112 = v37;
+        v108 = 2112;
+        v109 = v35;
         _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "%{public}@ Unexpected type in MobileAsset asset array: %@", buf, 0x16u);
       }
 
 LABEL_44:
 
-      ++v9;
+      ++v8;
     }
 
-    while (v7 != v9);
-    v7 = [v5 countByEnumeratingWithState:&v104 objects:v121 count:16];
+    while (v7 != v8);
+    v7 = [v5 countByEnumeratingWithState:&v101 objects:v118 count:16];
   }
 
   while (v7);
 LABEL_46:
 
-  v57 = objc_alloc(MEMORY[0x277D64408]);
-  v58 = [v57 initWithProjectName:*MEMORY[0x277D64540]];
-  lastObject = [v58 getStringConfigForKey:*MEMORY[0x277D64508]];
+  v55 = objc_alloc(MEMORY[0x277D64408]);
+  v56 = [v55 initWithProjectName:*MEMORY[0x277D64540]];
+  lastObject = [v56 getStringConfigForKey:*MEMORY[0x277D64508]];
 
   if (lastObject)
   {
     goto LABEL_57;
   }
 
-  v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v97 = 0u;
+  v98 = 0u;
+  v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v103 = 0u;
-  v61 = v90;
-  v62 = [v61 countByEnumeratingWithState:&v100 objects:v108 count:16];
-  if (v62)
+  v59 = v87;
+  v60 = [v59 countByEnumeratingWithState:&v97 objects:v105 count:16];
+  if (v60)
   {
-    v63 = v62;
-    v64 = *v101;
+    v61 = v60;
+    v62 = *v98;
     do
     {
-      for (i = 0; i != v63; ++i)
+      for (i = 0; i != v61; ++i)
       {
-        if (*v101 != v64)
+        if (*v98 != v62)
         {
-          objc_enumerationMutation(v61);
+          objc_enumerationMutation(v59);
         }
 
-        attributes5 = [*(*(&v100 + 1) + 8 * i) attributes];
-        v67 = [attributes5 safeStringForKey:@"ProductVersionExtra"];
+        attributes5 = [*(*(&v97 + 1) + 8 * i) attributes];
+        v65 = [attributes5 safeStringForKey:@"ProductVersionExtra"];
 
-        if (v67)
+        if (v65)
         {
-          [v60 addObject:v67];
+          [v58 addObject:v65];
         }
       }
 
-      v63 = [v61 countByEnumeratingWithState:&v100 objects:v108 count:16];
+      v61 = [v59 countByEnumeratingWithState:&v97 objects:v105 count:16];
     }
 
-    while (v63);
+    while (v61);
   }
 
-  v68 = [v60 sortedArrayUsingSelector:sel_compare_];
-  lastObject = [v68 lastObject];
+  v66 = [v58 sortedArrayUsingSelector:sel_compare_];
+  lastObject = [v66 lastObject];
 
   if (lastObject)
   {
@@ -436,83 +433,83 @@ LABEL_57:
 
     if (os_log_type_enabled(oslog5, OS_LOG_TYPE_DEFAULT))
     {
-      v71 = [v90 count];
+      v69 = [v87 count];
       *buf = 134218242;
-      selfCopy7 = v71;
-      v111 = 2114;
-      v112 = lastObject;
+      selfCopy7 = v69;
+      v108 = 2114;
+      v109 = lastObject;
       _os_log_impl(&dword_23193C000, oslog5, OS_LOG_TYPE_DEFAULT, "[POLICY] %lu update assets before filtering for productVersionExtra=%{public}@", buf, 0x16u);
     }
 
-    v72 = MEMORY[0x277CCAC30];
-    v98[0] = MEMORY[0x277D85DD0];
-    v98[1] = 3221225472;
-    v98[2] = __67__SUCorePolicyExtensionSplatUpdate_filterSoftwareUpdateAssetArray___block_invoke;
-    v98[3] = &unk_27892C8F8;
+    v70 = MEMORY[0x277CCAC30];
+    v95[0] = MEMORY[0x277D85DD0];
+    v95[1] = 3221225472;
+    v95[2] = __67__SUCorePolicyExtensionSplatUpdate_filterSoftwareUpdateAssetArray___block_invoke;
+    v95[3] = &unk_27892C8F8;
     lastObject = lastObject;
-    v99 = lastObject;
-    v73 = [v72 predicateWithBlock:v98];
-    v74 = [v90 filteredArrayUsingPredicate:v73];
+    v96 = lastObject;
+    v71 = [v70 predicateWithBlock:v95];
+    v72 = [v87 filteredArrayUsingPredicate:v71];
 
-    v61 = [v74 mutableCopy];
+    v59 = [v72 mutableCopy];
     mEMORY[0x277D64460]8 = [MEMORY[0x277D64460] sharedLogger];
     oslog6 = [mEMORY[0x277D64460]8 oslog];
 
     if (os_log_type_enabled(oslog6, OS_LOG_TYPE_DEFAULT))
     {
-      v77 = [v61 count];
+      v75 = [v59 count];
       *buf = 134218242;
-      selfCopy7 = v77;
-      v111 = 2114;
-      v112 = lastObject;
+      selfCopy7 = v75;
+      v108 = 2114;
+      v109 = lastObject;
       _os_log_impl(&dword_23193C000, oslog6, OS_LOG_TYPE_DEFAULT, "[POLICY] %lu update assets left after filtering for productVersionExtra=%{public}@", buf, 0x16u);
     }
 
-    v78 = v91;
+    v76 = v88;
   }
 
   else
   {
-    v78 = v91;
+    v76 = v88;
   }
 
-  if (![v61 count])
+  if (![v59 count])
   {
-    v82 = [v89 count];
+    v80 = [v86 count];
     mEMORY[0x277D64460]9 = [MEMORY[0x277D64460] sharedLogger];
     oslog7 = [mEMORY[0x277D64460]9 oslog];
 
-    v84 = os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT);
-    if (v82)
+    v82 = os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT);
+    if (v80)
     {
-      v78 = v91;
-      if (v84)
+      v76 = v88;
+      if (v82)
       {
         *buf = 138543618;
         selfCopy7 = self;
-        v111 = 2082;
-        v112 = "[SUCorePolicyExtensionSplatUpdate filterSoftwareUpdateAssetArray:]";
-        v85 = "%{public}@ %{public}s - Returning splat rollback";
+        v108 = 2082;
+        v109 = "[SUCorePolicyExtensionSplatUpdate filterSoftwareUpdateAssetArray:]";
+        v83 = "%{public}@ %{public}s - Returning splat rollback";
 LABEL_72:
-        _os_log_impl(&dword_23193C000, oslog7, OS_LOG_TYPE_DEFAULT, v85, buf, 0x16u);
+        _os_log_impl(&dword_23193C000, oslog7, OS_LOG_TYPE_DEFAULT, v83, buf, 0x16u);
       }
     }
 
     else
     {
-      v78 = v91;
-      if (v84)
+      v76 = v88;
+      if (v82)
       {
         *buf = 138543618;
         selfCopy7 = self;
-        v111 = 2082;
-        v112 = "[SUCorePolicyExtensionSplatUpdate filterSoftwareUpdateAssetArray:]";
-        v85 = "%{public}@ %{public}s - Returning empty asset set";
+        v108 = 2082;
+        v109 = "[SUCorePolicyExtensionSplatUpdate filterSoftwareUpdateAssetArray:]";
+        v83 = "%{public}@ %{public}s - Returning empty asset set";
         goto LABEL_72;
       }
     }
 
-    v81 = v89;
+    v79 = v86;
     goto LABEL_74;
   }
 
@@ -523,22 +520,21 @@ LABEL_72:
   {
     *buf = 138543618;
     selfCopy7 = self;
-    v111 = 2082;
-    v112 = "[SUCorePolicyExtensionSplatUpdate filterSoftwareUpdateAssetArray:]";
+    v108 = 2082;
+    v109 = "[SUCorePolicyExtensionSplatUpdate filterSoftwareUpdateAssetArray:]";
     _os_log_impl(&dword_23193C000, oslog7, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s - Returning splat updates", buf, 0x16u);
   }
 
-  v81 = v61;
+  v79 = v59;
 LABEL_74:
 
-  v86 = v81;
-  v87 = *MEMORY[0x277D85DE8];
-  return v81;
+  v84 = v79;
+  return v79;
 }
 
 uint64_t __67__SUCorePolicyExtensionSplatUpdate_filterSoftwareUpdateAssetArray___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277D643F8];
   v5 = [v3 attributes];
@@ -555,27 +551,26 @@ uint64_t __67__SUCorePolicyExtensionSplatUpdate_filterSoftwareUpdateAssetArray__
     v12 = [v11 safeStringForKey:@"ProductVersionExtra"];
     v13 = v12;
     v14 = @"NO";
-    v17 = 138543874;
-    v18 = v10;
-    v19 = 2114;
+    v16 = 138543874;
+    v17 = v10;
+    v18 = 2114;
     if (v7)
     {
       v14 = @"YES";
     }
 
-    v20 = v12;
-    v21 = 2114;
-    v22 = v14;
-    _os_log_impl(&dword_23193C000, v9, OS_LOG_TYPE_DEFAULT, "[POLICY] filtering update asset for productVersionExtra=%{public}@, assetProductVersionExtra=%{public}@ | keep=%{public}@", &v17, 0x20u);
+    v19 = v12;
+    v20 = 2114;
+    v21 = v14;
+    _os_log_impl(&dword_23193C000, v9, OS_LOG_TYPE_DEFAULT, "[POLICY] filtering update asset for productVersionExtra=%{public}@, assetProductVersionExtra=%{public}@ | keep=%{public}@", &v16, 0x20u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)extendMASoftwareUpdateCatalogDownloadOptions:(id)options
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -666,8 +661,8 @@ uint64_t __67__SUCorePolicyExtensionSplatUpdate_filterSoftwareUpdateAssetArray__
     {
       *buf = 138543618;
       selfCopy = self;
-      v44 = 2114;
-      v45 = v37;
+      v43 = 2114;
+      v44 = v37;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ downloading software update catalog with extended download options: %{public}@", buf, 0x16u);
     }
   }
@@ -685,8 +680,6 @@ uint64_t __67__SUCorePolicyExtensionSplatUpdate_filterSoftwareUpdateAssetArray__
 
     v37 = @"|";
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (SUCorePolicyExtensionSplatUpdate)initWithCoder:(id)coder

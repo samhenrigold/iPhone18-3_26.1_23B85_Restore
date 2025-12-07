@@ -46,7 +46,7 @@
 
 - (id)_hf_accessoryTopics:()HFUserNotificationTopics
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   if (a3)
   {
@@ -65,11 +65,11 @@
       v10 = HFLogForCategory(0x34uLL);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 134218242;
+        v30 = 134218242;
         selfCopy = [hf_applianceAccessories count];
-        v33 = 2112;
-        *v34 = hf_applianceAccessories;
-        _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Adding appliance HFUserNotificationServiceTopic. Found %lu accessories: %@", &v31, 0x16u);
+        v32 = 2112;
+        *v33 = hf_applianceAccessories;
+        _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Adding appliance HFUserNotificationServiceTopic. Found %lu accessories: %@", &v30, 0x16u);
       }
 
       v11 = +[HFUserNotificationServiceTopic _applianceTopic];
@@ -96,19 +96,19 @@
     v20 = +[HFHomeKitDispatcher sharedDispatcher];
     homeManager2 = [v20 homeManager];
     homeSafetySecurityEnabled = [homeManager2 homeSafetySecurityEnabled];
-    v31 = 138413570;
+    v30 = 138413570;
     selfCopy = self;
-    v33 = 1024;
-    *v34 = hf_canUpdateToHH2;
-    *&v34[4] = 1024;
-    *&v34[6] = hasOptedToHH2;
-    v35 = 1024;
-    v36 = hf_hasHomePods;
-    v37 = 1024;
-    v38 = hf_hasAtleastOneSafetyAndSecuritySupportedAccessory;
-    v39 = 1024;
-    v40 = homeSafetySecurityEnabled;
-    _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Home:%@ canUpdateToHH2:%{BOOL}d hasOptedToHH2:%{BOOL}d hasHomePods:%{BOOL}d hasAtleastOneSafetyAndSecuritySupportedAccessory = %{BOOL}d, homeSafetySecurityEnabled = %{BOOL}d ", &v31, 0x2Au);
+    v32 = 1024;
+    *v33 = hf_canUpdateToHH2;
+    *&v33[4] = 1024;
+    *&v33[6] = hasOptedToHH2;
+    v34 = 1024;
+    v35 = hf_hasHomePods;
+    v36 = 1024;
+    v37 = hf_hasAtleastOneSafetyAndSecuritySupportedAccessory;
+    v38 = 1024;
+    v39 = homeSafetySecurityEnabled;
+    _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Home:%@ canUpdateToHH2:%{BOOL}d hasOptedToHH2:%{BOOL}d hasHomePods:%{BOOL}d hasAtleastOneSafetyAndSecuritySupportedAccessory = %{BOOL}d, homeSafetySecurityEnabled = %{BOOL}d ", &v30, 0x2Au);
   }
 
   if (![self hf_hasHomePods] || !objc_msgSend(self, "hf_canUpdateToHH2"))
@@ -163,14 +163,12 @@ LABEL_29:
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)hf_userNotificationServiceTopics
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v3 homeManager];
@@ -191,11 +189,11 @@ LABEL_29:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v31 = "[HMHome(HFUserNotificationTopics) hf_userNotificationServiceTopics]";
-    v32 = 1024;
-    v33 = hasOptedToHH2;
-    v34 = 1024;
-    v35 = v7;
+    v30 = "[HMHome(HFUserNotificationTopics) hf_userNotificationServiceTopics]";
+    v31 = 1024;
+    v32 = hasOptedToHH2;
+    v33 = 1024;
+    v34 = v7;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%s hasOptedToHH2 = %{BOOL}d, shouldShowNotificationsItem = %{BOOL}d ", buf, 0x18u);
   }
 
@@ -207,14 +205,14 @@ LABEL_29:
 
     _hf_groupedServiceTypeTopics = [objc_opt_class() _hf_groupedServiceTypeTopics];
     v13 = MEMORY[0x277CBEB98];
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __68__HMHome_HFUserNotificationTopics__hf_userNotificationServiceTopics__block_invoke_4;
-    v27 = &unk_277DFDAE8;
-    v28 = _hf_groupedServiceTypeTopics;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __68__HMHome_HFUserNotificationTopics__hf_userNotificationServiceTopics__block_invoke_4;
+    v26 = &unk_277DFDAE8;
+    v27 = _hf_groupedServiceTypeTopics;
     selfCopy = self;
     v14 = _hf_groupedServiceTypeTopics;
-    v15 = [v11 na_dictionaryByMappingValues:&v24];
+    v15 = [v11 na_dictionaryByMappingValues:&v23];
     allValues = [v15 allValues];
     v17 = [v13 setWithArray:allValues];
 
@@ -233,8 +231,6 @@ LABEL_29:
     v21 = +[HFUserNotificationServiceTopic _energyTopic];
     [v2 na_safeAddObject:v21];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -433,21 +429,19 @@ LABEL_29:
 
 - (id)hf_allObjectsAffectedByServiceTopic:()HFUserNotificationTopics
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [self hf_servicesAffectedByServiceTopic:v4];
-  v13[0] = v5;
+  v12[0] = v5;
   v6 = [self hf_cameraProfilesAffectedByServiceTopic:v4];
-  v13[1] = v6;
+  v12[1] = v6;
   v7 = [self hf_safetyAndSecurityAccessoriesAffectedByServiceTopic:v4];
-  v13[2] = v7;
+  v12[2] = v7;
   v8 = [self hf_vacuumAccessoriesAffectedByServiceTopic:v4];
 
-  v13[3] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
+  v12[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
   na_arrayByFlattening = [v9 na_arrayByFlattening];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return na_arrayByFlattening;
 }

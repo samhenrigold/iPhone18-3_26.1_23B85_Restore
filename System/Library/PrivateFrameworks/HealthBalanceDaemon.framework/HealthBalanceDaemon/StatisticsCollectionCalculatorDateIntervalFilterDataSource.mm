@@ -9,38 +9,36 @@
 {
   v12 = sub_22892DDC8();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
   MEMORY[0x28223BE20](v12);
-  v16 = &v28[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = &v26[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_2288CD8F0(0);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x28223BE20](v17 - 8);
-  v20 = &v28[-((v19 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v21 = _Block_copy(handler);
-  v22 = _Block_copy(mergeHandler);
+  MEMORY[0x28223BE20](v16 - 8);
+  v18 = &v26[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v19 = _Block_copy(handler);
+  v20 = _Block_copy(mergeHandler);
   if (interval)
   {
     sub_22892DD68();
-    (*(v13 + 32))(v20, v16, v12);
-    v23 = (*(v13 + 56))(v20, 0, 1, v12);
+    (*(v13 + 32))(v18, v15, v12);
+    v21 = (*(v13 + 56))(v18, 0, 1, v12);
   }
 
   else
   {
-    v23 = (*(v13 + 56))(v20, 1, 1, v12);
+    v21 = (*(v13 + 56))(v18, 1, 1, v12);
   }
 
-  v24 = MEMORY[0x28223BE20](v23);
-  *&v28[-16] = v21;
-  MEMORY[0x28223BE20](v24);
-  *&v28[-16] = v22;
+  v22 = MEMORY[0x28223BE20](v21);
+  *&v26[-16] = v19;
+  MEMORY[0x28223BE20](v22);
+  *&v26[-16] = v20;
   calculatorCopy = calculator;
   selfCopy = self;
-  sub_2288EC974(calculatorCopy, v20, sub_2288ED1C0, &v28[-32], sub_2288ED1F4, &v28[-32]);
-  sub_2288CA8C4(v20);
+  sub_2288EC974(calculatorCopy, v18, sub_2288ED1C0, &v26[-32], sub_2288ED1F4, &v26[-32]);
+  sub_2288CA8C4(v18);
 
-  _Block_release(v22);
-  _Block_release(v21);
+  _Block_release(v20);
+  _Block_release(v19);
   return 1;
 }
 

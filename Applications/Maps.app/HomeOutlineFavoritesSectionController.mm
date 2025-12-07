@@ -164,10 +164,10 @@ LABEL_14:
       v16 = v20;
       if (item && v20)
       {
-        configuration = [(HomeOutlineSectionController *)self configuration];
-        actionCoordinator = [configuration actionCoordinator];
-        configuration2 = [(HomeOutlineSectionController *)self configuration];
-        homeActionDelegate = [configuration2 homeActionDelegate];
+        v26 = objc_msgSend_configuration(self);
+        actionCoordinator = [v26 actionCoordinator];
+        v25 = objc_msgSend_configuration(self);
+        homeActionDelegate = [v25 homeActionDelegate];
         homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
         v23 = [ShortcutEditSession addSessionWithShortcut:item];
         [actionCoordinator viewController:homeContaineeViewController showAddShortcut:v23];
@@ -671,8 +671,8 @@ LABEL_12:
   }
 
   windowScene = [v8 windowScene];
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  collectionView = [configuration collectionView];
+  v15 = objc_msgSend_configuration(self);
+  collectionView = [v15 collectionView];
   window = [collectionView window];
   windowScene2 = [window windowScene];
   if (windowScene == windowScene2)
@@ -691,8 +691,8 @@ LABEL_12:
     itemSnapshot = [v13 itemSnapshot];
     identifierPath = [itemSnapshot identifierPath];
     firstIdentifier = [identifierPath firstIdentifier];
-    configuration2 = [(HomeOutlineSectionController *)self configuration];
-    sectionIdentifier = [configuration2 sectionIdentifier];
+    v23 = objc_msgSend_configuration(self);
+    sectionIdentifier = [v23 sectionIdentifier];
     v25 = sectionIdentifier;
     if (firstIdentifier == sectionIdentifier)
     {
@@ -874,10 +874,10 @@ LABEL_30:
     v15 = [(HomeOutlineSectionController *)self delegate:v21];
     [v15 sectionController:self setNeedsApplySnapshotAnimated:1];
 
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
-    configuration2 = [(HomeOutlineSectionController *)self configuration];
-    homeActionDelegate = [configuration2 homeActionDelegate];
+    v16 = objc_msgSend_configuration(self);
+    actionCoordinator = [v16 actionCoordinator];
+    v18 = objc_msgSend_configuration(self);
+    homeActionDelegate = [v18 homeActionDelegate];
     homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
     [actionCoordinator viewController:homeContaineeViewController editShortcut:self->_shortcutEditSession sourceView:viewCopy sourceRect:{x, y, width, height}];
 
@@ -946,10 +946,10 @@ LABEL_9:
 
 - (void)_addFavorite
 {
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  actionCoordinator = [configuration actionCoordinator];
-  configuration2 = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration2 homeActionDelegate];
+  v3 = objc_msgSend_configuration(self, a2);
+  actionCoordinator = [v3 actionCoordinator];
+  v5 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v5 homeActionDelegate];
   homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
   v8 = +[ShortcutEditSession addSession];
   [actionCoordinator viewController:homeContaineeViewController showAddShortcut:v8];
@@ -1101,8 +1101,8 @@ LABEL_16:
 
   v10 = [[NSUserActivity alloc] initWithActivityType:@"com.apple.Maps.NewWindow"];
   [v10 setEligibleForHandoff:0];
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration homeActionDelegate];
+  v11 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v11 homeActionDelegate];
   homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
   _maps_mapsSceneDelegate = [homeContaineeViewController _maps_mapsSceneDelegate];
   v15 = [_maps_mapsSceneDelegate mapsActivityWithFidelity:2];
@@ -1120,8 +1120,8 @@ LABEL_16:
   }
 
   v19 = objc_alloc_init(UISceneActivationRequestOptions);
-  configuration2 = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate2 = [configuration2 homeActionDelegate];
+  v20 = objc_msgSend_configuration(self);
+  homeActionDelegate2 = [v20 homeActionDelegate];
   homeContaineeViewController2 = [homeActionDelegate2 homeContaineeViewController];
   _maps_uiScene = [homeContaineeViewController2 _maps_uiScene];
   [v19 setRequestingScene:_maps_uiScene];
@@ -1187,8 +1187,8 @@ LABEL_16:
 
     if (v14)
     {
-      configuration = [(HomeOutlineSectionController *)self configuration];
-      collectionView = [configuration collectionView];
+      v15 = objc_msgSend_configuration(self);
+      collectionView = [v15 collectionView];
       v17 = [collectionView cellForItemAtIndexPath:v14];
 
       objc_opt_class();
@@ -1425,8 +1425,8 @@ LABEL_23:
   sectionIdentifierPath = [(HomeOutlineSectionController *)self sectionIdentifierPath];
   v5 = [delegate sectionController:self indexPathForIdentifierPath:sectionIdentifierPath];
 
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  collectionView = [configuration collectionView];
+  v6 = objc_msgSend_configuration(self);
+  collectionView = [v6 collectionView];
   v8 = [collectionView cellForItemAtIndexPath:v5];
 
   if (v8)
@@ -1445,8 +1445,8 @@ LABEL_23:
   shortcutsForMapsHome = [(MapsFavoritesManager *)self->_favoritesDataProvider shortcutsForMapsHome];
   v4 = [NSMutableArray arrayWithArray:shortcutsForMapsHome];
 
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  sectionIdentifier = [configuration sectionIdentifier];
+  v5 = objc_msgSend_configuration(self);
+  sectionIdentifier = [v5 sectionIdentifier];
   v21[0] = _NSConcreteStackBlock;
   v21[1] = 3221225472;
   v21[2] = sub_100CA4F70;

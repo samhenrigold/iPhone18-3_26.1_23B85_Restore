@@ -85,7 +85,7 @@ void __62__SUScriptStoreSheetViewController_loadWithProductParameters___block_in
   }
 }
 
-uint64_t __55__SUScriptStoreSheetViewController_loadWithProductURL___block_invoke(uint64_t a1)
+void *__55__SUScriptStoreSheetViewController_loadWithProductURL___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x1E695DFF8] URLWithString:*(a1 + 32)];
   if (result)
@@ -111,7 +111,7 @@ uint64_t __55__SUScriptStoreSheetViewController_loadWithProductURL___block_invok
   return v2;
 }
 
-uint64_t __52__SUScriptStoreSheetViewController_productPageStyle__block_invoke(uint64_t a1)
+void *__52__SUScriptStoreSheetViewController_productPageStyle__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "nativeViewController")];
   *(*(*(a1 + 40) + 8) + 24) = result;

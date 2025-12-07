@@ -49,7 +49,7 @@
 {
   if (self == equal)
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else
@@ -57,22 +57,30 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = -[NSString isEqualToString:](self->_leftSingleQuote, "isEqualToString:", [equal leftSingleQuote]);
-      if (v5)
+      leftSingleQuote = self->_leftSingleQuote;
+      [equal leftSingleQuote];
+      isEqualToString = objc_msgSend_isEqualToString_(leftSingleQuote);
+      if (isEqualToString)
       {
-        v5 = -[NSString isEqualToString:](self->_rightSingleQuote, "isEqualToString:", [equal rightSingleQuote]);
-        if (v5)
+        rightSingleQuote = self->_rightSingleQuote;
+        [equal rightSingleQuote];
+        isEqualToString = objc_msgSend_isEqualToString_(rightSingleQuote);
+        if (isEqualToString)
         {
-          v5 = -[NSString isEqualToString:](self->_apostrophe, "isEqualToString:", [equal apostrophe]);
-          if (v5)
+          apostrophe = self->_apostrophe;
+          [equal apostrophe];
+          isEqualToString = objc_msgSend_isEqualToString_(apostrophe);
+          if (isEqualToString)
           {
-            v5 = -[NSString isEqualToString:](self->_leftDoubleQuote, "isEqualToString:", [equal leftDoubleQuote]);
-            if (v5)
+            leftDoubleQuote = self->_leftDoubleQuote;
+            [equal leftDoubleQuote];
+            isEqualToString = objc_msgSend_isEqualToString_(leftDoubleQuote);
+            if (isEqualToString)
             {
               rightDoubleQuote = self->_rightDoubleQuote;
-              rightDoubleQuote = [equal rightDoubleQuote];
+              [equal rightDoubleQuote];
 
-              LOBYTE(v5) = [(NSString *)rightDoubleQuote isEqualToString:rightDoubleQuote];
+              LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(rightDoubleQuote);
             }
           }
         }
@@ -81,11 +89,11 @@
 
     else
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(isEqualToString) = 0;
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

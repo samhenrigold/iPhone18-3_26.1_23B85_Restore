@@ -48,7 +48,7 @@
   return bOOLValue & 1;
 }
 
-uint64_t __67__PGMoodGenerationContext_locationIsLongTimeNoSeeWithLocationNode___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__67__PGMoodGenerationContext_locationIsLongTimeNoSeeWithLocationNode___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 endsBeforeLocalDate:*(*(a1 + 32) + 40)];
   if ((result & 1) == 0)
@@ -100,7 +100,7 @@ uint64_t __67__PGMoodGenerationContext_locationIsLongTimeNoSeeWithLocationNode__
   return bOOLValue & 1;
 }
 
-uint64_t __73__PGMoodGenerationContext_socialGroupIsLongTimeNoSeeWithSocialGroupNode___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__73__PGMoodGenerationContext_socialGroupIsLongTimeNoSeeWithSocialGroupNode___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) momentIsLongTimeNoSeeForPeopleWithMomentNode:a2];
   if ((result & 1) == 0)
@@ -152,7 +152,7 @@ uint64_t __73__PGMoodGenerationContext_socialGroupIsLongTimeNoSeeWithSocialGroup
   return bOOLValue & 1;
 }
 
-uint64_t __63__PGMoodGenerationContext_personIsLongTimeNoSeeWithPersonNode___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__63__PGMoodGenerationContext_personIsLongTimeNoSeeWithPersonNode___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) momentIsLongTimeNoSeeForPeopleWithMomentNode:a2];
   if ((result & 1) == 0)

@@ -15,18 +15,16 @@
 {
   if (*(self + 3))
   {
-    v2 = *(self + 2);
-    v3 = *(self + 3);
 
-    v4 = sub_2699038FC();
+    v2 = sub_2699038FC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setName:(id)name
@@ -42,7 +40,6 @@
     v5 = 0;
   }
 
-  v6 = *(self + 3);
   *(self + 2) = v4;
   *(self + 3) = v5;
 }
@@ -51,18 +48,16 @@
 {
   if (*(self + 5))
   {
-    v2 = *(self + 4);
-    v3 = *(self + 5);
 
-    v4 = sub_2699038FC();
+    v2 = sub_2699038FC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setRoomName:(id)name
@@ -78,7 +73,6 @@
     v5 = 0;
   }
 
-  v6 = *(self + 5);
   *(self + 4) = v4;
   *(self + 5) = v5;
 }
@@ -87,18 +81,16 @@
 {
   if (*(self + 8))
   {
-    v2 = *(self + 7);
-    v3 = *(self + 8);
 
-    v4 = sub_2699038FC();
+    v2 = sub_2699038FC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setMediaRouteIdentifier:(id)identifier
@@ -114,7 +106,6 @@
     v5 = 0;
   }
 
-  v6 = *(self + 8);
   *(self + 7) = v4;
   *(self + 8) = v5;
 }
@@ -123,18 +114,16 @@
 {
   if (*(self + 11))
   {
-    v2 = *(self + 10);
-    v3 = *(self + 11);
 
-    v4 = sub_2699038FC();
+    v2 = sub_2699038FC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setHomeKitAccessoryIdentifier:(id)identifier
@@ -150,7 +139,6 @@
     v5 = 0;
   }
 
-  v6 = *(self + 11);
   *(self + 10) = v4;
   *(self + 11) = v5;
 }

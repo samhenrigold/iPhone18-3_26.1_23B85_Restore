@@ -1,9 +1,11 @@
 @interface RBSProcessIdentifier
++ (RBSProcessIdentifier)identifierWithPid:(int)pid;
 + (id)identifierForCurrentProcess;
 + (id)identifierForIdentifier:(id)identifier;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (RBSProcessIdentifier)init;
+- (RBSProcessIdentifier)initWithPid:(int)pid;
 - (RBSProcessIdentifier)initWithRBSXPCCoder:(id)coder;
 @end
 
@@ -36,6 +38,13 @@
   return [self identifierWithPid:v3];
 }
 
++ (RBSProcessIdentifier)identifierWithPid:(int)pid
+{
+  v3 = [[RBSProcessIdentifier alloc] initWithPid:*&pid];
+
+  return v3;
+}
+
 + (id)identifierForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -60,6 +69,41 @@
   v3 = getpid();
 
   return [(RBSProcessIdentifier *)self initWithPid:v3];
+}
+
+- (RBSProcessIdentifier)initWithPid:(int)pid
+{
+  v3 = *&pid;
+  if (initWithPid__onceToken != -1)
+  {
+    [RBSProcessIdentifier initWithPid:];
+  }
+
+  if (v3 < 1)
+  {
+    selfCopy = 0;
+  }
+
+  else
+  {
+    os_unfair_lock_lock(&__Lock);
+    v5 = __ProcessIdentifiers;
+    v6 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+    selfCopy = [v5 objectForKey:v6];
+
+    if (!selfCopy)
+    {
+      selfCopy = self;
+      selfCopy->_pid = v3;
+      v8 = __ProcessIdentifiers;
+      v9 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+      [v8 setObject:selfCopy forKey:v9];
+    }
+
+    os_unfair_lock_unlock(&__Lock);
+  }
+
+  return selfCopy;
 }
 
 uint64_t __36__RBSProcessIdentifier_initWithPid___block_invoke()

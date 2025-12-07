@@ -4,7 +4,9 @@
 - (void)loadView;
 - (void)panNode:(id)node;
 - (void)tapNode:(id)node;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -127,7 +129,7 @@ void __40__WFContentGraphViewController_tapNode___block_invoke_2(uint64_t a1, vo
 
 void __40__WFContentGraphViewController_tapNode___block_invoke_3(uint64_t a1)
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   if (![*(a1 + 32) count])
   {
     *(*(a1 + 40) + 992) = 0;
@@ -139,20 +141,19 @@ void __40__WFContentGraphViewController_tapNode___block_invoke_3(uint64_t a1)
     {
       v6 = MEMORY[0x277CCA9B8];
       v7 = *MEMORY[0x277D7CB30];
-      v23[0] = *MEMORY[0x277CCA450];
+      v20[0] = *MEMORY[0x277CCA450];
       v8 = WFLocalizedString(@"Failed to coerce content items");
-      v24[0] = v8;
-      v23[1] = *MEMORY[0x277CCA470];
+      v21[0] = v8;
+      v20[1] = *MEMORY[0x277CCA470];
       v9 = WFLocalizedString(@"The coercion path failed to produce any content items.");
-      v24[1] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v21[1] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
       v4 = [v6 errorWithDomain:v7 code:3 userInfo:v10];
     }
 
-    v11 = *(a1 + 40);
-    v12 = WFUserInterfaceFromViewController();
-    v13 = [MEMORY[0x277CFC218] alertWithError:v4];
-    [v12 presentAlert:v13];
+    v11 = WFUserInterfaceFromViewController();
+    v12 = [MEMORY[0x277CFC218] alertWithError:v4];
+    [v11 presentAlert:v12];
 
     goto LABEL_11;
   }
@@ -178,31 +179,29 @@ void __40__WFContentGraphViewController_tapNode___block_invoke_3(uint64_t a1)
     if (v4)
     {
 LABEL_10:
-      v14 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v4];
-      v15 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:*(a1 + 40) action:sel_done];
-      v16 = [(WFContentItemsViewController *)v4 navigationItem];
-      [v16 setRightBarButtonItem:v15];
+      v13 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v4];
+      v14 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:*(a1 + 40) action:sel_done];
+      v15 = [(WFContentItemsViewController *)v4 navigationItem];
+      [v15 setRightBarButtonItem:v14];
 
-      [v14 setModalPresentationStyle:2];
-      v17 = *(a1 + 40);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __40__WFContentGraphViewController_tapNode___block_invoke_4;
-      v21[3] = &unk_278C375A0;
-      v21[4] = v17;
-      v22 = *(a1 + 48);
-      [v17 presentViewController:v14 animated:1 completion:v21];
+      [v13 setModalPresentationStyle:2];
+      v16 = *(a1 + 40);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __40__WFContentGraphViewController_tapNode___block_invoke_4;
+      v18[3] = &unk_278C375A0;
+      v18[4] = v16;
+      v19 = *(a1 + 48);
+      [v16 presentViewController:v13 animated:1 completion:v18];
 
 LABEL_11:
-      v18 = *MEMORY[0x277D85DE8];
       return;
     }
   }
 
 LABEL_12:
-  v20 = [*(a1 + 48) layer];
-  [v20 removeAnimationForKey:@"pulsate"];
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = [*(a1 + 48) layer];
+  [v17 removeAnimationForKey:@"pulsate"];
 }
 
 void __40__WFContentGraphViewController_tapNode___block_invoke_4(uint64_t a1)
@@ -210,6 +209,14 @@ void __40__WFContentGraphViewController_tapNode___block_invoke_4(uint64_t a1)
   *(*(a1 + 32) + 992) = 0;
   v1 = [*(a1 + 40) layer];
   [v1 removeAnimationForKey:@"pulsate"];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WFContentGraphViewController;
+  [(WFContentGraphViewController *)&v4 viewDidDisappear:disappear];
+  [(CKForceLayoutAnimator *)self->_animator stop];
 }
 
 - (void)viewDidLayoutSubviews
@@ -234,12 +241,20 @@ void __40__WFContentGraphViewController_tapNode___block_invoke_4(uint64_t a1)
   [(CKForceLayoutAnimator *)animator setAlpha:v4 + 0.100000001];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WFContentGraphViewController;
+  [(WFContentGraphViewController *)&v4 viewWillAppear:appear];
+  [(CKForceLayoutAnimator *)self->_animator start];
+}
+
 - (void)loadView
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = WFContentGraphViewController;
-  [(WFContentGraphViewController *)&v40 loadView];
+  v41 = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = WFContentGraphViewController;
+  [(WFContentGraphViewController *)&v39 loadView];
   view = [(WFContentGraphViewController *)self view];
   [view setClipsToBounds:1];
 
@@ -269,40 +284,40 @@ void __40__WFContentGraphViewController_tapNode___block_invoke_4(uint64_t a1)
   }
 
   [(CKForceLayoutAnimator *)self->_animator setCharge:v12];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3042000000;
-  v37 = __Block_byref_object_copy__4419;
-  v38 = __Block_byref_object_dispose__4420;
-  v39 = 0;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __40__WFContentGraphViewController_loadView__block_invoke;
-  v33[3] = &unk_278C36FE0;
-  v33[4] = self;
-  v33[5] = &v34;
-  v13 = [v33 copy];
-  objc_storeWeak(v35 + 5, v13);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3042000000;
+  v36 = __Block_byref_object_copy__4419;
+  v37 = __Block_byref_object_dispose__4420;
+  v38 = 0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __40__WFContentGraphViewController_loadView__block_invoke;
+  v32[3] = &unk_278C36FE0;
+  v32[4] = self;
+  v32[5] = &v33;
+  v13 = [v32 copy];
+  objc_storeWeak(v34 + 5, v13);
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   allSupportedItemClasses = [(WFContentItem *)self->_contentItem allSupportedItemClasses];
-  v15 = [allSupportedItemClasses countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v15 = [allSupportedItemClasses countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v15)
   {
-    v16 = *v30;
+    v16 = *v29;
     obj = allSupportedItemClasses;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v29 + 1) + 8 * i);
+        v18 = *(*(&v28 + 1) + 8 * i);
         v19 = MEMORY[0x277CFC2D8];
         contentItem = self->_contentItem;
         v21 = [MEMORY[0x277CFC298] new];
@@ -322,16 +337,15 @@ void __40__WFContentGraphViewController_tapNode___block_invoke_4(uint64_t a1)
       }
 
       allSupportedItemClasses = obj;
-      v15 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v15 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v15);
   }
 
   [(CKForceLayoutAnimator *)self->_animator setAlpha:0.25];
-  _Block_object_dispose(&v34, 8);
-  objc_destroyWeak(&v39);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
+  objc_destroyWeak(&v38);
 }
 
 WFContentCoercionNodeView *__40__WFContentGraphViewController_loadView__block_invoke(uint64_t a1, void *a2)
@@ -422,7 +436,7 @@ WFContentCoercionNodeView *__40__WFContentGraphViewController_loadView__block_in
   return v7;
 }
 
-uint64_t __40__WFContentGraphViewController_loadView__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+uint64_t __40__WFContentGraphViewController_loadView__block_invoke_2(uint64_t a1, void *a2, unsigned __int8 *a3)
 {
   v5 = a2;
   v6 = [MEMORY[0x277CBEB18] array];

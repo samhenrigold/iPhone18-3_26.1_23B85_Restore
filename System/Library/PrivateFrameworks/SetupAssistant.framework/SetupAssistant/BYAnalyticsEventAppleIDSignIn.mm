@@ -43,7 +43,7 @@
 
 - (id)_eventPayload
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   completionDate = [(BYAnalyticsEventAppleIDSignIn *)self completionDate];
 
   if (completionDate)
@@ -69,21 +69,19 @@
     [completionDate2 timeIntervalSinceDate:signInStartDate2];
     v13 = v12;
 
-    v19[0] = @"authenticateDuration";
+    v18[0] = @"authenticateDuration";
     v14 = [MEMORY[0x1E696AD98] numberWithDouble:v9];
-    v20[0] = v14;
-    v19[1] = @"signInDuration";
+    v19[0] = v14;
+    v18[1] = @"signInDuration";
     v15 = [MEMORY[0x1E696AD98] numberWithDouble:v13];
-    v20[1] = v15;
-    v19[2] = @"totalDuration";
+    v19[1] = v15;
+    v18[2] = @"totalDuration";
     v16 = [MEMORY[0x1E696AD98] numberWithDouble:v9 + v13];
-    v19[3] = @"context";
-    v20[2] = v16;
-    v20[3] = v5;
-    completionDate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v18[3] = @"context";
+    v19[2] = v16;
+    v19[3] = v5;
+    completionDate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return completionDate;
 }

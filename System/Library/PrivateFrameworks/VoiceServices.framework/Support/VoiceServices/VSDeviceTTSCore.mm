@@ -42,7 +42,7 @@
   if (v5)
   {
     delegate2 = [(VSDeviceTTSCore *)self delegate];
-    [delegate2 synthesisCore:self didReceiveAudio:audioCopy];
+    [delegate2 synthesisCore:? didReceiveAudio:?];
   }
 }
 
@@ -55,7 +55,7 @@
   if (v5)
   {
     delegate2 = [(VSDeviceTTSCore *)self delegate];
-    [delegate2 synthesisCore:self didReceiveWordTimingInfo:infoCopy];
+    [delegate2 synthesisCore:? didReceiveWordTimingInfo:?];
   }
 }
 
@@ -68,179 +68,165 @@
   if (v5)
   {
     delegate2 = [(VSDeviceTTSCore *)self delegate];
-    [delegate2 synthesisCore:self didReceiveProcessingWordTimingInfo:infoCopy];
+    [delegate2 synthesisCore:? didReceiveProcessingWordTimingInfo:?];
   }
 }
 
 - (id)prepareForSynthesis
 {
-  v49[1] = *MEMORY[0x277D85DE8];
-  if (self->_engine)
+  v44 = *MEMORY[0x277D85DE8];
+  if (!self->_engine)
   {
-    goto LABEL_3;
-  }
+    prewarmService = self->_prewarmService;
+    selectedVoice = [(VSDeviceTTSCore *)self selectedVoice];
+    selectedVoiceResource = [(VSDeviceTTSCore *)self selectedVoiceResource];
+    v6 = [VSPrewarmService cachedEngineForVoice:"cachedEngineForVoice:resources:" resources:?];
+    engine = self->_engine;
+    self->_engine = v6;
 
-  prewarmService = self->_prewarmService;
-  selectedVoice = [(VSDeviceTTSCore *)self selectedVoice];
-  selectedVoiceResource = [(VSDeviceTTSCore *)self selectedVoiceResource];
-  v6 = [(VSPrewarmService *)prewarmService cachedEngineForVoice:selectedVoice resources:selectedVoiceResource];
-  engine = self->_engine;
-  self->_engine = v6;
-
-  if (self->_engine)
-  {
-LABEL_3:
-    v8 = 1;
-  }
-
-  else
-  {
-    v40 = self->_prewarmService;
-    selectedVoice2 = [(VSDeviceTTSCore *)self selectedVoice];
-    selectedVoiceResource2 = [(VSDeviceTTSCore *)self selectedVoiceResource];
-    v43 = [(VSPrewarmService *)v40 loadEngineForVoice:selectedVoice2 resources:selectedVoiceResource2];
-    v44 = self->_engine;
-    self->_engine = v43;
-
-    v8 = 0;
+    if (!self->_engine)
+    {
+      v34 = self->_prewarmService;
+      selectedVoice2 = [(VSDeviceTTSCore *)self selectedVoice];
+      selectedVoiceResource2 = [(VSDeviceTTSCore *)self selectedVoiceResource];
+      v37 = [VSPrewarmService loadEngineForVoice:v34 resources:"loadEngineForVoice:resources:"];
+      v38 = self->_engine;
+      self->_engine = v37;
+    }
   }
 
   instrumentMetrics = [(VSDeviceTTSCore *)self instrumentMetrics];
-  [instrumentMetrics setIsWarmStart:v8];
+  [instrumentMetrics setIsWarmStart:?];
 
   if (self->_engine)
   {
-    v10 = [VSStreamAudioData alloc];
-    v11 = self->_engine;
-    if (v11)
+    v9 = [VSStreamAudioData alloc];
+    if (self->_engine)
     {
-      [(VSSpeechEngine *)v11 asbd];
+      [&v39 asbd];
     }
 
     else
     {
-      v47 = 0;
-      v45 = 0u;
-      v46 = 0u;
+      v41 = 0;
+      v39 = 0u;
+      v40 = 0u;
     }
 
-    v15 = [(VSStreamAudioData *)v10 initWithASBD:&v45];
+    v13 = [(VSStreamAudioData *)v9 initWithASBD:v39, v40, v41];
     streamAudio = self->_streamAudio;
-    self->_streamAudio = v15;
+    self->_streamAudio = v13;
 
     request = [(VSDeviceTTSCore *)self request];
     [request volume];
-    if (v18 == 0.0)
+    if (v16 == 0.0)
     {
       selectedVoiceResource3 = [(VSDeviceTTSCore *)self selectedVoiceResource];
       [selectedVoiceResource3 volume];
-      if (v20 == 0.0)
+      if (v18 == 0.0)
       {
         [(VSSpeechEngine *)self->_engine volume];
       }
 
-      [(VSSpeechEngine *)self->_engine setVolume:v45, v46, v47];
+      [(VSSpeechEngine *)self->_engine setVolume:?];
     }
 
     else
     {
-      *&v18 = v18;
-      [(VSSpeechEngine *)self->_engine setVolume:v18];
+      [(VSSpeechEngine *)self->_engine setVolume:?];
     }
 
     request2 = [(VSDeviceTTSCore *)self request];
     [request2 pitch];
-    if (v22 == 0.0)
+    if (v20 == 0.0)
     {
       selectedVoiceResource4 = [(VSDeviceTTSCore *)self selectedVoiceResource];
       [selectedVoiceResource4 pitch];
-      if (v24 == 0.0)
+      if (v22 == 0.0)
       {
         [(VSSpeechEngine *)self->_engine pitch];
       }
 
-      [(VSSpeechEngine *)self->_engine setPitch:v45, v46, v47];
+      [(VSSpeechEngine *)self->_engine setPitch:?];
     }
 
     else
     {
-      *&v22 = v22;
-      [(VSSpeechEngine *)self->_engine setPitch:v22];
+      [(VSSpeechEngine *)self->_engine setPitch:?];
     }
 
     request3 = [(VSDeviceTTSCore *)self request];
     [request3 rate];
-    if (v26 == 0.0)
+    if (v24 == 0.0)
     {
       selectedVoiceResource5 = [(VSDeviceTTSCore *)self selectedVoiceResource];
       [selectedVoiceResource5 rate];
-      if (v28 == 0.0)
+      if (v26 == 0.0)
       {
         [(VSSpeechEngine *)self->_engine rate];
       }
 
-      [(VSSpeechEngine *)self->_engine setRate:v45, v46, v47];
+      [(VSSpeechEngine *)self->_engine setRate:?];
     }
 
     else
     {
-      *&v26 = v26;
-      [(VSSpeechEngine *)self->_engine setRate:v26];
+      [(VSSpeechEngine *)self->_engine setRate:?];
     }
 
-    v29 = [VSVoiceBooster alloc];
-    v30 = self->_engine;
-    if (v30)
+    v27 = [VSVoiceBooster alloc];
+    v28 = self->_engine;
+    if (v28)
     {
-      [(VSSpeechEngine *)v30 asbd];
-      v30 = self->_engine;
+      [&v39 asbd];
+      v28 = self->_engine;
     }
 
     else
     {
-      v47 = 0;
-      v45 = 0u;
-      v46 = 0u;
+      v41 = 0;
+      v39 = 0u;
+      v40 = 0u;
     }
 
-    v31 = [(VSVoiceBooster *)v29 initWithStreamDescription:&v45 pcmBufferSize:[(VSSpeechEngine *)v30 pcmBufferSize:v45]];
-    [(VSDeviceTTSCore *)self setVoiceBooster:v31];
+    [(VSSpeechEngine *)v28 pcmBufferSize:v39];
+    v29 = [VSVoiceBooster initWithStreamDescription:v27 pcmBufferSize:"initWithStreamDescription:pcmBufferSize:"];
+    [(VSDeviceTTSCore *)self setVoiceBooster:?];
 
     selectedVoice3 = [(VSDeviceTTSCore *)self selectedVoice];
     voiceData = [selectedVoice3 voiceData];
     request4 = [(VSDeviceTTSCore *)self request];
     [request4 volume];
     [voiceData gainDecibelWithVolume:?];
-    v35 = v34;
     voiceBooster = [(VSDeviceTTSCore *)self voiceBooster];
-    LODWORD(v37) = v35;
-    [voiceBooster setVoiceBoostGainDecibels:v37];
+    [voiceBooster setVoiceBoostGainDecibels:?];
 
-    v14 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v12 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA470];
-    v49[0] = @"Can't create VSSpeechEngine";
-    selectedVoice3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
-    v14 = [v12 errorWithDomain:@"VoiceServicesErrorDomain" code:0 userInfo:selectedVoice3];
+    v10 = MEMORY[0x277CCA9B8];
+    v42 = *MEMORY[0x277CCA470];
+    v43 = @"Can't create VSSpeechEngine";
+    selectedVoice3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v12 = [v10 errorWithDomain:? code:? userInfo:?];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v12;
 }
 
 - (id)voiceSelection_noRetry_WithRequest:(id)request error:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
   languageCode = [requestCopy languageCode];
   voiceName = [requestCopy voiceName];
-  v9 = [mEMORY[0x277D79950] selectVoiceForLang:languageCode name:voiceName type:objc_msgSend(requestCopy gender:"voiceType") footprint:{objc_msgSend(requestCopy, "gender"), objc_msgSend(requestCopy, "footprint")}];
+  [requestCopy voiceType];
+  [requestCopy gender];
+  [requestCopy footprint];
+  v9 = [mEMORY[0x277D79950] selectVoiceForLang:? name:? type:? gender:? footprint:?];
 
   if (v9)
   {
@@ -256,17 +242,14 @@ LABEL_3:
       if (error)
       {
         v13 = MEMORY[0x277CCA9B8];
-        v33 = *MEMORY[0x277CCA450];
-        v34 = @"Compact voice is explicitly disabled.";
+        v27 = *MEMORY[0x277CCA450];
+        v28 = @"Compact voice is explicitly disabled.";
         v14 = MEMORY[0x277CBEAC0];
-        v15 = &v34;
-        v16 = &v33;
 LABEL_14:
-        v21 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
-        v22 = v13;
-        v23 = 401;
+        v19 = [v14 dictionaryWithObjects:? forKeys:? count:?];
+        v20 = v13;
 LABEL_19:
-        *error = [v22 errorWithDomain:@"VoiceServicesErrorDomain" code:v23 userInfo:v21];
+        *error = [v20 errorWithDomain:? code:? userInfo:?];
 
         error = 0;
       }
@@ -276,31 +259,28 @@ LABEL_19:
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       voicePath = [v9 voicePath];
-      v19 = [defaultManager fileExistsAtPath:voicePath];
+      v17 = [defaultManager fileExistsAtPath:?];
 
-      if (v19)
+      if (v17)
       {
         error = v9;
         goto LABEL_20;
       }
 
-      v24 = VSGetLogDefault();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v21 = VSGetLogDefault();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         voicePath2 = [v9 voicePath];
         *buf = 138412290;
-        v32 = voicePath2;
-        _os_log_error_impl(&dword_2727E4000, v24, OS_LOG_TYPE_ERROR, "Voice is deleted at path '%@'", buf, 0xCu);
+        v26 = voicePath2;
+        _os_log_error_impl(&dword_2727E4000, v21, OS_LOG_TYPE_ERROR, "Voice is deleted at path '%@'", buf, 0xCu);
       }
 
       if (error)
       {
-        v25 = MEMORY[0x277CCA9B8];
-        v29 = *MEMORY[0x277CCA450];
-        v30 = @"Voice is deleted already.";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-        v22 = v25;
-        v23 = 402;
+        v22 = MEMORY[0x277CCA9B8];
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:*MEMORY[0x277CCA450] forKeys:@"Voice is deleted already." count:?];
+        v20 = v22;
         goto LABEL_19;
       }
     }
@@ -308,28 +288,24 @@ LABEL_19:
 
   else
   {
-    v20 = VSGetLogDefault();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v18 = VSGetLogDefault();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2727E4000, v20, OS_LOG_TYPE_ERROR, "No voice available", buf, 2u);
+      _os_log_error_impl(&dword_2727E4000, v18, OS_LOG_TYPE_ERROR, "No voice available", buf, 2u);
     }
 
     if (error)
     {
       v13 = MEMORY[0x277CCA9B8];
-      v35 = *MEMORY[0x277CCA450];
-      v36[0] = @"No voice available";
+      v29 = *MEMORY[0x277CCA450];
+      v30 = @"No voice available";
       v14 = MEMORY[0x277CBEAC0];
-      v15 = v36;
-      v16 = &v35;
       goto LABEL_14;
     }
   }
 
 LABEL_20:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -337,9 +313,9 @@ LABEL_20:
 - (id)voiceSelectionWithRequest:(id)request error:(id *)error
 {
   requestCopy = request;
-  v18 = 0;
-  v7 = [(VSDeviceTTSCore *)self voiceSelection_noRetry_WithRequest:requestCopy error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [VSDeviceTTSCore voiceSelection_noRetry_WithRequest:"voiceSelection_noRetry_WithRequest:error:" error:?];
+  v8 = 0;
   v9 = v8;
   if (v8 && [v8 code] == 402)
   {
@@ -354,9 +330,8 @@ LABEL_20:
     mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
     [mEMORY[0x277D79950] resetCache];
 
-    v16 = v9;
-    v12 = [(VSDeviceTTSCore *)self voiceSelection_noRetry_WithRequest:requestCopy error:&v16];
-    v13 = v16;
+    v12 = [VSDeviceTTSCore voiceSelection_noRetry_WithRequest:"voiceSelection_noRetry_WithRequest:error:" error:?];
+    v13 = v9;
 
     v7 = v12;
     v9 = v13;
@@ -373,10 +348,10 @@ LABEL_20:
 
 - (id)getCacheForHash:(id)hash
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   cachingService = [(VSDeviceTTSCore *)self cachingService];
-  v6 = [cachingService inMemoryCacheForHash:hashCopy];
+  v6 = [cachingService inMemoryCacheForHash:?];
 
   if (v6)
   {
@@ -384,19 +359,19 @@ LABEL_20:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [v6 key];
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&dword_2727E4000, v7, OS_LOG_TYPE_DEFAULT, "In-memory cached synthesis %@ is found.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v8;
+      _os_log_impl(&dword_2727E4000, v7, OS_LOG_TYPE_DEFAULT, "In-memory cached synthesis %@ is found.", &v14, 0xCu);
     }
 
     instrumentMetrics = [(VSDeviceTTSCore *)self instrumentMetrics];
-    [instrumentMetrics setIsCacheHitFromMemory:1];
+    [instrumentMetrics setIsCacheHitFromMemory:?];
   }
 
   else
   {
     cachingService2 = [(VSDeviceTTSCore *)self cachingService];
-    v6 = [cachingService2 onDiskCacheForHash:hashCopy];
+    v6 = [cachingService2 onDiskCacheForHash:?];
 
     if (!v6)
     {
@@ -407,17 +382,16 @@ LABEL_20:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = [v6 key];
-      v15 = 138412290;
-      v16 = v12;
-      _os_log_impl(&dword_2727E4000, v11, OS_LOG_TYPE_DEFAULT, "On-disk cached synthesis %@ is found.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v12;
+      _os_log_impl(&dword_2727E4000, v11, OS_LOG_TYPE_DEFAULT, "On-disk cached synthesis %@ is found.", &v14, 0xCu);
     }
 
     instrumentMetrics = [(VSDeviceTTSCore *)self instrumentMetrics];
-    [instrumentMetrics setIsCacheHitFromDisk:1];
+    [instrumentMetrics setIsCacheHitFromDisk:?];
   }
 
 LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -439,7 +413,7 @@ LABEL_10:
     mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
     request = [(VSDeviceTTSCore *)self request];
     languageCode = [request languageCode];
-    v7 = [mEMORY[0x277D79950] selectVoiceResourceAssetForLanguage:languageCode];
+    v7 = [mEMORY[0x277D79950] selectVoiceResourceAssetForLanguage:?];
     v8 = self->_selectedVoiceResource;
     self->_selectedVoiceResource = v7;
 
@@ -455,7 +429,7 @@ LABEL_10:
   if (!selectedVoice)
   {
     request = [(VSDeviceTTSCore *)self request];
-    v5 = [(VSDeviceTTSCore *)self voiceSelectionWithRequest:request error:0];
+    v5 = [VSDeviceTTSCore voiceSelectionWithRequest:"voiceSelectionWithRequest:error:" error:?];
     v6 = self->_selectedVoice;
     self->_selectedVoice = v5;
 
@@ -467,10 +441,10 @@ LABEL_10:
 
 - (void)cancel
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6.receiver = self;
-  v6.super_class = VSDeviceTTSCore;
-  [(VSDeviceTTSCore *)&v6 cancel];
+  v8 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = VSDeviceTTSCore;
+  [(VSDeviceTTSCore *)&v5 cancel];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -480,14 +454,12 @@ LABEL_10:
   }
 
   engine = [(VSDeviceTTSCore *)self engine];
-  [engine stopAtMarker:0];
-
-  v5 = *MEMORY[0x277D85DE8];
+  [engine stopAtMarker:?];
 }
 
 - (void)main
 {
-  v87[1] = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   request = [(VSDeviceTTSCore *)self request];
   utterance = [request utterance];
   v5 = [utterance length];
@@ -495,11 +467,11 @@ LABEL_10:
   if (!v5)
   {
     v15 = MEMORY[0x277CCA9B8];
-    v86 = *MEMORY[0x277CCA450];
-    v87[0] = @"Missing utterance in the request (preprocessing missing?).";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:&v86 count:1];
-    v16 = [v15 errorWithDomain:@"VoiceServicesErrorDomain" code:100 userInfo:v10];
-    [(VSDeviceTTSCore *)self setError:v16];
+    v72 = *MEMORY[0x277CCA450];
+    v73 = @"Missing utterance in the request (preprocessing missing?).";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v16 = [v15 errorWithDomain:? code:? userInfo:?];
+    [(VSDeviceTTSCore *)self setError:?];
 
     goto LABEL_35;
   }
@@ -511,35 +483,24 @@ LABEL_10:
   if (!selectedVoice2)
   {
     request2 = [(VSDeviceTTSCore *)self request];
-    v83 = 0;
-    v18 = [(VSDeviceTTSCore *)self voiceSelectionWithRequest:request2 error:&v83];
-    v10 = v83;
+    v71 = 0;
+    v18 = [VSDeviceTTSCore voiceSelectionWithRequest:"voiceSelectionWithRequest:error:" error:?];
+    v10 = 0;
 
-    [(VSDeviceTTSCore *)self setError:v10];
+    [(VSDeviceTTSCore *)self setError:?];
     goto LABEL_35;
   }
 
-  if (([(VSDeviceTTSCore *)self isCancelled]& 1) == 0)
+  if (([(VSDeviceTTSCore *)self isCancelled]& 1) != 0)
   {
-    taskHash = [(VSDeviceTTSCore *)self taskHash];
-    v10 = [(VSDeviceTTSCore *)self getCacheForHash:taskHash];
+    return;
+  }
 
-    if (v10)
-    {
-      audio = [v10 audio];
-      compressedAudio = self->_compressedAudio;
-      self->_compressedAudio = audio;
+  taskHash = [(VSDeviceTTSCore *)self taskHash];
+  v10 = [(VSDeviceTTSCore *)self getCacheForHash:?];
 
-      timingInfos = [v10 timingInfos];
-      [(VSDeviceTTSCore *)self reportWordTimingInfo:timingInfos];
-
-      audio2 = [v10 audio];
-      [(VSDeviceTTSCore *)self reportAudio:audio2];
-
-LABEL_35:
-      goto LABEL_36;
-    }
-
+  if (!v10)
+  {
     if (([(VSDeviceTTSCore *)self isCancelled]& 1) != 0)
     {
 LABEL_34:
@@ -550,17 +511,17 @@ LABEL_34:
     prepareForSynthesis = [(VSDeviceTTSCore *)self prepareForSynthesis];
     if (prepareForSynthesis)
     {
-      [(VSDeviceTTSCore *)self setError:prepareForSynthesis];
+      [(VSDeviceTTSCore *)self setError:?];
 
       goto LABEL_34;
     }
 
-    v77 = 0;
-    v78 = &v77;
-    v79 = 0x3032000000;
-    v80 = __Block_byref_object_copy__1808;
-    v81 = __Block_byref_object_dispose__1809;
-    v82 = 0;
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x3032000000;
+    v68 = __Block_byref_object_copy__1808;
+    v69 = __Block_byref_object_dispose__1809;
+    v70 = 0;
     v20 = objc_opt_new();
     request3 = [(VSDeviceTTSCore *)self request];
     text = [request3 text];
@@ -568,109 +529,87 @@ LABEL_34:
     languageCode = [request4 languageCode];
     request5 = [(VSDeviceTTSCore *)self request];
     voiceName = [request5 voiceName];
-    v27 = [v20 estimatedTTSWordTimingForText:text withLanguage:languageCode voiceName:voiceName];
-    v28 = v78[5];
-    v78[5] = v27;
+    v27 = [v20 estimatedTTSWordTimingForText:? withLanguage:? voiceName:?];
+    v28 = v66[5];
+    v66[5] = v27;
 
     v29 = MEMORY[0x277D799B8];
-    v30 = v78[5];
     request6 = [(VSDeviceTTSCore *)self request];
     contextInfo = [request6 contextInfo];
-    [v29 adjustWordTimingInfo:v30 forContext:contextInfo];
+    [v29 adjustWordTimingInfo:? forContext:?];
 
     array = [MEMORY[0x277CBEB18] array];
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     request7 = [(VSDeviceTTSCore *)self request];
     customResourceURLs = [request7 customResourceURLs];
 
-    v36 = [customResourceURLs countByEnumeratingWithState:&v73 objects:v85 count:16];
-    if (v36)
+    v35 = [customResourceURLs countByEnumeratingWithState:? objects:? count:?];
+    if (v35)
     {
-      v37 = *v74;
+      v36 = *v62;
       do
       {
-        v38 = 0;
-        do
+        for (i = 0; i != v35; i = (i + 1))
         {
-          if (*v74 != v37)
+          if (*v62 != v36)
           {
             objc_enumerationMutation(customResourceURLs);
           }
 
-          v39 = *(*(&v73 + 1) + 8 * v38);
           engine = [(VSDeviceTTSCore *)self engine];
-          v41 = [engine loadResource:v39 error:0];
+          v39 = [engine loadResource:? error:?];
 
-          if (v41)
+          if (v39)
           {
-            [array addObject:v41];
+            [array addObject:?];
           }
-
-          ++v38;
         }
 
-        while (v36 != v38);
-        v36 = [customResourceURLs countByEnumeratingWithState:&v73 objects:v85 count:16];
+        v35 = [customResourceURLs countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v36);
+      while (v35);
     }
 
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
-    v72 = 0;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v60 = 0;
     engine2 = [(VSDeviceTTSCore *)self engine];
     request8 = [(VSDeviceTTSCore *)self request];
     utterance2 = [request8 utterance];
     request9 = [(VSDeviceTTSCore *)self request];
-    canLogRequestText = [request9 canLogRequestText];
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __23__VSDeviceTTSCore_main__block_invoke;
-    v68[3] = &unk_279E4B7C8;
-    v68[4] = self;
-    v68[5] = &v77;
-    v68[6] = &v69;
-    v47 = [engine2 synthesizeText:utterance2 loggable:canLogRequestText callback:v68];
+    [request9 canLogRequestText];
+    v44 = [engine2 synthesizeText:? loggable:? callback:?];
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    v48 = array;
-    v49 = [v48 countByEnumeratingWithState:&v64 objects:v84 count:16];
-    if (v49)
+    v45 = array;
+    v46 = [v45 countByEnumeratingWithState:? objects:? count:?];
+    if (v46)
     {
-      v50 = *v65;
+      v47 = MEMORY[0];
       do
       {
-        v51 = 0;
-        do
+        for (j = 0; j != v46; j = (j + 1))
         {
-          if (*v65 != v50)
+          if (MEMORY[0] != v47)
           {
-            objc_enumerationMutation(v48);
+            objc_enumerationMutation(v45);
           }
 
-          v52 = *(*(&v64 + 1) + 8 * v51);
           engine3 = [(VSDeviceTTSCore *)self engine];
-          [engine3 unloadResource:v52];
-
-          ++v51;
+          [engine3 unloadResource:?];
         }
 
-        while (v49 != v51);
-        v49 = [v48 countByEnumeratingWithState:&v64 objects:v84 count:16];
+        v46 = [v45 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v49);
+      while (v46);
     }
 
-    if (!v47 && ([(VSDeviceTTSCore *)self isCancelled]& 1) == 0)
+    if (!v44 && ([(VSDeviceTTSCore *)self isCancelled]& 1) == 0)
     {
       request10 = [(VSDeviceTTSCore *)self request];
       if (![request10 shouldCache])
@@ -680,34 +619,41 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      v55 = *(v70 + 24);
+      v51 = *(v58 + 24);
 
-      if ((v55 & 1) == 0)
+      if ((v51 & 1) == 0)
       {
         request10 = [(VSDeviceTTSCore *)self taskHash];
         cachingService = [(VSDeviceTTSCore *)self cachingService];
-        streamAudio = self->_streamAudio;
-        v57 = v78[5];
         selectedVoice3 = [(VSDeviceTTSCore *)self selectedVoice];
-        v59 = [selectedVoice3 key];
+        v53 = [selectedVoice3 key];
         selectedVoiceResource2 = [(VSDeviceTTSCore *)self selectedVoiceResource];
-        v61 = [selectedVoiceResource2 key];
-        [cachingService enqueueCacheWithHash:request10 streamAudio:streamAudio timingInfo:v57 voiceKey:v59 voiceResourceKey:v61 completion:0];
+        v55 = [selectedVoiceResource2 key];
+        [cachingService enqueueCacheWithHash:? streamAudio:? timingInfo:? voiceKey:? voiceResourceKey:? completion:?];
 
         goto LABEL_32;
       }
     }
 
 LABEL_33:
-    [(VSDeviceTTSCore *)self setError:v47];
-    _Block_object_dispose(&v69, 8);
+    [(VSDeviceTTSCore *)self setError:?];
+    _Block_object_dispose(&v57, 8);
 
-    _Block_object_dispose(&v77, 8);
+    _Block_object_dispose(&v65, 8);
     goto LABEL_34;
   }
 
-LABEL_36:
-  v62 = *MEMORY[0x277D85DE8];
+  audio = [v10 audio];
+  compressedAudio = self->_compressedAudio;
+  self->_compressedAudio = audio;
+
+  timingInfos = [v10 timingInfos];
+  [(VSDeviceTTSCore *)self reportWordTimingInfo:?];
+
+  audio2 = [v10 audio];
+  [(VSDeviceTTSCore *)self reportAudio:?];
+
+LABEL_35:
 }
 
 id __23__VSDeviceTTSCore_main__block_invoke(uint64_t a1, void *a2)
@@ -727,39 +673,35 @@ id __23__VSDeviceTTSCore_main__block_invoke(uint64_t a1, void *a2)
     }
 
     *(*(*(a1 + 48) + 8) + 24) = v9;
-    v10 = [v3 numOfPromptsTriggered];
-    v11 = [*(a1 + 32) instrumentMetrics];
-    [v11 setPromptCount:v10];
+    [v3 numOfPromptsTriggered];
+    v10 = [*(a1 + 32) instrumentMetrics];
+    [v10 setPromptCount:?];
 
-    v12 = *(*(*(a1 + 40) + 8) + 40);
-    if (!v12)
+    if (!*(*(*(a1 + 40) + 8) + 40))
     {
-      v13 = [v3 wordTimingInfos];
-      v14 = *(*(a1 + 40) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      v11 = [v3 wordTimingInfos];
+      v12 = *(*(a1 + 40) + 8);
+      v13 = *(v12 + 40);
+      *(v12 + 40) = v11;
 
-      v16 = MEMORY[0x277D799B8];
-      v17 = *(*(*(a1 + 40) + 8) + 40);
-      v18 = [*(a1 + 32) request];
-      v19 = [v18 contextInfo];
-      [v16 adjustWordTimingInfo:v17 forContext:v19];
-
-      v12 = *(*(*(a1 + 40) + 8) + 40);
+      v14 = MEMORY[0x277D799B8];
+      v15 = [*(a1 + 32) request];
+      v16 = [v15 contextInfo];
+      [v14 adjustWordTimingInfo:? forContext:?];
     }
 
-    [*(a1 + 32) reportWordTimingInfo:v12];
-    v20 = [v3 hasAlignmentStall];
-    v21 = [*(a1 + 32) instrumentMetrics];
-    [v21 setNeuralAlignmentStall:v20];
+    [*(a1 + 32) reportWordTimingInfo:?];
+    [v3 hasAlignmentStall];
+    v17 = [*(a1 + 32) instrumentMetrics];
+    [v17 setNeuralAlignmentStall:?];
 
-    v22 = [v3 hasAudioClick];
-    v23 = [*(a1 + 32) instrumentMetrics];
-    [v23 setNeuralAudioClick:v22];
+    [v3 hasAudioClick];
+    v18 = [*(a1 + 32) instrumentMetrics];
+    [v18 setNeuralAudioClick:?];
 
-    v24 = [v3 neuralDidFallback];
-    v25 = [*(a1 + 32) instrumentMetrics];
-    [v25 setNeuralFallback:v24];
+    [v3 neuralDidFallback];
+    v19 = [*(a1 + 32) instrumentMetrics];
+    [v19 setNeuralFallback:?];
   }
 
   else if (v4 == 2)
@@ -767,7 +709,7 @@ id __23__VSDeviceTTSCore_main__block_invoke(uint64_t a1, void *a2)
     v5 = objc_autoreleasePoolPush();
     v6 = [v3 mutablePCMData];
     v7 = [*(a1 + 32) voiceBooster];
-    v8 = [v7 processData:v6];
+    v8 = [v7 processData:?];
 
     if (v8)
     {
@@ -776,47 +718,43 @@ id __23__VSDeviceTTSCore_main__block_invoke(uint64_t a1, void *a2)
       goto LABEL_18;
     }
 
-    v26 = [*(a1 + 32) streamAudio];
-    [v26 appendAudioData:v6 packetCount:0 packetDescriptions:0];
+    v20 = [*(a1 + 32) streamAudio];
+    [v20 appendAudioData:? packetCount:? packetDescriptions:?];
 
-    v27 = objc_alloc_init(MEMORY[0x277D79920]);
-    v28 = [*(a1 + 32) engine];
-    v29 = v28;
-    if (v28)
+    v21 = objc_alloc_init(MEMORY[0x277D79920]);
+    v22 = [*(a1 + 32) engine];
+    if (v22)
     {
-      [v28 asbd];
+      [&v30 asbd];
     }
 
     else
     {
-      v41 = 0;
-      v39 = 0u;
-      v40 = 0u;
+      v32 = 0;
+      v30 = 0u;
+      v31 = 0u;
     }
 
-    v37[0] = v39;
-    v37[1] = v40;
-    v38 = v41;
-    [v27 setAsbd:v37];
+    [v21 setAsbd:{v30, v31, v32}];
 
-    [v27 setAudioData:v6];
-    [v27 setPacketCount:0];
-    [v27 setPacketDescriptions:0];
-    [*(a1 + 32) reportAudio:v27];
-    v30 = *(*(*(a1 + 40) + 8) + 40);
-    if (!v30)
+    [v21 setAudioData:?];
+    [v21 setPacketCount:?];
+    [v21 setPacketDescriptions:?];
+    [*(a1 + 32) reportAudio:?];
+    v23 = *(*(*(a1 + 40) + 8) + 40);
+    if (!v23)
     {
-      v31 = objc_alloc(MEMORY[0x277CBEA60]);
-      v32 = [v3 wordTimingInfos];
-      v30 = [v31 initWithArray:v32 copyItems:1];
+      v24 = objc_alloc(MEMORY[0x277CBEA60]);
+      v25 = [v3 wordTimingInfos];
+      v23 = [v24 initWithArray:? copyItems:?];
 
-      v33 = MEMORY[0x277D799B8];
-      v34 = [*(a1 + 32) request];
-      v35 = [v34 contextInfo];
-      [v33 adjustWordTimingInfo:v30 forContext:v35];
+      v26 = MEMORY[0x277D799B8];
+      v27 = [*(a1 + 32) request];
+      v28 = [v27 contextInfo];
+      [v26 adjustWordTimingInfo:? forContext:?];
     }
 
-    [*(a1 + 32) reportProcessingWordTimingInfo:v30];
+    [*(a1 + 32) reportProcessingWordTimingInfo:?];
 
     objc_autoreleasePoolPop(v5);
   }
@@ -849,7 +787,7 @@ LABEL_18:
   contextInfo = [request5 contextInfo];
   request6 = [(VSDeviceTTSCore *)self request];
   customResourceURLs = [request6 customResourceURLs];
-  v17 = [v22 stringWithFormat:@"%@ %@ %@ %@ %.2f %.2f %.2f %@ %@", @"2", utterance, v3, v4, v6, v9, v12, contextInfo, customResourceURLs];
+  v17 = [v22 stringWithFormat:@"2", utterance, v3, v4, v6, v9, v12, contextInfo, customResourceURLs];
 
   sha256hex = [v17 sha256hex];
 

@@ -1,6 +1,6 @@
 void HDPowerLogForClient(void *a1, void *a2, void *a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v5 = a3;
@@ -22,58 +22,56 @@ void HDPowerLogForClient(void *a1, void *a2, void *a3)
 
     v11 = v10;
 
-    v15[0] = @"clientId";
+    v14[0] = @"clientId";
     v12 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v7, "processIdentifier")}];
-    v15[1] = @"bundleId";
-    v16[0] = v12;
-    v16[1] = v11;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[1] = @"bundleId";
+    v15[0] = v12;
+    v15[1] = v11;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
     [v8 addEntriesFromDictionary:v13];
     PLLogRegisteredEvent();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-id HDSampleEntityPredicateForEndDate(uint64_t a1)
+id HDSampleEntityPredicateForEndDate(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForDate();
-  v4 = [v2 predicateWithProperty:@"end_date" value:v3 comparisonType:a1];
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForDate();
+  v5 = [v3 predicateWithProperty:@"end_date" value:v4 comparisonType:a1];
 
-  return v4;
+  return v5;
 }
 
 id HDSampleEntityPredicateForDataTypes(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB58] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "code", v12)}];
+        v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "code", v11)}];
         [v2 addObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -89,8 +87,6 @@ id HDSampleEntityPredicateForDataTypes(void *a1)
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -104,41 +100,39 @@ id HDSourceEntityPredicateForAppleWatchSources()
 
 id HDDataEntityPredicateForSourceEntitySet(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "persistentID", v14)}];
+        v10 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "persistentID", v13)}];
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = HDDataEntityPredicateForSourceIdentifierSet(a1, v4);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -196,26 +190,26 @@ id HDDataEntityPredicateForType(uint64_t a1)
   return v4;
 }
 
-id HDDeletedObjectPredicateForDeletionDate(uint64_t a1)
+id HDDeletedObjectPredicateForDeletionDate(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForDate();
-  v4 = [v2 predicateWithProperty:@"creation_date" value:v3 comparisonType:a1];
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForDate();
+  v5 = [v3 predicateWithProperty:@"creation_date" value:v4 comparisonType:a1];
 
-  return v4;
+  return v5;
 }
 
 id HDDataCollectorEnumerateBatches(void *a1, void *a2, void *a3, double a4, double a5)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a2;
   v11 = a3;
   if (!v11)
   {
-    v55 = [MEMORY[0x277CCA890] currentHandler];
-    v56 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"id<HDSensorDatum> HDDataCollectorEnumerateBatches(NSArray<id<HDSensorDatum>> *__strong, __strong id<HDSensorDatum>, NSTimeInterval, NSTimeInterval, __strong HDDataCollectorBatchingCallback)"}];
-    [v55 handleFailureInFunction:v56 file:@"HDDataCollector.m" lineNumber:919 description:{@"Invalid parameter not satisfying: %@", @"block != nil"}];
+    v54 = [MEMORY[0x277CCA890] currentHandler];
+    v55 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"id<HDSensorDatum> HDDataCollectorEnumerateBatches(NSArray<id<HDSensorDatum>> *__strong, __strong id<HDSensorDatum>, NSTimeInterval, NSTimeInterval, __strong HDDataCollectorBatchingCallback)"}];
+    [v54 handleFailureInFunction:v55 file:@"HDDataCollector.m" lineNumber:919 description:{@"Invalid parameter not satisfying: %@", @"block != nil"}];
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -227,8 +221,8 @@ id HDDataCollectorEnumerateBatches(void *a1, void *a2, void *a3, double a4, doub
   v13 = [MEMORY[0x277CBEAA8] date];
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = v10;
-  v67 = [v15 endDate];
-  v66 = v15;
+  v66 = [v15 endDate];
+  v65 = v15;
   if (![v9 count])
   {
     v18 = v15;
@@ -236,7 +230,7 @@ id HDDataCollectorEnumerateBatches(void *a1, void *a2, void *a3, double a4, doub
   }
 
   v16 = 0;
-  v65 = 1;
+  v64 = 1;
   v17 = MEMORY[0x277CCC298];
   v18 = v15;
   while (1)
@@ -256,7 +250,7 @@ id HDDataCollectorEnumerateBatches(void *a1, void *a2, void *a3, double a4, doub
     if (os_log_type_enabled(*v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v71 = v19;
+      v70 = v19;
       _os_log_debug_impl(&dword_228986000, v23, OS_LOG_TYPE_DEBUG, "Skipping invalid datum: %@", buf, 0xCu);
     }
 
@@ -281,37 +275,37 @@ LABEL_9:
     [v14 addObject:v19];
   }
 
-  v64 = v18;
-  if (v65)
+  v63 = v18;
+  if (v64)
   {
     v25 = [v14 firstObject];
     v26 = v12[2](v12, v25, v18);
 
-    v67 = v26;
+    v66 = v26;
   }
 
   v27 = [v19 endDate];
   if ([v27 compare:v13] != 1)
   {
-    [v27 timeIntervalSinceDate:v67];
-    v65 = v28 > a4;
+    [v27 timeIntervalSinceDate:v66];
+    v64 = v28 > a4;
     if (v28 <= a4)
     {
       if (v28 >= 0.0)
       {
         [v14 addObject:v19];
         ++v16;
-        v18 = v64;
+        v18 = v63;
       }
 
       else
       {
-        v61 = v12;
-        v58 = [v14 lastObject];
-        v35 = [v58 endDate];
-        v36 = v67;
+        v60 = v12;
+        v57 = [v14 lastObject];
+        v35 = [v57 endDate];
+        v36 = v66;
         v37 = v36;
-        v63 = v11;
+        v62 = v11;
         if (v36 && v35)
         {
           if ([v36 compare:v35] == 1)
@@ -335,27 +329,27 @@ LABEL_9:
           v38 = v35;
         }
 
-        v68 = v38;
+        v67 = v38;
 
-        v39 = [v14 copy];
-        v63[2](v63, v39, v64, v68, v35);
+        v39 = objc_msgSend_copy(v14);
+        v62[2](v62, v39, v63, v67, v35);
 
         [v14 removeAllObjects];
-        v40 = v58;
+        v40 = v57;
 
         v41 = v35;
-        v67 = v41;
+        v66 = v41;
 
         v18 = v40;
-        v11 = v63;
-        v12 = v61;
+        v11 = v62;
+        v12 = v60;
       }
     }
 
     else
     {
-      v59 = v13;
-      v60 = v12;
+      v58 = v13;
+      v59 = v12;
       if (v28 < a5)
       {
         [v14 addObject:v19];
@@ -363,20 +357,20 @@ LABEL_9:
       }
 
       v29 = [v14 lastObject];
-      v30 = [v14 copy];
-      v57 = v29;
+      v30 = objc_msgSend_copy(v14);
+      v56 = v29;
       v31 = [v29 endDate];
-      v62 = v11;
-      v32 = v11[2](v11, v30, v64, v67, v31);
+      v61 = v11;
+      v32 = v11[2](v11, v30, v63, v66, v31);
 
       if (v32)
       {
         [v14 removeAllObjects];
-        v33 = v57;
+        v33 = v56;
 
         v34 = [v33 endDate];
 
-        v67 = v34;
+        v66 = v34;
       }
 
       else
@@ -387,27 +381,27 @@ LABEL_9:
       }
 
       v18 = v33;
-      v12 = v60;
+      v12 = v59;
 
-      v11 = v62;
-      v13 = v59;
+      v11 = v61;
+      v13 = v58;
     }
 
     goto LABEL_9;
   }
 
   _HKInitializeLogging();
-  v54 = *v17;
+  v53 = *v17;
   if (os_log_type_enabled(*v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v71 = v19;
-    _os_log_impl(&dword_228986000, v54, OS_LOG_TYPE_DEFAULT, "Received sensor datum in the future, aborting (%@)", buf, 0xCu);
+    v70 = v19;
+    _os_log_impl(&dword_228986000, v53, OS_LOG_TYPE_DEFAULT, "Received sensor datum in the future, aborting (%@)", buf, 0xCu);
   }
 
-  v18 = v64;
+  v18 = v63;
 LABEL_41:
-  [v13 timeIntervalSinceDate:v67];
+  [v13 timeIntervalSinceDate:v66];
   v43 = v42;
   v44 = [v14 count];
   if (v43 > a4 && v44 != 0)
@@ -416,9 +410,9 @@ LABEL_41:
     v47 = [v14 lastObject];
     v48 = [v47 endDate];
 
-    v49 = [v14 copy];
+    v49 = objc_msgSend_copy(v14);
     v50 = v18;
-    v51 = v11[2](v11, v49, v18, v67, v48);
+    v51 = v11[2](v11, v49, v18, v66, v48);
 
     if (v51)
     {
@@ -432,8 +426,6 @@ LABEL_41:
 
     v13 = v46;
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -467,34 +459,34 @@ void sub_22898B00C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22898BAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22898BAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id HDSampleEntityPredicateForStartDate(uint64_t a1)
+id HDSampleEntityPredicateForStartDate(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForDate();
-  v4 = [v2 predicateWithProperty:@"start_date" value:v3 comparisonType:a1];
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForDate();
+  v5 = [v3 predicateWithProperty:@"start_date" value:v4 comparisonType:a1];
 
-  return v4;
+  return v5;
 }
 
-id HDCategorySampleEntityPredicateForValue(uint64_t a1)
+id HDCategorySampleEntityPredicateForValue(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForNumber();
-  v4 = [v2 predicateWithProperty:@"value" value:v3 comparisonType:a1];
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForNumber();
+  v5 = [v3 predicateWithProperty:@"value" value:v4 comparisonType:a1];
 
-  return v4;
+  return v5;
 }
 
-void sub_22898E78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22898E78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1560,9 +1552,9 @@ LABEL_36:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228990FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_228990FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2724,10 +2716,11 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2289947C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_2289947C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3452,29 +3445,29 @@ LABEL_120:
 
 id HDNanoSyncDescriptionWithArray(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [v8 nanoSyncDescription];
         v10 = v9;
         if (v9)
@@ -3484,7 +3477,7 @@ id HDNanoSyncDescriptionWithArray(void *a1)
 
         else
         {
-          v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p>", objc_opt_class(), v8, v18];
+          v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p>", objc_opt_class(), v8, v17];
         }
 
         v12 = v11;
@@ -3492,7 +3485,7 @@ id HDNanoSyncDescriptionWithArray(void *a1)
         [v2 addObject:v12];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -3502,16 +3495,15 @@ id HDNanoSyncDescriptionWithArray(void *a1)
   v14 = [v2 componentsJoinedByString:{@", "}];
   v15 = [v13 stringWithFormat:@"(%@)", v14];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
-id FormattedMessageDescription(int a1, int a2, int a3, void *a4, void *a5)
+id FormattedMessageDescription(uint64_t a1, int a2, int a3, void *a4, void *a5)
 {
+  v8 = a1;
   v9 = a5;
   v10 = a4;
-  v11 = HDNanoSyncMessageIDString(a1);
+  v11 = HDNanoSyncMessageIDString(v8);
   v12 = "outgoing";
   if (a2)
   {
@@ -4120,9 +4112,9 @@ id HDNanoSyncDescriptionSafe(void *a1)
   return v2;
 }
 
-void sub_22899B020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_22899B020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4141,14 +4133,16 @@ id HKWorkoutLocationBundle()
 
 uint64_t __HKWorkoutLocationBundle_block_invoke()
 {
-  _MergedGlobals_222 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/LocationBundles/AppleWatchWorkout.bundle"];
+  v0 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/LocationBundles/AppleWatchWorkout.bundle"];
+  v1 = _MergedGlobals_222;
+  _MergedGlobals_222 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void HDSetHealthInUseDefaultWithReason(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v3 = [v2 BOOLForKey:@"HDHealthInUse"];
@@ -4159,87 +4153,83 @@ void HDSetHealthInUseDefaultWithReason(void *a1)
     v4 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
     {
-      v7 = 138543362;
-      v8 = v1;
-      _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "Marking health as in use: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v1;
+      _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "Marking health as in use: %{public}@", &v6, 0xCu);
     }
 
     v5 = [MEMORY[0x277CBEBD0] standardUserDefaults];
     [v5 setValue:MEMORY[0x277CBEC38] forKey:@"HDHealthInUse"];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void health::DataStore::accessSampleHistoryWithIdentifierForWriting<LocationHistoryBehaviorV1>(uint64_t a1, uint64_t a2, char a3)
+void health::DataStore::accessSampleHistoryWithIdentifierForWriting<LocationHistoryBehaviorV1>(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = a3;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   operator new();
 }
 
-void sub_22899B560(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22899B560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(health::DataStore::WriteTransaction &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t health::DataStore::performWriteTransactionWithLambda(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_283BF2148;
-  v5[1] = a1;
-  v5[2] = a2;
-  v5[3] = v5;
-  v2 = health::BlockAccessFile::performWriteTransactionWithLambda(a1, v5);
-  std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_283BF2148;
+  v4[1] = a1;
+  v4[2] = a2;
+  v4[3] = v4;
+  v2 = health::BlockAccessFile::performWriteTransactionWithLambda(a1, v4);
+  std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](v4);
   return v2;
 }
 
-void sub_22899B600(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22899B600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t health::BlockAccessFile::performWriteTransactionWithLambda(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v6[0] = &unk_283BEA080;
-  v6[1] = a1;
-  v6[2] = a2;
-  v6[3] = v6;
-  health::TransactionalFile::writeTransactionWithLambda(a1, v6);
+  v5[4] = *MEMORY[0x277D85DE8];
+  v5[0] = &unk_283BEA080;
+  v5[1] = a1;
+  v5[2] = a2;
+  v5[3] = v5;
+  health::TransactionalFile::writeTransactionWithLambda(a1, v5);
   v3 = v2;
-  std::__function::__value_func<BOOL ()(health::TransactionalFile::WriteTransaction &)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(health::TransactionalFile::WriteTransaction &)>::~__value_func[abi:ne200100](v5);
   return v3;
 }
 
-void sub_22899B6A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22899B6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(health::TransactionalFile::WriteTransaction &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void health::TransactionalFile::writeTransactionWithLambda(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v18.__m_ = (a1 + 584);
-  v18.__owns_ = 1;
+  v16 = *MEMORY[0x277D85DE8];
+  v15.__m_ = (a1 + 584);
+  v15.__owns_ = 1;
   std::mutex::lock((a1 + 584));
   if (!*(a1 + 328))
   {
     v4 = *MEMORY[0x277CCC2A0];
-    std::string::basic_string[abi:ne200100]<0>(v17, "isOpen()");
-    std::string::basic_string[abi:ne200100]<0>(v16, "writeTransactionWithLambda");
-    std::string::basic_string[abi:ne200100]<0>(v15, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDTransactionalFile.cpp");
+    std::string::basic_string[abi:ne200100]<0>(v14, "isOpen()");
+    std::string::basic_string[abi:ne200100]<0>(v13, "writeTransactionWithLambda");
+    std::string::basic_string[abi:ne200100]<0>(v12, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDTransactionalFile.cpp");
     health::FormatString<>("File has not yet been opened.", &__p);
-    health::_HDAssertImplementation<health::transaction_error>(v4, v17, v16, v15, 259, &__p);
+    health::_HDAssertImplementation<health::transaction_error>(v4, v14, v13, v12, 259, &__p);
   }
 
   v5 = pthread_self();
@@ -4248,11 +4238,9 @@ void health::TransactionalFile::writeTransactionWithLambda(uint64_t a1, uint64_t
   {
     if (a1 + 704 == std::__tree<std::__value_type<std::__thread_id,health::TransactionalFile::ReadTransaction *>,std::__map_value_compare<std::__thread_id,std::__value_type<std::__thread_id,health::TransactionalFile::ReadTransaction *>,std::less<std::__thread_id>,true>,std::allocator<std::__value_type<std::__thread_id,health::TransactionalFile::ReadTransaction *>>>::find<std::__thread_id>(a1 + 696, v5))
     {
-      health::TransactionalFile::_transactionMutex_waitForAvailableWriteTransaction(a1, &v18);
+      health::TransactionalFile::_transactionMutex_waitForAvailableWriteTransaction(a1, &v15);
       if (*(a1 + 344) != 1)
       {
-        v9 = *(a1 + 376);
-        v10 = *(a1 + 408);
         operator new();
       }
 
@@ -4270,8 +4258,8 @@ void health::TransactionalFile::writeTransactionWithLambda(uint64_t a1, uint64_t
   }
 
   v7 = v6;
-  std::mutex::unlock(v18.__m_);
-  v18.__owns_ = 0;
+  std::mutex::unlock(v15.__m_);
+  v15.__owns_ = 0;
   v8 = *(a2 + 24);
   if (!v8)
   {
@@ -4280,17 +4268,15 @@ void health::TransactionalFile::writeTransactionWithLambda(uint64_t a1, uint64_t
 
   if (((*(*v8 + 48))(v8, *(v7 + 40)) & 1) == 0)
   {
-    v12 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v12, "Nested write transaction failed.");
-    __cxa_throw(v12, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v9 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v9, "Nested write transaction failed.");
+    __cxa_throw(v9, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  if (v18.__owns_)
+  if (v15.__owns_)
   {
-    std::mutex::unlock(v18.__m_);
+    std::mutex::unlock(v15.__m_);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22899BB48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
@@ -4346,39 +4332,38 @@ LABEL_6:
 
 uint64_t health::VirtualFile::write<health::WriteAheadLog::LogHeader>(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = 24;
-  v7[0] = v9;
-  v7[1] = v9;
-  v7[2] = 24;
-  LODWORD(v8) = *a2;
-  health::SerializationBuffer::appendRaw<unsigned int>(v7, &v8);
-  LODWORD(v8) = *(a2 + 4);
-  health::SerializationBuffer::appendRaw<unsigned int>(v7, &v8);
-  v8 = *(a2 + 8);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v7, &v8);
-  v8 = *(a2 + 16);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v7, &v8);
-  if (v11 <= 0x3FF)
+  v11 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = 24;
+  v6[0] = v8;
+  v6[1] = v8;
+  v6[2] = 24;
+  LODWORD(v7) = *a2;
+  health::SerializationBuffer::appendRaw<unsigned int>(v6, &v7);
+  LODWORD(v7) = *(a2 + 4);
+  health::SerializationBuffer::appendRaw<unsigned int>(v6, &v7);
+  v7 = *(a2 + 8);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v6, &v7);
+  v7 = *(a2 + 16);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v6, &v7);
+  if (v10 <= 0x3FF)
   {
-    v4 = v9;
+    v4 = v8;
   }
 
   else
   {
-    v4 = v10;
+    v4 = v9;
   }
 
   (*(*a1 + 24))(a1, 0, v4);
-  result = v10;
-  v10 = 0;
+  result = v9;
+  v9 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4394,9 +4379,9 @@ void sub_22899BE24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t health::SerializationBuffer::appendRaw<unsigned int>(uint64_t result, _DWORD *a2)
+void health::SerializationBuffer::appendRaw<unsigned int>(uint64_t a1, _DWORD *a2)
 {
-  if (*(result + 16) <= 3uLL)
+  if (*(a1 + 16) <= 3uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -4406,11 +4391,10 @@ uint64_t health::SerializationBuffer::appendRaw<unsigned int>(uint64_t result, _
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 35, &__p);
   }
 
-  **(result + 8) = *a2;
-  v3 = *(result + 16) - 4;
-  *(result + 8) += 4;
-  *(result + 16) = v3;
-  return result;
+  **(a1 + 8) = *a2;
+  v3 = *(a1 + 16) - 4;
+  *(a1 + 8) += 4;
+  *(a1 + 16) = v3;
 }
 
 void sub_22899BF58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -4438,9 +4422,9 @@ void sub_22899BF58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::SerializationBuffer::appendRaw<unsigned long long>(uint64_t result, void *a2)
+void health::SerializationBuffer::appendRaw<unsigned long long>(uint64_t a1, void *a2)
 {
-  if (*(result + 16) <= 7uLL)
+  if (*(a1 + 16) <= 7uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -4450,11 +4434,10 @@ uint64_t health::SerializationBuffer::appendRaw<unsigned long long>(uint64_t res
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 35, &__p);
   }
 
-  **(result + 8) = *a2;
-  v3 = *(result + 16) - 8;
-  *(result + 8) += 8;
-  *(result + 16) = v3;
-  return result;
+  **(a1 + 8) = *a2;
+  v3 = *(a1 + 16) - 8;
+  *(a1 + 8) += 8;
+  *(a1 + 16) = v3;
 }
 
 void sub_22899C0C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -4526,44 +4509,43 @@ LABEL_6:
 
 unint64_t health::VirtualFile::write<health::WriteAheadLog::LogEntryHeader>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = 36;
-  v11 = v15;
-  v12 = v15;
-  v13 = 36;
-  LODWORD(v14) = *a3;
-  health::SerializationBuffer::appendRaw<unsigned int>(&v11, &v14);
-  v14 = *(a3 + 8);
-  health::SerializationBuffer::appendRaw<unsigned long long>(&v11, &v14);
-  v14 = *(a3 + 16);
-  health::SerializationBuffer::appendRaw<unsigned long long>(&v11, &v14);
-  v14 = *(a3 + 24);
-  health::SerializationBuffer::appendRaw<unsigned long long>(&v11, &v14);
-  LODWORD(v14) = *(a3 + 32);
-  health::SerializationBuffer::appendRaw<unsigned int>(&v11, &v14);
-  LODWORD(v14) = health::FletcherChecksum(v11, (v12 - v11));
-  health::SerializationBuffer::appendRaw<unsigned int>(&v11, &v14);
-  v6 = v17;
-  if (v17 <= 0x3FF)
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = 36;
+  v10 = v14;
+  v11 = v14;
+  v12 = 36;
+  LODWORD(v13) = *a3;
+  health::SerializationBuffer::appendRaw<unsigned int>(&v10, &v13);
+  v13 = *(a3 + 8);
+  health::SerializationBuffer::appendRaw<unsigned long long>(&v10, &v13);
+  v13 = *(a3 + 16);
+  health::SerializationBuffer::appendRaw<unsigned long long>(&v10, &v13);
+  v13 = *(a3 + 24);
+  health::SerializationBuffer::appendRaw<unsigned long long>(&v10, &v13);
+  LODWORD(v13) = *(a3 + 32);
+  health::SerializationBuffer::appendRaw<unsigned int>(&v10, &v13);
+  LODWORD(v13) = health::FletcherChecksum(v10, (v11 - v10));
+  health::SerializationBuffer::appendRaw<unsigned int>(&v10, &v13);
+  v6 = v16;
+  if (v16 <= 0x3FF)
   {
-    v7 = v15;
+    v7 = v14;
   }
 
   else
   {
-    v7 = v16;
+    v7 = v15;
   }
 
-  (*(*a1 + 24))(a1, a2, v7, v17);
-  v8 = v16;
-  v16 = 0;
+  (*(*a1 + 24))(a1, a2, v7, v16);
+  v8 = v15;
+  v15 = 0;
   if (v8)
   {
     MEMORY[0x22AAC8570](v8, 0x1000C8077774924);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -4622,11 +4604,11 @@ uint64_t health::FletcherChecksum(health *this, char *a2)
   return v4 | (v2 << 16);
 }
 
-uint64_t std::deque<health::BlockPointer>::deque(uint64_t result, void *a2)
+uint64_t std::deque<health::BlockPointer>::deque(uint64_t a1, void *a2)
 {
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  *result = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
   v2 = a2[1];
   if (a2[2] != v2)
   {
@@ -4655,7 +4637,7 @@ uint64_t std::deque<health::BlockPointer>::deque(uint64_t result, void *a2)
 
         if (v12)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<statistics::Interval>>>(result, v12);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<statistics::Interval>>>(a1, v12);
         }
 
         v13 = 0;
@@ -4706,11 +4688,11 @@ uint64_t std::deque<health::BlockPointer>::deque(uint64_t result, void *a2)
             }
 
             while (v21 != v20);
-            v14 = *(result + 40);
+            v14 = *(a1 + 40);
           }
 
           v14 += (v20 - v13) >> 4;
-          *(result + 40) = v14;
+          *(a1 + 40) = v14;
           if (v15 == v17)
           {
             break;
@@ -4724,7 +4706,7 @@ uint64_t std::deque<health::BlockPointer>::deque(uint64_t result, void *a2)
     }
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::loadHistoryRoot(uint64_t a1, ObjectIdentifier *a2, int a3)
@@ -4747,13 +4729,13 @@ uint64_t health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::loa
   return 1;
 }
 
-uint64_t health::DataStore::ReadTransaction::retrieveObjectWithIdentifier<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::SampleHistoryRoot>(health::DataStore::ReadTransaction *a1, void *a2, ObjectIdentifier *a3)
+uint64_t health::DataStore::ReadTransaction::retrieveObjectWithIdentifier<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::SampleHistoryRoot>(uint64_t **a1, void *a2, ObjectIdentifier *a3)
 {
-  health::DataStore::ReadTransaction::_pointerForObject(a1, a3, v9);
+  health::DataStore::ReadTransaction::_pointerForObject(v9, a1, a3);
   v5 = v10;
   if (v10 == 1)
   {
-    v6 = *(a1 + 3);
+    v6 = a1[3];
     v7 = health::Optional<health::BlockPointer>::get(v9);
     health::BlockAccessFile::ReadTransaction::retrieveObject<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::SampleHistoryRoot>(v6, *v7, *(v7 + 8), a2);
   }
@@ -4761,39 +4743,38 @@ uint64_t health::DataStore::ReadTransaction::retrieveObjectWithIdentifier<health
   return v5;
 }
 
-double health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>@<D0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
+double health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>@<D0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   bzero(v10, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(v8 + 16), *a1, *(a1 + 8), v10);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(v8 + 16), *a1, a1[1], v10);
   return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKey<health::DataStore::ObjectIdentifier>(a1, 0, v10, a2, a3, a4);
 }
 
 uint64_t health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 547;
-  health::RawBuffer::RawBuffer(v11, v12, 547);
-  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v11);
-  v8 = v12;
-  if (v14 > 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 547;
+  health::RawBuffer::RawBuffer(v10, v11, 547);
+  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v10);
+  v8 = v11;
+  if (v13 > 0x3FF)
   {
-    v8 = v13;
+    v8 = v12;
   }
 
-  v11[0] = v8;
-  v11[1] = v8;
-  v11[2] = 547;
-  health::DeserializeValues<health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>,unsigned short,BOOL>(v11, a4, (a4 + 544), (a4 + 546));
-  result = v13;
-  v13 = 0;
+  v10[0] = v8;
+  v10[1] = v8;
+  v10[2] = 547;
+  health::DeserializeValues<health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>,unsigned short,BOOL>(v10, a4, (a4 + 544), (a4 + 546));
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4809,10 +4790,10 @@ void sub_22899C9E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *health::RawBuffer::RawBuffer(void *this, unsigned __int8 *a2, uint64_t a3)
+health::RawBuffer *health::RawBuffer::RawBuffer(health::RawBuffer *this, unsigned __int8 *a2, uint64_t a3)
 {
   *this = a2;
-  this[1] = a3;
+  *(this + 1) = a3;
   if (!a2)
   {
     if (a3)
@@ -4862,15 +4843,15 @@ void health::TransactionalFile::ReadTransaction::readBufferAtOffset(uint64_t a1,
   health::TransactionalFile::_readBufferAtOffset(v4, v5, v6, a3);
 }
 
-double health::WriteAheadLog::Transaction::pageAtOffset@<D0>(health::WriteAheadLog::Transaction *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+double health::WriteAheadLog::Transaction::pageAtOffset@<D0>(uint64_t this@<X0>, unint64_t a2@<X1>, health::FilePage *a3@<X8>)
 {
-  v3 = *(this + 5);
+  v3 = *(this + 40);
   if (v3)
   {
-    v4 = (this + 40);
+    v4 = this + 40;
     do
     {
-      v5 = v3[4];
+      v5 = *(v3 + 32);
       v6 = v5 >= a2;
       v7 = v5 < a2;
       if (v6)
@@ -4878,19 +4859,19 @@ double health::WriteAheadLog::Transaction::pageAtOffset@<D0>(health::WriteAheadL
         v4 = v3;
       }
 
-      v3 = v3[v7];
+      v3 = *(v3 + 8 * v7);
     }
 
     while (v3);
-    if (v4 != (this + 40) && v4[4] <= a2)
+    if (v4 != this + 40 && *(v4 + 32) <= a2)
     {
-      health::_PageForEntry(this + 1, a2, (v4 + 5), a3);
+      health::_PageForEntry((this + 8), a2, (v4 + 40), a3);
     }
   }
 
   result = 0.0;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
+  *(a3 + 1) = 0u;
+  *(a3 + 2) = 0u;
   *a3 = 0u;
   return result;
 }
@@ -4946,7 +4927,7 @@ uint64_t health::Optional<health::TransactionalCache<unsigned long long,health::
   return result;
 }
 
-void *health::RawBuffer::slice@<X0>(health::RawBuffer *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+health::RawBuffer *health::RawBuffer::slice@<X0>(health::RawBuffer *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, health::RawBuffer *a4@<X8>)
 {
   if ((a3 + a2) > *(this + 1))
   {
@@ -4986,7 +4967,7 @@ void sub_22899CDEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *health::FilePage::slice@<X0>(health::FilePage *this@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+health::RawBuffer *health::FilePage::slice@<X0>(health::FilePage *this@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, health::RawBuffer *a4@<X8>)
 {
   if (*this > a2)
   {
@@ -5112,32 +5093,31 @@ void sub_22899D46C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::DeserializeValues<health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>,unsigned short,BOOL>(uint64_t a1, uint64_t a2, _WORD *a3, BOOL *a4)
+void health::DeserializeValues<health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>,unsigned short,BOOL>(uint64_t a1, uint64_t a2, _WORD *a3, BOOL *a4)
 {
   for (i = 0; i != 17; ++i)
   {
     v9 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a2, i);
-    v11 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v11);
-    *v9 = v11;
-    v11 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v11);
-    v9[1] = v11;
-    v11 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v11);
-    v9[2] = v11;
-    v11 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v11);
-    v9[3] = v11;
+    v10 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v10);
+    *v9 = v10;
+    v10 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v10);
+    v9[1] = v10;
+    v10 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v10);
+    v9[2] = v10;
+    v10 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v10);
+    v9[3] = v10;
   }
 
-  LOWORD(v11) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v11);
-  *a3 = v11;
-  LOBYTE(v11) = 0;
-  result = health::DeserializationBuffer::extractRaw<unsigned char>(a1, &v11);
-  *a4 = v11 != 0;
-  return result;
+  LOWORD(v10) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v10);
+  *a3 = v10;
+  LOBYTE(v10) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned char>(a1, &v10);
+  *a4 = v10 != 0;
 }
 
 uint64_t health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](uint64_t a1, unint64_t a2)
@@ -5329,9 +5309,9 @@ void sub_22899DCC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::DeserializationBuffer::extractRaw<long long>(uint64_t result, void *a2)
+void health::DeserializationBuffer::extractRaw<long long>(uint64_t a1, void *a2)
 {
-  if (*(result + 16) <= 7uLL)
+  if (*(a1 + 16) <= 7uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -5341,11 +5321,10 @@ uint64_t health::DeserializationBuffer::extractRaw<long long>(uint64_t result, v
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 63, &__p);
   }
 
-  *a2 = **(result + 8);
-  v3 = *(result + 16) - 8;
-  *(result + 8) += 8;
-  *(result + 16) = v3;
-  return result;
+  *a2 = **(a1 + 8);
+  v3 = *(a1 + 16) - 8;
+  *(a1 + 8) += 8;
+  *(a1 + 16) = v3;
 }
 
 void sub_22899DE2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -5373,9 +5352,9 @@ void sub_22899DE2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::DeserializationBuffer::extractRaw<unsigned long long>(uint64_t result, void *a2)
+void health::DeserializationBuffer::extractRaw<unsigned long long>(uint64_t a1, void *a2)
 {
-  if (*(result + 16) <= 7uLL)
+  if (*(a1 + 16) <= 7uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -5385,11 +5364,10 @@ uint64_t health::DeserializationBuffer::extractRaw<unsigned long long>(uint64_t 
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 63, &__p);
   }
 
-  *a2 = **(result + 8);
-  v3 = *(result + 16) - 8;
-  *(result + 8) += 8;
-  *(result + 16) = v3;
-  return result;
+  *a2 = **(a1 + 8);
+  v3 = *(a1 + 16) - 8;
+  *(a1 + 8) += 8;
+  *(a1 + 16) = v3;
 }
 
 void sub_22899DF94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -5417,9 +5395,9 @@ void sub_22899DF94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::DeserializationBuffer::extractRaw<unsigned short>(uint64_t result, _WORD *a2)
+void health::DeserializationBuffer::extractRaw<unsigned short>(uint64_t a1, _WORD *a2)
 {
-  if (*(result + 16) <= 1uLL)
+  if (*(a1 + 16) <= 1uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -5429,11 +5407,10 @@ uint64_t health::DeserializationBuffer::extractRaw<unsigned short>(uint64_t resu
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 63, &__p);
   }
 
-  *a2 = **(result + 8);
-  v3 = *(result + 16) - 2;
-  *(result + 8) += 2;
-  *(result + 16) = v3;
-  return result;
+  *a2 = **(a1 + 8);
+  v3 = *(a1 + 16) - 2;
+  *(a1 + 8) += 2;
+  *(a1 + 16) = v3;
 }
 
 void sub_22899E0FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -5461,9 +5438,9 @@ void sub_22899E0FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::DeserializationBuffer::extractRaw<unsigned char>(uint64_t result, _BYTE *a2)
+void health::DeserializationBuffer::extractRaw<unsigned char>(uint64_t a1, _BYTE *a2)
 {
-  if (!*(result + 16))
+  if (!*(a1 + 16))
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -5473,11 +5450,10 @@ uint64_t health::DeserializationBuffer::extractRaw<unsigned char>(uint64_t resul
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 63, &__p);
   }
 
-  *a2 = **(result + 8);
-  v3 = *(result + 16) - 1;
-  ++*(result + 8);
-  *(result + 16) = v3;
-  return result;
+  *a2 = **(a1 + 8);
+  v3 = *(a1 + 16) - 1;
+  ++*(a1 + 8);
+  *(a1 + 16) = v3;
 }
 
 void sub_22899E260(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -5596,29 +5572,28 @@ void sub_22899E54C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>>(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 578;
-  health::RawBuffer::RawBuffer(v11, v12, 578);
-  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v11);
-  v8 = v12;
-  if (v14 > 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 578;
+  health::RawBuffer::RawBuffer(v10, v11, 578);
+  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v10);
+  v8 = v11;
+  if (v13 > 0x3FF)
   {
-    v8 = v13;
+    v8 = v12;
   }
 
-  v11[0] = v8;
-  v11[1] = v8;
-  v11[2] = 578;
-  health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v11, a4, (a4 + 544), (a4 + 552), (a4 + 568));
-  result = v13;
-  v13 = 0;
+  v10[0] = v8;
+  v10[1] = v8;
+  v10[2] = 578;
+  health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v10, a4, (a4 + 544), (a4 + 552), (a4 + 568));
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5634,41 +5609,40 @@ void sub_22899E6A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, void *a5)
+void health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, void *a5)
 {
   for (i = 0; i != 17; ++i)
   {
     v11 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a2, i);
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v13);
-    *v11 = v13;
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-    v11[1] = v13;
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-    v11[2] = v13;
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-    v11[3] = v13;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v12);
+    *v11 = v12;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+    v11[1] = v12;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+    v11[2] = v12;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+    v11[3] = v12;
   }
 
-  LOWORD(v13) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v13);
-  *a3 = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  *a4 = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  a4[1] = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  *a5 = v13;
-  v13 = 0;
-  result = health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  a5[1] = v13;
-  return result;
+  LOWORD(v12) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v12);
+  *a3 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  *a4 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  a4[1] = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  *a5 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  a5[1] = v12;
 }
 
 uint64_t health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::indexForKey(uint64_t a1, void *a2)
@@ -5762,7 +5736,7 @@ uint64_t health::DataStore::WriteTransaction::storeObjectWithIdentifier<health::
       return health::BlockAccessFile::WriteTransaction::updateObject<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::SampleHistoryRoot>(a1 + 80, v8, v9, a2);
     }
 
-    health::BlockAccessFile::WriteTransaction::freeBlock(a1 + 80, v8, v9);
+    health::BlockAccessFile::WriteTransaction::freeBlock((a1 + 80), v8, v9);
   }
 
   v11 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength((a1 + 80), 56);
@@ -5773,11 +5747,11 @@ uint64_t health::DataStore::WriteTransaction::storeObjectWithIdentifier<health::
   return health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::setValueForKey(&v17, a3, &v14);
 }
 
-double health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>@<D0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
+double health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>@<D0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   bzero(v10, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(v8 + 24), *a1, *(a1 + 8), v10);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(v8 + 24), *a1, a1[1], v10);
   return health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKey<health::DataStore::ObjectIdentifier>(a1, 0, v10, a2, a3, a4);
 }
 
@@ -5811,69 +5785,68 @@ uint64_t health::BlockAccessFile::WriteTransaction::_requestBlockOfLength(health
 
 uint64_t health::TransactionalFile::ReadTransaction::readObjectAtOffset<health::BTreeNode<unsigned long long,health::BlockAccessFile::FreeSpaceList,unsigned long long,17>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  health::SmartBuffer::SmartBuffer(v22, 0x6F2uLL);
-  if (v24 <= 0x3FF)
+  v24 = *MEMORY[0x277D85DE8];
+  health::SmartBuffer::SmartBuffer(v21, 0x6F2uLL);
+  if (v23 <= 0x3FF)
   {
-    v6 = v22;
+    v6 = v21;
   }
 
   else
   {
-    v6 = v23;
+    v6 = v22;
   }
 
-  v20[0] = v6;
-  v20[1] = v6;
-  v20[2] = 1778;
-  health::RawBuffer::RawBuffer(v19, v6, v24);
-  health::RawBuffer::RawBuffer(v18, v19[0], v19[1]);
+  v19[0] = v6;
+  v19[1] = v6;
+  v19[2] = 1778;
+  health::RawBuffer::RawBuffer(v18, v6, v23);
+  health::RawBuffer::RawBuffer(v17, v18[0], v18[1]);
   v9 = a1 + 8;
   v7 = *(a1 + 8);
   v8 = *(v9 + 8);
-  health::RawBuffer::RawBuffer(v21, v18[0], v18[1]);
-  health::TransactionalFile::_readBufferAtOffset(v8, v7, v21, a3);
+  health::RawBuffer::RawBuffer(v20, v17[0], v17[1]);
+  health::TransactionalFile::_readBufferAtOffset(v8, v7, v20, a3);
   for (i = 0; i != 17; ++i)
   {
     v11 = health::StaticArray<health::BTreeNode<unsigned long long,health::BlockAccessFile::FreeSpaceList,unsigned long long,17>::ValueEntry,17ul>::operator[](a2, i);
-    v21[0] = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(v20, v21);
+    v20[0] = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(v19, v20);
     v12 = 0;
-    *v11 = v21[0];
+    *v11 = v20[0];
     do
     {
       v13 = health::StaticArray<unsigned long long,10ul>::operator[]((v11 + 1), v12);
-      v21[0] = 0;
-      health::DeserializationBuffer::extractRaw<unsigned long long>(v20, v21);
-      *v13 = v21[0];
+      v20[0] = 0;
+      health::DeserializationBuffer::extractRaw<unsigned long long>(v19, v20);
+      *v13 = v20[0];
       ++v12;
     }
 
     while (v12 != 10);
-    v21[0] = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(v20, v21);
-    v11[11] = v21[0];
+    v20[0] = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(v19, v20);
+    v11[11] = v20[0];
   }
 
   for (j = 0; j != 18; ++j)
   {
     v15 = health::StaticArray<unsigned long long,18ul>::operator[](a2 + 1632, j);
-    v21[0] = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(v20, v21);
-    *v15 = v21[0];
+    v20[0] = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(v19, v20);
+    *v15 = v20[0];
   }
 
-  LOWORD(v21[0]) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned short>(v20, v21);
-  *(a2 + 1776) = v21[0];
-  result = v23;
-  v23 = 0;
+  LOWORD(v20[0]) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned short>(v19, v20);
+  *(a2 + 1776) = v20[0];
+  result = v22;
+  v22 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6010,33 +5983,32 @@ uint64_t health::BlockAccessFile::WriteTransaction::_allocateBlockOfLength(healt
 
 uint64_t health::TransactionalFile::WriteTransaction::storeObjectAtOffset<health::BlockAccessFile::BlockAccessFileHeader &>(health::TransactionalFile::WriteTransaction *a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v12 = 68;
-  v9[0] = v10;
-  v9[1] = v10;
-  v9[2] = 68;
-  health::BlockAccessFile::BlockAccessFileHeader::serialize(a2, v9);
-  if (v12 <= 0x3FF)
+  v12 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v11 = 68;
+  v8[0] = v9;
+  v8[1] = v9;
+  v8[2] = 68;
+  health::BlockAccessFile::BlockAccessFileHeader::serialize(a2, v8);
+  if (v11 <= 0x3FF)
   {
-    v5 = v10;
+    v5 = v9;
   }
 
   else
   {
-    v5 = v11;
+    v5 = v10;
   }
 
-  health::RawBuffer::RawBuffer(v8, v5, v12);
-  health::TransactionalFile::WriteTransaction::writeBufferAtOffset(a1, v8, a3);
-  result = v11;
-  v11 = 0;
+  health::RawBuffer::RawBuffer(v7, v5, v11);
+  health::TransactionalFile::WriteTransaction::writeBufferAtOffset(a1, v7, a3);
+  result = v10;
+  v10 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6096,51 +6068,38 @@ void sub_22899F51C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void health::TransactionalCache<unsigned long long,health::FilePage>::setValueForKey(void *a1, unint64_t a2, unint64_t *a3, __int128 *a4, unint64_t a5, int a6)
+void health::TransactionalCache<unsigned long long,health::FilePage>::setValueForKey(uint64_t a1, unint64_t a2, uint64_t *a3, __int128 *a4, unint64_t a5, int a6)
 {
-  v41[0] = a3;
-  v12 = std::__hash_table<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 2, *a3);
+  v37[0] = a3;
+  v12 = std::__hash_table<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 16), *a3, v37);
   for (i = v12[3]; ; ++i)
   {
     if (i == v12[4])
     {
-      v36 = *a4;
       v14 = *(a4 + 3);
-      v35 = *(a4 + 2);
       if (v14)
       {
         atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
       }
 
       v15 = *(a4 + 5);
-      v34 = *(a4 + 4);
       if (v15)
       {
         atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
       }
 
       health::TransactionalCache<unsigned long long,health::FilePage>::_pruneIfNeeded(a1, 0, a5);
-      v41[0] = a3;
-      v16 = std::__hash_table<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 2, *a3);
+      v37[0] = a3;
+      v16 = std::__hash_table<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 16), *a3, v37);
       v18 = v16[3];
-      v17 = v16[4];
-      if (v18 != v17)
+      for (j = v16[4]; v18 != j; v18 += 8)
       {
-        do
+        if (*(*v18 + 8) > a2)
         {
-          if (*(*v18 + 8) > a2)
-          {
-            goto LABEL_13;
-          }
-
-          v18 += 8;
+          break;
         }
-
-        while (v18 != v17);
-        v19 = v16[4];
       }
 
-LABEL_13:
       operator new();
     }
 
@@ -6150,91 +6109,91 @@ LABEL_13:
     }
   }
 
-  v37 = *a4;
-  v21 = *(a4 + 2);
-  v20 = *(a4 + 3);
-  if (v20)
+  v33 = *a4;
+  v20 = *(a4 + 2);
+  v19 = *(a4 + 3);
+  if (v19)
   {
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v23 = *(a4 + 4);
-  v22 = *(a4 + 5);
-  if (v22)
+  v22 = *(a4 + 4);
+  v21 = *(a4 + 5);
+  if (v21)
   {
-    atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   if (a6 != 1 && **i)
   {
-    v24 = *MEMORY[0x277CCC2A0];
-    std::string::basic_string[abi:ne200100]<0>(v41, "(state == CacheEntryState::Dirty) || (entry->state == CacheEntryState::Clean)");
-    std::string::basic_string[abi:ne200100]<0>(&v40, "_replaceValueForEntry");
-    std::string::basic_string[abi:ne200100]<0>(v39, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/Utility/HDTransactionalCache.hpp");
+    v23 = *MEMORY[0x277CCC2A0];
+    std::string::basic_string[abi:ne200100]<0>(v37, "(state == CacheEntryState::Dirty) || (entry->state == CacheEntryState::Clean)");
+    std::string::basic_string[abi:ne200100]<0>(&v36, "_replaceValueForEntry");
+    std::string::basic_string[abi:ne200100]<0>(v35, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/Utility/HDTransactionalCache.hpp");
     health::FormatString<>("Unable to replace a dirty entry with a clean one.", &__p);
-    health::_HDAssertImplementation<std::logic_error>(v24, v41, &v40, v39, 89, &__p);
+    health::_HDAssertImplementation<std::logic_error>(v23, v37, &v36, v35, 89, &__p);
   }
 
-  v25 = a6;
-  v26 = *i;
-  v27 = *(*i + 16);
-  *(*i + 32) = v37;
-  if (v20)
+  v24 = a6;
+  v25 = *i;
+  v26 = *(*i + 16);
+  *(*i + 32) = v33;
+  if (v19)
   {
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v28 = v26[7];
-  v26[6] = v21;
-  v26[7] = v20;
+  v27 = v25[7];
+  v25[6] = v20;
+  v25[7] = v19;
+  if (v27)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+  }
+
+  if (v21)
+  {
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v28 = v25[9];
+  v25[8] = v22;
+  v25[9] = v21;
   if (v28)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
-  if (v22)
+  v29 = *i;
+  *(v29 + 16) = a5;
+  *v29 = v24;
+  health::TransactionalCache<unsigned long long,health::FilePage>::_touchCacheEntry(a1, v29);
+  if (v26 != a5)
   {
-    atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v29 = v26[9];
-  v26[8] = v23;
-  v26[9] = v22;
-  if (v29)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
-  }
-
-  v30 = *i;
-  *(v30 + 16) = a5;
-  *v30 = v25;
-  health::TransactionalCache<unsigned long long,health::FilePage>::_touchCacheEntry(a1, v30);
-  if (v27 != a5)
-  {
-    v31 = a1[1];
-    v32 = v31 >= v27;
-    v33 = v31 - v27;
-    if (!v32)
+    v30 = *(a1 + 8);
+    v31 = v30 >= v26;
+    v32 = v30 - v26;
+    if (!v31)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    a1[1] = v33 + a5;
+    *(a1 + 8) = v32 + a5;
     health::TransactionalCache<unsigned long long,health::FilePage>::_pruneIfNeeded(a1, 0, 0);
   }
 
-  if (v22)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 }
 
-void sub_22899FB3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
+void sub_22899FB3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
 {
   std::__split_buffer<std::unique_ptr<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry,std::default_delete<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry>>>::~__split_buffer(&a37);
   std::unique_ptr<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry,std::default_delete<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry>>::reset[abi:ne200100](&a31, 0);
@@ -6261,33 +6220,32 @@ uint64_t std::__split_buffer<std::unique_ptr<health::TransactionalCache<unsigned
 
 uint64_t health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>>(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 578;
-  v11[0] = v12;
-  v11[1] = v12;
-  v11[2] = 578;
-  health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v11, a4, (a4 + 544), (a4 + 552), (a4 + 568));
-  if (v14 <= 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 578;
+  v10[0] = v11;
+  v10[1] = v11;
+  v10[2] = 578;
+  health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v10, a4, (a4 + 544), (a4 + 552), (a4 + 568));
+  if (v13 <= 0x3FF)
   {
-    v7 = v12;
+    v7 = v11;
   }
 
   else
   {
-    v7 = v13;
+    v7 = v12;
   }
 
-  health::RawBuffer::RawBuffer(v10, v7, v14);
-  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v10);
-  result = v13;
-  v13 = 0;
+  health::RawBuffer::RawBuffer(v9, v7, v13);
+  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v9);
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6303,36 +6261,36 @@ void sub_22899FD20(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, uint64_t *a4, uint64_t *a5)
+void health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, uint64_t *a4, uint64_t *a5)
 {
   for (i = 0; i != 17; ++i)
   {
     v11 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a2, i);
-    v13 = *v11;
-    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-    v13 = v11[1];
-    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-    v13 = v11[2];
-    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-    v13 = v11[3];
-    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
+    v12 = *v11;
+    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+    v12 = v11[1];
+    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+    v12 = v11[2];
+    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+    v12 = v11[3];
+    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
   }
 
-  LOWORD(v13) = *a3;
-  health::SerializationBuffer::appendRaw<unsigned short>(a1, &v13);
-  v13 = *a4;
-  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-  v13 = a4[1];
-  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-  v13 = *a5;
-  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-  v13 = a5[1];
-  return health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
+  LOWORD(v12) = *a3;
+  health::SerializationBuffer::appendRaw<unsigned short>(a1, &v12);
+  v12 = *a4;
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+  v12 = a4[1];
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+  v12 = *a5;
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+  v12 = a5[1];
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
 }
 
-uint64_t health::SerializationBuffer::appendRaw<unsigned short>(uint64_t result, _WORD *a2)
+void health::SerializationBuffer::appendRaw<unsigned short>(uint64_t a1, _WORD *a2)
 {
-  if (*(result + 16) <= 1uLL)
+  if (*(a1 + 16) <= 1uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -6342,11 +6300,10 @@ uint64_t health::SerializationBuffer::appendRaw<unsigned short>(uint64_t result,
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 35, &__p);
   }
 
-  **(result + 8) = *a2;
-  v3 = *(result + 16) - 2;
-  *(result + 8) += 2;
-  *(result + 16) = v3;
-  return result;
+  **(a1 + 8) = *a2;
+  v3 = *(a1 + 16) - 2;
+  *(a1 + 8) += 2;
+  *(a1 + 16) = v3;
 }
 
 void sub_22899FF78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -6392,7 +6349,7 @@ uint64_t std::__split_buffer<std::__thread_id *>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void *health::WriteAheadLog::Transaction::updatedPage(health::WriteAheadLog::Transaction *this, const health::FilePage *a2)
+uint64_t **health::WriteAheadLog::Transaction::updatedPage(health::WriteAheadLog::Transaction *this, const health::FilePage *a2)
 {
   v4 = *(this + 5);
   v5 = *a2;
@@ -6439,7 +6396,7 @@ void *health::WriteAheadLog::Transaction::updatedPage(health::WriteAheadLog::Tra
   else
   {
 LABEL_13:
-    v17 = this + 32;
+    v17 = (this + 32);
     v18 = *this;
     v26 = 3;
     v27 = v18;
@@ -6460,7 +6417,7 @@ LABEL_13:
     v24 = *(a2 + 1);
     v25 = *a2;
     v31 = &v25;
-    result = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v17, v25);
+    result = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v17, v25, &v31);
     result[5] = v23;
     result[6] = v19;
     result[7] = v24;
@@ -6469,17 +6426,16 @@ LABEL_13:
   return result;
 }
 
-unint64_t health::WriteAheadLog::Transaction::_writeCompletionEntryOfType(unint64_t result, int a2)
+void health::WriteAheadLog::Transaction::_writeCompletionEntryOfType(uint64_t a1, int a2)
 {
-  v3 = result;
-  if (*(result + 56))
+  if (*(a1 + 56))
   {
     v4 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v19, "_transactionStatus == Status::Active");
     std::string::basic_string[abi:ne200100]<0>(v18, "_writeCompletionEntryOfType");
     std::string::basic_string[abi:ne200100]<0>(v17, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
     health::WriteAheadLog::EntryTypeToString(&__p, a2);
-    health::FormatString<std::string,unsigned long long &>(&v16, "Attempt to {0} transaction {1} but it has already completed.", &__p, v3);
+    health::FormatString<std::string,unsigned long long &>(&v16, "Attempt to {0} transaction {1} but it has already completed.", &__p, a1);
     health::_HDAssertImplementation<health::transaction_error>(v4, v19, v18, v17, 600, &v16);
   }
 
@@ -6497,27 +6453,25 @@ unint64_t health::WriteAheadLog::Transaction::_writeCompletionEntryOfType(unint6
       std::string::basic_string[abi:ne200100]<0>(v14, "_writeCompletionEntryOfType");
       std::string::basic_string[abi:ne200100]<0>(v13, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
       health::WriteAheadLog::EntryTypeToString(&__p, a2);
-      health::FormatString<std::string,unsigned long long &>(&v12, "Attempt to {0} a transaction {1} with an invalid entry type {0}", &__p, v3);
+      health::FormatString<std::string,unsigned long long &>(&v12, "Attempt to {0} a transaction {1} with an invalid entry type {0}", &__p, a1);
       health::_HDAssertImplementation<health::transaction_error>(v6, v15, v14, v13, 609, &v12);
     }
 
     v5 = 2;
   }
 
-  *(result + 56) = v5;
-  if (*(result + 60) != 1)
+  *(a1 + 56) = v5;
+  if (*(a1 + 60) != 1)
   {
     LODWORD(__p.__r_.__value_.__l.__data_) = a2;
     __p.__r_.__value_.__r.__words[2] = 0;
     v10 = 0;
-    v7 = *(result + 8);
-    __p.__r_.__value_.__l.__size_ = *result;
+    v7 = *(a1 + 8);
+    __p.__r_.__value_.__l.__size_ = *a1;
     v11 = 0;
     v8 = (*(*v7 + 48))(v7);
-    return health::VirtualFile::write<health::WriteAheadLog::LogEntryHeader>(v7, v8, &__p);
+    health::VirtualFile::write<health::WriteAheadLog::LogEntryHeader>(v7, v8, &__p);
   }
-
-  return result;
 }
 
 void sub_2289A04A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
@@ -6592,47 +6546,46 @@ LABEL_6:
 
 uint64_t health::VirtualFile::read<health::WriteAheadLog::LogEntryHeader>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = 36;
+  v19 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = 36;
+  v11 = &v15;
+  v4 = (*(*a1 + 32))(a1, a2, &v15, 36);
   v12 = &v16;
-  v4 = (*(*a1 + 32))(a1, a2, &v16, 36);
-  v13 = &v17;
-  v14 = 32;
-  *a3 = v16;
-  v15 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(&v12, &v15);
-  *(a3 + 8) = v15;
-  v15 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(&v12, &v15);
-  *(a3 + 16) = v15;
-  v15 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(&v12, &v15);
-  *(a3 + 24) = v15;
-  LODWORD(v15) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned int>(&v12, &v15);
-  *(a3 + 32) = v15;
-  v6 = v12;
-  v5 = v13;
-  LODWORD(v15) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned int>(&v12, &v15);
+  v13 = 32;
+  *a3 = v15;
+  v14 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(&v11, &v14);
+  *(a3 + 8) = v14;
+  v14 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(&v11, &v14);
+  *(a3 + 16) = v14;
+  v14 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(&v11, &v14);
+  *(a3 + 24) = v14;
+  LODWORD(v14) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned int>(&v11, &v14);
+  *(a3 + 32) = v14;
+  v6 = v11;
+  v5 = v12;
+  LODWORD(v14) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned int>(&v11, &v14);
   v7 = (v5 - v6);
-  LODWORD(v5) = v15;
-  if (health::FletcherChecksum(v12, v7) != v5)
+  LODWORD(v5) = v14;
+  if (health::FletcherChecksum(v11, v7) != v5)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, "Invalid checksum on read object.");
     exception->__vftable = &unk_283BE6EE8;
   }
 
-  v8 = v18;
-  v18 = 0;
+  v8 = v17;
+  v17 = 0;
   if (v8)
   {
     MEMORY[0x22AAC8570](v8, 0x1000C8077774924);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -6691,9 +6644,9 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t health::DeserializationBuffer::extractRaw<unsigned int>(uint64_t result, _DWORD *a2)
+void health::DeserializationBuffer::extractRaw<unsigned int>(uint64_t a1, _DWORD *a2)
 {
-  if (*(result + 16) <= 3uLL)
+  if (*(a1 + 16) <= 3uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -6703,11 +6656,10 @@ uint64_t health::DeserializationBuffer::extractRaw<unsigned int>(uint64_t result
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 63, &__p);
   }
 
-  *a2 = **(result + 8);
-  v3 = *(result + 16) - 4;
-  *(result + 8) += 4;
-  *(result + 16) = v3;
-  return result;
+  *a2 = **(a1 + 8);
+  v3 = *(a1 + 16) - 4;
+  *(a1 + 8) += 4;
+  *(a1 + 16) = v3;
 }
 
 void sub_2289A0ABC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -6760,43 +6712,42 @@ uint64_t std::function<void ()(unsigned long long)>::operator()(uint64_t a1, uin
 
 uint64_t health::VirtualFile::write<health::TransactionalFile::FileHeader>(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = 36;
-  v7[0] = v9;
-  v7[1] = v9;
-  v7[2] = 36;
-  LODWORD(v8) = *a2;
-  health::SerializationBuffer::appendRaw<unsigned int>(v7, &v8);
-  LODWORD(v8) = *(a2 + 4);
-  health::SerializationBuffer::appendRaw<unsigned int>(v7, &v8);
-  LODWORD(v8) = *(a2 + 8);
-  health::SerializationBuffer::appendRaw<unsigned int>(v7, &v8);
-  v8 = *(a2 + 16);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v7, &v8);
-  v8 = *(a2 + 24);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v7, &v8);
-  v8 = *(a2 + 32);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v7, &v8);
-  if (v11 <= 0x3FF)
+  v11 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = 36;
+  v6[0] = v8;
+  v6[1] = v8;
+  v6[2] = 36;
+  LODWORD(v7) = *a2;
+  health::SerializationBuffer::appendRaw<unsigned int>(v6, &v7);
+  LODWORD(v7) = *(a2 + 4);
+  health::SerializationBuffer::appendRaw<unsigned int>(v6, &v7);
+  LODWORD(v7) = *(a2 + 8);
+  health::SerializationBuffer::appendRaw<unsigned int>(v6, &v7);
+  v7 = *(a2 + 16);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v6, &v7);
+  v7 = *(a2 + 24);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v6, &v7);
+  v7 = *(a2 + 32);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v6, &v7);
+  if (v10 <= 0x3FF)
   {
-    v4 = v9;
+    v4 = v8;
   }
 
   else
   {
-    v4 = v10;
+    v4 = v9;
   }
 
   (*(*a1 + 24))(a1, 0, v4);
-  result = v10;
-  v10 = 0;
+  result = v9;
+  v9 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6837,49 +6788,48 @@ uint64_t health::Optional<health::bplustree::Tree<health::BlockAccessFile::ReadT
 
 uint64_t health::BlockAccessFile::ReadTransaction::retrieveObject<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::SampleHistoryRoot>(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = 56;
-  health::RawBuffer::RawBuffer(v11, v13, 56);
-  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v11);
-  v8 = v13;
-  if (v15 > 0x3FF)
+  v15 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = 56;
+  health::RawBuffer::RawBuffer(v10, v12, 56);
+  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v10);
+  v8 = v12;
+  if (v14 > 0x3FF)
   {
-    v8 = v14;
+    v8 = v13;
   }
 
-  v11[0] = v8;
-  v11[1] = v8;
-  v11[2] = 56;
-  v12 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(v11, &v12);
-  *a4 = v12;
-  v12 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(v11, &v12);
-  a4[1] = v12;
-  v12 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(v11, &v12);
-  a4[2] = v12;
-  v12 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(v11, &v12);
-  a4[3] = v12;
-  v12 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(v11, &v12);
-  a4[4] = v12;
-  v12 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(v11, &v12);
-  a4[5] = v12;
-  v12 = 0;
-  health::DeserializationBuffer::extractRaw<long long>(v11, &v12);
-  a4[6] = v12;
-  result = v14;
-  v14 = 0;
+  v10[0] = v8;
+  v10[1] = v8;
+  v10[2] = 56;
+  v11 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(v10, &v11);
+  *a4 = v11;
+  v11 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(v10, &v11);
+  a4[1] = v11;
+  v11 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(v10, &v11);
+  a4[2] = v11;
+  v11 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(v10, &v11);
+  a4[3] = v11;
+  v11 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(v10, &v11);
+  a4[4] = v11;
+  v11 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(v10, &v11);
+  a4[5] = v11;
+  v11 = 0;
+  health::DeserializationBuffer::extractRaw<long long>(v10, &v11);
+  a4[6] = v11;
+  result = v13;
+  v13 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6895,7 +6845,7 @@ void sub_2289A11B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-double health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::insertSample(uint64_t a1, double *a2, uint64_t a3)
+double health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::insertSample(uint64_t a1, double *a2, __int128 *a3)
 {
   v6 = (*(a1 + 96) + 80);
   v38[0] = 0;
@@ -7023,9 +6973,9 @@ void sub_2289A1400(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::SerializationBuffer::appendRaw<unsigned char>(uint64_t result, _BYTE *a2)
+void health::SerializationBuffer::appendRaw<unsigned char>(uint64_t a1, _BYTE *a2)
 {
-  if (!*(result + 16))
+  if (!*(a1 + 16))
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -7035,11 +6985,10 @@ uint64_t health::SerializationBuffer::appendRaw<unsigned char>(uint64_t result, 
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 35, &__p);
   }
 
-  **(result + 8) = *a2;
-  v3 = *(result + 16) - 1;
-  ++*(result + 8);
-  *(result + 16) = v3;
-  return result;
+  **(a1 + 8) = *a2;
+  v3 = *(a1 + 16) - 1;
+  ++*(a1 + 8);
+  *(a1 + 16) = v3;
 }
 
 void sub_2289A1564(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -7067,19 +7016,19 @@ void sub_2289A1564(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::setValueForKey(uint64_t a1, double *a2, uint64_t a3)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::setValueForKey(uint64_t *a1, double *a2, __int128 *a3)
 {
-  v6 = *(a1 + 16);
+  v6 = a1[2];
   memset(v15, 0, 411);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 24), *a1, *(a1 + 8), v15);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 24), *a1, a1[1], v15);
   result = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_setValueForKey(a1, 0, a1, v15, a2, a3);
   if (result >= 2)
   {
-    v8 = *(a1 + 16);
+    v8 = a1[2];
     memset(__src, 0, 411);
-    health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v8 + 24), *a1, *(a1 + 8), __src);
+    health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v8 + 24), *a1, a1[1], __src);
     memcpy(v13, __src, sizeof(v13));
-    v9 = *(*(a1 + 16) + 24);
+    v9 = *(a1[2] + 24);
     v10 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength(v9, 411);
     v12 = v11;
     health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(v9, v10, v11, v13);
@@ -7087,7 +7036,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     *(&__src[0] + 1) = v10;
     *&__src[1] = v12;
     BYTE10(__src[25]) = 0;
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a1, *(a1 + 8), __src);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(a1[2] + 24), *a1, a1[1], __src);
     return health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::setValueForKey(a1, a2, a3);
   }
 
@@ -7096,29 +7045,28 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
 
 uint64_t health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 411;
-  health::RawBuffer::RawBuffer(v11, v12, 411);
-  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v11);
-  v8 = v12;
-  if (v14 > 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 411;
+  health::RawBuffer::RawBuffer(v10, v11, 411);
+  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v10);
+  v8 = v11;
+  if (v13 > 0x3FF)
   {
-    v8 = v13;
+    v8 = v12;
   }
 
-  v11[0] = v8;
-  v11[1] = v8;
-  v11[2] = 411;
-  health::DeserializeValue<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(a4, v11);
-  result = v13;
-  v13 = 0;
+  v10[0] = v8;
+  v10[1] = v8;
+  v10[2] = 411;
+  health::DeserializeValue<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(a4, v10);
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7159,39 +7107,39 @@ void sub_2289A1978(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, uint64_t *a4, uint64_t *a5)
+void health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, uint64_t *a4, uint64_t *a5)
 {
   for (i = 0; i != 17; ++i)
   {
     v11 = health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>::operator[](a2, i);
-    v13 = *v11;
-    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-    v13 = *(v11 + 8);
-    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-    v13 = *(v11 + 16);
-    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-    LODWORD(v13) = *(v11 + 24);
-    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v13);
-    LODWORD(v13) = *(v11 + 28);
-    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v13);
-    LODWORD(v13) = *(v11 + 32);
-    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v13);
-    LODWORD(v13) = *(v11 + 36);
-    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v13);
-    LODWORD(v13) = *(v11 + 40);
-    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v13);
+    v12 = *v11;
+    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+    v12 = *(v11 + 8);
+    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+    v12 = *(v11 + 16);
+    health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+    LODWORD(v12) = *(v11 + 24);
+    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v12);
+    LODWORD(v12) = *(v11 + 28);
+    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v12);
+    LODWORD(v12) = *(v11 + 32);
+    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v12);
+    LODWORD(v12) = *(v11 + 36);
+    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v12);
+    LODWORD(v12) = *(v11 + 40);
+    health::SerializationBuffer::appendRaw<unsigned int>(a1, &v12);
   }
 
-  LOWORD(v13) = *a3;
-  health::SerializationBuffer::appendRaw<unsigned short>(a1, &v13);
-  v13 = *a4;
-  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-  v13 = a4[1];
-  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-  v13 = *a5;
-  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
-  v13 = a5[1];
-  return health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v13);
+  LOWORD(v12) = *a3;
+  health::SerializationBuffer::appendRaw<unsigned short>(a1, &v12);
+  v12 = *a4;
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+  v12 = a4[1];
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+  v12 = *a5;
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
+  v12 = a5[1];
+  health::SerializationBuffer::appendRaw<unsigned long long>(a1, &v12);
 }
 
 uint64_t health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>::operator[](uint64_t a1, unint64_t a2)
@@ -7251,49 +7199,48 @@ void sub_2289A1C3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v8 = 0;
-  v18 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = 411;
-  v14[0] = v15;
-  v14[1] = v15;
-  v14[2] = 411;
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = 411;
+  v13[0] = v14;
+  v13[1] = v14;
+  v13[2] = 411;
   do
   {
     v9 = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v8);
-    v13[0] = *v9;
-    health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-    v13[0] = v9[1];
-    health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-    v13[0] = v9[2];
-    health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
+    v12[0] = *v9;
+    health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+    v12[0] = v9[1];
+    health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+    v12[0] = v9[2];
+    health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
     ++v8;
   }
 
   while (v8 != 17);
-  LOWORD(v13[0]) = *(a4 + 408);
-  health::SerializationBuffer::appendRaw<unsigned short>(v14, v13);
-  LOBYTE(v13[0]) = *(a4 + 410);
-  health::SerializationBuffer::appendRaw<unsigned char>(v14, v13);
-  if (v17 <= 0x3FF)
+  LOWORD(v12[0]) = *(a4 + 408);
+  health::SerializationBuffer::appendRaw<unsigned short>(v13, v12);
+  LOBYTE(v12[0]) = *(a4 + 410);
+  health::SerializationBuffer::appendRaw<unsigned char>(v13, v12);
+  if (v16 <= 0x3FF)
   {
-    v10 = v15;
+    v10 = v14;
   }
 
   else
   {
-    v10 = v16;
+    v10 = v15;
   }
 
-  health::RawBuffer::RawBuffer(v13, v10, v17);
-  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v13);
-  result = v16;
-  v16 = 0;
+  health::RawBuffer::RawBuffer(v12, v10, v16);
+  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v12);
+  result = v15;
+  v15 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7323,46 +7270,45 @@ uint64_t health::Optional<health::bplustree::Tree<health::BlockAccessFile::Write
 
 uint64_t health::BlockAccessFile::WriteTransaction::updateObject<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::SampleHistoryRoot>(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = 56;
-  v12[0] = v13;
-  v12[1] = v13;
-  v12[2] = 56;
-  v11[0] = *a4;
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[1];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[2];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[3];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[4];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[5];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[6];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  if (v15 <= 0x3FF)
+  v15 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = 56;
+  v11[0] = v12;
+  v11[1] = v12;
+  v11[2] = 56;
+  v10[0] = *a4;
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[1];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[2];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[3];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[4];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[5];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[6];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  if (v14 <= 0x3FF)
   {
-    v8 = v13;
+    v8 = v12;
   }
 
   else
   {
-    v8 = v14;
+    v8 = v13;
   }
 
-  health::RawBuffer::RawBuffer(v11, v8, v15);
-  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v11);
-  result = v14;
-  v14 = 0;
+  health::RawBuffer::RawBuffer(v10, v8, v14);
+  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v10);
+  result = v13;
+  v13 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7432,29 +7378,28 @@ void sub_2289A2158(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>>(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 782;
-  health::RawBuffer::RawBuffer(v11, v12, 782);
-  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v11);
-  v8 = v12;
-  if (v14 > 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 782;
+  health::RawBuffer::RawBuffer(v10, v11, 782);
+  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v10);
+  v8 = v11;
+  if (v13 > 0x3FF)
   {
-    v8 = v13;
+    v8 = v12;
   }
 
-  v11[0] = v8;
-  v11[1] = v8;
-  v11[2] = 782;
-  health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v11, a4, (a4 + 816), (a4 + 824), (a4 + 840));
-  result = v13;
-  v13 = 0;
+  v10[0] = v8;
+  v10[1] = v8;
+  v10[2] = 782;
+  health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v10, a4, (a4 + 816), (a4 + 824), (a4 + 840));
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7470,53 +7415,52 @@ void sub_2289A22B4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, void *a5)
+void health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, void *a5)
 {
   for (i = 0; i != 17; ++i)
   {
     v11 = health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>::operator[](a2, i);
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v13);
-    *v11 = v13;
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v13);
-    *(v11 + 8) = v13;
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v13);
-    *(v11 + 16) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 24) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 28) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 32) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 36) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 40) = v13;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v12);
+    *v11 = v12;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v12);
+    *(v11 + 8) = v12;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v12);
+    *(v11 + 16) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 24) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 28) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 32) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 36) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 40) = v12;
   }
 
-  LOWORD(v13) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v13);
-  *a3 = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  *a4 = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  a4[1] = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  *a5 = v13;
-  v13 = 0;
-  result = health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  a5[1] = v13;
-  return result;
+  LOWORD(v12) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v12);
+  *a3 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  *a4 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  a4[1] = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  *a5 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  a5[1] = v12;
 }
 
 void sub_2289A2578(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -7544,9 +7488,9 @@ void sub_2289A2578(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::DeserializationBuffer::extractRaw<int>(uint64_t result, _DWORD *a2)
+void health::DeserializationBuffer::extractRaw<int>(uint64_t a1, _DWORD *a2)
 {
-  if (*(result + 16) <= 3uLL)
+  if (*(a1 + 16) <= 3uLL)
   {
     v2 = *MEMORY[0x277CCC2A0];
     std::string::basic_string[abi:ne200100]<0>(v7, "sizeof(T) <= _length");
@@ -7556,11 +7500,10 @@ uint64_t health::DeserializationBuffer::extractRaw<int>(uint64_t result, _DWORD 
     health::_HDAssertImplementation<std::out_of_range>(v2, v7, v6, v5, 63, &__p);
   }
 
-  *a2 = **(result + 8);
-  v3 = *(result + 16) - 4;
-  *(result + 8) += 4;
-  *(result + 16) = v3;
-  return result;
+  *a2 = **(a1 + 8);
+  v3 = *(a1 + 16) - 4;
+  *(a1 + 8) += 4;
+  *(a1 + 16) = v3;
 }
 
 void sub_2289A26E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -7705,33 +7648,32 @@ void sub_2289A2A3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>>(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 782;
-  v11[0] = v12;
-  v11[1] = v12;
-  v11[2] = 782;
-  health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v11, a4, (a4 + 816), (a4 + 824), (a4 + 840));
-  if (v14 <= 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 782;
+  v10[0] = v11;
+  v10[1] = v11;
+  v10[2] = 782;
+  health::SerializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v10, a4, (a4 + 816), (a4 + 824), (a4 + 840));
+  if (v13 <= 0x3FF)
   {
-    v7 = v12;
+    v7 = v11;
   }
 
   else
   {
-    v7 = v13;
+    v7 = v12;
   }
 
-  health::RawBuffer::RawBuffer(v10, v7, v14);
-  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v10);
-  result = v13;
-  v13 = 0;
+  health::RawBuffer::RawBuffer(v9, v7, v13);
+  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v9);
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8030,48 +7972,55 @@ id HDDataEntityPredicateForSourceEntity(void *a1)
   return v2;
 }
 
-void sub_2289A61C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2289A59D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a11);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2289A61C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
 id HDPredicateForMetadataValues(void *a1)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 count])
   {
     v2 = [MEMORY[0x277CBEB18] array];
     v3 = [MEMORY[0x277CBEB18] array];
-    v56 = [MEMORY[0x277CBEB18] array];
     v55 = [MEMORY[0x277CBEB18] array];
+    v54 = [MEMORY[0x277CBEB18] array];
     [MEMORY[0x277CBEB18] array];
-    v53 = v52 = v1;
+    v52 = v51 = v1;
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     v4 = v1;
-    v5 = [v4 countByEnumeratingWithState:&v61 objects:v66 count:16];
-    v54 = v3;
+    v5 = [v4 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    v53 = v3;
     if (v5)
     {
       v6 = v5;
-      v7 = *v62;
+      v7 = *v61;
       do
       {
         v8 = 0;
         do
         {
-          if (*v62 != v7)
+          if (*v61 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v61 + 1) + 8 * v8);
+          v9 = *(*(&v60 + 1) + 8 * v8);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -8092,7 +8041,7 @@ id HDPredicateForMetadataValues(void *a1)
           if (objc_opt_isKindOfClass())
           {
             v10 = _HDSQLiteValueForDate();
-            v11 = v56;
+            v11 = v55;
             goto LABEL_13;
           }
 
@@ -8103,7 +8052,7 @@ id HDPredicateForMetadataValues(void *a1)
             if (objc_opt_isKindOfClass())
             {
               v10 = _HDSQLiteValueForData();
-              v11 = v53;
+              v11 = v52;
 LABEL_13:
               [v11 addObject:v10];
             }
@@ -8114,19 +8063,19 @@ LABEL_13:
               v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"HDSQLitePredicate * _Nonnull HDPredicateForMetadataValues(NSSet * _Nonnull __strong)"];
               [v10 handleFailureInFunction:v12 file:@"HDMetadataValueEntity.m" lineNumber:784 description:@"Unsupported metadata value type!"];
 
-              v3 = v54;
+              v3 = v53;
             }
 
             goto LABEL_15;
           }
 
-          [v55 addObject:v9];
+          [v54 addObject:v9];
 LABEL_15:
           ++v8;
         }
 
         while (v6 != v8);
-        v13 = [v4 countByEnumeratingWithState:&v61 objects:v66 count:16];
+        v13 = [v4 countByEnumeratingWithState:&v60 objects:v65 count:16];
         v6 = v13;
       }
 
@@ -8151,13 +8100,13 @@ LABEL_15:
       v18 = 0;
     }
 
-    if ([v54 count])
+    if ([v53 count])
     {
       v21 = MEMORY[0x277D10B18];
       v22 = _HDSQLiteValueForNumber();
       v23 = [v21 predicateWithProperty:@"value_type" equalToValue:v22];
 
-      v24 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"numerical_value" values:v54];
+      v24 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"numerical_value" values:v53];
 
       v25 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v23 otherPredicate:v24];
       [v14 addObject:v25];
@@ -8166,14 +8115,14 @@ LABEL_15:
       v18 = v24;
     }
 
-    v26 = v55;
-    if ([v56 count])
+    v26 = v54;
+    if ([v55 count])
     {
       v27 = MEMORY[0x277D10B18];
       v28 = _HDSQLiteValueForNumber();
       v29 = [v27 predicateWithProperty:@"value_type" equalToValue:v28];
 
-      v30 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"date_value" values:v56];
+      v30 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"date_value" values:v55];
 
       v31 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v29 otherPredicate:v30];
       [v14 addObject:v31];
@@ -8182,38 +8131,38 @@ LABEL_15:
       v18 = v30;
     }
 
-    if ([v55 count])
+    if ([v54 count])
     {
-      v51 = v14;
+      v50 = v14;
       v32 = MEMORY[0x277D10B18];
       v33 = _HDSQLiteValueForNumber();
       v34 = [v32 predicateWithProperty:@"value_type" equalToValue:v33];
 
       v35 = [MEMORY[0x277CBEB18] array];
+      v56 = 0u;
       v57 = 0u;
       v58 = 0u;
       v59 = 0u;
-      v60 = 0u;
-      v36 = v55;
-      v37 = [v36 countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v36 = v54;
+      v37 = [v36 countByEnumeratingWithState:&v56 objects:v64 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v58;
+        v39 = *v57;
         do
         {
           for (i = 0; i != v38; ++i)
           {
-            if (*v58 != v39)
+            if (*v57 != v39)
             {
               objc_enumerationMutation(v36);
             }
 
-            v41 = _HDMetadataQuantityComparisonPredicate(1, *(*(&v57 + 1) + 8 * i));
+            v41 = _HDMetadataQuantityComparisonPredicate(1, *(*(&v56 + 1) + 8 * i));
             [v35 addObject:v41];
           }
 
-          v38 = [v36 countByEnumeratingWithState:&v57 objects:v65 count:16];
+          v38 = [v36 countByEnumeratingWithState:&v56 objects:v64 count:16];
         }
 
         while (v38);
@@ -8222,11 +8171,11 @@ LABEL_15:
       v42 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v35];
 
       v43 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v34 otherPredicate:v42];
-      v14 = v51;
-      [v51 addObject:v43];
+      v14 = v50;
+      [v50 addObject:v43];
 
       v18 = v42;
-      v26 = v55;
+      v26 = v54;
     }
 
     else
@@ -8234,13 +8183,13 @@ LABEL_15:
       v34 = v17;
     }
 
-    if ([v53 count])
+    if ([v52 count])
     {
       v44 = MEMORY[0x277D10B18];
       v45 = _HDSQLiteValueForNumber();
       v46 = [v44 predicateWithProperty:@"value_type" equalToValue:v45];
 
-      v47 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"data_value" values:v53];
+      v47 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"data_value" values:v52];
 
       v48 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v46 otherPredicate:v47];
       [v14 addObject:v48];
@@ -8251,15 +8200,13 @@ LABEL_15:
 
     v20 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v14];
 
-    v1 = v52;
+    v1 = v51;
   }
 
   else
   {
     v20 = [MEMORY[0x277D10B20] falsePredicate];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -9111,19 +9058,17 @@ id HDWorkoutEntityPredicateForWorkoutActivityType(uint64_t a1)
 
 id HDNanoSyncEntityClassForObjectType(int a1)
 {
-  v2 = a1 - 1;
-  if (a1 - 1) <= 0x31 && ((0x3E1000067FFAFuLL >> v2))
+  if (a1 - 1) <= 0x31 && ((0x3E1000067FFAFuLL >> (a1 - 1)))
   {
-    v3 = *off_278623130[v2];
-    v4 = objc_opt_class();
+    v2 = objc_opt_class();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 uint64_t HDCodableSourceReadFrom(uint64_t a1, void *a2)

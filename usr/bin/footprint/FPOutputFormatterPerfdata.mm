@@ -1,5 +1,4 @@
 @interface FPOutputFormatterPerfdata
-- (void)close;
 - (void)endAtTime:(id)time;
 - (void)printGlobalAuxData:(id)data;
 - (void)printProcessAuxData:(id)data forProcess:(id)process;
@@ -12,25 +11,20 @@
 
 - (void)printProcessTotal:(id)total forProcess:(id)process
 {
-  writer = self->_writer;
   processCopy = process;
   [total unsignedLongLongValue];
   pdwriter_new_value();
-  v8 = self->_writer;
   name = [processCopy name];
   [name UTF8String];
   pdwriter_record_variable_str();
 
-  v10 = self->_writer;
   name2 = [processCopy name];
   [name2 UTF8String];
   pdwriter_record_variable_str();
 
-  LODWORD(v10) = [processCopy pid];
-  snprintf(__str, 0xBuLL, "%d", v10);
-  v12 = self->_writer;
+  LODWORD(total) = [processCopy pid];
+  snprintf(__str, 0xBuLL, "%d", total);
   pdwriter_record_label_str();
-  v13 = self->_writer;
   pdwriter_record_tag();
 }
 
@@ -54,55 +48,52 @@
   name = [process name];
   uTF8String = [name UTF8String];
 
-  v29 = 0u;
-  v30 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = self->_currentProcessTotals;
-  v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v26 = *v28;
+    v23 = *v25;
     do
     {
       v10 = 0;
       do
       {
-        if (*v28 != v26)
+        if (*v25 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * v10);
+        v11 = *(*(&v24 + 1) + 8 * v10);
         v12 = [(NSMutableDictionary *)self->_currentProcessTotals objectForKeyedSubscript:v11];
         v13 = [(NSMutableDictionary *)self->_currentProcessAuxDatas objectForKeyedSubscript:v11];
         v14 = v13;
-        writer = self->_writer;
         if (v13)
         {
-          v16 = *(v13 + 16);
+          v15 = *(v13 + 16);
         }
 
         else
         {
-          v16 = 0;
+          v15 = 0;
         }
 
-        if (v16)
+        if (v15)
         {
-          v11 = v16;
+          v11 = v15;
         }
 
-        v17 = v11;
-        v18 = v16;
+        v16 = v11;
+        v17 = v15;
         [v11 UTF8String];
         [v12 unsignedLongLongValue];
         pdwriter_new_value();
 
-        v19 = self->_writer;
         pdwriter_record_variable_str();
-        v20 = self->_writer;
         pdwriter_record_variable_str();
         if (v14)
         {
@@ -113,11 +104,11 @@
       }
 
       while (v9 != v10);
-      v21 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-      v9 = v21;
+      v18 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = v18;
     }
 
-    while (v21);
+    while (v18);
   }
 
   currentProcessTotals = self->_currentProcessTotals;
@@ -132,89 +123,67 @@
 - (void)printSummaryCategories:(id)categories total:(id *)total hadErrors:(BOOL)errors
 {
   categoriesCopy = categories;
-  writer = self->_writer;
   pdwriter_new_group();
-  v10 = self->_writer;
-  v11 = total->var1 + total->var0;
   pdwriter_new_value();
-  v12 = self->_writer;
   pdwriter_record_variable_str();
-  v13 = self->_writer;
   pdwriter_record_variable_str();
-  v14 = self->_writer;
   pdwriter_record_tag();
   if (categoriesCopy)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     obj = categoriesCopy;
-    v26 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-    if (!v26)
+    v15 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v15)
     {
-      goto LABEL_18;
-    }
-
-    v25 = *v29;
-    while (1)
-    {
-      for (i = 0; i != v26; i = i + 1)
+      v14 = *v18;
+      do
       {
-        if (*v29 != v25)
+        for (i = 0; i != v15; i = i + 1)
         {
-          objc_enumerationMutation(obj);
-        }
-
-        v16 = [obj objectForKeyedSubscript:*(*(&v28 + 1) + 8 * i)];
-        v17 = sub_10001BCE8(v16);
-        if (v17)
-        {
-          v18 = sub_10001BD88(v16);
-          v19 = self->_writer;
-          if (v18)
+          if (*v18 != v14)
           {
-            v20 = v18;
-            v21 = 0;
-            goto LABEL_12;
+            objc_enumerationMutation(obj);
+          }
+
+          v9 = [obj objectForKeyedSubscript:*(*(&v17 + 1) + 8 * i)];
+          v10 = sub_10001BCE8(v9);
+          if (v10 && (sub_10001BD88(v9), (v11 = objc_claimAutoreleasedReturnValue()) != 0))
+          {
+            v12 = v11;
+            v13 = 0;
+          }
+
+          else
+          {
+            v11 = sub_10001BC9C(v9);
+            v5 = v11;
+            v12 = 0;
+            v13 = 1;
+          }
+
+          [v11 UTF8String];
+          [v9 totalDirtySize];
+          [v9 totalSwappedSize];
+          pdwriter_new_value();
+          if (v13)
+          {
+          }
+
+          pdwriter_record_variable_str();
+          pdwriter_record_variable_str();
+          if (v10)
+          {
+            sub_1000177D4(self, v10, 0);
           }
         }
 
-        else
-        {
-          v22 = self->_writer;
-        }
-
-        v18 = sub_10001BC9C(v16);
-        v5 = v18;
-        v20 = 0;
-        v21 = 1;
-LABEL_12:
-        [v18 UTF8String];
-        [v16 totalDirtySize];
-        [v16 totalSwappedSize];
-        pdwriter_new_value();
-        if (v21)
-        {
-        }
-
-        v23 = self->_writer;
-        pdwriter_record_variable_str();
-        v24 = self->_writer;
-        pdwriter_record_variable_str();
-        if (v17)
-        {
-          sub_1000177D4(self, v17, 0);
-        }
+        v15 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
-      v26 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-      if (!v26)
-      {
-LABEL_18:
-
-        break;
-      }
+      while (v15);
     }
   }
 }
@@ -229,20 +198,11 @@ LABEL_18:
 
 - (void)endAtTime:(id)time
 {
-  writer = self->_writer;
   sub_100016F9C(time);
   sub_100016F9C(self->_startTime);
   pdwriter_new_value();
-  v5 = self->_writer;
 
   pdwriter_record_tag();
-}
-
-- (void)close
-{
-  writer = self->_writer;
-  pdwriter_close();
-  self->_writer = 0;
 }
 
 @end

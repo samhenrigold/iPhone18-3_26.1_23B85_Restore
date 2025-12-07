@@ -8,11 +8,11 @@
 
 - (ASDTPMActionFileReader)initWithConfig:(id)config forSequencer:(id)sequencer
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v29.receiver = self;
-  v29.super_class = ASDTPMActionFileReader;
-  v7 = [(ASDTPMAction *)&v29 initWithConfig:configCopy forSequencer:sequencer];
+  v35.receiver = self;
+  v35.super_class = ASDTPMActionFileReader;
+  v7 = [(ASDTPMAction *)&v35 initWithConfig:configCopy forSequencer:sequencer];
   if (!v7)
   {
     goto LABEL_5;
@@ -30,6 +30,7 @@
     asdtBundleResource = [configCopy asdtBundleResource];
     asdtBundleExtension = [configCopy asdtBundleExtension];
     asdtBundleSubdir = [configCopy asdtBundleSubdir];
+    v21 = asdtBundleSubdir;
     if (asdtBundleResource && asdtBundleClass | asdtBundlePath)
     {
       if (asdtBundleClass)
@@ -41,21 +42,21 @@
       {
         [MEMORY[0x277CCA8D8] bundleWithPath:asdtBundlePath];
       }
-      v18 = ;
-      v19 = v18;
-      if (v18)
+      v22 = ;
+      v24 = v22;
+      if (v22)
       {
-        if (asdtBundleSubdir)
+        if (v21)
         {
-          [v18 pathForResource:asdtBundleResource ofType:asdtBundleExtension inDirectory:asdtBundleSubdir];
+          [v22 pathForResource:asdtBundleResource ofType:asdtBundleExtension inDirectory:v21];
         }
 
         else
         {
-          [v18 pathForResource:asdtBundleResource ofType:asdtBundleExtension];
+          [v22 pathForResource:asdtBundleResource ofType:asdtBundleExtension];
         }
-        v22 = ;
-        [(ASDTPMActionFileReader *)v7 setFilePath:v22];
+        v27 = ;
+        [(ASDTPMActionFileReader *)v7 setFilePath:v27];
 
         filePath2 = [(ASDTPMActionFileReader *)v7 filePath];
 
@@ -65,42 +66,42 @@
           goto LABEL_3;
         }
 
-        v20 = ASDTBaseLogType();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v25 = ASDTBaseLogType(v29, v30);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           name = [(ASDTPMDevice *)v7 name];
-          bundlePath = [v19 bundlePath];
+          bundlePath = [v24 bundlePath];
           *buf = 138413314;
-          v31 = name;
-          v32 = 2112;
-          v33 = asdtBundleResource;
-          v34 = 2112;
-          v35 = asdtBundleExtension;
-          v36 = 2112;
-          v37 = asdtBundleSubdir;
+          v37 = name;
           v38 = 2112;
-          v39 = bundlePath;
-          _os_log_error_impl(&dword_241659000, v20, OS_LOG_TYPE_ERROR, "%@: Could not generate path for bundle resource '%@', type '%@', subdir '%@'. Bundle path: %@", buf, 0x34u);
+          v39 = asdtBundleResource;
+          v40 = 2112;
+          v41 = asdtBundleExtension;
+          v42 = 2112;
+          v43 = v21;
+          v44 = 2112;
+          v45 = bundlePath;
+          _os_log_error_impl(&dword_241659000, v25, OS_LOG_TYPE_ERROR, "%@: Could not generate path for bundle resource '%@', type '%@', subdir '%@'. Bundle path: %@", buf, 0x34u);
         }
       }
 
       else
       {
-        v20 = ASDTBaseLogType();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v25 = ASDTBaseLogType(0, v23);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           name2 = [(ASDTPMDevice *)v7 name];
-          v21 = asdtBundlePath;
+          v26 = asdtBundlePath;
           if (asdtBundleClass)
           {
-            v21 = NSStringFromClass(asdtBundleClass);
+            v26 = NSStringFromClass(asdtBundleClass);
           }
 
           *buf = 138412546;
-          v31 = name2;
-          v32 = 2112;
-          v33 = v21;
-          _os_log_error_impl(&dword_241659000, v20, OS_LOG_TYPE_ERROR, "%@: Bundle not found for %@", buf, 0x16u);
+          v37 = name2;
+          v38 = 2112;
+          v39 = v26;
+          _os_log_error_impl(&dword_241659000, v25, OS_LOG_TYPE_ERROR, "%@: Bundle not found for %@", buf, 0x16u);
           if (asdtBundleClass)
           {
           }
@@ -110,15 +111,15 @@
 
     else
     {
-      v19 = ASDTBaseLogType();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v24 = ASDTBaseLogType(asdtBundleSubdir, v20);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [ASDTPMActionFileReader initWithConfig:v7 forSequencer:?];
       }
     }
 
 LABEL_31:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_32;
   }
 
@@ -130,7 +131,7 @@ LABEL_3:
 
   if (!propertyAddress)
   {
-    asdtBundlePath = ASDTBaseLogType();
+    asdtBundlePath = ASDTBaseLogType(v12, v13);
     if (os_log_type_enabled(asdtBundlePath, OS_LOG_TYPE_ERROR))
     {
       [ASDTPMActionFileReader initWithConfig:v7 forSequencer:?];
@@ -141,30 +142,29 @@ LABEL_3:
 
   -[ASDTPMActionFileReader setPropertyDataType:](v7, "setPropertyDataType:", [configCopy asdtPropertyIsPList]);
 LABEL_5:
-  v12 = v7;
+  v14 = v7;
 LABEL_32:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (int)action
 {
   v3 = MEMORY[0x277CBEA90];
   filePath = [(ASDTPMActionFileReader *)self filePath];
-  v23 = 0;
-  v5 = [v3 dataWithContentsOfFile:filePath options:2 error:&v23];
-  v6 = v23;
+  v25 = 0;
+  v5 = [v3 dataWithContentsOfFile:filePath options:2 error:&v25];
+  v6 = v25;
 
   if (v5)
   {
-    v7 = [(ASDTPMActionFileReader *)self convert:v5];
-    v22 = 0;
+    v9 = [(ASDTPMActionFileReader *)self convert:v5];
+    v24 = 0;
     if ([(ASDTPMActionFileReader *)self propertyDataType]== 1886155636)
     {
-      v22 = v7;
-      v8 = 8;
-      bytes = &v22;
+      v24 = v9;
+      v10 = 8;
+      bytes = &v24;
     }
 
     else
@@ -172,28 +172,28 @@ LABEL_32:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = v7;
-        v13 = v7;
-        bytes = [v13 bytes];
-        v8 = [v13 length];
+        v14 = v9;
+        v15 = v9;
+        bytes = [v15 bytes];
+        v10 = [v15 length];
       }
 
       else
       {
         bytes = 0;
-        v8 = 0;
+        v10 = 0;
       }
     }
 
     propertyAddress = [(ASDTPMActionFileReader *)self propertyAddress];
     audioObjectPropertyAddress = [propertyAddress audioObjectPropertyAddress];
-    LODWORD(v21) = v15;
+    LODWORD(v23) = v17;
 
-    v16 = [(ASDTPMDevice *)self parentSequencer:audioObjectPropertyAddress];
-    parentDevice = [v16 parentDevice];
-    v18 = [parentDevice setProperty:&audioObjectPropertyAddress withQualifierSize:0 qualifierData:0 dataSize:v8 andData:bytes forClient:0];
+    v18 = [(ASDTPMDevice *)self parentSequencer:audioObjectPropertyAddress];
+    parentDevice = [v18 parentDevice];
+    v20 = [parentDevice setProperty:&audioObjectPropertyAddress withQualifierSize:0 qualifierData:0 dataSize:v10 andData:bytes forClient:0];
 
-    if (v18)
+    if (v20)
     {
       code = 0;
     }
@@ -206,8 +206,8 @@ LABEL_32:
 
   else
   {
-    v10 = ASDTBaseLogType();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = ASDTBaseLogType(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(ASDTPMActionFileReader *)self action];
     }
@@ -220,34 +220,25 @@ LABEL_32:
 
 - (void)initWithConfig:(void *)a1 forSequencer:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 name];
+  v6 = [a1 name];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithConfig:(void *)a1 forSequencer:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 name];
+  v6 = [a1 name];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x34u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)action
 {
-  v13 = *MEMORY[0x277D85DE8];
   name = [self name];
   filePath = [self filePath];
-  v12 = [a2 description];
+  v11 = [a2 description];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -41,34 +41,34 @@
 
 - (BOOL)didPersistObjects:(id)objects lastDatum:(id)datum collector:(id)collector error:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   datumCopy = datum;
   collectorCopy = collector;
   v13 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   associatedSampleUUIDs = [datumCopy associatedSampleUUIDs];
-  v15 = [associatedSampleUUIDs countByEnumeratingWithState:&v41 objects:v53 count:16];
+  v15 = [associatedSampleUUIDs countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v42;
+    v17 = *v41;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v42 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(associatedSampleUUIDs);
         }
 
-        [v13 hk_appendBytesWithUUID:*(*(&v41 + 1) + 8 * i)];
+        [v13 hk_appendBytesWithUUID:*(*(&v40 + 1) + 8 * i)];
       }
 
-      v16 = [associatedSampleUUIDs countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v16 = [associatedSampleUUIDs countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
     while (v16);
@@ -76,7 +76,7 @@
 
   if ([objectsCopy count] == 1)
   {
-    v39 = collectorCopy;
+    v38 = collectorCopy;
     firstObject = [objectsCopy firstObject];
     uUID = [firstObject UUID];
     [(HDDataAggregator *)self dataCollectionManager];
@@ -91,24 +91,24 @@
       v26 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
       {
-        v35 = v26;
-        v36 = objc_opt_class();
-        v37 = *v21;
+        v34 = v26;
+        v35 = objc_opt_class();
+        v36 = *v21;
         *buf = 138543874;
-        v46 = v36;
-        v47 = 2112;
-        v48 = datumCopy;
-        v49 = 2114;
-        v50 = v37;
-        v38 = v36;
-        _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@ Failed to associate heart event sample from sensor datum '%@': %{public}@", buf, 0x20u);
+        v45 = v35;
+        v46 = 2112;
+        v47 = datumCopy;
+        v48 = 2114;
+        v49 = v36;
+        v37 = v35;
+        _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "%{public}@ Failed to associate heart event sample from sensor datum '%@': %{public}@", buf, 0x20u);
       }
     }
 
-    v40.receiver = self;
-    v40.super_class = HDHeartEventDataAggregator;
-    collectorCopy = v39;
-    v27 = [(HDDataAggregator *)&v40 didPersistObjects:objectsCopy lastDatum:datumCopy collector:v39 error:v25];
+    v39.receiver = self;
+    v39.super_class = HDHeartEventDataAggregator;
+    collectorCopy = v38;
+    v27 = [(HDDataAggregator *)&v39 didPersistObjects:objectsCopy lastDatum:datumCopy collector:v38 error:v25];
   }
 
   else
@@ -117,25 +117,24 @@
     v28 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v31 = v28;
-      v32 = objc_opt_class();
-      v33 = *error;
+      v30 = v28;
+      v31 = objc_opt_class();
+      v32 = *error;
       *buf = 138544130;
-      v46 = v32;
-      v47 = 2112;
-      v48 = objectsCopy;
-      v49 = 2112;
-      v50 = datumCopy;
-      v51 = 2114;
-      v52 = v33;
-      v34 = v32;
-      _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@ Not persisting unexpected objects [%@] from sensor datum'%@': %{public}@", buf, 0x2Au);
+      v45 = v31;
+      v46 = 2112;
+      v47 = objectsCopy;
+      v48 = 2112;
+      v49 = datumCopy;
+      v50 = 2114;
+      v51 = v32;
+      v33 = v31;
+      _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "%{public}@ Not persisting unexpected objects [%@] from sensor datum'%@': %{public}@", buf, 0x2Au);
     }
 
     v27 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -163,7 +162,7 @@
 
 void __66__HDHeartEventDataAggregator_triggerImmediateCloudSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC298];
@@ -175,35 +174,31 @@ void __66__HDHeartEventDataAggregator_triggerImmediateCloudSyncWithReason___bloc
       goto LABEL_6;
     }
 
-    v14 = *(a1 + 32);
-    v9 = v6;
-    v15 = 138543618;
-    v16 = objc_opt_class();
-    v17 = 2114;
-    v18 = v5;
-    v12 = v16;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to complete cloud sync request with %{public}@", &v15, 0x16u);
+    v8 = v6;
+    v12 = 138543618;
+    v13 = objc_opt_class();
+    v14 = 2114;
+    v15 = v5;
+    v11 = v13;
+    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to complete cloud sync request with %{public}@", &v12, 0x16u);
     goto LABEL_4;
   }
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = v6;
-    v10 = objc_opt_class();
-    v11 = *(a1 + 40);
-    v15 = 138543618;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v11;
-    v12 = v10;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v15, 0x16u);
+    v8 = v6;
+    v9 = objc_opt_class();
+    v10 = *(a1 + 40);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
+    v11 = v9;
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v12, 0x16u);
 LABEL_4:
   }
 
 LABEL_6:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

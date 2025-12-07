@@ -26,39 +26,34 @@
 
 - (BOOL)readPatchingTable:(id)table
 {
-  v39[16] = *MEMORY[0x277D85DE8];
+  v35[16] = *MEMORY[0x277D85DE8];
   tableCopy = table;
   selfCopy = self;
   if (self->_patchingMode == 2)
   {
-    v37 = 0;
-    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:tableCopy options:0 error:&v37];
-    v6 = v37;
+    v33 = 0;
+    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:tableCopy options:0 error:&v33];
+    v6 = v33;
     v7 = v6;
-    v27 = v5;
+    v26 = v5;
     if (v5)
     {
-      v36 = v6;
-      localizedDescription2 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v36];
-      v26 = v36;
+      v32 = v6;
+      localizedDescription2 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v32];
+      v25 = v32;
 
       if (localizedDescription2)
       {
         std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::clear(&selfCopy->_perfectPatchingTable);
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
-        v33 = 0u;
+        memset(v31, 0, sizeof(v31));
         obj = localizedDescription2;
-        if ([obj countByEnumeratingWithState:&v32 objects:v38 count:16])
+        if ([obj countByEnumeratingWithState:v31 objects:v34 count:16])
         {
-          *v33;
-          *v33;
-          v8 = **(&v32 + 1);
-          v31[0] = CommandBufferUIDFromString(**(&v32 + 1));
-          v31[1] = v9;
-          v39[0] = v31;
-          std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&selfCopy->_optimizedPatchingMap.__table_.__bucket_list_.__ptr_, v31);
+          v8 = **(&v31[0] + 1);
+          v30[0] = CommandBufferUIDFromString(**(&v31[0] + 1));
+          v30[1] = v9;
+          v35[0] = v30;
+          std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&selfCopy->_optimizedPatchingMap.__table_.__bucket_list_.__ptr_, v30, &std::piecewise_construct, v35);
           [obj objectForKeyedSubscript:v8];
           objc_claimAutoreleasedReturnValue();
           operator new();
@@ -89,7 +84,7 @@
                     v19 = v18;
                   }
 
-                  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,false>(v16, v17, v39, v19, 1, v10);
+                  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,false>(v16, v17, v35, v19, 1, v10);
                 }
               }
 
@@ -112,7 +107,7 @@
             v21 = v20;
           }
 
-          std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,false>(v12, v13, v39, v21, 1);
+          std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,false>(v12, v13, v35, v21, 1);
         }
 
         v22 = 1;
@@ -121,13 +116,13 @@
 
       else
       {
-        localizedDescription = [v26 localizedDescription];
+        localizedDescription = [v25 localizedDescription];
         NSLog(&cfstr_ErrorWhenParsi.isa, tableCopy, localizedDescription);
 
         v22 = 0;
       }
 
-      v7 = v26;
+      v7 = v25;
     }
 
     else
@@ -144,15 +139,14 @@
     v22 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (BOOL)writePatchingTableAsJson:(id)json
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   jsonCopy = json;
-  v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
   for (i = self->_perfectPatchingTable.__table_.__first_node_.__next_; i; i = *i)
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -161,13 +155,13 @@
     {
       do
       {
-        v26[0] = @"pointer";
+        v25[0] = @"pointer";
         v7 = DictionaryFromBufferAndOffset(v6 + 4);
-        v26[1] = @"pointee";
-        v27[0] = v7;
+        v25[1] = @"pointee";
+        v26[0] = v7;
         v8 = DictionaryFromBufferAndOffset(v6 + 6);
-        v27[1] = v8;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+        v26[1] = v8;
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
 
         [v5 addObject:v9];
         v10 = v6[1];
@@ -201,12 +195,12 @@
     }
 
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu-%u", i[2], *(i + 6)];
-    [v24 setObject:v5 forKey:v13];
+    [v23 setObject:v5 forKey:v13];
   }
 
-  v25 = 0;
-  v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v24 options:3 error:&v25];
-  v15 = v25;
+  v24 = 0;
+  v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v23 options:3 error:&v24];
+  v15 = v24;
   v16 = v15;
   if (!v14)
   {
@@ -230,7 +224,6 @@ LABEL_15:
   v19 = 1;
 LABEL_16:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -241,8 +234,8 @@ LABEL_16:
   v6[0] = op->var0;
   v6[1] = var1;
   v8 = &uidCopy;
-  v5 = std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__emplace_unique_key_args<DYCommandBufferUID,std::piecewise_construct_t const&,std::tuple<DYCommandBufferUID const&>,std::tuple<>>(&self->_perfectPatchingTable.__table_.__bucket_list_.__ptr_, &uidCopy);
-  std::__tree<BufferEntry>::__emplace_unique_key_args<BufferEntry,BufferEntry const&>((v5 + 4), v6);
+  v5 = std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__emplace_unique_key_args<DYCommandBufferUID,std::piecewise_construct_t const&,std::tuple<DYCommandBufferUID const&>,std::tuple<>>(&self->_perfectPatchingTable.__table_.__bucket_list_.__ptr_, &uidCopy, &std::piecewise_construct, &v8);
+  std::__tree<BufferEntry>::__emplace_unique_key_args<BufferEntry,BufferEntry const&>((v5 + 4), v6, v6);
 }
 
 - (void)findPatchingRequest:(DYCommandBufferUID)request

@@ -1,7 +1,7 @@
 @interface BWDeepFusionProcessorRequest
 - (id)description;
 - (id)initWithInput:(void *)input delegate:;
-- (uint64_t)receivedAllBuffers;
+- (id)receivedAllBuffers;
 - (void)dealloc;
 @end
 
@@ -142,14 +142,14 @@ LABEL_17:
   return v5;
 }
 
-- (uint64_t)receivedAllBuffers
+- (id)receivedAllBuffers
 {
   if (result)
   {
     v1 = result;
-    if ([*(result + 8) onlyApplyingSemanticStyle])
+    if ([result[1] onlyApplyingSemanticStyle])
     {
-      return [objc_msgSend(*(v1 + 8) "inputBuffers")] != 0;
+      return ([objc_msgSend(v1[1] "inputBuffers")] != 0);
     }
 
     else
@@ -159,7 +159,7 @@ LABEL_17:
       v12 = 0u;
       v13 = 0u;
       v14 = 0u;
-      inputBuffers = [*(v1 + 8) inputBuffers];
+      inputBuffers = [v1[1] inputBuffers];
       v4 = [inputBuffers countByEnumeratingWithState:&v11 objects:v10 count:16];
       if (v4)
       {
@@ -200,9 +200,9 @@ LABEL_17:
         v6 = 0;
       }
 
-      if (v6 == *(v1 + 24))
+      if (v6 == *(v1 + 6))
       {
-        return [*(v1 + 32) isEqualToSet:v2];
+        return [v1[4] isEqualToSet:v2];
       }
 
       else

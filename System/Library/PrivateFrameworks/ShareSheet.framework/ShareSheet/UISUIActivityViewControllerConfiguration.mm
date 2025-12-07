@@ -460,50 +460,57 @@
 
 - (id)description
 {
-  v13 = objc_opt_class();
-  NSAppendPrintF();
-  v18 = 0;
-  v14 = [(UISUIActivityViewControllerConfiguration *)self sessionID:v13];
-  NSAppendPrintF();
-  v3 = v18;
+  v25 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v25, "<%@: %{ptr}>", v3, self);
+  v4 = v25;
+  v24 = v4;
+  sessionID = [(UISUIActivityViewControllerConfiguration *)self sessionID];
+  NSAppendPrintF(&v24, ", sessionID: %@", sessionID);
+  v6 = v24;
 
   if ([(UISUIActivityViewControllerConfiguration *)self isContentManaged])
   {
-    NSAppendPrintF();
-    v4 = v3;
+    v23 = v6;
+    NSAppendPrintF(&v23, ", contentManaged");
+    v7 = v23;
 
-    v3 = v4;
+    v6 = v7;
   }
 
   includedActivityTypes = [(UISUIActivityViewControllerConfiguration *)self includedActivityTypes];
-  v6 = [includedActivityTypes count];
-
-  if (v6)
-  {
-    includedActivityTypes2 = [(UISUIActivityViewControllerConfiguration *)self includedActivityTypes];
-    NSAppendPrintF();
-    v7 = v3;
-
-    v3 = v7;
-  }
-
-  excludedActivityTypes = [(UISUIActivityViewControllerConfiguration *)self excludedActivityTypes];
-  v9 = [excludedActivityTypes count];
+  v9 = [includedActivityTypes count];
 
   if (v9)
   {
-    excludedActivityTypes2 = [(UISUIActivityViewControllerConfiguration *)self excludedActivityTypes];
-    NSAppendPrintF();
-    v10 = v3;
+    v22 = v6;
+    includedActivityTypes2 = [(UISUIActivityViewControllerConfiguration *)self includedActivityTypes];
+    NSAppendPrintF(&v22, ", includedActivityTypes: %##@", includedActivityTypes2);
+    v11 = v22;
 
-    v3 = v10;
+    v6 = v11;
   }
 
-  activityItemValueExtensionMatchingDictionaries = [(UISUIActivityViewControllerConfiguration *)self activityItemValueExtensionMatchingDictionaries];
-  NSAppendPrintF();
-  v11 = v3;
+  excludedActivityTypes = [(UISUIActivityViewControllerConfiguration *)self excludedActivityTypes];
+  v13 = [excludedActivityTypes count];
 
-  return v3;
+  if (v13)
+  {
+    v21 = v6;
+    excludedActivityTypes2 = [(UISUIActivityViewControllerConfiguration *)self excludedActivityTypes];
+    NSAppendPrintF(&v21, ", excludedActivityTypes: %##@", excludedActivityTypes2);
+    v15 = v21;
+
+    v6 = v15;
+  }
+
+  v20 = v6;
+  activityItemValueExtensionMatchingDictionaries = [(UISUIActivityViewControllerConfiguration *)self activityItemValueExtensionMatchingDictionaries];
+  NSAppendPrintF(&v20, ", extensionMatchingDictionaries: %##@", activityItemValueExtensionMatchingDictionaries);
+  v17 = v20;
+  v18 = v20;
+
+  return v17;
 }
 
 - (id)contextForMatchingByActivityItemValueClasses

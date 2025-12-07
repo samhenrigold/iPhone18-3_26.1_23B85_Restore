@@ -7,18 +7,18 @@
 
 + (float)requestSettlingEffectScoreForAsset:(id)asset error:(id *)error
 {
-  v58[2] = *MEMORY[0x277D85DE8];
+  v57[2] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v6 = 0.0;
   if ([MEMORY[0x277D3C810] assetIsEligibleForSettlingEffect:assetCopy])
   {
     v7 = os_log_create("com.apple.PhotosGraph", "suggestions");
     analysisService = [MEMORY[0x277D267E8] analysisService];
-    v57[0] = *MEMORY[0x277D26828];
-    v57[1] = @"AllowStreaming";
-    v58[0] = MEMORY[0x277CBEC38];
-    v58[1] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+    v56[0] = *MEMORY[0x277D26828];
+    v56[1] = @"AllowStreaming";
+    v57[0] = MEMORY[0x277CBEC38];
+    v57[1] = MEMORY[0x277CBEC38];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
     mediaAnalysisProperties = [assetCopy mediaAnalysisProperties];
     v10 = v7;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
@@ -32,24 +32,24 @@
       *&buf[12] = 2048;
       *&buf[14] = v13;
       *&buf[22] = 2048;
-      v54 = v14;
+      v53 = v14;
       _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_INFO, "[PGSettlingEffectScoreHelper] Requesting settlingEffectScore for asset:%@. (current SettlingEffectScore:%.2f, ActivityScore:%.2f)", buf, 0x20u);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v54 = COERCE_DOUBLE(__Block_byref_object_copy__63382);
-    v55 = __Block_byref_object_dispose__63383;
-    v56 = 0;
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 0;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
+    v53 = COERCE_DOUBLE(__Block_byref_object_copy__63382);
+    v54 = __Block_byref_object_dispose__63383;
+    v55 = 0;
     v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
     v15 = dispatch_semaphore_create(0);
     v16 = v10;
     v17 = os_signpost_id_generate(v16);
@@ -57,26 +57,26 @@
     v19 = v18;
     if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      *v48 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "SettingEffectScoreRequest", "", v48, 2u);
+      *v47 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "SettingEffectScoreRequest", "", v47, 2u);
     }
 
     info = 0;
     mach_timebase_info(&info);
     v20 = mach_absolute_time();
-    v52 = assetCopy;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __72__PGSettlingEffectScoreHelper_requestSettlingEffectScoreForAsset_error___block_invoke_2;
-    v33[3] = &unk_2788884C8;
-    v34 = assetCopy;
-    v36 = &v44;
-    v37 = &v40;
-    v38 = buf;
+    v51 = assetCopy;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __72__PGSettlingEffectScoreHelper_requestSettlingEffectScoreForAsset_error___block_invoke_2;
+    v32[3] = &unk_2788884C8;
+    v33 = assetCopy;
+    v35 = &v43;
+    v36 = &v39;
+    v37 = buf;
     v22 = v15;
-    v35 = v22;
-    [analysisService requestAnalysisTypes:0x40000 forAssets:v21 withOptions:v8 progressHandler:&__block_literal_global_63387 andCompletionHandler:v33];
+    v34 = v22;
+    [analysisService requestAnalysisTypes:0x40000 forAssets:v21 withOptions:v8 progressHandler:&__block_literal_global_63387 andCompletionHandler:v32];
 
     v23 = dispatch_time(0, 60000000000);
     dispatch_semaphore_wait(v22, v23);
@@ -86,17 +86,17 @@
     v27 = v26;
     if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
-      *v48 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v27, OS_SIGNPOST_INTERVAL_END, v17, "SettingEffectScoreRequest", "", v48, 2u);
+      *v47 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v27, OS_SIGNPOST_INTERVAL_END, v17, "SettingEffectScoreRequest", "", v47, 2u);
     }
 
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
-      *v48 = 136315394;
-      v49 = COERCE_DOUBLE("SettingEffectScoreRequest");
-      v50 = 2048;
-      v51 = ((((v24 - v20) * v25.numer) / v25.denom) / 1000000.0);
-      _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v48, 0x16u);
+      *v47 = 136315394;
+      v48 = COERCE_DOUBLE("SettingEffectScoreRequest");
+      v49 = 2048;
+      v50 = ((((v24 - v20) * v25.numer) / v25.denom) / 1000000.0);
+      _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v47, 0x16u);
     }
 
     if (error)
@@ -106,23 +106,22 @@
 
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
-      v28 = v45[6];
-      v29 = v41[6];
-      *v48 = 134218240;
-      v49 = v28;
-      v50 = 2048;
-      v51 = v29;
-      _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "[PGSettlingEffectScoreHelper] settlingEffectScore:%.2f, activityScore:%.2f", v48, 0x16u);
+      v28 = v44[6];
+      v29 = v40[6];
+      *v47 = 134218240;
+      v48 = v28;
+      v49 = 2048;
+      v50 = v29;
+      _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "[PGSettlingEffectScoreHelper] settlingEffectScore:%.2f, activityScore:%.2f", v47, 0x16u);
     }
 
-    v6 = v45[6];
+    v6 = v44[6];
 
-    _Block_object_dispose(&v40, 8);
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v43, 8);
     _Block_object_dispose(buf, 8);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -160,7 +159,7 @@ void __72__PGSettlingEffectScoreHelper_requestSettlingEffectScoreForAsset_error_
 
 + (float)analyzedSettlingEffectScoreForAsset:(id)asset requestedOnDemand:(BOOL *)demand
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   mediaAnalysisProperties = [assetCopy mediaAnalysisProperties];
   [mediaAnalysisProperties settlingEffectScore];
@@ -173,19 +172,18 @@ void __72__PGSettlingEffectScoreHelper_requestSettlingEffectScoreForAsset_error_
       *demand = 1;
     }
 
-    v16 = 0;
-    [PGSettlingEffectScoreHelper requestSettlingEffectScoreForAsset:assetCopy error:&v16];
+    v15 = 0;
+    [PGSettlingEffectScoreHelper requestSettlingEffectScoreForAsset:assetCopy error:&v15];
     v8 = v12;
-    v13 = v16;
+    v13 = v15;
     if (v13 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v13;
+      v17 = v13;
       _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[PGSettlingEffectScoreHelper] Error requesting settlingEffectScore: %@", buf, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

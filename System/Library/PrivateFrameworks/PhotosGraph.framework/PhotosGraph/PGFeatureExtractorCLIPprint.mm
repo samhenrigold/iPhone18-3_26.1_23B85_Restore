@@ -9,69 +9,67 @@
 
 - (id)featureValuesForAssets:(id)assets error:(id *)error
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__52691;
-  v38 = __Block_byref_object_dispose__52692;
-  v39 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__52691;
-  v32 = __Block_byref_object_dispose__52692;
   v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__52691;
+  v37 = __Block_byref_object_dispose__52692;
+  v38 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__52691;
+  v31 = __Block_byref_object_dispose__52692;
+  v32 = 0;
   v7 = dispatch_group_create();
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invoke;
-  v22 = &unk_278886098;
-  v26 = &v28;
-  v27 = &v34;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invoke;
+  v21 = &unk_278886098;
+  v25 = &v27;
+  v26 = &v33;
   v8 = assetsCopy;
-  v23 = v8;
+  v22 = v8;
   selfCopy = self;
   v9 = v7;
-  v25 = v9;
-  v10 = _Block_copy(&v19);
+  v24 = v9;
+  v10 = _Block_copy(&v18);
   analysisService = [MEMORY[0x277D267E8] analysisService];
   dispatch_group_enter(v9);
-  v40 = *MEMORY[0x277D26830];
-  v41[0] = &unk_284484278;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+  v39 = *MEMORY[0x277D26830];
+  v40[0] = &unk_284484278;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
   v13 = [analysisService requestSceneprintProcessingForAssets:v8 withOptions:v12 progressHandler:0 andCompletionHandler:v10];
 
   v14 = dispatch_time(0, 10000000000);
   dispatch_group_wait(v9, v14);
-  if (!v35[5])
+  if (!v34[5])
   {
     [analysisService cancelRequest:v13];
   }
 
   if (error)
   {
-    v15 = v29[5];
+    v15 = v28[5];
     if (v15)
     {
       *error = v15;
     }
   }
 
-  v16 = v35[5];
+  v16 = v34[5];
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v34, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
 
   return v16;
 }
 
 void __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -82,27 +80,27 @@ void __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invo
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v11 = *(a1 + 32);
-    v12 = [v11 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v12)
     {
       v13 = v12;
       obj = v7;
-      v14 = *v32;
+      v14 = *v31;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * i);
+          v16 = *(*(&v30 + 1) + 8 * i);
           v17 = [v16 localIdentifier];
           v18 = [v5 objectForKeyedSubscript:v17];
 
@@ -116,9 +114,9 @@ void __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invo
             if (!obj)
             {
               v24 = MEMORY[0x277CCA9B8];
-              v35 = *MEMORY[0x277CCA450];
-              v36 = @"Media Analysis returned nil for asset sceneprint with no error.";
-              v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+              v34 = *MEMORY[0x277CCA450];
+              v35 = @"Media Analysis returned nil for asset sceneprint with no error.";
+              v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
               v7 = [v24 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureExtractorCLIPprint" code:3 userInfo:v25];
             }
 
@@ -132,7 +130,7 @@ void __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invo
           [v20 setObject:v19 forKeyedSubscript:v21];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v36 count:16];
         if (v13)
         {
           continue;
@@ -150,9 +148,9 @@ void __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invo
     if (!v6)
     {
       v26 = MEMORY[0x277CCA9B8];
-      v38 = *MEMORY[0x277CCA450];
-      v39[0] = @"Media Analysis returned nil result with no error.";
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+      v37 = *MEMORY[0x277CCA450];
+      v38[0] = @"Media Analysis returned nil result with no error.";
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
       v7 = [v26 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureExtractorCLIPprint" code:2 userInfo:v27];
     }
 
@@ -165,18 +163,17 @@ void __60__PGFeatureExtractorCLIPprint_featureValuesForAssets_error___block_invo
 LABEL_17:
 
   dispatch_group_leave(*(a1 + 48));
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)floatVectorWithEntity:(id)entity error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v7 = entityCopy;
   if (entityCopy)
   {
-    v14[0] = entityCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = entityCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     v9 = [(PGFeatureExtractorCLIPprint *)self featureValuesForAssets:v8 error:error];
     if (v9)
     {
@@ -194,8 +191,6 @@ LABEL_17:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

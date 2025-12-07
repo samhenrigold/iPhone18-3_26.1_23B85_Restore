@@ -31,11 +31,11 @@
 
       if (v13)
       {
-        [pathCopy ear_toString];
-        [outPathCopy ear_toString];
+        objc_msgSend_ear_toString(pathCopy);
+        objc_msgSend_ear_toString(outPathCopy);
         if (configPathCopy)
         {
-          [configPathCopy ear_toString];
+          objc_msgSend_ear_toString(configPathCopy);
         }
 
         else
@@ -130,7 +130,7 @@ LABEL_26:
   v4 = irCopy;
   if (irCopy)
   {
-    [irCopy ear_toString];
+    objc_msgSend_ear_toString(irCopy);
   }
 
   else

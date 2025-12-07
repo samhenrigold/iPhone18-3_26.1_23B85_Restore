@@ -9,10 +9,10 @@
 
 - (void)avt_fixQuirksOfNewUSDSchemaWithOptions:()AVTExtension handler:
 {
-  v6 = a4;
-  [self avt_setInitialValuesExportedAsAnimationsWithWithOptions:a3 handler:v6];
-  [self avt_removeDuplicateSkeletonRootWithHandler:v6];
-  [self avt_removeFaceSetsExportedAsDummyNodesWithHandler:v6];
+  v5 = a4;
+  [self avt_setInitialValuesExportedAsAnimationsWithWithOptions:? handler:?];
+  [self avt_removeDuplicateSkeletonRootWithHandler:?];
+  [self avt_removeFaceSetsExportedAsDummyNodesWithHandler:?];
 }
 
 - (void)avt_setInitialValuesExportedAsAnimationsWithWithOptions:()AVTExtension handler:
@@ -20,51 +20,44 @@
   v6 = a4;
   rootNode = [self rootNode];
   v9 = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = __90__VFXWorld_AVTExtension__avt_setInitialValuesExportedAsAnimationsWithWithOptions_handler___block_invoke;
-  v12 = &unk_1E7F4A048;
-  v13 = v6;
-  v14 = a3;
+  v10 = v6;
+  v11 = a3;
   v8 = v6;
-  [rootNode enumerateHierarchyUsingBlock:&v9];
+  [rootNode enumerateHierarchyUsingBlock:{v9, 3221225472, __90__VFXWorld_AVTExtension__avt_setInitialValuesExportedAsAnimationsWithWithOptions_handler___block_invoke, &unk_1E7F4A048}];
 
   [MEMORY[0x1E69DF378] flush];
 }
 
 - (void)avt_removeDuplicateSkeletonRootWithHandler:()AVTExtension
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v4 = a3;
   selfCopy = self;
   rootNode = [self rootNode];
-  v6 = [rootNode childNodeWithName:@"skeleton_GRP" recursively:1];
+  v6 = [rootNode childNodeWithName:? recursively:?];
 
   if (v6)
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
     obj = [v6 childNodes];
-    v7 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+    v7 = [obj countByEnumeratingWithState:? objects:? count:?];
     if (!v7)
     {
       goto LABEL_10;
     }
 
     v8 = v7;
-    v9 = *v53;
+    v9 = MEMORY[0];
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v53 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        name = [*(*(&v52 + 1) + 8 * i) name];
-        v12 = [name hasPrefix:@"mindBlown_"];
+        name = [*(8 * i) name];
+        v12 = [name hasPrefix:?];
 
         if (v12)
         {
@@ -74,65 +67,61 @@ LABEL_33:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+      v8 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v8);
 LABEL_10:
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
     obj = [v6 childNodes];
-    v13 = [obj countByEnumeratingWithState:&v48 objects:v62 count:16];
+    v13 = [obj countByEnumeratingWithState:? objects:? count:?];
     if (!v13)
     {
       goto LABEL_33;
     }
 
     v14 = v13;
-    v43 = v6;
-    v15 = *v49;
-    v41 = *(MEMORY[0x1E69E9B18] + 16);
-    v42 = *MEMORY[0x1E69E9B18];
-    v39 = *(MEMORY[0x1E69E9B18] + 48);
-    v40 = *(MEMORY[0x1E69E9B18] + 32);
+    v44 = v6;
+    v15 = MEMORY[0];
+    v42 = *(MEMORY[0x1E69E9B18] + 16);
+    v43 = *MEMORY[0x1E69E9B18];
+    v40 = *(MEMORY[0x1E69E9B18] + 48);
+    v41 = *(MEMORY[0x1E69E9B18] + 32);
 LABEL_12:
     v16 = 0;
     while (1)
     {
-      if (*v49 != v15)
+      if (MEMORY[0] != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v48 + 1) + 8 * v16);
+      v17 = *(8 * v16);
       name2 = [v17 name];
-      if (([name2 isEqualToString:@"root_JNT"]& 1) != 0)
+      if (([name2 isEqualToString:?]& 1) != 0)
       {
         goto LABEL_21;
       }
 
       name3 = [v17 name];
-      if ([name3 isEqualToString:@"bodyRoot_JNT"])
+      if ([name3 isEqualToString:?])
       {
         break;
       }
 
       name4 = [v17 name];
-      v21 = [name4 isEqualToString:@"spineFk0_JNT"];
+      v21 = [name4 isEqualToString:?];
 
       if ((v21 & 1) == 0)
       {
-        name2 = avt_default_log();
+        name2 = avt_default_log(v22);
         if (os_log_type_enabled(name2, OS_LOG_TYPE_ERROR))
         {
           name5 = [v17 name];
           *buf = 136315394;
-          v59 = "[rootJoint.name isEqualToString:AVT_SKINNER_ROOT_NAME] || [rootJoint.name isEqualToString:AVT_SKINNER_MEMOJI_FLATTENED_BODY_ROOT_NAME] || [rootJoint.name isEqualToString:AVT_SKINNER_MEMOJI_HIERARCHICAL_BODY_ROOT_NAME]";
-          v60 = 2112;
-          v61 = name5;
+          v51 = "[rootJoint.name isEqualToString:AVT_SKINNER_ROOT_NAME] || [rootJoint.name isEqualToString:AVT_SKINNER_MEMOJI_FLATTENED_BODY_ROOT_NAME] || [rootJoint.name isEqualToString:AVT_SKINNER_MEMOJI_HIERARCHICAL_BODY_ROOT_NAME]";
+          v52 = 2112;
+          v53 = name5;
           _os_log_error_impl(&dword_1BB472000, name2, OS_LOG_TYPE_ERROR, "Error: Condition '%s' failed. Skeleton group has unknown root joint %@", buf, 0x16u);
         }
 
@@ -145,48 +134,43 @@ LABEL_22:
 
       name6 = [v17 name];
       name7 = [firstObject name];
-      v26 = [name6 isEqualToString:name7];
+      v27 = [name6 isEqualToString:?];
 
-      if (v26)
+      if (v27)
       {
-        [v17 transform];
-        if ((vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v27, v42), vceqq_f32(v28, v41)), vandq_s8(vceqq_f32(v29, v40), vceqq_f32(v30, v39)))) & 0x80000000) == 0)
+        transform = [v17 transform];
+        if ((vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v29, v43), vceqq_f32(v30, v42)), vandq_s8(vceqq_f32(v31, v41), vceqq_f32(v32, v40)))) & 0x80000000) == 0)
         {
-          v31 = avt_default_log();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v33 = avt_default_log(transform);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            [(VFXWorld(AVTExtension) *)v56 avt_removeDuplicateSkeletonRootWithHandler:v31];
+            [(VFXWorld(AVTExtension) *)v48 avt_removeDuplicateSkeletonRootWithHandler:v33];
           }
         }
 
         if (v4)
         {
-          v32 = MEMORY[0x1E696AEC0];
+          v34 = MEMORY[0x1E696AEC0];
           name8 = [v17 name];
           childNodes2 = [firstObject childNodes];
-          v35 = [v32 stringWithFormat:@"Removed duplicate node %@ (%ld child joints)", name8, objc_msgSend(childNodes2, "count")];
-          v4[2](v4, v35);
+          v37 = [v34 stringWithFormat:name8, objc_msgSend(childNodes2, "count")];
+          v4[2](v4, v37);
         }
 
         [v17 removeFromParentNode];
         [firstObject removeFromParentNode];
-        [v43 addChildNode:firstObject];
+        [v44 addChildNode:?];
         rootNode2 = [selfCopy rootNode];
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __69__VFXWorld_AVTExtension__avt_removeDuplicateSkeletonRootWithHandler___block_invoke;
-        v46[3] = &unk_1E7F47EA0;
-        v46[4] = v17;
         v47 = firstObject;
-        [rootNode2 enumerateHierarchyUsingBlock:v46];
+        [rootNode2 enumerateHierarchyUsingBlock:?];
       }
 
       if (v14 == ++v16)
       {
-        v14 = [obj countByEnumeratingWithState:&v48 objects:v62 count:16];
+        v14 = [obj countByEnumeratingWithState:? objects:? count:?];
         if (!v14)
         {
-          v6 = v43;
+          v6 = v44;
           goto LABEL_33;
         }
 
@@ -199,67 +183,50 @@ LABEL_21:
   }
 
 LABEL_34:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)avt_removeFaceSetsExportedAsDummyNodesWithHandler:()AVTExtension
 {
-  v27 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   rootNode = [self rootNode];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __76__VFXWorld_AVTExtension__avt_removeFaceSetsExportedAsDummyNodesWithHandler___block_invoke;
-  v24[3] = &unk_1E7F47B10;
-  v7 = v5;
-  v25 = v7;
-  [rootNode enumerateHierarchyUsingBlock:v24];
+  v18 = v5;
+  [rootNode enumerateHierarchyUsingBlock:?];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
-  if (v8)
+  obj = v18;
+  v7 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v21;
+    v8 = v7;
+    v9 = MEMORY[0];
     do
     {
-      v11 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v21 != v10)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v11);
+        v11 = *(8 * i);
         if (v4)
         {
-          v13 = MEMORY[0x1E696AEC0];
-          name = [*(*(&v20 + 1) + 8 * v11) name];
-          parentNode = [v12 parentNode];
+          v12 = MEMORY[0x1E696AEC0];
+          name = [*(8 * i) name];
+          parentNode = [v11 parentNode];
           name2 = [parentNode name];
-          v17 = [v13 stringWithFormat:@"Removed face set dummy node %@ from %@", name, name2];
-          v4[2](v4, v17);
+          v16 = [v12 stringWithFormat:name, name2];
+          v4[2](v4, v16);
         }
 
-        [v12 removeFromParentNode];
-        ++v11;
+        [v11 removeFromParentNode];
       }
 
-      while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v8 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v9);
+    while (v8);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)avt_removeDuplicateSkeletonRootWithHandler:()AVTExtension .cold.1(uint8_t *buf, void *a2, os_log_t log)

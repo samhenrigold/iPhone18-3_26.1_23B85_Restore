@@ -8,6 +8,7 @@
 + (id)startInitialSyncWithDelegate:(id)delegate;
 + (id)startUserInitiatedSyncWithDelegate:(id)delegate;
 + (void)fetchSyncStoreCountsWithCompletion:(id)completion;
++ (void)initiateSync:(id)sync forceRunNow:(BOOL)now reply:(id)reply;
 @end
 
 @implementation IMDMessagesSyncCoordinator
@@ -166,6 +167,18 @@
   v8 = v7;
 
   return v7;
+}
+
++ (void)initiateSync:(id)sync forceRunNow:(BOOL)now reply:(id)reply
+{
+  nowCopy = now;
+  replyCopy = reply;
+  v10 = 0;
+  v9 = objc_msgSend_initiateSyncFor_delegate_forceRunNow_error_(IMDMessagesSyncCoordinatorInternal, v8, sync, 0, nowCopy, &v10);
+  if (replyCopy)
+  {
+    replyCopy[2](replyCopy, v10 == 0, v9);
+  }
 }
 
 + (void)fetchSyncStoreCountsWithCompletion:(id)completion

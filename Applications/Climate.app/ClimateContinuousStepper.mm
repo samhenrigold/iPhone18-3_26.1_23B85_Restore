@@ -57,7 +57,7 @@
 - (void)didUpdateFocusInContext:(id)context withAnimationCoordinator:(id)coordinator
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for ClimateContinuousStepper();
+  v9.super_class = type metadata accessor for ClimateContinuousStepper(0);
   contextCopy = context;
   coordinatorCopy = coordinator;
   v8 = v9.receiver;

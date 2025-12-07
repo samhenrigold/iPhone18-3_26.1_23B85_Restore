@@ -35,38 +35,38 @@
       while (v6);
     }
 
-    v43 = v4[4];
-    v40 = +[NSMutableArray array];
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
+    v46 = v4[4];
+    v43 = +[NSMutableArray array];
     v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     selfCopy = self;
     obj = [(CLPedestrianFenceAnalyticsManager *)self completedSessionsAwaitingPackets];
-    v44 = [(NSMutableArray *)obj countByEnumeratingWithState:&v46 objects:v70 count:16];
-    if (v44)
+    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
+    if (v47)
     {
-      v42 = *v47;
+      v45 = *v50;
       do
       {
         v8 = 0;
         do
         {
-          if (*v47 != v42)
+          if (*v50 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v46 + 1) + 8 * v8);
+          v9 = *(*(&v49 + 1) + 8 * v8);
           v10 = [objc_msgSend(v9 objectForKeyedSubscript:{@"sequenceNumberEnd", "unsignedShortValue"}];
           v11 = v10 - 1;
-          if (v43 < v10 - 1)
+          if (v46 < v10 - 1)
           {
             goto LABEL_52;
           }
 
           v12 = [objc_msgSend(v9 objectForKeyedSubscript:{@"sequenceNumberStart", "unsignedShortValue"}];
-          v45 = v12;
+          v48 = v12;
           v13 = [objc_msgSend(v9 objectForKeyedSubscript:{@"metricType", "intValue"}];
           [v9 removeObjectForKey:@"sequenceNumberStart"];
           [v9 removeObjectForKey:@"sequenceNumberEnd"];
@@ -99,7 +99,7 @@
             {
               if (v19 >= v12)
               {
-                v20 = sub_100240250(&selfCopy->_odometryPackets, &v45)[15];
+                v20 = sub_100240250(&selfCopy->_odometryPackets, &v48)[15];
                 v17 = p_end_node->__left_;
                 if (p_end_node->__left_)
                 {
@@ -225,15 +225,15 @@ LABEL_33:
             v28 = [NSString stringWithUTF8String:v26];
             v29 = [v9 objectForKeyedSubscript:v27];
             *buf = 138544386;
-            v61 = v28;
-            v62 = 2114;
-            v63 = v29;
-            v64 = 2050;
-            v65 = v20;
-            v66 = 2050;
-            v67 = v23;
-            v68 = 2114;
-            v69 = v14;
+            v64 = v28;
+            v65 = 2114;
+            v66 = v29;
+            v67 = 2050;
+            v68 = v20;
+            v69 = 2050;
+            v70 = v23;
+            v71 = 2114;
+            v72 = v14;
             _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_DEFAULT, "[Analytics] type,%{public}@,client,%{public}@,from,%{public}f,to,%{public}f: %{public}@", buf, 0x34u);
           }
 
@@ -245,54 +245,57 @@ LABEL_33:
               sub_1019A8E28();
             }
 
-            v32 = "unexpected";
+            v32 = qword_1025D4508;
+            v33 = "unexpected";
             if (v13 == 2)
             {
-              v32 = "interval";
+              v33 = "interval";
             }
 
             if (v13 == 1)
             {
-              v32 = "odometrySession";
+              v33 = "odometrySession";
             }
 
             if (v13)
             {
-              v33 = v32;
+              v34 = v33;
             }
 
             else
             {
-              v33 = "fenceSession";
+              v34 = "fenceSession";
             }
 
             if (v13)
             {
-              v34 = @"clientId";
+              v35 = @"clientId";
             }
 
             else
             {
-              v34 = @"fenceId";
+              v35 = @"fenceId";
             }
 
-            v35 = [NSString stringWithUTF8String:v33];
-            v36 = [v9 objectForKeyedSubscript:v34];
-            v50 = 138544386;
-            v51 = v35;
-            v52 = 2114;
-            v53 = v36;
-            v54 = 2050;
-            v55 = v20;
-            v56 = 2050;
-            v57 = v23;
-            v58 = 2114;
-            v59 = v14;
-            v37 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "[CLPedestrianFenceAnalyticsManager sendAnalyticsForAllReadySessions]", "%s\n", v37);
-            if (v37 != buf)
+            v36 = [NSString stringWithUTF8String:v34];
+            v37 = [v9 objectForKeyedSubscript:v35];
+            v53 = 138544386;
+            v54 = v36;
+            v55 = 2114;
+            v56 = v37;
+            v57 = 2050;
+            v58 = v20;
+            v59 = 2050;
+            v60 = v23;
+            v61 = 2114;
+            v62 = v14;
+            LODWORD(v41) = 52;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v32, 0, "[Analytics] type,%{public}@,client,%{public}@,from,%{public}f,to,%{public}f: %{public}@", &v53, v41);
+            v39 = v38;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLPedestrianFenceAnalyticsManager sendAnalyticsForAllReadySessions]", "%s\n", v38);
+            if (v39 != buf)
             {
-              free(v37);
+              free(v39);
             }
           }
 
@@ -313,53 +316,49 @@ LABEL_50:
             AnalyticsSendEventLazy();
           }
 
-          [v40 addObject:v9];
+          [v43 addObject:v9];
 LABEL_52:
           v8 = v8 + 1;
         }
 
-        while (v8 != v44);
-        v38 = [(NSMutableArray *)obj countByEnumeratingWithState:&v46 objects:v70 count:16];
-        v44 = v38;
+        while (v8 != v47);
+        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
+        v47 = v40;
       }
 
-      while (v38);
+      while (v40);
     }
 
-    [(NSMutableArray *)[(CLPedestrianFenceAnalyticsManager *)selfCopy completedSessionsAwaitingPackets] removeObjectsInArray:v40];
+    [(NSMutableArray *)[(CLPedestrianFenceAnalyticsManager *)selfCopy completedSessionsAwaitingPackets] removeObjectsInArray:v43];
     [(CLPedestrianFenceAnalyticsManager *)selfCopy cleanupPackets];
   }
 }
 
 - (void)cleanupPackets
 {
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
   allValues = [(NSMutableDictionary *)[(CLPedestrianFenceAnalyticsManager *)self activeOdometryClients] allValues];
-  v4 = [allValues countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(allValues);
   if (v4)
   {
-    v5 = *v43;
+    v5 = MEMORY[0];
     unsignedShortValue = -1;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v43 != v5)
+        if (MEMORY[0] != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v42 + 1) + 8 * i);
+        v8 = *(8 * i);
         if (unsignedShortValue >= [objc_msgSend(v8 objectForKeyedSubscript:{@"sequenceNumberStart", "unsignedShortValue"}])
         {
           unsignedShortValue = [objc_msgSend(v8 objectForKeyedSubscript:{@"sequenceNumberStart", "unsignedShortValue"}];
         }
       }
 
-      v4 = [allValues countByEnumeratingWithState:&v42 objects:v49 count:16];
+      v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(allValues);
     }
 
     while (v4);
@@ -370,32 +369,28 @@ LABEL_52:
     unsignedShortValue = -1;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   allValues2 = [(NSMutableDictionary *)[(CLPedestrianFenceAnalyticsManager *)self activeFenceSessions] allValues];
-  v10 = [allValues2 countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(allValues2);
   if (v10)
   {
-    v11 = *v39;
+    v11 = MEMORY[0];
     do
     {
       for (j = 0; j != v10; j = j + 1)
       {
-        if (*v39 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * j);
+        v13 = *(8 * j);
         if (unsignedShortValue >= [v13 unsignedShortValue])
         {
           unsignedShortValue = [v13 unsignedShortValue];
         }
       }
 
-      v10 = [allValues2 countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(allValues2);
     }
 
     while (v10);
@@ -406,63 +401,55 @@ LABEL_52:
     [(NSMutableDictionary *)[(CLPedestrianFenceAnalyticsManager *)self activeIntervalEvents] removeAllObjects];
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   allValues3 = [(NSMutableDictionary *)[(CLPedestrianFenceAnalyticsManager *)self activeIntervalEvents] allValues];
-  v15 = [allValues3 countByEnumeratingWithState:&v34 objects:v47 count:16];
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(allValues3);
   if (v15)
   {
-    v16 = *v35;
+    v16 = MEMORY[0];
     do
     {
       for (k = 0; k != v15; k = k + 1)
       {
-        if (*v35 != v16)
+        if (MEMORY[0] != v16)
         {
           objc_enumerationMutation(allValues3);
         }
 
-        v18 = *(*(&v34 + 1) + 8 * k);
+        v18 = *(8 * k);
         if (unsignedShortValue >= [v18 unsignedShortValue])
         {
           unsignedShortValue = [v18 unsignedShortValue];
         }
       }
 
-      v15 = [allValues3 countByEnumeratingWithState:&v34 objects:v47 count:16];
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(allValues3);
     }
 
     while (v15);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   completedSessionsAwaitingPackets = [(CLPedestrianFenceAnalyticsManager *)self completedSessionsAwaitingPackets];
-  v20 = [(NSMutableArray *)completedSessionsAwaitingPackets countByEnumeratingWithState:&v30 objects:v46 count:16];
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(completedSessionsAwaitingPackets);
   if (v20)
   {
-    v21 = *v31;
+    v21 = MEMORY[0];
     do
     {
       for (m = 0; m != v20; m = m + 1)
       {
-        if (*v31 != v21)
+        if (MEMORY[0] != v21)
         {
           objc_enumerationMutation(completedSessionsAwaitingPackets);
         }
 
-        v23 = *(*(&v30 + 1) + 8 * m);
+        v23 = *(8 * m);
         if (unsignedShortValue >= [objc_msgSend(v23 objectForKeyedSubscript:{@"sequenceNumberStart", "unsignedShortValue"}])
         {
           unsignedShortValue = [objc_msgSend(v23 objectForKeyedSubscript:{@"sequenceNumberStart", "unsignedShortValue"}];
         }
       }
 
-      v20 = [(NSMutableArray *)completedSessionsAwaitingPackets countByEnumeratingWithState:&v30 objects:v46 count:16];
+      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(completedSessionsAwaitingPackets);
     }
 
     while (v20);

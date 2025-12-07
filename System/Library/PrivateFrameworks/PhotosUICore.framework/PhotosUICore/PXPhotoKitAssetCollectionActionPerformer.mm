@@ -32,14 +32,15 @@
   [(PXActionPerformer *)self presentViewController:self->_presentedViewController completionHandler:0];
 }
 
-uint64_t __73__PXPhotoKitAssetCollectionActionPerformer_addAssets_toSharedCollection___block_invoke(uint64_t result, int a2)
+void *__73__PXPhotoKitAssetCollectionActionPerformer_addAssets_toSharedCollection___block_invoke(void *result, uint64_t a2)
 {
-  if (*(*(result + 32) + 136))
+  if (*(result[4] + 136))
   {
+    v2 = a2;
     v3 = result;
     v4 = PLUIGetLog();
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (a2)
+    if (v2)
     {
       if (v5)
       {
@@ -47,7 +48,7 @@ uint64_t __73__PXPhotoKitAssetCollectionActionPerformer_addAssets_toSharedCollec
         _os_log_impl(&dword_1A3C1C000, v4, OS_LOG_TYPE_DEFAULT, "Adding assets to Shared Collection succeeded.", buf, 2u);
       }
 
-      PXIncrementShareCountForAssets(*(v3 + 40));
+      PXIncrementShareCountForAssets(v3[5]);
     }
 
     else
@@ -59,14 +60,14 @@ uint64_t __73__PXPhotoKitAssetCollectionActionPerformer_addAssets_toSharedCollec
       }
     }
 
-    v6 = *(v3 + 32);
+    v6 = v3[4];
     v7 = v6[17];
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
     v8[2] = __73__PXPhotoKitAssetCollectionActionPerformer_addAssets_toSharedCollection___block_invoke_688;
     v8[3] = &unk_1E7749428;
     v8[4] = v6;
-    v9 = a2;
+    v9 = v2;
     return [v6 dismissViewController:v7 completionHandler:v8];
   }
 

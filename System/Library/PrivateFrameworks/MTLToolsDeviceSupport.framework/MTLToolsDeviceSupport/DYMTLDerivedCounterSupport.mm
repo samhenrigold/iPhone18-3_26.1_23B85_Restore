@@ -13,7 +13,7 @@
 
 + (void)mergeDictionaries:(id)dictionaries right:(id)right
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   rightCopy = right;
   v6 = [dictionariesCopy objectForKeyedSubscript:@"Version"];
@@ -25,40 +25,38 @@
 
     if ((v9 & 1) == 0)
     {
-      v20 = *MEMORY[0x277D0B240];
       _DYOLog();
       goto LABEL_21;
     }
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = rightCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v11)
   {
     goto LABEL_19;
   }
 
-  v12 = *v24;
-  v13 = 0x277CBE000uLL;
+  v12 = *v19;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v24 != v12)
+      if (*v19 != v12)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v23 + 1) + 8 * i);
-      v16 = [dictionariesCopy objectForKey:v15];
-      v17 = [v10 objectForKey:v15];
-      if (!v16)
+      v14 = *(*(&v18 + 1) + 8 * i);
+      v15 = [dictionariesCopy objectForKey:v14];
+      v16 = [v10 objectForKey:v14];
+      if (!v15)
       {
-        [dictionariesCopy setObject:v17 forKeyedSubscript:v15];
+        [dictionariesCopy setObject:v16 forKeyedSubscript:v14];
         goto LABEL_17;
       }
 
@@ -71,54 +69,47 @@
           goto LABEL_17;
         }
 
-        [v16 addObjectsFromArray:v17];
+        [v15 addObjectsFromArray:v16];
         goto LABEL_16;
       }
 
-      v18 = *(v13 + 2872);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v19 = *(v13 + 2872);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [DYMTLDerivedCounterSupport mergeDictionaries:v16 right:v17];
+          [DYMTLDerivedCounterSupport mergeDictionaries:v15 right:v16];
 LABEL_16:
-
-          v13 = 0x277CBE000;
         }
       }
 
 LABEL_17:
     }
 
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v11);
 LABEL_19:
 
 LABEL_21:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addAnalysisWithPrefix:(id)prefix andScriptPrefix:(id)scriptPrefix
 {
   scriptPrefixCopy = scriptPrefix;
   v7 = [prefix stringByAppendingString:@"-counters.plist"];
-  v31 = 0;
-  v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v7 options:0 error:&v31];
-  v9 = v31;
+  v27 = 0;
+  v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v7 options:0 error:&v27];
+  v9 = v27;
   if (v8)
   {
-    v30 = 0;
-    v10 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:1 format:0 error:&v30];
-    v11 = v30;
-    v12 = MEMORY[0x277D0B238];
+    v26 = 0;
+    v10 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:1 format:0 error:&v26];
+    v11 = v26;
     if (v11)
     {
-      v13 = *MEMORY[0x277D0B238];
       _DYOLog();
     }
 
@@ -127,13 +118,12 @@ LABEL_21:
       [DYMTLDerivedCounterSupport mergeDictionaries:self->_counterDictionary right:v10];
     }
 
-    v14 = [scriptPrefixCopy stringByAppendingString:@"-analysis.js"];
-    v29 = 0;
-    v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithContentsOfFile:v14 encoding:4 error:&v29];
-    v16 = v29;
-    if (v16)
+    v12 = [scriptPrefixCopy stringByAppendingString:@"-analysis.js"];
+    v25 = 0;
+    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithContentsOfFile:v12 encoding:4 error:&v25];
+    v14 = v25;
+    if (v14)
     {
-      v17 = *v12;
       _DYOLog();
       analysisScript = self->_analysisScript;
       self->_analysisScript = &stru_2868EDC68;
@@ -141,29 +131,28 @@ LABEL_21:
 
     else
     {
-      v19 = self->_analysisScript;
-      if (v19)
+      v16 = self->_analysisScript;
+      if (v16)
       {
-        v20 = [(NSString *)v19 stringByAppendingString:v15];
+        v17 = [(NSString *)v16 stringByAppendingString:v13];
       }
 
       else
       {
-        v20 = v15;
+        v17 = v13;
       }
 
       analysisScript = self->_analysisScript;
-      self->_analysisScript = v20;
+      self->_analysisScript = v17;
     }
 
-    v21 = [scriptPrefixCopy stringByAppendingString:@"-derived.js"];
+    v18 = [scriptPrefixCopy stringByAppendingString:@"-derived.js"];
 
-    v28 = 0;
-    v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithContentsOfFile:v21 encoding:4 error:&v28];
-    v9 = v28;
+    v24 = 0;
+    v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithContentsOfFile:v18 encoding:4 error:&v24];
+    v9 = v24;
     if (v9)
     {
-      v23 = *v12;
       _DYOLog();
     }
 
@@ -172,16 +161,16 @@ LABEL_21:
       derivedCounterScript = self->_derivedCounterScript;
       if (derivedCounterScript)
       {
-        v25 = [(NSString *)derivedCounterScript stringByAppendingString:v22];
+        v21 = [(NSString *)derivedCounterScript stringByAppendingString:v19];
       }
 
       else
       {
-        v25 = v22;
+        v21 = v19;
       }
 
-      v26 = self->_derivedCounterScript;
-      self->_derivedCounterScript = v25;
+      v22 = self->_derivedCounterScript;
+      self->_derivedCounterScript = v21;
     }
   }
 
@@ -190,7 +179,7 @@ LABEL_21:
 
 - (void)_loadAnalysis:(id)analysis vendorStringNames:(id)names vendorScriptPrefix:(id)prefix
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   analysisCopy = analysis;
   namesCopy = names;
   prefixCopy = prefix;
@@ -199,55 +188,55 @@ LABEL_21:
   selfCopy = self;
   self->_counterDictionary = v8;
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v27 = [&unk_2868F0DB0 countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v27)
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v26 = [&unk_2868F0DB0 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v26)
   {
-    v24 = *v37;
+    v23 = *v36;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v37 != v24)
+        if (*v36 != v23)
         {
           objc_enumerationMutation(&unk_2868F0DB0);
         }
 
-        v10 = *(*(&v36 + 1) + 8 * i);
+        v10 = *(*(&v35 + 1) + 8 * i);
         if (prefixCopy && ([MEMORY[0x277CCACA8] stringWithFormat:v10, analysisCopy, prefixCopy], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v28 = v11;
+          v27 = v11;
           stringByStandardizingPath = [v11 stringByStandardizingPath];
         }
 
         else
         {
           stringByStandardizingPath = 0;
-          v28 = 0;
+          v27 = 0;
         }
 
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         v13 = namesCopy;
-        v14 = [v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v14)
         {
-          v15 = *v33;
+          v15 = *v32;
 LABEL_12:
           v16 = 0;
           while (1)
           {
-            if (*v33 != v15)
+            if (*v32 != v15)
             {
               objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v32 + 1) + 8 * v16);
+            v17 = *(*(&v31 + 1) + 8 * v16);
             if (([v17 containsString:@"autocorr"] & 1) == 0)
             {
               v18 = [MEMORY[0x277CCACA8] stringWithFormat:v10, analysisCopy, v17];
@@ -264,7 +253,7 @@ LABEL_12:
 
             if (v14 == ++v16)
             {
-              v14 = [v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v14 = [v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
               if (v14)
               {
                 goto LABEL_12;
@@ -276,13 +265,11 @@ LABEL_12:
         }
       }
 
-      v27 = [&unk_2868F0DB0 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v26 = [&unk_2868F0DB0 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addGPUTimeEntry

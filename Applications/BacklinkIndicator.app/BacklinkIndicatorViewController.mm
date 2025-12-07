@@ -116,66 +116,66 @@
     {
       previewProvider = [(BacklinkIndicatorViewController *)self previewProvider];
       userActivity2 = [(BacklinkIndicatorViewController *)self userActivity];
-      v18 = 0;
-      v7 = [previewProvider previewForUserActivity:userActivity2 error:&v18];
-      v8 = v18;
+      v19 = 0;
+      v7 = [previewProvider previewForUserActivity:userActivity2 error:&v19];
+      v8 = v19;
 
       if (v8)
       {
-        v9 = sub_100000DF0();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = sub_100000DF0(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          sub_100002EE4(self, v8, v9);
+          sub_100002EE4(self, v8, v10);
         }
       }
 
-      v19 = 0;
-      v20 = &v19;
-      v21 = 0x2020000000;
-      v10 = qword_10000DE08;
-      v22 = qword_10000DE08;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2020000000;
+      v11 = qword_10000DE08;
+      v23 = qword_10000DE08;
       if (!qword_10000DE08)
       {
         *&buf = _NSConcreteStackBlock;
         *(&buf + 1) = 3221225472;
-        v24 = sub_100002C5C;
-        v25 = &unk_100008328;
-        v26 = &v19;
-        v11 = sub_100002AF0();
-        v12 = dlsym(v11, "NPNotePreviewKeyPreview");
-        *(v26[1] + 24) = v12;
-        qword_10000DE08 = *(v26[1] + 24);
-        v10 = v20[3];
+        v25 = sub_100002C5C;
+        v26 = &unk_100008328;
+        v27 = &v20;
+        v12 = sub_100002AF0();
+        v13 = dlsym(v12, "NPNotePreviewKeyPreview");
+        *(v27[1] + 24) = v13;
+        qword_10000DE08 = *(v27[1] + 24);
+        v11 = v21[3];
       }
 
-      _Block_object_dispose(&v19, 8);
-      if (!v10)
+      _Block_object_dispose(&v20, 8);
+      if (!v11)
       {
         sub_100002FA8();
       }
 
-      v13 = [v7 objectForKey:*v10];
-      if (!v13)
+      v14 = [v7 objectForKey:*v11];
+      if (!v14)
       {
-        v14 = sub_100000DF0();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = sub_100000DF0(0);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           userActivity3 = [(BacklinkIndicatorViewController *)self userActivity];
           _syLoggableDescription = [userActivity3 _syLoggableDescription];
           LODWORD(buf) = 138412290;
           *(&buf + 4) = _syLoggableDescription;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "found no preview for user activity: %@", &buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "found no preview for user activity: %@", &buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     imageView = [(BacklinkIndicatorViewController *)self imageView];
-    [imageView setImage:v13];
+    [imageView setImage:v14];
   }
 }
 

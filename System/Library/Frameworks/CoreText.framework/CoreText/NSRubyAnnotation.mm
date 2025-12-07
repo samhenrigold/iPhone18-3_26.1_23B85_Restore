@@ -66,7 +66,7 @@ LABEL_4:
   v19[2] = [coder decodeObjectOfClass:objc_opt_class() forKey:@"TextInterCharacter"];
   v19[3] = [coder decodeObjectOfClass:objc_opt_class() forKey:@"TextInline"];
   v17 = 0xAAAAAAAAAAAAAAAALL;
-  v11 = TCFBase<TRubyAnnotation>::Allocate();
+  v11 = TCFBase<TRubyAnnotation>::Allocate(128);
   v12 = v11;
   if (v11)
   {

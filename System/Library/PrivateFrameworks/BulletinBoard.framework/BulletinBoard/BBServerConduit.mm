@@ -7,6 +7,7 @@
 - (void)invalidate;
 - (void)sendMessageToDataProviderSectionID:(id)d name:(id)name userInfo:(id)info;
 - (void)weeAppWithBundleID:(id)d getHiddenFromUser:(id)user;
+- (void)weeAppWithBundleID:(id)d setHiddenFromUser:(BOOL)user;
 @end
 
 @implementation BBServerConduit
@@ -148,6 +149,15 @@ void __23__BBServerConduit_init__block_invoke_60()
   dCopy = d;
   remoteObjectProxy = [(NSXPCConnection *)connection remoteObjectProxy];
   [remoteObjectProxy sendMessageToDataProviderSectionID:dCopy name:nameCopy userInfo:infoCopy];
+}
+
+- (void)weeAppWithBundleID:(id)d setHiddenFromUser:(BOOL)user
+{
+  userCopy = user;
+  connection = self->_connection;
+  dCopy = d;
+  remoteObjectProxy = [(NSXPCConnection *)connection remoteObjectProxy];
+  [remoteObjectProxy weeAppWithBundleID:dCopy setHiddenFromUser:userCopy];
 }
 
 - (void)weeAppWithBundleID:(id)d getHiddenFromUser:(id)user

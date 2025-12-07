@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)recordingStateAsString:(int)string;
 - (int)StringAsRecordingState:(id)state;
 - (int)recordingState;
 - (unint64_t)hash;
@@ -42,20 +43,35 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)recordingStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769E030[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRecordingState:(id)state
 {
   stateCopy = state;
-  if ([stateCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 0;
   }
 
-  else if ([stateCopy isEqualToString:@"Recording"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 1;
   }
 
-  else if ([stateCopy isEqualToString:@"NotRecording"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 2;
   }
@@ -118,25 +134,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    deviceID = self->_deviceID;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_descriptor)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    recordingState = self->_recordingState;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -195,7 +209,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 24);
   if (has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_deviceID != *(equalCopy + 4))
@@ -215,14 +228,14 @@
     if (![(_MRVoiceInputDeviceDescriptorProtobuf *)descriptor isEqual:?])
     {
 LABEL_14:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_15;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 24) & 2) == 0;
+  v7 = (*(equalCopy + 24) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) == 0 || self->_recordingState != *(equalCopy + 5))
@@ -230,12 +243,12 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_15:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

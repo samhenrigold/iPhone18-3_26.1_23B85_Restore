@@ -47,6 +47,7 @@
 + (int64_t)compareCreationDateOfFileAtURL:(id)l toDaysFromNow:(int64_t)now;
 + (void)acceptEmployeeCameraFeedbackConsent;
 + (void)cacheScrubberTimeScale:(double)scale;
++ (void)toggleDisplayOfInternalUpgradeViews:(BOOL)views;
 @end
 
 @implementation HFCameraUtilities
@@ -480,7 +481,7 @@ uint64_t __54__HFCameraUtilities_twentyFourHourLiveStringFromDate___block_invoke
 
 + (id)attributedStringFromTwentyFourHourDateString:(id)string
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = stringCopy;
   if (attributedStringFromTwentyFourHourDateString__onceToken == -1)
@@ -509,14 +510,12 @@ LABEL_3:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v12 = 0;
+    v11 = 0;
     _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Unable to parse proper twenty-four hour components from string:%@.", buf, 0xCu);
   }
 
   v7 = 0;
 LABEL_8:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -530,7 +529,7 @@ void __66__HFCameraUtilities_attributedStringFromTwentyFourHourDateString___bloc
 
 + (id)attributedStringFromDateString:(id)string
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (qword_280E03BE8 != -1)
   {
@@ -563,7 +562,7 @@ void __66__HFCameraUtilities_attributedStringFromTwentyFourHourDateString___bloc
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = stringCopy;
+      v25 = stringCopy;
       _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "Unable to parse proper twelve hour components from string:%@. Displaying full string without small caps.", buf, 0xCu);
     }
 
@@ -575,29 +574,27 @@ void __66__HFCameraUtilities_attributedStringFromTwentyFourHourDateString___bloc
     [v10 addAttribute:v18 value:v19 range:{v21, v22}];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 void __52__HFCameraUtilities_attributedStringFromDateString___block_invoke()
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D74300] monospacedDigitSystemFontOfSize:18.0 weight:*MEMORY[0x277D74420]];
   v1 = qword_280E03BD8;
   qword_280E03BD8 = v0;
 
-  v14 = *MEMORY[0x277D74338];
+  v13 = *MEMORY[0x277D74338];
   v2 = *MEMORY[0x277D74388];
-  v11[0] = *MEMORY[0x277D74398];
-  v11[1] = v2;
-  v12[0] = &unk_282524F48;
-  v12[1] = &unk_282524F60;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v13 = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v15[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v10[0] = *MEMORY[0x277D74398];
+  v10[1] = v2;
+  v11[0] = &unk_282524F48;
+  v11[1] = &unk_282524F60;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v12 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v14[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v6 = [qword_280E03BD8 fontDescriptor];
   v7 = [v6 fontDescriptorByAddingAttributes:v5];
@@ -605,8 +602,6 @@ void __52__HFCameraUtilities_attributedStringFromDateString___block_invoke()
   v8 = [MEMORY[0x277D74300] fontWithDescriptor:v7 size:18.0];
   v9 = qword_280E03BE0;
   qword_280E03BE0 = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_shouldUseTwentyFourHourTime
@@ -761,6 +756,16 @@ void __49__HFCameraUtilities_localizerKeyDayNameFromDate___block_invoke()
   return v2;
 }
 
++ (void)toggleDisplayOfInternalUpgradeViews:(BOOL)views
+{
+  viewsCopy = views;
+  if (+[HFUtilities isInternalInstall])
+  {
+    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    [standardUserDefaults setBool:viewsCopy forKey:@"HFShouldDisplayInternalUpgradeViews"];
+  }
+}
+
 + (BOOL)internalCameraFeedbackSupported
 {
   if (+[HFUtilities isPressDemoModeEnabled])
@@ -810,7 +815,7 @@ void __49__HFCameraUtilities_localizerKeyDayNameFromDate___block_invoke()
     v9 = v8;
     if (v8)
     {
-      [v8 duration];
+      objc_msgSend_duration(v8);
     }
 
     else
@@ -883,14 +888,14 @@ void __49__HFCameraUtilities_localizerKeyDayNameFromDate___block_invoke()
 
 + (int64_t)compareCreationDateOfFileAtURL:(id)l toDaysFromNow:(int64_t)now
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v18 = 0;
-  v6 = *MEMORY[0x277CBE7C0];
   v17 = 0;
-  v7 = [lCopy getResourceValue:&v18 forKey:v6 error:&v17];
-  v8 = v18;
-  v9 = v17;
+  v6 = *MEMORY[0x277CBE7C0];
+  v16 = 0;
+  v7 = [lCopy getResourceValue:&v17 forKey:v6 error:&v16];
+  v8 = v17;
+  v9 = v16;
   if (v7)
   {
     v10 = MEMORY[0x277CBEAA8];
@@ -907,18 +912,17 @@ void __49__HFCameraUtilities_localizerKeyDayNameFromDate___block_invoke()
     {
       path = [lCopy path];
       *buf = 136315650;
-      v20 = "+[HFCameraUtilities compareCreationDateOfFileAtURL:toDaysFromNow:]";
-      v21 = 2112;
-      v22 = v9;
-      v23 = 2112;
-      v24 = path;
+      v19 = "+[HFCameraUtilities compareCreationDateOfFileAtURL:toDaysFromNow:]";
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = path;
       _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%s: %@; %@", buf, 0x20u);
     }
 
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -256,16 +256,15 @@ void __106__WFPlayPodcastEpisodeContextualAction__unsafeDisambiguationEntriesFor
 {
   if (a2)
   {
-    v5 = [a2 if_map:&__block_literal_global_5835];
+    v4 = [a2 if_map:&__block_literal_global_5835];
     (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -294,17 +293,15 @@ WFPlayPodcastEpisodeContextualAction *__106__WFPlayPodcastEpisodeContextualActio
 
 + (WFTopHitItemContextualAction)disambiguationAction
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = [WFPlayPodcastEpisodeContextualAction alloc];
   disambiguationParameter = [self disambiguationParameter];
-  v12[0] = disambiguationParameter;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = disambiguationParameter;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v6 = WFLocalizedStringWithKey(@"Play Suggested Podcast (Display Format String)", @"Play");
   v7 = WFLocalizedStringWithKey(@"Play Suggested Podcast (Title)", @"Play Suggested Podcast");
   v8 = [[WFContextualActionIcon alloc] initWithSystemName:@"music.mic"];
   v9 = [(WFTopHitItemContextualAction *)v3 initWithItem:0 identifier:@"is.workflow.actions.playpodcast" wfActionIdentifier:@"is.workflow.actions.playpodcast" associatedAppBundleIdentifier:@"com.apple.podcasts" parameters:v5 displayString:v6 title:v7 subtitle:0 primaryColor:10 icon:v8 accessoryIcon:0 namedQueryInfo:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

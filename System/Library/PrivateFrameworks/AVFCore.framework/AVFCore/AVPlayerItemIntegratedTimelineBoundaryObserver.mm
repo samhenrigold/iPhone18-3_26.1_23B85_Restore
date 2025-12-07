@@ -75,7 +75,7 @@
   v12 = 0u;
   if (segment)
   {
-    [segment timeMapping];
+    objc_msgSend_timeMapping(segment);
     v6 = 0uLL;
   }
 
@@ -102,7 +102,7 @@
 {
   if (threshold)
   {
-    [threshold currentTime];
+    objc_msgSend_currentTime(threshold, a2);
   }
 
   else
@@ -128,21 +128,21 @@
 
 - (void)rescheduleObserverWithSnapshot:(id)snapshot itemToSchedule:(id)schedule
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v7 = *(MEMORY[0x1E6960C78] + 32);
   v8 = *(MEMORY[0x1E6960C78] + 64);
   v9 = *(MEMORY[0x1E6960C78] + 80);
-  *&v39.start.value = *(MEMORY[0x1E6960C78] + 48);
-  *&v39.start.epoch = v8;
-  *&v39.duration.timescale = v9;
+  *&v40.start.value = *(MEMORY[0x1E6960C78] + 48);
+  *&v40.start.epoch = v8;
+  *&v40.duration.timescale = v9;
   v10 = *MEMORY[0x1E6960C78];
-  *&v38.start.epoch = *(MEMORY[0x1E6960C78] + 16);
-  *&v38.duration.timescale = v7;
+  *&v39.start.epoch = *(MEMORY[0x1E6960C78] + 16);
+  *&v39.duration.timescale = v7;
   v11 = *(MEMORY[0x1E6960C98] + 16);
-  *&v37.start.value = *MEMORY[0x1E6960C98];
-  *&v37.start.epoch = v11;
-  *&v37.duration.timescale = *(MEMORY[0x1E6960C98] + 32);
-  *&v38.start.value = v10;
+  *&v38.start.value = *MEMORY[0x1E6960C98];
+  *&v38.start.epoch = v11;
+  *&v38.duration.timescale = *(MEMORY[0x1E6960C98] + 32);
+  *&v39.start.value = v10;
   timebase = [schedule timebase];
   array = [MEMORY[0x1E695DF70] array];
   if (schedule && !self->_segmentWasRemoved)
@@ -157,7 +157,7 @@
         _interstitialEventItemTimeOffset = [schedule _interstitialEventItemTimeOffset];
         if (_interstitialEventItemTimeOffset)
         {
-          CMTimeRangeMakeFromDictionary(&v37, _interstitialEventItemTimeOffset);
+          CMTimeRangeMakeFromDictionary(&v38, _interstitialEventItemTimeOffset);
         }
 
         goto LABEL_13;
@@ -169,7 +169,7 @@
       segment = self->_segment;
       if (segment)
       {
-        [(AVPlayerItemSegment *)segment timeMapping];
+        objc_msgSend_timeMapping(segment);
       }
 
       else
@@ -177,78 +177,78 @@
         memset(lhs, 0, sizeof(lhs));
       }
 
-      v38 = lhs[0];
-      v39 = lhs[1];
-      v37 = lhs[1];
+      v39 = lhs[0];
+      v40 = lhs[1];
+      v38 = lhs[1];
 LABEL_13:
-      v35 = 0u;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
+      v35 = 0u;
       offsetTimes = self->_offsetTimes;
-      v18 = [(NSArray *)offsetTimes countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v18 = [(NSArray *)offsetTimes countByEnumeratingWithState:&v34 objects:v43 count:16];
       if (v18)
       {
-        v19 = *v34;
+        v19 = *v35;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v34 != v19)
+            if (*v35 != v19)
             {
               objc_enumerationMutation(offsetTimes);
             }
 
-            v21 = *(*(&v33 + 1) + 8 * i);
+            v21 = *(*(&v34 + 1) + 8 * i);
             memset(&location, 0, sizeof(location));
             if (v21)
             {
-              [v21 CMTimeValue];
+              objc_msgSend_CMTimeValue(v21);
             }
 
-            memset(&v31, 0, sizeof(v31));
+            memset(&v32, 0, sizeof(v32));
             if (segmentType)
             {
-              v31 = location;
-              memset(&v30, 0, sizeof(v30));
+              v32 = location;
+              memset(&v31, 0, sizeof(v31));
               lhs[0].start = location;
-              *&rhs.start.value = *&v37.start.value;
-              rhs.start.epoch = v37.start.epoch;
-              CMTimeSubtract(&v30, &lhs[0].start, &rhs.start);
+              *&rhs.start.value = *&v38.start.value;
+              rhs.start.epoch = v38.start.epoch;
+              CMTimeSubtract(&v31, &lhs[0].start, &rhs.start);
             }
 
             else
             {
-              *&lhs[0].start.value = *&v37.start.value;
-              lhs[0].start.epoch = v37.start.epoch;
+              *&lhs[0].start.value = *&v38.start.value;
+              lhs[0].start.epoch = v38.start.epoch;
               rhs.start = location;
-              CMTimeAdd(&v31, &lhs[0].start, &rhs.start);
-              memset(&v30, 0, sizeof(v30));
-              v29 = v31;
-              lhs[0] = v39;
-              rhs = v38;
-              CMTimeMapTimeFromRangeToRange(&v30, &v29, lhs, &rhs);
+              CMTimeAdd(&v32, &lhs[0].start, &rhs.start);
+              memset(&v31, 0, sizeof(v31));
+              v30 = v32;
+              lhs[0] = v40;
+              rhs = v39;
+              CMTimeMapTimeFromRangeToRange(&v31, &v30, lhs, &rhs);
             }
 
-            lhs[0].start = v30;
-            if (CMTimeGetSeconds(&lhs[0].start) <= 0.3 && (lhs[0].start = v30, [(AVPlayerItemIntegratedTimelineBoundaryObserver *)self _isItemCurrentTimeWithinZeroOffsetBoundaryThreshold:schedule offset:lhs]))
+            lhs[0].start = v31;
+            if (CMTimeGetSeconds(&lhs[0].start) <= 0.3 && (lhs[0].start = v31, [(AVPlayerItemIntegratedTimelineBoundaryObserver *)self _isItemCurrentTimeWithinZeroOffsetBoundaryThreshold:schedule offset:lhs]))
             {
               (*(self->_block + 2))();
             }
 
             else
             {
-              lhs[0] = v37;
-              rhs.start = v31;
+              lhs[0] = v38;
+              rhs.start = v32;
               if (((CMTimeRangeContainsTime(lhs, &rhs.start) == 0) & ~(segmentType == 0)) == 0)
               {
-                lhs[0].start = v30;
+                lhs[0].start = v31;
                 [array addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCMTime:", lhs)}];
               }
             }
           }
 
-          v18 = [(NSArray *)offsetTimes countByEnumeratingWithState:&v33 objects:v42 count:16];
+          v18 = [(NSArray *)offsetTimes countByEnumeratingWithState:&v34 objects:v43 count:16];
         }
 
         while (v18);
@@ -259,21 +259,22 @@ LABEL_13:
         objc_initWeak(&location, self);
         if (dword_1EAEFCDD0)
         {
-          LODWORD(v31.value) = 0;
-          LOBYTE(v30.value) = 0;
+          LODWORD(v32.value) = 0;
+          LOBYTE(v31.value) = 0;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          value = v31.value;
-          if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v30.value))
+          value = v32.value;
+          value_low = LOBYTE(v31.value);
+          if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v31.value))
           {
-            v24 = value;
+            v25 = value;
           }
 
           else
           {
-            v24 = value & 0xFFFFFFFE;
+            v25 = value & 0xFFFFFFFE;
           }
 
-          if (v24)
+          if (v25)
           {
             LODWORD(rhs.start.value) = 136315906;
             *(&rhs.start.value + 4) = "[AVPlayerItemIntegratedTimelineBoundaryObserver rescheduleObserverWithSnapshot:itemToSchedule:]";
@@ -283,22 +284,22 @@ LABEL_13:
             rhs.duration.value = schedule;
             LOWORD(rhs.duration.timescale) = 2112;
             *(&rhs.duration.timescale + 2) = array;
-            _os_log_send_and_compose_impl();
+            _os_log_send_and_compose_impl(v25, 0, lhs, 128, &dword_196061000, os_log_and_send_and_compose_flags_and_os_log_type, value_low, "<<<< AVPlayerItemIntegratedTimeline >>>> %s: rescheduling boundary observer %p for item %p with sourceTimes %@", &rhs, 42);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __96__AVPlayerItemIntegratedTimelineBoundaryObserver_rescheduleObserverWithSnapshot_itemToSchedule___block_invoke;
-        v27[3] = &unk_1E74636C0;
-        objc_copyWeak(&v28, &location);
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __96__AVPlayerItemIntegratedTimelineBoundaryObserver_rescheduleObserverWithSnapshot_itemToSchedule___block_invoke;
+        v28[3] = &unk_1E74636C0;
+        objc_copyWeak(&v29, &location);
         self->_hasBeenScheduled = 1;
-        v25 = [[AVOccasionalTimebaseObserver alloc] initWithTimebase:timebase times:array queue:self->_queue block:v27];
-        [(AVPlayerItemIntegratedTimelineBoundaryObserver *)self setOccasionalBoundaryObserver:v25];
+        v26 = [[AVOccasionalTimebaseObserver alloc] initWithTimebase:timebase times:array queue:self->_queue block:v28];
+        [(AVPlayerItemIntegratedTimelineBoundaryObserver *)self setOccasionalBoundaryObserver:v26];
 
-        objc_destroyWeak(&v28);
+        objc_destroyWeak(&v29);
         objc_destroyWeak(&location);
       }
     }

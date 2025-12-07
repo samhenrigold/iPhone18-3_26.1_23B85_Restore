@@ -17,7 +17,7 @@
 
 - (NSArray)supportedSections
 {
-  if (sub_2287149DC())
+  if (sub_2287149DC(self))
   {
     v2 = sub_2287CB390();
   }
@@ -68,7 +68,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_22871240C(v8, section, v7, v10);
-  sub_228714BC0(v7);
+  sub_228714BC0(v7, v10);
 }
 
 - (_TtC18HealthPlatformCore27FeedItemREElementDataSource)init

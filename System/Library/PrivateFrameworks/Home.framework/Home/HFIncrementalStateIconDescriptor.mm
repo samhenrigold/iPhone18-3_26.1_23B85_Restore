@@ -10,32 +10,31 @@
 
 - (HFIncrementalStateIconDescriptor)initWithIdentifier:(id)identifier incrementalState:(id)state
 {
-  v15[10] = *MEMORY[0x277D85DE8];
+  v14[10] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   stateCopy = state;
-  v14.receiver = self;
-  v14.super_class = HFIncrementalStateIconDescriptor;
-  v9 = [(HFIncrementalStateIconDescriptor *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = HFIncrementalStateIconDescriptor;
+  v9 = [(HFIncrementalStateIconDescriptor *)&v13 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_identifier, identifier);
     objc_storeStrong(&v10->_incrementalState, state);
-    v15[0] = @"HFImageIconIdentifierAppleTVRegular";
-    v15[1] = @"HFImageIconIdentifierAppleTVSmall";
-    v15[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
-    v15[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
-    v15[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
-    v15[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
-    v15[6] = @"HFCAPackageIconIdentifierAirport";
-    v15[7] = @"HFImageIconIdentifierGeneric";
-    v15[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
-    v15[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:10];
+    v14[0] = @"HFImageIconIdentifierAppleTVRegular";
+    v14[1] = @"HFImageIconIdentifierAppleTVSmall";
+    v14[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
+    v14[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
+    v14[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
+    v14[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
+    v14[6] = @"HFCAPackageIconIdentifierAirport";
+    v14[7] = @"HFImageIconIdentifierGeneric";
+    v14[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
+    v14[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:10];
     v10->_shouldForceLTR = [v11 containsObject:identifierCopy];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

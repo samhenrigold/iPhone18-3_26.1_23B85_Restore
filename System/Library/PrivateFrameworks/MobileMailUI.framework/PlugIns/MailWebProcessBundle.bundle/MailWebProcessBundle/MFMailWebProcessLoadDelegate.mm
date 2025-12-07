@@ -147,32 +147,13 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      if (![(MFMailWebProcessLoadDelegate *)self isMailPrivacyProtectionAllowed])
+      if (-[MFMailWebProcessLoadDelegate isMailPrivacyProtectionAllowed](self, "isMailPrivacyProtectionAllowed") && (-[MFMailWebProcessLoadDelegate externalConstants](self, "externalConstants"), v19 = objc_claimAutoreleasedReturnValue(), [v19 objectForKeyedSubscript:@"remoteContentToLoadWithoutProxy"], v20 = objc_claimAutoreleasedReturnValue(), v19, objc_msgSend(v11, "absoluteString"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "containsObject:", v21), v21, v20, (v22 & 1) == 0) && (-[MFMailWebProcessLoadDelegate remoteContentProxySchemePrefix](self, "remoteContentProxySchemePrefix"), v23 = objc_claimAutoreleasedReturnValue(), v23, v23))
       {
-        goto LABEL_21;
-      }
-
-      externalConstants2 = [(MFMailWebProcessLoadDelegate *)self externalConstants];
-      v20 = [externalConstants2 objectForKeyedSubscript:@"remoteContentToLoadWithoutProxy"];
-
-      absoluteString = [v11 absoluteString];
-      v22 = [v20 containsObject:absoluteString];
-
-      if (v22)
-      {
-        goto LABEL_21;
-      }
-
-      remoteContentProxySchemePrefix = [(MFMailWebProcessLoadDelegate *)self remoteContentProxySchemePrefix];
-
-      if (remoteContentProxySchemePrefix)
-      {
-        remoteContentProxySchemePrefix2 = [(MFMailWebProcessLoadDelegate *)self remoteContentProxySchemePrefix];
+        remoteContentProxySchemePrefix = [(MFMailWebProcessLoadDelegate *)self remoteContentProxySchemePrefix];
       }
 
       else
       {
-LABEL_21:
         remoteContentNoProxySchemePrefix = [(MFMailWebProcessLoadDelegate *)self remoteContentNoProxySchemePrefix];
 
         if (!remoteContentNoProxySchemePrefix)
@@ -180,11 +161,11 @@ LABEL_21:
           goto LABEL_16;
         }
 
-        remoteContentProxySchemePrefix2 = [(MFMailWebProcessLoadDelegate *)self remoteContentNoProxySchemePrefix];
+        remoteContentProxySchemePrefix = [(MFMailWebProcessLoadDelegate *)self remoteContentNoProxySchemePrefix];
       }
 
-      v29 = remoteContentProxySchemePrefix2;
-      if (!remoteContentProxySchemePrefix2)
+      v29 = remoteContentProxySchemePrefix;
+      if (!remoteContentProxySchemePrefix)
       {
         goto LABEL_16;
       }

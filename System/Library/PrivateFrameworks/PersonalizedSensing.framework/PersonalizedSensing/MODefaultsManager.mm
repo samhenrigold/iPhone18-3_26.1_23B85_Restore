@@ -89,18 +89,18 @@
 
 - (void)deleteObjectForKey:(id)key
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (keyCopy)
   {
     v5 = _mo_log_facility_get_os_log(MOLogFacilityDefaults);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315394;
-      v9 = "[MODefaultsManager deleteObjectForKey:]";
-      v10 = 2112;
-      v11 = keyCopy;
-      _os_log_impl(&dword_25E48F000, v5, OS_LOG_TYPE_INFO, "%s, deleting key, %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[MODefaultsManager deleteObjectForKey:]";
+      v9 = 2112;
+      v10 = keyCopy;
+      _os_log_impl(&dword_25E48F000, v5, OS_LOG_TYPE_INFO, "%s, deleting key, %@", &v7, 0x16u);
     }
 
     [(NSUserDefaults *)self->_userDefaults removeObjectForKey:keyCopy];
@@ -114,13 +114,11 @@
       [MODefaultsManager deleteObjectForKey:];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObject:(id)object forKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   if (keyCopy)
@@ -128,13 +126,13 @@
     v8 = _mo_log_facility_get_os_log(MOLogFacilityDefaults);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315650;
-      v12 = "[MODefaultsManager setObject:forKey:]";
-      v13 = 2112;
-      v14 = keyCopy;
-      v15 = 2112;
-      v16 = objectCopy;
-      _os_log_impl(&dword_25E48F000, v8, OS_LOG_TYPE_INFO, "%s, key, %@, value, %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[MODefaultsManager setObject:forKey:]";
+      v12 = 2112;
+      v13 = keyCopy;
+      v14 = 2112;
+      v15 = objectCopy;
+      _os_log_impl(&dword_25E48F000, v8, OS_LOG_TYPE_INFO, "%s, key, %@, value, %@", &v10, 0x20u);
     }
 
     [(NSUserDefaults *)self->_userDefaults setObject:objectCopy forKey:keyCopy];
@@ -148,8 +146,6 @@
       [MODefaultsManager setObject:forKey:];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectWithoutLog:(id)log forKey:(id)key
@@ -239,73 +235,30 @@ void __42__MODefaultsManager_momentsDaemonDefaults__block_invoke()
 
 - (void)objectForKey:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[MODefaultsManager objectForKey:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_25E48F000, log, OS_LOG_TYPE_DEBUG, "%s, key, %@, value, %@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForKey:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E48F000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[MODefaultsManager objectForKey:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_25E48F000, log, OS_LOG_TYPE_DEBUG, "%s, key, %@, value, %@", &v3, 0x20u);
 }
 
 - (void)objectForKey:(os_log_t)log .cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[MODefaultsManager objectForKey:]";
-  _os_log_error_impl(&dword_25E48F000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForKeyWithoutLog:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E48F000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[MODefaultsManager objectForKey:]";
+  _os_log_error_impl(&dword_25E48F000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v1, 0xCu);
 }
 
 - (void)objectForKeyWithoutLog:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[MODefaultsManager objectForKeyWithoutLog:]";
-  _os_log_error_impl(&dword_25E48F000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteObjectForKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E48F000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setObject:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E48F000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setObjectWithoutLog:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E48F000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[MODefaultsManager objectForKeyWithoutLog:]";
+  _os_log_error_impl(&dword_25E48F000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v1, 0xCu);
 }
 
 @end

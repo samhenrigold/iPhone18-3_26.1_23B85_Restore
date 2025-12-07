@@ -2,6 +2,7 @@
 - (_TtC10CoreAuthUI34PasscodeAlertContentViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)loadView;
 - (void)verifyPasscode:(id)passcode reply:(id)reply;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewWillAppear:(BOOL)appear;
 @end
 
@@ -17,6 +18,16 @@
 {
   selfCopy = self;
   sub_10002EA08(appear);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(PasscodeAlertContentViewController *)&v5 viewDidAppear:appearCopy];
+  [*&v4[OBJC_IVAR____TtC10CoreAuthUI34PasscodeAlertContentViewController_passcodeController] setPasscodeFocused:{1, v5.receiver, v5.super_class}];
 }
 
 - (void)verifyPasscode:(id)passcode reply:(id)reply

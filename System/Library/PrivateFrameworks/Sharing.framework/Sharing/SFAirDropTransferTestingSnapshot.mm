@@ -11,7 +11,7 @@
 
 + (id)writeSnapshotForTransfer:(id)transfer initialInfo:(id)info name:(id)name error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   infoCopy = info;
   transferCopy = transfer;
@@ -26,17 +26,17 @@
   temporaryDirectory = [defaultManager temporaryDirectory];
   v18 = [temporaryDirectory URLByAppendingPathComponent:nameCopy];
 
-  v27 = 0;
-  v19 = [(SFAirDropTransferTestingSnapshot *)v12 writeToURL:v18 error:&v27];
-  v20 = v27;
-  v21 = airdrop_log();
+  v26 = 0;
+  v19 = [(SFAirDropTransferTestingSnapshot *)v12 writeToURL:v18 error:&v26];
+  v20 = v26;
+  v21 = airdrop_log(v20);
   v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
   if (v19)
   {
     if (v22)
     {
       *buf = 138412290;
-      v29 = v18;
+      v28 = v18;
       _os_log_impl(&dword_1A9662000, v21, OS_LOG_TYPE_DEFAULT, "Write AirDrop snapshot SUCCESS {url: %@}", buf, 0xCu);
     }
 
@@ -48,7 +48,7 @@
     if (v22)
     {
       *buf = 138412290;
-      v29 = v20;
+      v28 = v20;
       _os_log_impl(&dword_1A9662000, v21, OS_LOG_TYPE_DEFAULT, "Write AirDrop snapshot FAIL {error: %@}", buf, 0xCu);
     }
 
@@ -64,8 +64,6 @@
       v23 = 0;
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -169,11 +167,11 @@
 
 - (SFAirDropTransferTestingSnapshot)initWithCoder:(id)coder
 {
-  v40[6] = *MEMORY[0x1E69E9840];
+  v42[6] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v38.receiver = self;
-  v38.super_class = SFAirDropTransferTestingSnapshot;
-  v5 = [(SFAirDropTransferTestingSnapshot *)&v38 init];
+  v40.receiver = self;
+  v40.super_class = SFAirDropTransferTestingSnapshot;
+  v5 = [(SFAirDropTransferTestingSnapshot *)&v40 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"transfer"];
@@ -181,13 +179,13 @@
     *(v5 + 1) = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v40[2] = objc_opt_class();
-    v40[3] = objc_opt_class();
-    v40[4] = objc_opt_class();
-    v40[5] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:6];
+    v42[0] = objc_opt_class();
+    v42[1] = objc_opt_class();
+    v42[2] = objc_opt_class();
+    v42[3] = objc_opt_class();
+    v42[4] = objc_opt_class();
+    v42[5] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:6];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"initialInfo"];
     v12 = *(v5 + 2);
@@ -210,9 +208,9 @@
     *(v5 + 7) = v19;
 
     v21 = MEMORY[0x1E695DFD8];
-    v39[0] = objc_opt_class();
-    v39[1] = objc_opt_class();
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+    v41[0] = objc_opt_class();
+    v41[1] = objc_opt_class();
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
     v23 = [v21 setWithArray:v22];
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"nodeContactIdentifiers"];
     v25 = *(v5 + 6);
@@ -230,33 +228,38 @@
     if (v30)
     {
       v31 = [v30 mutableCopy];
-      if (*(v5 + 3) && *(v5 + 4))
+      v32 = *(v5 + 3);
+      if (v32)
       {
-        v32 = *MEMORY[0x1E695E480];
-        v33 = SFNodeCreate();
-        SFNodeSetContactIdentifier(v33, *(v5 + 7));
-        SFNodeSetContactIdentifiers(v33, *(v5 + 6));
-        [v31 setObject:v33 forKeyedSubscript:@"SenderNode"];
+        v33 = *(v5 + 4);
+        if (v33)
+        {
+          v34 = SFNodeCreate(*MEMORY[0x1E695E480], v32, v33);
+          SFNodeSetContactIdentifier(v34, *(v5 + 7));
+          SFNodeSetContactIdentifiers(v34, *(v5 + 6));
+          [v31 setObject:v34 forKeyedSubscript:@"SenderNode"];
+        }
       }
 
-      if (*(v5 + 8))
+      v35 = *(v5 + 8);
+      if (v35)
       {
-        [v31 setObject:createTransferCGImageWithData() forKeyedSubscript:@"FileIcon"];
+        [v31 setObject:createTransferCGImageWithData(v35) forKeyedSubscript:@"FileIcon"];
       }
 
-      if (*(v5 + 9))
+      v36 = *(v5 + 9);
+      if (v36)
       {
-        [v31 setObject:createTransferCGImageWithData() forKeyedSubscript:@"SmallFileIcon"];
+        [v31 setObject:createTransferCGImageWithData(v36) forKeyedSubscript:@"SmallFileIcon"];
       }
 
-      v34 = *(v5 + 2);
+      v37 = *(v5 + 2);
       *(v5 + 2) = v31;
     }
 
-    v35 = v5;
+    v38 = v5;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

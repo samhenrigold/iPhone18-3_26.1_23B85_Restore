@@ -48,7 +48,7 @@
 
 - (BOOL)ensureRegistrationPresent:(id)present error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   presentCopy = present;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -68,7 +68,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v38 = presentCopy;
+      v36 = presentCopy;
       _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "Not adding registration to PDS, as PDS is already aware of %@", buf, 0xCu);
     }
 
@@ -78,12 +78,11 @@
 
   v20 = objc_msgSend_registrar(selfCopy, v15, v16);
   v23 = objc_msgSend_user(selfCopy, v21, v22);
-  v36 = 0;
-  v18 = objc_msgSend_ensureRegistrationPresent_forUser_error_(v20, v24, presentCopy, v23, &v36);
-  v19 = v36;
+  v34 = 0;
+  v18 = objc_msgSend_ensureRegistrationPresent_forUser_error_(v20, v24, presentCopy, v23, &v34);
+  v19 = v34;
 
   v25 = *MEMORY[0x277CBC878];
-  v26 = *MEMORY[0x277CBC880];
   if (v18)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -91,16 +90,16 @@
       dispatch_once(MEMORY[0x277CBC880], v25);
     }
 
-    v27 = *MEMORY[0x277CBC830];
+    v26 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v38 = presentCopy;
-      _os_log_impl(&dword_22506F000, v27, OS_LOG_TYPE_INFO, "Added registration to PDS: %@", buf, 0xCu);
+      v36 = presentCopy;
+      _os_log_impl(&dword_22506F000, v26, OS_LOG_TYPE_INFO, "Added registration to PDS: %@", buf, 0xCu);
     }
 
-    v30 = objc_msgSend_cache(selfCopy, v28, v29);
-    objc_msgSend_setObject_forKey_(v30, v31, presentCopy, v9);
+    v29 = objc_msgSend_cache(selfCopy, v27, v28);
+    objc_msgSend_setObject_forKey_(v29, v30, presentCopy, v9);
 
     goto LABEL_16;
   }
@@ -110,7 +109,7 @@
     dispatch_once(MEMORY[0x277CBC880], v25);
   }
 
-  v32 = *MEMORY[0x277CBC830];
+  v31 = *MEMORY[0x277CBC830];
   if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
 LABEL_16:
@@ -123,10 +122,10 @@ LABEL_16:
   }
 
   *buf = 138412546;
-  v38 = presentCopy;
-  v39 = 2112;
-  v40 = v19;
-  _os_log_error_impl(&dword_22506F000, v32, OS_LOG_TYPE_ERROR, "Unable to add registration to PDS: %@ %@", buf, 0x16u);
+  v36 = presentCopy;
+  v37 = 2112;
+  v38 = v19;
+  _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "Unable to add registration to PDS: %@ %@", buf, 0x16u);
   if (!error)
   {
     goto LABEL_19;
@@ -135,31 +134,29 @@ LABEL_16:
 LABEL_17:
   if (v19)
   {
-    v33 = v19;
+    v32 = v19;
     *error = v19;
   }
 
 LABEL_19:
 
   objc_sync_exit(selfCopy);
-  v34 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)removeRegistration:(id)registration error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v10 = objc_msgSend_registrar(selfCopy, v8, v9);
   v13 = objc_msgSend_user(selfCopy, v11, v12);
-  v30 = 0;
-  v15 = objc_msgSend_removeRegistration_fromUser_error_(v10, v14, registrationCopy, v13, &v30);
-  v16 = v30;
+  v28 = 0;
+  v15 = objc_msgSend_removeRegistration_fromUser_error_(v10, v14, registrationCopy, v13, &v28);
+  v16 = v28;
 
   v17 = *MEMORY[0x277CBC878];
-  v18 = *MEMORY[0x277CBC880];
   if (v15)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -167,17 +164,17 @@ LABEL_19:
       dispatch_once(MEMORY[0x277CBC880], v17);
     }
 
-    v19 = *MEMORY[0x277CBC830];
+    v18 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = registrationCopy;
-      _os_log_impl(&dword_22506F000, v19, OS_LOG_TYPE_INFO, "Removed registration from PDS: %@", buf, 0xCu);
+      v30 = registrationCopy;
+      _os_log_impl(&dword_22506F000, v18, OS_LOG_TYPE_INFO, "Removed registration from PDS: %@", buf, 0xCu);
     }
 
-    v22 = objc_msgSend_cache(selfCopy, v20, v21);
-    v24 = objc_msgSend__cacheKeyForRegistration_(selfCopy, v23, registrationCopy);
-    objc_msgSend_removeObjectForKey_(v22, v25, v24);
+    v21 = objc_msgSend_cache(selfCopy, v19, v20);
+    v23 = objc_msgSend__cacheKeyForRegistration_(selfCopy, v22, registrationCopy);
+    objc_msgSend_removeObjectForKey_(v21, v24, v23);
 
     goto LABEL_10;
   }
@@ -187,7 +184,7 @@ LABEL_19:
     dispatch_once(MEMORY[0x277CBC880], v17);
   }
 
-  v26 = *MEMORY[0x277CBC830];
+  v25 = *MEMORY[0x277CBC830];
   if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
 LABEL_10:
@@ -200,10 +197,10 @@ LABEL_10:
   }
 
   *buf = 138412546;
-  v32 = registrationCopy;
-  v33 = 2112;
-  v34 = v16;
-  _os_log_error_impl(&dword_22506F000, v26, OS_LOG_TYPE_ERROR, "Unable to remove registration from PDS: %@ %@", buf, 0x16u);
+  v30 = registrationCopy;
+  v31 = 2112;
+  v32 = v16;
+  _os_log_error_impl(&dword_22506F000, v25, OS_LOG_TYPE_ERROR, "Unable to remove registration from PDS: %@ %@", buf, 0x16u);
   if (!error)
   {
     goto LABEL_13;
@@ -212,30 +209,28 @@ LABEL_10:
 LABEL_11:
   if (v16)
   {
-    v27 = v16;
+    v26 = v16;
     *error = v16;
   }
 
 LABEL_13:
 
   objc_sync_exit(selfCopy);
-  v28 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)removeAllRegistrations:(id *)registrations
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = objc_msgSend_registrar(selfCopy, v5, v6);
   v10 = objc_msgSend_user(selfCopy, v8, v9);
-  v29 = 0;
-  v12 = objc_msgSend_removeAllRegistrationsFromUser_error_(v7, v11, v10, &v29);
-  v13 = v29;
+  v27 = 0;
+  v12 = objc_msgSend_removeAllRegistrationsFromUser_error_(v7, v11, v10, &v27);
+  v13 = v27;
 
   v14 = *MEMORY[0x277CBC878];
-  v15 = *MEMORY[0x277CBC880];
   if (v12)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -243,13 +238,13 @@ LABEL_13:
       dispatch_once(MEMORY[0x277CBC880], v14);
     }
 
-    v16 = *MEMORY[0x277CBC830];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v15 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v19 = objc_msgSend_user(selfCopy, v17, v18);
+      v18 = objc_msgSend_user(selfCopy, v16, v17);
       *buf = 138412290;
-      v31 = v19;
-      _os_log_impl(&dword_22506F000, v16, OS_LOG_TYPE_INFO, "Removed all registrations for account %@ from PDS", buf, 0xCu);
+      v29 = v18;
+      _os_log_impl(&dword_22506F000, v15, OS_LOG_TYPE_INFO, "Removed all registrations for account %@ from PDS", buf, 0xCu);
     }
   }
 
@@ -260,26 +255,25 @@ LABEL_13:
       dispatch_once(MEMORY[0x277CBC880], v14);
     }
 
-    v22 = *MEMORY[0x277CBC830];
+    v21 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = v13;
-      _os_log_error_impl(&dword_22506F000, v22, OS_LOG_TYPE_ERROR, "Unable to remove all registrations from PDS: %@", buf, 0xCu);
+      v29 = v13;
+      _os_log_error_impl(&dword_22506F000, v21, OS_LOG_TYPE_ERROR, "Unable to remove all registrations from PDS: %@", buf, 0xCu);
     }
   }
 
-  v23 = objc_msgSend_cache(selfCopy, v20, v21);
-  objc_msgSend_removeAllObjects(v23, v24, v25);
+  v22 = objc_msgSend_cache(selfCopy, v19, v20);
+  objc_msgSend_removeAllObjects(v22, v23, v24);
 
   if (registrations && v13)
   {
-    v26 = v13;
+    v25 = v13;
     *registrations = v13;
   }
 
   objc_sync_exit(selfCopy);
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

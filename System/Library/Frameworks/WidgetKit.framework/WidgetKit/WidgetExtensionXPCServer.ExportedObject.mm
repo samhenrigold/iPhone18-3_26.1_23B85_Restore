@@ -91,83 +91,80 @@
 - (void)pushTokensDidChange:(id)change completion:(id)completion
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EADEEDF8, &qword_19222B5B0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v18 - v8;
-  v10 = _Block_copy(completion);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
+  v8 = &v17 - v7;
+  v9 = _Block_copy(completion);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
   changeCopy = change;
   sub_192227CD0();
-  v13 = sub_192227CF0();
-  (*(*(v13 - 8) + 56))(v9, 0, 1, v13);
-  sub_192227CC0();
-  v14 = changeCopy;
-
-  v15 = sub_192227CB0();
-  v16 = swift_allocObject();
-  v17 = MEMORY[0x1E69E85E0];
-  v16[2] = v15;
-  v16[3] = v17;
-  v16[4] = v14;
-  v16[5] = sub_1920B3B48;
-  v16[6] = v11;
-  sub_19211CA04(0, 0, v9, &unk_19222B5E8, v16);
-}
-
-- (void)setControlState:(id)state completion:(id)completion
-{
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EADEEDF8, &qword_19222B5B0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v21 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  stateCopy = state;
-  selfCopy = self;
-  sub_192227CD0();
-  v15 = sub_192227CF0();
-  (*(*(v15 - 8) + 56))(v10, 0, 1, v15);
-  sub_192227CC0();
-  v16 = stateCopy;
-  v17 = selfCopy;
-
-  v18 = sub_192227CB0();
-  v19 = swift_allocObject();
-  v20 = MEMORY[0x1E69E85E0];
-  v19[2] = v18;
-  v19[3] = v20;
-  v19[4] = v17;
-  v19[5] = v16;
-  v19[6] = sub_1920B3B48;
-  v19[7] = v12;
-  sub_19211CA04(0, 0, v10, &unk_19222B5D0, v19);
-}
-
-- (void)widgetPushTokensDidChange:(id)change completion:(id)completion
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EADEEDF8, &qword_19222B5B0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v17 - v8;
-  v10 = _Block_copy(completion);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
   v12 = sub_192227CF0();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  (*(*(v12 - 8) + 56))(v8, 0, 1, v12);
   sub_192227CC0();
-  changeCopy = change;
+  v13 = changeCopy;
 
   v14 = sub_192227CB0();
   v15 = swift_allocObject();
   v16 = MEMORY[0x1E69E85E0];
   v15[2] = v14;
   v15[3] = v16;
-  v15[4] = changeCopy;
+  v15[4] = v13;
   v15[5] = sub_1920B3B48;
-  v15[6] = v11;
-  sub_19211CA04(0, 0, v9, &unk_19222B5C0, v15);
+  v15[6] = v10;
+  sub_19211CA04(0, 0, v8, &unk_19222B5E8, v15);
+}
+
+- (void)setControlState:(id)state completion:(id)completion
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EADEEDF8, &qword_19222B5B0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v20 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  stateCopy = state;
+  selfCopy = self;
+  sub_192227CD0();
+  v14 = sub_192227CF0();
+  (*(*(v14 - 8) + 56))(v9, 0, 1, v14);
+  sub_192227CC0();
+  v15 = stateCopy;
+  v16 = selfCopy;
+
+  v17 = sub_192227CB0();
+  v18 = swift_allocObject();
+  v19 = MEMORY[0x1E69E85E0];
+  v18[2] = v17;
+  v18[3] = v19;
+  v18[4] = v16;
+  v18[5] = v15;
+  v18[6] = sub_1920B3B48;
+  v18[7] = v11;
+  sub_19211CA04(0, 0, v9, &unk_19222B5D0, v18);
+}
+
+- (void)widgetPushTokensDidChange:(id)change completion:(id)completion
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EADEEDF8, &qword_19222B5B0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v16 - v7;
+  v9 = _Block_copy(completion);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  v11 = sub_192227CF0();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  sub_192227CC0();
+  changeCopy = change;
+
+  v13 = sub_192227CB0();
+  v14 = swift_allocObject();
+  v15 = MEMORY[0x1E69E85E0];
+  v14[2] = v13;
+  v14[3] = v15;
+  v14[4] = changeCopy;
+  v14[5] = sub_1920B3B48;
+  v14[6] = v10;
+  sub_19211CA04(0, 0, v8, &unk_19222B5C0, v14);
 }
 
 @end

@@ -56,7 +56,7 @@
   v14 = containerView[67];
   if (v14)
   {
-    [v14 affineTransform];
+    objc_msgSend_affineTransform(v14);
   }
 
   else
@@ -79,7 +79,7 @@
   v35 = 0u;
   v36 = 0u;
   v34 = 0u;
-  [containerView transform];
+  objc_msgSend_transform(containerView);
   CGAffineTransformMakeScale(&v33, 0.0, 0.0);
   [containerView setTransform:&v33];
   v17 = UIApp;

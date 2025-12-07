@@ -326,7 +326,7 @@ void __76__AVTCollapsibleHeaderController_updateHeaderForHeight_withOffset_anima
   [v5 setContentOffset:{*(a1 + 48), *(a1 + 56)}];
 }
 
-uint64_t __76__AVTCollapsibleHeaderController_updateHeaderForHeight_withOffset_animated___block_invoke_2(uint64_t a1, int a2)
+void *__76__AVTCollapsibleHeaderController_updateHeaderForHeight_withOffset_animated___block_invoke_2(uint64_t a1, int a2)
 {
   result = [*(a1 + 32) invalidate];
   if (a2)

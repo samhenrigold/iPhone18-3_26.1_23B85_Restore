@@ -427,7 +427,7 @@ LABEL_20:
 
 - (id)description
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = MEMORY[0x1E696AD98];
   points = [(_PSCluster *)self points];
@@ -437,29 +437,29 @@ LABEL_20:
   v9 = [v7 numberWithUnsignedInteger:{objc_msgSend(convexHull, "count")}];
   v10 = [v3 stringWithFormat:@"Points, convex hulls:<%@ %@>", v6, v9];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   selfCopy = self;
   obj = [(_PSCluster *)self points];
-  v11 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v11 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v46;
+    v13 = *v45;
     do
     {
       v14 = 0;
       v15 = v10;
       do
       {
-        if (*v46 != v13)
+        if (*v45 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v45 + 1) + 8 * v14);
+        v16 = *(*(&v44 + 1) + 8 * v14);
         v17 = MEMORY[0x1E696AEC0];
         v18 = MEMORY[0x1E696AD98];
         [v16 x];
@@ -475,7 +475,7 @@ LABEL_20:
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v12 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v12);
@@ -483,28 +483,28 @@ LABEL_20:
 
   v23 = [v10 stringByAppendingString:{@", "}];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obja = [(_PSCluster *)selfCopy convexHull];
-  v24 = [obja countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v24 = [obja countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v42;
+    v26 = *v41;
     do
     {
       v27 = 0;
       v28 = v23;
       do
       {
-        if (*v42 != v26)
+        if (*v41 != v26)
         {
           objc_enumerationMutation(obja);
         }
 
-        v29 = *(*(&v41 + 1) + 8 * v27);
+        v29 = *(*(&v40 + 1) + 8 * v27);
         v30 = MEMORY[0x1E696AEC0];
         v31 = MEMORY[0x1E696AD98];
         [v29 x];
@@ -520,13 +520,11 @@ LABEL_20:
       }
 
       while (v25 != v27);
-      v25 = [obja countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v25 = [obja countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v25);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

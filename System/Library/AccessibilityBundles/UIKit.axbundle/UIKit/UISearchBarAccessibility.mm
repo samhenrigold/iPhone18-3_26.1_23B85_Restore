@@ -183,7 +183,7 @@
   if (v8)
   {
     [(UISearchBarAccessibility *)selfCopy _accessibilitySetBoolValue:1 forKey:?];
-    v19 = [(UISearchBarAccessibility *)selfCopy accessibilityHitTest:location[0] withEvent:testCopy.x, testCopy.y];
+    v19 = [(UISearchBarAccessibility *)selfCopy accessibilityHitTest:location[0] withEvent:testCopy];
     [(UISearchBarAccessibility *)selfCopy _accessibilitySetBoolValue:0 forKey:@"AXInHitTestOverride"];
     v32 = MEMORY[0x29EDC9748](v19);
     v18 = 1;
@@ -219,7 +219,7 @@
         objc_storeStrong(&v12, 0);
         v10 = v11;
         v9 = 1;
-        v7 = [v11 pointInside:location[0] withEvent:{testCopy.x, testCopy.y}];
+        v7 = [v11 pointInside:location[0] withEvent:testCopy];
       }
     }
 

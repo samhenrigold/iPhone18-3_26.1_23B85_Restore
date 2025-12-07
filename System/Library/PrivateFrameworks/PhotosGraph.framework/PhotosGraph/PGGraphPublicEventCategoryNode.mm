@@ -50,21 +50,19 @@ void __59__PGGraphPublicEventCategoryNode_associatedNodesForRemoval__block_invok
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   localizedName = self->_localizedName;
   if (localizedName)
   {
-    v6 = @"lcln";
-    v7[0] = localizedName;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = @"lcln";
+    v6[0] = localizedName;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   }
 
   else
   {
     v3 = MEMORY[0x277CBEC10];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

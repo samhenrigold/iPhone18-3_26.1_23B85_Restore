@@ -363,7 +363,7 @@ LABEL_21:
 
 - (void)_updateTrackInset
 {
-  [(MPDetailSlider *)self duration];
+  objc_msgSend_duration(self, a2);
   v3 = [(MPDetailSlider *)self _stringForInverseCurrentTime:?];
   font = [(UILabel *)self->_currentTimeInverseLabel font];
   [v3 _legacy_sizeWithFont:font];
@@ -435,7 +435,7 @@ LABEL_21:
   {
     if (self->_style == 5)
     {
-      [(MPDetailSlider *)self duration];
+      objc_msgSend_duration(self);
     }
 
     v5 = 0;

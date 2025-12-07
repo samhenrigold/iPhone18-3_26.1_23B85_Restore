@@ -1,7 +1,10 @@
 @interface CSDUserActivity
++ (CSDUserActivity)activityWithType:(unsigned int)type dynamicIdentifier:(id)identifier userInfo:(id)info originatingDeviceType:(id)deviceType;
 + (id)_userActivityTypeStringForActivityType:(unsigned int)type;
 + (id)appHistoryActivityWithTitle:(id)title subtitle:(id)subtitle keywords:(id)keywords userInfo:(id)info;
 + (unsigned)activityTypeForUserActivityTypeString:(id)string;
++ (void)registerActivityType:(unsigned int)type dynamicIdentifier:(id)identifier;
++ (void)unregisterActivityType:(unsigned int)type dynamicIdentifier:(id)identifier;
 - (id)description;
 - (void)addUserInfoEntriesFromDictionary:(id)dictionary;
 - (void)becomeCurrent;
@@ -59,6 +62,131 @@
   [userActivity setUserInfo:infoCopy];
 
   return v14;
+}
+
++ (CSDUserActivity)activityWithType:(unsigned int)type dynamicIdentifier:(id)identifier userInfo:(id)info originatingDeviceType:(id)deviceType
+{
+  v8 = *&type;
+  identifierCopy = identifier;
+  deviceTypeCopy = deviceType;
+  infoCopy = info;
+  v13 = objc_alloc_init(CSDUserActivity);
+  v14 = [self _userActivityTypeStringForActivityType:v8];
+  v15 = v14;
+  if (v8 <= 5)
+  {
+    if (((1 << v8) & 0x2C) != 0)
+    {
+      v16 = [NSUserActivity alloc];
+      v23[0] = UAUserActivityAlwaysPickKey;
+      v23[1] = UAAlwaysAdvertise;
+      v24[0] = &off_10063ED98;
+      v24[1] = &__kCFBooleanTrue;
+      v17 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v18 = [v16 _initWithUserActivityType:v15 dynamicActivityType:identifierCopy options:v17];
+      [(CSDUserActivity *)v13 setUserActivity:v18];
+
+LABEL_7:
+      goto LABEL_8;
+    }
+
+    if (((1 << v8) & 0x11) != 0)
+    {
+      v17 = sub_100004778(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v22[0] = 67109120;
+        v22[1] = v8;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Bad activity type: %d", v22, 8u);
+      }
+
+      goto LABEL_7;
+    }
+
+    v21 = [[NSUserActivity alloc] _initWithTypeIdentifier:v14 suggestedActionType:12 options:&__NSDictionary0__struct];
+    [(CSDUserActivity *)v13 setUserActivity:v21];
+  }
+
+LABEL_8:
+  [(CSDUserActivity *)v13 setDynamicIdentifier:identifierCopy];
+  userActivity = [(CSDUserActivity *)v13 userActivity];
+  [userActivity setUserInfo:infoCopy];
+
+  [(CSDUserActivity *)v13 setOriginatingDeviceType:deviceTypeCopy];
+
+  return v13;
+}
+
++ (void)registerActivityType:(unsigned int)type dynamicIdentifier:(id)identifier
+{
+  v4 = *&type;
+  identifierCopy = identifier;
+  v6 = [CSDUserActivity _userActivityTypeStringForActivityType:v4];
+  v7 = [CSDUserActivity activityTypeSupportsDynamicIdentifierRegistration:v4];
+  v8 = v7;
+  v9 = sub_100004778(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8)
+  {
+    if (v10)
+    {
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 2112;
+      v14 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Registering for %@ user activity type and dynamic identifier %@", &v11, 0x16u);
+    }
+
+    [NSUserActivity _registerUserActivityType:v6 dynamicActivityType:identifierCopy];
+  }
+
+  else
+  {
+    if (v10)
+    {
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 1024;
+      LODWORD(v14) = v4;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Asked to register for activity type %@ (%d), but that is not supported", &v11, 0x12u);
+    }
+  }
+}
+
++ (void)unregisterActivityType:(unsigned int)type dynamicIdentifier:(id)identifier
+{
+  v4 = *&type;
+  identifierCopy = identifier;
+  v6 = [CSDUserActivity _userActivityTypeStringForActivityType:v4];
+  v7 = [CSDUserActivity activityTypeSupportsDynamicIdentifierRegistration:v4];
+  v8 = v7;
+  v9 = sub_100004778(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8)
+  {
+    if (v10)
+    {
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 2112;
+      v14 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Unregistering for %@ user activity type and dynamic identifier %@", &v11, 0x16u);
+    }
+
+    [NSUserActivity _unregisterUserActivityType:v6 dynamicActivityType:identifierCopy];
+  }
+
+  else
+  {
+    if (v10)
+    {
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 1024;
+      LODWORD(v14) = v4;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Asked to unregister for activity type %@ (%d), but that is not supported", &v11, 0x12u);
+    }
+  }
 }
 
 + (unsigned)activityTypeForUserActivityTypeString:(id)string
@@ -145,7 +273,7 @@
 
 - (void)becomeCurrent
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     userActivity = [(CSDUserActivity *)self userActivity];
@@ -160,7 +288,7 @@
 
 - (void)resignCurrent
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     userActivity = [(CSDUserActivity *)self userActivity];
@@ -175,7 +303,7 @@
 
 - (void)invalidate
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     userActivity = [(CSDUserActivity *)self userActivity];

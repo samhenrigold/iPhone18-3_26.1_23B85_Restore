@@ -80,7 +80,7 @@ LABEL_7:
 
 - (id)_accessibilityControlCenterGenericOnOff
 {
-  v14[2] = *MEMORY[0x29EDCA608];
+  v13[2] = *MEMORY[0x29EDCA608];
   v3 = MEMORY[0x29C2D1760](@"CCUIConnectivityButtonViewController", a2);
   _accessibilityControlCenterButtonIdentifier = [(CCUIConnectivityButtonViewControllerAccessibility *)self _accessibilityControlCenterButtonIdentifier];
   if ([_accessibilityControlCenterButtonIdentifier isEqualToString:@"cellular-data-button"])
@@ -91,11 +91,11 @@ LABEL_13:
     v7 = [MEMORY[0x29EDB9F48] bundleForClass:v3];
     v8 = [v7 localizedStringForKey:v5 value:&stru_2A216F9B0 table:0];
     v9 = [v7 localizedStringForKey:v6 value:&stru_2A216F9B0 table:0];
-    v13[0] = @"on";
-    v13[1] = @"off";
-    v14[0] = v8;
-    v14[1] = v9;
-    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = @"on";
+    v12[1] = @"off";
+    v13[0] = v8;
+    v13[1] = v9;
+    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
     goto LABEL_14;
   }
@@ -137,8 +137,6 @@ LABEL_13:
 
   v10 = 0;
 LABEL_14:
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10;
 }

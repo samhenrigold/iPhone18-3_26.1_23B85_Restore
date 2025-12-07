@@ -6,6 +6,7 @@
 - (id)description;
 - (id)nameSummaryString;
 - (unint64_t)hash;
+- (void)endRunLoopWithSuccess:(BOOL)success;
 - (void)register;
 @end
 
@@ -109,6 +110,13 @@
   startRunLoop = [v2 startRunLoop];
 
   return startRunLoop;
+}
+
+- (void)endRunLoopWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v4 = +[CLIProgram sharedProgram];
+  [v4 endRunLoopWithSuccess:successCopy];
 }
 
 - (void)register

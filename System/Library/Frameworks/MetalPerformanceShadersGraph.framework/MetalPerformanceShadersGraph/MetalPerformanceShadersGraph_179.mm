@@ -2,22 +2,22 @@ void mlir::detail::constructContainerOpForParserIfNecessary<mlir::ModuleOp>(uint
 {
   v6 = *(a1 + 40);
   v7 = (a1 + 32);
-  if (v6 != a1 + 32 && *(v6 + 8) == v7 && (v8 = a3, v9 = a2, v10 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v6, a2), a2 = v9, a3 = v8, *(v10[6] + 16) == &mlir::detail::TypeIDResolver<mlir::ModuleOp,void>::id))
+  if (v6 != a1 + 32 && *(v6 + 8) == v7 && (v8 = a3, v9 = a2, MPSGraphDelegateCompiler.precompilationDescriptor.modify(), a2 = v9, a3 = v8, *(v10[6] + 16) == &mlir::detail::TypeIDResolver<mlir::ModuleOp,void>::id))
   {
-    v21 = v10;
+    v22 = v10;
     mlir::Operation::remove(v10);
-    *a4 = v21;
+    *a4 = v22;
   }
 
   else
   {
-    v23[0] = a2;
-    memset(&v23[1], 0, 24);
-    v11 = mlir::OpBuilder::create<mlir::ModuleOp>(v23, a3);
-    v13 = v11[10];
-    v12 = v11[11];
-    v22 = v11;
-    v14 = *(((&v11[4 * ((v12 >> 23) & 1) + 17] + ((v12 >> 21) & 0x7F8) + 3) & 0xFFFFFFFFFFFFFFF8) + 32 * v13 + 8);
+    v24[0] = a2;
+    memset(&v24[1], 0, 24);
+    v11 = mlir::OpBuilder::create<mlir::ModuleOp>(v24, a3);
+    v13 = *(v11 + 10);
+    v12 = *(v11 + 11);
+    v23 = v11;
+    v14 = *((&v11[16 * ((v12 >> 23) & 1) + 71 + ((v12 >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * v13 + 8);
     if (v14)
     {
       v15 = v14 - 8;
@@ -50,9 +50,9 @@ void mlir::detail::constructContainerOpForParserIfNecessary<mlir::ModuleOp>(uint
       }
     }
 
-    if (!mlir::ModuleOp::verifyInvariants(&v22))
+    if (!mlir::ModuleOp::verifyInvariants(&v23))
     {
-      mlir::Operation::erase(v11);
+      mlir::Operation::erase(v11, v21);
       v11 = 0;
     }
 
@@ -60,11 +60,11 @@ void mlir::detail::constructContainerOpForParserIfNecessary<mlir::ModuleOp>(uint
   }
 }
 
-void mlir::mps::MPSSerializationPass::~MPSSerializationPass(mlir::mps::MPSSerializationPass *this)
+void mlir::mps::MPSSerializationPass::~MPSSerializationPass(mlir::mps::MPSSerializationPass *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  mlir::Pass::~Pass(this);
+  mlir::Pass::~Pass(this, a2, a3, a4);
 
-  operator delete(v1);
+  operator delete(v4);
 }
 
 const char *mlir::PassWrapper<mlir::mps::MPSSerializationPass,mlir::OperationPass<mlir::mps::serialization::ModuleOp>>::getName()
@@ -96,7 +96,7 @@ const char *mlir::PassWrapper<mlir::mps::MPSSerializationPass,mlir::OperationPas
   return &v2[v3];
 }
 
-void *mlir::mps::MPSSerializationPass::getDependentDialects(mlir::mps::MPSSerializationPass *this, uint64_t **a2)
+void *mlir::mps::MPSSerializationPass::getDependentDialects(mlir::mps::MPSSerializationPass *this, uint64_t ***a2)
 {
   v14 = *MEMORY[0x1E69E9840];
   v12[0] = &unk_1F5AFAFA8;
@@ -164,13 +164,13 @@ void *mlir::mps::MPSSerializationPass::getDependentDialects(mlir::mps::MPSSerial
   {
 LABEL_19:
     v6 = *(this + 43);
-    v7 = &v6[3 * v5];
+    v7 = v6 + 24 * v5;
     v8 = v6;
     do
     {
       v9 = *v8;
-      v10 = v8[1];
-      v11 = v8[2];
+      v10 = *(v8 + 8);
+      v11 = *(v8 + 16);
       v12[0] = &unk_1F5B2DD08;
       v12[1] = v6;
       v13 = v12;
@@ -186,8 +186,8 @@ LABEL_19:
         result = (*(*v13 + 40))();
       }
 
-      v8 += 3;
-      v6 += 3;
+      v8 += 24;
+      v6 += 24;
     }
 
     while (v8 != v7);
@@ -1120,7 +1120,7 @@ LABEL_191:
                             }
                           }
 
-                          llvm::SmallVectorBase<unsigned int>::grow_pod((v130 + 10), (v130 + 12), v131, 16);
+                          llvm::SmallVectorBase<unsigned int>::grow_pod((v130 + 10), v130 + 12, v131, 16);
                           *(v130 + 22) = *(v130 + 22);
                           v133 = v154[2];
                           v132 = v154[3];
@@ -1133,7 +1133,7 @@ LABEL_191:
                         }
                       }
 
-                      llvm::SmallVectorBase<unsigned int>::grow_pod((v110 + 10), (v110 + 12), v111, 16);
+                      llvm::SmallVectorBase<unsigned int>::grow_pod((v110 + 10), v110 + 12, v111, 16);
                       *(v110 + 22) = *(v110 + 22);
                       v113 = v154[2];
                       v112 = v154[3];
@@ -1146,7 +1146,7 @@ LABEL_191:
                     }
                   }
 
-                  llvm::SmallVectorBase<unsigned int>::grow_pod((v90 + 10), (v90 + 12), v91, 16);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod((v90 + 10), v90 + 12, v91, 16);
                   *(v90 + 22) = *(v90 + 22);
                   v93 = v154[2];
                   v92 = v154[3];
@@ -1159,7 +1159,7 @@ LABEL_191:
                 }
               }
 
-              llvm::SmallVectorBase<unsigned int>::grow_pod((v70 + 10), (v70 + 12), v71, 16);
+              llvm::SmallVectorBase<unsigned int>::grow_pod((v70 + 10), v70 + 12, v71, 16);
               *(v70 + 22) = *(v70 + 22);
               v73 = v154[2];
               v72 = v154[3];
@@ -1172,7 +1172,7 @@ LABEL_191:
             }
           }
 
-          llvm::SmallVectorBase<unsigned int>::grow_pod((v50 + 10), (v50 + 12), v51, 16);
+          llvm::SmallVectorBase<unsigned int>::grow_pod((v50 + 10), v50 + 12, v51, 16);
           *(v50 + 22) = *(v50 + 22);
           v53 = v154[2];
           v52 = v154[3];
@@ -1185,7 +1185,7 @@ LABEL_191:
         }
       }
 
-      llvm::SmallVectorBase<unsigned int>::grow_pod((v30 + 10), (v30 + 12), v31, 16);
+      llvm::SmallVectorBase<unsigned int>::grow_pod((v30 + 10), v30 + 12, v31, 16);
       *(v30 + 22) = *(v30 + 22);
       v33 = v154[2];
       v32 = v154[3];
@@ -1198,7 +1198,7 @@ LABEL_191:
     }
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod((v10 + 10), (v10 + 12), v11, 16);
+  llvm::SmallVectorBase<unsigned int>::grow_pod((v10 + 10), v10 + 12, v11, 16);
   *(v10 + 22) = *(v10 + 22);
   v13 = v154[2];
   v12 = v154[3];
@@ -1314,21 +1314,21 @@ mlir::StringAttr ****_ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnI
 
 uint64_t mlir::mps::MPSSerializationPass::runOnOperation(void)::{lambda(mlir::func::FuncOp)#1}::operator()(mlir::StringAttr ***a1, uint64_t a2)
 {
-  v30 = a2;
+  v31 = a2;
   v4 = *a1;
   v5 = (*a1 + 2);
-  v24 = *v5;
+  v25 = *v5;
   v6 = *(a2 + 16);
-  v7 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, a2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   *v5 = v6;
   v4[3] = v7;
   v8 = *a1;
   v9 = *(a2 + 24);
-  if (!*(a2 + 47) || (v31.var0 = "sym_name", v31.var1 = 8, InherentAttr = mlir::Operation::getInherentAttr(a2, v31), (v11 & 1) == 0))
+  if (!*(a2 + 47) || (v32.var0 = "sym_name", v32.var1 = 8, InherentAttr = mlir::Operation::getInherentAttr(a2, v32), (v11 & 1) == 0))
   {
-    v32.var0 = "sym_name";
-    v32.var1 = 8;
-    InherentAttr = mlir::DictionaryAttr::get((a2 + 56), v32);
+    v33.var0 = "sym_name";
+    v33.var1 = 8;
+    InherentAttr = mlir::DictionaryAttr::get((a2 + 56), v33);
   }
 
   if (InherentAttr)
@@ -1349,29 +1349,29 @@ uint64_t mlir::mps::MPSSerializationPass::runOnOperation(void)::{lambda(mlir::fu
     v12 = 0;
   }
 
-  v27 = v12;
-  *&v28 = mlir::OpaqueAttr::getAttrData(&v27);
-  *(&v28 + 1) = v13;
-  v25[1] = 0;
-  FunctionType = mlir::func::FuncOp::getFunctionType(&v30);
-  v25[0] = 0;
-  v14 = mlir::OpBuilder::create<mlir::mps::serialization::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(v8, v9, &v28, &FunctionType, v25);
-  v29 = v14;
-  v25[0] = mlir::Operation::getAttrDictionary(v14);
-  *&v28 = mlir::Operation::getAttrDictionary(v30);
-  Value = mlir::ArrayAttr::getValue(&v28);
+  v28 = v12;
+  *&v29 = mlir::OpaqueAttr::getAttrData(&v28);
+  *(&v29 + 1) = v13;
+  v26[1] = 0;
+  FunctionType = mlir::func::FuncOp::getFunctionType(&v31);
+  v26[0] = 0;
+  v14 = mlir::OpBuilder::create<mlir::mps::serialization::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(v8, v9, &v29, &FunctionType, v26);
+  v30 = v14;
+  v26[0] = mlir::Operation::getAttrDictionary(v14);
+  *&v29 = mlir::Operation::getAttrDictionary(v31);
+  Value = mlir::ArrayAttr::getValue(&v29);
   if (v16)
   {
     v17 = Value;
     v18 = 16 * v16;
     do
     {
-      v28 = *v17;
-      CallableRegion = mlir::CallGraphNode::getCallableRegion(&v28);
-      if ((mlir::DictionaryAttr::contains(v25, CallableRegion) & 1) == 0)
+      v29 = *v17;
+      CallableRegion = mlir::CallGraphNode::getCallableRegion(&v29);
+      if (!mlir::DictionaryAttr::contains(v26, CallableRegion))
       {
-        v20 = mlir::CallGraphNode::getCallableRegion(&v28);
-        mlir::Operation::setAttr(v14, v20, *(&v28 + 1));
+        v20 = mlir::CallGraphNode::getCallableRegion(&v29);
+        mlir::Operation::setAttr(v14, v20, *(&v29 + 1));
       }
 
       ++v17;
@@ -1381,8 +1381,8 @@ uint64_t mlir::mps::MPSSerializationPass::runOnOperation(void)::{lambda(mlir::fu
     while (v18);
   }
 
-  mlir::detail::FunctionOpInterfaceTrait<mlir::mps::serialization::FuncOp>::addEntryBlock(&v29);
-  v21 = (((v29 + 16 * ((*(v29 + 11) >> 23) & 1) + ((*(v29 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v29 + 10));
+  mlir::detail::FunctionOpInterfaceTrait<mlir::mps::serialization::FuncOp>::addEntryBlock(&v30);
+  v21 = (((v30 + 16 * ((*(v30 + 11) >> 23) & 1) + ((*(v30 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v30 + 10));
   if (*v21 == v21)
   {
     v22 = 0;
@@ -1390,19 +1390,19 @@ uint64_t mlir::mps::MPSSerializationPass::runOnOperation(void)::{lambda(mlir::fu
 
   else
   {
-    v22 = (((v29 + 16 * ((*(v29 + 11) >> 23) & 1) + ((*(v29 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v29 + 10));
+    v22 = (((v30 + 16 * ((*(v30 + 11) >> 23) & 1) + ((*(v30 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v30 + 10));
   }
 
-  mlir::Region::takeBody(v22, (((v30 + 16 * ((*(v30 + 11) >> 23) & 1) + ((*(v30 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v30 + 10)));
-  mlir::Operation::erase(v30);
-  v27 = *a1;
-  *&v28 = &v27;
-  result = mlir::detail::walk<mlir::ForwardIterator>(v29, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps20MPSSerializationPass14runOnOperationEvENKUlNS1_4func6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v28, 1);
+  mlir::Region::takeBody(v22, (((v31 + 16 * ((*(v31 + 11) >> 23) & 1) + ((*(v31 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v31 + 10)));
+  mlir::Operation::erase(v31, v23);
+  v28 = *a1;
+  *&v29 = &v28;
+  result = mlir::detail::walk<mlir::ForwardIterator>(v30, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps20MPSSerializationPass14runOnOperationEvENKUlNS1_4func6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v29, 1);
   if (v4)
   {
-    if (v24)
+    if (v25)
     {
-      *v5 = v24;
+      *v5 = v25;
     }
 
     else
@@ -1415,7 +1415,7 @@ uint64_t mlir::mps::MPSSerializationPass::runOnOperation(void)::{lambda(mlir::fu
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(mlir::StringAttr **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::mps::serialization::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(mlir::StringAttr **a1, uint64_t a2, size_t *a3, uint64_t *a4, uint64_t a5)
 {
   v20[38] = *MEMORY[0x1E69E9840];
   v17 = a2;
@@ -1429,7 +1429,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::FuncOp,llvm::StringRe
   mlir::OperationState::OperationState(v20, a2, v11);
   mlir::func::FuncOp::build(a1, v20, *a3, a3[1], *a4, *a5, *(a5 + 8), v13, 0, 0);
   v14 = mlir::OpBuilder::create(a1, v20);
-  if (*(*(v14 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::FuncOp,void>::id)
+  if (*(*(v14 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::FuncOp,void>::id)
   {
     v15 = v14;
   }
@@ -1589,18 +1589,18 @@ LABEL_24:
   return v2;
 }
 
-void _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps20MPSSerializationPass14runOnOperationEvENKUlNS1_4func6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_(mlir::OpBuilder ***a1, mlir::Operation *a2)
+void _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps20MPSSerializationPass14runOnOperationEvENKUlNS1_4func6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_(mlir::OpBuilder ***result, mlir::Operation *a2)
 {
   if (a2)
   {
     if (*(*(a2 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::func::ReturnOp,void>::id)
     {
-      mlir::mps::MPSSerializationPass::runOnOperation(void)::{lambda(mlir::func::FuncOp)#1}::operator() const(mlir::func::FuncOp)::{lambda(mlir::func::ReturnOp)#1}::operator()(*a1, a2);
+      mlir::mps::MPSSerializationPass::runOnOperation(void)::{lambda(mlir::func::FuncOp)#1}::operator() const(mlir::func::FuncOp)::{lambda(mlir::func::ReturnOp)#1}::operator()(*result, a2);
     }
   }
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ReturnOp,llvm::SmallVector<mlir::Value,6u>>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::mps::serialization::ReturnOp,llvm::SmallVector<mlir::Value,6u>>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -1615,7 +1615,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ReturnOp,llvm::SmallV
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::func::ReturnOp::build(a1, v14, v15[0], v15[1]);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ReturnOp,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ReturnOp,void>::id)
   {
     v10 = v9;
   }
@@ -1721,7 +1721,7 @@ uint64_t mlir::OpConversionPattern<mlir::scf::ForOp>::matchAndRewrite(uint64_t a
   return (*(*a1 + 80))(a1, a2, v16, a5);
 }
 
-uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::scf::ForOp,mlir::mps::serialization::ForOp>::matchAndRewrite(int a1, unint64_t a2, mlir::scf::detail::ForOpGenericAdaptorBase *this, double a4, int32x4_t a5, uint64_t a6)
+uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::scf::ForOp,mlir::mps::serialization::ForOp>::matchAndRewrite(int a1, unint64_t a2, mlir::scf::detail::ForOpGenericAdaptorBase *this, double a4, int32x4_t a5, mlir::Region *a6)
 {
   v36 = *MEMORY[0x1E69E9840];
   v9 = *(a2 + 24);
@@ -1781,9 +1781,9 @@ uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::scf::ForOp,mlir::mps
   v33 = mlir::OpBuilder::create<mlir::mps::serialization::ForOp,mlir::Value,mlir::Value,mlir::Value,mlir::ValueRange>((a6 + 8), v9, &v32, &v31, &v30, &v34);
   ODSResultIndexAndLength = mlir::UnrealizedConversionCastOp::getODSResultIndexAndLength(&v33, 0);
   v27 = ODSResultIndexAndLength;
-  if (v33[9])
+  if (*(v33 + 9))
   {
-    NextResultAtOffset = (v33 - 4);
+    NextResultAtOffset = (v33 - 16);
   }
 
   else
@@ -1801,7 +1801,7 @@ uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::scf::ForOp,mlir::mps
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ForOp,mlir::Value,mlir::Value,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, unint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6)
+char *mlir::OpBuilder::create<mlir::mps::serialization::ForOp,mlir::Value,mlir::Value,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, unint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6)
 {
   v23[38] = *MEMORY[0x1E69E9840];
   v20 = a2;
@@ -1815,7 +1815,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ForOp,mlir::Value,mli
   mlir::OperationState::OperationState(v23, a2, v13);
   mlir::mps::serialization::ForOp::build(a1, v23, *a3, *a4, *a5, *a6, *(a6 + 8), v15, 0, v19);
   v16 = mlir::OpBuilder::create(a1, v23);
-  if (*(*(v16 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ForOp,void>::id)
+  if (*(*(v16 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ForOp,void>::id)
   {
     v17 = v16;
   }
@@ -1965,7 +1965,7 @@ uint64_t mlir::OpConversionPattern<mlir::scf::WhileOp>::matchAndRewrite(uint64_t
   return (*(*a1 + 80))(a1, a2, v16, a5);
 }
 
-uint64_t mlir::mps::anonymous namespace::ConvertWhileOp<mlir::scf::WhileOp,mlir::mps::serialization::WhileOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::mps::anonymous namespace::ConvertWhileOp<mlir::scf::WhileOp,mlir::mps::serialization::WhileOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, mlir::Region *a4)
 {
   v28[2] = *MEMORY[0x1E69E9840];
   v7 = *(a2 + 24);
@@ -2026,9 +2026,9 @@ LABEL_11:
 
   ODSResultIndexAndLength = mlir::UnrealizedConversionCastOp::getODSResultIndexAndLength(&v23, 0);
   v20 = ODSResultIndexAndLength;
-  if (*(v23 + 36))
+  if (*(v23 + 9))
   {
-    NextResultAtOffset = v23 - 16;
+    NextResultAtOffset = (v23 - 16);
   }
 
   else
@@ -2046,7 +2046,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::WhileOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::mps::serialization::WhileOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2060,7 +2060,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::WhileOp,mlir::TypeRan
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::scf::WhileOp::build(a1, v17, *a3, a3[1], *a4, *(a4 + 8), 0, 0);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::WhileOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::WhileOp,void>::id)
   {
     v12 = v11;
   }
@@ -2166,7 +2166,7 @@ uint64_t mlir::OpConversionPattern<mlir::scf::IfOp>::matchAndRewrite(uint64_t a1
   return (*(*a1 + 80))(a1, a2, v16, a5);
 }
 
-uint64_t mlir::mps::anonymous namespace::ConvertIfOp<mlir::scf::IfOp,mlir::mps::serialization::IfOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::mps::anonymous namespace::ConvertIfOp<mlir::scf::IfOp,mlir::mps::serialization::IfOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, mlir::Region *a4)
 {
   v28[2] = *MEMORY[0x1E69E9840];
   v7 = *(a2 + 24);
@@ -2249,7 +2249,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::IfOp,mlir::TypeRange,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::mps::serialization::IfOp,mlir::TypeRange,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2263,7 +2263,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::IfOp,mlir::TypeRange,
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::scf::IfOp::build(a1, v17, *a3, a3[1], *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::IfOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::IfOp,void>::id)
   {
     v12 = v11;
   }
@@ -2458,7 +2458,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ConditionOp,mlir::TypeRange,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::mps::serialization::ConditionOp,mlir::TypeRange,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -2472,7 +2472,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ConditionOp,mlir::Typ
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::scf::ConditionOp::build(a1, v19, *a3, a3[1], *a4, *a5, *(a5 + 8));
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ConditionOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ConditionOp,void>::id)
   {
     v14 = v13;
   }
@@ -2653,7 +2653,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::YieldOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::mps::serialization::YieldOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2665,9 +2665,9 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::YieldOp,mlir::TypeRan
   }
 
   mlir::OperationState::OperationState(v17, a2, v9);
-  mlir::arith::ExtSIOp::build(a1, v17, *a3, a3[1], *a4, *(a4 + 8), 0, 0);
+  mlir::arith::ExtSIOp::build(a1, v17, *a3, a3[1], *a4, a4[1], 0, 0);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::YieldOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::YieldOp,void>::id)
   {
     v12 = v11;
   }
@@ -2793,7 +2793,7 @@ uint64_t mlir::mps::anonymous namespace::ConvertFromElementsOp<mlir::tensor::Fro
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::FromElementsOp,mlir::RankedTensorType,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::mps::serialization::FromElementsOp,mlir::RankedTensorType,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2807,7 +2807,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::FromElementsOp,mlir::
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::pdl_interp::CreateRangeOp::build(a1, v17, *a3, *a4, *(a4 + 8));
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::FromElementsOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::FromElementsOp,void>::id)
   {
     v12 = v11;
   }
@@ -2961,7 +2961,7 @@ uint64_t mlir::mps::anonymous namespace::ConvertExtractOp<mlir::tensor::ExtractO
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ExtractOp,mlir::Type,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::mps::serialization::ExtractOp,mlir::Type,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -2975,7 +2975,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ExtractOp,mlir::Type,
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::tensor::ExtractOp::build(a1, v19, *a3, *a4, *a5, *(a5 + 8));
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ExtractOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ExtractOp,void>::id)
   {
     v14 = v13;
   }
@@ -2989,11 +2989,11 @@ uint64_t mlir::OpBuilder::create<mlir::mps::serialization::ExtractOp,mlir::Type,
   return v14;
 }
 
-void mlir::mps::MPSDeserializationPass::~MPSDeserializationPass(mlir::mps::MPSDeserializationPass *this)
+void mlir::mps::MPSDeserializationPass::~MPSDeserializationPass(mlir::mps::MPSDeserializationPass *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  mlir::Pass::~Pass(this);
+  mlir::Pass::~Pass(this, a2, a3, a4);
 
-  operator delete(v1);
+  operator delete(v4);
 }
 
 const char *mlir::PassWrapper<mlir::mps::MPSDeserializationPass,mlir::OperationPass<mlir::mps::serialization::ModuleOp>>::getName()
@@ -3025,7 +3025,7 @@ const char *mlir::PassWrapper<mlir::mps::MPSDeserializationPass,mlir::OperationP
   return &v2[v3];
 }
 
-void *mlir::mps::MPSDeserializationPass::getDependentDialects(mlir::mps::MPSDeserializationPass *this, uint64_t **a2)
+void *mlir::mps::MPSDeserializationPass::getDependentDialects(mlir::mps::MPSDeserializationPass *this, uint64_t ***a2)
 {
   v14 = *MEMORY[0x1E69E9840];
   v12[0] = &unk_1F5AFAFA8;
@@ -3093,13 +3093,13 @@ void *mlir::mps::MPSDeserializationPass::getDependentDialects(mlir::mps::MPSDese
   {
 LABEL_19:
     v6 = *(this + 43);
-    v7 = &v6[3 * v5];
+    v7 = v6 + 24 * v5;
     v8 = v6;
     do
     {
       v9 = *v8;
-      v10 = v8[1];
-      v11 = v8[2];
+      v10 = *(v8 + 8);
+      v11 = *(v8 + 16);
       v12[0] = &unk_1F5B2DD08;
       v12[1] = v6;
       v13 = v12;
@@ -3115,8 +3115,8 @@ LABEL_19:
         result = (*(*v13 + 40))();
       }
 
-      v8 += 3;
-      v6 += 3;
+      v8 += 24;
+      v6 += 24;
     }
 
     while (v8 != v7);
@@ -4086,7 +4086,7 @@ LABEL_197:
                             }
                           }
 
-                          llvm::SmallVectorBase<unsigned int>::grow_pod((v130 + 10), (v130 + 12), v131, 16);
+                          llvm::SmallVectorBase<unsigned int>::grow_pod((v130 + 10), v130 + 12, v131, 16);
                           *(v130 + 22) = *(v130 + 22);
                           v133 = v154[2];
                           v132 = v154[3];
@@ -4099,7 +4099,7 @@ LABEL_197:
                         }
                       }
 
-                      llvm::SmallVectorBase<unsigned int>::grow_pod((v110 + 10), (v110 + 12), v111, 16);
+                      llvm::SmallVectorBase<unsigned int>::grow_pod((v110 + 10), v110 + 12, v111, 16);
                       *(v110 + 22) = *(v110 + 22);
                       v113 = v154[2];
                       v112 = v154[3];
@@ -4112,7 +4112,7 @@ LABEL_197:
                     }
                   }
 
-                  llvm::SmallVectorBase<unsigned int>::grow_pod((v90 + 10), (v90 + 12), v91, 16);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod((v90 + 10), v90 + 12, v91, 16);
                   *(v90 + 22) = *(v90 + 22);
                   v93 = v154[2];
                   v92 = v154[3];
@@ -4125,7 +4125,7 @@ LABEL_197:
                 }
               }
 
-              llvm::SmallVectorBase<unsigned int>::grow_pod((v70 + 10), (v70 + 12), v71, 16);
+              llvm::SmallVectorBase<unsigned int>::grow_pod((v70 + 10), v70 + 12, v71, 16);
               *(v70 + 22) = *(v70 + 22);
               v73 = v154[2];
               v72 = v154[3];
@@ -4138,7 +4138,7 @@ LABEL_197:
             }
           }
 
-          llvm::SmallVectorBase<unsigned int>::grow_pod((v50 + 10), (v50 + 12), v51, 16);
+          llvm::SmallVectorBase<unsigned int>::grow_pod((v50 + 10), v50 + 12, v51, 16);
           *(v50 + 22) = *(v50 + 22);
           v53 = v154[2];
           v52 = v154[3];
@@ -4151,7 +4151,7 @@ LABEL_197:
         }
       }
 
-      llvm::SmallVectorBase<unsigned int>::grow_pod((v30 + 10), (v30 + 12), v31, 16);
+      llvm::SmallVectorBase<unsigned int>::grow_pod((v30 + 10), v30 + 12, v31, 16);
       *(v30 + 22) = *(v30 + 22);
       v33 = v154[2];
       v32 = v154[3];
@@ -4164,7 +4164,7 @@ LABEL_197:
     }
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod((v10 + 10), (v10 + 12), v11, 16);
+  llvm::SmallVectorBase<unsigned int>::grow_pod((v10 + 10), v10 + 12, v11, 16);
   *(v10 + 22) = *(v10 + 22);
   v13 = v154[2];
   v12 = v154[3];
@@ -4222,21 +4222,21 @@ mlir::StringAttr ****_ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnI
 
 uint64_t mlir::mps::MPSDeserializationPass::runOnOperation(void)::{lambda(mlir::mps::serialization::FuncOp)#1}::operator()(mlir::StringAttr ***a1, uint64_t a2)
 {
-  v30 = a2;
+  v31 = a2;
   v4 = *a1;
   v5 = (*a1 + 2);
-  v24 = *v5;
+  v25 = *v5;
   v6 = *(a2 + 16);
-  v7 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, a2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   *v5 = v6;
   v4[3] = v7;
   v8 = *a1;
   v9 = *(a2 + 24);
-  if (!*(a2 + 47) || (v31.var0 = "sym_name", v31.var1 = 8, InherentAttr = mlir::Operation::getInherentAttr(a2, v31), (v11 & 1) == 0))
+  if (!*(a2 + 47) || (v32.var0 = "sym_name", v32.var1 = 8, InherentAttr = mlir::Operation::getInherentAttr(a2, v32), (v11 & 1) == 0))
   {
-    v32.var0 = "sym_name";
-    v32.var1 = 8;
-    InherentAttr = mlir::DictionaryAttr::get((a2 + 56), v32);
+    v33.var0 = "sym_name";
+    v33.var1 = 8;
+    InherentAttr = mlir::DictionaryAttr::get((a2 + 56), v33);
   }
 
   if (InherentAttr)
@@ -4257,29 +4257,29 @@ uint64_t mlir::mps::MPSDeserializationPass::runOnOperation(void)::{lambda(mlir::
     v12 = 0;
   }
 
-  v27 = v12;
-  *&v28 = mlir::OpaqueAttr::getAttrData(&v27);
-  *(&v28 + 1) = v13;
-  v25[1] = 0;
-  FunctionType = mlir::func::FuncOp::getFunctionType(&v30);
-  v25[0] = 0;
-  v14 = mlir::OpBuilder::create<mlir::func::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(v8, v9, &v28, &FunctionType, v25);
-  v29 = v14;
-  v25[0] = mlir::Operation::getAttrDictionary(v14);
-  *&v28 = mlir::Operation::getAttrDictionary(v30);
-  Value = mlir::ArrayAttr::getValue(&v28);
+  v28 = v12;
+  *&v29 = mlir::OpaqueAttr::getAttrData(&v28);
+  *(&v29 + 1) = v13;
+  v26[1] = 0;
+  FunctionType = mlir::func::FuncOp::getFunctionType(&v31);
+  v26[0] = 0;
+  v14 = mlir::OpBuilder::create<mlir::func::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(v8, v9, &v29, &FunctionType, v26);
+  v30 = v14;
+  v26[0] = mlir::Operation::getAttrDictionary(v14);
+  *&v29 = mlir::Operation::getAttrDictionary(v31);
+  Value = mlir::ArrayAttr::getValue(&v29);
   if (v16)
   {
     v17 = Value;
     v18 = 16 * v16;
     do
     {
-      v28 = *v17;
-      CallableRegion = mlir::CallGraphNode::getCallableRegion(&v28);
-      if ((mlir::DictionaryAttr::contains(v25, CallableRegion) & 1) == 0)
+      v29 = *v17;
+      CallableRegion = mlir::CallGraphNode::getCallableRegion(&v29);
+      if (!mlir::DictionaryAttr::contains(v26, CallableRegion))
       {
-        v20 = mlir::CallGraphNode::getCallableRegion(&v28);
-        mlir::Operation::setAttr(v14, v20, *(&v28 + 1));
+        v20 = mlir::CallGraphNode::getCallableRegion(&v29);
+        mlir::Operation::setAttr(v14, v20, *(&v29 + 1));
       }
 
       ++v17;
@@ -4289,8 +4289,8 @@ uint64_t mlir::mps::MPSDeserializationPass::runOnOperation(void)::{lambda(mlir::
     while (v18);
   }
 
-  mlir::detail::FunctionOpInterfaceTrait<mlir::func::FuncOp>::addEntryBlock(&v29);
-  v21 = (((v29 + 16 * ((*(v29 + 11) >> 23) & 1) + ((*(v29 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v29 + 10));
+  mlir::detail::FunctionOpInterfaceTrait<mlir::func::FuncOp>::addEntryBlock(&v30);
+  v21 = (((v30 + 16 * ((*(v30 + 11) >> 23) & 1) + ((*(v30 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v30 + 10));
   if (*v21 == v21)
   {
     v22 = 0;
@@ -4298,19 +4298,19 @@ uint64_t mlir::mps::MPSDeserializationPass::runOnOperation(void)::{lambda(mlir::
 
   else
   {
-    v22 = (((v29 + 16 * ((*(v29 + 11) >> 23) & 1) + ((*(v29 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v29 + 10));
+    v22 = (((v30 + 16 * ((*(v30 + 11) >> 23) & 1) + ((*(v30 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v30 + 10));
   }
 
-  mlir::Region::takeBody(v22, (((v30 + 16 * ((*(v30 + 11) >> 23) & 1) + ((*(v30 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v30 + 10)));
-  mlir::Operation::erase(v30);
-  v27 = *a1;
-  *&v28 = &v27;
-  result = mlir::detail::walk<mlir::ForwardIterator>(v29, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps22MPSDeserializationPass14runOnOperationEvENKUlNSB_13serialization6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v28, 1);
+  mlir::Region::takeBody(v22, (((v31 + 16 * ((*(v31 + 11) >> 23) & 1) + ((*(v31 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v31 + 10)));
+  mlir::Operation::erase(v31, v23);
+  v28 = *a1;
+  *&v29 = &v28;
+  result = mlir::detail::walk<mlir::ForwardIterator>(v30, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps22MPSDeserializationPass14runOnOperationEvENKUlNSB_13serialization6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v29, 1);
   if (v4)
   {
-    if (v24)
+    if (v25)
     {
-      *v5 = v24;
+      *v5 = v25;
     }
 
     else
@@ -4323,7 +4323,7 @@ uint64_t mlir::mps::MPSDeserializationPass::runOnOperation(void)::{lambda(mlir::
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::func::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(mlir::StringAttr **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::func::FuncOp,llvm::StringRef,mlir::FunctionType,llvm::ArrayRef<mlir::NamedAttribute>>(mlir::StringAttr **a1, uint64_t a2, size_t *a3, uint64_t *a4, uint64_t a5)
 {
   v20[38] = *MEMORY[0x1E69E9840];
   v17 = a2;
@@ -4337,7 +4337,7 @@ uint64_t mlir::OpBuilder::create<mlir::func::FuncOp,llvm::StringRef,mlir::Functi
   mlir::OperationState::OperationState(v20, a2, v11);
   mlir::func::FuncOp::build(a1, v20, *a3, a3[1], *a4, *a5, *(a5 + 8), v13, 0, 0);
   v14 = mlir::OpBuilder::create(a1, v20);
-  if (*(*(v14 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id)
+  if (*(*(v14 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id)
   {
     v15 = v14;
   }
@@ -4351,13 +4351,13 @@ uint64_t mlir::OpBuilder::create<mlir::func::FuncOp,llvm::StringRef,mlir::Functi
   return v15;
 }
 
-void _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps22MPSDeserializationPass14runOnOperationEvENKUlNSB_13serialization6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_(mlir::OpBuilder ***a1, mlir::Operation *a2)
+void _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_3mps22MPSDeserializationPass14runOnOperationEvENKUlNSB_13serialization6FuncOpEE_clESE_EUlNSD_8ReturnOpEE_SG_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESP_E4typeES3_OT1_EUlS3_E_EEvlS3_(mlir::OpBuilder ***result, mlir::Operation *a2)
 {
   if (a2)
   {
     if (*(*(a2 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::serialization::ReturnOp,void>::id)
     {
-      mlir::mps::MPSDeserializationPass::runOnOperation(void)::{lambda(mlir::mps::serialization::FuncOp)#1}::operator() const(mlir::mps::serialization::FuncOp)::{lambda(mlir::mps::serialization::ReturnOp)#1}::operator()(*a1, a2);
+      mlir::mps::MPSDeserializationPass::runOnOperation(void)::{lambda(mlir::mps::serialization::FuncOp)#1}::operator() const(mlir::mps::serialization::FuncOp)::{lambda(mlir::mps::serialization::ReturnOp)#1}::operator()(*result, a2);
     }
   }
 }
@@ -4466,7 +4466,7 @@ uint64_t mlir::OpConversionPattern<mlir::mps::serialization::ForOp>::matchAndRew
   return (*(*a1 + 80))(a1, a2, v16, a5);
 }
 
-uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::mps::serialization::ForOp,mlir::scf::ForOp>::matchAndRewrite(int a1, unint64_t a2, mlir::scf::detail::ForOpGenericAdaptorBase *this, double a4, int32x4_t a5, uint64_t a6)
+uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::mps::serialization::ForOp,mlir::scf::ForOp>::matchAndRewrite(int a1, unint64_t a2, mlir::scf::detail::ForOpGenericAdaptorBase *this, double a4, int32x4_t a5, mlir::Region *a6)
 {
   v36 = *MEMORY[0x1E69E9840];
   v9 = *(a2 + 24);
@@ -4526,9 +4526,9 @@ uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::mps::serialization::
   v33 = mlir::OpBuilder::create<mlir::scf::ForOp,mlir::Value,mlir::Value,mlir::Value,mlir::ValueRange>((a6 + 8), v9, &v32, &v31, &v30, &v34);
   ODSResultIndexAndLength = mlir::UnrealizedConversionCastOp::getODSResultIndexAndLength(&v33, 0);
   v27 = ODSResultIndexAndLength;
-  if (v33[9])
+  if (*(v33 + 9))
   {
-    NextResultAtOffset = (v33 - 4);
+    NextResultAtOffset = (v33 - 16);
   }
 
   else
@@ -4546,7 +4546,7 @@ uint64_t mlir::mps::anonymous namespace::ConvertForOp<mlir::mps::serialization::
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::scf::ForOp,mlir::Value,mlir::Value,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6)
+char *mlir::OpBuilder::create<mlir::scf::ForOp,mlir::Value,mlir::Value,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6)
 {
   v23[38] = *MEMORY[0x1E69E9840];
   v20 = a2;
@@ -4560,7 +4560,7 @@ uint64_t mlir::OpBuilder::create<mlir::scf::ForOp,mlir::Value,mlir::Value,mlir::
   mlir::OperationState::OperationState(v23, a2, v13);
   mlir::scf::ForOp::build(a1, v23, *a3, *a4, *a5, *a6, *(a6 + 8), v15, 0, v19);
   v16 = mlir::OpBuilder::create(a1, v23);
-  if (*(*(v16 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::ForOp,void>::id)
+  if (*(*(v16 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::ForOp,void>::id)
   {
     v17 = v16;
   }
@@ -4666,7 +4666,7 @@ uint64_t mlir::OpConversionPattern<mlir::mps::serialization::WhileOp>::matchAndR
   return (*(*a1 + 80))(a1, a2, v16, a5);
 }
 
-uint64_t mlir::mps::anonymous namespace::ConvertWhileOp<mlir::mps::serialization::WhileOp,mlir::scf::WhileOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::mps::anonymous namespace::ConvertWhileOp<mlir::mps::serialization::WhileOp,mlir::scf::WhileOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, mlir::Region *a4)
 {
   v28[2] = *MEMORY[0x1E69E9840];
   v7 = *(a2 + 24);
@@ -4727,9 +4727,9 @@ LABEL_11:
 
   ODSResultIndexAndLength = mlir::UnrealizedConversionCastOp::getODSResultIndexAndLength(&v23, 0);
   v20 = ODSResultIndexAndLength;
-  if (*(v23 + 36))
+  if (*(v23 + 9))
   {
-    NextResultAtOffset = v23 - 16;
+    NextResultAtOffset = (v23 - 16);
   }
 
   else
@@ -4747,7 +4747,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::scf::WhileOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::scf::WhileOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -4761,7 +4761,7 @@ uint64_t mlir::OpBuilder::create<mlir::scf::WhileOp,mlir::TypeRange,mlir::ValueR
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::scf::WhileOp::build(a1, v17, *a3, a3[1], *a4, *(a4 + 8), 0, 0);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::WhileOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::WhileOp,void>::id)
   {
     v12 = v11;
   }
@@ -4867,7 +4867,7 @@ uint64_t mlir::OpConversionPattern<mlir::mps::serialization::IfOp>::matchAndRewr
   return (*(*a1 + 80))(a1, a2, v16, a5);
 }
 
-uint64_t mlir::mps::anonymous namespace::ConvertIfOp<mlir::mps::serialization::IfOp,mlir::scf::IfOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::mps::anonymous namespace::ConvertIfOp<mlir::mps::serialization::IfOp,mlir::scf::IfOp>::matchAndRewrite(uint64_t a1, unint64_t a2, uint64_t a3, mlir::Region *a4)
 {
   v28[2] = *MEMORY[0x1E69E9840];
   v7 = *(a2 + 24);
@@ -4950,7 +4950,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::scf::IfOp,mlir::TypeRange,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::scf::IfOp,mlir::TypeRange,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -4964,7 +4964,7 @@ uint64_t mlir::OpBuilder::create<mlir::scf::IfOp,mlir::TypeRange,mlir::Value>(ml
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::scf::IfOp::build(a1, v17, *a3, a3[1], *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id)
   {
     v12 = v11;
   }
@@ -5159,7 +5159,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::scf::ConditionOp,mlir::TypeRange,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::scf::ConditionOp,mlir::TypeRange,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -5173,7 +5173,7 @@ uint64_t mlir::OpBuilder::create<mlir::scf::ConditionOp,mlir::TypeRange,mlir::Va
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::scf::ConditionOp::build(a1, v19, *a3, a3[1], *a4, *a5, *(a5 + 8));
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::ConditionOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::ConditionOp,void>::id)
   {
     v14 = v13;
   }
@@ -5354,7 +5354,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::scf::YieldOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::scf::YieldOp,mlir::TypeRange,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -5366,9 +5366,9 @@ uint64_t mlir::OpBuilder::create<mlir::scf::YieldOp,mlir::TypeRange,mlir::ValueR
   }
 
   mlir::OperationState::OperationState(v17, a2, v9);
-  mlir::arith::ExtSIOp::build(a1, v17, *a3, a3[1], *a4, *(a4 + 8), 0, 0);
+  mlir::arith::ExtSIOp::build(a1, v17, *a3, a3[1], *a4, a4[1], 0, 0);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::YieldOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::YieldOp,void>::id)
   {
     v12 = v11;
   }
@@ -5494,7 +5494,7 @@ uint64_t mlir::mps::anonymous namespace::ConvertFromElementsOp<mlir::mps::serial
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::tensor::FromElementsOp,mlir::RankedTensorType,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::tensor::FromElementsOp,mlir::RankedTensorType,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -5508,7 +5508,7 @@ uint64_t mlir::OpBuilder::create<mlir::tensor::FromElementsOp,mlir::RankedTensor
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::pdl_interp::CreateRangeOp::build(a1, v17, *a3, *a4, *(a4 + 8));
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::tensor::FromElementsOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::tensor::FromElementsOp,void>::id)
   {
     v12 = v11;
   }
@@ -5662,7 +5662,7 @@ uint64_t mlir::mps::anonymous namespace::ConvertExtractOp<mlir::mps::serializati
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::tensor::ExtractOp,mlir::Type,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::tensor::ExtractOp,mlir::Type,mlir::Value,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -5676,7 +5676,7 @@ uint64_t mlir::OpBuilder::create<mlir::tensor::ExtractOp,mlir::Type,mlir::Value,
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::tensor::ExtractOp::build(a1, v19, *a3, *a4, *a5, *(a5 + 8));
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::tensor::ExtractOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::tensor::ExtractOp,void>::id)
   {
     v14 = v13;
   }
@@ -5715,62 +5715,62 @@ mlir::mps::MPSResourceBlobManagerInterface *mlir::mps::MPSResourceBlobManagerInt
   return v2;
 }
 
-uint64_t llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::clear(uint64_t result)
+uint64_t llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::clear(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(result + 12))
   {
-    v1 = *(result + 8);
-    if (v1)
+    v4 = *(result + 8);
+    if (v4)
     {
-      v2 = 0;
+      v5 = 0;
       do
       {
-        v3 = *(*result + v2);
-        if (v3 != -8 && v3 != 0)
+        v6 = *(*result + v5);
+        if (v6 != -8 && v6 != 0)
         {
-          v5 = *v3;
-          if (*(v3 + 88) == 1)
+          v8 = *v6;
+          if (*(v6 + 88) == 1)
           {
-            v6 = v3[9];
-            if (v6 >= 8)
+            v9 = v6[9];
+            if (v9 >= 8)
             {
-              v7 = v3 + 6;
-              v8 = v3 + 6;
-              if ((v6 & 2) == 0)
+              v10 = v6 + 6;
+              v11 = v6 + 6;
+              if ((v9 & 2) == 0)
               {
-                v8 = *v7;
+                v11 = *v10;
               }
 
-              (*(v6 & 0xFFFFFFFFFFFFFFF8))(v8, v3[3], v3[4], v3[5]);
-              v9 = v3[9];
-              if (v9 >= 8)
+              (*(v9 & 0xFFFFFFFFFFFFFFF8))(v11, v6[3], v6[4], v6[5]);
+              v12 = v6[9];
+              if (v12 >= 8)
               {
-                if ((v9 & 4) != 0)
+                if ((v12 & 4) != 0)
                 {
-                  if ((v9 & 2) == 0)
+                  if ((v12 & 2) == 0)
                   {
-                    v7 = *v7;
+                    v10 = *v10;
                   }
 
-                  (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7);
+                  (*((v12 & 0xFFFFFFFFFFFFFFF8) + 16))(v10);
                 }
 
-                if ((v9 & 2) == 0)
+                if ((v12 & 2) == 0)
                 {
-                  llvm::deallocate_buffer(v3[6], v3[7]);
+                  llvm::deallocate_buffer(v6[6], v6[7]);
                 }
               }
             }
           }
 
-          llvm::deallocate_buffer(v3, (v5 + 113));
+          llvm::deallocate_buffer(v6, (v8 + 113));
         }
 
-        *(*result + v2) = 0;
-        v2 += 8;
+        *(*result + v5) = 0;
+        v5 += 8;
       }
 
-      while (8 * v1 != v2);
+      while (8 * v4 != v5);
     }
 
     *(result + 12) = 0;
@@ -5780,50 +5780,50 @@ uint64_t llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>:
   return result;
 }
 
-void mlir::mps::MPSResourceBlobManagerInterface::~MPSResourceBlobManagerInterface(mlir::mps::MPSResourceBlobManagerInterface *this)
+void mlir::mps::MPSResourceBlobManagerInterface::~MPSResourceBlobManagerInterface(mlir::mps::MPSResourceBlobManagerInterface *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_1F5B2E678;
-  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::clear(this + 24);
-  v2 = *(this + 8);
+  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::clear(this + 24, a2, a3, a4);
+  v5 = *(this + 8);
   *(this + 8) = 0;
-  if (v2)
+  if (v5)
   {
-    (*(*v2 + 8))(v2);
-    v3 = *(this + 8);
+    (*(*v5 + 8))(v5);
+    v6 = *(this + 8);
     *(this + 8) = 0;
-    if (v3)
+    if (v6)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v6 + 8))(v6);
     }
   }
 
   llvm::sys::RWMutexImpl::~RWMutexImpl(this + 6);
-  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::~StringMap(this + 24);
+  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::~StringMap(this + 24, v7, v8, v9);
 
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(this, v4);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 }
 
 {
   *this = &unk_1F5B2E678;
-  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::clear(this + 24);
-  v2 = *(this + 8);
+  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::clear(this + 24, a2, a3, a4);
+  v5 = *(this + 8);
   *(this + 8) = 0;
-  if (v2)
+  if (v5)
   {
-    (*(*v2 + 8))(v2);
-    v3 = *(this + 8);
+    (*(*v5 + 8))(v5);
+    v6 = *(this + 8);
     *(this + 8) = 0;
-    if (v3)
+    if (v6)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v6 + 8))(v6);
     }
   }
 
   llvm::sys::RWMutexImpl::~RWMutexImpl(this + 6);
-  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::~StringMap(this + 24);
-  v5 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(this, v4);
+  llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::~StringMap(this + 24, v7, v8, v9);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
-  operator delete(v5);
+  operator delete(v10);
 }
 
 uint64_t mlir::mps::MPSResourceBlobManagerInterface::getManager(mlir::mps::MPSResourceBlobManagerInterface *this, mlir::MLIRContext *a2)
@@ -5884,128 +5884,128 @@ LABEL_4:
   return *(v2 + 16 * v3 + 8);
 }
 
-uint64_t mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob@<X0>(mlir::mps::MPSResourceBlobManagerInterface *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t *mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob@<X0>(uint64_t *__return_ptr a1@<X8>, mlir::mps::MPSResourceBlobManagerInterface *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
   v7 = *(this + 8);
   result = (*(*v7 + 16))(v7);
-  *a4 = result;
-  *(a4 + 8) = a2;
-  *(a4 + 48) = llvm::detail::UniqueFunctionBase<void,void *,unsigned long,unsigned long>::CallbacksHolder<mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(unsigned long,unsigned long)::$_0,mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(unsigned long,unsigned long)::$_0,void>::Callbacks + 2;
-  *(a4 + 16) = a3;
-  *(a4 + 24) = v7;
-  *(a4 + 56) = 1;
+  *a1 = result;
+  a1[1] = a3;
+  a1[6] = llvm::detail::UniqueFunctionBase<void,void *,unsigned long,unsigned long>::CallbacksHolder<mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(unsigned long,unsigned long)::$_0,mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(unsigned long,unsigned long)::$_0,void>::Callbacks + 2;
+  a1[2] = a4;
+  a1[3] = v7;
+  *(a1 + 56) = 1;
   return result;
 }
 
 uint64_t mlir::mps::MPSResourceBlobManagerInterface::lookup(uint64_t a1, unsigned int *a2, unint64_t a3)
 {
   llvm::sys::RWMutexImpl::lock_shared((a1 + 48));
-  v7 = llvm::StringMapImpl::hash(a2, a3, v6);
-  Key = llvm::StringMapImpl::FindKey((a1 + 24), a2, a3, v7);
+  v8 = llvm::StringMapImpl::hash(a2, a3, v6, v7);
+  Key = llvm::StringMapImpl::FindKey((a1 + 24), a2, a3, v8);
   if (Key == -1 || Key == *(a1 + 32))
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = *(*(a1 + 24) + 8 * Key) + 8;
+    v10 = *(*(a1 + 24) + 8 * Key) + 8;
   }
 
   llvm::sys::RWMutexImpl::unlock_shared((a1 + 48));
-  return v9;
+  return v10;
 }
 
 BOOL mlir::mps::MPSResourceBlobManagerInterface::contains(uint64_t a1, unsigned int *a2, unint64_t a3)
 {
   llvm::sys::RWMutexImpl::lock_shared((a1 + 48));
-  v7 = llvm::StringMapImpl::hash(a2, a3, v6);
-  Key = llvm::StringMapImpl::FindKey((a1 + 24), a2, a3, v7);
+  v8 = llvm::StringMapImpl::hash(a2, a3, v6, v7);
+  Key = llvm::StringMapImpl::FindKey((a1 + 24), a2, a3, v8);
   if (Key == -1)
   {
-    v10 = *(a1 + 32);
-    v9 = v10;
+    v11 = *(a1 + 32);
+    v10 = v11;
   }
 
   else
   {
-    v9 = Key;
-    v10 = *(a1 + 32);
+    v10 = Key;
+    v11 = *(a1 + 32);
   }
 
-  v11 = v9 != v10;
+  v12 = v10 != v11;
   llvm::sys::RWMutexImpl::unlock_shared((a1 + 48));
-  return v11;
+  return v12;
 }
 
 uint64_t mlir::mps::MPSResourceBlobManagerInterface::defineEntryValue(uint64_t a1, unsigned int *a2, unint64_t a3, __int128 *a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   llvm::sys::RWMutexImpl::lock_shared((a1 + 48));
-  v9 = llvm::StringMapImpl::hash(a2, a3, v8);
-  Key = llvm::StringMapImpl::FindKey((a1 + 24), a2, a3, v9);
+  v10 = llvm::StringMapImpl::hash(a2, a3, v8, v9);
+  Key = llvm::StringMapImpl::FindKey((a1 + 24), a2, a3, v10);
   if (Key == -1 || Key == *(a1 + 32))
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = *(*(a1 + 24) + 8 * Key) + 8;
+    v12 = *(*(a1 + 24) + 8 * Key) + 8;
   }
 
   result = llvm::sys::RWMutexImpl::unlock_shared((a1 + 48));
-  v21 = *a4;
-  v13 = *(a4 + 6);
-  v22 = *(a4 + 2);
-  v25 = v13;
-  if (v13 >= 8)
+  v24 = *a4;
+  v16 = *(a4 + 6);
+  v25 = *(a4 + 2);
+  v28 = v16;
+  if (v16 >= 8)
   {
-    if ((v13 & 2) != 0 && (v13 & 4) != 0)
+    if ((v16 & 2) != 0 && (v16 & 4) != 0)
     {
-      (*((v13 & 0xFFFFFFFFFFFFFFF8) + 8))(&v23, a4 + 24);
-      result = (*((v25 & 0xFFFFFFFFFFFFFFF8) + 16))(a4 + 24);
+      (*((v16 & 0xFFFFFFFFFFFFFFF8) + 8))(&v26, a4 + 24);
+      result = (*((v28 & 0xFFFFFFFFFFFFFFF8) + 16))(a4 + 24);
     }
 
     else
     {
-      v23 = *(a4 + 24);
-      v24 = *(a4 + 5);
+      v26 = *(a4 + 24);
+      v27 = *(a4 + 5);
     }
 
     *(a4 + 6) = 0;
   }
 
-  v14 = *(a4 + 56);
-  v26 = v14;
-  if (*(v11 + 80))
+  v17 = *(a4 + 56);
+  v29 = v17;
+  if (*(v12 + 80))
   {
-    result = mlir::AsmResourceBlob::operator=((v11 + 16), &v21);
-    if (v25 >= 8)
+    result = mlir::AsmResourceBlob::operator=((v12 + 16), &v24, v14, v15);
+    if (v28 >= 8)
     {
-      v15 = (v25 & 2) != 0 ? &v23 : v23;
-      result = (*(v25 & 0xFFFFFFFFFFFFFFF8))(v15, v21, *(&v21 + 1), v22);
-      v16 = v25;
-      if (v25 >= 8)
+      v18 = (v28 & 2) != 0 ? &v26 : v26;
+      result = (*(v28 & 0xFFFFFFFFFFFFFFF8))(v18, v24, *(&v24 + 1), v25);
+      v19 = v28;
+      if (v28 >= 8)
       {
-        if ((v25 & 4) != 0)
+        if ((v28 & 4) != 0)
         {
-          if ((v25 & 2) != 0)
+          if ((v28 & 2) != 0)
           {
-            v17 = &v23;
+            v20 = &v26;
           }
 
           else
           {
-            v17 = v23;
+            v20 = v26;
           }
 
-          result = (*((v25 & 0xFFFFFFFFFFFFFFF8) + 16))(v17);
+          result = (*((v28 & 0xFFFFFFFFFFFFFFF8) + 16))(v20);
         }
 
-        if ((v16 & 2) == 0)
+        if ((v19 & 2) == 0)
         {
-          llvm::deallocate_buffer(v23, *(&v23 + 1));
+          llvm::deallocate_buffer(v26, *(&v26 + 1));
         }
       }
     }
@@ -6013,269 +6013,269 @@ uint64_t mlir::mps::MPSResourceBlobManagerInterface::defineEntryValue(uint64_t a
 
   else
   {
-    v18 = v22;
-    *(v11 + 16) = v21;
-    *(v11 + 32) = v18;
-    v19 = v25;
-    *(v11 + 64) = v25;
-    if (v19 >= 8)
+    v21 = v25;
+    *(v12 + 16) = v24;
+    *(v12 + 32) = v21;
+    v22 = v28;
+    *(v12 + 64) = v28;
+    if (v22 >= 8)
     {
-      if ((v19 & 2) != 0 && (v19 & 4) != 0)
+      if ((v22 & 2) != 0 && (v22 & 4) != 0)
       {
-        (*((v19 & 0xFFFFFFFFFFFFFFF8) + 8))(v11 + 40, &v23);
-        result = (*((*(v11 + 64) & 0xFFFFFFFFFFFFFFF8) + 16))(&v23);
-        v14 = v26;
+        (*((v22 & 0xFFFFFFFFFFFFFFF8) + 8))(v12 + 40, &v26);
+        result = (*((*(v12 + 64) & 0xFFFFFFFFFFFFFFF8) + 16))(&v26);
+        v17 = v29;
       }
 
       else
       {
-        v20 = v24;
-        *(v11 + 40) = v23;
-        *(v11 + 56) = v20;
+        v23 = v27;
+        *(v12 + 40) = v26;
+        *(v12 + 56) = v23;
       }
     }
 
-    *(v11 + 72) = v14;
-    *(v11 + 80) = 1;
+    *(v12 + 72) = v17;
+    *(v12 + 80) = 1;
   }
 
-  *(v11 + 96) = 1;
+  *(v12 + 96) = 1;
   return result;
 }
 
-BOOL mlir::mps::MPSResourceBlobManagerInterface::insert@<W0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, const unsigned __int8 *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+BOOL mlir::mps::MPSResourceBlobManagerInterface::insert@<W0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v30[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   llvm::sys::RWMutexImpl::lock((a1 + 48));
-  v27[0] = a1;
-  v27[1] = a4;
-  v10 = mlir::mps::MPSResourceBlobManagerInterface::insert(llvm::StringRef,std::optional<mlir::AsmResourceBlob>)::$_0::operator()(v27, a2, a3);
-  if (v10)
+  v29[0] = a1;
+  v29[1] = a4;
+  v11 = mlir::mps::MPSResourceBlobManagerInterface::insert(llvm::StringRef,std::optional<mlir::AsmResourceBlob>)::$_0::operator()(v29, a2, a3, v10);
+  if (v11)
   {
-    v11 = *(a1 + 8);
+    v12 = *(a1 + 8);
     {
-      v22 = v10;
+      v24 = v11;
       mlir::mps::MPSResourceBlobManagerInterface::insert();
-      v10 = v22;
+      v11 = v24;
     }
 
-    v12 = mlir::detail::TypeIDResolver<mlir::mps::MPSDialectResourceBlobHandle,void>::resolveTypeID(void)::id;
-    *a5 = v10;
-    a5[1] = v12;
-    a5[2] = v11;
+    v13 = mlir::detail::TypeIDResolver<mlir::mps::MPSDialectResourceBlobHandle,void>::resolveTypeID(void)::id;
+    *a5 = v11;
+    a5[1] = v13;
+    a5[2] = v12;
     return llvm::sys::RWMutexImpl::unlock_shared((a1 + 48));
   }
 
-  v28 = v30;
-  v29 = xmmword_1E096E640;
+  v30 = v32;
+  v31 = xmmword_1E096E640;
   if (a3 >= 0x21)
   {
-    llvm::SmallVectorBase<unsigned long long>::grow_pod(&v28, v30, a3, 1);
-    v13 = v29;
+    llvm::SmallVectorBase<unsigned long long>::grow_pod(&v30, v32, a3, 1);
+    v14 = v31;
 LABEL_8:
-    memcpy(v28 + v13, a2, a3);
-    v13 = v29;
+    memcpy(v30 + v14, a2, a3);
+    v14 = v31;
     goto LABEL_9;
   }
 
-  v13 = 0;
+  v14 = 0;
   if (a3)
   {
     goto LABEL_8;
   }
 
 LABEL_9:
-  v14 = &a3[v13];
-  *&v29 = v14;
-  if ((v14 + 1) > *(&v29 + 1))
+  v15 = v14 + a3;
+  *&v31 = v15;
+  if (v15 + 1 > *(&v31 + 1))
   {
-    llvm::SmallVectorBase<unsigned long long>::grow_pod(&v28, v30, (v14 + 1), 1);
-    v14 = v29;
+    llvm::SmallVectorBase<unsigned long long>::grow_pod(&v30, v32, v15 + 1, 1);
+    v15 = v31;
   }
 
-  v14[v28] = 95;
-  *&v29 = v29 + 1;
-  v15 = (a3 + 1);
-  v16 = 1;
+  *(v30 + v15) = 95;
+  *&v31 = v31 + 1;
+  v16 = a3 + 1;
+  v17 = 1;
   while (1)
   {
-    v24 = v16;
-    v25 = &v24;
-    v26 = 267;
-    llvm::Twine::toVector(&v25, &v28);
-    v17 = mlir::mps::MPSResourceBlobManagerInterface::insert(llvm::StringRef,std::optional<mlir::AsmResourceBlob>)::$_0::operator()(v27, v28, v29);
-    if (v17)
+    v26 = v17;
+    v27 = &v26;
+    v28 = 267;
+    llvm::Twine::toVector(&v27, &v30);
+    v19 = mlir::mps::MPSResourceBlobManagerInterface::insert(llvm::StringRef,std::optional<mlir::AsmResourceBlob>)::$_0::operator()(v29, v30, v31, v18);
+    if (v19)
     {
       break;
     }
 
-    v18 = v29;
-    if (v29 == v15)
+    v20 = v31;
+    if (v31 == v16)
     {
-      ++v16;
+      ++v17;
     }
 
     else
     {
-      if (v29 <= v15)
+      if (v31 <= v16)
       {
-        if (*(&v29 + 1) < v15)
+        if (*(&v31 + 1) < v16)
         {
-          llvm::SmallVectorBase<unsigned long long>::grow_pod(&v28, v30, v15, 1);
-          v18 = v29;
+          llvm::SmallVectorBase<unsigned long long>::grow_pod(&v30, v32, v16, 1);
+          v20 = v31;
         }
 
-        if (v15 != v18)
+        if (v16 != v20)
         {
-          bzero(v28 + v18, v15 - v18);
+          bzero(v30 + v20, v16 - v20);
         }
       }
 
-      *&v29 = v15;
-      ++v16;
+      *&v31 = v16;
+      ++v17;
     }
   }
 
-  v19 = *(a1 + 8);
+  v21 = *(a1 + 8);
   {
-    v23 = v17;
+    v25 = v19;
     mlir::DialectBytecodeReader::readResourceHandle<mlir::mps::MPSDialectResourceBlobHandle>();
-    v17 = v23;
+    v19 = v25;
   }
 
-  v20 = mlir::detail::TypeIDResolver<mlir::mps::MPSDialectResourceBlobHandle,void>::resolveTypeID(void)::id;
-  *a5 = v17;
-  a5[1] = v20;
-  a5[2] = v19;
-  if (v28 != v30)
+  v22 = mlir::detail::TypeIDResolver<mlir::mps::MPSDialectResourceBlobHandle,void>::resolveTypeID(void)::id;
+  *a5 = v19;
+  a5[1] = v22;
+  a5[2] = v21;
+  if (v30 != v32)
   {
-    free(v28);
+    free(v30);
   }
 
   return llvm::sys::RWMutexImpl::unlock_shared((a1 + 48));
 }
 
-uint64_t mlir::mps::MPSResourceBlobManagerInterface::insert(llvm::StringRef,std::optional<mlir::AsmResourceBlob>)::$_0::operator()(uint64_t *a1, unsigned int *a2, const unsigned __int8 *a3)
+uint64_t mlir::mps::MPSResourceBlobManagerInterface::insert(llvm::StringRef,std::optional<mlir::AsmResourceBlob>)::$_0::operator()(uint64_t *a1, unsigned int *a2, const unsigned __int8 *a3, unint64_t a4)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v6 = *a1;
-  v38 = 0;
-  v36 = 0u;
+  v42 = *MEMORY[0x1E69E9840];
+  v7 = *a1;
+  v41 = 0;
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
-  *v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v7 = llvm::StringMapImpl::hash(a2, a3, a3);
-  v8 = llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::try_emplace_with_hash<mlir::mps::MPSResourceBlobEntry>((v6 + 24), a2, a3, v7, &v32);
-  v10 = v9;
-  if (v37 == 1 && v36 >= 8)
+  *v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v8 = llvm::StringMapImpl::hash(a2, a3, a3, a4);
+  v11 = llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::try_emplace_with_hash<mlir::mps::MPSResourceBlobEntry>((v7 + 24), a2, a3, v8, &v35);
+  v13 = v12;
+  if (v40 == 1 && v39 >= 8)
   {
-    v11 = (v36 & 2) != 0 ? (&v34 + 8) : *(&v34 + 1);
-    (*(v36 & 0xFFFFFFFFFFFFFFF8))(v11, v33, *(&v33 + 1), v34);
-    v12 = v36;
-    if (v36 >= 8)
+    v14 = (v39 & 2) != 0 ? (&v37 + 8) : *(&v37 + 1);
+    (*(v39 & 0xFFFFFFFFFFFFFFF8))(v14, v36, *(&v36 + 1), v37);
+    v15 = v39;
+    if (v39 >= 8)
     {
-      if ((v36 & 4) != 0)
+      if ((v39 & 4) != 0)
       {
-        if ((v36 & 2) != 0)
+        if ((v39 & 2) != 0)
         {
-          v13 = &v34 + 8;
+          v16 = &v37 + 8;
         }
 
         else
         {
-          v13 = *(&v34 + 1);
+          v16 = *(&v37 + 1);
         }
 
-        (*((v36 & 0xFFFFFFFFFFFFFFF8) + 16))(v13);
+        (*((v39 & 0xFFFFFFFFFFFFFFF8) + 16))(v16);
       }
 
-      if ((v12 & 2) == 0)
+      if ((v15 & 2) == 0)
       {
-        llvm::deallocate_buffer(*(&v34 + 1), v35[0]);
+        llvm::deallocate_buffer(*(&v37 + 1), v38[0]);
       }
     }
   }
 
-  if ((v10 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
     return 0;
   }
 
-  v14 = *v8;
-  v15 = *v8 + 112;
-  v16 = **v8;
-  v17 = a1[1];
-  LOBYTE(v25) = 0;
-  v31 = 0;
-  if (*(v17 + 64) == 1)
+  v17 = *v11;
+  v18 = *v11 + 112;
+  v19 = **v11;
+  v20 = a1[1];
+  LOBYTE(v28) = 0;
+  v34 = 0;
+  if (*(v20 + 64) == 1)
   {
-    v18 = *(v17 + 2);
-    v25 = *v17;
-    v19 = *(v17 + 6);
-    v26 = v18;
-    v29 = v19;
-    if (v19 >= 8)
+    v21 = *(v20 + 16);
+    v28 = *v20;
+    v22 = *(v20 + 48);
+    v29 = v21;
+    v32 = v22;
+    if (v22 >= 8)
     {
-      if ((v19 & 2) != 0 && (v19 & 4) != 0)
+      if ((v22 & 2) != 0 && (v22 & 4) != 0)
       {
-        (*((v19 & 0xFFFFFFFFFFFFFFF8) + 8))(&v27, v17 + 24);
-        (*((v29 & 0xFFFFFFFFFFFFFFF8) + 16))(v17 + 24);
+        (*((v22 & 0xFFFFFFFFFFFFFFF8) + 8))(&v30, v20 + 24);
+        (*((v32 & 0xFFFFFFFFFFFFFFF8) + 16))(v20 + 24);
       }
 
       else
       {
-        v20 = *(v17 + 24);
-        v28 = *(v17 + 5);
-        v27 = v20;
+        v23 = *(v20 + 24);
+        v31 = *(v20 + 40);
+        v30 = v23;
       }
 
-      *(v17 + 6) = 0;
+      *(v20 + 48) = 0;
     }
 
-    v30 = *(v17 + 56);
-    v31 = 1;
+    v33 = *(v20 + 56);
+    v34 = 1;
   }
 
-  v14[1] = v15;
-  v14[2] = v16;
-  std::__optional_storage_base<mlir::AsmResourceBlob,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<mlir::AsmResourceBlob,false>>(v14 + 3, &v25);
-  *(v14 + 104) = *(v14 + 88);
-  v14[12] = 0;
-  if (v31 == 1 && v29 >= 8)
+  v17[1] = v18;
+  v17[2] = v19;
+  std::__optional_storage_base<mlir::AsmResourceBlob,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<mlir::AsmResourceBlob,false>>(v17 + 3, &v28, v9, v10);
+  *(v17 + 104) = *(v17 + 88);
+  v17[12] = 0;
+  if (v34 == 1 && v32 >= 8)
   {
-    v22 = (v29 & 2) != 0 ? &v27 : v27;
-    (*(v29 & 0xFFFFFFFFFFFFFFF8))(v22, v25, *(&v25 + 1), v26);
-    v23 = v29;
-    if (v29 >= 8)
+    v25 = (v32 & 2) != 0 ? &v30 : v30;
+    (*(v32 & 0xFFFFFFFFFFFFFFF8))(v25, v28, *(&v28 + 1), v29);
+    v26 = v32;
+    if (v32 >= 8)
     {
-      if ((v29 & 4) != 0)
+      if ((v32 & 4) != 0)
       {
-        if ((v29 & 2) != 0)
+        if ((v32 & 2) != 0)
         {
-          v24 = &v27;
+          v27 = &v30;
         }
 
         else
         {
-          v24 = v27;
+          v27 = v30;
         }
 
-        (*((v29 & 0xFFFFFFFFFFFFFFF8) + 16))(v24);
+        (*((v32 & 0xFFFFFFFFFFFFFFF8) + 16))(v27);
       }
 
-      if ((v23 & 2) == 0)
+      if ((v26 & 2) == 0)
       {
-        llvm::deallocate_buffer(v27, *(&v27 + 1));
+        llvm::deallocate_buffer(v30, *(&v30 + 1));
       }
     }
   }
 
-  return *v8 + 8;
+  return *v11 + 8;
 }
 
-uint64_t *llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::try_emplace_with_hash<mlir::mps::MPSResourceBlobEntry>(llvm::StringMapImpl *a1, const void *a2, size_t a3, unsigned int a4, uint64_t a5)
+uint64_t *llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::try_emplace_with_hash<mlir::mps::MPSResourceBlobEntry>(llvm::StringMapImpl *a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3, a4);
   v10 = (*a1 + 8 * v9);
@@ -6414,61 +6414,61 @@ const char *llvm::getTypeName<mlir::mps::MPSResourceBlobManagerInterface>()
   return &v2[v3];
 }
 
-uint64_t llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::~StringMap(uint64_t a1)
+uint64_t llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>::~StringMap(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(a1 + 12))
   {
-    v2 = *(a1 + 8);
-    if (v2)
+    v5 = *(a1 + 8);
+    if (v5)
     {
-      v3 = 0;
+      v6 = 0;
       do
       {
-        v4 = *(*a1 + v3);
-        if (v4 != -8 && v4 != 0)
+        v7 = *(*a1 + v6);
+        if (v7 != -8 && v7 != 0)
         {
-          v6 = *v4;
-          if (*(v4 + 88) == 1)
+          v9 = *v7;
+          if (*(v7 + 88) == 1)
           {
-            v7 = v4[9];
-            if (v7 >= 8)
+            v10 = v7[9];
+            if (v10 >= 8)
             {
-              v8 = v4 + 6;
-              v9 = v4 + 6;
-              if ((v7 & 2) == 0)
+              v11 = v7 + 6;
+              v12 = v7 + 6;
+              if ((v10 & 2) == 0)
               {
-                v9 = *v8;
+                v12 = *v11;
               }
 
-              (*(v7 & 0xFFFFFFFFFFFFFFF8))(v9, v4[3], v4[4], v4[5]);
-              v10 = v4[9];
-              if (v10 >= 8)
+              (*(v10 & 0xFFFFFFFFFFFFFFF8))(v12, v7[3], v7[4], v7[5]);
+              v13 = v7[9];
+              if (v13 >= 8)
               {
-                if ((v10 & 4) != 0)
+                if ((v13 & 4) != 0)
                 {
-                  if ((v10 & 2) == 0)
+                  if ((v13 & 2) == 0)
                   {
-                    v8 = *v8;
+                    v11 = *v11;
                   }
 
-                  (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8);
+                  (*((v13 & 0xFFFFFFFFFFFFFFF8) + 16))(v11);
                 }
 
-                if ((v10 & 2) == 0)
+                if ((v13 & 2) == 0)
                 {
-                  llvm::deallocate_buffer(v4[6], v4[7]);
+                  llvm::deallocate_buffer(v7[6], v7[7]);
                 }
               }
             }
           }
 
-          llvm::deallocate_buffer(v4, (v6 + 113));
+          llvm::deallocate_buffer(v7, (v9 + 113));
         }
 
-        v3 += 8;
+        v6 += 8;
       }
 
-      while (8 * v2 != v3);
+      while (8 * v5 != v6);
     }
   }
 
@@ -6478,10 +6478,10 @@ uint64_t llvm::StringMap<mlir::mps::MPSResourceBlobEntry,llvm::MallocAllocator>:
 
 void *mlir::createRawElementsAttr(void *a1, unsigned __int8 *a2, unint64_t a3)
 {
-  v31 = a1;
-  v5 = mlir::TensorType::operator mlir::ShapedType(&v31);
+  v28 = a1;
+  v5 = mlir::TensorType::operator mlir::ShapedType(&v28);
   ElementsAttrStorageSize = mlir::mps::getElementsAttrStorageSize(v5, v6);
-  RHS = mlir::AffineBinaryOpExpr::getRHS(&v31);
+  RHS = mlir::AffineBinaryOpExpr::getRHS(&v28);
   isCompatibleWithDenseStorage = mlir::mps::isCompatibleWithDenseStorage(RHS);
   if (ElementsAttrStorageSize != a3)
   {
@@ -6510,9 +6510,9 @@ void *mlir::createRawElementsAttr(void *a1, unsigned __int8 *a2, unint64_t a3)
       }
 
 LABEL_21:
-      v24 = mlir::TensorType::operator mlir::ShapedType(&v31);
-      v30 = mlir::DenseElementsAttr::getFromRawBuffer(v24, v25, a2, a3, v26, v27, v28);
-      return mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v30);
+      v24 = mlir::TensorType::operator mlir::ShapedType(&v28);
+      v27 = mlir::DenseElementsAttr::getFromRawBuffer(v24, v25, a2, a3);
+      return mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v27);
     }
   }
 
@@ -6522,7 +6522,7 @@ LABEL_21:
   }
 
 LABEL_11:
-  result = mlir::mps::getBufferTensorAttr(v31, a2, a3);
+  result = mlir::mps::getBufferTensorAttr(v28, a2, a3);
   if (!result)
   {
     return result;
@@ -6541,9 +6541,9 @@ LABEL_11:
 
   else
   {
-    v29 = result;
+    v26 = result;
     mlir::createRawElementsAttr();
-    result = v29;
+    result = v26;
     v15 = mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id;
     v16 = *(v14 + 8);
     v17 = *(v14 + 16);
@@ -6692,7 +6692,7 @@ LABEL_16:
 LABEL_17:
   *a2 = BufferTensorAttr;
   a2[1] = v17;
-  mlir::mps::MPSBufferTensorAttr::getHandle(&v22, &v21);
+  mlir::mps::MPSBufferTensorAttr::getHandle(&v21, &v22);
   if (*(v21.n128_u64[0] + 80))
   {
     v18 = v21.n128_u64[0] + 16;
@@ -6706,11 +6706,11 @@ LABEL_17:
   return *v18;
 }
 
-void *mlir::convertElementsAttr(uint64_t a1, uint64_t a2, int a3)
+void *mlir::convertElementsAttr(void *a1, uint64_t a2, int a3)
 {
   v5 = a1;
-  v31[0] = a1;
-  v31[1] = a2;
+  v28[0] = a1;
+  v28[1] = a2;
   if (mlir::DenseElementsAttr::classof(a1))
   {
     v6 = v5;
@@ -6721,10 +6721,10 @@ void *mlir::convertElementsAttr(uint64_t a1, uint64_t a2, int a3)
     v6 = 0;
   }
 
-  v32 = v6;
+  v29 = v6;
   if (v6)
   {
-    RawStringData = mlir::DenseElementsAttr::getRawStringData(&v32);
+    RawStringData = mlir::DenseElementsAttr::getRawStringData(&v29);
 LABEL_11:
     v3 = RawStringData;
     v5 = v8;
@@ -6741,39 +6741,39 @@ LABEL_11:
     v9 = 0;
   }
 
-  v32 = v9;
+  v29 = v9;
   if (v9)
   {
-    RawStringData = mlir::mps::MPSBufferTensorAttr::getRawData(&v32);
+    RawStringData = mlir::mps::MPSBufferTensorAttr::getRawData(&v29);
     goto LABEL_11;
   }
 
 LABEL_12:
-  Type = mlir::ElementsAttr::getType(v31);
+  Type = mlir::ElementsAttr::getType(v28);
   ElementTypeOrSelf = mlir::getElementTypeOrSelf(Type);
   v12 = mlir::mps::isCompatibleWithDenseStorage(ElementTypeOrSelf) & (a3 | (v5 < 0x41));
-  if (v12 == mlir::DenseElementsAttr::classof(v31[0]))
+  if (v12 == mlir::DenseElementsAttr::classof(v28[0]))
   {
-    return v31[0];
+    return v28[0];
   }
 
   if (v12)
   {
-    ArgOperands = mlir::CallOpInterface::getArgOperands(v31);
-    v32 = mlir::DenseElementsAttr::getFromRawBuffer(ArgOperands, v14, v3, v5, v15, v16, v17);
-    return mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v32);
+    ArgOperands = mlir::CallOpInterface::getArgOperands(v28);
+    v29 = mlir::DenseElementsAttr::getFromRawBuffer(ArgOperands, v14, v3, v5);
+    return mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v29);
   }
 
-  v19 = mlir::ElementsAttr::getType(v31);
-  result = mlir::mps::getBufferTensorAttr(v19, v3, v5);
+  v16 = mlir::ElementsAttr::getType(v28);
+  result = mlir::mps::getBufferTensorAttr(v16, v3, v5);
   if (result)
   {
-    v20 = *result;
+    v17 = *result;
     {
-      v21 = mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id;
-      v22 = *(v20 + 8);
-      v23 = *(v20 + 16);
-      if (!v23)
+      v18 = mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id;
+      v19 = *(v17 + 8);
+      v20 = *(v17 + 16);
+      if (!v20)
       {
         return result;
       }
@@ -6781,45 +6781,45 @@ LABEL_12:
 
     else
     {
-      v30 = result;
+      v27 = result;
       mlir::createRawElementsAttr();
-      result = v30;
-      v21 = mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id;
-      v22 = *(v20 + 8);
-      v23 = *(v20 + 16);
-      if (!v23)
+      result = v27;
+      v18 = mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id;
+      v19 = *(v17 + 8);
+      v20 = *(v17 + 16);
+      if (!v20)
       {
         return result;
       }
     }
 
-    v24 = v22;
-    v25 = v23;
+    v21 = v19;
+    v22 = v20;
     do
     {
-      v26 = v25 >> 1;
-      v27 = &v24[2 * (v25 >> 1)];
-      v29 = *v27;
-      v28 = v27 + 2;
-      v25 += ~(v25 >> 1);
-      if (v29 < v21)
+      v23 = v22 >> 1;
+      v24 = &v21[2 * (v22 >> 1)];
+      v26 = *v24;
+      v25 = v24 + 2;
+      v22 += ~(v22 >> 1);
+      if (v26 < v18)
       {
-        v24 = v28;
+        v21 = v25;
       }
 
       else
       {
-        v25 = v26;
+        v22 = v23;
       }
     }
 
-    while (v25);
+    while (v22);
   }
 
   return result;
 }
 
-uint64_t mlir::reshapeElementsAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::reshapeElementsAttr(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v29[0] = a3;
   v29[1] = a4;
@@ -6859,7 +6859,7 @@ uint64_t mlir::reshapeElementsAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     v13 = v12;
     isSplat = mlir::ElementsAttr::isSplat(v29);
     v15 = mlir::RankedTensorType::get(ArgAttrsAttr, v13, isSplat, 0);
-    mlir::mps::MPSBufferTensorAttr::getHandle(&v28, &v27);
+    mlir::mps::MPSBufferTensorAttr::getHandle(&v27, &v28);
     result = mlir::mps::MPSBufferTensorAttr::get(Context, v15, &v27);
     if (result)
     {
@@ -7221,19 +7221,19 @@ LABEL_30:
 
 __n128 *mlir::createElementsAttr(void *a1, uint64_t a2, uint64_t a3)
 {
-  v32 = a1;
-  RHS = mlir::AffineBinaryOpExpr::getRHS(&v32);
+  v33 = a1;
+  RHS = mlir::AffineBinaryOpExpr::getRHS(&v33);
   IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&RHS);
-  v28[1] = 0;
-  RHS = &v31;
-  v30 = xmmword_1E096FAF0;
-  v28[0] = 0;
-  MutableElementsAttr = mlir::tryCreateMutableElementsAttr(v32, v28);
-  RawElementsAttr = v28[0];
-  if (v28[0])
+  v29[1] = 0;
+  RHS = &v32;
+  v31 = xmmword_1E096FAF0;
+  v29[0] = 0;
+  MutableElementsAttr = mlir::tryCreateMutableElementsAttr(v33, v29);
+  RawElementsAttr = v29[0];
+  if (v29[0])
   {
     v9 = MutableElementsAttr;
-    v25 = v7;
+    v26 = v7;
     if (a3 < 1)
     {
       goto LABEL_25;
@@ -7242,19 +7242,19 @@ __n128 *mlir::createElementsAttr(void *a1, uint64_t a2, uint64_t a3)
     goto LABEL_12;
   }
 
-  v10 = mlir::TensorType::operator mlir::ShapedType(&v32);
+  v10 = mlir::TensorType::operator mlir::ShapedType(&v33);
   MutableElementsAttr = mlir::mps::getElementsAttrStorageSize(v10, v11);
-  v12 = v30;
-  if (v30 != MutableElementsAttr)
+  v12 = v31;
+  if (v31 != MutableElementsAttr)
   {
-    if (v30 <= MutableElementsAttr)
+    if (v31 <= MutableElementsAttr)
     {
-      if (*(&v30 + 1) < MutableElementsAttr)
+      if (*(&v31 + 1) < MutableElementsAttr)
       {
         v13 = MutableElementsAttr;
-        llvm::SmallVectorBase<unsigned long long>::grow_pod(&RHS, &v31, MutableElementsAttr, 1);
+        llvm::SmallVectorBase<unsigned long long>::grow_pod(&RHS, &v32, MutableElementsAttr, 1);
         MutableElementsAttr = v13;
-        v12 = v30;
+        v12 = v31;
       }
 
       if (MutableElementsAttr != v12)
@@ -7265,50 +7265,50 @@ __n128 *mlir::createElementsAttr(void *a1, uint64_t a2, uint64_t a3)
       }
     }
 
-    *&v30 = MutableElementsAttr;
+    *&v31 = MutableElementsAttr;
   }
 
-  v25 = MutableElementsAttr;
+  v26 = MutableElementsAttr;
   v9 = RHS;
   if (a3 >= 1)
   {
 LABEL_12:
     v15 = IntOrFloatBitWidth >> 3;
-    v16 = llvm::APFloatBase::PPCDoubleDouble(MutableElementsAttr);
-    v17 = (a2 + 8);
-    v18 = v9;
+    v17 = llvm::APFloatBase::PPCDoubleDouble(MutableElementsAttr);
+    v18 = (a2 + 8);
+    v19 = v9;
     do
     {
-      if (v16 == *v17)
+      if (v17 == *v18)
       {
-        llvm::detail::DoubleAPFloat::bitcastToAPInt(v17, &v26);
+        llvm::detail::DoubleAPFloat::bitcastToAPInt(&v27, v18, v16);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::bitcastToAPInt(v17, &v26);
+        llvm::detail::IEEEFloat::bitcastToAPInt(&v27, v18);
       }
 
-      v19 = v27;
-      v20 = v26;
-      if (v27 >= 0x41)
+      v20 = v28;
+      v21 = v27;
+      if (v28 >= 0x41)
       {
-        v21 = v26;
+        v22 = v27;
       }
 
       else
       {
-        v21 = &v26;
+        v22 = &v27;
       }
 
-      memcpy(v18, v21, v15);
-      if (v19 >= 0x41 && v20 != 0)
+      memcpy(v19, v22, v15);
+      if (v20 >= 0x41 && v21 != 0)
       {
-        operator delete[](v20);
+        operator delete[](v21);
       }
 
-      v18 += v15;
-      v17 = (v17 + 32);
+      v19 += v15;
+      v18 = (v18 + 32);
       --a3;
     }
 
@@ -7318,9 +7318,9 @@ LABEL_12:
 LABEL_25:
   if (!RawElementsAttr)
   {
-    RawElementsAttr = mlir::createRawElementsAttr(v32, v9, v25);
-    v23 = RHS;
-    if (RHS == &v31)
+    RawElementsAttr = mlir::createRawElementsAttr(v33, v9, v26);
+    v24 = RHS;
+    if (RHS == &v32)
     {
       return RawElementsAttr;
     }
@@ -7328,11 +7328,11 @@ LABEL_25:
     goto LABEL_27;
   }
 
-  v23 = RHS;
-  if (RHS != &v31)
+  v24 = RHS;
+  if (RHS != &v32)
   {
 LABEL_27:
-    free(v23);
+    free(v24);
   }
 
   return RawElementsAttr;
@@ -7348,20 +7348,20 @@ void *mlir::createSplatF16ElementsAttr(void *a1, float _S0)
 
 void *mlir::rewriteElementsAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v529[5] = *MEMORY[0x1E69E9840];
-  *&v519 = a1;
-  *(&v519 + 1) = a2;
-  v518[0] = a3;
-  v518[1] = a4;
-  v517[0] = mlir::CallOpInterface::getArgOperands(&v519);
-  v517[1] = v8;
-  if (mlir::CallOpInterface::getArgOperands(v518))
+  v526[5] = *MEMORY[0x1E69E9840];
+  *&v516 = a1;
+  *(&v516 + 1) = a2;
+  v515[0] = a3;
+  v515[1] = a4;
+  v514[0] = mlir::CallOpInterface::getArgOperands(&v516);
+  v514[1] = v8;
+  if (mlir::CallOpInterface::getArgOperands(v515))
   {
-    ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v518);
+    ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v515);
     if (!v10)
     {
 LABEL_6:
-      v12 = v518;
+      v12 = v515;
       goto LABEL_8;
     }
 
@@ -7377,42 +7377,42 @@ LABEL_6:
     }
   }
 
-  v12 = v517;
+  v12 = v514;
 LABEL_8:
   v13 = mlir::CallableOpInterface::getArgAttrsAttr(v12);
   v15 = v14;
-  isSplat = mlir::ElementsAttr::isSplat(v518);
-  v516 = mlir::RankedTensorType::get(v13, v15, isSplat, 0);
-  v17 = mlir::ElementsAttr::isSplat(v517);
-  if (v17 == mlir::ElementsAttr::isSplat(v518))
+  isSplat = mlir::ElementsAttr::isSplat(v515);
+  v513 = mlir::RankedTensorType::get(v13, v15, isSplat, 0);
+  v17 = mlir::ElementsAttr::isSplat(v514);
+  if (v17 == mlir::ElementsAttr::isSplat(v515))
   {
-    *&v519 = mlir::convertElementsAttr(v519, *(&v519 + 1), a5);
-    *(&v519 + 1) = v18;
-    v19 = mlir::CallableOpInterface::getArgAttrsAttr(v517);
+    *&v516 = mlir::convertElementsAttr(v516, *(&v516 + 1), a5);
+    *(&v516 + 1) = v18;
+    v19 = mlir::CallableOpInterface::getArgAttrsAttr(v514);
     if (v15 == v20 && !memcmp(v13, v19, 8 * v15))
     {
-      return v519;
+      return v516;
     }
 
-    v21 = v519;
-    v22 = mlir::TensorType::operator mlir::ShapedType(&v516);
+    v21 = v516;
+    v22 = mlir::TensorType::operator mlir::ShapedType(&v513);
     return mlir::reshapeElementsAttr(v21, *(&v21 + 1), v22, v23);
   }
 
-  if (*(*mlir::ElementsAttr::isSplat(v517) + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id && *(*mlir::ElementsAttr::isSplat(v518) + 136) != &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+  if (*(*mlir::ElementsAttr::isSplat(v514) + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id && *(*mlir::ElementsAttr::isSplat(v515) + 136) != &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
   {
     return 0;
   }
 
-  v524 = v526;
-  v525 = xmmword_1E0971D80;
-  if (mlir::ElementsAttr::isSplat(&v519))
+  v521 = v523;
+  v522 = xmmword_1E0971D80;
+  if (mlir::ElementsAttr::isSplat(&v516))
   {
-    RHS = mlir::AffineBinaryOpExpr::getRHS(&v516);
+    RHS = mlir::AffineBinaryOpExpr::getRHS(&v513);
     ElementsAttrStorageSize = (mlir::mps::getElementsAttrElementBitWidth(RHS) + 7) >> 3;
-    v27 = v525;
-    v28 = v525 > ElementsAttrStorageSize;
-    if (v525 == ElementsAttrStorageSize)
+    v27 = v522;
+    v28 = v522 > ElementsAttrStorageSize;
+    if (v522 == ElementsAttrStorageSize)
     {
       goto LABEL_23;
     }
@@ -7420,11 +7420,11 @@ LABEL_8:
 
   else
   {
-    v29 = mlir::TensorType::operator mlir::ShapedType(&v516);
+    v29 = mlir::TensorType::operator mlir::ShapedType(&v513);
     ElementsAttrStorageSize = mlir::mps::getElementsAttrStorageSize(v29, v30);
-    v27 = v525;
-    v28 = v525 > ElementsAttrStorageSize;
-    if (v525 == ElementsAttrStorageSize)
+    v27 = v522;
+    v28 = v522 > ElementsAttrStorageSize;
+    if (v522 == ElementsAttrStorageSize)
     {
       goto LABEL_23;
     }
@@ -7432,29 +7432,29 @@ LABEL_8:
 
   if (!v28)
   {
-    if (*(&v525 + 1) < ElementsAttrStorageSize)
+    if (*(&v522 + 1) < ElementsAttrStorageSize)
     {
-      llvm::SmallVectorBase<unsigned long long>::grow_pod(&v524, v526, ElementsAttrStorageSize, 1);
-      v27 = v525;
+      llvm::SmallVectorBase<unsigned long long>::grow_pod(&v521, v523, ElementsAttrStorageSize, 1);
+      v27 = v522;
     }
 
     if (ElementsAttrStorageSize != v27)
     {
-      bzero(v524 + v27, ElementsAttrStorageSize - v27);
+      bzero(v521 + v27, ElementsAttrStorageSize - v27);
     }
   }
 
-  *&v525 = ElementsAttrStorageSize;
+  *&v522 = ElementsAttrStorageSize;
 LABEL_23:
-  v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-  if (!mlir::Type::isUnsignedInteger(&v527, 8))
+  v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+  if (!mlir::Type::isUnsignedInteger(&v524, 8))
   {
-    v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-    if (mlir::Type::isInteger(&v527, 8))
+    v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+    if (mlir::Type::isInteger(&v524, 8))
     {
-      v31 = v524;
-      v523 = v519;
-      Type = mlir::ElementsAttr::getType(&v523);
+      v31 = v521;
+      v520 = v516;
+      Type = mlir::ElementsAttr::getType(&v520);
       if (Type)
       {
         v44 = *Type;
@@ -7507,12 +7507,12 @@ LABEL_23:
         {
           v169 = v48[1];
 LABEL_286:
-          v521 = Type;
-          v522 = v169;
-          v520 = mlir::ElementsAttr::isSplat(&v521);
-          v170 = mlir::ElementsAttr::isSplat(&v523);
-          RawStringData = v523;
-          if (mlir::DenseElementsAttr::classof(v523))
+          v518 = Type;
+          v519 = v169;
+          v517 = mlir::ElementsAttr::isSplat(&v518);
+          v170 = mlir::ElementsAttr::isSplat(&v520);
+          RawStringData = v520;
+          if (mlir::DenseElementsAttr::classof(v520))
           {
             v171 = RawStringData;
           }
@@ -7522,10 +7522,10 @@ LABEL_286:
             v171 = 0;
           }
 
-          v527 = v171;
+          v524 = v171;
           if (v171)
           {
-            RawStringData = mlir::DenseElementsAttr::getRawStringData(&v527);
+            RawStringData = mlir::DenseElementsAttr::getRawStringData(&v524);
             v6 = v172;
             if (v170)
             {
@@ -7533,8 +7533,8 @@ LABEL_286:
             }
 
 LABEL_298:
-            NumElements = mlir::ElementsAttr::getNumElements(v523, *(&v523 + 1));
-            if (mlir::Type::isUnsignedInteger(&v520, 8))
+            NumElements = mlir::ElementsAttr::getNumElements(v520, *(&v520 + 1));
+            if (mlir::Type::isUnsignedInteger(&v517, 8))
             {
               if (NumElements < 1)
               {
@@ -7560,7 +7560,7 @@ LABEL_300:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isInteger(&v520, 8))
+            if (mlir::Type::isInteger(&v517, 8))
             {
               if (NumElements < 1)
               {
@@ -7586,7 +7586,7 @@ LABEL_310:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 16))
+            if (mlir::Type::isUnsignedInteger(&v517, 16))
             {
               if (NumElements < 1)
               {
@@ -7612,7 +7612,7 @@ LABEL_323:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isInteger(&v520, 16))
+            if (mlir::Type::isInteger(&v517, 16))
             {
               if (NumElements < 1)
               {
@@ -7638,7 +7638,7 @@ LABEL_333:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 32))
+            if (mlir::Type::isUnsignedInteger(&v517, 32))
             {
               if (NumElements < 1)
               {
@@ -7664,7 +7664,7 @@ LABEL_343:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isInteger(&v520, 32))
+            if (mlir::Type::isInteger(&v517, 32))
             {
               if (NumElements < 1)
               {
@@ -7690,7 +7690,7 @@ LABEL_353:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 64))
+            if (mlir::Type::isUnsignedInteger(&v517, 64))
             {
               if (NumElements < 1)
               {
@@ -7774,7 +7774,7 @@ LABEL_368:
               goto LABEL_368;
             }
 
-            if (mlir::Type::isInteger(&v520, 64))
+            if (mlir::Type::isInteger(&v517, 64))
             {
               if (NumElements < 1)
               {
@@ -7858,7 +7858,7 @@ LABEL_377:
               goto LABEL_377;
             }
 
-            if (mlir::Type::isF16(&v520))
+            if (mlir::Type::isF16(&v517))
             {
               if (NumElements < 1)
               {
@@ -7884,7 +7884,7 @@ LABEL_384:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isF32(&v520))
+            if (mlir::Type::isF32(&v517))
             {
               if (NumElements < 1)
               {
@@ -7910,9 +7910,9 @@ LABEL_394:
               goto LABEL_944;
             }
 
-            if (!mlir::Type::isF64(&v520))
+            if (!mlir::Type::isF64(&v517))
             {
-              if (!mlir::Type::isBF16(&v520))
+              if (!mlir::Type::isBF16(&v517))
               {
                 goto LABEL_433;
               }
@@ -8013,10 +8013,10 @@ LABEL_410:
             v173 = 0;
           }
 
-          v527 = v173;
+          v524 = v173;
           if (v173)
           {
-            RawStringData = mlir::mps::MPSBufferTensorAttr::getRawData(&v527);
+            RawStringData = mlir::mps::MPSBufferTensorAttr::getRawData(&v524);
             v6 = v174;
             if ((v170 & 1) == 0)
             {
@@ -8030,80 +8030,80 @@ LABEL_410:
           }
 
 LABEL_291:
-          if (mlir::Type::isUnsignedInteger(&v520, 8))
+          if (mlir::Type::isUnsignedInteger(&v517, 8))
           {
             NumElements = 1;
             goto LABEL_300;
           }
 
-          if (mlir::Type::isInteger(&v520, 8))
+          if (mlir::Type::isInteger(&v517, 8))
           {
             NumElements = 1;
             goto LABEL_310;
           }
 
-          if (mlir::Type::isUnsignedInteger(&v520, 16))
+          if (mlir::Type::isUnsignedInteger(&v517, 16))
           {
             NumElements = 1;
             goto LABEL_323;
           }
 
-          if (mlir::Type::isInteger(&v520, 16))
+          if (mlir::Type::isInteger(&v517, 16))
           {
             NumElements = 1;
             goto LABEL_333;
           }
 
-          if (mlir::Type::isUnsignedInteger(&v520, 32))
+          if (mlir::Type::isUnsignedInteger(&v517, 32))
           {
             NumElements = 1;
             goto LABEL_343;
           }
 
-          if (mlir::Type::isInteger(&v520, 32))
+          if (mlir::Type::isInteger(&v517, 32))
           {
             NumElements = 1;
             goto LABEL_353;
           }
 
-          if (mlir::Type::isUnsignedInteger(&v520, 64) || mlir::Type::isInteger(&v520, 64))
+          if (mlir::Type::isUnsignedInteger(&v517, 64) || mlir::Type::isInteger(&v517, 64))
           {
             goto LABEL_361;
           }
 
-          if (mlir::Type::isF16(&v520))
+          if (mlir::Type::isF16(&v517))
           {
             NumElements = 1;
             goto LABEL_384;
           }
 
-          if (mlir::Type::isF32(&v520))
+          if (mlir::Type::isF32(&v517))
           {
             NumElements = 1;
             goto LABEL_394;
           }
 
-          if (mlir::Type::isF64(&v520))
+          if (mlir::Type::isF64(&v517))
           {
             goto LABEL_403;
           }
 
           NumElements = 1;
-          if (!mlir::Type::isBF16(&v520))
+          if (!mlir::Type::isBF16(&v517))
           {
 LABEL_433:
-            if (!mlir::Type::isInteger(&v520, 1))
+            if (!mlir::Type::isInteger(&v517, 1))
             {
 LABEL_261:
-              mlir::Type::getIntOrFloatBitWidth(&v520);
-              IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&v520);
+              mlir::Type::getIntOrFloatBitWidth(&v517);
+              IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&v517);
               mlir::detail::unpackQuantizedData<unsigned char>(RawStringData, v6, v31, NumElements, IntOrFloatBitWidth);
               goto LABEL_944;
             }
 
-            llvm::SmallVector<char,40u>::SmallVector(&v527, NumElements);
-            mlir::detail::unpackBooleanData(RawStringData, v6, v527, v528);
-            v134 = v527;
+            llvm::SmallVector<char,40u>::SmallVector(&v524, NumElements);
+            mlir::detail::unpackBooleanData(RawStringData, v6, v524, v525);
+            v134 = v524;
             if (NumElements < 1)
             {
               goto LABEL_437;
@@ -8115,7 +8115,7 @@ LABEL_261:
             }
 
             v226 = 0;
-            if (NumElements >= 8 && (v31 - v527) >= 0x20)
+            if (NumElements >= 8 && (v31 - v524) >= 0x20)
             {
               if (NumElements < 0x20)
               {
@@ -8145,7 +8145,7 @@ LABEL_466:
               }
 
               v226 = NumElements & 0x7FFFFFFFFFFFFFE0;
-              v236 = (v527 + 16);
+              v236 = (v524 + 16);
               v237 = v31 + 16;
               v238 = NumElements & 0x7FFFFFFFFFFFFFE0;
               do
@@ -8210,12 +8210,12 @@ LABEL_285:
       goto LABEL_286;
     }
 
-    v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-    if (mlir::Type::isUnsignedInteger(&v527, 16))
+    v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+    if (mlir::Type::isUnsignedInteger(&v524, 16))
     {
-      v54 = v524;
-      v523 = v519;
-      v55 = mlir::ElementsAttr::getType(&v523);
+      v54 = v521;
+      v520 = v516;
+      v55 = mlir::ElementsAttr::getType(&v520);
       if (!v55)
       {
         goto LABEL_476;
@@ -8269,12 +8269,12 @@ LABEL_474:
           {
             v249 = v60[1];
 LABEL_477:
-            v521 = v55;
-            v522 = v249;
-            v520 = mlir::ElementsAttr::isSplat(&v521);
-            v250 = mlir::ElementsAttr::isSplat(&v523);
-            v251 = v523;
-            if (mlir::DenseElementsAttr::classof(v523))
+            v518 = v55;
+            v519 = v249;
+            v517 = mlir::ElementsAttr::isSplat(&v518);
+            v250 = mlir::ElementsAttr::isSplat(&v520);
+            v251 = v520;
+            if (mlir::DenseElementsAttr::classof(v520))
             {
               v252 = v251;
             }
@@ -8284,10 +8284,10 @@ LABEL_477:
               v252 = 0;
             }
 
-            v527 = v252;
+            v524 = v252;
             if (v252)
             {
-              RawData = mlir::DenseElementsAttr::getRawStringData(&v527);
+              RawData = mlir::DenseElementsAttr::getRawStringData(&v524);
               v6 = v253;
               if (v250)
               {
@@ -8295,8 +8295,8 @@ LABEL_477:
               }
 
 LABEL_489:
-              v254 = mlir::ElementsAttr::getNumElements(v523, *(&v523 + 1));
-              if (mlir::Type::isUnsignedInteger(&v520, 8))
+              v254 = mlir::ElementsAttr::getNumElements(v520, *(&v520 + 1));
+              if (mlir::Type::isUnsignedInteger(&v517, 8))
               {
                 if (v254 < 1)
                 {
@@ -8322,7 +8322,7 @@ LABEL_491:
                 goto LABEL_944;
               }
 
-              if (mlir::Type::isInteger(&v520, 8))
+              if (mlir::Type::isInteger(&v517, 8))
               {
                 if (v254 < 1)
                 {
@@ -8348,7 +8348,7 @@ LABEL_501:
                 goto LABEL_944;
               }
 
-              if (mlir::Type::isUnsignedInteger(&v520, 16))
+              if (mlir::Type::isUnsignedInteger(&v517, 16))
               {
                 if (v254 < 1)
                 {
@@ -8374,7 +8374,7 @@ LABEL_514:
                 goto LABEL_944;
               }
 
-              if (mlir::Type::isInteger(&v520, 16))
+              if (mlir::Type::isInteger(&v517, 16))
               {
                 if (v254 < 1)
                 {
@@ -8400,7 +8400,7 @@ LABEL_524:
                 goto LABEL_944;
               }
 
-              if (mlir::Type::isUnsignedInteger(&v520, 32))
+              if (mlir::Type::isUnsignedInteger(&v517, 32))
               {
                 if (v254 < 1)
                 {
@@ -8468,7 +8468,7 @@ LABEL_913:
                 goto LABEL_944;
               }
 
-              if (mlir::Type::isInteger(&v520, 32))
+              if (mlir::Type::isInteger(&v517, 32))
               {
                 if (v254 < 1)
                 {
@@ -8536,7 +8536,7 @@ LABEL_919:
                 goto LABEL_944;
               }
 
-              if (mlir::Type::isUnsignedInteger(&v520, 64))
+              if (mlir::Type::isUnsignedInteger(&v517, 64))
               {
                 if (v254 < 1)
                 {
@@ -8618,7 +8618,7 @@ LABEL_602:
                 goto LABEL_602;
               }
 
-              if (mlir::Type::isInteger(&v520, 64))
+              if (mlir::Type::isInteger(&v517, 64))
               {
                 if (v254 < 1)
                 {
@@ -8700,7 +8700,7 @@ LABEL_628:
                 goto LABEL_628;
               }
 
-              if (mlir::Type::isF16(&v520))
+              if (mlir::Type::isF16(&v517))
               {
                 if (v254 < 1)
                 {
@@ -8768,7 +8768,7 @@ LABEL_925:
                 goto LABEL_944;
               }
 
-              if (mlir::Type::isF32(&v520))
+              if (mlir::Type::isF32(&v517))
               {
                 if (v254 < 1)
                 {
@@ -8836,9 +8836,9 @@ LABEL_931:
                 goto LABEL_944;
               }
 
-              if (!mlir::Type::isF64(&v520))
+              if (!mlir::Type::isF64(&v517))
               {
-                if (!mlir::Type::isBF16(&v520))
+                if (!mlir::Type::isBF16(&v517))
                 {
                   goto LABEL_639;
                 }
@@ -8949,10 +8949,10 @@ LABEL_666:
               v255 = 0;
             }
 
-            v527 = v255;
+            v524 = v255;
             if (v255)
             {
-              RawData = mlir::mps::MPSBufferTensorAttr::getRawData(&v527);
+              RawData = mlir::mps::MPSBufferTensorAttr::getRawData(&v524);
               v6 = v256;
               if ((v250 & 1) == 0)
               {
@@ -8966,67 +8966,67 @@ LABEL_666:
             }
 
 LABEL_482:
-            if (mlir::Type::isUnsignedInteger(&v520, 8))
+            if (mlir::Type::isUnsignedInteger(&v517, 8))
             {
               v254 = 1;
               goto LABEL_491;
             }
 
-            if (mlir::Type::isInteger(&v520, 8))
+            if (mlir::Type::isInteger(&v517, 8))
             {
               v254 = 1;
               goto LABEL_501;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 16))
+            if (mlir::Type::isUnsignedInteger(&v517, 16))
             {
               v254 = 1;
               goto LABEL_514;
             }
 
-            if (mlir::Type::isInteger(&v520, 16))
+            if (mlir::Type::isInteger(&v517, 16))
             {
               v254 = 1;
               goto LABEL_524;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 32))
+            if (mlir::Type::isUnsignedInteger(&v517, 32))
             {
               v254 = 1;
               goto LABEL_534;
             }
 
-            if (mlir::Type::isInteger(&v520, 32))
+            if (mlir::Type::isInteger(&v517, 32))
             {
               v254 = 1;
               goto LABEL_540;
             }
 
-            if (!mlir::Type::isUnsignedInteger(&v520, 64) && !mlir::Type::isInteger(&v520, 64))
+            if (!mlir::Type::isUnsignedInteger(&v517, 64) && !mlir::Type::isInteger(&v517, 64))
             {
-              if (mlir::Type::isF16(&v520))
+              if (mlir::Type::isF16(&v517))
               {
                 v254 = 1;
                 goto LABEL_574;
               }
 
-              if (mlir::Type::isF32(&v520))
+              if (mlir::Type::isF32(&v517))
               {
                 v254 = 1;
                 goto LABEL_582;
               }
 
-              if (!mlir::Type::isF64(&v520))
+              if (!mlir::Type::isF64(&v517))
               {
                 v254 = 1;
-                if (!mlir::Type::isBF16(&v520))
+                if (!mlir::Type::isBF16(&v517))
                 {
 LABEL_639:
-                  if (mlir::Type::isInteger(&v520, 1))
+                  if (mlir::Type::isInteger(&v517, 1))
                   {
-                    llvm::SmallVector<char,40u>::SmallVector(&v527, v254);
-                    mlir::detail::unpackBooleanData(RawData, v6, v527, v528);
-                    v82 = v527;
+                    llvm::SmallVector<char,40u>::SmallVector(&v524, v254);
+                    mlir::detail::unpackBooleanData(RawData, v6, v524, v525);
+                    v82 = v524;
                     if (v254 < 1)
                     {
                       goto LABEL_877;
@@ -9034,7 +9034,7 @@ LABEL_639:
 
                     if (v250)
                     {
-                      if (v254 < 4 || v54 < (v527 + 1) && v527 < v54 + 2 * v254)
+                      if (v254 < 4 || v54 < (v524 + 1) && v524 < v54 + 2 * v254)
                       {
                         v326 = 0;
                         goto LABEL_646;
@@ -9043,7 +9043,7 @@ LABEL_639:
                       if (v254 >= 0x20)
                       {
                         v326 = v254 & 0x7FFFFFFFFFFFFFE0;
-                        v357 = vld1_dup_s8(v527);
+                        v357 = vld1_dup_s8(v524);
                         v358 = vmovl_s8(v357);
                         v359 = v54 + 2;
                         v360 = v254 & 0x7FFFFFFFFFFFFFE0;
@@ -9102,7 +9102,7 @@ LABEL_646:
                       }
 
 LABEL_877:
-                      if (v82 == v529)
+                      if (v82 == v526)
                       {
                         goto LABEL_944;
                       }
@@ -9110,7 +9110,7 @@ LABEL_877:
                       goto LABEL_95;
                     }
 
-                    if (v254 < 8 || v54 < (v527 + v254) && v527 < v54 + 2 * v254)
+                    if (v254 < 8 || v54 < (v524 + v254) && v524 < v54 + 2 * v254)
                     {
                       v330 = 0;
                       goto LABEL_656;
@@ -9119,7 +9119,7 @@ LABEL_877:
                     if (v254 >= 0x20)
                     {
                       v330 = v254 & 0x7FFFFFFFFFFFFFE0;
-                      v365 = (v527 + 16);
+                      v365 = (v524 + 16);
                       v366 = v54 + 2;
                       v367 = v254 & 0x7FFFFFFFFFFFFFE0;
                       do
@@ -9187,8 +9187,8 @@ LABEL_656:
                   }
 
 LABEL_649:
-                  mlir::Type::getIntOrFloatBitWidth(&v520);
-                  v329 = mlir::Type::getIntOrFloatBitWidth(&v520);
+                  mlir::Type::getIntOrFloatBitWidth(&v517);
+                  v329 = mlir::Type::getIntOrFloatBitWidth(&v517);
                   mlir::detail::unpackQuantizedData<unsigned short>(RawData, v6, v54, v254, v329);
                   goto LABEL_944;
                 }
@@ -9233,69 +9233,69 @@ LABEL_476:
       goto LABEL_474;
     }
 
-    v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-    if (!mlir::Type::isInteger(&v527, 16))
+    v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+    if (!mlir::Type::isInteger(&v524, 16))
     {
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isUnsignedInteger(&v527, 32))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isUnsignedInteger(&v524, 32))
       {
-        mlir::copyElementsAttrData<unsigned int>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<unsigned int>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isInteger(&v527, 32))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isInteger(&v524, 32))
       {
-        mlir::copyElementsAttrData<int>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<int>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isUnsignedInteger(&v527, 64))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isUnsignedInteger(&v524, 64))
       {
-        mlir::copyElementsAttrData<unsigned long long>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<unsigned long long>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isInteger(&v527, 64))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isInteger(&v524, 64))
       {
-        mlir::copyElementsAttrData<long long>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<long long>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isF16(&v527))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isF16(&v524))
       {
-        mlir::copyElementsAttrData<half>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<half>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isBF16(&v527))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isBF16(&v524))
       {
-        mlir::copyElementsAttrData<__emulated_bf16>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<__emulated_bf16>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isF32(&v527))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isF32(&v524))
       {
-        mlir::copyElementsAttrData<float>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<float>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (mlir::Type::isF64(&v527))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (mlir::Type::isF64(&v524))
       {
-        mlir::copyElementsAttrData<double>(v519, *(&v519 + 1), v524);
+        mlir::copyElementsAttrData<double>(v516, *(&v516 + 1), v521);
         goto LABEL_944;
       }
 
-      v527 = mlir::AffineBinaryOpExpr::getRHS(&v516);
-      if (!mlir::Type::isInteger(&v527, 1))
+      v524 = mlir::AffineBinaryOpExpr::getRHS(&v513);
+      if (!mlir::Type::isInteger(&v524, 1))
       {
-        v78 = mlir::AffineBinaryOpExpr::getRHS(&v516);
+        v78 = mlir::AffineBinaryOpExpr::getRHS(&v513);
         if (*(*v78 + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
         {
           v79 = v78;
@@ -9306,42 +9306,42 @@ LABEL_476:
           v79 = 0;
         }
 
-        v527 = v79;
+        v524 = v79;
         if (v79)
         {
-          *&v523 = mlir::AffineMapAttr::getValue(&v527);
-          if (mlir::Type::isF32(&v523))
+          *&v520 = mlir::AffineMapAttr::getValue(&v524);
+          if (mlir::Type::isF32(&v520))
           {
-            mlir::copyElementsAttrData<complex_support::complex_fp<float,(void *)0>>(v519, *(&v519 + 1), v524);
+            mlir::copyElementsAttrData<complex_support::complex_fp<float,(void *)0>>(v516, *(&v516 + 1), v521);
           }
 
           else
           {
-            *&v523 = mlir::AffineMapAttr::getValue(&v527);
-            mlir::Type::isF16(&v523);
-            mlir::copyElementsAttrData<complex_support::complex_fp<half,(void *)0>>(v519, *(&v519 + 1), v524);
+            *&v520 = mlir::AffineMapAttr::getValue(&v524);
+            mlir::Type::isF16(&v520);
+            mlir::copyElementsAttrData<complex_support::complex_fp<half,(void *)0>>(v516, *(&v516 + 1), v521);
           }
         }
 
         goto LABEL_944;
       }
 
-      if (mlir::ElementsAttr::isSplat(&v519))
+      if (mlir::ElementsAttr::isSplat(&v516))
       {
         v77 = 1;
       }
 
       else
       {
-        Value = mlir::ArrayAttr::getValue(&v516);
+        Value = mlir::ArrayAttr::getValue(&v513);
         v77 = mlir::ShapedType::getNumElements(Value, v81);
       }
 
-      llvm::SmallVector<char,40u>::SmallVector(&v527, v77);
-      mlir::copyElementsAttrData<char>(v519, *(&v519 + 1), v527);
-      mlir::detail::packBooleanData(v527, v528, v524, v525);
-      v82 = v527;
-      if (v527 == v529)
+      llvm::SmallVector<char,40u>::SmallVector(&v524, v77);
+      mlir::copyElementsAttrData<char>(v516, *(&v516 + 1), v524);
+      mlir::detail::packBooleanData(v524, v525, v521, v522);
+      v82 = v524;
+      if (v524 == v526)
       {
         goto LABEL_944;
       }
@@ -9351,9 +9351,9 @@ LABEL_95:
       goto LABEL_944;
     }
 
-    v54 = v524;
-    v523 = v519;
-    v66 = mlir::ElementsAttr::getType(&v523);
+    v54 = v521;
+    v520 = v516;
+    v66 = mlir::ElementsAttr::getType(&v520);
     if (!v66)
     {
       goto LABEL_693;
@@ -9407,12 +9407,12 @@ LABEL_691:
         {
           v376 = v71[1];
 LABEL_694:
-          v521 = v66;
-          v522 = v376;
-          v520 = mlir::ElementsAttr::isSplat(&v521);
-          v377 = mlir::ElementsAttr::isSplat(&v523);
-          v378 = v523;
-          if (mlir::DenseElementsAttr::classof(v523))
+          v518 = v66;
+          v519 = v376;
+          v517 = mlir::ElementsAttr::isSplat(&v518);
+          v377 = mlir::ElementsAttr::isSplat(&v520);
+          v378 = v520;
+          if (mlir::DenseElementsAttr::classof(v520))
           {
             v379 = v378;
           }
@@ -9422,10 +9422,10 @@ LABEL_694:
             v379 = 0;
           }
 
-          v527 = v379;
+          v524 = v379;
           if (v379)
           {
-            RawData = mlir::DenseElementsAttr::getRawStringData(&v527);
+            RawData = mlir::DenseElementsAttr::getRawStringData(&v524);
             v6 = v380;
             if (v377)
             {
@@ -9433,8 +9433,8 @@ LABEL_694:
             }
 
 LABEL_706:
-            v254 = mlir::ElementsAttr::getNumElements(v523, *(&v523 + 1));
-            if (mlir::Type::isUnsignedInteger(&v520, 8))
+            v254 = mlir::ElementsAttr::getNumElements(v520, *(&v520 + 1));
+            if (mlir::Type::isUnsignedInteger(&v517, 8))
             {
               if (v254 < 1)
               {
@@ -9460,7 +9460,7 @@ LABEL_708:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isInteger(&v520, 8))
+            if (mlir::Type::isInteger(&v517, 8))
             {
               if (v254 < 1)
               {
@@ -9486,7 +9486,7 @@ LABEL_718:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 16))
+            if (mlir::Type::isUnsignedInteger(&v517, 16))
             {
               if (v254 < 1)
               {
@@ -9512,7 +9512,7 @@ LABEL_731:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isInteger(&v520, 16))
+            if (mlir::Type::isInteger(&v517, 16))
             {
               if (v254 < 1)
               {
@@ -9538,7 +9538,7 @@ LABEL_741:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 32))
+            if (mlir::Type::isUnsignedInteger(&v517, 32))
             {
               if (v254 < 1)
               {
@@ -9606,7 +9606,7 @@ LABEL_937:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isInteger(&v520, 32))
+            if (mlir::Type::isInteger(&v517, 32))
             {
               if (v254 < 1)
               {
@@ -9674,7 +9674,7 @@ LABEL_943:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isUnsignedInteger(&v520, 64))
+            if (mlir::Type::isUnsignedInteger(&v517, 64))
             {
               if (v254 < 1)
               {
@@ -9756,7 +9756,7 @@ LABEL_820:
               goto LABEL_820;
             }
 
-            if (mlir::Type::isInteger(&v520, 64))
+            if (mlir::Type::isInteger(&v517, 64))
             {
               if (v254 < 1)
               {
@@ -9838,7 +9838,7 @@ LABEL_845:
               goto LABEL_845;
             }
 
-            if (mlir::Type::isF16(&v520))
+            if (mlir::Type::isF16(&v517))
             {
               if (v254 < 1)
               {
@@ -9889,15 +9889,15 @@ LABEL_792:
               {
                 if (v377)
                 {
-                  v514 = 0;
+                  v511 = 0;
                 }
 
                 else
                 {
-                  v514 = v405;
+                  v511 = v405;
                 }
 
-                v54->i16[v405++] = *&RawData[2 * v514];
+                v54->i16[v405++] = *&RawData[2 * v511];
 LABEL_954:
                 ;
               }
@@ -9906,7 +9906,7 @@ LABEL_954:
               goto LABEL_944;
             }
 
-            if (mlir::Type::isF32(&v520))
+            if (mlir::Type::isF32(&v517))
             {
               if (v254 < 1)
               {
@@ -9957,15 +9957,15 @@ LABEL_800:
               {
                 if (v377)
                 {
-                  v515 = 0;
+                  v512 = 0;
                 }
 
                 else
                 {
-                  v515 = v406;
+                  v512 = v406;
                 }
 
-                v54->i16[v406++] = *&RawData[4 * v515];
+                v54->i16[v406++] = *&RawData[4 * v512];
 LABEL_960:
                 ;
               }
@@ -9974,9 +9974,9 @@ LABEL_960:
               goto LABEL_944;
             }
 
-            if (!mlir::Type::isF64(&v520))
+            if (!mlir::Type::isF64(&v517))
             {
-              if (!mlir::Type::isBF16(&v520))
+              if (!mlir::Type::isBF16(&v517))
               {
                 goto LABEL_858;
               }
@@ -10087,10 +10087,10 @@ LABEL_886:
             v381 = 0;
           }
 
-          v527 = v381;
+          v524 = v381;
           if (v381)
           {
-            RawData = mlir::mps::MPSBufferTensorAttr::getRawData(&v527);
+            RawData = mlir::mps::MPSBufferTensorAttr::getRawData(&v524);
             v6 = v382;
             if ((v377 & 1) == 0)
             {
@@ -10104,76 +10104,76 @@ LABEL_886:
           }
 
 LABEL_699:
-          if (mlir::Type::isUnsignedInteger(&v520, 8))
+          if (mlir::Type::isUnsignedInteger(&v517, 8))
           {
             v254 = 1;
             goto LABEL_708;
           }
 
-          if (mlir::Type::isInteger(&v520, 8))
+          if (mlir::Type::isInteger(&v517, 8))
           {
             v254 = 1;
             goto LABEL_718;
           }
 
-          if (mlir::Type::isUnsignedInteger(&v520, 16))
+          if (mlir::Type::isUnsignedInteger(&v517, 16))
           {
             v254 = 1;
             goto LABEL_731;
           }
 
-          if (mlir::Type::isInteger(&v520, 16))
+          if (mlir::Type::isInteger(&v517, 16))
           {
             v254 = 1;
             goto LABEL_741;
           }
 
-          if (mlir::Type::isUnsignedInteger(&v520, 32))
+          if (mlir::Type::isUnsignedInteger(&v517, 32))
           {
             v254 = 1;
             goto LABEL_751;
           }
 
-          if (mlir::Type::isInteger(&v520, 32))
+          if (mlir::Type::isInteger(&v517, 32))
           {
             v254 = 1;
             goto LABEL_757;
           }
 
-          if (mlir::Type::isUnsignedInteger(&v520, 64) || mlir::Type::isInteger(&v520, 64))
+          if (mlir::Type::isUnsignedInteger(&v517, 64) || mlir::Type::isInteger(&v517, 64))
           {
             goto LABEL_770;
           }
 
-          if (mlir::Type::isF16(&v520))
+          if (mlir::Type::isF16(&v517))
           {
             v254 = 1;
             goto LABEL_792;
           }
 
-          if (mlir::Type::isF32(&v520))
+          if (mlir::Type::isF32(&v517))
           {
             v254 = 1;
             goto LABEL_800;
           }
 
-          if (mlir::Type::isF64(&v520))
+          if (mlir::Type::isF64(&v517))
           {
             goto LABEL_824;
           }
 
           v254 = 1;
-          if (!mlir::Type::isBF16(&v520))
+          if (!mlir::Type::isBF16(&v517))
           {
 LABEL_858:
-            if (!mlir::Type::isInteger(&v520, 1))
+            if (!mlir::Type::isInteger(&v517, 1))
             {
               goto LABEL_649;
             }
 
-            llvm::SmallVector<char,40u>::SmallVector(&v527, v254);
-            mlir::detail::unpackBooleanData(RawData, v6, v527, v528);
-            v82 = v527;
+            llvm::SmallVector<char,40u>::SmallVector(&v524, v254);
+            mlir::detail::unpackBooleanData(RawData, v6, v524, v525);
+            v82 = v524;
             if (v254 < 1)
             {
               goto LABEL_877;
@@ -10181,7 +10181,7 @@ LABEL_858:
 
             if (v377)
             {
-              if (v254 < 4 || v54 < (v527 + 1) && v527 < v54 + 2 * v254)
+              if (v254 < 4 || v54 < (v524 + 1) && v524 < v54 + 2 * v254)
               {
                 v452 = 0;
                 goto LABEL_865;
@@ -10190,7 +10190,7 @@ LABEL_858:
               if (v254 >= 0x20)
               {
                 v452 = v254 & 0x7FFFFFFFFFFFFFE0;
-                v482 = vld1_dup_s8(v527);
+                v482 = vld1_dup_s8(v524);
                 v483 = vmovl_s8(v482);
                 v484 = v54 + 2;
                 v485 = v254 & 0x7FFFFFFFFFFFFFE0;
@@ -10251,7 +10251,7 @@ LABEL_865:
               goto LABEL_865;
             }
 
-            if (v254 < 8 || v54 < (v527 + v254) && v527 < v54 + 2 * v254)
+            if (v254 < 8 || v54 < (v524 + v254) && v524 < v54 + 2 * v254)
             {
               v455 = 0;
               goto LABEL_875;
@@ -10260,7 +10260,7 @@ LABEL_865:
             if (v254 >= 0x20)
             {
               v455 = v254 & 0x7FFFFFFFFFFFFFE0;
-              v490 = (v527 + 16);
+              v490 = (v524 + 16);
               v491 = v54 + 2;
               v492 = v254 & 0x7FFFFFFFFFFFFFE0;
               do
@@ -10357,9 +10357,9 @@ LABEL_693:
     goto LABEL_691;
   }
 
-  v31 = v524;
-  v523 = v519;
-  v32 = mlir::ElementsAttr::getType(&v523);
+  v31 = v521;
+  v520 = v516;
+  v32 = mlir::ElementsAttr::getType(&v520);
   if (!v32)
   {
     goto LABEL_100;
@@ -10420,12 +10420,12 @@ LABEL_27:
 
   v84 = v37[1];
 LABEL_101:
-  v521 = v32;
-  v522 = v84;
-  v520 = mlir::ElementsAttr::isSplat(&v521);
-  v85 = mlir::ElementsAttr::isSplat(&v523);
-  RawStringData = v523;
-  if (mlir::DenseElementsAttr::classof(v523))
+  v518 = v32;
+  v519 = v84;
+  v517 = mlir::ElementsAttr::isSplat(&v518);
+  v85 = mlir::ElementsAttr::isSplat(&v520);
+  RawStringData = v520;
+  if (mlir::DenseElementsAttr::classof(v520))
   {
     v87 = RawStringData;
   }
@@ -10435,10 +10435,10 @@ LABEL_101:
     v87 = 0;
   }
 
-  v527 = v87;
+  v524 = v87;
   if (v87)
   {
-    RawStringData = mlir::DenseElementsAttr::getRawStringData(&v527);
+    RawStringData = mlir::DenseElementsAttr::getRawStringData(&v524);
     v6 = v88;
     if (v85)
     {
@@ -10458,7 +10458,7 @@ LABEL_101:
     v90 = 0;
   }
 
-  v527 = v90;
+  v524 = v90;
   if (!v90)
   {
     if ((v85 & 1) == 0)
@@ -10467,67 +10467,67 @@ LABEL_101:
     }
 
 LABEL_106:
-    if (mlir::Type::isUnsignedInteger(&v520, 8))
+    if (mlir::Type::isUnsignedInteger(&v517, 8))
     {
       NumElements = 1;
       goto LABEL_115;
     }
 
-    if (mlir::Type::isInteger(&v520, 8))
+    if (mlir::Type::isInteger(&v517, 8))
     {
       NumElements = 1;
       goto LABEL_125;
     }
 
-    if (mlir::Type::isUnsignedInteger(&v520, 16))
+    if (mlir::Type::isUnsignedInteger(&v517, 16))
     {
       NumElements = 1;
       goto LABEL_138;
     }
 
-    if (mlir::Type::isInteger(&v520, 16))
+    if (mlir::Type::isInteger(&v517, 16))
     {
       NumElements = 1;
       goto LABEL_148;
     }
 
-    if (mlir::Type::isUnsignedInteger(&v520, 32))
+    if (mlir::Type::isUnsignedInteger(&v517, 32))
     {
       NumElements = 1;
       goto LABEL_158;
     }
 
-    if (mlir::Type::isInteger(&v520, 32))
+    if (mlir::Type::isInteger(&v517, 32))
     {
       NumElements = 1;
       goto LABEL_168;
     }
 
-    if (!mlir::Type::isUnsignedInteger(&v520, 64) && !mlir::Type::isInteger(&v520, 64))
+    if (!mlir::Type::isUnsignedInteger(&v517, 64) && !mlir::Type::isInteger(&v517, 64))
     {
-      if (mlir::Type::isF16(&v520))
+      if (mlir::Type::isF16(&v517))
       {
         NumElements = 1;
         goto LABEL_198;
       }
 
-      if (mlir::Type::isF32(&v520))
+      if (mlir::Type::isF32(&v517))
       {
         NumElements = 1;
         goto LABEL_208;
       }
 
-      if (!mlir::Type::isF64(&v520))
+      if (!mlir::Type::isF64(&v517))
       {
         NumElements = 1;
-        if (!mlir::Type::isBF16(&v520))
+        if (!mlir::Type::isBF16(&v517))
         {
 LABEL_246:
-          if (mlir::Type::isInteger(&v520, 1))
+          if (mlir::Type::isInteger(&v517, 1))
           {
-            llvm::SmallVector<char,40u>::SmallVector(&v527, NumElements);
-            mlir::detail::unpackBooleanData(RawStringData, v6, v527, v528);
-            v134 = v527;
+            llvm::SmallVector<char,40u>::SmallVector(&v524, NumElements);
+            mlir::detail::unpackBooleanData(RawStringData, v6, v524, v525);
+            v134 = v524;
             if (NumElements < 1)
             {
               goto LABEL_437;
@@ -10536,7 +10536,7 @@ LABEL_246:
             if ((v85 & 1) == 0)
             {
               v135 = 0;
-              if (NumElements < 8 || (v31 - v527) < 0x20)
+              if (NumElements < 8 || (v31 - v524) < 0x20)
               {
                 goto LABEL_279;
               }
@@ -10544,7 +10544,7 @@ LABEL_246:
               if (NumElements >= 0x20)
               {
                 v135 = NumElements & 0x7FFFFFFFFFFFFFE0;
-                v155 = (v527 + 16);
+                v155 = (v524 + 16);
                 v156 = v31 + 16;
                 v157 = NumElements & 0x7FFFFFFFFFFFFFE0;
                 do
@@ -10607,7 +10607,7 @@ LABEL_279:
               }
 
 LABEL_437:
-              if (v134 != v529)
+              if (v134 != v526)
               {
                 free(v134);
               }
@@ -10636,7 +10636,7 @@ LABEL_361:
     goto LABEL_944;
   }
 
-  RawStringData = mlir::mps::MPSBufferTensorAttr::getRawData(&v527);
+  RawStringData = mlir::mps::MPSBufferTensorAttr::getRawData(&v524);
   v6 = v91;
   if (v85)
   {
@@ -10644,8 +10644,8 @@ LABEL_361:
   }
 
 LABEL_113:
-  NumElements = mlir::ElementsAttr::getNumElements(v523, *(&v523 + 1));
-  if (mlir::Type::isUnsignedInteger(&v520, 8))
+  NumElements = mlir::ElementsAttr::getNumElements(v520, *(&v520 + 1));
+  if (mlir::Type::isUnsignedInteger(&v517, 8))
   {
     if (NumElements >= 1)
     {
@@ -10671,7 +10671,7 @@ LABEL_115:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isInteger(&v520, 8))
+  if (mlir::Type::isInteger(&v517, 8))
   {
     if (NumElements >= 1)
     {
@@ -10697,7 +10697,7 @@ LABEL_125:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isUnsignedInteger(&v520, 16))
+  if (mlir::Type::isUnsignedInteger(&v517, 16))
   {
     if (NumElements >= 1)
     {
@@ -10723,7 +10723,7 @@ LABEL_138:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isInteger(&v520, 16))
+  if (mlir::Type::isInteger(&v517, 16))
   {
     if (NumElements >= 1)
     {
@@ -10749,7 +10749,7 @@ LABEL_148:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isUnsignedInteger(&v520, 32))
+  if (mlir::Type::isUnsignedInteger(&v517, 32))
   {
     if (NumElements >= 1)
     {
@@ -10775,7 +10775,7 @@ LABEL_158:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isInteger(&v520, 32))
+  if (mlir::Type::isInteger(&v517, 32))
   {
     if (NumElements >= 1)
     {
@@ -10801,7 +10801,7 @@ LABEL_168:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isUnsignedInteger(&v520, 64))
+  if (mlir::Type::isUnsignedInteger(&v517, 64))
   {
     if (NumElements < 1)
     {
@@ -10885,7 +10885,7 @@ LABEL_184:
     goto LABEL_184;
   }
 
-  if (mlir::Type::isInteger(&v520, 64))
+  if (mlir::Type::isInteger(&v517, 64))
   {
     if (NumElements < 1)
     {
@@ -10969,7 +10969,7 @@ LABEL_193:
     goto LABEL_193;
   }
 
-  if (mlir::Type::isF16(&v520))
+  if (mlir::Type::isF16(&v517))
   {
     if (NumElements >= 1)
     {
@@ -10995,7 +10995,7 @@ LABEL_198:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isF32(&v520))
+  if (mlir::Type::isF32(&v517))
   {
     if (NumElements >= 1)
     {
@@ -11021,7 +11021,7 @@ LABEL_208:
     goto LABEL_944;
   }
 
-  if (mlir::Type::isF64(&v520))
+  if (mlir::Type::isF64(&v517))
   {
     if (NumElements < 1)
     {
@@ -11101,7 +11101,7 @@ LABEL_225:
     goto LABEL_225;
   }
 
-  if (!mlir::Type::isBF16(&v520))
+  if (!mlir::Type::isBF16(&v517))
   {
     goto LABEL_246;
   }
@@ -11128,11 +11128,11 @@ LABEL_240:
 LABEL_944:
   if (a5)
   {
-    v507 = mlir::TensorType::operator mlir::ShapedType(&v516);
-    v527 = mlir::DenseElementsAttr::getFromRawBuffer(v507, v508, v524, v525, v509, v510, v511);
-    result = mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v527);
-    v512 = v524;
-    if (v524 == v526)
+    v507 = mlir::TensorType::operator mlir::ShapedType(&v513);
+    v524 = mlir::DenseElementsAttr::getFromRawBuffer(v507, v508, v521, v522);
+    result = mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v524);
+    v509 = v521;
+    if (v521 == v523)
     {
       return result;
     }
@@ -11140,15 +11140,15 @@ LABEL_944:
 
   else
   {
-    result = mlir::createRawElementsAttr(v516, v524, v525);
-    v512 = v524;
-    if (v524 == v526)
+    result = mlir::createRawElementsAttr(v513, v521, v522);
+    v509 = v521;
+    if (v521 == v523)
     {
       return result;
     }
   }
 
-  v513 = result;
-  free(v512);
-  return v513;
+  v510 = result;
+  free(v509);
+  return v510;
 }

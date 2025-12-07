@@ -7,7 +7,7 @@
 
 - (void)performRequestWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = completionCopy;
   if (!self->_announcementType)
@@ -28,7 +28,7 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v16 = "[AFSiriAnnounceDropInCallRequest performRequestWithCompletion:]";
+      v15 = "[AFSiriAnnounceDropInCallRequest performRequestWithCompletion:]";
       _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Unable to send xpc message.", buf, 0xCu);
       if (!v5)
       {
@@ -51,13 +51,13 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __64__AFSiriAnnounceDropInCallRequest_performRequestWithCompletion___block_invoke;
-  v12[3] = &unk_1E7348638;
-  v14 = v5;
-  v13 = v8;
-  xpc_connection_send_message_with_reply(v13, v6, 0, v12);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __64__AFSiriAnnounceDropInCallRequest_performRequestWithCompletion___block_invoke;
+  v11[3] = &unk_1E7348638;
+  v13 = v5;
+  v12 = v8;
+  xpc_connection_send_message_with_reply(v12, v6, 0, v11);
 
 LABEL_11:
   for (i = 1; i != -1; --i)
@@ -65,8 +65,6 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __64__AFSiriAnnounceDropInCallRequest_performRequestWithCompletion___block_invoke(uint64_t a1, void *a2)

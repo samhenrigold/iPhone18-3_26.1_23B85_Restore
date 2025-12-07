@@ -32,7 +32,7 @@
 
 - (void)listenerDidReceiveDataStreamClose:(id)close
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   workQueue = [(HMDCameraRecordingBulkSendSessionInitiator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -48,11 +48,11 @@
     if (v10)
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = closeCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Data stream did close for listener: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = closeCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Data stream did close for listener: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -65,22 +65,20 @@
     if (v10)
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = closeCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring data stream close for irrelevant listener: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = closeCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring data stream close for irrelevant listener: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listenerDidReceiveDataStreamStart:(id)start
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   startCopy = start;
   workQueue = [(HMDCameraRecordingBulkSendSessionInitiator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -96,11 +94,11 @@
     if (v10)
     {
       v12 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v12;
-      v22 = 2112;
-      v23 = startCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Data stream did start for listener: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v12;
+      v21 = 2112;
+      v22 = startCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Data stream did start for listener: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -119,17 +117,15 @@
     if (v10)
     {
       v11 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v11;
-      v22 = 2112;
-      v23 = startCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring data stream start for irrelevant listener: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v11;
+      v21 = 2112;
+      v22 = startCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring data stream start for irrelevant listener: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryDoesSupportBulkSendDataStreamNotification:(id)notification
@@ -143,9 +139,9 @@
   dispatch_async(workQueue, block);
 }
 
-uint64_t __103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSupportBulkSendDataStreamNotification___block_invoke(uint64_t a1)
+void *__103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSupportBulkSendDataStreamNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isWaitingForAccessory];
   if (result)
   {
@@ -155,23 +151,22 @@ uint64_t __103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSu
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Accessory now supports data streams so registering bulk send listener because we were waiting for accessory", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Accessory now supports data streams so registering bulk send listener because we were waiting for accessory", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [*(a1 + 32) setWaitingForAccessory:0];
-    result = [*(a1 + 32) _registerBulkSendListener];
+    return [*(a1 + 32) _registerBulkSendListener];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_registerBulkSendListener
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingBulkSendSessionInitiator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -189,24 +184,22 @@ uint64_t __103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSu
   {
     v8 = HMFGetLogIdentifier();
     currentListener2 = [(HMDCameraRecordingBulkSendSessionInitiator *)selfCopy currentListener];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = currentListener2;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Registering bulk send listener: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = currentListener2;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Registering bulk send listener: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   accessory = [(HMDCameraRecordingBulkSendSessionInitiator *)selfCopy accessory];
   currentListener3 = [(HMDCameraRecordingBulkSendSessionInitiator *)selfCopy currentListener];
   [accessory addDataStreamBulkSendListener:currentListener3 fileType:@"ipcamera.recording"];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openNewSessionWithCallback:(id)callback
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   workQueue = [(HMDCameraRecordingBulkSendSessionInitiator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -218,7 +211,7 @@ uint64_t __103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSu
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v36 = v9;
+    v35 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Opening new session", buf, 0xCu);
   }
 
@@ -235,7 +228,7 @@ uint64_t __103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSu
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v15;
+      v35 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot open new session because a session is already being opened", buf, 0xCu);
     }
 
@@ -263,7 +256,7 @@ uint64_t __103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSu
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v36 = v22;
+        v35 = v22;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Registering bulk send listener before opening new session", buf, 0xCu);
       }
 
@@ -289,31 +282,29 @@ uint64_t __103__HMDCameraRecordingBulkSendSessionInitiator_handleAccessoryDoesSu
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v36 = v29;
+          v35 = v29;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Establishing local HAP connection with accessory because it cannot currently accept bulk send listeners", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v26);
         [(HMDCameraRecordingBulkSendSessionInitiator *)v27 setWaitingForAccessory:1];
         workQueue3 = [(HMDCameraRecordingBulkSendSessionInitiator *)v27 workQueue];
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __73__HMDCameraRecordingBulkSendSessionInitiator_openNewSessionWithCallback___block_invoke;
-        v32[3] = &unk_279734D88;
-        v32[4] = v27;
-        v33 = v25;
-        v34 = accessory;
-        [v34 establishLocalHAPConnectionWithQueue:workQueue3 completion:v32];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __73__HMDCameraRecordingBulkSendSessionInitiator_openNewSessionWithCallback___block_invoke;
+        v31[3] = &unk_279734D88;
+        v31[4] = v27;
+        v32 = v25;
+        v33 = accessory;
+        [v33 establishLocalHAPConnectionWithQueue:workQueue3 completion:v31];
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDCameraRecordingBulkSendSessionInitiator_openNewSessionWithCallback___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) workQueue];
   dispatch_assert_queue_V2(v4);
@@ -326,23 +317,21 @@ void __73__HMDCameraRecordingBulkSendSessionInitiator_openNewSessionWithCallback
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HAP session with camera: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HAP session with camera: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     [*(a1 + 40) accessory:*(a1 + 48) didCloseDataStreamWithError:v3];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingBulkSendSessionInitiator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -352,9 +341,9 @@ void __73__HMDCameraRecordingBulkSendSessionInitiator_openNewSessionWithCallback
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping bulk send session initiator", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping bulk send session initiator", &v16, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -368,11 +357,11 @@ void __73__HMDCameraRecordingBulkSendSessionInitiator_openNewSessionWithCallback
     if (v12)
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = currentListener;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Removing bulk send listener: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = currentListener;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Removing bulk send listener: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -388,15 +377,13 @@ void __73__HMDCameraRecordingBulkSendSessionInitiator_openNewSessionWithCallback
     if (v12)
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Ignoring stop request because we have no active listener", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Ignoring stop request because we have no active listener", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -465,12 +452,11 @@ LABEL_7:
 
 uint64_t __57__HMDCameraRecordingBulkSendSessionInitiator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_109862;
-  logCategory__hmf_once_v15_109862 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_109862;
+  logCategory__hmf_once_v15_109862 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

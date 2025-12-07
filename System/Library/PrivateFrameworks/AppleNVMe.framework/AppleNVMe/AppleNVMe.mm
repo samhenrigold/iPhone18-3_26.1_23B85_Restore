@@ -126,7 +126,6 @@ uint64_t AppleNVMeNamespaceAccessGetBlockSize(mach_port_t a1, void *a2)
     *a2 = output[0];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -146,7 +145,6 @@ uint64_t AppleNVMeNamespaceAccessGetBlockCount(mach_port_t a1, void *a2)
     *a2 = output[0];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -162,7 +160,6 @@ uint64_t AppleNVMeNamespaceAccessReadData(mach_port_t a1, uint64_t a2, uint64_t 
     fprintf(*MEMORY[0x277D85DF8], "%s failed, kernResult = 0x%x \n", "AppleNVMeNamespaceAccessReadData", v4);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -178,7 +175,6 @@ uint64_t AppleNVMeNamespaceAccessWriteData(mach_port_t a1, uint64_t a2, uint64_t
     fprintf(*MEMORY[0x277D85DF8], "%s failed, kernResult = 0x%x \n", "AppleNVMeNamespaceAccessWriteData", v4);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -193,16 +189,15 @@ uint64_t AppleNVMeNamespaceAccessUnmapRange(mach_port_t a1, uint64_t a2, uint64_
     fprintf(*MEMORY[0x277D85DF8], "%s failed, kernResult = 0x%x \n", "AppleNVMeNamespaceAccessUnmapRange", v3);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 BOOL AppleNVMeDeviceSupportsPanicLogAccess()
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11[0] = 0;
-  v11[1] = 0;
-  v12 = 0;
+  v12 = *MEMORY[0x277D85DE8];
+  v10[0] = 0;
+  v10[1] = 0;
+  v11 = 0;
   v0 = *MEMORY[0x277CD2898];
   v1 = IORegistryEntryFromPath(*MEMORY[0x277CD2898], "IODeviceTree:/arm-io/ans");
   if (v1)
@@ -216,13 +211,13 @@ BOOL AppleNVMeDeviceSupportsPanicLogAccess()
       v6 = CFStringCreateFromExternalRepresentation(v3, CFProperty, 0x600u);
       if (v6)
       {
-        CFStringGetCString(v6, v11, 20, 0x600u);
-        v7 = LODWORD(v11[0]) ^ 0x32534E41 | BYTE4(v11[0]);
+        CFStringGetCString(v6, v10, 20, 0x600u);
+        v7 = LODWORD(v10[0]) ^ 0x32534E41 | BYTE4(v10[0]);
         CFRelease(v5);
         IOObjectRelease(v2);
         if (!v7)
         {
-          goto LABEL_7;
+          return 1;
         }
 
         goto LABEL_5;
@@ -238,16 +233,11 @@ LABEL_5:
   v8 = IORegistryEntryFromPath(v0, "IODeviceTree:/arm-io/apcie/pci-bridge0/s3e");
   if (!v8)
   {
-    result = AppleNVMeDeviceHasAVP();
-    goto LABEL_8;
+    return AppleNVMeDeviceHasAVP();
   }
 
   IOObjectRelease(v8);
-LABEL_7:
-  result = 1;
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t OUTLINED_FUNCTION_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, io_object_t a11)

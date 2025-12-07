@@ -102,7 +102,7 @@
       }
 
       v14 = v12 >> 1;
-      if (v13 == OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_)
+      if (v13 == OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_[0])
       {
         break;
       }

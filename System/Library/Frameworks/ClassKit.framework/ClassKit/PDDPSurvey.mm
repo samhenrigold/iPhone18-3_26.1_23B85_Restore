@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -25,6 +26,29 @@
   {
     return 0;
   }
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"EXIT_TICKET_TYPE";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_SURVEY_TYPE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -171,7 +195,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -220,36 +243,35 @@
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v6 = self->_classIds;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_classIds;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v13;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * v10);
         PBDataWriterWriteStringField();
-        v10 = v10 + 1;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 }
 
@@ -410,7 +432,6 @@
     goto LABEL_27;
   }
 
-  v5 = *(equalCopy + 92);
   if (*&self->_has)
   {
     if ((*(equalCopy + 92) & 1) == 0 || self->_type != *(equalCopy + 22))
@@ -422,7 +443,7 @@
   else if (*(equalCopy + 92))
   {
 LABEL_27:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_28;
   }
 
@@ -507,17 +528,17 @@ LABEL_27:
   classIds = self->_classIds;
   if (classIds | *(equalCopy + 1))
   {
-    v16 = [(NSMutableArray *)classIds isEqual:?];
+    v15 = [(NSMutableArray *)classIds isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v15 = 1;
   }
 
 LABEL_28:
 
-  return v16;
+  return v15;
 }
 
 - (unint64_t)hash

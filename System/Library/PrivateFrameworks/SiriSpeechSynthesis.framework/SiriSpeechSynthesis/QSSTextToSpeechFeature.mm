@@ -42,7 +42,7 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
 
 - (Offset<siri::speech::schema_fb::TextToSpeechFeature>)addObjectToBuffer:(void *)buffer
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   normalized_text = [(QSSTextToSpeechFeature *)self normalized_text];
   v5 = [normalized_text count];
   if (v5)
@@ -55,16 +55,11 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
+  memset(v39, 0, sizeof(v39));
   normalized_text2 = [(QSSTextToSpeechFeature *)self normalized_text];
-  if ([normalized_text2 countByEnumeratingWithState:&v53 objects:v61 count:16])
+  if ([normalized_text2 countByEnumeratingWithState:v39 objects:v44 count:16])
   {
-    *v54;
-    *v54;
-    [**(&v53 + 1) addObjectToBuffer:buffer];
+    [**(&v39[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -72,7 +67,7 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
   v7 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
   phoneme_sequence = [(QSSTextToSpeechFeature *)self phoneme_sequence];
   v9 = [phoneme_sequence count];
-  v31 = v7;
+  v29 = v7;
   if (v9)
   {
     if (!(v9 >> 62))
@@ -83,21 +78,16 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  memset(v38, 0, sizeof(v38));
   phoneme_sequence2 = [(QSSTextToSpeechFeature *)self phoneme_sequence];
-  if ([phoneme_sequence2 countByEnumeratingWithState:&v49 objects:v60 count:16])
+  if ([phoneme_sequence2 countByEnumeratingWithState:v38 objects:v43 count:16])
   {
-    *v50;
-    *v50;
-    [**(&v49 + 1) addObjectToBuffer:buffer];
+    [**(&v38[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
   flatbuffers::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  v34 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
+  v32 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
   prompts = [(QSSTextToSpeechFeature *)self prompts];
   v12 = [prompts count];
   if (v12)
@@ -110,21 +100,16 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  memset(v37, 0, sizeof(v37));
   prompts2 = [(QSSTextToSpeechFeature *)self prompts];
-  if ([prompts2 countByEnumeratingWithState:&v45 objects:v59 count:16])
+  if ([prompts2 countByEnumeratingWithState:v37 objects:v42 count:16])
   {
-    *v46;
-    *v46;
-    [**(&v45 + 1) addObjectToBuffer:buffer];
+    [**(&v37[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
   flatbuffers::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  v33 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
+  v31 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
   replacement = [(QSSTextToSpeechFeature *)self replacement];
   v15 = [replacement count];
   if (v15)
@@ -137,21 +122,16 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  memset(v36, 0, sizeof(v36));
   replacement2 = [(QSSTextToSpeechFeature *)self replacement];
-  if ([replacement2 countByEnumeratingWithState:&v41 objects:v58 count:16])
+  if ([replacement2 countByEnumeratingWithState:v36 objects:v41 count:16])
   {
-    *v42;
-    *v42;
-    [**(&v41 + 1) addObjectToBuffer:buffer];
+    [**(&v36[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
   flatbuffers::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  v32 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
+  v30 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
   neural_phoneme_sequence = [(QSSTextToSpeechFeature *)self neural_phoneme_sequence];
   v18 = [neural_phoneme_sequence count];
   if (v18)
@@ -164,16 +144,11 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  memset(v35, 0, sizeof(v35));
   obja = [(QSSTextToSpeechFeature *)self neural_phoneme_sequence];
-  if ([obja countByEnumeratingWithState:&v37 objects:v57 count:16])
+  if ([obja countByEnumeratingWithState:v35 objects:v40 count:16])
   {
-    *v38;
-    *v38;
-    [**(&v37 + 1) addObjectToBuffer:buffer];
+    [**(&v35[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -184,27 +159,27 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
   v20 = *(buffer + 8);
   v21 = *(buffer + 12);
   v22 = *(buffer + 10);
-  if (v31)
+  if (v29)
   {
-    v23 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v31);
+    v23 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v29);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, v23);
-  }
-
-  if (v34)
-  {
-    v24 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v34);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v24);
-  }
-
-  if (v33)
-  {
-    v25 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v33);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, v25);
   }
 
   if (v32)
   {
-    v26 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v32);
+    v24 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v32);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v24);
+  }
+
+  if (v31)
+  {
+    v25 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v31);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, v25);
+  }
+
+  if (v30)
+  {
+    v26 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v30);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 10, v26);
   }
 
@@ -214,9 +189,7 @@ flatbuffers::DetachedBuffer *__38__QSSTextToSpeechFeature_flatbuffData__block_in
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 12, v27);
   }
 
-  v28.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v20 - v21 + v22);
-  v29 = *MEMORY[0x277D85DE8];
-  return v28;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v20 - v21 + v22);
 }
 
 - (NSArray)neural_phoneme_sequence

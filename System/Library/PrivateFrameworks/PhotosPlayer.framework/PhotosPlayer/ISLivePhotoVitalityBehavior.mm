@@ -84,7 +84,7 @@ void __61__ISLivePhotoVitalityBehavior__didReachTransitionToPhotoTime__block_inv
   if ([v3 easingEnabled] && (-[ISBehavior delegate](self, "delegate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "vitalityBehaviorShouldEndPlayingAtPhoto:", self), v4, v5))
   {
     delegate = [(ISBehavior *)self delegate];
-    [(ISLivePhotoVitalityBehavior *)self playbackEndTime];
+    objc_msgSend_playbackEndTime(self);
     LODWORD(v7) = 1.0;
     [delegate behavior:self playVideoToTime:v8 initialRate:0 overDuration:v7 progressHandler:0.0];
   }
@@ -164,7 +164,7 @@ void __61__ISLivePhotoVitalityBehavior__didReachTransitionToPhotoTime__block_inv
 - (void)_handleDidSeekToStartTime
 {
   memset(&v8, 0, sizeof(v8));
-  [(ISLivePhotoVitalityBehavior *)self playbackEndTime];
+  objc_msgSend_playbackEndTime(self, a2);
   CMTimeMake(&rhs, 2, 600);
   v5 = v8;
   CMTimeSubtract(&v7, &v5, &rhs);
@@ -193,16 +193,16 @@ void __61__ISLivePhotoVitalityBehavior__didReachTransitionToPhotoTime__block_inv
 
 - (void)_startObservingVideo
 {
-  v28[1] = *MEMORY[0x277D85DE8];
-  memset(&v26, 0, sizeof(v26));
-  [(ISLivePhotoVitalityBehavior *)self playbackEndTime];
+  v27[1] = *MEMORY[0x277D85DE8];
+  memset(&v25, 0, sizeof(v25));
+  objc_msgSend_playbackEndTime(self, a2);
   v3 = +[ISPlayerSettings sharedInstance];
   [v3 vitalityEaseDuration];
   CMTimeMakeWithSeconds(&rhs, v4, 600);
-  CMTimeSubtract(&v26, &lhs, &rhs);
+  CMTimeSubtract(&v25, &lhs, &rhs);
 
   memset(&lhs, 0, sizeof(lhs));
-  [(ISLivePhotoVitalityBehavior *)self playbackEndTime];
+  objc_msgSend_playbackEndTime(self);
   [(ISLivePhotoVitalityBehavior *)self photoTransitionDuration];
   CMTimeMakeWithSeconds(&time1, v5, 600);
   CMTimeSubtract(&lhs, &rhs, &time1);
@@ -212,38 +212,37 @@ void __61__ISLivePhotoVitalityBehavior__didReachTransitionToPhotoTime__block_inv
   lhs = rhs;
   objc_initWeak(&time1, self);
   delegate = [(ISBehavior *)self delegate];
-  rhs = v26;
+  rhs = v25;
   v7 = [MEMORY[0x277CCAE60] valueWithCMTime:&rhs];
-  v28[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v9 = MEMORY[0x277D85CD0];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __51__ISLivePhotoVitalityBehavior__startObservingVideo__block_invoke;
-  v20[3] = &unk_279A2A3C0;
-  objc_copyWeak(&v21, &time1);
-  v10 = [delegate behavior:self addBoundaryTimeObserverForTimes:v8 queue:MEMORY[0x277D85CD0] usingBlock:v20];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __51__ISLivePhotoVitalityBehavior__startObservingVideo__block_invoke;
+  v19[3] = &unk_279A2A3C0;
+  objc_copyWeak(&v20, &time1);
+  v10 = [delegate behavior:self addBoundaryTimeObserverForTimes:v8 queue:MEMORY[0x277D85CD0] usingBlock:v19];
   easeOutObserver = self->_easeOutObserver;
   self->_easeOutObserver = v10;
 
   delegate2 = [(ISBehavior *)self delegate];
   rhs = lhs;
   v13 = [MEMORY[0x277CCAE60] valueWithCMTime:&rhs];
-  v27 = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __51__ISLivePhotoVitalityBehavior__startObservingVideo__block_invoke_2;
-  v18[3] = &unk_279A2A3C0;
-  objc_copyWeak(&v19, &time1);
-  v15 = [delegate2 behavior:self addBoundaryTimeObserverForTimes:v14 queue:MEMORY[0x277D85CD0] usingBlock:v18];
+  v26 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __51__ISLivePhotoVitalityBehavior__startObservingVideo__block_invoke_2;
+  v17[3] = &unk_279A2A3C0;
+  objc_copyWeak(&v18, &time1);
+  v15 = [delegate2 behavior:self addBoundaryTimeObserverForTimes:v14 queue:MEMORY[0x277D85CD0] usingBlock:v17];
   transitionToPhotoObserver = self->_transitionToPhotoObserver;
   self->_transitionToPhotoObserver = v15;
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&time1);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ISLivePhotoVitalityBehavior__startObservingVideo__block_invoke(uint64_t a1)
@@ -264,9 +263,9 @@ void __51__ISLivePhotoVitalityBehavior__startObservingVideo__block_invoke_2(uint
   {
     [(ISLivePhotoVitalityBehavior *)self _setPreparing:1];
     memset(&v17[1], 0, sizeof(CMTime));
-    [(ISLivePhotoVitalityBehavior *)self playbackEndTime];
+    objc_msgSend_playbackEndTime(self);
     memset(v17, 0, 24);
-    [(ISLivePhotoVitalityBehavior *)self playDuration];
+    objc_msgSend_playDuration(self);
     memset(&v16, 0, sizeof(v16));
     lhs = v17[1];
     rhs = v17[0];

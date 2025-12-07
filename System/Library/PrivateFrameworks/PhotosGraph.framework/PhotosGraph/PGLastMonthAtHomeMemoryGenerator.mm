@@ -7,7 +7,7 @@
 
 + (id)lastMonthAtHomeMemoriesForMonth:(int64_t)month year:(int64_t)year inGraph:(id)graph momentNodesWithBlockedFeatureCache:(id)cache photoLibrary:(id)library loggingConnection:(id)connection progressReporter:(id)reporter
 {
-  v66[2] = *MEMORY[0x277D85DE8];
+  v65[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   cacheCopy = cache;
   libraryCopy = library;
@@ -37,77 +37,77 @@
     homeNodes = [v21 homeNodes];
     if ([homeNodes count])
     {
-      v54 = v19;
-      v55 = reporterCopy;
-      v53 = cacheCopy;
+      v53 = v19;
+      v54 = reporterCopy;
+      v52 = cacheCopy;
       v23 = [PGGraphMonthNodeCollection monthNodesForMonth:monthCopy inGraph:graphCopy];
       v24 = [PGGraphYearNodeCollection yearNodesForYear:year inGraph:graphCopy];
-      v52 = v23;
+      v51 = v23;
       dateNodes = [v23 dateNodes];
-      v51 = v24;
+      v50 = v24;
       dateNodes2 = [v24 dateNodes];
       v27 = [dateNodes collectionByIntersecting:dateNodes2];
 
-      v50 = v27;
+      v49 = v27;
       [v27 momentNodes];
-      v28 = v47 = graphCopy;
+      v28 = v46 = graphCopy;
       v29 = MEMORY[0x277D22C90];
       v30 = +[PGGraphMomentNode addressOfMoment];
-      v66[0] = v30;
+      v65[0] = v30;
       +[PGGraphAddressNode homeOfAddress];
-      v31 = v46 = year;
-      v66[1] = v31;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+      v31 = v45 = year;
+      v65[1] = v31;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
       v33 = [v29 chain:v32];
 
-      v48 = v33;
-      v49 = v28;
+      v47 = v33;
+      v48 = v28;
       v34 = [MEMORY[0x277D22BF8] adjacencyWithSources:v28 relation:v33 targetsClass:objc_opt_class()];
       v35 = [v34 intersectingTargetsWith:homeNodes];
 
       if ([v35 sourcesCount])
       {
-        graphCopy = v47;
-        v36 = [v53 momentNodesWithBlockedFeatureInGraph:v47 progressReporter:v55];
+        graphCopy = v46;
+        v36 = [v52 momentNodesWithBlockedFeatureInGraph:v46 progressReporter:v54];
         [v35 subtractingSourcesWith:v36];
-        v37 = v57 = libraryCopy;
+        v37 = v56 = libraryCopy;
 
         transposed = [v37 transposed];
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __164__PGLastMonthAtHomeMemoryGenerator_lastMonthAtHomeMemoriesForMonth_year_inGraph_momentNodesWithBlockedFeatureCache_photoLibrary_loggingConnection_progressReporter___block_invoke;
-        v58[3] = &unk_278882F40;
-        v19 = v54;
-        v59 = v54;
+        v57[0] = MEMORY[0x277D85DD0];
+        v57[1] = 3221225472;
+        v57[2] = __164__PGLastMonthAtHomeMemoryGenerator_lastMonthAtHomeMemoriesForMonth_year_inGraph_momentNodesWithBlockedFeatureCache_photoLibrary_loggingConnection_progressReporter___block_invoke;
+        v57[3] = &unk_278882F40;
+        v19 = v53;
+        v58 = v53;
         v39 = v20;
-        v60 = v39;
-        v61 = connectionCopy;
-        [transposed enumerateTargetsBySourceWithBlock:v58];
+        v59 = v39;
+        v60 = connectionCopy;
+        [transposed enumerateTargetsBySourceWithBlock:v57];
 
         v40 = v39;
-        cacheCopy = v53;
+        cacheCopy = v52;
 
         v35 = v37;
-        reporterCopy = v55;
-        libraryCopy = v57;
+        reporterCopy = v54;
+        libraryCopy = v56;
       }
 
       else
       {
-        graphCopy = v47;
-        cacheCopy = v53;
-        reporterCopy = v55;
+        graphCopy = v46;
+        cacheCopy = v52;
+        reporterCopy = v54;
         if (os_log_type_enabled(connectionCopy, OS_LOG_TYPE_INFO))
         {
           *buf = 67109376;
-          v63 = monthCopy;
-          v64 = 1024;
-          v65 = v46;
+          v62 = monthCopy;
+          v63 = 1024;
+          v64 = v45;
           _os_log_impl(&dword_22F0FC000, connectionCopy, OS_LOG_TYPE_INFO, "[PGLastMonthAtHomeMemoryGenerator] No moments detected at home in month: %d year: %d", buf, 0xEu);
         }
 
         v43 = v20;
-        v19 = v54;
+        v19 = v53;
       }
     }
 
@@ -134,14 +134,12 @@
     v41 = v20;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 void __164__PGLastMonthAtHomeMemoryGenerator_lastMonthAtHomeMemoriesForMonth_year_inGraph_momentNodesWithBlockedFeatureCache_photoLibrary_loggingConnection_progressReporter___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 interestingWithAlternateJunkingSubset];
@@ -154,13 +152,13 @@ void __164__PGLastMonthAtHomeMemoryGenerator_lastMonthAtHomeMemoriesForMonth_yea
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = v14;
-      v18[0] = 67109632;
-      v18[1] = v9;
-      v19 = 1024;
-      v20 = [v6 count];
-      v21 = 1024;
-      v22 = 2;
-      _os_log_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_INFO, "[PGLastMonthAtHomeMemoryGenerator] Only %d interesting moments out of %d for home node, but excepted at least %d. Not generating memory.", v18, 0x14u);
+      v17[0] = 67109632;
+      v17[1] = v9;
+      v18 = 1024;
+      v19 = [v6 count];
+      v20 = 1024;
+      v21 = 2;
+      _os_log_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_INFO, "[PGLastMonthAtHomeMemoryGenerator] Only %d interesting moments out of %d for home node, but excepted at least %d. Not generating memory.", v17, 0x14u);
     }
   }
 
@@ -172,8 +170,8 @@ void __164__PGLastMonthAtHomeMemoryGenerator_lastMonthAtHomeMemoriesForMonth_yea
       v16 = *(a1 + 48);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18[0]) = 0;
-        _os_log_impl(&dword_22F0FC000, v16, OS_LOG_TYPE_INFO, "[PGLastMonthAtHomeMemoryGenerator] Not all moments for home node have scenes processed, not generating memory.", v18, 2u);
+        LOWORD(v17[0]) = 0;
+        _os_log_impl(&dword_22F0FC000, v16, OS_LOG_TYPE_INFO, "[PGLastMonthAtHomeMemoryGenerator] Not all moments for home node have scenes processed, not generating memory.", v17, 2u);
       }
     }
 
@@ -186,8 +184,6 @@ void __164__PGLastMonthAtHomeMemoryGenerator_lastMonthAtHomeMemoriesForMonth_yea
       [*(a1 + 40) addObject:v13];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph

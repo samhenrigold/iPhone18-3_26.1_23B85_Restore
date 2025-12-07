@@ -110,7 +110,7 @@
   }
 }
 
-uint64_t __66__VideosExtrasZoomingImageTransitionController_animateTransition___block_invoke(uint64_t a1)
+void *__66__VideosExtrasZoomingImageTransitionController_animateTransition___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setShouldSkipImageWhenReplicatingState:1];
   [*(a1 + 32) setShouldUseTransformWhenReplicatingState:1];
@@ -244,7 +244,7 @@ LABEL_6:
   v43 = 0u;
   if (zoomingImageView)
   {
-    [zoomingImageView deferredTransform];
+    objc_msgSend_deferredTransform(zoomingImageView);
   }
 
   v21 = MEMORY[0x1E695EFD0];
@@ -361,7 +361,7 @@ uint64_t __104__VideosExtrasZoomingImageTransitionController_completeInteractive
   v32[7] = CGRectGetMaxY(v40);
   if (zoomingImageView)
   {
-    [zoomingImageView transform];
+    objc_msgSend_transform(zoomingImageView);
   }
 
   else
@@ -400,7 +400,7 @@ uint64_t __104__VideosExtrasZoomingImageTransitionController_completeInteractive
   v3 = zoomingImageView;
   if (zoomingImageView)
   {
-    [zoomingImageView deferredTransform];
+    objc_msgSend_deferredTransform(zoomingImageView);
     v4 = (0.0 + 0.0) * 0.5;
   }
 

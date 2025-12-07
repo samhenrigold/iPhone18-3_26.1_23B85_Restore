@@ -15,7 +15,7 @@ Class __get_CDContextualChangeRegistrationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_CDContextualChangeRegistrationClass_block_invoke_cold_1();
+    __get_CDContextualChangeRegistrationClass_block_invoke_cold_1();
     return __get_CDContextualKeyPathClass_block_invoke(v3);
   }
 

@@ -45,7 +45,7 @@
   _PXSharedAlbumsValidateSharedAlbumAddAssets(v12, assets, v11, 0, v13);
 }
 
-void __49__PXPostAssetsToSharedAlbumAction_performAction___block_invoke(uint64_t a1, void *a2)
+void __49__PXPostAssetsToSharedAlbumAction_performAction___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
@@ -53,12 +53,12 @@ void __49__PXPostAssetsToSharedAlbumAction_performAction___block_invoke(uint64_t
   {
     v8 = v3;
     v5 = PXSharedAlbumsDefaultAssetCreationOptionsForAssets(v3, 0, 1);
-    v6 = PXSharedAlbumsPrepareAndPublishAssetsToSharedAlbum(*(a1 + 32), v8, *(*(a1 + 40) + 104), v5, *(a1 + 48), *(a1 + 56));
+    v6 = PXSharedAlbumsPrepareAndPublishAssetsToSharedAlbum(a1[4], v8, *(a1[5] + 104), v5, a1[6], a1[7]);
   }
 
   else
   {
-    v7 = *(a1 + 56);
+    v7 = a1[7];
     if (!v7)
     {
       goto LABEL_6;

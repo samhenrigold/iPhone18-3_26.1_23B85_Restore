@@ -12,12 +12,12 @@
 
 - (HDMCWatchSettingsCompatibilityManager)initWithProfile:(id)profile userDefaults:(id)defaults
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   defaultsCopy = defaults;
-  v19.receiver = self;
-  v19.super_class = HDMCWatchSettingsCompatibilityManager;
-  v9 = [(HDMCWatchSettingsCompatibilityManager *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = HDMCWatchSettingsCompatibilityManager;
+  v9 = [(HDMCWatchSettingsCompatibilityManager *)&v18 init];
   if (v9)
   {
     if ([profileCopy profileType] != 1)
@@ -32,10 +32,10 @@
     v9->_queue = v10;
 
     v12 = +[HDMCWatchFeatureSettings algorithmicProjectionsSettings];
-    v20[0] = v12;
+    v19[0] = v12;
     v13 = +[HDMCWatchFeatureSettings hiddenLoggingRowsSettings];
-    v20[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     managedFeatures = v9->_managedFeatures;
     v9->_managedFeatures = v14;
 
@@ -43,36 +43,35 @@
     [WeakRetained registerProfileReadyObserver:v9 queue:v9->_queue];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   dispatch_assert_queue_V2(self->_queue);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = self->_managedFeatures;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         WeakRetained = objc_loadWeakRetained(&self->_profile);
         featureSettingsManager = [WeakRetained featureSettingsManager];
         featureIdentifier = [v10 featureIdentifier];
@@ -82,7 +81,7 @@
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -90,8 +89,6 @@
 
   daemon = [readyCopy daemon];
   [daemon registerDaemonReadyObserver:self queue:self->_queue];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)daemonReady:(id)ready
@@ -114,23 +111,22 @@ void __53__HDMCWatchSettingsCompatibilityManager_daemonReady___block_invoke(uint
   v3 = [WeakRetained daemon];
   v4 = [v3 maintenanceWorkCoordinator];
   v5 = MEMORY[0x277D10748];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 24);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__HDMCWatchSettingsCompatibilityManager_daemonReady___block_invoke_2;
-  v12[3] = &unk_27865A830;
-  v12[4] = v9;
-  v11 = [v5 maintenanceOperationWithName:v8 queue:v10 synchronousBlock:v12];
-  [v4 enqueueMaintenanceOperation:v11];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 24);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__HDMCWatchSettingsCompatibilityManager_daemonReady___block_invoke_2;
+  v11[3] = &unk_27865A830;
+  v11[4] = v8;
+  v10 = [v5 maintenanceOperationWithName:v7 queue:v9 synchronousBlock:v11];
+  [v4 enqueueMaintenanceOperation:v10];
 }
 
 - (void)featureSettingsManager:(id)manager didUpdateSettingsForFeatureIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
@@ -139,33 +135,33 @@ void __53__HDMCWatchSettingsCompatibilityManager_daemonReady___block_invoke(uint
   {
     v7 = v6;
     *buf = 138543618;
-    v24 = objc_opt_class();
-    v25 = 2114;
-    v26 = identifierCopy;
-    v8 = v24;
+    v23 = objc_opt_class();
+    v24 = 2114;
+    v25 = identifierCopy;
+    v8 = v23;
     _os_log_impl(&dword_2293D1000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notified of update to settings for %{public}@", buf, 0x16u);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = self->_managedFeatures;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         featureIdentifier = [v14 featureIdentifier];
         v16 = [featureIdentifier isEqualToString:identifierCopy];
 
@@ -175,62 +171,58 @@ void __53__HDMCWatchSettingsCompatibilityManager_daemonReady___block_invoke(uint
         }
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_computeAndApplyChangesForAllFeatures
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = self->_managedFeatures;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(HDMCWatchSettingsCompatibilityManager *)self _queue_computeAndApplyChangesForFeature:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(HDMCWatchSettingsCompatibilityManager *)self _queue_computeAndApplyChangesForFeature:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_computeAndApplyChangesForFeature:(id)feature
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   featureSettingsManager = [WeakRetained featureSettingsManager];
   featureIdentifier = [featureCopy featureIdentifier];
-  v24 = 0;
-  v8 = [featureSettingsManager featureSettingsForFeatureIdentifier:featureIdentifier error:&v24];
-  v9 = v24;
+  v23 = 0;
+  v8 = [featureSettingsManager featureSettingsForFeatureIdentifier:featureIdentifier error:&v23];
+  v9 = v23;
 
   if (v8)
   {
@@ -245,11 +237,11 @@ void __53__HDMCWatchSettingsCompatibilityManager_daemonReady___block_invoke(uint
       v14 = v13;
       featureIdentifier2 = [featureCopy featureIdentifier];
       *buf = 138543874;
-      v26 = v13;
-      v27 = 2114;
-      v28 = featureIdentifier2;
-      v29 = 2114;
-      v30 = v10;
+      v25 = v13;
+      v26 = 2114;
+      v27 = featureIdentifier2;
+      v28 = 2114;
+      v29 = v10;
       _os_log_impl(&dword_2293D1000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Applied changes for %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -270,20 +262,19 @@ void __53__HDMCWatchSettingsCompatibilityManager_daemonReady___block_invoke(uint
     }
 
     v10 = v20;
-    v22 = objc_opt_class();
-    v16 = v22;
+    v21 = objc_opt_class();
+    v16 = v21;
     featureIdentifier3 = [featureCopy featureIdentifier];
     *buf = 138543874;
-    v26 = v22;
-    v27 = 2114;
-    v28 = featureIdentifier3;
-    v29 = 2114;
-    v30 = v9;
+    v25 = v21;
+    v26 = 2114;
+    v27 = featureIdentifier3;
+    v28 = 2114;
+    v29 = v9;
     _os_log_error_impl(&dword_2293D1000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@ feature settings: %{public}@", buf, 0x20u);
   }
 
 LABEL_7:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HDMCWatchSettingsCompatibilityManagerDelegate)delegate

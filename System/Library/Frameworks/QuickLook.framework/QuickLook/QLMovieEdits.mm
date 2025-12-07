@@ -2,7 +2,6 @@
 + (id)editsWithRightRotationsCount:(unint64_t)count trimStartTime:(double)time trimEndTime:(double)endTime;
 - (BOOL)hasEdits;
 - (BOOL)isEqual:(id)equal;
-- (BOOL)trimmed;
 - (QLMovieEdits)init;
 @end
 
@@ -77,13 +76,6 @@
   }
 
   return [(QLMovieEdits *)self trimmed];
-}
-
-- (BOOL)trimmed
-{
-  trimStartTime = self->_trimStartTime;
-  trimEndTime = self->_trimEndTime;
-  return 1;
 }
 
 @end

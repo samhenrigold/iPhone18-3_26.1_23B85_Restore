@@ -235,25 +235,23 @@ void __34__CHSharedAddressBook_cachedCount__block_invoke(uint64_t a1)
 
 void __64__CHSharedAddressBook_insertAddressBookInfoDictionaryIntoCache___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C3E90000, a2, OS_LOG_TYPE_ERROR, "Cannot insert info %@ into address book cache", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C3E90000, a2, OS_LOG_TYPE_ERROR, "Cannot insert info %@ into address book cache", &v3, 0xCu);
 }
 
 void __61__CHSharedAddressBook_insertAddressBookInfoIntoCache_forKey___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *(a2 + 40);
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_1C3E90000, log, OS_LOG_TYPE_ERROR, "Cannot insert %@ for key %@ into address book cache", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_1C3E90000, log, OS_LOG_TYPE_ERROR, "Cannot insert %@ for key %@ into address book cache", &v5, 0x16u);
 }
 
 @end

@@ -1,1301 +1,3 @@
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,unsigned char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, int a7@<W6>, __int16 a8@<W7>, uint64_t a9@<X8>, uint64_t a10, char a11)
-{
-  *v98 = *MEMORY[0x277D85DE8];
-  v96 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
-  {
-    std::vector<unsigned char>::__append(a9, a2);
-  }
-
-  v16 = *a3;
-  v17 = a3[1];
-  v18 = v17 - *a3;
-  if (v18 != a4[1] - *a4)
-  {
-    v65 = "x_rank == o_shape.size()";
-    v66 = 217;
-    goto LABEL_72;
-  }
-
-  v19 = v18 >> 3;
-  v20 = *a5;
-  v21 = a5[1];
-  v22 = v21 - *a5;
-  if (v19 - 1 != v22 >> 2)
-  {
-    v65 = "kernel_sizes.size() == num_spatial_dims + 1";
-    v66 = 218;
-    goto LABEL_72;
-  }
-
-  v23 = *a6;
-  v24 = a6[1];
-  if (v24 - *a6 != v22)
-  {
-    v65 = "strides.size() == num_spatial_dims + 1";
-    v66 = 219;
-    goto LABEL_72;
-  }
-
-  if (*(v21 - 4) != *(v24 - 4))
-  {
-    v65 = "kernel_sizes.back() == strides.back()";
-    v66 = 220;
-LABEL_72:
-    __assert_rtn("ComputeValueMinMaxPool", "NePoolCpu.cpp", v66, v65);
-  }
-
-  v25 = v19 - 2;
-  v26 = v20 + 4 * v19;
-  v27 = v23 + 4 * v19;
-  if (v19 == 5)
-  {
-    v28 = *(v26 - 20);
-    v29 = (v26 - 12);
-    v80 = *(v27 - 20);
-    v30 = 2;
-  }
-
-  else
-  {
-    v30 = v19 - 3;
-    v29 = (v20 + 4 * (v19 - 3));
-    v80 = 1;
-    v28 = 1;
-    v81 = 1;
-    v84 = 1;
-    v82 = 1;
-    if (v25 <= 1)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v84 = *(v26 - 16);
-  v81 = v28;
-  v82 = *(v27 - 16);
-LABEL_11:
-  v31 = *(v20 + 4 * v25);
-  v87 = *(v23 + 4 * v30);
-  v88 = *v29;
-  v32 = *(v23 + 4 * v25);
-  v93 = 0;
-  v94 = 0;
-  v95 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v93, v16, v17, v19);
-  v90 = 0;
-  v91 = 0;
-  v92 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v90, *a4, a4[1], (a4[1] - *a4) >> 3);
-  if (v19 == 3)
-  {
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v93, v93 + 8, __e, v98, 2);
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v90, v90 + 8, __e, v98, 2);
-  }
-
-  else if (v19 == 4)
-  {
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v93, v93 + 8, __e);
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v90, v90 + 8, __e);
-  }
-
-  v33 = *v90;
-  v34 = *(v90 + 1);
-  v35 = *(v90 + 2);
-  v36 = *(v90 + 3);
-  v37 = *(v90 + 4);
-  MIL::Fp16::GetFloat(&v96);
-  v39 = v38;
-  v40 = exp2(-a7);
-  if (v33)
-  {
-    v41 = 0;
-    v42 = v40 * v39;
-    v86 = v31;
-    v70 = v32;
-    v67 = v33;
-    v68 = v34;
-    v69 = v35;
-    v72 = v36;
-    v75 = v37;
-    do
-    {
-      if (v34)
-      {
-        v43 = 0;
-        do
-        {
-          if (v35)
-          {
-            v44 = 0;
-            v45 = v43 * v80;
-            v73 = v43;
-            do
-            {
-              if (v36)
-              {
-                v46 = 0;
-                v47 = v44 * v82;
-                v74 = v44;
-                do
-                {
-                  if (v37)
-                  {
-                    v85 = 0;
-                    v48 = 0;
-                    v49 = v46 * v87;
-                    v71 = v46;
-                    do
-                    {
-                      v76 = v48;
-                      if (v80)
-                      {
-                        for (i = 0; i != v80; ++i)
-                        {
-                          if (v82)
-                          {
-                            for (j = 0; j != v82; ++j)
-                            {
-                              if (v87)
-                              {
-                                v52 = 0;
-                                v79 = j;
-                                do
-                                {
-                                  v53 = i;
-                                  for (k = v52; v53 < v81; j = v79)
-                                  {
-                                    for (; j < v84; j += v82)
-                                    {
-                                      for (; v52 < v88; v31 = v86)
-                                      {
-                                        if (v31)
-                                        {
-                                          v54 = v85;
-                                          do
-                                          {
-                                            v56 = v50 > v55;
-                                            if (a11)
-                                            {
-                                              v56 = v50 < v55;
-                                            }
-
-                                            if (v56)
-                                            {
-                                              v50 = v55;
-                                            }
-
-                                            ++v54;
-                                            --v31;
-                                          }
-
-                                          while (v31);
-                                        }
-
-                                        v52 += v87;
-                                      }
-
-                                      v52 = k;
-                                    }
-
-                                    v53 += v80;
-                                  }
-
-                                  ++v52;
-                                }
-
-                                while (v52 != v87);
-                              }
-
-                              v37 = v75;
-                            }
-                          }
-                        }
-                      }
-
-                      v57 = v42 * v50;
-                      v58 = 0.0;
-                      if (v57 != 0.0)
-                      {
-                        __e[0] = 0;
-                        v59 = frexp(v57, __e);
-                        v60 = ldexp(v59, 11);
-                        v58 = ldexp(round(v60), __e[0] - 11);
-                      }
-
-                      std::function<float ()(float)>::operator()(a10, v58);
-                      v32 = v70;
-                      v46 = v71;
-                      if (v61 == INFINITY)
-                      {
-                        v62 = 127;
-                      }
-
-                      else if (v61 == -INFINITY)
-                      {
-                        v62 = 0x80;
-                      }
-
-                      else
-                      {
-                        v63 = llroundf(v61);
-                        if (v63 >= 127)
-                        {
-                          v63 = 127;
-                        }
-
-                        if (v63 <= -128)
-                        {
-                          v62 = 0x80;
-                        }
-
-                        else
-                        {
-                          v62 = v63;
-                        }
-                      }
-
-                      v48 = v76 + 1;
-                      v85 += v70;
-                    }
-
-                    while (v76 + 1 != v37);
-                  }
-
-                  ++v46;
-                  v44 = v74;
-                }
-
-                while (v46 != v72);
-              }
-
-              ++v44;
-              v35 = v69;
-              v36 = v72;
-              v43 = v73;
-            }
-
-            while (v44 != v69);
-          }
-
-          ++v43;
-          v34 = v68;
-        }
-
-        while (v43 != v68);
-      }
-
-      ++v41;
-    }
-
-    while (v41 != v67);
-  }
-
-  if (v90)
-  {
-    v91 = v90;
-    operator delete(v90);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  v64 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25993197C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  v22 = *(v20 - 184);
-  if (v22)
-  {
-    *(v20 - 176) = v22;
-    operator delete(v22);
-  }
-
-  v23 = *(v20 - 160);
-  if (v23)
-  {
-    *(v20 - 152) = v23;
-    operator delete(v23);
-  }
-
-  v24 = *a20;
-  if (*a20)
-  {
-    *(a20 + 8) = v24;
-    operator delete(v24);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<MIL::Fp16,signed char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, int a7@<W6>, __int16 a8@<W7>, void *a9@<X8>, uint64_t a10, char a11)
-{
-  *v98 = *MEMORY[0x277D85DE8];
-  v96 = a8;
-  a9[1] = 0;
-  a9[2] = 0;
-  *a9 = 0;
-  std::vector<MIL::Fp16>::resize(a9, a2);
-  v16 = *a3;
-  v17 = a3[1];
-  v18 = v17 - *a3;
-  if (v18 != a4[1] - *a4)
-  {
-    v65 = "x_rank == o_shape.size()";
-    v66 = 217;
-    goto LABEL_61;
-  }
-
-  v19 = v18 >> 3;
-  v20 = *a5;
-  v21 = a5[1];
-  v22 = v21 - *a5;
-  if (v19 - 1 != v22 >> 2)
-  {
-    v65 = "kernel_sizes.size() == num_spatial_dims + 1";
-    v66 = 218;
-    goto LABEL_61;
-  }
-
-  v23 = *a6;
-  v24 = a6[1];
-  if (v24 - *a6 != v22)
-  {
-    v65 = "strides.size() == num_spatial_dims + 1";
-    v66 = 219;
-    goto LABEL_61;
-  }
-
-  if (*(v21 - 4) != *(v24 - 4))
-  {
-    v65 = "kernel_sizes.back() == strides.back()";
-    v66 = 220;
-LABEL_61:
-    __assert_rtn("ComputeValueMinMaxPool", "NePoolCpu.cpp", v66, v65);
-  }
-
-  v25 = v19 - 2;
-  v26 = v20 + 4 * v19;
-  v27 = v23 + 4 * v19;
-  if (v19 == 5)
-  {
-    v28 = *(v26 - 20);
-    v29 = (v26 - 12);
-    v80 = *(v27 - 20);
-    v30 = 2;
-  }
-
-  else
-  {
-    v30 = v19 - 3;
-    v29 = (v20 + 4 * (v19 - 3));
-    v80 = 1;
-    v28 = 1;
-    v81 = 1;
-    v84 = 1;
-    v82 = 1;
-    if (v25 <= 1)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  v84 = *(v26 - 16);
-  v81 = v28;
-  v82 = *(v27 - 16);
-LABEL_9:
-  v31 = *(v20 + 4 * v25);
-  v87 = *(v23 + 4 * v30);
-  v88 = *v29;
-  v32 = *(v23 + 4 * v25);
-  v93 = 0;
-  v94 = 0;
-  v95 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v93, v16, v17, v19);
-  v90 = 0;
-  v91 = 0;
-  v92 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v90, *a4, a4[1], (a4[1] - *a4) >> 3);
-  if (v19 == 3)
-  {
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v93, v93 + 8, __e, v98, 2);
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v90, v90 + 8, __e, v98, 2);
-  }
-
-  else if (v19 == 4)
-  {
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v93, v93 + 8, __e);
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v90, v90 + 8, __e);
-  }
-
-  v33 = *v90;
-  v34 = *(v90 + 1);
-  v35 = *(v90 + 2);
-  v36 = *(v90 + 3);
-  v37 = *(v90 + 4);
-  MIL::Fp16::GetFloat(&v96);
-  v39 = v38;
-  v40 = exp2(-a7);
-  if (v33)
-  {
-    v41 = 0;
-    v42 = v40 * v39;
-    v86 = v31;
-    v70 = v32;
-    v67 = v33;
-    v68 = v34;
-    v69 = v35;
-    v72 = v36;
-    v75 = v37;
-    do
-    {
-      if (v34)
-      {
-        v43 = 0;
-        do
-        {
-          if (v35)
-          {
-            v44 = 0;
-            v45 = v43 * v80;
-            v73 = v43;
-            do
-            {
-              if (v36)
-              {
-                v46 = 0;
-                v47 = v44 * v82;
-                v74 = v44;
-                do
-                {
-                  if (v37)
-                  {
-                    v85 = 0;
-                    v48 = 0;
-                    v49 = v46 * v87;
-                    v71 = v46;
-                    do
-                    {
-                      v76 = v48;
-                      if (v80)
-                      {
-                        for (i = 0; i != v80; ++i)
-                        {
-                          if (v82)
-                          {
-                            for (j = 0; j != v82; ++j)
-                            {
-                              if (v87)
-                              {
-                                v52 = 0;
-                                v79 = j;
-                                do
-                                {
-                                  v53 = i;
-                                  for (k = v52; v53 < v81; j = v79)
-                                  {
-                                    for (; j < v84; j += v82)
-                                    {
-                                      for (; v52 < v88; v31 = v86)
-                                      {
-                                        if (v31)
-                                        {
-                                          v54 = v85;
-                                          do
-                                          {
-                                            v56 = v50 > v55;
-                                            if (a11)
-                                            {
-                                              v56 = v50 < v55;
-                                            }
-
-                                            if (v56)
-                                            {
-                                              v50 = v55;
-                                            }
-
-                                            ++v54;
-                                            --v31;
-                                          }
-
-                                          while (v31);
-                                        }
-
-                                        v52 += v87;
-                                      }
-
-                                      v52 = k;
-                                    }
-
-                                    v53 += v80;
-                                  }
-
-                                  ++v52;
-                                }
-
-                                while (v52 != v87);
-                              }
-
-                              v37 = v75;
-                            }
-                          }
-                        }
-                      }
-
-                      v57 = v42 * v50;
-                      v58 = 0.0;
-                      if (v57 != 0.0)
-                      {
-                        __e[0] = 0;
-                        v59 = frexp(v57, __e);
-                        v60 = ldexp(v59, 11);
-                        v58 = ldexp(round(v60), __e[0] - 11);
-                      }
-
-                      v61 = std::function<float ()(float)>::operator()(a10, v58);
-                      v32 = v70;
-                      v46 = v71;
-                      v63 = MIL::Fp16::FromFloat(v61, v62);
-                      v48 = v76 + 1;
-                      v85 += v70;
-                    }
-
-                    while (v76 + 1 != v37);
-                  }
-
-                  ++v46;
-                  v44 = v74;
-                }
-
-                while (v46 != v72);
-              }
-
-              ++v44;
-              v35 = v69;
-              v36 = v72;
-              v43 = v73;
-            }
-
-            while (v44 != v69);
-          }
-
-          ++v43;
-          v34 = v68;
-        }
-
-        while (v43 != v68);
-      }
-
-      ++v41;
-    }
-
-    while (v41 != v67);
-  }
-
-  if (v90)
-  {
-    v91 = v90;
-    operator delete(v90);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  v64 = *MEMORY[0x277D85DE8];
-}
-
-void sub_259931F90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  v22 = *(v20 - 184);
-  if (v22)
-  {
-    *(v20 - 176) = v22;
-    operator delete(v22);
-  }
-
-  v23 = *(v20 - 160);
-  if (v23)
-  {
-    *(v20 - 152) = v23;
-    operator delete(v23);
-  }
-
-  v24 = *a20;
-  if (*a20)
-  {
-    *(a20 + 8) = v24;
-    operator delete(v24);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<unsigned char,signed char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, int a7@<W6>, __int16 a8@<W7>, uint64_t a9@<X8>, uint64_t a10, char a11)
-{
-  *v98 = *MEMORY[0x277D85DE8];
-  v96 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
-  {
-    std::vector<unsigned char>::__append(a9, a2);
-  }
-
-  v16 = *a3;
-  v17 = a3[1];
-  v18 = v17 - *a3;
-  if (v18 != a4[1] - *a4)
-  {
-    v65 = "x_rank == o_shape.size()";
-    v66 = 217;
-    goto LABEL_70;
-  }
-
-  v19 = v18 >> 3;
-  v20 = *a5;
-  v21 = a5[1];
-  v22 = v21 - *a5;
-  if (v19 - 1 != v22 >> 2)
-  {
-    v65 = "kernel_sizes.size() == num_spatial_dims + 1";
-    v66 = 218;
-    goto LABEL_70;
-  }
-
-  v23 = *a6;
-  v24 = a6[1];
-  if (v24 - *a6 != v22)
-  {
-    v65 = "strides.size() == num_spatial_dims + 1";
-    v66 = 219;
-    goto LABEL_70;
-  }
-
-  if (*(v21 - 4) != *(v24 - 4))
-  {
-    v65 = "kernel_sizes.back() == strides.back()";
-    v66 = 220;
-LABEL_70:
-    __assert_rtn("ComputeValueMinMaxPool", "NePoolCpu.cpp", v66, v65);
-  }
-
-  v25 = v19 - 2;
-  v26 = v20 + 4 * v19;
-  v27 = v23 + 4 * v19;
-  if (v19 == 5)
-  {
-    v28 = *(v26 - 20);
-    v29 = (v26 - 12);
-    v80 = *(v27 - 20);
-    v30 = 2;
-  }
-
-  else
-  {
-    v30 = v19 - 3;
-    v29 = (v20 + 4 * (v19 - 3));
-    v80 = 1;
-    v28 = 1;
-    v81 = 1;
-    v84 = 1;
-    v82 = 1;
-    if (v25 <= 1)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v84 = *(v26 - 16);
-  v81 = v28;
-  v82 = *(v27 - 16);
-LABEL_11:
-  v31 = *(v20 + 4 * v25);
-  v87 = *(v23 + 4 * v30);
-  v88 = *v29;
-  v32 = *(v23 + 4 * v25);
-  v93 = 0;
-  v94 = 0;
-  v95 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v93, v16, v17, v19);
-  v90 = 0;
-  v91 = 0;
-  v92 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v90, *a4, a4[1], (a4[1] - *a4) >> 3);
-  if (v19 == 3)
-  {
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v93, v93 + 8, __e, v98, 2);
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v90, v90 + 8, __e, v98, 2);
-  }
-
-  else if (v19 == 4)
-  {
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v93, v93 + 8, __e);
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v90, v90 + 8, __e);
-  }
-
-  v33 = *v90;
-  v34 = *(v90 + 1);
-  v35 = *(v90 + 2);
-  v36 = *(v90 + 3);
-  v37 = *(v90 + 4);
-  MIL::Fp16::GetFloat(&v96);
-  v39 = v38;
-  v40 = exp2(-a7);
-  if (v33)
-  {
-    v41 = 0;
-    v42 = v40 * v39;
-    v86 = v31;
-    v70 = v32;
-    v67 = v33;
-    v68 = v34;
-    v69 = v35;
-    v72 = v36;
-    v75 = v37;
-    do
-    {
-      if (v34)
-      {
-        v43 = 0;
-        do
-        {
-          if (v35)
-          {
-            v44 = 0;
-            v45 = v43 * v80;
-            v73 = v43;
-            do
-            {
-              if (v36)
-              {
-                v46 = 0;
-                v47 = v44 * v82;
-                v74 = v44;
-                do
-                {
-                  if (v37)
-                  {
-                    v85 = 0;
-                    v48 = 0;
-                    v49 = v46 * v87;
-                    v71 = v46;
-                    do
-                    {
-                      v76 = v48;
-                      if (v80)
-                      {
-                        for (i = 0; i != v80; ++i)
-                        {
-                          if (v82)
-                          {
-                            for (j = 0; j != v82; ++j)
-                            {
-                              if (v87)
-                              {
-                                v52 = 0;
-                                v79 = j;
-                                do
-                                {
-                                  v53 = i;
-                                  for (k = v52; v53 < v81; j = v79)
-                                  {
-                                    for (; j < v84; j += v82)
-                                    {
-                                      for (; v52 < v88; v31 = v86)
-                                      {
-                                        if (v31)
-                                        {
-                                          v54 = v85;
-                                          do
-                                          {
-                                            v56 = v50 > v55;
-                                            if (a11)
-                                            {
-                                              v56 = v50 < v55;
-                                            }
-
-                                            if (v56)
-                                            {
-                                              v50 = v55;
-                                            }
-
-                                            ++v54;
-                                            --v31;
-                                          }
-
-                                          while (v31);
-                                        }
-
-                                        v52 += v87;
-                                      }
-
-                                      v52 = k;
-                                    }
-
-                                    v53 += v80;
-                                  }
-
-                                  ++v52;
-                                }
-
-                                while (v52 != v87);
-                              }
-
-                              v37 = v75;
-                            }
-                          }
-                        }
-                      }
-
-                      v57 = v42 * v50;
-                      v58 = 0.0;
-                      if (v57 != 0.0)
-                      {
-                        __e[0] = 0;
-                        v59 = frexp(v57, __e);
-                        v60 = ldexp(v59, 11);
-                        v58 = ldexp(round(v60), __e[0] - 11);
-                      }
-
-                      std::function<float ()(float)>::operator()(a10, v58);
-                      v32 = v70;
-                      v46 = v71;
-                      if (v61 == INFINITY)
-                      {
-                        LOBYTE(v62) = -1;
-                      }
-
-                      else if (v61 == -INFINITY)
-                      {
-                        LOBYTE(v62) = 0;
-                      }
-
-                      else
-                      {
-                        v63 = llroundf(v61);
-                        if (v63 >= 255)
-                        {
-                          v63 = 255;
-                        }
-
-                        v62 = v63 & ~(v63 >> 31);
-                      }
-
-                      v48 = v76 + 1;
-                      v85 += v70;
-                    }
-
-                    while (v76 + 1 != v37);
-                  }
-
-                  ++v46;
-                  v44 = v74;
-                }
-
-                while (v46 != v72);
-              }
-
-              ++v44;
-              v35 = v69;
-              v36 = v72;
-              v43 = v73;
-            }
-
-            while (v44 != v69);
-          }
-
-          ++v43;
-          v34 = v68;
-        }
-
-        while (v43 != v68);
-      }
-
-      ++v41;
-    }
-
-    while (v41 != v67);
-  }
-
-  if (v90)
-  {
-    v91 = v90;
-    operator delete(v90);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  v64 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2599325E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  v22 = *(v20 - 184);
-  if (v22)
-  {
-    *(v20 - 176) = v22;
-    operator delete(v22);
-  }
-
-  v23 = *(v20 - 160);
-  if (v23)
-  {
-    *(v20 - 152) = v23;
-    operator delete(v23);
-  }
-
-  v24 = *a20;
-  if (*a20)
-  {
-    *(a20 + 8) = v24;
-    operator delete(v24);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,signed char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, int a7@<W6>, __int16 a8@<W7>, uint64_t a9@<X8>, uint64_t a10, char a11)
-{
-  *v98 = *MEMORY[0x277D85DE8];
-  v96 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
-  {
-    std::vector<unsigned char>::__append(a9, a2);
-  }
-
-  v16 = *a3;
-  v17 = a3[1];
-  v18 = v17 - *a3;
-  if (v18 != a4[1] - *a4)
-  {
-    v65 = "x_rank == o_shape.size()";
-    v66 = 217;
-    goto LABEL_72;
-  }
-
-  v19 = v18 >> 3;
-  v20 = *a5;
-  v21 = a5[1];
-  v22 = v21 - *a5;
-  if (v19 - 1 != v22 >> 2)
-  {
-    v65 = "kernel_sizes.size() == num_spatial_dims + 1";
-    v66 = 218;
-    goto LABEL_72;
-  }
-
-  v23 = *a6;
-  v24 = a6[1];
-  if (v24 - *a6 != v22)
-  {
-    v65 = "strides.size() == num_spatial_dims + 1";
-    v66 = 219;
-    goto LABEL_72;
-  }
-
-  if (*(v21 - 4) != *(v24 - 4))
-  {
-    v65 = "kernel_sizes.back() == strides.back()";
-    v66 = 220;
-LABEL_72:
-    __assert_rtn("ComputeValueMinMaxPool", "NePoolCpu.cpp", v66, v65);
-  }
-
-  v25 = v19 - 2;
-  v26 = v20 + 4 * v19;
-  v27 = v23 + 4 * v19;
-  if (v19 == 5)
-  {
-    v28 = *(v26 - 20);
-    v29 = (v26 - 12);
-    v80 = *(v27 - 20);
-    v30 = 2;
-  }
-
-  else
-  {
-    v30 = v19 - 3;
-    v29 = (v20 + 4 * (v19 - 3));
-    v80 = 1;
-    v28 = 1;
-    v81 = 1;
-    v84 = 1;
-    v82 = 1;
-    if (v25 <= 1)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v84 = *(v26 - 16);
-  v81 = v28;
-  v82 = *(v27 - 16);
-LABEL_11:
-  v31 = *(v20 + 4 * v25);
-  v87 = *(v23 + 4 * v30);
-  v88 = *v29;
-  v32 = *(v23 + 4 * v25);
-  v93 = 0;
-  v94 = 0;
-  v95 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v93, v16, v17, v19);
-  v90 = 0;
-  v91 = 0;
-  v92 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v90, *a4, a4[1], (a4[1] - *a4) >> 3);
-  if (v19 == 3)
-  {
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v93, v93 + 8, __e, v98, 2);
-    *__e = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v90, v90 + 8, __e, v98, 2);
-  }
-
-  else if (v19 == 4)
-  {
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v93, v93 + 8, __e);
-    *__e = 1;
-    std::vector<unsigned long long>::insert(&v90, v90 + 8, __e);
-  }
-
-  v33 = *v90;
-  v34 = *(v90 + 1);
-  v35 = *(v90 + 2);
-  v36 = *(v90 + 3);
-  v37 = *(v90 + 4);
-  MIL::Fp16::GetFloat(&v96);
-  v39 = v38;
-  v40 = exp2(-a7);
-  if (v33)
-  {
-    v41 = 0;
-    v42 = v40 * v39;
-    v86 = v31;
-    v70 = v32;
-    v67 = v33;
-    v68 = v34;
-    v69 = v35;
-    v72 = v36;
-    v75 = v37;
-    do
-    {
-      if (v34)
-      {
-        v43 = 0;
-        do
-        {
-          if (v35)
-          {
-            v44 = 0;
-            v45 = v43 * v80;
-            v73 = v43;
-            do
-            {
-              if (v36)
-              {
-                v46 = 0;
-                v47 = v44 * v82;
-                v74 = v44;
-                do
-                {
-                  if (v37)
-                  {
-                    v85 = 0;
-                    v48 = 0;
-                    v49 = v46 * v87;
-                    v71 = v46;
-                    do
-                    {
-                      v76 = v48;
-                      if (v80)
-                      {
-                        for (i = 0; i != v80; ++i)
-                        {
-                          if (v82)
-                          {
-                            for (j = 0; j != v82; ++j)
-                            {
-                              if (v87)
-                              {
-                                v52 = 0;
-                                v79 = j;
-                                do
-                                {
-                                  v53 = i;
-                                  for (k = v52; v53 < v81; j = v79)
-                                  {
-                                    for (; j < v84; j += v82)
-                                    {
-                                      for (; v52 < v88; v31 = v86)
-                                      {
-                                        if (v31)
-                                        {
-                                          v54 = v85;
-                                          do
-                                          {
-                                            v56 = v50 > v55;
-                                            if (a11)
-                                            {
-                                              v56 = v50 < v55;
-                                            }
-
-                                            if (v56)
-                                            {
-                                              v50 = v55;
-                                            }
-
-                                            ++v54;
-                                            --v31;
-                                          }
-
-                                          while (v31);
-                                        }
-
-                                        v52 += v87;
-                                      }
-
-                                      v52 = k;
-                                    }
-
-                                    v53 += v80;
-                                  }
-
-                                  ++v52;
-                                }
-
-                                while (v52 != v87);
-                              }
-
-                              v37 = v75;
-                            }
-                          }
-                        }
-                      }
-
-                      v57 = v42 * v50;
-                      v58 = 0.0;
-                      if (v57 != 0.0)
-                      {
-                        __e[0] = 0;
-                        v59 = frexp(v57, __e);
-                        v60 = ldexp(v59, 11);
-                        v58 = ldexp(round(v60), __e[0] - 11);
-                      }
-
-                      std::function<float ()(float)>::operator()(a10, v58);
-                      v32 = v70;
-                      v46 = v71;
-                      if (v61 == INFINITY)
-                      {
-                        v62 = 127;
-                      }
-
-                      else if (v61 == -INFINITY)
-                      {
-                        v62 = 0x80;
-                      }
-
-                      else
-                      {
-                        v63 = llroundf(v61);
-                        if (v63 >= 127)
-                        {
-                          v63 = 127;
-                        }
-
-                        if (v63 <= -128)
-                        {
-                          v62 = 0x80;
-                        }
-
-                        else
-                        {
-                          v62 = v63;
-                        }
-                      }
-
-                      v48 = v76 + 1;
-                      v85 += v70;
-                    }
-
-                    while (v76 + 1 != v37);
-                  }
-
-                  ++v46;
-                  v44 = v74;
-                }
-
-                while (v46 != v72);
-              }
-
-              ++v44;
-              v35 = v69;
-              v36 = v72;
-              v43 = v73;
-            }
-
-            while (v44 != v69);
-          }
-
-          ++v43;
-          v34 = v68;
-        }
-
-        while (v43 != v68);
-      }
-
-      ++v41;
-    }
-
-    while (v41 != v67);
-  }
-
-  if (v90)
-  {
-    v91 = v90;
-    operator delete(v90);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  v64 = *MEMORY[0x277D85DE8];
-}
-
 void sub_259932C48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   v22 = *(v20 - 184);
@@ -1322,20 +24,20 @@ void sub_259932C48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MIL::Fp16>::resize(void *a1, unint64_t a2)
+void std::vector<MIL::Fp16>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<MIL::Fp16>::__append(a1, a2 - v2);
+    std::vector<MIL::Fp16>::__append(result, a2 - v2);
   }
 }
 
@@ -1353,7 +55,7 @@ char *std::vector<unsigned long long>::insert(void *a1, char *__src, void *a3)
       std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -1534,27 +236,26 @@ void std::vector<MIL::Fp16>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::__split_buffer<unsigned long long>::emplace_back<unsigned long long>(void *result, void *a2)
+void std::__split_buffer<unsigned long long>::emplace_back<unsigned long long>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1563,17 +264,16 @@ void *std::__split_buffer<unsigned long long>::emplace_back<unsigned long long>(
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
+    a1[1] = &v5[8 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
 void std::vector<unsigned char>::__append(char **a1, size_t a2)
@@ -1686,7 +386,7 @@ uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Inter
 
 void *std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -1696,15 +396,15 @@ void *std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100]
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -1732,7 +432,6 @@ void *std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100]
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1936,7 +635,7 @@ uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Inter
 
 void *std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -1946,15 +645,15 @@ void *std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -1982,7 +681,6 @@ void *std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2075,9 +773,9 @@ void MIL::ANEMachineIR::Interpreter::anonymous namespace::GetIndex()
 
 void MilTranslator::OpTranslator::TranslateConv(MilTranslator::OpTranslator *this@<X0>, const MIL::IROperation *a2@<X1>, uint64_t a3@<X8>)
 {
-  v35[0] = 0;
-  v35[1] = 0;
-  v36 = 0;
+  v33[0] = 0;
+  v33[1] = 0;
+  v34 = 0;
   std::string::basic_string[abi:ne200100]<0>(&__p, "groups");
   ParameterValue = MIL::IROperation::TryGetParameterValue();
   if (ParameterValue && (*(*ParameterValue + 40))(ParameterValue) && (v7 = MEMORY[0x259CA9420]()) != 0)
@@ -2096,19 +794,19 @@ void MilTranslator::OpTranslator::TranslateConv(MilTranslator::OpTranslator *thi
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "weight");
-  MilTranslator::WeightTranslator::TargetProgramConstOpName(this + 144, a2, &__p, 0, v8, v35, &v32);
+  MilTranslator::WeightTranslator::TargetProgramConstOpName(this + 144, a2, &__p, 0, v8, v33, &v30);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v32)
+  if (v30)
   {
-    *a3 = v32;
-    *(a3 + 8) = v33;
-    *(a3 + 24) = v34;
-    v33 = 0uLL;
-    v34 = 0;
+    *a3 = v30;
+    *(a3 + 8) = v31;
+    *(a3 + 24) = v32;
+    v31 = 0uLL;
+    v32 = 0;
     goto LABEL_12;
   }
 
@@ -2159,7 +857,7 @@ LABEL_27:
   }
 
 LABEL_21:
-  MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, v10, v13, &v31);
+  MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, v10, v13, &v29);
   (*(*a2 + 200))(&__p, a2);
   if (__p.__r_.__value_.__l.__size_ == __p.__r_.__value_.__r.__words[0])
   {
@@ -2168,49 +866,49 @@ LABEL_21:
 
   if (*(__p.__r_.__value_.__r.__words[0] + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v30, *__p.__r_.__value_.__l.__data_, *(__p.__r_.__value_.__r.__words[0] + 8));
+    std::string::__init_copy_ctor_external(&v28, *__p.__r_.__value_.__l.__data_, *(__p.__r_.__value_.__r.__words[0] + 8));
   }
 
   else
   {
     v14 = *__p.__r_.__value_.__l.__data_;
-    v30.__r_.__value_.__r.__words[2] = *(__p.__r_.__value_.__r.__words[0] + 16);
-    *&v30.__r_.__value_.__l.__data_ = v14;
+    v28.__r_.__value_.__r.__words[2] = *(__p.__r_.__value_.__r.__words[0] + 16);
+    *&v28.__r_.__value_.__l.__data_ = v14;
   }
 
-  v29.__r_.__value_.__r.__words[0] = &__p;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v29);
+  v27.__r_.__value_.__r.__words[0] = &__p;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v27);
   v15 = (*(*v13 + 96))(v13);
   v16 = (v15[1] - *v15) >> 3;
-  MilTranslator::OpTranslator::InferChannelLastTransposeInfo(this, &v30, v16, &v29);
-  MilTranslator::OpTranslator::GetTransposeOpParamPerm(&v29, v16, v28);
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+  MilTranslator::OpTranslator::InferChannelLastTransposeInfo(this, &v28.__r_.__value_.__l.__data_, v16, &v27);
+  MilTranslator::OpTranslator::GetTransposeOpParamPerm(&v27, v16, v26);
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__str, v30.__r_.__value_.__l.__data_, v30.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__str, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __str = v30;
+    __str = v28;
   }
 
-  if (MilTranslator::OpTranslator::IsTransposeRequired(v28))
+  if (MilTranslator::OpTranslator::IsTransposeRequired(v26))
   {
-    (*(*a2 + 200))(v26, a2);
-    v17 = v26[0];
-    if (v26[1] == v26[0])
+    (*(*a2 + 200))(v24, a2);
+    v17 = v24[0];
+    if (v24[1] == v24[0])
     {
       std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
     }
 
-    if (*(v26[0] + 23) >= 0)
+    if (*(v24[0] + 23) >= 0)
     {
-      v18 = *(v26[0] + 23);
+      v18 = *(v24[0] + 23);
     }
 
     else
     {
-      v18 = *(v26[0] + 8);
+      v18 = *(v24[0] + 8);
     }
 
     p_p = &__p;
@@ -2244,14 +942,14 @@ LABEL_21:
     __str = __p;
     *(&__p.__r_.__value_.__s + 23) = 0;
     __p.__r_.__value_.__s.__data_[0] = 0;
-    v37 = v26;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v37);
-    std::string::operator=(&v29, &__str);
-    std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>::pair[abi:ne200100]<std::string&,std::pair<std::string,std::array<unsigned char,5ul>>&,0>(&__p, &v30, &v29);
-    std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>>(this + 37, &__p.__r_.__value_.__l.__data_);
-    if (v25 < 0)
+    v35 = v24;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v35);
+    std::string::operator=(&v27, &__str);
+    std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>::pair[abi:ne200100]<std::string&,std::pair<std::string,std::array<unsigned char,5ul>>&,0>(&__p, &v28, &v27);
+    std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>>(this + 37, &__p, &__p);
+    if (v23 < 0)
     {
-      operator delete(v24);
+      operator delete(v22);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2260,17 +958,25 @@ LABEL_21:
     }
   }
 
-  v21 = *(this + 1);
-  v22 = **(this + 12);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (v28[0])
+  if (v26[0])
   {
-    v28[1] = v28[0];
-    operator delete(v28[0]);
+    v26[1] = v26[0];
+    operator delete(v26[0]);
+  }
+
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v27.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
@@ -2278,25 +984,15 @@ LABEL_21:
     operator delete(v29.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v30.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v31.__r_.__value_.__l.__data_);
-  }
-
 LABEL_12:
+  if (SHIBYTE(v32) < 0)
+  {
+    operator delete(v31);
+  }
+
   if (SHIBYTE(v34) < 0)
   {
-    operator delete(v33);
-  }
-
-  if (SHIBYTE(v36) < 0)
-  {
-    operator delete(v35[0]);
+    operator delete(v33[0]);
   }
 }
 
@@ -2370,102 +1066,102 @@ LABEL_11:
   return *v7;
 }
 
-void MilTranslator::anonymous namespace::TranslateConvOp(MIL::IROperation *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X6>, uint64_t a6@<X8>)
+void MilTranslator::anonymous namespace::TranslateConvOp(MIL::IROperation *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a8@<X8>)
 {
-  v158 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(&v149, "x");
+  v156 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(&v147, "x");
   ParameterType = MIL::IROperation::TryGetParameterType();
-  if (SHIBYTE(v151) < 0)
+  if (SHIBYTE(v149) < 0)
   {
-    operator delete(v149);
+    operator delete(v147);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v149, "weight");
-  v9 = MIL::IROperation::TryGetParameterType();
-  if (SHIBYTE(v151) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v147, "weight");
+  v11 = MIL::IROperation::TryGetParameterType();
+  if (SHIBYTE(v149) < 0)
   {
-    operator delete(v149);
+    operator delete(v147);
   }
 
-  OutputType = MIL::IROperation::GetOutputType(a1);
-  v11 = (*(*ParameterType + 24))(ParameterType);
-  v12 = (*(*v9 + 24))(v9);
-  v13 = (*(*OutputType + 24))(OutputType);
-  v14 = v13;
-  if (v11)
+  OutputType = MIL::IROperation::GetOutputType(a2);
+  v13 = (*(*ParameterType + 24))(ParameterType);
+  v14 = (*(*v11 + 24))(v11);
+  v15 = (*(*OutputType + 24))(OutputType);
+  v16 = v15;
+  if (v13)
   {
-    v15 = v12 == 0;
+    v17 = v14 == 0;
   }
 
   else
   {
-    v15 = 1;
+    v17 = 1;
   }
 
-  if (v15 || v13 == 0)
+  if (v17 || v15 == 0)
   {
-    v108 = 11;
+    v106 = 11;
     std::string::basic_string[abi:ne200100]<0>(&__p, "Conv input, weights, and output must be tensors.");
-    v17 = 0;
+    v19 = 0;
   }
 
   else
   {
-    (*(*v11 + 88))(v11);
-    v17 = (*(*v12 + 88))(v12);
-    (*(*v14 + 88))(v14);
-    v18 = 0;
-    v149 = v11;
-    v150 = v12;
-    v151 = v14;
+    (*(*v13 + 88))(v13);
+    v19 = (*(*v14 + 88))(v14);
+    (*(*v16 + 88))(v16);
+    v20 = 0;
+    v147 = v13;
+    v148 = v14;
+    v149 = v16;
     while (1)
     {
-      v19 = (*(**(&v149 + v18) + 88))(*(&v149 + v18));
-      if (v19 != 4)
+      v21 = (*(**(&v147 + v20) + 88))(*(&v147 + v20));
+      if (v21 != 4)
       {
         break;
       }
 
-      v18 += 8;
-      if (v18 == 24)
+      v20 += 8;
+      if (v20 == 24)
       {
-        v108 = 0;
+        v106 = 0;
         std::string::basic_string[abi:ne200100]<0>(&__p, &unk_259A4D977);
         goto LABEL_24;
       }
     }
 
-    if (v19 == 9 || v19 == 14)
+    if (v21 == 9 || v21 == 14)
     {
-      v21 = "ios opset does not yet have quantized conv.";
-      v22 = 4;
+      v23 = "ios opset does not yet have quantized conv.";
+      v24 = 4;
     }
 
     else
     {
-      v21 = "Conv input, weights, and output must be supported dtype.";
-      v22 = 11;
+      v23 = "Conv input, weights, and output must be supported dtype.";
+      v24 = 11;
     }
 
-    v108 = v22;
-    std::string::basic_string[abi:ne200100]<0>(&__p, v21);
+    v106 = v24;
+    std::string::basic_string[abi:ne200100]<0>(&__p, v23);
   }
 
 LABEL_24:
-  if (v108)
+  if (v106)
   {
-    *a6 = v108;
-    *(a6 + 8) = __p;
-    *(a6 + 24) = v110;
+    *a8 = v106;
+    *(a8 + 8) = __p;
+    *(a8 + 24) = v108;
     __p = 0uLL;
-    v110 = 0;
+    v108 = 0;
     goto LABEL_26;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v149, "weight");
+  std::string::basic_string[abi:ne200100]<0>(&v147, "weight");
   ParameterValue = MIL::IROperation::TryGetParameterValue();
-  v25 = ParameterValue;
-  if ((SHIBYTE(v151) & 0x80000000) == 0)
+  v26 = ParameterValue;
+  if ((SHIBYTE(v149) & 0x80000000) == 0)
   {
     if (ParameterValue)
     {
@@ -2473,699 +1169,671 @@ LABEL_24:
     }
 
 LABEL_52:
-    *a6 = 4;
-    std::string::basic_string[abi:ne200100]<0>((a6 + 8), "Dynamic weight translation not implemented for conv.");
+    *a8 = 4;
+    std::string::basic_string[abi:ne200100]<0>((a8 + 8), "Dynamic weight translation not implemented for conv.");
     goto LABEL_26;
   }
 
-  operator delete(v149);
-  if (!v25)
+  operator delete(v147);
+  if (!v26)
   {
     goto LABEL_52;
   }
 
 LABEL_31:
-  memset(&v155, 0, sizeof(v155));
-  v154 = 0u;
-  v153 = 0u;
+  memset(&v153, 0, sizeof(v153));
   v152 = 0u;
-  v105 = 0;
-  v106 = 0;
-  v107 = 0;
-  v102 = 0;
+  v151 = 0u;
+  v150 = 0u;
   v103 = 0;
   v104 = 0;
-  __src = 0;
+  v105 = 0;
   v100 = 0;
   v101 = 0;
-  memset(&v98, 0, sizeof(v98));
-  MEMORY[0x259CA95C0](&v98, "zero");
-  std::string::basic_string[abi:ne200100]<0>(&v92, "x");
-  v26 = MIL::IROperation::TryGetParameterType();
-  v27 = v26;
-  if ((SHIBYTE(v92.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  v102 = 0;
+  __src = 0;
+  v98 = 0;
+  v99 = 0;
+  memset(&v96, 0, sizeof(v96));
+  MEMORY[0x259CA95C0](&v96, "zero");
+  std::string::basic_string[abi:ne200100]<0>(&v90, "x");
+  v27 = MIL::IROperation::TryGetParameterType();
+  v28 = v27;
+  if ((SHIBYTE(v90.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (v26)
+    if (v27)
     {
       goto LABEL_33;
     }
 
 LABEL_54:
-    v95 = 11;
-    std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get value type for ");
-    v35 = std::string::append(&v92, "x");
+    v93 = 11;
+    std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get value type for ");
+    v36 = std::string::append(&v90, "x");
     goto LABEL_123;
   }
 
-  operator delete(v92.__r_.__value_.__l.__data_);
-  if (!v27)
+  operator delete(v90.__r_.__value_.__l.__data_);
+  if (!v28)
   {
     goto LABEL_54;
   }
 
 LABEL_33:
-  v28 = (*(*v27 + 24))(v27);
-  if (v28)
+  v29 = (*(*v28 + 24))(v28);
+  if (v29)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v92, "strides");
-    v29 = MIL::IROperation::TryGetParameterType();
-    if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v90, "strides");
+    v30 = MIL::IROperation::TryGetParameterType();
+    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v92.__r_.__value_.__l.__data_);
+      operator delete(v90.__r_.__value_.__l.__data_);
     }
 
-    if (v29)
+    if (v30)
     {
-      v30 = (*(*v29 + 24))(v29);
-      if (v30)
+      v31 = (*(*v30 + 24))(v30);
+      if (v31)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v92, "dilations");
-        v31 = MIL::IROperation::TryGetParameterType();
-        if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v90, "dilations");
+        v32 = MIL::IROperation::TryGetParameterType();
+        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v92.__r_.__value_.__l.__data_);
+          operator delete(v90.__r_.__value_.__l.__data_);
         }
 
-        if (v31)
+        if (v32)
         {
-          v87 = (*(*v31 + 24))(v31);
-          if (v87)
+          v86 = (*(*v32 + 24))(v32);
+          if (v86)
           {
-            std::string::basic_string[abi:ne200100]<0>(&v92, "weight");
-            v32 = MIL::IROperation::TryGetParameterType();
-            if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v90, "weight");
+            v33 = MIL::IROperation::TryGetParameterType();
+            if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v92.__r_.__value_.__l.__data_);
+              operator delete(v90.__r_.__value_.__l.__data_);
             }
 
-            if (v32)
+            if (v33)
             {
-              v86 = (*(*v32 + 24))(v32);
-              if (v86)
+              v85 = (*(*v33 + 24))(v33);
+              if (v85)
               {
-                std::string::basic_string[abi:ne200100]<0>(&v92, "bias");
-                v33 = MIL::IROperation::TryGetParameterType();
-                if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+                std::string::basic_string[abi:ne200100]<0>(&v90, "bias");
+                v34 = MIL::IROperation::TryGetParameterType();
+                if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v92.__r_.__value_.__l.__data_);
+                  operator delete(v90.__r_.__value_.__l.__data_);
                 }
 
-                if (v33)
+                if (v34)
                 {
-                  v34 = (*(*v33 + 24))(v33);
-                  if (!v34)
+                  v35 = (*(*v34 + 24))(v34);
+                  if (!v35)
                   {
-                    v95 = 11;
-                    std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get type as tensor for ");
-                    v35 = std::string::append(&v92, "bias");
+                    v93 = 11;
+                    std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get type as tensor for ");
+                    v36 = std::string::append(&v90, "bias");
                     goto LABEL_123;
                   }
                 }
 
                 else
                 {
-                  v34 = 0;
+                  v35 = 0;
                 }
 
-                v84 = v34;
-                std::string::basic_string[abi:ne200100]<0>(&v92, "pad");
-                v36 = MIL::IROperation::TryGetParameterType();
-                if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+                v83 = v35;
+                std::string::basic_string[abi:ne200100]<0>(&v90, "pad");
+                v37 = MIL::IROperation::TryGetParameterType();
+                if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v92.__r_.__value_.__l.__data_);
+                  operator delete(v90.__r_.__value_.__l.__data_);
                 }
 
-                if (v36)
+                if (v37)
                 {
-                  if ((*(*v36 + 24))(v36))
+                  if ((*(*v37 + 24))(v37))
                   {
-                    v156 = 0;
-                    if (!v84)
+                    v154 = 0;
+                    if (!v83)
                     {
                       goto LABEL_89;
                     }
 
-                    v156 = (*(*v84 + 16))(v84);
-                    std::string::basic_string[abi:ne200100]<0>(&v92, "bias");
-                    v37 = MIL::IROperation::TryGetParameterValue();
-                    if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+                    v154 = (*(*v83 + 16))(v83);
+                    std::string::basic_string[abi:ne200100]<0>(&v90, "bias");
+                    v38 = MIL::IROperation::TryGetParameterValue();
+                    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v92.__r_.__value_.__l.__data_);
+                      operator delete(v90.__r_.__value_.__l.__data_);
                     }
 
-                    if (v37)
+                    if (v38)
                     {
-                      MIL::IRValue::AsTensor(v37);
-                      std::vector<MIL::Fp16>::reserve(&__src, v156);
-                      v38 = (*(*v84 + 88))(v84);
-                      if (v38 == 5)
+                      MIL::IRValue::AsTensor(v38);
+                      std::vector<MIL::Fp16>::reserve(&__src, v154);
+                      v39 = (*(*v83 + 88))(v83);
+                      if (v39 == 5)
                       {
-                        v95 = 11;
-                        v72 = "Fp32 precision (for bias) not supported by ANE.";
+                        v93 = 11;
+                        v71 = "Fp32 precision (for bias) not supported by ANE.";
                       }
 
                       else
                       {
-                        if (v38 == 4)
+                        if (v39 == 4)
                         {
-                          v92.__r_.__value_.__r.__words[0] = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-                          v92.__r_.__value_.__l.__size_ = v39;
-                          if (v156)
+                          v90.__r_.__value_.__r.__words[0] = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
+                          v90.__r_.__value_.__l.__size_ = v40;
+                          if (v154)
                           {
-                            v40 = 0;
-                            v81 = v28;
-                            v82 = v30;
+                            v41 = 0;
+                            v80 = v29;
+                            v81 = v31;
                             do
                             {
-                              v85 = v40;
-                              v83 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(&v92, v40);
-                              v41 = v100;
-                              if (v100 >= v101)
+                              v84 = v41;
+                              v82 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(&v90, v41);
+                              v42 = v98;
+                              if (v98 >= v99)
                               {
-                                v43 = __src;
-                                v44 = v100 - __src;
-                                v45 = (v100 - __src) >> 1;
-                                if (v45 <= -2)
+                                v44 = __src;
+                                v45 = v98 - __src;
+                                v46 = (v98 - __src) >> 1;
+                                if (v46 <= -2)
                                 {
                                   std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
                                 }
 
-                                if (v101 - __src <= v45 + 1)
+                                if (v99 - __src <= v46 + 1)
                                 {
-                                  v46 = v45 + 1;
+                                  v47 = v46 + 1;
                                 }
 
                                 else
                                 {
-                                  v46 = v101 - __src;
+                                  v47 = v99 - __src;
                                 }
 
-                                v47 = 0x7FFFFFFFFFFFFFFFLL;
-                                if (v101 - __src < 0x7FFFFFFFFFFFFFFELL)
+                                v48 = 0x7FFFFFFFFFFFFFFFLL;
+                                if (v99 - __src < 0x7FFFFFFFFFFFFFFELL)
                                 {
-                                  v47 = v46;
+                                  v48 = v47;
                                 }
 
-                                if (v47)
-                                {
-                                  std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(&__src, v47);
-                                }
-
-                                *(2 * v45) = *v83;
-                                v42 = (2 * v45 + 2);
-                                memcpy(0, v43, v44);
-                                v48 = __src;
-                                __src = 0;
-                                v100 = v42;
-                                v101 = 0;
                                 if (v48)
                                 {
-                                  operator delete(v48);
+                                  std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(&__src, v48);
                                 }
 
-                                v28 = v81;
+                                *(2 * v46) = *v82;
+                                v43 = (2 * v46 + 2);
+                                memcpy(0, v44, v45);
+                                v49 = __src;
+                                __src = 0;
+                                v98 = v43;
+                                v99 = 0;
+                                if (v49)
+                                {
+                                  operator delete(v49);
+                                }
+
+                                v29 = v80;
                               }
 
                               else
                               {
-                                *v100 = *v83;
-                                v42 = v41 + 1;
+                                *v98 = *v82;
+                                v43 = v42 + 1;
                               }
 
-                              v100 = v42;
-                              v40 = v85 + 1;
-                              v30 = v82;
+                              v98 = v43;
+                              v41 = v84 + 1;
+                              v31 = v81;
                             }
 
-                            while (v156 > v85 + 1);
+                            while (v154 > v84 + 1);
                           }
 
 LABEL_89:
-                          v49 = (*(*v30 + 16))(v30);
-                          std::vector<int>::reserve(&v152, v49);
-                          std::string::basic_string[abi:ne200100]<0>(&v92, "strides");
-                          v50 = MIL::IROperation::GetParameterValue();
-                          MIL::IRValue::AsTensor(v50);
+                          v50 = (*(*v31 + 16))(v31);
+                          std::vector<int>::reserve(&v150, v50);
+                          std::string::basic_string[abi:ne200100]<0>(&v90, "strides");
+                          v51 = MIL::IROperation::GetParameterValue();
+                          MIL::IRValue::AsTensor(v51);
                           Data = MIL::IRTensorValue::GetDataView<int>();
-                          v134 = v51;
-                          if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+                          v132 = v52;
+                          if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
                           {
-                            operator delete(v92.__r_.__value_.__l.__data_);
-                            v51 = v134;
+                            operator delete(v90.__r_.__value_.__l.__data_);
+                            v52 = v132;
                           }
 
-                          if (v51)
+                          if (v52)
                           {
-                            v52 = 0;
+                            v53 = 0;
                             do
                             {
-                              v53 = MIL::Util::Span<int const,18446744073709551615ul>::operator[](&Data, v52);
-                              std::vector<int>::push_back[abi:ne200100](&v152, v53);
-                              ++v52;
+                              v54 = MIL::Util::Span<int const,18446744073709551615ul>::operator[](&Data, v53);
+                              std::vector<int>::push_back[abi:ne200100](&v150, v54);
+                              ++v53;
                             }
 
-                            while (v134 > v52);
+                            while (v132 > v53);
                           }
 
-                          v54 = (*(*v87 + 16))(v87);
-                          std::vector<int>::reserve((&v153 + 8), v54);
-                          std::string::basic_string[abi:ne200100]<0>(&v92, "dilations");
-                          v55 = MIL::IROperation::GetParameterValue();
-                          MIL::IRValue::AsTensor(v55);
-                          v129 = MIL::IRTensorValue::GetDataView<int>();
-                          v130 = v56;
-                          if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+                          v55 = (*(*v86 + 16))(v86);
+                          std::vector<int>::reserve((&v151 + 8), v55);
+                          std::string::basic_string[abi:ne200100]<0>(&v90, "dilations");
+                          v56 = MIL::IROperation::GetParameterValue();
+                          MIL::IRValue::AsTensor(v56);
+                          v127 = MIL::IRTensorValue::GetDataView<int>();
+                          v128 = v57;
+                          if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
                           {
-                            operator delete(v92.__r_.__value_.__l.__data_);
-                            v56 = v130;
+                            operator delete(v90.__r_.__value_.__l.__data_);
+                            v57 = v128;
                           }
 
-                          if (v56)
+                          if (v57)
                           {
-                            v57 = 0;
+                            v58 = 0;
                             do
                             {
-                              v58 = MIL::Util::Span<int const,18446744073709551615ul>::operator[](&v129, v57);
-                              std::vector<int>::push_back[abi:ne200100](&v153 + 1, v58);
-                              ++v57;
+                              v59 = MIL::Util::Span<int const,18446744073709551615ul>::operator[](&v127, v58);
+                              std::vector<int>::push_back[abi:ne200100](&v151 + 1, v59);
+                              ++v58;
                             }
 
-                            while (v130 > v57);
+                            while (v128 > v58);
                           }
 
-                          memset(&v92, 0, sizeof(v92));
-                          if ((ANEMachineIR::Utils::TryGetStaticTensorShape(v86, &v92.__r_.__value_.__l.__data_) & 1) == 0)
+                          memset(&v90, 0, sizeof(v90));
+                          if ((ANEMachineIR::Utils::TryGetStaticTensorShape(v85, &v90.__r_.__value_.__l.__data_) & 1) == 0)
                           {
-                            v95 = 11;
-                            std::string::basic_string[abi:ne200100]<0>(v96, "weights must have static shape.");
+                            v93 = 11;
+                            std::string::basic_string[abi:ne200100]<0>(v94, "weights must have static shape.");
 LABEL_257:
-                            v66 = v92.__r_.__value_.__r.__words[0];
-                            if (!v92.__r_.__value_.__r.__words[0])
+                            v67 = v90.__r_.__value_.__r.__words[0];
+                            if (!v90.__r_.__value_.__r.__words[0])
                             {
                               goto LABEL_126;
                             }
 
-                            v92.__r_.__value_.__l.__size_ = v92.__r_.__value_.__r.__words[0];
+                            v90.__r_.__value_.__l.__size_ = v90.__r_.__value_.__r.__words[0];
                             goto LABEL_125;
                           }
 
+                          v144 = 0;
+                          v145 = 0;
                           v146 = 0;
-                          v147 = 0;
-                          v148 = 0;
-                          if ((ANEMachineIR::Utils::TryGetStaticTensorShape(v28, &v146) & 1) == 0)
+                          if ((ANEMachineIR::Utils::TryGetStaticTensorShape(v29, &v144) & 1) == 0)
                           {
-                            v95 = 11;
-                            std::string::basic_string[abi:ne200100]<0>(v96, "x must have static shape.");
+                            v93 = 11;
+                            std::string::basic_string[abi:ne200100]<0>(v94, "x must have static shape.");
 LABEL_255:
-                            if (v146)
+                            if (v144)
                             {
-                              v147 = v146;
-                              operator delete(v146);
+                              v145 = v144;
+                              operator delete(v144);
                             }
 
                             goto LABEL_257;
                           }
 
-                          std::vector<unsigned long long>::reserve(&v102, ((v92.__r_.__value_.__l.__size_ - v92.__r_.__value_.__r.__words[0]) >> 3) + 1);
-                          std::string::basic_string[abi:ne200100]<0>(&v141, "groups");
-                          ScalarValueOr = MIL::ANEMachineIR::GetScalarValueOrDefault<int>(a1, &v141, 1, 0);
-                          v60 = ScalarValueOr;
-                          v150 = ScalarValueOr;
-                          if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+                          std::vector<unsigned long long>::reserve(&v100, ((v90.__r_.__value_.__l.__size_ - v90.__r_.__value_.__r.__words[0]) >> 3) + 1);
+                          std::string::basic_string[abi:ne200100]<0>(&v139, "groups");
+                          ScalarValueOr = MIL::ANEMachineIR::GetScalarValueOrDefault<int>(a2, &v139, 1, 0);
+                          v61 = ScalarValueOr;
+                          v148 = ScalarValueOr;
+                          if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
                           {
-                            operator delete(v141.__r_.__value_.__l.__data_);
-                            v60 = v150;
+                            operator delete(v139.__r_.__value_.__l.__data_);
+                            v61 = v148;
                           }
 
-                          v149 = ((v92.__r_.__value_.__l.__size_ - v92.__r_.__value_.__r.__words[0]) >> 3) - 2;
-                          LOBYTE(v151) = 0;
-                          v141.__r_.__value_.__r.__words[0] = v60;
-                          std::vector<unsigned long long>::push_back[abi:ne200100](&v102, &v141);
-                          if (v149)
+                          v147 = ((v90.__r_.__value_.__l.__size_ - v90.__r_.__value_.__r.__words[0]) >> 3) - 2;
+                          LOBYTE(v149) = 0;
+                          v139.__r_.__value_.__r.__words[0] = v61;
+                          std::vector<unsigned long long>::push_back[abi:ne200100](&v100, &v139);
+                          if (v147)
                           {
-                            v61 = 0;
-                            v62 = 16;
+                            v62 = 0;
+                            v63 = 16;
                             do
                             {
-                              if (v61 + 2 >= (v92.__r_.__value_.__l.__size_ - v92.__r_.__value_.__r.__words[0]) >> 3)
+                              if (v62 + 2 >= (v90.__r_.__value_.__l.__size_ - v90.__r_.__value_.__r.__words[0]) >> 3)
                               {
                                 std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
                               }
 
-                              std::vector<unsigned long long>::push_back[abi:ne200100](&v102, (v92.__r_.__value_.__r.__words[0] + v62));
-                              ++v61;
-                              v62 += 8;
+                              std::vector<unsigned long long>::push_back[abi:ne200100](&v100, (v90.__r_.__value_.__r.__words[0] + v63));
+                              ++v62;
+                              v63 += 8;
                             }
 
-                            while (v61 < v149);
+                            while (v62 < v147);
                           }
 
-                          if (v92.__r_.__value_.__l.__size_ - v92.__r_.__value_.__r.__words[0] <= 8)
+                          if (v90.__r_.__value_.__l.__size_ - v90.__r_.__value_.__r.__words[0] <= 8)
                           {
                             goto LABEL_265;
                           }
 
-                          std::vector<unsigned long long>::push_back[abi:ne200100](&v102, (v92.__r_.__value_.__r.__words[0] + 8));
-                          if (v92.__r_.__value_.__l.__size_ == v92.__r_.__value_.__r.__words[0])
+                          std::vector<unsigned long long>::push_back[abi:ne200100](&v100, (v90.__r_.__value_.__r.__words[0] + 8));
+                          if (v90.__r_.__value_.__l.__size_ == v90.__r_.__value_.__r.__words[0])
                           {
                             std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
                           }
 
-                          v141.__r_.__value_.__r.__words[0] = *v92.__r_.__value_.__l.__data_ / v150;
-                          std::vector<unsigned long long>::push_back[abi:ne200100](&v102, &v141);
-                          v157 = 0;
-                          std::vector<unsigned long long>::reserve(&v105, (v147 - v146) >> 3);
-                          if (v147 == v146)
+                          v139.__r_.__value_.__r.__words[0] = *v90.__r_.__value_.__l.__data_ / v148;
+                          std::vector<unsigned long long>::push_back[abi:ne200100](&v100, &v139);
+                          v155 = 0;
+                          std::vector<unsigned long long>::reserve(&v103, v145 - v144);
+                          if (v145 == v144)
                           {
                             goto LABEL_265;
                           }
 
-                          std::vector<unsigned long long>::push_back[abi:ne200100](&v105, v146);
-                          if (v149)
+                          std::vector<unsigned long long>::push_back[abi:ne200100](&v103, v144);
+                          if (v147)
                           {
-                            v63 = 0;
-                            v64 = 16;
+                            v64 = 0;
+                            v65 = 2;
                             do
                             {
-                              if (v63 + 2 >= (v147 - v146) >> 3)
+                              if (v64 + 2 >= v145 - v144)
                               {
                                 std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
                               }
 
-                              std::vector<unsigned long long>::push_back[abi:ne200100](&v105, &v146[v64]);
-                              ++v63;
-                              v64 += 8;
+                              std::vector<unsigned long long>::push_back[abi:ne200100](&v103, &v144[v65]);
+                              ++v64;
+                              ++v65;
                             }
 
-                            while (v63 < v149);
+                            while (v64 < v147);
                           }
 
-                          if ((v147 - v146) <= 8)
+                          if ((v145 - v144) <= 8)
                           {
 LABEL_265:
                             std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
                           }
 
-                          std::vector<unsigned long long>::push_back[abi:ne200100](&v105, v146 + 1);
-                          *(&v151 + 1) = 0;
+                          std::vector<unsigned long long>::push_back[abi:ne200100](&v103, v144 + 1);
+                          *(&v149 + 1) = 0;
                           std::string::basic_string[abi:ne200100]<0>(__u, "pad_type");
-                          std::string::basic_string[abi:ne200100]<0>(&v137, "custom");
-                          MIL::ANEMachineIR::GetScalarValueOrDefault<std::string>(&v137, 0, &v141);
-                          if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
+                          std::string::basic_string[abi:ne200100]<0>(&v135, "custom");
+                          MIL::ANEMachineIR::GetScalarValueOrDefault<std::string>(&v135, 0, &v139);
+                          if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
                           {
-                            operator delete(v137.__r_.__value_.__l.__data_);
+                            operator delete(v135.__r_.__value_.__l.__data_);
                           }
 
-                          if (v139 < 0)
+                          if (v137 < 0)
                           {
                             operator delete(*__u);
                           }
 
-                          std::vector<int>::reserve(&v155, 2 * v149);
-                          if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v141, "valid"))
+                          std::vector<int>::reserve(&v153, 2 * v147);
+                          if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v139, "valid"))
                           {
                             __u[0] = 0;
-                            std::vector<int>::assign(&v155, 2 * v149, __u);
+                            std::vector<int>::assign(&v153, 2 * v147, __u);
                           }
 
-                          else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v141, "same"))
+                          else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v139, "same"))
                           {
-                            if ((v149 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                            if ((v147 & 0x7FFFFFFFFFFFFFFFLL) != 0)
                             {
-                              v73 = 0;
+                              v72 = 0;
                               do
                               {
-                                v74 = v73 >> 1;
-                                v75 = (v73 >> 1) + 1;
-                                if (v75 >= (v103 - v102) >> 3)
+                                v73 = v72 >> 1;
+                                v74 = (v72 >> 1) + 1;
+                                if (v74 >= (v101 - v100) >> 3)
                                 {
                                   std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
                                 }
 
-                                v76 = *(v102 + v75);
-                                if (v73)
+                                v75 = *(v100 + v74);
+                                if (v72)
                                 {
-                                  if (v74 >= ((v154 - *(&v153 + 1)) >> 2))
+                                  if (v73 >= ((v152 - *(&v151 + 1)) >> 2))
                                   {
                                     std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
                                   }
                                 }
 
-                                else if (v74 >= ((v154 - *(&v153 + 1)) >> 2))
+                                else if (v73 >= ((v152 - *(&v151 + 1)) >> 2))
                                 {
                                   std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
                                 }
 
-                                __u[0] = ((v76 - 1) * *(*(&v153 + 1) + 4 * v74) + 1) >> 1;
-                                std::vector<int>::push_back[abi:ne200100](&v155.__begin_, __u);
-                                ++v73;
+                                __u[0] = ((v75 - 1) * *(*(&v151 + 1) + 4 * v73) + 1) >> 1;
+                                std::vector<int>::push_back[abi:ne200100](&v153.__begin_, __u);
+                                ++v72;
                               }
 
-                              while (v73 < 2 * v149);
+                              while (v72 < 2 * v147);
                             }
                           }
 
                           else
                           {
-                            if (!std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v141, "custom"))
+                            if (!std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v139, "custom"))
                             {
-                              v95 = 11;
+                              v93 = 11;
                               std::operator+<char>();
 LABEL_253:
-                              if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+                              if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
                               {
-                                operator delete(v141.__r_.__value_.__l.__data_);
+                                operator delete(v139.__r_.__value_.__l.__data_);
                               }
 
                               goto LABEL_255;
                             }
 
                             std::string::basic_string[abi:ne200100]<0>(__u, "pad");
-                            v77 = MIL::IROperation::GetParameterValue();
-                            MIL::IRValue::AsTensor(v77);
-                            v126 = MIL::IRTensorValue::GetDataView<int>();
-                            v127 = v78;
-                            if (v139 < 0)
+                            v76 = MIL::IROperation::GetParameterValue();
+                            MIL::IRValue::AsTensor(v76);
+                            v124 = MIL::IRTensorValue::GetDataView<int>();
+                            v125 = v77;
+                            if (v137 < 0)
                             {
                               operator delete(*__u);
                             }
 
-                            if ((v149 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                            if ((v147 & 0x7FFFFFFFFFFFFFFFLL) != 0)
                             {
-                              v79 = 0;
+                              v78 = 0;
                               do
                               {
-                                v80 = MIL::Util::Span<int const,18446744073709551615ul>::At(&v126, v79);
-                                std::vector<int>::push_back[abi:ne200100](&v155.__begin_, v80);
-                                ++v79;
+                                v79 = MIL::Util::Span<int const,18446744073709551615ul>::At(&v124, v78);
+                                std::vector<int>::push_back[abi:ne200100](&v153.__begin_, v79);
+                                ++v78;
                               }
 
-                              while (v79 < 2 * v149);
+                              while (v78 < 2 * v147);
                             }
                           }
 
-                          v95 = 0;
-                          std::string::basic_string[abi:ne200100]<0>(v96, &unk_259A4D977);
+                          v93 = 0;
+                          std::string::basic_string[abi:ne200100]<0>(v94, &unk_259A4D977);
                           goto LABEL_253;
                         }
 
-                        v95 = 11;
-                        v72 = "Unhandled dtype for conv bias.";
+                        v93 = 11;
+                        v71 = "Unhandled dtype for conv bias.";
                       }
                     }
 
                     else
                     {
-                      v95 = 4;
-                      v72 = "Non constant bias vectors not yet implemented.";
+                      v93 = 4;
+                      v71 = "Non constant bias vectors not yet implemented.";
                     }
 
-                    std::string::basic_string[abi:ne200100]<0>(v96, v72);
+                    std::string::basic_string[abi:ne200100]<0>(v94, v71);
                     goto LABEL_126;
                   }
 
-                  v95 = 11;
-                  std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get type as tensor for ");
-                  v35 = std::string::append(&v92, "pad");
+                  v93 = 11;
+                  std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get type as tensor for ");
+                  v36 = std::string::append(&v90, "pad");
                 }
 
                 else
                 {
-                  v95 = 11;
-                  std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get value type for ");
-                  v35 = std::string::append(&v92, "pad");
+                  v93 = 11;
+                  std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get value type for ");
+                  v36 = std::string::append(&v90, "pad");
                 }
               }
 
               else
               {
-                v95 = 11;
-                std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get type as tensor for ");
-                v35 = std::string::append(&v92, "kernel");
+                v93 = 11;
+                std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get type as tensor for ");
+                v36 = std::string::append(&v90, "kernel");
               }
             }
 
             else
             {
-              v95 = 11;
-              std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get value type for ");
-              v35 = std::string::append(&v92, "kernel");
+              v93 = 11;
+              std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get value type for ");
+              v36 = std::string::append(&v90, "kernel");
             }
           }
 
           else
           {
-            v95 = 11;
-            std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get type as tensor for ");
-            v35 = std::string::append(&v92, "dilations");
+            v93 = 11;
+            std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get type as tensor for ");
+            v36 = std::string::append(&v90, "dilations");
           }
         }
 
         else
         {
-          v95 = 11;
-          std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get value type for ");
-          v35 = std::string::append(&v92, "dilations");
+          v93 = 11;
+          std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get value type for ");
+          v36 = std::string::append(&v90, "dilations");
         }
       }
 
       else
       {
-        v95 = 11;
-        std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get type as tensor for ");
-        v35 = std::string::append(&v92, "strides");
+        v93 = 11;
+        std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get type as tensor for ");
+        v36 = std::string::append(&v90, "strides");
       }
     }
 
     else
     {
-      v95 = 11;
-      std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get value type for ");
-      v35 = std::string::append(&v92, "strides");
+      v93 = 11;
+      std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get value type for ");
+      v36 = std::string::append(&v90, "strides");
     }
   }
 
   else
   {
-    v95 = 11;
-    std::string::basic_string[abi:ne200100]<0>(&v92, "Cannot get type as tensor for ");
-    v35 = std::string::append(&v92, "x");
+    v93 = 11;
+    std::string::basic_string[abi:ne200100]<0>(&v90, "Cannot get type as tensor for ");
+    v36 = std::string::append(&v90, "x");
   }
 
 LABEL_123:
-  v65 = *&v35->__r_.__value_.__l.__data_;
-  v97 = v35->__r_.__value_.__r.__words[2];
-  *v96 = v65;
-  v35->__r_.__value_.__l.__size_ = 0;
-  v35->__r_.__value_.__r.__words[2] = 0;
-  v35->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+  v66 = *&v36->__r_.__value_.__l.__data_;
+  v95 = v36->__r_.__value_.__r.__words[2];
+  *v94 = v66;
+  v36->__r_.__value_.__l.__size_ = 0;
+  v36->__r_.__value_.__r.__words[2] = 0;
+  v36->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
   {
-    v66 = v92.__r_.__value_.__r.__words[0];
+    v67 = v90.__r_.__value_.__r.__words[0];
 LABEL_125:
-    operator delete(v66);
+    operator delete(v67);
   }
 
 LABEL_126:
-  if (v95)
+  if (v93)
   {
-    *a6 = v95;
-    *(a6 + 8) = *v96;
-    *(a6 + 24) = v97;
+    *a8 = v93;
+    *(a8 + 8) = *v94;
+    *(a8 + 24) = v95;
   }
 
   else
   {
-    ANEMachineIR::Validators::InferOutputShape(&v105, &v102, &v149, &v93);
-    if (!v156)
+    ANEMachineIR::Validators::InferOutputShape(&v103, &v100, &v147, &v91);
+    if (!v154)
     {
       goto LABEL_132;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v92, "bias");
-    v67 = MIL::IROperation::GetParameterType();
-    v68 = MIL::IRValueType::AsTensorType(v67);
-    if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v90, "bias");
+    v68 = MIL::IROperation::GetParameterType();
+    v69 = MIL::IRValueType::AsTensorType(v68);
+    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v92.__r_.__value_.__l.__data_);
+      operator delete(v90.__r_.__value_.__l.__data_);
     }
 
-    if ((*(*v68 + 88))(v68) != 4)
+    if ((*(*v69 + 88))(v69) != 4)
     {
-      *a6 = 4;
-      std::string::basic_string[abi:ne200100]<0>((a6 + 8), "Biases not matching the input type (fp16) are not implemented or expected from the iOS opset.");
+      *a8 = 4;
+      std::string::basic_string[abi:ne200100]<0>((a8 + 8), "Biases not matching the input type (fp16) are not implemented or expected from the iOS opset.");
     }
 
     else
     {
 LABEL_132:
-      LocationPtr = MIL::IRObject::GetLocationPtr(a1);
-      ANEMachineIR::Validators::ValidateConvParameters(LocationPtr, &v105, &v102, v17, &v93, &v149, &v92);
-      if (MIL::ValidationResult::IsGood(&v92))
+      LocationPtr = MIL::IRObject::GetLocationPtr(a2);
+      ANEMachineIR::Validators::ValidateConvParameters(LocationPtr, &v103, &v100, v19, &v91, &v147, &v90);
+      if (MIL::ValidationResult::IsGood(&v90))
       {
-        MIL::IRObject::GetLocationPtr(a1);
-        v146 = 0;
-        v147 = 0;
-        v148 = 0;
-        std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v146, v93, v94, (v94 - v93) >> 3);
-        MIL::IRTensorValueType::Make();
-        if (v146)
-        {
-          v147 = v146;
-          operator delete(v146);
-        }
-
-        v70 = *a5;
-        std::string::basic_string[abi:ne200100]<0>(&v146, "ne_conv");
+        MIL::IRObject::GetLocationPtr(a2);
         v144 = 0;
-        v143 = 0;
-        MIL::Builder::BlockBuilder::AddOperation();
+        v145 = 0;
+        v146 = 0;
+        std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v144, v91, v92, (v92 - v91) >> 3);
+        MIL::IRTensorValueType::Make();
         if (v144)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v144);
+          v145 = v144;
+          operator delete(v144);
         }
 
-        if (SHIBYTE(v148) < 0)
-        {
-          operator delete(v146);
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&v146, "x");
-        if (*(a2 + 23) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v141, *a2, *(a2 + 8));
-        }
-
-        else
-        {
-          v141 = *a2;
-        }
-
-        MIL::Builder::OperationBuilder::AddInput();
+        std::string::basic_string[abi:ne200100]<0>(&v144, "ne_conv");
+        v142 = 0;
+        v141 = 0;
+        MIL::Builder::BlockBuilder::AddOperation();
         if (v142)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v142);
         }
 
-        if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v146) < 0)
         {
-          operator delete(v141.__r_.__value_.__l.__data_);
+          operator delete(v144);
         }
 
-        if (SHIBYTE(v148) < 0)
-        {
-          operator delete(v146);
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(__u, "dense_kernel");
+        std::string::basic_string[abi:ne200100]<0>(&v144, "x");
         if (*(a3 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v137, *a3, *(a3 + 8));
+          std::string::__init_copy_ctor_external(&v139, *a3, *(a3 + 8));
         }
 
         else
         {
-          v137 = *a3;
+          v139 = *a3;
         }
 
         MIL::Builder::OperationBuilder::AddInput();
@@ -3174,263 +1842,287 @@ LABEL_132:
           std::__shared_weak_count::__release_shared[abi:ne200100](v140);
         }
 
-        if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v137.__r_.__value_.__l.__data_);
+          operator delete(v139.__r_.__value_.__l.__data_);
         }
 
-        if (v139 < 0)
+        if (SHIBYTE(v146) < 0)
+        {
+          operator delete(v144);
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(__u, "dense_kernel");
+        if (*(a4 + 23) < 0)
+        {
+          std::string::__init_copy_ctor_external(&v135, *a4, *(a4 + 8));
+        }
+
+        else
+        {
+          v135 = *a4;
+        }
+
+        MIL::Builder::OperationBuilder::AddInput();
+        if (v138)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v138);
+        }
+
+        if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v135.__r_.__value_.__l.__data_);
+        }
+
+        if (v137 < 0)
         {
           operator delete(*__u);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&Data, "num_groups");
         MIL::Builder::OperationBuilder::AddInputInt32();
-        if (v136)
+        if (v134)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v136);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v134);
         }
 
-        if (v135 < 0)
+        if (v133 < 0)
         {
           operator delete(Data);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v129, "strides");
-        v127 = 0;
-        v126 = 0;
-        v128 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v126, v152, *(&v152 + 1), (*(&v152 + 1) - v152) >> 2);
-        MIL::Builder::OperationBuilder::AddInputInt32();
-        if (v132)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v132);
-        }
-
-        if (v126)
-        {
-          v127 = v126;
-          operator delete(v126);
-        }
-
-        if (v131 < 0)
-        {
-          operator delete(v129);
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&v126, "dilations");
-        v123 = 0;
-        v122 = 0;
+        std::string::basic_string[abi:ne200100]<0>(&v127, "strides");
+        v125 = 0;
         v124 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v122, *(&v153 + 1), v154, (v154 - *(&v153 + 1)) >> 2);
+        v126 = 0;
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v124, v150, *(&v150 + 1), (*(&v150 + 1) - v150) >> 2);
         MIL::Builder::OperationBuilder::AddInputInt32();
-        if (v125)
+        if (v130)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v125);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v130);
         }
 
-        if (v122)
+        if (v124)
         {
-          v123 = v122;
-          operator delete(v122);
+          v125 = v124;
+          operator delete(v124);
         }
 
-        if (SHIBYTE(v128) < 0)
+        if (v129 < 0)
         {
-          operator delete(v126);
+          operator delete(v127);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v122, "pad_mode");
-        if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v124, "dilations");
+        v121 = 0;
+        v120 = 0;
+        v122 = 0;
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v120, *(&v151 + 1), v152, (v152 - *(&v151 + 1)) >> 2);
+        MIL::Builder::OperationBuilder::AddInputInt32();
+        if (v123)
         {
-          std::string::__init_copy_ctor_external(&v120, v98.__r_.__value_.__l.__data_, v98.__r_.__value_.__l.__size_);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v123);
+        }
+
+        if (v120)
+        {
+          v121 = v120;
+          operator delete(v120);
+        }
+
+        if (SHIBYTE(v126) < 0)
+        {
+          operator delete(v124);
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&v120, "pad_mode");
+        if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(&v118, v96.__r_.__value_.__l.__data_, v96.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v120 = v98;
+          v118 = v96;
         }
 
         MIL::Builder::OperationBuilder::AddInputString();
-        if (v121)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v121);
-        }
-
-        if (SHIBYTE(v120.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v120.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v124) < 0)
-        {
-          operator delete(v122);
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&v117, "pad");
-        v114 = 0;
-        v115 = 0;
-        v116 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v114, v155.__begin_, v155.__end_, v155.__end_ - v155.__begin_);
-        MIL::Builder::OperationBuilder::AddInputInt32();
         if (v119)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v119);
         }
 
-        if (v114)
+        if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
         {
-          v115 = v114;
-          operator delete(v114);
+          operator delete(v118.__r_.__value_.__l.__data_);
         }
 
-        if (v118 < 0)
+        if (SHIBYTE(v122) < 0)
         {
-          operator delete(v117);
+          operator delete(v120);
         }
 
-        if (v156)
+        std::string::basic_string[abi:ne200100]<0>(&v115, "pad");
+        v112 = 0;
+        v113 = 0;
+        v114 = 0;
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v112, v153.__begin_, v153.__end_, v153.__end_ - v153.__begin_);
+        MIL::Builder::OperationBuilder::AddInputInt32();
+        if (v117)
         {
-          if (v156 == 1)
+          std::__shared_weak_count::__release_shared[abi:ne200100](v117);
+        }
+
+        if (v112)
+        {
+          v113 = v112;
+          operator delete(v112);
+        }
+
+        if (v116 < 0)
+        {
+          operator delete(v115);
+        }
+
+        if (v154)
+        {
+          if (v154 == 1)
           {
-            std::string::basic_string[abi:ne200100]<0>(&v114, "bias");
-            if (v100 == __src)
+            std::string::basic_string[abi:ne200100]<0>(&v112, "bias");
+            if (v98 == __src)
             {
               std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
             }
 
-            v71 = *__src;
             MIL::Builder::OperationBuilder::AddInputFloat16();
-            if (v113)
+            if (v111)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v113);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v111);
             }
           }
 
           else
           {
-            std::string::basic_string[abi:ne200100]<0>(&v114, "bias");
-            memset(&v112, 0, sizeof(v112));
-            std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(&v112, __src, v100, (v100 - __src) >> 1);
+            std::string::basic_string[abi:ne200100]<0>(&v112, "bias");
+            memset(&v110, 0, sizeof(v110));
+            std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(&v110, __src, v98, (v98 - __src) >> 1);
             MIL::Builder::OperationBuilder::AddInputFloat16();
-            if (v113)
+            if (v111)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v113);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v111);
             }
 
-            if (v112.__r_.__value_.__r.__words[0])
+            if (v110.__r_.__value_.__r.__words[0])
             {
-              v112.__r_.__value_.__l.__size_ = v112.__r_.__value_.__r.__words[0];
-              operator delete(v112.__r_.__value_.__l.__data_);
+              v110.__r_.__value_.__l.__size_ = v110.__r_.__value_.__r.__words[0];
+              operator delete(v110.__r_.__value_.__l.__data_);
             }
           }
 
-          if (SHIBYTE(v116) < 0)
+          if (SHIBYTE(v114) < 0)
           {
-            operator delete(v114);
+            operator delete(v112);
           }
         }
 
-        if (*(a4 + 23) < 0)
+        if (*(a5 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v112, *a4, *(a4 + 8));
+          std::string::__init_copy_ctor_external(&v110, *a5, *(a5 + 8));
         }
 
         else
         {
-          v112 = *a4;
+          v110 = *a5;
         }
 
         MIL::Builder::OperationBuilder::AddOutput();
-        if (v111)
+        if (v109)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v111);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v109);
         }
 
-        if (SHIBYTE(v112.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v112.__r_.__value_.__l.__data_);
+          operator delete(v110.__r_.__value_.__l.__data_);
         }
 
-        if (v145)
+        if (v143)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v145);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v143);
         }
 
-        *a6 = 0;
-        std::string::basic_string[abi:ne200100]<0>((a6 + 8), &unk_259A4D977);
+        *a8 = 0;
+        std::string::basic_string[abi:ne200100]<0>((a8 + 8), &unk_259A4D977);
       }
 
       else
       {
-        *a6 = 8;
-        MIL::MILResult::GetMessage(&v92);
+        *a8 = 8;
+        MIL::MILResult::GetMessage(&v90);
         std::operator+<char>();
       }
 
-      MEMORY[0x259CA8F00](&v92);
+      MEMORY[0x259CA8F00](&v90);
     }
 
-    if (v93)
+    if (v91)
     {
-      v94 = v93;
-      operator delete(v93);
+      v92 = v91;
+      operator delete(v91);
     }
 
-    if (SHIBYTE(v97) < 0)
+    if (SHIBYTE(v95) < 0)
     {
-      operator delete(v96[0]);
+      operator delete(v94[0]);
     }
   }
 
-  if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v98.__r_.__value_.__l.__data_);
+    operator delete(v96.__r_.__value_.__l.__data_);
   }
 
   if (__src)
   {
-    v100 = __src;
+    v98 = __src;
     operator delete(__src);
   }
 
-  if (v102)
+  if (v100)
   {
-    v103 = v102;
-    operator delete(v102);
+    v101 = v100;
+    operator delete(v100);
   }
 
-  if (v105)
+  if (v103)
   {
-    v106 = v105;
-    operator delete(v105);
+    v104 = v103;
+    operator delete(v103);
   }
 
-  if (v155.__begin_)
+  if (v153.__begin_)
   {
-    v155.__end_ = v155.__begin_;
-    operator delete(v155.__begin_);
+    v153.__end_ = v153.__begin_;
+    operator delete(v153.__begin_);
   }
 
-  if (*(&v153 + 1))
+  if (*(&v151 + 1))
   {
-    *&v154 = *(&v153 + 1);
-    operator delete(*(&v153 + 1));
+    *&v152 = *(&v151 + 1);
+    operator delete(*(&v151 + 1));
   }
 
-  if (v152)
+  if (v150)
   {
-    *(&v152 + 1) = v152;
-    operator delete(v152);
+    *(&v150 + 1) = v150;
+    operator delete(v150);
   }
 
 LABEL_26:
-  if (SHIBYTE(v110) < 0)
+  if (SHIBYTE(v108) < 0)
   {
     operator delete(__p);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_259936514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56)
@@ -3523,23 +2215,20 @@ void sub_25993698C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<MIL::Fp16>::reserve(void *result, unint64_t a2)
+void std::vector<MIL::Fp16>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 1)
+  if (a2 > (a1[2] - *a1) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(a1, a2);
     }
 
     std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(void *a1, unint64_t a2)
+unint64_t MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(void *a1, unint64_t a2)
 {
   if (a1[1] <= a2)
   {
@@ -3557,7 +2246,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(this, __n);
     }
 
@@ -3565,73 +2253,70 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   }
 }
 
-void *std::vector<unsigned long long>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned long long>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1, a2);
     }
 
     std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void MIL::ANEMachineIR::GetScalarValueOrDefault<std::string>(uint64_t a1@<X2>, int *a2@<X3>, std::string *a3@<X8>)
+void MIL::ANEMachineIR::GetScalarValueOrDefault<std::string>(uint64_t a3@<X2>, int *a4@<X3>, std::string *a5@<X8>)
 {
   ParameterValue = MIL::IROperation::TryGetParameterValue();
   if (!ParameterValue)
   {
-    if (a2)
+    if (a4)
     {
-      v9 = 1;
+      v11 = 1;
       goto LABEL_12;
     }
 
 LABEL_13:
-    *&a3->__r_.__value_.__l.__data_ = *a1;
-    a3->__r_.__value_.__r.__words[2] = *(a1 + 16);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *a1 = 0;
+    *&a5->__r_.__value_.__l.__data_ = *a3;
+    a5->__r_.__value_.__r.__words[2] = *(a3 + 16);
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 0;
+    *a3 = 0;
     return;
   }
 
-  if (!(*(*ParameterValue + 40))(ParameterValue) || (v7 = MEMORY[0x259CA93D0]()) == 0)
+  if (!(*(*ParameterValue + 40))(ParameterValue) || (v9 = MEMORY[0x259CA93D0]()) == 0)
   {
-    if (a2)
+    if (a4)
     {
-      v9 = 2;
+      v11 = 2;
 LABEL_12:
-      *a2 = v9;
+      *a4 = v11;
       goto LABEL_13;
     }
 
     goto LABEL_13;
   }
 
-  if (a2)
+  if (a4)
   {
-    *a2 = 0;
+    *a4 = 0;
   }
 
-  if (*(v7 + 23) < 0)
+  if (*(v9 + 23) < 0)
   {
-    v10 = *v7;
-    v11 = *(v7 + 8);
+    v12 = *v9;
+    v13 = *(v9 + 8);
 
-    std::string::__init_copy_ctor_external(a3, v10, v11);
+    std::string::__init_copy_ctor_external(a5, v12, v13);
   }
 
   else
   {
-    v8 = *v7;
-    a3->__r_.__value_.__r.__words[2] = *(v7 + 16);
-    *&a3->__r_.__value_.__l.__data_ = v8;
+    v10 = *v9;
+    a5->__r_.__value_.__r.__words[2] = *(v9 + 16);
+    *&a5->__r_.__value_.__l.__data_ = v10;
   }
 }
 
@@ -3793,7 +2478,7 @@ void std::vector<int>::assign(std::vector<int> *this, std::vector<int>::size_typ
   }
 }
 
-uint64_t std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3891,10 +2576,10 @@ LABEL_33:
   return 1;
 }
 
-void ANEMachineIR::H2020::BaseActivation::Make()
+void ANEMachineIR::H2020::BaseActivation::Make(MIL::IRUnknownDimension *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -3915,18 +2600,19 @@ void sub_259937678(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::Linear::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::Linear::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   *__p = *a2;
   v2 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidateLinear;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BaseActivation::Make();
+  v4 = v2;
+  v5[0] = &unk_286AADC48;
+  v5[1] = ANEMachineIR::H2020::Validators::ValidateLinear;
+  v5[3] = v5;
+  ANEMachineIR::H2020::BaseActivation::Make(a1, __p, v5);
 }
 
 void sub_25993787C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -3942,44 +2628,45 @@ void sub_25993787C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ANEMachineIR::H2020::NePiecewiseV2::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_259938BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v70 = *(v68 - 72);
-  *(v68 - 72) = 0;
-  if (v70)
+  v68 = *(v66 - 72);
+  *(v66 - 72) = 0;
+  if (v68)
   {
-    (*(*v70 + 8))(v70);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  v71 = *v67;
-  *v67 = 0;
-  if (v71)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v69 + 8))(v69, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v68 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a67, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::Relu::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::Relu::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   *__p = *a2;
   v2 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidateRelu;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BaseActivation::Make();
+  v4 = v2;
+  v5[0] = &unk_286AADC48;
+  v5[1] = ANEMachineIR::H2020::Validators::ValidateRelu;
+  v5[3] = v5;
+  ANEMachineIR::H2020::BaseActivation::Make(a1, __p, v5);
 }
 
 void sub_2599392C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -3993,10 +2680,10 @@ void sub_2599392C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::ScaledActivation::Make()
+void ANEMachineIR::H2020::ScaledActivation::Make(MIL::IRUnknownDimension *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -4017,10 +2704,10 @@ void sub_2599397F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::Lrelu::Make()
+void ANEMachineIR::H2020::Lrelu::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = 0;
   operator new();
 }
 
@@ -4041,18 +2728,19 @@ void sub_259939F34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::Sigmoid::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::Sigmoid::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   *__p = *a2;
   v2 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidateSigmoid;
-  v4[3] = v4;
-  ANEMachineIR::H2020::ScaledActivation::Make();
+  v4 = v2;
+  v5[0] = &unk_286AADC48;
+  v5[1] = ANEMachineIR::H2020::Validators::ValidateSigmoid;
+  v5[3] = v5;
+  ANEMachineIR::H2020::ScaledActivation::Make(a1, __p, v5);
 }
 
 void sub_25993A19C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -4066,18 +2754,19 @@ void sub_25993A19C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::Sqrt::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::Sqrt::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   *__p = *a2;
   v2 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidateSqrt;
-  v4[3] = v4;
-  ANEMachineIR::H2020::ScaledActivation::Make();
+  v4 = v2;
+  v5[0] = &unk_286AADC48;
+  v5[1] = ANEMachineIR::H2020::Validators::ValidateSqrt;
+  v5[3] = v5;
+  ANEMachineIR::H2020::ScaledActivation::Make(a1, __p, v5);
 }
 
 void sub_25993A27C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -4091,18 +2780,19 @@ void sub_25993A27C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::Tanh::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::Tanh::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   *__p = *a2;
   v2 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidateTanh;
-  v4[3] = v4;
-  ANEMachineIR::H2020::ScaledActivation::Make();
+  v4 = v2;
+  v5[0] = &unk_286AADC48;
+  v5[1] = ANEMachineIR::H2020::Validators::ValidateTanh;
+  v5[3] = v5;
+  ANEMachineIR::H2020::ScaledActivation::Make(a1, __p, v5);
 }
 
 void sub_25993A35C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -4141,14 +2831,14 @@ uint64_t std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation
   return a1;
 }
 
-void sub_25993A45C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25993A45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[12],std::unique_ptr<MIL::IRParameter>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[12],std::unique_ptr<MIL::IRParameter>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IRParameter>::shared_ptr[abi:ne200100]<MIL::IRParameter,std::default_delete<MIL::IRParameter>,0>(v5 + 3, a3);
@@ -4165,14 +2855,14 @@ void sub_25993A544(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_25993A5BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25993A5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[7],std::unique_ptr<MIL::IRParameter>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[7],std::unique_ptr<MIL::IRParameter>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IRParameter>::shared_ptr[abi:ne200100]<MIL::IRParameter,std::default_delete<MIL::IRParameter>,0>(v5 + 3, a3);
@@ -4189,14 +2879,14 @@ void sub_25993A6A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_25993A71C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25993A71C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[9],std::unique_ptr<MIL::IRParameter>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[9],std::unique_ptr<MIL::IRParameter>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IRParameter>::shared_ptr[abi:ne200100]<MIL::IRParameter,std::default_delete<MIL::IRParameter>,0>(v5 + 3, a3);
@@ -4213,14 +2903,14 @@ void sub_25993A804(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_25993A87C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25993A87C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[6],std::unique_ptr<MIL::IRParameter>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IRParameter>>::pair[abi:ne200100]<char const(&)[6],std::unique_ptr<MIL::IRParameter>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IRParameter>::shared_ptr[abi:ne200100]<MIL::IRParameter,std::default_delete<MIL::IRParameter>,0>(v5 + 3, a3);
@@ -4237,9 +2927,9 @@ void sub_25993A964(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeMatmulCpu::Run(MIL::Fp16 *a1@<X1>, void *a2@<X2>, uint64_t a3@<X8>)
+void MIL::ANEMachineIR::Interpreter::NeMatmulCpu::Run(MIL::IROperation *a1@<X1>, void *a2@<X2>, uint64_t a3@<X8>)
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&__p, "x");
   InterpretedTensorValue = MIL::ANEMachineIR::Interpreter::TryGetInterpretedTensorValue(a2, a1, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4259,7 +2949,7 @@ void MIL::ANEMachineIR::Interpreter::NeMatmulCpu::Run(MIL::Fp16 *a1@<X1>, void *
 LABEL_15:
     *a3 = 2;
     std::string::basic_string[abi:ne200100]<0>((a3 + 8), "No value for x");
-    goto LABEL_127;
+    return;
   }
 
   operator delete(__p.__r_.__value_.__l.__data_);
@@ -4273,19 +2963,19 @@ LABEL_5:
   {
     *a3 = 2;
     std::string::basic_string[abi:ne200100]<0>((a3 + 8), "No value for y");
-    goto LABEL_127;
+    return;
   }
 
   v8 = std::string::basic_string[abi:ne200100]<0>(&__p, "post_scale");
   LOWORD(Data) = MIL::Fp16::FromFloat(v8, 1.0);
-  v74 = 0uLL;
-  v73 = 0;
-  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v73, &Data, &Data + 2, 1);
-  MIL::ANEMachineIR::GetScalarOrVectorOrDefault<MIL::Fp16>(a1, &v73, &v82);
-  if (v73)
+  v73 = 0uLL;
+  v72 = 0;
+  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v72, &Data, &Data + 1, 1);
+  MIL::ANEMachineIR::GetScalarOrVectorOrDefault<MIL::Fp16>(a1, &v72, &v81);
+  if (v72)
   {
-    *&v74 = v73;
-    operator delete(v73);
+    *&v73 = v72;
+    operator delete(v72);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4314,12 +3004,12 @@ LABEL_5:
   v12 = MIL::IROperation::TryGetParameterValue();
   if (v12 && (*(*v12 + 40))(v12) && (v13 = MEMORY[0x259CA93E0]()) != 0)
   {
-    v71 = *v13;
+    v70 = *v13;
   }
 
   else
   {
-    v71 = 0;
+    v70 = 0;
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4333,13 +3023,13 @@ LABEL_5:
   v17 = (*(*v16 + 88))(v16);
   OutputType = MIL::IROperation::GetOutputType(a1);
   v19 = MIL::IRValueType::AsTensorType(OutputType);
-  v72 = (*(*v19 + 88))(v19);
+  v71 = (*(*v19 + 88))(v19);
   v20 = (*(*InterpretedTensorValue + 32))(InterpretedTensorValue);
-  ANEMachineIR::Utils::GetStaticTensorShape(v20, v21, __dst);
+  ANEMachineIR::Utils::GetStaticTensorShape(__dst, v20, v21);
   v22 = (*(*v7 + 32))(v7);
-  ANEMachineIR::Utils::GetStaticTensorShape(v22, v23, &v79);
-  ANEMachineIR::Utils::GetStaticTensorShape(v19, v24, v78);
-  v70 = v11;
+  ANEMachineIR::Utils::GetStaticTensorShape(&v78, v22, v23);
+  ANEMachineIR::Utils::GetStaticTensorShape(v77, v19, v24);
+  v69 = v11;
   if (v17 == 4)
   {
     v25 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
@@ -4349,7 +3039,7 @@ LABEL_5:
   else
   {
     v27 = (*(*v7 + 32))(v7);
-    ANEMachineIR::Utils::GetStaticTensorShape(v27, v28, &__p.__r_.__value_.__l.__data_);
+    ANEMachineIR::Utils::GetStaticTensorShape(&__p.__r_.__value_.__l.__data_, v27, v28);
     v29 = __p.__r_.__value_.__r.__words[0];
     v30 = 1;
     while (v29 != __p.__r_.__value_.__l.__size_)
@@ -4358,20 +3048,20 @@ LABEL_5:
       v30 *= v31;
     }
 
-    v73 = 0;
-    v74 = 0uLL;
-    std::vector<MIL::Fp16>::reserve(&v73, v30);
+    v72 = 0;
+    v73 = 0uLL;
+    std::vector<MIL::Fp16>::reserve(&v72, v30);
     if (v17 == 9)
     {
       Data = MIL::IRTensorValue::GetDataView<signed char>();
-      v102 = v36;
+      v101 = v36;
       if (v30)
       {
         for (i = 0; i != v30; ++i)
         {
           v38 = MIL::Util::Span<signed char const,18446744073709551615ul>::operator[](&Data, i);
-          LOWORD(v76) = MIL::Fp16::FromFloat(v38, *v38);
-          std::vector<MIL::Fp16>::push_back[abi:ne200100](&v73, &v76);
+          LOWORD(v75) = MIL::Fp16::FromFloat(v38, *v38);
+          std::vector<MIL::Fp16>::push_back[abi:ne200100](&v72, &v75);
         }
       }
     }
@@ -4386,15 +3076,15 @@ LABEL_5:
       }
 
       Data = MIL::IRTensorValue::GetDataView<unsigned char>();
-      v102 = v32;
+      v101 = v32;
       if (v30)
       {
         for (j = 0; j != v30; ++j)
         {
           v34 = MIL::Util::Span<unsigned char const,18446744073709551615ul>::operator[](&Data, j);
           LOBYTE(v35) = *v34;
-          LOWORD(v76) = MIL::Fp16::FromFloat(v34, v35);
-          std::vector<MIL::Fp16>::push_back[abi:ne200100](&v73, &v76);
+          LOWORD(v75) = MIL::Fp16::FromFloat(v34, v35);
+          std::vector<MIL::Fp16>::push_back[abi:ne200100](&v72, &v75);
         }
       }
     }
@@ -4405,20 +3095,20 @@ LABEL_5:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v26 = v73;
-    v25 = v73;
+    v26 = v72;
+    v25 = v72;
   }
 
   v39 = std::string::basic_string[abi:ne200100]<0>(&__p, "bias");
   LOWORD(Data) = MIL::Fp16::FromFloat(v39, 0.0);
-  v74 = 0uLL;
-  v73 = 0;
-  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v73, &Data, &Data + 2, 1);
-  MIL::ANEMachineIR::GetScalarOrVectorOrDefault<MIL::Fp16>(a1, &v73, &v76);
-  if (v73)
+  v73 = 0uLL;
+  v72 = 0;
+  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v72, &Data, &Data + 1, 1);
+  MIL::ANEMachineIR::GetScalarOrVectorOrDefault<MIL::Fp16>(a1, &v72, &v75);
+  if (v72)
   {
-    *&v74 = v73;
-    operator delete(v73);
+    *&v73 = v72;
+    operator delete(v72);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4439,7 +3129,7 @@ LABEL_5:
   {
     v46 = v42;
 LABEL_68:
-    v69 = v25;
+    v68 = v25;
     goto LABEL_69;
   }
 
@@ -4510,138 +3200,123 @@ LABEL_68:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v47 = v79;
-  if (v80 == v79)
+  v47 = v78;
+  if (v79 == v78)
   {
     std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
   }
 
-  if (*v79 == (v77 - v76) >> 1)
+  if (*v78 == (v76 - v75) >> 1)
   {
     goto LABEL_68;
   }
 
-  if (v77 - v76 == 2)
+  if (v76 - v75 == 2)
   {
-    v69 = v25;
+    v68 = v25;
     v49 = -1;
     while (*v47 - 1 > ++v49)
     {
-      std::vector<MIL::Fp16>::push_back[abi:ne200100](&v76, v77 - 1);
-      v47 = v79;
-      if (v80 == v79)
+      std::vector<MIL::Fp16>::push_back[abi:ne200100](&v75, v76 - 1);
+      v47 = v78;
+      if (v79 == v78)
       {
         std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
       }
     }
 
 LABEL_69:
-    v74 = 0uLL;
-    v75 = 0;
-    MIL::ANEMachineIR::Interpreter::GetCpuNeActivationFunction(a1, &v73, &Data);
-    if (v73)
+    v73 = 0uLL;
+    v74 = 0;
+    MIL::ANEMachineIR::Interpreter::GetCpuNeActivationFunction(a1, &v72, &Data);
+    if (v72)
     {
-      *a3 = v73;
-      *(a3 + 8) = v74;
-      *(a3 + 24) = v75;
-      v74 = 0uLL;
-      v75 = 0;
+      *a3 = v72;
+      *(a3 + 8) = v73;
+      *(a3 + 24) = v74;
+      v73 = 0uLL;
+      v74 = 0;
       goto LABEL_112;
     }
 
     __p.__r_.__value_.__r.__words[0] = 1;
     std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(__dst, __dst[0], &__p, &__p.__r_.__value_.__s.__data_[8], 1);
     *&__p.__r_.__value_.__l.__data_ = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v79, v79, &__p, &__p.__r_.__value_.__s.__data_[16], 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v78, v78, &__p, &__p.__r_.__value_.__s.__data_[16], 2);
     __p.__r_.__value_.__r.__words[0] = 1;
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(v78, v78[0], &__p, &__p.__r_.__value_.__s.__data_[8], 1);
-    memset(v100, 0, 24);
-    v99 = 0u;
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(v77, v77[0], &__p, &__p.__r_.__value_.__s.__data_[8], 1);
+    memset(v99, 0, 24);
     v98 = 0u;
     v97 = 0u;
+    v96 = 0u;
     *&__p.__r_.__value_.__l.__data_ = xmmword_259A3BF40;
     LOWORD(__p.__r_.__value_.__r.__words[2]) = 0;
     __p.__r_.__value_.__s.__data_[18] = 0;
     __src = 0x100000001;
-    std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(&v97, &__src, &v94, 2uLL);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(&v96, &__src, &v93, 2uLL);
     __src = 0x100000001;
-    std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(&v98 + 1, &__src, &v94, 2uLL);
-    v94 = 0;
+    std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(&v97 + 1, &__src, &v93, 2uLL);
+    v93 = 0;
     __src = 0;
-    std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(v100, &__src, v95, 4uLL);
-    v100[3] = ((v77 - v76) >> 1);
-    v100[4] = ((v83 - v82) >> 1);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(v99, &__src, v94, 4uLL);
+    v99[3] = ((v76 - v75) >> 1);
+    v99[4] = ((v82 - v81) >> 1);
     switch(v15)
     {
       case 4:
-        switch(v72)
+        switch(v71)
         {
           case 14:
             v63 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v91, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(v63, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v90, &Data);
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(v63, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, 0, 0, v90);
           case 9:
             v61 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v90, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(v61, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v89, &Data);
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(v61, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, 0, 0, v89);
           case 4:
             v57 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v92, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(v57, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v91, &Data);
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(v57, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, 0, 0, v91);
         }
 
         break;
       case 9:
-        switch(v72)
+        switch(v71)
         {
           case 14:
             v60 = MIL::IRTensorValue::GetDataView<signed char>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v85, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(v60, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v84, &Data);
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(v60, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, 0, 0, v84);
           case 9:
             v59 = MIL::IRTensorValue::GetDataView<signed char>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v84, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(v59, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v83, &Data);
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(v59, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, 0, 0, v83);
           case 4:
             v56 = MIL::IRTensorValue::GetDataView<signed char>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v86, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(v56, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v85, &Data);
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(v56, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, 0, 0, v85);
         }
 
         break;
       case 14:
-        switch(v72)
+        switch(v71)
         {
           case 14:
             v64 = MIL::IRTensorValue::GetDataView<unsigned char>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v88, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(v64, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v87, &Data);
+            LOBYTE(v67) = 0;
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(v64, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, v67, v87);
           case 9:
             v62 = MIL::IRTensorValue::GetDataView<unsigned char>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v87, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(v62, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v86, &Data);
+            LOBYTE(v67) = 0;
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(v62, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, v67, v86);
           case 4:
             v48 = MIL::IRTensorValue::GetDataView<unsigned char>();
-            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v89, &Data);
-            BYTE2(v67) = v71;
-            LOWORD(v67) = v70;
-            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(v48, __dst, v69, v17, &v79, v78, &__p, 0, v67, &v76, &v82, v41 != 0, v68, v46);
+            std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v88, &Data);
+            LOBYTE(v67) = 0;
+            MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(v48, __dst, v68, v17, &v78, v77, &__p, 0, v69, 0, v70, &v75, &v81, v41 != 0, v66, v46, v67, v88);
         }
 
         break;
@@ -4654,29 +3329,29 @@ LABEL_69:
 LABEL_99:
     *a3 = 3;
     std::string::basic_string[abi:ne200100]<0>((a3 + 8), v58);
-    if (v100[0])
+    if (v99[0])
     {
-      v100[1] = v100[0];
-      operator delete(v100[0]);
+      v99[1] = v99[0];
+      operator delete(v99[0]);
     }
 
-    if (*(&v98 + 1))
+    if (*(&v97 + 1))
     {
-      *&v99 = *(&v98 + 1);
-      operator delete(*(&v98 + 1));
+      *&v98 = *(&v97 + 1);
+      operator delete(*(&v97 + 1));
     }
 
-    if (v97)
+    if (v96)
     {
-      *(&v97 + 1) = v97;
-      operator delete(v97);
+      *(&v96 + 1) = v96;
+      operator delete(v96);
     }
 
 LABEL_112:
     std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](&Data);
-    if (SHIBYTE(v75) < 0)
+    if (SHIBYTE(v74) < 0)
     {
-      v55 = v74;
+      v55 = v73;
       goto LABEL_114;
     }
 
@@ -4700,10 +3375,10 @@ LABEL_114:
   }
 
 LABEL_115:
-  if (v76)
+  if (v75)
   {
-    v77 = v76;
-    operator delete(v76);
+    v76 = v75;
+    operator delete(v75);
   }
 
   if (v26)
@@ -4711,16 +3386,16 @@ LABEL_115:
     operator delete(v26);
   }
 
-  if (v78[0])
+  if (v77[0])
   {
-    v78[1] = v78[0];
-    operator delete(v78[0]);
+    v77[1] = v77[0];
+    operator delete(v77[0]);
   }
 
-  if (v79)
+  if (v78)
   {
-    v80 = v79;
-    operator delete(v79);
+    v79 = v78;
+    operator delete(v78);
   }
 
   if (__dst[0])
@@ -4729,14 +3404,11 @@ LABEL_115:
     operator delete(__dst[0]);
   }
 
-  if (v82)
+  if (v81)
   {
-    v83 = v82;
-    operator delete(v82);
+    v82 = v81;
+    operator delete(v81);
   }
-
-LABEL_127:
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25993C018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, void *a43)
@@ -4788,47 +3460,47 @@ void sub_25993C018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::GetScalarOrVectorOrDefault<MIL::Fp16>(MIL::Fp16 *a1@<X0>, uint64_t *a2@<X2>, const void **a3@<X8>)
+void MIL::ANEMachineIR::GetScalarOrVectorOrDefault<MIL::Fp16>(MIL::Fp16 *a1@<X0>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   MIL::Fp16::FromFloat(a1, 0.0);
   ParameterValue = MIL::IROperation::TryGetParameterValue();
   if (ParameterValue)
   {
-    if ((*(*ParameterValue + 40))(ParameterValue) && (v6 = MEMORY[0x259CA93C0]()) != 0)
+    if ((*(*ParameterValue + 40))(ParameterValue) && (v7 = MEMORY[0x259CA93C0]()) != 0)
     {
-      LOWORD(v18) = *v6;
-      a3[1] = 0;
-      a3[2] = 0;
-      *a3 = 0;
-      std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(a3, &v18, &v18 + 2, 1);
+      LOWORD(v19) = *v7;
+      a4[1] = 0;
+      a4[2] = 0;
+      *a4 = 0;
+      std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(a4, &v19, &v19 + 1, 1);
     }
 
     else
     {
-      v7 = MIL::IROperation::GetParameterValue();
-      v8 = MIL::IRValue::AsTensor(v7);
-      v9 = (*(*v8 + 32))(v8);
-      ANEMachineIR::Utils::GetStaticTensorShape(v9, v10, &v18);
-      if (v19 == v18)
+      v8 = MIL::IROperation::GetParameterValue();
+      v9 = MIL::IRValue::AsTensor(v8);
+      v10 = (*(*v9 + 32))(v9);
+      ANEMachineIR::Utils::GetStaticTensorShape(&v19, v10, v11);
+      if (v20 == v19)
       {
         std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v11 = *v18;
-      v19 = v18;
-      operator delete(v18);
-      v18 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-      v19 = v12;
-      a3[1] = 0;
-      a3[2] = 0;
-      *a3 = 0;
-      std::vector<MIL::Fp16>::reserve(a3, v11);
-      if (v11)
+      v12 = *v19;
+      v20 = v19;
+      operator delete(v19);
+      v19 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
+      v20 = v13;
+      a4[1] = 0;
+      a4[2] = 0;
+      *a4 = 0;
+      std::vector<MIL::Fp16>::reserve(a4, v12);
+      if (v12)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          v14 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::operator[](&v18, i);
-          std::vector<MIL::Fp16>::push_back[abi:ne200100](a3, v14);
+          v15 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::operator[](&v19, i);
+          std::vector<MIL::Fp16>::push_back[abi:ne200100](a4, v15);
         }
       }
     }
@@ -4836,14 +3508,14 @@ void MIL::ANEMachineIR::GetScalarOrVectorOrDefault<MIL::Fp16>(MIL::Fp16 *a1@<X0>
 
   else
   {
-    *a3 = 0;
-    a3[1] = 0;
-    a3[2] = 0;
-    v15 = *a2;
-    v16 = a2[1];
-    v17 = (v16 - *a2) >> 1;
+    *a4 = 0;
+    a4[1] = 0;
+    a4[2] = 0;
+    v16 = *a3;
+    v17 = *(a3 + 8);
+    v18 = (v17 - *a3) >> 1;
 
-    std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(a3, v15, v16, v17);
+    std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(a4, v16, v17, v18);
   }
 }
 
@@ -4859,7 +3531,7 @@ void sub_25993C600(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MIL::Fp16>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<MIL::Fp16>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4915,90 +3587,90 @@ void std::vector<MIL::Fp16>::push_back[abi:ne200100](const void **a1, _WORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 2;
   }
 
   a1[1] = v6;
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, int a18, char a19, uint64_t a20)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v33 = a14;
-  v31[1] = a3;
-  v32 = a1;
-  v15 = *a7;
+  v49 = *MEMORY[0x277D85DE8];
+  v39 = a17;
+  v37[1] = a3;
+  v38 = a1;
+  v21 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v23 <= 8)
     {
       goto LABEL_13;
     }
 
-    v18 = *(v16 + 8);
-    v31[0] = v18;
+    v24 = *(v22 + 8);
+    v37[0] = v24;
   }
 
   else
   {
-    v18 = 1;
-    v31[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v24 = 1;
+    v37[0] = 1;
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v21 < 2)
     {
-      v19 = 1;
-      v30 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v25 = 1;
+      v36 = 1;
+      v24 = 1;
+      if (v23 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v29 = *(v20 - 16);
-        v27 = *(v20 - 8);
-        v28 = v27;
-        v26 = v27 * v29;
-        v25 = v27 * v29 * v19;
-        v24 = v25 * v18;
-        Float = MIL::Fp16::GetFloat(&v33);
-        v23 = MIL::Fp16::FromFloat(Float, v22);
-        v42 = 0;
-        if (a12)
+        v26 = v22 + v23;
+        v35 = *(v26 - 16);
+        v33 = *(v26 - 8);
+        v34 = v33;
+        v32 = v33 * v35;
+        v31 = v33 * v35 * v25;
+        v30 = v31 * v24;
+        Float = MIL::Fp16::GetFloat(&v39);
+        v29 = MIL::Fp16::FromFloat(Float, v28);
+        v48 = 0;
+        if (a15)
         {
-          *&v34 = &v28;
-          *(&v34 + 1) = &v23;
-          v35 = &v32;
-          v36 = &v24;
-          v37 = &v25;
-          v38 = &v26;
-          v39 = &v27;
-          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v41, &v34);
+          *&v40 = &v34;
+          *(&v40 + 1) = &v29;
+          v41 = &v38;
+          v42 = &v30;
+          v43 = &v31;
+          v44 = &v32;
+          v45 = &v33;
+          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v40);
         }
 
         if (a8)
         {
-          *&v34 = v31;
-          *(&v34 + 1) = &v30;
-          v35 = &v29;
-          v36 = &v32;
-          v37 = &v24;
-          v38 = &v25;
-          v39 = &v26;
-          v40 = &v27;
-          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v41, &v34);
+          *&v40 = v37;
+          *(&v40 + 1) = &v36;
+          v41 = &v35;
+          v42 = &v38;
+          v43 = &v30;
+          v44 = &v31;
+          v45 = &v32;
+          v46 = &v33;
+          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v40);
         }
 
-        *&v34 = v31;
-        *(&v34 + 1) = &v30;
-        v35 = &v29;
-        v36 = &v32;
-        v37 = &v24;
-        v38 = &v25;
-        v39 = &v26;
-        v40 = &v27;
-        std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v41, &v34);
+        *&v40 = v37;
+        *(&v40 + 1) = &v36;
+        v41 = &v35;
+        v42 = &v38;
+        v43 = &v30;
+        v44 = &v31;
+        v45 = &v32;
+        v46 = &v33;
+        std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v40);
       }
 
 LABEL_13:
@@ -5006,10 +3678,10 @@ LABEL_13:
     }
   }
 
-  if (v17 > 0x10)
+  if (v23 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v30 = v19;
+    v25 = *(v22 + v23 - 24);
+    v36 = v25;
     goto LABEL_8;
   }
 
@@ -5041,84 +3713,84 @@ void sub_25993D348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, int a18, char a19, uint64_t a20)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v33 = a14;
-  v31[1] = a3;
-  v32 = a1;
-  v15 = *a7;
+  v47[8] = *MEMORY[0x277D85DE8];
+  v39 = a17;
+  v37[1] = a3;
+  v38 = a1;
+  v21 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v23 <= 8)
     {
       goto LABEL_13;
     }
 
-    v18 = *(v16 + 8);
-    v31[0] = v18;
+    v24 = *(v22 + 8);
+    v37[0] = v24;
   }
 
   else
   {
-    v18 = 1;
-    v31[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v24 = 1;
+    v37[0] = 1;
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v21 < 2)
     {
-      v19 = 1;
-      v30 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v25 = 1;
+      v36 = 1;
+      v24 = 1;
+      if (v23 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v29 = *(v20 - 16);
-        v27 = *(v20 - 8);
-        v28 = v27;
-        v26 = v27 * v29;
-        v25 = v27 * v29 * v19;
-        v24 = v25 * v18;
-        Float = MIL::Fp16::GetFloat(&v33);
-        v23 = MIL::Fp16::FromFloat(Float, v22);
-        v42 = 0;
-        if (a12)
+        v26 = v22 + v23;
+        v35 = *(v26 - 16);
+        v33 = *(v26 - 8);
+        v34 = v33;
+        v32 = v33 * v35;
+        v31 = v33 * v35 * v25;
+        v30 = v31 * v24;
+        Float = MIL::Fp16::GetFloat(&v39);
+        v29 = MIL::Fp16::FromFloat(Float, v28);
+        v47[3] = 0;
+        if (a15)
         {
-          *&v34 = &v28;
-          *(&v34 + 1) = &v23;
-          v35 = &v32;
-          v36 = &v24;
-          v37 = &v25;
-          v38 = &v26;
-          v39 = &v27;
-          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v41, &v34);
+          *&v40 = &v34;
+          *(&v40 + 1) = &v29;
+          v41 = &v38;
+          v42 = &v30;
+          v43 = &v31;
+          v44 = &v32;
+          v45 = &v33;
+          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v40);
         }
 
         if (a8)
         {
-          *&v34 = v31;
-          *(&v34 + 1) = &v30;
-          v35 = &v29;
-          v36 = &v32;
-          v37 = &v24;
-          v38 = &v25;
-          v39 = &v26;
-          v40 = &v27;
-          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v41, &v34);
+          *&v40 = v37;
+          *(&v40 + 1) = &v36;
+          v41 = &v35;
+          v42 = &v38;
+          v43 = &v30;
+          v44 = &v31;
+          v45 = &v32;
+          v46 = &v33;
+          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v40);
         }
 
-        *&v34 = v31;
-        *(&v34 + 1) = &v30;
-        v35 = &v29;
-        v36 = &v32;
-        v37 = &v24;
-        v38 = &v25;
-        v39 = &v26;
-        v40 = &v27;
-        std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v41, &v34);
+        *&v40 = v37;
+        *(&v40 + 1) = &v36;
+        v41 = &v35;
+        v42 = &v38;
+        v43 = &v30;
+        v44 = &v31;
+        v45 = &v32;
+        v46 = &v33;
+        std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v40);
       }
 
 LABEL_13:
@@ -5126,10 +3798,10 @@ LABEL_13:
     }
   }
 
-  if (v17 > 0x10)
+  if (v23 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v30 = v19;
+    v25 = *(v22 + v23 - 24);
+    v36 = v25;
     goto LABEL_8;
   }
 
@@ -5163,84 +3835,84 @@ void sub_25993E0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, int a18, char a19, uint64_t a20)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v33 = a14;
-  v31[1] = a3;
-  v32 = a1;
-  v15 = *a7;
+  v47[8] = *MEMORY[0x277D85DE8];
+  v39 = a17;
+  v37[1] = a3;
+  v38 = a1;
+  v21 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v23 <= 8)
     {
       goto LABEL_13;
     }
 
-    v18 = *(v16 + 8);
-    v31[0] = v18;
+    v24 = *(v22 + 8);
+    v37[0] = v24;
   }
 
   else
   {
-    v18 = 1;
-    v31[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v24 = 1;
+    v37[0] = 1;
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v21 < 2)
     {
-      v19 = 1;
-      v30 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v25 = 1;
+      v36 = 1;
+      v24 = 1;
+      if (v23 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v29 = *(v20 - 16);
-        v27 = *(v20 - 8);
-        v28 = v27;
-        v26 = v27 * v29;
-        v25 = v27 * v29 * v19;
-        v24 = v25 * v18;
-        Float = MIL::Fp16::GetFloat(&v33);
-        v23 = MIL::Fp16::FromFloat(Float, v22);
-        v42 = 0;
-        if (a12)
+        v26 = v22 + v23;
+        v35 = *(v26 - 16);
+        v33 = *(v26 - 8);
+        v34 = v33;
+        v32 = v33 * v35;
+        v31 = v33 * v35 * v25;
+        v30 = v31 * v24;
+        Float = MIL::Fp16::GetFloat(&v39);
+        v29 = MIL::Fp16::FromFloat(Float, v28);
+        v47[3] = 0;
+        if (a15)
         {
-          *&v34 = &v28;
-          *(&v34 + 1) = &v23;
-          v35 = &v32;
-          v36 = &v24;
-          v37 = &v25;
-          v38 = &v26;
-          v39 = &v27;
-          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v41, &v34);
+          *&v40 = &v34;
+          *(&v40 + 1) = &v29;
+          v41 = &v38;
+          v42 = &v30;
+          v43 = &v31;
+          v44 = &v32;
+          v45 = &v33;
+          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v40);
         }
 
         if (a8)
         {
-          *&v34 = v31;
-          *(&v34 + 1) = &v30;
-          v35 = &v29;
-          v36 = &v32;
-          v37 = &v24;
-          v38 = &v25;
-          v39 = &v26;
-          v40 = &v27;
-          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v41, &v34);
+          *&v40 = v37;
+          *(&v40 + 1) = &v36;
+          v41 = &v35;
+          v42 = &v38;
+          v43 = &v30;
+          v44 = &v31;
+          v45 = &v32;
+          v46 = &v33;
+          std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v40);
         }
 
-        *&v34 = v31;
-        *(&v34 + 1) = &v30;
-        v35 = &v29;
-        v36 = &v32;
-        v37 = &v24;
-        v38 = &v25;
-        v39 = &v26;
-        v40 = &v27;
-        std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v41, &v34);
+        *&v40 = v37;
+        *(&v40 + 1) = &v36;
+        v41 = &v35;
+        v42 = &v38;
+        v43 = &v30;
+        v44 = &v31;
+        v45 = &v32;
+        v46 = &v33;
+        std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v40);
       }
 
 LABEL_13:
@@ -5248,10 +3920,10 @@ LABEL_13:
     }
   }
 
-  if (v17 > 0x10)
+  if (v23 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v30 = v19;
+    v25 = *(v22 + v23 - 24);
+    v36 = v25;
     goto LABEL_8;
   }
 
@@ -5285,105 +3957,105 @@ void sub_25993EE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, uint64_t a18, uint64_t a19)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v41 = a14;
-  v39[1] = a3;
-  v40 = a1;
-  v15 = *a7;
+  v49 = *MEMORY[0x277D85DE8];
+  v46 = a17;
+  v44[1] = a3;
+  v45 = a1;
+  v20 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v21 = *a2;
+    v22 = a2[1] - *a2;
+    if (v22 <= 8)
     {
       goto LABEL_20;
     }
 
-    v18 = *(v16 + 8);
-    v39[0] = v18;
+    v23 = *(v21 + 8);
+    v44[0] = v23;
   }
 
   else
   {
-    v18 = 1;
-    v39[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v23 = 1;
+    v44[0] = 1;
+    v21 = *a2;
+    v22 = a2[1] - *a2;
+    if (v20 < 2)
     {
-      v19 = 1;
-      v38 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v24 = 1;
+      v43 = 1;
+      v23 = 1;
+      if (v22 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v37 = *(v20 - 16);
-        v35 = *(v20 - 8);
-        v36 = v35;
-        v33 = v35 * v37 * v19;
-        v34 = v35 * v37;
-        v32 = v33 * v18;
-        MIL::Fp16::GetFloat(&v41);
-        if (v21 == INFINITY)
+        v25 = v21 + v22;
+        v42 = *(v25 - 16);
+        v40 = *(v25 - 8);
+        v41 = v40;
+        v38 = v40 * v42 * v24;
+        v39 = v40 * v42;
+        v37 = v38 * v23;
+        MIL::Fp16::GetFloat(&v46);
+        if (v26 == INFINITY)
         {
-          LOBYTE(v22) = -1;
+          LOBYTE(v27) = -1;
         }
 
-        else if (v21 == -INFINITY)
+        else if (v26 == -INFINITY)
         {
-          LOBYTE(v22) = 0;
+          LOBYTE(v27) = 0;
         }
 
         else
         {
-          v23 = llroundf(v21);
-          if (v23 >= 255)
+          v28 = llroundf(v26);
+          if (v28 >= 255)
           {
-            v23 = 255;
+            v28 = 255;
           }
 
-          v22 = v23 & ~(v23 >> 31);
+          v27 = v28 & ~(v28 >> 31);
         }
 
-        v31 = v22;
-        v43 = 0;
-        if (a12)
+        v36 = v27;
+        v48 = 0;
+        if (a15)
         {
-          *&v24 = &v36;
-          *(&v24 + 1) = &v31;
-          v25 = &v40;
-          v26 = &v32;
-          v27 = &v33;
-          v28 = &v34;
-          v29 = &v35;
-          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v42, &v24);
+          *&v29 = &v41;
+          *(&v29 + 1) = &v36;
+          v30 = &v45;
+          v31 = &v37;
+          v32 = &v38;
+          v33 = &v39;
+          v34 = &v40;
+          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v29);
         }
 
         if (a8)
         {
-          *&v24 = v39;
-          *(&v24 + 1) = &v38;
-          v25 = &v37;
-          v26 = &v40;
-          v27 = &v32;
-          v28 = &v33;
-          v29 = &v34;
-          v30 = &v35;
-          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v42, &v24);
+          *&v29 = v44;
+          *(&v29 + 1) = &v43;
+          v30 = &v42;
+          v31 = &v45;
+          v32 = &v37;
+          v33 = &v38;
+          v34 = &v39;
+          v35 = &v40;
+          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v29);
         }
 
-        *&v24 = v39;
-        *(&v24 + 1) = &v38;
-        v25 = &v37;
-        v26 = &v40;
-        v27 = &v32;
-        v28 = &v33;
-        v29 = &v34;
-        v30 = &v35;
-        std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v42, &v24);
+        *&v29 = v44;
+        *(&v29 + 1) = &v43;
+        v30 = &v42;
+        v31 = &v45;
+        v32 = &v37;
+        v33 = &v38;
+        v34 = &v39;
+        v35 = &v40;
+        std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v29);
       }
 
 LABEL_20:
@@ -5391,10 +4063,10 @@ LABEL_20:
     }
   }
 
-  if (v17 > 0x10)
+  if (v22 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v38 = v19;
+    v24 = *(v21 + v22 - 24);
+    v43 = v24;
     goto LABEL_8;
   }
 
@@ -5426,105 +4098,105 @@ void sub_25993FB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, uint64_t a18, uint64_t a19)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v41 = a14;
-  v39[1] = a3;
-  v40 = a1;
-  v15 = *a7;
+  v47[8] = *MEMORY[0x277D85DE8];
+  v46 = a17;
+  v44[1] = a3;
+  v45 = a1;
+  v20 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v21 = *a2;
+    v22 = a2[1] - *a2;
+    if (v22 <= 8)
     {
       goto LABEL_20;
     }
 
-    v18 = *(v16 + 8);
-    v39[0] = v18;
+    v23 = *(v21 + 8);
+    v44[0] = v23;
   }
 
   else
   {
-    v18 = 1;
-    v39[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v23 = 1;
+    v44[0] = 1;
+    v21 = *a2;
+    v22 = a2[1] - *a2;
+    if (v20 < 2)
     {
-      v19 = 1;
-      v38 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v24 = 1;
+      v43 = 1;
+      v23 = 1;
+      if (v22 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v37 = *(v20 - 16);
-        v35 = *(v20 - 8);
-        v36 = v35;
-        v33 = v35 * v37 * v19;
-        v34 = v35 * v37;
-        v32 = v33 * v18;
-        MIL::Fp16::GetFloat(&v41);
-        if (v21 == INFINITY)
+        v25 = v21 + v22;
+        v42 = *(v25 - 16);
+        v40 = *(v25 - 8);
+        v41 = v40;
+        v38 = v40 * v42 * v24;
+        v39 = v40 * v42;
+        v37 = v38 * v23;
+        MIL::Fp16::GetFloat(&v46);
+        if (v26 == INFINITY)
         {
-          LOBYTE(v22) = -1;
+          LOBYTE(v27) = -1;
         }
 
-        else if (v21 == -INFINITY)
+        else if (v26 == -INFINITY)
         {
-          LOBYTE(v22) = 0;
+          LOBYTE(v27) = 0;
         }
 
         else
         {
-          v23 = llroundf(v21);
-          if (v23 >= 255)
+          v28 = llroundf(v26);
+          if (v28 >= 255)
           {
-            v23 = 255;
+            v28 = 255;
           }
 
-          v22 = v23 & ~(v23 >> 31);
+          v27 = v28 & ~(v28 >> 31);
         }
 
-        v31 = v22;
-        v43 = 0;
-        if (a12)
+        v36 = v27;
+        v47[3] = 0;
+        if (a15)
         {
-          *&v24 = &v36;
-          *(&v24 + 1) = &v31;
-          v25 = &v40;
-          v26 = &v32;
-          v27 = &v33;
-          v28 = &v34;
-          v29 = &v35;
-          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v42, &v24);
+          *&v29 = &v41;
+          *(&v29 + 1) = &v36;
+          v30 = &v45;
+          v31 = &v37;
+          v32 = &v38;
+          v33 = &v39;
+          v34 = &v40;
+          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v29);
         }
 
         if (a8)
         {
-          *&v24 = v39;
-          *(&v24 + 1) = &v38;
-          v25 = &v37;
-          v26 = &v40;
-          v27 = &v32;
-          v28 = &v33;
-          v29 = &v34;
-          v30 = &v35;
-          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v42, &v24);
+          *&v29 = v44;
+          *(&v29 + 1) = &v43;
+          v30 = &v42;
+          v31 = &v45;
+          v32 = &v37;
+          v33 = &v38;
+          v34 = &v39;
+          v35 = &v40;
+          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v29);
         }
 
-        *&v24 = v39;
-        *(&v24 + 1) = &v38;
-        v25 = &v37;
-        v26 = &v40;
-        v27 = &v32;
-        v28 = &v33;
-        v29 = &v34;
-        v30 = &v35;
-        std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v42, &v24);
+        *&v29 = v44;
+        *(&v29 + 1) = &v43;
+        v30 = &v42;
+        v31 = &v45;
+        v32 = &v37;
+        v33 = &v38;
+        v34 = &v39;
+        v35 = &v40;
+        std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v29);
       }
 
 LABEL_20:
@@ -5532,10 +4204,10 @@ LABEL_20:
     }
   }
 
-  if (v17 > 0x10)
+  if (v22 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v38 = v19;
+    v24 = *(v21 + v22 - 24);
+    v43 = v24;
     goto LABEL_8;
   }
 
@@ -5569,105 +4241,105 @@ void sub_259940914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, uint64_t a18, uint64_t a19)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v41 = a14;
-  v39[1] = a3;
-  v40 = a1;
-  v15 = *a7;
+  v47[8] = *MEMORY[0x277D85DE8];
+  v46 = a17;
+  v44[1] = a3;
+  v45 = a1;
+  v20 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v21 = *a2;
+    v22 = a2[1] - *a2;
+    if (v22 <= 8)
     {
       goto LABEL_20;
     }
 
-    v18 = *(v16 + 8);
-    v39[0] = v18;
+    v23 = *(v21 + 8);
+    v44[0] = v23;
   }
 
   else
   {
-    v18 = 1;
-    v39[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v23 = 1;
+    v44[0] = 1;
+    v21 = *a2;
+    v22 = a2[1] - *a2;
+    if (v20 < 2)
     {
-      v19 = 1;
-      v38 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v24 = 1;
+      v43 = 1;
+      v23 = 1;
+      if (v22 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v37 = *(v20 - 16);
-        v35 = *(v20 - 8);
-        v36 = v35;
-        v33 = v35 * v37 * v19;
-        v34 = v35 * v37;
-        v32 = v33 * v18;
-        MIL::Fp16::GetFloat(&v41);
-        if (v21 == INFINITY)
+        v25 = v21 + v22;
+        v42 = *(v25 - 16);
+        v40 = *(v25 - 8);
+        v41 = v40;
+        v38 = v40 * v42 * v24;
+        v39 = v40 * v42;
+        v37 = v38 * v23;
+        MIL::Fp16::GetFloat(&v46);
+        if (v26 == INFINITY)
         {
-          LOBYTE(v22) = -1;
+          LOBYTE(v27) = -1;
         }
 
-        else if (v21 == -INFINITY)
+        else if (v26 == -INFINITY)
         {
-          LOBYTE(v22) = 0;
+          LOBYTE(v27) = 0;
         }
 
         else
         {
-          v23 = llroundf(v21);
-          if (v23 >= 255)
+          v28 = llroundf(v26);
+          if (v28 >= 255)
           {
-            v23 = 255;
+            v28 = 255;
           }
 
-          v22 = v23 & ~(v23 >> 31);
+          v27 = v28 & ~(v28 >> 31);
         }
 
-        v31 = v22;
-        v43 = 0;
-        if (a12)
+        v36 = v27;
+        v47[3] = 0;
+        if (a15)
         {
-          *&v24 = &v36;
-          *(&v24 + 1) = &v31;
-          v25 = &v40;
-          v26 = &v32;
-          v27 = &v33;
-          v28 = &v34;
-          v29 = &v35;
-          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v42, &v24);
+          *&v29 = &v41;
+          *(&v29 + 1) = &v36;
+          v30 = &v45;
+          v31 = &v37;
+          v32 = &v38;
+          v33 = &v39;
+          v34 = &v40;
+          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v29);
         }
 
         if (a8)
         {
-          *&v24 = v39;
-          *(&v24 + 1) = &v38;
-          v25 = &v37;
-          v26 = &v40;
-          v27 = &v32;
-          v28 = &v33;
-          v29 = &v34;
-          v30 = &v35;
-          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v42, &v24);
+          *&v29 = v44;
+          *(&v29 + 1) = &v43;
+          v30 = &v42;
+          v31 = &v45;
+          v32 = &v37;
+          v33 = &v38;
+          v34 = &v39;
+          v35 = &v40;
+          std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v29);
         }
 
-        *&v24 = v39;
-        *(&v24 + 1) = &v38;
-        v25 = &v37;
-        v26 = &v40;
-        v27 = &v32;
-        v28 = &v33;
-        v29 = &v34;
-        v30 = &v35;
-        std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v42, &v24);
+        *&v29 = v44;
+        *(&v29 + 1) = &v43;
+        v30 = &v42;
+        v31 = &v45;
+        v32 = &v37;
+        v33 = &v38;
+        v34 = &v39;
+        v35 = &v40;
+        std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v29);
       }
 
 LABEL_20:
@@ -5675,10 +4347,10 @@ LABEL_20:
     }
   }
 
-  if (v17 > 0x10)
+  if (v22 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v38 = v19;
+    v24 = *(v21 + v22 - 24);
+    v43 = v24;
     goto LABEL_8;
   }
 
@@ -5712,108 +4384,108 @@ void sub_25994169C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, int a18, char a19, uint64_t a20)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v33 = a14;
-  v31[1] = a3;
-  v32 = a1;
-  v15 = *a7;
+  v49 = *MEMORY[0x277D85DE8];
+  v39 = a17;
+  v37[1] = a3;
+  v38 = a1;
+  v21 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v23 <= 8)
     {
       goto LABEL_21;
     }
 
-    v18 = *(v16 + 8);
-    v31[0] = v18;
+    v24 = *(v22 + 8);
+    v37[0] = v24;
   }
 
   else
   {
-    v18 = 1;
-    v31[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v24 = 1;
+    v37[0] = 1;
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v21 < 2)
     {
-      v19 = 1;
-      v30 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v25 = 1;
+      v36 = 1;
+      v24 = 1;
+      if (v23 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v29 = *(v20 - 16);
-        v27 = *(v20 - 8);
-        v28 = v27;
-        v26 = v27 * v29;
-        v25 = v27 * v29 * v19;
-        v24 = v25 * v18;
-        MIL::Fp16::GetFloat(&v33);
-        if (v21 == INFINITY)
+        v26 = v22 + v23;
+        v35 = *(v26 - 16);
+        v33 = *(v26 - 8);
+        v34 = v33;
+        v32 = v33 * v35;
+        v31 = v33 * v35 * v25;
+        v30 = v31 * v24;
+        MIL::Fp16::GetFloat(&v39);
+        if (v27 == INFINITY)
         {
-          LOBYTE(v22) = 127;
+          LOBYTE(v28) = 127;
         }
 
-        else if (v21 == -INFINITY)
+        else if (v27 == -INFINITY)
         {
-          LOBYTE(v22) = 0x80;
+          LOBYTE(v28) = 0x80;
         }
 
         else
         {
-          v22 = llroundf(v21);
-          if (v22 >= 127)
+          v28 = llroundf(v27);
+          if (v28 >= 127)
           {
-            v22 = 127;
+            v28 = 127;
           }
 
-          if (v22 <= -128)
+          if (v28 <= -128)
           {
-            LOBYTE(v22) = 0x80;
+            LOBYTE(v28) = 0x80;
           }
         }
 
-        v23 = v22;
-        v42 = 0;
-        if (a12)
+        v29 = v28;
+        v48 = 0;
+        if (a15)
         {
-          *&v34 = &v28;
-          *(&v34 + 1) = &v23;
-          v35 = &v32;
-          v36 = &v24;
-          v37 = &v25;
-          v38 = &v26;
-          v39 = &v27;
-          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v41, &v34);
+          *&v40 = &v34;
+          *(&v40 + 1) = &v29;
+          v41 = &v38;
+          v42 = &v30;
+          v43 = &v31;
+          v44 = &v32;
+          v45 = &v33;
+          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v40);
         }
 
         if (a8)
         {
-          *&v34 = v31;
-          *(&v34 + 1) = &v30;
-          v35 = &v29;
-          v36 = &v32;
-          v37 = &v24;
-          v38 = &v25;
-          v39 = &v26;
-          v40 = &v27;
-          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v41, &v34);
+          *&v40 = v37;
+          *(&v40 + 1) = &v36;
+          v41 = &v35;
+          v42 = &v38;
+          v43 = &v30;
+          v44 = &v31;
+          v45 = &v32;
+          v46 = &v33;
+          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v40);
         }
 
-        *&v34 = v31;
-        *(&v34 + 1) = &v30;
-        v35 = &v29;
-        v36 = &v32;
-        v37 = &v24;
-        v38 = &v25;
-        v39 = &v26;
-        v40 = &v27;
-        std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v41, &v34);
+        *&v40 = v37;
+        *(&v40 + 1) = &v36;
+        v41 = &v35;
+        v42 = &v38;
+        v43 = &v30;
+        v44 = &v31;
+        v45 = &v32;
+        v46 = &v33;
+        std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v40);
       }
 
 LABEL_21:
@@ -5821,10 +4493,10 @@ LABEL_21:
     }
   }
 
-  if (v17 > 0x10)
+  if (v23 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v30 = v19;
+    v25 = *(v22 + v23 - 24);
+    v36 = v25;
     goto LABEL_8;
   }
 
@@ -5856,108 +4528,108 @@ void sub_259942420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, int a18, char a19, uint64_t a20)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v33 = a14;
-  v31[1] = a3;
-  v32 = a1;
-  v15 = *a7;
+  v47[8] = *MEMORY[0x277D85DE8];
+  v39 = a17;
+  v37[1] = a3;
+  v38 = a1;
+  v21 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v23 <= 8)
     {
       goto LABEL_21;
     }
 
-    v18 = *(v16 + 8);
-    v31[0] = v18;
+    v24 = *(v22 + 8);
+    v37[0] = v24;
   }
 
   else
   {
-    v18 = 1;
-    v31[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v24 = 1;
+    v37[0] = 1;
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v21 < 2)
     {
-      v19 = 1;
-      v30 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v25 = 1;
+      v36 = 1;
+      v24 = 1;
+      if (v23 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v29 = *(v20 - 16);
-        v27 = *(v20 - 8);
-        v28 = v27;
-        v26 = v27 * v29;
-        v25 = v27 * v29 * v19;
-        v24 = v25 * v18;
-        MIL::Fp16::GetFloat(&v33);
-        if (v21 == INFINITY)
+        v26 = v22 + v23;
+        v35 = *(v26 - 16);
+        v33 = *(v26 - 8);
+        v34 = v33;
+        v32 = v33 * v35;
+        v31 = v33 * v35 * v25;
+        v30 = v31 * v24;
+        MIL::Fp16::GetFloat(&v39);
+        if (v27 == INFINITY)
         {
-          LOBYTE(v22) = 127;
+          LOBYTE(v28) = 127;
         }
 
-        else if (v21 == -INFINITY)
+        else if (v27 == -INFINITY)
         {
-          LOBYTE(v22) = 0x80;
+          LOBYTE(v28) = 0x80;
         }
 
         else
         {
-          v22 = llroundf(v21);
-          if (v22 >= 127)
+          v28 = llroundf(v27);
+          if (v28 >= 127)
           {
-            v22 = 127;
+            v28 = 127;
           }
 
-          if (v22 <= -128)
+          if (v28 <= -128)
           {
-            LOBYTE(v22) = 0x80;
+            LOBYTE(v28) = 0x80;
           }
         }
 
-        v23 = v22;
-        v42 = 0;
-        if (a12)
+        v29 = v28;
+        v47[3] = 0;
+        if (a15)
         {
-          *&v34 = &v28;
-          *(&v34 + 1) = &v23;
-          v35 = &v32;
-          v36 = &v24;
-          v37 = &v25;
-          v38 = &v26;
-          v39 = &v27;
-          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v41, &v34);
+          *&v40 = &v34;
+          *(&v40 + 1) = &v29;
+          v41 = &v38;
+          v42 = &v30;
+          v43 = &v31;
+          v44 = &v32;
+          v45 = &v33;
+          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v40);
         }
 
         if (a8)
         {
-          *&v34 = v31;
-          *(&v34 + 1) = &v30;
-          v35 = &v29;
-          v36 = &v32;
-          v37 = &v24;
-          v38 = &v25;
-          v39 = &v26;
-          v40 = &v27;
-          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v41, &v34);
+          *&v40 = v37;
+          *(&v40 + 1) = &v36;
+          v41 = &v35;
+          v42 = &v38;
+          v43 = &v30;
+          v44 = &v31;
+          v45 = &v32;
+          v46 = &v33;
+          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v40);
         }
 
-        *&v34 = v31;
-        *(&v34 + 1) = &v30;
-        v35 = &v29;
-        v36 = &v32;
-        v37 = &v24;
-        v38 = &v25;
-        v39 = &v26;
-        v40 = &v27;
-        std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v41, &v34);
+        *&v40 = v37;
+        *(&v40 + 1) = &v36;
+        v41 = &v35;
+        v42 = &v38;
+        v43 = &v30;
+        v44 = &v31;
+        v45 = &v32;
+        v46 = &v33;
+        std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v40);
       }
 
 LABEL_21:
@@ -5965,10 +4637,10 @@ LABEL_21:
     }
   }
 
-  if (v17 > 0x10)
+  if (v23 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v30 = v19;
+    v25 = *(v22 + v23 - 24);
+    v36 = v25;
     goto LABEL_8;
   }
 
@@ -6002,108 +4674,108 @@ void sub_2599431E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14)
+void MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, void *a5, uint64_t a6, unint64_t *a7, int a8, char a10, char a11, char a12, uint64_t a13, MIL::Fp16 **a14, char a15, int a16, __int16 a17, int a18, char a19, uint64_t a20)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v33 = a14;
-  v31[1] = a3;
-  v32 = a1;
-  v15 = *a7;
+  v47[8] = *MEMORY[0x277D85DE8];
+  v39 = a17;
+  v37[1] = a3;
+  v38 = a1;
+  v21 = *a7;
   if (*a7 == 3)
   {
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v17 <= 8)
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v23 <= 8)
     {
       goto LABEL_21;
     }
 
-    v18 = *(v16 + 8);
-    v31[0] = v18;
+    v24 = *(v22 + 8);
+    v37[0] = v24;
   }
 
   else
   {
-    v18 = 1;
-    v31[0] = 1;
-    v16 = *a2;
-    v17 = a2[1] - *a2;
-    if (v15 < 2)
+    v24 = 1;
+    v37[0] = 1;
+    v22 = *a2;
+    v23 = a2[1] - *a2;
+    if (v21 < 2)
     {
-      v19 = 1;
-      v30 = 1;
-      v18 = 1;
-      if (v17 > 8)
+      v25 = 1;
+      v36 = 1;
+      v24 = 1;
+      if (v23 > 8)
       {
 LABEL_8:
-        v20 = v16 + v17;
-        v29 = *(v20 - 16);
-        v27 = *(v20 - 8);
-        v28 = v27;
-        v26 = v27 * v29;
-        v25 = v27 * v29 * v19;
-        v24 = v25 * v18;
-        MIL::Fp16::GetFloat(&v33);
-        if (v21 == INFINITY)
+        v26 = v22 + v23;
+        v35 = *(v26 - 16);
+        v33 = *(v26 - 8);
+        v34 = v33;
+        v32 = v33 * v35;
+        v31 = v33 * v35 * v25;
+        v30 = v31 * v24;
+        MIL::Fp16::GetFloat(&v39);
+        if (v27 == INFINITY)
         {
-          LOBYTE(v22) = 127;
+          LOBYTE(v28) = 127;
         }
 
-        else if (v21 == -INFINITY)
+        else if (v27 == -INFINITY)
         {
-          LOBYTE(v22) = 0x80;
+          LOBYTE(v28) = 0x80;
         }
 
         else
         {
-          v22 = llroundf(v21);
-          if (v22 >= 127)
+          v28 = llroundf(v27);
+          if (v28 >= 127)
           {
-            v22 = 127;
+            v28 = 127;
           }
 
-          if (v22 <= -128)
+          if (v28 <= -128)
           {
-            LOBYTE(v22) = 0x80;
+            LOBYTE(v28) = 0x80;
           }
         }
 
-        v23 = v22;
-        v42 = 0;
-        if (a12)
+        v29 = v28;
+        v47[3] = 0;
+        if (a15)
         {
-          *&v34 = &v28;
-          *(&v34 + 1) = &v23;
-          v35 = &v32;
-          v36 = &v24;
-          v37 = &v25;
-          v38 = &v26;
-          v39 = &v27;
-          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v41, &v34);
+          *&v40 = &v34;
+          *(&v40 + 1) = &v29;
+          v41 = &v38;
+          v42 = &v30;
+          v43 = &v31;
+          v44 = &v32;
+          v45 = &v33;
+          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(v47, &v40);
         }
 
         if (a8)
         {
-          *&v34 = v31;
-          *(&v34 + 1) = &v30;
-          v35 = &v29;
-          v36 = &v32;
-          v37 = &v24;
-          v38 = &v25;
-          v39 = &v26;
-          v40 = &v27;
-          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v41, &v34);
+          *&v40 = v37;
+          *(&v40 + 1) = &v36;
+          v41 = &v35;
+          v42 = &v38;
+          v43 = &v30;
+          v44 = &v31;
+          v45 = &v32;
+          v46 = &v33;
+          std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(v47, &v40);
         }
 
-        *&v34 = v31;
-        *(&v34 + 1) = &v30;
-        v35 = &v29;
-        v36 = &v32;
-        v37 = &v24;
-        v38 = &v25;
-        v39 = &v26;
-        v40 = &v27;
-        std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v41, &v34);
+        *&v40 = v37;
+        *(&v40 + 1) = &v36;
+        v41 = &v35;
+        v42 = &v38;
+        v43 = &v30;
+        v44 = &v31;
+        v45 = &v32;
+        v46 = &v33;
+        std::function<signed char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(v47, &v40);
       }
 
 LABEL_21:
@@ -6111,10 +4783,10 @@ LABEL_21:
     }
   }
 
-  if (v17 > 0x10)
+  if (v23 > 0x10)
   {
-    v19 = *(v16 + v17 - 24);
-    v30 = v19;
+    v25 = *(v22 + v23 - 24);
+    v36 = v25;
     goto LABEL_8;
   }
 
@@ -6172,7 +4844,7 @@ unint64_t MIL::Util::Span<signed char const,18446744073709551615ul>::operator[](
   return *a1 + a2;
 }
 
-uint64_t MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::operator[](void *a1, unint64_t a2)
+unint64_t MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::operator[](void *a1, unint64_t a2)
 {
   if (a1[1] <= a2)
   {
@@ -6184,7 +4856,7 @@ uint64_t MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::operator[](voi
   return *a1 + 2 * a2;
 }
 
-uint64_t std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -6206,7 +4878,7 @@ void sub_2599442A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6278,8 +4950,7 @@ void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -6293,37 +4964,7 @@ void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(
   return result;
 }
 
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = *(a2 + 6);
-  operator new();
-}
-
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-_WORD *std::vector<MIL::Fp16>::assign(void *a1, unint64_t a2, __int16 *a3)
+_WORD *std::vector<MIL::Fp16>::assign(uint64_t *a1, unint64_t a2, __int16 *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -6493,7 +5134,7 @@ _WORD *std::vector<MIL::Fp16>::assign(void *a1, unint64_t a2, __int16 *a3)
   return result;
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -6625,7 +5266,7 @@ _DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_
   return result;
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6674,18 +5315,10 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
-}
-
-void std::function<float const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},void>(uint64_t a1, __int128 *a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  operator new();
 }
 
 uint64_t std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7)
@@ -6781,7 +5414,7 @@ uint64_t std::__invoke_void_return_wrapper<MIL::Fp16 const,false>::__call[abi:ne
 
 void *std::__function::__value_func<MIL::Fp16 const ()(int,int,int,int,int,int)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -6791,15 +5424,15 @@ void *std::__function::__value_func<MIL::Fp16 const ()(int,int,int,int,int,int)>
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -6827,7 +5460,6 @@ void *std::__function::__value_func<MIL::Fp16 const ()(int,int,int,int,int,int)>
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7074,7 +5706,7 @@ uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Inter
 
 void *std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,MIL::Fp16,float,float,signed char)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -7084,15 +5716,15 @@ void *std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType 
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -7120,7 +5752,6 @@ void *std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType 
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7329,7 +5960,7 @@ uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Inter
 
 void *std::__function::__value_func<float const ()(int,int,int,int,int,int)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -7339,15 +5970,15 @@ void *std::__function::__value_func<float const ()(int,int,int,int,int,int)>::sw
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -7375,7 +6006,6 @@ void *std::__function::__value_func<float const ()(int,int,int,int,int,int)>::sw
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7457,53 +6087,20 @@ uint64_t std::__function::__value_func<MIL::Fp16 const ()(int,int,int,int,int,in
   return a1;
 }
 
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(uint64_t a1, __int128 *a2)
+void std::vector<unsigned char>::reserve(void *a1, unint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = *(a2 + 6);
-  operator new();
-}
-
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
-{
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int8 *a3)
+void *std::vector<unsigned char>::assign(uint64_t *a1, size_t a2, unsigned __int8 *a3)
 {
   v6 = a1[2];
   result = *a1;
@@ -7566,7 +6163,7 @@ void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int
   {
     v15 = a1[1];
     result = memset(v15, *a3, v14);
-    v16 = &v15[v14];
+    v16 = v15 + v14;
   }
 
   else
@@ -7576,14 +6173,6 @@ void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int
 
   a1[1] = v16;
   return result;
-}
-
-void std::function<float const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},void>(uint64_t a1, __int128 *a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  operator new();
 }
 
 __n128 std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,MIL::Fp16 const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
@@ -8055,44 +6644,6 @@ uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::I
   }
 }
 
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = *(a2 + 6);
-  operator new();
-}
-
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<MIL::Fp16 const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<float const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},void>(uint64_t a1, __int128 *a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  operator new();
-}
-
 __n128 std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,MIL::Fp16>(MIL::Fp16 const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,MIL::Fp16 const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
 {
   *a2 = &unk_286AAF218;
@@ -8562,44 +7113,6 @@ uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Int
   }
 }
 
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = *(a2 + 6);
-  operator new();
-}
-
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<float const ()(int,int,int,int,int,int)>::operator=<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},void>(uint64_t a1, __int128 *a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  operator new();
-}
-
 uint64_t std::function<unsigned char const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {
   v13 = a3;
@@ -8676,7 +7189,7 @@ uint64_t std::__invoke_void_return_wrapper<unsigned char const,false>::__call[ab
 
 void *std::__function::__value_func<unsigned char const ()(int,int,int,int,int,int)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -8686,15 +7199,15 @@ void *std::__function::__value_func<unsigned char const ()(int,int,int,int,int,i
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -8722,7 +7235,6 @@ void *std::__function::__value_func<unsigned char const ()(int,int,int,int,int,i
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8918,7 +7430,7 @@ uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Inter
 
 void *std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -8928,15 +7440,15 @@ void *std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType 
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -8964,7 +7476,6 @@ void *std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType 
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9184,44 +7695,6 @@ uint64_t std::__function::__value_func<unsigned char const ()(int,int,int,int,in
   }
 
   return a1;
-}
-
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = *(a2 + 6);
-  operator new();
-}
-
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<float const ()(int,int,int,int,int,int)>::operator=<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},void>(uint64_t a1, __int128 *a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  operator new();
 }
 
 __n128 std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,unsigned char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
@@ -9605,44 +8078,6 @@ uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::I
   }
 }
 
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = *(a2 + 6);
-  operator new();
-}
-
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<unsigned char const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},void>(uint64_t a1, __int128 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  operator new();
-}
-
-void std::function<float const ()(int,int,int,int,int,int)>::operator=<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},void>(uint64_t a1, __int128 *a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  operator new();
-}
-
 __n128 std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,unsigned char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
 {
   *a2 = &unk_286AB0038;
@@ -9830,6 +8265,1499 @@ uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Int
     else
     {
       return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#1}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, unsigned __int8 *a4, float *a5, float *a6, char *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    if (*a7 >= -20)
+    {
+      v8 = *a2 + llroundf(*a6 * (*a4 * *a5));
+      if (v8 < 0x80000000)
+      {
+        if (v8 > 0xFFFFFFFF7FFFFFFFLL)
+        {
+          result = 0;
+          *a2 = v8;
+        }
+
+        else
+        {
+          *a2 = -8388608;
+          return 2;
+        }
+      }
+
+      else
+      {
+        *a2 = 2139095040;
+        return 1;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#3},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#3}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, unsigned __int8 *a4, float *a5, uint64_t a6, _BYTE *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    v8 = *a5 * *a4;
+    v9 = (v8 + (1 << ~*a7)) >> -*a7;
+    if (*a7 >= 1)
+    {
+      v9 = v8 << *a7;
+    }
+
+    if (*a7)
+    {
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = *a5 * *a4;
+    }
+
+    v11 = *a2 + v10;
+    if (v11 < 0x80000000)
+    {
+      if (v11 > 0xFFFFFFFF7FFFFFFFLL)
+      {
+        result = 0;
+        *a2 = v11;
+      }
+
+      else
+      {
+        *a2 = -8388608;
+        return 2;
+      }
+    }
+
+    else
+    {
+      *a2 = 2139095040;
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#3},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)#3}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,unsigned char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB03B8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int *a2, int *a3, int *a4, int *a5, int *a6, int *a7)
+{
+  v8 = *a6;
+  v9 = *a7;
+  if (**(a1 + 8) == v8)
+  {
+    v10 = **(a1 + 16);
+    if (v9 >= (*(*(a1 + 16) + 8) - v10) >> 1)
+    {
+      std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+    }
+
+    v11 = (v10 + 2 * v9);
+  }
+
+  else
+  {
+    v13 = *(a1 + 32);
+    v11 = (**(a1 + 24) + 2 * **v13 * *a2 + 2 * v9 + 2 * *v13[1] * *a3 + 2 * *v13[2] * *a4 + 2 * *v13[3] * *a5 + 2 * *v13[4] * v8);
+  }
+
+  return MIL::Fp16::GetFloat(v11);
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6}>,float const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0438;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,unsigned char>(unsigned char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6}>,float const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::function<signed char const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7)
+{
+  v13 = a3;
+  v14 = a2;
+  v12 = a4;
+  v10 = a6;
+  v11 = a5;
+  v9 = a7;
+  v7 = *(a1 + 24);
+  if (!v7)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  return (*(*v7 + 48))(v7, &v14, &v13, &v12, &v11, &v10, &v9);
+}
+
+uint64_t std::function<MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, uint64_t a2, int a3, char a4, char a5, float a6, float a7)
+{
+  v13 = a3;
+  v12 = a4;
+  v11 = a6;
+  v10 = a7;
+  v9 = a5;
+  v7 = *(a1 + 24);
+  if (!v7)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  return (*(*v7 + 48))(v7, a2, &v13, &v12, &v11, &v10, &v9);
+}
+
+__n128 std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB04B8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__invoke_void_return_wrapper<signed char const,false>::__call[abi:ne200100]<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1} &,int,int,int,int,int,int>(uint64_t a1, int *a2, int *a3, int *a4, int *a5, int *a6)
+{
+  v6 = *a6;
+  if (**a1 == v6)
+  {
+    v7 = *(a1 + 8);
+  }
+
+  else
+  {
+    v7 = (**(a1 + 16) + **(a1 + 24) * *a2 + **(a1 + 32) * *a3 + **(a1 + 40) * *a4 + **(a1 + 48) * *a5 + v6);
+  }
+
+  return *v7;
+}
+
+void *std::__function::__value_func<signed char const ()(int,int,int,int,int,int)>::swap[abi:ne200100](void *result, void *a2)
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
+  {
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
+
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
+    {
+      v3[3] = v4;
+      a2[3] = result;
+    }
+  }
+
+  return result;
+}
+
+void sub_25994CDDC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+__n128 std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0548;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::operator()(void **a1, int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, int *a6)
+{
+  v6 = *a3;
+  if ((v6 & 0x80000000) != 0)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  v8 = *a4;
+  if ((v8 & 0x80000000) == 0 && *a1[1] > v6)
+  {
+    v7 = 0;
+    v9 = *a5;
+    if ((v9 & 0x80000000) == 0 && *a1[2] > v8)
+    {
+      if (*a1[3] > v9)
+      {
+        return *(*a1[4] + *a1[5] * *a2 + *a1[6] * v6 + *a1[7] * v8 + *a1[8] * v9 + *a6);
+      }
+
+      return 0;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB05C8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int *a2, int *a3, int *a4, int *a5, int *a6)
+{
+  v6 = *a3 & ~(*a3 >> 31);
+  if (**(a1 + 8) - 1 < v6)
+  {
+    v6 = **(a1 + 8) - 1;
+  }
+
+  v8 = *a4 & ~(*a4 >> 31);
+  v7 = *(a1 + 16);
+  if (*v7 - 1 < v8)
+  {
+    v8 = *v7 - 1;
+  }
+
+  v9 = *a5 & ~(*a5 >> 31);
+  if (**(a1 + 24) - 1 < v9)
+  {
+    v9 = **(a1 + 24) - 1;
+  }
+
+  return *(**(a1 + 32) + **(a1 + 40) * *a2 + **(a1 + 48) * v6 + **(a1 + 56) * v8 + **(a1 + 64) * v9 + *a6);
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, float *a6, char *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    v9 = *a4;
+    v10 = *a5;
+    v11 = *a6;
+    v12 = *a7;
+    v13 = ilogbf(*a5);
+    if (v13 <= -14)
+    {
+      v14 = -14;
+    }
+
+    else
+    {
+      v14 = v13;
+    }
+
+    if (v14 + v12 >= -20)
+    {
+      v15 = *a2 + llroundf((v10 * v9) * v11);
+      if (v15 < 0x80000000)
+      {
+        if (v15 > 0xFFFFFFFF7FFFFFFFLL)
+        {
+          result = 0;
+          *a2 = v15;
+        }
+
+        else
+        {
+          *a2 = -8388608;
+          return 2;
+        }
+      }
+
+      else
+      {
+        *a2 = 2139095040;
+        return 1;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void *std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::swap[abi:ne200100](void *result, void *a2)
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
+  {
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
+
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
+    {
+      v3[3] = v4;
+      a2[3] = result;
+    }
+  }
+
+  return result;
+}
+
+void sub_25994D70C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, float *a6, char *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    if (*a7 >= -20)
+    {
+      v8 = *a2 + llroundf(*a6 * (*a4 * *a5));
+      if (v8 < 0x80000000)
+      {
+        if (v8 > 0xFFFFFFFF7FFFFFFFLL)
+        {
+          result = 0;
+          *a2 = v8;
+        }
+
+        else
+        {
+          *a2 = -8388608;
+          return 2;
+        }
+      }
+
+      else
+      {
+        *a2 = 2139095040;
+        return 1;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, uint64_t a6, _BYTE *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    v8 = *a5 * *a4;
+    v9 = (v8 + (1 << ~*a7)) >> -*a7;
+    if (*a7 >= 1)
+    {
+      v9 = v8 << *a7;
+    }
+
+    if (*a7)
+    {
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = *a5 * *a4;
+    }
+
+    v11 = *a2 + v10;
+    if (v11 < 0x80000000)
+    {
+      if (v11 > 0xFFFFFFFF7FFFFFFFLL)
+      {
+        result = 0;
+        *a2 = v11;
+      }
+
+      else
+      {
+        *a2 = -8388608;
+        return 2;
+      }
+    }
+
+    else
+    {
+      *a2 = 2139095040;
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB08D8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int *a2, int *a3, int *a4, int *a5, int *a6, int *a7)
+{
+  v8 = *a6;
+  v9 = *a7;
+  if (**(a1 + 8) == v8)
+  {
+    v10 = **(a1 + 16);
+    if (v9 >= (*(*(a1 + 16) + 8) - v10) >> 1)
+    {
+      std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+    }
+
+    v11 = (v10 + 2 * v9);
+  }
+
+  else
+  {
+    v13 = *(a1 + 32);
+    v11 = (**(a1 + 24) + 2 * **v13 * *a2 + 2 * v9 + 2 * *v13[1] * *a3 + 2 * *v13[2] * *a4 + 2 * *v13[3] * *a5 + 2 * *v13[4] * v8);
+  }
+
+  return MIL::Fp16::GetFloat(v11);
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6}>,float const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0958;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<MIL::Fp16,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6}>,float const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__value_func<MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<signed char const ()(int,int,int,int,int,int)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+__n128 std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB09D8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0A58;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::operator()(void **a1, int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, int *a6)
+{
+  v6 = *a3;
+  if ((v6 & 0x80000000) != 0)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  v8 = *a4;
+  if ((v8 & 0x80000000) == 0 && *a1[1] > v6)
+  {
+    v7 = 0;
+    v9 = *a5;
+    if ((v9 & 0x80000000) == 0 && *a1[2] > v8)
+    {
+      if (*a1[3] > v9)
+      {
+        return *(*a1[4] + *a1[5] * *a2 + *a1[6] * v6 + *a1[7] * v8 + *a1[8] * v9 + *a6);
+      }
+
+      return 0;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0AD8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int *a2, int *a3, int *a4, int *a5, int *a6)
+{
+  v6 = *a3 & ~(*a3 >> 31);
+  if (**(a1 + 8) - 1 < v6)
+  {
+    v6 = **(a1 + 8) - 1;
+  }
+
+  v8 = *a4 & ~(*a4 >> 31);
+  v7 = *(a1 + 16);
+  if (*v7 - 1 < v8)
+  {
+    v8 = *v7 - 1;
+  }
+
+  v9 = *a5 & ~(*a5 >> 31);
+  if (**(a1 + 24) - 1 < v9)
+  {
+    v9 = **(a1 + 24) - 1;
+  }
+
+  return *(**(a1 + 32) + **(a1 + 40) * *a2 + **(a1 + 48) * v6 + **(a1 + 56) * v8 + **(a1 + 64) * v9 + *a6);
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, float *a6, char *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    v9 = *a4;
+    v10 = *a5;
+    v11 = *a6;
+    v12 = *a7;
+    v13 = ilogbf(*a5);
+    if (v13 <= -14)
+    {
+      v14 = -14;
+    }
+
+    else
+    {
+      v14 = v13;
+    }
+
+    if (v14 + v12 >= -20)
+    {
+      v15 = *a2 + llroundf((v10 * v9) * v11);
+      if (v15 < 0x80000000)
+      {
+        if (v15 > 0xFFFFFFFF7FFFFFFFLL)
+        {
+          result = 0;
+          *a2 = v15;
+        }
+
+        else
+        {
+          *a2 = -8388608;
+          return 2;
+        }
+      }
+
+      else
+      {
+        *a2 = 2139095040;
+        return 1;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, float *a6, char *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    if (*a7 >= -20)
+    {
+      v8 = *a2 + llroundf(*a6 * (*a4 * *a5));
+      if (v8 < 0x80000000)
+      {
+        if (v8 > 0xFFFFFFFF7FFFFFFFLL)
+        {
+          result = 0;
+          *a2 = v8;
+        }
+
+        else
+        {
+          *a2 = -8388608;
+          return 2;
+        }
+      }
+
+      else
+      {
+        *a2 = 2139095040;
+        return 1;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, uint64_t a6, _BYTE *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    v8 = *a5 * *a4;
+    v9 = (v8 + (1 << ~*a7)) >> -*a7;
+    if (*a7 >= 1)
+    {
+      v9 = v8 << *a7;
+    }
+
+    if (*a7)
+    {
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = *a5 * *a4;
+    }
+
+    v11 = *a2 + v10;
+    if (v11 < 0x80000000)
+    {
+      if (v11 > 0xFFFFFFFF7FFFFFFFLL)
+      {
+        result = 0;
+        *a2 = v11;
+      }
+
+      else
+      {
+        *a2 = -8388608;
+        return 2;
+      }
+    }
+
+    else
+    {
+      *a2 = 2139095040;
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0DD8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int *a2, int *a3, int *a4, int *a5, int *a6, int *a7)
+{
+  v8 = *a6;
+  v9 = *a7;
+  if (**(a1 + 8) == v8)
+  {
+    v10 = **(a1 + 16);
+    if (v9 >= (*(*(a1 + 16) + 8) - v10) >> 1)
+    {
+      std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+    }
+
+    v11 = (v10 + 2 * v9);
+  }
+
+  else
+  {
+    v13 = *(a1 + 32);
+    v11 = (**(a1 + 24) + 2 * **v13 * *a2 + 2 * v9 + 2 * *v13[1] * *a3 + 2 * *v13[2] * *a4 + 2 * *v13[3] * *a5 + 2 * *v13[4] * v8);
+  }
+
+  return MIL::Fp16::GetFloat(v11);
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#5}>,float const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6}>,float const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0E58;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<unsigned char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#6}>,float const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0ED8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#1}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0F58;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::operator()(void **a1, int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, int *a6)
+{
+  v6 = *a3;
+  if ((v6 & 0x80000000) != 0)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  v8 = *a4;
+  if ((v8 & 0x80000000) == 0 && *a1[1] > v6)
+  {
+    v7 = 0;
+    v9 = *a5;
+    if ((v9 & 0x80000000) == 0 && *a1[2] > v8)
+    {
+      if (*a1[3] > v9)
+      {
+        return *(*a1[4] + *a1[5] * *a2 + *a1[6] * v6 + *a1[7] * v8 + *a1[8] * v9 + *a6);
+      }
+
+      return 0;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#2}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286AB0FD8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::operator()(uint64_t a1, int *a2, int *a3, int *a4, int *a5, int *a6)
+{
+  v6 = *a3 & ~(*a3 >> 31);
+  if (**(a1 + 8) - 1 < v6)
+  {
+    v6 = **(a1 + 8) - 1;
+  }
+
+  v8 = *a4 & ~(*a4 >> 31);
+  v7 = *(a1 + 16);
+  if (*v7 - 1 < v8)
+  {
+    v8 = *v7 - 1;
+  }
+
+  v9 = *a5 & ~(*a5 >> 31);
+  if (**(a1 + 24) - 1 < v9)
+  {
+    v9 = **(a1 + 24) - 1;
+  }
+
+  return *(**(a1 + 32) + **(a1 + 40) * *a2 + **(a1 + 48) * v6 + **(a1 + 56) * v8 + **(a1 + 64) * v9 + *a6);
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int,int,int,int,int,int)#3}>,signed char const ()(int,int,int,int,int,int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, float *a6, char *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    v9 = *a4;
+    v10 = *a5;
+    v11 = *a6;
+    v12 = *a7;
+    v13 = ilogbf(*a5);
+    if (v13 <= -14)
+    {
+      v14 = -14;
+    }
+
+    else
+    {
+      v14 = v13;
+    }
+
+    if (v14 + v12 >= -20)
+    {
+      v15 = *a2 + llroundf((v10 * v9) * v11);
+      if (v15 < 0x80000000)
+      {
+        if (v15 > 0xFFFFFFFF7FFFFFFFLL)
+        {
+          result = 0;
+          *a2 = v15;
+        }
+
+        else
+        {
+          *a2 = -8388608;
+          return 2;
+        }
+      }
+
+      else
+      {
+        *a2 = 2139095040;
+        return 1;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#1}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, float *a6, char *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    if (*a7 >= -20)
+    {
+      v8 = *a2 + llroundf(*a6 * (*a4 * *a5));
+      if (v8 < 0x80000000)
+      {
+        if (v8 > 0xFFFFFFFF7FFFFFFFLL)
+        {
+          result = 0;
+          *a2 = v8;
+        }
+
+        else
+        {
+          *a2 = -8388608;
+          return 2;
+        }
+      }
+
+      else
+      {
+        *a2 = 2139095040;
+        return 1;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#2}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::NeConvCpu::ComputeValue<signed char,signed char>(signed char const*,std::vector<unsigned long long> const&,MIL::Fp16 const*,MIL::IRDataType,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,ANEMachineIR::Validators::NeConvParameterValues const&,ANEMachineIR::Validators::PaddingMode,signed char,signed char,signed char,std::vector<MIL::Fp16> const&,std::vector<MIL::Fp16> const&,BOOL,MIL::Fp16,BOOL,std::function<float ()(float)>)::{lambda(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)#3}>,MIL::ANEMachineIR::Interpreter::NumericType ()(int &,MIL::ANEMachineIR::Interpreter::NumericType,signed char,float,float,signed char)>::operator()(uint64_t a1, int *a2, unsigned int *a3, char *a4, float *a5, uint64_t a6, _BYTE *a7)
+{
+  result = *a3;
+  if (!result)
+  {
+    v8 = *a5 * *a4;
+    v9 = (v8 + (1 << ~*a7)) >> -*a7;
+    if (*a7 >= 1)
+    {
+      v9 = v8 << *a7;
+    }
+
+    if (*a7)
+    {
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = *a5 * *a4;
+    }
+
+    v11 = *a2 + v10;
+    if (v11 < 0x80000000)
+    {
+      if (v11 > 0xFFFFFFFF7FFFFFFFLL)
+      {
+        result = 0;
+        *a2 = v11;
+      }
+
+      else
+      {
+        *a2 = -8388608;
+        return 2;
+      }
+    }
+
+    else
+    {
+      *a2 = 2139095040;
+      return 1;
     }
   }
 

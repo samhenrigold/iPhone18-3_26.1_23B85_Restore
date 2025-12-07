@@ -38,9 +38,9 @@
 
 void __48__FCPuzzleTypeSettings_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
-  v24 = a1;
+  v23 = a1;
   v3 = *(a1 + 32);
   if (v3)
   {
@@ -54,26 +54,26 @@ void __48__FCPuzzleTypeSettings_loadLocalCachesFromStore__block_invoke(uint64_t 
   }
 
   v5 = v4;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v6 = [v5 allKeys];
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         if (([objc_opt_class() isLocalStoreKeyInternal:v11] & 1) == 0)
         {
           objc_opt_class();
@@ -119,7 +119,7 @@ LABEL_21:
                 v19 = [[FCPuzzleTypeSettingsEntry alloc] initWithEntryID:v11 dictionaryRepresentation:v14];
                 if (v19)
                 {
-                  v20 = *(v24 + 32);
+                  v20 = *(v23 + 32);
                   if (v20)
                   {
                     v20 = v20[2];
@@ -137,36 +137,34 @@ LABEL_21:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (FCPuzzleTypeSettings)initWithStore:(id)store delegate:(id)delegate
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   delegateCopy = delegate;
-  v17.receiver = self;
-  v17.super_class = FCPuzzleTypeSettings;
-  v9 = [(FCPuzzleTypeSettings *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FCPuzzleTypeSettings;
+  v9 = [(FCPuzzleTypeSettings *)&v16 init];
   if (v9)
   {
     if (!storeCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "store"];
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "store"];
       *buf = 136315906;
-      v19 = "[FCPuzzleTypeSettings initWithStore:delegate:]";
-      v20 = 2080;
-      v21 = "FCPuzzleTypeSettings.m";
-      v22 = 1024;
-      v23 = 46;
-      v24 = 2114;
-      v25 = v16;
+      v18 = "[FCPuzzleTypeSettings initWithStore:delegate:]";
+      v19 = 2080;
+      v20 = "FCPuzzleTypeSettings.m";
+      v21 = 1024;
+      v22 = 46;
+      v23 = 2114;
+      v24 = v15;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -181,35 +179,34 @@ LABEL_21:
     v9->_entriesByPuzzleTypeID = dictionary;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (id)commandsToMergeLocalDataToCloud:(id)cloud
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   array = [MEMORY[0x1E695DF70] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   allKeys = [cloudCopy allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         if (([objc_opt_class() isLocalStoreKeyInternal:v9] & 1) == 0)
         {
           objc_opt_class();
@@ -262,24 +259,22 @@ LABEL_17:
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v6);
   }
 
   v18 = [[FCModifyPuzzleTypeSettingsCommand alloc] initWithPuzzleTypeSettingsEntries:array merge:1];
-  v27 = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v26 = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
 
   return v19;
 }
 
 - (void)syncForPuzzleTypeID:(id)d
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (d)
   {
     p_isa = &self->super.isa;
@@ -287,8 +282,8 @@ LABEL_17:
     if (v4)
     {
       v5 = [FCModifyPuzzleTypeSettingsCommand alloc];
-      v9[0] = v4;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+      v8[0] = v4;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
       v7 = [(FCModifyPuzzleTypeSettingsCommand *)v5 initWithPuzzleTypeSettingsEntries:v6 merge:1];
 
       if (p_isa)
@@ -299,8 +294,6 @@ LABEL_17:
       [p_isa addModifyPuzzleTypeSettingsCommandToCommandQueue:v7];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_puzzleTypeSettingsEntryForPuzzleTypeID:(id *)d
@@ -344,7 +337,7 @@ LABEL_17:
 
 - (void)setSettingsData:(void *)data lastSeenPuzzleIDs:(void *)ds puzzleTypeID:
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dataCopy = data;
   dsCopy = ds;
@@ -388,15 +381,15 @@ LABEL_9:
 
           if (!puzzleTypeID && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzleTypeSettingsEntry must have a puzzleTypeID"];
+            v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzleTypeSettingsEntry must have a puzzleTypeID"];
             *buf = 136315906;
-            v38 = "[FCPuzzleTypeSettingsEntry(FCPuzzleTypeSettings) dictionaryRepresentation]";
-            v39 = 2080;
-            v40 = "FCPuzzleTypeSettings.m";
-            v41 = 1024;
-            v42 = 341;
-            v43 = 2114;
-            v44 = v32;
+            v37 = "[FCPuzzleTypeSettingsEntry(FCPuzzleTypeSettings) dictionaryRepresentation]";
+            v38 = 2080;
+            v39 = "FCPuzzleTypeSettings.m";
+            v40 = 1024;
+            v41 = 341;
+            v42 = 2114;
+            v43 = v31;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -427,18 +420,18 @@ LABEL_9:
 
           [*(self + 24) setObject:dictionary forKey:dsCopy];
           v24 = *(self + 8);
-          v33[0] = MEMORY[0x1E69E9820];
-          v33[1] = 3221225472;
-          v33[2] = __71__FCPuzzleTypeSettings_setSettingsData_lastSeenPuzzleIDs_puzzleTypeID___block_invoke;
-          v33[3] = &unk_1E7C376A0;
-          v33[4] = self;
+          v32[0] = MEMORY[0x1E69E9820];
+          v32[1] = 3221225472;
+          v32[2] = __71__FCPuzzleTypeSettings_setSettingsData_lastSeenPuzzleIDs_puzzleTypeID___block_invoke;
+          v32[3] = &unk_1E7C376A0;
+          v32[4] = self;
           v25 = v15;
-          v34 = v25;
-          v35 = dsCopy;
-          [v24 performWriteSync:v33];
+          v33 = v25;
+          v34 = dsCopy;
+          [v24 performWriteSync:v32];
           v26 = [FCModifyPuzzleTypeSettingsCommand alloc];
-          v36 = v25;
-          v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+          v35 = v25;
+          v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
           v28 = [(FCModifyPuzzleTypeSettingsCommand *)v26 initWithPuzzleTypeSettingsEntries:v27 merge:1];
 
           WeakRetained = objc_loadWeakRetained((self + 32));
@@ -451,15 +444,15 @@ LABEL_24:
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "entry"];
+        v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "entry"];
         *buf = 136315906;
-        v38 = "[FCPuzzleTypeSettings setSettingsData:lastSeenPuzzleIDs:puzzleTypeID:]";
-        v39 = 2080;
-        v40 = "FCPuzzleTypeSettings.m";
-        v41 = 1024;
-        v42 = 171;
-        v43 = 2114;
-        v44 = v31;
+        v37 = "[FCPuzzleTypeSettings setSettingsData:lastSeenPuzzleIDs:puzzleTypeID:]";
+        v38 = 2080;
+        v39 = "FCPuzzleTypeSettings.m";
+        v40 = 1024;
+        v41 = 171;
+        v42 = 2114;
+        v43 = v30;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -470,19 +463,17 @@ LABEL_24:
     {
       dsCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleTypeID != nil"];
       *buf = 136315906;
-      v38 = "[FCPuzzleTypeSettings setSettingsData:lastSeenPuzzleIDs:puzzleTypeID:]";
-      v39 = 2080;
-      v40 = "FCPuzzleTypeSettings.m";
-      v41 = 1024;
-      v42 = 138;
-      v43 = 2114;
-      v44 = dsCopy;
+      v37 = "[FCPuzzleTypeSettings setSettingsData:lastSeenPuzzleIDs:puzzleTypeID:]";
+      v38 = 2080;
+      v39 = "FCPuzzleTypeSettings.m";
+      v40 = 1024;
+      v41 = 138;
+      v42 = 2114;
+      v43 = dsCopy;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 LABEL_25:
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__FCPuzzleTypeSettings_setSettingsData_lastSeenPuzzleIDs_puzzleTypeID___block_invoke(void *a1)
@@ -514,10 +505,10 @@ uint64_t __71__FCPuzzleTypeSettings_setSettingsData_lastSeenPuzzleIDs_puzzleType
 
 - (void)handleSyncWithPuzzleTypeSettingsRecord:(id)record
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v5 = [recordCopy objectForKeyedSubscript:@"puzzleTypeID"];
-  v27 = [recordCopy objectForKeyedSubscript:@"settingsData"];
+  v26 = [recordCopy objectForKeyedSubscript:@"settingsData"];
   v6 = [recordCopy objectForKeyedSubscript:@"lastSeenPuzzleIDs"];
   if (self)
   {
@@ -540,9 +531,9 @@ uint64_t __71__FCPuzzleTypeSettings_setSettingsData_lastSeenPuzzleIDs_puzzleType
   {
     v13 = [v11 mutableCopy];
     dictionary = v13;
-    if (v27)
+    if (v26)
     {
-      [v13 setObject:v27 forKeyedSubscript:@"settingsData"];
+      [v13 setObject:v26 forKeyedSubscript:@"settingsData"];
     }
 
     if (v6)
@@ -565,15 +556,15 @@ uint64_t __71__FCPuzzleTypeSettings_setSettingsData_lastSeenPuzzleIDs_puzzleType
         entriesLock = 0;
       }
 
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __63__FCPuzzleTypeSettings_handleSyncWithPuzzleTypeSettingsRecord___block_invoke_2;
-      v28[3] = &unk_1E7C376A0;
-      v28[4] = self;
-      v29 = v15;
-      v30 = v5;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __63__FCPuzzleTypeSettings_handleSyncWithPuzzleTypeSettingsRecord___block_invoke_2;
+      v27[3] = &unk_1E7C376A0;
+      v27[4] = self;
+      v28 = v15;
+      v29 = v5;
       v18 = v16;
-      [(FCMTWriterLock *)entriesLock performWriteSync:v28];
+      [(FCMTWriterLock *)entriesLock performWriteSync:v27];
     }
 
     if (self)
@@ -596,9 +587,9 @@ LABEL_25:
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     [dictionary setObject:v5 forKey:@"puzzleTypeID"];
-    if (v27)
+    if (v26)
     {
-      [dictionary setObject:v27 forKey:@"settingsData"];
+      [dictionary setObject:v26 forKey:@"settingsData"];
     }
 
     if (v6)
@@ -620,16 +611,16 @@ LABEL_25:
       v23 = 0;
     }
 
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __63__FCPuzzleTypeSettings_handleSyncWithPuzzleTypeSettingsRecord___block_invoke;
-    v31[3] = &unk_1E7C376A0;
-    v31[4] = self;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __63__FCPuzzleTypeSettings_handleSyncWithPuzzleTypeSettingsRecord___block_invoke;
+    v30[3] = &unk_1E7C376A0;
+    v30[4] = self;
     WeakRetained = v22;
-    v32 = WeakRetained;
+    v31 = WeakRetained;
     v24 = v5;
-    v33 = v24;
-    [(FCMTWriterLock *)v23 performWriteSync:v31];
+    v32 = v24;
+    [(FCMTWriterLock *)v23 performWriteSync:v30];
     if (self)
     {
       self = objc_loadWeakRetained(&self->_delegate);
@@ -643,21 +634,19 @@ LABEL_25:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a puzzleTypeSettings entry without a puzzleTypeID"];
+    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a puzzleTypeSettings entry without a puzzleTypeID"];
     *buf = 136315906;
-    v35 = "[FCPuzzleTypeSettings handleSyncWithPuzzleTypeSettingsRecord:]";
-    v36 = 2080;
-    v37 = "FCPuzzleTypeSettings.m";
-    v38 = 1024;
-    v39 = 211;
-    v40 = 2114;
-    v41 = v26;
+    v34 = "[FCPuzzleTypeSettings handleSyncWithPuzzleTypeSettingsRecord:]";
+    v35 = 2080;
+    v36 = "FCPuzzleTypeSettings.m";
+    v37 = 1024;
+    v38 = 211;
+    v39 = 2114;
+    v40 = v25;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_26:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__FCPuzzleTypeSettings_handleSyncWithPuzzleTypeSettingsRecord___block_invoke(void *a1)

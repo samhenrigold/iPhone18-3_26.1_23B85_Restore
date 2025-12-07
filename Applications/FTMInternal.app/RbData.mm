@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rlcModeAsString:(int)string;
 - (int)StringAsRlcMode:(id)mode;
 - (int)rlcMode;
 - (unint64_t)hash;
@@ -269,6 +270,26 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFDFF | v3);
+}
+
+- (id)rlcModeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"AM";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"UM";
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRlcMode:(id)mode
@@ -728,7 +749,6 @@ LABEL_23:
   has = self->_has;
   if ((*&has & 0x80) != 0)
   {
-    qos = self->_qos;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x100) == 0)
@@ -748,7 +768,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rb = self->_rb;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -763,7 +782,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  ulDataBytes = self->_ulDataBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -778,7 +796,6 @@ LABEL_5:
   }
 
 LABEL_29:
-  dlDataBytes = self->_dlDataBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -793,7 +810,6 @@ LABEL_6:
   }
 
 LABEL_30:
-  ulDiscardSduBytes = self->_ulDiscardSduBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -808,7 +824,6 @@ LABEL_7:
   }
 
 LABEL_31:
-  ulDiscardBytes = self->_ulDiscardBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -823,7 +838,6 @@ LABEL_8:
   }
 
 LABEL_32:
-  dlCtrlPdus = self->_dlCtrlPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -838,7 +852,6 @@ LABEL_9:
   }
 
 LABEL_33:
-  dlTotalPdus = self->_dlTotalPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -853,7 +866,6 @@ LABEL_10:
   }
 
 LABEL_34:
-  dlHcPdus = self->_dlHcPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -868,7 +880,6 @@ LABEL_11:
   }
 
 LABEL_35:
-  hcDecFailPdus = self->_hcDecFailPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -883,7 +894,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  ulLastXSecTotalPdus = self->_ulLastXSecTotalPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -898,7 +908,6 @@ LABEL_13:
   }
 
 LABEL_37:
-  ulLastXSecTotalBytes = self->_ulLastXSecTotalBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -913,7 +922,6 @@ LABEL_14:
   }
 
 LABEL_38:
-  ulLastXSecDiscardBytes = self->_ulLastXSecDiscardBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -928,7 +936,6 @@ LABEL_15:
   }
 
 LABEL_39:
-  ulLastXSecDiscardPdus = self->_ulLastXSecDiscardPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -943,7 +950,6 @@ LABEL_16:
   }
 
 LABEL_40:
-  dlHcEnabled = self->_dlHcEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -958,7 +964,6 @@ LABEL_17:
   }
 
 LABEL_41:
-  rlcMode = self->_rlcMode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -973,7 +978,6 @@ LABEL_18:
   }
 
 LABEL_42:
-  ulDiscardSdus = self->_ulDiscardSdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -988,7 +992,6 @@ LABEL_19:
   }
 
 LABEL_43:
-  ulDiscardPdus = self->_ulDiscardPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1003,7 +1006,6 @@ LABEL_20:
   }
 
 LABEL_44:
-  ulTotalPdus = self->_ulTotalPdus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1018,12 +1020,10 @@ LABEL_21:
   }
 
 LABEL_45:
-  dlLastXSecTotalPdus = self->_dlLastXSecTotalPdus;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_22:
-    dlLastXSecTotalBytes = self->_dlLastXSecTotalBytes;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1847,7 +1847,7 @@ LABEL_22:
     }
 
 LABEL_110:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_111;
   }
 
@@ -1856,7 +1856,6 @@ LABEL_110:
     goto LABEL_110;
   }
 
-  v7 = *(equalCopy + 88);
   if (self->_dlHcEnabled)
   {
     if ((*(equalCopy + 88) & 1) == 0)
@@ -1943,17 +1942,17 @@ LABEL_74:
       goto LABEL_110;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v8 = (*(equalCopy + 23) & 8) == 0;
+    v7 = (*(equalCopy + 23) & 8) == 0;
   }
 
 LABEL_111:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

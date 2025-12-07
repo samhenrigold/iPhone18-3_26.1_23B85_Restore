@@ -115,11 +115,11 @@ LABEL_30:
 
           if (v32)
           {
-            v34 = [v30 isEqualToString:v31];
+            isEqualToString = objc_msgSend_isEqualToString_(v30);
 
             deviceClass = v42;
             storageSnapshot = v43;
-            if ((v34 & 1) == 0)
+            if ((isEqualToString & 1) == 0)
             {
               goto LABEL_26;
             }

@@ -64,24 +64,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_signature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_serializedRequirements)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -142,7 +141,6 @@
     goto LABEL_11;
   }
 
-  v8 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_version != *(equalCopy + 6))
@@ -159,17 +157,17 @@ LABEL_11:
   }
 
   signature = self->_signature;
-  v10 = equalCopy[2];
-  if (signature | v10 && !objc_msgSend_isEqual_(signature, v7, v10))
+  v9 = equalCopy[2];
+  if (signature | v9 && !objc_msgSend_isEqual_(signature, v7, v9))
   {
     goto LABEL_11;
   }
 
   serializedRequirements = self->_serializedRequirements;
-  v12 = equalCopy[1];
-  if (serializedRequirements | v12)
+  v11 = equalCopy[1];
+  if (serializedRequirements | v11)
   {
-    isEqual = objc_msgSend_isEqual_(serializedRequirements, v7, v12);
+    isEqual = objc_msgSend_isEqual_(serializedRequirements, v7, v11);
   }
 
   else

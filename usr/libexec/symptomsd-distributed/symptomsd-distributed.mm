@@ -26,9 +26,7 @@ int main(int argc, const char **argv, const char **envp)
   }
 
   byte_100008000 = v5;
-  v8 = type metadata accessor for NDFDaemon();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  type metadata accessor for NDFDaemon();
   swift_allocObject();
   qword_100008008 = NDFDaemon.init(isAgent:)();
   dispatch thunk of NDFDaemon.start()();

@@ -3,6 +3,7 @@
 - (CDPDManateeStateObserver)initWithBroadcaster:(id)broadcaster;
 - (id)_proxyForContext:(id)context;
 - (void)_checkManateeStatusAndSendAvailabilityNotificationForContext:(id)context;
+- (void)_reportPrimaryAccountManateeAvailability:(BOOL)availability;
 - (void)_sendNotification:(const char *)notification withUserInfo:(id)info;
 - (void)circleStatusChangedForAccountContext:(id)context;
 - (void)circleViewStatusChangedForAccountContext:(id)context;
@@ -71,9 +72,41 @@ LABEL_9:
   [broadcaster sendNotification:v9 userInfo:infoCopy];
 }
 
+- (void)_reportPrimaryAccountManateeAvailability:(BOOL)availability
+{
+  availabilityCopy = availability;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v5 = _CDPLogSystem();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (availabilityCopy)
+  {
+    if (v6)
+    {
+      *v11 = 0;
+      v7 = "All systems go!!! Manatee available for primary account";
+LABEL_6:
+      _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, v7, v11, 2u);
+    }
+  }
+
+  else if (v6)
+  {
+    *v11 = 0;
+    v7 = "All systems are not go... Manatee not available for primary account";
+    goto LABEL_6;
+  }
+
+  v8 = *MEMORY[0x277CFD408];
+  v12 = *MEMORY[0x277CFD410];
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:availabilityCopy];
+  v13[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  [(CDPDManateeStateObserver *)self _sendNotification:v8 withUserInfo:v10];
+}
+
 - (void)_checkManateeStatusAndSendAvailabilityNotificationForContext:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   isSharediPad = [contextCopy isSharediPad];
   v6 = _CDPLogSystem();
@@ -94,7 +127,7 @@ LABEL_9:
   {
     v10 = *MEMORY[0x277CFD400];
     *buf = 136446210;
-    v26 = v10;
+    v25 = v10;
     _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Sending %{public}s to notify clients of potential manatee changes", buf, 0xCu);
   }
 
@@ -109,17 +142,17 @@ LABEL_9:
     {
       altDSID = [contextCopy altDSID];
       *buf = 141558274;
-      v26 = 1752392040;
-      v27 = 2112;
-      v28 = altDSID;
+      v25 = 1752392040;
+      v26 = 2112;
+      v27 = altDSID;
       _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Checking manatee status for primary account with altDSID %{mask.hash}@", buf, 0x16u);
     }
 
     v7 = [(CDPDManateeStateObserver *)self _proxyForContext:contextCopy];
     v14 = [objc_alloc(MEMORY[0x277CFD510]) initWithContext:contextCopy circleProxy:v7];
-    v24 = 0;
-    v15 = [v14 isManateeAvailable:&v24];
-    v16 = v24;
+    v23 = 0;
+    v15 = [v14 isManateeAvailable:&v23];
+    v16 = v23;
     v17 = v16;
     if (v15)
     {
@@ -136,9 +169,9 @@ LABEL_9:
         {
           altDSID2 = [contextCopy altDSID];
           *buf = 141558274;
-          v26 = 1752392040;
-          v27 = 2112;
-          v28 = altDSID2;
+          v25 = 1752392040;
+          v26 = 2112;
+          v27 = altDSID2;
           _os_log_impl(&dword_24510B000, v21, OS_LOG_TYPE_DEFAULT, "We are iCDP eligible for %{mask.hash}@, but Security is not ready, waiting for Security state resolution..", buf, 0x16u);
         }
 
@@ -159,15 +192,13 @@ LABEL_19:
   {
     altDSID3 = [contextCopy altDSID];
     *buf = 141558274;
-    v26 = 1752392040;
-    v27 = 2112;
-    v28 = altDSID3;
+    v25 = 1752392040;
+    v26 = 2112;
+    v27 = altDSID3;
     _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Account for altDSID %{mask.hash}@ is not primary, skipping additonal manatee status check.", buf, 0x16u);
   }
 
 LABEL_20:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)securityLevelChangedForAccountContext:(id)context
@@ -229,11 +260,10 @@ LABEL_20:
 
 - (void)deviceDidUnlockForTheFirstTime
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Manatee is not available due to error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Manatee is not available due to error: %@", &v2, 0xCu);
 }
 
 - (id)_proxyForContext:(id)context

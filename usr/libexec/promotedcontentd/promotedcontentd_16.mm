@@ -7762,11 +7762,11 @@ LABEL_26:
   return [a2 hasError] ^ 1;
 }
 
-id sub_10031C920()
+id sub_10031C920(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AggregatedTimeSpentUtilities();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for AggregatedTimeSpentUtilities();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 void *sub_10031C978(unint64_t a1)
@@ -7876,7 +7876,7 @@ unint64_t sub_10031CBB8()
 
 id sub_10031CCF8(void *a1, uint64_t a2)
 {
-  v5 = sub_1001E27A8(&qword_1004D4AB8);
+  v5 = sub_1001E27A8(&qword_1004D4AB8, &qword_1003C98E0);
   __chkstk_darwin(v5 - 8);
   v7 = v30 - v6;
   v8 = sub_1003974E8();
@@ -7965,7 +7965,7 @@ unint64_t sub_10031D144()
 
 uint64_t sub_10031D190(uint64_t a1)
 {
-  v2 = sub_1001E27A8(&qword_1004D4AB8);
+  v2 = sub_1001E27A8(&qword_1004D4AB8, &qword_1003C98E0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7992,7 +7992,7 @@ id AggregatedTimeSpentStoreDatabase.init(database:)(void *a1)
   return v4;
 }
 
-void *AggregatedTimeSpentStoreDatabase.retrieveTimeSpentEntries(olderThanDate:)(uint64_t *a1)
+void *AggregatedTimeSpentStoreDatabase.retrieveTimeSpentEntries(olderThanDate:)(void *a1)
 {
   v3 = 0;
   v4 = 0;
@@ -8017,10 +8017,10 @@ void *AggregatedTimeSpentStoreDatabase.retrieveTimeSpentEntries(olderThanDate:)(
       v8 = _swiftEmptyArrayStorage;
     }
 
-    v46 = v8;
+    v47 = v8;
 
     sub_10031EE68(v9);
-    v4 = v46;
+    v4 = v47;
     if (!(v7 >> 62))
     {
       v10 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
@@ -8061,11 +8061,11 @@ LABEL_44:
 
 LABEL_18:
       v13 = 0;
-      v43 = v12;
-      v44 = v4 & 0xC000000000000001;
+      v44 = v12;
+      v45 = v4 & 0xC000000000000001;
       while (1)
       {
-        if (v44)
+        if (v45)
         {
           v14 = sub_100399708();
         }
@@ -8086,14 +8086,14 @@ LABEL_18:
           goto LABEL_40;
         }
 
-        v45 = v13 + 1;
+        v46 = v13 + 1;
         v16 = v4;
         v4 = *&v14[OBJC_IVAR____TtC15LegacyInterface24AggregatedTimeSpentEntry_clientIdentifier];
         v17 = *&v14[OBJC_IVAR____TtC15LegacyInterface24AggregatedTimeSpentEntry_clientIdentifier + 8];
 
         v18 = v15;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v46 = a1;
+        v47 = a1;
         v20 = sub_1001EC1DC(v4, v17);
         v22 = a1[2];
         v23 = (v21 & 1) == 0;
@@ -8118,7 +8118,7 @@ LABEL_18:
         v29 = v20;
         sub_10031F2BC();
         v20 = v29;
-        a1 = v46;
+        a1 = v47;
         if ((v26 & 1) == 0)
         {
 LABEL_32:
@@ -8155,14 +8155,14 @@ LABEL_34:
         sub_1003991E8();
 
         ++v13;
-        if (v45 == v43)
+        if (v46 == v44)
         {
           goto LABEL_45;
         }
       }
 
       sub_10031F014(v25, isUniquelyReferenced_nonNull_native);
-      a1 = v46;
+      a1 = v47;
       v20 = sub_1001EC1DC(v4, v17);
       if ((v26 & 1) != (v27 & 1))
       {
@@ -8188,19 +8188,19 @@ LABEL_28:
 LABEL_15:
   if (!v4)
   {
-    sub_1003993D8();
+    v34 = sub_1003993D8();
     sub_100206B54();
-    v34 = sub_1003995A8();
-    sub_1001E27A8(&qword_1004D5860);
-    v35 = swift_allocObject();
-    *(v35 + 16) = xmmword_1003C9930;
-    v36 = sub_100397658();
-    v38 = v37;
-    *(v35 + 56) = &type metadata for String;
-    *(v35 + 64) = sub_100206BA0();
-    *(v35 + 32) = v36;
-    *(v35 + 40) = v38;
-    sub_100398B98();
+    v35 = sub_1003995A8();
+    sub_1001E27A8(&qword_1004D5860, &unk_1003EB020);
+    v36 = swift_allocObject();
+    *(v36 + 16) = xmmword_1003C9930;
+    v37 = sub_100397658();
+    v39 = v38;
+    *(v36 + 56) = &type metadata for String;
+    *(v36 + 64) = sub_100206BA0();
+    *(v36 + 32) = v37;
+    *(v36 + 40) = v39;
+    sub_100398B98(v34, &_mh_execute_header, v35, "[AggregatedTimeSpentDatabase] Failed to retrieve any entries older than date %{public}@", 87, 2, v36);
 
     return 0;
   }
@@ -8219,16 +8219,16 @@ LABEL_15:
   }
 
 LABEL_45:
-  v40 = a1[2];
-  if (v40)
+  v41 = a1[2];
+  if (v41)
   {
-    v41 = sub_10031EDE4(a1[2], 0);
-    v42 = sub_10031F658(&v46, v41 + 4, v40, a1);
-    sub_10027FF7C();
-    if (v42 == v40)
+    v42 = sub_10031EDE4(a1[2], 0);
+    v43 = sub_10031F658(&v47, v42 + 4, v41, a1);
+    sub_10027FF7C(v47);
+    if (v43 == v41)
     {
 
-      return v41;
+      return v42;
     }
 
     else
@@ -8251,23 +8251,23 @@ LABEL_50:
 
 uint64_t sub_10031D9C4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *&v18 = 0;
-  *(&v18 + 1) = 0xE000000000000000;
+  *&v19 = 0;
+  *(&v19 + 1) = 0xE000000000000000;
   sub_1003996F8(77);
-  v22._countAndFlagsBits = 0xD000000000000041;
-  v22._object = 0x80000001004366F0;
-  sub_100399068(v22);
-  v23._countAndFlagsBits = sub_100399998();
+  v23._countAndFlagsBits = 0xD000000000000041;
+  v23._object = 0x80000001004366F0;
   sub_100399068(v23);
-
-  v24._countAndFlagsBits = 0x2054455346464F20;
-  v24._object = 0xE800000000000000;
+  v24._countAndFlagsBits = sub_100399998();
   sub_100399068(v24);
-  v17[0] = a3;
-  v25._countAndFlagsBits = sub_100399998();
-  sub_100399068(v25);
 
-  sub_1001E27A8(&unk_1004DCD00);
+  v25._countAndFlagsBits = 0x2054455346464F20;
+  v25._object = 0xE800000000000000;
+  sub_100399068(v25);
+  v18[0] = a3;
+  v26._countAndFlagsBits = sub_100399998();
+  sub_100399068(v26);
+
+  sub_1001E27A8(&unk_1004DCD00, &unk_1003ECC20);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_1003C9930;
   v6 = sub_100397748();
@@ -8275,52 +8275,52 @@ uint64_t sub_10031D9C4(uint64_t a1, uint64_t a2, uint64_t a3)
   *(v5 + 64) = &protocol witness table for Date;
   v7 = sub_1001E6B7C((v5 + 32));
   (*(*(v6 - 8) + 16))(v7, a1, v6);
-  type metadata accessor for AggregatedTimeSpentEntry();
+  type metadata accessor for AggregatedTimeSpentEntry(0);
   sub_100397D08();
 
-  if (!v20)
+  if (!v21)
   {
-    v14 = v18;
     v15 = v19;
-    v16 = v21;
+    v16 = v20;
+    v17 = v22;
 LABEL_8:
-    sub_1003993E8();
+    v12 = sub_1003993E8();
     sub_100206B54();
-    v12 = sub_1003995A8();
-    sub_100398B98();
+    v13 = sub_1003995A8();
+    sub_100398B98(v12, &_mh_execute_header, v13, "[AggregatedTimeSpentDatabase] Failure occurred while retrieving entries.", 72, 2, _swiftEmptyArrayStorage);
 
-    if (v20)
+    if (v21)
     {
-      sub_100003894(&v18);
+      sub_100003894(&v19);
     }
 
     return 0;
   }
 
-  sub_100003554(&v18, &v14);
-  if (!*(&v15 + 1))
+  sub_100003554(&v19, &v15);
+  if (!*(&v16 + 1))
   {
     goto LABEL_8;
   }
 
-  sub_100004A68(&v14, v17);
-  v8 = sub_1000035B8(v17, v17[3]);
+  sub_100004A68(&v15, v18);
+  v8 = sub_1000035B8(v18, v18[3]);
   __chkstk_darwin(v8);
-  (*(v10 + 16))(&v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v10 + 16))(&v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   v11 = sub_100399208();
-  if (v20)
+  if (v21)
   {
-    sub_100003894(&v18);
+    sub_100003894(&v19);
   }
 
-  sub_100003894(v17);
+  sub_100003894(v18);
   return v11;
 }
 
-id sub_10031DD70@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *sub_10031DD70@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100003554(a1, v5);
-  v3 = objc_allocWithZone(type metadata accessor for AggregatedTimeSpentEntry());
+  v3 = objc_allocWithZone(type metadata accessor for AggregatedTimeSpentEntry(0));
   result = AggregatedTimeSpentEntry.init(cursor:)(v5);
   *a2 = result;
   return result;
@@ -8328,84 +8328,84 @@ id sub_10031DD70@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 
 Swift::Bool __swiftcall AggregatedTimeSpentStoreDatabase.removeEntries(_:)(Swift::OpaquePointer a1)
 {
-  sub_1003993D8();
+  v2 = sub_1003993D8();
   sub_100206B54();
-  v2 = sub_1003995A8();
-  sub_1001E27A8(&qword_1004D5860);
-  v3 = swift_allocObject();
-  *(v3 + 16) = xmmword_1003C9930;
-  type metadata accessor for AggregatedTimeSpentEntry();
-  v4 = sub_1003991C8();
-  v6 = v5;
-  *(v3 + 56) = &type metadata for String;
-  v18 = sub_100206BA0();
-  *(v3 + 64) = v18;
-  *(v3 + 32) = v4;
-  *(v3 + 40) = v6;
-  sub_100398B98();
+  v3 = sub_1003995A8();
+  sub_1001E27A8(&qword_1004D5860, &unk_1003EB020);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1003C9930;
+  type metadata accessor for AggregatedTimeSpentEntry(0);
+  v5 = sub_1003991C8();
+  v7 = v6;
+  *(v4 + 56) = &type metadata for String;
+  v21 = sub_100206BA0();
+  *(v4 + 64) = v21;
+  *(v4 + 32) = v5;
+  *(v4 + 40) = v7;
+  sub_100398B98(v2, &_mh_execute_header, v3, "[AggregatedTimeSpentDatabase] Removing entries: %{public}@", 58, 2, v4);
 
   if (a1._rawValue >> 62)
   {
     if (sub_1003997F8())
     {
-      v7 = sub_1003997F8();
+      v8 = sub_1003997F8();
       goto LABEL_3;
     }
 
 LABEL_8:
-    sub_1003993D8();
-    v16 = sub_1003995A8();
-    sub_100398B98();
+    v18 = sub_1003993D8();
+    v19 = sub_1003995A8();
+    sub_100398B98(v18, &_mh_execute_header, v19, "[AggregatedTimeSpentDatabase] Entries are empty, nothing to remove.", 67, 2, _swiftEmptyArrayStorage);
 
-    v11 = 1;
-    return v11 & 1;
+    v12 = 1;
+    return v12 & 1;
   }
 
-  v7 = *((a1._rawValue & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!v7)
+  v8 = *((a1._rawValue & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (!v8)
   {
     goto LABEL_8;
   }
 
 LABEL_3:
-  sub_100281694(0x3F202C3F202C3F28, 0xE900000000000029, v7);
-  sub_1001E27A8(&unk_1004D9A20);
-  sub_1001E6C28(&qword_1004D8E78, &unk_1004D9A20);
-  v8 = sub_100398ED8();
-  v10 = v9;
+  sub_100281694(0x3F202C3F202C3F28, 0xE900000000000029, v8);
+  sub_1001E27A8(&unk_1004D9A20, &qword_1003EED70);
+  sub_1001E6C28(&qword_1004D8E78, &unk_1004D9A20, &qword_1003EED70, &protocol conformance descriptor for [A]);
+  v9 = sub_100398ED8();
+  v11 = v10;
 
-  v19 = _swiftEmptyArrayStorage;
-  sub_10031E510(a1._rawValue, &v19);
+  v22 = _swiftEmptyArrayStorage;
+  sub_10031E510(a1._rawValue, &v22);
   sub_1003996F8(102);
-  v20._countAndFlagsBits = 0xD000000000000063;
-  v20._object = 0x8000000100436320;
-  sub_100399068(v20);
-  v21._countAndFlagsBits = v8;
-  v21._object = v10;
-  sub_100399068(v21);
+  v23._countAndFlagsBits = 0xD000000000000063;
+  v23._object = 0x8000000100436320;
+  sub_100399068(v23);
+  v24._countAndFlagsBits = v9;
+  v24._object = v11;
+  sub_100399068(v24);
 
-  v22._countAndFlagsBits = 41;
-  v22._object = 0xE100000000000000;
-  sub_100399068(v22);
-  sub_10028037C(v19);
-  v11 = sub_100397CD8();
+  v25._countAndFlagsBits = 41;
+  v25._object = 0xE100000000000000;
+  sub_100399068(v25);
+  sub_10028037C(v22);
+  v12 = sub_100397CD8();
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    sub_1003993E8();
-    v12 = sub_1003995A8();
-    v13 = swift_allocObject();
-    *(v13 + 16) = xmmword_1003C9930;
-    sub_1001E27A8(&unk_1004D9A30);
-    v14 = sub_1003991C8();
-    *(v13 + 56) = &type metadata for String;
-    *(v13 + 64) = v18;
-    *(v13 + 32) = v14;
-    *(v13 + 40) = v15;
-    sub_100398B98();
+    v13 = sub_1003993E8();
+    v14 = sub_1003995A8();
+    v15 = swift_allocObject();
+    *(v15 + 16) = xmmword_1003C9930;
+    sub_1001E27A8(&unk_1004D9A30, &qword_1003EBCD0);
+    v16 = sub_1003991C8();
+    *(v15 + 56) = &type metadata for String;
+    *(v15 + 64) = v21;
+    *(v15 + 32) = v16;
+    *(v15 + 40) = v17;
+    sub_100398B98(v13, &_mh_execute_header, v14, "[AggregatedTimeSpentDatabase] Failed to remove entries with keys %{public}@.", 76, 2, v15);
   }
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 uint64_t sub_10031E1D0(uint64_t *a1, void **a2)
@@ -8554,7 +8554,7 @@ LABEL_14:
 
 uint64_t AggregatedTimeSpentStoreDatabase.storeEntry(withLineID:durationInSeconds:eventTimestamp:clientIdentifier:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  sub_1001E27A8(&unk_1004DCD00);
+  sub_1001E27A8(&unk_1004DCD00, &unk_1003ECC20);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_1003C95F0;
   *(v12 + 56) = &type metadata for String;
@@ -8583,10 +8583,10 @@ uint64_t AggregatedTimeSpentStoreDatabase.storeEntry(withLineID:durationInSecond
 
   if ((v16 & 1) == 0)
   {
-    sub_1003993E8();
+    v24 = sub_1003993E8();
     sub_100206B54();
     v17 = sub_1003995A8();
-    sub_1001E27A8(&qword_1004D5860);
+    sub_1001E27A8(&qword_1004D5860, &unk_1003EB020);
     v18 = swift_allocObject();
     *(v18 + 16) = xmmword_1003EB200;
     *(v18 + 56) = &type metadata for String;
@@ -8608,7 +8608,7 @@ uint64_t AggregatedTimeSpentStoreDatabase.storeEntry(withLineID:durationInSecond
     *(v18 + 152) = a5;
     *(v18 + 160) = a6;
 
-    sub_100398B98();
+    sub_100398B98(v24, &_mh_execute_header, v17, "[AggregatedTimeSpentDatabase] Failed to store entry with lineID %{public}@, eventTimeStamp: %{public}@, durationInSeconds %{public}d, clientIdentifier: %{public}@", 162, 2, v18);
   }
 
   return v16 & 1;
@@ -8616,42 +8616,42 @@ uint64_t AggregatedTimeSpentStoreDatabase.storeEntry(withLineID:durationInSecond
 
 Swift::Bool __swiftcall AggregatedTimeSpentStoreDatabase.removeAllEntries()()
 {
-  sub_1003993D8();
+  v0 = sub_1003993D8();
   sub_100206B54();
-  v0 = sub_1003995A8();
-  sub_100398B98();
+  v1 = sub_1003995A8();
+  sub_100398B98(v0, &_mh_execute_header, v1, "[AggregatedTimeSpentDatabase] Removing all entries", 50, 2, _swiftEmptyArrayStorage);
 
   sub_10028037C(_swiftEmptyArrayStorage);
-  v1 = sub_100397CD8();
+  v2 = sub_100397CD8();
 
-  if ((v1 & 1) == 0)
+  if ((v2 & 1) == 0)
   {
-    sub_1003993E8();
-    v2 = sub_1003995A8();
-    sub_1001E27A8(&qword_1004D5860);
-    v3 = swift_allocObject();
-    *(v3 + 16) = xmmword_1003C9930;
-    sub_1001E27A8(&unk_1004D9A30);
-    v4 = sub_1003991C8();
-    v6 = v5;
-    *(v3 + 56) = &type metadata for String;
-    *(v3 + 64) = sub_100206BA0();
-    *(v3 + 32) = v4;
-    *(v3 + 40) = v6;
-    sub_100398B98();
+    v3 = sub_1003993E8();
+    v4 = sub_1003995A8();
+    sub_1001E27A8(&qword_1004D5860, &unk_1003EB020);
+    v5 = swift_allocObject();
+    *(v5 + 16) = xmmword_1003C9930;
+    sub_1001E27A8(&unk_1004D9A30, &qword_1003EBCD0);
+    v6 = sub_1003991C8();
+    v8 = v7;
+    *(v5 + 56) = &type metadata for String;
+    *(v5 + 64) = sub_100206BA0();
+    *(v5 + 32) = v6;
+    *(v5 + 40) = v8;
+    sub_100398B98(v3, &_mh_execute_header, v4, "[AggregatedTimeSpentDatabase] Failed to remove entries with keys %{public}@.", 76, 2, v5);
   }
 
-  return v1 & 1;
+  return v2 & 1;
 }
 
-id AggregatedTimeSpentStoreDatabase.__deallocating_deinit()
+id AggregatedTimeSpentStoreDatabase.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AggregatedTimeSpentStoreDatabase();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for AggregatedTimeSpentStoreDatabase();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-void sub_10031ED0C(void *a1@<X0>, void *a2@<X8>)
+void sub_10031ED0C(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = sub_10031F7AC(a1);
 
@@ -8675,7 +8675,7 @@ void *sub_10031EDE4(uint64_t a1, uint64_t a2)
     return _swiftEmptyArrayStorage;
   }
 
-  sub_1001E27A8(&qword_1004D9A90);
+  sub_1001E27A8(&qword_1004D9A90, &qword_1003F0880);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -8692,7 +8692,7 @@ void *sub_10031EDE4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_10031EE68(unint64_t a1)
+void sub_10031EE68(unint64_t a1)
 {
   if (a1 >> 62)
   {
@@ -8708,7 +8708,7 @@ uint64_t sub_10031EE68(unint64_t a1)
   {
     v4 = *((*v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
     v5 = __OFADD__(v4, v3);
-    result = v4 + v3;
+    v6 = v4 + v3;
     if (!v5)
     {
       goto LABEL_5;
@@ -8721,14 +8721,14 @@ LABEL_13:
 
   v13 = sub_1003997F8();
   v5 = __OFADD__(v13, v3);
-  result = v13 + v3;
+  v6 = v13 + v3;
   if (v5)
   {
     goto LABEL_13;
   }
 
 LABEL_5:
-  sub_10031EF58(result);
+  sub_10031EF58(v6, 1);
   v7 = *v1;
   v8 = *v1 & 0xFFFFFFFFFFFFFF8;
   sub_10031F42C(v8 + 8 * *(v8 + 0x10) + 32, (*(v8 + 0x18) >> 1) - *(v8 + 0x10), a1);
@@ -8745,7 +8745,7 @@ LABEL_14:
   {
 LABEL_9:
     *v1 = v7;
-    return result;
+    return;
   }
 
   v11 = *(v8 + 16);
@@ -8759,39 +8759,39 @@ LABEL_9:
 
 LABEL_15:
   __break(1u);
-  return result;
 }
 
-uint64_t sub_10031EF58(uint64_t a1)
+unint64_t sub_10031EF58(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
-  if ((isUniquelyReferenced_nonNull_bridgeObject & 1) == 0 || (result = 0, (v3 & 0x8000000000000000) != 0) || (v3 & 0x4000000000000000) != 0 || a1 > *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  *v2 = v4;
+  if ((isUniquelyReferenced_nonNull_bridgeObject & 1) == 0 || (result = 0, (v4 & 0x8000000000000000) != 0) || (v4 & 0x4000000000000000) != 0 || a1 > *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    if (v3 >> 62)
+    if (v4 >> 62)
     {
       sub_1003997F8();
     }
 
     result = sub_100399718();
-    *v1 = result;
+    *v2 = result;
   }
 
   return result;
 }
 
-uint64_t sub_10031F014(uint64_t a1, char a2)
+void sub_10031F014(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  sub_1001E27A8(&qword_1004D9A98);
-  v34 = a2;
-  result = sub_100399818();
-  v7 = result;
+  sub_1001E27A8(&qword_1004D9A98, &unk_1003F0888);
+  v35 = v4;
+  v6 = sub_100399818();
+  v7 = v6;
   if (*(v5 + 16))
   {
-    v33 = v5;
+    v34 = v5;
     v8 = 0;
     v9 = (v5 + 64);
     v10 = 1 << *(v5 + 32);
@@ -8807,7 +8807,7 @@ uint64_t sub_10031F014(uint64_t a1, char a2)
 
     v12 = v11 & *(v5 + 64);
     v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
+    v14 = v6 + 64;
     while (v12)
     {
       v17 = __clz(__rbit64(v12));
@@ -8818,43 +8818,43 @@ LABEL_15:
       v22 = *v21;
       v23 = v21[1];
       v24 = *(*(v5 + 56) + 8 * v20);
-      if ((v34 & 1) == 0)
+      if ((v35 & 1) == 0)
       {
       }
 
       sub_100399B58();
       sub_100399018();
-      result = sub_100399B88();
-      v25 = -1 << *(v7 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
+      v25 = sub_100399B88();
+      v26 = -1 << *(v7 + 32);
+      v27 = v25 & ~v26;
+      v28 = v27 >> 6;
+      if (((-1 << v27) & ~*(v14 + 8 * (v27 >> 6))) == 0)
       {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
+        v29 = 0;
+        v30 = (63 - v26) >> 6;
+        while (++v28 != v30 || (v29 & 1) == 0)
         {
-          v30 = v27 == v29;
-          if (v27 == v29)
+          v31 = v28 == v30;
+          if (v28 == v30)
           {
-            v27 = 0;
+            v28 = 0;
           }
 
-          v28 |= v30;
-          v31 = *(v14 + 8 * v27);
-          if (v31 != -1)
+          v29 |= v31;
+          v32 = *(v14 + 8 * v28);
+          if (v32 != -1)
           {
-            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            v15 = __clz(__rbit64(~v32)) + (v28 << 6);
             goto LABEL_7;
           }
         }
 
 LABEL_35:
         __break(1u);
-        return result;
+        return;
       }
 
-      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+      v15 = __clz(__rbit64((-1 << v27) & ~*(v14 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
       *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
       v16 = (*(v7 + 48) + 16 * v15);
@@ -8862,7 +8862,7 @@ LABEL_7:
       v16[1] = v23;
       *(*(v7 + 56) + 8 * v15) = v24;
       ++*(v7 + 16);
-      v5 = v33;
+      v5 = v34;
     }
 
     v18 = v8;
@@ -8890,23 +8890,23 @@ LABEL_7:
       }
     }
 
-    if ((v34 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
 
       v3 = v2;
       goto LABEL_33;
     }
 
-    v32 = 1 << *(v5 + 32);
+    v33 = 1 << *(v5 + 32);
     v3 = v2;
-    if (v32 >= 64)
+    if (v33 >= 64)
     {
-      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v33 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v9 = -1 << v32;
+      *v9 = -1 << v33;
     }
 
     *(v5 + 16) = 0;
@@ -8914,23 +8914,22 @@ LABEL_7:
 
 LABEL_33:
   *v3 = v7;
-  return result;
 }
 
-void *sub_10031F2BC()
+void sub_10031F2BC()
 {
   v1 = v0;
-  sub_1001E27A8(&qword_1004D9A98);
+  sub_1001E27A8(&qword_1004D9A98, &unk_1003F0888);
   v2 = *v0;
   v3 = sub_100399808();
   v4 = v3;
   if (*(v2 + 16))
   {
-    result = (v3 + 64);
+    v5 = (v3 + 64);
     v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
+    if (v4 != v2 || v5 >= v2 + 64 + 8 * v6)
     {
-      result = memmove(result, (v2 + 64), 8 * v6);
+      memmove(v5, (v2 + 64), 8 * v6);
     }
 
     v8 = 0;
@@ -8998,8 +8997,6 @@ LABEL_19:
 
     *v1 = v4;
   }
-
-  return result;
 }
 
 uint64_t sub_10031F42C(uint64_t result, uint64_t a2, unint64_t a3)
@@ -9037,10 +9034,10 @@ uint64_t sub_10031F42C(uint64_t result, uint64_t a2, unint64_t a3)
       {
         if (v6 >= 1)
         {
-          sub_1001E6C28(&qword_1004D9A88, &unk_1004D9A70);
+          sub_1001E6C28(&qword_1004D9A88, &unk_1004D9A70, &qword_1003F0878, &protocol conformance descriptor for [A]);
           for (i = 0; i != v6; ++i)
           {
-            sub_1001E27A8(&unk_1004D9A70);
+            sub_1001E27A8(&unk_1004D9A70, &qword_1003F0878);
             v9 = sub_10031F5D0(v13, i, a3);
             v11 = *v10;
             (v9)(v13, 0);
@@ -9058,7 +9055,7 @@ uint64_t sub_10031F42C(uint64_t result, uint64_t a2, unint64_t a3)
     {
       if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a2)
       {
-        type metadata accessor for AggregatedTimeSpentEntry();
+        type metadata accessor for AggregatedTimeSpentEntry(0);
         swift_arrayInitWithCopy();
         return a3;
       }
@@ -9232,7 +9229,7 @@ unint64_t sub_10031F8BC(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_1001E27A8(&qword_1004D9A98);
+    sub_1001E27A8(&qword_1004D9A98, &unk_1003F0888);
     v3 = sub_100399828();
 
     for (i = (a1 + 48); ; i += 3)
@@ -9286,7 +9283,7 @@ unint64_t sub_10031F9C0(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_1001E27A8(&unk_1004D5AD0);
+    sub_1001E27A8(&unk_1004D5AD0, &qword_1003EC4E0);
     v3 = sub_100399828();
 
     for (i = (a1 + 48); ; i += 3)
@@ -9388,10 +9385,10 @@ uint64_t AggregatedTimeSpentEntry.description.getter()
   return HIDWORD(v2);
 }
 
-id AggregatedTimeSpentEntry.init(cursor:)(void *a1)
+void *AggregatedTimeSpentEntry.init(cursor:)(void *a1)
 {
   v2 = v1;
-  v4 = sub_1001E27A8(&qword_1004D4CE0);
+  v4 = sub_1001E27A8(&qword_1004D4CE0, &unk_1003C8E30);
   __chkstk_darwin(v4 - 8);
   v6 = &v24 - v5;
   v7 = sub_100397748();
@@ -9424,7 +9421,7 @@ id AggregatedTimeSpentEntry.init(cursor:)(void *a1)
   v20 = &v2[OBJC_IVAR____TtC15LegacyInterface24AggregatedTimeSpentEntry_clientIdentifier];
   *v20 = v16;
   v20[1] = v18;
-  v21 = type metadata accessor for AggregatedTimeSpentEntry();
+  v21 = type metadata accessor for AggregatedTimeSpentEntry(0);
   v29.receiver = v2;
   v29.super_class = v21;
   v22 = objc_msgSendSuper2(&v29, "init");
@@ -9432,7 +9429,7 @@ id AggregatedTimeSpentEntry.init(cursor:)(void *a1)
   return v22;
 }
 
-uint64_t type metadata accessor for AggregatedTimeSpentEntry()
+uint64_t type metadata accessor for AggregatedTimeSpentEntry(uint64_t a1)
 {
   result = qword_1004D9AD0;
   if (!qword_1004D9AD0)
@@ -9446,14 +9443,14 @@ uint64_t type metadata accessor for AggregatedTimeSpentEntry()
 id AggregatedTimeSpentEntry.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for AggregatedTimeSpentEntry();
+  v2.super_class = type metadata accessor for AggregatedTimeSpentEntry(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t sub_1003202F8()
+uint64_t sub_1003202F8(uint64_t a1)
 {
   result = sub_100397748();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -9465,7 +9462,7 @@ uint64_t sub_1003202F8()
   return result;
 }
 
-id sub_1003203D4(uint64_t a1, uint64_t a2, void *a3, void (*a4)(void))
+id sub_1003203D4(uint64_t a1, uint64_t a2, void *a3, uint64_t (*a4)(void))
 {
   v5 = a3;
   a4();

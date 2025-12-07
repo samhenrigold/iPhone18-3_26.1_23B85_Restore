@@ -7,6 +7,7 @@
 - (void)didStartSession:(id)session;
 - (void)getDataWithCompletion:(id)completion;
 - (void)getHashWithCompletion:(id)completion;
+- (void)maybeTTR:(unsigned int)r appletResult:(unsigned __int16)result;
 - (void)obliterateWithCompletion:(id)completion;
 - (void)resetCounter:(unsigned __int8)counter userToken:(id)token completion:(id)completion;
 - (void)upgradeKey:(unsigned __int8)key inputData:(id)data completion:(id)completion;
@@ -276,6 +277,87 @@
   block[4] = self;
   v7 = completionCopy;
   dispatch_async(workQueue, block);
+}
+
+- (void)maybeTTR:(unsigned int)r appletResult:(unsigned __int16)result
+{
+  resultCopy = result;
+  v5 = *&r;
+  if (r)
+  {
+    v8 = r == 24;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  v9 = !v8;
+  if (result == 36864 || result == 26277)
+  {
+    v9 = 0;
+  }
+
+  if (!(r | result))
+  {
+    v9 = 1;
+  }
+
+  if (v9)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v11 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v15 = 45;
+      if (isMetaClass)
+      {
+        v15 = 43;
+      }
+
+      v11(6, "%c[%{public}s %{public}s]:%i Invoking TTR for %d 0x%x", v15, ClassName, Name, 526, v5, resultCopy);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v16 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = object_getClass(self);
+      if (class_isMetaClass(v17))
+      {
+        v18 = 43;
+      }
+
+      else
+      {
+        v18 = 45;
+      }
+
+      *buf = 67110402;
+      v22 = v18;
+      v23 = 2082;
+      v24 = object_getClassName(self);
+      v25 = 2082;
+      v26 = sel_getName(a2);
+      v27 = 1024;
+      v28 = 526;
+      v29 = 1024;
+      v30 = v5;
+      v31 = 1024;
+      v32 = resultCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Invoking TTR for %d 0x%x", buf, 0x2Eu);
+    }
+
+    resultCopy = [[NSString alloc] initWithFormat:@"Result: %d Applet Result: %d", v5, resultCopy];
+    sub_100199974(NFBugCapture, @"Seshat Failure!", resultCopy, 0);
+    [NFExceptionsCALogger postAnalyticsSEFailureEvent:11 context:resultCopy error:0];
+  }
 }
 
 @end

@@ -666,18 +666,14 @@ LABEL_31:
 
 - (void)setDark_mode_url:(id)dark_mode_url
 {
-  v4 = [dark_mode_url copy];
-  dark_mode_url = self->_dark_mode_url;
-  self->_dark_mode_url = v4;
+  self->_dark_mode_url = [dark_mode_url copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setUrl:(id)url
 {
-  v4 = [url copy];
-  url = self->_url;
-  self->_url = v4;
+  self->_url = [url copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -251,8 +251,8 @@ LABEL_39:
     logKey = [(LoadUnfinishedInAppTransactionsTask *)self logKey];
     *buf = 138543618;
     selfCopy4 = self;
-    v43 = 2114;
-    v44 = logKey;
+    v44 = 2114;
+    v45 = logKey;
     v13 = "[%{public}@][%{public}@]: Checking pending transaction queue for Xcode test environment";
 LABEL_11:
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v13, buf, 0x16u);
@@ -279,8 +279,8 @@ LABEL_12:
     logKey = [(LoadUnfinishedInAppTransactionsTask *)self logKey];
     *buf = 138543618;
     selfCopy4 = self;
-    v43 = 2114;
-    v44 = logKey;
+    v44 = 2114;
+    v45 = logKey;
     v13 = "[%{public}@][%{public}@]: Forcing pending transaction queue check";
     goto LABEL_11;
   }
@@ -301,19 +301,19 @@ LABEL_12:
     }
   }
 
-  v39 = 0;
   v40 = 0;
-  [(LoadUnfinishedInAppTransactionsTask *)self _fromDataStore:storeCopy getCachedAccountToken:&v40 lastUpdated:&v39];
-  v19 = v40;
-  v20 = v39;
+  v41 = 0;
+  [(LoadUnfinishedInAppTransactionsTask *)self _fromDataStore:storeCopy getCachedAccountToken:&v41 lastUpdated:&v40];
+  v19 = v41;
+  v20 = v40;
   if (v19 && (-[LoadUnfinishedInAppTransactionsTask client](self, "client"), v21 = objc_claimAutoreleasedReturnValue(), [v21 currentAccountToken], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", v19), v22, v21, (v23 & 1) != 0))
   {
     v24 = +[_TtC9storekitd6BagKey transactionReceiptsMaxAge];
     v25 = [bagCopy integerForKey:v24];
 
-    v38 = 0;
-    v26 = [v25 valueWithError:&v38];
-    v27 = v38;
+    v39 = 0;
+    v26 = [v25 valueWithError:&v39];
+    v27 = v39;
     if (v27)
     {
       if (qword_1003D4380 != -1)
@@ -348,15 +348,15 @@ LABEL_12:
 
       if (v34 == 1)
       {
-        v35 = sub_10004D9D0();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v36 = sub_10004D9D0(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           logKey2 = [(LoadUnfinishedInAppTransactionsTask *)self logKey];
           *buf = 138543618;
           selfCopy4 = self;
-          v43 = 2114;
-          v44 = logKey2;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@]: Checking pending transaction queue because lastUpdated is older than maxAge", buf, 0x16u);
+          v44 = 2114;
+          v45 = logKey2;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@]: Checking pending transaction queue because lastUpdated is older than maxAge", buf, 0x16u);
         }
 
         v15 = 1;
@@ -368,7 +368,7 @@ LABEL_12:
         v15 = 0;
       }
 
-      v26 = v37;
+      v26 = v38;
     }
   }
 
@@ -386,8 +386,8 @@ LABEL_12:
       logKey3 = [(LoadUnfinishedInAppTransactionsTask *)self logKey];
       *buf = 138543618;
       selfCopy4 = self;
-      v43 = 2114;
-      v44 = logKey3;
+      v44 = 2114;
+      v45 = logKey3;
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@]: Checking pending transaction queue because the tokens don't match", buf, 0x16u);
     }
 

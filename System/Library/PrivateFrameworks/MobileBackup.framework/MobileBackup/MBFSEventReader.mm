@@ -116,8 +116,7 @@ LABEL_12:
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Marked domain %@ to be scanned, FSEvent path %@", buf, 0x16u);
 
         name3 = [v7 name];
-        v19 = stringByStandardizingPath;
-        _MBLog();
+        _MBLog(@"Df", "Marked domain %@ to be scanned, FSEvent path %@", name3, stringByStandardizingPath);
       }
 
 LABEL_16:
@@ -125,31 +124,30 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v16 = MBGetDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = MBGetDefaultLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       name4 = [v7 name];
       *buf = 138412546;
       v22 = name4;
       v23 = 2112;
       v24 = stringByStandardizingPath;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Skipping FSEvent for %@ %@", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Skipping FSEvent for %@ %@", buf, 0x16u);
 
-      name3 = [v7 name];
-      v19 = stringByStandardizingPath;
-      _MBLog();
+      name5 = [v7 name];
+      _MBLog(@"Db", "Skipping FSEvent for %@ %@", name5, stringByStandardizingPath);
     }
   }
 
   else
   {
     pathToModifiedDomainFlags = [(MBFSEventReader *)self pathToModifiedDomainFlags];
-    v13 = [pathToModifiedDomainFlags objectForKeyedSubscript:stringByStandardizingPath];
-    unsignedIntValue = [v13 unsignedIntValue];
+    v14 = [pathToModifiedDomainFlags objectForKeyedSubscript:stringByStandardizingPath];
+    unsignedIntValue = [v14 unsignedIntValue];
 
     if (unsignedIntValue)
     {
-      v15 = unsignedIntValue;
+      v16 = unsignedIntValue;
       if ((~[(MBFSEventReader *)self modifiedDomainsFlags]& unsignedIntValue) != 0)
       {
         [(MBFSEventReader *)self setModifiedDomainsFlags:[(MBFSEventReader *)self modifiedDomainsFlags]| unsignedIntValue];
@@ -157,33 +155,30 @@ LABEL_16:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v22 = v15;
+          v22 = v16;
           v23 = 2112;
           v24 = stringByStandardizingPath;
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Adding scan flags 0x%lx for FSEvent path %@", buf, 0x16u);
-          name3 = v15;
-          v19 = stringByStandardizingPath;
-          _MBLog();
+          _MBLog(@"Df", "Adding scan flags 0x%lx for FSEvent path %@", v16, stringByStandardizingPath);
         }
 
         goto LABEL_16;
       }
     }
 
-    v16 = MBGetDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = MBGetDefaultLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
       v22 = stringByStandardizingPath;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Skipping FSEvent for path not in any domain %@", buf, 0xCu);
-      name3 = stringByStandardizingPath;
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Skipping FSEvent for path not in any domain %@", buf, 0xCu);
+      _MBLog(@"Db", "Skipping FSEvent for path not in any domain %@", stringByStandardizingPath);
     }
   }
 
   [(MBFSEventReader *)self setEventsSkipped:[(MBFSEventReader *)self eventsSkipped]+ 1];
 LABEL_17:
-  [(MBFSEventReader *)self setEventsCollected:[(MBFSEventReader *)self eventsCollected:name3]+ 1];
+  [(MBFSEventReader *)self setEventsCollected:[(MBFSEventReader *)self eventsCollected]+ 1];
 }
 
 - (id)_domainFromPath:(id)path requiresScan:(BOOL *)scan

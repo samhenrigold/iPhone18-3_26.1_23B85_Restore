@@ -3,6 +3,7 @@
 - (_INPBShareFileIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)shareModeAsString:(int)string;
 - (int)StringAsShareMode:(id)mode;
 - (unint64_t)hash;
 - (void)addRecipients:(id)recipients;
@@ -18,7 +19,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBShareFileIntentResponse *)self hasConfirm])
   {
@@ -29,30 +30,30 @@
   if ([(NSArray *)self->_recipients count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = self->_recipients;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -82,8 +83,6 @@
     v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBShareFileIntentResponse success](self, "success")}];
     [dictionary setObject:v14 forKeyedSubscript:@"success"];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -252,59 +251,53 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBShareFileIntentResponse *)self hasConfirm])
   {
-    confirm = self->_confirm;
     PBDataWriterWriteBOOLField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v6 = self->_recipients;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v7)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_recipients;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v16;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ([(_INPBShareFileIntentResponse *)self hasShareMode])
   {
-    shareMode = self->_shareMode;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBShareFileIntentResponse *)self hasSuccess])
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasSuccess:(BOOL)success
@@ -343,6 +336,21 @@ LABEL_18:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)shareModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F780[string];
   }
 
   return v4;

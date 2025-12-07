@@ -4,10 +4,12 @@
 - (SSHBHIDSSHBTurtleDelegate)delegate;
 - (Turtle)init;
 - (id)_frequentScanPeriodMs:(id *)ms;
+- (id)_getReport:(int)report error:(id *)error;
 - (id)bytesToInputPacket:(id *)packet;
 - (id)criticalErrors:(id *)errors;
 - (void)deviceWasAdded:(__IOHIDDevice *)added;
 - (void)deviceWasRemoved:(__IOHIDDevice *)removed;
+- (void)hidReportCallback:(__IOHIDDevice *)callback result:(int)result type:(int)type reportID:(unsigned int)d report:(char *)report reportLength:(int64_t)length;
 @end
 
 @implementation Turtle
@@ -44,6 +46,71 @@
   [(Turtle *)self setTurtleRef:0];
   delegate = [(Turtle *)self delegate];
   [delegate turtleWasDisconnected];
+}
+
+- (void)hidReportCallback:(__IOHIDDevice *)callback result:(int)result type:(int)type reportID:(unsigned int)d report:(char *)report reportLength:(int64_t)length
+{
+  if (!report)
+  {
+    v12 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      *v20 = self;
+      *&v20[8] = 1024;
+      *&v20[10] = d;
+      v13 = "%@: Invalid data from callback report ID %u!";
+      v14 = v12;
+      v15 = 18;
+LABEL_11:
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, v13, buf, v15);
+    }
+
+LABEL_12:
+
+    return;
+  }
+
+  if (d != 80)
+  {
+    v12 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      *v20 = self;
+      v13 = "%@: Unsupported packet";
+      v14 = v12;
+      v15 = 12;
+      goto LABEL_11;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (length == 33)
+  {
+    v18 = [(Turtle *)self bytesToInputPacket:report, *&result, *&type];
+    delegate = [(Turtle *)self delegate];
+    [delegate turtleCallback:v18];
+  }
+
+  else
+  {
+    v16 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109632;
+      *v20 = 80;
+      *&v20[4] = 2048;
+      *&v20[6] = 33;
+      v21 = 2048;
+      lengthCopy = length;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Packet 0x%x length expected %lu, received %lu", buf, 0x1Cu);
+    }
+
+    delegate2 = [(Turtle *)self delegate];
+    [delegate2 turtleCallback:0];
+  }
 }
 
 - (id)bytesToInputPacket:(id *)packet
@@ -152,6 +219,17 @@ LABEL_9:
   }
 
   return v7;
+}
+
+- (id)_getReport:(int)report error:(id *)error
+{
+  v5 = *&report;
+  hidManager = [(Turtle *)self hidManager];
+  v8 = [hidManager getReportForDevice:-[Turtle turtleRef](self reportType:"turtleRef") reportID:0 error:v5 domain:error code:{@"com.apple.DiagnosticsService.Diagnostic-4492.Turtle", v5}];
+
+  v9 = [v8 subdataWithRange:{1, objc_msgSend(v8, "length") - 1}];
+
+  return v9;
 }
 
 - (id)criticalErrors:(id *)errors

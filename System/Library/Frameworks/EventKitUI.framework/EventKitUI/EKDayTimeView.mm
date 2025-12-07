@@ -163,8 +163,8 @@ void __41__EKDayTimeView__registerForInvalidation__block_invoke(uint64_t a1)
             [(EKDayTimeContentView *)v23 setNeedsDisplayOnBoundsChange:1];
             v26 = objc_alloc_init(EKUIVisualEffectView);
             [(EKUIVisualEffectView *)v26 setTintColorDelegate:self];
-            contentView = [(EKUIVisualEffectView *)v26 contentView];
-            [contentView addSubview:v23];
+            v28 = objc_msgSend_contentView(v26);
+            [v28 addSubview:v23];
 
             [(EKDayTimeView *)self addSubview:v26];
             [*(&self->super.super.super.isa + v2) addObject:v23];
@@ -1476,14 +1476,14 @@ void __62__EKDayTimeView_noonAttributedStringComponentsForOrientation___block_in
 {
   length = range.length;
   location = range.location;
-  v158[1] = *MEMORY[0x1E69E9840];
+  v162[1] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   [viewCopy bounds];
-  v123 = v9;
-  v124 = v8;
-  v143 = v10;
+  v127 = v9;
+  v128 = v8;
+  v147 = v10;
   rect = v11;
-  v128 = CUIKShow24Hours();
+  v132 = CUIKShow24Hours();
   traitCollection = [(EKDayTimeView *)self traitCollection];
   v13 = [traitCollection userInterfaceStyle] == 2;
 
@@ -1522,8 +1522,8 @@ void __62__EKDayTimeView_noonAttributedStringComponentsForOrientation___block_in
     v19 = v18;
   }
 
-  v139 = v16;
-  v140 = hourHeight;
+  v143 = v16;
+  v144 = hourHeight;
   v20 = floor((rect.origin.y - v16) / hourHeight);
   if (v20 <= location)
   {
@@ -1532,184 +1532,184 @@ void __62__EKDayTimeView_noonAttributedStringComponentsForOrientation___block_in
 
   v21 = v20;
   [EKDayTimeView timeInsetForSizeClass:EKUIWidthSizeClassForViewHierarchy(self) orientation:self->_orientation];
-  v138 = v22;
+  v142 = v22;
   [objc_opt_class() _timeVerticalInsetForOrientation:self->_orientation inViewHierarchy:self];
-  v137 = v23;
+  v141 = v23;
   delegate = [(EKDayTimeView *)self delegate];
   [delegate currentTimeRectInView:viewCopy];
   v26 = v25;
-  v142 = v27;
+  v146 = v27;
   v29 = v28;
   v31 = v30;
 
   v32 = *MEMORY[0x1E695F060];
   v33 = *(MEMORY[0x1E695F060] + 8);
   v34 = &OBJC_IVAR___EKUIViewHierarchyFromComponents__ekui_tintColor;
-  v122 = location;
+  v126 = location;
   if (v19 >= v21)
   {
     v35 = 0;
     p_hoursToRender = &self->_hoursToRender;
-    v125 = *MEMORY[0x1E69DB648];
+    v129 = *MEMORY[0x1E69DB648];
     v37 = v21;
-    v134 = v21 - location;
-    v135 = v19 - v21;
+    v138 = v21 - location;
+    v139 = v19 - v21;
     v38 = ~v19 + v21;
-    v132 = v38;
-    v133 = &self->super.super.super.isa + v21;
-    v39 = v133;
-    v147 = v31;
-    v148.origin.x = v26;
+    v136 = v38;
+    v137 = &self->super.super.super.isa + v21;
+    v39 = v137;
+    v151 = v31;
+    v152.origin.x = v26;
     selfCopy = self;
-    v146 = v29;
-    v126 = v21;
-    v136 = v21;
+    v150 = v29;
+    v130 = v21;
+    v140 = v21;
     do
     {
       v40 = v37 + v35;
       if (p_hoursToRender->location <= v37 + v35 && v37 + v35 - p_hoursToRender->location < p_hoursToRender->length)
       {
-        v42 = v133[v35 + 61];
+        v42 = v137[v35 + 61];
         [(EKDayTimeView *)self timeWidth];
         v44 = v43;
         if (v42)
         {
-          [(objc_class *)v42 size];
-          v46 = v45;
+          v45 = [(objc_class *)v42 size];
           v48 = v47;
+          v50 = v49;
         }
 
         else
         {
-          v49 = objc_opt_new();
-          [v49 setHour:v40];
+          v51 = objc_opt_new();
+          [v51 setHour:v40];
           calGregorianGMTCalendar = [MEMORY[0x1E695DEE8] CalGregorianGMTCalendar];
-          v144 = v49;
-          v51 = [calGregorianGMTCalendar dateFromComponents:v49];
+          v148 = v51;
+          v53 = [calGregorianGMTCalendar dateFromComponents:v51];
 
-          v129 = v51;
-          if ((v40 != 12) | v128 & 1)
+          v133 = v53;
+          if ((v40 != 12) | v132 & 1)
           {
-            v52 = MEMORY[0x1E69933D8];
+            v54 = MEMORY[0x1E69933D8];
             [objc_opt_class() _dynamicFontSizeForOrientation:self->_orientation];
-            [v52 stylizedTimelineHourStringForHourDate:v51 baseFontSize:?];
+            [v54 stylizedTimelineHourStringForHourDate:v53 baseFontSize:?];
           }
 
           else
           {
             [objc_opt_class() noonAttributedStringForOrientation:self->_orientation];
           }
-          v53 = ;
-          v54 = [v53 attribute:v125 atIndex:0 effectiveRange:{0, v122}];
-          v155 = 0.0;
-          v156 = 0.0;
-          v153 = 0.0;
-          v154 = 0.0;
+          v55 = ;
+          v56 = [v55 attribute:v129 atIndex:0 effectiveRange:{0, v126}];
+          v159 = 0.0;
+          v160 = 0.0;
+          v157 = 0.0;
+          v158 = 0.0;
           CTFontGetLanguageAwareOutsets();
-          [v53 size];
-          v56 = v55;
+          [v55 size];
           v58 = v57;
+          v60 = v59;
           selfCopy2 = self;
-          v60 = objc_opt_class();
-          [v60 _timeTextWidthForSizeClass:EKUIWidthSizeClassForViewHierarchy(viewCopy) orientation:selfCopy2->_orientation inViewHierarchy:viewCopy];
-          if (v61 >= v56)
+          v62 = objc_opt_class();
+          [v62 _timeTextWidthForSizeClass:EKUIWidthSizeClassForViewHierarchy(viewCopy) orientation:selfCopy2->_orientation inViewHierarchy:viewCopy];
+          if (v63 >= v58)
           {
-            v46 = v56 + v156 + v155;
-            v64 = v58 + v154;
+            v48 = v58 + v160 + v159;
+            v66 = v60 + v158;
           }
 
           else
           {
-            [v53 boundingRectWithSize:1 options:0 context:?];
-            v46 = v155 + v156 + v62;
-            v64 = v63 + v154;
+            [v55 boundingRectWithSize:1 options:0 context:?];
+            v48 = v159 + v160 + v64;
+            v66 = v65 + v158;
           }
 
-          v48 = v64 + v153;
-          v65 = MEMORY[0x1E69DCAB8];
-          *&v148.origin.y = MEMORY[0x1E69E9820];
-          *&v148.size.width = 3221225472;
-          *&v148.size.height = __55__EKDayTimeView_drawRect_forContentView_withHourRange___block_invoke;
-          v149 = &unk_1E8442470;
-          v150 = v53;
-          v151 = v46;
-          v152 = v64 + v153;
-          v66 = v53;
-          v42 = [v65 cuik_drawImageWithSize:&v148.origin.y drawBlock:{v46, v48}];
+          v50 = v66 + v157;
+          v67 = MEMORY[0x1E69DCAB8];
+          *&v152.origin.y = MEMORY[0x1E69E9820];
+          *&v152.size.width = 3221225472;
+          *&v152.size.height = __55__EKDayTimeView_drawRect_forContentView_withHourRange___block_invoke;
+          v153 = &unk_1E8442470;
+          v154 = v55;
+          v155 = v48;
+          v156 = v66 + v157;
+          v68 = v55;
+          v42 = [v67 cuik_drawImageWithSize:&v152.origin.y drawBlock:{v48, v50}];
           objc_storeStrong(v39 + 61, v42);
 
           self = selfCopy;
-          v21 = v126;
+          v21 = v130;
           v34 = &OBJC_IVAR___EKUIViewHierarchyFromComponents__ekui_tintColor;
         }
 
-        v67 = *(&self->super.super.super.isa + v34[844]) == (v21 + v35);
+        v69 = *(&self->super.super.super.isa + v34[844]) == (v21 + v35);
         if (v33 < 0.001)
         {
-          v67 = 1;
+          v69 = 1;
         }
 
-        if (v67)
+        if (v69)
         {
-          v33 = v48;
+          v33 = v50;
         }
 
-        v145 = v33;
-        if (v67)
+        v149 = v33;
+        if (v69)
         {
-          v68 = v46;
+          v70 = v48;
         }
 
         else
         {
-          v68 = v32;
+          v70 = v32;
         }
 
-        IsLeftToRight = CalInterfaceIsLeftToRight();
-        v70 = v44 - v138 - v46;
+        IsLeftToRight = CalInterfaceIsLeftToRight(v45, v46);
+        v72 = v44 - v142 - v48;
         if (!IsLeftToRight)
         {
-          v70 = v138;
+          v72 = v142;
         }
 
-        CalRoundToScreenScale(v70);
-        v72 = v71;
-        v159.size.height = 1.0;
-        v159.origin.x = v44;
-        v159.origin.y = v139 + v140 * (v134 + v35) - v143;
-        v159.size.width = rect;
-        MaxY = CGRectGetMaxY(v159);
-        CalRoundToScreenScale(v137 + MaxY + v48 * -0.5);
-        v75 = v74;
-        if (v135 != v35 && v35 || (v174.origin.x = v72, v174.origin.y = v74, v174.size.width = v46, v174.size.height = v48, CGRectIntersectsRect(rect, v174)))
+        CalRoundToScreenScale(v72);
+        v74 = v73;
+        v163.size.height = 1.0;
+        v163.origin.x = v44;
+        v163.origin.y = v143 + v144 * (v138 + v35) - v147;
+        v163.size.width = rect;
+        MaxY = CGRectGetMaxY(v163);
+        CalRoundToScreenScale(v141 + MaxY + v50 * -0.5);
+        v77 = v76;
+        if (v139 != v35 && v35 || (v178.origin.x = v74, v178.origin.y = v76, v178.size.width = v48, v178.size.height = v50, CGRectIntersectsRect(rect, v178)))
         {
-          v160.origin.x = v72;
-          v160.origin.y = v75;
-          v160.size.width = v46;
-          v160.size.height = v48;
-          v161 = CGRectInset(v160, 0.0, 3.5);
-          x = v161.origin.x;
-          y = v161.origin.y;
-          width = v161.size.width;
-          height = v161.size.height;
-          MinY = CGRectGetMinY(v161);
-          v162.size.height = v147;
-          v162.origin.x = v148.origin.x;
-          v162.origin.y = v142;
-          v162.size.width = v146;
-          if (MinY > CGRectGetMaxY(v162) || (v163.origin.x = x, v163.origin.y = y, v163.size.width = width, v163.size.height = height, v81 = CGRectGetMaxY(v163), v164.size.height = v147, v164.origin.x = v148.origin.x, v164.origin.y = v142, v164.size.width = v146, v81 < CGRectGetMinY(v164)))
+          v164.origin.x = v74;
+          v164.origin.y = v77;
+          v164.size.width = v48;
+          v164.size.height = v50;
+          v165 = CGRectInset(v164, 0.0, 3.5);
+          x = v165.origin.x;
+          y = v165.origin.y;
+          width = v165.size.width;
+          height = v165.size.height;
+          MinY = CGRectGetMinY(v165);
+          v166.size.height = v151;
+          v166.origin.x = v152.origin.x;
+          v166.origin.y = v146;
+          v166.size.width = v150;
+          if (MinY > CGRectGetMaxY(v166) || (v167.origin.x = x, v167.origin.y = y, v167.size.width = width, v167.size.height = height, v83 = CGRectGetMaxY(v167), v168.size.height = v151, v168.origin.x = v152.origin.x, v168.origin.y = v146, v168.size.width = v150, v83 < CGRectGetMinY(v168)))
           {
-            [(objc_class *)v42 drawAtPoint:v72, v75, v122];
+            [(objc_class *)v42 drawAtPoint:v74, v77, v126];
           }
         }
 
-        v31 = v147;
-        v26 = v148.origin.x;
-        v32 = v68;
-        v33 = v145;
-        v29 = v146;
-        v37 = v136;
-        v38 = v132;
+        v31 = v151;
+        v26 = v152.origin.x;
+        v32 = v70;
+        v33 = v149;
+        v29 = v150;
+        v37 = v140;
+        v38 = v136;
       }
 
       ++v35;
@@ -1719,131 +1719,131 @@ void __62__EKDayTimeView_noonAttributedStringComponentsForOrientation___block_in
     while (v38 + v35);
   }
 
-  v82 = v34[844];
-  if (*(&self->super.super.super.isa + v82) >= 0.0)
+  v84 = v34[844];
+  if (*(&self->super.super.super.isa + v84) >= 0.0)
   {
     [objc_opt_class() _dynamicFontSizeForOrientation:self->_orientation];
-    v83 = [MEMORY[0x1E69DB878] systemFontOfSize:? weight:?];
-    v84 = *(&self->super.super.super.isa + v82);
-    v85 = v84;
-    v86 = (v84 - v84) * 60.0;
-    v87 = (v86 / 15.0);
-    *&v86 = v86;
-    v88 = (roundf(*&v86) / 5.0);
-    if (v88 > 0xB || ((1 << v88) & 0x882) == 0)
+    v85 = [MEMORY[0x1E69DB878] systemFontOfSize:? weight:?];
+    v86 = *(&self->super.super.super.isa + v84);
+    v87 = v86;
+    v88 = (v86 - v86) * 60.0;
+    v89 = (v88 / 15.0);
+    *&v88 = v88;
+    v90 = (roundf(*&v88) / 5.0);
+    if (v90 > 0xB || ((1 << v90) & 0x882) == 0)
     {
-      if (v87 <= 0)
+      if (v89 <= 0)
       {
 LABEL_78:
 
         goto LABEL_79;
       }
 
-      v90 = v32;
-      v91 = CUIKLocalizedStringForInteger();
+      v92 = v32;
+      v93 = CUIKLocalizedStringForInteger();
     }
 
     else
     {
-      v90 = v32;
-      v91 = CUIKLocalizedStringForIntegerWithMinimumTwoDigits();
+      v92 = v32;
+      v93 = CUIKLocalizedStringForIntegerWithMinimumTwoDigits();
     }
 
-    v92 = v91;
-    v93 = [@":" stringByAppendingString:{v91, v122}];
+    v94 = v93;
+    v95 = [@":" stringByAppendingString:{v93, v126}];
 
-    v157 = *MEMORY[0x1E69DB648];
-    v158[0] = v83;
-    v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v158 forKeys:&v157 count:1];
-    [v93 sizeWithAttributes:v94];
-    v96 = v95;
+    v161 = *MEMORY[0x1E69DB648];
+    v162[0] = v85;
+    v96 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v162 forKeys:&v161 count:1];
+    [v95 sizeWithAttributes:v96];
+    v98 = v97;
 
-    [(EKDayTimeView *)self contentScaleFactor];
-    if (v97 == 1.0)
+    contentScaleFactor = [(EKDayTimeView *)self contentScaleFactor];
+    if (v101 == 1.0)
     {
-      v98 = 1.0;
+      v102 = 1.0;
     }
 
     else
     {
-      v98 = 0.0;
+      v102 = 0.0;
     }
 
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(contentScaleFactor, v100))
     {
       [(EKDayTimeView *)self timeWidth];
-      v100 = v99 - v138 - v96 + v98;
+      v104 = v103 - v142 - v98 + v102;
     }
 
     else
     {
-      v100 = v138 - v98;
+      v104 = v142 - v102;
     }
 
-    v101 = v139 - v143 + -7.0 + v140 * (v85 - v122) + v140 * 0.25 * v87;
-    v102 = v140 * 0.25 + -4.0;
-    if (v33 < v102)
+    v105 = v143 - v147 + -7.0 + v144 * (v87 - v126) + v144 * 0.25 * v89;
+    v106 = v144 * 0.25 + -4.0;
+    if (v33 < v106)
     {
-      v102 = v33;
+      v106 = v33;
     }
 
-    v103 = v102 + v101;
-    if (v88 == 1)
+    v107 = v106 + v105;
+    if (v90 == 1)
     {
-      v104 = v103;
+      v108 = v107;
     }
 
     else
     {
-      v104 = v139 - v143 + -7.0 + v140 * (v85 - v122) + v140 * 0.25 * v87;
+      v108 = v143 - v147 + -7.0 + v144 * (v87 - v126) + v144 * 0.25 * v89;
     }
 
     IsRegularInViewHierarchy = EKUICurrentWidthSizeClassIsRegularInViewHierarchy(self);
-    v106 = -1.5;
+    v110 = -1.5;
     if (IsRegularInViewHierarchy)
     {
-      v106 = 1.0;
+      v110 = 1.0;
     }
 
-    v107 = v101 + v106;
-    if (v87 != 3)
+    v111 = v105 + v110;
+    if (v89 != 3)
     {
-      v107 = v104;
+      v111 = v108;
     }
 
-    v108 = 0.5;
+    v112 = 0.5;
     if (IsRegularInViewHierarchy)
     {
-      v108 = 2.0;
+      v112 = 2.0;
     }
 
-    v109 = v104 + v108;
-    if (v87 == 1 || v88 == 1)
+    v113 = v108 + v112;
+    if (v89 == 1 || v90 == 1)
     {
-      v111 = v109;
+      v115 = v113;
     }
 
     else
     {
-      v111 = v107;
+      v115 = v111;
     }
 
-    v165.origin.x = v100;
-    v165.origin.y = v111;
-    v165.size.width = v90;
-    v165.size.height = v33;
-    v112 = CGRectGetMinY(v165);
-    v166.origin.x = v26;
-    v166.origin.y = v142;
-    v166.size.width = v29;
-    v166.size.height = v31;
-    if (v112 > CGRectGetMaxY(v166) || (v167.origin.x = v100, v167.origin.y = v111, v167.size.width = v90, v167.size.height = v33, v113 = CGRectGetMaxY(v167), v168.origin.x = v26, v168.origin.y = v142, v168.size.width = v29, v168.size.height = v31, v113 < CGRectGetMinY(v168)))
+    v169.origin.x = v104;
+    v169.origin.y = v115;
+    v169.size.width = v92;
+    v169.size.height = v33;
+    v116 = CGRectGetMinY(v169);
+    v170.origin.x = v26;
+    v170.origin.y = v146;
+    v170.size.width = v29;
+    v170.size.height = v31;
+    if (v116 > CGRectGetMaxY(v170) || (v171.origin.x = v104, v171.origin.y = v115, v171.size.width = v92, v171.size.height = v33, v117 = CGRectGetMaxY(v171), v172.origin.x = v26, v172.origin.y = v146, v172.size.width = v29, v172.size.height = v31, v117 < CGRectGetMinY(v172)))
     {
       cuik_timelineHourColor = [MEMORY[0x1E69DC888] cuik_timelineHourColor];
       [cuik_timelineHourColor CGColor];
       UISetColor();
 
-      [v93 _legacy_drawAtPoint:v83 withFont:{CalRoundPointToScreenScale(v100, v111)}];
+      [v95 _legacy_drawAtPoint:v85 withFont:{CalRoundPointToScreenScale(v104, v115)}];
     }
 
     goto LABEL_78;
@@ -1858,41 +1858,41 @@ LABEL_79:
     CGContextSetShouldAntialias(CurrentContext, 0);
     [separatorColor CGColor];
     UISetColor();
-    v117 = EKUISeparatorLineThickness();
-    v169.size.height = v123;
-    v169.origin.x = v124;
-    v169.origin.y = v143;
-    v169.size.width = rect;
-    v170.size.height = CGRectGetHeight(v169);
-    v170.origin.x = 0.0;
-    v170.origin.y = 0.0;
-    v170.size.width = v117;
-    UIRectFill(v170);
+    v121 = EKUISeparatorLineThickness();
+    v173.size.height = v127;
+    v173.origin.x = v128;
+    v173.origin.y = v147;
+    v173.size.width = rect;
+    v174.size.height = CGRectGetHeight(v173);
+    v174.origin.x = 0.0;
+    v174.origin.y = 0.0;
+    v174.size.width = v121;
+    UIRectFill(v174);
   }
 
   if ((*(self + 424) & 2) != 0)
   {
-    v118 = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(v118);
-    CGContextSetShouldAntialias(v118, 0);
+    v122 = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(v122);
+    CGContextSetShouldAntialias(v122, 0);
     [separatorColor CGColor];
     UISetColor();
-    v171.origin.x = v124;
-    v171.origin.y = v143;
-    v171.size.width = rect;
-    v171.size.height = v123;
-    v119 = CGRectGetWidth(v171);
-    v120 = v119 - EKUISeparatorLineThickness();
-    v121 = EKUISeparatorLineThickness();
-    v172.origin.x = v124;
-    v172.origin.y = v143;
-    v172.size.width = rect;
-    v172.size.height = v123;
-    v173.size.height = CGRectGetHeight(v172);
-    v173.origin.y = 0.0;
-    v173.origin.x = v120;
-    v173.size.width = v121;
-    UIRectFill(v173);
+    v175.origin.x = v128;
+    v175.origin.y = v147;
+    v175.size.width = rect;
+    v175.size.height = v127;
+    v123 = CGRectGetWidth(v175);
+    v124 = v123 - EKUISeparatorLineThickness();
+    v125 = EKUISeparatorLineThickness();
+    v176.origin.x = v128;
+    v176.origin.y = v147;
+    v176.size.width = rect;
+    v176.size.height = v127;
+    v177.size.height = CGRectGetHeight(v176);
+    v177.origin.y = 0.0;
+    v177.origin.x = v124;
+    v177.size.width = v125;
+    UIRectFill(v177);
   }
 }
 
@@ -2096,45 +2096,45 @@ uint64_t __36__EKDayTimeView_setShowsTimeMarker___block_invoke_2(uint64_t a1)
 + (CGRect)timeMarkerFrameForTotalWidth:(double)width timeWidth:(double)timeWidth timeMarker:(id)marker hourHeight:(double)height topPadding:(double)padding
 {
   markerCopy = marker;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
+  IsLeftToRight = CalInterfaceIsLeftToRight(markerCopy, v13);
   showsThumb = [markerCopy showsThumb];
-  v15 = 0.0;
+  v16 = 0.0;
   if (IsLeftToRight)
   {
     if (showsThumb)
     {
       [markerCopy markerWidth];
-      v17 = timeWidth - v16;
+      v18 = timeWidth - v17;
       [markerCopy markerInset];
-      v15 = v17 - v18;
-      width = width - v15;
+      v16 = v18 - v19;
+      width = width - v16;
     }
   }
 
   else if (showsThumb)
   {
     [markerCopy markerWidth];
-    v20 = width - timeWidth + v19;
+    v21 = width - timeWidth + v20;
     [markerCopy markerInset];
-    width = v20 + v21;
+    width = v21 + v22;
   }
 
-  v22 = CUIKNowComponents();
-  [self positionOfSecond:(objc_msgSend(v22 hourHeight:"second") + (3600 * objc_msgSend(v22 topPadding:"hour") + 60 * objc_msgSend(v22 clampToBounds:{"minute"))), 1, height, padding}];
-  v24 = v23;
+  v23 = CUIKNowComponents();
+  [self positionOfSecond:(objc_msgSend(v23 hourHeight:"second") + (3600 * objc_msgSend(v23 topPadding:"hour") + 60 * objc_msgSend(v23 clampToBounds:{"minute"))), 1, height, padding}];
+  v25 = v24;
   [markerCopy bounds];
-  v26 = v24 + v25 * -0.5;
+  v27 = v25 + v26 * -0.5;
   [markerCopy bounds];
-  v28 = v27;
+  v29 = v28;
 
-  v29 = v15;
-  v30 = v26;
+  v30 = v16;
+  v31 = v27;
   widthCopy = width;
-  v32 = v28;
-  result.size.height = v32;
+  v33 = v29;
+  result.size.height = v33;
   result.size.width = widthCopy;
-  result.origin.y = v30;
-  result.origin.x = v29;
+  result.origin.y = v31;
+  result.origin.x = v30;
   return result;
 }
 
@@ -2142,26 +2142,26 @@ uint64_t __36__EKDayTimeView_setShowsTimeMarker___block_invoke_2(uint64_t a1)
 {
   markerCopy = marker;
   v9 = 0.0;
-  if (CalInterfaceIsLeftToRight())
+  if (CalInterfaceIsLeftToRight(markerCopy, v10))
   {
     [markerCopy markerWidth];
-    v9 = v10 + position;
+    v9 = v11 + position;
   }
 
   [markerCopy extensionLineHeight];
-  v12 = v11;
-  v13 = yPosition + v11 * -0.5;
+  v13 = v12;
+  v14 = yPosition + v12 * -0.5;
   [markerCopy markerInset];
-  v15 = v14;
+  v16 = v15;
 
-  v16 = v9;
-  v17 = v13;
-  v18 = v15;
-  v19 = v12;
-  result.size.height = v19;
-  result.size.width = v18;
-  result.origin.y = v17;
-  result.origin.x = v16;
+  v17 = v9;
+  v18 = v14;
+  v19 = v16;
+  v20 = v13;
+  result.size.height = v20;
+  result.size.width = v19;
+  result.origin.y = v18;
+  result.origin.x = v17;
   return result;
 }
 

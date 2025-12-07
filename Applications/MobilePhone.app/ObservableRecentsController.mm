@@ -7,7 +7,7 @@
 
 - (void)recentsController:(id)controller didChangeCalls:(id)calls
 {
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall, CHRecentCall_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

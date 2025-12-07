@@ -1182,7 +1182,7 @@ void __54__VKCImageAnalysisBaseView_analysisIsAllDataDetectors__block_invoke(uin
   }
 }
 
-uint64_t __54__VKCImageAnalysisBaseView_analysisIsAllDataDetectors__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__54__VKCImageAnalysisBaseView_analysisIsAllDataDetectors__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) rangeOfCharacterFromSet:*(a1 + 40)];
   v11 = result == a2 && v9 == a3;
@@ -2009,7 +2009,7 @@ LABEL_5:
   if (analysisResult)
   {
     [(VKCImageAnalysisBaseView *)self bounds];
-    if ((VKMSizeIsEmptyOrHasNanOrInf(v4, v5) & 1) == 0)
+    if (!VKMSizeIsEmptyOrHasNanOrInf(v4, v5))
     {
       if ([(VKCImageAnalysisBaseView *)self wantsAutomaticContentsRectCalculation])
       {
@@ -2367,7 +2367,7 @@ LABEL_14:
 - (void)updateAndNotifyAfterValidNormalizedVisibleRectChange
 {
   [(VKCImageAnalysisBaseView *)self setVisibleTextAreaInfoIsValid:1];
-  [(VKCImageAnalysisBaseView *)self calculateVisibleTextAreaInfo];
+  objc_msgSend_calculateVisibleTextAreaInfo(self);
   v5[0] = v7;
   v5[1] = v8;
   v6 = v9;
@@ -2620,108 +2620,108 @@ LABEL_40:
 
 - (CGRect)calculateNormalizedVisibleRect
 {
-  v190 = *MEMORY[0x1E69E9840];
+  v189 = *MEMORY[0x1E69E9840];
   [(VKCImageBaseOverlayView *)self normalizedVisibleRect];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   v11 = +[VKCInternalSettings logNormalizedVisibleRectProgress];
-  v13 = vk_solariumEnabled(v11, v12);
-  v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v12 = vk_solariumEnabled(v11);
+  v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
   superview = [(VKCImageAnalysisBaseView *)self superview];
   if (superview)
   {
-    v16 = superview;
+    v15 = superview;
     do
     {
-      v17 = objc_opt_class();
-      v18 = VKDynamicCast(v17, v16);
-      v19 = v18;
-      if (v18)
+      v16 = objc_opt_class();
+      v17 = VKDynamicCast(v16, v15);
+      v18 = v17;
+      if (v17)
       {
-        [v18 zoomScale];
-        if (v20 != 1.0 && vabdd_f64(1.0, v20) >= fabs(v20 * 0.000000999999997) && [v19 contentInsetAdjustmentBehavior] == 2)
+        [v17 zoomScale];
+        if (v19 != 1.0 && vabdd_f64(1.0, v19) >= fabs(v19 * 0.000000999999997) && [v18 contentInsetAdjustmentBehavior] == 2)
         {
-          [v14 addObject:v19];
+          [v13 addObject:v18];
         }
       }
 
-      superview2 = [v16 superview];
+      superview2 = [v15 superview];
 
-      v16 = superview2;
+      v15 = superview2;
     }
 
     while (superview2);
   }
 
-  v174 = v10;
-  v177 = v8;
-  v180 = v6;
-  v183 = v4;
+  v173 = v10;
+  v176 = v8;
+  v179 = v6;
+  v182 = v4;
   superview3 = [(VKCImageAnalysisBaseView *)self superview];
   [(VKCImageAnalysisBaseView *)self bounds];
   [(VKCImageAnalysisBaseView *)self convertRect:0 toView:?];
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
+  v29 = v28;
   window = [(VKCImageAnalysisBaseView *)self window];
   [window vk_safeAreaBounds];
-  v33 = v32;
-  v35 = v34;
-  v37 = v36;
-  v39 = v38;
+  v32 = v31;
+  v34 = v33;
+  v36 = v35;
+  v38 = v37;
 
-  v191.origin.x = v24;
-  v191.origin.y = v26;
-  v191.size.width = v28;
-  v191.size.height = v30;
-  v202.origin.x = v33;
-  v202.origin.y = v35;
-  v202.size.width = v37;
-  v202.size.height = v39;
-  v192 = CGRectIntersection(v191, v202);
-  x = v192.origin.x;
-  y = v192.origin.y;
-  width = v192.size.width;
-  height = v192.size.height;
+  v190.origin.x = v23;
+  v190.origin.y = v25;
+  v190.size.width = v27;
+  v190.size.height = v29;
+  v201.origin.x = v32;
+  v201.origin.y = v34;
+  v201.size.width = v36;
+  v201.size.height = v38;
+  v191 = CGRectIntersection(v190, v201);
+  x = v191.origin.x;
+  y = v191.origin.y;
+  width = v191.size.width;
+  height = v191.size.height;
   window2 = [(VKCImageAnalysisBaseView *)self window];
   if (v11)
   {
-    v45 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    v44 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
       window3 = [(VKCImageAnalysisBaseView *)self window];
-      v165 = VKMUIStringForRect(x, y, width, height);
+      v164 = VKMUIStringForRect(x, y, width, height);
       *buf = 138412546;
-      v187 = window3;
-      v188 = 2112;
-      v189 = v165;
-      _os_log_debug_impl(&dword_1B4335000, v45, OS_LOG_TYPE_DEBUG, "Beginning normalizedVisibleRect window:%@  windowContentsRect: %@", buf, 0x16u);
+      v186 = window3;
+      v187 = 2112;
+      v188 = v164;
+      _os_log_debug_impl(&dword_1B4335000, v44, OS_LOG_TYPE_DEBUG, "Beginning normalizedVisibleRect window:%@  windowContentsRect: %@", buf, 0x16u);
     }
   }
 
   if (VKMRectHasArea(x, y, width, height))
   {
-    v168 = window2;
+    v167 = window2;
     if (superview3)
     {
-      v170 = v13;
-      v46 = x;
-      v47 = y;
-      v48 = width;
-      v49 = height;
+      v169 = v12;
+      v45 = x;
+      v46 = y;
+      v47 = width;
+      v48 = height;
       while (1)
       {
-        lastObject = [v14 lastObject];
+        lastObject = [v13 lastObject];
 
         if (lastObject == superview3)
         {
-          [v14 removeLastObject];
+          [v13 removeLastObject];
         }
 
-        lastObject2 = [v14 lastObject];
+        lastObject2 = [v13 lastObject];
         if (lastObject2)
         {
           [(VKCImageAnalysisBaseView *)superview3 bounds];
@@ -2733,30 +2733,30 @@ LABEL_40:
         }
 
         [(VKCImageAnalysisBaseView *)superview3 convertRect:0 toView:?];
-        v203.origin.x = v52;
-        v203.origin.y = v53;
-        v203.size.width = v54;
-        v203.size.height = v55;
-        v193.origin.x = x;
-        v193.origin.y = y;
-        v193.size.width = width;
-        v193.size.height = height;
-        v194 = CGRectIntersection(v193, v203);
-        x = v194.origin.x;
-        y = v194.origin.y;
-        width = v194.size.width;
-        height = v194.size.height;
+        v202.origin.x = v51;
+        v202.origin.y = v52;
+        v202.size.width = v53;
+        v202.size.height = v54;
+        v192.origin.x = x;
+        v192.origin.y = y;
+        v192.size.width = width;
+        v192.size.height = height;
+        v193 = CGRectIntersection(v192, v202);
+        x = v193.origin.x;
+        y = v193.origin.y;
+        width = v193.size.width;
+        height = v193.size.height;
         if (v11)
         {
-          v56 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+          v55 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
           {
-            v57 = VKMUIStringForRect(x, y, width, height);
+            v56 = VKMUIStringForRect(x, y, width, height);
             *buf = 138412546;
-            v187 = superview3;
-            v188 = 2112;
-            v189 = v57;
-            _os_log_impl(&dword_1B4335000, v56, OS_LOG_TYPE_INFO, "upDatedWindowContentsRect fromView: %@, windowContentsRect: %@", buf, 0x16u);
+            v186 = superview3;
+            v187 = 2112;
+            v188 = v56;
+            _os_log_impl(&dword_1B4335000, v55, OS_LOG_TYPE_INFO, "upDatedWindowContentsRect fromView: %@, windowContentsRect: %@", buf, 0x16u);
           }
         }
 
@@ -2765,272 +2765,272 @@ LABEL_40:
           break;
         }
 
-        v22Superview = [(VKCImageAnalysisBaseView *)superview3 superview];
+        v21Superview = [(VKCImageAnalysisBaseView *)superview3 superview];
 
-        v195.origin.x = v46;
-        v195.origin.y = v47;
-        v195.size.width = v48;
-        v195.size.height = v49;
-        v204.origin.x = x;
-        v204.origin.y = y;
-        v204.size.width = width;
-        v204.size.height = height;
-        if (!CGRectEqualToRect(v195, v204))
+        v194.origin.x = v45;
+        v194.origin.y = v46;
+        v194.size.width = v47;
+        v194.size.height = v48;
+        v203.origin.x = x;
+        v203.origin.y = y;
+        v203.size.width = width;
+        v203.size.height = height;
+        if (!CGRectEqualToRect(v194, v203))
         {
-          v49 = height;
-          v48 = width;
-          v47 = y;
-          v46 = x;
+          v48 = height;
+          v47 = width;
+          v46 = y;
+          v45 = x;
         }
 
-        superview3 = v22Superview;
-        if (!v22Superview)
+        superview3 = v21Superview;
+        if (!v21Superview)
         {
           goto LABEL_33;
         }
       }
 
 LABEL_33:
-      v63 = x;
-      v64 = y;
-      v65 = width;
-      v66 = height;
-      height = v49;
-      width = v48;
-      y = v47;
-      x = v46;
-      v13 = v170;
+      v62 = x;
+      v63 = y;
+      v64 = width;
+      v65 = height;
+      height = v48;
+      width = v47;
+      y = v46;
+      x = v45;
+      v12 = v169;
     }
 
     else
     {
-      v63 = x;
-      v64 = y;
-      v65 = width;
-      v66 = height;
+      v62 = x;
+      v63 = y;
+      v64 = width;
+      v65 = height;
     }
 
-    v171 = v64;
-    v173 = v63;
-    v166 = v66;
-    v167 = v65;
-    v60 = v180;
-    v59 = v183;
-    v62 = v174;
-    v61 = v177;
-    if ((VKMRectHasInfComponents(v63, v64, v65, v66) & 1) == 0)
+    v170 = v63;
+    v172 = v62;
+    v165 = v65;
+    v166 = v64;
+    v59 = v179;
+    v58 = v182;
+    v61 = v173;
+    v60 = v176;
+    if (!VKMRectHasInfComponents(v62, v63, v64, v65))
     {
       selfCopy = self;
       window4 = [(VKCImageAnalysisBaseView *)selfCopy window];
       [window4 vk_safeAreaBounds];
-      v205.origin.x = v69;
-      v205.origin.y = v70;
-      v205.size.width = v71;
-      v205.size.height = v72;
-      v196.origin.y = v171;
-      v196.origin.x = v173;
-      v196.size.height = v166;
-      v196.size.width = v167;
-      v197 = CGRectIntersection(v196, v205);
-      v73 = v197.origin.x;
-      v74 = v197.origin.y;
-      v75 = v197.size.width;
-      v76 = v197.size.height;
+      v204.origin.x = v68;
+      v204.origin.y = v69;
+      v204.size.width = v70;
+      v204.size.height = v71;
+      v195.origin.y = v170;
+      v195.origin.x = v172;
+      v195.size.height = v165;
+      v195.size.width = v166;
+      v196 = CGRectIntersection(v195, v204);
+      v72 = v196.origin.x;
+      v73 = v196.origin.y;
+      v74 = v196.size.width;
+      v75 = v196.size.height;
 
       if (selfCopy)
       {
-        v169 = v14;
-        v172 = selfCopy;
+        v168 = v13;
+        v171 = selfCopy;
         do
         {
-          v77 = objc_opt_class();
-          v78 = VKDynamicCast(v77, selfCopy);
-          v79 = v78;
-          if (v78)
+          v76 = objc_opt_class();
+          v77 = VKDynamicCast(v76, selfCopy);
+          v78 = v77;
+          if (v77)
           {
-            navigationController = [v78 navigationController];
+            navigationController = [v77 navigationController];
             toolbar = [navigationController toolbar];
             if (toolbar && ([navigationController isToolbarHidden] & 1) == 0)
             {
-              v175 = v73;
-              v178 = v74;
-              v181 = v75;
-              v184 = v76;
+              v174 = v72;
+              v177 = v73;
+              v180 = v74;
+              v183 = v75;
               toolbar2 = [navigationController toolbar];
               toolbar3 = [navigationController toolbar];
               [toolbar3 bounds];
               [toolbar2 convertRect:0 toView:?];
-              v85 = v84;
-              v87 = v86;
-              v89 = v88;
-              v91 = v90;
+              v84 = v83;
+              v86 = v85;
+              v88 = v87;
+              v90 = v89;
 
-              if ((v13 & 1) != 0 && (-[VKCImageAnalysisBaseView window](v172, "window"), v92 = objc_claimAutoreleasedReturnValue(), [v92 bounds], v97 = VKMNearlyEqualRects(v85, v87, v89, v91, v93, v94, v95, v96), v92, v97) || !VKMRectHasArea(v85, v87, v89, v91))
+              if ((v12 & 1) != 0 && (-[VKCImageAnalysisBaseView window](v171, "window"), v91 = objc_claimAutoreleasedReturnValue(), [v91 bounds], v96 = VKMNearlyEqualRects(v84, v86, v88, v90, v92, v93, v94, v95), v91, v96) || !VKMRectHasArea(v84, v86, v88, v90))
               {
-                v75 = v181;
-                v76 = v184;
-                v73 = v175;
-                v74 = v178;
+                v74 = v180;
+                v75 = v183;
+                v72 = v174;
+                v73 = v177;
               }
 
               else
               {
-                v198.origin.x = v85;
-                v198.origin.y = v87;
-                v198.size.width = v89;
-                v198.size.height = v91;
-                CGRectGetMinY(v198);
-                v73 = VKMClipRectToMaxY(v175, v178, v181, v184);
+                v197.origin.x = v84;
+                v197.origin.y = v86;
+                v197.size.width = v88;
+                v197.size.height = v90;
+                CGRectGetMinY(v197);
+                v72 = VKMClipRectToMaxY(v174, v177, v180, v183);
+                v73 = v97;
                 v74 = v98;
                 v75 = v99;
-                v76 = v100;
                 if (v11)
                 {
-                  v101 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-                  if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+                  v100 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+                  if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
                   {
-                    v102 = VKMUIStringForRect(v73, v74, v75, v76);
+                    v101 = VKMUIStringForRect(v72, v73, v74, v75);
                     *buf = 138412546;
-                    v187 = toolbar;
-                    v188 = 2112;
-                    v189 = v102;
-                    _os_log_impl(&dword_1B4335000, v101, OS_LOG_TYPE_INFO, "updatedWindowContentsRect fromToolbar: %@, windowContentsRect: %@", buf, 0x16u);
+                    v186 = toolbar;
+                    v187 = 2112;
+                    v188 = v101;
+                    _os_log_impl(&dword_1B4335000, v100, OS_LOG_TYPE_INFO, "updatedWindowContentsRect fromToolbar: %@, windowContentsRect: %@", buf, 0x16u);
                   }
                 }
               }
             }
 
-            navigationItem = [v79 navigationItem];
+            navigationItem = [v78 navigationItem];
             navigationBar = [navigationItem navigationBar];
 
             if (navigationBar && ([(VKCImageAnalysisBaseView *)navigationBar isHidden]& 1) == 0)
             {
-              v176 = v73;
-              v179 = v74;
-              v182 = v75;
-              v185 = v76;
-              v105 = v11;
+              v175 = v72;
+              v178 = v73;
+              v181 = v74;
+              v184 = v75;
+              v104 = v11;
               [(VKCImageAnalysisBaseView *)navigationBar bounds];
               [(VKCImageAnalysisBaseView *)navigationBar convertRect:0 toView:?];
-              v107 = v106;
-              v109 = v108;
-              v111 = v110;
-              v113 = v112;
-              v114 = v13;
-              if ((v13 & 1) != 0 && (-[VKCImageAnalysisBaseView window](v172, "window"), v115 = objc_claimAutoreleasedReturnValue(), [v115 bounds], v120 = VKMNearlyEqualRects(v107, v109, v111, v113, v116, v117, v118, v119), v115, v120) || !VKMRectHasArea(v107, v109, v111, v113))
+              v106 = v105;
+              v108 = v107;
+              v110 = v109;
+              v112 = v111;
+              v113 = v12;
+              if ((v12 & 1) != 0 && (-[VKCImageAnalysisBaseView window](v171, "window"), v114 = objc_claimAutoreleasedReturnValue(), [v114 bounds], v119 = VKMNearlyEqualRects(v106, v108, v110, v112, v115, v116, v117, v118), v114, v119) || !VKMRectHasArea(v106, v108, v110, v112))
               {
-                v13 = v114;
-                v11 = v105;
-                v14 = v169;
-                v75 = v182;
-                v76 = v185;
-                v73 = v176;
-                v74 = v179;
+                v12 = v113;
+                v11 = v104;
+                v13 = v168;
+                v74 = v181;
+                v75 = v184;
+                v72 = v175;
+                v73 = v178;
               }
 
               else
               {
-                v199.origin.x = v107;
-                v199.origin.y = v109;
-                v199.size.width = v111;
-                v199.size.height = v113;
-                CGRectGetMaxY(v199);
-                v73 = VKMClipRectToMinY(v176, v179, v182, v185);
+                v198.origin.x = v106;
+                v198.origin.y = v108;
+                v198.size.width = v110;
+                v198.size.height = v112;
+                CGRectGetMaxY(v198);
+                v72 = VKMClipRectToMinY(v175, v178, v181, v184);
+                v73 = v120;
                 v74 = v121;
                 v75 = v122;
-                v76 = v123;
-                v13 = v114;
-                if (v105)
+                v12 = v113;
+                if (v104)
                 {
-                  v124 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-                  if (os_log_type_enabled(v124, OS_LOG_TYPE_INFO))
+                  v123 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+                  if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
                   {
-                    v125 = VKMUIStringForRect(v73, v74, v75, v76);
+                    v124 = VKMUIStringForRect(v72, v73, v74, v75);
                     *buf = 138412546;
-                    v187 = navigationBar;
-                    v188 = 2112;
-                    v189 = v125;
-                    _os_log_impl(&dword_1B4335000, v124, OS_LOG_TYPE_INFO, "updatedWindowContentsRect fromNavigationBar: %@, windowContentsRect: %@", buf, 0x16u);
+                    v186 = navigationBar;
+                    v187 = 2112;
+                    v188 = v124;
+                    _os_log_impl(&dword_1B4335000, v123, OS_LOG_TYPE_INFO, "updatedWindowContentsRect fromNavigationBar: %@, windowContentsRect: %@", buf, 0x16u);
 
-                    v13 = v114;
+                    v12 = v113;
                   }
                 }
 
-                v11 = v105;
-                v14 = v169;
+                v11 = v104;
+                v13 = v168;
               }
             }
           }
 
           if (v11)
           {
-            v126 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-            if (os_log_type_enabled(v126, OS_LOG_TYPE_INFO))
+            v125 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+            if (os_log_type_enabled(v125, OS_LOG_TYPE_INFO))
             {
-              v127 = VKMUIStringForRect(v73, v74, v75, v76);
+              v126 = VKMUIStringForRect(v72, v73, v74, v75);
               *buf = 138412546;
-              v187 = selfCopy;
-              v188 = 2112;
-              v189 = v127;
-              _os_log_impl(&dword_1B4335000, v126, OS_LOG_TYPE_INFO, "updatedWindowContentsRect fromView: %@, windowContentsRect: %@", buf, 0x16u);
+              v186 = selfCopy;
+              v187 = 2112;
+              v188 = v126;
+              _os_log_impl(&dword_1B4335000, v125, OS_LOG_TYPE_INFO, "updatedWindowContentsRect fromView: %@, windowContentsRect: %@", buf, 0x16u);
             }
           }
 
           nextResponder = [(VKCImageAnalysisBaseView *)selfCopy nextResponder];
 
-          v200.origin.x = x;
-          v200.origin.y = y;
-          v200.size.width = width;
-          v200.size.height = height;
-          v206.origin.x = v73;
-          v206.origin.y = v74;
-          v206.size.width = v75;
-          v206.size.height = v76;
-          if (!CGRectEqualToRect(v200, v206))
+          v199.origin.x = x;
+          v199.origin.y = y;
+          v199.size.width = width;
+          v199.size.height = height;
+          v205.origin.x = v72;
+          v205.origin.y = v73;
+          v205.size.width = v74;
+          v205.size.height = v75;
+          if (!CGRectEqualToRect(v199, v205))
           {
-            height = v76;
-            width = v75;
-            y = v74;
-            x = v73;
+            height = v75;
+            width = v74;
+            y = v73;
+            x = v72;
           }
 
           selfCopy = nextResponder;
         }
 
         while (nextResponder);
-        window2 = v168;
-        selfCopy = v172;
+        window2 = v167;
+        selfCopy = v171;
       }
 
-      [(VKCImageAnalysisBaseView *)selfCopy convertRect:0 fromView:v73, v74, v75, v76];
-      v130 = v129;
-      v132 = v131;
-      v134 = v133;
-      v136 = v135;
+      [(VKCImageAnalysisBaseView *)selfCopy convertRect:0 fromView:v72, v73, v74, v75];
+      v129 = v128;
+      v131 = v130;
+      v133 = v132;
+      v135 = v134;
       [(VKCImageAnalysisBaseView *)selfCopy bounds];
-      v138 = v137;
-      v140 = v139;
-      v142 = v141;
-      v144 = v143;
+      v137 = v136;
+      v139 = v138;
+      v141 = v140;
+      v143 = v142;
       [(VKCImageBaseOverlayView *)selfCopy contentsRect];
-      VKMRectFromNormalizedSubrect(v138, v140, v142, v144, v145, v146, v147, v148);
-      VKMNormalizedSubrectInRect(v130, v132, v134, v136, v149, v150, v151, v152);
+      VKMRectFromNormalizedSubrect(v137, v139, v141, v143, v144, v145, v146, v147);
+      VKMNormalizedSubrectInRect(v129, v131, v133, v135, v148, v149, v150, v151);
+      v58 = v152;
       v59 = v153;
       v60 = v154;
       v61 = v155;
-      v62 = v156;
       if (v11)
       {
-        v157 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-        if (os_log_type_enabled(v157, OS_LOG_TYPE_INFO))
+        v156 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+        if (os_log_type_enabled(v156, OS_LOG_TYPE_INFO))
         {
-          v158 = VKMUIStringForRect(v130, v132, v134, v136);
-          v159 = VKMUIStringForRect(v59, v60, v61, v62);
+          v157 = VKMUIStringForRect(v129, v131, v133, v135);
+          v158 = VKMUIStringForRect(v58, v59, v60, v61);
           *buf = 138412546;
-          v187 = v158;
-          v188 = 2112;
-          v189 = v159;
-          _os_log_impl(&dword_1B4335000, v157, OS_LOG_TYPE_INFO, "final currentViewRect: %@, normalizedVisibleRect: %@", buf, 0x16u);
+          v186 = v157;
+          v187 = 2112;
+          v188 = v158;
+          _os_log_impl(&dword_1B4335000, v156, OS_LOG_TYPE_INFO, "final currentViewRect: %@, normalizedVisibleRect: %@", buf, 0x16u);
         }
       }
     }
@@ -3040,20 +3040,20 @@ LABEL_33:
 
   else
   {
-    v60 = v180;
-    v59 = v183;
-    v62 = v174;
-    v61 = v177;
+    v59 = v179;
+    v58 = v182;
+    v61 = v173;
+    v60 = v176;
   }
 
+  v159 = v58;
   v160 = v59;
   v161 = v60;
   v162 = v61;
-  v163 = v62;
-  result.size.height = v163;
-  result.size.width = v162;
-  result.origin.y = v161;
-  result.origin.x = v160;
+  result.size.height = v162;
+  result.size.width = v161;
+  result.origin.y = v160;
+  result.origin.x = v159;
   return result;
 }
 
@@ -3728,29 +3728,29 @@ LABEL_16:
 
 - (VIUIVisualIntelligenceViewCoordinator)viCoordinator
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   viCoordinator = self->_viCoordinator;
   if (!viCoordinator)
   {
     date = [MEMORY[0x1E695DF00] date];
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2050000000;
     v5 = getVIUIVisualIntelligenceViewCoordinatorClass_softClass_0;
-    v31 = getVIUIVisualIntelligenceViewCoordinatorClass_softClass_0;
+    v33 = getVIUIVisualIntelligenceViewCoordinatorClass_softClass_0;
     if (!getVIUIVisualIntelligenceViewCoordinatorClass_softClass_0)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v33 = __getVIUIVisualIntelligenceViewCoordinatorClass_block_invoke_0;
-      v34 = &unk_1E7BE3F48;
-      v35 = &v28;
+      v35 = __getVIUIVisualIntelligenceViewCoordinatorClass_block_invoke_0;
+      v36 = &unk_1E7BE3F48;
+      v37 = &v30;
       __getVIUIVisualIntelligenceViewCoordinatorClass_block_invoke_0(&buf);
-      v5 = v29[3];
+      v5 = v31[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v30, 8);
     date2 = [MEMORY[0x1E695DF00] date];
     [date2 timeIntervalSinceDate:date];
     v9 = v8;
@@ -3763,24 +3763,24 @@ LABEL_16:
       _os_log_impl(&dword_1B4335000, v10, OS_LOG_TYPE_INFO, "getVIUCoordinator class return time is %f", &buf, 0xCu);
     }
 
-    v11 = _VKSignpostLog();
-    if (os_signpost_enabled(v11))
+    v12 = _VKSignpostLog(v11);
+    if (os_signpost_enabled(v12))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalysis Visual Intelligence Coordinator", &unk_1B4435C0E, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalysis Visual Intelligence Coordinator", &unk_1B4435C0E, &buf, 2u);
     }
 
-    v12 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_1B4335000, v12, OS_LOG_TYPE_INFO, "Signpost Begin: VKCImageAnalysis Visual Intelligence Coordinator", &buf, 2u);
+      _os_log_impl(&dword_1B4335000, v13, OS_LOG_TYPE_INFO, "Signpost Begin: VKCImageAnalysis Visual Intelligence Coordinator", &buf, 2u);
     }
 
     date3 = [MEMORY[0x1E695DF00] date];
-    v14 = objc_alloc_init(v5);
-    v15 = self->_viCoordinator;
-    self->_viCoordinator = v14;
+    v15 = objc_alloc_init(v5);
+    v16 = self->_viCoordinator;
+    self->_viCoordinator = v15;
 
     analysisResult = [(VKCImageAnalysisBaseView *)self analysisResult];
     visualIntelligenceResult = [analysisResult visualIntelligenceResult];
@@ -3792,34 +3792,34 @@ LABEL_16:
     if (objc_opt_respondsToSelector())
     {
       delegate = [(VKCImageAnalysisBaseView *)self delegate];
-      v20 = [delegate interactionDelegateForBaseView:self];
-      [(VIUIVisualIntelligenceViewCoordinator *)self->_viCoordinator setHostDelegate:v20];
+      v21 = [delegate interactionDelegateForBaseView:self];
+      [(VIUIVisualIntelligenceViewCoordinator *)self->_viCoordinator setHostDelegate:v21];
     }
 
     date4 = [MEMORY[0x1E695DF00] date];
     [date4 timeIntervalSinceDate:date3];
-    v23 = v22;
+    v24 = v23;
 
-    v24 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v25 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v23;
-      _os_log_impl(&dword_1B4335000, v24, OS_LOG_TYPE_INFO, "VIUCoordinator instantiation time is %f", &buf, 0xCu);
+      *(&buf + 4) = v24;
+      _os_log_impl(&dword_1B4335000, v25, OS_LOG_TYPE_INFO, "VIUCoordinator instantiation time is %f", &buf, 0xCu);
     }
 
-    v25 = _VKSignpostLog();
-    if (os_signpost_enabled(v25))
+    v27 = _VKSignpostLog(v26);
+    if (os_signpost_enabled(v27))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v25, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalysis Visual Intelligence Coordinator", &unk_1B4435C0E, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalysis Visual Intelligence Coordinator", &unk_1B4435C0E, &buf, 2u);
     }
 
-    v26 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v28 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_1B4335000, v26, OS_LOG_TYPE_INFO, "Signpost End: VKCImageAnalysis Visual Intelligence Coordinator", &buf, 2u);
+      _os_log_impl(&dword_1B4335000, v28, OS_LOG_TYPE_INFO, "Signpost End: VKCImageAnalysis Visual Intelligence Coordinator", &buf, 2u);
     }
 
     viCoordinator = self->_viCoordinator;

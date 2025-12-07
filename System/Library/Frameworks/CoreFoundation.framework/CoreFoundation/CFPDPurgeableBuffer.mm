@@ -23,75 +23,65 @@
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   handle = self->handle;
   if (handle)
   {
     CFRelease(handle);
   }
 
-  v5.receiver = self;
-  v5.super_class = CFPDPurgeableBuffer;
-  [(CFPDPurgeableBuffer *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CFPDPurgeableBuffer;
+  [(CFPDPurgeableBuffer *)&v4 dealloc];
 }
 
 - (void)endAccessing
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!self->usedMalloc && self->safe)
   {
-    v6 = 1;
+    v5 = 1;
     v3 = *MEMORY[0x1E69E9A60];
     BytePtr = CFDataGetBytePtr(self->handle);
-    MEMORY[0x1865E4390](v3, BytePtr, 0, &v6);
+    MEMORY[0x1865E4390](v3, BytePtr, 0, &v5);
     self->safe = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)beginAccessing
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self->usedMalloc)
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  if (self->safe)
   {
-    if (self->safe)
-    {
-      [CFPDPurgeableBuffer beginAccessing];
-    }
-
-    v8 = 0;
-    v4 = *MEMORY[0x1E69E9A60];
-    BytePtr = CFDataGetBytePtr(self->handle);
-    v6 = MEMORY[0x1865E4390](v4, BytePtr, 0, &v8);
-    result = (v6 | v8) == 0;
-    self->safe = result;
+    [CFPDPurgeableBuffer beginAccessing];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v4 = *MEMORY[0x1E69E9A60];
+  BytePtr = CFDataGetBytePtr(self->handle);
+  v6 = MEMORY[0x1865E4390](v4, BytePtr, 0, &v7);
+  result = (v6 | v7) == 0;
+  self->safe = result;
   return result;
 }
 
 - (CFPDPurgeableBuffer)initWithFileDescriptor:(int)descriptor size:(unint64_t)size
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (descriptor < 0 || !size)
   {
 
-LABEL_21:
-    v7 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
-  v23.receiver = self;
-  v23.super_class = CFPDPurgeableBuffer;
-  v6 = [(CFPDPurgeableBuffer *)&v23 init];
+  v26.receiver = self;
+  v26.super_class = CFPDPurgeableBuffer;
+  v6 = [(CFPDPurgeableBuffer *)&v26 init];
   v7 = v6;
   if (v6)
   {
@@ -121,7 +111,7 @@ LABEL_21:
       }
     }
 
-    Typed = CFAllocatorAllocateTyped(v8, size, 1629243638, 0);
+    Typed = CFAllocatorAllocateTyped(v8, size, 0x611C48F6uLL);
     if (Typed)
     {
       v10 = Typed;
@@ -142,13 +132,13 @@ LABEL_21:
           {
             if (*__error() != 4)
             {
-              v21 = *__error();
+              v22 = *__error();
               bzero(&context, 0x400uLL);
-              fcntl(descriptor, 50, &context);
-              v22 = _CFPrefsDaemonLog();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+              v23 = fcntl(descriptor, 50, &context);
+              v25 = _CFPrefsDaemonLog(v23, v24);
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
               {
-                [(CFPDPurgeableBuffer *)&context initWithFileDescriptor:v21 size:v22];
+                [(CFPDPurgeableBuffer *)&context initWithFileDescriptor:v22 size:v25];
               }
 
               v7->handle = v12;
@@ -168,15 +158,15 @@ LABEL_21:
         if (v14 == size)
         {
           v7->safe = 1;
-          goto LABEL_22;
+          return v7;
         }
 
         bzero(&context, 0x400uLL);
-        fcntl(descriptor, 50, &context);
-        v20 = _CFPrefsDaemonLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        v19 = fcntl(descriptor, 50, &context);
+        v21 = _CFPrefsDaemonLog(v19, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
-          [CFPDPurgeableBuffer initWithFileDescriptor:v20 size:?];
+          [CFPDPurgeableBuffer initWithFileDescriptor:v21 size:?];
         }
 
         goto LABEL_20;
@@ -188,92 +178,83 @@ LABEL_21:
     CFRelease(v8);
 LABEL_20:
 
-    goto LABEL_21;
+    return 0;
   }
 
-LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (CFPDPurgeableBuffer)initWithPropertyList:(void *)list
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = CFPDPurgeableBuffer;
-  v4 = [(CFPDPurgeableBuffer *)&v10 init];
-  v5 = v4;
+  v13 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = CFPDPurgeableBuffer;
+  v4 = [(CFPDPurgeableBuffer *)&v12 init];
+  v8 = v4;
   if (v4)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44__CFPDPurgeableBuffer_initWithPropertyList___block_invoke;
-    v9[3] = &unk_1E6D7DAD8;
-    v9[4] = v4;
-    DataUsingExternalBufferAllocator = __CFBinaryPlistCreateDataUsingExternalBufferAllocator(list, 0, 0, v9, 0);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __44__CFPDPurgeableBuffer_initWithPropertyList___block_invoke;
+    v11[3] = &unk_1E6D7DAD8;
+    v11[4] = v4;
+    DataUsingExternalBufferAllocator = __CFBinaryPlistCreateDataUsingExternalBufferAllocator(list, 0, 0, v11, 0, v5, v6, v7);
     if (DataUsingExternalBufferAllocator)
     {
-      v5->handle = DataUsingExternalBufferAllocator;
-      v5->safe = 1;
+      v8->handle = DataUsingExternalBufferAllocator;
+      v8->safe = 1;
     }
 
     else
     {
 
-      v5 = 0;
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v8;
 }
 
 CFAllocatorRef __44__CFPDPurgeableBuffer_initWithPropertyList___block_invoke(uint64_t a1, unint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a2 >= *MEMORY[0x1E69E9AC8] >> 2)
   {
-    v4 = *(a1 + 32);
-    v6.version = 0;
-    v6.info = v4;
-    memset(&v6.retain, 0, 24);
-    v6.allocate = allocatePurgeable;
-    v6.reallocate = 0;
-    v6.deallocate = deallocatePurgeable;
-    v6.preferredSize = 0;
-    result = CFAllocatorCreate(&__kCFAllocatorSystemDefault, &v6);
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = *(a1 + 32);
+    v4.version = 0;
+    v4.info = v3;
+    memset(&v4.retain, 0, 24);
+    v4.allocate = allocatePurgeable;
+    v4.reallocate = 0;
+    v4.deallocate = deallocatePurgeable;
+    v4.preferredSize = 0;
+    return CFAllocatorCreate(&__kCFAllocatorSystemDefault, &v4);
   }
 
   else
   {
     *(*(a1 + 32) + 25) = 1;
-    v2 = *MEMORY[0x1E69E9840];
 
     return CFRetain(&__kCFAllocatorSystemDefault);
   }
-
-  return result;
 }
 
 - (void)initWithFileDescriptor:(NSObject *)a3 size:.cold.1(uint64_t a1, int __errnum, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 136446466;
-  v6 = a1;
-  v7 = 2082;
-  v8 = strerror(__errnum);
-  _os_log_fault_impl(&dword_1830E6000, a3, OS_LOG_TYPE_FAULT, "couldn't read preferences file %{public}s due to %{public}s", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 136446466;
+  v5 = a1;
+  v6 = 2082;
+  v7 = strerror(__errnum);
+  _os_log_fault_impl(&dword_1830E6000, a3, OS_LOG_TYPE_FAULT, "couldn't read preferences file %{public}s due to %{public}s", &v4, 0x16u);
 }
 
 - (void)initWithFileDescriptor:(uint64_t)a1 size:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136380675;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1830E6000, a2, OS_LOG_TYPE_FAULT, "read an unexpected amount of data from %{private}s. This likely means that someone wrote directly to that file behind cfprefsd's back, which is unsupported.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136380675;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1830E6000, a2, OS_LOG_TYPE_FAULT, "read an unexpected amount of data from %{private}s. This likely means that someone wrote directly to that file behind cfprefsd's back, which is unsupported.", &v2, 0xCu);
 }
 
 @end

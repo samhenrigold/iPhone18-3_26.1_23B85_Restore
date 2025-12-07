@@ -32,7 +32,7 @@
 
 - (void)trialDidStopForQuery:(id)query
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D04030];
   queryCopy = query;
   defaultQuery = [v4 defaultQuery];
@@ -42,20 +42,18 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[TITrialManager trialDidStopForQuery:]";
-      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  DDS: Trial stopped", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[TITrialManager trialDidStopForQuery:]";
+      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  DDS: Trial stopped", &v8, 0xCu);
     }
 
     [(TITrialManager *)self handleReceivedTrialAsset:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trialDidReceiveAsset:(id)asset forQuery:(id)query
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v7 = MEMORY[0x277D04030];
   queryCopy = query;
@@ -66,17 +64,15 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v12 = 136315394;
-      v13 = "[TITrialManager trialDidReceiveAsset:forQuery:]";
-      v14 = 2112;
-      v15 = assetCopy;
-      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  DDS: Received trial asset: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[TITrialManager trialDidReceiveAsset:forQuery:]";
+      v13 = 2112;
+      v14 = assetCopy;
+      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  DDS: Received trial asset: %@", &v11, 0x16u);
     }
 
     [(TITrialManager *)self handleReceivedTrialAsset:assetCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -125,22 +121,20 @@ LABEL_9:
 
 uint64_t __43__TITrialManager_handleReceivedTrialAsset___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "[TITrialManager handleReceivedTrialAsset:]_block_invoke";
-    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  DDS: Calling trial update callback", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[TITrialManager handleReceivedTrialAsset:]_block_invoke";
+    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  DDS: Calling trial update callback", &v3, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (id)urlForContentItemType:(id)type asset:(id)asset locale:(id)locale
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   assetCopy = asset;
   localeCopy = locale;
@@ -149,42 +143,42 @@ uint64_t __43__TITrialManager_handleReceivedTrialAsset___block_invoke(uint64_t a
   v13 = [v11 initWithLanguageIdentifier:localeIdentifier];
 
   ddsTrialProvider = [(TITrialManager *)self ddsTrialProvider];
-  v33[0] = assetCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = assetCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   filter = [v13 filter];
   v17 = [ddsTrialProvider contentItemsFromAssets:v15 matchingFilter:filter];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v18 = v17;
-  path = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  path = [v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (path)
   {
-    v27 = assetCopy;
-    v20 = *v29;
+    v26 = assetCopy;
+    v20 = *v28;
     while (2)
     {
       for (i = 0; i != path; i = i + 1)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v28 + 1) + 8 * i);
+        v22 = *(*(&v27 + 1) + 8 * i);
         type = [v22 type];
-        v24 = [type isEqualToString:typeCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(type);
 
-        if (v24)
+        if (isEqualToString)
         {
           path = [v22 path];
           goto LABEL_11;
         }
       }
 
-      path = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      path = [v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (path)
       {
         continue;
@@ -194,23 +188,21 @@ uint64_t __43__TITrialManager_handleReceivedTrialAsset___block_invoke(uint64_t a
     }
 
 LABEL_11:
-    assetCopy = v27;
+    assetCopy = v26;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return path;
 }
 
 - (void)start
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (![(TITrialManager *)self didStart])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v11 = "[TITrialManager start]";
+      v10 = "[TITrialManager start]";
       _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Starting trial manager for A/B testing", buf, 0xCu);
     }
 
@@ -224,34 +216,30 @@ LABEL_11:
 
     ddsTrialProvider3 = [(TITrialManager *)self ddsTrialProvider];
     defaultQuery2 = [MEMORY[0x277D04030] defaultQuery];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __23__TITrialManager_start__block_invoke;
-    v9[3] = &unk_278733140;
-    v9[4] = self;
-    [ddsTrialProvider3 fetchTrialAssetForQuery:defaultQuery2 callback:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __23__TITrialManager_start__block_invoke;
+    v8[3] = &unk_278733140;
+    v8[4] = self;
+    [ddsTrialProvider3 fetchTrialAssetForQuery:defaultQuery2 callback:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __23__TITrialManager_start__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "[TITrialManager start]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Trial asset was not found: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[TITrialManager start]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Trial asset was not found: %@", &v7, 0x16u);
   }
 
   [*(a1 + 32) handleReceivedTrialAsset:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)favoniusLanguagePowerOverrideForLocale:(id)locale
@@ -340,7 +328,7 @@ void __23__TITrialManager_start__block_invoke(uint64_t a1, void *a2, void *a3)
 
 - (id)featuresInTrialForLocale:(id)locale
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   trialAsset = [(TITrialManager *)self trialAsset];
   locale = [trialAsset locale];
@@ -355,16 +343,16 @@ void __23__TITrialManager_start__block_invoke(uint64_t a1, void *a2, void *a3)
   localURL = [trialAsset2 localURL];
   v11 = [localURL URLByAppendingPathComponent:@"FeaturesInTrial.plist"];
 
-  v20 = 0;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v11 error:&v20];
-  v13 = v20;
+  v19 = 0;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v11 error:&v19];
+  v13 = v19;
   v14 = v13;
   if (!v12)
   {
     if (v13)
     {
       domain = [v13 domain];
-      if ([domain isEqualToString:*MEMORY[0x277CCA050]])
+      if (objc_msgSend_isEqualToString_(domain))
       {
         code = [v14 code];
 
@@ -373,9 +361,9 @@ void __23__TITrialManager_start__block_invoke(uint64_t a1, void *a2, void *a3)
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v22 = "[TITrialManager featuresInTrialForLocale:]";
-            v23 = 2112;
-            v24 = v11;
+            v21 = "[TITrialManager featuresInTrialForLocale:]";
+            v22 = 2112;
+            v23 = v11;
             _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  %@ not present in trial bundle", buf, 0x16u);
           }
 
@@ -391,11 +379,11 @@ void __23__TITrialManager_start__block_invoke(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "[TITrialManager featuresInTrialForLocale:]";
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v14;
+      v21 = "[TITrialManager featuresInTrialForLocale:]";
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = v14;
       _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Error loading url %@ as dictionary: %@.", buf, 0x20u);
     }
 
@@ -406,7 +394,6 @@ void __23__TITrialManager_start__block_invoke(uint64_t a1, void *a2, void *a3)
 LABEL_14:
 
 LABEL_15:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -430,26 +417,26 @@ LABEL_15:
 
 - (id)encodedCATrialParametersForLocale:(id)locale
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   trialAsset = [(TITrialManager *)self trialAsset];
   v4 = trialAsset;
   if (trialAsset)
   {
-    v16[0] = *MEMORY[0x277D6FCF8];
+    v15[0] = *MEMORY[0x277D6FCF8];
     experimentIdentifiers = [trialAsset experimentIdentifiers];
     experimentId = [experimentIdentifiers experimentId];
-    v17[0] = experimentId;
-    v16[1] = *MEMORY[0x277D6FD00];
+    v16[0] = experimentId;
+    v15[1] = *MEMORY[0x277D6FD00];
     experimentIdentifiers2 = [v4 experimentIdentifiers];
     treatmentId = [experimentIdentifiers2 treatmentId];
-    v17[1] = treatmentId;
-    v16[2] = *MEMORY[0x277D6FCF0];
+    v16[1] = treatmentId;
+    v15[2] = *MEMORY[0x277D6FCF0];
     v9 = MEMORY[0x277CCABB0];
     experimentIdentifiers3 = [v4 experimentIdentifiers];
     v11 = [v9 numberWithInt:{objc_msgSend(experimentIdentifiers3, "deploymentId")}];
     stringValue = [v11 stringValue];
-    v17[2] = stringValue;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v16[2] = stringValue;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
   }
 
   else
@@ -457,14 +444,12 @@ LABEL_15:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)encodedLMTrialParametersForLocale:(id)locale
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   trialAsset = [(TITrialManager *)self trialAsset];
   if (trialAsset)
@@ -472,7 +457,7 @@ LABEL_15:
     v6 = [(TITrialManager *)self urlForContentItemType:*MEMORY[0x277D23688] asset:trialAsset locale:localeCopy];
     if (v6)
     {
-      v28 = v6;
+      v27 = v6;
       localURL = [trialAsset localURL];
       path = [localURL path];
       uTF8String = [path UTF8String];
@@ -490,36 +475,36 @@ LABEL_15:
       experimentIdentifiers = [trialAsset experimentIdentifiers];
       experimentId = [experimentIdentifiers experimentId];
       uTF8String3 = [experimentId UTF8String];
-      std::string::basic_string[abi:nn200100]<0>(v33, uTF8String2);
-      std::string::basic_string[abi:nn200100]<0>(v34, uTF8String3);
+      std::string::basic_string[abi:nn200100]<0>(v32, uTF8String2);
+      std::string::basic_string[abi:nn200100]<0>(v33, uTF8String3);
       uTF8String4 = [*MEMORY[0x277D6FD00] UTF8String];
       experimentIdentifiers2 = [trialAsset experimentIdentifiers];
       treatmentId = [experimentIdentifiers2 treatmentId];
       uTF8String5 = [treatmentId UTF8String];
-      std::string::basic_string[abi:nn200100]<0>(v35, uTF8String4);
-      std::string::basic_string[abi:nn200100]<0>(v36, uTF8String5);
+      std::string::basic_string[abi:nn200100]<0>(v34, uTF8String4);
+      std::string::basic_string[abi:nn200100]<0>(v35, uTF8String5);
       uTF8String6 = [*MEMORY[0x277D6FCF0] UTF8String];
       experimentIdentifiers3 = [trialAsset experimentIdentifiers];
-      std::to_string(&v29, [experimentIdentifiers3 deploymentId]);
-      std::string::basic_string[abi:nn200100]<0>(v37, uTF8String6);
+      std::to_string(&v28, [experimentIdentifiers3 deploymentId]);
+      std::string::basic_string[abi:nn200100]<0>(v36, uTF8String6);
       v19 = 0;
-      v38 = *&v29.__r_.__value_.__l.__data_;
-      v39[0] = *(&v29.__r_.__value_.__l + 2);
-      memset(&v29, 0, sizeof(v29));
-      v32[0] = 0;
-      v32[1] = 0;
-      v31 = v32;
+      v37 = *&v28.__r_.__value_.__l.__data_;
+      v38[0] = *(&v28.__r_.__value_.__l + 2);
+      memset(&v28, 0, sizeof(v28));
+      v31[0] = 0;
+      v31[1] = 0;
+      v30 = v31;
       do
       {
-        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(&v31, v32, &v33[v19]);
-        v19 += 48;
+        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(&v30, v31, &v32[v19]);
+        v19 += 6;
       }
 
-      while (v19 != 144);
+      while (v19 != 18);
       for (i = 0; i != -18; i -= 6)
       {
-        v21 = &v33[i * 8];
-        if (SHIBYTE(v39[i]) < 0)
+        v21 = &v32[i];
+        if (SHIBYTE(v38[i]) < 0)
         {
           operator delete(v21[15]);
         }
@@ -530,19 +515,19 @@ LABEL_15:
         }
       }
 
-      if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v29.__r_.__value_.__l.__data_);
+        operator delete(v28.__r_.__value_.__l.__data_);
       }
 
       v22 = LM::TrialParameters::copyEncodedRepresentation(&__p);
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v32[0]);
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v31[0]);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v6 = v28;
+      v6 = v27;
     }
 
     else
@@ -555,8 +540,6 @@ LABEL_15:
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

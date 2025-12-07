@@ -139,7 +139,7 @@ void __75__PXSharedLibraryAssistantViewModel__recalculateSuggestedStartDateIfNee
   assetLocalIdentifiers = [(PXSharedLibraryAssistantViewModel *)self assetLocalIdentifiers];
   if (sourceLibraryInfo)
   {
-    [sourceLibraryInfo assetsCountsForAssetLocalIdentifiers:assetLocalIdentifiers];
+    objc_msgSend_assetsCountsForAssetLocalIdentifiers_(sourceLibraryInfo);
   }
 
   else
@@ -645,7 +645,7 @@ uint64_t __68__PXSharedLibraryAssistantViewModel__recalculateShareCountsIfNeeded
     v12 = sharedLibrary4;
     if (sharedLibrary4)
     {
-      [sharedLibrary4 fetchItemCounts];
+      objc_msgSend_fetchItemCounts(sharedLibrary4);
     }
 
     else

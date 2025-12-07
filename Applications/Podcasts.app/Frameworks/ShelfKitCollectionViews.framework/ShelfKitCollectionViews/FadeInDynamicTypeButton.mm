@@ -51,7 +51,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_23F294();
+  sub_23F294(selfCopy, v2, v3, v4, v5, v6);
 }
 
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event

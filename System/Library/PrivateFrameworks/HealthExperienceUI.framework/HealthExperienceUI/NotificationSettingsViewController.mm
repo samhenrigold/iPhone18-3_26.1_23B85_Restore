@@ -44,7 +44,7 @@
     selfCopy = v6;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v7);
+  __swift_destroy_boxed_opaque_existential_1(v7);
 }
 
 - (_TtC18HealthExperienceUI34NotificationSettingsViewController)initWithCollectionViewLayout:(id)layout

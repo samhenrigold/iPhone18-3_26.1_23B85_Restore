@@ -53,7 +53,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  if (!MapsSuggestionsEntriesShouldBeOfOneOfEachType(12, 9, entryCopy, withEntryCopy))
+  if (!MapsSuggestionsEntriesShouldBeOfOneOfEachType(0xC, 9, entryCopy, withEntryCopy))
   {
 LABEL_14:
     LOBYTE(v10) = 0;

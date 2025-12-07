@@ -190,19 +190,19 @@ LABEL_33:
   return v19;
 }
 
-void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke()
+void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke(uint64_t a1)
 {
-  v0 = _PTLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _PTLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke_cold_1();
   }
 }
 
-void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke_34()
+void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke_34(uint64_t a1)
 {
-  v0 = _PTLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _PTLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke_cold_1();
   }
@@ -210,7 +210,7 @@ void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConvers
 
 void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke_38(uint64_t a1)
 {
-  v2 = _PTLogSystem();
+  v2 = _PTLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConversion_read_write___block_invoke_38_cold_1(a1, v2);
@@ -232,7 +232,7 @@ void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConvers
 
 - (unint64_t)width
 {
-  v2 = _PTLogSystem();
+  v2 = _PTLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [PTTexture width];
@@ -243,7 +243,7 @@ void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConvers
 
 - (unint64_t)height
 {
-  v2 = _PTLogSystem();
+  v2 = _PTLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [PTTexture width];
@@ -254,7 +254,7 @@ void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConvers
 
 - (unint64_t)imageBlockSize
 {
-  v2 = _PTLogSystem();
+  v2 = _PTLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [PTTexture width];
@@ -265,7 +265,7 @@ void __87__PTTexture_createFromPixelbuffer_device_textureCache_metalYCBCRConvers
 
 - (BOOL)isRGB
 {
-  v2 = _PTLogSystem();
+  v2 = _PTLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(PTTexture(PTTextureAdditions) *)v2 isRGB];

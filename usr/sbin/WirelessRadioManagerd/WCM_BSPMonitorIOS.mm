@@ -7,6 +7,7 @@
 - (void)didEnterBSPActiveState;
 - (void)handleBTBandSwitchRequestEvent:(int)event targetBand:(int)band;
 - (void)handleBTRegulatoryInfoEvent:(id)event allowedBands:(int)bands;
+- (void)handleBTStatusUpdateEvent:(BOOL)event frequencyBand:(int)band ullaMode:(int)mode;
 - (void)handleBandSwitchRejectEvent:(int)event btTargetBand:(int)band;
 - (void)handleBandSwitchStatusEvent:(BOOL)event btSubband:(int)subband successCount:(unint64_t)count failCount:(unint64_t)failCount;
 - (void)handleBandSwitchStatusUpdatedEvent;
@@ -27,14 +28,19 @@
 - (void)requestBTStatus;
 - (void)sendBTStatusRequestToBT;
 - (void)sendBTStatusToWiFi;
+- (void)sendBandSwitchRejectToBT:(int)t targetBand:(int)band;
+- (void)sendBandSwitchRequestToWiFi:(int)fi targetBand:(int)band;
+- (void)sendChannelQualityToBT:(int)t quality:(unint64_t)quality;
 - (void)sendGetBandSwitchStatusToWiFi;
 - (void)sendGetChannelQualityInfoToWiFi;
 - (void)sendGetNanPhsStateToWiFi;
 - (void)sendGetRegulatoryInfoToWiFi;
 - (void)sendRegulatoryInfoRequestToBT;
+- (void)sendSetCoexModeToWiFi:(BOOL)fi wifiSupportedBands:(int)bands btCurrentBand:(int)band btSupportedBands:(int)supportedBands setTimeToTSTOnly:(BOOL)only timeToTST:(int)t;
 - (void)sendSetFrequencyBandToBT:(int)t forced:(BOOL)forced;
 - (void)sendWiFiStatusToBT;
 - (void)updateBSPState;
+- (void)updateChannelQualityInfo:(WCMBSP_ChannelQualityInfo *)info bandCode:(int)code chqInfoDict:(__CFDictionary *)dict ts:(double)ts;
 - (void)updateFrequencyBandForBT;
 - (void)willLeaveBSPActiveState;
 @end
@@ -334,10 +340,6 @@ LABEL_50:
       if (v5)
       {
         [WCM_Logging logLevel:2 message:@"WCMBSP:%s sending new targetBand=0x%x to BT.", "[WCM_BSPMonitorIOS sendSetFrequencyBandToBT:forced:]", self->mBTConfig.targetBand];
-        if (self->mBTConfig.targetBand != 64)
-        {
-          allowedBands = self->mBTStatus.allowedBands;
-        }
 
         [v5 bspSetFrequencyBandToUse:? allowedBands:?];
       }
@@ -369,6 +371,25 @@ LABEL_50:
   }
 }
 
+- (void)sendChannelQualityToBT:(int)t quality:(unint64_t)quality
+{
+  if (self->mBTStatus.powerState)
+  {
+    v5 = *&t;
+    v6 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+    if (v6)
+    {
+
+      [v6 bspNotifyChannelQuality:v5 quality:quality];
+    }
+
+    else
+    {
+      [WCM_Logging logLevel:0 message:@"WCMBSP:%s btController not available", "[WCM_BSPMonitorIOS sendChannelQualityToBT:quality:]"];
+    }
+  }
+}
+
 - (void)sendBTStatusRequestToBT
 {
   v2 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
@@ -381,6 +402,23 @@ LABEL_50:
   else
   {
     [WCM_Logging logLevel:0 message:@"WCMBSP:%s btController not available", "[WCM_BSPMonitorIOS sendBTStatusRequestToBT]"];
+  }
+}
+
+- (void)sendBandSwitchRejectToBT:(int)t targetBand:(int)band
+{
+  v4 = *&band;
+  v5 = *&t;
+  v6 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  if (v6)
+  {
+
+    [v6 bspBandSwitchReject:v5 targetBand:v4];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:0 message:@"WCMBSP:%s btController not available", "[WCM_BSPMonitorIOS sendBandSwitchRejectToBT:targetBand:]"];
   }
 }
 
@@ -504,6 +542,50 @@ LABEL_50:
   }
 }
 
+- (void)sendBandSwitchRequestToWiFi:(int)fi targetBand:(int)band
+{
+  if (self->mWiFiStatus.powerState)
+  {
+    v4 = *&band;
+    v5 = *&fi;
+    v6 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+    if (v6)
+    {
+
+      [v6 bspBandSwitchRequest:v5 targetBand:v4];
+    }
+
+    else
+    {
+      [WCM_Logging logLevel:0 message:@"WCMBSP:%s wifiController not available", "[WCM_BSPMonitorIOS sendBandSwitchRequestToWiFi:targetBand:]"];
+    }
+  }
+}
+
+- (void)sendSetCoexModeToWiFi:(BOOL)fi wifiSupportedBands:(int)bands btCurrentBand:(int)band btSupportedBands:(int)supportedBands setTimeToTSTOnly:(BOOL)only timeToTST:(int)t
+{
+  if (self->mWiFiStatus.powerState)
+  {
+    v8 = *&t;
+    onlyCopy = only;
+    v10 = *&supportedBands;
+    v11 = *&band;
+    v12 = *&bands;
+    fiCopy = fi;
+    v14 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+    if (v14)
+    {
+
+      [v14 bspSetCoexMode:fiCopy wifiSupportedBands:v12 btCurrentBand:v11 btSupportedBands:v10 setTimeToTSTOnly:onlyCopy timeToTST:v8];
+    }
+
+    else
+    {
+      [WCM_Logging logLevel:0 message:@"WCMBSP:%s wifiController not available", "[WCM_BSPMonitorIOS sendSetCoexModeToWiFi:wifiSupportedBands:btCurrentBand:btSupportedBands:setTimeToTSTOnly:timeToTST:]"];
+    }
+  }
+}
+
 - (void)updateFrequencyBandForBT
 {
   mBSPState = self->mBSPState;
@@ -610,7 +692,6 @@ LABEL_13:
 {
   mBSPState = self->mBSPState;
   p_mBTStatus = &self->mBTStatus;
-  powerState = self->mBTStatus.powerState;
   if (self->mWiFiStatus.powerState)
   {
     if (self->mBTStatus.powerState)
@@ -636,26 +717,26 @@ LABEL_13:
         return;
       }
 
-      v6 = 3;
+      v5 = 3;
     }
 
     else
     {
-      v6 = 1;
+      v5 = 1;
     }
   }
 
   else if (self->mBTStatus.powerState)
   {
-    v6 = 2;
+    v5 = 2;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  self->mBSPState = v6;
+  self->mBSPState = v5;
   if (mBSPState == 4)
   {
     [(WCM_BSPMonitorIOS *)self willLeaveBSPActiveState];
@@ -799,6 +880,48 @@ LABEL_13:
   sub_10004B5B8(v6);
 }
 
+- (void)updateChannelQualityInfo:(WCMBSP_ChannelQualityInfo *)info bandCode:(int)code chqInfoDict:(__CFDictionary *)dict ts:(double)ts
+{
+  v8 = *&code;
+  v10 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%lu", code);
+  if (v10)
+  {
+    v11 = v10;
+    Value = CFDictionaryGetValue(dict, v10);
+    if (Value)
+    {
+      v13 = Value;
+      v20 = 0;
+      valuePtr = 0;
+      v14 = CFDictionaryGetValue(Value, @"BSP_ChqAgeMs");
+      v15 = CFDictionaryGetValue(v13, @"BSP_ChqHealth");
+      if (v14)
+      {
+        v16 = v15 == 0;
+      }
+
+      else
+      {
+        v16 = 1;
+      }
+
+      if (!v16)
+      {
+        v17 = v15;
+        CFNumberGetValue(v14, kCFNumberLongLongType, &valuePtr);
+        CFNumberGetValue(v17, kCFNumberLongLongType, &v20);
+        v18 = v20;
+        v19 = valuePtr;
+        info->quality = v20;
+        info->timestamp = ts + v19 / -1000.0;
+        [WCM_Logging logLevel:3 message:@"WCMBSP:%s bandCode:%d, quality:0x%llx age:%llums", "[WCM_BSPMonitorIOS updateChannelQualityInfo:bandCode:chqInfoDict:ts:]", v8, v18, v19];
+      }
+    }
+
+    CFRelease(v11);
+  }
+}
+
 - (void)handleChannelQualityInfoEvent:(__CFDictionary *)event
 {
   Copy = CFDictionaryCreateCopy(kCFAllocatorDefault, event);
@@ -856,6 +979,41 @@ LABEL_13:
   v2[3] = &unk_10023DB28;
   v2[4] = self;
   sub_10004B5B8(v2);
+}
+
+- (void)handleBTStatusUpdateEvent:(BOOL)event frequencyBand:(int)band ullaMode:(int)mode
+{
+  if ((mode & 0x100) != 0)
+  {
+    v5 = 1;
+LABEL_7:
+    mode &= 0xFFFF00FF;
+    self->mBTStatus.debugMode = v5;
+    goto LABEL_8;
+  }
+
+  if ((mode & 0x200) != 0)
+  {
+    v5 = 0;
+    goto LABEL_7;
+  }
+
+  if (self->mBTStatus.debugMode)
+  {
+    [WCM_Logging logLevel:2 message:@"WCMBSP:%s Ignored [powerState=0x%x, band=0x%x, ullaMode=%d]", "[WCM_BSPMonitorIOS handleBTStatusUpdateEvent:frequencyBand:ullaMode:]", event, *&band, *&mode];
+    return;
+  }
+
+LABEL_8:
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10004CC74;
+  v6[3] = &unk_10023DF40;
+  v6[4] = self;
+  bandCopy = band;
+  modeCopy = mode;
+  eventCopy = event;
+  sub_10004B5B8(v6);
 }
 
 - (void)handleBTBandSwitchRequestEvent:(int)event targetBand:(int)band

@@ -106,7 +106,7 @@ LABEL_15:
   return v7;
 }
 
-void __71__BWPocketDetectionNode_initWithMetalCommandQueue_clientApplicationID___block_invoke(uint64_t a1, int a2, int a3, double a4)
+void __71__BWPocketDetectionNode_initWithMetalCommandQueue_clientApplicationID___block_invoke(uint64_t a1, uint32_t a2, uint32_t a3, double a4)
 {
   v7 = [*(a1 + 32) referencedObject];
   os_unfair_lock_lock((v7 + 160));
@@ -183,14 +183,14 @@ void __71__BWPocketDetectionNode_initWithMetalCommandQueue_clientApplicationID__
   [(BWNode *)&v9 prepareForCurrentConfigurationToBecomeLive];
 }
 
-uint64_t __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke(uint64_t a1)
+void *__53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _allocateResources];
   *(*(a1 + 32) + 232) = 1;
   return result;
 }
 
-uint64_t __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke_39(uint64_t a1)
+void *__53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke_39(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 296);
@@ -271,9 +271,9 @@ void __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke_40(u
   [(BWNode *)&v10 didReachEndOfDataForConfigurationID:d input:input];
 }
 
-uint64_t __67__BWPocketDetectionNode_didReachEndOfDataForConfigurationID_input___block_invoke(uint64_t result)
+void *__67__BWPocketDetectionNode_didReachEndOfDataForConfigurationID_input___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 288) == 1)
   {
     return [*(v1 + 280) removeObserver:?];
@@ -383,7 +383,7 @@ LABEL_3:
       if (dword_1EB58E520)
       {
         LODWORD(sampleBufferOut) = 0;
-        v103 = OS_LOG_TYPE_DEFAULT;
+        v107 = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         OUTLINED_FUNCTION_3_18();
@@ -391,81 +391,81 @@ LABEL_3:
       }
     }
 
-    memset(&v101, 0, sizeof(v101));
-    PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(&v101, buffer);
+    memset(&v105, 0, sizeof(v105));
+    PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(&v105, buffer);
     if ((self->_firstFramePts.timescale & 1) == 0)
     {
-      OUTLINED_FUNCTION_2_24(PresentationTimeStamp, v9, v10, v11, v12, v13, v14, v15, v55, v61, v67, v73, v74, v75, v76, selfCopy3, v78, v79.value, *&v79.timescale, v79.epoch, v80.value, *&v80.timescale, v80.epoch, v81, v82, v83, v84, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v87, *(&v87 + 1), v88, *(&v88 + 1), v89, v90.value, *&v90.timescale, v90.epoch, block, v92, v93, v94, selfCopy, sampleBufferOut, v97, v98, v99, v100.value, *&v100.timescale, v100.epoch, v16, v101.value);
+      OUTLINED_FUNCTION_2_24(PresentationTimeStamp, v9, v10, v11, v12, v13, v14, v15, v16, v59, v65, v71, v77, v78, v79, v80, selfCopy3, v82, v83.value, *&v83.timescale, v83.epoch, v84.value, *&v84.timescale, v84.epoch, v85, v86, v87, v88, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v91, *(&v91 + 1), v92, *(&v92 + 1), v93, v94.value, *&v94.timescale, v94.epoch, block, v96, v97, v98, selfCopy, sampleBufferOut, v101, v102, v103, v104.value, *&v104.timescale, v104.epoch, v17, v105.value);
       self->_ppsData.detectionSessionStartTime = CFAbsoluteTimeGetCurrent();
     }
 
-    memset(&v100, 0, sizeof(v100));
-    v17 = CMTimeMakeWithSeconds(&v100, 4.0, v101.timescale);
-    OUTLINED_FUNCTION_1_29(v17, v18, v19, v20, v21, v22, v23, v24, v55, v61, v67, v73, SBYTE1(v73), v74, v75, v76, selfCopy3, v78, v79.value, *&v79.timescale, v79.epoch, v80.value, *&v80.timescale, v80.epoch, v81, v82, v83, v84, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v87, *(&v87 + 1), v88, *(&v88 + 1), v89, v90.value, *&v90.timescale, v90.epoch, block, v92, v93, v94, selfCopy, sampleBufferOut, v97, v98, v99, v100.value, *&v100.timescale, v100.epoch, *&v101.value, v101.epoch);
-    if (OUTLINED_FUNCTION_4_22(v100.epoch, v56, v62, v68, v73, v74, v75, v76, selfCopy3, v78, v79.value, *&v79.timescale, v79.epoch, v80.value, *&v80.timescale, v80.epoch, v81, v82, v83, v84, selfCopy2, v100.value, *&v100.timescale, rhs.epoch) >= 1)
+    memset(&v104, 0, sizeof(v104));
+    v18 = CMTimeMakeWithSeconds(&v104, 4.0, v105.timescale);
+    OUTLINED_FUNCTION_1_29(v18, v19, v20, v21, v22, v23, v24, v25, v59, v65, v71, v77, SBYTE1(v77), v78, v79, v80, selfCopy3, v82, v83.value, *&v83.timescale, v83.epoch, v84.value, *&v84.timescale, v84.epoch, v85, v86, v87, v88, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v91, *(&v91 + 1), v92, *(&v92 + 1), v93, v94.value, *&v94.timescale, v94.epoch, block, v96, v97, v98, selfCopy, sampleBufferOut, v101, v102, v103, v104.value, *&v104.timescale, v104.epoch, *&v105.value, v105.epoch);
+    if (OUTLINED_FUNCTION_4_22(v104.epoch, v60, v66, v72, v77, v78, v79, v80, selfCopy3, v82, v83.value, *&v83.timescale, v83.epoch, v84.value, *&v84.timescale, v84.epoch, v85, v86, v87, v88, selfCopy2, v104.value, *&v104.timescale, rhs.epoch) >= 1)
     {
       if (!self->_resourcesAllocated)
       {
-        *(&self->_inPocketConsolidatedDecision + 4) = v101;
+        *(&self->_inPocketConsolidatedDecision + 4) = v105;
         LOBYTE(self->_detectionIntervalInSeconds) = 0;
         detectionQueue = self->_detectionQueue;
         block = MEMORY[0x1E69E9820];
-        v92 = 3221225472;
-        v93 = __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke;
-        v94 = &unk_1E798F870;
+        v96 = 3221225472;
+        v97 = __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke;
+        v98 = &unk_1E798F870;
         selfCopy = self;
         dispatch_async(detectionQueue, &block);
         self->_resourcesAllocated = 1;
       }
 
-      memset(&v90, 0, sizeof(v90));
-      v26 = CMTimeMakeWithSeconds(&v90, *(&self->_firstFramePts.epoch + 1), v101.timescale);
-      OUTLINED_FUNCTION_1_29(v26, v27, v28, v29, v30, v31, v32, v33, v57, v63, v69, v73, SBYTE1(v73), v74, v75, v76, selfCopy3, v78, v79.value, *&v79.timescale, v79.epoch, v80.value, *&v80.timescale, v80.epoch, v81, v82, v83, v84, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v87, *(&v87 + 1), v88, *(&v88 + 1), v89, v90.value, *&v90.timescale, v90.epoch, block, v92, v93, v94, selfCopy, sampleBufferOut, v97, v98, v99, v100.value, *&v100.timescale, v100.epoch, *&v101.value, v101.epoch);
-      if (OUTLINED_FUNCTION_4_22(v90.epoch, v58, v64, v70, v73, v74, v75, v76, selfCopy3, v78, v79.value, *&v79.timescale, v79.epoch, v80.value, *&v80.timescale, v80.epoch, v81, v82, v83, v84, selfCopy2, v90.value, *&v90.timescale, rhs.epoch) >= 1)
+      memset(&v94, 0, sizeof(v94));
+      v27 = CMTimeMakeWithSeconds(&v94, *(&self->_firstFramePts.epoch + 1), v105.timescale);
+      OUTLINED_FUNCTION_1_29(v27, v28, v29, v30, v31, v32, v33, v34, v61, v67, v73, v77, SBYTE1(v77), v78, v79, v80, selfCopy3, v82, v83.value, *&v83.timescale, v83.epoch, v84.value, *&v84.timescale, v84.epoch, v85, v86, v87, v88, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v91, *(&v91 + 1), v92, *(&v92 + 1), v93, v94.value, *&v94.timescale, v94.epoch, block, v96, v97, v98, selfCopy, sampleBufferOut, v101, v102, v103, v104.value, *&v104.timescale, v104.epoch, *&v105.value, v105.epoch);
+      if (OUTLINED_FUNCTION_4_22(v94.epoch, v62, v68, v74, v77, v78, v79, v80, selfCopy3, v82, v83.value, *&v83.timescale, v83.epoch, v84.value, *&v84.timescale, v84.epoch, v85, v86, v87, v88, selfCopy2, v94.value, *&v94.timescale, rhs.epoch) >= 1)
       {
         LOBYTE(self->_detectionEnabledDurationInSeconds) = 1;
         self->_ppsData.inPocket = self->_inPocketConsolidatedDecision;
         if (dword_1EB58E520)
         {
           LODWORD(sampleBufferOut) = 0;
-          v103 = OS_LOG_TYPE_DEFAULT;
-          v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v35 = sampleBufferOut;
-          if (os_log_type_enabled(v34, v103))
+          v107 = OS_LOG_TYPE_DEFAULT;
+          v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v36 = sampleBufferOut;
+          if (os_log_type_enabled(v35, v107))
           {
-            v36 = v35;
+            v37 = v36;
           }
 
           else
           {
-            v36 = v35 & 0xFFFFFFFE;
+            v37 = v36 & 0xFFFFFFFE;
           }
 
-          if (v36)
+          if (v37)
           {
-            v37 = *(&self->_firstFramePts.epoch + 1);
+            v38 = *(&self->_firstFramePts.epoch + 1);
             inPocketConsolidatedDecision = self->_inPocketConsolidatedDecision;
-            v39 = [(NSArray *)self->_suppressionStateStrings objectAtIndexedSubscript:self->_coreMotionSuppressionState];
+            v40 = [(NSArray *)self->_suppressionStateStrings objectAtIndexedSubscript:self->_coreMotionSuppressionState];
             cumulativeEnergyFiltered = self->_cumulativeEnergyFiltered;
-            v41 = cumulativeEnergyFiltered <= *&self->_stopDetection;
+            v42 = cumulativeEnergyFiltered <= *&self->_stopDetection;
             coreMotionFacedownState = self->_coreMotionFacedownState;
             LODWORD(rhs.value) = 136316674;
             *(&rhs.value + 4) = "[BWPocketDetectionNode renderSampleBuffer:forInput:]";
             LOWORD(rhs.flags) = 2050;
-            *(&rhs.flags + 2) = v37;
+            *(&rhs.flags + 2) = v38;
             HIWORD(rhs.epoch) = 1026;
-            LODWORD(v87) = inPocketConsolidatedDecision;
-            WORD2(v87) = 2114;
-            *(&v87 + 6) = v39;
-            HIWORD(v87) = 1026;
-            LODWORD(v88) = v41;
-            WORD2(v88) = 2050;
-            *(&v88 + 6) = cumulativeEnergyFiltered;
-            HIWORD(v88) = 1026;
-            LODWORD(v89) = coreMotionFacedownState;
-            LODWORD(v65) = 60;
+            LODWORD(v91) = inPocketConsolidatedDecision;
+            WORD2(v91) = 2114;
+            *(&v91 + 6) = v40;
+            HIWORD(v91) = 1026;
+            LODWORD(v92) = v42;
+            WORD2(v92) = 2050;
+            *(&v92 + 6) = cumulativeEnergyFiltered;
+            HIWORD(v92) = 1026;
+            LODWORD(v93) = coreMotionFacedownState;
+            LODWORD(v69) = 60;
             p_rhs = &rhs;
-            OUTLINED_FUNCTION_5_0();
+            OUTLINED_FUNCTION_5_0(v37, v44, &lhs, v45, &dword_1AC90E000);
           }
 
           OUTLINED_FUNCTION_3_18();
@@ -474,28 +474,28 @@ LABEL_3:
 
         if (LOBYTE(self->_cumulativeEnergyInPocketThreshold) == 1 && self->_inPocketConsolidatedDecision)
         {
-          v43 = self->_detectionQueue;
-          v81 = MEMORY[0x1E69E9820];
-          v82 = 3221225472;
-          v83 = __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke_39;
-          v84 = &unk_1E798F870;
+          v46 = self->_detectionQueue;
+          v85 = MEMORY[0x1E69E9820];
+          v86 = 3221225472;
+          v87 = __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke_39;
+          v88 = &unk_1E798F870;
           selfCopy2 = self;
-          dispatch_async(v43, &v81);
+          dispatch_async(v46, &v85);
         }
       }
 
-      memset(&v80, 0, sizeof(v80));
-      lhs = v101;
+      memset(&v84, 0, sizeof(v84));
+      lhs = v105;
       rhs = *(&self->_inPocketConsolidatedDecision + 4);
-      CMTimeSubtract(&v80, &lhs, &rhs);
-      memset(&v79, 0, sizeof(v79));
-      CMTimeMakeWithSeconds(&v79, *(&self->_lastDetectionFramePTS.epoch + 1), v101.timescale);
-      lhs = v80;
-      v44 = OUTLINED_FUNCTION_4_22(v79.epoch, p_rhs, v65, v71, v73, v74, v75, v76, selfCopy3, v78, v79.value, *&v79.timescale, v79.epoch, v80.value, *&v80.timescale, v80.epoch, v81, v82, v83, v84, selfCopy2, v79.value, *&v79.timescale, rhs.epoch);
-      if (v44 >= 1 && (LOBYTE(self->_detectionEnabledDurationInSeconds) & 1) == 0 && LOBYTE(self->_detectionIntervalInSeconds) == 1)
+      CMTimeSubtract(&v84, &lhs, &rhs);
+      memset(&v83, 0, sizeof(v83));
+      CMTimeMakeWithSeconds(&v83, *(&self->_lastDetectionFramePTS.epoch + 1), v105.timescale);
+      lhs = v84;
+      v47 = OUTLINED_FUNCTION_4_22(v83.epoch, p_rhs, v69, v75, v77, v78, v79, v80, selfCopy3, v82, v83.value, *&v83.timescale, v83.epoch, v84.value, *&v84.timescale, v84.epoch, v85, v86, v87, v88, selfCopy2, v83.value, *&v83.timescale, rhs.epoch);
+      if (v47 >= 1 && (LOBYTE(self->_detectionEnabledDurationInSeconds) & 1) == 0 && LOBYTE(self->_detectionIntervalInSeconds) == 1)
       {
         LOBYTE(self->_detectionIntervalInSeconds) = 0;
-        OUTLINED_FUNCTION_2_24(v44, v45, v46, v47, v48, v49, v50, v51, v60, v66, v72, v73, v74, v75, v76, selfCopy3, v78, v79.value, *&v79.timescale, v79.epoch, v80.value, *&v80.timescale, v80.epoch, v81, v82, v83, v84, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v87, *(&v87 + 1), v88, *(&v88 + 1), v89, v90.value, *&v90.timescale, v90.epoch, block, v92, v93, v94, selfCopy, sampleBufferOut, v97, v98, v99, v100.value, *&v100.timescale, v100.epoch, v52, v101.value);
+        OUTLINED_FUNCTION_2_24(v47, v48, v49, v50, v51, v52, v53, v54, v55, v64, v70, v76, v77, v78, v79, v80, selfCopy3, v82, v83.value, *&v83.timescale, v83.epoch, v84.value, *&v84.timescale, v84.epoch, v85, v86, v87, v88, selfCopy2, rhs.value, *&rhs.timescale, rhs.epoch, v91, *(&v91 + 1), v92, *(&v92 + 1), v93, v94.value, *&v94.timescale, v94.epoch, block, v96, v97, v98, selfCopy, sampleBufferOut, v101, v102, v103, v104.value, *&v104.timescale, v104.epoch, v56, v105.value);
         lhs.value = 0;
         rhs.value = 0;
         BWOverCaptureSampleBufferUnpackAndRetain(buffer, 0, &rhs, &lhs, 0, 0);
@@ -507,14 +507,14 @@ LABEL_3:
 
         sampleBufferOut = 0;
         BWCMSampleBufferCreateCopyIncludingMetadata(value, &sampleBufferOut);
-        v54 = self->_detectionQueue;
-        v73 = MEMORY[0x1E69E9820];
-        v74 = 3221225472;
-        v75 = __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke_40;
-        v76 = &unk_1E7990178;
+        v58 = self->_detectionQueue;
+        v77 = MEMORY[0x1E69E9820];
+        v78 = 3221225472;
+        v79 = __53__BWPocketDetectionNode_renderSampleBuffer_forInput___block_invoke_40;
+        v80 = &unk_1E7990178;
         selfCopy3 = self;
-        v78 = sampleBufferOut;
-        dispatch_async(v54, &v73);
+        v82 = sampleBufferOut;
+        dispatch_async(v58, &v77);
         if (lhs.value)
         {
           CFRelease(lhs.value);

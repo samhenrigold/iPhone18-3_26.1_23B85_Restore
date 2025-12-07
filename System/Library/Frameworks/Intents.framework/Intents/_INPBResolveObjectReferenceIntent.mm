@@ -147,7 +147,6 @@ LABEL_13:
 
   if (reference)
   {
-    reference = self->_reference;
     PBDataWriterWriteDataField();
   }
 }

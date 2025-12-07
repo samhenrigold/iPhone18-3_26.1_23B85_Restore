@@ -1,5 +1,6 @@
 @interface Browse_CUPS
 - (Browse_CUPS)initWithQueue:(id)queue;
+- (void)_startWithPort:(unsigned __int16)port;
 - (void)cancel;
 - (void)start;
 @end
@@ -19,6 +20,18 @@
   }
 
   return v7;
+}
+
+- (void)_startWithPort:(unsigned __int16)port
+{
+  port = [NSString stringWithFormat:@"http://localhost:%d/admin", port];
+  v4 = [NSURL URLWithString:port];
+
+  v5 = +[IPPSession globalSession];
+  [v5 ippURL:v4];
+  objc_claimAutoreleasedReturnValue();
+
+  sub_10005C65C(v6, 0x4002u, @"browse_CUPS(_startWIthPort)");
 }
 
 - (void)start

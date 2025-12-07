@@ -4,8 +4,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)newLoadOperation;
+- (void)cachesInMemory;
 - (void)description;
 - (void)finishWithResource:(id)resource;
+- (void)newLoadOperation;
 @end
 
 @implementation SKUIArtworkRequest
@@ -68,9 +70,9 @@
   {
     v14 = [(SKUIArtworkRequest *)self URL];
     scheme = [v14 scheme];
-    v16 = [scheme isEqualToString:@"x-apple-identity-image"];
+    isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-    if (v16)
+    if (isEqualToString)
     {
       v17 = MEMORY[0x277D755B8];
       v18 = UIImagePNGRepresentation(resourceCopy);
@@ -149,6 +151,30 @@
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "[SKUIArtworkRequest description]";
+}
+
+- (void)cachesInMemory
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIArtworkRequest cachesInMemory]";
+}
+
+- (void)finishWithResource:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIArtworkRequest finishWithResource:]";
+}
+
+- (void)newLoadOperation
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIArtworkRequest newLoadOperation]";
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIArtworkRequest copyWithZone:]";
 }
 
 @end

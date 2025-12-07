@@ -241,21 +241,21 @@ void __36__PBUIWallpaperView__removeParallax__block_invoke(uint64_t a1)
   {
     v3 = [WeakRetained[52] layer];
     v4 = *(MEMORY[0x277CD9DE8] + 80);
-    v8[4] = *(MEMORY[0x277CD9DE8] + 64);
-    v8[5] = v4;
+    v10[4] = *(MEMORY[0x277CD9DE8] + 64);
+    v10[5] = v4;
     v5 = *(MEMORY[0x277CD9DE8] + 112);
-    v8[6] = *(MEMORY[0x277CD9DE8] + 96);
-    v8[7] = v5;
+    v10[6] = *(MEMORY[0x277CD9DE8] + 96);
+    v10[7] = v5;
     v6 = *(MEMORY[0x277CD9DE8] + 16);
-    v8[0] = *MEMORY[0x277CD9DE8];
-    v8[1] = v6;
+    v10[0] = *MEMORY[0x277CD9DE8];
+    v10[1] = v6;
     v7 = *(MEMORY[0x277CD9DE8] + 48);
-    v8[2] = *(MEMORY[0x277CD9DE8] + 32);
-    v8[3] = v7;
-    [v3 setTransform:v8];
+    v10[2] = *(MEMORY[0x277CD9DE8] + 32);
+    v10[3] = v7;
+    [v3 setTransform:v10];
 
-    PBUIApplyParallaxSettingsToView(0, v2[52]);
-    PBUIApplyParallaxSettingsToView(0, v2[67]);
+    PBUIApplyParallaxSettingsToView(v8, 0, v2[52]);
+    PBUIApplyParallaxSettingsToView(v9, 0, v2[67]);
   }
 }
 
@@ -319,21 +319,25 @@ LABEL_6:
 uint64_t __36__PBUIWallpaperView__removeParallax__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained;
-    if (([WeakRetained _isParallaxActive] & 1) == 0)
+    v5 = WeakRetained;
+    WeakRetained = [WeakRetained _isParallaxActive];
+    v2 = v5;
+    if ((WeakRetained & 1) == 0)
     {
-      [v4[52] removeFromSuperview];
-      v2 = v4[52];
-      v4[52] = 0;
+      [*(v5 + 416) removeFromSuperview];
+      v3 = *(v5 + 416);
+      *(v5 + 416) = 0;
 
-      [v4 insertSubview:v4[67] atIndex:0];
-      [v4 _updateScaleFactor];
+      [v5 insertSubview:*(v5 + 536) atIndex:0];
+      WeakRetained = [v5 _updateScaleFactor];
+      v2 = v5;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
 
 + (Class)wallpaperViewClassForConfiguration:(id)configuration
@@ -491,9 +495,9 @@ uint64_t __36__PBUIWallpaperView__removeParallax__block_invoke_2(uint64_t a1)
   contentView = self->_contentView;
   if (contentView != viewCopy || superview != self && superview != self->_parallaxView)
   {
-    PBUIApplyParallaxSettingsToView(0, contentView);
+    PBUIApplyParallaxSettingsToView(v6, 0, contentView);
     superview2 = [(UIView *)self->_contentView superview];
-    v8 = superview2;
+    v9 = superview2;
     if (superview2 == self || superview2 == self->_parallaxView)
     {
       [(UIView *)self->_contentView removeFromSuperview];
@@ -501,16 +505,16 @@ uint64_t __36__PBUIWallpaperView__removeParallax__block_invoke_2(uint64_t a1)
 
     objc_storeStrong(&self->_contentView, view);
     parallaxView = self->_parallaxView;
-    v11 = self->_contentView;
+    v12 = self->_contentView;
     if (parallaxView)
     {
-      [(UIView *)parallaxView addSubview:v11];
+      [(UIView *)parallaxView addSubview:v12];
       [(PBUIWallpaperView *)self setNeedsLayout];
     }
 
     else
     {
-      [(PBUIWallpaperView *)self addSubview:v11];
+      [(PBUIWallpaperView *)self addSubview:v12];
     }
 
     [(PBUIWallpaperView *)self _updateScaleFactor];
@@ -1086,7 +1090,7 @@ LABEL_8:
   result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
   if (result)
   {
-    [PBUIWallpaperView _generateImageFromImage:a2 forBackdropParameters:? includeTint:? traitCollection:?];
+    [PBUIWallpaperView _generateImageFromImage:a2 forBackdropParameters:self includeTint:? traitCollection:?];
   }
 
   __break(0);
@@ -1098,7 +1102,7 @@ LABEL_8:
   tintCopy = tint;
   v44 = *MEMORY[0x277D85DE8];
   imageCopy = image;
-  v10 = PBUILogCommon();
+  v10 = PBUILogCommon(imageCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v28 = *&parameters->var2;
@@ -1227,7 +1231,7 @@ id __104__PBUIWallpaperView__backdrop_generateImageFromImage_forBackdropParamete
   v32 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   collectionCopy = collection;
-  v11 = PBUILogCommon();
+  v11 = PBUILogCommon(collectionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v26 = *&parameters->var2;
@@ -1282,7 +1286,7 @@ LABEL_10:
   result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
   if (result)
   {
-    [PBUIWallpaperView _material_generateImageFromImage:a2 forBackdropParameters:? traitCollection:?];
+    [PBUIWallpaperView _material_generateImageFromImage:a2 forBackdropParameters:self traitCollection:?];
   }
 
   __break(0);
@@ -1312,7 +1316,7 @@ LABEL_10:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [PBUIWallpaperView _cacheKeyForParameters:a2 includingTint:? downsampleFactor:? traitCollection:?];
+          [PBUIWallpaperView _cacheKeyForParameters:a2 includingTint:self downsampleFactor:? traitCollection:?];
         }
 
         __break(0);
@@ -1660,34 +1664,34 @@ uint64_t __33__PBUIWallpaperView__addParallax__block_invoke(uint64_t a1)
   return WeakRetained;
 }
 
-- (void)_generateImageFromImage:(const char *)a1 forBackdropParameters:includeTint:traitCollection:.cold.1(const char *a1)
+- (void)_generateImageFromImage:(const char *)a1 forBackdropParameters:(uint64_t)a2 includeTint:traitCollection:.cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_1(&dword_21E67D000, MEMORY[0x277D86220], v4, "failure in %@ of <%@:%p> (%@:%i)", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_1(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %@ of <%@:%p> (%@:%i)", v6, v7, v8, v9);
 }
 
-- (void)_material_generateImageFromImage:(const char *)a1 forBackdropParameters:traitCollection:.cold.1(const char *a1)
+- (void)_material_generateImageFromImage:(const char *)a1 forBackdropParameters:(uint64_t)a2 traitCollection:.cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_1(&dword_21E67D000, MEMORY[0x277D86220], v4, "failure in %@ of <%@:%p> (%@:%i)", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_1(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %@ of <%@:%p> (%@:%i)", v6, v7, v8, v9);
 }
 
-- (void)_cacheKeyForParameters:(const char *)a1 includingTint:downsampleFactor:traitCollection:.cold.1(const char *a1)
+- (void)_cacheKeyForParameters:(const char *)a1 includingTint:(uint64_t)a2 downsampleFactor:traitCollection:.cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_1(&dword_21E67D000, MEMORY[0x277D86220], v4, "failure in %@ of <%@:%p> (%@:%i)", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_1(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %@ of <%@:%p> (%@:%i)", v6, v7, v8, v9);
 }
 
 @end

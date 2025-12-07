@@ -2,7 +2,6 @@
 + (__n64)rotationMatrixForRollPitch:(double)pitch;
 + (float32x2_t)skewForRollPitch:(double)pitch;
 - (PKPeerPayment3DScene)init;
-- (__n128)currentRotationMatrix;
 - (__n128)setCurrentRotationMatrix:(__n128)matrix;
 - (void)resetScene;
 @end
@@ -64,45 +63,43 @@
 
 - (void)resetScene
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(PKPeerPayment3DScene *)self setPaused:1];
   v3 = +[PKPeerPayment3DStore sharedInstance];
   material = [v3 material];
   [(PKPeerPayment3DScene *)self setTextMaterial:material];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   textContainerNode = [(PKPeerPayment3DScene *)self textContainerNode];
   childNodes = [textContainerNode childNodes];
 
-  v7 = [childNodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [childNodes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(childNodes);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) removeFromParentNode];
+        [*(*(&v11 + 1) + 8 * v10++) removeFromParentNode];
       }
 
       while (v8 != v10);
-      v8 = [childNodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [childNodes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (__n64)rotationMatrixForRollPitch:(double)pitch
@@ -148,15 +145,6 @@
   v1.f32[0] = sinf(v3);
   v1.f32[1] = v4;
   return vmul_f32(v1, 0x3F0000003F000000);
-}
-
-- (__n128)currentRotationMatrix
-{
-  result = *(self + 256);
-  v2 = *(self + 272);
-  v3 = *(self + 288);
-  v4 = *(self + 304);
-  return result;
 }
 
 - (__n128)setCurrentRotationMatrix:(__n128)matrix

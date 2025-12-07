@@ -45,12 +45,10 @@
 
 + (id)_features
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = +[REFeature locationFeature];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -65,7 +63,7 @@
 
 - (id)_valueForProvider:(id)provider context:(id)context feature:(id)feature
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   currentLocation = [context attributeForKey:@"RETrainingContextLocationKey"];
   objc_opt_class();
@@ -86,9 +84,9 @@ LABEL_6:
   v9 = RELogForDomain(5);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v37 = 138412290;
-    v38 = *&currentLocation;
-    _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_DEFAULT, "in _valueForProvider, deviceLocation is %@", &v37, 0xCu);
+    v36 = 138412290;
+    v37 = *&currentLocation;
+    _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_DEFAULT, "in _valueForProvider, deviceLocation is %@", &v36, 0xCu);
   }
 
   if (!currentLocation)
@@ -96,8 +94,8 @@ LABEL_6:
     v22 = RELogForDomain(5);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v37) = 0;
-      _os_log_impl(&dword_22859F000, v22, OS_LOG_TYPE_DEFAULT, "Device location is unknown", &v37, 2u);
+      LOWORD(v36) = 0;
+      _os_log_impl(&dword_22859F000, v22, OS_LOG_TYPE_DEFAULT, "Device location is unknown", &v36, 2u);
     }
 
     goto LABEL_29;
@@ -122,9 +120,9 @@ LABEL_6:
       {
         bundleIdentifier2 = [providerCopy bundleIdentifier];
         uTF8String = [bundleIdentifier2 UTF8String];
-        v37 = 136315138;
-        v38 = *&uTF8String;
-        _os_log_impl(&dword_22859F000, v22, OS_LOG_TYPE_INFO, "Bundle identifier (%s) lacks location permission. Skipping relevance.", &v37, 0xCu);
+        v36 = 136315138;
+        v37 = *&uTF8String;
+        _os_log_impl(&dword_22859F000, v22, OS_LOG_TYPE_INFO, "Bundle identifier (%s) lacks location permission. Skipping relevance.", &v36, 0xCu);
       }
 
 LABEL_29:
@@ -138,9 +136,9 @@ LABEL_29:
   v15 = RELogForDomain(5);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v37 = 138412290;
-    v38 = *&v14;
-    _os_log_impl(&dword_22859F000, v15, OS_LOG_TYPE_DEFAULT, "location is %@", &v37, 0xCu);
+    v36 = 138412290;
+    v37 = *&v14;
+    _os_log_impl(&dword_22859F000, v15, OS_LOG_TYPE_DEFAULT, "location is %@", &v36, 0xCu);
   }
 
   if (v14)
@@ -150,35 +148,35 @@ LABEL_29:
     v18 = RELogForDomain(5);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 134218242;
-      v38 = v17;
-      v39 = 2112;
-      v40 = providerCopy;
-      _os_log_impl(&dword_22859F000, v18, OS_LOG_TYPE_DEFAULT, "%f distance to %@", &v37, 0x16u);
+      v36 = 134218242;
+      v37 = v17;
+      v38 = 2112;
+      v39 = providerCopy;
+      _os_log_impl(&dword_22859F000, v18, OS_LOG_TYPE_DEFAULT, "%f distance to %@", &v36, 0x16u);
     }
 
     [v14 coordinate];
-    if (CLLocationCoordinate2DIsValid(v43) && ([currentLocation coordinate], CLLocationCoordinate2DIsValid(v44)))
+    if (CLLocationCoordinate2DIsValid(v42) && ([currentLocation coordinate], CLLocationCoordinate2DIsValid(v43)))
     {
       if (v17 >= 0.0)
       {
         [providerCopy accuracy];
-        if (v17 >= v30)
+        if (v17 >= v29)
         {
           [providerCopy accuracy];
-          v33 = v17 - v32;
+          v32 = v17 - v31;
           [providerCopy radius];
-          v35 = v34;
+          v34 = v33;
           [providerCopy accuracy];
-          v20 = 1.0 - REPercentThroughRange(v33, 0.0, v35 - v36);
+          v20 = 1.0 - REPercentThroughRange(v32, 0.0, v34 - v35);
           v19 = RELogForDomain(5);
           if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_34;
           }
 
-          v37 = 134217984;
-          v38 = v20;
+          v36 = 134217984;
+          v37 = v20;
           v21 = "location was not nil, returning the feature value: %f";
           v26 = v19;
           v27 = 12;
@@ -194,10 +192,10 @@ LABEL_29:
           }
 
           [providerCopy accuracy];
-          v37 = 134218240;
-          v38 = v17;
-          v39 = 2048;
-          v40 = v31;
+          v36 = 134218240;
+          v37 = v17;
+          v38 = 2048;
+          v39 = v30;
           v21 = "within the buffer since the distance is %f, returning 1.0 for feature value. provider accuracy is: %f.";
           v26 = v19;
           v27 = 22;
@@ -210,13 +208,13 @@ LABEL_29:
       v20 = 0.0;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v37) = 0;
+        LOWORD(v36) = 0;
         v21 = "Distance is negative, returning 0.0. for feature value.";
 LABEL_32:
         v26 = v19;
         v27 = 2;
 LABEL_33:
-        _os_log_impl(&dword_22859F000, v26, OS_LOG_TYPE_DEFAULT, v21, &v37, v27);
+        _os_log_impl(&dword_22859F000, v26, OS_LOG_TYPE_DEFAULT, v21, &v36, v27);
       }
     }
 
@@ -226,7 +224,7 @@ LABEL_33:
       v20 = 0.0;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v37) = 0;
+        LOWORD(v36) = 0;
         v21 = "Invalid location coordinate.";
         goto LABEL_32;
       }
@@ -239,7 +237,7 @@ LABEL_33:
     v20 = 0.0;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v37) = 0;
+      LOWORD(v36) = 0;
       v21 = "location was nil, returning 0.0 for feature value";
       goto LABEL_32;
     }
@@ -250,7 +248,6 @@ LABEL_34:
   v25 = [REFeatureValue featureValueWithDouble:v20];
 
 LABEL_35:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

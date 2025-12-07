@@ -118,7 +118,7 @@ uint64_t __62__WFTrelloCreateListAction_updateListCacheForBoard_onAccount___bloc
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   resourceManager = [(WFTrelloCreateListAction *)self resourceManager];
   v5 = [resourceManager resourceObjectsOfClass:objc_opt_class()];
   anyObject = [v5 anyObject];
@@ -136,29 +136,27 @@ uint64_t __62__WFTrelloCreateListAction_updateListCacheForBoard_onAccount___bloc
     v14 = [(WFTrelloSessionManager *)v12 initWithConfiguration:0 token:token];
 
     identifier = [v9 identifier];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __55__WFTrelloCreateListAction_runAsynchronouslyWithInput___block_invoke;
-    v19[3] = &unk_278C196F8;
-    v19[4] = self;
-    v20 = v9;
-    v21 = firstObject;
-    [(WFTrelloSessionManager *)v14 createListWithName:v10 onBoardWithIdentifier:identifier position:v11 completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __55__WFTrelloCreateListAction_runAsynchronouslyWithInput___block_invoke;
+    v18[3] = &unk_278C196F8;
+    v18[4] = self;
+    v19 = v9;
+    v20 = firstObject;
+    [(WFTrelloSessionManager *)v14 createListWithName:v10 onBoardWithIdentifier:identifier position:v11 completionHandler:v18];
   }
 
   else
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277D7CB30];
-    v22 = *MEMORY[0x277CCA450];
+    v21 = *MEMORY[0x277CCA450];
     v10 = WFLocalizedString(@"You must select a board to create the list on.");
-    v23[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v14 = [v16 errorWithDomain:v17 code:5 userInfo:v11];
     [(WFTrelloCreateListAction *)self finishRunningWithError:v14];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __55__WFTrelloCreateListAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, void *a3)

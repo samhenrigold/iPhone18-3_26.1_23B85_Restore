@@ -5,6 +5,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
+- (void)keyReleaseRequestCompletedWithDecision:(BOOL)decision;
+- (void)onboardingRequestCompletedWithDecision:(BOOL)decision;
+- (void)preApprovalRequestCompletedWithDecision:(BOOL)decision;
 @end
 
 @implementation ENRemotePresentationRequest
@@ -41,7 +44,7 @@
 
 - (ENRemotePresentationRequest)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(ENRemotePresentationRequest *)self init];
   if (!v5)
@@ -69,11 +72,11 @@ LABEL_5:
     v5->_agencyRegion = v12;
 
     v14 = objc_alloc(MEMORY[0x277CBEB98]);
+    v20 = objc_opt_class();
     v21 = objc_opt_class();
     v22 = objc_opt_class();
-    v23 = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:3];
-    v16 = [v14 initWithArray:{v15, v21, v22}];
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:3];
+    v16 = [v14 initWithArray:{v15, v20, v21}];
 
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"decisionInfo"];
     if (!v17)
@@ -92,7 +95,6 @@ LABEL_5:
 
 LABEL_6:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -159,6 +161,63 @@ LABEL_6:
   }
 
   return v3;
+}
+
+- (void)onboardingRequestCompletedWithDecision:(BOOL)decision
+{
+  decisionCopy = decision;
+  v10[2] = *MEMORY[0x277D85DE8];
+  if ([(ENRemotePresentationRequest *)self requestType]!= 1)
+  {
+    [(ENRemotePresentationRequest *)a2 onboardingRequestCompletedWithDecision:?];
+  }
+
+  v9[0] = @"decisionType";
+  v9[1] = @"decisionResult";
+  v10[0] = &unk_284B0F138;
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:decisionCopy];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  decisionInfo = self->_decisionInfo;
+  self->_decisionInfo = v7;
+}
+
+- (void)keyReleaseRequestCompletedWithDecision:(BOOL)decision
+{
+  decisionCopy = decision;
+  v10[2] = *MEMORY[0x277D85DE8];
+  if ([(ENRemotePresentationRequest *)self requestType]!= 2)
+  {
+    [(ENRemotePresentationRequest *)a2 keyReleaseRequestCompletedWithDecision:?];
+  }
+
+  v9[0] = @"decisionType";
+  v9[1] = @"decisionResult";
+  v10[0] = &unk_284B0F150;
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:decisionCopy];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  decisionInfo = self->_decisionInfo;
+  self->_decisionInfo = v7;
+}
+
+- (void)preApprovalRequestCompletedWithDecision:(BOOL)decision
+{
+  decisionCopy = decision;
+  v10[2] = *MEMORY[0x277D85DE8];
+  if ([(ENRemotePresentationRequest *)self requestType]!= 3)
+  {
+    [(ENRemotePresentationRequest *)a2 preApprovalRequestCompletedWithDecision:?];
+  }
+
+  v9[0] = @"decisionType";
+  v9[1] = @"decisionResult";
+  v10[0] = &unk_284B0F168;
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:decisionCopy];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  decisionInfo = self->_decisionInfo;
+  self->_decisionInfo = v7;
 }
 
 - (void)onboardingRequestCompletedWithDecision:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

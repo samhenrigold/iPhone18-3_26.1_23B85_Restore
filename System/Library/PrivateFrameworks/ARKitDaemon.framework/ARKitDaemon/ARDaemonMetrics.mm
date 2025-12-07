@@ -3,6 +3,7 @@
 - (ARDaemonMetrics)init;
 - (BOOL)_removeServiceForClient:(id)client serviceName:(id)name;
 - (void)_addServiceForClient:(id)client serviceName:(id)name;
+- (void)_reportCoreAnalyticsDaemonEventWithServiceName:(id)name clientBundleIdentifier:(id)identifier isServiceRemoved:(BOOL)removed isDisconnectingClient:(BOOL)client;
 - (void)_reportDaemonHeartbeatForSessionUUID:(id)d daemonUpTimeExcludingSleepMinutes:(unint64_t)minutes daemonUpTimeIncludingSleepMinutes:(unint64_t)sleepMinutes systemUpTimeMinutes:(unint64_t)timeMinutes memoryFootprintInBytes:(unint64_t)bytes;
 - (void)reportMemoryFootprintInBytes:(unint64_t)bytes;
 - (void)reportServiceAddedWithName:(id)name clientBundleIdentifier:(id)identifier;
@@ -55,10 +56,11 @@
 
 uint64_t __38__ARDaemonMetrics_sharedDaemonMetrics__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedDaemonMetrics_sharedARDaemonMetrics = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = sharedDaemonMetrics_sharedARDaemonMetrics;
+  sharedDaemonMetrics_sharedARDaemonMetrics = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (void)reportMemoryFootprintInBytes:(unint64_t)bytes
@@ -85,6 +87,66 @@ uint64_t __48__ARDaemonMetrics_reportMemoryFootprintInBytes___block_invoke(uint6
   return result;
 }
 
+- (void)_reportCoreAnalyticsDaemonEventWithServiceName:(id)name clientBundleIdentifier:(id)identifier isServiceRemoved:(BOOL)removed isDisconnectingClient:(BOOL)client
+{
+  clientCopy = client;
+  removedCopy = removed;
+  v34[4] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  identifierCopy = identifier;
+  v12 = [(NSMutableDictionary *)self->_allServicesUsedPerClient objectForKey:identifierCopy];
+  allObjects = [v12 allObjects];
+  v14 = [allObjects sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
+
+  v15 = [v14 componentsJoinedByString:@""];;
+  if (clientCopy)
+  {
+    v33[0] = @"peakMemory";
+    v16 = [MEMORY[0x277CCABB0] numberWithInteger:self->_peakMemoryUsageInMegabytes];
+    v34[0] = v16;
+    v33[1] = @"allClientsCount";
+    v17 = MEMORY[0x277CCABB0];
+    [(NSMutableDictionary *)self->_activeServiceCountPerClient allKeys];
+    v30 = v14;
+    v18 = nameCopy;
+    v20 = v19 = removedCopy;
+    v21 = [v17 numberWithInteger:{objc_msgSend(v20, "count")}];
+    v34[1] = v21;
+    v34[2] = identifierCopy;
+    v33[2] = @"disconnectedClientBundleID";
+    v33[3] = @"allServicesUsed";
+    v34[3] = v15;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
+    v23 = v22 = identifierCopy;
+
+    removedCopy = v19;
+    nameCopy = v18;
+    v14 = v30;
+
+    ARCoreAnalyticsEventCreateAndReport();
+    identifierCopy = v22;
+  }
+
+  v31[0] = @"peakMemory";
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:self->_peakMemoryUsageInMegabytes];
+  v32[0] = v24;
+  v31[1] = @"allClientsCount";
+  v25 = MEMORY[0x277CCABB0];
+  allKeys = [(NSMutableDictionary *)self->_activeServiceCountPerClient allKeys];
+  v27 = [v25 numberWithUnsignedInteger:{objc_msgSend(allKeys, "count")}];
+  v32[1] = v27;
+  v32[2] = v15;
+  v31[2] = @"allReportingClientServicesUsed";
+  v31[3] = @"reportedServiceName";
+  v32[3] = nameCopy;
+  v31[4] = @"isServiceRemoved";
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:removedCopy];
+  v32[4] = v28;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:5];
+
+  ARCoreAnalyticsEventCreateAndReport();
+}
+
 - (void)reportServiceRemovedWithName:(id)name clientBundleIdentifier:(id)identifier
 {
   nameCopy = name;
@@ -106,7 +168,7 @@ uint64_t __48__ARDaemonMetrics_reportMemoryFootprintInBytes___block_invoke(uint6
 
 void __71__ARDaemonMetrics_reportServiceRemovedWithName_clientBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _removeServiceForClient:*(a1 + 40) serviceName:*(a1 + 48)];
   v3 = [*(*(a1 + 32) + 24) objectForKey:*(a1 + 40)];
 
@@ -118,77 +180,74 @@ void __71__ARDaemonMetrics_reportServiceRemovedWithName_clientBundleIdentifier__
     }
 
     v11 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v12 = _ARLogDaemon_3();
+    v12 = _ARLogDaemon_3(v4);
     v13 = v12;
     if (v11 == 1)
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 32);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v18 = *(a1 + 40);
-        v17 = *(a1 + 48);
-        v19 = *(a1 + 32);
-        v29 = 138544130;
-        v30 = v16;
-        v31 = 2048;
-        v32 = v19;
-        v33 = 2112;
-        v34 = v17;
-        v35 = 2112;
-        v36 = v18;
-        v20 = "%{public}@ <%p>: Service '%@' removed for unknown client with ID: %@";
-        v21 = v13;
-        v22 = OS_LOG_TYPE_ERROR;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v17 = *(a1 + 40);
+        v16 = *(a1 + 48);
+        v18 = *(a1 + 32);
+        v26 = 138544130;
+        v27 = v15;
+        v28 = 2048;
+        v29 = v18;
+        v30 = 2112;
+        v31 = v16;
+        v32 = 2112;
+        v33 = v17;
+        v19 = "%{public}@ <%p>: Service '%@' removed for unknown client with ID: %@";
+        v20 = v13;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_23D391000, v21, v22, v20, &v29, 0x2Au);
+        _os_log_impl(&dword_23D391000, v20, v21, v19, &v26, 0x2Au);
       }
     }
 
     else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v23 = *(a1 + 32);
-      v24 = objc_opt_class();
-      v16 = NSStringFromClass(v24);
-      v26 = *(a1 + 40);
-      v25 = *(a1 + 48);
-      v27 = *(a1 + 32);
-      v29 = 138544130;
-      v30 = v16;
-      v31 = 2048;
-      v32 = v27;
-      v33 = 2112;
-      v34 = v25;
-      v35 = 2112;
-      v36 = v26;
-      v20 = "Error: %{public}@ <%p>: Service '%@' removed for unknown client with ID: %@";
-      v21 = v13;
-      v22 = OS_LOG_TYPE_INFO;
+      v22 = objc_opt_class();
+      v15 = NSStringFromClass(v22);
+      v24 = *(a1 + 40);
+      v23 = *(a1 + 48);
+      v25 = *(a1 + 32);
+      v26 = 138544130;
+      v27 = v15;
+      v28 = 2048;
+      v29 = v25;
+      v30 = 2112;
+      v31 = v23;
+      v32 = 2112;
+      v33 = v24;
+      v19 = "Error: %{public}@ <%p>: Service '%@' removed for unknown client with ID: %@";
+      v20 = v13;
+      v21 = OS_LOG_TYPE_INFO;
       goto LABEL_15;
     }
 
-    goto LABEL_17;
+    return;
   }
 
-  v4 = *(a1 + 32);
-  if (v4[1] || ([v4 setCurrentMemoryFootprintAsPeak], *(*(a1 + 32) + 8)))
+  v5 = *(a1 + 32);
+  if (v5[1] || (v5 = [v5 setCurrentMemoryFootprintAsPeak], *(*(a1 + 32) + 8)))
   {
-    v5 = _ARLogDaemon_3();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _ARLogDaemon_3(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
       v9 = *(a1 + 32);
       v10 = *(a1 + 40);
-      v29 = 138543874;
-      v30 = v8;
-      v31 = 2048;
-      v32 = v9;
-      v33 = 2112;
-      v34 = v10;
-      _os_log_impl(&dword_23D391000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Flushing daemon metrics to CA for disconnected client with ID: %@", &v29, 0x20u);
+      v26 = 138543874;
+      v27 = v8;
+      v28 = 2048;
+      v29 = v9;
+      v30 = 2112;
+      v31 = v10;
+      _os_log_impl(&dword_23D391000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Flushing daemon metrics to CA for disconnected client with ID: %@", &v26, 0x20u);
     }
 
     [*(a1 + 32) reportCoreAnalyticsDaemonEventWithServiceName:*(a1 + 48) clientBundleIdentifier:*(a1 + 40) isServiceRemoved:1 isDisconnectingClient:v2];
@@ -199,9 +258,6 @@ LABEL_15:
       [*(*(a1 + 32) + 32) removeObjectForKey:*(a1 + 40)];
     }
   }
-
-LABEL_17:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportServiceAddedWithName:(id)name clientBundleIdentifier:(id)identifier

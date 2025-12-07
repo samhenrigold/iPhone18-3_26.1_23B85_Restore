@@ -85,43 +85,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_uniqueID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    cancelOutstandingRequests = self->_cancelOutstandingRequests;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_applicationIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    requestAuthorization = self->_requestAuthorization;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_expressPassInformation)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_expressPassConfiguration)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -258,12 +256,10 @@ LABEL_5:
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 44);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) != 0)
     {
-      v14 = *(equalCopy + 41);
       if (self->_requestAuthorization)
       {
         if (*(equalCopy + 41))
@@ -279,7 +275,7 @@ LABEL_5:
     }
 
 LABEL_20:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_21;
   }
 
@@ -298,17 +294,17 @@ LABEL_11:
   expressPassConfiguration = self->_expressPassConfiguration;
   if (expressPassConfiguration | *(equalCopy + 2))
   {
-    v12 = [(NSData *)expressPassConfiguration isEqual:?];
+    v11 = [(NSData *)expressPassConfiguration isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_21:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

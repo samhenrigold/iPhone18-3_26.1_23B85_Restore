@@ -194,7 +194,7 @@
 
 - (void)loadThermostatControllerForItem:(HFItem *)item completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -274,7 +274,7 @@
     swift_once();
   }
 
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D708);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D708, &qword_20D5BFA18);
   __swift_project_value_buffer(v4, qword_281120C80);
   swift_beginAccess();
   sub_20D5665C8();
@@ -311,7 +311,7 @@
     if (tipPopoverController2)
     {
       v7 = tipPopoverController2;
-      sub_20CECF940(0, &qword_28111FB10);
+      sub_20CECF940(0, &qword_28111FB10, 0x277D82BB8);
       v8 = sub_20D5683F8();
 
       if (v8)
@@ -355,7 +355,7 @@
 
 - (void)accessoryControlViewControllerFor:(HFAccessoryRepresentableItem *)for tileItem:(HFItem *)item completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -479,7 +479,7 @@
 
   if (!v7)
   {
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
     v7 = sub_20D567A58();
   }
@@ -538,7 +538,7 @@
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20D563878();
   (*(v7 + 8))(v9, v6);
-  sub_20CECF940(0, &unk_27C821288);
+  sub_20CECF940(0, &unk_27C821288, 0x277D75470);
   v10 = sub_20D567A58();
 
   return v10;
@@ -572,7 +572,7 @@
 
   else
   {
-    sub_20CECF940(0, &unk_28111FB50);
+    sub_20CECF940(0, &unk_28111FB50, 0x277D755B8);
     canLoadObjectsOfClass_ = [session canLoadObjectsOfClass_];
   }
 
@@ -582,7 +582,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D5C0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D5C0, &qword_20D5BF6D0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -604,7 +604,7 @@
   v16 = HUDashboardViewController.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:)(viewCopy, update, v11);
 
   swift_unknownObjectRelease();
-  sub_20CEF928C(v11, &qword_27C81D5C0);
+  sub_20CEF928C(v11, &qword_27C81D5C0, &qword_20D5BF6D0);
 
   return v16;
 }
@@ -5755,23 +5755,23 @@ void __116__HUDashboardViewController_HomeKitObjectPresenting__presentItemWithUU
   dispatch_after(v4, MEMORY[0x277D85CD0], v6);
 }
 
-void __116__HUDashboardViewController_HomeKitObjectPresenting__presentItemWithUUID_destination_secondaryDestination_animated___block_invoke_2(uint64_t a1)
+void __116__HUDashboardViewController_HomeKitObjectPresenting__presentItemWithUUID_destination_secondaryDestination_animated___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) settingsViewController];
+  v3 = [*(a1 + 32) settingsViewController];
   if (objc_opt_isKindOfClass())
   {
-    v3 = v2;
+    v4 = v3;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v5 = v3;
+  v6 = v4;
 
-  v4 = [v5 showConnectedEcosystems];
+  v5 = [v6 showConnectedEcosystems];
   [*(a1 + 40) finishWithResult:*(a1 + 32)];
 }
 
@@ -7800,7 +7800,7 @@ LABEL_54:
 
 id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke(uint64_t a1)
 {
-  v149[2] = *MEMORY[0x277D85DE8];
+  v150[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (*(a1 + 96) == 1 && [MEMORY[0x277D14CE8] supportsEditView])
@@ -7809,16 +7809,16 @@ id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfi
     v5 = [*(a1 + 32) context];
     v6 = [v5 menuEditActionTitle];
     v7 = [MEMORY[0x277D755B8] systemImageNamed:@"rectangle.grid.2x2"];
-    v146[0] = MEMORY[0x277D85DD0];
-    v146[1] = 3221225472;
-    v146[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_1259;
-    v146[3] = &unk_277DC2C88;
+    v147[0] = MEMORY[0x277D85DD0];
+    v147[1] = 3221225472;
+    v147[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_1259;
+    v147[3] = &unk_277DC2C88;
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v148 = &__block_literal_global_1253;
-    v146[4] = v8;
-    v147 = v9;
-    v10 = [v4 actionWithTitle:v6 image:v7 identifier:0 handler:v146];
+    v149 = &__block_literal_global_1253;
+    v147[4] = v8;
+    v148 = v9;
+    v10 = [v4 actionWithTitle:v6 image:v7 identifier:0 handler:v147];
 
     [v2 addObject:v10];
   }
@@ -7828,20 +7828,20 @@ id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfi
     v11 = MEMORY[0x277D750C8];
     v12 = _HULocalizedStringWithDefaultValue(@"HUShowInHomeDashboardTitle", @"HUShowInHomeDashboardTitle", 1);
     v13 = [MEMORY[0x277D755B8] systemImageNamed:@"plus.circle"];
-    v139[0] = MEMORY[0x277D85DD0];
-    v139[1] = 3221225472;
-    v139[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_2_1267;
-    v139[3] = &unk_277DC2CB0;
-    v144 = &__block_literal_global_1253;
-    v140 = @"HUShowInHomeDashboardTitle";
+    v140[0] = MEMORY[0x277D85DD0];
+    v140[1] = 3221225472;
+    v140[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_2_1267;
+    v140[3] = &unk_277DC2CB0;
+    v145 = &__block_literal_global_1253;
+    v141 = @"HUShowInHomeDashboardTitle";
     v14 = *(a1 + 48);
     v15 = *(a1 + 32);
     v16 = *(a1 + 40);
-    v141 = v14;
-    v142 = v15;
-    v145 = *(a1 + 88);
-    v143 = v16;
-    v17 = [v11 actionWithTitle:v12 image:v13 identifier:0 handler:v139];
+    v142 = v14;
+    v143 = v15;
+    v146 = *(a1 + 88);
+    v144 = v16;
+    v17 = [v11 actionWithTitle:v12 image:v13 identifier:0 handler:v140];
 
     [v3 addObject:v17];
   }
@@ -7851,20 +7851,20 @@ id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfi
     v18 = MEMORY[0x277D750C8];
     v19 = _HULocalizedStringWithDefaultValue(@"HUHideFromHomeDashboardTitle", @"HUHideFromHomeDashboardTitle", 1);
     v20 = [MEMORY[0x277D755B8] systemImageNamed:@"minus.circle"];
-    v132[0] = MEMORY[0x277D85DD0];
-    v132[1] = 3221225472;
-    v132[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_3;
-    v132[3] = &unk_277DC2CB0;
-    v137 = &__block_literal_global_1253;
-    v133 = @"HUHideFromHomeDashboardTitle";
+    v133[0] = MEMORY[0x277D85DD0];
+    v133[1] = 3221225472;
+    v133[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_3;
+    v133[3] = &unk_277DC2CB0;
+    v138 = &__block_literal_global_1253;
+    v134 = @"HUHideFromHomeDashboardTitle";
     v21 = *(a1 + 48);
     v22 = *(a1 + 32);
     v23 = *(a1 + 40);
-    v134 = v21;
-    v135 = v22;
-    v138 = *(a1 + 88);
-    v136 = v23;
-    v24 = [v18 actionWithTitle:v19 image:v20 identifier:0 handler:v132];
+    v135 = v21;
+    v136 = v22;
+    v139 = *(a1 + 88);
+    v137 = v23;
+    v24 = [v18 actionWithTitle:v19 image:v20 identifier:0 handler:v133];
 
     [v3 addObject:v24];
   }
@@ -7874,20 +7874,20 @@ id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfi
     v25 = MEMORY[0x277D750C8];
     v26 = _HULocalizedStringWithDefaultValue(@"HUIncludeInHomeStatusTitle", @"HUIncludeInHomeStatusTitle", 1);
     v27 = [MEMORY[0x277D755B8] systemImageNamed:@"house"];
-    v125[0] = MEMORY[0x277D85DD0];
-    v125[1] = 3221225472;
-    v125[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_4;
-    v125[3] = &unk_277DC2CB0;
-    v130 = &__block_literal_global_1253;
-    v126 = @"HUIncludeInHomeStatusTitle";
+    v126[0] = MEMORY[0x277D85DD0];
+    v126[1] = 3221225472;
+    v126[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_4;
+    v126[3] = &unk_277DC2CB0;
+    v131 = &__block_literal_global_1253;
+    v127 = @"HUIncludeInHomeStatusTitle";
     v28 = *(a1 + 56);
     v29 = *(a1 + 32);
     v30 = *(a1 + 40);
-    v127 = v28;
-    v128 = v29;
-    v131 = *(a1 + 88);
-    v129 = v30;
-    v31 = [v25 actionWithTitle:v26 image:v27 identifier:0 handler:v125];
+    v128 = v28;
+    v129 = v29;
+    v132 = *(a1 + 88);
+    v130 = v30;
+    v31 = [v25 actionWithTitle:v26 image:v27 identifier:0 handler:v126];
 
     [v3 addObject:v31];
   }
@@ -7897,20 +7897,20 @@ id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfi
     v32 = MEMORY[0x277D750C8];
     v33 = _HULocalizedStringWithDefaultValue(@"HUExcludeFromHomeStatusTitle", @"HUExcludeFromHomeStatusTitle", 1);
     v34 = [MEMORY[0x277D755B8] systemImageNamed:@"house"];
-    v118[0] = MEMORY[0x277D85DD0];
-    v118[1] = 3221225472;
-    v118[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_5;
-    v118[3] = &unk_277DC2CB0;
-    v123 = &__block_literal_global_1253;
-    v119 = @"HUExcludeFromHomeStatusTitle";
+    v119[0] = MEMORY[0x277D85DD0];
+    v119[1] = 3221225472;
+    v119[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_5;
+    v119[3] = &unk_277DC2CB0;
+    v124 = &__block_literal_global_1253;
+    v120 = @"HUExcludeFromHomeStatusTitle";
     v35 = *(a1 + 56);
     v36 = *(a1 + 32);
     v37 = *(a1 + 40);
-    v120 = v35;
-    v121 = v36;
-    v124 = *(a1 + 88);
-    v122 = v37;
-    v38 = [v32 actionWithTitle:v33 image:v34 identifier:0 handler:v118];
+    v121 = v35;
+    v122 = v36;
+    v125 = *(a1 + 88);
+    v123 = v37;
+    v38 = [v32 actionWithTitle:v33 image:v34 identifier:0 handler:v119];
 
     [v3 addObject:v38];
   }
@@ -7920,17 +7920,17 @@ id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfi
     v39 = MEMORY[0x277D750C8];
     v40 = _HULocalizedStringWithDefaultValue(@"HUContextMenuCameraViewLiveStreamTitle", @"HUContextMenuCameraViewLiveStreamTitle", 1);
     v41 = [MEMORY[0x277D755B8] systemImageNamed:@"video"];
-    v112[0] = MEMORY[0x277D85DD0];
-    v112[1] = 3221225472;
-    v112[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_6;
-    v112[3] = &unk_277DC2CD8;
-    v117 = &__block_literal_global_1253;
+    v113[0] = MEMORY[0x277D85DD0];
+    v113[1] = 3221225472;
+    v113[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_6;
+    v113[3] = &unk_277DC2CD8;
+    v118 = &__block_literal_global_1253;
     v42 = *(a1 + 32);
-    v113 = @"HUContextMenuCameraViewLiveStreamTitle";
-    v114 = v42;
-    v115 = *(a1 + 64);
-    v116 = *(a1 + 40);
-    v43 = [v39 actionWithTitle:v40 image:v41 identifier:0 handler:v112];
+    v114 = @"HUContextMenuCameraViewLiveStreamTitle";
+    v115 = v42;
+    v116 = *(a1 + 64);
+    v117 = *(a1 + 40);
+    v43 = [v39 actionWithTitle:v40 image:v41 identifier:0 handler:v113];
 
     [v3 addObject:v43];
   }
@@ -7938,127 +7938,127 @@ id __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfi
   if (*(a1 + 102) == 1)
   {
     v44 = [*(a1 + 32) shouldShowAccessoryControlForItem:*(a1 + 64)];
-    v109[0] = MEMORY[0x277D85DD0];
-    v109[1] = 3221225472;
-    v109[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_7;
-    v109[3] = &unk_277DC2D00;
-    v110 = *(a1 + 64);
-    v111 = v44;
-    v45 = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_7(v109);
-    v46 = MEMORY[0x277D750C8];
-    v47 = _HULocalizedStringWithDefaultValue(v45, v45, 1);
-    v48 = [MEMORY[0x277D755B8] systemImageNamed:@"gearshape"];
-    v101[0] = MEMORY[0x277D85DD0];
-    v101[1] = 3221225472;
-    v101[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_8;
-    v101[3] = &unk_277DC2D28;
-    v107 = &__block_literal_global_1253;
-    v102 = v45;
-    v108 = v44;
-    v49 = *(a1 + 64);
-    v50 = *(a1 + 32);
-    v103 = v49;
+    v110[0] = MEMORY[0x277D85DD0];
+    v110[1] = 3221225472;
+    v110[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_7;
+    v110[3] = &unk_277DC2D00;
+    v111 = *(a1 + 64);
+    v112 = v44;
+    v46 = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_7(v110, v45);
+    v47 = MEMORY[0x277D750C8];
+    v48 = _HULocalizedStringWithDefaultValue(v46, v46, 1);
+    v49 = [MEMORY[0x277D755B8] systemImageNamed:@"gearshape"];
+    v102[0] = MEMORY[0x277D85DD0];
+    v102[1] = 3221225472;
+    v102[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_8;
+    v102[3] = &unk_277DC2D28;
+    v108 = &__block_literal_global_1253;
+    v103 = v46;
+    v109 = v44;
+    v50 = *(a1 + 64);
+    v51 = *(a1 + 32);
     v104 = v50;
-    v105 = *(a1 + 72);
-    v106 = *(a1 + 40);
-    v51 = v45;
-    v52 = [v46 actionWithTitle:v47 image:v48 identifier:0 handler:v101];
+    v105 = v51;
+    v106 = *(a1 + 72);
+    v107 = *(a1 + 40);
+    v52 = v46;
+    v53 = [v47 actionWithTitle:v48 image:v49 identifier:0 handler:v102];
 
-    [v3 addObject:v52];
+    [v3 addObject:v53];
   }
 
   if (*(a1 + 103) == 1)
   {
-    v53 = MEMORY[0x277D750C8];
-    v54 = _HULocalizedStringWithDefaultValue(@"HUHideSuggestedScenesTitle", @"HUHideSuggestedScenesTitle", 1);
-    v55 = [MEMORY[0x277D755B8] systemImageNamed:@"minus.circle"];
-    v96[0] = MEMORY[0x277D85DD0];
-    v96[1] = 3221225472;
-    v96[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_9;
-    v96[3] = &unk_277DC2D50;
-    v100 = &__block_literal_global_1253;
-    v56 = *(a1 + 32);
-    v57 = *(a1 + 40);
-    v97 = @"HUHideSuggestedScenesTitle";
-    v98 = v56;
+    v54 = MEMORY[0x277D750C8];
+    v55 = _HULocalizedStringWithDefaultValue(@"HUHideSuggestedScenesTitle", @"HUHideSuggestedScenesTitle", 1);
+    v56 = [MEMORY[0x277D755B8] systemImageNamed:@"minus.circle"];
+    v97[0] = MEMORY[0x277D85DD0];
+    v97[1] = 3221225472;
+    v97[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_9;
+    v97[3] = &unk_277DC2D50;
+    v101 = &__block_literal_global_1253;
+    v57 = *(a1 + 32);
+    v58 = *(a1 + 40);
+    v98 = @"HUHideSuggestedScenesTitle";
     v99 = v57;
-    v58 = [v53 actionWithTitle:v54 image:v55 identifier:0 handler:v96];
+    v100 = v58;
+    v59 = [v54 actionWithTitle:v55 image:v56 identifier:0 handler:v97];
 
-    [v3 addObject:v58];
+    [v3 addObject:v59];
   }
 
   if (*(a1 + 104) == 1)
   {
-    v59 = [*(a1 + 32) layoutManager];
-    v60 = [v59 gridSizeForItem:*(a1 + 80)];
-    v62 = v61;
+    v60 = [*(a1 + 32) layoutManager];
+    v61 = [v60 gridSizeForItem:*(a1 + 80)];
+    v63 = v62;
 
-    v63 = v62 <= 1 || v60 <= 1;
-    v64 = @"HUContextMenuShowAsLargeTileTitle";
-    if (!v63)
+    v64 = v63 <= 1 || v61 <= 1;
+    v65 = @"HUContextMenuShowAsLargeTileTitle";
+    if (!v64)
     {
-      v64 = @"HUContextMenuShowAsSmallTileTitle";
+      v65 = @"HUContextMenuShowAsSmallTileTitle";
     }
 
-    v65 = v64;
+    v66 = v65;
     objc_opt_class();
-    v66 = [*(a1 + 32) collectionView];
-    v67 = [v66 cellForItemAtIndexPath:*(a1 + 72)];
+    v67 = [*(a1 + 32) collectionView];
+    v68 = [v67 cellForItemAtIndexPath:*(a1 + 72)];
     if (objc_opt_isKindOfClass())
     {
-      v68 = v67;
+      v69 = v68;
     }
 
     else
     {
-      v68 = 0;
+      v69 = 0;
     }
 
-    v69 = v68;
+    v70 = v69;
 
-    v70 = MEMORY[0x277D750C8];
-    v71 = _HULocalizedStringWithDefaultValue(v65, v65, 1);
-    v89[0] = MEMORY[0x277D85DD0];
-    v89[1] = 3221225472;
-    v89[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_1313;
-    v89[3] = &unk_277DC2D78;
-    v72 = *(a1 + 32);
-    v90 = v65;
-    v91 = v72;
-    v95 = &__block_literal_global_1253;
-    v92 = v69;
-    v93 = *(a1 + 80);
-    v94 = *(a1 + 40);
-    v73 = v65;
-    v74 = v69;
-    v75 = [v70 actionWithTitle:v71 image:0 identifier:0 handler:v89];
+    v71 = MEMORY[0x277D750C8];
+    v72 = _HULocalizedStringWithDefaultValue(v66, v66, 1);
+    v90[0] = MEMORY[0x277D85DD0];
+    v90[1] = 3221225472;
+    v90[2] = __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_1313;
+    v90[3] = &unk_277DC2D78;
+    v73 = *(a1 + 32);
+    v91 = v66;
+    v92 = v73;
+    v96 = &__block_literal_global_1253;
+    v93 = v70;
+    v94 = *(a1 + 80);
+    v95 = *(a1 + 40);
+    v74 = v66;
+    v75 = v70;
+    v76 = [v71 actionWithTitle:v72 image:0 identifier:0 handler:v90];
 
-    [v3 addObject:v75];
+    [v3 addObject:v76];
   }
 
   if (([v2 count] || objc_msgSend(v3, "count")) && objc_msgSend(*(a1 + 64), "conformsToProtocol:", &unk_2824C0828))
   {
-    v76 = [*(a1 + 32) quickControlPresentationContextForItem:*(a1 + 64) atIndexPath:*(a1 + 72)];
-    v77 = MEMORY[0x277D143D8];
-    v78 = [*(a1 + 32) quickControlPresentationCoordinator];
-    [v77 logAndSendTileInteractionEventOfType:3 withPresentationContext:v76 presentationCoordinator:v78];
+    v77 = [*(a1 + 32) quickControlPresentationContextForItem:*(a1 + 64) atIndexPath:*(a1 + 72)];
+    v78 = MEMORY[0x277D143D8];
+    v79 = [*(a1 + 32) quickControlPresentationCoordinator];
+    [v78 logAndSendTileInteractionEventOfType:3 withPresentationContext:v77 presentationCoordinator:v79];
   }
 
-  v79 = MEMORY[0x277D75710];
-  v80 = [v2 copy];
-  v81 = [v79 menuWithTitle:&stru_2823E0EE8 image:0 identifier:0 options:1 children:v80];
+  v80 = MEMORY[0x277D75710];
+  v81 = [v2 copy];
+  v82 = [v80 menuWithTitle:&stru_2823E0EE8 image:0 identifier:0 options:1 children:v81];
 
-  v82 = MEMORY[0x277D75710];
-  v83 = [v3 copy];
-  v84 = [v82 menuWithTitle:&stru_2823E0EE8 image:0 identifier:0 options:1 children:v83];
+  v83 = MEMORY[0x277D75710];
+  v84 = [v3 copy];
+  v85 = [v83 menuWithTitle:&stru_2823E0EE8 image:0 identifier:0 options:1 children:v84];
 
-  v85 = MEMORY[0x277D75710];
-  v149[0] = v81;
-  v149[1] = v84;
-  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v149 count:2];
-  v87 = [v85 menuWithTitle:&stru_2823E0EE8 children:v86];
+  v86 = MEMORY[0x277D75710];
+  v150[0] = v82;
+  v150[1] = v85;
+  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v150 count:2];
+  v88 = [v86 menuWithTitle:&stru_2823E0EE8 children:v87];
 
-  return v87;
+  return v88;
 }
 
 void __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_2(uint64_t a1, void *a2)
@@ -8159,7 +8159,7 @@ void __106__HUDashboardViewController_ContextMenu__collectionView_contextMenuCon
   [*(a1 + 40) _sendContextMenuMetricsWithContext:*(a1 + 56) title:*(a1 + 32)];
 }
 
-__CFString *__106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_7(uint64_t a1)
+__CFString *__106__HUDashboardViewController_ContextMenu__collectionView_contextMenuConfigurationForItemAtIndexPath_point___block_invoke_7(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())

@@ -36,9 +36,9 @@
     +[NSURL(ContactsUI) log];
   }
 
-  v1 = log_cn_once_object_3;
+  v2 = log_cn_once_object_3;
 
-  return v1;
+  return v2;
 }
 
 + (id)_cnui_telephonyURLFutureWithHandle:()ContactsUI contact:preferDefaultApp:

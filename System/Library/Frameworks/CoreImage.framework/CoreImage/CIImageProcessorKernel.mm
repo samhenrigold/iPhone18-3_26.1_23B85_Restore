@@ -105,7 +105,7 @@
   width = extent.size.width;
   y = extent.origin.y;
   x = extent.origin.x;
-  v51[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   v13 = NSSelectorFromString(&cfstr_Processwithinp.isa);
   v14 = [objc_opt_class() methodForSelector:v13];
   v15 = [CIImageProcessorKernel methodForSelector:v13];
@@ -113,19 +113,19 @@
   v17 = objc_opt_class();
   if (v14 == v15 || v16 == v17)
   {
-    v36 = MEMORY[0x1E695DF30];
-    v37 = *MEMORY[0x1E695D940];
-    v38 = MEMORY[0x1E696AEC0];
-    v39 = objc_opt_class();
-    v40 = [v36 exceptionWithName:v37 reason:objc_msgSend(v38 userInfo:{"stringWithFormat:", @"%s must be overridden in %@ class", "+[CIImageProcessorKernel applyWithExtent:inputs:arguments:error:]", NSStringFromClass(v39)), 0}];
-    objc_exception_throw(v40);
+    v37 = MEMORY[0x1E695DF30];
+    v38 = *MEMORY[0x1E695D940];
+    v39 = MEMORY[0x1E696AEC0];
+    v40 = objc_opt_class();
+    v41 = [v37 exceptionWithName:v38 reason:objc_msgSend(v39 userInfo:{"stringWithFormat:", @"%s must be overridden in %@ class", "+[CIImageProcessorKernel applyWithExtent:inputs:arguments:error:]", NSStringFromClass(v40)), 0}];
+    objc_exception_throw(v41);
   }
 
-  v53.origin.x = x;
-  v53.origin.y = y;
-  v53.size.width = width;
-  v53.size.height = height;
-  if (CGRectIsEmpty(v53))
+  v54.origin.x = x;
+  v54.origin.y = y;
+  v54.size.width = width;
+  v54.size.height = height;
+  if (CGRectIsEmpty(v54))
   {
 
     return +[CIImage emptyImage];
@@ -133,7 +133,7 @@
 
   else
   {
-    v41 = error;
+    v42 = error;
     skipFormatChecks = [objc_opt_class() skipFormatChecks];
     v21 = [(NSArray *)inputs count];
     v22 = [self _call_outputFormatWithArguments:args];
@@ -153,15 +153,15 @@
 
       if (![self _digestForArgs:args])
       {
-        v26 = ci_logger_performance();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v27 = ci_logger_performance(0, v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = objc_opt_class();
+          v28 = objc_opt_class();
           *buf = 136446466;
-          v47 = "+[CIImageProcessorKernel applyWithExtent:inputs:arguments:error:]";
-          v48 = 2114;
-          v49 = NSStringFromClass(v27);
-          _os_log_impl(&dword_19CC36000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s each object in arguments dictionary be an NSArray, NSDictionary, NSNumber, NSValue, NSData, NSString, NSNull, CIVector, CIColor, CIImage, CGImageRef or CGColorSpaceRef for CoreImage to cache optimally (%{public}@).", buf, 0x16u);
+          v48 = "+[CIImageProcessorKernel applyWithExtent:inputs:arguments:error:]";
+          v49 = 2114;
+          v50 = NSStringFromClass(v28);
+          _os_log_impl(&dword_19CC36000, v27, OS_LOG_TYPE_DEFAULT, "%{public}s each object in arguments dictionary be an NSArray, NSDictionary, NSNumber, NSValue, NSData, NSString, NSNull, CIVector, CIColor, CIImage, CGImageRef or CGColorSpaceRef for CoreImage to cache optimally (%{public}@).", buf, 0x16u);
         }
       }
 
@@ -180,55 +180,55 @@ LABEL_33:
         operator new();
       }
 
-      v42 = malloc_type_calloc(4uLL, v21, 0x100004052888210uLL);
-      v28 = malloc_type_calloc(1uLL, v21, 0x100004077774924uLL);
-      v29 = 0;
+      v43 = malloc_type_calloc(4uLL, v21, 0x100004052888210uLL);
+      v29 = malloc_type_calloc(1uLL, v21, 0x100004077774924uLL);
       v30 = 0;
+      v31 = 0;
       while (1)
       {
-        v31 = [self _call_formatForInputAtIndex:v30 arguments:args];
-        v33 = CI::format_modernize(v31, "+[CIImageProcessorKernel applyWithExtent:inputs:arguments:error:]", v32);
-        v34 = v33;
-        v42[v29] = v33;
-        v35 = v33 ? skipFormatChecks : 1;
-        if ((v35 & 1) == 0 && (CI::ProcessorImage::format_is_supported(v33, 1) & 1) == 0)
+        v32 = [self _call_formatForInputAtIndex:v31 arguments:args];
+        v34 = CI::format_modernize(v32, "+[CIImageProcessorKernel applyWithExtent:inputs:arguments:error:]", v33);
+        v35 = v34;
+        v43[v30] = v34;
+        v36 = v34 ? skipFormatChecks : 1;
+        if ((v36 & 1) == 0 && (CI::ProcessorImage::format_is_supported(v34, 1) & 1) == 0)
         {
           break;
         }
 
-        v28[v29] = 0;
-        if (!v34 || v34 == 266)
+        v29[v30] = 0;
+        if (!v35 || v35 == 266)
         {
-          v28[v29] = [objc_opt_class() allowSRGBTranferFuntionOnInputAtIndex:v30];
+          v29[v30] = [objc_opt_class() allowSRGBTranferFuntionOnInputAtIndex:v31];
         }
 
-        v29 = (v30 + 1);
-        v30 = v29;
-        if (v21 <= v29)
+        v30 = (v31 + 1);
+        v31 = v30;
+        if (v21 <= v30)
         {
           goto LABEL_33;
         }
       }
 
-      if (v41)
+      if (v42)
       {
-        v44 = @"CINonLocalizedDescriptionKey";
-        v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"inputFormat for image %d must be 0, %s.", v30, "R8, Rh, Rf, BGRA8, RGBAh, RGBAf"];
-        *v41 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:3 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v45, &v44, 1)}];
+        v45 = @"CINonLocalizedDescriptionKey";
+        v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"inputFormat for image %d must be 0, %s.", v31, "R8, Rh, Rf, BGRA8, RGBAh, RGBAf"];
+        *v42 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:3 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v46, &v45, 1)}];
       }
 
-      free(v42);
-      if (v28)
+      free(v43);
+      if (v29)
       {
-        free(v28);
+        free(v29);
       }
     }
 
-    else if (v41)
+    else if (v42)
     {
-      v50 = @"CINonLocalizedDescriptionKey";
-      v51[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"outputFormat must be 0, %s.", "R8, Rh, Rf, BGRA8, RGBAh, RGBAf"];
-      *v41 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:1 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v51, &v50, 1)}];
+      v51 = @"CINonLocalizedDescriptionKey";
+      v52[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"outputFormat must be 0, %s.", "R8, Rh, Rf, BGRA8, RGBAh, RGBAf"];
+      *v42 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:1 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v52, &v51, 1)}];
     }
 
     return 0;
@@ -257,9 +257,9 @@ void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block
 
 void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, uint64_t a13, unsigned __int8 a14, int a15, void *a16, CI::TileTask *a17)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   v24 = objc_autoreleasePoolPush();
-  v69 = [[CIImageProcessorOutput alloc] initWithSurface:a7 texture:a8 digest:a13 allowSRGB:a14 bounds:*(a1 + 72) onlyMetal:a16 context:a9 tileTask:a10, a11, a12, a17];
+  v75 = [[CIImageProcessorOutput alloc] initWithSurface:a7 texture:a8 digest:a13 allowSRGB:a14 bounds:*(a1 + 72) onlyMetal:a16 context:a9 tileTask:a10, a11, a12, a17];
   if (*(a1 + 64) <= 1uLL)
   {
     v25 = 1;
@@ -270,7 +270,7 @@ void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block
     v25 = *(a1 + 64);
   }
 
-  std::vector<std::vector<IRect>>::vector[abi:nn200100](v74, v25);
+  std::vector<std::vector<IRect>>::vector[abi:nn200100](v80, v25);
   if (*(a1 + 64))
   {
     v26 = 0;
@@ -278,8 +278,8 @@ void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block
     do
     {
       (*(*(a1 + 56) + 16))(__p, a9, a10, a11, a12);
-      v28 = (v74[0] + v26);
-      v29 = *(v74[0] + v26);
+      v28 = (v80[0] + v26);
+      v29 = *(v80[0] + v26);
       if (v29)
       {
         v28[1] = v29;
@@ -290,7 +290,7 @@ void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block
       }
 
       *v28 = *__p;
-      v28[2] = v77;
+      v28[2] = v83;
       ++v27;
       v30 = *(a1 + 64);
       v26 += 24;
@@ -304,177 +304,180 @@ void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block
     v30 = 0;
   }
 
-  v62 = v24;
-  v32 = *v74[0];
-  v31 = *(v74[0] + 8);
-  v68 = [MEMORY[0x1E695DF70] arrayWithCapacity:v30];
+  v68 = v24;
+  v32 = *v80[0];
+  v31 = *(v80[0] + 8);
+  v33 = [MEMORY[0x1E695DF70] arrayWithCapacity:v30];
+  v74 = v33;
   if (*(a1 + 64))
   {
-    v33 = 0;
-    v34 = (v31 - v32) >> 5;
-    v35 = 1;
+    v35 = 0;
+    v36 = (v31 - v32) >> 5;
+    v37 = 1;
     do
     {
-      std::vector<CGRect>::vector[abi:nn200100](__p, (v74[0] + 24 * v33));
-      v79 = CGRectInset(*(__p[0] + a15), 0.001, 0.001);
-      v80 = CGRectIntegral(v79);
-      x = v80.origin.x;
-      y = v80.origin.y;
-      width = v80.size.width;
-      height = v80.size.height;
-      if (CGRectIsNull(v80))
-      {
-        v40 = 0;
-        v41 = 0;
-        v42 = 0x7FFFFFFF;
-        v43 = 0x7FFFFFFF;
-      }
-
-      else
-      {
-        v81.origin.x = x;
-        v81.origin.y = y;
-        v81.size.width = width;
-        v81.size.height = height;
-        if (CGRectIsInfinite(v81))
-        {
-          v42 = -2147483647;
-          v40 = 0xFFFFFFFFLL;
-          v41 = 0xFFFFFFFFLL;
-          v43 = -2147483647;
-        }
-
-        else
-        {
-          v82.origin.x = x;
-          v82.origin.y = y;
-          v82.size.width = width;
-          v82.size.height = height;
-          v83 = CGRectInset(v82, 0.000001, 0.000001);
-          v84 = CGRectIntegral(v83);
-          v43 = v84.origin.x;
-          v42 = v84.origin.y;
-          v41 = v84.size.width;
-          v40 = v84.size.height;
-        }
-      }
-
-      v85 = CGRectInset(*(*a5 + 32 * v33), 0.001, 0.001);
+      std::vector<CGRect>::vector[abi:nn200100](__p, (v80[0] + 24 * v35));
+      v85 = CGRectInset(*(__p[0] + a15), 0.001, 0.001);
       v86 = CGRectIntegral(v85);
-      v44 = v86.origin.x;
-      v45 = v86.origin.y;
-      v46 = v86.size.width;
-      v47 = v86.size.height;
+      x = v86.origin.x;
+      y = v86.origin.y;
+      width = v86.size.width;
+      height = v86.size.height;
       if (CGRectIsNull(v86))
       {
-        v48 = 0;
-        v49 = 0;
-        v50 = 0x7FFFFFFF;
-        v51 = 0x7FFFFFFF;
+        v42 = 0;
+        v43 = 0;
+        v44 = 0x7FFFFFFF;
+        v45 = 0x7FFFFFFF;
       }
 
       else
       {
-        v87.origin.x = v44;
-        v87.origin.y = v45;
-        v87.size.width = v46;
-        v87.size.height = v47;
+        v87.origin.x = x;
+        v87.origin.y = y;
+        v87.size.width = width;
+        v87.size.height = height;
         if (CGRectIsInfinite(v87))
         {
-          v50 = -2147483647;
-          v48 = 0xFFFFFFFFLL;
-          v49 = 0xFFFFFFFFLL;
-          v51 = -2147483647;
+          v44 = -2147483647;
+          v42 = 0xFFFFFFFFLL;
+          v43 = 0xFFFFFFFFLL;
+          v45 = -2147483647;
         }
 
         else
         {
-          v88.origin.x = v44;
-          v88.origin.y = v45;
-          v88.size.width = v46;
-          v88.size.height = v47;
+          v88.origin.x = x;
+          v88.origin.y = y;
+          v88.size.width = width;
+          v88.size.height = height;
           v89 = CGRectInset(v88, 0.000001, 0.000001);
           v90 = CGRectIntegral(v89);
-          v51 = v90.origin.x;
-          v50 = v90.origin.y;
-          v49 = v90.size.width;
-          v48 = v90.size.height;
+          v45 = v90.origin.x;
+          v44 = v90.origin.y;
+          v43 = v90.size.width;
+          v42 = v90.size.height;
         }
       }
 
-      cf[0] = __PAIR64__(v42, v43);
-      cf[1] = v41;
-      cf[2] = v40;
-      v70[0] = v51;
-      v70[1] = v50;
-      v71 = v49;
-      v72 = v48;
-      if (v43 == v51 && v42 == v50 && v41 == v49 && v40 == v48)
+      v91 = CGRectInset(*(*a5 + 32 * v35), 0.001, 0.001);
+      v92 = CGRectIntegral(v91);
+      v46 = v92.origin.x;
+      v47 = v92.origin.y;
+      v48 = v92.size.width;
+      v49 = v92.size.height;
+      if (CGRectIsNull(v92))
       {
-        v52 = 0;
+        v50 = 0;
+        v51 = 0;
+        v52 = 0x7FFFFFFF;
+        v53 = 0x7FFFFFFF;
       }
 
       else
       {
-        v52 = *(a1 + 73);
+        v93.origin.x = v46;
+        v93.origin.y = v47;
+        v93.size.width = v48;
+        v93.size.height = v49;
+        if (CGRectIsInfinite(v93))
+        {
+          v52 = -2147483647;
+          v50 = 0xFFFFFFFFLL;
+          v51 = 0xFFFFFFFFLL;
+          v53 = -2147483647;
+        }
+
+        else
+        {
+          v94.origin.x = v46;
+          v94.origin.y = v47;
+          v94.size.width = v48;
+          v94.size.height = v49;
+          v95 = CGRectInset(v94, 0.000001, 0.000001);
+          v96 = CGRectIntegral(v95);
+          v53 = v96.origin.x;
+          v52 = v96.origin.y;
+          v51 = v96.size.width;
+          v50 = v96.size.height;
+        }
       }
 
-      [v68 addObject:{createTileInput(v69, a15, v34, cf, v70, *(*a2 + 8 * v33), *(*a3 + 8 * v33), *(*a4 + 8 * v33), (*(*a6 + ((v33 >> 3) & 0x1FFFFFFFFFFFFFF8)) & (1 << v33)) != 0, *(a1 + 72), a16, v52 & 1)}];
+      cf[0] = __PAIR64__(v44, v45);
+      cf[1] = v43;
+      cf[2] = v42;
+      v76[0] = v53;
+      v76[1] = v52;
+      v77 = v51;
+      v78 = v50;
+      if (v45 == v53 && v44 == v52 && v43 == v51 && v42 == v50)
+      {
+        v54 = 0;
+      }
+
+      else
+      {
+        v54 = *(a1 + 73);
+      }
+
+      [v74 addObject:{createTileInput(v75, a15, v36, cf, v76, *(*a2 + 8 * v35), *(*a3 + 8 * v35), *(*a4 + 8 * v35), (*(*a6 + ((v35 >> 3) & 0x1FFFFFFFFFFFFFF8)) & (1 << v35)) != 0, *(a1 + 72), a16, v54 & 1)}];
+      v33 = __p[0];
       if (__p[0])
       {
         __p[1] = __p[0];
         operator delete(__p[0]);
       }
 
-      v33 = v35;
+      v35 = v37;
     }
 
-    while (*(a1 + 64) > v35++);
+    while (*(a1 + 64) > v37++);
   }
 
-  v54 = ci_signpost_log_render();
-  v55 = (*(*a16 + 280))(a16) << 32;
-  if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
+  v56 = ci_signpost_log_render(v33, v34);
+  v57 = (*(*a16 + 280))(a16) << 32;
+  if (v57 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
   {
-    v56 = *(a1 + 32);
+    v58 = *(a1 + 32);
     LODWORD(__p[0]) = 138543362;
-    *(__p + 4) = v56;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v54, OS_SIGNPOST_INTERVAL_BEGIN, v55, "processor_process", "%{public}@", __p, 0xCu);
+    *(__p + 4) = v58;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v56, OS_SIGNPOST_INTERVAL_BEGIN, v57, "processor_process", "%{public}@", __p, 0xCu);
   }
 
-  v57 = (*(*a16 + 280))(a16);
-  TimerBase::TimerBase(__p, v57, 0, "processor_process", 0);
+  v59 = (*(*a16 + 280))(a16);
+  TimerBase::TimerBase(__p, v59, 0, "processor_process", 0);
   cf[0] = 0;
-  [objc_opt_class() processWithInputs:v68 arguments:*(a1 + 48) output:v69 error:cf];
+  [objc_opt_class() processWithInputs:v74 arguments:*(a1 + 48) output:v75 error:cf];
+  v60 = cf[0];
   if (cf[0])
   {
     CI::TileTask::setCommandBufferError(a17, cf[0]);
   }
 
-  _ZZZ65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error__EUb1_EN13SignpostTimerD1Ev(__p);
-  v58 = ci_signpost_log_render();
-  v59 = (*(*a16 + 280))(a16) << 32;
-  if (v59 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
+  _ZZZ65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error__EUb1_EN13SignpostTimerD1Ev(__p, v60);
+  v63 = ci_signpost_log_render(v61, v62);
+  v64 = (*(*a16 + 280))(a16) << 32;
+  if (v64 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
   {
-    v60 = *(a1 + 32);
+    v65 = *(a1 + 32);
     LODWORD(__p[0]) = 138543362;
-    *(__p + 4) = v60;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v58, OS_SIGNPOST_INTERVAL_BEGIN, v59, "processor_postprocess", "%{public}@", __p, 0xCu);
+    *(__p + 4) = v65;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v63, OS_SIGNPOST_INTERVAL_BEGIN, v64, "processor_postprocess", "%{public}@", __p, 0xCu);
   }
 
-  v61 = (*(*a16 + 280))(a16);
-  TimerBase::TimerBase(__p, v61, 0, "processor_postprocess", 0);
-  v75 = v69;
-  post_process(v68, [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1], a16);
-  _ZZZ65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error__EUb1_EN13SignpostTimerD1E_0v(__p);
-  __p[0] = v74;
+  v66 = (*(*a16 + 280))(a16);
+  TimerBase::TimerBase(__p, v66, 0, "processor_postprocess", 0);
+  v81 = v75;
+  post_process(v74, [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:1], a16);
+  _ZZZ65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error__EUb1_EN13SignpostTimerD1E_0v(__p, v67);
+  __p[0] = v80;
   std::vector<std::vector<IRect>>::__destroy_vector::operator()[abi:nn200100](__p);
-  objc_autoreleasePoolPop(v62);
+  objc_autoreleasePoolPop(v68);
 }
 
 + (id)applyWithExtents:(id)extents inputs:(id)inputs arguments:(id)arguments error:(id *)error
 {
-  v77[1] = *MEMORY[0x1E69E9840];
+  v78[1] = *MEMORY[0x1E69E9840];
   v9 = NSSelectorFromString(&cfstr_Processwithinp_0.isa);
   v10 = [self methodForSelector:v9];
   v11 = [CIImageProcessorKernel methodForSelector:v9];
@@ -482,8 +485,8 @@ void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block
   v13 = objc_opt_class();
   if (v10 == v11 || v12 == v13)
   {
-    v50 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"%s must be overridden in %@ class", "+[CIImageProcessorKernel applyWithExtents:inputs:arguments:error:]", NSStringFromClass(self)), 0}];
-    objc_exception_throw(v50);
+    v51 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"%s must be overridden in %@ class", "+[CIImageProcessorKernel applyWithExtents:inputs:arguments:error:]", NSStringFromClass(self)), 0}];
+    objc_exception_throw(v51);
   }
 
   v15 = [extents count];
@@ -491,25 +494,25 @@ void __65__CIImageProcessorKernel_applyWithExtent_inputs_arguments_error___block
   {
     if (v15 < 5)
     {
-      v51 = v15;
-      v59 = 0u;
+      v52 = v15;
       v60 = 0u;
-      v57 = 0u;
+      v61 = 0u;
       v58 = 0u;
-      v18 = [extents countByEnumeratingWithState:&v57 objects:v75 count:16];
+      v59 = 0u;
+      v18 = [extents countByEnumeratingWithState:&v58 objects:v76 count:16];
       if (v18)
       {
-        v19 = *v58;
+        v19 = *v59;
 LABEL_12:
         v20 = 0;
         while (1)
         {
-          if (*v58 != v19)
+          if (*v59 != v19)
           {
             objc_enumerationMutation(extents);
           }
 
-          v21 = *(*(&v57 + 1) + 8 * v20);
+          v21 = *(*(&v58 + 1) + 8 * v20);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0 || [v21 count] != 4)
           {
@@ -517,27 +520,27 @@ LABEL_12:
           }
 
           [v21 CGRectValue];
-          x = v78.origin.x;
-          y = v78.origin.y;
-          width = v78.size.width;
-          height = v78.size.height;
-          if (CGRectIsInfinite(v78) || (v79.origin.x = x, v79.origin.y = y, v79.size.width = width, v79.size.height = height, CGRectIsEmpty(v79)) || (v80.origin.x = x, v80.origin.y = y, v80.size.width = width, v80.size.height = height, CGRectIsEmpty(v80)))
+          x = v79.origin.x;
+          y = v79.origin.y;
+          width = v79.size.width;
+          height = v79.size.height;
+          if (CGRectIsInfinite(v79) || (v80.origin.x = x, v80.origin.y = y, v80.size.width = width, v80.size.height = height, CGRectIsEmpty(v80)) || (v81.origin.x = x, v81.origin.y = y, v81.size.width = width, v81.size.height = height, CGRectIsEmpty(v81)))
           {
             if (!error)
             {
               return 0;
             }
 
-            v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"extents objects must be finite, integral, and not empty."];
-            v71 = @"CINonLocalizedDescriptionKey";
-            v72 = v38;
-            v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:5 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v72, &v71, 1)}];
+            v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"extents objects must be finite, integral, and not empty."];
+            v72 = @"CINonLocalizedDescriptionKey";
+            v73 = v39;
+            v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:5 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v73, &v72, 1)}];
             goto LABEL_43;
           }
 
           if (v18 == ++v20)
           {
-            v18 = [extents countByEnumeratingWithState:&v57 objects:v75 count:16];
+            v18 = [extents countByEnumeratingWithState:&v58 objects:v76 count:16];
             if (v18)
             {
               goto LABEL_12;
@@ -552,16 +555,16 @@ LABEL_12:
           return 0;
         }
 
-        v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"extents objects must be CIVectors of length 4."];
-        v73 = @"CINonLocalizedDescriptionKey";
-        v74 = v39;
-        v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:5 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v74, &v73, 1)}];
+        v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"extents objects must be CIVectors of length 4."];
+        v74 = @"CINonLocalizedDescriptionKey";
+        v75 = v40;
+        v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:5 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v75, &v74, 1)}];
         goto LABEL_43;
       }
 
 LABEL_22:
       array = [MEMORY[0x1E695DF70] array];
-      v27 = v51;
+      v27 = v52;
       do
       {
         [array addObject:{+[CIImage emptyImage](CIImage, "emptyImage")}];
@@ -571,44 +574,44 @@ LABEL_22:
       while (v27);
       if (![self _digestForArgs:arguments])
       {
-        v28 = ci_logger_performance();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = ci_logger_performance(0, v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = NSStringFromClass(self);
+          v30 = NSStringFromClass(self);
           *buf = 136446466;
           *&buf[4] = "+[CIImageProcessorKernel applyWithExtents:inputs:arguments:error:]";
           *&buf[12] = 2114;
-          *&buf[14] = v29;
-          _os_log_impl(&dword_19CC36000, v28, OS_LOG_TYPE_DEFAULT, "%{public}s each object in arguments dictionary be an NSArray, NSDictionary, NSNumber, NSValue, NSData, NSString, NSNull, CIVector, CIColor, CIImage, CGImageRef or CGColorSpaceRef for CoreImage to cache optimally (%{public}@).", buf, 0x16u);
+          *&buf[14] = v30;
+          _os_log_impl(&dword_19CC36000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s each object in arguments dictionary be an NSArray, NSDictionary, NSNumber, NSValue, NSData, NSString, NSNull, CIVector, CIColor, CIImage, CGImageRef or CGColorSpaceRef for CoreImage to cache optimally (%{public}@).", buf, 0x16u);
         }
       }
 
-      v30 = [inputs count];
-      if (!v30)
+      v31 = [inputs count];
+      if (!v31)
       {
-        v40 = 0;
-        v68[0] = 0;
-        v68[1] = 0;
-        v66 = 0u;
+        v41 = 0;
+        v69[0] = 0;
+        v69[1] = 0;
         v67 = 0u;
-        v64 = 0u;
+        v68 = 0u;
         v65 = 0u;
-        v62 = 0u;
+        v66 = 0u;
         v63 = 0u;
+        v64 = 0u;
         memset(buf, 0, sizeof(buf));
-        v41 = &buf[16];
-        v56 = 0;
+        v42 = &buf[16];
+        v57 = 0;
         do
         {
-          [objc_msgSend(extents objectAtIndexedSubscript:{v40), "CGRectValue"}];
-          *(v41 - 2) = v42;
-          *(v41 - 1) = v43;
-          *v41 = v44;
-          *(v41 + 1) = v45;
-          *(&v56 + v40 + 4) = [self allowSRGBTranferFuntionOnOutput];
-          v46 = [self outputFormatAtIndex:v40 arguments:arguments];
-          *(v68 + v40) = v46;
-          if (CI::format_has_alpha(v46))
+          [objc_msgSend(extents objectAtIndexedSubscript:{v41), "CGRectValue"}];
+          *(v42 - 2) = v43;
+          *(v42 - 1) = v44;
+          *v42 = v45;
+          *(v42 + 1) = v46;
+          *(&v57 + v41 + 4) = [self allowSRGBTranferFuntionOnOutput];
+          v47 = [self outputFormatAtIndex:v41 arguments:arguments];
+          *(v69 + v41) = v47;
+          if (CI::format_has_alpha(v47))
           {
             outputIsOpaque = [self outputIsOpaque];
           }
@@ -618,11 +621,11 @@ LABEL_22:
             outputIsOpaque = 1;
           }
 
-          *(&v56 + v40++) = outputIsOpaque;
-          v41 += 32;
+          *(&v57 + v41++) = outputIsOpaque;
+          v42 += 32;
         }
 
-        while ((v51 & 7) != v40);
+        while ((v52 & 7) != v41);
         [self logDescription:arguments];
         [objc_opt_class() methodForSelector:sel_roiTileArrayForInput_arguments_outputRect_];
         [CIImageProcessorKernel methodForSelector:sel_roiTileArrayForInput_arguments_outputRect_];
@@ -630,31 +633,31 @@ LABEL_22:
         operator new();
       }
 
-      v53 = malloc_type_calloc(4uLL, v30, 0x100004052888210uLL);
-      v54 = malloc_type_calloc(1uLL, v30, 0x100004077774924uLL);
-      v31 = 0;
+      v54 = malloc_type_calloc(4uLL, v31, 0x100004052888210uLL);
+      v55 = malloc_type_calloc(1uLL, v31, 0x100004077774924uLL);
       v32 = 0;
+      v33 = 0;
       while (1)
       {
-        v33 = [self _call_formatForInputAtIndex:v32 arguments:arguments];
-        v35 = CI::format_modernize(v33, "+[CIImageProcessorKernel applyWithExtents:inputs:arguments:error:]", v34);
-        v53[v31] = v35;
+        v34 = [self _call_formatForInputAtIndex:v33 arguments:arguments];
+        v36 = CI::format_modernize(v34, "+[CIImageProcessorKernel applyWithExtents:inputs:arguments:error:]", v35);
+        v54[v32] = v36;
         skipFormatChecks = [self skipFormatChecks];
-        v37 = v35 ? skipFormatChecks : 1;
-        if ((v37 & 1) == 0 && (CI::ProcessorImage::format_is_supported(v35, 1) & 1) == 0)
+        v38 = v36 ? skipFormatChecks : 1;
+        if ((v38 & 1) == 0 && (CI::ProcessorImage::format_is_supported(v36, 1) & 1) == 0)
         {
           break;
         }
 
-        v54[v31] = 0;
-        if (!v35 || v35 == 266)
+        v55[v32] = 0;
+        if (!v36 || v36 == 266)
         {
-          v54[v31] = [self allowSRGBTranferFuntionOnInputAtIndex:v32];
+          v55[v32] = [self allowSRGBTranferFuntionOnInputAtIndex:v33];
         }
 
-        v31 = (v32 + 1);
-        v32 = v31;
-        if (v30 <= v31)
+        v32 = (v33 + 1);
+        v33 = v32;
+        if (v31 <= v32)
         {
           operator new();
         }
@@ -662,24 +665,24 @@ LABEL_22:
 
       if (error)
       {
-        v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"inputFormat for image %d must be 0, %s.", v32, "R8, Rh, Rf, BGRA8, RGBAh, RGBAf"];
-        v69 = @"CINonLocalizedDescriptionKey";
-        v70 = v48;
-        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:3 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v70, &v69, 1)}];
+        v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"inputFormat for image %d must be 0, %s.", v33, "R8, Rh, Rf, BGRA8, RGBAh, RGBAf"];
+        v70 = @"CINonLocalizedDescriptionKey";
+        v71 = v49;
+        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:3 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v71, &v70, 1)}];
       }
 
-      free(v53);
-      if (v54)
+      free(v54);
+      if (v55)
       {
-        free(v54);
+        free(v55);
       }
     }
 
     else if (error)
     {
-      v76 = @"CINonLocalizedDescriptionKey";
-      v77[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"The number of extents is too large."];
-      v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:4 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v77, &v76, 1)}];
+      v77 = @"CINonLocalizedDescriptionKey";
+      v78[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"The number of extents is too large."];
+      v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIImageProcessorKernel" code:4 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v78, &v77, 1)}];
 LABEL_43:
       v17 = 0;
       *error = v16;
@@ -712,9 +715,9 @@ void __66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error___bloc
   objc_autoreleasePoolPop(v14);
 }
 
-void __66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, int a7, uint64_t *a8, uint64_t *a9, uint64_t a10, double *a11, unsigned __int8 *a12, int a13, void *a14, CI::TileTask *a15)
+void __66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, unsigned int a7, uint64_t *a8, uint64_t *a9, uint64_t a10, double *a11, unsigned __int8 *a12, int a13, void *a14, CI::TileTask *a15)
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:a7];
   if (a7 >= 1)
@@ -751,7 +754,7 @@ void __66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error___bloc
     v31 = *(a1 + 64);
   }
 
-  std::vector<std::vector<IRect>>::vector[abi:nn200100](v84, v31);
+  std::vector<std::vector<IRect>>::vector[abi:nn200100](v90, v31);
   v32 = a1;
   if (*(a1 + 64))
   {
@@ -760,8 +763,8 @@ void __66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error___bloc
     do
     {
       (*(*(a1 + 56) + 16))(__p, *a11, a11[1], a11[2], a11[3]);
-      v35 = (v84[0] + v33);
-      v36 = *(v84[0] + v33);
+      v35 = (v90[0] + v33);
+      v36 = *(v90[0] + v33);
       if (v36)
       {
         v35[1] = v36;
@@ -772,7 +775,7 @@ void __66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error___bloc
       }
 
       *v35 = *__p;
-      v35[2] = v86;
+      v35[2] = v92;
       ++v34;
       v37 = *(a1 + 64);
       v33 += 24;
@@ -786,175 +789,178 @@ void __66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error___bloc
     v37 = 0;
   }
 
-  v39 = *v84[0];
-  v38 = *(v84[0] + 8);
-  v77 = [MEMORY[0x1E695DF70] arrayWithCapacity:v37];
+  v39 = *v90[0];
+  v38 = *(v90[0] + 8);
+  v40 = [MEMORY[0x1E695DF70] arrayWithCapacity:v37];
+  v83 = v40;
   if (*(a1 + 64))
   {
-    v40 = 0;
-    v71 = (v38 - v39) >> 5;
-    v41 = 1;
-    v78 = v17;
+    v42 = 0;
+    v77 = (v38 - v39) >> 5;
+    v43 = 1;
+    v84 = v17;
     do
     {
-      std::vector<CGRect>::vector[abi:nn200100](__p, (v84[0] + 24 * v40));
-      v88 = CGRectInset(*(__p[0] + a13), 0.001, 0.001);
-      v89 = CGRectIntegral(v88);
-      x = v89.origin.x;
-      y = v89.origin.y;
-      width = v89.size.width;
-      height = v89.size.height;
-      if (CGRectIsNull(v89))
-      {
-        v46 = 0;
-        v47 = 0;
-        v48 = 0x7FFFFFFF;
-        v49 = 0x7FFFFFFF;
-      }
-
-      else
-      {
-        v90.origin.x = x;
-        v90.origin.y = y;
-        v90.size.width = width;
-        v90.size.height = height;
-        if (CGRectIsInfinite(v90))
-        {
-          v48 = -2147483647;
-          v46 = 0xFFFFFFFFLL;
-          v47 = 0xFFFFFFFFLL;
-          v49 = -2147483647;
-        }
-
-        else
-        {
-          v91.origin.x = x;
-          v91.origin.y = y;
-          v91.size.width = width;
-          v91.size.height = height;
-          v92 = CGRectInset(v91, 0.000001, 0.000001);
-          v93 = CGRectIntegral(v92);
-          v49 = v93.origin.x;
-          v48 = v93.origin.y;
-          v47 = v93.size.width;
-          v46 = v93.size.height;
-        }
-      }
-
-      v94 = CGRectInset(*(*a5 + 32 * v40), 0.001, 0.001);
+      std::vector<CGRect>::vector[abi:nn200100](__p, (v90[0] + 24 * v42));
+      v94 = CGRectInset(*(__p[0] + a13), 0.001, 0.001);
       v95 = CGRectIntegral(v94);
-      v50 = v95.origin.x;
-      v51 = v95.origin.y;
-      v52 = v95.size.width;
-      v53 = v95.size.height;
+      x = v95.origin.x;
+      y = v95.origin.y;
+      width = v95.size.width;
+      height = v95.size.height;
       if (CGRectIsNull(v95))
       {
-        v54 = 0;
-        v55 = 0;
-        v56 = 0x7FFFFFFF;
-        v57 = 0x7FFFFFFF;
+        v48 = 0;
+        v49 = 0;
+        v50 = 0x7FFFFFFF;
+        v51 = 0x7FFFFFFF;
       }
 
       else
       {
-        v96.origin.x = v50;
-        v96.origin.y = v51;
-        v96.size.width = v52;
-        v96.size.height = v53;
+        v96.origin.x = x;
+        v96.origin.y = y;
+        v96.size.width = width;
+        v96.size.height = height;
         if (CGRectIsInfinite(v96))
         {
-          v56 = -2147483647;
-          v54 = 0xFFFFFFFFLL;
-          v55 = 0xFFFFFFFFLL;
-          v57 = -2147483647;
+          v50 = -2147483647;
+          v48 = 0xFFFFFFFFLL;
+          v49 = 0xFFFFFFFFLL;
+          v51 = -2147483647;
         }
 
         else
         {
-          v97.origin.x = v50;
-          v97.origin.y = v51;
-          v97.size.width = v52;
-          v97.size.height = v53;
+          v97.origin.x = x;
+          v97.origin.y = y;
+          v97.size.width = width;
+          v97.size.height = height;
           v98 = CGRectInset(v97, 0.000001, 0.000001);
           v99 = CGRectIntegral(v98);
-          v57 = v99.origin.x;
-          v56 = v99.origin.y;
-          v55 = v99.size.width;
-          v54 = v99.size.height;
+          v51 = v99.origin.x;
+          v50 = v99.origin.y;
+          v49 = v99.size.width;
+          v48 = v99.size.height;
         }
       }
 
-      v58 = [v78 objectAtIndexedSubscript:v40];
-      cf[0] = __PAIR64__(v48, v49);
-      cf[1] = v47;
-      cf[2] = v46;
-      v80[0] = v57;
-      v80[1] = v56;
-      v81 = v55;
-      v82 = v54;
-      if (v49 == v57 && v48 == v56 && v47 == v55 && v46 == v54)
+      v100 = CGRectInset(*(*a5 + 32 * v42), 0.001, 0.001);
+      v101 = CGRectIntegral(v100);
+      v52 = v101.origin.x;
+      v53 = v101.origin.y;
+      v54 = v101.size.width;
+      v55 = v101.size.height;
+      if (CGRectIsNull(v101))
       {
-        v59 = 0;
-        v60 = a1;
+        v56 = 0;
+        v57 = 0;
+        v58 = 0x7FFFFFFF;
+        v59 = 0x7FFFFFFF;
       }
 
       else
       {
-        v60 = a1;
-        v59 = *(a1 + 73);
+        v102.origin.x = v52;
+        v102.origin.y = v53;
+        v102.size.width = v54;
+        v102.size.height = v55;
+        if (CGRectIsInfinite(v102))
+        {
+          v58 = -2147483647;
+          v56 = 0xFFFFFFFFLL;
+          v57 = 0xFFFFFFFFLL;
+          v59 = -2147483647;
+        }
+
+        else
+        {
+          v103.origin.x = v52;
+          v103.origin.y = v53;
+          v103.size.width = v54;
+          v103.size.height = v55;
+          v104 = CGRectInset(v103, 0.000001, 0.000001);
+          v105 = CGRectIntegral(v104);
+          v59 = v105.origin.x;
+          v58 = v105.origin.y;
+          v57 = v105.size.width;
+          v56 = v105.size.height;
+        }
       }
 
-      [v77 addObject:{createTileInput(v58, a13, v71, cf, v80, *(*a2 + 8 * v40), *(*a3 + 8 * v40), *(*a4 + 8 * v40), (*(*a6 + ((v40 >> 3) & 0x1FFFFFFFFFFFFFF8)) & (1 << v40)) != 0, *(v60 + 72), a14, v59 & 1)}];
+      v60 = [v84 objectAtIndexedSubscript:v42];
+      cf[0] = __PAIR64__(v50, v51);
+      cf[1] = v49;
+      cf[2] = v48;
+      v86[0] = v59;
+      v86[1] = v58;
+      v87 = v57;
+      v88 = v56;
+      if (v51 == v59 && v50 == v58 && v49 == v57 && v48 == v56)
+      {
+        v61 = 0;
+        v62 = a1;
+      }
+
+      else
+      {
+        v62 = a1;
+        v61 = *(a1 + 73);
+      }
+
+      [v83 addObject:{createTileInput(v60, a13, v77, cf, v86, *(*a2 + 8 * v42), *(*a3 + 8 * v42), *(*a4 + 8 * v42), (*(*a6 + ((v42 >> 3) & 0x1FFFFFFFFFFFFFF8)) & (1 << v42)) != 0, *(v62 + 72), a14, v61 & 1)}];
+      v40 = __p[0];
       if (__p[0])
       {
         __p[1] = __p[0];
         operator delete(__p[0]);
       }
 
-      v40 = v41;
+      v42 = v43;
       v32 = a1;
-      v61 = *(a1 + 64) > v41++;
-      v17 = v78;
+      v63 = *(a1 + 64) > v43++;
+      v17 = v84;
     }
 
-    while (v61);
+    while (v63);
   }
 
-  v62 = ci_signpost_log_render();
-  v63 = (*(*a14 + 280))(a14) << 32;
-  if (v63 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v62))
+  v64 = ci_signpost_log_render(v40, v41);
+  v65 = (*(*a14 + 280))(a14) << 32;
+  if (v65 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
   {
-    v64 = *(v32 + 32);
+    v66 = *(v32 + 32);
     LODWORD(__p[0]) = 138543362;
-    *(__p + 4) = v64;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v62, OS_SIGNPOST_INTERVAL_BEGIN, v63, "processor_process", "%{public}@", __p, 0xCu);
+    *(__p + 4) = v66;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v64, OS_SIGNPOST_INTERVAL_BEGIN, v65, "processor_process", "%{public}@", __p, 0xCu);
   }
 
-  v65 = (*(*a14 + 280))(a14);
-  TimerBase::TimerBase(__p, v65, 0, "processor_process", 0);
+  v67 = (*(*a14 + 280))(a14);
+  TimerBase::TimerBase(__p, v67, 0, "processor_process", 0);
   cf[0] = 0;
-  [objc_opt_class() processWithInputs:v77 arguments:*(v32 + 48) outputs:v17 error:cf];
+  [objc_opt_class() processWithInputs:v83 arguments:*(v32 + 48) outputs:v17 error:cf];
+  v68 = cf[0];
   if (cf[0])
   {
     CI::TileTask::setCommandBufferError(a15, cf[0]);
   }
 
-  _ZZZ66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error__EUb2_EN13SignpostTimerD1Ev(__p);
-  v66 = ci_signpost_log_render();
-  v67 = (*(*a14 + 280))(a14) << 32;
-  if (v67 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v66))
+  _ZZZ66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error__EUb2_EN13SignpostTimerD1Ev(__p, v68);
+  v71 = ci_signpost_log_render(v69, v70);
+  v72 = (*(*a14 + 280))(a14) << 32;
+  if (v72 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v71))
   {
-    v68 = *(v32 + 32);
+    v73 = *(v32 + 32);
     LODWORD(__p[0]) = 138543362;
-    *(__p + 4) = v68;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v66, OS_SIGNPOST_INTERVAL_BEGIN, v67, "processor_postprocess", "%{public}@", __p, 0xCu);
+    *(__p + 4) = v73;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v71, OS_SIGNPOST_INTERVAL_BEGIN, v72, "processor_postprocess", "%{public}@", __p, 0xCu);
   }
 
-  v69 = (*(*a14 + 280))(a14);
-  TimerBase::TimerBase(__p, v69, 0, "processor_postprocess", 0);
-  post_process(v77, v17, a14);
-  _ZZZ66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error__EUb2_EN13SignpostTimerD1E_0v(__p);
-  __p[0] = v84;
+  v74 = (*(*a14 + 280))(a14);
+  TimerBase::TimerBase(__p, v74, 0, "processor_postprocess", 0);
+  post_process(v83, v17, a14);
+  _ZZZ66__CIImageProcessorKernel_applyWithExtents_inputs_arguments_error__EUb2_EN13SignpostTimerD1E_0v(__p, v75);
+  __p[0] = v90;
   std::vector<std::vector<IRect>>::__destroy_vector::operator()[abi:nn200100](__p);
   objc_autoreleasePoolPop(context);
 }

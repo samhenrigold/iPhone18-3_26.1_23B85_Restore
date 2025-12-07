@@ -30,38 +30,39 @@
     v3 = [(PDCFileBackedConsentStore *)self consentRecordURLForBundleIdentifier:?];
     if (v3)
     {
-      v9 = 0;
-      v4 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v3 encoding:4 error:&v9];
-      v5 = v9;
+      v11 = 0;
+      v4 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v3 encoding:4 error:&v11];
+      v5 = v11;
+      v7 = v5;
       if (v5)
       {
-        v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v8 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v5, v6);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [(PDCFileBackedConsentStore *)v3 userConsentedRegulatoryDisclosureVersionForBundleIdentifier:v6];
+          [(PDCFileBackedConsentStore *)v3 userConsentedRegulatoryDisclosureVersionForBundleIdentifier:v8];
         }
 
-        v7 = 0;
+        v9 = 0;
       }
 
       else
       {
-        v7 = v4;
+        v9 = v4;
       }
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)writeUserConsentedRegulatoryDisclosureVersion:(id)version forBundleIdentifier:(id)identifier
@@ -124,11 +125,10 @@ LABEL_9:
 
 - (void)userConsentedRegulatoryDisclosureVersionForBundleIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Failed to read authorization record at %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25F701000, a2, OS_LOG_TYPE_ERROR, "Failed to read authorization record at %@", &v2, 0xCu);
 }
 
 @end

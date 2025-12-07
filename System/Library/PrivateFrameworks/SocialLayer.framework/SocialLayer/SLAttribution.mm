@@ -223,19 +223,19 @@ LABEL_47:
 
               if (v54)
               {
-                v56 = v54;
+                v57 = v54;
                 collaborationMetadata = v7->_collaborationMetadata;
-                v7->_collaborationMetadata = v56;
+                v7->_collaborationMetadata = v57;
               }
 
               else
               {
-                collaborationMetadata = SLFrameworkLogHandle();
+                collaborationMetadata = SLFrameworkLogHandle(v56);
                 if (os_log_type_enabled(collaborationMetadata, OS_LOG_TYPE_INFO))
                 {
-                  v61 = [v55 description];
+                  v62 = [v55 description];
                   *buf = 138412290;
-                  v77 = v61;
+                  v77 = v62;
                   _os_log_impl(&dword_231772000, collaborationMetadata, OS_LOG_TYPE_INFO, "Failed to unarchive Collaboration Metadata: %@", buf, 0xCu);
                 }
               }
@@ -247,12 +247,12 @@ LABEL_47:
           if (errorCopy)
           {
             v67 = v41;
-            v58 = [objc_opt_class() errorForAttributionDomain:@"com.apple.SocialLayer.SLAttributionErrorDomain" andCode:5 andUnderlyingError:&v67];
-            v59 = v67;
+            v59 = [objc_opt_class() errorForAttributionDomain:@"com.apple.SocialLayer.SLAttributionErrorDomain" andCode:5 andUnderlyingError:&v67];
+            v60 = v67;
 
-            v60 = v58;
-            *errorCopy = v58;
-            v41 = v59;
+            v61 = v59;
+            *errorCopy = v59;
+            v41 = v60;
           }
 
 LABEL_25:
@@ -303,34 +303,33 @@ LABEL_28:
   *error = v37 = 0;
 LABEL_48:
 
-  v62 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
 - (id)portraitAttribution
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   relatedPersons = [(SLAttribution *)self relatedPersons];
-  v5 = [relatedPersons countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v5 = [relatedPersons countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v31;
+    v7 = *v30;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(relatedPersons);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         v10 = objc_alloc(MEMORY[0x277D3A4D0]);
         handle = [v9 handle];
         displayName = [v9 displayName];
@@ -338,7 +337,7 @@ LABEL_48:
         [v3 addObject:v13];
       }
 
-      v6 = [relatedPersons countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v6 = [relatedPersons countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v6);
@@ -360,17 +359,15 @@ LABEL_48:
   timestamp = [(SLAttribution *)self timestamp];
   v27 = [v20 initWithIdentifier:uniqueIdentifier sourceAppDisplayName:sourceAppDisplayName conversationIdentifier:conversationIdentifier groupPhotoPath:groupPhotoPath groupDisplayName:groupDisplayName relatedPeople:v3 sender:v19 timestamp:timestamp];
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 - (SLAttribution)initWithCSSearchableItem:(id)item error:(id *)error
 {
   itemCopy = item;
-  v68.receiver = self;
-  v68.super_class = SLAttribution;
-  v7 = [(SLAttribution *)&v68 init];
+  v69.receiver = self;
+  v69.super_class = SLAttribution;
+  v7 = [(SLAttribution *)&v69 init];
   if (!v7)
   {
     goto LABEL_71;
@@ -385,8 +382,8 @@ LABEL_48:
 
   if ((v12 & 1) == 0 && (v10 & 1) == 0)
   {
-    v13 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = SLFrameworkLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SLAttribution initWithCSSearchableItem:itemCopy error:?];
     }
@@ -404,7 +401,7 @@ LABEL_48:
   {
     objc_storeStrong(&v7->_sourceAppDisplayName, bundleID);
     attributeSet2 = [itemCopy attributeSet];
-    v16 = attributeSet2;
+    v17 = attributeSet2;
     if (v10)
     {
       uniqueIdentifier = [attributeSet2 uniqueIdentifier];
@@ -414,7 +411,7 @@ LABEL_48:
     else if (v12)
     {
       uniqueIdentifier = [attributeSet2 ownerIdentifier];
-      uniqueIdentifier2 = [v16 uniqueIdentifier];
+      uniqueIdentifier2 = [v17 uniqueIdentifier];
     }
 
     else
@@ -426,36 +423,36 @@ LABEL_48:
     if ([uniqueIdentifier length])
     {
       objc_storeStrong(&v7->_uniqueIdentifier, uniqueIdentifier);
-      v67 = uniqueIdentifier2;
+      v68 = uniqueIdentifier2;
       if ([uniqueIdentifier2 length])
       {
-        v19 = uniqueIdentifier2;
+        v20 = uniqueIdentifier2;
         attachmentGUID = v7->_attachmentGUID;
-        v7->_attachmentGUID = v19;
+        v7->_attachmentGUID = v20;
       }
 
       else
       {
-        attachmentGUID = SLFrameworkLogHandle();
+        attachmentGUID = SLFrameworkLogHandle(0);
         if (os_log_type_enabled(attachmentGUID, OS_LOG_TYPE_DEBUG))
         {
           [SLAttribution initWithCSSearchableItem:error:];
         }
       }
 
-      v64 = uniqueIdentifier;
+      v65 = uniqueIdentifier;
       if (v10)
       {
-        domainIdentifier2 = [v16 domainIdentifier];
-        v22 = v67;
+        domainIdentifier2 = [v17 domainIdentifier];
+        v23 = v68;
       }
 
       else
       {
-        v22 = v67;
+        v23 = v68;
         if (v12)
         {
-          domainIdentifier2 = [v16 accountIdentifier];
+          domainIdentifier2 = [v17 accountIdentifier];
         }
 
         else
@@ -467,7 +464,7 @@ LABEL_48:
       if ([domainIdentifier2 length])
       {
         objc_storeStrong(&v7->_conversationIdentifier, domainIdentifier2);
-        groupPhotoPath = [v16 groupPhotoPath];
+        groupPhotoPath = [v17 groupPhotoPath];
         if (groupPhotoPath)
         {
           groupPhotoPath = groupPhotoPath;
@@ -475,7 +472,7 @@ LABEL_48:
 
         else
         {
-          customAttributeDictionary = [v16 customAttributeDictionary];
+          customAttributeDictionary = [v17 customAttributeDictionary];
           groupPhotoPath = [customAttributeDictionary objectForKey:@"com_apple_mobilesms_groupPhotoPath"];
 
           if (!groupPhotoPath)
@@ -484,126 +481,126 @@ LABEL_48:
             v7->_groupPhotoPath = 0;
 LABEL_41:
 
-            displayName = [v16 displayName];
+            displayName = [v17 displayName];
             if (!displayName)
             {
-              alternateNames = [v16 alternateNames];
+              alternateNames = [v17 alternateNames];
               displayName = [alternateNames firstObject];
             }
 
-            v62 = domainIdentifier2;
+            v63 = domainIdentifier2;
             objc_storeStrong(&v7->_groupDisplayName, displayName);
-            customAttributeDictionary2 = [v16 customAttributeDictionary];
-            v32 = [customAttributeDictionary2 objectForKey:@"gid"];
+            customAttributeDictionary2 = [v17 customAttributeDictionary];
+            v33 = [customAttributeDictionary2 objectForKey:@"gid"];
 
-            if (v32)
+            if (v33)
             {
-              v33 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v32];
+              v34 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v33];
               groupID = v7->_groupID;
-              v7->_groupID = v33;
+              v7->_groupID = v34;
             }
 
-            v61 = v32;
+            v62 = v33;
             obj = [MEMORY[0x277CBEB18] array];
-            authorNames = [v16 authorNames];
+            authorNames = [v17 authorNames];
             firstObject = [authorNames firstObject];
 
-            authorAddresses = [v16 authorAddresses];
+            authorAddresses = [v17 authorAddresses];
             firstObject2 = [authorAddresses firstObject];
 
-            v63 = firstObject2;
-            v60 = firstObject;
+            v64 = firstObject2;
+            v61 = firstObject;
             if (!firstObject2)
             {
               if (error)
               {
                 [objc_opt_class() errorForAttributionDomain:@"com.apple.SocialLayer.SLAttributionErrorDomain" andCode:5 andUnderlyingError:0];
-                *error = v54 = 0;
+                *error = v55 = 0;
               }
 
               else
               {
-                v54 = 0;
+                v55 = 0;
               }
 
-              v55 = v64;
-              v56 = v62;
-              v51 = obj;
+              v56 = v65;
+              v57 = v63;
+              v52 = obj;
 LABEL_70:
 
-              if (!v54)
+              if (!v55)
               {
                 goto LABEL_38;
               }
 
 LABEL_71:
-              v25 = v7;
+              v26 = v7;
               goto LABEL_72;
             }
 
-            v58 = displayName;
-            v59 = bundleID;
-            v39 = firstObject;
-            if (!v39)
+            v59 = displayName;
+            v60 = bundleID;
+            v40 = firstObject;
+            if (!v40)
             {
-              v40 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+              v41 = SLFrameworkLogHandle(0);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
               {
                 [SLAttribution initWithCSSearchableItem:error:];
               }
 
-              v39 = firstObject2;
+              v40 = firstObject2;
             }
 
-            v41 = [[SLPerson alloc] initWithHandle:firstObject2 displayName:v39];
+            v42 = [[SLPerson alloc] initWithHandle:firstObject2 displayName:v40];
             sender = v7->_sender;
-            v7->_sender = v41;
-            v43 = v41;
+            v7->_sender = v42;
+            v44 = v42;
 
-            [obj addObject:v43];
-            recipientNames = [v16 recipientNames];
-            recipientAddresses = [v16 recipientAddresses];
+            [obj addObject:v44];
+            recipientNames = [v17 recipientNames];
+            recipientAddresses = [v17 recipientAddresses];
             if (recipientNames && recipientAddresses)
             {
-              v45 = [recipientNames count];
-              if (v45 != [recipientAddresses count])
+              v46 = [recipientNames count];
+              if (v46 != [recipientAddresses count])
               {
 LABEL_65:
                 if (error)
                 {
                   [objc_opt_class() errorForAttributionDomain:@"com.apple.SocialLayer.SLAttributionErrorDomain" andCode:6 andUnderlyingError:0];
-                  *error = v54 = 0;
+                  *error = v55 = 0;
                 }
 
                 else
                 {
-                  v54 = 0;
+                  v55 = 0;
                 }
 
-                displayName = v58;
-                bundleID = v59;
-                v55 = v64;
-                v51 = obj;
+                displayName = v59;
+                bundleID = v60;
+                v56 = v65;
+                v52 = obj;
                 goto LABEL_69;
               }
 
               if ([recipientNames count])
               {
-                v46 = 0;
+                v47 = 0;
                 while (1)
                 {
-                  v47 = [recipientNames objectAtIndexedSubscript:{v46, v58, v59, v60}];
-                  v48 = [recipientAddresses objectAtIndexedSubscript:v46];
-                  v49 = v48;
-                  if (!v47 || !v48)
+                  v48 = [recipientNames objectAtIndexedSubscript:{v47, v59, v60, v61}];
+                  v49 = [recipientAddresses objectAtIndexedSubscript:v47];
+                  v50 = v49;
+                  if (!v48 || !v49)
                   {
                     break;
                   }
 
-                  v50 = [[SLPerson alloc] initWithHandle:v48 displayName:v47];
-                  [obj addObject:v50];
+                  v51 = [[SLPerson alloc] initWithHandle:v49 displayName:v48];
+                  [obj addObject:v51];
 
-                  if ([recipientNames count] <= ++v46)
+                  if ([recipientNames count] <= ++v47)
                   {
                     goto LABEL_58;
                   }
@@ -614,28 +611,28 @@ LABEL_65:
             }
 
 LABEL_58:
-            v51 = obj;
+            v52 = obj;
             objc_storeStrong(&v7->_relatedPersons, obj);
             v7->_isGroupConversation = [(NSArray *)v7->_relatedPersons count]> 2;
             v7->_lean = 0;
-            contentCreationDate = [v16 contentCreationDate];
+            contentCreationDate = [v17 contentCreationDate];
             timestamp = v7->_timestamp;
             v7->_timestamp = contentCreationDate;
 
-            v54 = 1;
-            displayName = v58;
-            bundleID = v59;
-            v55 = v64;
+            v55 = 1;
+            displayName = v59;
+            bundleID = v60;
+            v56 = v65;
 LABEL_69:
 
-            v56 = v62;
+            v57 = v63;
             goto LABEL_70;
           }
         }
 
-        v27 = [MEMORY[0x277CBEBC0] fileURLWithPath:groupPhotoPath];
-        v28 = v7->_groupPhotoPath;
-        v7->_groupPhotoPath = v27;
+        v28 = [MEMORY[0x277CBEBC0] fileURLWithPath:groupPhotoPath];
+        v29 = v7->_groupPhotoPath;
+        v7->_groupPhotoPath = v28;
 
         goto LABEL_41;
       }
@@ -662,19 +659,19 @@ LABEL_69:
 
 LABEL_37:
 LABEL_38:
-  v25 = 0;
+  v26 = 0;
 LABEL_72:
 
-  return v25;
+  return v26;
 }
 
 - (SLAttribution)initWithDictionary:(id)dictionary
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v51.receiver = self;
-  v51.super_class = SLAttribution;
-  v5 = [(SLAttribution *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = SLAttribution;
+  v5 = [(SLAttribution *)&v50 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -683,7 +680,7 @@ LABEL_72:
   v6 = [dictionaryCopy objectForKey:@"uid"];
   if (![v6 length])
   {
-    v9 = SLFrameworkLogHandle();
+    v9 = SLFrameworkLogHandle(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SLAttribution initWithDictionary:];
@@ -708,7 +705,7 @@ LABEL_72:
 
     else
     {
-      attachmentGUID = SLFrameworkLogHandle();
+      attachmentGUID = SLFrameworkLogHandle(0);
       if (os_log_type_enabled(attachmentGUID, OS_LOG_TYPE_DEBUG))
       {
         [SLAttribution initWithDictionary:];
@@ -724,10 +721,10 @@ LABEL_72:
       {
         objc_storeStrong(&v5->_conversationIdentifier, v13);
         v14 = [dictionaryCopy objectForKey:@"gp"];
-        v45 = v9;
-        v46 = v6;
-        v44 = v13;
-        v43 = v14;
+        v44 = v9;
+        v45 = v6;
+        v43 = v13;
+        v42 = v14;
         if (v14)
         {
           v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14];
@@ -742,36 +739,36 @@ LABEL_72:
 
         v18 = [dictionaryCopy objectForKey:@"rp"];
         v19 = objc_opt_new();
+        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v50 = 0u;
         v20 = v18;
-        v21 = [v20 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v46 objects:v51 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v48;
+          v23 = *v47;
           while (2)
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v48 != v23)
+              if (*v47 != v23)
               {
                 objc_enumerationMutation(v20);
               }
 
-              v25 = [[SLPerson alloc] initWithDictionary:*(*(&v47 + 1) + 8 * i)];
+              v25 = [[SLPerson alloc] initWithDictionary:*(*(&v46 + 1) + 8 * i)];
               if (!v25)
               {
-                v39 = SLFrameworkLogHandle();
+                v39 = SLFrameworkLogHandle(0);
                 if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                 {
                   [SLAttribution initWithDictionary:];
                 }
 
-                v9 = v45;
-                v6 = v46;
+                v9 = v44;
+                v6 = v45;
                 goto LABEL_35;
               }
 
@@ -779,7 +776,7 @@ LABEL_72:
               [v19 addObject:v25];
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v47 objects:v52 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v46 objects:v51 count:16];
             if (v22)
             {
               continue;
@@ -814,21 +811,21 @@ LABEL_72:
           v5->_groupID = uUID;
 
           v38 = v12;
-          v37 = v45;
+          v37 = v44;
         }
 
         else
         {
-          v34 = SLFrameworkLogHandle();
+          v34 = SLFrameworkLogHandle(0);
           v38 = v12;
-          v37 = v45;
+          v37 = v44;
           if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             [SLAttribution initWithDictionary:];
           }
         }
 
-        v6 = v46;
+        v6 = v45;
         if (v28)
         {
           goto LABEL_4;
@@ -840,7 +837,7 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      v40 = SLFrameworkLogHandle();
+      v40 = SLFrameworkLogHandle(0);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         [SLAttribution initWithDictionary:];
@@ -849,7 +846,7 @@ LABEL_36:
 
     else
     {
-      v13 = SLFrameworkLogHandle();
+      v13 = SLFrameworkLogHandle(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SLAttribution initWithDictionary:];
@@ -866,20 +863,19 @@ LABEL_5:
   v8 = v5;
 LABEL_37:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)dictionaryRepresentation
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   uniqueIdentifier = [(SLAttribution *)self uniqueIdentifier];
 
   if (!uniqueIdentifier)
   {
-    v8 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLFrameworkLogHandle(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SLAttribution dictionaryRepresentation];
     }
@@ -890,13 +886,13 @@ LABEL_37:
   uniqueIdentifier2 = [(SLAttribution *)self uniqueIdentifier];
   [dictionary setObject:uniqueIdentifier2 forKey:@"uid"];
 
-  v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[SLAttribution isLean](self, "isLean")}];
-  [dictionary setObject:v6 forKey:@"l"];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[SLAttribution isLean](self, "isLean")}];
+  [dictionary setObject:v7 forKey:@"l"];
 
   if ([(SLAttribution *)self isLean])
   {
 LABEL_3:
-    v7 = dictionary;
+    v8 = dictionary;
     goto LABEL_36;
   }
 
@@ -910,7 +906,7 @@ LABEL_3:
 
   else
   {
-    attachmentGUID2 = SLFrameworkLogHandle();
+    attachmentGUID2 = SLFrameworkLogHandle(v11);
     if (os_log_type_enabled(attachmentGUID2, OS_LOG_TYPE_DEBUG))
     {
       [SLAttribution dictionaryRepresentation];
@@ -921,8 +917,8 @@ LABEL_3:
 
   if (!sourceAppDisplayName)
   {
-    v8 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLFrameworkLogHandle(v14);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SLAttribution dictionaryRepresentation];
     }
@@ -937,8 +933,8 @@ LABEL_3:
 
   if (!conversationIdentifier)
   {
-    v8 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLFrameworkLogHandle(v17);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SLAttribution dictionaryRepresentation];
     }
@@ -961,46 +957,46 @@ LABEL_34:
 
     if (relatedPersons)
     {
-      v40 = dictionaryRepresentation;
+      v46 = dictionaryRepresentation;
       array = [MEMORY[0x277CBEB18] array];
-      v41 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v44 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v50 = 0u;
       relatedPersons2 = [(SLAttribution *)self relatedPersons];
-      v20 = [relatedPersons2 countByEnumeratingWithState:&v41 objects:v45 count:16];
-      if (v20)
+      v26 = [relatedPersons2 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      if (v26)
       {
-        v21 = v20;
-        v22 = *v42;
+        v27 = v26;
+        v28 = *v48;
         while (2)
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v27; ++i)
           {
-            if (*v42 != v22)
+            if (*v48 != v28)
             {
               objc_enumerationMutation(relatedPersons2);
             }
 
-            dictionaryRepresentation2 = [*(*(&v41 + 1) + 8 * i) dictionaryRepresentation];
+            dictionaryRepresentation2 = [*(*(&v47 + 1) + 8 * i) dictionaryRepresentation];
             if (!dictionaryRepresentation2)
             {
-              v39 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+              v45 = SLFrameworkLogHandle(0);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
               {
                 [SLAttribution dictionaryRepresentation];
               }
 
-              dictionaryRepresentation = v40;
+              dictionaryRepresentation = v46;
               goto LABEL_46;
             }
 
-            v25 = dictionaryRepresentation2;
+            v31 = dictionaryRepresentation2;
             [array addObject:dictionaryRepresentation2];
           }
 
-          v21 = [relatedPersons2 countByEnumeratingWithState:&v41 objects:v45 count:16];
-          if (v21)
+          v27 = [relatedPersons2 countByEnumeratingWithState:&v47 objects:v51 count:16];
+          if (v27)
           {
             continue;
           }
@@ -1029,17 +1025,17 @@ LABEL_34:
 
       timestamp = [(SLAttribution *)self timestamp];
 
-      dictionaryRepresentation = v40;
+      dictionaryRepresentation = v46;
       if (timestamp)
       {
         timestamp2 = [(SLAttribution *)self timestamp];
         [dictionary setObject:timestamp2 forKey:@"t"];
 
-        v33 = [MEMORY[0x277CCABB0] numberWithBool:{-[SLAttribution isPinned](self, "isPinned")}];
-        [dictionary setObject:v33 forKey:@"pi"];
+        v40 = [MEMORY[0x277CCABB0] numberWithBool:{-[SLAttribution isPinned](self, "isPinned")}];
+        [dictionary setObject:v40 forKey:@"pi"];
 
-        v34 = [MEMORY[0x277CCABB0] numberWithBool:{-[SLAttribution isFromMe](self, "isFromMe")}];
-        [dictionary setObject:v34 forKey:@"fm"];
+        v41 = [MEMORY[0x277CCABB0] numberWithBool:{-[SLAttribution isFromMe](self, "isFromMe")}];
+        [dictionary setObject:v41 forKey:@"fm"];
 
         groupID = [(SLAttribution *)self groupID];
 
@@ -1052,7 +1048,7 @@ LABEL_34:
         goto LABEL_3;
       }
 
-      array = SLFrameworkLogHandle();
+      array = SLFrameworkLogHandle(v38);
       if (os_log_type_enabled(array, OS_LOG_TYPE_ERROR))
       {
         [SLAttribution dictionaryRepresentation];
@@ -1061,7 +1057,7 @@ LABEL_34:
 
     else
     {
-      array = SLFrameworkLogHandle();
+      array = SLFrameworkLogHandle(v23);
       if (os_log_type_enabled(array, OS_LOG_TYPE_ERROR))
       {
         [SLAttribution dictionaryRepresentation];
@@ -1071,7 +1067,7 @@ LABEL_34:
 
   else
   {
-    array = SLFrameworkLogHandle();
+    array = SLFrameworkLogHandle(v21);
     if (os_log_type_enabled(array, OS_LOG_TYPE_ERROR))
     {
       [(SLAttribution *)self dictionaryRepresentation];
@@ -1081,21 +1077,19 @@ LABEL_34:
 LABEL_46:
 
 LABEL_35:
-  v7 = 0;
+  v8 = 0;
 LABEL_36:
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (SLAttribution)initWithCoder:(id)coder
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = SLAttribution;
-  v5 = [(SLAttribution *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = SLAttribution;
+  v5 = [(SLAttribution *)&v31 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sa"];
@@ -1123,9 +1117,9 @@ LABEL_36:
     v5->_groupDisplayName = v16;
 
     v18 = MEMORY[0x277CBEB98];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     v20 = [v18 setWithArray:v19];
     v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"rp"];
     relatedPersons = v5->_relatedPersons;
@@ -1150,7 +1144,6 @@ LABEL_36:
     v5->_groupID = v28;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1399,7 +1392,7 @@ LABEL_34:
 
 + (id)errorForAttributionDomain:(id)domain andCode:(int64_t)code andUnderlyingError:(id *)error
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   v8 = 0;
   if (code <= 4)
@@ -1408,30 +1401,30 @@ LABEL_34:
     {
       if (code == 3)
       {
-        v28 = *MEMORY[0x277CCA068];
-        v29 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil source app display name.";
+        v27 = *MEMORY[0x277CCA068];
+        v28 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil source app display name.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v29;
-        v11 = &v28;
+        v10 = &v28;
+        v11 = &v27;
       }
 
       else
       {
-        v26 = *MEMORY[0x277CCA068];
-        v27 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil conversation name.";
+        v25 = *MEMORY[0x277CCA068];
+        v26 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil conversation name.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v27;
-        v11 = &v26;
+        v10 = &v26;
+        v11 = &v25;
       }
     }
 
     else if (code == 1)
     {
-      v32 = *MEMORY[0x277CCA068];
-      v33[0] = @"SLAttribution Init failed. Invalid or nil PPSocialAttribution.";
+      v31 = *MEMORY[0x277CCA068];
+      v32[0] = @"SLAttribution Init failed. Invalid or nil PPSocialAttribution.";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v33;
-      v11 = &v32;
+      v10 = v32;
+      v11 = &v31;
     }
 
     else
@@ -1441,11 +1434,11 @@ LABEL_34:
         goto LABEL_21;
       }
 
-      v30 = *MEMORY[0x277CCA068];
-      v31 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil identifier.";
+      v29 = *MEMORY[0x277CCA068];
+      v30 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil identifier.";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = &v31;
-      v11 = &v30;
+      v10 = &v30;
+      v11 = &v29;
     }
   }
 
@@ -1453,20 +1446,20 @@ LABEL_34:
   {
     if (code == 5)
     {
-      v24 = *MEMORY[0x277CCA068];
-      v25 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil PPSocialSender.";
+      v23 = *MEMORY[0x277CCA068];
+      v24 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil PPSocialSender.";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = &v25;
-      v11 = &v24;
+      v10 = &v24;
+      v11 = &v23;
     }
 
     else
     {
-      v22 = *MEMORY[0x277CCA068];
-      v23 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil PPSocialSender.";
+      v21 = *MEMORY[0x277CCA068];
+      v22 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil PPSocialSender.";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = &v23;
-      v11 = &v22;
+      v10 = &v22;
+      v11 = &v21;
     }
   }
 
@@ -1475,25 +1468,25 @@ LABEL_34:
     switch(code)
     {
       case 7:
-        v20 = *MEMORY[0x277CCA068];
-        v21 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil timestamp.";
+        v19 = *MEMORY[0x277CCA068];
+        v20 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil timestamp.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v21;
-        v11 = &v20;
+        v10 = &v20;
+        v11 = &v19;
         break;
       case 8:
-        v18 = *MEMORY[0x277CCA068];
-        v19 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil domain identifier.";
+        v17 = *MEMORY[0x277CCA068];
+        v18 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil domain identifier.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v19;
-        v11 = &v18;
+        v10 = &v18;
+        v11 = &v17;
         break;
       case 9:
-        v16 = *MEMORY[0x277CCA068];
-        v17 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil attachment GUID.";
+        v15 = *MEMORY[0x277CCA068];
+        v16 = @"SLAttribution Init failed. PPSocialAttribution contains an invalid or nil attachment GUID.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v17;
-        v11 = &v16;
+        v10 = &v16;
+        v11 = &v15;
         break;
       default:
         goto LABEL_21;
@@ -1512,45 +1505,21 @@ LABEL_21:
 
   v13 = [MEMORY[0x277CCA9B8] errorWithDomain:domainCopy code:code userInfo:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)initWithCSSearchableItem:(void *)a1 error:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 domainIdentifier];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_1(&dword_231772000, v2, v3, "Attempted to initialize SLH using a CSSearchableItem outside the attachment/links domain. Failing initialization from CSSearchableItem. domain: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "SLA dictionary related person was nil. Failing initialization from dictionary. personDictionary: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "SLA dictionary sender person was nil. Failing initialization from dictionary. senderDictionary: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_231772000, v2, v3, "Attempted to initialize SLH using a CSSearchableItem outside the attachment/links domain. Failing initialization from CSSearchableItem. domain: %@", v4, v5, v6, v7);
 }
 
 - (void)dictionaryRepresentation
 {
-  v10 = *MEMORY[0x277D85DE8];
   sender = [self sender];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_1(&dword_231772000, v2, v3, "SLA the sender SLP failed dictionary serialization. Failing dictionary serialization for the SLA as well. Offending SLP: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_231772000, v2, v3, "SLA the sender SLP failed dictionary serialization. Failing dictionary serialization for the SLA as well. Offending SLP: %@", v4, v5, v6, v7);
 }
 
 @end

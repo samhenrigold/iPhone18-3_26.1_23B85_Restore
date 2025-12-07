@@ -1,5 +1,7 @@
 @interface CPLPrequeliteTransientRepository
+- (BOOL)_appendChange:(id)change alreadyMingled:(BOOL)mingled error:(id *)error;
 - (BOOL)_markChangesWithScopedIdentifiersAsMingled:(id)mingled error:(id *)error;
+- (BOOL)appendBatch:(id)batch alreadyMingled:(BOOL)mingled error:(id *)error;
 - (BOOL)deleteAllRecordsForScopeWithIdentifier:(id)identifier error:(id *)error;
 - (BOOL)deleteMingledRecordsForScopeWithIdentifier:(id)identifier error:(id *)error;
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
@@ -22,6 +24,9 @@
 - (CPLPrequeliteTransientRepository)initWithAbstractObject:(id)object;
 - (id)_allUnmingledChangesWithClass:(Class)class scopeIdentifier:(id)identifier maximumCount:(unint64_t)count;
 - (id)_enumeratorForRecordsWithScopeIndex:(unint64_t)index maximumCount:(unint64_t)count;
+- (id)_enumeratorForRecordsWithTransientType:(int)type scopeIndex:(unint64_t)index class:(Class)class maximumCount:(unint64_t)count;
+- (id)_enumeratorForRecordsWithTransientType:(int)type scopeIndex:(unint64_t)index maximumCount:(unint64_t)count;
+- (id)_recordWithTransientType:(int)type scopedIdentifier:(id)identifier;
 - (id)allUnmingledChangesWithClass:(Class)class relatedScopedIdentifier:(id)identifier;
 - (id)allUnmingledChangesWithScopeIdentifier:(id)identifier;
 - (id)allUnmingledDeletedChangesWithClass:(Class)class scopeIdentifier:(id)identifier;
@@ -247,6 +252,262 @@ LABEL_27:
   return v9;
 }
 
+- (BOOL)_appendChange:(id)change alreadyMingled:(BOOL)mingled error:(id *)error
+{
+  mingledCopy = mingled;
+  changeCopy = change;
+  scopedIdentifier = [changeCopy scopedIdentifier];
+  v10 = scopedIdentifier;
+  v11 = *(&self->super._shouldUpgradeSchema + 1);
+  if (v11)
+  {
+    identifier = [scopedIdentifier identifier];
+    v13 = [v11 containsObject:identifier];
+
+    if (v13)
+    {
+      v14 = 1;
+      goto LABEL_45;
+    }
+  }
+
+  scopeIdentifier = [v10 scopeIdentifier];
+  v16 = [(CPLPrequeliteStorage *)self localScopeIndexForScopeIdentifier:scopeIdentifier];
+
+  if (v16 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    realIdentifier = [changeCopy realIdentifier];
+
+    if (realIdentifier)
+    {
+      v18 = 1;
+    }
+
+    else if ([changeCopy changeType] == 1024)
+    {
+      v18 = 2;
+    }
+
+    else
+    {
+      v18 = 3;
+    }
+
+    identifier2 = [v10 identifier];
+    relatedIdentifier = [changeCopy relatedIdentifier];
+    v21 = [CPLArchiver archivedDataWithRootObject:changeCopy];
+    if (!v21)
+    {
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v34 = sub_100167254(0);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412290;
+          *&buf[4] = changeCopy;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Can't serialize %@", buf, 0xCu);
+        }
+      }
+
+      v54 = [[NSString alloc] initWithFormat:@"can't serialize %@", objc_opt_class()];
+      if (error)
+      {
+        [CPLErrors invalidCloudCacheErrorWithReason:v54];
+        *error = v14 = 0;
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      goto LABEL_44;
+    }
+
+    v51 = v10;
+    errorCopy = error;
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    [(CPLPrequeliteStorage *)self pqStore];
+    v49 = v18;
+    v24 = relatedIdentifier;
+    v26 = v25 = identifier2;
+    [v26 pqlConnection];
+    v28 = v27 = v16;
+
+    mainTable = [(CPLPrequeliteStorage *)self mainTable];
+    v52 = v25;
+    v53 = v21;
+    v47 = mingledCopy;
+    v45 = v24;
+    v46 = mingledCopy;
+    v30 = v24;
+    v31 = v28;
+    v32 = v27;
+    v54 = v23;
+    v33 = [v31 cplExecute:{@"INSERT OR IGNORE INTO %@ (transientType, class, scopeIndex, identifier, relatedIdentifier, mingled, dequeueOrder, serializedRecord) VALUES (%i, %@, %ld, %@, %@, %i, %ld, %@)", mainTable, v49, v23, v27, v25, v45, v46, objc_msgSend(changeCopy, "dequeueOrder"), v21}];
+
+    if (v33)
+    {
+      if (![v31 changes])
+      {
+        realIdentifier2 = [changeCopy realIdentifier];
+
+        relatedIdentifier = v30;
+        v10 = v51;
+        isDelete = [changeCopy isDelete];
+        if ((isDelete & 1) != 0 || realIdentifier2 || ([changeCopy isFullRecord] & 1) != 0 || (-[CPLPrequeliteTransientRepository recordWithScopedIdentifier:](self, "recordWithScopedIdentifier:", v51), (v36 = objc_claimAutoreleasedReturnValue()) == 0) || sub_1001C0550(v36, changeCopy, buf))
+        {
+          v37 = changeCopy;
+        }
+
+        else
+        {
+          v37 = *buf;
+        }
+
+        v21 = v53;
+        v38 = [CPLArchiver archivedDataWithRootObject:v37];
+        if (v38)
+        {
+          v39 = realIdentifier2;
+          v40 = v37;
+          if (isDelete)
+          {
+            v41 = 2;
+          }
+
+          else
+          {
+            v41 = 3;
+          }
+
+          if (v39)
+          {
+            v42 = 1;
+          }
+
+          else
+          {
+            v42 = v41;
+          }
+
+          mainTable2 = [(CPLPrequeliteStorage *)self mainTable];
+          v14 = [v31 cplExecute:{@"UPDATE %@ SET transientType = %i, mingled = %i, dequeueOrder = %ld, serializedRecord = %@ WHERE scopeIndex = %ld AND identifier = %@", mainTable2, v42, v47, objc_msgSend(changeCopy, "dequeueOrder"), v38, v32, v52}];
+
+          if (errorCopy)
+          {
+            v21 = v53;
+            v37 = v40;
+            if ((v14 & 1) == 0)
+            {
+              [v31 lastCPLError];
+              *errorCopy = v14 = 0;
+            }
+          }
+
+          else
+          {
+            v21 = v53;
+            v37 = v40;
+          }
+        }
+
+        else
+        {
+          sub_1001C064C(v37, errorCopy);
+          v14 = 1;
+        }
+
+        identifier2 = v52;
+        goto LABEL_43;
+      }
+
+      v14 = 1;
+    }
+
+    else if (errorCopy)
+    {
+      [v31 lastCPLError];
+      *errorCopy = v14 = 0;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    identifier2 = v25;
+    v21 = v53;
+    relatedIdentifier = v30;
+    v10 = v51;
+LABEL_43:
+
+LABEL_44:
+    goto LABEL_45;
+  }
+
+  if (error)
+  {
+    [CPLErrors invalidScopeErrorWithScopedIdentifier:v10];
+    *error = v14 = 0;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+LABEL_45:
+
+  return v14;
+}
+
+- (BOOL)appendBatch:(id)batch alreadyMingled:(BOOL)mingled error:(id *)error
+{
+  mingledCopy = mingled;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  batchCopy = batch;
+  v9 = [batchCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v16;
+    while (2)
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(batchCopy);
+        }
+
+        if (![(CPLPrequeliteTransientRepository *)self _appendChange:*(*(&v15 + 1) + 8 * i) alreadyMingled:mingledCopy error:error, v15])
+        {
+          v13 = 0;
+          goto LABEL_11;
+        }
+      }
+
+      v10 = [batchCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v10)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v13 = 1;
+LABEL_11:
+
+  return v13;
+}
+
 - (BOOL)_markChangesWithScopedIdentifiersAsMingled:(id)mingled error:(id *)error
 {
   mingledCopy = mingled;
@@ -374,6 +635,69 @@ LABEL_18:
   return v14;
 }
 
+- (id)_enumeratorForRecordsWithTransientType:(int)type scopeIndex:(unint64_t)index maximumCount:(unint64_t)count
+{
+  v7 = *&type;
+  pqStore = [(CPLPrequeliteStorage *)self pqStore];
+  pqlConnection = [pqStore pqlConnection];
+
+  mainTable = [(CPLPrequeliteStorage *)self mainTable];
+  v12 = mainTable;
+  if (count == -1)
+  {
+    v13 = [pqlConnection cplFetch:{@"SELECT scopeIndex, serializedRecord FROM %@ WHERE transientType = %i AND mingled = %i AND scopeIndex = %lu", mainTable, v7, 0, index, v18}];
+  }
+
+  else
+  {
+    v13 = [pqlConnection cplFetch:{@"SELECT scopeIndex, serializedRecord FROM %@ WHERE transientType = %i AND mingled = %i AND scopeIndex = %lu LIMIT %lu", mainTable, v7, 0, index, count}];
+  }
+
+  v14 = v13;
+
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10016791C;
+  v19[3] = &unk_10027BA88;
+  v19[4] = self;
+  v15 = [v14 enumerateObjects:v19];
+  v16 = [[CPLPrequeliteSkipNullEnumerator alloc] initWithEnumerator:v15];
+
+  return v16;
+}
+
+- (id)_enumeratorForRecordsWithTransientType:(int)type scopeIndex:(unint64_t)index class:(Class)class maximumCount:(unint64_t)count
+{
+  v9 = *&type;
+  pqStore = [(CPLPrequeliteStorage *)self pqStore];
+  pqlConnection = [pqStore pqlConnection];
+
+  mainTable = [(CPLPrequeliteStorage *)self mainTable];
+  v14 = NSStringFromClass(class);
+  v15 = v14;
+  if (count == -1)
+  {
+    v16 = [pqlConnection cplFetch:{@"SELECT scopeIndex, serializedRecord FROM %@ WHERE transientType = %i AND mingled = %i AND class = %@ AND scopeIndex = %lu", mainTable, v9, 0, v14, index, v21}];
+  }
+
+  else
+  {
+    v16 = [pqlConnection cplFetch:{@"SELECT scopeIndex, serializedRecord FROM %@ WHERE transientType = %i AND mingled = %i AND class = %@ AND scopeIndex = %lu LIMIT %lu", mainTable, v9, 0, v14, index, count}];
+  }
+
+  v17 = v16;
+
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100167B10;
+  v22[3] = &unk_10027BA88;
+  v22[4] = self;
+  v18 = [v17 enumerateObjects:v22];
+  v19 = [[CPLPrequeliteSkipNullEnumerator alloc] initWithEnumerator:v18];
+
+  return v19;
+}
+
 - (id)recordWithScopedIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -442,6 +766,31 @@ LABEL_18:
   }
 
   return v7;
+}
+
+- (id)_recordWithTransientType:(int)type scopedIdentifier:(id)identifier
+{
+  v4 = *&type;
+  identifierCopy = identifier;
+  scopeIdentifier = [identifierCopy scopeIdentifier];
+  v8 = [(CPLPrequeliteStorage *)self localScopeIndexForScopeIdentifier:scopeIdentifier];
+
+  if (v8 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    pqStore = [(CPLPrequeliteStorage *)self pqStore];
+    pqlConnection = [pqStore pqlConnection];
+
+    mainTable = [(CPLPrequeliteStorage *)self mainTable];
+    identifier = [identifierCopy identifier];
+    v9 = [pqlConnection cplFetchObject:&stru_10027BAC8 sql:{@"SELECT serializedRecord FROM %@ WHERE scopeIndex = %ld AND identifier = %@ AND +transientType = %i AND +mingled = %i", mainTable, v8, identifier, v4, 0}];
+  }
+
+  return v9;
 }
 
 - (id)nextBatchOfRemappedRecordsInScope:(id)scope maximumCount:(unint64_t)count
@@ -919,7 +1268,7 @@ LABEL_8:
     {
       if ([pqlConnection changes] >= 1)
       {
-        sub_1001C092C();
+        sub_1001C092C(identifierCopy);
       }
     }
 
@@ -975,7 +1324,7 @@ LABEL_8:
     {
       if ([pqlConnection changes] >= 1)
       {
-        sub_1001C09E0();
+        sub_1001C09E0(identifierCopy);
       }
     }
 
@@ -1107,7 +1456,7 @@ LABEL_15:
     {
       if ([pqlConnection changes] >= 1)
       {
-        sub_1001C0A8C();
+        sub_1001C0A8C(identifierCopy);
       }
     }
 

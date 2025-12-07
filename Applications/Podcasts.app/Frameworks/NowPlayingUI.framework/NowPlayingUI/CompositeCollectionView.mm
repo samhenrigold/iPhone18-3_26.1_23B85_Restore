@@ -118,8 +118,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_BC770(v6, v9, v11, v10);
-  sub_2173C(v11);
-  sub_2173C(v6);
+  sub_2173C(v11, v10);
+  sub_2173C(v6, v9);
 }
 
 - (_TtC12NowPlayingUI23CompositeCollectionView)initWithFrame:(CGRect)frame collectionViewLayout:(id)layout

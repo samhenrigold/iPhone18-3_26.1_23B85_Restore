@@ -128,30 +128,30 @@
 
 - (void)refreshGroupOrder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   rawGroups = self->_rawGroups;
   if (rawGroups)
   {
     [(NSMutableArray *)rawGroups sortedArrayUsingComparator:&__block_literal_global_253];
+    v20 = 0u;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v4 = v25 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v4 = v23 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v23;
+      v7 = *v21;
 LABEL_4:
       v8 = 0;
       while (1)
       {
-        if (*v23 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * v8);
+        v9 = *(*(&v20 + 1) + 8 * v8);
         if ([v9 hasPreviewableAttachment])
         {
           break;
@@ -159,7 +159,7 @@ LABEL_4:
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
           if (v6)
           {
             goto LABEL_4;
@@ -176,15 +176,15 @@ LABEL_4:
         goto LABEL_13;
       }
 
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __45__ATXNotificationDigestApp_refreshGroupOrder__block_invoke_2;
-      v20[3] = &unk_2785A1B00;
-      v21 = v10;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __45__ATXNotificationDigestApp_refreshGroupOrder__block_invoke_2;
+      v18[3] = &unk_2785A1B00;
+      v19 = v10;
       v11 = v10;
-      v12 = [v4 _pas_filteredArrayWithTest:v20];
-      v26 = v11;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+      v12 = [v4 _pas_filteredArrayWithTest:v18];
+      v24 = v11;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
       v14 = [v13 arrayByAddingObjectsFromArray:v12];
       orderedGroups = self->_orderedGroups;
       self->_orderedGroups = v14;
@@ -199,15 +199,12 @@ LABEL_13:
       v11 = self->_orderedGroups;
       self->_orderedGroups = v16;
     }
-
-    v17 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v18 = self->_orderedGroups;
+    v17 = self->_orderedGroups;
     self->_orderedGroups = MEMORY[0x277CBEBF8];
-    v19 = *MEMORY[0x277D85DE8];
   }
 }
 

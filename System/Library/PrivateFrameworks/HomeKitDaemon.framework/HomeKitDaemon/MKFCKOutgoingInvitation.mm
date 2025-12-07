@@ -7,7 +7,7 @@
 
 - (BOOL)exportFromLocalModel:(id)model updatedProperties:(id)properties context:(id)context
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
   if (![(MKFCKModel *)self copyPropertiesFromLocalModel:modelCopy context:contextCopy])
@@ -36,13 +36,13 @@
           v17 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            v29 = HMFGetLogIdentifier();
+            v28 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v34 = v29;
-            v35 = 2112;
-            v36 = v14;
-            v37 = 2112;
-            v38 = selfCopy;
+            v33 = v28;
+            v34 = 2112;
+            v35 = v14;
+            v36 = 2112;
+            v37 = selfCopy;
             _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Linking user [%@] to invitation : [%@]", buf, 0x20u);
           }
 
@@ -58,13 +58,13 @@
         v19 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          v30 = HMFGetLogIdentifier();
+          v29 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v34 = v30;
-          v35 = 2112;
-          v36 = v9;
-          v37 = 2112;
-          v38 = pendingUser;
+          v33 = v29;
+          v34 = 2112;
+          v35 = v9;
+          v36 = 2112;
+          v37 = pendingUser;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship between outgoing invitation and pending user yet: %@.pendingUser = %@", buf, 0x20u);
         }
 
@@ -109,13 +109,12 @@ LABEL_19:
 LABEL_18:
 LABEL_20:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)importIntoLocalModel:(id)model updatedProperties:(id)properties context:(id)context
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
   if (![(MKFCKModel *)self copyPropertiesIntoLocalModel:modelCopy context:contextCopy])
@@ -164,16 +163,16 @@ LABEL_20:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v20 = v32 = v17;
+          v20 = v31 = v17;
           *buf = 138543874;
-          v34 = v20;
-          v35 = 2112;
-          v36 = selfCopy;
-          v37 = 2112;
-          v38 = 0;
+          v33 = v20;
+          v34 = 2112;
+          v35 = selfCopy;
+          v36 = 2112;
+          v37 = 0;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship between outgoing invitation and pending user yet: %@.pendingUser = %@", buf, 0x20u);
 
-          v17 = v32;
+          v17 = v31;
         }
 
         objc_autoreleasePoolPop(v17);
@@ -210,7 +209,6 @@ LABEL_18:
 LABEL_17:
 
 LABEL_19:
-  v30 = *MEMORY[0x277D85DE8];
   return self;
 }
 

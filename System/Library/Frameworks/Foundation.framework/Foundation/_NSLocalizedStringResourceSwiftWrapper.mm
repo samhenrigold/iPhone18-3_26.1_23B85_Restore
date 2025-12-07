@@ -65,7 +65,7 @@
     type metadata accessor for _LocaleBridged();
     v6 = swift_allocObject();
     *(v6 + 16) = locale;
-    v7 = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.CodableStorage and conformance String.LocalizationValue.FormatArgument.CodableStorage(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged);
+    v7 = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.CodableStorage and conformance String.LocalizationValue.FormatArgument.CodableStorage(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged, &protocol conformance descriptor for _LocaleBridged);
     localeCopy = locale;
   }
 
@@ -158,7 +158,7 @@ LABEL_6:
     type metadata accessor for _LocaleBridged();
     v21 = swift_allocObject();
     *(v21 + 16) = locale;
-    v20 = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.CodableStorage and conformance String.LocalizationValue.FormatArgument.CodableStorage(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged);
+    v20 = lazy protocol witness table accessor for type String.LocalizationValue.FormatArgument.CodableStorage and conformance String.LocalizationValue.FormatArgument.CodableStorage(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged, &protocol conformance descriptor for _LocaleBridged);
     localeCopy = locale;
   }
 
@@ -247,7 +247,7 @@ LABEL_6:
 
   v6 = _NSLocalizedStringResourceSwiftWrapper.isEqual(_:)(v8);
 
-  outlined destroy of TermOfAddress?(v8, &_sypSgMd);
+  outlined destroy of TermOfAddress?(v8, &_sypSgMd, &_sypSgMR);
   return v6 & 1;
 }
 

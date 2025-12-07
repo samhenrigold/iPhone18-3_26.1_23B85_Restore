@@ -23,14 +23,12 @@
 
 - (id)description
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v7[0] = @"reachableHostName";
-  v7[1] = @"updateCoalescenceInterval";
-  v7[2] = @"requireActiveConnection";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v6[3] = *MEMORY[0x1E69E9840];
+  v6[0] = @"reachableHostName";
+  v6[1] = @"updateCoalescenceInterval";
+  v6[2] = @"requireActiveConnection";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
   v4 = DMFObjectDescriptionWithProperties(self, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

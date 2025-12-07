@@ -204,13 +204,13 @@
 
   [v8 setBackgroundColor:backgroundColor];
   [v8 setColoringWithColorScheme:self->_colorScheme];
-  primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-  if (!primaryTextColor)
+  v12 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  if (!v12)
   {
-    primaryTextColor = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.2];
+    v12 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.2];
   }
 
-  [v8 setSeparatorColor:primaryTextColor];
+  [v8 setSeparatorColor:v12];
   [v8 setSeparatorStyle:1];
 
   return v8;

@@ -17,11 +17,6 @@
 - (uint64_t)addWidgetIdentifiables:(uint64_t)identifiables;
 - (uint64_t)addWidgetInStackIdentifiables:(uint64_t)identifiables;
 - (uint64_t)bundleIds;
-- (uint64_t)bundleIdsCount;
-- (uint64_t)clearBundleIds;
-- (uint64_t)clearStackIds;
-- (uint64_t)clearWidgetIdentifiables;
-- (uint64_t)clearWidgetInStackIdentifiables;
 - (uint64_t)engagedUrl;
 - (uint64_t)hasIsStalenessRotation;
 - (uint64_t)hasIsSuggestionInAddWidgetSheet;
@@ -43,14 +38,16 @@
 - (uint64_t)setPageIndex:(uint64_t)result;
 - (uint64_t)setSuggestedPageType:(uint64_t)result;
 - (uint64_t)stackIds;
-- (uint64_t)stackIdsCount;
 - (uint64_t)suggestedPageType;
 - (uint64_t)visibleRect;
 - (uint64_t)widgetIdentifiables;
-- (uint64_t)widgetIdentifiablesCount;
 - (uint64_t)widgetInStackIdentifiables;
-- (uint64_t)widgetInStackIdentifiablesCount;
 - (unint64_t)hash;
+- (void)bundleIdsCount;
+- (void)clearBundleIds;
+- (void)clearStackIds;
+- (void)clearWidgetIdentifiables;
+- (void)clearWidgetInStackIdentifiables;
 - (void)copyTo:(uint64_t)to;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setBundleIds:(uint64_t)ids;
@@ -59,6 +56,9 @@
 - (void)setVisibleRect:(uint64_t)rect;
 - (void)setWidgetIdentifiables:(uint64_t)identifiables;
 - (void)setWidgetInStackIdentifiables:(uint64_t)identifiables;
+- (void)stackIdsCount;
+- (void)widgetIdentifiablesCount;
+- (void)widgetInStackIdentifiablesCount;
 - (void)writeTo:(id)to;
 @end
 
@@ -819,7 +819,7 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)clearStackIds
+- (void)clearStackIds
 {
   if (result)
   {
@@ -849,7 +849,7 @@ LABEL_11:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)stackIdsCount
+- (void)stackIdsCount
 {
   if (result)
   {
@@ -870,7 +870,7 @@ LABEL_11:
   return index;
 }
 
-- (uint64_t)clearWidgetIdentifiables
+- (void)clearWidgetIdentifiables
 {
   if (result)
   {
@@ -900,7 +900,7 @@ LABEL_11:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)widgetIdentifiablesCount
+- (void)widgetIdentifiablesCount
 {
   if (result)
   {
@@ -921,7 +921,7 @@ LABEL_11:
   return index;
 }
 
-- (uint64_t)clearWidgetInStackIdentifiables
+- (void)clearWidgetInStackIdentifiables
 {
   if (result)
   {
@@ -951,7 +951,7 @@ LABEL_11:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)widgetInStackIdentifiablesCount
+- (void)widgetInStackIdentifiablesCount
 {
   if (result)
   {
@@ -1275,7 +1275,7 @@ LABEL_4:
   return v6;
 }
 
-- (uint64_t)clearBundleIds
+- (void)clearBundleIds
 {
   if (result)
   {
@@ -1305,7 +1305,7 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)bundleIdsCount
+- (void)bundleIdsCount
 {
   if (result)
   {

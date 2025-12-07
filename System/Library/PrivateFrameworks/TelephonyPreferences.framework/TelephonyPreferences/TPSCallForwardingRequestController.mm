@@ -97,28 +97,30 @@ void __59__TPSCallForwardingRequestController_executeSetForRequest___block_invok
 
 - (void)suppServicesEvent:(id)event event:(int)a4 settingsType:(int)type data:(id)data
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dataCopy = data;
+  v13 = dataCopy;
   if (type == 1)
   {
-    v12 = TPSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = TPSLog(dataCopy, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = TPSStringForCTSuppServicesEventType(a4);
-      v14 = TPSStringForCTSuppServicesSettingsType(1u);
-      v25 = 138413058;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v14;
-      v29 = 2112;
-      v30 = dataCopy;
-      v31 = 2112;
-      v32 = eventCopy;
-      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Received event %@, settings type %@, data %@ for context %@.", &v25, 0x2Au);
+      v15 = TPSStringForCTSuppServicesEventType(a4);
+      v16 = TPSStringForCTSuppServicesSettingsType(1u);
+      v30 = 138413058;
+      v31 = v15;
+      v32 = 2112;
+      v33 = v16;
+      v34 = 2112;
+      v35 = v13;
+      v36 = 2112;
+      v37 = eventCopy;
+      _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Received event %@, settings type %@, data %@ for context %@.", &v30, 0x2Au);
     }
 
     pendingRequest = [(TPSRequestController *)self pendingRequest];
+    v19 = pendingRequest;
     if (a4 > 2)
     {
       if (a4 != 3)
@@ -126,8 +128,8 @@ void __59__TPSCallForwardingRequestController_executeSetForRequest___block_invok
         if (a4 == 4)
         {
           value = [TPSResponseError errorWithCode:4 userInfo:0];
-          v17 = TPSLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v22 = TPSLog(value, v23);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [TPSCallForwardingRequestController suppServicesEvent:event:settingsType:data:];
           }
@@ -136,7 +138,7 @@ void __59__TPSCallForwardingRequestController_executeSetForRequest___block_invok
         }
 
 LABEL_14:
-        value = TPSLog();
+        value = TPSLog(pendingRequest, v18);
         if (os_log_type_enabled(value, OS_LOG_TYPE_ERROR))
         {
           [TPSCallForwardingRequestController suppServicesEvent:a4 event:value settingsType:? data:?];
@@ -145,15 +147,15 @@ LABEL_14:
         goto LABEL_27;
       }
 
-      v22 = TPSLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v28 = TPSLog(pendingRequest, v18);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = pendingRequest;
-        _os_log_impl(&dword_21B8E9000, v22, OS_LOG_TYPE_DEFAULT, "Call forwarding save request succeeded for %@.", &v25, 0xCu);
+        v30 = 138412290;
+        v31 = v19;
+        _os_log_impl(&dword_21B8E9000, v28, OS_LOG_TYPE_DEFAULT, "Call forwarding save request succeeded for %@.", &v30, 0xCu);
       }
 
-      value = [pendingRequest value];
+      value = [v19 value];
     }
 
     else
@@ -163,8 +165,8 @@ LABEL_14:
         if (a4 == 2)
         {
           value = [TPSResponseError errorWithCode:2 userInfo:0];
-          v17 = TPSLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v22 = TPSLog(value, v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [TPSCallForwardingRequestController suppServicesEvent:event:settingsType:data:];
           }
@@ -172,11 +174,11 @@ LABEL_14:
 LABEL_13:
 
           selfCopy2 = self;
-          v19 = eventCopy;
-          v20 = 0;
-          v21 = value;
+          v25 = eventCopy;
+          v26 = 0;
+          v27 = value;
 LABEL_26:
-          [(TPSCallForwardingRequestController *)selfCopy2 respondWithSubscriptionContext:v19 value:v20 error:v21];
+          [(TPSCallForwardingRequestController *)selfCopy2 respondWithSubscriptionContext:v25 value:v26 error:v27];
 LABEL_27:
 
           goto LABEL_28;
@@ -185,9 +187,10 @@ LABEL_27:
         goto LABEL_14;
       }
 
-      if (dataCopy)
+      if (v13)
       {
-        value = [(TPSCallForwardingRequestController *)self valueForNotificationData:dataCopy];
+        pendingRequest = [(TPSCallForwardingRequestController *)self valueForNotificationData:v13];
+        value = pendingRequest;
       }
 
       else
@@ -195,27 +198,25 @@ LABEL_27:
         value = 0;
       }
 
-      v23 = TPSLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v29 = TPSLog(pendingRequest, v18);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412546;
-        v26 = pendingRequest;
-        v27 = 2112;
-        v28 = value;
-        _os_log_impl(&dword_21B8E9000, v23, OS_LOG_TYPE_DEFAULT, "Call forwarding fetch request succeeded for %@; value is %@.", &v25, 0x16u);
+        v30 = 138412546;
+        v31 = v19;
+        v32 = 2112;
+        v33 = value;
+        _os_log_impl(&dword_21B8E9000, v29, OS_LOG_TYPE_DEFAULT, "Call forwarding fetch request succeeded for %@; value is %@.", &v30, 0x16u);
       }
     }
 
     selfCopy2 = self;
-    v19 = eventCopy;
-    v20 = value;
-    v21 = 0;
+    v25 = eventCopy;
+    v26 = value;
+    v27 = 0;
     goto LABEL_26;
   }
 
 LABEL_28:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForNotificationData:(id)data
@@ -242,29 +243,12 @@ LABEL_28:
   return v5;
 }
 
-- (void)suppServicesEvent:event:settingsType:data:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21B8E9000, v0, v1, "Call forwarding save request failed with error %@ for %@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)suppServicesEvent:event:settingsType:data:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21B8E9000, v0, v1, "Call forwarding fetch request failed with error %@ for %@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)suppServicesEvent:(int)a1 event:(NSObject *)a2 settingsType:data:.cold.3(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Event type %u is not recognized as a valid call forwarding request event.", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Event type %u is not recognized as a valid call forwarding request event.", v2, 8u);
 }
 
 @end

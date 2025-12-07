@@ -105,17 +105,17 @@ void __73__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication
 
 void __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v27 = 0u;
-  v28 = 0u;
+  v36 = *MEMORY[0x1E69E9840];
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v2 = a2;
-  v3 = [v2 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v28;
+    v5 = *v30;
     v6 = *MEMORY[0x1E696E5C0];
     v7 = 0x1E696A000uLL;
     do
@@ -123,12 +123,12 @@ void __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication
       v8 = 0;
       do
       {
-        if (*v28 != v5)
+        if (*v30 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * v8);
+        v9 = *(*(&v29 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         v11 = [v9 attributeSet];
         v12 = [v11 attributeForKey:v6];
@@ -137,27 +137,28 @@ void __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication
         {
           v13 = *(v7 + 3280);
           v14 = objc_opt_class();
-          v26 = 0;
-          v15 = [v13 unarchivedObjectOfClass:v14 fromData:v12 error:&v26];
-          v25 = v26;
+          v28 = 0;
+          v15 = [v13 unarchivedObjectOfClass:v14 fromData:v12 error:&v28];
+          v16 = v28;
+          v27 = v16;
           if (v15)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v24 = *(*(*(a1 + 40) + 8) + 40);
-              v16 = [v9 attributeSet];
-              [v16 rankingHint];
-              v17 = v4;
-              v18 = v6;
-              v19 = v5;
-              v21 = v20 = v2;
-              [v24 addUpcomingMediaIntent:v15 withRank:v21];
+              v26 = *(*(*(a1 + 40) + 8) + 40);
+              v17 = [v9 attributeSet];
+              [v17 rankingHint];
+              v18 = v4;
+              v19 = v6;
+              v20 = v5;
+              v22 = v21 = v2;
+              [v26 addUpcomingMediaIntent:v15 withRank:v22];
 
-              v2 = v20;
-              v5 = v19;
-              v6 = v18;
-              v4 = v17;
+              v2 = v21;
+              v5 = v20;
+              v6 = v19;
+              v4 = v18;
               v7 = 0x1E696A000;
               goto LABEL_12;
             }
@@ -165,12 +166,12 @@ void __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication
 
           else
           {
-            v16 = __atxlog_handle_default();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v17 = __atxlog_handle_default(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v32 = v25;
-              _os_log_error_impl(&dword_1BF549000, v16, OS_LOG_TYPE_ERROR, "Could not unarchive intent: %@", buf, 0xCu);
+              v34 = v27;
+              _os_log_error_impl(&dword_1BF549000, v17, OS_LOG_TYPE_ERROR, "Could not unarchive intent: %@", buf, 0xCu);
             }
 
 LABEL_12:
@@ -182,38 +183,38 @@ LABEL_12:
       }
 
       while (v4 != v8);
-      v4 = [v2 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v4);
   }
 
-  v22 = __atxlog_handle_default();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v24 = __atxlog_handle_default(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke_cold_1(v2, a1, v22);
+    __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke_cold_1(v2, a1, v24);
   }
 }
 
 void __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke_19(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke_19_cold_1(a1, v3, v4);
+      __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke_19_cold_1(a1, v4, v5);
     }
   }
 
   else
   {
-    [*(*(*(a1 + 56) + 8) + 40) setIsInternalApplication:*(a1 + 64)];
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = __atxlog_handle_default([*(*(*(a1 + 56) + 8) + 40) setIsInternalApplication:*(a1 + 64)]);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke_19_cold_2(a1, v4);
+      __91__ATXUpcomingMediaQuery_getUpcomingMediaForBundle_isInternalApplication_completionHandler___block_invoke_19_cold_2(a1, v5);
     }
   }
 

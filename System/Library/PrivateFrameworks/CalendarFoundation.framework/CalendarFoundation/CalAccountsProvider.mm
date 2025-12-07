@@ -13,6 +13,8 @@
 - (BOOL)account:(id)account hasServerURL:(id)l;
 - (BOOL)accountIsDuplicate:(id)duplicate;
 - (BOOL)removeAccount:(id)account withError:(id *)error;
+- (BOOL)renewCredentialsForAccount:(id)account forceRenewal:(BOOL)renewal;
+- (BOOL)saveAccount:(id)account verify:(BOOL)verify withError:(id *)error;
 - (CalAccountsProvider)init;
 - (NSArray)accountsEnabledForCalendar;
 - (NSArray)accountsEnabledForReminders;
@@ -26,6 +28,7 @@
 - (id)accountWithIdentifier:(id)identifier;
 - (id)accountsWithAccountTypeIdentifier:(id)identifier error:(id *)error;
 - (id)accountsWithServerURL:(id)l;
+- (id)accountsWithServerURL:(id)l username:(id)username returnCachedVersions:(BOOL)versions;
 - (id)accountsWithUsername:(id)username;
 - (id)allAccountsFromAllTypesWithError:(id *)error;
 - (id)allAccountsWithError:(id *)error;
@@ -37,6 +40,8 @@
 - (id)providerForCalDAVAccount:(id)account;
 - (id)topLevelAccountsWithUsername:(id)username;
 - (void)removeAccount:(id)account withCompletionHandler:(id)handler;
+- (void)renewCredentialsForAccount:(id)account forceRenewal:(BOOL)renewal withCompletionHandler:(id)handler;
+- (void)saveAccount:(id)account verify:(BOOL)verify withCompletionHandler:(id)handler;
 @end
 
 @implementation CalAccountsProvider
@@ -172,7 +177,7 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
 
 - (id)accountsWithServerURL:(id)l
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   lCopy = l;
   array = [MEMORY[0x1E695DF70] array];
   v6 = objc_opt_class();
@@ -181,26 +186,26 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
 
   if ([v8 count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     allAccounts = [(CalAccountsProvider *)self allAccounts];
-    v10 = [allAccounts countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [allAccounts countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(allAccounts);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           calHostname = [v14 calHostname];
           v16 = [v8 containsObject:calHostname];
 
@@ -210,19 +215,64 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
           }
         }
 
-        v11 = [allAccounts countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [allAccounts countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)accountsWithUsername:(id)username
+{
+  v21 = *MEMORY[0x1E69E9840];
+  usernameCopy = username;
+  array = [MEMORY[0x1E695DF70] array];
+  if ([usernameCopy length])
+  {
+    v6 = [objc_opt_class() _uniqueStringsForUsername:usernameCopy];
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    allAccounts = [(CalAccountsProvider *)self allAccounts];
+    v8 = [allAccounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v17;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v17 != v10)
+          {
+            objc_enumerationMutation(allAccounts);
+          }
+
+          v12 = *(*(&v16 + 1) + 8 * i);
+          username = [v12 username];
+          v14 = [v6 containsObject:username];
+
+          if (v14)
+          {
+            [array addObject:v12];
+          }
+        }
+
+        v9 = [allAccounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+      }
+
+      while (v9);
+    }
+  }
+
+  return array;
+}
+
+- (id)topLevelAccountsWithUsername:(id)username
 {
   v22 = *MEMORY[0x1E69E9840];
   usernameCopy = username;
@@ -234,8 +284,8 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    allAccounts = [(CalAccountsProvider *)self allAccounts];
-    v8 = [allAccounts countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [(CalAccountsProvider *)self allAccountsFromAllTypesWithError:0, 0];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
@@ -246,59 +296,10 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
         {
           if (*v18 != v10)
           {
-            objc_enumerationMutation(allAccounts);
-          }
-
-          v12 = *(*(&v17 + 1) + 8 * i);
-          username = [v12 username];
-          v14 = [v6 containsObject:username];
-
-          if (v14)
-          {
-            [array addObject:v12];
-          }
-        }
-
-        v9 = [allAccounts countByEnumeratingWithState:&v17 objects:v21 count:16];
-      }
-
-      while (v9);
-    }
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
-
-  return array;
-}
-
-- (id)topLevelAccountsWithUsername:(id)username
-{
-  v23 = *MEMORY[0x1E69E9840];
-  usernameCopy = username;
-  array = [MEMORY[0x1E695DF70] array];
-  if ([usernameCopy length])
-  {
-    v6 = [objc_opt_class() _uniqueStringsForUsername:usernameCopy];
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v7 = [(CalAccountsProvider *)self allAccountsFromAllTypesWithError:0, 0];
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v19;
-      do
-      {
-        for (i = 0; i != v9; ++i)
-        {
-          if (*v19 != v10)
-          {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           username = [v12 username];
           v14 = [v6 containsObject:username];
 
@@ -316,14 +317,64 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
+  return array;
+}
+
+- (id)accountsWithServerURL:(id)l username:(id)username returnCachedVersions:(BOOL)versions
+{
+  versionsCopy = versions;
+  v30 = *MEMORY[0x1E69E9840];
+  usernameCopy = username;
+  v9 = MEMORY[0x1E695DFA8];
+  v10 = [(CalAccountsProvider *)self accountsWithServerURL:l];
+  v11 = [v10 valueForKey:@"identifier"];
+  v12 = [v9 setWithArray:v11];
+
+  v13 = MEMORY[0x1E695DFD8];
+  v14 = [(CalAccountsProvider *)self accountsWithUsername:usernameCopy];
+  v15 = [v14 valueForKey:@"identifier"];
+  v16 = [v13 setWithArray:v15];
+
+  [v12 intersectSet:v16];
+  array = [MEMORY[0x1E695DF70] array];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v18 = v12;
+  v19 = [v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v26;
+    do
+    {
+      for (i = 0; i != v20; ++i)
+      {
+        if (*v26 != v21)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        v23 = [(CalAccountsProvider *)self accountWithIdentifier:*(*(&v25 + 1) + 8 * i) returnCachedVersion:versionsCopy, v25];
+        if (v23)
+        {
+          [array addObject:v23];
+        }
+      }
+
+      v20 = [v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    }
+
+    while (v20);
+  }
 
   return array;
 }
@@ -340,29 +391,29 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
 
 - (id)accountWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ([(CalAccountsProvider *)self runningUnitTests])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     accountsWhenRunningUnitTests = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
-    v6 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v16;
+      v7 = *v15;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(accountsWhenRunningUnitTests);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           identifier = [v9 identifier];
           v11 = [identifier isEqualToString:identifierCopy];
 
@@ -373,7 +424,7 @@ uint64_t __38__CalAccountsProvider_defaultProvider__block_invoke(uint64_t a1)
           }
         }
 
-        v6 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v6)
         {
           continue;
@@ -392,8 +443,6 @@ LABEL_13:
     v6 = v12;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
@@ -407,7 +456,7 @@ LABEL_13:
 
 - (id)allAccountsWithError:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([(CalAccountsProvider *)self runningUnitTests])
   {
     accountsWhenRunningUnitTests = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
@@ -417,34 +466,34 @@ LABEL_13:
   else
   {
     array = [MEMORY[0x1E695DF70] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v7 = *MEMORY[0x1E6959840];
-    v26[0] = *MEMORY[0x1E6959818];
-    v26[1] = v7;
-    obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
-    v8 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v25[0] = *MEMORY[0x1E6959818];
+    v25[1] = v7;
+    obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v8 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = [(CalAccountsProvider *)self accountTypeWithIdentifier:*(*(&v22 + 1) + 8 * i)];
+          v12 = [(CalAccountsProvider *)self accountTypeWithIdentifier:*(*(&v21 + 1) + 8 * i)];
           v13 = objc_opt_class();
           accountStore = [(CalAccountsProvider *)self accountStore];
-          v21 = 0;
-          v15 = [v13 _accountsWithAccountType:v12 inStore:accountStore error:&v21];
-          v16 = v21;
+          v20 = 0;
+          v15 = [v13 _accountsWithAccountType:v12 inStore:accountStore error:&v20];
+          v16 = v20;
 
           [array addObjectsFromArray:v15];
           if (error && v16)
@@ -457,7 +506,7 @@ LABEL_13:
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v9 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v9)
         {
           continue;
@@ -469,8 +518,6 @@ LABEL_13:
 
 LABEL_14:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -493,36 +540,36 @@ uint64_t __44__CalAccountsProvider_allAccountsWithError___block_invoke(uint64_t 
 
 - (id)allAccountsFromAllTypesWithError:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   accountStore = [(CalAccountsProvider *)self accountStore];
   allAccountTypes = [accountStore allAccountTypes];
 
   array = [MEMORY[0x1E695DF70] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = allAccountTypes;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         v14 = objc_opt_class();
         accountStore2 = [(CalAccountsProvider *)self accountStore];
-        v21 = 0;
-        v16 = [v14 _accountsWithAccountType:v13 inStore:accountStore2 error:&v21];
-        v17 = v21;
+        v20 = 0;
+        v16 = [v14 _accountsWithAccountType:v13 inStore:accountStore2 error:&v20];
+        v17 = v20;
 
         [array addObjectsFromArray:v16];
         if (error && v17)
@@ -535,7 +582,7 @@ uint64_t __44__CalAccountsProvider_allAccountsWithError___block_invoke(uint64_t 
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v10)
       {
         continue;
@@ -546,8 +593,6 @@ uint64_t __44__CalAccountsProvider_allAccountsWithError___block_invoke(uint64_t 
   }
 
 LABEL_12:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -574,31 +619,31 @@ LABEL_12:
 
 - (id)delegatePrincipalUIDsForAccount:(id)account
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v4 = [MEMORY[0x1E695DFA8] set];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   calPrincipals = [accountCopy calPrincipals];
   allKeys = [calPrincipals allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         calMainPrincipalUID = [accountCopy calMainPrincipalUID];
         v13 = [calMainPrincipalUID isEqualToString:v11];
 
@@ -608,13 +653,11 @@ LABEL_12:
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -690,7 +733,7 @@ LABEL_6:
 
 - (void)removeAccount:(id)account withCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   handlerCopy = handler;
   if (![(CalAccountsProvider *)self runningUnitTests])
@@ -702,36 +745,36 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v22 = handlerCopy;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
+  v21 = handlerCopy;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   accountsWhenRunningUnitTests = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
-  v9 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v9)
   {
 LABEL_10:
 
 LABEL_13:
     accountStore = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E6959978] code:6 userInfo:0];
-    handlerCopy = v22;
-    (*(v22 + 2))(v22, 0, accountStore);
+    handlerCopy = v21;
+    (*(v21 + 2))(v21, 0, accountStore);
     goto LABEL_14;
   }
 
   v10 = v9;
-  v11 = *v24;
+  v11 = *v23;
 LABEL_4:
   v12 = 0;
   while (1)
   {
-    if (*v24 != v11)
+    if (*v23 != v11)
     {
       objc_enumerationMutation(accountsWhenRunningUnitTests);
     }
 
-    v13 = *(*(&v23 + 1) + 8 * v12);
+    v13 = *(*(&v22 + 1) + 8 * v12);
     identifier = [v13 identifier];
     identifier2 = [accountCopy identifier];
     v16 = [identifier isEqualToString:identifier2];
@@ -743,7 +786,7 @@ LABEL_4:
 
     if (v10 == ++v12)
     {
-      v10 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v10)
       {
         goto LABEL_4;
@@ -764,11 +807,9 @@ LABEL_4:
   accountsWhenRunningUnitTests3 = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
   [accountsWhenRunningUnitTests3 removeObjectAtIndex:v19];
 
-  handlerCopy = v22;
-  (*(v22 + 2))(v22, 1, 0);
+  handlerCopy = v21;
+  (*(v21 + 2))(v21, 1, 0);
 LABEL_15:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)removeAccount:(id)account withError:(id *)error
@@ -814,6 +855,223 @@ void __47__CalAccountsProvider_removeAccount_withError___block_invoke(uint64_t a
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), obj);
   v5 = obj;
   dispatch_semaphore_signal(*(a1 + 32));
+}
+
+- (BOOL)renewCredentialsForAccount:(id)account forceRenewal:(BOOL)renewal
+{
+  renewalCopy = renewal;
+  accountCopy = account;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v7 = dispatch_semaphore_create(0);
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __63__CalAccountsProvider_renewCredentialsForAccount_forceRenewal___block_invoke;
+  v16 = &unk_1E7EC78D0;
+  v18 = &v19;
+  v8 = v7;
+  v17 = v8;
+  [(CalAccountsProvider *)self renewCredentialsForAccount:accountCopy forceRenewal:renewalCopy withCompletionHandler:&v13];
+  v9 = dispatch_time(0, 30000000000);
+  if (dispatch_semaphore_wait(v8, v9) >= 1)
+  {
+    v10 = [CalFoundationLogSubsystem accounts:v13];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [CalAccountsProvider renewCredentialsForAccount:forceRenewal:];
+    }
+  }
+
+  v11 = *(v20 + 24);
+
+  _Block_object_dispose(&v19, 8);
+  return v11;
+}
+
+- (void)renewCredentialsForAccount:(id)account forceRenewal:(BOOL)renewal withCompletionHandler:(id)handler
+{
+  renewalCopy = renewal;
+  v29 = *MEMORY[0x1E69E9840];
+  accountCopy = account;
+  handlerCopy = handler;
+  if (accountCopy && (([accountCopy isAuthenticated] & 1) != 0 || renewalCopy))
+  {
+    v13 = +[CalFoundationLogSubsystem accounts];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = NSStringFromSelector(a2);
+      *buf = 138413058;
+      v22 = v14;
+      v23 = 2112;
+      v24 = accountCopy;
+      v25 = 1024;
+      isAuthenticated = [accountCopy isAuthenticated];
+      v27 = 1024;
+      v28 = renewalCopy;
+      _os_log_impl(&dword_1B990D000, v13, OS_LOG_TYPE_DEFAULT, "Telling store to renew credentials in %@. %@ is authenticated: %d and forceRenewal: %d", buf, 0x22u);
+    }
+
+    v15 = [MEMORY[0x1E696AD98] numberWithBool:{renewalCopy, *MEMORY[0x1E6959AA8]}];
+    v20[0] = v15;
+    v19[1] = *MEMORY[0x1E6959AA0];
+    v16 = [MEMORY[0x1E696AD98] numberWithInt:renewalCopy ^ 1];
+    v20[1] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+
+    accountStore = [(CalAccountsProvider *)self accountStore];
+    [accountStore renewCredentialsForAccount:accountCopy options:v17 completion:handlerCopy];
+  }
+
+  else
+  {
+    v11 = +[CalFoundationLogSubsystem accounts];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = NSStringFromSelector(a2);
+      *buf = 138412546;
+      v22 = v12;
+      v23 = 2112;
+      v24 = accountCopy;
+      _os_log_impl(&dword_1B990D000, v11, OS_LOG_TYPE_DEFAULT, "We're ignoring a call to %@. %@ is unauthenticated and forceRenewal equals NO.", buf, 0x16u);
+    }
+
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 2, 0);
+    }
+  }
+}
+
+- (void)saveAccount:(id)account verify:(BOOL)verify withCompletionHandler:(id)handler
+{
+  verifyCopy = verify;
+  v30 = *MEMORY[0x1E69E9840];
+  accountCopy = account;
+  handlerCopy = handler;
+  if ([(CalAccountsProvider *)self runningUnitTests])
+  {
+    v24 = handlerCopy;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    accountsWhenRunningUnitTests = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
+    v11 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = *v26;
+LABEL_4:
+      v14 = 0;
+      while (1)
+      {
+        if (*v26 != v13)
+        {
+          objc_enumerationMutation(accountsWhenRunningUnitTests);
+        }
+
+        v15 = *(*(&v25 + 1) + 8 * v14);
+        identifier = [v15 identifier];
+        identifier2 = [accountCopy identifier];
+        v18 = [identifier isEqualToString:identifier2];
+
+        if (v18)
+        {
+          break;
+        }
+
+        if (v12 == ++v14)
+        {
+          v12 = [accountsWhenRunningUnitTests countByEnumeratingWithState:&v25 objects:v29 count:16];
+          if (v12)
+          {
+            goto LABEL_4;
+          }
+
+          goto LABEL_10;
+        }
+      }
+
+      accountsWhenRunningUnitTests2 = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
+      v22 = [accountsWhenRunningUnitTests2 indexOfObject:v15];
+
+      if (v22 == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        goto LABEL_17;
+      }
+
+      accountsWhenRunningUnitTests3 = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
+      [accountsWhenRunningUnitTests3 setObject:accountCopy atIndexedSubscript:v22];
+    }
+
+    else
+    {
+LABEL_10:
+
+LABEL_17:
+      accountsWhenRunningUnitTests3 = [(CalAccountsProvider *)self accountsWhenRunningUnitTests];
+      [accountsWhenRunningUnitTests3 addObject:accountCopy];
+    }
+
+    handlerCopy = v24;
+
+    handlerCopy[2](handlerCopy, 1, 0);
+  }
+
+  else
+  {
+    if (([accountCopy calIsDirty] & 1) == 0)
+    {
+      v19 = +[CalFoundationLogSubsystem accounts];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        [CalAccountsProvider saveAccount:verify:withCompletionHandler:];
+      }
+    }
+
+    accountStore = [(CalAccountsProvider *)self accountStore];
+    [accountStore saveAccount:accountCopy withDataclassActions:0 doVerify:verifyCopy completion:handlerCopy];
+  }
+}
+
+- (BOOL)saveAccount:(id)account verify:(BOOL)verify withError:(id *)error
+{
+  verifyCopy = verify;
+  accountCopy = account;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__9;
+  v21 = __Block_byref_object_dispose__9;
+  v22 = 0;
+  v9 = dispatch_semaphore_create(0);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __52__CalAccountsProvider_saveAccount_verify_withError___block_invoke;
+  v13[3] = &unk_1E7EC78A8;
+  v15 = &v23;
+  v16 = &v17;
+  v10 = v9;
+  v14 = v10;
+  [(CalAccountsProvider *)self saveAccount:accountCopy verify:verifyCopy withCompletionHandler:v13];
+  dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
+  if (error)
+  {
+    *error = v18[5];
+  }
+
+  v11 = *(v24 + 24);
+
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v23, 8);
+
+  return v11;
 }
 
 void __52__CalAccountsProvider_saveAccount_verify_withError___block_invoke(uint64_t a1, char a2, id obj)
@@ -917,29 +1175,29 @@ void __52__CalAccountsProvider_saveAccount_verify_withError___block_invoke(uint6
 
 - (id)_accountsEnabledForDataClass:(id)class
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   classCopy = class;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allAccounts = [(CalAccountsProvider *)self allAccounts];
-  v7 = [allAccounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allAccounts countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allAccounts);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         enabledDataclasses = [v11 enabledDataclasses];
         v13 = [enabledDataclasses containsObject:classCopy];
 
@@ -949,42 +1207,40 @@ void __52__CalAccountsProvider_saveAccount_verify_withError___block_invoke(uint6
         }
       }
 
-      v8 = [allAccounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allAccounts countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)_accountsEnabledForDataClasses:(id)classes
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allAccounts = [(CalAccountsProvider *)self allAccounts];
-  v7 = [allAccounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allAccounts countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allAccounts);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         enabledDataclasses = [v11 enabledDataclasses];
         v13 = [classesCopy intersectsSet:enabledDataclasses];
 
@@ -994,13 +1250,11 @@ void __52__CalAccountsProvider_saveAccount_verify_withError___block_invoke(uint6
         }
       }
 
-      v8 = [allAccounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allAccounts countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -1116,7 +1370,7 @@ void __58__CalAccountsProvider__accountTypeWithIdentifier_inStore___block_invoke
 
 + (id)_existingAccountForAccount:(id)account inStore:(id)store
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   storeCopy = store;
   if ([accountCopy calIsCalDAVAccount])
@@ -1125,11 +1379,11 @@ void __58__CalAccountsProvider__accountTypeWithIdentifier_inStore___block_invoke
     v9 = [accountCopy valueForKey:@"PrincipalPath" forPrincipalWithUID:calMainPrincipalUID];
 
     calHostname = [accountCopy calHostname];
-    v50 = [self uniqueStringsForHostname:calHostname];
+    v49 = [self uniqueStringsForHostname:calHostname];
 
-    v49 = [self uniqueStringsForPrincipalPath:v9];
+    v48 = [self uniqueStringsForPrincipalPath:v9];
     username = [accountCopy username];
-    v51 = [self _uniqueStringsForUsername:username];
+    v50 = [self _uniqueStringsForUsername:username];
 
     v12 = +[CalAccountsProvider defaultProvider];
     runningUnitTests = [v12 runningUnitTests];
@@ -1147,30 +1401,30 @@ void __58__CalAccountsProvider__accountTypeWithIdentifier_inStore___block_invoke
     }
     v16 = ;
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     obj = v16;
-    v17 = [obj countByEnumeratingWithState:&v53 objects:v65 count:16];
+    v17 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
     if (v17)
     {
       v19 = v17;
-      v47 = v9;
-      v48 = storeCopy;
-      v20 = *v54;
+      v46 = v9;
+      v47 = storeCopy;
+      v20 = *v53;
       *&v18 = 138413058;
-      v46 = v18;
+      v45 = v18;
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v54 != v20)
+          if (*v53 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v53 + 1) + 8 * i);
+          v22 = *(*(&v52 + 1) + 8 * i);
           identifier = [accountCopy identifier];
           identifier2 = [v22 identifier];
           v25 = [identifier isEqualToString:identifier2];
@@ -1184,7 +1438,7 @@ void __58__CalAccountsProvider__accountTypeWithIdentifier_inStore___block_invoke
             v30 = [accountType isEqual:accountType2];
 
             username2 = [v22 username];
-            LODWORD(accountType) = [v51 containsObject:username2];
+            LODWORD(accountType) = [v50 containsObject:username2];
 
             v32 = v30 & accountType;
             if (v32 == 1)
@@ -1195,24 +1449,24 @@ void __58__CalAccountsProvider__accountTypeWithIdentifier_inStore___block_invoke
                 parentAccount3 = [accountCopy parentAccount];
                 parentAccount4 = [accountCopy parentAccount];
                 accountType3 = [parentAccount4 accountType];
-                *buf = v46;
-                v58 = accountCopy;
-                v59 = 2112;
-                v60 = v51;
-                v61 = 2112;
-                v62 = parentAccount3;
-                v63 = 2112;
-                v64 = accountType3;
+                *buf = v45;
+                v57 = accountCopy;
+                v58 = 2112;
+                v59 = v50;
+                v60 = 2112;
+                v61 = parentAccount3;
+                v62 = 2112;
+                v63 = accountType3;
                 _os_log_error_impl(&dword_1B990D000, v33, OS_LOG_TYPE_ERROR, "Account [%@] has the same user name as an existing account. uniqueUsernames:[%@] parentAccount:[%@] parentAccountType:[%@]", buf, 0x2Au);
               }
             }
 
             calHostname2 = [v22 calHostname];
-            v35 = [v50 containsObject:calHostname2];
+            v35 = [v49 containsObject:calHostname2];
 
             calMainPrincipalUID2 = [v22 calMainPrincipalUID];
             v37 = [v22 valueForKey:@"PrincipalPath" forPrincipalWithUID:calMainPrincipalUID2];
-            v38 = [v49 containsObject:v37];
+            v38 = [v48 containsObject:v37];
 
             if (!(v32 & 1 | ((v35 & 1) == 0)) && v38)
             {
@@ -1240,7 +1494,7 @@ LABEL_28:
           }
         }
 
-        v19 = [obj countByEnumeratingWithState:&v53 objects:v65 count:16];
+        v19 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
         if (v19)
         {
           continue;
@@ -1251,8 +1505,8 @@ LABEL_28:
 
       v15 = 0;
 LABEL_31:
-      v9 = v47;
-      storeCopy = v48;
+      v9 = v46;
+      storeCopy = v47;
     }
 
     else
@@ -1267,14 +1521,12 @@ LABEL_31:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = accountCopy;
+      v57 = accountCopy;
       _os_log_impl(&dword_1B990D000, v9, OS_LOG_TYPE_DEFAULT, "Account [%@] is not a CalDAV account. Allow the save to proceed.", buf, 0xCu);
     }
 
     v15 = 0;
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -1412,85 +1664,35 @@ LABEL_31:
 
 - (void)oauthTokenForAccount:(void *)a1 tokenType:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 parentAccount];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)oauthTokenForAccount:tokenType:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "An OAuth token doesn't exist for %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)oauthTokenForAccount:(void *)a1 tokenType:.cold.3(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 credential];
-  v8 = [v1 credentialType];
+  v7 = [v1 credentialType];
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)renewCredentialsForAccount:forceRenewal:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "We timed out attempting to renew credentials for %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveAccount:verify:withCompletionHandler:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AF00] callStackSymbols];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_accountsWithAccountType:inStore:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "Timed out trying to accounts with type %@ from the account store.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_accountTypeWithIdentifier:inStore:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "Timed out trying to fetch an account type with identifier %@ from the account store.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_existingAccountForAccount:inStore:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "Account [%@] has the same server url and principal account.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_existingAccountForAccount:inStore:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B990D000, v1, OS_LOG_TYPE_ERROR, "Account [%@] is the duplicate of account [%@].", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B990D000, v1, OS_LOG_TYPE_ERROR, "Account [%@] is the duplicate of account [%@].", v2, 0x16u);
 }
 
 @end

@@ -27,7 +27,7 @@
 
 - (id)__stringByStrippingControlCharacters
 {
-  v3 = sub_10000B79C();
+  v3 = sub_10000B79C(self);
   v4 = [(NSString *)self stringByRemovingCharactersFromSet:v3];
   v5 = v4;
   if (v4)

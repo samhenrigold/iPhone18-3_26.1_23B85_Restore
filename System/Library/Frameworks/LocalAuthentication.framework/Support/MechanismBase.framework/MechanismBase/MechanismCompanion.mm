@@ -28,7 +28,7 @@
 
 - (BOOL)isAvailableForPurpose:(int64_t)purpose error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   request = [(MechanismBase *)self request];
   serviceLocator = [request serviceLocator];
   v8 = NSStringFromProtocol(&unk_284B7E948);
@@ -66,14 +66,13 @@
       v14 = v10;
     }
 
-    v17 = 138543618;
+    v16 = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = v14;
-    _os_log_impl(&dword_238B95000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ isAvailable -> %{public}@", &v17, 0x16u);
+    v18 = 2114;
+    v19 = v14;
+    _os_log_impl(&dword_238B95000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ isAvailable -> %{public}@", &v16, 0x16u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10 == 0;
 }
 

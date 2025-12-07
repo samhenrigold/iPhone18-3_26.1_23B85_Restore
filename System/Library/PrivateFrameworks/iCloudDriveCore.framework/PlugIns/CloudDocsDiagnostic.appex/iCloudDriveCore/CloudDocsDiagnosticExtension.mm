@@ -99,13 +99,13 @@ LABEL_5:
 - (id)attachmentsForParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_100001D04;
-  v29 = sub_100001D14;
-  v30 = +[NSMutableArray array];
-  v17 = NSTemporaryDirectory();
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_100001D04;
+  v28 = sub_100001D14;
+  v29 = +[NSMutableArray array];
+  v16 = NSTemporaryDirectory();
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -113,9 +113,9 @@ LABEL_5:
     sub_100003718();
   }
 
-  v24 = 0;
-  v5 = [(CloudDocsDiagnosticExtension *)self _getConfigureLogsParam:parametersCopy configureLogs:&v24];
-  if (v5 && v24 == 1)
+  v23 = 0;
+  v5 = [(CloudDocsDiagnosticExtension *)self _getConfigureLogsParam:parametersCopy configureLogs:&v23];
+  if (v5 && v23 == 1)
   {
     v6 = brc_bread_crumbs();
     v7 = brc_default_log();
@@ -125,38 +125,37 @@ LABEL_5:
     }
 
     [(CloudDocsDiagnosticExtension *)self _enableLogSensitiveData:1];
-    v8 = v26[5];
+    v8 = v25[5];
   }
 
   else
   {
     +[BRAccountDescriptor allLoggedInAccountDescriptors];
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    obj = v21 = 0u;
-    v9 = [obj countByEnumeratingWithState:&v20 objects:v31 count:16];
+    v19 = 0u;
+    obj = v20 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v19 objects:v30 count:16];
     if (v9)
     {
-      v10 = *v21;
+      v10 = *v20;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
-          v13 = objc_autoreleasePoolPush();
-          v19 = v17;
+          v12 = objc_autoreleasePoolPush();
+          v18 = v16;
           BRPerformWithAccountDescriptorAndError();
 
-          objc_autoreleasePoolPop(v13);
+          objc_autoreleasePoolPop(v12);
         }
 
-        v9 = [obj countByEnumeratingWithState:&v20 objects:v31 count:16];
+        v9 = [obj countByEnumeratingWithState:&v19 objects:v30 count:16];
       }
 
       while (v9);
@@ -167,10 +166,10 @@ LABEL_5:
       [(CloudDocsDiagnosticExtension *)self _enableLogSensitiveData:0];
     }
 
-    v8 = v26[5];
+    v8 = v25[5];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
 
   return v8;
 }

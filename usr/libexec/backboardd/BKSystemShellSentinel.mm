@@ -35,6 +35,7 @@
 - (void)setWatchdogMonitoringEnabled:(id)enabled;
 - (void)startServerWithoutDataMigration;
 - (void)systemShellDidConnect:(id)connect connection:(id)connection;
+- (void)systemShellDidTerminate:(int)terminate;
 - (void)terminateShellWithJobLabel:(id)label;
 @end
 
@@ -1155,6 +1156,47 @@ LABEL_22:
 
   [(NSMutableSet *)collectivePingDataLock_collectivePingShells addObject:setCopy];
   os_unfair_lock_unlock(&self->_collectivePingDataLock);
+}
+
+- (void)systemShellDidTerminate:(int)terminate
+{
+  v3 = *&terminate;
+  os_unfair_lock_lock(&self->_lock);
+  lock_pidToClient = self->_lock_pidToClient;
+  v6 = [NSNumber numberWithInt:v3];
+  v7 = [(NSMutableDictionary *)lock_pidToClient objectForKey:v6];
+
+  if (v7)
+  {
+    v8 = BKLogSystemShell();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 138543362;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "System app disconnected: %{public}@", &v12, 0xCu);
+    }
+
+    [(NSMutableOrderedSet *)self->_lock_connectedSystemApps removeObject:v7];
+    [(NSMapTable *)self->_lock_checkinCompletionsBySystemApp removeObjectForKey:v7];
+    v9 = self->_lock_pidToClient;
+    v10 = [NSNumber numberWithInt:v3];
+    [(NSMutableDictionary *)v9 removeObjectForKey:v10];
+
+    [(NSMutableSet *)self->_lock_shellsFinishedStartup removeObject:v7];
+    [(BKSystemShellSentinel *)self _removeSystemShellFromCollectivePingSet:v7];
+    [(BKSystemShellSentinel *)self _lock_updatePrimarySystemApp];
+    if (![(NSMutableOrderedSet *)self->_lock_connectedSystemApps count])
+    {
+      v11 = BKLogSystemShell();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v12) = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "No more system apps", &v12, 2u);
+      }
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)systemShellDidConnect:(id)connect connection:(id)connection

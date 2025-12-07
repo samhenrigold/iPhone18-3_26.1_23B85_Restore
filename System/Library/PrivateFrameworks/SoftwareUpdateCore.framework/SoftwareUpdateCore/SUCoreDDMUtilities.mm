@@ -28,7 +28,7 @@ uint64_t __34__SUCoreDDMUtilities_sharedLogger__block_invoke()
 + (void)postNotificationOfType:(unsigned __int16)type description:(id)description
 {
   typeCopy = type;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   if (descriptionCopy)
   {
@@ -47,13 +47,13 @@ uint64_t __34__SUCoreDDMUtilities_sharedLogger__block_invoke()
         v8 = off_27892E0B0[typeCopy];
       }
 
-      v10 = 136315650;
-      v11 = "+[SUCoreDDMUtilities postNotificationOfType:description:]";
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2114;
-      v15 = descriptionCopy;
-      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: Posting %{public}@ for %{public}@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "+[SUCoreDDMUtilities postNotificationOfType:description:]";
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2114;
+      v14 = descriptionCopy;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: Posting %{public}@ for %{public}@", &v9, 0x20u);
     }
   }
 
@@ -61,13 +61,11 @@ uint64_t __34__SUCoreDDMUtilities_sharedLogger__block_invoke()
   {
     notify_post([(__CFString *)*off_27892E0D8[typeCopy] UTF8String]);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_forceSupervision
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"ForceSupervision", @"com.apple.sucore.ddm", 0);
   if (AppBooleanValue)
   {
@@ -76,15 +74,13 @@ uint64_t __34__SUCoreDDMUtilities_sharedLogger__block_invoke()
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "+[SUCoreDDMUtilities _forceSupervision]";
-      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: forceSupervision is set", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "+[SUCoreDDMUtilities _forceSupervision]";
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: forceSupervision is set", &v6, 0xCu);
     }
   }
 
-  result = AppBooleanValue != 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppBooleanValue != 0;
 }
 
 @end

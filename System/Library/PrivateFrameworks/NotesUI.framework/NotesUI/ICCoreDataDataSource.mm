@@ -360,7 +360,8 @@ uint64_t __74__ICCoreDataDataSource_indexer_didChangeContentWithDifference_contr
     v8 = [v4 setWithArray:v7];
     [v3 intersectSet:v8];
 
-    if ([*(a1 + 32) count])
+    WeakRetained = [*(a1 + 32) count];
+    if (WeakRetained)
     {
       v9 = [v13 collectionViewDiffableDataSource];
       v10 = [v9 snapshot];
@@ -369,7 +370,7 @@ uint64_t __74__ICCoreDataDataSource_indexer_didChangeContentWithDifference_contr
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained);
 }
 
 - (BOOL)needsReindexWithCollectionDifference:(id)difference controller:(id)controller identifiersToReload:(id)reload
@@ -870,7 +871,7 @@ void __64__ICCoreDataDataSource_applySnapshotAnimated_dataRenderedBlock___block_
 
         v6 = *(*(&v33 + 1) + 8 * i);
         dispatch_group_enter(*(a1 + 40));
-        v7 = [*(a1 + 48) objectForKeyedSubscript:v6];
+        v7 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 48));
         if (!v7)
         {
           dispatch_group_leave(*(a1 + 40));

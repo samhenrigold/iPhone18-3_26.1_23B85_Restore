@@ -29,10 +29,11 @@
 
 uint64_t __43__HMMTRSyncClusterColorControl_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v33 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v33;
+  logCategory__hmf_once_v33 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)logIdentifier
@@ -46,7 +47,7 @@ uint64_t __43__HMMTRSyncClusterColorControl_logCategory__block_invoke()
 
 - (void)readColorTemperatureAttributesWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(HMMTRColorControlColorTemperatureAttributes);
   v6 = objc_alloc_init(MEMORY[0x277CD54D8]);
@@ -63,11 +64,11 @@ uint64_t __43__HMMTRSyncClusterColorControl_logCategory__block_invoke()
     }
 
     v25 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v25;
+    v27 = 138543362;
+    v28 = v25;
     v26 = "%{public}@Failed to read color control attribute color mode.";
 LABEL_20:
-    _os_log_impl(&dword_22AEAE000, v24, OS_LOG_TYPE_INFO, v26, &v28, 0xCu);
+    _os_log_impl(&dword_22AEAE000, v24, OS_LOG_TYPE_INFO, v26, &v27, 0xCu);
 
     goto LABEL_21;
   }
@@ -102,8 +103,8 @@ LABEL_20:
     }
 
     v25 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v25;
+    v27 = 138543362;
+    v28 = v25;
     v26 = "%{public}@Failed to read color control attribute remaining time.";
     goto LABEL_20;
   }
@@ -133,8 +134,8 @@ LABEL_20:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       v25 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v25;
+      v27 = 138543362;
+      v28 = v25;
       v26 = "%{public}@Failed to read color control attribute color temperature mireds.";
       goto LABEL_20;
     }
@@ -164,12 +165,11 @@ LABEL_21:
   (completionCopy)[2](completionCopy, v5, 0);
 
 LABEL_22:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readColorModeAndColorTemperatureWithCompletion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -177,9 +177,9 @@ LABEL_22:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v30 = 138543362;
-    v31 = v8;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@readColorModeAndColorTemperatureWithCompletion", &v30, 0xCu);
+    v29 = 138543362;
+    v30 = v8;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@readColorModeAndColorTemperatureWithCompletion", &v29, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -233,9 +233,9 @@ LABEL_22:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         v28 = HMFGetLogIdentifier();
-        v30 = 138543362;
-        v31 = v28;
-        _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_INFO, "%{public}@Failed to read color control attribute color temperature.", &v30, 0xCu);
+        v29 = 138543362;
+        v30 = v28;
+        _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_INFO, "%{public}@Failed to read color control attribute color temperature.", &v29, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -251,21 +251,19 @@ LABEL_22:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v24;
-      _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Failed to read color control attribute color mode.", &v30, 0xCu);
+      v29 = 138543362;
+      v30 = v24;
+      _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Failed to read color control attribute color mode.", &v29, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
     (completionCopy)[2](completionCopy, 0, 0, v10);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMoveToColorTemperatureCommandWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = *MEMORY[0x277D0F1A0];
@@ -295,12 +293,12 @@ LABEL_22:
         v13 = objc_alloc_init(MEMORY[0x277CD52E8]);
         [v13 setOptionsMask:&unk_283EE7998];
         [v13 setOptionsOverride:&unk_283EE7998];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __80__HMMTRSyncClusterColorControl_stopMoveToColorTemperatureCommandWithCompletion___block_invoke;
-        v23[3] = &unk_2786F0BC0;
-        v24 = completionCopy;
-        [(MTRClusterColorControl *)self stopMoveStepWithParams:v13 expectedValues:0 expectedValueInterval:&unk_283EE79C8 completion:v23];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __80__HMMTRSyncClusterColorControl_stopMoveToColorTemperatureCommandWithCompletion___block_invoke;
+        v22[3] = &unk_2786F0BC0;
+        v23 = completionCopy;
+        [(MTRClusterColorControl *)self stopMoveStepWithParams:v13 expectedValues:0 expectedValueInterval:&unk_283EE79C8 completion:v22];
 
 LABEL_14:
         goto LABEL_15;
@@ -331,20 +329,18 @@ LABEL_14:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v26 = v17;
+    v25 = v17;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@Failed to read color mode attribute.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v14);
   (*(completionCopy + 2))(completionCopy, v7);
 LABEL_15:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readStartUpColorTemperatureWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D0F1A0] code:8 userInfo:0];
@@ -377,16 +373,14 @@ LABEL_15:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_INFO, "%{public}@Failed to read startup color temperature attribute.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_INFO, "%{public}@Failed to read startup color temperature attribute.", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     (completionCopy)[2](completionCopy, 0, v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeStartUpColorTemperature:(id)temperature completion:(id)completion
@@ -403,7 +397,7 @@ LABEL_15:
 
 - (void)supportsColorTemperatureRangeWithMinColorTemperature:(id)temperature maxColorTemperature:(id)colorTemperature completion:(id)completion
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   temperatureCopy = temperature;
   colorTemperatureCopy = colorTemperature;
   completionCopy = completion;
@@ -414,8 +408,8 @@ LABEL_15:
   if (v14)
   {
     v15 = v14;
-    v59 = v13;
-    v60 = colorTemperatureCopy;
+    v58 = v13;
+    v59 = colorTemperatureCopy;
     v16 = *MEMORY[0x277CD51A0];
     v17 = [v14 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
     objc_opt_class();
@@ -448,13 +442,13 @@ LABEL_15:
         v23 = 0;
       }
 
-      v58 = v23;
+      v57 = v23;
 
       v24 = [(MTRClusterColorControl *)self readAttributeColorTempPhysicalMaxMiredsWithParams:v11];
 
       if (v24)
       {
-        v56 = v24;
+        v55 = v24;
         v25 = [v24 objectForKeyedSubscript:v16];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -467,7 +461,7 @@ LABEL_15:
           v26 = 0;
         }
 
-        v57 = v26;
+        v56 = v26;
 
         v27 = objc_autoreleasePoolPush();
         selfCopy = self;
@@ -477,37 +471,37 @@ LABEL_15:
           v30 = HMFGetLogIdentifier();
           v31 = HMFBooleanToString();
           *buf = 138544642;
-          v62 = v30;
-          v63 = 2112;
-          v64 = v31;
-          v65 = 2112;
-          v66 = v58;
-          v67 = 2112;
-          v68 = v57;
-          v69 = 2112;
-          v70 = temperatureCopy;
-          v71 = 2112;
-          v72 = v60;
+          v61 = v30;
+          v62 = 2112;
+          v63 = v31;
+          v64 = 2112;
+          v65 = v57;
+          v66 = 2112;
+          v67 = v56;
+          v68 = 2112;
+          v69 = temperatureCopy;
+          v70 = 2112;
+          v71 = v59;
           _os_log_impl(&dword_22AEAE000, v29, OS_LOG_TYPE_INFO, "%{public}@Read color control attribute colorCapabilities supportsColorTempFeature: %@ accessoryRange: [%@ : %@]  allowedRange: [%@ : %@]", buf, 0x3Eu);
         }
 
         objc_autoreleasePoolPop(v27);
-        colorTemperatureCopy = v60;
-        if ((unsignedIntegerValue & 0x10) != 0 && (v32 = [v58 longValue], v32 <= objc_msgSend(v60, "longValue")) && (v33 = objc_msgSend(v57, "longValue"), v33 >= objc_msgSend(temperatureCopy, "longValue")))
+        colorTemperatureCopy = v59;
+        if ((unsignedIntegerValue & 0x10) != 0 && (v32 = [v57 longValue], v32 <= objc_msgSend(v59, "longValue")) && (v33 = objc_msgSend(v56, "longValue"), v33 >= objc_msgSend(temperatureCopy, "longValue")))
         {
-          v52 = objc_autoreleasePoolPush();
-          v53 = selfCopy;
-          v54 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+          v51 = objc_autoreleasePoolPush();
+          v52 = selfCopy;
+          v53 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
           {
-            v55 = HMFGetLogIdentifier();
+            v54 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v62 = v55;
-            _os_log_impl(&dword_22AEAE000, v54, OS_LOG_TYPE_INFO, "%{public}@Accessory supports expected color temp range", buf, 0xCu);
+            v61 = v54;
+            _os_log_impl(&dword_22AEAE000, v53, OS_LOG_TYPE_INFO, "%{public}@Accessory supports expected color temp range", buf, 0xCu);
           }
 
-          objc_autoreleasePoolPop(v52);
-          completionCopy[2](completionCopy, 1, 0, v58, v57);
+          objc_autoreleasePoolPop(v51);
+          completionCopy[2](completionCopy, 1, 0, v57, v56);
         }
 
         else
@@ -519,18 +513,18 @@ LABEL_15:
           {
             v37 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v62 = v37;
+            v61 = v37;
             _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_INFO, "%{public}@Accessory does not support expected color temp range", buf, 0xCu);
 
-            colorTemperatureCopy = v60;
+            colorTemperatureCopy = v59;
           }
 
           objc_autoreleasePoolPop(v34);
           v38 = [MEMORY[0x277CCA9B8] errorWithDomain:v12 code:3 userInfo:0];
-          (completionCopy)[2](completionCopy, 0, v38, v58, v57);
+          (completionCopy)[2](completionCopy, 0, v38, v57, v56);
         }
 
-        v13 = v59;
+        v13 = v58;
       }
 
       else
@@ -538,18 +532,18 @@ LABEL_15:
         v47 = objc_autoreleasePoolPush();
         selfCopy2 = self;
         v49 = HMFGetOSLogHandle();
-        colorTemperatureCopy = v60;
+        colorTemperatureCopy = v59;
         if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
         {
           v50 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v62 = v50;
+          v61 = v50;
           _os_log_impl(&dword_22AEAE000, v49, OS_LOG_TYPE_INFO, "%{public}@Failed to read color control attribute physical max mired.", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v47);
-        v13 = v59;
-        (completionCopy)[2](completionCopy, 0, v59, v58, 0);
+        v13 = v58;
+        (completionCopy)[2](completionCopy, 0, v58, v57, 0);
       }
     }
 
@@ -562,14 +556,14 @@ LABEL_15:
       {
         v46 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v62 = v46;
+        v61 = v46;
         _os_log_impl(&dword_22AEAE000, v45, OS_LOG_TYPE_INFO, "%{public}@Failed to read color control attribute physical min mired.", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v43);
-      v13 = v59;
-      (completionCopy)[2](completionCopy, 0, v59, 0, 0);
-      colorTemperatureCopy = v60;
+      v13 = v58;
+      (completionCopy)[2](completionCopy, 0, v58, 0, 0);
+      colorTemperatureCopy = v59;
     }
   }
 
@@ -582,15 +576,13 @@ LABEL_15:
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v62 = v42;
+      v61 = v42;
       _os_log_impl(&dword_22AEAE000, v41, OS_LOG_TYPE_INFO, "%{public}@Failed to read color control attribute colorCapabilities.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v39);
     (completionCopy)[2](completionCopy, 0, v13, 0, 0);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)moveToCustomColorTemperatureWithParams:(id)params completionHandler:(id)handler
@@ -621,7 +613,7 @@ LABEL_15:
 
 void __89__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureWithParams_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -631,21 +623,19 @@ void __89__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureWithParams_c
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) colorTemperature];
     v9 = [*(a1 + 40) optionsMask];
-    v11 = 138544130;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@moveToColorTemperatureWithParams completed with colorTemperature %@, optionsMask %@, error %@", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@moveToColorTemperatureWithParams completed with colorTemperature %@, optionsMask %@, error %@", &v10, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 48) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)moveToCustomColorTemperatureValue:(id)value transitionTime:(id)time completionHandler:(id)handler
@@ -674,7 +664,7 @@ void __89__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureWithParams_c
 
 void __99__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureValue_transitionTime_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -685,28 +675,26 @@ void __99__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureValue_transi
     v8 = [*(a1 + 40) colorTemperature];
     v9 = [*(a1 + 40) transitionTime];
     v10 = [*(a1 + 40) optionsMask];
-    v12 = 138544386;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@moveToColorTemperatureWithParams completed with colorTemperature %@, transitionTime %@, optionsMask %@, error %@", &v12, 0x34u);
+    v11 = 138544386;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@moveToColorTemperatureWithParams completed with colorTemperature %@, transitionTime %@, optionsMask %@, error %@", &v11, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePluginColorTemperatureMiredsWithParams:(id)params
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterColorControl *)self readAttributeColorModeWithParams:v5];
@@ -751,8 +739,8 @@ void __99__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureValue_transi
 
         unsignedIntegerValue2 = [v17 unsignedIntegerValue];
         v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{unsignedIntegerValue2, *MEMORY[0x277CD5188], v8, *MEMORY[0x277CD5198]}];
-        v39[1] = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:2];
+        v38[1] = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:2];
       }
 
       else
@@ -764,7 +752,7 @@ void __99__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureValue_transi
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v43 = v35;
+          v42 = v35;
           _os_log_impl(&dword_22AEAE000, v34, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read color temperature", buf, 0xCu);
         }
 
@@ -784,23 +772,23 @@ void __99__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureValue_transi
         v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
         endpointID = [(HMMTRSyncClusterColorControl *)selfCopy2 endpointID];
         *buf = 138544130;
-        v43 = v28;
-        v44 = 2112;
-        v45 = &unk_283EE79B0;
-        v46 = 2112;
-        v47 = v29;
-        v48 = 2112;
-        v49 = endpointID;
+        v42 = v28;
+        v43 = 2112;
+        v44 = &unk_283EE79B0;
+        v45 = 2112;
+        v46 = v29;
+        v47 = 2112;
+        v48 = endpointID;
         _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_INFO, "%{public}@Returning color temp: %@ because colorMode: %@ on accessory endPoint: %@ is not color temp", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v25);
       v31 = *MEMORY[0x277CD5198];
-      v40[0] = *MEMORY[0x277CD5188];
-      v40[1] = v8;
-      v41[0] = v31;
-      v41[1] = &unk_283EE79B0;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+      v39[0] = *MEMORY[0x277CD5188];
+      v39[1] = v8;
+      v40[0] = v31;
+      v40[1] = &unk_283EE79B0;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
     }
   }
 
@@ -813,15 +801,13 @@ void __99__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureValue_transi
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v24;
+      v42 = v24;
       _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read colorMode", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
     v20 = 0;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -854,7 +840,7 @@ void __99__HMMTRSyncClusterColorControl_moveToCustomColorTemperatureValue_transi
 
 void __126__HMMTRSyncClusterColorControl_moveToPluginColorTemperatureWithParams_expectedValues_expectedValueInterval_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -864,21 +850,19 @@ void __126__HMMTRSyncClusterColorControl_moveToPluginColorTemperatureWithParams_
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) colorTemperature];
     v9 = [*(a1 + 40) optionsMask];
-    v11 = 138544130;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@moveToPluginColorTemperatureWithParams colorTemperature %@, optionsMask %@, error %@", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@moveToPluginColorTemperatureWithParams colorTemperature %@, optionsMask %@, error %@", &v10, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 48) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

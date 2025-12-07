@@ -2,6 +2,8 @@
 + (id)cloudDownloadImageForTintColor:(id)color outlineColor:(id)outlineColor traitCollection:(id)collection;
 + (id)specifier;
 - (void)_downloadHomeApp:(id)app;
+- (void)_updateDownloadControl:(BOOL)control;
+- (void)_updateDownloadControlWithInstallStatus:(int64_t)status animated:(BOOL)animated;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
 @end
 
@@ -132,6 +134,95 @@
   [(HOSHomeAppReinstallPreferencesCell *)self setAccessoryView:downloadControl3];
 
   [(HOSHomeAppReinstallPreferencesCell *)self setSelectionStyle:0];
+}
+
+- (void)_updateDownloadControl:(BOOL)control
+{
+  controlCopy = control;
+  installController = [(HOSHomeAppReinstallPreferencesCell *)self installController];
+  -[HOSHomeAppReinstallPreferencesCell _updateDownloadControlWithInstallStatus:animated:](self, "_updateDownloadControlWithInstallStatus:animated:", [installController status], controlCopy);
+}
+
+- (void)_updateDownloadControlWithInstallStatus:(int64_t)status animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6 = 3;
+  v7 = 3;
+  v8 = 3;
+  if (status != 1)
+  {
+    v8 = 1;
+  }
+
+  v9 = 1;
+  if (status == 2)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v7 = v8;
+  }
+
+  if (status == 3)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v6 = v7;
+    v10 = v9;
+  }
+
+  v11 = 2;
+  v12 = 5;
+  if (status)
+  {
+    v12 = 1;
+  }
+
+  if (status == -1)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v11 = v12;
+    v13 = status == 0;
+  }
+
+  if (status <= 0)
+  {
+    v14 = v11;
+  }
+
+  else
+  {
+    v14 = v6;
+  }
+
+  if (status <= 0)
+  {
+    v15 = 1;
+  }
+
+  else
+  {
+    v15 = v10;
+  }
+
+  v16 = status <= 0 && v13;
+  downloadControl = [(HOSHomeAppReinstallPreferencesCell *)self downloadControl];
+  [downloadControl setHidden:v16];
+
+  downloadControl2 = [(HOSHomeAppReinstallPreferencesCell *)self downloadControl];
+  [downloadControl2 setEnabled:v15];
+
+  downloadControl3 = [(HOSHomeAppReinstallPreferencesCell *)self downloadControl];
+  [downloadControl3 setControlStatus:v14 animated:{0x3FF0000000000000, animatedCopy}];
 }
 
 - (void)_downloadHomeApp:(id)app

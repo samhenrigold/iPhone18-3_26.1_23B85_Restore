@@ -1,5 +1,6 @@
 @interface ComAppleContextkitUtilKeylessMapBase
 - (id)getWithHashesWithIntArray:(id)array;
+- (id)valueConverterForCodeWithInt:(int)int;
 - (id)valueForEmbeddedWithInt:(int)int;
 - (id)valueForIndexWithInt:(int)int;
 - (void)close;
@@ -7,6 +8,17 @@
 @end
 
 @implementation ComAppleContextkitUtilKeylessMapBase
+
+- (id)valueConverterForCodeWithInt:(int)int
+{
+  keyValueMarshalling = self->keyValueMarshalling_;
+  if (!keyValueMarshalling)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(ComAppleContextkitUtilValueMarshalling *)keyValueMarshalling getValueConverterWithInt:*&int];
+}
 
 - (void)close
 {
@@ -42,8 +54,8 @@ LABEL_8:
   v5 = *(array + 2);
   if (v5 != self->numHashFunctions_)
   {
-    v57 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Array is of wrong size");
-    objc_exception_throw(v57);
+    v58 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Array is of wrong size");
+    objc_exception_throw(v58);
   }
 
   if (v5 <= 0)
@@ -51,36 +63,36 @@ LABEL_8:
     IOSArray_throwOutOfBoundsWithMsg(v5, 0);
   }
 
-  v58 = *(array + 3);
+  v59 = *(array + 3);
   v6 = v5 - 1;
   if (qword_100554168 != -1)
   {
     sub_100076D98();
   }
 
-  v7 = [IOSObjectArray arrayWithLength:v6 type:qword_100554160];
+  v8 = [IOSObjectArray arrayWithLength:v6 type:qword_100554160];
   numHashFunctions = self->numHashFunctions_;
   if (numHashFunctions < 2)
   {
 LABEL_14:
-    JavaUtilArrays_sortWithNSObjectArray_(v7);
-    v19 = 0;
-    p_elementType = &v7->elementType_;
-    v21 = &(&v7->elementType_)[v7->super.size_];
-    while (p_elementType < v21)
+    JavaUtilArrays_sortWithNSObjectArray_(v8, v7);
+    v20 = 0;
+    p_elementType = &v8->elementType_;
+    v22 = &(&v8->elementType_)[v8->super.size_];
+    while (p_elementType < v22)
     {
-      v23 = *p_elementType++;
-      v22 = v23;
-      v24 = sub_100076A3C(self, v23);
-      v25 = v24;
-      if (v19)
+      v24 = *p_elementType++;
+      v23 = v24;
+      v25 = sub_100076A3C(self, v24);
+      v26 = v25;
+      if (v20)
       {
-        if (!v24)
+        if (!v25)
         {
           goto LABEL_71;
         }
 
-        entrySet = [(JavaUtilHashMap *)v24 entrySet];
+        entrySet = [(JavaUtilHashMap *)v25 entrySet];
         if (!entrySet)
         {
           goto LABEL_71;
@@ -92,60 +104,60 @@ LABEL_14:
           goto LABEL_71;
         }
 
-        v28 = iterator;
+        v29 = iterator;
         if ([iterator hasNext])
         {
           do
           {
-            next = [v28 next];
+            next = [v29 next];
             if (!next)
             {
               goto LABEL_71;
             }
 
-            v30 = next;
-            if (-[JavaUtilHashMap containsKeyWithId:](v19, "containsKeyWithId:", [next getKey]))
+            v31 = next;
+            if (-[JavaUtilHashMap containsKeyWithId:](v20, "containsKeyWithId:", [next getKey]))
             {
-              getValue = [v30 getValue];
+              getValue = [v31 getValue];
               if (!getValue)
               {
                 goto LABEL_71;
               }
 
-              v32 = getValue + 12;
-              while (v32 < &getValue[4 * *(getValue + 2) + 12])
+              v33 = getValue + 12;
+              while (v33 < &getValue[4 * *(getValue + 2) + 12])
               {
-                if (!v22)
+                if (!v23)
                 {
                   goto LABEL_71;
                 }
 
-                v33 = *v32;
-                v32 += 4;
-                if (v33 == *(v22 + 16))
+                v34 = *v33;
+                v33 += 4;
+                if (v34 == *(v23 + 16))
                 {
                   goto LABEL_30;
                 }
               }
             }
 
-            [v28 remove];
+            [v29 remove];
 LABEL_30:
             ;
           }
 
-          while (([v28 hasNext] & 1) != 0);
+          while (([v29 hasNext] & 1) != 0);
         }
       }
 
       else
       {
-        if (!v24)
+        if (!v25)
         {
           goto LABEL_71;
         }
 
-        entrySet2 = [(JavaUtilHashMap *)v24 entrySet];
+        entrySet2 = [(JavaUtilHashMap *)v25 entrySet];
         if (!entrySet2)
         {
           goto LABEL_71;
@@ -157,12 +169,12 @@ LABEL_30:
           goto LABEL_71;
         }
 
-        v36 = iterator2;
+        v37 = iterator2;
         if ([iterator2 hasNext])
         {
           while (1)
           {
-            next2 = [v36 next];
+            next2 = [v37 next];
             if (!next2)
             {
               break;
@@ -174,25 +186,25 @@ LABEL_30:
               break;
             }
 
-            v39 = getValue2 + 12;
-            while (v39 < &getValue2[4 * *(getValue2 + 2) + 12])
+            v40 = getValue2 + 12;
+            while (v40 < &getValue2[4 * *(getValue2 + 2) + 12])
             {
-              if (!v22)
+              if (!v23)
               {
                 goto LABEL_71;
               }
 
-              v40 = *v39;
-              v39 += 4;
-              if (v40 == *(v22 + 16))
+              v41 = *v40;
+              v40 += 4;
+              if (v41 == *(v23 + 16))
               {
                 goto LABEL_44;
               }
             }
 
-            [v36 remove];
+            [v37 remove];
 LABEL_44:
-            if (([v36 hasNext] & 1) == 0)
+            if (([v37 hasNext] & 1) == 0)
             {
               goto LABEL_45;
             }
@@ -203,129 +215,129 @@ LABEL_71:
         }
 
 LABEL_45:
-        v19 = v25;
+        v20 = v26;
       }
 
-      if ([(JavaUtilHashMap *)v19 isEmpty])
+      if ([(JavaUtilHashMap *)v20 isEmpty])
       {
         return 0;
       }
     }
 
-    if (!v19)
+    if (!v20)
     {
       goto LABEL_71;
     }
 
-    v41 = new_JavaUtilArrayList_initWithInt_([(JavaUtilHashMap *)v19 size]);
+    v42 = new_JavaUtilArrayList_initWithInt_([(JavaUtilHashMap *)v20 size]);
     if (self->embeddedValues_)
     {
-      v65 = 0uLL;
       v66 = 0uLL;
-      v63 = 0uLL;
+      v67 = 0uLL;
       v64 = 0uLL;
-      keySet = [(JavaUtilHashMap *)v19 keySet];
+      v65 = 0uLL;
+      keySet = [(JavaUtilHashMap *)v20 keySet];
       if (!keySet)
       {
         goto LABEL_71;
       }
 
-      v44 = keySet;
-      v45 = [keySet countByEnumeratingWithState:&v63 objects:v68 count:16];
-      if (v45)
+      v45 = keySet;
+      v46 = [keySet countByEnumeratingWithState:&v64 objects:v69 count:16];
+      if (v46)
       {
-        v46 = v45;
-        v47 = *v64;
+        v47 = v46;
+        v48 = *v65;
         do
         {
-          for (i = 0; i != v46; i = i + 1)
+          for (i = 0; i != v47; i = i + 1)
           {
-            if (*v64 != v47)
+            if (*v65 != v48)
             {
-              objc_enumerationMutation(v44);
+              objc_enumerationMutation(v45);
             }
 
-            v49 = *(*(&v63 + 1) + 8 * i);
-            if (!v49)
+            v50 = *(*(&v64 + 1) + 8 * i);
+            if (!v50)
             {
               goto LABEL_71;
             }
 
-            -[JavaUtilArrayList addWithId:](v41, "addWithId:", -[ComAppleContextkitUtilKeylessMapBase valueForEmbeddedWithInt:](self, "valueForEmbeddedWithInt:", [v49 intValue]));
+            -[JavaUtilArrayList addWithId:](v42, "addWithId:", -[ComAppleContextkitUtilKeylessMapBase valueForEmbeddedWithInt:](self, "valueForEmbeddedWithInt:", [v50 intValue]));
           }
 
-          v46 = [v44 countByEnumeratingWithState:&v63 objects:v68 count:16];
+          v47 = [v45 countByEnumeratingWithState:&v64 objects:v69 count:16];
         }
 
-        while (v46);
+        while (v47);
       }
     }
 
     else
     {
-      v61 = 0uLL;
       v62 = 0uLL;
-      v59 = 0uLL;
+      v63 = 0uLL;
       v60 = 0uLL;
-      keySet2 = [(JavaUtilHashMap *)v19 keySet];
+      v61 = 0uLL;
+      keySet2 = [(JavaUtilHashMap *)v20 keySet];
       if (!keySet2)
       {
         goto LABEL_71;
       }
 
-      v51 = keySet2;
-      v52 = [keySet2 countByEnumeratingWithState:&v59 objects:v67 count:16];
-      if (v52)
+      v52 = keySet2;
+      v53 = [keySet2 countByEnumeratingWithState:&v60 objects:v68 count:16];
+      if (v53)
       {
-        v53 = v52;
-        v54 = *v60;
+        v54 = v53;
+        v55 = *v61;
         do
         {
-          for (j = 0; j != v53; j = j + 1)
+          for (j = 0; j != v54; j = j + 1)
           {
-            if (*v60 != v54)
+            if (*v61 != v55)
             {
-              objc_enumerationMutation(v51);
+              objc_enumerationMutation(v52);
             }
 
-            v56 = *(*(&v59 + 1) + 8 * j);
-            if (!v56)
+            v57 = *(*(&v60 + 1) + 8 * j);
+            if (!v57)
             {
               goto LABEL_71;
             }
 
-            -[JavaUtilArrayList addWithId:](v41, "addWithId:", -[ComAppleContextkitUtilKeylessMapBase valueForIndexWithInt:](self, "valueForIndexWithInt:", [v56 intValue]));
+            -[JavaUtilArrayList addWithId:](v42, "addWithId:", -[ComAppleContextkitUtilKeylessMapBase valueForIndexWithInt:](self, "valueForIndexWithInt:", [v57 intValue]));
           }
 
-          v53 = [v51 countByEnumeratingWithState:&v59 objects:v67 count:16];
+          v54 = [v52 countByEnumeratingWithState:&v60 objects:v68 count:16];
         }
 
-        while (v53);
+        while (v54);
       }
     }
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
     while (1)
     {
-      v10 = *(array + 2);
-      if (v9 >= v10)
+      v11 = *(array + 2);
+      if (v10 >= v11)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v10, v9);
+        IOSArray_throwOutOfBoundsWithMsg(v11, v10);
       }
 
-      v11 = *(array + v9 + 3);
+      v12 = *(array + v10 + 3);
       numBuckets = self->numBuckets_;
-      v13 = JavaLangMath_absWithInt_(v11);
+      v14 = JavaLangMath_absWithInt_(v12);
       input = self->input_;
       if (!input)
       {
         goto LABEL_71;
       }
 
-      [(OrgApacheLuceneStoreIndexInput *)input seekWithLong:self->bucketsOffset_ + 4 * (v13 % numBuckets)];
+      [(OrgApacheLuceneStoreIndexInput *)input seekWithLong:self->bucketsOffset_ + 4 * (v14 % numBuckets)];
       readInt = [(OrgApacheLuceneStoreDataInput *)self->input_ readInt];
       readInt2 = [(OrgApacheLuceneStoreDataInput *)self->input_ readInt];
       if (readInt2 == readInt)
@@ -333,20 +345,20 @@ LABEL_45:
         return 0;
       }
 
-      v17 = readInt2;
-      v18 = [ComAppleContextkitUtilKeylessMapBase_BucketOffset alloc];
-      v18->start_ = readInt;
-      v18->end_ = v17;
-      v18->valueGroup_ = v11 + v58;
-      IOSObjectArray_SetAndConsume(v7, v9++ - 1, v18);
-      if (v9 == numHashFunctions)
+      v18 = readInt2;
+      v19 = [ComAppleContextkitUtilKeylessMapBase_BucketOffset alloc];
+      v19->start_ = readInt;
+      v19->end_ = v18;
+      v19->valueGroup_ = v12 + v59;
+      IOSObjectArray_SetAndConsume(v8, v10++ - 1, v19);
+      if (v10 == numHashFunctions)
       {
         goto LABEL_14;
       }
     }
   }
 
-  return v41;
+  return v42;
 }
 
 - (id)valueForIndexWithInt:(int)int

@@ -253,23 +253,24 @@
 
 - (SCNCamera)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNCamera;
-  v2 = [(SCNCamera *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNCamera;
+  v2 = [(SCNCamera *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = C3DCameraCreate();
-    v2->_camera = v3;
-    if (v3)
+    v5 = C3DCameraCreate(v2, v3);
+    v4->_camera = v5;
+    if (v5)
     {
-      C3DEntitySetObjCWrapper(v3, v2);
+      C3DEntitySetObjCWrapper(v5, v4);
     }
 
-    v2->_animationsLock._os_unfair_lock_opaque = 0;
-    [(SCNCamera *)v2 _syncObjCModel];
+    v4->_animationsLock._os_unfair_lock_opaque = 0;
+    [(SCNCamera *)v4 _syncObjCModel];
   }
 
-  return v2;
+  return v4;
 }
 
 - (SCNCamera)initWithCameraRef:(__C3DCamera *)ref
@@ -388,7 +389,7 @@
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setName:];
@@ -429,16 +430,17 @@ CFStringRef __21__SCNCamera_setName___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNCamera *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  Name = C3DEntityGetName([(SCNCamera *)self __CFObject]);
-  if (v5)
+  __CFObject = [(SCNCamera *)self __CFObject];
+  Name = C3DEntityGetName(__CFObject, v8);
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v9);
   }
 
   return Name;
@@ -455,21 +457,21 @@ CFStringRef __21__SCNCamera_setName___block_invoke(uint64_t a1)
 {
   __CFObject = [(SCNCamera *)self __CFObject];
 
-  return C3DEntityGetID(__CFObject);
+  return C3DEntityGetID(__CFObject, v3);
 }
 
 - (void)_syncEntityObjCModel
 {
   __CFObject = [(SCNCamera *)self __CFObject];
 
-  self->_name = C3DEntityGetName(__CFObject);
+  self->_name = C3DEntityGetName(__CFObject, v4);
 }
 
 - (__C3DScene)sceneRef
 {
   __CFObject = [(SCNCamera *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -490,7 +492,7 @@ CFStringRef __21__SCNCamera_setName___block_invoke(uint64_t a1)
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -509,12 +511,13 @@ CFStringRef __21__SCNCamera_setName___block_invoke(uint64_t a1)
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNCamera *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v9 __removeAnimation:v10 forKey:v11, v12, v13, v14, v15, v16];
+        [(SCNNode *)v11 __removeAnimation:v12 forKey:v13, v14, v15, v16, v17, v18];
       }
     }
 
@@ -558,7 +561,7 @@ CFStringRef __21__SCNCamera_setName___block_invoke(uint64_t a1)
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNTechnique addAnimationPlayer:v9 forKey:?];
@@ -604,7 +607,7 @@ void __39__SCNCamera_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNTechnique addAnimation:v8 forKey:?];
@@ -697,10 +700,10 @@ void __39__SCNCamera_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 - (void)_syncObjCAnimations
 {
   sceneRef = [(SCNCamera *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
@@ -710,29 +713,30 @@ void __39__SCNCamera_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
   __CFObject = [(SCNCamera *)self __CFObject];
   if (__CFObject)
   {
-    v6 = __CFObject;
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v8 = __CFObject;
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v7 _syncObjCAnimations:v8];
+        [(SCNNode *)v11 _syncObjCAnimations:v10];
       }
     }
 
-    Animations = C3DEntityGetAnimations(v6);
+    Animations = C3DEntityGetAnimations(v8, v10);
     if (Animations)
     {
-      v16 = Animations;
+      v19 = Animations;
       os_unfair_lock_lock(&self->_animationsLock);
-      C3DOrderedDictionaryApplyFunction(v16, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
+      C3DOrderedDictionaryApplyFunction(v19, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -901,21 +905,21 @@ void __38__SCNCamera_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNCamera *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNCamera *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNCamera *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -925,10 +929,10 @@ void __38__SCNCamera_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -1022,106 +1026,106 @@ void __30__SCNCamera_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 - (void)_syncObjCModel
 {
   sceneRef = [(SCNCamera *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  *&self->_categoryBitMask = C3DCameraGetAspectRatio(self->_camera);
-  self->_sensorSize = C3DCameraGetSensorSize(self->_camera);
-  *&self->_lensShift[4] = C3DCameraGetLensShift(self->_camera);
-  *&self->_postProjectionTransformTranslation[4] = C3DCameraGetPostProjectionTransformTranslation(self->_camera);
-  *&self->_postProjectionTransformScale[4] = C3DCameraGetPostProjectionTransformScale(self->_camera);
+  *&self->_categoryBitMask = C3DCameraGetAspectRatio(self->_camera, v4);
+  self->_sensorSize = C3DCameraGetSensorSize(self->_camera, v6);
+  *&self->_lensShift[4] = C3DCameraGetLensShift(self->_camera, v7);
+  *&self->_postProjectionTransformTranslation[4] = C3DCameraGetPostProjectionTransformTranslation(self->_camera, v8);
+  *&self->_postProjectionTransformScale[4] = C3DCameraGetPostProjectionTransformScale(self->_camera, v9);
   if (C3DCameraUsesLegacyFov(self->_camera))
   {
-    v5 = 4;
+    v11 = 4;
   }
 
   else
   {
-    v5 = 0;
+    v11 = 0;
   }
 
-  *(self + 16) = *(self + 16) & 0xFB | v5;
-  ProjectionInfosPtr = C3DCameraGetProjectionInfosPtr(self->_camera);
-  self->_orthographicScale = C3DProjectionInfosGetOrthographicScale(ProjectionInfosPtr);
-  v7 = C3DCameraGetProjectionInfosPtr(self->_camera);
-  self->_zFar = C3DProjectionInfosGetZFar(v7);
-  v8 = C3DCameraGetProjectionInfosPtr(self->_camera);
-  self->_zNear = C3DProjectionInfosGetZNear(v8);
-  *&self->_bladeCount = C3DCameraGetDepthOfFieldIntensity(self->_camera);
-  self->_focalLength = C3DCameraGetFocalLength(self->_camera);
-  self->_dofIntensity = C3DCameraGetFocusDistance(self->_camera);
-  self->_focusDistance = C3DCameraGetFStop(self->_camera);
-  self->_focalBlurSampleCount = C3DCameraGetBladeCount(self->_camera);
-  *&self->_aspectRatio = C3DCameraGetDofSampleCount(self->_camera);
-  *&self->_projectionTransform.m11 = C3DCameraGetCategoryBitMask(self->_camera);
-  LOBYTE(self->_averageGray) = C3DCameraGetWantsHDR(self->_camera);
-  self->_exposureOffset = C3DCameraGetWhitePoint(self->_camera);
-  self->_minimumExposure = C3DCameraGetAverageGray(self->_camera);
-  LOBYTE(self->_exposureAdaptationBrighteningSpeedFactor) = C3DCameraGetWantsExposureAdaptation(self->_camera);
-  self->_maximumExposure = C3DCameraGetExposureOffset(self->_camera);
-  self->_exposureAdaptationDarkeningSpeedFactor = C3DCameraGetExposureAdaptationDuration(self->_camera);
-  *&self->_exposureAdaptationHistogramRangeHighProbability = C3DCameraGetExposureAdaptationBrighteningSpeedFactor(self->_camera);
-  *(&self->_exposureAdaptationHistogramRangeHighProbability + 1) = C3DCameraGetExposureAdaptationDarkeningSpeedFactor(self->_camera);
-  *&self->_exposureAdaptationMode = C3DCameraGetExposureAdaptationHistogramRangeLowProbability(self->_camera);
-  self->_exposureAdaptationHistogramRangeLowProbability = C3DCameraGetExposureAdaptationHistogramRangeHighProbability(self->_camera);
-  *&self->_bloomIntensity = C3DCameraGetExposureAdaptationMode(self->_camera);
-  if (C3DCameraGetFovIsHorizontal(self->_camera))
+  *(self + 16) = *(self + 16) & 0xFB | v11;
+  ProjectionInfosPtr = C3DCameraGetProjectionInfosPtr(self->_camera, v10);
+  self->_orthographicScale = C3DProjectionInfosGetOrthographicScale(ProjectionInfosPtr, v13);
+  v15 = C3DCameraGetProjectionInfosPtr(self->_camera, v14);
+  self->_zFar = C3DProjectionInfosGetZFar(v15, v16);
+  v18 = C3DCameraGetProjectionInfosPtr(self->_camera, v17);
+  self->_zNear = C3DProjectionInfosGetZNear(v18, v19);
+  *&self->_bladeCount = C3DCameraGetDepthOfFieldIntensity(self->_camera, v20);
+  self->_focalLength = C3DCameraGetFocalLength(self->_camera, v21);
+  self->_dofIntensity = C3DCameraGetFocusDistance(self->_camera, v22);
+  self->_focusDistance = C3DCameraGetFStop(self->_camera, v23);
+  self->_focalBlurSampleCount = C3DCameraGetBladeCount(self->_camera, v24);
+  *&self->_aspectRatio = C3DCameraGetDofSampleCount(self->_camera, v25);
+  *&self->_projectionTransform.m11 = C3DCameraGetCategoryBitMask(self->_camera, v26);
+  LOBYTE(self->_averageGray) = C3DCameraGetWantsHDR(self->_camera, v27);
+  self->_exposureOffset = C3DCameraGetWhitePoint(self->_camera, v28);
+  self->_minimumExposure = C3DCameraGetAverageGray(self->_camera, v29);
+  LOBYTE(self->_exposureAdaptationBrighteningSpeedFactor) = C3DCameraGetWantsExposureAdaptation(self->_camera, v30);
+  self->_maximumExposure = C3DCameraGetExposureOffset(self->_camera, v31);
+  self->_exposureAdaptationDarkeningSpeedFactor = C3DCameraGetExposureAdaptationDuration(self->_camera, v32);
+  *&self->_exposureAdaptationHistogramRangeHighProbability = C3DCameraGetExposureAdaptationBrighteningSpeedFactor(self->_camera, v33);
+  *(&self->_exposureAdaptationHistogramRangeHighProbability + 1) = C3DCameraGetExposureAdaptationDarkeningSpeedFactor(self->_camera, v34);
+  *&self->_exposureAdaptationMode = C3DCameraGetExposureAdaptationHistogramRangeLowProbability(self->_camera, v35);
+  self->_exposureAdaptationHistogramRangeLowProbability = C3DCameraGetExposureAdaptationHistogramRangeHighProbability(self->_camera, v36);
+  *&self->_bloomIntensity = C3DCameraGetExposureAdaptationMode(self->_camera, v37);
+  if (C3DCameraGetFovIsHorizontal(self->_camera, v38))
   {
-    v9 = 64;
+    v39 = 64;
   }
 
   else
   {
-    v9 = 0;
+    v39 = 0;
   }
 
-  *(self + 16) = *(self + 16) & 0xBF | v9;
-  v10 = C3DCameraUsesLegacyFov(self->_camera);
-  v11 = *(self + 16);
-  if (v10)
+  *(self + 16) = *(self + 16) & 0xBF | v39;
+  v40 = C3DCameraUsesLegacyFov(self->_camera);
+  v42 = *(self + 16);
+  if (v40)
   {
-    *(self + 16) = v11 | 4;
-    v12 = C3DCameraGetProjectionInfosPtr(self->_camera);
-    XFov = C3DProjectionInfosGetXFov(v12);
-    if (v11)
+    *(self + 16) = v42 | 4;
+    v43 = C3DCameraGetProjectionInfosPtr(self->_camera, v41);
+    XFov = C3DProjectionInfosGetXFov(v43, v44);
+    if (v42)
     {
-      v17 = XFov;
-      self->_xFov = v17;
-      v18 = C3DCameraGetProjectionInfosPtr(self->_camera);
-      YFov = C3DProjectionInfosGetYFov(v18);
+      v53 = XFov;
+      self->_xFov = v53;
+      v54 = C3DCameraGetProjectionInfosPtr(self->_camera, v45);
+      YFov = C3DProjectionInfosGetYFov(v54, v55);
       self->_yFov = YFov;
     }
 
     else
     {
       [(SCNCamera *)self setXFov:XFov];
-      v14 = C3DCameraGetProjectionInfosPtr(self->_camera);
-      [(SCNCamera *)self setYFov:C3DProjectionInfosGetYFov(v14)];
+      v48 = C3DCameraGetProjectionInfosPtr(self->_camera, v47);
+      [(SCNCamera *)self setYFov:C3DProjectionInfosGetYFov(v48, v49)];
     }
   }
 
   else
   {
-    *(self + 16) = v11 & 0xFB;
-    Fov = C3DCameraGetFov(self->_camera);
+    *(self + 16) = v42 & 0xFB;
+    Fov = C3DCameraGetFov(self->_camera, v41);
     self->_fieldOfView = Fov;
     if ((*(self + 16) & 0x40) != 0)
     {
-      v16 = 0.0;
+      v52 = 0.0;
     }
 
     else
     {
-      v16 = Fov;
+      v52 = Fov;
     }
 
     if ((*(self + 16) & 0x40) == 0)
@@ -1130,55 +1134,55 @@ void __30__SCNCamera_removeAllBindings__block_invoke(uint64_t a1)
     }
 
     self->_xFov = Fov;
-    self->_yFov = v16;
+    self->_yFov = v52;
   }
 
-  *&self->_wantsExposureAdaptation = C3DCameraGetMinimumExposure(self->_camera);
-  self->_exposureAdaptationDuration = C3DCameraGetMaximumExposure(self->_camera);
-  *&self->_bloomIteration = C3DCameraGetBloomIntensity(self->_camera);
-  self->_bloomIterationSpread = C3DCameraGetBloomThreshold(self->_camera);
-  LODWORD(self->_bloomBlurRadius) = C3DCameraGetBloomIteration(self->_camera);
-  self->_motionBlurIntensity = C3DCameraGetBloomIterationSpread(self->_camera);
-  self->_vignettingPower = C3DCameraGetBloomBlurRadius(self->_camera);
-  self->_vignettingIntensity = C3DCameraGetMotionBlurIntensity(self->_camera);
-  self->_colorFringeStrength = C3DCameraGetVignettingPower(self->_camera);
-  self->_colorFringeIntensity = C3DCameraGetVignettingIntensity(self->_camera);
-  self->_saturation = C3DCameraGetColorFringeStrength(self->_camera);
-  self->_contrast = C3DCameraGetColorFringeIntensity(self->_camera);
-  self->_grainIntensity = C3DCameraGetSaturation(self->_camera);
-  self->_grainScale = C3DCameraGetContrast(self->_camera);
-  *&self->_grainIsColored = C3DCameraGetGrainIntensity(self->_camera);
-  self->_whiteBalanceTemperature = C3DCameraGetGrainScale(self->_camera);
-  LOBYTE(self->_whiteBalanceTint) = C3DCameraGetGrainIsColored(self->_camera);
-  *&self[1].super.isa = C3DCameraGetARGrainSlice(self->_camera);
-  *&self->_grainSlice = C3DCameraGetARGrainTexture(self->_camera);
-  *(&self->_whiteBalanceTint + 1) = C3DCameraGetWhiteBalanceTemperature(self->_camera);
-  self->_screenSpaceAmbientOcclusion.intensity = C3DCameraGetWhiteBalanceTint(self->_camera);
-  self->_screenSpaceAmbientOcclusion.bias = C3DCameraGetScreenSpaceAmbientOcclusionIntensity(self->_camera);
-  self->_screenSpaceAmbientOcclusion.depthThreshold = C3DCameraGetScreenSpaceAmbientOcclusionRadius(self->_camera);
-  self->_screenSpaceAmbientOcclusion.normalThreshold = C3DCameraGetScreenSpaceAmbientOcclusionBias(self->_camera);
-  *(&self->_screenSpaceAmbientOcclusion.normalThreshold + 1) = C3DCameraGetScreenSpaceAmbientOcclusionDepthThreshold(self->_camera);
-  *&self->_screenSpaceAmbientOcclusion.sampleCount = C3DCameraGetScreenSpaceAmbientOcclusionNormalThreshold(self->_camera);
-  self->_screenSpaceAmbientOcclusion.downSample = C3DCameraGetScreenSpaceAmbientOcclusionSampleCount(self->_camera);
-  self->_grainTexture = C3DCameraGetScreenSpaceAmbientOcclusionDownSample(self->_camera);
-  v20 = C3DCameraGetProjectionInfosPtr(self->_camera);
-  if (C3DProjectionInfosGetOrtho(v20))
+  *&self->_wantsExposureAdaptation = C3DCameraGetMinimumExposure(self->_camera, v50);
+  self->_exposureAdaptationDuration = C3DCameraGetMaximumExposure(self->_camera, v57);
+  *&self->_bloomIteration = C3DCameraGetBloomIntensity(self->_camera, v58);
+  self->_bloomIterationSpread = C3DCameraGetBloomThreshold(self->_camera, v59);
+  LODWORD(self->_bloomBlurRadius) = C3DCameraGetBloomIteration(self->_camera, v60);
+  self->_motionBlurIntensity = C3DCameraGetBloomIterationSpread(self->_camera, v61);
+  self->_vignettingPower = C3DCameraGetBloomBlurRadius(self->_camera, v62);
+  self->_vignettingIntensity = C3DCameraGetMotionBlurIntensity(self->_camera, v63);
+  self->_colorFringeStrength = C3DCameraGetVignettingPower(self->_camera, v64);
+  self->_colorFringeIntensity = C3DCameraGetVignettingIntensity(self->_camera, v65);
+  self->_saturation = C3DCameraGetColorFringeStrength(self->_camera, v66);
+  self->_contrast = C3DCameraGetColorFringeIntensity(self->_camera, v67);
+  self->_grainIntensity = C3DCameraGetSaturation(self->_camera, v68);
+  self->_grainScale = C3DCameraGetContrast(self->_camera, v69);
+  *&self->_grainIsColored = C3DCameraGetGrainIntensity(self->_camera, v70);
+  self->_whiteBalanceTemperature = C3DCameraGetGrainScale(self->_camera, v71);
+  LOBYTE(self->_whiteBalanceTint) = C3DCameraGetGrainIsColored(self->_camera, v72);
+  *&self[1].super.isa = C3DCameraGetARGrainSlice(self->_camera, v73);
+  *&self->_grainSlice = C3DCameraGetARGrainTexture(self->_camera, v74);
+  *(&self->_whiteBalanceTint + 1) = C3DCameraGetWhiteBalanceTemperature(self->_camera, v75);
+  self->_screenSpaceAmbientOcclusion.intensity = C3DCameraGetWhiteBalanceTint(self->_camera, v76);
+  self->_screenSpaceAmbientOcclusion.bias = C3DCameraGetScreenSpaceAmbientOcclusionIntensity(self->_camera, v77);
+  self->_screenSpaceAmbientOcclusion.depthThreshold = C3DCameraGetScreenSpaceAmbientOcclusionRadius(self->_camera, v78);
+  self->_screenSpaceAmbientOcclusion.normalThreshold = C3DCameraGetScreenSpaceAmbientOcclusionBias(self->_camera, v79);
+  *(&self->_screenSpaceAmbientOcclusion.normalThreshold + 1) = C3DCameraGetScreenSpaceAmbientOcclusionDepthThreshold(self->_camera, v80);
+  *&self->_screenSpaceAmbientOcclusion.sampleCount = C3DCameraGetScreenSpaceAmbientOcclusionNormalThreshold(self->_camera, v81);
+  self->_screenSpaceAmbientOcclusion.downSample = C3DCameraGetScreenSpaceAmbientOcclusionSampleCount(self->_camera, v82);
+  self->_grainTexture = C3DCameraGetScreenSpaceAmbientOcclusionDownSample(self->_camera, v83);
+  v85 = C3DCameraGetProjectionInfosPtr(self->_camera, v84);
+  if (C3DProjectionInfosGetOrtho(v85, v86))
   {
-    v21 = 8;
+    v87 = 8;
   }
 
   else
   {
-    v21 = 0;
+    v87 = 0;
   }
 
-  *(self + 16) = *(self + 16) & 0xF7 | v21;
+  *(self + 16) = *(self + 16) & 0xF7 | v87;
   [(SCNCamera *)self _updateFocalLength];
   [(SCNCamera *)self _syncEntityObjCModel];
-  if (v4)
+  if (v5)
   {
 
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v88);
   }
 }
 
@@ -1213,7 +1217,7 @@ void __26__SCNCamera_setTechnique___block_invoke(uint64_t a1)
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    Technique = C3DCameraGetTechnique(self->_camera);
+    Technique = C3DCameraGetTechnique(self->_camera, v5);
     if (Technique)
     {
       goto LABEL_5;
@@ -1222,10 +1226,10 @@ void __26__SCNCamera_setTechnique___block_invoke(uint64_t a1)
     return 0;
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  Technique = C3DCameraGetTechnique(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  Technique = C3DCameraGetTechnique(self->_camera, v7);
+  C3DSceneUnlock(v6, v9);
   if (!Technique)
   {
     return 0;
@@ -1255,15 +1259,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ScreenSpaceAmbientOcclusionIntensity = C3DCameraGetScreenSpaceAmbientOcclusionIntensity(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ScreenSpaceAmbientOcclusionIntensity = C3DCameraGetScreenSpaceAmbientOcclusionIntensity(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetScreenSpaceAmbientOcclusionIntensity(self->_camera);
+      return C3DCameraGetScreenSpaceAmbientOcclusionIntensity(self->_camera, v5);
     }
   }
 
@@ -1279,7 +1283,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setScreenSpaceAmbientOcclusionIntensity:];
@@ -1311,15 +1315,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ScreenSpaceAmbientOcclusionRadius = C3DCameraGetScreenSpaceAmbientOcclusionRadius(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ScreenSpaceAmbientOcclusionRadius = C3DCameraGetScreenSpaceAmbientOcclusionRadius(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetScreenSpaceAmbientOcclusionRadius(self->_camera);
+      return C3DCameraGetScreenSpaceAmbientOcclusionRadius(self->_camera, v5);
     }
   }
 
@@ -1335,7 +1339,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setScreenSpaceAmbientOcclusionRadius:];
@@ -1367,15 +1371,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ScreenSpaceAmbientOcclusionBias = C3DCameraGetScreenSpaceAmbientOcclusionBias(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ScreenSpaceAmbientOcclusionBias = C3DCameraGetScreenSpaceAmbientOcclusionBias(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetScreenSpaceAmbientOcclusionBias(self->_camera);
+      return C3DCameraGetScreenSpaceAmbientOcclusionBias(self->_camera, v5);
     }
   }
 
@@ -1391,7 +1395,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setScreenSpaceAmbientOcclusionBias:];
@@ -1423,15 +1427,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ScreenSpaceAmbientOcclusionDepthThreshold = C3DCameraGetScreenSpaceAmbientOcclusionDepthThreshold(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ScreenSpaceAmbientOcclusionDepthThreshold = C3DCameraGetScreenSpaceAmbientOcclusionDepthThreshold(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetScreenSpaceAmbientOcclusionDepthThreshold(self->_camera);
+      return C3DCameraGetScreenSpaceAmbientOcclusionDepthThreshold(self->_camera, v5);
     }
   }
 
@@ -1447,7 +1451,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setScreenSpaceAmbientOcclusionDepthThreshold:];
@@ -1479,15 +1483,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ScreenSpaceAmbientOcclusionNormalThreshold = C3DCameraGetScreenSpaceAmbientOcclusionNormalThreshold(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ScreenSpaceAmbientOcclusionNormalThreshold = C3DCameraGetScreenSpaceAmbientOcclusionNormalThreshold(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetScreenSpaceAmbientOcclusionNormalThreshold(self->_camera);
+      return C3DCameraGetScreenSpaceAmbientOcclusionNormalThreshold(self->_camera, v5);
     }
   }
 
@@ -1503,7 +1507,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setScreenSpaceAmbientOcclusionNormalThreshold:];
@@ -1538,13 +1542,13 @@ LABEL_5:
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetScreenSpaceAmbientOcclusionSampleCount(self->_camera);
+    return C3DCameraGetScreenSpaceAmbientOcclusionSampleCount(self->_camera, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ScreenSpaceAmbientOcclusionSampleCount = C3DCameraGetScreenSpaceAmbientOcclusionSampleCount(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ScreenSpaceAmbientOcclusionSampleCount = C3DCameraGetScreenSpaceAmbientOcclusionSampleCount(self->_camera, v7);
+  C3DSceneUnlock(v6, v8);
   return ScreenSpaceAmbientOcclusionSampleCount;
 }
 
@@ -1552,7 +1556,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setScreenSpaceAmbientOcclusionSampleCount:];
@@ -1583,13 +1587,13 @@ LABEL_5:
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetScreenSpaceAmbientOcclusionDownSample(self->_camera);
+    return C3DCameraGetScreenSpaceAmbientOcclusionDownSample(self->_camera, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ScreenSpaceAmbientOcclusionDownSample = C3DCameraGetScreenSpaceAmbientOcclusionDownSample(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ScreenSpaceAmbientOcclusionDownSample = C3DCameraGetScreenSpaceAmbientOcclusionDownSample(self->_camera, v7);
+  C3DSceneUnlock(v6, v8);
   return ScreenSpaceAmbientOcclusionDownSample;
 }
 
@@ -1597,7 +1601,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setScreenSpaceAmbientOcclusionDownSample:];
@@ -1626,10 +1630,10 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v6 = sceneRef;
-      C3DSceneLock(sceneRef);
-      AutomaticallyAdjustsZRange = C3DCameraGetAutomaticallyAdjustsZRange(self->_camera);
-      C3DSceneUnlock(v6);
+      v7 = sceneRef;
+      C3DSceneLock(sceneRef, v6);
+      AutomaticallyAdjustsZRange = C3DCameraGetAutomaticallyAdjustsZRange(self->_camera, v8);
+      C3DSceneUnlock(v7, v10);
       LOBYTE(v3) = AutomaticallyAdjustsZRange;
     }
 
@@ -1637,7 +1641,7 @@ LABEL_5:
     {
       camera = self->_camera;
 
-      LOBYTE(v3) = C3DCameraGetAutomaticallyAdjustsZRange(camera);
+      LOBYTE(v3) = C3DCameraGetAutomaticallyAdjustsZRange(camera, v6);
     }
   }
 
@@ -1654,7 +1658,7 @@ LABEL_5:
   v4 = *(self + 16);
   if (v4)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setAutomaticallyAdjustsZRange:];
@@ -1692,15 +1696,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      AverageGray = C3DCameraGetAverageGray(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      AverageGray = C3DCameraGetAverageGray(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetAverageGray(self->_camera);
+      return C3DCameraGetAverageGray(self->_camera, v5);
     }
   }
 
@@ -1716,7 +1720,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setAverageGray:];
@@ -1748,15 +1752,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      BloomBlurRadius = C3DCameraGetBloomBlurRadius(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      BloomBlurRadius = C3DCameraGetBloomBlurRadius(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetBloomBlurRadius(self->_camera);
+      return C3DCameraGetBloomBlurRadius(self->_camera, v5);
     }
   }
 
@@ -1772,7 +1776,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setBloomBlurRadius:];
@@ -1804,15 +1808,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      *&bloomIteration = C3DCameraGetBloomIntensity(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      *&bloomIteration = C3DCameraGetBloomIntensity(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      *&bloomIteration = C3DCameraGetBloomIntensity(self->_camera);
+      *&bloomIteration = C3DCameraGetBloomIntensity(self->_camera, v5);
     }
   }
 
@@ -1828,7 +1832,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setBloomIntensity:];
@@ -1860,15 +1864,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      BloomThreshold = C3DCameraGetBloomThreshold(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      BloomThreshold = C3DCameraGetBloomThreshold(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetBloomThreshold(self->_camera);
+      return C3DCameraGetBloomThreshold(self->_camera, v5);
     }
   }
 
@@ -1884,7 +1888,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setBloomThreshold:];
@@ -1916,15 +1920,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      BloomIteration = C3DCameraGetBloomIteration(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      BloomIteration = C3DCameraGetBloomIteration(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetBloomIteration(self->_camera);
+      return C3DCameraGetBloomIteration(self->_camera, v5);
     }
   }
 
@@ -1940,7 +1944,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setBloomIterationCount:];
@@ -1968,15 +1972,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      BloomIterationSpread = C3DCameraGetBloomIterationSpread(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      BloomIterationSpread = C3DCameraGetBloomIterationSpread(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetBloomIterationSpread(self->_camera);
+      return C3DCameraGetBloomIterationSpread(self->_camera, v5);
     }
   }
 
@@ -1992,7 +1996,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setBloomIterationSpread:];
@@ -2027,10 +2031,10 @@ LABEL_5:
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    CategoryBitMask = C3DCameraGetCategoryBitMask(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    CategoryBitMask = C3DCameraGetCategoryBitMask(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return CategoryBitMask;
   }
 
@@ -2038,7 +2042,7 @@ LABEL_5:
   {
     camera = self->_camera;
 
-    return C3DCameraGetCategoryBitMask(camera);
+    return C3DCameraGetCategoryBitMask(camera, v5);
   }
 }
 
@@ -2046,7 +2050,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setCategoryBitMask:];
@@ -2074,15 +2078,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ColorFringeStrength = C3DCameraGetColorFringeStrength(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ColorFringeStrength = C3DCameraGetColorFringeStrength(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetColorFringeStrength(self->_camera);
+      return C3DCameraGetColorFringeStrength(self->_camera, v5);
     }
   }
 
@@ -2098,7 +2102,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setColorFringeStrength:];
@@ -2130,15 +2134,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ColorFringeIntensity = C3DCameraGetColorFringeIntensity(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ColorFringeIntensity = C3DCameraGetColorFringeIntensity(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetColorFringeIntensity(self->_camera);
+      return C3DCameraGetColorFringeIntensity(self->_camera, v5);
     }
   }
 
@@ -2154,7 +2158,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setColorFringeIntensity:];
@@ -2186,15 +2190,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      Contrast = C3DCameraGetContrast(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      Contrast = C3DCameraGetContrast(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetContrast(self->_camera);
+      return C3DCameraGetContrast(self->_camera, v5);
     }
   }
 
@@ -2210,7 +2214,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setContrast:];
@@ -2242,15 +2246,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      GrainIntensity = C3DCameraGetGrainIntensity(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      GrainIntensity = C3DCameraGetGrainIntensity(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetGrainIntensity(self->_camera);
+      return C3DCameraGetGrainIntensity(self->_camera, v5);
     }
   }
 
@@ -2266,7 +2270,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setGrainIntensity:];
@@ -2298,15 +2302,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      GrainScale = C3DCameraGetGrainScale(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      GrainScale = C3DCameraGetGrainScale(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetGrainScale(self->_camera);
+      return C3DCameraGetGrainScale(self->_camera, v5);
     }
   }
 
@@ -2322,7 +2326,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setGrainScale:];
@@ -2357,10 +2361,10 @@ LABEL_5:
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    IsColored = C3DCameraGetGrainIsColored(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    IsColored = C3DCameraGetGrainIsColored(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return IsColored;
   }
 
@@ -2368,7 +2372,7 @@ LABEL_5:
   {
     camera = self->_camera;
 
-    return C3DCameraGetGrainIsColored(camera);
+    return C3DCameraGetGrainIsColored(camera, v5);
   }
 }
 
@@ -2376,7 +2380,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setGrainIsColored:];
@@ -2404,15 +2408,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ARGrainSlice = C3DCameraGetARGrainSlice(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ARGrainSlice = C3DCameraGetARGrainSlice(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetARGrainSlice(self->_camera);
+      return C3DCameraGetARGrainSlice(self->_camera, v5);
     }
   }
 
@@ -2428,7 +2432,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setGrainSlice:];
@@ -2463,10 +2467,10 @@ LABEL_5:
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ARGrainTexture = C3DCameraGetARGrainTexture(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ARGrainTexture = C3DCameraGetARGrainTexture(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return ARGrainTexture;
   }
 
@@ -2474,7 +2478,7 @@ LABEL_5:
   {
     camera = self->_camera;
 
-    return C3DCameraGetARGrainTexture(camera);
+    return C3DCameraGetARGrainTexture(camera, v5);
   }
 }
 
@@ -2482,7 +2486,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setGrainTexture:];
@@ -2515,15 +2519,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      WhiteBalanceTemperature = C3DCameraGetWhiteBalanceTemperature(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      WhiteBalanceTemperature = C3DCameraGetWhiteBalanceTemperature(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetWhiteBalanceTemperature(self->_camera);
+      return C3DCameraGetWhiteBalanceTemperature(self->_camera, v5);
     }
   }
 
@@ -2539,7 +2543,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setWhiteBalanceTemperature:];
@@ -2571,15 +2575,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      WhiteBalanceTint = C3DCameraGetWhiteBalanceTint(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      WhiteBalanceTint = C3DCameraGetWhiteBalanceTint(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetWhiteBalanceTint(self->_camera);
+      return C3DCameraGetWhiteBalanceTint(self->_camera, v5);
     }
   }
 
@@ -2595,7 +2599,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setWhiteBalanceTint:];
@@ -2627,15 +2631,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ExposureAdaptationBrighteningSpeedFactor = C3DCameraGetExposureAdaptationBrighteningSpeedFactor(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ExposureAdaptationBrighteningSpeedFactor = C3DCameraGetExposureAdaptationBrighteningSpeedFactor(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetExposureAdaptationBrighteningSpeedFactor(self->_camera);
+      return C3DCameraGetExposureAdaptationBrighteningSpeedFactor(self->_camera, v5);
     }
   }
 
@@ -2651,7 +2655,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setExposureAdaptationBrighteningSpeedFactor:];
@@ -2683,15 +2687,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ExposureAdaptationDarkeningSpeedFactor = C3DCameraGetExposureAdaptationDarkeningSpeedFactor(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ExposureAdaptationDarkeningSpeedFactor = C3DCameraGetExposureAdaptationDarkeningSpeedFactor(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetExposureAdaptationDarkeningSpeedFactor(self->_camera);
+      return C3DCameraGetExposureAdaptationDarkeningSpeedFactor(self->_camera, v5);
     }
   }
 
@@ -2707,7 +2711,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setExposureAdaptationDarkeningSpeedFactor:];
@@ -2739,15 +2743,15 @@ LABEL_5:
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ExposureAdaptationDuration = C3DCameraGetExposureAdaptationDuration(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ExposureAdaptationDuration = C3DCameraGetExposureAdaptationDuration(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetExposureAdaptationDuration(self->_camera);
+      return C3DCameraGetExposureAdaptationDuration(self->_camera, v5);
     }
   }
 
@@ -2763,7 +2767,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setExposureAdaptationDuration:];
@@ -2798,13 +2802,13 @@ LABEL_5:
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetExposureAdaptationHistogramRangeHighProbability(self->_camera);
+    return C3DCameraGetExposureAdaptationHistogramRangeHighProbability(self->_camera, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ExposureAdaptationHistogramRangeHighProbability = C3DCameraGetExposureAdaptationHistogramRangeHighProbability(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ExposureAdaptationHistogramRangeHighProbability = C3DCameraGetExposureAdaptationHistogramRangeHighProbability(self->_camera, v7);
+  C3DSceneUnlock(v6, v8);
   return ExposureAdaptationHistogramRangeHighProbability;
 }
 
@@ -2812,7 +2816,7 @@ LABEL_5:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setExposureAdaptationHistogramRangeHighProbability:];
@@ -2833,10 +2837,10 @@ LABEL_5:
   }
 }
 
-float __64__SCNCamera_setExposureAdaptationHistogramRangeHighProbability___block_invoke(uint64_t a1)
+float __64__SCNCamera_setExposureAdaptationHistogramRangeHighProbability___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DCameraSetExposureAdaptationHistogramRangeHighProbability(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DCameraSetExposureAdaptationHistogramRangeHighProbability(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2850,13 +2854,13 @@ float __64__SCNCamera_setExposureAdaptationHistogramRangeHighProbability___block
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetExposureAdaptationHistogramRangeLowProbability(self->_camera);
+    return C3DCameraGetExposureAdaptationHistogramRangeLowProbability(self->_camera, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ExposureAdaptationHistogramRangeLowProbability = C3DCameraGetExposureAdaptationHistogramRangeLowProbability(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ExposureAdaptationHistogramRangeLowProbability = C3DCameraGetExposureAdaptationHistogramRangeLowProbability(self->_camera, v7);
+  C3DSceneUnlock(v6, v8);
   return ExposureAdaptationHistogramRangeLowProbability;
 }
 
@@ -2864,7 +2868,7 @@ float __64__SCNCamera_setExposureAdaptationHistogramRangeHighProbability___block
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setExposureAdaptationHistogramRangeLowProbability:];
@@ -2885,10 +2889,10 @@ float __64__SCNCamera_setExposureAdaptationHistogramRangeHighProbability___block
   }
 }
 
-float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_invoke(uint64_t a1)
+float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DCameraSetExposureAdaptationHistogramRangeLowProbability(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DCameraSetExposureAdaptationHistogramRangeLowProbability(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2902,13 +2906,13 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetExposureAdaptationMode(self->_camera);
+    return C3DCameraGetExposureAdaptationMode(self->_camera, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ExposureAdaptationMode = C3DCameraGetExposureAdaptationMode(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ExposureAdaptationMode = C3DCameraGetExposureAdaptationMode(self->_camera, v7);
+  C3DSceneUnlock(v6, v8);
   return ExposureAdaptationMode;
 }
 
@@ -2916,7 +2920,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setExposureAdaptationMode:];
@@ -2944,15 +2948,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ExposureOffset = C3DCameraGetExposureOffset(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ExposureOffset = C3DCameraGetExposureOffset(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetExposureOffset(self->_camera);
+      return C3DCameraGetExposureOffset(self->_camera, v5);
     }
   }
 
@@ -2968,7 +2972,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setExposureOffset:];
@@ -3014,10 +3018,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    DepthOfFieldIntensity = C3DCameraGetDepthOfFieldIntensity(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    DepthOfFieldIntensity = C3DCameraGetDepthOfFieldIntensity(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return DepthOfFieldIntensity;
   }
 
@@ -3025,7 +3029,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetDepthOfFieldIntensity(camera);
+    return C3DCameraGetDepthOfFieldIntensity(camera, v5);
   }
 }
 
@@ -3033,7 +3037,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setDofIntensity:];
@@ -3061,15 +3065,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      DepthOfFieldIntensity = C3DCameraGetDepthOfFieldIntensity(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      DepthOfFieldIntensity = C3DCameraGetDepthOfFieldIntensity(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetDepthOfFieldIntensity(self->_camera);
+      return C3DCameraGetDepthOfFieldIntensity(self->_camera, v5);
     }
   }
 
@@ -3088,15 +3092,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      MaximumExposure = C3DCameraGetMaximumExposure(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      MaximumExposure = C3DCameraGetMaximumExposure(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetMaximumExposure(self->_camera);
+      return C3DCameraGetMaximumExposure(self->_camera, v5);
     }
   }
 
@@ -3112,7 +3116,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setMaximumExposure:];
@@ -3144,15 +3148,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      MinimumExposure = C3DCameraGetMinimumExposure(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      MinimumExposure = C3DCameraGetMinimumExposure(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetMinimumExposure(self->_camera);
+      return C3DCameraGetMinimumExposure(self->_camera, v5);
     }
   }
 
@@ -3168,7 +3172,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setMinimumExposure:];
@@ -3200,15 +3204,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      MotionBlurIntensity = C3DCameraGetMotionBlurIntensity(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      MotionBlurIntensity = C3DCameraGetMotionBlurIntensity(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetMotionBlurIntensity(self->_camera);
+      return C3DCameraGetMotionBlurIntensity(self->_camera, v5);
     }
   }
 
@@ -3224,7 +3228,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setMotionBlurIntensity:];
@@ -3259,10 +3263,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    OrthographicScale = C3DCameraGetOrthographicScale(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    OrthographicScale = C3DCameraGetOrthographicScale(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return OrthographicScale;
   }
 
@@ -3270,7 +3274,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetOrthographicScale(camera);
+    return C3DCameraGetOrthographicScale(camera, v5);
   }
 }
 
@@ -3278,7 +3282,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setOrthographicScale:];
@@ -3310,15 +3314,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      Saturation = C3DCameraGetSaturation(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      Saturation = C3DCameraGetSaturation(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetSaturation(self->_camera);
+      return C3DCameraGetSaturation(self->_camera, v5);
     }
   }
 
@@ -3334,7 +3338,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setSaturation:];
@@ -3367,10 +3371,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v6 = sceneRef;
-      C3DSceneLock(sceneRef);
-      UsesOrthographicProjection = C3DCameraGetUsesOrthographicProjection(self->_camera);
-      C3DSceneUnlock(v6);
+      v7 = sceneRef;
+      C3DSceneLock(sceneRef, v6);
+      UsesOrthographicProjection = C3DCameraGetUsesOrthographicProjection(self->_camera, v8);
+      C3DSceneUnlock(v7, v10);
       LOBYTE(v3) = UsesOrthographicProjection;
     }
 
@@ -3378,7 +3382,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     {
       camera = self->_camera;
 
-      LOBYTE(v3) = C3DCameraGetUsesOrthographicProjection(camera);
+      LOBYTE(v3) = C3DCameraGetUsesOrthographicProjection(camera, v6);
     }
   }
 
@@ -3395,7 +3399,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   v4 = *(self + 16);
   if (v4)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setUsesOrthographicProjection:];
@@ -3437,15 +3441,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      VignettingIntensity = C3DCameraGetVignettingIntensity(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      VignettingIntensity = C3DCameraGetVignettingIntensity(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetVignettingIntensity(self->_camera);
+      return C3DCameraGetVignettingIntensity(self->_camera, v5);
     }
   }
 
@@ -3461,7 +3465,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setVignettingIntensity:];
@@ -3493,15 +3497,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      VignettingPower = C3DCameraGetVignettingPower(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      VignettingPower = C3DCameraGetVignettingPower(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetVignettingPower(self->_camera);
+      return C3DCameraGetVignettingPower(self->_camera, v5);
     }
   }
 
@@ -3517,7 +3521,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setVignettingPower:];
@@ -3552,10 +3556,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    WantsExposureAdaptation = C3DCameraGetWantsExposureAdaptation(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    WantsExposureAdaptation = C3DCameraGetWantsExposureAdaptation(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return WantsExposureAdaptation;
   }
 
@@ -3563,7 +3567,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetWantsExposureAdaptation(camera);
+    return C3DCameraGetWantsExposureAdaptation(camera, v5);
   }
 }
 
@@ -3571,7 +3575,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setWantsExposureAdaptation:];
@@ -3602,10 +3606,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    WantsHDR = C3DCameraGetWantsHDR(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    WantsHDR = C3DCameraGetWantsHDR(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return WantsHDR;
   }
 
@@ -3613,7 +3617,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetWantsHDR(camera);
+    return C3DCameraGetWantsHDR(camera, v5);
   }
 }
 
@@ -3621,7 +3625,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setWantsHDR:];
@@ -3649,15 +3653,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      WhitePoint = C3DCameraGetWhitePoint(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      WhitePoint = C3DCameraGetWhitePoint(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetWhitePoint(self->_camera);
+      return C3DCameraGetWhitePoint(self->_camera, v5);
     }
   }
 
@@ -3673,7 +3677,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setWhitePoint:];
@@ -3708,10 +3712,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    XFov = C3DCameraGetXFov(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    XFov = C3DCameraGetXFov(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return XFov;
   }
 
@@ -3719,7 +3723,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetXFov(camera);
+    return C3DCameraGetXFov(camera, v5);
   }
 }
 
@@ -3727,7 +3731,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setXFov:];
@@ -3781,10 +3785,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    YFov = C3DCameraGetYFov(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    YFov = C3DCameraGetYFov(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return YFov;
   }
 
@@ -3792,7 +3796,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetYFov(camera);
+    return C3DCameraGetYFov(camera, v5);
   }
 }
 
@@ -3800,7 +3804,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setYFov:];
@@ -3854,10 +3858,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ZFar = C3DCameraGetZFar(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ZFar = C3DCameraGetZFar(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return ZFar;
   }
 
@@ -3865,7 +3869,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetZFar(camera);
+    return C3DCameraGetZFar(camera, v5);
   }
 }
 
@@ -3873,7 +3877,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setZFar:];
@@ -3908,10 +3912,10 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ZNear = C3DCameraGetZNear(self->_camera);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ZNear = C3DCameraGetZNear(self->_camera, v7);
+    C3DSceneUnlock(v6, v9);
     return ZNear;
   }
 
@@ -3919,7 +3923,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   {
     camera = self->_camera;
 
-    return C3DCameraGetZNear(camera);
+    return C3DCameraGetZNear(camera, v5);
   }
 }
 
@@ -3929,7 +3933,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   v4 = *(self + 16);
   if (v4)
   {
-    v10 = scn_default_log();
+    v10 = scn_default_log(self, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setZNear:];
@@ -3943,7 +3947,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     v6 = v4 & 8;
     if (zNear == 0.0 && v6 == 0)
     {
-      v8 = scn_default_log();
+      v8 = scn_default_log(self, a2);
       v5 = 0.0001;
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
@@ -3978,18 +3982,18 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [self sceneRef];
   if (sceneRef)
   {
-    v4 = sceneRef;
-    C3DSceneLock(sceneRef);
-    LensShift = C3DCameraGetLensShift(*(self + 8));
-    C3DSceneUnlock(v4);
+    v5 = sceneRef;
+    C3DSceneLock(sceneRef, v4);
+    LensShift = C3DCameraGetLensShift(*(self + 8), v6);
+    C3DSceneUnlock(v5, v8);
     return LensShift;
   }
 
   else
   {
-    v6 = *(self + 8);
+    v9 = *(self + 8);
 
-    return C3DCameraGetLensShift(v6);
+    return C3DCameraGetLensShift(v9, v4);
   }
 }
 
@@ -3997,7 +4001,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setLensShift:];
@@ -4034,21 +4038,21 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   if (LOBYTE(self->c))
   {
     sceneRef = [(CGAffineTransform *)self sceneRef];
-    v10 = sceneRef;
+    v11 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v10);
     }
 
-    PostProjectionTransformTranslation = C3DCameraGetPostProjectionTransformTranslation(*&selfCopy->b);
-    PostProjectionTransformScale = C3DCameraGetPostProjectionTransformScale(*&selfCopy->b);
+    PostProjectionTransformTranslation = C3DCameraGetPostProjectionTransformTranslation(*&selfCopy->b, v10);
+    PostProjectionTransformScale = C3DCameraGetPostProjectionTransformScale(*&selfCopy->b, v12);
     retstr->ty = *(&PostProjectionTransformTranslation + 1);
     retstr->a = *&PostProjectionTransformScale;
     *&retstr->d = vcvtq_f64_f32(vext_s8(*&PostProjectionTransformScale, *&PostProjectionTransformTranslation, 4uLL));
-    if (v10)
+    if (v11)
     {
 
-      return C3DSceneUnlock(v10);
+      return C3DSceneUnlock(v11, v13);
     }
   }
 
@@ -4068,7 +4072,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v10 = scn_default_log();
+    v10 = scn_default_log(self, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setPostProjectionTransform:];
@@ -4115,7 +4119,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setPostProjectionTransformTranslation:];
@@ -4145,7 +4149,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setPostProjectionTransformScale:];
@@ -4201,47 +4205,9 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 
 - (void)_checkSettingsConsistency
 {
-  v29 = *MEMORY[0x277D85DE8];
-  fieldOfView = self->_fieldOfView;
-  if (fieldOfView >= 180.0)
-  {
-    if (self->_focalLength != 0.0)
-    {
-      v11 = scn_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
-      {
-        [(SCNCamera *)v11 _checkSettingsConsistency:v12];
-      }
-    }
-  }
-
-  else
-  {
-    v4 = fieldOfView / 180.0 * 3.14159265;
-    v5 = self->_sensorSize * 0.5;
-    v6 = v5 / tanf(v4 * 0.5);
-    if (vabds_f32(self->_focalLength, v6) >= 0.001)
-    {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-      {
-        v8 = self->_fieldOfView;
-        sensorSize = self->_sensorSize;
-        focalLength = self->_focalLength;
-        v19 = 136316162;
-        v20 = "fabs(_focalLength - focalLength) < 1e-3";
-        v21 = 2048;
-        v22 = v8;
-        v23 = 2048;
-        v24 = sensorSize;
-        v25 = 2048;
-        v26 = v6;
-        v27 = 2048;
-        v28 = focalLength;
-        _os_log_fault_impl(&dword_21BEF7000, v7, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Inconsistent physically-based camera settings: %fº fov with a %.2fmm sensor should lead to an expected focal length of %.2f (got %.2f)", &v19, 0x34u);
-      }
-    }
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_focalLength == 0.f";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. Inconsistent physically-based camera settings", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (CGFloat)fieldOfView
@@ -4251,15 +4217,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      Fov = C3DCameraGetFov(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      Fov = C3DCameraGetFov(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetFov(self->_camera);
+      return C3DCameraGetFov(self->_camera, v5);
     }
   }
 
@@ -4276,7 +4242,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   v4 = *(self + 16);
   if (v4)
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setFieldOfView:];
@@ -4329,15 +4295,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      SensorSize = C3DCameraGetSensorSize(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      SensorSize = C3DCameraGetSensorSize(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetSensorSize(self->_camera);
+      return C3DCameraGetSensorSize(self->_camera, v5);
     }
   }
 
@@ -4354,7 +4320,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   v4 = *(self + 16);
   if (v4)
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setSensorHeight:];
@@ -4388,15 +4354,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      FocalLength = C3DCameraGetFocalLength(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      FocalLength = C3DCameraGetFocalLength(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetFocalLength(self->_camera);
+      return C3DCameraGetFocalLength(self->_camera, v5);
     }
   }
 
@@ -4413,7 +4379,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   v4 = *(self + 16);
   if (v4)
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setFocalLength:];
@@ -4463,15 +4429,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      FStop = C3DCameraGetFStop(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      FStop = C3DCameraGetFStop(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetFStop(self->_camera);
+      return C3DCameraGetFStop(self->_camera, v5);
     }
   }
 
@@ -4487,7 +4453,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setFStop:];
@@ -4522,13 +4488,13 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetBladeCount(self->_camera);
+    return C3DCameraGetBladeCount(self->_camera, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  BladeCount = C3DCameraGetBladeCount(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  BladeCount = C3DCameraGetBladeCount(self->_camera, v7);
+  C3DSceneUnlock(v6, v8);
   return BladeCount;
 }
 
@@ -4536,7 +4502,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setApertureBladeCount:];
@@ -4567,13 +4533,13 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetDofSampleCount(self->_camera);
+    return C3DCameraGetDofSampleCount(self->_camera, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  DofSampleCount = C3DCameraGetDofSampleCount(self->_camera);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  DofSampleCount = C3DCameraGetDofSampleCount(self->_camera, v7);
+  C3DSceneUnlock(v6, v8);
   return DofSampleCount;
 }
 
@@ -4581,7 +4547,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setFocalBlurSampleCount:];
@@ -4609,15 +4575,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      FocusDistance = C3DCameraGetFocusDistance(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      FocusDistance = C3DCameraGetFocusDistance(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetFocusDistance(self->_camera);
+      return C3DCameraGetFocusDistance(self->_camera, v5);
     }
   }
 
@@ -4633,7 +4599,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setFocusDistance:];
@@ -4669,13 +4635,13 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetLetterboxMode(self->_camera);
+    return C3DCameraGetLetterboxMode(self->_camera, v6);
   }
 
-  v6 = sceneRef;
-  C3DSceneLock(sceneRef);
-  LetterboxMode = C3DCameraGetLetterboxMode(self->_camera);
-  C3DSceneUnlock(v6);
+  v7 = sceneRef;
+  C3DSceneLock(sceneRef, v6);
+  LetterboxMode = C3DCameraGetLetterboxMode(self->_camera, v8);
+  C3DSceneUnlock(v7, v9);
   return LetterboxMode;
 }
 
@@ -4710,13 +4676,13 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   sceneRef = [(SCNCamera *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DCameraGetFovIsHorizontal(self->_camera);
+    return C3DCameraGetFovIsHorizontal(self->_camera, v6);
   }
 
-  v6 = sceneRef;
-  C3DSceneLock(sceneRef);
-  IsHorizontal = C3DCameraGetFovIsHorizontal(self->_camera);
-  C3DSceneUnlock(v6);
+  v7 = sceneRef;
+  C3DSceneLock(sceneRef, v6);
+  IsHorizontal = C3DCameraGetFovIsHorizontal(self->_camera, v8);
+  C3DSceneUnlock(v7, v9);
   return IsHorizontal;
 }
 
@@ -4764,15 +4730,15 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
     sceneRef = [(SCNCamera *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      AspectRatio = C3DCameraGetAspectRatio(self->_camera);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      AspectRatio = C3DCameraGetAspectRatio(self->_camera, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DCameraGetAspectRatio(self->_camera);
+      return C3DCameraGetAspectRatio(self->_camera, v5);
     }
   }
 
@@ -4809,7 +4775,7 @@ float __63__SCNCamera_setExposureAdaptationHistogramRangeLowProbability___block_
   v4 = *(self + 16);
   if (v4)
   {
-    v16 = scn_default_log();
+    v16 = scn_default_log(self, a2);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SCNCamera setProjectionTransform:];
@@ -4903,28 +4869,28 @@ double __36__SCNCamera_setProjectionTransform___block_invoke(uint64_t a1)
 - (SCNMatrix4)projectionTransformWithViewportSize:(SEL)size
 {
   selfCopy = self;
-  memset(&v35, 0, sizeof(v35));
+  memset(&v37, 0, sizeof(v37));
   m21_low = LOBYTE(self->m21);
   if (m21_low)
   {
     height = viewportSize.height;
     width = viewportSize.width;
     sceneRef = [(SCNMatrix4 *)self sceneRef];
-    v12 = sceneRef;
+    v13 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v12);
     }
 
-    v13.f64[0] = width;
-    v13.f64[1] = height;
-    v22[0] = vcvt_hight_f32_f64(0, v13);
-    ProjectionInfosPtr = C3DCameraGetProjectionInfosPtr(*&selfCopy->m13);
-    self = C3DProjectionInfosGetMatrix(ProjectionInfosPtr, v22, 0);
+    v14.f64[0] = width;
+    v14.f64[1] = height;
+    v24[0] = vcvt_hight_f32_f64(0, v14);
+    ProjectionInfosPtr = C3DCameraGetProjectionInfosPtr(*&selfCopy->m13, v12);
+    self = C3DProjectionInfosGetMatrix(ProjectionInfosPtr, v24, 0);
     if (self)
     {
-      C3DMatrix4x4ToSCNMatrix4(self, &v35);
-      if (!v12)
+      C3DMatrix4x4ToSCNMatrix4(self, &v37);
+      if (!v13)
       {
         goto LABEL_9;
       }
@@ -4932,63 +4898,63 @@ double __36__SCNCamera_setProjectionTransform___block_invoke(uint64_t a1)
 
     else
     {
-      v35 = SCNMatrix4Identity;
-      if (!v12)
+      v37 = SCNMatrix4Identity;
+      if (!v13)
       {
         goto LABEL_9;
       }
     }
 
-    self = C3DSceneUnlock(v12);
+    self = C3DSceneUnlock(v13, v16);
     goto LABEL_9;
   }
 
   if ((m21_low & 2) != 0)
   {
-    v18 = *&self[2].m43;
+    v20 = *&self[2].m43;
     *&retstr->m11 = *&self[2].m33;
-    *&retstr->m21 = v18;
-    v16 = *&self[3].m13;
-    v17 = *&self[3].m23;
+    *&retstr->m21 = v20;
+    v18 = *&self[3].m13;
+    v19 = *&self[3].m23;
     goto LABEL_11;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  memset(v22, 0, sizeof(v22));
-  *&v25 = self[2].m23;
-  *(v22 + 8) = *&self[1].m11;
+  v26 = 0u;
+  v27 = 0u;
+  memset(v24, 0, sizeof(v24));
+  *&v27 = self[2].m23;
+  *(v24 + 8) = *&self[1].m11;
   v7 = *&self->m41;
-  *&v24 = *&self->m43;
-  DWORD2(v24) = LODWORD(self[1].m21);
+  *&v26 = *&self->m43;
+  DWORD2(v26) = LODWORD(self[1].m21);
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v33 = 0u;
-  v34 = vcvtq_f64_f32(v7);
-  v22[0].i8[0] = (m21_low >> 1) & 0x20 | ((m21_low & 8) != 0) | (((m21_low & 0x20) != 0) << 6) | (16 * ((m21_low & 4) != 0));
+  v25 = 0u;
+  v35 = 0u;
+  v36 = vcvtq_f64_f32(v7);
+  v24[0].i8[0] = (m21_low >> 1) & 0x20 | ((m21_low & 8) != 0) | (((m21_low & 0x20) != 0) << 6) | (16 * ((m21_low & 4) != 0));
   v8 = *&self[1].m33;
-  v22[1].i64[1] = *&self[1].m31;
-  *&v23 = v8;
-  *(&v23 + 1) = *&self[1].m41;
+  v24[1].i64[1] = *&self[1].m31;
+  *&v25 = v8;
+  *(&v25 + 1) = *&self[1].m41;
   v9 = viewportSize.height;
-  v21 = vcvt_hight_f32_f64(0, viewportSize);
-  Matrix = C3DProjectionInfosGetMatrix(v22[0].i8, &v21, 0);
-  C3DMatrix4x4ToSCNMatrix4(Matrix, &v35);
+  v23 = vcvt_hight_f32_f64(0, viewportSize);
+  Matrix = C3DProjectionInfosGetMatrix(v24[0].i64, &v23, 0);
+  C3DMatrix4x4ToSCNMatrix4(Matrix, &v37);
 LABEL_9:
-  v15 = *&v35.m21;
-  *&retstr->m11 = *&v35.m11;
-  *&retstr->m21 = v15;
-  v16 = *&v35.m31;
-  v17 = *&v35.m41;
+  v17 = *&v37.m21;
+  *&retstr->m11 = *&v37.m11;
+  *&retstr->m21 = v17;
+  v18 = *&v37.m31;
+  v19 = *&v37.m41;
 LABEL_11:
-  *&retstr->m31 = v16;
-  *&retstr->m41 = v17;
+  *&retstr->m31 = v18;
+  *&retstr->m41 = v19;
   return self;
 }
 
@@ -5041,7 +5007,7 @@ LABEL_11:
 
   [(SCNCamera *)self lensShift];
   [v4 setLensShift:?];
-  [(SCNCamera *)self postProjectionTransform];
+  objc_msgSend_postProjectionTransform(self);
   v6[0] = v6[3];
   v6[1] = v6[4];
   v6[2] = v6[5];
@@ -5324,18 +5290,18 @@ LABEL_11:
 
 - (SCNCamera)initWithCoder:(id)coder
 {
-  v60.receiver = self;
-  v60.super_class = SCNCamera;
-  v4 = [(SCNCamera *)&v60 init];
+  v62.receiver = self;
+  v62.super_class = SCNCamera;
+  v4 = [(SCNCamera *)&v62 init];
   if (v4)
   {
     v5 = +[SCNTransaction immediateMode];
-    [SCNTransaction setImmediateMode:1];
-    v6 = C3DCameraCreate();
-    v4->_camera = v6;
-    if (v6)
+    v6 = [SCNTransaction setImmediateMode:1];
+    v8 = C3DCameraCreate(v6, v7);
+    v4->_camera = v8;
+    if (v8)
     {
-      C3DEntitySetObjCWrapper(v6, v4);
+      C3DEntitySetObjCWrapper(v8, v4);
     }
 
     [(SCNCamera *)v4 _syncObjCModel];
@@ -5347,25 +5313,25 @@ LABEL_11:
     if ([coder containsValueForKey:@"fov"])
     {
       [coder decodeFloatForKey:@"sensorSize"];
-      [(SCNCamera *)v4 setSensorHeight:v7];
+      [(SCNCamera *)v4 setSensorHeight:v9];
       [coder decodeFloatForKey:@"fov"];
-      [(SCNCamera *)v4 setFieldOfView:v8];
+      [(SCNCamera *)v4 setFieldOfView:v10];
     }
 
     else
     {
       [coder decodeFloatForKey:@"xFov"];
-      [(SCNCamera *)v4 setXFov:v9];
+      [(SCNCamera *)v4 setXFov:v11];
       [coder decodeFloatForKey:@"yFov"];
-      [(SCNCamera *)v4 setYFov:v10];
+      [(SCNCamera *)v4 setYFov:v12];
     }
 
     if ([coder containsValueForKey:@"lensShiftX"])
     {
       [coder decodeFloatForKey:@"lensShiftX"];
-      v57 = v11;
+      v59 = v13;
       [coder decodeFloatForKey:@"lensShiftY"];
-      [(SCNCamera *)v4 setLensShift:COERCE_DOUBLE(__PAIR64__(v12, v57))];
+      [(SCNCamera *)v4 setLensShift:COERCE_DOUBLE(__PAIR64__(v14, v59))];
     }
 
     else
@@ -5376,9 +5342,9 @@ LABEL_11:
     if ([coder containsValueForKey:@"postProjectionTransformTranslationX"])
     {
       [coder decodeFloatForKey:@"postProjectionTransformTranslationX"];
-      v58 = v13;
+      v60 = v15;
       [coder decodeFloatForKey:@"postProjectionTransformTranslationY"];
-      [(SCNCamera *)v4 setPostProjectionTransformTranslation:COERCE_DOUBLE(__PAIR64__(v14, v58))];
+      [(SCNCamera *)v4 setPostProjectionTransformTranslation:COERCE_DOUBLE(__PAIR64__(v16, v60))];
     }
 
     else
@@ -5389,9 +5355,9 @@ LABEL_11:
     if ([coder containsValueForKey:@"postProjectionTransformScaleX"])
     {
       [coder decodeFloatForKey:@"postProjectionTransformScaleX"];
-      v59 = v15;
+      v61 = v17;
       [coder decodeFloatForKey:@"postProjectionTransformScaleY"];
-      [(SCNCamera *)v4 setPostProjectionTransformScale:COERCE_DOUBLE(__PAIR64__(v16, v59))];
+      [(SCNCamera *)v4 setPostProjectionTransformScale:COERCE_DOUBLE(__PAIR64__(v18, v61))];
     }
 
     else
@@ -5408,23 +5374,23 @@ LABEL_11:
     [coder decodeDoubleForKey:@"zFar"];
     [(SCNCamera *)v4 setZFar:?];
     [coder decodeFloatForKey:@"focusDistance"];
-    [(SCNCamera *)v4 setFocusDistance:v22];
+    [(SCNCamera *)v4 setFocusDistance:v24];
     if ([coder containsValueForKey:@"dofIntensity"])
     {
       [coder decodeFloatForKey:@"dofIntensity"];
-      [(SCNCamera *)v4 setWantsDepthOfField:v23 > 0.0];
+      [(SCNCamera *)v4 setWantsDepthOfField:v25 > 0.0];
     }
 
     else
     {
       [coder decodeFloatForKey:@"focalBlurRadius"];
-      [(SCNCamera *)v4 setFocalBlurRadius:v24];
+      [(SCNCamera *)v4 setFocalBlurRadius:v26];
     }
 
     if ([coder containsValueForKey:@"fStop"])
     {
       [coder decodeFloatForKey:@"fStop"];
-      [(SCNCamera *)v4 setFStop:v25];
+      [(SCNCamera *)v4 setFStop:v27];
     }
 
     if ([coder containsValueForKey:@"bladeCount"])
@@ -5444,89 +5410,89 @@ LABEL_11:
       -[SCNCamera setWantsHDR:](v4, "setWantsHDR:", [coder decodeBoolForKey:@"wantsHDR"]);
       -[SCNCamera setWantsExposureAdaptation:](v4, "setWantsExposureAdaptation:", [coder decodeBoolForKey:@"wantsExposureAdaptation"]);
       [coder decodeFloatForKey:@"whitePoint"];
-      [(SCNCamera *)v4 setWhitePoint:v26];
+      [(SCNCamera *)v4 setWhitePoint:v28];
       [coder decodeFloatForKey:@"averageGray"];
-      [(SCNCamera *)v4 setAverageGray:v27];
+      [(SCNCamera *)v4 setAverageGray:v29];
       [coder decodeFloatForKey:@"exposureOffset"];
-      [(SCNCamera *)v4 setExposureOffset:v28];
+      [(SCNCamera *)v4 setExposureOffset:v30];
       [coder decodeFloatForKey:@"exposureAdaptationDuration"];
-      [(SCNCamera *)v4 setExposureAdaptationDuration:v29];
+      [(SCNCamera *)v4 setExposureAdaptationDuration:v31];
       [coder decodeFloatForKey:@"exposureAdaptationBrighteningSpeedFactor"];
-      [(SCNCamera *)v4 setExposureAdaptationBrighteningSpeedFactor:v30];
+      [(SCNCamera *)v4 setExposureAdaptationBrighteningSpeedFactor:v32];
       [coder decodeFloatForKey:@"exposureAdaptationDarkeningSpeedFactor"];
-      [(SCNCamera *)v4 setExposureAdaptationDarkeningSpeedFactor:v31];
+      [(SCNCamera *)v4 setExposureAdaptationDarkeningSpeedFactor:v33];
       if ([coder containsValueForKey:@"exposureAdaptationMode"])
       {
         [coder decodeFloatForKey:@"exposureAdaptationHistogramRangeLowProbability"];
-        [(SCNCamera *)v4 setExposureAdaptationHistogramRangeLowProbability:v32];
+        [(SCNCamera *)v4 setExposureAdaptationHistogramRangeLowProbability:v34];
         [coder decodeFloatForKey:@"exposureAdaptationHistogramRangeHighProbability"];
-        [(SCNCamera *)v4 setExposureAdaptationHistogramRangeHighProbability:v33];
+        [(SCNCamera *)v4 setExposureAdaptationHistogramRangeHighProbability:v35];
         -[SCNCamera setExposureAdaptationMode:](v4, "setExposureAdaptationMode:", [coder decodeIntegerForKey:@"exposureAdaptationMode"]);
       }
 
       [coder decodeFloatForKey:@"minimumExposure"];
-      [(SCNCamera *)v4 setMinimumExposure:v34];
+      [(SCNCamera *)v4 setMinimumExposure:v36];
       [coder decodeFloatForKey:@"maximumExposure"];
-      [(SCNCamera *)v4 setMaximumExposure:v35];
+      [(SCNCamera *)v4 setMaximumExposure:v37];
       [coder decodeFloatForKey:@"bloomIntensity"];
-      [(SCNCamera *)v4 setBloomIntensity:v36];
+      [(SCNCamera *)v4 setBloomIntensity:v38];
       [coder decodeFloatForKey:@"bloomThreshold"];
-      [(SCNCamera *)v4 setBloomThreshold:v37];
+      [(SCNCamera *)v4 setBloomThreshold:v39];
       if ([coder containsValueForKey:@"bloomIteration"])
       {
         -[SCNCamera setBloomIterationCount:](v4, "setBloomIterationCount:", [coder decodeIntegerForKey:@"bloomIteration"]);
         [coder decodeFloatForKey:@"bloomIterationSpread"];
-        [(SCNCamera *)v4 setBloomIterationSpread:v38];
+        [(SCNCamera *)v4 setBloomIterationSpread:v40];
       }
 
       [coder decodeFloatForKey:@"bloomBlurRadius"];
-      [(SCNCamera *)v4 setBloomBlurRadius:v39];
+      [(SCNCamera *)v4 setBloomBlurRadius:v41];
       [coder decodeFloatForKey:@"motionBlurIntensity"];
-      [(SCNCamera *)v4 setMotionBlurIntensity:v40];
+      [(SCNCamera *)v4 setMotionBlurIntensity:v42];
     }
 
     *&v4->_wantsHDR = [coder decodeObjectOfClass:objc_opt_class() forKey:@"colorGrading"];
     if ([coder containsValueForKey:@"vignettingPower"])
     {
       [coder decodeFloatForKey:@"vignettingPower"];
-      [(SCNCamera *)v4 setVignettingPower:v41];
+      [(SCNCamera *)v4 setVignettingPower:v43];
       [coder decodeFloatForKey:@"vignettingIntensity"];
-      [(SCNCamera *)v4 setVignettingIntensity:v42];
+      [(SCNCamera *)v4 setVignettingIntensity:v44];
       [coder decodeFloatForKey:@"colorFringeStrength"];
-      [(SCNCamera *)v4 setColorFringeStrength:v43];
+      [(SCNCamera *)v4 setColorFringeStrength:v45];
       [coder decodeFloatForKey:@"colorFringeIntensity"];
-      [(SCNCamera *)v4 setColorFringeIntensity:v44];
+      [(SCNCamera *)v4 setColorFringeIntensity:v46];
       [coder decodeFloatForKey:@"saturation"];
-      [(SCNCamera *)v4 setSaturation:v45];
+      [(SCNCamera *)v4 setSaturation:v47];
       [coder decodeFloatForKey:@"contrast"];
-      [(SCNCamera *)v4 setContrast:v46];
+      [(SCNCamera *)v4 setContrast:v48];
       [coder decodeFloatForKey:@"whiteBalanceTemperature"];
-      [(SCNCamera *)v4 setWhiteBalanceTemperature:v47];
+      [(SCNCamera *)v4 setWhiteBalanceTemperature:v49];
       [coder decodeFloatForKey:@"whiteBalanceTint"];
-      [(SCNCamera *)v4 setWhiteBalanceTint:v48];
+      [(SCNCamera *)v4 setWhiteBalanceTint:v50];
     }
 
     if ([coder containsValueForKey:@"grainIntensity"])
     {
       [coder decodeFloatForKey:@"grainIntensity"];
-      [(SCNCamera *)v4 setGrainIntensity:v49];
+      [(SCNCamera *)v4 setGrainIntensity:v51];
       [coder decodeFloatForKey:@"grainScale"];
-      [(SCNCamera *)v4 setGrainScale:v50];
+      [(SCNCamera *)v4 setGrainScale:v52];
       -[SCNCamera setGrainIsColored:](v4, "setGrainIsColored:", [coder decodeBoolForKey:@"grainIsColored"]);
     }
 
     if ([coder containsValueForKey:@"screenSpaceAmbientOcclusionIntensity"])
     {
       [coder decodeFloatForKey:@"screenSpaceAmbientOcclusionIntensity"];
-      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionIntensity:v51];
+      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionIntensity:v53];
       [coder decodeFloatForKey:@"screenSpaceAmbientOcclusionRadius"];
-      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionRadius:v52];
+      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionRadius:v54];
       [coder decodeFloatForKey:@"screenSpaceAmbientOcclusionBias"];
-      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionBias:v53];
+      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionBias:v55];
       [coder decodeFloatForKey:@"screenSpaceAmbientOcclusionDepthThreshold"];
-      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionDepthThreshold:v54];
+      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionDepthThreshold:v56];
       [coder decodeFloatForKey:@"screenSpaceAmbientOcclusionNormalThreshold"];
-      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionNormalThreshold:v55];
+      [(SCNCamera *)v4 setScreenSpaceAmbientOcclusionNormalThreshold:v57];
       -[SCNCamera setScreenSpaceAmbientOcclusionSampleCount:](v4, "setScreenSpaceAmbientOcclusionSampleCount:", [coder decodeIntegerForKey:@"screenSpaceAmbientOcclusionSampleCount"]);
       -[SCNCamera setScreenSpaceAmbientOcclusionDownSample:](v4, "setScreenSpaceAmbientOcclusionDownSample:", [coder decodeIntegerForKey:@"screenSpaceAmbientOcclusionDownSample"]);
     }
@@ -5575,7 +5541,7 @@ LABEL_11:
   return v6;
 }
 
-uint64_t __50__SCNCamera_SCN_DTAdditions__debugQuickLookObject__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__50__SCNCamera_SCN_DTAdditions__debugQuickLookObject__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 camera];
   if (result == *(a1 + 32))
@@ -5596,429 +5562,490 @@ uint64_t __50__SCNCamera_SCN_DTAdditions__debugQuickLookObject__block_invoke(uin
 
 - (void)setName:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setScreenSpaceAmbientOcclusionIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setScreenSpaceAmbientOcclusionRadius:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setScreenSpaceAmbientOcclusionBias:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setScreenSpaceAmbientOcclusionDepthThreshold:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setScreenSpaceAmbientOcclusionNormalThreshold:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setScreenSpaceAmbientOcclusionSampleCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setScreenSpaceAmbientOcclusionDownSample:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAutomaticallyAdjustsZRange:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAverageGray:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBloomBlurRadius:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBloomIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBloomThreshold:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBloomIterationCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBloomIterationSpread:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setCategoryBitMask:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setColorFringeStrength:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setColorFringeIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setContrast:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setGrainIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setGrainScale:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setGrainIsColored:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setGrainSlice:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setGrainTexture:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWhiteBalanceTemperature:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWhiteBalanceTint:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExposureAdaptationBrighteningSpeedFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExposureAdaptationDarkeningSpeedFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExposureAdaptationDuration:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExposureAdaptationHistogramRangeHighProbability:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExposureAdaptationHistogramRangeLowProbability:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExposureAdaptationMode:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExposureOffset:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setDofIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setMaximumExposure:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setMinimumExposure:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setMotionBlurIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setOrthographicScale:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSaturation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setUsesOrthographicProjection:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setVignettingIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setVignettingPower:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWantsExposureAdaptation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWantsHDR:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWhitePoint:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setXFov:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setYFov:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setZFar:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setZNear:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setLensShift:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPostProjectionTransform:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPostProjectionTransformTranslation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPostProjectionTransformScale:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFieldOfView:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSensorHeight:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFocalLength:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFStop:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setApertureBladeCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFocalBlurSampleCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFocusDistance:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setProjectionTransform:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 @end

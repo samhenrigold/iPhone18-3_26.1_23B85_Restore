@@ -115,16 +115,16 @@
   return v5;
 }
 
-id __30__TPSGradientStop_na_identity__block_invoke()
+id __30__TPSGradientStop_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSGradientStopColorStringKey_block_invoke_na_once_token_0 != -1)
   {
     __30__TPSGradientStop_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSGradientStopColorStringKey_block_invoke_na_once_object_0;
+  v2 = TPSGradientStopColorStringKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __30__TPSGradientStop_na_identity__block_invoke_2()

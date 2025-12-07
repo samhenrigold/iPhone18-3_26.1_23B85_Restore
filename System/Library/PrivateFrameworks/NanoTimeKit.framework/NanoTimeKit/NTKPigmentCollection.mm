@@ -1574,8 +1574,12 @@ void __61__NTKPigmentCollection_protoBufferIgnoringSharedCollections___block_inv
 
 + (void)collectionFromProtoBuffer:(void *)a1 sharedCollections:.cold.1(void *a1)
 {
-  v1 = [a1 name];
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "#color-sync shared collection for %{public}@ could not be found in shared collections while decoding protobuffer object. Collection will be nil %{public}@", v4, v5, v6, v7, 2u);
+  v2 = [a1 name];
+  *v9 = 138543618;
+  *&v9[4] = v2;
+  *&v9[12] = 2114;
+  *&v9[14] = a1;
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v3, v4, "#color-sync shared collection for %{public}@ could not be found in shared collections while decoding protobuffer object. Collection will be nil %{public}@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 + (void)collectionFromProtoBuffer:(uint64_t)a1 sharedCollections:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
@@ -1591,7 +1595,7 @@ void __68__NTKPigmentCollection_collectionFromProtoBuffer_sharedCollections___bl
   v3 = [*(a1 + 40) name];
   v4 = [a2 formattedText];
   OUTLINED_FUNCTION_1_9();
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v5, v6, "#color-sync Failure while decoding collection's items from protobuffer. %{publib}@ - pigment protobuffer: %{public}@ ", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v5, v6, "#color-sync Failure while decoding collection's items from protobuffer. %{publib}@ - pigment protobuffer: %{public}@ ", v7, v8, v9, v10);
 }
 
 void __68__NTKPigmentCollection_collectionFromProtoBuffer_sharedCollections___block_invoke_33_cold_1(uint64_t a1, void *a2)
@@ -1599,7 +1603,7 @@ void __68__NTKPigmentCollection_collectionFromProtoBuffer_sharedCollections___bl
   v3 = [*(a1 + 40) name];
   v4 = [a2 formattedText];
   OUTLINED_FUNCTION_1_9();
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v5, v6, "#color-sync Failure while decoding collection's defaultGalleryColors from protobuffer. %{publib}@ - pigment protobuffer: %{public}@ ", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v5, v6, "#color-sync Failure while decoding collection's defaultGalleryColors from protobuffer. %{publib}@ - pigment protobuffer: %{public}@ ", v7, v8, v9, v10);
 }
 
 @end

@@ -16,58 +16,58 @@
   v12 = v11;
   if (v11)
   {
-    if (v11[2] != 8)
+    v13 = v11[2];
+    if (v13 != 8)
     {
-      v47 = v11[2];
-      TSUSetCrashReporterInfo();
-      v41 = MEMORY[0x277D81150];
-      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]", "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 573, v47);
-      v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v46, v43, v45, 573, 1, "Unexpected field descriptor type (%d).", v12->super.super._type);
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected field descriptor type (%d).", "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 573, v13);
+      v42 = MEMORY[0x277D81150];
+      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]");
+      v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v47, v44, v46, 573, 1, "Unexpected field descriptor type (%d).", v12->super.super._type);
 
       TSUCrashBreakpoint();
       abort();
     }
 
-    v13 = v11 + 38;
-    v15 = *set;
-    v14 = *(set + 1);
-    if (v14)
+    v14 = v11 + 38;
+    v16 = *set;
+    v15 = *(set + 1);
+    if (v15)
     {
-      atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v16 = *(v11 + 20);
-    *v13 = v15;
-    v13[1] = v14;
-    if (v16)
+    v17 = *(v11 + 20);
+    *v14 = v16;
+    v14[1] = v15;
+    if (v17)
     {
-      sub_2769C1430(v16);
+      sub_2769C1430(v17);
     }
 
     if (*set)
     {
       if (google::protobuf::Reflection::HasField(reflection, message, descriptor))
       {
-        v18 = MEMORY[0x277D81150];
-        v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]");
-        v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
-        v22 = *(descriptor + 1);
-        if (*(v22 + 23) < 0)
+        v19 = MEMORY[0x277D81150];
+        v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]");
+        v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
+        v23 = *(descriptor + 1);
+        if (*(v23 + 23) < 0)
         {
-          v22 = *v22;
+          v23 = *v23;
         }
 
         number = v12->super.super._number;
         (*(message->var0 + 2))(__p, message);
         if (v49 >= 0)
         {
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v24, v19, v21, 578, 0, "Enum field %{public}s (%d) for message %{public}s has both known and unknown values. We will only preserve the unknown values.", v22, number, __p);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v22, 578, 0, "Enum field %{public}s (%d) for message %{public}s has both known and unknown values. We will only preserve the unknown values.", v23, number, __p);
         }
 
         else
         {
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v24, v19, v21, 578, 0, "Enum field %{public}s (%d) for message %{public}s has both known and unknown values. We will only preserve the unknown values.", v22, number, __p[0]);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v22, 578, 0, "Enum field %{public}s (%d) for message %{public}s has both known and unknown values. We will only preserve the unknown values.", v23, number, __p[0]);
         }
 
         if (v49 < 0)
@@ -75,7 +75,7 @@
           operator delete(__p[0]);
         }
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27);
       }
     }
 
@@ -84,30 +84,30 @@
       Enum = google::protobuf::Reflection::GetEnum(reflection, message, descriptor);
       if (Enum)
       {
-        v29 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v28, *(Enum + 16));
+        v30 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v29, *(Enum + 16));
       }
 
       else
       {
-        v30 = MEMORY[0x277D81150];
-        v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]");
-        v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
-        v34 = *(descriptor + 1);
-        if (*(v34 + 23) < 0)
+        v31 = MEMORY[0x277D81150];
+        v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "[TSPKnownFieldEnumValue initWithFieldDescriptor:fieldInfo:message:reflection:unknownFieldSet:]");
+        v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
+        v35 = *(descriptor + 1);
+        if (*(v35 + 23) < 0)
         {
-          v34 = *v34;
+          v35 = *v35;
         }
 
-        v35 = v12->super.super._number;
+        v36 = v12->super.super._number;
         (*(message->var0 + 2))(__p, message);
         if (v49 >= 0)
         {
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v36, v31, v33, 584, 0, "Found unexpected enum value for field %{public}s (%d) message %{public}s.", v34, v35, __p);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v37, v32, v34, 584, 0, "Found unexpected enum value for field %{public}s (%d) message %{public}s.", v35, v36, __p);
         }
 
         else
         {
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v36, v31, v33, 584, 0, "Found unexpected enum value for field %{public}s (%d) message %{public}s.", v34, v35, __p[0]);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v37, v32, v34, 584, 0, "Found unexpected enum value for field %{public}s (%d) message %{public}s.", v35, v36, __p[0]);
         }
 
         if (v49 < 0)
@@ -115,12 +115,12 @@
           operator delete(__p[0]);
         }
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38);
-        v29 = 0;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39);
+        v30 = 0;
       }
 
       value = v12->super._value;
-      v12->super._value = v29;
+      v12->super._value = v30;
     }
   }
 

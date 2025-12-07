@@ -103,29 +103,27 @@ void __43__ACHBackgroundTaskScheduler__registerTask__block_invoke(uint64_t a1, u
 
 - (void)_performActivityWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ACHLogScheduler();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [(ACHBackgroundTaskScheduler *)self name];
     *buf = 138543362;
-    v14 = name;
+    v13 = name;
     _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Performing task for %{public}@", buf, 0xCu);
   }
 
   performHandler = [(ACHBackgroundTaskScheduler *)self performHandler];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __61__ACHBackgroundTaskScheduler__performActivityWithCompletion___block_invoke;
-  v11[3] = &unk_278491400;
-  v11[4] = self;
-  v12 = completionCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __61__ACHBackgroundTaskScheduler__performActivityWithCompletion___block_invoke;
+  v10[3] = &unk_278491400;
+  v10[4] = self;
+  v11 = completionCopy;
   v8 = performHandler[2];
   v9 = completionCopy;
-  v8(performHandler, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v8(performHandler, v10);
 }
 
 void __61__ACHBackgroundTaskScheduler__performActivityWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
@@ -158,15 +156,13 @@ void __61__ACHBackgroundTaskScheduler__performActivityWithCompletion___block_inv
 
 void __61__ACHBackgroundTaskScheduler__performActivityWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) name];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_221DDC000, a3, OS_LOG_TYPE_ERROR, "Activity for %{public}@ was not successful and returned error %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_221DDC000, a3, OS_LOG_TYPE_ERROR, "Activity for %{public}@ was not successful and returned error %{public}@", &v6, 0x16u);
 }
 
 @end

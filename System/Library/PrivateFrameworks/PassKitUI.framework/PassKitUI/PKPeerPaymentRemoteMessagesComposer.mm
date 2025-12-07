@@ -54,7 +54,7 @@
   objc_destroyWeak(&location);
 }
 
-void __79__PKPeerPaymentRemoteMessagesComposer_validateRecipientWithAddress_completion___block_invoke(void **a1, int a2)
+void __79__PKPeerPaymentRemoteMessagesComposer_validateRecipientWithAddress_completion___block_invoke(id *a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v5 = WeakRetained;

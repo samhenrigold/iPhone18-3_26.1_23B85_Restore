@@ -323,7 +323,7 @@ uint64_t HgcSphere::GetDOD(HgcSphere *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -345,7 +345,7 @@ uint64_t HgcSphere::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -744,7 +744,7 @@ uint64_t HgcStarburst::GetDOD(HgcStarburst *this, HGRenderer *a2, int a3, HGRect
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -766,7 +766,7 @@ uint64_t HgcStarburst::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -1186,7 +1186,7 @@ uint64_t HgcTarget::GetDOD(HgcTarget *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -1208,7 +1208,7 @@ uint64_t HgcTarget::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -1682,7 +1682,7 @@ uint64_t HgcTwirl::GetDOD(HgcTwirl *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -1704,7 +1704,7 @@ uint64_t HgcTwirl::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -2770,7 +2770,7 @@ uint64_t HgcUnderwaterRefractV2::GetDOD(HgcUnderwaterRefractV2 *this, HGRenderer
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -2792,7 +2792,7 @@ uint64_t HgcUnderwaterRefractV2::GetROI(HGNode *this, HGRenderer *a2, int a3, HG
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -3805,7 +3805,7 @@ uint64_t HgcWave::GetDOD(HgcWave *this, HGRenderer *a2, int a3, HGRect a4)
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -3827,7 +3827,7 @@ uint64_t HgcWave::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -5142,7 +5142,7 @@ uint64_t HgcStripes::RenderTile(uint64_t a1, int32x2_t *a2)
     v6 = a2[2];
     *v7.f32 = vadd_f32(vcvt_f32_s32(v2), 0x3F0000003F000000);
     v7.i64[1] = 0x3F80000000000000;
-    v8 = v6 + 2;
+    v8 = (*&v6 + 32);
     v9 = 16 * a2[3].i32[0];
     do
     {
@@ -5227,7 +5227,7 @@ uint64_t HgcStripes::RenderTile(uint64_t a1, int32x2_t *a2)
           v61 = vsubq_f32(v58, vsubq_f32(v59, vandq_s8(v60, vcgtq_f32(v59, v58))));
           v62 = vminq_f32(vmaxq_f32(vaddq_f32(vextq_s8(v57, v57, 8uLL), vmulq_lane_f32(vminq_f32(vsubq_f32(v60, v61), v61), *v57.f32, 1)), *(v56 + 112)), v60);
           v63 = vaddq_f32(*(v56 + 32), vmulq_n_f32(vsubq_f32(*(v56 + 16), *(v56 + 32)), vmulq_f32(vmulq_f32(v62, v62), vaddq_f32(*(v56 + 128), vmulq_f32(v62, *(v56 + 144)))).f32[0]));
-          v6[v10] = vbslq_s8(*(v56 + 160), v63, vmulq_laneq_f32(v63, v63, 3));
+          *(*&v6 + 16 * v10) = vbslq_s8(*(v56 + 160), v63, vmulq_laneq_f32(v63, v63, 3));
           v13 = vaddq_f32(v13, xmmword_2603429B0);
           ++v10;
         }
@@ -5238,7 +5238,7 @@ uint64_t HgcStripes::RenderTile(uint64_t a1, int32x2_t *a2)
       v7 = vaddq_f32(v7, xmmword_2603429C0);
       ++v4;
       v8 = (v8 + v9);
-      v6 = (v6 + v9);
+      *&v6 += v9;
     }
 
     while (v4 != v3);
@@ -6280,7 +6280,7 @@ uint64_t HgcLumaKeyer::GetDOD(HgcLumaKeyer *this, HGRenderer *a2, int a3, HGRect
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v7);
     }
 
@@ -6301,12 +6301,12 @@ uint64_t HgcLumaKeyer::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3 == 1)
   {
-    Input = HGRenderer::GetInput(a2, this, 1u);
+    Input = HGRenderer::GetInput(a2, this, 1);
     DOD = HGRenderer::GetDOD(a2, Input);
     v9 = v8;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }
@@ -8654,7 +8654,7 @@ uint64_t HgcInsectEye::GetDOD(HgcInsectEye *this, HGRenderer *a2, int a3, HGRect
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -8676,7 +8676,7 @@ uint64_t HgcInsectEye::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -9320,7 +9320,7 @@ uint64_t HgcAlphaKeyer::GetDOD(HgcAlphaKeyer *this, HGRenderer *a2, int a3, HGRe
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v7);
     }
 
@@ -9337,7 +9337,7 @@ uint64_t HgcAlphaKeyer::GetDOD(HgcAlphaKeyer *this, HGRenderer *a2, int a3, HGRe
   return v5;
 }
 
-uint64_t HgcAlphaKeyer::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcAlphaKeyer::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3 == 2 || a3 == 1)
   {
@@ -9346,7 +9346,7 @@ uint64_t HgcAlphaKeyer::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HG
     v9 = v8;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }

@@ -26,7 +26,7 @@
 
 - (id)buildInlineCardSections
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D65850]);
   result = [(SPUISResultBuilder *)self result];
   v5 = [v3 initWithResult:result];
@@ -64,10 +64,8 @@
   v21 = [result3 valueForAttribute:v7 withType:objc_opt_class()];
   [v10 setArchive:v21];
 
-  v25[0] = v10;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v24[0] = v10;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
 
   return v22;
 }

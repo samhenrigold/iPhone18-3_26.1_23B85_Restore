@@ -1,26 +1,26 @@
-BOOL sub_12EC(void *a1, uint64_t a2, __IOHIDServiceClient *a3)
+BOOL sub_12EC(void *a1, uint64_t a2, __IOHIDServiceClient *a3, uint64_t a4)
 {
   if (IOHIDEventGetType() != 17)
   {
     return 0;
   }
 
-  v5 = a1;
-  v6 = IOHIDServiceClientCopyProperty(a3, @"VendorID");
-  v7 = IOHIDServiceClientCopyProperty(a3, @"ProductID");
-  v8 = [v6 intValue];
-  if (v8 == [v5 vendorId])
+  v6 = a1;
+  v7 = IOHIDServiceClientCopyProperty(a3, @"VendorID");
+  v8 = IOHIDServiceClientCopyProperty(a3, @"ProductID");
+  v9 = [v7 intValue];
+  if (v9 == [v6 vendorId])
   {
-    v9 = [v7 intValue];
-    v10 = v9 == [v5 productId];
+    v10 = [v8 intValue];
+    v11 = v10 == [v6 productId];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 void sub_1F60(uint64_t a1)

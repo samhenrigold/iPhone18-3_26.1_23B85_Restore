@@ -198,19 +198,18 @@ LABEL_7:
     if ((flagsCopy & 3) != 0)
     {
       geometrySetName = self->_geometrySetName;
-      cachedGestureKeySetName = v7[10];
       goto LABEL_12;
     }
 
 LABEL_13:
-    v15 = 1;
+    isEqualToString = 1;
     goto LABEL_9;
   }
 
-  if (![(NSString *)self->_keySetName isEqualToString:v7[11]])
+  if (!objc_msgSend_isEqualToString_(self->_keySetName))
   {
 LABEL_8:
-    v15 = 0;
+    isEqualToString = 0;
     goto LABEL_9;
   }
 
@@ -223,19 +222,18 @@ LABEL_8:
     goto LABEL_13;
   }
 
-  cachedGestureKeySetName = self->_cachedGestureKeySetName;
   geometrySetName = v7[12];
-  if (cachedGestureKeySetName)
+  if (self->_cachedGestureKeySetName)
   {
 LABEL_12:
-    v15 = [(NSString *)geometrySetName isEqualToString:cachedGestureKeySetName];
+    isEqualToString = objc_msgSend_isEqualToString_(geometrySetName);
     goto LABEL_9;
   }
 
-  v15 = geometrySetName == 0;
+  isEqualToString = geometrySetName == 0;
 LABEL_9:
 
-  return v15;
+  return isEqualToString;
 }
 
 @end

@@ -37,7 +37,7 @@
   return v8 & 1;
 }
 
-uint64_t __54__PUEditLocationActivity_canPerformWithActivityItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__54__PUEditLocationActivity_canPerformWithActivityItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 canPerformEditOperation:3];
   *(*(*(a1 + 32) + 8) + 24) = result;

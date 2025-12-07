@@ -1,13 +1,13 @@
-id sub_1478()
+id sub_1478(uint64_t a1)
 {
   if (qword_CBB8 != -1)
   {
     sub_24CC();
   }
 
-  v1 = qword_CBB0;
+  v2 = qword_CBB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1924(id a1, CSLPRFMutableDepthAutoLaunchSettings *a2)

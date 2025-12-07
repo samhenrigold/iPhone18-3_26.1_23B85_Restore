@@ -128,95 +128,89 @@
 
 - (void)setAllocator:(id)allocator
 {
-  v4 = MEMORY[0x25F8CC5B0](allocator, a2);
-  allocator = self->_allocator;
-  self->_allocator = v4;
+  self->_allocator = MEMORY[0x25F8CC5B0](allocator, a2);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (__IOSurface)allocateIOSurfaceRefArray
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = malloc_type_calloc(self->_numberOfSurfaceInSet * self->_numberOfBufferSet, 8uLL, 0x2004093837F09uLL);
   self->_iosurfaceref_array = v3;
-  if (v3)
+  if (!v3)
   {
-    numberOfBufferSet = self->_numberOfBufferSet;
-    v5 = (*(self->_allocator + 2))();
-    v6 = v5;
-    if (v5)
+    return 0;
+  }
+
+  v4 = (*(self->_allocator + 2))();
+  v5 = v4;
+  if (v4)
+  {
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    obj = v4;
+    v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+    if (v6)
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      obj = v5;
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
-      if (v7)
+      v7 = 0;
+      v18 = *v25;
+      do
       {
         v8 = 0;
-        v20 = *v27;
+        v19 = v6;
         do
         {
-          v9 = 0;
-          v21 = v7;
-          do
+          if (*v25 != v18)
           {
-            if (*v27 != v20)
-            {
-              objc_enumerationMutation(obj);
-            }
-
-            v10 = *(*(&v26 + 1) + 8 * v9);
-            v22 = 0u;
-            v23 = 0u;
-            v24 = 0u;
-            v25 = 0u;
-            v11 = v10;
-            v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
-            if (v12)
-            {
-              v13 = *v23;
-              do
-              {
-                v14 = 0;
-                v15 = v8;
-                do
-                {
-                  if (*v23 != v13)
-                  {
-                    objc_enumerationMutation(v11);
-                  }
-
-                  self->_iosurfaceref_array[v15++] = *(*(&v22 + 1) + 8 * v14++);
-                  ++v8;
-                }
-
-                while (v12 != v14);
-                v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
-              }
-
-              while (v12);
-            }
-
-            ++v9;
+            objc_enumerationMutation(obj);
           }
 
-          while (v9 != v21);
-          v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v9 = *(*(&v24 + 1) + 8 * v8);
+          v20 = 0u;
+          v21 = 0u;
+          v22 = 0u;
+          v23 = 0u;
+          v10 = v9;
+          v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          if (v11)
+          {
+            v12 = *v21;
+            do
+            {
+              v13 = 0;
+              v14 = v7;
+              do
+              {
+                if (*v21 != v12)
+                {
+                  objc_enumerationMutation(v10);
+                }
+
+                self->_iosurfaceref_array[v14++] = *(*(&v20 + 1) + 8 * v13++);
+                ++v7;
+              }
+
+              while (v11 != v13);
+              v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            }
+
+            while (v11);
+          }
+
+          ++v8;
         }
 
-        while (v7);
+        while (v8 != v19);
+        v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
-      iosurfaceref_array = self->_iosurfaceref_array;
+      while (v6);
     }
 
-    else
-    {
-      iosurfaceref_array = 0;
-    }
+    iosurfaceref_array = self->_iosurfaceref_array;
   }
 
   else
@@ -224,7 +218,6 @@
     iosurfaceref_array = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return iosurfaceref_array;
 }
 

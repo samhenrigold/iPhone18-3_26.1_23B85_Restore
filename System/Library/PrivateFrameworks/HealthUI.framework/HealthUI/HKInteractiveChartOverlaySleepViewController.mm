@@ -557,7 +557,7 @@ LABEL_15:
     v23 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      [HKInteractiveChartOverlaySleepViewController(HKSleepStageDayAxisDelegate) sleepDaySummaryForDate:v23];
+      [(HKInteractiveChartOverlaySleepViewController(HKSleepStageDayAxisDelegate) *)v23 sleepDaySummaryForDate:?];
     }
 
     v22 = 0;

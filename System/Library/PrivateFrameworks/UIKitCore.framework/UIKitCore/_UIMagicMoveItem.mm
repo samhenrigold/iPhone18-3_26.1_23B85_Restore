@@ -8,7 +8,7 @@
 - (NSArray)portals
 {
   swift_beginAccess();
-  sub_188A34624(0, &qword_1EA934138);
+  sub_188A34624(0, &qword_1EA934138, off_1E70EBEE8);
 
   v2 = sub_18A4A7518();
 
@@ -17,7 +17,7 @@
 
 - (void)setPortals:(id)portals
 {
-  sub_188A34624(0, &qword_1EA934138);
+  sub_188A34624(0, &qword_1EA934138, off_1E70EBEE8);
   v4 = sub_18A4A7548();
   v5 = OBJC_IVAR____UIMagicMoveItem_portals;
   swift_beginAccess();

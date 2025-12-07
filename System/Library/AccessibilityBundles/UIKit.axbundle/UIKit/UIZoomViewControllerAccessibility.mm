@@ -23,7 +23,7 @@
 {
   if (self)
   {
-    v12 = [*MEMORY[0x29EDC8008] safeValueForKey:@"_shouldZoom"];
+    v12 = [*MEMORY[0x29EDC8008] safeValueForKey:{@"_shouldZoom", result}];
     bOOLValue = [v12 BOOLValue];
     *&v2 = MEMORY[0x29EDC9740](v12).n128_u64[0];
     if (bOOLValue)

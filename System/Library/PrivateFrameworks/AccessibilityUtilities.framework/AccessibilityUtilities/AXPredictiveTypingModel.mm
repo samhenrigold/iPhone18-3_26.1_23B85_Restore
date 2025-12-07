@@ -275,7 +275,7 @@ void __67__AXPredictiveTypingModel__lastPartialWordForText_orEndOfSentence___blo
   return v10;
 }
 
-uint64_t __69__AXPredictiveTypingModel__nextWordPredictionsForText_desiredNumber___block_invoke(uint64_t a1, _DWORD *a2, double a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+id __69__AXPredictiveTypingModel__nextWordPredictionsForText_desiredNumber___block_invoke(id *a1, _DWORD *a2, double a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
   if (*a2 < 3u)
   {
@@ -295,16 +295,16 @@ uint64_t __69__AXPredictiveTypingModel__nextWordPredictionsForText_desiredNumber
       v12 = [MEMORY[0x1E696AB08] punctuationCharacterSet];
       if ([v12 characterIsMember:{objc_msgSend(StringForTokenID, "characterAtIndex:", 0)}])
       {
-        v13 = [*(a1 + 40) length];
+        v13 = [a1[5] length];
 
         if (v13)
         {
-          v14 = [*(a1 + 40) length] - 1;
+          v14 = [a1[5] length] - 1;
           v15 = 1;
 LABEL_9:
           [(AXTypingPrediction *)v10 setRangeToReplace:v14, v15];
           [(AXTypingPrediction *)v10 setProbability:__exp10(a3)];
-          [*(a1 + 48) addObject:v10];
+          [a1[6] addObject:v10];
 
           goto LABEL_10;
         }
@@ -315,7 +315,7 @@ LABEL_9:
       }
     }
 
-    v14 = [*(a1 + 40) length];
+    v14 = [a1[5] length];
     v15 = 0;
     goto LABEL_9;
   }
@@ -323,8 +323,8 @@ LABEL_9:
 LABEL_10:
 
 LABEL_11:
-  result = [*(a1 + 48) count];
-  if (result == *(a1 + 56))
+  result = [a1[6] count];
+  if (result == a1[7])
   {
     *a6 = 1;
   }

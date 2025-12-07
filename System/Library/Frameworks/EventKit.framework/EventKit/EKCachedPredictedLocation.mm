@@ -139,7 +139,7 @@ uint64_t __80__EKCachedPredictedLocation_cachedPredictedLocationWithTitle_locati
 
 - (id)_updatedPredictedLocationRespectingTimeoutBudgetWithError:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   isMainThread = [MEMORY[0x1E696AF00] isMainThread];
   v6 = *&remainingTimeout;
   if (isMainThread)
@@ -160,9 +160,9 @@ uint64_t __80__EKCachedPredictedLocation_cachedPredictedLocationWithTitle_locati
       [EKCachedPredictedLocation _updatedPredictedLocationRespectingTimeoutBudgetWithError:];
     }
 
-    v17 = *MEMORY[0x1E696A578];
-    v18[0] = @"Prediction not attempted due to past timeouts";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17[0] = @"Prediction not attempted due to past timeouts";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     if (error)
     {
       *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E6992EC0] code:0 userInfo:v9];
@@ -194,9 +194,9 @@ LABEL_16:
   if (isMainThread)
   {
     v12 = mach_absolute_time();
-    v16 = 0;
-    mach_timebase_info(&v16);
-    v13 = (v12 - v11) * v16.numer / v16.denom;
+    v15 = 0;
+    mach_timebase_info(&v15);
+    v13 = (v12 - v11) * v15.numer / v15.denom;
     if (*&remainingTimeout == 0.1)
     {
       dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_22_2);
@@ -211,7 +211,6 @@ LABEL_16:
   }
 
 LABEL_22:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -227,30 +226,12 @@ void __87__EKCachedPredictedLocation__updatedPredictedLocationRespectingTimeoutB
 
 - (void)_updatePredictedLocation:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 localizedDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Failed to predict a structured location: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_updatedPredictedLocationRespectingTimeoutBudgetWithError:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_updatedPredictedLocationRespectingTimeoutBudgetWithError:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Failed to predict a structured location: %@", &v5, 0xCu);
 }
 
 @end

@@ -47,7 +47,7 @@
   return v3;
 }
 
-uint64_t __82__UIDatePickerWeekMonthDayViewAccessibility__accessibilityDatePickerComponentType__block_invoke(uint64_t a1)
+void *__82__UIDatePickerWeekMonthDayViewAccessibility__accessibilityDatePickerComponentType__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) calendarUnitForComponent:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

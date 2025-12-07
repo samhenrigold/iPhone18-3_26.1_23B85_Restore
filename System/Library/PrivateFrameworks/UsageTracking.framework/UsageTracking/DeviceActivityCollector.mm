@@ -23,7 +23,7 @@
   swift_getObjCClassMetadata();
   sub_10002355C(options, sync, v7, v8);
 
-  sub_100029B58(v7);
+  sub_100029B58(v7, v8);
 }
 
 + (void)deleteLocalActivityWithCompletionHandler:(id)handler
@@ -46,7 +46,7 @@
   swift_getObjCClassMetadata();
   sub_1000239D4(v6, v5);
 
-  sub_100029B58(v6);
+  sub_100029B58(v6, v5);
 }
 
 @end

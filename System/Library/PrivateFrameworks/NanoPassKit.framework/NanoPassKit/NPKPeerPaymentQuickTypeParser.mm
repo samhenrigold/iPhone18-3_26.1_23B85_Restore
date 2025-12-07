@@ -28,115 +28,113 @@
 
 - (id)parsePayload:(id)payload payloadID:(id)d maxCount:(unint64_t)count
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   dCopy = d;
-  v10 = pk_General_log();
+  v10 = pk_General_log(dCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_General_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v39 = dCopy;
-      v40 = 2112;
-      v41 = payloadCopy;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Starting Parse payload for PayloadID:%@ payload:%@", buf, 0x16u);
+      v42 = dCopy;
+      v43 = 2112;
+      v44 = payloadCopy;
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Starting Parse payload for PayloadID:%@ payload:%@", buf, 0x16u);
     }
   }
 
   array = [MEMORY[0x277CBEB18] array];
   allowedPayloadIDs = [(NPKPeerPaymentQuickTypeParser *)self allowedPayloadIDs];
-  v15 = dCopy;
-  v16 = allowedPayloadIDs;
-  if (![v16 count])
+  v16 = dCopy;
+  v17 = allowedPayloadIDs;
+  if (![v17 count])
   {
 
     goto LABEL_10;
   }
 
-  if (!v15)
+  if (!v16)
   {
 
     goto LABEL_16;
   }
 
-  v17 = [v16 containsObject:v15];
+  v18 = [v17 containsObject:v16];
 
-  if (v17)
+  if (v18)
   {
 LABEL_10:
-    v18 = objc_opt_class();
-    v19 = objc_opt_class();
+    v20 = objc_opt_class();
+    v21 = objc_opt_class();
     supportedCurrencyCodes = [(NPKPeerPaymentQuickTypeParser *)self supportedCurrencyCodes];
-    v21 = [payloadCopy npk_objectForKey:@"DirectlyInitiate" class:objc_opt_class()];
-    v22 = pk_General_log();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    v23 = [payloadCopy npk_objectForKey:@"DirectlyInitiate" class:objc_opt_class()];
+    v24 = pk_General_log(v23);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
 
-    if (v23)
+    if (v25)
     {
-      v24 = pk_General_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = pk_General_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v39 = v21;
-        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: Value for directly initiate:%@", buf, 0xCu);
+        v42 = v23;
+        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: Value for directly initiate:%@", buf, 0xCu);
       }
     }
 
-    v25 = [payloadCopy npk_objectForKey:@"Currency" class:objc_opt_class()];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __65__NPKPeerPaymentQuickTypeParser_parsePayload_payloadID_maxCount___block_invoke;
-    v32[3] = &unk_279945EC8;
-    v35 = v18;
-    v36 = v19;
-    v33 = supportedCurrencyCodes;
-    v34 = array;
+    v28 = [payloadCopy npk_objectForKey:@"Currency" class:objc_opt_class()];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __65__NPKPeerPaymentQuickTypeParser_parsePayload_payloadID_maxCount___block_invoke;
+    v35[3] = &unk_279945EC8;
+    v38 = v20;
+    v39 = v21;
+    v36 = supportedCurrencyCodes;
+    v37 = array;
     countCopy = count;
-    v26 = supportedCurrencyCodes;
-    [v25 enumerateObjectsUsingBlock:v32];
+    v29 = supportedCurrencyCodes;
+    [v28 enumerateObjectsUsingBlock:v35];
 
     goto LABEL_20;
   }
 
 LABEL_16:
-  v27 = pk_General_log();
-  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+  v30 = pk_General_log(v19);
+  v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-  if (v28)
+  if (v31)
   {
-    v25 = pk_General_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v28 = pk_General_log(v32);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v15;
-      _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Warning: PayloadID:%@ Not allowed", buf, 0xCu);
+      v42 = v16;
+      _os_log_impl(&dword_25B300000, v28, OS_LOG_TYPE_DEFAULT, "Warning: PayloadID:%@ Not allowed", buf, 0xCu);
     }
 
-    v21 = 0;
+    v23 = 0;
 LABEL_20:
 
     goto LABEL_22;
   }
 
-  v21 = 0;
+  v23 = 0;
 LABEL_22:
-  v29 = [[NPKPeerPaymentQuickTypeParserData alloc] initWithCurrenciesData:array directlyInitiate:v21];
+  v33 = [[NPKPeerPaymentQuickTypeParserData alloc] initWithCurrenciesData:array directlyInitiate:v23];
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v33;
 }
 
 void __65__NPKPeerPaymentQuickTypeParser_parsePayload_payloadID_maxCount___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v7 = *(a1 + 48);
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     v8 = [v6 npk_objectForKey:@"CurrencyType" class:*(a1 + 56)];
     v9 = *(a1 + 32);
@@ -156,63 +154,67 @@ void __65__NPKPeerPaymentQuickTypeParser_parsePayload_payloadID_maxCount___block
       if (v13)
       {
 LABEL_14:
-        v18 = [v6 npk_objectForKey:@"CurrencyValue" class:*(a1 + 56)];
-        if (v18)
+        v22 = [v6 npk_objectForKey:@"CurrencyValue" class:*(a1 + 56)];
+        v21 = v22;
+        if (v22)
         {
-          v19 = [MEMORY[0x277CCA980] decimalNumberWithString:v18];
-          if (v19)
+          v22 = [MEMORY[0x277CCA980] decimalNumberWithString:v22];
+          v23 = v22;
+          if (v22)
           {
-            v20 = [MEMORY[0x277CCA980] notANumber];
-            v21 = [(NSDecimalNumber *)v19 isEqual:v20];
+            v24 = [MEMORY[0x277CCA980] notANumber];
+            v25 = [(NSDecimalNumber *)v23 isEqual:v24];
 
-            if ((v21 & 1) == 0)
+            if ((v25 & 1) == 0)
             {
-              v22 = PKCurrencyAmountCreate(v19, &v10->isa);
-              if (v22)
+              v26 = PKCurrencyAmountCreate(v23, &v10->isa);
+              v27 = v26;
+              if (v26)
               {
-                v23 = pk_General_log();
-                v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+                v28 = pk_General_log(v26);
+                v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
-                if (v24)
+                if (v29)
                 {
-                  v25 = pk_General_log();
-                  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+                  v31 = pk_General_log(v30);
+                  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                   {
-                    v35 = 138412290;
-                    v36 = v22;
-                    _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: found valid amount:%@", &v35, 0xCu);
+                    v43 = 138412290;
+                    v44 = v27;
+                    _os_log_impl(&dword_25B300000, v31, OS_LOG_TYPE_DEFAULT, "Notice: found valid amount:%@", &v43, 0xCu);
                   }
                 }
 
-                v26 = [v6 npk_objectForKey:@"SenderHandle" class:*(a1 + 56)];
-                if ([v26 length])
+                v32 = [v6 npk_objectForKey:@"SenderHandle" class:*(a1 + 56)];
+                v33 = [v32 length];
+                if (v33)
                 {
-                  v27 = pk_General_log();
-                  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+                  v34 = pk_General_log(v33);
+                  v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
 
-                  if (v28)
+                  if (v35)
                   {
-                    v29 = pk_General_log();
-                    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                    v37 = pk_General_log(v36);
+                    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                     {
-                      v35 = 138412290;
-                      v36 = v26;
-                      _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: found sender handle:%@", &v35, 0xCu);
+                      v43 = 138412290;
+                      v44 = v32;
+                      _os_log_impl(&dword_25B300000, v37, OS_LOG_TYPE_DEFAULT, "Notice: found sender handle:%@", &v43, 0xCu);
                     }
                   }
                 }
 
-                v30 = [[NPKPeerPaymentQuickTypeParserCurrencyData alloc] initWithCurrencyAmount:v22 senderHandle:v26];
-                [*(a1 + 40) addObject:v30];
+                v38 = [[NPKPeerPaymentQuickTypeParserCurrencyData alloc] initWithCurrencyAmount:v27 senderHandle:v32];
+                [*(a1 + 40) addObject:v38];
               }
 
-              v31 = *(a1 + 64);
-              if (v31)
+              v39 = *(a1 + 64);
+              if (v39)
               {
-                LOBYTE(v31) = [*(a1 + 40) count] == *(a1 + 64);
+                LOBYTE(v39) = [*(a1 + 40) count] == *(a1 + 64);
               }
 
-              *a4 = v31;
+              *a4 = v39;
               goto LABEL_35;
             }
           }
@@ -220,25 +222,25 @@ LABEL_14:
 
         else
         {
-          v19 = 0;
+          v23 = 0;
         }
 
-        v32 = pk_General_log();
-        v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+        v40 = pk_General_log(v22);
+        v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
 
-        if (!v33)
+        if (!v41)
         {
 LABEL_36:
 
           goto LABEL_37;
         }
 
-        v22 = pk_General_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v27 = pk_General_log(v42);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = 138412290;
-          v36 = v6;
-          _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Warning: Not supported value from info:%@", &v35, 0xCu);
+          v43 = 138412290;
+          v44 = v6;
+          _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Warning: Not supported value from info:%@", &v43, 0xCu);
         }
 
 LABEL_35:
@@ -251,22 +253,22 @@ LABEL_35:
     {
     }
 
-    v16 = pk_General_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v18 = pk_General_log(v14);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-    if (!v17)
+    if (!v19)
     {
 LABEL_38:
 
       goto LABEL_39;
     }
 
-    v18 = pk_General_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = pk_General_log(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = 138412290;
-      v36 = v6;
-      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Warning: Not supported currency code from info:%@", &v35, 0xCu);
+      v43 = 138412290;
+      v44 = v6;
+      _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Warning: Not supported currency code from info:%@", &v43, 0xCu);
     }
 
 LABEL_37:
@@ -274,25 +276,23 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v14 = pk_General_log();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v15 = pk_General_log(isKindOfClass);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-  if (v15)
+  if (v16)
   {
-    v10 = pk_General_log();
+    v10 = pk_General_log(v17);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = 138412290;
-      v36 = v6;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: Not supported currency value from info:%@", &v35, 0xCu);
+      v43 = 138412290;
+      v44 = v6;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: Not supported currency value from info:%@", &v43, 0xCu);
     }
 
     goto LABEL_38;
   }
 
 LABEL_39:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 @end

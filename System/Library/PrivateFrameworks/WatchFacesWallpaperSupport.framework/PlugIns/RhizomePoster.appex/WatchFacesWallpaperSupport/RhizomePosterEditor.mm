@@ -84,7 +84,7 @@
     swift_once();
   }
 
-  sub_1000201F4(0, &qword_10004B700);
+  sub_1000201F4(0, &qword_10004B700, PREditingLook_ptr);
   v3.super.isa = sub_1000370F8().super.isa;
 
   return v3.super.isa;

@@ -57,13 +57,11 @@
 
 id __49__HMDDeviceNotificationUpdate_actionSetResponses__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = a3;
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = a3;
   v3 = MEMORY[0x277CBEA60];
   v4 = a3;
-  v5 = [v3 arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 arrayWithObjects:v7 count:1];
 
   return v5;
 }
@@ -97,7 +95,7 @@ id __49__HMDDeviceNotificationUpdate_actionSetResponses__block_invoke(uint64_t a
 
 void __95__HMDDeviceNotificationUpdate_updateWithCharacteristicUpdates_notificationUpdateID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 characteristic];
   v5 = [*(*(a1 + 32) + 24) objectForKey:v4];
@@ -109,93 +107,90 @@ void __95__HMDDeviceNotificationUpdate_updateWithCharacteristicUpdates_notificat
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Overriding the existing changed characteristic: %@ to send notifications", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Overriding the existing changed characteristic: %@ to send notifications", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
   [*(*(a1 + 32) + 24) setObject:v3 forKey:v4];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDeviceNotificationUpdate)updateWithUpdatedActionSetResponses:(id)responses notificationUpdateID:(id)d completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   dCopy = d;
   completionCopy = completion;
   os_unfair_lock_lock_with_options();
-  v20 = dCopy;
+  v19 = dCopy;
   [(HMDDeviceNotificationUpdate *)self _updateWithNotificationUpdateID:dCopy completion:completionCopy];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = responsesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         updatedActionSetResponsesByActionSetUUID = self->_updatedActionSetResponsesByActionSetUUID;
         actionSetUUID = [v15 actionSetUUID];
         [(NSMutableDictionary *)updatedActionSetResponsesByActionSetUUID setObject:v15 forKeyedSubscript:actionSetUUID];
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (HMDDeviceNotificationUpdate)updateWithUpdatedMediaPropertiesByMediaResponses:(id)responses notificationUpdateID:(id)d completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   dCopy = d;
   completionCopy = completion;
   os_unfair_lock_lock_with_options();
-  v28 = dCopy;
+  v27 = dCopy;
   [(HMDDeviceNotificationUpdate *)self _updateWithNotificationUpdateID:dCopy completion:completionCopy];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = responsesCopy;
-  v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
-    v12 = *v31;
+    v12 = *v30;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         updatedMediaPropertiesByMediaProfile = self->_updatedMediaPropertiesByMediaProfile;
         request = [v14 request];
         mediaProfile = [request mediaProfile];
@@ -218,14 +213,13 @@ void __95__HMDDeviceNotificationUpdate_updateWithCharacteristicUpdates_notificat
         [(NSMutableDictionary *)v22 setObject:dictionary forKeyedSubscript:uniqueIdentifier2];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v11);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v27 = *MEMORY[0x277D85DE8];
   return result;
 }
 

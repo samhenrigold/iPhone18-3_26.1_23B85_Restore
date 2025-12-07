@@ -140,7 +140,7 @@ uint64_t __49__HMUserListViewController_userManagementDidLoad__block_invoke(uint
 
 - (void)_configureAndAddRemoteViewController
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   remoteViewController = [(HMUserListViewController *)self remoteViewController];
   if (remoteViewController)
   {
@@ -178,11 +178,11 @@ uint64_t __49__HMUserListViewController_userManagementDidLoad__block_invoke(uint
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v19;
-        v25 = 2112;
-        v26 = serviceViewControllerProxy;
-        _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@serviceViewControllerProxy: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v19;
+        v24 = 2112;
+        v25 = serviceViewControllerProxy;
+        _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@serviceViewControllerProxy: %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -196,8 +196,6 @@ uint64_t __49__HMUserListViewController_userManagementDidLoad__block_invoke(uint
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_requestRemoteViewController
@@ -230,7 +228,7 @@ uint64_t __56__HMUserListViewController__requestRemoteViewController__block_invo
 
 void __56__HMUserListViewController__requestRemoteViewController__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -242,15 +240,13 @@ void __56__HMUserListViewController__requestRemoteViewController__block_invoke_2
   else
   {
     v7 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696AA08];
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696AA08];
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 errorWithDomain:@"HMErrorDomain" code:1005 userInfo:v8];
 
     [*(a1 + 32) _finishSetupWithError:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewDidLoad

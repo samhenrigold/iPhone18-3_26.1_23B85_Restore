@@ -3,7 +3,6 @@
 - (SASProximityInformation)initWithCoder:(id)coder;
 - (id)_getFindMyDeviceOptIn;
 - (id)numberFromMCUserBoolSetting:(id)setting;
-- (uint64_t)loadInformation;
 - (void)_loadTelephonyInformation;
 - (void)encodeWithCoder:(id)coder;
 - (void)loadInformation;
@@ -336,16 +335,16 @@
 
 void __48__SASProximityInformation__getFindMyDeviceOptIn__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     v6 = +[SASLogging facility];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Could not determine Find My Device if is enabled: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Could not determine Find My Device if is enabled: %@", &v10, 0xCu);
     }
   }
 
@@ -358,16 +357,13 @@ void __48__SASProximityInformation__getFindMyDeviceOptIn__block_invoke(uint64_t 
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadInformation
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Failed to get location services information: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [SASProximityInformation _loadTelephonyInformation];
 }
 
 void __42__SASProximityInformation_loadInformation__block_invoke(uint64_t a1)
@@ -378,10 +374,127 @@ void __42__SASProximityInformation_loadInformation__block_invoke(uint64_t a1)
 
 - (void)_loadTelephonyInformation
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Failed to get interface cost for subscription context: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2050000000;
+  v4 = getCoreTelephonyClientClass_softClass;
+  v46 = getCoreTelephonyClientClass_softClass;
+  if (!getCoreTelephonyClientClass_softClass)
+  {
+    v38 = MEMORY[0x277D85DD0];
+    v39 = 3221225472;
+    v40 = __getCoreTelephonyClientClass_block_invoke;
+    v41 = &unk_278845EC8;
+    v42 = &v43;
+    __getCoreTelephonyClientClass_block_invoke(&v38);
+    v4 = v44[3];
+  }
+
+  v5 = v4;
+  _Block_object_dispose(&v43, 8);
+  v6 = [v4 alloc];
+  v7 = dispatch_get_global_queue(0, 0);
+  v8 = [v6 initWithQueue:v7];
+
+  v9 = MEMORY[0x277CCABB0];
+  v37 = 0;
+  v10 = [v8 isAnyPlanTransferableFromThisDeviceOrError:&v37];
+  v11 = v37;
+  v12 = [v9 numberWithBool:v10];
+  [(SASProximityInformation *)self setHasTransferrableTelephonyPlan:v12];
+
+  if (v11)
+  {
+    v13 = +[SASLogging facility];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [SASProximityInformation _loadTelephonyInformation];
+    }
+  }
+
+  v14 = objc_alloc_init(MEMORY[0x277CD9200]);
+  v15 = MEMORY[0x277CCABB0];
+  path = [v14 path];
+  interface = [path interface];
+  type = [interface type];
+  if (type == 2)
+  {
+    path2 = [v14 path];
+    v19 = [path2 isExpensive] ^ 1;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = [v15 numberWithInt:v19];
+  [(SASProximityInformation *)self setHasInexpensiveCellularNetwork:v20];
+
+  if (type == 2)
+  {
+  }
+
+  v36 = v11;
+  v21 = [v8 getCurrentDataSubscriptionContextSync:&v36];
+  v22 = v36;
+
+  if (v22)
+  {
+    v23 = +[SASLogging facility];
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      [SASProximityInformation _loadTelephonyInformation];
+    }
+  }
+
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2050000000;
+  v24 = getCTServiceDescriptorClass_softClass;
+  v46 = getCTServiceDescriptorClass_softClass;
+  if (!getCTServiceDescriptorClass_softClass)
+  {
+    v38 = MEMORY[0x277D85DD0];
+    v39 = 3221225472;
+    v40 = __getCTServiceDescriptorClass_block_invoke;
+    v41 = &unk_278845EC8;
+    v42 = &v43;
+    __getCTServiceDescriptorClass_block_invoke(&v38);
+    v24 = v44[3];
+  }
+
+  v25 = v24;
+  _Block_object_dispose(&v43, 8);
+  v26 = [v24 descriptorWithSubscriptionContext:v21];
+  v35 = v22;
+  v27 = [v8 lowDataMode:v26 error:&v35];
+  v28 = v35;
+
+  if (v28)
+  {
+    v29 = +[SASLogging facility];
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      [SASProximityInformation _loadTelephonyInformation];
+    }
+  }
+
+  v34 = v28;
+  v30 = [v8 interfaceCostExpensive:v26 error:&v34];
+  v31 = v34;
+
+  if (v31)
+  {
+    v32 = +[SASLogging facility];
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    {
+      [SASProximityInformation _loadTelephonyInformation];
+    }
+  }
+
+  v33 = [MEMORY[0x277CCABB0] numberWithInt:((v27 | v30) & 1) == 0];
+  [(SASProximityInformation *)self setAllowMoreOn5G:v33];
 }
 
 - (BOOL)isNetworkTransferrable:(__WiFiNetwork *)transferrable
@@ -401,7 +514,7 @@ void __42__SASProximityInformation_loadInformation__block_invoke(uint64_t a1)
 
 - (void)wirelessScanComplete:(id)complete error:(int)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   nearbyNetworks = [(SASProximityInformation *)self nearbyNetworks];
 
@@ -412,9 +525,9 @@ void __42__SASProximityInformation_loadInformation__block_invoke(uint64_t a1)
       v8 = +[SASLogging facility];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v12[0] = 67109120;
-        v12[1] = error;
-        _os_log_impl(&dword_22E4D7000, v8, OS_LOG_TYPE_DEFAULT, "Failed to perform Wi-Fi scan to get nearby networks: %d", v12, 8u);
+        v11[0] = 67109120;
+        v11[1] = error;
+        _os_log_impl(&dword_22E4D7000, v8, OS_LOG_TYPE_DEFAULT, "Failed to perform Wi-Fi scan to get nearby networks: %d", v11, 8u);
       }
     }
 
@@ -424,8 +537,6 @@ void __42__SASProximityInformation_loadInformation__block_invoke(uint64_t a1)
     nearbyNetworksSemaphore = [(SASProximityInformation *)self nearbyNetworksSemaphore];
     dispatch_semaphore_signal(nearbyNetworksSemaphore);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)numberFromMCUserBoolSetting:(id)setting
@@ -469,13 +580,6 @@ void __42__SASProximityInformation_loadInformation__block_invoke(uint64_t a1)
   }
 
   return v9;
-}
-
-- (uint64_t)loadInformation
-{
-  dlerror();
-  v0 = abort_report_np();
-  return [(SASProximityInformation *)v0 _loadTelephonyInformation];
 }
 
 @end

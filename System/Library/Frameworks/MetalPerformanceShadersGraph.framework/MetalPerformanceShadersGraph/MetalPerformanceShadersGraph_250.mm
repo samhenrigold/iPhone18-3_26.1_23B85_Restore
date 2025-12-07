@@ -1,4 +1,2848 @@
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps_spi::RMSNormOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+void sub_1E0850800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
+{
+  if (a33 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085230C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void *std::__hash_table<std::__hash_value_type<void *,void *>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void *>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void *>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void *>>>::find<void *>(void *a1, unint64_t a2)
+{
+  v2 = a1[1];
+  if (!*&v2)
+  {
+    return 0;
+  }
+
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = vcnt_s8(v2);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = v5;
+    if (v5 >= *&v2)
+    {
+      v7 = v5 % *&v2;
+    }
+  }
+
+  else
+  {
+    v7 = (*&v2 - 1) & v5;
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8)
+  {
+    return 0;
+  }
+
+  result = *v8;
+  if (*v8)
+  {
+    if (v6.u32[0] < 2uLL)
+    {
+      v10 = *&v2 - 1;
+      while (1)
+      {
+        v11 = result[1];
+        if (v5 == v11)
+        {
+          if (result[2] == a2)
+          {
+            return result;
+          }
+        }
+
+        else if ((v11 & v10) != v7)
+        {
+          return 0;
+        }
+
+        result = *result;
+        if (!result)
+        {
+          return result;
+        }
+      }
+    }
+
+    do
+    {
+      v12 = result[1];
+      if (v5 == v12)
+      {
+        if (result[2] == a2)
+        {
+          return result;
+        }
+      }
+
+      else
+      {
+        if (v12 >= *&v2)
+        {
+          v12 %= *&v2;
+        }
+
+        if (v12 != v7)
+        {
+          return 0;
+        }
+      }
+
+      result = *result;
+    }
+
+    while (result);
+  }
+
+  return result;
+}
+
+void sub_1E0852E18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0852E7CLL);
+}
+
+void sub_1E0852E6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E0852E7CLL);
+  }
+
+  JUMPOUT(0x1E0852E38);
+}
+
+void sub_1E08533BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0853420);
+}
+
+void sub_1E0853410(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E0853420);
+  }
+
+  JUMPOUT(0x1E08533DCLL);
+}
+
+void sub_1E0854F04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, char a42)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E08554A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+{
+  if ((a18 & 0x80000000) == 0)
+  {
+
+    _Unwind_Resume(a1);
+  }
+
+  operator delete(__p);
+
+  _Unwind_Resume(a1);
+}
+
+char *mlir::OpBuilder::create<mlir::mps::StridedSliceUpdateOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,unsigned int &,unsigned int &,unsigned int &,BOOL>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, unsigned int *a8, unsigned int *a9, unsigned int *a10, char *a11)
+{
+  v31[38] = *MEMORY[0x1E69E9840];
+  v25 = a2;
+  Context = mlir::Attribute::getContext(&v25);
+  v20 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::StridedSliceUpdateOp,void>::id, Context);
+  if ((v21 & 1) == 0)
+  {
+    v29 = 1283;
+    v28[2] = "mps.strided_slice_update";
+    v28[3] = 24;
+    v27 = 259;
+    llvm::operator+(v28, &v26, v30);
+    llvm::report_fatal_error(v30, 1);
+  }
+
+  mlir::OperationState::OperationState(v31, a2, v20);
+  mlir::mps::StridedSliceUpdateOp::build(a1, v31, *a3, *a4, *a5, *a6, *a7, *a8, *a9, *a10, *a11);
+  v22 = mlir::OpBuilder::create(a1, v31);
+  if (*(*(v22 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::StridedSliceUpdateOp,void>::id)
+  {
+    v23 = v22;
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  mlir::OperationState::~OperationState(v31);
+  return v23;
+}
+
+void sub_1E085572C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  mlir::OperationState::~OperationState(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0855740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  mlir::OperationState::~OperationState(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0855DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(a11);
+
+    _Unwind_Resume(a1);
+  }
+
+  JUMPOUT(0x1E0855DDCLL);
+}
+
+void sub_1E0855DBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+    if ((a25 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a13) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a25 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a20);
+
+  if ((SHIBYTE(a13) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0855E24);
+}
+
+void sub_1E0855E14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    JUMPOUT(0x1E0855E24);
+  }
+
+  JUMPOUT(0x1E0855DDCLL);
+}
+
+void sub_1E0856448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14)
+{
+  if (v18)
+  {
+    operator delete(v18);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E08568E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+    if ((a25 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a13) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a25 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a20);
+
+  if ((SHIBYTE(a13) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E085694CLL);
+}
+
+void sub_1E085693C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    JUMPOUT(0x1E085694CLL);
+  }
+
+  JUMPOUT(0x1E0856904);
+}
+
+void sub_1E0857504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(a11);
+
+    _Unwind_Resume(a1);
+  }
+
+  JUMPOUT(0x1E0857538);
+}
+
+void sub_1E0857518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+    if ((a25 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a13) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a25 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a20);
+
+  if ((SHIBYTE(a13) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0857580);
+}
+
+void sub_1E0857570(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    JUMPOUT(0x1E0857580);
+  }
+
+  JUMPOUT(0x1E0857538);
+}
+
+void sub_1E0858F58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0858FBCLL);
+}
+
+void sub_1E0858FAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E0858FBCLL);
+  }
+
+  JUMPOUT(0x1E0858F78);
+}
+
+void sub_1E0859B18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0859B7CLL);
+}
+
+void sub_1E0859B6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E0859B7CLL);
+  }
+
+  JUMPOUT(0x1E0859B38);
+}
+
+void sub_1E0859E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0859E84);
+}
+
+void sub_1E0859E74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E0859E84);
+  }
+
+  JUMPOUT(0x1E0859E40);
+}
+
+void sub_1E085A4E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E085A54CLL);
+}
+
+void sub_1E085A53C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E085A54CLL);
+  }
+
+  JUMPOUT(0x1E085A508);
+}
+
+void sub_1E085A7FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E085A860);
+}
+
+void sub_1E085A850(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E085A860);
+  }
+
+  JUMPOUT(0x1E085A81CLL);
+}
+
+void sub_1E085ABC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, char a38)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085B0A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, char a38)
+{
+  mlir::OperationState::~OperationState(&a38);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085B694(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, char a38)
+{
+  mlir::OperationState::~OperationState(&a38);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085BA60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+{
+  mlir::OperationState::~OperationState(&a40);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085BD98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E085BDFCLL);
+}
+
+void sub_1E085BDEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E085BDFCLL);
+  }
+
+  JUMPOUT(0x1E085BDB8);
+}
+
+void sub_1E085C294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085C7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085CF08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, void *a18, void *__p, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26)
+{
+  if (__p)
+  {
+    operator delete(__p);
+    v27 = a22;
+    if (!a22)
+    {
+LABEL_3:
+      v28 = a25;
+      if (!a25)
+      {
+LABEL_8:
+
+        _Unwind_Resume(a1);
+      }
+
+LABEL_7:
+      operator delete(v28);
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v27 = a22;
+    if (!a22)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  operator delete(v27);
+  v28 = a25;
+  if (!a25)
+  {
+    goto LABEL_8;
+  }
+
+  goto LABEL_7;
+}
+
+void sub_1E085D7EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26)
+{
+  if (a19)
+  {
+    operator delete(a19);
+    v27 = a22;
+    if (!a22)
+    {
+LABEL_3:
+      v28 = __p;
+      if (!__p)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+    v27 = a22;
+    if (!a22)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  operator delete(v27);
+  v28 = __p;
+  if (!__p)
+  {
+LABEL_5:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_4:
+  operator delete(v28);
+  goto LABEL_5;
+}
+
+void sub_1E085E0B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, void *a18, void *__p, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26)
+{
+  if (__p)
+  {
+    operator delete(__p);
+    v27 = a22;
+    if (!a22)
+    {
+LABEL_3:
+      v28 = a25;
+      if (!a25)
+      {
+LABEL_8:
+
+        _Unwind_Resume(a1);
+      }
+
+LABEL_7:
+      operator delete(v28);
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v27 = a22;
+    if (!a22)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  operator delete(v27);
+  v28 = a25;
+  if (!a25)
+  {
+    goto LABEL_8;
+  }
+
+  goto LABEL_7;
+}
+
+void sub_1E085EB38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (v12)
+  {
+    operator delete(v12);
+  }
+
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E085F2E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16)
+{
+  if (__p)
+  {
+    operator delete(__p);
+    v19 = a12;
+    if (!a12)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v19 = a12;
+    if (!a12)
+    {
+LABEL_6:
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  operator delete(v19);
+  goto LABEL_6;
+}
+
+void sub_1E08601D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a15)
+  {
+    operator delete(a15);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E08606F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a15)
+  {
+    operator delete(a15);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0861640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (v12)
+  {
+    operator delete(v12);
+  }
+
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0861D1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (v14)
+  {
+    operator delete(v14);
+  }
+
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E08628A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (v14)
+  {
+    operator delete(v14);
+  }
+
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0862FAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (v14)
+  {
+    operator delete(v14);
+  }
+
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0863550(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E08647BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(a9);
+
+    _Unwind_Resume(a1);
+  }
+
+  JUMPOUT(0x1E08647F0);
+}
+
+void sub_1E08647D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0864834);
+}
+
+void sub_1E0864824(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E0864834);
+  }
+
+  JUMPOUT(0x1E08647F0);
+}
+
+void sub_1E0864C40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E0864CA4);
+}
+
+void sub_1E0864C94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E0864CA4);
+  }
+
+  JUMPOUT(0x1E0864C60);
+}
+
+void sub_1E0865508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+    if ((a23 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      if ((SHIBYTE(a11) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a23 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a18);
+
+  if ((SHIBYTE(a11) & 0x80000000) == 0)
+  {
+LABEL_4:
+
+    _Unwind_Resume(a1);
+  }
+
+LABEL_7:
+  JUMPOUT(0x1E086556CLL);
+}
+
+void sub_1E086555C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    JUMPOUT(0x1E086556CLL);
+  }
+
+  JUMPOUT(0x1E0865528);
+}
+
+GPU::RegionCallOpHandler *GPU::RegionCallOpHandler::RegionCallOpHandler(GPU::RegionCallOpHandler *this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  v5 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
+  *v5 = &unk_1F5B52360;
+  *(v5 + 15) = 0;
+  v8 = *(v5 + 3);
+  RegionType = mlir::placement::RegionCall::getRegionType(&v8);
+  switch(RegionType)
+  {
+    case 0:
+      operator new();
+    case 1:
+      operator new();
+    case 2:
+      operator new();
+  }
+
+  if (!*(this + 15) && MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+  return this;
+}
+
+void sub_1E08656D0(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  MEMORY[0x1E12E5B90](v3, 0xA1C40E1112DF6);
+  v5 = *(v1 + 15);
+  *(v1 + 15) = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(v1);
+  _Unwind_Resume(a1);
+}
+
+void GPU::RegionCallOpHandler::~RegionCallOpHandler(GPU::RegionCallOpHandler *this)
+{
+  *this = &unk_1F5B52360;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B52360;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void GPU::RegionReturnOpHandler::~RegionReturnOpHandler(GPU::RegionReturnOpHandler *this)
+{
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+EmitterViewerSPI::ReturnOpHandler *EmitterViewerSPI::ReturnOpHandler::ReturnOpHandler(EmitterViewerSPI::ReturnOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B52430;
+  v23 = *(*(a3 + 6) + 8);
+  AttrData = mlir::OpaqueAttr::getAttrData(&v23);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v22 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v22 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v20 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v11 = 0;
+  for (i = 24; (*(a3 + 46) & 0x80) != 0; i += 32)
+  {
+    if (v11 >= *(a3 + 17))
+    {
+      break;
+    }
+
+    v13 = *(*(a3 + 9) + i);
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ret%d", v11];
+    v15 = EmitViewerSPI::emitNodeInputPort(a2, v14, v13);
+    [v10 addObject:v15];
+
+    ++v11;
+  }
+
+  v16 = *(a2 + 22);
+  v17 = [MPSGraphViewerNodeSPI alloc];
+  v18 = [(MPSGraphViewerNodeSPI *)v17 initWithType:v20 inputs:v10 outputs:MEMORY[0x1E695E0F0] properties:MEMORY[0x1E695E0F0] regions:MEMORY[0x1E695E0F0]];
+  [v16 addObject:v18];
+
+  if (v22 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E0865B5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+mlir::Operation **GPU::VarHandleOpHandler::VarHandleOpHandler(mlir::Operation **this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  v5 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
+  *v5 = &unk_1F5B52460;
+  *(v5 + 15) = 0;
+  v6 = objc_alloc(MEMORY[0x1E6974740]);
+  v7 = [*(this[2] + 6) metalDevice];
+  v8 = [v6 initWithDevice:v7];
+  v9 = this[1];
+  this[1] = v8;
+
+  v10 = getVariableHandleName(this[3]);
+  v11 = this[15];
+  this[15] = v10;
+
+  return this;
+}
+
+id getVariableHandleName(mlir::Operation *a1)
+{
+  v12 = a1;
+  v1 = MEMORY[0x1E696AEC0];
+  Identifier = mlir::mpsx::VarHandleOp::getIdentifier(&v12);
+  if (Identifier)
+  {
+    v4 = v3;
+    if (v3 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    if (v3 >= 0x17)
+    {
+      operator new();
+    }
+
+    HIBYTE(v11) = v3;
+    if (v3)
+    {
+      memmove(&__p, Identifier, v3);
+    }
+
+    *(&__p + v4) = 0;
+    if (v11 >= 0)
+    {
+      p_p = &__p;
+    }
+
+    else
+    {
+      p_p = __p;
+    }
+  }
+
+  else
+  {
+    __p = 0;
+    v10 = 0;
+    p_p = &__p;
+    v11 = 0;
+  }
+
+  v6 = [v1 stringWithUTF8String:{p_p, __p, v10, v11}];
+  if (SHIBYTE(v11) < 0)
+  {
+    v7 = v6;
+    operator delete(__p);
+    v6 = v7;
+  }
+
+  return v6;
+}
+
+void sub_1E0865DE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void GPU::VarHandleOpHandler::encodeOp(GPU::VarHandleOpHandler *this, void **a2)
+{
+  v4 = *(this + 3);
+  v5 = *(v4 + 36);
+  v6 = v4 - 16;
+  if (v5)
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v7, 0);
+  WeakRetained = objc_loadWeakRetained((*(this + 2) + 56));
+  v10 = [WeakRetained[3] objectForKeyedSubscript:*(this + 15)];
+  v16 = [v10 variable];
+
+  v11 = [*(*(this + 2) + 48) metalDevice];
+  v12 = [v16 mpsNDArrayWithDevice:v11];
+
+  if (!v12 && MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+  v13 = (*(**(this + 2) + 48))(*(this + 2), NextResultAtOffset, 0);
+  v14 = *(this + 2);
+  v15 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  GPURegionRuntime::copyNDArrayToTarget(v14, v15, a2[1], this + 1, v12, v13, NextResultAtOffset, 0);
+}
+
+GPU::VariableFromTensorOpHandler *GPU::VariableFromTensorOpHandler::VariableFromTensorOpHandler(GPU::VariableFromTensorOpHandler *this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4) = &unk_1F5B524B0;
+  v5 = objc_alloc(MEMORY[0x1E6974740]);
+  v6 = [*(*(this + 2) + 48) metalDevice];
+  v7 = [v5 initWithDevice:v6];
+  v8 = *(this + 1);
+  *(this + 1) = v7;
+
+  return this;
+}
+
+void GPU::VariableFromTensorOpHandler::encodeOp(GPU::VariableFromTensorOpHandler *this, void **a2)
+{
+  v4 = *(this + 3);
+  if (*(v4 + 36))
+  {
+    v5 = v4 - 16;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v5, 0);
+  v11 = (*(**(this + 2) + 48))(*(this + 2), *(*(v4 + 72) + 24), 0);
+  v7 = [v11 mpsndarray];
+  v8 = (*(**(this + 2) + 48))(*(this + 2), NextResultAtOffset, 0);
+  v9 = *(this + 2);
+  v10 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  GPURegionRuntime::copyNDArrayToTarget(v9, v10, a2[1], this + 1, v7, v8, NextResultAtOffset, 0);
+}
+
+id *GPU::ReadVariableOpHandler::ReadVariableOpHandler(id *this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  v5 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
+  *v5 = &unk_1F5B52500;
+  *(v5 + 15) = 0;
+  v6 = objc_alloc(MEMORY[0x1E6974740]);
+  v7 = [*(this[2] + 6) metalDevice];
+  v8 = [v6 initWithDevice:v7];
+  v9 = this[1];
+  this[1] = v8;
+
+  [this[1] setOptions:{objc_msgSend(this[1], "options") | 1}];
+  v14 = *(*(this[3] + 9) + 24);
+  if (*(*(mlir::Value::getDefiningOp(&v14) + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::VarHandleOp,void>::id)
+  {
+    DefiningOp = mlir::Value::getDefiningOp(&v14);
+    v10 = getVariableHandleName(DefiningOp);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v12 = this[15];
+  this[15] = v10;
+
+  return this;
+}
+
+void GPU::ReadVariableOpHandler::encodeOp(GPU::ReadVariableOpHandler *this, void **a2)
+{
+  v4 = *(this + 3);
+  v5 = *(*(v4 + 72) + 24);
+  v6 = *(v4 + 36);
+  v7 = v4 - 16;
+  if (v6)
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v8, 0);
+  if (*(this + 15))
+  {
+    WeakRetained = objc_loadWeakRetained((*(this + 2) + 56));
+    v11 = [WeakRetained[3] objectForKeyedSubscript:*(this + 15)];
+
+    v12 = [*(*(this + 2) + 128) objectForKeyedSubscript:v11];
+    v20 = [v12 mpsndarray];
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v13 = (*(**(this + 2) + 48))(*(this + 2), NextResultAtOffset, 0);
+  if (v20)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    v14 = v20;
+    v15 = [v14 readCount];
+    v16 = *NextResultAtOffset;
+    if (*NextResultAtOffset)
+    {
+      v17 = 0;
+      do
+      {
+        ++v17;
+        v16 = *v16;
+      }
+
+      while (v16);
+      v16 = v17;
+    }
+
+    [v14 setReadCount:v16 + v15];
+    v20 = v14;
+  }
+
+  else
+  {
+    v14 = (*(**(this + 2) + 48))(*(this + 2), v5, 0);
+    v20 = [v14 mpsndarray];
+  }
+
+LABEL_16:
+  v18 = *(this + 2);
+  v19 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  GPURegionRuntime::copyNDArrayToTarget(v18, v19, a2[1], this + 1, v20, v13, NextResultAtOffset, 0);
+}
+
+GPU::AssignVariableOpHandler *GPU::AssignVariableOpHandler::AssignVariableOpHandler(GPU::AssignVariableOpHandler *this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  v5 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
+  *v5 = &unk_1F5B52550;
+  *(v5 + 15) = 0;
+  v6 = objc_alloc(MEMORY[0x1E6974740]);
+  v7 = [*(*(this + 2) + 48) metalDevice];
+  v8 = [v6 initWithDevice:v7];
+  v9 = *(this + 1);
+  *(this + 1) = v8;
+
+  v18 = *(*(*(this + 3) + 72) + 24);
+  if (*(*(mlir::Value::getDefiningOp(&v18) + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::VarHandleOp,void>::id)
+  {
+    DefiningOp = mlir::Value::getDefiningOp(&v18);
+    v16 = getVariableHandleName(DefiningOp);
+    v12 = *(this + 15);
+    *(this + 15) = v16;
+  }
+
+  else
+  {
+    v10 = *(this + 15);
+    *(this + 15) = 0;
+
+    v11 = objc_alloc(MEMORY[0x1E6974740]);
+    v12 = [*(*(this + 2) + 48) metalDevice];
+    v13 = [v11 initWithDevice:v12];
+    v14 = *(this + 1);
+    *(this + 1) = v13;
+  }
+
+  return this;
+}
+
+void GPU::AssignVariableOpHandler::encodeNDArrayOp(GPU::AssignVariableOpHandler *this, GPU::EncodeDescriptor *a2, NSArray *a3)
+{
+  v29[1] = *MEMORY[0x1E69E9840];
+  v28 = a3;
+  v5 = *(this + 3);
+  v6 = (*(**(this + 2) + 48))(*(this + 2), *(*(v5 + 72) + 56), 0);
+  v7 = [v6 mpsndarray];
+  if (*(this + 15))
+  {
+    WeakRetained = objc_loadWeakRetained((*(this + 2) + 56));
+    v9 = [WeakRetained[3] objectForKeyedSubscript:*(this + 15)];
+
+    v10 = [*(*(this + 2) + 128) objectForKeyedSubscript:v9];
+    v11 = [v10 mpsndarray];
+    if (v11)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        MPSDecrementReadCount(v11);
+      }
+    }
+
+    v12 = [v7 numberOfDimensions];
+    v13 = [v9 shape];
+    v14 = [v13 count];
+
+    if (v12 == v14)
+    {
+      v15 = v7;
+    }
+
+    else
+    {
+      v23 = [v7 descriptor];
+      v24 = [v9 shape];
+      [v23 reshapeWithShape:v24];
+
+      if (*(v7 + *MEMORY[0x1E69744E8]) == 1)
+      {
+        v25 = v7;
+        [v25 setReadCount:{objc_msgSend(v25, "readCount") + 1}];
+      }
+
+      v26 = *(a2 + 1);
+      v27 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+      v15 = [v7 safeArrayViewWithCommandBuffer:v26 computeEncoder:v27 descriptor:v23 aliasing:0];
+
+      if (!v15 && MTLReportFailureTypeEnabled())
+      {
+        MTLReportFailure();
+      }
+    }
+
+    [*(*(this + 2) + 128) setObject:v6 forKey:v9];
+  }
+
+  else
+  {
+    v16 = (*(**(this + 2) + 48))(*(this + 2), *(*(v5 + 72) + 24), 0);
+    v17 = [v16 mpsndarray];
+
+    if (v7 != v17)
+    {
+      v18 = *(this + 1);
+      v19 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+      v20 = *(a2 + 1);
+      v29[0] = v7;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+      v22 = [v16 mpsndarray];
+      [v18 encodeToMPSCommandEncoder:v19 commandBuffer:v20 sourceArrays:v21 resultState:0 destinationArray:v22 kernelDAGObject:0];
+    }
+
+    v15 = v7;
+  }
+}
+
+void GPU::VarHandleOpHandler::~VarHandleOpHandler(id *this)
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void GPU::VariableFromTensorOpHandler::~VariableFromTensorOpHandler(GPU::VariableFromTensorOpHandler *this)
+{
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void GPU::ReadVariableOpHandler::~ReadVariableOpHandler(id *this)
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void GPU::AssignVariableOpHandler::~AssignVariableOpHandler(id *this)
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+id *GPU::CallOpHandler::CallOpHandler(id *this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  v6 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
+  *v6 = &unk_1F5B52600;
+  *(v6 + 120) = 0;
+  *(v6 + 16) = 0;
+  v7 = (v6 + 128);
+  *(v6 + 17) = 0;
+  *(v6 + 18) = 0;
+  v8 = *(a3 + 9);
+  if (v8)
+  {
+    v9 = a3 - 16;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (!v8)
+  {
+LABEL_18:
+    v16 = 1;
+    goto LABEL_19;
+  }
+
+  v10 = 0;
+  while (1)
+  {
+    v11 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v9, v10) + 8) & 0xFFFFFFFFFFFFFFF8);
+    if (!mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8))
+    {
+      __dst = 0;
+      v30 = 0;
+      goto LABEL_6;
+    }
+
+    v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
+    __dst = v11;
+    v30 = v12;
+    if (v11)
+    {
+      if (!mlir::CallOpInterface::getArgOperands(&__dst))
+      {
+        goto LABEL_17;
+      }
+
+      ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&__dst);
+      if (v14)
+      {
+        break;
+      }
+    }
+
+LABEL_6:
+    if (++v10 == v8)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  v15 = 8 * v14;
+  while (*ArgAttrsAttr != 0x8000000000000000)
+  {
+    ++ArgAttrsAttr;
+    v15 -= 8;
+    if (!v15)
+    {
+      goto LABEL_6;
+    }
+  }
+
+LABEL_17:
+  v16 = 0;
+LABEL_19:
+  *(this + 120) = v16;
+  objc_storeStrong(v7, this[1]);
+  v17 = objc_opt_new();
+  v18 = this[17];
+  this[17] = v17;
+
+  [this[17] setDisableSynchronizeResults:1];
+  v32 = this[3];
+  v19 = MEMORY[0x1E696AEC0];
+  SymbolName = mlir::mps::CallOp::getSymbolName(&v32);
+  if (SymbolName)
+  {
+    v22 = v20;
+    if (v20 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    if (v20 >= 0x17)
+    {
+      operator new();
+    }
+
+    HIBYTE(v31) = v20;
+    if (v20)
+    {
+      memmove(&__dst, SymbolName, v20);
+    }
+
+    *(&__dst + v22) = 0;
+    if (v31 >= 0)
+    {
+      p_dst = &__dst;
+    }
+
+    else
+    {
+      p_dst = __dst;
+    }
+  }
+
+  else
+  {
+    __dst = 0;
+    v30 = 0;
+    p_dst = &__dst;
+    v31 = 0;
+  }
+
+  v24 = [v19 stringWithUTF8String:p_dst];
+  if (SHIBYTE(v31) < 0)
+  {
+    operator delete(__dst);
+  }
+
+  v25 = [*(this[2] + 10) objectForKeyedSubscript:v24];
+  v26 = this[18];
+  this[18] = v25;
+
+  if (!this[18] && MTLReportFailureTypeEnabled())
+  {
+    v28 = v24;
+    MTLReportFailure();
+  }
+
+  [this[18] initializeFuncNamesInOriginalModule];
+  if (*(this[18] + 904) == 1 && *(this[18] + 111) >= 2uLL)
+  {
+    [this[17] setEntryFunctionName:v24];
+  }
+
+  return this;
+}
+
+void sub_1E0867114(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(v16);
+  _Unwind_Resume(a1);
+}
+
+void GPU::CallOpHandler::encodeOp(GPU::CallOpHandler *this, GPU::EncodeDescriptor *a2)
+{
+  v4 = *(this + 3);
+  v57 = v4;
+  if ((*(v4 + 46) & 0x80) != 0)
+  {
+    v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(v4 + 68)];
+    if ((*(v4 + 46) & 0x80) == 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
+    if ((*(v4 + 46) & 0x80) == 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  v6 = *(v4 + 68);
+  if (v6)
+  {
+    v7 = 0;
+    v8 = 24;
+    do
+    {
+      v9 = (*(**(this + 2) + 48))(*(this + 2), *(*(v57 + 72) + v8), 0);
+      [v5 setObject:v9 atIndexedSubscript:v7];
+
+      ++v7;
+      v8 += 32;
+    }
+
+    while (v6 != v7);
+  }
+
+LABEL_6:
+  (**a2)(a2);
+  v53 = v5;
+  if (*(this + 120) == 1)
+  {
+    v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(*(this + 3) + 36)];
+    v11 = *(this + 3);
+    v12 = *(v11 + 36);
+    v13 = v11 - 16;
+    if (v12)
+    {
+      v14 = v13;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    if (v12)
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v14, i);
+        v17 = (*(**(this + 2) + 80))(*(this + 2), NextResultAtOffset, *(a2 + 1), 0, 0, 1);
+        [v10 addObject:v17];
+      }
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v18 = [*(this + 18) encodeToCommandBuffer:*(a2 + 1) inputsArray:v5 resultsArray:v10 executionDescriptor:*(this + 17)];
+
+  (**a2)(a2);
+  if ((*(this + 120) & 1) == 0)
+  {
+    v19 = MEMORY[0x1E696AEC0];
+    v52 = v18;
+    SymbolName = mlir::mps::CallOp::getSymbolName(&v57);
+    if (SymbolName)
+    {
+      v22 = v20;
+      if (v20 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      if (v20 >= 0x17)
+      {
+        operator new();
+      }
+
+      HIBYTE(v59) = v20;
+      if (v20)
+      {
+        memmove(&__dst, SymbolName, v20);
+      }
+
+      *(&__dst + v22) = 0;
+      if (v59 >= 0)
+      {
+        p_dst = &__dst;
+      }
+
+      else
+      {
+        p_dst = __dst;
+      }
+    }
+
+    else
+    {
+      __dst = 0uLL;
+      p_dst = &__dst;
+      v59 = 0;
+    }
+
+    v24 = [v19 stringWithUTF8String:p_dst];
+    if (SHIBYTE(v59) < 0)
+    {
+      operator delete(__dst);
+    }
+
+    v51 = v24;
+    [v18 count];
+    v25 = [v18 count];
+    if (v25 != *(v57 + 36) && MTLReportFailureTypeEnabled())
+    {
+      v50 = v24;
+      MTLReportFailure();
+    }
+
+    v26 = v57;
+    if (*(v57 + 36))
+    {
+      v27 = 0;
+      do
+      {
+        v28 = v26 - 24 * (v27 - 5) - 96;
+        v29 = (v26 - 16 * (v27 + 1));
+        if (v27 <= 5)
+        {
+          v30 = v29;
+        }
+
+        else
+        {
+          v30 = v28;
+        }
+
+        v31 = [v18 objectAtIndexedSubscript:{v27, v50}];
+        v32 = *(*(*(this + 2) + 592) + 32);
+        if ((*(*v32 + 24))(v32, v30))
+        {
+          goto LABEL_53;
+        }
+
+        v33 = (v30[1] & 0xFFFFFFFFFFFFFFF8);
+        if (mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v33 + 8))
+        {
+          v34 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v33 + 8);
+          *&__dst = v33;
+          *(&__dst + 1) = v34;
+          if (v33)
+          {
+            if (!mlir::CallOpInterface::getArgOperands(&__dst))
+            {
+              goto LABEL_46;
+            }
+
+            ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&__dst);
+            if (v36)
+            {
+              v37 = 8 * v36;
+              while (*ArgAttrsAttr != 0x8000000000000000)
+              {
+                ++ArgAttrsAttr;
+                v37 -= 8;
+                if (!v37)
+                {
+                  goto LABEL_53;
+                }
+              }
+
+LABEL_46:
+              v38 = (v30[1] & 0xFFFFFFFFFFFFFFF8);
+              if (v38)
+              {
+                v39 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v38 + 8);
+                if (v39)
+                {
+                  v39 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v38 + 8);
+                }
+
+                else
+                {
+                  v38 = 0;
+                }
+              }
+
+              else
+              {
+                v39 = 0;
+              }
+
+              v56[0] = v38;
+              v56[1] = v39;
+              v40 = [v31 shape];
+              MPSShapeToVector<unsigned long long>(v40, &__p);
+
+              *&__dst = __p;
+              *(&__dst + 1) = (v55 - __p) >> 3;
+              LOBYTE(v59) = 1;
+              isSplat = mlir::ElementsAttr::isSplat(v56);
+              v42 = mlir::ShapedType::cloneWith(v56, &__dst, isSplat);
+              v43 = *(this + 2);
+              v61 = v42;
+              v62 = v30;
+              v60 = *(mlir::Value::getParentRegion(&v62) + 2);
+              *&__dst = &v60;
+              v44 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((v43 + 288), &v60, &std::piecewise_construct, &__dst);
+              *&__dst = v62;
+              std::__hash_table<std::__hash_value_type<void *,mlir::Type>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,mlir::Type>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,mlir::Type>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,mlir::Type>>>::__emplace_unique_key_args<void *,void *,mlir::Type&>(v44 + 3, &__dst, &__dst, &v61);
+              if (__p)
+              {
+                v55 = __p;
+                operator delete(__p);
+              }
+            }
+          }
+        }
+
+        else
+        {
+          __dst = 0uLL;
+        }
+
+LABEL_53:
+        v45 = (*(**(this + 2) + 48))(*(this + 2), v30, 0);
+        v46 = *(this + 2);
+        v47 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+        v48 = *(a2 + 1);
+        v49 = [v31 mpsndarray];
+        GPURegionRuntime::copyNDArrayToTarget(v46, v47, v48, this + 16, v49, v45, v30, 0);
+
+        ++v27;
+        v26 = v57;
+        v18 = v52;
+        v5 = v53;
+      }
+
+      while (v27 != *(v57 + 36));
+    }
+  }
+}
+
+void sub_1E0867780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  if (a25 < 0)
+  {
+    operator delete(__p);
+
+    _Unwind_Resume(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void GPU::CallOpHandler::~CallOpHandler(id *this)
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void sub_1E08685EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+{
+  mlir::OperationState::~OperationState(&a38);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0868770(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t MPSSymbolTable::getLocationByInsertingOp<mlir::mps::LocalConvolutionOp>(llvm::StringMapImpl *a1, mlir::StringAttr **a2, std::string *a3, unsigned int a4, void *a5)
+{
+  v9 = a5;
+  v26 = 260;
+  v25[0] = a3;
+  StringAttr = mlir::Builder::getStringAttr(a2, v25);
+  v13 = mlir::FileLineColLoc::get(StringAttr, a4, 0);
+  if (v9)
+  {
+    v14 = [v9 UTF8String];
+    v15 = strlen(v14);
+    if (v15 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v16 = v15;
+    if (v15 >= 0x17)
+    {
+      operator new();
+    }
+
+    *(&__dst.__r_.__value_.__s + 23) = v15;
+    if (v15)
+    {
+      memmove(&__dst, v14, v15);
+    }
+
+    v17 = &__dst + v16;
+  }
+
+  else
+  {
+    *(&__dst.__r_.__value_.__s + 23) = 21;
+    qmemcpy(&__dst, "mps.local_convolution", 21);
+    v17 = &__dst.__r_.__value_.__s.__data_[21];
+  }
+
+  *v17 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(a1, &__dst, &__p, v11, v12);
+  p_p = __p.__r_.__value_.__r.__words[0];
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  v19 = 1;
+  HIBYTE(v26) = 1;
+  if (p_p->__r_.__value_.__s.__data_[0])
+  {
+    v25[0] = p_p;
+    v19 = 3;
+  }
+
+  LOBYTE(v26) = v19;
+  v20 = mlir::Builder::getStringAttr(a2, v25);
+  v21 = mlir::NameLoc::get(v20, v13);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_18:
+    operator delete(__dst.__r_.__value_.__l.__data_);
+    goto LABEL_16;
+  }
+
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_16:
+
+  return v21;
+}
+
+void sub_1E086944C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if ((a21 & 0x80000000) == 0)
+  {
+
+    _Unwind_Resume(a1);
+  }
+
+  operator delete(__p);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t getKernelSizeFromShape(void *a1, uint64_t **a2)
+{
+  v12[2] = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v12[0] = 2;
+  IntegerType = mlir::Builder::getIntegerType(a2, 64, 0);
+  v5 = mlir::RankedTensorType::get(v12, 1, IntegerType, 0);
+  v6 = v5;
+  if (v5)
+  {
+    v7 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v5 + 8);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = [v3 objectAtIndexedSubscript:1];
+  v12[0] = [v8 unsignedLongValue];
+  v9 = [v3 objectAtIndexedSubscript:0];
+  v12[1] = [v9 unsignedLongValue];
+  v10 = mlir::DenseElementsAttr::getFromRawBuffer(v6, v7, v12, 16);
+
+  return v10;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionMaxOp,(MPSNDArrayReductionOperation)1>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B52668;
+  v12 = a3;
+  v6 = objc_alloc(MEMORY[0x1E6974840]);
+  v7 = [*(*(a1 + 16) + 48) metalDevice];
+  if (mlir::mps::StridedSliceOp::getEndIsSize(&v12))
+  {
+    v8 = 3;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  v9 = [v6 initWithDevice:v7 axis:0 operation:v8];
+  v10 = *(a1 + 8);
+  *(a1 + 8) = v9;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionMinOp,(MPSNDArrayReductionOperation)0>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B526B8;
+  v12 = a3;
+  v6 = objc_alloc(MEMORY[0x1E6974840]);
+  v7 = [*(*(a1 + 16) + 48) metalDevice];
+  if (mlir::mps::StridedSliceOp::getEndIsSize(&v12))
+  {
+    v8 = 2;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = [v6 initWithDevice:v7 axis:0 operation:v8];
+  v10 = *(a1 + 8);
+  *(a1 + 8) = v9;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionSumOp,(MPSNDArrayReductionOperation)4>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B52CC8;
+  v5 = objc_alloc(MEMORY[0x1E6974840]);
+  v6 = [*(*(a1 + 16) + 48) metalDevice];
+  v7 = [v5 initWithDevice:v6 axis:0 operation:4];
+  v8 = *(a1 + 8);
+  *(a1 + 8) = v7;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionProdOp,(MPSNDArrayReductionOperation)5>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B52D18;
+  v5 = objc_alloc(MEMORY[0x1E6974840]);
+  v6 = [*(*(a1 + 16) + 48) metalDevice];
+  v7 = [v5 initWithDevice:v6 axis:0 operation:5];
+  v8 = *(a1 + 8);
+  *(a1 + 8) = v7;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionAndOp,(MPSNDArrayReductionOperation)8>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B52D68;
+  v5 = objc_alloc(MEMORY[0x1E6974840]);
+  v6 = [*(*(a1 + 16) + 48) metalDevice];
+  v7 = [v5 initWithDevice:v6 axis:0 operation:8];
+  v8 = *(a1 + 8);
+  *(a1 + 8) = v7;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionOrOp,(MPSNDArrayReductionOperation)9>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B52DB8;
+  v5 = objc_alloc(MEMORY[0x1E6974840]);
+  v6 = [*(*(a1 + 16) + 48) metalDevice];
+  v7 = [v5 initWithDevice:v6 axis:0 operation:9];
+  v8 = *(a1 + 8);
+  *(a1 + 8) = v7;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionArgMinOp,(MPSNDArrayReductionOperation)6>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B52E08;
+  v5 = objc_alloc(MEMORY[0x1E6974840]);
+  v6 = [*(*(a1 + 16) + 48) metalDevice];
+  v7 = [v5 initWithDevice:v6 axis:0 operation:6];
+  v8 = *(a1 + 8);
+  *(a1 + 8) = v7;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+uint64_t GPU::BaseReductionOpHandler<mlir::mps::ReductionArgMaxOp,(MPSNDArrayReductionOperation)7>::BaseReductionOpHandler(uint64_t a1, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4) = &unk_1F5B52E58;
+  v5 = objc_alloc(MEMORY[0x1E6974840]);
+  v6 = [*(*(a1 + 16) + 48) metalDevice];
+  v7 = [v5 initWithDevice:v6 axis:0 operation:7];
+  v8 = *(a1 + 8);
+  *(a1 + 8) = v7;
+
+  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
+  return a1;
+}
+
+id *GPU::RMSNormOpHandler::RMSNormOpHandler(id *this, id *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  v6 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
+  *v6 = &unk_1F5B52988;
+  *(v6 + 15) = 0;
+  *(v6 + 128) = 0;
+  v7 = objc_alloc(MEMORY[0x1E6974890]);
+  v8 = [a2[6] metalDevice];
+  v9 = [v7 initWithDevice:v8 axis:0 epsilon:0.0];
+
+  objc_storeStrong(this + 1, v9);
+  [this[1] setOptions:{objc_msgSend(this[1], "options") | 1}];
+  v10 = this[3];
+  this[15] = v10;
+  v14 = *(v10[9] + 56);
+  DefiningOp = mlir::Value::getDefiningOp(&v14);
+  if (!DefiningOp)
+  {
+    *(this + 128) = 0;
+    if (*(this + 40) != 1)
+    {
+      goto LABEL_9;
+    }
+
+LABEL_8:
+    GPU::RMSNormOpHandler::setAxes(this, 0);
+    goto LABEL_9;
+  }
+
+  v12 = *(*(DefiningOp + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::ConstantOp,void>::id;
+  *(this + 128) = v12;
+  if (v12)
+  {
+    GPU::RMSNormOpHandler::setEpsilon(this, 0);
+  }
+
+  if (*(this + 40) == 1)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_9:
+
+  return this;
+}
+
+void sub_1E086A978(_Unwind_Exception *a1)
+{
+  v3 = v2;
+
+  GPU::BaseOpHandler::~BaseOpHandler(v1);
+  _Unwind_Resume(a1);
+}
+
+void GPU::RMSNormOpHandler::setEpsilon(GPU::RMSNormOpHandler *this, GPU::EncodeDescriptor *a2)
+{
+  GPURegionRuntime::waitAndReadFPTensorData(*(this + 2), a2, *(*(*(this + 15) + 72) + 56), &__p);
+  if (v5 - __p != 4 && MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+  LODWORD(v3) = *__p;
+  [*(this + 1) setEpsilon:v3];
+  if (__p)
+  {
+    v5 = __p;
+    operator delete(__p);
+  }
+}
+
+void sub_1E086AA5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void GPU::RMSNormOpHandler::setAxes(GPU::RMSNormOpHandler *this, GPU::EncodeDescriptor *a2)
+{
+  v18 = *(this + 1);
+  v4 = *(*(this + 15) + 72);
+  v5 = *(v4 + 24);
+  v6 = *(v4 + 88);
+  v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  StaticType = GPURegionRuntime::getStaticType(*(this + 2), v5);
+  v9 = StaticType;
+  if (StaticType)
+  {
+    v10 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*StaticType + 8);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  __p = v9;
+  v21 = v10;
+  mlir::CallableOpInterface::getArgAttrsAttr(&__p);
+  v12 = v11;
+  if (v6)
+  {
+    GPURegionRuntime::waitAndReadIntTensorData(*(this + 2), a2, v6, &__p);
+    v13 = v21;
+    v14 = v18;
+  }
+
+  else
+  {
+    __p = 0;
+    v21 = 0;
+    v22 = 0;
+    v14 = v18;
+    if (v11)
+    {
+      operator new();
+    }
+
+    v13 = 0;
+  }
+
+  v15 = __p;
+  if (__p != v13)
+  {
+    do
+    {
+      if (*v15 >= 0)
+      {
+        v16 = v12;
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+
+      v17 = [MEMORY[0x1E696AD98] numberWithInteger:{v16 + ~*v15, v18}];
+      [v7 addObject:v17];
+
+      ++v15;
+    }
+
+    while (v15 != v13);
+    v14 = v18;
+    v15 = __p;
+  }
+
+  if (v15)
+  {
+    v21 = v15;
+    operator delete(v15);
+    v14 = v18;
+  }
+
+  [v14 setAxes:{v7, v18}];
+}
+
+void sub_1E086AD24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a10)
+  {
+    JUMPOUT(0x1E086AD40);
+  }
+
+  JUMPOUT(0x1E086AD44);
+}
+
+void GPU::RMSNormOpHandler::encodeNDArrayOp(GPU::RMSNormOpHandler *this, GPU::EncodeDescriptor *a2, NSArray *a3)
+{
+  v19[1] = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  if ((*(this + 128) & 1) == 0)
+  {
+    GPU::RMSNormOpHandler::setEpsilon(this, a2);
+  }
+
+  if ((*(this + 40) & 1) == 0)
+  {
+    GPU::RMSNormOpHandler::setAxes(this, a2);
+  }
+
+  v6 = *(*(*(this + 15) + 72) + 24);
+  v7 = [(NSArray *)v5 objectAtIndexedSubscript:0];
+  v8 = (*(**(this + 2) + 48))(*(this + 2), v6, 0);
+  v9 = [v7 mpsndarray];
+  v10 = [v8 mpsndarray];
+  v11 = *(this + 1);
+  if (*(this + 4))
+  {
+    mlir::Block::getParentOp(*(*(this + 3) + 16));
+    if (*(*(mlir::Block::getParentOp(*(*(this + 3) + 16)) + 48) + 16) != &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id && MTLReportFailureTypeEnabled())
+    {
+      MTLReportFailure();
+    }
+
+    v12 = GPU::MPSGraphKernelDAG::getNDArraysForPlaceholders(*(this + 4), *(this + 2));
+    v13 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v14 = *(a2 + 1);
+    v15 = GPU::MPSGraphKernelDAG::getKernelDAGObject(*(this + 4));
+    [v11 encodeToMPSCommandEncoder:v13 commandBuffer:v14 sourceArrays:v12 resultState:0 destinationArray:v9 kernelDAGObject:v15];
+  }
+
+  else
+  {
+    if ((!v9 || !v10) && MTLReportFailureTypeEnabled())
+    {
+      MTLReportFailure();
+    }
+
+    v16 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v17 = *(a2 + 1);
+    v19[0] = v10;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    [v11 encodeToMPSCommandEncoder:v16 commandBuffer:v17 sourceArrays:v18 resultState:0 destinationArray:v9 kernelDAGObject:0];
+  }
+}
+
+char *GPU::RMSNormOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+{
+  if (a4 == 2)
+  {
+    return GPU::BaseOpHandler::_getJITStaticOperandReprConstant(this, a2, a3, 2u);
+  }
+
+  else
+  {
+    return GPU::BaseOpHandler::_getJITStaticOperandReprPlaceholder(this, a2, a3, a4);
+  }
+}
+
+id *GPU::SoftmaxOpHandler::SoftmaxOpHandler(id *this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  *GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4) = &unk_1F5B529D8;
+  v5 = objc_alloc(MEMORY[0x1E6974898]);
+  v6 = [*(this[2] + 6) metalDevice];
+  v7 = [v5 initWithDevice:v6 axis:0];
+  v8 = this[1];
+  this[1] = v7;
+
+  [this[1] setOptions:{objc_msgSend(this[1], "options") | 1}];
+  return this;
+}
+
+void GPU::SoftmaxOpHandler::encodeNDArrayOp(GPU::SoftmaxOpHandler *this, GPU::EncodeDescriptor *a2, NSArray *a3)
+{
+  v38[1] = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  v6 = *(this + 3);
+  v7 = *(*(v6 + 72) + 24);
+  v29 = v5;
+  v31 = [(NSArray *)v5 objectAtIndexedSubscript:0];
+  v30 = (*(**(this + 2) + 48))(*(this + 2), v7, 0);
+  v33 = [v31 mpsndarray];
+  v32 = [v30 mpsndarray];
+  v34 = *(this + 1);
+  v8 = *(*(v6 + 72) + 56);
+  v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  StaticType = GPURegionRuntime::getStaticType(*(this + 2), v7);
+  v11 = StaticType;
+  if (StaticType)
+  {
+    v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*StaticType + 8);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  __p = v11;
+  v36 = v12;
+  mlir::CallableOpInterface::getArgAttrsAttr(&__p);
+  v14 = v13;
+  if (v8)
+  {
+    GPURegionRuntime::waitAndReadIntTensorData(*(this + 2), a2, v8, &__p);
+    v15 = v36;
+  }
+
+  else
+  {
+    __p = 0;
+    v36 = 0;
+    v37 = 0;
+    if (v13)
+    {
+      operator new();
+    }
+
+    v15 = 0;
+  }
+
+  v16 = __p;
+  if (__p == v15)
+  {
+    v20 = a2;
+    v17 = v31;
+    if (!__p)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_13;
+  }
+
+  v17 = v31;
+  do
+  {
+    if (*v16 >= 0)
+    {
+      v18 = v14;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    v19 = [MEMORY[0x1E696AD98] numberWithInteger:v18 + ~*v16];
+    [v9 addObject:v19];
+
+    ++v16;
+  }
+
+  while (v16 != v15);
+  v16 = __p;
+  v20 = a2;
+  if (__p)
+  {
+LABEL_13:
+    v36 = v16;
+    operator delete(v16);
+  }
+
+LABEL_14:
+  [v9 count];
+  if ([v9 count] != 1 && MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+  v21 = [v9 objectAtIndexedSubscript:0];
+  [v34 setAxis:{objc_msgSend(v21, "unsignedIntegerValue")}];
+
+  if (*(this + 4))
+  {
+    mlir::Block::getParentOp(*(*(this + 3) + 16));
+    if (*(*(mlir::Block::getParentOp(*(*(this + 3) + 16)) + 48) + 16) != &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id && MTLReportFailureTypeEnabled())
+    {
+      MTLReportFailure();
+    }
+
+    v22 = GPU::MPSGraphKernelDAG::getNDArraysForPlaceholders(*(this + 4), *(this + 2));
+    v23 = GPU::EncodeDescriptor::getcomputeEncoder(v20);
+    v24 = *(v20 + 1);
+    v25 = GPU::MPSGraphKernelDAG::getKernelDAGObject(*(this + 4));
+    [v34 encodeToMPSCommandEncoder:v23 commandBuffer:v24 sourceArrays:v22 resultState:0 destinationArray:v33 kernelDAGObject:v25];
+  }
+
+  else
+  {
+    if ((!v33 || !v32) && MTLReportFailureTypeEnabled())
+    {
+      MTLReportFailure();
+    }
+
+    v26 = GPU::EncodeDescriptor::getcomputeEncoder(v20);
+    v27 = *(v20 + 1);
+    v38[0] = v32;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+    [v34 encodeToMPSCommandEncoder:v26 commandBuffer:v27 sourceArrays:v28 resultState:0 destinationArray:v33 kernelDAGObject:0];
+  }
+}
+
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps_spi::RMSNormOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
@@ -13,7 +2857,7 @@ void GPU::RMSNormOpHandler::~RMSNormOpHandler(GPU::RMSNormOpHandler *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::SoftmaxOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::SoftmaxOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
@@ -28,7 +2872,7 @@ void GPU::SoftmaxOpHandler::~SoftmaxOpHandler(GPU::SoftmaxOpHandler *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::SoftmaxOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::SoftmaxOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -41,7 +2885,7 @@ unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::SoftmaxOp>::getJITStaticOpe
   }
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionMaxOp,(MPSNDArrayReductionOperation)1>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionMaxOp,(MPSNDArrayReductionOperation)1>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -192,11 +3036,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMaxOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMaxOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -209,7 +3053,7 @@ void GPU::BaseReductionOpHandler<mlir::mps::ReductionMaxOp,(MPSNDArrayReductionO
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMaxOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMaxOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -222,7 +3066,7 @@ unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMaxOp>::getJITStat
   }
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionMinOp,(MPSNDArrayReductionOperation)0>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionMinOp,(MPSNDArrayReductionOperation)0>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -373,11 +3217,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMinOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMinOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -390,7 +3234,7 @@ void GPU::BaseReductionOpHandler<mlir::mps::ReductionMinOp,(MPSNDArrayReductionO
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMinOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMinOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -403,7 +3247,7 @@ unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionMinOp>::getJITStat
   }
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionSumOp,(MPSNDArrayReductionOperation)4>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionSumOp,(MPSNDArrayReductionOperation)4>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -554,11 +3398,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionSumOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionSumOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -571,7 +3415,7 @@ void GPU::ReductionSumOpHandler::~ReductionSumOpHandler(GPU::ReductionSumOpHandl
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionSumOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionSumOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -598,7 +3442,7 @@ void GPU::ReductionMinOpHandler::~ReductionMinOpHandler(GPU::ReductionMinOpHandl
   JUMPOUT(0x1E12E5B90);
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionProdOp,(MPSNDArrayReductionOperation)5>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionProdOp,(MPSNDArrayReductionOperation)5>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -749,11 +3593,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionProdOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionProdOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -766,7 +3610,7 @@ void GPU::ReductionProdOpHandler::~ReductionProdOpHandler(GPU::ReductionProdOpHa
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionProdOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionProdOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -779,7 +3623,7 @@ unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionProdOp>::getJITSta
   }
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionAndOp,(MPSNDArrayReductionOperation)8>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionAndOp,(MPSNDArrayReductionOperation)8>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -930,11 +3774,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionAndOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionAndOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -947,7 +3791,7 @@ void GPU::ReductionAndOpHandler::~ReductionAndOpHandler(GPU::ReductionAndOpHandl
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionAndOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionAndOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -960,7 +3804,7 @@ unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionAndOp>::getJITStat
   }
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionOrOp,(MPSNDArrayReductionOperation)9>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionOrOp,(MPSNDArrayReductionOperation)9>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -1111,11 +3955,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionOrOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionOrOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -1128,7 +3972,7 @@ void GPU::ReductionOrOpHandler::~ReductionOrOpHandler(GPU::ReductionOrOpHandler 
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionOrOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionOrOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -1141,7 +3985,7 @@ unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionOrOp>::getJITStati
   }
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionArgMinOp,(MPSNDArrayReductionOperation)6>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionArgMinOp,(MPSNDArrayReductionOperation)6>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -1292,11 +4136,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMinOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMinOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -1309,7 +4153,7 @@ void GPU::ReductionArgMinOpHandler::~ReductionArgMinOpHandler(GPU::ReductionArgM
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMinOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMinOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -1322,7 +4166,7 @@ unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMinOp>::getJITS
   }
 }
 
-void GPU::BaseReductionOpHandler<mlir::mps::ReductionArgMaxOp,(MPSNDArrayReductionOperation)7>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
+void GPU::BaseReductionOpHandler<mlir::mps::ReductionArgMaxOp,(MPSNDArrayReductionOperation)7>::encodeNDArrayOp(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3)
 {
   v40[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -1473,11 +4317,11 @@ LABEL_18:
   }
 }
 
-uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMaxOp>::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMaxOp>::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 24);
-  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v6, 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
+  v9 = *(a1 + 24);
+  ODSOperandIndexAndLength = mlir::mps::DynamicShapeCastOp::getODSOperandIndexAndLength(&v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 32 * ODSOperandIndexAndLength + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -1490,7 +4334,7 @@ void GPU::ReductionArgMaxOpHandler::~ReductionArgMaxOpHandler(GPU::ReductionArgM
   JUMPOUT(0x1E12E5B90);
 }
 
-unint64_t GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMaxOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::BaseReductionLikeOpHandler<mlir::mps::ReductionArgMaxOp>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -1837,7 +4681,7 @@ LABEL_50:
 LABEL_51:
 }
 
-unint64_t GPU::SortOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::SortOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -1850,7 +4694,7 @@ unint64_t GPU::SortOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, 
   }
 }
 
-uint64_t GPU::SortOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::SortOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
@@ -1871,7 +4715,7 @@ void GPU::SortOpHandler::~SortOpHandler(id *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,true>::SpaceToDepth2DGenericOpHandler(void *a1, uint64_t a2, uint64_t a3)
+void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,true>::SpaceToDepth2DGenericOpHandler(void *a1, id *a2, uint64_t a3)
 {
   a1[1] = a2;
   a1[2] = a3;
@@ -1897,7 +4741,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,tr
   IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v40);
   v30 = MEMORY[0x1E696AEC0];
   v15 = v38;
-  (*(*a2 + 32))(v38, a2, NextResultAtOffset);
+  (*(*a2 + 4))(v38, a2, NextResultAtOffset);
   if (v39 < 0)
   {
     v15 = v38[0];
@@ -1905,7 +4749,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,tr
 
   v37 = v6;
   __p.__r_.__value_.__r.__words[0] = &v37;
-  v16 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v37);
+  v16 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v37, &std::piecewise_construct, &__p);
   v17 = v16 + 3;
   if (*(v16 + 47) < 0)
   {
@@ -1914,7 +4758,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,tr
 
   v36 = v10;
   __p.__r_.__value_.__r.__words[0] = &v36;
-  v18 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v36);
+  v18 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v36, &std::piecewise_construct, &__p);
   v19 = v18 + 3;
   if (*(v18 + 47) < 0)
   {
@@ -1923,7 +4767,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,tr
 
   v35 = v11;
   __p.__r_.__value_.__r.__words[0] = &v35;
-  v20 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v35);
+  v20 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v35, &std::piecewise_construct, &__p);
   v21 = v20 + 3;
   if (*(v20 + 47) < 0)
   {
@@ -1932,7 +4776,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,tr
 
   v34 = v12;
   __p.__r_.__value_.__r.__words[0] = &v34;
-  v22 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v34);
+  v22 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v34, &std::piecewise_construct, &__p);
   v23 = v22 + 3;
   if (*(v22 + 47) < 0)
   {
@@ -1991,9 +4835,9 @@ LABEL_21:
   }
 
 LABEL_22:
-  v27 = [*(a2 + 216) stringByAppendingString:v26];
-  v28 = *(a2 + 216);
-  *(a2 + 216) = v27;
+  v27 = [a2[27] stringByAppendingString:v26];
+  v28 = a2[27];
+  a2[27] = v27;
 
   return a1;
 }
@@ -2032,7 +4876,7 @@ LABEL_7:
   _Unwind_Resume(exception_object);
 }
 
-void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,false>::SpaceToDepth2DGenericOpHandler(void *a1, uint64_t a2, uint64_t a3)
+void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,false>::SpaceToDepth2DGenericOpHandler(void *a1, id *a2, uint64_t a3)
 {
   a1[1] = a2;
   a1[2] = a3;
@@ -2058,7 +4902,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,fa
   IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v40);
   v30 = MEMORY[0x1E696AEC0];
   v15 = v38;
-  (*(*a2 + 32))(v38, a2, NextResultAtOffset);
+  (*(*a2 + 4))(v38, a2, NextResultAtOffset);
   if (v39 < 0)
   {
     v15 = v38[0];
@@ -2066,7 +4910,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,fa
 
   v37 = v6;
   __p.__r_.__value_.__r.__words[0] = &v37;
-  v16 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v37);
+  v16 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v37, &std::piecewise_construct, &__p);
   v17 = v16 + 3;
   if (*(v16 + 47) < 0)
   {
@@ -2075,7 +4919,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,fa
 
   v36 = v10;
   __p.__r_.__value_.__r.__words[0] = &v36;
-  v18 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v36);
+  v18 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v36, &std::piecewise_construct, &__p);
   v19 = v18 + 3;
   if (*(v18 + 47) < 0)
   {
@@ -2084,7 +4928,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,fa
 
   v35 = v11;
   __p.__r_.__value_.__r.__words[0] = &v35;
-  v20 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v35);
+  v20 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v35, &std::piecewise_construct, &__p);
   v21 = v20 + 3;
   if (*(v20 + 47) < 0)
   {
@@ -2093,7 +4937,7 @@ void *EmitterObjC::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,fa
 
   v34 = v12;
   __p.__r_.__value_.__r.__words[0] = &v34;
-  v22 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a2 + 256), &v34);
+  v22 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v34, &std::piecewise_construct, &__p);
   v23 = v22 + 3;
   if (*(v22 + 47) < 0)
   {
@@ -2152,9 +4996,9 @@ LABEL_21:
   }
 
 LABEL_22:
-  v27 = [*(a2 + 216) stringByAppendingString:v26];
-  v28 = *(a2 + 216);
-  *(a2 + 216) = v27;
+  v27 = [a2[27] stringByAppendingString:v26];
+  v28 = a2[27];
+  a2[27] = v27;
 
   return a1;
 }
@@ -2240,17 +5084,17 @@ void sub_1E087083C(_Unwind_Exception *a1)
 
 void GPU::SingleGateRNNOpHandler::encodeNDArrayOp(GPU::SingleGateRNNOpHandler *this, id *a2, NSArray *a3)
 {
-  v39[11] = *MEMORY[0x1E69E9840];
-  v31 = a3;
-  v39[0] = *(this + 3);
-  ODSOperandIndexAndLength = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v39, 0);
-  v6 = *(*(v39[0] + 72) + 32 * ODSOperandIndexAndLength + 24);
-  v7 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v39, 1u);
-  v8 = *(*(v39[0] + 72) + 32 * v7 + 24);
-  v9 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v39, 2u);
-  if ((*(v39[0] + 46) & 0x80) != 0)
+  v41[11] = *MEMORY[0x1E69E9840];
+  v32 = a3;
+  v41[0] = *(this + 3);
+  ODSOperandIndexAndLength = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v41, 0);
+  v6 = *(*(v41[0] + 72) + 32 * ODSOperandIndexAndLength + 24);
+  v7 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v41, 1u);
+  v8 = *(*(v41[0] + 72) + 32 * v7 + 24);
+  v9 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v41, 2u);
+  if ((*(v41[0] + 46) & 0x80) != 0)
   {
-    v10 = *(v39[0] + 72);
+    v10 = *(v41[0] + 72);
     v11 = v9;
     if (HIDWORD(v9) + v9 == v9)
     {
@@ -2272,11 +5116,11 @@ LABEL_3:
 
   v12 = *(v10 + 32 * v11 + 24);
 LABEL_6:
-  v13 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v39, 3u);
-  if ((*(v39[0] + 46) & 0x80) != 0)
+  v13 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v41, 3u);
+  if ((*(v41[0] + 46) & 0x80) != 0)
   {
-    v14 = *(v39[0] + 72);
-    v37 = this;
+    v14 = *(v41[0] + 72);
+    v39 = this;
     v15 = v13;
     if (HIDWORD(v13) + v13 == v13)
     {
@@ -2289,7 +5133,7 @@ LABEL_8:
   else
   {
     v14 = 0;
-    v37 = this;
+    v39 = this;
     v15 = v13;
     if (HIDWORD(v13) + v13 == v13)
     {
@@ -2299,22 +5143,22 @@ LABEL_8:
 
   v16 = *(v14 + 32 * v15 + 24);
 LABEL_11:
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(v39);
-  v35 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-  v36 = a2[1];
-  *(v37 + 1);
-  v18 = (*(**(v37 + 2) + 48))(*(v37 + 2), v6, 0);
-  v34 = [v18 mpsndarray];
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(v41);
+  v37 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  v38 = a2[1];
+  *(v39 + 1);
+  v18 = (*(**(v39 + 2) + 48))(*(v39 + 2), v6, 0);
+  v36 = [v18 mpsndarray];
 
-  v19 = (*(**(v37 + 2) + 48))(*(v37 + 2), v8, 0);
-  v30 = [v19 mpsndarray];
+  v19 = (*(**(v39 + 2) + 48))(*(v39 + 2), v8, 0);
+  v31 = [v19 mpsndarray];
 
   if (v12)
   {
-    v20 = (*(**(v37 + 2) + 48))(*(v37 + 2), v12, 0);
+    v20 = (*(**(v39 + 2) + 48))(*(v39 + 2), v12, 0);
     [v20 mpsndarray];
 
-    v21 = v34;
+    v21 = v36;
     if (!v16)
     {
       goto LABEL_15;
@@ -2323,14 +5167,14 @@ LABEL_11:
 
   else
   {
-    v21 = v34;
+    v21 = v36;
     if (!v16)
     {
 LABEL_15:
-      [(NSArray *)v31 objectAtIndexedSubscript:0];
+      [(NSArray *)v32 objectAtIndexedSubscript:0];
       v23 = [objc_claimAutoreleasedReturnValue() mpsndarray];
       v24 = v23;
-      v33 = v23;
+      v35 = v23;
       if ((!v21 || !v23) && MTLReportFailureTypeEnabled())
       {
         MTLReportFailure();
@@ -2338,60 +5182,73 @@ LABEL_15:
 
       if (IsSize)
       {
-        [(NSArray *)v31 count];
-        if ([(NSArray *)v31 count]<= 1 && MTLReportFailureTypeEnabled())
+        [(NSArray *)v32 count];
+        if ([(NSArray *)v32 count]<= 1 && MTLReportFailureTypeEnabled())
         {
           MTLReportFailure();
         }
 
-        v25 = [(NSArray *)v31 objectAtIndexedSubscript:1];
-        v29 = [v25 mpsndarray];
+        v25 = [(NSArray *)v32 objectAtIndexedSubscript:1];
+        v30 = [v25 mpsndarray];
 
-        if (v29)
+        if (v30)
         {
-          v24 = v33;
-          if (v29[*MEMORY[0x1E69744E8]] != 1 || [v29 readCount])
+          v24 = v35;
+          if (v30[*MEMORY[0x1E69744E8]] != 1 || [v30 readCount])
           {
+            v34 = 1;
             goto LABEL_27;
           }
+
+          v34 = 0;
         }
 
-        v24 = v33;
-      }
+        else
+        {
+          v34 = 1;
+        }
 
-LABEL_27:
-      v28 = [v30 descriptor];
-      [v28 transposeDimension:0 withDimension:1];
-      v32 = [v30 safeArrayViewWithCommandBuffer:v36 computeEncoder:v35 descriptor:v28 aliasing:1];
-      v26 = [v24 descriptor];
-      v27 = v26;
-      if (v26)
-      {
-        [v26 getShapeVector];
+        v24 = v35;
       }
 
       else
       {
-        v38 = 0;
+        v34 = 0;
       }
 
-      mlir::mps::MaterializeSparseTensorOp::getStorageType(v39);
-      GPU::SingleGateRNNOpHandler::_getKernelDAGObject(v37, v12 != 0, v32, v34, 0, v38);
+LABEL_27:
+      v29 = [v31 descriptor];
+      [v29 transposeDimension:0 withDimension:1];
+      v33 = [v31 safeArrayViewWithCommandBuffer:v38 computeEncoder:v37 descriptor:v29 aliasing:1];
+      v26 = [v24 descriptor];
+      v27 = v26;
+      if (v26)
+      {
+        objc_msgSend_getShapeVector(v26);
+      }
+
+      else
+      {
+        v40 = 0;
+      }
+
+      StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(v41);
+      GPU::SingleGateRNNOpHandler::_getKernelDAGObject(v39, v12 != 0, v33, v36, 0, v40, StorageType, v34, 0);
     }
   }
 
-  v22 = (*(**(v37 + 2) + 48))(*(v37 + 2), v16, 0);
+  v22 = (*(**(v39 + 2) + 48))(*(v39 + 2), v16, 0);
   [v22 mpsndarray];
 
-  v21 = v34;
+  v21 = v36;
   goto LABEL_15;
 }
 
-void GPU::SingleGateRNNOpHandler::_getKernelDAGObject(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6)
+void GPU::SingleGateRNNOpHandler::_getKernelDAGObject(uint64_t a1, int a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, char a8, unsigned __int8 a9)
 {
   a3;
   a4;
-  v9 = a5;
+  v12 = a5;
   if ((a6[1] - *a6) >= 0)
   {
     operator new();
@@ -2548,20 +5405,20 @@ void sub_1E087294C(_Unwind_Exception *a1)
 
 void GPU::SingleGateRNNGradientOpHandler::encodeNDArrayOp(GPU::SingleGateRNNGradientOpHandler *this, id *a2, NSArray *a3)
 {
-  v36[28] = *MEMORY[0x1E69E9840];
-  v31 = a3;
-  v33 = this;
-  v36[0] = *(this + 3);
-  ODSOperandIndexAndLength = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v36, 0);
-  v6 = *(*(v36[0] + 72) + 32 * ODSOperandIndexAndLength + 24);
-  v7 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v36, 1u);
-  v8 = *(*(v36[0] + 72) + 32 * v7 + 24);
-  v9 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v36, 2u);
-  v10 = *(*(v36[0] + 72) + 32 * v9 + 24);
-  v11 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v36, 3u);
-  if ((*(v36[0] + 46) & 0x80) != 0)
+  v37[28] = *MEMORY[0x1E69E9840];
+  v32 = a3;
+  v34 = this;
+  v37[0] = *(this + 3);
+  ODSOperandIndexAndLength = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v37, 0);
+  v6 = *(*(v37[0] + 72) + 32 * ODSOperandIndexAndLength + 24);
+  v7 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v37, 1u);
+  v8 = *(*(v37[0] + 72) + 32 * v7 + 24);
+  v9 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v37, 2u);
+  v10 = *(*(v37[0] + 72) + 32 * v9 + 24);
+  v11 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v37, 3u);
+  if ((*(v37[0] + 46) & 0x80) != 0)
   {
-    v12 = *(v36[0] + 72);
+    v12 = *(v37[0] + 72);
     v13 = v11;
     if (HIDWORD(v11) + v11 == v11)
     {
@@ -2583,10 +5440,10 @@ LABEL_3:
 
   v14 = *(v12 + 32 * v13 + 24);
 LABEL_6:
-  v15 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v36, 4u);
-  if ((*(v36[0] + 46) & 0x80) != 0)
+  v15 = mlir::pdl::OperationOp::getODSOperandIndexAndLength(v37, 4u);
+  if ((*(v37[0] + 46) & 0x80) != 0)
   {
-    v16 = *(v36[0] + 72);
+    v16 = *(v37[0] + 72);
     v17 = v15;
     if (HIDWORD(v15) + v15 == v15)
     {
@@ -2608,27 +5465,27 @@ LABEL_8:
 
   v18 = *(v16 + 32 * v17 + 24);
 LABEL_11:
-  mlir::mps::StridedSliceOp::getEndIsSize(v36);
+  mlir::mps::StridedSliceOp::getEndIsSize(v37);
   GPU::EncodeDescriptor::getcomputeEncoder(a2);
   objc_claimAutoreleasedReturnValue();
   a2[1];
-  *(v33 + 1);
-  v19 = (*(**(v33 + 2) + 48))(*(v33 + 2), v6, 0);
-  v34 = [v19 mpsndarray];
+  *(v34 + 1);
+  v19 = (*(**(v34 + 2) + 48))(*(v34 + 2), v6, 0);
+  v35 = [v19 mpsndarray];
 
-  v20 = (*(**(v33 + 2) + 48))(*(v33 + 2), v8, 0);
-  v32 = [v20 mpsndarray];
+  v20 = (*(**(v34 + 2) + 48))(*(v34 + 2), v8, 0);
+  v33 = [v20 mpsndarray];
 
   if (v14)
   {
-    v21 = (*(**(v33 + 2) + 48))(*(v33 + 2), v14, 0);
+    v21 = (*(**(v34 + 2) + 48))(*(v34 + 2), v14, 0);
     [v21 mpsndarray];
 
     if (v18)
     {
 LABEL_13:
-      v22 = (*(**(v33 + 2) + 48))(*(v33 + 2), v18, 0);
-      v29 = [v22 mpsndarray];
+      v22 = (*(**(v34 + 2) + 48))(*(v34 + 2), v18, 0);
+      v30 = [v22 mpsndarray];
 
       goto LABEL_16;
     }
@@ -2639,20 +5496,20 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v29 = 0;
+  v30 = 0;
 LABEL_16:
-  v23 = (*(**(v33 + 2) + 48))(*(v33 + 2), v10, 0);
-  v30 = [v23 mpsndarray];
+  v23 = (*(**(v34 + 2) + 48))(*(v34 + 2), v10, 0);
+  v31 = [v23 mpsndarray];
 
-  v24 = [(NSArray *)v31 objectAtIndexedSubscript:0];
+  v24 = [(NSArray *)v32 objectAtIndexedSubscript:0];
   v25 = [v24 mpsndarray];
   v26 = v25;
-  if ((!v34 || !v25) && MTLReportFailureTypeEnabled())
+  if ((!v35 || !v25) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  [(NSArray *)v31 objectAtIndexedSubscript:1];
+  [(NSArray *)v32 objectAtIndexedSubscript:1];
   [objc_claimAutoreleasedReturnValue() mpsndarray];
   if (!objc_claimAutoreleasedReturnValue() && MTLReportFailureTypeEnabled())
   {
@@ -2663,16 +5520,16 @@ LABEL_16:
   v28 = v27;
   if (v27)
   {
-    [v27 getShapeVector];
+    objc_msgSend_getShapeVector(v27);
   }
 
   else
   {
-    v35 = 0;
+    v36 = 0;
   }
 
-  mlir::mps::MaterializeSparseTensorOp::getStorageType(v36);
-  GPU::SingleGateRNNGradientOpHandler::_getGradKernelDAGObject(v33, v32, v34, v30, v29, v35);
+  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(v37);
+  GPU::SingleGateRNNGradientOpHandler::_getGradKernelDAGObject(v34, v33, v35, v31, v30, v36, StorageType, 0);
 }
 
 void sub_1E08744EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, void *a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, _Unwind_Exception *exception_objecta, void *a37, void *a38)
@@ -2682,12 +5539,12 @@ void sub_1E08744EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GPU::SingleGateRNNGradientOpHandler::_getGradKernelDAGObject(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
+void GPU::SingleGateRNNGradientOpHandler::_getGradKernelDAGObject(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, int a8)
 {
   a2;
-  v10 = a3;
+  v12 = a3;
   a4;
-  v11 = a5;
+  v13 = a5;
   if ((a6[1] - *a6) >= 0)
   {
     operator new();
@@ -2708,7 +5565,7 @@ void sub_1E08750D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t GPU::activationGradientToDAGTensor(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t GPU::activationGradientToDAGTensor(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a1 > 2)
   {
@@ -2763,9 +5620,9 @@ uint64_t GPU::activationGradientToDAGTensor(int a1, uint64_t a2, uint64_t a3, ui
     }
 
     MPSKernelDAG::constantOp();
-    v8 = MPSKernelDAG::maximumOp();
+    v9 = MPSKernelDAG::maximumOp();
 
-    return MEMORY[0x1EEDCDF98](a2, v8, a3, a4, "drelu");
+    return MEMORY[0x1EEDCDF98](a2, v9, a3, a4, "drelu");
   }
 
   else
@@ -2825,18 +5682,18 @@ void sub_1E0875840(_Unwind_Exception *a1)
 
 void GPU::LSTMOpHandler::encodeNDArrayOp(GPU::LSTMOpHandler *this, id *a2, NSArray *a3)
 {
-  v58[27] = *MEMORY[0x1E69E9840];
-  v45 = a3;
-  v56 = this;
-  v58[0] = *(this + 3);
-  ODSOperandIndexAndLength = mlir::mps::GRUOp::getODSOperandIndexAndLength(v58, 0);
-  v5 = *(*(v58[0] + 72) + 32 * ODSOperandIndexAndLength + 24);
-  v6 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v58, 1u);
-  v7 = *(*(v58[0] + 72) + 32 * v6 + 24);
-  v8 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v58, 2u);
-  if ((*(v58[0] + 46) & 0x80) != 0)
+  v68[27] = *MEMORY[0x1E69E9840];
+  v55 = a3;
+  v66 = this;
+  v68[0] = *(this + 3);
+  ODSOperandIndexAndLength = mlir::mps::GRUOp::getODSOperandIndexAndLength(v68, 0);
+  v5 = *(*(v68[0] + 72) + 32 * ODSOperandIndexAndLength + 24);
+  v6 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v68, 1u);
+  v7 = *(*(v68[0] + 72) + 32 * v6 + 24);
+  v8 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v68, 2u);
+  if ((*(v68[0] + 46) & 0x80) != 0)
   {
-    v9 = *(v58[0] + 72);
+    v9 = *(v68[0] + 72);
     v10 = v8;
     if (HIDWORD(v8) + v8 == v8)
     {
@@ -2858,10 +5715,10 @@ LABEL_3:
 
   v11 = *(v9 + 32 * v10 + 24);
 LABEL_6:
-  v12 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v58, 3u);
-  if ((*(v58[0] + 46) & 0x80) != 0)
+  v12 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v68, 3u);
+  if ((*(v68[0] + 46) & 0x80) != 0)
   {
-    v13 = *(v58[0] + 72);
+    v13 = *(v68[0] + 72);
     v14 = v12;
     if (HIDWORD(v12) + v12 == v12)
     {
@@ -2883,10 +5740,10 @@ LABEL_8:
 
   v15 = *(v13 + 32 * v14 + 24);
 LABEL_11:
-  v16 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v58, 4u);
-  if ((*(v58[0] + 46) & 0x80) != 0)
+  v16 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v68, 4u);
+  if ((*(v68[0] + 46) & 0x80) != 0)
   {
-    v17 = *(v58[0] + 72);
+    v17 = *(v68[0] + 72);
     v18 = v16;
     if (HIDWORD(v16) + v16 == v16)
     {
@@ -2908,10 +5765,10 @@ LABEL_13:
 
   v19 = *(v17 + 32 * v18 + 24);
 LABEL_16:
-  v20 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v58, 5u);
-  if ((*(v58[0] + 46) & 0x80) != 0)
+  v20 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v68, 5u);
+  if ((*(v68[0] + 46) & 0x80) != 0)
   {
-    v21 = *(v58[0] + 72);
+    v21 = *(v68[0] + 72);
     v22 = v20;
     if (HIDWORD(v20) + v20 == v20)
     {
@@ -2933,10 +5790,10 @@ LABEL_18:
 
   v23 = *(v21 + 32 * v22 + 24);
 LABEL_21:
-  v24 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v58, 6u);
-  if ((*(v58[0] + 46) & 0x80) != 0)
+  v24 = mlir::mps::GRUOp::getODSOperandIndexAndLength(v68, 6u);
+  if ((*(v68[0] + 46) & 0x80) != 0)
   {
-    v25 = *(v58[0] + 72);
+    v25 = *(v68[0] + 72);
     v26 = v24;
     if (HIDWORD(v24) + v24 == v24)
     {
@@ -2958,19 +5815,19 @@ LABEL_23:
 
   v27 = *(v25 + 32 * v26 + 24);
 LABEL_26:
-  Training = mlir::mps::GRUOp::getTraining(v58);
-  v51 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-  v52 = a2[1];
-  *(v56 + 1);
-  v29 = (*(**(v56 + 2) + 48))(*(v56 + 2), v5, 0);
-  v54 = [v29 mpsndarray];
+  Training = mlir::mps::GRUOp::getTraining(v68);
+  v61 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  v62 = a2[1];
+  *(v66 + 1);
+  v29 = (*(**(v66 + 2) + 48))(*(v66 + 2), v5, 0);
+  v64 = [v29 mpsndarray];
 
-  v30 = (*(**(v56 + 2) + 48))(*(v56 + 2), v7, 0);
-  v44 = [v30 mpsndarray];
+  v30 = (*(**(v66 + 2) + 48))(*(v66 + 2), v7, 0);
+  v54 = [v30 mpsndarray];
 
   if (v11)
   {
-    v31 = (*(**(v56 + 2) + 48))(*(v56 + 2), v11, 0);
+    v31 = (*(**(v66 + 2) + 48))(*(v66 + 2), v11, 0);
     [v31 mpsndarray];
 
     if (v15)
@@ -2982,7 +5839,7 @@ LABEL_26:
   else if (v15)
   {
 LABEL_28:
-    v32 = (*(**(v56 + 2) + 48))(*(v56 + 2), v15, 0);
+    v32 = (*(**(v66 + 2) + 48))(*(v66 + 2), v15, 0);
     [v32 mpsndarray];
 
     if (v19)
@@ -2996,8 +5853,8 @@ LABEL_28:
   if (v19)
   {
 LABEL_29:
-    v33 = (*(**(v56 + 2) + 48))(*(v56 + 2), v19, 0);
-    v47 = [v33 mpsndarray];
+    v33 = (*(**(v66 + 2) + 48))(*(v66 + 2), v19, 0);
+    v57 = [v33 mpsndarray];
 
     if (v23)
     {
@@ -3008,49 +5865,49 @@ LABEL_29:
   }
 
 LABEL_34:
-  v47 = 0;
+  v57 = 0;
   if (v23)
   {
 LABEL_30:
-    v34 = (*(**(v56 + 2) + 48))(*(v56 + 2), v23, 0);
+    v34 = (*(**(v66 + 2) + 48))(*(v66 + 2), v23, 0);
     [v34 mpsndarray];
 
     if (v27)
     {
 LABEL_31:
-      v35 = (*(**(v56 + 2) + 48))(*(v56 + 2), v27, 0);
-      v55 = [v35 mpsndarray];
+      v35 = (*(**(v66 + 2) + 48))(*(v66 + 2), v27, 0);
+      v65 = [v35 mpsndarray];
 
       goto LABEL_37;
     }
 
 LABEL_36:
-    v55 = 0;
+    v65 = 0;
 LABEL_37:
-    v43 = [(NSArray *)v45 objectAtIndexedSubscript:0];
-    v42 = [(NSArray *)v45 objectAtIndexedSubscript:1];
-    v46 = [v43 mpsndarray];
-    v48 = [v42 mpsndarray];
-    if ((!v54 || !v46 || !v48) && MTLReportFailureTypeEnabled())
+    v53 = [(NSArray *)v55 objectAtIndexedSubscript:0];
+    v52 = [(NSArray *)v55 objectAtIndexedSubscript:1];
+    v56 = [v53 mpsndarray];
+    v58 = [v52 mpsndarray];
+    if ((!v64 || !v56 || !v58) && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
     if (Training)
     {
-      [(NSArray *)v45 count];
-      if ([(NSArray *)v45 count]<= 1 && MTLReportFailureTypeEnabled())
+      [(NSArray *)v55 count];
+      if ([(NSArray *)v55 count]<= 1 && MTLReportFailureTypeEnabled())
       {
         MTLReportFailure();
       }
 
-      v36 = [(NSArray *)v45 objectAtIndexedSubscript:2];
-      v53 = [v36 mpsndarray];
+      v36 = [(NSArray *)v55 objectAtIndexedSubscript:2];
+      v63 = [v36 mpsndarray];
 
-      if (!v53 || v53[*MEMORY[0x1E69744E8]] != 1 || [v53 readCount])
+      if (!v63 || v63[*MEMORY[0x1E69744E8]] != 1 || [v63 readCount])
       {
-        v37 = v48;
-        if (!v48)
+        v37 = v58;
+        if (!v58)
         {
           goto LABEL_53;
         }
@@ -3059,8 +5916,8 @@ LABEL_37:
       }
     }
 
-    v37 = v48;
-    if (!v48)
+    v37 = v58;
+    if (!v58)
     {
       goto LABEL_53;
     }
@@ -3068,44 +5925,44 @@ LABEL_37:
 LABEL_47:
     if (v37[*MEMORY[0x1E69744E8]] == 1 && ![v37 readCount])
     {
-      v38 = [v48 descriptor];
-      [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:v52 descriptor:v38];
+      v38 = [v58 descriptor];
+      [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:v62 descriptor:v38];
       objc_claimAutoreleasedReturnValue();
     }
 
 LABEL_53:
-    v41 = [v44 descriptor];
-    [v41 transposeDimension:0 withDimension:1];
-    v50 = [v44 safeArrayViewWithCommandBuffer:v52 computeEncoder:v51 descriptor:v41 aliasing:1];
-    v39 = [v46 descriptor];
+    v51 = [v54 descriptor];
+    [v51 transposeDimension:0 withDimension:1];
+    v60 = [v54 safeArrayViewWithCommandBuffer:v62 computeEncoder:v61 descriptor:v51 aliasing:1];
+    v39 = [v56 descriptor];
     v40 = v39;
     if (v39)
     {
-      [v39 getShapeVector];
+      objc_msgSend_getShapeVector(v39);
     }
 
     else
     {
-      v57 = 0;
+      v67 = 0;
     }
 
-    mlir::mps::LSTMOp::getGateLayout(v58);
-    if (!v11 && *(*v57 + 16) < 2uLL)
+    mlir::mps::LSTMOp::getGateLayout(v68);
+    if (!v11 && *(*v67 + 16) < 2uLL)
     {
-      mlir::mps::DepthwiseConv2DDataGradientOp::getPaddingStyle(v58);
-      mlir::mps::SampleGridOp::getLayout(v58);
-      mlir::mps::Conv3DOp::getWeightsLayout(v58);
-      mlir::mps::Conv3DOp::getPaddingStyle(v58);
-      mlir::mps::MaterializeSparseTensorOp::getStorageType(v58);
-      GPU::LSTMOpHandler::_getLSTMKernelDAGObject(v56, 1, v50, v54, v47, v55, v57);
+      PaddingStyle = mlir::mps::DepthwiseConv2DDataGradientOp::getPaddingStyle(v68);
+      Layout = mlir::mps::SampleGridOp::getLayout(v68);
+      WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(v68);
+      v49 = mlir::mps::Conv3DOp::getPaddingStyle(v68);
+      StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(v68);
+      GPU::LSTMOpHandler::_getLSTMKernelDAGObject(v66, 1u, v60, v64, v57, v65, v67, PaddingStyle, Layout, WeightsLayout, v49, StorageType);
     }
 
-    mlir::mps::DepthwiseConv2DDataGradientOp::getPaddingStyle(v58);
-    mlir::mps::SampleGridOp::getLayout(v58);
-    mlir::mps::Conv3DOp::getWeightsLayout(v58);
-    mlir::mps::Conv3DOp::getPaddingStyle(v58);
-    mlir::mps::MaterializeSparseTensorOp::getStorageType(v58);
-    GPU::LSTMOpHandler::_getLSTMKernelDAGObject(v56, 0, v50, v54, v47, v55, v57);
+    v41 = mlir::mps::DepthwiseConv2DDataGradientOp::getPaddingStyle(v68);
+    v42 = mlir::mps::SampleGridOp::getLayout(v68);
+    v43 = mlir::mps::Conv3DOp::getWeightsLayout(v68);
+    v44 = mlir::mps::Conv3DOp::getPaddingStyle(v68);
+    v45 = mlir::mps::MaterializeSparseTensorOp::getStorageType(v68);
+    GPU::LSTMOpHandler::_getLSTMKernelDAGObject(v66, 0, v60, v64, v57, v65, v67, v41, v42, v43, v44, v45);
   }
 
 LABEL_35:
@@ -3124,12 +5981,12 @@ void sub_1E08774F4(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   _Unwind_Resume(STACK[0x238]);
 }
 
-void GPU::LSTMOpHandler::_getLSTMKernelDAGObject(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+void GPU::LSTMOpHandler::_getLSTMKernelDAGObject(uint64_t a1, unsigned int a2, void *a3, void *a4, void *a5, void *a6, void *a7, int a8, int a9, int a10, int a11, int a12)
 {
-  v11 = a3;
-  v12 = a4;
+  v16 = a3;
+  v17 = a4;
   a5;
-  v13 = a6;
+  v18 = a6;
   if ((a7[1] - *a7) >= 0)
   {
     operator new();
@@ -3615,7 +6472,7 @@ LABEL_60:
     v55 = v54;
     if (v54)
     {
-      [v54 getShapeVector];
+      objc_msgSend_getShapeVector(v54);
     }
 
     else
@@ -3903,7 +6760,7 @@ LABEL_33:
   v31 = v30;
   if (v30)
   {
-    [v30 getShapeVector];
+    objc_msgSend_getShapeVector(v30);
   }
 
   else
@@ -3939,7 +6796,7 @@ LABEL_33:
     v34 = v33;
     if (v33)
     {
-      [v33 getShapeVector];
+      objc_msgSend_getShapeVector(v33);
     }
 
     else
@@ -5002,7 +7859,7 @@ LABEL_25:
   v34 = v33;
   if (v33)
   {
-    [v33 getShapeVector];
+    objc_msgSend_getShapeVector(v33);
   }
 
   else
@@ -6289,14 +9146,12 @@ void sub_1E088B284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 __n128 __Block_byref_object_copy__4(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -6340,9 +9195,9 @@ void GPU::GetCoordOpHandler::postInitializeHook(GPU::GetCoordOpHandler *this)
     if (v4)
     {
       v5 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v4 + 8);
-      v16 = v4;
-      v17 = v5;
-      mlir::CallableOpInterface::getArgAttrsAttr(&v16);
+      v17 = v4;
+      v18 = v5;
+      mlir::CallableOpInterface::getArgAttrsAttr(&v17);
       v7 = 8 * v6;
       if (!(8 * v6))
       {
@@ -6352,16 +9207,16 @@ void GPU::GetCoordOpHandler::postInitializeHook(GPU::GetCoordOpHandler *this)
 
     else
     {
-      v16 = 0;
       v17 = 0;
-      mlir::CallableOpInterface::getArgAttrsAttr(&v16);
+      v18 = 0;
+      mlir::CallableOpInterface::getArgAttrsAttr(&v17);
       v7 = 8 * v8;
       if (!(8 * v8))
       {
 LABEL_8:
         __p = 0;
-        v14 = 0;
         v15 = 0;
+        v16 = 0;
         if (*(v2 + 36))
         {
           v10 = v2 - 16;
@@ -6373,11 +9228,11 @@ LABEL_8:
         }
 
         NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v10, 0);
-        getMPSDataType((*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8));
-        v12 = GPU::GetCoordOpHandler::_getKernelDAGObject(this, CoordAxis, &__p);
+        MPSDataType = getMPSDataType((*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8));
+        v13 = GPU::GetCoordOpHandler::_getKernelDAGObject(this, CoordAxis, &__p, MPSDataType);
         if (__p)
         {
-          v14 = __p;
+          v15 = __p;
           operator delete(__p);
         }
 
@@ -6405,7 +9260,7 @@ void sub_1E088BEC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t GPU::anonymous namespace::getCoordAxis(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t GPU::anonymous namespace::getCoordAxis(void *a1, uint64_t a2, uint64_t a3)
 {
   __p = 0;
   v15 = 0;
@@ -6452,7 +9307,7 @@ uint64_t GPU::anonymous namespace::getCoordAxis(uint64_t a1, uint64_t a2, uint64
     return v9 | v8;
   }
 
-  v11 = *(a1 + 8) & 0xFFFFFFFFFFFFFFF8;
+  v11 = a1[1] & 0xFFFFFFFFFFFFFFF8;
   if (*(*v11 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
     v11 = 0;
@@ -6469,2822 +9324,4 @@ uint64_t GPU::anonymous namespace::getCoordAxis(uint64_t a1, uint64_t a2, uint64
   }
 
   return -1;
-}
-
-id GPU::GetCoordOpHandler::_getKernelDAGObject(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  v3 = *(a1 + 128);
-  if (!v3 || *(a1 + 40) != 1)
-  {
-    v5 = *a3;
-    v6 = (a3[1] - *a3) >> 3;
-    if (a2 < 0)
-    {
-      v6 = 0;
-    }
-
-    v7 = v6 + ~a2;
-    if (v7 >= 4)
-    {
-      v8 = *(v5 + 24);
-      *(v5 + 24) = *(v5 + 8 * v7);
-      *(v5 + 8 * v7) = v8;
-    }
-
-    operator new();
-  }
-
-  v4 = v3;
-
-  return v4;
-}
-
-unint64_t GPU::GetCoordOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
-{
-  if (a4)
-  {
-    return GPU::BaseOpHandler::_getJITStaticOperandReprPlaceholder(this, a2, a3, a4);
-  }
-
-  else
-  {
-    return GPU::BaseOpHandler::_getJITStaticOperandReprConstant(this, a2, a3, 0);
-  }
-}
-
-void GPU::GetCoordOpHandler::encodeNDArrayOp(GPU::GetCoordOpHandler *this, GPU::EncodeDescriptor *a2, NSArray *a3)
-{
-  v5 = a3;
-  v6 = *(this + 3);
-  v28 = v5;
-  GPURegionRuntime::waitAndReadIntTensorData(*(this + 2), a2, *(*(v6 + 72) + 24), &v32);
-  v7 = [(NSArray *)v5 objectAtIndexedSubscript:0];
-  v8 = [v7 mpsndarray];
-
-  v9 = v8;
-  if (!v9 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v11 = CoordAxis;
-  v13 = v32;
-  v12 = v33;
-  v14 = v33 - v32;
-  v15 = (v33 - v32) >> 3;
-  if (CoordAxis < 0)
-  {
-    v15 = 0;
-  }
-
-  v16 = v15 + ~CoordAxis;
-  if (v16 < 4)
-  {
-    v27 = v9;
-    v22 = *(this + 1);
-    if (v12 == v13)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_10:
-    if ((v14 & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::vector<long>::__throw_length_error[abi:ne200100]();
-  }
-
-  v17 = [v9 descriptor];
-  [v17 transposeDimension:v16 withDimension:3];
-  if (*(v9 + *MEMORY[0x1E69744E8]) == 1)
-  {
-    [v9 setReadCount:{objc_msgSend(v9, "readCount") + 1}];
-  }
-
-  v18 = *(a2 + 1);
-  v19 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-  v27 = [v9 safeArrayViewWithCommandBuffer:v18 computeEncoder:v19 descriptor:v17 aliasing:1];
-
-  v21 = v32;
-  v20 = v33;
-  v14 = v33 - v32;
-  v22 = *(this + 1);
-  if (v20 != v21)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_8:
-  __p = 0;
-  v30 = 0;
-  v31 = 0;
-  if (*(v6 + 36))
-  {
-    v23 = v6 - 16;
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v23, 0);
-  getMPSDataType((*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8));
-  v25 = GPU::GetCoordOpHandler::_getKernelDAGObject(this, v11, &__p);
-  if (__p)
-  {
-    v30 = __p;
-    operator delete(__p);
-  }
-
-  v26 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-  [v22 encodeToMPSCommandEncoder:v26 commandBuffer:*(a2 + 1) sourceArrays:MEMORY[0x1E695E0F0] resultState:0 destinationArray:v27 kernelDAGObject:v25];
-
-  if (v32)
-  {
-    v33 = v32;
-    operator delete(v32);
-  }
-}
-
-void sub_1E088C630(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t GPU::GetCoordOpHandler::kernelDAGOp(uint64_t a1)
-{
-
-  return MPSKernelDAG::getCoordValueOp();
-}
-
-uint64_t GPU::BandPartOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v9 = *(a1 + 24);
-  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
-  v13 = *(a2 + 80);
-
-  return MEMORY[0x1EEDCDD68](v13, BaseTensorFromDataMap, CoordAxis, v11, a3, a4, a5);
-}
-
-uint64_t GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,true>::SpaceToDepth2DGenericOpHandler(uint64_t a1, id *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
-{
-  v6 = GPU::GenericDAGOpHandler::GenericDAGOpHandler(a1, a2, a3, a4);
-  *v6 = &unk_1F5B53510;
-  v6[16] = 0;
-  v7 = objc_alloc(MEMORY[0x1E6974740]);
-  v8 = [a2[6] metalDevice];
-  v9 = [v7 initWithDevice:v8];
-  v10 = *(a1 + 8);
-  *(a1 + 8) = v9;
-
-  v11 = *(a1 + 128);
-  *(a1 + 128) = 0;
-
-  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
-  return a1;
-}
-
-uint64_t GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,false>::SpaceToDepth2DGenericOpHandler(uint64_t a1, id *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
-{
-  v6 = GPU::GenericDAGOpHandler::GenericDAGOpHandler(a1, a2, a3, a4);
-  *v6 = &unk_1F5B53560;
-  v6[16] = 0;
-  v7 = objc_alloc(MEMORY[0x1E6974740]);
-  v8 = [a2[6] metalDevice];
-  v9 = [v7 initWithDevice:v8];
-  v10 = *(a1 + 8);
-  *(a1 + 8) = v9;
-
-  v11 = *(a1 + 128);
-  *(a1 + 128) = 0;
-
-  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
-  return a1;
-}
-
-uint64_t GPU::SpaceToBatchGenericOpHandler<mlir::mps::BatchToSpaceOp,true>::SpaceToBatchGenericOpHandler(uint64_t a1, id *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
-{
-  v6 = GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4);
-  *v6 = &unk_1F5B535B0;
-  *(v6 + 15) = 0;
-  v7 = objc_alloc(MEMORY[0x1E6974740]);
-  v8 = [a2[6] metalDevice];
-  v9 = [v7 initWithDevice:v8];
-  v10 = *(a1 + 8);
-  *(a1 + 8) = v9;
-
-  v11 = *(a1 + 120);
-  *(a1 + 120) = 0;
-
-  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
-  return a1;
-}
-
-uint64_t GPU::SpaceToBatchGenericOpHandler<mlir::mps::SpaceToBatchOp,false>::SpaceToBatchGenericOpHandler(uint64_t a1, id *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
-{
-  v6 = GPU::BaseOpHandler::BaseOpHandler(a1, a2, a3, a4);
-  *v6 = &unk_1F5B53600;
-  *(v6 + 15) = 0;
-  v7 = objc_alloc(MEMORY[0x1E6974740]);
-  v8 = [a2[6] metalDevice];
-  v9 = [v7 initWithDevice:v8];
-  v10 = *(a1 + 8);
-  *(a1 + 8) = v9;
-
-  v11 = *(a1 + 120);
-  *(a1 + 120) = 0;
-
-  [*(a1 + 8) setOptions:{objc_msgSend(*(a1 + 8), "options") | 1}];
-  return a1;
-}
-
-void GPU::GetCoordOpHandler::~GetCoordOpHandler(id *this)
-{
-  *this = &unk_1F5B4D918;
-  v2 = this[15];
-  this[15] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-}
-
-{
-
-  *this = &unk_1F5B4D918;
-  v2 = this[15];
-  this[15] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::BandPartOpHandler::~BandPartOpHandler(GPU::BandPartOpHandler *this)
-{
-  *this = &unk_1F5B4D918;
-  v2 = *(this + 15);
-  *(this + 15) = 0;
-  if (v2)
-  {
-    v3 = this;
-    (*(*v2 + 8))(v2);
-    this = v3;
-    v1 = vars8;
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-}
-
-{
-  *this = &unk_1F5B4D918;
-  v2 = *(this + 15);
-  *(this + 15) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,true>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
-{
-  v113 = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  v6 = *(a1 + 16);
-  v95 = a1;
-  v98 = *(a1 + 24);
-  v87 = v5;
-  v7 = (*(*v6 + 48))(v6, *(*(v98 + 72) + 24), 0);
-  v8 = [v7 mpsndarray];
-
-  v88 = [v5 objectAtIndexedSubscript:0];
-  v9 = [v88 mpsndarray];
-  if (v8)
-  {
-    v10 = v9 == 0;
-  }
-
-  else
-  {
-    v10 = 1;
-  }
-
-  v89 = v9;
-  if (v10 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v11 = [v8 descriptor];
-  v12 = [v11 getShape];
-
-  v91 = [v12 count];
-  if (CoordAxis >= 0)
-  {
-    v14 = v91;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  if (v15 >= 0)
-  {
-    v16 = v91;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v94 = a2;
-  if (v17 >= 0)
-  {
-    v18 = v91;
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  Index = mlir::pdl::ResultOp::getIndex(&v98);
-  v20 = v14 + ~CoordAxis;
-  v21 = v16 + ~v15;
-  v22 = v18 + ~v17;
-  [v8 dataType];
-  v23 = v8;
-  v24 = v89;
-  memset(&v112[1], 0, 96);
-  v25 = v20 <= 3 && v21 <= 3;
-  v26 = v22;
-  v27 = v25 && v22 < 4;
-  v111 = 0uLL;
-  v112[0] = 0uLL;
-  v93 = v24;
-  v90 = Index;
-  if (v27)
-  {
-    v86 = 0;
-    v96 = v24;
-    v97 = v23;
-    v29 = v91;
-    goto LABEL_64;
-  }
-
-  v85 = [v23 descriptor];
-  v29 = v91;
-  if (!v91)
-  {
-    goto LABEL_36;
-  }
-
-  if (v91 <= 3)
-  {
-    for (i = 0; i != v91; ++i)
-    {
-LABEL_28:
-      *(&v112[-1] + i) = i;
-    }
-
-    goto LABEL_29;
-  }
-
-  i = v91 & 0xFFFFFFFFFFFFFFFCLL;
-  v28 = xmmword_1E09700F0;
-  v31 = v112;
-  v32 = vdupq_n_s64(2uLL);
-  v33 = vdupq_n_s64(4uLL);
-  v34 = v91 & 0xFFFFFFFFFFFFFFFCLL;
-  do
-  {
-    v31[-1] = v28;
-    *v31 = vaddq_s64(v28, v32);
-    v28 = vaddq_s64(v28, v33);
-    v31 += 2;
-    v34 -= 4;
-  }
-
-  while (v34);
-  if (v91 != i)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_29:
-  if (v91 >= 1)
-  {
-    v35 = 0;
-    v36 = -1;
-    do
-    {
-      if (*(&v112[-1] + v35) == 1)
-      {
-        v36 = v35;
-      }
-
-      ++v35;
-      v37 = 1;
-    }
-
-    while (v35 < (v91 & 0x7FFFFFFF) && v36 < 0);
-    goto LABEL_37;
-  }
-
-LABEL_36:
-  v37 = 0;
-  v36 = -1;
-LABEL_37:
-  if (v36 != v20)
-  {
-    v38 = 8 * v20;
-    *(&v112[-1] + v36) = *(&v112[-1] + v38);
-    *(&v112[-1] + v38) = 1;
-  }
-
-  if (v37)
-  {
-    v39 = 0;
-    v40 = -1;
-    do
-    {
-      if (*(&v112[-1] + v39) == 2)
-      {
-        v40 = v39;
-      }
-
-      ++v39;
-    }
-
-    while (v39 < (v91 & 0x7FFFFFFF) && v40 < 0);
-  }
-
-  else
-  {
-    v40 = -1;
-  }
-
-  if (v40 != v21)
-  {
-    v41 = 8 * v21;
-    *(&v112[-1] + v40) = *(&v112[-1] + v41);
-    *(&v112[-1] + v41) = 2;
-  }
-
-  if (v37)
-  {
-    v42 = 0;
-    v43 = -1;
-    v44 = v93;
-    do
-    {
-      if (*(&v112[-1] + v42) == 3)
-      {
-        v43 = v42;
-      }
-
-      ++v42;
-    }
-
-    while (v42 < (v91 & 0x7FFFFFFF) && v43 < 0);
-  }
-
-  else
-  {
-    v43 = -1;
-    v44 = v93;
-  }
-
-  if (v43 != v22)
-  {
-    v45 = 8 * v22;
-    *(&v112[-1] + v43) = *(&v112[-1] + v45);
-    *(&v112[-1] + v45) = 3;
-  }
-
-  v46 = [v44 descriptor];
-  [v85 permuteWithDimensionOrder:&v111];
-  [v46 permuteWithDimensionOrder:&v111];
-  v47 = *(v94 + 1);
-  v48 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-  v97 = [v23 safeArrayViewWithCommandBuffer:v47 computeEncoder:v48 descriptor:v85 aliasing:0];
-
-  v49 = [v97 descriptor];
-  v50 = [v49 getShape];
-
-  v12 = v50;
-  if (*(v93 + *MEMORY[0x1E69744E8]) == 1)
-  {
-    [v93 setReadCount:{objc_msgSend(v93, "readCount") + 1}];
-  }
-
-  v51 = *(v94 + 1);
-  v52 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-  v96 = [v93 safeArrayViewWithCommandBuffer:v51 computeEncoder:v52 descriptor:v46 aliasing:1];
-
-  v53 = v96 == 0;
-  if (!v96)
-  {
-    [v46 setPreferPackedRows:1];
-    v96 = [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:*(v94 + 1) descriptor:v46];
-  }
-
-  v86 = v53;
-
-  v20 = 1;
-  v21 = 2;
-  v26 = 3;
-LABEL_64:
-  v92 = *(v95 + 8);
-  v54 = v12;
-  v55 = *(v95 + 128);
-  if (!v55 || *(v95 + 40) != 1)
-  {
-    v100 = *(v95 + 24);
-    mlir::mps::StridedSliceOp::getEndIsSize(&v100);
-    v102[0] = 0;
-    v102[1] = 0;
-    *&v103 = 0;
-    memset(v99, 0, sizeof(v99));
-    v57 = [v54 count];
-    if (v57)
-    {
-      if (!(v57 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    else
-    {
-      v58 = [v54 count];
-      if (v58)
-      {
-        std::vector<long>::__append(v102, v58);
-      }
-
-      v59 = [v54 count];
-      if (!v59)
-      {
-        v60 = [v54 count];
-        if (v60)
-        {
-          std::vector<long>::__append(v99, v60);
-        }
-
-        v61 = 0;
-        v62 = -1;
-        while (v61 < [v54 count])
-        {
-          v63 = [v54 objectAtIndexedSubscript:{v62 + objc_msgSend(v54, "count")}];
-          v64 = [v63 intValue];
-          v65 = v102[0];
-          *(v102[0] + v61) = v64;
-
-          *(v99[0] + v61) = v65[v61];
-          ++v61;
-          --v62;
-        }
-
-        v66 = v102[0];
-        v67 = v99[0];
-        *(v99[0] + v20) = *(v102[0] + v20) * v90;
-        v67[v21] = v66[v21] * v90;
-        v67[v26] = v66[v26] / (v90 * v90);
-        operator new();
-      }
-
-      if (!(v59 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    std::vector<long>::__throw_length_error[abi:ne200100]();
-  }
-
-  v56 = v55;
-
-  v68 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-  v69 = *(v94 + 1);
-  v110 = v97;
-  v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v110 count:1];
-  [v92 encodeToMPSCommandEncoder:v68 commandBuffer:v69 sourceArrays:v70 resultState:0 destinationArray:v96 kernelDAGObject:v56];
-
-  if (v86)
-  {
-    v71 = objc_alloc(MEMORY[0x1E6974740]);
-    v72 = [*(*(v95 + 16) + 48) metalDevice];
-    v73 = [v71 initWithDevice:v72];
-
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    v105 = 0u;
-    v103 = 0u;
-    v104 = 0u;
-    *v102 = 0u;
-    if (v29)
-    {
-      if (v29 == 1)
-      {
-        v74 = 0;
-      }
-
-      else
-      {
-        v75 = 0;
-        v74 = (v29 & 0xFFFFFFFFFFFFFFFELL);
-        v76 = &v111 + 1;
-        do
-        {
-          v77 = *v76;
-          v102[*(v76 - 1)] = v75;
-          v102[v77] = (v75 + 1);
-          v76 += 2;
-          v75 += 2;
-        }
-
-        while (v75 != v74);
-        if (v29 == v74)
-        {
-          goto LABEL_89;
-        }
-      }
-
-      do
-      {
-        v102[*(&v112[-1] + v74)] = v74;
-        ++v74;
-      }
-
-      while (v29 != v74);
-    }
-
-LABEL_89:
-    v78 = [v96 descriptor];
-    [v78 permuteWithDimensionOrder:v102];
-    v79 = *(v94 + 1);
-    v80 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-    v81 = [v96 safeArrayViewWithCommandBuffer:v79 computeEncoder:v80 descriptor:v78 aliasing:0];
-
-    v82 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-    v83 = *(v94 + 1);
-    v101 = v81;
-    v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
-    [v73 encodeToMPSCommandEncoder:v82 commandBuffer:v83 sourceArrays:v84 destinationArray:v93];
-  }
-}
-
-uint64_t GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,true>::kernelDAGOp(uint64_t a1, uint64_t a2)
-{
-  v8 = *(a1 + 24);
-  v3 = *(*(v8 + 72) + 24);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v3, 0);
-  mlir::pdl::ResultOp::getIndex(&v8);
-  mlir::mps::StridedSliceOp::getEndIsSize(&v8);
-  v4 = (*(v3 + 8) & 0xFFFFFFFFFFFFFFF8);
-  if (v4)
-  {
-    v5 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v4 + 8);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v7[0] = v4;
-  v7[1] = v5;
-  mlir::CallableOpInterface::getArgAttrsAttr(v7);
-  return MPSKernelDAG::spaceToDepth2dOp();
-}
-
-void GPU::DepthToSpace2DOpHandler::~DepthToSpace2DOpHandler(id *this)
-{
-  *this = &unk_1F5B4D918;
-  v2 = this[15];
-  this[15] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-}
-
-{
-
-  *this = &unk_1F5B4D918;
-  v2 = this[15];
-  this[15] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,false>::encodeNDArrayOp(uint64_t a1, uint64_t a2, void *a3)
-{
-  v113 = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  v6 = *(a1 + 16);
-  v95 = a1;
-  v98 = *(a1 + 24);
-  v87 = v5;
-  v7 = (*(*v6 + 48))(v6, *(*(v98 + 72) + 24), 0);
-  v8 = [v7 mpsndarray];
-
-  v88 = [v5 objectAtIndexedSubscript:0];
-  v9 = [v88 mpsndarray];
-  if (v8)
-  {
-    v10 = v9 == 0;
-  }
-
-  else
-  {
-    v10 = 1;
-  }
-
-  v89 = v9;
-  if (v10 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v11 = [v8 descriptor];
-  v12 = [v11 getShape];
-
-  v91 = [v12 count];
-  if (CoordAxis >= 0)
-  {
-    v14 = v91;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  if (v15 >= 0)
-  {
-    v16 = v91;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v94 = a2;
-  if (v17 >= 0)
-  {
-    v18 = v91;
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  Index = mlir::pdl::ResultOp::getIndex(&v98);
-  v20 = v14 + ~CoordAxis;
-  v21 = v16 + ~v15;
-  v22 = v18 + ~v17;
-  [v8 dataType];
-  v23 = v8;
-  v24 = v89;
-  memset(&v112[1], 0, 96);
-  v25 = v20 <= 3 && v21 <= 3;
-  v26 = v22;
-  v27 = v25 && v22 < 4;
-  v111 = 0uLL;
-  v112[0] = 0uLL;
-  v93 = v24;
-  v90 = Index;
-  if (v27)
-  {
-    v86 = 0;
-    v96 = v24;
-    v97 = v23;
-    v29 = v91;
-    goto LABEL_64;
-  }
-
-  v85 = [v23 descriptor];
-  v29 = v91;
-  if (!v91)
-  {
-    goto LABEL_36;
-  }
-
-  if (v91 <= 3)
-  {
-    for (i = 0; i != v91; ++i)
-    {
-LABEL_28:
-      *(&v112[-1] + i) = i;
-    }
-
-    goto LABEL_29;
-  }
-
-  i = v91 & 0xFFFFFFFFFFFFFFFCLL;
-  v28 = xmmword_1E09700F0;
-  v31 = v112;
-  v32 = vdupq_n_s64(2uLL);
-  v33 = vdupq_n_s64(4uLL);
-  v34 = v91 & 0xFFFFFFFFFFFFFFFCLL;
-  do
-  {
-    v31[-1] = v28;
-    *v31 = vaddq_s64(v28, v32);
-    v28 = vaddq_s64(v28, v33);
-    v31 += 2;
-    v34 -= 4;
-  }
-
-  while (v34);
-  if (v91 != i)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_29:
-  if (v91 >= 1)
-  {
-    v35 = 0;
-    v36 = -1;
-    do
-    {
-      if (*(&v112[-1] + v35) == 1)
-      {
-        v36 = v35;
-      }
-
-      ++v35;
-      v37 = 1;
-    }
-
-    while (v35 < (v91 & 0x7FFFFFFF) && v36 < 0);
-    goto LABEL_37;
-  }
-
-LABEL_36:
-  v37 = 0;
-  v36 = -1;
-LABEL_37:
-  if (v36 != v20)
-  {
-    v38 = 8 * v20;
-    *(&v112[-1] + v36) = *(&v112[-1] + v38);
-    *(&v112[-1] + v38) = 1;
-  }
-
-  if (v37)
-  {
-    v39 = 0;
-    v40 = -1;
-    do
-    {
-      if (*(&v112[-1] + v39) == 2)
-      {
-        v40 = v39;
-      }
-
-      ++v39;
-    }
-
-    while (v39 < (v91 & 0x7FFFFFFF) && v40 < 0);
-  }
-
-  else
-  {
-    v40 = -1;
-  }
-
-  if (v40 != v21)
-  {
-    v41 = 8 * v21;
-    *(&v112[-1] + v40) = *(&v112[-1] + v41);
-    *(&v112[-1] + v41) = 2;
-  }
-
-  if (v37)
-  {
-    v42 = 0;
-    v43 = -1;
-    v44 = v93;
-    do
-    {
-      if (*(&v112[-1] + v42) == 3)
-      {
-        v43 = v42;
-      }
-
-      ++v42;
-    }
-
-    while (v42 < (v91 & 0x7FFFFFFF) && v43 < 0);
-  }
-
-  else
-  {
-    v43 = -1;
-    v44 = v93;
-  }
-
-  if (v43 != v22)
-  {
-    v45 = 8 * v22;
-    *(&v112[-1] + v43) = *(&v112[-1] + v45);
-    *(&v112[-1] + v45) = 3;
-  }
-
-  v46 = [v44 descriptor];
-  [v85 permuteWithDimensionOrder:&v111];
-  [v46 permuteWithDimensionOrder:&v111];
-  v47 = *(v94 + 1);
-  v48 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-  v97 = [v23 safeArrayViewWithCommandBuffer:v47 computeEncoder:v48 descriptor:v85 aliasing:0];
-
-  v49 = [v97 descriptor];
-  v50 = [v49 getShape];
-
-  v12 = v50;
-  if (*(v93 + *MEMORY[0x1E69744E8]) == 1)
-  {
-    [v93 setReadCount:{objc_msgSend(v93, "readCount") + 1}];
-  }
-
-  v51 = *(v94 + 1);
-  v52 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-  v96 = [v93 safeArrayViewWithCommandBuffer:v51 computeEncoder:v52 descriptor:v46 aliasing:1];
-
-  v53 = v96 == 0;
-  if (!v96)
-  {
-    [v46 setPreferPackedRows:1];
-    v96 = [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:*(v94 + 1) descriptor:v46];
-  }
-
-  v86 = v53;
-
-  v20 = 1;
-  v21 = 2;
-  v26 = 3;
-LABEL_64:
-  v92 = *(v95 + 8);
-  v54 = v12;
-  v55 = *(v95 + 128);
-  if (!v55 || *(v95 + 40) != 1)
-  {
-    v100 = *(v95 + 24);
-    mlir::mps::StridedSliceOp::getEndIsSize(&v100);
-    v102[0] = 0;
-    v102[1] = 0;
-    *&v103 = 0;
-    memset(v99, 0, sizeof(v99));
-    v57 = [v54 count];
-    if (v57)
-    {
-      if (!(v57 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    else
-    {
-      v58 = [v54 count];
-      if (v58)
-      {
-        std::vector<long>::__append(v102, v58);
-      }
-
-      v59 = [v54 count];
-      if (!v59)
-      {
-        v60 = [v54 count];
-        if (v60)
-        {
-          std::vector<long>::__append(v99, v60);
-        }
-
-        v61 = 0;
-        v62 = -1;
-        while (v61 < [v54 count])
-        {
-          v63 = [v54 objectAtIndexedSubscript:{v62 + objc_msgSend(v54, "count")}];
-          v64 = [v63 intValue];
-          v65 = v102[0];
-          *(v102[0] + v61) = v64;
-
-          *(v99[0] + v61) = v65[v61];
-          ++v61;
-          --v62;
-        }
-
-        v66 = v102[0];
-        v67 = v99[0];
-        *(v99[0] + v20) = *(v102[0] + v20) / v90;
-        v67[v21] = v66[v21] / v90;
-        v67[v26] = v90 * v90 * v66[v26];
-        operator new();
-      }
-
-      if (!(v59 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    std::vector<long>::__throw_length_error[abi:ne200100]();
-  }
-
-  v56 = v55;
-
-  v68 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-  v69 = *(v94 + 1);
-  v110 = v97;
-  v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v110 count:1];
-  [v92 encodeToMPSCommandEncoder:v68 commandBuffer:v69 sourceArrays:v70 resultState:0 destinationArray:v96 kernelDAGObject:v56];
-
-  if (v86)
-  {
-    v71 = objc_alloc(MEMORY[0x1E6974740]);
-    v72 = [*(*(v95 + 16) + 48) metalDevice];
-    v73 = [v71 initWithDevice:v72];
-
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    v105 = 0u;
-    v103 = 0u;
-    v104 = 0u;
-    *v102 = 0u;
-    if (v29)
-    {
-      if (v29 == 1)
-      {
-        v74 = 0;
-      }
-
-      else
-      {
-        v75 = 0;
-        v74 = (v29 & 0xFFFFFFFFFFFFFFFELL);
-        v76 = &v111 + 1;
-        do
-        {
-          v77 = *v76;
-          v102[*(v76 - 1)] = v75;
-          v102[v77] = (v75 + 1);
-          v76 += 2;
-          v75 += 2;
-        }
-
-        while (v75 != v74);
-        if (v29 == v74)
-        {
-          goto LABEL_89;
-        }
-      }
-
-      do
-      {
-        v102[*(&v112[-1] + v74)] = v74;
-        ++v74;
-      }
-
-      while (v29 != v74);
-    }
-
-LABEL_89:
-    v78 = [v96 descriptor];
-    [v78 permuteWithDimensionOrder:v102];
-    v79 = *(v94 + 1);
-    v80 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-    v81 = [v96 safeArrayViewWithCommandBuffer:v79 computeEncoder:v80 descriptor:v78 aliasing:0];
-
-    v82 = GPU::EncodeDescriptor::getcomputeEncoder(v94);
-    v83 = *(v94 + 1);
-    v101 = v81;
-    v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
-    [v73 encodeToMPSCommandEncoder:v82 commandBuffer:v83 sourceArrays:v84 destinationArray:v93];
-  }
-}
-
-uint64_t GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,false>::kernelDAGOp(uint64_t a1, uint64_t a2)
-{
-  v8 = *(a1 + 24);
-  v3 = *(*(v8 + 72) + 24);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v3, 0);
-  mlir::pdl::ResultOp::getIndex(&v8);
-  mlir::mps::StridedSliceOp::getEndIsSize(&v8);
-  v4 = (*(v3 + 8) & 0xFFFFFFFFFFFFFFF8);
-  if (v4)
-  {
-    v5 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v4 + 8);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v7[0] = v4;
-  v7[1] = v5;
-  mlir::CallableOpInterface::getArgAttrsAttr(v7);
-  return MPSKernelDAG::spaceToDepth2dOp();
-}
-
-void GPU::SpaceToDepth2DOpHandler::~SpaceToDepth2DOpHandler(id *this)
-{
-  *this = &unk_1F5B4D918;
-  v2 = this[15];
-  this[15] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-}
-
-{
-
-  *this = &unk_1F5B4D918;
-  v2 = this[15];
-  this[15] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::SpaceToBatchGenericOpHandler<mlir::mps::BatchToSpaceOp,true>::encodeNDArrayOp(uint64_t a1, id *a2, void *a3)
-{
-  v128 = *MEMORY[0x1E69E9840];
-  v93 = a3;
-  v5 = *(a1 + 24);
-  v6 = (*(**(a1 + 16) + 48))(*(a1 + 16), *(*(v5 + 72) + 24), 0);
-  v7 = [v6 mpsndarray];
-
-  v85 = [v93 objectAtIndexedSubscript:0];
-  v8 = [v85 mpsndarray];
-  v94 = v8;
-  if (v7)
-  {
-    v9 = v8 == 0;
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (v9 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  GPURegionRuntime::waitAndReadIntTensorData(*(a1 + 16), a2, *(*(v5 + 72) + 56), &v113);
-  GPURegionRuntime::waitAndReadIntTensorData(*(a1 + 16), a2, *(*(v5 + 72) + 120), v112);
-  GPURegionRuntime::waitAndReadIntTensorData(*(a1 + 16), a2, *(*(v5 + 72) + 88), v111);
-  v10 = [v7 descriptor];
-  v95 = a1;
-  v88 = [v10 getShape];
-
-  v11 = [v94 descriptor];
-  v12 = [v11 getShape];
-
-  v13 = v88;
-  v92 = v12;
-  v102 = v13;
-  v14 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-  v99 = a2[1];
-  v100 = v14;
-  v15 = [v13 count];
-  v16 = v15;
-  v103 = v15;
-  if (((v114 - v113) >> 3) >= 1)
-  {
-    v17 = (((v114 - v113) >> 3) & 0x7FFFFFFF) - 1;
-    do
-    {
-      if (*(v112[0] + v17) >= 2)
-      {
-        operator new();
-      }
-
-      v18 = v17-- + 1;
-    }
-
-    while (v18 > 1);
-    v16 = v15;
-  }
-
-  if (*v111[0] >= 0)
-  {
-    v19 = v15;
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v20 = v19 + ~*v111[0];
-  if (!v15 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  if (v16 >= 16 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v89 = v20 > 3;
-  v127[4] = xmmword_1E09ABDA0;
-  v127[5] = unk_1E09ABDB0;
-  if (v16 - 1 >= 3)
-  {
-    v21 = 3;
-  }
-
-  else
-  {
-    v21 = v16 - 1;
-  }
-
-  v127[6] = xmmword_1E09ABDC0;
-  v127[7] = unk_1E09ABDD0;
-  v127[0] = xmmword_1E09ABD60;
-  v127[1] = unk_1E09ABD70;
-  v127[2] = xmmword_1E09ABD80;
-  v127[3] = unk_1E09ABD90;
-  if (v20 > 3)
-  {
-    if (v16 < 1)
-    {
-      v23 = -1;
-      if (v21 != -1)
-      {
-LABEL_27:
-        *(v127 + v23) = *(v127 + v21);
-        *(v127 + v21) = v20;
-      }
-    }
-
-    else
-    {
-      v22 = 0;
-      v23 = -1;
-      do
-      {
-        if (*(v127 + v22) == v20)
-        {
-          v23 = v22;
-        }
-
-        ++v22;
-      }
-
-      while (v22 < (v15 & 0x7FFFFFFF) && v23 < 0);
-      if (v23 != v21)
-      {
-        goto LABEL_27;
-      }
-    }
-  }
-
-  v83 = v21;
-  v81 = v15 << 32;
-  [v7 dataType];
-  v24 = v7;
-  v25 = v94;
-  v101 = v25;
-  v97 = v24;
-  if (v20 <= 3)
-  {
-    v87 = *(v95 + 8);
-    v82 = 0;
-    v30 = v13;
-    v84 = v92;
-    v96 = v24;
-    v98 = v25;
-  }
-
-  else
-  {
-    v86 = [v24 descriptor];
-    v104 = [v25 descriptor];
-    [v86 permuteWithDimensionOrder:v127];
-    [v104 permuteWithDimensionOrder:v127];
-    v79 = [v24 safeArrayViewWithCommandBuffer:v99 computeEncoder:v100 descriptor:v86 aliasing:0];
-
-    if (*(v25 + *MEMORY[0x1E69744E8]) == 1)
-    {
-      [v25 setReadCount:{objc_msgSend(v25, "readCount") + 1}];
-    }
-
-    v80 = [v25 safeArrayViewWithCommandBuffer:v99 computeEncoder:v100 descriptor:v104 aliasing:1];
-    v96 = v79;
-
-    v82 = v80 == 0;
-    v98 = v80;
-    if (!v80)
-    {
-      [v104 setPreferPackedRows:1];
-      v98 = [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:v99 descriptor:v104];
-    }
-
-    v26 = [v79 descriptor];
-    v27 = [v26 getShape];
-
-    v28 = [v98 descriptor];
-    v29 = [v28 getShape];
-
-    v87 = *(v95 + 8);
-    v30 = v27;
-    v84 = v29;
-  }
-
-  if (v20 <= 3)
-  {
-    v31 = v20;
-  }
-
-  else
-  {
-    v31 = v83;
-  }
-
-  *v119 = xmmword_1E0970050;
-  std::set<int>::set[abi:ne200100](&v108, v119, 4);
-  if (v20 <= 3 && v109)
-  {
-    v32 = &v109;
-    v33 = v109;
-    do
-    {
-      if (*(v33 + 7) >= v31)
-      {
-        v32 = v33;
-      }
-
-      v33 = v33[*(v33 + 7) < v31];
-    }
-
-    while (v33);
-    if (v32 != &v109 && v31 >= *(v32 + 7))
-    {
-      v34 = v32[1];
-      if (v34)
-      {
-        do
-        {
-          v35 = v34;
-          v34 = *v34;
-        }
-
-        while (v34);
-      }
-
-      else
-      {
-        v36 = v32;
-        do
-        {
-          v35 = v36[2];
-          v9 = *v35 == v36;
-          v36 = v35;
-        }
-
-        while (!v9);
-      }
-
-      if (v108 == v32)
-      {
-        v108 = v35;
-      }
-
-      --v110;
-      std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v109, v32);
-      operator delete(v32);
-    }
-  }
-
-  if (v89)
-  {
-    v37 = v87;
-  }
-
-  else
-  {
-    v38 = v108;
-    v39 = v108[1];
-    v37 = v87;
-    if (v39)
-    {
-      do
-      {
-        v40 = v39;
-        v39 = *v39;
-      }
-
-      while (v39);
-    }
-
-    else
-    {
-      v41 = v108;
-      do
-      {
-        v40 = v41[2];
-        v9 = *v40 == v41;
-        v41 = v40;
-      }
-
-      while (!v9);
-    }
-
-    v108 = v40;
-    --v110;
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v109, v38);
-    v42 = *(v38 + 7);
-    v107 = xmmword_1E09ABB80;
-    *(&v107 & 0xFFFFFFFFFFFFFFF3) = v42;
-    v90 = v107;
-    operator delete(v38);
-    v43 = v108;
-    v44 = v108[1];
-    if (v44)
-    {
-      do
-      {
-        v45 = v44;
-        v44 = *v44;
-      }
-
-      while (v44);
-    }
-
-    else
-    {
-      v46 = v108;
-      do
-      {
-        v45 = v46[2];
-        v9 = *v45 == v46;
-        v46 = v45;
-      }
-
-      while (!v9);
-    }
-
-    v108 = v45;
-    --v110;
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v109, v43);
-    v47 = *(v43 + 7);
-    v106 = v90;
-    *(&v106 & 0xFFFFFFFFFFFFFFF3 | 4) = v47;
-    v91 = v106;
-    operator delete(v43);
-    v48 = v108;
-    v49 = v108[1];
-    if (v49)
-    {
-      do
-      {
-        v50 = v49;
-        v49 = *v49;
-      }
-
-      while (v49);
-    }
-
-    else
-    {
-      v51 = v108;
-      do
-      {
-        v50 = v51[2];
-        v9 = *v50 == v51;
-        v51 = v50;
-      }
-
-      while (!v9);
-    }
-
-    v108 = v50;
-    --v110;
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v109, v48);
-    v52 = *(v48 + 7);
-    v105 = v91;
-    *(&v105 & 0xFFFFFFFFFFFFFFF3 | 8) = v52;
-    operator delete(v48);
-  }
-
-  v53 = v30;
-  v54 = v84;
-  v55 = *(v95 + 120);
-  if (!v55 || *(v95 + 40) != 1)
-  {
-    v115 = *(v95 + 24);
-    mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v115);
-    v119[1] = 0;
-    v119[0] = 0;
-    *&v120 = 0;
-    memset(v118, 0, 24);
-    v57 = [v53 count];
-    if (v57)
-    {
-      if (!(v57 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    else
-    {
-      v58 = [v53 count];
-      if (v58)
-      {
-        std::vector<long>::__append(v119, v58);
-      }
-
-      v59 = [v53 count];
-      if (!v59)
-      {
-        v60 = [v53 count];
-        if (v60)
-        {
-          std::vector<long>::__append(v118, v60);
-        }
-
-        v61 = 0;
-        v62 = -1;
-        while (v61 < [v53 count])
-        {
-          v63 = [v53 objectAtIndexedSubscript:{v62 + objc_msgSend(v53, "count")}];
-          v64 = [v63 intValue];
-          *(v119[0] + v61) = v64;
-
-          v65 = [v54 objectAtIndexedSubscript:{v62 + objc_msgSend(v53, "count")}];
-          v66 = [v65 intValue];
-          *(v118[0] + v61) = v66;
-
-          ++v61;
-          --v62;
-        }
-
-        operator new();
-      }
-
-      if (!(v59 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    std::vector<long>::__throw_length_error[abi:ne200100]();
-  }
-
-  v56 = v55;
-
-  v117 = v96;
-  v67 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v117 count:1];
-  [v37 encodeToMPSCommandEncoder:v100 commandBuffer:v99 sourceArrays:v67 resultState:0 destinationArray:v98 kernelDAGObject:v56];
-
-  std::__tree<void *>::destroy(v109);
-  if (v82)
-  {
-    v68 = objc_alloc(MEMORY[0x1E6974740]);
-    v69 = [*(*(v95 + 16) + 48) metalDevice];
-    v70 = [v68 initWithDevice:v69];
-
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
-    v122 = 0u;
-    *v119 = 0u;
-    v120 = 0u;
-    if (v81)
-    {
-      v71 = v103;
-      if (v103 > 1)
-      {
-        v73 = 0;
-        v72 = (v103 & 0xFFFFFFFFFFFFFFFELL);
-        v74 = v127 + 1;
-        do
-        {
-          v75 = *v74;
-          v119[*(v74 - 1)] = v73;
-          v119[v75] = (v73 + 1);
-          v74 += 2;
-          v73 += 2;
-        }
-
-        while (v73 != v72);
-        if (v103 == v72)
-        {
-          goto LABEL_103;
-        }
-      }
-
-      else
-      {
-        v71 = 1;
-        v72 = 0;
-      }
-
-      do
-      {
-        v119[*(v127 + v72)] = v72;
-        ++v72;
-      }
-
-      while (v71 != v72);
-    }
-
-LABEL_103:
-    v76 = [v98 descriptor];
-    [v76 permuteWithDimensionOrder:v119];
-    v77 = [v98 safeArrayViewWithCommandBuffer:v99 computeEncoder:v100 descriptor:v76 aliasing:0];
-    v116 = v77;
-    v78 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v116 count:1];
-    [v70 encodeToMPSCommandEncoder:v100 commandBuffer:v99 sourceArrays:v78 destinationArray:v101];
-  }
-
-  if (v111[0])
-  {
-    v111[1] = v111[0];
-    operator delete(v111[0]);
-  }
-
-  if (v112[0])
-  {
-    v112[1] = v112[0];
-    operator delete(v112[0]);
-  }
-
-  if (v113)
-  {
-    v114 = v113;
-    operator delete(v113);
-  }
-}
-
-void sub_1E0890548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, void *a37, void *a38, uint64_t a39, uint64_t a40, void *a41, void *a42, void *a43, uint64_t a44, void *a45, uint64_t a46, void *a47, void *a48, void *a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, uint64_t a55, _Unwind_Exception *exception_objecta, uint64_t a57, uint64_t a58, uint64_t a59, void *__p)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (v62)
-  {
-    operator delete(v62);
-  }
-
-  v63 = STACK[0x218];
-  if (STACK[0x218])
-  {
-    STACK[0x220] = v63;
-    operator delete(v63);
-    v64 = STACK[0x230];
-    if (!STACK[0x230])
-    {
-LABEL_7:
-      v65 = STACK[0x248];
-      if (!STACK[0x248])
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    v64 = STACK[0x230];
-    if (!STACK[0x230])
-    {
-      goto LABEL_7;
-    }
-  }
-
-  STACK[0x238] = v64;
-  operator delete(v64);
-  v65 = STACK[0x248];
-  if (!STACK[0x248])
-  {
-LABEL_9:
-
-    _Unwind_Resume(a1);
-  }
-
-LABEL_8:
-  STACK[0x250] = v65;
-  operator delete(v65);
-  goto LABEL_9;
-}
-
-void GPU::BatchToSpaceOpHandler::~BatchToSpaceOpHandler(id *this)
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-}
-
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-unint64_t GPU::SpaceToBatchGenericOpHandler<mlir::mps::BatchToSpaceOp,true>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
-{
-  if (a4)
-  {
-    return GPU::BaseOpHandler::_getJITStaticOperandReprConstant(this, a2, a3, a4);
-  }
-
-  else
-  {
-    return GPU::BaseOpHandler::_getJITStaticOperandReprPlaceholder(this, a2, a3, 0);
-  }
-}
-
-void GPU::SpaceToBatchGenericOpHandler<mlir::mps::SpaceToBatchOp,false>::encodeNDArrayOp(uint64_t a1, id *a2, void *a3)
-{
-  v121 = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  v6 = *(a1 + 24);
-  v7 = (*(**(a1 + 16) + 48))(*(a1 + 16), *(*(v6 + 72) + 24), 0);
-  v89 = [v7 mpsndarray];
-
-  v78 = [v5 objectAtIndexedSubscript:0];
-  v8 = [v78 mpsndarray];
-  v87 = v8;
-  if (v89)
-  {
-    v9 = v8 == 0;
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (v9 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  GPURegionRuntime::waitAndReadIntTensorData(*(a1 + 16), a2, *(*(v6 + 72) + 56), &v106);
-  GPURegionRuntime::waitAndReadIntTensorData(*(a1 + 16), a2, *(*(v6 + 72) + 120), v105);
-  GPURegionRuntime::waitAndReadIntTensorData(*(a1 + 16), a2, *(*(v6 + 72) + 88), v104);
-  v10 = [v89 descriptor];
-  v81 = [v10 getShape];
-
-  v11 = [v87 descriptor];
-  v12 = [v11 getShape];
-
-  v13 = v81;
-  v86 = v12;
-  v94 = v13;
-  v91 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-  v92 = a2[1];
-  v95 = [v13 count];
-  if (((v107 - v106) >> 3) >= 1)
-  {
-    v14 = (((v107 - v106) >> 3) & 0x7FFFFFFF) - 1;
-    do
-    {
-      if (*(v105[0] + v14) >= 2)
-      {
-        operator new();
-      }
-
-      v15 = v14-- + 1;
-    }
-
-    while (v15 > 1);
-  }
-
-  if (*v104[0] >= 0)
-  {
-    v16 = v95;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = v16 + ~*v104[0];
-  if (!v95 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  if (v95 >= 16 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v120[4] = xmmword_1E09ABDA0;
-  v120[5] = unk_1E09ABDB0;
-  if (v95 - 1 >= 3)
-  {
-    v18 = 3;
-  }
-
-  else
-  {
-    v18 = v95 - 1;
-  }
-
-  v120[6] = xmmword_1E09ABDC0;
-  v120[7] = unk_1E09ABDD0;
-  v120[0] = xmmword_1E09ABD60;
-  v120[1] = unk_1E09ABD70;
-  v120[2] = xmmword_1E09ABD80;
-  v120[3] = unk_1E09ABD90;
-  if (v17 > 3)
-  {
-    if (v95 < 1)
-    {
-      v20 = -1;
-      if (v18 != -1)
-      {
-LABEL_26:
-        *(v120 + v20) = *(v120 + v18);
-        *(v120 + v18) = v17;
-      }
-    }
-
-    else
-    {
-      v19 = 0;
-      v20 = -1;
-      do
-      {
-        if (*(v120 + v19) == v17)
-        {
-          v20 = v19;
-        }
-
-        ++v19;
-      }
-
-      while (v19 < (v95 & 0x7FFFFFFF) && v20 < 0);
-      if (v20 != v18)
-      {
-        goto LABEL_26;
-      }
-    }
-  }
-
-  v77 = v18;
-  [v89 dataType];
-  v21 = v89;
-  v22 = v87;
-  v88 = v21;
-  v93 = v22;
-  if (v17 <= 3)
-  {
-    v27 = v22;
-    v83 = *(a1 + 8);
-    v76 = 0;
-    v80 = v13;
-    v75 = v86;
-    v90 = v27;
-  }
-
-  else
-  {
-    v79 = [v21 descriptor];
-    v82 = [v93 descriptor];
-    [v79 permuteWithDimensionOrder:v120];
-    [v82 permuteWithDimensionOrder:v120];
-    v23 = [v21 safeArrayViewWithCommandBuffer:v92 computeEncoder:v91 descriptor:v79 aliasing:0];
-
-    v21 = v23;
-    if (*(v93 + *MEMORY[0x1E69744E8]) == 1)
-    {
-      [v93 setReadCount:{objc_msgSend(v93, "readCount") + 1}];
-    }
-
-    v74 = [v93 safeArrayViewWithCommandBuffer:v92 computeEncoder:v91 descriptor:v82 aliasing:1];
-
-    v76 = v74 == 0;
-    v90 = v74;
-    if (!v74)
-    {
-      [v82 setPreferPackedRows:1];
-      v90 = [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:v92 descriptor:v82];
-    }
-
-    v24 = [v23 descriptor];
-    v25 = [v24 getShape];
-
-    v26 = [v90 descriptor];
-    v96 = [v26 getShape];
-
-    v83 = *(a1 + 8);
-    v80 = v25;
-    v75 = v96;
-  }
-
-  if (v17 <= 3)
-  {
-    v28 = v17;
-  }
-
-  else
-  {
-    v28 = v77;
-  }
-
-  *v112 = xmmword_1E0970050;
-  std::set<int>::set[abi:ne200100](&v101, v112, 4);
-  if (v17 <= 3 && v102)
-  {
-    v29 = &v102;
-    v30 = v102;
-    do
-    {
-      if (*(v30 + 7) >= v28)
-      {
-        v29 = v30;
-      }
-
-      v30 = v30[*(v30 + 7) < v28];
-    }
-
-    while (v30);
-    if (v29 != &v102 && v28 >= *(v29 + 7))
-    {
-      v31 = v29[1];
-      if (v31)
-      {
-        do
-        {
-          v32 = v31;
-          v31 = *v31;
-        }
-
-        while (v31);
-      }
-
-      else
-      {
-        v33 = v29;
-        do
-        {
-          v32 = v33[2];
-          v9 = *v32 == v33;
-          v33 = v32;
-        }
-
-        while (!v9);
-      }
-
-      if (v101 == v29)
-      {
-        v101 = v32;
-      }
-
-      --v103;
-      std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v102, v29);
-      operator delete(v29);
-    }
-  }
-
-  if (v17 <= 3)
-  {
-    v34 = v101;
-    v35 = v101[1];
-    if (v35)
-    {
-      do
-      {
-        v36 = v35;
-        v35 = *v35;
-      }
-
-      while (v35);
-    }
-
-    else
-    {
-      v37 = v101;
-      do
-      {
-        v36 = v37[2];
-        v9 = *v36 == v37;
-        v37 = v36;
-      }
-
-      while (!v9);
-    }
-
-    v101 = v36;
-    --v103;
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v102, v34);
-    v38 = *(v34 + 7);
-    v100 = xmmword_1E09ABB80;
-    *(&v100 & 0xFFFFFFFFFFFFFFF3) = v38;
-    v84 = v100;
-    operator delete(v34);
-    v39 = v101;
-    v40 = v101[1];
-    if (v40)
-    {
-      do
-      {
-        v41 = v40;
-        v40 = *v40;
-      }
-
-      while (v40);
-    }
-
-    else
-    {
-      v42 = v101;
-      do
-      {
-        v41 = v42[2];
-        v9 = *v41 == v42;
-        v42 = v41;
-      }
-
-      while (!v9);
-    }
-
-    v101 = v41;
-    --v103;
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v102, v39);
-    v43 = *(v39 + 7);
-    v99 = v84;
-    *(&v99 & 0xFFFFFFFFFFFFFFF3 | 4) = v43;
-    v85 = v99;
-    operator delete(v39);
-    v44 = v101;
-    v45 = v101[1];
-    if (v45)
-    {
-      do
-      {
-        v46 = v45;
-        v45 = *v45;
-      }
-
-      while (v45);
-    }
-
-    else
-    {
-      v47 = v101;
-      do
-      {
-        v46 = v47[2];
-        v9 = *v46 == v47;
-        v47 = v46;
-      }
-
-      while (!v9);
-    }
-
-    v101 = v46;
-    --v103;
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v102, v44);
-    v48 = *(v44 + 7);
-    v98 = v85;
-    *(&v98 & 0xFFFFFFFFFFFFFFF3 | 8) = v48;
-    operator delete(v44);
-  }
-
-  v49 = v80;
-  v97 = v75;
-  v50 = *(a1 + 120);
-  if (!v50 || *(a1 + 40) != 1)
-  {
-    v108 = *(a1 + 24);
-    mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v108);
-    v112[1] = 0;
-    v112[0] = 0;
-    *&v113 = 0;
-    memset(v111, 0, 24);
-    v52 = [v49 count];
-    if (v52)
-    {
-      if (!(v52 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    else
-    {
-      v53 = [v49 count];
-      if (v53)
-      {
-        std::vector<long>::__append(v112, v53);
-      }
-
-      v54 = [v49 count];
-      if (!v54)
-      {
-        v55 = [v49 count];
-        if (v55)
-        {
-          std::vector<long>::__append(v111, v55);
-        }
-
-        v56 = 0;
-        v57 = -1;
-        while (v56 < [v49 count])
-        {
-          v58 = [v49 objectAtIndexedSubscript:{v57 + objc_msgSend(v49, "count")}];
-          v59 = [v58 intValue];
-          *(v112[0] + v56) = v59;
-
-          v60 = [v97 objectAtIndexedSubscript:{v57 + objc_msgSend(v49, "count")}];
-          v61 = [v60 intValue];
-          *(v111[0] + v56) = v61;
-
-          ++v56;
-          --v57;
-        }
-
-        operator new();
-      }
-
-      if (!(v54 >> 61))
-      {
-        operator new();
-      }
-    }
-
-    std::vector<long>::__throw_length_error[abi:ne200100]();
-  }
-
-  v51 = v50;
-
-  v110 = v21;
-  v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v110 count:1];
-  [v83 encodeToMPSCommandEncoder:v91 commandBuffer:v92 sourceArrays:v62 resultState:0 destinationArray:v90 kernelDAGObject:v51];
-
-  std::__tree<void *>::destroy(v102);
-  if (v76)
-  {
-    v63 = objc_alloc(MEMORY[0x1E6974740]);
-    v64 = [*(*(a1 + 16) + 48) metalDevice];
-    v65 = [v63 initWithDevice:v64];
-
-    v118 = 0u;
-    v119 = 0u;
-    v116 = 0u;
-    v117 = 0u;
-    v114 = 0u;
-    v115 = 0u;
-    *v112 = 0u;
-    v113 = 0u;
-    if (v95 << 32)
-    {
-      v66 = v95;
-      if (v95 > 1)
-      {
-        v68 = 0;
-        v67 = (v95 & 0xFFFFFFFFFFFFFFFELL);
-        v69 = v120 + 1;
-        do
-        {
-          v70 = *v69;
-          v112[*(v69 - 1)] = v68;
-          v112[v70] = (v68 + 1);
-          v69 += 2;
-          v68 += 2;
-        }
-
-        while (v68 != v67);
-        if (v95 == v67)
-        {
-          goto LABEL_101;
-        }
-      }
-
-      else
-      {
-        v66 = 1;
-        v67 = 0;
-      }
-
-      do
-      {
-        v112[*(v120 + v67)] = v67;
-        ++v67;
-      }
-
-      while (v66 != v67);
-    }
-
-LABEL_101:
-    v71 = [v90 descriptor];
-    [v71 permuteWithDimensionOrder:v112];
-    v72 = [v90 safeArrayViewWithCommandBuffer:v92 computeEncoder:v91 descriptor:v71 aliasing:0];
-    v109 = v72;
-    v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v109 count:1];
-    [v65 encodeToMPSCommandEncoder:v91 commandBuffer:v92 sourceArrays:v73 destinationArray:v93];
-  }
-
-  if (v104[0])
-  {
-    v104[1] = v104[0];
-    operator delete(v104[0]);
-  }
-
-  if (v105[0])
-  {
-    v105[1] = v105[0];
-    operator delete(v105[0]);
-  }
-
-  if (v106)
-  {
-    v107 = v106;
-    operator delete(v106);
-  }
-}
-
-void sub_1E0891FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, void *a39, uint64_t a40, void *a41, void *a42, uint64_t a43, uint64_t a44, void *a45, void *a46, uint64_t a47, uint64_t a48, void *a49, void *a50, void *a51, void *a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, void *__p, void *a62)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a62)
-  {
-    operator delete(a62);
-  }
-
-  v65 = STACK[0x248];
-  if (STACK[0x248])
-  {
-    STACK[0x250] = v65;
-    operator delete(v65);
-    v66 = STACK[0x260];
-    if (!STACK[0x260])
-    {
-LABEL_7:
-      v67 = STACK[0x278];
-      if (!STACK[0x278])
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    v66 = STACK[0x260];
-    if (!STACK[0x260])
-    {
-      goto LABEL_7;
-    }
-  }
-
-  STACK[0x268] = v66;
-  operator delete(v66);
-  v67 = STACK[0x278];
-  if (!STACK[0x278])
-  {
-LABEL_9:
-
-    _Unwind_Resume(a1);
-  }
-
-LABEL_8:
-  STACK[0x280] = v67;
-  operator delete(v67);
-  goto LABEL_9;
-}
-
-void GPU::SpaceToBatchOpHandler::~SpaceToBatchOpHandler(id *this)
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-}
-
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(this);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-unint64_t GPU::SpaceToBatchGenericOpHandler<mlir::mps::SpaceToBatchOp,false>::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
-{
-  if (a4)
-  {
-    return GPU::BaseOpHandler::_getJITStaticOperandReprConstant(this, a2, a3, a4);
-  }
-
-  else
-  {
-    return GPU::BaseOpHandler::_getJITStaticOperandReprPlaceholder(this, a2, a3, 0);
-  }
-}
-
-void GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::DepthToSpace2DOp,true>::~SpaceToDepth2DGenericOpHandler(uint64_t a1)
-{
-  *a1 = &unk_1F5B4D918;
-  v2 = *(a1 + 120);
-  *(a1 + 120) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-}
-
-{
-
-  *a1 = &unk_1F5B4D918;
-  v2 = *(a1 + 120);
-  *(a1 + 120) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::SpaceToDepth2DGenericOpHandler<mlir::mps::SpaceToDepth2DOp,false>::~SpaceToDepth2DGenericOpHandler(uint64_t a1)
-{
-  *a1 = &unk_1F5B4D918;
-  v2 = *(a1 + 120);
-  *(a1 + 120) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-}
-
-{
-
-  *a1 = &unk_1F5B4D918;
-  v2 = *(a1 + 120);
-  *(a1 + 120) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::SpaceToBatchGenericOpHandler<mlir::mps::BatchToSpaceOp,true>::~SpaceToBatchGenericOpHandler(id *a1)
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-}
-
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::SpaceToBatchGenericOpHandler<mlir::mps::SpaceToBatchOp,false>::~SpaceToBatchGenericOpHandler(id *a1)
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-}
-
-{
-
-  GPU::BaseOpHandler::~BaseOpHandler(a1);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void std::vector<long>::__append(uint64_t a1, unint64_t a2)
-{
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  if (a2 <= (v3 - v4) >> 3)
-  {
-    if (a2)
-    {
-      v10 = 8 * a2;
-      bzero(*(a1 + 8), 8 * a2);
-      v4 += v10;
-    }
-
-    *(a1 + 8) = v4;
-  }
-
-  else
-  {
-    v5 = *a1;
-    v6 = v4 - *a1;
-    v7 = (v6 >> 3) + a2;
-    if (v7 >> 61)
-    {
-      std::vector<long>::__throw_length_error[abi:ne200100]();
-    }
-
-    v8 = v3 - v5;
-    if (v8 >> 2 > v7)
-    {
-      v7 = v8 >> 2;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v9 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      if (!(v9 >> 61))
-      {
-        operator new();
-      }
-
-      std::__throw_bad_array_new_length[abi:ne200100]();
-    }
-
-    v11 = (8 * (v6 >> 3));
-    v12 = 8 * a2;
-    bzero(v11, 8 * a2);
-    memcpy(0, v5, v6);
-    *a1 = 0;
-    *(a1 + 8) = &v11[v12];
-    *(a1 + 16) = 0;
-    if (v5)
-    {
-
-      operator delete(v5);
-    }
-  }
-}
-
-id GPU::reshapeWithFallback(void *a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
-{
-  v11 = a1;
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = [v13 reshapeWithCommandEncoder:v11 commandBuffer:v12 sourceArray:v14 dimensionCount:a6 dimensionSizes:a5 destinationArray:0];
-  if (!v15)
-  {
-    v16 = [MEMORY[0x1E6974490] descriptorWithDataType:*&v14[*MEMORY[0x1E69744C8]] dimensionCount:a6 dimensionSizes:a5];
-    v15 = [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:v12 descriptor:v16];
-    v17 = [v13 reshapeWithCommandEncoder:v11 commandBuffer:v12 sourceArray:v14 dimensionCount:a6 dimensionSizes:a5 destinationArray:v15];
-  }
-
-  return v15;
-}
-
-void *std::set<int>::set[abi:ne200100](void *result, int *a2, uint64_t a3)
-{
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
-  if (a3)
-  {
-    for (i = a2; i != &a2[a3]; ++i)
-    {
-      v4 = result[1];
-      v5 = result + 1;
-      if (*result == result + 1)
-      {
-        goto LABEL_10;
-      }
-
-      v6 = result[1];
-      v7 = result + 1;
-      if (v4)
-      {
-        do
-        {
-          v5 = v6;
-          v6 = v6[1];
-        }
-
-        while (v6);
-      }
-
-      else
-      {
-        do
-        {
-          v5 = v7[2];
-          v8 = *v5 == v7;
-          v7 = v5;
-        }
-
-        while (v8);
-      }
-
-      v9 = *i;
-      if (*(v5 + 7) < *i)
-      {
-LABEL_10:
-        if (v4)
-        {
-          v10 = v5 + 1;
-        }
-
-        else
-        {
-          v10 = result + 1;
-        }
-
-        if (!*v10)
-        {
-LABEL_21:
-          operator new();
-        }
-      }
-
-      else
-      {
-        if (!v4)
-        {
-          goto LABEL_21;
-        }
-
-        while (1)
-        {
-          while (1)
-          {
-            v11 = v4;
-            v12 = *(v4 + 28);
-            if (v12 <= v9)
-            {
-              break;
-            }
-
-            v4 = *v11;
-            if (!*v11)
-            {
-              goto LABEL_21;
-            }
-          }
-
-          if (v12 >= v9)
-          {
-            break;
-          }
-
-          v4 = v11[1];
-          if (!v4)
-          {
-            goto LABEL_21;
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-void sub_1E0893848(_Unwind_Exception *a1)
-{
-  v4 = v2;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E0893DF0()
-{
-  loadCoreMLDialectInContext(v0);
-  v36 = 0u;
-  v37 = 0x1000000000;
-  v38 = &v40;
-  v39 = 0;
-  v41 = v0;
-  v42 = 1;
-  v43 = 0;
-  v44 = 0;
-  v45 = 0;
-  v46 = 0;
-  v47 = v49;
-  v48 = 0x600000000;
-  v49[6] = &v50;
-  v49[7] = 0x600000000;
-  v4 = [*(v2 + v1) bytes];
-  v5 = [*(v2 + v1) length];
-  v25.__r_.__value_.__r.__words[0] = 0;
-  *(v3 - 176) = 0u;
-  *(v3 - 160) = 0u;
-  *(v3 - 144) = v3 - 144;
-  *(v3 - 136) = v3 - 144;
-  *(v3 - 120) = 0;
-  *(v3 - 112) = 0;
-  *(v3 - 128) = 0;
-  if (mlir::parseSourceString(v4, v5, (v3 - 176), &v41, "", 0, &v25))
-  {
-    mlir::detail::constructContainerOpForParserIfNecessary<mlir::ModuleOp>(v3 - 176, v41, v25.__r_.__value_.__l.__data_, &v35);
-    mlir::Block::~Block((v3 - 176));
-    v6 = v35;
-    if (v35)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    v35 = 0;
-    mlir::Block::~Block((v3 - 176));
-    v6 = v35;
-    if (v35)
-    {
-LABEL_3:
-      Context = mlir::Attribute::getContext((v6 + 24));
-      mlir::PassManager::PassManager((v3 - 176), Context, "any", 3uLL, 1);
-      v9 = mlir::OpPassManager::nest(v8, "coreml.graph", 0xCuLL);
-      memset(v34, 0, sizeof(v34));
-      v10 = v24;
-      v11 = [v24 UTF8String];
-      v12 = strlen(v11);
-      if (v12 > 0x7FFFFFFFFFFFFFF7)
-      {
-        std::string::__throw_length_error[abi:ne200100]();
-      }
-
-      v13 = v12;
-      if (v12 >= 0x17)
-      {
-        operator new();
-      }
-
-      *(&v25.__r_.__value_.__s + 23) = v12;
-      if (v12)
-      {
-        memmove(&v25, v11, v12);
-        v25.__r_.__value_.__s.__data_[v13] = 0;
-        if ((SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_7;
-        }
-      }
-
-      else
-      {
-        v25.__r_.__value_.__s.__data_[0] = 0;
-        if ((SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_7;
-        }
-      }
-
-      operator delete(v34[0].__r_.__value_.__l.__data_);
-LABEL_7:
-      v34[0] = v25;
-      v14 = v23;
-      v15 = [v23 UTF8String];
-      v16 = strlen(v15);
-      if (v16 > 0x7FFFFFFFFFFFFFF7)
-      {
-        std::string::__throw_length_error[abi:ne200100]();
-      }
-
-      v17 = v16;
-      if (v16 >= 0x17)
-      {
-        operator new();
-      }
-
-      *(&v25.__r_.__value_.__s + 23) = v16;
-      if (v16)
-      {
-        memmove(&v25, v15, v16);
-        v25.__r_.__value_.__s.__data_[v17] = 0;
-        if ((SHIBYTE(v34[1].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      else
-      {
-        v25.__r_.__value_.__s.__data_[0] = 0;
-        if ((SHIBYTE(v34[1].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      operator delete(v34[1].__r_.__value_.__l.__data_);
-LABEL_11:
-      v34[1] = v25;
-      mlir::createReplaceGraphBodyWithDelegateCall(v34, &v25);
-      v18 = v25.__r_.__value_.__r.__words[0];
-      v25.__r_.__value_.__r.__words[0] = 0;
-      v33 = v18;
-      mlir::OpPassManager::addPass(v9, &v33);
-      v19 = v33;
-      v33 = 0;
-      if (v19)
-      {
-        (*(*v19 + 8))(v19);
-      }
-
-      v20 = v25.__r_.__value_.__r.__words[0];
-      v25.__r_.__value_.__r.__words[0] = 0;
-      if (v20)
-      {
-        (*(*v20 + 8))(v20);
-      }
-
-      v21.var0.var0 = v35;
-      if (!mlir::PassManager::run((v3 - 176), v21))
-      {
-        if (MTLReportFailureTypeEnabled())
-        {
-          MTLReportFailure();
-        }
-      }
-
-      mlir::BytecodeWriterConfig::BytecodeWriterConfig(&v32, &v36, "MLIR20.0.0git", 13);
-      memset(v31, 0, sizeof(v31));
-      LODWORD(v25.__r_.__value_.__r.__words[1]) = 0;
-      v28 = 0;
-      v29 = 1;
-      v26 = 0;
-      v27 = 0;
-      v25.__r_.__value_.__r.__words[2] = 0;
-      v25.__r_.__value_.__r.__words[0] = &unk_1F5B3FB30;
-      v30 = v31;
-      llvm::raw_ostream::SetBufferAndMode(&v25, 0, 0, 0);
-      mlir::writeBytecodeToFile(v35, &v25, &v32, v22);
-    }
-  }
-
-  mlir::ParserConfig::~ParserConfig(&v41);
 }

@@ -11,21 +11,19 @@
   {
     type metadata accessor for MediaAPISubscriptionController();
     v2 = swift_allocObject();
-    v3 = sub_25EA1E538();
-    v4 = *(v3 + 48);
-    v5 = *(v3 + 52);
+    sub_25EA1E538();
     swift_allocObject();
-    v6 = sub_25EA1E528();
-    v7 = v2;
-    *(v2 + 16) = v6;
+    v3 = sub_25EA1E528();
+    v4 = v2;
+    *(v2 + 16) = v3;
   }
 
   else
   {
-    v7 = [objc_allocWithZone(type metadata accessor for MediaRemoteSubscriptionController()) init];
+    v4 = [objc_allocWithZone(type metadata accessor for MediaRemoteSubscriptionController()) init];
   }
 
-  return v7;
+  return v4;
 }
 
 - (PKSubscriptionControllerFactory)init

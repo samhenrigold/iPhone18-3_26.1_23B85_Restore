@@ -241,15 +241,15 @@ LABEL_31:
 - (void)handlePowerTableEvalationNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = *(sub_1005710D8() + 8);
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10032DC54;
-  v7[3] = &unk_100AE0B60;
-  v8 = notificationCopy;
+  v6 = *(sub_1005710D8(notificationCopy, v5) + 8);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10032DC54;
+  v8[3] = &unk_100AE0B60;
+  v9 = notificationCopy;
   selfCopy = self;
-  v6 = notificationCopy;
-  dispatch_async(v5, v7);
+  v7 = notificationCopy;
+  dispatch_async(v6, v8);
 }
 
 - (void)reportPowerTableEvaluationVoteForBluetooth:(BOOL)bluetooth sessionID:(id)d

@@ -668,7 +668,7 @@ LABEL_13:
   {
     [*(v18 + 48) setObject:*(a1 + 48) forKeyedSubscript:*(a1 + 40)];
 LABEL_20:
-    if ([objc_msgSend(*(a1 + 48) objectForKeyedSubscript:{@"SecurityLocallyGenerated", *v49, *&v49[16], v50, v51, *v52, *&v52[16]), "BOOLValue"}])
+    if ([objc_msgSend(*(a1 + 48) objectForKeyedSubscript:{@"SecurityLocallyGenerated", *v49, *&v49[8], v50, v51, *v52, *&v52[8], *&v52[16], *&v52[24]), "BOOLValue"}])
     {
       [*(*(a1 + 32) + 40) setObject:*(a1 + 48) forKeyedSubscript:*(a1 + 40)];
       if (!VCMediaKeyIndex_isEqual(*(*(a1 + 32) + 64), *(a1 + 40)))
@@ -1222,12 +1222,23 @@ LABEL_12:
 - (void)adjustMKILength:(id)length securityKeyMode:(char)mode
 {
   modeCopy = mode;
-  v19 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  v21 = *MEMORY[0x1E69E9840];
   if (mode > 0)
   {
     if (mode == 1)
     {
-      if (!self->_shortMKIForOneToOneEnabled && !VCFeatureFlagManager_PQCU1Enabled() || !VCFeatureFlagManager_U1AuthTagEnabled())
+      if (!self->_shortMKIForOneToOneEnabled)
+      {
+        self = VCFeatureFlagManager_PQCU1Enabled();
+        if (!self)
+        {
+          return;
+        }
+      }
+
+      v7 = VCFeatureFlagManager_U1AuthTagEnabled(self, a2);
+      if (!v7)
       {
         return;
       }
@@ -1243,16 +1254,27 @@ LABEL_12:
 
   else if (mode != -1)
   {
-    if (mode || !self->_shortMKIForGFTEnabled || !VCFeatureFlagManager_UseTLE())
+    if (mode)
+    {
+      return;
+    }
+
+    if (!self->_shortMKIForGFTEnabled)
+    {
+      return;
+    }
+
+    v7 = VCFeatureFlagManager_UseTLE(self, a2);
+    if (!v7)
     {
       return;
     }
 
 LABEL_15:
-    if (VCFeatureFlagManager_UseShortMKI())
+    if (VCFeatureFlagManager_UseShortMKI(v7, v8))
     {
 
-      [(VCSecurityKeyManager *)self replaceMKIWithShortMKI:length];
+      [(VCSecurityKeyManager *)selfCopy replaceMKIWithShortMKI:length];
     }
 
     return;
@@ -1260,21 +1282,21 @@ LABEL_15:
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v7 = VRTraceErrorLogLevelToCSTR();
-    v8 = *MEMORY[0x1E6986650];
+    v9 = VRTraceErrorLogLevelToCSTR();
+    v10 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = v7;
-      v11 = 2080;
-      v12 = "[VCSecurityKeyManager adjustMKILength:securityKeyMode:]";
-      v13 = 1024;
-      v14 = 361;
+      v11 = 136316162;
+      v12 = v9;
+      v13 = 2080;
+      v14 = "[VCSecurityKeyManager adjustMKILength:securityKeyMode:]";
       v15 = 1024;
-      v16 = modeCopy;
-      v17 = 2112;
+      v16 = 361;
+      v17 = 1024;
+      v18 = modeCopy;
+      v19 = 2112;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_ERROR, " [%s] %s:%d MKI length adjustment for invalid key mode=%d requested for keyMaterial=%@", &v9, 0x2Cu);
+      _os_log_error_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d MKI length adjustment for invalid key mode=%d requested for keyMaterial=%@", &v11, 0x2Cu);
     }
   }
 }
@@ -1553,7 +1575,7 @@ LABEL_15:
 - (void)pruneSendKeyMaterialWithDelay:(double)delay
 {
   block[6] = *MEMORY[0x1E69E9840];
-  v5 = micro();
+  v5 = micro(self, a2);
   self->_isSendKeysCleanUpPending = 1;
   v6 = dispatch_time(0, (delay * 1000000000.0));
   keyManagerQueue = self->_keyManagerQueue;
@@ -1566,7 +1588,7 @@ LABEL_15:
   dispatch_after(v6, keyManagerQueue, block);
 }
 
-uint64_t __54__VCSecurityKeyManager_pruneSendKeyMaterialWithDelay___block_invoke(uint64_t a1)
+void *__54__VCSecurityKeyManager_pruneSendKeyMaterialWithDelay___block_invoke(uint64_t a1)
 {
   v58 = *MEMORY[0x1E69E9840];
   obj = [*(*(a1 + 32) + 40) allKeys];
@@ -1815,7 +1837,7 @@ LABEL_42:
 - (void)pruneRecvKeyMaterialWithDelay:(double)delay
 {
   block[6] = *MEMORY[0x1E69E9840];
-  v5 = micro();
+  v5 = micro(self, a2);
   self->_isReceiveKeysCleanUpPending = 1;
   v6 = dispatch_time(0, (delay * 1000000000.0));
   keyManagerQueue = self->_keyManagerQueue;
@@ -1828,7 +1850,7 @@ LABEL_42:
   dispatch_after(v6, keyManagerQueue, block);
 }
 
-uint64_t __54__VCSecurityKeyManager_pruneRecvKeyMaterialWithDelay___block_invoke(uint64_t a1)
+void *__54__VCSecurityKeyManager_pruneRecvKeyMaterialWithDelay___block_invoke(uint64_t a1)
 {
   v60 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
@@ -2069,7 +2091,7 @@ LABEL_31:
 - (double)pruneAllExpiredKeys
 {
   v53 = *MEMORY[0x1E69E9840];
-  v3 = micro();
+  v3 = micro(self, a2);
   if ([(NSMutableDictionary *)self->_prunePendingReceiveKeys count])
   {
     allKeys = [(NSMutableDictionary *)self->_prunePendingReceiveKeys allKeys];
@@ -2288,7 +2310,7 @@ LABEL_26:
   v32 = *MEMORY[0x1E69E9840];
   if (self->_isRunning)
   {
-    v5 = micro();
+    v5 = micro(self, a2);
     if (objc_opt_class() == self)
     {
       if (VRTraceGetErrorLogLevelForModule() < 7 || (v9 = VRTraceErrorLogLevelToCSTR(), v10 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT)))
@@ -2530,72 +2552,75 @@ LABEL_8:
   return 1;
 }
 
-uint64_t __55__VCSecurityKeyManager_associateMKI_withParticipantID___block_invoke(uint64_t a1)
+uint64_t __55__VCSecurityKeyManager_associateMKI_withParticipantID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v2 = micro();
-  v3 = [*(a1 + 32) getNotUsedTimeout];
-  v4 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(a1 + 48))}];
-  if (!v4)
+  v35 = *MEMORY[0x1E69E9840];
+  v3 = micro(a1, a2);
+  v4 = [*(a1 + 32) getNotUsedTimeout];
+  v5 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(a1 + 48))}];
+  if (!v5)
   {
-    v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [*(*(a1 + 32) + 56) setObject:v4 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(a1 + 48))}];
+    v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [*(*(a1 + 32) + 56) setObject:v5 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(a1 + 48))}];
   }
 
-  v5 = [v4 allKeys];
-  v29 = 0u;
-  v30 = 0u;
+  v6 = [v5 allKeys];
   v31 = 0u;
   v32 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v28 count:16];
-  if (v6)
+  v33 = 0u;
+  v34 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v30 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = v2 + v3;
-    v9 = *v30;
+    v9 = v7;
+    v10 = v3 + v4;
+    v11 = *v32;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v12 = 0;
+      do
       {
-        if (*v30 != v9)
+        if (*v32 != v11)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", v8), *(*(&v29 + 1) + 8 * i)}];
+        [v5 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", v10), *(*(&v31 + 1) + 8 * v12++)}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v29 objects:v28 count:16];
+      while (v9 != v12);
+      v7 = [v6 countByEnumeratingWithState:&v31 objects:v30 count:16];
+      v9 = v7;
     }
 
     while (v7);
   }
 
-  [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", micro() + 1200.0), *(a1 + 40)}];
+  [v5 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", micro(v7, v8) + 1200.0), *(a1 + 40)}];
   if (objc_opt_class() == *(a1 + 32))
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v12 = VRTraceErrorLogLevelToCSTR();
-      v13 = *MEMORY[0x1E6986650];
+      v14 = VRTraceErrorLogLevelToCSTR();
+      v15 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 40);
-        *v24 = 136316162;
-        *&v24[4] = v12;
-        *&v24[12] = 2080;
-        *&v24[14] = "[VCSecurityKeyManager associateMKI:withParticipantID:]_block_invoke";
-        *&v24[22] = 1024;
-        LODWORD(v25) = 571;
-        WORD2(v25) = 2112;
-        *(&v25 + 6) = v14;
-        HIWORD(v25) = 1024;
-        LODWORD(v26) = 1200;
-        v15 = " [%s] %s:%d Reset pruning timeout for keyIndex '%@' to default value '%d'";
-        v16 = v13;
-        v17 = 44;
+        v16 = *(a1 + 40);
+        *v26 = 136316162;
+        *&v26[4] = v14;
+        *&v26[12] = 2080;
+        *&v26[14] = "[VCSecurityKeyManager associateMKI:withParticipantID:]_block_invoke";
+        *&v26[22] = 1024;
+        LODWORD(v27) = 571;
+        WORD2(v27) = 2112;
+        *(&v27 + 6) = v16;
+        HIWORD(v27) = 1024;
+        LODWORD(v28) = 1200;
+        v17 = " [%s] %s:%d Reset pruning timeout for keyIndex '%@' to default value '%d'";
+        v18 = v15;
+        v19 = 44;
 LABEL_20:
-        _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, v15, v24, v17);
+        _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, v26, v19);
       }
     }
   }
@@ -2604,52 +2629,52 @@ LABEL_20:
   {
     if (objc_opt_respondsToSelector())
     {
-      v11 = [*(a1 + 32) performSelector:sel_logPrefix];
+      v13 = [*(a1 + 32) performSelector:sel_logPrefix];
     }
 
     else
     {
-      v11 = &stru_1F570E008;
+      v13 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v18 = VRTraceErrorLogLevelToCSTR();
-      v19 = *MEMORY[0x1E6986650];
+      v20 = VRTraceErrorLogLevelToCSTR();
+      v21 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v20 = *(a1 + 32);
-        v21 = *(a1 + 40);
-        *v24 = 136316674;
-        *&v24[4] = v18;
-        *&v24[12] = 2080;
-        *&v24[14] = "[VCSecurityKeyManager associateMKI:withParticipantID:]_block_invoke";
-        *&v24[22] = 1024;
-        LODWORD(v25) = 571;
-        WORD2(v25) = 2112;
-        *(&v25 + 6) = v11;
-        HIWORD(v25) = 2048;
-        v26 = v20;
-        LOWORD(v27) = 2112;
-        *(&v27 + 2) = v21;
-        WORD5(v27) = 1024;
-        HIDWORD(v27) = 1200;
-        v15 = " [%s] %s:%d %@(%p) Reset pruning timeout for keyIndex '%@' to default value '%d'";
-        v16 = v19;
-        v17 = 64;
+        v22 = *(a1 + 32);
+        v23 = *(a1 + 40);
+        *v26 = 136316674;
+        *&v26[4] = v20;
+        *&v26[12] = 2080;
+        *&v26[14] = "[VCSecurityKeyManager associateMKI:withParticipantID:]_block_invoke";
+        *&v26[22] = 1024;
+        LODWORD(v27) = 571;
+        WORD2(v27) = 2112;
+        *(&v27 + 6) = v13;
+        HIWORD(v27) = 2048;
+        v28 = v22;
+        LOWORD(v29) = 2112;
+        *(&v29 + 2) = v23;
+        WORD5(v29) = 1024;
+        HIDWORD(v29) = 1200;
+        v17 = " [%s] %s:%d %@(%p) Reset pruning timeout for keyIndex '%@' to default value '%d'";
+        v18 = v21;
+        v19 = 64;
         goto LABEL_20;
       }
     }
   }
 
-  v22 = *(a1 + 32);
-  [v22 firstExpirationTime];
-  return [v22 schedulePruneTimer:?];
+  v24 = *(a1 + 32);
+  [v24 firstExpirationTime];
+  return [v24 schedulePruneTimer:?];
 }
 
 - (void)detectInabilityToDecryptSymptom:(id)symptom prefix:(id)prefix
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v6 = [symptom count];
   unknownKeyIndexList = self->_unknownKeyIndexList;
   if (v6)
@@ -2662,27 +2687,27 @@ LABEL_20:
         goto LABEL_17;
       }
 
-      v10 = VRTraceErrorLogLevelToCSTR();
-      v11 = *MEMORY[0x1E6986650];
+      v12 = VRTraceErrorLogLevelToCSTR();
+      v13 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_17;
       }
 
-      v12 = [(NSMutableDictionary *)self->_receiveKeys count];
-      *v30 = 136316162;
-      *&v30[4] = v10;
-      *&v30[12] = 2080;
-      *&v30[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
-      *&v30[22] = 1024;
-      LODWORD(v31) = 593;
-      WORD2(v31) = 2112;
-      *(&v31 + 6) = prefix;
-      HIWORD(v31) = 1024;
-      LODWORD(selfCopy2) = v12;
-      v13 = " [%s] %s:%d Found prefix '%@' in receive keys array of %d elements";
-      v14 = v11;
-      v15 = 44;
+      v14 = [(NSMutableDictionary *)self->_receiveKeys count];
+      *v32 = 136316162;
+      *&v32[4] = v12;
+      *&v32[12] = 2080;
+      *&v32[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
+      *&v32[22] = 1024;
+      LODWORD(v33) = 593;
+      WORD2(v33) = 2112;
+      *(&v33 + 6) = prefix;
+      HIWORD(v33) = 1024;
+      LODWORD(selfCopy2) = v14;
+      v15 = " [%s] %s:%d Found prefix '%@' in receive keys array of %d elements";
+      v16 = v13;
+      v17 = 44;
     }
 
     else
@@ -2702,40 +2727,41 @@ LABEL_20:
         goto LABEL_17;
       }
 
-      v16 = VRTraceErrorLogLevelToCSTR();
-      v17 = *MEMORY[0x1E6986650];
+      v18 = VRTraceErrorLogLevelToCSTR();
+      v19 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_17;
       }
 
-      v18 = [(NSMutableDictionary *)self->_receiveKeys count];
-      *v30 = 136316674;
-      *&v30[4] = v16;
-      *&v30[12] = 2080;
-      *&v30[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
-      *&v30[22] = 1024;
-      LODWORD(v31) = 593;
-      WORD2(v31) = 2112;
-      *(&v31 + 6) = v8;
-      HIWORD(v31) = 2048;
+      v20 = [(NSMutableDictionary *)self->_receiveKeys count];
+      *v32 = 136316674;
+      *&v32[4] = v18;
+      *&v32[12] = 2080;
+      *&v32[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
+      *&v32[22] = 1024;
+      LODWORD(v33) = 593;
+      WORD2(v33) = 2112;
+      *(&v33 + 6) = v8;
+      HIWORD(v33) = 2048;
       selfCopy2 = self;
-      LOWORD(v33) = 2112;
-      *(&v33 + 2) = prefix;
-      WORD5(v33) = 1024;
-      HIDWORD(v33) = v18;
-      v13 = " [%s] %s:%d %@(%p) Found prefix '%@' in receive keys array of %d elements";
-      v14 = v17;
-      v15 = 64;
+      LOWORD(v35) = 2112;
+      *(&v35 + 2) = prefix;
+      WORD5(v35) = 1024;
+      HIDWORD(v35) = v20;
+      v15 = " [%s] %s:%d %@(%p) Found prefix '%@' in receive keys array of %d elements";
+      v16 = v19;
+      v17 = 64;
     }
 
-    _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, v30, v15);
+    _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, v15, v32, v17);
 LABEL_17:
     self->_lastKeyIndexNotReceived = 0.0;
     return;
   }
 
-  if (([(NSMutableArray *)unknownKeyIndexList containsObject:prefix]& 1) == 0)
+  v9 = [(NSMutableArray *)unknownKeyIndexList containsObject:prefix];
+  if ((v9 & 1) == 0)
   {
     if (objc_opt_class() == self)
     {
@@ -2744,39 +2770,39 @@ LABEL_17:
         goto LABEL_24;
       }
 
-      v19 = VRTraceErrorLogLevelToCSTR();
-      v20 = *MEMORY[0x1E6986650];
+      v21 = VRTraceErrorLogLevelToCSTR();
+      v22 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_24;
       }
 
-      v21 = [(NSMutableDictionary *)self->_receiveKeys count];
-      *v30 = 136316162;
-      *&v30[4] = v19;
-      *&v30[12] = 2080;
-      *&v30[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
-      *&v30[22] = 1024;
-      LODWORD(v31) = 583;
-      WORD2(v31) = 2112;
-      *(&v31 + 6) = prefix;
-      HIWORD(v31) = 1024;
-      LODWORD(selfCopy2) = v21;
-      v22 = " [%s] %s:%d Cannot find prefix '%@' in receive keys array of %d elements";
-      v23 = v20;
-      v24 = 44;
+      v23 = [(NSMutableDictionary *)self->_receiveKeys count];
+      *v32 = 136316162;
+      *&v32[4] = v21;
+      *&v32[12] = 2080;
+      *&v32[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
+      *&v32[22] = 1024;
+      LODWORD(v33) = 583;
+      WORD2(v33) = 2112;
+      *(&v33 + 6) = prefix;
+      HIWORD(v33) = 1024;
+      LODWORD(selfCopy2) = v23;
+      v24 = " [%s] %s:%d Cannot find prefix '%@' in receive keys array of %d elements";
+      v25 = v22;
+      v26 = 44;
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v9 = [(VCSecurityKeyManager *)self performSelector:sel_logPrefix];
+        v11 = [(VCSecurityKeyManager *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v9 = &stru_1F570E008;
+        v11 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -2784,46 +2810,46 @@ LABEL_17:
         goto LABEL_24;
       }
 
-      v25 = VRTraceErrorLogLevelToCSTR();
-      v26 = *MEMORY[0x1E6986650];
+      v27 = VRTraceErrorLogLevelToCSTR();
+      v28 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_24;
       }
 
-      v29 = [(NSMutableDictionary *)self->_receiveKeys count];
-      *v30 = 136316674;
-      *&v30[4] = v25;
-      *&v30[12] = 2080;
-      *&v30[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
-      *&v30[22] = 1024;
-      LODWORD(v31) = 583;
-      WORD2(v31) = 2112;
-      *(&v31 + 6) = v9;
-      HIWORD(v31) = 2048;
+      v31 = [(NSMutableDictionary *)self->_receiveKeys count];
+      *v32 = 136316674;
+      *&v32[4] = v27;
+      *&v32[12] = 2080;
+      *&v32[14] = "[VCSecurityKeyManager detectInabilityToDecryptSymptom:prefix:]";
+      *&v32[22] = 1024;
+      LODWORD(v33) = 583;
+      WORD2(v33) = 2112;
+      *(&v33 + 6) = v11;
+      HIWORD(v33) = 2048;
       selfCopy2 = self;
-      LOWORD(v33) = 2112;
-      *(&v33 + 2) = prefix;
-      WORD5(v33) = 1024;
-      HIDWORD(v33) = v29;
-      v22 = " [%s] %s:%d %@(%p) Cannot find prefix '%@' in receive keys array of %d elements";
-      v23 = v26;
-      v24 = 64;
+      LOWORD(v35) = 2112;
+      *(&v35 + 2) = prefix;
+      WORD5(v35) = 1024;
+      HIDWORD(v35) = v31;
+      v24 = " [%s] %s:%d %@(%p) Cannot find prefix '%@' in receive keys array of %d elements";
+      v25 = v28;
+      v26 = 64;
     }
 
-    _os_log_error_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_ERROR, v22, v30, v24);
+    _os_log_error_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_ERROR, v24, v32, v26);
 LABEL_24:
-    [(NSMutableArray *)self->_unknownKeyIndexList addObject:prefix, *v30, *&v30[16], v31, selfCopy2, v33];
+    v9 = [(NSMutableArray *)self->_unknownKeyIndexList addObject:prefix, *v32, *&v32[8], v33, selfCopy2, v35];
   }
 
   lastKeyIndexNotReceived = self->_lastKeyIndexNotReceived;
-  v28 = micro();
+  v30 = micro(v9, v10);
   if (lastKeyIndexNotReceived == 0.0)
   {
-    self->_lastKeyIndexNotReceived = v28;
+    self->_lastKeyIndexNotReceived = v30;
   }
 
-  else if (v28 - self->_lastKeyIndexNotReceived >= 30.0)
+  else if (v30 - self->_lastKeyIndexNotReceived >= 30.0)
   {
     [(VCSecurityKeyManager *)self reportingAgent];
     reportingSymptom();
@@ -3258,7 +3284,7 @@ LABEL_11:
   _os_log_error_impl(&dword_1DB56E000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d kVCSecurityKeyIndex is missing in key material dictionary '%@'", &v3, 0x26u);
 }
 
-uint64_t __65__VCSecurityKeyManager_latestSendKeyMaterialWithSecurityKeyMode___block_invoke_cold_1(id *a1)
+void *__65__VCSecurityKeyManager_latestSendKeyMaterialWithSecurityKeyMode___block_invoke_cold_1(id *a1)
 {
   if (objc_opt_class() == *a1)
   {

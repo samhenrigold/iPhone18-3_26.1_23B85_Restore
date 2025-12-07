@@ -8,6 +8,7 @@
 - (void)_scanEventsInLastMessageOnly:(BOOL)only synchronously:(BOOL)synchronously completionHandler:(id)handler;
 - (void)addMessage:(id)message;
 - (void)reset;
+- (void)scanEventsInLastMessageOnly:(BOOL)only synchronously:(BOOL)synchronously completionHandler:(id)handler;
 @end
 
 @implementation IPTextMessageConversation
@@ -109,6 +110,20 @@ void __40__IPTextMessageConversation_addMessage___block_invoke(uint64_t a1, void
   return v6;
 }
 
+- (void)scanEventsInLastMessageOnly:(BOOL)only synchronously:(BOOL)synchronously completionHandler:(id)handler
+{
+  synchronouslyCopy = synchronously;
+  onlyCopy = only;
+  handlerCopy = handler;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __89__IPTextMessageConversation_scanEventsInLastMessageOnly_synchronously_completionHandler___block_invoke;
+  v10[3] = &unk_278F23110;
+  v11 = handlerCopy;
+  v9 = handlerCopy;
+  [(IPTextMessageConversation *)self _scanEventsInLastMessageOnly:onlyCopy synchronously:synchronouslyCopy completionHandler:v10];
+}
+
 - (void)_scanEventsInLastMessageOnly:(BOOL)only synchronously:(BOOL)synchronously completionHandler:(id)handler
 {
   synchronouslyCopy = synchronously;
@@ -195,55 +210,55 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
 
 void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   obj = *(a1 + 32);
   objc_sync_enter(obj);
-  v49 = a1;
+  v47 = a1;
   if ([*(*(a1 + 32) + 8) count])
   {
     objc_sync_exit(obj);
 
-    v43 = objc_opt_new();
-    v39 = [*(a1 + 40) lastObject];
-    v46 = [v39 dateSent];
-    v64 = 0u;
-    v65 = 0u;
+    v41 = objc_opt_new();
+    v37 = [*(a1 + 40) lastObject];
+    v44 = [v37 dateSent];
     v62 = 0u;
     v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v2 = *(a1 + 40);
-    v3 = [v2 countByEnumeratingWithState:&v62 objects:v67 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v60 objects:v65 count:16];
     if (v3)
     {
-      v4 = *v63;
+      v4 = *v61;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v63 != v4)
+          if (*v61 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          v6 = *(*(&v62 + 1) + 8 * i);
+          v6 = *(*(&v60 + 1) + 8 * i);
           v7 = [v6 dateSent];
-          [v7 timeIntervalSinceDate:v46];
+          [v7 timeIntervalSinceDate:v44];
           v9 = v8 > (3600 * _scanEventsInLastMessageOnly_synchronously_completionHandler__kMaxTimeIntervalInSecondsForMessagesToKeep);
 
           if (!v9)
           {
-            [v43 addObject:v6];
+            [v41 addObject:v6];
           }
         }
 
-        v3 = [v2 countByEnumeratingWithState:&v62 objects:v67 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v60 objects:v65 count:16];
       }
 
       while (v3);
     }
 
-    v40 = [IPTextMessageConversation collapsedMessagesFromMessages:v43];
-    v10 = [v40 count];
-    v11 = *(v49 + 72);
+    v38 = [IPTextMessageConversation collapsedMessagesFromMessages:v41];
+    v10 = [v38 count];
+    v11 = *(v47 + 72);
     if (v10 >= v11)
     {
       v12 = v10 - v11;
@@ -258,7 +273,7 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
     {
       if (v10 >= v11)
       {
-        v13 = *(v49 + 72);
+        v13 = *(v47 + 72);
       }
 
       else
@@ -268,8 +283,8 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
 
       do
       {
-        v14 = [v40 objectAtIndexedSubscript:v12];
-        [*(v49 + 48) addObject:v14];
+        v14 = [v38 objectAtIndexedSubscript:v12];
+        [*(v47 + 48) addObject:v14];
 
         ++v12;
         --v13;
@@ -278,45 +293,45 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
       while (v13);
     }
 
-    v60 = 0u;
-    v61 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v42 = *(v49 + 48);
-    v15 = [v42 countByEnumeratingWithState:&v58 objects:v66 count:16];
+    v56 = 0u;
+    v57 = 0u;
+    v40 = *(v47 + 48);
+    v15 = [v40 countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v15)
     {
-      v41 = 0;
-      v44 = *v59;
+      v39 = 0;
+      v42 = *v57;
       do
       {
         v16 = 0;
-        v17 = v41;
-        v45 = v15;
-        v41 += v15;
+        v17 = v39;
+        v43 = v15;
+        v39 += v15;
         do
         {
-          if (*v59 != v44)
+          if (*v57 != v42)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v40);
           }
 
-          v18 = *(*(&v58 + 1) + 8 * v16);
-          if (*(v49 + 80) != 1 || ([*(v49 + 48) lastObject], v19 = objc_claimAutoreleasedReturnValue(), v20 = v18 == v19, v19, v20))
+          v18 = *(*(&v56 + 1) + 8 * v16);
+          if (*(v47 + 80) != 1 || ([*(v47 + 48) lastObject], v19 = objc_claimAutoreleasedReturnValue(), v20 = v18 == v19, v19, v20))
           {
             v21 = [v18 identifier];
             if (v21)
             {
-              v22 = *(v49 + 32);
+              v22 = *(v47 + 32);
               objc_sync_enter(v22);
-              v23 = [*(*(*(v49 + 64) + 8) + 40) eventsByMessageIdentifierDictionary];
+              v23 = [*(*(*(v47 + 64) + 8) + 40) eventsByMessageIdentifierDictionary];
               obja = [v23 objectForKeyedSubscript:v21];
 
               objc_sync_exit(v22);
               if (obja)
               {
                 [obja count];
-                (*(*(v49 + 56) + 16))();
+                (*(*(v47 + 56) + 16))();
               }
 
               else
@@ -326,7 +341,7 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
                 {
                   for (j = 0; j != v17; ++j)
                   {
-                    v26 = [*(v49 + 48) objectAtIndexedSubscript:j];
+                    v26 = [*(v47 + 48) objectAtIndexedSubscript:j];
                     v27 = [v26 messageUnits];
                     v28 = [v27 firstObject];
                     v29 = [v28 text];
@@ -341,23 +356,23 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
 
                 v31 = objc_alloc_init(IPFeatureTextMessageScanner);
                 v32 = [v18 messageUnits];
-                v50[0] = MEMORY[0x277D85DD0];
-                v50[1] = 3221225472;
-                v50[2] = __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_completionHandler___block_invoke_3;
-                v50[3] = &unk_278F23138;
-                v33 = *(v49 + 64);
-                v50[4] = *(v49 + 32);
-                v57 = v33;
-                v51 = v21;
-                v52 = v43;
-                v34 = *(v49 + 56);
-                v53 = v18;
-                v54 = v24;
-                v55 = v32;
-                v56 = v34;
+                v48[0] = MEMORY[0x277D85DD0];
+                v48[1] = 3221225472;
+                v48[2] = __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_completionHandler___block_invoke_3;
+                v48[3] = &unk_278F23138;
+                v33 = *(v47 + 64);
+                v48[4] = *(v47 + 32);
+                v55 = v33;
+                v49 = v21;
+                v50 = v41;
+                v34 = *(v47 + 56);
+                v51 = v18;
+                v52 = v24;
+                v53 = v32;
+                v54 = v34;
                 v35 = v32;
                 v36 = v24;
-                [(IPFeatureTextMessageScanner *)v31 scanEventsInMessageUnits:v35 contextMessageUnits:v36 synchronously:1 completionHandler:v50];
+                [(IPFeatureTextMessageScanner *)v31 scanEventsInMessageUnits:v35 contextMessageUnits:v36 synchronously:1 completionHandler:v48];
               }
             }
           }
@@ -366,27 +381,24 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
           ++v16;
         }
 
-        while (v16 != v45);
-        v15 = [v42 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        while (v16 != v43);
+        v15 = [v40 countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
       while (v15);
     }
-
-    v37 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     (*(*(a1 + 56) + 16))();
     objc_sync_exit(obj);
-    v38 = *MEMORY[0x277D85DE8];
   }
 }
 
 void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -404,39 +416,36 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
   [v6 setObject:v4 forKeyedSubscript:*(a1 + 40)];
 
   objc_sync_exit(v5);
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v10++) setIpsos_usedBubblesCount:{objc_msgSend(*(a1 + 48), "count", v13)}];
+        [*(*(&v11 + 1) + 8 * v10++) setIpsos_usedBubblesCount:{objc_msgSend(*(a1 + 48), "count", v11)}];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
-  v11 = *(a1 + 56);
   (*(*(a1 + 80) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventsInPreviouslyScannedMessageWithIdentifier:(id)identifier
@@ -452,39 +461,39 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
 
 + (id)collapsedMessagesFromMessages:(id)messages
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
-  v32 = objc_opt_new();
+  v31 = objc_opt_new();
   firstObject = [messagesCopy firstObject];
   dateSent = [firstObject dateSent];
   sender = [firstObject sender];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v7 = messagesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v34 = *v36;
+    v33 = *v35;
     do
     {
       v11 = 0;
-      v31 = v10;
+      v30 = v10;
       v12 = -v10;
-      v13 = v34;
+      v13 = v33;
       do
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(v7);
         }
 
         if (v12 != v11)
         {
-          v14 = *(*(&v35 + 1) + 8 * v11);
+          v14 = *(*(&v34 + 1) + 8 * v11);
           dateSent2 = [v14 dateSent];
           [dateSent2 timeIntervalSinceDate:dateSent];
           v17 = v16;
@@ -493,9 +502,9 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
 
           if (sender2 == sender && v17 < 60.0)
           {
-            v39[0] = firstObject;
-            v39[1] = v14;
-            v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+            v38[0] = firstObject;
+            v38[1] = v14;
+            v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
             [self collapseMessages:v23];
             v24 = sender;
             v26 = v25 = v7;
@@ -503,7 +512,7 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
             v27 = v26;
             v7 = v25;
             sender = v24;
-            v13 = v34;
+            v13 = v33;
             v22 = v27;
 
             dateSent3 = [v14 dateSent];
@@ -515,7 +524,7 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
           {
             if (firstObject)
             {
-              [v32 addObject:firstObject];
+              [v31 addObject:firstObject];
             }
 
             v20 = v14;
@@ -534,47 +543,46 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
       }
 
       while (v9 != v11);
-      v10 = v31 + v9;
-      v9 = [v7 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v10 = v30 + v9;
+      v9 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v9);
   }
 
-  [v32 addObject:firstObject];
-  v28 = v32;
+  [v31 addObject:firstObject];
+  v28 = v31;
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v31;
 }
 
 + (id)collapseMessages:(id)messages
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   v4 = objc_opt_new();
   v5 = [messagesCopy count];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v6 = messagesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v29;
+    v10 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        messageUnits = [*(*(&v28 + 1) + 8 * i) messageUnits];
+        messageUnits = [*(*(&v27 + 1) + 8 * i) messageUnits];
         firstObject = [messageUnits firstObject];
         text = [firstObject text];
 
@@ -589,7 +597,7 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
       }
 
       v9 += v8;
-      v8 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v8);
@@ -606,11 +614,9 @@ void __90__IPTextMessageConversation__scanEventsInLastMessageOnly_synchronously_
   v23 = [(IPMessage *)v16 initWithIdentifier:identifier subject:subject sender:sender recipients:recipients dateSent:dateSent type:type];
 
   v24 = [[IPMessageUnit alloc] initWithText:v4 originalMessage:v23 index:0];
-  v32 = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+  v31 = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
   [(IPMessage *)v23 setMessageUnits:v25];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

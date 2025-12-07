@@ -2,10 +2,13 @@
 - (BOOL)_allocBuffers;
 - (BOOL)_connectToAccessoryManager:(int)manager;
 - (BOOL)_createSleepWakeNotifier;
+- (BOOL)_doHalogenLdcmCalc:(BOOL)calc isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold;
 - (BOOL)_initArbiter;
 - (BOOL)_initAudioPath;
 - (BOOL)shouldInvertData;
+- (HalogenMeasurement)initWithSize:(int)size onPort:(int)port;
 - (id)getResultString;
+- (int)doMeasurement:(BOOL)measurement onPin:(int)pin isReceptacleEmpty:(BOOL)empty isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold;
 - (int)saveAsWav:(id)wav;
 - (unsigned)maxOutputAmplitude;
 - (unsigned)signalOffset;
@@ -24,6 +27,62 @@
 @end
 
 @implementation HalogenMeasurement
+
+- (HalogenMeasurement)initWithSize:(int)size onPort:(int)port
+{
+  v4 = *&port;
+  v5 = *&size;
+  v10.receiver = self;
+  v10.super_class = HalogenMeasurement;
+  v6 = [(HalogenMeasurement *)&v10 init];
+  v7 = v6;
+  if (!v6)
+  {
+    return v7;
+  }
+
+  *(v6 + 36) = xmmword_25491C810;
+  *(v6 + 52) = xmmword_25491C820;
+  *(v6 + 17) = v5;
+  *(v6 + 9) = 0x780000012C0;
+  *(v6 + 20) = 2 * v5 + 10816;
+  *(v6 + 21) = 4096;
+  *(v6 + 20) = 0x12C000000EC0;
+  *(v6 + 54) = objc_alloc_init(MEMORY[0x277CCA928]);
+  v7->_audioTimeoutInSec = 1;
+  v7->_signalFreq = 110.0;
+  v7->_initalPhaseInDegrees = 0;
+  v7->_halogenLdcmCalc = [[HalogenLdcmCalc alloc] initWithSize:v5];
+  if (![(HalogenMeasurement *)v7 _allocBuffers])
+  {
+    [HalogenMeasurement initWithSize:onPort:];
+LABEL_11:
+
+    return 0;
+  }
+
+  [(HalogenMeasurement *)v7 _generateSineWave];
+  if (![(HalogenMeasurement *)v7 _connectToAccessoryManager:v4])
+  {
+    [HalogenMeasurement initWithSize:onPort:];
+    goto LABEL_11;
+  }
+
+  if (![(HalogenMeasurement *)v7 _createSleepWakeNotifier])
+  {
+    [HalogenMeasurement initWithSize:onPort:];
+    goto LABEL_11;
+  }
+
+  [(HalogenMeasurement *)v7 _initArbiter];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 0;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:HalogenMeasurement Started!", v9, 2u);
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {
@@ -405,6 +464,282 @@ LABEL_9:
   powerStateCond = [(HalogenMeasurement *)self powerStateCond];
 }
 
+- (int)doMeasurement:(BOOL)measurement onPin:(int)pin isReceptacleEmpty:(BOOL)empty isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold
+{
+  wetCopy = wet;
+  emptyCopy = empty;
+  v35 = *MEMORY[0x277D85DE8];
+  *&self->_pcmInputDataIndexInBytes = 0;
+  self->_pcmOutputDataIndexInBytes = 0;
+  *&self->_isCalibrationDone = 0;
+  self->_pinToMeasure = pin;
+  synchRequestResourceAccess = [(BaseResourceArbiterClient *)self->_arbiterClient synchRequestResourceAccess];
+  self->_arbiterLocked = synchRequestResourceAccess;
+  if (synchRequestResourceAccess)
+  {
+    v14 = IOAccessoryManagerSelectEisPin();
+    if (!v14)
+    {
+      self->_eisPinToken2 = self->_eisPinToken1;
+      if ([(HalogenMeasurement *)self powerState])
+      {
+        if ([(HalogenMeasurement *)self powerState]== 1)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:Waiting for kHalogenPowerStateAwake", buf, 2u);
+          }
+
+          [(NSCondition *)[(HalogenMeasurement *)self powerStateCond] lock];
+          v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
+          if ([(HalogenMeasurement *)self powerState]== 1)
+          {
+            do
+            {
+              v16 = [(NSCondition *)self->_powerStateCond waitUntilDate:v15];
+            }
+
+            while ([(HalogenMeasurement *)self powerState]== 1 && v16);
+          }
+
+          [(NSCondition *)[(HalogenMeasurement *)self powerStateCond] unlock];
+        }
+
+        if ([(HalogenMeasurement *)self powerState]== 2)
+        {
+          if ([(HalogenMeasurement *)self _initAudioPath])
+          {
+            v17 = AudioOutputUnitStart(self->_audioComponentInst);
+            if (v17)
+            {
+              v29 = v17;
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 67109120;
+                v34 = v29;
+                _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:AudioUnitStart() failed (status = 0x%x)", buf, 8u);
+              }
+
+              v24 = 3;
+            }
+
+            else
+            {
+              v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:self->_audioTimeoutInSec];
+              [(NSCondition *)self->_audioTimeoutCond lock];
+              if (self->_isMeasurementDone)
+              {
+                v19 = 0;
+              }
+
+              else
+              {
+                do
+                {
+                  v19 = ![(NSCondition *)self->_audioTimeoutCond waitUntilDate:v18];
+                }
+
+                while (!self->_isMeasurementDone && !v19);
+              }
+
+              [(NSCondition *)self->_audioTimeoutCond unlock];
+              AudioOutputUnitStop(self->_audioComponentInst);
+              [(BaseResourceArbiterClient *)self->_arbiterClient releaseResourceAccess];
+              self->_arbiterLocked = 0;
+              v20 = IOAccessoryManagerSelectEisPin();
+              if (!v20)
+              {
+                eisPinToken2 = self->_eisPinToken2;
+                if (eisPinToken2 == 0xAAAAAAAAAAAAAAAALL)
+                {
+                  if (self->_pinToMeasure == 6 || eisPinToken2 == LODWORD(self->_eisPinToken1) + 1)
+                  {
+                    if (v19)
+                    {
+                      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:Timeout!", buf, 2u);
+                      }
+
+                      v22 = 0;
+                      v23 = 1;
+                      v24 = 1;
+                      goto LABEL_28;
+                    }
+
+                    [(HalogenMeasurement *)self _doHalogenLdcmCalc:emptyCopy isReceptacleWet:wetCopy withWetTransitionThreshold:threshold withDryTransitionThreshold:transitionThreshold];
+                    v22 = 0;
+                    v24 = 0;
+LABEL_27:
+                    v23 = 1;
+                    goto LABEL_28;
+                  }
+
+                  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 67109120;
+                    v34 = v19;
+                    v31 = MEMORY[0x277D86220];
+                    v32 = "HalogenMeasurement:_eisPinToken2 != _eisPinToken1+1 due to change on lightning port. isTimeout=%d";
+                    goto LABEL_67;
+                  }
+                }
+
+                else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 67109120;
+                  v34 = v19;
+                  v31 = MEMORY[0x277D86220];
+                  v32 = "HalogenMeasurement:_eisPinToken2 != eisPinTokenFinal due to change on lightning port. isTimeout=%d";
+LABEL_67:
+                  _os_log_impl(&dword_2548F1000, v31, OS_LOG_TYPE_DEFAULT, v32, buf, 8u);
+                }
+
+                v22 = 0;
+                v24 = 2;
+                goto LABEL_27;
+              }
+
+              v30 = v20;
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 67109120;
+                v34 = v30;
+                _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:IOAccessoryManagerSelectEisPin() failed (ret = 0x%x)", buf, 8u);
+              }
+
+              v24 = 2;
+            }
+
+            v23 = 1;
+          }
+
+          else
+          {
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:AudioUnit is not initialized", buf, 2u);
+            }
+
+            v23 = 0;
+            v24 = 3;
+          }
+
+LABEL_61:
+          v22 = 1;
+          goto LABEL_28;
+        }
+
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          v27 = MEMORY[0x277D86220];
+          v28 = "HalogenMeasurement:abort measurement... system is not yet awake";
+          goto LABEL_49;
+        }
+      }
+
+      else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        v27 = MEMORY[0x277D86220];
+        v28 = "HalogenMeasurement:abort measurement... system going to sleep";
+LABEL_49:
+        _os_log_impl(&dword_2548F1000, v27, OS_LOG_TYPE_DEFAULT, v28, buf, 2u);
+      }
+
+      v23 = 0;
+      v24 = 4;
+      goto LABEL_61;
+    }
+
+    v26 = v14;
+    if (v14 == -536870187)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        v34 = -536870187;
+        v24 = 8;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:IOAccessoryManagerSelectEisPin() device busy (ret = 0x%x)", buf, 8u);
+        v23 = 0;
+        v22 = 0;
+      }
+
+      else
+      {
+        v23 = 0;
+        v22 = 0;
+        v24 = 8;
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        v34 = v26;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:IOAccessoryManagerSelectEisPin() failed (ret = 0x%x)", buf, 8u);
+      }
+
+      v23 = 0;
+      v22 = 0;
+      v24 = 2;
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:Arbiter failed to grant access to Halogen", buf, 2u);
+    }
+
+    v23 = 0;
+    v22 = 0;
+    v24 = 6;
+  }
+
+LABEL_28:
+  if (self->_arbiterLocked)
+  {
+    self->_arbiterLocked = 0;
+    [(BaseResourceArbiterClient *)self->_arbiterClient releaseResourceAccess];
+    if (!v22)
+    {
+      goto LABEL_30;
+    }
+
+LABEL_34:
+    IOAccessoryManagerSelectEisPin();
+    if (!v23)
+    {
+      return v24;
+    }
+
+    goto LABEL_31;
+  }
+
+  if (v22)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_30:
+  if (v23)
+  {
+LABEL_31:
+    [(HalogenMeasurement *)self _deinitAudioPath];
+  }
+
+  return v24;
+}
+
 - (int)saveAsWav:(id)wav
 {
   outExtAudioFile = 0xAAAAAAAAAAAAAAAALL;
@@ -472,6 +807,168 @@ LABEL_9:
   self->_measurementCondetSNR = 0.0;
 }
 
+- (BOOL)_doHalogenLdcmCalc:(BOOL)calc isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold
+{
+  wetCopy = wet;
+  calcCopy = calc;
+  bytes = [(NSMutableData *)self->_pcmInputData bytes];
+  shouldInvertData = [(HalogenMeasurement *)self shouldInvertData];
+  if (shouldInvertData)
+  {
+    v13 = 424;
+  }
+
+  else
+  {
+    v13 = 416;
+  }
+
+  if (shouldInvertData)
+  {
+    v14 = 416;
+  }
+
+  else
+  {
+    v14 = 424;
+  }
+
+  bytes2 = [*(&self->super.isa + v13) bytes];
+  bytes3 = [*(&self->super.isa + v14) bytes];
+  [(HalogenMeasurement *)self _resetCalcValues];
+  nMeasurementSamples = self->_nMeasurementSamples;
+  if (nMeasurementSamples >= 1)
+  {
+    v18 = (bytes + 4 * self->_precalibrationSampleOffsetInFrames + 2);
+    v19 = bytes2;
+    v20 = bytes3;
+    do
+    {
+      *v19++ = vcvtd_n_f64_s32(*(v18 - 1), 0xFuLL);
+      *v20++ = vcvtd_n_f64_s32(*v18, 0xFuLL);
+      v18 += 2;
+      --nMeasurementSamples;
+    }
+
+    while (nMeasurementSamples);
+  }
+
+  v21 = [(HalogenLdcmCalc *)self->_halogenLdcmCalc doPreCalibration:self->_voltageData withCurrentData:self->_currentData];
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc precalVoltageSignalLevel];
+  self->_precalVoltageSignalLevel = v22;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc precalVoltageNoiseLevel];
+  self->_precalVoltageNoiseLevel = v23;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc precalVoltageSNR];
+  self->_precalVoltageSNR = v24;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc precalCurrentSignalLevel];
+  self->_precalCurrentSignalLevel = v25;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc precalCurrentNoiseLevel];
+  self->_precalCurrentNoiseLevel = v26;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc precalCurrentSNR];
+  self->_precalCurrentSNR = v27;
+  v28 = self->_nMeasurementSamples;
+  if (v28 >= 1)
+  {
+    v29 = (bytes + 4 * self->_calibrationSampleOffsetInFrames + 2);
+    v30 = bytes2;
+    v31 = bytes3;
+    do
+    {
+      *v30++ = vcvtd_n_f64_s32(*(v29 - 1), 0xFuLL);
+      *v31++ = vcvtd_n_f64_s32(*v29, 0xFuLL);
+      v29 += 2;
+      --v28;
+    }
+
+    while (v28);
+  }
+
+  v32 = [(HalogenLdcmCalc *)self->_halogenLdcmCalc doCalibration:self->_voltageData withCurrentData:self->_currentData];
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc calVoltageSignalLevel];
+  self->_calVoltageSignalLevel = v33;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc calVoltageNoiseLevel];
+  self->_calVoltageNoiseLevel = v34;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc calVoltageSNR];
+  self->_calVoltageSNR = v35;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc calCurrentSignalLevel];
+  self->_calCurrentSignalLevel = v36;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc calCurrentNoiseLevel];
+  self->_calCurrentNoiseLevel = v37;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc calCurrentSNR];
+  self->_calCurrentSNR = v38;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc voltageGainCorrection];
+  self->_voltageGainCorrection = v39;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc currentGainCorrection];
+  self->_currentGainCorrection = v40;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc currentPhaseCompensation];
+  self->_currentPhaseCompensation = v41;
+  v42 = self->_nMeasurementSamples;
+  if (v42 >= 1)
+  {
+    v43 = (bytes + 4 * self->_measurementSampleOffsetInFrames + 2);
+    do
+    {
+      *bytes2++ = vcvtd_n_f64_s32(*(v43 - 1), 0xFuLL);
+      *bytes3++ = vcvtd_n_f64_s32(*v43, 0xFuLL);
+      v43 += 2;
+      --v42;
+    }
+
+    while (v42);
+  }
+
+  v44 = [(HalogenLdcmCalc *)self->_halogenLdcmCalc doLiquidDetection:self->_voltageData withCurrentData:self->_currentData isReceptacleEmpty:calcCopy isReceptacleWet:wetCopy withWetTransitionThreshold:threshold withDryTransitionThreshold:transitionThreshold];
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc goertzelImpedance];
+  self->_goertzelImpedance = v45;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc goertzelPhase];
+  self->_goertzelPhase = v46;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc compensatedImpedance];
+  self->_compensatedImpedance = v47;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc compensatedPhase];
+  self->_compensatedPhase = v48;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc resistanceInOhms];
+  self->_resistanceInOhms = v49;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc capacitanceInNanoF];
+  self->_capacitanceInNanoF = v50;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc clippingScore];
+  self->_clippingScore = v51;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc measurementVoltageSignalLevel];
+  self->_measurementVoltageSignalLevel = v52;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc measurementVoltageNoiseLevel];
+  self->_measurementVoltageNoiseLevel = v53;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc measurementVoltageSNR];
+  self->_measurementVoltageSNR = v54;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc measurementCurrentSignalLevel];
+  self->_measurementCurrentSignalLevel = v55;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc measurementCurrentNoiseLevel];
+  self->_measurementCurrentNoiseLevel = v56;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc measurementCurrentSNR];
+  self->_measurementCurrentSNR = v57;
+  [(HalogenLdcmCalc *)self->_halogenLdcmCalc measurementCondetSNR];
+  self->_measurementCondetSNR = v58;
+  if (v21 == 2)
+  {
+    v44 = 5;
+    goto LABEL_22;
+  }
+
+  switch(v32)
+  {
+    case 1:
+      v44 = 4;
+      goto LABEL_22;
+    case 2:
+      v44 = 6;
+LABEL_22:
+      self->_halogenResult = v44;
+      return 1;
+    case 0:
+      goto LABEL_22;
+  }
+
+  return 1;
+}
+
 - (id)getResultString
 {
   halogenResult = self->_halogenResult;
@@ -501,25 +998,25 @@ LABEL_9:
   return self->_maxOutputAmplitude;
 }
 
-void __40__HalogenMeasurement_maxOutputAmplitude__block_invoke(uint64_t a1)
+void __40__HalogenMeasurement_maxOutputAmplitude__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = MGGetStringAnswer();
-  v2 = 0x7FFF;
-  if (([v3 hasPrefix:{@"iPhone12, 8"}] & 1) == 0)
+  v4 = MGGetStringAnswer();
+  v3 = 0x7FFF;
+  if (([v4 hasPrefix:{@"iPhone12, 8"}] & 1) == 0)
   {
-    if ([v3 hasPrefix:@"iPhone11"])
+    if ([v4 hasPrefix:@"iPhone11"])
     {
-      v2 = 0x7FFF;
+      v3 = 0x7FFF;
     }
 
     else
     {
-      v2 = 1057;
+      v3 = 1057;
     }
   }
 
-  *(*(a1 + 32) + 14) = v2;
-  if (v3)
+  *(*(a1 + 32) + 14) = v3;
+  if (v4)
   {
   }
 }
@@ -539,26 +1036,26 @@ void __40__HalogenMeasurement_maxOutputAmplitude__block_invoke(uint64_t a1)
   return self->_signalOffset;
 }
 
-void __34__HalogenMeasurement_signalOffset__block_invoke(uint64_t a1)
+void __34__HalogenMeasurement_signalOffset__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = MGGetStringAnswer();
-  if ([v3 hasPrefix:{@"iPhone12, 8"}])
+  v4 = MGGetStringAnswer();
+  if ([v4 hasPrefix:{@"iPhone12, 8"}])
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  else if ([v3 hasPrefix:@"iPhone11"])
+  else if ([v4 hasPrefix:@"iPhone11"])
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v2 = 15308;
+    v3 = 15308;
   }
 
-  *(*(a1 + 32) + 16) = v2;
-  if (v3)
+  *(*(a1 + 32) + 16) = v3;
+  if (v4)
   {
   }
 }
@@ -578,21 +1075,21 @@ void __34__HalogenMeasurement_signalOffset__block_invoke(uint64_t a1)
   return self->_shouldInvertData;
 }
 
-void __38__HalogenMeasurement_shouldInvertData__block_invoke(uint64_t a1)
+void __38__HalogenMeasurement_shouldInvertData__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = MGGetStringAnswer();
-  if ([v3 hasPrefix:{@"iPhone12, 8"}])
+  v4 = MGGetStringAnswer();
+  if ([v4 hasPrefix:{@"iPhone12, 8"}])
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v2 = [v3 hasPrefix:@"iPhone11"] ^ 1;
+    v3 = [v4 hasPrefix:@"iPhone11"] ^ 1;
   }
 
-  *(*(a1 + 32) + 8) = v2;
-  if (v3)
+  *(*(a1 + 32) + 8) = v3;
+  if (v4)
   {
   }
 }
@@ -608,32 +1105,25 @@ void __38__HalogenMeasurement_shouldInvertData__block_invoke(uint64_t a1)
 
 - (void)initWithSize:onPort:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v0, v1, v2, v3, v4, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithSize:onPort:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v0, v1, v2, v3, v4, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectToAccessoryManager:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -642,13 +1132,11 @@ void __38__HalogenMeasurement_shouldInvertData__block_invoke(uint64_t a1)
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectToAccessoryManager:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -657,7 +1145,6 @@ void __38__HalogenMeasurement_shouldInvertData__block_invoke(uint64_t a1)
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initArbiter
@@ -716,7 +1203,6 @@ void __38__HalogenMeasurement_shouldInvertData__block_invoke(uint64_t a1)
 - (void)saveAsWav:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -725,7 +1211,6 @@ void __38__HalogenMeasurement_shouldInvertData__block_invoke(uint64_t a1)
   }
 
   *v0 = -1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveAsWav:(_DWORD *)a1 .cold.3(_DWORD *a1)

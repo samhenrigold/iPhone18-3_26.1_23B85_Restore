@@ -3,7 +3,7 @@
 
 @implementation NSAttributedString
 
-uint64_t __60__NSAttributedString_VK__vk_attributedSubstringFromVKRange___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__60__NSAttributedString_VK__vk_attributedSubstringFromVKRange___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
@@ -12,7 +12,7 @@ uint64_t __60__NSAttributedString_VK__vk_attributedSubstringFromVKRange___block_
   [v5 appendAttributedString:v9];
 
   result = [*(a1 + 48) count];
-  if (result != a3 - 1)
+  if (result != (a3 - 1))
   {
     v11 = *(a1 + 32);
 

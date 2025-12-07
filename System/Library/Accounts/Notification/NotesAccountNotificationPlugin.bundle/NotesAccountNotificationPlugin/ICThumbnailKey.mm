@@ -25,12 +25,10 @@
 
 - (NSString)thumbnailId
 {
-  v2 = *(self + OBJC_IVAR___ICThumbnailKey_thumbnailId);
-  v3 = *(self + OBJC_IVAR___ICThumbnailKey_thumbnailId + 8);
 
-  v4 = sub_29C8F5B40();
+  v2 = sub_29C8F5B40();
 
-  return v4;
+  return v2;
 }
 
 - (ICThumbnailKey)initWithAccountId:(id)id objectId:(id)objectId thumbnailId:(id)thumbnailId
@@ -166,7 +164,7 @@ LABEL_6:
 LABEL_5:
     v17 = 0;
     v19 = 0;
-    return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, width, height, scale, v14, v16, v17, v19, appearance);
+    return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, v14, v16, v17, v19, appearance, width, height, scale);
   }
 
   v14 = sub_29C8F5B50();
@@ -179,7 +177,7 @@ LABEL_5:
 LABEL_3:
   v17 = sub_29C8F5B50();
   v19 = v18;
-  return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, width, height, scale, v14, v16, v17, v19, appearance);
+  return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, v14, v16, v17, v19, appearance, width, height, scale);
 }
 
 - (ICThumbnailKey)initWithType:(int64_t)type accountId:(id)id objectId:(id)objectId preferredSize:(CGSize)size traitCollection:(id)collection
@@ -198,7 +196,7 @@ LABEL_3:
 
 LABEL_5:
     v16 = 0;
-    return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, width, height, v12, v14, objectIdCopy, v16, collection);
+    return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, v12, v14, objectIdCopy, v16, collection, width, height);
   }
 
   v12 = sub_29C8F5B50();
@@ -211,7 +209,7 @@ LABEL_5:
 LABEL_3:
   objectIdCopy = sub_29C8F5B50();
   v16 = v15;
-  return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, width, height, v12, v14, objectIdCopy, v16, collection);
+  return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, v12, v14, objectIdCopy, v16, collection, width, height);
 }
 
 - (NSString)description
@@ -269,16 +267,15 @@ LABEL_3:
 {
   v3 = sub_29C8F5B00();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x2A1C7C4A8](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  ThumbnailKey.containerUrl.getter(v7);
+  ThumbnailKey.containerUrl.getter(v6);
 
-  v9 = sub_29C8F5AC0();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_29C8F5AC0();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (ICThumbnailKey)init

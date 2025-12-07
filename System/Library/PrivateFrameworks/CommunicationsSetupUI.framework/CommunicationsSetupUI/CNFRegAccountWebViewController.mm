@@ -24,7 +24,9 @@
 - (void)dealloc;
 - (void)loadView;
 - (void)setHeadersForRequest:(id)request;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegAccountWebViewController
@@ -199,6 +201,25 @@
       [(CNFRegAccountWebViewController *)self _startBagLoadTimer];
     }
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegAccountWebViewController;
+  [(CNFRegServerWebViewController *)&v4 viewDidAppear:appear];
+  if ([(CNFRegAccountWebViewController *)self failedBagLoad])
+  {
+    [(CNFRegAccountWebViewController *)self _showURLDidNotLoadAlert];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegAccountWebViewController;
+  [(CNFRegServerWebViewController *)&v4 viewWillDisappear:disappear];
+  [(CNFRegAccountWebViewController *)self _stopCurrentReload];
 }
 
 - (BOOL)shouldSetHeadersForRequest:(id)request
@@ -429,7 +450,7 @@ LABEL_46:
 
 - (BOOL)_loadURLFromBag
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   bagKey = [(CNFRegAccountWebViewController *)self bagKey];
   cNFRegServerURLOverride = [MEMORY[0x277CBEBD0] CNFRegServerURLOverride];
   if (cNFRegServerURLOverride)
@@ -474,9 +495,9 @@ LABEL_46:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v5;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Found url via %@ : %@", buf, 0x16u);
     }
 
@@ -502,13 +523,12 @@ LABEL_46:
     [(CNFRegServerWebViewController *)self loadURL:v5];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_showURLDidNotLoadAlert
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(CNFRegServerWebViewController *)self _shouldLog])
   {
     v3 = OSLogHandleForIDSCategory();
@@ -516,7 +536,7 @@ LABEL_46:
     {
       bagKey = [(CNFRegAccountWebViewController *)self bagKey];
       *buf = 138412290;
-      v20 = bagKey;
+      v19 = bagKey;
       _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Server bag finished loading, but could not find url for key : %@", buf, 0xCu);
     }
 
@@ -540,16 +560,15 @@ LABEL_46:
   v13 = [v11 localizedStringForKey:@"FACETIME_ALERT_OK" value:&stru_2856D3978 table:v12];
 
   v14 = [MEMORY[0x277D75110] alertControllerWithTitle:v7 message:v10 preferredStyle:1];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __57__CNFRegAccountWebViewController__showURLDidNotLoadAlert__block_invoke;
-  v18[3] = &unk_278DE8328;
-  v18[4] = self;
-  v15 = [MEMORY[0x277D750F8] actionWithTitle:v13 style:0 handler:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __57__CNFRegAccountWebViewController__showURLDidNotLoadAlert__block_invoke;
+  v17[3] = &unk_278DE8328;
+  v17[4] = self;
+  v15 = [MEMORY[0x277D750F8] actionWithTitle:v13 style:0 handler:v17];
   [v14 addAction:v15];
 
   [(CNFRegAccountWebViewController *)self presentViewController:v14 animated:1 completion:0];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_bagLoadTimeout:(id)timeout
@@ -579,9 +598,7 @@ LABEL_46:
 {
   if (!self->_bagLoadTimer)
   {
-    v3 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__bagLoadTimeout_ selector:0 userInfo:0 repeats:15.0];
-    bagLoadTimer = self->_bagLoadTimer;
-    self->_bagLoadTimer = v3;
+    self->_bagLoadTimer = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__bagLoadTimeout_ selector:0 userInfo:0 repeats:15.0];
 
     MEMORY[0x2821F96F8]();
   }

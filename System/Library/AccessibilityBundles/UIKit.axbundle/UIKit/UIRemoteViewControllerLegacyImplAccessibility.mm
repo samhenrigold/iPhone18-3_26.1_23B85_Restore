@@ -3,19 +3,19 @@
 
 @implementation UIRemoteViewControllerLegacyImplAccessibility
 
-uint64_t __103___UIRemoteViewControllerLegacyImplAccessibility__accessibilityLoadAccessibilityInformation_retryTime___block_invoke(uint64_t a1)
+void __103___UIRemoteViewControllerLegacyImplAccessibility__accessibilityLoadAccessibilityInformation_retryTime___block_invoke(uint64_t a1)
 {
   if (*(a1 + 40) * 2.0 >= 5.0)
   {
-    v2 = 5.0;
+    v1 = 5.0;
   }
 
   else
   {
-    v2 = *(a1 + 40) * 2.0;
+    v1 = *(a1 + 40) * 2.0;
   }
 
-  return [(_UIRemoteViewControllerLegacyImplAccessibility *)*(a1 + 32) _accessibilityLoadAccessibilityInformation:v2 retryTime:?];
+  [(_UIRemoteViewControllerLegacyImplAccessibility *)*(a1 + 32) _accessibilityLoadAccessibilityInformation:v1 retryTime:?];
 }
 
 double __103___UIRemoteViewControllerLegacyImplAccessibility__accessibilityLoadAccessibilityInformation_retryTime___block_invoke_416(uint64_t a1)

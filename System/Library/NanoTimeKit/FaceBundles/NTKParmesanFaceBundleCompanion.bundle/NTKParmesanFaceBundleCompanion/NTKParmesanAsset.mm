@@ -47,12 +47,12 @@
 
 - (NSDate)modificationDate
 {
-  v3 = sub_23BF4A264(&qword_27E1E0B80);
+  v3 = sub_23BF4A264(&qword_27E1E0B80, &qword_23C002400);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR___NTKParmesanAsset_modificationDate;
   swift_beginAccess();
-  sub_23BF4B33C(self + v6, v5, &qword_27E1E0B80);
+  sub_23BF4B33C(self + v6, v5, &qword_27E1E0B80, &qword_23C002400);
   v7 = sub_23BFF8D90();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -69,7 +69,7 @@
 
 - (void)setModificationDate:(id)date
 {
-  v5 = sub_23BF4A264(&qword_27E1E0B80);
+  v5 = sub_23BF4A264(&qword_27E1E0B80, &qword_23C002400);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v12 - v6;
   if (date)
@@ -88,7 +88,7 @@
   v10 = OBJC_IVAR___NTKParmesanAsset_modificationDate;
   swift_beginAccess();
   selfCopy = self;
-  sub_23BFE4B60(v7, self + v10, &qword_27E1E0B80);
+  sub_23BFE4B60(v7, self + v10, &qword_27E1E0B80, &qword_23C002400);
   swift_endAccess();
 }
 
@@ -104,7 +104,7 @@
   swift_beginAccess();
   type metadata accessor for ParmesanTimeLayout();
   type metadata accessor for ParmesanAssetLayout();
-  sub_23BFE5284(&unk_27E1E2848, type metadata accessor for ParmesanTimeLayout);
+  sub_23BFE5284(&unk_27E1E2848, type metadata accessor for ParmesanTimeLayout, MEMORY[0x277D85378]);
 
   v2 = sub_23BFFA260();
 
@@ -115,7 +115,7 @@
 {
   type metadata accessor for ParmesanTimeLayout();
   type metadata accessor for ParmesanAssetLayout();
-  sub_23BFE5284(&unk_27E1E2848, type metadata accessor for ParmesanTimeLayout);
+  sub_23BFE5284(&unk_27E1E2848, type metadata accessor for ParmesanTimeLayout, MEMORY[0x277D85378]);
   v4 = sub_23BFFA270();
   v5 = OBJC_IVAR___NTKParmesanAsset_layouts;
   swift_beginAccess();
@@ -165,12 +165,12 @@
 
 - (NSURL)resourceDirectory
 {
-  v3 = sub_23BF4A264(&qword_27E1E0B78);
+  v3 = sub_23BF4A264(&qword_27E1E0B78, &unk_23C0038E0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR___NTKParmesanAsset_resourceDirectory;
   swift_beginAccess();
-  sub_23BF4B33C(self + v6, v5, &qword_27E1E0B78);
+  sub_23BF4B33C(self + v6, v5, &qword_27E1E0B78, &unk_23C0038E0);
   v7 = sub_23BFF8D10();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -187,7 +187,7 @@
 
 - (void)setResourceDirectory:(id)directory
 {
-  v5 = sub_23BF4A264(&qword_27E1E0B78);
+  v5 = sub_23BF4A264(&qword_27E1E0B78, &unk_23C0038E0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v12 - v6;
   if (directory)
@@ -206,7 +206,7 @@
   v10 = OBJC_IVAR___NTKParmesanAsset_resourceDirectory;
   swift_beginAccess();
   selfCopy = self;
-  sub_23BFE4B60(v7, self + v10, &qword_27E1E0B78);
+  sub_23BFE4B60(v7, self + v10, &qword_27E1E0B78, &unk_23C0038E0);
   swift_endAccess();
 }
 
@@ -224,10 +224,10 @@
   height = size.height;
   width = size.width;
   v37[1] = self;
-  v16 = sub_23BF4A264(&qword_27E1E0B78);
+  v16 = sub_23BF4A264(&qword_27E1E0B78, &unk_23C0038E0);
   MEMORY[0x28223BE20](v16 - 8);
   v18 = v37 - v17;
-  v19 = sub_23BF4A264(&qword_27E1E0B80);
+  v19 = sub_23BF4A264(&qword_27E1E0B80, &qword_23C002400);
   MEMORY[0x28223BE20](v19 - 8);
   v21 = v37 - v20;
   v22 = sub_23BFFA300();
@@ -261,7 +261,7 @@
   (*(*(v29 - 8) + 56))(v18, v28, 1, v29);
   type metadata accessor for ParmesanTimeLayout();
   type metadata accessor for ParmesanAssetLayout();
-  sub_23BFE5284(&unk_27E1E2848, type metadata accessor for ParmesanTimeLayout);
+  sub_23BFE5284(&unk_27E1E2848, type metadata accessor for ParmesanTimeLayout, MEMORY[0x277D85378]);
   v30 = sub_23BFFA270();
   if (description)
   {
@@ -315,14 +315,14 @@
     selfCopy2 = self;
   }
 
-  sub_23BF4B33C(v11, v9, &qword_27E1E0530);
+  sub_23BF4B33C(v11, v9, &qword_27E1E0530, &qword_23C001D50);
   if (!v10)
   {
-    sub_23BF4B2D4(v9, &qword_27E1E0530);
+    sub_23BF4B2D4(v9, &qword_27E1E0530, &qword_23C001D50);
     goto LABEL_8;
   }
 
-  type metadata accessor for ParmesanAsset();
+  type metadata accessor for ParmesanAsset(0);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:
@@ -334,7 +334,7 @@ LABEL_8:
   v6 = sub_23BFE4BC8(self, v8);
 
 LABEL_9:
-  sub_23BF4B2D4(v11, &qword_27E1E0530);
+  sub_23BF4B2D4(v11, &qword_27E1E0530, &qword_23C001D50);
   return v6 & 1;
 }
 
@@ -416,7 +416,7 @@ LABEL_9:
 
 - (id)preferredLayoutImageURL
 {
-  v3 = sub_23BF4A264(&qword_27E1E0B78);
+  v3 = sub_23BF4A264(&qword_27E1E0B78, &unk_23C0038E0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v6);

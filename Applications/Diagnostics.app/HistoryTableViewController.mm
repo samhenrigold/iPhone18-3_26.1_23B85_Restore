@@ -9,8 +9,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1001465C0(disappear);
+  sub_1001465C0(disappearCopy);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -18,11 +19,11 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = (&v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1001466E4(viewCopy);
+  sub_1001466E4(viewCopy, v9);
   v13 = v12;
 
   (*(v7 + 8))(v9, v6);

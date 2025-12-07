@@ -87,11 +87,11 @@
 {
   deviceCopy = device;
   colorPaletteCopy = colorPalette;
-  v13 = [(NTKDigitalTimeLabel *)self _labelColorFromFaceColorPalette:palette device:deviceCopy];
-  v11 = [(NTKDigitalTimeLabel *)self _labelColorFromFaceColorPalette:colorPaletteCopy device:deviceCopy];
+  v14 = [(NTKDigitalTimeLabel *)self _labelColorFromFaceColorPalette:palette device:deviceCopy];
+  v12 = [(NTKDigitalTimeLabel *)self _labelColorFromFaceColorPalette:colorPaletteCopy device:deviceCopy];
 
-  v12 = NTKInterpolateBetweenColors();
-  [(NTKDigitalTimeLabel *)self setColor:v12];
+  v13 = NTKInterpolateBetweenColors(fraction);
+  [(NTKDigitalTimeLabel *)self setColor:v13];
 }
 
 - (id)_labelColorFromFaceColorPalette:(id)palette device:(id)device

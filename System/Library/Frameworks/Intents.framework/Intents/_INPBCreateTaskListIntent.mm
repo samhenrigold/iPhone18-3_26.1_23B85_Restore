@@ -14,7 +14,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   groupName = [(_INPBCreateTaskListIntent *)self groupName];
   dictionaryRepresentation = [groupName dictionaryRepresentation];
@@ -27,30 +27,30 @@
   if ([(NSArray *)self->_taskTitles count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = self->_taskTitles;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation3 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -62,8 +62,6 @@
   title = [(_INPBCreateTaskListIntent *)self title];
   dictionaryRepresentation4 = [title dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation4 forKeyedSubscript:@"title"];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -239,7 +237,7 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   toCopy = to;
   groupName = [(_INPBCreateTaskListIntent *)self groupName];
 
@@ -257,33 +255,32 @@ LABEL_23:
     PBDataWriterWriteSubmessage();
   }
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = self->_taskTitles;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
         PBDataWriterWriteSubmessage();
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -296,8 +293,6 @@ LABEL_23:
     title2 = [(_INPBCreateTaskListIntent *)self title];
     PBDataWriterWriteSubmessage();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTaskTitles:(id)titles

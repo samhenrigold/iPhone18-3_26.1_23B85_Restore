@@ -66,18 +66,16 @@ void __48__AEPolicyBundle_activateSessionWithCompletion___block_invoke(uint64_t 
 
 void __48__AEPolicyBundle_activateSessionWithCompletion___block_invoke_2(void *a1, void *a2)
 {
-  v3[1] = *MEMORY[0x277D85DE8];
+  v2[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    __48__AEPolicyBundle_activateSessionWithCompletion___block_invoke_2_cold_1(a1, a2, v3);
+    __48__AEPolicyBundle_activateSessionWithCompletion___block_invoke_2_cold_1(a1, a2, v2);
   }
 
   else
   {
     __48__AEPolicyBundle_activateSessionWithCompletion___block_invoke_2_cold_2(a1, 0);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __113__AEPolicyBundle_runWithRemainingActivations_remainingDeactivations_invalidationHandler_currentEvent_completion___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -92,33 +90,32 @@ void __113__AEPolicyBundle_runWithRemainingActivations_remainingDeactivations_in
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 88);
   [AEPolicyBundle validateProducedPersistentDeactivations:? currentEvent:?];
   if ([v6 count])
   {
-    v8 = [*(a1 + 40) ae_addingItems:v5];
+    v7 = [*(a1 + 40) ae_addingItems:v5];
     (*(*(a1 + 72) + 16))();
   }
 
   else
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __113__AEPolicyBundle_runWithRemainingActivations_remainingDeactivations_invalidationHandler_currentEvent_completion___block_invoke_4;
-    v14[3] = &unk_278BB6C78;
-    v9 = *(a1 + 48);
-    v14[4] = *(a1 + 56);
-    v15 = v5;
-    v10 = *(a1 + 72);
-    v11 = *(a1 + 64);
-    v16 = *(a1 + 32);
-    v17 = v11;
-    v18 = v10;
-    v12 = *(a1 + 80);
-    v13 = *(a1 + 88);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __113__AEPolicyBundle_runWithRemainingActivations_remainingDeactivations_invalidationHandler_currentEvent_completion___block_invoke_4;
+    v13[3] = &unk_278BB6C78;
+    v8 = *(a1 + 48);
+    v13[4] = *(a1 + 56);
+    v14 = v5;
+    v9 = *(a1 + 72);
+    v10 = *(a1 + 64);
+    v15 = *(a1 + 32);
+    v16 = v10;
+    v17 = v9;
+    v11 = *(a1 + 80);
+    v12 = *(a1 + 88);
+    v18 = v11;
     v19 = v12;
-    v20 = v13;
-    [(AEDeactivationPool *)v9 deactivateWithCompletion:v14];
+    [(AEDeactivationPool *)v8 deactivateWithCompletion:v13];
   }
 }
 
@@ -140,16 +137,16 @@ void __113__AEPolicyBundle_runWithRemainingActivations_remainingDeactivations_in
 void __65__AEPolicyBundle_recoverWithError_deactivations_finalCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = AECoreLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = AECoreLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __65__AEPolicyBundle_recoverWithError_deactivations_finalCompletion___block_invoke_cold_1();
     }
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -216,17 +213,17 @@ BOOL __71__AEPolicyBundle_validateProducedPersistentDeactivations_currentEvent__
 
 - (id)activationErrorWithErrors:(uint64_t)errors
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (errors)
   {
     v2 = *MEMORY[0x277CCA578];
-    v9[0] = AEPolicySessionFailedToActivateSubsystemsKey;
-    v9[1] = v2;
-    v10[0] = a2;
-    v10[1] = a2;
+    v8[0] = AEPolicySessionFailedToActivateSubsystemsKey;
+    v8[1] = v2;
+    v9[0] = a2;
+    v9[1] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v5 = [v3 dictionaryWithObjects:v9 forKeys:v8 count:2];
 
     v6 = AECoreErrorUserInfo(100, v5);
   }
@@ -235,8 +232,6 @@ BOOL __71__AEPolicyBundle_validateProducedPersistentDeactivations_currentEvent__
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -359,13 +354,9 @@ LABEL_9:
     self = self->_policyStore;
   }
 
-  if (([(AEPolicyBundle *)self exists]& 1) != 0)
+  exists = [(AEPolicyBundle *)self exists];
+  if (exists)
   {
-    if (selfCopy)
-    {
-      activations = selfCopy->_activations;
-    }
-
     OUTLINED_FUNCTION_0();
     v14 = 3221225472;
     v15 = __33__AEPolicyBundle_recoverySession__block_invoke;
@@ -392,7 +383,7 @@ LABEL_9:
 
   else
   {
-    v11 = AECoreLog();
+    v11 = AECoreLog(exists);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -407,7 +398,6 @@ LABEL_9:
 
 id *__33__AEPolicyBundle_recoverySession__block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -419,62 +409,60 @@ id *__33__AEPolicyBundle_recoverySession__block_invoke(uint64_t a1, void *a2)
   v6 = [v3 identifier];
   v7 = [v5 readOnlyScratchpadForIdentifier:v6];
 
-  v8 = AECoreLog();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = AECoreLog(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
-    if (v9)
+    if (v10)
     {
-      v10 = [v3 identifier];
+      v11 = [v3 identifier];
       OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_3(&dword_23C1AA000, v11, v12, "Found scratchpad for identifier: %{public}@", v13, v14, v15, v16, v44);
+      OUTLINED_FUNCTION_3(&dword_23C1AA000, v12, v13, "Found scratchpad for identifier: %{public}@", v14, v15, v16, v17);
     }
 
-    v8 = [v3 deactivationForScratchpad:v7];
-    v17 = AECoreLog();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = [v3 deactivationForScratchpad:v7];
+    v18 = AECoreLog(v9);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v18)
+      if (v19)
       {
-        v19 = [v3 identifier];
+        v20 = [v3 identifier];
         OUTLINED_FUNCTION_2();
-        OUTLINED_FUNCTION_4(&dword_23C1AA000, v20, v21, "Made deactivation for scratchpad with identifier: %{public}@", v22, v23, v24, v25, v44);
+        OUTLINED_FUNCTION_4(&dword_23C1AA000, v21, v22, "Made deactivation for scratchpad with identifier: %{public}@", v23, v24, v25, v26);
       }
 
-      v26 = [AEPersistentDeactivation alloc];
-      v17 = [v3 identifier];
-      v27 = [(AEPersistentDeactivation *)&v26->super.isa initWithScratchpadIdentifier:v17 deactivation:v8];
+      v27 = [AEPersistentDeactivation alloc];
+      v18 = [v3 identifier];
+      v28 = [(AEPersistentDeactivation *)&v27->super.isa initWithScratchpadIdentifier:v18 deactivation:v9];
     }
 
     else
     {
-      if (v18)
+      if (v19)
       {
-        v35 = [v3 identifier];
+        v36 = [v3 identifier];
         OUTLINED_FUNCTION_2();
-        OUTLINED_FUNCTION_4(&dword_23C1AA000, v36, v37, "Did not make a deactivation for activation with identifier: %{public}@", v38, v39, v40, v41, v44);
+        OUTLINED_FUNCTION_4(&dword_23C1AA000, v37, v38, "Did not make a deactivation for activation with identifier: %{public}@", v39, v40, v41, v42);
       }
 
-      v27 = 0;
+      v28 = 0;
     }
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      v28 = [v3 identifier];
+      v29 = [v3 identifier];
       OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_3(&dword_23C1AA000, v29, v30, "Did not find scratchpad for identifier: %{public}@", v31, v32, v33, v34, v44);
+      OUTLINED_FUNCTION_3(&dword_23C1AA000, v30, v31, "Did not find scratchpad for identifier: %{public}@", v32, v33, v34, v35);
     }
 
-    v27 = 0;
+    v28 = 0;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v28;
 }
 
 - (void)validateProducedPersistentDeactivations:(uint64_t)deactivations currentEvent:
@@ -575,10 +563,9 @@ void __113__AEPolicyBundle_runWithRemainingActivations_remainingDeactivations_in
 
 void __65__AEPolicyBundle_recoverWithError_deactivations_finalCompletion___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_23C1AA000, v0, OS_LOG_TYPE_ERROR, "Failed to run deactivations during recovery session %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23C1AA000, v0, OS_LOG_TYPE_ERROR, "Failed to run deactivations during recovery session %{public}@", v1, 0xCu);
 }
 
 @end

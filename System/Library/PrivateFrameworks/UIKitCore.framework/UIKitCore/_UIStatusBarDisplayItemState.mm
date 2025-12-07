@@ -202,9 +202,9 @@
 
         v9 = *(*(&v13 + 1) + 8 * i);
         placement = [v9 placement];
-        v11 = [placement isEqual:placementCopy];
+        isEqual = objc_msgSend_isEqual_(placement);
 
-        if (v11)
+        if (isEqual)
         {
           v6 = v9;
           goto LABEL_11;
@@ -820,9 +820,9 @@ LABEL_19:
     goto LABEL_12;
   }
 
-  v33 = [(_UIStatusBarStyleAttributes *)v30 isEqual:v31];
+  isEqual = objc_msgSend_isEqual_(v30);
 
-  if (!v33)
+  if ((isEqual & 1) == 0)
   {
 LABEL_12:
     objc_storeStrong(p_overriddenStyleAttributes, v41[5]);

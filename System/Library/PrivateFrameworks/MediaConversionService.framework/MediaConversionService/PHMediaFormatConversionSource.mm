@@ -75,24 +75,22 @@
 
 - (void)checkForAccessibilityDescriptionData
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self->_accessibilityDescriptionMetadataStatus)
   {
     sourceAccessibilityDescriptionMetadataStatus = [(PHMediaFormatConversionSource *)self sourceAccessibilityDescriptionMetadataStatus];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       fileURL = [(PHMediaFormatConversionContent *)self fileURL];
-      v6 = 134218242;
-      v7 = sourceAccessibilityDescriptionMetadataStatus;
-      v8 = 2112;
-      v9 = fileURL;
-      _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read accessibility description metadata status: %ld from file: %@", &v6, 0x16u);
+      v5 = 134218242;
+      v6 = sourceAccessibilityDescriptionMetadataStatus;
+      v7 = 2112;
+      v8 = fileURL;
+      _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read accessibility description metadata status: %ld from file: %@", &v5, 0x16u);
     }
 
     [(PHMediaFormatConversionSource *)self markAccessibilityDescriptionMetadataAsCheckedWithStatus:sourceAccessibilityDescriptionMetadataStatus];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)sourceCaptionMetadataStatus
@@ -123,24 +121,22 @@
 
 - (void)checkForCaptionData
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self->_captionMetadataStatus)
   {
     sourceCaptionMetadataStatus = [(PHMediaFormatConversionSource *)self sourceCaptionMetadataStatus];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       fileURL = [(PHMediaFormatConversionContent *)self fileURL];
-      v6 = 134218242;
-      v7 = sourceCaptionMetadataStatus;
-      v8 = 2112;
-      v9 = fileURL;
-      _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read caption metadata status: %ld from file: %@", &v6, 0x16u);
+      v5 = 134218242;
+      v6 = sourceCaptionMetadataStatus;
+      v7 = 2112;
+      v8 = fileURL;
+      _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read caption metadata status: %ld from file: %@", &v5, 0x16u);
     }
 
     [(PHMediaFormatConversionSource *)self markCaptionMetadataAsCheckedWithStatus:sourceCaptionMetadataStatus];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)sourceLocationMetadataStatus
@@ -171,24 +167,22 @@
 
 - (void)checkForLocationData
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self->_locationMetadataStatus)
   {
     sourceLocationMetadataStatus = [(PHMediaFormatConversionSource *)self sourceLocationMetadataStatus];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       fileURL = [(PHMediaFormatConversionContent *)self fileURL];
-      v6 = 134218242;
-      v7 = sourceLocationMetadataStatus;
-      v8 = 2112;
-      v9 = fileURL;
-      _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read location metadata status: %ld from file: %@", &v6, 0x16u);
+      v5 = 134218242;
+      v6 = sourceLocationMetadataStatus;
+      v7 = 2112;
+      v8 = fileURL;
+      _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read location metadata status: %ld from file: %@", &v5, 0x16u);
     }
 
     [(PHMediaFormatConversionSource *)self markLocationMetadataAsCheckedWithStatus:sourceLocationMetadataStatus];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (PFMetadata)metadata
@@ -210,7 +204,7 @@
 
 - (void)checkForLivePhotoPairingIdentifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (![(PHMediaFormatConversionSource *)self didCheckForLivePhotoPairingIdentifier])
   {
     metadata = [(PHMediaFormatConversionSource *)self metadata];
@@ -221,11 +215,11 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         fileURL = [(PHMediaFormatConversionContent *)self fileURL];
-        v9 = 138412546;
-        v10 = livePhotoPairingIdentifier;
-        v11 = 2112;
-        v12 = fileURL;
-        _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read pairing identifier: %@ from file: %@", &v9, 0x16u);
+        v8 = 138412546;
+        v9 = livePhotoPairingIdentifier;
+        v10 = 2112;
+        v11 = fileURL;
+        _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read pairing identifier: %@ from file: %@", &v8, 0x16u);
       }
     }
 
@@ -234,9 +228,9 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         fileURL2 = [(PHMediaFormatConversionContent *)self fileURL];
-        v9 = 138412290;
-        v10 = fileURL2;
-        _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to read pairing identifier from %@", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = fileURL2;
+        _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to read pairing identifier from %@", &v8, 0xCu);
       }
 
       livePhotoPairingIdentifier = 0;
@@ -244,8 +238,6 @@
 
     [(PHMediaFormatConversionSource *)self markLivePhotoPairingIdentifierAsCheckedWithValue:livePhotoPairingIdentifier];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markLivePhotoPairingIdentifierAsCheckedWithValue:(id)value
@@ -385,7 +377,7 @@
 
 - (void)checkForVideoEligibleForTranscoding
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!self->_didCheckForVideoWithFormatEligibleForTranscoding)
   {
     self->_didCheckForVideoWithFormatEligibleForTranscoding = 1;
@@ -417,18 +409,16 @@
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       fileURL = [(PHMediaFormatConversionContent *)self fileURL];
-      v11 = 138412290;
-      v12 = fileURL;
-      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get metadata for URL: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = fileURL;
+      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get metadata for URL: %@", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)determineMediaTypeFromPathExtensionWithError:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = [(PHMediaFormatConversionContent *)self typeFromFileExtensionWithError:?];
   v6 = v5;
   if (!v5)
@@ -449,9 +439,9 @@
     {
       path = [(NSURL *)self->super._fileURL path];
       *buf = 138478083;
-      v15 = path;
-      v16 = 2114;
-      v17 = v6;
+      v14 = path;
+      v15 = 2114;
+      v16 = v6;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to determine image/video type for %{private}@ from UTI %{public}@", buf, 0x16u);
 
       if (!error)
@@ -466,9 +456,9 @@
     }
 
     v7 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13 = @"Unable to determine source media type from type identifier. Use videoSourceForFileURL/imageSourceForFileURL instead";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12 = @"Unable to determine source media type from type identifier. Use videoSourceForFileURL/imageSourceForFileURL instead";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     *error = [v7 errorWithDomain:@"PHMediaFormatConversionErrorDomain" code:2 userInfo:v8];
 
 LABEL_9:
@@ -480,7 +470,6 @@ LABEL_9:
   LOBYTE(error) = 1;
 LABEL_10:
 
-  v9 = *MEMORY[0x277D85DE8];
   return error;
 }
 

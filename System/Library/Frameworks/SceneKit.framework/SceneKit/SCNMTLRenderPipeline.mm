@@ -265,45 +265,47 @@
 
 - (void)_computeUsageForArguments:(id)arguments function:(id)function
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v6 = SCNMTLFunctionTypeToProgramStage([function functionType]);
-  if (v6 >= 2)
+  v33 = *MEMORY[0x277D85DE8];
+  functionType = [function functionType];
+  v8 = SCNMTLFunctionTypeToProgramStage(functionType, v7);
+  v10 = v8;
+  if (v8 >= 2)
   {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v11 = scn_default_log(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLRenderPipeline *)v7 _computeUsageForArguments:v8 function:v9, v10, v11, v12, v13, v14];
+      [(SCNMTLRenderPipeline *)v11 _computeUsageForArguments:v12 function:v13, v14, v15, v16, v17, v18];
     }
   }
 
-  v15 = self + 4 * v6;
-  *(v15 + 34) = 0;
-  v16 = v15 + 136;
-  *(v16 - 4) = 0;
-  *(v16 - 2) = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v17 = [arguments countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v17)
+  v19 = self + 4 * v10;
+  *(v19 + 34) = 0;
+  v20 = v19 + 136;
+  *(v20 - 4) = 0;
+  *(v20 - 2) = 0;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v21 = [arguments countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v21)
   {
-    v18 = v17;
-    v19 = *v25;
+    v22 = v21;
+    v23 = *v29;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v25 != v19)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(arguments);
         }
 
-        v21 = *(*(&v24 + 1) + 8 * i);
-        if ([v21 isActive])
+        v25 = *(*(&v28 + 1) + 8 * i);
+        if ([v25 isActive])
         {
-          type = [v21 type];
-          v23 = v16 - 16;
+          type = [v25 type];
+          v27 = v20 - 16;
           if (!type)
           {
             goto LABEL_15;
@@ -311,13 +313,13 @@
 
           if (type == 3)
           {
-            v23 = v16;
+            v27 = v20;
 LABEL_15:
-            *v23 |= 1 << [v21 index];
+            *v27 |= 1 << [v25 index];
             continue;
           }
 
-          v23 = v16 - 8;
+          v27 = v20 - 8;
           if (type == 2)
           {
             goto LABEL_15;
@@ -325,11 +327,18 @@ LABEL_15:
         }
       }
 
-      v18 = [arguments countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v22 = [arguments countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v18);
+    while (v22);
   }
+}
+
+- (void)_computeUsageForArguments:(uint64_t)a3 function:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "stage < kC3DFXMetalProgramStageCount";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Bad stage", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

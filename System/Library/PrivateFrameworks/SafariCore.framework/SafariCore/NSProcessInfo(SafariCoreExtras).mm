@@ -56,9 +56,9 @@
     [NSProcessInfo(SafariCoreExtras) safari_deviceUDID];
   }
 
-  v1 = safari_deviceUDID_udid;
+  v2 = safari_deviceUDID_udid;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -202,9 +202,9 @@
   return [v3 CGPDFDocument];
 }
 
-TSDPDFImageProvider *__42__TSDErrorImageProvider_p_iconPDFDocument__block_invoke()
+TSDPDFImageProvider *__42__TSDErrorImageProvider_p_iconPDFDocument__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = -[TSDImageProvider initWithImageData:]([TSDPDFImageProvider alloc], "initWithImageData:", +[TSPData readOnlyDataFromURL:context:](TSPData, "readOnlyDataFromURL:context:", [TSDBundle() URLForResource:@"TSDErrorImageIcon" withExtension:@"pdf"], 0));
+  result = -[TSDImageProvider initWithImageData:]([TSDPDFImageProvider alloc], "initWithImageData:", +[TSPData readOnlyDataFromURL:context:](TSPData, "readOnlyDataFromURL:context:", [TSDBundle(a1 a2)], 0));
   p_iconPDFDocument_sIconProvider = result;
   return result;
 }

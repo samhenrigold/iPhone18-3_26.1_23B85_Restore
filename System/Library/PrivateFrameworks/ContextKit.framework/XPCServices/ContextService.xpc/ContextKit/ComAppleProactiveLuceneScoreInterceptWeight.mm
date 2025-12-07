@@ -1,5 +1,6 @@
 @interface ComAppleProactiveLuceneScoreInterceptWeight
 - (float)getValueForNormalization;
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int;
 - (id)scorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context;
 - (void)dealloc;
 - (void)extractTermsWithJavaUtilSet:(id)set;
@@ -17,6 +18,17 @@
   }
 
   [(OrgApacheLuceneSearchWeight *)weight extractTermsWithJavaUtilSet:set];
+}
+
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int
+{
+  weight = self->weight_;
+  if (!weight)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneSearchWeight *)weight explainWithOrgApacheLuceneIndexLeafReaderContext:context withInt:*&int];
 }
 
 - (float)getValueForNormalization

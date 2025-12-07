@@ -543,62 +543,62 @@ uint64_t AppleDeviceManagementHIDEventService::didTerminate(AppleDeviceManagemen
   return (didTerminate)(this, a2, a3, a4);
 }
 
-uint64_t AppleDeviceManagementHIDEventService::handleStart(AppleDeviceManagementHIDEventService *this, IOService *a2)
+uint64_t AppleDeviceManagementHIDEventService::handleStart(OSObject *this, IOService *a2)
 {
   if (result)
   {
-    v5 = (*(*this + 888))(this);
-    v6 = *(this + 40);
-    *(this + 40) = v5;
+    v5 = (this->__vftable[7].serialize)(this);
+    v6 = this[20].__vftable;
+    this[20].__vftable = v5;
     if (v5)
     {
-      (*(*v5 + 32))(v5);
+      (*(v5->~OSObject + 4))(v5);
     }
 
     if (v6)
     {
-      (*(*v6 + 40))(v6);
+      (*(v6->~OSObject + 5))(v6);
     }
 
-    if (!*(this + 40))
+    if (!this[20].__vftable)
     {
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s failed to get work loop\n", "ATC", "AppleDeviceManagementHIDEventService", "handleStart");
       return 0;
     }
 
-    v7 = *(*this + 1888);
-    if (!v7)
+    taggedRelease_0 = this->__vftable[15].taggedRelease_0;
+    if (!taggedRelease_0)
     {
       v57.ptr = AppleDeviceManagementHIDEventService::handleDeviceInitDone;
       v57.adj = 0;
       v8 = OSMetaClassBase::_ptmf2ptf(this, v57);
       if (v8)
       {
-        v7 = v8;
+        taggedRelease_0 = v8;
       }
 
       else
       {
-        v7 = 0;
+        taggedRelease_0 = 0;
       }
     }
 
-    v9 = IOTimerEventSource::timerEventSource(this, v7);
-    v10 = *(this + 38);
+    v9 = IOTimerEventSource::timerEventSource(this, taggedRelease_0);
+    v10 = this[19].__vftable;
     if (v10)
     {
-      (*(*v10 + 40))(v10);
+      (*(v10->~OSObject + 5))(v10);
     }
 
-    *(this + 38) = v9;
+    this[19].__vftable = v9;
     if (v9)
     {
-      (*(**(this + 40) + 160))(*(this + 40), v9);
+      (*(this[20].~OSObject + 20))(this[20].__vftable, v9);
     }
 
     v11 = OSMetaClassBase::safeMetaCast(a2, IOHIDInterface::metaClass);
-    v12 = *(this + 43);
-    *(this + 43) = v11;
+    v12 = *&this[21].retainCount;
+    *&this[21].retainCount = v11;
     if (v11)
     {
       (v11->retain)(v11);
@@ -609,36 +609,36 @@ uint64_t AppleDeviceManagementHIDEventService::handleStart(AppleDeviceManagement
       (*(*v12 + 40))(v12);
     }
 
-    v13 = *(this + 43);
+    v13 = *&this[21].retainCount;
     if (!v13)
     {
       return 0;
     }
 
-    v14 = *(*this + 1896);
-    if (!v14)
+    Dispatch = this->__vftable[15].Dispatch;
+    if (!Dispatch)
     {
       v58.ptr = AppleDeviceManagementHIDEventService::handleInterruptReport;
       v58.adj = 0;
       v15 = OSMetaClassBase::_ptmf2ptf(this, v58);
       if (v15)
       {
-        v14 = v15;
+        Dispatch = v15;
       }
 
       else
       {
-        v14 = 0;
+        Dispatch = 0;
       }
     }
 
-    result = (*(*v13 + 1344))(v13, this, 0, v14, 0);
+    result = (*(*v13 + 1344))(v13, this, 0, Dispatch, 0);
     if (result)
     {
       v16 = this;
       while (1)
       {
-        v17 = (*(*v16 + 376))(v16, gIOServicePlane);
+        v17 = (v16->__vftable[3].release)(v16, gIOServicePlane);
         if (!v17)
         {
           break;
@@ -655,13 +655,13 @@ uint64_t AppleDeviceManagementHIDEventService::handleStart(AppleDeviceManagement
         }
       }
 
-      v22 = (*(*this + 1360))(this);
+      v22 = (this->__vftable[11].release_0)(this);
       LOBYTE(v21) = (*(*v22 + 184))(v22, "USB");
 LABEL_32:
-      *(this + 312) = v21;
-      v23 = *(*(*this + 1360))(this);
-      *(this + 313) = (*(v23 + 184))();
-      v24 = (*(*this + 328))(this, "Built-In");
+      LOBYTE(this[19].retainCount) = v21;
+      v23 = (this->__vftable[11].release_0)(this);
+      BYTE1(this[19].retainCount) = (*(*v23 + 184))(v23, "Bluetooth");
+      v24 = (this->__vftable[2].taggedRelease_0)(this, "Built-In");
       v25 = OSBoolean::metaClass;
       v26 = OSMetaClassBase::safeMetaCast(v24, OSBoolean::metaClass);
       v27 = v26;
@@ -680,7 +680,7 @@ LABEL_32:
         (v24->release_0)(v24);
       }
 
-      v29 = (*(*this + 328))(this, "CurrentBatteryPercentNotificationType");
+      v29 = (this->__vftable[2].taggedRelease_0)(this, "CurrentBatteryPercentNotificationType");
       v56 = v29;
       v30 = OSDynamicPtrCast<OSString,OSObject>(&v56);
       if (v29)
@@ -690,13 +690,13 @@ LABEL_32:
 
       if (v30)
       {
-        libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(this + 25, v30);
+        libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(&this[12].retainCount, v30);
       }
 
       v31 = kOSBooleanFalse;
       if (v27 == *kOSBooleanFalse)
       {
-        v32 = (*(*this + 328))(this, "ConnectionNotificationType");
+        v32 = (this->__vftable[2].taggedRelease_0)(this, "ConnectionNotificationType");
         v56 = v32;
         v33 = OSDynamicPtrCast<OSString,OSObject>(&v56);
         if (v30)
@@ -711,7 +711,7 @@ LABEL_32:
 
         if (v33)
         {
-          libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(this + 27, v33);
+          libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(&this[13].retainCount, v33);
         }
 
         else
@@ -719,7 +719,7 @@ LABEL_32:
           _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s Property %s not found\n", "ATC", "AppleDeviceManagementHIDEventService", "handleStart", "ConnectionNotificationType");
         }
 
-        v34 = (*(*this + 328))(this, "PoweredOffNotificationType");
+        v34 = (this->__vftable[2].taggedRelease_0)(this, "PoweredOffNotificationType");
         v56 = v34;
         v30 = OSDynamicPtrCast<OSString,OSObject>(&v56);
         if (v33)
@@ -734,7 +734,7 @@ LABEL_32:
 
         if (v30)
         {
-          libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(this + 29, v30);
+          libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(&this[14].retainCount, v30);
         }
 
         else
@@ -742,9 +742,9 @@ LABEL_32:
           _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s Property %s not found\n", "ATC", "AppleDeviceManagementHIDEventService", "handleStart", "PoweredOffNotificationType");
         }
 
-        if (*(this + 313))
+        if ((this[19].retainCount & 0x100) != 0)
         {
-          v35 = (*(*this + 328))(this, "BatteryLowNotificationType");
+          v35 = (this->__vftable[2].taggedRelease_0)(this, "BatteryLowNotificationType");
           v56 = v35;
           v36 = OSDynamicPtrCast<OSString,OSObject>(&v56);
           if (v30)
@@ -759,7 +759,7 @@ LABEL_32:
 
           if (v36)
           {
-            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(this + 26, v36);
+            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(&this[13], v36);
           }
 
           else
@@ -767,7 +767,7 @@ LABEL_32:
             _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s Property %s not found\n", "ATC", "AppleDeviceManagementHIDEventService", "handleStart", "BatteryLowNotificationType");
           }
 
-          v37 = (*(*this + 328))(this, "LowBatteryNotificationPercentage");
+          v37 = (this->__vftable[2].taggedRelease_0)(this, "LowBatteryNotificationPercentage");
           v56 = v37;
           v38 = OSDynamicPtrCast<OSNumber,OSObject>(&v56);
           if (v37)
@@ -777,7 +777,7 @@ LABEL_32:
 
           if (v38)
           {
-            *(this + 384) = (v38->__vftable[1].serialize)(v38);
+            LOBYTE(this[24].__vftable) = (v38->__vftable[1].serialize)(v38);
           }
 
           else
@@ -785,7 +785,7 @@ LABEL_32:
             _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s Property %s not found\n", "ATC", "AppleDeviceManagementHIDEventService", "handleStart", "LowBatteryNotificationPercentage");
           }
 
-          v39 = (*(*this + 328))(this, "DisconnectionNotificationType");
+          v39 = (this->__vftable[2].taggedRelease_0)(this, "DisconnectionNotificationType");
           v56 = v39;
           v40 = OSDynamicPtrCast<OSString,OSObject>(&v56);
           if (v36)
@@ -800,7 +800,7 @@ LABEL_32:
 
           if (v40)
           {
-            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(this + 28, v40);
+            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(&this[14], v40);
           }
 
           else
@@ -808,7 +808,7 @@ LABEL_32:
             _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s Property %s not found\n", "ATC", "AppleDeviceManagementHIDEventService", "handleStart", "DisconnectionNotificationType");
           }
 
-          v41 = (*(*this + 328))(this, "HostTransportSwitchNotificationType");
+          v41 = (this->__vftable[2].taggedRelease_0)(this, "HostTransportSwitchNotificationType");
           v56 = v41;
           v42 = OSDynamicPtrCast<OSString,OSObject>(&v56);
           if (v40)
@@ -823,7 +823,7 @@ LABEL_32:
 
           if (v42)
           {
-            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(this + 30, v42);
+            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(&this[15], v42);
           }
 
           else
@@ -831,7 +831,7 @@ LABEL_32:
             _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s Property %s not found\n", "ATC", "AppleDeviceManagementHIDEventService", "handleStart", "HostTransportSwitchNotificationType");
           }
 
-          v43 = (*(*this + 328))(this, "BatteryLowPowerDisconnectionNotificationType");
+          v43 = (this->__vftable[2].taggedRelease_0)(this, "BatteryLowPowerDisconnectionNotificationType");
           v56 = v43;
           v30 = OSDynamicPtrCast<OSString,OSObject>(&v56);
           if (v42)
@@ -846,7 +846,7 @@ LABEL_32:
 
           if (v30)
           {
-            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(this + 31, v30);
+            libkern::intrusive_shared_ptr<OSString,intrusive_osobject_retainer>::reset(&this[15].retainCount, v30);
           }
 
           else
@@ -861,11 +861,11 @@ LABEL_32:
         }
       }
 
-      (*(*this + 1792))(this);
-      (*(*this + 1808))(this);
+      (this->__vftable[14].free)(this);
+      (this->__vftable[15].~OSObject_0)(this);
       if (v27 == *v31)
       {
-        v44 = (*(*this + 328))(this, "BluetoothDevice");
+        v44 = (this->__vftable[2].taggedRelease_0)(this, "BluetoothDevice");
         v45 = OSMetaClassBase::safeMetaCast(v44, v25);
         v46 = v45;
         if (v44 && !v45)
@@ -876,10 +876,10 @@ LABEL_32:
         v47 = kOSBooleanTrue;
         if (v46 == *kOSBooleanTrue)
         {
-          (*(*this + 1784))(this);
+          (this->__vftable[14].init)(this);
         }
 
-        v48 = (*(*this + 328))(this, "HasBattery");
+        v48 = (this->__vftable[2].taggedRelease_0)(this, "HasBattery");
         v49 = OSMetaClassBase::safeMetaCast(v48, v25);
         v50 = v49;
         if (v48 && !v49)
@@ -889,8 +889,8 @@ LABEL_32:
 
         if (v50 == *v47)
         {
-          (*(*this + 1752))(this);
-          v51 = (*(*this + 328))(this, "SupportsExtendedBatteryState");
+          (this->__vftable[14].taggedRetain)(this);
+          v51 = (this->__vftable[2].taggedRelease_0)(this, "SupportsExtendedBatteryState");
           v52 = OSMetaClassBase::safeMetaCast(v51, v25);
           v53 = v52;
           if (v51 && !v52)
@@ -900,7 +900,7 @@ LABEL_32:
 
           if (v53 == *v47)
           {
-            (*(*this + 1760))(this);
+            (this->__vftable[14].taggedRelease)(this);
           }
 
           if (v53)
@@ -920,13 +920,13 @@ LABEL_32:
         }
       }
 
-      (*(*this + 1888))(this);
-      (*(*this + 1856))(this);
-      v54 = (*(*this + 328))(this, "LogPowerStateBeforeSleep");
+      (this->__vftable[15].taggedRelease_0)(this);
+      (this->__vftable[15].getMetaClass)(this);
+      v54 = (this->__vftable[2].taggedRelease_0)(this, "LogPowerStateBeforeSleep");
       v55 = OSMetaClassBase::safeMetaCast(v54, v25);
       if (v55)
       {
-        *(this + 328) = v55 == *kOSBooleanTrue;
+        LOBYTE(this[20].retainCount) = v55 == *kOSBooleanTrue;
         (v55->release_0)(v55);
         if (!v30)
         {
@@ -947,7 +947,7 @@ LABEL_117:
           (v54->release_0)(v54);
         }
 
-        *(this + 328) = *kOSBooleanTrue == 0;
+        LOBYTE(this[20].retainCount) = *kOSBooleanTrue == 0;
         if (!v30)
         {
           goto LABEL_117;
@@ -2278,9 +2278,10 @@ uint64_t AppleDeviceManagementHIDEventService::_resumeFromSleepGated(const IOSer
   return result;
 }
 
-uint64_t AppleDeviceManagementHIDEventService::powerStateWillChangeTo(IOService **this, char a2, unint64_t a3, IOService *a4)
+uint64_t AppleDeviceManagementHIDEventService::powerStateWillChangeTo(IOService **this, uint64_t a2, unint64_t a3, IOService *a4)
 {
-  if (a2 & 0x84) != 0 && this[46] == a4 && (this[39])
+  v5 = a2;
+  if (v5 & 0x84) != 0 && this[46] == a4 && (this[39])
   {
     ((*this)[14].fRegistryTable)(this);
   }
@@ -2308,7 +2309,7 @@ OSMetaClass *_GLOBAL__sub_I_AppleDeviceManagementHIDEventService_cpp()
   return result;
 }
 
-uint64_t _atc_extractTrackingAndButtonState(_BYTE *a1, _BYTE *a2, unsigned int a3, int a4)
+uint64_t _atc_extractTrackingAndButtonState(_BYTE *a1, _BYTE *a2, uint64_t a3, int a4)
 {
   switch(a4)
   {
@@ -2819,7 +2820,7 @@ uint64_t AppleMultitouchInputHIDEventDriver::free(AppleMultitouchInputHIDEventDr
     *(this + 44) = 0;
   }
 
-  return v4(this);
+  return (v4)(this);
 }
 
 void AppleMultitouchInputHIDEventDriver::handleInterfaceNotification(IORegistryEntry *this, OSNumber *a2)
@@ -2842,25 +2843,25 @@ void AppleMultitouchInputHIDEventDriver::handleInterfaceNotification(IORegistryE
   }
 }
 
-uint64_t AppleMultitouchInputHIDEventDriver::stop(AppleMultitouchInputHIDEventDriver *this, IOService *a2)
+uint64_t AppleMultitouchInputHIDEventDriver::stop(OSMetaClassBase *this, OSDictionary *a2)
 {
-  v4 = *(this + 45);
+  v4 = this[45].__vftable;
   if (v4)
   {
-    (*(*v4 + 120))(v4);
-    v5 = *(this + 45);
+    (*(v4->~OSMetaClassBase + 15))(v4);
+    v5 = this[45].__vftable;
     if (v5)
     {
-      (*(*v5 + 40))(v5);
+      (*(v5->~OSMetaClassBase + 5))(v5);
     }
 
-    *(this + 45) = 0;
+    this[45].__vftable = 0;
   }
 
   return v6(this, a2);
 }
 
-uint64_t AppleMultitouchInputHIDEventDriver::setProperties(const OSMetaClassBase *this, OSObject *anObject)
+uint64_t AppleMultitouchInputHIDEventDriver::setProperties(const OSMetaClassBase *this, OSDictionary *anObject)
 {
   v4 = OSMetaClassBase::safeMetaCast(anObject, OSDictionary::metaClass);
   if (v4)
@@ -3327,18 +3328,18 @@ uint64_t AppleMultitouchTrackpadHIDEventDriver::start(AppleMultitouchTrackpadHID
   return v4;
 }
 
-uint64_t AppleMultitouchTrackpadHIDEventDriver::stop(AppleMultitouchTrackpadHIDEventDriver *this, IOService *a2)
+uint64_t AppleMultitouchTrackpadHIDEventDriver::stop(OSMetaClassBase *this, OSDictionary *a2)
 {
-  v4 = *(this + 50);
+  v4 = this[50].__vftable;
   if (v4)
   {
-    (*(*v4 + 128))(v4);
+    (*(v4->~OSMetaClassBase + 16))(v4);
   }
 
-  v5 = *(this + 51);
+  v5 = this[51].__vftable;
   if (v5)
   {
-    (*(*v5 + 128))(v5);
+    (*(v5->~OSMetaClassBase + 16))(v5);
   }
 
   return AppleMultitouchInputHIDEventDriver::stop(this, a2);
@@ -3444,7 +3445,7 @@ LABEL_25:
   return v14;
 }
 
-OSDictionary *AppleMultitouchTrackpadHIDEventDriver::checkOtherMouse(AppleMultitouchTrackpadHIDEventDriver *this)
+OSBoolean *AppleMultitouchTrackpadHIDEventDriver::checkOtherMouse(AppleMultitouchTrackpadHIDEventDriver *this)
 {
   v2 = (*(*this + 328))(this, "TrackpadEmbedded");
   result = OSMetaClassBase::safeMetaCast(v2, OSBoolean::metaClass);
@@ -3483,7 +3484,7 @@ LABEL_9:
   v7 = result;
   if (result)
   {
-    result = (result->getNextObjectForIterator)(result);
+    result = (result->getValue)(result);
     if (!result)
     {
       goto LABEL_27;
@@ -4031,7 +4032,7 @@ uint64_t AppleMultitouchMouseHIDEventDriver::start(AppleMultitouchMouseHIDEventD
 
 void AppleMultitouchMouseHIDEventDriver::handleInterruptReport(AppleMultitouchMouseHIDEventDriver *this, unint64_t a2, IOMemoryDescriptor *a3, IOHIDReportType a4, unsigned int a5)
 {
-  v18 = 0;
+  v17 = 0;
   v10 = (a3->getLength)(a3);
   v11 = v10;
   if (v10 <= (*(**(this + 41) + 320))())
@@ -4046,33 +4047,32 @@ void AppleMultitouchMouseHIDEventDriver::handleInterruptReport(AppleMultitouchMo
         (*(**(this + 41) + 304))(*(this + 41), v10);
         if ((*(*this + 1760))(this))
         {
-          if (_atc_parseSimpleMouseV3Packet(&v18, v12, 8))
+          if (_atc_parseSimpleMouseV3Packet(&v17, v12, 8))
           {
             v14 = (*(*this + 1760))(this);
-            (*(*v14 + 1488))(v14, SWORD1(v18), SWORD2(v18), BYTE1(v18) & 3, 1600);
-            if ((*(this + 394) & 1) != BYTE1(v18) >> 7)
+            (*(*v14 + 1488))(v14, SWORD1(v17), SWORD2(v17), BYTE1(v17) & 3, 1600);
+            if ((*(this + 394) & 1) != BYTE1(v17) >> 7)
             {
-              *(this + 394) = BYTE1(v18) >> 7;
-              v15 = (*(*this + 1760))(this);
-              v16 = -(*(this + 394) & 1);
-              (*(*v15 + 1496))();
+              *(this + 394) = BYTE1(v17) >> 7;
+              v15 = *(*(*this + 1760))(this);
+              (*(v15 + 1496))();
             }
           }
 
           if (v10 >= 9uLL)
           {
-            v17 = v10 - 8;
-            if (v17 >= 0xFFFFFFF8)
+            v16 = v10 - 8;
+            if (v16 >= 0xFFFFFFF8)
             {
               libkern::bounded_array_ref<unsigned char,os_detail::panic_trapping_policy>::slice();
             }
 
-            if (v17 + 8 > v11)
+            if (v16 + 8 > v11)
             {
               libkern::bounded_array_ref<unsigned char,os_detail::panic_trapping_policy>::slice();
             }
 
-            memmove(v12, v12 + 8, v17);
+            memmove(v12, v12 + 8, v16);
             (*(**(this + 41) + 304))();
             if (&v12[v11] < v12 || HIDWORD(v11))
             {
@@ -4415,7 +4415,7 @@ uint64_t AppleMultitouchInputHIDEventDriver::handleStart(OSMetaClassBase *this, 
   this[48].__vftable = v4;
   if (v4)
   {
-    (*(*v4 + 32))(v4);
+    (*(v4->~OSMetaClassBase + 4))(v4);
   }
 
   if (v5)
@@ -4473,16 +4473,15 @@ LABEL_13:
 
   (v12->release_0)(v12);
 LABEL_17:
-  v15 = *v14;
   if (v10->__vftable)
   {
     if (*v14)
     {
-      v16 = AIDInterface::metaClass;
+      v15 = AIDInterface::metaClass;
       while (1)
       {
-        v17 = OSMetaClassBase::safeMetaCast(a2, v16);
-        if (v17)
+        v16 = OSMetaClassBase::safeMetaCast(a2, v15);
+        if (v16)
         {
           break;
         }
@@ -4494,13 +4493,13 @@ LABEL_17:
         }
       }
 
-      v20 = v17;
+      v19 = v16;
       RegistryEntryID = IORegistryEntry::getRegistryEntryID(a2);
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] %s::%s Transport interface 0x%08llX\n", "ATC", "AppleMultitouchInputHIDEventDriver", "handleStart", RegistryEntryID);
-      v22 = (v20->__vftable[13].retain)(v20, this, AppleMultitouchInputHIDEventDriver::handleInterfaceNotification);
-      if (v22)
+      v21 = (v19->__vftable[13].retain)(v19, this, AppleMultitouchInputHIDEventDriver::handleInterfaceNotification);
+      if (v21)
       {
-        _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s setNotifyHandler error 0x%08X\n", "ATC", "AppleMultitouchInputHIDEventDriver", "handleStart", v22);
+        _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[HID] [%s] [Error] %s::%s setNotifyHandler error 0x%08X\n", "ATC", "AppleMultitouchInputHIDEventDriver", "handleStart", v21);
         return 0;
       }
 
@@ -4517,34 +4516,34 @@ LABEL_17:
       return 1;
     }
 
-    v18 = this->__vftable[18].~OSMetaClassBase;
-    if (!v18)
+    v17 = this->__vftable[18].~OSMetaClassBase;
+    if (!v17)
     {
-      v25.ptr = AppleMultitouchInputHIDEventDriver::systemPowerChangeHandler;
-      v25.adj = 0;
-      v19 = OSMetaClassBase::_ptmf2ptf(this, v25);
-      if (v19)
+      v24.ptr = AppleMultitouchInputHIDEventDriver::systemPowerChangeHandler;
+      v24.adj = 0;
+      v18 = OSMetaClassBase::_ptmf2ptf(this, v24);
+      if (v18)
       {
-        v18 = v19;
+        v17 = v18;
       }
 
       else
       {
-        v18 = 0;
+        v17 = 0;
       }
     }
 
-    v23 = registerPrioritySleepWakeInterest(v18, this, 0);
-    v24 = this[45].__vftable;
-    this[45].__vftable = v23;
-    if (v23)
+    v22 = registerPrioritySleepWakeInterest(v17, this, 0);
+    v23 = this[45].__vftable;
+    this[45].__vftable = v22;
+    if (v22)
     {
-      (v23->retain)(v23);
+      (*(v22->~OSMetaClassBase + 4))(v22);
     }
 
-    if (v24)
+    if (v23)
     {
-      (*(v24->~OSMetaClassBase + 5))(v24);
+      (*(v23->~OSMetaClassBase + 5))(v23);
     }
 
     if (this[45].__vftable)

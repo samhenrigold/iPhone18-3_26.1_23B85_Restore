@@ -28,25 +28,23 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"eventTopic";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"eventTopic";
   topic = [(HMDEventRouterSendRemoteEventLogEvent *)self topic];
-  v12[0] = topic;
-  v11[1] = @"sourceDeviceType";
+  v11[0] = topic;
+  v10[1] = @"sourceDeviceType";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDEventRouterSendRemoteEventLogEvent sourceDeviceType](self, "sourceDeviceType")}];
-  v12[1] = v4;
-  v11[2] = @"destinationDeviceType";
+  v11[1] = v4;
+  v10[2] = @"destinationDeviceType";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDEventRouterSendRemoteEventLogEvent destinationDeviceType](self, "destinationDeviceType")}];
-  v12[2] = v5;
-  v11[3] = @"isCachedEvent";
+  v11[2] = v5;
+  v10[3] = @"isCachedEvent";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEventRouterSendRemoteEventLogEvent isCachedEvent](self, "isCachedEvent")}];
-  v12[3] = v6;
-  v11[4] = @"responseMessageType";
+  v11[3] = v6;
+  v10[4] = @"responseMessageType";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDEventRouterSendRemoteEventLogEvent responseMessageType](self, "responseMessageType")}];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

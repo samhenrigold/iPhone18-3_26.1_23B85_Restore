@@ -67,7 +67,7 @@
       v8 = [(HDAlertSuppressor *)&v15 initWithAssertionIdentifier:@"HDWorkoutSessionAssertionIdentifierAlertSuppression" ownerIdentifier:identifierCopy];
       if (v8)
       {
-        v10 = [v9 copy];
+        v10 = objc_msgSend_copy(v9);
         processBundleIdentifier = v8->_processBundleIdentifier;
         v8->_processBundleIdentifier = v10;
       }
@@ -96,7 +96,7 @@
 
 - (void)assertionManager:(id)manager assertionTaken:(id)taken
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   takenCopy = taken;
   dispatch_assert_queue_V2(self->_queue);
   objc_opt_class();
@@ -156,19 +156,17 @@
   dispatch_source_set_timer(v17, 0, 0x8BB2C97000uLL, 0xDF8475800uLL);
   *&handler = MEMORY[0x277D85DD0];
   *(&handler + 1) = 3221225472;
-  v23 = __75__HDAlertSuppressor__queue_startAlertSuppressionTimerForProcessIdentifier___block_invoke;
-  v24 = &unk_2786177F8;
+  v22 = __75__HDAlertSuppressor__queue_startAlertSuppressionTimerForProcessIdentifier___block_invoke;
+  v23 = &unk_2786177F8;
   v18 = v16;
-  v25 = v18;
-  objc_copyWeak(v26, &location);
+  v24 = v18;
+  objc_copyWeak(v25, &location);
   dispatch_source_set_event_handler(v17, &handler);
   dispatch_resume(v17);
-  objc_destroyWeak(v26);
+  objc_destroyWeak(v25);
 
   objc_destroyWeak(&location);
   [(_HDAlertSuppressorAssertion *)v8 setKeepaliveTimer:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_queue_clearSuppressionTimerForAssertion:(uint64_t)assertion
@@ -211,7 +209,7 @@
 
 - (void)assertionManager:(id)manager assertionInvalidated:(id)invalidated
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   dispatch_assert_queue_V2(self->_queue);
   objc_opt_class();
@@ -228,18 +226,18 @@
   {
     if (v7)
     {
-      v16 = v7[11];
+      v15 = v7[11];
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
     *buf = 138412290;
-    v20 = v16;
-    v17 = v8;
-    _os_log_debug_impl(&dword_228986000, v17, OS_LOG_TYPE_DEBUG, "Alert suppressor stopping for workout client: %@", buf, 0xCu);
+    v19 = v15;
+    v16 = v8;
+    _os_log_debug_impl(&dword_228986000, v16, OS_LOG_TYPE_DEBUG, "Alert suppressor stopping for workout client: %@", buf, 0xCu);
   }
 
   [(HDAlertSuppressor *)self _queue_clearSuppressionTimerForAssertion:v7];
@@ -273,45 +271,39 @@
       [alertSuppressionService invalidateActivityAlertSuppressionForIdentifier:v10];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HDAlertSuppressor__queue_startAlertSuppressionTimerForProcessIdentifier___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_INFO, "Periodic alert suppression for workout client: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_INFO, "Periodic alert suppression for workout client: %@", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [(HDAlertSuppressor *)WeakRetained _queue_suppressActivityAlertsForProcessIdentifier:?];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processSuspended:(id)suspended
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   suspendedCopy = suspended;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = suspendedCopy;
-    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Suspended: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = suspendedCopy;
+    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Suspended: %@", &v6, 0xCu);
   }
 
   [(HDAlertSuppressor *)self _invalidateSuppressActivityAlertsForSuspendedProcess:suspendedCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateSuppressActivityAlertsForSuspendedProcess:(uint64_t)process
@@ -333,84 +325,76 @@ void __75__HDAlertSuppressor__queue_startAlertSuppressionTimerForProcessIdentifi
 
 - (void)processTerminated:(id)terminated
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   terminatedCopy = terminated;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = terminatedCopy;
-    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Terminated: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = terminatedCopy;
+    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Terminated: %@", &v6, 0xCu);
   }
 
   [(HDAlertSuppressor *)self _invalidateSuppressActivityAlertsForSuspendedProcess:terminatedCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processDidEnterBackground:(id)background
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   backgroundCopy = background;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = backgroundCopy;
-    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Background: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = backgroundCopy;
+    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Background: %@", &v6, 0xCu);
   }
 
   [(HDAlertSuppressor *)self _invalidateSuppressActivityAlertsForSuspendedProcess:backgroundCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processResumed:(id)resumed
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   resumedCopy = resumed;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = resumedCopy;
-    _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Resumed: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = resumedCopy;
+    _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Resumed: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processDidEnterForeground:(id)foreground
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   foregroundCopy = foreground;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = foregroundCopy;
-    _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Foreground: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = foregroundCopy;
+    _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "Activity alert suppression. Foreground: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__HDAlertSuppressor__invalidateSuppressActivityAlertsForSuspendedProcess___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC330];
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 32);
-    v13 = 138412290;
-    v14 = v4;
-    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_INFO, "Invalidating activity alert suppression after process %@ was suspended", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v4;
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_INFO, "Invalidating activity alert suppression after process %@ was suspended", &v12, 0xCu);
   }
 
   if (([*(*(a1 + 40) + 32) containsObject:*(a1 + 32)] & 1) == 0)
@@ -419,10 +403,10 @@ uint64_t __74__HDAlertSuppressor__invalidateSuppressActivityAlertsForSuspendedPr
     v5 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      v13 = 138543362;
-      v14 = v12;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Invalidating activity alert supression for wrong bundle identifier. received: %{public}@", &v13, 0xCu);
+      v11 = *(a1 + 32);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Invalidating activity alert supression for wrong bundle identifier. received: %{public}@", &v12, 0xCu);
     }
   }
 
@@ -434,9 +418,7 @@ uint64_t __74__HDAlertSuppressor__invalidateSuppressActivityAlertsForSuspendedPr
   v9 = [v8 processStateManager];
   [v9 unregisterObserver:*(a1 + 40) forBundleIdentifier:*(a1 + 32)];
 
-  result = [*(*(a1 + 40) + 32) removeObject:*(a1 + 32)];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 32) removeObject:*(a1 + 32)];
 }
 
 @end

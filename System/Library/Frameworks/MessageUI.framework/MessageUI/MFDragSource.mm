@@ -135,7 +135,7 @@ id __57__MFDragSource_dragInteraction_itemsForBeginningSession___block_invoke(ui
       v23 = v22;
       if (v16)
       {
-        [v16 transform];
+        objc_msgSend_transform(v16);
       }
 
       else

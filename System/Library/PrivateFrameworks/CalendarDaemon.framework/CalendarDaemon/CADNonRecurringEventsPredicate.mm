@@ -8,7 +8,7 @@
 
 - (CADNonRecurringEventsPredicate)initWithStartDate:(id)date endDate:(id)endDate calendarIDs:(id)ds
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   endDateCopy = endDate;
   dateCopy = date;
@@ -17,72 +17,67 @@
   v12 = [[CADPropertyFilter alloc] initWithProperty:6 comparison:2 dateValue:endDateCopy];
   v13 = [[CADPropertyFilter alloc] initWithProperty:10 comparison:0 integerValue:0];
   v14 = [[CADPropertyFilter alloc] initWithProperty:11 comparison:0 integerValue:0];
-  v20[0] = v11;
-  v20[1] = v12;
-  v20[2] = v13;
-  v20[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
-  v19.receiver = self;
-  v19.super_class = CADNonRecurringEventsPredicate;
-  v16 = [(CADPropertySearchPredicate *)&v19 initWithEntityType:2 filters:v15 calendars:dsCopy];
+  v19[0] = v11;
+  v19[1] = v12;
+  v19[2] = v13;
+  v19[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+  v18.receiver = self;
+  v18.super_class = CADNonRecurringEventsPredicate;
+  v16 = [(CADPropertySearchPredicate *)&v18 initWithEntityType:2 filters:v15 calendars:dsCopy];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)defaultPropertiesToLoad
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = CADNonRecurringEventsPredicate;
-  defaultPropertiesToLoad = [(CADPropertySearchPredicate *)&v8 defaultPropertiesToLoad];
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = CADNonRecurringEventsPredicate;
+  defaultPropertiesToLoad = [(CADPropertySearchPredicate *)&v7 defaultPropertiesToLoad];
   v3 = *MEMORY[0x277CF7268];
-  v9[0] = *MEMORY[0x277CF71F8];
-  v9[1] = v3;
-  v9[2] = *MEMORY[0x277CF7368];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
+  v8[0] = *MEMORY[0x277CF71F8];
+  v8[1] = v3;
+  v8[2] = *MEMORY[0x277CF7368];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
   v5 = [defaultPropertiesToLoad arrayByAddingObjectsFromArray:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)relatedObjectPropertiesToLoad
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v17[0] = &unk_2837C73C0;
+  v17[3] = *MEMORY[0x277D85DE8];
+  v16[0] = &unk_2837C73C0;
   v2 = *MEMORY[0x277CF73A8];
-  v16[0] = *MEMORY[0x277CF73A0];
-  v16[1] = v2;
-  v16[2] = *MEMORY[0x277CF73B0];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-  v18[0] = v3;
-  v17[1] = &unk_2837C73D8;
+  v15[0] = *MEMORY[0x277CF73A0];
+  v15[1] = v2;
+  v15[2] = *MEMORY[0x277CF73B0];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v17[0] = v3;
+  v16[1] = &unk_2837C73D8;
   v4 = *MEMORY[0x277CF73F0];
-  v15[0] = *MEMORY[0x277CF73C8];
-  v15[1] = v4;
+  v14[0] = *MEMORY[0x277CF73C8];
+  v14[1] = v4;
   v5 = *MEMORY[0x277CF7400];
-  v15[2] = *MEMORY[0x277CF71E8];
-  v15[3] = v5;
+  v14[2] = *MEMORY[0x277CF71E8];
+  v14[3] = v5;
   v6 = *MEMORY[0x277CF73F8];
-  v15[4] = *MEMORY[0x277CF7418];
-  v15[5] = v6;
+  v14[4] = *MEMORY[0x277CF7418];
+  v14[5] = v6;
   v7 = *MEMORY[0x277CF7410];
-  v15[6] = *MEMORY[0x277CF7408];
-  v15[7] = v7;
+  v14[6] = *MEMORY[0x277CF7408];
+  v14[7] = v7;
   v8 = *MEMORY[0x277CF71E0];
-  v15[8] = *MEMORY[0x277CF71D0];
-  v15[9] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:10];
-  v18[1] = v9;
-  v17[2] = &unk_2837C73F0;
-  v14 = *MEMORY[0x277CF73E8];
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v18[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[8] = *MEMORY[0x277CF71D0];
+  v14[9] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:10];
+  v17[1] = v9;
+  v16[2] = &unk_2837C73F0;
+  v13 = *MEMORY[0x277CF73E8];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v17[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   return v11;
 }

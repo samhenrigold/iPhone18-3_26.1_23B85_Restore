@@ -133,7 +133,7 @@ void __55__SKUIStackTemplateElement_collectionHeaderViewElement__block_invoke(ui
   return v2;
 }
 
-uint64_t __42__SKUIStackTemplateElement_numberOfSplits__block_invoke(uint64_t a1, void *a2)
+void *__42__SKUIStackTemplateElement_numberOfSplits__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 elementType];
   if (result == 128)

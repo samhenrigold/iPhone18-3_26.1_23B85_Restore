@@ -1,6 +1,7 @@
 @interface TSDgPTPFDPtPPort
 - (BOOL)_measuringPDelay;
 - (BOOL)_multipleRemotes;
+- (TSDgPTPFDPtPPort)initWithService:(id)service pid:(int)pid;
 - (char)_localPDelayLogMeanInterval;
 - (char)_remotePDelayLogMeanInterval;
 - (id)_statistics;
@@ -8,6 +9,27 @@
 @end
 
 @implementation TSDgPTPFDPtPPort
+
+- (TSDgPTPFDPtPPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = TSDgPTPFDPtPPort;
+  v4 = [(TSDgPTPNetworkPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _statistics = [(TSDgPTPFDPtPPort *)v4 _statistics];
+    statistics = v5->_statistics;
+    v5->_statistics = _statistics;
+
+    v5->_localPDelayLogMeanInterval = [(TSDgPTPFDPtPPort *)v5 _localPDelayLogMeanInterval];
+    v5->_remotePDelayLogMeanInterval = [(TSDgPTPFDPtPPort *)v5 _remotePDelayLogMeanInterval];
+    v5->_multipleRemotes = [(TSDgPTPFDPtPPort *)v5 _multipleRemotes];
+    v5->_measuringPDelay = [(TSDgPTPFDPtPPort *)v5 _measuringPDelay];
+  }
+
+  return v5;
+}
 
 - (void)updateProperties
 {

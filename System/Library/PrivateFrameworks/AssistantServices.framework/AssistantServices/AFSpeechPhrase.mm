@@ -16,28 +16,28 @@
 
 - (id)allInterpretationStringsAndScores
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v32 = *MEMORY[0x1E69E9840];
+  v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [(AFSpeechPhrase *)self interpretations];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  obj = v29 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  obj = v28 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v3)
   {
     v4 = v3;
-    v25 = *v27;
+    v24 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v25)
+        if (*v26 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * i);
+        v6 = *(*(&v25 + 1) + 8 * i);
         confidenceScoreAvg = [v6 confidenceScoreAvg];
         confidenceScoreMax = [v6 confidenceScoreMax];
         confidenceScoreMin = [v6 confidenceScoreMin];
@@ -49,41 +49,39 @@
 
         if (text)
         {
-          v30[0] = @"avg";
+          v29[0] = @"avg";
           v14 = [MEMORY[0x1E696AD98] numberWithInteger:confidenceScoreAvg];
-          v31[0] = v14;
-          v30[1] = @"max";
+          v30[0] = v14;
+          v29[1] = @"max";
           v15 = [MEMORY[0x1E696AD98] numberWithInteger:confidenceScoreMax];
-          v31[1] = v15;
-          v30[2] = @"min";
+          v30[1] = v15;
+          v29[2] = @"min";
           v16 = [MEMORY[0x1E696AD98] numberWithInteger:confidenceScoreMin];
-          v31[2] = v16;
-          v30[3] = @"sum";
+          v30[2] = v16;
+          v29[3] = @"sum";
           v17 = [MEMORY[0x1E696AD98] numberWithInteger:confidenceScore];
-          v31[3] = v17;
-          v30[4] = @"count";
+          v30[3] = v17;
+          v29[4] = @"count";
           v18 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
-          v31[4] = v18;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:5];
+          v30[4] = v18;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:5];
           text2 = [v6 text];
-          [v24 setObject:v19 forKey:text2];
+          [v23 setObject:v19 forKey:text2];
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v4 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v4);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v23;
 }
 
 - (id)bestInterpretation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   interpretations = [(AFSpeechPhrase *)self interpretations];
   if ([interpretations count] == 1)
   {
@@ -92,30 +90,30 @@
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v4 = interpretations;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
       v3 = 0;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if (v3)
           {
-            confidenceScore = [*(*(&v14 + 1) + 8 * i) confidenceScore];
+            confidenceScore = [*(*(&v13 + 1) + 8 * i) confidenceScore];
             if (confidenceScore <= [v3 confidenceScore])
             {
               continue;
@@ -127,7 +125,7 @@
           v3 = v11;
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -138,8 +136,6 @@
       v3 = 0;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -154,45 +150,43 @@
 
 - (id)dictionaryRepresentation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_interpretations;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        dictionaryRepresentation = [*(*(&v14 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v13 + 1) + 8 * i) dictionaryRepresentation];
         [v3 addObject:dictionaryRepresentation];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v6);
   }
 
-  v18[1] = @"isLowConfidence";
-  v19[0] = v3;
-  v18[0] = @"interpretations";
+  v17[1] = @"isLowConfidence";
+  v18[0] = v3;
+  v17[0] = @"interpretations";
   v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_isLowConfidence];
-  v19[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v18[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }
@@ -313,17 +307,17 @@ void __37__AFSpeechPhrase_initWithDictionary___block_invoke(uint64_t a1, void *a
 
 - (AFSpeechPhrase)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = AFSpeechPhrase;
-  v5 = [(AFSpeechPhrase *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = AFSpeechPhrase;
+  v5 = [(AFSpeechPhrase *)&v12 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"interpretations"];
     interpretations = v5->_interpretations;
@@ -332,7 +326,6 @@ void __37__AFSpeechPhrase_initWithDictionary___block_invoke(uint64_t a1, void *a
     v5->_isLowConfidence = [coderCopy decodeBoolForKey:@"isLowConfidence"];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

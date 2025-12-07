@@ -24,7 +24,10 @@
 - (id)lateSuppressionRecord;
 - (id)outgoingRecord;
 - (id)overrideRecord;
+- (id)responseObject:(unsigned __int16)object;
 - (id)rtsTriggerRecord;
+- (id)slowdownRecord:(unsigned __int16)record;
+- (id)thresholdTriggerRecordLoudnessMissing:(BOOL)missing;
 - (id)voiceTriggerRecord;
 - (id)winningAdvertisement;
 - (int)_myriadStateForSelf:(unint64_t)self;
@@ -52,6 +55,7 @@
 - (void)_duringNextWindowEnterState:(unint64_t)state;
 - (void)_duringNextWindowExecute:(id)execute;
 - (void)_endAdvertising:(id)advertising;
+- (void)_endAdvertisingAnalyticsContext:(BOOL)context;
 - (void)_endAdvertisingWithDeviceProhibitions:(id)prohibitions;
 - (void)_enterState:(unint64_t)state;
 - (void)_enteringIntoState:(unint64_t)state fromState:(unint64_t)fromState;
@@ -108,6 +112,7 @@
 - (void)heySiriStoppedAdvertising:(id)advertising;
 - (void)heySiriStoppedScanning:(id)scanning;
 - (void)injectAdvertisementForTesting:(id)testing forDevice:(id)device;
+- (void)instrumentationUpdateBoost:(unsigned __int8)boost value:(unsigned int)value;
 - (void)myriadSession:(id)session;
 - (void)notifyCurrentDecisionResult;
 - (void)notifyObserver:(id)observer didReceiveNotificationWithToken:(int)token;
@@ -132,6 +137,7 @@
 - (void)startAdvertisingFromInTaskTriggerWithContext:(id)context;
 - (void)startAdvertisingFromInTaskVoiceTriggerWithContext:(id)context;
 - (void)startAdvertisingFromOutgoingTriggerWithContext:(id)context;
+- (void)startAdvertisingFromVoiceTriggerAdjusted:(char)adjusted;
 - (void)startAdvertisingFromVoiceTriggerAdjusted:(char)adjusted withContext:(id)context;
 - (void)startAdvertisingFromVoiceTriggerWithContext:(id)context;
 - (void)startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:(id)context withContext:(id)withContext;
@@ -152,69 +158,66 @@
 
 - (void)_createMyriadSessionIfRequired
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self->_myriadSession || ![(SCDACoordinator *)self _shouldCreateMyriadSessionInCurrentState])
   {
     v13 = SCDALogContextCore;
-    if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      myriadState = self->_myriadState;
-      v12 = v13;
-      v15 = [(SCDACoordinator *)self _stateAsString:myriadState];
-      v16 = v15;
-      v17 = @"not nil";
-      myriadSession = self->_myriadSession;
-      v21 = "[SCDACoordinator _createMyriadSessionIfRequired]";
-      v20 = 136315650;
-      v22 = 2112;
-      if (!myriadSession)
-      {
-        v17 = @"nil";
-      }
-
-      v23 = v15;
-      v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s #scda not initializing myriad session, myriad is in state %@ (_myriadSession is %@)", &v20, 0x20u);
-
-      goto LABEL_11;
+      return;
     }
+
+    myriadState = self->_myriadState;
+    v12 = v13;
+    v15 = [(SCDACoordinator *)self _stateAsString:myriadState];
+    v16 = v15;
+    v17 = @"not nil";
+    myriadSession = self->_myriadSession;
+    v20 = "[SCDACoordinator _createMyriadSessionIfRequired]";
+    v19 = 136315650;
+    v21 = 2112;
+    if (!myriadSession)
+    {
+      v17 = @"nil";
+    }
+
+    v22 = v15;
+    v23 = 2112;
+    v24 = v17;
+    _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s #scda not initializing myriad session, myriad is in state %@ (_myriadSession is %@)", &v19, 0x20u);
+
+    goto LABEL_11;
   }
 
-  else
+  v3 = [SCDASession newWithBuilder:&__block_literal_global_2341];
+  v4 = self->_myriadSession;
+  self->_myriadSession = v3;
+
+  v5 = SCDALogContextCore;
+  if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v3 = [SCDASession newWithBuilder:&__block_literal_global_2341];
-    v4 = self->_myriadSession;
-    self->_myriadSession = v3;
-
-    v5 = SCDALogContextCore;
-    if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
-    {
-      v6 = self->_myriadSession;
-      v7 = v5;
-      sessionId = [(SCDASession *)v6 sessionId];
-      v9 = [(SCDACoordinator *)self _stateAsString:self->_myriadState];
-      v20 = 136315650;
-      v21 = "[SCDACoordinator _createMyriadSessionIfRequired]";
-      v22 = 2112;
-      v23 = sessionId;
-      v24 = 2112;
-      v25 = v9;
-      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s #scda Initialized myriad session %@ when myriad is in state %@", &v20, 0x20u);
-    }
-
-    WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v11 = objc_opt_respondsToSelector();
-
-    if (v11)
-    {
-      v12 = objc_loadWeakRetained(&self->_delegate);
-      [v12 scdaWillStartWithSession:self->_myriadSession];
-LABEL_11:
-    }
+    v6 = self->_myriadSession;
+    v7 = v5;
+    sessionId = [(SCDASession *)v6 sessionId];
+    v9 = [(SCDACoordinator *)self _stateAsString:self->_myriadState];
+    v19 = 136315650;
+    v20 = "[SCDACoordinator _createMyriadSessionIfRequired]";
+    v21 = 2112;
+    v22 = sessionId;
+    v23 = 2112;
+    v24 = v9;
+    _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s #scda Initialized myriad session %@ when myriad is in state %@", &v19, 0x20u);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v11 = objc_opt_respondsToSelector();
+
+  if (v11)
+  {
+    v12 = objc_loadWeakRetained(&self->_delegate);
+    [v12 scdaWillStartWithSession:self->_myriadSession];
+LABEL_11:
+  }
 }
 
 void __49__SCDACoordinator__createMyriadSessionIfRequired__block_invoke(uint64_t a1, void *a2)
@@ -227,13 +230,13 @@ void __49__SCDACoordinator__createMyriadSessionIfRequired__block_invoke(uint64_t
 
 - (void)_initializeTimer
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[SCDACoordinator _initializeTimer]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[SCDACoordinator _initializeTimer]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
   }
 
   timer = self->_timer;
@@ -250,8 +253,6 @@ void __49__SCDACoordinator__createMyriadSessionIfRequired__block_invoke(uint64_t
   dispatch_resume(self->_timer);
   eventToken = self->_eventToken;
   self->_eventToken = 0;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)directTriggerRecord
@@ -302,13 +303,13 @@ void __49__SCDACoordinator__createMyriadSessionIfRequired__block_invoke(uint64_t
 
 void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SCDACoordinator _stopAdvertisingAndListening]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising and scanning of HeySiri advertisements", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDACoordinator _stopAdvertisingAndListening]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising and scanning of HeySiri advertisements", &v4, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -318,13 +319,11 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
     *(*(a1 + 32) + 322) = 0;
     *(*(a1 + 32) + 323) = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupActionWindows
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   triggerTime = self->_triggerTime;
   self->_triggerTime = date;
@@ -333,22 +332,20 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
     dateFormat = self->_dateFormat;
-    v8 = self->_triggerTime;
-    v9 = v5;
-    v10 = [(NSDateFormatter *)dateFormat stringFromDate:v8];
-    v11 = 136315394;
-    v12 = "[SCDACoordinator _setupActionWindows]";
-    v13 = 2112;
-    v14 = v10;
-    _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s BTLE action window trigger time: %@", &v11, 0x16u);
+    v7 = self->_triggerTime;
+    v8 = v5;
+    v9 = [(NSDateFormatter *)dateFormat stringFromDate:v7];
+    v10 = 136315394;
+    v11 = "[SCDACoordinator _setupActionWindows]";
+    v12 = 2112;
+    v13 = v9;
+    _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, "%s BTLE action window trigger time: %@", &v10, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setOverallTimeout
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_overallTimeout)
   {
     [(SCDACoordinator *)self _cancelOverallTimeout];
@@ -358,27 +355,25 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[SCDACoordinator _setOverallTimeout]";
+    v10 = "[SCDACoordinator _setOverallTimeout]";
     _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE Coordinator setting overall timeout", buf, 0xCu);
   }
 
   v4 = [SCDAWatchdogTimer alloc];
   myriadWorkQueue = self->_myriadWorkQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __37__SCDACoordinator__setOverallTimeout__block_invoke;
-  v9[3] = &unk_1E85D3850;
-  v9[4] = self;
-  v6 = [(SCDAWatchdogTimer *)v4 initWithTimeoutInterval:myriadWorkQueue onQueue:v9 timeoutHandler:31.0];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __37__SCDACoordinator__setOverallTimeout__block_invoke;
+  v8[3] = &unk_1E85D3850;
+  v8[4] = self;
+  v6 = [(SCDAWatchdogTimer *)v4 initWithTimeoutInterval:myriadWorkQueue onQueue:v8 timeoutHandler:31.0];
   overallTimeout = self->_overallTimeout;
   self->_overallTimeout = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_advertiseTrigger
 {
-  v48[2] = *MEMORY[0x1E69E9840];
+  v47[2] = *MEMORY[0x1E69E9840];
   triggerRecord = self->_triggerRecord;
   if (triggerRecord)
   {
@@ -386,8 +381,8 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
 
     if (asAdvertisementData)
     {
-      v43 = 1056964608;
-      v42 = 0;
+      v42 = 1056964608;
+      v41 = 0;
       recordType = [(SCDARecord *)self->_triggerRecord recordType];
       [SCDAElectionWindow electionWindowTimeRemaining:[(SCDARecord *)self->_triggerRecord voiceTriggerMachTime] fromNow:mach_absolute_time()];
       if (v6 <= 0.0)
@@ -396,10 +391,10 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
         {
           [(SCDADevice *)self->_device trumpDelay];
           *&v9 = v9;
-          HIDWORD(v43) = LODWORD(v9);
+          HIDWORD(v42) = LODWORD(v9);
           if (+[SCDAUtilities isATV](SCDAUtilities, "isATV") || +[SCDAUtilities isNano])
           {
-            LODWORD(v43) = 1061158912;
+            LODWORD(v42) = 1061158912;
           }
         }
 
@@ -407,22 +402,22 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
         {
           [(SCDADevice *)self->_device inEarDelay];
           *&v10 = v10;
-          HIDWORD(v43) = LODWORD(v10);
+          HIDWORD(v42) = LODWORD(v10);
           [(SCDADevice *)self->_device inEarInterval];
           *&v11 = v11;
-          LODWORD(v43) = LODWORD(v11);
+          LODWORD(v42) = LODWORD(v11);
         }
 
         if (self->_isDelayingAdvertisement)
         {
-          HIDWORD(v43) = 0;
+          HIDWORD(v42) = 0;
           self->_isDelayingAdvertisement = 0;
         }
       }
 
       else
       {
-        [(SCDACoordinator *)self setupAdvIntervalsInDelay:&v43 + 4 interval:&v43 voiceTriggerLatency:&v42 withSlowdown:0];
+        [(SCDACoordinator *)self setupAdvIntervalsInDelay:&v42 + 4 interval:&v42 voiceTriggerLatency:&v41 withSlowdown:0];
       }
 
       if (recordType != 4)
@@ -438,13 +433,13 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
         v15 = v12;
         _stateAsString = [(SCDACoordinator *)self _stateAsString];
         *buf = 136315906;
-        v45 = "[SCDACoordinator _advertiseTrigger]";
-        v46 = 1024;
-        *v47 = testInducedSlowdownMsecs;
-        *&v47[4] = 1024;
-        *&v47[6] = slowdownMsecs;
-        LOWORD(v48[0]) = 2112;
-        *(v48 + 2) = _stateAsString;
+        v44 = "[SCDACoordinator _advertiseTrigger]";
+        v45 = 1024;
+        *v46 = testInducedSlowdownMsecs;
+        *&v46[4] = 1024;
+        *&v46[6] = slowdownMsecs;
+        LOWORD(v47[0]) = 2112;
+        *(v47 + 2) = _stateAsString;
         _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s BTLE checking if slowdown needed testmsecs=%d msecs=%d state=%@", buf, 0x22u);
       }
 
@@ -455,7 +450,7 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v45 = "[SCDACoordinator _advertiseTrigger]";
+          v44 = "[SCDACoordinator _advertiseTrigger]";
           _os_log_impl(&dword_1DA758000, v29, OS_LOG_TYPE_INFO, "%s BTLE advertising TEST INDUCED slowdown delay, 2nd pass seen", buf, 0xCu);
           v17 = self->_testInducedSlowdownMsecs;
         }
@@ -468,18 +463,18 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
         maxSlowdownRecord = self->_maxSlowdownRecord;
         self->_maxSlowdownRecord = 0;
 
-        LODWORD(v25) = HIDWORD(v43);
-        LODWORD(v26) = v43;
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke;
-        v38[3] = &unk_1E85D3490;
-        v39 = HIDWORD(v43);
-        v40 = v43;
-        v41 = v42;
-        v38[4] = self;
+        LODWORD(v25) = HIDWORD(v42);
+        LODWORD(v26) = v42;
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke;
+        v37[3] = &unk_1E85D3490;
+        v38 = HIDWORD(v42);
+        v39 = v42;
+        v40 = v41;
+        v37[4] = self;
         *&v27 = COERCE_UNSIGNED_INT(-3.0);
-        v28 = v38;
+        v28 = v37;
         goto LABEL_37;
       }
 
@@ -497,15 +492,15 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
           if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v45 = "[SCDACoordinator _advertiseTrigger]";
+            v44 = "[SCDACoordinator _advertiseTrigger]";
             _os_log_impl(&dword_1DA758000, v19, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown delay, 2nd pass seen", buf, 0xCu);
             v18 = self->_slowdownMsecs;
           }
 
           *buf = 0;
-          v36 = 0;
-          v37 = 1056964608;
-          [(SCDACoordinator *)self setupAdvIntervalsInDelay:buf interval:&v37 voiceTriggerLatency:&v36 withSlowdown:v18];
+          v35 = 0;
+          v36 = 1056964608;
+          [(SCDACoordinator *)self setupAdvIntervalsInDelay:buf interval:&v36 voiceTriggerLatency:&v35 withSlowdown:v18];
           [(SCDACoordinator *)self _adjustActionWindowsFromSlowdown:self->_slowdownMsecs];
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
           v21 = objc_opt_respondsToSelector();
@@ -525,14 +520,14 @@ void __47__SCDACoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a
           [(SCDARecord *)self->_triggerRecord generateTiebreaker];
           asAdvertisementData2 = [(SCDARecord *)self->_triggerRecord asAdvertisementData];
           LODWORD(v25) = *buf;
-          LODWORD(v27) = v36;
-          LODWORD(v26) = v37;
-          v35[0] = MEMORY[0x1E69E9820];
-          v35[1] = 3221225472;
-          v35[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke_341;
-          v35[3] = &unk_1E85D3850;
-          v35[4] = self;
-          v28 = v35;
+          LODWORD(v27) = v35;
+          LODWORD(v26) = v36;
+          v34[0] = MEMORY[0x1E69E9820];
+          v34[1] = 3221225472;
+          v34[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke_341;
+          v34[3] = &unk_1E85D3850;
+          v34[4] = self;
+          v28 = v34;
 LABEL_37:
           [(SCDACoordinator *)self _advertiseWith:asAdvertisementData2 afterDelay:v28 maxInterval:v25 voiceTriggerLatency:v26 thenExecute:v27];
           goto LABEL_38;
@@ -542,24 +537,24 @@ LABEL_37:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v45 = "[SCDACoordinator _advertiseTrigger]";
-        v46 = 2048;
-        *v47 = *(&v43 + 1);
-        *&v47[8] = 2048;
-        v48[0] = *&v43;
+        v44 = "[SCDACoordinator _advertiseTrigger]";
+        v45 = 2048;
+        *v46 = *(&v42 + 1);
+        *&v46[8] = 2048;
+        v47[0] = *&v42;
         _os_log_impl(&dword_1DA758000, v19, OS_LOG_TYPE_INFO, "%s BTLE computed advertising delay: %f finished, interval: %f", buf, 0x20u);
       }
 
       asAdvertisementData2 = [(SCDARecord *)self->_triggerRecord asAdvertisementData];
-      LODWORD(v25) = HIDWORD(v43);
-      LODWORD(v26) = v43;
-      LODWORD(v27) = v42;
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke_342;
-      v34[3] = &unk_1E85D3850;
-      v34[4] = self;
-      v28 = v34;
+      LODWORD(v25) = HIDWORD(v42);
+      LODWORD(v26) = v42;
+      LODWORD(v27) = v41;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke_342;
+      v33[3] = &unk_1E85D3850;
+      v33[4] = self;
+      v28 = v33;
       goto LABEL_37;
     }
   }
@@ -567,30 +562,28 @@ LABEL_37:
   v7 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v33 = self->_triggerRecord;
+    v32 = self->_triggerRecord;
     *buf = 136315394;
-    v45 = "[SCDACoordinator _advertiseTrigger]";
-    v46 = 2112;
-    *v47 = v33;
+    v44 = "[SCDACoordinator _advertiseTrigger]";
+    v45 = 2112;
+    *v46 = v32;
     _os_log_error_impl(&dword_1DA758000, v7, OS_LOG_TYPE_ERROR, "%s Skipping advertising requested with nil _triggerRecord %@", buf, 0x16u);
   }
 
   asAdvertisementData2 = objc_alloc_init(MEMORY[0x1E695DFD8]);
   [(SCDACoordinator *)self _endAdvertisingWithDeviceProhibitions:asAdvertisementData2];
 LABEL_38:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_winElection
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SCDACoordinator _winElection]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEFAULT, "%s BTLE notify myriad won", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SCDACoordinator _winElection]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEFAULT, "%s BTLE notify myriad won", &v12, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -615,21 +608,20 @@ LABEL_38:
 
   [(SCDAGoodnessScoreEvaluator *)self->_goodnessScoreEvaluator setLastActivationTime:v11];
   self->_lastDecision = 1;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelOverallTimeout
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   overallTimeout = self->_overallTimeout;
   if (overallTimeout)
   {
     v4 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[SCDACoordinator _cancelOverallTimeout]";
-      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE Coordinator cancelling overall timeout", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SCDACoordinator _cancelOverallTimeout]";
+      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE Coordinator cancelling overall timeout", &v9, 0xCu);
       overallTimeout = self->_overallTimeout;
     }
 
@@ -646,8 +638,6 @@ LABEL_38:
       [v8 myriadCoordinatorOverallTimerCancelled:self];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createElectionParticipantIdVendorIfRequired
@@ -685,19 +675,19 @@ LABEL_38:
 
 - (void)resetReplies
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v9 = MEMORY[0x1E696AD98];
+    v8 = MEMORY[0x1E696AD98];
     replies = self->_replies;
-    v11 = v3;
-    v12 = [v9 numberWithUnsignedInteger:{-[NSMutableDictionary count](replies, "count")}];
-    v13 = 136315394;
-    v14 = "[SCDACoordinator resetReplies]";
-    v15 = 2112;
-    v16 = v12;
-    _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s #scda resetReplies will clear %@ replies", &v13, 0x16u);
+    v10 = v3;
+    v11 = [v8 numberWithUnsignedInteger:{-[NSMutableDictionary count](replies, "count")}];
+    v12 = 136315394;
+    v13 = "[SCDACoordinator resetReplies]";
+    v14 = 2112;
+    v15 = v11;
+    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s #scda resetReplies will clear %@ replies", &v12, 0x16u);
   }
 
   objc_storeStrong(&self->_repliesBeforeDecision, self->_replies);
@@ -708,8 +698,6 @@ LABEL_38:
   v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:16];
   replyCounts = self->_replyCounts;
   self->_replyCounts = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetAdvertisementTimings
@@ -740,13 +728,13 @@ LABEL_38:
 
 - (void)_readDefaults
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v18 = 136315138;
-    v19 = "[SCDACoordinator _readDefaults]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda reading defaults", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[SCDACoordinator _readDefaults]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda reading defaults", &v17, 0xCu);
   }
 
   self->_coordinationEnabled = [(SCDAPreferences *)self->_preferences coordinationEnabled];
@@ -768,11 +756,11 @@ LABEL_38:
     v6 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v18 = 136315394;
-      v19 = "[SCDACoordinator _readDefaults]";
-      v20 = 1024;
-      LODWORD(v21) = v5;
-      _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda overriding device group: %du", &v18, 0x12u);
+      v17 = 136315394;
+      v18 = "[SCDACoordinator _readDefaults]";
+      v19 = 1024;
+      LODWORD(v20) = v5;
+      _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda overriding device group: %du", &v17, 0x12u);
       LOBYTE(v5) = self->_deviceGroup;
     }
 
@@ -789,9 +777,9 @@ LABEL_38:
     v8 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v18 = 136315138;
-      v19 = "[SCDACoordinator _readDefaults]";
-      _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s #scda reading server provisioned defaults", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[SCDACoordinator _readDefaults]";
+      _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s #scda reading server provisioned defaults", &v17, 0xCu);
     }
 
     deviceClass = [(SCDAPreferences *)self->_preferences deviceClass];
@@ -812,17 +800,15 @@ LABEL_38:
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       v16 = self->_device;
-      v18 = 136315650;
-      v19 = "[SCDACoordinator _readDefaults]";
-      v20 = 2112;
-      v21 = v16;
-      v22 = 2048;
-      v23 = v14;
-      _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s %@, vt_endtime threshold %f", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "[SCDACoordinator _readDefaults]";
+      v19 = 2112;
+      v20 = v16;
+      v21 = 2048;
+      v22 = v14;
+      _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s %@, vt_endtime threshold %f", &v17, 0x20u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __34__SCDACoordinator__ageWedgeFilter__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -902,51 +888,48 @@ uint64_t __42__SCDACoordinator_resetMyriadCoordinator___block_invoke(uint64_t a1
 
 void __41__SCDACoordinator_endWaitingForEmergency__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(v1 + 8);
-  if ((v2 - 4) >= 2)
-  {
-    if (v2 == 722471300)
-    {
-      v5 = SCDALogContextCore;
-      if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
-      {
-        v7 = 136315138;
-        v8 = "[SCDACoordinator endWaitingForEmergency]_block_invoke";
-        _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s Attempting to end emergency while in no activity state, ignoring.", &v7, 0xCu);
-      }
-    }
-
-    else
-    {
-      *(v1 + 176) = 20;
-      v3 = SCDALogContextCore;
-      if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
-      {
-        v7 = 136315138;
-        v8 = "[SCDACoordinator endWaitingForEmergency]_block_invoke";
-        v4 = "%s Setting Emergency Continuation to End Early";
-        goto LABEL_9;
-      }
-    }
-  }
-
-  else
+  if ((v2 - 4) < 2)
   {
     [v1 resetStateMachine];
     v3 = SCDALogContextCore;
-    if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[SCDACoordinator endWaitingForEmergency]_block_invoke";
-      v4 = "%s Ending Emergency Flow Early";
-LABEL_9:
-      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, v4, &v7, 0xCu);
+      return;
     }
+
+    v6 = 136315138;
+    v7 = "[SCDACoordinator endWaitingForEmergency]_block_invoke";
+    v4 = "%s Ending Emergency Flow Early";
+LABEL_9:
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, v4, &v6, 0xCu);
+    return;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  if (v2 != 722471300)
+  {
+    *(v1 + 176) = 20;
+    v3 = SCDALogContextCore;
+    if (!os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = 136315138;
+    v7 = "[SCDACoordinator endWaitingForEmergency]_block_invoke";
+    v4 = "%s Setting Emergency Continuation to End Early";
+    goto LABEL_9;
+  }
+
+  v5 = SCDALogContextCore;
+  if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = 136315138;
+    v7 = "[SCDACoordinator endWaitingForEmergency]_block_invoke";
+    _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s Attempting to end emergency while in no activity state, ignoring.", &v6, 0xCu);
+  }
 }
 
 - (void)startListeningToEmergencySignal
@@ -958,7 +941,7 @@ LABEL_9:
 
 - (void)injectAdvertisementForTesting:(id)testing forDevice:(id)device
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   testingCopy = testing;
   deviceCopy = device;
   v8 = deviceCopy;
@@ -968,32 +951,30 @@ LABEL_9:
     v10 = v9;
     if (v9)
     {
-      v13 = v9;
-      v14[0] = testingCopy;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = v9;
+      v13[0] = testingCopy;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       [(SCDACoordinator *)self heySiri:self->_heySiriBTLE foundDevice:v8 withInfo:v11];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserver:(id)observer didReceiveNotificationWithToken:(int)token
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   v7 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v8 = v7;
     name = [(SCDANotifyObserver *)observerCopy name];
-    v11 = 136315650;
-    v12 = "[SCDACoordinator notifyObserver:didReceiveNotificationWithToken:]";
-    v13 = 2112;
-    v14 = name;
-    v15 = 1024;
+    v10 = 136315650;
+    v11 = "[SCDACoordinator notifyObserver:didReceiveNotificationWithToken:]";
+    v12 = 2112;
+    v13 = name;
+    v14 = 1024;
     tokenCopy = token;
-    _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s Notification received: %@ (%d)", &v11, 0x1Cu);
+    _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s Notification received: %@ (%d)", &v10, 0x1Cu);
   }
 
   if (self->_preferencesChangedNotification == observerCopy)
@@ -1013,19 +994,17 @@ LABEL_9:
       [(SCDACoordinator *)self _enterState:0];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_signalEmergencyCallHandled
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315138;
-    v9 = "[SCDACoordinator _signalEmergencyCallHandled]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[SCDACoordinator _signalEmergencyCallHandled]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s ", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1036,38 +1015,34 @@ LABEL_9:
     v6 = objc_loadWeakRetained(&self->_delegate);
     [v6 scdaCoordinatorDidHandleEmergency:self];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiri:(id)siri failedToStartScanningWithError:(id)error
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   kdebug_trace();
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SCDACoordinator heySiri:failedToStartScanningWithError:]";
-    v9 = 2112;
-    v10 = errorCopy;
-    _os_log_error_impl(&dword_1DA758000, v5, OS_LOG_TYPE_ERROR, "%s BTLE daemon failed to start scanning with error %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SCDACoordinator heySiri:failedToStartScanningWithError:]";
+    v8 = 2112;
+    v9 = errorCopy;
+    _os_log_error_impl(&dword_1DA758000, v5, OS_LOG_TYPE_ERROR, "%s BTLE daemon failed to start scanning with error %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStoppedScanning:(id)scanning
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   scanningCopy = scanning;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[SCDACoordinator heySiriStoppedScanning:]";
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning ends", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SCDACoordinator heySiriStoppedScanning:]";
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning ends", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1078,20 +1053,18 @@ LABEL_9:
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 myriadCoordinatorBTLEDidEndScanning:self];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStartedScanning:(id)scanning
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   scanningCopy = scanning;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[SCDACoordinator heySiriStartedScanning:]";
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning begins", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SCDACoordinator heySiriStartedScanning:]";
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning begins", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1102,30 +1075,26 @@ LABEL_9:
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 myriadCoordinatorBTLEDidStartScanning:self];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiri:(id)siri failedToStartAdvertisingWithError:(id)error
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SCDACoordinator heySiri:failedToStartAdvertisingWithError:]";
-    v9 = 2112;
-    v10 = errorCopy;
-    _os_log_error_impl(&dword_1DA758000, v5, OS_LOG_TYPE_ERROR, "%s BTLE daemon failed to start advertising with error %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SCDACoordinator heySiri:failedToStartAdvertisingWithError:]";
+    v8 = 2112;
+    v9 = errorCopy;
+    _os_log_error_impl(&dword_1DA758000, v5, OS_LOG_TYPE_ERROR, "%s BTLE daemon failed to start advertising with error %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStoppedAdvertising:(id)advertising
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   if (self->_myriadState != 5)
   {
@@ -1140,11 +1109,11 @@ LABEL_9:
   {
     v8 = v7;
     v9 = mach_absolute_time();
-    v14 = 136315394;
-    v15 = "[SCDACoordinator heySiriStoppedAdvertising:]";
-    v16 = 2048;
+    v13 = 136315394;
+    v14 = "[SCDACoordinator heySiriStoppedAdvertising:]";
+    v15 = 2048;
     Milliseconds = SCDAMachAbsoluteTimeGetMilliseconds(v9);
-    _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising ends at: %lld", &v14, 0x16u);
+    _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising ends at: %lld", &v13, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1155,22 +1124,18 @@ LABEL_9:
     v12 = objc_loadWeakRetained(&self->_delegate);
     [v12 myriadCoordinatorBTLEDidEndAdvertising:self];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriAdvertisingPending:(id)pending
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SCDACoordinator heySiriAdvertisingPending:]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising overridden and now pending", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDACoordinator heySiriAdvertisingPending:]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising overridden and now pending", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_trackHeySiriStartedAdvertisingAt:(unint64_t)at
@@ -1196,15 +1161,15 @@ LABEL_9:
 
 - (void)heySiriStartedAdvertising:(id)advertising
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (+[SCDAUtilities isHorseman](SCDAUtilities, "isHorseman", advertising) || +[SCDAUtilities isATV](SCDAUtilities, "isATV") || +[SCDAUtilities isNano])
   {
     v4 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[SCDACoordinator heySiriStartedAdvertising:]";
-      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s No longer used by this device.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[SCDACoordinator heySiriStartedAdvertising:]";
+      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s No longer used by this device.", &v8, 0xCu);
     }
   }
 
@@ -1215,33 +1180,31 @@ LABEL_9:
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       v7 = v6;
-      v9 = 136315394;
-      v10 = "[SCDACoordinator heySiriStartedAdvertising:]";
-      v11 = 2048;
+      v8 = 136315394;
+      v9 = "[SCDACoordinator heySiriStartedAdvertising:]";
+      v10 = 2048;
       Milliseconds = SCDAMachAbsoluteTimeGetMilliseconds(v5);
-      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v9, 0x16u);
+      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v8, 0x16u);
     }
 
     [(SCDACoordinator *)self _trackHeySiriStartedAdvertisingAt:v5];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStartedAdvertisingAt:(id)at timeStamp:(unint64_t)stamp
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (+[SCDAUtilities isHorseman](SCDAUtilities, "isHorseman", at) || +[SCDAUtilities isATV](SCDAUtilities, "isATV") || +[SCDAUtilities isNano])
   {
     v6 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       v7 = v6;
-      v10 = 136315394;
-      v11 = "[SCDACoordinator heySiriStartedAdvertisingAt:timeStamp:]";
-      v12 = 2048;
+      v9 = 136315394;
+      v10 = "[SCDACoordinator heySiriStartedAdvertisingAt:timeStamp:]";
+      v11 = 2048;
       Milliseconds = SCDAMachAbsoluteTimeGetMilliseconds(stamp);
-      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v10, 0x16u);
+      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v9, 0x16u);
     }
 
     [(SCDACoordinator *)self _trackHeySiriStartedAdvertisingAt:stamp];
@@ -1249,16 +1212,14 @@ LABEL_9:
 
   else
   {
-    v9 = SCDALogContextCore;
+    v8 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[SCDACoordinator heySiriStartedAdvertisingAt:timeStamp:]";
-      _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s Not yet supported on this device.", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SCDACoordinator heySiriStartedAdvertisingAt:timeStamp:]";
+      _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s Not yet supported on this device.", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiri:(id)siri foundDevice:(id)device withInfo:(id)info
@@ -1292,8 +1253,8 @@ LABEL_9:
   _Block_object_dispose(&v38, 8);
   if (!v9)
   {
-    dlerror();
-    abort_report_np();
+    v28 = dlerror();
+    abort_report_np("%s", v28);
     __break(1u);
   }
 
@@ -1371,13 +1332,11 @@ LABEL_9:
       _os_log_impl(&dword_1DA758000, v26, OS_LOG_TYPE_INFO, "%s BTLE ignoring advert from other deviceGroup %d: %@ data= %@", buf, 0x26u);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SCDACoordinator_heySiri_foundDevice_withInfo___block_invoke(uint64_t a1)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
@@ -1389,19 +1348,19 @@ void __48__SCDACoordinator_heySiri_foundDevice_withInfo___block_invoke(uint64_t 
     v8 = *(a1 + 48);
     v9 = *(a1 + 56);
     v10 = *(a1 + 64);
-    v46 = 136316418;
-    v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-    v48 = 2112;
-    v49 = v6;
-    v50 = 2112;
-    v51 = v7;
-    v52 = 2112;
-    v53 = v8;
-    v54 = 2112;
-    v55 = v9;
-    v56 = 2112;
-    v57 = v10;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s #scda BTLE processing advert in state: %@ from: %@ BTLE address= %@ record= %@ advData= %@", &v46, 0x3Eu);
+    v45 = 136316418;
+    v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+    v47 = 2112;
+    v48 = v6;
+    v49 = 2112;
+    v50 = v7;
+    v51 = 2112;
+    v52 = v8;
+    v53 = 2112;
+    v54 = v9;
+    v55 = 2112;
+    v56 = v10;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s #scda BTLE processing advert in state: %@ from: %@ BTLE address= %@ record= %@ advData= %@", &v45, 0x3Eu);
   }
 
   v11 = *(a1 + 32);
@@ -1422,24 +1381,24 @@ void __48__SCDACoordinator_heySiri_foundDevice_withInfo___block_invoke(uint64_t 
         v14 = [v11 _stateAsString];
         v15 = *(a1 + 40);
         v16 = *(a1 + 64);
-        v46 = 136315906;
-        v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v48 = 2112;
-        v49 = v14;
-        v50 = 2112;
-        v51 = v15;
-        v52 = 2112;
-        v53 = v16;
-        _os_log_impl(&dword_1DA758000, v13, OS_LOG_TYPE_INFO, "%s BTLE ignoring advert while in state %@: %@ data= %@", &v46, 0x2Au);
+        v45 = 136315906;
+        v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v47 = 2112;
+        v48 = v14;
+        v49 = 2112;
+        v50 = v15;
+        v51 = 2112;
+        v52 = v16;
+        _os_log_impl(&dword_1DA758000, v13, OS_LOG_TYPE_INFO, "%s BTLE ignoring advert while in state %@: %@ data= %@", &v45, 0x2Au);
       }
 
-      goto LABEL_36;
+      return;
     case 1:
     case 0xELL:
     case 0xFLL:
       if (![*(a1 + 32) _testAndUpdateWedgeFilter:*(a1 + 56)])
       {
-        goto LABEL_36;
+        return;
       }
 
       if (![*(a1 + 56) isSlowdown])
@@ -1469,15 +1428,15 @@ LABEL_11:
           v23 = *(*(a1 + 32) + 208);
           v24 = v20;
           v25 = [v23 slowdownDelay];
-          v46 = 136315906;
-          v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-          v48 = 2112;
-          v49 = v22;
-          v50 = 2112;
-          v51 = v21;
-          v52 = 1024;
-          LODWORD(v53) = v25;
-          _os_log_impl(&dword_1DA758000, v24, OS_LOG_TYPE_INFO, "%s BTLE heard slowdown advert from: %@ data= %@, max delay is now %d msecs", &v46, 0x26u);
+          v45 = 136315906;
+          v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+          v47 = 2112;
+          v48 = v22;
+          v49 = 2112;
+          v50 = v21;
+          v51 = 1024;
+          LODWORD(v52) = v25;
+          _os_log_impl(&dword_1DA758000, v24, OS_LOG_TYPE_INFO, "%s BTLE heard slowdown advert from: %@ data= %@, max delay is now %d msecs", &v45, 0x26u);
         }
 
         kdebug_trace();
@@ -1492,13 +1451,13 @@ LABEL_14:
       {
         v34 = *(a1 + 40);
         v35 = *(a1 + 64);
-        v46 = 136315650;
-        v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v48 = 2112;
-        v49 = v34;
-        v50 = 2112;
-        v51 = v35;
-        _os_log_impl(&dword_1DA758000, v33, OS_LOG_TYPE_INFO, "%s BTLE suppressing straggler response to: %@ data= %@", &v46, 0x20u);
+        v45 = 136315650;
+        v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v47 = 2112;
+        v48 = v34;
+        v49 = 2112;
+        v50 = v35;
+        _os_log_impl(&dword_1DA758000, v33, OS_LOG_TYPE_INFO, "%s BTLE suppressing straggler response to: %@ data= %@", &v45, 0x20u);
         v11 = *(a1 + 32);
       }
 
@@ -1511,39 +1470,39 @@ LABEL_14:
       {
         v37 = *(a1 + 40);
         v38 = *(a1 + 64);
-        v46 = 136315650;
-        v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v48 = 2112;
-        v49 = v37;
-        v50 = 2112;
-        v51 = v38;
-        _os_log_impl(&dword_1DA758000, v36, OS_LOG_TYPE_INFO, "%s BTLE heard another device sending continuation: %@ data= %@", &v46, 0x20u);
+        v45 = 136315650;
+        v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v47 = 2112;
+        v48 = v37;
+        v49 = 2112;
+        v50 = v38;
+        _os_log_impl(&dword_1DA758000, v36, OS_LOG_TYPE_INFO, "%s BTLE heard another device sending continuation: %@ data= %@", &v45, 0x20u);
       }
 
-      goto LABEL_36;
+      return;
     case 7:
       if ([*(a1 + 56) isAnEmergency])
       {
         goto LABEL_28;
       }
 
-      goto LABEL_36;
+      return;
     case 8:
     case 0xCLL:
       v26 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
       {
         v27 = *(a1 + 56);
-        v46 = 136315394;
-        v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v48 = 2112;
-        v49 = v27;
-        _os_log_impl(&dword_1DA758000, v26, OS_LOG_TYPE_INFO, "%s BTLE heard a record waiting for a emergency handled notice: %@ ", &v46, 0x16u);
+        v45 = 136315394;
+        v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v47 = 2112;
+        v48 = v27;
+        _os_log_impl(&dword_1DA758000, v26, OS_LOG_TYPE_INFO, "%s BTLE heard a record waiting for a emergency handled notice: %@ ", &v45, 0x16u);
       }
 
       if (![*(a1 + 56) isAnEmergencyHandled])
       {
-        goto LABEL_36;
+        return;
       }
 
       v28 = SCDALogContextCore;
@@ -1551,13 +1510,13 @@ LABEL_14:
       {
         v29 = *(a1 + 40);
         v30 = *(a1 + 64);
-        v46 = 136315650;
-        v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v48 = 2112;
-        v49 = v29;
-        v50 = 2112;
-        v51 = v30;
-        _os_log_impl(&dword_1DA758000, v28, OS_LOG_TYPE_INFO, "%s BTLE heard an emergency declaration was handled: %@ data= %@", &v46, 0x20u);
+        v45 = 136315650;
+        v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v47 = 2112;
+        v48 = v29;
+        v49 = 2112;
+        v50 = v30;
+        _os_log_impl(&dword_1DA758000, v28, OS_LOG_TYPE_INFO, "%s BTLE heard an emergency declaration was handled: %@ data= %@", &v45, 0x20u);
       }
 
       [*(a1 + 32) _signalEmergencyCallHandled];
@@ -1572,13 +1531,13 @@ LABEL_14:
         {
           v40 = *(a1 + 40);
           v41 = *(a1 + 64);
-          v46 = 136315650;
-          v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-          v48 = 2112;
-          v49 = v40;
-          v50 = 2112;
-          v51 = v41;
-          _os_log_impl(&dword_1DA758000, v39, OS_LOG_TYPE_INFO, "%s BTLE heard a continuation: %@ data= %@", &v46, 0x20u);
+          v45 = 136315650;
+          v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+          v47 = 2112;
+          v48 = v40;
+          v49 = 2112;
+          v50 = v41;
+          _os_log_impl(&dword_1DA758000, v39, OS_LOG_TYPE_INFO, "%s BTLE heard a continuation: %@ data= %@", &v45, 0x20u);
         }
 
         [*(a1 + 32) _stopListening:0];
@@ -1587,18 +1546,18 @@ LABEL_14:
 
       else if ([*(a1 + 56) isAnEmergency])
       {
-        v43 = SCDALogContextCore;
+        v42 = SCDALogContextCore;
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
         {
-          v44 = *(a1 + 40);
-          v45 = *(a1 + 64);
-          v46 = 136315650;
-          v47 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-          v48 = 2112;
-          v49 = v44;
-          v50 = 2112;
-          v51 = v45;
-          _os_log_impl(&dword_1DA758000, v43, OS_LOG_TYPE_INFO, "%s BTLE heard an emergency declaration: %@ data= %@", &v46, 0x20u);
+          v43 = *(a1 + 40);
+          v44 = *(a1 + 64);
+          v45 = 136315650;
+          v46 = "[SCDACoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+          v47 = 2112;
+          v48 = v43;
+          v49 = 2112;
+          v50 = v44;
+          _os_log_impl(&dword_1DA758000, v42, OS_LOG_TYPE_INFO, "%s BTLE heard an emergency declaration: %@ data= %@", &v45, 0x20u);
         }
 
 LABEL_28:
@@ -1617,48 +1576,44 @@ LABEL_15:
         [*(a1 + 32) _updateRepliesWith:*(a1 + 56) id:*(a1 + 72) data:*(a1 + 64)];
       }
 
-LABEL_36:
-      v42 = *MEMORY[0x1E69E9840];
       return;
     case 0x11:
       [*(a1 + 32) _testAndUpdateWedgeFilter:*(a1 + 56)];
-      goto LABEL_36;
+      return;
     default:
-      goto LABEL_36;
+      return;
   }
 }
 
 - (void)heySiriDidUpdateState:(id)state
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v6 = v5;
     *buf = 136315394;
-    v13 = "[SCDACoordinator heySiriDidUpdateState:]";
-    v14 = 2048;
+    v12 = "[SCDACoordinator heySiriDidUpdateState:]";
+    v13 = 2048;
     state = [stateCopy state];
     _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s BTLE daemon state changed to: %ld", buf, 0x16u);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __41__SCDACoordinator_heySiriDidUpdateState___block_invoke;
-  v10[3] = &unk_1E85D38A0;
-  v10[4] = self;
-  v11 = stateCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __41__SCDACoordinator_heySiriDidUpdateState___block_invoke;
+  v9[3] = &unk_1E85D38A0;
+  v9[4] = self;
+  v10 = stateCopy;
   v8 = stateCopy;
-  dispatch_async(myriadWorkQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v9);
 }
 
 void __41__SCDACoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 216) = [*(a1 + 40) state] == 3;
   v2 = *(a1 + 32);
   if (*(v2 + 216) == 1)
@@ -1666,9 +1621,9 @@ void __41__SCDACoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[SCDACoordinator heySiriDidUpdateState:]_block_invoke";
-      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon wiprox state signaling", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[SCDACoordinator heySiriDidUpdateState:]_block_invoke";
+      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon wiprox state signaling", &v8, 0xCu);
       v2 = *(a1 + 32);
     }
 
@@ -1692,8 +1647,6 @@ void __41__SCDACoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerABCForType:(id)type context:(id)context
@@ -1722,18 +1675,18 @@ void __41__SCDACoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
 
 - (void)_waitWiProx:(int64_t)prox andExecute:(id)execute
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   executeCopy = execute;
   BTLEReady = self->_BTLEReady;
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __42__SCDACoordinator__waitWiProx_andExecute___block_invoke;
-  v18 = &unk_1E85D32E8;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __42__SCDACoordinator__waitWiProx_andExecute___block_invoke;
+  v17 = &unk_1E85D32E8;
   selfCopy = self;
   v8 = executeCopy;
-  v20 = v8;
-  v9 = MEMORY[0x1E1270630](&v15);
-  v10 = [(WPHeySiri *)self->_heySiriBTLE state:v15];
+  v19 = v8;
+  v9 = MEMORY[0x1E1270630](&v14);
+  v10 = [(WPHeySiri *)self->_heySiriBTLE state:v14];
   v11 = v10;
   if (!BTLEReady && v10 == 3 && self->_BLEActivityEnabled)
   {
@@ -1741,7 +1694,7 @@ void __41__SCDACoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "[SCDACoordinator _waitWiProx:andExecute:]";
+      v21 = "[SCDACoordinator _waitWiProx:andExecute:]";
       _os_log_error_impl(&dword_1DA758000, v12, OS_LOG_TYPE_ERROR, "%s #scda BTLE became ready without updateState call, updating state then dispatching completion", buf, 0xCu);
     }
 
@@ -1760,23 +1713,21 @@ LABEL_12:
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v22 = "[SCDACoordinator _waitWiProx:andExecute:]";
-    v23 = 2048;
+    v21 = "[SCDACoordinator _waitWiProx:andExecute:]";
+    v22 = 2048;
     proxCopy = prox;
-    v25 = 2048;
-    v26 = v11;
+    v24 = 2048;
+    v25 = v11;
     _os_log_impl(&dword_1DA758000, v13, OS_LOG_TYPE_INFO, "%s #scda BTLE not ready, waiting to execute for up to %ld msecs (current HeySiri WPState %ld)", buf, 0x20u);
   }
 
   [(SCDACoordinator *)self _createWaitWiProxTimer:prox waitBlock:v9];
 LABEL_13:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 322);
   v4 = *(v2 + 323);
@@ -1784,31 +1735,42 @@ void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1)
   v6 = label;
   if (label && !strcmp(label, scda_work_queue_label))
   {
-    v11 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 40);
+    if (v10)
     {
-      (*(v11 + 16))();
+      (*(v10 + 16))();
     }
 
-    v12 = SCDALogContextCore;
+    v11 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v13 = "NO";
+      v12 = "NO";
       if (v4)
       {
-        v14 = "YES";
+        v13 = "YES";
       }
 
       else
       {
-        v14 = "NO";
+        v13 = "NO";
       }
 
-      v15 = *(a1 + 32);
-      v25 = "[SCDACoordinator _waitWiProx:andExecute:]_block_invoke";
-      v16 = *(v15 + 323);
-      v17 = *(v15 + 322);
-      if (v16)
+      v14 = *(a1 + 32);
+      v24 = "[SCDACoordinator _waitWiProx:andExecute:]_block_invoke";
+      v15 = *(v14 + 323);
+      v16 = *(v14 + 322);
+      if (v15)
+      {
+        v17 = "YES";
+      }
+
+      else
+      {
+        v17 = "NO";
+      }
+
+      *buf = 136316162;
+      if (v3)
       {
         v18 = "YES";
       }
@@ -1818,31 +1780,20 @@ void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1)
         v18 = "NO";
       }
 
-      *buf = 136316162;
-      if (v3)
+      v25 = 2080;
+      v26 = v13;
+      if (v16)
       {
-        v19 = "YES";
+        v12 = "YES";
       }
 
-      else
-      {
-        v19 = "NO";
-      }
-
-      v26 = 2080;
-      v27 = v14;
-      if (v17)
-      {
-        v13 = "YES";
-      }
-
-      v28 = 2080;
-      v29 = v18;
-      v30 = 2080;
-      v31 = v19;
-      v32 = 2080;
-      v33 = v13;
-      _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s #scda didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", buf, 0x34u);
+      v27 = 2080;
+      v28 = v17;
+      v29 = 2080;
+      v30 = v18;
+      v31 = 2080;
+      v32 = v12;
+      _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s #scda didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", buf, 0x34u);
     }
   }
 
@@ -1852,11 +1803,11 @@ void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1)
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315651;
-      v25 = "[SCDACoordinator _waitWiProx:andExecute:]_block_invoke";
-      v26 = 2081;
-      v27 = v6;
-      v28 = 2081;
-      v29 = scda_work_queue_label;
+      v24 = "[SCDACoordinator _waitWiProx:andExecute:]_block_invoke";
+      v25 = 2081;
+      v26 = v6;
+      v27 = 2081;
+      v28 = scda_work_queue_label;
       _os_log_error_impl(&dword_1DA758000, v7, OS_LOG_TYPE_ERROR, "%s #scda Method called on unexpected thread (curr:%{private}s expected:%{private}s)", buf, 0x20u);
       v2 = *(a1 + 32);
     }
@@ -1867,19 +1818,17 @@ void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1)
     block[2] = __42__SCDACoordinator__waitWiProx_andExecute___block_invoke_371;
     block[3] = &unk_1E85D35C0;
     v9 = *(a1 + 40);
-    v22 = v4;
+    v21 = v4;
     block[4] = *(a1 + 32);
-    v21 = v9;
-    v23 = v3;
+    v20 = v9;
+    v22 = v3;
     dispatch_async(v8, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke_371(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -1926,20 +1875,18 @@ void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke_371(uint64_t a1
       v4 = "YES";
     }
 
-    v10 = 136316162;
-    v11 = "[SCDACoordinator _waitWiProx:andExecute:]_block_invoke";
-    v12 = 2080;
-    v13 = v5;
-    v14 = 2080;
-    v15 = v7;
-    v16 = 2080;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v4;
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", &v10, 0x34u);
+    v9 = 136316162;
+    v10 = "[SCDACoordinator _waitWiProx:andExecute:]_block_invoke";
+    v11 = 2080;
+    v12 = v5;
+    v13 = 2080;
+    v14 = v7;
+    v15 = 2080;
+    v16 = v8;
+    v17 = 2080;
+    v18 = v4;
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", &v9, 0x34u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createWaitWiProxTimer:(int64_t)timer waitBlock:(id)block
@@ -1971,90 +1918,83 @@ void __42__SCDACoordinator__waitWiProx_andExecute___block_invoke_371(uint64_t a1
 
 uint64_t __52__SCDACoordinator__createWaitWiProxTimer_waitBlock___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[SCDACoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
-    _os_log_error_impl(&dword_1DA758000, v2, OS_LOG_TYPE_ERROR, "%s #scda BTLE WiProx readiness timer timed out, WiProx not called", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDACoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
+    _os_log_error_impl(&dword_1DA758000, v2, OS_LOG_TYPE_ERROR, "%s #scda BTLE WiProx readiness timer timed out, WiProx not called", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _clearWiProxReadinessTimer];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _clearWiProxReadinessTimer];
 }
 
 uint64_t __52__SCDACoordinator__createWaitWiProxTimer_waitBlock___block_invoke_370(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SCDACoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda BTLE done waiting on WiProx to execute", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDACoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda BTLE done waiting on WiProx to execute", &v4, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_clearWiProxReadinessTimer
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_wiproxReadinessTimer.waitTimer)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315138;
-      v7 = "[SCDACoordinator _clearWiProxReadinessTimer]";
-      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda WiProx readiness timer wait block cleared", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SCDACoordinator _clearWiProxReadinessTimer]";
+      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda WiProx readiness timer wait block cleared", &v5, 0xCu);
     }
 
     waitBlock = self->_wiproxReadinessTimer.waitBlock;
     self->_wiproxReadinessTimer.waitBlock = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_suspendWiProxReadinessTimer
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!self->_wiproxReadinessTimer.isWaitTimerSuspended)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[SCDACoordinator _suspendWiProxReadinessTimer]";
-      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda WiProx readiness timer suspended", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[SCDACoordinator _suspendWiProxReadinessTimer]";
+      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda WiProx readiness timer suspended", &v4, 0xCu);
     }
 
     self->_wiproxReadinessTimer.isWaitTimerSuspended = 1;
     dispatch_suspend(self->_wiproxReadinessTimer.waitTimer);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeWiProxReadinessTimer
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[SCDACoordinator _initializeWiProxReadinessTimer]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda WiProx readiness timer initialized", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SCDACoordinator _initializeWiProxReadinessTimer]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda WiProx readiness timer initialized", &v6, 0xCu);
   }
 
   v4 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_myriadWorkQueue);
@@ -2063,12 +2003,11 @@ uint64_t __52__SCDACoordinator__createWaitWiProxTimer_waitBlock___block_invoke_3
 
   dispatch_source_set_event_handler(self->_wiproxReadinessTimer.waitTimer, &__block_literal_global_369);
   [(SCDACoordinator *)self _resumeWiProxReadinessTimer];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_testAndUpdateWedgeFilter:(id)filter
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(filterCopy, "userConfidence") | (objc_msgSend(filterCopy, "tieBreaker") << 8)}];
   if (![filterCopy isATrump])
@@ -2087,13 +2026,13 @@ uint64_t __52__SCDACoordinator__createWaitWiProxTimer_waitBlock___block_invoke_3
     v10 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315394;
-      v17 = "[SCDACoordinator _testAndUpdateWedgeFilter:]";
-      v18 = 2112;
-      v19 = filterCopy;
+      v15 = 136315394;
+      v16 = "[SCDACoordinator _testAndUpdateWedgeFilter:]";
+      v17 = 2112;
+      v18 = filterCopy;
       v11 = "%s BTLE ignoring incoming event bad device class (watch) for Horseman %@";
 LABEL_10:
-      _os_log_impl(&dword_1DA758000, v10, OS_LOG_TYPE_INFO, v11, &v16, 0x16u);
+      _os_log_impl(&dword_1DA758000, v10, OS_LOG_TYPE_INFO, v11, &v15, 0x16u);
       goto LABEL_11;
     }
 
@@ -2112,10 +2051,10 @@ LABEL_12:
   v10 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315394;
-    v17 = "[SCDACoordinator _testAndUpdateWedgeFilter:]";
-    v18 = 2112;
-    v19 = filterCopy;
+    v15 = 136315394;
+    v16 = "[SCDACoordinator _testAndUpdateWedgeFilter:]";
+    v17 = 2112;
+    v18 = filterCopy;
     v11 = "%s BTLE ignoring as wedged suppress %@";
     goto LABEL_10;
   }
@@ -2124,7 +2063,6 @@ LABEL_11:
   isSane = 0;
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
   return isSane;
 }
 
@@ -2154,7 +2092,7 @@ LABEL_13:
 
 void __46__SCDACoordinator_notifyCurrentDecisionResult__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(v1 + 8);
   if (v2 == 14 || v2 == 1)
@@ -2164,11 +2102,11 @@ void __46__SCDACoordinator_notifyCurrentDecisionResult__block_invoke(uint64_t a1
     {
       v5 = v4;
       v6 = [v1 _stateAsString:v2];
-      v12 = 136315394;
-      v13 = "[SCDACoordinator notifyCurrentDecisionResult]_block_invoke";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE ignoring decision result callback (state = %@)", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[SCDACoordinator notifyCurrentDecisionResult]_block_invoke";
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE ignoring decision result callback (state = %@)", &v11, 0x16u);
     }
   }
 
@@ -2179,24 +2117,22 @@ void __46__SCDACoordinator_notifyCurrentDecisionResult__block_invoke(uint64_t a1
     {
       v9 = v8;
       v10 = [v1 _stateAsString:v2];
-      v12 = 136315394;
-      v13 = "[SCDACoordinator notifyCurrentDecisionResult]_block_invoke";
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s BTLE reposting result win (state = %@)", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[SCDACoordinator notifyCurrentDecisionResult]_block_invoke";
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s BTLE reposting result win (state = %@)", &v11, 0x16u);
 
       v1 = *(a1 + 32);
     }
 
     [*(v1 + 424) publishState:{objc_msgSend(v1, "_nextElectionPublisherState")}];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateRepliesWith:(id)with id:(id)id data:(id)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   withCopy = with;
   idCopy = id;
   dataCopy = data;
@@ -2207,19 +2143,19 @@ void __46__SCDACoordinator_notifyCurrentDecisionResult__block_invoke(uint64_t a1
     v15 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      *v25 = 136315650;
-      *&v25[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
-      *&v25[12] = 2112;
-      *&v25[14] = dataCopy;
-      *&v25[22] = 2112;
-      *v26 = idCopy;
+      *v24 = 136315650;
+      *&v24[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
+      *&v24[12] = 2112;
+      *&v24[14] = dataCopy;
+      *&v24[22] = 2112;
+      *v25 = idCopy;
       v16 = "%s BTLE Updating record table, data= %@, for %@";
 LABEL_18:
-      _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, v16, v25, 0x20u);
+      _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, v16, v24, 0x20u);
     }
 
 LABEL_19:
-    [(NSMutableDictionary *)self->_replies setObject:withCopy forKey:idCopy, *v25, *&v25[16], *v26];
+    [(NSMutableDictionary *)self->_replies setObject:withCopy forKey:idCopy, *v24, *&v24[8], *v25];
     replyCounts = self->_replyCounts;
     v19 = [MEMORY[0x1E696AD98] numberWithInteger:1];
     v21 = replyCounts;
@@ -2234,13 +2170,13 @@ LABEL_20:
     v22 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      *v25 = 136315650;
-      *&v25[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
-      *&v25[12] = 2112;
-      *&v25[14] = dataCopy;
-      *&v25[22] = 2112;
-      *v26 = idCopy;
-      _os_log_impl(&dword_1DA758000, v22, OS_LOG_TYPE_INFO, "%s BTLE Updating record table, data= %@, for %@", v25, 0x20u);
+      *v24 = 136315650;
+      *&v24[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
+      *&v24[12] = 2112;
+      *&v24[14] = dataCopy;
+      *&v24[22] = 2112;
+      *v25 = idCopy;
+      _os_log_impl(&dword_1DA758000, v22, OS_LOG_TYPE_INFO, "%s BTLE Updating record table, data= %@, for %@", v24, 0x20u);
     }
 
     goto LABEL_15;
@@ -2257,13 +2193,13 @@ LABEL_20:
       v20 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
       {
-        *v25 = 136315650;
-        *&v25[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
-        *&v25[12] = 2112;
-        *&v25[14] = idCopy;
-        *&v25[22] = 2112;
-        *v26 = v19;
-        _os_log_impl(&dword_1DA758000, v20, OS_LOG_TYPE_INFO, "%s BTLE Incrementing record count for %@ to %@", v25, 0x20u);
+        *v24 = 136315650;
+        *&v24[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
+        *&v24[12] = 2112;
+        *&v24[14] = idCopy;
+        *&v24[22] = 2112;
+        *v25 = v19;
+        _os_log_impl(&dword_1DA758000, v20, OS_LOG_TYPE_INFO, "%s BTLE Incrementing record count for %@ to %@", v24, 0x20u);
       }
 
       v21 = self->_replyCounts;
@@ -2273,12 +2209,12 @@ LABEL_20:
     v15 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      *v25 = 136315650;
-      *&v25[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
-      *&v25[12] = 2112;
-      *&v25[14] = v12;
-      *&v25[22] = 2112;
-      *v26 = withCopy;
+      *v24 = 136315650;
+      *&v24[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
+      *&v24[12] = 2112;
+      *&v24[14] = v12;
+      *&v24[22] = 2112;
+      *v25 = withCopy;
       v16 = "%s BTLE Updating record table with a newer advertisement(%@ -> %@)";
       goto LABEL_18;
     }
@@ -2290,24 +2226,22 @@ LABEL_20:
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v14 = v13;
-    *v25 = 136316162;
-    *&v25[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
-    *&v25[12] = 1024;
-    *&v25[14] = [v12 goodness];
-    *&v25[18] = 1024;
-    *&v25[20] = [withCopy goodness];
-    *v26 = 2112;
-    *&v26[2] = dataCopy;
-    v27 = 2112;
-    v28 = idCopy;
-    _os_log_impl(&dword_1DA758000, v14, OS_LOG_TYPE_INFO, "%s BTLE Updating record table with a late suppression(%hhu -> %hhu), data= %@, for %@", v25, 0x2Cu);
+    *v24 = 136316162;
+    *&v24[4] = "[SCDACoordinator _updateRepliesWith:id:data:]";
+    *&v24[12] = 1024;
+    *&v24[14] = [v12 goodness];
+    *&v24[18] = 1024;
+    *&v24[20] = [withCopy goodness];
+    *v25 = 2112;
+    *&v25[2] = dataCopy;
+    v26 = 2112;
+    v27 = idCopy;
+    _os_log_impl(&dword_1DA758000, v14, OS_LOG_TYPE_INFO, "%s BTLE Updating record table with a late suppression(%hhu -> %hhu), data= %@, for %@", v24, 0x2Cu);
   }
 
 LABEL_15:
   [(NSMutableDictionary *)self->_replies setObject:withCopy forKey:idCopy];
 LABEL_21:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_sortedReplies:(id)replies
@@ -2424,40 +2358,40 @@ LABEL_20:
 
 - (BOOL)_shouldHandleEmergency
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = [(SCDACoordinator *)self _sortedReplies:self->_repliesBeforeDecision];
   v4 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     replies = self->_replies;
     *buf = 136315394;
-    v25 = "[SCDACoordinator _shouldHandleEmergency]";
-    v26 = 2112;
-    v27 = replies;
+    v24 = "[SCDACoordinator _shouldHandleEmergency]";
+    v25 = 2112;
+    v26 = replies;
     _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE emergencyCallSummary: %@", buf, 0x16u);
   }
 
   [v3 enumerateObjectsUsingBlock:&__block_literal_global_362];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
 LABEL_5:
     v10 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * v10);
+      v11 = *(*(&v18 + 1) + 8 * v10);
       if ([v11 deviceClass] == 2)
       {
         break;
@@ -2465,7 +2399,7 @@ LABEL_5:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -2483,7 +2417,7 @@ LABEL_5:
       if (v15)
       {
         *buf = 136315138;
-        v25 = "[SCDACoordinator _shouldHandleEmergency]";
+        v24 = "[SCDACoordinator _shouldHandleEmergency]";
         v16 = "%s BTLE Emergency call: this device should handle";
 LABEL_19:
         _os_log_impl(&dword_1DA758000, v14, OS_LOG_TYPE_INFO, v16, buf, 0xCu);
@@ -2493,7 +2427,7 @@ LABEL_19:
     else if (v15)
     {
       *buf = 136315138;
-      v25 = "[SCDACoordinator _shouldHandleEmergency]";
+      v24 = "[SCDACoordinator _shouldHandleEmergency]";
       v16 = "%s BTLE Emergency call: This device should NOT handle, another is better";
       goto LABEL_19;
     }
@@ -2507,68 +2441,65 @@ LABEL_11:
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v25 = "[SCDACoordinator _shouldHandleEmergency]";
+    v24 = "[SCDACoordinator _shouldHandleEmergency]";
     _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s BTLE Emergency Call: No device available to handle this call", buf, 0xCu);
   }
 
   LOBYTE(isMe) = 0;
 LABEL_21:
 
-  v17 = *MEMORY[0x1E69E9840];
   return isMe;
 }
 
 void __41__SCDACoordinator__shouldHandleEmergency__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315650;
-    v8 = "[SCDACoordinator _shouldHandleEmergency]_block_invoke";
-    v9 = 2048;
-    v10 = a3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE EmergencyCallSummary %lu: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[SCDACoordinator _shouldHandleEmergency]_block_invoke";
+    v8 = 2048;
+    v9 = a3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE EmergencyCallSummary %lu: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldContinueFor:(id)for
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   forCopy = for;
   _sortedReplies = [(SCDACoordinator *)self _sortedReplies];
   lastWonBySmallAmountDate = self->_lastWonBySmallAmountDate;
   self->_lastWonBySmallAmountDate = 0;
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v7 = _sortedReplies;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v30;
+    v11 = *v29;
 LABEL_3:
     v12 = 0;
-    v28 = v10 + v9;
+    v27 = v10 + v9;
     while (1)
     {
-      if (*v30 != v11)
+      if (*v29 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
       if (forCopy)
       {
-        v13 = *(*(&v29 + 1) + 8 * v12);
+        v13 = *(*(&v28 + 1) + 8 * v12);
         v14 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v13, "deviceClass")}];
         v15 = [forCopy containsObject:v14];
 
@@ -2581,8 +2512,8 @@ LABEL_3:
       ++v10;
       if (v9 == ++v12)
       {
-        v9 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
-        v10 = v28;
+        v9 = [v7 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v10 = v27;
         if (v9)
         {
           goto LABEL_3;
@@ -2613,13 +2544,13 @@ LABEL_3:
           if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v34 = "[SCDACoordinator _shouldContinueFor:]";
+            v33 = "[SCDACoordinator _shouldContinueFor:]";
             _os_log_impl(&dword_1DA758000, v22, OS_LOG_TYPE_INFO, "%s #scda Won by a small margin, storing state to mitigate recency boost", buf, 0xCu);
           }
 
           date = [MEMORY[0x1E695DF00] date];
-          v24 = *(v27 + 504);
-          *(v27 + 504) = date;
+          v24 = *(v26 + 504);
+          *(v26 + 504) = date;
         }
       }
 
@@ -2647,7 +2578,6 @@ LABEL_10:
 
 LABEL_25:
 
-  v25 = *MEMORY[0x1E69E9840];
   return isMe2;
 }
 
@@ -2703,6 +2633,30 @@ LABEL_25:
   return v5;
 }
 
+- (id)slowdownRecord:(unsigned __int16)record
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = [[SCDARecord alloc] initWithSlowdown:record device:self->_device];
+  v4 = SCDALogContextCore;
+  if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
+  {
+    v6 = 136315394;
+    v7 = "[SCDACoordinator slowdownRecord:]";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE created slowdown record %@", &v6, 0x16u);
+  }
+
+  return v3;
+}
+
+- (id)responseObject:(unsigned __int16)object
+{
+  v3 = [[SCDARecord alloc] initWithResponse:object device:self->_device];
+
+  return v3;
+}
+
 - (id)emergencyHandledRecord
 {
   v2 = [[SCDARecord alloc] initWithEmergencyHandled:self->_device];
@@ -2747,6 +2701,16 @@ LABEL_25:
   return v2;
 }
 
+- (id)thresholdTriggerRecordLoudnessMissing:(BOOL)missing
+{
+  missingCopy = missing;
+  v5 = [SCDARecord alloc];
+  perceptualAudioHash = [(SCDAContext *)self->_currentMyriadContext perceptualAudioHash];
+  v7 = [(SCDARecord *)v5 initWithThreshold:perceptualAudioHash isLoudnessMissing:missingCopy device:self->_device];
+
+  return v7;
+}
+
 - (id)_phsSetupRecord
 {
   v2 = [[SCDARecord alloc] initWithPHS:self->_device];
@@ -2765,35 +2729,35 @@ LABEL_25:
 
 - (void)_advertiseWith:(id)with afterDelay:(float)delay maxInterval:(float)interval voiceTriggerLatency:(float)latency thenExecute:(id)execute
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   withCopy = with;
   executeCopy = execute;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke;
-  v37[3] = &unk_1E85D34B8;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke;
+  v36[3] = &unk_1E85D34B8;
   v14 = withCopy;
-  v38 = v14;
+  v37 = v14;
   selfCopy = self;
   intervalCopy = interval;
   delayCopy = delay;
   latencyCopy = latency;
-  v15 = MEMORY[0x1E1270630](v37);
+  v15 = MEMORY[0x1E1270630](v36);
   previousAdvertisedData = self->_previousAdvertisedData;
   if (previousAdvertisedData && [(NSData *)previousAdvertisedData isEqualToData:v14])
   {
     v17 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v28 = self->_previousAdvertisedData;
-      v29 = v17;
-      [(NSData *)v28 description];
-      v30 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v27 = self->_previousAdvertisedData;
+      v28 = v17;
+      [(NSData *)v27 description];
+      v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 136315394;
-      v44 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]";
-      v45 = 2112;
-      delayCopy2 = v30;
-      _os_log_error_impl(&dword_1DA758000, v29, OS_LOG_TYPE_ERROR, "%s CRITICAL ERROR: BTLE error: attempting to readvertise %@; Myriad to stop advertising and proceed as if win occurred, multi-response likely", buf, 0x16u);
+      v43 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]";
+      v44 = 2112;
+      delayCopy2 = v29;
+      _os_log_error_impl(&dword_1DA758000, v28, OS_LOG_TYPE_ERROR, "%s CRITICAL ERROR: BTLE error: attempting to readvertise %@; Myriad to stop advertising and proceed as if win occurred, multi-response likely", buf, 0x16u);
     }
 
     self->_stateMachineEncounteredError = 1;
@@ -2822,8 +2786,8 @@ LABEL_25:
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v44 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]";
-      v45 = 2048;
+      v43 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]";
+      v44 = 2048;
       delayCopy2 = delay;
       _os_log_impl(&dword_1DA758000, v25, OS_LOG_TYPE_INFO, "%s BTLE starting advert delay timer for %f secs", buf, 0x16u);
     }
@@ -2836,27 +2800,25 @@ LABEL_25:
     else
     {
       self->_isDelayingAdvertisement = 1;
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_358;
-      v31[3] = &unk_1E85D34E0;
-      v31[4] = self;
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_358;
+      v30[3] = &unk_1E85D34E0;
+      v30[4] = self;
       delayCopy3 = delay;
       intervalCopy2 = interval;
-      v33 = v15;
-      v32 = v14;
-      v34 = executeCopy;
+      v32 = v15;
+      v31 = v14;
+      v33 = executeCopy;
       *&v26 = delay;
-      [(SCDACoordinator *)self _startTimer:@"advert delay" for:v31 thenExecute:v26];
+      [(SCDACoordinator *)self _startTimer:@"advert delay" for:v30 thenExecute:v26];
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = SCDALogContextCore;
@@ -2864,9 +2826,9 @@ void __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLat
   {
     v8 = *(a1 + 32);
     *buf = 136315394;
-    v49 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]_block_invoke";
-    v50 = 2112;
-    v51 = v8;
+    v48 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]_block_invoke";
+    v49 = 2112;
+    v50 = v8;
     _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s #scda BTLE delay finished, advertising: %@", buf, 0x16u);
   }
 
@@ -2887,22 +2849,22 @@ void __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLat
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v49 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]_block_invoke";
+      v48 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]_block_invoke";
       _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s #scda removed the context collector push that was not working since SCDA extraction", buf, 0xCu);
     }
   }
 
   v13 = *(a1 + 40);
   v14 = *(a1 + 48);
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_349;
-  v46[3] = &unk_1E85D32E8;
-  v46[4] = v13;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_349;
+  v45[3] = &unk_1E85D32E8;
+  v45[4] = v13;
   v15 = v6;
-  v47 = v15;
+  v46 = v15;
   LODWORD(v16) = v14;
-  [v13 _startTimer:@"advertise" for:v46 thenExecute:v16];
+  [v13 _startTimer:@"advertise" for:v45 thenExecute:v16];
   kdebug_trace();
   v17 = *(a1 + 40);
   if (v17[1] != 5)
@@ -2929,16 +2891,16 @@ void __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLat
   }
 
   v31 = *(a1 + 40);
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_2;
-  v43[3] = &unk_1E85D3270;
-  v43[4] = v31;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_2;
+  v42[3] = &unk_1E85D3270;
+  v42[4] = v31;
   v32 = v5;
-  v44 = v32;
+  v43 = v32;
   v33 = v30;
-  v45 = v33;
-  [v31 _waitWiProxAndExecute:v43];
+  v44 = v33;
+  [v31 _waitWiProxAndExecute:v42];
   v34 = objc_loadWeakRetained((*(a1 + 40) + 80));
   if (v34)
   {
@@ -2961,8 +2923,6 @@ void __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLat
     v41 = [*(v39 + 264) electionParticipantId];
     [v40 setElectionParticipantId:v41];
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_358(uint64_t a1)
@@ -2991,11 +2951,9 @@ uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTrigge
     *(v11 + 360) = v10;
   }
 
-  v13 = *(a1 + 40);
-  v14 = *(a1 + 56);
-  v15 = *(*(a1 + 48) + 16);
+  v13 = *(*(a1 + 48) + 16);
 
-  return v15();
+  return v13();
 }
 
 uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_349(uint64_t a1)
@@ -3020,11 +2978,11 @@ uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTrigge
   return result;
 }
 
-uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_2(uint64_t result)
+void *__89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTriggerLatency_thenExecute___block_invoke_2(void *result)
 {
   v1 = result;
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 32);
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = result[4];
   if ((*(v2 + 221) & 1) != 0 || *(v2 + 217) == 1)
   {
     v3 = SCDALogContextCore;
@@ -3034,13 +2992,13 @@ uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTrigge
       v5 = mach_absolute_time();
       Milliseconds = SCDAMachAbsoluteTimeGetMilliseconds(v5);
       v7 = v1[5];
-      v9 = 136315650;
-      v10 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]_block_invoke_2";
-      v11 = 2048;
-      v12 = Milliseconds;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[SCDACoordinator _advertiseWith:afterDelay:maxInterval:voiceTriggerLatency:thenExecute:]_block_invoke_2";
+      v10 = 2048;
+      v11 = Milliseconds;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld %@", &v8, 0x20u);
 
       v2 = v1[4];
     }
@@ -3048,16 +3006,15 @@ uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTrigge
     [*(v2 + 248) startScanningAndAdvertisingWithData:v1[6]];
     *(v1[4] + 322) = 1;
     *(v1[4] + 323) = 1;
-    result = [*(v1[4] + 256) fetchBTLEAddressIfRequired];
+    return [*(v1[4] + 256) fetchBTLEAddressIfRequired];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_computeElectionParticipantIds:(id)ids
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   electionParticipantIdVendor = self->_electionParticipantIdVendor;
   if (!electionParticipantIdVendor)
@@ -3068,11 +3025,11 @@ uint64_t __89__SCDACoordinator__advertiseWith_afterDelay_maxInterval_voiceTrigge
       goto LABEL_7;
     }
 
-    v12 = 136315138;
-    v13 = "[SCDACoordinator _computeElectionParticipantIds:]";
+    v11 = 136315138;
+    v12 = "[SCDACoordinator _computeElectionParticipantIds:]";
     v9 = "%s #scda No electionParticipantIdVendor. ElectionParticipantId will not be created!";
 LABEL_9:
-    _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, v9, &v12, 0xCu);
+    _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, v9, &v11, 0xCu);
     goto LABEL_7;
   }
 
@@ -3087,8 +3044,8 @@ LABEL_9:
       goto LABEL_7;
     }
 
-    v12 = 136315138;
-    v13 = "[SCDACoordinator _computeElectionParticipantIds:]";
+    v11 = 136315138;
+    v12 = "[SCDACoordinator _computeElectionParticipantIds:]";
     v9 = "%s #scda No advertisement data. ElectionParticipantId will not be created!";
     goto LABEL_9;
   }
@@ -3098,7 +3055,6 @@ LABEL_9:
   self->_electionParticipantIds = v6;
 
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)advertiseWith:(id)with afterDelay:(float)delay maxInterval:(float)interval
@@ -3212,7 +3168,7 @@ uint64_t __59__SCDACoordinator_startAdvertising_afterDelay_maxInterval___block_i
 
 void __40__SCDACoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = getWPHeySiriAdvertisingData();
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = [*(a1 + 32) asAdvertisementData];
@@ -3229,13 +3185,13 @@ void __40__SCDACoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
     {
       v7 = v6;
       v8 = mach_absolute_time();
-      v10 = 136315650;
-      v11 = "[SCDACoordinator _advertiseIndefinite:]_block_invoke";
-      v12 = 2048;
+      v9 = 136315650;
+      v10 = "[SCDACoordinator _advertiseIndefinite:]_block_invoke";
+      v11 = 2048;
       Milliseconds = SCDAMachAbsoluteTimeGetMilliseconds(v8);
-      v14 = 2112;
-      v15 = v4;
-      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld %@", &v10, 0x20u);
+      v13 = 2112;
+      v14 = v4;
+      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld %@", &v9, 0x20u);
 
       v5 = *(a1 + 40);
     }
@@ -3246,8 +3202,6 @@ void __40__SCDACoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
     [*(a1 + 40) _createElectionParticipantIdVendorIfRequired];
     [*(*(a1 + 40) + 256) fetchBTLEAddressIfRequired];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_advertise:(id)_advertise afterDelay:(float)delay maxInterval:(float)interval voiceTriggerLatency:(float)latency andMoveTo:(unint64_t)to
@@ -3266,7 +3220,7 @@ void __40__SCDACoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
 
 - (void)_advertiseSuppressTriggerInOutput
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = mach_absolute_time();
   if (_SCDAMachAbsoluteTimeRate_onceToken != -1)
   {
@@ -3283,35 +3237,35 @@ void __40__SCDACoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
   v6 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v4 * v3 / 1000000000.0 + *&_SCDAMachAbsoluteTimeRate_rate * voiceTriggerMachTime / -1000000000.0;
+    v13 = v4 * v3 / 1000000000.0 + *&_SCDAMachAbsoluteTimeRate_rate * voiceTriggerMachTime / -1000000000.0;
     previousState = self->_previousState;
-    v16 = v6;
-    v17 = [(SCDACoordinator *)self _stateAsString:previousState];
-    v18 = [(SCDACoordinator *)self _stateAsString:self->_myriadState];
+    v15 = v6;
+    v16 = [(SCDACoordinator *)self _stateAsString:previousState];
+    v17 = [(SCDACoordinator *)self _stateAsString:self->_myriadState];
     clientIsDeciding = self->_clientIsDeciding;
     voiceTriggerMachTime2 = [(SCDARecord *)self->_triggerRecord voiceTriggerMachTime];
     *buf = 136316418;
-    v25 = "[SCDACoordinator _advertiseSuppressTriggerInOutput]";
-    v26 = 2112;
-    v27 = v17;
-    v28 = 2112;
-    v29 = v18;
-    v30 = 1024;
-    v31 = clientIsDeciding;
-    v32 = 2048;
-    v33 = voiceTriggerMachTime2;
-    v34 = 2048;
-    v35 = v14;
-    _os_log_debug_impl(&dword_1DA758000, v16, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d, _voiceTriggerTime: %llu, secondsSinceVoiceTrigger: %f", buf, 0x3Au);
+    v24 = "[SCDACoordinator _advertiseSuppressTriggerInOutput]";
+    v25 = 2112;
+    v26 = v16;
+    v27 = 2112;
+    v28 = v17;
+    v29 = 1024;
+    v30 = clientIsDeciding;
+    v31 = 2048;
+    v32 = voiceTriggerMachTime2;
+    v33 = 2048;
+    v34 = v13;
+    _os_log_debug_impl(&dword_1DA758000, v15, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d, _voiceTriggerTime: %llu, secondsSinceVoiceTrigger: %f", buf, 0x3Au);
   }
 
   if ([(SCDACoordinator *)self _okayToSuppressOnOutput])
   {
-    v23 = 1056964608;
+    v22 = 1056964608;
     *buf = 0;
     if (self->_outgoingTrigger)
     {
-      v23 = 1065353216;
+      v22 = 1065353216;
       self->_outgoingTrigger = 0;
     }
 
@@ -3320,36 +3274,34 @@ void __40__SCDACoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
       *buf = 0;
       [(SCDADevice *)self->_device inEarInterval];
       *&v7 = v7;
-      v23 = LODWORD(v7);
+      v22 = LODWORD(v7);
     }
 
-    v22 = 0;
+    v21 = 0;
     [SCDAElectionWindow electionWindowTimeRemaining:[(SCDARecord *)self->_triggerRecord voiceTriggerMachTime] fromNow:mach_absolute_time()];
     if (v8 > 0.0)
     {
-      [(SCDACoordinator *)self setupAdvIntervalsInDelay:buf interval:&v23 voiceTriggerLatency:&v22 withSlowdown:0];
+      [(SCDACoordinator *)self setupAdvIntervalsInDelay:buf interval:&v22 voiceTriggerLatency:&v21 withSlowdown:0];
     }
 
     asAdvertisementData = [(SCDARecord *)self->_triggerRecord asAdvertisementData];
     [(SCDACoordinator *)self _createMyriadSessionIfRequired];
     [(SCDACoordinator *)self _addElectionAdvertisementDataToMyriadSession:asAdvertisementData];
-    LODWORD(v11) = v23;
+    LODWORD(v11) = v22;
     LODWORD(v10) = *buf;
-    LODWORD(v12) = v22;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __52__SCDACoordinator__advertiseSuppressTriggerInOutput__block_invoke;
-    v21[3] = &unk_1E85D3850;
-    v21[4] = self;
-    [(SCDACoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v21 maxInterval:v10 voiceTriggerLatency:v11 thenExecute:v12];
+    LODWORD(v12) = v21;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __52__SCDACoordinator__advertiseSuppressTriggerInOutput__block_invoke;
+    v20[3] = &unk_1E85D3850;
+    v20[4] = self;
+    [(SCDACoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v20 maxInterval:v10 voiceTriggerLatency:v11 thenExecute:v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__SCDACoordinator__advertiseSuppressTriggerInOutput__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _endAdvertising:0];
   v2 = 0;
   v3 = *(a1 + 32);
@@ -3360,21 +3312,21 @@ uint64_t __52__SCDACoordinator__advertiseSuppressTriggerInOutput__block_invoke(u
     {
       [*(a1 + 32) _winElection];
       v2 = 4;
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (!v4)
     {
 LABEL_17:
       v2 = 2;
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (v4 != 1)
     {
       if (v4 != 2)
       {
-        goto LABEL_19;
+        return [*(a1 + 32) enterState:v2];
       }
 
       goto LABEL_4;
@@ -3384,19 +3336,19 @@ LABEL_13:
     v5 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v5;
-      v9 = [v3 _stateAsString:v4];
-      v10 = [*(a1 + 32) _stateAsString:*(*(a1 + 32) + 8)];
-      v11 = *(*(a1 + 32) + 228);
-      v12 = 136315906;
-      v13 = "[SCDACoordinator _advertiseSuppressTriggerInOutput]_block_invoke";
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 1024;
-      v19 = v11;
-      _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d", &v12, 0x26u);
+      v7 = v5;
+      v8 = [v3 _stateAsString:v4];
+      v9 = [*(a1 + 32) _stateAsString:*(*(a1 + 32) + 8)];
+      v10 = *(*(a1 + 32) + 228);
+      v11 = 136315906;
+      v12 = "[SCDACoordinator _advertiseSuppressTriggerInOutput]_block_invoke";
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 1024;
+      v18 = v10;
+      _os_log_debug_impl(&dword_1DA758000, v7, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d", &v11, 0x26u);
 
       v3 = *(a1 + 32);
     }
@@ -3415,13 +3367,13 @@ LABEL_13:
     {
 LABEL_4:
       v2 = *(v3 + 24);
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (v4 == 7)
     {
       v2 = 10;
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (v4 == 14)
@@ -3430,24 +3382,21 @@ LABEL_4:
     }
   }
 
-LABEL_19:
-  result = [*(a1 + 32) enterState:v2];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) enterState:v2];
 }
 
 - (void)_advertiseSlowdown
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v12 = "[SCDACoordinator _advertiseSlowdown]";
-    v13 = 2048;
-    v14 = 0x3FDCCCCD00000000;
-    v15 = 2048;
-    v16 = 0x3FF0000000000000;
+    v11 = "[SCDACoordinator _advertiseSlowdown]";
+    v12 = 2048;
+    v13 = 0x3FDCCCCD00000000;
+    v14 = 2048;
+    v15 = 0x3FF0000000000000;
     _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE slowdown advertising delay: %f finished, interval: %f", buf, 0x20u);
   }
 
@@ -3458,27 +3407,25 @@ LABEL_19:
   kdebug_trace();
   v5 = [(SCDACoordinator *)self slowdownRecord:LOWORD(self->_slowdownMsecs)];
   asAdvertisementData = [v5 asAdvertisementData];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __37__SCDACoordinator__advertiseSlowdown__block_invoke;
-  v10[3] = &unk_1E85D3850;
-  v10[4] = self;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __37__SCDACoordinator__advertiseSlowdown__block_invoke;
+  v9[3] = &unk_1E85D3850;
+  v9[4] = self;
   LODWORD(v7) = 1.0;
   LODWORD(v8) = -2.0;
-  [(SCDACoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v10 maxInterval:COERCE_DOUBLE(1055286888) voiceTriggerLatency:v7 thenExecute:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(SCDACoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v9 maxInterval:COERCE_DOUBLE(1055286888) voiceTriggerLatency:v7 thenExecute:v8];
 }
 
 uint64_t __37__SCDACoordinator__advertiseSlowdown__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[SCDACoordinator _advertiseSlowdown]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending slowdown advertising, 2nd pass not seen", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SCDACoordinator _advertiseSlowdown]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending slowdown advertising, 2nd pass not seen", &v6, 0xCu);
   }
 
   [*(a1 + 32) _endAdvertising:0];
@@ -3488,42 +3435,38 @@ uint64_t __37__SCDACoordinator__advertiseSlowdown__block_invoke(uint64_t a1)
   v4 = *(v3 + 208);
   *(v3 + 208) = 0;
 
-  result = [*(a1 + 32) enterState:0];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) enterState:0];
 }
 
 void __36__SCDACoordinator__advertiseTrigger__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v12 = *(a1 + 44);
-  v13 = v2;
-  v11 = *(a1 + 48);
-  [*(a1 + 32) setupAdvIntervalsInDelay:&v13 interval:&v12 voiceTriggerLatency:&v11 withSlowdown:*(*(a1 + 32) + 204)];
+  v11 = *(a1 + 44);
+  v12 = v2;
+  v10 = *(a1 + 48);
+  [*(a1 + 32) setupAdvIntervalsInDelay:&v12 interval:&v11 voiceTriggerLatency:&v10 withSlowdown:*(*(a1 + 32) + 204)];
   [*(a1 + 32) _adjustActionWindowsFromSlowdown:*(*(a1 + 32) + 204)];
   [*(*(a1 + 32) + 160) generateTiebreaker];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v15 = "[SCDACoordinator _advertiseTrigger]_block_invoke";
+    v14 = "[SCDACoordinator _advertiseTrigger]_block_invoke";
     _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown finished, advertising delayed trigger", buf, 0xCu);
   }
 
   v4 = *(a1 + 32);
   v5 = [v4[20] asAdvertisementData];
-  LODWORD(v7) = v12;
-  LODWORD(v6) = v13;
-  LODWORD(v8) = v11;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke_338;
-  v10[3] = &unk_1E85D3850;
-  v10[4] = *(a1 + 32);
-  [v4 _advertiseWith:v5 afterDelay:v10 maxInterval:v6 voiceTriggerLatency:v7 thenExecute:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = v11;
+  LODWORD(v6) = v12;
+  LODWORD(v8) = v10;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __36__SCDACoordinator__advertiseTrigger__block_invoke_338;
+  v9[3] = &unk_1E85D3850;
+  v9[4] = *(a1 + 32);
+  [v4 _advertiseWith:v5 afterDelay:v9 maxInterval:v6 voiceTriggerLatency:v7 thenExecute:v8];
 }
 
 void __36__SCDACoordinator__advertiseTrigger__block_invoke_341(uint64_t a1)
@@ -3549,7 +3492,7 @@ void __36__SCDACoordinator__advertiseTrigger__block_invoke_338(uint64_t a1)
 
 - (void)setupAdvIntervalsInDelay:(float *)delay interval:(float *)interval voiceTriggerLatency:(float *)latency withSlowdown:(int)slowdown
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v11 = slowdown / 1000.0;
   voiceTriggerMachTime = [(SCDARecord *)self->_triggerRecord voiceTriggerMachTime];
   if (_SCDAMachAbsoluteTimeRate_onceToken != -1)
@@ -3572,21 +3515,21 @@ void __36__SCDACoordinator__advertiseTrigger__block_invoke_338(uint64_t a1)
   v20 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v28 = 136316674;
-    v29 = "[SCDACoordinator setupAdvIntervalsInDelay:interval:voiceTriggerLatency:withSlowdown:]";
-    v30 = 2048;
-    v31 = v14;
-    v32 = 2048;
-    v33 = v16 - v14;
-    v34 = 2048;
-    v35 = v14 + 1.45000005 + v18;
-    v36 = 2048;
-    v37 = v19;
-    v38 = 1024;
+    v27 = 136316674;
+    v28 = "[SCDACoordinator setupAdvIntervalsInDelay:interval:voiceTriggerLatency:withSlowdown:]";
+    v29 = 2048;
+    v30 = v14;
+    v31 = 2048;
+    v32 = v16 - v14;
+    v33 = 2048;
+    v34 = v14 + 1.45000005 + v18;
+    v35 = 2048;
+    v36 = v19;
+    v37 = 1024;
     slowdownCopy = slowdown;
-    v40 = 2048;
-    v41 = v16;
-    _os_log_impl(&dword_1DA758000, v20, OS_LOG_TYPE_INFO, "%s endTime: %f, timeSinceVoiceTrigger: %f, targetTime: %f, advInterval: %f, slowDown: %d (ms), timeSinceDeviceBoot: %f", &v28, 0x44u);
+    v39 = 2048;
+    v40 = v16;
+    _os_log_impl(&dword_1DA758000, v20, OS_LOG_TYPE_INFO, "%s endTime: %f, timeSinceVoiceTrigger: %f, targetTime: %f, advInterval: %f, slowDown: %d (ms), timeSinceDeviceBoot: %f", &v27, 0x44u);
   }
 
   v21 = 1.0;
@@ -3626,17 +3569,17 @@ void __36__SCDACoordinator__advertiseTrigger__block_invoke_338(uint64_t a1)
     v24 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v28 = 136315906;
-      v29 = "[SCDACoordinator setupAdvIntervalsInDelay:interval:voiceTriggerLatency:withSlowdown:]";
-      v30 = 2048;
-      v31 = v21;
-      v32 = 2048;
-      v33 = v22;
-      v34 = 2048;
-      v35 = v18;
+      v27 = 136315906;
+      v28 = "[SCDACoordinator setupAdvIntervalsInDelay:interval:voiceTriggerLatency:withSlowdown:]";
+      v29 = 2048;
+      v30 = v21;
+      v31 = 2048;
+      v32 = v22;
+      v33 = 2048;
+      v34 = v18;
       v25 = "%s adjusted advInterval: %f (secs) device delay: %f (secs), slowDown: %f (secs)";
 LABEL_22:
-      _os_log_impl(&dword_1DA758000, v24, OS_LOG_TYPE_INFO, v25, &v28, 0x2Au);
+      _os_log_impl(&dword_1DA758000, v24, OS_LOG_TYPE_INFO, v25, &v27, 0x2Au);
     }
   }
 
@@ -3645,14 +3588,14 @@ LABEL_22:
     v24 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v28 = 136315906;
-      v29 = "[SCDACoordinator setupAdvIntervalsInDelay:interval:voiceTriggerLatency:withSlowdown:]";
-      v30 = 2048;
-      v31 = v21;
-      v32 = 2048;
-      v33 = v22;
-      v34 = 2048;
-      v35 = v18;
+      v27 = 136315906;
+      v28 = "[SCDACoordinator setupAdvIntervalsInDelay:interval:voiceTriggerLatency:withSlowdown:]";
+      v29 = 2048;
+      v30 = v21;
+      v31 = 2048;
+      v32 = v22;
+      v33 = 2048;
+      v34 = v18;
       v25 = "%s adjusted advInterval: %f (secs) adjusted delay: %f (secs), slowDown: %f (secs)";
       goto LABEL_22;
     }
@@ -3662,7 +3605,6 @@ LABEL_22:
   *interval = v21;
   v26 = v17;
   *latency = v26;
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_duringNextWindowEnterState:(unint64_t)state
@@ -3688,7 +3630,7 @@ void __47__SCDACoordinator__duringNextWindowEnterState___block_invoke(uint64_t a
 
 - (void)_duringNextWindowExecute:(id)execute
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   executeCopy = execute;
   triggerTime = self->_triggerTime;
   if (triggerTime)
@@ -3698,11 +3640,11 @@ void __47__SCDACoordinator__duringNextWindowEnterState___block_invoke(uint64_t a
     v8 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315394;
-      v12 = "[SCDACoordinator _duringNextWindowExecute:]";
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s BTLE next action window: %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[SCDACoordinator _duringNextWindowExecute:]";
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s BTLE next action window: %@", &v10, 0x16u);
     }
 
     [(SCDACoordinator *)self _createDispatchTimerForEvent:v6 toExecute:executeCopy];
@@ -3713,18 +3655,16 @@ void __47__SCDACoordinator__duringNextWindowEnterState___block_invoke(uint64_t a
     v9 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[SCDACoordinator _duringNextWindowExecute:]";
-      _os_log_error_impl(&dword_1DA758000, v9, OS_LOG_TYPE_ERROR, "%s BTLE Attempt to execute time windowed action when trigger time not initialized", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[SCDACoordinator _duringNextWindowExecute:]";
+      _os_log_error_impl(&dword_1DA758000, v9, OS_LOG_TYPE_ERROR, "%s BTLE Attempt to execute time windowed action when trigger time not initialized", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_adjustActionWindowsFromSlowdown:(int)slowdown
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (slowdown)
   {
     v5 = [(NSDate *)self->_triggerTime dateByAddingTimeInterval:slowdown / 1000.0];
@@ -3735,20 +3675,18 @@ void __47__SCDACoordinator__duringNextWindowEnterState___block_invoke(uint64_t a
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
       dateFormat = self->_dateFormat;
-      v10 = self->_triggerTime;
-      v11 = v7;
-      v12 = [(NSDateFormatter *)dateFormat stringFromDate:v10];
-      v13 = 136315650;
-      v14 = "[SCDACoordinator _adjustActionWindowsFromSlowdown:]";
-      v15 = 1024;
+      v9 = self->_triggerTime;
+      v10 = v7;
+      v11 = [(NSDateFormatter *)dateFormat stringFromDate:v9];
+      v12 = 136315650;
+      v13 = "[SCDACoordinator _adjustActionWindowsFromSlowdown:]";
+      v14 = 1024;
       slowdownCopy = slowdown;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s BTLE action window adjusted by slowdown signal %d msecs new time: %@", &v13, 0x1Cu);
+      v16 = 2112;
+      v17 = v11;
+      _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s BTLE action window adjusted by slowdown signal %d msecs new time: %@", &v12, 0x1Cu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetActionWindows
@@ -3761,38 +3699,38 @@ void __47__SCDACoordinator__duringNextWindowEnterState___block_invoke(uint64_t a
 
 - (id)_testAndFilterAdvertisementsFromContextCollector:(id)collector voiceTriggerEndTime:(double)time advertisementDispatchTime:(double)dispatchTime advertisement:(id)advertisement
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   collectorCopy = collector;
   advertisementCopy = advertisement;
   if (collectorCopy && [collectorCopy count])
   {
     v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __128__SCDACoordinator__testAndFilterAdvertisementsFromContextCollector_voiceTriggerEndTime_advertisementDispatchTime_advertisement___block_invoke;
-    v30[3] = &unk_1E85D3468;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __128__SCDACoordinator__testAndFilterAdvertisementsFromContextCollector_voiceTriggerEndTime_advertisementDispatchTime_advertisement___block_invoke;
+    v29[3] = &unk_1E85D3468;
     timeCopy = time;
-    v30[4] = self;
-    v31 = advertisementCopy;
+    v29[4] = self;
+    v30 = advertisementCopy;
     v12 = v11;
-    v32 = v12;
-    v25 = collectorCopy;
-    [collectorCopy enumerateKeysAndObjectsUsingBlock:v30];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v31 = v12;
+    v24 = collectorCopy;
+    [collectorCopy enumerateKeysAndObjectsUsingBlock:v29];
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v38 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
@@ -3800,25 +3738,25 @@ void __47__SCDACoordinator__duringNextWindowEnterState___block_invoke(uint64_t a
           v18 = SCDALogContextCore;
           if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
           {
-            v19 = *(*(&v26 + 1) + 8 * i);
+            v19 = *(*(&v25 + 1) + 8 * i);
             *buf = 136315394;
-            v35 = "[SCDACoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
-            v36 = 2112;
-            v37 = v19;
+            v34 = "[SCDACoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
+            v35 = 2112;
+            v36 = v19;
             _os_log_impl(&dword_1DA758000, v18, OS_LOG_TYPE_INFO, "%s #scda %@", buf, 0x16u);
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
       }
 
       while (v15);
     }
 
-    v20 = v32;
+    v20 = v31;
     v21 = v13;
 
-    collectorCopy = v25;
+    collectorCopy = v24;
   }
 
   else
@@ -3827,21 +3765,19 @@ void __47__SCDACoordinator__duringNextWindowEnterState___block_invoke(uint64_t a
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v35 = "[SCDACoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
+      v34 = "[SCDACoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
       _os_log_impl(&dword_1DA758000, v22, OS_LOG_TYPE_INFO, "%s #scda Context collector returned 0 SCDAAdvertisementContextRecords instances", buf, 0xCu);
     }
 
     v21 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 void __128__SCDACoordinator__testAndFilterAdvertisementsFromContextCollector_voiceTriggerEndTime_advertisementDispatchTime_advertisement___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 isSaneForVoiceTriggerEndTime:*(a1 + 56) endtimeDistanceThreshold:*(*(a1 + 32) + 88)])
@@ -3878,34 +3814,32 @@ void __128__SCDACoordinator__testAndFilterAdvertisementsFromContextCollector_voi
           v12 = [v8 deviceGroup];
           v13 = [v8 deviceID];
           v14 = [v6 advertisementPayload];
-          v17 = 136315906;
-          v18 = "[SCDACoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]_block_invoke";
-          v19 = 1024;
-          v20 = v12;
-          v21 = 2112;
-          v22 = v13;
-          v23 = 2112;
-          v24 = v14;
-          _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s #scda ignoring advert from other deviceGroup %d: %@ data=%@", &v17, 0x26u);
+          v16 = 136315906;
+          v17 = "[SCDACoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]_block_invoke";
+          v18 = 1024;
+          v19 = v12;
+          v20 = 2112;
+          v21 = v13;
+          v22 = 2112;
+          v23 = v14;
+          _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s #scda ignoring advert from other deviceGroup %d: %@ data=%@", &v16, 0x26u);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleStateMachineErrorIfNeeded
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_stateMachineEncounteredError)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[SCDACoordinator _handleStateMachineErrorIfNeeded]";
-      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s BTLE notify Myriad win due to state machine error", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[SCDACoordinator _handleStateMachineErrorIfNeeded]";
+      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s BTLE notify Myriad win due to state machine error", &v10, 0xCu);
     }
 
     v4 = mach_absolute_time();
@@ -3944,8 +3878,6 @@ void __128__SCDACoordinator__testAndFilterAdvertisementsFromContextCollector_voi
     [(SCDANotifyStatePublisher *)self->_electionWinPublisher publishState:[(SCDACoordinator *)self _nextElectionPublisherState]];
     self->_stateMachineEncounteredError = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unduck
@@ -3995,24 +3927,24 @@ void __128__SCDACoordinator__testAndFilterAdvertisementsFromContextCollector_voi
 
 - (void)_stopListening:(id)listening
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   listeningCopy = listening;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[SCDACoordinator _stopListening:]";
+    v19 = "[SCDACoordinator _stopListening:]";
     _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __34__SCDACoordinator__stopListening___block_invoke;
-  v16 = &unk_1E85D32E8;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __34__SCDACoordinator__stopListening___block_invoke;
+  v15 = &unk_1E85D32E8;
   selfCopy = self;
   v6 = listeningCopy;
-  v18 = v6;
-  [(SCDACoordinator *)self _waitWiProxAndExecute:&v13];
+  v17 = v6;
+  [(SCDACoordinator *)self _waitWiProxAndExecute:&v12];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
@@ -4023,22 +3955,20 @@ void __128__SCDACoordinator__testAndFilterAdvertisementsFromContextCollector_voi
     if (v10)
     {
       v11 = objc_loadWeakRetained(&self->_delegate);
-      [v11 scdaListeningDidEnd:{self, v13, v14, v15, v16, selfCopy}];
+      [v11 scdaListeningDidEnd:{self, v12, v13, v14, v15, selfCopy}];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __34__SCDACoordinator__stopListening___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SCDACoordinator _stopListening:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping to scan HeySiri advertisements", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SCDACoordinator _stopListening:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping to scan HeySiri advertisements", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -4051,33 +3981,32 @@ uint64_t __34__SCDACoordinator__stopListening___block_invoke(uint64_t a1)
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_stopAdvertising:(id)advertising
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   advertisingCopy = advertising;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[SCDACoordinator _stopAdvertising:]";
+    v19 = "[SCDACoordinator _stopAdvertising:]";
     _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __36__SCDACoordinator__stopAdvertising___block_invoke;
-  v16 = &unk_1E85D32E8;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __36__SCDACoordinator__stopAdvertising___block_invoke;
+  v15 = &unk_1E85D32E8;
   selfCopy = self;
   v6 = advertisingCopy;
-  v18 = v6;
-  [(SCDACoordinator *)self _waitWiProxAndExecute:&v13];
+  v17 = v6;
+  [(SCDACoordinator *)self _waitWiProxAndExecute:&v12];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
@@ -4088,22 +4017,20 @@ uint64_t __34__SCDACoordinator__stopListening___block_invoke(uint64_t a1)
     if (v10)
     {
       v11 = objc_loadWeakRetained(&self->_delegate);
-      [v11 scdaAdvertisingDidEnd:{self, v13, v14, v15, v16, selfCopy}];
+      [v11 scdaAdvertisingDidEnd:{self, v12, v13, v14, v15, selfCopy}];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__SCDACoordinator__stopAdvertising___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SCDACoordinator _stopAdvertising:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising HeySiri advertisements", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SCDACoordinator _stopAdvertising:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising HeySiri advertisements", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -4116,10 +4043,9 @@ uint64_t __36__SCDACoordinator__stopAdvertising___block_invoke(uint64_t a1)
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4151,7 +4077,7 @@ uint64_t __36__SCDACoordinator__stopAdvertising___block_invoke(uint64_t a1)
 - (void)_startListeningAfterWiProxIsReady:(BOOL)ready inState:(unint64_t)state completion:(id)completion
 {
   readyCopy = ready;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (readyCopy && !self->_BTLEReady)
   {
@@ -4159,25 +4085,25 @@ uint64_t __36__SCDACoordinator__stopAdvertising___block_invoke(uint64_t a1)
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v17 = "[SCDACoordinator _startListeningAfterWiProxIsReady:inState:completion:]";
-      v18 = 2048;
+      v16 = "[SCDACoordinator _startListeningAfterWiProxIsReady:inState:completion:]";
+      v17 = 2048;
       stateCopy = state;
       _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s Waiting for wiprox to be ready in state: %lu", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __72__SCDACoordinator__startListeningAfterWiProxIsReady_inState_completion___block_invoke;
-    v13[3] = &unk_1E85D3440;
-    objc_copyWeak(v15, buf);
-    v15[1] = state;
-    v14 = completionCopy;
-    v10 = MEMORY[0x1E1270630](v13);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __72__SCDACoordinator__startListeningAfterWiProxIsReady_inState_completion___block_invoke;
+    v12[3] = &unk_1E85D3440;
+    objc_copyWeak(v14, buf);
+    v14[1] = state;
+    v13 = completionCopy;
+    v10 = MEMORY[0x1E1270630](v12);
     waitForWiproxReadinessToScan = self->_waitForWiproxReadinessToScan;
     self->_waitForWiproxReadinessToScan = v10;
 
-    objc_destroyWeak(v15);
+    objc_destroyWeak(v14);
     objc_destroyWeak(buf);
   }
 
@@ -4185,13 +4111,11 @@ uint64_t __36__SCDACoordinator__stopAdvertising___block_invoke(uint64_t a1)
   {
     [(SCDACoordinator *)self _startListening:completionCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SCDACoordinator__startListeningAfterWiProxIsReady_inState_completion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4202,40 +4126,38 @@ void __72__SCDACoordinator__startListeningAfterWiProxIsReady_inState_completion_
       v5 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
       {
-        v7 = 136315394;
-        v8 = "[SCDACoordinator _startListeningAfterWiProxIsReady:inState:completion:]_block_invoke";
-        v9 = 2048;
-        v10 = v4;
-        _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s starting to scan in state: %lu", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "[SCDACoordinator _startListeningAfterWiProxIsReady:inState:completion:]_block_invoke";
+        v8 = 2048;
+        v9 = v4;
+        _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s starting to scan in state: %lu", &v6, 0x16u);
       }
 
       [v3 _startListening:*(a1 + 32)];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startListening:(id)listening
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   listeningCopy = listening;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[SCDACoordinator _startListening:]";
+    v19 = "[SCDACoordinator _startListening:]";
     _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __35__SCDACoordinator__startListening___block_invoke;
-  v16 = &unk_1E85D32E8;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __35__SCDACoordinator__startListening___block_invoke;
+  v15 = &unk_1E85D32E8;
   selfCopy = self;
   v6 = listeningCopy;
-  v18 = v6;
-  [(SCDACoordinator *)self _waitWiProxAndExecute:&v13];
+  v17 = v6;
+  [(SCDACoordinator *)self _waitWiProxAndExecute:&v12];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
@@ -4246,11 +4168,9 @@ void __72__SCDACoordinator__startListeningAfterWiProxIsReady_inState_completion_
     if (v10)
     {
       v11 = objc_loadWeakRetained(&self->_delegate);
-      [v11 scdaListeningDidBegin:{self, v13, v14, v15, v16, selfCopy}];
+      [v11 scdaListeningDidBegin:{self, v12, v13, v14, v15, selfCopy}];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
@@ -4311,7 +4231,7 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
 
 - (void)_addTriggerRecordToReplies
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   deviceID = [(SCDARecord *)self->_triggerRecord deviceID];
   uUIDString = [deviceID UUIDString];
 
@@ -4319,20 +4239,19 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     triggerRecord = self->_triggerRecord;
-    v8 = 138543618;
-    v9 = uUIDString;
-    v10 = 2114;
-    v11 = triggerRecord;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "Adding advertisement to replies: %{public}@ -> %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = uUIDString;
+    v9 = 2114;
+    v10 = triggerRecord;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "Adding advertisement to replies: %{public}@ -> %{public}@", &v7, 0x16u);
   }
 
   [(NSMutableDictionary *)self->_replies setObject:self->_triggerRecord forKey:uUIDString];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enterState:(unint64_t)state
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
@@ -4340,11 +4259,11 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
     _stateAsString = [(SCDACoordinator *)self _stateAsString];
     v8 = [(SCDACoordinator *)self _stateAsString:state];
     *buf = 136315650;
-    v92 = "[SCDACoordinator _enterState:]";
-    v93 = 2112;
-    *v94 = _stateAsString;
-    *&v94[8] = 2112;
-    v95 = *&v8;
+    v91 = "[SCDACoordinator _enterState:]";
+    v92 = 2112;
+    *v93 = _stateAsString;
+    *&v93[8] = 2112;
+    v94 = *&v8;
     _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s BTLE Coordinator altered state: %@ -> %@", buf, 0x20u);
   }
 
@@ -4390,11 +4309,11 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
             v18 = v15;
             v19 = [(SCDACoordinator *)self _stateAsString:myriadState];
             *buf = 136315650;
-            v92 = "[SCDACoordinator _enterState:]";
-            v93 = 2112;
-            *v94 = timerLabel;
-            *&v94[8] = 2112;
-            v95 = *&v19;
+            v91 = "[SCDACoordinator _enterState:]";
+            v92 = 2112;
+            *v93 = timerLabel;
+            *&v93[8] = 2112;
+            v94 = *&v19;
             _os_log_impl(&dword_1DA758000, v18, OS_LOG_TYPE_INFO, "%s BTLE timer %@ cancelled (%@)", buf, 0x20u);
           }
         }
@@ -4431,7 +4350,7 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v92 = "[SCDACoordinator _enterState:]";
+        v91 = "[SCDACoordinator _enterState:]";
         _os_log_debug_impl(&dword_1DA758000, v28, OS_LOG_TYPE_DEBUG, "%s #scda clearing trigger record", buf, 0xCu);
       }
 
@@ -4450,11 +4369,11 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
           coordinationEnabled = self->_coordinationEnabled;
           BLEActivityEnabled = self->_BLEActivityEnabled;
           *buf = 136315650;
-          v92 = "[SCDACoordinator _enterState:]";
-          v93 = 1024;
-          *v94 = coordinationEnabled;
-          *&v94[4] = 1024;
-          *&v94[6] = BLEActivityEnabled;
+          v91 = "[SCDACoordinator _enterState:]";
+          v92 = 1024;
+          *v93 = coordinationEnabled;
+          *&v93[4] = 1024;
+          *&v93[6] = BLEActivityEnabled;
           _os_log_impl(&dword_1DA758000, v58, OS_LOG_TYPE_INFO, "%s #scda coordinationEnabled=%d, BLEActivityEnabled=%d ", buf, 0x18u);
         }
 
@@ -4464,7 +4383,7 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
           if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v92 = "[SCDACoordinator _enterState:]";
+            v91 = "[SCDACoordinator _enterState:]";
             _os_log_impl(&dword_1DA758000, v61, OS_LOG_TYPE_INFO, "%s #scda Force stopping BTLE scan", buf, 0xCu);
           }
 
@@ -4486,17 +4405,17 @@ uint64_t __35__SCDACoordinator__startListening___block_invoke(uint64_t a1)
           v67 = v64;
           activationExpirationTime = [(SCDAContext *)v65 activationExpirationTime];
           *buf = 136316418;
-          v92 = "[SCDACoordinator _enterState:]";
-          v93 = 2048;
-          *v94 = 13;
-          *&v94[8] = 2048;
-          v95 = TimeInterval;
-          v96 = 2048;
-          v97 = latestRecordReceivedTime;
-          v98 = 2048;
-          v99 = v62;
-          v100 = 2048;
-          v101 = activationExpirationTime;
+          v91 = "[SCDACoordinator _enterState:]";
+          v92 = 2048;
+          *v93 = 13;
+          *&v93[8] = 2048;
+          v94 = TimeInterval;
+          v95 = 2048;
+          v96 = latestRecordReceivedTime;
+          v97 = 2048;
+          v98 = v62;
+          v99 = 2048;
+          v100 = activationExpirationTime;
           _os_log_impl(&dword_1DA758000, v67, OS_LOG_TYPE_INFO, "%s Activation source: %ld, Time since activation: %f, last election record received time: %llu, current time: %llu, activation expiration time: %llu", buf, 0x3Eu);
         }
 
@@ -4518,12 +4437,12 @@ LABEL_60:
         }
 
         myriadWorkQueue = self->_myriadWorkQueue;
-        v89[0] = MEMORY[0x1E69E9820];
-        v89[1] = 3221225472;
-        v89[2] = __31__SCDACoordinator__enterState___block_invoke_246;
-        v89[3] = &unk_1E85D3850;
-        v89[4] = self;
-        v86 = v89;
+        v88[0] = MEMORY[0x1E69E9820];
+        v88[1] = 3221225472;
+        v88[2] = __31__SCDACoordinator__enterState___block_invoke_246;
+        v88[3] = &unk_1E85D3850;
+        v88[4] = self;
+        v86 = v88;
       }
 
       else
@@ -4531,11 +4450,11 @@ LABEL_60:
         v84 = SCDALogContextCore;
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
         {
-          v88 = self->_triggerRecord;
+          v87 = self->_triggerRecord;
           *buf = 136315394;
-          v92 = "[SCDACoordinator _enterState:]";
-          v93 = 2114;
-          *v94 = v88;
+          v91 = "[SCDACoordinator _enterState:]";
+          v92 = 2114;
+          *v93 = v87;
           _os_log_error_impl(&dword_1DA758000, v84, OS_LOG_TYPE_ERROR, "%s canceling advertising with nil trigger record, this likely means Siri UI was already dismissed %{public}@", buf, 0x16u);
         }
 
@@ -4563,7 +4482,7 @@ LABEL_60:
       if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v92 = lateSuppressionRecord;
+        v91 = lateSuppressionRecord;
         _os_log_impl(&dword_1DA758000, v52, OS_LOG_TYPE_DEFAULT, "Suppressing late arriver with advertisement: %{public}@", buf, 0xCu);
       }
 
@@ -4600,9 +4519,9 @@ LABEL_89:
       {
         v73 = self->_nTimesContinued;
         *buf = 136315394;
-        v92 = "[SCDACoordinator _enterState:]";
-        v93 = 1024;
-        *v94 = v73;
+        v91 = "[SCDACoordinator _enterState:]";
+        v92 = 1024;
+        *v93 = v73;
         _os_log_impl(&dword_1DA758000, v72, OS_LOG_TYPE_INFO, "%s BTLE task continuation: %d", buf, 0x12u);
       }
 
@@ -4619,7 +4538,7 @@ LABEL_89:
       if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v92 = 0;
+        v91 = 0;
         _os_log_impl(&dword_1DA758000, v75, OS_LOG_TYPE_INFO, "Advertising continuation: %{public}@", buf, 0xCu);
       }
 
@@ -4633,7 +4552,7 @@ LABEL_89:
       if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v92 = lateSuppressionRecord;
+        v91 = lateSuppressionRecord;
         _os_log_impl(&dword_1DA758000, v77, OS_LOG_TYPE_DEFAULT, "Sending suppression(DT) advertisement: %{public}@", buf, 0xCu);
       }
 
@@ -4646,7 +4565,7 @@ LABEL_72:
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v92 = "[SCDACoordinator _enterState:]";
+        v91 = "[SCDACoordinator _enterState:]";
         _os_log_impl(&dword_1DA758000, v53, OS_LOG_TYPE_INFO, "%s BTLE task SCDA_WAIT_EMERGENCY_OR_TASK only stopping advertising, not listening", buf, 0xCu);
       }
 
@@ -4664,7 +4583,7 @@ LABEL_72:
       if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v92 = emergencyRecord;
+        v91 = emergencyRecord;
         _os_log_impl(&dword_1DA758000, v81, OS_LOG_TYPE_DEFAULT, "Advertising emergency record: %{public}@", buf, 0xCu);
       }
 
@@ -4685,7 +4604,7 @@ LABEL_72:
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v92 = "[SCDACoordinator _enterState:]";
+        v91 = "[SCDACoordinator _enterState:]";
         _os_log_impl(&dword_1DA758000, v45, OS_LOG_TYPE_DEFAULT, "%s BTLE emergency is being handled", buf, 0xCu);
       }
 
@@ -4695,7 +4614,7 @@ LABEL_72:
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v92 = emergencyRecord;
+        v91 = emergencyRecord;
         _os_log_impl(&dword_1DA758000, v47, OS_LOG_TYPE_DEFAULT, "Advertising emergency handled record: %{public}@", buf, 0xCu);
       }
 
@@ -4731,7 +4650,7 @@ LABEL_82:
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v92 = "[SCDACoordinator _enterState:]";
+        v91 = "[SCDACoordinator _enterState:]";
         _os_log_impl(&dword_1DA758000, v36, OS_LOG_TYPE_INFO, "%s BTLE task SCDA_WAIT_EMERGENCY_HANDLED only stopping advertising, not listening", buf, 0xCu);
       }
 
@@ -4781,11 +4700,11 @@ LABEL_94:
         v31 = self->_coordinationEnabled;
         v32 = self->_BLEActivityEnabled;
         *buf = 136315650;
-        v92 = "[SCDACoordinator _enterState:]";
-        v93 = 1024;
-        *v94 = v31;
-        *&v94[4] = 1024;
-        *&v94[6] = v32;
+        v91 = "[SCDACoordinator _enterState:]";
+        v92 = 1024;
+        *v93 = v31;
+        *&v93[4] = 1024;
+        *&v93[6] = v32;
         _os_log_impl(&dword_1DA758000, v30, OS_LOG_TYPE_INFO, "%s #scda coordinationEnabled=%d, BLEActivityEnabled=%d ", buf, 0x18u);
       }
 
@@ -4797,7 +4716,7 @@ LABEL_94:
       {
         v35 = self->_triggerRecord;
         *buf = 138543362;
-        v92 = v35;
+        v91 = v35;
         _os_log_impl(&dword_1DA758000, v34, OS_LOG_TYPE_DEFAULT, "Advertising ~OUTGOING_TRIGGER: %{public}@", buf, 0xCu);
       }
 
@@ -4828,8 +4747,6 @@ LABEL_75:
     default:
       goto LABEL_92;
   }
-
-  v87 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__SCDACoordinator__enterState___block_invoke(uint64_t a1)
@@ -4850,13 +4767,13 @@ uint64_t __31__SCDACoordinator__enterState___block_invoke_246(uint64_t a1)
 
 uint64_t __37__SCDACoordinator__setOverallTimeout__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SCDACoordinator _setOverallTimeout]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE Coordinator hitting overall timeout, resetting to NoActivity and declaring loss", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SCDACoordinator _setOverallTimeout]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE Coordinator hitting overall timeout, resetting to NoActivity and declaring loss", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -4866,9 +4783,7 @@ uint64_t __37__SCDACoordinator__setOverallTimeout__block_invoke(uint64_t a1)
     v3 = *(a1 + 32);
   }
 
-  result = [v3 _enterState:0];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v3 _enterState:0];
 }
 
 - (void)_startTimer:(id)timer for:(float)for thenEnterState:(unint64_t)state
@@ -4895,7 +4810,7 @@ void __50__SCDACoordinator__startTimer_for_thenEnterState___block_invoke(uint64_
 
 - (void)_startTimer:(id)timer for:(float)for thenExecute:(id)execute
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   executeCopy = execute;
   v10 = SCDALogContextCore;
@@ -4903,11 +4818,11 @@ void __50__SCDACoordinator__startTimer_for_thenEnterState___block_invoke(uint64_
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[SCDACoordinator _startTimer:for:thenExecute:]";
-    v20 = 2112;
-    v21 = timerCopy;
-    v22 = 2048;
-    v23 = forCopy;
+    v18 = "[SCDACoordinator _startTimer:for:thenExecute:]";
+    v19 = 2112;
+    v20 = timerCopy;
+    v21 = 2048;
+    v22 = forCopy;
     _os_log_impl(&dword_1DA758000, v10, OS_LOG_TYPE_INFO, "%s BTLE starting %@ timer for %f secs", buf, 0x20u);
   }
 
@@ -4915,39 +4830,36 @@ void __50__SCDACoordinator__startTimer_for_thenEnterState___block_invoke(uint64_
   self->_timerLabel = timerCopy;
   v13 = timerCopy;
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __47__SCDACoordinator__startTimer_for_thenExecute___block_invoke;
-  v16[3] = &unk_1E85D32E8;
-  v16[4] = self;
-  v17 = executeCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __47__SCDACoordinator__startTimer_for_thenExecute___block_invoke;
+  v15[3] = &unk_1E85D32E8;
+  v15[4] = self;
+  v16 = executeCopy;
   v14 = executeCopy;
-  [(SCDACoordinator *)self _createDispatchTimerFor:v16 toExecute:forCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(SCDACoordinator *)self _createDispatchTimerFor:v15 toExecute:forCopy];
 }
 
 uint64_t __47__SCDACoordinator__startTimer_for_thenExecute___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v3 = *(*(a1 + 32) + 120);
-    v6 = 136315394;
-    v7 = "[SCDACoordinator _startTimer:for:thenExecute:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE %@ timer fires", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SCDACoordinator _startTimer:for:thenExecute:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE %@ timer fires", &v5, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4990,7 +4902,7 @@ uint64_t __47__SCDACoordinator__startTimer_for_thenExecute___block_invoke(uint64
 
 void __58__SCDACoordinator__createDispatchTimerWithTime_toExecute___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
@@ -4998,30 +4910,25 @@ void __58__SCDACoordinator__createDispatchTimerWithTime_toExecute___block_invoke
     v4 = *(a1 + 40);
     v5 = *(v4 + 136);
     v6 = *(v4 + 120);
-    v9 = 136315906;
-    v10 = "[SCDACoordinator _createDispatchTimerWithTime:toExecute:]_block_invoke";
-    v11 = 2112;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda Event token: %@, current event token: %@ for timer: %@", &v9, 0x2Au);
+    v8 = 136315906;
+    v9 = "[SCDACoordinator _createDispatchTimerWithTime:toExecute:]_block_invoke";
+    v10 = 2112;
+    v11 = v3;
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda Event token: %@, current event token: %@ for timer: %@", &v8, 0x2Au);
   }
 
-  if (*(*(a1 + 40) + 136))
+  if (*(*(a1 + 40) + 136) && [*(a1 + 32) isEqual:?])
   {
-    if ([*(a1 + 32) isEqual:?])
+    v7 = *(a1 + 48);
+    if (v7)
     {
-      v7 = *(a1 + 48);
-      if (v7)
-      {
-        (*(v7 + 16))();
-      }
+      (*(v7 + 16))();
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateTimerHandler
@@ -5041,7 +4948,6 @@ void __58__SCDACoordinator__createDispatchTimerWithTime_toExecute___block_invoke
     v6 = [(NSString *)timerLabel stringByAppendingString:@"-Invalidated"];
   }
 
-  v7 = self->_timerLabel;
   self->_timerLabel = v6;
 
   MEMORY[0x1EEE66BB8]();
@@ -5049,7 +4955,7 @@ void __58__SCDACoordinator__createDispatchTimerWithTime_toExecute___block_invoke
 
 - (void)_clearMyriadSession
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self->_myriadSession)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -5067,11 +4973,11 @@ void __58__SCDACoordinator__createDispatchTimerWithTime_toExecute___block_invoke
       myriadSession = self->_myriadSession;
       v8 = v6;
       sessionId = [(SCDASession *)myriadSession sessionId];
-      v13 = 136315394;
-      v14 = "[SCDACoordinator _clearMyriadSession]";
-      v15 = 2112;
-      v16 = sessionId;
-      _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s #scda Clearing myriad session %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[SCDACoordinator _clearMyriadSession]";
+      v14 = 2112;
+      v15 = sessionId;
+      _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s #scda Clearing myriad session %@", &v12, 0x16u);
     }
 
     electionAdvertisementDataByIds = [(SCDASession *)self->_myriadSession electionAdvertisementDataByIds];
@@ -5080,28 +4986,24 @@ void __58__SCDACoordinator__createDispatchTimerWithTime_toExecute___block_invoke
     v11 = self->_myriadSession;
     self->_myriadSession = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __38__SCDACoordinator__clearMyriadSession__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315650;
-    v9 = "[SCDACoordinator _clearMyriadSession]_block_invoke";
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda Election advertisement %@ -> %@", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[SCDACoordinator _clearMyriadSession]_block_invoke";
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda Election advertisement %@ -> %@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRequestId:(id)id
@@ -5120,16 +5022,16 @@ void __38__SCDACoordinator__clearMyriadSession__block_invoke(uint64_t a1, void *
 
 void __35__SCDACoordinator_updateRequestId___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(a1 + 32);
-    v10 = 136315394;
-    v11 = "[SCDACoordinator updateRequestId:]_block_invoke";
-    v12 = 2112;
-    v13 = v9;
-    _os_log_debug_impl(&dword_1DA758000, v2, OS_LOG_TYPE_DEBUG, "%s #scda requestIdNotification: %@", &v10, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = 136315394;
+    v10 = "[SCDACoordinator updateRequestId:]_block_invoke";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_debug_impl(&dword_1DA758000, v2, OS_LOG_TYPE_DEBUG, "%s #scda requestIdNotification: %@", &v9, 0x16u);
   }
 
   v3 = *(a1 + 40);
@@ -5138,28 +5040,26 @@ void __35__SCDACoordinator_updateRequestId___block_invoke(uint64_t a1)
   v6 = [v5 objectForKeyedSubscript:@"requestId"];
   v7 = [v4 initWithUUIDString:v6];
   [v3 setCurrentRequestId:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addElectionAdvertisementDataToMyriadSession:(id)session
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if (sessionCopy)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
     _myriadSession = [(SCDACoordinator *)self _myriadSession];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_invoke;
-    v18[3] = &unk_1E85D33B0;
-    v18[4] = self;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_invoke;
+    v17[3] = &unk_1E85D33B0;
+    v17[4] = self;
     v7 = sessionCopy;
-    v19 = v7;
+    v18 = v7;
     v8 = uUID;
-    v20 = v8;
-    v9 = [_myriadSession mutatedCopyWithMutator:v18];
+    v19 = v8;
+    v9 = [_myriadSession mutatedCopyWithMutator:v17];
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v11 = objc_opt_respondsToSelector();
@@ -5178,16 +5078,14 @@ void __35__SCDACoordinator_updateRequestId___block_invoke(uint64_t a1)
       v15 = v13;
       sessionId = [(SCDASession *)myriadSession sessionId];
       *buf = 136315650;
-      v22 = "[SCDACoordinator _addElectionAdvertisementDataToMyriadSession:]";
-      v23 = 2112;
-      v24 = v7;
-      v25 = 2112;
-      v26 = sessionId;
+      v21 = "[SCDACoordinator _addElectionAdvertisementDataToMyriadSession:]";
+      v22 = 2112;
+      v23 = v7;
+      v24 = 2112;
+      v25 = sessionId;
       _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s #scda Election advertisement %@ added to myriad session %@", buf, 0x20u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_invoke(void *a1, void *a2)
@@ -5206,13 +5104,13 @@ void __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_
 
 - (void)_loseElection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SCDACoordinator _loseElection]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEFAULT, "%s BTLE notify myriad loss", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SCDACoordinator _loseElection]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEFAULT, "%s BTLE notify myriad loss", &v12, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -5231,11 +5129,11 @@ void __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_
     {
       v10 = v9;
       v11 = objc_loadWeakRetained(&self->_delegate);
-      v13 = 136315394;
-      v14 = "[SCDACoordinator _loseElection]";
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_1DA758000, v10, OS_LOG_TYPE_INFO, "%s BTLE unable to cancel against: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[SCDACoordinator _loseElection]";
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_1DA758000, v10, OS_LOG_TYPE_INFO, "%s BTLE unable to cancel against: %@", &v12, 0x16u);
     }
   }
 
@@ -5244,18 +5142,17 @@ void __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_
   [(SCDANotifyStatePublisher *)self->_electionLossPublisher publishState:[(SCDACoordinator *)self _nextElectionPublisherState]];
   [(SCDAGoodnessScoreEvaluator *)self->_goodnessScoreEvaluator setLastActivationTime:0.0];
   self->_lastDecision = 0;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_deviceShouldContinue:(id)continue
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   continueCopy = continue;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v23 = "[SCDACoordinator _deviceShouldContinue:]";
+    v22 = "[SCDACoordinator _deviceShouldContinue:]";
     _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -5272,25 +5169,25 @@ void __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_
     }
 
     v9 = [(SCDACoordinator *)self _shouldContinueFor:continueCopy];
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
     if (([(SCDARecord *)self->_triggerRecord context]& 1) != 0)
     {
       replies = self->_replies;
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __41__SCDACoordinator__deviceShouldContinue___block_invoke;
-      v17[3] = &unk_1E85D3388;
-      v17[4] = &v18;
-      [(NSMutableDictionary *)replies enumerateKeysAndObjectsUsingBlock:v17];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __41__SCDACoordinator__deviceShouldContinue___block_invoke;
+      v16[3] = &unk_1E85D3388;
+      v16[4] = &v17;
+      [(NSMutableDictionary *)replies enumerateKeysAndObjectsUsingBlock:v16];
     }
 
     recordType = [(SCDARecord *)self->_triggerRecord recordType];
     if ((recordType == 4) | (v6 | v9) & 1)
     {
-      v8 = *(v19 + 24) ^ 1;
+      v8 = *(v18 + 24) ^ 1;
     }
 
     else
@@ -5302,23 +5199,23 @@ void __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       clientIsInEarActivation = self->_clientIsInEarActivation;
-      v14 = *(v19 + 24);
+      v14 = *(v18 + 24);
       *buf = 136316418;
-      v23 = "[SCDACoordinator _deviceShouldContinue:]";
-      v24 = 2048;
-      v25 = v8 & 1;
-      v26 = 2048;
-      v27 = 0;
-      v28 = 2048;
-      v29 = recordType == 4;
-      v30 = 2048;
-      v31 = clientIsInEarActivation;
-      v32 = 2048;
-      v33 = v14;
+      v22 = "[SCDACoordinator _deviceShouldContinue:]";
+      v23 = 2048;
+      v24 = v8 & 1;
+      v25 = 2048;
+      v26 = 0;
+      v27 = 2048;
+      v28 = recordType == 4;
+      v29 = 2048;
+      v30 = clientIsInEarActivation;
+      v31 = 2048;
+      v32 = v14;
       _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s BTLE deviceShouldContinue:%ld coordinationDisabled:%ld, isDirectlyActivating:%ld, isInEarTrigger:%ld, suppressLateTrigger:removed setupRecordSuppression:%ld.", buf, 0x3Eu);
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
@@ -5328,34 +5225,31 @@ void __64__SCDACoordinator__addElectionAdvertisementDataToMyriadSession___block_
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v23 = "[SCDACoordinator _deviceShouldContinue:]";
+      v22 = "[SCDACoordinator _deviceShouldContinue:]";
       v8 = 1;
       _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s Coordination disabled, continuing with the request)", buf, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 
 void __41__SCDACoordinator__deviceShouldContinue___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([a3 isSetup])
   {
     v6 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[SCDACoordinator _deviceShouldContinue:]_block_invoke";
-      _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s Setup record found while detecting attention, losing election", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[SCDACoordinator _deviceShouldContinue:]_block_invoke";
+      _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s Setup record found while detecting attention, losing election", &v7, 0xCu);
     }
 
     *a4 = 1;
     *(*(*(a1 + 32) + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_forceLocalWinner:(id)winner withRecord:(id)record
@@ -5377,19 +5271,19 @@ void __41__SCDACoordinator__deviceShouldContinue___block_invoke(uint64_t a1, uin
 
 uint64_t __48__SCDACoordinator__forceLocalWinner_withRecord___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(*(a1 + 40) + 160);
-    v12 = 136315650;
-    v13 = "[SCDACoordinator _forceLocalWinner:withRecord:]_block_invoke";
-    v14 = 2114;
-    v15 = v3;
-    v16 = 2114;
-    v17 = v4;
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_DEFAULT, "%s #scda force win on this device with context: %{public}@, triggerRecord: %{public}@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SCDACoordinator _forceLocalWinner:withRecord:]_block_invoke";
+    v13 = 2114;
+    v14 = v3;
+    v15 = 2114;
+    v16 = v4;
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_DEFAULT, "%s #scda force win on this device with context: %{public}@, triggerRecord: %{public}@", &v11, 0x20u);
   }
 
   v5 = *(a1 + 40);
@@ -5412,20 +5306,18 @@ uint64_t __48__SCDACoordinator__forceLocalWinner_withRecord___block_invoke(uint6
 
   [*(*(a1 + 40) + 488) updateIsTrump:1 withReason:5];
   objc_storeStrong((*(a1 + 40) + 160), *(a1 + 48));
-  result = [*(a1 + 40) _enterState:14];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _enterState:14];
 }
 
 - (void)faceDetectedBoostWithContext:(id)context
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = SCDALogForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = contextCopy;
+    v9 = contextCopy;
     _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "faceDetectedBoostWithContext: %{public}@", buf, 0xCu);
   }
 
@@ -5436,65 +5328,62 @@ uint64_t __48__SCDACoordinator__forceLocalWinner_withRecord___block_invoke(uint6
   block[3] = &unk_1E85D3850;
   block[4] = self;
   dispatch_async(myriadWorkQueue, block);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SCDACoordinator_faceDetectedBoostWithContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = v1[1];
-  if (v2 != 1)
+  if (v2 == 1)
   {
-    v5 = SCDALogContextCore;
-    if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
+    if (v1[20])
     {
-      v6 = v5;
-      v7 = [v1 stateAsString:v2];
-      v10 = 136315394;
-      v11 = "[SCDACoordinator faceDetectedBoostWithContext:]_block_invoke";
-      v12 = 2114;
-      v13 = v7;
-      _os_log_error_impl(&dword_1DA758000, v6, OS_LOG_TYPE_ERROR, "%s #scda attention boost arrived in wrong state: %{public}@", &v10, 0x16u);
+      v3 = *(a1 + 32);
+
+      [v3 _faceDetectedElection];
     }
 
-    goto LABEL_10;
+    else
+    {
+      v7 = SCDALogContextCore;
+      if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
+      {
+        v8 = 136315138;
+        v9 = "[SCDACoordinator faceDetectedBoostWithContext:]_block_invoke";
+        _os_log_error_impl(&dword_1DA758000, v7, OS_LOG_TYPE_ERROR, "%s #scda attention boost arrived with nil _triggerRecord, likely Siri was dismissed already.", &v8, 0xCu);
+      }
+    }
   }
 
-  if (!v1[20])
+  else
   {
-    v8 = SCDALogContextCore;
+    v4 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[SCDACoordinator faceDetectedBoostWithContext:]_block_invoke";
-      _os_log_error_impl(&dword_1DA758000, v8, OS_LOG_TYPE_ERROR, "%s #scda attention boost arrived with nil _triggerRecord, likely Siri was dismissed already.", &v10, 0xCu);
+      v5 = v4;
+      v6 = [v1 stateAsString:v2];
+      v8 = 136315394;
+      v9 = "[SCDACoordinator faceDetectedBoostWithContext:]_block_invoke";
+      v10 = 2114;
+      v11 = v6;
+      _os_log_error_impl(&dword_1DA758000, v5, OS_LOG_TYPE_ERROR, "%s #scda attention boost arrived in wrong state: %{public}@", &v8, 0x16u);
     }
-
-LABEL_10:
-    v9 = *MEMORY[0x1E69E9840];
-    return;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 32);
-
-  [v4 _faceDetectedElection];
 }
 
 - (void)_faceDetectedElection
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   rawAudioGoodnessScore = [(SCDARecord *)self->_triggerRecord rawAudioGoodnessScore];
   userConfidence = [(SCDARecord *)self->_triggerRecord userConfidence];
   tieBreaker = [(SCDARecord *)self->_triggerRecord tieBreaker];
   v6 = SCDALogContextCore;
   if (!rawAudioGoodnessScore && os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v12 = 136315138;
-    v13 = "[SCDACoordinator _faceDetectedElection]";
-    _os_log_error_impl(&dword_1DA758000, v6, OS_LOG_TYPE_ERROR, "%s #scda attention Original goodness before attention arrived was zero - likely an invalid Myriad advertisement from this device could make it lose an election", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SCDACoordinator _faceDetectedElection]";
+    _os_log_error_impl(&dword_1DA758000, v6, OS_LOG_TYPE_ERROR, "%s #scda attention Original goodness before attention arrived was zero - likely an invalid Myriad advertisement from this device could make it lose an election", &v11, 0xCu);
     v6 = SCDALogContextCore;
     if (userConfidence)
     {
@@ -5509,29 +5398,29 @@ LABEL_10:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315138;
-    v13 = "[SCDACoordinator _faceDetectedElection]";
-    _os_log_debug_impl(&dword_1DA758000, v6, OS_LOG_TYPE_DEBUG, "%s #scda attention Original confidence was 0", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SCDACoordinator _faceDetectedElection]";
+    _os_log_debug_impl(&dword_1DA758000, v6, OS_LOG_TYPE_DEBUG, "%s #scda attention Original confidence was 0", &v11, 0xCu);
     v6 = SCDALogContextCore;
   }
 
 LABEL_6:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315138;
-    v13 = "[SCDACoordinator _faceDetectedElection]";
-    _os_log_debug_impl(&dword_1DA758000, v6, OS_LOG_TYPE_DEBUG, "%s #scda attention boost arrived, reformulating record", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SCDACoordinator _faceDetectedElection]";
+    _os_log_debug_impl(&dword_1DA758000, v6, OS_LOG_TYPE_DEBUG, "%s #scda attention boost arrived, reformulating record", &v11, 0xCu);
     v6 = SCDALogContextCore;
   }
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     triggerRecord = self->_triggerRecord;
-    v12 = 136315394;
-    v13 = "[SCDACoordinator _faceDetectedElection]";
-    v14 = 2112;
-    v15 = triggerRecord;
-    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda attention original record: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SCDACoordinator _faceDetectedElection]";
+    v13 = 2112;
+    v14 = triggerRecord;
+    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda attention original record: %@", &v11, 0x16u);
   }
 
   [(SCDARecord *)self->_triggerRecord setRawAudioGoodnessScore:[(SCDARecord *)self->_triggerRecord rawAudioGoodnessScore] withBump:255];
@@ -5541,9 +5430,9 @@ LABEL_6:
     v8 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315138;
-      v13 = "[SCDACoordinator _faceDetectedElection]";
-      _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, "%s #scda attention originalTB and originalConfidence collision, generating a new random TB", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[SCDACoordinator _faceDetectedElection]";
+      _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, "%s #scda attention originalTB and originalConfidence collision, generating a new random TB", &v11, 0xCu);
     }
 
     [(SCDARecord *)self->_triggerRecord generateTiebreaker];
@@ -5559,16 +5448,15 @@ LABEL_6:
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v10 = self->_triggerRecord;
-    v12 = 136315394;
-    v13 = "[SCDACoordinator _faceDetectedElection]";
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s #scda attention reformulated record: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SCDACoordinator _faceDetectedElection]";
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s #scda attention reformulated record: %@", &v11, 0x16u);
   }
 
   [(SCDAInstrumentation *)self->_myriadInstrumentation updateIsTrump:1 withReason:8];
   [(SCDACoordinator *)self _enterState:1];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCurrentRequestId:(id)id
@@ -5606,6 +5494,31 @@ LABEL_6:
   return firstObject;
 }
 
+- (void)instrumentationUpdateBoost:(unsigned __int8)boost value:(unsigned int)value
+{
+  v4 = *&value;
+  boostCopy = boost;
+  myriadInstrumentation = self->_myriadInstrumentation;
+  if (!myriadInstrumentation)
+  {
+    if (self->_coordinationEnabled)
+    {
+      v8 = objc_alloc_init(SCDAInstrumentation);
+      v9 = self->_myriadInstrumentation;
+      self->_myriadInstrumentation = v8;
+
+      myriadInstrumentation = self->_myriadInstrumentation;
+    }
+
+    else
+    {
+      myriadInstrumentation = 0;
+    }
+  }
+
+  [(SCDAInstrumentation *)myriadInstrumentation updateBoost:boostCopy value:v4];
+}
+
 - (void)setupEnabled:(BOOL)enabled
 {
   myriadWorkQueue = self->_myriadWorkQueue;
@@ -5620,7 +5533,7 @@ LABEL_6:
 
 void __32__SCDACoordinator_setupEnabled___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
@@ -5628,13 +5541,13 @@ void __32__SCDACoordinator_setupEnabled___block_invoke(uint64_t a1)
     v4 = *(a1 + 32);
     v5 = v2;
     v6 = [v4 _stateAsString];
-    v9 = 136315650;
-    v10 = "[SCDACoordinator setupEnabled:]_block_invoke";
-    v11 = 1024;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s #scda setupEnabled: %d, current state: %@", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[SCDACoordinator setupEnabled:]_block_invoke";
+    v10 = 1024;
+    v11 = v3;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s #scda setupEnabled: %d, current state: %@", &v8, 0x1Cu);
   }
 
   v7 = *(a1 + 32);
@@ -5650,36 +5563,31 @@ void __32__SCDACoordinator_setupEnabled___block_invoke(uint64_t a1)
     *(*(a1 + 32) + 217) = 0;
     [*(a1 + 32) _enterState:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInTask:(BOOL)task
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[SCDACoordinator setInTask:]";
-    _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s Myriad _inTask is removed. This method is deprecated and does nothing.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDACoordinator setInTask:]";
+    _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s Myriad _inTask is removed. This method is deprecated and does nothing.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)inTask
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[SCDACoordinator inTask]";
-    _os_log_error_impl(&dword_1DA758000, v2, OS_LOG_TYPE_ERROR, "%s Myriad _inTask is removed. This method is deprecated and always returns NO.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDACoordinator inTask]";
+    _os_log_error_impl(&dword_1DA758000, v2, OS_LOG_TYPE_ERROR, "%s Myriad _inTask is removed. This method is deprecated and always returns NO.", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -5696,20 +5604,18 @@ void __32__SCDACoordinator_setupEnabled___block_invoke(uint64_t a1)
 
 void __26__SCDACoordinator_endTask__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SCDACoordinator endTask]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_DEFAULT, "%s Clearing trigger record", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SCDACoordinator endTask]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_DEFAULT, "%s Clearing trigger record", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
   v4 = *(v3 + 160);
   *(v3 + 160) = 0;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endAdvertisingWithDeviceProhibitions:(id)prohibitions
@@ -5728,7 +5634,7 @@ void __26__SCDACoordinator_endTask__block_invoke(uint64_t a1)
 
 - (void)_endAdvertisingWithDeviceProhibitions:(id)prohibitions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   prohibitionsCopy = prohibitions;
   if (!self->_coordinationEnabled)
   {
@@ -5736,7 +5642,7 @@ void __26__SCDACoordinator_endTask__block_invoke(uint64_t a1)
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v18 = "[SCDACoordinator _endAdvertisingWithDeviceProhibitions:]";
+      v17 = "[SCDACoordinator _endAdvertisingWithDeviceProhibitions:]";
       _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s BTLE advertising is being ignored", buf, 0xCu);
     }
   }
@@ -5745,14 +5651,14 @@ void __26__SCDACoordinator_endTask__block_invoke(uint64_t a1)
   if (maxSlowdownRecord && (v7 = [(SCDARecord *)maxSlowdownRecord slowdownDelay]) != 0 && self->_clientIsRespondingToSlowdown && !self->_clientDoneRespondingToSlowdown)
   {
     self->_slowdownMsecs = v7;
-    v15 = SCDALogContextCore;
+    v14 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v18 = "[SCDACoordinator _endAdvertisingWithDeviceProhibitions:]";
-      v19 = 1024;
-      v20 = v7;
-      _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s BTLE detected a slowdown signal for %d msecs, resetting election for later time", buf, 0x12u);
+      v17 = "[SCDACoordinator _endAdvertisingWithDeviceProhibitions:]";
+      v18 = 1024;
+      v19 = v7;
+      _os_log_impl(&dword_1DA758000, v14, OS_LOG_TYPE_INFO, "%s BTLE detected a slowdown signal for %d msecs, resetting election for later time", buf, 0x12u);
     }
 
     [(SCDACoordinator *)self _advertiseTrigger];
@@ -5793,7 +5699,7 @@ void __26__SCDACoordinator_endTask__block_invoke(uint64_t a1)
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v18 = "[SCDACoordinator _endAdvertisingWithDeviceProhibitions:]";
+          v17 = "[SCDACoordinator _endAdvertisingWithDeviceProhibitions:]";
           _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s #scda lost and no need to wait for emergency", buf, 0xCu);
         }
 
@@ -5812,13 +5718,13 @@ void __26__SCDACoordinator_endTask__block_invoke(uint64_t a1)
     self->_clientDoneRespondingToSlowdown = 0;
     [(SCDACoordinator *)self _cancelOverallTimeout];
     [(SCDACoordinator *)self _endAdvertising:0];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __57__SCDACoordinator__endAdvertisingWithDeviceProhibitions___block_invoke;
-    v16[3] = &unk_1E85D3360;
-    v16[4] = self;
-    v16[5] = v10;
-    [(SCDACoordinator *)self _startTimer:v9 for:v16 thenExecute:COERCE_DOUBLE(LODWORD(v8))];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __57__SCDACoordinator__endAdvertisingWithDeviceProhibitions___block_invoke;
+    v15[3] = &unk_1E85D3360;
+    v15[4] = self;
+    v15[5] = v10;
+    [(SCDACoordinator *)self _startTimer:v9 for:v15 thenExecute:COERCE_DOUBLE(LODWORD(v8))];
     [(SCDACoordinator *)self _ageWedgeFilter];
     [(SCDACoordinator *)self resetReplies];
     self->_clientIsInEarActivation = 0;
@@ -5828,8 +5734,6 @@ void __26__SCDACoordinator_endTask__block_invoke(uint64_t a1)
     self->_clientIsRespondingToSlowdown = 0;
     [(SCDACoordinator *)self _resetAdvertisementTimings];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__SCDACoordinator__endAdvertisingWithDeviceProhibitions___block_invoke(uint64_t a1)
@@ -5839,9 +5743,292 @@ uint64_t __57__SCDACoordinator__endAdvertisingWithDeviceProhibitions___block_inv
   return [*(a1 + 32) _enterState:v1];
 }
 
+- (void)_endAdvertisingAnalyticsContext:(BOOL)context
+{
+  contextCopy = context;
+  v106 = *MEMORY[0x1E69E9840];
+  p_triggerRecord = &self->_triggerRecord;
+  asAdvertisementData = [(SCDARecord *)self->_triggerRecord asAdvertisementData];
+  [(SCDACoordinator *)self _computeElectionParticipantIds:asAdvertisementData];
+
+  v7 = *p_triggerRecord;
+  electionParticipantId = [(SCDAElectionParticipantIds *)self->_electionParticipantIds electionParticipantId];
+  [(SCDARecord *)v7 setElectionParticipantId:electionParticipantId];
+
+  _sortedReplies = [(SCDACoordinator *)self _sortedReplies];
+  v9 = SCDALogForCategory(3);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 138543362;
+    *(&buf + 4) = _sortedReplies;
+    _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEFAULT, "BTLE end advertising.\nOrdered Summary: %{public}@", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v102 = 0x3032000000;
+  v103 = __Block_byref_object_copy__2347;
+  v104 = __Block_byref_object_dispose__2348;
+  v105 = 0;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x3032000000;
+  v90 = __Block_byref_object_copy__2347;
+  v91 = __Block_byref_object_dispose__2348;
+  v92 = 0;
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x3032000000;
+  v84 = __Block_byref_object_copy__2347;
+  v85 = __Block_byref_object_dispose__2348;
+  v86 = 0;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 0;
+  if (_sortedReplies && [_sortedReplies count])
+  {
+    if (!contextCopy)
+    {
+      firstObject = [_sortedReplies firstObject];
+      v11 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = firstObject;
+
+      rawAudioGoodnessScore = [*(*(&buf + 1) + 40) rawAudioGoodnessScore];
+      *(v78 + 6) = rawAudioGoodnessScore;
+    }
+
+    v75[0] = MEMORY[0x1E69E9820];
+    v75[1] = 3221225472;
+    v75[2] = __51__SCDACoordinator__endAdvertisingAnalyticsContext___block_invoke;
+    v75[3] = &unk_1E85D3310;
+    v76 = contextCopy;
+    v75[4] = &v81;
+    v75[5] = &v87;
+    v75[6] = &buf;
+    v75[7] = &v77;
+    [_sortedReplies enumerateObjectsUsingBlock:v75];
+    if (!v82[5])
+    {
+      v13 = SCDALogContextCore;
+      if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
+      {
+        *v93 = 136315138;
+        v94 = "[SCDACoordinator _endAdvertisingAnalyticsContext:]";
+        v14 = "%s Myriad record for this device is missing!";
+LABEL_47:
+        _os_log_error_impl(&dword_1DA758000, v13, OS_LOG_TYPE_ERROR, v14, v93, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    v13 = SCDALogContextCore;
+    if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
+    {
+      *v93 = 136315138;
+      v94 = "[SCDACoordinator _endAdvertisingAnalyticsContext:]";
+      v14 = "%s Myriad decision is based on 0 replies";
+      goto LABEL_47;
+    }
+  }
+
+  v15 = v82;
+  if (!v82[5])
+  {
+    v16 = objc_alloc_init(MEMORY[0x1E69CE940]);
+    v17 = v82[5];
+    v82[5] = v16;
+
+    [v82[5] setDeviceClass:{-[SCDADevice cdaDeviceClass](self->_device, "cdaDeviceClass")}];
+    [v82[5] setProductType:{-[SCDADevice productType](self->_device, "productType")}];
+    [v82[5] setGoodnessScore:0];
+    v15 = v82;
+    if (contextCopy)
+    {
+      objc_storeStrong(v88 + 5, v82[5]);
+      v15 = v82;
+    }
+  }
+
+  electionParticipantId2 = [v15[5] electionParticipantId];
+  v19 = electionParticipantId2 == 0;
+
+  if (v19)
+  {
+    v20 = v82[5];
+    electionParticipantId3 = [(SCDAElectionParticipantIds *)self->_electionParticipantIds electionParticipantId];
+    v22 = SCDAToSISchemaUUID(electionParticipantId3);
+    [v20 setElectionParticipantId:v22];
+  }
+
+  v23 = v82[5];
+  rotatedElectionParticipantId = [(SCDAElectionParticipantIds *)self->_electionParticipantIds rotatedElectionParticipantId];
+  v25 = SCDAToSISchemaUUID(rotatedElectionParticipantId);
+  [v23 setRotatedElectionParticipantId:v25];
+
+  if (!*(*(&buf + 1) + 40))
+  {
+    emptyRecord = [(SCDACoordinator *)self emptyRecord];
+    v27 = *(*(&buf + 1) + 40);
+    *(*(&buf + 1) + 40) = emptyRecord;
+  }
+
+  if (!v88[5])
+  {
+    v28 = objc_alloc_init(MEMORY[0x1E69CE940]);
+    v29 = v88[5];
+    v88[5] = v28;
+
+    v30 = v88[5];
+    deviceClass = [*(*(&buf + 1) + 40) deviceClass];
+    [v30 setDeviceClass:{+[SCDADevice cdaDeviceClassForSCDADeviceClass:andProducType:](SCDADevice, "cdaDeviceClassForSCDADeviceClass:andProducType:", deviceClass, objc_msgSend(*(*(&buf + 1) + 40), "productType"))}];
+    [v88[5] setProductType:{objc_msgSend(*(*(&buf + 1) + 40), "productType")}];
+    [v88[5] setGoodnessScore:{objc_msgSend(*(*(&buf + 1) + 40), "goodness")}];
+    v32 = v88[5];
+    electionParticipantId4 = [*(*(&buf + 1) + 40) electionParticipantId];
+    v34 = SCDAToSISchemaUUID(electionParticipantId4);
+    [v32 setElectionParticipantId:v34];
+  }
+
+  v35 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
+  if (SCDAIsInternalInstall_onceToken != -1)
+  {
+    dispatch_once(&SCDAIsInternalInstall_onceToken, &__block_literal_global_1238);
+  }
+
+  if (SCDAIsInternalInstall_isInternal == 1)
+  {
+    v36 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
+  }
+
+  else
+  {
+    v36 = 0;
+  }
+
+  v71[0] = MEMORY[0x1E69E9820];
+  v71[1] = 3221225472;
+  v71[2] = __51__SCDACoordinator__endAdvertisingAnalyticsContext___block_invoke_190;
+  v71[3] = &unk_1E85D3338;
+  v68 = v36;
+  v72 = v68;
+  v74 = &v81;
+  v69 = v35;
+  v73 = v69;
+  [_sortedReplies enumerateObjectsUsingBlock:v71];
+  if (SCDAIsInternalInstall_onceToken != -1)
+  {
+    dispatch_once(&SCDAIsInternalInstall_onceToken, &__block_literal_global_1238);
+  }
+
+  if (SCDAIsInternalInstall_isInternal == 1)
+  {
+    v37 = [SCDAArbitrationParticipationContext alloc];
+    triggerTime = self->_triggerTime;
+    sessionId = [(SCDASession *)self->_myriadSession sessionId];
+    uUIDString = [sessionId UUIDString];
+    voiceTriggerMachTime = [(SCDARecord *)self->_triggerRecord voiceTriggerMachTime];
+    v42 = [(SCDAArbitrationParticipationContext *)v37 initAdvertisements:_sortedReplies decision:contextCopy requestStartDate:triggerTime session:uUIDString voiceTriggerTime:*(*(&buf + 1) + 40) winnerAdvertisement:voiceTriggerMachTime];
+
+    [(SCDAInstrumentation *)self->_myriadInstrumentation userFeedbackPublishArbitrationParticipationContext:v42];
+    myriadInstrumentation = self->_myriadInstrumentation;
+    v44 = [(SCDACoordinator *)self _myriadStateForSelf:self->_myriadState];
+    coordinationEnabled = self->_coordinationEnabled;
+    deviceGroup = self->_deviceGroup;
+    sessionId2 = [(SCDASession *)self->_myriadSession sessionId];
+    [(SCDAInstrumentation *)myriadInstrumentation logCDAElectionDecisionMadeDebug:v44 withCrossDeviceArbitrationAllowed:coordinationEnabled advertisementData:v68 withDeviceGroup:deviceGroup withCdaId:sessionId2 withTimestamp:mach_absolute_time()];
+
+    v48 = SCDALogForCategory(3);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+    {
+      if (contextCopy)
+      {
+        v49 = @"Won";
+      }
+
+      else
+      {
+        v49 = @"Lost";
+      }
+
+      if (contextCopy)
+      {
+        v50 = @"on";
+      }
+
+      else
+      {
+        v50 = @"to";
+      }
+
+      deviceName = [*(*(&buf + 1) + 40) deviceName];
+      winReason = [*(*(&buf + 1) + 40) winReason];
+      *v93 = 138413058;
+      v94 = v49;
+      v95 = 2112;
+      v96 = v50;
+      v97 = 2112;
+      v98 = deviceName;
+      v99 = 2112;
+      v100 = winReason;
+      _os_log_impl(&dword_1DA758000, v48, OS_LOG_TYPE_DEFAULT, "#scda_winlose_reason %@ election %@ %@ due to %@.", v93, 0x2Au);
+    }
+  }
+
+  v67 = mach_absolute_time();
+  if (_SCDAMachAbsoluteTimeRate_onceToken != -1)
+  {
+    dispatch_once(&_SCDAMachAbsoluteTimeRate_onceToken, &__block_literal_global_42);
+  }
+
+  v53 = *&_SCDAMachAbsoluteTimeRate_rate;
+  lastDecisionTime = self->_lastDecisionTime;
+  selfCopy = self;
+  v56 = [(NSUUID *)self->_currentRequestId copy];
+  v66 = self->_myriadInstrumentation;
+  v57 = [(SCDACoordinator *)self _myriadStateForSelf:self->_myriadState];
+  if (contextCopy)
+  {
+    v58 = 1;
+  }
+
+  else
+  {
+    v58 = 2;
+  }
+
+  if (selfCopy->_lastDecision)
+  {
+    v59 = 1;
+  }
+
+  else
+  {
+    v59 = 2;
+  }
+
+  v60 = v88[5];
+  v61 = v82[5];
+  v62 = *(v78 + 6);
+  sessionId3 = [(SCDASession *)selfCopy->_myriadSession sessionId];
+  LODWORD(v65) = v62;
+  [(SCDAInstrumentation *)v66 logCDAElectionDecisionMade:v57 withDecision:v58 withPreviousDecision:v59 timeSincePreviousDecision:((v53 * v67) - lastDecisionTime) / 0xF4240 withWinningDevice:v60 withThisDevice:v61 withParticipants:v69 withRawScore:v65 withBoost:0 withCdaId:sessionId3 currentRequestId:v56 withTimestamp:mach_absolute_time()];
+
+  currentRequestId = selfCopy->_currentRequestId;
+  selfCopy->_currentRequestId = 0;
+
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v81, 8);
+
+  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&buf, 8);
+}
+
 void __51__SCDACoordinator__endAdvertisingAnalyticsContext___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = a2;
   if ([v7 isMe])
   {
@@ -5870,19 +6057,17 @@ void __51__SCDACoordinator__endAdvertisingAnalyticsContext___block_invoke(uint64
       v14 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
       {
-        v16 = v14;
-        v17 = 136315394;
-        v18 = "[SCDACoordinator _endAdvertisingAnalyticsContext:]_block_invoke";
-        v19 = 1024;
-        v20 = [v7 rawAudioGoodnessScore];
-        _os_log_debug_impl(&dword_1DA758000, v16, OS_LOG_TYPE_DEBUG, "%s #myriad lost with rawScore: %d", &v17, 0x12u);
+        v15 = v14;
+        v16 = 136315394;
+        v17 = "[SCDACoordinator _endAdvertisingAnalyticsContext:]_block_invoke";
+        v18 = 1024;
+        v19 = [v7 rawAudioGoodnessScore];
+        _os_log_debug_impl(&dword_1DA758000, v15, OS_LOG_TYPE_DEBUG, "%s #myriad lost with rawScore: %d", &v16, 0x12u);
       }
     }
 
     *a4 = 1;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __51__SCDACoordinator__endAdvertisingAnalyticsContext___block_invoke_190(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
@@ -5959,14 +6144,14 @@ void __51__SCDACoordinator__endAdvertisingAnalyticsContext___block_invoke_190(ui
 
 - (void)_endAdvertising:(id)advertising
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   advertisingCopy = advertising;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315138;
-    v15 = "[SCDACoordinator _endAdvertising:]";
-    _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s ", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[SCDACoordinator _endAdvertising:]";
+    _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s ", &v13, 0xCu);
   }
 
   kdebug_trace();
@@ -5991,15 +6176,13 @@ void __51__SCDACoordinator__endAdvertisingAnalyticsContext___block_invoke_190(ui
     v12 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v14 = 136315394;
-      v15 = "[SCDACoordinator _endAdvertising:]";
-      v16 = 2048;
-      v17 = v11;
-      _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s BTLE activation time %f", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[SCDACoordinator _endAdvertising:]";
+      v15 = 2048;
+      v16 = v11;
+      _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s BTLE activation time %f", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endAdvertisingAfterDelay:(float)delay
@@ -6029,21 +6212,19 @@ uint64_t __44__SCDACoordinator_endAdvertisingAfterDelay___block_invoke(uint64_t 
 
 uint64_t __44__SCDACoordinator_endAdvertisingAfterDelay___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[SCDACoordinator endAdvertisingAfterDelay:]_block_invoke_2";
-    v8 = 2048;
-    v9 = v3;
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending advertising after %f secs delay", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SCDACoordinator endAdvertisingAfterDelay:]_block_invoke_2";
+    v7 = 2048;
+    v8 = v3;
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending advertising after %f secs delay", &v5, 0x16u);
   }
 
-  result = [*(a1 + 32) enterState:0];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) enterState:0];
 }
 
 - (void)startAdvertisingSlowdown:(unsigned __int16)slowdown
@@ -6060,24 +6241,22 @@ uint64_t __44__SCDACoordinator_endAdvertisingAfterDelay___block_invoke_2(uint64_
 
 uint64_t __44__SCDACoordinator_startAdvertisingSlowdown___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[SCDACoordinator startAdvertisingSlowdown:]_block_invoke";
-    v8 = 1024;
-    v9 = v3;
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown: %d msecs", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[SCDACoordinator startAdvertisingSlowdown:]_block_invoke";
+    v7 = 1024;
+    v8 = v3;
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown: %d msecs", &v5, 0x12u);
   }
 
   [*(a1 + 32) _initializeTimer];
   *(*(a1 + 32) + 200) = *(a1 + 40);
   *(*(a1 + 32) + 225) = 1;
-  result = [*(a1 + 32) _enterState:16];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:16];
 }
 
 - (void)startResponseAdvertising:(unsigned __int16)advertising
@@ -6094,57 +6273,53 @@ uint64_t __44__SCDACoordinator_startAdvertisingSlowdown___block_invoke(uint64_t 
 
 void __44__SCDACoordinator_startResponseAdvertising___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SCDACoordinator startResponseAdvertising:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE suppressing stragglers", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SCDACoordinator startResponseAdvertising:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE suppressing stragglers", &v5, 0xCu);
   }
 
   [*(a1 + 32) _initializeTimer];
   v3 = [*(a1 + 32) responseObject:*(a1 + 40)];
   LODWORD(v4) = 1.0;
   [*(a1 + 32) _startAdvertising:v3 afterDelay:0.0 maxInterval:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingFromAlertFiringVoiceTriggerWithContext:(id)context
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = SCDALogForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = contextCopy;
+    v11 = contextCopy;
     _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromAlertFiringVoiceTriggerWithContext: %{public}@", buf, 0xCu);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __74__SCDACoordinator_startAdvertisingFromAlertFiringVoiceTriggerWithContext___block_invoke;
-  v9[3] = &unk_1E85D38A0;
-  v9[4] = self;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __74__SCDACoordinator_startAdvertisingFromAlertFiringVoiceTriggerWithContext___block_invoke;
+  v8[3] = &unk_1E85D38A0;
+  v8[4] = self;
+  v9 = contextCopy;
   v7 = contextCopy;
-  dispatch_async(myriadWorkQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v8);
 }
 
 uint64_t __74__SCDACoordinator_startAdvertisingFromAlertFiringVoiceTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[SCDACoordinator startAdvertisingFromAlertFiringVoiceTriggerWithContext:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE voice trigger during alert heard", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SCDACoordinator startAdvertisingFromAlertFiringVoiceTriggerWithContext:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE voice trigger during alert heard", &v11, 0xCu);
   }
 
   [*(a1 + 32) _setMyriadContext:*(a1 + 40)];
@@ -6163,83 +6338,76 @@ uint64_t __74__SCDACoordinator_startAdvertisingFromAlertFiringVoiceTriggerWithCo
   *(v8 + 160) = v7;
 
   *(*(a1 + 32) + 168) = 4;
-  result = [*(a1 + 32) _enterState:1];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startAdvertisingFromInTaskVoiceTriggerWithContext:(id)context
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = SCDALogForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = contextCopy;
+    v12 = contextCopy;
     _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromInTaskVoiceTriggerWithContext: %{public}@", buf, 0xCu);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __69__SCDACoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext___block_invoke;
-  v9[3] = &unk_1E85D38A0;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __69__SCDACoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext___block_invoke;
+  v8[3] = &unk_1E85D38A0;
+  v9 = contextCopy;
   selfCopy = self;
   v7 = contextCopy;
-  dispatch_async(myriadWorkQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v8);
 }
 
 uint64_t __69__SCDACoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 debugDescription];
-    v8 = 136315394;
-    v9 = "[SCDACoordinator startAdvertisingFromInTaskVoiceTriggerWithContext:]_block_invoke";
-    v10 = 2112;
-    v11 = v7;
-    _os_log_debug_impl(&dword_1DA758000, v6, OS_LOG_TYPE_DEBUG, "%s BTLE voice trigger while inTask with context: %@", &v8, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 debugDescription];
+    v7 = 136315394;
+    v8 = "[SCDACoordinator startAdvertisingFromInTaskVoiceTriggerWithContext:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s BTLE voice trigger while inTask with context: %@", &v7, 0x16u);
   }
 
   [*(a1 + 40) _setMyriadContext:*(a1 + 32)];
-  result = [*(a1 + 40) _startAdvertisingFromInTaskVoiceTrigger];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _startAdvertisingFromInTaskVoiceTrigger];
 }
 
 - (void)startAdvertisingFromInTaskTriggerWithContext:(id)context
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = SCDALogForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = contextCopy;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromInTaskTriggerWithContext: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = contextCopy;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromInTaskTriggerWithContext: %{public}@", &v6, 0xCu);
   }
 
   [(SCDACoordinator *)self startAdvertisingFromInTaskVoiceTriggerWithContext:contextCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startAdvertisingFromSetupMode
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[SCDACoordinator _startAdvertisingFromSetupMode]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE setup-mode voice trigger heard", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SCDACoordinator _startAdvertisingFromSetupMode]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE setup-mode voice trigger heard", &v9, 0xCu);
   }
 
   [(SCDACoordinator *)self _createMyriadSessionIfRequired];
@@ -6253,18 +6421,17 @@ uint64_t __69__SCDACoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext
   self->_triggerRecord = _phsSetupRecord;
 
   [(SCDACoordinator *)self _enterState:1];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startAdvertisingFromInTaskVoiceTrigger
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[SCDACoordinator _startAdvertisingFromInTaskVoiceTrigger]";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE in-task voice trigger heard", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SCDACoordinator _startAdvertisingFromInTaskVoiceTrigger]";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s BTLE in-task voice trigger heard", &v10, 0xCu);
   }
 
   [(SCDACoordinator *)self _createMyriadSessionIfRequired];
@@ -6280,9 +6447,9 @@ uint64_t __69__SCDACoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext
     v7 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[SCDACoordinator _startAdvertisingFromInTaskVoiceTrigger]";
-      _os_log_error_impl(&dword_1DA758000, v7, OS_LOG_TYPE_ERROR, "%s In-task trigger detected while direct activating. We shouldn't demote direct triggers.", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[SCDACoordinator _startAdvertisingFromInTaskVoiceTrigger]";
+      _os_log_error_impl(&dword_1DA758000, v7, OS_LOG_TYPE_ERROR, "%s In-task trigger detected while direct activating. We shouldn't demote direct triggers.", &v10, 0xCu);
     }
 
     self->_recordType = 4;
@@ -6299,7 +6466,6 @@ uint64_t __69__SCDACoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext
   self->_triggerRecord = directTriggerRecord;
 
   [(SCDACoordinator *)self _enterState:1];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingEmergency
@@ -6315,13 +6481,13 @@ uint64_t __69__SCDACoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext
 
 uint64_t __44__SCDACoordinator_startAdvertisingEmergency__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[SCDACoordinator startAdvertisingEmergency]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE sending emergency beacon", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SCDACoordinator startAdvertisingEmergency]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE sending emergency beacon", &v10, 0xCu);
   }
 
   [*(a1 + 32) _createMyriadSessionIfRequired];
@@ -6337,9 +6503,7 @@ uint64_t __44__SCDACoordinator_startAdvertisingEmergency__block_invoke(uint64_t 
   [v7 systemUptime];
   *(*(a1 + 32) + 312) = v8;
 
-  result = [*(a1 + 32) _duringNextWindowEnterState:8];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _duringNextWindowEnterState:8];
 }
 
 - (void)startAdvertisingEmergencyHandled
@@ -6355,19 +6519,17 @@ uint64_t __44__SCDACoordinator_startAdvertisingEmergency__block_invoke(uint64_t 
 
 uint64_t __51__SCDACoordinator_startAdvertisingEmergencyHandled__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SCDACoordinator startAdvertisingEmergencyHandled]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE handling emergency beacon", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDACoordinator startAdvertisingEmergencyHandled]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE handling emergency beacon", &v4, 0xCu);
   }
 
   [*(a1 + 32) _initializeTimer];
-  result = [*(a1 + 32) _enterState:9];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:9];
 }
 
 - (void)startAdvertisingFromCarPlayTrigger
@@ -6383,13 +6545,13 @@ uint64_t __51__SCDACoordinator_startAdvertisingEmergencyHandled__block_invoke(ui
 
 uint64_t __53__SCDACoordinator_startAdvertisingFromCarPlayTrigger__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315138;
-    v14 = "[SCDACoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping from in CarPlay trigger", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SCDACoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping from in CarPlay trigger", &v12, 0xCu);
   }
 
   [*(a1 + 32) _createMyriadSessionIfRequired];
@@ -6411,14 +6573,12 @@ uint64_t __53__SCDACoordinator_startAdvertisingFromCarPlayTrigger__block_invoke(
   v10 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315138;
-    v14 = "[SCDACoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
-    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s #myriad CarPlay override", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SCDACoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
+    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s #myriad CarPlay override", &v12, 0xCu);
   }
 
-  result = [*(a1 + 32) _forceLocalWinner:0 withRecord:*(*(a1 + 32) + 160)];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _forceLocalWinner:0 withRecord:*(*(a1 + 32) + 160)];
 }
 
 - (void)startAdvertisingFromInEarTrigger
@@ -6434,13 +6594,13 @@ uint64_t __53__SCDACoordinator_startAdvertisingFromCarPlayTrigger__block_invoke(
 
 uint64_t __51__SCDACoordinator_startAdvertisingFromInEarTrigger__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315138;
-    v17 = "[SCDACoordinator startAdvertisingFromInEarTrigger]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping from in ear voice trigger", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SCDACoordinator startAdvertisingFromInEarTrigger]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping from in ear voice trigger", &v15, 0xCu);
   }
 
   [*(a1 + 32) _createMyriadSessionIfRequired];
@@ -6456,14 +6616,14 @@ uint64_t __51__SCDACoordinator_startAdvertisingFromInEarTrigger__block_invoke(ui
     v7 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(*(a1 + 32) + 160);
-      v14 = v7;
-      v15 = [v13 goodness];
-      v16 = 136315394;
-      v17 = "[SCDACoordinator startAdvertisingFromInEarTrigger]_block_invoke";
-      v18 = 1024;
-      v19 = v15;
-      _os_log_error_impl(&dword_1DA758000, v14, OS_LOG_TYPE_ERROR, "%s Unexpectedly lowering goodness score %du for in ear trigger", &v16, 0x12u);
+      v12 = *(*(a1 + 32) + 160);
+      v13 = v7;
+      v14 = [v12 goodness];
+      v15 = 136315394;
+      v16 = "[SCDACoordinator startAdvertisingFromInEarTrigger]_block_invoke";
+      v17 = 1024;
+      v18 = v14;
+      _os_log_error_impl(&dword_1DA758000, v13, OS_LOG_TYPE_ERROR, "%s Unexpectedly lowering goodness score %du for in ear trigger", &v15, 0x12u);
     }
   }
 
@@ -6475,45 +6635,41 @@ uint64_t __51__SCDACoordinator_startAdvertisingFromInEarTrigger__block_invoke(ui
   [*(*(a1 + 32) + 160) setRawAudioGoodnessScore:0 withBump:248];
   *(*(a1 + 32) + 223) = 1;
   *(*(a1 + 32) + 168) = 7;
-  result = [*(a1 + 32) _enterState:1];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startAdvertisingFromOutgoingTriggerWithContext:(id)context
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = SCDALogForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = contextCopy;
+    v11 = contextCopy;
     _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromOutgoingTrigger: %{public}@", buf, 0xCu);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __66__SCDACoordinator_startAdvertisingFromOutgoingTriggerWithContext___block_invoke;
-  v9[3] = &unk_1E85D38A0;
-  v9[4] = self;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __66__SCDACoordinator_startAdvertisingFromOutgoingTriggerWithContext___block_invoke;
+  v8[3] = &unk_1E85D38A0;
+  v8[4] = self;
+  v9 = contextCopy;
   v7 = contextCopy;
-  dispatch_async(myriadWorkQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v8);
 }
 
 uint64_t __66__SCDACoordinator_startAdvertisingFromOutgoingTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315138;
-    v17 = "[SCDACoordinator startAdvertisingFromOutgoingTriggerWithContext:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE suppressing trigger in audio output", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SCDACoordinator startAdvertisingFromOutgoingTriggerWithContext:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE suppressing trigger in audio output", &v15, 0xCu);
   }
 
   [*(a1 + 32) _setMyriadContext:*(a1 + 40)];
@@ -6536,55 +6692,51 @@ uint64_t __66__SCDACoordinator_startAdvertisingFromOutgoingTriggerWithContext___
   v10 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(*(a1 + 32) + 160);
-    v14 = v10;
-    v15 = [v13 voiceTriggerMachTime];
-    v16 = 136315394;
-    v17 = "[SCDACoordinator startAdvertisingFromOutgoingTriggerWithContext:]_block_invoke";
-    v18 = 2048;
-    v19 = v15;
-    _os_log_debug_impl(&dword_1DA758000, v14, OS_LOG_TYPE_DEBUG, "%s #scda _voiceTriggerTime: %llu", &v16, 0x16u);
+    v12 = *(*(a1 + 32) + 160);
+    v13 = v10;
+    v14 = [v12 voiceTriggerMachTime];
+    v15 = 136315394;
+    v16 = "[SCDACoordinator startAdvertisingFromOutgoingTriggerWithContext:]_block_invoke";
+    v17 = 2048;
+    v18 = v14;
+    _os_log_debug_impl(&dword_1DA758000, v13, OS_LOG_TYPE_DEBUG, "%s #scda _voiceTriggerTime: %llu", &v15, 0x16u);
   }
 
-  result = [*(a1 + 32) _enterState:14];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:14];
 }
 
 - (void)startAdvertisingFromDirectTriggerWithContext:(id)context
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = SCDALogForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = contextCopy;
+    v11 = contextCopy;
     _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromDirectTriggerWithContext: %{public}@", buf, 0xCu);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __64__SCDACoordinator_startAdvertisingFromDirectTriggerWithContext___block_invoke;
-  v9[3] = &unk_1E85D38A0;
-  v9[4] = self;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __64__SCDACoordinator_startAdvertisingFromDirectTriggerWithContext___block_invoke;
+  v8[3] = &unk_1E85D38A0;
+  v8[4] = self;
+  v9 = contextCopy;
   v7 = contextCopy;
-  dispatch_async(myriadWorkQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v8);
 }
 
 uint64_t __64__SCDACoordinator_startAdvertisingFromDirectTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[SCDACoordinator startAdvertisingFromDirectTriggerWithContext:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SCDACoordinator startAdvertisingFromDirectTriggerWithContext:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping", &v11, 0xCu);
   }
 
   [*(a1 + 32) _setMyriadContext:*(a1 + 40)];
@@ -6603,9 +6755,7 @@ uint64_t __64__SCDACoordinator_startAdvertisingFromDirectTriggerWithContext___bl
   *(v8 + 160) = v7;
 
   *(*(a1 + 32) + 168) = 4;
-  result = [*(a1 + 32) _enterState:1];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startWatchAdvertisingFromDirectTriggerWithContext:(id)context
@@ -6624,13 +6774,13 @@ uint64_t __64__SCDACoordinator_startAdvertisingFromDirectTriggerWithContext___bl
 
 uint64_t __69__SCDACoordinator_startWatchAdvertisingFromDirectTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v20 = 136315138;
-    v21 = "[SCDACoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping", &v20, 0xCu);
+    v19 = 136315138;
+    v20 = "[SCDACoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping", &v19, 0xCu);
   }
 
   [*(a1 + 32) _setMyriadContext:*(a1 + 40)];
@@ -6641,9 +6791,9 @@ uint64_t __69__SCDACoordinator_startWatchAdvertisingFromDirectTriggerWithContext
     v4 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 136315138;
-      v21 = "[SCDACoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
-      _os_log_debug_impl(&dword_1DA758000, v4, OS_LOG_TYPE_DEBUG, "%s Setting RAISE_TO_SPEAK Trump Reason for DirectTrigger", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[SCDACoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
+      _os_log_debug_impl(&dword_1DA758000, v4, OS_LOG_TYPE_DEBUG, "%s Setting RAISE_TO_SPEAK Trump Reason for DirectTrigger", &v19, 0xCu);
     }
 
     v5 = 1;
@@ -6674,9 +6824,9 @@ uint64_t __69__SCDACoordinator_startWatchAdvertisingFromDirectTriggerWithContext
     v14 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 136315138;
-      v21 = "[SCDACoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
-      _os_log_debug_impl(&dword_1DA758000, v14, OS_LOG_TYPE_DEBUG, "%s Configured RAISE_TO_SPEAK record", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[SCDACoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
+      _os_log_debug_impl(&dword_1DA758000, v14, OS_LOG_TYPE_DEBUG, "%s Configured RAISE_TO_SPEAK record", &v19, 0xCu);
     }
   }
 
@@ -6691,9 +6841,7 @@ uint64_t __69__SCDACoordinator_startWatchAdvertisingFromDirectTriggerWithContext
   }
 
   *(*(a1 + 32) + 224) = 1;
-  result = [*(a1 + 32) _enterState:1];
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startWatchAdvertisingFromVoiceTriggerWithContext:(id)context
@@ -6712,13 +6860,13 @@ uint64_t __69__SCDACoordinator_startWatchAdvertisingFromDirectTriggerWithContext
 
 void __68__SCDACoordinator_startWatchAdvertisingFromVoiceTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v23 = 136315138;
-    v24 = "[SCDACoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s ", &v23, 0xCu);
+    v22 = 136315138;
+    v23 = "[SCDACoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s ", &v22, 0xCu);
   }
 
   [*(a1 + 32) _setMyriadContext:*(a1 + 40)];
@@ -6756,13 +6904,13 @@ void __68__SCDACoordinator_startWatchAdvertisingFromVoiceTriggerWithContext___bl
     v18 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315650;
-      v24 = "[SCDACoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
-      v25 = 1024;
-      v26 = v16;
-      v27 = 1024;
-      v28 = 25;
-      _os_log_impl(&dword_1DA758000, v18, OS_LOG_TYPE_DEFAULT, "%s #scda watch trumping due to threshold for rawAudioGoodnessScore: %u >= %u", &v23, 0x18u);
+      v22 = 136315650;
+      v23 = "[SCDACoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+      v24 = 1024;
+      v25 = v16;
+      v26 = 1024;
+      v27 = 25;
+      _os_log_impl(&dword_1DA758000, v18, OS_LOG_TYPE_DEFAULT, "%s #scda watch trumping due to threshold for rawAudioGoodnessScore: %u >= %u", &v22, 0x18u);
     }
 
     goto LABEL_12;
@@ -6773,9 +6921,9 @@ void __68__SCDACoordinator_startWatchAdvertisingFromVoiceTriggerWithContext___bl
     v17 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315138;
-      v24 = "[SCDACoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
-      _os_log_error_impl(&dword_1DA758000, v17, OS_LOG_TYPE_ERROR, "%s #scda watch trumping due to score being 0; watch might win election for little reason", &v23, 0xCu);
+      v22 = 136315138;
+      v23 = "[SCDACoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+      _os_log_error_impl(&dword_1DA758000, v17, OS_LOG_TYPE_ERROR, "%s #scda watch trumping due to score being 0; watch might win election for little reason", &v22, 0xCu);
     }
 
 LABEL_12:
@@ -6790,22 +6938,20 @@ LABEL_12:
   *(*(a1 + 32) + 224) = 1;
   *(*(a1 + 32) + 168) = 20;
   [*(a1 + 32) _enterState:1];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:(id)context withContext:(id)withContext
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   withContextCopy = withContext;
   v8 = SCDALogForCategory(1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v17 = contextCopy;
-    v18 = 2114;
-    v19 = withContextCopy;
+    v16 = contextCopy;
+    v17 = 2114;
+    v18 = withContextCopy;
     _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromVoiceTriggerWithGoodnessScoreContext: %{public}@ context: %{public}@", buf, 0x16u);
   }
 
@@ -6815,18 +6961,16 @@ LABEL_12:
   block[2] = __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreContext_withContext___block_invoke;
   block[3] = &unk_1E85D3270;
   block[4] = self;
-  v14 = withContextCopy;
-  v15 = contextCopy;
+  v13 = withContextCopy;
+  v14 = contextCopy;
   v10 = contextCopy;
   v11 = withContextCopy;
   dispatch_async(myriadWorkQueue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreContext_withContext___block_invoke(id *a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   [a1[4] _setMyriadContext:a1[5]];
   v2 = [a1[6] adjustedScoreOverride];
 
@@ -6838,11 +6982,11 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
       v4 = a1[6];
       v5 = v3;
       v6 = [v4 adjustedScoreOverride];
-      v37 = 136315394;
-      v38 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-      v39 = 1024;
-      *v40 = [v6 unsignedCharValue];
-      _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s #scda adjustedScoreOverride was set: %du", &v37, 0x12u);
+      v36 = 136315394;
+      v37 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+      v38 = 1024;
+      *v39 = [v6 unsignedCharValue];
+      _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s #scda adjustedScoreOverride was set: %du", &v36, 0x12u);
     }
 
     v7 = [a1[6] adjustedScoreOverride];
@@ -6869,13 +7013,13 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     v14 = v12;
     v15 = [v13 adjustedScoreOverride];
     v16 = *(a1[4] + 184);
-    v37 = 136315650;
-    v38 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-    v39 = 2112;
-    *v40 = v15;
-    *&v40[8] = 1024;
-    *v41 = v16;
-    _os_log_impl(&dword_1DA758000, v14, OS_LOG_TYPE_INFO, "%s #scda adjustedScoreOverride: %@, _incomingAdjustment %d", &v37, 0x1Cu);
+    v36 = 136315650;
+    v37 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+    v38 = 2112;
+    *v39 = v15;
+    *&v39[8] = 1024;
+    *v40 = v16;
+    _os_log_impl(&dword_1DA758000, v14, OS_LOG_TYPE_INFO, "%s #scda adjustedScoreOverride: %@, _incomingAdjustment %d", &v36, 0x1Cu);
   }
 
   v17 = a1[4];
@@ -6888,11 +7032,11 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     v20 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v37 = 136315394;
-      v38 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-      v39 = 2112;
-      *v40 = v19;
-      _os_log_impl(&dword_1DA758000, v20, OS_LOG_TYPE_INFO, "%s #scda Goodness score override state %@", &v37, 0x16u);
+      v36 = 136315394;
+      v37 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+      v38 = 2112;
+      *v39 = v19;
+      _os_log_impl(&dword_1DA758000, v20, OS_LOG_TYPE_INFO, "%s #scda Goodness score override state %@", &v36, 0x16u);
     }
 
     v21 = [v19 overrideOption];
@@ -6920,17 +7064,17 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     v28 = v26[217];
     LODWORD(v26) = v26[184];
     v29 = a1[6];
-    v37 = 136316162;
-    v38 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-    v39 = 1024;
-    *v40 = v28;
-    *&v40[4] = 1024;
-    *&v40[6] = v26;
-    *v41 = 2112;
-    *&v41[2] = v27;
-    v42 = 2112;
-    v43 = v29;
-    _os_log_impl(&dword_1DA758000, v25, OS_LOG_TYPE_INFO, "%s BTLE startFromVoiceTrigger inTask=REMOVED, inSetupMode=%d, incomingAdjustment=%d,  context=%@, goodnessScoreContext=%@", &v37, 0x2Cu);
+    v36 = 136316162;
+    v37 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+    v38 = 1024;
+    *v39 = v28;
+    *&v39[4] = 1024;
+    *&v39[6] = v26;
+    *v40 = 2112;
+    *&v40[2] = v27;
+    v41 = 2112;
+    v42 = v29;
+    _os_log_impl(&dword_1DA758000, v25, OS_LOG_TYPE_INFO, "%s BTLE startFromVoiceTrigger inTask=REMOVED, inSetupMode=%d, incomingAdjustment=%d,  context=%@, goodnessScoreContext=%@", &v36, 0x2Cu);
   }
 
   if (v19 && a1[5] && ([v19 reason], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "isEqualToString:", @"CarPlay request"), v30, v31))
@@ -6938,11 +7082,11 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     v32 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v37 = 136315394;
-      v38 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-      v39 = 2112;
-      *v40 = v19;
-      _os_log_debug_impl(&dword_1DA758000, v32, OS_LOG_TYPE_DEBUG, "%s #myriad CarPlay override %@", &v37, 0x16u);
+      v36 = 136315394;
+      v37 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+      v38 = 2112;
+      *v39 = v19;
+      _os_log_debug_impl(&dword_1DA758000, v32, OS_LOG_TYPE_DEBUG, "%s #myriad CarPlay override %@", &v36, 0x16u);
     }
 
     [a1[4] _initializeTimer];
@@ -6960,23 +7104,21 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     [a1[4] _createMyriadSessionIfRequired];
     [a1[4] _startAdvertisingFromVoiceTrigger];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingFromVoiceTriggerAdjusted:(char)adjusted withContext:(id)context
 {
   adjustedCopy = adjusted;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = SCDALogForCategory(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109378;
-    *v17 = adjustedCopy;
-    *&v17[4] = 2114;
-    *&v17[6] = contextCopy;
-    _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromVoiceTriggerAdjusted: %du context: %{public}@", &v16, 0x12u);
+    v15 = 67109378;
+    *v16 = adjustedCopy;
+    *&v16[4] = 2114;
+    *&v16[6] = contextCopy;
+    _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromVoiceTriggerAdjusted: %du context: %{public}@", &v15, 0x12u);
   }
 
   deviceAdjust_DEPRECATED = [(SCDADevice *)self->_device deviceAdjust_DEPRECATED];
@@ -6986,11 +7128,11 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     v9 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315394;
-      *v17 = "[SCDACoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
-      *&v17[8] = 1024;
-      *&v17[10] = deviceAdjust_DEPRECATED;
-      _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s #scda Logging Trial defined Device Adjust Value: %du", &v16, 0x12u);
+      v15 = 136315394;
+      *v16 = "[SCDACoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
+      *&v16[8] = 1024;
+      *&v16[10] = deviceAdjust_DEPRECATED;
+      _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s #scda Logging Trial defined Device Adjust Value: %du", &v15, 0x12u);
     }
   }
 
@@ -6999,11 +7141,11 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     v10 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315394;
-      *v17 = "[SCDACoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
-      *&v17[8] = 1024;
-      *&v17[10] = deviceAdjust_DEPRECATED;
-      _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s #scda removing negative iPad device boost (adding %d back) due to activationSource", &v16, 0x12u);
+      v15 = 136315394;
+      *v16 = "[SCDACoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
+      *&v16[8] = 1024;
+      *&v16[10] = deviceAdjust_DEPRECATED;
+      _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s #scda removing negative iPad device boost (adding %d back) due to activationSource", &v15, 0x12u);
     }
 
     LOBYTE(adjustedCopy) = adjustedCopy - deviceAdjust_DEPRECATED;
@@ -7013,13 +7155,13 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
   v12 = adjustedCopy;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 136315650;
-    *v17 = "[SCDACoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
-    *&v17[8] = 1024;
-    *&v17[10] = deviceAdjust_DEPRECATED;
-    v18 = 1024;
-    v19 = v12;
-    _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s #scda _deviceAdjust=%d, adjustment= %d", &v16, 0x18u);
+    v15 = 136315650;
+    *v16 = "[SCDACoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
+    *&v16[8] = 1024;
+    *&v16[10] = deviceAdjust_DEPRECATED;
+    v17 = 1024;
+    v18 = v12;
+    _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s #scda _deviceAdjust=%d, adjustment= %d", &v15, 0x18u);
   }
 
   v13 = objc_alloc_init(SCDAGoodnessScoreContext);
@@ -7027,7 +7169,21 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
   [(SCDAGoodnessScoreContext *)v13 setAdjustedScoreOverride:v14];
 
   [(SCDACoordinator *)self startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:v13 withContext:contextCopy];
-  v15 = *MEMORY[0x1E69E9840];
+}
+
+- (void)startAdvertisingFromVoiceTriggerAdjusted:(char)adjusted
+{
+  adjustedCopy = adjusted;
+  v7 = *MEMORY[0x1E69E9840];
+  v5 = SCDALogForCategory(1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = adjustedCopy;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromVoiceTriggerAdjusted: %du", v6, 8u);
+  }
+
+  [(SCDACoordinator *)self startAdvertisingFromVoiceTriggerAdjusted:adjustedCopy withContext:0];
 }
 
 - (void)resetStateMachine
@@ -7044,10 +7200,9 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
 
 - (void)_startAdvertisingFromVoiceTrigger
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (self->_inSetupMode)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     [(SCDACoordinator *)self _startAdvertisingFromSetupMode];
   }
@@ -7056,9 +7211,9 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
   {
     [(SCDACoordinator *)self _initializeTimer];
     voiceTriggerRecord = [(SCDACoordinator *)self voiceTriggerRecord];
-    v5 = [SCDAVoiceTriggerCalculation calculateRepeatVoiceTrigger:voiceTriggerRecord withOldRecord:self->_triggerRecord device:self->_device adjustment:self->_incomingAdjustment constantGoodness:self->_constantGoodness evaluator:self->_goodnessScoreEvaluator andContext:self->_currentMyriadContext];
+    v4 = [SCDAVoiceTriggerCalculation calculateRepeatVoiceTrigger:voiceTriggerRecord withOldRecord:self->_triggerRecord device:self->_device adjustment:self->_incomingAdjustment constantGoodness:self->_constantGoodness evaluator:self->_goodnessScoreEvaluator andContext:self->_currentMyriadContext];
     triggerRecord = self->_triggerRecord;
-    self->_triggerRecord = v5;
+    self->_triggerRecord = v4;
 
     self->_clientIsInEarActivation = [(SCDARecord *)self->_triggerRecord recordType]== 7;
     self->_incomingAdjustment = 0;
@@ -7066,25 +7221,25 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     {
       processInfo = [MEMORY[0x1E696AE30] processInfo];
       [processInfo systemUptime];
-      v9 = v8 - self->_lastEmergencyAttempt;
+      v8 = v7 - self->_lastEmergencyAttempt;
 
-      if (v9 < 70.0)
+      if (v8 < 70.0)
       {
         goodness = [(SCDARecord *)self->_triggerRecord goodness];
-        v11 = goodness >= 0xC ? 12 : goodness;
-        [(SCDARecord *)self->_triggerRecord setRawAudioGoodnessScore:0 withBump:v11];
-        v12 = SCDALogContextCore;
+        v10 = goodness >= 0xC ? 12 : goodness;
+        [(SCDARecord *)self->_triggerRecord setRawAudioGoodnessScore:0 withBump:v10];
+        v11 = SCDALogContextCore;
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
         {
-          v13 = self->_triggerRecord;
-          v14 = v12;
+          v12 = self->_triggerRecord;
+          v13 = v11;
           *buf = 136315650;
-          v25 = "[SCDACoordinator _startAdvertisingFromVoiceTrigger]";
-          v26 = 2048;
-          v27 = v9;
-          v28 = 1024;
-          goodness2 = [(SCDARecord *)v13 goodness];
-          _os_log_impl(&dword_1DA758000, v14, OS_LOG_TYPE_INFO, "%s #scda Downgrading goodness as HS invocation too soon %f for score %d", buf, 0x1Cu);
+          v23 = "[SCDACoordinator _startAdvertisingFromVoiceTrigger]";
+          v24 = 2048;
+          v25 = v8;
+          v26 = 1024;
+          goodness2 = [(SCDARecord *)v12 goodness];
+          _os_log_impl(&dword_1DA758000, v13, OS_LOG_TYPE_INFO, "%s #scda Downgrading goodness as HS invocation too soon %f for score %d", buf, 0x1Cu);
         }
       }
 
@@ -7095,63 +7250,60 @@ void __88__SCDACoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreCont
     overrideMyriadRecord = self->_overrideMyriadRecord;
     if (overrideMyriadRecord)
     {
-      v16 = SCDALogContextCore;
+      v15 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v25 = "[SCDACoordinator _startAdvertisingFromVoiceTrigger]";
-        v26 = 2112;
-        v27 = *&overrideMyriadRecord;
-        _os_log_impl(&dword_1DA758000, v16, OS_LOG_TYPE_INFO, "%s #scda BTLE overriding to goodness %@", buf, 0x16u);
+        v23 = "[SCDACoordinator _startAdvertisingFromVoiceTrigger]";
+        v24 = 2112;
+        v25 = *&overrideMyriadRecord;
+        _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s #scda BTLE overriding to goodness %@", buf, 0x16u);
         overrideMyriadRecord = self->_overrideMyriadRecord;
       }
 
-      v17 = overrideMyriadRecord;
-      v18 = self->_overrideMyriadRecord;
+      v16 = overrideMyriadRecord;
+      v17 = self->_overrideMyriadRecord;
       self->_overrideMyriadRecord = 0;
 
-      v19 = self->_triggerRecord;
-      self->_triggerRecord = v17;
+      v18 = self->_triggerRecord;
+      self->_triggerRecord = v16;
     }
 
     myriadInstrumentation = self->_myriadInstrumentation;
-    v21 = [(SCDACoordinator *)self _myriadStateForSelf:self->_myriadState];
+    v20 = [(SCDACoordinator *)self _myriadStateForSelf:self->_myriadState];
     sessionId = [(SCDASession *)self->_myriadSession sessionId];
-    [(SCDAInstrumentation *)myriadInstrumentation logCDADeviceStateActivityStartedOrChanged:v21 withTrigger:2 withCdaId:sessionId withTimestamp:mach_absolute_time()];
+    [(SCDAInstrumentation *)myriadInstrumentation logCDADeviceStateActivityStartedOrChanged:v20 withTrigger:2 withCdaId:sessionId withTimestamp:mach_absolute_time()];
 
     [(SCDACoordinator *)self enterState:1];
-    v23 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)startAdvertisingFromVoiceTriggerWithContext:(id)context
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = SCDALogForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = contextCopy;
+    v11 = contextCopy;
     _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEFAULT, "startAdvertisingFromVoiceTrigger: %{public}@", buf, 0xCu);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __63__SCDACoordinator_startAdvertisingFromVoiceTriggerWithContext___block_invoke;
-  v9[3] = &unk_1E85D38A0;
-  v9[4] = self;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __63__SCDACoordinator_startAdvertisingFromVoiceTriggerWithContext___block_invoke;
+  v8[3] = &unk_1E85D38A0;
+  v8[4] = self;
+  v9 = contextCopy;
   v7 = contextCopy;
-  dispatch_async(myriadWorkQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v8);
 }
 
-uint64_t __63__SCDACoordinator_startAdvertisingFromVoiceTriggerWithContext___block_invoke(uint64_t a1)
+void *__63__SCDACoordinator_startAdvertisingFromVoiceTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _setMyriadContext:*(a1 + 40)];
   v3 = *(a1 + 32);
   if (v3[227] == 1)
@@ -7166,33 +7318,32 @@ uint64_t __63__SCDACoordinator_startAdvertisingFromVoiceTriggerWithContext___blo
     {
       v5 = v3[217];
       v6 = *(a1 + 40);
-      v8 = 136315650;
-      v9 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
-      v10 = 1024;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE startFromVoiceTrigger inTask=REMOVED, inSetupMode=%d, context=%@", &v8, 0x1Cu);
+      v7 = 136315650;
+      v8 = "[SCDACoordinator startAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+      v9 = 1024;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s BTLE startFromVoiceTrigger inTask=REMOVED, inSetupMode=%d, context=%@", &v7, 0x1Cu);
       v3 = *(a1 + 32);
     }
 
     [v3 _createMyriadSessionIfRequired];
-    result = [*(a1 + 32) _startAdvertisingFromVoiceTrigger];
+    return [*(a1 + 32) _startAdvertisingFromVoiceTrigger];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)startAdvertisingForPHSSetupAfterDelay:(float)delay maxInterval:(float)interval
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315138;
-    v14 = "[SCDACoordinator startAdvertisingForPHSSetupAfterDelay:maxInterval:]";
-    _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s ", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SCDACoordinator startAdvertisingForPHSSetupAfterDelay:maxInterval:]";
+    _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s ", &v12, 0xCu);
   }
 
   _phsSetupRecord = [(SCDACoordinator *)self _phsSetupRecord];
@@ -7200,8 +7351,6 @@ uint64_t __63__SCDACoordinator_startAdvertisingFromVoiceTriggerWithContext___blo
   *&v10 = delay;
   *&v11 = interval;
   [(SCDACoordinator *)self advertiseWith:asAdvertisementData afterDelay:v10 maxInterval:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)preheatWiProx
@@ -7215,10 +7364,10 @@ uint64_t __63__SCDACoordinator_startAdvertisingFromVoiceTriggerWithContext___blo
   dispatch_async(myriadWorkQueue, block);
 }
 
-uint64_t __32__SCDACoordinator_preheatWiProx__block_invoke(uint64_t result)
+void *__32__SCDACoordinator_preheatWiProx__block_invoke(void *result)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v9 = *MEMORY[0x1E69E9840];
+  v1 = result[4];
   if (!*(v1 + 8))
   {
     v2 = result;
@@ -7226,35 +7375,32 @@ uint64_t __32__SCDACoordinator_preheatWiProx__block_invoke(uint64_t result)
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       v4 = *(v1 + 204);
-      v6 = 136315394;
-      v7 = "[SCDACoordinator preheatWiProx]_block_invoke";
-      v8 = 1024;
-      v9 = v4;
-      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s Preheat shows slowdown for this device as %d msecs", &v6, 0x12u);
-      v1 = *(v2 + 32);
+      v5 = 136315394;
+      v6 = "[SCDACoordinator preheatWiProx]_block_invoke";
+      v7 = 1024;
+      v8 = v4;
+      _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s Preheat shows slowdown for this device as %d msecs", &v5, 0x12u);
+      v1 = v2[4];
     }
 
     if (*(v1 + 204))
     {
-      result = [v1 startAdvertisingSlowdown:*(v1 + 204)];
+      return [v1 startAdvertisingSlowdown:*(v1 + 204)];
     }
 
     else
     {
       [v1 _initializeTimer];
-      result = [*(v2 + 32) enterState:15];
+      return [v2[4] enterState:15];
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_setMyriadContext:(id)context
 {
-  v4 = [context copy];
-  currentMyriadContext = self->_currentMyriadContext;
-  self->_currentMyriadContext = v4;
+  self->_currentMyriadContext = [context copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -7291,11 +7437,11 @@ uint64_t __32__SCDACoordinator_preheatWiProx__block_invoke(uint64_t result)
 
 - (SCDACoordinator)initWithDelegate:(id)delegate
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
-  v95.receiver = self;
-  v95.super_class = SCDACoordinator;
-  v5 = [(SCDACoordinator *)&v95 init];
+  v94.receiver = self;
+  v94.super_class = SCDACoordinator;
+  v5 = [(SCDACoordinator *)&v94 init];
   if (!v5)
   {
 LABEL_26:
@@ -7443,8 +7589,8 @@ LABEL_26:
       *&buf[14] = v55;
       *&buf[18] = 1024;
       *&buf[20] = v56;
-      LOWORD(v101) = 1024;
-      *(&v101 + 2) = v58;
+      LOWORD(v100) = 1024;
+      *(&v100 + 2) = v58;
       _os_log_impl(&dword_1DA758000, v57, OS_LOG_TYPE_INFO, "%s #scda coordinationEnabled=%d, BLEActivityEnabled=%d communal=%d", buf, 0x1Eu);
 
       v54 = SCDALogContextCore;
@@ -7459,7 +7605,7 @@ LABEL_26:
       *&buf[12] = 2112;
       *&buf[14] = v59;
       *&buf[22] = 2048;
-      v101 = v60;
+      v100 = v60;
       _os_log_impl(&dword_1DA758000, v54, OS_LOG_TYPE_INFO, "%s %@, vt_endtime threshold %f", buf, 0x20u);
     }
 
@@ -7475,24 +7621,24 @@ LABEL_26:
     [v5 _resetAdvertisementTimings];
     if (v5[221] == 1)
     {
-      v96 = 0;
-      v97 = &v96;
-      v98 = 0x2050000000;
+      v95 = 0;
+      v96 = &v95;
+      v97 = 0x2050000000;
       v63 = getWPHeySiriClass_softClass;
-      v99 = getWPHeySiriClass_softClass;
+      v98 = getWPHeySiriClass_softClass;
       if (!getWPHeySiriClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getWPHeySiriClass_block_invoke;
-        v101 = &unk_1E85D3638;
-        v102 = &v96;
+        v100 = &unk_1E85D3638;
+        v101 = &v95;
         __getWPHeySiriClass_block_invoke(buf);
-        v63 = v97[3];
+        v63 = v96[3];
       }
 
       v64 = v63;
-      _Block_object_dispose(&v96, 8);
+      _Block_object_dispose(&v95, 8);
       v65 = [[v63 alloc] initWithDelegate:v5 queue:*(v5 + 13)];
     }
 
@@ -7504,13 +7650,13 @@ LABEL_26:
     v66 = *(v5 + 31);
     *(v5 + 31) = v65;
 
-    v93[0] = MEMORY[0x1E69E9820];
-    v93[1] = 3221225472;
-    v93[2] = __36__SCDACoordinator_initWithDelegate___block_invoke;
-    v93[3] = &unk_1E85D3850;
+    v92[0] = MEMORY[0x1E69E9820];
+    v92[1] = 3221225472;
+    v92[2] = __36__SCDACoordinator_initWithDelegate___block_invoke;
+    v92[3] = &unk_1E85D3850;
     v67 = v5;
-    v94 = v67;
-    [v67 waitWiProx:2000 andExecute:v93];
+    v93 = v67;
+    [v67 waitWiProx:2000 andExecute:v92];
     v68 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEFAULT))
     {
@@ -7582,7 +7728,6 @@ LABEL_26:
   v7 = 0;
 LABEL_27:
 
-  v91 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

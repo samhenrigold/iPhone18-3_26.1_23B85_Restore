@@ -15,21 +15,21 @@
   v5 = [(ICQManageStoragePageInfo *)&v22 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"storageGraphFooterText"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       objc_storeStrong(&v5->_storageGraphFooterText, v6);
     }
 
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"title"];
+    v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       objc_storeStrong(&v5->_title, v7);
     }
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"specifiers"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -44,7 +44,7 @@
       [(ICQManageStoragePageInfo *)v5 setSpecifiers:v10];
     }
 
-    v11 = [dictionaryCopy objectForKeyedSubscript:@"tips"];
+    v11 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -109,11 +109,11 @@ void __47__ICQManageStoragePageInfo_initFromDictionary___block_invoke_2(uint64_t
 
 - (ICQManageStoragePageInfo)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = ICQManageStoragePageInfo;
-  v5 = [(ICQManageStoragePageInfo *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = ICQManageStoragePageInfo;
+  v5 = [(ICQManageStoragePageInfo *)&v21 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"thermometerFooterText"];
@@ -125,9 +125,9 @@ void __47__ICQManageStoragePageInfo_initFromDictionary___block_invoke_2(uint64_t
     v5->_title = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v12 = [v10 setWithArray:v11];
 
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"specifiers"];
@@ -135,9 +135,9 @@ void __47__ICQManageStoragePageInfo_initFromDictionary___block_invoke_2(uint64_t
     v5->_specifiers = v13;
 
     v15 = MEMORY[0x277CBEB98];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v17 = [v15 setWithArray:v16];
 
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"tips"];
@@ -145,7 +145,6 @@ void __47__ICQManageStoragePageInfo_initFromDictionary___block_invoke_2(uint64_t
     v5->_tips = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

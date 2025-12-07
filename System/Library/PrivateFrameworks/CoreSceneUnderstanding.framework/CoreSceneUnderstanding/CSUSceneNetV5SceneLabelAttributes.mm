@@ -2,6 +2,7 @@
 - (BOOL)isSearchable;
 - (CSUSceneNetV5SceneLabelAttributes)initWithTaxonomyAttributes:(id)attributes forLabel:(id)label;
 - (float)photosSearchThreshold;
+- (id)_metricOperatingPointCurveForAttribute:(id)attribute metricPattern:(int)pattern;
 @end
 
 @implementation CSUSceneNetV5SceneLabelAttributes
@@ -61,6 +62,36 @@
 
     return NAN;
   }
+}
+
+- (id)_metricOperatingPointCurveForAttribute:(id)attribute metricPattern:(int)pattern
+{
+  v4 = *&pattern;
+  v5 = objc_msgSend_attributeForKey_label_defaultValue_(self->_attributeManager, a2, attribute, self->_label, 0);
+  if (v5)
+  {
+    v6 = [CSUMetricOperatingPointCurve alloc];
+    v15 = 0;
+    v8 = objc_msgSend_initWithOperatingPointsData_metricPattern_error_(v6, v7, v5, v4, &v15);
+    v12 = v15;
+    if (v12)
+    {
+      objc_msgSend_logInternalError_(CSUError, v9, v12, v10, v11);
+      v13 = 0;
+    }
+
+    else
+    {
+      v13 = v8;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 @end

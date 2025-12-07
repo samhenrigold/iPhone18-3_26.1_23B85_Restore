@@ -100,7 +100,7 @@
   nameCopy = name;
   if (nameCopy)
   {
-    v5 = [(NSMutableDictionary *)self->_storeMap objectForKey:nameCopy];
+    v5 = objc_msgSend_objectForKey_(self->_storeMap);
     if (!v5)
     {
       v5 = +[CKKnowledgeStore defaultSynchedKnowledgeStore];

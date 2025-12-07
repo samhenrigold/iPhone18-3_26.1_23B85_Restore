@@ -69,7 +69,7 @@
 
   if (v3)
   {
-    sub_1E3280A90(0, &qword_1EE23AD40);
+    sub_1E3280A90(0, &qword_1EE23AD40, off_1E87283A8);
     v4 = sub_1E42062A4();
   }
 

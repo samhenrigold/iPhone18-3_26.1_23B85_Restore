@@ -27,7 +27,7 @@
 {
   v14 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     itemID = [(VUIActionUpdateMusic *)self itemID];

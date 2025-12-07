@@ -67,10 +67,10 @@
   [communicationCopy setRemoteObjectInterface:v3];
 
   v4 = +[_UIKeyboardArbiterClient mainBundleIdentifier];
-  v5 = [v4 isEqualToString:@"com.ios.uikit.TestingHarness"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
   v6 = &protocolRef__UIKBArbiterDelegateInputDestination;
-  if (!v5)
+  if (!isEqualToString)
   {
     v6 = &protocolRef__UIKBArbiterDelegateProtocol;
   }
@@ -320,7 +320,7 @@ LABEL_20:
   currentInputMode = [v29 currentInputMode];
   identifier2 = +[UIKeyboardInputModeController sharedInputModeController];
   currentInputModeInPreference = [identifier2 currentInputModeInPreference];
-  if ([currentInputMode isEqual:currentInputModeInPreference])
+  if (objc_msgSend_isEqual_(currentInputMode))
   {
     v33 = visibleCopy;
 
@@ -332,9 +332,9 @@ LABEL_24:
   currentInputMode2 = [v34 currentInputMode];
   identifier = [currentInputMode2 identifier];
   v33 = visibleCopy;
-  v37 = [identifier isEqualToString:@"autofillsignup"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if ((v37 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v29 = +[UIKeyboardInputModeController sharedInputModeController];
     currentInputMode = [v29 currentInputMode];
@@ -456,9 +456,9 @@ LABEL_10:
     currentUIState2 = [(_UIKeyboardArbiterClient *)self currentUIState];
     applicationIdentifier2 = [currentUIState2 applicationIdentifier];
     v29 = +[UIKeyboard keyboardApplicationIdentifier];
-    v30 = [applicationIdentifier2 isEqualToString:v29];
+    isEqualToString = objc_msgSend_isEqualToString_(applicationIdentifier2);
 
-    if (v30)
+    if (isEqualToString)
     {
       goto LABEL_16;
     }

@@ -35,9 +35,9 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_100F3486C(event, x, y);
+  v11 = sub_100F3486C(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (_TtCC8Freeform32CRLScenesNavigatorViewController12PlatformView)initWithFrame:(CGRect)frame

@@ -37,10 +37,10 @@
 
 - (FigAssetVariantQualifierWithPredicateObjC)initWithCoder:(id)coder
 {
-  v6.receiver = self;
-  v6.super_class = FigAssetVariantQualifierWithPredicateObjC;
-  v4 = [(FigAssetVariantQualifierObjC *)&v6 initWithCoder:?];
-  FigLoadAVFDylib();
+  v7.receiver = self;
+  v7.super_class = FigAssetVariantQualifierWithPredicateObjC;
+  v4 = [(FigAssetVariantQualifierObjC *)&v7 initWithCoder:?];
+  FigLoadAVFDylib(v4, v5);
   if (v4)
   {
     v4->_predicate = [coder decodeObjectOfClass:objc_opt_class() forKey:@"predicate"];

@@ -23,9 +23,9 @@
   layoutCopy = layout;
   forLayoutCopy = forLayout;
   styleForLayoutCopy = styleForLayout;
-  v26.receiver = self;
-  v26.super_class = CRDisplayThemeData;
-  v14 = [(CRDisplayThemeData *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = CRDisplayThemeData;
+  v14 = [(CRDisplayThemeData *)&v27 init];
   if (v14)
   {
     v15 = [dCopy copy];
@@ -48,10 +48,10 @@
 
     if (!v23)
     {
-      v24 = CarGeneralLogging();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v25 = CarGeneralLogging(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
-        [CRDisplayThemeData initWithCurrentLayoutID:dCopy paletteIDForLayout:forLayoutCopy wallpaperForLayout:v24 homeScreenStyleForLayout:?];
+        [CRDisplayThemeData initWithCurrentLayoutID:dCopy paletteIDForLayout:forLayoutCopy wallpaperForLayout:v25 homeScreenStyleForLayout:?];
       }
     }
   }
@@ -61,18 +61,18 @@
 
 - (CRDisplayThemeData)initWithDictionary:(id)dictionary
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
   v5 = [dictionaryCopy objectForKey:@"currentLayoutID"];
   if (v5 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v74 = v5;
+    v77 = v5;
   }
 
   else
   {
-    v74 = 0;
+    v77 = 0;
   }
 
   objc_opt_class();
@@ -91,88 +91,88 @@
   v8 = [dictionaryCopy objectForKey:@"wallpaperForLayout"];
   if (v8 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v79 = v8;
+    v82 = v8;
   }
 
   else
   {
-    v79 = 0;
+    v82 = 0;
   }
 
   objc_opt_class();
   v9 = [dictionaryCopy objectForKey:@"homeScreenStyleForLayout"];
   if (v9 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v77 = v9;
+    v80 = v9;
   }
 
   else
   {
-    v77 = 0;
+    v80 = 0;
   }
 
-  v90 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   v91 = 0u;
-  v88 = 0u;
-  v89 = 0u;
+  v92 = 0u;
   v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v88 objects:v98 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v91 objects:v101 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v89;
+    v13 = *v92;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v89 != v13)
+        if (*v92 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v88 + 1) + 8 * i);
+        v15 = *(*(&v91 + 1) + 8 * i);
         objc_opt_class();
         v16 = v15;
         if (!v16 || (objc_opt_isKindOfClass() & 1) == 0)
         {
 
 LABEL_72:
-          v19 = CarGeneralLogging();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v20 = CarGeneralLogging(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            v49 = v74;
+            v52 = v77;
             if (v16)
             {
-              v56 = objc_opt_class();
-              v54 = NSStringFromClass(v56);
-              v57 = objc_opt_class();
-              v55 = NSStringFromClass(v57);
+              v59 = objc_opt_class();
+              v57 = NSStringFromClass(v59);
+              v60 = objc_opt_class();
+              v58 = NSStringFromClass(v60);
             }
 
             else
             {
-              v54 = @"nil";
-              v55 = @"nil";
+              v57 = @"nil";
+              v58 = @"nil";
             }
 
             *buf = 138412546;
-            v95 = v54;
-            v96 = 2112;
-            v97 = v55;
-            _os_log_error_impl(&dword_1C81FC000, v19, OS_LOG_TYPE_ERROR, "Invalid palette ID, expected strings, found: %@:%@", buf, 0x16u);
+            v98 = v57;
+            v99 = 2112;
+            v100 = v58;
+            _os_log_error_impl(&dword_1C81FC000, v20, OS_LOG_TYPE_ERROR, "Invalid palette ID, expected strings, found: %@:%@", buf, 0x16u);
             if (v16)
             {
             }
 
             selfCopy3 = 0;
-            v50 = v10;
+            v53 = v10;
           }
 
           else
           {
             selfCopy3 = 0;
-            v50 = v10;
-            v49 = v74;
+            v53 = v10;
+            v52 = v77;
           }
 
           goto LABEL_91;
@@ -196,7 +196,7 @@ LABEL_72:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v88 objects:v98 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v91 objects:v101 count:16];
       if (v12)
       {
         continue;
@@ -206,60 +206,49 @@ LABEL_72:
     }
   }
 
-  v78 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v84 = 0u;
-  v85 = 0u;
-  v86 = 0u;
+  v81 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v87 = 0u;
-  v19 = v79;
-  v72 = [v19 countByEnumeratingWithState:&v84 objects:v93 count:16];
-  if (v72)
+  v88 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v20 = v82;
+  v75 = [v20 countByEnumeratingWithState:&v87 objects:v96 count:16];
+  if (v75)
   {
-    obj = *v85;
-    v69 = dictionaryCopy;
-    v71 = v19;
+    obj = *v88;
+    v72 = dictionaryCopy;
+    v74 = v20;
     selfCopy = self;
     while (2)
     {
-      for (j = 0; j != v72; ++j)
+      for (j = 0; j != v75; ++j)
       {
-        if (*v85 != obj)
+        if (*v88 != obj)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v20);
         }
 
-        v21 = *(*(&v84 + 1) + 8 * j);
-        v22 = [v19 objectForKey:v21];
+        v22 = *(*(&v87 + 1) + 8 * j);
+        v23 = [v20 objectForKey:v22];
         objc_opt_class();
-        v23 = v21;
-        if (!v23 || (objc_opt_isKindOfClass() & 1) == 0)
+        v24 = v22;
+        if (!v24 || (objc_opt_isKindOfClass() & 1) == 0)
         {
 
 LABEL_75:
-          v27 = CarGeneralLogging();
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v29 = CarGeneralLogging(v27);
+          if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            v49 = v74;
+            v52 = v77;
             goto LABEL_80;
           }
 
-          v49 = v74;
-          v50 = v78;
-          if (v23)
+          v52 = v77;
+          v53 = v81;
+          if (v24)
           {
-            v61 = objc_opt_class();
-            v59 = NSStringFromClass(v61);
-          }
-
-          else
-          {
-            v59 = @"nil";
-          }
-
-          if (v22)
-          {
-            v63 = objc_opt_class();
-            v62 = NSStringFromClass(v63);
+            v64 = objc_opt_class();
+            v62 = NSStringFromClass(v64);
           }
 
           else
@@ -267,16 +256,27 @@ LABEL_75:
             v62 = @"nil";
           }
 
+          if (v23)
+          {
+            v66 = objc_opt_class();
+            v65 = NSStringFromClass(v66);
+          }
+
+          else
+          {
+            v65 = @"nil";
+          }
+
           *buf = 138412546;
-          v95 = v59;
-          v96 = 2112;
-          v97 = v62;
-          _os_log_error_impl(&dword_1C81FC000, v27, OS_LOG_TYPE_ERROR, "Invalid palette ID, expected string:dictionary, found: %@:%@", buf, 0x16u);
-          if (v22)
+          v98 = v62;
+          v99 = 2112;
+          v100 = v65;
+          _os_log_error_impl(&dword_1C81FC000, v29, OS_LOG_TYPE_ERROR, "Invalid palette ID, expected string:dictionary, found: %@:%@", buf, 0x16u);
+          if (v23)
           {
           }
 
-          if (v23)
+          if (v24)
           {
           }
 
@@ -284,41 +284,29 @@ LABEL_81:
 
           selfCopy3 = 0;
           self = selfCopy;
-          dictionaryCopy = v69;
+          dictionaryCopy = v72;
           goto LABEL_91;
         }
 
         objc_opt_class();
-        v24 = v22;
-        if (v24 && (objc_opt_isKindOfClass() & 1) != 0)
+        v25 = v23;
+        if (v25 && (objc_opt_isKindOfClass() & 1) != 0)
         {
-          v25 = v24;
+          v26 = v25;
         }
 
         else
         {
-          v25 = 0;
+          v26 = 0;
         }
 
-        if (!v25)
+        if (!v26)
         {
           goto LABEL_75;
         }
 
         objc_opt_class();
-        v26 = [v24 objectForKey:@"type"];
-        if (v26 && (objc_opt_isKindOfClass() & 1) != 0)
-        {
-          v27 = v26;
-        }
-
-        else
-        {
-          v27 = 0;
-        }
-
-        objc_opt_class();
-        v28 = [v24 objectForKey:@"data"];
+        v28 = [v25 objectForKey:@"type"];
         if (v28 && (objc_opt_isKindOfClass() & 1) != 0)
         {
           v29 = v28;
@@ -329,152 +317,48 @@ LABEL_81:
           v29 = 0;
         }
 
-        v30 = off_1E82FB708;
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
-        v33 = [v27 isEqualToString:v32];
-
-        if ((v33 & 1) == 0 && (v30 = off_1E82FB770, v34 = objc_opt_class(), NSStringFromClass(v34), v35 = objc_claimAutoreleasedReturnValue(), v36 = -[NSObject isEqualToString:](v27, "isEqualToString:", v35), v35, !v36) || (v37 = [objc_alloc(*v30) initWithDictionary:v29]) == 0)
-        {
-          v52 = CarGeneralLogging();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
-          {
-            [(CRDisplayThemeData *)v23 initWithDictionary:v29, v52];
-          }
-
-          v49 = v74;
-          v19 = v71;
-LABEL_80:
-          v50 = v78;
-          goto LABEL_81;
-        }
-
-        v38 = v37;
-        [v78 setObject:v37 forKey:v23];
-
-        v19 = v71;
-      }
-
-      self = selfCopy;
-      dictionaryCopy = v69;
-      v72 = [v71 countByEnumeratingWithState:&v84 objects:v93 count:16];
-      if (v72)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v77, "count")}];
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  obja = v77;
-  v39 = [obja countByEnumeratingWithState:&v80 objects:v92 count:16];
-  if (v39)
-  {
-    v40 = v39;
-    v73 = *v81;
-    selfCopy2 = self;
-    v70 = dictionaryCopy;
-    while (2)
-    {
-      for (k = 0; k != v40; ++k)
-      {
-        v42 = v19;
-        if (*v81 != v73)
-        {
-          objc_enumerationMutation(obja);
-        }
-
-        v43 = *(*(&v80 + 1) + 8 * k);
-        v44 = [obja objectForKey:v43];
         objc_opt_class();
-        v45 = v43;
-        if (!v45 || (objc_opt_isKindOfClass() & 1) == 0)
+        v30 = [v25 objectForKey:@"data"];
+        if (v30 && (objc_opt_isKindOfClass() & 1) != 0)
         {
-
-LABEL_83:
-          v53 = CarGeneralLogging();
-          self = selfCopy2;
-          dictionaryCopy = v70;
-          v49 = v74;
-          v50 = v78;
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
-          {
-            if (v45)
-            {
-              v64 = objc_opt_class();
-              v60 = NSStringFromClass(v64);
-            }
-
-            else
-            {
-              v60 = @"nil";
-            }
-
-            if (v44)
-            {
-              v66 = objc_opt_class();
-              v65 = NSStringFromClass(v66);
-            }
-
-            else
-            {
-              v65 = @"nil";
-            }
-
-            *buf = 138412546;
-            v95 = v60;
-            v96 = 2112;
-            v97 = v65;
-            _os_log_error_impl(&dword_1C81FC000, v53, OS_LOG_TYPE_ERROR, "Invalid palette ID, expected string:data, found: %@:%@", buf, 0x16u);
-            if (v44)
-            {
-            }
-
-            if (v45)
-            {
-            }
-
-            self = selfCopy2;
-            dictionaryCopy = v70;
-          }
-
-          selfCopy3 = 0;
-          v19 = v42;
-          goto LABEL_91;
-        }
-
-        objc_opt_class();
-        v46 = v44;
-        if (v46 && (objc_opt_isKindOfClass() & 1) != 0)
-        {
-          v47 = v46;
+          v31 = v30;
         }
 
         else
         {
-          v47 = 0;
+          v31 = 0;
         }
 
-        if (!v47)
+        v32 = off_1E82FB708;
+        v33 = objc_opt_class();
+        v34 = NSStringFromClass(v33);
+        v35 = [v29 isEqualToString:v34];
+
+        if ((v35 & 1) == 0 && (v32 = off_1E82FB770, v36 = objc_opt_class(), NSStringFromClass(v36), v37 = objc_claimAutoreleasedReturnValue(), v38 = -[NSObject isEqualToString:](v29, "isEqualToString:", v37), v37, !v38) || (v39 = [objc_alloc(*v32) initWithDictionary:v31]) == 0)
         {
-          goto LABEL_83;
+          v55 = CarGeneralLogging(v39);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          {
+            [(CRDisplayThemeData *)v24 initWithDictionary:v31, v55];
+          }
+
+          v52 = v77;
+          v20 = v74;
+LABEL_80:
+          v53 = v81;
+          goto LABEL_81;
         }
 
-        v48 = [[CRHomeScreenStyleData alloc] initWithDictionary:v46];
-        v19 = v42;
-        [v42 setObject:v48 forKey:v45];
+        v40 = v39;
+        [v81 setObject:v39 forKey:v24];
+
+        v20 = v74;
       }
 
-      v40 = [obja countByEnumeratingWithState:&v80 objects:v92 count:16];
-      self = selfCopy2;
-      dictionaryCopy = v70;
-      if (v40)
+      self = selfCopy;
+      dictionaryCopy = v72;
+      v75 = [v74 countByEnumeratingWithState:&v87 objects:v96 count:16];
+      if (v75)
       {
         continue;
       }
@@ -483,9 +367,125 @@ LABEL_83:
     }
   }
 
-  v49 = v74;
-  v50 = v78;
-  self = [(CRDisplayThemeData *)self initWithCurrentLayoutID:v74 paletteIDForLayout:v10 wallpaperForLayout:v78 homeScreenStyleForLayout:v19];
+  v20 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v80, "count")}];
+  v83 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  obja = v80;
+  v41 = [obja countByEnumeratingWithState:&v83 objects:v95 count:16];
+  if (v41)
+  {
+    v42 = v41;
+    v76 = *v84;
+    selfCopy2 = self;
+    v73 = dictionaryCopy;
+    while (2)
+    {
+      for (k = 0; k != v42; ++k)
+      {
+        v44 = v20;
+        if (*v84 != v76)
+        {
+          objc_enumerationMutation(obja);
+        }
+
+        v45 = *(*(&v83 + 1) + 8 * k);
+        v46 = [obja objectForKey:v45];
+        objc_opt_class();
+        v47 = v45;
+        if (!v47 || (objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+LABEL_83:
+          v56 = CarGeneralLogging(v50);
+          self = selfCopy2;
+          dictionaryCopy = v73;
+          v52 = v77;
+          v53 = v81;
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          {
+            if (v47)
+            {
+              v67 = objc_opt_class();
+              v63 = NSStringFromClass(v67);
+            }
+
+            else
+            {
+              v63 = @"nil";
+            }
+
+            if (v46)
+            {
+              v69 = objc_opt_class();
+              v68 = NSStringFromClass(v69);
+            }
+
+            else
+            {
+              v68 = @"nil";
+            }
+
+            *buf = 138412546;
+            v98 = v63;
+            v99 = 2112;
+            v100 = v68;
+            _os_log_error_impl(&dword_1C81FC000, v56, OS_LOG_TYPE_ERROR, "Invalid palette ID, expected string:data, found: %@:%@", buf, 0x16u);
+            if (v46)
+            {
+            }
+
+            if (v47)
+            {
+            }
+
+            self = selfCopy2;
+            dictionaryCopy = v73;
+          }
+
+          selfCopy3 = 0;
+          v20 = v44;
+          goto LABEL_91;
+        }
+
+        objc_opt_class();
+        v48 = v46;
+        if (v48 && (objc_opt_isKindOfClass() & 1) != 0)
+        {
+          v49 = v48;
+        }
+
+        else
+        {
+          v49 = 0;
+        }
+
+        if (!v49)
+        {
+          goto LABEL_83;
+        }
+
+        v51 = [[CRHomeScreenStyleData alloc] initWithDictionary:v48];
+        v20 = v44;
+        [v44 setObject:v51 forKey:v47];
+      }
+
+      v42 = [obja countByEnumeratingWithState:&v83 objects:v95 count:16];
+      self = selfCopy2;
+      dictionaryCopy = v73;
+      if (v42)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v52 = v77;
+  v53 = v81;
+  self = [(CRDisplayThemeData *)self initWithCurrentLayoutID:v77 paletteIDForLayout:v10 wallpaperForLayout:v81 homeScreenStyleForLayout:v20];
   selfCopy3 = self;
 LABEL_91:
 

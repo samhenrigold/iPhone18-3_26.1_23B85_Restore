@@ -1,10 +1,25 @@
 @interface NMSPartialDownloadableItem
 - (BOOL)isEqual:(id)equal;
+- (NMSPartialDownloadableItem)initWithMediaLibraryIdentifier:(id)identifier externalLibraryIdentifier:(id)libraryIdentifier size:(unint64_t)size itemType:(unint64_t)type manuallyAdded:(BOOL)added minimumSize:(unint64_t)minimumSize offset:(unint64_t)offset;
 - (id)description;
 - (unint64_t)hash;
 @end
 
 @implementation NMSPartialDownloadableItem
+
+- (NMSPartialDownloadableItem)initWithMediaLibraryIdentifier:(id)identifier externalLibraryIdentifier:(id)libraryIdentifier size:(unint64_t)size itemType:(unint64_t)type manuallyAdded:(BOOL)added minimumSize:(unint64_t)minimumSize offset:(unint64_t)offset
+{
+  v11.receiver = self;
+  v11.super_class = NMSPartialDownloadableItem;
+  result = [(NMSDownloadableItem *)&v11 initWithMediaLibraryIdentifier:identifier externalLibraryIdentifier:libraryIdentifier size:size itemType:type manuallyAdded:added];
+  if (result)
+  {
+    result->_minimumSize = minimumSize;
+    result->_offset = offset;
+  }
+
+  return result;
+}
 
 - (BOOL)isEqual:(id)equal
 {

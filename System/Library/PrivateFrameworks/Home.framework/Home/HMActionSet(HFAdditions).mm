@@ -33,28 +33,28 @@
 
 - (id)hf_affectedCharacteristics
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   actions = [self actions];
-  v4 = [actions countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [actions countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(actions);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -72,18 +72,73 @@
         }
       }
 
-      v5 = [actions countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [actions countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (id)hf_affectedMediaSessions
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEB58] set];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  actions = [self actions];
+  v4 = [actions countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v16;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v16 != v6)
+        {
+          objc_enumerationMutation(actions);
+        }
+
+        v8 = *(*(&v15 + 1) + 8 * i);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          objc_opt_class();
+          v9 = v8;
+          if (objc_opt_isKindOfClass())
+          {
+            v10 = v9;
+          }
+
+          else
+          {
+            v10 = 0;
+          }
+
+          v11 = v10;
+
+          mediaProfiles = [v11 mediaProfiles];
+          [v2 unionSet:mediaProfiles];
+        }
+      }
+
+      v5 = [actions countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v5);
+  }
+
+  v13 = [v2 na_map:&__block_literal_global_15_5];
+
+  return v13;
+}
+
+- (id)hf_affectedProfiles
 {
   v21 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
@@ -107,65 +162,6 @@
         }
 
         v8 = *(*(&v16 + 1) + 8 * i);
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          objc_opt_class();
-          v9 = v8;
-          if (objc_opt_isKindOfClass())
-          {
-            v10 = v9;
-          }
-
-          else
-          {
-            v10 = 0;
-          }
-
-          v11 = v10;
-
-          mediaProfiles = [v11 mediaProfiles];
-          [v2 unionSet:mediaProfiles];
-        }
-      }
-
-      v5 = [actions countByEnumeratingWithState:&v16 objects:v20 count:16];
-    }
-
-    while (v5);
-  }
-
-  v13 = [v2 na_map:&__block_literal_global_15_5];
-
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
-}
-
-- (id)hf_affectedProfiles
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CBEB58] set];
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  actions = [self actions];
-  v4 = [actions countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v18;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v18 != v6)
-        {
-          objc_enumerationMutation(actions);
-        }
-
-        v8 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -214,59 +210,57 @@
         }
       }
 
-      v5 = [actions countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [actions countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)hf_affectedServices
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   actions = [self actions];
-  v4 = [actions countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v4 = [actions countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(actions);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           characteristic = [v8 characteristic];
-          service = [characteristic service];
-          [v2 na_safeAddObject:service];
+          v10 = objc_msgSend_service(characteristic);
+          [v2 na_safeAddObject:v10];
 
           characteristic2 = [v8 characteristic];
-          service2 = [characteristic2 service];
+          v12 = objc_msgSend_service(characteristic2);
 
-          if (!service2)
+          if (!v12)
           {
             v13 = HFLogForCategory(0);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v21 = v8;
+              v20 = v8;
               _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Error: Unexpected nil service for write action: %@", buf, 0xCu);
             }
           }
@@ -276,13 +270,11 @@
       }
 
       while (v5 != v7);
-      v5 = [actions countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v5 = [actions countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -305,34 +297,34 @@
 
 - (id)hf_affectedAccessoryRepresentableObjects
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   actions = [self actions];
-  v4 = [actions countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [actions countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(actions);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           characteristic = [v8 characteristic];
-          service = [characteristic service];
-          [v2 na_safeAddObject:service];
+          v10 = objc_msgSend_service(characteristic);
+          [v2 na_safeAddObject:v10];
         }
 
         else
@@ -358,13 +350,11 @@
         }
       }
 
-      v5 = [actions countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [actions countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

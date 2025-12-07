@@ -20,6 +20,8 @@
 - (id)copyStorageFor:(id)for toDirectory:(id)directory;
 - (id)databaseManagerName;
 - (id)databasePathFor:(id *)for;
+- (id)initWithDirectory:(void *)directory databaseName:(void *)name modelURL:(char)l readOnly:(char)only localOnly:(char)localOnly sync:;
+- (id)isDataVaulted;
 - (id)managedObjectContextFor:(id)for identifier:(id)identifier;
 - (id)managedObjectContextForKey:(id *)key;
 - (id)managedObjectContextIdentifierWithPrefix:(id *)prefix;
@@ -31,8 +33,6 @@
 - (int64_t)modelVersionForStoreAtURL:(id)l error:(id *)error;
 - (uint64_t)_addStoresToCoordinator:(void *)coordinator protectionClass:(void *)class error:;
 - (uint64_t)didAutoMigratePersistentStore:(void *)store toManagedObjectModel:(uint64_t)model havingVersion:(void *)version error:;
-- (uint64_t)initWithDirectory:(void *)directory databaseName:(void *)name modelURL:(char)l readOnly:(char)only localOnly:(char)localOnly sync:;
-- (uint64_t)isDataVaulted;
 - (uint64_t)migratePersistentStoreAtURL:(void *)l toManagedObjectModel:(void *)model protectionClass:(unint64_t)class startVersion:(unint64_t)version endVersion:(void *)endVersion error:;
 - (uint64_t)willAutoMigrateStoreAtURL:(void *)l fromManagedObjectModel:(uint64_t)model havingVersion:(void *)version error:;
 - (unint64_t)managedObjectModelVersionCompatibleWithPersistentStoreAtURL:(void *)l error:;
@@ -55,33 +55,31 @@
 - (id)databaseManagerName
 {
   selfCopy = self;
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = +[_CDPaths knowledgeDirectory];
     stringByStandardizingPath = [v2 stringByStandardizingPath];
-    v10[0] = stringByStandardizingPath;
-    v11[0] = @"coreduetd";
+    v9[0] = stringByStandardizingPath;
+    v10[0] = @"coreduetd";
     v4 = +[_CDPaths peopleDirectory];
     stringByStandardizingPath2 = [v4 stringByStandardizingPath];
-    v10[1] = stringByStandardizingPath2;
-    v11[1] = @"coreduetd";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9[1] = stringByStandardizingPath2;
+    v10[1] = @"coreduetd";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
     stringByStandardizingPath3 = [selfCopy[9] stringByStandardizingPath];
     selfCopy = [v6 objectForKeyedSubscript:stringByStandardizingPath3];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
-- (uint64_t)isDataVaulted
+- (id)isDataVaulted
 {
   if (result)
   {
-    stringByStandardizingPath = [*(result + 72) stringByStandardizingPath];
+    stringByStandardizingPath = [result[9] stringByStandardizingPath];
     v2 = +[_CDPaths knowledgeDirectory];
     stringByStandardizingPath2 = [v2 stringByStandardizingPath];
     v4 = [stringByStandardizingPath isEqualToString:stringByStandardizingPath2];
@@ -149,16 +147,16 @@
   return v8;
 }
 
-- (uint64_t)initWithDirectory:(void *)directory databaseName:(void *)name modelURL:(char)l readOnly:(char)only localOnly:(char)localOnly sync:
+- (id)initWithDirectory:(void *)directory databaseName:(void *)name modelURL:(char)l readOnly:(char)only localOnly:(char)localOnly sync:
 {
   v14 = a2;
   directoryCopy = directory;
   nameCopy = name;
   if (self)
   {
-    v44.receiver = self;
-    v44.super_class = _DKCoreDataStorage;
-    v17 = objc_msgSendSuper2(&v44, sel_init);
+    v43.receiver = self;
+    v43.super_class = _DKCoreDataStorage;
+    v17 = objc_msgSendSuper2(&v43, sel_init);
     self = v17;
     if (v17)
     {
@@ -166,49 +164,48 @@
       *(self + 67) = l;
       *(self + 68) = only;
       *(self + 69) = localOnly;
-      objc_storeStrong((self + 88), directory);
-      objc_storeStrong((self + 80), name);
+      objc_storeStrong(self + 11, directory);
+      objc_storeStrong(self + 10, name);
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v19 = *(self + 48);
-      *(self + 48) = defaultManager;
+      v19 = self[6];
+      self[6] = defaultManager;
 
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v21 = *(self + 16);
-      *(self + 16) = dictionary;
+      v21 = self[2];
+      self[2] = dictionary;
 
-      v22 = *(self + 8);
-      *(self + 8) = 0;
+      v22 = self[1];
+      self[1] = 0;
 
       v23 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:0 valueOptions:5];
-      v24 = *(self + 24);
-      *(self + 24) = v23;
+      v24 = self[3];
+      self[3] = v23;
 
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-      v26 = *(self + 32);
-      *(self + 32) = dictionary2;
+      v26 = self[4];
+      self[4] = dictionary2;
 
-      v27 = *(self + 72);
-      selfCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v27, *(self + 88)];
-      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@.db", selfCopy, @"A"];
-      [*(self + 16) setObject:v29 forKeyedSubscript:*MEMORY[0x1E696A378]];
+      selfCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", self[9], self[11]];
+      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@.db", selfCopy, @"A"];
+      [self[2] setObject:v28 forKeyedSubscript:*MEMORY[0x1E696A378]];
 
-      v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@.db", selfCopy, @"C"];
-      [*(self + 16) setObject:v30 forKeyedSubscript:*MEMORY[0x1E696A388]];
+      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@.db", selfCopy, @"C"];
+      [self[2] setObject:v29 forKeyedSubscript:*MEMORY[0x1E696A388]];
 
-      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@.db", selfCopy, @"D"];
-      [*(self + 16) setObject:v31 forKeyedSubscript:*MEMORY[0x1E696A3A8]];
+      v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@.db", selfCopy, @"D"];
+      [self[2] setObject:v30 forKeyedSubscript:*MEMORY[0x1E696A3A8]];
 
-      v32 = objc_alloc_init(_DKDataProtectionStateMonitor);
-      v33 = *(self + 40);
-      *(self + 40) = v32;
+      v31 = objc_alloc_init(_DKDataProtectionStateMonitor);
+      v32 = self[5];
+      self[5] = v31;
 
       objc_initWeak(&location, self);
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __86___DKCoreDataStorage_initWithDirectory_databaseName_modelURL_readOnly_localOnly_sync___block_invoke;
-      v41[3] = &unk_1E73673F0;
-      objc_copyWeak(&v42, &location);
-      [*(self + 40) setChangeHandler:v41];
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __86___DKCoreDataStorage_initWithDirectory_databaseName_modelURL_readOnly_localOnly_sync___block_invoke;
+      v40[3] = &unk_1E73673F0;
+      objc_copyWeak(&v41, &location);
+      [self[5] setChangeHandler:v40];
       *(self + 66) = 0;
       databaseManagerName = [(_DKCoreDataStorage *)self databaseManagerName];
       *(self + 64) = databaseManagerName != 0;
@@ -221,18 +218,18 @@
         databaseManagerName2 = [(_DKCoreDataStorage *)self databaseManagerName];
         *(self + 65) = [processName isEqualToString:databaseManagerName2];
 
-        if ((*(self + 64) & 1) != 0 && [(_DKCoreDataStorage *)self isDataVaulted])
+        if ((self[8] & 1) != 0 && [(_DKCoreDataStorage *)self isDataVaulted])
         {
-          v38 = [_CDEntitlementsUtilities entitlementValueForKey:@"com.apple.rootless.storage.coreduet_knowledge_store"];
-          if ((objc_opt_respondsToSelector() & 1) == 0 || ([v38 BOOLValue] & 1) == 0)
+          v37 = [_CDEntitlementsUtilities entitlementValueForKey:@"com.apple.rootless.storage.coreduet_knowledge_store"];
+          if ((objc_opt_respondsToSelector() & 1) == 0 || ([v37 BOOLValue] & 1) == 0)
           {
-            v40 = +[_CDLogging knowledgeChannel];
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+            v39 = +[_CDLogging knowledgeChannel];
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
             {
               [_DKCoreDataStorage initWithDirectory:databaseName:modelURL:readOnly:localOnly:sync:];
             }
 
-            objc_destroyWeak(&v42);
+            objc_destroyWeak(&v41);
             objc_destroyWeak(&location);
 
             selfCopy = self;
@@ -252,7 +249,7 @@
         *(self + 65) = 1;
       }
 
-      objc_destroyWeak(&v42);
+      objc_destroyWeak(&v41);
       objc_destroyWeak(&location);
 LABEL_13:
     }
@@ -339,52 +336,52 @@ LABEL_13:
 
 - (void)invalidateManagedObjectContextAndPersistentStoreCoordinatorFor:(void *)for
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (for)
   {
     forCopy = for;
     objc_sync_enter(forCopy);
-    v13 = v3;
+    v12 = v3;
     v5 = [forCopy[4] objectForKeyedSubscript:v3];
     if (v5)
     {
-      [forCopy[4] removeObjectForKey:v13];
+      [forCopy[4] removeObjectForKey:v12];
     }
 
-    [(_DKCoreDataStorage *)forCopy managedObjectContextIdentifierWithPrefix:v13];
+    [(_DKCoreDataStorage *)forCopy managedObjectContextIdentifierWithPrefix:v12];
+    v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v6 = v17 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v15 = 0u;
+    v6 = v16 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           v11 = [(_DKCoreDataStorage *)forCopy managedObjectContextForKey:v10];
           if (v11)
           {
             [(_DKCoreDataStorage *)forCopy removeManagedObjectContextForKey:v10];
-            v14[0] = MEMORY[0x1E69E9820];
-            v14[1] = 3221225472;
-            v14[2] = __85___DKCoreDataStorage_invalidateManagedObjectContextAndPersistentStoreCoordinatorFor___block_invoke;
-            v14[3] = &unk_1E7367440;
-            v15 = v11;
-            [v15 performWithOptions:4 andBlock:v14];
+            v13[0] = MEMORY[0x1E69E9820];
+            v13[1] = 3221225472;
+            v13[2] = __85___DKCoreDataStorage_invalidateManagedObjectContextAndPersistentStoreCoordinatorFor___block_invoke;
+            v13[3] = &unk_1E7367440;
+            v14 = v11;
+            [v14 performWithOptions:4 andBlock:v13];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -393,47 +390,45 @@ LABEL_13:
     [(_DKCoreDataStorage *)forCopy removePersistentStoresInCoordinator:v5];
     objc_sync_exit(forCopy);
 
-    v3 = v13;
+    v3 = v12;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)managedObjectContextIdentifierWithPrefix:(id *)prefix
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (prefix)
   {
     v4 = prefix[3];
     objc_sync_enter(v4);
     array = [MEMORY[0x1E695DF70] array];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = prefix[3];
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
-          if ([v10 hasPrefix:{v3, v13}])
+          v10 = *(*(&v12 + 1) + 8 * i);
+          if ([v10 hasPrefix:{v3, v12}])
           {
             [array addObject:v10];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -442,8 +437,6 @@ LABEL_13:
     prefix = [array copy];
     objc_sync_exit(v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return prefix;
 }
@@ -559,12 +552,12 @@ LABEL_6:
 
 - (int64_t)modelVersionForStoreAtURL:(id)l error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = *MEMORY[0x1E695D4A8];
-  v21 = 0;
-  v8 = [MEMORY[0x1E695D6C0] metadataForPersistentStoreOfType:v7 URL:lCopy error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [MEMORY[0x1E695D6C0] metadataForPersistentStoreOfType:v7 URL:lCopy error:&v20];
+  v9 = v20;
   if (!v8)
   {
 LABEL_8:
@@ -572,14 +565,14 @@ LABEL_8:
 
     if (delegate)
     {
-      v20 = v9;
-      integerValue = [(_DKCoreDataStorage *)self managedObjectModelVersionCompatibleWithPersistentStoreAtURL:lCopy error:&v20];
-      v19 = v20;
+      v19 = v9;
+      integerValue = [(_DKCoreDataStorage *)self managedObjectModelVersionCompatibleWithPersistentStoreAtURL:lCopy error:&v19];
+      v18 = v19;
 
       if (integerValue)
       {
 LABEL_10:
-        v9 = v19;
+        v9 = v18;
         if (!error)
         {
           goto LABEL_6;
@@ -588,14 +581,14 @@ LABEL_10:
         goto LABEL_5;
       }
 
-      v9 = v19;
+      v9 = v18;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v22 = *MEMORY[0x1E696A578];
-    v23[0] = @"Store version not found.";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v19 = [v17 errorWithDomain:@"com.apple.coreduet.DKCoreDataStorage" code:2 userInfo:v18];
+    v16 = MEMORY[0x1E696ABC0];
+    v21 = *MEMORY[0x1E696A578];
+    v22[0] = @"Store version not found.";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v18 = [v16 errorWithDomain:@"com.apple.coreduet.DKCoreDataStorage" code:2 userInfo:v17];
 
     integerValue = 0;
     goto LABEL_10;
@@ -625,7 +618,6 @@ LABEL_5:
 
 LABEL_6:
 
-  v14 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
@@ -721,7 +713,7 @@ LABEL_10:
 
 - (unsigned)autoMigratePersistentStoreAtURL:(void *)l toManagedObjectModel:(void *)model protectionClass:(void *)class error:
 {
-  v21[6] = *MEMORY[0x1E69E9840];
+  v20[6] = *MEMORY[0x1E69E9840];
   v9 = a2;
   lCopy = l;
   modelCopy = model;
@@ -734,9 +726,9 @@ LABEL_10:
     if (v14)
     {
       v15 = *MEMORY[0x1E695D4A8];
-      v21[0] = 0;
-      v16 = [v14 addPersistentStoreWithType:v15 configuration:0 URL:v9 options:v13 error:v21];
-      v17 = v21[0];
+      v20[0] = 0;
+      v16 = [v14 addPersistentStoreWithType:v15 configuration:0 URL:v9 options:v13 error:v20];
+      v17 = v20[0];
       if (!v16)
       {
 
@@ -757,8 +749,6 @@ LABEL_10:
       *class = v17;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -869,7 +859,7 @@ LABEL_10:
 
 - (uint64_t)_addStoresToCoordinator:(void *)coordinator protectionClass:(void *)class error:
 {
-  v74[1] = *MEMORY[0x1E69E9840];
+  v73[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   coordinatorCopy = coordinator;
   if (!self)
@@ -886,9 +876,9 @@ LABEL_10:
   {
     v12 = [(_DKCoreDataStorage *)self _defaultOptionsForStoreWithProtectionClass:coordinatorCopy];
     v13 = *MEMORY[0x1E695D4A8];
-    v72 = 0;
-    v14 = [v7 addPersistentStoreWithType:v13 configuration:0 URL:v11 options:v12 error:&v72];
-    v15 = v72;
+    v71 = 0;
+    v14 = [v7 addPersistentStoreWithType:v13 configuration:0 URL:v11 options:v12 error:&v71];
+    v15 = v71;
 
     if (v14)
     {
@@ -910,16 +900,16 @@ LABEL_10:
     goto LABEL_41;
   }
 
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = __Block_byref_object_copy__18;
-  v70 = __Block_byref_object_dispose__18;
-  v71 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2020000000;
-  v65 = 1;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy__18;
+  v69 = __Block_byref_object_dispose__18;
+  v70 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 1;
   v19 = dispatch_group_create();
   if ((*(self + 69) & 1) == 0)
   {
@@ -931,15 +921,15 @@ LABEL_10:
 
     dispatch_group_enter(v19);
     v31 = [(_DKCoreDataStorage *)self _descriptionForStoreWithURL:v11 protectionClass:coordinatorCopy sync:0];
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __68___DKCoreDataStorage__addStoresToCoordinator_protectionClass_error___block_invoke;
-    v58[3] = &unk_1E7369D78;
-    v60 = &v62;
-    v61 = &v66;
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __68___DKCoreDataStorage__addStoresToCoordinator_protectionClass_error___block_invoke;
+    v57[3] = &unk_1E7369D78;
+    v59 = &v61;
+    v60 = &v65;
     v32 = v19;
-    v59 = v32;
-    [v7 addPersistentStoreWithDescription:v31 completionHandler:v58];
+    v58 = v32;
+    [v7 addPersistentStoreWithDescription:v31 completionHandler:v57];
     if (dispatch_group_wait(v32, 0xFFFFFFFFFFFFFFFFLL))
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -959,14 +949,14 @@ LABEL_10:
 LABEL_36:
     if (class)
     {
-      v51 = v67[5];
+      v51 = v66[5];
       if (v51)
       {
         *class = v51;
       }
     }
 
-    v17 = *(v63 + 24);
+    v17 = *(v62 + 24);
     goto LABEL_40;
   }
 
@@ -980,15 +970,15 @@ LABEL_36:
 
     dispatch_group_enter(v19);
     v21 = [(_DKCoreDataStorage *)self _descriptionForStoreWithURL:v11 protectionClass:coordinatorCopy sync:1];
-    v54[0] = MEMORY[0x1E69E9820];
-    v54[1] = 3221225472;
-    v54[2] = __68___DKCoreDataStorage__addStoresToCoordinator_protectionClass_error___block_invoke_75;
-    v54[3] = &unk_1E7369D78;
-    v56 = &v62;
-    v57 = &v66;
-    v55 = v19;
-    [v7 addPersistentStoreWithDescription:v21 completionHandler:v54];
-    v22 = v55;
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __68___DKCoreDataStorage__addStoresToCoordinator_protectionClass_error___block_invoke_75;
+    v53[3] = &unk_1E7369D78;
+    v55 = &v61;
+    v56 = &v65;
+    v54 = v19;
+    [v7 addPersistentStoreWithDescription:v21 completionHandler:v53];
+    v22 = v54;
   }
 
   else
@@ -998,14 +988,14 @@ LABEL_36:
       [_DKCoreDataStorage _addStoresToCoordinator:protectionClass:error:];
     }
 
-    *(v63 + 24) = 0;
+    *(v62 + 24) = 0;
     v33 = MEMORY[0x1E696ABC0];
-    v73 = *MEMORY[0x1E696A578];
-    v74[0] = @"Unsupported protection class.";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:&v73 count:1];
+    v72 = *MEMORY[0x1E696A578];
+    v73[0] = @"Unsupported protection class.";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:&v72 count:1];
     v34 = [v33 errorWithDomain:@"com.apple.coreduet" code:0 userInfo:v21];
-    v22 = v67[5];
-    v67[5] = v34;
+    v22 = v66[5];
+    v66[5] = v34;
   }
 
   if (!dispatch_group_wait(v19, 0xFFFFFFFFFFFFFFFFLL))
@@ -1028,19 +1018,18 @@ LABEL_30:
   v17 = 0;
 LABEL_40:
 
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
 
 LABEL_41:
 LABEL_42:
 
-  v52 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
 - (id)persistentStoreCoordinatorFor:(id)for
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   forCopy = for;
   v5 = [(_DKDataProtectionStateMonitor *)self->_dataProtectionMonitor isDataAvailableFor:forCopy];
   selfCopy = self;
@@ -1059,7 +1048,7 @@ LABEL_42:
           goto LABEL_37;
         }
 
-        isDataVaulted = [(_DKCoreDataStorage *)selfCopy isDataVaulted];
+        isDataVaulted = [(_DKCoreDataStorage *)&selfCopy->super.isa isDataVaulted];
         v11 = *p_directory;
         if (isDataVaulted)
         {
@@ -1105,9 +1094,9 @@ LABEL_38:
               goto LABEL_42;
             }
 
-            v56 = v18;
-            v44 = [(_DKCoreDataStorage *)selfCopy isManagedObjectModel:managedObjectModel compatibleWithPersistentStoreAtURL:v36 error:&v56];
-            v37 = v56;
+            v55 = v18;
+            v43 = [(_DKCoreDataStorage *)selfCopy isManagedObjectModel:managedObjectModel compatibleWithPersistentStoreAtURL:v36 error:&v55];
+            v37 = v55;
 
             if (v37)
             {
@@ -1119,19 +1108,19 @@ LABEL_38:
               }
             }
 
-            else if (!v44)
+            else if (!v43)
             {
               if (!selfCopy->_isDatabaseManager)
               {
-                v46 = +[_CDLogging knowledgeChannel];
-                if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+                v45 = +[_CDLogging knowledgeChannel];
+                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                 {
                   [_DKCoreDataStorage persistentStoreCoordinatorFor:];
                 }
 
-                v47 = CFNotificationCenterGetDarwinNotifyCenter();
+                v46 = CFNotificationCenterGetDarwinNotifyCenter();
                 clientNeedsHelpNotification2 = [(_DKCoreDataStorage *)&selfCopy->super.isa clientNeedsHelpNotification];
-                CFNotificationCenterPostNotification(v47, clientNeedsHelpNotification2, 0, 0, 1u);
+                CFNotificationCenterPostNotification(v46, clientNeedsHelpNotification2, 0, 0, 1u);
                 v41 = 0;
                 v39 = 0;
                 v8 = 0;
@@ -1149,10 +1138,10 @@ LABEL_50:
                 goto LABEL_57;
               }
 
-              v55 = 0;
-              v45 = [(_DKCoreDataStorage *)selfCopy migratePersistentStoreAtURL:v36 toManagedObjectModel:managedObjectModel protectionClass:forCopy error:&v55];
-              v37 = v55;
-              if (v45)
+              v54 = 0;
+              v44 = [(_DKCoreDataStorage *)selfCopy migratePersistentStoreAtURL:v36 toManagedObjectModel:managedObjectModel protectionClass:forCopy error:&v54];
+              v37 = v54;
+              if (v44)
               {
                 [v32 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E695D480]];
                 [v32 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E695D490]];
@@ -1172,9 +1161,9 @@ LABEL_50:
 LABEL_42:
               v8 = [objc_alloc(MEMORY[0x1E695D6C0]) initWithManagedObjectModel:managedObjectModel];
 
-              v54 = 0;
-              v38 = [(_DKCoreDataStorage *)selfCopy _addStoresToCoordinator:v8 protectionClass:forCopy error:&v54];
-              v39 = v54;
+              v53 = 0;
+              v38 = [(_DKCoreDataStorage *)selfCopy _addStoresToCoordinator:v8 protectionClass:forCopy error:&v53];
+              v39 = v53;
               if (v38)
               {
                 if (v8)
@@ -1206,7 +1195,7 @@ LABEL_42:
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            [_DKCoreDataStorage persistentStoreCoordinatorFor:selfCopy];
+            [_DKCoreDataStorage persistentStoreCoordinatorFor:];
           }
 
           goto LABEL_48;
@@ -1234,47 +1223,47 @@ LABEL_42:
         {
           v23 = *p_directory;
           *buf = 138412290;
-          v61 = v23;
+          v60 = v23;
           _os_log_impl(&dword_191750000, v22, OS_LOG_TYPE_DEFAULT, "Removing datavault directory %@", buf, 0xCu);
         }
 
         fm = selfCopy->_fm;
         directory = selfCopy->_directory;
-        v58 = 0;
-        [(NSFileManager *)fm removeItemAtPath:directory error:&v58];
-        v18 = v58;
+        v57 = 0;
+        [(NSFileManager *)fm removeItemAtPath:directory error:&v57];
+        v18 = v57;
         if (v18)
         {
           v26 = +[_CDLogging knowledgeChannel];
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            [_DKCoreDataStorage persistentStoreCoordinatorFor:?];
+            [_DKCoreDataStorage persistentStoreCoordinatorFor:];
           }
 
           goto LABEL_38;
         }
 
-        v49 = +[_CDLogging knowledgeChannel];
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v48 = +[_CDLogging knowledgeChannel];
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_191750000, v49, OS_LOG_TYPE_DEFAULT, "Succesfully removed datavault directory.", buf, 2u);
+          _os_log_impl(&dword_191750000, v48, OS_LOG_TYPE_DEFAULT, "Succesfully removed datavault directory.", buf, 2u);
         }
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
         {
-          v50 = *p_directory;
+          v49 = *p_directory;
           *buf = 138412290;
-          v61 = v50;
+          v60 = v49;
           _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Creating directory at %@", buf, 0xCu);
         }
 
-        v51 = selfCopy->_fm;
-        v52 = selfCopy->_directory;
-        v57 = 0;
-        v53 = [(NSFileManager *)v51 createDirectoryAtPath:v52 withIntermediateDirectories:1 attributes:0 error:&v57];
-        v18 = v57;
-        if (v53)
+        v50 = selfCopy->_fm;
+        v51 = selfCopy->_directory;
+        v56 = 0;
+        v52 = [(NSFileManager *)v50 createDirectoryAtPath:v51 withIntermediateDirectories:1 attributes:0 error:&v56];
+        v18 = v56;
+        if (v52)
         {
           goto LABEL_38;
         }
@@ -1292,7 +1281,7 @@ LABEL_42:
         v12 = +[_CDLogging knowledgeChannel];
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          [_DKCoreDataStorage persistentStoreCoordinatorFor:?];
+          [_DKCoreDataStorage persistentStoreCoordinatorFor:];
         }
 
         if (!selfCopy->_isDatabaseManager)
@@ -1306,7 +1295,7 @@ LABEL_42:
           goto LABEL_24;
         }
 
-        if (selfCopy->_isManagedDatabase && (v13 = [(_DKCoreDataStorage *)selfCopy isDataVaulted], ![(_DKCoreDataStorage *)v13 persistentStoreCoordinatorFor:?]))
+        if (selfCopy->_isManagedDatabase && (v13 = [(_DKCoreDataStorage *)&selfCopy->super.isa isDataVaulted], ![_DKCoreDataStorage persistentStoreCoordinatorFor:v13]))
         {
           [*p_directory UTF8String];
           v27 = rootless_mkdir_datavault();
@@ -1333,15 +1322,15 @@ LABEL_42:
           {
             v14 = *p_directory;
             *buf = 138412290;
-            v61 = v14;
+            v60 = v14;
             _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Creating directory at %@", buf, 0xCu);
           }
 
           v15 = selfCopy->_fm;
           v16 = selfCopy->_directory;
-          v59 = 0;
-          v17 = [(NSFileManager *)v15 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:&v59];
-          v18 = v59;
+          v58 = 0;
+          v17 = [(NSFileManager *)v15 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:&v58];
+          v18 = v58;
           if (v17)
           {
             goto LABEL_38;
@@ -1378,8 +1367,6 @@ LABEL_56:
   v40 = v8;
 LABEL_57:
 
-  v42 = *MEMORY[0x1E69E9840];
-
   return v40;
 }
 
@@ -1398,7 +1385,7 @@ LABEL_57:
 
 - (id)managedObjectContextFor:(id)for identifier:(id)identifier
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   forCopy = for;
   identifierCopy = identifier;
   v8 = [(_DKDataProtectionStateMonitor *)self->_dataProtectionMonitor isDataAvailableFor:forCopy];
@@ -1406,9 +1393,9 @@ LABEL_57:
   objc_sync_enter(selfCopy);
   if (identifierCopy)
   {
-    v24[0] = forCopy;
-    v24[1] = identifierCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = forCopy;
+    v23[1] = identifierCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v11 = [v10 componentsJoinedByString:@":"];
   }
 
@@ -1454,13 +1441,13 @@ LABEL_11:
     v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coreduet.knowledge %@", v11];
     [v17 setName:v18];
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __57___DKCoreDataStorage_managedObjectContextFor_identifier___block_invoke;
-    v22[3] = &unk_1E7367440;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __57___DKCoreDataStorage_managedObjectContextFor_identifier___block_invoke;
+    v21[3] = &unk_1E7367440;
     v16 = v17;
-    v23 = v16;
-    [v16 performWithOptions:4 andBlock:v22];
+    v22 = v16;
+    [v16 performWithOptions:4 andBlock:v21];
     [(_DKCoreDataStorage *)selfCopy setManagedObjectContext:v16 forKey:v11];
 
     goto LABEL_11;
@@ -1487,8 +1474,6 @@ LABEL_16:
 
   v19 = v16;
 LABEL_18:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -1556,49 +1541,48 @@ LABEL_18:
   descriptorsCopy = descriptors;
   if (contextCopy)
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
-    v42 = 0;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__18;
-    v37 = __Block_byref_object_dispose__18;
     v38 = 0;
+    v39 = &v38;
+    v40 = 0x2020000000;
+    v41 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__18;
+    v36 = __Block_byref_object_dispose__18;
+    v37 = 0;
     kdebug_trace();
     _cdknowledge_signpost_delete_begin(nameCopy);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke;
-    v22[3] = &unk_1E7369DA0;
-    v23 = nameCopy;
-    v24 = contextCopy;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __146___DKCoreDataStorage_deleteObjectsInContext_entityName_predicate_sortDescriptors_fetchOffset_fetchLimit_includeSubentities_includePendingChanges___block_invoke;
+    v21[3] = &unk_1E7369DA0;
+    v22 = nameCopy;
+    v23 = contextCopy;
     limitCopy = limit;
     offsetCopy = offset;
     subentitiesCopy = subentities;
     changesCopy = changes;
-    v25 = predicateCopy;
-    v26 = descriptorsCopy;
-    v27 = &v33;
-    v28 = &v39;
-    [v24 performWithOptions:4 andBlock:v22];
-    v19 = v40[3];
-    [v34[5] code];
+    v24 = predicateCopy;
+    v25 = descriptorsCopy;
+    v26 = &v32;
+    v27 = &v38;
+    [v23 performWithOptions:4 andBlock:v21];
+    [v33[5] code];
     kdebug_trace();
-    _cdknowledge_signpost_delete_end(v40[3], [v34[5] code]);
-    v20 = v40[3];
+    _cdknowledge_signpost_delete_end(v39[3], [v33[5] code]);
+    v19 = v39[3];
 
-    _Block_object_dispose(&v33, 8);
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  return v20;
+  return v19;
 }
 
 + (unint64_t)countObjectsInContext:(id)context entityName:(id)name predicate:(id)predicate includeSubentities:(BOOL)subentities includePendingChanges:(BOOL)changes
@@ -1606,43 +1590,42 @@ LABEL_18:
   contextCopy = context;
   nameCopy = name;
   predicateCopy = predicate;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__18;
-  v35 = __Block_byref_object_dispose__18;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__18;
+  v34 = __Block_byref_object_dispose__18;
+  v35 = 0;
   kdebug_trace();
   _cdknowledge_signpost_count_begin(nameCopy);
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __106___DKCoreDataStorage_countObjectsInContext_entityName_predicate_includeSubentities_includePendingChanges___block_invoke;
-  v23 = &unk_1E7369DC8;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __106___DKCoreDataStorage_countObjectsInContext_entityName_predicate_includeSubentities_includePendingChanges___block_invoke;
+  v22 = &unk_1E7369DC8;
   v14 = nameCopy;
-  v24 = v14;
+  v23 = v14;
   v15 = contextCopy;
-  v25 = v15;
+  v24 = v15;
   subentitiesCopy = subentities;
   changesCopy = changes;
   v16 = predicateCopy;
-  v26 = v16;
-  v27 = &v37;
-  v28 = &v31;
-  [v15 performWithOptions:4 andBlock:&v20];
-  v17 = v38[3];
-  [v32[5] code];
+  v25 = v16;
+  v26 = &v36;
+  v27 = &v30;
+  [v15 performWithOptions:4 andBlock:&v19];
+  [v31[5] code];
   kdebug_trace();
-  _cdknowledge_signpost_count_end(v38[3], [v32[5] code]);
-  v18 = v38[3];
+  _cdknowledge_signpost_count_end(v37[3], [v31[5] code]);
+  v17 = v37[3];
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v36, 8);
 
-  return v18;
+  return v17;
 }
 
 + (unint64_t)deleteOrphanedEntitiesInContext:(id)context
@@ -1663,7 +1646,7 @@ LABEL_18:
 
 - (BOOL)deleteStorageFor:(id)for
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   forCopy = for;
   if (self->_isDatabaseManager)
   {
@@ -1692,18 +1675,18 @@ LABEL_18:
       }
 
       v15 = *MEMORY[0x1E695D4A8];
-      v24 = 0;
-      v16 = [v11 destroyPersistentStoreAtURL:v7 withType:v15 options:0 error:&v24];
-      v17 = v24;
+      v23 = 0;
+      v16 = [v11 destroyPersistentStoreAtURL:v7 withType:v15 options:0 error:&v23];
+      v17 = v23;
       if (v16)
       {
         v18 = +[_CDLogging knowledgeChannel];
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v26 = v6;
-          v27 = 2112;
-          v28 = forCopy;
+          v25 = v6;
+          v26 = 2112;
+          v27 = forCopy;
           _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_DEFAULT, "Succesfully truncated data storage in %@ for protection class %@.", buf, 0x16u);
         }
       }
@@ -1714,11 +1697,11 @@ LABEL_18:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          v26 = v6;
-          v27 = 2112;
-          v28 = forCopy;
-          v29 = 2112;
-          v30 = v17;
+          v25 = v6;
+          v26 = 2112;
+          v27 = forCopy;
+          v28 = 2112;
+          v29 = v17;
           _os_log_fault_impl(&dword_191750000, v18, OS_LOG_TYPE_FAULT, "Failed to truncate data storage in %@ for protection class %@: %@", buf, 0x20u);
         }
       }
@@ -1756,7 +1739,6 @@ LABEL_18:
     CFNotificationCenterPostNotification(DarwinNotifyCenter, clientNeedsHelpNotification, 0, 0, 1u);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1890,32 +1872,32 @@ LABEL_18:
 
 + (unint64_t)anonymizeStringAttributesOfManagedObject:(id)object withSalt:(id)salt
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   saltCopy = salt;
   entity = [objectCopy entity];
   attributesByName = [entity attributesByName];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v7 = [attributesByName countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v7 = [attributesByName countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v37;
-    v31 = objectCopy;
+    v10 = *v36;
+    v30 = objectCopy;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(attributesByName);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
+        v12 = *(*(&v35 + 1) + 8 * i);
         v13 = [attributesByName objectForKeyedSubscript:v12];
         attributeValueClassName = [v13 attributeValueClassName];
         v15 = [attributeValueClassName isEqualToString:@"NSString"];
@@ -1951,7 +1933,7 @@ LABEL_18:
             if (absoluteString)
             {
               v23 = absoluteString;
-              v33 = v9;
+              v32 = v9;
               absoluteString2 = [v17 absoluteString];
               v25 = [absoluteString2 length];
 
@@ -1960,16 +1942,16 @@ LABEL_18:
                 absoluteString3 = [v17 absoluteString];
                 v26 = [(_DKCoreDataStorage *)self anonymizeString:absoluteString3 withSalt:saltCopy];
                 v27 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v26];
-                objectCopy = v31;
-                [v31 setValue:v27 forKey:v12];
+                objectCopy = v30;
+                [v30 setValue:v27 forKey:v12];
 
-                v9 = v33 + 1;
+                v9 = v32 + 1;
               }
 
               else
               {
-                objectCopy = v31;
-                v9 = v33;
+                objectCopy = v30;
+                v9 = v32;
               }
             }
           }
@@ -1978,7 +1960,7 @@ LABEL_18:
 LABEL_17:
       }
 
-      v8 = [attributesByName countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v8 = [attributesByName countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (!v8)
       {
         goto LABEL_21;
@@ -1989,7 +1971,6 @@ LABEL_17:
   v9 = 0;
 LABEL_21:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2022,17 +2003,17 @@ LABEL_21:
 
 - (void)handleDataProtectionChangeFor:(int)for willBeAvailable:
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 1024;
+      v6 = 138412546;
+      v7 = v5;
+      v8 = 1024;
       forCopy = for;
-      _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Data protection availability changed for %@ to %d", &v7, 0x12u);
+      _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Data protection availability changed for %@ to %d", &v6, 0x12u);
       if (for)
       {
         goto LABEL_5;
@@ -2049,8 +2030,6 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerForClientHelpNotifications
@@ -2093,43 +2072,43 @@ LABEL_5:
 
 - (void)removePersistentStoresInCoordinator:(uint64_t)coordinator
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (coordinator)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     persistentStores = [v3 persistentStores];
-    v6 = [persistentStores countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v6 = [persistentStores countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v20;
+      v9 = *v19;
       v10 = MEMORY[0x1E69E9C10];
       *&v7 = 138412290;
-      v17 = v7;
+      v16 = v7;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(persistentStores);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
-          v18 = 0;
-          v13 = [v4 removePersistentStore:v12 error:{&v18, v17}];
-          v14 = v18;
+          v12 = *(*(&v18 + 1) + 8 * v11);
+          v17 = 0;
+          v13 = [v4 removePersistentStore:v12 error:{&v17, v16}];
+          v14 = v17;
           v15 = v14;
           if ((!v13 || v14) && os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            *buf = v17;
-            v24 = v15;
+            *buf = v16;
+            v23 = v15;
             _os_log_error_impl(&dword_191750000, v10, OS_LOG_TYPE_ERROR, "Error removing persistent store: %@", buf, 0xCu);
           }
 
@@ -2137,14 +2116,12 @@ LABEL_5:
         }
 
         while (v8 != v11);
-        v8 = [persistentStores countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v8 = [persistentStores countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v8);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)managedObjectModelVersionCompatibleWithPersistentStoreAtURL:(void *)l error:
@@ -2214,7 +2191,7 @@ LABEL_11:
 
 - (uint64_t)migratePersistentStoreAtURL:(void *)l toManagedObjectModel:(void *)model protectionClass:(unint64_t)class startVersion:(unint64_t)version endVersion:(void *)endVersion error:
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v13 = a2;
   lCopy = l;
   modelCopy = model;
@@ -2225,16 +2202,16 @@ LABEL_11:
   }
 
   endVersionCopy = endVersion;
-  v44 = lCopy;
+  v43 = lCopy;
   if (class > version)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown or illegal model version identifier(s): start:%lu end:%lu", class, version];
     v16 = v15 = v13;
     v17 = MEMORY[0x1E696ABC0];
-    v52 = *MEMORY[0x1E696A578];
-    v53 = v16;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-    v47 = [v17 errorWithDomain:@"com.apple.coreduet.DKCoreDataStorage" code:1 userInfo:v18];
+    v51 = *MEMORY[0x1E696A578];
+    v52 = v16;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+    v46 = [v17 errorWithDomain:@"com.apple.coreduet.DKCoreDataStorage" code:1 userInfo:v18];
 
     v13 = v15;
     v19 = 0;
@@ -2242,94 +2219,94 @@ LABEL_11:
   }
 
   v19 = 0;
-  v47 = 0;
+  v46 = 0;
   classCopy = class;
   while (1)
   {
     delegate = [self delegate];
-    v26 = [delegate coreDataStorage:self shouldCallDelegateAfterAutoMigrationToManagedObjectModelHavingVersion:classCopy];
+    v25 = [delegate coreDataStorage:self shouldCallDelegateAfterAutoMigrationToManagedObjectModelHavingVersion:classCopy];
 
-    if (version != classCopy && !v26)
+    if (version != classCopy && !v25)
     {
       goto LABEL_24;
     }
 
-    v27 = [self managedObjectModelForVersion:classCopy];
-    if (!v27)
+    v26 = [self managedObjectModelForVersion:classCopy];
+    if (!v26)
     {
       break;
     }
 
-    v28 = v27;
+    v27 = v26;
     delegate2 = [self delegate];
     classCopy2 = class;
-    v31 = [delegate2 coreDataStorage:self shouldCallDelegateBeforeAutoMigrationFromManagedObjectModelHavingVersion:class];
+    v30 = [delegate2 coreDataStorage:self shouldCallDelegateBeforeAutoMigrationFromManagedObjectModelHavingVersion:class];
 
-    if (v31)
+    if (v30)
     {
-      v32 = [self managedObjectModelForVersion:classCopy2];
-      v33 = classCopy2;
-      if (!v32 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v31 = [self managedObjectModelForVersion:classCopy2];
+      v32 = classCopy2;
+      if (!v31 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:classCopy2];
+        v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:classCopy2];
         *buf = 138412290;
-        v55 = v41;
+        v54 = v40;
         _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to find model version %@, will attempt to recover...", buf, 0xCu);
 
-        v33 = classCopy2;
+        v32 = classCopy2;
       }
 
-      v50 = v47;
-      [(_DKCoreDataStorage *)self willAutoMigrateStoreAtURL:v13 fromManagedObjectModel:v32 havingVersion:v33 error:&v50];
-      v34 = v50;
+      v49 = v46;
+      [(_DKCoreDataStorage *)self willAutoMigrateStoreAtURL:v13 fromManagedObjectModel:v31 havingVersion:v32 error:&v49];
+      v33 = v49;
 
-      v46 = classCopy;
+      v45 = classCopy;
     }
 
     else
     {
-      v46 = classCopy2;
-      v34 = v47;
+      v45 = classCopy2;
+      v33 = v46;
     }
 
-    v49 = v34;
-    [(_DKCoreDataStorage *)self autoMigratePersistentStoreAtURL:v13 toManagedObjectModel:v28 protectionClass:modelCopy error:&v49];
-    v36 = v35 = v34;
-    v37 = v49;
+    v48 = v33;
+    [(_DKCoreDataStorage *)self autoMigratePersistentStoreAtURL:v13 toManagedObjectModel:v27 protectionClass:modelCopy error:&v48];
+    v35 = v34 = v33;
+    v36 = v48;
 
-    if (!v36)
+    if (!v35)
     {
 
-      v47 = v37;
+      v46 = v36;
       goto LABEL_4;
     }
 
-    if (v26)
+    if (v25)
     {
-      v38 = v13;
-      persistentStores = [v36 persistentStores];
+      v37 = v13;
+      persistentStores = [v35 persistentStores];
       firstObject = [persistentStores firstObject];
 
-      v48 = v37;
-      LODWORD(persistentStores) = [(_DKCoreDataStorage *)self didAutoMigratePersistentStore:firstObject toManagedObjectModel:v28 havingVersion:classCopy error:&v48];
-      v47 = v48;
+      v47 = v36;
+      LODWORD(persistentStores) = [(_DKCoreDataStorage *)self didAutoMigratePersistentStore:firstObject toManagedObjectModel:v27 havingVersion:classCopy error:&v47];
+      v46 = v47;
 
       if (!persistentStores)
       {
 
-        v13 = v38;
+        v13 = v37;
         goto LABEL_4;
       }
 
-      v13 = v38;
+      v13 = v37;
     }
 
     else
     {
-      v47 = v37;
+      v46 = v36;
     }
 
-    class = v46;
+    class = v45;
 LABEL_24:
     v19 |= version == classCopy++;
     if (classCopy > version)
@@ -2340,92 +2317,89 @@ LABEL_24:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:classCopy];
+    v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:classCopy];
     *buf = 138412290;
-    v55 = v42;
+    v54 = v41;
     _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to find model version %@, unable to migrate", buf, 0xCu);
   }
 
 LABEL_4:
-  v20 = v47;
+  v20 = v46;
   if (endVersionCopy)
   {
-    v20 = v47;
+    v20 = v46;
     *endVersionCopy = v20;
   }
 
-  v51 = v19 & 1;
+  v50 = v19 & 1;
 
-  v21 = v51;
-  lCopy = v44;
+  v21 = v50;
+  lCopy = v43;
 LABEL_7:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (unsigned)_defaultOptionsForStoreWithProtectionClass:(unsigned __int8 *)class
 {
   classCopy = class;
-  v14[4] = *MEMORY[0x1E69E9840];
+  v13[4] = *MEMORY[0x1E69E9840];
   if (class)
   {
-    v13[0] = *MEMORY[0x1E695D380];
+    v12[0] = *MEMORY[0x1E695D380];
     v3 = MEMORY[0x1E696AD98];
     v4 = class[67];
     v5 = a2;
     v6 = [v3 numberWithInt:v4 ^ 1u];
-    v14[0] = v6;
-    v13[1] = *MEMORY[0x1E695D318];
+    v13[0] = v6;
+    v12[1] = *MEMORY[0x1E695D318];
     v7 = [MEMORY[0x1E696AD98] numberWithInt:classCopy[67] ^ 1u];
     v8 = *MEMORY[0x1E695D3F8];
-    v14[1] = v7;
-    v14[2] = v5;
+    v13[1] = v7;
+    v13[2] = v5;
     v9 = *MEMORY[0x1E695D458];
-    v13[2] = v8;
-    v13[3] = v9;
+    v12[2] = v8;
+    v12[3] = v9;
     v10 = [MEMORY[0x1E696AD98] numberWithBool:classCopy[67]];
-    v14[3] = v10;
-    classCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+    v13[3] = v10;
+    classCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return classCopy;
 }
 
 - (id)_descriptionForStoreWithURL:(void *)l protectionClass:(int)class sync:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (self)
   {
     v8 = [MEMORY[0x1E695D6C8] persistentStoreDescriptionWithURL:a2];
     v9 = [(_DKCoreDataStorage *)self _defaultOptionsForStoreWithProtectionClass:lCopy];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           v15 = [v9 objectForKeyedSubscript:v14];
           [v8 setOption:v15 forKey:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v11);
@@ -2466,8 +2440,6 @@ LABEL_7:
     v8 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
@@ -2504,10 +2476,9 @@ LABEL_7:
 
 - (void)managedObjectModelForVersion:.cold.1()
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Unable to load model: '%@'", v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Unable to load model: '%@'", v0, 0xCu);
 }
 
 - (void)autoMigratePersistentStoreAtURL:(void *)a1 toManagedObjectModel:(uint8_t *)buf protectionClass:error:.cold.1(void *a1, uint8_t *buf)
@@ -2519,39 +2490,30 @@ LABEL_7:
 
 - (void)willAutoMigrateStoreAtURL:fromManagedObjectModel:havingVersion:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didAutoMigratePersistentStore:toManagedObjectModel:havingVersion:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addStoresToCoordinator:protectionClass:error:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)persistentStoreCoordinatorFor:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)persistentStoreCoordinatorFor:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)persistentStoreCoordinatorFor:.cold.2()
@@ -2561,37 +2523,30 @@ LABEL_7:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (BOOL)persistentStoreCoordinatorFor:(char)a1 .cold.3(char a1, uint64_t *a2)
+- (BOOL)persistentStoreCoordinatorFor:(char)a1 .cold.3(char a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v3 = *MEMORY[0x1E69E9840];
+  if ((a1 & 1) == 0)
   {
-    result = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
-    if (result)
-    {
-      v4 = *a2;
-      OUTLINED_FUNCTION_6_1();
-      _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Creating datavault at %@", v6, 0xCu);
-      result = 0;
-    }
+    return 1;
   }
 
-  else
+  result = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+  if (result)
   {
-    result = 1;
+    OUTLINED_FUNCTION_6_1();
+    _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Creating datavault at %@", v2, 0xCu);
+    return 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)persistentStoreCoordinatorFor:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistentStoreCoordinatorFor:(int)a3 .cold.5(int *a1, uint8_t *buf, int a3)
@@ -2611,23 +2566,18 @@ LABEL_7:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)persistentStoreCoordinatorFor:(uint64_t *)a1 .cold.7(uint64_t *a1)
+- (void)persistentStoreCoordinatorFor:.cold.7()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_6_0(&dword_191750000, v2, v3, "Error trying to delete datavault at %@: %@");
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_0(&dword_191750000, v0, v1, "Error trying to delete datavault at %@: %@");
 }
 
 - (void)persistentStoreCoordinatorFor:.cold.8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistentStoreCoordinatorFor:.cold.9()
@@ -2646,31 +2596,24 @@ LABEL_7:
 
 - (void)persistentStoreCoordinatorFor:.cold.11()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistentStoreCoordinatorFor:.cold.12()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)persistentStoreCoordinatorFor:(uint64_t)a1 .cold.13(uint64_t a1)
+- (void)persistentStoreCoordinatorFor:.cold.13()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 80);
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)deleteStorageFor:.cold.1()
@@ -2682,12 +2625,10 @@ LABEL_7:
 
 - (void)copyStorageFor:toDirectory:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

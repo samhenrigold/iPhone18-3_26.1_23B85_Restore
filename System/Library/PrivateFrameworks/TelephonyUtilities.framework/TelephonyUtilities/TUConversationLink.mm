@@ -37,9 +37,9 @@
 
 + (id)baseURLStrings
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v13[0] = @"facetime.apple.com/join";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[1] = *MEMORY[0x1E69E9840];
+  v12[0] = @"facetime.apple.com/join";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   if (_TUIsInternalInstall())
   {
     userConfiguration = [self userConfiguration];
@@ -49,15 +49,13 @@
     {
       userConfiguration2 = [self userConfiguration];
       conversationLinkBaseURLString2 = [userConfiguration2 conversationLinkBaseURLString];
-      v12 = conversationLinkBaseURLString2;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+      v11 = conversationLinkBaseURLString2;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
       v9 = [v8 arrayByAddingObjectsFromArray:v3];
 
       v3 = v9;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -165,7 +163,7 @@ uint64_t __34__TUConversationLink_featureFlags__block_invoke()
 
 - (id)fetchedResults
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695CE28];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
@@ -182,9 +180,9 @@ uint64_t __34__TUConversationLink_featureFlags__block_invoke()
 
   v8 = [v3 tu_contactStoreConfigurationForBundleIdentifier:v7];
 
-  v37 = v8;
-  v36 = [objc_alloc(MEMORY[0x1E695CE18]) initWithConfiguration:v8];
-  v35 = [[TUContactsDataProvider alloc] initWithContactsDataSource:v36];
+  v36 = v8;
+  v35 = [objc_alloc(MEMORY[0x1E695CE18]) initWithConfiguration:v8];
+  v34 = [[TUContactsDataProvider alloc] initWithContactsDataSource:v35];
   array = [MEMORY[0x1E695DF70] array];
   if (fetchedResults__pred_IMPreferredAccountForServiceIMCore != -1)
   {
@@ -221,26 +219,26 @@ uint64_t __34__TUConversationLink_featureFlags__block_invoke()
   originatorHandle = [(TUConversationLink *)self originatorHandle];
   [v20 addObject:originatorHandle];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v22 = v20;
-  v23 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v39;
+    v25 = *v38;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v39 != v25)
+        if (*v38 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v38 + 1) + 8 * i);
+        v27 = *(*(&v37 + 1) + 8 * i);
         value = [v27 value];
         v29 = [v18 containsObject:value];
 
@@ -251,15 +249,13 @@ uint64_t __34__TUConversationLink_featureFlags__block_invoke()
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v24);
   }
 
-  v31 = [(TUContactsDataProvider *)v35 executeBatchFetchRequests:array];
-
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = [(TUContactsDataProvider *)v34 executeBatchFetchRequests:array];
 
   return v31;
 }
@@ -436,7 +432,7 @@ LABEL_5:
 
 + (id)conversationLinkComponentsFromURL:(id)l
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   lCopy = l;
   selfCopy = self;
   if ([objc_opt_class() checkMatchingConversationLinkCriteriaForURL:lCopy])
@@ -449,33 +445,33 @@ LABEL_5:
 
     if (v9)
     {
-      v44 = lCopy;
+      v45 = lCopy;
       v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v46 = 0u;
       v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v43 = v9;
+      v50 = 0u;
+      v44 = v9;
       queryItems = [v9 queryItems];
-      v12 = [queryItems countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v12 = [queryItems countByEnumeratingWithState:&v47 objects:v55 count:16];
       if (!v12)
       {
         goto LABEL_30;
       }
 
       v13 = v12;
-      v14 = *v47;
+      v14 = *v48;
       while (1)
       {
         v15 = 0;
         do
         {
-          if (*v47 != v14)
+          if (*v48 != v14)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v16 = *(*(&v46 + 1) + 8 * v15);
+          v16 = *(*(&v47 + 1) + 8 * v15);
           name = [v16 name];
           v18 = [name isEqualToIgnoringCase:@"v"];
 
@@ -536,13 +532,13 @@ LABEL_24:
 
           if (v32)
           {
-            v33 = TUDefaultLog();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+            v34 = TUDefaultLog(v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               value4 = [v16 value];
               *buf = 138412290;
-              v51 = value4;
-              _os_log_impl(&dword_1956FD000, v33, OS_LOG_TYPE_DEFAULT, "Link had a nickname to pre-fill for the web (%@); we have no use for it, so ignoring", buf, 0xCu);
+              v52 = value4;
+              _os_log_impl(&dword_1956FD000, v34, OS_LOG_TYPE_DEFAULT, "Link had a nickname to pre-fill for the web (%@); we have no use for it, so ignoring", buf, 0xCu);
             }
 
             value5 = [v16 value];
@@ -558,9 +554,9 @@ LABEL_24:
           else
           {
             name5 = [v16 name];
-            v36 = [name5 isEqualToIgnoringCase:@"l"];
+            v37 = [name5 isEqualToIgnoringCase:@"l"];
 
-            if (v36)
+            if (v37)
             {
               value5 = [v16 value];
               if (!value5)
@@ -574,15 +570,15 @@ LABEL_24:
               goto LABEL_24;
             }
 
-            value5 = TUDefaultLog();
+            value5 = TUDefaultLog(v38);
             if (os_log_type_enabled(value5, OS_LOG_TYPE_DEFAULT))
             {
               name6 = [v16 name];
               value6 = [v16 value];
               *buf = 138412546;
-              v51 = name6;
-              v52 = 2112;
-              v53 = value6;
+              v52 = name6;
+              v53 = 2112;
+              v54 = value6;
               _os_log_impl(&dword_1956FD000, value5, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring unrecognized conversation link fragment query item: %@=>%@", buf, 0x16u);
             }
           }
@@ -593,32 +589,30 @@ LABEL_25:
         }
 
         while (v13 != v15);
-        v39 = [queryItems countByEnumeratingWithState:&v46 objects:v54 count:16];
-        v13 = v39;
-        if (!v39)
+        v41 = [queryItems countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v13 = v41;
+        if (!v41)
         {
 LABEL_30:
 
-          v40 = [v10 copy];
-          v9 = v43;
-          lCopy = v44;
+          v42 = [v10 copy];
+          v9 = v44;
+          lCopy = v45;
           goto LABEL_33;
         }
       }
     }
 
-    v40 = 0;
+    v42 = 0;
 LABEL_33:
   }
 
   else
   {
-    v40 = 0;
+    v42 = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-
-  return v40;
+  return v42;
 }
 
 + (id)conversationLinkForURL:(id)l
@@ -678,7 +672,7 @@ LABEL_15:
 
 - (NSURL)URL
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   pseudonym = [(TUConversationLink *)self pseudonym];
   if (![pseudonym length])
   {
@@ -709,12 +703,12 @@ LABEL_6:
 
   else
   {
-    v12 = TUDefaultLog();
+    v12 = TUDefaultLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
+      v14 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Cannot return URL; missing URL fragment for %@", &v15, 0xCu);
+      _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Cannot return URL; missing URL fragment for %@", &v14, 0xCu);
     }
 
     v10 = 0;
@@ -723,36 +717,35 @@ LABEL_6:
   v11 = v10;
 
 LABEL_11:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)baseURLs
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   baseURLStrings = [self baseURLStrings];
-  v4 = [baseURLStrings countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [baseURLStrings countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(baseURLStrings);
         }
 
         v8 = MEMORY[0x1E695DFF8];
-        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@://%@", @"https", *(*(&v15 + 1) + 8 * i)];
+        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@://%@", @"https", *(*(&v14 + 1) + 8 * i)];
         v10 = [v8 URLWithString:v9];
 
         if (v10)
@@ -761,14 +754,13 @@ LABEL_11:
         }
       }
 
-      v5 = [baseURLStrings countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [baseURLStrings countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -817,7 +809,7 @@ LABEL_11:
   v4 = [MEMORY[0x1E696AF20] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
   if (!v4)
   {
-    v5 = TUDefaultLog();
+    v5 = TUDefaultLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(TUConversationLink *)lCopy baseURLComponentsForURL:v5];
@@ -829,20 +821,20 @@ LABEL_11:
 
 - (NSString)URLFragment
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(objc_opt_class(), "conversationLinkVersion")];
   v4 = objc_alloc_init(MEMORY[0x1E696AF20]);
   v5 = [MEMORY[0x1E696AF60] queryItemWithName:@"v" value:v3];
-  v24[0] = v5;
+  v23[0] = v5;
   v6 = MEMORY[0x1E696AF60];
   unprefixedPseudonym = [(TUConversationLink *)self unprefixedPseudonym];
   v8 = [v6 queryItemWithName:@"p" value:unprefixedPseudonym];
-  v24[1] = v8;
+  v23[1] = v8;
   v9 = MEMORY[0x1E696AF60];
   base64PublicKey = [(TUConversationLink *)self base64PublicKey];
   v11 = [v9 queryItemWithName:@"k" value:base64PublicKey];
-  v24[2] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+  v23[2] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
 
   linkName = [(TUConversationLink *)self linkName];
 
@@ -870,8 +862,6 @@ LABEL_11:
 
   stringByRemovingPercentEncoding = [v18 stringByRemovingPercentEncoding];
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return stringByRemovingPercentEncoding;
 }
 
@@ -893,35 +883,35 @@ LABEL_11:
 
 + (BOOL)checkMatchingConversationLinkCriteriaForURL:(id)l
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   lCopy = l;
   fragment = [lCopy fragment];
   if (fragment && (v5 = fragment, [self baseURLs], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v5, v7))
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     baseURLs = [self baseURLs];
-    v9 = [baseURLs countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v9 = [baseURLs countByEnumeratingWithState:&v29 objects:v33 count:16];
     v10 = lCopy;
     if (v9)
     {
       v11 = v9;
-      v12 = *v31;
-      v26 = *v31;
+      v12 = *v30;
+      v25 = *v30;
       do
       {
         v13 = 0;
-        v29 = v11;
+        v28 = v11;
         do
         {
-          if (*v31 != v12)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(baseURLs);
           }
 
-          v14 = [self baseURLComponentsForURL:{*(*(&v30 + 1) + 8 * v13), v26}];
+          v14 = [self baseURLComponentsForURL:{*(*(&v29 + 1) + 8 * v13), v25}];
           scheme = [v14 scheme];
           scheme2 = [v10 scheme];
           if (!TUStringsAreCaseInsensitiveEqualOrNil(scheme, scheme2))
@@ -934,7 +924,7 @@ LABEL_11:
           if (!TUStringsAreCaseInsensitiveEqualOrNil(host, host2))
           {
 
-            v11 = v29;
+            v11 = v28;
 LABEL_13:
 
             goto LABEL_14;
@@ -944,15 +934,15 @@ LABEL_13:
           v19 = baseURLs;
           v21 = v20 = self;
           path = [v10 path];
-          v28 = TUStringsAreCaseInsensitiveEqualOrNil(v21, path);
+          v27 = TUStringsAreCaseInsensitiveEqualOrNil(v21, path);
 
           v10 = lCopy;
           self = v20;
           baseURLs = v19;
-          v12 = v26;
+          v12 = v25;
 
-          v11 = v29;
-          if (v28)
+          v11 = v28;
+          if (v27)
           {
             v23 = 1;
             goto LABEL_18;
@@ -963,7 +953,7 @@ LABEL_14:
         }
 
         while (v11 != v13);
-        v11 = [baseURLs countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v11 = [baseURLs countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v11);
@@ -979,7 +969,6 @@ LABEL_18:
     v10 = lCopy;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -1406,11 +1395,10 @@ LABEL_9:
 
 + (void)baseURLComponentsForURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Failed to parse URL components for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Failed to parse URL components for %@", &v2, 0xCu);
 }
 
 @end

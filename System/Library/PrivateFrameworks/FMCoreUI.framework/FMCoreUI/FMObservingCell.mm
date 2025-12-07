@@ -127,7 +127,7 @@ LABEL_18:
 
   else
   {
-    v19 = LogCategory_Unspecified();
+    v19 = LogCategory_Unspecified(objectCopy);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [FMObservingCell addKVOObservationToken:v19 forObject:?];

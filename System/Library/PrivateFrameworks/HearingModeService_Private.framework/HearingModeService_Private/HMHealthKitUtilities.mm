@@ -207,7 +207,7 @@ void __71__HMHealthKitUtilities_frequencyToHearingDecibelLevelMapFromAudiogram__
         v28 = [*(a1 + 32) sourceRevision];
         v29 = [v28 source];
         v30 = [v29 name];
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMHealthKitUtilities, "+[HMHealthKitUtilities frequencyToHearingDecibelLevelMapFromAudiogram:]_block_invoke_2", 30, "audiogram: %@, invalid ear sensitivity points found", v30);
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -329,9 +329,12 @@ uint64_t __38__HMHealthKitUtilities_sharedInstance__block_invoke()
   if (!self->_activateCalled)
   {
     self->_activateCalled = 1;
-    if (gLogCategory_HMHealthKitUtilities <= 30 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_HMHealthKitUtilities <= 30)
     {
-      [HMHealthKitUtilities _activate];
+      if (gLogCategory_HMHealthKitUtilities != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(HMHealthKitUtilities *)self _activate];
+      }
     }
   }
 }
@@ -349,34 +352,38 @@ uint64_t __38__HMHealthKitUtilities_sharedInstance__block_invoke()
 
 - (void)_invalidate
 {
-  if (gLogCategory_HMHealthKitUtilities <= 30 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_HMHealthKitUtilities <= 30)
   {
-    [HMHealthKitUtilities _invalidate];
+    if (gLogCategory_HMHealthKitUtilities != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(HMHealthKitUtilities *)self _invalidate];
+    }
   }
 
-  featureManagerMap = self->_featureManagerMap;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __35__HMHealthKitUtilities__invalidate__block_invoke;
-  v7[3] = &unk_2796F0118;
-  v7[4] = self;
-  [(NSMutableDictionary *)featureManagerMap enumerateKeysAndObjectsUsingBlock:v7];
-  [(NSMutableDictionary *)self->_featureManagerMap removeAllObjects];
-  v4 = self->_featureManagerMap;
-  self->_featureManagerMap = 0;
+  featureManagerMap = selfCopy->_featureManagerMap;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __35__HMHealthKitUtilities__invalidate__block_invoke;
+  v8[3] = &unk_2796F0118;
+  v8[4] = selfCopy;
+  [(NSMutableDictionary *)featureManagerMap enumerateKeysAndObjectsUsingBlock:v8];
+  [(NSMutableDictionary *)selfCopy->_featureManagerMap removeAllObjects];
+  v5 = selfCopy->_featureManagerMap;
+  selfCopy->_featureManagerMap = 0;
 
-  validAudiograms = self->_validAudiograms;
-  self->_validAudiograms = 0;
+  validAudiograms = selfCopy->_validAudiograms;
+  selfCopy->_validAudiograms = 0;
 
-  invalidAudiograms = self->_invalidAudiograms;
-  self->_invalidAudiograms = 0;
+  invalidAudiograms = selfCopy->_invalidAudiograms;
+  selfCopy->_invalidAudiograms = 0;
 
-  self->_activateCalled = 0;
+  selfCopy->_activateCalled = 0;
 }
 
 - (void)_audiogramsQueryHandler:(id)handler results:(id)results error:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   resultsCopy = results;
   errorCopy = error;
@@ -384,7 +391,7 @@ uint64_t __38__HMHealthKitUtilities_sharedInstance__block_invoke()
   {
     if (gLogCategory_HMHealthKitUtilities <= 90 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
     {
-      [HMHealthKitUtilities _audiogramsQueryHandler:results:error:];
+      [HMHealthKitUtilities _audiogramsQueryHandler:errorCopy results:? error:?];
     }
 
     v11 = +[HMServiceDaemon sharedHMServiceDaemon];
@@ -393,30 +400,30 @@ uint64_t __38__HMHealthKitUtilities_sharedInstance__block_invoke()
 
   else
   {
-    v30 = handlerCopy;
+    v29 = handlerCopy;
     v12 = resultsCopy;
     v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v15 = v12;
-    v16 = [v15 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v32;
+      v18 = *v31;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v32 != v18)
+          if (*v31 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v31 + 1) + 8 * i);
+          v20 = *(*(&v30 + 1) + 8 * i);
           if ([(HMHealthKitUtilities *)self _isAudiogramValid:v20])
           {
             v21 = v13;
@@ -430,7 +437,7 @@ uint64_t __38__HMHealthKitUtilities_sharedInstance__block_invoke()
           [v21 addObject:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v17);
@@ -449,10 +456,8 @@ uint64_t __38__HMHealthKitUtilities_sharedInstance__block_invoke()
     v28 = [(NSArray *)self->_invalidAudiograms copy];
     [v26 reportValidAudiograms:v27 invalidAudiograms:v28 error:0];
 
-    handlerCopy = v30;
+    handlerCopy = v29;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isAudiogramValid:(id)valid
@@ -503,137 +508,137 @@ void __42__HMHealthKitUtilities__isAudiogramValid___block_invoke(uint64_t a1, ui
   v72 = [HMHealthKitUtilities frequencyToHearingDecibelLevelMapFromAudiogram:audiogram];
   if (v72)
   {
-    v5 = +[HMHealthKitUtilities frequencyBins];
-    v6 = [v5 objectAtIndexedSubscript:0];
-    v7 = [v72 objectForKey:v6];
-    v8 = [v7 objectForKey:@"left"];
-    [v8 floatValue];
-    struct->var3.var0 = v9;
+    v7 = +[HMHealthKitUtilities frequencyBins];
+    v8 = [v7 objectAtIndexedSubscript:0];
+    v9 = [v72 objectForKey:v8];
+    v10 = [v9 objectForKey:@"left"];
+    [v10 floatValue];
+    struct->var3.var0 = v11;
 
-    v10 = [v5 objectAtIndexedSubscript:0];
-    v11 = [v72 objectForKey:v10];
-    v12 = [v11 objectForKey:@"right"];
-    [v12 floatValue];
-    struct->var4.var0 = v13;
+    v12 = [v7 objectAtIndexedSubscript:0];
+    v13 = [v72 objectForKey:v12];
+    v14 = [v13 objectForKey:@"right"];
+    [v14 floatValue];
+    struct->var4.var0 = v15;
 
-    v14 = [v5 objectAtIndexedSubscript:1];
-    v15 = [v72 objectForKey:v14];
-    v16 = [v15 objectForKey:@"left"];
-    [v16 floatValue];
-    struct->var3.var1 = v17;
+    v16 = [v7 objectAtIndexedSubscript:1];
+    v17 = [v72 objectForKey:v16];
+    v18 = [v17 objectForKey:@"left"];
+    [v18 floatValue];
+    struct->var3.var1 = v19;
 
-    v18 = [v5 objectAtIndexedSubscript:1];
-    v19 = [v72 objectForKey:v18];
-    v20 = [v19 objectForKey:@"right"];
-    [v20 floatValue];
-    struct->var4.var1 = v21;
+    v20 = [v7 objectAtIndexedSubscript:1];
+    v21 = [v72 objectForKey:v20];
+    v22 = [v21 objectForKey:@"right"];
+    [v22 floatValue];
+    struct->var4.var1 = v23;
 
-    v22 = [v5 objectAtIndexedSubscript:2];
-    v23 = [v72 objectForKey:v22];
-    v24 = [v23 objectForKey:@"left"];
-    [v24 floatValue];
-    struct->var3.var2 = v25;
+    v24 = [v7 objectAtIndexedSubscript:2];
+    v25 = [v72 objectForKey:v24];
+    v26 = [v25 objectForKey:@"left"];
+    [v26 floatValue];
+    struct->var3.var2 = v27;
 
-    v26 = [v5 objectAtIndexedSubscript:2];
-    v27 = [v72 objectForKey:v26];
-    v28 = [v27 objectForKey:@"right"];
-    [v28 floatValue];
-    struct->var4.var2 = v29;
+    v28 = [v7 objectAtIndexedSubscript:2];
+    v29 = [v72 objectForKey:v28];
+    v30 = [v29 objectForKey:@"right"];
+    [v30 floatValue];
+    struct->var4.var2 = v31;
 
-    v30 = [v5 objectAtIndexedSubscript:3];
-    v31 = [v72 objectForKey:v30];
-    v32 = [v31 objectForKey:@"left"];
-    [v32 floatValue];
-    struct->var3.var3 = v33;
+    v32 = [v7 objectAtIndexedSubscript:3];
+    v33 = [v72 objectForKey:v32];
+    v34 = [v33 objectForKey:@"left"];
+    [v34 floatValue];
+    struct->var3.var3 = v35;
 
-    v34 = [v5 objectAtIndexedSubscript:3];
-    v35 = [v72 objectForKey:v34];
-    v36 = [v35 objectForKey:@"right"];
-    [v36 floatValue];
-    struct->var4.var3 = v37;
+    v36 = [v7 objectAtIndexedSubscript:3];
+    v37 = [v72 objectForKey:v36];
+    v38 = [v37 objectForKey:@"right"];
+    [v38 floatValue];
+    struct->var4.var3 = v39;
 
-    v38 = [v5 objectAtIndexedSubscript:5];
-    v39 = [v72 objectForKey:v38];
-    v40 = [v39 objectForKey:@"left"];
-    [v40 floatValue];
-    struct->var3.var5 = v41;
+    v40 = [v7 objectAtIndexedSubscript:5];
+    v41 = [v72 objectForKey:v40];
+    v42 = [v41 objectForKey:@"left"];
+    [v42 floatValue];
+    struct->var3.var5 = v43;
 
-    v42 = [v5 objectAtIndexedSubscript:5];
-    v43 = [v72 objectForKey:v42];
-    v44 = [v43 objectForKey:@"right"];
-    [v44 floatValue];
-    struct->var4.var5 = v45;
+    v44 = [v7 objectAtIndexedSubscript:5];
+    v45 = [v72 objectForKey:v44];
+    v46 = [v45 objectForKey:@"right"];
+    [v46 floatValue];
+    struct->var4.var5 = v47;
 
-    v46 = [v5 objectAtIndexedSubscript:7];
-    v47 = [v72 objectForKey:v46];
-    v48 = [v47 objectForKey:@"left"];
-    [v48 floatValue];
-    struct->var3.var7 = v49;
+    v48 = [v7 objectAtIndexedSubscript:7];
+    v49 = [v72 objectForKey:v48];
+    v50 = [v49 objectForKey:@"left"];
+    [v50 floatValue];
+    struct->var3.var7 = v51;
 
-    v50 = [v5 objectAtIndexedSubscript:7];
-    v51 = [v72 objectForKey:v50];
-    v52 = [v51 objectForKey:@"right"];
-    [v52 floatValue];
-    struct->var4.var7 = v53;
+    v52 = [v7 objectAtIndexedSubscript:7];
+    v53 = [v72 objectForKey:v52];
+    v54 = [v53 objectForKey:@"right"];
+    [v54 floatValue];
+    struct->var4.var7 = v55;
 
-    v54 = [v5 objectAtIndexedSubscript:4];
-    v55 = [v72 objectForKey:v54];
+    v56 = [v7 objectAtIndexedSubscript:4];
+    v57 = [v72 objectForKey:v56];
 
-    if (v55)
+    if (v57)
     {
-      v56 = [v55 objectForKey:@"left"];
-      [v56 floatValue];
-      struct->var3.var4 = v57;
-
-      v58 = [v55 objectForKey:@"right"];
+      v58 = [v57 objectForKey:@"left"];
       [v58 floatValue];
-      struct->var4.var4 = v59;
+      struct->var3.var4 = v59;
+
+      v60 = [v57 objectForKey:@"right"];
+      [v60 floatValue];
+      struct->var4.var4 = v61;
 
       goto LABEL_8;
     }
 
     var4 = (struct->var3.var3 + struct->var3.var5) * 0.5;
     struct->var3.var4 = var4;
-    v61 = (struct->var4.var3 + struct->var4.var5) * 0.5;
-    struct->var4.var4 = v61;
+    v63 = (struct->var4.var3 + struct->var4.var5) * 0.5;
+    struct->var4.var4 = v63;
     if (gLogCategory_HMHealthKitUtilities <= 30)
     {
       if (gLogCategory_HMHealthKitUtilities != -1)
       {
 LABEL_6:
-        v70 = var4;
-        v71 = v61;
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMHealthKitUtilities, "[HMHealthKitUtilities updateHMSettingsStruct:fromAudiogram:]", 30, "interpolating sensitivity point at 3000Hz, leftEar: %f dbHL, rightEar: %f dbHL", var4, v63);
         goto LABEL_8;
       }
 
       if (_LogCategory_Initialize())
       {
         var4 = struct->var3.var4;
-        v61 = struct->var4.var4;
+        v63 = struct->var4.var4;
         goto LABEL_6;
       }
     }
 
 LABEL_8:
-    v62 = [v5 objectAtIndexedSubscript:{6, *&v70, *&v71}];
-    v63 = [v72 objectForKey:v62];
+    v64 = [v7 objectAtIndexedSubscript:6];
+    v65 = [v72 objectForKey:v64];
 
-    if (v63)
+    if (v65)
     {
-      v64 = [v63 objectForKey:@"left"];
-      [v64 floatValue];
-      struct->var3.var6 = v65;
-
-      v66 = [v63 objectForKey:@"right"];
+      v66 = [v65 objectForKey:@"left"];
       [v66 floatValue];
-      struct->var4.var6 = v67;
+      struct->var3.var6 = v67;
+
+      v68 = [v65 objectForKey:@"right"];
+      [v68 floatValue];
+      struct->var4.var6 = v69;
     }
 
     else
     {
-      struct->var3.var6 = (struct->var3.var5 + struct->var3.var7) * 0.5;
-      struct->var4.var6 = (struct->var4.var5 + struct->var4.var7) * 0.5;
+      var6 = (struct->var3.var5 + struct->var3.var7) * 0.5;
+      struct->var3.var6 = var6;
+      v71 = (struct->var4.var5 + struct->var4.var7) * 0.5;
+      struct->var4.var6 = v71;
       if (gLogCategory_HMHealthKitUtilities <= 30)
       {
         if (gLogCategory_HMHealthKitUtilities == -1)
@@ -644,10 +649,10 @@ LABEL_8:
           }
 
           var6 = struct->var3.var6;
-          v69 = struct->var4.var6;
+          v71 = struct->var4.var6;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMHealthKitUtilities, "[HMHealthKitUtilities updateHMSettingsStruct:fromAudiogram:]", 30, "interpolating sensitivity point at 6000Hz, leftEar: %f dbHL, rightEar: %f dbHL", var6, v71);
       }
     }
 
@@ -656,7 +661,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  [HMHealthKitUtilities updateHMSettingsStruct:fromAudiogram:];
+  [(HMHealthKitUtilities *)0 updateHMSettingsStruct:v5 fromAudiogram:v6];
 LABEL_15:
 }
 
@@ -679,12 +684,10 @@ LABEL_15:
 
 void __70__HMHealthKitUtilities_featureStatusProviding_didUpdateFeatureStatus___block_invoke(uint64_t a1)
 {
-  v8 = [*(a1 + 32) featureIdentifier];
+  v6 = [*(a1 + 32) featureIdentifier];
   if (gLogCategory_HMHealthKitUtilities <= 30 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
   {
-    v6 = v8;
-    v7 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMHealthKitUtilities, "[HMHealthKitUtilities featureStatusProviding:didUpdateFeatureStatus:]_block_invoke", 30, "Region support changed for identifier %@: %@", v6, *(a1 + 40));
   }
 
   v3 = *(a1 + 40);
@@ -768,7 +771,7 @@ void __70__HMHealthKitUtilities_featureStatusProviding_didUpdateFeatureStatus___
     {
       if (gLogCategory_HMHealthKitUtilities <= 90 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
       {
-        [HMHealthKitUtilities _registerForRegionStatusUpdatesWithFeatureIdentifier:];
+        [HMHealthKitUtilities _registerForRegionStatusUpdatesWithFeatureIdentifier:v12];
       }
 
       [(NSMutableDictionary *)self->_featureManagerMap setObject:0 forKeyedSubscript:identifierCopy];
@@ -831,9 +834,7 @@ void __70__HMHealthKitUtilities_featureStatusProviding_didUpdateFeatureStatus___
   {
     if (gLogCategory_HMHealthKitUtilities <= 10 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
     {
-      v28 = *(off_2796F01D0 + (((intValue << 56) - 0x100000000000000) >> 53));
-LABEL_23:
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMHealthKitUtilities, "[HMHealthKitUtilities _updateHMRegionStatusFromFeatureStatus:featureIdentifier:]", 10, "Region support NOT changed for identifier %@: %s, whyNotVisible: %@, whyWeCantUse: %@", identifierCopy, *(off_2796F01D0 + (((intValue << 56) - 0x100000000000000) >> 53)), highestPriorityUnsatisfiedRequirement, highestPriorityUnsatisfiedRequirement2);
     }
   }
 
@@ -844,27 +845,31 @@ LABEL_23:
 
     if (gLogCategory_HMHealthKitUtilities <= 30 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
     {
-      if ((intValue & 0xFC) == 0)
+      if ((intValue & 0xFC) != 0)
+      {
+        v26 = "?";
+      }
+
+      else
       {
         v26 = off_2796F01B0[intValue & 3];
       }
 
-      v29 = off_2796F01D0[v19 - 1];
-      goto LABEL_23;
+      LogPrintF(&gLogCategory_HMHealthKitUtilities, "[HMHealthKitUtilities _updateHMRegionStatusFromFeatureStatus:featureIdentifier:]", 30, "Region support changed for identifier %@: %s --> %s, whyNotVisible: %@, whyWeCantUse: %@", identifierCopy, v26, off_2796F01D0[v19 - 1], highestPriorityUnsatisfiedRequirement, highestPriorityUnsatisfiedRequirement2);
     }
   }
 
   return intValue != v19;
 }
 
-- (uint64_t)_isAudiogramValid:(uint64_t)result .cold.1(uint64_t result)
+- (_BYTE)_isAudiogramValid:(_BYTE *)result .cold.1(_BYTE *result)
 {
   v1 = result;
   if (gLogCategory_HMHealthKitUtilities <= 10)
   {
     if (gLogCategory_HMHealthKitUtilities != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_HMHealthKitUtilities, "[HMHealthKitUtilities _isAudiogramValid:]", 10, "invalid audiogram");
     }
   }
 
@@ -872,11 +877,11 @@ LABEL_23:
   return result;
 }
 
-- (void)updateHMSettingsStruct:fromAudiogram:.cold.1()
+- (void)updateHMSettingsStruct:(uint64_t)a3 fromAudiogram:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_HMHealthKitUtilities <= 30 && (gLogCategory_HMHealthKitUtilities != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&gLogCategory_HMHealthKitUtilities, "[HMHealthKitUtilities updateHMSettingsStruct:fromAudiogram:]", a3, "failed to process audiogram");
   }
 }
 

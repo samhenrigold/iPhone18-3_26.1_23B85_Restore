@@ -21,27 +21,27 @@
 
     if (webui_safariCookieAcceptPolicyEnumValue == 1)
     {
-      v14 = 3;
+      v16 = 3;
     }
 
     else
     {
-      v14 = 1;
+      v16 = 1;
     }
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __115__WBSImageFetchingURLSessionTaskManager_ReadingListMetadataFetcherAdditions__fetchThumbnailForBookmark_completion___block_invoke;
-    v16[3] = &unk_2781D7CC0;
-    v18 = v6;
-    v17 = readingListIconURL;
-    [self downloadImageWithURL:v11 options:v14 completionHandler:v16];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __115__WBSImageFetchingURLSessionTaskManager_ReadingListMetadataFetcherAdditions__fetchThumbnailForBookmark_completion___block_invoke;
+    v18[3] = &unk_2781D7CC0;
+    v20 = v6;
+    v19 = readingListIconURL;
+    [self downloadImageWithURL:v11 options:v16 completionHandler:v18];
   }
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXReadingList(v12, v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [WBSImageFetchingURLSessionTaskManager(ReadingListMetadataFetcherAdditions) fetchThumbnailForBookmark:completion:];
     }

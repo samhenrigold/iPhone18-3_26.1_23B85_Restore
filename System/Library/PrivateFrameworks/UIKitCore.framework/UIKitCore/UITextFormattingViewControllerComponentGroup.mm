@@ -59,7 +59,7 @@
       v5 = equalCopy;
       identifier = [(UITextFormattingViewControllerComponentGroup *)self identifier];
       identifier2 = [(UITextFormattingViewControllerComponentGroup *)v5 identifier];
-      if ([identifier isEqualToString:identifier2])
+      if (objc_msgSend_isEqualToString_(identifier))
       {
         components = [(UITextFormattingViewControllerComponentGroup *)self components];
         components2 = [(UITextFormattingViewControllerComponentGroup *)v5 components];

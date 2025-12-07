@@ -22,7 +22,6 @@
 - (void)session:(id)session object:(id)object didUpdateRegion:(id)region previousRegion:(id)previousRegion
 {
   swift_getObjectType();
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC12searchpartyd13BubbleManager_lock);
   objectCopy = object;
   regionCopy = region;
   selfCopy = self;
@@ -34,7 +33,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_100C2FBF4();
+  sub_100C2FBF4(errorCopy);
 }
 
 - (void)session:(id)session didInvalidateWithError:(id)error
@@ -42,7 +41,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_100C2FE14();
+  sub_100C2FE14(errorCopy);
 }
 
 - (void)sessionSuspensionEnded:(id)ended

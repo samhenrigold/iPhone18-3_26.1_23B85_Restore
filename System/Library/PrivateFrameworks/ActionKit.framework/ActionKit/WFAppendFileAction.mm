@@ -81,7 +81,7 @@
 
 - (void)runAsynchronouslyWithInput:(id)input storageService:(id)service
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   serviceCopy = service;
   filePathKey = [(WFStorageServiceAction *)self filePathKey];
@@ -109,34 +109,32 @@
     }
 
     v17 = v16 | v15;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __64__WFAppendFileAction_runAsynchronouslyWithInput_storageService___block_invoke;
-    v25[3] = &unk_278C1B168;
-    v25[4] = self;
-    v26 = serviceCopy;
-    v27 = v10;
-    v28 = v9;
-    v29 = v17;
-    [inputCopy getStringRepresentation:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __64__WFAppendFileAction_runAsynchronouslyWithInput_storageService___block_invoke;
+    v24[3] = &unk_278C1B168;
+    v24[4] = self;
+    v25 = serviceCopy;
+    v26 = v10;
+    v27 = v9;
+    v28 = v17;
+    [inputCopy getStringRepresentation:v24];
   }
 
   else
   {
     v18 = MEMORY[0x277CCA9B8];
     v19 = *MEMORY[0x277D7CB30];
-    v30[0] = *MEMORY[0x277CCA470];
+    v29[0] = *MEMORY[0x277CCA470];
     v20 = WFLocalizedString(@"No File Path Provided");
-    v31[0] = v20;
-    v30[1] = *MEMORY[0x277CCA450];
+    v30[0] = v20;
+    v29[1] = *MEMORY[0x277CCA450];
     v21 = WFLocalizedString(@"You must specify a filename or path in Append to File.");
-    v31[1] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v30[1] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
     v23 = [v18 errorWithDomain:v19 code:5 userInfo:v22];
     [(WFAppendFileAction *)self finishRunningWithError:v23];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WFAppendFileAction_runAsynchronouslyWithInput_storageService___block_invoke(uint64_t a1, void *a2, uint64_t a3)

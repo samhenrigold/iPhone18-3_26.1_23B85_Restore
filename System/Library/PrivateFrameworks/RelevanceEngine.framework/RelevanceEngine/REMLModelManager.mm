@@ -22,11 +22,11 @@
 
 - (REMLModelManager)initWithRelevanceEngine:(id)engine
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
-  v85.receiver = self;
-  v85.super_class = REMLModelManager;
-  v5 = [(RERelevanceEngineSubsystem *)&v85 initWithRelevanceEngine:engineCopy];
+  v84.receiver = self;
+  v84.super_class = REMLModelManager;
+  v5 = [(RERelevanceEngineSubsystem *)&v84 initWithRelevanceEngine:engineCopy];
   if (v5)
   {
     configuration = [engineCopy configuration];
@@ -62,33 +62,33 @@
     lastCacheResetDate = v5->_lastCacheResetDate;
     v5->_lastCacheResetDate = date;
 
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     configuration6 = [engineCopy configuration];
     interactionDescriptors = [configuration6 interactionDescriptors];
 
-    v25 = [interactionDescriptors countByEnumeratingWithState:&v81 objects:v89 count:16];
+    v25 = [interactionDescriptors countByEnumeratingWithState:&v80 objects:v88 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v82;
+      v27 = *v81;
       v28 = 0.0;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v82 != v27)
+          if (*v81 != v27)
           {
             objc_enumerationMutation(interactionDescriptors);
           }
 
-          [*(*(&v81 + 1) + 8 * i) weight];
+          [*(*(&v80 + 1) + 8 * i) weight];
           v28 = v28 + v30;
         }
 
-        v26 = [interactionDescriptors countByEnumeratingWithState:&v81 objects:v89 count:16];
+        v26 = [interactionDescriptors countByEnumeratingWithState:&v80 objects:v88 count:16];
       }
 
       while (v26);
@@ -101,12 +101,12 @@
 
     if (fabsf(v28) < 0.00000011921)
     {
-      RERaiseInternalException(*MEMORY[0x277CBE660], @"Interaction descriptors must have weights which sum to a non-zero value or you're going to have a bad time.", v31, v32, v33, v34, v35, v36, v74);
+      RERaiseInternalException(*MEMORY[0x277CBE660], @"Interaction descriptors must have weights which sum to a non-zero value or you're going to have a bad time.", v31, v32, v33, v34, v35, v36, v73);
     }
 
     v37 = 0x27D84B000;
     v38 = 0x27D84B000;
-    v76 = mlFeatures;
+    v75 = mlFeatures;
     if ([(REMLModelManager *)v5 _loadModelAtPath:v5->_modelFileLocation mlFeatures:mlFeatures checkModelVersion:1])
     {
       v5->_validModel = 1;
@@ -129,35 +129,35 @@
       v37 = 0x27D84B000;
       if (!v43)
       {
-        v75 = engineCopy;
-        v44 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v76, "count")}];
+        v74 = engineCopy;
+        v44 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v75, "count")}];
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
         v79 = 0u;
-        v80 = 0u;
-        v45 = v76;
-        v46 = [v45 countByEnumeratingWithState:&v77 objects:v88 count:16];
+        v45 = v75;
+        v46 = [v45 countByEnumeratingWithState:&v76 objects:v87 count:16];
         if (v46)
         {
           v47 = v46;
-          v48 = *v78;
+          v48 = *v77;
           do
           {
             for (j = 0; j != v47; ++j)
             {
-              if (*v78 != v48)
+              if (*v77 != v48)
               {
                 objc_enumerationMutation(v45);
               }
 
-              v50 = *(*(&v77 + 1) + 8 * j);
+              v50 = *(*(&v76 + 1) + 8 * j);
               if ([v50 featureType] == 2)
               {
                 v51 = RELogForDomain(0);
                 if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v87 = v50;
+                  v86 = v50;
                   _os_log_impl(&dword_22859F000, v51, OS_LOG_TYPE_DEFAULT, "Skipping loading ml feature %@ from provided configuration since it isn't a categorcial feature", buf, 0xCu);
                 }
               }
@@ -168,7 +168,7 @@
               }
             }
 
-            v47 = [v45 countByEnumeratingWithState:&v77 objects:v88 count:16];
+            v47 = [v45 countByEnumeratingWithState:&v76 objects:v87 count:16];
           }
 
           while (v47);
@@ -189,7 +189,7 @@
         model = v5->_model;
         v5->_model = v59;
 
-        engineCopy = v75;
+        engineCopy = v74;
       }
     }
 
@@ -222,7 +222,6 @@
     [defaultCenter addObserver:v5 selector:sel__logMetrics name:@"REDidCollectMetrics" object:0];
   }
 
-  v72 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -306,12 +305,12 @@ void __41__REMLModelManager__saveDataStoresToURL___block_invoke(uint64_t a1, voi
 - (BOOL)_loadModelAtPath:(id)path mlFeatures:(id)features checkModelVersion:(BOOL)version
 {
   versionCopy = version;
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   v9 = featuresCopy;
   if (path)
   {
-    v84 = featuresCopy;
+    v83 = featuresCopy;
     v10 = [MEMORY[0x277CBEBC0] fileURLWithPath:path];
     v11 = [v10 URLByAppendingPathComponent:@"model"];
 
@@ -320,9 +319,9 @@ void __41__REMLModelManager__saveDataStoresToURL___block_invoke(uint64_t a1, voi
     v14 = [defaultManager fileExistsAtPath:path];
 
     [v11 URLByAppendingPathComponent:@"version"];
-    v83 = v90[1] = 0;
+    v82 = v89[1] = 0;
     v15 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:? encoding:? error:?];
-    v81 = 0;
+    v80 = 0;
     if (v14)
     {
       v16 = v15 == 0;
@@ -337,12 +336,12 @@ void __41__REMLModelManager__saveDataStoresToURL___block_invoke(uint64_t a1, voi
     {
       if (!v15 && versionCopy)
       {
-        absoluteString = [v83 absoluteString];
-        v91 = 0;
+        absoluteString = [v82 absoluteString];
+        v90 = 0;
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v20 = [defaultManager2 fileExistsAtPath:absoluteString isDirectory:&v91];
+        v20 = [defaultManager2 fileExistsAtPath:absoluteString isDirectory:&v90];
 
-        v21 = v91;
+        v21 = v90;
         v22 = 0;
         v15 = 0;
         if (!v20 || v21)
@@ -385,7 +384,7 @@ LABEL_22:
         v22 = 0;
         v11 = v25;
 LABEL_26:
-        v80 = v11;
+        v79 = v11;
         v34 = [v11 URLByAppendingPathComponent:@"model"];
         v35 = [REMLLinearModel alloc];
         if (self->_orderedFeatures)
@@ -406,28 +405,28 @@ LABEL_26:
         model = self->_model;
         self->_model = v41;
 
-        v79 = v15;
-        v82 = v34;
+        v78 = v15;
+        v81 = v34;
         if (v22)
         {
           path2 = [v34 path];
           requiresDirectory = [(REMLLinearModel *)self->_model requiresDirectory];
-          v91 = 0;
+          v90 = 0;
           v45 = MEMORY[0x277CCAA00];
           v46 = path2;
           defaultManager3 = [v45 defaultManager];
-          v48 = [defaultManager3 fileExistsAtPath:v46 isDirectory:&v91];
+          v48 = [defaultManager3 fileExistsAtPath:v46 isDirectory:&v90];
 
-          v49 = v91;
+          v49 = v90;
           v24 = 1;
           if (v48 && v49 == requiresDirectory)
           {
             v50 = self->_model;
-            v90[0] = v81;
-            v51 = [(REMLModel *)v50 loadModelFromURL:v34 error:v90];
-            v52 = v90[0];
+            v89[0] = v80;
+            v51 = [(REMLModel *)v50 loadModelFromURL:v34 error:v89];
+            v52 = v89[0];
 
-            v77 = v52;
+            v76 = v52;
             if (!v51)
             {
               v53 = RELogForDomain(4);
@@ -441,26 +440,26 @@ LABEL_26:
 
 LABEL_38:
             self->_supportsContentRanking = 0;
+            v85 = 0u;
             v86 = 0u;
             v87 = 0u;
             v88 = 0u;
-            v89 = 0u;
             v54 = +[REContentRelevanceProviderManager _features];
-            v55 = [v54 countByEnumeratingWithState:&v86 objects:v92 count:16];
+            v55 = [v54 countByEnumeratingWithState:&v85 objects:v91 count:16];
             if (v55)
             {
               v56 = v55;
-              v57 = *v87;
+              v57 = *v86;
               while (2)
               {
                 for (i = 0; i != v56; ++i)
                 {
-                  if (*v87 != v57)
+                  if (*v86 != v57)
                   {
                     objc_enumerationMutation(v54);
                   }
 
-                  v59 = *(*(&v86 + 1) + 8 * i);
+                  v59 = *(*(&v85 + 1) + 8 * i);
                   relevanceEngine2 = [(RERelevanceEngineSubsystem *)self relevanceEngine];
                   rootFeatures = [relevanceEngine2 rootFeatures];
                   LODWORD(v59) = [rootFeatures containsFeature:v59];
@@ -472,7 +471,7 @@ LABEL_38:
                   }
                 }
 
-                v56 = [v54 countByEnumeratingWithState:&v86 objects:v92 count:16];
+                v56 = [v54 countByEnumeratingWithState:&v85 objects:v91 count:16];
                 if (v56)
                 {
                   continue;
@@ -490,11 +489,11 @@ LABEL_48:
               contentRanker = self->_contentRanker;
               self->_contentRanker = v62;
 
-              v64 = v80;
-              v65 = v78;
+              v64 = v79;
+              v65 = v77;
               if (v24)
               {
-                path3 = [v80 path];
+                path3 = [v79 path];
                 v67 = [path3 stringByAppendingPathComponent:@"content.ctx"];
 
                 defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
@@ -503,47 +502,47 @@ LABEL_48:
                 if (v69)
                 {
                   v70 = self->_contentRanker;
-                  v85 = v78;
-                  v71 = [(REContentRanker *)v70 load:v67 error:&v85];
-                  v72 = v85;
+                  v84 = v77;
+                  v71 = [(REContentRanker *)v70 load:v67 error:&v84];
+                  v72 = v84;
 
                   if (!v71)
                   {
                     v73 = RELogForDomain(4);
-                    v74 = v82;
+                    v74 = v81;
                     if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                     {
                       [REMLModelManager _loadModelAtPath:mlFeatures:checkModelVersion:];
                     }
 
-                    v9 = v84;
+                    v9 = v83;
                     goto LABEL_59;
                   }
                 }
 
                 else
                 {
-                  v72 = v78;
+                  v72 = v77;
                 }
 
-                v9 = v84;
-                v74 = v82;
+                v9 = v83;
+                v74 = v81;
 LABEL_59:
 
                 v65 = v72;
                 goto LABEL_60;
               }
 
-              v9 = v84;
-              v74 = v82;
+              v9 = v83;
+              v74 = v81;
             }
 
             else
             {
-              v9 = v84;
-              v64 = v80;
-              v74 = v82;
-              v65 = v78;
+              v9 = v83;
+              v64 = v79;
+              v74 = v81;
+              v65 = v77;
             }
 
 LABEL_60:
@@ -557,7 +556,7 @@ LABEL_60:
           v24 = 0;
         }
 
-        v77 = v81;
+        v76 = v80;
         goto LABEL_38;
       }
 
@@ -566,7 +565,7 @@ LABEL_60:
 
     if (v14)
     {
-      v30 = [(REMLModelManager *)self _createOrderFeatureListFromModelFileURL:v11 mlFeatures:v84];
+      v30 = [(REMLModelManager *)self _createOrderFeatureListFromModelFileURL:v11 mlFeatures:v83];
       v31 = self->_orderedFeatures;
       self->_orderedFeatures = v30;
 
@@ -580,41 +579,40 @@ LABEL_60:
   LOBYTE(v24) = 0;
 LABEL_61:
 
-  v75 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (id)_createOrderFeatureListFromModelFileURL:(id)l mlFeatures:(id)features
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   lCopy = l;
   featuresCopy = features;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   v8 = featuresCopy;
-  v9 = [v8 countByEnumeratingWithState:&v71 objects:v79 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v70 objects:v78 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v72;
+    v11 = *v71;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v72 != v11)
+        if (*v71 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v71 + 1) + 8 * i);
+        v13 = *(*(&v70 + 1) + 8 * i);
         name = [v13 name];
         [dictionary setObject:v13 forKeyedSubscript:name];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v71 objects:v79 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v70 objects:v78 count:16];
     }
 
     while (v10);
@@ -627,46 +625,46 @@ LABEL_61:
   path = [v17 path];
   v20 = [defaultManager fileExistsAtPath:path];
 
-  v55 = v15;
+  v54 = v15;
   if (v20)
   {
-    v70 = 0;
-    v21 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v17 encoding:4 error:&v70];
-    v53 = v70;
+    v69 = 0;
+    v21 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v17 encoding:4 error:&v69];
+    v52 = v69;
     if (v21)
     {
-      v50 = v17;
-      v51 = v8;
-      v52 = lCopy;
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
+      v49 = v17;
+      v50 = v8;
+      v51 = lCopy;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       v22 = 0x277CCA000uLL;
       newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
-      v49 = v21;
+      v48 = v21;
       v24 = [v21 componentsSeparatedByCharactersInSet:newlineCharacterSet];
 
       obj = v24;
-      v58 = [v24 countByEnumeratingWithState:&v66 objects:v78 count:16];
-      if (!v58)
+      v57 = [v24 countByEnumeratingWithState:&v65 objects:v77 count:16];
+      if (!v57)
       {
         goto LABEL_34;
       }
 
-      v57 = *v67;
-      v54 = v16;
+      v56 = *v66;
+      v53 = v16;
       while (1)
       {
         v25 = 0;
         do
         {
-          if (*v67 != v57)
+          if (*v66 != v56)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v66 + 1) + 8 * v25);
+          v26 = *(*(&v65 + 1) + 8 * v25);
           whitespaceCharacterSet = [*(v22 + 2304) whitespaceCharacterSet];
           v28 = [v26 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -682,7 +680,7 @@ LABEL_61:
                 if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v77 = v30;
+                  v76 = v30;
                   _os_log_impl(&dword_22859F000, v31, OS_LOG_TYPE_DEFAULT, "Skipping loading exisiting feature %@ since it isn't a categorcial feature", buf, 0xCu);
                 }
 
@@ -707,12 +705,12 @@ LABEL_61:
                 dispatch_once(&_createOrderFeatureListFromModelFileURL_mlFeatures__onceToken, block);
               }
 
-              v63[0] = MEMORY[0x277D85DD0];
-              v63[1] = 3221225472;
-              v63[2] = __71__REMLModelManager__createOrderFeatureListFromModelFileURL_mlFeatures___block_invoke_53;
-              v63[3] = &unk_2785FB498;
-              v64 = v16;
-              v32 = MEMORY[0x22AABC5E0](v63);
+              v62[0] = MEMORY[0x277D85DD0];
+              v62[1] = 3221225472;
+              v62[2] = __71__REMLModelManager__createOrderFeatureListFromModelFileURL_mlFeatures___block_invoke_53;
+              v62[3] = &unk_2785FB498;
+              v63 = v16;
+              v32 = MEMORY[0x22AABC5E0](v62);
               v33 = 1;
               v34 = &stru_283B97458;
               do
@@ -733,8 +731,8 @@ LABEL_61:
               while (((v32)[2](v32, v34) & 1) != 0);
               v30 = [REFeature featureWithName:v34 featureType:1];
 
-              v16 = v54;
-              v15 = v55;
+              v16 = v53;
+              v15 = v54;
               v22 = 0x277CCA000;
             }
 
@@ -746,9 +744,9 @@ LABEL_31:
           ++v25;
         }
 
-        while (v25 != v58);
-        v58 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
-        if (!v58)
+        while (v25 != v57);
+        v57 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
+        if (!v57)
         {
 LABEL_34:
           v37 = v16;
@@ -758,8 +756,8 @@ LABEL_34:
       }
     }
 
-    v48 = RELogForDomain(4);
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v47 = RELogForDomain(4);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
       [REMLModelManager _createOrderFeatureListFromModelFileURL:mlFeatures:];
     }
@@ -769,39 +767,39 @@ LABEL_34:
 
   else
   {
-    v50 = v17;
-    v51 = v8;
+    v49 = v17;
+    v50 = v8;
     v37 = v16;
-    v52 = lCopy;
-    v53 = 0;
+    v51 = lCopy;
+    v52 = 0;
 LABEL_36:
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v38 = v15;
-    v39 = [v38 countByEnumeratingWithState:&v59 objects:v75 count:16];
+    v39 = [v38 countByEnumeratingWithState:&v58 objects:v74 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v60;
+      v41 = *v59;
       do
       {
         for (j = 0; j != v40; ++j)
         {
-          if (*v60 != v41)
+          if (*v59 != v41)
           {
             objc_enumerationMutation(v38);
           }
 
-          v43 = *(*(&v59 + 1) + 8 * j);
+          v43 = *(*(&v58 + 1) + 8 * j);
           if ([v43 featureType] == 2)
           {
             v44 = RELogForDomain(0);
             if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v77 = v43;
+              v76 = v43;
               _os_log_impl(&dword_22859F000, v44, OS_LOG_TYPE_DEFAULT, "Skipping creating remaining feature %@ since it isn't a categorcial feature", buf, 0xCu);
             }
           }
@@ -812,7 +810,7 @@ LABEL_36:
           }
         }
 
-        v40 = [v38 countByEnumeratingWithState:&v59 objects:v75 count:16];
+        v40 = [v38 countByEnumeratingWithState:&v58 objects:v74 count:16];
       }
 
       while (v40);
@@ -820,13 +818,11 @@ LABEL_36:
 
     v16 = v37;
     v45 = [v37 copy];
-    v8 = v51;
-    lCopy = v52;
-    v17 = v50;
-    v15 = v55;
+    v8 = v50;
+    lCopy = v51;
+    v17 = v49;
+    v15 = v54;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v45;
 }
@@ -842,27 +838,27 @@ void __71__REMLModelManager__createOrderFeatureListFromModelFileURL_mlFeatures__
 
 uint64_t __71__REMLModelManager__createOrderFeatureListFromModelFileURL_mlFeatures___block_invoke_53(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * i) name];
+        v8 = [*(*(&v11 + 1) + 8 * i) name];
         v9 = [v8 isEqualToString:v3];
 
         if (v9)
@@ -872,7 +868,7 @@ uint64_t __71__REMLModelManager__createOrderFeatureListFromModelFileURL_mlFeatur
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -884,21 +880,18 @@ uint64_t __71__REMLModelManager__createOrderFeatureListFromModelFileURL_mlFeatur
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)createOutputFeatureFromDouble:(double)double error:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v6 = objc_alloc(MEMORY[0x277CBFED0]);
-  v12 = @"ModelPrediction";
+  v11 = @"ModelPrediction";
   v7 = [MEMORY[0x277CBFEF8] featureValueWithDouble:double];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v6 initWithDictionary:v8 error:error];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -946,9 +939,9 @@ LABEL_11:
 
       if ((v23 & 1) == 0)
       {
-        v66 = RELogForDomain(4);
+        v67 = RELogForDomain(4);
         v25 = v12;
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           [REMLModelManager _saveModelToDisk:];
         }
@@ -957,7 +950,7 @@ LABEL_11:
         v30 = v11;
         if (disk)
         {
-          v67 = v24;
+          v68 = v24;
           v20 = 0;
           *disk = v24;
           goto LABEL_82;
@@ -995,9 +988,9 @@ LABEL_37:
 
       if ((v32 & 1) == 0)
       {
-        v68 = RELogForDomain(4);
+        v69 = RELogForDomain(4);
         v30 = v11;
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
           [REMLModelManager _saveModelToDisk:];
         }
@@ -1005,7 +998,7 @@ LABEL_37:
         v7 = v96;
         if (disk)
         {
-          v69 = v24;
+          v70 = v24;
           v20 = 0;
           *disk = v24;
         }
@@ -1040,35 +1033,35 @@ LABEL_37:
 
     if (v35)
     {
-      v36 = v29;
+      v37 = v29;
       v97 = v7;
-      v37 = MEMORY[0x277CCACA8];
+      v38 = MEMORY[0x277CCACA8];
       modelVersionNumber = selfCopy2->_modelVersionNumber;
-      v39 = REBuildVersion();
-      v40 = [v37 stringWithFormat:@"Version: %llu\nSystem: %@\n", modelVersionNumber, v39];
+      v40 = REBuildVersion(v36);
+      v41 = [v38 stringWithFormat:@"Version: %llu\nSystem: %@\n", modelVersionNumber, v40];
 
-      v41 = [v25 URLByAppendingPathComponent:@"version"];
+      v42 = [v25 URLByAppendingPathComponent:@"version"];
       v109 = v24;
-      v92 = v40;
-      LOBYTE(v39) = [v40 writeToURL:v41 atomically:1 encoding:4 error:&v109];
-      v42 = v109;
+      v92 = v41;
+      LOBYTE(v40) = [v41 writeToURL:v42 atomically:1 encoding:4 error:&v109];
+      v43 = v109;
 
-      if ((v39 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
-        v70 = RELogForDomain(4);
-        v56 = v97;
-        v29 = v36;
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v71 = RELogForDomain(4);
+        v57 = v97;
+        v29 = v37;
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           [REMLModelManager _saveModelToDisk:];
         }
 
-        v71 = v92;
+        v72 = v92;
         if (diskCopy2)
         {
-          v72 = v42;
+          v73 = v43;
           v20 = 0;
-          *diskCopy2 = v42;
+          *diskCopy2 = v43;
         }
 
         else
@@ -1080,58 +1073,58 @@ LABEL_37:
       }
 
       v91 = v30;
-      v94 = v36;
-      v43 = [MEMORY[0x277CCAB68] stringWithCapacity:{15 * -[NSArray count](selfCopy2->_orderedFeatures, "count")}];
+      v94 = v37;
+      v44 = [MEMORY[0x277CCAB68] stringWithCapacity:{15 * -[NSArray count](selfCopy2->_orderedFeatures, "count")}];
       v105 = 0u;
       v106 = 0u;
       v107 = 0u;
       v108 = 0u;
-      v44 = selfCopy2->_orderedFeatures;
-      v45 = [(NSArray *)v44 countByEnumeratingWithState:&v105 objects:v114 count:16];
-      if (v45)
+      v45 = selfCopy2->_orderedFeatures;
+      v46 = [(NSArray *)v45 countByEnumeratingWithState:&v105 objects:v114 count:16];
+      if (v46)
       {
-        v46 = v45;
-        v47 = *v106;
+        v47 = v46;
+        v48 = *v106;
         do
         {
-          for (i = 0; i != v46; ++i)
+          for (i = 0; i != v47; ++i)
           {
-            if (*v106 != v47)
+            if (*v106 != v48)
             {
-              objc_enumerationMutation(v44);
+              objc_enumerationMutation(v45);
             }
 
             name = [*(*(&v105 + 1) + 8 * i) name];
-            [v43 appendString:name];
+            [v44 appendString:name];
 
-            [v43 appendString:@"\n"];
+            [v44 appendString:@"\n"];
           }
 
-          v46 = [(NSArray *)v44 countByEnumeratingWithState:&v105 objects:v114 count:16];
+          v47 = [(NSArray *)v45 countByEnumeratingWithState:&v105 objects:v114 count:16];
         }
 
-        while (v46);
+        while (v47);
       }
 
-      v50 = [v25 URLByAppendingPathComponent:@"features.dat"];
-      v104 = v42;
-      v51 = [v43 writeToURL:v50 atomically:1 encoding:4 error:&v104];
-      v52 = v104;
+      v51 = [v25 URLByAppendingPathComponent:@"features.dat"];
+      v104 = v43;
+      v52 = [v44 writeToURL:v51 atomically:1 encoding:4 error:&v104];
+      v53 = v104;
 
-      if ((v51 & 1) == 0)
+      if ((v52 & 1) == 0)
       {
-        v73 = RELogForDomain(4);
-        v56 = v97;
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+        v74 = RELogForDomain(4);
+        v57 = v97;
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
         {
           [REMLModelManager _saveModelToDisk:];
         }
 
         if (disk)
         {
-          v74 = v52;
+          v75 = v53;
           v20 = 0;
-          *disk = v52;
+          *disk = v53;
         }
 
         else
@@ -1144,17 +1137,17 @@ LABEL_37:
       }
 
       model = selfCopy2->_model;
-      v54 = [v25 URLByAppendingPathComponent:@"model"];
-      v103 = v52;
-      LOBYTE(model) = [(REMLModel *)model saveModelToURL:v54 error:&v103];
-      v55 = v103;
+      v55 = [v25 URLByAppendingPathComponent:@"model"];
+      v103 = v53;
+      LOBYTE(model) = [(REMLModel *)model saveModelToURL:v55 error:&v103];
+      v56 = v103;
 
       v29 = v94;
-      v56 = v97;
+      v57 = v97;
       if ((model & 1) == 0)
       {
-        v75 = RELogForDomain(4);
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        v76 = RELogForDomain(4);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
           [REMLModelManager _saveModelToDisk:];
         }
@@ -1166,82 +1159,82 @@ LABEL_37:
       if (selfCopy2->_supportsContentRanking)
       {
         path2 = [v25 path];
-        v58 = [path2 stringByAppendingPathComponent:@"content.ctx"];
+        v59 = [path2 stringByAppendingPathComponent:@"content.ctx"];
 
         defaultManager6 = [MEMORY[0x277CCAA00] defaultManager];
-        v102 = v55;
-        v60 = [defaultManager6 createDirectoryAtPath:v58 withIntermediateDirectories:1 attributes:0 error:&v102];
-        v61 = v102;
+        v102 = v56;
+        v61 = [defaultManager6 createDirectoryAtPath:v59 withIntermediateDirectories:1 attributes:0 error:&v102];
+        v62 = v102;
 
-        if (v60)
+        if (v61)
         {
           contentRanker = selfCopy2->_contentRanker;
-          v101 = v61;
-          v63 = [(REContentRanker *)contentRanker save:v58 error:&v101];
-          v52 = v101;
+          v101 = v62;
+          v64 = [(REContentRanker *)contentRanker save:v59 error:&v101];
+          v53 = v101;
 
-          if (v63)
+          if (v64)
           {
 
 LABEL_61:
-            v77 = v52;
+            v78 = v53;
             defaultManager7 = [MEMORY[0x277CCAA00] defaultManager];
-            v79 = [MEMORY[0x277CBEBC0] fileURLWithPath:v94];
-            v100 = v52;
-            v80 = [defaultManager7 replaceItemAtURL:v79 withItemAtURL:v25 backupItemName:0 options:0 resultingItemURL:0 error:&v100];
-            v52 = v100;
+            v80 = [MEMORY[0x277CBEBC0] fileURLWithPath:v94];
+            v100 = v53;
+            v81 = [defaultManager7 replaceItemAtURL:v80 withItemAtURL:v25 backupItemName:0 options:0 resultingItemURL:0 error:&v100];
+            v53 = v100;
 
-            if (v80)
+            if (v81)
             {
               defaultManager8 = [MEMORY[0x277CCAA00] defaultManager];
               path3 = [v25 path];
-              v56 = v97;
+              v57 = v97;
               if (([defaultManager8 fileExistsAtPath:path3] & 1) == 0)
               {
 
                 v20 = 1;
-                v71 = v92;
+                v72 = v92;
                 v29 = v94;
                 goto LABEL_80;
               }
 
               defaultManager9 = [MEMORY[0x277CCAA00] defaultManager];
-              v99 = v52;
-              v84 = [defaultManager9 removeItemAtURL:v25 error:&v99];
-              v55 = v99;
+              v99 = v53;
+              v85 = [defaultManager9 removeItemAtURL:v25 error:&v99];
+              v56 = v99;
 
               v29 = v94;
-              if (v84)
+              if (v85)
               {
                 v20 = 1;
-                v52 = v55;
+                v53 = v56;
 LABEL_59:
-                v71 = v92;
+                v72 = v92;
 LABEL_80:
 
-                v42 = v52;
+                v43 = v53;
                 v30 = v91;
 LABEL_81:
 
-                v24 = v42;
-                v7 = v56;
+                v24 = v43;
+                v7 = v57;
                 goto LABEL_82;
               }
 
-              v75 = RELogForDomain(4);
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+              v76 = RELogForDomain(4);
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
               {
                 [REMLModelManager _saveModelToDisk:];
               }
 
 LABEL_55:
 
-              v71 = v92;
+              v72 = v92;
               if (disk)
               {
-                v76 = v55;
+                v77 = v56;
                 v20 = 0;
-                *disk = v55;
+                *disk = v56;
               }
 
               else
@@ -1249,14 +1242,14 @@ LABEL_55:
                 v20 = 0;
               }
 
-              v52 = v55;
+              v53 = v56;
               goto LABEL_80;
             }
 
-            v85 = RELogForDomain(4);
-            v56 = v97;
-            v71 = v92;
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+            v86 = RELogForDomain(4);
+            v57 = v97;
+            v72 = v92;
+            if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
             {
               [REMLModelManager _saveModelToDisk:];
             }
@@ -1264,9 +1257,9 @@ LABEL_55:
             v29 = v94;
             if (disk)
             {
-              v86 = v52;
+              v87 = v53;
               v20 = 0;
-              *disk = v52;
+              *disk = v53;
               goto LABEL_80;
             }
 
@@ -1275,9 +1268,9 @@ LABEL_79:
             goto LABEL_80;
           }
 
-          v87 = RELogForDomain(4);
-          v71 = v92;
-          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+          v88 = RELogForDomain(4);
+          v72 = v92;
+          if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
           {
             [REMLModelManager _saveModelToDisk:];
           }
@@ -1285,46 +1278,43 @@ LABEL_79:
 
         else
         {
-          v52 = v61;
-          v71 = v92;
+          v53 = v62;
+          v72 = v92;
         }
 
         if (disk)
         {
-          v88 = v52;
-          *disk = v52;
+          v89 = v53;
+          *disk = v53;
         }
 
         goto LABEL_79;
       }
 
-      v52 = v55;
+      v53 = v56;
       goto LABEL_61;
     }
 
-    v64 = RELogForDomain(4);
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+    v65 = RELogForDomain(4);
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
       [REMLModelManager _saveModelToDisk:];
     }
 
     if (diskCopy2)
     {
-      v65 = v24;
+      v66 = v24;
       v20 = 0;
       *diskCopy2 = v24;
 LABEL_82:
 
-      goto LABEL_83;
+      return v20;
     }
 
     goto LABEL_37;
   }
 
-  v20 = 1;
-LABEL_83:
-  v89 = *MEMORY[0x277D85DE8];
-  return v20;
+  return 1;
 }
 
 - (void)flushTraining
@@ -1362,8 +1352,8 @@ LABEL_83:
 
 void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_interactions_purgeCaches_completion___block_invoke(uint64_t a1)
 {
-  *&v36[5] = *MEMORY[0x277D85DE8];
-  v29 = *(a1 + 80);
+  *&v35[5] = *MEMORY[0x277D85DE8];
+  v28 = *(a1 + 80);
   v2 = 0;
   if ([*(a1 + 32) count])
   {
@@ -1377,15 +1367,15 @@ void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_inter
       v8 = v7;
 
       v9 = *(a1 + 48);
-      v32 = v2;
-      v10 = [v9 createOutputFeatureFromDouble:&v32 error:v8];
-      v11 = v32;
+      v31 = v2;
+      v10 = [v9 createOutputFeatureFromDouble:&v31 error:v8];
+      v11 = v31;
 
       v12 = *(a1 + 48);
       [v5 doubleValue];
-      v31 = v11;
-      v13 = [v12 createOutputFeatureFromDouble:&v31 error:?];
-      v2 = v31;
+      v30 = v11;
+      v13 = [v12 createOutputFeatureFromDouble:&v30 error:?];
+      v2 = v30;
 
       [*(*(a1 + 48) + 56) updateMetricsFromFeatures:v4 prediction:v10 truth:v13];
       v14 = [*(a1 + 56) objectAtIndexedSubscript:v3];
@@ -1400,7 +1390,7 @@ void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_inter
       v17 = RELogForDomain(4);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_interactions_purgeCaches_completion___block_invoke_cold_1(v35, v5, v36, v17);
+        __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_interactions_purgeCaches_completion___block_invoke_cold_1(v34, v5, v35, v17);
       }
 
       ++v3;
@@ -1411,8 +1401,8 @@ void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_inter
 
   v18 = [MEMORY[0x277CBEAA8] date];
   [v18 timeIntervalSinceDate:*(*(a1 + 48) + 136)];
-  v20 = (v19 > 1200.0) | v29;
-  if ((v19 > 1200.0) | v29 & 1)
+  v20 = (v19 > 1200.0) | v28;
+  if ((v19 > 1200.0) | v28 & 1)
   {
     [*(*(a1 + 48) + 40) _clearCache];
     objc_storeStrong((*(a1 + 48) + 136), v18);
@@ -1426,9 +1416,9 @@ void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_inter
 
   else
   {
-    v30 = v2;
-    v23 = [v21 _saveModelToDisk:&v30];
-    v22 = v30;
+    v29 = v2;
+    v23 = [v21 _saveModelToDisk:&v29];
+    v22 = v29;
 
     if (v23)
     {
@@ -1445,7 +1435,7 @@ void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_inter
   {
     v26 = [*(a1 + 32) count];
     *buf = 134217984;
-    v34 = v26;
+    v33 = v26;
     _os_log_impl(&dword_22859F000, v25, OS_LOG_TYPE_DEFAULT, "Finished training model with events count %lu", buf, 0xCu);
   }
 
@@ -1459,8 +1449,6 @@ void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_inter
   {
     (*(v27 + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversThatModelUpdated
@@ -1604,128 +1592,22 @@ void __52__REMLModelManager_performModelClearWithCompletion___block_invoke_2(uin
   return v5;
 }
 
-- (void)_loadModelAtPath:mlFeatures:checkModelVersion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to read version: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_loadModelAtPath:(uint64_t *)a1 mlFeatures:(uint64_t)a2 checkModelVersion:(os_log_t)log .cold.2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = a2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_22859F000, log, OS_LOG_TYPE_ERROR, "Incompatible model version: %llu. Expecting %llu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_loadModelAtPath:mlFeatures:checkModelVersion:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to read model: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_loadModelAtPath:mlFeatures:checkModelVersion:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to read content model: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createOrderFeatureListFromModelFileURL:mlFeatures:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to read features file: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_error_impl(&dword_22859F000, log, OS_LOG_TYPE_ERROR, "Incompatible model version: %llu. Expecting %llu", &v4, 0x16u);
 }
 
 void __71__REMLModelManager__createOrderFeatureListFromModelFileURL_mlFeatures___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, a2, a3, "The previous model contained a reference to feature %@ which is missing from the current definition. Features cannot be removed from the model. A temporary feature will be inserted. Future errors won't be logged", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to old file model: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to remove temp file: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to create temp directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to store version: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to save features: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to save model: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to save content model: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to replace file: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveModelToDisk:.cold.9()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to remove temp file after completion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_4(&dword_22859F000, a2, a3, "The previous model contained a reference to feature %@ which is missing from the current definition. Features cannot be removed from the model. A temporary feature will be inserted. Future errors won't be logged", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __102__REMLModelManager_performTrainingWithFeatureMaps_content_events_interactions_purgeCaches_completion___block_invoke_cold_1(uint8_t *a1, void *a2, __CFString **a3, NSObject *a4)

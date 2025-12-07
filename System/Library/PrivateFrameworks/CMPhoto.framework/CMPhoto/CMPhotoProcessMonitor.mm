@@ -28,7 +28,7 @@
   return isForegroundApp_sIsForeground;
 }
 
-uint64_t __40__CMPhotoProcessMonitor_isForegroundApp__block_invoke()
+void *__40__CMPhotoProcessMonitor_isForegroundApp__block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E69C75D0] "currentProcess")];
   isForegroundApp_sIsForeground = result;
@@ -151,7 +151,7 @@ uint64_t __50__CMPhotoProcessMonitor__createRBSMonitorIfNeeded__block_invoke(uin
   return result;
 }
 
-uint64_t __48__CMPhotoProcessMonitor_isManagedByRunningBoard__block_invoke()
+void *__48__CMPhotoProcessMonitor_isManagedByRunningBoard__block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E69C75D0] "currentProcess")];
   isManagedByRunningBoard_sIsManagedByRunningBoard = result;
@@ -268,9 +268,9 @@ void __57__CMPhotoProcessMonitor__handleBackgroundingNotification__block_invoke(
   dispatch_barrier_sync(processMonitorSyncQueue, &__block_literal_global_28);
 }
 
-uint64_t __50__CMPhotoProcessMonitor__createRBSMonitorIfNeeded__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *__50__CMPhotoProcessMonitor__createRBSMonitorIfNeeded__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v6 = [objc_msgSend(objc_msgSend(a4 "previousState")];
+  v6 = [objc_msgSend(objc_msgSend(a4 previousState];
   result = [objc_msgSend(objc_msgSend(a4 "state")];
   if (v6 && (result & 1) == 0)
   {
@@ -382,29 +382,29 @@ uint64_t __50__CMPhotoProcessMonitor__createRBSMonitorIfNeeded__block_invoke_3(u
 
 - (void)_takeRBSAssertionForContext:(void *)context until:(unint64_t)until maxLength:(unint64_t)length
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (+[CMPhotoProcessMonitor isManagedByRunningBoard]&& ![(CMPhotoProcessMonitor *)self gotRBSConnectionError]&& (![(CMPhotoProcessMonitor *)self latestAssertion]|| [(CMPhotoProcessMonitor *)self assertionHeldToTime]<= until))
   {
     v8 = objc_alloc(MEMORY[0x1E69C7548]);
     v9 = [MEMORY[0x1E69C7640] targetWithPid:getpid()];
-    v14[0] = [(CMPhotoProcessMonitor *)self domainAttribute];
-    v10 = [v8 initWithExplanation:@"CMPhoto pool cleanup timer" target:v9 attributes:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 1)}];
+    v15[0] = [(CMPhotoProcessMonitor *)self domainAttribute];
+    v10 = [v8 initWithExplanation:@"CMPhoto pool cleanup timer" target:v9 attributes:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 1)}];
     if (!v10)
     {
       fig_log_get_emitter();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, v14, LODWORD(v15[0]));
       return;
     }
 
     v11 = v10;
-    v13 = 0;
-    if ([v10 acquireWithError:&v13])
+    v14 = 0;
+    if ([v10 acquireWithError:&v14])
     {
       goto LABEL_11;
     }
 
-    domain = [v13 domain];
-    if ((domain != *MEMORY[0x1E69C7688] || [v13 code] != 2) && objc_msgSend(v13, "code") == 4099)
+    domain = [v14 domain];
+    if ((domain != *MEMORY[0x1E69C7688] || [v14 code] != 2) && objc_msgSend(v14, "code") == 4099)
     {
       [(CMPhotoProcessMonitor *)self setGotRBSConnectionError:1];
 LABEL_11:
@@ -419,7 +419,7 @@ LABEL_11:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  v3 = FigSignalErrorAtGM();
+  v3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v7);
 
   return v3 == 0;
 }
@@ -429,14 +429,14 @@ LABEL_11:
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
 - (uint64_t)takeAssertionUntilTime:(_DWORD *)a1 forContext:.cold.1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

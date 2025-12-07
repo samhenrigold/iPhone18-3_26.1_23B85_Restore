@@ -155,7 +155,7 @@ LABEL_11:
   }
 }
 
-uint64_t __52__PLImageView_setBottomRightAccessoryView_animated___block_invoke_2(uint64_t a1)
+void *__52__PLImageView_setBottomRightAccessoryView_animated___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isDescendantOfView:*(a1 + 40)];
   if (result)
@@ -260,7 +260,7 @@ uint64_t __45__PLImageView_setLeftAccessoryView_animated___block_invoke(uint64_t
   return [v2 setTransform:v5];
 }
 
-uint64_t __45__PLImageView_setLeftAccessoryView_animated___block_invoke_3(uint64_t a1)
+void *__45__PLImageView_setLeftAccessoryView_animated___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isDescendantOfView:*(a1 + 40)];
   if (result)
@@ -797,7 +797,7 @@ uint64_t __45__PLImageView_setLeftAccessoryView_animated___block_invoke_3(uint64
   if (self->_fullSizeImageTiledLayer)
   {
     memset(&v6, 0, sizeof(v6));
-    [(PLImageView *)self _transformForFullSizeImageTiledLayer];
+    objc_msgSend__transformForFullSizeImageTiledLayer(self);
     [MEMORY[0x277CD9FF0] begin];
     [MEMORY[0x277CD9FF0] setValue:*MEMORY[0x277CBED28] forKey:*MEMORY[0x277CDA918]];
     fullSizeImageTiledLayer = self->_fullSizeImageTiledLayer;

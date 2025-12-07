@@ -246,57 +246,58 @@ void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_8
   [v24 setObject:v5 forKeyedSubscript:v27];
 }
 
-void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_10(uint64_t a1, Method m, int a3)
+void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_10(uint64_t a1, Method m, uint64_t a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v3 = a3;
+  v36 = *MEMORY[0x1E69E9840];
   Name = method_getName(m);
   v7 = NSStringFromSelector(Name);
   if ((![v7 isEqualToString:@".cxx_destruct"] || (*(a1 + 59) & 4) != 0) && (objc_msgSend(*(a1 + 32), "containsObject:", v7) & 1) == 0)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v8 = [*(a1 + 40) allValues];
-    v25 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
-    if (v25)
+    v24 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v24)
     {
-      v9 = *v32;
-      v23 = a3;
-      v26 = v8;
-      v24 = *v32;
+      v9 = *v31;
+      v22 = v3;
+      v25 = v8;
+      v23 = *v31;
       do
       {
         v10 = 0;
         do
         {
-          if (*v32 != v9)
+          if (*v31 != v9)
           {
             objc_enumerationMutation(v8);
           }
 
-          v11 = *(*(&v31 + 1) + 8 * v10);
+          v11 = *(*(&v30 + 1) + 8 * v10);
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
           v12 = v11;
-          v13 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v28;
+            v15 = *v27;
             while (2)
             {
               v16 = 0;
               do
               {
-                if (*v28 != v15)
+                if (*v27 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = [*(*(&v27 + 1) + 8 * v16) second];
+                v17 = [*(*(&v26 + 1) + 8 * v16) second];
                 v18 = [v17 isEqual:v7];
 
                 if (v18)
@@ -309,7 +310,7 @@ void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_1
               }
 
               while (v14 != v16);
-              v14 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v14)
               {
                 continue;
@@ -320,21 +321,21 @@ void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_1
           }
 
           ++v10;
-          v8 = v26;
-          v9 = v24;
+          v8 = v25;
+          v9 = v23;
         }
 
-        while (v10 != v25);
-        a3 = v23;
-        v25 = [v26 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        while (v10 != v24);
+        v3 = v22;
+        v24 = [v25 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
 
     v19 = *(a1 + 48);
     v20 = *(a1 + 64);
-    v21 = _MSVDescribeMethod(m, a3);
+    v21 = _MSVDescribeMethod(m, v3);
     [v19 appendFormat:@"/* %@ */ %@", v20, v21];
 
     if ((*(a1 + 59) & 8) != 0)
@@ -346,34 +347,32 @@ void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_1
   }
 
 LABEL_23:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = a3;
-  v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [v10 second];
         v12 = NSSelectorFromString(v11);
 
@@ -406,13 +405,11 @@ void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_1
         [*(a1 + 32) appendString:@"\n"];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NSObject_MSVDebugUtilities____msv_inspectWithOptions___block_invoke_9(uint64_t a1, SEL aSelector, uint64_t a3, uint64_t a4)

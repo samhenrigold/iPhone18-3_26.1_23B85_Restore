@@ -11,7 +11,7 @@
 - (void)searchBar:(id)bar textDidChange:(id)change
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1000CE6B8(&unk_10191EF28);
+  sub_1000CE6B8(&unk_10191EF28, &qword_1012026C8);
   Binding.wrappedValue.setter();
 }
 
@@ -19,7 +19,7 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_1000CE6B8(&qword_10191D8E0);
+  sub_1000CE6B8(&qword_10191D8E0, &qword_101201180);
   Binding.wrappedValue.setter();
   sub_1003C92D8(editingCopy);
 }

@@ -13,7 +13,7 @@
   isa = [v2 interactions];
   if (!isa)
   {
-    sub_1001F1160(&qword_100ADAF30);
+    sub_1001F1160(&qword_100ADAF30, &unk_100826090);
     sub_1007A25E4();
     isa = sub_1007A25D4().super.isa;
   }
@@ -24,7 +24,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100283370();
+  sub_100283370(selfCopy);
 }
 
 - (_TtC5Books20PaletteContainerView)initWithFrame:(CGRect)frame

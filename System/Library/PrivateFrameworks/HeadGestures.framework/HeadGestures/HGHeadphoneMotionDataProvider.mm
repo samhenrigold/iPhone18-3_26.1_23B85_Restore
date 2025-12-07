@@ -37,7 +37,7 @@
   *(&self->super.super.isa + v3) = [objc_allocWithZone(MEMORY[0x277CC1CB0]) init];
   *(&self->super.super.isa + OBJC_IVAR____TtC12HeadGestures29HGHeadphoneMotionDataProvider_headphoneConnected) = 0;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for HGHeadphoneMotionDataProvider();
+  v5.super_class = type metadata accessor for HGHeadphoneMotionDataProvider(0);
   return [(HGMotionDataProvider *)&v5 init];
 }
 

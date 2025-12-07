@@ -13,11 +13,11 @@
 
 - (ASTIdentity)initWithIdentityAliases:(id)aliases
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   aliasesCopy = aliases;
-  v39.receiver = self;
-  v39.super_class = ASTIdentity;
-  v6 = [(ASTIdentity *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = ASTIdentity;
+  v6 = [(ASTIdentity *)&v38 init];
   v7 = v6;
   if (v6)
   {
@@ -25,28 +25,28 @@
     if ([MEMORY[0x277CCAAA0] isValidJSONObject:v8])
     {
       obj = aliases;
-      v33 = aliasesCopy;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
+      v32 = aliasesCopy;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v36;
-        v34 = v7;
+        v12 = *v35;
+        v33 = v7;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v36 != v12)
+            if (*v35 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v35 + 1) + 8 * i);
+            v14 = *(*(&v34 + 1) + 8 * i);
             v15 = [v14 objectForKeyedSubscript:{@"serialNumber", obj}];
             if (v15)
             {
@@ -57,16 +57,16 @@
               if (v18)
               {
                 v20 = [v14 objectForKeyedSubscript:@"serialNumber"];
-                v7 = v34;
-                [(ASTIdentity *)v34 setSerialNumber:v20];
+                v7 = v33;
+                [(ASTIdentity *)v33 setSerialNumber:v20];
 
                 goto LABEL_15;
               }
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
-          v7 = v34;
+          v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v7 = v33;
           if (v11)
           {
             continue;
@@ -112,7 +112,7 @@ LABEL_15:
 
       objc_storeStrong(&v7->_hostAppBuild, v29);
 
-      aliasesCopy = v33;
+      aliasesCopy = v32;
     }
 
     else
@@ -122,7 +122,6 @@ LABEL_15:
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -136,14 +135,12 @@ LABEL_15:
 
 + (ASTIdentity)identityWithSerialNumber:(id)number
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = [ASTIdentityAlias identityAliasWithSerialNumber:number];
   v5 = [self alloc];
-  v10[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [v5 initWithIdentityAliases:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -265,39 +262,37 @@ void __24__ASTIdentity_userAgent__block_invoke(uint64_t a1)
 
 - (id)_dictionariesFromIdentityAliases:(id)aliases
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   aliasesCopy = aliases;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(aliasesCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = aliasesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        dictionary = [*(*(&v13 + 1) + 8 * i) dictionary];
+        dictionary = [*(*(&v12 + 1) + 8 * i) dictionary];
         [v4 addObject:dictionary];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -64,7 +64,7 @@
   dispatch_sync(serialQueue, block);
 }
 
-uint64_t __39__MRDestinationResolver_beginResolving__block_invoke(uint64_t a1)
+void *__39__MRDestinationResolver_beginResolving__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) resolving];
   if ((result & 1) == 0)
@@ -91,7 +91,7 @@ uint64_t __39__MRDestinationResolver_beginResolving__block_invoke(uint64_t a1)
 
 void __32__MRDestinationResolver_resolve__block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) resolving])
   {
     v2 = *(*(a1 + 32) + 16);
@@ -106,7 +106,7 @@ void __32__MRDestinationResolver_resolve__block_invoke(uint64_t a1)
 LABEL_4:
 
 LABEL_13:
-      goto LABEL_14;
+      return;
     }
 
     v7 = [v2 endpoint];
@@ -143,50 +143,50 @@ LABEL_13:
 
         if (!v16)
         {
-          v19 = [v2 playerPath];
-          if (v19)
+          v18 = [v2 playerPath];
+          if (v18)
           {
           }
 
           else
           {
-            v20 = [*(a1 + 32) originalDestination];
-            v21 = [v20 playerPath];
+            v19 = [*(a1 + 32) originalDestination];
+            v20 = [v19 playerPath];
 
-            if (!v21)
+            if (!v20)
             {
-              v25 = *(a1 + 32);
-              v26 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:6];
-              [v25 notifyDelegateOfError:v26];
+              v24 = *(a1 + 32);
+              v25 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:6];
+              [v24 notifyDelegateOfError:v25];
 
               v6 = _MRLogForCategory(0);
               if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
               {
-                v27 = *(a1 + 32);
-                v28 = 138412802;
-                v29 = v27;
-                v30 = 2112;
-                v31 = v27;
-                v32 = 2112;
-                v33 = v2;
-                _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%@ <%@> Unable to resolve destination %@", &v28, 0x20u);
+                v26 = *(a1 + 32);
+                v27 = 138412802;
+                v28 = v26;
+                v29 = 2112;
+                v30 = v26;
+                v31 = 2112;
+                v32 = v2;
+                _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%@ <%@> Unable to resolve destination %@", &v27, 0x20u);
               }
 
               goto LABEL_4;
             }
           }
 
-          v22 = [v2 playerPath];
-          v23 = v22;
-          if (v22)
+          v21 = [v2 playerPath];
+          v22 = v21;
+          if (v21)
           {
-            v9 = v22;
+            v9 = v21;
           }
 
           else
           {
-            v24 = [*(a1 + 32) originalDestination];
-            v9 = [v24 playerPath];
+            v23 = [*(a1 + 32) originalDestination];
+            v9 = [v23 playerPath];
           }
 
           [*(a1 + 32) resolveForUnresolvedPlayerPath:v9];
@@ -207,9 +207,6 @@ LABEL_12:
 
     goto LABEL_12;
   }
-
-LABEL_14:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -676,7 +673,7 @@ LABEL_6:
 
 - (void)resolveForResolvedPlayerPath:(id)path
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   serialQueue = [(MRDestinationResolver *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
@@ -684,22 +681,21 @@ LABEL_6:
   v6 = _MRLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412802;
+    v7 = 138412802;
     selfCopy = self;
-    v10 = 2112;
+    v9 = 2112;
     selfCopy2 = self;
-    v12 = 2112;
-    v13 = pathCopy;
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%@ <%@> Resolved playerPath: %@.", &v8, 0x20u);
+    v11 = 2112;
+    v12 = pathCopy;
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%@ <%@> Resolved playerPath: %@.", &v7, 0x20u);
   }
 
   [(MRDestinationResolver *)self onQueue_setResolvedPlayerPath:pathCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveForUnresolvedPlayerPath:(id)path
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   serialQueue = [(MRDestinationResolver *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
@@ -709,30 +705,28 @@ LABEL_6:
   {
     *buf = 138412802;
     selfCopy = self;
-    v14 = 2112;
+    v13 = 2112;
     selfCopy2 = self;
-    v16 = 2112;
-    v17 = pathCopy;
+    v15 = 2112;
+    v16 = pathCopy;
     _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "%@ <%@> Begin resolving for unresolvedPlayerPath=%@", buf, 0x20u);
   }
 
   objc_storeStrong(&self->_resolvingPlayerPath, path);
   [(MRDestinationResolver *)self onQueue_registerForPlayerPathInvalidationsForUnresolvedPlayerPath:pathCopy];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __56__MRDestinationResolver_resolveForUnresolvedPlayerPath___block_invoke;
-  v10[3] = &unk_1E769E618;
-  v10[4] = self;
-  v11 = pathCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __56__MRDestinationResolver_resolveForUnresolvedPlayerPath___block_invoke;
+  v9[3] = &unk_1E769E618;
+  v9[4] = self;
+  v10 = pathCopy;
   v8 = pathCopy;
-  [(MRDestinationResolver *)self resolvePlayerPath:v8 completion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MRDestinationResolver *)self resolvePlayerPath:v8 completion:v9];
 }
 
 void __56__MRDestinationResolver_resolveForUnresolvedPlayerPath___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([*(*(a1 + 32) + 128) isEqual:*(a1 + 40)] & 1) == 0)
@@ -741,13 +735,13 @@ void __56__MRDestinationResolver_resolveForUnresolvedPlayerPath___block_invoke(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = *(a1 + 32);
-      v17 = 138412802;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v5;
-      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_INFO, "%@ <%@> PlayerPath has changed since we requested to resolve it. Ignoring incoming playerPath: %@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v5;
+      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_INFO, "%@ <%@> PlayerPath has changed since we requested to resolve it. Ignoring incoming playerPath: %@", &v16, 0x20u);
     }
 
     goto LABEL_15;
@@ -774,13 +768,13 @@ void __56__MRDestinationResolver_resolveForUnresolvedPlayerPath___block_invoke(u
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = *(a1 + 32);
-      v17 = 138412802;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v9;
-      _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "%@ <%@> Error resolving for unresolvedPlayerPath %@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v9;
+      _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "%@ <%@> Error resolving for unresolvedPlayerPath %@", &v16, 0x20u);
     }
 
     v14 = [v9 code];
@@ -805,13 +799,11 @@ LABEL_15:
 
   [*(a1 + 32) resolveForResolvedPlayerPath:v5];
 LABEL_16:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveForEndpoint:(id)endpoint client:(id)client player:(id)player
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   playerCopy = player;
   clientCopy = client;
@@ -824,29 +816,27 @@ LABEL_16:
     debugName = [endpointCopy debugName];
     *buf = 138412802;
     selfCopy = self;
-    v21 = 2112;
+    v20 = 2112;
     selfCopy2 = self;
-    v23 = 2112;
-    v24 = debugName;
+    v22 = 2112;
+    v23 = debugName;
     _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "%@ <%@> Begin resolving for endpoint=%@", buf, 0x20u);
   }
 
   objc_storeStrong(&self->_resolvingEndpoint, endpoint);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke;
-  v17[3] = &unk_1E769E618;
-  v17[4] = self;
-  v18 = endpointCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke;
+  v16[3] = &unk_1E769E618;
+  v16[4] = self;
+  v17 = endpointCopy;
   v15 = endpointCopy;
-  [(MRDestinationResolver *)self createPlayerPathForEndpoint:v15 client:clientCopy player:playerCopy completion:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(MRDestinationResolver *)self createPlayerPathForEndpoint:v15 client:clientCopy player:playerCopy completion:v16];
 }
 
 void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([*(*(a1 + 32) + 120) isEqual:*(a1 + 40)])
@@ -861,13 +851,13 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
       v10 = *(a1 + 32);
       v11 = [*(a1 + 40) debugName];
       *buf = 138413058;
-      v42 = v10;
-      v43 = 2112;
-      v44 = v10;
-      v45 = 2112;
-      v46 = v5;
-      v47 = 2112;
-      v48 = v11;
+      v41 = v10;
+      v42 = 2112;
+      v43 = v10;
+      v44 = 2112;
+      v45 = v5;
+      v46 = 2112;
+      v47 = v11;
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "%@ <%@> Setting unresolved playerPath to: %@ for endpoint=%@", buf, 0x2Au);
     }
 
@@ -912,11 +902,11 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
           v24 = *(a1 + 32);
           [*(v24 + 144) timeUntilNextInterval];
           *buf = 138412802;
-          v42 = v24;
-          v43 = 2112;
-          v44 = v24;
-          v45 = 2048;
-          v46 = v25;
+          v41 = v24;
+          v42 = 2112;
+          v43 = v24;
+          v44 = 2048;
+          v45 = v25;
           _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "%@ <%@> ConnectionRetryTimer is already scheduled to retry in %lf more seconds", buf, 0x20u);
         }
       }
@@ -929,13 +919,13 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
         v28 = +[MRUserSettings currentSettings];
         v29 = [v28 destinationResolverReconRetryIntervals];
         v30 = *(*(a1 + 32) + 40);
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke_41;
-        v38[3] = &unk_1E769B150;
-        objc_copyWeak(&v39, &location);
-        v38[4] = *(a1 + 32);
-        v31 = [v27 initWithIntervals:v29 name:v26 queue:v30 block:v38];
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke_41;
+        v37[3] = &unk_1E769B150;
+        objc_copyWeak(&v38, &location);
+        v37[4] = *(a1 + 32);
+        v31 = [v27 initWithIntervals:v29 name:v26 queue:v30 block:v37];
         v32 = *(a1 + 32);
         v33 = *(v32 + 144);
         *(v32 + 144) = v31;
@@ -946,16 +936,16 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
           v35 = *(a1 + 32);
           [*(v35 + 144) timeUntilNextInterval];
           *buf = 138412802;
-          v42 = v35;
-          v43 = 2112;
-          v44 = v35;
-          v45 = 2048;
-          v46 = v36;
+          v41 = v35;
+          v42 = 2112;
+          v43 = v35;
+          v44 = 2048;
+          v45 = v36;
           _os_log_impl(&dword_1A2860000, v34, OS_LOG_TYPE_DEFAULT, "%@ <%@> Starting ConnectionRetryTimer to fire in %lf seconds", buf, 0x20u);
         }
 
         [*(a1 + 32) notifyDelegateOfError:v21];
-        objc_destroyWeak(&v39);
+        objc_destroyWeak(&v38);
 
         objc_destroyWeak(&location);
       }
@@ -969,21 +959,19 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
     {
       v19 = *(a1 + 32);
       *buf = 138412802;
-      v42 = v19;
-      v43 = 2112;
-      v44 = v19;
-      v45 = 2112;
-      v46 = v5;
+      v41 = v19;
+      v42 = 2112;
+      v43 = v19;
+      v44 = 2112;
+      v45 = v5;
       _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_INFO, "%@ <%@> Resolved endpoint has changed since we requested a playerPath for it. Ignoring incoming playerPath: %@", buf, 0x20u);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke_41(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -992,24 +980,22 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
     {
       v4 = *(a1 + 32);
       [WeakRetained[18] currentInterval];
-      v7 = 138412802;
-      v8 = v4;
-      v9 = 2112;
-      v10 = WeakRetained;
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "%@ <%@> ConnectionRetryTimer fired after %lf total seconds", &v7, 0x20u);
+      v6 = 138412802;
+      v7 = v4;
+      v8 = 2112;
+      v9 = WeakRetained;
+      v10 = 2048;
+      v11 = v5;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "%@ <%@> ConnectionRetryTimer fired after %lf total seconds", &v6, 0x20u);
     }
 
     [WeakRetained resolve];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveForOutputContextUID:(id)d client:(id)client player:(id)player
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   clientCopy = client;
   playerCopy = player;
@@ -1022,32 +1008,30 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
   {
     *buf = 138412802;
     selfCopy = self;
-    v24 = 2112;
+    v23 = 2112;
     selfCopy2 = self;
-    v26 = 2112;
-    v27 = dCopy;
+    v25 = 2112;
+    v26 = dCopy;
     _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "%@ <%@> Begin resolving for %@", buf, 0x20u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __66__MRDestinationResolver_resolveForOutputContextUID_client_player___block_invoke;
-  v18[3] = &unk_1E769E640;
-  v18[4] = self;
-  v19 = clientCopy;
-  v20 = playerCopy;
-  v21 = dCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __66__MRDestinationResolver_resolveForOutputContextUID_client_player___block_invoke;
+  v17[3] = &unk_1E769E640;
+  v17[4] = self;
+  v18 = clientCopy;
+  v19 = playerCopy;
+  v20 = dCopy;
   v14 = dCopy;
   v15 = playerCopy;
   v16 = clientCopy;
-  [(MRDestinationResolver *)self onQueue_retrieveEndpointForContextUID:dCopy completion:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(MRDestinationResolver *)self onQueue_retrieveEndpointForContextUID:dCopy completion:v17];
 }
 
 - (void)resolveForOutputDeviceUID:(id)d client:(id)client player:(id)player
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   clientCopy = client;
   playerCopy = player;
@@ -1060,33 +1044,31 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
   {
     *buf = 138412802;
     selfCopy = self;
-    v24 = 2112;
+    v23 = 2112;
     selfCopy2 = self;
-    v26 = 2112;
-    v27 = dCopy;
+    v25 = 2112;
+    v26 = dCopy;
     _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "%@ <%@> Begin resolving for %@", buf, 0x20u);
   }
 
   [(MRDestinationResolver *)self registerForEndpointChangesForOutputDeviceUID:dCopy];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __65__MRDestinationResolver_resolveForOutputDeviceUID_client_player___block_invoke;
-  v18[3] = &unk_1E769E640;
-  v18[4] = self;
-  v19 = clientCopy;
-  v20 = playerCopy;
-  v21 = dCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __65__MRDestinationResolver_resolveForOutputDeviceUID_client_player___block_invoke;
+  v17[3] = &unk_1E769E640;
+  v17[4] = self;
+  v18 = clientCopy;
+  v19 = playerCopy;
+  v20 = dCopy;
   v14 = dCopy;
   v15 = playerCopy;
   v16 = clientCopy;
-  [(MRDestinationResolver *)self onQueue_retrieveEndpointForUID:dCopy completion:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(MRDestinationResolver *)self onQueue_retrieveEndpointForUID:dCopy completion:v17];
 }
 
 - (void)handleEndpointResolution:(id)resolution client:(id)client player:(id)player source:(id)source error:(id)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   resolutionCopy = resolution;
   clientCopy = client;
   playerCopy = player;
@@ -1108,10 +1090,10 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
         [(MSVVariableIntervalTimer *)self->_reconRetryTimer timeUntilNextInterval];
         *buf = 138412802;
         selfCopy3 = self;
-        v36 = 2112;
+        v35 = 2112;
         selfCopy4 = self;
-        v38 = 2048;
-        v39 = v19;
+        v37 = 2048;
+        v38 = v19;
         _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "%@ <%@> ReconRetryTimer is already scheduled to retry in %lf more seconds", buf, 0x20u);
       }
     }
@@ -1119,18 +1101,18 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
     else
     {
       objc_initWeak(&location, self);
-      v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NowPlayingController.reconRetryTimer<%p>", self];
+      v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NowPlayingController.reconRetryTimer<%p>", self];
       v21 = objc_alloc(MEMORY[0x1E69B14E0]);
       v22 = +[MRUserSettings currentSettings];
       destinationResolverReconRetryIntervals = [v22 destinationResolverReconRetryIntervals];
       serialQueue = self->_serialQueue;
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __77__MRDestinationResolver_handleEndpointResolution_client_player_source_error___block_invoke;
-      v31[3] = &unk_1E769B150;
-      objc_copyWeak(&v32, &location);
-      v31[4] = self;
-      v25 = [v21 initWithIntervals:destinationResolverReconRetryIntervals name:v30 queue:serialQueue block:v31];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __77__MRDestinationResolver_handleEndpointResolution_client_player_source_error___block_invoke;
+      v30[3] = &unk_1E769B150;
+      objc_copyWeak(&v31, &location);
+      v30[4] = self;
+      v25 = [v21 initWithIntervals:destinationResolverReconRetryIntervals name:v29 queue:serialQueue block:v30];
       reconRetryTimer = self->_reconRetryTimer;
       self->_reconRetryTimer = v25;
 
@@ -1140,15 +1122,15 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
         [(MSVVariableIntervalTimer *)self->_reconRetryTimer timeUntilNextInterval];
         *buf = 138412802;
         selfCopy3 = self;
-        v36 = 2112;
+        v35 = 2112;
         selfCopy4 = self;
-        v38 = 2048;
-        v39 = v28;
+        v37 = 2048;
+        v38 = v28;
         _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "%@ <%@> Starting ReconRetryTimer to fire in %lf seconds", buf, 0x20u);
       }
 
       [(MRDestinationResolver *)self notifyDelegateOfError:errorCopy];
-      objc_destroyWeak(&v32);
+      objc_destroyWeak(&v31);
 
       objc_destroyWeak(&location);
     }
@@ -1161,13 +1143,11 @@ void __58__MRDestinationResolver_resolveForEndpoint_client_player___block_invoke
 
     [(MRDestinationResolver *)self resolveForEndpoint:resolutionCopy client:clientCopy player:playerCopy];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __77__MRDestinationResolver_handleEndpointResolution_client_player_source_error___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1176,19 +1156,17 @@ void __77__MRDestinationResolver_handleEndpointResolution_client_player_source_e
     {
       v4 = *(a1 + 32);
       [WeakRetained[17] currentInterval];
-      v7 = 138412802;
-      v8 = v4;
-      v9 = 2112;
-      v10 = WeakRetained;
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "%@ <%@> ReconRetryTimer fired after %lf total seconds", &v7, 0x20u);
+      v6 = 138412802;
+      v7 = v4;
+      v8 = 2112;
+      v9 = WeakRetained;
+      v10 = 2048;
+      v11 = v5;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "%@ <%@> ReconRetryTimer fired after %lf total seconds", &v6, 0x20u);
     }
 
     [WeakRetained resolve];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerForEndpointChangesForOutputDeviceUID:(id)d
@@ -1223,7 +1201,7 @@ void __77__MRDestinationResolver_handleEndpointResolution_client_player_source_e
 
 void __70__MRDestinationResolver_registerForEndpointChangesForOutputDeviceUID___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -1232,24 +1210,24 @@ void __70__MRDestinationResolver_registerForEndpointChangesForOutputDeviceUID___
     v6 = [v5 endpoint];
     v7 = [v6 uniqueIdentifier];
     v8 = [v4 uniqueIdentifier];
-    v9 = [v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if ((v9 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v10 = _MRLogForCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = [WeakRetained destination];
         v12 = [v11 endpoint];
-        v17 = 138413058;
-        v18 = WeakRetained;
-        v19 = 2112;
-        v20 = WeakRetained;
-        v21 = 2112;
-        v22 = v12;
-        v23 = 2112;
-        v24 = v4;
-        _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "%@ <%@> endpoint changed from %@ to %@", &v17, 0x2Au);
+        v16 = 138413058;
+        v17 = WeakRetained;
+        v18 = 2112;
+        v19 = WeakRetained;
+        v20 = 2112;
+        v21 = v12;
+        v22 = 2112;
+        v23 = v4;
+        _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "%@ <%@> endpoint changed from %@ to %@", &v16, 0x2Au);
       }
 
       v13 = [v4 outputDevices];
@@ -1260,8 +1238,6 @@ void __70__MRDestinationResolver_registerForEndpointChangesForOutputDeviceUID___
       [WeakRetained handleEndpointChanged];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterForEndpointChanges
@@ -1332,7 +1308,7 @@ void __70__MRDestinationResolver_registerForEndpointChangesForOutputDeviceUID___
 
 void __91__MRDestinationResolver_onQueue_registerForPlayerPathInvalidationsForUnresolvedPlayerPath___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -1341,21 +1317,19 @@ void __91__MRDestinationResolver_onQueue_registerForPlayerPathInvalidationsForUn
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [WeakRetained[2] playerPath];
-      v8 = 138413058;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "%@ <%@> playerPath invalidated %@ -> %@", &v8, 0x2Au);
+      v7 = 138413058;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "%@ <%@> playerPath invalidated %@ -> %@", &v7, 0x2Au);
     }
 
     [WeakRetained handlePlayerPathInvalidatedWithPlayerPath:v3];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleEndpointChanged
@@ -1405,7 +1379,7 @@ uint64_t __67__MRDestinationResolver_handlePlayerPathInvalidatedWithPlayerPath__
 
 - (void)handleActiveSystemEndpointChangedNotification:(id)notification
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   userInfo = [notification userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"kMRMediaRemoteActiveEndpointTypeUserInfoKey"];
   intValue = [v5 intValue];
@@ -1415,17 +1389,15 @@ uint64_t __67__MRDestinationResolver_handlePlayerPathInvalidatedWithPlayerPath__
     v7 = _MRLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412546;
+      v8 = 138412546;
       selfCopy = self;
-      v11 = 2112;
+      v10 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "%@ <%@> Active system endpoint changed", &v9, 0x16u);
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "%@ <%@> Active system endpoint changed", &v8, 0x16u);
     }
 
     [(MRDestinationResolver *)self handleEndpointChanged];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleEndpointDidDisconnectNotification:(id)notification
@@ -1436,7 +1408,7 @@ uint64_t __67__MRDestinationResolver_handlePlayerPathInvalidatedWithPlayerPath__
 
 - (void)endpointDidDisconnect:(id)disconnect
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   disconnectCopy = disconnect;
   destination = [(MRDestinationResolver *)self destination];
   endpoint = [destination endpoint];
@@ -1447,19 +1419,17 @@ uint64_t __67__MRDestinationResolver_handlePlayerPathInvalidatedWithPlayerPath__
     v8 = _MRLogForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412802;
+      v9 = 138412802;
       selfCopy = self;
-      v12 = 2112;
+      v11 = 2112;
       selfCopy2 = self;
-      v14 = 2112;
-      v15 = disconnectCopy;
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "%@ <%@> endpoint invalidated %@", &v10, 0x20u);
+      v13 = 2112;
+      v14 = disconnectCopy;
+      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "%@ <%@> endpoint invalidated %@", &v9, 0x20u);
     }
 
     [(MRDestinationResolver *)self handleEndpointInvalidated];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegateOfEndpointChange:(id)change
@@ -1696,18 +1666,18 @@ void __47__MRDestinationResolver_notifyDelegateOfError___block_invoke(uint64_t a
 {
   destination = [(MRDestinationResolver *)self destination];
   outputDeviceUID = [destination outputDeviceUID];
-  v4 = [outputDeviceUID isEqualToString:@"proactiveEndpoint"];
+  isEqualToString = objc_msgSend_isEqualToString_(outputDeviceUID);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)isUserSelectedEndpoint
 {
   destination = [(MRDestinationResolver *)self destination];
   outputDeviceUID = [destination outputDeviceUID];
-  v4 = [outputDeviceUID isEqualToString:@"userSelectedEndpoint"];
+  isEqualToString = objc_msgSend_isEqualToString_(outputDeviceUID);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)isDynamicEndpoint
@@ -1722,15 +1692,14 @@ void __47__MRDestinationResolver_notifyDelegateOfError___block_invoke(uint64_t a
 
 - (void)handleEndpointResolution:(os_log_t)log client:player:source:error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 138412802;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "%@ <%@> Error resolving for outputDeviceUID %@", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 138412802;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "%@ <%@> Error resolving for outputDeviceUID %@", &v3, 0x20u);
 }
 
 @end

@@ -402,7 +402,7 @@ LABEL_63:
               __p[0] = node;
               LODWORD(__p[1]) = v13;
               *&v95 = __p;
-              v35 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(mAttributeCollection + 128, __p);
+              v35 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(mAttributeCollection + 16, __p, &std::piecewise_construct, &v95);
               goto LABEL_91;
             case 2:
               v44 = EQKitTypes::VAlign::vAlignFromMathMLString(&__str.__r_.__value_.__l.__data_, 0);
@@ -415,10 +415,10 @@ LABEL_63:
               __p[0] = node;
               LODWORD(__p[1]) = 2;
               *&v95 = __p;
-              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v52 + 152, __p);
+              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v52 + 19, __p, &std::piecewise_construct, &v95);
               goto LABEL_160;
             case 3:
-              EQKitTypes::VAlign::vAlignVectorFromMathMLString(&__str, __p);
+              EQKitTypes::VAlign::vAlignVectorFromMathMLString(__p, &__str);
               v42 = __p[0];
               if (__p[1] == __p[0])
               {
@@ -428,10 +428,10 @@ LABEL_63:
               v53 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 3;
-              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v53, v53 + 248, __p, &v95);
+              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v53, v53 + 31, __p, &v95);
               goto LABEL_155;
             case 4:
-              EQKitTypes::Align::alignVectorFromMathMLString(&__str, __p);
+              EQKitTypes::Align::alignVectorFromMathMLString(__p, &__str);
               v42 = __p[0];
               if (__p[1] == __p[0])
               {
@@ -441,7 +441,7 @@ LABEL_63:
               v55 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 4;
-              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v55, v55 + 272, __p, &v95);
+              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v55, v55 + 34, __p, &v95);
               goto LABEL_155;
             case 5:
             case 6:
@@ -460,7 +460,7 @@ LABEL_63:
               __p[0] = node;
               LODWORD(__p[1]) = v13;
               *&v95 = __p;
-              v35 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v34 + 8, __p);
+              v35 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v34 + 1, __p, &std::piecewise_construct, &v95);
 LABEL_91:
               *(v35 + 48) = v33;
               goto LABEL_78;
@@ -475,7 +475,7 @@ LABEL_91:
               __p[0] = node;
               LODWORD(__p[1]) = 7;
               *&v95 = __p;
-              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v56 + 320, __p);
+              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v56 + 40, __p, &std::piecewise_construct, &v95);
               goto LABEL_160;
             case 9:
               *&v95 = 0;
@@ -501,8 +501,8 @@ LABEL_91:
                 v74 = self->mAttributeCollection;
                 __p[0] = node;
                 LODWORD(__p[1]) = 9;
-                v96 = __p;
-                v75 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKit::ScriptLevel>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKit::ScriptLevel,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKit::ScriptLevel>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v74 + 296, __p);
+                v96[0] = __p;
+                v75 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKit::ScriptLevel>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKit::ScriptLevel,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKit::ScriptLevel>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v74 + 37, __p, &std::piecewise_construct, v96);
                 *(v75 + 48) = v95;
                 *(v75 + 56) = BYTE8(v95);
               }
@@ -522,8 +522,8 @@ LABEL_91:
                 v31 = self->mAttributeCollection;
                 __p[0] = node;
                 LODWORD(__p[1]) = v13;
-                v96 = __p;
-                v32 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v31 + 32, __p);
+                v96[0] = __p;
+                v32 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v31 + 4, __p, &std::piecewise_construct, v96);
                 *(v32 + 48) = v95;
                 goto LABEL_78;
               }
@@ -558,8 +558,8 @@ LABEL_91:
                 v71 = self->mAttributeCollection;
                 __p[0] = node;
                 LODWORD(__p[1]) = 41;
-                v96 = __p;
-                v72 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v71 + 32, __p);
+                v96[0] = __p;
+                v72 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v71 + 4, __p, &std::piecewise_construct, v96);
                 *(v72 + 48) = 1;
                 *(v72 + 56) = 0x7FEFFFFFFFFFFFFFLL;
               }
@@ -582,7 +582,7 @@ LABEL_91:
               __p[0] = node;
               LODWORD(__p[1]) = 15;
               *&v95 = __p;
-              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v47 + 344, __p);
+              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v47 + 43, __p, &std::piecewise_construct, &v95);
               goto LABEL_160;
             case 17:
               v44 = EQKit::Script::variantFromMathMLString(&__str.__r_.__value_.__l.__data_, 0);
@@ -595,14 +595,14 @@ LABEL_91:
               __p[0] = node;
               LODWORD(__p[1]) = 17;
               *&v95 = __p;
-              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v45 + 368, __p);
+              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v45 + 46, __p, &std::piecewise_construct, &v95);
               goto LABEL_160;
             case 20:
               EQKitTypes::Strings::separatorsFromString(&__str, __p);
               v66 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 20;
-              EQKit::AttributeCollection::setValueForKey<std::vector<std::string>>(v66, v66 + 104, __p, &v95);
+              EQKit::AttributeCollection::setValueForKey<std::vector<std::string>>(v66, v66 + 13, __p, &v95);
               *&v95 = __p;
               std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v95);
               goto LABEL_78;
@@ -616,7 +616,7 @@ LABEL_91:
                 __p[0] = node;
                 LODWORD(__p[1]) = v13;
                 *&v95 = __p;
-                *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v41 + 392, __p) + 48) = v40;
+                *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v41 + 49, __p, &std::piecewise_construct, &v95) + 48) = v40;
               }
 
               goto LABEL_78;
@@ -629,12 +629,12 @@ LABEL_91:
                 __p[0] = node;
                 LODWORD(__p[1]) = 23;
                 *&v95 = __p;
-                *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v58 + 416, __p) + 48) = v57;
+                *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v58 + 52, __p, &std::piecewise_construct, &v95) + 48) = v57;
               }
 
               goto LABEL_78;
             case 29:
-              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str, 1);
+              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str);
               if (!LODWORD(__p[0]))
               {
                 goto LABEL_78;
@@ -643,11 +643,11 @@ LABEL_91:
               v54 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 29;
-              v96 = &v95;
-              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v54 + 464, &v95);
+              v96[0] = &v95;
+              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v54 + 58, &v95, &std::piecewise_construct, v96);
               goto LABEL_121;
             case 30:
-              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str, 2);
+              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str);
               if (!LODWORD(__p[0]))
               {
                 goto LABEL_78;
@@ -656,11 +656,11 @@ LABEL_91:
               v50 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 30;
-              v96 = &v95;
-              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v50 + 464, &v95);
+              v96[0] = &v95;
+              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v50 + 58, &v95, &std::piecewise_construct, v96);
               goto LABEL_121;
             case 31:
-              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str, 3);
+              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str);
               if (!LODWORD(__p[0]))
               {
                 goto LABEL_78;
@@ -669,12 +669,12 @@ LABEL_91:
               v51 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 31;
-              v96 = &v95;
-              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v51 + 464, &v95);
+              v96[0] = &v95;
+              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v51 + 58, &v95, &std::piecewise_construct, v96);
               goto LABEL_121;
             case 32:
             case 33:
-              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str, 0);
+              EQKitPseudoUnitLength::EQKitPseudoUnitLength(__p, &__str);
               if (!LODWORD(__p[0]))
               {
                 goto LABEL_78;
@@ -683,14 +683,14 @@ LABEL_91:
               v38 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = v13;
-              v96 = &v95;
-              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v38 + 464, &v95);
+              v96[0] = &v95;
+              v39 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v38 + 58, &v95, &std::piecewise_construct, v96);
 LABEL_121:
               *(v39 + 48) = *__p;
               *(v39 + 64) = v89;
               goto LABEL_78;
             case 34:
-              EQKitTypes::Crossout::crossoutVectorFromMathMLString(&__str, __p);
+              EQKitTypes::Crossout::crossoutVectorFromMathMLString(__p, &__str);
               v42 = __p[0];
               if (__p[1] == __p[0])
               {
@@ -700,7 +700,7 @@ LABEL_121:
               v69 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 34;
-              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v69, v69 + 200, __p, &v95);
+              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v69, v69 + 25, __p, &v95);
               goto LABEL_155;
             case 35:
               v61 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -724,7 +724,7 @@ LABEL_121:
                   __p[0] = node;
                   LODWORD(__p[1]) = 35;
                   *&v95 = __p;
-                  *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,unsigned short>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v65 + 488, __p) + 48) = v64;
+                  *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,unsigned short>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v65 + 61, __p, &std::piecewise_construct, &v95) + 48) = v64;
                 }
               }
 
@@ -794,7 +794,7 @@ LABEL_191:
                   __p[0] = node;
                   LODWORD(__p[1]) = 36;
                   *&v95 = __p;
-                  v83 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v82 + 32, __p);
+                  v83 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v82 + 4, __p, &std::piecewise_construct, &v95);
                   *(v83 + 48) = v84;
                   *(v83 + 56) = v81;
 LABEL_78:
@@ -830,7 +830,7 @@ LABEL_78:
               __p[0] = node;
               LODWORD(__p[1]) = 37;
               *&v95 = __p;
-              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v70 + 176, __p);
+              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v70 + 22, __p, &std::piecewise_construct, &v95);
               goto LABEL_160;
             case 38:
               v44 = EQKitTypes::Edge::edgeFromMathMLString(&__str.__r_.__value_.__l.__data_, 0);
@@ -843,7 +843,7 @@ LABEL_78:
               __p[0] = node;
               LODWORD(__p[1]) = 38;
               *&v95 = __p;
-              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v48 + 512, __p);
+              v46 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v48 + 64, __p, &std::piecewise_construct, &v95);
 LABEL_160:
               *(v46 + 48) = v44;
               goto LABEL_78;
@@ -857,8 +857,8 @@ LABEL_160:
                 v60 = v87;
                 *&v95 = node;
                 DWORD2(v95) = 42;
-                v96 = &v95;
-                *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v59 + 440, &v95) + 48) = v60;
+                v96[0] = &v95;
+                *(std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v59 + 55, &v95, &std::piecewise_construct, v96) + 48) = v60;
               }
 
               __p[0] = v86;
@@ -885,12 +885,12 @@ LABEL_160:
                 v68 = self->mAttributeCollection;
                 *&v95 = node;
                 DWORD2(v95) = 46;
-                EQKit::AttributeCollection::setValueForKey<std::vector<EQKitLength>>(v68, v68 + 56, __p, &v95);
+                EQKit::AttributeCollection::setValueForKey<std::vector<EQKitLength>>(v68, v68 + 7, __p, &v95);
               }
 
               goto LABEL_155;
             case 47:
-              EQKitTypes::Notation::notationVectorFromMathMLString(&__str, __p);
+              EQKitTypes::Notation::notationVectorFromMathMLString(__p, &__str);
               v42 = __p[0];
               if (__p[1] == __p[0])
               {
@@ -900,7 +900,7 @@ LABEL_160:
               v43 = self->mAttributeCollection;
               *&v95 = node;
               DWORD2(v95) = 47;
-              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v43, v43 + 224, __p, &v95);
+              EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(v43, v43 + 28, __p, &v95);
 LABEL_155:
               v42 = __p[0];
 LABEL_156:
@@ -938,17 +938,17 @@ LABEL_72:
           v28 = CGColorFromString;
           if (CGColorFromString)
           {
-            v96 = CFRetain(CGColorFromString);
+            v96[0] = CFRetain(CGColorFromString);
             v29 = self->mAttributeCollection;
             __p[0] = node;
             LODWORD(__p[1]) = 44;
             *&v95 = __p;
-            v30 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v29 + 536, __p);
-            EQKitTypes::CFRetainRelease::operator=((v30 + 48), &v96);
+            v30 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(v29 + 67, __p, &std::piecewise_construct, &v95);
+            EQKitTypes::CFRetainRelease::operator=((v30 + 48), v96);
             CGColorRelease(v28);
-            if (v96)
+            if (v96[0])
             {
-              CFRelease(v96);
+              CFRelease(v96[0]);
             }
           }
         }

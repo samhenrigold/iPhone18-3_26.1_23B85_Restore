@@ -41,8 +41,8 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v16 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Unable to generate a commissioning identifier: %s", v16);
     }
 
     selfCopy = 0;
@@ -50,27 +50,26 @@
 
   else
   {
-    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v20];
-    self = [(MTRCommissioningOperation *)self initWithParameters:parametersCopy setupPayload:payloadCopy commissioningID:v17 isInternallyCreated:0 delegate:delegateCopy queue:queueCopy];
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v20];
+    self = [(MTRCommissioningOperation *)self initWithParameters:parametersCopy setupPayload:payloadCopy commissioningID:v18 isInternallyCreated:0 delegate:delegateCopy queue:queueCopy];
 
     selfCopy = self;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (MTRCommissioningOperation)initWithParameters:(id)parameters setupPayload:(id)payload commissioningID:(id)d isInternallyCreated:(BOOL)created delegate:(id)delegate queue:(id)queue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   payloadCopy = payload;
   dCopy = d;
   obj = delegate;
   queueCopy = queue;
-  v26.receiver = self;
-  v26.super_class = MTRCommissioningOperation;
-  v17 = [(MTRCommissioningOperation *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = MTRCommissioningOperation;
+  v17 = [(MTRCommissioningOperation *)&v25 init];
   if (!v17)
   {
 LABEL_11:
@@ -84,13 +83,13 @@ LABEL_11:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = v17;
+      v27 = v17;
       _os_log_impl(&dword_238DAE000, v21, OS_LOG_TYPE_ERROR, "%@ Invalid nil argument to initWithParameters", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Invalid nil argument to initWithParameters", v17);
     }
 
     goto LABEL_11;
@@ -109,13 +108,12 @@ LABEL_11:
   v20 = v17;
 LABEL_12:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)startWithController:(id)controller
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -143,9 +141,7 @@ LABEL_12:
 
     if (sub_2393D5398(1u))
     {
-      selfCopy3 = self;
-      selfCopy2 = controllerCopy;
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Cannot start commissioning with a non-concrete controller: %@", self, controllerCopy);
     }
 
     v8 = 0x850000002FLL;
@@ -153,7 +149,7 @@ LABEL_12:
   }
 
   objc_storeWeak(&self->_controller, v6);
-  if ([(MTRCommissioningOperation *)controllerCopy isSuspended])
+  if ([controllerCopy isSuspended])
   {
     v7 = sub_2393D9044(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -167,18 +163,16 @@ LABEL_12:
 
     if (sub_2393D5398(1u))
     {
-      selfCopy3 = controllerCopy;
-      selfCopy2 = self;
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ suspended: can't start commissioning %@", controllerCopy, self);
     }
 
     v8 = 0x8D00000003;
 LABEL_22:
-    [(MTRCommissioningOperation *)self _earlyFailCommissioning:v8, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRCommissioningOperation.mm", selfCopy3, selfCopy2];
+    [(MTRCommissioningOperation *)self _earlyFailCommissioning:v8, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRCommissioningOperation.mm"];
     goto LABEL_23;
   }
 
-  currentCommissioning = [(MTRCommissioningOperation *)v6 currentCommissioning];
+  currentCommissioning = [v6 currentCommissioning];
 
   v11 = sub_2393D9044(0);
   v12 = v11;
@@ -186,7 +180,7 @@ LABEL_22:
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      currentCommissioning2 = [(MTRCommissioningOperation *)v6 currentCommissioning];
+      currentCommissioning2 = [v6 currentCommissioning];
       *buf = 138412546;
       *&buf[4] = self;
       *&buf[12] = 2112;
@@ -196,9 +190,8 @@ LABEL_22:
 
     if (sub_2393D5398(1u))
     {
-      [(MTRCommissioningOperation *)v6 currentCommissioning];
-      selfCopy2 = selfCopy3 = self;
-      sub_2393D5320(0, 1);
+      currentCommissioning3 = [v6 currentCommissioning];
+      sub_2393D5320(0, 1, "%@ Cannot start commissioning because commissioning %@ already in progress", self, currentCommissioning3);
     }
 
     v8 = 0x93000000DBLL;
@@ -217,127 +210,120 @@ LABEL_22:
 
   if (sub_2393D5398(2u))
   {
-    selfCopy3 = self;
-    selfCopy2 = objc_loadWeakRetained(&self->_controller);
-    sub_2393D5320(0, 2);
+    v16 = objc_loadWeakRetained(&self->_controller);
+    sub_2393D5320(0, 2, "%@ starting commissioning with controller %@", self, v16);
   }
 
   if (!self->_isInternallyCreated)
   {
-    v16 = +[MTRMetricsCollector sharedInstance];
-    [v16 resetMetrics];
+    v17 = +[MTRMetricsCollector sharedInstance];
+    [v17 resetMetrics];
 
     *buf = 0;
     *&buf[8] = "dwnfw_device_commissioning";
     buf[20] = 0;
     sub_23948BD20(buf);
-    v17 = self->_setupPayload;
+    v18 = self->_setupPayload;
     memset(buf, 0, sizeof(buf));
-    v18 = v17;
-    uTF8String = [(NSString *)v17 UTF8String];
-    v20 = strlen(uTF8String);
-    if (v20 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = v18;
+    uTF8String = [(NSString *)v18 UTF8String];
+    v21 = strlen(uTF8String);
+    if (v21 >= 0x7FFFFFFFFFFFFFF8)
     {
       sub_238DCEB40();
     }
 
-    v21 = v20;
-    if (v20 >= 0x17)
+    v22 = v21;
+    if (v21 >= 0x17)
     {
       operator new();
     }
 
-    v38 = v20;
-    if (v20)
+    v36 = v21;
+    if (v21)
     {
-      memmove(&__dst, uTF8String, v20);
+      memmove(&__dst, uTF8String, v21);
     }
 
-    *(&__dst + v21) = 0;
-    v22 = sub_239490924(&__dst, buf);
-    if (v38 < 0)
+    *(&__dst + v22) = 0;
+    v23 = sub_239490924(&__dst, buf);
+    if (v36 < 0)
     {
       operator delete(__dst);
     }
 
-    if (v22)
+    if (v23)
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "Unable to parse setup payload to extract VID/PID", v33, 2u);
+        *v31 = 0;
+        _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "Unable to parse setup payload to extract VID/PID", v31, 2u);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_47;
+        sub_2393D5320(0, 1, "Unable to parse setup payload to extract VID/PID");
+      }
+    }
+
+    else if (*buf == *&buf[8])
+    {
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        *v31 = 0;
+        _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "Setup payload parsing succeeded but somehow did not create any payloads we can get a VID/PID from", v31, 2u);
+      }
+
+      if (sub_2393D5398(1u))
+      {
+        sub_2393D5320(0, 1, "Setup payload parsing succeeded but somehow did not create any payloads we can get a VID/PID from");
       }
     }
 
     else
     {
-      if (*buf != *&buf[8])
-      {
-        v23 = *(*buf + 2);
-        *v33 = 2;
-        v34 = "dwnfw_device_vendor_id";
-        v35 = v23;
-        v36 = 2;
-        sub_23948BD20(v33);
-        v24 = *(*buf + 4);
-        *v33 = 2;
-        v34 = "dwnfw_device_product_id";
-        v35 = v24;
-        v36 = 2;
-        sub_23948BD20(v33);
-        goto LABEL_47;
-      }
-
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *v33 = 0;
-        _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "Setup payload parsing succeeded but somehow did not create any payloads we can get a VID/PID from", v33, 2u);
-      }
-
-      if (!sub_2393D5398(1u))
-      {
-        goto LABEL_47;
-      }
+      v24 = *(*buf + 2);
+      *v31 = 2;
+      v32 = "dwnfw_device_vendor_id";
+      v33 = v24;
+      v34 = 2;
+      sub_23948BD20(v31);
+      v25 = *(*buf + 4);
+      *v31 = 2;
+      v32 = "dwnfw_device_product_id";
+      v33 = v25;
+      v34 = 2;
+      sub_23948BD20(v31);
     }
 
-    sub_2393D5320(0, 1);
-LABEL_47:
-    *v33 = buf;
-    sub_239227730(v33);
+    *v31 = buf;
+    sub_239227730(v31);
   }
 
-  selfCopy2 = [(MTRCommissioningOperation *)v6 startCommissioning:self withCommissioningID:self->_commissioningID, selfCopy3, selfCopy2];
-  if (selfCopy2)
+  v27 = [v6 startCommissioning:self withCommissioningID:self->_commissioningID];
+  if (v27)
   {
-    v27 = v25;
+    v28 = v26;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v28 = objc_loadWeakRetained(&self->_controller);
+      v29 = objc_loadWeakRetained(&self->_controller);
       *buf = 138412546;
       *&buf[4] = self;
       *&buf[12] = 2112;
-      *&buf[14] = v28;
+      *&buf[14] = v29;
       _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "%@ failed to start commissioning with controller %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      selfCopy4 = self;
-      v32 = objc_loadWeakRetained(&self->_controller);
-      sub_2393D5320(0, 1);
+      v30 = objc_loadWeakRetained(&self->_controller);
+      sub_2393D5320(0, 1, "%@ failed to start commissioning with controller %@", self, v30);
     }
 
-    [(MTRCommissioningOperation *)self _dispatchCommissioningCHIPError:selfCopy2, v27, selfCopy4, v32];
+    [(MTRCommissioningOperation *)self _dispatchCommissioningCHIPError:v27, v28];
   }
 
 LABEL_23:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)stop
@@ -398,7 +384,7 @@ LABEL_23:
 
 - (void)_dispatchCommissioningError:(id)error forCommissioningID:(id)d withMetrics:(id)metrics
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dCopy = d;
   metricsCopy = metrics;
@@ -408,22 +394,19 @@ LABEL_23:
   {
     *buf = 138412802;
     selfCopy = self;
-    v31 = 2112;
-    v32 = WeakRetained;
-    v33 = 2112;
-    v34 = metricsCopy;
+    v27 = 2112;
+    v28 = WeakRetained;
+    v29 = 2112;
+    v30 = metricsCopy;
     _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_DEFAULT, "%@ Device commissioning failed with controller %@ metrics %@", buf, 0x20u);
   }
 
   if (sub_2393D5398(2u))
   {
-    v21 = WeakRetained;
-    v22 = metricsCopy;
-    selfCopy2 = self;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ Device commissioning failed with controller %@ metrics %@", self, WeakRetained, metricsCopy);
   }
 
-  v13 = [(MTRCommissioningOperation *)self _internalDelegate:selfCopy2];
+  _internalDelegate = [(MTRCommissioningOperation *)self _internalDelegate];
   objc_storeWeak(&self->_delegate, 0);
   [WeakRetained commissioningDone:self];
   delegateQueue = self->_delegateQueue;
@@ -431,18 +414,16 @@ LABEL_23:
   block[1] = 3221225472;
   block[2] = sub_239226164;
   block[3] = &unk_278A723D0;
-  v24 = v13;
-  selfCopy3 = self;
-  v26 = errorCopy;
-  v27 = dCopy;
-  v28 = metricsCopy;
+  v20 = _internalDelegate;
+  selfCopy2 = self;
+  v22 = errorCopy;
+  v23 = dCopy;
+  v24 = metricsCopy;
   v15 = metricsCopy;
   v16 = dCopy;
   v17 = errorCopy;
-  v18 = v13;
+  v18 = _internalDelegate;
   dispatch_async(delegateQueue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_internalDelegate
@@ -469,7 +450,7 @@ LABEL_23:
 
 - (void)controller:(id)controller commissioningSessionEstablishmentDone:(id)done
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   doneCopy = done;
   _internalDelegate = [(MTRCommissioningOperation *)self _internalDelegate];
   if (objc_opt_respondsToSelector())
@@ -480,8 +461,8 @@ LABEL_23:
     block[2] = sub_2392265A8;
     block[3] = &unk_278A71650;
     block[4] = self;
-    v23 = _internalDelegate;
-    v24 = doneCopy;
+    v18 = _internalDelegate;
+    v19 = doneCopy;
     dispatch_async(delegateQueue, block);
   }
 
@@ -495,9 +476,9 @@ LABEL_23:
       [(MTRCommissioningParameters *)self->_parameters setDeviceAttestationDelegate:v9];
       parameters = self->_parameters;
       commissioningID = self->_commissioningID;
-      v21 = 0;
-      v12 = [WeakRetained commission:self withCommissioningID:commissioningID commissioningParams:parameters error:&v21];
-      v13 = v21;
+      v16 = 0;
+      v12 = [WeakRetained commission:self withCommissioningID:commissioningID commissioningParams:parameters error:&v16];
+      v13 = v16;
       if ((v12 & 1) == 0)
       {
         v14 = sub_2393D9044(0);
@@ -506,31 +487,25 @@ LABEL_23:
           v15 = self->_parameters;
           *buf = 138413058;
           selfCopy = self;
-          v27 = 2112;
-          v28 = WeakRetained;
-          v29 = 2112;
-          v30 = v15;
-          v31 = 2112;
-          v32 = v13;
+          v22 = 2112;
+          v23 = WeakRetained;
+          v24 = 2112;
+          v25 = v15;
+          v26 = 2112;
+          v27 = v13;
           _os_log_impl(&dword_238DAE000, v14, OS_LOG_TYPE_ERROR, "%@ attempt to start commissioning with controller %@ and parameters %@ failed: %@", buf, 0x2Au);
         }
 
         if (sub_2393D5398(1u))
         {
-          v19 = self->_parameters;
-          v20 = v13;
-          selfCopy2 = self;
-          v18 = WeakRetained;
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "%@ attempt to start commissioning with controller %@ and parameters %@ failed: %@", self, WeakRetained, self->_parameters, v13);
         }
 
-        [(MTRCommissioningOperation *)self _dispatchCommissioningError:v13, selfCopy2, v18, v19, v20];
+        [(MTRCommissioningOperation *)self _dispatchCommissioningError:v13];
         [(MTRCommissioningOperation *)self stop];
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controller:(id)controller commissioningComplete:(id)complete nodeID:(id)d metrics:(id)metrics

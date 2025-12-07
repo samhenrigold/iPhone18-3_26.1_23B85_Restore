@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1001313B0();
+  sub_1001313B0(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear

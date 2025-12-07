@@ -3,6 +3,7 @@
 - (void)didReceiveNotification:(id)notification;
 - (void)openNotification;
 - (void)renderUserNotification:(id)notification;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -29,6 +30,15 @@
   }
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = AMPUserNotificationViewController;
+  [(AMPUserNotificationViewController *)&v5 viewWillDisappear:disappear];
+  contentViewController = [(AMPUserNotificationViewController *)self contentViewController];
+  [contentViewController mediaPause];
+}
+
 + (id)userNotificationFromNotification:(id)notification
 {
   v3 = MEMORY[0x277CEE710];
@@ -46,7 +56,7 @@
 
 - (void)renderUserNotification:(id)notification
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   mEMORY[0x277CEE508] = [MEMORY[0x277CEE508] sharedUserNotificationConfig];
   if (!mEMORY[0x277CEE508])
@@ -60,8 +70,8 @@
     logKey = [notificationCopy logKey];
     *buf = 138543618;
     selfCopy = self;
-    v21 = 2114;
-    v22 = logKey;
+    v20 = 2114;
+    v21 = logKey;
     _os_log_impl(&dword_23C90D000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Will render notification", buf, 0x16u);
   }
 
@@ -90,14 +100,12 @@
   [(AMPUserNotificationViewController *)self setPreferredContentSize:?];
 
   contentViewController4 = [(AMPUserNotificationViewController *)self contentViewController];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__AMPUserNotificationViewController_renderUserNotification___block_invoke;
-  v18[3] = &unk_278BC2168;
-  v18[4] = self;
-  [(AMPUserNotificationViewController *)self presentViewController:contentViewController4 animated:0 completion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __60__AMPUserNotificationViewController_renderUserNotification___block_invoke;
+  v17[3] = &unk_278BC2168;
+  v17[4] = self;
+  [(AMPUserNotificationViewController *)self presentViewController:contentViewController4 animated:0 completion:v17];
 }
 
 void __60__AMPUserNotificationViewController_renderUserNotification___block_invoke(uint64_t a1)
@@ -113,7 +121,7 @@ void __60__AMPUserNotificationViewController_renderUserNotification___block_invo
 
 - (void)didReceiveNotification:(id)notification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = [objc_opt_class() userNotificationFromNotification:notificationCopy];
 
@@ -137,10 +145,10 @@ void __60__AMPUserNotificationViewController_renderUserNotification___block_invo
       oSLogObject = [mEMORY[0x277CEE508]2 OSLogObject];
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138543362;
-        v16 = objc_opt_class();
-        v10 = v16;
-        _os_log_impl(&dword_23C90D000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: didReceiveNotification: received for a notification that did not originate from an AMS", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = objc_opt_class();
+        v10 = v15;
+        _os_log_impl(&dword_23C90D000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: didReceiveNotification: received for a notification that did not originate from an AMS", &v14, 0xCu);
       }
 
       mEMORY[0x277CEE508]2 = [MEMORY[0x277CCAB98] defaultCenter];
@@ -158,15 +166,13 @@ void __60__AMPUserNotificationViewController_renderUserNotification___block_invo
       oSLogObject2 = [mEMORY[0x277CEE508]2 OSLogObject];
       if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_FAULT))
       {
-        v15 = 138543362;
-        v16 = objc_opt_class();
-        v13 = v16;
-        _os_log_impl(&dword_23C90D000, oSLogObject2, OS_LOG_TYPE_FAULT, "%{public}@: didReceiveNotification: received for a notification that did not originate from an AMS", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = objc_opt_class();
+        v13 = v15;
+        _os_log_impl(&dword_23C90D000, oSLogObject2, OS_LOG_TYPE_FAULT, "%{public}@: didReceiveNotification: received for a notification that did not originate from an AMS", &v14, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

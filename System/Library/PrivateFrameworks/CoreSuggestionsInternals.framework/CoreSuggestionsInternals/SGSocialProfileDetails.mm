@@ -10,25 +10,23 @@
 
 - (id)serialize
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = *&self->_username;
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = *&self->_username;
   bundleIdentifier = self->_bundleIdentifier;
-  v8 = *&self->_displayName;
+  v7 = *&self->_displayName;
   teamIdentifier = self->_teamIdentifier;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:6];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:6];
   v3 = SGDelimitedStringsSerializeArray();
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (SGSocialProfileDetails)initWithSerialized:(id)serialized
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   serializedCopy = serialized;
   v5 = SGDelimitedStringsDeserialize();
-  if ([v5 count] == 6)
+  if (objc_msgSend_count(v5) == 6)
   {
     v6 = [v5 objectAtIndexedSubscript:0];
     v7 = [v5 objectAtIndexedSubscript:1];
@@ -46,15 +44,14 @@
     v13 = sgLogHandle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = serializedCopy;
-      _os_log_error_impl(&dword_231E60000, v13, OS_LOG_TYPE_ERROR, "Failed to decode socialProfileData: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = serializedCopy;
+      _os_log_error_impl(&dword_231E60000, v13, OS_LOG_TYPE_ERROR, "Failed to decode socialProfileData: %@", &v15, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -214,16 +211,16 @@
 
 - (SGSocialProfileDetails)initWithUsername:(id)username userIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier displayName:(id)name service:(id)service teamIdentifier:(id)teamIdentifier
 {
-  v52[2] = *MEMORY[0x277D85DE8];
+  v51[2] = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   nameCopy = name;
   serviceCopy = service;
   teamIdentifierCopy = teamIdentifier;
-  v48.receiver = self;
-  v48.super_class = SGSocialProfileDetails;
-  v20 = [(SGSocialProfileDetails *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = SGSocialProfileDetails;
+  v20 = [(SGSocialProfileDetails *)&v47 init];
   if (v20)
   {
     v21 = [usernameCopy copy];
@@ -254,9 +251,9 @@
     if ([bundleIdentifierCopy length] && objc_msgSend(identifierCopy, "length"))
     {
       v34 = v20->_bundleIdentifier;
-      v52[0] = v20->_userIdentifier;
-      v52[1] = v34;
-      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+      v51[0] = v20->_userIdentifier;
+      v51[1] = v34;
+      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
       v36 = SGDelimitedStringsSerializeArray();
     }
 
@@ -268,9 +265,9 @@
     if ([bundleIdentifierCopy length] && objc_msgSend(usernameCopy, "length"))
     {
       v37 = v20->_bundleIdentifier;
-      v51[0] = v20->_username;
-      v51[1] = v37;
-      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+      v50[0] = v20->_username;
+      v50[1] = v37;
+      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
       serialize = SGDelimitedStringsSerializeArray();
 
       v33 = 0x277CBE000;
@@ -294,18 +291,18 @@
     objc_storeStrong(&v20->_preferredUniqueIdentifier, v40);
     if (v36)
     {
-      v50[0] = v36;
-      v50[1] = serialize;
+      v49[0] = v36;
+      v49[1] = serialize;
       v41 = *(v33 + 2656);
-      v42 = v50;
+      v42 = v49;
       v43 = 2;
     }
 
     else
     {
-      v49 = serialize;
+      v48 = serialize;
       v41 = *(v33 + 2656);
-      v42 = &v49;
+      v42 = &v48;
       v43 = 1;
     }
 
@@ -314,7 +311,6 @@
     v20->_uniqueIdentifiers = v44;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

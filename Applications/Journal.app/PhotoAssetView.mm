@@ -21,7 +21,7 @@
   v10 = type metadata accessor for UUID();
   (*(*(v10 - 8) + 56))(self + v9, 1, 1, v10);
   v13.receiver = self;
-  v13.super_class = type metadata accessor for PhotoAssetView();
+  v13.super_class = type metadata accessor for PhotoAssetView(0);
   height = [(JournalAssetView *)&v13 initWithFrame:x, y, width, height];
   sub_1000701DC();
 
@@ -51,7 +51,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PhotoAssetView();
+  v3.super_class = type metadata accessor for PhotoAssetView(0);
   v2 = v3.receiver;
   [(PhotoAssetView *)&v3 layoutSubviews];
   if (v2[OBJC_IVAR____TtC7Journal14PhotoAssetView_needsCropRectUpdate] == 1)

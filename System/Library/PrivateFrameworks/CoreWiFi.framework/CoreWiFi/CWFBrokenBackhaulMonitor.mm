@@ -20,38 +20,8 @@
   v14.receiver = self;
   v14.super_class = CWFBrokenBackhaulMonitor;
   v2 = [(CWFBrokenBackhaulMonitor *)&v14 init];
-  if (!v2)
+  if (!v2 || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v3 = objc_claimAutoreleasedReturnValue(), v4 = dispatch_queue_create("com.apple.corewifi.bbh.internal", v3), v5 = *(v2 + 2), *(v2 + 2) = v4, v5, v3, !*(v2 + 2)) || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v6 = objc_claimAutoreleasedReturnValue(), v7 = dispatch_queue_create("com.apple.corewifi.bbh.target", v6), v8 = *(v2 + 8), *(v2 + 8) = v7, v8, v6, !*(v2 + 8)) || (v9 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v2 + 2)), v10 = *(v2 + 5), *(v2 + 5) = v9, v10, !*(v2 + 5)) || (v11 = objc_alloc_init(MEMORY[0x1E695DF90]), v12 = *(v2 + 4), *(v2 + 4) = v11, v12, !*(v2 + 4)))
   {
-    goto LABEL_6;
-  }
-
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create("com.apple.corewifi.bbh.internal", v3);
-  v5 = *(v2 + 2);
-  *(v2 + 2) = v4;
-
-  if (!*(v2 + 2))
-  {
-    goto LABEL_6;
-  }
-
-  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v7 = dispatch_queue_create("com.apple.corewifi.bbh.target", v6);
-  v8 = *(v2 + 8);
-  *(v2 + 8) = v7;
-
-  if (!*(v2 + 8))
-  {
-    goto LABEL_6;
-  }
-
-  v9 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v2 + 2));
-  v10 = *(v2 + 5);
-  *(v2 + 5) = v9;
-
-  if (!*(v2 + 5) || (v11 = objc_alloc_init(MEMORY[0x1E695DF90]), v12 = *(v2 + 4), *(v2 + 4) = v11, v12, !*(v2 + 4)))
-  {
-LABEL_6:
     [v2 invalidate];
 
     return 0;
@@ -62,7 +32,7 @@ LABEL_6:
 
 - (void)__submitCoreAnalyticsEvent
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (objc_opt_class())
   {
     v3 = [(NSMutableDictionary *)self->_pendingMetricSubmissionPayload copy];
@@ -80,26 +50,24 @@ LABEL_6:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543618;
-      v15 = @"com.apple.wifi.bbh-detect";
-      v16 = 2114;
-      v17 = v3;
-      LODWORD(v11) = 22;
-      v10 = &v14;
-      _os_log_send_and_compose_impl();
+      v11 = 138543618;
+      v12 = @"com.apple.wifi.bbh-detect";
+      v13 = 2114;
+      v14 = v3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[corewifi] [bbh] Sending '%{public}@' CoreAnalytics metric (%{public}@)", &v11, 22);
     }
 
     block[5] = MEMORY[0x1E69E9820];
     block[6] = 3221225472;
     block[7] = sub_1E0C161AC;
     block[8] = &unk_1E86E6258;
-    v13 = v3;
+    v10 = v3;
     v7 = v3;
     AnalyticsSendEventLazy();
   }
 
   self->_initialIndicationTimestamp = 0;
-  [(NSMutableDictionary *)self->_pendingMetricSubmissionPayload removeAllObjects:v10];
+  [(NSMutableDictionary *)self->_pendingMetricSubmissionPayload removeAllObjects];
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -107,7 +75,6 @@ LABEL_6:
   block[3] = &unk_1E86E6010;
   block[4] = self;
   dispatch_async(internalQueue, block);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updatePendingCoreAnalyticsPayloadWithNewBrokenBackhaulState:(int64_t)state usingQuickProbeTimeout:(unint64_t)timeout
@@ -219,7 +186,7 @@ LABEL_20:
 
 - (void)__updateBrokenBackhaulState:(int64_t)state timestamp:(id)timestamp usingQuickProbeTimeout:(unint64_t)timeout
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -245,21 +212,22 @@ LABEL_20:
         v18 = sub_1E0BD3BE8(selfCopy->_brokenBackhaulState);
         v19 = sub_1E0BCC248(selfCopy->_brokenBackhaulStateUpdatedAt);
         v20 = sub_1E0BD3BE8(state);
-        sub_1E0BCC248(timestampCopy);
-        v27 = 138544130;
-        v28 = v18;
-        v29 = 2114;
-        v30 = v19;
-        v31 = 2114;
-        v32 = v20;
-        v34 = v33 = 2114;
-        _os_log_send_and_compose_impl();
+        v21 = sub_1E0BCC248(timestampCopy);
+        v28 = 138544130;
+        v29 = v18;
+        v30 = 2114;
+        v31 = v19;
+        v32 = 2114;
+        v33 = v20;
+        v34 = 2114;
+        v35 = v21;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 0, "[corewifi] [bbh] Updated broken backhaul state ('%{public}@' / %{public}@ --> '%{public}@' / %{public}@)", &v28, 42);
       }
 
       selfCopy->_brokenBackhaulState = state;
-      v21 = [timestampCopy copy];
+      v22 = [timestampCopy copy];
       brokenBackhaulStateUpdatedAt = selfCopy->_brokenBackhaulStateUpdatedAt;
-      selfCopy->_brokenBackhaulStateUpdatedAt = v21;
+      selfCopy->_brokenBackhaulStateUpdatedAt = v22;
 
       targetQueue = [(CWFBrokenBackhaulMonitor *)selfCopy targetQueue];
       block[0] = MEMORY[0x1E69E9820];
@@ -282,27 +250,26 @@ LABEL_20:
       else
       {
         v16 = MEMORY[0x1E69E9C10];
-        v24 = MEMORY[0x1E69E9C10];
+        v25 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        sub_1E0BD3BE8(state);
-        v28 = v27 = 138543362;
-        _os_log_send_and_compose_impl();
+        v26 = sub_1E0BD3BE8(state);
+        v28 = 138543362;
+        v29 = v26;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] [bbh] Allowing quick probe confirmation to prevail over more transient symptoms-based state (%{public}@)", &v28, 12);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__fetchSymptomsBrokenBackhaulStateWithEventID:(unint64_t)d completion:(id)completion
 {
   completionCopy = completion;
-  if (!sub_1E0C18B50())
+  if (!sub_1E0C18B50(0))
   {
     v9 = 1;
     if (!completionCopy)
@@ -493,7 +460,8 @@ LABEL_8:
         countCopy = count;
         v39 = 2048;
         timeoutCopy = timeout;
-        _os_log_send_and_compose_impl();
+        LODWORD(v16) = 58;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] %{public}s (%{public}s:%u) [bbh] Will probe remote endpoint %lu/%lu (timeout=%lums)", &v29, v16);
       }
 
       v21[0] = MEMORY[0x1E69E9820];
@@ -528,36 +496,35 @@ LABEL_8:
   dispatch_group_notify(v9, internalQueue, block);
 
   _Block_object_dispose(v28, 8);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)confirmBrokenBackhaulUsingTimeout:(unint64_t)timeout count:(unint64_t)count preflightPingAddress:(id)address completion:(id)completion
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   completionCopy = completion;
   if (addressCopy)
   {
-    v50[0] = 0;
-    v50[1] = v50;
-    v50[2] = 0x2020000000;
-    v51 = 0;
-    v48[0] = 0;
-    v48[1] = v48;
-    v48[2] = 0x3032000000;
-    v48[3] = sub_1E0BC2CF4;
-    v48[4] = sub_1E0BC61C4;
-    v49 = 0;
-    v46[0] = 0;
-    v46[1] = v46;
-    v46[2] = 0x3032000000;
-    v46[3] = sub_1E0BC2CF4;
-    v46[4] = sub_1E0BC61C4;
-    v47 = 0;
-    v44[0] = 0;
-    v44[1] = v44;
-    v44[2] = 0x2020000000;
-    v45 = 0;
+    v49[0] = 0;
+    v49[1] = v49;
+    v49[2] = 0x2020000000;
+    v50 = 0;
+    v47[0] = 0;
+    v47[1] = v47;
+    v47[2] = 0x3032000000;
+    v47[3] = sub_1E0BC2CF4;
+    v47[4] = sub_1E0BC61C4;
+    v48 = 0;
+    v45[0] = 0;
+    v45[1] = v45;
+    v45[2] = 0x3032000000;
+    v45[3] = sub_1E0BC2CF4;
+    v45[4] = sub_1E0BC61C4;
+    v46 = 0;
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x2020000000;
+    v44 = 0;
     v12 = dispatch_block_create(0, &unk_1F5B89A90);
     v13 = objc_alloc_init(CWFPinger);
     internalQueue = self->_internalQueue;
@@ -567,12 +534,12 @@ LABEL_8:
     notification_block[3] = &unk_1E86E6588;
     notification_block[4] = self;
     v15 = v13;
-    v37 = v15;
-    v40 = v50;
-    v41 = v48;
+    v36 = v15;
+    v39 = v49;
+    v40 = v47;
     v16 = addressCopy;
-    v38 = v16;
-    v39 = completionCopy;
+    v37 = v16;
+    v38 = completionCopy;
     timeoutCopy = timeout;
     countCopy = count;
     dispatch_block_notify(v12, internalQueue, notification_block);
@@ -591,61 +558,59 @@ LABEL_8:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       redactedForWiFi = [v16 redactedForWiFi];
-      v52 = 136447746;
-      v53 = "[CWFBrokenBackhaulMonitor confirmBrokenBackhaulUsingTimeout:count:preflightPingAddress:completion:]";
-      v54 = 2082;
-      v55 = "CWFBrokenBackhaulMonitor.m";
-      v56 = 1024;
-      v57 = 512;
-      v58 = 2114;
-      v59 = redactedForWiFi;
-      v60 = 1024;
-      v61 = 3;
-      v62 = 1024;
-      v63 = 1000;
-      v64 = 1024;
-      v65 = 33;
-      _os_log_send_and_compose_impl();
+      v51 = 136447746;
+      v52 = "[CWFBrokenBackhaulMonitor confirmBrokenBackhaulUsingTimeout:count:preflightPingAddress:completion:]";
+      v53 = 2082;
+      v54 = "CWFBrokenBackhaulMonitor.m";
+      v55 = 1024;
+      v56 = 512;
+      v57 = 2114;
+      v58 = redactedForWiFi;
+      v59 = 1024;
+      v60 = 3;
+      v61 = 1024;
+      v62 = 1000;
+      v63 = 1024;
+      v64 = 33;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] %{public}s (%{public}s:%u) [bbh] Will ping %{public}@ (count=%d, timeout=%dms, limit=%d%%)", &v51, 56);
     }
 
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = sub_1E0C188F4;
-    v30[3] = &unk_1E86E65B0;
-    v30[4] = self;
-    v32 = v50;
-    v33 = v46;
-    v34 = v48;
-    v35 = v44;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = sub_1E0C188F4;
+    v29[3] = &unk_1E86E65B0;
+    v29[4] = self;
+    v31 = v49;
+    v32 = v45;
+    v33 = v47;
+    v34 = v43;
     v21 = v12;
-    v31 = v21;
-    [(CWFPinger *)v15 startPingingToHost:v16 withNumberOfPings:3 completion:v30];
+    v30 = v21;
+    [(CWFPinger *)v15 startPingingToHost:v16 withNumberOfPings:3 completion:v29];
     v22 = dispatch_time(0, 1000000000);
     v23 = self->_internalQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1E0C189F4;
     block[3] = &unk_1E86E63D0;
-    v28 = v50;
-    v29 = v44;
+    v27 = v49;
+    v28 = v43;
     block[4] = self;
-    v27 = v21;
+    v26 = v21;
     v24 = v21;
     dispatch_after(v22, v23, block);
 
-    _Block_object_dispose(v44, 8);
-    _Block_object_dispose(v46, 8);
+    _Block_object_dispose(v43, 8);
+    _Block_object_dispose(v45, 8);
 
-    _Block_object_dispose(v48, 8);
-    _Block_object_dispose(v50, 8);
+    _Block_object_dispose(v47, 8);
+    _Block_object_dispose(v49, 8);
   }
 
   else
   {
     [(CWFBrokenBackhaulMonitor *)self __confirmBrokenBackhaulUsingTimeout:timeout count:count completion:completionCopy];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

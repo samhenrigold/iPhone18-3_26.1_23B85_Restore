@@ -6,6 +6,7 @@
 - (void)_registerNotificationObservers;
 - (void)_setupResponder;
 - (void)cancelAllNotificationsWithCompletion:(id)completion;
+- (void)cancelNotificationsWithIdentifiers:(id)identifiers scheduledOnly:(BOOL)only completion:(id)completion;
 - (void)dealloc;
 - (void)notificationCenter:(id)center didReceiveNotification:(__CFString *)notification;
 - (void)postNotification:(id)notification completion:(id)completion;
@@ -76,7 +77,7 @@
 
   else
   {
-    v7 = LACLogNotifications();
+    v7 = LACLogNotifications(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(LACUNManagerSetUpDecorator *)v7 cancelAllNotificationsWithCompletion:v8, v9, v10, v11, v12, v13, v14];
@@ -86,6 +87,34 @@
     {
       v15 = [LACError errorWithCode:-1000 debugDescription:@"Service not available in Setup"];
       completionCopy[2](completionCopy, v15);
+    }
+  }
+}
+
+- (void)cancelNotificationsWithIdentifiers:(id)identifiers scheduledOnly:(BOOL)only completion:(id)completion
+{
+  onlyCopy = only;
+  identifiersCopy = identifiers;
+  completionCopy = completion;
+  responder = [(LACUNManagerSetUpDecorator *)self responder];
+  v11 = responder;
+  if (responder)
+  {
+    [responder cancelNotificationsWithIdentifiers:identifiersCopy scheduledOnly:onlyCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v12 = LACLogNotifications(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [(LACUNManagerSetUpDecorator *)v12 cancelAllNotificationsWithCompletion:v13, v14, v15, v16, v17, v18, v19];
+    }
+
+    if (completionCopy)
+    {
+      v20 = [LACError errorWithCode:-1000 debugDescription:@"Service not available in Setup"];
+      completionCopy[2](completionCopy, v20);
     }
   }
 }
@@ -103,7 +132,7 @@
 
   else
   {
-    v10 = LACLogNotifications();
+    v10 = LACLogNotifications(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(LACUNManagerSetUpDecorator *)v10 cancelAllNotificationsWithCompletion:v11, v12, v13, v14, v15, v16, v17];
@@ -169,11 +198,11 @@
     delegate = [(LACUNManagerSetUpDecorator *)self delegate];
     [(LACUNManager *)v7 setDelegate:delegate];
 
-    v9 = LACLogNotifications();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = LACLogNotifications(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "Did create notification manager", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "Did create notification manager", v12, 2u);
     }
 
     os_unfair_lock_unlock(&self->_builderLock);

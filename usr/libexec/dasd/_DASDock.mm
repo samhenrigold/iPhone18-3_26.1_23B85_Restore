@@ -5,6 +5,7 @@
 - (id)admissibleApplications;
 - (id)computeOptimalPolicyForApps:(id)apps withValues:(id)values scaledWeights:(id)weights andMemoryFootprint:(id)footprint;
 - (id)computePolicyForCurrentState;
+- (id)getProcessHandleFromRunningBoardForPid:(int)pid;
 - (id)quantizeNumericMap:(id)map;
 - (id)quantizedMaxExpectedTotalActivationTimeForApps:(id)apps;
 - (int64_t)getLedgerCountForProcess:(int)process;
@@ -135,7 +136,7 @@
   if (!self->_dockPurged)
   {
     admissibleApplications = [(_DASDock *)self admissibleApplications];
-    v5 = [admissibleApplications count];
+    v5 = objc_msgSend_count(admissibleApplications);
     if (v5 >= 0xFF)
     {
       if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
@@ -1033,12 +1034,12 @@ LABEL_27:
   footprintCopy = footprint;
   v14 = objc_alloc_init(NSMutableSet);
   self->_currentDockCapacity = 0;
-  if (![appsCopy count])
+  if (!objc_msgSend_count(appsCopy))
   {
     goto LABEL_25;
   }
 
-  if ([appsCopy count] != 1)
+  if (objc_msgSend_count(appsCopy) != 1)
   {
     p_maxDockCapacity = &self->_maxDockCapacity;
     v20 = self->_maxDockCapacity / self->_weightScaleFactor;
@@ -1057,7 +1058,7 @@ LABEL_27:
 
     else
     {
-      if ([v24 count])
+      if (objc_msgSend_count(v24))
       {
         v39 = v22;
         v40 = v21;
@@ -1185,7 +1186,7 @@ LABEL_25:
 
   v12 = [(NSSet *)self->_excludedApplications containsObject:membershipCopy];
   v13 = [(NSSet *)self->_springboardVisibleApplications containsObject:membershipCopy];
-  if ([(NSSet *)self->_springboardVisibleApplications count])
+  if (objc_msgSend_count(self->_springboardVisibleApplications))
   {
     v14 = self->_springboardVisibleApplications != 0;
   }
@@ -1282,7 +1283,7 @@ LABEL_5:
   v6 = self->_springboardVisibleApplications;
   if (v6)
   {
-    if (![(NSSet *)v6 count])
+    if (!objc_msgSend_count(v6))
     {
       logger = self->_logger;
       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
@@ -1314,7 +1315,7 @@ LABEL_7:
 - (id)quantizedMaxExpectedTotalActivationTimeForApps:(id)apps
 {
   appsCopy = apps;
-  v5 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(appsCopy, "count")}];
+  v5 = [[NSMutableDictionary alloc] initWithCapacity:objc_msgSend_count(appsCopy)];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v22 = 0u;
@@ -1365,7 +1366,7 @@ LABEL_7:
 {
   mapCopy = map;
   allValues = [mapCopy allValues];
-  v6 = [allValues count];
+  v6 = objc_msgSend_count(allValues);
   v18 = 0;
   v19 = &v18;
   v20 = 0x3032000000;
@@ -1422,7 +1423,7 @@ LABEL_7:
   arrayCopy = array;
   [factor floatValue];
   v10 = v9;
-  v11 = [arrayCopy count];
+  v11 = objc_msgSend_count(arrayCopy);
   v12 = malloc_type_malloc(4 * v11, 0x100004052888210uLL);
   if (v12)
   {
@@ -1549,7 +1550,7 @@ LABEL_7:
         [(_DASDock *)self handleFailureToAcquireAssertion:v14 forProcess:v5 withError:v15];
       }
 
-      v19 = [(NSMutableDictionary *)self->_activeDockAssertions count];
+      v19 = objc_msgSend_count(self->_activeDockAssertions);
 
       objc_sync_exit(v7);
       bundle = [v5 bundle];
@@ -1732,8 +1733,7 @@ LABEL_7:
     v6 = [(NSMutableDictionary *)selfCopy->_lastFrozenFootprintObservedForApplication objectForKey:telemetryCopy];
     [v6 longValue];
 
-    [(NSSet *)selfCopy->_dockedApplications count];
-    v7 = ((selfCopy->_currentDockCapacity / selfCopy->_maxDockCapacity) * 100.0);
+    objc_msgSend_count(selfCopy->_dockedApplications);
     objc_sync_exit(selfCopy);
 
     AnalyticsSendEventLazy();
@@ -1762,6 +1762,34 @@ LABEL_7:
   {
     sub_10012992C();
   }
+}
+
+- (id)getProcessHandleFromRunningBoardForPid:(int)pid
+{
+  v3 = *&pid;
+  v5 = [RBSProcessIdentifier identifierWithPid:?];
+  if (!v5)
+  {
+    logger = self->_logger;
+    if (os_log_type_enabled(logger, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100129968(logger);
+    }
+  }
+
+  v11 = 0;
+  v7 = [RBSProcessHandle handleForIdentifier:v5 error:&v11];
+  v8 = v11;
+  if (!v7)
+  {
+    v9 = self->_logger;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100129A08(v9, v3, v8);
+    }
+  }
+
+  return v7;
 }
 
 - (void)initializeLedgerIndices

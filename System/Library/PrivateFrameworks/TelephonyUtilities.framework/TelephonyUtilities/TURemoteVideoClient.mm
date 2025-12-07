@@ -201,21 +201,20 @@ LABEL_14:
   v34 = v44[1];
   v35 = v44[2];
   v36 = v44[3];
-  [layer setTransform:&v33];
-  v26 = getkCAGravityResizeAspectFill();
+  v26 = getkCAGravityResizeAspectFill([layer setTransform:&v33]);
 
   if (v26)
   {
-    v27 = getkCAGravityResizeAspectFill();
-    [layer setContentsGravity:v27];
+    v28 = getkCAGravityResizeAspectFill(v27);
+    [layer setContentsGravity:v28];
   }
 
   else
   {
-    v27 = TUDefaultLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = TUDefaultLog(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      [TURemoteVideoClient insertSubLayerInLayer:v27 videoSlotIdentifier:?];
+      [TURemoteVideoClient insertSubLayerInLayer:v28 videoSlotIdentifier:?];
     }
   }
 
@@ -226,10 +225,8 @@ LABEL_14:
   v30[3] = &unk_1E7425340;
   v31 = layer;
   identifierCopy = identifier;
-  v28 = layer;
+  v29 = layer;
   dispatch_async(MEMORY[0x1E69E96A0], v30);
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__TURemoteVideoClient_insertSubLayerInLayer_videoSlotIdentifier___block_invoke(uint64_t a1)
@@ -261,29 +258,29 @@ uint64_t __65__TURemoteVideoClient_insertSubLayerInLayer_videoSlotIdentifier___b
 
 - (void)cleanUpSubLayerForLayer:(id)layer
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   layerCopy = layer;
   nameForSubLayer = [(TURemoteVideoClient *)self nameForSubLayer];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   sublayers = [layerCopy sublayers];
-  v7 = [sublayers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [sublayers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(sublayers);
       }
 
-      v11 = *(*(&v16 + 1) + 8 * v10);
+      v11 = *(*(&v15 + 1) + 8 * v10);
       name = [v11 name];
       v13 = [name isEqualToString:nameForSubLayer];
 
@@ -294,7 +291,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [sublayers countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [sublayers countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -319,7 +316,6 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertSubLayerInLayer:videoSlotIdentifier:.cold.2()

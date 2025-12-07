@@ -10,47 +10,35 @@
 
 - (void)stopListeningForMicrophoneActivity:(id)activity
 {
-  v6 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   [(MicActivityClientProtocol *)self->server stopListeningForMicrophoneActivity:activityCopy];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listenForMicrophoneActivity:(id)activity reply:(id)reply
 {
-  v9 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   replyCopy = reply;
   [(MicActivityClientProtocol *)self->server listenForMicrophoneActivity:activityCopy reply:replyCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableMicrophoneActivityDetection:(id)detection
 {
-  v6 = *MEMORY[0x1E69E9840];
   detectionCopy = detection;
   [(MicActivityClientProtocol *)self->server disableMicrophoneActivityDetection:detectionCopy];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableMicrophoneActivityDetection:(id)detection
 {
-  v6 = *MEMORY[0x1E69E9840];
   detectionCopy = detection;
   [(MicActivityClientProtocol *)self->server enableMicrophoneActivityDetection:detectionCopy];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (MicActivityDXPCConnection)init
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = MicActivityDXPCConnection;
-  v2 = [(MicActivityDXPCConnection *)&v10 init];
+  v10 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = MicActivityDXPCConnection;
+  v2 = [(MicActivityDXPCConnection *)&v9 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.audio.isolated.micactivityd" options:4096];
@@ -69,13 +57,12 @@
     [(NSXPCConnection *)v2->connection resume];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 void __33__MicActivityDXPCConnection_init__block_invoke_14(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = v2;
   v4 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
@@ -104,56 +91,54 @@ void __33__MicActivityDXPCConnection_init__block_invoke_14(uint64_t a1, void *a2
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
+    v8 = 0;
     v9 = 0;
-    v10 = 0;
-    v11 = 47;
+    v10 = 47;
     do
     {
-      v12 = &aLibraryCachesC_104[v9];
-      if (v11 == 47)
+      v11 = &aLibraryCachesC_104[v8];
+      if (v10 == 47)
       {
-        v10 = &aLibraryCachesC_104[v9];
+        v9 = &aLibraryCachesC_104[v8];
       }
 
-      v11 = v12[1];
-      if (!v12[1])
+      v10 = v11[1];
+      if (!v11[1])
       {
         break;
       }
     }
 
-    while (v9++ < 0xFFF);
-    if (v10)
+    while (v8++ < 0xFFF);
+    if (v9)
     {
-      v14 = v10 + 1;
+      v13 = v9 + 1;
     }
 
     else
     {
-      v14 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Client/Boilerplate/HALClientInterceptor/MTDInterception/MAD_XPC/MicActivityDXPCConnection.mm";
+      v13 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Client/Boilerplate/HALClientInterceptor/MTDInterception/MAD_XPC/MicActivityDXPCConnection.mm";
     }
 
-    v15 = [(AMCP::Log::AMCP_Scope_Registry *)v3 localizedDescription];
-    v16 = [(AMCP::Log::AMCP_Scope_Registry *)v3 localizedFailureReason];
-    v17 = 136316162;
-    v18 = v14;
-    v19 = 1024;
-    v20 = 36;
-    v21 = 2112;
-    v22 = @"Error on remote object proxy";
-    v23 = 2112;
-    v24 = v15;
-    v25 = 2112;
-    v26 = v16;
-    _os_log_error_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_ERROR, "%32s:%-5d %@: %@ %@\n", &v17, 0x30u);
+    v14 = [v3 localizedDescription];
+    v15 = [v3 localizedFailureReason];
+    v16 = 136316162;
+    v17 = v13;
+    v18 = 1024;
+    v19 = 36;
+    v20 = 2112;
+    v21 = @"Error on remote object proxy";
+    v22 = 2112;
+    v23 = v14;
+    v24 = 2112;
+    v25 = v15;
+    _os_log_error_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_ERROR, "%32s:%-5d %@: %@ %@\n", &v16, 0x30u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __33__MicActivityDXPCConnection_init__block_invoke_11(AMCP::Log::AMCP_Scope_Registry *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
   if ((v1 & 1) == 0)
   {
@@ -180,48 +165,46 @@ void __33__MicActivityDXPCConnection_init__block_invoke_11(AMCP::Log::AMCP_Scope
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
+    v5 = 0;
     v6 = 0;
-    v7 = 0;
-    v8 = 47;
+    v7 = 47;
     do
     {
-      v9 = &aLibraryCachesC_104[v6];
-      if (v8 == 47)
+      v8 = &aLibraryCachesC_104[v5];
+      if (v7 == 47)
       {
-        v7 = &aLibraryCachesC_104[v6];
+        v6 = &aLibraryCachesC_104[v5];
       }
 
-      v8 = v9[1];
-      if (!v9[1])
+      v7 = v8[1];
+      if (!v8[1])
       {
         break;
       }
     }
 
-    while (v6++ < 0xFFF);
-    if (v7)
+    while (v5++ < 0xFFF);
+    if (v6)
     {
-      v11 = v7 + 1;
+      v10 = v6 + 1;
     }
 
     else
     {
-      v11 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Client/Boilerplate/HALClientInterceptor/MTDInterception/MAD_XPC/MicActivityDXPCConnection.mm";
+      v10 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Client/Boilerplate/HALClientInterceptor/MTDInterception/MAD_XPC/MicActivityDXPCConnection.mm";
     }
 
-    v12 = 136315394;
-    v13 = v11;
-    v14 = 1024;
-    v15 = 33;
-    _os_log_error_impl(&dword_1DE1F9000, v4, OS_LOG_TYPE_ERROR, "%32s:%-5d Connection with MAD was invalidated", &v12, 0x12u);
+    v11 = 136315394;
+    v12 = v10;
+    v13 = 1024;
+    v14 = 33;
+    _os_log_error_impl(&dword_1DE1F9000, v4, OS_LOG_TYPE_ERROR, "%32s:%-5d Connection with MAD was invalidated", &v11, 0x12u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __33__MicActivityDXPCConnection_init__block_invoke(AMCP::Log::AMCP_Scope_Registry *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
   if ((v1 & 1) == 0)
   {
@@ -248,43 +231,41 @@ void __33__MicActivityDXPCConnection_init__block_invoke(AMCP::Log::AMCP_Scope_Re
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
+    v5 = 0;
     v6 = 0;
-    v7 = 0;
-    v8 = 47;
+    v7 = 47;
     do
     {
-      v9 = &aLibraryCachesC_104[v6];
-      if (v8 == 47)
+      v8 = &aLibraryCachesC_104[v5];
+      if (v7 == 47)
       {
-        v7 = &aLibraryCachesC_104[v6];
+        v6 = &aLibraryCachesC_104[v5];
       }
 
-      v8 = v9[1];
-      if (!v9[1])
+      v7 = v8[1];
+      if (!v8[1])
       {
         break;
       }
     }
 
-    while (v6++ < 0xFFF);
-    if (v7)
+    while (v5++ < 0xFFF);
+    if (v6)
     {
-      v11 = v7 + 1;
+      v10 = v6 + 1;
     }
 
     else
     {
-      v11 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Client/Boilerplate/HALClientInterceptor/MTDInterception/MAD_XPC/MicActivityDXPCConnection.mm";
+      v10 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Client/Boilerplate/HALClientInterceptor/MTDInterception/MAD_XPC/MicActivityDXPCConnection.mm";
     }
 
-    v12 = 136315394;
-    v13 = v11;
-    v14 = 1024;
-    v15 = 30;
-    _os_log_error_impl(&dword_1DE1F9000, v4, OS_LOG_TYPE_ERROR, "%32s:%-5d Connection with MAD was interrupted", &v12, 0x12u);
+    v11 = 136315394;
+    v12 = v10;
+    v13 = 1024;
+    v14 = 30;
+    _os_log_error_impl(&dword_1DE1F9000, v4, OS_LOG_TYPE_ERROR, "%32s:%-5d Connection with MAD was interrupted", &v11, 0x12u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

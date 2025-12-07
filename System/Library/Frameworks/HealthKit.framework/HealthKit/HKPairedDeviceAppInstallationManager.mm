@@ -141,11 +141,11 @@
     }
   }
 
-  _HKInitializeLogging();
-  v9 = HKLogInfrastructure();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v9, v10);
+  v13 = HKLogInfrastructure(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    [(HKPairedDeviceAppInstallationManager *)self handleErrorWithAppConduitFetch:v7 errorOut:v9];
+    [(HKPairedDeviceAppInstallationManager *)self handleErrorWithAppConduitFetch:v7 errorOut:v13];
   }
 
   return 0;
@@ -153,70 +153,67 @@
 
 - (void)startObserving
 {
-  v8 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation", &v6, 0xCu);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation", &v7, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
   [defaultCenter addObserver:self selector:sel__watchAppInstallStateDidChange_ name:*MEMORY[0x1E698AAF0] object:0];
   [defaultCenter addObserver:self selector:sel__watchAppInstallStateDidChange_ name:*MEMORY[0x1E698AAF8] object:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObserving
 {
-  v8 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping observation", &v6, 0xCu);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping observation", &v7, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x1E698AAF0] object:0];
   [defaultCenter removeObserver:self name:*MEMORY[0x1E698AAF8] object:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_watchAppInstallStateDidChange:(id)change
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  _HKInitializeLogging();
-  v5 = HKLogInfrastructure();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(changeCopy, v5);
+  v8 = HKLogInfrastructure(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = objc_opt_class();
-    v7 = v6;
+    v9 = objc_opt_class();
+    v10 = v9;
     name = [changeCopy name];
     *buf = 138543618;
-    v18 = v6;
-    v19 = 2114;
-    v20 = name;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received pairing/active notification: %{public}@", buf, 0x16u);
+    v24 = v9;
+    v25 = 2114;
+    v26 = name;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received pairing/active notification: %{public}@", buf, 0x16u);
   }
 
   userInfo = [changeCopy userInfo];
-  v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E698AAE8]];
+  v13 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E698AAE8]];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     bundleIdentifier = [(HKWatchAppInstallationManager *)self bundleIdentifier];
-    v12 = [v10 containsObject:bundleIdentifier];
+    v17 = [v13 containsObject:bundleIdentifier];
 
-    if (v12)
+    if (v17)
     {
       queue = self->super._queue;
       block[0] = MEMORY[0x1E69E9820];
@@ -230,15 +227,13 @@
 
   else
   {
-    _HKInitializeLogging();
-    v14 = HKLogInfrastructure();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(isKindOfClass, v15);
+    v21 = HKLogInfrastructure(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [HKPairedDeviceAppInstallationManager _watchAppInstallStateDidChange:v14];
+      [HKPairedDeviceAppInstallationManager _watchAppInstallStateDidChange:v21];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isWatchAppInstalledWithError:.cold.1()
@@ -252,15 +247,13 @@
 
 - (void)handleErrorWithAppConduitFetch:(NSObject *)a3 errorOut:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 bundleIdentifier];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "Failed to check install status of %@ with error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "Failed to check install status of %@ with error: %@", &v6, 0x16u);
 }
 
 @end

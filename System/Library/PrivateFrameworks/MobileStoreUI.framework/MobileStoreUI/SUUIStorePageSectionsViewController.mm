@@ -228,7 +228,7 @@ void __46__SUUIStorePageSectionsViewController_dealloc__block_invoke(uint64_t a1
     v8 = self->_collectionView;
     self->_collectionView = v7;
 
-    [(SUUICollectionView *)self->_collectionView setSemanticContentAttribute:storeSemanticContentAttribute()];
+    [(SUUICollectionView *)self->_collectionView setSemanticContentAttribute:storeSemanticContentAttribute(v9, v10)];
     [(SUUICollectionView *)self->_collectionView registerClass:objc_opt_class() forCellWithReuseIdentifier:@"UICollectionViewCell"];
     [(SUUICollectionView *)self->_collectionView setClipsToBounds:!self->_rendersWithPerspective];
     [(SUUICollectionView *)self->_collectionView setIndexBarControl:self->_indexBarControl];
@@ -238,7 +238,7 @@ void __46__SUUIStorePageSectionsViewController_dealloc__block_invoke(uint64_t a1
     }
 
     backgroundColor = [(SUUIColorScheme *)self->_colorScheme backgroundColor];
-    v10 = backgroundColor;
+    v12 = backgroundColor;
     if (backgroundColor)
     {
       systemBackgroundColor = backgroundColor;
@@ -249,28 +249,28 @@ void __46__SUUIStorePageSectionsViewController_dealloc__block_invoke(uint64_t a1
       systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
     }
 
-    v12 = systemBackgroundColor;
+    v14 = systemBackgroundColor;
 
-    [(SUUICollectionView *)self->_collectionView setBackgroundColor:v12];
+    [(SUUICollectionView *)self->_collectionView setBackgroundColor:v14];
     [(SUUICollectionView *)self->_collectionView setDataSource:self];
     [(SUUICollectionView *)self->_collectionView setDelegate:self];
-    v13 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__longPressAction_];
-    [(SUUICollectionView *)self->_collectionView addGestureRecognizer:v13];
-    [v13 setCancelsTouchesInView:1];
-    [v13 setDelaysTouchesBegan:0];
-    v14 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__handleTap_];
+    v15 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__longPressAction_];
+    [(SUUICollectionView *)self->_collectionView addGestureRecognizer:v15];
+    [v15 setCancelsTouchesInView:1];
+    [v15 setDelaysTouchesBegan:0];
+    v16 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__handleTap_];
     collectionViewTapGestureRecognizer = self->_collectionViewTapGestureRecognizer;
-    self->_collectionViewTapGestureRecognizer = v14;
+    self->_collectionViewTapGestureRecognizer = v16;
 
     [(SUUICollectionView *)self->_collectionView addGestureRecognizer:self->_collectionViewTapGestureRecognizer];
     [(UITapGestureRecognizer *)self->_collectionViewTapGestureRecognizer setEnabled:0];
     [(UITapGestureRecognizer *)self->_collectionViewTapGestureRecognizer setDelegate:self];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __53__SUUIStorePageSectionsViewController_collectionView__block_invoke;
-    v17[3] = &unk_2798F6FF0;
-    v17[4] = self;
-    [(SUUIStorePageSectionsViewController *)self _enumerateSectionContextsUsingBlock:v17];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __53__SUUIStorePageSectionsViewController_collectionView__block_invoke;
+    v19[3] = &unk_2798F6FF0;
+    v19[4] = self;
+    [(SUUIStorePageSectionsViewController *)self _enumerateSectionContextsUsingBlock:v19];
 
     collectionView = self->_collectionView;
   }
@@ -2381,7 +2381,7 @@ void __76__SUUIStorePageSectionsViewController_SUUICollectionViewWillLayoutSubvi
 {
   if (*(a1 + 32) == a2)
   {
-    v12 = [*(a1 + 40) objectAtIndex:?];
+    v12 = [*(a1 + 40) objectAtIndex:a3];
     [v12 _frame];
     v7 = *(*(a1 + 48) + 8);
     v7[4] = v8;
@@ -3117,9 +3117,9 @@ void __80__SUUIStorePageSectionsViewController__entityProviderDidInvalidateNotif
     [controlCopy setBackgroundColor:clearColor];
   }
 
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v8 = objc_msgSend_primaryTextColor(schemeCopy);
 
-  [controlCopy setTintColor:primaryTextColor];
+  [controlCopy setTintColor:v8];
 }
 
 - (void)_beginActiveImpressionsForImpressionableViewElements

@@ -77,12 +77,14 @@
 - (void)__updateSoftAPBand:(id)band XPCConnection:(id)connection;
 - (void)activate;
 - (void)associationDoneWithNetwork:(__WiFiNetwork *)network error:(int)error interfaceName:(id)name;
+- (void)autoJoinEndedWithResult:(BOOL)result interfaceName:(id)name;
 - (void)autoJoinStartedWithTrigger:(int64_t)trigger interfaceName:(id)name;
 - (void)autoJoinUpdatedWithState:(int64_t)state interfaceName:(id)name;
 - (void)dealloc;
 - (void)invalidate;
 - (void)replayLinkUpEventWithInterfaceName:(id)name;
 - (void)sendAutoHotspotModeDidChangeEvent;
+- (void)sendInternetRelayLinkChangedEvent:(BOOL)event rssi:(int64_t)rssi interfaceName:(id)name;
 - (void)sendKnownNetworkDidChangeEventForProfile:(id)profile previous:(id)previous eventType:(int64_t)type;
 - (void)sendUserAutoJoinStateDidChangeEvent;
 - (void)sendUserSettingsDidChangeEvent;
@@ -94,6 +96,7 @@
 - (void)setCachedCurrentNetworkRef:(__WiFiNetwork *)ref interfaceName:(id)name;
 - (void)setCachedCurrentSessionBasedNetworkRef:(__WiFiNetwork *)ref;
 - (void)setWiFiManager:(__WiFiManager *)manager;
+- (void)willAssociateWithNetwork:(__WiFiNetwork *)network isAutoJoin:(BOOL)join interfaceName:(id)name;
 @end
 
 @implementation WiFiXPCManager
@@ -324,19 +327,17 @@
     v7 = CWFGetOSLog() ? CWFGetOSLog() : &_os_log_default;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136446722;
-      v20 = "[WiFiXPCManager __getCurrentScanResult:]";
-      v21 = 2082;
-      v22 = "WiFiXPCManager.m";
-      v23 = 1024;
-      v24 = 482;
-      LODWORD(v18) = 28;
-      v17 = &v19;
-      _os_log_send_and_compose_impl();
+      v17 = 136446722;
+      v18 = "[WiFiXPCManager __getCurrentScanResult:]";
+      v19 = 2082;
+      v20 = "WiFiXPCManager.m";
+      v21 = 1024;
+      v22 = 482;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[corewifi] %{public}s (%{public}s:%u) Forcing non-cached query of current scan result", &v17, 28);
     }
   }
 
-  if ([objc_msgSend(result requestParameters] == 10)
+  if ([objc_msgSend(result "requestParameters")] == 10)
   {
     if (v6)
     {
@@ -426,22 +427,20 @@
     {
       *valuePtr = 136446722;
       *&valuePtr[4] = "[WiFiXPCManager __getCurrentNetworkProfile:XPCConnection:]";
-      v30 = 2082;
-      v31 = "WiFiXPCManager.m";
-      v32 = 1024;
-      v33 = 525;
-      LODWORD(v28) = 28;
-      v27 = valuePtr;
-      _os_log_send_and_compose_impl();
+      v28 = 2082;
+      v29 = "WiFiXPCManager.m";
+      v30 = 1024;
+      v31 = 525;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[corewifi] %{public}s (%{public}s:%u) Forcing non-cached query of current network profile", valuePtr, 28);
     }
 
-    copyCachedCurrentSessionBasedNetworkRef = [(WiFiXPCManager *)self __copyCurrentSessionBasedNetworkRef:v27];
+    __copyCurrentSessionBasedNetworkRef = [(WiFiXPCManager *)self __copyCurrentSessionBasedNetworkRef];
     __copyCurrentKnownNetworkRef = [(WiFiXPCManager *)self __copyCurrentKnownNetworkRef];
   }
 
   else
   {
-    copyCachedCurrentSessionBasedNetworkRef = [(WiFiXPCManager *)self copyCachedCurrentSessionBasedNetworkRef];
+    __copyCurrentSessionBasedNetworkRef = [(WiFiXPCManager *)self copyCachedCurrentSessionBasedNetworkRef];
     __copyCurrentKnownNetworkRef = -[WiFiXPCManager copyCachedCurrentKnownNetworkRef:](self, "copyCachedCurrentKnownNetworkRef:", [objc_msgSend(profile "requestParameters")]);
   }
 
@@ -477,7 +476,7 @@
 
   if (v11)
   {
-    v15 = sub_10001CA74(copyCachedCurrentSessionBasedNetworkRef);
+    v15 = sub_10001CA74(__copyCurrentSessionBasedNetworkRef);
     v16 = sub_10001CA74(v11);
     v17 = 0;
     if (v15 && v16)
@@ -528,7 +527,7 @@
     }
 
     v25 = 0;
-    if (copyCachedCurrentSessionBasedNetworkRef)
+    if (__copyCurrentSessionBasedNetworkRef)
     {
       goto LABEL_37;
     }
@@ -539,10 +538,10 @@
     sub_1001A9D64(valuePtr);
     v24 = 0;
     v25 = *valuePtr;
-    if (copyCachedCurrentSessionBasedNetworkRef)
+    if (__copyCurrentSessionBasedNetworkRef)
     {
 LABEL_37:
-      CFRelease(copyCachedCurrentSessionBasedNetworkRef);
+      CFRelease(__copyCurrentSessionBasedNetworkRef);
     }
   }
 
@@ -1177,9 +1176,9 @@ LABEL_29:
   v14 = [(WiFiXPCManager *)self __deviceManagerWithInterfaceName:v12];
   if (!v14)
   {
-    sub_1001A9EA0(&v48);
+    sub_1001A9EA0(&v47);
 LABEL_39:
-    v38 = v48;
+    v37 = v47;
     goto LABEL_31;
   }
 
@@ -1188,7 +1187,7 @@ LABEL_39:
   if (!v16)
   {
 LABEL_37:
-    sub_1001A9E14(&v48);
+    sub_1001A9E14(&v47);
     goto LABEL_39;
   }
 
@@ -1206,38 +1205,38 @@ LABEL_37:
   {
     v21 = v20;
     connectionCopy = connection;
-    v40 = v15;
-    v42 = v19;
-    v43 = profileCopy;
+    v39 = v15;
+    v41 = v19;
+    v42 = profileCopy;
     info3 = [profileCopy info];
     v23 = [v11 filteredNetworkProfileWithProperties:v8 OSSpecificKeys:{objc_msgSend(info3, "objectForKeyedSubscript:", CWFXPCOSSpecificKeysKey)}];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     v24 = [objc_msgSend(v23 "OSSpecificAttributes")];
-    v25 = [v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v45;
+      v27 = *v44;
       do
       {
         for (i = 0; i != v26; i = i + 1)
         {
-          if (*v45 != v27)
+          if (*v44 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v44 + 1) + 8 * i);
+          v29 = *(*(&v43 + 1) + 8 * i);
           if (([v29 isEqualToString:@"PolicyUUID"] & 1) == 0 && (!objc_msgSend(v21, "isCarPlayNetwork") || (objc_msgSend(v29, "isEqualToString:", @"networkDisabledReason") & 1) == 0))
           {
             [v21 setOSSpecificValue:objc_msgSend(objc_msgSend(v23 forKey:{"OSSpecificAttributes"), "objectForKeyedSubscript:", v29), v29}];
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v26);
@@ -1248,54 +1247,52 @@ LABEL_37:
     v30 = sub_100022854(v21, 0);
     if (v30)
     {
-      managerRef = self->_managerRef;
-      [connectionCopy processName];
-      v19 = v42;
-      if ((sub_100082E78(managerRef, v30) & 1) != 0 && sub_100081EDC(self->_managerRef, v30, 1))
+      v19 = v41;
+      if ((sub_100082E78(self->_managerRef, v30, [connectionCopy processName]) & 1) != 0 && sub_100081EDC(self->_managerRef, v30, 1))
       {
-        v32 = [v21 disable6EMode] == 2;
-        v33 = sub_10000A878(v30);
-        sub_1000C9564(v40, v13, v33, v32);
-        v34 = sub_1000102AC(v40, v13);
-        if (v34)
+        v31 = [v21 disable6EMode] == 2;
+        v32 = sub_10000A878(v30);
+        sub_1000C9564(v39, v13, v32, v31);
+        v33 = sub_1000102AC(v39, v13);
+        if (v33)
         {
-          v35 = v34;
-          v36 = sub_10000A878(v34);
-          v37 = sub_10000A878(v30);
-          if (v36 && v37 && CFEqual(v36, v37))
+          v34 = v33;
+          v35 = sub_10000A878(v33);
+          v36 = sub_10000A878(v30);
+          if (v35 && v36 && CFEqual(v35, v36))
           {
-            sub_1000C5C04(v40, v30);
+            sub_1000C5C04(v39, v30);
           }
 
-          CFRelease(v35);
+          CFRelease(v34);
         }
 
-        v38 = 0;
+        v37 = 0;
       }
 
       else
       {
-        sub_1001A9EA0(&v48);
-        v38 = v48;
+        sub_1001A9EA0(&v47);
+        v37 = v47;
       }
 
-      profileCopy = v43;
+      profileCopy = v42;
     }
 
     else
     {
-      sub_1001A9E14(&v48);
-      v38 = v48;
-      profileCopy = v43;
-      v19 = v42;
+      sub_1001A9E14(&v47);
+      v37 = v47;
+      profileCopy = v42;
+      v19 = v41;
     }
   }
 
   else
   {
-    sub_1001A9D64(&v48);
+    sub_1001A9D64(&v47);
     v30 = 0;
-    v38 = v48;
+    v37 = v47;
   }
 
   CFRelease(v17);
@@ -1309,7 +1306,7 @@ LABEL_31:
   if ([profileCopy response])
   {
     response = [profileCopy response];
-    response[2](response, v38, 0);
+    response[2](response, v37, 0);
   }
 }
 
@@ -1340,7 +1337,7 @@ LABEL_31:
   v12 = [(WiFiXPCManager *)self __deviceManagerWithInterfaceName:v11];
   if (!v12)
   {
-    sub_1001A9EA0(v28);
+    sub_1001A9EA0(v26);
     goto LABEL_48;
   }
 
@@ -1349,9 +1346,9 @@ LABEL_31:
   if (!v14)
   {
 LABEL_44:
-    sub_1001A9E14(v28);
+    sub_1001A9E14(v26);
 LABEL_48:
-    v24 = *v28;
+    v24 = *v26;
     goto LABEL_41;
   }
 
@@ -1426,15 +1423,13 @@ LABEL_20:
 
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        *v28 = 136315650;
-        *&v28[4] = "[WiFiXPCManager __removeKnownNetworkProfile:]";
-        v29 = 2112;
-        v30 = sub_10000A878(v17);
-        v31 = 2048;
+        *v26 = 136315650;
+        *&v26[4] = "[WiFiXPCManager __removeKnownNetworkProfile:]";
+        v27 = 2112;
+        v28 = sub_10000A878(v17);
+        v29 = 2048;
         integerValue2 = [v10 integerValue];
-        LODWORD(v27) = 32;
-        v26 = v28;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 1, "[corewifi] %s: Removing password for %@ per reason %ld", v26, 32);
       }
 
       sub_10009FCF4(v17);
@@ -1462,11 +1457,9 @@ LABEL_20:
         v23 = "true";
       }
 
-      *v28 = 136315138;
-      *&v28[4] = v23;
-      LODWORD(v27) = 12;
-      v26 = v28;
-      _os_log_send_and_compose_impl();
+      *v26 = 136315138;
+      *&v26[4] = v23;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 1, "[corewifi] EAPTLSRemoveTrustExceptionsBindings is NULL = %s", v26);
     }
 
     if (&_EAPTLSRemoveTrustExceptionsBindings && sub_100009730(v17))
@@ -1480,8 +1473,8 @@ LABEL_20:
 
   else
   {
-    sub_1001A9EA0(v28);
-    v24 = *v28;
+    sub_1001A9EA0(v26);
+    v24 = *v26;
   }
 
   CFRelease(v15);
@@ -1906,15 +1899,14 @@ LABEL_13:
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 136315650;
-        *&v21[4] = "[WiFiXPCManager __getPassword:XPCConnection:]";
-        v22 = 2112;
+        *v20 = 136315650;
+        *&v20[4] = "[WiFiXPCManager __getPassword:XPCConnection:]";
+        v21 = 2112;
         processName = [connection processName];
-        v24 = 2112;
-        v25 = sub_10002A2C0(v9);
-        LODWORD(v20) = 32;
-        v19 = v21;
-        _os_log_send_and_compose_impl();
+        v23 = 2112;
+        v24 = sub_10002A2C0(v9);
+        v19 = 32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[corewifi] %s: looking into password backup on behalf of %@ for network %@", v20, v19);
       }
 
       v12 = sub_10002A2C0(v9);
@@ -1923,7 +1915,7 @@ LABEL_13:
       {
 LABEL_11:
         v13 = v10;
-        v14 = [NSMutableDictionary dictionary:v19];
+        v14 = +[NSMutableDictionary dictionary];
         v15 = [v13 copy];
         [v14 setObject:v15 forKeyedSubscript:CWFXPCResultKey];
         if ([password response])
@@ -1943,11 +1935,11 @@ LABEL_11:
 
   else
   {
-    sub_1001A9E14(v21);
+    sub_1001A9E14(v20);
   }
 
-  v17 = *v21;
-  if (*v21 && [password response])
+  v17 = *v20;
+  if (*v20 && [password response])
   {
     response2 = [password response];
     response2[2](response2, v17, 0);
@@ -2003,9 +1995,9 @@ LABEL_6:
   v8 = [info objectForKeyedSubscript:CWFXPCDisassocReasonKey];
   if (!v8 || (v9 = v8, (v10 = [objc_msgSend(__disassociate "requestParameters")]) == 0))
   {
-    sub_1001A9E14(v21);
+    sub_1001A9E14(v19);
 LABEL_28:
-    v17 = *v21;
+    v17 = *v19;
     goto LABEL_22;
   }
 
@@ -2013,7 +2005,7 @@ LABEL_28:
   v12 = [(WiFiXPCManager *)self __deviceManagerWithInterfaceName:v10];
   if (!v12)
   {
-    sub_1001A9EA0(v21);
+    sub_1001A9EA0(v19);
     goto LABEL_28;
   }
 
@@ -2072,11 +2064,9 @@ LABEL_16:
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v21 = 134217984;
-    *&v21[4] = [v9 integerValue];
-    LODWORD(v20) = 12;
-    v19 = v21;
-    _os_log_send_and_compose_impl();
+    *v19 = 134217984;
+    *&v19[4] = [v9 integerValue];
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[corewifi] __disassociate Request from CoreWiFi with reason:%ld \n", v19);
   }
 
   sub_1000B9DC8(v13, v11, v15, "[WiFiXPCManager __disassociate:XPCConnection:]", 1646);
@@ -2093,103 +2083,94 @@ LABEL_22:
 {
   info = [band info];
   v7 = [info objectForKeyedSubscript:CWFXPCSoftAPBand];
-  if (v7 && (v8 = v7, (v9 = [objc_msgSend(band "requestParameters")]) != 0))
+  if (!v7 || (v8 = v7, (v9 = [objc_msgSend(band "requestParameters")]) == 0))
   {
-    v10 = [(WiFiXPCManager *)self __deviceManagerWithInterfaceName:v9];
-    if (v10)
+    sub_1001A9E14(v20);
+LABEL_30:
+    v18 = *v20;
+    goto LABEL_24;
+  }
+
+  v10 = [(WiFiXPCManager *)self __deviceManagerWithInterfaceName:v9];
+  if (!v10)
+  {
+    sub_1001A9EA0(v20);
+    goto LABEL_30;
+  }
+
+  v11 = v10;
+  integerValue = [v8 integerValue];
+  v13 = CWFGetOSLog();
+  if (integerValue == 2)
+  {
+    if (v13)
     {
-      v11 = v10;
-      integerValue = [v8 integerValue];
-      v13 = CWFGetOSLog();
-      if (integerValue == 2)
-      {
-        if (v13)
-        {
-          v15 = CWFGetOSLog();
-        }
-
-        else
-        {
-          v15 = &_os_log_default;
-        }
-
-        v17 = 2;
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_24;
-        }
-
-        *v22 = 0;
-        LODWORD(v21) = 2;
-        v20 = v22;
-      }
-
-      else
-      {
-        if (integerValue != 1)
-        {
-          if (v13)
-          {
-            v16 = CWFGetOSLog();
-          }
-
-          else
-          {
-            v16 = &_os_log_default;
-          }
-
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-          {
-            *v22 = 134217984;
-            *&v22[4] = [v8 integerValue];
-            LODWORD(v21) = 12;
-            v20 = v22;
-            _os_log_send_and_compose_impl();
-          }
-
-          v17 = 2;
-          goto LABEL_24;
-        }
-
-        if (v13)
-        {
-          v14 = CWFGetOSLog();
-        }
-
-        else
-        {
-          v14 = &_os_log_default;
-        }
-
-        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-        {
-          v17 = 1;
-LABEL_24:
-          sub_1000C4638(v11, v17);
-          v18 = 0;
-          goto LABEL_25;
-        }
-
-        *v22 = 0;
-        LODWORD(v21) = 2;
-        v20 = v22;
-        v17 = 1;
-      }
-
-      _os_log_send_and_compose_impl();
-      goto LABEL_24;
+      v15 = CWFGetOSLog();
     }
 
-    sub_1001A9EA0(v22);
+    else
+    {
+      v15 = &_os_log_default;
+    }
+
+    v17 = 2;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *v20 = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v15, 0, "[corewifi] __updateSoftAPBand Request to 5G from CoreWiFi\n", v20, 2, *v20);
+    }
+  }
+
+  else if (integerValue == 1)
+  {
+    if (v13)
+    {
+      v14 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v14 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *v20 = 0;
+      v17 = 1;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[corewifi] __updateSoftAPBand Request to 2.4G from CoreWiFi\n", v20, 2, *v20);
+    }
+
+    else
+    {
+      v17 = 1;
+    }
   }
 
   else
   {
-    sub_1001A9E14(v22);
+    if (v13)
+    {
+      v16 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v16 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *v20 = 134217984;
+      *&v20[4] = [v8 integerValue];
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[corewifi] __updateSoftAPBand Request with unexpected band(%ld)\n", v20);
+    }
+
+    v17 = 2;
   }
 
-  v18 = *v22;
-LABEL_25:
+  sub_1000C4638(v11, v17);
+  v18 = 0;
+LABEL_24:
   if ([band response])
   {
     response = [band response];
@@ -2213,10 +2194,8 @@ LABEL_25:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v43[0]) = 0;
-    LODWORD(v39) = 2;
-    v38 = v43;
-    _os_log_send_and_compose_impl();
+    LOWORD(v41[0]) = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[corewifi] __associate Manual Association Requestion from user \n", v41, 2);
   }
 
   info = [__associateCopy info];
@@ -2244,9 +2223,9 @@ LABEL_25:
   v16 = [objc_msgSend(__associateCopy "requestParameters")];
   if (!v16)
   {
-    sub_1001A9E14(v43);
+    sub_1001A9E14(v41);
 LABEL_53:
-    v36 = v43[0];
+    v36 = v41[0];
     goto LABEL_44;
   }
 
@@ -2254,11 +2233,11 @@ LABEL_53:
   v18 = [(WiFiXPCManager *)self __deviceManagerWithInterfaceName:v16];
   if (!v18)
   {
-    sub_1001A9EA0(v43);
+    sub_1001A9EA0(v41);
     goto LABEL_53;
   }
 
-  v41 = v18;
+  v39 = v18;
   v19 = sub_1000C3F40(v18, v15);
   if (v19)
   {
@@ -2297,39 +2276,16 @@ LABEL_53:
   {
     v23 = v22;
     v24 = sub_100017C00(v22);
-    if (!v24)
+    if (!v24 || (v25 = v24, v38 = __associateCopy, v26 = v17, v27 = self, v28 = connection, v29 = +[NSMutableDictionary dictionary](NSMutableDictionary, "dictionary"), [v29 addEntriesFromDictionary:v25], objc_msgSend(v29, "addEntriesFromDictionary:", v13), v30 = objc_msgSend(v29, "copy"), CFRelease(v15), v31 = v30, connection = v28, self = v27, v17 = v26, __associateCopy = v38, v15 = sub_10000AD2C(kCFAllocatorDefault, v31), CFRelease(v25), v15))
     {
-      goto LABEL_22;
-    }
-
-    v25 = v24;
-    v40 = __associateCopy;
-    v26 = v17;
-    selfCopy = self;
-    connectionCopy = connection;
-    v29 = +[NSMutableDictionary dictionary];
-    [v29 addEntriesFromDictionary:v25];
-    [v29 addEntriesFromDictionary:v13];
-    v30 = [v29 copy];
-    CFRelease(v15);
-    v31 = v30;
-    connection = connectionCopy;
-    self = selfCopy;
-    v17 = v26;
-    __associateCopy = v40;
-    v15 = sub_10000AD2C(kCFAllocatorDefault, v31);
-    CFRelease(v25);
-    if (v15)
-    {
-LABEL_22:
       CFRelease(v23);
       goto LABEL_23;
     }
 
 LABEL_49:
-    sub_1001A9E14(v43);
-    v36 = v43[0];
-    if (!v43[0])
+    sub_1001A9E14(v41);
+    v36 = v41[0];
+    if (!v41[0])
     {
       return;
     }
@@ -2393,12 +2349,12 @@ LABEL_23:
   v34 = _Block_copy(aBlock);
   if (_os_feature_enabled_impl() && [v11 findAndJoinNetwork])
   {
-    v35 = sub_1000CD404(v41, v17, v15, password, sub_1000FFEF8, v34);
+    v35 = sub_1000CD404(v39, v17, v15, password, sub_1000FFEF8, v34);
   }
 
   else
   {
-    v35 = sub_1000C9DD4(v41, v17, v15, password, [connection processName], sub_1000FFEF8, v34, 1008);
+    v35 = sub_1000C9DD4(v39, v17, v15, password, [connection processName], sub_1000FFEF8, v34, 1008);
   }
 
   if (v35)
@@ -3255,37 +3211,37 @@ LABEL_14:
   v6 = [info objectForKeyedSubscript:CWFXPCUserSettingsKey];
   if (!v6)
   {
-    sub_1001A9E14(v54);
-    v37 = *v54;
+    sub_1001A9E14(v49);
+    v37 = *v49;
     goto LABEL_72;
   }
 
   v7 = v6;
-  v45 = settingsCopy;
+  v40 = settingsCopy;
   info2 = [settingsCopy info];
   v9 = [info2 objectForKeyedSubscript:CWFXPCUserSettingsPropertiesKey];
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (!v10)
   {
     goto LABEL_43;
   }
 
   v11 = v10;
-  v12 = *v51;
+  v12 = *v46;
   do
   {
     for (i = 0; i != v11; i = i + 1)
     {
-      if (*v51 != v12)
+      if (*v46 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v50 + 1) + 8 * i);
+      v14 = *(*(&v45 + 1) + 8 * i);
       integerValue = [v14 integerValue];
       if (integerValue > 2)
       {
@@ -3304,14 +3260,13 @@ LABEL_14:
           if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
             syncMode = [v7 syncMode];
-            *v54 = 134217984;
-            *&v54[4] = syncMode;
-            LODWORD(v42) = 12;
-            v39 = v54;
-            _os_log_send_and_compose_impl();
+            *v49 = 134217984;
+            *&v49[4] = syncMode;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v23, 1, "[corewifi] Setting user setting sync mode to %ld", v49);
           }
 
-          nullsub_4(self->_managerRef, [v7 syncMode]);
+          [v7 syncMode];
+          nullsub_4();
         }
 
         else
@@ -3334,11 +3289,9 @@ LABEL_14:
 
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            *v54 = 67109120;
-            *&v54[4] = v18;
-            LODWORD(v42) = 8;
-            v39 = v54;
-            _os_log_send_and_compose_impl();
+            *v49 = 67109120;
+            *&v49[4] = v18;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 1, "[corewifi] Setting user setting compatibility mode to %d", v49);
           }
 
           sub_10007B29C(self->_managerRef, v18, 0);
@@ -3364,11 +3317,9 @@ LABEL_14:
 
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
-              *v54 = 67109120;
-              *&v54[4] = v16;
-              LODWORD(v42) = 8;
-              v39 = v54;
-              _os_log_send_and_compose_impl();
+              *v49 = 67109120;
+              *&v49[4] = v16;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 1, "[corewifi] Setting user setting for auto hotspot to %d", v49);
             }
 
             sub_100088D58(self->_managerRef, v16, 0);
@@ -3389,11 +3340,9 @@ LABEL_16:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             integerValue2 = [v14 integerValue];
-            *v54 = 134217984;
-            *&v54[4] = integerValue2;
-            LODWORD(v42) = 12;
-            v39 = v54;
-            _os_log_send_and_compose_impl();
+            *v49 = 134217984;
+            *&v49[4] = integerValue2;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 16, "[corewifi] Unhandled set user settings property (%ld)", v49);
           }
 
           continue;
@@ -3412,44 +3361,42 @@ LABEL_16:
 
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          *v54 = 67109120;
-          *&v54[4] = v21;
-          LODWORD(v42) = 8;
-          v39 = v54;
-          _os_log_send_and_compose_impl();
+          *v49 = 67109120;
+          *&v49[4] = v21;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 1, "[corewifi] Setting user setting for ask to join to %d", v49);
         }
 
         sub_10007B14C(self->_managerRef, v21, 0);
       }
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v45 objects:v53 count:16];
   }
 
   while (v11);
 LABEL_43:
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   oSSpecificAttributes = [v7 OSSpecificAttributes];
-  v27 = [oSSpecificAttributes countByEnumeratingWithState:&v46 objects:v57 count:16];
+  v27 = [oSSpecificAttributes countByEnumeratingWithState:&v41 objects:v52 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v47;
+    v29 = *v42;
     do
     {
       v30 = 0;
       do
       {
-        if (*v47 != v29)
+        if (*v42 != v29)
         {
           objc_enumerationMutation(oSSpecificAttributes);
         }
 
-        v31 = *(*(&v46 + 1) + 8 * v30);
-        oSSpecificAttributes2 = [objc_msgSend(v7 OSSpecificAttributes];
+        v31 = *(*(&v41 + 1) + 8 * v30);
+        v32 = [objc_msgSend(v7 "OSSpecificAttributes")];
         if (CWFGetOSLog())
         {
           v33 = CWFGetOSLog();
@@ -3462,16 +3409,15 @@ LABEL_43:
 
         if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          *v54 = 138412546;
-          *&v54[4] = v31;
-          v55 = 2112;
-          v56 = oSSpecificAttributes2;
-          LODWORD(v44) = 22;
-          v41 = v54;
-          _os_log_send_and_compose_impl();
+          *v49 = 138412546;
+          *&v49[4] = v31;
+          v50 = 2112;
+          v51 = v32;
+          LODWORD(v39) = 22;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v33, 1, "[corewifi] Setting user setting (os specific) for %@ to %@", v49, v39);
         }
 
-        if ([(__CFString *)v31 isEqualToString:@"Custom network settings", v41, v44])
+        if ([(__CFString *)v31 isEqualToString:@"Custom network settings"])
         {
           if (CWFGetOSLog())
           {
@@ -3485,13 +3431,12 @@ LABEL_43:
 
           if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
-            *v54 = 0;
-            LODWORD(v43) = 2;
-            v40 = v54;
-            _os_log_send_and_compose_impl();
+            *v49 = 0;
+            LODWORD(v39) = 2;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v34, 1, "[corewifi] Setting custom network settings", v49, v39);
           }
 
-          if (oSSpecificAttributes2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+          if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             if (CWFGetOSLog())
             {
@@ -3505,38 +3450,37 @@ LABEL_43:
 
             if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              *v54 = 0;
-              LODWORD(v43) = 2;
-              v40 = v54;
-              _os_log_send_and_compose_impl();
+              *v49 = 0;
+              LODWORD(v39) = 2;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v35, 16, "[corewifi] Custom network settings is neither nil or of type NSDictionary", v49, v39);
             }
           }
 
           else
           {
-            sub_100089454(self->_managerRef, oSSpecificAttributes2);
+            sub_100089454(self->_managerRef, v32);
           }
         }
 
         else
         {
-          sub_10007D6E8(self->_managerRef, v31, oSSpecificAttributes2);
+          sub_10007D6E8(self->_managerRef, v31, v32);
         }
 
         v30 = v30 + 1;
       }
 
       while (v28 != v30);
-      v36 = [oSSpecificAttributes countByEnumeratingWithState:&v46 objects:v57 count:16];
+      v36 = [oSSpecificAttributes countByEnumeratingWithState:&v41 objects:v52 count:16];
       v28 = v36;
     }
 
     while (v36);
   }
 
-  [(WiFiXPCManager *)self sendUserSettingsDidChangeEvent:v40];
+  [(WiFiXPCManager *)self sendUserSettingsDidChangeEvent];
   v37 = 0;
-  settingsCopy = v45;
+  settingsCopy = v40;
 LABEL_72:
   if ([settingsCopy response])
   {
@@ -3611,79 +3555,7 @@ LABEL_72:
   v17.receiver = self;
   v17.super_class = WiFiXPCManager;
   v2 = [(WiFiXPCManager *)&v17 init];
-  if (!v2)
-  {
-    goto LABEL_13;
-  }
-
-  v3 = objc_alloc_init(NSOperationQueue);
-  v2->_wifiManagerQueue = v3;
-  if (!v3)
-  {
-    goto LABEL_13;
-  }
-
-  [(NSOperationQueue *)v3 setMaxConcurrentOperationCount:-1];
-  [(NSOperationQueue *)v2->_wifiManagerQueue setQualityOfService:-1];
-  v4 = [[CWFXPCManager alloc] initWithServiceTypes:&off_1002827C0];
-  v2->_XPCManager = v4;
-  if (!v4)
-  {
-    goto LABEL_13;
-  }
-
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100102D08;
-  v16[3] = &unk_100262708;
-  v16[4] = v2;
-  [(CWFXPCManager *)v4 setAllowCloudSyncableNetworkHandler:v16];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_100102E28;
-  v15[3] = &unk_100262708;
-  v15[4] = v2;
-  [(CWFXPCManager *)v2->_XPCManager setAllowNearbySyncableNetworkHandler:v15];
-  v5 = objc_alloc_init(NSMutableDictionary);
-  v2->_peerAssistedDiscoveryNetworkMap = v5;
-  if (!v5)
-  {
-    goto LABEL_13;
-  }
-
-  v6 = objc_alloc_init(NSMutableDictionary);
-  v2->_wifiAssistOverrideReasonsMap = v6;
-  if (!v6)
-  {
-    goto LABEL_13;
-  }
-
-  v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v8 = dispatch_queue_create(0, v7);
-  v2->_mutexQueue = v8;
-  if (!v8)
-  {
-    goto LABEL_13;
-  }
-
-  v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v10 = dispatch_queue_create("com.apple.wifid.current-network", v9);
-  v2->_currentNetworkQueue = v10;
-  if (!v10)
-  {
-    goto LABEL_13;
-  }
-
-  v11 = objc_alloc_init(NSMutableDictionary);
-  v2->_currentNetworkMap = v11;
-  if (!v11)
-  {
-    goto LABEL_13;
-  }
-
-  v12 = objc_alloc_init(NSMutableDictionary);
-  v2->_currentKnownNetworkMap = v12;
-  if (v12 && (-[CWFXPCManager setSupportedRequestTypes:](v2->_XPCManager, "setSupportedRequestTypes:", +[NSSet setWithArray:](NSSet, "setWithArray:", -[WiFiXPCManager __supportedRequestTypes](v2, "__supportedRequestTypes"))), -[CWFXPCManager setDelegate:](v2->_XPCManager, "setDelegate:", v2), v13 = [[CWFInterface alloc] initWithXPCClient:-[CWFXPCManager localXPCClientWithServiceType:](v2->_XPCManager requestParameters:{"localXPCClientWithServiceType:", 1), 0}], (v2->_coreWiFiInterface = v13) != 0))
+  if (v2 && (v3 = objc_alloc_init(NSOperationQueue), (v2->_wifiManagerQueue = v3) != 0) && (-[NSOperationQueue setMaxConcurrentOperationCount:](v3, "setMaxConcurrentOperationCount:", -1), -[NSOperationQueue setQualityOfService:](v2->_wifiManagerQueue, "setQualityOfService:", -1), v4 = [[CWFXPCManager alloc] initWithServiceTypes:&off_1002827C0], (v2->_XPCManager = v4) != 0) && (v16[0] = _NSConcreteStackBlock, v16[1] = 3221225472, v16[2] = sub_100102D08, v16[3] = &unk_100262708, v16[4] = v2, -[CWFXPCManager setAllowCloudSyncableNetworkHandler:](v4, "setAllowCloudSyncableNetworkHandler:", v16), v15[0] = _NSConcreteStackBlock, v15[1] = 3221225472, v15[2] = sub_100102E28, v15[3] = &unk_100262708, v15[4] = v2, -[CWFXPCManager setAllowNearbySyncableNetworkHandler:](v2->_XPCManager, "setAllowNearbySyncableNetworkHandler:", v15), v5 = objc_alloc_init(NSMutableDictionary), (v2->_peerAssistedDiscoveryNetworkMap = v5) != 0) && (v6 = objc_alloc_init(NSMutableDictionary), (v2->_wifiAssistOverrideReasonsMap = v6) != 0) && (v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v8 = dispatch_queue_create(0, v7), (v2->_mutexQueue = v8) != 0) && (v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v10 = dispatch_queue_create("com.apple.wifid.current-network", v9), (v2->_currentNetworkQueue = v10) != 0) && (v11 = objc_alloc_init(NSMutableDictionary), (v2->_currentNetworkMap = v11) != 0) && (v12 = objc_alloc_init(NSMutableDictionary), (v2->_currentKnownNetworkMap = v12) != 0) && (-[CWFXPCManager setSupportedRequestTypes:](v2->_XPCManager, "setSupportedRequestTypes:", +[NSSet setWithArray:](NSSet, "setWithArray:", -[WiFiXPCManager __supportedRequestTypes](v2, "__supportedRequestTypes"))), -[CWFXPCManager setDelegate:](v2->_XPCManager, "setDelegate:", v2), v13 = objc_msgSend([CWFInterface alloc], "initWithXPCClient:requestParameters:", -[CWFXPCManager localXPCClientWithServiceType:](v2->_XPCManager, "localXPCClientWithServiceType:", 1), 0), (v2->_coreWiFiInterface = v13) != 0))
   {
     [v13 setEventHandler:&stru_100262748];
     v2->_activated = 0;
@@ -3691,7 +3563,6 @@ LABEL_72:
 
   else
   {
-LABEL_13:
 
     return 0;
   }
@@ -3832,6 +3703,44 @@ LABEL_13:
   objc_autoreleasePoolPop(v5);
 }
 
+- (void)sendInternetRelayLinkChangedEvent:(BOOL)event rssi:(int64_t)rssi interfaceName:(id)name
+{
+  eventCopy = event;
+  v9 = objc_autoreleasePoolPush();
+  v10 = objc_alloc_init(CWFXPCEvent);
+  [v10 setType:6];
+  [v10 setInterfaceName:name];
+  [v10 setTimestamp:{+[NSDate date](NSDate, "date")}];
+  v11 = objc_alloc_init(CWFLinkChangeStatus);
+  [v11 setLinkDown:eventCopy];
+  [v11 setRSSI:rssi];
+  v17 = CWFEventLinkChangeStatusKey;
+  v18 = v11;
+  [v10 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v18, &v17, 1)}];
+  if (CWFGetOSLog())
+  {
+    v12 = CWFGetOSLog();
+  }
+
+  else
+  {
+    v12 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v14[0] = 67109376;
+    v14[1] = eventCopy;
+    v15 = 2048;
+    rssiCopy = rssi;
+    LODWORD(v13) = 18;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[corewifi] sendInternetRelayLinkChangedEvent send event to CoreWiFi isLinkDown:%d rssi:%ld dBm \n", v14, v13);
+  }
+
+  [(CWFXPCManager *)self->_XPCManager sendXPCEvent:v10 reply:0];
+  objc_autoreleasePoolPop(v9);
+}
+
 - (void)replayLinkUpEventWithInterfaceName:(id)name
 {
   v5 = objc_autoreleasePoolPush();
@@ -3841,9 +3750,9 @@ LABEL_13:
   [v6 setTimestamp:{+[NSDate date](NSDate, "date")}];
   v7 = objc_alloc_init(CWFLinkChangeStatus);
   [v7 setLinkDown:0];
-  v13 = CWFEventLinkChangeStatusKey;
-  v14 = v7;
-  [v6 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v14, &v13, 1)}];
+  v11 = CWFEventLinkChangeStatusKey;
+  v12 = v7;
+  [v6 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v12, &v11, 1)}];
   if (CWFGetOSLog())
   {
     v8 = CWFGetOSLog();
@@ -3856,14 +3765,12 @@ LABEL_13:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[WiFiXPCManager replayLinkUpEventWithInterfaceName:]";
-    LODWORD(v10) = 12;
-    v9 = &v11;
-    _os_log_send_and_compose_impl();
+    v9 = 136315138;
+    v10 = "[WiFiXPCManager replayLinkUpEventWithInterfaceName:]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[corewifi] %s", &v9);
   }
 
-  [(CWFXPCManager *)self->_XPCManager sendXPCEvent:v6 reply:0, v9, v10];
+  [(CWFXPCManager *)self->_XPCManager sendXPCEvent:v6 reply:0];
   objc_autoreleasePoolPop(v5);
 }
 
@@ -3893,6 +3800,46 @@ LABEL_13:
   [v8 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v10, &v9, 1)}];
   [(CWFXPCManager *)self->_XPCManager sendXPCEvent:v8 reply:0];
   objc_autoreleasePoolPop(v7);
+}
+
+- (void)autoJoinEndedWithResult:(BOOL)result interfaceName:(id)name
+{
+  resultCopy = result;
+  v7 = objc_autoreleasePoolPush();
+  v8 = objc_alloc_init(CWFXPCEvent);
+  [v8 setInternalType:1];
+  [v8 setInterfaceName:name];
+  [v8 setTimestamp:{+[NSDate date](NSDate, "date")}];
+  v9 = +[NSMutableDictionary dictionary];
+  v10 = [NSNumber numberWithBool:resultCopy];
+  [v9 setObject:v10 forKeyedSubscript:CWFInternalEventAutoJoinResultKey];
+  [v8 setInfo:v9];
+  [(CWFXPCManager *)self->_XPCManager sendXPCEvent:v8 reply:0];
+
+  objc_autoreleasePoolPop(v7);
+}
+
+- (void)willAssociateWithNetwork:(__WiFiNetwork *)network isAutoJoin:(BOOL)join interfaceName:(id)name
+{
+  joinCopy = join;
+  v9 = objc_autoreleasePoolPush();
+  v10 = sub_10001A9BC(network);
+  if (v10)
+  {
+    v11 = v10;
+    v12 = objc_alloc_init(CWFXPCEvent);
+    [v12 setInternalType:2];
+    [v12 setInterfaceName:name];
+    [v12 setTimestamp:{+[NSDate date](NSDate, "date")}];
+    v13[0] = CWFInternalEventScanResultKey;
+    v13[1] = CWFInternalEventIsAutoJoinKey;
+    v14[0] = v11;
+    v14[1] = [NSNumber numberWithBool:joinCopy];
+    [v12 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v14, v13, 2)}];
+    [(CWFXPCManager *)self->_XPCManager sendXPCEvent:v12 reply:0];
+  }
+
+  objc_autoreleasePoolPop(v9);
 }
 
 - (void)associationDoneWithNetwork:(__WiFiNetwork *)network error:(int)error interfaceName:(id)name

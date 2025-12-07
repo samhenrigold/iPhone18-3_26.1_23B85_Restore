@@ -27,9 +27,9 @@
   }
 
   destinationText = [(UIStatusBarBreadcrumbItemView *)self destinationText];
-  v12 = [destinationText isEqualToString:2537];
+  isEqualToString = objc_msgSend_isEqualToString_(destinationText);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UIStatusBarBreadcrumbItemView *)self setDestinationText:2537];
     [(UIStatusBarSystemNavigationItemView *)self setCurrentLabelCompressionLevel:0];
@@ -38,7 +38,7 @@
   v13 = [(UIStatusBarBreadcrumbItemView *)self shortenedTitleWithCompressionLevel:[(UIStatusBarSystemNavigationItemView *)self currentLabelCompressionLevel]];
   [self setAccessibilityIdentifier:@"breadcrumb"];
   title = [(UIStatusBarSystemNavigationItemView *)self title];
-  v15 = [title isEqualToString:v13];
+  v15 = objc_msgSend_isEqualToString_(title);
 
   if ((v15 & 1) == 0)
   {

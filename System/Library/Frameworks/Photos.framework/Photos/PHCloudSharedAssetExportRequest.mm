@@ -644,11 +644,11 @@ void __92__PHCloudSharedAssetExportRequest_exportWithOptions_networkAccessAllowe
   objc_destroyWeak(&location);
 }
 
-uint64_t __92__PHCloudSharedAssetExportRequest_exportWithOptions_networkAccessAllowed_completionHandler___block_invoke_2(uint64_t result, double a2)
+id *__92__PHCloudSharedAssetExportRequest_exportWithOptions_networkAccessAllowed_completionHandler___block_invoke_2(id *result, double a2)
 {
   if (llround(a2 * 100.0) <= 99)
   {
-    return [*(result + 32) setCompletedUnitCount:?];
+    return [result[4] setCompletedUnitCount:?];
   }
 
   return result;

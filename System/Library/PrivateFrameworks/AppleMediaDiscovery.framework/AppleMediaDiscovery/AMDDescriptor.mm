@@ -207,68 +207,60 @@ void __27__AMDDescriptor_deleteAll___block_invoke(void *a1)
   objc_storeStrong(&v41, 0);
   objc_storeStrong(&v42, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 void __52__AMDDescriptor_refreshDescriptors_forDomain_error___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v45[2] = a1;
-  v45[1] = a1;
-  v45[0] = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v44 = 0;
+  v48 = *MEMORY[0x277D85DE8];
+  v44[2] = a1;
+  v44[1] = a1;
+  v44[0] = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v43 = 0;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](*(a1 + 32));
-  v32 = [obj countByEnumeratingWithState:__b objects:v48 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:__b objects:v47 count:16];
+  if (v31)
   {
-    v27 = *__b[2];
-    v28 = 0;
-    v29 = v32;
+    v26 = *__b[2];
+    v27 = 0;
+    v28 = v31;
     while (1)
     {
-      v26 = v28;
-      if (*__b[2] != v27)
+      v25 = v27;
+      if (*__b[2] != v26)
       {
         objc_enumerationMutation(obj);
       }
 
-      v43 = *(__b[1] + 8 * v28);
-      v22 = MEMORY[0x277CCAAA0];
-      v25 = [*(a1 + 32) objectForKey:v43];
+      v42 = *(__b[1] + 8 * v27);
+      v21 = MEMORY[0x277CCAAA0];
+      v24 = [*(a1 + 32) objectForKey:v42];
       location = (*(*(a1 + 56) + 8) + 40);
-      v40 = *location;
-      v24 = [v22 dataWithJSONObject:? options:? error:?];
-      objc_storeStrong(location, v40);
-      v41 = v24;
-      MEMORY[0x277D82BD8](v25);
-      if (*(*(*(a1 + 56) + 8) + 40))
+      v39 = *location;
+      v23 = [v21 dataWithJSONObject:? options:? error:?];
+      objc_storeStrong(location, v39);
+      v40 = v23;
+      MEMORY[0x277D82BD8](v24);
+      if (!*(*(*(a1 + 56) + 8) + 40) && v40)
       {
-        goto LABEL_29;
-      }
-
-      if (v41)
-      {
-        v19 = MEMORY[0x277CBE408];
-        v21 = +[AMDDescriptor entity];
-        v20 = [v21 name];
-        v4 = *(a1 + 40);
-        v38 = [v19 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+        v18 = MEMORY[0x277CBE408];
+        v20 = +[AMDDescriptor entity];
+        v19 = [v20 name];
+        v37 = [v18 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+        MEMORY[0x277D82BD8](v19);
         MEMORY[0x277D82BD8](v20);
-        MEMORY[0x277D82BD8](v21);
-        [v38 setFeatureName:v43];
-        [v38 setDescriptor:v41];
-        [v38 setDomain:*(a1 + 72)];
-        [v45[0] addObject:v38];
-        objc_storeStrong(&v38, 0);
-        v39 = 0;
+        [v37 setFeatureName:v42];
+        [v37 setDescriptor:v40];
+        [v37 setDomain:*(a1 + 72)];
+        [v44[0] addObject:v37];
+        objc_storeStrong(&v37, 0);
+        v38 = 0;
       }
 
       else
       {
-LABEL_29:
         if (!*(*(*(a1 + 56) + 8) + 40))
         {
           v1 = [AMDError allocError:11 withMessage:@"could not serialize descriptor data"];
@@ -278,22 +270,22 @@ LABEL_29:
           MEMORY[0x277D82BD8](v3);
         }
 
-        v44 = 1;
-        v39 = 2;
+        v43 = 1;
+        v38 = 2;
       }
 
-      objc_storeStrong(&v41, 0);
-      if (v39)
+      objc_storeStrong(&v40, 0);
+      if (v38)
       {
         break;
       }
 
-      ++v28;
-      if (v26 + 1 >= v29)
+      ++v27;
+      if (v25 + 1 >= v28)
       {
-        v28 = 0;
-        v29 = [obj countByEnumeratingWithState:__b objects:v48 count:16];
-        if (!v29)
+        v27 = 0;
+        v28 = [obj countByEnumeratingWithState:__b objects:v47 count:16];
+        if (!v28)
         {
           goto LABEL_14;
         }
@@ -304,36 +296,36 @@ LABEL_29:
   else
   {
 LABEL_14:
-    v39 = 0;
+    v38 = 0;
   }
 
   MEMORY[0x277D82BD8](obj);
-  if (v44)
+  if (v43)
   {
-    memset(v36, 0, sizeof(v36));
-    v17 = MEMORY[0x277D82BE0](v45[0]);
-    v18 = [v17 countByEnumeratingWithState:v36 objects:v47 count:16];
-    if (v18)
+    memset(v35, 0, sizeof(v35));
+    v16 = MEMORY[0x277D82BE0](v44[0]);
+    v17 = [v16 countByEnumeratingWithState:v35 objects:v46 count:16];
+    if (v17)
     {
-      v14 = *v36[2];
-      v15 = 0;
-      v16 = v18;
+      v13 = *v35[2];
+      v14 = 0;
+      v15 = v17;
       while (1)
       {
-        v13 = v15;
-        if (*v36[2] != v14)
+        v12 = v14;
+        if (*v35[2] != v13)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        v37 = *(v36[1] + 8 * v15);
-        [*(a1 + 40) deleteObject:v37];
-        ++v15;
-        if (v13 + 1 >= v16)
+        v36 = *(v35[1] + 8 * v14);
+        [*(a1 + 40) deleteObject:v36];
+        ++v14;
+        if (v12 + 1 >= v15)
         {
-          v15 = 0;
-          v16 = [v17 countByEnumeratingWithState:v36 objects:v47 count:16];
-          if (!v16)
+          v14 = 0;
+          v15 = [v16 countByEnumeratingWithState:v35 objects:v46 count:16];
+          if (!v15)
           {
             break;
           }
@@ -341,40 +333,39 @@ LABEL_14:
       }
     }
 
-    MEMORY[0x277D82BD8](v17);
-    v10 = *(*(*(a1 + 64) + 8) + 40);
-    v9 = MEMORY[0x277CCACA8];
-    v12 = [*(*(*(a1 + 56) + 8) + 40) localizedDescription];
-    v11 = [v9 stringWithFormat:@"error: %@", v12];
-    [v10 setObject:? forKey:?];
+    MEMORY[0x277D82BD8](v16);
+    v9 = *(*(*(a1 + 64) + 8) + 40);
+    v8 = MEMORY[0x277CCACA8];
+    v11 = [*(*(*(a1 + 56) + 8) + 40) localizedDescription];
+    v10 = [v8 stringWithFormat:@"error: %@", v11];
+    [v9 setObject:? forKey:?];
+    MEMORY[0x277D82BD8](v10);
     MEMORY[0x277D82BD8](v11);
-    MEMORY[0x277D82BD8](v12);
   }
 
   else
   {
-    v7 = *(*(*(a1 + 64) + 8) + 40);
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v45[0], "count")}];
-    [v7 setObject:? forKey:?];
-    MEMORY[0x277D82BD8](v8);
+    v6 = *(*(*(a1 + 64) + 8) + 40);
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v44[0], "count")}];
+    [v6 setObject:? forKey:?];
+    MEMORY[0x277D82BD8](v7);
     oslog = MEMORY[0x277D82BE0](MEMORY[0x277D86220]);
     type = OS_LOG_TYPE_INFO;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_0_1_8_0(v46, [v45[0] count]);
-      _os_log_impl(&dword_240CB9000, oslog, type, "Added %lu descriptors", v46, 0xCu);
+      __os_log_helper_16_0_1_8_0(v45, [v44[0] count]);
+      _os_log_impl(&dword_240CB9000, oslog, type, "Added %lu descriptors", v45, 0xCu);
     }
 
     objc_storeStrong(&oslog, 0);
   }
 
-  v5 = *(a1 + 48);
-  v6 = (*(*(a1 + 56) + 8) + 40);
-  v33 = *v6;
-  [v5 save:&v33];
-  objc_storeStrong(v6, v33);
-  objc_storeStrong(v45, 0);
-  *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 48);
+  v5 = (*(*(a1 + 56) + 8) + 40);
+  v32 = *v5;
+  [v4 save:&v32];
+  objc_storeStrong(v5, v32);
+  objc_storeStrong(v44, 0);
 }
 
 + (id)getDescriptorsForDomain:(int64_t)domain error:(id *)error
@@ -542,7 +533,6 @@ LABEL_13:
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(v33, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

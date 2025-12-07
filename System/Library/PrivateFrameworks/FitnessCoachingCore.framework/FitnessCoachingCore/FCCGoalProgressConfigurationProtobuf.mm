@@ -153,12 +153,11 @@ LABEL_6:
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((has & 8) != 0)
   {
-    minimumNumberOfActiveDays = self->_minimumNumberOfActiveDays;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -177,9 +176,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  userStartOfDayDate = self->_userStartOfDayDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -193,34 +191,32 @@ LABEL_4:
   }
 
 LABEL_17:
-  userEndOfDayDate = self->_userEndOfDayDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_5:
-    expirationDate = self->_expirationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_6:
   if (self->_almostThereConfiguration)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_atypicalDayConfiguration)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_completionOffTrackConfiguration)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -370,7 +366,6 @@ LABEL_6:
     goto LABEL_28;
   }
 
-  v5 = *(equalCopy + 60);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 60) & 8) == 0 || self->_minimumNumberOfActiveDays != *(equalCopy + 14))
@@ -382,7 +377,7 @@ LABEL_6:
   else if ((*(equalCopy + 60) & 8) != 0)
   {
 LABEL_28:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_29;
   }
 
@@ -443,17 +438,17 @@ LABEL_28:
   completionOffTrackConfiguration = self->_completionOffTrackConfiguration;
   if (completionOffTrackConfiguration | *(equalCopy + 6))
   {
-    v9 = [(FCCCompletionOffTrackConfigurationProtobuf *)completionOffTrackConfiguration isEqual:?];
+    v8 = [(FCCCompletionOffTrackConfigurationProtobuf *)completionOffTrackConfiguration isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_29:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -15,7 +15,7 @@
 
 - (_SFPBHashBucketDetail)initWithFacade:(id)facade
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBHashBucketDetail *)self init];
   if (v5)
@@ -39,33 +39,33 @@
       v9 = 0;
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     hash_details2 = [facadeCopy hash_details];
-    v11 = [hash_details2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [hash_details2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(hash_details2);
           }
 
-          v15 = [[_SFPBHashBucketDetail_HashDetail alloc] initWithFacade:*(*(&v19 + 1) + 8 * i)];
+          v15 = [[_SFPBHashBucketDetail_HashDetail alloc] initWithFacade:*(*(&v18 + 1) + 8 * i)];
           if (v15)
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [hash_details2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [hash_details2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -75,17 +75,16 @@
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBHashBucketDetail)initWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = _SFPBHashBucketDetail;
-  v5 = [(_SFPBHashBucketDetail *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = _SFPBHashBucketDetail;
+  v5 = [(_SFPBHashBucketDetail *)&v23 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"hashPrefix"];
@@ -100,28 +99,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = v6;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
+      v18 = v6;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v21;
+        v12 = *v20;
         do
         {
           v13 = 0;
           do
           {
-            if (*v21 != v12)
+            if (*v20 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v20 + 1) + 8 * v13);
+            v14 = *(*(&v19 + 1) + 8 * v13);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -133,19 +132,18 @@
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v11);
       }
 
-      v6 = v19;
+      v6 = v18;
     }
 
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -185,31 +183,31 @@
 
 - (id)dictionaryRepresentation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_hash_details count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = self->_hash_details;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -222,7 +220,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -237,8 +235,6 @@
     v13 = [hash_prefix copy];
     [dictionary setObject:v13 forKeyedSubscript:@"hashPrefix"];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -314,7 +310,7 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   hash_prefix = [(_SFPBHashBucketDetail *)self hash_prefix];
   if (hash_prefix)
@@ -323,38 +319,35 @@ LABEL_13:
   }
 
   hash_details = [(_SFPBHashBucketDetail *)self hash_details];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = [hash_details countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [hash_details countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(hash_details);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [hash_details countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [hash_details countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addHash_details:(id)hash_details
@@ -377,18 +370,14 @@ LABEL_13:
 
 - (void)setHash_details:(id)hash_details
 {
-  v4 = [hash_details copy];
-  hash_details = self->_hash_details;
-  self->_hash_details = v4;
+  self->_hash_details = [hash_details copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setHash_prefix:(id)hash_prefix
 {
-  v4 = [hash_prefix copy];
-  hash_prefix = self->_hash_prefix;
-  self->_hash_prefix = v4;
+  self->_hash_prefix = [hash_prefix copy];
 
   MEMORY[0x1EEE66BB8]();
 }

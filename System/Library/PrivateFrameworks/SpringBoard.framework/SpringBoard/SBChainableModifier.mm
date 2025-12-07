@@ -317,7 +317,7 @@ LABEL_7:
   return v3 & 1;
 }
 
-uint64_t __61__SBChainableModifier__anyDescendentImplementsAnyEventMethod__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__61__SBChainableModifier__anyDescendentImplementsAnyEventMethod__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 _anyDescendentImplementsAnyEventMethod];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -579,28 +579,28 @@ uint64_t __61__SBChainableModifier__anyDescendentImplementsAnyEventMethod__block
   return v28;
 }
 
-void __35__SBChainableModifier_handleEvent___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __35__SBChainableModifier_handleEvent___block_invoke(void *a1, void *a2, uint64_t a3)
 {
   v6 = a2;
-  v7 = *(*(a1 + 40) + 8);
+  v7 = *(a1[5] + 8);
   v9 = *(v7 + 40);
   v8 = (v7 + 40);
   v14 = v6;
   if (v9)
   {
-    if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
+    if ((*(*(a1[6] + 8) + 24) & 1) == 0)
     {
       v10 = [objc_opt_class() newEventResponse];
-      [v10 addChildResponse:*(*(*(a1 + 40) + 8) + 40)];
-      *(*(*(a1 + 48) + 8) + 24) = 1;
-      v11 = *(*(a1 + 40) + 8);
+      [v10 addChildResponse:*(*(a1[5] + 8) + 40)];
+      *(*(a1[6] + 8) + 24) = 1;
+      v11 = *(a1[5] + 8);
       v12 = *(v11 + 40);
       *(v11 + 40) = v10;
 
       v6 = v14;
     }
 
-    v13 = *(*(*(a1 + 40) + 8) + 40);
+    v13 = *(*(a1[5] + 8) + 40);
     if (a3 == 0x7FFFFFFFFFFFFFFFLL)
     {
       [v13 addChildResponse:v6];
@@ -641,7 +641,7 @@ void __35__SBChainableModifier_handleEvent___block_invoke_4(uint64_t a1, void *a
 uint64_t __35__SBChainableModifier_handleEvent___block_invoke_17(uint64_t a1, void *a2)
 {
   v5 = a2;
-  if (([*(a1 + 32) containsObject:v5] & 1) == 0)
+  if ((objc_msgSend_containsObject_(*(a1 + 32)) & 1) == 0)
   {
     v3 = [*(a1 + 40) _forwardEvent:*(a1 + 48) toChildModifier:v5];
     if (v3)
@@ -700,7 +700,7 @@ void __35__SBChainableModifier_handleEvent___block_invoke_2_18(uint64_t a1, void
   return self;
 }
 
-uint64_t __45__SBChainableModifier_containsChildModifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__45__SBChainableModifier_containsChildModifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if (result)
@@ -1362,7 +1362,7 @@ void __61__SBChainableModifier_descriptionBuilderWithMultilinePrefix___block_inv
 
         v10 = *(*(&v15 + 1) + 8 * v9);
         v11 = v24[5];
-        if (!v11 || ([v11 containsObject:{*(*(&v15 + 1) + 8 * v9), v15}] & 1) == 0)
+        if (!v11 || (objc_msgSend_containsObject_(v11, v15) & 1) == 0)
         {
           v12 = *(a1 + 48);
           v13 = [v10 descriptionWithMultilinePrefix:{v5, v15}];
@@ -1551,7 +1551,7 @@ LABEL_12:
   }
 }
 
-uint64_t __61__SBChainableModifier__anyDescendentImplementsAnyQueryMethod__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__61__SBChainableModifier__anyDescendentImplementsAnyQueryMethod__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 _anyDescendentImplementsAnyQueryMethod];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -1559,7 +1559,7 @@ uint64_t __61__SBChainableModifier__anyDescendentImplementsAnyQueryMethod__block
   return result;
 }
 
-uint64_t __63__SBChainableModifier__anyDescendentImplementsAnyContextMethod__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__SBChainableModifier__anyDescendentImplementsAnyContextMethod__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 _anyDescendentImplementsAnyContextMethod];
   *(*(*(a1 + 32) + 8) + 24) |= result;

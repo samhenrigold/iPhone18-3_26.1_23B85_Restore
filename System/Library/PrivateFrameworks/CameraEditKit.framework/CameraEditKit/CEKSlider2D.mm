@@ -30,9 +30,9 @@
 
 - (CEKSlider2D)initWithFrame:(CGRect)frame
 {
-  v20.receiver = self;
-  v20.super_class = CEKSlider2D;
-  v3 = [(CEKSlider2D *)&v20 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v22.receiver = self;
+  v22.super_class = CEKSlider2D;
+  v3 = [(CEKSlider2D *)&v22 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:0];
@@ -70,14 +70,14 @@
     [layer2 setMasksToBounds:1];
 
     v3->_snapTouchesToDefaultValue = 1;
-    if (CEKHapticsAllowed())
+    if (CEKHapticsAllowed(v16, v17))
     {
-      v16 = objc_alloc_init(CEKSelectionFeedbackGenerator);
+      v18 = objc_alloc_init(CEKSelectionFeedbackGenerator);
       selectionFeedbackGenerator = v3->__selectionFeedbackGenerator;
-      v3->__selectionFeedbackGenerator = v16;
+      v3->__selectionFeedbackGenerator = v18;
     }
 
-    v18 = v3;
+    v20 = v3;
   }
 
   return v3;
@@ -847,7 +847,7 @@ void __40__CEKSlider2D__createGridImageWithSize___block_invoke(double *a1, void 
     v32 = 0u;
     if (v10)
     {
-      [v10 transform];
+      objc_msgSend_transform(v10);
     }
 
     v11 = [MEMORY[0x1E6979318] animationWithKeyPath:@"transform"];

@@ -1,5 +1,6 @@
 @interface BCAssetDetail
 - (BOOL)isAudiobook;
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt;
 - (BOOL)setDifferentBookmarkTime:(double)time;
 - (NSString)debugDescription;
 - (id)mutableCopy;
@@ -28,7 +29,7 @@
 
   else
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C011C();
@@ -39,9 +40,9 @@
 - (void)_configureFromAssetDetail:(id)detail withMergers:(id)mergers
 {
   detailCopy = detail;
-  v62.receiver = self;
-  v62.super_class = BCAssetDetail;
-  [(BCCloudData *)&v62 configureFromCloudData:detailCopy withMergers:mergers];
+  v65.receiver = self;
+  v65.super_class = BCAssetDetail;
+  [(BCCloudData *)&v65 configureFromCloudData:detailCopy withMergers:mergers];
   assetID = [detailCopy assetID];
   [(BCAssetDetail *)self setDifferentString:assetID forKey:@"assetID"];
 
@@ -126,91 +127,78 @@
   if (datePlaybackTimeUpdated)
   {
     datePlaybackTimeUpdated2 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
-    if (!datePlaybackTimeUpdated2)
+    if (datePlaybackTimeUpdated2 && (v37 = datePlaybackTimeUpdated2, [datePlaybackTimeUpdated timeIntervalSinceReferenceDate], v39 = v38, -[BCAssetDetail datePlaybackTimeUpdated](self, "datePlaybackTimeUpdated"), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v40, "timeIntervalSinceReferenceDate"), v42 = v41, v40, v37, v39 <= v42))
     {
-      goto LABEL_9;
-    }
-
-    v37 = datePlaybackTimeUpdated2;
-    [datePlaybackTimeUpdated timeIntervalSinceReferenceDate];
-    v39 = v38;
-    datePlaybackTimeUpdated3 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
-    [datePlaybackTimeUpdated3 timeIntervalSinceReferenceDate];
-    v42 = v41;
-
-    if (v39 <= v42)
-    {
-      v50 = sub_10000DC90();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v52 = sub_10000DC90(v43);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         assetID2 = [(BCAssetDetail *)self assetID];
-        datePlaybackTimeUpdated4 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+        datePlaybackTimeUpdated3 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
         [(BCAssetDetail *)self bookmarkTime];
-        v54 = v53;
+        v56 = v55;
         [detailCopy bookmarkTime];
         *buf = 138413314;
-        v64 = assetID2;
-        v65 = 2112;
-        v66 = datePlaybackTimeUpdated4;
-        v67 = 2048;
-        v68 = v54;
-        v69 = 2112;
-        v70 = datePlaybackTimeUpdated;
-        v71 = 2048;
-        v72 = v55;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Audiobook Configuring bookmark time, ignoring as my bookmark time is same or newer old:[%@ = %.2f] new:[%@ = %.2f].", buf, 0x34u);
+        v67 = assetID2;
+        v68 = 2112;
+        v69 = datePlaybackTimeUpdated3;
+        v70 = 2048;
+        v71 = v56;
+        v72 = 2112;
+        v73 = datePlaybackTimeUpdated;
+        v74 = 2048;
+        v75 = v57;
+        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Audiobook Configuring bookmark time, ignoring as my bookmark time is same or newer old:[%@ = %.2f] new:[%@ = %.2f].", buf, 0x34u);
       }
     }
 
     else
     {
-LABEL_9:
-      [detailCopy bookmarkTime];
-      v44 = v43;
-      v45 = sub_10000DC90();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      bookmarkTime = [detailCopy bookmarkTime];
+      v46 = v45;
+      v47 = sub_10000DC90(bookmarkTime);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         assetID3 = [(BCAssetDetail *)self assetID];
-        datePlaybackTimeUpdated5 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+        datePlaybackTimeUpdated4 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
         [(BCAssetDetail *)self bookmarkTime];
         *buf = 138413314;
-        v64 = assetID3;
-        v65 = 2112;
-        v66 = datePlaybackTimeUpdated5;
-        v67 = 2048;
-        v68 = v48;
-        v69 = 2112;
-        v70 = datePlaybackTimeUpdated;
-        v71 = 2048;
-        v72 = v44;
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Audiobook Configuring bookmark time old:[%@ = %.2f] new:[%@ = %.2f].", buf, 0x34u);
+        v67 = assetID3;
+        v68 = 2112;
+        v69 = datePlaybackTimeUpdated4;
+        v70 = 2048;
+        v71 = v50;
+        v72 = 2112;
+        v73 = datePlaybackTimeUpdated;
+        v74 = 2048;
+        v75 = v46;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Audiobook Configuring bookmark time old:[%@ = %.2f] new:[%@ = %.2f].", buf, 0x34u);
       }
 
-      datePlaybackTimeUpdated6 = [detailCopy datePlaybackTimeUpdated];
-      [(BCAssetDetail *)self setDifferentDate:datePlaybackTimeUpdated6 forKey:@"datePlaybackTimeUpdated"];
+      datePlaybackTimeUpdated5 = [detailCopy datePlaybackTimeUpdated];
+      [(BCAssetDetail *)self setDifferentDate:datePlaybackTimeUpdated5 forKey:@"datePlaybackTimeUpdated"];
 
-      [(BCAssetDetail *)self setDifferentBookmarkTime:v44];
+      [(BCAssetDetail *)self setDifferentBookmarkTime:v46];
     }
   }
 
-  v56 = +[BULogUtilities shared];
-  verboseLoggingEnabled = [v56 verboseLoggingEnabled];
+  v58 = +[BULogUtilities shared];
+  verboseLoggingEnabled = [v58 verboseLoggingEnabled];
 
   if (verboseLoggingEnabled)
   {
-    v58 = sub_10000DB80();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    v61 = sub_10000DB80(v60);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
     {
       assetID4 = [(BCAssetDetail *)self assetID];
-      v60 = [(BCAssetDetail *)self debugDescription];
+      v63 = [(BCAssetDetail *)self debugDescription];
       assetID5 = [detailCopy assetID];
       *buf = 138412802;
-      v64 = assetID4;
-      v65 = 2112;
-      v66 = v60;
-      v67 = 2112;
-      v68 = assetID5;
-      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "\\BCAssetDetail configured: %@ %@ from assetDetail:%@\\"", buf, 0x20u);
+      v67 = assetID4;
+      v68 = 2112;
+      v69 = v63;
+      v70 = 2112;
+      v71 = assetID5;
+      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "\\BCAssetDetail configured: %@ %@ from assetDetail:%@\", buf, 0x20u);
     }
   }
 }
@@ -227,194 +215,441 @@ LABEL_9:
   return 1;
 }
 
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt
+{
+  saltCopy = salt;
+  dateCopy = date;
+  v7 = BUProtocolCast();
+  v81.receiver = self;
+  v81.super_class = BCAssetDetail;
+  v80 = [(BCCloudData *)&v81 isEqualExceptForDate:dateCopy ignoringEmptySalt:saltCopy];
+
+  assetID = [(BCAssetDetail *)self assetID];
+  assetID2 = [v7 assetID];
+  v79 = [assetID isEqualToString:assetID2];
+
+  isFinished = [(BCAssetDetail *)self isFinished];
+  isFinished2 = [v7 isFinished];
+  notFinished = [(BCAssetDetail *)self notFinished];
+  notFinished2 = [v7 notFinished];
+  taste = [(BCAssetDetail *)self taste];
+  taste2 = [v7 taste];
+  tasteSyncedToStore = [(BCAssetDetail *)self tasteSyncedToStore];
+  tasteSyncedToStore2 = [v7 tasteSyncedToStore];
+  dateFinished = [(BCAssetDetail *)self dateFinished];
+  if (!dateFinished)
+  {
+    assetID2 = [v7 dateFinished];
+    if (!assetID2)
+    {
+      v75 = 1;
+LABEL_6:
+
+      goto LABEL_7;
+    }
+  }
+
+  dateFinished2 = [(BCAssetDetail *)self dateFinished];
+  dateFinished3 = [v7 dateFinished];
+  v75 = [dateFinished2 isEqualToDate:dateFinished3];
+
+  if (!dateFinished)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_7:
+
+  finishedDateKind = [(BCAssetDetail *)self finishedDateKind];
+  finishedDateKind2 = [v7 finishedDateKind];
+  lastOpenDate = [(BCAssetDetail *)self lastOpenDate];
+  if (!lastOpenDate)
+  {
+    assetID2 = [v7 lastOpenDate];
+    if (!assetID2)
+    {
+      v72 = 1;
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  lastOpenDate2 = [(BCAssetDetail *)self lastOpenDate];
+  lastOpenDate3 = [v7 lastOpenDate];
+  v72 = [lastOpenDate2 isEqualToDate:lastOpenDate3];
+
+  if (!lastOpenDate)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_13:
+
+  [(BCAssetDetail *)self readingProgress];
+  v20 = v19;
+  [v7 readingProgress];
+  v22 = v21;
+  [(BCAssetDetail *)self readingProgressHighWaterMark];
+  v24 = v23;
+  [v7 readingProgressHighWaterMark];
+  v26 = v25;
+  readingPositionCFIString = [(BCAssetDetail *)self readingPositionCFIString];
+  if (!readingPositionCFIString)
+  {
+    assetID2 = [v7 readingPositionCFIString];
+    if (!assetID2)
+    {
+      v71 = 1;
+LABEL_18:
+
+      goto LABEL_19;
+    }
+  }
+
+  readingPositionCFIString2 = [(BCAssetDetail *)self readingPositionCFIString];
+  readingPositionCFIString3 = [v7 readingPositionCFIString];
+  v71 = [readingPositionCFIString2 isEqualToString:readingPositionCFIString3];
+
+  if (!readingPositionCFIString)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_19:
+
+  readingPositionAssetVersion = [(BCAssetDetail *)self readingPositionAssetVersion];
+  if (!readingPositionAssetVersion)
+  {
+    assetID2 = [v7 readingPositionAssetVersion];
+    if (!assetID2)
+    {
+      v69 = 1;
+LABEL_24:
+
+      goto LABEL_25;
+    }
+  }
+
+  readingPositionAssetVersion2 = [(BCAssetDetail *)self readingPositionAssetVersion];
+  readingPositionAssetVersion3 = [v7 readingPositionAssetVersion];
+  v69 = [readingPositionAssetVersion2 isEqualToString:readingPositionAssetVersion3];
+
+  if (!readingPositionAssetVersion)
+  {
+    goto LABEL_24;
+  }
+
+LABEL_25:
+
+  readingPositionAnnotationVersion = [(BCAssetDetail *)self readingPositionAnnotationVersion];
+  if (!readingPositionAnnotationVersion)
+  {
+    assetID2 = [v7 readingPositionAnnotationVersion];
+    if (!assetID2)
+    {
+      v68 = 1;
+LABEL_30:
+
+      goto LABEL_31;
+    }
+  }
+
+  readingPositionAnnotationVersion2 = [(BCAssetDetail *)self readingPositionAnnotationVersion];
+  readingPositionAnnotationVersion3 = [v7 readingPositionAnnotationVersion];
+  v68 = [readingPositionAnnotationVersion2 isEqualToString:readingPositionAnnotationVersion3];
+
+  if (!readingPositionAnnotationVersion)
+  {
+    goto LABEL_30;
+  }
+
+LABEL_31:
+
+  readingPositionUserData = [(BCAssetDetail *)self readingPositionUserData];
+  if (!readingPositionUserData)
+  {
+    assetID2 = [v7 readingPositionUserData];
+    if (!assetID2)
+    {
+      v70 = 1;
+LABEL_36:
+
+      goto LABEL_37;
+    }
+  }
+
+  readingPositionUserData2 = [(BCAssetDetail *)self readingPositionUserData];
+  readingPositionUserData3 = [v7 readingPositionUserData];
+  v70 = [readingPositionUserData2 isEqual:readingPositionUserData3];
+
+  if (!readingPositionUserData)
+  {
+    goto LABEL_36;
+  }
+
+LABEL_37:
+
+  readingPositionLocationRangeStart = [(BCAssetDetail *)self readingPositionLocationRangeStart];
+  readingPositionLocationRangeStart2 = [v7 readingPositionLocationRangeStart];
+  readingPositionLocationRangeEnd = [(BCAssetDetail *)self readingPositionLocationRangeEnd];
+  readingPositionLocationRangeEnd2 = [v7 readingPositionLocationRangeEnd];
+  readingPositionAbsolutePhysicalLocation = [(BCAssetDetail *)self readingPositionAbsolutePhysicalLocation];
+  readingPositionAbsolutePhysicalLocation2 = [v7 readingPositionAbsolutePhysicalLocation];
+  readingPositionStorageUUID = [(BCAssetDetail *)self readingPositionStorageUUID];
+  readingPositionStorageUUID2 = [v7 readingPositionStorageUUID];
+
+  v61 = readingPositionStorageUUID;
+  readingPositionLocationUpdateDate = [(BCAssetDetail *)self readingPositionLocationUpdateDate];
+  if (!readingPositionLocationUpdateDate)
+  {
+    assetID2 = [v7 readingPositionLocationUpdateDate];
+    if (!assetID2)
+    {
+      v60 = 1;
+LABEL_42:
+
+      goto LABEL_43;
+    }
+  }
+
+  [(BCAssetDetail *)self readingPositionLocationUpdateDate];
+  v43 = v42 = isFinished;
+  [v7 readingPositionLocationUpdateDate];
+  v45 = v44 = isFinished2;
+  v60 = [v43 isEqualToDate:v45];
+
+  isFinished2 = v44;
+  isFinished = v42;
+  if (!readingPositionLocationUpdateDate)
+  {
+    goto LABEL_42;
+  }
+
+LABEL_43:
+  v46 = isFinished ^ isFinished2;
+  v47 = notFinished ^ notFinished2;
+
+  datePlaybackTimeUpdated = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+  if (!datePlaybackTimeUpdated)
+  {
+    isFinished = [v7 datePlaybackTimeUpdated];
+    if (!isFinished)
+    {
+      v78 = 1;
+LABEL_48:
+
+      goto LABEL_49;
+    }
+  }
+
+  datePlaybackTimeUpdated2 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+  [v7 datePlaybackTimeUpdated];
+  v51 = v50 = taste;
+  v78 = [datePlaybackTimeUpdated2 isEqualToDate:v51];
+
+  taste = v50;
+  if (!datePlaybackTimeUpdated)
+  {
+    goto LABEL_48;
+  }
+
+LABEL_49:
+
+  [(BCAssetDetail *)self bookmarkTime];
+  v53 = v52;
+  [v7 bookmarkTime];
+  v55 = 0;
+  if (!(v46 & 1 | ((v80 & v79 & 1) == 0) | v47 & 1) && ((v75 ^ 1) & 1) == 0 && finishedDateKind == finishedDateKind2 && ((v72 ^ 1) & 1) == 0 && v20 == v22 && v24 == v26 && ((v71 ^ 1) & 1) == 0 && ((v70 ^ 1) & 1) == 0 && ((v69 ^ 1) & 1) == 0 && ((v68 ^ 1) & 1) == 0 && readingPositionLocationRangeStart == readingPositionLocationRangeStart2 && readingPositionLocationRangeEnd == readingPositionLocationRangeEnd2 && readingPositionAbsolutePhysicalLocation == readingPositionAbsolutePhysicalLocation2 && v61 == readingPositionStorageUUID2 && ((v60 ^ 1) & 1) == 0 && taste == taste2 && tasteSyncedToStore == tasteSyncedToStore2)
+  {
+    if (v53 == v54)
+    {
+      v55 = v78;
+    }
+
+    else
+    {
+      v55 = 0;
+    }
+  }
+
+  return v55;
+}
+
 - (void)resolveConflictsFromRecord:(id)record withResolvers:(id)resolvers
 {
   recordCopy = record;
-  v150.receiver = self;
-  v150.super_class = BCAssetDetail;
-  [(BCCloudData *)&v150 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
+  v159.receiver = self;
+  v159.super_class = BCAssetDetail;
+  v7 = [(BCCloudData *)&v159 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
   if (recordCopy)
   {
-    v7 = +[BULogUtilities shared];
-    verboseLoggingEnabled = [v7 verboseLoggingEnabled];
+    v8 = +[BULogUtilities shared];
+    verboseLoggingEnabled = [v8 verboseLoggingEnabled];
 
     if (verboseLoggingEnabled)
     {
-      v9 = sub_10000DB80();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_10000DB80(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "\\BCAssetDetail resolveConflictsFromRecord:withResolvers: record != nil\\"", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "\\BCAssetDetail resolveConflictsFromRecord:withResolvers: record != nil\", buf, 2u);
       }
     }
 
-    v10 = [BCCloudData localIdentifierFromRecord:recordCopy];
+    v12 = [BCCloudData localIdentifierFromRecord:recordCopy];
     assetID = [(BCAssetDetail *)self assetID];
-    v12 = [assetID isEqualToString:v10];
+    v14 = [assetID isEqualToString:v12];
 
-    if ((v12 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      v13 = sub_100002660();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = sub_100002660(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_1001C0150(self, v10, v13);
+        sub_1001C0150(self, v12, v16);
       }
 
-      [(BCAssetDetail *)self setAssetID:v10];
+      [(BCAssetDetail *)self setAssetID:v12];
     }
 
-    v149 = v10;
+    v158 = v12;
     modificationDate = [(BCAssetDetail *)self modificationDate];
-    if (!modificationDate)
+    if (modificationDate && (v18 = modificationDate, -[BCAssetDetail modificationDate](self, "modificationDate"), v19 = objc_claimAutoreleasedReturnValue(), [v19 timeIntervalSinceReferenceDate], v21 = v20, objc_msgSend(recordCopy, "modificationDate"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "timeIntervalSinceReferenceDate"), v24 = v23, v22, v19, v18, v21 >= v24))
     {
-      goto LABEL_12;
-    }
-
-    v15 = modificationDate;
-    modificationDate2 = [(BCAssetDetail *)self modificationDate];
-    [modificationDate2 timeIntervalSinceReferenceDate];
-    v18 = v17;
-    modificationDate3 = [recordCopy modificationDate];
-    [modificationDate3 timeIntervalSinceReferenceDate];
-    v21 = v20;
-
-    if (v18 >= v21)
-    {
-      modificationDate4 = [(BCAssetDetail *)self modificationDate];
-      if (modificationDate4)
+      modificationDate2 = [(BCAssetDetail *)self modificationDate];
+      if (modificationDate2)
       {
-        modificationDate5 = [recordCopy modificationDate];
-        [modificationDate5 timeIntervalSinceReferenceDate];
-        v112 = v111;
-        modificationDate6 = [(BCAssetDetail *)self modificationDate];
-        [modificationDate6 timeIntervalSinceReferenceDate];
-        v39 = v112 != v114;
+        modificationDate3 = [recordCopy modificationDate];
+        [modificationDate3 timeIntervalSinceReferenceDate];
+        v119 = v118;
+        modificationDate4 = [(BCAssetDetail *)self modificationDate];
+        [modificationDate4 timeIntervalSinceReferenceDate];
+        v42 = v119 != v121;
       }
 
       else
       {
-        v39 = 0;
+        v42 = 0;
       }
 
-      v26 = sub_100002660();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v29 = sub_100002660(v142);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         assetID2 = [(BCAssetDetail *)self assetID];
         recordID = [recordCopy recordID];
         recordName = [recordID recordName];
-        modificationDate7 = [(BCAssetDetail *)self modificationDate];
-        [modificationDate7 timeIntervalSinceReferenceDate];
-        v139 = v138;
-        modificationDate8 = [recordCopy modificationDate];
-        [modificationDate8 timeIntervalSinceReferenceDate];
-        v141 = @"newer";
+        modificationDate5 = [(BCAssetDetail *)self modificationDate];
+        [modificationDate5 timeIntervalSinceReferenceDate];
+        v148 = v147;
+        modificationDate6 = [recordCopy modificationDate];
+        [modificationDate6 timeIntervalSinceReferenceDate];
+        v150 = @"newer";
         *buf = 138412802;
-        v152 = assetID2;
-        if (v139 == v142)
+        v161 = assetID2;
+        if (v148 == v151)
         {
-          v141 = @"the same";
+          v150 = @"the same";
         }
 
-        v153 = 2112;
-        v154 = recordName;
-        v155 = 2114;
-        v156 = v141;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@, keeping my basic properties as my modification date is %{public}@.", buf, 0x20u);
+        v162 = 2112;
+        v163 = recordName;
+        v164 = 2114;
+        v165 = v150;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@, keeping my basic properties as my modification date is %{public}@.", buf, 0x20u);
       }
     }
 
     else
     {
-LABEL_12:
-      v22 = sub_100002660();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v25 = sub_100002660(modificationDate);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         assetID3 = [(BCAssetDetail *)self assetID];
         recordID2 = [recordCopy recordID];
         recordName2 = [recordID2 recordName];
         *buf = 138412546;
-        v152 = assetID3;
-        v153 = 2112;
-        v154 = recordName2;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@ adopting general record properties.", buf, 0x16u);
+        v161 = assetID3;
+        v162 = 2112;
+        v163 = recordName2;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@ adopting general record properties.", buf, 0x16u);
       }
 
-      v26 = [recordCopy objectForKey:@"isFinished"];
-      [(BCAssetDetail *)self setDifferentNumber:v26 forKey:@"isFinished"];
-      v27 = [recordCopy objectForKey:@"notFinished"];
-      [(BCAssetDetail *)self setDifferentNumber:v27 forKey:@"notFinished"];
-      v28 = [recordCopy objectForKey:@"taste"];
+      v29 = [recordCopy objectForKey:@"isFinished"];
+      [(BCAssetDetail *)self setDifferentNumber:v29 forKey:@"isFinished"];
+      v30 = [recordCopy objectForKey:@"notFinished"];
+      [(BCAssetDetail *)self setDifferentNumber:v30 forKey:@"notFinished"];
+      v31 = [recordCopy objectForKey:@"taste"];
       taste = [(BCAssetDetail *)self taste];
-      shortValue = [v28 shortValue];
-      v31 = taste & 3;
+      shortValue = [v31 shortValue];
+      v34 = taste & 3;
       if ((shortValue & 3) != 0)
       {
-        v31 = shortValue & 3;
+        v34 = shortValue & 3;
       }
 
-      v32 = [NSNumber numberWithShort:v31 | (shortValue | taste) & 4u];
-      [(BCAssetDetail *)self setDifferentNumber:v32 forKey:@"taste"];
+      v35 = [NSNumber numberWithShort:v34 | (shortValue | taste) & 4u];
+      [(BCAssetDetail *)self setDifferentNumber:v35 forKey:@"taste"];
 
-      v33 = [recordCopy objectForKey:@"tasteSyncedToStore"];
-      [(BCAssetDetail *)self setDifferentNumber:v33 forKey:@"tasteSyncedToStore"];
-      v34 = [recordCopy objectForKey:@"dateFinished"];
-      [(BCAssetDetail *)self setDifferentDate:v34 forKey:@"dateFinished"];
+      v36 = [recordCopy objectForKey:@"tasteSyncedToStore"];
+      [(BCAssetDetail *)self setDifferentNumber:v36 forKey:@"tasteSyncedToStore"];
+      v37 = [recordCopy objectForKey:@"dateFinished"];
+      [(BCAssetDetail *)self setDifferentDate:v37 forKey:@"dateFinished"];
       encryptedValues = [recordCopy encryptedValues];
-      v36 = [encryptedValues objectForKeyedSubscript:@"finishedDateKind"];
+      v39 = [encryptedValues objectForKeyedSubscript:@"finishedDateKind"];
 
-      [(BCAssetDetail *)self setDifferentNumber:v36 forKey:@"finishedDateKind"];
-      v37 = [recordCopy objectForKey:@"lastOpenDate"];
-      [(BCAssetDetail *)self setDifferentDate:v37 forKey:@"lastOpenDate"];
-      modificationDate9 = [recordCopy modificationDate];
-      [(BCAssetDetail *)self setDifferentDate:modificationDate9 forKey:@"modificationDate"];
+      [(BCAssetDetail *)self setDifferentNumber:v39 forKey:@"finishedDateKind"];
+      v40 = [recordCopy objectForKey:@"lastOpenDate"];
+      [(BCAssetDetail *)self setDifferentDate:v40 forKey:@"lastOpenDate"];
+      modificationDate7 = [recordCopy modificationDate];
+      [(BCAssetDetail *)self setDifferentDate:modificationDate7 forKey:@"modificationDate"];
 
-      v39 = 0;
+      v42 = 0;
     }
 
-    v40 = [recordCopy objectForKey:@"readingPositionLocationUpdateDate"];
-    v41 = v40;
-    if (v40 && ([v40 timeIntervalSinceReferenceDate], v43 = v42, -[BCAssetDetail readingPositionLocationUpdateDate](self, "readingPositionLocationUpdateDate"), v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v44, "timeIntervalSinceReferenceDate"), v46 = v45, v44, v43 > v46))
+    v43 = [recordCopy objectForKey:@"readingPositionLocationUpdateDate"];
+    v44 = v43;
+    if (v43 && ([v43 timeIntervalSinceReferenceDate], v46 = v45, -[BCAssetDetail readingPositionLocationUpdateDate](self, "readingPositionLocationUpdateDate"), v47 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v47, "timeIntervalSinceReferenceDate"), v49 = v48, v47, v46 > v49))
     {
-      v147 = v39;
-      v148 = v41;
-      v47 = sub_100002660();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+      v156 = v42;
+      v157 = v44;
+      v51 = sub_100002660(v50);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
       {
         assetID4 = [(BCAssetDetail *)self assetID];
         recordID3 = [recordCopy recordID];
         recordName3 = [recordID3 recordName];
         *buf = 138412546;
-        v152 = assetID4;
-        v153 = 2112;
-        v154 = recordName3;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@ adopting reading position properties.", buf, 0x16u);
+        v161 = assetID4;
+        v162 = 2112;
+        v163 = recordName3;
+        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@ adopting reading position properties.", buf, 0x16u);
       }
 
-      v51 = [recordCopy objectForKey:@"readingProgress"];
-      [(BCAssetDetail *)self setDifferentNumber:v51 forKey:@"readingProgress"];
-      v146 = [recordCopy objectForKey:@"readingProgressHighWaterMark"];
-      [(BCAssetDetail *)self setDifferentNumber:v146 forKey:@"readingProgressHighWaterMark"];
-      v145 = [recordCopy objectForKey:@"readingPositionCFIString"];
-      [(BCAssetDetail *)self setDifferentString:v145 forKey:@"readingPositionCFIString"];
-      v144 = [recordCopy objectForKey:@"readingPositionAssetVersion"];
-      [(BCAssetDetail *)self setDifferentString:v144 forKey:@"readingPositionAssetVersion"];
-      v143 = [recordCopy objectForKey:@"readingPositionAnnotationVersion"];
-      [(BCAssetDetail *)self setDifferentString:v143 forKey:@"readingPositionAnnotationVersion"];
-      v52 = [recordCopy objectForKey:@"readingPositionUserData"];
-      [(BCAssetDetail *)self setDifferentValue:v52 forKey:@"readingPositionUserData" klass:objc_opt_class()];
-      v53 = [recordCopy objectForKey:@"readingPositionLocationRangeStart"];
-      [(BCAssetDetail *)self setDifferentNumber:v53 forKey:@"readingPositionLocationRangeStart"];
-      v54 = [recordCopy objectForKey:@"readingPositionLocationRangeEnd"];
-      [(BCAssetDetail *)self setDifferentNumber:v54 forKey:@"readingPositionLocationRangeEnd"];
-      v55 = [recordCopy objectForKey:@"readingPositionAbsolutePhysicalLocation"];
-      [(BCAssetDetail *)self setDifferentNumber:v55 forKey:@"readingPositionAbsolutePhysicalLocation"];
-      v56 = [recordCopy objectForKey:@"readingPositionStorageUUID"];
-      [(BCAssetDetail *)self setDifferentString:v56 forKey:@"readingPositionStorageUUID"];
-      v57 = [recordCopy objectForKey:@"readingPositionLocationUpdateDate"];
-      [(BCAssetDetail *)self setDifferentDate:v57 forKey:@"readingPositionLocationUpdateDate"];
+      v55 = [recordCopy objectForKey:@"readingProgress"];
+      [(BCAssetDetail *)self setDifferentNumber:v55 forKey:@"readingProgress"];
+      v155 = [recordCopy objectForKey:@"readingProgressHighWaterMark"];
+      [(BCAssetDetail *)self setDifferentNumber:v155 forKey:@"readingProgressHighWaterMark"];
+      v154 = [recordCopy objectForKey:@"readingPositionCFIString"];
+      [(BCAssetDetail *)self setDifferentString:v154 forKey:@"readingPositionCFIString"];
+      v153 = [recordCopy objectForKey:@"readingPositionAssetVersion"];
+      [(BCAssetDetail *)self setDifferentString:v153 forKey:@"readingPositionAssetVersion"];
+      v152 = [recordCopy objectForKey:@"readingPositionAnnotationVersion"];
+      [(BCAssetDetail *)self setDifferentString:v152 forKey:@"readingPositionAnnotationVersion"];
+      v56 = [recordCopy objectForKey:@"readingPositionUserData"];
+      [(BCAssetDetail *)self setDifferentValue:v56 forKey:@"readingPositionUserData" klass:objc_opt_class()];
+      v57 = [recordCopy objectForKey:@"readingPositionLocationRangeStart"];
+      [(BCAssetDetail *)self setDifferentNumber:v57 forKey:@"readingPositionLocationRangeStart"];
+      v58 = [recordCopy objectForKey:@"readingPositionLocationRangeEnd"];
+      [(BCAssetDetail *)self setDifferentNumber:v58 forKey:@"readingPositionLocationRangeEnd"];
+      v59 = [recordCopy objectForKey:@"readingPositionAbsolutePhysicalLocation"];
+      [(BCAssetDetail *)self setDifferentNumber:v59 forKey:@"readingPositionAbsolutePhysicalLocation"];
+      v60 = [recordCopy objectForKey:@"readingPositionStorageUUID"];
+      [(BCAssetDetail *)self setDifferentString:v60 forKey:@"readingPositionStorageUUID"];
+      v61 = [recordCopy objectForKey:@"readingPositionLocationUpdateDate"];
+      [(BCAssetDetail *)self setDifferentDate:v61 forKey:@"readingPositionLocationUpdateDate"];
 
-      v41 = v148;
-      v39 = v147;
+      v44 = v157;
+      v42 = v156;
     }
 
     else
@@ -422,131 +657,118 @@ LABEL_12:
       readingPositionLocationUpdateDate = [(BCAssetDetail *)self readingPositionLocationUpdateDate];
       if (readingPositionLocationUpdateDate)
       {
-        [v41 timeIntervalSinceReferenceDate];
-        v60 = v59;
+        [v44 timeIntervalSinceReferenceDate];
+        v64 = v63;
         readingPositionLocationUpdateDate2 = [(BCAssetDetail *)self readingPositionLocationUpdateDate];
         [readingPositionLocationUpdateDate2 timeIntervalSinceReferenceDate];
-        v63 = v60 != v62;
+        v67 = v64 != v66;
 
-        v39 |= v63;
+        v42 |= v67;
       }
 
-      v51 = sub_100002660();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+      v55 = sub_100002660(v68);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         assetID5 = [(BCAssetDetail *)self assetID];
         recordID4 = [recordCopy recordID];
         recordName4 = [recordID4 recordName];
         readingPositionLocationUpdateDate3 = [(BCAssetDetail *)self readingPositionLocationUpdateDate];
         [readingPositionLocationUpdateDate3 timeIntervalSinceReferenceDate];
-        v69 = v68;
-        [v41 timeIntervalSinceReferenceDate];
-        v70 = @"newer";
+        v74 = v73;
+        [v44 timeIntervalSinceReferenceDate];
+        v75 = @"newer";
         *buf = 138412802;
-        v152 = assetID5;
-        if (v69 == v71)
+        v161 = assetID5;
+        if (v74 == v76)
         {
-          v70 = @"the same";
+          v75 = @"the same";
         }
 
-        v153 = 2112;
-        v154 = recordName4;
-        v155 = 2114;
-        v156 = v70;
-        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@, keeping my reading position properties as my reading position update date is %{public}@.", buf, 0x20u);
+        v162 = 2112;
+        v163 = recordName4;
+        v164 = 2114;
+        v165 = v75;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "BCAssetDetail %@ Resolving conflicts from record %@, keeping my reading position properties as my reading position update date is %{public}@.", buf, 0x20u);
       }
     }
 
-    v72 = [recordCopy objectForKey:@"datePlaybackTimeUpdated"];
-    if (v72)
+    v77 = [recordCopy objectForKey:@"datePlaybackTimeUpdated"];
+    if (v77)
     {
       datePlaybackTimeUpdated = [(BCAssetDetail *)self datePlaybackTimeUpdated];
-      if (!datePlaybackTimeUpdated)
+      if (!datePlaybackTimeUpdated || (v79 = datePlaybackTimeUpdated, [v77 timeIntervalSinceReferenceDate], v81 = v80, -[BCAssetDetail datePlaybackTimeUpdated](self, "datePlaybackTimeUpdated"), v82 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v82, "timeIntervalSinceReferenceDate"), v84 = v83, v82, v79, v81 > v84))
       {
-        goto LABEL_31;
-      }
-
-      v74 = datePlaybackTimeUpdated;
-      [v72 timeIntervalSinceReferenceDate];
-      v76 = v75;
-      datePlaybackTimeUpdated2 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
-      [datePlaybackTimeUpdated2 timeIntervalSinceReferenceDate];
-      v79 = v78;
-
-      if (v76 > v79)
-      {
-LABEL_31:
-        v80 = sub_100002660();
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+        v85 = sub_100002660(datePlaybackTimeUpdated);
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
         {
           assetID6 = [(BCAssetDetail *)self assetID];
           recordID5 = [recordCopy recordID];
           recordName5 = [recordID5 recordName];
           *buf = 138412546;
-          v152 = assetID6;
-          v153 = 2112;
-          v154 = recordName5;
-          _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Resolving conflicts from record %@ adopting playback time properties.", buf, 0x16u);
+          v161 = assetID6;
+          v162 = 2112;
+          v163 = recordName5;
+          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Resolving conflicts from record %@ adopting playback time properties.", buf, 0x16u);
         }
 
-        v84 = [recordCopy objectForKey:@"bookmarkTime"];
-        v85 = v84;
-        if (v84)
+        v89 = [recordCopy objectForKey:@"bookmarkTime"];
+        v90 = v89;
+        if (v89)
         {
-          [v84 doubleValue];
-          v87 = v86;
-          v88 = sub_10000DC90();
-          if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+          doubleValue = [v89 doubleValue];
+          v93 = v92;
+          v94 = sub_10000DC90(doubleValue);
+          if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
           {
             assetID7 = [(BCAssetDetail *)self assetID];
-            datePlaybackTimeUpdated3 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+            datePlaybackTimeUpdated2 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
             [(BCAssetDetail *)self bookmarkTime];
             *buf = 138413314;
-            v152 = assetID7;
-            v153 = 2112;
-            v154 = datePlaybackTimeUpdated3;
-            v155 = 2048;
-            v156 = v91;
-            v157 = 2112;
-            v158 = v72;
-            v159 = 2048;
-            v160 = v87;
-            _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Audiobook Resolving bookmark time old:[%@ = %.2f] new:[%@ = %.2f].", buf, 0x34u);
+            v161 = assetID7;
+            v162 = 2112;
+            v163 = datePlaybackTimeUpdated2;
+            v164 = 2048;
+            v165 = v97;
+            v166 = 2112;
+            v167 = v77;
+            v168 = 2048;
+            v169 = v93;
+            _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Audiobook Resolving bookmark time old:[%@ = %.2f] new:[%@ = %.2f].", buf, 0x34u);
           }
 
-          [(BCAssetDetail *)self setDifferentDate:v72 forKey:@"datePlaybackTimeUpdated"];
-          [(BCAssetDetail *)self setDifferentBookmarkTime:v87];
+          [(BCAssetDetail *)self setDifferentDate:v77 forKey:@"datePlaybackTimeUpdated"];
+          [(BCAssetDetail *)self setDifferentBookmarkTime:v93];
 LABEL_58:
 
-          if (v39)
+          if (v42)
           {
             [(BCCloudData *)self incrementEditGeneration];
           }
 
           hasChanges = [(BCAssetDetail *)self hasChanges];
-          v126 = +[BULogUtilities shared];
-          verboseLoggingEnabled2 = [v126 verboseLoggingEnabled];
+          v133 = +[BULogUtilities shared];
+          verboseLoggingEnabled2 = [v133 verboseLoggingEnabled];
 
           if (hasChanges)
           {
             if (verboseLoggingEnabled2)
             {
-              v128 = sub_10000DB80();
-              if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+              v136 = sub_10000DB80(v135);
+              if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
               {
                 assetID8 = [(BCAssetDetail *)self assetID];
                 recordID6 = [recordCopy recordID];
                 recordName6 = [recordID6 recordName];
-                v132 = [(BCAssetDetail *)self debugDescription];
+                v140 = [(BCAssetDetail *)self debugDescription];
                 *buf = 138412802;
-                v152 = assetID8;
-                v153 = 2112;
-                v154 = recordName6;
-                v155 = 2112;
-                v156 = v132;
-                v133 = "\\BCAssetDetail %@ Resolving: Adopted properties from record: %@ %@\\"";
+                v161 = assetID8;
+                v162 = 2112;
+                v163 = recordName6;
+                v164 = 2112;
+                v165 = v140;
+                v141 = "\\BCAssetDetail %@ Resolving: Adopted properties from record: %@ %@\";
 LABEL_67:
-                _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_DEFAULT, v133, buf, 0x20u);
+                _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_DEFAULT, v141, buf, 0x20u);
 
                 goto LABEL_68;
               }
@@ -557,36 +779,36 @@ LABEL_67:
 
           else if (verboseLoggingEnabled2)
           {
-            v128 = sub_10000DB80();
-            if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+            v136 = sub_10000DB80(v135);
+            if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
             {
               assetID8 = [(BCAssetDetail *)self assetID];
               recordID6 = [recordCopy recordID];
               recordName6 = [recordID6 recordName];
-              v132 = [(BCAssetDetail *)self debugDescription];
+              v140 = [(BCAssetDetail *)self debugDescription];
               *buf = 138412802;
-              v152 = assetID8;
-              v153 = 2112;
-              v154 = recordName6;
-              v155 = 2112;
-              v156 = v132;
-              v133 = "\\BCAssetDetail %@ Resolving: Identical properties from record: %@ %@\\"";
+              v161 = assetID8;
+              v162 = 2112;
+              v163 = recordName6;
+              v164 = 2112;
+              v165 = v140;
+              v141 = "\\BCAssetDetail %@ Resolving: Identical properties from record: %@ %@\";
               goto LABEL_67;
             }
 
 LABEL_68:
           }
 
-          v92 = v149;
+          v98 = v158;
           goto LABEL_70;
         }
 
-        assetID10 = sub_10000DC90();
+        assetID10 = sub_10000DC90(0);
         if (os_log_type_enabled(assetID10, OS_LOG_TYPE_DEFAULT))
         {
           assetID9 = [(BCAssetDetail *)self assetID];
           *buf = 138412290;
-          v152 = assetID9;
+          v161 = assetID9;
           _os_log_impl(&_mh_execute_header, assetID10, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Audiobook Resolving bookmark time, ignoring as bookmark time is NULL.", buf, 0xCu);
         }
 
@@ -596,22 +818,22 @@ LABEL_53:
       }
     }
 
-    datePlaybackTimeUpdated4 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
-    if (datePlaybackTimeUpdated4)
+    datePlaybackTimeUpdated3 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+    if (datePlaybackTimeUpdated3)
     {
-      [v72 timeIntervalSinceReferenceDate];
-      v95 = v94;
-      datePlaybackTimeUpdated5 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
-      [datePlaybackTimeUpdated5 timeIntervalSinceReferenceDate];
-      v98 = v95 != v97;
+      [v77 timeIntervalSinceReferenceDate];
+      v101 = v100;
+      datePlaybackTimeUpdated4 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+      [datePlaybackTimeUpdated4 timeIntervalSinceReferenceDate];
+      v104 = v101 != v103;
 
-      v39 |= v98;
+      v42 |= v104;
     }
 
-    if (!v72)
+    if (!v77)
     {
-      v85 = sub_10000DC90();
-      if (!os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+      v90 = sub_10000DC90(v105);
+      if (!os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_58;
       }
@@ -619,83 +841,83 @@ LABEL_53:
       assetID10 = [(BCAssetDetail *)self assetID];
       recordID7 = [recordCopy recordID];
       recordName7 = [recordID7 recordName];
-      datePlaybackTimeUpdated6 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
-      [datePlaybackTimeUpdated6 timeIntervalSinceReferenceDate];
-      v120 = v119;
+      datePlaybackTimeUpdated5 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+      [datePlaybackTimeUpdated5 timeIntervalSinceReferenceDate];
+      v127 = v126;
       [0 timeIntervalSinceReferenceDate];
-      v121 = @"newer";
+      v128 = @"newer";
       *buf = 138412802;
-      v152 = assetID10;
-      if (v120 == v122)
+      v161 = assetID10;
+      if (v127 == v129)
       {
-        v121 = @"the same";
+        v128 = @"the same";
       }
 
-      v153 = 2112;
-      v154 = recordName7;
-      v155 = 2114;
-      v156 = v121;
-      _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Resolving conflicts from record %@, keeping my playback time properties as my playback time update date is %{public}@.", buf, 0x20u);
+      v162 = 2112;
+      v163 = recordName7;
+      v164 = 2114;
+      v165 = v128;
+      _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "BCAssetDetail %@ Resolving conflicts from record %@, keeping my playback time properties as my playback time update date is %{public}@.", buf, 0x20u);
 
       goto LABEL_53;
     }
 
-    v85 = [recordCopy objectForKey:@"bookmarkTime"];
-    v99 = sub_10000DC90();
-    v100 = os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT);
-    if (v85)
+    v90 = [recordCopy objectForKey:@"bookmarkTime"];
+    v106 = sub_10000DC90(v90);
+    v107 = os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT);
+    if (v90)
     {
-      if (v100)
+      if (v107)
       {
         assetID11 = [(BCAssetDetail *)self assetID];
-        datePlaybackTimeUpdated7 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+        datePlaybackTimeUpdated6 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
         [(BCAssetDetail *)self bookmarkTime];
-        v104 = v103;
-        [v85 doubleValue];
+        v111 = v110;
+        [v90 doubleValue];
         *buf = 138413314;
-        v152 = assetID11;
-        v153 = 2112;
-        v154 = datePlaybackTimeUpdated7;
-        v155 = 2048;
-        v156 = v104;
-        v157 = 2112;
-        v158 = v72;
-        v159 = 2048;
-        v160 = v105;
-        v106 = "BCAssetDetail %@ Audiobook Resolving bookmark time, ignoring as my bookmark time is newer old:[%@ = %.2f] new:[%@ = %.2f].";
-        v107 = v99;
-        v108 = 52;
+        v161 = assetID11;
+        v162 = 2112;
+        v163 = datePlaybackTimeUpdated6;
+        v164 = 2048;
+        v165 = v111;
+        v166 = 2112;
+        v167 = v77;
+        v168 = 2048;
+        v169 = v112;
+        v113 = "BCAssetDetail %@ Audiobook Resolving bookmark time, ignoring as my bookmark time is newer old:[%@ = %.2f] new:[%@ = %.2f].";
+        v114 = v106;
+        v115 = 52;
 LABEL_56:
-        _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, v106, buf, v108);
+        _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, v113, buf, v115);
       }
     }
 
-    else if (v100)
+    else if (v107)
     {
       assetID11 = [(BCAssetDetail *)self assetID];
-      datePlaybackTimeUpdated7 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
+      datePlaybackTimeUpdated6 = [(BCAssetDetail *)self datePlaybackTimeUpdated];
       [(BCAssetDetail *)self bookmarkTime];
       *buf = 138413058;
-      v152 = assetID11;
-      v153 = 2112;
-      v154 = datePlaybackTimeUpdated7;
-      v155 = 2048;
-      v156 = v124;
-      v157 = 2112;
-      v158 = v72;
-      v106 = "BCAssetDetail %@ Audiobook Resolving bookmark time, ignoring as my bookmark time is newer old:[%@ = %.2f] new:[%@ = NULL].";
-      v107 = v99;
-      v108 = 42;
+      v161 = assetID11;
+      v162 = 2112;
+      v163 = datePlaybackTimeUpdated6;
+      v164 = 2048;
+      v165 = v131;
+      v166 = 2112;
+      v167 = v77;
+      v113 = "BCAssetDetail %@ Audiobook Resolving bookmark time, ignoring as my bookmark time is newer old:[%@ = %.2f] new:[%@ = NULL].";
+      v114 = v106;
+      v115 = 42;
       goto LABEL_56;
     }
 
     goto LABEL_58;
   }
 
-  v92 = sub_100002660();
-  if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+  v98 = sub_100002660(v7);
+  if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
   {
-    sub_1001C0200(self, v92);
+    sub_1001C0200(self, v98);
   }
 
 LABEL_70:

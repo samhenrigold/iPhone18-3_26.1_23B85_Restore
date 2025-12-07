@@ -98,7 +98,7 @@
           if (v28)
           {
             v29 = v28;
-            v51 = v27;
+            v50 = v27;
             v30 = [FTABFileOS alloc];
             payloadData2 = [v29 payloadData];
             v32 = [(FTABFileOS *)v30 initWithData:payloadData2];
@@ -143,13 +143,12 @@ LABEL_21:
                   deviceInfoArray = self->_deviceInfoArray;
                   self->_deviceInfoArray = v42;
 
-                  v44 = self->_deviceInfoArray;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v45 = [v41 objectForKeyedSubscript:@"APInfo"];
+                    v44 = [v41 objectForKeyedSubscript:@"APInfo"];
                     apParameters = self->_apParameters;
-                    self->_apParameters = v45;
+                    self->_apParameters = v44;
 
                     v20 = 1;
 LABEL_28:
@@ -158,15 +157,15 @@ LABEL_35:
                     goto LABEL_36;
                   }
 
-                  v47 = @"Failed to locate device info array";
+                  v46 = @"Failed to locate device info array";
                 }
 
                 else
                 {
-                  v47 = @"Failed to locate device info";
+                  v46 = @"Failed to locate device info";
                 }
 
-                [(AppleTypeCRetimerRestoreInfoHelperOS *)self log:v47];
+                [(AppleTypeCRetimerRestoreInfoHelperOS *)self log:v46];
                 v20 = 0;
                 goto LABEL_28;
               }
@@ -178,13 +177,13 @@ LABEL_34:
 
             [(AppleTypeCRetimerRestoreInfoHelperOS *)self log:@"Failed to parse FTAB in super binary"];
 
-            v48 = v51;
+            v47 = v50;
           }
 
           else
           {
             [(AppleTypeCRetimerRestoreInfoHelperOS *)self log:@"Failed to locate FTAB in super binary"];
-            v48 = v27;
+            v47 = v27;
           }
         }
 
@@ -213,18 +212,17 @@ LABEL_36:
 
 - (id)generateHashForData:(id)data
 {
-  v12 = *MEMORY[0x29EDCA608];
-  memset(&v10, 0, sizeof(v10));
+  v11 = *MEMORY[0x29EDCA608];
+  memset(&v9, 0, sizeof(v9));
   dataCopy = data;
-  CC_SHA384_Init(&v10);
+  CC_SHA384_Init(&v9);
   v4 = dataCopy;
   bytes = [v4 bytes];
   v6 = [dataCopy length];
 
-  CC_SHA384_Update(&v10, bytes, v6);
-  CC_SHA384_Final(md, &v10);
+  CC_SHA384_Update(&v9, bytes, v6);
+  CC_SHA384_Final(md, &v9);
   v7 = [MEMORY[0x29EDB8DA0] dataWithBytes:md length:48];
-  v8 = *MEMORY[0x29EDCA608];
 
   return v7;
 }
@@ -232,7 +230,7 @@ LABEL_36:
 - (BOOL)generateRequestDictionary
 {
   selfCopy = self;
-  v119 = *MEMORY[0x29EDCA608];
+  v118 = *MEMORY[0x29EDCA608];
   v3 = [(AppleTypeCRetimerFirmwareAggregateRequestCreatorOS *)self generateHashForData:self->_rkosData];
   v4 = [(AppleTypeCRetimerFirmwareAggregateRequestCreatorOS *)selfCopy generateHashForData:selfCopy->_rrkoData];
   if (selfCopy->_cphyData)
@@ -246,29 +244,29 @@ LABEL_36:
   }
 
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
   obj = selfCopy->_deviceInfoArray;
-  v87 = [(NSArray *)obj countByEnumeratingWithState:&v102 objects:v118 count:16];
-  if (v87)
+  v86 = [(NSArray *)obj countByEnumeratingWithState:&v101 objects:v117 count:16];
+  if (v86)
   {
-    v89 = *v103;
-    v84 = v4;
-    v85 = v3;
-    v83 = v5;
-    v90 = selfCopy;
+    v88 = *v102;
+    v83 = v4;
+    v84 = v3;
+    v82 = v5;
+    v89 = selfCopy;
 LABEL_6:
     v6 = 0;
     while (1)
     {
-      if (*v103 != v89)
+      if (*v102 != v88)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v102 + 1) + 8 * v6);
+      v7 = *(*(&v101 + 1) + 8 * v6);
       v8 = [v7 objectForKeyedSubscript:@"TagNumber"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -281,47 +279,47 @@ LABEL_6:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate hardware ID data"];
+        [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate hardware ID data"];
         goto LABEL_90;
       }
 
-      v95 = v6;
+      v94 = v6;
       v11 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"@Timer%u validFormatSpecifiers:Ticket" error:@"%u", 0, unsignedCharValue];
       [dictionary setObject:MEMORY[0x29EDB8EB0] forKeyedSubscript:v11];
       v12 = [v10 objectForKeyedSubscript:@"BoardID"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate board ID for tag %u", unsignedCharValue];
+        [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate board ID for tag %u", unsignedCharValue];
         v72 = v12;
         goto LABEL_89;
       }
 
-      v98 = v12;
-      v99 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:BoardID error:%u", @"%u", 0, unsignedCharValue];
-      [dictionary setObject:v12 forKeyedSubscript:v99];
+      v97 = v12;
+      v98 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:BoardID error:%u", @"%u", 0, unsignedCharValue];
+      [dictionary setObject:v12 forKeyedSubscript:v98];
       v13 = [v10 objectForKeyedSubscript:@"ChipID"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate board ID for tag %u", unsignedCharValue];
+        [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate board ID for tag %u", unsignedCharValue];
         v73 = v13;
         goto LABEL_88;
       }
 
-      v96 = v13;
-      v97 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:ChipID error:%u", @"%u", 0, unsignedCharValue];
-      [dictionary setObject:v13 forKeyedSubscript:v97];
+      v95 = v13;
+      v96 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:ChipID error:%u", @"%u", 0, unsignedCharValue];
+      [dictionary setObject:v13 forKeyedSubscript:v96];
       v14 = [v10 objectForKeyedSubscript:@"ECID"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate ECID for tag %u", unsignedCharValue];
+        [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate ECID for tag %u", unsignedCharValue];
 
         v73 = v13;
 LABEL_88:
 
-        v72 = v98;
+        v72 = v97;
 LABEL_89:
 
 LABEL_90:
@@ -329,32 +327,32 @@ LABEL_91:
 
 LABEL_92:
         v71 = 0;
-        v4 = v84;
-        v3 = v85;
-        v5 = v83;
+        v4 = v83;
+        v3 = v84;
+        v5 = v82;
         v68 = dictionary;
         goto LABEL_93;
       }
 
-      v94 = v8;
-      v93 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:ECID error:%u", @"%u", 0, unsignedCharValue];
+      v93 = v8;
+      v92 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:ECID error:%u", @"%u", 0, unsignedCharValue];
       [dictionary setObject:v14 forKeyedSubscript:?];
       v15 = [v10 objectForKeyedSubscript:@"Nonce"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate nonce for tag %u", unsignedCharValue];
+        [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate nonce for tag %u", unsignedCharValue];
 
-        v8 = v94;
+        v8 = v93;
         goto LABEL_91;
       }
 
-      v91 = v11;
-      v92 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:Nonce error:%u", @"%u", 0, unsignedCharValue];
+      v90 = v11;
+      v91 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:Nonce error:%u", @"%u", 0, unsignedCharValue];
       [dictionary setObject:v15 forKeyedSubscript:?];
       v16 = [v10 objectForKeyedSubscript:@"ProductionStatus"];
       objc_opt_class();
-      v101 = v16;
+      v100 = v16;
       if (objc_opt_isKindOfClass())
       {
         v17 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:ProductionMode error:%u", @"%u", 0, unsignedCharValue];
@@ -370,14 +368,14 @@ LABEL_92:
           v20 = MEMORY[0x29EDB8EA8];
         }
 
-        v86 = v19;
+        v85 = v19;
         [dictionary setObject:v20 forKeyedSubscript:v19];
         v21 = [v10 objectForKeyedSubscript:@"SecurityDomain"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v81 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:SecurityDomain error:%u", @"%u", 0, unsignedCharValue];
-          v82 = v21;
+          v80 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:SecurityDomain error:%u", @"%u", 0, unsignedCharValue];
+          v81 = v21;
           [dictionary setObject:v21 forKeyedSubscript:?];
           v22 = [v10 objectForKeyedSubscript:@"SecurityMode"];
           objc_opt_class();
@@ -394,17 +392,17 @@ LABEL_92:
               v24 = MEMORY[0x29EDB8EA8];
             }
 
-            v77 = v23;
+            v76 = v23;
             [dictionary setObject:v24 forKeyedSubscript:v23];
             v25 = [v10 objectForKeyedSubscript:@"Demote"];
             if (v25 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               v60 = v25;
               v36 = v22;
-              [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Invalid demote setting for tag %u", unsignedCharValue];
+              [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Invalid demote setting for tag %u", unsignedCharValue];
               v33 = 0;
               v34 = v11;
-              v28 = v98;
+              v28 = v97;
             }
 
             else
@@ -412,39 +410,39 @@ LABEL_92:
               v26 = [v7 objectForKeyedSubscript:@"Trusted"];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
-              v80 = MEMORY[0x29EDB8EB0];
-              v28 = v98;
+              v79 = MEMORY[0x29EDB8EB0];
+              v28 = v97;
               if (isKindOfClass)
               {
-                v80 = v26;
+                v79 = v26;
               }
 
-              v76 = v26;
-              v79 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:RTKitOS error:%u", @"%u", 0, unsignedCharValue];
-              if ([v25 BOOLValue] && objc_msgSend(v101, "unsignedCharValue"))
+              v75 = v26;
+              v78 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:RTKitOS error:%u", @"%u", 0, unsignedCharValue];
+              if ([v25 BOOLValue] && objc_msgSend(v100, "unsignedCharValue"))
               {
-                v114[0] = @"Digest";
-                v114[1] = @"EPRO";
-                v115[0] = v85;
-                v115[1] = MEMORY[0x29EDB8EA8];
-                v114[2] = @"DPRO";
-                v114[3] = @"ESEC";
-                v115[2] = MEMORY[0x29EDB8EB0];
-                v115[3] = MEMORY[0x29EDB8EB0];
-                v114[4] = @"Trusted";
-                v115[4] = MEMORY[0x29EDB8EA8];
+                v113[0] = @"Digest";
+                v113[1] = @"EPRO";
+                v114[0] = v84;
+                v114[1] = MEMORY[0x29EDB8EA8];
+                v113[2] = @"DPRO";
+                v113[3] = @"ESEC";
+                v114[2] = MEMORY[0x29EDB8EB0];
+                v114[3] = MEMORY[0x29EDB8EB0];
+                v113[4] = @"Trusted";
+                v114[4] = MEMORY[0x29EDB8EA8];
                 v29 = MEMORY[0x29EDB8DC0];
-                v30 = v115;
-                v31 = v114;
+                v30 = v114;
+                v31 = v113;
                 v32 = 5;
               }
 
               else
               {
-                v117[0] = v85;
-                v116[0] = @"Digest";
-                v116[1] = @"EPRO";
-                unsignedCharValue2 = [v101 unsignedCharValue];
+                v116[0] = v84;
+                v115[0] = @"Digest";
+                v115[1] = @"EPRO";
+                unsignedCharValue2 = [v100 unsignedCharValue];
                 v38 = MEMORY[0x29EDB8EB0];
                 v39 = MEMORY[0x29EDB8EA8];
                 if (unsignedCharValue2)
@@ -457,8 +455,8 @@ LABEL_92:
                   v40 = MEMORY[0x29EDB8EA8];
                 }
 
-                v117[1] = v40;
-                v116[2] = @"ESEC";
+                v116[1] = v40;
+                v115[2] = @"ESEC";
                 if ([v22 unsignedCharValue])
                 {
                   v41 = v38;
@@ -469,9 +467,9 @@ LABEL_92:
                   v41 = v39;
                 }
 
-                v117[2] = v41;
-                v116[3] = @"Trusted";
-                if ([v80 BOOLValue])
+                v116[2] = v41;
+                v115[3] = @"Trusted";
+                if ([v79 BOOLValue])
                 {
                   v42 = v38;
                 }
@@ -481,41 +479,41 @@ LABEL_92:
                   v42 = v39;
                 }
 
-                v117[3] = v42;
+                v116[3] = v42;
                 v29 = MEMORY[0x29EDB8DC0];
-                v30 = v117;
-                v31 = v116;
+                v30 = v116;
+                v31 = v115;
                 v32 = 4;
               }
 
               v43 = [v29 dictionaryWithObjects:v30 forKeys:v31 count:v32];
-              [dictionary setObject:v43 forKeyedSubscript:v79];
+              [dictionary setObject:v43 forKeyedSubscript:v78];
 
-              v78 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:RestoreRTKitOS error:%u", @"%u", 0, unsignedCharValue];
-              if ([v25 BOOLValue] && objc_msgSend(v101, "unsignedCharValue"))
+              v77 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:RestoreRTKitOS error:%u", @"%u", 0, unsignedCharValue];
+              if ([v25 BOOLValue] && objc_msgSend(v100, "unsignedCharValue"))
               {
-                v110[0] = @"Digest";
-                v110[1] = @"EPRO";
-                v111[0] = v84;
-                v111[1] = MEMORY[0x29EDB8EA8];
-                v110[2] = @"DPRO";
-                v110[3] = @"ESEC";
-                v111[2] = MEMORY[0x29EDB8EB0];
-                v111[3] = MEMORY[0x29EDB8EB0];
-                v110[4] = @"Trusted";
-                v111[4] = MEMORY[0x29EDB8EA8];
+                v109[0] = @"Digest";
+                v109[1] = @"EPRO";
+                v110[0] = v83;
+                v110[1] = MEMORY[0x29EDB8EA8];
+                v109[2] = @"DPRO";
+                v109[3] = @"ESEC";
+                v110[2] = MEMORY[0x29EDB8EB0];
+                v110[3] = MEMORY[0x29EDB8EB0];
+                v109[4] = @"Trusted";
+                v110[4] = MEMORY[0x29EDB8EA8];
                 v44 = MEMORY[0x29EDB8DC0];
-                v45 = v111;
-                v46 = v110;
+                v45 = v110;
+                v46 = v109;
                 v47 = 5;
               }
 
               else
               {
-                v113[0] = v84;
-                v112[0] = @"Digest";
-                v112[1] = @"EPRO";
-                unsignedCharValue3 = [v101 unsignedCharValue];
+                v112[0] = v83;
+                v111[0] = @"Digest";
+                v111[1] = @"EPRO";
+                unsignedCharValue3 = [v100 unsignedCharValue];
                 v49 = MEMORY[0x29EDB8EB0];
                 v50 = MEMORY[0x29EDB8EA8];
                 if (unsignedCharValue3)
@@ -528,8 +526,8 @@ LABEL_92:
                   v51 = MEMORY[0x29EDB8EA8];
                 }
 
-                v113[1] = v51;
-                v112[2] = @"ESEC";
+                v112[1] = v51;
+                v111[2] = @"ESEC";
                 if ([v22 unsignedCharValue])
                 {
                   v52 = v49;
@@ -540,9 +538,9 @@ LABEL_92:
                   v52 = v50;
                 }
 
-                v113[2] = v52;
-                v112[3] = @"Trusted";
-                if ([v80 BOOLValue])
+                v112[2] = v52;
+                v111[3] = @"Trusted";
+                if ([v79 BOOLValue])
                 {
                   v53 = v49;
                 }
@@ -552,43 +550,43 @@ LABEL_92:
                   v53 = v50;
                 }
 
-                v113[3] = v53;
+                v112[3] = v53;
                 v44 = MEMORY[0x29EDB8DC0];
-                v45 = v113;
-                v46 = v112;
+                v45 = v112;
+                v46 = v111;
                 v47 = 4;
               }
 
               v54 = [v44 dictionaryWithObjects:v45 forKeys:v46 count:v47];
-              [dictionary setObject:v54 forKeyedSubscript:v78];
+              [dictionary setObject:v54 forKeyedSubscript:v77];
 
-              if (v90->_cphyData)
+              if (v89->_cphyData)
               {
                 v55 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Timer, AppleTypeCPhyFirmware, %u", unsignedCharValue];
-                if ([v25 BOOLValue] && objc_msgSend(v101, "unsignedCharValue"))
+                if ([v25 BOOLValue] && objc_msgSend(v100, "unsignedCharValue"))
                 {
-                  v106[0] = @"Digest";
-                  v106[1] = @"EPRO";
-                  v107[0] = v83;
-                  v107[1] = MEMORY[0x29EDB8EA8];
-                  v106[2] = @"DPRO";
-                  v106[3] = @"ESEC";
-                  v107[2] = MEMORY[0x29EDB8EB0];
-                  v107[3] = MEMORY[0x29EDB8EB0];
-                  v106[4] = @"Trusted";
-                  v107[4] = MEMORY[0x29EDB8EA8];
+                  v105[0] = @"Digest";
+                  v105[1] = @"EPRO";
+                  v106[0] = v82;
+                  v106[1] = MEMORY[0x29EDB8EA8];
+                  v105[2] = @"DPRO";
+                  v105[3] = @"ESEC";
+                  v106[2] = MEMORY[0x29EDB8EB0];
+                  v106[3] = MEMORY[0x29EDB8EB0];
+                  v105[4] = @"Trusted";
+                  v106[4] = MEMORY[0x29EDB8EA8];
                   v56 = MEMORY[0x29EDB8DC0];
-                  v57 = v107;
-                  v58 = v106;
+                  v57 = v106;
+                  v58 = v105;
                   v59 = 5;
                 }
 
                 else
                 {
-                  v109[0] = v83;
-                  v108[0] = @"Digest";
-                  v108[1] = @"EPRO";
-                  unsignedCharValue4 = [v101 unsignedCharValue];
+                  v108[0] = v82;
+                  v107[0] = @"Digest";
+                  v107[1] = @"EPRO";
+                  unsignedCharValue4 = [v100 unsignedCharValue];
                   v62 = MEMORY[0x29EDB8EB0];
                   v63 = MEMORY[0x29EDB8EA8];
                   if (unsignedCharValue4)
@@ -601,8 +599,8 @@ LABEL_92:
                     v64 = MEMORY[0x29EDB8EA8];
                   }
 
-                  v109[1] = v64;
-                  v108[2] = @"ESEC";
+                  v108[1] = v64;
+                  v107[2] = @"ESEC";
                   if ([v22 unsignedCharValue])
                   {
                     v65 = v62;
@@ -613,9 +611,9 @@ LABEL_92:
                     v65 = v63;
                   }
 
-                  v109[2] = v65;
-                  v108[3] = @"Trusted";
-                  if ([v80 BOOLValue])
+                  v108[2] = v65;
+                  v107[3] = @"Trusted";
+                  if ([v79 BOOLValue])
                   {
                     v66 = v62;
                   }
@@ -625,10 +623,10 @@ LABEL_92:
                     v66 = v63;
                   }
 
-                  v109[3] = v66;
+                  v108[3] = v66;
                   v56 = MEMORY[0x29EDB8DC0];
-                  v57 = v109;
-                  v58 = v108;
+                  v57 = v108;
+                  v58 = v107;
                   v59 = 4;
                 }
 
@@ -640,40 +638,40 @@ LABEL_92:
               v36 = v22;
 
               v33 = 1;
-              v34 = v91;
+              v34 = v90;
             }
           }
 
           else
           {
             v36 = v22;
-            [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate security mode for tag %u", unsignedCharValue];
+            [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate security mode for tag %u", unsignedCharValue];
             v33 = 0;
             v34 = v11;
-            v28 = v98;
+            v28 = v97;
           }
 
-          v35 = v96;
-          v21 = v82;
+          v35 = v95;
+          v21 = v81;
         }
 
         else
         {
-          [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate security domain for tag %u", unsignedCharValue];
+          [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate security domain for tag %u", unsignedCharValue];
           v33 = 0;
           v34 = v11;
-          v28 = v98;
-          v35 = v96;
+          v28 = v97;
+          v35 = v95;
         }
       }
 
       else
       {
-        [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate production status for tag %u", unsignedCharValue];
+        [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate production status for tag %u", unsignedCharValue];
         v33 = 0;
         v34 = v11;
-        v28 = v98;
-        v35 = v96;
+        v28 = v97;
+        v35 = v95;
       }
 
       if (!v33)
@@ -681,15 +679,15 @@ LABEL_92:
         goto LABEL_92;
       }
 
-      v6 = v95 + 1;
-      if (v87 == v95 + 1)
+      v6 = v94 + 1;
+      if (v86 == v94 + 1)
       {
-        v4 = v84;
-        v3 = v85;
-        v5 = v83;
-        selfCopy = v90;
-        v87 = [(NSArray *)obj countByEnumeratingWithState:&v102 objects:v118 count:16];
-        if (v87)
+        v4 = v83;
+        v3 = v84;
+        v5 = v82;
+        selfCopy = v89;
+        v86 = [(NSArray *)obj countByEnumeratingWithState:&v101 objects:v117 count:16];
+        if (v86)
         {
           goto LABEL_6;
         }
@@ -698,7 +696,7 @@ LABEL_92:
       }
     }
 
-    [(AppleTypeCRetimerRestoreInfoHelperOS *)v90 log:@"Unable to locate tag number in device info"];
+    [(AppleTypeCRetimerRestoreInfoHelperOS *)v89 log:@"Unable to locate tag number in device info"];
     goto LABEL_91;
   }
 
@@ -718,7 +716,6 @@ LABEL_80:
   v71 = 1;
 LABEL_93:
 
-  v74 = *MEMORY[0x29EDCA608];
   return v71;
 }
 

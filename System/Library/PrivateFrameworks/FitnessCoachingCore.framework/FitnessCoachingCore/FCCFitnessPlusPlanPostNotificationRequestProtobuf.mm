@@ -75,19 +75,17 @@
     [FCCFitnessPlusPlanPostNotificationRequestProtobuf writeTo:];
   }
 
-  v8 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteStringField();
   has = self->_has;
   if (has)
   {
-    force = self->_force;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    showTomorrowPlan = self->_showTomorrowPlan;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -169,7 +167,6 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v8 = *(equalCopy + 16);
   if (self->_force)
   {
     if ((*(equalCopy + 16) & 1) == 0)

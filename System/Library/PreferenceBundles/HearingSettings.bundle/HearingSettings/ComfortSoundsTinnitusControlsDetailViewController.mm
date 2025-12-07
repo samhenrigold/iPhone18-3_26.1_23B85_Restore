@@ -17,7 +17,10 @@
 - (void)showBalanceConflictAlert:(id)alert comfortSoundsDirection:(id)direction;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)userUpdatedChartValue;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ComfortSoundsTinnitusControlsDetailViewController
@@ -272,6 +275,30 @@ LABEL_5:
   v7 = objc_opt_class();
   v8 = +[HearingSettingsBalanceSliderCell cellReuseIdentifier];
   [table2 registerClass:v7 forCellReuseIdentifier:v8];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ComfortSoundsTinnitusControlsDetailViewController;
+  [(ComfortSoundsTinnitusControlsDetailViewController *)&v4 viewDidAppear:appear];
+  [(ComfortSoundsTinnitusControlsDetailViewController *)self _registerNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ComfortSoundsTinnitusControlsDetailViewController;
+  [(ComfortSoundsTinnitusControlsDetailViewController *)&v4 viewWillDisappear:disappear];
+  [(ComfortSoundsTinnitusControlsDetailViewController *)self setPlayingSample:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ComfortSoundsTinnitusControlsDetailViewController;
+  [(ComfortSoundsTinnitusControlsDetailViewController *)&v4 viewDidDisappear:disappear];
+  [(ComfortSoundsTinnitusControlsDetailViewController *)self _unregisterNotifications];
 }
 
 - (id)localizedFilterMode:(unint64_t)mode

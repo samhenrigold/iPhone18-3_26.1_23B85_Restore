@@ -17,6 +17,7 @@
 - (void)dealloc;
 - (void)mirrorSettingsChanged:(BOOL)changed;
 - (void)setDictationMode:(id)mode specifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CKBSSettingsAppController
@@ -45,9 +46,27 @@
   return v4;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = CKBSSettingsAppController;
+  [(CKBSSettingsAppController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"NANO_APP_TITLE" table:@"MessagesNotificationsSpecifiers" locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
+}
+
 - (id)localizedPaneTitle
 {
-  v2 = CKBSFrameworkBundle();
+  v2 = CKBSFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NANO_APP_TITLE" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
 
   return v3;
@@ -74,7 +93,7 @@
       }
 
       v7 = v6;
-      v8 = CKBSFrameworkBundle();
+      v8 = CKBSFrameworkBundle(v7);
       v9 = [(CKBSSettingsAppController *)self loadSpecifiersFromPlistName:v7 target:self bundle:v8];
 
       [(CKBSSettingsAppController *)self setNanoSpecifiers:v9];
@@ -93,49 +112,53 @@
   {
   }
 
-  else if (([(CKBSSettingsAppController *)self mirrorSettings]& 1) == 0)
+  else
   {
-    v4 = CKBSFrameworkBundle();
-    v5 = [(CKBSSettingsAppController *)self loadSpecifiersFromPlistName:@"MessagesNotificationsSpecifiers" target:self bundle:v4];
-
-    v6 = [v5 indexOfObjectPassingTest:&stru_4228];
-    if (v6 != 0x7FFFFFFFFFFFFFFFLL)
+    mirrorSettings = [(CKBSSettingsAppController *)self mirrorSettings];
+    if ((mirrorSettings & 1) == 0)
     {
-      v7 = [v5 objectAtIndexedSubscript:v6];
-      v8 = +[NSMutableArray array];
-      values = [v7 values];
-      v17 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v10 = [values countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v10)
+      v5 = CKBSFrameworkBundle(mirrorSettings);
+      v6 = [(CKBSSettingsAppController *)self loadSpecifiersFromPlistName:@"MessagesNotificationsSpecifiers" target:self bundle:v5];
+
+      v7 = [v6 indexOfObjectPassingTest:&stru_4228];
+      if (v7 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v11 = v10;
-        v12 = *v18;
-        do
+        v8 = [v6 objectAtIndexedSubscript:v7];
+        v9 = +[NSMutableArray array];
+        values = [v8 values];
+        v18 = 0u;
+        v19 = 0u;
+        v20 = 0u;
+        v21 = 0u;
+        v11 = [values countByEnumeratingWithState:&v18 objects:v22 count:16];
+        if (v11)
         {
-          for (i = 0; i != v11; i = i + 1)
+          v12 = v11;
+          v13 = *v19;
+          do
           {
-            if (*v18 != v12)
+            for (i = 0; i != v12; i = i + 1)
             {
-              objc_enumerationMutation(values);
+              if (*v19 != v13)
+              {
+                objc_enumerationMutation(values);
+              }
+
+              v15 = -[CKBSSettingsAppController _alertStringFromAlertCount:](self, "_alertStringFromAlertCount:", [*(*(&v18 + 1) + 8 * i) integerValue]);
+              [v9 addObject:v15];
             }
 
-            v14 = -[CKBSSettingsAppController _alertStringFromAlertCount:](self, "_alertStringFromAlertCount:", [*(*(&v17 + 1) + 8 * i) integerValue]);
-            [v8 addObject:v14];
+            v12 = [values countByEnumeratingWithState:&v18 objects:v22 count:16];
           }
 
-          v11 = [values countByEnumeratingWithState:&v17 objects:v21 count:16];
+          while (v12);
         }
 
-        while (v11);
+        [v8 setValues:values titles:v9];
       }
 
-      [v7 setValues:values titles:v8];
+      [(CKBSSettingsAppController *)self setAlertSpecifiers:v6];
     }
-
-    [(CKBSSettingsAppController *)self setAlertSpecifiers:v5];
   }
 
   alertSpecifiers2 = [(CKBSSettingsAppController *)self alertSpecifiers];
@@ -156,9 +179,9 @@
 
     if (!mirroredSpecifiers)
     {
-      v5 = CKBSFrameworkBundle();
-      v6 = [(CKBSSettingsAppController *)self loadSpecifiersFromPlistName:@"MessagesMirroredSpecifiers" target:self bundle:v5];
-      [(CKBSSettingsAppController *)self setMirroredSpecifiers:v6];
+      v6 = CKBSFrameworkBundle(v5);
+      v7 = [(CKBSSettingsAppController *)self loadSpecifiersFromPlistName:@"MessagesMirroredSpecifiers" target:self bundle:v6];
+      [(CKBSSettingsAppController *)self setMirroredSpecifiers:v7];
     }
 
     mirroredSpecifiers2 = [(CKBSSettingsAppController *)self mirroredSpecifiers];
@@ -169,7 +192,7 @@
 
 - (id)localizedMirroringDetailFooter
 {
-  v3 = CKBSFrameworkBundle();
+  v3 = CKBSFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"REPEAT_ALERT_SUMMARY_BULLET" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
 
   settingsMode = [(CKBSSettingsAppController *)self settingsMode];
@@ -194,32 +217,33 @@
   CFPreferencesSynchronize(@"com.apple.madrid", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
   keyExistsAndHasValidFormat = 0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"ReadReceiptsEnabled", @"com.apple.madrid", &keyExistsAndHasValidFormat);
-  v3 = keyExistsAndHasValidFormat;
-  v4 = CKBSFrameworkBundle();
-  v5 = v4;
-  if (AppBooleanValue)
+  v3 = AppBooleanValue;
+  v4 = keyExistsAndHasValidFormat;
+  v5 = CKBSFrameworkBundle(AppBooleanValue);
+  v6 = v5;
+  if (v3)
   {
-    v6 = v3 == 0;
+    v7 = v4 == 0;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  if (v6)
+  if (v7)
   {
-    v7 = @"DONT_SEND_READ_RECEIPTS";
+    v8 = @"DONT_SEND_READ_RECEIPTS";
   }
 
   else
   {
-    v7 = @"SEND_READ_RECEIPTS";
+    v8 = @"SEND_READ_RECEIPTS";
   }
 
-  v8 = [v4 localizedStringForKey:v7 value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
+  v9 = [v5 localizedStringForKey:v8 value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
 
-  return v8;
+  return v9;
 }
 
 - (id)_mirroringRepeatAlertsString
@@ -251,17 +275,17 @@
     switch(v4)
     {
       case 4:
-        v5 = CKBSFrameworkBundle();
+        v5 = CKBSFrameworkBundle(4);
         v6 = [v5 localizedStringForKey:@"ALERT_3_TIMES" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
         v7 = 3;
         goto LABEL_15;
       case 6:
-        v5 = CKBSFrameworkBundle();
+        v5 = CKBSFrameworkBundle(6);
         v6 = [v5 localizedStringForKey:@"ALERT_5_TIMES" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
         v7 = 5;
         goto LABEL_15;
       case 11:
-        v5 = CKBSFrameworkBundle();
+        v5 = CKBSFrameworkBundle(11);
         v6 = [v5 localizedStringForKey:@"ALERT_10_TIMES" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
         v7 = 10;
         goto LABEL_15;
@@ -276,7 +300,7 @@ LABEL_12:
   {
     if (v4 == 2)
     {
-      v5 = CKBSFrameworkBundle();
+      v5 = CKBSFrameworkBundle(2);
       v6 = [v5 localizedStringForKey:@"ALERT_1_TIME" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
       v7 = 1;
       goto LABEL_15;
@@ -284,7 +308,7 @@ LABEL_12:
 
     if (v4 == 3)
     {
-      v5 = CKBSFrameworkBundle();
+      v5 = CKBSFrameworkBundle(3);
       v6 = [v5 localizedStringForKey:@"ALERT_2_TIMES" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
       v7 = 2;
 LABEL_15:
@@ -295,7 +319,7 @@ LABEL_15:
     goto LABEL_12;
   }
 
-  v5 = CKBSFrameworkBundle();
+  v5 = CKBSFrameworkBundle(1);
   v6 = [v5 localizedStringForKey:@"ALERT_0_TIMES" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
   [NSString localizedStringWithFormat:v6, 0];
   v8 = LABEL_16:;
@@ -308,9 +332,9 @@ LABEL_17:
 - (id)_mirroredAlertStringFromAlertCount:(int64_t)count
 {
   v3 = [(CKBSSettingsAppController *)self _alertStringFromAlertCount:count];
-  v4 = CKBSFrameworkBundle();
+  v4 = CKBSFrameworkBundle(v3);
   v5 = [v4 localizedStringForKey:@"REPEAT_ALERT" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
-  v6 = CKBSFrameworkBundle();
+  v6 = CKBSFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"REPEAT_ALERT_SUMMARY_COLON" value:&stru_4368 table:@"MessagesNotificationsSpecifiers"];
   v8 = [NSString stringWithFormat:@"%@%@%@", v5, v7, v3];
 

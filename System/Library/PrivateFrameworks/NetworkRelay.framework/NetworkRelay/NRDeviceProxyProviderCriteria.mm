@@ -57,33 +57,33 @@
 
 - (BOOL)hasProxyCriteriaAssigningTokens
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   proxyUsageRules = [(NRDeviceProxyProviderCriteria *)self proxyUsageRules];
-  v3 = [proxyUsageRules countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [proxyUsageRules countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(proxyUsageRules);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) hasMatchRulesWithTokens])
+        if ([*(*(&v7 + 1) + 8 * i) hasMatchRulesWithTokens])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [proxyUsageRules countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [proxyUsageRules countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -95,7 +95,6 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -122,41 +121,41 @@ LABEL_11:
 
 - (NRDeviceProxyProviderCriteria)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = NRDeviceProxyProviderCriteria;
-  v5 = [(NRDeviceProxyProviderCriteria *)&v24 init];
+  v20.receiver = self;
+  v20.super_class = NRDeviceProxyProviderCriteria;
+  v5 = [(NRDeviceProxyProviderCriteria *)&v20 init];
   if (!v5)
   {
-    v10 = nrCopyLogObj_672();
+    v9 = nrCopyLogObj_672();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v11 = v10;
-      v12 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      v10 = v9;
+      v11 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-      if (!v12)
+      if (!v11)
       {
         goto LABEL_7;
       }
     }
 
-    v13 = nrCopyLogObj_672();
-    _NRLogWithArgs(v13, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v14, v15, v16, v17, v18, "");
+    v12 = nrCopyLogObj_672();
+    _NRLogWithArgs(v12, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDeviceProxyProviderCriteria initWithCoder:]"", 488);
 
 LABEL_7:
-    v19 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v19, v20);
-    v21 = *__error();
-    v22 = _os_log_pack_fill();
-    *v22 = 136446210;
-    *(v22 + 4) = "[NRDeviceProxyProviderCriteria initWithCoder:]";
-    v23 = nrCopyLogObj_672();
-    _NRLogAbortWithPack(v23);
+    v13 = _os_log_pack_size();
+    v15 = &v19 - ((MEMORY[0x28223BE20](v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = __error();
+    v17 = _os_log_pack_fill(v15, v13, *v16, &dword_25B98C000, "%{public}s [super init] failed");
+    *v17 = 136446210;
+    *(v17 + 4) = "[NRDeviceProxyProviderCriteria initWithCoder:]";
+    v18 = nrCopyLogObj_672();
+    _NRLogAbortWithPack(v18, v15);
   }
 
   v6 = v5;
@@ -164,7 +163,6 @@ LABEL_7:
   v7 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"proxyUsageRules"];
   [(NRDeviceProxyProviderCriteria *)v6 setProxyUsageRules:v7];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -233,34 +231,34 @@ LABEL_12:
 
 - (id)copySendData
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB28]);
   proxyUsageRules = [(NRDeviceProxyProviderCriteria *)self proxyUsageRules];
   v5 = [proxyUsageRules count];
 
   if (v5)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     proxyUsageRules2 = [(NRDeviceProxyProviderCriteria *)self proxyUsageRules];
-    v7 = [proxyUsageRules2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [proxyUsageRules2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         v10 = 0;
         do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(proxyUsageRules2);
           }
 
-          copySendData = [*(*(&v16 + 1) + 8 * v10) copySendData];
+          copySendData = [*(*(&v15 + 1) + 8 * v10) copySendData];
           v12 = v3;
           NRTLVAdd(v12, 50, [copySendData length], objc_msgSend(copySendData, "bytes"));
 
@@ -268,7 +266,7 @@ LABEL_12:
         }
 
         while (v8 != v10);
-        v8 = [proxyUsageRules2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [proxyUsageRules2 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -277,70 +275,69 @@ LABEL_12:
 
   if ([(NRDeviceProxyProviderCriteria *)self flags])
   {
-    v15 = bswap64([(NRDeviceProxyProviderCriteria *)self flags]);
-    NRTLVAdd(v3, 51, 8u, &v15);
+    v14 = bswap64([(NRDeviceProxyProviderCriteria *)self flags]);
+    NRTLVAdd(v3, 51, 8u, &v14);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (NRDeviceProxyProviderCriteria)initWithReceivedData:(id)data
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v33.receiver = self;
-  v33.super_class = NRDeviceProxyProviderCriteria;
-  v5 = [(NRDeviceProxyProviderCriteria *)&v33 init];
+  v29.receiver = self;
+  v29.super_class = NRDeviceProxyProviderCriteria;
+  v5 = [(NRDeviceProxyProviderCriteria *)&v29 init];
   if (!v5)
   {
-    v10 = nrCopyLogObj_672();
+    v9 = nrCopyLogObj_672();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v11 = v10;
-      v12 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      v10 = v9;
+      v11 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-      if (!v12)
+      if (!v11)
       {
         goto LABEL_12;
       }
     }
 
-    v13 = nrCopyLogObj_672();
-    _NRLogWithArgs(v13, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v14, v15, v16, v17, v18, "");
+    v12 = nrCopyLogObj_672();
+    _NRLogWithArgs(v12, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDeviceProxyProviderCriteria initWithReceivedData:]"", 411);
 
 LABEL_12:
-    v19 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v19, v20);
-    v21 = *__error();
-    v22 = _os_log_pack_fill();
-    *v22 = 136446210;
-    *(v22 + 4) = "[NRDeviceProxyProviderCriteria initWithReceivedData:]";
-    v23 = nrCopyLogObj_672();
-    _NRLogAbortWithPack(v23);
+    v13 = _os_log_pack_size();
+    v15 = &v20[-1] - ((MEMORY[0x28223BE20](v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = __error();
+    v17 = _os_log_pack_fill(v15, v13, *v16, &dword_25B98C000, "%{public}s [super init] failed");
+    *v17 = 136446210;
+    *(v17 + 4) = "[NRDeviceProxyProviderCriteria initWithReceivedData:]";
+    v18 = nrCopyLogObj_672();
+    _NRLogAbortWithPack(v18, v15);
   }
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __54__NRDeviceProxyProviderCriteria_initWithReceivedData___block_invoke;
-  v24[3] = &unk_27996B030;
-  v26 = &v27;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __54__NRDeviceProxyProviderCriteria_initWithReceivedData___block_invoke;
+  v20[3] = &unk_27996B030;
+  v22 = &v23;
   v6 = v5;
-  v25 = v6;
-  NRTLVParse(dataCopy, v24);
-  if ([v28[5] count])
+  v21 = v6;
+  NRTLVParse(dataCopy, v20);
+  if ([v24[5] count])
   {
-    [(NRDeviceProxyProviderCriteria *)v6 setProxyUsageRules:v28[5]];
+    [(NRDeviceProxyProviderCriteria *)v6 setProxyUsageRules:v24[5]];
   }
 
   if ([(NRDeviceProxyProviderCriteria *)v6 hasValidProxyCriteria])
@@ -353,19 +350,18 @@ LABEL_12:
     v7 = 0;
   }
 
-  _Block_object_dispose(&v27, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
   return v7;
 }
 
-uint64_t __54__NRDeviceProxyProviderCriteria_initWithReceivedData___block_invoke(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __54__NRDeviceProxyProviderCriteria_initWithReceivedData___block_invoke(uint64_t a1, unsigned __int8 *a2)
 {
-  v8 = *(a2 + 1);
-  v9 = __rev16(v8);
-  v10 = *a2;
-  if (v10 == 51)
+  v2 = *(a2 + 1);
+  v3 = __rev16(v2);
+  v4 = *a2;
+  if (v4 == 51)
   {
-    if (v8 == 2048)
+    if (v2 == 2048)
     {
       [*(a1 + 32) setFlags:bswap64(*(a2 + 3))];
     }
@@ -379,18 +375,18 @@ uint64_t __54__NRDeviceProxyProviderCriteria_initWithReceivedData___block_invoke
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_677, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_677, 16, "%s%.30s:%-4d invalid size for flags %u != %zu", a4, a5, a6, a7, a8, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_677, 16, "%s%.30s:%-4d invalid size for flags %u != %zu", ", "[NRDeviceProxyProviderCriteria initWithReceivedData:]_block_invoke"", 423, v3, 8uLL);
       }
     }
   }
 
-  else if (v10 == 50)
+  else if (v4 == 50)
   {
-    v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:a2 + 3 length:v9];
-    v13 = [[NRDeviceProxyProviderFlowMatchRule alloc] initWithReceivedData:v12];
-    if (v13)
+    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:a2 + 3 length:v3];
+    v7 = [[NRDeviceProxyProviderFlowMatchRule alloc] initWithReceivedData:v6];
+    if (v7)
     {
-      [*(*(*(a1 + 40) + 8) + 40) addObject:v13];
+      [*(*(*(a1 + 40) + 8) + 40) addObject:v7];
     }
   }
 

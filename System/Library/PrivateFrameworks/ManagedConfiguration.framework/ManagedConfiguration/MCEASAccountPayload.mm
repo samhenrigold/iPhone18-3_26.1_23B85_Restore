@@ -19,12 +19,12 @@
 
 - (MCEASAccountPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v140 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v135.receiver = self;
-  v135.super_class = MCEASAccountPayload;
-  v10 = [(MCEmailAccountPayloadBase *)&v135 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v134.receiver = self;
+  v134.super_class = MCEASAccountPayload;
+  v10 = [(MCEmailAccountPayloadBase *)&v134 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   v11 = v10;
   if (!v10)
   {
@@ -35,9 +35,9 @@
   accountDescription = v11->_accountDescription;
   v11->_accountDescription = displayName;
 
-  v134 = 0;
-  v14 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserName" isRequired:0 outError:&v134];
-  v15 = v134;
+  v133 = 0;
+  v14 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserName" isRequired:0 outError:&v133];
+  v15 = v133;
   username = v11->_username;
   v11->_username = v14;
 
@@ -46,9 +46,9 @@
     goto LABEL_15;
   }
 
-  v133 = 0;
-  v17 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"EmailAddress" isRequired:0 outError:&v133];
-  v15 = v133;
+  v132 = 0;
+  v17 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"EmailAddress" isRequired:0 outError:&v132];
+  v15 = v132;
   emailAddress = v11->_emailAddress;
   v11->_emailAddress = v17;
 
@@ -57,9 +57,9 @@
     goto LABEL_15;
   }
 
-  v132 = 0;
-  v19 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SSL" isRequired:0 outError:&v132];
-  v15 = v132;
+  v131 = 0;
+  v19 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SSL" isRequired:0 outError:&v131];
+  v15 = v131;
   useSSL = v11->_useSSL;
   v11->_useSSL = v19;
 
@@ -68,9 +68,9 @@
     goto LABEL_15;
   }
 
-  v131 = 0;
-  v21 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OAuth" isRequired:0 outError:&v131];
-  v15 = v131;
+  v130 = 0;
+  v21 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OAuth" isRequired:0 outError:&v130];
+  v15 = v130;
   useOAuth = v11->_useOAuth;
   v11->_useOAuth = v21;
 
@@ -84,9 +84,9 @@
     goto LABEL_13;
   }
 
-  v130 = 0;
-  v23 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"OAuthSignInURL" isRequired:0 outError:&v130];
-  v15 = v130;
+  v129 = 0;
+  v23 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"OAuthSignInURL" isRequired:0 outError:&v129];
+  v15 = v129;
   OAuthSignInURL = v11->_OAuthSignInURL;
   v11->_OAuthSignInURL = v23;
 
@@ -111,9 +111,9 @@
     }
   }
 
-  v129 = 0;
-  v26 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"OAuthTokenRequestURL" isRequired:0 outError:&v129];
-  v15 = v129;
+  v128 = 0;
+  v26 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"OAuthTokenRequestURL" isRequired:0 outError:&v128];
+  v15 = v128;
   OAuthTokenRequestURL = v11->_OAuthTokenRequestURL;
   v11->_OAuthTokenRequestURL = v26;
 
@@ -125,9 +125,9 @@
   if (!v11->_OAuthTokenRequestURL || ([MEMORY[0x1E695DFF8] URLWithString:?], v28 = objc_claimAutoreleasedReturnValue(), v28, v28))
   {
 LABEL_13:
-    v128 = 0;
-    v29 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"MailNumberOfPastDaysToSync" isRequired:0 outError:&v128];
-    v15 = v128;
+    v127 = 0;
+    v29 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"MailNumberOfPastDaysToSync" isRequired:0 outError:&v127];
+    v15 = v127;
     mailNumberOfPastDaysToSync = v11->_mailNumberOfPastDaysToSync;
     v11->_mailNumberOfPastDaysToSync = v29;
 
@@ -136,9 +136,9 @@ LABEL_13:
       goto LABEL_15;
     }
 
-    v127 = 0;
-    v31 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SyncDefaultFoldersOnly" isRequired:0 outError:&v127];
-    v15 = v127;
+    v126 = 0;
+    v31 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SyncDefaultFoldersOnly" isRequired:0 outError:&v126];
+    v15 = v126;
     syncDefaultFoldersOnlyNum = v11->_syncDefaultFoldersOnlyNum;
     v11->_syncDefaultFoldersOnlyNum = v31;
 
@@ -148,22 +148,22 @@ LABEL_13:
     }
 
     v11->_syncDefaultFoldersOnly = [(NSNumber *)v11->_syncDefaultFoldersOnlyNum BOOLValue];
-    v126 = 0;
-    v46 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"CommunicationServiceRules" isRequired:0 outError:&v126];
-    v47 = v126;
-    if (v47)
+    v125 = 0;
+    v45 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"CommunicationServiceRules" isRequired:0 outError:&v125];
+    v46 = v125;
+    if (v46)
     {
-      v15 = v47;
+      v15 = v46;
       goto LABEL_31;
     }
 
-    v125 = 0;
-    v48 = [MCCommunicationServiceRulesUtilities validatedCommunicationServiceRules:v46 outError:&v125];
-    v15 = v125;
+    v124 = 0;
+    v47 = [MCCommunicationServiceRulesUtilities validatedCommunicationServiceRules:v45 outError:&v124];
+    v15 = v124;
     communicationServiceRules = v11->_communicationServiceRules;
-    v11->_communicationServiceRules = v48;
+    v11->_communicationServiceRules = v47;
 
-    if (v15 || (v124 = 0, [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableMail" isRequired:0 outError:&v124], v50 = objc_claimAutoreleasedReturnValue(), v15 = v124, enableMailNum = v11->_enableMailNum, v11->_enableMailNum = v50, enableMailNum, v15))
+    if (v15 || (v123 = 0, [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableMail" isRequired:0 outError:&v123], v49 = objc_claimAutoreleasedReturnValue(), v15 = v123, enableMailNum = v11->_enableMailNum, v11->_enableMailNum = v49, enableMailNum, v15))
     {
 LABEL_31:
 
@@ -189,9 +189,9 @@ LABEL_15:
         v39 = v38;
         mCVerboseDescription = [v34 MCVerboseDescription];
         *buf = 138543618;
-        v137 = v38;
-        v138 = 2114;
-        v139 = mCVerboseDescription;
+        v136 = v38;
+        v137 = 2114;
+        v138 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v37, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -199,150 +199,117 @@ LABEL_15:
       goto LABEL_20;
     }
 
-    v123 = 0;
-    v103 = dictionaryCopy;
-    v52 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableContacts" isRequired:0 outError:&v123];
-    v53 = v123;
-    enableContactsNum = v11->_enableContactsNum;
-    v11->_enableContactsNum = v52;
-
-    if (v53)
-    {
-      goto LABEL_49;
-    }
-
     v122 = 0;
-    v55 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableCalendars" isRequired:0 outError:&v122];
-    v53 = v122;
-    enableCalendarsNum = v11->_enableCalendarsNum;
-    v11->_enableCalendarsNum = v55;
+    v102 = dictionaryCopy;
+    v51 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableContacts" isRequired:0 outError:&v122];
+    v52 = v122;
+    enableContactsNum = v11->_enableContactsNum;
+    v11->_enableContactsNum = v51;
 
-    if (v53)
+    if (v52)
     {
       goto LABEL_49;
     }
 
     v121 = 0;
-    v57 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableReminders" isRequired:0 outError:&v121];
-    v53 = v121;
-    enableRemindersNum = v11->_enableRemindersNum;
-    v11->_enableRemindersNum = v57;
+    v54 = [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableCalendars" isRequired:0 outError:&v121];
+    v52 = v121;
+    enableCalendarsNum = v11->_enableCalendarsNum;
+    v11->_enableCalendarsNum = v54;
 
-    if (v53)
+    if (v52)
     {
       goto LABEL_49;
     }
 
     v120 = 0;
-    v59 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableNotes" isRequired:0 outError:&v120];
-    v53 = v120;
-    enableNotesNum = v11->_enableNotesNum;
-    v11->_enableNotesNum = v59;
+    v56 = [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableReminders" isRequired:0 outError:&v120];
+    v52 = v120;
+    enableRemindersNum = v11->_enableRemindersNum;
+    v11->_enableRemindersNum = v56;
 
-    if (v53)
+    if (v52)
+    {
+      goto LABEL_49;
+    }
+
+    v119 = 0;
+    v58 = [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableNotes" isRequired:0 outError:&v119];
+    v52 = v119;
+    enableNotesNum = v11->_enableNotesNum;
+    v11->_enableNotesNum = v58;
+
+    if (v52)
     {
       goto LABEL_49;
     }
 
     if (![(MCEASAccountPayload *)v11 enableMail]&& ![(MCEASAccountPayload *)v11 enableContacts]&& ![(MCEASAccountPayload *)v11 enableCalendars]&& ![(MCEASAccountPayload *)v11 enableReminders]&& ![(MCEASAccountPayload *)v11 enableNotes])
     {
-      v78 = MEMORY[0x1E696ABC0];
-      v79 = MCErrorArray(@"EAS_NO_SERVICES_ENABLED", v61, v62, v63, v64, v65, v66, v67, 0);
-      v15 = [v78 MCErrorWithDomain:@"MCEASErrorDomain" code:21009 descriptionArray:v79 underlyingError:0 errorType:@"MCFatalError"];
+      v77 = MEMORY[0x1E696ABC0];
+      v78 = MCErrorArray(@"EAS_NO_SERVICES_ENABLED", v60, v61, v62, v63, v64, v65, v66, 0);
+      v15 = [v77 MCErrorWithDomain:@"MCEASErrorDomain" code:21009 descriptionArray:v78 underlyingError:0 errorType:@"MCFatalError"];
 
       goto LABEL_50;
     }
 
-    v119 = 0;
-    v68 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableMailUserOverridable" isRequired:0 outError:&v119];
-    v53 = v119;
-    enableMailUserOverridableNum = v11->_enableMailUserOverridableNum;
-    v11->_enableMailUserOverridableNum = v68;
-
-    if (v53)
-    {
-      goto LABEL_49;
-    }
-
     v118 = 0;
-    v70 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableContactsUserOverridable" isRequired:0 outError:&v118];
-    v53 = v118;
-    enableContactsUserOverridableNum = v11->_enableContactsUserOverridableNum;
-    v11->_enableContactsUserOverridableNum = v70;
+    v67 = [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableMailUserOverridable" isRequired:0 outError:&v118];
+    v52 = v118;
+    enableMailUserOverridableNum = v11->_enableMailUserOverridableNum;
+    v11->_enableMailUserOverridableNum = v67;
 
-    if (v53)
-    {
-      goto LABEL_49;
-    }
-
-    v117 = 0;
-    v72 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableCalendarsUserOverridable" isRequired:0 outError:&v117];
-    v53 = v117;
-    enableCalendarsUserOverridableNum = v11->_enableCalendarsUserOverridableNum;
-    v11->_enableCalendarsUserOverridableNum = v72;
-
-    if (v53)
-    {
-      goto LABEL_49;
-    }
-
-    v116 = 0;
-    v74 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableRemindersUserOverridable" isRequired:0 outError:&v116];
-    v53 = v116;
-    enableRemindersUserOverridableNum = v11->_enableRemindersUserOverridableNum;
-    v11->_enableRemindersUserOverridableNum = v74;
-
-    if (v53 || (v115 = 0, [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableNotesUserOverridable" isRequired:0 outError:&v115], v76 = objc_claimAutoreleasedReturnValue(), v53 = v115, enableNotesUserOverridableNum = v11->_enableNotesUserOverridableNum, v11->_enableNotesUserOverridableNum = v76, enableNotesUserOverridableNum, v53))
+    if (v52 || (v117 = 0, [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableContactsUserOverridable" isRequired:0 outError:&v117], v69 = objc_claimAutoreleasedReturnValue(), v52 = v117, enableContactsUserOverridableNum = v11->_enableContactsUserOverridableNum, v11->_enableContactsUserOverridableNum = v69, enableContactsUserOverridableNum, v52) || (v116 = 0, objc_msgSend(v102, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"EnableCalendarsUserOverridable", 0, &v116), v71 = objc_claimAutoreleasedReturnValue(), v52 = v116, enableCalendarsUserOverridableNum = v11->_enableCalendarsUserOverridableNum, v11->_enableCalendarsUserOverridableNum = v71, enableCalendarsUserOverridableNum, v52) || (v115 = 0, objc_msgSend(v102, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"EnableRemindersUserOverridable", 0, &v115), v73 = objc_claimAutoreleasedReturnValue(), v52 = v115, enableRemindersUserOverridableNum = v11->_enableRemindersUserOverridableNum, v11->_enableRemindersUserOverridableNum = v73, enableRemindersUserOverridableNum, v52) || (v114 = 0, objc_msgSend(v102, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"EnableNotesUserOverridable", 0, &v114), v75 = objc_claimAutoreleasedReturnValue(), v52 = v114, enableNotesUserOverridableNum = v11->_enableNotesUserOverridableNum, v11->_enableNotesUserOverridableNum = v75, enableNotesUserOverridableNum, v52))
     {
 LABEL_49:
-      v15 = v53;
+      v15 = v52;
 LABEL_50:
-      dictionaryCopy = v103;
+      dictionaryCopy = v102;
       goto LABEL_31;
     }
 
     if ([profileCopy isStub])
     {
-      v107 = 0;
-      v80 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Host" isRequired:0 outError:&v107];
-      v53 = v107;
-      hostname = v11->_hostname;
-      v11->_hostname = v80;
-
-      if (v53)
-      {
-        goto LABEL_49;
-      }
-
       v106 = 0;
-      v82 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"EASAccountPersistentUUID" isRequired:0 outError:&v106];
-      v53 = v106;
-      accountPersistentUUID = v11->_accountPersistentUUID;
-      v11->_accountPersistentUUID = v82;
+      v79 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Host" isRequired:0 outError:&v106];
+      v52 = v106;
+      hostname = v11->_hostname;
+      v11->_hostname = v79;
 
-      if (v53)
+      if (v52)
       {
         goto LABEL_49;
       }
 
       v105 = 0;
-      v84 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EASAccountCertificatePersistentID" isRequired:0 outError:&v105];
-      v53 = v105;
-      certificatePersistentID = v11->_certificatePersistentID;
-      v11->_certificatePersistentID = v84;
+      v81 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"EASAccountPersistentUUID" isRequired:0 outError:&v105];
+      v52 = v105;
+      accountPersistentUUID = v11->_accountPersistentUUID;
+      v11->_accountPersistentUUID = v81;
 
-      if (v53)
+      if (v52)
       {
         goto LABEL_49;
       }
 
       v104 = 0;
-      v86 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"ACAccountIdentifier" isRequired:0 outError:&v104];
-      v53 = v104;
-      acAccountIdentifier = v11->_acAccountIdentifier;
-      v11->_acAccountIdentifier = v86;
+      v83 = [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EASAccountCertificatePersistentID" isRequired:0 outError:&v104];
+      v52 = v104;
+      certificatePersistentID = v11->_certificatePersistentID;
+      v11->_certificatePersistentID = v83;
 
-      if (v53)
+      if (v52)
+      {
+        goto LABEL_49;
+      }
+
+      v103 = 0;
+      v85 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"ACAccountIdentifier" isRequired:0 outError:&v103];
+      v52 = v103;
+      acAccountIdentifier = v11->_acAccountIdentifier;
+      v11->_acAccountIdentifier = v85;
+
+      if (v52)
       {
         goto LABEL_49;
       }
@@ -352,91 +319,91 @@ LABEL_50:
     {
       if ([(NSNumber *)v11->_useOAuth BOOLValue])
       {
-        v88 = v11->_OAuthSignInURL != 0;
+        v87 = v11->_OAuthSignInURL != 0;
       }
 
       else
       {
-        v88 = 1;
-      }
-
-      v114 = 0;
-      v89 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Host" isRequired:v88 outError:&v114];
-      v53 = v114;
-      v90 = v11->_hostname;
-      v11->_hostname = v89;
-
-      if (v53)
-      {
-        goto LABEL_49;
+        v87 = 1;
       }
 
       v113 = 0;
-      v91 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Password" isRequired:0 outError:&v113];
-      v53 = v113;
-      password = v11->_password;
-      v11->_password = v91;
+      v88 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Host" isRequired:v87 outError:&v113];
+      v52 = v113;
+      v89 = v11->_hostname;
+      v11->_hostname = v88;
 
-      if (v53)
+      if (v52)
       {
         goto LABEL_49;
       }
 
       v112 = 0;
-      v93 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Certificate" isRequired:0 outError:&v112];
-      v53 = v112;
-      embeddedCertificate = v11->_embeddedCertificate;
-      v11->_embeddedCertificate = v93;
+      v90 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Password" isRequired:0 outError:&v112];
+      v52 = v112;
+      password = v11->_password;
+      v11->_password = v90;
 
-      if (v53)
+      if (v52)
       {
         goto LABEL_49;
       }
 
       v111 = 0;
-      v95 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"CertificateName" isRequired:0 outError:&v111];
-      v53 = v111;
-      embeddedCertificateName = v11->_embeddedCertificateName;
-      v11->_embeddedCertificateName = v95;
+      v92 = [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Certificate" isRequired:0 outError:&v111];
+      v52 = v111;
+      embeddedCertificate = v11->_embeddedCertificate;
+      v11->_embeddedCertificate = v92;
 
-      if (v53)
+      if (v52)
       {
         goto LABEL_49;
       }
 
       v110 = 0;
-      v97 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"CertificatePassword" isRequired:0 outError:&v110];
-      v53 = v110;
-      embeddedCertificatePassword = v11->_embeddedCertificatePassword;
-      v11->_embeddedCertificatePassword = v97;
+      v94 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"CertificateName" isRequired:0 outError:&v110];
+      v52 = v110;
+      embeddedCertificateName = v11->_embeddedCertificateName;
+      v11->_embeddedCertificateName = v94;
 
-      if (v53)
+      if (v52)
       {
         goto LABEL_49;
       }
 
       v109 = 0;
-      v99 = [v103 MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v109];
-      v53 = v109;
-      certificateUUID = v11->_certificateUUID;
-      v11->_certificateUUID = v99;
+      v96 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"CertificatePassword" isRequired:0 outError:&v109];
+      v52 = v109;
+      embeddedCertificatePassword = v11->_embeddedCertificatePassword;
+      v11->_embeddedCertificatePassword = v96;
 
-      if (v53)
+      if (v52)
       {
         goto LABEL_49;
       }
 
       v108 = 0;
-      v101 = [v103 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OverridePreviousPassword" isRequired:0 outError:&v108];
-      v102 = v108;
-      if (v102)
+      v98 = [v102 MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v108];
+      v52 = v108;
+      certificateUUID = v11->_certificateUUID;
+      v11->_certificateUUID = v98;
+
+      if (v52)
       {
-        v15 = v102;
+        goto LABEL_49;
+      }
+
+      v107 = 0;
+      v100 = [v102 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OverridePreviousPassword" isRequired:0 outError:&v107];
+      v101 = v107;
+      if (v101)
+      {
+        v15 = v101;
 
         goto LABEL_50;
       }
 
-      v11->_overridePreviousPassword = [v101 BOOLValue];
+      v11->_overridePreviousPassword = [v100 BOOLValue];
     }
 
     v15 = 0;
@@ -458,15 +425,14 @@ LABEL_20:
       v42 = v41;
       friendlyName = [(MCPayload *)v11 friendlyName];
       *buf = 138543618;
-      v137 = friendlyName;
-      v138 = 2114;
-      v139 = dictionaryCopy;
+      v136 = friendlyName;
+      v137 = 2114;
+      v138 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v42, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_24:
-  v44 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1228,57 +1194,51 @@ LABEL_49:
 
 - (id)mailAccountIdentifiers
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   if (self->_acAccountIdentifier)
   {
-    v5[0] = self->_acAccountIdentifier;
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = self->_acAccountIdentifier;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)contactsAccountIdentifiers
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   if (self->_acAccountIdentifier)
   {
-    v5[0] = self->_acAccountIdentifier;
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = self->_acAccountIdentifier;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)calendarAccountIdentifiers
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   if (self->_acAccountIdentifier)
   {
-    v5[0] = self->_acAccountIdentifier;
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = self->_acAccountIdentifier;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

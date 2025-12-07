@@ -6,6 +6,7 @@
 - (ICChecklistInfo)analyticsInfoForChecklistAtIndex:()Checklist textView:;
 - (ICParagraphInfo)paragraphInfoForCharacterAtIndex:()Checklist includeChildren:textStorage:;
 - (ICTrackedParagraphTreeNode)createTreeFromTrackedParagraphs:()Checklist textView:;
+- (char)expandedRangeForContiguousTodosForRange:()Checklist textView:;
 - (id)adjacentTrackedParagraphFromTrackedParagraph:()Checklist inDirection:inTextView:;
 - (id)rangeForChecklistItemInRange:()Checklist textStorage:;
 - (id)rangesForTodosInRange:()Checklist markedCompleted:textStorage:;
@@ -16,7 +17,6 @@
 - (uint64_t)checklistItemExistsMarkedCompleted:()Checklist inTextView:forRanges:;
 - (uint64_t)containsAnyTodoItemMarkedCompleted:()Checklist inRange:textStorage:;
 - (uint64_t)containsOnlyChecklistItemsInTextView:()Checklist forRange:;
-- (uint64_t)expandedRangeForContiguousTodosForRange:()Checklist textView:;
 - (uint64_t)moveCheckedChecklistsToBottomInTextView:()Checklist forRange:animated:;
 - (uint64_t)moveListItemInDirection:()Checklist inTextView:forRange:;
 - (void)applySortFromOriginalParagraphs:()Checklist sortedTrackedParagraphs:forTextView:checklistRange:;
@@ -995,7 +995,7 @@ LABEL_20:
   return v6;
 }
 
-- (uint64_t)expandedRangeForContiguousTodosForRange:()Checklist textView:
+- (char)expandedRangeForContiguousTodosForRange:()Checklist textView:
 {
   v8 = a5;
   objc_opt_class();
@@ -1004,7 +1004,7 @@ LABEL_20:
 
   if ([self containsOnlyStyle:103 inRange:a3 inTextStorage:{a4, v10}])
   {
-    v11 = a3 + a4;
+    v11 = &a3[a4];
     if ((a3 & 0x8000000000000000) == 0)
     {
       v12 = objc_autoreleasePoolPush();
@@ -1022,18 +1022,18 @@ LABEL_20:
 
           rangeValue = [v13 rangeValue];
           v14 = rangeValue;
-          if (rangeValue - 1 >= a3 - 1)
+          if (rangeValue - 1 >= (a3 - 1))
           {
             --a3;
           }
 
           else
           {
-            a3 = rangeValue - 1;
+            a3 = (rangeValue - 1);
           }
 
           objc_autoreleasePoolPop(v12);
-          if (a3 < 0)
+          if ((a3 & 0x8000000000000000) != 0)
           {
             goto LABEL_14;
           }
@@ -1074,7 +1074,7 @@ LABEL_14:
 
         else
         {
-          v11 = rangeValue2 + v21;
+          v11 = (rangeValue2 + v21);
         }
 
         objc_autoreleasePoolPop(v17);

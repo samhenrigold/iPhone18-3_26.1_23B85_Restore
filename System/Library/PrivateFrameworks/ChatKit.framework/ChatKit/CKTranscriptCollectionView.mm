@@ -367,7 +367,7 @@ LABEL_7:
     statusCopy[2](statusCopy);
   }
 
-  [(CKTranscriptCollectionView *)self setIsTemporarilyOverridingContentOffsetRestriction:0, *v12];
+  [(CKTranscriptCollectionView *)self setIsTemporarilyOverridingContentOffsetRestriction:0, *v12, *&v12[8]];
 }
 
 - (void)__ck_scrollToBottom:(BOOL)bottom
@@ -1192,7 +1192,7 @@ LABEL_11:
 
 - (void)configureAppEntityForConversationId:(id)id
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5D900);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5D900, &unk_190DF2EA0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = v16 - v6;
   v8 = sub_190D50910();
@@ -1203,7 +1203,7 @@ LABEL_11:
   {
     v12 = sub_190D56F10();
     v14 = v13;
-    type metadata accessor for ConversationEntity();
+    type metadata accessor for ConversationEntity(0);
     v16[0] = v12;
     v16[1] = v14;
     sub_190B197DC();

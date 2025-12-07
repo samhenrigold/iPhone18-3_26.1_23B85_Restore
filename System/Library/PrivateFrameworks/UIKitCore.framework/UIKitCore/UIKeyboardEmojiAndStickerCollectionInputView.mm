@@ -833,16 +833,16 @@ id __67__UIKeyboardEmojiAndStickerCollectionInputView_configureDataSource__block
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  if ([v8 isEqualToString:@"UICollectionElementKindStickerButton"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v10 = 32;
   }
 
   else
   {
-    v11 = [v8 isEqualToString:@"UICollectionElementKindStickerEmptyContent"];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
     v10 = 48;
-    if (v11)
+    if (isEqualToString)
     {
       v10 = 40;
     }
@@ -1944,7 +1944,7 @@ uint64_t __67__UIKeyboardEmojiAndStickerCollectionInputView_treeForStickerCell__
           [v45 setOverrideDisplayString:0];
           [v124 addObject:v45];
           firstObject = [obj firstObject];
-          LODWORD(representedString2) = [firstObject isEqualToString:v44];
+          LODWORD(representedString2) = objc_msgSend_isEqualToString_(firstObject);
 
           if (representedString2)
           {
@@ -2196,9 +2196,9 @@ void __60__UIKeyboardEmojiAndStickerCollectionInputView_treeForCell___block_invo
 {
   v7 = [a2 representedString];
   v8 = [*(a1 + 32) emojiString];
-  v9 = [v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v9)
+  if (isEqualToString)
   {
     *(*(*(a1 + 40) + 8) + 24) = a3;
     *a4 = 1;
@@ -2208,17 +2208,17 @@ void __60__UIKeyboardEmojiAndStickerCollectionInputView_treeForCell___block_invo
 - (BOOL)genderEmojiBaseStringNeedVariantSelector:(id)selector
 {
   selectorCopy = selector;
-  if ([selectorCopy isEqualToString:@"⛹"] & 1) != 0 || (objc_msgSend(selectorCopy, "isEqualToString:", @"🏋"))
+  if (objc_msgSend_isEqualToString_(selectorCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(selectorCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [selectorCopy isEqualToString:@"🕵"];
+    isEqualToString = objc_msgSend_isEqualToString_(selectorCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)selectedChildSkinToneEmoji:(id)emoji
@@ -2298,9 +2298,9 @@ void __60__UIKeyboardEmojiAndStickerCollectionInputView_treeForCell___block_invo
       [v25 emojiString];
       v37 = v20 = v25;
       v38 = [(UIKeyboardEmojiAndStickerCollectionInputView *)self emojiBaseString:v37];
-      v39 = [v36 isEqualToString:v38];
+      isEqualToString = objc_msgSend_isEqualToString_(v36);
 
-      if (v39)
+      if (isEqualToString)
       {
         [v33 setEmoji:v20];
         if (os_variant_has_internal_diagnostics())

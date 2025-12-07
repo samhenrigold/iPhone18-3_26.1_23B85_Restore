@@ -81,26 +81,26 @@
 
 - (void)handleDeviceIndication:(id)indication
 {
-  v3 = qword_2813CF018;
-  if (os_log_type_enabled(qword_2813CF018, OS_LOG_TYPE_DEBUG))
-  {
-    *v4 = 0;
-    _os_log_debug_impl(&dword_245396000, v3, OS_LOG_TYPE_DEBUG, "#gem,#interface,handleDeviceIndication", v4, 2u);
-  }
-
-  sub_245397744();
-}
-
-- (void)handleRemoteRequest:(id)request machconttimens:(unint64_t)machconttimens
-{
   v4 = qword_2813CF018;
   if (os_log_type_enabled(qword_2813CF018, OS_LOG_TYPE_DEBUG))
   {
     *v5 = 0;
-    _os_log_debug_impl(&dword_245396000, v4, OS_LOG_TYPE_DEBUG, "#gem,#interface,handleRemoteRequest, calling GEM handleRemoteDataRequest", v5, 2u);
+    _os_log_debug_impl(&dword_245396000, v4, OS_LOG_TYPE_DEBUG, "#gem,#interface,handleDeviceIndication", v5, 2u);
   }
 
-  sub_245398218();
+  sub_245397744(qword_2813CE6C0, indication);
+}
+
+- (void)handleRemoteRequest:(id)request machconttimens:(unint64_t)machconttimens
+{
+  v6 = qword_2813CF018;
+  if (os_log_type_enabled(qword_2813CF018, OS_LOG_TYPE_DEBUG))
+  {
+    *v7 = 0;
+    _os_log_debug_impl(&dword_245396000, v6, OS_LOG_TYPE_DEBUG, "#gem,#interface,handleRemoteRequest, calling GEM handleRemoteDataRequest", v7, 2u);
+  }
+
+  sub_245398218(qword_2813CE6C0, request, machconttimens);
 }
 
 @end

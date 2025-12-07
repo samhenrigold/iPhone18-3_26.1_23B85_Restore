@@ -21,14 +21,14 @@
   swift_beginAccess();
   *(&self->super.super.isa + v3) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for VideoPlayer();
+  v4.super_class = type metadata accessor for VideoPlayer(0);
   [(VideoPlayer *)&v4 pause];
 }
 
 - (void)replaceCurrentItemWithPlayerItem:(id)item
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for VideoPlayer();
+  v6.super_class = type metadata accessor for VideoPlayer(0);
   itemCopy = item;
   v5 = v6.receiver;
   [(VideoPlayer *)&v6 replaceCurrentItemWithPlayerItem:itemCopy];

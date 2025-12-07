@@ -14,21 +14,21 @@
 
 - (HFPrimaryStateControlItem)initWithValueSource:(id)source characteristicType:(id)type valueTransformer:(id)transformer displayResults:(id)results
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   transformerCopy = transformer;
   resultsCopy = results;
   sourceCopy = source;
   v14 = [HFControlItemCharacteristicOptions alloc];
-  v24 = &unk_282524E40;
+  v23 = &unk_282524E40;
   v15 = [MEMORY[0x277CBEB98] setWithObject:typeCopy];
-  v25[0] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v24[0] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   v17 = [(HFControlItemCharacteristicOptions *)v14 initWithCharacteristicTypesByUsage:v16];
 
-  v23.receiver = self;
-  v23.super_class = HFPrimaryStateControlItem;
-  v18 = [(HFControlItem *)&v23 initWithValueSource:sourceCopy characteristicOptions:v17 displayResults:resultsCopy];
+  v22.receiver = self;
+  v22.super_class = HFPrimaryStateControlItem;
+  v18 = [(HFControlItem *)&v22 initWithValueSource:sourceCopy characteristicOptions:v17 displayResults:resultsCopy];
 
   if (v18)
   {
@@ -38,7 +38,6 @@
     v18->_primaryStateCharacteristicType = v19;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -101,31 +100,24 @@
 {
   v3 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v3 homeManager];
-  hasOptedToHH2 = [homeManager hasOptedToHH2];
-  v6 = off_277DF0150;
-  if (!hasOptedToHH2)
-  {
-    v6 = off_277DF0158;
-  }
-
-  v7 = *v6;
-  v8 = objc_opt_new();
+  [homeManager hasOptedToHH2];
+  v5 = objc_opt_new();
 
   valueSource = [(HFControlItem *)self valueSource];
-  [valueSource beginTransactionWithReason:@"HFPrimaryStateControlItem-Toggle" readPolicy:v8 logger:0];
+  [valueSource beginTransactionWithReason:@"HFPrimaryStateControlItem-Toggle" readPolicy:v5 logger:0];
 
   readValueAndPopulateStandardResults = [(HFControlItem *)self readValueAndPopulateStandardResults];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __40__HFPrimaryStateControlItem_toggleValue__block_invoke;
-  v14[3] = &unk_277DF3FD0;
-  v14[4] = self;
-  v11 = [readValueAndPopulateStandardResults flatMap:v14];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __40__HFPrimaryStateControlItem_toggleValue__block_invoke;
+  v11[3] = &unk_277DF3FD0;
+  v11[4] = self;
+  v8 = [readValueAndPopulateStandardResults flatMap:v11];
 
   valueSource2 = [(HFControlItem *)self valueSource];
   [valueSource2 commitTransactionWithReason:@"HFPrimaryStateControlItem-Toggle"];
 
-  return v11;
+  return v8;
 }
 
 id __40__HFPrimaryStateControlItem_toggleValue__block_invoke(uint64_t a1, void *a2)
@@ -172,18 +164,16 @@ id __40__HFPrimaryStateControlItem_toggleValue__block_invoke(uint64_t a1, void *
 
 - (id)characteristicValuesForValue:(id)value
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   valueTransformer = [(HFPrimaryStateControlItem *)self valueTransformer];
   v6 = [valueTransformer valueForTransformedValue:valueCopy];
 
   primaryStateCharacteristicType = [(HFPrimaryStateControlItem *)self primaryStateCharacteristicType];
-  v12 = primaryStateCharacteristicType;
-  v13[0] = v6;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = primaryStateCharacteristicType;
+  v12[0] = v6;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [(HFControlItem *)self normalizedCharacteristicValuesForValues:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

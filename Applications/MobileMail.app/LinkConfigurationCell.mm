@@ -35,11 +35,20 @@
   _objc_retain(self);
   if (label)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v5 = v3;
     _objc_release(label);
+    v6 = v4;
+    v7 = v5;
   }
 
-  sub_1002C760C();
+  else
+  {
+    v6 = 0;
+    v7 = 0;
+  }
+
+  sub_1002C760C(v6, v7);
   _objc_release(self);
 }
 
@@ -54,7 +63,7 @@
 {
   _objc_retain(resize);
   _objc_retain(self);
-  sub_100346584();
+  sub_100346584(resize);
   _objc_release(self);
   _objc_release(resize);
 }
@@ -63,7 +72,7 @@
 {
   _objc_retain(complete);
   _objc_retain(self);
-  sub_100346584();
+  sub_100346584(complete);
   _objc_release(self);
   _objc_release(complete);
 }

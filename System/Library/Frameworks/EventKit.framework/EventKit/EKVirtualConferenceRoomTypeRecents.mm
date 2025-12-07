@@ -71,14 +71,14 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
 
 + (void)selectRoomType:(id)type forSource:(id)source
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   sourceCopy = source;
   sourceIdentifier = [sourceCopy sourceIdentifier];
   if (sourceIdentifier)
   {
-    v24[0] = typeCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = typeCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     [self _updateSavedMRUDictWithRoomTypes:v9 source:sourceCopy];
 
     v10 = [self _identifierFromRoomType:typeCopy];
@@ -103,23 +103,21 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
       [(EKVirtualConferenceRoomTypeRecents *)sourceCopy selectRoomType:v10 forSource:v17, v18, v19, v20, v21, v22];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_updateSavedMRUDictWithRoomTypes:(id)types source:(id)source
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   sourceCopy = source;
   sourceIdentifier = [sourceCopy sourceIdentifier];
   if (sourceIdentifier)
   {
-    v31 = sourceCopy;
+    v30 = sourceCopy;
     v9 = +[EKPreferences shared];
     conferenceRoomTypeIdentifiersByMRU = [v9 conferenceRoomTypeIdentifiersByMRU];
 
-    v30 = conferenceRoomTypeIdentifiersByMRU;
+    v29 = conferenceRoomTypeIdentifiersByMRU;
     dictionary = [conferenceRoomTypeIdentifiersByMRU mutableCopy];
     if (!dictionary)
     {
@@ -136,34 +134,34 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
 
     [dictionary setObject:v13 forKey:sourceIdentifier];
     v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(typesCopy, "count")}];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v32 = typesCopy;
+    v31 = typesCopy;
     v15 = typesCopy;
-    v16 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v33;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v18)
+          if (*v33 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = [self _identifierFromRoomType:*(*(&v33 + 1) + 8 * i)];
+          v20 = [self _identifierFromRoomType:*(*(&v32 + 1) + 8 * i)];
           if (([v13 containsObject:v20] & 1) == 0)
           {
             [v14 addObject:v20];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v17);
@@ -173,9 +171,9 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
     v21 = +[EKPreferences shared];
     [v21 setConferenceRoomTypeIdentifiersByMRU:dictionary];
 
-    sourceCopy = v31;
-    typesCopy = v32;
-    v22 = v30;
+    sourceCopy = v30;
+    typesCopy = v31;
+    v22 = v29;
   }
 
   else
@@ -186,38 +184,36 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
       [(EKVirtualConferenceRoomTypeRecents *)sourceCopy _updateSavedMRUDictWithRoomTypes:v22 source:v23, v24, v25, v26, v27, v28];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 + (void)cleanup
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v2 = +[EKPreferences shared];
   conferenceRoomTypeIdentifiersByMRU = [v2 conferenceRoomTypeIdentifiersByMRU];
 
   v4 = [conferenceRoomTypeIdentifiersByMRU mutableCopy];
   v5 = objc_alloc_init(EKEventStore);
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v6 = conferenceRoomTypeIdentifiersByMRU;
-  v7 = [v6 countByEnumeratingWithState:&v60 objects:v67 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v59 objects:v66 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v61;
+    v9 = *v60;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v61 != v9)
+        if (*v60 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v60 + 1) + 8 * i);
+        v11 = *(*(&v59 + 1) + 8 * i);
         v12 = [(EKEventStore *)v5 sourceWithIdentifier:v11];
         if (!v12)
         {
@@ -225,62 +221,62 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v60 objects:v67 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v59 objects:v66 count:16];
     }
 
     while (v8);
   }
 
-  v39 = v5;
+  v38 = v5;
 
   v13 = [v4 copy];
   v14 = [MEMORY[0x1E695DFA8] set];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   obj = v13;
-  v42 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
-  if (v42)
+  v41 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+  if (v41)
   {
-    v40 = *v57;
-    v41 = v4;
+    v39 = *v56;
+    v40 = v4;
     do
     {
       v15 = 0;
       do
       {
-        if (*v57 != v40)
+        if (*v56 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v45 = v15;
-        v16 = *(*(&v56 + 1) + 8 * v15);
-        v17 = [obj objectForKeyedSubscript:{v16, v39}];
+        v44 = v15;
+        v16 = *(*(&v55 + 1) + 8 * v15);
+        v17 = [obj objectForKeyedSubscript:{v16, v38}];
         v18 = [v17 mutableCopy];
 
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
         v53 = 0u;
-        v44 = v16;
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
+        v43 = v16;
         v19 = [obj objectForKeyedSubscript:v16];
-        v20 = [v19 countByEnumeratingWithState:&v52 objects:v65 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v51 objects:v64 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v53;
+          v22 = *v52;
           do
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v53 != v22)
+              if (*v52 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v52 + 1) + 8 * j);
+              v24 = *(*(&v51 + 1) + 8 * j);
               v25 = [self _extensionBundleIdentifierFromIdentifier:v24];
               if ([v14 containsObject:v25])
               {
@@ -290,9 +286,9 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
               else
               {
                 v26 = objc_alloc(MEMORY[0x1E69635D0]);
-                v51 = 0;
-                v27 = [v26 initWithBundleIdentifier:v25 error:&v51];
-                v28 = v51;
+                v50 = 0;
+                v27 = [v26 initWithBundleIdentifier:v25 error:&v50];
+                v28 = v50;
                 if (!v27)
                 {
                   [v14 addObject:v25];
@@ -301,46 +297,46 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
               }
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v52 objects:v65 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v51 objects:v64 count:16];
           }
 
           while (v21);
         }
 
-        v4 = v41;
-        [v41 setObject:v18 forKeyedSubscript:v44];
+        v4 = v40;
+        [v40 setObject:v18 forKeyedSubscript:v43];
 
-        v15 = v45 + 1;
+        v15 = v44 + 1;
       }
 
-      while (v45 + 1 != v42);
-      v42 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+      while (v44 + 1 != v41);
+      v41 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v29 = obj;
-  v30 = [v29 countByEnumeratingWithState:&v47 objects:v64 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v46 objects:v63 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v48;
+    v32 = *v47;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v48 != v32)
+        if (*v47 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v47 + 1) + 8 * k);
-        v35 = [v4 objectForKeyedSubscript:{v34, v39}];
+        v34 = *(*(&v46 + 1) + 8 * k);
+        v35 = [v4 objectForKeyedSubscript:{v34, v38}];
         v36 = [v35 mutableCopy];
 
         if ([v36 count] >= 0xB)
@@ -356,7 +352,7 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
         [v4 setObject:v36 forKeyedSubscript:v34];
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v47 objects:v64 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v46 objects:v63 count:16];
     }
 
     while (v31);
@@ -364,8 +360,6 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
 
   v37 = +[EKPreferences shared];
   [v37 setConferenceRoomTypeIdentifiersByMRU:v4];
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_identifierFromRoomType:(id)type
@@ -399,23 +393,23 @@ uint64_t __70__EKVirtualConferenceRoomTypeRecents_roomTypesOrderedByMRU_forSourc
 
 + (void)roomTypesOrderedByMRU:(uint64_t)a3 forSource:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "roomTypesOrderedByMRU: unexpected nil identifier for source: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "roomTypesOrderedByMRU: unexpected nil identifier for source: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)selectRoomType:(uint64_t)a3 forSource:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "selectRoomType: unexpected nil identifier for source: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "selectRoomType: unexpected nil identifier for source: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_updateSavedMRUDictWithRoomTypes:(uint64_t)a3 source:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "_updateSavedMRUDictWithRoomTypes: unexpected nil identifier for source: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "_updateSavedMRUDictWithRoomTypes: unexpected nil identifier for source: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    channelQuality = self->_channelQuality;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txLoss = self->_txLoss;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  rxLoss = self->_rxLoss;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  txLatency = self->_txLatency;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    rxLatency = self->_rxLatency;
     PBDataWriterWriteUint32Field();
   }
 

@@ -70,7 +70,7 @@
 
 - (void)calculateLikelihood:(id)likelihood
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   likelihoodCopy = likelihood;
   if (self->_isPerfectScoreBucket)
   {
@@ -85,7 +85,7 @@
     self->_lowerBound = v5;
   }
 
-  if ([(NSMutableArray *)self->_items count]!= 1)
+  if (objc_msgSend_count(self->_items) != 1)
   {
     upperBound = self->_upperBound;
     lowerBound = self->_lowerBound;
@@ -97,12 +97,12 @@
     }
 
     isSearchToolClient = [likelihoodCopy isSearchToolClient];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v13 = self->_items;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v39 objects:v49 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v48 count:16];
     if (!v14)
     {
 LABEL_26:
@@ -111,21 +111,21 @@ LABEL_26:
     }
 
     v16 = v14;
-    v17 = *v40;
+    v17 = *v39;
     *&v15 = 138412802;
-    v34 = v15;
-    v35 = *v40;
+    v33 = v15;
+    v34 = *v39;
 LABEL_11:
     v18 = 0;
-    v38 = v16;
+    v37 = v16;
     while (1)
     {
-      if (*v40 != v17)
+      if (*v39 != v17)
       {
         objc_enumerationMutation(v13);
       }
 
-      v19 = *(*(&v39 + 1) + 8 * v18);
+      v19 = *(*(&v38 + 1) + 8 * v18);
       v20 = self->_lowerBound;
       [v19 topicalityScore];
       v22 = v21;
@@ -158,23 +158,23 @@ LABEL_21:
         v30 = v29 = v13;
         identifier = [v19 identifier];
         v32 = SSRedactStringClient(identifier, 1, isSearchToolClient);
-        *buf = v34;
-        v44 = v28;
-        v45 = 2112;
-        v46 = v30;
-        v47 = 2112;
-        v48 = v32;
+        *buf = v33;
+        v43 = v28;
+        v44 = 2112;
+        v45 = v30;
+        v46 = 2112;
+        v47 = v32;
         _os_log_impl(&dword_1D9F69000, v26, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] [SearchTool] [Boosting] query=%@ Result=[%@] identifier=[%@] was soft boosted on likelihood for perfect sparse score and complete match in subject/snippet", buf, 0x20u);
 
-        v17 = v35;
+        v17 = v34;
         v13 = v29;
-        v16 = v38;
+        v16 = v37;
       }
 
 LABEL_24:
       if (v16 == ++v18)
       {
-        v16 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v16 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v48 count:16];
         if (!v16)
         {
           goto LABEL_26;
@@ -197,7 +197,6 @@ LABEL_20:
   [v9 setLikelihood:v8];
 
 LABEL_27:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -43,16 +43,16 @@
 
 - (id)dictionary
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   dictionary = selfCopy->_dictionary;
   if (!dictionary)
   {
-    v10 = @"IsActivated";
+    v9 = @"IsActivated";
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TRIExperimentCovariates _isExperimentActivated:](selfCopy, "_isExperimentActivated:", selfCopy->_experimentRecord)}];
-    v11[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v6 = selfCopy->_dictionary;
     selfCopy->_dictionary = v5;
 
@@ -61,8 +61,6 @@
 
   v7 = dictionary;
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -12,7 +12,7 @@
   v5 = OBJC_IVAR____TtC24MenstrualCyclesAppPlugin30InteractiveTimelineLegendLabel_spacerLabel;
   *(&self->super.super.super.isa + v5) = [objc_allocWithZone(MEMORY[0x29EDC7B38]) init];
   v6 = OBJC_IVAR____TtC24MenstrualCyclesAppPlugin30InteractiveTimelineLegendLabel_cycleDay;
-  v7 = type metadata accessor for CycleDay();
+  v7 = type metadata accessor for CycleDay(0);
   (*(*(v7 - 8) + 56))(self + v6, 1, 1, v7);
   result = sub_29E2C4724();
   __break(1u);

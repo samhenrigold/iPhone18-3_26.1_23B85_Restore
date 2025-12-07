@@ -22,7 +22,7 @@
     {
       v21 = MEMORY[0x277CCACA8];
       v12 = WFLocalizedString(@"%.0f seconds since %@");
-      [dateInterval duration];
+      objc_msgSend_duration(dateInterval);
       v23 = v22;
       startDate = [dateInterval startDate];
       dateInterval4 = [v21 localizedStringWithFormat:v12, v23, startDate];
@@ -46,7 +46,7 @@
         v11 = MEMORY[0x277CCACA8];
         v12 = WFLocalizedString(@"%.0f seconds since %@");
         startDate = [(WFDateIntervalContentItem *)self dateInterval];
-        [startDate duration];
+        objc_msgSend_duration(startDate);
         v15 = v14;
         dateInterval4 = [(WFDateIntervalContentItem *)self dateInterval];
         startDate2 = [dateInterval4 startDate];
@@ -127,7 +127,7 @@ WFTimeInterval *__56__WFDateIntervalContentItem_timeIntervalCoercionHandler__blo
   {
     v7 = [WFTimeInterval alloc];
     v8 = [v6 dateInterval];
-    [v8 duration];
+    objc_msgSend_duration(v8);
     v9 = [(WFTimeInterval *)v7 initWithTimeInterval:?];
   }
 

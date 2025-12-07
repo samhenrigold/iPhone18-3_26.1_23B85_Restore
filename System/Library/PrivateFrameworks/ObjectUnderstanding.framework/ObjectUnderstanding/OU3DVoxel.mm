@@ -65,7 +65,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = float3ToNSArray(*self->center);
   [dictionary setObject:v4 forKeyedSubscript:@"location"];
@@ -74,8 +74,8 @@
   [dictionary setObject:v5 forKeyedSubscript:@"size"];
 
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:self->semantic_label];
-  v13[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [dictionary setObject:v7 forKeyedSubscript:@"semantic_label"];
 
   object_id = self->object_id;
@@ -95,8 +95,6 @@
   }
 
   v10 = [dictionary copy];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

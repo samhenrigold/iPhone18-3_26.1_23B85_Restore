@@ -1,13 +1,13 @@
-id BRDSBreatheBundle()
+id BRDSBreatheBundle(uint64_t a1)
 {
   if (qword_8260 != -1)
   {
     sub_FC4();
   }
 
-  v1 = qword_8258;
+  v2 = qword_8258;
 
-  return v1;
+  return v2;
 }
 
 void sub_B44(id a1)
@@ -51,7 +51,7 @@ id BRDSBreatheContent()
 id BRDSBreatheImageNamed(void *a1)
 {
   v1 = a1;
-  v2 = BRDSBreatheBundle();
+  v2 = BRDSBreatheBundle(v1);
   v3 = REImageNamedFromBundle();
 
   return v3;
@@ -60,7 +60,7 @@ id BRDSBreatheImageNamed(void *a1)
 id BRDSBreatheLocalizedString(void *a1)
 {
   v1 = a1;
-  v2 = BRDSBreatheBundle();
+  v2 = BRDSBreatheBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:&stru_41F0 table:@"Localizable"];
 
   return v3;

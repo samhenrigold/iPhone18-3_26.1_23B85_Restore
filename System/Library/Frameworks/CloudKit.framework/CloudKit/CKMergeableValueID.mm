@@ -422,7 +422,7 @@ LABEL_39:
 
 - (id)zoneID
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_zoneName(self, a2, v2);
 
   if (v4)
@@ -443,22 +443,20 @@ LABEL_39:
     v14 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_FAULT))
     {
-      v17 = 138412290;
+      v16 = 138412290;
       selfCopy = self;
-      _os_log_fault_impl(&dword_1883EA000, v14, OS_LOG_TYPE_FAULT, "Trying to access nil zone ID on mergeable value ID: %@", &v17, 0xCu);
+      _os_log_fault_impl(&dword_1883EA000, v14, OS_LOG_TYPE_FAULT, "Trying to access nil zone ID on mergeable value ID: %@", &v16, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)recordID
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = objc_msgSend_zoneID(self, a2, v2);
   if (v6 && (objc_msgSend_recordName(self, v4, v5), v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
   {
@@ -477,15 +475,13 @@ LABEL_39:
     v14 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_FAULT))
     {
-      v17 = 138412290;
+      v16 = 138412290;
       selfCopy = self;
-      _os_log_fault_impl(&dword_1883EA000, v14, OS_LOG_TYPE_FAULT, "Trying to access nil record ID on mergeable value ID: %@", &v17, 0xCu);
+      _os_log_fault_impl(&dword_1883EA000, v14, OS_LOG_TYPE_FAULT, "Trying to access nil record ID on mergeable value ID: %@", &v16, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

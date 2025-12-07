@@ -62,100 +62,100 @@
     v10 = objc_opt_class();
     v11 = objc_opt_class();
     v12 = [v5 setWithObjects:{v7, v8, v9, v10, v11, objc_opt_class(), 0}];
-    v56 = 0;
-    v13 = [v4 unarchivedObjectOfClasses:v12 fromData:dataCopy error:&v56];
+    v58 = 0;
+    v13 = [v4 unarchivedObjectOfClasses:v12 fromData:dataCopy error:&v58];
 
-    v14 = v56;
-    if (v14 && (v15 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(), os_log_type_enabled(v15, OS_LOG_TYPE_ERROR)))
+    v14 = v58;
+    if (v14 && (v17 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v15, v16), os_log_type_enabled(v17, OS_LOG_TYPE_ERROR)))
     {
-      [(WBSUserDefinedContentBlockerAction *)v15 _readExtraAttributesWithData:v14];
+      [(WBSUserDefinedContentBlockerAction *)v17 _readExtraAttributesWithData:v14];
       if (v13)
       {
 LABEL_5:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [v13 safari_stringForKey:@"searchableText"];
+          v18 = [v13 safari_stringForKey:@"searchableText"];
           searchableText = self->_searchableText;
-          self->_searchableText = v16;
+          self->_searchableText = v18;
 
-          v18 = [v13 safari_stringForKey:@"renderTreeText"];
+          v20 = [v13 safari_stringForKey:@"renderTreeText"];
           renderTreeText = self->_renderTreeText;
-          self->_renderTreeText = v18;
+          self->_renderTreeText = v20;
 
-          v20 = [v13 safari_stringForKey:@"screenReaderText"];
+          v22 = [v13 safari_stringForKey:@"screenReaderText"];
           screenReaderText = self->_screenReaderText;
-          self->_screenReaderText = v20;
+          self->_screenReaderText = v22;
 
-          v22 = [v13 safari_stringForKey:@"imageAnalysisText"];
+          v24 = [v13 safari_stringForKey:@"imageAnalysisText"];
           imageAnalysisText = self->_imageAnalysisText;
-          self->_imageAnalysisText = v22;
+          self->_imageAnalysisText = v24;
 
-          v24 = [v13 safari_arrayForKey:@"bounds"];
-          if ([v24 count] == 4)
+          v26 = [v13 safari_arrayForKey:@"bounds"];
+          if ([v26 count] == 4)
           {
-            v25 = [v24 safari_numberAtIndex:0];
-            [v25 doubleValue];
-            v27 = v26;
-            v28 = [v24 safari_numberAtIndex:1];
-            [v28 doubleValue];
-            v30 = v29;
-            v31 = [v24 safari_numberAtIndex:2];
-            [v31 doubleValue];
-            v33 = v32;
-            v34 = [v24 safari_numberAtIndex:3];
-            [v34 doubleValue];
-            self->_bounds.origin.x = v27;
-            self->_bounds.origin.y = v30;
-            self->_bounds.size.width = v33;
-            self->_bounds.size.height = v35;
+            v27 = [v26 safari_numberAtIndex:0];
+            [v27 doubleValue];
+            v29 = v28;
+            v30 = [v26 safari_numberAtIndex:1];
+            [v30 doubleValue];
+            v32 = v31;
+            v33 = [v26 safari_numberAtIndex:2];
+            [v33 doubleValue];
+            v35 = v34;
+            v36 = [v26 safari_numberAtIndex:3];
+            [v36 doubleValue];
+            self->_bounds.origin.x = v29;
+            self->_bounds.origin.y = v32;
+            self->_bounds.size.width = v35;
+            self->_bounds.size.height = v37;
           }
 
-          v36 = [v13 safari_setForKey:@"mediaAndLinkURLs"];
+          v38 = [v13 safari_setForKey:@"mediaAndLinkURLs"];
           mediaAndLinkURLs = self->_mediaAndLinkURLs;
-          self->_mediaAndLinkURLs = v36;
+          self->_mediaAndLinkURLs = v38;
 
-          v38 = [v13 safari_arrayForKey:@"allSelectorsIncludingShadowHosts"];
+          v40 = [v13 safari_arrayForKey:@"allSelectorsIncludingShadowHosts"];
           allSelectorsIncludingShadowHosts = self->_allSelectorsIncludingShadowHosts;
-          self->_allSelectorsIncludingShadowHosts = v38;
+          self->_allSelectorsIncludingShadowHosts = v40;
 
-          v40 = [v13 safari_numberForKey:@"edgeAnchors"];
-          self->_edgeAnchors = [v40 integerValue];
+          v42 = [v13 safari_numberForKey:@"edgeAnchors"];
+          self->_edgeAnchors = [v42 integerValue];
 
-          v41 = [v13 safari_arrayForKey:@"edgeInsets"];
-          v42 = v41;
-          if (v41)
+          v43 = [v13 safari_arrayForKey:@"edgeInsets"];
+          v44 = v43;
+          if (v43)
           {
-            if ([v41 count] == 4)
+            if ([v43 count] == 4)
             {
-              v43 = [v42 safari_numberAtIndex:0];
-              [v43 doubleValue];
-              self->_edgeInsets.left = v44;
-
-              v45 = [v42 safari_numberAtIndex:1];
+              v45 = [v44 safari_numberAtIndex:0];
               [v45 doubleValue];
-              self->_edgeInsets.top = v46;
+              self->_edgeInsets.left = v46;
 
-              v47 = [v42 safari_numberAtIndex:2];
+              v47 = [v44 safari_numberAtIndex:1];
               [v47 doubleValue];
-              self->_edgeInsets.right = v48;
+              self->_edgeInsets.top = v48;
 
-              v49 = [v42 safari_numberAtIndex:3];
+              v49 = [v44 safari_numberAtIndex:2];
               [v49 doubleValue];
-              self->_edgeInsets.bottom = v50;
+              self->_edgeInsets.right = v50;
+
+              v51 = [v44 safari_numberAtIndex:3];
+              [v51 doubleValue];
+              self->_edgeInsets.bottom = v52;
             }
           }
 
-          v51 = [v13 safari_numberForKey:@"viewZoomFactor"];
-          [v51 doubleValue];
-          self->_viewZoomScale = v52;
+          v53 = [v13 safari_numberForKey:@"viewZoomFactor"];
+          [v53 doubleValue];
+          self->_viewZoomScale = v54;
 
-          v53 = [v13 safari_numberForKey:@"positionType"];
-          self->_positionType = [v53 intValue];
+          v55 = [v13 safari_numberForKey:@"positionType"];
+          self->_positionType = [v55 intValue];
 
-          v54 = [v13 safari_setForKey:@"hostsWhereActionHasApplied"];
+          v56 = [v13 safari_setForKey:@"hostsWhereActionHasApplied"];
           hostsWhereActionHasApplied = self->_hostsWhereActionHasApplied;
-          self->_hostsWhereActionHasApplied = v54;
+          self->_hostsWhereActionHasApplied = v56;
         }
       }
     }
@@ -169,28 +169,28 @@ LABEL_5:
 
 - (id)extraAttributesData
 {
-  v29[4] = *MEMORY[0x1E69E9840];
+  v31[4] = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary setObject:self->_searchableText forKeyedSubscript:@"searchableText"];
   [dictionary setObject:self->_renderTreeText forKeyedSubscript:@"renderTreeText"];
   [dictionary setObject:self->_screenReaderText forKeyedSubscript:@"screenReaderText"];
   [dictionary setObject:self->_imageAnalysisText forKeyedSubscript:@"imageAnalysisText"];
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:self->_bounds.origin.x];
-  v29[0] = v4;
+  v31[0] = v4;
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_bounds.origin.y];
-  v29[1] = v5;
+  v31[1] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:self->_bounds.size.width];
-  v29[2] = v6;
+  v31[2] = v6;
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:self->_bounds.size.height];
-  v29[3] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:4];
+  v31[3] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
   [dictionary setObject:v8 forKeyedSubscript:@"bounds"];
 
   v9 = [MEMORY[0x1E696AD98] numberWithDouble:self->_bounds.size.width];
-  v28[0] = v9;
+  v30[0] = v9;
   v10 = [MEMORY[0x1E696AD98] numberWithDouble:self->_bounds.size.height];
-  v28[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v30[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   [dictionary setObject:v11 forKeyedSubscript:@"webViewSize"];
 
   [dictionary setObject:self->_allSelectorsIncludingShadowHosts forKeyedSubscript:@"allSelectorsIncludingShadowHosts"];
@@ -198,14 +198,14 @@ LABEL_5:
   [dictionary setObject:v12 forKeyedSubscript:@"edgeAnchors"];
 
   v13 = [MEMORY[0x1E696AD98] numberWithDouble:self->_edgeInsets.left];
-  v27[0] = v13;
+  v29[0] = v13;
   v14 = [MEMORY[0x1E696AD98] numberWithDouble:self->_edgeInsets.top];
-  v27[1] = v14;
+  v29[1] = v14;
   v15 = [MEMORY[0x1E696AD98] numberWithDouble:self->_edgeInsets.right];
-  v27[2] = v15;
+  v29[2] = v15;
   v16 = [MEMORY[0x1E696AD98] numberWithDouble:self->_edgeInsets.bottom];
-  v27[3] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:4];
+  v29[3] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:4];
   [dictionary setObject:v17 forKeyedSubscript:@"edgeInsets"];
 
   v18 = [MEMORY[0x1E696AD98] numberWithDouble:self->_viewZoomScale];
@@ -228,15 +228,16 @@ LABEL_5:
 
   if ([dictionary count])
   {
-    v26 = 0;
-    v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionary requiringSecureCoding:1 error:&v26];
-    v23 = v26;
+    v28 = 0;
+    v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionary requiringSecureCoding:1 error:&v28];
+    v23 = v28;
+    v25 = v23;
     if (v23)
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v23, v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [(WBSUserDefinedContentBlockerAction *)v23 extraAttributesData];
+        [(WBSUserDefinedContentBlockerAction *)v25 extraAttributesData];
       }
     }
   }

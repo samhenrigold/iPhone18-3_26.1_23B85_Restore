@@ -24,7 +24,7 @@
 {
   fetchCopy = fetch;
   selfCopy = self;
-  v6 = sub_216BBA2F4();
+  v6 = sub_216BBA2F4(fetchCopy);
 
   return v6;
 }

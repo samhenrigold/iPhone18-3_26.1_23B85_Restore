@@ -63,7 +63,7 @@
 
 void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -83,41 +83,39 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
 
     v10 = TRIDeploymentEnvironment_EnumDescriptor();
     v11 = [v10 textFormatNameForValue:*(a1 + 40)];
-    v13[0] = 67110146;
-    v13[1] = v5;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentHistoryRecordsWithLimit:newerThanDate:deploymentEnvironment:completion: with env %@", v13, 0x30u);
+    v12[0] = 67110146;
+    v12[1] = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v8;
+    v17 = 2080;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentHistoryRecordsWithLimit:newerThanDate:deploymentEnvironment:completion: with env %@", v12, 0x30u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_58(uint64_t a1, void *a2, void *a3)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_2;
-  v62[3] = &unk_279DE0398;
-  v63 = *(a1 + 48);
-  v7 = MEMORY[0x2743948D0](v62);
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_2;
+  v61[3] = &unk_279DE0398;
+  v62 = *(a1 + 48);
+  v7 = MEMORY[0x2743948D0](v61);
   if (v5 && v6)
   {
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_63;
-    v60[3] = &unk_279DE0548;
-    v61 = *(a1 + 56);
-    v8 = MEMORY[0x2743948D0](v60);
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_63;
+    v59[3] = &unk_279DE0548;
+    v60 = *(a1 + 56);
+    v8 = MEMORY[0x2743948D0](v59);
     v9 = *MEMORY[0x277D73A98];
     v10 = *(a1 + 32);
     v11 = *(v10 + 32);
@@ -129,9 +127,9 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
       v32 = TRILogCategory_Server();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v40 = *(*(a1 + 32) + 36);
+        v39 = *(*(a1 + 32) + 36);
         *buf = 67109378;
-        *&buf[4] = v40;
+        *&buf[4] = v39;
         *&buf[8] = 2114;
         *&buf[10] = v9;
         _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "experimentHistoryRecordsWithLimit: the calling process (pid %d) is missing entitlement %{public}@.", buf, 0x12u);
@@ -148,9 +146,9 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
       v33 = TRILogCategory_Server();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v41 = *(*(a1 + 32) + 36);
+        v40 = *(*(a1 + 32) + 36);
         *buf = 67109378;
-        *&buf[4] = v41;
+        *&buf[4] = v40;
         *&buf[8] = 2114;
         *&buf[10] = v9;
         _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "experimentHistoryRecordsWithLimit: the calling process (pid %d) has ill-typed value for entitlement %{public}@ (expected array).", buf, 0x12u);
@@ -170,13 +168,13 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
       v34 = TRILogCategory_Server();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v42 = *(*(a1 + 32) + 36);
-        v54 = TRIDeploymentEnvironment_EnumDescriptor();
-        v43 = [v54 textFormatNameForValue:*(a1 + 72)];
+        v41 = *(*(a1 + 32) + 36);
+        v53 = TRIDeploymentEnvironment_EnumDescriptor();
+        v42 = [v53 textFormatNameForValue:*(a1 + 72)];
         *buf = 67109378;
-        *&buf[4] = v42;
+        *&buf[4] = v41;
         *&buf[8] = 2114;
-        *&buf[10] = v43;
+        *&buf[10] = v42;
         _os_log_error_impl(&dword_26F567000, v34, OS_LOG_TYPE_ERROR, "experimentHistoryRecordsWithLimit: the calling process (pid %d) is not entitled for access to %{public}@.", buf, 0x12u);
       }
 
@@ -193,24 +191,24 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
     {
       if (*(a1 + 64))
       {
-        v50 = objc_opt_new();
-        v52 = [v5 experimentHistoryDatabase];
-        v47 = *(a1 + 40);
+        v49 = objc_opt_new();
+        v51 = [v5 experimentHistoryDatabase];
+        v46 = *(a1 + 40);
         contexta = objc_autoreleasePoolPush();
         v16 = objc_alloc(MEMORY[0x277CBEB98]);
         v17 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 72)];
         v18 = [v16 initWithObjects:{v17, 0}];
 
         objc_autoreleasePoolPop(contexta);
-        v57[0] = MEMORY[0x277D85DD0];
-        v57[1] = 3221225472;
-        v57[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_84;
-        v57[3] = &unk_279DE1060;
-        v19 = v50;
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3221225472;
+        v56[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_84;
+        v56[3] = &unk_279DE1060;
+        v19 = v49;
         v20 = *(a1 + 64);
-        v58 = v19;
-        v59 = v20;
-        LOBYTE(v17) = [v52 enumerateRecordsNewerThanDate:v47 matchingDeploymentEnvironments:v18 block:v57];
+        v57 = v19;
+        v58 = v20;
+        LOBYTE(v17) = [v51 enumerateRecordsNewerThanDate:v46 matchingDeploymentEnvironments:v18 block:v56];
 
         if ((v17 & 1) == 0)
         {
@@ -218,14 +216,14 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
           goto LABEL_34;
         }
 
-        v51 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v19, "count")}];
-        v53 = objc_opt_new();
-        if ([v51 intValue] >= 1)
+        v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v19, "count")}];
+        v52 = objc_opt_new();
+        if ([v50 intValue] >= 1)
         {
           v21 = [v19 lastObject];
           v22 = [v21 eventDate];
 
-          v53 = v22;
+          v52 = v22;
         }
 
         if (!*(a1 + 72))
@@ -241,30 +239,30 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v44 = TRILogCategory_Server();
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+              v43 = TRILogCategory_Server();
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
               {
-                v46 = *(*(a1 + 32) + 36);
+                v45 = *(*(a1 + 32) + 36);
                 *buf = 67109378;
-                *&buf[4] = v46;
+                *&buf[4] = v45;
                 *&buf[8] = 2112;
                 *&buf[10] = v23;
-                _os_log_error_impl(&dword_26F567000, v44, OS_LOG_TYPE_ERROR, "experimentHistoryRecordsWithLimit: the calling process (pid %d) has ill-typed value for entitlement %@ (expected array).", buf, 0x12u);
+                _os_log_error_impl(&dword_26F567000, v43, OS_LOG_TYPE_ERROR, "experimentHistoryRecordsWithLimit: the calling process (pid %d) has ill-typed value for entitlement %@ (expected array).", buf, 0x12u);
               }
 
-              v45 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"The calling process has a value for entitlement %@ which is not array-valued.", v23];
-              (v8)[2](v8, 3, v45);
+              v44 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"The calling process has a value for entitlement %@ which is not array-valued.", v23];
+              (v8)[2](v8, 3, v44);
 
               goto LABEL_18;
             }
 
             v26 = MEMORY[0x277CCAC30];
-            v55[0] = MEMORY[0x277D85DD0];
-            v55[1] = 3221225472;
-            v55[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_90;
-            v55[3] = &unk_279DE1088;
-            v56 = context;
-            v27 = [v26 predicateWithBlock:v55];
+            v54[0] = MEMORY[0x277D85DD0];
+            v54[1] = 3221225472;
+            v54[2] = __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_90;
+            v54[3] = &unk_279DE1088;
+            v55 = context;
+            v27 = [v26 predicateWithBlock:v54];
             [v19 filterUsingPredicate:v27];
           }
         }
@@ -272,13 +270,13 @@ void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerTh
         v28 = *(a1 + 56);
         if (v28)
         {
-          (*(v28 + 16))(v28, v51, v19, v53, 0);
+          (*(v28 + 16))(v28, v50, v19, v52, 0);
         }
 
 LABEL_18:
 
 LABEL_34:
-        v36 = v58;
+        v36 = v57;
 LABEL_35:
 
         goto LABEL_36;
@@ -300,7 +298,7 @@ LABEL_36:
 
 LABEL_37:
 
-    v30 = v61;
+    v30 = v60;
     goto LABEL_38;
   }
 
@@ -320,32 +318,28 @@ LABEL_39:
   {
     v7[2](v7);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_63(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     v10 = *(a1 + 32);
     v11 = objc_opt_new();
     (*(v10 + 16))(v10, &unk_287FC4738, 0, v11, v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_84(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_84(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) addObject:a2];
   result = [*(a1 + 32) count];
@@ -359,29 +353,29 @@ unint64_t __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_ne
 
 uint64_t __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_newerThanDate_deploymentEnvironment_completion___block_invoke_90(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = [a2 namespaces];
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         v8 = *(a1 + 32);
-        v9 = [*(*(&v13 + 1) + 8 * v7) name];
+        v9 = [*(*(&v12 + 1) + 8 * v7) name];
         LOBYTE(v8) = [v8 containsObject:v9];
 
         if (v8)
@@ -394,7 +388,7 @@ uint64_t __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_new
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -407,7 +401,6 @@ uint64_t __111__TRIXPCStatusRequestHandler_experimentHistoryRecordsWithLimit_new
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -439,7 +432,7 @@ LABEL_11:
 
 void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -449,45 +442,43 @@ void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironment
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentRecordsWithDeploymentEnvironments:completion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentRecordsWithDeploymentEnvironments:completion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_93(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && v6)
   {
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_2;
-    v52[3] = &unk_279DE0398;
-    v53 = *(a1 + 56);
-    v44 = MEMORY[0x2743948D0](v52);
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_3;
-    v50[3] = &unk_279DE0548;
-    v51 = *(a1 + 48);
-    v8 = MEMORY[0x2743948D0](v50);
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_2;
+    v51[3] = &unk_279DE0398;
+    v52 = *(a1 + 56);
+    v43 = MEMORY[0x2743948D0](v51);
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_3;
+    v49[3] = &unk_279DE0548;
+    v50 = *(a1 + 48);
+    v8 = MEMORY[0x2743948D0](v49);
     v9 = *MEMORY[0x277D73A98];
     v10 = *(a1 + 32);
     v11 = *(v10 + 32);
@@ -508,9 +499,9 @@ void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironment
         v31 = TRILogCategory_Server();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v39 = *(*(a1 + 32) + 36);
+          v38 = *(*(a1 + 32) + 36);
           *buf = 67109378;
-          *&buf[4] = v39;
+          *&buf[4] = v38;
           *&buf[8] = 2114;
           *&buf[10] = v9;
           _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "experimentRecordsWithDeploymentEnvironments: the calling process (pid %d) is missing entitlement %{public}@.", buf, 0x12u);
@@ -534,9 +525,9 @@ void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironment
       v30 = TRILogCategory_Server();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v36 = *(*(a1 + 32) + 36);
+        v35 = *(*(a1 + 32) + 36);
         *buf = 67109378;
-        *&buf[4] = v36;
+        *&buf[4] = v35;
         *&buf[8] = 2114;
         *&buf[10] = v9;
         _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "experimentRecordsWithDeploymentEnvironments: the calling process (pid %d) has ill-typed value for entitlement %{public}@ (expected array).", buf, 0x12u);
@@ -555,11 +546,11 @@ void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironment
 LABEL_32:
 
 LABEL_33:
-      v34 = v44;
-      if (v44)
+      v34 = v43;
+      if (v43)
       {
-        (*(v44 + 2))();
-        v34 = v44;
+        (*(v43 + 2))();
+        v34 = v43;
       }
 
       goto LABEL_36;
@@ -570,12 +561,12 @@ LABEL_33:
       v32 = TRILogCategory_Server();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v40 = *(a1 + 40);
-        v41 = *(*(a1 + 32) + 36);
+        v39 = *(a1 + 40);
+        v40 = *(*(a1 + 32) + 36);
         *buf = 67109378;
-        *&buf[4] = v41;
+        *&buf[4] = v40;
         *&buf[8] = 2114;
-        *&buf[10] = v40;
+        *&buf[10] = v39;
         _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "experimentRecordsWithDeploymentEnvironments: the calling process (pid %d) is not entitled for access to deployment environments %{public}@.", buf, 0x12u);
       }
 
@@ -586,14 +577,14 @@ LABEL_33:
 
     v21 = objc_opt_new();
     v22 = [v5 experimentDatabase];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_108;
-    v47[3] = &unk_279DE08A8;
-    v48 = *(a1 + 40);
-    v43 = v21;
-    v49 = v43;
-    LOBYTE(v21) = [v22 enumerateExperimentRecordsWithBlock:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_108;
+    v46[3] = &unk_279DE08A8;
+    v47 = *(a1 + 40);
+    v42 = v21;
+    v48 = v42;
+    LOBYTE(v21) = [v22 enumerateExperimentRecordsWithBlock:v46];
 
     if (v21)
     {
@@ -610,38 +601,38 @@ LABEL_33:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v37 = TRILogCategory_Server();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v36 = TRILogCategory_Server();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
-              v42 = *(*(a1 + 32) + 36);
+              v41 = *(*(a1 + 32) + 36);
               *buf = 67109378;
-              *&buf[4] = v42;
+              *&buf[4] = v41;
               *&buf[8] = 2112;
               *&buf[10] = v23;
-              _os_log_error_impl(&dword_26F567000, v37, OS_LOG_TYPE_ERROR, "experimentRecordsWithDeploymentEnvironments: the calling process (pid %d) has ill-typed value for entitlement %@ (expected array).", buf, 0x12u);
+              _os_log_error_impl(&dword_26F567000, v36, OS_LOG_TYPE_ERROR, "experimentRecordsWithDeploymentEnvironments: the calling process (pid %d) has ill-typed value for entitlement %@ (expected array).", buf, 0x12u);
             }
 
-            v38 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"The calling process has a value for entitlement %@ which is not array-valued.", v23];
-            (v8)[2](v8, 3, v38);
+            v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"The calling process has a value for entitlement %@ which is not array-valued.", v23];
+            (v8)[2](v8, 3, v37);
 
             goto LABEL_30;
           }
 
           v27 = MEMORY[0x277CCAC30];
-          v45[0] = MEMORY[0x277D85DD0];
-          v45[1] = 3221225472;
-          v45[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_111;
-          v45[3] = &unk_279DE1088;
-          v46 = v26;
-          v28 = [v27 predicateWithBlock:v45];
-          [v43 filterUsingPredicate:v28];
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_111;
+          v44[3] = &unk_279DE1088;
+          v45 = v26;
+          v28 = [v27 predicateWithBlock:v44];
+          [v42 filterUsingPredicate:v28];
         }
       }
 
       v29 = *(a1 + 48);
       if (v29)
       {
-        (*(v29 + 16))(v29, v43, 0);
+        (*(v29 + 16))(v29, v42, 0);
       }
     }
 
@@ -652,7 +643,7 @@ LABEL_33:
 
 LABEL_30:
 
-    v33 = v43;
+    v33 = v42;
 LABEL_31:
 
     goto LABEL_32;
@@ -666,27 +657,23 @@ LABEL_31:
   }
 
 LABEL_36:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_108(uint64_t a1, void *a2)
@@ -722,7 +709,7 @@ void __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironment
 
 uint64_t __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnvironments_completion___block_invoke_111(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 deploymentEnvironment])
   {
@@ -731,28 +718,28 @@ uint64_t __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnviron
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = [v3 namespaces];
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
           v10 = *(a1 + 32);
-          v11 = [*(*(&v14 + 1) + 8 * v9) name];
+          v11 = [*(*(&v13 + 1) + 8 * v9) name];
           LOBYTE(v10) = [v10 containsObject:v11];
 
           if (v10)
@@ -765,7 +752,7 @@ uint64_t __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnviron
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -779,7 +766,6 @@ uint64_t __85__TRIXPCStatusRequestHandler_experimentRecordsWithDeploymentEnviron
 LABEL_13:
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -808,7 +794,7 @@ LABEL_13:
 
 void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -818,45 +804,43 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s rolloutRecordsWithCompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s rolloutRecordsWithCompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_112(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && v6)
   {
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_2;
-    v35[3] = &unk_279DE0398;
-    v36 = *(a1 + 48);
-    v8 = MEMORY[0x2743948D0](v35);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_3;
-    v33[3] = &unk_279DE0548;
-    v34 = *(a1 + 40);
-    v9 = MEMORY[0x2743948D0](v33);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_2;
+    v34[3] = &unk_279DE0398;
+    v35 = *(a1 + 48);
+    v8 = MEMORY[0x2743948D0](v34);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_3;
+    v32[3] = &unk_279DE0548;
+    v33 = *(a1 + 40);
+    v9 = MEMORY[0x2743948D0](v32);
     v10 = *MEMORY[0x277D73A98];
     v11 = *(a1 + 32);
     v12 = *(v11 + 32);
@@ -873,13 +857,13 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
         {
           v15 = objc_opt_new();
           v16 = [v5 rolloutDatabase];
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_113;
-          v31[3] = &unk_279DE0700;
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_113;
+          v30[3] = &unk_279DE0700;
           v17 = v15;
-          v32 = v17;
-          v18 = [v16 enumerateRecordsUsingTransaction:0 block:v31];
+          v31 = v17;
+          v18 = [v16 enumerateRecordsUsingTransaction:0 block:v30];
 
           if (v18)
           {
@@ -895,7 +879,7 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
             (v9)[2](v9, 12, @"The database query failed.");
           }
 
-          v26 = v32;
+          v26 = v31;
         }
 
         else
@@ -906,9 +890,9 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
           v25 = TRILogCategory_Server();
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            v30 = *(*(a1 + 32) + 36);
+            v29 = *(*(a1 + 32) + 36);
             *buf = 67109378;
-            *&buf[4] = v30;
+            *&buf[4] = v29;
             *&buf[8] = 2112;
             *&buf[10] = v17;
             _os_log_error_impl(&dword_26F567000, v25, OS_LOG_TYPE_ERROR, "rolloutRecordsWithCompletion: the calling process (pid %d) is not entitled for access to deployment environment %@.", buf, 0x12u);
@@ -924,9 +908,9 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
         v23 = TRILogCategory_Server();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v29 = *(*(a1 + 32) + 36);
+          v28 = *(*(a1 + 32) + 36);
           *buf = 67109378;
-          *&buf[4] = v29;
+          *&buf[4] = v28;
           *&buf[8] = 2114;
           *&buf[10] = v10;
           _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "rolloutRecordsWithCompletion: the calling process (pid %d) has ill-typed value for entitlement %{public}@ (expected array).", buf, 0x12u);
@@ -942,9 +926,9 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
       v22 = TRILogCategory_Server();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v28 = *(*(a1 + 32) + 36);
+        v27 = *(*(a1 + 32) + 36);
         *buf = 67109378;
-        *&buf[4] = v28;
+        *&buf[4] = v27;
         *&buf[8] = 2114;
         *&buf[10] = v10;
         _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "rolloutRecordsWithCompletion: the calling process (pid %d) is missing entitlement %{public}@.", buf, 0x12u);
@@ -969,27 +953,23 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
       (*(v20 + 16))(v20, 0, v21);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invoke_113(uint64_t a1, uint64_t a2)
@@ -1012,7 +992,7 @@ void __59__TRIXPCStatusRequestHandler_rolloutRecordsWithCompletion___block_invok
 
 void __68__TRIXPCStatusRequestHandler_rolloutAllocationStatusWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -1021,62 +1001,62 @@ void __68__TRIXPCStatusRequestHandler_rolloutAllocationStatusWithCompletion___bl
 
   else
   {
-    v28 = a1;
+    v27 = a1;
     v6 = objc_alloc(MEMORY[0x277D73690]);
     v7 = [MEMORY[0x277D737E0] sharedPaths];
     v8 = [v6 initWithPaths:v7 factorsState:0];
 
-    v31 = [MEMORY[0x277CBEB18] array];
+    v30 = [MEMORY[0x277CBEB18] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v29 = v5;
+    v28 = v5;
     obj = v5;
-    v33 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-    if (v33)
+    v32 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+    if (v32)
     {
-      v32 = *v39;
+      v31 = *v38;
       do
       {
-        for (i = 0; i != v33; ++i)
+        for (i = 0; i != v32; ++i)
         {
-          if (*v39 != v32)
+          if (*v38 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v38 + 1) + 8 * i);
+          v10 = *(*(&v37 + 1) + 8 * i);
           v11 = [v10 activeFactorPackSetId];
 
           if (v11)
           {
             v12 = objc_opt_new();
+            v33 = 0u;
             v34 = 0u;
             v35 = 0u;
             v36 = 0u;
-            v37 = 0u;
             v13 = [v10 namespaces];
-            v14 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
             if (v14)
             {
               v15 = v14;
-              v16 = *v35;
+              v16 = *v34;
               do
               {
                 for (j = 0; j != v15; ++j)
                 {
-                  if (*v35 != v16)
+                  if (*v34 != v16)
                   {
                     objc_enumerationMutation(v13);
                   }
 
-                  v18 = *(*(&v34 + 1) + 8 * j);
+                  v18 = *(*(&v33 + 1) + 8 * j);
                   v19 = [v8 factorPackIdForRolloutWithNamespaceName:v18];
                   [v12 setObject:v19 forKeyedSubscript:v18];
                 }
 
-                v15 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
+                v15 = [v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
               }
 
               while (v15);
@@ -1089,21 +1069,19 @@ void __68__TRIXPCStatusRequestHandler_rolloutAllocationStatusWithCompletion___bl
             v24 = [v23 deploymentId];
             v25 = [v10 rampId];
             v26 = [v20 initWithRolloutId:v22 deploymentId:v24 rampId:v25 factorPackIds:v12];
-            [v31 addObject:v26];
+            [v30 addObject:v26];
           }
         }
 
-        v33 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v32 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
 
-    (*(*(v28 + 32) + 16))();
-    v5 = v29;
+    (*(*(v27 + 32) + 16))();
+    v5 = v28;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

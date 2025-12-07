@@ -273,7 +273,12 @@
   if (!clippingView)
   {
     [(UIView *)selfCopy bounds];
-    initWithFrame_ = [objc_allocWithZone(_s12ClippingViewCMa()) initWithFrame_];
+    v5 = v4;
+    v7 = v6;
+    v9 = v8;
+    v11 = v10;
+    _s12ClippingViewCMa();
+    initWithFrame_ = [objc_allocWithZone(v12) initWithFrame_];
     [(UIView *)selfCopy addSubview:initWithFrame_];
     clippingView = initWithFrame_;
     [(_UISplitViewControllerAdaptiveColumnView *)selfCopy setClippingView:clippingView];

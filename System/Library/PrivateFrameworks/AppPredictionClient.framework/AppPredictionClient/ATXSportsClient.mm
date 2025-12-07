@@ -49,22 +49,22 @@ uint64_t __33__ATXSportsClient_sharedInstance__block_invoke()
   return v2;
 }
 
-void __23__ATXSportsClient_init__block_invoke()
+void __23__ATXSportsClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_xpc();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_xpc(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __23__ATXSportsClient_init__block_invoke_cold_1(v0);
+    __23__ATXSportsClient_init__block_invoke_cold_1(v1);
   }
 }
 
-void __23__ATXSportsClient_init__block_invoke_20()
+void __23__ATXSportsClient_init__block_invoke_20(uint64_t a1)
 {
-  v0 = __atxlog_handle_xpc();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = __atxlog_handle_xpc(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Sports xpc connection invalidated", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Sports xpc connection invalidated", v2, 2u);
   }
 }
 
@@ -85,7 +85,7 @@ void __23__ATXSportsClient_init__block_invoke_20()
 void __55__ATXSportsClient_requestedSchedulesForTeamsWithReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_xpc();
+  v4 = __atxlog_handle_xpc(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__ATXSportsClient_requestedSchedulesForTeamsWithReply___block_invoke_cold_1(v3, v4);

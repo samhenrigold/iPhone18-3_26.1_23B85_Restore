@@ -11,7 +11,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider32CarouselItemLockupCollectionView_artworkViews) = _swiftEmptyArrayStorage;
   v4 = OBJC_IVAR____TtC18ASMessagesProvider32CarouselItemLockupCollectionView____lazy_storage___artworkViewPool;
-  v5 = sub_BD88(&qword_94F910);
+  v5 = sub_BD88(&qword_94F910, "$&\a");
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider32CarouselItemLockupCollectionView_numberOfArtworks) = 0;
   result = sub_76A840();

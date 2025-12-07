@@ -30,10 +30,10 @@
 
 + (BOOL)isDPGBundleID:(id)d
 {
-  sub_24AB6016C();
-  v3 = sub_24AB47068();
+  v3 = sub_24AB6016C();
+  v5 = sub_24AB47068(v3, v4);
 
-  return v3 & 1;
+  return v5 & 1;
 }
 
 + (BOOL)allowDPGBundleID:(id)d

@@ -158,7 +158,7 @@ void __34__RedirectHandler__sharedInstance__block_invoke(uint64_t a1)
 
 - (id)evaluate:(id)evaluate forThreshold:(int64_t)threshold
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [(RedirectHandler *)self _prune];
   v6 = [(NSMutableDictionary *)self->_redirectedOrigins count];
   v7 = [(NSMutableDictionary *)self->_requestingPids count];
@@ -167,22 +167,22 @@ void __34__RedirectHandler__sharedInstance__block_invoke(uint64_t a1)
   {
     v9 = objc_alloc_init(Evaluation);
     v10 = [MEMORY[0x277CCACA8] stringWithString:self->_currentRedirectURL];
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __41__RedirectHandler_evaluate_forThreshold___block_invoke;
-    v21 = &unk_27898A7F8;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __41__RedirectHandler_evaluate_forThreshold___block_invoke;
+    v20 = &unk_27898A7F8;
     selfCopy = self;
     v11 = v10;
-    v23 = v11;
-    [(Evaluation *)v9 setCallback:&v18];
+    v22 = v11;
+    [(Evaluation *)v9 setCallback:&v17];
     v12 = redirectLogHandle;
     if (os_log_type_enabled(redirectLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v13 = v12;
-      v14 = [(Evaluation *)v9 description:v18];
+      v14 = [(Evaluation *)v9 description:v17];
       uTF8String = [v14 UTF8String];
       *buf = 136315138;
-      v25 = uTF8String;
+      v24 = uTF8String;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "redirect signature fires, %s", buf, 0xCu);
     }
 
@@ -195,16 +195,14 @@ void __34__RedirectHandler__sharedInstance__block_invoke(uint64_t a1)
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
-uint64_t __41__RedirectHandler_evaluate_forThreshold___block_invoke(uint64_t result, uint64_t a2)
+id *__41__RedirectHandler_evaluate_forThreshold___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) performNegativeFeedback:*(result + 40)];
+    return [result[4] performNegativeFeedback:result[5]];
   }
 
   return result;
@@ -212,16 +210,16 @@ uint64_t __41__RedirectHandler_evaluate_forThreshold___block_invoke(uint64_t res
 
 - (void)performNegativeFeedback:(id)feedback
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   v5 = redirectLogHandle;
   if (os_log_type_enabled(redirectLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v6 = feedbackCopy;
     v7 = v5;
-    v13 = 136315138;
+    v12 = 136315138;
     uTF8String = [feedbackCopy UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Taking URL %s away as possible destination for redirects", &v13, 0xCu);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Taking URL %s away as possible destination for redirects", &v12, 0xCu);
   }
 
   ignoreFor = self->_ignoreFor;
@@ -241,47 +239,45 @@ uint64_t __41__RedirectHandler_evaluate_forThreshold___block_invoke(uint64_t res
     v11 = redirectLogHandle;
     if (os_log_type_enabled(redirectLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Unexpected additional negative feedback on a URL", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Unexpected additional negative feedback on a URL", &v12, 2u);
     }
   }
 
   [(NSMutableDictionary *)self->_ignoredDestinations setObject:v9 forKey:feedbackCopy];
   ++self->_numIgnored;
   ++self->_numNegatives;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pruneDir:(id)dir
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   array = [MEMORY[0x277CBEB18] array];
   date = [MEMORY[0x277CBEAA8] date];
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = __Block_byref_object_copy__12;
-  v32[4] = __Block_byref_object_dispose__12;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x3032000000;
+  v31[3] = __Block_byref_object_copy__12;
+  v31[4] = __Block_byref_object_dispose__12;
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__12;
-  v30 = __Block_byref_object_dispose__12;
-  v31 = 0;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __29__RedirectHandler__pruneDir___block_invoke;
-  v21 = &unk_27898E600;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__12;
+  v29 = __Block_byref_object_dispose__12;
+  v30 = 0;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __29__RedirectHandler__pruneDir___block_invoke;
+  v20 = &unk_27898E600;
   v7 = date;
-  v22 = v7;
+  v21 = v7;
   v8 = array;
-  v23 = v8;
-  v24 = v32;
-  v25 = &v26;
-  [dirCopy enumerateKeysAndObjectsUsingBlock:&v18];
+  v22 = v8;
+  v23 = v31;
+  v24 = &v25;
+  [dirCopy enumerateKeysAndObjectsUsingBlock:&v17];
   if ([v8 count])
   {
     v9 = redirectLogHandle;
@@ -291,7 +287,7 @@ uint64_t __41__RedirectHandler_evaluate_forThreshold___block_invoke(uint64_t res
       v11 = v10;
       uTF8String = [v10 UTF8String];
       *buf = 136315138;
-      v35 = uTF8String;
+      v34 = uTF8String;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Prune timed out entries %s", buf, 0xCu);
     }
 
@@ -303,21 +299,19 @@ uint64_t __41__RedirectHandler_evaluate_forThreshold___block_invoke(uint64_t res
     v13 = redirectLogHandle;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [v27[5] description];
+      v14 = [v26[5] description];
       v15 = v14;
       uTF8String2 = [v14 UTF8String];
       *buf = 136315138;
-      v35 = uTF8String2;
+      v34 = uTF8String2;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "Prune oldest entry %s", buf, 0xCu);
     }
 
-    [dirCopy removeObjectForKey:v27[5]];
+    [dirCopy removeObjectForKey:v26[5]];
   }
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(v32, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(v31, 8);
 }
 
 void __29__RedirectHandler__pruneDir___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -494,7 +488,7 @@ LABEL_8:
 
 - (id)generateAdditionalInfo:(id)info
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB38];
   infoCopy = info;
   v6 = objc_alloc_init(v4);
@@ -514,12 +508,10 @@ LABEL_8:
   {
     v14 = v13;
     v15 = [v6 description];
-    v18 = 136315138;
+    v17 = 136315138;
     uTF8String = [v15 UTF8String];
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "generateAdditionalInfo returns %s", &v18, 0xCu);
+    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "generateAdditionalInfo returns %s", &v17, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

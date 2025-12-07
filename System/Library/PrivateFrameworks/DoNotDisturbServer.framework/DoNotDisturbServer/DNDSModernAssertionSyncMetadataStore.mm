@@ -273,30 +273,30 @@ LABEL_38:
 
 + (id)newWithDictionaryRepresentation:(id)representation context:(id)context
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = [representationCopy bs_safeObjectForKey:@"lastReceivedStoreDate" ofType:objc_opt_class()];
   v6 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v5, "count")}];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
+  v7 = [obj countByEnumeratingWithState:&v57 objects:v63 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v59;
+    v9 = *v58;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v59 != v9)
+        if (*v58 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v58 + 1) + 8 * i);
+        v11 = *(*(&v57 + 1) + 8 * i);
         v12 = MEMORY[0x277CBEAA8];
         v13 = [obj objectForKeyedSubscript:v11];
         [v13 doubleValue];
@@ -304,75 +304,75 @@ LABEL_38:
         [v6 setObject:v14 forKeyedSubscript:v11];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
+      v8 = [obj countByEnumeratingWithState:&v57 objects:v63 count:16];
     }
 
     while (v8);
   }
 
-  v45 = v6;
+  v44 = v6;
 
   v15 = [representationCopy bs_safeObjectForKey:@"lastSentStoreDate" ofType:objc_opt_class()];
   v16 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v15, "count")}];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v48 = v15;
-  v17 = [v48 countByEnumeratingWithState:&v54 objects:v63 count:16];
+  v47 = v15;
+  v17 = [v47 countByEnumeratingWithState:&v53 objects:v62 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v55;
+    v19 = *v54;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v55 != v19)
+        if (*v54 != v19)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v47);
         }
 
-        v21 = *(*(&v54 + 1) + 8 * j);
+        v21 = *(*(&v53 + 1) + 8 * j);
         v22 = MEMORY[0x277CBEAA8];
-        v23 = [v48 objectForKeyedSubscript:v21];
+        v23 = [v47 objectForKeyedSubscript:v21];
         [v23 doubleValue];
         v24 = [v22 dateWithTimeIntervalSinceReferenceDate:?];
         [v16 setObject:v24 forKeyedSubscript:v21];
       }
 
-      v18 = [v48 countByEnumeratingWithState:&v54 objects:v63 count:16];
+      v18 = [v47 countByEnumeratingWithState:&v53 objects:v62 count:16];
     }
 
     while (v18);
   }
 
-  v44 = v16;
+  v43 = v16;
 
-  v47 = representationCopy;
+  v46 = representationCopy;
   v25 = [representationCopy bs_safeObjectForKey:@"pendingLastSentStoreDate" ofType:objc_opt_class()];
   v26 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v25, "count")}];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v27 = v25;
-  v28 = [v27 countByEnumeratingWithState:&v50 objects:v62 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v49 objects:v61 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v51;
+    v30 = *v50;
     do
     {
       for (k = 0; k != v29; ++k)
       {
-        if (*v51 != v30)
+        if (*v50 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v50 + 1) + 8 * k);
-        v33 = [v27 objectForKeyedSubscript:{v32, v44}];
+        v32 = *(*(&v49 + 1) + 8 * k);
+        v33 = [v27 objectForKeyedSubscript:{v32, v43}];
         v34 = MEMORY[0x277CBEAA8];
         v35 = [v33 objectForKeyedSubscript:@"lastUpdateDate"];
         [v35 doubleValue];
@@ -386,43 +386,42 @@ LABEL_38:
         [v26 setObject:v40 forKeyedSubscript:v32];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v49 objects:v61 count:16];
     }
 
     while (v29);
   }
 
-  v41 = [[self alloc] _initWithLastReceivedStoreDate:v45 lastSentStoreDate:v44 pendingLastSentStoreDate:v26];
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = [[self alloc] _initWithLastReceivedStoreDate:v44 lastSentStoreDate:v43 pendingLastSentStoreDate:v26];
   return v41;
 }
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_lastReceivedStoreDate, "count")}];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   selfCopy = self;
   v6 = self->_lastReceivedStoreDate;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v56 objects:v64 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v55 objects:v63 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v57;
+    v9 = *v56;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v57 != v9)
+        if (*v56 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v56 + 1) + 8 * i);
+        v11 = *(*(&v55 + 1) + 8 * i);
         v12 = MEMORY[0x277CCABB0];
         v13 = [(NSMutableDictionary *)selfCopy->_lastReceivedStoreDate objectForKeyedSubscript:v11];
         [v13 timeIntervalSinceReferenceDate];
@@ -430,37 +429,37 @@ LABEL_38:
         [v5 setObject:v14 forKeyedSubscript:v11];
       }
 
-      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v55 objects:v63 count:16];
     }
 
     while (v8);
   }
 
-  v43 = v5;
+  v42 = v5;
   v15 = [v5 copy];
   [dictionary setObject:v15 forKeyedSubscript:@"lastReceivedStoreDate"];
 
   v16 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](selfCopy->_lastSentStoreDate, "count")}];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v17 = selfCopy->_lastSentStoreDate;
-  v18 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v52 objects:v63 count:16];
+  v18 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v51 objects:v62 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v53;
+    v20 = *v52;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v53 != v20)
+        if (*v52 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v52 + 1) + 8 * j);
+        v22 = *(*(&v51 + 1) + 8 * j);
         v23 = MEMORY[0x277CCABB0];
         v24 = [(NSMutableDictionary *)selfCopy->_lastSentStoreDate objectForKeyedSubscript:v22];
         [v24 timeIntervalSinceReferenceDate];
@@ -468,65 +467,63 @@ LABEL_38:
         [v16 setObject:v25 forKeyedSubscript:v22];
       }
 
-      v19 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v52 objects:v63 count:16];
+      v19 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v51 objects:v62 count:16];
     }
 
     while (v19);
   }
 
-  v42 = v16;
+  v41 = v16;
   v26 = [v16 copy];
-  v44 = dictionary;
+  v43 = dictionary;
   [dictionary setObject:v26 forKeyedSubscript:@"lastSentStoreDate"];
 
-  v46 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](selfCopy->_pendingLastSentStoreDate, "count")}];
+  v45 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](selfCopy->_pendingLastSentStoreDate, "count")}];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = selfCopy->_pendingLastSentStoreDate;
-  v27 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v48 objects:v62 count:16];
+  v27 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v47 objects:v61 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v49;
+    v29 = *v48;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v49 != v29)
+        if (*v48 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = *(*(&v48 + 1) + 8 * k);
+        v31 = *(*(&v47 + 1) + 8 * k);
         v32 = [(NSMutableDictionary *)selfCopy->_pendingLastSentStoreDate objectForKeyedSubscript:v31];
-        v60[0] = @"lastUpdateDate";
+        v59[0] = @"lastUpdateDate";
         v33 = MEMORY[0x277CCABB0];
         lastUpdateDate = [v32 lastUpdateDate];
         [lastUpdateDate timeIntervalSinceReferenceDate];
         v35 = [v33 numberWithDouble:?];
-        v60[1] = @"deviceIdentifiers";
-        v61[0] = v35;
+        v59[1] = @"deviceIdentifiers";
+        v60[0] = v35;
         deviceIdentifiers = [v32 deviceIdentifiers];
         allObjects = [deviceIdentifiers allObjects];
-        v61[1] = allObjects;
-        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
-        [v46 setObject:v38 forKeyedSubscript:v31];
+        v60[1] = allObjects;
+        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
+        [v45 setObject:v38 forKeyedSubscript:v31];
       }
 
-      v28 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v48 objects:v62 count:16];
+      v28 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v47 objects:v61 count:16];
     }
 
     while (v28);
   }
 
-  v39 = [v46 copy];
-  [v44 setObject:v39 forKeyedSubscript:@"pendingLastSentStoreDate"];
+  v39 = [v45 copy];
+  [v43 setObject:v39 forKeyedSubscript:@"pendingLastSentStoreDate"];
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v44;
+  return v43;
 }
 
 @end

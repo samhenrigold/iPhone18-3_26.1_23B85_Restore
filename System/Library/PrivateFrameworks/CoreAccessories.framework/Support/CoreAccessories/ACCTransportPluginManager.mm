@@ -15,6 +15,8 @@
 - (id)certificateSerialForConnectionWithUUID:(id)d;
 - (id)certificateSerialStringForConnectionWithUUID:(id)d;
 - (id)connectionUUIDForEndpointWithUUID:(id)d;
+- (id)createConnectionWithType:(int)type andIdentifier:(id)identifier;
+- (id)createEndpointWithTransportType:(int)type andProtocol:(int)protocol andIdentifier:(id)identifier dataOutHandler:(id)handler forConnectionWithUUID:(id)d;
 - (id)endpointUUIDsForConnectionWithUUID:(id)d;
 - (id)identifierForConnectionWithUUID:(id)d;
 - (id)identifierForEndpointWithUUID:(id)d;
@@ -341,6 +343,22 @@
   return v13;
 }
 
+- (id)createConnectionWithType:(int)type andIdentifier:(id)identifier
+{
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = __68__ACCTransportPluginManager_createConnectionWithType_andIdentifier___block_invoke;
+  v6[3] = &unk_1002272B8;
+  v6[4] = self;
+  v4 = acc_manager_newConnection(*&type, identifier, v6);
+  if (v4)
+  {
+    v4 = *v4;
+  }
+
+  return v4;
+}
+
 - (BOOL)setSupervisedTransportsRestricted:(BOOL)restricted forConnectionWithUUID:(id)d
 {
   v14 = 0;
@@ -389,7 +407,7 @@
   return v8 & 1;
 }
 
-uint64_t __85__ACCTransportPluginManager_setSupervisedTransportsRestricted_forConnectionWithUUID___block_invoke(uint64_t a1, uint64_t *a2)
+uint64_t __85__ACCTransportPluginManager_setSupervisedTransportsRestricted_forConnectionWithUUID___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (gLogObjects)
   {
@@ -419,7 +437,7 @@ uint64_t __85__ACCTransportPluginManager_setSupervisedTransportsRestricted_forCo
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __85__ACCTransportPluginManager_setSupervisedTransportsRestricted_forConnectionWithUUID___block_invoke_cold_2(a1);
+    __85__ACCTransportPluginManager_setSupervisedTransportsRestricted_forConnectionWithUUID___block_invoke_cold_2();
   }
 
   *(*(*(a1 + 40) + 8) + 24) = acc_connection_setSupervisedTransportsRestricted(a2, *(a1 + 48));
@@ -506,7 +524,7 @@ uint64_t __65__ACCTransportPluginManager_setProperties_forConnectionWithUUID___b
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __65__ACCTransportPluginManager_setProperties_forConnectionWithUUID___block_invoke_cold_2(a1);
+    __65__ACCTransportPluginManager_setProperties_forConnectionWithUUID___block_invoke_cold_2();
   }
 
   *(*(*(a1 + 48) + 8) + 24) = acc_connection_setProperties(a2, *(a1 + 40));
@@ -595,13 +613,38 @@ uint64_t __102__ACCTransportPluginManager_setAuthenticationStatus_andCertificate
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __102__ACCTransportPluginManager_setAuthenticationStatus_andCertificateData_authCTA_forConnectionWithUUID___block_invoke_cold_2(a1);
+    __102__ACCTransportPluginManager_setAuthenticationStatus_andCertificateData_authCTA_forConnectionWithUUID___block_invoke_cold_2();
   }
 
   *(*(*(a1 + 48) + 8) + 24) = acc_connection_setAuthCertData(a2, *(a1 + 40));
   *(*(*(a1 + 48) + 8) + 24) &= acc_connection_setAuthCTAAAllowed(a2, *(a1 + 60));
   *(*(*(a1 + 48) + 8) + 24) &= acc_connection_setAuthStatus(a2, 0, *(a1 + 56));
   return 1;
+}
+
+- (id)createEndpointWithTransportType:(int)type andProtocol:(int)protocol andIdentifier:(id)identifier dataOutHandler:(id)handler forConnectionWithUUID:(id)d
+{
+  v9 = *&protocol;
+  v10 = *&type;
+  handlerCopy = handler;
+  v13 = acc_manager_newEndpointForConnectionWithUUID(d, v10, v9, identifier);
+  if (v13)
+  {
+    v14 = *(v13 + 16);
+    if (v14)
+    {
+      endpointDataOutHandlers = [(ACCTransportPluginManager *)self endpointDataOutHandlers];
+      v16 = objc_retainBlock(handlerCopy);
+      [endpointDataOutHandlers setObject:v16 forKey:v14];
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
 }
 
 - (BOOL)setAccessoryInfo:(id)info forEndpointWithUUID:(id)d
@@ -684,10 +727,9 @@ uint64_t __66__ACCTransportPluginManager_setAccessoryInfo_forEndpointWithUUID___
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __66__ACCTransportPluginManager_setAccessoryInfo_forEndpointWithUUID___block_invoke_cold_2(a1);
+    __66__ACCTransportPluginManager_setAccessoryInfo_forEndpointWithUUID___block_invoke_cold_2();
   }
 
-  v7 = *(a1 + 40);
   *(*(*(a1 + 48) + 8) + 24) = acc_endpoint_setAccessoryInfoOverridesWithDictionary(a2);
   return 1;
 }
@@ -740,43 +782,6 @@ uint64_t __66__ACCTransportPluginManager_setAccessoryInfo_forEndpointWithUUID___
 
   _Block_object_dispose(&v16, 8);
   return v10 & 1;
-}
-
-uint64_t __63__ACCTransportPluginManager_setProperties_forEndpointWithUUID___block_invoke(uint64_t a1, uint64_t a2)
-{
-  if (gLogObjects)
-  {
-    v4 = gNumLogObjects < 2;
-  }
-
-  else
-  {
-    v4 = 1;
-  }
-
-  if (v4)
-  {
-    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      platform_connectionInfo_configStreamGetCategories_cold_2();
-    }
-
-    v6 = &_os_log_default;
-    v5 = &_os_log_default;
-  }
-
-  else
-  {
-    v6 = *(gLogObjects + 8);
-  }
-
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    __63__ACCTransportPluginManager_setProperties_forEndpointWithUUID___block_invoke_cold_2(a1);
-  }
-
-  *(*(*(a1 + 48) + 8) + 24) = acc_endpoint_setProperties(a2, *(a1 + 40));
-  return 1;
 }
 
 - (id)connectionUUIDForEndpointWithUUID:(id)d
@@ -934,9 +939,9 @@ uint64_t __63__ACCTransportPluginManager_connectionUUIDForEndpointWithUUID___blo
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x2020000000;
-  v13 = 11;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 11;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __65__ACCTransportPluginManager_connectionTypeForConnectionWithUUID___block_invoke;
@@ -963,9 +968,9 @@ uint64_t __63__ACCTransportPluginManager_connectionUUIDForEndpointWithUUID___blo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager connectionTypeForConnectionWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v16 = "[ACCTransportPluginManager connectionTypeForConnectionWithUUID:]";
+      v17 = 2112;
+      v18 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find connectionUUID %@", buf, 0x16u);
     }
   }
@@ -988,10 +993,10 @@ uint64_t __63__ACCTransportPluginManager_connectionUUIDForEndpointWithUUID___blo
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy connectionTypeForConnectionWithUUID:v12];
+    [ACCTransportPluginManager connectionTypeForConnectionWithUUID:];
   }
 
-  v8 = *(v12[0] + 24);
+  v8 = *(v12 + 6);
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1001,11 +1006,11 @@ uint64_t __63__ACCTransportPluginManager_connectionUUIDForEndpointWithUUID___blo
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __66__ACCTransportPluginManager_certificateDataForConnectionWithUUID___block_invoke;
@@ -1032,9 +1037,9 @@ uint64_t __63__ACCTransportPluginManager_connectionUUIDForEndpointWithUUID___blo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager certificateDataForConnectionWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager certificateDataForConnectionWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find connectionUUID %@", buf, 0x16u);
     }
   }
@@ -1057,10 +1062,10 @@ uint64_t __63__ACCTransportPluginManager_connectionUUIDForEndpointWithUUID___blo
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy certificateDataForConnectionWithUUID:v12];
+    [ACCTransportPluginManager certificateDataForConnectionWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1084,11 +1089,11 @@ uint64_t __66__ACCTransportPluginManager_certificateDataForConnectionWithUUID___
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __68__ACCTransportPluginManager_certificateSerialForConnectionWithUUID___block_invoke;
@@ -1115,9 +1120,9 @@ uint64_t __66__ACCTransportPluginManager_certificateDataForConnectionWithUUID___
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager certificateSerialForConnectionWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager certificateSerialForConnectionWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find connectionUUID %@", buf, 0x16u);
     }
   }
@@ -1140,10 +1145,10 @@ uint64_t __66__ACCTransportPluginManager_certificateDataForConnectionWithUUID___
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy certificateSerialForConnectionWithUUID:v12];
+    [ACCTransportPluginManager certificateSerialForConnectionWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1167,11 +1172,11 @@ uint64_t __68__ACCTransportPluginManager_certificateSerialForConnectionWithUUID_
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __74__ACCTransportPluginManager_certificateSerialStringForConnectionWithUUID___block_invoke;
@@ -1198,9 +1203,9 @@ uint64_t __68__ACCTransportPluginManager_certificateSerialForConnectionWithUUID_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager certificateSerialStringForConnectionWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager certificateSerialStringForConnectionWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find connectionUUID %@", buf, 0x16u);
     }
   }
@@ -1223,10 +1228,10 @@ uint64_t __68__ACCTransportPluginManager_certificateSerialForConnectionWithUUID_
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy certificateSerialStringForConnectionWithUUID:v12];
+    [ACCTransportPluginManager certificateSerialStringForConnectionWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1250,11 +1255,11 @@ uint64_t __74__ACCTransportPluginManager_certificateSerialStringForConnectionWit
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWithUUID___block_invoke;
@@ -1281,9 +1286,9 @@ uint64_t __74__ACCTransportPluginManager_certificateSerialStringForConnectionWit
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager certificateCapabilitiesForConnectionWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager certificateCapabilitiesForConnectionWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find connectionUUID %@", buf, 0x16u);
     }
   }
@@ -1306,10 +1311,10 @@ uint64_t __74__ACCTransportPluginManager_certificateSerialStringForConnectionWit
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy certificateCapabilitiesForConnectionWithUUID:v12];
+    [ACCTransportPluginManager certificateCapabilitiesForConnectionWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1333,9 +1338,9 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x2020000000;
-  v13 = 18;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 18;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __62__ACCTransportPluginManager_transportTypeForEndpointWithUUID___block_invoke;
@@ -1362,9 +1367,9 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager transportTypeForEndpointWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v16 = "[ACCTransportPluginManager transportTypeForEndpointWithUUID:]";
+      v17 = 2112;
+      v18 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find endpointUUID %@", buf, 0x16u);
     }
   }
@@ -1387,10 +1392,10 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy transportTypeForEndpointWithUUID:v12];
+    [ACCTransportPluginManager transportTypeForEndpointWithUUID:];
   }
 
-  v8 = *(v12[0] + 24);
+  v8 = *(v12 + 6);
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1400,9 +1405,9 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x2020000000;
-  v13 = 19;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 19;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __57__ACCTransportPluginManager_protocolForEndpointWithUUID___block_invoke;
@@ -1429,9 +1434,9 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager protocolForEndpointWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v16 = "[ACCTransportPluginManager protocolForEndpointWithUUID:]";
+      v17 = 2112;
+      v18 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find endpointUUID %@", buf, 0x16u);
     }
   }
@@ -1454,10 +1459,10 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy protocolForEndpointWithUUID:v12];
+    [ACCTransportPluginManager protocolForEndpointWithUUID:];
   }
 
-  v8 = *(v12[0] + 24);
+  v8 = *(v12 + 6);
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1467,11 +1472,11 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __61__ACCTransportPluginManager_identifierForConnectionWithUUID___block_invoke;
@@ -1498,9 +1503,9 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager identifierForConnectionWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager identifierForConnectionWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find connectionUUID %@", buf, 0x16u);
     }
   }
@@ -1523,10 +1528,10 @@ uint64_t __74__ACCTransportPluginManager_certificateCapabilitiesForConnectionWit
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy identifierForConnectionWithUUID:v12];
+    [ACCTransportPluginManager identifierForConnectionWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1546,11 +1551,11 @@ uint64_t __61__ACCTransportPluginManager_identifierForConnectionWithUUID___block
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __59__ACCTransportPluginManager_identifierForEndpointWithUUID___block_invoke;
@@ -1577,9 +1582,9 @@ uint64_t __61__ACCTransportPluginManager_identifierForConnectionWithUUID___block
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager identifierForEndpointWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager identifierForEndpointWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find endpointUUID %@", buf, 0x16u);
     }
   }
@@ -1602,10 +1607,10 @@ uint64_t __61__ACCTransportPluginManager_identifierForConnectionWithUUID___block
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy identifierForEndpointWithUUID:v12];
+    [ACCTransportPluginManager identifierForEndpointWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1625,11 +1630,11 @@ uint64_t __59__ACCTransportPluginManager_identifierForEndpointWithUUID___block_i
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __61__ACCTransportPluginManager_propertiesForConnectionWithUUID___block_invoke;
@@ -1656,9 +1661,9 @@ uint64_t __59__ACCTransportPluginManager_identifierForEndpointWithUUID___block_i
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager propertiesForConnectionWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager propertiesForConnectionWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find connectionUUID %@", buf, 0x16u);
     }
   }
@@ -1681,10 +1686,10 @@ uint64_t __59__ACCTransportPluginManager_identifierForEndpointWithUUID___block_i
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy propertiesForConnectionWithUUID:v12];
+    [ACCTransportPluginManager propertiesForConnectionWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1704,11 +1709,11 @@ uint64_t __61__ACCTransportPluginManager_propertiesForConnectionWithUUID___block
 {
   dCopy = d;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__1;
-  v12[3] = __Block_byref_object_dispose__1;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = __59__ACCTransportPluginManager_propertiesForEndpointWithUUID___block_invoke;
@@ -1735,9 +1740,9 @@ uint64_t __61__ACCTransportPluginManager_propertiesForConnectionWithUUID___block
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[ACCTransportPluginManager propertiesForEndpointWithUUID:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v18 = "[ACCTransportPluginManager propertiesForEndpointWithUUID:]";
+      v19 = 2112;
+      v20 = dCopy;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: didn't find endpointUUID %@", buf, 0x16u);
     }
   }
@@ -1760,10 +1765,10 @@ uint64_t __61__ACCTransportPluginManager_propertiesForConnectionWithUUID___block
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportPluginManager *)dCopy propertiesForEndpointWithUUID:v12];
+    [ACCTransportPluginManager propertiesForEndpointWithUUID:];
   }
 
-  v8 = *(v12[0] + 40);
+  v8 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v8;
@@ -1857,7 +1862,9 @@ uint64_t __42__ACCTransportPluginManager_sharedManager__block_invoke(uint64_t a1
 - (void)addTransportPlugInBundleSearchPaths
 {
   pluginBundleSearchPaths = [self pluginBundleSearchPaths];
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "Added bundle search paths: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = pluginBundleSearchPaths;
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "Added bundle search paths: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)loadAllBundles
@@ -1865,7 +1872,9 @@ uint64_t __42__ACCTransportPluginManager_sharedManager__block_invoke(uint64_t a1
   a2->receiver = self;
   a2->super_class = ACCTransportPluginManager;
   pluginBundles = [(objc_super *)a2 pluginBundles];
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCTransportPluginManager.pluginBundles: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = pluginBundles;
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCTransportPluginManager.pluginBundles: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)initAllPlugIns
@@ -1873,144 +1882,128 @@ uint64_t __42__ACCTransportPluginManager_sharedManager__block_invoke(uint64_t a1
   a2->receiver = self;
   a2->super_class = ACCTransportPluginManager;
   pluginInstances = [(objc_super *)a2 pluginInstances];
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCTransportPluginManager.pluginInstances: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = pluginInstances;
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCTransportPluginManager.pluginInstances: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void __85__ACCTransportPluginManager_setSupervisedTransportsRestricted_forConnectionWithUUID___block_invoke_cold_2(uint64_t a1)
+void __85__ACCTransportPluginManager_setSupervisedTransportsRestricted_forConnectionWithUUID___block_invoke_cold_2()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 48);
   OUTLINED_FUNCTION_11_5();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void __65__ACCTransportPluginManager_setProperties_forConnectionWithUUID___block_invoke_cold_2(uint64_t a1)
+void __65__ACCTransportPluginManager_setProperties_forConnectionWithUUID___block_invoke_cold_2()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_11_5();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __102__ACCTransportPluginManager_setAuthenticationStatus_andCertificateData_authCTA_forConnectionWithUUID___block_invoke_cold_2(uint64_t a1)
+void __66__ACCTransportPluginManager_setAccessoryInfo_forEndpointWithUUID___block_invoke_cold_2()
 {
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 60);
-  v8 = *(a1 + 56);
-  v9 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x2Cu);
-}
-
-void __66__ACCTransportPluginManager_setAccessoryInfo_forEndpointWithUUID___block_invoke_cold_2(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __63__ACCTransportPluginManager_setProperties_forEndpointWithUUID___block_invoke_cold_2(uint64_t a1)
+void __63__ACCTransportPluginManager_setProperties_forEndpointWithUUID___block_invoke_cold_2()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)connectionTypeForConnectionWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)connectionTypeForConnectionWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_8_7(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_8_7(__stack_chk_guard);
   OUTLINED_FUNCTION_2_19();
   OUTLINED_FUNCTION_7_7();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-- (void)certificateDataForConnectionWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)certificateDataForConnectionWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)certificateSerialForConnectionWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)certificateSerialForConnectionWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)certificateSerialStringForConnectionWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)certificateSerialStringForConnectionWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)certificateCapabilitiesForConnectionWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)certificateCapabilitiesForConnectionWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)transportTypeForEndpointWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)transportTypeForEndpointWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_8_7(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_8_7(__stack_chk_guard);
   OUTLINED_FUNCTION_2_19();
   OUTLINED_FUNCTION_7_7();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-- (void)protocolForEndpointWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)protocolForEndpointWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_8_7(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_8_7(__stack_chk_guard);
   OUTLINED_FUNCTION_2_19();
   OUTLINED_FUNCTION_7_7();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-- (void)identifierForConnectionWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)identifierForConnectionWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)identifierForEndpointWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)identifierForEndpointWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)propertiesForConnectionWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)propertiesForConnectionWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)propertiesForEndpointWithUUID:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)propertiesForEndpointWithUUID:.cold.3()
 {
-  OUTLINED_FUNCTION_4_15(a2, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_15(__stack_chk_guard);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 @end

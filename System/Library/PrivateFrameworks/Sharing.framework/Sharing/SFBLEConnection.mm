@@ -38,7 +38,7 @@
   if (self->_wpNearby)
   {
 LABEL_8:
-    v4 = [SFBLEAdvertiser dealloc];
+    [SFBLEAdvertiser dealloc];
     [(SFBLEConnection *)v4 description];
     return;
   }
@@ -61,11 +61,19 @@ LABEL_8:
 - (NSString)description
 {
   identifier = [(SFBLEDevice *)self->_peerDevice identifier];
-  self->_connected;
-  [(NSMutableSet *)self->_clients count];
-  v4 = NSPrintF();
+  if (self->_connected)
+  {
+    v4 = "yes";
+  }
 
-  return v4;
+  else
+  {
+    v4 = "no";
+  }
+
+  v5 = NSPrintF("SFBLEConnection %{ptr}, Peer %@, Connected %s, Clients %ld", self, identifier, v4, [(NSMutableSet *)self->_clients count]);
+
+  return v5;
 }
 
 - (void)setAcceptor:(BOOL)acceptor
@@ -83,10 +91,10 @@ LABEL_8:
 void __31__SFBLEConnection_setAcceptor___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = **(v2 + 80);
-  if (v3 <= 30)
+  v3 = *(v2 + 80);
+  if (*v3 <= 30)
   {
-    if (v3 == -1)
+    if (*v3 == -1)
     {
       v6 = _LogCategory_Initialize();
       v2 = *(a1 + 32);
@@ -95,7 +103,7 @@ void __31__SFBLEConnection_setAcceptor___block_invoke(uint64_t a1)
         goto LABEL_10;
       }
 
-      v14 = *(v2 + 80);
+      v3 = *(v2 + 80);
     }
 
     v4 = "no";
@@ -114,9 +122,7 @@ void __31__SFBLEConnection_setAcceptor___block_invoke(uint64_t a1)
       v4 = "yes";
     }
 
-    v15 = v5;
-    v16 = v4;
-    LogPrintF();
+    LogPrintF(v3, "[SFBLEConnection setAcceptor:]_block_invoke", 30, "Set acceptor: %s -> %s\n", v5, v4);
     v2 = *(a1 + 32);
   }
 
@@ -144,12 +150,12 @@ LABEL_10:
         *(v12 + 40) = v11;
 
         [*(*(a1 + 32) + 40) setDispatchQueue:*(*(a1 + 32) + 136)];
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __31__SFBLEConnection_setAcceptor___block_invoke_2;
-        v17[3] = &unk_1E788B198;
-        v18 = *(a1 + 32);
-        [*(v18 + 40) setActionHandler:v17];
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __31__SFBLEConnection_setAcceptor___block_invoke_2;
+        v14[3] = &unk_1E788B198;
+        v15 = *(a1 + 32);
+        [*(v15 + 40) setActionHandler:v14];
         [*(*(a1 + 32) + 40) setInterval:3.0];
         [*(*(a1 + 32) + 40) startDirect];
         v8 = *(a1 + 32);
@@ -180,7 +186,7 @@ LABEL_10:
   objc_sync_enter(obj);
   if (obj->_activateCalled)
   {
-    FatalErrorF();
+    FatalErrorF("Attempt to set dispatch queue after activate has been called");
     __break(1u);
   }
 
@@ -238,10 +244,10 @@ LABEL_10:
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -251,7 +257,7 @@ LABEL_10:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEConnection _invalidate]", 30, "Invalidating\n");
   }
 
 LABEL_6:
@@ -267,20 +273,20 @@ LABEL_6:
   if (self->_connected || self->_connecting)
   {
     *&self->_connected = 0;
-    v6 = self->_ucat->var0;
-    if (v6 <= 30)
+    v6 = self->_ucat;
+    if (v6->var0 <= 30)
     {
-      if (v6 == -1)
+      if (v6->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_12;
         }
 
-        v21 = self->_ucat;
+        v6 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v6, "[SFBLEConnection _invalidate]", 30, "Disconnect\n");
     }
 
 LABEL_12:
@@ -300,23 +306,23 @@ LABEL_12:
 
   self->_wpNearby = 0;
 
-  v11 = self->_ucat->var0;
-  if (v11 > 30)
+  v11 = self->_ucat;
+  if (v11->var0 > 30)
   {
     goto LABEL_19;
   }
 
-  if (v11 == -1)
+  if (v11->var0 == -1)
   {
     if (!_LogCategory_Initialize())
     {
       goto LABEL_19;
     }
 
-    v20 = self->_ucat;
+    v11 = self->_ucat;
   }
 
-  LogPrintF();
+  LogPrintF(v11, "[SFBLEConnection _invalidate]", 30, "Invalidated\n");
 LABEL_19:
   invalidationHandler = self->_invalidationHandler;
   if (invalidationHandler)
@@ -362,12 +368,12 @@ LABEL_19:
 
 - (void)_connectIfNeeded
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  var0 = self->_ucat->var0;
-  if (var0 <= 10)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 10)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -377,7 +383,7 @@ LABEL_19:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEConnection _connectIfNeeded]", 10, "ConnectIfNeeded\n");
   }
 
 LABEL_5:
@@ -392,61 +398,59 @@ LABEL_5:
 
     if ((self->_sessionFlags & 0x1000) != 0)
     {
-      [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBConnectOptionDoNoDisconnectOnEncryptionFailure"];
+      v6 = [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBConnectOptionDoNoDisconnectOnEncryptionFailure"];
     }
 
     if (self->_latencyCritical)
     {
-      v6 = getWPNearbyKeyConnectLatencyCritical();
-      [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v6];
+      v7 = getWPNearbyKeyConnectLatencyCritical(v6);
+      [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v7];
     }
 
     if (self->_lePipeCapable)
     {
-      v7 = getWPNearbyLEPipeCapable();
-      [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v7];
+      v8 = getWPNearbyLEPipeCapable(v6);
+      [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v8];
     }
 
     if (self->_useCase)
     {
-      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-      v17[0] = v8;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-      v10 = getWPNearbyKeyUseCaseList();
-      [v4 setObject:v9 forKeyedSubscript:v10];
+      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+      v15[0] = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v11 = getWPNearbyKeyUseCaseList(v10);
+      [v4 setObject:v10 forKeyedSubscript:v11];
     }
 
-    v11 = self->_ucat->var0;
-    if (v11 > 30)
+    v12 = self->_ucat;
+    if (v12->var0 > 30)
     {
       goto LABEL_20;
     }
 
-    if (v11 == -1)
+    if (v12->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_20;
       }
 
-      v16 = self->_ucat;
+      v12 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v12, "[SFBLEConnection _connectIfNeeded]", 30, "Connecting with options %@\n", v4);
 LABEL_20:
     self->_connectStartTime = CFAbsoluteTimeGetCurrent();
     wpNearby = self->_wpNearby;
     identifier = [(SFBLEDevice *)self->_peerDevice identifier];
     [(WPNearby *)wpNearby connectToPeer:identifier withOptions:v4];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanupQueuedData:(int)data
 {
   selfCopy = self;
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   currentData = self->_currentData;
   if (currentData)
   {
@@ -461,7 +465,7 @@ LABEL_20:
         v9 = MEMORY[0x1E696ABC0];
         v10 = selfCopy;
         v11 = *MEMORY[0x1E696A768];
-        v45 = *MEMORY[0x1E696A578];
+        v44 = *MEMORY[0x1E696A578];
         v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
         v13 = v12;
         v14 = @"?";
@@ -470,8 +474,8 @@ LABEL_20:
           v14 = v12;
         }
 
-        v46[0] = v14;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+        v45[0] = v14;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
         v16 = v11;
         selfCopy = v10;
         v17 = [v9 errorWithDomain:v16 code:data userInfo:v15];
@@ -488,29 +492,29 @@ LABEL_20:
     selfCopy->_currentData = 0;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v35 = selfCopy;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v34 = selfCopy;
   v19 = selfCopy->_dataSendQueue;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v39;
-    v37 = *MEMORY[0x1E696A768];
-    v36 = *MEMORY[0x1E696A578];
+    v22 = *v38;
+    v36 = *MEMORY[0x1E696A768];
+    v35 = *MEMORY[0x1E696A578];
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v39 != v22)
+        if (*v38 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v38 + 1) + 8 * i);
+        v24 = *(*(&v37 + 1) + 8 * i);
         completion3 = [v24 completion];
 
         if (completion3)
@@ -520,7 +524,7 @@ LABEL_20:
           if (data)
           {
             v28 = MEMORY[0x1E696ABC0];
-            v42 = v36;
+            v41 = v35;
             v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
             v30 = v29;
             v31 = @"?";
@@ -529,9 +533,9 @@ LABEL_20:
               v31 = v29;
             }
 
-            v43 = v31;
-            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-            v33 = [v28 errorWithDomain:v37 code:data userInfo:v32];
+            v42 = v31;
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+            v33 = [v28 errorWithDomain:v36 code:data userInfo:v32];
             (v27)[2](v27, v33);
           }
 
@@ -542,14 +546,13 @@ LABEL_20:
         }
       }
 
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v21);
   }
 
-  [(NSMutableArray *)v35->_dataSendQueue removeAllObjects];
-  v34 = *MEMORY[0x1E69E9840];
+  [(NSMutableArray *)v34->_dataSendQueue removeAllObjects];
 }
 
 - (void)addClient:(id)client
@@ -585,51 +588,26 @@ LABEL_20:
 
 - (SFBLEConnection)initWithDevice:(id)device acceptor:(BOOL)acceptor
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
+  v17 = 0;
   v18 = 0;
   v19[0] = 0;
-  v19[1] = 0;
-  v17 = 0;
-  v16.receiver = self;
-  v16.super_class = SFBLEConnection;
-  v8 = [(SFBLEConnection *)&v16 init];
+  v16 = 0;
+  v15.receiver = self;
+  v15.super_class = SFBLEConnection;
+  v8 = [(SFBLEConnection *)&v15 init];
   v9 = v8;
-  if (!v8)
-  {
-    goto LABEL_4;
-  }
-
-  v8->_acceptor = acceptor;
-  v8->_bleEncrypted = 1;
-  v10 = SFMainQueue(v8);
-  dispatchQueue = v9->_dispatchQueue;
-  v9->_dispatchQueue = v10;
-
-  objc_storeStrong(&v9->_peerDevice, device);
-  identifier = [deviceCopy identifier];
-  [identifier getUUIDBytes:v19];
-
-  ASPrintF();
-  if (!v18)
-  {
-    goto LABEL_4;
-  }
-
-  v9->_ucat = LogCategoryCreateEx();
-  free(v18);
-  if (!v17)
+  if (v8 && (v8->_acceptor = acceptor, v8->_bleEncrypted = 1, SFMainQueue(), v10 = objc_claimAutoreleasedReturnValue(), dispatchQueue = v9->_dispatchQueue, v9->_dispatchQueue = v10, dispatchQueue, objc_storeStrong(&v9->_peerDevice, device), [deviceCopy identifier], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "getUUIDBytes:", &v18), v12, ASPrintF(&v17, "SFBLEConnection-%.3H", v19 + 5, 3, 3), v17) && (v9->_ucat = LogCategoryCreateEx(), free(v17), !v16))
   {
     v13 = v9;
   }
 
   else
   {
-LABEL_4:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -640,10 +618,10 @@ LABEL_4:
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -653,7 +631,7 @@ LABEL_4:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEConnection _activate]", 30, "Activate\n");
   }
 
 LABEL_6:
@@ -675,27 +653,26 @@ LABEL_6:
   if (self->_acceptor)
   {
     self->_connected = 1;
-    connectionStateChangedHandler = self->_connectionStateChangedHandler;
-    if (connectionStateChangedHandler)
+    if (self->_connectionStateChangedHandler)
     {
-      v10 = OUTLINED_FUNCTION_2_2(connectionStateChangedHandler);
-      v11(v10, 1);
+      OUTLINED_FUNCTION_2_2();
+      v9();
     }
   }
 
   else if (!self->_connectRetrier)
   {
-    v12 = objc_alloc_init(MEMORY[0x1E6999520]);
+    v10 = objc_alloc_init(MEMORY[0x1E6999520]);
     connectRetrier = self->_connectRetrier;
-    self->_connectRetrier = v12;
+    self->_connectRetrier = v10;
 
     [(CURetrier *)self->_connectRetrier setDispatchQueue:self->_dispatchQueue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __28__SFBLEConnection__activate__block_invoke;
-    v15[3] = &unk_1E788B198;
-    v15[4] = self;
-    [(CURetrier *)self->_connectRetrier setActionHandler:v15];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __28__SFBLEConnection__activate__block_invoke;
+    v12[3] = &unk_1E788B198;
+    v12[4] = self;
+    [(CURetrier *)self->_connectRetrier setActionHandler:v12];
     [(CURetrier *)self->_connectRetrier setInterval:3.0];
     [(CURetrier *)self->_connectRetrier startDirect];
   }
@@ -741,36 +718,32 @@ LABEL_6:
   }
 
   [(NSMutableArray *)self->_dataSendQueue removeObjectAtIndex:0];
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->_ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_8;
       }
 
-      v12 = self->_ucat;
+      ucat = self->_ucat;
     }
 
     data = [(SFBLEData *)self->_currentData data];
     data2 = [(SFBLEData *)self->_currentData data];
-    v13 = data;
-    v14 = [data2 length];
-    LogPrintF();
+    LogPrintF(ucat, "-[SFBLEConnection _processQueuedData]", 30, "Send data req: %'.32@ (%ld bytes)\n", data, [data2 length]);
   }
 
 LABEL_8:
-  v9 = [(SFBLEData *)self->_currentData data:v13];
-  [v9 length];
-  OUTLINED_FUNCTION_1_9();
+  data3 = [(SFBLEData *)self->_currentData data];
+  OUTLINED_FUNCTION_1_9(725287000, [data3 length]);
 
   wpNearby = self->_wpNearby;
-  data3 = [(SFBLEData *)self->_currentData data];
+  data4 = [(SFBLEData *)self->_currentData data];
   identifier = [(SFBLEDevice *)self->_peerDevice identifier];
-  [(WPNearby *)wpNearby sendData:data3 toPeer:identifier];
+  [(WPNearby *)wpNearby sendData:data4 toPeer:identifier];
 }
 
 - (void)nearbyDidChangeBluetoothBandwidthState:(id)state
@@ -790,40 +763,44 @@ LABEL_8:
 
   if (!v6)
   {
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   [(WPNearby *)stateCopy btBandwidthState];
-  OUTLINED_FUNCTION_2_7();
-  if (v8 ^ v9 | v6)
+  ucat = OUTLINED_FUNCTION_2_7();
+  if (v9 ^ v10 | v6)
   {
-    if (v7 == -1)
+    if (v8 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
       ucat = self->_ucat;
     }
 
-    if ((v3 + 1) <= 2)
+    if ((v3 + 1) > 2)
     {
-      v10 = off_1E788DCC8[v3 + 1];
+      v11 = "?";
     }
 
-    LogPrintF();
+    else
+    {
+      v11 = off_1E788DCC8[v3 + 1];
+    }
+
+    LogPrintF(ucat, "[SFBLEConnection nearbyDidChangeBluetoothBandwidthState:]", 40, "Bluetooth bandwidth updated: %s\n", v11);
   }
 
-LABEL_14:
-  bluetoothBandwidthChangedHandler = self->_bluetoothBandwidthChangedHandler;
-  if (bluetoothBandwidthChangedHandler)
+LABEL_15:
+  if (self->_bluetoothBandwidthChangedHandler)
   {
-    v13 = OUTLINED_FUNCTION_2_2(bluetoothBandwidthChangedHandler);
-    v14(v13);
+    OUTLINED_FUNCTION_2_2();
+    v12();
   }
 
-LABEL_16:
+LABEL_17:
 }
 
 - (void)nearbyDidUpdateState:(id)state
@@ -843,17 +820,17 @@ LABEL_16:
 
   if (!v6)
   {
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   [(WPNearby *)stateCopy state];
-  OUTLINED_FUNCTION_2_7();
-  if (!(v8 ^ v9 | v6))
+  ucat = OUTLINED_FUNCTION_2_7();
+  if (!(v9 ^ v10 | v6))
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  if (v7 != -1)
+  if (v8 != -1)
   {
     goto LABEL_9;
   }
@@ -862,15 +839,20 @@ LABEL_16:
   {
     ucat = self->_ucat;
 LABEL_9:
-    if (v3 <= 5)
+    if (v3 > 5)
     {
-      v10 = off_1E788DCE0[v3];
+      v11 = "?";
     }
 
-    LogPrintF();
+    else
+    {
+      v11 = off_1E788DCE0[v3];
+    }
+
+    LogPrintF(ucat, "[SFBLEConnection nearbyDidUpdateState:]", 40, "Bluetooth state updated: %s\n", v11);
   }
 
-LABEL_14:
+LABEL_15:
   if (v3 <= 5)
   {
     if (((1 << v3) & 0x36) == 0)
@@ -880,46 +862,44 @@ LABEL_14:
         [(SFBLEConnection *)self _connectIfNeeded];
       }
 
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
     if (self->_connecting || self->_connected)
     {
       *&self->_connected = 0;
-      var0 = self->_ucat->var0;
-      if (var0 <= 60)
+      v12 = self->_ucat;
+      if (v12->var0 <= 60)
       {
-        if (var0 != -1)
+        if (v12->var0 != -1)
         {
-LABEL_20:
-          v17 = off_1E788DD10[v3 - 1];
-          LogPrintF();
-          goto LABEL_25;
+LABEL_21:
+          LogPrintF(v12, "[SFBLEConnection nearbyDidUpdateState:]", 60, "### Disconnect due to %s state\n", off_1E788DD10[v3 - 1]);
+          goto LABEL_26;
         }
 
         if (_LogCategory_Initialize())
         {
-          v16 = self->_ucat;
-          goto LABEL_20;
+          v12 = self->_ucat;
+          goto LABEL_21;
         }
       }
     }
   }
 
-LABEL_25:
-  bluetoothStateChangedHandler = self->_bluetoothStateChangedHandler;
-  if (bluetoothStateChangedHandler)
+LABEL_26:
+  if (self->_bluetoothStateChangedHandler)
   {
-    v14 = OUTLINED_FUNCTION_2_2(bluetoothStateChangedHandler);
-    v15(v14);
+    OUTLINED_FUNCTION_2_2();
+    v13();
   }
 
-LABEL_27:
+LABEL_28:
 }
 
 - (void)nearby:(id)nearby didConnectToPeer:(id)peer transport:(int64_t)transport error:(id)error
 {
-  v43[3] = *MEMORY[0x1E69E9840];
+  v34[3] = *MEMORY[0x1E69E9840];
   peerCopy = peer;
   errorCopy = error;
   dispatchQueue = self->_dispatchQueue;
@@ -949,14 +929,14 @@ LABEL_27:
   self->_connecting = 0;
   if (!self->_acceptor)
   {
-    v18 = CFAbsoluteTimeGetCurrent() - self->_connectStartTime;
+    v19 = CFAbsoluteTimeGetCurrent() - self->_connectStartTime;
     self->_connected = errorCopy == 0;
     if (errorCopy)
     {
-      OUTLINED_FUNCTION_3_7();
-      if (v19 <= 50)
+      ucat = OUTLINED_FUNCTION_3_7();
+      if (v21 <= 50)
       {
-        if (v19 == -1)
+        if (v21 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -966,60 +946,55 @@ LABEL_27:
           ucat = self->_ucat;
         }
 
-        v41 = errorCopy;
-        v40 = v18;
-        LogPrintF();
+        LogPrintF(ucat, "[SFBLEConnection nearby:didConnectToPeer:transport:error:]", 50, "### Connect failed (%f seconds): %@\n", *&v19, errorCopy);
       }
 
 LABEL_23:
-      connectionStateChangedHandler = self->_connectionStateChangedHandler;
-      if (connectionStateChangedHandler)
+      if (self->_connectionStateChangedHandler)
       {
-        v24 = OUTLINED_FUNCTION_2_2(connectionStateChangedHandler);
-        v25(v24, 2);
+        OUTLINED_FUNCTION_2_2();
+        v26();
       }
 
-      [(CURetrier *)self->_connectRetrier failedDirect:*&v40];
+      [(CURetrier *)self->_connectRetrier failedDirect];
       goto LABEL_34;
     }
 
-    OUTLINED_FUNCTION_1_9();
-    OUTLINED_FUNCTION_3_7();
-    if (v21 <= 30)
+    OUTLINED_FUNCTION_1_9(725286996, 0);
+    v24 = OUTLINED_FUNCTION_3_7();
+    if (v25 <= 30)
     {
-      if (v21 == -1)
+      if (v25 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_27;
         }
 
-        v38 = self->_ucat;
+        v24 = self->_ucat;
       }
 
-      v40 = v18;
-      LogPrintF();
+      LogPrintF(v24, "[SFBLEConnection nearby:didConnectToPeer:transport:error:]", 30, "Connected (%f seconds)\n", v19);
     }
 
 LABEL_27:
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v42[0] = @"SFBluetoothNotificationKeyConnectStart";
-    v27 = [MEMORY[0x1E696AD98] numberWithDouble:self->_connectStartTime];
-    v43[0] = v27;
-    v42[1] = @"SFBluetoothNotificationKeyConnectTime";
-    v28 = [MEMORY[0x1E696AD98] numberWithDouble:v18];
-    v42[2] = @"SFBluetoothNotificationKeyPeerDevice";
-    v43[1] = v28;
-    v43[2] = v13;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
-    [defaultCenter postNotificationName:@"SFBluetoothNotificationNameConnected" object:self userInfo:v29];
+    v33[0] = @"SFBluetoothNotificationKeyConnectStart";
+    v28 = [MEMORY[0x1E696AD98] numberWithDouble:self->_connectStartTime];
+    v34[0] = v28;
+    v33[1] = @"SFBluetoothNotificationKeyConnectTime";
+    v29 = [MEMORY[0x1E696AD98] numberWithDouble:v19];
+    v33[2] = @"SFBluetoothNotificationKeyPeerDevice";
+    v34[1] = v29;
+    v34[2] = v13;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
+    [defaultCenter postNotificationName:@"SFBluetoothNotificationNameConnected" object:self userInfo:v30];
 
     [(CURetrier *)self->_connectRetrier succeededDirect];
-    v30 = self->_connectionStateChangedHandler;
-    if (v30)
+    if (self->_connectionStateChangedHandler)
     {
-      v31 = OUTLINED_FUNCTION_2_2(v30);
-      v32(v31, 1);
+      OUTLINED_FUNCTION_2_2();
+      v31();
     }
 
     [(SFBLEConnection *)self _processQueuedData];
@@ -1035,59 +1010,56 @@ LABEL_27:
     }
 
     self->_connected = 1;
-    OUTLINED_FUNCTION_3_7();
-    if (v20 > 30)
+    v22 = OUTLINED_FUNCTION_3_7();
+    if (v23 > 30)
     {
       goto LABEL_31;
     }
 
-    if (v20 == -1)
+    if (v23 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_31;
       }
 
-      v39 = self->_ucat;
+      v22 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v22, "[SFBLEConnection nearby:didConnectToPeer:transport:error:]", 30, "Re-connected\n");
 LABEL_31:
-    v33 = self->_connectionStateChangedHandler;
-    if (v33)
+    if (self->_connectionStateChangedHandler)
     {
-      v34 = OUTLINED_FUNCTION_2_2(v33);
-      v35(v34, 1);
+      OUTLINED_FUNCTION_2_2();
+      v32();
     }
 
     [(SFBLEConnection *)self _processQueuedData];
     goto LABEL_34;
   }
 
-  OUTLINED_FUNCTION_3_7();
-  if (v17 <= 50)
+  v17 = OUTLINED_FUNCTION_3_7();
+  if (v18 <= 50)
   {
-    if (v17 == -1)
+    if (v18 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_34;
       }
 
-      v22 = self->_ucat;
+      v17 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v17, "[SFBLEConnection nearby:didConnectToPeer:transport:error:]", 50, "### Connect failed: %@\n", errorCopy);
   }
 
 LABEL_34:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nearby:(id)nearby didDisconnectFromPeer:(id)peer error:(id)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   peerCopy = peer;
   errorCopy = error;
   dispatchQueue = self->_dispatchQueue;
@@ -1098,12 +1070,12 @@ LABEL_34:
   v13 = 0;
   if (!wpNearby)
   {
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   if (wpNearby != nearbyCopy)
   {
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   v13 = self->_peerDevice;
@@ -1112,11 +1084,12 @@ LABEL_34:
 
   if (!v15)
   {
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   *&self->_connected = 0;
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (errorCopy)
   {
     if (var0 <= 50)
@@ -1125,14 +1098,13 @@ LABEL_34:
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_14;
+          goto LABEL_15;
         }
 
         ucat = self->_ucat;
       }
 
-      v25 = errorCopy;
-      goto LABEL_10;
+      LogPrintF(ucat, "[SFBLEConnection nearby:didDisconnectFromPeer:error:]", 50, "### Disconnect failed: %@\n", errorCopy);
     }
   }
 
@@ -1142,34 +1114,31 @@ LABEL_34:
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v24 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-LABEL_10:
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEConnection nearby:didDisconnectFromPeer:error:]", 30, "Disconnected\n");
   }
 
-LABEL_14:
-  [(SFBLEConnection *)self _cleanupQueuedData:4294960543, v25];
-  connectionStateChangedHandler = self->_connectionStateChangedHandler;
-  if (connectionStateChangedHandler)
+LABEL_15:
+  [(SFBLEConnection *)self _cleanupQueuedData:4294960543];
+  if (self->_connectionStateChangedHandler)
   {
-    v19 = OUTLINED_FUNCTION_2_2(connectionStateChangedHandler);
-    v20(v19, 2);
+    OUTLINED_FUNCTION_2_2();
+    v18();
   }
 
   [(CURetrier *)self->_connectRetrier failedDirect];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v26 = @"SFBluetoothNotificationKeyPeerDevice";
-  v27[0] = v13;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-  [defaultCenter postNotificationName:@"SFBluetoothNotificationNameDisconnected" object:self userInfo:v22];
+  v21 = @"SFBluetoothNotificationKeyPeerDevice";
+  v22[0] = v13;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  [defaultCenter postNotificationName:@"SFBluetoothNotificationNameDisconnected" object:self userInfo:v20];
 
-LABEL_17:
-  v23 = *MEMORY[0x1E69E9840];
+LABEL_18:
 }
 
 - (void)nearby:(id)nearby didSendData:(id)data toPeer:(id)peer error:(id)error
@@ -1202,89 +1171,77 @@ LABEL_17:
 
   if (!self->_currentData)
   {
-    var0 = self->_ucat->var0;
-    if (var0 > 50)
+    ucat = self->_ucat;
+    if (ucat->var0 > 50)
     {
       goto LABEL_24;
     }
 
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->_ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_24;
       }
 
-      v22 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-    v31 = [dataCopy length];
-    v32 = errorCopy;
-    v30 = dataCopy;
-    LogPrintF();
+    LogPrintF(ucat, "-[SFBLEConnection nearby:didSendData:toPeer:error:]", 50, "### Send data ack without data %'.32@ (%ld bytes), error %@\n", dataCopy, [dataCopy length], errorCopy);
     goto LABEL_24;
   }
 
-  [dataCopy length];
-  OUTLINED_FUNCTION_1_9();
-  v17 = self->_ucat->var0;
+  OUTLINED_FUNCTION_1_9(725287004, [dataCopy length]);
+  v17 = self->_ucat;
+  var0 = v17->var0;
   if (errorCopy)
   {
-    if (v17 <= 60)
+    if (var0 <= 60)
     {
-      if (v17 == -1)
+      if (var0 == -1)
       {
-        v19 = self->_ucat;
         if (!_LogCategory_Initialize())
         {
           goto LABEL_21;
         }
 
-        v20 = self->_ucat;
+        v17 = self->_ucat;
       }
 
-      v31 = [dataCopy length];
-      v32 = errorCopy;
-      v30 = dataCopy;
-      goto LABEL_15;
+      LogPrintF(v17, "-[SFBLEConnection nearby:didSendData:toPeer:error:]", 60, "### Send data ack failed for data %'.32@ (%ld bytes): %@\n", dataCopy, [dataCopy length], errorCopy);
     }
   }
 
-  else if (v17 <= 30)
+  else if (var0 <= 30)
   {
-    if (v17 == -1)
+    if (var0 == -1)
     {
-      v23 = self->_ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_21;
       }
 
-      v29 = self->_ucat;
+      v17 = self->_ucat;
     }
 
-    v31 = [dataCopy length];
-    v30 = dataCopy;
-LABEL_15:
-    LogPrintF();
+    LogPrintF(v17, "-[SFBLEConnection nearby:didSendData:toPeer:error:]", 30, "Send data ack for data %'.32@ (%ld bytes)\n", dataCopy, [dataCopy length]);
   }
 
 LABEL_21:
-  v24 = [(SFBLEData *)self->_currentData completion:v30];
+  completion = [(SFBLEData *)self->_currentData completion];
 
-  if (v24)
+  if (completion)
   {
-    completion = [(SFBLEData *)self->_currentData completion];
-    v26 = OUTLINED_FUNCTION_2_2(completion);
-    v27(v26, errorCopy);
+    completion2 = [(SFBLEData *)self->_currentData completion];
+    OUTLINED_FUNCTION_2_2();
+    v22();
   }
 
   currentData = self->_currentData;
   self->_currentData = 0;
 
 LABEL_24:
-  [(SFBLEConnection *)self _processQueuedData:v30];
+  [(SFBLEConnection *)self _processQueuedData];
 }
 
 - (void)nearby:(id)nearby didReceiveData:(id)data fromPeer:(id)peer
@@ -1305,11 +1262,10 @@ LABEL_24:
 
       if (v13)
       {
-        dataHandler = self->_dataHandler;
-        if (dataHandler)
+        if (self->_dataHandler)
         {
-          v15 = OUTLINED_FUNCTION_2_2(dataHandler);
-          v16(v15, dataCopy);
+          OUTLINED_FUNCTION_2_2();
+          v14();
         }
       }
     }

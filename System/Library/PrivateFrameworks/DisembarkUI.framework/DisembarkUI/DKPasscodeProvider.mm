@@ -44,8 +44,8 @@
   v8 = v15;
   if ((v7 & 1) == 0)
   {
-    v9 = _DKLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _DKLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       if (_DKIsInternalInstall())
       {
@@ -69,14 +69,13 @@
 
       *buf = 138543362;
       v17 = v13;
-      _os_log_error_impl(&dword_248D68000, v9, OS_LOG_TYPE_ERROR, "Failed to verify passcode: %{public}@", buf, 0xCu);
+      _os_log_error_impl(&dword_248D68000, v10, OS_LOG_TYPE_ERROR, "Failed to verify passcode: %{public}@", buf, 0xCu);
       if (v12)
       {
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

@@ -39,7 +39,6 @@
 
 uint64_t __27__ADCapData_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -82,44 +81,42 @@ uint64_t __27__ADCapData_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)restoreCapDataArrayFromPlist:(id)plist
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   plistCopy = plist;
   array = [MEMORY[0x277CBEB18] array];
   if (plistCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = plistCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           v11 = [ADFrequencyCap alloc];
-          v12 = [(ADFrequencyCap *)v11 initWithDictionary:v10, v15];
+          v12 = [(ADFrequencyCap *)v11 initWithDictionary:v10, v14];
           [array addObject:v12];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -139,9 +136,7 @@ uint64_t __27__ADCapData_sharedInstance__block_invoke(uint64_t a1)
   clickCountData = self->_clickCountData;
   self->_clickCountData = array2;
 
-  array3 = [MEMORY[0x277CBEB18] array];
-  downloadData = self->_downloadData;
-  self->_downloadData = array3;
+  self->_downloadData = [MEMORY[0x277CBEB18] array];
 
   MEMORY[0x2821F96F8]();
 }
@@ -270,7 +265,7 @@ LABEL_8:
 
 - (id)dictionaryRepresentation
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   toroID = self->_toroID;
@@ -278,30 +273,30 @@ LABEL_8:
   {
     [dictionary setObject:toroID forKey:@"ADToroIDKey"];
     array = [MEMORY[0x277CBEB18] array];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v7 = self->_frequencyCapData;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v40;
+      v10 = *v39;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v40 != v10)
+          if (*v39 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v38 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v9);
@@ -309,30 +304,30 @@ LABEL_8:
 
     [v4 setObject:array forKey:@"ADFrequencyCapTypeKey"];
     array2 = [MEMORY[0x277CBEB18] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v14 = self->_clickCountData;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v36;
+      v17 = *v35;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v36 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation2 = [*(*(&v35 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v34 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation2];
         }
 
-        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v16);
@@ -340,30 +335,30 @@ LABEL_8:
 
     [v4 setObject:array2 forKey:@"ADToroClickTypeKey"];
     array3 = [MEMORY[0x277CBEB18] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v21 = self->_downloadData;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v31 objects:v43 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v32;
+      v24 = *v31;
       do
       {
         for (k = 0; k != v23; ++k)
         {
-          if (*v32 != v24)
+          if (*v31 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation3 = [*(*(&v31 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v30 + 1) + 8 * k) dictionaryRepresentation];
           [array3 addObject:dictionaryRepresentation3];
         }
 
-        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v30 objects:v42 count:16];
       }
 
       while (v23);
@@ -380,8 +375,6 @@ LABEL_8:
 
     v27 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v4];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -508,33 +501,33 @@ LABEL_18:
 
 - (id)filteredCapData:(id)data maxItems:(unint64_t)items expirationThresholdInSeconds:(double)seconds
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   array = [MEMORY[0x277CBEB18] array];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
   v11 = v10;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v12 = dataCopy;
-  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * i);
+        v17 = *(*(&v22 + 1) + 8 * i);
         [v17 setTime];
         if (v11 - v18 < seconds)
         {
@@ -542,7 +535,7 @@ LABEL_18:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v14);
@@ -550,8 +543,6 @@ LABEL_18:
 
   v19 = [array arrayCappedToMaxItems:items];
   v20 = [v19 mutableCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -593,33 +584,33 @@ LABEL_9:
 
 - (id)capData:(id)data
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
   v7 = v6;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = dataCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         identifier = [v13 identifier];
 
         if (identifier)
@@ -646,7 +637,7 @@ LABEL_9:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -662,14 +653,12 @@ LABEL_9:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)clickCapObjectForAdamID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = +[ADIDManager sharedInstance];
   v6 = [v5 idForClientType:4];
@@ -677,25 +666,25 @@ LABEL_9:
 
   if (v7)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     reverseObjectEnumerator = [(NSMutableArray *)self->_clickCountData reverseObjectEnumerator];
-    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           identifier = [v12 identifier];
           v14 = [identifier isEqualToString:dCopy];
 
@@ -706,7 +695,7 @@ LABEL_9:
           }
         }
 
-        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -723,15 +712,13 @@ LABEL_13:
   {
     v9 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)downloadObjectForAdamID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = +[ADIDManager sharedInstance];
   v6 = [v5 idForClientType:4];
@@ -739,25 +726,25 @@ LABEL_13:
 
   if (v7)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     reverseObjectEnumerator = [(NSMutableArray *)self->_downloadData reverseObjectEnumerator];
-    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           identifier = [v12 identifier];
           v14 = [identifier isEqualToString:dCopy];
 
@@ -768,7 +755,7 @@ LABEL_13:
           }
         }
 
-        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -785,8 +772,6 @@ LABEL_13:
   {
     v9 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

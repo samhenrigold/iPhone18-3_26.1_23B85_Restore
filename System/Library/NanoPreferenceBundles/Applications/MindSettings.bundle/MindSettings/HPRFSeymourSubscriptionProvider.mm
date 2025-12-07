@@ -14,7 +14,7 @@
 
   sub_B124(&qword_1DC38, &qword_111B0);
   sub_ED68();
-  sub_EB14(&v7, self + OBJC_IVAR___HPRFSeymourSubscriptionProvider_subscriptionClient);
+  sub_EB14(v7, self + OBJC_IVAR___HPRFSeymourSubscriptionProvider_subscriptionClient);
   v6.receiver = self;
   v6.super_class = type metadata accessor for SeymourSubscriptionProvider();
   v4 = [(HPRFSeymourSubscriptionProvider *)&v6 init];

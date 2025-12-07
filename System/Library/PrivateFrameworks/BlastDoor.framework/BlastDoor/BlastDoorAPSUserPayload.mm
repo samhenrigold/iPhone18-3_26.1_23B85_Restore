@@ -223,18 +223,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 144])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 136];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 144];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSData)messageUUID
@@ -261,18 +259,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 176])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 168];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 176];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorAPSUserPayloadDeliveryContext)deliveryContext
@@ -359,54 +355,48 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 288])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 280];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 288];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)userAgent
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 304])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 296];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 304];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)MMCSOwnerId
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 320])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 312];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 320];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSData)MMCSFileSignature
@@ -446,124 +436,112 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 368])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 360];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 368];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)MMCSAuthUrl
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 384])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 376];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 384];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)MMCSAuthId
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 400])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 392];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 400];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSArray)MMCSDownloadAuthList
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 408])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 408];
 
-    v3 = sub_2146D98E8();
+    v2 = sub_2146D98E8();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (NSArray)MMCSDownloadUrlList
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 416])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 416];
 
-    v3 = sub_2146D98E8();
+    v2 = sub_2146D98E8();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (NSString)MMCSDownloadUrl
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 432])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 424];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 432];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)MMCSUploadUrl
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 448])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 440];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 448];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)MMCSExpiryNanos
@@ -596,18 +574,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 496])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 488];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 496];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSData)contentBody
@@ -687,54 +663,48 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 576])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 568];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 576];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)senderOpaqueId
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 592])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 584];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 592];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)mspId
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 608])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 600];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 608];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)responseStatus
@@ -813,18 +783,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 704])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 696];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 704];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)failDownloadAttachmentSize
@@ -857,18 +825,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 752])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 744];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 752];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)failTimeElapsed
@@ -888,18 +854,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 784])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 776];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 784];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)storageFlags
@@ -984,36 +948,32 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 912])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 904];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 912];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)adhocServiceOverride
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 928])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 920];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 928];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSData)responseIdentifier
@@ -1040,90 +1000,80 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 960])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 952];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 960];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)strictTransportSecurity
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 976])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 968];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 976];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)traceId
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 992])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 984];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 992];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)splunkHint
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1008])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1000];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1008];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)asHttpHeader
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1024])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1016];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1024];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)homekitDeliveryStatus
@@ -1143,18 +1093,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1056])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1048];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1056];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)retryCount
@@ -1174,18 +1122,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1088])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1080];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1088];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)fanoutChunkNumber
@@ -1205,18 +1151,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1120])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1112];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1120];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)faceTimeRetryCount
@@ -1249,18 +1193,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1168])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1160];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1168];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorAPSUserPayloadHttpHeaders)httpHeaders
@@ -1338,18 +1280,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1296])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1288];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1296];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSData)httpBodyKey
@@ -1389,18 +1329,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1344])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1336];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1344];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)deliveryStatusFlags
@@ -1420,18 +1358,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1384])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1376];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1384];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSData)selfSessionToken
@@ -1543,18 +1479,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1512])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1504];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1512];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)reason
@@ -1706,36 +1640,32 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1680])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1672];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1680];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)pluginConfig
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1696])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1688];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1696];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)pluginStream
@@ -1801,18 +1731,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1776])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1768];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1776];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)groupMemberCount
@@ -2024,18 +1952,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1984])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1976];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 1984];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)relayHighPriorityPort
@@ -2153,18 +2079,16 @@
 {
   if (*&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 2152])
   {
-    v2 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 2144];
-    v3 = *&self->aPSUserPayload[OBJC_IVAR___BlastDoorAPSUserPayload_aPSUserPayload + 2152];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)allowGDR

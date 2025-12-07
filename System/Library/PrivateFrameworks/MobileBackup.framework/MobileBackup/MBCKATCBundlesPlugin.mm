@@ -10,51 +10,45 @@
   policyCopy = policy;
   infoCopy = info;
   v7 = +[ATClientController sharedInstance];
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   allClients = [v7 allClients];
-  v9 = [allClients countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [allClients countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v21 = v7;
-    v11 = *v23;
-    v12 = &selRef_setServiceDelegate_;
+    v19 = v7;
+    v11 = *v21;
     while (2)
     {
-      v13 = 0;
-      v14 = v12[276];
-      do
+      for (i = 0; i != v10; i = i + 1)
       {
-        if (*v23 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(allClients);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * v13);
-        v16 = objc_autoreleasePoolPush();
+        v13 = *(*(&v20 + 1) + 8 * i);
+        v14 = objc_autoreleasePoolPush();
         if (objc_opt_respondsToSelector())
         {
-          v17 = +[MBCKManager sharedInstance];
-          v18 = [v15 shouldRestoreFile:infoCopy backupManager:v17];
+          v15 = +[MBCKManager sharedInstance];
+          v16 = [v13 shouldRestoreFile:infoCopy backupManager:v15];
 
-          if (!v18)
+          if (!v16)
           {
-            objc_autoreleasePoolPop(v16);
-            v19 = 0;
+            objc_autoreleasePoolPop(v14);
+            v17 = 0;
             goto LABEL_12;
           }
         }
 
-        objc_autoreleasePoolPop(v16);
-        v13 = v13 + 1;
+        objc_autoreleasePoolPop(v14);
       }
 
-      while (v10 != v13);
-      v10 = [allClients countByEnumeratingWithState:&v22 objects:v26 count:16];
-      v12 = &selRef_setServiceDelegate_;
+      v10 = [allClients countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v10)
       {
         continue;
@@ -63,17 +57,17 @@
       break;
     }
 
-    v19 = 1;
+    v17 = 1;
 LABEL_12:
-    v7 = v21;
+    v7 = v19;
   }
 
   else
   {
-    v19 = 1;
+    v17 = 1;
   }
 
-  return v19;
+  return v17;
 }
 
 - (BOOL)shouldBackgroundRestoreContentWithPolicy:(id)policy fileInfo:(id)info
@@ -110,42 +104,11 @@ LABEL_12:
 
           v15 = *(*(&v32 + 1) + 8 * v12);
           v16 = objc_autoreleasePoolPush();
-          if (objc_opt_respondsToSelector())
+          if (objc_opt_respondsToSelector() & 1) != 0 && ([infoCopy path], context = v16, v17 = v14, v18 = v13, v19 = v8, v20 = v9, v21 = infoCopy, v22 = objc_claimAutoreleasedReturnValue(), +[MBCKManager sharedInstance](MBCKManager, "sharedInstance"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v15, "shouldBackgroundRestorePath:backupManager:", v22, v23), v23, v22, infoCopy = v21, v9 = v20, v8 = v19, v13 = v18, v14 = v17, v16 = context, (v24) || (objc_opt_respondsToSelector() & 1) != 0 && (+[MBCKManager sharedInstance](MBCKManager, "sharedInstance"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v15, "shouldBackgroundRestoreFile:backupManager:", infoCopy, v25), v25, (v26))
           {
-            [infoCopy path];
-            context = v16;
-            v17 = v14;
-            v18 = v13;
-            v19 = v8;
-            v20 = v9;
-            v22 = v21 = infoCopy;
-            v23 = +[MBCKManager sharedInstance];
-            v24 = [v15 shouldBackgroundRestorePath:v22 backupManager:v23];
-
-            infoCopy = v21;
-            v9 = v20;
-            v8 = v19;
-            v13 = v18;
-            v14 = v17;
-            v16 = context;
-            if (v24)
-            {
-              goto LABEL_15;
-            }
-          }
-
-          if (objc_opt_respondsToSelector())
-          {
-            v25 = +[MBCKManager sharedInstance];
-            v26 = [v15 shouldBackgroundRestoreFile:infoCopy backupManager:v25];
-
-            if (v26)
-            {
-LABEL_15:
-              objc_autoreleasePoolPop(v16);
-              LOBYTE(v8) = 1;
-              goto LABEL_16;
-            }
+            objc_autoreleasePoolPop(v16);
+            LOBYTE(v8) = 1;
+            goto LABEL_16;
           }
 
           objc_autoreleasePoolPop(v16);

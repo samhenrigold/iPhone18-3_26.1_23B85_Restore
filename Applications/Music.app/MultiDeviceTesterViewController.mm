@@ -34,7 +34,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_10027EE54(change);
+  sub_10027EE54(change, selfCopy);
 }
 
 - (_TtC5Music31MultiDeviceTesterViewController)initWithNibName:(id)name bundle:(id)bundle

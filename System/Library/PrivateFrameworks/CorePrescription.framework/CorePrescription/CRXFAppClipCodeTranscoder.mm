@@ -12,6 +12,9 @@
 - (BOOL)getQuarterDiopterValueForIndex:(unint64_t)index minValue:(float)value maxValue:(float)maxValue value:(float *)a6;
 - (BOOL)isACCVersionSupported:(unint64_t)supported;
 - (CRXFAppClipCodeTranscoder)init;
+- (id)decodeAppClipCodeFromBytes:(const char *)bytes length:(unint64_t)length allowUnsupportedRX:(BOOL)x error:(id *)error;
+- (id)decodeAppClipCodeFromData:(id)data allowUnsupportedRX:(BOOL)x error:(id *)error;
+- (id)decodeAppClipCodeFromHexString:(id)string allowUnsupportedRX:(BOOL)x error:(id *)error;
 - (id)decodeAppClipCodeV1FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error;
 - (id)decodeAppClipCodeV2FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error;
 - (id)decodeAppClipCodeV3FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error;
@@ -134,6 +137,33 @@ LABEL_13:
   return v8;
 }
 
+- (id)decodeAppClipCodeFromBytes:(const char *)bytes length:(unint64_t)length allowUnsupportedRX:(BOOL)x error:(id *)error
+{
+  xCopy = x;
+  v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:bytes length:length freeWhenDone:0];
+  v10 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeFromData:v9 allowUnsupportedRX:xCopy error:error];
+
+  return v10;
+}
+
+- (id)decodeAppClipCodeFromHexString:(id)string allowUnsupportedRX:(BOOL)x error:(id *)error
+{
+  xCopy = x;
+  v8 = [MEMORY[0x277CBEA90] crxu_dataWithHexString:string];
+  if (v8)
+  {
+    v9 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeFromData:v8 allowUnsupportedRX:xCopy error:error];
+  }
+
+  else
+  {
+    [MEMORY[0x277CCA9B8] crxf_errorWithCode:32 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:131 userInfo:MEMORY[0x277CBEC10]];
+    *error = v9 = 0;
+  }
+
+  return v9;
+}
+
 - (BOOL)isACCVersionSupported:(unint64_t)supported
 {
   if (supported - 1 < 5)
@@ -147,6 +177,116 @@ LABEL_13:
   }
 
   return 0;
+}
+
+- (id)decodeAppClipCodeFromData:(id)data allowUnsupportedRX:(BOOL)x error:(id *)error
+{
+  xCopy = x;
+  dataCopy = data;
+  if ([dataCopy length])
+  {
+    v9 = [[CRXUBitBuffer alloc] initWithData:dataCopy];
+    v21 = 0;
+    v10 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeVersionFromBuffer:v9 error:&v21];
+    v11 = v21;
+    v12 = v11;
+    if (v11)
+    {
+      if (error)
+      {
+        v13 = v11;
+        v14 = 0;
+        *error = v12;
+LABEL_29:
+
+        goto LABEL_30;
+      }
+
+LABEL_25:
+      v14 = 0;
+      goto LABEL_29;
+    }
+
+    if ([(CRXFAppClipCodeTranscoder *)self isACCVersionSupported:v10])
+    {
+      [(CRXUBitBuffer *)v9 rewind];
+      if (v10 > 3)
+      {
+        switch(v10)
+        {
+          case 4:
+            v15 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeV4FromBuffer:v9 allowUnsupportedRX:xCopy error:error];
+            goto LABEL_28;
+          case 5:
+            v15 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeV5FromBuffer:v9 allowUnsupportedRX:xCopy error:error];
+            goto LABEL_28;
+          case 6:
+            v15 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeV6FromBuffer:v9 allowUnsupportedRX:xCopy error:error];
+            goto LABEL_28;
+        }
+      }
+
+      else
+      {
+        switch(v10)
+        {
+          case 1:
+            v15 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeV1FromBuffer:v9 allowUnsupportedRX:xCopy error:error];
+            goto LABEL_28;
+          case 2:
+            v15 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeV2FromBuffer:v9 allowUnsupportedRX:xCopy error:error];
+            goto LABEL_28;
+          case 3:
+            v15 = [(CRXFAppClipCodeTranscoder *)self decodeAppClipCodeV3FromBuffer:v9 allowUnsupportedRX:xCopy error:error];
+LABEL_28:
+            v14 = v15;
+            goto LABEL_29;
+        }
+      }
+
+      if (!error)
+      {
+        goto LABEL_25;
+      }
+
+      v16 = MEMORY[0x277CCA9B8];
+      v17 = MEMORY[0x277CBEC10];
+      v18 = 2;
+      v19 = 238;
+    }
+
+    else
+    {
+      if (!error)
+      {
+        goto LABEL_25;
+      }
+
+      v16 = MEMORY[0x277CCA9B8];
+      v17 = MEMORY[0x277CBEC10];
+      v18 = 48;
+      v19 = 189;
+    }
+
+    [v16 crxf_errorWithCode:v18 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:v19 userInfo:v17];
+    *error = v14 = 0;
+    goto LABEL_29;
+  }
+
+  if (error)
+  {
+    [MEMORY[0x277CCA9B8] crxf_errorWithCode:32 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:171 userInfo:MEMORY[0x277CBEC10]];
+    *error = v14 = 0;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+LABEL_30:
+
+  return v14;
 }
 
 - (BOOL)encodeAppClipCode:(id)code toBytes:(char *)bytes length:(unint64_t)length error:(id *)error
@@ -639,24 +779,24 @@ LABEL_14:
 
   v46 = 0;
   v29 = [(CRXFAppClipCodeTranscoder *)self lookUpAxisValue:&v46 forAxisID:axisID, v25];
-  v32 = v46;
+  v33 = v46;
   if (v29)
   {
-    v33 = v46;
+    v34 = v46;
   }
 
   else
   {
-    v33 = 0;
+    v34 = 0;
   }
 
-  v34 = vcvts_n_f32_u64(offsetID, 2uLL);
-  v35 = *(&v47 + 1);
-  LODWORD(v30) = v47;
-  v36 = v29 | v22;
+  v35 = vcvts_n_f32_u64(offsetID, 2uLL);
+  v36 = *(&v47 + 1);
+  LODWORD(v31) = v47;
+  v37 = v29 | v22;
   if (v29 | v22)
   {
-    v32 = v33;
+    v33 = v34;
   }
 
   else
@@ -671,28 +811,28 @@ LABEL_14:
       vrx_unapply_eye_rx_cylinder_sign_flip(&v44);
       v27 = *&v44;
       v26 = *(&v44 + 1);
-      v32 = v45;
+      v33 = v45;
     }
 
     if (offsetID)
     {
-      vrx_apply_eye_rx_vr_add(buf, v34, 15.0);
+      vrx_apply_eye_rx_vr_add(buf, v30, v35, 15.0);
     }
 
-    HIDWORD(v30) = *&buf[4];
-    v35 = *buf;
-    *&v30 = *&buf[8];
-    v47 = __PAIR64__(LODWORD(v35), LODWORD(v30));
-    HIDWORD(v31) = *&buf[20];
+    HIDWORD(v31) = *&buf[4];
+    v36 = *buf;
+    *&v31 = *&buf[8];
+    v47 = __PAIR64__(LODWORD(v36), LODWORD(v31));
+    HIDWORD(v32) = *&buf[20];
     v46 = *&buf[16];
   }
 
-  *&v31 = v35;
-  if ([(CRXFAppClipCodeTranscoder *)self lookupBestValidRXID:&iDCopy andSphere:&v47 + 4 matchingCylinder:v30 nearSphere:v31])
+  *&v32 = v36;
+  if ([(CRXFAppClipCodeTranscoder *)self lookupBestValidRXID:&iDCopy andSphere:&v47 + 4 matchingCylinder:v31 nearSphere:v32])
   {
     if (offsetID)
     {
-      v36 |= 0x20uLL;
+      v37 |= 0x20uLL;
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
         [CRXFAppClipCodeTranscoder decodeCalibrationRXID:calibrationSphere:calibrationCylinder:calibrationAxis:addVR:clampingStatus:displaySphere:displayCylinder:displayAxis:fromRXID:RXOffsetID:cylinderSignFlipped:axisID:allowUnsupportedRX:];
@@ -706,13 +846,13 @@ LABEL_14:
         [CRXFAppClipCodeTranscoder decodeCalibrationRXID:calibrationSphere:calibrationCylinder:calibrationAxis:addVR:clampingStatus:displaySphere:displayCylinder:displayAxis:fromRXID:RXOffsetID:cylinderSignFlipped:axisID:allowUnsupportedRX:];
       }
 
-      v36 |= 8uLL;
+      v37 |= 8uLL;
     }
 
     rCopy4 = r;
     if (status)
     {
-      v39 = 3;
+      v40 = 3;
       goto LABEL_45;
     }
 
@@ -723,20 +863,20 @@ LABEL_14:
   {
     if (v27 != *(&v47 + 1))
     {
-      v40 = self->_log;
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v41 = self->_log;
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
         *&buf[4] = "[CRXFAppClipCodeTranscoder decodeCalibrationRXID:calibrationSphere:calibrationCylinder:calibrationAxis:addVR:clampingStatus:displaySphere:displayCylinder:displayAxis:fromRXID:RXOffsetID:cylinderSignFlipped:axisID:allowUnsupportedRX:]";
         *&buf[12] = 1024;
         *&buf[14] = 741;
-        _os_log_impl(&dword_24732C000, v40, OS_LOG_TYPE_INFO, "%s @%d: RX clamped successfully!", buf, 0x12u);
+        _os_log_impl(&dword_24732C000, v41, OS_LOG_TYPE_INFO, "%s @%d: RX clamped successfully!", buf, 0x12u);
       }
 
       rCopy4 = r;
       if (status)
       {
-        v39 = 1;
+        v40 = 1;
         goto LABEL_45;
       }
 
@@ -748,27 +888,27 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  if (v35 == *(&v47 + 1))
+  if (v36 == *(&v47 + 1))
   {
     goto LABEL_51;
   }
 
-  v37 = self->_log;
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+  v38 = self->_log;
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
     *&buf[4] = "[CRXFAppClipCodeTranscoder decodeCalibrationRXID:calibrationSphere:calibrationCylinder:calibrationAxis:addVR:clampingStatus:displaySphere:displayCylinder:displayAxis:fromRXID:RXOffsetID:cylinderSignFlipped:axisID:allowUnsupportedRX:]";
     *&buf[12] = 1024;
     *&buf[14] = 733;
-    _os_log_impl(&dword_24732C000, v37, OS_LOG_TYPE_INFO, "%s @%d: AddVR clamped successfully!", buf, 0x12u);
+    _os_log_impl(&dword_24732C000, v38, OS_LOG_TYPE_INFO, "%s @%d: AddVR clamped successfully!", buf, 0x12u);
   }
 
   rCopy4 = r;
   if (status)
   {
-    v39 = 2;
+    v40 = 2;
 LABEL_45:
-    *status = v39;
+    *status = v40;
   }
 
 LABEL_52:
@@ -799,7 +939,7 @@ LABEL_52:
 
   if (displayAxis)
   {
-    *displayAxis = v32;
+    *displayAxis = v33;
   }
 
   if (axis)
@@ -809,11 +949,10 @@ LABEL_52:
 
   if (rCopy4)
   {
-    *rCopy4 = v34;
+    *rCopy4 = v35;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-  return v36;
+  return v37;
 }
 
 - (unint64_t)encodeSphere:(float)sphere cylinder:(float)cylinder axis:(unint64_t)axis toRXID:(unint64_t *)d axisID:(unint64_t *)iD
@@ -900,28 +1039,28 @@ LABEL_7:
 
 - (id)decodeAppClipCodeV1FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if ([bufferCopy bitCount] == 128)
   {
-    v43 = 0;
-    v44 = 0;
-    v41 = 0;
     v42 = 0;
+    v43 = 0;
+    v40 = 0;
+    v41 = 0;
     v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
-    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "skipBits:", 12) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v44, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v42, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v43, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v41, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
+    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "skipBits:", 12) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v43, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v41, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v42, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v40, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
     {
-      v39 = 0;
-      v40 = 0;
-      v37 = 0;
       v38 = 0;
-      v35 = 0;
+      v39 = 0;
       v36 = 0;
-      if (v44)
+      v37 = 0;
+      v34 = 0;
+      v35 = 0;
+      if (v43)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = 0;
-        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:0 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v40 displaySphere:&v38 + 4 displayCylinder:&v38 displayAxis:&v36 fromRXID:v44 RXOffsetID:0 cylinderSignFlipped:v19 axisID:v42 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = 0;
+        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:0 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v39 displaySphere:&v37 + 4 displayCylinder:&v37 displayAxis:&v35 fromRXID:v43 RXOffsetID:0 cylinderSignFlipped:v18 axisID:v41 allowUnsupportedRX:v19];
       }
 
       else
@@ -929,11 +1068,11 @@ LABEL_7:
         v10 = 0;
       }
 
-      if (v43)
+      if (v42)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = 0;
-        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:0 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v39 displaySphere:&v37 + 4 displayCylinder:&v37 displayAxis:&v35 fromRXID:v43 RXOffsetID:0 cylinderSignFlipped:v19 axisID:v41 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = 0;
+        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:0 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v38 displaySphere:&v36 + 4 displayCylinder:&v36 displayAxis:&v34 fromRXID:v42 RXOffsetID:0 cylinderSignFlipped:v18 axisID:v40 allowUnsupportedRX:v19];
       }
 
       else
@@ -943,38 +1082,38 @@ LABEL_7:
 
       if (!(v10 | v12))
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV1FromBuffer_allowUnsupportedRX_error___block_invoke;
-        v21[3] = &unk_278E9FC18;
-        v31 = HIDWORD(v38);
-        v32 = v38;
-        v23 = v44;
-        v24 = v42;
-        v25 = v36;
-        v26 = v40;
-        v33 = HIDWORD(v37);
-        v34 = v37;
-        v27 = v43;
-        v28 = v41;
-        v29 = v35;
-        v30 = v39;
-        v22 = v9;
-        v11 = [CRXFAppClipCode appClipCodeWithBlock:v21];
-        v14 = v22;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV1FromBuffer_allowUnsupportedRX_error___block_invoke;
+        v20[3] = &unk_278E9FC18;
+        v30 = HIDWORD(v37);
+        v31 = v37;
+        v22 = v43;
+        v23 = v41;
+        v24 = v35;
+        v25 = v39;
+        v32 = HIDWORD(v36);
+        v33 = v36;
+        v26 = v42;
+        v27 = v40;
+        v28 = v34;
+        v29 = v38;
+        v21 = v9;
+        v11 = [CRXFAppClipCode appClipCodeWithBlock:v20];
+        v14 = v21;
         goto LABEL_29;
       }
 
       if (error)
       {
         v13 = MEMORY[0x277CCA9B8];
-        v45[0] = @"leftLensDecodeStatus";
+        v44[0] = @"leftLensDecodeStatus";
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-        v46[0] = v14;
-        v45[1] = @"rightLensDecodeStatus";
+        v45[0] = v14;
+        v44[1] = @"rightLensDecodeStatus";
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
-        v46[1] = v15;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+        v45[1] = v15;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
         *error = [v13 crxf_errorWithCode:5 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:985 userInfo:v16];
 
         v11 = 0;
@@ -1009,8 +1148,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1075,33 +1212,33 @@ void __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV1FromBuffer_allowUnsuppor
 
 - (id)decodeAppClipCodeV2FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if ([bufferCopy bitCount] == 128)
   {
-    v50 = 0;
-    v51 = 0;
-    v48 = 0;
     v49 = 0;
-    v46 = 0;
+    v50 = 0;
     v47 = 0;
+    v48 = 0;
+    v45 = 0;
+    v46 = 0;
     v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
-    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "skipBits:", 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v47, 4) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v46, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v51, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v49, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v50, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v48, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
+    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "skipBits:", 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v46, 4) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v45, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v50, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v48, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v49, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v47, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
     {
-      v44 = 0;
-      v45 = 0;
-      v42 = 0;
       v43 = 0;
+      v44 = 0;
       v41 = 0;
+      v42 = 0;
       v40 = 0;
       v39 = 0;
-      v37 = 0;
       v38 = 0;
-      if (v51)
+      v36 = 0;
+      v37 = 0;
+      if (v50)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = 0;
-        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v45 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v43 displaySphere:&v41 + 4 displayCylinder:&v41 displayAxis:&v38 fromRXID:v51 RXOffsetID:0 cylinderSignFlipped:v19 axisID:v49 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = 0;
+        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v44 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v42 displaySphere:&v40 + 4 displayCylinder:&v40 displayAxis:&v37 fromRXID:v50 RXOffsetID:0 cylinderSignFlipped:v18 axisID:v48 allowUnsupportedRX:v19];
       }
 
       else
@@ -1109,11 +1246,11 @@ void __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV1FromBuffer_allowUnsuppor
         v10 = 0;
       }
 
-      if (v50)
+      if (v49)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = 0;
-        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v44 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v42 displaySphere:&v40 displayCylinder:&v39 displayAxis:&v37 fromRXID:v50 RXOffsetID:0 cylinderSignFlipped:v19 axisID:v48 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = 0;
+        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v43 calibrationSphere:0 calibrationCylinder:0 calibrationAxis:0 addVR:0 clampingStatus:&v41 displaySphere:&v39 displayCylinder:&v38 displayAxis:&v36 fromRXID:v49 RXOffsetID:0 cylinderSignFlipped:v18 axisID:v47 allowUnsupportedRX:v19];
       }
 
       else
@@ -1123,40 +1260,40 @@ void __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV1FromBuffer_allowUnsuppor
 
       if (!(v10 | v12))
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV2FromBuffer_allowUnsupportedRX_error___block_invoke;
-        v21[3] = &unk_278E9FC40;
-        v33 = HIDWORD(v41);
-        v34 = v41;
-        v23 = v51;
-        v24 = v49;
-        v25 = v38;
-        v26 = v43;
-        v35 = v40;
-        v36 = v39;
-        v27 = v50;
-        v28 = v48;
-        v29 = v37;
-        v30 = v42;
-        v31 = v47;
-        v22 = v9;
-        v32 = v46;
-        v11 = [CRXFAppClipCode appClipCodeWithBlock:v21];
-        v14 = v22;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV2FromBuffer_allowUnsupportedRX_error___block_invoke;
+        v20[3] = &unk_278E9FC40;
+        v32 = HIDWORD(v40);
+        v33 = v40;
+        v22 = v50;
+        v23 = v48;
+        v24 = v37;
+        v25 = v42;
+        v34 = v39;
+        v35 = v38;
+        v26 = v49;
+        v27 = v47;
+        v28 = v36;
+        v29 = v41;
+        v30 = v46;
+        v21 = v9;
+        v31 = v45;
+        v11 = [CRXFAppClipCode appClipCodeWithBlock:v20];
+        v14 = v21;
         goto LABEL_31;
       }
 
       if (error)
       {
         v13 = MEMORY[0x277CCA9B8];
-        v52[0] = @"leftLensDecodeStatus";
+        v51[0] = @"leftLensDecodeStatus";
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-        v53[0] = v14;
-        v52[1] = @"rightLensDecodeStatus";
+        v52[0] = v14;
+        v51[1] = @"rightLensDecodeStatus";
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
-        v53[1] = v15;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+        v52[1] = v15;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
         *error = [v13 crxf_errorWithCode:5 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:1131 userInfo:v16];
 
         v11 = 0;
@@ -1191,8 +1328,6 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1259,40 +1394,40 @@ void __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV2FromBuffer_allowUnsuppor
 
 - (id)decodeAppClipCodeV3FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if ([bufferCopy bitCount] == 128)
   {
-    v70 = 0;
-    v68 = 0;
     v69 = 0;
-    v66 = 0;
     v67 = 0;
-    v64 = 0;
+    v68 = 0;
     v65 = 0;
-    v62 = 0;
+    v66 = 0;
     v63 = 0;
+    v64 = 0;
+    v61 = 0;
+    v62 = 0;
     v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
-    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v65, 4) && objc_msgSend(bufferCopy, "readBool:", &v70 + 1) && objc_msgSend(bufferCopy, "readBool:", &v70) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v64, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v63, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v62, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v69, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v67, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v68, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v66, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
+    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v64, 4) && objc_msgSend(bufferCopy, "readBool:", &v69 + 1) && objc_msgSend(bufferCopy, "readBool:", &v69) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v63, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v62, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v61, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v68, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v66, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v67, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v65, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
     {
-      v60 = 0;
-      v61 = 0;
-      v58 = 0;
       v59 = 0;
-      v56 = 0;
+      v60 = 0;
       v57 = 0;
-      v54 = 0;
+      v58 = 0;
       v55 = 0;
-      v52 = 0;
+      v56 = 0;
       v53 = 0;
-      v50 = 0;
+      v54 = 0;
       v51 = 0;
+      v52 = 0;
       v49 = 0;
-      if (v69)
+      v50 = 0;
+      v48 = 0;
+      if (v68)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = HIBYTE(v70);
-        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v50 calibrationSphere:&v57 + 4 calibrationCylinder:&v57 calibrationAxis:&v52 addVR:&v55 + 4 clampingStatus:&v61 displaySphere:&v59 + 4 displayCylinder:&v59 displayAxis:&v54 fromRXID:v69 RXOffsetID:v64 cylinderSignFlipped:v19 axisID:v67 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = HIBYTE(v69);
+        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v49 calibrationSphere:&v56 + 4 calibrationCylinder:&v56 calibrationAxis:&v51 addVR:&v54 + 4 clampingStatus:&v60 displaySphere:&v58 + 4 displayCylinder:&v58 displayAxis:&v53 fromRXID:v68 RXOffsetID:v63 cylinderSignFlipped:v18 axisID:v66 allowUnsupportedRX:v19];
       }
 
       else
@@ -1300,11 +1435,11 @@ void __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV2FromBuffer_allowUnsuppor
         v10 = 0;
       }
 
-      if (v68)
+      if (v67)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = v70;
-        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v49 calibrationSphere:&v56 + 4 calibrationCylinder:&v56 calibrationAxis:&v51 addVR:&v55 clampingStatus:&v60 displaySphere:&v58 + 4 displayCylinder:&v58 displayAxis:&v53 fromRXID:v68 RXOffsetID:v63 cylinderSignFlipped:v19 axisID:v66 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = v69;
+        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v48 calibrationSphere:&v55 + 4 calibrationCylinder:&v55 calibrationAxis:&v50 addVR:&v54 clampingStatus:&v59 displaySphere:&v57 + 4 displayCylinder:&v57 displayAxis:&v52 fromRXID:v67 RXOffsetID:v62 cylinderSignFlipped:v18 axisID:v65 allowUnsupportedRX:v19];
       }
 
       else
@@ -1314,52 +1449,52 @@ void __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV2FromBuffer_allowUnsuppor
 
       if (!(v10 | v12))
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV3FromBuffer_allowUnsupportedRX_error___block_invoke;
-        v21[3] = &unk_278E9FC68;
-        v47 = HIBYTE(v70);
-        v48 = v70;
-        v23 = v69;
-        v24 = v50;
-        v37 = HIDWORD(v59);
-        v38 = v59;
-        v39 = HIDWORD(v57);
-        v40 = v57;
-        v25 = v67;
-        v26 = v54;
-        v27 = v52;
-        v28 = v61;
-        v29 = v68;
-        v30 = v49;
-        v41 = HIDWORD(v55);
-        v42 = HIDWORD(v58);
-        v43 = v58;
-        v44 = HIDWORD(v56);
-        v45 = v56;
-        v46 = v55;
-        v31 = v66;
-        v32 = v53;
-        v33 = v51;
-        v34 = v60;
-        v35 = v65;
-        v22 = v9;
-        v36 = v62;
-        v11 = [CRXFAppClipCode appClipCodeWithBlock:v21];
-        v14 = v22;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV3FromBuffer_allowUnsupportedRX_error___block_invoke;
+        v20[3] = &unk_278E9FC68;
+        v46 = HIBYTE(v69);
+        v47 = v69;
+        v22 = v68;
+        v23 = v49;
+        v36 = HIDWORD(v58);
+        v37 = v58;
+        v38 = HIDWORD(v56);
+        v39 = v56;
+        v24 = v66;
+        v25 = v53;
+        v26 = v51;
+        v27 = v60;
+        v28 = v67;
+        v29 = v48;
+        v40 = HIDWORD(v54);
+        v41 = HIDWORD(v57);
+        v42 = v57;
+        v43 = HIDWORD(v55);
+        v44 = v55;
+        v45 = v54;
+        v30 = v65;
+        v31 = v52;
+        v32 = v50;
+        v33 = v59;
+        v34 = v64;
+        v21 = v9;
+        v35 = v61;
+        v11 = [CRXFAppClipCode appClipCodeWithBlock:v20];
+        v14 = v21;
         goto LABEL_34;
       }
 
       if (error)
       {
         v13 = MEMORY[0x277CCA9B8];
-        v71[0] = @"leftLensDecodeStatus";
+        v70[0] = @"leftLensDecodeStatus";
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-        v72[0] = v14;
-        v71[1] = @"rightLensDecodeStatus";
+        v71[0] = v14;
+        v70[1] = @"rightLensDecodeStatus";
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
-        v72[1] = v15;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+        v71[1] = v15;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
         *error = [v13 crxf_errorWithCode:5 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:1289 userInfo:v16];
 
         v11 = 0;
@@ -1394,8 +1529,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1506,40 +1639,40 @@ LABEL_24:
 
 - (id)decodeAppClipCodeV4FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if ([bufferCopy bitCount] == 128)
   {
-    v70 = 0;
-    v68 = 0;
     v69 = 0;
-    v66 = 0;
     v67 = 0;
-    v64 = 0;
+    v68 = 0;
     v65 = 0;
+    v66 = 0;
     v63 = 0;
-    v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
+    v64 = 0;
     v62 = 0;
-    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v65, 4) && objc_msgSend(bufferCopy, "readBool:", &v70 + 1) && objc_msgSend(bufferCopy, "readBool:", &v70) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v64, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v63, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v62, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v69, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v67, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v68, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v66, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
+    v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
+    v61 = 0;
+    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v64, 4) && objc_msgSend(bufferCopy, "readBool:", &v69 + 1) && objc_msgSend(bufferCopy, "readBool:", &v69) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v63, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v62, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v61, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v68, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v66, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v67, 10) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v65, 6) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
     {
-      v60 = 0;
-      v61 = 0;
-      v58 = 0;
       v59 = 0;
-      v56 = 0;
+      v60 = 0;
       v57 = 0;
-      v54 = 0;
+      v58 = 0;
       v55 = 0;
-      v52 = 0;
+      v56 = 0;
       v53 = 0;
-      v50 = 0;
+      v54 = 0;
       v51 = 0;
+      v52 = 0;
       v49 = 0;
-      if (v69)
+      v50 = 0;
+      v48 = 0;
+      if (v68)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = HIBYTE(v70);
-        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v50 calibrationSphere:&v57 + 4 calibrationCylinder:&v57 calibrationAxis:&v52 addVR:&v55 + 4 clampingStatus:&v61 displaySphere:&v59 + 4 displayCylinder:&v59 displayAxis:&v54 fromRXID:v69 RXOffsetID:v64 cylinderSignFlipped:v19 axisID:v67 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = HIBYTE(v69);
+        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v49 calibrationSphere:&v56 + 4 calibrationCylinder:&v56 calibrationAxis:&v51 addVR:&v54 + 4 clampingStatus:&v60 displaySphere:&v58 + 4 displayCylinder:&v58 displayAxis:&v53 fromRXID:v68 RXOffsetID:v63 cylinderSignFlipped:v18 axisID:v66 allowUnsupportedRX:v19];
       }
 
       else
@@ -1547,11 +1680,11 @@ LABEL_24:
         v10 = 0;
       }
 
-      if (v68)
+      if (v67)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = v70;
-        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v49 calibrationSphere:&v56 + 4 calibrationCylinder:&v56 calibrationAxis:&v51 addVR:&v55 clampingStatus:&v60 displaySphere:&v58 + 4 displayCylinder:&v58 displayAxis:&v53 fromRXID:v68 RXOffsetID:v63 cylinderSignFlipped:v19 axisID:v66 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = v69;
+        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v48 calibrationSphere:&v55 + 4 calibrationCylinder:&v55 calibrationAxis:&v50 addVR:&v54 clampingStatus:&v59 displaySphere:&v57 + 4 displayCylinder:&v57 displayAxis:&v52 fromRXID:v67 RXOffsetID:v62 cylinderSignFlipped:v18 axisID:v65 allowUnsupportedRX:v19];
       }
 
       else
@@ -1561,52 +1694,52 @@ LABEL_24:
 
       if (!(v10 | v12))
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV4FromBuffer_allowUnsupportedRX_error___block_invoke;
-        v21[3] = &unk_278E9FC68;
-        v47 = HIBYTE(v70);
-        v48 = v70;
-        v23 = v62;
-        v24 = v69;
-        v37 = HIDWORD(v59);
-        v38 = v59;
-        v39 = HIDWORD(v57);
-        v40 = v57;
-        v25 = v50;
-        v26 = v67;
-        v27 = v54;
-        v28 = v52;
-        v29 = v61;
-        v30 = v68;
-        v41 = HIDWORD(v55);
-        v42 = HIDWORD(v58);
-        v43 = v58;
-        v44 = HIDWORD(v56);
-        v45 = v56;
-        v46 = v55;
-        v31 = v49;
-        v32 = v66;
-        v33 = v53;
-        v34 = v51;
-        v35 = v60;
-        v36 = v65;
-        v22 = v9;
-        v11 = [CRXFAppClipCode appClipCodeWithBlock:v21];
-        v14 = v22;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV4FromBuffer_allowUnsupportedRX_error___block_invoke;
+        v20[3] = &unk_278E9FC68;
+        v46 = HIBYTE(v69);
+        v47 = v69;
+        v22 = v61;
+        v23 = v68;
+        v36 = HIDWORD(v58);
+        v37 = v58;
+        v38 = HIDWORD(v56);
+        v39 = v56;
+        v24 = v49;
+        v25 = v66;
+        v26 = v53;
+        v27 = v51;
+        v28 = v60;
+        v29 = v67;
+        v40 = HIDWORD(v54);
+        v41 = HIDWORD(v57);
+        v42 = v57;
+        v43 = HIDWORD(v55);
+        v44 = v55;
+        v45 = v54;
+        v30 = v48;
+        v31 = v65;
+        v32 = v52;
+        v33 = v50;
+        v34 = v59;
+        v35 = v64;
+        v21 = v9;
+        v11 = [CRXFAppClipCode appClipCodeWithBlock:v20];
+        v14 = v21;
         goto LABEL_34;
       }
 
       if (error)
       {
         v13 = MEMORY[0x277CCA9B8];
-        v71[0] = @"leftLensDecodeStatus";
+        v70[0] = @"leftLensDecodeStatus";
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-        v72[0] = v14;
-        v71[1] = @"rightLensDecodeStatus";
+        v71[0] = v14;
+        v70[1] = @"rightLensDecodeStatus";
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
-        v72[1] = v15;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+        v71[1] = v15;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
         *error = [v13 crxf_errorWithCode:5 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:1460 userInfo:v16];
 
         v11 = 0;
@@ -1641,8 +1774,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1753,40 +1884,40 @@ LABEL_24:
 
 - (id)decodeAppClipCodeV5FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if ([bufferCopy bitCount] == 128)
   {
-    v70 = 0;
-    v68 = 0;
     v69 = 0;
-    v66 = 0;
     v67 = 0;
-    v64 = 0;
+    v68 = 0;
     v65 = 0;
+    v66 = 0;
     v63 = 0;
-    v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
+    v64 = 0;
     v62 = 0;
-    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "readBool:", &v70 + 1) && objc_msgSend(bufferCopy, "readBool:", &v70) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v65, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v64, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v62, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v69, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v67, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v68, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v66, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v63, 2) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
+    v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
+    v61 = 0;
+    if ([bufferCopy skipBits:4] && objc_msgSend(bufferCopy, "readBool:", &v69 + 1) && objc_msgSend(bufferCopy, "readBool:", &v69) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v64, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v63, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v61, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v68, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v66, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v67, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v65, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v62, 2) && (objc_msgSend(bufferCopy, "readData:bitWidth:", v9, 80) & 1) != 0)
     {
-      v60 = 0;
-      v61 = 0;
-      v58 = 0;
       v59 = 0;
-      v56 = 0;
+      v60 = 0;
       v57 = 0;
-      v54 = 0;
+      v58 = 0;
       v55 = 0;
-      v52 = 0;
+      v56 = 0;
       v53 = 0;
-      v50 = 0;
+      v54 = 0;
       v51 = 0;
+      v52 = 0;
       v49 = 0;
-      if (v69)
+      v50 = 0;
+      v48 = 0;
+      if (v68)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = HIBYTE(v70);
-        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v50 calibrationSphere:&v57 + 4 calibrationCylinder:&v57 calibrationAxis:&v52 addVR:&v55 + 4 clampingStatus:&v61 displaySphere:&v59 + 4 displayCylinder:&v59 displayAxis:&v54 fromRXID:v69 RXOffsetID:v65 cylinderSignFlipped:v19 axisID:v67 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = HIBYTE(v69);
+        v10 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v49 calibrationSphere:&v56 + 4 calibrationCylinder:&v56 calibrationAxis:&v51 addVR:&v54 + 4 clampingStatus:&v60 displaySphere:&v58 + 4 displayCylinder:&v58 displayAxis:&v53 fromRXID:v68 RXOffsetID:v64 cylinderSignFlipped:v18 axisID:v66 allowUnsupportedRX:v19];
       }
 
       else
@@ -1794,11 +1925,11 @@ LABEL_24:
         v10 = 0;
       }
 
-      if (v68)
+      if (v67)
       {
-        LOBYTE(v20) = x;
-        LOBYTE(v19) = v70;
-        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v49 calibrationSphere:&v56 + 4 calibrationCylinder:&v56 calibrationAxis:&v51 addVR:&v55 clampingStatus:&v60 displaySphere:&v58 + 4 displayCylinder:&v58 displayAxis:&v53 fromRXID:v68 RXOffsetID:v64 cylinderSignFlipped:v19 axisID:v66 allowUnsupportedRX:v20];
+        LOBYTE(v19) = x;
+        LOBYTE(v18) = v69;
+        v12 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v48 calibrationSphere:&v55 + 4 calibrationCylinder:&v55 calibrationAxis:&v50 addVR:&v54 clampingStatus:&v59 displaySphere:&v57 + 4 displayCylinder:&v57 displayAxis:&v52 fromRXID:v67 RXOffsetID:v63 cylinderSignFlipped:v18 axisID:v65 allowUnsupportedRX:v19];
       }
 
       else
@@ -1808,52 +1939,52 @@ LABEL_24:
 
       if (!(v10 | v12))
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV5FromBuffer_allowUnsupportedRX_error___block_invoke;
-        v21[3] = &unk_278E9FC68;
-        v47 = HIBYTE(v70);
-        v48 = v70;
-        v23 = v62;
-        v24 = v69;
-        v37 = HIDWORD(v59);
-        v38 = v59;
-        v39 = HIDWORD(v57);
-        v40 = v57;
-        v25 = v50;
-        v26 = v67;
-        v27 = v54;
-        v28 = v52;
-        v29 = v61;
-        v30 = v68;
-        v41 = HIDWORD(v55);
-        v42 = HIDWORD(v58);
-        v43 = v58;
-        v44 = HIDWORD(v56);
-        v45 = v56;
-        v46 = v55;
-        v31 = v49;
-        v32 = v66;
-        v33 = v53;
-        v34 = v51;
-        v35 = v60;
-        v22 = v9;
-        v36 = v63;
-        v11 = [CRXFAppClipCode appClipCodeWithBlock:v21];
-        v14 = v22;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV5FromBuffer_allowUnsupportedRX_error___block_invoke;
+        v20[3] = &unk_278E9FC68;
+        v46 = HIBYTE(v69);
+        v47 = v69;
+        v22 = v61;
+        v23 = v68;
+        v36 = HIDWORD(v58);
+        v37 = v58;
+        v38 = HIDWORD(v56);
+        v39 = v56;
+        v24 = v49;
+        v25 = v66;
+        v26 = v53;
+        v27 = v51;
+        v28 = v60;
+        v29 = v67;
+        v40 = HIDWORD(v54);
+        v41 = HIDWORD(v57);
+        v42 = v57;
+        v43 = HIDWORD(v55);
+        v44 = v55;
+        v45 = v54;
+        v30 = v48;
+        v31 = v65;
+        v32 = v52;
+        v33 = v50;
+        v34 = v59;
+        v21 = v9;
+        v35 = v62;
+        v11 = [CRXFAppClipCode appClipCodeWithBlock:v20];
+        v14 = v21;
         goto LABEL_34;
       }
 
       if (error)
       {
         v13 = MEMORY[0x277CCA9B8];
-        v71[0] = @"leftLensDecodeStatus";
+        v70[0] = @"leftLensDecodeStatus";
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-        v72[0] = v14;
-        v71[1] = @"rightLensDecodeStatus";
+        v71[0] = v14;
+        v70[1] = @"rightLensDecodeStatus";
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
-        v72[1] = v15;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+        v71[1] = v15;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
         *error = [v13 crxf_errorWithCode:5 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:1650 userInfo:v16];
 
         v11 = 0;
@@ -1888,8 +2019,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2001,49 +2130,49 @@ LABEL_24:
 
 - (id)decodeAppClipCodeV6FromBuffer:(id)buffer allowUnsupportedRX:(BOOL)x error:(id *)error
 {
-  v94[6] = *MEMORY[0x277D85DE8];
+  v93[6] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if ([bufferCopy bitCount] == 152)
   {
-    v92 = 0;
-    v90 = 0;
     v91 = 0;
-    v88 = 0;
     v89 = 0;
-    v86 = 0;
+    v90 = 0;
     v87 = 0;
+    v88 = 0;
     v85 = 0;
-    v83 = 0;
+    v86 = 0;
     v84 = 0;
     v82 = 0;
-    v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
-    v80 = 2;
+    v83 = 0;
     v81 = 0;
-    v78 = 2;
+    v9 = [MEMORY[0x277CBEB28] dataWithLength:10];
     v79 = 2;
+    v80 = 0;
     v77 = 2;
-    if ([bufferCopy readData:v9 bitWidth:80] && objc_msgSend(bufferCopy, "readBool:", &v92) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v87, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v86, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v81, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v91, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v89, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v90, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v88, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v85, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v84, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v78, 1) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v77, 1) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v83, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v82, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v80, 1) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v79, 1) && objc_msgSend(bufferCopy, "skipBits:", 4) && (objc_msgSend(bufferCopy, "skipBits:", 3) & 1) != 0)
+    v78 = 2;
+    v76 = 2;
+    if ([bufferCopy readData:v9 bitWidth:80] && objc_msgSend(bufferCopy, "readBool:", &v91) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v86, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v85, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v80, 2) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v90, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v88, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v89, 11) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v87, 6) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v84, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v83, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v77, 1) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v76, 1) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v82, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v81, 5) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v79, 1) && objc_msgSend(bufferCopy, "readUInteger:bitWidth:", &v78, 1) && objc_msgSend(bufferCopy, "skipBits:", 4) && (objc_msgSend(bufferCopy, "skipBits:", 3) & 1) != 0)
     {
-      v75 = 0;
-      v76 = 0;
-      v73 = 0;
       v74 = 0;
-      v71 = 0;
+      v75 = 0;
       v72 = 0;
-      v69 = 0;
+      v73 = 0;
       v70 = 0;
-      v67 = 0;
+      v71 = 0;
       v68 = 0;
-      v65 = 0;
+      v69 = 0;
       v66 = 0;
-      v63 = 0;
+      v67 = 0;
       v64 = 0;
+      v65 = 0;
       v62 = 0;
-      if (v91)
+      v63 = 0;
+      v61 = 0;
+      if (v90)
       {
-        LOBYTE(v26) = x;
-        LOBYTE(v25) = v92;
-        v11 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v63 calibrationSphere:&v72 + 4 calibrationCylinder:&v72 calibrationAxis:&v65 addVR:&v68 + 4 clampingStatus:&v76 displaySphere:&v74 + 4 displayCylinder:&v74 displayAxis:&v67 fromRXID:v91 RXOffsetID:v87 cylinderSignFlipped:v25 axisID:v89 allowUnsupportedRX:v26];
+        LOBYTE(v25) = x;
+        LOBYTE(v24) = v91;
+        v11 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v62 calibrationSphere:&v71 + 4 calibrationCylinder:&v71 calibrationAxis:&v64 addVR:&v67 + 4 clampingStatus:&v75 displaySphere:&v73 + 4 displayCylinder:&v73 displayAxis:&v66 fromRXID:v90 RXOffsetID:v86 cylinderSignFlipped:v24 axisID:v88 allowUnsupportedRX:v25];
       }
 
       else
@@ -2051,11 +2180,11 @@ LABEL_24:
         v11 = 0;
       }
 
-      if (v90)
+      if (v89)
       {
-        LOBYTE(v26) = x;
-        LOBYTE(v25) = v92;
-        v13 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v62 calibrationSphere:&v71 + 4 calibrationCylinder:&v71 calibrationAxis:&v64 addVR:&v68 clampingStatus:&v75 displaySphere:&v73 + 4 displayCylinder:&v73 displayAxis:&v66 fromRXID:v90 RXOffsetID:v86 cylinderSignFlipped:v25 axisID:v88 allowUnsupportedRX:v26];
+        LOBYTE(v25) = x;
+        LOBYTE(v24) = v91;
+        v13 = [(CRXFAppClipCodeTranscoder *)self decodeCalibrationRXID:&v61 calibrationSphere:&v70 + 4 calibrationCylinder:&v70 calibrationAxis:&v63 addVR:&v67 clampingStatus:&v74 displaySphere:&v72 + 4 displayCylinder:&v72 displayAxis:&v65 fromRXID:v89 RXOffsetID:v85 cylinderSignFlipped:v24 axisID:v87 allowUnsupportedRX:v25];
       }
 
       else
@@ -2064,55 +2193,55 @@ LABEL_24:
       }
 
       LODWORD(v10) = 7.75;
-      if (![(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v85 minValue:&v70 + 4 maxValue:0.0 value:v10]|| (LODWORD(v14) = 7.75, ![(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v83 minValue:&v70 maxValue:0.0 value:v14]))
+      if (![(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v84 minValue:&v69 + 4 maxValue:0.0 value:v10]|| (LODWORD(v14) = 7.75, ![(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v82 minValue:&v69 maxValue:0.0 value:v14]))
       {
         v11 |= 0x40uLL;
       }
 
       LODWORD(v14) = 7.75;
-      if ([(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v84 minValue:&v69 + 4 maxValue:0.0 value:v14]&& (LODWORD(v15) = 7.75, [(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v82 minValue:&v69 maxValue:0.0 value:v15]))
+      if ([(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v83 minValue:&v68 + 4 maxValue:0.0 value:v14]&& (LODWORD(v15) = 7.75, [(CRXFAppClipCodeTranscoder *)self getQuarterDiopterValueForIndex:v81 minValue:&v68 maxValue:0.0 value:v15]))
       {
         if (!(v11 | v13))
         {
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV6FromBuffer_allowUnsupportedRX_error___block_invoke;
-          v28[3] = &unk_278E9FC90;
-          v61 = v92;
-          v30 = v81;
-          v31 = v91;
-          v47 = HIDWORD(v74);
-          v48 = v74;
-          v49 = HIDWORD(v72);
-          v50 = v72;
-          v32 = v63;
-          v33 = v89;
-          v34 = v67;
-          v35 = v65;
-          v51 = HIDWORD(v68);
-          v52 = HIDWORD(v70);
-          v36 = v78;
-          v37 = v80;
-          v38 = v76;
-          v39 = v90;
-          v53 = v70;
-          v54 = HIDWORD(v73);
-          v55 = v73;
-          v56 = HIDWORD(v71);
-          v57 = v71;
-          v58 = v68;
-          v40 = v62;
-          v41 = v88;
-          v42 = v66;
-          v43 = v64;
-          v44 = v77;
-          v45 = v79;
-          v59 = HIDWORD(v69);
-          v60 = v69;
-          v46 = v75;
-          v29 = v9;
-          v12 = [CRXFAppClipCode appClipCodeWithBlock:v28];
-          v16 = v29;
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __84__CRXFAppClipCodeTranscoder_decodeAppClipCodeV6FromBuffer_allowUnsupportedRX_error___block_invoke;
+          v27[3] = &unk_278E9FC90;
+          v60 = v91;
+          v29 = v80;
+          v30 = v90;
+          v46 = HIDWORD(v73);
+          v47 = v73;
+          v48 = HIDWORD(v71);
+          v49 = v71;
+          v31 = v62;
+          v32 = v88;
+          v33 = v66;
+          v34 = v64;
+          v50 = HIDWORD(v67);
+          v51 = HIDWORD(v69);
+          v35 = v77;
+          v36 = v79;
+          v37 = v75;
+          v38 = v89;
+          v52 = v69;
+          v53 = HIDWORD(v72);
+          v54 = v72;
+          v55 = HIDWORD(v70);
+          v56 = v70;
+          v57 = v67;
+          v39 = v61;
+          v40 = v87;
+          v41 = v65;
+          v42 = v63;
+          v43 = v76;
+          v44 = v78;
+          v58 = HIDWORD(v68);
+          v59 = v68;
+          v45 = v74;
+          v28 = v9;
+          v12 = [CRXFAppClipCode appClipCodeWithBlock:v27];
+          v16 = v28;
 LABEL_42:
 
           goto LABEL_44;
@@ -2126,27 +2255,27 @@ LABEL_42:
 
       if (error)
       {
-        v27 = MEMORY[0x277CCA9B8];
-        v93[0] = @"leftLensDecodeStatus";
+        v26 = MEMORY[0x277CCA9B8];
+        v92[0] = @"leftLensDecodeStatus";
         v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
-        v94[0] = v16;
-        v93[1] = @"leftLensRXID";
-        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v91];
-        v94[1] = v17;
-        v93[2] = @"leftLensAxisID";
-        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v89];
-        v94[2] = v18;
-        v93[3] = @"rightLensDecodeStatus";
+        v93[0] = v16;
+        v92[1] = @"leftLensRXID";
+        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v90];
+        v93[1] = v17;
+        v92[2] = @"leftLensAxisID";
+        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v88];
+        v93[2] = v18;
+        v92[3] = @"rightLensDecodeStatus";
         v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v13];
-        v94[3] = v19;
-        v93[4] = @"rightLensRXID";
-        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v90];
-        v94[4] = v20;
-        v93[5] = @"rightLensAxisID";
-        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v88];
-        v94[5] = v21;
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:6];
-        *error = [v27 crxf_errorWithCode:5 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:1863 userInfo:v22];
+        v93[3] = v19;
+        v92[4] = @"rightLensRXID";
+        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v89];
+        v93[4] = v20;
+        v92[5] = @"rightLensAxisID";
+        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v87];
+        v93[5] = v21;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:6];
+        *error = [v26 crxf_errorWithCode:5 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ACC/CRXFAppClipCodeTranscoder.m" line:1863 userInfo:v22];
 
         v12 = 0;
         goto LABEL_42;
@@ -2178,8 +2307,6 @@ LABEL_44:
   }
 
 LABEL_45:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -2451,30 +2578,6 @@ LABEL_10:
   }
 
   return v14;
-}
-
-- (void)decodeCalibrationRXID:calibrationSphere:calibrationCylinder:calibrationAxis:addVR:clampingStatus:displaySphere:displayCylinder:displayAxis:fromRXID:RXOffsetID:cylinderSignFlipped:axisID:allowUnsupportedRX:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24732C000, v0, v1, "%s @%d: rxID is out of range", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decodeCalibrationRXID:calibrationSphere:calibrationCylinder:calibrationAxis:addVR:clampingStatus:displaySphere:displayCylinder:displayAxis:fromRXID:RXOffsetID:cylinderSignFlipped:axisID:allowUnsupportedRX:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24732C000, v0, v1, "%s @%d: Failed to find any valid VRx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decodeCalibrationRXID:calibrationSphere:calibrationCylinder:calibrationAxis:addVR:clampingStatus:displaySphere:displayCylinder:displayAxis:fromRXID:RXOffsetID:cylinderSignFlipped:axisID:allowUnsupportedRX:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24732C000, v0, v1, "%s @%d: Failed to find any valid Rx without VRX", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

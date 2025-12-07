@@ -59,7 +59,7 @@
 + (id)repeatingFloat:(float)float count:(int64_t)count
 {
   swift_getObjCClassMetadata();
-  *v6.i32 = float;
+  v6.n128_f32[0] = float;
   v7 = static MAFloatVectorWrapper.repeating(float:count:)(count, v6);
 
   return v7;
@@ -116,33 +116,33 @@
 - (id)vectorBySubtractingScalar:(float)scalar
 {
   selfCopy = self;
-  v4 = MAFloatVectorWrapper.vectorBySubtractingScalar(_:)();
+  v5 = MAFloatVectorWrapper.vectorBySubtractingScalar(_:)(scalar);
 
-  return v4;
+  return v5;
 }
 
 - (id)vectorByAddingScalar:(float)scalar
 {
   selfCopy = self;
-  v4 = MAFloatVectorWrapper.vectorByAddingScalar(_:)();
+  v5 = MAFloatVectorWrapper.vectorByAddingScalar(_:)(scalar);
 
-  return v4;
+  return v5;
 }
 
 - (id)vectorByMultiplyingByScalar:(float)scalar
 {
   selfCopy = self;
-  v4 = MAFloatVectorWrapper.vectorByMultiplyingByScalar(_:)();
+  v5 = MAFloatVectorWrapper.vectorByMultiplyingByScalar(_:)(scalar);
 
-  return v4;
+  return v5;
 }
 
 - (id)vectorByDividingByScalar:(float)scalar
 {
   selfCopy = self;
-  v4 = MAFloatVectorWrapper.vectorByDividingByScalar(_:)();
+  v5 = MAFloatVectorWrapper.vectorByDividingByScalar(_:)(scalar);
 
-  return v4;
+  return v5;
 }
 
 - (id)vectorByElementwiseMultiplyingByWrapper:(id)wrapper
@@ -172,14 +172,14 @@
 
 - (float)dotProductWithWrapper:(id)wrapper
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D85000];
-  v6 = (*((*MEMORY[0x277D85000] & self->super.isa) + 0x70))(v17);
-  v7 = v17[0];
-  (*((*v5 & *wrapper) + 0x70))(&v16, v6);
-  v8 = v16;
+  v6 = (*((*MEMORY[0x277D85000] & self->super.isa) + 0x70))(v16);
+  v7 = v16[0];
+  (*((*v5 & *wrapper) + 0x70))(&v15, v6);
+  v8 = v15;
   v9 = *(v7 + 16);
-  if (v9 != *(v16 + 16))
+  if (v9 != *(v15 + 16))
   {
     __break(1u);
   }
@@ -190,7 +190,6 @@
   vDSP_dotpr((v7 + 32), 1, (v8 + 32), 1, &__C, v9);
   v12 = __C;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -212,43 +211,36 @@
 
 - (float)sum
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CB8788];
+  v2 = MEMORY[0x277CB8788];
 
-  return sub_25587CF40(self, a2, v3);
+  return sub_25587CF40(self, a2, v2);
 }
 
 - (float)sumOfSquares
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CB8798];
+  v2 = MEMORY[0x277CB8798];
 
-  return sub_25587CF40(self, a2, v3);
+  return sub_25587CF40(self, a2, v2);
 }
 
 - (float)mean
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CB8768];
+  v2 = MEMORY[0x277CB8768];
 
-  return sub_25587CF40(self, a2, v3);
+  return sub_25587CF40(self, a2, v2);
 }
 
 - (float)standardDeviation
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  (*((*MEMORY[0x277D85000] & self->super.isa) + 0x70))(v10);
-  v3 = v10[0];
+  v9[1] = *MEMORY[0x277D85DE8];
+  (*((*MEMORY[0x277D85000] & self->super.isa) + 0x70))(v9);
+  v3 = v9[0];
   __StandardDeviation = 0;
-  v4 = *(v10[0] + 16);
+  v4 = *(v9[0] + 16);
   selfCopy = self;
   vDSP_normalize((v3 + 32), 1, 0, 1, &__StandardDeviation + 1, &__StandardDeviation, v4);
   v6 = *&__StandardDeviation;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -55,7 +55,6 @@
   }
 
   PBDataWriterWriteSubmessage();
-  accepted = self->_accepted;
   PBDataWriterWriteBOOLField();
   if (self->_error)
   {
@@ -108,13 +107,12 @@
     }
   }
 
-  v6 = *(equalCopy + 24);
   if (self->_accepted)
   {
     if ((*(equalCopy + 24) & 1) == 0)
     {
 LABEL_6:
-      v7 = 0;
+      v6 = 0;
       goto LABEL_7;
     }
   }
@@ -127,17 +125,17 @@ LABEL_6:
   error = self->_error;
   if (error | *(equalCopy + 1))
   {
-    v7 = [(SYErrorInfo *)error isEqual:?];
+    v6 = [(SYErrorInfo *)error isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_7:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

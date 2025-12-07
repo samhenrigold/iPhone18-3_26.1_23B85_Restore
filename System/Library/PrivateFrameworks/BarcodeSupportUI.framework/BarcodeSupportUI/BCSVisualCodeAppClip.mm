@@ -48,59 +48,58 @@
 
 - (CGRect)boundingBox
 {
-  v25[5] = *MEMORY[0x277D85DE8];
+  v24[5] = *MEMORY[0x277D85DE8];
   [(BCSVisualCode *)self topLeft];
   v4 = v3;
   v6 = v5;
   [(BCSVisualCode *)self topRight];
-  v24 = v7;
-  v25[0] = v8;
+  v23 = v7;
+  v24[0] = v8;
   [(BCSVisualCode *)self bottomLeft];
-  v25[1] = v9;
-  v25[2] = v10;
+  v24[1] = v9;
+  v24[2] = v10;
   [(BCSVisualCode *)self bottomRight];
   v11 = 0;
-  v25[3] = v12;
-  v25[4] = v13;
+  v24[3] = v12;
+  v24[4] = v13;
   v14 = v4;
   v15 = v6;
   do
   {
-    v16 = *&v23[v11 * 8 + 16];
-    v17 = *&v25[v11];
+    v16 = *&v22[v11 * 8 + 16];
+    v17 = *&v24[v11];
     if (v4 >= v16)
     {
-      v4 = *&v23[v11 * 8 + 16];
+      v4 = *&v22[v11 * 8 + 16];
     }
 
     if (v14 < v16)
     {
-      v14 = *&v23[v11 * 8 + 16];
+      v14 = *&v22[v11 * 8 + 16];
     }
 
     if (v6 >= v17)
     {
-      v6 = *&v25[v11];
+      v6 = *&v24[v11];
     }
 
     if (v15 < v17)
     {
-      v15 = *&v25[v11];
+      v15 = *&v24[v11];
     }
 
     v11 += 2;
   }
 
   while (v11 != 6);
-  v18 = *MEMORY[0x277D85DE8];
-  v19 = v14 - v4;
-  v20 = v15 - v6;
-  v21 = v4;
-  v22 = v6;
-  result.size.height = v20;
-  result.size.width = v19;
-  result.origin.y = v22;
-  result.origin.x = v21;
+  v18 = v14 - v4;
+  v19 = v15 - v6;
+  v20 = v4;
+  v21 = v6;
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.y = v21;
+  result.origin.x = v20;
   return result;
 }
 

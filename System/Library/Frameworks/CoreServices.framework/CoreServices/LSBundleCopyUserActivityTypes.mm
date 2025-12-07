@@ -3,16 +3,16 @@
 
 @implementation LSBundleCopyUserActivityTypes
 
-void ___LSBundleCopyUserActivityTypes_block_invoke(uint64_t a1)
+void ___LSBundleCopyUserActivityTypes_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   [(_LSDatabase *)*(a1 + 32) store];
-  v2 = _CSStringCopyCFString();
-  if (v2)
+  v4 = _CSStringCopyCFString();
+  if (v4)
   {
-    v3 = v2;
-    CFSetAddValue(*(a1 + 40), v2);
+    v5 = v4;
+    CFSetAddValue(*(a1 + 40), v4);
 
-    CFRelease(v3);
+    CFRelease(v5);
   }
 }
 

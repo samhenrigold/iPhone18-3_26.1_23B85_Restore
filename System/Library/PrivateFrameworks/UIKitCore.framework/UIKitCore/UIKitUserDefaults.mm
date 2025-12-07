@@ -3,7 +3,7 @@
 
 @implementation UIKitUserDefaults
 
-uint64_t ___UIKitUserDefaults_block_invoke()
+void *___UIKitUserDefaults_block_invoke()
 {
   v0 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.UIKit"];
   v1 = _MergedGlobals_1352;

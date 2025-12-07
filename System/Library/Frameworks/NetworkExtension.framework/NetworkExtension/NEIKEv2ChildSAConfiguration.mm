@@ -1,6 +1,7 @@
 @interface NEIKEv2ChildSAConfiguration
 - (NEIKEv2ChildSAConfiguration)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)setProposals:(id)proposals;
 @end
 
@@ -8,32 +9,32 @@
 
 - (void)setProposals:(id)proposals
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = [proposals copy];
   proposals = self->_proposals;
   self->_proposals = v4;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_proposals;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
+        v12 = *(*(&v13 + 1) + 8 * i);
         ++v9;
         if (v12)
         {
@@ -41,13 +42,11 @@
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -88,6 +87,29 @@
   }
 
   return v4;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  ChildSAModeString = NEIKEv2CreateChildSAModeString([(NEIKEv2ChildSAConfiguration *)self mode]);
+  [v7 appendPrettyObject:ChildSAModeString withName:@"Mode" andIndent:v5 options:options];
+
+  [v7 appendPrettyInt:-[NEIKEv2ChildSAConfiguration replayWindowSize](self withName:"replayWindowSize") andIndent:@"Replay Window Size" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2ChildSAConfiguration sequencePerTrafficClass](self withName:"sequencePerTrafficClass") andIndent:@"Sequence Per Traffic Class" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2ChildSAConfiguration preferInitiatorProposalOrder](self withName:"preferInitiatorProposalOrder") andIndent:@"Prefer Initiator Proposal Order" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2ChildSAConfiguration opportunisticPFS](self withName:"opportunisticPFS") andIndent:@"Opportunistic PFS" options:{v5, options}];
+  proposals = [(NEIKEv2ChildSAConfiguration *)self proposals];
+  [v7 appendPrettyObject:proposals withName:@"Proposals" andIndent:v5 options:options];
+
+  localTrafficSelectors = [(NEIKEv2ChildSAConfiguration *)self localTrafficSelectors];
+  [v7 appendPrettyObject:localTrafficSelectors withName:@"Local Traffic Selectors" andIndent:v5 options:options];
+
+  remoteTrafficSelectors = [(NEIKEv2ChildSAConfiguration *)self remoteTrafficSelectors];
+  [v7 appendPrettyObject:remoteTrafficSelectors withName:@"Remote Traffic Selectors" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (NEIKEv2ChildSAConfiguration)init

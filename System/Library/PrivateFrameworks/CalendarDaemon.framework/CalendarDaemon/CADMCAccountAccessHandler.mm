@@ -114,7 +114,7 @@
 
 - (BOOL)_areLocalStoresRestrictedForAction:(unint64_t)action
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   localAccountRestrictionsByAction = self->_localAccountRestrictionsByAction;
   if (!localAccountRestrictionsByAction)
@@ -122,10 +122,10 @@
     v6 = [(CADMCAccountAccessHandler *)self _mayShowLocalAccountsForAction:0];
     v7 = [(CADMCAccountAccessHandler *)self _mayShowLocalAccountsForAction:1];
     v8 = [MEMORY[0x277CCABB0] numberWithBool:!v6];
-    v16[0] = v8;
+    v15[0] = v8;
     v9 = [MEMORY[0x277CCABB0] numberWithBool:!v7];
-    v16[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v11 = self->_localAccountRestrictionsByAction;
     self->_localAccountRestrictionsByAction = v10;
 
@@ -136,7 +136,6 @@
   os_unfair_lock_unlock(&self->_lock);
   bOOLValue = [v12 BOOLValue];
 
-  v14 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 

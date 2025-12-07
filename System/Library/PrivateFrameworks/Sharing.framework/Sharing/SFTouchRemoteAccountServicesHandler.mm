@@ -45,97 +45,107 @@
 - (BOOL)activateWithSession:(id)session error:(id *)error
 {
   sessionCopy = session;
-  if (![(BSAtomicSignal *)self->_activated hasBeenSignalled])
+  hasBeenSignalled = [(BSAtomicSignal *)self->_activated hasBeenSignalled];
+  if (!hasBeenSignalled)
   {
-    if ([(BSAtomicSignal *)self->_invalidated hasBeenSignalled])
+    hasBeenSignalled2 = [(BSAtomicSignal *)self->_invalidated hasBeenSignalled];
+    if (hasBeenSignalled2)
     {
-      if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (hasBeenSignalled2 = _LogCategory_Initialize(), hasBeenSignalled2)))
       {
-        [SFTouchRemoteAccountServicesHandler activateWithSession:error:];
+        [(SFTouchRemoteAccountServicesHandler *)hasBeenSignalled2 activateWithSession:v12 error:v13];
         if (error)
         {
-          goto LABEL_22;
+          goto LABEL_11;
         }
       }
 
       else if (error)
       {
-        goto LABEL_22;
+LABEL_11:
+        NSErrorWithOSStatusF(4294896148, "Cannot activate after invalidation.");
+LABEL_23:
+        *error = v21 = 0;
+        goto LABEL_29;
       }
 
-LABEL_27:
-      v11 = 0;
-      goto LABEL_28;
+LABEL_28:
+      v21 = 0;
+      goto LABEL_29;
     }
 
     if (sessionCopy)
     {
-      if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30)
       {
-        [SFTouchRemoteAccountServicesHandler activateWithSession:error:];
+        if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (hasBeenSignalled2 = _LogCategory_Initialize(), hasBeenSignalled2))
+        {
+          [(SFTouchRemoteAccountServicesHandler *)hasBeenSignalled2 activateWithSession:v12 error:v13];
+        }
       }
 
       [(BSAtomicSignal *)self->_activated signal];
       objc_storeStrong(&self->_trSession, session);
       objc_initWeak(&location, self);
       trSession = self->_trSession;
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block_invoke;
-      v17[3] = &unk_1E788ED18;
-      objc_copyWeak(&v18, &location);
-      [(TRSession *)trSession setRequestHandler:v17 forRequestClass:getTRSetupCompanionAuthenticationRequestClass_0()];
-      v9 = self->_trSession;
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block_invoke_2;
-      v15[3] = &unk_1E788ED18;
-      objc_copyWeak(&v16, &location);
-      [(TRSession *)v9 setRequestHandler:v15 forRequestClass:getTRSetupProxyDeviceRequestClass_0()];
-      v10 = self->_trSession;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block_invoke_3;
-      v13[3] = &unk_1E788ED18;
-      objc_copyWeak(&v14, &location);
-      [(TRSession *)v10 setRequestHandler:v13 forRequestClass:getTRSetupProxyAuthenticationRequestClass_0()];
-      objc_destroyWeak(&v14);
-      objc_destroyWeak(&v16);
-      objc_destroyWeak(&v18);
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block_invoke;
+      v27[3] = &unk_1E788ED18;
+      objc_copyWeak(&v28, &location);
+      [(TRSession *)trSession setRequestHandler:v27 forRequestClass:getTRSetupCompanionAuthenticationRequestClass_0()];
+      v15 = self->_trSession;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block_invoke_2;
+      v25[3] = &unk_1E788ED18;
+      objc_copyWeak(&v26, &location);
+      [(TRSession *)v15 setRequestHandler:v25 forRequestClass:getTRSetupProxyDeviceRequestClass_0()];
+      v16 = self->_trSession;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block_invoke_3;
+      v23[3] = &unk_1E788ED18;
+      objc_copyWeak(&v24, &location);
+      [(TRSession *)v16 setRequestHandler:v23 forRequestClass:getTRSetupProxyAuthenticationRequestClass_0(v17, v18, v19, v20)];
+      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(&location);
       goto LABEL_17;
     }
 
-    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (hasBeenSignalled2 = _LogCategory_Initialize(), hasBeenSignalled2)))
     {
-      [SFTouchRemoteAccountServicesHandler activateWithSession:error:];
+      [(SFTouchRemoteAccountServicesHandler *)hasBeenSignalled2 activateWithSession:v12 error:v13];
       if (!error)
       {
-        goto LABEL_27;
+        goto LABEL_28;
       }
     }
 
     else if (!error)
     {
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
-LABEL_22:
-    NSErrorWithOSStatusF();
-    *error = v11 = 0;
-    goto LABEL_28;
+    NSErrorWithOSStatusF(4294960591, "No TRSession");
+    goto LABEL_23;
   }
 
-  if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30)
   {
-    [SFTouchRemoteAccountServicesHandler activateWithSession:error:];
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (hasBeenSignalled = _LogCategory_Initialize(), hasBeenSignalled))
+    {
+      [(SFTouchRemoteAccountServicesHandler *)hasBeenSignalled activateWithSession:v9 error:v10];
+    }
   }
 
 LABEL_17:
-  v11 = 1;
-LABEL_28:
+  v21 = 1;
+LABEL_29:
 
-  return v11;
+  return v21;
 }
 
 void __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -183,7 +193,7 @@ void __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block
   handlerCopy = handler;
   if ([(BSAtomicSignal *)self->_invalidated hasBeenSignalled])
   {
-    account = NSErrorWithOSStatusF();
+    account = NSErrorWithOSStatusF(4294896148, "Invalidated handler.");
     handlerCopy[2](handlerCopy, account, 0);
   }
 
@@ -200,7 +210,7 @@ void __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block
         {
           if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
           {
-            [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:account responseHandler:?];
+            [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:account responseHandler:targetedAccountServices];
           }
 
           objc_initWeak(&location, self);
@@ -221,10 +231,10 @@ void __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block
 
         else
         {
-          v11 = NSErrorWithOSStatusF();
+          v11 = NSErrorWithOSStatusF(4294960591, "No companion device");
           if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
           {
-            [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:responseHandler:];
+            [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:v11 responseHandler:?];
           }
 
           handlerCopy[2](handlerCopy, v11, 0);
@@ -233,10 +243,10 @@ void __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block
 
       else
       {
-        companionDevice = NSErrorWithOSStatusF();
+        companionDevice = NSErrorWithOSStatusF(4294960591, "No services");
         if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
         {
-          [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:responseHandler:];
+          [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:companionDevice responseHandler:?];
         }
 
         handlerCopy[2](handlerCopy, companionDevice, 0);
@@ -245,10 +255,10 @@ void __65__SFTouchRemoteAccountServicesHandler_activateWithSession_error___block
 
     else
     {
-      targetedAccountServices = NSErrorWithOSStatusF();
+      targetedAccountServices = NSErrorWithOSStatusF(4294960591, "No account");
       if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
       {
-        [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:responseHandler:];
+        [SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:targetedAccountServices responseHandler:?];
       }
 
       handlerCopy[2](handlerCopy, targetedAccountServices, 0);
@@ -264,7 +274,7 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_cold_1();
+      __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_cold_1(v3);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -304,7 +314,7 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 60 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_2_cold_1(a1);
+      __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_2_cold_1(a1, v6);
     }
 
     v9 = objc_alloc_init(getTRSetupAuthenticationResponseClass_0());
@@ -327,12 +337,17 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
 
 void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (v5)
+  v3 = a2;
+  v10 = v3;
+  if (v3)
   {
-    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+    v6 = v3;
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90)
     {
-      __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_3_cold_1();
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (v7 = _LogCategory_Initialize(), v6 = v10, v7))
+      {
+        __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_3_cold_1(v6);
+      }
     }
 
     (*(*(a1 + 32) + 16))();
@@ -340,14 +355,17 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
 
   else
   {
-    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30)
     {
-      __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_3_cold_2();
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_3_cold_2(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(getTRSetupAuthenticationResponseClass_0());
-    v4 = objc_alloc_init(MEMORY[0x1E695DFD8]);
-    [v3 setUnauthenticatedAccountServices:v4];
+    v8 = objc_alloc_init(getTRSetupAuthenticationResponseClass_0());
+    v9 = objc_alloc_init(MEMORY[0x1E695DFD8]);
+    [v8 setUnauthenticatedAccountServices:v9];
 
     (*(*(a1 + 32) + 16))();
   }
@@ -357,24 +375,28 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
 {
   requestCopy = request;
   handlerCopy = handler;
-  if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+  v9 = handlerCopy;
+  if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30)
   {
-    [SFTouchRemoteAccountServicesHandler _handleTRProxyDeviceRequest:responseHandler:];
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (handlerCopy = _LogCategory_Initialize(), handlerCopy))
+    {
+      [(SFTouchRemoteAccountServicesHandler *)handlerCopy _handleTRProxyDeviceRequest:v7 responseHandler:v8];
+    }
   }
 
   if ([(BSAtomicSignal *)self->_invalidated hasBeenSignalled])
   {
-    currentDevice = NSErrorWithOSStatusF();
-    handlerCopy[2](handlerCopy, currentDevice, 0);
+    currentDevice = NSErrorWithOSStatusF(4294896148, "Invalidated handler.");
+    (v9)[2](v9, currentDevice, 0);
   }
 
   else
   {
     currentDevice = [(objc_class *)getAKDeviceClass_0() currentDevice];
-    [currentDevice setLinkType:3];
-    v8 = objc_alloc_init(getTRSetupProxyDeviceResponseClass_0());
-    [v8 setProxyDevice:currentDevice];
-    (handlerCopy)[2](handlerCopy, 0, v8);
+    v11 = [currentDevice setLinkType:3];
+    v12 = objc_alloc_init(getTRSetupProxyDeviceResponseClass_0(v11));
+    [v12 setProxyDevice:currentDevice];
+    (v9)[2](v9, 0, v12);
   }
 }
 
@@ -384,7 +406,7 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
   handlerCopy = handler;
   if ([(BSAtomicSignal *)self->_invalidated hasBeenSignalled])
   {
-    account = NSErrorWithOSStatusF();
+    account = NSErrorWithOSStatusF(4294896148, "Invalidated handler.");
     handlerCopy[2](handlerCopy, account, 0);
   }
 
@@ -401,7 +423,7 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
         {
           if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
           {
-            [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:account responseHandler:?];
+            [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:account responseHandler:targetedAccountServices];
           }
 
           [account _aa_setRawPassword:rawPassword];
@@ -419,10 +441,10 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
 
         else
         {
-          v11 = NSErrorWithOSStatusF();
+          v11 = NSErrorWithOSStatusF(4294960591, "No services");
           if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
           {
-            [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:responseHandler:];
+            [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:v11 responseHandler:?];
           }
 
           handlerCopy[2](handlerCopy, v11, 0);
@@ -431,10 +453,10 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
 
       else
       {
-        targetedAccountServices = NSErrorWithOSStatusF();
+        targetedAccountServices = NSErrorWithOSStatusF(4294960591, "No password");
         if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
         {
-          [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:responseHandler:];
+          [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:targetedAccountServices responseHandler:?];
         }
 
         handlerCopy[2](handlerCopy, targetedAccountServices, 0);
@@ -443,10 +465,10 @@ void __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationR
 
     else
     {
-      rawPassword = NSErrorWithOSStatusF();
+      rawPassword = NSErrorWithOSStatusF(4294960591, "No account");
       if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
       {
-        [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:responseHandler:];
+        [SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:rawPassword responseHandler:?];
       }
 
       handlerCopy[2](handlerCopy, rawPassword, 0);
@@ -461,7 +483,7 @@ void __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationReque
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_cold_1();
+      __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_cold_1(v3);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -500,7 +522,7 @@ void __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationReque
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_2_cold_1(a1);
+      __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_2_cold_1(a1, v6);
     }
 
     v9 = *(a1 + 40);
@@ -511,7 +533,7 @@ void __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationReque
 
     else
     {
-      v10 = NSErrorWithOSStatusF();
+      v10 = NSErrorWithOSStatusF(4294960596, "Auth account failed no error");
       (*(v9 + 16))(v9, v10, 0);
     }
   }
@@ -530,12 +552,17 @@ void __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationReque
 
 void __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (v5)
+  v3 = a2;
+  v10 = v3;
+  if (v3)
   {
-    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+    v6 = v3;
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90)
     {
-      __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_3_cold_1();
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (v7 = _LogCategory_Initialize(), v6 = v10, v7))
+      {
+        __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_3_cold_1(v6);
+      }
     }
 
     (*(*(a1 + 32) + 16))();
@@ -543,14 +570,17 @@ void __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationReque
 
   else
   {
-    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30)
     {
-      __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_3_cold_2();
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_3_cold_2(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(getTRSetupAuthenticationResponseClass_0());
-    v4 = objc_alloc_init(MEMORY[0x1E695DFD8]);
-    [v3 setUnauthenticatedAccountServices:v4];
+    v8 = objc_alloc_init(getTRSetupAuthenticationResponseClass_0());
+    v9 = objc_alloc_init(MEMORY[0x1E695DFD8]);
+    [v8 setUnauthenticatedAccountServices:v9];
 
     (*(*(a1 + 32) + 16))();
   }
@@ -576,7 +606,7 @@ void __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationReque
 
   if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
   {
-    [SFTouchRemoteAccountServicesHandler _saveRemoteVerifiedAccount:completion:];
+    [SFTouchRemoteAccountServicesHandler _saveRemoteVerifiedAccount:v14 completion:?];
   }
 
   v15 = self->_accountStore;
@@ -626,7 +656,7 @@ LABEL_8:
   v8 = v9;
   if (!v9)
   {
-    v8 = NSErrorWithOSStatusF();
+    v8 = NSErrorWithOSStatusF(4294960596, "SaveVerifiedAccount failed no error");
   }
 
 LABEL_12:
@@ -686,35 +716,39 @@ LABEL_12:
   typesCopy = types;
   resultsCopy = results;
   completionCopy = completion;
-  if ([typesCopy count])
+  v11 = [typesCopy count];
+  if (v11)
   {
-    v11 = [(SFTouchRemoteAccountServicesHandler *)self _nextTRServiceTypeForTRAccountServices:typesCopy];
+    v14 = [(SFTouchRemoteAccountServicesHandler *)self _nextTRServiceTypeForTRAccountServices:typesCopy];
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      [SFTouchRemoteAccountServicesHandler _authenticateWithServiceTypes:v11 authResults:? completion:?];
+      [SFTouchRemoteAccountServicesHandler _authenticateWithServiceTypes:v14 authResults:? completion:?];
     }
 
     objc_initWeak(&location, self);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_authResults_completion___block_invoke;
-    v12[3] = &unk_1E788EDB8;
-    objc_copyWeak(v16, &location);
-    v16[1] = v11;
-    v15 = completionCopy;
-    v13 = typesCopy;
-    v14 = resultsCopy;
-    [(SFTouchRemoteAccountServicesHandler *)self _authenticateWithServiceType:v11 authResults:v14 completion:v12];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_authResults_completion___block_invoke;
+    v15[3] = &unk_1E788EDB8;
+    objc_copyWeak(v19, &location);
+    v19[1] = v14;
+    v18 = completionCopy;
+    v16 = typesCopy;
+    v17 = resultsCopy;
+    [(SFTouchRemoteAccountServicesHandler *)self _authenticateWithServiceType:v14 authResults:v17 completion:v15];
 
-    objc_destroyWeak(v16);
+    objc_destroyWeak(v19);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30)
     {
-      [SFTouchRemoteAccountServicesHandler _authenticateWithServiceTypes:authResults:completion:];
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        [SFTouchRemoteAccountServicesHandler _authenticateWithServiceTypes:v11 authResults:v12 completion:v13];
+      }
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
@@ -729,7 +763,7 @@ void __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_aut
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_authResults_completion___block_invoke_cold_1(a1);
+      __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_authResults_completion___block_invoke_cold_1(a1, v6);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -756,7 +790,7 @@ void __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_aut
   if (!v11)
   {
 LABEL_6:
-    v12 = NSErrorWithOSStatusF();
+    v12 = NSErrorWithOSStatusF(4294960561, "Unsupported TRAccountService %d", type);
     completionCopy[2](completionCopy, v12);
 
     goto LABEL_7;
@@ -784,13 +818,13 @@ LABEL_7:
 {
   resultsCopy = results;
   completionCopy = completion;
-  getAKAuthenticationAlternateDSIDKey_0();
+  getAKAuthenticationAlternateDSIDKey_0(completionCopy);
   CFStringGetTypeID();
   v8 = CFDictionaryGetTypedValue();
-  getAKAuthenticationUsernameKey_0();
+  getAKAuthenticationUsernameKey_0(v8);
   CFStringGetTypeID();
   v9 = CFDictionaryGetTypedValue();
-  getAKAuthenticationPasswordKey_0();
+  getAKAuthenticationPasswordKey_0(v9);
   CFStringGetTypeID();
   v10 = CFDictionaryGetTypedValue();
   isPrimaryAppleAccount = [(SFTouchRemoteAccountServicesHandlerConfiguration *)self->_configuration isPrimaryAppleAccount];
@@ -817,7 +851,7 @@ LABEL_7:
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      [SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:v14 completion:?];
+      [SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:v14 completion:v9];
     }
 
     [v14 setAuthenticated:0];
@@ -839,7 +873,7 @@ LABEL_7:
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 30 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      [SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:completion:];
+      [SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:v9 completion:?];
     }
 
     v18 = objc_alloc(MEMORY[0x1E6959A28]);
@@ -886,7 +920,7 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResult
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90 && (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || _LogCategory_Initialize()))
     {
-      __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResults_completion___block_invoke_cold_2(a1);
+      __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResults_completion___block_invoke_cold_2(a1, v5);
     }
 
     v6 = *(a1 + 48);
@@ -897,7 +931,7 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResult
 
     else
     {
-      v7 = NSErrorWithOSStatusF();
+      v7 = NSErrorWithOSStatusF(4294960596, "VerifyCredentialsForAccount failed no error");
       (*(v6 + 16))(v6, v7);
     }
   }
@@ -915,19 +949,18 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResult
 
 void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResults_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v12 = a3;
+  v11 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v6 = v12;
+  v6 = v11;
   v7 = WeakRetained;
-  if (v12 || (a2 & 1) == 0)
+  if (v11 || (a2 & 1) == 0)
   {
     if (gLogCategory_SFTouchRemoteAccountServicesHandler <= 90)
     {
-      if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (v8 = _LogCategory_Initialize(), v6 = v12, v8))
+      if (gLogCategory_SFTouchRemoteAccountServicesHandler != -1 || (v8 = _LogCategory_Initialize(), v6 = v11, v8))
       {
-        v11 = *(a1 + 32);
-        LogPrintF();
-        v6 = v12;
+        LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:completion:]_block_invoke_2", 90, "### Register new account failed for '%.3@...': %{error}\n", *(a1 + 32), v6);
+        v6 = v11;
       }
     }
 
@@ -939,7 +972,7 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResult
 
     else
     {
-      v10 = NSErrorWithOSStatusF();
+      v10 = NSErrorWithOSStatusF(4294960596, "RegisterAppleAccount failed no error");
       (*(v9 + 16))(v9, v10);
     }
   }
@@ -957,7 +990,7 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResult
 
 - (void)_saveNewAccount:(id)account completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   completionCopy = completion;
   [accountCopy setAuthenticated:0];
@@ -965,82 +998,80 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResult
   if ([accountCopy aa_isPrimaryEmailVerified])
   {
     selfCopy = self;
-    v24 = completionCopy;
-    v25 = accountCopy;
+    v23 = completionCopy;
+    v24 = accountCopy;
     v9 = [(ACAccountStore *)self->_accountStore dataclassActionsForAccountSave:accountCopy];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v10)
     {
       v11 = v10;
-      v26 = *v34;
+      v25 = *v33;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v34 != v26)
+          if (*v33 != v25)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v33 + 1) + 8 * i);
+          v13 = *(*(&v32 + 1) + 8 * i);
+          v28 = 0u;
           v29 = 0u;
           v30 = 0u;
           v31 = 0u;
-          v32 = 0u;
           v14 = [v9 objectForKeyedSubscript:v13];
-          v15 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v30;
+            v17 = *v29;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v30 != v17)
+                if (*v29 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v29 + 1) + 8 * j);
+                v19 = *(*(&v28 + 1) + 8 * j);
                 if ([v19 type])
                 {
                   [v8 setObject:v19 forKeyedSubscript:v13];
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
             }
 
             while (v16);
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v11);
     }
 
-    completionCopy = v24;
-    accountCopy = v25;
+    completionCopy = v23;
+    accountCopy = v24;
     self = selfCopy;
   }
 
   accountStore = self->_accountStore;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __66__SFTouchRemoteAccountServicesHandler__saveNewAccount_completion___block_invoke;
-  v27[3] = &unk_1E788C7A0;
-  v28 = completionCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __66__SFTouchRemoteAccountServicesHandler__saveNewAccount_completion___block_invoke;
+  v26[3] = &unk_1E788C7A0;
+  v27 = completionCopy;
   v21 = completionCopy;
-  [(ACAccountStore *)accountStore saveAccount:accountCopy withDataclassActions:v8 completion:v27];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [(ACAccountStore *)accountStore saveAccount:accountCopy withDataclassActions:v8 completion:v26];
 }
 
 void __66__SFTouchRemoteAccountServicesHandler__saveNewAccount_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1057,7 +1088,7 @@ void __66__SFTouchRemoteAccountServicesHandler__saveNewAccount_completion___bloc
 
     else
     {
-      v7 = NSErrorWithOSStatusF();
+      v7 = NSErrorWithOSStatusF(4294960596, "SaveNewAccount failed no error");
       (*(v6 + 16))(v6, v7);
     }
   }
@@ -1071,38 +1102,35 @@ void __66__SFTouchRemoteAccountServicesHandler__saveNewAccount_completion___bloc
 - (void)_authenticateiTunesWithAuthResults:(id)results completion:(id)completion
 {
   completionCopy = completion;
-  v7 = *MEMORY[0x1E698DB40];
   resultsCopy = results;
   CFStringGetTypeID();
+  v8 = CFDictionaryGetTypedValue();
+  CFStringGetTypeID();
   v9 = CFDictionaryGetTypedValue();
-  v10 = *MEMORY[0x1E698DBF0];
   CFStringGetTypeID();
-  v11 = CFDictionaryGetTypedValue();
-  v12 = *MEMORY[0x1E698DBC8];
-  CFStringGetTypeID();
-  v13 = CFDictionaryGetTypedValue();
+  v10 = CFDictionaryGetTypedValue();
 
   contextForSignIn = [(objc_class *)getSSMutableAuthenticationContextClass_0() contextForSignIn];
-  [contextForSignIn setAccountName:v11];
+  [contextForSignIn setAccountName:v9];
   [contextForSignIn setAllowsRetry:0];
-  [contextForSignIn setAltDSID:v9];
+  [contextForSignIn setAltDSID:v8];
   [contextForSignIn setCanSetActiveAccount:0];
-  [contextForSignIn setPasswordEquivalentToken:v13];
+  [contextForSignIn setPasswordEquivalentToken:v10];
   [contextForSignIn setPromptStyle:1];
   [contextForSignIn setShouldSuppressDialogs:{-[SFTouchRemoteAccountServicesHandlerConfiguration shouldSuppressStoreSignInDialogs](self->_configuration, "shouldSuppressStoreSignInDialogs")}];
-  [contextForSignIn setShouldIgnoreAccountConversion:{-[SFTouchRemoteAccountServicesHandlerConfiguration shouldIgnoreStoreAccountConversion](self->_configuration, "shouldIgnoreStoreAccountConversion")}];
-  defaultStore = [(objc_class *)getSSAccountStoreClass_0() defaultStore];
-  v16 = [objc_alloc(getSSAuthenticateRequestClass_0()) initWithAuthenticationContext:contextForSignIn];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __85__SFTouchRemoteAccountServicesHandler__authenticateiTunesWithAuthResults_completion___block_invoke;
-  v19[3] = &unk_1E788EE08;
-  v20 = defaultStore;
-  v21 = completionCopy;
-  v19[4] = self;
-  v17 = defaultStore;
-  v18 = completionCopy;
-  [v16 startWithAuthenticateResponseBlock:v19];
+  v12 = [contextForSignIn setShouldIgnoreAccountConversion:{-[SFTouchRemoteAccountServicesHandlerConfiguration shouldIgnoreStoreAccountConversion](self->_configuration, "shouldIgnoreStoreAccountConversion")}];
+  defaultStore = [getSSAccountStoreClass_0(v12) defaultStore];
+  v14 = [objc_alloc(getSSAuthenticateRequestClass_0()) initWithAuthenticationContext:contextForSignIn];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __85__SFTouchRemoteAccountServicesHandler__authenticateiTunesWithAuthResults_completion___block_invoke;
+  v17[3] = &unk_1E788EE08;
+  v18 = defaultStore;
+  v19 = completionCopy;
+  v17[4] = self;
+  v15 = defaultStore;
+  v16 = completionCopy;
+  [v14 startWithAuthenticateResponseBlock:v17];
 }
 
 void __85__SFTouchRemoteAccountServicesHandler__authenticateiTunesWithAuthResults_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1130,7 +1158,7 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiTunesWithAuthResult
 
     else
     {
-      v7 = NSErrorWithOSStatusF();
+      v7 = NSErrorWithOSStatusF(4294960596, "iTunes no authenticated account");
       (*(v6 + 16))(v6, v7);
     }
   }
@@ -1139,7 +1167,7 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiTunesWithAuthResult
 - (void)_authenticateGameCenterWithAuthResults:(id)results completion:(id)completion
 {
   completionCopy = completion;
-  v6 = NSErrorWithOSStatusF();
+  v6 = NSErrorWithOSStatusF(4294960596, "GameCenter authentication not available");
   (*(completion + 2))(completionCopy, v6);
 }
 
@@ -1195,105 +1223,133 @@ void __85__SFTouchRemoteAccountServicesHandler__authenticateiTunesWithAuthResult
   return v4;
 }
 
-- (void)_handleTRCompanionAuthenticationRequest:(void *)a1 responseHandler:.cold.1(void *a1)
+- (void)_handleTRCompanionAuthenticationRequest:(void *)a1 responseHandler:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = [a1 username];
-  LogPrintF();
+  v3 = [a1 username];
+  LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:responseHandler:]", 30, "Companion auth start: %##@, %@\n", a2, v3);
 }
 
 uint64_t __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_cold_2(uint64_t a1)
 {
-  if ((a1 - 1) <= 5)
+  if ((a1 - 1) > 5)
+  {
+    v1 = "?";
+  }
+
+  else
   {
     v1 = off_1E788EE28[a1 - 1];
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:responseHandler:]_block_invoke", 30, "Companion auth account start: %s\n", v1);
 }
 
-uint64_t __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_2_cold_1(uint64_t a1)
+uint64_t __95__SFTouchRemoteAccountServicesHandler__handleTRCompanionAuthenticationRequest_responseHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 56) - 1;
-  if (v1 <= 5)
+  v4 = *(a1 + 56) - 1;
+  if (v4 > 5)
   {
-    v2 = off_1E788EE28[v1];
+    v5 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v5 = off_1E788EE28[v4];
+  }
+
+  return LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _handleTRCompanionAuthenticationRequest:responseHandler:]_block_invoke_2", 60, "### Companion auth account failed: %s, %{error}\n", v5, a2, v2, v3);
 }
 
-- (void)_handleTRProxyAuthenticationRequest:(void *)a1 responseHandler:.cold.1(void *a1)
+- (void)_handleTRProxyAuthenticationRequest:(void *)a1 responseHandler:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = [a1 username];
-  LogPrintF();
+  v3 = [a1 username];
+  LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:responseHandler:]", 30, "Proxy auth start: %##@, %@\n", a2, v3);
 }
 
 uint64_t __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_cold_2(uint64_t a1)
 {
-  if ((a1 - 1) <= 5)
+  if ((a1 - 1) > 5)
+  {
+    v1 = "?";
+  }
+
+  else
   {
     v1 = off_1E788EE28[a1 - 1];
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:responseHandler:]_block_invoke", 30, "Proxy auth account start: %s\n", v1);
 }
 
-uint64_t __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_2_cold_1(uint64_t a1)
+uint64_t __91__SFTouchRemoteAccountServicesHandler__handleTRProxyAuthenticationRequest_responseHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 56) - 1;
-  if (v1 <= 5)
+  v4 = *(a1 + 56) - 1;
+  if (v4 > 5)
   {
-    v2 = off_1E788EE28[v1];
+    v5 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v5 = off_1E788EE28[v4];
+  }
+
+  return LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _handleTRProxyAuthenticationRequest:responseHandler:]_block_invoke_2", 90, "### Proxy auth account failed: %s, %{error}\n", v5, a2, v2, v3);
 }
 
 - (uint64_t)_authenticateWithServiceTypes:(uint64_t)a1 authResults:completion:.cold.1(uint64_t a1)
 {
-  if ((a1 - 1) <= 2)
+  if ((a1 - 1) > 2)
+  {
+    v1 = "?";
+  }
+
+  else
   {
     v1 = off_1E788EE58[a1 - 1];
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _authenticateWithServiceTypes:authResults:completion:]", 30, "Auth service type %s\n", v1);
 }
 
-uint64_t __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_authResults_completion___block_invoke_cold_1(uint64_t a1)
+uint64_t __92__SFTouchRemoteAccountServicesHandler__authenticateWithServiceTypes_authResults_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 64) - 1;
-  if (v1 <= 2)
+  v4 = *(a1 + 64) - 1;
+  if (v4 > 2)
   {
-    v2 = off_1E788EE58[v1];
+    v5 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v5 = off_1E788EE58[v4];
+  }
+
+  return LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _authenticateWithServiceTypes:authResults:completion:]_block_invoke", 90, "### Auth service type %s failed: %{error}\n", v5, a2, v2, v3);
 }
 
-- (void)_authenticateiCloudWithAuthResults:(void *)a1 completion:.cold.1(void *a1)
+- (void)_authenticateiCloudWithAuthResults:(void *)a1 completion:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = [a1 username];
-  LogPrintF();
+  v3 = [a1 username];
+  LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:completion:]", 30, "Updating existing account credentials for '%.3@...' (%.3@...)\n", v3, a2);
 }
 
 void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResults_completion___block_invoke_cold_1(void *a1, uint64_t a2)
 {
   v3 = [a1 username];
-  v4 = *(a2 + 40);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:completion:]_block_invoke", 30, "Updated existing account credentials for '%.3@...' (%.3@...)\n", v3, *(a2 + 40));
 }
 
-void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResults_completion___block_invoke_cold_2(uint64_t a1)
+void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResults_completion___block_invoke_cold_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) username];
-  v3 = *(a1 + 40);
-  LogPrintF();
+  v4 = [*(a1 + 32) username];
+  LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:completion:]_block_invoke", 90, "### Update existing account credentials failed for '%.3@...' (%.3@...): %{error}\n", v4, *(a1 + 40), a2);
 }
 
 void __85__SFTouchRemoteAccountServicesHandler__authenticateiCloudWithAuthResults_completion___block_invoke_2_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 40) username];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTouchRemoteAccountServicesHandler, "[SFTouchRemoteAccountServicesHandler _authenticateiCloudWithAuthResults:completion:]_block_invoke_2", 30, "Registered new account '%.3@...'\n", v1);
 }
 
 @end

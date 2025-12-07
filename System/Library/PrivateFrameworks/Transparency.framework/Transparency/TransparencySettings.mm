@@ -107,33 +107,32 @@ void __38__TransparencySettings_isAccountsInQA__block_invoke()
 
 - (id)testingSelfValidationFailing
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([(TransparencySettings *)self allowsInternalSecurityPolicies])
   {
     v2 = CFPreferencesCopyAppValue(@"testingSelfValidationFailing", @"com.apple.transparencyd");
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = 0u;
-      v15 = 0u;
       v12 = 0u;
       v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
       v3 = v2;
-      v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         v5 = v4;
-        v6 = *v13;
+        v6 = *v11;
         while (2)
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v13 != v6)
+            if (*v11 != v6)
             {
               objc_enumerationMutation(v3);
             }
 
-            v8 = *(*(&v12 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -142,7 +141,7 @@ void __38__TransparencySettings_isAccountsInQA__block_invoke()
             }
           }
 
-          v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
           if (v5)
           {
             continue;
@@ -152,55 +151,52 @@ void __38__TransparencySettings_isAccountsInQA__block_invoke()
         }
       }
 
-      v9 = v3;
+      v8 = v3;
     }
 
     else
     {
 LABEL_14:
-      v9 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v8;
 }
 
 - (id)testingPeerValidationFailing
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([(TransparencySettings *)self allowsInternalSecurityPolicies])
   {
     v2 = CFPreferencesCopyAppValue(@"testingPeerValidationFailing", @"com.apple.transparencyd");
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = 0u;
-      v15 = 0u;
       v12 = 0u;
       v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
       v3 = v2;
-      v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         v5 = v4;
-        v6 = *v13;
+        v6 = *v11;
         while (2)
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v13 != v6)
+            if (*v11 != v6)
             {
               objc_enumerationMutation(v3);
             }
 
-            v8 = *(*(&v12 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -209,7 +205,7 @@ LABEL_14:
             }
           }
 
-          v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
           if (v5)
           {
             continue;
@@ -219,24 +215,22 @@ LABEL_14:
         }
       }
 
-      v9 = v3;
+      v8 = v3;
     }
 
     else
     {
 LABEL_14:
-      v9 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v8;
 }
 
 + (double)defaultQueryCacheTimeout
@@ -536,7 +530,7 @@ uint64_t __44__TransparencySettings_automatedDeviceGroup__block_invoke()
 
 void __48__TransparencySettings_jsonArrayFromPlistArray___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -581,23 +575,21 @@ LABEL_4:
     __48__TransparencySettings_jsonArrayFromPlistArray___block_invoke_cold_1();
   }
 
-  v7 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_6;
+  v6 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_6;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
   {
-    v8 = v7;
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = 138412546;
-    v12 = v10;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_ERROR, "jsonFromPlist: failed to convert obj (class: %@) %@, using description", &v11, 0x16u);
+    v7 = v6;
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_ERROR, "jsonFromPlist: failed to convert obj (class: %@) %@, using description", &v10, 0x16u);
   }
 
 LABEL_5:
   [*(a1 + 32) addObject:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__TransparencySettings_jsonArrayFromPlistArray___block_invoke_2()
@@ -625,7 +617,7 @@ uint64_t __48__TransparencySettings_jsonArrayFromPlistArray___block_invoke_2()
 
 void __46__TransparencySettings_jsonDictFromPlistDict___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -657,17 +649,17 @@ LABEL_7:
     __46__TransparencySettings_jsonDictFromPlistDict___block_invoke_cold_1();
   }
 
-  v12 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_6;
+  v11 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_6;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
   {
-    v13 = v12;
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v20 = 138412546;
-    v21 = v15;
-    v22 = 2112;
-    v23 = v5;
-    _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_ERROR, "jsonFromPlist: failed to convert key (class: %@) %@, using description", &v20, 0x16u);
+    v12 = v11;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v19 = 138412546;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v5;
+    _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "jsonFromPlist: failed to convert key (class: %@) %@, using description", &v19, 0x16u);
   }
 
 LABEL_8:
@@ -714,17 +706,17 @@ LABEL_11:
     __46__TransparencySettings_jsonDictFromPlistDict___block_invoke_cold_2();
   }
 
-  v16 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_6;
+  v15 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_6;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
   {
-    v17 = v16;
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = 138412546;
-    v21 = v19;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_impl(&dword_1E10DB000, v17, OS_LOG_TYPE_ERROR, "jsonFromPlist: failed to convert obj (class: %@) %@, using description", &v20, 0x16u);
+    v16 = v15;
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v19 = 138412546;
+    v20 = v18;
+    v21 = 2112;
+    v22 = v6;
+    _os_log_impl(&dword_1E10DB000, v16, OS_LOG_TYPE_ERROR, "jsonFromPlist: failed to convert obj (class: %@) %@, using description", &v19, 0x16u);
   }
 
 LABEL_12:
@@ -732,8 +724,6 @@ LABEL_12:
   {
     [*(a1 + 32) setObject:v10 forKeyedSubscript:v8];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__TransparencySettings_jsonDictFromPlistDict___block_invoke_2()

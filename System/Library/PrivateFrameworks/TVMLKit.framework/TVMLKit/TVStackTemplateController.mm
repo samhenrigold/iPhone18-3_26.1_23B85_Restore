@@ -204,7 +204,7 @@ void __80___TVStackTemplateController_collectionView_willDisplayCell_forItemAtIn
   [v2 setFrame:?];
 }
 
-id __94___TVStackTemplateController__updateWithCollectionListElement_commits_autoHighlightIndexPath___block_invoke(uint64_t a1, void *a2)
+TVCarouselLayout *__94___TVStackTemplateController__updateWithCollectionListElement_commits_autoHighlightIndexPath___block_invoke(uint64_t a1, void *a2)
 {
   if ([a2 tv_elementType] == 9)
   {
@@ -495,7 +495,7 @@ void __49___TVStackTemplateController__buildStackSections__block_invoke(uint64_t
           v35 = objc_alloc_init(_TVStackRow);
           if (v34)
           {
-            [v34 tv_rowMetricsValue];
+            objc_msgSend_tv_rowMetricsValue(v34);
           }
 
           else
@@ -549,7 +549,7 @@ void __49___TVStackTemplateController__buildStackSections__block_invoke(uint64_t
   }
 }
 
-void __49___TVStackTemplateController__buildStackSections__block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
+void __49___TVStackTemplateController__buildStackSections__block_invoke_2(uint64_t a1, void *a2, char *a3)
 {
   v5 = *(a1 + 32);
   v6 = a2;
@@ -575,7 +575,7 @@ void __49___TVStackTemplateController__buildStackSections__block_invoke_2(uint64
     v20 = v19;
     if (v19)
     {
-      [v19 rowMetrics];
+      objc_msgSend_rowMetrics(v19);
     }
 
     else
@@ -617,7 +617,7 @@ void __49___TVStackTemplateController__buildStackSections__block_invoke_2(uint64
     v28 = v27;
     if (v27)
     {
-      [v27 tv_rowMetricsValue];
+      objc_msgSend_tv_rowMetricsValue(v27);
     }
 
     else
@@ -638,7 +638,7 @@ void __49___TVStackTemplateController__buildStackSections__block_invoke_2(uint64
     v31 = v30;
     if (v30)
     {
-      [v30 tv_rowMetricsValue];
+      objc_msgSend_tv_rowMetricsValue(v30);
     }
 
     else

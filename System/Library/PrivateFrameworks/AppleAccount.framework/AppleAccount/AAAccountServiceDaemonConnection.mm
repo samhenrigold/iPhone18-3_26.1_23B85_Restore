@@ -27,11 +27,10 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v2, 0xCu);
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -113,8 +112,7 @@ id __47__AAAccountServiceDaemonConnection__connection__block_invoke(uint64_t a1)
     v18 = &unk_1E7C9A818;
     objc_copyWeak(&v19, &location);
     [v12 setInvalidationHandler:&v15];
-    [*(*(a1 + 32) + 16) resume];
-    v13 = _AALogSystem();
+    v13 = _AALogSystem([*(*(a1 + 32) + 16) resume]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       __47__AAAccountServiceDaemonConnection__connection__block_invoke_cold_1(v13);
@@ -128,12 +126,12 @@ id __47__AAAccountServiceDaemonConnection__connection__block_invoke(uint64_t a1)
   return v3;
 }
 
-void __47__AAAccountServiceDaemonConnection__connection__block_invoke_2()
+void __47__AAAccountServiceDaemonConnection__connection__block_invoke_2(uint64_t a1)
 {
-  v0 = _AALogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _AALogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __47__AAAccountServiceDaemonConnection__connection__block_invoke_2_cold_1(v0);
+    __47__AAAccountServiceDaemonConnection__connection__block_invoke_2_cold_1(v1);
   }
 }
 
@@ -145,7 +143,7 @@ void __47__AAAccountServiceDaemonConnection__connection__block_invoke_41(uint64_
 
 - (void)_connectionInvalidationHandler
 {
-  v3 = _AALogSystem();
+  v3 = _AALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(AAAccountServiceDaemonConnection *)v3 _connectionInvalidationHandler];

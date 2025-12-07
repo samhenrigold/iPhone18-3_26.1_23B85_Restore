@@ -51,6 +51,7 @@
 - (id)parameters;
 - (int)_outputFormatUsingDictionary:(id)dictionary andKernel:(void *)kernel;
 - (void)dealloc;
+- (void)init;
 - (void)setCanReduceOutputChannels:(BOOL)channels;
 - (void)setPerservesAlpha:(BOOL)alpha;
 - (void)setPreservesRange:(BOOL)range;
@@ -91,22 +92,22 @@
 {
   if ((*(*representation + 16))(representation, a2) == 72)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else if ((*(*representation + 16))(representation) == 70)
   {
-    v4 = 2;
+    v5 = 2;
   }
 
   else
   {
-    v4 = 3;
+    v5 = 3;
   }
 
-  v5 = [KernelKindAlloc(v4) _initWithInternalRepresentation:representation];
+  v6 = [KernelKindAlloc(v5 v4)];
 
-  return v5;
+  return v6;
 }
 
 + (id)cache
@@ -139,7 +140,7 @@ id __17__CIKernel_cache__block_invoke()
 + (id)cachedKernelWithString:(id)string
 {
   v19 = *MEMORY[0x1E69E9840];
-  v5 = ci_signpost_log_kernel();
+  v5 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v5))
   {
     *buf = 138543362;
@@ -184,27 +185,27 @@ id __17__CIKernel_cache__block_invoke()
     v11 = v8;
   }
 
-  v14(v13);
+  (v14)(v13);
   return v11;
 }
 
-void __35__CIKernel_cachedKernelWithString___block_invoke(uint64_t a1)
+void __35__CIKernel_cachedKernelWithString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "cachedKernelWithString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "cachedKernelWithString", "%{public}@", &v5, 0xCu);
   }
 }
 
 + (id)internalCachedKernelWithString:(id)string
 {
   v17 = *MEMORY[0x1E69E9840];
-  v5 = ci_signpost_log_kernel();
+  v5 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v5))
   {
     *buf = 138543362;
@@ -233,20 +234,20 @@ void __35__CIKernel_cachedKernelWithString___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(cache);
-  v12(v11);
+  (v12)(v11);
   return v8;
 }
 
-void __43__CIKernel_internalCachedKernelWithString___block_invoke(uint64_t a1)
+void __43__CIKernel_internalCachedKernelWithString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "internalCachedKernelWithString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "internalCachedKernelWithString", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -316,7 +317,7 @@ void __43__CIKernel_internalCachedKernelWithString___block_invoke(uint64_t a1)
 + (id)cachedKernelWithFunctionName:(id)name fromCIKernelLibrary:(id)library options:(id)options error:(id *)error
 {
   v24 = *MEMORY[0x1E69E9840];
-  v11 = ci_signpost_log_kernel();
+  v11 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v11))
   {
     *buf = 138543362;
@@ -380,26 +381,26 @@ LABEL_15:
     null = 0;
   }
 
-  v20(v19);
+  (v20)(v19);
   return null;
 }
 
-void __75__CIKernel_cachedKernelWithFunctionName_fromCIKernelLibrary_options_error___block_invoke(uint64_t a1)
+void __75__CIKernel_cachedKernelWithFunctionName_fromCIKernelLibrary_options_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "cachedKernelWithFunctionName", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "cachedKernelWithFunctionName", "%{public}@", &v5, 0xCu);
   }
 }
 
 - (CIKernel)init
 {
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(CIKernel *)v3 init:v4];
@@ -413,7 +414,7 @@ void __75__CIKernel_cachedKernelWithFunctionName_fromCIKernelLibrary_options_err
   priv = self->_priv;
   if (priv)
   {
-    if (*(priv + 12) == 1)
+    if (priv[12] == 1)
     {
       CI::Object::unref(priv);
     }
@@ -430,28 +431,28 @@ void __75__CIKernel_cachedKernelWithFunctionName_fromCIKernelLibrary_options_err
 {
   internalCopy = internal;
   compatibilityCopy = compatibility;
-  v65 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
-  memset(v59, 0, sizeof(v59));
-  v58 = 0u;
-  memset(&v57[8], 0, 32);
-  v60 = vdupq_n_s64(1uLL);
-  v61 = 0;
-  memset(&v56.var2, 0, 88);
-  *&v56.var10 = v60;
-  *&v56.var12 = 0;
-  memset(&v55.var2, 0, 88);
-  *&v55.var10 = v60;
-  *&v55.var12 = 0;
+  memset(v76, 0, sizeof(v76));
+  v75 = 0u;
+  memset(&v74[8], 0, 32);
+  v77 = vdupq_n_s64(1uLL);
+  v78 = 0;
+  memset(&v73.var2, 0, 88);
+  *&v73.var10 = v77;
+  *&v73.var12 = 0;
+  memset(&v72.var2, 0, 88);
+  *&v72.var10 = v77;
+  *&v72.var12 = 0;
   v11 = CI_USE_MTL_DAG_FOR_CIKL_SRC();
-  v12 = 0;
+  v13 = 0;
   if (!library && v11 && !internalCopy)
   {
-    v12 = can_use_metal();
+    v13 = can_use_metal(v11, v12);
   }
 
-  v13 = newlocale(63, 0, 0);
-  v14 = uselocale(v13);
+  v14 = newlocale(63, 0, 0);
+  v15 = uselocale(v14);
   Pool = fosl_filter_kernelpool_createPool();
   fosl_filter_kernelpool_addLibrary(Pool, aCopyright2022A);
   if ((dyld_program_sdk_at_least() & 1) == 0 && (dyld_program_sdk_at_least() & 1) == 0 && !CI_DISABLE_CRUFT_COMPATABILITY() && compatibilityCopy)
@@ -460,29 +461,31 @@ void __75__CIKernel_cachedKernelWithFunctionName_fromCIKernelLibrary_options_err
   }
 
   fosl_filter_kernelpool_addString(Pool, [string UTF8String]);
-  if (check_and_emit_compile_errors(string, Pool, 0))
+  v17 = check_and_emit_compile_errors(string, Pool, 0);
+  if (v17)
   {
-    v16 = ci_logger_compile();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = ci_logger_compile(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v17 = [objc_opt_class() description];
-      [CIKernel _initWithString:v17 andCIKernelLibrary:buf usingCruftCompatibility:? isInternal:?];
+      v20 = [objc_opt_class() description];
+      [CIKernel _initWithString:v20 andCIKernelLibrary:&buf usingCruftCompatibility:? isInternal:?];
     }
 
     goto LABEL_22;
   }
 
-  if (!fosl_filter_kernelpool_getNumKernels(Pool))
+  NumKernels = fosl_filter_kernelpool_getNumKernels(Pool);
+  if (!NumKernels)
   {
-    v20 = ci_logger_compile();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v27 = ci_logger_compile(NumKernels, v22);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v21 = [objc_opt_class() description];
-      [CIKernel _initWithString:v21 andCIKernelLibrary:buf usingCruftCompatibility:? isInternal:?];
+      v28 = [objc_opt_class() description];
+      [CIKernel _initWithString:v28 andCIKernelLibrary:&buf usingCruftCompatibility:? isInternal:?];
     }
 
 LABEL_22:
-    v22 = 0;
+    v29 = 0;
     if (!Pool)
     {
       goto LABEL_24;
@@ -491,19 +494,20 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  if (!CIKernelReflection::reflect(&v56, Pool, 0, 0))
+  if (!CIKernelReflection::reflect(&v73, Pool, 0, 0))
   {
     goto LABEL_22;
   }
 
   if ((dyld_program_sdk_at_least() & 1) != 0 || dyld_program_sdk_at_least())
   {
-    var0 = v56.var0;
+    var0 = v73.var0;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & (var0 != 3)) == 1)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & (var0 != 3)) == 1)
     {
-      v19 = ci_logger_compile();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v26 = ci_logger_compile(isKindOfClass, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [CIKernel _initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:];
       }
@@ -512,10 +516,11 @@ LABEL_22:
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & (var0 != 2)) == 1)
+    v32 = objc_opt_isKindOfClass();
+    if ((v32 & (var0 != 2)) == 1)
     {
-      v25 = ci_logger_compile();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v34 = ci_logger_compile(v32, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [CIKernel _initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:];
       }
@@ -524,7 +529,7 @@ LABEL_22:
     }
   }
 
-  if (!v12)
+  if (!v13)
   {
     if (!library)
     {
@@ -534,31 +539,32 @@ LABEL_22:
     goto LABEL_40;
   }
 
-  CIKLLibraryMaker::CIKLLibraryMaker(buf, Pool);
-  library = buf[0];
-  if (!buf[0])
+  CIKLLibraryMaker::CIKLLibraryMaker(&buf, Pool);
+  library = *&buf.var0;
+  if (!*&buf.var0)
   {
-    v35 = ci_logger_compile();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v50 = ci_logger_compile(v35, v36);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      v36 = [objc_opt_class() description];
-      [CIKernel _initWithString:v36 andCIKernelLibrary:v64 usingCruftCompatibility:? isInternal:?];
+      v51 = [objc_opt_class() description];
+      [CIKernel _initWithString:v51 andCIKernelLibrary:v81 usingCruftCompatibility:? isInternal:?];
     }
 
-    CIKLLibraryMaker::~CIKLLibraryMaker(buf);
+    CIKLLibraryMaker::~CIKLLibraryMaker(&buf);
     goto LABEL_22;
   }
 
-  CIKLLibraryMaker::~CIKLLibraryMaker(v26);
+  CIKLLibraryMaker::~CIKLLibraryMaker(v35);
 LABEL_40:
-  if (CIKernelReflection::reflect(&v55, library, v56.var2, 0))
+  if (CIKernelReflection::reflect(&v72, library, v73.var2, 0))
   {
-    v27 = v55.var0;
+    v37 = v72.var0;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & (v27 != 2)) == 1)
+    v38 = objc_opt_isKindOfClass();
+    if ((v38 & (v37 != 2)) == 1)
     {
-      v28 = ci_logger_api();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v40 = ci_logger_api(v38, v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         [CIKernel _initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:];
       }
@@ -567,10 +573,11 @@ LABEL_40:
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & (v27 != 3)) == 1)
+    v52 = objc_opt_isKindOfClass();
+    if ((v52 & (v37 != 3)) == 1)
     {
-      v37 = ci_logger_api();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v54 = ci_logger_api(v52, v53);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         [CIKernel _initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:];
       }
@@ -578,52 +585,52 @@ LABEL_40:
       goto LABEL_22;
     }
 
-    CIKernelReflection::consolidate(&v56, &v55, buf);
-    CIKernelReflection::operator=(v57, buf);
-    CIKernelReflection::~CIKernelReflection(buf);
+    CIKernelReflection::consolidate(&v73, &v72, &buf);
+    CIKernelReflection::operator=(v74, &buf);
+    CIKernelReflection::~CIKernelReflection(&buf);
     goto LABEL_45;
   }
 
 LABEL_44:
-  *v57 = *&v56.var0;
-  *&v57[16] = *&v56.var3;
-  std::vector<CI::KernelArgumentType>::__assign_with_size[abi:nn200100]<CI::KernelArgumentType*,CI::KernelArgumentType*>(&v57[32], v56.var5.var0, v56.var5.var1, v56.var5.var1 - v56.var5.var0);
-  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::string*,std::string*>(v59, v56.var6.var0, v56.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v56.var6.var1 - v56.var6.var0) >> 3));
-  *&v59[24] = *&v56.var7;
-  v60 = *&v56.var10;
-  v61 = *&v56.var12;
+  *v74 = *&v73.var0;
+  *&v74[16] = *&v73.var3;
+  std::vector<CI::KernelArgumentType>::__assign_with_size[abi:nn200100]<CI::KernelArgumentType*,CI::KernelArgumentType*>(&v74[32], v73.var5.var0, v73.var5.var1, v73.var5.var1 - v73.var5.var0);
+  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::string*,std::string*>(v76, v73.var6.var0, v73.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v73.var6.var1 - v73.var6.var0) >> 3));
+  *&v76[24] = *&v73.var7;
+  v77 = *&v73.var10;
+  v78 = *&v73.var12;
 LABEL_45:
-  v29 = *v56.var2;
+  v43 = *v73.var2;
   if (internalCopy)
   {
-    if (v29 != 95)
+    if (v43 != 95)
     {
-      v30 = ci_logger_api();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v44 = ci_logger_api(v41, v42);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
       {
         [CIKernel _initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:];
       }
     }
   }
 
-  else if (v29 == 95)
+  else if (v43 == 95)
   {
-    v31 = ci_logger_api();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v45 = ci_logger_api(v41, v42);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
-      LODWORD(buf[0]) = 136446210;
-      *(buf + 4) = v56.var2;
-      _os_log_impl(&dword_19CC36000, v31, OS_LOG_TYPE_INFO, "WARNING: Client CIKL function name %{public}s must not start with '_'\n", buf, 0xCu);
+      buf.var0 = 136446210;
+      *&buf.var1 = v73.var2;
+      _os_log_impl(&dword_19CC36000, v45, OS_LOG_TYPE_INFO, "WARNING: Client CIKL function name %{public}s must not start with '_'\n", &buf, 0xCu);
     }
   }
 
-  v32 = *v57;
-  if (*v57 == 1)
+  v46 = *v74;
+  if (*v74 == 1)
   {
     goto LABEL_58;
   }
 
-  if (*v57 == 2)
+  if (*v74 == 2)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -631,39 +638,39 @@ LABEL_45:
       goto LABEL_58;
     }
 
-    v32 = *v57;
+    v46 = *v74;
   }
 
-  if (v32 == 3)
+  if (v46 == 3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
 LABEL_58:
-      v47[0] = *v57;
-      v47[1] = *&v57[16];
+      v64[0] = *v74;
+      v64[1] = *&v74[16];
       __dst = 0;
-      v50 = 0;
-      v48 = 0;
-      if (v58 != *&v57[32])
+      v67 = 0;
+      v65 = 0;
+      if (v75 != *&v74[32])
       {
-        std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v48, (v58 - *&v57[32]) >> 2);
+        std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v65, (v75 - *&v74[32]) >> 2);
       }
 
-      memset(v51, 0, sizeof(v51));
-      std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v51, *v59, *&v59[8], 0xAAAAAAAAAAAAAAABLL * ((*&v59[8] - *v59) >> 3));
-      v52 = *&v59[24];
-      v53 = v60;
-      v54 = v61;
-      self = [(CIKernel *)self _initWithReflection:v47];
-      buf[0] = v51;
-      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](buf);
-      v33 = v48;
-      if (v48)
+      memset(v68, 0, sizeof(v68));
+      std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v68, *v76, *&v76[8], 0xAAAAAAAAAAAAAAABLL * ((*&v76[8] - *v76) >> 3));
+      v69 = *&v76[24];
+      v70 = v77;
+      v71 = v78;
+      self = [(CIKernel *)self _initWithReflection:v64];
+      *&buf.var0 = v68;
+      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&buf);
+      v47 = v65;
+      if (v65)
       {
-        __dst = v48;
+        __dst = v65;
 LABEL_66:
-        operator delete(v33);
+        operator delete(v47);
         goto LABEL_67;
       }
 
@@ -671,34 +678,34 @@ LABEL_66:
     }
   }
 
-  v34 = KernelKindAlloc(*v57);
-  v39[0] = *v57;
-  v39[1] = *&v57[16];
-  v41 = 0;
-  v42 = 0;
-  v40 = 0;
-  if (v58 != *&v57[32])
+  v49 = KernelKindAlloc(*v74, v48);
+  v56[0] = *v74;
+  v56[1] = *&v74[16];
+  v58 = 0;
+  v59 = 0;
+  v57 = 0;
+  if (v75 != *&v74[32])
   {
-    std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v40, (v58 - *&v57[32]) >> 2);
+    std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v57, (v75 - *&v74[32]) >> 2);
   }
 
-  memset(v43, 0, sizeof(v43));
-  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v43, *v59, *&v59[8], 0xAAAAAAAAAAAAAAABLL * ((*&v59[8] - *v59) >> 3));
-  v44 = *&v59[24];
-  v45 = v60;
-  v46 = v61;
-  self = [v34 _initWithReflection:v39];
-  buf[0] = v43;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](buf);
-  v33 = v40;
-  if (v40)
+  memset(v60, 0, sizeof(v60));
+  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v60, *v76, *&v76[8], 0xAAAAAAAAAAAAAAABLL * ((*&v76[8] - *v76) >> 3));
+  v61 = *&v76[24];
+  v62 = v77;
+  v63 = v78;
+  self = [v49 _initWithReflection:v56];
+  *&buf.var0 = v60;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&buf);
+  v47 = v57;
+  if (v57)
   {
-    v41 = v40;
+    v58 = v57;
     goto LABEL_66;
   }
 
 LABEL_67:
-  v22 = 1;
+  v29 = 1;
   if (Pool)
   {
 LABEL_23:
@@ -706,36 +713,36 @@ LABEL_23:
   }
 
 LABEL_24:
-  v23 = uselocale(v14);
-  freelocale(v23);
-  if ((v22 & 1) == 0)
+  v30 = uselocale(v15);
+  freelocale(v30);
+  if ((v29 & 1) == 0)
   {
 
     self = 0;
   }
 
-  p_var6 = &v55.var6;
+  p_var6 = &v72.var6;
   std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&p_var6);
-  if (v55.var5.var0)
+  if (v72.var5.var0)
   {
-    v55.var5.var1 = v55.var5.var0;
-    operator delete(v55.var5.var0);
+    v72.var5.var1 = v72.var5.var0;
+    operator delete(v72.var5.var0);
   }
 
-  *&v55.var0 = &v56.var6;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v55);
-  if (v56.var5.var0)
+  *&v72.var0 = &v73.var6;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v72);
+  if (v73.var5.var0)
   {
-    v56.var5.var1 = v56.var5.var0;
-    operator delete(v56.var5.var0);
+    v73.var5.var1 = v73.var5.var0;
+    operator delete(v73.var5.var0);
   }
 
-  *&v56.var0 = v59;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v56);
-  if (*&v57[32])
+  *&v73.var0 = v76;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v73);
+  if (*&v74[32])
   {
-    *&v58 = *&v57[32];
-    operator delete(*&v57[32]);
+    *&v75 = *&v74[32];
+    operator delete(*&v74[32]);
   }
 
   objc_autoreleasePoolPop(context);
@@ -792,235 +799,235 @@ LABEL_24:
 
   v9 = CI_USE_MTL_DAG_FOR_CIKL_SRC();
   libraryCopy = library;
-  v11 = 0;
-  v28 = libraryCopy;
+  v12 = 0;
+  v30 = libraryCopy;
   if (!libraryCopy && v9)
   {
-    v11 = can_use_metal();
+    v12 = can_use_metal(v9, v10);
   }
 
-  v12 = newlocale(63, 0, 0);
-  v13 = uselocale(v12);
+  v13 = newlocale(63, 0, 0);
+  v14 = uselocale(v13);
   Pool = fosl_filter_kernelpool_createPool();
   fosl_filter_kernelpool_addLibrary(Pool, aCopyright2022A);
   fosl_filter_kernelpool_addString(Pool, [string UTF8String]);
   check_and_emit_compile_errors(string, Pool, log);
   NumKernels = fosl_filter_kernelpool_getNumKernels(Pool);
-  v29 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:NumKernels];
-  if (!v11)
+  v31 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:NumKernels];
+  if (!v12)
   {
     goto LABEL_8;
   }
 
-  CIKLLibraryMaker::CIKLLibraryMaker(&v69, Pool);
-  if (*&v69.var0)
+  CIKLLibraryMaker::CIKLLibraryMaker(&v71, Pool);
+  if (*&v71.var0)
   {
-    v28 = *&v69.var0;
-    CIKLLibraryMaker::~CIKLLibraryMaker(v16);
+    v30 = *&v71.var0;
+    CIKLLibraryMaker::~CIKLLibraryMaker(v17);
 LABEL_8:
-    v27 = v13;
+    v29 = v14;
     if (NumKernels)
     {
-      v17 = 0;
-      v30 = vdupq_n_s64(1uLL);
+      v19 = 0;
+      v32 = vdupq_n_s64(1uLL);
       while (1)
       {
-        memset(&v69.var2, 0, 88);
-        *&v69.var10 = v30;
-        *&v69.var12 = 0;
-        if (CIKernelReflection::reflect(&v69, Pool, v17, 0))
+        memset(&v71.var2, 0, 88);
+        *&v71.var10 = v32;
+        *&v71.var12 = 0;
+        if (CIKernelReflection::reflect(&v71, Pool, v19, 0))
         {
           break;
         }
 
 LABEL_41:
-        *&v68.var0 = &v69.var6;
-        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v68);
-        if (v69.var5.var0)
+        *&v70.var0 = &v71.var6;
+        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v70);
+        if (v71.var5.var0)
         {
-          v69.var5.var1 = v69.var5.var0;
-          operator delete(v69.var5.var0);
+          v71.var5.var1 = v71.var5.var0;
+          operator delete(v71.var5.var0);
         }
 
-        v17 = (v17 + 1);
-        if (NumKernels == v17)
+        v19 = (v19 + 1);
+        if (NumKernels == v19)
         {
           goto LABEL_44;
         }
       }
 
-      memset(&v68.var2, 0, 88);
-      *&v68.var10 = vdupq_n_s64(1uLL);
-      *&v68.var12 = 0;
-      if (v28 && CIKernelReflection::reflect(&v68, v28, v69.var2, 0))
+      memset(&v70.var2, 0, 88);
+      *&v70.var10 = vdupq_n_s64(1uLL);
+      *&v70.var12 = 0;
+      if (v30 && CIKernelReflection::reflect(&v70, v30, v71.var2, 0))
       {
-        CIKernelReflection::consolidate(&v69, &v68, v63);
-        *&v69.var0 = *v63;
-        *&v69.var3 = *&v63[2];
-        if (v69.var5.var0)
+        CIKernelReflection::consolidate(&v71, &v70, v65);
+        *&v71.var0 = *v65;
+        *&v71.var3 = *&v65[2];
+        if (v71.var5.var0)
         {
-          v69.var5.var1 = v69.var5.var0;
-          operator delete(v69.var5.var0);
+          v71.var5.var1 = v71.var5.var0;
+          operator delete(v71.var5.var0);
         }
 
-        v69.var5 = *&v63[4];
-        memset(&v63[4], 0, 24);
-        std::vector<std::string>::__vdeallocate(&v69.var6);
-        v69.var6 = v64;
-        memset(&v64, 0, sizeof(v64));
-        *&v69.var7 = v65;
-        *&v69.var10 = v66;
-        *&v69.var12 = v67;
-        v70 = &v64;
-        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v70);
-        if (v63[4])
+        v71.var5 = *&v65[4];
+        memset(&v65[4], 0, 24);
+        std::vector<std::string>::__vdeallocate(&v71.var6);
+        v71.var6 = v66;
+        memset(&v66, 0, sizeof(v66));
+        *&v71.var7 = v67;
+        *&v71.var10 = v68;
+        *&v71.var12 = v69;
+        v72 = &v66;
+        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v72);
+        if (v65[4])
         {
-          v63[5] = v63[4];
-          operator delete(v63[4]);
+          v65[5] = v65[4];
+          operator delete(v65[4]);
         }
       }
 
-      if (v69.var0 > 2)
+      if (v71.var0 > 2)
       {
-        if (v69.var0 == 3)
+        if (v71.var0 == 3)
         {
-          v22 = [CIWarpKernel alloc];
-          v39[0] = *&v69.var0;
-          v39[1] = *&v69.var3;
-          v41 = 0;
+          v24 = [CIWarpKernel alloc];
+          v41[0] = *&v71.var0;
+          v41[1] = *&v71.var3;
+          v43 = 0;
+          v44 = 0;
           v42 = 0;
-          v40 = 0;
-          if (v69.var5.var1 != v69.var5.var0)
+          if (v71.var5.var1 != v71.var5.var0)
           {
-            std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v40, v69.var5.var1 - v69.var5.var0);
+            std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v42, v71.var5.var1 - v71.var5.var0);
           }
 
-          memset(v43, 0, sizeof(v43));
-          std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v43, v69.var6.var0, v69.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v69.var6.var1 - v69.var6.var0) >> 3));
-          v44 = *&v69.var7;
-          v45 = *&v69.var10;
-          v46 = *&v69.var12;
-          [v29 addObject:{-[CIKernel _initWithReflection:](v22, "_initWithReflection:", v39, v27)}];
-          v63[0] = v43;
-          std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v63);
-          v19 = v40;
-          if (!v40)
+          memset(v45, 0, sizeof(v45));
+          std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v45, v71.var6.var0, v71.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v71.var6.var1 - v71.var6.var0) >> 3));
+          v46 = *&v71.var7;
+          v47 = *&v71.var10;
+          v48 = *&v71.var12;
+          [v31 addObject:{-[CIKernel _initWithReflection:](v24, "_initWithReflection:", v41, v29)}];
+          v65[0] = v45;
+          std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v65);
+          v21 = v42;
+          if (!v42)
           {
             goto LABEL_39;
           }
 
-          v41 = v40;
+          v43 = v42;
         }
 
         else
         {
-          if (v69.var0 != 4)
+          if (v71.var0 != 4)
           {
             goto LABEL_39;
           }
 
-          v20 = [CIBlendKernel alloc];
-          v31[0] = *&v69.var0;
-          v31[1] = *&v69.var3;
-          v33 = 0;
+          v22 = [CIBlendKernel alloc];
+          v33[0] = *&v71.var0;
+          v33[1] = *&v71.var3;
+          v35 = 0;
+          v36 = 0;
           v34 = 0;
-          v32 = 0;
-          if (v69.var5.var1 != v69.var5.var0)
+          if (v71.var5.var1 != v71.var5.var0)
           {
-            std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v32, v69.var5.var1 - v69.var5.var0);
+            std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v34, v71.var5.var1 - v71.var5.var0);
           }
 
-          memset(v35, 0, sizeof(v35));
-          std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v35, v69.var6.var0, v69.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v69.var6.var1 - v69.var6.var0) >> 3));
-          v36 = *&v69.var7;
-          v37 = *&v69.var10;
-          v38 = *&v69.var12;
-          [v29 addObject:{-[CIKernel _initWithReflection:](v20, "_initWithReflection:", v31)}];
-          v63[0] = v35;
-          std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v63);
-          v19 = v32;
-          if (!v32)
+          memset(v37, 0, sizeof(v37));
+          std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v37, v71.var6.var0, v71.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v71.var6.var1 - v71.var6.var0) >> 3));
+          v38 = *&v71.var7;
+          v39 = *&v71.var10;
+          v40 = *&v71.var12;
+          [v31 addObject:{-[CIKernel _initWithReflection:](v22, "_initWithReflection:", v33)}];
+          v65[0] = v37;
+          std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v65);
+          v21 = v34;
+          if (!v34)
           {
             goto LABEL_39;
           }
 
-          v33 = v32;
+          v35 = v34;
         }
       }
 
-      else if (v69.var0 == 1)
+      else if (v71.var0 == 1)
       {
-        v21 = [CIKernel alloc];
-        v55[0] = *&v69.var0;
-        v55[1] = *&v69.var3;
-        v57 = 0;
+        v23 = [CIKernel alloc];
+        v57[0] = *&v71.var0;
+        v57[1] = *&v71.var3;
+        v59 = 0;
+        v60 = 0;
         v58 = 0;
-        v56 = 0;
-        if (v69.var5.var1 != v69.var5.var0)
+        if (v71.var5.var1 != v71.var5.var0)
         {
-          std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v56, v69.var5.var1 - v69.var5.var0);
+          std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v58, v71.var5.var1 - v71.var5.var0);
         }
 
-        memset(v59, 0, sizeof(v59));
-        std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v59, v69.var6.var0, v69.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v69.var6.var1 - v69.var6.var0) >> 3));
-        v60 = *&v69.var7;
-        v61 = *&v69.var10;
-        v62 = *&v69.var12;
-        [v29 addObject:{-[CIKernel _initWithReflection:](v21, "_initWithReflection:", v55)}];
-        v63[0] = v59;
-        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v63);
-        v19 = v56;
-        if (!v56)
+        memset(v61, 0, sizeof(v61));
+        std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v61, v71.var6.var0, v71.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v71.var6.var1 - v71.var6.var0) >> 3));
+        v62 = *&v71.var7;
+        v63 = *&v71.var10;
+        v64 = *&v71.var12;
+        [v31 addObject:{-[CIKernel _initWithReflection:](v23, "_initWithReflection:", v57)}];
+        v65[0] = v61;
+        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v65);
+        v21 = v58;
+        if (!v58)
         {
           goto LABEL_39;
         }
 
-        v57 = v56;
+        v59 = v58;
       }
 
       else
       {
-        if (v69.var0 != 2)
+        if (v71.var0 != 2)
         {
           goto LABEL_39;
         }
 
-        v18 = [CIColorKernel alloc];
-        v47[0] = *&v69.var0;
-        v47[1] = *&v69.var3;
+        v20 = [CIColorKernel alloc];
+        v49[0] = *&v71.var0;
+        v49[1] = *&v71.var3;
         __dst = 0;
+        v52 = 0;
         v50 = 0;
-        v48 = 0;
-        if (v69.var5.var1 != v69.var5.var0)
+        if (v71.var5.var1 != v71.var5.var0)
         {
-          std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v48, v69.var5.var1 - v69.var5.var0);
+          std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v50, v71.var5.var1 - v71.var5.var0);
         }
 
-        memset(v51, 0, sizeof(v51));
-        std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v51, v69.var6.var0, v69.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v69.var6.var1 - v69.var6.var0) >> 3));
-        v52 = *&v69.var7;
-        v53 = *&v69.var10;
-        v54 = *&v69.var12;
-        [v29 addObject:{-[CIKernel _initWithReflection:](v18, "_initWithReflection:", v47)}];
-        v63[0] = v51;
-        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v63);
-        v19 = v48;
-        if (!v48)
+        memset(v53, 0, sizeof(v53));
+        std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v53, v71.var6.var0, v71.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v71.var6.var1 - v71.var6.var0) >> 3));
+        v54 = *&v71.var7;
+        v55 = *&v71.var10;
+        v56 = *&v71.var12;
+        [v31 addObject:{-[CIKernel _initWithReflection:](v20, "_initWithReflection:", v49)}];
+        v65[0] = v53;
+        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v65);
+        v21 = v50;
+        if (!v50)
         {
           goto LABEL_39;
         }
 
-        __dst = v48;
+        __dst = v50;
       }
 
-      operator delete(v19);
+      operator delete(v21);
 LABEL_39:
-      v63[0] = &v68.var6;
-      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v63);
-      if (v68.var5.var0)
+      v65[0] = &v70.var6;
+      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v65);
+      if (v70.var5.var0)
       {
-        v68.var5.var1 = v68.var5.var0;
-        operator delete(v68.var5.var0);
+        v70.var5.var1 = v70.var5.var0;
+        operator delete(v70.var5.var0);
       }
 
       goto LABEL_41;
@@ -1028,38 +1035,38 @@ LABEL_39:
 
 LABEL_44:
     fosl_filter_kernelpool_destroyPool(Pool);
-    v23 = uselocale(v27);
-    freelocale(v23);
-    if (v28)
+    v25 = uselocale(v29);
+    freelocale(v25);
+    if (v30)
     {
-      v24 = @"kernelsWithString_andMetalLibrary";
+      v26 = @"kernelsWithString_andMetalLibrary";
     }
 
     else
     {
-      v24 = @"kernelsWithString";
+      v26 = @"kernelsWithString";
     }
 
-    CoreAnalytics(&cfstr_Cikernel.isa, &v24->isa, NumKernels);
+    CoreAnalytics(&cfstr_Cikernel.isa, &v26->isa, NumKernels);
     goto LABEL_49;
   }
 
-  v26 = ci_logger_compile();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v28 = ci_logger_compile(v17, v18);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     +[CIKernel kernelsWithString:andCIKernelLibrary:messageLog:];
   }
 
-  CIKLLibraryMaker::~CIKLLibraryMaker(&v69);
+  CIKLLibraryMaker::~CIKLLibraryMaker(&v71);
 LABEL_49:
   objc_autoreleasePoolPop(v8);
-  return v29;
+  return v31;
 }
 
 + (id)kernelsWithString:(id)string fromMetalLibraryData:(id)data
 {
   v16 = *MEMORY[0x1E69E9840];
-  v7 = ci_signpost_log_kernel();
+  v7 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v7))
   {
     *buf = 138543362;
@@ -1082,20 +1089,20 @@ LABEL_49:
     v8 = 0;
   }
 
-  v11(v10);
+  (v11)(v10);
   return v8;
 }
 
-void __51__CIKernel_kernelsWithString_fromMetalLibraryData___block_invoke(uint64_t a1)
+void __51__CIKernel_kernelsWithString_fromMetalLibraryData___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelsWithString:fromMetalLibraryData", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelsWithString:fromMetalLibraryData", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -1114,7 +1121,7 @@ void __51__CIKernel_kernelsWithString_fromMetalLibraryData___block_invoke(uint64
 + (NSArray)kernelsWithString:(NSString *)string
 {
   v14 = *MEMORY[0x1E69E9840];
-  v5 = ci_signpost_log_kernel();
+  v5 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v5))
   {
     *buf = 138543362;
@@ -1137,27 +1144,27 @@ void __51__CIKernel_kernelsWithString_fromMetalLibraryData___block_invoke(uint64
     v6 = 0;
   }
 
-  v9(v8);
+  (v9)(v8);
   return v6;
 }
 
-void __30__CIKernel_kernelsWithString___block_invoke(uint64_t a1)
+void __30__CIKernel_kernelsWithString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelsWithString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelsWithString", "%{public}@", &v5, 0xCu);
   }
 }
 
 + (NSArray)kernelsWithMetalString:(NSString *)source error:(NSError *)error
 {
   v35 = *MEMORY[0x1E69E9840];
-  v7 = ci_signpost_log_kernel();
+  v7 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v7))
   {
     LODWORD(buf) = 138543362;
@@ -1266,20 +1273,20 @@ LABEL_25:
 
   CoreAnalytics(&cfstr_Cikernel.isa, &cfstr_Kernelswithmet.isa, v11);
 LABEL_26:
-  v29(v28);
+  (v29)(v28);
   return v12;
 }
 
-void __41__CIKernel_kernelsWithMetalString_error___block_invoke(uint64_t a1)
+void __41__CIKernel_kernelsWithMetalString_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelsWithMetalString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelsWithMetalString", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -1301,7 +1308,7 @@ void __41__CIKernel_kernelsWithMetalString_error___block_invoke(uint64_t a1)
 + (CIKernel)kernelWithString:(NSString *)string
 {
   v15 = *MEMORY[0x1E69E9840];
-  v5 = ci_signpost_log_kernel();
+  v5 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v5))
   {
     *buf = 138543362;
@@ -1329,27 +1336,27 @@ void __41__CIKernel_kernelsWithMetalString_error___block_invoke(uint64_t a1)
     v6 = 0;
   }
 
-  v10(v9);
+  (v10)(v9);
   return v6;
 }
 
-void __29__CIKernel_kernelWithString___block_invoke(uint64_t a1)
+void __29__CIKernel_kernelWithString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v5, 0xCu);
   }
 }
 
 + (CIKernel)kernelWithString:(id)string fromMetalLibraryData:(id)data
 {
   v17 = *MEMORY[0x1E69E9840];
-  v7 = ci_signpost_log_kernel();
+  v7 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v7))
   {
     *buf = 138543362;
@@ -1382,20 +1389,20 @@ void __29__CIKernel_kernelWithString___block_invoke(uint64_t a1)
     v9 = 0;
   }
 
-  v12(v11);
+  (v12)(v11);
   return v9;
 }
 
-void __50__CIKernel_kernelWithString_fromMetalLibraryData___block_invoke(uint64_t a1)
+void __50__CIKernel_kernelWithString_fromMetalLibraryData___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString:fromMetalLibraryData", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString:fromMetalLibraryData", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -1418,7 +1425,7 @@ void __50__CIKernel_kernelWithString_fromMetalLibraryData___block_invoke(uint64_
 
 + (CIKernel)kernelWithFunctionName:(id)name fromMetalLibraryData:(id)data outputGroupSize:(CGSize)size error:(id *)error
 {
-  v6 = ci_logger_api();
+  v6 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(CIKernel *)v6 kernelWithFunctionName:v7 fromMetalLibraryData:v8 outputGroupSize:v9 error:v10, v11, v12, v13];
@@ -1437,8 +1444,8 @@ void __50__CIKernel_kernelWithString_fromMetalLibraryData___block_invoke(uint64_
 
 + (CIKernel)kernelWithFunctionName:(id)name fromMetalLibraryData:(id)data options:(id)options error:(id *)error
 {
-  v35[2] = *MEMORY[0x1E69E9840];
-  v11 = ci_signpost_log_kernel();
+  v36[2] = *MEMORY[0x1E69E9840];
+  v11 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v11))
   {
     *buf = 138543618;
@@ -1448,31 +1455,31 @@ void __50__CIKernel_kernelWithString_fromMetalLibraryData___block_invoke(uint64_
     _os_signpost_emit_with_name_impl(&dword_19CC36000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibraryData", "%{public}@ %{public}@", buf, 0x16u);
   }
 
-  v28 = 0;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v30 = __70__CIKernel_kernelWithFunctionName_fromMetalLibraryData_options_error___block_invoke;
-  v31 = &unk_1E75C20F8;
+  v29 = 0;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v31 = __70__CIKernel_kernelWithFunctionName_fromMetalLibraryData_options_error___block_invoke;
+  v32 = &unk_1E75C20F8;
   selfCopy = self;
   nameCopy = name;
-  v12 = [CIKernelLibrary libraryWithData:data error:&v28];
+  v12 = [CIKernelLibrary libraryWithData:data error:&v29];
   if (v12)
   {
-    v13 = [objc_opt_class() kernelWithFunctionName:name fromCIKernelLibrary:v12 options:options error:error];
-    if (v13)
+    v14 = [objc_opt_class() kernelWithFunctionName:name fromCIKernelLibrary:v12 options:options error:error];
+    if (v14)
     {
-      v14 = dyld_program_sdk_at_least();
+      v15 = dyld_program_sdk_at_least();
       if (error)
       {
-        v15 = v14;
+        v16 = v15;
       }
 
       else
       {
-        v15 = 1;
+        v16 = 1;
       }
 
-      if ((v15 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
         *error = 0;
       }
@@ -1483,53 +1490,54 @@ void __50__CIKernel_kernelWithString_fromMetalLibraryData___block_invoke(uint64_
   {
     if (error)
     {
-      if (v28)
+      if (v29)
       {
-        v16 = *MEMORY[0x1E696AA08];
-        v35[0] = @"CINonLocalizedDescriptionKey";
-        v35[1] = v16;
+        v17 = *MEMORY[0x1E696AA08];
+        v36[0] = @"CINonLocalizedDescriptionKey";
+        v36[1] = v17;
         *buf = @"Cannot initialize kernel with given library data.";
-        *&buf[8] = v28;
-        v17 = 2;
+        *&buf[8] = v29;
+        v18 = 2;
       }
 
       else
       {
-        v35[0] = @"CINonLocalizedDescriptionKey";
+        v36[0] = @"CINonLocalizedDescriptionKey";
         *buf = @"Cannot initialize kernel with given library data.";
-        v17 = 1;
+        v18 = 1;
       }
 
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v35 count:v17];
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIKernel" code:6 userInfo:v18];
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v36 count:v18];
+      v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIKernel" code:6 userInfo:v19];
+      *error = v12;
     }
 
-    v19 = ci_logger_api();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = ci_logger_api(v12, v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(CIKernel *)v19 kernelWithFunctionName:v20 fromMetalLibraryData:v21 options:v22 error:v23, v24, v25, v26];
+      [(CIKernel *)v20 kernelWithFunctionName:v21 fromMetalLibraryData:v22 options:v23 error:v24, v25, v26, v27];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  v30(v29);
-  return v13;
+  (v31)(v30);
+  return v14;
 }
 
-void __70__CIKernel_kernelWithFunctionName_fromMetalLibraryData_options_error___block_invoke(uint64_t a1)
+void __70__CIKernel_kernelWithFunctionName_fromMetalLibraryData_options_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = *(a1 + 40);
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = v4;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibraryData", "%{public}@ %{public}@", &v5, 0x16u);
+    v4 = [*(a1 + 32) description];
+    v5 = *(a1 + 40);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v5;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibraryData", "%{public}@ %{public}@", &v6, 0x16u);
   }
 }
 
@@ -1560,8 +1568,8 @@ void __70__CIKernel_kernelWithFunctionName_fromMetalLibraryData_options_error___
 
 + (CIKernel)kernelWithFunctionName:(id)name fromMetalLibrary:(id)library options:(id)options error:(id *)error
 {
-  v33[2] = *MEMORY[0x1E69E9840];
-  v11 = ci_signpost_log_kernel();
+  v34[2] = *MEMORY[0x1E69E9840];
+  v11 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v11))
   {
     *buf = 138543618;
@@ -1571,70 +1579,71 @@ void __70__CIKernel_kernelWithFunctionName_fromMetalLibraryData_options_error___
     _os_signpost_emit_with_name_impl(&dword_19CC36000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibrary", "%{public}@ %{public}@", buf, 0x16u);
   }
 
-  v26 = 0;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v28 = __66__CIKernel_kernelWithFunctionName_fromMetalLibrary_options_error___block_invoke;
-  v29 = &unk_1E75C20F8;
+  v27 = 0;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v29 = __66__CIKernel_kernelWithFunctionName_fromMetalLibrary_options_error___block_invoke;
+  v30 = &unk_1E75C20F8;
   selfCopy = self;
   nameCopy = name;
-  v12 = [CIKernelLibrary libraryWithURL:library error:&v26];
+  v12 = [CIKernelLibrary libraryWithURL:library error:&v27];
   if (v12)
   {
-    v13 = [objc_opt_class() kernelWithFunctionName:name fromCIKernelLibrary:v12 options:options error:error];
+    v14 = [objc_opt_class() kernelWithFunctionName:name fromCIKernelLibrary:v12 options:options error:error];
   }
 
   else
   {
     if (error)
     {
-      if (v26)
+      if (v27)
       {
-        v14 = *MEMORY[0x1E696AA08];
-        v33[0] = @"CINonLocalizedDescriptionKey";
-        v33[1] = v14;
+        v15 = *MEMORY[0x1E696AA08];
+        v34[0] = @"CINonLocalizedDescriptionKey";
+        v34[1] = v15;
         *buf = @"Cannot initialize kernel with given library URL.";
-        *&buf[8] = v26;
-        v15 = 2;
+        *&buf[8] = v27;
+        v16 = 2;
       }
 
       else
       {
-        v33[0] = @"CINonLocalizedDescriptionKey";
+        v34[0] = @"CINonLocalizedDescriptionKey";
         *buf = @"Cannot initialize kernel with given library URL.";
-        v15 = 1;
+        v16 = 1;
       }
 
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v33 count:v15];
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIKernel" code:6 userInfo:v16];
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v34 count:v16];
+      v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIKernel" code:6 userInfo:v17];
+      *error = v12;
     }
 
-    v17 = ci_logger_api();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = ci_logger_api(v12, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(CIKernel *)v17 kernelWithFunctionName:v18 fromMetalLibrary:v19 options:v20 error:v21, v22, v23, v24];
+      [(CIKernel *)v18 kernelWithFunctionName:v19 fromMetalLibrary:v20 options:v21 error:v22, v23, v24, v25];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  v28(v27);
-  return v13;
+  (v29)(v28);
+  return v14;
 }
 
-void __66__CIKernel_kernelWithFunctionName_fromMetalLibrary_options_error___block_invoke(uint64_t a1)
+void __66__CIKernel_kernelWithFunctionName_fromMetalLibrary_options_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = *(a1 + 40);
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = v4;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibrary", "%{public}@ %{public}@", &v5, 0x16u);
+    v4 = [*(a1 + 32) description];
+    v5 = *(a1 + 40);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v5;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibrary", "%{public}@ %{public}@", &v6, 0x16u);
   }
 }
 
@@ -1665,8 +1674,8 @@ void __66__CIKernel_kernelWithFunctionName_fromMetalLibrary_options_error___bloc
 
 + (id)cachedKernelWithFunctionName:(id)name fromMetalLibrary:(id)library options:(id)options error:(id *)error
 {
-  v33[2] = *MEMORY[0x1E69E9840];
-  v11 = ci_signpost_log_kernel();
+  v34[2] = *MEMORY[0x1E69E9840];
+  v11 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v11))
   {
     *buf = 138543618;
@@ -1676,104 +1685,105 @@ void __66__CIKernel_kernelWithFunctionName_fromMetalLibrary_options_error___bloc
     _os_signpost_emit_with_name_impl(&dword_19CC36000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibrary", "%{public}@ %{public}@", buf, 0x16u);
   }
 
-  v26 = 0;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v28 = __72__CIKernel_cachedKernelWithFunctionName_fromMetalLibrary_options_error___block_invoke;
-  v29 = &unk_1E75C20F8;
+  v27 = 0;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v29 = __72__CIKernel_cachedKernelWithFunctionName_fromMetalLibrary_options_error___block_invoke;
+  v30 = &unk_1E75C20F8;
   selfCopy = self;
   nameCopy = name;
-  v12 = [CIKernelLibrary cachedLibraryWithURL:library error:&v26];
+  v12 = [CIKernelLibrary cachedLibraryWithURL:library error:&v27];
   if (v12)
   {
-    v13 = [objc_opt_class() cachedKernelWithFunctionName:name fromCIKernelLibrary:v12 options:options error:error];
+    v14 = [objc_opt_class() cachedKernelWithFunctionName:name fromCIKernelLibrary:v12 options:options error:error];
   }
 
   else
   {
     if (error)
     {
-      if (v26)
+      if (v27)
       {
-        v14 = *MEMORY[0x1E696AA08];
-        v33[0] = @"CINonLocalizedDescriptionKey";
-        v33[1] = v14;
+        v15 = *MEMORY[0x1E696AA08];
+        v34[0] = @"CINonLocalizedDescriptionKey";
+        v34[1] = v15;
         *buf = @"Cannot initialize kernel with given library URL.";
-        *&buf[8] = v26;
-        v15 = 2;
+        *&buf[8] = v27;
+        v16 = 2;
       }
 
       else
       {
-        v33[0] = @"CINonLocalizedDescriptionKey";
+        v34[0] = @"CINonLocalizedDescriptionKey";
         *buf = @"Cannot initialize kernel with given library URL.";
-        v15 = 1;
+        v16 = 1;
       }
 
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v33 count:v15];
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIKernel" code:6 userInfo:v16];
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v34 count:v16];
+      v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIKernel" code:6 userInfo:v17];
+      *error = v12;
     }
 
-    v17 = ci_logger_api();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = ci_logger_api(v12, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(CIKernel *)v17 cachedKernelWithFunctionName:v18 fromMetalLibrary:v19 options:v20 error:v21, v22, v23, v24];
+      [(CIKernel *)v18 cachedKernelWithFunctionName:v19 fromMetalLibrary:v20 options:v21 error:v22, v23, v24, v25];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  v28(v27);
-  return v13;
+  (v29)(v28);
+  return v14;
 }
 
-void __72__CIKernel_cachedKernelWithFunctionName_fromMetalLibrary_options_error___block_invoke(uint64_t a1)
+void __72__CIKernel_cachedKernelWithFunctionName_fromMetalLibrary_options_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = *(a1 + 40);
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = v4;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibrary", "%{public}@ %{public}@", &v5, 0x16u);
+    v4 = [*(a1 + 32) description];
+    v5 = *(a1 + 40);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v5;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithFunctionName:fromMetalLibrary", "%{public}@ %{public}@", &v6, 0x16u);
   }
 }
 
 + (CIKernel)kernelWithFunctionName:(id)name fromCIKernelLibrary:(id)library options:(id)options error:(id *)error
 {
-  v133 = *MEMORY[0x1E69E9840];
+  v158 = *MEMORY[0x1E69E9840];
   v10 = objc_autoreleasePoolPush();
-  v112 = [options objectForKeyedSubscript:@"kCIKernelFunctionConstants"];
-  memset(&v129.var2, 0, 88);
-  *&v129.var10 = vdupq_n_s64(1uLL);
-  *&v129.var12 = 0;
+  v137 = [options objectForKeyedSubscript:@"kCIKernelFunctionConstants"];
+  memset(&v154.var2, 0, 88);
+  *&v154.var10 = vdupq_n_s64(1uLL);
+  *&v154.var12 = 0;
   v11 = [options objectForKeyedSubscript:@"kCIKernelOutputFormat"];
   if (!CI_ENABLE_METAL_DAG())
   {
-    CIKernelError(error, 7u, &cfstr_CannotInitiali_2.isa);
-    v12 = ci_logger_api();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v12 = CIKernelError(error, 7u, &cfstr_CannotInitiali_2.isa);
+    v14 = ci_logger_api(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(CIKernel *)v12 kernelWithFunctionName:v13 fromCIKernelLibrary:v14 options:v15 error:v16, v17, v18, v19];
+      [(CIKernel *)v14 kernelWithFunctionName:v15 fromCIKernelLibrary:v16 options:v17 error:v18, v19, v20, v21];
     }
 
     goto LABEL_7;
   }
 
-  if (!CIKernelReflection::reflect(&v129, library, [name UTF8String], error))
+  if (!CIKernelReflection::reflect(&v154, library, [name UTF8String], error))
   {
 LABEL_7:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_8;
   }
 
-  if (v112)
+  if (v137)
   {
-    obj = CIKernelReflection::reflectConstants(&v129);
+    obj = CIKernelReflection::reflectConstants(&v154);
   }
 
   else
@@ -1782,143 +1792,143 @@ LABEL_7:
   }
 
   intValue = [v11 intValue];
-  v26 = CI::format_modernize(intValue, "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]", v25);
-  if (v26)
+  v28 = CI::format_modernize(intValue, "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]", v27);
+  if (v28)
   {
-    v129.var9 = v26;
+    v154.var9 = v28;
   }
 
   if (dyld_program_sdk_at_least())
   {
-    v27 = objc_opt_class();
-    if (v27 == objc_opt_class() && v129.var0 == 2 && (v129.var5.var1 - v129.var5.var0) == 8)
-    {
-      if ((v28 = v129.var5.var0[1], *v129.var5.var0 == 8) && v28 == 8 || *v129.var5.var0 == 15 && v28 == 15)
-      {
-        v129.var0 = 4;
-      }
-    }
-
     v29 = objc_opt_class();
-    if (v29 == objc_opt_class() && v129.var0 == 2)
+    if (v29 == objc_opt_class() && v154.var0 == 2 && (v154.var5.var1 - v154.var5.var0) == 8)
     {
-      CIKernelError(error, 0xCu, &cfstr_CannotInitiali_3.isa);
-      v30 = ci_logger_api();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      if ((v30 = v154.var5.var0[1], *v154.var5.var0 == 8) && v30 == 8 || *v154.var5.var0 == 15 && v30 == 15)
       {
-        [(CIKernel *)v30 kernelWithFunctionName:v31 fromCIKernelLibrary:v32 options:v33 error:v34, v35, v36, v37];
+        v154.var0 = 4;
+      }
+    }
+
+    v31 = objc_opt_class();
+    if (v31 == objc_opt_class() && v154.var0 == 2)
+    {
+      v32 = CIKernelError(error, 0xCu, &cfstr_CannotInitiali_3.isa);
+      v34 = ci_logger_api(v32, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        [(CIKernel *)v34 kernelWithFunctionName:v35 fromCIKernelLibrary:v36 options:v37 error:v38, v39, v40, v41];
       }
 
       goto LABEL_7;
     }
 
-    v38 = objc_opt_class();
-    if (v38 == objc_opt_class() && v129.var0 == 3)
+    v42 = objc_opt_class();
+    if (v42 == objc_opt_class() && v154.var0 == 3)
     {
-      CIKernelError(error, 0xDu, &cfstr_CannotInitiali_4.isa);
-      v39 = ci_logger_api();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v43 = CIKernelError(error, 0xDu, &cfstr_CannotInitiali_4.isa);
+      v45 = ci_logger_api(v43, v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        [(CIKernel *)v39 kernelWithFunctionName:v40 fromCIKernelLibrary:v41 options:v42 error:v43, v44, v45, v46];
+        [(CIKernel *)v45 kernelWithFunctionName:v46 fromCIKernelLibrary:v47 options:v48 error:v49, v50, v51, v52];
       }
 
       goto LABEL_7;
     }
 
-    v47 = objc_opt_class();
-    if (v47 == objc_opt_class() && v129.var0 == 1)
+    v53 = objc_opt_class();
+    if (v53 == objc_opt_class() && v154.var0 == 1)
     {
-      CIKernelError(error, 0xEu, &cfstr_CannotInitiali_5.isa);
-      v48 = ci_logger_api();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      v54 = CIKernelError(error, 0xEu, &cfstr_CannotInitiali_5.isa);
+      v56 = ci_logger_api(v54, v55);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        [(CIKernel *)v48 kernelWithFunctionName:v49 fromCIKernelLibrary:v50 options:v51 error:v52, v53, v54, v55];
+        [(CIKernel *)v56 kernelWithFunctionName:v57 fromCIKernelLibrary:v58 options:v59 error:v60, v61, v62, v63];
       }
 
       goto LABEL_7;
     }
 
-    v56 = objc_opt_class();
-    if (v56 == objc_opt_class() && v129.var0 == 1)
+    v64 = objc_opt_class();
+    if (v64 == objc_opt_class() && v154.var0 == 1)
     {
-      CIKernelError(error, 0xFu, &cfstr_CannotInitiali_6.isa);
-      v57 = ci_logger_api();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v65 = CIKernelError(error, 0xFu, &cfstr_CannotInitiali_6.isa);
+      v67 = ci_logger_api(v65, v66);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
-        [(CIKernel *)v57 kernelWithFunctionName:v58 fromCIKernelLibrary:v59 options:v60 error:v61, v62, v63, v64];
+        [(CIKernel *)v67 kernelWithFunctionName:v68 fromCIKernelLibrary:v69 options:v70 error:v71, v72, v73, v74];
       }
 
       goto LABEL_7;
     }
 
-    v65 = objc_opt_class();
-    if (v65 == objc_opt_class() && v129.var0 == 1)
+    v75 = objc_opt_class();
+    if (v75 == objc_opt_class() && v154.var0 == 1)
     {
-      CIKernelError(error, 0x10u, &cfstr_CannotInitiali_7.isa);
-      v66 = ci_logger_api();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v76 = CIKernelError(error, 0x10u, &cfstr_CannotInitiali_7.isa);
+      v78 = ci_logger_api(v76, v77);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
       {
-        [(CIKernel *)v66 kernelWithFunctionName:v67 fromCIKernelLibrary:v68 options:v69 error:v70, v71, v72, v73];
+        [(CIKernel *)v78 kernelWithFunctionName:v79 fromCIKernelLibrary:v80 options:v81 error:v82, v83, v84, v85];
       }
 
       goto LABEL_7;
     }
 
-    v74 = objc_opt_class();
-    if (v74 == objc_opt_class() && v129.var0 == 2)
+    v86 = objc_opt_class();
+    if (v86 == objc_opt_class() && v154.var0 == 2)
     {
-      CIKernelError(error, 0x11u, &cfstr_CannotInitiali_8.isa);
-      v75 = ci_logger_api();
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v87 = CIKernelError(error, 0x11u, &cfstr_CannotInitiali_8.isa);
+      v89 = ci_logger_api(v87, v88);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
       {
-        [(CIKernel *)v75 kernelWithFunctionName:v76 fromCIKernelLibrary:v77 options:v78 error:v79, v80, v81, v82];
+        [(CIKernel *)v89 kernelWithFunctionName:v90 fromCIKernelLibrary:v91 options:v92 error:v93, v94, v95, v96];
       }
 
       goto LABEL_7;
     }
 
-    v83 = objc_opt_class();
-    if (v83 == objc_opt_class() && v129.var0 == 3)
+    v97 = objc_opt_class();
+    if (v97 == objc_opt_class() && v154.var0 == 3)
     {
-      CIKernelError(error, 0x12u, &cfstr_CannotInitiali_9.isa);
-      v84 = ci_logger_api();
-      if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+      v98 = CIKernelError(error, 0x12u, &cfstr_CannotInitiali_9.isa);
+      v100 = ci_logger_api(v98, v99);
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
       {
-        [(CIKernel *)v84 kernelWithFunctionName:v85 fromCIKernelLibrary:v86 options:v87 error:v88, v89, v90, v91];
+        [(CIKernel *)v100 kernelWithFunctionName:v101 fromCIKernelLibrary:v102 options:v103 error:v104, v105, v106, v107];
       }
 
       goto LABEL_7;
     }
   }
 
-  v127 = 0u;
-  v128 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v92 = [obj countByEnumeratingWithState:&v125 objects:v132 count:16];
-  if (v92)
+  v152 = 0u;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
+  v109 = [obj countByEnumeratingWithState:&v150 objects:v157 count:16];
+  if (v109)
   {
-    v93 = *v126;
+    v110 = *v151;
     while (2)
     {
-      v94 = 0;
+      v111 = 0;
       do
       {
-        if (*v126 != v93)
+        if (*v151 != v110)
         {
           objc_enumerationMutation(obj);
         }
 
-        v95 = *(*(&v125 + 1) + 8 * v94);
-        v96 = [v112 objectForKey:v95];
-        v97 = [objc_msgSend(obj objectForKeyedSubscript:{v95), "intValue"}];
-        if (v97 > 0x35 || ((1 << v97) & 0x22222220010008) == 0)
+        v112 = *(*(&v150 + 1) + 8 * v111);
+        v113 = [v137 objectForKey:v112];
+        v114 = [objc_msgSend(obj objectForKeyedSubscript:{v112), "intValue"}];
+        if (v114 > 0x35 || ((1 << v114) & 0x22222220010008) == 0)
         {
-          if (v97 - 57 <= 0xFFFFFFC9)
+          if (v114 - 57 <= 0xFFFFFFC9)
           {
-            CIKernelError(error, 8u, &cfstr_CannotInitiali_10.isa, v97);
-            v108 = ci_logger_api();
-            if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+            v131 = CIKernelError(error, 8u, &cfstr_CannotInitiali_10.isa, v114);
+            v133 = ci_logger_api(v131, v132);
+            if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
             {
               +[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:];
             }
@@ -1926,12 +1936,12 @@ LABEL_7:
             goto LABEL_7;
           }
 
-          if (!v96)
+          if (!v113)
           {
 LABEL_86:
-            CIKernelError(error, 9u, &cfstr_CannotInitiali_11.isa, v95);
-            v105 = ci_logger_api();
-            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+            v122 = CIKernelError(error, 9u, &cfstr_CannotInitiali_11.isa, v112);
+            v124 = ci_logger_api(v122, v123);
+            if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
             {
               +[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:];
             }
@@ -1945,42 +1955,42 @@ LABEL_86:
             goto LABEL_90;
           }
 
-          v123 = 0u;
-          v124 = 0u;
-          v121 = 0u;
-          v122 = 0u;
-          v99 = [v96 countByEnumeratingWithState:&v121 objects:v131 count:16];
-          if (v99)
+          v148 = 0u;
+          v149 = 0u;
+          v146 = 0u;
+          v147 = 0u;
+          v116 = [v113 countByEnumeratingWithState:&v146 objects:v156 count:16];
+          if (v116)
           {
-            v109 = v93;
+            v134 = v110;
             errorCopy = error;
-            v100 = *v122;
-            v101 = 1;
+            v117 = *v147;
+            v118 = 1;
             do
             {
-              for (i = 0; i != v99; ++i)
+              for (i = 0; i != v116; ++i)
               {
-                if (*v122 != v100)
+                if (*v147 != v117)
                 {
-                  objc_enumerationMutation(v96);
+                  objc_enumerationMutation(v113);
                 }
 
                 objc_opt_class();
-                v101 &= objc_opt_isKindOfClass();
+                v118 &= objc_opt_isKindOfClass();
               }
 
-              v99 = [v96 countByEnumeratingWithState:&v121 objects:v131 count:16];
+              v116 = [v113 countByEnumeratingWithState:&v146 objects:v156 count:16];
             }
 
-            while (v99);
+            while (v116);
             error = errorCopy;
-            v93 = v109;
-            if ((v101 & 1) == 0)
+            v110 = v134;
+            if ((v118 & 1) == 0)
             {
 LABEL_90:
-              CIKernelError(error, 0xBu, &cfstr_CannotInitiali_13.isa, v95);
-              v107 = ci_logger_api();
-              if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+              v128 = CIKernelError(error, 0xBu, &cfstr_CannotInitiali_13.isa, v112);
+              v130 = ci_logger_api(v128, v129);
+              if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
               {
                 +[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:];
               }
@@ -1992,7 +2002,7 @@ LABEL_90:
 
         else
         {
-          if (!v96)
+          if (!v113)
           {
             goto LABEL_86;
           }
@@ -2000,9 +2010,9 @@ LABEL_90:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            CIKernelError(error, 0xAu, &cfstr_CannotInitiali_12.isa, v95);
-            v106 = ci_logger_api();
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+            v125 = CIKernelError(error, 0xAu, &cfstr_CannotInitiali_12.isa, v112);
+            v127 = ci_logger_api(v125, v126);
+            if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
             {
               +[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:];
             }
@@ -2011,13 +2021,13 @@ LABEL_90:
           }
         }
 
-        ++v94;
+        ++v111;
       }
 
-      while (v94 != v92);
-      v103 = [obj countByEnumeratingWithState:&v125 objects:v132 count:16];
-      v92 = v103;
-      if (v103)
+      while (v111 != v109);
+      v120 = [obj countByEnumeratingWithState:&v150 objects:v157 count:16];
+      v109 = v120;
+      if (v120)
       {
         continue;
       }
@@ -2026,129 +2036,133 @@ LABEL_90:
     }
   }
 
-  v104 = KernelKindAlloc(v129.var0);
-  v113[0] = *&v129.var0;
-  v113[1] = *&v129.var3;
+  v121 = KernelKindAlloc(v154.var0, v108);
+  v138[0] = *&v154.var0;
+  v138[1] = *&v154.var3;
   __dst = 0;
-  v116 = 0;
-  v114 = 0;
-  if (v129.var5.var1 != v129.var5.var0)
+  v141 = 0;
+  v139 = 0;
+  if (v154.var5.var1 != v154.var5.var0)
   {
-    std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v114, v129.var5.var1 - v129.var5.var0);
+    std::vector<CI::KernelArgumentType>::__vallocate[abi:nn200100](&v139, v154.var5.var1 - v154.var5.var0);
   }
 
-  memset(v117, 0, sizeof(v117));
-  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v117, v129.var6.var0, v129.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v129.var6.var1 - v129.var6.var0) >> 3));
-  v118 = *&v129.var7;
-  v119 = *&v129.var10;
-  v120 = *&v129.var12;
-  v20 = [v104 _initWithReflection:v113 constants:v112 constantTypes:obj];
-  p_var6 = v117;
+  memset(v142, 0, sizeof(v142));
+  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(v142, v154.var6.var0, v154.var6.var1, 0xAAAAAAAAAAAAAAABLL * ((v154.var6.var1 - v154.var6.var0) >> 3));
+  v143 = *&v154.var7;
+  v144 = *&v154.var10;
+  v145 = *&v154.var12;
+  v22 = [v121 _initWithReflection:v138 constants:v137 constantTypes:obj];
+  p_var6 = v142;
   std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&p_var6);
-  if (v114)
+  if (v139)
   {
-    __dst = v114;
-    operator delete(v114);
+    __dst = v139;
+    operator delete(v139);
   }
 
 LABEL_8:
   if (error)
   {
-    v21 = *error;
-    p_var6 = &v129.var6;
+    v23 = *error;
+    p_var6 = &v154.var6;
     std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&p_var6);
-    if (v129.var5.var0)
+    if (v154.var5.var0)
     {
-      v129.var5.var1 = v129.var5.var0;
-      operator delete(v129.var5.var0);
+      v154.var5.var1 = v154.var5.var0;
+      operator delete(v154.var5.var0);
     }
 
     objc_autoreleasePoolPop(v10);
-    v22 = *error;
+    v24 = *error;
   }
 
   else
   {
-    p_var6 = &v129.var6;
+    p_var6 = &v154.var6;
     std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&p_var6);
-    if (v129.var5.var0)
+    if (v154.var5.var0)
     {
-      v129.var5.var1 = v129.var5.var0;
-      operator delete(v129.var5.var0);
+      v154.var5.var1 = v154.var5.var0;
+      operator delete(v154.var5.var0);
     }
 
     objc_autoreleasePoolPop(v10);
   }
 
-  return v20;
+  return v22;
 }
 
 + (NSArray)kernelNamesFromMetalLibraryData:(NSData *)data
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v4))
+  v24 = *MEMORY[0x1E69E9840];
+  v4 = ci_signpost_log_kernel(self, a2);
+  isKindOfClass = os_signpost_enabled(v4);
+  if (isKindOfClass)
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "kernelNamesFromMetalLibraryData", &unk_19CFBCBAE, buf, 2u);
   }
 
-  if (!data || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![(NSData *)data length])
+  if (!data || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0) || (isKindOfClass = [(NSData *)data length]) == 0)
   {
-    v7 = ci_logger_api();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v12 = ci_logger_api(isKindOfClass, v6);
+    functionNames = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    if (functionNames)
     {
-      [(CIKernel *)v7 kernelNamesFromMetalLibraryData:v8, v9, v10, v11, v12, v13, v14];
+      [(CIKernel *)v12 kernelNamesFromMetalLibraryData:v10, v13, v14, v15, v16, v17, v18];
     }
 
     goto LABEL_10;
   }
 
-  v18 = 0;
-  v5 = [CIKernelLibrary libraryWithData:data error:&v18];
-  if (!v5)
+  v22 = 0;
+  v7 = [CIKernelLibrary libraryWithData:data error:&v22];
+  if (!v7)
   {
-    v16 = ci_logger_api();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = ci_logger_api(0, v8);
+    functionNames = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+    if (functionNames)
     {
-      if (v18)
+      if (v22)
       {
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@" = %@", v18];
+        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@" = %@", v22];
       }
 
       else
       {
-        v17 = &stru_1F1040378;
+        v21 = &stru_1F1040378;
       }
 
-      [(CIKernel *)v17 kernelNamesFromMetalLibraryData:buf];
+      [(CIKernel *)v21 kernelNamesFromMetalLibraryData:buf];
     }
 
 LABEL_10:
-    functionNames = MEMORY[0x1E695E0F0];
+    v11 = MEMORY[0x1E695E0F0];
     goto LABEL_11;
   }
 
-  functionNames = [(CIKernelLibrary *)v5 functionNames];
+  functionNames = [(CIKernelLibrary *)v7 functionNames];
+  v11 = functionNames;
 LABEL_11:
-  __44__CIKernel_kernelNamesFromMetalLibraryData___block_invoke();
-  return functionNames;
+  __44__CIKernel_kernelNamesFromMetalLibraryData___block_invoke(functionNames, v10);
+  return v11;
 }
 
-void __44__CIKernel_kernelNamesFromMetalLibraryData___block_invoke()
+void __44__CIKernel_kernelNamesFromMetalLibraryData___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v0))
+  v2 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v2))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelNamesFromMetalLibraryData", &unk_19CFBCBAE, v1, 2u);
+    *v3 = 0;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelNamesFromMetalLibraryData", &unk_19CFBCBAE, v3, 2u);
   }
 }
 
 + (id)kernelNamesFromMetalLibrary:(id)library
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = ci_signpost_log_kernel();
+  v24 = *MEMORY[0x1E69E9840];
+  v4 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -2156,55 +2170,59 @@ void __44__CIKernel_kernelNamesFromMetalLibraryData___block_invoke()
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = ci_logger_api();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v12 = ci_logger_api(isKindOfClass, v6);
+    functionNames = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    if (functionNames)
     {
-      [(CIKernel *)v7 kernelNamesFromMetalLibrary:v8, v9, v10, v11, v12, v13, v14];
+      [(CIKernel *)v12 kernelNamesFromMetalLibrary:v10, v13, v14, v15, v16, v17, v18];
     }
 
     goto LABEL_13;
   }
 
-  v18 = 0;
-  v5 = [CIKernelLibrary libraryWithURL:library error:&v18];
-  if (!v5)
+  v22 = 0;
+  v7 = [CIKernelLibrary libraryWithURL:library error:&v22];
+  if (!v7)
   {
-    v15 = ci_logger_api();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = ci_logger_api(0, v8);
+    functionNames = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+    if (functionNames)
     {
-      if (v18)
+      if (v22)
       {
-        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@" = %@", v18];
+        v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@" = %@", v22];
       }
 
       else
       {
-        v16 = &stru_1F1040378;
+        v20 = &stru_1F1040378;
       }
 
-      [(CIKernel *)v16 kernelNamesFromMetalLibrary:buf];
+      [(CIKernel *)v20 kernelNamesFromMetalLibrary:buf];
     }
 
 LABEL_13:
-    functionNames = MEMORY[0x1E695E0F0];
+    v11 = MEMORY[0x1E695E0F0];
     goto LABEL_14;
   }
 
-  functionNames = [(CIKernelLibrary *)v5 functionNames];
+  functionNames = [(CIKernelLibrary *)v7 functionNames];
+  v11 = functionNames;
 LABEL_14:
-  __40__CIKernel_kernelNamesFromMetalLibrary___block_invoke();
-  return functionNames;
+  __40__CIKernel_kernelNamesFromMetalLibrary___block_invoke(functionNames, v10);
+  return v11;
 }
 
-void __40__CIKernel_kernelNamesFromMetalLibrary___block_invoke()
+void __40__CIKernel_kernelNamesFromMetalLibrary___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v0))
+  v2 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v2))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelNamesFromMetalLibrary", &unk_19CFBCBAE, v1, 2u);
+    *v3 = 0;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelNamesFromMetalLibrary", &unk_19CFBCBAE, v3, 2u);
   }
 }
 
@@ -2245,7 +2263,7 @@ void __40__CIKernel_kernelNamesFromMetalLibrary___block_invoke()
   v11 = *MEMORY[0x1E69E9840];
   priv = self->_priv;
   v5 = *(priv + 4);
-  v6 = ci_logger_api();
+  v6 = ci_logger_api(self, a2);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (v5)
   {
@@ -2353,7 +2371,7 @@ LABEL_6:
 {
   priv = self->_priv;
   v4 = NSStringFromSelector(method);
-  if ((atomic_load_explicit(&qword_1ED7C44C0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED7C44C0, memory_order_acquire) & 1) == 0)
   {
     v5 = v4;
     [CIKernel setROISelector:];
@@ -2382,7 +2400,7 @@ LABEL_6:
 
 - (BOOL)_isValidOutputPixelFormat:(int)format
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (format)
   {
     v4 = 0;
@@ -2404,39 +2422,49 @@ LABEL_6:
           }
 
           [v5 appendString:v7];
-          [v5 appendString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", CI::name_for_format(dword_19CF278D8[i]))}];
+          v8 = [v5 appendString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", CI::name_for_format(dword_19CF278D8[i]))}];
         }
 
-        v8 = ci_logger_api();
-        v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-        if (v9)
+        v10 = ci_logger_api(v8, v9);
+        v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+        if (v11)
         {
-          v11 = 136446466;
-          v12 = CI::name_for_format(format);
-          v13 = 2112;
-          v14 = v5;
-          _os_log_impl(&dword_19CC36000, v8, OS_LOG_TYPE_INFO, "kCIKernelOutputFormat value (%{public}s) is not supported.Use one of these formats instead: %@", &v11, 0x16u);
-          LOBYTE(v9) = 0;
+          v13 = 136446466;
+          v14 = CI::name_for_format(format);
+          v15 = 2112;
+          v16 = v5;
+          _os_log_impl(&dword_19CC36000, v10, OS_LOG_TYPE_INFO, "kCIKernelOutputFormat value (%{public}s) is not supported.Use one of these formats instead: %@", &v13, 0x16u);
+          LOBYTE(v11) = 0;
         }
 
-        return v9;
+        return v11;
       }
     }
   }
 
-  LOBYTE(v9) = 1;
-  return v9;
+  LOBYTE(v11) = 1;
+  return v11;
 }
 
 - (int)_outputFormatUsingDictionary:(id)dictionary andKernel:(void *)kernel
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = [objc_msgSend(dictionary objectForKey:{@"kCIKernelOutputFormat", "longValue"}];
   v7 = [(CIKernel *)self _isValidOutputPixelFormat:v6];
-  v8 = *(kernel + 28);
-  if (!v7 || v6 == 0)
+  v9 = *(kernel + 28);
+  if (v7)
   {
-    if (!v8 || ![(CIKernel *)self _isValidOutputPixelFormat:*(kernel + 28)])
+    v10 = v6 == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (v10)
+  {
+    if (!v9 || ![(CIKernel *)self _isValidOutputPixelFormat:*(kernel + 28)])
     {
       return 0;
     }
@@ -2444,41 +2472,41 @@ LABEL_6:
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      if (v8 != v6)
+      if (v9 != v6)
       {
-        v11 = ci_logger_api();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v12 = ci_logger_api(v7, v8);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v12 = CI::name_for_format(v6);
-          v13 = CI::name_for_format(*(kernel + 28));
-          v14 = 136446466;
-          v15 = v12;
-          v16 = 2080;
-          v17 = v13;
-          _os_log_impl(&dword_19CC36000, v11, OS_LOG_TYPE_INFO, "Warning: specified a kernel attribute output format of %{public}s and apply option kCIKernelOutputFormat of %s. The former will be used.", &v14, 0x16u);
+          v13 = CI::name_for_format(v6);
+          v14 = CI::name_for_format(*(kernel + 28));
+          v15 = 136446466;
+          v16 = v13;
+          v17 = 2080;
+          v18 = v14;
+          _os_log_impl(&dword_19CC36000, v12, OS_LOG_TYPE_INFO, "Warning: specified a kernel attribute output format of %{public}s and apply option kCIKernelOutputFormat of %s. The former will be used.", &v15, 0x16u);
         }
       }
     }
 
-    v8 = v6;
+    v9 = v6;
   }
 
-  if (v8 == 264)
+  if (v9 == 264)
   {
     return 266;
   }
 
   else
   {
-    return v8;
+    return v9;
   }
 }
 
 - (id)applyWithExtent:(CGRect)extent roiCallback:(id)callback arguments:(id)arguments options:(id)options
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (CGRectIsEmpty(extent))
   {
 
@@ -2489,7 +2517,8 @@ LABEL_6:
   {
     priv = self->_priv;
     v11 = [arguments count];
-    if (CI::Kernel::num_apply_arguments(priv) == v11)
+    v12 = CI::Kernel::num_apply_arguments(priv);
+    if (v12 == v11)
     {
       callbackCopy = callback;
       if (v11 < 1)
@@ -2498,63 +2527,67 @@ LABEL_24:
         operator new();
       }
 
-      v12 = 0;
+      v14 = 0;
       while (1)
       {
-        if (*(priv + 12) == 1)
+        if (priv[12] == 1)
         {
-          type = CI::KernelArguments::get_type((priv + 17), v12);
+          type = CI::KernelArguments::get_type((priv + 136), v14);
         }
 
-        else if (v12 >= *(priv + 5))
+        else if (v14 >= *(priv + 5))
         {
           type = 0;
         }
 
         else
         {
-          type = *(priv[8] + 4 * v12);
+          type = *(*(priv + 8) + 4 * v14);
         }
 
-        if (*(*priv + 72))(priv) && !priv[4] && (type == 15 || type == 8) && ([arguments objectAtIndexedSubscript:{v12, callbackCopy}], objc_opt_class(), (objc_opt_isKindOfClass()))
+        if (*(*priv + 72))(priv) && !*(priv + 4) && (type == 15 || type == 8) && ([arguments objectAtIndexedSubscript:{v14, callbackCopy}], objc_opt_class(), (objc_opt_isKindOfClass()))
         {
-          CI::Kernel::set_argument_type(priv, v12, 1);
+          CI::Kernel::set_argument_type(priv, v14, 1);
           CI::Kernel::set_half_color_inputs(priv, type == 15);
         }
 
-        else if ((verify_argument_type([arguments objectAtIndexedSubscript:{v12, callbackCopy}], type, 0) & 1) == 0)
+        else
         {
-          v15 = ci_logger_api();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v16 = verify_argument_type([arguments objectAtIndexedSubscript:{v14, callbackCopy}], type, 0);
+          if ((v16 & 1) == 0)
           {
-            v16 = priv[3];
-            v17 = expected_argument_type(type);
-            [arguments objectAtIndexedSubscript:v12];
-            __src = 136447234;
-            __src_4 = "[CIKernel applyWithExtent:roiCallback:arguments:options:]";
-            v21 = 2082;
-            v22 = v16;
-            v23 = 1024;
-            v24 = v12;
-            v25 = 2082;
-            v26 = v17;
-            v27 = 2114;
-            v28 = [objc_opt_class() description];
-            _os_log_error_impl(&dword_19CC36000, v15, OS_LOG_TYPE_ERROR, "%{public}s type mismatch for kernel '%{public}s' parameter %d. %{public}sGot %{public}@.", &__src, 0x30u);
-          }
+            v19 = ci_logger_api(v16, v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            {
+              v20 = *(priv + 3);
+              v21 = expected_argument_type(type);
+              [arguments objectAtIndexedSubscript:v14];
+              __src = 136447234;
+              __src_4 = "[CIKernel applyWithExtent:roiCallback:arguments:options:]";
+              v25 = 2082;
+              v26 = v20;
+              v27 = 1024;
+              v28 = v14;
+              v29 = 2082;
+              v30 = v21;
+              v31 = 2114;
+              v32 = [objc_opt_class() description];
+              _os_log_error_impl(&dword_19CC36000, v19, OS_LOG_TYPE_ERROR, "%{public}s type mismatch for kernel '%{public}s' parameter %d. %{public}sGot %{public}@.", &__src, 0x30u);
+            }
 
-          return 0;
+            return 0;
+          }
         }
 
-        if ((v11 & 0x7FFFFFFF) == ++v12)
+        if ((v11 & 0x7FFFFFFF) == ++v14)
         {
           goto LABEL_24;
         }
       }
     }
 
-    v14 = ci_logger_api();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = ci_logger_api(v12, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [CIKernel applyWithExtent:? roiCallback:? arguments:? options:?];
     }
@@ -2973,6 +3006,13 @@ uint64_t __28__CIKernel_debugDescription__block_invoke(uint64_t a1, FILE *a2)
   return [CIKernel cachedKernelWithFunctionName:"cachedKernelWithFunctionName:fromMetalLibrary:error:" fromMetalLibrary:named error:?];
 }
 
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIKernel init]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, self, a3, "%{public}s init is not a valid initializer for CIKernel", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:.cold.1()
 {
   OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
@@ -2984,14 +3024,14 @@ uint64_t __28__CIKernel_debugDescription__block_invoke(uint64_t a1, FILE *a2)
 {
   OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8_1();
-  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIWarpKernel kernelWithString:fromMetalLibraryData:] Function '%{public}s' does not conform to the calling conventions of a CIWarpKernel.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIWarpKernel kernelWithString:fromMetalLibraryData:] Function '%{public}s' does not conform to the calling conventions of a CIWarpKernel.", v2, v3, v4, v5);
 }
 
 - (void)_initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:.cold.3()
 {
   OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8_1();
-  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIColorKernel kernelWithString:fromMetalLibraryData:] Function '%{public}s' does not conform to the calling conventions of a CIColorKernel.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIColorKernel kernelWithString:fromMetalLibraryData:] Function '%{public}s' does not conform to the calling conventions of a CIColorKernel.", v2, v3, v4, v5);
 }
 
 - (void)_initWithString:(uint64_t)a1 andCIKernelLibrary:(uint64_t)a2 usingCruftCompatibility:isInternal:.cold.4(uint64_t a1, uint64_t a2)
@@ -3006,14 +3046,14 @@ uint64_t __28__CIKernel_debugDescription__block_invoke(uint64_t a1, FILE *a2)
 {
   OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8_1();
-  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIColorKernel kernelWithString:] failed because '%{public}s', the first kernel in the string, does not conform to the calling convensions of a CIColorKernel.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIColorKernel kernelWithString:] failed because '%{public}s', the first kernel in the string, does not conform to the calling convensions of a CIColorKernel.", v2, v3, v4, v5);
 }
 
 - (void)_initWithString:andCIKernelLibrary:usingCruftCompatibility:isInternal:.cold.6()
 {
   OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8_1();
-  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIWarpKernel kernelWithString:] failed because '%{public}s', the first kernel in the string, does not conform to the calling convensions of a CIWarpKernel.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, v0, v1, "[CIWarpKernel kernelWithString:] failed because '%{public}s', the first kernel in the string, does not conform to the calling convensions of a CIWarpKernel.", v2, v3, v4, v5);
 }
 
 - (void)_initWithString:(uint64_t)a1 andCIKernelLibrary:(uint64_t)a2 usingCruftCompatibility:isInternal:.cold.7(uint64_t a1, uint64_t a2)
@@ -3039,6 +3079,34 @@ uint64_t __28__CIKernel_debugDescription__block_invoke(uint64_t a1, FILE *a2)
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
++ (void)kernelWithFunctionName:(uint64_t)a3 fromMetalLibraryData:(uint64_t)a4 outputGroupSize:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromMetalLibraryData:outputGroupSize:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s User-specified output group size not yet supported.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromMetalLibraryData:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromMetalLibraryData:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize kernel with given library data.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromMetalLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromMetalLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize kernel with given library URL.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)cachedKernelWithFunctionName:(uint64_t)a3 fromMetalLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel cachedKernelWithFunctionName:fromMetalLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize kernel with given library URL.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 + (void)kernelWithFunctionName:fromCIKernelLibrary:options:error:.cold.1()
 {
   OUTLINED_FUNCTION_2_6();
@@ -3060,12 +3128,82 @@ uint64_t __28__CIKernel_debugDescription__block_invoke(uint64_t a1, FILE *a2)
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize CIBlendKernel because the kernel appears to be a CIWarpKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize CIBlendKernel because the kernel appears to be a CIColorKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize CIBlendKernel because the kernel appears to be a CIKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize CIColorKernel because the kernel appears to be a CIKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize CIWarpKernel because the kernel appears to be a CIKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize CIColorKernel because the kernel appears to be a CIWarpKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.11(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize CIWarpKernel because the kernel appears to be a CIColorKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelWithFunctionName:(uint64_t)a3 fromCIKernelLibrary:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.12(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelWithFunctionName:fromCIKernelLibrary:options:error:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Cannot initialize kernel with Metal DAG compiler disabled.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 + (void)kernelNamesFromMetalLibraryData:(uint64_t)a1 .cold.1(uint64_t a1, _DWORD *a2)
 {
   *a2 = 136446466;
   OUTLINED_FUNCTION_14(a1, a2, "+[CIKernel kernelNamesFromMetalLibraryData:]");
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+}
+
++ (void)kernelNamesFromMetalLibraryData:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelNamesFromMetalLibraryData:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s [CIKernel kernelNamesFromMetalLibraryData:] passed an incorrect Metal library NSData argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)kernelNamesFromMetalLibrary:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIKernel kernelNamesFromMetalLibrary:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s [CIKernel kernelNamesFromMetalLibrary:] passed an incorrect Metal library URL argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)kernelNamesFromMetalLibrary:(uint64_t)a1 .cold.2(uint64_t a1, _DWORD *a2)
@@ -3078,20 +3216,28 @@ uint64_t __28__CIKernel_debugDescription__block_invoke(uint64_t a1, FILE *a2)
 
 - (void)setROISelector:.cold.1()
 {
-  if (__cxa_guard_acquire(&qword_1ED7C44C0))
+  if (__cxa_guard_acquire(byte_1ED7C44C0))
   {
     v0 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     _MergedGlobals_2 = dispatch_queue_create("CI::SetROISelectorQueue", v0);
 
-    __cxa_guard_release(&qword_1ED7C44C0);
+    __cxa_guard_release(byte_1ED7C44C0);
   }
 }
 
 - (void)applyWithExtent:(CI::Kernel *)a1 roiCallback:arguments:options:.cold.1(CI::Kernel *a1)
 {
   CI::Kernel::num_apply_arguments(a1);
+  v7 = 136446978;
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_11_0(&dword_19CC36000, v1, v2, "%{public}s argument count mismatch for kernel '%{public}s', expected %d but saw %d.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_11_0(&dword_19CC36000, v1, v2, "%{public}s argument count mismatch for kernel '%{public}s', expected %d but saw %d.", v3, v4, v5, v6, v7);
+}
+
+- (void)applyWithExtent:(uint64_t)a3 roiCallback:(uint64_t)a4 arguments:(uint64_t)a5 options:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIKernel applyWithExtent:roiCallback:arguments:options:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s no image in arguments array.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

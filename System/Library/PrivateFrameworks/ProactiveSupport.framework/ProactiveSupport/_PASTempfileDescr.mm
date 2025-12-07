@@ -1,4 +1,5 @@
 @interface _PASTempfileDescr
++ (id)tempfileDescrWithFd:(int)fd path:(id)path;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToTempfileDescr:(id)descr;
 - (_PASTempfileDescr)initWithFd:(int)fd path:(id)path;
@@ -70,6 +71,15 @@
   }
 
   return v10;
+}
+
++ (id)tempfileDescrWithFd:(int)fd path:(id)path
+{
+  v4 = *&fd;
+  pathCopy = path;
+  v7 = [[self alloc] initWithFd:v4 path:pathCopy];
+
+  return v7;
 }
 
 @end

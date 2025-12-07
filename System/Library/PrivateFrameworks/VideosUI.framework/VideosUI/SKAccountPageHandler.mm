@@ -27,7 +27,7 @@ void __38__SKAccountPageHandler_sharedInstance__block_invoke()
 - (void)accountPageViewControllerDidFinish:(id)finish
 {
   finishCopy = finish;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(finishCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;

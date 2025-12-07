@@ -28,7 +28,7 @@
 
 - (id)vendAccessoryServerWithNodeID:(id)d setupCode:(id)code discriminator:(id)discriminator category:(id)category vendorID:(id)iD productID:(id)productID serialNumber:(id)number firmwareRevision:(id)self0
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   dCopy = d;
   codeCopy = code;
   discriminatorCopy = discriminator;
@@ -45,27 +45,27 @@
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138544642;
-    v83 = v25;
-    v84 = 2112;
-    v85 = dCopy;
-    v86 = 2112;
-    v87 = categoryCopy;
-    v88 = 2112;
-    v89 = iDCopy;
-    v90 = 2112;
-    v91 = v21;
-    v92 = 2112;
-    v93 = numberCopy;
+    v82 = v25;
+    v83 = 2112;
+    v84 = dCopy;
+    v85 = 2112;
+    v86 = categoryCopy;
+    v87 = 2112;
+    v88 = iDCopy;
+    v89 = 2112;
+    v90 = v21;
+    v91 = 2112;
+    v92 = numberCopy;
     _os_log_impl(&dword_22AEAE000, v24, OS_LOG_TYPE_DEBUG, "%{public}@vendAccessoryServerWithNodeID - nodeID: %@, category: %@, vid: %@, pid %@, serial %@", buf, 0x3Eu);
   }
 
   objc_autoreleasePoolPop(v22);
-  v77 = v21;
-  v78 = numberCopy;
-  v75 = iDCopy;
+  v76 = v21;
+  v77 = numberCopy;
+  v74 = iDCopy;
   if (!iDCopy)
   {
-    v79 = categoryCopy;
+    v78 = categoryCopy;
     deviceTypeID2 = 0;
     v28 = 0;
     v21 = 0;
@@ -77,9 +77,9 @@ LABEL_19:
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v83 = v42;
-      v84 = 2112;
-      v85 = @"Matter Accessory";
+      v82 = v42;
+      v83 = 2112;
+      v84 = @"Matter Accessory";
       _os_log_impl(&dword_22AEAE000, v41, OS_LOG_TYPE_INFO, "%{public}@No product label information available so using default name: %@", buf, 0x16u);
     }
 
@@ -94,7 +94,7 @@ LABEL_19:
 
   if (!v21)
   {
-    v79 = categoryCopy;
+    v78 = categoryCopy;
     deviceTypeID2 = 0;
     goto LABEL_19;
   }
@@ -121,7 +121,7 @@ LABEL_19:
 
   label = [v29 label];
 
-  v79 = categoryCopy;
+  v78 = categoryCopy;
   if (!label)
   {
     v21 = v29;
@@ -138,14 +138,14 @@ LABEL_19:
     v37 = HMFGetLogIdentifier();
     name = [v28 name];
     *buf = 138543874;
-    v83 = v37;
-    v84 = 2112;
-    v85 = label2;
-    v86 = 2112;
-    v87 = name;
+    v82 = v37;
+    v83 = 2112;
+    v84 = label2;
+    v85 = 2112;
+    v86 = name;
     _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_INFO, "%{public}@Using metadata product label: %@ and vendor name: %@", buf, 0x20u);
 
-    iDCopy = v75;
+    iDCopy = v74;
   }
 
   objc_autoreleasePoolPop(v34);
@@ -155,40 +155,38 @@ LABEL_19:
   }
 
 LABEL_22:
-  v61 = label2;
-  v69 = [HMMTRUtilities identifierStringWithCHIPNodeID:dCopy];
+  v60 = label2;
+  v68 = [HMMTRUtilities identifierStringWithCHIPNodeID:dCopy];
   v43 = [HMMTRAccessoryServerBuilder alloc];
   keystore = [(HMMTRAccessoryServerFactory *)selfCopy keystore];
   browser2 = [(HMMTRAccessoryServerFactory *)selfCopy browser];
-  v67 = [(HMMTRAccessoryServerBuilder *)v43 initWithKeystore:keystore browser:browser2];
-  v66 = [(HMMTRAccessoryServerBuilder *)v67 name:label2];
-  v65 = [v66 nodeID:dCopy];
-  v64 = [v65 vendorID:iDCopy];
-  v73 = v28;
+  v66 = [(HMMTRAccessoryServerBuilder *)v43 initWithKeystore:keystore browser:browser2];
+  v65 = [(HMMTRAccessoryServerBuilder *)v66 name:label2];
+  v64 = [v65 nodeID:dCopy];
+  v63 = [v64 vendorID:iDCopy];
+  v72 = v28;
   name2 = [v28 name];
-  v62 = [v64 vendorName:name2];
-  v60 = [v62 productID:v77];
-  v71 = v21;
+  v61 = [v63 vendorName:name2];
+  v59 = [v61 productID:v76];
+  v70 = v21;
   name3 = [v21 name];
-  v45 = [v60 productName:name3];
-  v46 = [v45 identifier:v69];
+  v45 = [v59 productName:name3];
+  v46 = [v45 identifier:v68];
   v47 = [v46 manufacturer:0];
   [v47 model:0];
-  v48 = v72 = dCopy;
-  v49 = [v48 serialNumber:v78];
-  v50 = [v49 category:v79];
+  v48 = v71 = dCopy;
+  v49 = [v48 serialNumber:v77];
+  v50 = [v49 category:v78];
   v51 = [v50 setUpPinCode:codeCopy];
   v52 = [v51 discriminator:discriminatorCopy];
   v53 = [v52 deviceTypeID:deviceTypeID2];
 
-  v54 = [HMMTRUtilities sanitizeHAPName:v61];
+  v54 = [HMMTRUtilities sanitizeHAPName:v60];
 
   v55 = [HMMTRAccessoryServerFactory createInfoService:v54 model:0 manufacturer:0 serialNumber:0 instanceID:1 endpointID:&unk_283EE8568];
   v56 = [v53 addService:v55];
 
   build = [v53 build];
-
-  v58 = *MEMORY[0x277D85DE8];
 
   return build;
 }
@@ -224,17 +222,16 @@ LABEL_22:
 
 uint64_t __42__HMMTRAccessoryServerFactory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_7464;
-  logCategory__hmf_once_v5_7464 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_7464;
+  logCategory__hmf_once_v5_7464 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)instanceIDForCharacteristicType:(id)type serviceType:(id)serviceType endpointID:(id)d nodeID:(id)iD
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   serviceTypeCopy = serviceType;
   dCopy = d;
@@ -288,14 +285,12 @@ LABEL_9:
   unsignedLongLongValue = *&data[0] & 0x7FFFFFFFFFFFFFFFLL;
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (id)createHMMTRHAPServiceLabelServiceWithEndpointID:(id)d nodeID:(id)iD
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CFEBA0];
   iDCopy = iD;
   dCopy = d;
@@ -313,11 +308,9 @@ LABEL_9:
   v18 = [self instanceIDForCharacteristicType:0 serviceType:hap_validatedAndNormalizedUUIDString endpointID:dCopy nodeID:iDCopy];
 
   v19 = [HMMTRHAPService alloc];
-  v24[0] = v15;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v15;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v21 = [(HMMTRHAPService *)v19 initWithType:@"000000CC-0000-1000-8000-0026BB765291" instanceID:v18 parsedCharacteristics:v20 serviceProperties:integerValue2 linkedServices:MEMORY[0x277CBEBF8] endpoint:dCopy];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -413,7 +406,7 @@ LABEL_9:
 
 + (id)createInfoService:(id)service model:(id)model manufacturer:(id)manufacturer serialNumber:(id)number instanceID:(unint64_t)d endpointID:(id)iD nodeID:(id)nodeID legacyInstanceIDAssignment:(BOOL)self0
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   modelCopy = model;
   manufacturerCopy = manufacturer;
@@ -426,8 +419,8 @@ LABEL_9:
   integerValue = [v21 integerValue];
 
   selfCopy = self;
-  v98 = iDCopy;
-  v99 = nodeIDCopy;
+  v97 = iDCopy;
+  v98 = nodeIDCopy;
   dCopy = d;
   if (assignment)
   {
@@ -456,13 +449,13 @@ LABEL_9:
 
   else
   {
-    v32 = [selfCopy instanceIDForCharacteristicType:@"00000021-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v98 nodeID:v99];
+    v32 = [selfCopy instanceIDForCharacteristicType:@"00000021-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v97 nodeID:v98];
     unsignedLongLongValue2 = [v32 unsignedLongLongValue];
   }
 
   v33 = objc_alloc(MEMORY[0x277CFEA68]);
   v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue2];
-  v88 = [v33 initWithType:@"00000021-0000-1000-8000-0026BB765291" instanceID:v34 value:modelCopy stateNumber:0 properties:integerValue2 eventNotificationsEnabled:1 metadata:v28];
+  v87 = [v33 initWithType:@"00000021-0000-1000-8000-0026BB765291" instanceID:v34 value:modelCopy stateNumber:0 properties:integerValue2 eventNotificationsEnabled:1 metadata:v28];
 
   v35 = [getSharedInstance getDefaultCharacteristicMetadata:@"00000020-0000-1000-8000-0026BB765291"];
 
@@ -476,13 +469,13 @@ LABEL_9:
 
   else
   {
-    v39 = [selfCopy instanceIDForCharacteristicType:@"00000020-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v98 nodeID:v99];
+    v39 = [selfCopy instanceIDForCharacteristicType:@"00000020-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v97 nodeID:v98];
     unsignedLongLongValue3 = [v39 unsignedLongLongValue];
   }
 
   v40 = objc_alloc(MEMORY[0x277CFEA68]);
   v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue3];
-  v93 = [v40 initWithType:@"00000020-0000-1000-8000-0026BB765291" instanceID:v41 value:manufacturerCopy stateNumber:0 properties:integerValue3 eventNotificationsEnabled:1 metadata:v35];
+  v92 = [v40 initWithType:@"00000020-0000-1000-8000-0026BB765291" instanceID:v41 value:manufacturerCopy stateNumber:0 properties:integerValue3 eventNotificationsEnabled:1 metadata:v35];
 
   v42 = [getSharedInstance getDefaultCharacteristicMetadata:@"00000014-0000-1000-8000-0026BB765291"];
 
@@ -496,20 +489,20 @@ LABEL_9:
 
   else
   {
-    v46 = [selfCopy instanceIDForCharacteristicType:@"00000014-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v98 nodeID:v99];
+    v46 = [selfCopy instanceIDForCharacteristicType:@"00000014-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v97 nodeID:v98];
     unsignedLongLongValue4 = [v46 unsignedLongLongValue];
   }
 
   v47 = objc_alloc(MEMORY[0x277CFEA68]);
   v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue4];
-  v92 = [v47 initWithType:@"00000014-0000-1000-8000-0026BB765291" instanceID:v48 value:@"false" stateNumber:0 properties:integerValue4 eventNotificationsEnabled:1 metadata:v42];
+  v91 = [v47 initWithType:@"00000014-0000-1000-8000-0026BB765291" instanceID:v48 value:@"false" stateNumber:0 properties:integerValue4 eventNotificationsEnabled:1 metadata:v42];
 
   v49 = [getSharedInstance getDefaultCharacteristicMetadata:@"00000030-0000-1000-8000-0026BB765291"];
 
   v50 = [getSharedInstance getDefaultCharacteristicProperties:@"00000030-0000-1000-8000-0026BB765291"];
   integerValue5 = [v50 integerValue];
 
-  v87 = serviceCopy;
+  v86 = serviceCopy;
   if (assignment)
   {
     unsignedLongLongValue5 = unsignedLongLongValue4 + 1;
@@ -517,13 +510,13 @@ LABEL_9:
 
   else
   {
-    v53 = [selfCopy instanceIDForCharacteristicType:@"00000030-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v98 nodeID:v99];
+    v53 = [selfCopy instanceIDForCharacteristicType:@"00000030-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v97 nodeID:v98];
     unsignedLongLongValue5 = [v53 unsignedLongLongValue];
   }
 
   v54 = objc_alloc(MEMORY[0x277CFEA68]);
   v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue5];
-  v91 = [v54 initWithType:@"00000030-0000-1000-8000-0026BB765291" instanceID:v55 value:numberCopy stateNumber:0 properties:integerValue5 eventNotificationsEnabled:1 metadata:v49];
+  v90 = [v54 initWithType:@"00000030-0000-1000-8000-0026BB765291" instanceID:v55 value:numberCopy stateNumber:0 properties:integerValue5 eventNotificationsEnabled:1 metadata:v49];
 
   v56 = [getSharedInstance getDefaultCharacteristicMetadata:@"00000052-0000-1000-8000-0026BB765291"];
 
@@ -539,15 +532,15 @@ LABEL_9:
   else
   {
     v60 = selfCopy;
-    v61 = [selfCopy instanceIDForCharacteristicType:@"00000052-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v98 nodeID:v99];
+    v61 = [selfCopy instanceIDForCharacteristicType:@"00000052-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v97 nodeID:v98];
     unsignedLongLongValue6 = [v61 unsignedLongLongValue];
   }
 
   v62 = objc_alloc(MEMORY[0x277CFEA68]);
   v63 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue6];
-  v89 = [v62 initWithType:@"00000052-0000-1000-8000-0026BB765291" instanceID:v63 value:0 stateNumber:0 properties:integerValue6 eventNotificationsEnabled:1 metadata:v56];
+  v88 = [v62 initWithType:@"00000052-0000-1000-8000-0026BB765291" instanceID:v63 value:0 stateNumber:0 properties:integerValue6 eventNotificationsEnabled:1 metadata:v56];
 
-  v90 = [getSharedInstance getDefaultCharacteristicMetadata:@"0000026D-0000-1000-8000-0026BB765291"];
+  v89 = [getSharedInstance getDefaultCharacteristicMetadata:@"0000026D-0000-1000-8000-0026BB765291"];
 
   v64 = [getSharedInstance getDefaultCharacteristicProperties:@"0000026D-0000-1000-8000-0026BB765291"];
   integerValue7 = [v64 integerValue];
@@ -559,14 +552,14 @@ LABEL_9:
 
   else
   {
-    v67 = [v60 instanceIDForCharacteristicType:@"0000026D-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v98 nodeID:v99];
+    v67 = [v60 instanceIDForCharacteristicType:@"0000026D-0000-1000-8000-0026BB765291" serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v97 nodeID:v98];
     unsignedLongLongValue7 = [v67 unsignedLongLongValue];
   }
 
-  v68 = v88;
+  v68 = v87;
   v69 = objc_alloc(MEMORY[0x277CFEA68]);
   v70 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue7];
-  v71 = [v69 initWithType:@"0000026D-0000-1000-8000-0026BB765291" instanceID:v70 value:&unk_283EE8568 stateNumber:0 properties:integerValue7 eventNotificationsEnabled:1 metadata:v90];
+  v71 = [v69 initWithType:@"0000026D-0000-1000-8000-0026BB765291" instanceID:v70 value:&unk_283EE8568 stateNumber:0 properties:integerValue7 eventNotificationsEnabled:1 metadata:v89];
 
   dCopy2 = d;
   if (assignment && unsignedLongLongValue7 >= d + 9)
@@ -578,32 +571,30 @@ LABEL_9:
     {
       v76 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v101 = v76;
-      v102 = 2048;
-      v103 = unsignedLongLongValue7;
+      v100 = v76;
+      v101 = 2048;
+      v102 = unsignedLongLongValue7;
       _os_log_impl(&dword_22AEAE000, v75, OS_LOG_TYPE_ERROR, "%{public}@Instance ID overflowed into next range: %lu", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v73);
     dCopy2 = dCopy;
-    v68 = v88;
+    v68 = v87;
   }
 
-  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:{v27, v68, v93, v92, v91, v89, v71, 0}];
+  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:{v27, v68, v92, v91, v90, v88, v71, 0}];
   v78 = [getSharedInstance getDefaultServiceProperties:@"0000003E-0000-1000-8000-0026BB765291"];
   integerValue8 = [v78 integerValue];
 
   if (!assignment)
   {
-    v80 = [selfCopy instanceIDForCharacteristicType:0 serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v98 nodeID:v99];
+    v80 = [selfCopy instanceIDForCharacteristicType:0 serviceType:@"0000003E-0000-1000-8000-0026BB765291" endpointID:v97 nodeID:v98];
     dCopy2 = [v80 unsignedLongLongValue];
   }
 
   v81 = [HMMTRHAPService alloc];
   v82 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dCopy2];
-  v83 = [(HMMTRHAPService *)v81 initWithType:@"0000003E-0000-1000-8000-0026BB765291" instanceID:v82 parsedCharacteristics:v77 serviceProperties:integerValue8 linkedServices:MEMORY[0x277CBEBF8] endpoint:v98];
-
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = [(HMMTRHAPService *)v81 initWithType:@"0000003E-0000-1000-8000-0026BB765291" instanceID:v82 parsedCharacteristics:v77 serviceProperties:integerValue8 linkedServices:MEMORY[0x277CBEBF8] endpoint:v97];
 
   return v83;
 }

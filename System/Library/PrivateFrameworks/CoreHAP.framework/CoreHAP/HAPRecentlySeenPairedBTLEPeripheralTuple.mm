@@ -1,6 +1,7 @@
 @interface HAPRecentlySeenPairedBTLEPeripheralTuple
 - (id)description;
 - (id)initRecentlySeenPairedHAPBLEPeripheral:(id)peripheral;
+- (void)updatePairedPeripheralConfiguration:(BOOL)configuration connectionPriority:(unint64_t)priority;
 - (void)updateWithPeripheral:(id)peripheral;
 @end
 
@@ -35,6 +36,37 @@
   v12 = [v6 stringWithFormat:@"%@/%@ - Seen(%0.2fm)/Monitor(%@)/Priority(%@)", identifier, stateNumber, *&v9, v10, v11];
 
   return v12;
+}
+
+- (void)updatePairedPeripheralConfiguration:(BOOL)configuration connectionPriority:(unint64_t)priority
+{
+  configurationCopy = configuration;
+  v21 = *MEMORY[0x277D85DE8];
+  if ([(HAPRecentlySeenPairedBTLEPeripheralTuple *)self monitorState]!= configuration || [(HAPRecentlySeenPairedBTLEPeripheralTuple *)self connectionPriority]!= priority)
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v10 = HMFGetLogIdentifier();
+      identifier = [(HAPRecentlySeenPairedBTLEPeripheralTuple *)selfCopy identifier];
+      v12 = HMFBooleanToString();
+      v13 = 138544130;
+      v14 = v10;
+      v15 = 2114;
+      v16 = identifier;
+      v17 = 2114;
+      v18 = v12;
+      v19 = 2048;
+      priorityCopy = priority;
+      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating configuration for %{public}@, monitor: %{public}@, priority: %tu", &v13, 0x2Au);
+    }
+
+    objc_autoreleasePoolPop(v7);
+    [(HAPRecentlySeenPairedBTLEPeripheralTuple *)selfCopy setMonitorState:configurationCopy];
+    [(HAPRecentlySeenPairedBTLEPeripheralTuple *)selfCopy setConnectionPriority:priority];
+  }
 }
 
 - (void)updateWithPeripheral:(id)peripheral

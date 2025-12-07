@@ -123,7 +123,7 @@
 
 - (void)phase1ViewCancelButtonPressed:(id)pressed
 {
-  v4 = APUIDefaultFrameworkLog();
+  v4 = APUIDefaultFrameworkLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -137,7 +137,7 @@
 - (void)phase1ViewContinueButtonPressed:(id)pressed
 {
   pressedCopy = pressed;
-  v5 = APUIDefaultFrameworkLog();
+  v5 = APUIDefaultFrameworkLog(pressedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

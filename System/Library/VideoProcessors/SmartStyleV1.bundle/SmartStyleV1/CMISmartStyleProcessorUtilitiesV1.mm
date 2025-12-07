@@ -5,13 +5,16 @@
 - (id)_cachedTexturesFromPixelBuffer:(__CVBuffer *)buffer usage:(unint64_t)usage;
 - (id)_createGlobalToneCurveTextureFromMetadataDict:(id)dict;
 - (int)_compileShaders;
+- (int)_cropAndScale:(__CVBuffer *)scale inputValidBufferRect:(CGRect)rect applyGDC:(BOOL)c inputMetadata:(id)metadata cameraInfo:(id)info toPixelBuffer:(__CVBuffer *)buffer;
 - (int)blitPixelBuffer:(__CVBuffer *)buffer inputValidBufferRect:(CGRect)rect toPixelBuffer:(__CVBuffer *)pixelBuffer;
 - (int)createIdentityTransformCoefficients:(__CVBuffer *)coefficients;
 - (int)createLinearThumbnailFromMetadata:(id)metadata ltmThumbnailPixelBuffer:(__CVBuffer *)buffer cameraInfo:(id)info applyGDC:(BOOL)c toPixelBuffer:(__CVBuffer *)pixelBuffer;
 - (int)createLinearThumbnailFromMetadata:(id)metadata postLTMThumbnailPixelBuffer:(__CVBuffer *)buffer cameraInfo:(id)info applyGDC:(BOOL)c cropToPreLTMBounds:(BOOL)bounds toPixelBuffer:(__CVBuffer *)pixelBuffer;
 - (int)createLinearThumbnailFromMetadata:(id)metadata preLTMThumbnailPixelBuffer:(__CVBuffer *)buffer postLTMThumbnailPixelBuffer:(__CVBuffer *)pixelBuffer cameraInfo:(id)info applyGDC:(BOOL)c cropToPreLTMBounds:(BOOL)bounds toPixelBuffer:(__CVBuffer *)toPixelBuffer;
 - (int)createUnstyledThumbnailFromMetadata:(id)metadata ltmThumbnailPixelBuffer:(__CVBuffer *)buffer cameraInfo:(id)info applyGDC:(BOOL)c toPixelBuffer:(__CVBuffer *)pixelBuffer;
+- (int)downScalePixelBuffer:(__CVBuffer *)buffer toPixelBuffer:(__CVBuffer *)pixelBuffer inputROI:(CGRect)i gdcParams:(id *)params applyGDC:(BOOL)c;
 - (int)downScalePixelBuffer:(__CVBuffer *)buffer toPixelBuffer:(__CVBuffer *)pixelBuffer inputROI:(CGRect)i gdcParams:(id *)params applyGDC:(BOOL)c rotation:(unint64_t)rotation;
+- (int)downScalePixelBuffer:(__CVBuffer *)buffer toPixelBuffer:(__CVBuffer *)pixelBuffer propagateAttachments:(BOOL)attachments gdcParams:(id *)params applyGDC:(BOOL)c;
 - (int)enqueueCoefficientsForFiltering:(__CVBuffer *)filtering withMetadata:(id)metadata pts:(id *)pts learnedStyle:(id)style;
 - (int)filterCoefficientsForFrameWithMetadata:(id)metadata pts:(id *)pts filterType:(unint64_t)type toPixelBuffer:(__CVBuffer *)buffer;
 - (int)filterCoefficientsForFrameWithMetadata:(id)metadata pts:(id *)pts filterType:(unint64_t)type toPixelBuffer:(__CVBuffer *)buffer toGlobalRemixFactor:(float *)factor;
@@ -76,13 +79,13 @@
 {
   if (!attachments)
   {
-    [CMISmartStyleProcessorUtilitiesV1 propagatePixelBufferColorAttachments:toPixelBuffer:forceLinearTransferFunction:];
+    [(CMISmartStyleProcessorUtilitiesV1 *)self propagatePixelBufferColorAttachments:a2 toPixelBuffer:0 forceLinearTransferFunction:buffer, function];
     return -12780;
   }
 
   if (!buffer)
   {
-    [CMISmartStyleProcessorUtilitiesV1 propagatePixelBufferColorAttachments:toPixelBuffer:forceLinearTransferFunction:];
+    [CMISmartStyleProcessorUtilitiesV1 propagatePixelBufferColorAttachments:a2 toPixelBuffer:? forceLinearTransferFunction:?];
     return -12780;
   }
 
@@ -136,6 +139,21 @@ LABEL_13:
   return 0;
 }
 
+- (int)downScalePixelBuffer:(__CVBuffer *)buffer toPixelBuffer:(__CVBuffer *)pixelBuffer inputROI:(CGRect)i gdcParams:(id *)params applyGDC:(BOOL)c
+{
+  v7 = *&params[1].var1;
+  v11[4] = *&params->var3[6];
+  v11[5] = v7;
+  v11[6] = *&params[1].var2[3];
+  v8 = *&params->var2[2];
+  v11[0] = *&params->var0;
+  v11[1] = v8;
+  v9 = *&params->var3[2];
+  v11[2] = *&params->var2[6];
+  v11[3] = v9;
+  return [(CMISmartStyleProcessorUtilitiesV1 *)self downScalePixelBuffer:buffer toPixelBuffer:pixelBuffer inputROI:v11 gdcParams:c applyGDC:0 rotation:i.origin.x, i.origin.y, i.size.width, i.size.height];
+}
+
 - (int)downScalePixelBuffer:(__CVBuffer *)buffer toPixelBuffer:(__CVBuffer *)pixelBuffer inputROI:(CGRect)i gdcParams:(id *)params applyGDC:(BOOL)c rotation:(unint64_t)rotation
 {
   styleEngineProcessor = self->_styleEngineProcessor;
@@ -145,6 +163,20 @@ LABEL_13:
   }
 
   return [(CMIStyleEngineProcessor *)styleEngineProcessor downScaleInputPixelBuffer:buffer withInputCropRect:pixelBuffer usingBoxSize:0 toOutputPixelBuffer:1 filter:params copyAttachments:rotation gdcParams:i.origin.x rotation:i.origin.y, i.size.width, i.size.height, CGSizeZero.width, CGSizeZero.height];
+}
+
+- (int)downScalePixelBuffer:(__CVBuffer *)buffer toPixelBuffer:(__CVBuffer *)pixelBuffer propagateAttachments:(BOOL)attachments gdcParams:(id *)params applyGDC:(BOOL)c
+{
+  styleEngineProcessor = self->_styleEngineProcessor;
+  if (c)
+  {
+    return [(CMIStyleEngineProcessor *)styleEngineProcessor downScaleInputPixelBuffer:buffer toOutputPixelBuffer:pixelBuffer copyAttachments:attachments gdcParams:params];
+  }
+
+  else
+  {
+    return [(CMIStyleEngineProcessor *)styleEngineProcessor downScaleInputPixelBuffer:buffer toOutputPixelBuffer:pixelBuffer copyAttachments:attachments, params];
+  }
 }
 
 - (int)createIdentityTransformCoefficients:(__CVBuffer *)coefficients
@@ -262,25 +294,23 @@ LABEL_13:
     if (v10)
     {
       v11 = v10;
-      v56 = 0;
+      v50 = 0;
       if (!FigCFDictionaryGetInt32IfPresent() && !FigCFDictionaryGetInt32IfPresent())
       {
         [CMISmartStyleProcessorUtilitiesV1 getPreLTMValidROIFromMetadata:inputPreLTMThumbnailPixelBuffer:outputRect:];
-        v41 = 0;
+        v37 = 0;
 
         goto LABEL_45;
       }
 
-      v54 = 0;
-      v55 = 0u;
+      origin = 0;
+      v49 = 0u;
       if (FigCFDictionaryGetCGRectIfPresent())
       {
         __asm { FMOV            V0.2D, #1.0 }
 
-        v52 = _Q0;
-        v53 = _Q0;
-        origin = CGRectNull.origin;
-        size = CGRectNull.size;
+        v46 = _Q0;
+        v47 = _Q0;
         if (FigCFDictionaryGetCGRectIfPresent() && FigCFDictionaryGetCGRectIfPresent())
         {
           FigCaptureMetadataUtilitiesRectNormalizedToRect();
@@ -294,8 +324,8 @@ LABEL_13:
             v17 = 0.0;
           }
 
-          v52.x = v16;
-          v52.y = v17;
+          v46.x = v16;
+          v46.y = v17;
           v20 = 1.0;
           if (v18 <= 1.0)
           {
@@ -312,16 +342,16 @@ LABEL_13:
             v20 = v19;
           }
 
-          v53.width = v21;
-          v53.height = v20;
+          v47.width = v21;
+          v47.height = v20;
         }
 
-        rect->origin = v52;
-        rect->size = v53;
+        rect->origin = v46;
+        rect->size = v47;
         goto LABEL_44;
       }
 
-      [CMISmartStyleProcessorUtilitiesV1 getPreLTMValidROIFromMetadata:&v56 inputPreLTMThumbnailPixelBuffer:v11 outputRect:?];
+      [CMISmartStyleProcessorUtilitiesV1 getPreLTMValidROIFromMetadata:&v50 inputPreLTMThumbnailPixelBuffer:v11 outputRect:?];
     }
 
     else
@@ -330,7 +360,7 @@ LABEL_13:
     }
 
 LABEL_64:
-    v41 = -12780;
+    v37 = -12780;
     goto LABEL_45;
   }
 
@@ -360,88 +390,84 @@ LABEL_64:
           {
             if (v27 != 34 || v28 != 26)
             {
-              v30 = CGRectNull.size;
-              v54 = CGRectNull.origin;
-              v55 = v30;
+              size = CGRectNull.size;
+              origin = CGRectNull.origin;
+              v49 = size;
               if (!FigCFDictionaryGetCGRectIfPresent())
               {
-                v43 = 1.0;
-                v44 = 1.0;
-                v45 = 1.0;
-                v46 = 1.0;
+                v39 = 1.0;
+                v40 = 1.0;
+                v41 = 1.0;
+                v42 = 1.0;
 LABEL_43:
-                rect->origin.x = v46;
-                rect->origin.y = v45;
-                rect->size.width = v44;
-                rect->size.height = v43;
+                rect->origin.x = v42;
+                rect->origin.y = v41;
+                rect->size.width = v40;
+                rect->size.height = v39;
 LABEL_44:
 
-                v41 = 0;
+                v37 = 0;
                 goto LABEL_45;
               }
 
-              v31 = *(v26 + 2);
-              v32 = *(v26 + 3);
-              v33 = *(v26 + 4);
-              v34 = *(v26 + 5);
-              v35 = [v9 objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
-              intValue = [v35 intValue];
+              v31 = [v9 objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
+              intValue = [v31 intValue];
 
-              x = v54.x;
-              v38.f64[0] = v55.f64[0];
-              if (intValue == 1 && v55.f64[0] == 8448.0)
+              x = origin.x;
+              v34.f64[0] = v49.f64[0];
+              if (intValue == 1 && v49.f64[0] == 8448.0)
               {
-                x = v54.x * 0.5;
-                y = v54.y * 0.5;
-                v54.x = v54.x * 0.5;
-                v54.y = v54.y * 0.5;
-                v38.f64[1] = v55.f64[1];
+                x = origin.x * 0.5;
+                y = origin.y * 0.5;
+                origin.x = origin.x * 0.5;
+                origin.y = origin.y * 0.5;
+                v34.f64[1] = v49.f64[1];
                 __asm { FMOV            V0.2D, #0.5 }
 
-                v38 = vmulq_f64(v38, _Q0);
-                v55 = v38;
+                v34 = vmulq_f64(v34, _Q0);
+                v49 = v34;
               }
 
               else
               {
-                y = v54.y;
+                y = origin.y;
               }
 
-              v47 = (v26[2] + v26[4] * 0.5) - (x + v38.f64[0] * 0.5);
-              if (v47 < 0)
+              v43 = (v26[2] + v26[4] * 0.5) - (x + v34.f64[0] * 0.5);
+              if (v43 < 0)
               {
-                v47 = (x + v38.f64[0] * 0.5) - (v26[2] + v26[4] * 0.5);
+                v43 = (x + v34.f64[0] * 0.5) - (v26[2] + v26[4] * 0.5);
               }
 
-              if (v38.f64[0] / 10.0 >= v47)
+              if (v34.f64[0] / 10.0 >= v43)
               {
-                v48 = (v26[3] + v26[5] * 0.5) - (y + v55.f64[1] * 0.5);
-                if (v48 < 0)
+                v44 = (v26[3] + v26[5] * 0.5) - (y + v49.f64[1] * 0.5);
+                if (v44 < 0)
                 {
-                  v48 = (y + v55.f64[1] * 0.5) - (v26[3] + v26[5] * 0.5);
+                  v44 = (y + v49.f64[1] * 0.5) - (v26[3] + v26[5] * 0.5);
                 }
 
-                if (v55.f64[1] / 10.0 >= v48)
+                if (v49.f64[1] / 10.0 >= v44)
                 {
                   FigCaptureMetadataUtilitiesRectNormalizedToRect();
-                  if (v46 < 0.0)
+                  if (v42 < 0.0)
                   {
-                    v46 = 0.0;
+                    v42 = 0.0;
                   }
 
-                  if (v45 < 0.0)
+                  if (v41 < 0.0)
                   {
-                    v45 = 0.0;
+                    v41 = 0.0;
                   }
 
-                  if (v44 > 1.0)
+                  if (v40 > 1.0)
                   {
-                    v44 = 1.0;
+                    v40 = 1.0;
                   }
 
-                  if (v43 > 1.0)
+                  if (v39 > 1.0)
                   {
-                    v43 = 1.0;
+                    v39 = 1.0;
                   }
 
                   goto LABEL_43;
@@ -471,7 +497,7 @@ LABEL_44:
     goto LABEL_64;
   }
 
-  v41 = 0;
+  v37 = 0;
   rect->origin.x = 0.0;
   rect->origin.y = 0.0;
   __asm { FMOV            V0.2D, #1.0 }
@@ -479,20 +505,20 @@ LABEL_44:
   rect->size = _Q0;
 LABEL_45:
 
-  return v41;
+  return v37;
 }
 
 - (int)getLTMThumbnailFormatFromSampleBuffer:(opaqueCMSampleBuffer *)buffer outputFormat:(int *)format
 {
   if (!buffer)
   {
-    [CMISmartStyleProcessorUtilitiesV1 getLTMThumbnailFormatFromSampleBuffer:outputFormat:];
+    [(CMISmartStyleProcessorUtilitiesV1 *)self getLTMThumbnailFormatFromSampleBuffer:a2 outputFormat:0, format];
     return 0;
   }
 
   if (!format)
   {
-    [CMISmartStyleProcessorUtilitiesV1 getLTMThumbnailFormatFromSampleBuffer:outputFormat:];
+    [CMISmartStyleProcessorUtilitiesV1 getLTMThumbnailFormatFromSampleBuffer:a2 outputFormat:?];
     return -12780;
   }
 
@@ -1047,7 +1073,7 @@ LABEL_52:
   Height = CVPixelBufferGetHeight(buffer);
   if (Width >= 0x81)
   {
-    [CMISmartStyleProcessorUtilitiesV1 createLinearThumbnailFromMetadata:preLTMThumbnailPixelBuffer:postLTMThumbnailPixelBuffer:cameraInfo:applyGDC:cropToPreLTMBounds:toPixelBuffer:];
+    [CMISmartStyleProcessorUtilitiesV1 createLinearThumbnailFromMetadata:? preLTMThumbnailPixelBuffer:? postLTMThumbnailPixelBuffer:? cameraInfo:? applyGDC:? cropToPreLTMBounds:? toPixelBuffer:?];
     goto LABEL_50;
   }
 
@@ -1294,14 +1320,14 @@ LABEL_42:
   cCopy = c;
   metadataCopy = metadata;
   infoCopy = info;
-  v102[0] = kCVPixelBufferMetalCompatibilityKey;
-  v102[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
-  v103[0] = &__kCFBooleanTrue;
-  v103[1] = &__kCFBooleanTrue;
-  v102[2] = kCVPixelBufferIOSurfacePropertiesKey;
-  v103[2] = &__NSDictionary0__struct;
-  v14 = [NSDictionary dictionaryWithObjects:v103 forKeys:v102 count:3];
-  v92 = v14;
+  v98[0] = kCVPixelBufferMetalCompatibilityKey;
+  v98[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
+  v99[0] = &__kCFBooleanTrue;
+  v99[1] = &__kCFBooleanTrue;
+  v98[2] = kCVPixelBufferIOSurfacePropertiesKey;
+  v99[2] = &__NSDictionary0__struct;
+  v14 = [NSDictionary dictionaryWithObjects:v99 forKeys:v98 count:3];
+  v88 = v14;
   if (!metadataCopy)
   {
     [CMISmartStyleProcessorUtilitiesV1 createLinearThumbnailFromMetadata:postLTMThumbnailPixelBuffer:cameraInfo:applyGDC:cropToPreLTMBounds:toPixelBuffer:];
@@ -1309,10 +1335,10 @@ LABEL_72:
     pixelBuffer = 0;
 LABEL_74:
     computeCommandEncoder = 0;
-    v66 = 0;
+    v62 = 0;
     v17 = 0;
 LABEL_76:
-    v91 = 0;
+    v87 = 0;
 LABEL_86:
     x_low = -12780;
     goto LABEL_93;
@@ -1338,19 +1364,19 @@ LABEL_86:
     [CMISmartStyleProcessorUtilitiesV1 createLinearThumbnailFromMetadata:postLTMThumbnailPixelBuffer:cameraInfo:applyGDC:cropToPreLTMBounds:toPixelBuffer:];
     pixelBuffer = 0;
     computeCommandEncoder = 0;
-    v66 = 0;
+    v62 = 0;
     goto LABEL_76;
   }
 
   bytes = [v16 bytes];
   computeCommandEncoder = bytes;
-  v91 = v17;
+  v87 = v17;
   if (!bytes)
   {
     [CMISmartStyleProcessorUtilitiesV1 createLinearThumbnailFromMetadata:postLTMThumbnailPixelBuffer:cameraInfo:applyGDC:cropToPreLTMBounds:toPixelBuffer:];
     pixelBuffer = 0;
 LABEL_85:
-    v66 = 0;
+    v62 = 0;
     v17 = 0;
     goto LABEL_86;
   }
@@ -1421,8 +1447,8 @@ LABEL_15:
       if (BaseAddress)
       {
         v26 = BaseAddress;
-        v88 = boundsCopy;
-        v93 = metadataCopy;
+        v84 = boundsCopy;
+        v89 = metadataCopy;
         v27 = *(computeCommandEncoder + 48);
         v28 = *(computeCommandEncoder + 50);
         v29 = *(computeCommandEncoder + 52);
@@ -1465,42 +1491,38 @@ LABEL_15:
         if (v20 == 34 && v21 == 26)
         {
           selfCopy2 = self;
-          metadataCopy = v93;
+          metadataCopy = v89;
 LABEL_39:
           [(CMISmartStyleProcessorUtilitiesV1 *)selfCopy2 _computeLinearThumbnailValidRegion:metadataCopy];
-          v57 = v60;
-          v56 = v61;
-          v55 = v62;
-          v54 = v63;
+          v53 = v56;
+          v52 = v57;
+          v51 = v58;
+          v50 = v59;
           goto LABEL_40;
         }
 
         size = CGRectNull.size;
         origin = CGRectNull.origin;
-        v101 = size;
-        metadataCopy = v93;
+        v97 = size;
+        metadataCopy = v89;
         if (FigCFDictionaryGetCGRectIfPresent())
         {
-          v40 = *(computeCommandEncoder + 16);
-          v41 = *(computeCommandEncoder + 24);
-          v42 = *(computeCommandEncoder + 32);
-          v43 = *(computeCommandEncoder + 40);
-          v44 = [v93 objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
-          intValue = [v44 intValue];
+          v40 = [v89 objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
+          intValue = [v40 intValue];
 
           x = origin.x;
-          v47.f64[0] = v101.f64[0];
-          if (intValue == 1 && v101.f64[0] == 8448.0)
+          v43.f64[0] = v97.f64[0];
+          if (intValue == 1 && v97.f64[0] == 8448.0)
           {
             x = origin.x * 0.5;
             y = origin.y * 0.5;
             origin.x = origin.x * 0.5;
             origin.y = origin.y * 0.5;
-            v47.f64[1] = v101.f64[1];
+            v43.f64[1] = v97.f64[1];
             __asm { FMOV            V0.2D, #0.5 }
 
-            v47 = vmulq_f64(v47, _Q0);
-            v101 = v47;
+            v43 = vmulq_f64(v43, _Q0);
+            v97 = v43;
           }
 
           else
@@ -1508,24 +1530,24 @@ LABEL_39:
             y = origin.y;
           }
 
-          v58 = (*(computeCommandEncoder + 16) + *(computeCommandEncoder + 32) * 0.5) - (x + v47.f64[0] * 0.5);
-          if (v58 < 0)
+          v54 = (*(computeCommandEncoder + 16) + *(computeCommandEncoder + 32) * 0.5) - (x + v43.f64[0] * 0.5);
+          if (v54 < 0)
           {
-            v58 = (x + v47.f64[0] * 0.5) - (*(computeCommandEncoder + 16) + *(computeCommandEncoder + 32) * 0.5);
+            v54 = (x + v43.f64[0] * 0.5) - (*(computeCommandEncoder + 16) + *(computeCommandEncoder + 32) * 0.5);
           }
 
-          if (v47.f64[0] / 10.0 < v58)
+          if (v43.f64[0] / 10.0 < v54)
           {
             goto LABEL_38;
           }
 
-          v59 = (*(computeCommandEncoder + 24) + *(computeCommandEncoder + 40) * 0.5) - (y + v101.f64[1] * 0.5);
-          if (v59 < 0)
+          v55 = (*(computeCommandEncoder + 24) + *(computeCommandEncoder + 40) * 0.5) - (y + v97.f64[1] * 0.5);
+          if (v55 < 0)
           {
-            v59 = (y + v101.f64[1] * 0.5) - (*(computeCommandEncoder + 24) + *(computeCommandEncoder + 40) * 0.5);
+            v55 = (y + v97.f64[1] * 0.5) - (*(computeCommandEncoder + 24) + *(computeCommandEncoder + 40) * 0.5);
           }
 
-          if (v101.f64[1] / 10.0 < v59)
+          if (v97.f64[1] / 10.0 < v55)
           {
 LABEL_38:
             selfCopy2 = self;
@@ -1533,66 +1555,66 @@ LABEL_38:
           }
 
           FigCaptureMetadataUtilitiesRectNormalizedToRect();
-          if (v82 >= 0.0)
+          if (v78 >= 0.0)
           {
-            v57 = v82;
+            v53 = v78;
           }
 
           else
           {
-            v57 = 0.0;
+            v53 = 0.0;
           }
 
-          if (v83 >= 0.0)
+          if (v79 >= 0.0)
           {
-            v56 = v83;
-          }
-
-          else
-          {
-            v56 = 0.0;
-          }
-
-          if (v84 <= 1.0)
-          {
-            v55 = v84;
+            v52 = v79;
           }
 
           else
           {
-            v55 = 1.0;
+            v52 = 0.0;
           }
 
-          if (v85 <= 1.0)
+          if (v80 <= 1.0)
           {
-            v54 = v85;
+            v51 = v80;
           }
 
           else
           {
-            v54 = 1.0;
+            v51 = 1.0;
+          }
+
+          if (v81 <= 1.0)
+          {
+            v50 = v81;
+          }
+
+          else
+          {
+            v50 = 1.0;
           }
         }
 
         else
         {
-          v54 = 1.0;
-          v55 = 1.0;
-          v56 = 1.0;
-          v57 = 1.0;
+          v50 = 1.0;
+          v51 = 1.0;
+          v52 = 1.0;
+          v53 = 1.0;
         }
 
 LABEL_40:
-        v64 = 1;
-        memset(v99, 0, sizeof(v99));
+        v60 = 1;
+        memset(v95, 0, sizeof(v95));
         if (infoCopy)
         {
           if (cCopy)
           {
-            v64 = !cCopy;
-            if ([CMIDistortionModel getGDCParams:v99 cameraInfo:infoCopy metadata:metadataCopy])
+            v60 = !cCopy;
+            if ([CMIDistortionModel getGDCParams:v95 cameraInfo:infoCopy metadata:metadataCopy])
             {
-              v64 = 1;
+              v60 = 1;
             }
           }
         }
@@ -1605,14 +1627,14 @@ LABEL_40:
           {
             x_low = 0;
             computeCommandEncoder = 0;
-            v66 = 0;
+            v62 = 0;
             v17 = 0;
             goto LABEL_57;
           }
 
           x_low = LODWORD(origin.x);
           computeCommandEncoder = 0;
-          v66 = 0;
+          v62 = 0;
           v17 = 0;
           goto LABEL_93;
         }
@@ -1620,75 +1642,75 @@ LABEL_40:
         computeCommandEncoder = [(__CVBuffer *)commandBuffer computeCommandEncoder];
         if (computeCommandEncoder)
         {
-          v66 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:bufferCopy usage:1];
-          if (v66)
+          v62 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:bufferCopy usage:1];
+          if (v62)
           {
             v17 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:self->_preLTMLinearMetadataThumbnailPixelBuffer usage:1];
             if (v17)
             {
-              v67 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:pixelBufferCopy usage:65538];
-              if (v67)
+              v63 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:pixelBufferCopy usage:65538];
+              if (v63)
               {
-                v68 = v67;
-                v98[1] = v21;
-                v98[0] = v20;
-                *&v69 = v57;
-                v70 = v56;
-                *&v71 = v55;
-                *(&v69 + 1) = v70;
-                *&v72 = v54;
-                *(&v69 + 1) = __PAIR64__(v72, v71);
-                v97 = v69;
-                if (v88)
+                v64 = v63;
+                v94[1] = v21;
+                v94[0] = v20;
+                *&v65 = v53;
+                v66 = v52;
+                *&v67 = v51;
+                *(&v65 + 1) = v66;
+                *&v68 = v50;
+                *(&v65 + 1) = __PAIR64__(v68, v67);
+                v93 = v65;
+                if (v84)
                 {
-                  v73 = 64;
-                  if (v64)
+                  v69 = 64;
+                  if (v60)
                   {
-                    v73 = 56;
+                    v69 = 56;
                   }
 
-                  [computeCommandEncoder setComputePipelineState:*(&self->super.isa + v73)];
+                  [computeCommandEncoder setComputePipelineState:*(&self->super.isa + v69)];
                   [computeCommandEncoder setTexture:v17 atIndex:0];
-                  [computeCommandEncoder setTexture:v68 atIndex:1];
-                  [computeCommandEncoder setBytes:&v97 length:16 atIndex:0];
-                  [computeCommandEncoder setBytes:v98 length:4 atIndex:1];
-                  [computeCommandEncoder setBytes:v99 length:112 atIndex:2];
-                  width = [v68 width];
-                  height = [v68 height];
+                  [computeCommandEncoder setTexture:v64 atIndex:1];
+                  [computeCommandEncoder setBytes:&v93 length:16 atIndex:0];
+                  [computeCommandEncoder setBytes:v94 length:4 atIndex:1];
+                  [computeCommandEncoder setBytes:v95 length:112 atIndex:2];
+                  width = [v64 width];
+                  height = [v64 height];
                   *&origin.x = width;
                   *&origin.y = height;
-                  *&v101.f64[0] = 1;
-                  v76 = vdupq_n_s64(0x20uLL);
+                  *&v97.f64[0] = 1;
+                  v72 = vdupq_n_s64(0x20uLL);
                 }
 
                 else
                 {
-                  v77 = 48;
-                  if (v64)
+                  v73 = 48;
+                  if (v60)
                   {
-                    v77 = 40;
+                    v73 = 40;
                   }
 
-                  [computeCommandEncoder setComputePipelineState:*(&self->super.isa + v77)];
-                  [computeCommandEncoder setTexture:v66 atIndex:0];
+                  [computeCommandEncoder setComputePipelineState:*(&self->super.isa + v73)];
+                  [computeCommandEncoder setTexture:v62 atIndex:0];
                   [computeCommandEncoder setTexture:v17 atIndex:1];
-                  [computeCommandEncoder setTexture:v68 atIndex:2];
-                  [computeCommandEncoder setBytes:&v97 length:16 atIndex:0];
-                  [computeCommandEncoder setBytes:v98 length:4 atIndex:1];
-                  [computeCommandEncoder setBytes:v99 length:112 atIndex:2];
+                  [computeCommandEncoder setTexture:v64 atIndex:2];
+                  [computeCommandEncoder setBytes:&v93 length:16 atIndex:0];
+                  [computeCommandEncoder setBytes:v94 length:4 atIndex:1];
+                  [computeCommandEncoder setBytes:v95 length:112 atIndex:2];
                   [computeCommandEncoder setImageblockWidth:32 height:32];
-                  width2 = [v68 width];
-                  height2 = [v68 height];
+                  width2 = [v64 width];
+                  height2 = [v64 height];
                   *&origin.x = width2;
                   *&origin.y = height2;
-                  *&v101.f64[0] = 1;
-                  v76 = vdupq_n_s64(0x20uLL);
-                  metadataCopy = v93;
+                  *&v97.f64[0] = 1;
+                  v72 = vdupq_n_s64(0x20uLL);
+                  metadataCopy = v89;
                 }
 
-                v95 = v76;
-                v96 = 1;
-                [computeCommandEncoder dispatchThreads:&origin threadsPerThreadgroup:&v95];
+                v91 = v72;
+                v92 = 1;
+                [computeCommandEncoder dispatchThreads:&origin threadsPerThreadgroup:&v91];
                 [computeCommandEncoder endEncoding];
                 [(FigMetalContext *)self->_metalContext commit];
 
@@ -1708,7 +1730,7 @@ LABEL_92:
         }
 
 LABEL_90:
-        v66 = 0;
+        v62 = 0;
         goto LABEL_91;
       }
 
@@ -1723,14 +1745,14 @@ LABEL_90:
   [CMISmartStyleProcessorUtilitiesV1 createLinearThumbnailFromMetadata:postLTMThumbnailPixelBuffer:cameraInfo:applyGDC:cropToPreLTMBounds:toPixelBuffer:];
   pixelBuffer = 0;
   computeCommandEncoder = 0;
-  v66 = 0;
+  v62 = 0;
   v17 = 0;
   x_low = -12786;
 LABEL_93:
-  v86 = self->_preLTMLinearMetadataThumbnailPixelBuffer;
-  if (v86)
+  v82 = self->_preLTMLinearMetadataThumbnailPixelBuffer;
+  if (v82)
   {
-    CFRelease(v86);
+    CFRelease(v82);
     self->_preLTMLinearMetadataThumbnailPixelBuffer = 0;
   }
 
@@ -1742,22 +1764,23 @@ LABEL_57:
 - (__CVBuffer)createSingleChannelPixelBufferViewFromPixelBuffer:(__CVBuffer *)buffer
 {
   [(CMISmartStyleProcessorUtilitiesV1 *)self _getComponentCountOfFormat:CVPixelBufferGetPixelFormatType(buffer)];
-  v5 = 0;
+  v7 = 0;
   CVPixelBufferGetBytesPerRow(buffer);
   CVPixelBufferGetWidth(buffer);
   CVPixelBufferGetHeight(buffer);
   CVPixelBufferGetAttributes();
-  if (CVPixelBufferCreateWithParentPixelBuffer())
+  v4 = CVPixelBufferCreateWithParentPixelBuffer();
+  if (v4)
   {
     [CMISmartStyleProcessorUtilitiesV1 createSingleChannelPixelBufferViewFromPixelBuffer:?];
   }
 
   else
   {
-    [CMISmartStyleProcessorUtilitiesV1 createSingleChannelPixelBufferViewFromPixelBuffer:];
+    [(CMISmartStyleProcessorUtilitiesV1 *)v4 createSingleChannelPixelBufferViewFromPixelBuffer:v5];
   }
 
-  return v5;
+  return v7;
 }
 
 - (int)enqueueCoefficientsForFiltering:(__CVBuffer *)filtering withMetadata:(id)metadata pts:(id *)pts learnedStyle:(id)style
@@ -2181,18 +2204,24 @@ LABEL_12:
   engineCopy = engine;
   contextCopy = context;
   CFPreferenceNumberWithDefault = FigGetCFPreferenceNumberWithDefault();
-  v25.receiver = self;
-  v25.super_class = CMISmartStyleProcessorUtilitiesV1;
-  v12 = [(CMISmartStyleProcessorUtilitiesV1 *)&v25 init];
+  v30.receiver = self;
+  v30.super_class = CMISmartStyleProcessorUtilitiesV1;
+  v12 = [(CMISmartStyleProcessorUtilitiesV1 *)&v30 init];
   v13 = v12;
   if (!v12)
   {
-    goto LABEL_13;
+    OUTLINED_FUNCTION_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, "<<<< CMISmartStyleProcessorUtilities >>>> Fig", "self", "bail", 0, "CMISmartStyleProcessorUtilitiesV1.m", 114);
+LABEL_15:
+    v19 = 0;
+    goto LABEL_16;
   }
 
   if (!contextCopy)
   {
-    goto LABEL_13;
+    OUTLINED_FUNCTION_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, "<<<< CMISmartStyleProcessorUtilities >>>> Fig", "metalContext", "bail", 0, "CMISmartStyleProcessorUtilitiesV1.m", 118);
+    goto LABEL_15;
   }
 
   objc_storeStrong(&v12->_metalContext, context);
@@ -2200,7 +2229,9 @@ LABEL_12:
   {
     if (!engineCopy)
     {
-      goto LABEL_13;
+      OUTLINED_FUNCTION_1();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v26, "<<<< CMISmartStyleProcessorUtilities >>>> Fig", "styleEngineProcessor", "bail", 0, "CMISmartStyleProcessorUtilitiesV1.m", 124);
+      goto LABEL_15;
     }
 
     objc_storeStrong(&v13->_styleEngineProcessor, engine);
@@ -2212,93 +2243,214 @@ LABEL_12:
 
     if (!v13->_coefficientsProcessor)
     {
-LABEL_13:
       OUTLINED_FUNCTION_1();
-LABEL_14:
-      FigDebugAssert3();
-      v18 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, "<<<< CMISmartStyleProcessorUtilities >>>> Fig", "_coefficientsProcessor", "bail", 0, "CMISmartStyleProcessorUtilitiesV1.m", 129);
       goto LABEL_15;
     }
   }
 
-  if ([(CMISmartStyleProcessorUtilitiesV1 *)v13 _compileShaders])
+  _compileShaders = [(CMISmartStyleProcessorUtilitiesV1 *)v13 _compileShaders];
+  if (_compileShaders)
   {
-    goto LABEL_14;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", qword_27B00, "<<<< CMISmartStyleProcessorUtilities >>>> Fig", "err == 0 ", "bail", "Unable to compile shaders", "CMISmartStyleProcessorUtilitiesV1.m", 133, _compileShaders);
+    goto LABEL_15;
   }
 
-  v23 = kCVMetalTextureCacheMaximumTextureAgeKey;
-  v24 = &off_20938;
-  v18 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v28 = kCVMetalTextureCacheMaximumTextureAgeKey;
+  v29 = &off_20938;
+  v19 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   device = [(FigMetalContext *)v13->_metalContext device];
-  v20 = CVMetalTextureCacheCreate(kCFAllocatorDefault, v18, device, 0, &v13->_cvMetalTextureCacheRef);
+  v21 = CVMetalTextureCacheCreate(kCFAllocatorDefault, v19, device, 0, &v13->_cvMetalTextureCacheRef);
 
-  if (v20)
+  if (v21)
   {
-LABEL_15:
-    v21 = 0;
+LABEL_16:
+    v22 = 0;
     goto LABEL_9;
   }
 
-  v21 = v13;
+  v22 = v13;
 LABEL_9:
 
-  return v21;
+  return v22;
+}
+
+- (int)_cropAndScale:(__CVBuffer *)scale inputValidBufferRect:(CGRect)rect applyGDC:(BOOL)c inputMetadata:(id)metadata cameraInfo:(id)info toPixelBuffer:(__CVBuffer *)buffer
+{
+  cCopy = c;
+  y = rect.origin.y;
+  rect = rect.size.width;
+  v39 = *&rect.size.height;
+  origin = rect.origin;
+  metadataCopy = metadata;
+  infoCopy = info;
+  v16 = infoCopy;
+  if (!scale)
+  {
+    OUTLINED_FUNCTION_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v34, v35, v36, v38, v39, *(&v39 + 1), *&origin.x, LODWORD(origin.y));
+    v26 = 0;
+    computeCommandEncoder = 0;
+LABEL_23:
+    cCopy = -12780;
+    goto LABEL_16;
+  }
+
+  if (!buffer || cCopy && (!metadataCopy || !infoCopy))
+  {
+    OUTLINED_FUNCTION_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    v26 = 0;
+    computeCommandEncoder = 0;
+    scale = 0;
+    goto LABEL_23;
+  }
+
+  *&v17 = CVPixelBufferGetWidth(buffer);
+  v37 = v17;
+  Height = CVPixelBufferGetHeight(buffer);
+  v19.i64[0] = 0;
+  v20 = v39;
+  v19.i32[2] = v37;
+  v19.f32[3] = Height;
+  v52 = v19;
+  x = origin.x;
+  *v19.i64 = y;
+  rectCopy = rect;
+  if (!CGRectIsNull(*(&v19 - 8)))
+  {
+    v23.f64[0] = rect;
+    v24.f64[0] = origin.x;
+    *&v23.f64[1] = v39;
+    v24.f64[1] = y;
+    v52 = vcvt_hight_f32_f64(vcvt_f32_f64(v24), v23);
+  }
+
+  commandBuffer = [(FigMetalContext *)self->_metalContext commandBuffer];
+  if (!commandBuffer)
+  {
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v8, v37, *(&v37 + 1), v39, *(&v39 + 1), *&origin.x, LODWORD(origin.y));
+    OUTLINED_FUNCTION_3();
+    cCopy = FigSignalErrorAtGM(v33);
+    v26 = 0;
+    computeCommandEncoder = 0;
+    scale = 0;
+    goto LABEL_16;
+  }
+
+  v26 = commandBuffer;
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  if (!computeCommandEncoder)
+  {
+    scale = 0;
+LABEL_21:
+    cCopy = -12782;
+    goto LABEL_16;
+  }
+
+  scale = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:scale usage:1];
+  if (!scale)
+  {
+    goto LABEL_21;
+  }
+
+  v28 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:buffer usage:2];
+  if (!v28)
+  {
+    goto LABEL_21;
+  }
+
+  v29 = v28;
+  [computeCommandEncoder setComputePipelineState:self->_maskCropAndScalePipelineState];
+  [computeCommandEncoder setTexture:scale atIndex:0];
+  [computeCommandEncoder setTexture:v29 atIndex:1];
+  [computeCommandEncoder setBytes:&v52 length:16 atIndex:0];
+  if (cCopy)
+  {
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    cCopy = [CMIDistortionModel getGDCParams:&v45 cameraInfo:v16 metadata:metadataCopy];
+    if (!cCopy)
+    {
+      [computeCommandEncoder setComputePipelineState:self->_maskCropAndScalePipelineStateWithGDC];
+      [computeCommandEncoder setBytes:&v45 length:112 atIndex:1];
+    }
+  }
+
+  width = [v29 width];
+  height = [v29 height];
+  *&v45 = width;
+  *(&v45 + 1) = height;
+  *&v46 = 1;
+  v43 = vdupq_n_s64(0x20uLL);
+  v44 = 1;
+  [computeCommandEncoder dispatchThreads:&v45 threadsPerThreadgroup:&v43];
+  [computeCommandEncoder endEncoding];
+  [(FigMetalContext *)self->_metalContext commit];
+
+LABEL_16:
+  return cCopy;
 }
 
 - (int)runFPRejectionOnMask:(__CVBuffer *)mask originalMask:(__CVBuffer *)originalMask
 {
-  v7 = [CMISmartStyleProcessorSettingsV1 tuningParametersForVariant:0];
-  v8 = v7;
-  if (!v7)
+  v8 = [CMISmartStyleProcessorSettingsV1 tuningParametersForVariant:0];
+  v9 = v8;
+  if (!v8)
   {
-    v19 = FigSignalErrorAtGM();
-    v10 = 0;
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v24, v25, v26.i32[0]);
+    v11 = 0;
     goto LABEL_14;
   }
 
-  [v7 personMaskDilatedMaskVal];
-  v25 = v9;
-  v10 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:mask usage:23];
-  if (v10)
+  [v8 personMaskDilatedMaskVal];
+  v32 = v10;
+  v11 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:mask usage:23];
+  if (v11)
   {
-    v11 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:originalMask usage:17];
-    if (v11)
+    v12 = [(CMISmartStyleProcessorUtilitiesV1 *)self _cachedTexturesFromPixelBuffer:originalMask usage:17];
+    if (v12)
     {
-      v12 = v11;
-      width = [v10 width];
-      if (width == [v12 width])
+      v13 = v12;
+      width = [v11 width];
+      if (width == [v13 width])
       {
-        height = [v10 height];
-        if (height == [v12 height])
+        height = [v11 height];
+        if (height == [v13 height])
         {
           commandBuffer = [(FigMetalContext *)self->_metalContext commandBuffer];
           if (commandBuffer)
           {
-            v16 = commandBuffer;
+            v17 = commandBuffer;
             computeCommandEncoder = [commandBuffer computeCommandEncoder];
             if (!computeCommandEncoder)
             {
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v26.i64[0], v26.i64[1], v27, v28, width2, height2);
               OUTLINED_FUNCTION_3();
-              v19 = FigSignalErrorAtGM();
+              v20 = FigSignalErrorAtGM(v23);
 
-              v18 = 0;
+              v19 = 0;
               goto LABEL_10;
             }
 
-            v18 = computeCommandEncoder;
+            v19 = computeCommandEncoder;
             [computeCommandEncoder setComputePipelineState:self->_maskFalsePositiveRejectionPipelineState];
-            [v18 setTexture:v10 atIndex:0];
-            [v18 setTexture:v12 atIndex:1];
-            [v18 setBytes:&v25 length:4 atIndex:0];
-            [v18 setImageblockWidth:32 height:32];
-            v24[0] = [v10 width];
-            v24[1] = [v10 height];
-            v24[2] = 1;
-            v22 = vdupq_n_s64(0x20uLL);
-            v23 = 1;
-            [v18 dispatchThreads:v24 threadsPerThreadgroup:&v22];
-            [v18 endEncoding];
+            [v19 setTexture:v11 atIndex:0];
+            [v19 setTexture:v13 atIndex:1];
+            [v19 setBytes:&v32 length:4 atIndex:0];
+            [v19 setImageblockWidth:32 height:32];
+            width2 = [v11 width];
+            height2 = [v11 height];
+            v31 = 1;
+            v26 = vdupq_n_s64(0x20uLL);
+            v27 = 1;
+            [v19 dispatchThreads:&width2 threadsPerThreadgroup:&v26];
+            [v19 endEncoding];
             [(FigMetalContext *)self->_metalContext commit];
 
             goto LABEL_9;
@@ -2307,25 +2459,24 @@ LABEL_9:
       }
 
       OUTLINED_FUNCTION_2_0();
-      FigDebugAssert3();
-      createThumbnailsPipelineStateWithGDC = self[19]._createThumbnailsPipelineStateWithGDC;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v25, v26.i64[0], v26.i64[1], v27, v28, width2, height2);
       OUTLINED_FUNCTION_3();
-      v19 = FigSignalErrorAtGM();
+      v20 = FigSignalErrorAtGM(v22);
 
 LABEL_14:
-      v18 = 0;
-      v16 = 0;
+      v19 = 0;
+      v17 = 0;
       goto LABEL_10;
     }
   }
 
-  v18 = 0;
-  v16 = 0;
-LABEL_9:
   v19 = 0;
+  v17 = 0;
+LABEL_9:
+  v20 = 0;
 LABEL_10:
 
-  return v19;
+  return v20;
 }
 
 - (id)_cachedTexturesFromPixelBuffer:(__CVBuffer *)buffer usage:(unint64_t)usage
@@ -2387,144 +2538,54 @@ LABEL_6:
   return bufferCopy;
 }
 
-- (void)blitPixelBuffer:(void *)a1 inputValidBufferRect:(void *)a2 toPixelBuffer:.cold.1(void *a1, void *a2)
+- (void)blitPixelBuffer:(void *)a1 inputValidBufferRect:(const char *)a2 toPixelBuffer:.cold.1(void *a1, const char *a2)
 {
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)blitPixelBuffer:(void *)a1 inputValidBufferRect:toPixelBuffer:.cold.2(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)getPreLTMValidROIFromMetadata:(uint64_t)a1 inputPreLTMThumbnailPixelBuffer:(uint64_t)a2 outputRect:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)getLTMThumbnailFormatFromSampleBuffer:(void *)a1 outputFormat:.cold.1(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (uint64_t)_createGlobalToneCurveTextureFromMetadataDict:.cold.1()
-{
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_3();
-
-  return FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, a2, v8, v9, vars0, vars8);
 }
 
 - (BOOL)createUnstyledThumbnailFromMetadata:ltmThumbnailPixelBuffer:cameraInfo:applyGDC:toPixelBuffer:.cold.4()
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  v0 = FigSignalErrorAtGM();
-  return OUTLINED_FUNCTION_4(v0);
+  v1 = FigSignalErrorAtGM(v0);
+  return OUTLINED_FUNCTION_4(v1);
 }
 
 - (BOOL)createLinearThumbnailFromMetadata:ltmThumbnailPixelBuffer:cameraInfo:applyGDC:toPixelBuffer:.cold.3()
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  v0 = FigSignalErrorAtGM();
-  return OUTLINED_FUNCTION_4(v0);
+  v1 = FigSignalErrorAtGM(v0);
+  return OUTLINED_FUNCTION_4(v1);
 }
 
 - (BOOL)createLinearThumbnailFromMetadata:preLTMThumbnailPixelBuffer:postLTMThumbnailPixelBuffer:cameraInfo:applyGDC:cropToPreLTMBounds:toPixelBuffer:.cold.3()
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  v0 = FigSignalErrorAtGM();
-  return OUTLINED_FUNCTION_4(v0);
+  v1 = FigSignalErrorAtGM(v0);
+  return OUTLINED_FUNCTION_4(v1);
 }
 
 - (BOOL)createLinearThumbnailFromMetadata:postLTMThumbnailPixelBuffer:cameraInfo:applyGDC:cropToPreLTMBounds:toPixelBuffer:.cold.4()
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  v0 = FigSignalErrorAtGM();
-  return OUTLINED_FUNCTION_4(v0);
-}
-
-- (void)createSingleChannelPixelBufferViewFromPixelBuffer:(CFTypeRef *)a1 .cold.1(CFTypeRef *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-  if (*a1)
-  {
-    CFRelease(*a1);
-  }
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.1(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.2(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.3(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.4(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.5(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.6(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.7(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.8(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
-- (void)_computeLinearThumbnailValidRegion:(void *)a1 .cold.9(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  v1 = FigSignalErrorAtGM(v0);
+  return OUTLINED_FUNCTION_4(v1);
 }
 
 - (uint64_t)_compileShaders
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *self = result;
   return result;
 }

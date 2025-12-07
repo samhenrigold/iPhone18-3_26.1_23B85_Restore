@@ -27,7 +27,7 @@
   return _supportsCache_Supported;
 }
 
-void __34__REInterfaceCache__supportsCache__block_invoke()
+void __34__REInterfaceCache__supportsCache__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_fetchedInternalBuildOnceToken_5 != -1)
   {
@@ -36,20 +36,20 @@ void __34__REInterfaceCache__supportsCache__block_invoke()
 
   if (_isInternalDevice_5 == 1)
   {
-    v0 = REProcessIsRelevanced() ^ 1;
+    v2 = REProcessIsRelevanced(result, a2) ^ 1;
   }
 
   else
   {
-    v0 = 0;
+    v2 = 0;
   }
 
-  _supportsCache_Supported = v0;
+  _supportsCache_Supported = v2;
 }
 
-uint64_t __34__REInterfaceCache__supportsCache__block_invoke_2()
+uint64_t __34__REInterfaceCache__supportsCache__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_5 = result;
   return result;
 }
@@ -96,7 +96,7 @@ uint64_t __39__REInterfaceCache__supportedProtocols__block_invoke()
 
 - (id)_queue_valueForKey:(id)key level:(unint64_t)level
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v7 = [(NSMutableDictionary *)self->_supportedInterfaces objectForKeyedSubscript:keyCopy];
   if (!v7)
@@ -126,52 +126,52 @@ uint64_t __39__REInterfaceCache__supportedProtocols__block_invoke()
     v19 = [MEMORY[0x277CCAA50] hashTableWithOptions:256];
     v20 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:256 valueOptions:0];
     v21 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:256 valueOptions:0];
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke;
-    v79[3] = &unk_2785FC9E0;
-    v55 = v20;
-    v80 = v55;
-    v54 = v21;
-    v81 = v54;
-    v22 = MEMORY[0x22AABC5E0](v79);
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_2;
-    v73[3] = &unk_2785FCA08;
-    v73[4] = self;
-    levelCopy = level;
-    v53 = array;
-    v74 = v53;
-    v52 = array2;
-    v75 = v52;
-    v23 = v19;
-    v76 = v23;
-    v24 = v22;
-    v77 = v24;
-    v25 = MEMORY[0x22AABC5E0](v73);
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke;
+    v78[3] = &unk_2785FC9E0;
+    v54 = v20;
+    v79 = v54;
+    v53 = v21;
+    v80 = v53;
+    v22 = MEMORY[0x22AABC5E0](v78);
     v72[0] = MEMORY[0x277D85DD0];
     v72[1] = 3221225472;
-    v72[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_3;
-    v72[3] = &unk_2785FCA30;
+    v72[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_2;
+    v72[3] = &unk_2785FCA08;
     v72[4] = self;
-    v26 = MEMORY[0x22AABC5E0](v72);
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_4;
-    v66[3] = &unk_2785FCA80;
+    levelCopy = level;
+    v52 = array;
+    v73 = v52;
+    v51 = array2;
+    v74 = v51;
+    v23 = v19;
+    v75 = v23;
+    v24 = v22;
+    v76 = v24;
+    v25 = MEMORY[0x22AABC5E0](v72);
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_3;
+    v71[3] = &unk_2785FCA30;
+    v71[4] = self;
+    v26 = MEMORY[0x22AABC5E0](v71);
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_4;
+    v65[3] = &unk_2785FCA80;
     v27 = v26;
-    v69 = v27;
-    v57 = v25;
-    v70 = v57;
+    v68 = v27;
+    v56 = v25;
+    v69 = v56;
     v28 = v23;
-    v67 = v28;
+    v66 = v28;
     v29 = keyCopy;
-    v68 = v29;
+    v67 = v29;
     v30 = v24;
-    v71 = v30;
-    [v29 enumerateConformedProperties:v66];
-    v56 = v28;
+    v70 = v30;
+    [v29 enumerateConformedProperties:v65];
+    v55 = v28;
     if ([v29 isProtocol])
     {
       protocol2 = [v29 protocol];
@@ -182,64 +182,64 @@ uint64_t __39__REInterfaceCache__supportedProtocols__block_invoke()
 LABEL_20:
         v7 = objc_opt_new();
         [v7 setType:v29];
-        [v7 setConformedInterfaces:v52];
+        [v7 setConformedInterfaces:v51];
         [v7 setConformedProtocols:v28];
-        [v7 setProperties:v55];
-        [v7 setMethods:v54];
+        [v7 setProperties:v54];
+        [v7 setMethods:v53];
         [(NSMutableDictionary *)self->_supportedInterfaces setObject:v7 forKeyedSubscript:v29];
 
         goto LABEL_21;
       }
 
-      v51 = v27;
+      v50 = v27;
       v33 = [MEMORY[0x277CBEB58] set];
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_6;
-      v64[3] = &unk_2785FCA58;
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_6;
+      v63[3] = &unk_2785FCA58;
       superclassKey = v33;
-      v65 = superclassKey;
-      [v29 enumerateExposedProperties:v64];
+      v64 = superclassKey;
+      [v29 enumerateExposedProperties:v63];
       v35 = [MEMORY[0x277CCAA50] hashTableWithOptions:256];
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_7;
-      v62[3] = &unk_2785FCAA8;
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __45__REInterfaceCache__queue_valueForKey_level___block_invoke_7;
+      v61[3] = &unk_2785FCAA8;
       v36 = v35;
-      v63 = v36;
-      v50 = v29;
-      [v29 enumerateExposedMethods:v62];
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
+      v62 = v36;
+      v49 = v29;
+      [v29 enumerateExposedMethods:v61];
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       _supportedProtocols = [(REInterfaceCache *)self _supportedProtocols];
-      v38 = [_supportedProtocols countByEnumeratingWithState:&v58 objects:v82 count:16];
+      v38 = [_supportedProtocols countByEnumeratingWithState:&v57 objects:v81 count:16];
       if (v38)
       {
         v39 = v38;
-        v40 = *v59;
+        v40 = *v58;
         do
         {
           for (i = 0; i != v39; ++i)
           {
-            if (*v59 != v40)
+            if (*v58 != v40)
             {
               objc_enumerationMutation(_supportedProtocols);
             }
 
-            (*(v30 + 2))(v30, *(*(&v58 + 1) + 8 * i), superclassKey, v36);
+            (*(v30 + 2))(v30, *(*(&v57 + 1) + 8 * i), superclassKey, v36);
           }
 
-          v39 = [_supportedProtocols countByEnumeratingWithState:&v58 objects:v82 count:16];
+          v39 = [_supportedProtocols countByEnumeratingWithState:&v57 objects:v81 count:16];
         }
 
         while (v39);
       }
 
-      v27 = v51;
-      v28 = v56;
-      v29 = v50;
+      v27 = v50;
+      v28 = v55;
+      v29 = v49;
     }
 
     else
@@ -247,7 +247,7 @@ LABEL_20:
       superclassKey = [v29 superclassKey];
       if (superclassKey)
       {
-        (*(v57 + 2))(v57, superclassKey);
+        (*(v56 + 2))(v56, superclassKey);
       }
     }
 
@@ -255,8 +255,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -320,39 +318,39 @@ LABEL_11:
 
 void __45__REInterfaceCache__queue_valueForKey_level___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _queue_valueForKey:v3 level:*(a1 + 72) + 1];
   if (v4)
   {
     [*(a1 + 40) addObject:v4];
-    v18 = v3;
+    v17 = v3;
     [*(a1 + 48) addObject:v3];
     v5 = *(a1 + 56);
     v6 = [v4 conformedProtocols];
     [v5 unionHashTable:v6];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v7 = [*(a1 + 32) _supportedProtocols];
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           v13 = [v4 properties];
           v14 = [v13 objectForKey:v12];
 
@@ -364,48 +362,46 @@ void __45__REInterfaceCache__queue_valueForKey_level___block_invoke_2(uint64_t a
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
     }
 
-    v3 = v18;
+    v3 = v17;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__REInterfaceCache__queue_valueForKey_level___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = [*(a1 + 32) _supportedProtocols];
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (protocol_conformsToProtocol(v3, *(*(&v10 + 1) + 8 * i)))
+        if (protocol_conformsToProtocol(v3, *(*(&v9 + 1) + 8 * i)))
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -417,7 +413,6 @@ uint64_t __45__REInterfaceCache__queue_valueForKey_level___block_invoke_3(uint64
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -485,92 +480,88 @@ uint64_t __43__REInterfaceCache__accessInterfaceForKey___block_invoke(uint64_t a
 
 - (void)_enumeratePropertiesOfInterface:(id)interface forProtocol:(id)protocol usingBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   protocolCopy = protocol;
   blockCopy = block;
   if (blockCopy && [(REInterfaceCache *)self _supportsCache])
   {
     v11 = [(REInterfaceCache *)self _accessInterfaceForKey:interfaceCopy];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     properties = [v11 properties];
     v13 = [properties objectForKey:protocolCopy];
 
-    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         v17 = 0;
         do
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          blockCopy[2](blockCopy, *(*(&v19 + 1) + 8 * v17++));
+          blockCopy[2](blockCopy, *(*(&v18 + 1) + 8 * v17++));
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v15);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateMethodsOfInterface:(id)interface forProtocol:(id)protocol usingBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   protocolCopy = protocol;
   blockCopy = block;
   if (blockCopy && [(REInterfaceCache *)self _supportsCache])
   {
     v11 = [(REInterfaceCache *)self _accessInterfaceForKey:interfaceCopy];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     methods = [v11 methods];
     v13 = [methods objectForKey:protocolCopy];
 
-    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         v17 = 0;
         do
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          blockCopy[2](blockCopy, *(*(&v19 + 1) + 8 * v17++));
+          blockCopy[2](blockCopy, *(*(&v18 + 1) + 8 * v17++));
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v15);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_interface:(id)_interface implementsInterface:(id)interface

@@ -1944,128 +1944,91 @@ void __109__SBInteractiveScreenshotGestureRootViewController__prepareViewHierarc
   _Block_object_dispose(&v137, 8);
 }
 
-uint64_t __99__SBInteractiveScreenshotGestureRootViewController__updateContentTransformUsingPresentationValues___block_invoke(uint64_t a1)
+void *__99__SBInteractiveScreenshotGestureRootViewController__updateContentTransformUsingPresentationValues___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = v2[164];
-  v4 = v2[166];
-  v55 = v2[163];
-  v56 = v2[165];
-  v58 = v2[156];
-  v59 = v2[158];
-  v57 = v2[157];
-  v5 = *MEMORY[0x277D768C8];
-  v6 = *(MEMORY[0x277D768C8] + 8);
-  v7 = *(MEMORY[0x277D768C8] + 16);
-  v8 = *(MEMORY[0x277D768C8] + 24);
-  [v2 _contentTransformForCommitProgress:*(a1 + 88) contentInsets:*MEMORY[0x277D768C8] additionalContentTranslation:{v6, v7, v8, *(a1 + 96), *(a1 + 104)}];
-  v9 = *(*(a1 + 40) + 8);
-  v11 = v60[34];
-  v10 = v60[35];
-  v12 = v60[33];
-  v9[2] = v60[32];
-  v9[3] = v12;
-  v14 = v60[38];
-  v13 = v60[39];
-  v15 = v60[37];
-  v9[6] = v60[36];
-  v9[7] = v15;
-  v9[8] = v14;
-  v9[9] = v13;
-  v9[4] = v11;
-  v9[5] = v10;
-  v16 = *(a1 + 32);
-  v17 = *(a1 + 88);
+  v3 = *(a1 + 32);
+  v4 = v3[164];
+  v5 = v3[166];
+  v32 = v3[163];
+  v33 = v3[165];
+  v35 = v3[156];
+  v36 = v3[158];
+  v34 = v3[157];
+  v6 = *MEMORY[0x277D768C8];
+  v7 = *(MEMORY[0x277D768C8] + 8);
+  v8 = *(MEMORY[0x277D768C8] + 16);
+  v9 = *(MEMORY[0x277D768C8] + 24);
+  objc_msgSend__contentTransformForCommitProgress_contentInsets_additionalContentTranslation_(v3, a2, *(a1 + 88), *MEMORY[0x277D768C8], v7, v8, v9, *(a1 + 96), *(a1 + 104));
+  v10 = *(*(a1 + 40) + 8);
+  v10[2] = v53;
+  v10[3] = v54;
+  v10[6] = v57;
+  v10[7] = v58;
+  v10[8] = v59;
+  v10[9] = v60;
+  v10[4] = v55;
+  v10[5] = v56;
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 88);
   UIEdgeInsetsMakeWithEdges();
-  [v16 _inverseContentTransformForCommitProgress:v17 contentInsets:v18 additionalContentTranslation:{v19, v20, v21, *(a1 + 96), *(a1 + 104)}];
-  v22 = *(*(a1 + 48) + 8);
-  v24 = v60[26];
-  v23 = v60[27];
-  v25 = v60[25];
-  v22[2] = v60[24];
-  v22[3] = v25;
-  v27 = v60[30];
-  v26 = v60[31];
-  v28 = v60[29];
-  v22[6] = v60[28];
-  v22[7] = v28;
-  v22[8] = v27;
-  v22[9] = v26;
-  v22[4] = v24;
-  v22[5] = v23;
-  [*(a1 + 32) _contentTransformForCommitProgress:*(a1 + 112) * *(a1 + 88) contentInsets:v5 additionalContentTranslation:{v6, v7, v8, *(a1 + 120), *(a1 + 128)}];
-  v29 = *(*(a1 + 56) + 8);
-  v31 = v60[18];
-  v30 = v60[19];
-  v32 = v60[17];
-  v29[2] = v60[16];
-  v29[3] = v32;
-  v34 = v60[22];
-  v33 = v60[23];
-  v35 = v60[21];
-  v29[6] = v60[20];
-  v29[7] = v35;
-  v29[8] = v34;
-  v29[9] = v33;
-  v29[4] = v31;
-  v29[5] = v30;
-  v36 = *(a1 + 32);
+  objc_msgSend__inverseContentTransformForCommitProgress_contentInsets_additionalContentTranslation_(v11, v12, v13, v14, v15, v16, *(a1 + 96), *(a1 + 104));
+  v17 = *(*(a1 + 48) + 8);
+  v17[2] = v45;
+  v17[3] = v46;
+  v17[6] = v49;
+  v17[7] = v50;
+  v17[8] = v51;
+  v17[9] = v52;
+  v17[4] = v47;
+  v17[5] = v48;
+  objc_msgSend__contentTransformForCommitProgress_contentInsets_additionalContentTranslation_(*(a1 + 32), *(a1 + 112) * *(a1 + 88), v6, v7, v8, v9, *(a1 + 120), *(a1 + 128));
+  v18 = *(*(a1 + 56) + 8);
+  v18[2] = v37;
+  v18[3] = v38;
+  v18[6] = v41;
+  v18[7] = v42;
+  v18[8] = v43;
+  v18[9] = v44;
+  v18[4] = v39;
+  v18[5] = v40;
+  v19 = *(a1 + 32);
   UIRectGetCenter();
-  if (v36)
+  if (v19)
   {
-    v39 = v38;
-    v40 = *(*(a1 + 56) + 8);
-    v41 = v40[7];
-    v60[4] = v40[6];
-    v60[5] = v41;
-    v42 = v40[9];
-    v60[6] = v40[8];
-    v60[7] = v42;
-    v43 = v40[3];
-    v60[0] = v40[2];
-    v60[1] = v43;
-    v44 = v40[5];
-    v60[2] = v40[4];
-    v60[3] = v44;
-    [v36 _anchoredTransformForAnchorPoint:v60 bounds:0.5 center:0.5 transform:{v55, v3, v56, v4, v37, v39}];
-  }
-
-  else
-  {
-    memset(&v60[8], 0, 128);
+    objc_msgSend__anchoredTransformForAnchorPoint_bounds_center_transform_(v19, 0.5, 0.5, v32, v4, v33, v5, v20, v21);
   }
 
   CA_CGRectApplyTransform();
-  *(*(*(a1 + 64) + 8) + 32) = CGRectInset(v61, -(v58 + v57), -(v58 + v57));
+  *(*(*(a1 + 64) + 8) + 32) = CGRectInset(v61, -(v35 + v34), -(v35 + v34));
   [*(*(a1 + 32) + 1176) cropCornersVisibleProgressThreshold];
-  v46 = *(a1 + 112);
-  if (v45 >= v46)
+  v23 = *(a1 + 112);
+  if (v22 >= v23)
   {
-    v46 = v45;
+    v23 = v22;
   }
 
-  *(*(*(a1 + 72) + 8) + 24) = (fmin(v46, 1.0) - v45) / (1.0 - v45) + 0.0;
-  v47 = _UISolariumEnabled();
-  v48 = *(a1 + 32);
-  if (v47)
+  *(*(*(a1 + 72) + 8) + 24) = (fmin(v23, 1.0) - v22) / (1.0 - v22) + 0.0;
+  v24 = _UISolariumEnabled();
+  v25 = *(a1 + 32);
+  if (v24)
   {
-    result = [v48 _contentScaleForCommitProgress:*(a1 + 88) contentInsets:v5 additionalContentTranslation:{v6, v7, v8, *(a1 + 96), *(a1 + 104)}];
-    v52 = v59 * (2.0 / (v50 + v51));
+    result = [v25 _contentScaleForCommitProgress:*(a1 + 88) contentInsets:v6 additionalContentTranslation:{v7, v8, v9, *(a1 + 96), *(a1 + 104)}];
+    v29 = v36 * (2.0 / (v27 + v28));
   }
 
   else
   {
-    result = [v48[147] cornerRadiusVisibleProgressThreshold];
-    v54 = *(a1 + 112);
-    if (v53 >= v54)
+    result = [v25[147] cornerRadiusVisibleProgressThreshold];
+    v31 = *(a1 + 112);
+    if (v30 >= v31)
     {
-      v54 = v53;
+      v31 = v30;
     }
 
-    v52 = v59 + (0.0 - v59) * (fmin(v54, 1.0) - v53) / (1.0 - v53);
+    v29 = v36 + (0.0 - v36) * (fmin(v31, 1.0) - v30) / (1.0 - v30);
   }
 
-  *(*(*(a1 + 80) + 8) + 24) = v52;
+  *(*(*(a1 + 80) + 8) + 24) = v29;
   return result;
 }
 
@@ -2203,7 +2166,7 @@ void __154__SBInteractiveScreenshotGestureRootViewController__updateWithUpdateMo
   }
 }
 
-void __154__SBInteractiveScreenshotGestureRootViewController__updateWithUpdateMode_contentAnimationSettings_commitProgress_additionalContentTranslation_completion___block_invoke_3(uint64_t a1, void (**a2)(id, __CFString *))
+void __154__SBInteractiveScreenshotGestureRootViewController__updateWithUpdateMode_contentAnimationSettings_commitProgress_additionalContentTranslation_completion___block_invoke_3(uint64_t a1, uint64_t (**a2)(id, __CFString *))
 {
   v3 = MEMORY[0x277D75D18];
   v4 = *(a1 + 48);

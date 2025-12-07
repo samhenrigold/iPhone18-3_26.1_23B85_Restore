@@ -17,7 +17,7 @@
 
 - (void)didInsertOrUpdateModel:(id)model changedProperties:(id)properties
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   propertiesCopy = properties;
   v8 = modelCopy;
@@ -42,11 +42,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v28 = 138543618;
-      v29 = v14;
-      v30 = 2112;
-      v31 = v10;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Received notification about modified shared profile photo: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v14;
+      v29 = 2112;
+      v30 = v10;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Received notification about modified shared profile photo: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -57,11 +57,11 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
-      v28 = 138543618;
-      v29 = v19;
-      v30 = 2112;
-      v31 = workingStoreHomeMember;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@updating member %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v19;
+      v29 = 2112;
+      v30 = workingStoreHomeMember;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@updating member %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -77,13 +77,13 @@
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v28 = 138543874;
-        v29 = v26;
-        v30 = 2112;
-        v31 = 0;
-        v32 = 2112;
-        v33 = workingStoreHomeMember;
-        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Found no user %@ for member: %@", &v28, 0x20u);
+        v27 = 138543874;
+        v28 = v26;
+        v29 = 2112;
+        v30 = 0;
+        v31 = 2112;
+        v32 = workingStoreHomeMember;
+        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Found no user %@ for member: %@", &v27, 0x20u);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -91,20 +91,16 @@
 
     [v22 sendSharedUserProfileMetadataUpdatedMessage];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   cloudTransform = [(HMDSharedUserProfilePhotoManager *)self cloudTransform];
   v4 = +[MKFCKSharedUserPhoto entity];
-  v7[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [cloudTransform registerCloudChangeListener:self forEntities:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSharedUserProfilePhotoManager)initWithCloudTransform:(id)transform delegate:(id)delegate
@@ -138,10 +134,9 @@
 
 void __47__HMDSharedUserProfilePhotoManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_127656;
-  logCategory__hmf_once_v5_127656 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_127656;
+  logCategory__hmf_once_v5_127656 = v0;
 }
 
 @end

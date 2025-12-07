@@ -1,6 +1,7 @@
 @interface DYCaptureArchive
 + (BOOL)isFunctionStreamFilename:(id)filename;
 + (BOOL)isInternalFilename:(id)filename;
++ (id)createArchiveInTemporaryDirectoryWithName:(id)name deleteOnClose:(BOOL)close error:(id *)error;
 + (id)getReturnAllFilesPredicate;
 + (id)internalFilenamePredicate;
 + (id)standardFunctionStreamFilenamePredicate;
@@ -18,6 +19,7 @@
 - (BOOL)_writeIndexInPath:(id)path error:(id *)error;
 - (BOOL)_writeMetadataInPath:(id)path error:(id *)error;
 - (BOOL)addAlias:(id)alias forName:(id)name options:(id)options error:(id *)error waitUntilDone:(BOOL)done;
+- (BOOL)addCaptureFile:(id)file options:(id)options error:(id *)error waitUntilDone:(BOOL)done;
 - (BOOL)addFileWithName:(id)name data:(id)data options:(id)options error:(id *)error waitUntilDone:(BOOL)done;
 - (BOOL)addFilesFromArchive:(id)archive error:(id *)error passingTest:(id)test;
 - (BOOL)addTempFileWithName:(id)name options:(id)options fromLocation:(id)location error:(id *)error;
@@ -104,31 +106,31 @@
   return +[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes;
 }
 
-uint64_t __58__DYCaptureArchive_standardFunctionStreamFilenamePrefixes__block_invoke()
+uint64_t __58__DYCaptureArchive_standardFunctionStreamFilenamePrefixes__block_invoke(uint64_t a1, uint64_t a2)
 {
   +[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes = objc_opt_new();
   [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:*MEMORY[0x277D0B1A8]];
   [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:*MEMORY[0x277D0B170]];
   [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:*MEMORY[0x277D0B1B8]];
   [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:*MEMORY[0x277D0B190]];
-  v0 = *MEMORY[0x277D0B198];
-  v1 = *MEMORY[0x277D0B1A0];
+  v2 = *MEMORY[0x277D0B198];
+  v3 = *MEMORY[0x277D0B1A0];
   [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", *MEMORY[0x277D0B198], *MEMORY[0x277D0B1A0])}];
-  v2 = *MEMORY[0x277D0B1B0];
-  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v0, *MEMORY[0x277D0B1B0])}];
-  v3 = *MEMORY[0x277D0B180];
-  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v0, *MEMORY[0x277D0B180])}];
-  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:v1];
-  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:v2];
+  v4 = *MEMORY[0x277D0B1B0];
+  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v2, *MEMORY[0x277D0B1B0])}];
+  v5 = *MEMORY[0x277D0B180];
+  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v2, *MEMORY[0x277D0B180])}];
   [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:v3];
-  v4 = *MEMORY[0x277D0B178];
-  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", *MEMORY[0x277D0B178], v1)}];
-  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v4, v2)}];
-  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v4, v3)}];
-  v5 = +[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes;
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", *MEMORY[0x277D0B1C0], v3];
+  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:v4];
+  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:v5];
+  v6 = *MEMORY[0x277D0B178];
+  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", *MEMORY[0x277D0B178], v3)}];
+  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v6, v4)}];
+  [+[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@-%@", v6, v5)}];
+  v7 = +[DYCaptureArchive standardFunctionStreamFilenamePrefixes]::prefixes;
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", *MEMORY[0x277D0B1C0], v5];
 
-  return [v5 addObject:v6];
+  return [v7 addObject:v8];
 }
 
 + (id)standardFunctionStreamFilenamePredicate
@@ -175,7 +177,7 @@ BOOL __59__DYCaptureArchive_standardFunctionStreamFilenamePredicate__block_invok
   return [objc_msgSend(*(a1 + 32) objectsPassingTest:{v5), "count"}] != 0;
 }
 
-uint64_t __59__DYCaptureArchive_standardFunctionStreamFilenamePredicate__block_invoke_3(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__59__DYCaptureArchive_standardFunctionStreamFilenamePredicate__block_invoke_3(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) hasPrefix:a2];
   *a3 = result;
@@ -240,103 +242,85 @@ id __46__DYCaptureArchive_getReturnAllFilesPredicate__block_invoke()
   return result;
 }
 
++ (id)createArchiveInTemporaryDirectoryWithName:(id)name deleteOnClose:(BOOL)close error:(id *)error
+{
+  closeCopy = close;
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  if (![mainBundle bundleIdentifier])
+  {
+    [objc_msgSend(mainBundle "executablePath")];
+  }
+
+  result = DYFSCreateTempFileURL();
+  if (result)
+  {
+    v9 = [[DYCaptureArchive alloc] initWithURL:result options:2562 error:error];
+    [(DYCaptureArchive *)v9 setDeleteOnClose:closeCopy];
+
+    return v9;
+  }
+
+  return result;
+}
+
 - (BOOL)_createNewArchiveAtPath:(id)path error:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
-  if (([objc_opt_new() createDirectoryAtPath:path withIntermediateDirectories:0 attributes:0 error:error] & 1) == 0)
+  v26[1] = *MEMORY[0x277D85DE8];
+  if ([objc_opt_new() createDirectoryAtPath:path withIntermediateDirectories:0 attributes:0 error:error])
   {
-    v20 = *MEMORY[0x277D0B240];
-LABEL_10:
-    DYLog();
-    goto LABEL_13;
-  }
-
-  self->_header.fourcc = 1667851384;
-  *&self->_header.version = xmmword_24D65A850;
-  v7 = malloc_type_malloc(0x3000uLL, 0x10000403E1C8BA9uLL);
-  self->_hash_table = v7;
-  if (!v7)
-  {
-    goto LABEL_11;
-  }
-
-  __pattern4 = -1;
-  memset_pattern4(v7, &__pattern4, 0x3000uLL);
-  hash_table_length = self->_header.hash_table_length;
-  self->_file_table_capacity = self->_header.hash_table_length >> 1;
-  v9 = 24 * (hash_table_length >> 1);
-  v10 = malloc_type_malloc(v9, 0x1000040504FFAC1uLL);
-  self->_file_table = v10;
-  if (!v10)
-  {
-    goto LABEL_11;
-  }
-
-  bzero(v10, v9);
-  file_table_capacity = self->_file_table_capacity;
-  self->_name_table_capacity = file_table_capacity;
-  v12 = 2 * file_table_capacity;
-  v13 = malloc_type_malloc(2 * file_table_capacity, 0x1000040BDFB0063uLL);
-  self->_name_table = v13;
-  if (!v13)
-  {
-    goto LABEL_11;
-  }
-
-  bzero(v13, v12);
-  v14 = 4 * *MEMORY[0x277D85FA0];
-  self->_string_table_capacity = v14;
-  v15 = malloc_type_malloc(v14, 0xCDC60E25uLL);
-  self->_string_table_storage = v15;
-  if (!v15 || (bzero(v15, self->_string_table_capacity), v16 = 8 * self->_name_table_capacity, v17 = malloc_type_malloc(v16, 0x100004000313F17uLL), (self->_string_table_offsets = v17) == 0))
-  {
-LABEL_11:
-    if (error)
+    self->_header.fourcc = 1667851384;
+    *&self->_header.version = xmmword_24D65A850;
+    v7 = malloc_type_malloc(0x3000uLL, 0x10000403E1C8BA9uLL);
+    self->_hash_table = v7;
+    if (v7 && (__pattern4 = -1, memset_pattern4(v7, &__pattern4, 0x3000uLL), hash_table_length = self->_header.hash_table_length, self->_file_table_capacity = self->_header.hash_table_length >> 1, v9 = 24 * (hash_table_length >> 1), v10 = malloc_type_malloc(v9, 0x1000040504FFAC1uLL), (self->_file_table = v10) != 0) && (bzero(v10, v9), file_table_capacity = self->_file_table_capacity, self->_name_table_capacity = file_table_capacity, v12 = 2 * file_table_capacity, v13 = malloc_type_malloc(2 * file_table_capacity, 0x1000040BDFB0063uLL), (self->_name_table = v13) != 0) && (bzero(v13, v12), v14 = 4 * *MEMORY[0x277D85FA0], self->_string_table_capacity = v14, v15 = malloc_type_malloc(v14, 0xCDC60E25uLL), (self->_string_table_storage = v15) != 0) && (bzero(v15, self->_string_table_capacity), v16 = 8 * self->_name_table_capacity, v17 = malloc_type_malloc(v16, 0x100004000313F17uLL), (self->_string_table_offsets = v17) != 0))
     {
-      v21 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:4 userInfo:0];
+      bzero(v17, v16);
+      v18 = open([objc_msgSend(path stringByAppendingPathComponent:{@"store0", "fileSystemRepresentation"}], 2578, 420);
+      self->_backingStoreFD = v18;
+      if (v18 != -1)
+      {
+        self->_backingStoreSize = 0;
+        self->_backingStoreWritePosition = 0;
+        self->_metadata = objc_opt_new();
+        self->_uuid = CFUUIDCreate(*MEMORY[0x277CBECE8]);
+        result = 1;
+        self->_modified = 1;
+        return result;
+      }
+
+      if (error)
+      {
+        v21 = MEMORY[0x277CCA9B8];
+        v22 = *MEMORY[0x277CCA5B8];
+        v23 = *__error();
+        v25 = *MEMORY[0x277CCA450];
+        v26[0] = @"Failed to create backing store.";
+        *error = [v21 errorWithDomain:v22 code:v23 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v26, &v25, 1)}];
+      }
+
+      DYLog(*MEMORY[0x277D0B240], "failed to create backing store");
+    }
+
+    else if (error)
+    {
+      v20 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:4 userInfo:0];
       result = 0;
-      *error = v21;
-      goto LABEL_14;
+      *error = v20;
+      return result;
     }
-
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
   }
 
-  bzero(v17, v16);
-  v18 = open([objc_msgSend(path stringByAppendingPathComponent:{@"store0", "fileSystemRepresentation"}], 2578, 420);
-  self->_backingStoreFD = v18;
-  if (v18 == -1)
+  else
   {
-    if (error)
-    {
-      v23 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA5B8];
-      v25 = *__error();
-      v28 = *MEMORY[0x277CCA450];
-      v29[0] = @"Failed to create backing store.";
-      *error = [v23 errorWithDomain:v24 code:v25 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v29, &v28, 1)}];
-    }
-
-    v26 = *MEMORY[0x277D0B240];
-    goto LABEL_10;
+    DYLog(*MEMORY[0x277D0B240], "failed to create archive directory");
   }
 
-  self->_backingStoreSize = 0;
-  self->_backingStoreWritePosition = 0;
-  self->_metadata = objc_opt_new();
-  self->_uuid = CFUUIDCreate(*MEMORY[0x277CBECE8]);
-  result = 1;
-  self->_modified = 1;
-LABEL_14:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)_loadArchiveAtPath:(id)path error:(id *)error
 {
-  v129[1] = *MEMORY[0x277D85DE8];
+  v132[1] = *MEMORY[0x277D85DE8];
   isReadOnly = [(DYCaptureArchive *)self isReadOnly];
   if (isReadOnly)
   {
@@ -375,16 +359,17 @@ LABEL_14:
         v19 = @"The index file could not be opened. The file may be in use.";
       }
 
-      v23 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA5B8];
-      v25 = *__error();
-      v128 = *MEMORY[0x277CCA450];
-      v129[0] = v19;
-      *error = [v23 errorWithDomain:v24 code:v25 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v129, &v128, 1)}];
+      v24 = MEMORY[0x277CCA9B8];
+      v25 = *MEMORY[0x277CCA5B8];
+      v26 = *__error();
+      v131 = *MEMORY[0x277CCA450];
+      v132[0] = v19;
+      *error = [v24 errorWithDomain:v25 code:v26 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v132, &v131, 1)}];
     }
 
-    v26 = *MEMORY[0x277D0B240];
-    v107 = *__error();
+    v27 = *MEMORY[0x277D0B240];
+    __error();
+    DYLog(v27, "failed to open index: %d");
     goto LABEL_27;
   }
 
@@ -392,19 +377,22 @@ LABEL_14:
   v11 = fcntl(v9, 3);
   fcntl(v10, 4, v11 & 0xFFFFFFFB);
   fcntl(v10, 48, 1);
-  if (fstat(v10, &v111) == -1)
+  if (fstat(v10, &v114) == -1)
   {
     if (error)
     {
       v20 = MEMORY[0x277CCA9B8];
       v21 = *MEMORY[0x277CCA5B8];
       v22 = *__error();
-      v126 = *MEMORY[0x277CCA450];
-      v127 = @"Failed to stat index.";
-      *error = [v20 errorWithDomain:v21 code:v22 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v127, &v126, 1)}];
+      v129 = *MEMORY[0x277CCA450];
+      v130 = @"Failed to stat index.";
+      *error = [v20 errorWithDomain:v21 code:v22 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v130, &v129, 1)}];
     }
 
-    goto LABEL_109;
+    v23 = *MEMORY[0x277D0B240];
+    __error();
+    DYLog(v23, "failed to stat index: %d");
+    goto LABEL_27;
   }
 
   v12 = read(v10, &self->_header, 0x14uLL);
@@ -412,27 +400,30 @@ LABEL_14:
   {
     v13 = v12;
     close(v10);
-    if (v13 != -1)
+    if (v13 == -1)
     {
-      goto LABEL_8;
+      if (error)
+      {
+        v29 = MEMORY[0x277CCA9B8];
+        v30 = *MEMORY[0x277CCA5B8];
+        v31 = *__error();
+        v127 = *MEMORY[0x277CCA450];
+        v128 = @"Failed to read index.";
+        *error = [v29 errorWithDomain:v30 code:v31 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v128, &v127, 1)}];
+      }
+
+      v32 = *MEMORY[0x277D0B240];
+      __error();
+      DYLog(v32, "failed to read index: %d");
+      goto LABEL_27;
     }
 
-    if (error)
-    {
-      v29 = MEMORY[0x277CCA9B8];
-      v30 = *MEMORY[0x277CCA5B8];
-      v31 = *__error();
-      v124 = *MEMORY[0x277CCA450];
-      v125 = @"Failed to read index.";
-      *error = [v29 errorWithDomain:v30 code:v31 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v125, &v124, 1)}];
-    }
-
-    goto LABEL_109;
+    goto LABEL_8;
   }
 
   if (self->_header.fourcc != 1667851384)
   {
-    goto LABEL_100;
+    goto LABEL_99;
   }
 
   if (self->_header.version)
@@ -443,107 +434,95 @@ LABEL_14:
       v14 = *MEMORY[0x277D0AFB8];
       v15 = MEMORY[0x277D0AFC0];
       v16 = 11;
-      goto LABEL_102;
+      goto LABEL_101;
     }
 
-    goto LABEL_28;
+LABEL_27:
+    LOBYTE(metadata) = 0;
+    return metadata;
   }
 
   file_table_length = self->_header.file_table_length;
   if (file_table_length > self->_header.name_table_length)
   {
-    goto LABEL_100;
+    goto LABEL_99;
   }
 
   hash_table_length = self->_header.hash_table_length;
   if (file_table_length > hash_table_length || !hash_table_length)
   {
-    goto LABEL_100;
+    goto LABEL_99;
   }
 
-  v34 = 12 * hash_table_length;
-  v35 = malloc_type_malloc(12 * hash_table_length, 0x10000403E1C8BA9uLL);
-  self->_hash_table = v35;
-  if (!v35)
+  v35 = 12 * hash_table_length;
+  v36 = malloc_type_malloc(12 * hash_table_length, 0x10000403E1C8BA9uLL);
+  self->_hash_table = v36;
+  if (!v36)
   {
-    goto LABEL_103;
+    goto LABEL_102;
   }
 
-  v36 = read(v10, v35, v34);
-  if (v36 < v34)
+  v37 = read(v10, v36, v35);
+  if (v37 < v35)
   {
-    v37 = v36;
+    v38 = v37;
     close(v10);
-    if (v37 == -1)
+    if (v38 == -1)
     {
       if (error)
       {
-        v38 = MEMORY[0x277CCA9B8];
-        v39 = *MEMORY[0x277CCA5B8];
-        v40 = *__error();
-        v122 = *MEMORY[0x277CCA450];
-        v123 = @"Failed to read index for hash table.";
-        *error = [v38 errorWithDomain:v39 code:v40 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v123, &v122, 1)}];
+        v39 = MEMORY[0x277CCA9B8];
+        v40 = *MEMORY[0x277CCA5B8];
+        v41 = *__error();
+        v125 = *MEMORY[0x277CCA450];
+        v126 = @"Failed to read index for hash table.";
+        *error = [v39 errorWithDomain:v40 code:v41 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v126, &v125, 1)}];
       }
 
-LABEL_109:
-      v105 = *MEMORY[0x277D0B240];
-      v109 = *__error();
-LABEL_27:
-      DYLog();
-LABEL_28:
-      LOBYTE(metadata) = 0;
-      goto LABEL_29;
+      v42 = *MEMORY[0x277D0B240];
+      __error();
+      DYLog(v42, "failed to read index: hash table: %d");
+      goto LABEL_27;
     }
 
     goto LABEL_8;
   }
 
-  v41 = self->_header.file_table_length;
-  if (v41)
+  v43 = self->_header.file_table_length;
+  if (v43)
   {
-    v42 = 24 * v41;
-    v43 = malloc_type_malloc(24 * v41, 0x1000040504FFAC1uLL);
-    self->_file_table = v43;
-    if (!v43)
+    v44 = 24 * v43;
+    v45 = malloc_type_malloc(24 * v43, 0x1000040504FFAC1uLL);
+    self->_file_table = v45;
+    if (!v45)
     {
-      goto LABEL_103;
+      goto LABEL_102;
     }
 
-    v44 = read(v10, v43, v42);
-    if (v44 < v42)
+    v46 = read(v10, v45, v44);
+    if (v46 < v44)
     {
-      v45 = v44;
+      v47 = v46;
       close(v10);
-      if (v45 == -1)
+      if (v47 == -1)
       {
         if (error)
         {
-          v46 = MEMORY[0x277CCA9B8];
-          v47 = *MEMORY[0x277CCA5B8];
-          v48 = *__error();
-          v120 = *MEMORY[0x277CCA450];
-          v121 = @"Failed to read index for file table.";
-          *error = [v46 errorWithDomain:v47 code:v48 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v121, &v120, 1)}];
+          v48 = MEMORY[0x277CCA9B8];
+          v49 = *MEMORY[0x277CCA5B8];
+          v50 = *__error();
+          v123 = *MEMORY[0x277CCA450];
+          v124 = @"Failed to read index for file table.";
+          *error = [v48 errorWithDomain:v49 code:v50 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v124, &v123, 1)}];
         }
 
-        goto LABEL_109;
+        v51 = *MEMORY[0x277D0B240];
+        __error();
+        DYLog(v51, "failed to read index: file table: %d");
+        goto LABEL_27;
       }
 
-LABEL_8:
-      if (error)
-      {
-        v14 = *MEMORY[0x277D0AFB8];
-        v15 = MEMORY[0x277D0AFC0];
-        v16 = 9;
-LABEL_102:
-        v99 = [v15 errorWithDomain:v14 code:v16 userInfo:0];
-        LOBYTE(metadata) = 0;
-        *error = v99;
-        goto LABEL_29;
-      }
-
-      goto LABEL_28;
+      goto LABEL_8;
     }
 
     file_table_capacity = self->_header.file_table_length;
@@ -553,26 +532,26 @@ LABEL_102:
     {
       if (isReadOnly)
       {
-        goto LABEL_91;
+        goto LABEL_90;
       }
 
-LABEL_70:
+LABEL_69:
       self->_name_table_capacity = file_table_capacity;
-      v62 = 2 * file_table_capacity;
-      v63 = malloc_type_malloc(v62, 0x1000040BDFB0063uLL);
-      self->_name_table = v63;
-      bzero(v63, v62);
+      v66 = 2 * file_table_capacity;
+      v67 = malloc_type_malloc(v66, 0x1000040BDFB0063uLL);
+      self->_name_table = v67;
+      bzero(v67, v66);
       if (!self->_name_table)
       {
-        goto LABEL_103;
+        goto LABEL_102;
       }
 
       if (self->_header.name_table_length)
       {
-        goto LABEL_72;
+        goto LABEL_71;
       }
 
-      goto LABEL_79;
+      goto LABEL_78;
     }
   }
 
@@ -581,266 +560,288 @@ LABEL_70:
     name_table_length = self->_header.name_table_length;
     if (!name_table_length)
     {
-      goto LABEL_91;
+      goto LABEL_90;
     }
   }
 
   else
   {
-    v51 = self->_header.hash_table_length;
-    if (v51 <= 3)
+    v54 = self->_header.hash_table_length;
+    if (v54 <= 3)
     {
-      v52 = 1;
+      v55 = 1;
     }
 
     else
     {
-      v52 = v51 >> 1;
+      v55 = v54 >> 1;
     }
 
-    self->_file_table_capacity = v52;
-    v53 = malloc_type_malloc(24 * v52, 0x1000040504FFAC1uLL);
-    self->_file_table = v53;
-    if (!v53)
+    self->_file_table_capacity = v55;
+    v56 = malloc_type_malloc(24 * v55, 0x1000040504FFAC1uLL);
+    self->_file_table = v56;
+    if (!v56)
     {
-      goto LABEL_103;
+      goto LABEL_102;
     }
 
     name_table_length = self->_header.name_table_length;
     if (!name_table_length)
     {
       file_table_capacity = self->_file_table_capacity;
-      goto LABEL_70;
+      goto LABEL_69;
     }
   }
 
-  v54 = 2 * name_table_length;
-  v55 = malloc_type_malloc(v54, 0x1000040BDFB0063uLL);
-  self->_name_table = v55;
-  if (!v55)
+  v57 = 2 * name_table_length;
+  v58 = malloc_type_malloc(v57, 0x1000040BDFB0063uLL);
+  self->_name_table = v58;
+  if (!v58)
   {
-    goto LABEL_103;
+    goto LABEL_102;
   }
 
-  bzero(v55, v54);
-  v56 = read(v10, self->_name_table, v54);
-  if (v56 < v54)
+  bzero(v58, v57);
+  v59 = read(v10, self->_name_table, v57);
+  if (v59 < v57)
   {
-    v57 = v56;
+    v60 = v59;
     close(v10);
-    if (v57 == -1)
+    if (v60 == -1)
     {
       if (error)
       {
-        v58 = MEMORY[0x277CCA9B8];
-        v59 = *MEMORY[0x277CCA5B8];
-        v60 = *__error();
-        v118 = *MEMORY[0x277CCA450];
-        v119 = @"Failed to read index for name table.";
-        *error = [v58 errorWithDomain:v59 code:v60 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v119, &v118, 1)}];
+        v61 = MEMORY[0x277CCA9B8];
+        v62 = *MEMORY[0x277CCA5B8];
+        v63 = *__error();
+        v121 = *MEMORY[0x277CCA450];
+        v122 = @"Failed to read index for name table.";
+        *error = [v61 errorWithDomain:v62 code:v63 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v122, &v121, 1)}];
       }
 
-      goto LABEL_109;
+      v64 = *MEMORY[0x277D0B240];
+      __error();
+      DYLog(v64, "failed to read index: name table: %d");
+      goto LABEL_27;
     }
 
-    goto LABEL_8;
+LABEL_8:
+    if (error)
+    {
+      v14 = *MEMORY[0x277D0AFB8];
+      v15 = MEMORY[0x277D0AFC0];
+      v16 = 9;
+LABEL_101:
+      v105 = [v15 errorWithDomain:v14 code:v16 userInfo:0];
+      LOBYTE(metadata) = 0;
+      *error = v105;
+      return metadata;
+    }
+
+    goto LABEL_27;
   }
 
-  v61 = self->_header.name_table_length;
-  self->_name_table_capacity = v61;
-  if (v61)
+  v65 = self->_header.name_table_length;
+  self->_name_table_capacity = v65;
+  if (v65)
   {
-LABEL_72:
-    v64 = lseek(v10, 0, 1);
-    if (v64 == -1)
+LABEL_71:
+    v68 = lseek(v10, 0, 1);
+    if (v68 == -1)
     {
       if (error)
       {
-        v78 = MEMORY[0x277CCA9B8];
-        v79 = *MEMORY[0x277CCA5B8];
-        v80 = *__error();
-        v116 = *MEMORY[0x277CCA450];
-        v117 = @"Failed to lseek for index.";
-        *error = [v78 errorWithDomain:v79 code:v80 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v117, &v116, 1)}];
+        v83 = MEMORY[0x277CCA9B8];
+        v84 = *MEMORY[0x277CCA5B8];
+        v85 = *__error();
+        v119 = *MEMORY[0x277CCA450];
+        v120 = @"Failed to lseek for index.";
+        *error = [v83 errorWithDomain:v84 code:v85 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v120, &v119, 1)}];
       }
 
-      v81 = *MEMORY[0x277D0B240];
-      v108 = *__error();
-      DYLog();
+      v86 = *MEMORY[0x277D0B240];
+      v87 = __error();
+      DYLog(v86, "failed to lseek index: %d", *v87);
       close(v10);
-      goto LABEL_28;
+      goto LABEL_27;
     }
 
-    v65 = v111.st_size - v64;
-    v66 = (v111.st_size - v64 + *MEMORY[0x277D85FA0]) & -*MEMORY[0x277D85FA0];
-    self->_string_table_capacity = v66;
-    v67 = malloc_type_malloc(v66, 0x9C91F5FCuLL);
-    self->_string_table_storage = v67;
-    if (v67)
+    v69 = v114.st_size - v68;
+    v70 = (v114.st_size - v68 + *MEMORY[0x277D85FA0]) & -*MEMORY[0x277D85FA0];
+    self->_string_table_capacity = v70;
+    v71 = malloc_type_malloc(v70, 0x9C91F5FCuLL);
+    self->_string_table_storage = v71;
+    if (v71)
     {
-      bzero(&v67[v65], self->_string_table_capacity - v65);
-      v68 = read(v10, self->_string_table_storage, v65);
-      if (v68 < v65)
+      bzero(&v71[v69], self->_string_table_capacity - v69);
+      v72 = read(v10, self->_string_table_storage, v69);
+      if (v72 < v69)
       {
-        v69 = v68;
+        v73 = v72;
         close(v10);
-        if (v69 == -1)
+        if (v73 == -1)
         {
           if (error)
           {
-            v70 = MEMORY[0x277CCA9B8];
-            v71 = *MEMORY[0x277CCA5B8];
-            v72 = *__error();
-            v114 = *MEMORY[0x277CCA450];
-            v115 = @"Failed to read index for string index.";
-            *error = [v70 errorWithDomain:v71 code:v72 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v115, &v114, 1)}];
+            v74 = MEMORY[0x277CCA9B8];
+            v75 = *MEMORY[0x277CCA5B8];
+            v76 = *__error();
+            v117 = *MEMORY[0x277CCA450];
+            v118 = @"Failed to read index for string index.";
+            *error = [v74 errorWithDomain:v75 code:v76 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v118, &v117, 1)}];
           }
 
-          goto LABEL_109;
+          v77 = *MEMORY[0x277D0B240];
+          __error();
+          DYLog(v77, "failed to read index: string table: %d");
+          goto LABEL_27;
         }
 
         goto LABEL_8;
       }
 
-      v82 = 8 * self->_name_table_capacity;
-      v83 = malloc_type_malloc(v82, 0x100004000313F17uLL);
-      self->_string_table_offsets = v83;
-      if (v83)
+      v88 = 8 * self->_name_table_capacity;
+      v89 = malloc_type_malloc(v88, 0x100004000313F17uLL);
+      self->_string_table_offsets = v89;
+      if (v89)
       {
-        v77 = v65 + 1;
-        bzero(v83, v82);
-        goto LABEL_87;
+        v82 = v69 + 1;
+        bzero(v89, v88);
+        goto LABEL_86;
       }
     }
 
-    goto LABEL_103;
+    goto LABEL_102;
   }
 
   if (!isReadOnly)
   {
-LABEL_79:
-    v73 = 4 * *MEMORY[0x277D85FA0];
-    self->_string_table_capacity = v73;
-    v74 = malloc_type_malloc(v73, 0xE6050ABAuLL);
-    self->_string_table_storage = v74;
-    if (v74)
+LABEL_78:
+    v78 = 4 * *MEMORY[0x277D85FA0];
+    self->_string_table_capacity = v78;
+    v79 = malloc_type_malloc(v78, 0xE6050ABAuLL);
+    self->_string_table_storage = v79;
+    if (v79)
     {
-      bzero(v74, self->_string_table_capacity);
-      v75 = 8 * self->_name_table_capacity;
-      v76 = malloc_type_malloc(v75, 0x100004000313F17uLL);
-      self->_string_table_offsets = v76;
-      if (v76)
+      bzero(v79, self->_string_table_capacity);
+      v80 = 8 * self->_name_table_capacity;
+      v81 = malloc_type_malloc(v80, 0x100004000313F17uLL);
+      self->_string_table_offsets = v81;
+      if (v81)
       {
-        bzero(v76, v75);
-        v77 = 0;
-LABEL_87:
-        v84 = self->_header.name_table_length;
-        if (v84 < 2)
+        bzero(v81, v80);
+        v82 = 0;
+LABEL_86:
+        v90 = self->_header.name_table_length;
+        if (v90 < 2)
         {
-          goto LABEL_91;
+          goto LABEL_90;
         }
 
         string_table_offsets = self->_string_table_offsets;
         name_table = self->_name_table;
-        v89 = *string_table_offsets;
-        v87 = string_table_offsets + 1;
-        v88 = v89;
-        v90 = v84 - 1;
+        v95 = *string_table_offsets;
+        v93 = string_table_offsets + 1;
+        v94 = v95;
+        v96 = v90 - 1;
         while (1)
         {
           var0 = name_table->var0;
           ++name_table;
-          v88 += var0;
-          if (v88 > v77)
+          v94 += var0;
+          if (v94 > v82)
           {
             break;
           }
 
-          *v87++ = v88;
-          if (!--v90)
+          *v93++ = v94;
+          if (!--v96)
           {
-            goto LABEL_91;
+            goto LABEL_90;
           }
         }
 
-LABEL_100:
+LABEL_99:
         close(v10);
         if (error)
         {
           v14 = *MEMORY[0x277D0AFB8];
           v15 = MEMORY[0x277D0AFC0];
           v16 = 10;
-          goto LABEL_102;
+          goto LABEL_101;
         }
 
-        goto LABEL_28;
+        goto LABEL_27;
       }
     }
 
-LABEL_103:
+LABEL_102:
     close(v10);
     if (error)
     {
       v14 = *MEMORY[0x277D0AFB8];
       v15 = MEMORY[0x277D0AFC0];
       v16 = 4;
-      goto LABEL_102;
+      goto LABEL_101;
     }
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-LABEL_91:
+LABEL_90:
   close(v10);
-  v92 = open([objc_msgSend(path stringByAppendingPathComponent:{@"store0", "fileSystemRepresentation"}], v8);
-  self->_backingStoreFD = v92;
-  if (v92 == -1)
+  v98 = open([objc_msgSend(path stringByAppendingPathComponent:{@"store0", "fileSystemRepresentation"}], v8);
+  self->_backingStoreFD = v98;
+  if (v98 == -1)
   {
     if (error)
     {
-      v102 = MEMORY[0x277CCA9B8];
-      v103 = *MEMORY[0x277CCA5B8];
-      v104 = *__error();
-      v112 = *MEMORY[0x277CCA450];
-      v113 = @"Failed to open backing store.";
-      *error = [v102 errorWithDomain:v103 code:v104 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v113, &v112, 1)}];
+      v108 = MEMORY[0x277CCA9B8];
+      v109 = *MEMORY[0x277CCA5B8];
+      v110 = *__error();
+      v115 = *MEMORY[0x277CCA450];
+      v116 = @"Failed to open backing store.";
+      *error = [v108 errorWithDomain:v109 code:v110 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v116, &v115, 1)}];
     }
 
-    goto LABEL_109;
+    v111 = *MEMORY[0x277D0B240];
+    __error();
+    DYLog(v111, "failed to open backing store: %d");
+    goto LABEL_27;
   }
 
-  v93 = v92;
-  v94 = fcntl(v92, 3);
-  fcntl(v93, 4, v94 & 0xFFFFFFFB);
-  if (fstat(self->_backingStoreFD, &v110) == -1 || (st_size = v110.st_size, self->_backingStoreSize = v110.st_size, self->_backingStoreWritePosition = st_size, lseek(self->_backingStoreFD, st_size, 0) == -1))
+  v99 = v98;
+  v100 = fcntl(v98, 3);
+  fcntl(v99, 4, v100 & 0xFFFFFFFB);
+  if (fstat(self->_backingStoreFD, &v113) == -1 || (st_size = v113.st_size, self->_backingStoreSize = v113.st_size, self->_backingStoreWritePosition = st_size, lseek(self->_backingStoreFD, st_size, 0) == -1))
   {
     if (error)
     {
-      v100 = MEMORY[0x277CCA9B8];
-      v101 = *MEMORY[0x277CCA5B8];
+      v106 = MEMORY[0x277CCA9B8];
+      v107 = *MEMORY[0x277CCA5B8];
       v16 = *__error();
-      v15 = v100;
-      v14 = v101;
-      goto LABEL_102;
+      v15 = v106;
+      v14 = v107;
+      goto LABEL_101;
     }
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   metadata = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:objc_msgSend(path options:"stringByAppendingPathComponent:" error:{@"metadata", 0, error}];
   if (metadata)
   {
-    v96 = metadata;
+    v102 = metadata;
     self->_metadata = [objc_msgSend(MEMORY[0x277CCAC58] propertyListWithData:metadata options:0 format:0 error:{error), "mutableCopy"}];
 
     metadata = self->_metadata;
     if (metadata)
     {
-      v97 = [(NSMutableDictionary *)metadata objectForKey:@"(uuid)"];
-      v98 = MEMORY[0x277CBECE8];
-      if (v97)
+      v103 = [(NSMutableDictionary *)metadata objectForKey:@"(uuid)"];
+      v104 = MEMORY[0x277CBECE8];
+      if (v103)
       {
-        self->_uuid = CFUUIDCreateFromString(*MEMORY[0x277CBECE8], v97);
+        self->_uuid = CFUUIDCreateFromString(*MEMORY[0x277CBECE8], v103);
         [(NSMutableDictionary *)self->_metadata removeObjectForKey:@"(uuid)"];
       }
 
@@ -851,7 +852,7 @@ LABEL_91:
 
       else
       {
-        self->_uuid = CFUUIDCreate(*v98);
+        self->_uuid = CFUUIDCreate(*v104);
         LOBYTE(metadata) = 1;
         if (!isReadOnly)
         {
@@ -861,8 +862,6 @@ LABEL_91:
     }
   }
 
-LABEL_29:
-  v28 = *MEMORY[0x277D85DE8];
   return metadata;
 }
 
@@ -930,20 +929,20 @@ LABEL_29:
 
 - (DYCaptureArchive)initWithURL:(id)l options:(int64_t)options error:(id *)error
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   self->_lock_readers = 0;
   self->_lock_global_semaphore = dispatch_semaphore_create(1);
   self->_blocking_readers = 0;
   v9 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"gputools.%@.%p", objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", object_getClassName(self)), self), "UTF8String"];
   self->_write_queue = dispatch_queue_create(v9, 0);
   self->_add_group = dispatch_group_create();
-  v37.receiver = self;
-  v37.super_class = DYCaptureArchive;
-  v10 = [(DYCaptureArchive *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = DYCaptureArchive;
+  v10 = [(DYCaptureArchive *)&v36 init];
   v11 = v10;
   if (!v10)
   {
-    goto LABEL_30;
+    return v11;
   }
 
   v10->_backingStoreFD = -1;
@@ -954,11 +953,11 @@ LABEL_29:
     {
       v12 = MEMORY[0x277D0AFC0];
       v13 = *MEMORY[0x277CCA5B8];
-      v42 = *MEMORY[0x277CCA450];
-      v43[0] = @"Received unexpected options.";
+      v41 = *MEMORY[0x277CCA450];
+      v42[0] = @"Received unexpected options.";
       v14 = MEMORY[0x277CBEAC0];
-      v15 = v43;
-      v16 = &v42;
+      v15 = v42;
+      v16 = &v41;
 LABEL_5:
       v17 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
       v18 = v12;
@@ -989,9 +988,9 @@ LABEL_28:
       {
         v25 = MEMORY[0x277D0AFC0];
         v26 = *MEMORY[0x277CCA5B8];
-        v40 = *MEMORY[0x277CCA450];
-        v41 = @"File already exists.";
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        v39 = *MEMORY[0x277CCA450];
+        v40 = @"File already exists.";
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
         v18 = v25;
         v19 = v26;
         v20 = 17;
@@ -1033,11 +1032,11 @@ LABEL_27:
 
       v12 = MEMORY[0x277D0AFC0];
       v13 = *MEMORY[0x277CCA5B8];
-      v38 = *MEMORY[0x277CCA450];
-      v39 = @"File exists and is read only.";
+      v37 = *MEMORY[0x277CCA450];
+      v38 = @"File exists and is read only.";
       v14 = MEMORY[0x277CBEAC0];
-      v15 = &v39;
-      v16 = &v38;
+      v15 = &v38;
+      v16 = &v37;
       goto LABEL_5;
     }
 
@@ -1045,8 +1044,7 @@ LABEL_27:
     {
 LABEL_29:
 
-      v11 = 0;
-      goto LABEL_30;
+      return 0;
     }
   }
 
@@ -1103,8 +1101,6 @@ LABEL_25:
   v11->_scratchSize = v34;
   v11->_scratch = malloc_type_malloc(16 * v34, 0x100004077774924uLL);
   [(DYCaptureArchive *)v11 initCache];
-LABEL_30:
-  v35 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1112,9 +1108,7 @@ LABEL_30:
 {
   if (self->_modified)
   {
-    v3 = *MEMORY[0x277D0B248];
-    selfCopy = self;
-    DYLog();
+    DYLog(*MEMORY[0x277D0B248], "deallocating modified archive <%p>, data has been lost!", self);
   }
 
   [(DYCaptureArchive *)self discardAndClose];
@@ -1155,26 +1149,26 @@ LABEL_30:
   {
     if (self->_header.file_table_length)
     {
+      v9 = 0;
       v10 = 0;
-      v11 = 0;
-      v12 = MEMORY[0x277D85F48];
+      v11 = MEMORY[0x277D85F48];
       do
       {
-        v13 = self->_cacheTable.__begin_ + v10;
-        dispatch_release(*(v13 + 3));
-        *(v13 + 3) = 0;
-        if (*v13)
+        v12 = self->_cacheTable.__begin_ + v9;
+        dispatch_release(*(v12 + 3));
+        *(v12 + 3) = 0;
+        if (*v12)
         {
-          mach_vm_deallocate(*v12, *v13, *(v13 + 1));
-          *v13 = 0;
-          *(v13 + 1) = 0;
+          mach_vm_deallocate(*v11, *v12, *(v12 + 1));
+          *v12 = 0;
+          *(v12 + 1) = 0;
         }
 
-        ++v11;
-        v10 += 32;
+        ++v10;
+        v9 += 32;
       }
 
-      while (v11 < self->_header.file_table_length);
+      while (v10 < self->_header.file_table_length);
       begin = self->_cacheTable.__begin_;
     }
 
@@ -1233,9 +1227,9 @@ LABEL_30:
     self->_read_buffer_sem = 0;
   }
 
-  v23.receiver = self;
-  v23.super_class = DYCaptureArchive;
-  [(DYCaptureArchive *)&v23 dealloc];
+  v21.receiver = self;
+  v21.super_class = DYCaptureArchive;
+  [(DYCaptureArchive *)&v21 dealloc];
 }
 
 - (NSURL)url
@@ -1484,35 +1478,32 @@ LABEL_30:
 
 - (id)filenamesAtIndexes:(id)indexes
 {
-  v14[50] = *MEMORY[0x277D85DE8];
-  v13[0] = 0;
-  v13[1] = [(DYCaptureArchive *)self countOfFilenames];
+  v12[50] = *MEMORY[0x277D85DE8];
+  v11[0] = 0;
+  v11[1] = [(DYCaptureArchive *)self countOfFilenames];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   do
   {
-    v6 = [indexes getIndexes:v14 maxCount:50 inIndexRange:v13];
-    v7 = v14[v6 - 1] - v14[0];
+    v6 = [indexes getIndexes:v12 maxCount:50 inIndexRange:v11];
     [(DYCaptureArchive *)self _fillStringTableNSCacheForRange:?];
     if (!v6)
     {
       break;
     }
 
-    v8 = 0;
-    v9 = 1;
+    v7 = 0;
+    v8 = 1;
     do
     {
-      [v5 addObject:self->_string_table_nscache[v14[v8]]];
-      v8 = v9;
+      [v5 addObject:self->_string_table_nscache[v12[v7]]];
+      v7 = v8;
     }
 
-    while (v6 > v9++);
+    while (v6 > v8++);
   }
 
   while (v6 >= 0x32);
-  result = v5;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5;
 }
 
 - (void)getFilenames:(id *)filenames range:(_NSRange)range
@@ -1571,7 +1562,7 @@ LABEL_30:
 
         v13 = (8 * (v9 >> 3));
         *v13 = v5;
-        end = v13 + 1;
+        end = (v13 + 1);
         memcpy(0, begin, v9);
         v14 = retstr->__begin_;
         retstr->__begin_ = 0;
@@ -1585,7 +1576,8 @@ LABEL_30:
 
       else
       {
-        *end++ = v5;
+        end->i64[0] = v5;
+        end = (end + 8);
       }
 
       retstr->__end_ = end;
@@ -1601,7 +1593,7 @@ LABEL_30:
   }
 
   v15 = retstr->__begin_;
-  v16 = 126 - 2 * __clz(end - retstr->__begin_);
+  v16 = 126 - 2 * __clz((end - retstr->__begin_) >> 3);
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
   v19[2] = __56__DYCaptureArchive_getSortedFilePositionsForDataCaching__block_invoke;
@@ -1851,21 +1843,7 @@ LABEL_11:
 {
   v7 = [objc_msgSend(path stringByAppendingPathComponent:{@".index", "fileSystemRepresentation"}];
   v8 = open(v7, 1570, 420);
-  if (v8 == -1)
-  {
-    goto LABEL_39;
-  }
-
-  v9 = v8;
-  hash_table_length = self->_header.hash_table_length;
-  v11 = 12 * hash_table_length;
-  v12 = 24 * self->_header.file_table_length;
-  name_table_length = self->_header.name_table_length;
-  v14 = 2 * name_table_length;
-  v33 = self->_header.name_table_length;
-  file_table_length = self->_header.file_table_length;
-  v15 = name_table_length ? self->_string_table_offsets[(name_table_length - 1)] + self->_name_table[(name_table_length - 1)].var0 : 0;
-  if (ftruncate(v8, v11 + v12 + v14 + v15 + 20) == -1)
+  if (v8 == -1 || ((v9 = v8, hash_table_length = self->_header.hash_table_length, v11 = 12 * hash_table_length, v12 = 24 * self->_header.file_table_length, name_table_length = self->_header.name_table_length, v14 = 2 * name_table_length, v33 = self->_header.name_table_length, file_table_length = self->_header.file_table_length, !name_table_length) ? (v15 = 0) : (v15 = self->_string_table_offsets[(name_table_length - 1)] + self->_name_table[(name_table_length - 1)].var0), ftruncate(v8, v11 + v12 + v14 + v15 + 20) == -1))
   {
 LABEL_39:
     if (!error)
@@ -2011,7 +1989,7 @@ LABEL_38:
 
 - (BOOL)_performCommit:(id *)commit
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (!self->_modified)
   {
     goto LABEL_17;
@@ -2030,7 +2008,7 @@ LABEL_6:
       v9 = [v6 errorWithDomain:v5 code:v7 userInfo:v8];
       LOBYTE(v10) = 0;
       *commit = v9;
-      goto LABEL_23;
+      return v10;
     }
 
     goto LABEL_22;
@@ -2065,7 +2043,7 @@ LABEL_6:
 
 LABEL_22:
       LOBYTE(v10) = 0;
-      goto LABEL_23;
+      return v10;
     }
 
     self->_backingStoreSize = self->_backingStoreWritePosition;
@@ -2077,9 +2055,9 @@ LABEL_22:
     {
       v13 = MEMORY[0x277CCA9B8];
       v14 = *MEMORY[0x277D0AFB8];
-      v19 = *MEMORY[0x277CCA450];
-      v20[0] = @"Capture archive path is nil";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277CCA450];
+      v19[0] = @"Capture archive path is nil";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v6 = v13;
       v5 = v14;
       v7 = 14;
@@ -2101,8 +2079,6 @@ LABEL_17:
     }
   }
 
-LABEL_23:
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2283,13 +2259,11 @@ intptr_t __52__DYCaptureArchive_commitForExport_progressHandler___block_invoke_2
 {
   dsema = *(*(a1 + 32) + 232);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-  v8 = 0;
-  if (([*(a1 + 32) _performFinalizeAddFileAtPosition:**(a1 + 64) name:*(a1 + 40) data:*(a1 + 48) error:&v8] & 1) == 0)
+  v6 = 0;
+  if (([*(a1 + 32) _performFinalizeAddFileAtPosition:**(a1 + 64) name:*(a1 + 40) data:*(a1 + 48) error:&v6] & 1) == 0)
   {
-    v2 = *MEMORY[0x277D0B240];
-    v3 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = v8;
+    v3 = *(a1 + 40);
+    v4 = v6;
     _DYOLog();
   }
 
@@ -2343,7 +2317,6 @@ intptr_t __35__DYCaptureArchive_discardAndClose__block_invoke(uint64_t a1)
 {
   if (self->_modified)
   {
-    v3 = *MEMORY[0x277D0B250];
     _DYOLog();
   }
 
@@ -2615,11 +2588,9 @@ intptr_t __65__DYCaptureArchive_addAlias_forName_options_error_waitUntilDone___b
 {
   dsema = *(*(a1 + 32) + 232);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = 0;
-  if (([*(a1 + 32) _performAddAlias:*(a1 + 40) targetting:*(a1 + 48) error:&v6] & 1) == 0)
+  v4 = 0;
+  if (([*(a1 + 32) _performAddAlias:*(a1 + 40) targetting:*(a1 + 48) error:&v4] & 1) == 0)
   {
-    v2 = *(a1 + 32);
-    v3 = *MEMORY[0x277D0B240];
     _DYOLog();
   }
 
@@ -2682,7 +2653,7 @@ LABEL_7:
 
 - (BOOL)_performFinalizeAddFileAtPosition:(unsigned int)position name:(id)name data:(id)data error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v10 = &self->_file_table[position];
   v10->var1.var0 = [data length];
   v10->var2 = self->_store_write_ptr + self->_backingStoreWritePosition - self->_store_write_buffer;
@@ -2706,7 +2677,7 @@ LABEL_7:
       {
 LABEL_9:
         LOBYTE(v18) = 0;
-        goto LABEL_24;
+        return v18;
       }
 
       store_write_buffer = self->_store_write_buffer;
@@ -2736,36 +2707,36 @@ LABEL_9:
   }
 
   v19 = [(NSMutableDictionary *)self->_aliasCreationMap objectForKey:name];
-  if (!v19 || (v20 = v19, ![v19 count]) || (v29 = 0u, v30 = 0u, v27 = 0u, v28 = 0u, (v21 = objc_msgSend(v20, "countByEnumeratingWithState:objects:count:", &v27, v31, 16)) == 0))
+  if (!v19 || (v20 = v19, ![v19 count]) || (v28 = 0u, v29 = 0u, v26 = 0u, v27 = 0u, (v21 = objc_msgSend(v20, "countByEnumeratingWithState:objects:count:", &v26, v30, 16)) == 0))
   {
 LABEL_22:
     objc_opt_self();
 LABEL_23:
     LOBYTE(v18) = 1;
     self->_modified = 1;
-    goto LABEL_24;
+    return v18;
   }
 
   v22 = v21;
-  v23 = *v28;
+  v23 = *v27;
 LABEL_16:
   v24 = 0;
   while (1)
   {
-    if (*v28 != v23)
+    if (*v27 != v23)
     {
       objc_enumerationMutation(v20);
     }
 
-    v18 = [(DYCaptureArchive *)self _performAddAlias:*(*(&v27 + 1) + 8 * v24) targetting:name error:error];
+    v18 = [(DYCaptureArchive *)self _performAddAlias:*(*(&v26 + 1) + 8 * v24) targetting:name error:error];
     if (!v18)
     {
-      break;
+      return v18;
     }
 
     if (v22 == ++v24)
     {
-      v22 = [v20 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v22)
       {
         goto LABEL_16;
@@ -2774,10 +2745,6 @@ LABEL_16:
       goto LABEL_22;
     }
   }
-
-LABEL_24:
-  v25 = *MEMORY[0x277D85DE8];
-  return v18;
 }
 
 - (BOOL)addFileWithName:(id)name data:(id)data options:(id)options error:(id *)error waitUntilDone:(BOOL)done
@@ -2904,24 +2871,21 @@ void __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___b
   v3 = *(a1 + 32);
   if (*(v3 + 264) == -1)
   {
-    v9 = *(v3 + 216);
+    v7 = *(v3 + 216);
 
-    dispatch_group_leave(v9);
+    dispatch_group_leave(v7);
   }
 
   else
   {
-    v14[5] = v1;
-    v14[6] = v2;
+    v11[5] = v1;
+    v11[6] = v2;
     dispatch_semaphore_wait(*(v3 + 232), 0xFFFFFFFFFFFFFFFFLL);
-    v14[0] = 0;
-    v5 = [*(a1 + 32) _performAddFileWithName:*(a1 + 40) dataSize:objc_msgSend(*(a1 + 48) error:{"length"), v14}];
+    v11[0] = 0;
+    v5 = [*(a1 + 32) _performAddFileWithName:*(a1 + 40) dataSize:objc_msgSend(*(a1 + 48) error:{"length"), v11}];
     dispatch_semaphore_signal(*(*(a1 + 32) + 232));
     if (v5 == -1)
     {
-      v7 = *MEMORY[0x277D0B240];
-      v8 = *(a1 + 32);
-      v10 = *(a1 + 40);
       _DYOLog();
       dispatch_group_leave(*(*(a1 + 32) + 216));
     }
@@ -2934,8 +2898,8 @@ void __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___b
       block[2] = __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___block_invoke_3;
       block[3] = &unk_2793099F0;
       block[4] = *(a1 + 32);
-      v12 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-      v13 = v5;
+      v9 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+      v10 = v5;
       dispatch_async(global_queue, block);
     }
   }
@@ -2946,17 +2910,17 @@ void __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___b
   v3 = *(a1 + 32);
   if (*(v3 + 264) == -1)
   {
-    v10 = *(v3 + 216);
+    v9 = *(v3 + 216);
 
-    dispatch_group_leave(v10);
+    dispatch_group_leave(v9);
   }
 
   else
   {
-    v14[3] = v1;
-    v14[4] = v2;
-    v14[0] = 0;
-    v5 = [MEMORY[0x277CBEA90] dy_dataByCompressingData:*(a1 + 40) error:v14];
+    v12[3] = v1;
+    v12[4] = v2;
+    v12[0] = 0;
+    v5 = [MEMORY[0x277CBEA90] dy_dataByCompressingData:*(a1 + 40) error:v12];
     v6 = *(a1 + 32);
     if (v5)
     {
@@ -2965,7 +2929,7 @@ void __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___b
       block[1] = 3221225472;
       block[2] = __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___block_invoke_4;
       block[3] = &unk_2793099F0;
-      v13 = *(a1 + 56);
+      v11 = *(a1 + 56);
       v8 = *(a1 + 48);
       block[4] = v6;
       block[5] = v8;
@@ -2975,8 +2939,6 @@ void __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___b
 
     else
     {
-      v9 = *MEMORY[0x277D0B240];
-      v11 = *(a1 + 48);
       _DYOLog();
       dispatch_group_leave(*(*(a1 + 32) + 216));
     }
@@ -2988,22 +2950,19 @@ void __69__DYCaptureArchive_addFileWithName_data_options_error_waitUntilDone___b
   v3 = *(a1 + 32);
   if (*(v3 + 264) == -1)
   {
-    v7 = *(v3 + 216);
+    v5 = *(v3 + 216);
 
-    dispatch_group_leave(v7);
+    dispatch_group_leave(v5);
   }
 
   else
   {
-    v9[3] = v1;
-    v9[4] = v2;
+    v6[3] = v1;
+    v6[4] = v2;
     dispatch_semaphore_wait(*(v3 + 232), 0xFFFFFFFFFFFFFFFFLL);
-    v9[0] = 0;
-    if (([*(a1 + 32) _performFinalizeAddFileAtPosition:*(a1 + 56) name:*(a1 + 40) data:*(a1 + 48) error:v9] & 1) == 0)
+    v6[0] = 0;
+    if (([*(a1 + 32) _performFinalizeAddFileAtPosition:*(a1 + 56) name:*(a1 + 40) data:*(a1 + 48) error:v6] & 1) == 0)
     {
-      v5 = *MEMORY[0x277D0B240];
-      v6 = *(a1 + 32);
-      v8 = *(a1 + 40);
       _DYOLog();
     }
 
@@ -3129,6 +3088,21 @@ intptr_t __67__DYCaptureArchive_addTempFileWithName_options_fromLocation_error__
   return dispatch_semaphore_signal(dsema);
 }
 
+- (BOOL)addCaptureFile:(id)file options:(id)options error:(id *)error waitUntilDone:(BOOL)done
+{
+  doneCopy = done;
+  v11 = [file copyMutableData:error];
+  if (!v11)
+  {
+    return 1;
+  }
+
+  v12 = v11;
+  v13 = -[DYCaptureArchive addFileWithName:data:options:error:waitUntilDone:](self, "addFileWithName:data:options:error:waitUntilDone:", [file name], v11, options, error, doneCopy);
+
+  return v13;
+}
+
 - (BOOL)addFilesFromArchive:(id)archive error:(id *)error passingTest:(id)test
 {
   if (![(DYCaptureArchive *)self isReadOnly])
@@ -3194,7 +3168,7 @@ LABEL_7:
   return v12 & 1;
 }
 
-uint64_t __58__DYCaptureArchive_addFilesFromArchive_error_passingTest___block_invoke(uint64_t a1, uint64_t a2)
+void *__58__DYCaptureArchive_addFilesFromArchive_error_passingTest___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -3360,8 +3334,6 @@ void *__58__DYCaptureArchive_addFilesFromArchive_error_passingTest___block_invok
   v15 = [*(a1 + 48) _performAddFileWithName:a2 dataSize:*(*(*(a1 + 32) + 64) + 24 * *v10) error:*(a1 + 64)];
   if (v15 == -1)
   {
-    v18 = *(a1 + 48);
-    v19 = *MEMORY[0x277D0B240];
     result = _DYOLog();
     goto LABEL_19;
   }
@@ -3650,30 +3622,30 @@ intptr_t __53__DYCaptureArchive_replaceDataOfFile_withData_error___block_invoke(
 
 intptr_t __52__DYCaptureArchive_updateDataReferenceCounts_error___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24 = *(*(a1 + 32) + 232);
-  v25 = v24;
-  dsema = v24;
-  dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
+  v26 = *MEMORY[0x277D85DE8];
+  v23 = *(*(a1 + 32) + 232);
+  v24 = v23;
+  dsema = v23;
+  dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v26 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v25 count:16];
   if (v3)
   {
-    v4 = *v20;
+    v4 = *v19;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v20 != v4)
+        if (*v19 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v19 + 1) + 8 * i);
+        v6 = *(*(&v18 + 1) + 8 * i);
         v7 = [objc_msgSend(*(a1 + 32) _getCFilename:v6 outSize:0 error:{*(a1 + 72)), "bytes"}];
         if (!v7)
         {
@@ -3700,7 +3672,7 @@ intptr_t __52__DYCaptureArchive_updateDataReferenceCounts_error___block_invoke(u
         *(v10 + 24 * v11 + 20) = [objc_msgSend(*(a1 + 40) objectForKey:{v6), "unsignedIntValue"}];
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v19 objects:v26 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v18 objects:v25 count:16];
       if (v3)
       {
         continue;
@@ -3712,9 +3684,7 @@ intptr_t __52__DYCaptureArchive_updateDataReferenceCounts_error___block_invoke(u
 
 LABEL_13:
   dispatch_semaphore_signal(*(a1 + 48));
-  result = dispatch_semaphore_signal(dsema);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(dsema);
 }
 
 - (void)initCache
@@ -5295,8 +5265,6 @@ LABEL_20:
     v16 = (v15 + 12 * (v10 % v13));
     if (*v16 != -1)
     {
-      v17 = *(v9 + 88);
-      v18 = *(v9 + 104);
       if (!OUTLINED_FUNCTION_1(v16))
       {
         return v14;
@@ -5304,35 +5272,35 @@ LABEL_20:
 
       if (v14 + 1 == v13)
       {
-        v19 = 0;
+        v17 = 0;
       }
 
       else
       {
-        v19 = v14 + 1;
+        v17 = v14 + 1;
       }
 
-      while (v19 != v14)
+      while (v17 != v14)
       {
-        v20 = (v15 + 12 * v19);
-        if (*v20 == -1)
+        v18 = (v15 + 12 * v17);
+        if (*v18 == -1)
         {
           break;
         }
 
-        if (!OUTLINED_FUNCTION_1(v20))
+        if (!OUTLINED_FUNCTION_1(v18))
         {
-          return v19;
+          return v17;
         }
 
-        if (v19 + 1 == v13)
+        if (v17 + 1 == v13)
         {
-          v19 = 0;
+          v17 = 0;
         }
 
         else
         {
-          ++v19;
+          ++v17;
         }
       }
     }

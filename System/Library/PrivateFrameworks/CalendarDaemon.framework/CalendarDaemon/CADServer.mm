@@ -40,18 +40,18 @@
 
 void __38__CADServer__registerForNotifications__block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   string = xpc_dictionary_get_string(xdict, *MEMORY[0x277D86430]);
-  v27 = [MEMORY[0x277CCACA8] stringWithCString:string encoding:1];
+  v26 = [MEMORY[0x277CCACA8] stringWithCString:string encoding:1];
   v4 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v34 = string;
+    v33 = string;
     _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEBUG, "Beginning XPC transaction for com.apple.notifyd.matching notification named %s", buf, 0xCu);
   }
 
-  v26 = os_transaction_create();
+  v25 = os_transaction_create();
   if (!strcmp(string, [*MEMORY[0x277CF7908] UTF8String]))
   {
     v7 = CADLogHandle;
@@ -126,14 +126,14 @@ LABEL_28:
 
   if (!strcmp(string, "com.apple.mobile.keybagd.first_unlock"))
   {
-    v23 = *(a1 + 32);
-    v24 = *(v23 + 80);
+    v22 = *(a1 + 32);
+    v23 = *(v22 + 80);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __38__CADServer__registerForNotifications__block_invoke_83;
     block[3] = &unk_27851AAD8;
-    block[4] = v23;
-    dispatch_async(v24, block);
+    block[4] = v22;
+    dispatch_async(v23, block);
     goto LABEL_30;
   }
 
@@ -191,11 +191,11 @@ LABEL_29:
   }
 
   CalDatabaseRequestApplicationSnapshotUpdateWithRateLimiter();
-  v25 = CADLogHandle;
+  v24 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_DEFAULT, "Reloading widget timeline because focus configuration changed", buf, 2u);
+    _os_log_impl(&dword_22430B000, v24, OS_LOG_TYPE_DEFAULT, "Reloading widget timeline because focus configuration changed", buf, 2u);
   }
 
   CalDatabaseRequestWidgetRefreshWithRateLimiter();
@@ -207,39 +207,39 @@ LABEL_30:
     _os_log_impl(&dword_22430B000, v12, OS_LOG_TYPE_DEFAULT, "Forwarding darwin notifications to modules.", buf, 2u);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v13 = [*(a1 + 32) modules];
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v29;
+    v16 = *v28;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
-        [v18 receivedNotificationNamed:v27];
+        v18 = *(*(&v27 + 1) + 8 * i);
+        [v18 receivedNotificationNamed:v26];
         v19 = CADServerLogHandle;
         if (os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v34 = v27;
-          v35 = 2112;
-          v36 = v18;
+          v33 = v26;
+          v34 = 2112;
+          v35 = v18;
           _os_log_impl(&dword_22430B000, v19, OS_LOG_TYPE_DEFAULT, "Forwarded darwin notification named: %{public}@ to module: %@.", buf, 0x16u);
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v15);
@@ -256,20 +256,18 @@ LABEL_30:
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v34 = string;
+    v33 = string;
     _os_log_impl(&dword_22430B000, v21, OS_LOG_TYPE_DEBUG, "Ending XPC transaction for com.apple.notifyd.matching notification named %s", buf, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (CADServer)initWithModules:(id)modules
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   modulesCopy = modules;
-  v47.receiver = self;
-  v47.super_class = CADServer;
-  v5 = [(CADServer *)&v47 init];
+  v48.receiver = self;
+  v48.super_class = CADServer;
+  v5 = [(CADServer *)&v48 init];
   if (v5)
   {
     v6 = os_transaction_create();
@@ -278,124 +276,123 @@ LABEL_30:
     block[2] = __29__CADServer_initWithModules___block_invoke;
     block[3] = &unk_27851AAD8;
     v7 = v5;
-    v46 = v7;
+    v9 = v7;
+    v47 = v7;
     if (initWithModules__onceToken != -1)
     {
       dispatch_once(&initWithModules__onceToken, block);
     }
 
-    CADLogInitIfNeeded();
-    v8 = CADLogHandle;
+    CADLogInitIfNeeded(v7, v8);
+    v10 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v49 = v7;
-      _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_DEBUG, "Server launch sequence commencing.  Server: [%@]", buf, 0xCu);
+      p_isa = &v9->super.isa;
+      _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_DEBUG, "Server launch sequence commencing.  Server: [%@]", buf, 0xCu);
     }
 
     objc_opt_class();
-    v9 = CalGenerateQualifiedIdentifierWithClassAndSubdomain();
-    uTF8String = [v9 UTF8String];
+    v11 = CalGenerateQualifiedIdentifierWithClassAndSubdomain();
+    uTF8String = [v11 UTF8String];
 
-    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v12 = dispatch_queue_create(uTF8String, v11);
-    [(CADServer *)v7 setWorkQueue:v12];
+    v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v14 = dispatch_queue_create(uTF8String, v13);
+    [(CADServer *)v9 setWorkQueue:v14];
 
-    [(CADServer *)v7 _setUpSignalHandlers];
-    v13 = objc_alloc_init(MEMORY[0x277CCAAF8]);
-    connectionLock = v7->_connectionLock;
-    v7->_connectionLock = v13;
+    [(CADServer *)v9 _setUpSignalHandlers];
+    v15 = objc_alloc_init(MEMORY[0x277CCAAF8]);
+    connectionLock = v9->_connectionLock;
+    v9->_connectionLock = v15;
 
-    v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    clientConnections = v7->_clientConnections;
-    v7->_clientConnections = v15;
+    v17 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    clientConnections = v9->_clientConnections;
+    v9->_clientConnections = v17;
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, DefaultCalendarChanged, *MEMORY[0x277CF7680], 0, CFNotificationSuspensionBehaviorDeliverImmediately);
     CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, SystemLanguageChanged, @"com.apple.language.changed", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"_CADDaemonStartedNotification", 0, 0, 1u);
-    v18 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v19 = dispatch_queue_create("initDataFirstUnlockQueue", v18);
-    initDataFirstUnlockQueue = v7->_initDataFirstUnlockQueue;
-    v7->_initDataFirstUnlockQueue = v19;
+    v20 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v21 = dispatch_queue_create("initDataFirstUnlockQueue", v20);
+    initDataFirstUnlockQueue = v9->_initDataFirstUnlockQueue;
+    v9->_initDataFirstUnlockQueue = v21;
 
-    v21 = dispatch_queue_create("com.apple.calaccessd.xpcqueue", 0);
-    xpcQueue = v7->_xpcQueue;
-    v7->_xpcQueue = v21;
+    v23 = dispatch_queue_create("com.apple.calaccessd.xpcqueue", 0);
+    xpcQueue = v9->_xpcQueue;
+    v9->_xpcQueue = v23;
 
-    mach_service = xpc_connection_create_mach_service("com.apple.calaccessd.xpc", v7->_xpcQueue, 1uLL);
-    xpcConnection = v7->_xpcConnection;
-    v7->_xpcConnection = mach_service;
+    mach_service = xpc_connection_create_mach_service("com.apple.calaccessd.xpc", v9->_xpcQueue, 1uLL);
+    xpcConnection = v9->_xpcConnection;
+    v9->_xpcConnection = mach_service;
 
-    v25 = v7->_xpcConnection;
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __29__CADServer_initWithModules___block_invoke_6;
-    v43 = &unk_27851B350;
-    v26 = v7;
-    v44 = v26;
-    xpc_connection_set_event_handler(v25, &v40);
-    v27 = CADLogHandle;
+    v27 = v9->_xpcConnection;
+    v41 = MEMORY[0x277D85DD0];
+    v42 = 3221225472;
+    v43 = __29__CADServer_initWithModules___block_invoke_6;
+    v44 = &unk_27851B350;
+    v28 = v9;
+    v45 = v28;
+    xpc_connection_set_event_handler(v27, &v41);
+    v29 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22430B000, v27, OS_LOG_TYPE_INFO, "25534103: Registering for notifications!", buf, 2u);
+      _os_log_impl(&dword_22430B000, v29, OS_LOG_TYPE_INFO, "25534103: Registering for notifications!", buf, 2u);
     }
 
     if ([MEMORY[0x277CF7850] isRunningAsSetupUser])
     {
-      v28 = CADLogHandle;
+      v30 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22430B000, v28, OS_LOG_TYPE_DEFAULT, "Not loading modules because we are running as the setup user", buf, 2u);
+        _os_log_impl(&dword_22430B000, v30, OS_LOG_TYPE_DEFAULT, "Not loading modules because we are running as the setup user", buf, 2u);
       }
     }
 
     else
     {
-      [v26 setModules:modulesCopy];
+      [v28 setModules:modulesCopy];
     }
 
-    v29 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v30 = dispatch_queue_create("com.apple.calaccessd.notificationqueue", v29);
-    v31 = v26[1];
-    v26[1] = v30;
+    v31 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v32 = dispatch_queue_create("com.apple.calaccessd.notificationqueue", v31);
+    v33 = v28[1];
+    v28[1] = v32;
 
-    v32 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v33 = dispatch_queue_create("com.apple.calaccessd.alarm", v32);
-    v34 = v26[14];
-    v26[14] = v33;
+    v34 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v35 = dispatch_queue_create("com.apple.calaccessd.alarm", v34);
+    v36 = v28[14];
+    v28[14] = v35;
 
-    [v26 _registerMaintenanceActivities];
-    v35 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.calaccessd"];
-    v36 = v26[3];
-    v26[3] = v35;
+    [v28 _registerMaintenanceActivities];
+    v37 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.calaccessd"];
+    v38 = v28[3];
+    v28[3] = v37;
 
-    [v26[3] setDelegate:v26];
-    v37 = CADLogHandle;
+    [v28[3] setDelegate:v28];
+    v39 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v49 = v26;
-      _os_log_impl(&dword_22430B000, v37, OS_LOG_TYPE_DEBUG, "Server launch sequence complete.  Server: [%@]", buf, 0xCu);
+      p_isa = v28;
+      _os_log_impl(&dword_22430B000, v39, OS_LOG_TYPE_DEBUG, "Server launch sequence complete.  Server: [%@]", buf, 0xCu);
     }
 
-    [MEMORY[0x277CF77C0] addObserver:v26 selector:sel__handleDatabaseChanged name:*MEMORY[0x277CF7560]];
+    [MEMORY[0x277CF77C0] addObserver:v28 selector:sel__handleDatabaseChanged name:*MEMORY[0x277CF7560]];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-void __29__CADServer_initWithModules___block_invoke(uint64_t a1)
+void __29__CADServer_initWithModules___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = CADCalendarLogSubsystem;
-  v2 = *(a1 + 32);
+  v2 = CADCalendarLogSubsystem;
   v3 = objc_opt_class();
   v7 = NSStringFromClass(v3);
   v4 = v7;
-  v5 = os_log_create(v1, [v7 UTF8String]);
+  v5 = os_log_create(v2, [v7 UTF8String]);
   v6 = CADServerLogHandle;
   CADServerLogHandle = v5;
 }
@@ -470,7 +467,7 @@ void __29__CADServer_initWithModules___block_invoke_6(uint64_t a1, void *a2)
 
 void __21__CADServer_activate__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isActive];
   v3 = CADServerLogHandle;
   v4 = os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT);
@@ -497,7 +494,7 @@ void __21__CADServer_activate__block_invoke(uint64_t a1)
     {
       v6 = *(*(a1 + 32) + 32);
       *buf = 138412290;
-      v26 = v6;
+      v25 = v6;
       _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_DEFAULT, "Resumed XPC connection: %@.", buf, 0xCu);
     }
 
@@ -507,7 +504,7 @@ void __21__CADServer_activate__block_invoke(uint64_t a1)
     {
       v8 = *(*(a1 + 32) + 24);
       *buf = 138412290;
-      v26 = v8;
+      v25 = v8;
       _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_DEFAULT, "Resumed XPC listener: %@.", buf, 0xCu);
     }
 
@@ -518,38 +515,38 @@ void __21__CADServer_activate__block_invoke(uint64_t a1)
       _os_log_impl(&dword_22430B000, v9, OS_LOG_TYPE_DEFAULT, "Activating modules.", buf, 2u);
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v19 = a1;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v18 = a1;
     v10 = [*(a1 + 32) modules];
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           [v15 activate];
           v16 = CADServerLogHandle;
           if (os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v26 = v15;
+            v25 = v15;
             _os_log_impl(&dword_22430B000, v16, OS_LOG_TYPE_DEFAULT, "Activated module: %@.", buf, 0xCu);
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -562,12 +559,10 @@ void __21__CADServer_activate__block_invoke(uint64_t a1)
       _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_DEFAULT, "Finished activating modules.", buf, 2u);
     }
 
-    [*(v19 + 32) _registerForAlarmEvents];
-    [*(v19 + 32) _registerForNotifications];
-    [*(v19 + 32) setActive:1];
+    [*(v18 + 32) _registerForAlarmEvents];
+    [*(v18 + 32) _registerForNotifications];
+    [*(v18 + 32) setActive:1];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivate
@@ -590,7 +585,7 @@ void __21__CADServer_activate__block_invoke(uint64_t a1)
 
 void __23__CADServer_deactivate__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isActive];
   v3 = CADServerLogHandle;
   v4 = os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT);
@@ -617,39 +612,39 @@ void __23__CADServer_deactivate__block_invoke(uint64_t a1)
       _os_log_impl(&dword_22430B000, v6, OS_LOG_TYPE_DEFAULT, "Deactivating modules.", buf, 2u);
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v7 = [*(a1 + 32) modules];
-    v8 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v8)
     {
       v10 = v8;
-      v11 = *v24;
+      v11 = *v23;
       *&v9 = 138412290;
-      v22 = v9;
+      v21 = v9;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           [v13 deactivate];
           v14 = CADServerLogHandle;
           if (os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v22;
-            v28 = v13;
+            *buf = v21;
+            v27 = v13;
             _os_log_impl(&dword_22430B000, v14, OS_LOG_TYPE_DEFAULT, "Deactivated module: %@.", buf, 0xCu);
           }
         }
 
-        v10 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
       while (v10);
@@ -668,7 +663,7 @@ void __23__CADServer_deactivate__block_invoke(uint64_t a1)
     {
       v17 = *(*(a1 + 32) + 24);
       *buf = 138412290;
-      v28 = v17;
+      v27 = v17;
       _os_log_impl(&dword_22430B000, v16, OS_LOG_TYPE_DEFAULT, "Suspended XPC listener: %@.", buf, 0xCu);
     }
 
@@ -681,7 +676,7 @@ void __23__CADServer_deactivate__block_invoke(uint64_t a1)
       {
         v20 = *(*(a1 + 32) + 32);
         *buf = 138412290;
-        v28 = v20;
+        v27 = v20;
         _os_log_impl(&dword_22430B000, v19, OS_LOG_TYPE_DEFAULT, "Suspended XPC connection: %@.", buf, 0xCu);
       }
 
@@ -696,8 +691,6 @@ void __23__CADServer_deactivate__block_invoke(uint64_t a1)
     *buf = 0;
     _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_DEFAULT, "Server is already inactive. No deactivation tasks to perform as a result.", buf, 2u);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -721,7 +714,7 @@ void __23__CADServer_deactivate__block_invoke(uint64_t a1)
     v10 = [CADAuditTokenTCCPermissionChecker alloc];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -780,7 +773,7 @@ void __23__CADServer_deactivate__block_invoke(uint64_t a1)
 
 void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   if (v3)
@@ -793,11 +786,11 @@ void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
       v7 = [v6 pid];
       v8 = [v3 identity];
       v9 = [v8 clientName];
-      v11[0] = 67109378;
-      v11[1] = v7;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_ERROR, "Connection from process %i (%@) was interrupted unexpectedly", v11, 0x12u);
+      v10[0] = 67109378;
+      v10[1] = v7;
+      v11 = 2112;
+      v12 = v9;
+      _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_ERROR, "Connection from process %i (%@) was interrupted unexpectedly", v10, 0x12u);
     }
 
     [v3 releaseProxy];
@@ -806,13 +799,11 @@ void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
       [WeakRetained _clientConnectionDied:v3];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke_24(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   if (v3)
@@ -825,11 +816,11 @@ void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke_24(uint64
       v7 = [v6 pid];
       v8 = [v3 identity];
       v9 = [v8 clientName];
-      v11[0] = 67109378;
-      v11[1] = v7;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_INFO, "Client disconnected: %i (%@)", v11, 0x12u);
+      v10[0] = 67109378;
+      v10[1] = v7;
+      v11 = 2112;
+      v12 = v9;
+      _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_INFO, "Client disconnected: %i (%@)", v10, 0x12u);
     }
 
     [v3 releaseProxy];
@@ -838,8 +829,6 @@ void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke_24(uint64
       [WeakRetained _clientConnectionDied:v3];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke_25(uint64_t a1)
@@ -856,41 +845,39 @@ void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke_25(uint64
 
 - (void)_handleDatabaseChanged
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_connectionLock lock];
   v3 = [(NSMutableSet *)self->_clientConnections copy];
   [(NSLock *)self->_connectionLock unlock];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) handleDatabaseChanged];
+        [*(*(&v9 + 1) + 8 * v8++) handleDatabaseChanged];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientConnectionDied:(id)died
@@ -907,7 +894,7 @@ void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke_25(uint64
 
 - (void)_handleXPCConnection:(id)connection
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   pid = xpc_connection_get_pid(connectionCopy);
   memset(buffer, 0, sizeof(buffer));
@@ -926,14 +913,12 @@ void __48__CADServer_listener_shouldAcceptNewConnection___block_invoke_25(uint64
   handler[2] = __34__CADServer__handleXPCConnection___block_invoke;
   handler[3] = &unk_27851B3A0;
   handler[4] = self;
-  v11 = connectionCopy;
-  v12 = v6;
+  v10 = connectionCopy;
+  v11 = v6;
   v7 = v6;
   v8 = connectionCopy;
   xpc_connection_set_event_handler(v8, handler);
   xpc_connection_resume(v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __34__CADServer__handleXPCConnection___block_invoke(uint64_t a1, void *a2)
@@ -1038,16 +1023,16 @@ LABEL_14:
 
 - (void)handleDistributeChangeReport:(id)report
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   length = 0;
   data = xpc_dictionary_get_data(reportCopy, "report", &length);
   if (data)
   {
     v5 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:data length:length freeWhenDone:0];
-    v22 = 0;
-    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v22];
-    v7 = v22;
+    v21 = 0;
+    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v21];
+    v7 = v21;
     if (v6)
     {
       string = xpc_dictionary_get_string(reportCopy, "databasePath");
@@ -1057,14 +1042,14 @@ LABEL_14:
         if (v9)
         {
           int64 = xpc_dictionary_get_int64(reportCopy, "auxDBID");
-          v25[0] = v9;
-          v24[0] = @"path";
-          v24[1] = @"auxDBID";
+          v24[0] = v9;
+          v23[0] = @"path";
+          v23[1] = @"auxDBID";
           v11 = [MEMORY[0x277CCABB0] numberWithLongLong:int64];
-          v24[2] = @"report";
-          v25[1] = v11;
-          v25[2] = v6;
-          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+          v23[2] = @"report";
+          v24[1] = v11;
+          v24[2] = v6;
+          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
 
           LocalCenter = CFNotificationCenterGetLocalCenter();
           CFNotificationCenterPostNotification(LocalCenter, *MEMORY[0x277CF7558], 0, v12, 1u);
@@ -1100,7 +1085,7 @@ LABEL_14:
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v7;
+        v26 = v7;
         v16 = "Failed to deserialize report: %@";
         v17 = v15;
         v18 = 12;
@@ -1122,8 +1107,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishInitializationWithDataAvailable
@@ -1155,7 +1138,7 @@ LABEL_17:
 
 - (void)_protectedDataDidBecomeAvailable
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -1165,68 +1148,66 @@ LABEL_17:
 
   [(CADServer *)self _finishInitializationWithDataAvailable];
   [(NSLock *)self->_connectionLock lock];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v4 = self->_clientConnections;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       v8 = 0;
       do
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v19 + 1) + 8 * v8++) clearCachedAuthorizationStatus];
+        [*(*(&v18 + 1) + 8 * v8++) clearCachedAuthorizationStatus];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v6);
   }
 
   [(NSLock *)self->_connectionLock unlock];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   modules = [(CADServer *)self modules];
-  v10 = [modules countByEnumeratingWithState:&v15 objects:v24 count:16];
+  v10 = [modules countByEnumeratingWithState:&v14 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(modules);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) protectedDataDidBecomeAvailable];
+        [*(*(&v14 + 1) + 8 * v13++) protectedDataDidBecomeAvailable];
       }
 
       while (v11 != v13);
-      v11 = [modules countByEnumeratingWithState:&v15 objects:v24 count:16];
+      v11 = [modules countByEnumeratingWithState:&v14 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateIfNeeded
@@ -1265,7 +1246,7 @@ LABEL_6:
   v13 = identity;
   if (identity)
   {
-    [identity auditToken];
+    objc_msgSend_auditToken(identity);
   }
 
   else
@@ -1313,7 +1294,7 @@ LABEL_3:
   v15 = identity;
   if (identity)
   {
-    [identity auditToken];
+    objc_msgSend_auditToken(identity);
   }
 
   else
@@ -1412,26 +1393,24 @@ void __33__CADServer__setUpSignalHandlers__block_invoke_62(uint64_t a1)
 
 void __33__CADServer__setUpSignalHandlers__block_invoke_63(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_DEBUG, "Starting sensor: [%@]", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_DEBUG, "Starting sensor: [%@]", &v5, 0xCu);
   }
 
   [v2 startSensor];
   v4 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEBUG, "Started sensor: [%@]", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEBUG, "Started sensor: [%@]", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDownSignalHandlers
@@ -1443,19 +1422,17 @@ void __33__CADServer__setUpSignalHandlers__block_invoke_63(uint64_t a1, void *a2
 
 void __36__CADServer__tearDownSignalHandlers__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_DEBUG, "Stopping sensor: [%@]", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_DEBUG, "Stopping sensor: [%@]", &v4, 0xCu);
   }
 
   [v2 stopSensor];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_trimExtendAndUpdateOccurrenceCache:(BOOL)cache
@@ -1470,13 +1447,12 @@ void __36__CADServer__tearDownSignalHandlers__block_invoke(uint64_t a1, void *a2
   CalDatabaseEnumerateDatabases();
 }
 
-void __49__CADServer__trimExtendAndUpdateOccurrenceCache___block_invoke(uint64_t a1)
+void __49__CADServer__trimExtendAndUpdateOccurrenceCache___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = CalDatabaseCopyEventOccurrenceCache();
   if (v2)
   {
     v3 = v2;
-    v4 = *(a1 + 32);
     CalEventOccurrenceCacheTrimExtendAndUpdate();
 
     CFRelease(v3);
@@ -1503,7 +1479,7 @@ void __49__CADServer__trimExtendAndUpdateOccurrenceCache___block_invoke(uint64_t
 
 - (void)_registerForAlarmEvents
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = CADServerLogHandle;
   if (os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -1520,44 +1496,42 @@ void __49__CADServer__trimExtendAndUpdateOccurrenceCache___block_invoke(uint64_t
   handler[4] = self;
   xpc_set_event_stream_handler(v4, alarmQueue, handler);
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   modules = [(CADServer *)self modules];
-  v7 = [modules countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v7 = [modules countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(modules);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) didRegisterForAlarms];
+        [*(*(&v11 + 1) + 8 * v10++) didRegisterForAlarms];
       }
 
       while (v8 != v10);
-      v8 = [modules countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v8 = [modules countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CADServer__registerForAlarmEvents__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v17 = os_transaction_create();
+  v16 = os_transaction_create();
   v4 = [MEMORY[0x277CBEAA8] date];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:{xpc_dictionary_get_string(v3, *MEMORY[0x277D86430])}];
   if (_block_invoke_onceToken != -1)
@@ -1570,51 +1544,49 @@ void __36__CADServer__registerForAlarmEvents__block_invoke(uint64_t a1, void *a2
   if (os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v24 = v5;
-    v25 = 2114;
-    v26 = v6;
+    v23 = v5;
+    v24 = 2114;
+    v25 = v6;
     _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_DEFAULT, "Alarm triggered with name: %{public}@. Triggered date: %{public}@.", buf, 0x16u);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = [*(a1 + 32) modules];
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         [v13 receivedAlarmNamed:v5];
         v14 = CADServerLogHandle;
         if (os_log_type_enabled(CADServerLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v24 = v5;
-          v25 = 2112;
-          v26 = v13;
+          v23 = v5;
+          v24 = 2112;
+          v25 = v13;
           _os_log_impl(&dword_22430B000, v14, OS_LOG_TYPE_DEFAULT, "Forwarded alarm named: %@ to module: %@.", buf, 0x16u);
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__CADServer__registerForAlarmEvents__block_invoke_2()
@@ -1661,7 +1633,7 @@ uint64_t __36__CADServer__registerForAlarmEvents__block_invoke_2()
 
 void __51__CADServer__registerActivityWithIdentifier_block___block_invoke(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
@@ -1671,7 +1643,7 @@ void __51__CADServer__registerActivityWithIdentifier_block___block_invoke(uint64
     v7 = v4;
     v8 = [v5 stringWithUTF8String:v6];
     *buf = 138412290;
-    v44 = v8;
+    v43 = v8;
     _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_INFO, "Beginning XPC transaction for activity with identifier: [%@].", buf, 0xCu);
   }
 
@@ -1689,9 +1661,9 @@ void __51__CADServer__registerActivityWithIdentifier_block___block_invoke(uint64
     v16 = [v13 stringWithUTF8String:v14];
     v17 = _CADStringFromXPCActivityState(state);
     *buf = 138412546;
-    v44 = v16;
-    v45 = 2112;
-    v46 = v17;
+    v43 = v16;
+    v44 = 2112;
+    v45 = v17;
     _os_log_impl(&dword_22430B000, v15, OS_LOG_TYPE_INFO, "Activity with identifier: [%@] is in [%@] state.", buf, 0x16u);
   }
 
@@ -1705,7 +1677,7 @@ void __51__CADServer__registerActivityWithIdentifier_block___block_invoke(uint64
       v27 = v24;
       v28 = [v25 stringWithUTF8String:v26];
       *buf = 138412290;
-      v44 = v28;
+      v43 = v28;
       _os_log_impl(&dword_22430B000, v27, OS_LOG_TYPE_INFO, "Running activity with identifier: [%@].", buf, 0xCu);
     }
 
@@ -1723,7 +1695,7 @@ void __51__CADServer__registerActivityWithIdentifier_block___block_invoke(uint64
       v18 = v34;
       v22 = [v35 stringWithUTF8String:v36];
       *buf = 138412290;
-      v44 = v22;
+      v43 = v22;
       _os_log_impl(&dword_22430B000, v18, OS_LOG_TYPE_INFO, "Finished running activity with identifier: [%@].", buf, 0xCu);
       goto LABEL_18;
     }
@@ -1754,9 +1726,9 @@ LABEL_19:
       v22 = v19;
       v23 = [v20 stringWithUTF8String:v21];
       *buf = 138412546;
-      v44 = v18;
-      v45 = 2112;
-      v46 = v23;
+      v43 = v18;
+      v44 = 2112;
+      v45 = v23;
       _os_log_impl(&dword_22430B000, v22, OS_LOG_TYPE_INFO, "Criteria: %@. Identifier: %@.", buf, 0x16u);
 
 LABEL_18:
@@ -1770,9 +1742,9 @@ LABEL_18:
       v32 = _CADStringFromXPCActivityState(state);
       v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(a1 + 40)];
       *buf = 138412546;
-      v44 = v32;
-      v45 = 2112;
-      v46 = v33;
+      v43 = v32;
+      v44 = 2112;
+      v45 = v33;
       _os_log_impl(&dword_22430B000, v31, OS_LOG_TYPE_INFO, "Will not process activity state [%@]. Identifier: [%@].", buf, 0x16u);
     }
   }
@@ -1786,11 +1758,9 @@ LABEL_20:
     v40 = v37;
     v41 = [v38 stringWithUTF8String:v39];
     *buf = 138412290;
-    v44 = v41;
+    v43 = v41;
     _os_log_impl(&dword_22430B000, v40, OS_LOG_TYPE_INFO, "Ending XPC transaction for activity with identifier: [%@].", buf, 0xCu);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForDatabaseCleanup
@@ -1912,41 +1882,38 @@ void __43__CADServer__registerForChangeTableCleanup__block_invoke(uint64_t a1)
 
 - (void)cleanupDatabase:(CalDatabase *)database
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     databaseCopy = database;
-    _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_INFO, "Performing database cleanup. Database: %@", &v6, 0xCu);
+    _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_INFO, "Performing database cleanup. Database: %@", &v5, 0xCu);
   }
 
   CalDatabaseCleanUpDeclinedEvents();
   CalIdentityGarbageCollectOrphans();
   CalDatabaseCleanupDanglers();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupChangeTablesInDatabase:(CalDatabase *)database
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = +[CADIdleChangeTrackingCleanupInfo serverIdleChangeTrackingCleanupInfo];
   v5 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2112;
     databaseCopy = database;
-    _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_INFO, "Performing idle change-tracking client cleanup. Idle change tracking cleanup info: %@. Database: %@.", &v7, 0x16u);
+    _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_INFO, "Performing idle change-tracking client cleanup. Idle change tracking cleanup info: %@. Database: %@.", &v6, 0x16u);
   }
 
   [v4 languishPeriod];
   [v4 numberOfChanges];
   CFAbsoluteTimeGetCurrent();
   CalDatabasePurgeIdlePersistentChangeTrackingClients();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_lastKnownContactsAuthorization
@@ -1985,7 +1952,7 @@ void __43__CADServer__registerForChangeTableCleanup__block_invoke(uint64_t a1)
 
 void __35__CADServer__contactsAuthorization__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5)
   {
@@ -1995,13 +1962,13 @@ void __35__CADServer__contactsAuthorization__block_invoke(uint64_t a1, void *a2,
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       v7 = *(*(*(a1 + 32) + 8) + 24);
-      v13 = 134217984;
-      v14 = v7;
+      v12 = 134217984;
+      v13 = v7;
       v8 = "Contacts authorization is %llu";
       v9 = v6;
       v10 = OS_LOG_TYPE_INFO;
 LABEL_7:
-      _os_log_impl(&dword_22430B000, v9, v10, v8, &v13, 0xCu);
+      _os_log_impl(&dword_22430B000, v9, v10, v8, &v12, 0xCu);
     }
   }
 
@@ -2010,16 +1977,14 @@ LABEL_7:
     v11 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = a3;
+      v12 = 138412290;
+      v13 = a3;
       v8 = "Error getting contacts authorization: %@";
       v9 = v11;
       v10 = OS_LOG_TYPE_ERROR;
       goto LABEL_7;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerContactsAccess
@@ -2030,7 +1995,7 @@ LABEL_7:
 
 - (void)_setupBirthdayListener
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if (MGGetBoolAnswer())
   {
     _contactsAuthorization = [(CADServer *)self _contactsAuthorization];
@@ -2049,13 +2014,13 @@ LABEL_7:
       if (_contactsAuthorization == 1)
       {
         v5 = *MEMORY[0x277D6C100];
-        v19 = *MEMORY[0x277CF78A0];
-        v20 = v5;
+        v15 = *MEMORY[0x277CF78A0];
+        v16 = v5;
         v6 = MEMORY[0x277CBEA60];
         v7 = v5;
-        v8 = [v6 arrayWithObjects:&v19 count:1];
-        v21[0] = v8;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+        v8 = [v6 arrayWithObjects:&v15 count:1];
+        v17[0] = v8;
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
         v10 = _CFXPCCreateXPCObjectFromCFObject();
         v11 = tcc_events_filter_create_with_criteria();
@@ -2063,10 +2028,7 @@ LABEL_7:
         tccQueue = self->_tccQueue;
         self->_tccQueue = v12;
 
-        v14 = self->_tccQueue;
         tcc_events_subscribe();
-
-        v15 = *MEMORY[0x277D85DE8];
         return;
       }
 
@@ -2075,33 +2037,31 @@ LABEL_7:
 
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
     [standardUserDefaults setInteger:v4 forKey:@"CADLastKnownContactsAuthorization"];
-    v17 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v16 = *MEMORY[0x277D85DE8];
 
     [(CADServer *)self _startBirthdayListener];
   }
 }
 
-uint64_t __35__CADServer__setupBirthdayListener__block_invoke(uint64_t a1)
+uint64_t __35__CADServer__setupBirthdayListener__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   authorization_right = tcc_authorization_record_get_authorization_right();
-  v3 = *(a1 + 32);
+  v5 = *(a1 + 32);
   if (authorization_right == 2)
   {
-    [v3 _startBirthdayListener];
+    [v5 _startBirthdayListener];
   }
 
   else
   {
-    [v3 _registerContactsAccess];
+    [v5 _registerContactsAccess];
   }
 
-  v4 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  [v4 setInteger:authorization_right forKey:@"CADLastKnownContactsAuthorization"];
+  v6 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [v6 setInteger:authorization_right forKey:@"CADLastKnownContactsAuthorization"];
 
   return MEMORY[0x2821D0B00]("com.apple.calaccessd");
 }
@@ -2141,7 +2101,7 @@ uint64_t __18__CADServer__exit__block_invoke()
 
 - (void)_dumpState
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2153,31 +2113,31 @@ uint64_t __18__CADServer__exit__block_invoke()
   if ([(NSMutableSet *)self->_clientConnections count])
   {
     NSLog(&cfstr_LdConnectionS.isa, [(NSMutableSet *)self->_clientConnections count]);
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v4 = self->_clientConnections;
-    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) dumpState];
+          [*(*(&v9 + 1) + 8 * v8++) dumpState];
         }
 
         while (v6 != v8);
-        v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+        v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
       }
 
       while (v6);
@@ -2188,8 +2148,6 @@ uint64_t __18__CADServer__exit__block_invoke()
   {
     NSLog(&cfstr_NoConnections.isa);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

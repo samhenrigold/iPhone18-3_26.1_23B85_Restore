@@ -27,23 +27,22 @@
   v9.receiver = self;
   v9.super_class = OrgApacheLuceneIndexSegmentReader;
   [(OrgApacheLuceneIndexCodecReader *)&v9 doClose];
-  docValuesProducer = self->docValuesProducer_;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     segDocValues = self->segDocValues_;
     if (segDocValues)
     {
-      v6 = self->docValuesProducer_;
+      docValuesProducer = self->docValuesProducer_;
       objc_opt_class();
-      if (v6)
+      if (docValuesProducer)
       {
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           JreThrowClassCastException();
         }
 
-        isa = v6[3].super.isa;
+        isa = docValuesProducer[3].super.isa;
         goto LABEL_10;
       }
     }
@@ -63,7 +62,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v8 = JavaLangLong_valueOfWithLong_(-1);
+  v8 = JavaLangLong_valueOfWithLong_(-1, v4);
   isa = JavaUtilCollections_singletonListWithId_(v8);
 LABEL_10:
   [(OrgApacheLuceneIndexSegmentDocValues *)segDocValues decRefWithJavaUtilList:isa];

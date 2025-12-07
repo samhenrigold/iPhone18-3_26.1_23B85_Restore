@@ -10,7 +10,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC18HealthExperienceUI24ProfileGradientsProvider_topCategories) = MEMORY[0x1E69E7CC0];
   v4 = OBJC_IVAR____TtC18HealthExperienceUI24ProfileGradientsProvider_colors;
   v7 = v3;
-  sub_1B9F10B50();
+  sub_1B9F10B50(0);
   swift_allocObject();
   *(&self->super.isa + v4) = sub_1BA4A4DF8();
   *(&self->super.isa + OBJC_IVAR____TtC18HealthExperienceUI24ProfileGradientsProvider_categoriesMetadata) = v3;

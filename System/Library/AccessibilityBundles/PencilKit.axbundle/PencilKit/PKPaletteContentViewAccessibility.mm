@@ -20,12 +20,12 @@
 
 - (id)accessibilityElements
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   if (AXDoesRequestingClientDeserveAutomation())
   {
-    v24.receiver = self;
-    v24.super_class = PKPaletteContentViewAccessibility;
-    accessibilityElements = [(PKPaletteContentViewAccessibility *)&v24 accessibilityElements];
+    v23.receiver = self;
+    v23.super_class = PKPaletteContentViewAccessibility;
+    accessibilityElements = [(PKPaletteContentViewAccessibility *)&v23 accessibilityElements];
   }
 
   else
@@ -38,38 +38,36 @@
     v9 = [(PKPaletteContentViewAccessibility *)self safeValueForKey:@"contextualEditingView"];
     v10 = [(PKPaletteContentViewAccessibility *)self safeValueForKey:@"toolAndColorPickerContainerView"];
     v11 = [v10 safeValueForKey:@"lassoToolEditingContainerView"];
-    v18 = v5;
-    v19 = v4;
+    v17 = v5;
+    v18 = v4;
     accessibilityElements = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{7, v4, v5, v9, v6, v7, v11, v8}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v12 = [accessibilityElements countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v12 = [accessibilityElements countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(accessibilityElements);
           }
 
-          [*(*(&v20 + 1) + 8 * i) setShouldGroupAccessibilityChildren:1];
+          [*(*(&v19 + 1) + 8 * i) setShouldGroupAccessibilityChildren:1];
         }
 
-        v13 = [accessibilityElements countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v13 = [accessibilityElements countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v13);
     }
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return accessibilityElements;
 }

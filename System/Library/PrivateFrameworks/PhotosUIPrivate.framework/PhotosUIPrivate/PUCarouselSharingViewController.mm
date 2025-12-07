@@ -622,11 +622,11 @@ void __63__PUCarouselSharingViewController_referenceAssetTransitionInfo__block_i
       }
 
       v26 = *(*(&v42 + 1) + 8 * i);
-      indexPath = [v26 indexPath];
-      v28 = [(PUCarouselSharingViewController *)self _assetAtIndexPath:indexPath];
+      v27 = objc_msgSend_indexPath(v26, offsetCopy);
+      v28 = [(PUCarouselSharingViewController *)self _assetAtIndexPath:v27];
       if ([(PUCarouselSharingViewController *)self _shouldShowAsset:v28])
       {
-        [(PUCarouselSharingViewController *)self _horizontalOffsetInCollectionView:draggingCopy forCenteringOnItemAtIndexPath:indexPath];
+        [(PUCarouselSharingViewController *)self _horizontalOffsetInCollectionView:draggingCopy forCenteringOnItemAtIndexPath:v27];
         v30 = v29;
         v31 = v29 > v10 && x > 0.0;
         v32 = v29 < v10 && x < 0.0;
@@ -887,7 +887,7 @@ void *__86__PUCarouselSharingViewController_viewWillTransitionToSize_withTransit
   return result;
 }
 
-uint64_t __86__PUCarouselSharingViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
+void *__86__PUCarouselSharingViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _resetPreheating];
   v2 = *(a1 + 32);
@@ -1027,7 +1027,7 @@ LABEL_2:
 
 void __58__PUCarouselSharingViewController__firstSelectedIndexPath__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [MEMORY[0x1E696AC88] indexPathForItem:? inSection:?];
+  v7 = [MEMORY[0x1E696AC88] indexPathForItem:a3 inSection:a4];
   v8 = *(*(a1 + 32) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
@@ -1674,8 +1674,8 @@ LABEL_11:
               v28 = *(*(&v76 + 1) + 8 * i);
               if (![v28 representedElementCategory])
               {
-                indexPath = [v28 indexPath];
-                v30 = [(PUCarouselSharingViewController *)self _assetAtIndexPath:indexPath];
+                v29 = objc_msgSend_indexPath(v28);
+                v30 = [(PUCarouselSharingViewController *)self _assetAtIndexPath:v29];
                 [v21 addObject:v30];
                 [v23 setObject:v28 forKey:v30];
               }
@@ -3459,7 +3459,7 @@ LABEL_24:
   v23 = _badgeManager;
   if (_badgeManager)
   {
-    [_badgeManager badgeInfoForAsset:v11 inCollection:v9 options:8];
+    objc_msgSend_badgeInfoForAsset_inCollection_options_(_badgeManager);
   }
 
   else

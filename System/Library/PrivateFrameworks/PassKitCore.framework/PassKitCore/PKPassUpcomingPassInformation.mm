@@ -131,7 +131,7 @@
 {
   identifierCopy = identifier;
   v4 = identifierCopy;
-  if (identifierCopy != @"upcoming" && identifierCopy && (v5 = [(__CFString *)identifierCopy isEqualToString:@"upcoming"], v4, (v5 & 1) == 0) && ((v6 = v4, v6 == @"upcomingEvents") || (v7 = v6, v8 = [(__CFString *)v6 isEqualToString:@"upcomingEvents"], v7, (v8 & 1) != 0)))
+  if (identifierCopy != @"upcoming" && identifierCopy && (isEqualToString = objc_msgSend_isEqualToString_(identifierCopy), v4, (isEqualToString & 1) == 0) && ((v6 = v4, v6 == @"upcomingEvents") || (v7 = v6, v8 = objc_msgSend_isEqualToString_(v6), v7, (v8 & 1) != 0)))
   {
     v9 = @"UPCOMING_INFORMATION_EVENT_SECTION_LABEL";
   }

@@ -1,7 +1,12 @@
 @interface TSMSGService
 + (id)sharedMSGService;
+- (BOOL)removeMSGClock:(unsigned int)clock error:(id *)error;
 - (BOOL)startExternalSync:(id *)sync error:(id *)error;
+- (BOOL)stopExternalSync:(unsigned int)sync error:(id *)error;
 - (TSMSGService)init;
+- (unint64_t)addMSGClock:(unsigned int)clock withNominalSyncDuration:(id)duration error:(id *)error;
+- (unint64_t)addMSGClockRef:(unsigned int)ref error:(id *)error;
+- (unint64_t)getMSGClock:(unsigned int)clock error:(id *)error;
 - (void)daemonClientRefresh;
 - (void)dispatchMSGNotification:(unsigned __int16)notification args:(const unint64_t *)args numArgs:(unsigned int)numArgs;
 @end
@@ -54,7 +59,7 @@ void __32__TSMSGService_sharedMSGService__block_invoke()
     v8 = MEMORY[0x277CCACA8];
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
-    v11 = [v8 stringWithFormat:@"com.apple.TimeSync.%@", v10];
+    v11 = [v8 stringWithFormat:v10];
 
     v12 = dispatch_queue_create([v11 UTF8String], 0);
     msgDispatchQueue = v3->_msgDispatchQueue;
@@ -80,64 +85,59 @@ void __32__TSMSGService_sharedMSGService__block_invoke()
 
 void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
   {
     os_unfair_lock_lock(WeakRetained + 8);
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
     v5 = *&v4[2]._os_unfair_lock_opaque;
-    v6 = [v5 countByEnumeratingWithState:&v32 objects:v48 count:16];
+    v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
     if (v6)
     {
       v7 = v6;
-      v8 = *v33;
+      v8 = MEMORY[0];
       v9 = MEMORY[0x277D86220];
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v7; i = (i + 1))
         {
-          if (*v33 != v8)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = [*&v4[2]._os_unfair_lock_opaque objectForKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
-          v12 = v11;
-          v47 = 0;
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
+          v11 = [*&v4[2]._os_unfair_lock_opaque objectForKeyedSubscript:?];
+          v31 = 0;
+          v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           if (v11)
           {
-            [v11 TSMSGExternalSyncConfigValue];
+            [&v25 TSMSGExternalSyncConfigValue];
           }
 
-          if ([v2 startMSGExternalSync:&v41])
+          if ([v2 startMSGExternalSync:?])
           {
             if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
             {
-              __35__TSMSGService_daemonClientRefresh__block_invoke_cold_1(v37, &v41 + 1, v38);
+              __35__TSMSGService_daemonClientRefresh__block_invoke_cold_1(v22, &v25 + 1, &v22[4]);
             }
           }
 
           else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v40[0] = DWORD1(v41);
+            v24[0] = DWORD1(v25);
             _os_log_impl(&dword_26F080000, v9, OS_LOG_TYPE_DEFAULT, "Restarted MSG external sync session for triggerId: %u\n", buf, 8u);
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v32 objects:v48 count:16];
+        v7 = [v5 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v7);
@@ -145,58 +145,51 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
 
     os_unfair_lock_unlock(v4 + 8);
     os_unfair_lock_lock(v4 + 9);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
     obj = *&v4[4]._os_unfair_lock_opaque;
-    v13 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (v13)
+    v12 = [obj countByEnumeratingWithState:? objects:? count:?];
+    if (v12)
     {
-      v15 = v13;
-      v16 = *v29;
-      v17 = MEMORY[0x277D86220];
-      *&v14 = 67109120;
-      v25 = v14;
+      v14 = v12;
+      v15 = MEMORY[0];
+      v16 = MEMORY[0x277D86220];
+      *&v13 = 67109120;
+      v20 = v13;
       do
       {
-        for (j = 0; j != v15; ++j)
+        for (j = 0; j != v14; j = (j + 1))
         {
-          if (*v29 != v16)
+          if (MEMORY[0] != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = [*&v4[4]._os_unfair_lock_opaque objectForKeyedSubscript:{*(*(&v28 + 1) + 8 * j), v25}];
-          v20 = [v19 syncId];
-          v21 = [v19 refCnt];
-          v22 = [v19 nominalSyncDuration];
-          v27 = 0;
-          if ([v2 restoreMSGClockSession:v20 withNominalSyncDuration:v22 refCnt:v23 error:{v21, &v27}] == -1)
+          v18 = [*&v4[4]._os_unfair_lock_opaque objectForKeyedSubscript:v20];
+          v19 = [v18 syncId];
+          [v18 refCnt];
+          [v18 nominalSyncDuration];
+          if ([v2 restoreMSGClockSession:? withNominalSyncDuration:? refCnt:? error:?] == -1)
           {
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              __35__TSMSGService_daemonClientRefresh__block_invoke_cold_2(buf, v20, v40);
+              __35__TSMSGService_daemonClientRefresh__block_invoke_cold_2(buf, v19, v24);
             }
           }
 
-          else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            *&v41 = __PAIR64__(v20, v25);
-            _os_log_impl(&dword_26F080000, v17, OS_LOG_TYPE_DEFAULT, "Restarted MSG clock session for syncId: %u\n", &v41, 8u);
+            *&v25 = __PAIR64__(v19, v20);
+            _os_log_impl(&dword_26F080000, v16, OS_LOG_TYPE_DEFAULT, "Restarted MSG clock session for syncId: %u\n", &v25, 8u);
           }
         }
 
-        v15 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v14 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v15);
+      while (v14);
     }
 
     os_unfair_lock_unlock(v4 + 9);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startExternalSync:(id *)sync error:(id *)error
@@ -205,8 +198,8 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
   {
     v7 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
     os_unfair_lock_lock(&self->_extSyncSessionsLock);
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:sync->var0.var1];
-    v9 = [(NSMutableDictionary *)self->_activeExtSyncSessionsByTriggerId objectForKey:v8];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    v9 = [(NSMutableDictionary *)self->_activeExtSyncSessionsByTriggerId objectForKey:?];
 
     if (v9)
     {
@@ -215,21 +208,11 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
 
     else
     {
-      v10 = [v7 startMSGExternalSync:sync];
+      v10 = [v7 startMSGExternalSync:?];
       if (!v10)
       {
-        v12 = *&sync->var2;
-        v17[4] = *&sync->var0.var7;
-        v17[5] = v12;
-        var4 = sync->var4;
-        v13 = *&sync->var0.var2.var1;
-        v17[0] = *&sync->var0.var0;
-        v17[1] = v13;
-        v14 = *&sync->var0.var5;
-        v17[2] = *&sync->var0.var3.var1;
-        v17[3] = v14;
-        v15 = [MEMORY[0x277CCAE60] valuewithTSMSGExternalSyncConfig:v17];
-        [(NSMutableDictionary *)self->_activeExtSyncSessionsByTriggerId setObject:v15 forKeyedSubscript:v8];
+        v12 = [MEMORY[0x277CCAE60] valuewithTSMSGExternalSyncConfig:{*&sync->var0.var0, sync->var0.var2.var1, sync->var0.var3.var0, *&sync->var0.var3.var1, sync->var0.var5, sync->var0.var6, *&sync->var0.var7, *&sync->var2, sync->var4}];
+        [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
       }
     }
 
@@ -237,13 +220,61 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
     v11 = v10 == 0;
     if (error && v10)
     {
-      *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"TSErrorDomain" code:v10 userInfo:0];
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
     }
   }
 
   else if (error)
   {
-    [MEMORY[0x277CCA9B8] errorWithDomain:@"TSErrorDomain" code:-536870201 userInfo:0];
+    [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    *error = v11 = 0;
+  }
+
+  else
+  {
+    return 0;
+  }
+
+  return v11;
+}
+
+- (BOOL)stopExternalSync:(unsigned int)sync error:(id *)error
+{
+  if (_os_feature_enabled_impl())
+  {
+    v6 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
+    os_unfair_lock_lock(&self->_extSyncSessionsLock);
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    v8 = [(NSMutableDictionary *)self->_activeExtSyncSessionsByTriggerId objectForKey:?];
+
+    if (v8)
+    {
+      v9 = [v6 stopMSGExternalSync:?];
+      if (!v9)
+      {
+        v10 = objc_autoreleasePoolPush();
+        [(NSMutableDictionary *)self->_activeExtSyncSessionsByTriggerId removeObjectForKey:?];
+        objc_autoreleasePoolPop(v10);
+        v9 = 0;
+      }
+    }
+
+    else
+    {
+      v9 = -536870206;
+    }
+
+    os_unfair_lock_unlock(&self->_extSyncSessionsLock);
+    v11 = v9 == 0;
+    if (error && v9)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    }
+  }
+
+  else if (error)
+  {
+    [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
     *error = v11 = 0;
   }
 
@@ -258,7 +289,7 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
 - (void)dispatchMSGNotification:(unsigned __int16)notification args:(const unint64_t *)args numArgs:(unsigned int)numArgs
 {
   notificationCopy = notification;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (notification <= 3u)
   {
     v8 = TSMSGNotifyTypeToString_TSMSGNotifyTypeStrings[notification];
@@ -269,16 +300,16 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
     v8 = @"Unknown";
   }
 
-  v9 = [MEMORY[0x277CCAB68] stringWithFormat:@"msgType: %@, args: [", v8];
+  v9 = [MEMORY[0x277CCAB68] stringWithFormat:v8];
   if (args && numArgs)
   {
     v10 = 0;
     do
     {
-      [v9 appendFormat:@"%llu", args[v10]];
+      [v9 appendFormat:args[v10]];
       if (v10 < numArgs - 1)
       {
-        [v9 appendString:{@", "}];
+        [v9 appendString:?];
       }
 
       ++v10;
@@ -287,7 +318,7 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
     while (numArgs != v10);
   }
 
-  [v9 appendString:@"]\n"];
+  [v9 appendString:?];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -312,25 +343,25 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke(uint64_t a1)
         v12 = args[1];
         os_unfair_lock_lock(&self->_extSyncSessionsLock);
         activeExtSyncSessionsByTriggerId = self->_activeExtSyncSessionsByTriggerId;
-        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v11];
-        v15 = [(NSMutableDictionary *)activeExtSyncSessionsByTriggerId objectForKeyedSubscript:v14];
+        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+        v15 = [(NSMutableDictionary *)activeExtSyncSessionsByTriggerId objectForKeyedSubscript:?];
 
         os_unfair_lock_unlock(&self->_extSyncSessionsLock);
-        v38 = 0;
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
+        v37 = 0;
         v35 = 0u;
-        *buf = 0u;
+        v36 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        *buf = 0u;
+        v32 = 0u;
         if (!v15)
         {
           goto LABEL_27;
         }
 
-        [v15 TSMSGExternalSyncConfigValue];
-        v16 = v37;
-        if (!v37)
+        [(uint8_t *)buf TSMSGExternalSyncConfigValue];
+        v16 = v36;
+        if (!v36)
         {
           goto LABEL_27;
         }
@@ -355,23 +386,23 @@ LABEL_27:
     v20 = args[1];
     os_unfair_lock_lock(&self->_extSyncSessionsLock);
     v21 = self->_activeExtSyncSessionsByTriggerId;
-    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19];
-    v23 = [(NSMutableDictionary *)v21 objectForKeyedSubscript:v22];
+    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    v23 = [(NSMutableDictionary *)v21 objectForKeyedSubscript:?];
 
     os_unfair_lock_unlock(&self->_extSyncSessionsLock);
-    v38 = 0;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v37 = 0;
     v35 = 0u;
-    *buf = 0u;
+    v36 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    *buf = 0u;
+    v32 = 0u;
     if (v23)
     {
-      [v23 TSMSGExternalSyncConfigValue];
-      if (*(&v36 + 1))
+      [(uint8_t *)buf TSMSGExternalSyncConfigValue];
+      if (*(&v35 + 1))
       {
-        (*(&v36 + 1))(v19, v20);
+        (*(&v35 + 1))(v19, v20);
       }
     }
 
@@ -392,27 +423,27 @@ LABEL_40:
     v25 = *(args + 2);
     os_unfair_lock_lock(&self->_extSyncSessionsLock);
     v26 = self->_activeExtSyncSessionsByTriggerId;
-    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v24];
-    v23 = [(NSMutableDictionary *)v26 objectForKeyedSubscript:v27];
+    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    v23 = [(NSMutableDictionary *)v26 objectForKeyedSubscript:?];
 
     v28 = self->_activeExtSyncSessionsByTriggerId;
-    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v24];
-    [(NSMutableDictionary *)v28 removeObjectForKey:v29];
+    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    [(NSMutableDictionary *)v28 removeObjectForKey:?];
 
     os_unfair_lock_unlock(&self->_extSyncSessionsLock);
-    v38 = 0;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v37 = 0;
     v35 = 0u;
-    *buf = 0u;
+    v36 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    *buf = 0u;
+    v32 = 0u;
     if (v23)
     {
-      [v23 TSMSGExternalSyncConfigValue];
-      if (*(&v37 + 1))
+      [(uint8_t *)buf TSMSGExternalSyncConfigValue];
+      if (*(&v36 + 1))
       {
-        (*(&v37 + 1))(v24, v25);
+        (*(&v36 + 1))(v24, v25);
       }
     }
 
@@ -431,25 +462,25 @@ LABEL_40:
     v12 = args[1];
     os_unfair_lock_lock(&self->_extSyncSessionsLock);
     v17 = self->_activeExtSyncSessionsByTriggerId;
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v11];
-    v15 = [(NSMutableDictionary *)v17 objectForKeyedSubscript:v18];
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    v15 = [(NSMutableDictionary *)v17 objectForKeyedSubscript:?];
 
     os_unfair_lock_unlock(&self->_extSyncSessionsLock);
-    v38 = 0;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v37 = 0;
     v35 = 0u;
-    *buf = 0u;
+    v36 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    *buf = 0u;
+    v32 = 0u;
     if (!v15)
     {
       goto LABEL_27;
     }
 
-    [v15 TSMSGExternalSyncConfigValue];
-    v16 = v38;
-    if (!v38)
+    [(uint8_t *)buf TSMSGExternalSyncConfigValue];
+    v16 = v37;
+    if (!v37)
     {
       goto LABEL_27;
     }
@@ -464,8 +495,200 @@ LABEL_28:
   }
 
 LABEL_41:
+}
 
-  v30 = *MEMORY[0x277D85DE8];
+- (unint64_t)getMSGClock:(unsigned int)clock error:(id *)error
+{
+  if (_os_feature_enabled_impl())
+  {
+    if (error)
+    {
+      *error = 0;
+    }
+
+    v5 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
+    v6 = [v5 getMSGClock:? error:?];
+
+    return v6;
+  }
+
+  else
+  {
+    if (error)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    }
+
+    return -1;
+  }
+}
+
+- (unint64_t)addMSGClock:(unsigned int)clock withNominalSyncDuration:(id)duration error:(id *)error
+{
+  if (_os_feature_enabled_impl())
+  {
+    if (error)
+    {
+      *error = 0;
+    }
+
+    v7 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
+    os_unfair_lock_lock(&self->_clockSessionsLock);
+    activeClockSessionsBySyncId = self->_activeClockSessionsBySyncId;
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    v10 = [(NSMutableDictionary *)activeClockSessionsBySyncId objectForKey:?];
+
+    if (v10)
+    {
+      v11 = 1;
+      v12 = -1;
+    }
+
+    else
+    {
+      v12 = [v7 addMSGClock:? withNominalSyncDuration:? error:?];
+      if (v12 == -1 || ([TSMSGClockSession withSyncId:"withSyncId:nominalSyncDuration:" nominalSyncDuration:?], (v13 = objc_claimAutoreleasedReturnValue()) == 0))
+      {
+        v11 = 1;
+      }
+
+      else
+      {
+        v14 = v13;
+        v15 = self->_activeClockSessionsBySyncId;
+        v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+        [NSMutableDictionary setObject:v15 forKeyedSubscript:"setObject:forKeyedSubscript:"];
+
+        v11 = 0;
+      }
+    }
+
+    os_unfair_lock_unlock(&self->_clockSessionsLock);
+    if (error && v11 && !*error)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    }
+
+    return -1;
+  }
+
+  return v12;
+}
+
+- (unint64_t)addMSGClockRef:(unsigned int)ref error:(id *)error
+{
+  if (_os_feature_enabled_impl())
+  {
+    if (error)
+    {
+      *error = 0;
+    }
+
+    v6 = -1;
+    v7 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
+    os_unfair_lock_lock(&self->_clockSessionsLock);
+    activeClockSessionsBySyncId = self->_activeClockSessionsBySyncId;
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    v10 = [(NSMutableDictionary *)activeClockSessionsBySyncId objectForKeyedSubscript:?];
+
+    if (!v10 || (v11 = [v7 addMSGClockRef:? error:?], v11 == -1))
+    {
+      os_unfair_lock_unlock(&self->_clockSessionsLock);
+      if (error && !*error)
+      {
+        *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+      }
+    }
+
+    else
+    {
+      v12 = v11;
+      [v10 refCnt];
+      [v10 setRefCnt:?];
+      os_unfair_lock_unlock(&self->_clockSessionsLock);
+      v6 = v12;
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    }
+
+    return -1;
+  }
+
+  return v6;
+}
+
+- (BOOL)removeMSGClock:(unsigned int)clock error:(id *)error
+{
+  if (_os_feature_enabled_impl())
+  {
+    if (error)
+    {
+      *error = 0;
+    }
+
+    v6 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
+    os_unfair_lock_lock(&self->_clockSessionsLock);
+    activeClockSessionsBySyncId = self->_activeClockSessionsBySyncId;
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    v9 = [(NSMutableDictionary *)activeClockSessionsBySyncId objectForKeyedSubscript:?];
+
+    if (v9 && [v6 removeMSGClock:? error:?])
+    {
+      [v9 refCnt];
+      [v9 setRefCnt:?];
+      if (![v9 refCnt])
+      {
+        v10 = self->_activeClockSessionsBySyncId;
+        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+        [(NSMutableDictionary *)v10 removeObjectForKey:?];
+      }
+
+      os_unfair_lock_unlock(&self->_clockSessionsLock);
+      v12 = 1;
+    }
+
+    else
+    {
+      os_unfair_lock_unlock(&self->_clockSessionsLock);
+      if (error && !*error)
+      {
+        [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+        *error = v12 = 0;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+    }
+  }
+
+  else if (error)
+  {
+    [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    *error = v12 = 0;
+  }
+
+  else
+  {
+    return 0;
+  }
+
+  return v12;
 }
 
 void __35__TSMSGService_daemonClientRefresh__block_invoke_cold_1(uint8_t *buf, int *a2, _DWORD *a3)
@@ -485,63 +708,54 @@ void __35__TSMSGService_daemonClientRefresh__block_invoke_cold_2(uint8_t *buf, i
 
 - (void)dispatchMSGNotification:args:numArgs:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchMSGNotification:args:numArgs:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchMSGNotification:args:numArgs:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchMSGNotification:args:numArgs:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchMSGNotification:(int)a1 args:numArgs:.cold.5(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown/Unsupported TSMSGNotifyType: %u", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown/Unsupported TSMSGNotifyType: %u", v1, 8u);
 }
 
 @end

@@ -428,131 +428,125 @@ void __49__NPTOCollectionTargetLibrary__libraryAssetUUIDs__block_invoke(uint64_t
 
 void __86__NPTOCollectionTargetLibrary__createLibraryCollectionTargetMapChangeObserverIfNeeded__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v1 = *(WeakRetained + 6);
     *(WeakRetained + 6) = 0;
 
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v2 = *(WeakRetained + 1);
-    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v11;
+      v5 = *v10;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v10 + 1) + 8 * i);
+          v7 = *(*(&v9 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             [v7 collectionTargetLibraryDidUpdate:WeakRetained];
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v4);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __67__NPTOCollectionTargetLibrary__createSyncingChangeObserverIfNeeded__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v1 = WeakRetained[1];
-    v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v10;
+      v4 = *v9;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v10 != v4)
+          if (*v9 != v4)
           {
             objc_enumerationMutation(v1);
           }
 
-          v6 = *(*(&v9 + 1) + 8 * i);
+          v6 = *(*(&v8 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             [v6 collectionTargetLibrarySyncingDidChange:WeakRetained];
           }
         }
 
-        v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v3);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __70__NPTOCollectionTargetLibrary__createSyncNeededChangeObserverIfNeeded__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v1 = WeakRetained[1];
-    v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v10;
+      v4 = *v9;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v10 != v4)
+          if (*v9 != v4)
           {
             objc_enumerationMutation(v1);
           }
 
-          v6 = *(*(&v9 + 1) + 8 * i);
+          v6 = *(*(&v8 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             [v6 collectionTargetLibrarySyncNeeded:WeakRetained];
           }
         }
 
-        v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v3);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

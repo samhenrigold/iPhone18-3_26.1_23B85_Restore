@@ -159,14 +159,14 @@
   [(UIPageControl *)pageControl setFrame:0];
 }
 
-void __40__PKBarcodeTableViewCell_layoutSubviews__block_invoke(uint64_t a1, void *a2)
+void __40__PKBarcodeTableViewCell_layoutSubviews__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 64);
-  v4 = a2;
-  [v4 sizeThatFits:{v2, v3}];
+  v3 = *(a1 + 56);
+  v4 = *(a1 + 64);
+  v5 = a2;
+  [v5 sizeThatFits:{v3, v4}];
   UIRectCenteredIntegralRectScale();
-  [v4 setFrame:0];
+  [v5 setFrame:0];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

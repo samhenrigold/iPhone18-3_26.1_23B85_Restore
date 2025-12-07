@@ -49,12 +49,12 @@
 
   [(NavdController *)self _startMapsSuggestionsControllerIfUnlocked];
   notify_post("com.apple.navd.wakeUpForHypothesisUpdate");
-  notify_post("com.apple.navd.restarted");
-  v17 = sub_10000DDB8();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v17 = notify_post("com.apple.navd.restarted");
+  v18 = sub_10000DDB8(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    *v19 = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "navd: will start hosting virtual garage server", v19, 2u);
+    *v20 = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "navd: will start hosting virtual garage server", v20, 2u);
   }
 
   objc_opt_class();
@@ -63,7 +63,7 @@
     objc_opt_class();
   }
 
-  v18 = objc_opt_new();
+  v19 = objc_opt_new();
   startHostingVirtualGarageServiceWithPersister();
 
   [(NavdController *)self _startListeningToMemoryPressureEvents];

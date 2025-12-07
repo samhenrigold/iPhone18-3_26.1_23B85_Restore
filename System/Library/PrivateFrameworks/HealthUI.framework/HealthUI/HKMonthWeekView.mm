@@ -17,41 +17,42 @@
 - (HKMonthWeekView)initWithDateCache:(id)cache displaysMonthTitle:(BOOL)title displaysTopBorderLine:(BOOL)line
 {
   lineCopy = line;
-  v15.receiver = self;
-  v15.super_class = HKMonthWeekView;
-  v7 = [(HKCalendarWeekView *)&v15 initWithDateCache:cache];
+  v17.receiver = self;
+  v17.super_class = HKMonthWeekView;
+  v7 = [(HKCalendarWeekView *)&v17 initWithDateCache:cache];
+  v9 = v7;
   if (v7)
   {
-    v7->_isRTL = HKUICalendarLocaleIsRightToLeft();
-    v7->_displaysMonthTitle = title;
+    v7->_isRTL = HKUICalendarLocaleIsRightToLeft(v7, v8);
+    v9->_displaysMonthTitle = title;
     systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
-    [(HKMonthWeekView *)v7 setBackgroundColor:systemBackgroundColor];
+    [(HKMonthWeekView *)v9 setBackgroundColor:systemBackgroundColor];
 
-    v7->_displaysTopBorderLine = lineCopy;
+    v9->_displaysTopBorderLine = lineCopy;
     if (lineCopy)
     {
       layer = [MEMORY[0x1E6979398] layer];
-      topBorderLine = v7->_topBorderLine;
-      v7->_topBorderLine = layer;
+      topBorderLine = v9->_topBorderLine;
+      v9->_topBorderLine = layer;
 
-      v11 = v7->_topBorderLine;
+      v13 = v9->_topBorderLine;
       mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-      [mainScreen scale];
-      [(CALayer *)v11 setContentsScale:?];
+      objc_msgSend_scale(mainScreen);
+      [(CALayer *)v13 setContentsScale:?];
 
-      layer2 = [(HKMonthWeekView *)v7 layer];
-      [layer2 addSublayer:v7->_topBorderLine];
+      layer2 = [(HKMonthWeekView *)v9 layer];
+      [layer2 addSublayer:v9->_topBorderLine];
     }
 
-    [(HKCalendarWeekView *)v7 setLeadingMargin:5.0];
-    [(HKCalendarWeekView *)v7 setDateTopMargin:2.0];
-    [(HKCalendarWeekView *)v7 setDateBottomMargin:18.0];
-    [(HKCalendarWeekView *)v7 setMonthTitleTopMargin:2.0];
-    [(HKCalendarWeekView *)v7 setMonthTitleBottomMargin:2.0];
-    [(HKCalendarWeekView *)v7 setDateDiameter:35.0];
+    [(HKCalendarWeekView *)v9 setLeadingMargin:5.0];
+    [(HKCalendarWeekView *)v9 setDateTopMargin:2.0];
+    [(HKCalendarWeekView *)v9 setDateBottomMargin:18.0];
+    [(HKCalendarWeekView *)v9 setMonthTitleTopMargin:2.0];
+    [(HKCalendarWeekView *)v9 setMonthTitleBottomMargin:2.0];
+    [(HKCalendarWeekView *)v9 setDateDiameter:35.0];
   }
 
-  return v7;
+  return v9;
 }
 
 - (NSArray)accessoryViews
@@ -168,21 +169,21 @@
     v6 = [currentCalendar component:512 fromDate:dateCopy];
     firstWeekday = [currentCalendar firstWeekday];
     v8 = (v6 - firstWeekday + *MEMORY[0x1E696B760]) % *MEMORY[0x1E696B760];
-    if (HKUICalendarLocaleIsRightToLeft())
+    if (HKUICalendarLocaleIsRightToLeft(firstWeekday, v9))
     {
       v8 = 6 - v8;
     }
 
     dayCells = [(HKCalendarWeekView *)self dayCells];
-    v10 = [dayCells objectAtIndexedSubscript:v8];
+    v11 = [dayCells objectAtIndexedSubscript:v8];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)setTitleHighlighted:(BOOL)highlighted

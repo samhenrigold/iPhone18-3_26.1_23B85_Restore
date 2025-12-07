@@ -29,7 +29,7 @@
 
 + (void)groupSetsByPersonaIdentifier:(id)identifier enumerateGroupsUsingBlock:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   blockCopy = block;
   if ([identifierCopy count])
@@ -44,27 +44,27 @@
 
     else
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       allObjects = [identifierCopy allObjects];
-      v11 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
         v13 = 0;
-        v14 = *v20;
+        v14 = *v19;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v20 != v14)
+            if (*v19 != v14)
             {
               objc_enumerationMutation(allObjects);
             }
 
-            v16 = *(*(&v19 + 1) + 8 * i);
+            v16 = *(*(&v18 + 1) + 8 * i);
             personaIdentifier2 = [v16 personaIdentifier];
             if (!personaIdentifier2)
             {
@@ -77,7 +77,7 @@
             }
           }
 
-          v12 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v12);
@@ -94,8 +94,6 @@
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dequeueAll

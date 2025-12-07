@@ -44,7 +44,7 @@
 {
   playbackCopy = playback;
   completionCopy = completion;
-  v8 = WLDDispatchQueue();
+  v8 = WLDDispatchQueue(completionCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __53__WLDLivePlaybackReporter_reportPlayback_completion___block_invoke;
@@ -89,7 +89,7 @@ void __53__WLDLivePlaybackReporter_reportPlayback_completion___block_invoke_2(ui
   v6 = v5;
   if (a2)
   {
-    v7 = WLDDispatchQueue();
+    v7 = WLDDispatchQueue(v5);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __53__WLDLivePlaybackReporter_reportPlayback_completion___block_invoke_3;
@@ -239,20 +239,20 @@ LABEL_7:
 - (void)_processInput:(unint64_t)input completion:(id)completion
 {
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v7 = WLDDispatchQueue();
+  inited = objc_initWeak(&location, self);
+  v8 = WLDDispatchQueue(inited);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __52__WLDLivePlaybackReporter__processInput_completion___block_invoke;
   block[3] = &unk_100044F50;
-  objc_copyWeak(v11, &location);
-  v11[1] = input;
+  objc_copyWeak(v12, &location);
+  v12[1] = input;
   block[4] = self;
-  v10 = completionCopy;
-  v8 = completionCopy;
-  dispatch_async(v7, block);
+  v11 = completionCopy;
+  v9 = completionCopy;
+  dispatch_async(v8, block);
 
-  objc_destroyWeak(v11);
+  objc_destroyWeak(v12);
   objc_destroyWeak(&location);
 }
 
@@ -368,7 +368,7 @@ void __76__WLDLivePlaybackReporter__handlePlayerStateDidBecomePlayingWithComplet
 - (void)_handleTimerFiredAtEventStart:(id)start
 {
   startCopy = start;
-  v5 = WLDDispatchQueue();
+  v5 = WLDDispatchQueue(startCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = __57__WLDLivePlaybackReporter__handleTimerFiredAtEventStart___block_invoke;
@@ -392,23 +392,22 @@ void __57__WLDLivePlaybackReporter__handleTimerFiredAtEventStart___block_invoke(
   if (v5)
   {
     v6 = [*(a1 + 32) lastSummary];
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = [*(a1 + 32) schedule];
-    v10 = [v8 _contentEventFromSummary:v6 schedule:v9 event:v5];
+    v7 = objc_opt_class();
+    v8 = [*(a1 + 32) schedule];
+    v9 = [v7 _contentEventFromSummary:v6 schedule:v8 event:v5];
 
-    v17 = v10;
-    v11 = [NSArray arrayWithObjects:&v17 count:1];
-    v12 = [v6 accountID];
-    v13 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [v12 longLongValue]);
+    v16 = v9;
+    v10 = [NSArray arrayWithObjects:&v16 count:1];
+    v11 = [v6 accountID];
+    v12 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [v11 longLongValue]);
 
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = __57__WLDLivePlaybackReporter__handleTimerFiredAtEventStart___block_invoke_2;
-    v15[3] = &unk_100044FA0;
-    v14 = *(a1 + 32);
-    v16 = *(a1 + 40);
-    [v14 _reportPlayEvents:v11 account:v13 completion:v15];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = __57__WLDLivePlaybackReporter__handleTimerFiredAtEventStart___block_invoke_2;
+    v14[3] = &unk_100044FA0;
+    v13 = *(a1 + 32);
+    v15 = *(a1 + 40);
+    [v13 _reportPlayEvents:v10 account:v12 completion:v14];
   }
 
   else if (*(a1 + 40))
@@ -600,8 +599,7 @@ void __59__WLDLivePlaybackReporter__decorateLiveSummary_completion___block_invok
       v14[3] = &unk_100045018;
       objc_copyWeak(&v16, &location);
       v15 = *(a1 + 40);
-      [v11 setCompletionBlock:v14];
-      v12 = WLDOperationQueue();
+      v12 = WLDOperationQueue([v11 setCompletionBlock:v14]);
       [v12 addOperation:v11];
 
       objc_destroyWeak(&v16);
@@ -668,8 +666,7 @@ void __58__WLDLivePlaybackReporter__decorateEBSSummary_completion___block_invoke
       v14[3] = &unk_100045018;
       objc_copyWeak(&v16, &location);
       v15 = *(a1 + 40);
-      [v11 setCompletionBlock:v14];
-      v12 = WLDOperationQueue();
+      v12 = WLDOperationQueue([v11 setCompletionBlock:v14]);
       [v12 addOperation:v11];
 
       objc_destroyWeak(&v16);
@@ -756,19 +753,19 @@ void __91__WLDLivePlaybackReporter__evaluateEventsForReportingWithPlaybackDate_s
   v10 = [[WLDPlayActivityReportOperation alloc] initWithLivePlayEvents:eventsCopy];
   [(WLDPlayActivityReportOperation *)v10 setDSID:accountCopy];
   objc_initWeak(&location, v10);
-  v13 = _NSConcreteStackBlock;
-  v14 = 3221225472;
-  v15 = __64__WLDLivePlaybackReporter__reportPlayEvents_account_completion___block_invoke;
-  v16 = &unk_100045018;
-  objc_copyWeak(&v18, &location);
+  v14 = _NSConcreteStackBlock;
+  v15 = 3221225472;
+  v16 = __64__WLDLivePlaybackReporter__reportPlayEvents_account_completion___block_invoke;
+  v17 = &unk_100045018;
+  objc_copyWeak(&v19, &location);
   v11 = completionCopy;
-  v17 = v11;
-  [(WLDPlayActivityReportOperation *)v10 setCompletionBlock:&v13];
-  NSLog(@"WLDLivePlaybackReporter: Queueing activity report for events: %p", eventsCopy, v13, v14, v15, v16);
-  v12 = WLDOperationQueue();
-  [v12 addOperation:v10];
+  v18 = v11;
+  [(WLDPlayActivityReportOperation *)v10 setCompletionBlock:&v14];
+  NSLog(@"WLDLivePlaybackReporter: Queueing activity report for events: %p", eventsCopy, v14, v15, v16, v17);
+  v13 = WLDOperationQueue(v12);
+  [v13 addOperation:v10];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
@@ -887,44 +884,44 @@ LABEL_16:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_storeStrong(&selfCopy->_timerEventDate, date);
-  v12 = WLDDispatchQueue();
-  v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v12);
+  v13 = WLDDispatchQueue(v12);
+  v14 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v13);
   timer = selfCopy->_timer;
-  selfCopy->_timer = v13;
+  selfCopy->_timer = v14;
 
   [dateCopy timeIntervalSinceDate:playbackDateCopy];
-  if (v15 <= 0.0)
+  if (v16 <= 0.0)
   {
     NSLog(@"WLDLivePlaybackReporter: Timer fire time cannot be less than or equal to 0, returning early. Investigate this.");
   }
 
   else
   {
-    v16 = 7200.0;
-    if (v15 <= 7200.0)
+    v17 = 7200.0;
+    if (v16 <= 7200.0)
     {
-      v16 = v15;
+      v17 = v16;
     }
 
     else
     {
-      v17 = [NSDate dateWithTimeIntervalSinceNow:?];
-      NSLog(@"WLDLivePlaybackReporter: Requested fire date exceeds max, clamping: %@", v17);
+      v18 = [NSDate dateWithTimeIntervalSinceNow:?];
+      NSLog(@"WLDLivePlaybackReporter: Requested fire date exceeds max, clamping: %@", v18);
     }
 
-    v18 = dispatch_time(0, (v16 * 1000000000.0));
-    dispatch_source_set_timer(selfCopy->_timer, v18, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v19 = dispatch_time(0, (v17 * 1000000000.0));
+    dispatch_source_set_timer(selfCopy->_timer, v19, 0xFFFFFFFFFFFFFFFFLL, 0);
     objc_initWeak(&location, selfCopy);
-    v19 = selfCopy->_timer;
+    v20 = selfCopy->_timer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = __69__WLDLivePlaybackReporter__configureTimerForDate_playbackDate_input___block_invoke;
     handler[3] = &unk_100045088;
-    objc_copyWeak(v21, &location);
-    v21[1] = input;
-    dispatch_source_set_event_handler(v19, handler);
+    objc_copyWeak(v22, &location);
+    v22[1] = input;
+    dispatch_source_set_event_handler(v20, handler);
     dispatch_activate(selfCopy->_timer);
-    objc_destroyWeak(v21);
+    objc_destroyWeak(v22);
     objc_destroyWeak(&location);
   }
 
@@ -934,10 +931,9 @@ LABEL_16:
 void __69__WLDLivePlaybackReporter__configureTimerForDate_playbackDate_input___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = *(a1 + 40);
     [WeakRetained _processInput:? completion:?];
   }
 }

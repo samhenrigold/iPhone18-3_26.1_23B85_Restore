@@ -28,8 +28,14 @@
   borderAgent = [self borderAgent];
   discriminatorId = [borderAgent discriminatorId];
   keychainAccessGroup = [self keychainAccessGroup];
+  *v17 = 138413058;
+  *&v17[4] = networkName;
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v9, v10, "Failed to calculate UUID (name=%@; xpanid=%@; discriminatorId=%@; keychainAccessGroup=%@)!", v11, v12, v13, v14, 2u);
+  *&v17[14] = extendedPANID;
+  *&v17[22] = v9;
+  LOWORD(v18) = v9;
+  *(&v18 + 2) = v10;
+  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v11, v12, "Failed to calculate UUID (name=%@; xpanid=%@; discriminatorId=%@; keychainAccessGroup=%@)!", v13, v14, v15, v16, *v17, *&v17[8], *&v17[16], discriminatorId, v18, WORD4(v18));
 }
 
 + (void)activeDataSetRecordFromKeychainDictionary:()Keychain .cold.1()
@@ -85,8 +91,14 @@
   extendedPANID = [network2 extendedPANID];
   borderAgent = [self borderAgent];
   discriminatorId = [borderAgent discriminatorId];
+  *v18 = 138413058;
+  *&v18[4] = networkName;
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v8, v9, "Illegal attempt to form keychain item with insufficient information (name=%@; xpanid=%@; discriminatorId=%@; uuid=%@)!", v10, v11, v12, v13, 2u);
+  *&v18[14] = extendedPANID;
+  *&v18[22] = v10;
+  LOWORD(v19) = v10;
+  *(&v19 + 2) = a2;
+  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v12, v13, "Illegal attempt to form keychain item with insufficient information (name=%@; xpanid=%@; discriminatorId=%@; uuid=%@)!", v14, v15, v16, v17, *v18, *&v18[8], *&v18[16], v11, v19, WORD4(v19));
 }
 
 @end

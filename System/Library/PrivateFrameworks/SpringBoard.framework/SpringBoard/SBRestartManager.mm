@@ -356,7 +356,7 @@ id __58__SBRestartManager_descriptionBuilderWithMultilinePrefix___block_invoke(u
   }
 }
 
-uint64_t __91__SBRestartManager__killAllAppsForPendingExitWithReason_description_expiration_completion___block_invoke(uint64_t a1)
+void *__91__SBRestartManager__killAllAppsForPendingExitWithReason_description_expiration_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) signal];
   if (result)
@@ -364,7 +364,7 @@ uint64_t __91__SBRestartManager__killAllAppsForPendingExitWithReason_description
     result = *(a1 + 40);
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }

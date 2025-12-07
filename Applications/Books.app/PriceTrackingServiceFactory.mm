@@ -6,7 +6,7 @@
 
 - (void)deleteCloudDataWithCompletion:(id)completion
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(completion);

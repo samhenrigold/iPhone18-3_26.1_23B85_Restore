@@ -29,7 +29,7 @@ void __51___NUAbstractBufferStorage_copyFromStorage_region___block_invoke_2(uint
   v5 = *(a1 + 40);
   if (v5)
   {
-    [v5 bounds];
+    objc_msgSend_bounds(v5);
   }
 
   [*(a1 + 32) bytesAtPoint:{0, 0, 0}];

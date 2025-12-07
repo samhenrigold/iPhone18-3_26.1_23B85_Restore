@@ -70,9 +70,9 @@
     +[UIColor(VideosUI) vui_imageBorderColor];
   }
 
-  v1 = vui_imageBorderColor___imageBorderColor;
+  v2 = vui_imageBorderColor___imageBorderColor;
 
-  return v1;
+  return v2;
 }
 
 + (id)vui_imageHighlightColor
@@ -82,9 +82,9 @@
     +[UIColor(VideosUI) vui_imageHighlightColor];
   }
 
-  v1 = vui_imageHighlightColor___imageHighlightColor;
+  v2 = vui_imageHighlightColor___imageHighlightColor;
 
-  return v1;
+  return v2;
 }
 
 + (id)vui_progressBarFillColor
@@ -94,9 +94,9 @@
     +[UIColor(VideosUI) vui_progressBarFillColor];
   }
 
-  v1 = vui_progressBarFillColor___fillColor;
+  v2 = vui_progressBarFillColor___fillColor;
 
-  return v1;
+  return v2;
 }
 
 - (id)vui_blendWithColor:()VideosUI percentage:
@@ -154,9 +154,9 @@
     +[UIColor(VideosUI) vui_lockupBorderColorOpal];
   }
 
-  v1 = vui_lockupBorderColorOpal___imageBorderColor;
+  v2 = vui_lockupBorderColorOpal___imageBorderColor;
 
-  return v1;
+  return v2;
 }
 
 @end

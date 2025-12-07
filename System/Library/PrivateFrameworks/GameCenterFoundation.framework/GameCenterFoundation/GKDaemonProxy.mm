@@ -53,6 +53,7 @@
 - (void)nearbyPlayerLostForPlayerID:(id)d deviceID:(id)iD;
 - (void)presentBannerWithNotification:(id)notification;
 - (void)receivedChallengeSelected:(id)selected;
+- (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info;
 - (void)relayPushNotification:(id)notification;
 - (void)requestSandboxExtension:(id)extension;
 - (void)resetLoginCancelCount;
@@ -91,20 +92,22 @@
 
 uint64_t __28__GKDaemonProxy_daemonProxy__block_invoke()
 {
-  daemonProxy_sDaemonProxy = objc_alloc_init(GKDaemonProxy);
+  v0 = objc_alloc_init(GKDaemonProxy);
+  v1 = daemonProxy_sDaemonProxy;
+  daemonProxy_sDaemonProxy = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (GKDaemonProxy)init
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v44.receiver = self;
-  v44.super_class = GKDaemonProxy;
-  v2 = [(GKServiceProxy *)&v44 initWithPlayer:0];
+  v46 = *MEMORY[0x277D85DE8];
+  v43.receiver = self;
+  v43.super_class = GKDaemonProxy;
+  v2 = [(GKServiceProxy *)&v43 initWithPlayer:0];
   if (!v2)
   {
-    goto LABEL_34;
+    return v2;
   }
 
   v2->_hostPID = getpid();
@@ -156,12 +159,12 @@ uint64_t __28__GKDaemonProxy_daemonProxy__block_invoke()
   [(NSXPCConnection *)v2->_connection setDelegate:v2];
   [(NSXPCConnection *)v2->_connection setInvalidationHandler:&__block_literal_global_88];
   objc_initWeak(&location, v2);
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __21__GKDaemonProxy_init__block_invoke_2;
-  v41[3] = &unk_2785DEE50;
-  objc_copyWeak(&v42, &location);
-  [(NSXPCConnection *)v2->_connection setInterruptionHandler:v41];
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __21__GKDaemonProxy_init__block_invoke_2;
+  v40[3] = &unk_2785DEE50;
+  objc_copyWeak(&v41, &location);
+  [(NSXPCConnection *)v2->_connection setInterruptionHandler:v40];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
@@ -193,7 +196,7 @@ uint64_t __28__GKDaemonProxy_daemonProxy__block_invoke()
         if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v46 = bundleIdentifier;
+          v45 = bundleIdentifier;
           _os_log_impl(&dword_227904000, v36, OS_LOG_TYPE_INFO, "GKDaemonProxy: Connection PROHIBITED for unentitled process: %@", buf, 0xCu);
         }
 
@@ -207,7 +210,7 @@ uint64_t __28__GKDaemonProxy_daemonProxy__block_invoke()
       {
         if (!os_log_GKGeneral)
         {
-          v40 = GKOSLoggers();
+          v39 = GKOSLoggers();
           v32 = os_log_GKGeneral;
         }
 
@@ -232,7 +235,7 @@ uint64_t __28__GKDaemonProxy_daemonProxy__block_invoke()
       }
 
       *buf = 138412290;
-      v46 = bundleIdentifier;
+      v45 = bundleIdentifier;
       v34 = "GKDaemonProxy: Using private Contacts entitlement to imply private Game Center Profile entitlement for: %@";
     }
 
@@ -252,7 +255,7 @@ uint64_t __28__GKDaemonProxy_daemonProxy__block_invoke()
       }
 
       *buf = 138412290;
-      v46 = bundleIdentifier;
+      v45 = bundleIdentifier;
       v34 = "GKDaemonProxy: Connection ALLOWED for unentitled but grandfathered process: %@";
     }
 
@@ -282,10 +285,8 @@ LABEL_31:
 
   [(GKDaemonProxy *)v2 buildInterfaceLookup];
 
-  objc_destroyWeak(&v42);
+  objc_destroyWeak(&v41);
   objc_destroyWeak(&location);
-LABEL_34:
-  v38 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -372,9 +373,11 @@ LABEL_34:
 
 uint64_t __33__GKDaemonProxy_proxiesForPlayer__block_invoke()
 {
-  proxiesForPlayer_proxies = [[GKThreadsafeDictionary alloc] initWithName:@"com.apple.gamecenter.per-player-daemonproxies"];
+  v0 = [[GKThreadsafeDictionary alloc] initWithName:@"com.apple.gamecenter.per-player-daemonproxies"];
+  v1 = proxiesForPlayer_proxies;
+  proxiesForPlayer_proxies = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)removeProxyForPlayer:(id)player
@@ -445,7 +448,7 @@ GKServiceProxy *__32__GKDaemonProxy_proxyForPlayer___block_invoke(uint64_t a1, v
 
 + (void)messagesDidReceiveGameCenterURL:(id)l senderHandle:(id)handle contactID:(id)d
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   lCopy = l;
   handleCopy = handle;
   dCopy = d;
@@ -458,13 +461,13 @@ GKServiceProxy *__32__GKDaemonProxy_proxyForPlayer___block_invoke(uint64_t a1, v
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412802;
-    v16 = handleCopy;
-    v17 = 2112;
-    v18 = dCopy;
-    v19 = 2112;
-    v20 = lCopy;
-    _os_log_debug_impl(&dword_227904000, v10, OS_LOG_TYPE_DEBUG, "GKDaemonProxy - received URL from %@ (%@) : %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = handleCopy;
+    v16 = 2112;
+    v17 = dCopy;
+    v18 = 2112;
+    v19 = lCopy;
+    _os_log_debug_impl(&dword_227904000, v10, OS_LOG_TYPE_DEBUG, "GKDaemonProxy - received URL from %@ (%@) : %@", &v14, 0x20u);
     if (!lCopy)
     {
       goto LABEL_8;
@@ -485,7 +488,6 @@ GKServiceProxy *__32__GKDaemonProxy_proxyForPlayer___block_invoke(uint64_t a1, v
   }
 
 LABEL_8:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__GKDaemonProxy_messagesDidReceiveGameCenterURL_senderHandle_contactID___block_invoke(uint64_t a1, void *a2)
@@ -521,46 +523,45 @@ void __72__GKDaemonProxy_messagesDidReceiveGameCenterURL_senderHandle_contactID_
 
 void __45__GKDaemonProxy_getActiveFriendRequestCount___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[GKPreferences shared];
   v8 = [v7 inboxContactsOnly];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (!v8 || [*(*(&v16 + 1) + 8 * i) isFriendInvitationInContacts])
+        if (!v8 || [*(*(&v15 + 1) + 8 * i) isFriendInvitationInContacts])
         {
           ++v12;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
 
   (*(*(a1 + 32) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetServiceLookup
@@ -689,7 +690,7 @@ void __45__GKDaemonProxy_getActiveFriendRequestCount___block_invoke(uint64_t a1,
 
 void __28__GKDaemonProxy_setHostPID___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
   {
@@ -702,9 +703,9 @@ void __28__GKDaemonProxy_setHostPID___block_invoke(uint64_t a1)
     v4 = *(*(a1 + 32) + 48);
     v5 = *(a1 + 40);
     *buf = 67109376;
-    v18 = v4;
-    v19 = 1024;
-    v20 = v5;
+    v17 = v4;
+    v18 = 1024;
+    v19 = v5;
     _os_log_impl(&dword_227904000, v2, OS_LOG_TYPE_INFO, "Changing the host PID from %d to %d", buf, 0xEu);
   }
 
@@ -730,13 +731,13 @@ void __28__GKDaemonProxy_setHostPID___block_invoke(uint64_t a1)
     v9 = dispatch_group_create();
     dispatch_group_enter(v9);
     v10 = *(*(a1 + 32) + 48);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __28__GKDaemonProxy_setHostPID___block_invoke_67;
-    v15[3] = &unk_2785DD760;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __28__GKDaemonProxy_setHostPID___block_invoke_67;
+    v14[3] = &unk_2785DD760;
     v11 = v9;
-    v16 = v11;
-    [v6 setHostPID:v10 reply:v15];
+    v15 = v11;
+    [v6 setHostPID:v10 reply:v14];
     dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
     if (!os_log_GKGeneral)
     {
@@ -749,8 +750,6 @@ void __28__GKDaemonProxy_setHostPID___block_invoke(uint64_t a1)
       __28__GKDaemonProxy_setHostPID___block_invoke_cold_1(v13);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __28__GKDaemonProxy_setHostPID___block_invoke_64(uint64_t a1, void *a2)
@@ -1302,15 +1301,15 @@ void __32__GKDaemonProxy_getGamedFiredUp__block_invoke(uint64_t a1, void *a2)
   *(*(*(a1 + 32) + 8) + 24) = 1;
 }
 
-uint64_t __32__GKDaemonProxy_getGamedFiredUp__block_invoke_106(uint64_t result, void *a2)
+void *__32__GKDaemonProxy_getGamedFiredUp__block_invoke_106(void *result, void *a2)
 {
-  if ((*(*(*(result + 32) + 8) + 24) & 1) == 0)
+  if ((*(*(result[4] + 8) + 24) & 1) == 0)
   {
     v2[0] = MEMORY[0x277D85DD0];
     v2[1] = 3221225472;
     v2[2] = __32__GKDaemonProxy_getGamedFiredUp__block_invoke_2;
     v2[3] = &unk_2785E04C0;
-    v2[4] = *(result + 40);
+    v2[4] = result[5];
     return [a2 getGamedFiredUpWithHandler:v2];
   }
 
@@ -1343,7 +1342,7 @@ void __32__GKDaemonProxy_getGamedFiredUp__block_invoke_2(uint64_t a1, void *a2, 
 
 - (int)localPlayerAgeCategory
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
   {
@@ -1356,19 +1355,19 @@ void __32__GKDaemonProxy_getGamedFiredUp__block_invoke_2(uint64_t a1, void *a2, 
     [GKDaemonProxy localPlayerAgeCategory];
   }
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __39__GKDaemonProxy_localPlayerAgeCategory__block_invoke;
   aBlock[3] = &unk_2785DFF00;
-  aBlock[4] = &v25;
+  aBlock[4] = &v24;
   v5 = _Block_copy(aBlock);
   v6 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
@@ -1382,20 +1381,20 @@ void __32__GKDaemonProxy_getGamedFiredUp__block_invoke_2(uint64_t a1, void *a2, 
     [GKDaemonProxy localPlayerAgeCategory];
   }
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   baseProxy = [(GKServiceProxy *)self baseProxy];
   connection = [baseProxy connection];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __39__GKDaemonProxy_localPlayerAgeCategory__block_invoke_109;
-  v19[3] = &unk_2785E0538;
-  v19[4] = &v25;
-  v19[5] = &v29;
-  v19[6] = &v20;
-  [connection gkPerformSynchronously:v19 errorHandler:v5];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __39__GKDaemonProxy_localPlayerAgeCategory__block_invoke_109;
+  v18[3] = &unk_2785E0538;
+  v18[4] = &v24;
+  v18[5] = &v28;
+  v18[6] = &v19;
+  [connection gkPerformSynchronously:v18 errorHandler:v5];
 
   v10 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
@@ -1407,24 +1406,23 @@ void __32__GKDaemonProxy_getGamedFiredUp__block_invoke_2(uint64_t a1, void *a2, 
   v12 = v10;
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v16 = [MEMORY[0x277CCABB0] numberWithBool:*(v26 + 24)];
-    v17 = [MEMORY[0x277CCABB0] numberWithBool:*(v21 + 24)];
-    v18 = [MEMORY[0x277CCABB0] numberWithInt:*(v30 + 6)];
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:*(v25 + 24)];
+    v16 = [MEMORY[0x277CCABB0] numberWithBool:*(v20 + 24)];
+    v17 = [MEMORY[0x277CCABB0] numberWithInt:*(v29 + 6)];
     *buf = 138412802;
-    v34 = v16;
-    v35 = 2112;
-    v36 = v17;
-    v37 = 2112;
-    v38 = v18;
+    v33 = v15;
+    v34 = 2112;
+    v35 = v16;
+    v36 = 2112;
+    v37 = v17;
     _os_log_debug_impl(&dword_227904000, v12, OS_LOG_TYPE_DEBUG, "GKDaemonProxy localPlayerAgeCategory: errorOccurred = %@, gotCallback = %@, returning value = %@", buf, 0x20u);
   }
 
-  v13 = *(v30 + 6);
-  _Block_object_dispose(&v20, 8);
+  v13 = *(v29 + 6);
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
   return v13;
 }
 
@@ -1622,7 +1620,7 @@ uint64_t __56__GKDaemonProxy_setCurrentGame_serverEnvironment_reply___block_invo
 
 uint64_t __76__GKDaemonProxy_authenticatedPlayersDidChange_authenticatingBundleID_reply___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isEqualToString:@"com.apple.GameCenterUI.GameCenterHostingContainer"] & 1) != 0 || objc_msgSend(MEMORY[0x277CCA8D8], "_gkBundleIdentifierIsAnyOverlayUI:", *(a1 + 32)))
   {
     v2 = [MEMORY[0x277CCA8D8] _gkMainBundleIsGameCenterSystemProcess];
@@ -1643,13 +1641,13 @@ uint64_t __76__GKDaemonProxy_authenticatedPlayersDidChange_authenticatingBundleI
       v9 = v5;
       v10 = [v8 numberWithBool:v2];
       v11 = [MEMORY[0x277CCABB0] numberWithBool:v4 & 1];
-      v15 = 138412802;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "authenticatedPlayersDidChange - player authenticated from %@ (GC system process? %@, update local player? %@)", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "authenticatedPlayersDidChange - player authenticated from %@ (GC system process? %@, update local player? %@)", &v14, 0x20u);
     }
 
     if (!(v2 & 1 | ((v4 & 1) == 0)))
@@ -1659,9 +1657,7 @@ uint64_t __76__GKDaemonProxy_authenticatedPlayersDidChange_authenticatingBundleI
     }
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __76__GKDaemonProxy_authenticatedPlayersDidChange_authenticatingBundleID_reply___block_invoke_126()
@@ -1685,7 +1681,7 @@ void __76__GKDaemonProxy_authenticatedPlayersDidChange_authenticatingBundleID_re
 
 - (void)friendRequestSelected:(id)selected
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   selectedCopy = selected;
   dataUpdateDelegate = [(GKDaemonProxy *)self dataUpdateDelegate];
   if (dataUpdateDelegate)
@@ -1701,55 +1697,53 @@ void __76__GKDaemonProxy_authenticatedPlayersDidChange_authenticatingBundleID_re
       block[2] = __39__GKDaemonProxy_friendRequestSelected___block_invoke;
       block[3] = &unk_2785DEBA8;
       block[4] = self;
-      v24 = selectedCopy;
+      v23 = selectedCopy;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   _gkSafeCopy = [(NSHashTable *)self->_dataUpdateDelegates _gkSafeCopy];
-  v10 = [_gkSafeCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v10 = [_gkSafeCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     v13 = MEMORY[0x277D85CD0];
     do
     {
       v14 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(_gkSafeCopy);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * v14);
+        v15 = *(*(&v18 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __39__GKDaemonProxy_friendRequestSelected___block_invoke_2;
-          v17[3] = &unk_2785DEBA8;
-          v17[4] = v15;
-          v18 = selectedCopy;
-          dispatch_async(v13, v17);
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __39__GKDaemonProxy_friendRequestSelected___block_invoke_2;
+          v16[3] = &unk_2785DEBA8;
+          v16[4] = v15;
+          v17 = selectedCopy;
+          dispatch_async(v13, v16);
         }
 
         ++v14;
       }
 
       while (v11 != v14);
-      v11 = [_gkSafeCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v11 = [_gkSafeCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __39__GKDaemonProxy_friendRequestSelected___block_invoke(uint64_t a1)
@@ -1901,7 +1895,7 @@ uint64_t __44__GKDaemonProxy_completedChallengeSelected___block_invoke(void *a1)
 
 - (void)challengeReceived:(id)received
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
   v4 = +[GKChallengeEventHandler challengeEventHandler];
   v5 = os_log_GKGeneral;
@@ -1914,23 +1908,21 @@ uint64_t __44__GKDaemonProxy_completedChallengeSelected___block_invoke(void *a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v14 = receivedCopy;
-    v15 = 2112;
-    v16 = v4;
+    v13 = receivedCopy;
+    v14 = 2112;
+    v15 = v4;
     _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "Told by gamed we received a challenge %@, telling the handler %@", buf, 0x16u);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __35__GKDaemonProxy_challengeReceived___block_invoke;
-  v10[3] = &unk_2785DEBA8;
-  v11 = v4;
-  v12 = receivedCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __35__GKDaemonProxy_challengeReceived___block_invoke;
+  v9[3] = &unk_2785DEBA8;
+  v10 = v4;
+  v11 = receivedCopy;
   v7 = receivedCopy;
   v8 = v4;
-  dispatch_async(MEMORY[0x277D85CD0], v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
 void __35__GKDaemonProxy_challengeReceived___block_invoke(uint64_t a1)
@@ -1949,7 +1941,7 @@ void __35__GKDaemonProxy_challengeReceived___block_invoke(uint64_t a1)
 
 - (void)challengeCompleted:(id)completed
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   v5 = +[GKChallengeEventHandler challengeEventHandler];
   v6 = os_log_GKGeneral;
@@ -1962,9 +1954,9 @@ void __35__GKDaemonProxy_challengeReceived___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v16 = completedCopy;
-    v17 = 2112;
-    v18 = v5;
+    v15 = completedCopy;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "Told by gamed we completed a challenge %@, telling the handler %@", buf, 0x16u);
   }
 
@@ -1972,14 +1964,12 @@ void __35__GKDaemonProxy_challengeReceived___block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __36__GKDaemonProxy_challengeCompleted___block_invoke;
   block[3] = &unk_2785DDB40;
-  v12 = v5;
-  v13 = completedCopy;
+  v11 = v5;
+  v12 = completedCopy;
   selfCopy = self;
   v8 = completedCopy;
   v9 = v5;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__GKDaemonProxy_challengeCompleted___block_invoke(void *a1)
@@ -2255,7 +2245,7 @@ void __38__GKDaemonProxy_resetLoginCancelCount__block_invoke_2(uint64_t a1, void
 
 - (void)setBadgeCount:(unint64_t)count forType:(unint64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataUpdateDelegate = [(GKDaemonProxy *)self dataUpdateDelegate];
   if (dataUpdateDelegate)
   {
@@ -2270,27 +2260,27 @@ void __38__GKDaemonProxy_resetLoginCancelCount__block_invoke_2(uint64_t a1, void
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   _gkSafeCopy = [(NSHashTable *)self->_dataUpdateDelegates _gkSafeCopy];
-  v13 = [_gkSafeCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [_gkSafeCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(_gkSafeCopy);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
+        v17 = *(*(&v18 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
           [v17 setBadgeCount:count forType:type];
@@ -2300,13 +2290,98 @@ void __38__GKDaemonProxy_resetLoginCancelCount__block_invoke_2(uint64_t a1, void
       }
 
       while (v14 != v16);
-      v14 = [_gkSafeCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [_gkSafeCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info
+{
+  v4 = *&type;
+  v35 = *MEMORY[0x277D85DE8];
+  infoCopy = info;
+  v7 = os_log_GKGeneral;
+  if (!os_log_GKGeneral)
+  {
+    v8 = GKOSLoggers();
+    v7 = os_log_GKGeneral;
+  }
+
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v9 = v7;
+    v10 = GKRefreshDataTypeAsString(v4);
+    *buf = 138412546;
+    v32 = v10;
+    v33 = 2112;
+    v34 = infoCopy;
+    _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "GKRefreshContents - received for dataType: %@ userInfo: %@", buf, 0x16u);
+  }
+
+  dataUpdateDelegate = [(GKDaemonProxy *)self dataUpdateDelegate];
+  if (dataUpdateDelegate)
+  {
+    v12 = dataUpdateDelegate;
+    dataUpdateDelegate2 = [(GKDaemonProxy *)self dataUpdateDelegate];
+    v14 = objc_opt_respondsToSelector();
+
+    if (v14)
+    {
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __53__GKDaemonProxy_refreshContentsForDataType_userInfo___block_invoke;
+      block[3] = &unk_2785DF2D0;
+      block[4] = self;
+      v29 = v4;
+      v28 = infoCopy;
+      dispatch_async(MEMORY[0x277D85CD0], block);
+    }
+  }
+
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  _gkSafeCopy = [(NSHashTable *)self->_dataUpdateDelegates _gkSafeCopy];
+  v16 = [_gkSafeCopy countByEnumeratingWithState:&v23 objects:v30 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v24;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v24 != v18)
+        {
+          objc_enumerationMutation(_gkSafeCopy);
+        }
+
+        v20 = *(*(&v23 + 1) + 8 * v19);
+        if (objc_opt_respondsToSelector())
+        {
+          [v20 refreshContentsForDataType:v4 userInfo:infoCopy];
+        }
+
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [_gkSafeCopy countByEnumeratingWithState:&v23 objects:v30 count:16];
+    }
+
+    while (v17);
+  }
+
+  if ([(GKDaemonProxy *)self isRefreshDataTypeEligibleForNotification:v4])
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    v22 = GKRefreshDataTypeAsString(v4);
+    [defaultCenter postNotificationName:v22 object:self userInfo:infoCopy];
+  }
 }
 
 void __53__GKDaemonProxy_refreshContentsForDataType_userInfo___block_invoke(uint64_t a1)
@@ -2342,7 +2417,7 @@ void __53__GKDaemonProxy_refreshContentsForDataType_userInfo___block_invoke(uint
 
 - (void)requestSandboxExtension:(id)extension
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundlePath = [mainBundle bundlePath];
@@ -2356,9 +2431,9 @@ void __53__GKDaemonProxy_refreshContentsForDataType_userInfo___block_invoke(uint
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v13 = 138412290;
-    v14 = bundlePath;
-    _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "daemon requested sandbox extension for: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = bundlePath;
+    _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "daemon requested sandbox extension for: %@", &v12, 0xCu);
   }
 
   [bundlePath UTF8String];
@@ -2384,8 +2459,6 @@ void __53__GKDaemonProxy_refreshContentsForDataType_userInfo___block_invoke(uint
       [GKDaemonProxy requestSandboxExtension:];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)replyQueueForRequestSelector:(SEL)selector
@@ -2411,15 +2484,17 @@ void __53__GKDaemonProxy_refreshContentsForDataType_userInfo___block_invoke(uint
 
 uint64_t __46__GKDaemonProxy_replyQueueForRequestSelector___block_invoke()
 {
-  replyQueueForRequestSelector__sPrivateQueue = dispatch_queue_create("com.apple.GameKit.GKDaemonProxy.privateQueue", MEMORY[0x277D85CD8]);
+  v0 = dispatch_queue_create("com.apple.GameKit.GKDaemonProxy.privateQueue", MEMORY[0x277D85CD8]);
+  v1 = replyQueueForRequestSelector__sPrivateQueue;
+  replyQueueForRequestSelector__sPrivateQueue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
 {
   replyCopy = reply;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   gkIsSynchronous = [connection gkIsSynchronous];
   if (replyCopy)
@@ -2457,9 +2532,9 @@ uint64_t __46__GKDaemonProxy_replyQueueForRequestSelector___block_invoke()
         v24 = [v19 objectForKey:@"timestamp"];
         [v24 doubleValue];
         *buf = 138412546;
-        v40 = v17;
-        v41 = 2048;
-        v42 = Current - v25;
+        v39 = v17;
+        v40 = 2048;
+        v41 = Current - v25;
         _os_log_impl(&dword_227904000, v22, OS_LOG_TYPE_INFO, "Received reply for request %@ duration(%fs)", buf, 0x16u);
       }
 
@@ -2483,7 +2558,7 @@ uint64_t __46__GKDaemonProxy_replyQueueForRequestSelector___block_invoke()
     aBlock[2] = __53__GKDaemonProxy_connection_handleInvocation_isReply___block_invoke;
     aBlock[3] = &unk_2785DEBA8;
     v30 = invocationCopy;
-    v37 = v30;
+    v36 = v30;
     selfCopy = self;
     v31 = _Block_copy(aBlock);
     v32 = v31;
@@ -2506,8 +2581,6 @@ uint64_t __46__GKDaemonProxy_replyQueueForRequestSelector___block_invoke()
   {
     [invocationCopy _gkInvokeOnce];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __53__GKDaemonProxy_connection_handleInvocation_isReply___block_invoke(uint64_t a1)
@@ -2532,59 +2605,29 @@ intptr_t __53__GKDaemonProxy_connection_handleInvocation_isReply___block_invoke(
   return WeakRetained;
 }
 
-void __72__GKDaemonProxy_messagesDidReceiveGameCenterURL_senderHandle_contactID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "GKDaemonProxy->messagesDidReceiveGameCenterURL: error while getting the remoteObjectProxyWithErrorHandler:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __28__GKDaemonProxy_setHostPID___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = a1;
   CFAbsoluteTimeGetCurrent();
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __28__GKDaemonProxy_setHostPID___block_invoke_64_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "GKDaemonProxy->setHostPID: error while getting the remoteObjectProxyWithErrorHandler:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, v8);
 }
 
 void __51__GKDaemonProxy_setTestGame_protocolVersion_reply___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = a1;
   CFAbsoluteTimeGetCurrent();
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __51__GKDaemonProxy_setTestGame_protocolVersion_reply___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "GKDaemonProxy->setTestGame: error while getting the remoteObjectProxyWithHandler:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, v8);
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getGamedFiredUp
@@ -2596,20 +2639,16 @@ void __51__GKDaemonProxy_setTestGame_protocolVersion_reply___block_invoke_2_cold
 
 void __32__GKDaemonProxy_getGamedFiredUp__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __32__GKDaemonProxy_getGamedFiredUp__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localPlayerAgeCategory
@@ -2635,47 +2674,19 @@ void __39__GKDaemonProxy_localPlayerAgeCategory__block_invoke_109_cold_1()
 
 void __39__GKDaemonProxy_localPlayerAgeCategory__block_invoke_110_cold_1(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithInt:a2];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v4, OS_LOG_TYPE_DEBUG, "GKDaemonProxy localPlayerAgeCategory: callback value = %@", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v4, OS_LOG_TYPE_DEBUG, "GKDaemonProxy localPlayerAgeCategory: callback value = %@", v6, 0xCu);
 }
 
 - (void)deliverEncodedGameActivityInstance:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __60__GKDaemonProxy_localizedMessageFromDictionary_forBundleID___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "GKDaemonProxy->localizedMessageFromDictionary:forBundleID: error while getting the remoteObjectProxyWithHandler:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __38__GKDaemonProxy_resetLoginCancelCount__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "GKDaemonProxy->resetLoginCancelCount error while getting the remoteObjectProxyWithHandler:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)requestSandboxExtension:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "failed to create sandbox extension for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

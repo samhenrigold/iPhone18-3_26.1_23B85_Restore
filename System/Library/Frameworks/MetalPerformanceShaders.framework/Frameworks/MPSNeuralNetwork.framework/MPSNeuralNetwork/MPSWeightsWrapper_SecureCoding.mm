@@ -18,7 +18,7 @@
     if (MTLReportFailureTypeEnabled())
     {
       objc_msgSend_debugDescription(self->super._dataSource, v130, v131, v132, v133, v134, v135, v136);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/BackwardsCompatibility.mm", 0xA3, @"Error: expected secure coding support from object: \n\t%@\n", v137, v138, v139, v140);
     }
   }
 

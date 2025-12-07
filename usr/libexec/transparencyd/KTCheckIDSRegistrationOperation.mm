@@ -2,6 +2,7 @@
 + (BOOL)checkPCSKTSignature:(id)signature data:(id)data signature:(id)a5;
 - (BOOL)hasRecentlyDoneHSA2Upsell;
 - (KTCheckIDSRegistrationInterface)idsRegistrationInterface;
+- (KTCheckIDSRegistrationOperation)initWithDependencies:(id)dependencies application:(id)application waitLonger:(BOOL)longer pcs:(id)pcs idsRegistrationInterface:(id)interface;
 - (id)messageForResult:(int64_t)result;
 - (int64_t)getPriorityIDSResult:(id)result;
 - (void)groupStart;
@@ -10,6 +11,31 @@
 @end
 
 @implementation KTCheckIDSRegistrationOperation
+
+- (KTCheckIDSRegistrationOperation)initWithDependencies:(id)dependencies application:(id)application waitLonger:(BOOL)longer pcs:(id)pcs idsRegistrationInterface:(id)interface
+{
+  longerCopy = longer;
+  dependenciesCopy = dependencies;
+  applicationCopy = application;
+  pcsCopy = pcs;
+  interfaceCopy = interface;
+  v20.receiver = self;
+  v20.super_class = KTCheckIDSRegistrationOperation;
+  v16 = [(KTGroupOperation *)&v20 init];
+  v17 = v16;
+  if (v16)
+  {
+    [(KTCheckIDSRegistrationOperation *)v16 setDeps:dependenciesCopy];
+    [(KTCheckIDSRegistrationOperation *)v17 setApplication:applicationCopy];
+    [(KTCheckIDSRegistrationOperation *)v17 setWaitLonger:longerCopy];
+    [(KTCheckIDSRegistrationOperation *)v17 setPcsOperation:pcsCopy];
+    [(KTCheckIDSRegistrationOperation *)v17 setIdsRegistrationInterface:interfaceCopy];
+    [(KTCheckIDSRegistrationOperation *)v17 setCheckIDSResult:0];
+    v18 = v17;
+  }
+
+  return v17;
+}
 
 + (BOOL)checkPCSKTSignature:(id)signature data:(id)data signature:(id)a5
 {

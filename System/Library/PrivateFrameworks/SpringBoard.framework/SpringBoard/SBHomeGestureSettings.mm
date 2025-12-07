@@ -13,7 +13,7 @@
   v8.super_class = SBHomeGestureSettings;
   [(PTSettings *)&v8 setDefaultValues];
   v3 = SBFEffectiveHomeButtonType();
-  [(SBHomeGestureSettings *)self setHomeGestureEnabled:SBIsHomeGestureEnabledByDefault()];
+  [(SBHomeGestureSettings *)self setHomeGestureEnabled:SBIsHomeGestureEnabledByDefault(v3)];
   v4 = v3 == 2;
   v5 = v3 == 2;
   v6 = 10.0;

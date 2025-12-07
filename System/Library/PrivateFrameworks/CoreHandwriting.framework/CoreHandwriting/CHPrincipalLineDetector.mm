@@ -868,7 +868,7 @@ LABEL_118:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    *&buf[4] = (v20 - v19) >> 4;
+    *&buf[4] = v20 - v19;
     _os_log_impl(&dword_18366B000, v13, OS_LOG_TYPE_ERROR, "Empty alphashape from ink with %lu points.", buf, 0xCu);
   }
 

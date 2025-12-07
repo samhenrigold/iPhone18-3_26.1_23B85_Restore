@@ -377,18 +377,18 @@
 
   v28 = objc_msgSend_accessor(self, v9, v10, v11, v12);
   v33 = objc_msgSend_accessor(self, v29, v30, v31, v32);
-  v38 = v33;
+  v37 = v33;
   if (v33)
   {
-    objc_msgSend_sceneTransform(v33, v34, v35, v36, v37);
+    objc_msgSend_sceneTransform(v33, v34, v35, v36);
   }
 
   else
   {
-    memset(v40, 0, sizeof(v40));
+    memset(v39, 0, sizeof(v39));
   }
 
-  sub_2761902D4(v28, v40, retstr);
+  sub_2761902D4(v28, v39, retstr);
 
   return result;
 }

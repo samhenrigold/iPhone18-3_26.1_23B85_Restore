@@ -1,4 +1,5 @@
 @interface ACCExternalAccessorySessionBasic
+- (ACCExternalAccessorySessionBasic)initWithEASessionUUID:(id)d protocolID:(unsigned __int8)iD legacyConnectionID:(unint64_t)connectionID sessionID:(unsigned __int16)sessionID;
 - (BOOL)closeDataPipes;
 - (__CFData)returnEASessionDataFromApp:(unsigned int)app;
 - (unsigned)readEASessionDataFromApp:(id)app maxReadSize:(unsigned int)size;
@@ -13,6 +14,51 @@
 @end
 
 @implementation ACCExternalAccessorySessionBasic
+
+- (ACCExternalAccessorySessionBasic)initWithEASessionUUID:(id)d protocolID:(unsigned __int8)iD legacyConnectionID:(unint64_t)connectionID sessionID:(unsigned __int16)sessionID
+{
+  v23.receiver = self;
+  v23.super_class = ACCExternalAccessorySessionBasic;
+  v6 = [(ACCExternalAccessorySession *)&v23 initWithEASessionUUID:d protocolID:iD legacyConnectionID:connectionID sessionID:sessionID];
+  v7 = v6;
+  if (v6)
+  {
+    readSource = v6->_readSource;
+    v6->_readSource = 0;
+
+    v7->super._listenSock = [(ACCExternalAccessorySession *)v7 _createListenSocket];
+    eaSessionUUID = [(ACCExternalAccessorySession *)v7 eaSessionUUID];
+    v10 = [NSString stringWithFormat:@"com.apple.accessoryd.easessionqueue.%@", eaSessionUUID];
+
+    v11 = dispatch_queue_create([v10 cStringUsingEncoding:4], 0);
+    msgSerialQueue = v7->_msgSerialQueue;
+    v7->_msgSerialQueue = v11;
+
+    v13 = dispatch_source_create(&_dispatch_source_type_read, v7->super._listenSock, 0, v7->_msgSerialQueue);
+    listenSource = v7->_listenSource;
+    v7->_listenSource = v13;
+
+    v7->_continueRunningSession = 0;
+    v15 = v7->_listenSource;
+    handler[0] = _NSConcreteStackBlock;
+    handler[1] = 3221225472;
+    handler[2] = __98__ACCExternalAccessorySessionBasic_initWithEASessionUUID_protocolID_legacyConnectionID_sessionID___block_invoke;
+    handler[3] = &unk_100225968;
+    v16 = v7;
+    v22 = v16;
+    dispatch_source_set_cancel_handler(v15, handler);
+    v17 = v7->_listenSource;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = __98__ACCExternalAccessorySessionBasic_initWithEASessionUUID_protocolID_legacyConnectionID_sessionID___block_invoke_2;
+    v19[3] = &unk_100225968;
+    v20 = v16;
+    dispatch_source_set_event_handler(v17, v19);
+    dispatch_resume(v7->_listenSource);
+  }
+
+  return v7;
+}
 
 uint64_t __98__ACCExternalAccessorySessionBasic_initWithEASessionUUID_protocolID_legacyConnectionID_sessionID___block_invoke(uint64_t a1)
 {

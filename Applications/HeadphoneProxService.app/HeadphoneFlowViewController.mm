@@ -63,7 +63,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_10009E610(contextCopy, v6, v7);
-  sub_1000622D4(v6);
+  sub_1000622D4(v6, v7);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -83,7 +83,7 @@
   if (actions)
   {
     sub_1000084D4(0, &qword_10011F948, SBUIRemoteAlertButtonAction_ptr);
-    sub_10001C19C(&unk_10011F950, &qword_10011F948, SBUIRemoteAlertButtonAction_ptr);
+    sub_10001C19C(&unk_10011F950, &qword_10011F948, SBUIRemoteAlertButtonAction_ptr, &protocol conformance descriptor for NSObject);
     v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

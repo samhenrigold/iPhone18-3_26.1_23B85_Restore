@@ -97,16 +97,14 @@ LABEL_12:
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"EMAIL_MAPPING";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"EMAIL_MAPPING";
   emailMapping = [(SGEntityMappingTransformer *)self emailMapping];
-  v9[1] = @"LINK_MAPPING";
-  v10[0] = emailMapping;
+  v8[1] = @"LINK_MAPPING";
+  v9[0] = emailMapping;
   linkMapping = [(SGEntityMappingTransformer *)self linkMapping];
-  v10[1] = linkMapping;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = linkMapping;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -145,27 +143,27 @@ LABEL_12:
 
 void __40__SGEntityMappingTransformer_transform___block_invoke(id *a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [v2 length];
   v4 = objc_autoreleasePoolPush();
   v5 = [a1[5] dataDetector];
-  v31 = v2;
+  v30 = v2;
   v6 = [v5 matchesInString:v2 options:0 range:{0, objc_msgSend(v2, "length")}];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = v6;
-  v34 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v33)
   {
-    v29 = v3;
-    v30 = v4;
+    v28 = v3;
+    v29 = v4;
     v7 = 0;
     v8 = 0;
-    v33 = *v36;
+    v32 = *v35;
     do
     {
       v9 = 0;
@@ -173,12 +171,12 @@ void __40__SGEntityMappingTransformer_transform___block_invoke(id *a1)
       v11 = v8;
       do
       {
-        if (*v36 != v33)
+        if (*v35 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * v9);
+        v12 = *(*(&v34 + 1) + 8 * v9);
         v13 = objc_autoreleasePoolPush();
         v7 = [v12 range];
         v8 = v14;
@@ -212,13 +210,13 @@ void __40__SGEntityMappingTransformer_transform___block_invoke(id *a1)
         {
           v22 = objc_autoreleasePoolPush();
           v23 = a1[6];
-          v24 = [v31 substringWithRange:{v20, v21}];
+          v24 = [v30 substringWithRange:{v20, v21}];
           [v23 appendString:v24];
 
           objc_autoreleasePoolPop(v22);
         }
 
-        [a1[6] appendString:{v19, v29, v30}];
+        [a1[6] appendString:{v19, v28, v29}];
 
         objc_autoreleasePoolPop(v13);
         ++v9;
@@ -226,13 +224,13 @@ void __40__SGEntityMappingTransformer_transform___block_invoke(id *a1)
         v11 = v8;
       }
 
-      while (v34 != v9);
-      v34 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      while (v33 != v9);
+      v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
-    while (v34);
-    v3 = v29;
-    v4 = v30;
+    while (v33);
+    v3 = v28;
+    v4 = v29;
   }
 
   else
@@ -245,29 +243,28 @@ void __40__SGEntityMappingTransformer_transform___block_invoke(id *a1)
   {
     v25 = objc_autoreleasePoolPush();
     v26 = a1[6];
-    v27 = [v31 substringWithRange:{v7 + v8, v3 - (v7 + v8)}];
+    v27 = [v30 substringWithRange:{v7 + v8, v3 - (v7 + v8)}];
     [v26 appendString:v27];
 
     objc_autoreleasePoolPop(v25);
   }
 
   objc_autoreleasePoolPop(v4);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (SGEntityMappingTransformer)initWithEmailMapping:(id)mapping linkMapping:(id)linkMapping
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   linkMappingCopy = linkMapping;
-  v16.receiver = self;
-  v16.super_class = SGEntityMappingTransformer;
-  v8 = [(SGEntityMappingTransformer *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = SGEntityMappingTransformer;
+  v8 = [(SGEntityMappingTransformer *)&v15 init];
   if (v8)
   {
-    v15 = 0;
-    v9 = [MEMORY[0x277CCA948] dataDetectorWithTypes:32 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [MEMORY[0x277CCA948] dataDetectorWithTypes:32 error:&v14];
+    v10 = v14;
     [(SGEntityMappingTransformer *)v8 setDataDetector:v9];
 
     if (v10)
@@ -277,7 +274,7 @@ void __40__SGEntityMappingTransformer_transform___block_invoke(id *a1)
       {
         localizedDescription = [v10 localizedDescription];
         *buf = 138412290;
-        v18 = localizedDescription;
+        v17 = localizedDescription;
         _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "Error constructing data detector for featurizing: %@", buf, 0xCu);
       }
     }
@@ -286,7 +283,6 @@ void __40__SGEntityMappingTransformer_transform___block_invoke(id *a1)
     [(SGEntityMappingTransformer *)v8 setLinkMapping:linkMappingCopy];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

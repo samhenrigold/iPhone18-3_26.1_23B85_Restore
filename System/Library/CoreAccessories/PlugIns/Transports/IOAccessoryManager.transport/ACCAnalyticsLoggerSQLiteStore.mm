@@ -57,163 +57,147 @@ uint64_t __54__ACCAnalyticsLoggerSQLiteStore_storeWithPath_schema___block_invoke
 
 - (BOOL)tryToOpenDatabase
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([(ACCSQLite *)self isOpen])
   {
-    v3 = 1;
+    return 1;
   }
 
-  else
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] ACCEventLogger: db is closed, attempting to open", buf, 2u);
-    }
-
-    v7 = 0;
-    v3 = [(ACCSQLite *)self openWithError:&v7];
-    v4 = v7;
-    if (!v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] ACCEventLogger: failed to open db with error %@", buf, 0xCu);
-    }
+    *buf = 0;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] ACCEventLogger: db is closed, attempting to open", buf, 2u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v3 = [(ACCSQLite *)self openWithError:&v6];
+  v4 = v6;
+  if (!v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] ACCEventLogger: failed to open db with error %@", buf, 0xCu);
+  }
+
   return v3;
 }
 
 - (int64_t)successCount
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  if ([(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
+  v11[1] = *MEMORY[0x277D85DE8];
+  if (![(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
   {
-    v12[0] = @"success_count";
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-    v11 = @"accessoryDatabaseCounts";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-    v5 = [(ACCSQLite *)self select:v3 from:@"success_count" where:@"event_type = ?" bindings:v4];
-    firstObject = [v5 firstObject];
-    v7 = [firstObject valueForKey:@"success_count"];
-    integerValue = [v7 integerValue];
+    return 0;
   }
 
-  else
-  {
-    integerValue = 0;
-  }
+  v11[0] = @"success_count";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10 = @"accessoryDatabaseCounts";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v5 = [(ACCSQLite *)self select:v3 from:@"success_count" where:@"event_type = ?" bindings:v4];
+  firstObject = [v5 firstObject];
+  v7 = [firstObject valueForKey:@"success_count"];
+  integerValue = [v7 integerValue];
 
-  v9 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 - (int64_t)wrapFailureCount
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  if ([(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
+  v11[1] = *MEMORY[0x277D85DE8];
+  if (![(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
   {
-    v12[0] = @"wrap_failure_count";
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-    v11 = @"accessoryDatabaseCounts";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-    v5 = [(ACCSQLite *)self select:v3 from:@"success_count" where:@"event_type = ?" bindings:v4];
-    firstObject = [v5 firstObject];
-    v7 = [firstObject valueForKey:@"wrap_failure_count"];
-    integerValue = [v7 integerValue];
+    return 0;
   }
 
-  else
-  {
-    integerValue = 0;
-  }
+  v11[0] = @"wrap_failure_count";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10 = @"accessoryDatabaseCounts";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v5 = [(ACCSQLite *)self select:v3 from:@"success_count" where:@"event_type = ?" bindings:v4];
+  firstObject = [v5 firstObject];
+  v7 = [firstObject valueForKey:@"wrap_failure_count"];
+  integerValue = [v7 integerValue];
 
-  v9 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 - (void)incrementSuccessCount
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   if ([(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
   {
     successCount = [(ACCAnalyticsLoggerSQLiteStore *)self successCount];
     wrapFailureCount = [(ACCAnalyticsLoggerSQLiteStore *)self wrapFailureCount];
-    v10[0] = @"accessoryDatabaseCounts";
-    v9[0] = @"event_type";
-    v9[1] = @"success_count";
+    v9[0] = @"accessoryDatabaseCounts";
+    v8[0] = @"event_type";
+    v8[1] = @"success_count";
     v5 = [MEMORY[0x277CCABB0] numberWithInteger:successCount + 1];
-    v10[1] = v5;
-    v9[2] = @"wrap_failure_count";
+    v9[1] = v5;
+    v8[2] = @"wrap_failure_count";
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:wrapFailureCount];
-    v10[2] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+    v9[2] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
     [(ACCSQLite *)self insertOrReplaceInto:@"success_count" values:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incrementWrapFailureCount
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   if ([(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
   {
     successCount = [(ACCAnalyticsLoggerSQLiteStore *)self successCount];
     wrapFailureCount = [(ACCAnalyticsLoggerSQLiteStore *)self wrapFailureCount];
-    v10[0] = @"accessoryDatabaseCounts";
-    v9[0] = @"event_type";
-    v9[1] = @"success_count";
+    v9[0] = @"accessoryDatabaseCounts";
+    v8[0] = @"event_type";
+    v8[1] = @"success_count";
     v5 = [MEMORY[0x277CCABB0] numberWithInteger:successCount];
-    v10[1] = v5;
-    v9[2] = @"wrap_failure_count";
+    v9[1] = v5;
+    v8[2] = @"wrap_failure_count";
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:wrapFailureCount + 1];
-    v10[2] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+    v9[2] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
     [(ACCSQLite *)self insertOrReplaceInto:@"success_count" values:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)summaryCounts
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     [(ACCSQLite *)self selectAllFrom:@"success_count" where:0 bindings:0];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    obj = v19 = 0u;
-    v3 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
+    obj = v18 = 0u;
+    v3 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v17;
+      v5 = *v16;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v17 != v5)
+          if (*v16 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v16 + 1) + 8 * i);
+          v7 = *(*(&v15 + 1) + 8 * i);
           v8 = [v7 objectForKeyedSubscript:@"event_type"];
           if (v8)
           {
-            v22[0] = @"success_count";
+            v21[0] = @"success_count";
             v9 = [v7 objectForKeyedSubscript:@"success_count"];
-            v22[1] = @"wrap_failure_count";
-            v23[0] = v9;
+            v21[1] = @"wrap_failure_count";
+            v22[0] = v9;
             v10 = [v7 objectForKeyedSubscript:@"wrap_failure_count"];
-            v23[1] = v10;
-            v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+            v22[1] = v10;
+            v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
             [dictionary setObject:v11 forKeyedSubscript:v8];
           }
 
@@ -224,7 +208,7 @@ uint64_t __54__ACCAnalyticsLoggerSQLiteStore_storeWithPath_schema___block_invoke
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v4 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
       }
 
       while (v4);
@@ -233,7 +217,7 @@ uint64_t __54__ACCAnalyticsLoggerSQLiteStore_storeWithPath_schema___block_invoke
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = dictionary;
+      v20 = dictionary;
       _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] successCountsDict: %@", buf, 0xCu);
     }
   }
@@ -243,48 +227,46 @@ uint64_t __54__ACCAnalyticsLoggerSQLiteStore_storeWithPath_schema___block_invoke
     dictionary = objc_opt_new();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (NSArray)allEvents
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if ([(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
   {
-    v21[0] = @"data";
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = @"data";
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     v4 = [(ACCSQLite *)self select:v3 from:@"all_events"];
 
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
           v11 = MEMORY[0x277CCAC58];
-          v12 = [*(*(&v16 + 1) + 8 * i) objectForKeyedSubscript:{@"data", v16}];
+          v12 = [*(*(&v15 + 1) + 8 * i) objectForKeyedSubscript:{@"data", v15}];
           v13 = [v11 propertyListWithData:v12 options:0 format:0 error:0];
 
           [v5 addObject:v13];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -296,45 +278,41 @@ uint64_t __54__ACCAnalyticsLoggerSQLiteStore_storeWithPath_schema___block_invoke
     v5 = objc_opt_new();
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)addEventDict:(id)dict toTable:(id)table
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   tableCopy = table;
   if ([(ACCAnalyticsLoggerSQLiteStore *)self tryToOpenDatabase])
   {
-    v14 = 0;
-    v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:dictCopy format:200 options:0 error:&v14];
-    v9 = v14;
+    v13 = 0;
+    v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:dictCopy format:200 options:0 error:&v13];
+    v9 = v13;
     v10 = v9;
     if (v9 || !v8)
     {
       if (v9 && !v8 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = v10;
+        v15 = v10;
         _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] Couldn't serialize failure record: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v17[0] = @"timestamp";
+      v16[0] = @"timestamp";
       date = [MEMORY[0x277CBEAA8] date];
-      v17[1] = @"data";
-      v18[0] = date;
-      v18[1] = v8;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+      v16[1] = @"data";
+      v17[0] = date;
+      v17[1] = v8;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
       [(ACCSQLite *)self insertOrReplaceInto:tableCopy values:v12];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)uploadDate

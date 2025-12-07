@@ -410,7 +410,7 @@ void __61___SFBrowserContentViewController__showCrashBanner_animated___block_inv
   [v13 setContentOffset:{v9, v11 - (v12 - v4)}];
 }
 
-uint64_t __61___SFBrowserContentViewController__showCrashBanner_animated___block_invoke_2(uint64_t a1)
+void *__61___SFBrowserContentViewController__showCrashBanner_animated___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if ((*(v2 + 1248) & 1) == 0)
@@ -553,7 +553,7 @@ void __56___SFBrowserContentViewController__resetPageZoomSetting__block_invoke_2
 
 void __56___SFBrowserContentViewController__invokeCustomActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) webViewController];
   v5 = [v4 webView];
@@ -569,53 +569,54 @@ void __56___SFBrowserContentViewController__invokeCustomActivity__block_invoke(u
     v6 = *(a1 + 32);
   }
 
-  v24 = [v6 _hostAppBundleId];
-  v10 = *(a1 + 32);
-  if (v10[1584])
+  v10 = [v6 _hostAppBundleId];
+  v26 = v10;
+  v12 = *(a1 + 32);
+  if (v12[1584])
   {
-    v11 = [v5 title];
-    v12 = [v10 _itemProviderCollectionForSharingURL:v3 title:v11];
+    v13 = [v5 title];
+    v14 = [v12 _itemProviderCollectionForSharingURL:v3 title:v13];
 
-    v13 = [_SFActivityViewController alloc];
-    v14 = [v5 URL];
-    v15 = [(_SFActivityViewController *)v13 initWithActivityItemProviderCollection:v12 applicationActivities:0 sharingURL:v3 sourceURL:v14];
+    v15 = [_SFActivityViewController alloc];
+    v16 = [v5 URL];
+    v17 = [(_SFActivityViewController *)v15 initWithActivityItemProviderCollection:v14 applicationActivities:0 sharingURL:v3 sourceURL:v16];
 
-    [(_SFActivityViewController *)v15 setSharingExtensionController:*(*(a1 + 32) + 1312)];
-    objc_initWeak(location, v15);
-    v16 = [*(*(a1 + 32) + 1952) activityButton];
-    v17 = [v16 extensionIdentifier];
+    [(_SFActivityViewController *)v17 setSharingExtensionController:*(*(a1 + 32) + 1312)];
+    objc_initWeak(location, v17);
+    v18 = [*(*(a1 + 32) + 1952) activityButton];
+    v19 = [v18 extensionIdentifier];
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __56___SFBrowserContentViewController__invokeCustomActivity__block_invoke_266;
-    v25[3] = &unk_1E8494BF8;
-    objc_copyWeak(&v27, location);
-    v18 = v17;
-    v26 = v18;
-    [*(*(a1 + 32) + 1576) setCustomCompletionHandler:v25];
-    [(_SFActivityViewController *)v15 prepareJavaScriptExtensionItemForActivity:*(*(a1 + 32) + 1576)];
-    v19 = *(*(a1 + 32) + 1576);
-    v20 = [(_SFActivityViewController *)v15 activityItemProviders];
-    [v19 prepareWithActivityItems:v20];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __56___SFBrowserContentViewController__invokeCustomActivity__block_invoke_266;
+    v27[3] = &unk_1E8494BF8;
+    objc_copyWeak(&v29, location);
+    v20 = v19;
+    v28 = v20;
+    [*(*(a1 + 32) + 1576) setCustomCompletionHandler:v27];
+    [(_SFActivityViewController *)v17 prepareJavaScriptExtensionItemForActivity:*(*(a1 + 32) + 1576)];
+    v21 = *(*(a1 + 32) + 1576);
+    v22 = [(_SFActivityViewController *)v17 activityItemProviders];
+    [v21 prepareWithActivityItems:v22];
 
     [*(*(a1 + 32) + 1576) _presentActivityOnViewController:? animated:? completion:?];
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
 
     objc_destroyWeak(location);
   }
 
   else
   {
-    v21 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = WBS_LOG_CHANNEL_PREFIXExtensions(v10, v11);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v22 = [*(*(a1 + 32) + 1952) activityButton];
-      v23 = [v22 extensionIdentifier];
+      v24 = [*(*(a1 + 32) + 1952) activityButton];
+      v25 = [v24 extensionIdentifier];
       *location = 138543618;
-      *&location[4] = v23;
-      v29 = 2114;
-      v30 = v24;
-      _os_log_error_impl(&dword_1D4644000, v21, OS_LOG_TYPE_ERROR, "Can't run extension '%{public}@' because it isn't part of the app '%{public}@'", location, 0x16u);
+      *&location[4] = v25;
+      v31 = 2114;
+      v32 = v26;
+      _os_log_error_impl(&dword_1D4644000, v23, OS_LOG_TYPE_ERROR, "Can't run extension '%{public}@' because it isn't part of the app '%{public}@'", location, 0x16u);
     }
 
     [*(a1 + 32) _updateUI];
@@ -640,17 +641,17 @@ void __56___SFBrowserContentViewController__invokeCustomActivity__block_invoke_2
   [WeakRetained activityDidComplete:*(a1 + 32) withReturnedItems:v7 success:v9];
 }
 
-void __56___SFBrowserContentViewController__invokeCustomActivity__block_invoke_2(uint64_t a1)
+void __56___SFBrowserContentViewController__invokeCustomActivity__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXExtensions();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = WBS_LOG_CHANNEL_PREFIXExtensions(a1, a2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(*(a1 + 32) + 1952) activityButton];
-    v4 = [v3 extensionIdentifier];
-    v5 = 138543362;
-    v6 = v4;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Presented extension '%{public}@' from a custom toolbar button", &v5, 0xCu);
+    v7 = [*(*(a1 + 32) + 1952) activityButton];
+    v8 = [v7 extensionIdentifier];
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_INFO, "Presented extension '%{public}@' from a custom toolbar button", &v9, 0xCu);
   }
 }
 
@@ -1020,11 +1021,11 @@ uint64_t __127___SFBrowserContentViewController__redirectToExternalNavigationRes
   return result;
 }
 
-uint64_t __127___SFBrowserContentViewController__redirectToExternalNavigationResult_fromOriginalRequest_promptPolicy_isMainFrame_userAction___block_invoke_3(uint64_t result, int a2)
+id *__127___SFBrowserContentViewController__redirectToExternalNavigationResult_fromOriginalRequest_promptPolicy_isMainFrame_userAction___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _completeRedirectToExternalNavigationResult:*(result + 40) fromOriginalRequest:*(result + 48) dialogResult:0];
+    return [result[4] _completeRedirectToExternalNavigationResult:result[5] fromOriginalRequest:result[6] dialogResult:0];
   }
 
   return result;
@@ -1080,25 +1081,25 @@ void __108___SFBrowserContentViewController__redirectToNewsIfNeededForRequest_is
 
 void __101___SFBrowserContentViewController_webViewController_decidePolicyForNavigationAction_decisionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained _didDecideNavigationPolicy:a2 forNavigationAction:*(a1 + 32)];
-  (*(*(a1 + 40) + 16))();
+  v7 = (*(*(a1 + 40) + 16))();
   if (WeakRetained)
   {
     if (*(a1 + 56) == 1)
     {
       --WeakRetained[205];
-      v7 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = WBS_LOG_CHANNEL_PREFIXPageLoading(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v8 = WeakRetained[205];
-        v9 = 134218240;
-        v10 = WeakRetained;
-        v11 = 2048;
-        v12 = v8;
-        _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_INFO, "(%p) Concurrent navigation action policy decisions: %zd", &v9, 0x16u);
+        v10 = WeakRetained[205];
+        v11 = 134218240;
+        v12 = WeakRetained;
+        v13 = 2048;
+        v14 = v10;
+        _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_INFO, "(%p) Concurrent navigation action policy decisions: %zd", &v11, 0x16u);
       }
     }
   }
@@ -1418,11 +1419,11 @@ void __54___SFBrowserContentViewController__receivedTouchDown___block_invoke(uin
   *(v2 + 1808) = 0;
 }
 
-uint64_t __74___SFBrowserContentViewController_navigationBarFormatMenuButtonWasTapped___block_invoke(uint64_t result, int a2)
+id *__74___SFBrowserContentViewController_navigationBarFormatMenuButtonWasTapped___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) reloadBrowsingAssistantIfNeeded];
+    return [result[4] reloadBrowsingAssistantIfNeeded];
   }
 
   return result;
@@ -1469,12 +1470,13 @@ void __53___SFBrowserContentViewController_downloadDidFinish___block_invoke(uint
 void __49___SFBrowserContentViewController__showDownload___block_invoke_362(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXDownloads(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __49___SFBrowserContentViewController__showDownload___block_invoke_362_cold_1();
     }
@@ -1487,12 +1489,13 @@ void __49___SFBrowserContentViewController__showDownload___block_invoke_365(uint
 {
   block[8] = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXDownloads(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [v4 safari_privacyPreservingDescription];
+      [v6 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __49___SFBrowserContentViewController__showDownload___block_invoke_365_cold_1();
     }
@@ -1508,14 +1511,15 @@ void __49___SFBrowserContentViewController__showDownload___block_invoke_365(uint
 
 void __97___SFBrowserContentViewController__showFinanceKitOrderPreviewControllerWithURL_dismissalHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXDownloads(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [v4 safari_privacyPreservingDescription];
+      [v6 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __97___SFBrowserContentViewController__showFinanceKitOrderPreviewControllerWithURL_dismissalHandler___block_invoke_cold_1();
     }
@@ -1524,15 +1528,15 @@ void __97___SFBrowserContentViewController__showFinanceKitOrderPreviewController
     block[1] = 3221225472;
     block[2] = __97___SFBrowserContentViewController__showFinanceKitOrderPreviewControllerWithURL_dismissalHandler___block_invoke_369;
     block[3] = &unk_1E84905C0;
-    objc_copyWeak(v8, (a1 + 40));
+    objc_copyWeak(v10, (a1 + 40));
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    objc_destroyWeak(v8);
+    objc_destroyWeak(v10);
   }
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v6 + 16))();
+    (*(v8 + 16))();
   }
 }
 

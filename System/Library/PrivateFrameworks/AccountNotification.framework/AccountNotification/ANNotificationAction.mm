@@ -155,18 +155,18 @@
 
 - (void)perform
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = _ANLogSystem();
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = _ANLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     url = self->_url;
-    v10 = 136315650;
-    v11 = "[ANNotificationAction perform]";
-    v12 = 1024;
-    v13 = 276;
-    v14 = 2112;
-    v15 = url;
-    _os_log_impl(&dword_23DC5E000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) Launching URL: %@", &v10, 0x1Cu);
+    v9 = 136315650;
+    v10 = "[ANNotificationAction perform]";
+    v11 = 1024;
+    v12 = 276;
+    v13 = 2112;
+    v14 = url;
+    _os_log_impl(&dword_23DC5E000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) Launching URL: %@", &v9, 0x1Cu);
   }
 
   isInternalURL = self->_isInternalURL;
@@ -182,17 +182,14 @@
   {
     [defaultWorkspace openURL:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithManagedObject:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 217;
-  _os_log_error_impl(&dword_23DC5E000, v0, OS_LOG_TYPE_ERROR, "%s (%d) NSObjectInaccessibleException caught inside [ANNotificationAction initWithManagedObject:]", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 217;
+  _os_log_error_impl(&dword_23DC5E000, v0, OS_LOG_TYPE_ERROR, "%s (%d) NSObjectInaccessibleException caught inside [ANNotificationAction initWithManagedObject:]", v1, 0x12u);
 }
 
 @end

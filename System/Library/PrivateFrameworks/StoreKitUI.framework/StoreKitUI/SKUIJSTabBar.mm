@@ -207,11 +207,11 @@ void __31__SKUIJSTabBar_setSelectedTab___block_invoke(uint64_t a1)
 {
   v9 = [*(a1 + 32) tabBarItem];
   v2 = [v9 tabIdentifier];
-  v3 = [v2 isEqualToString:@"transient"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 24));
   v5 = WeakRetained;
-  if (v3)
+  if (isEqualToString)
   {
     v6 = 0x7FFFFFFFFFFFFFFFLL;
   }

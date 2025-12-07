@@ -154,7 +154,7 @@ LABEL_26:
 
             if (v187)
             {
-              if (objc_msgSend_containsString_(v261, v188, @"\\\\", v189, v190, v191) && (objc_msgSend_containsString_(v261, v192, @"\\hline"", v193, v194, v195) & 1) == 0)
+              if (objc_msgSend_containsString_(v261, v188, @"\\\, v189, v190, v191) && (objc_msgSend_containsString_(v261, v192, @"\\hline"", v193, v194, v195) & 1) == 0)
               {
                 v212 = objc_msgSend_objectForKeyedSubscript_(v71, v192, @"inkElements", v196, v194, v195);
                 v218 = objc_msgSend_whitespaceAndNewlineCharacterSet(MEMORY[0x1E696AB08], v213, v214, v215, v216, v217);

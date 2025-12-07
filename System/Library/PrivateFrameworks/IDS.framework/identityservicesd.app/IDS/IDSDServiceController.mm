@@ -1094,7 +1094,7 @@ LABEL_19:
               }
 
               v17 = *(*(&v26 + 1) + 8 * i);
-              if ([v17 isEqualToIgnoringCase:superServiceCopy])
+              if (objc_msgSend_isEqualToIgnoringCase_(v17))
               {
                 v18 = [selfCopy _arrayForKey:v17];
                 v19 = [v18 containsObject:serviceCopy];
@@ -1448,7 +1448,7 @@ LABEL_15:
 {
   identifierCopy = identifier;
   v4 = objc_autoreleasePoolPush();
-  if ([identifierCopy isEqualToIgnoringCase:IDSRegistrationServiceTypeMultiplex1])
+  if (objc_msgSend_isEqualToIgnoringCase_(identifierCopy))
   {
     v5 = +[IDSDServiceController sharedInstance];
     v6 = [v5 allServicesWithAdHocServiceType:1];
@@ -1483,7 +1483,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if ([identifierCopy isEqualToIgnoringCase:@"com.apple.madrid"])
+  if (objc_msgSend_isEqualToIgnoringCase_(identifierCopy))
   {
     v16 = +[IDSDServiceController sharedInstance];
     v17 = v16;
@@ -1491,7 +1491,7 @@ LABEL_19:
     goto LABEL_17;
   }
 
-  if ([identifierCopy isEqualToIgnoringCase:@"com.apple.private.ac"])
+  if (objc_msgSend_isEqualToIgnoringCase_(identifierCopy))
   {
     v16 = +[IDSDServiceController sharedInstance];
     v17 = v16;
@@ -1499,7 +1499,7 @@ LABEL_19:
     goto LABEL_17;
   }
 
-  if ([identifierCopy isEqualToIgnoringCase:@"com.apple.ess"])
+  if (objc_msgSend_isEqualToIgnoringCase_(identifierCopy))
   {
     v16 = +[IDSDServiceController sharedInstance];
     v17 = v16;
@@ -1507,7 +1507,7 @@ LABEL_19:
     goto LABEL_17;
   }
 
-  if ([identifierCopy isEqualToIgnoringCase:@"com.apple.private.alloy.itunes"])
+  if (objc_msgSend_isEqualToIgnoringCase_(identifierCopy))
   {
     v16 = +[IDSDServiceController sharedInstance];
     v17 = v16;

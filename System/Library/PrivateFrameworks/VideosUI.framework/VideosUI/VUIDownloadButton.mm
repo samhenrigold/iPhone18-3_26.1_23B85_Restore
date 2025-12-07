@@ -549,7 +549,7 @@ LABEL_12:
 
   if (__ViewModelDownloadProgressContext == context)
   {
-    v25 = VUIDefaultLogObject();
+    v25 = VUIDefaultLogObject(changeCopy);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       viewModel5 = [(VUIDownloadButton *)self viewModel];

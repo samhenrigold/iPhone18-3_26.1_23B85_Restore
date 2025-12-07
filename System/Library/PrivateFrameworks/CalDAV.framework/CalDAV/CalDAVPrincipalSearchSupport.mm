@@ -1,7 +1,9 @@
 @interface CalDAVPrincipalSearchSupport
 + (id)nameForWellKnownType:(int)type;
++ (id)namespaceAndNameForWellKnownType:(int)type;
 + (id)namespaceForWellKnownType:(int)type;
 + (id)parserMappingsWithServerSupportSet:(id)set includeEmail:(BOOL)email;
++ (id)propertySearchItemForWellKnownType:(int)type;
 + (id)resultTypeForRecordType:(id)type;
 @end
 
@@ -35,6 +37,30 @@
   }
 
   return v4;
+}
+
++ (id)namespaceAndNameForWellKnownType:(int)type
+{
+  v3 = *&type;
+  v4 = [objc_opt_class() namespaceForWellKnownType:*&type];
+  v5 = [objc_opt_class() nameForWellKnownType:v3];
+  v6 = 0;
+  if (v5 && v4)
+  {
+    v6 = [MEMORY[0x277CCACA8] CDVStringWithNameSpace:v4 andName:v5];
+  }
+
+  return v6;
+}
+
++ (id)propertySearchItemForWellKnownType:(int)type
+{
+  v3 = *&type;
+  v4 = [objc_opt_class() namespaceForWellKnownType:*&type];
+  v5 = [objc_opt_class() nameForWellKnownType:v3];
+  v6 = [objc_alloc(MEMORY[0x277CFDC78]) initWithSearchPropertyNameSpace:v4 andName:v5];
+
+  return v6;
 }
 
 + (id)resultTypeForRecordType:(id)type

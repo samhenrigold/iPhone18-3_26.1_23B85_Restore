@@ -16,10 +16,10 @@
 
 - (MFMailDropBannerView)initWithFrame:(CGRect)frame
 {
-  v75[11] = *MEMORY[0x277D85DE8];
-  v74.receiver = self;
-  v74.super_class = MFMailDropBannerView;
-  v3 = [(MFMessageHeaderViewBlock *)&v74 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v74[11] = *MEMORY[0x277D85DE8];
+  v73.receiver = self;
+  v73.super_class = MFMailDropBannerView;
+  v3 = [(MFMessageHeaderViewBlock *)&v73 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -99,52 +99,51 @@
     expirationBottom = v4->_expirationBottom;
     v4->_expirationBottom = v39;
 
-    v75[0] = v4->_labelFirstBaseline;
+    v74[0] = v4->_labelFirstBaseline;
     leadingAnchor = [(UILabel *)v4->_downloadLabel leadingAnchor];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-    v66 = [leadingAnchor constraintEqualToAnchor:?];
-    v75[1] = v66;
+    v65 = [leadingAnchor constraintEqualToAnchor:?];
+    v74[1] = v65;
     trailingAnchor = [(UILabel *)v4->_downloadLabel trailingAnchor];
     trailingAccessoryViewLayoutGuide = [(MFMessageHeaderViewBlock *)v4 trailingAccessoryViewLayoutGuide];
     leadingAnchor3 = [trailingAccessoryViewLayoutGuide leadingAnchor];
-    v63 = [trailingAnchor constraintLessThanOrEqualToAnchor:?];
-    v75[2] = v63;
-    v75[3] = v4->_expirationFirstBaseline;
-    v75[4] = v4->_expirationBottom;
+    v62 = [trailingAnchor constraintLessThanOrEqualToAnchor:?];
+    v74[2] = v62;
+    v74[3] = v4->_expirationFirstBaseline;
+    v74[4] = v4->_expirationBottom;
     leadingAnchor4 = [(UILabel *)v4->_expirationLabel leadingAnchor];
     leadingAnchor5 = [(UILabel *)v4->_downloadLabel leadingAnchor];
-    v61 = [leadingAnchor4 constraintEqualToAnchor:?];
-    v75[5] = v61;
+    v60 = [leadingAnchor4 constraintEqualToAnchor:?];
+    v74[5] = v60;
     trailingAnchor2 = [(UILabel *)v4->_expirationLabel trailingAnchor];
     trailingAccessoryViewLayoutGuide2 = [(MFMessageHeaderViewBlock *)v4 trailingAccessoryViewLayoutGuide];
     leadingAnchor6 = [trailingAccessoryViewLayoutGuide2 leadingAnchor];
-    v58 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:?];
-    v75[6] = v58;
+    v57 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:?];
+    v74[6] = v57;
     centerXAnchor = [(UIButton *)v4->_downloadIcon centerXAnchor];
     trailingAccessoryViewLayoutGuide3 = [(MFMessageHeaderViewBlock *)v4 trailingAccessoryViewLayoutGuide];
     centerXAnchor2 = [trailingAccessoryViewLayoutGuide3 centerXAnchor];
-    v55 = [centerXAnchor constraintEqualToAnchor:?];
-    v75[7] = v55;
+    v54 = [centerXAnchor constraintEqualToAnchor:?];
+    v74[7] = v54;
     centerYAnchor = [(UIButton *)v4->_downloadIcon centerYAnchor];
     centerYAnchor2 = [(MFMailDropBannerView *)v4 centerYAnchor];
-    v53 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v75[8] = v53;
+    v52 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v74[8] = v52;
     centerXAnchor3 = [(MFProgressView *)v4->_progressView centerXAnchor];
     trailingAccessoryViewLayoutGuide4 = [(MFMessageHeaderViewBlock *)v4 trailingAccessoryViewLayoutGuide];
     centerXAnchor4 = [trailingAccessoryViewLayoutGuide4 centerXAnchor];
     v45 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v75[9] = v45;
+    v74[9] = v45;
     centerYAnchor3 = [(MFProgressView *)v4->_progressView centerYAnchor];
     centerYAnchor4 = [(MFMailDropBannerView *)v4 centerYAnchor];
     v48 = centerYAnchor2;
     v49 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-    v75[10] = v49;
-    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:11];
+    v74[10] = v49;
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:11];
 
     [MEMORY[0x277CCAAD0] activateConstraints:v50];
   }
 
-  v51 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -434,13 +433,11 @@ uint64_t __42__MFMailDropBannerView__setupDownloadIcon__block_invoke_2(uint64_t 
     if (v2 == 5 || v2 == 4)
     {
       v3 = *(a1 + 40);
-      v4 = MEMORY[0x277CD67D0];
       goto LABEL_8;
     }
 
 LABEL_9:
-    v7 = *MEMORY[0x277CD67C0];
-    v6 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
     goto LABEL_10;
   }
 
@@ -449,12 +446,10 @@ LABEL_9:
     if (v2 == 3)
     {
       v3 = *(a1 + 40);
-      v4 = MEMORY[0x277CD67C8];
 LABEL_8:
-      v5 = *v4;
-      v6 = *(v3 + 16);
+      v4 = *(v3 + 16);
 LABEL_10:
-      v6();
+      v4();
       goto LABEL_11;
     }
 
@@ -470,9 +465,9 @@ LABEL_10:
 LABEL_11:
   [*(*(a1 + 32) + 536) sizeToFit];
   [*(a1 + 32) bringSubviewToFront:*(*(a1 + 32) + 536)];
-  v8 = *(*(a1 + 32) + 536);
+  v5 = *(*(a1 + 32) + 536);
 
-  return [v8 setNeedsDisplay];
+  return [v5 setNeedsDisplay];
 }
 
 - (void)startDownload:(id)download

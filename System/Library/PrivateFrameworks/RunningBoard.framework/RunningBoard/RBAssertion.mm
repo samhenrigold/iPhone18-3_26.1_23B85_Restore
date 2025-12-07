@@ -16,6 +16,7 @@
 - (id)terminationContextForTargetProcess:(id)process originatorProcessIsActive:(BOOL)active;
 - (id)updateProcessStateWithAttributeContext:(id)context;
 - (uint64_t)_exceptionCodeForAssertionTimeout;
+- (unint64_t)maxCPUUsageViolationPolicyForRole:(unsigned __int8)role;
 - (unsigned)invalidationReason;
 - (void)activate;
 - (void)applyToAssertionTransientState:(id)state withAttributeContext:(id)context;
@@ -261,44 +262,40 @@ LABEL_5:
 
 - (void)suspend
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ([(RBAssertionIntransientState *)self->_intransientState suspendsOnOriginatorSuspension])
   {
     v3 = rbs_ttl_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
+      v4 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Suspending assertion %{public}@", &v5, 0xCu);
+      _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Suspending assertion %{public}@", &v4, 0xCu);
     }
 
     os_unfair_lock_lock_with_options();
     self->_suspended = 1;
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resume
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ([(RBAssertionIntransientState *)self->_intransientState suspendsOnOriginatorSuspension])
   {
     v3 = rbs_ttl_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
+      v4 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Resuming assertion %{public}@", &v5, 0xCu);
+      _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Resuming assertion %{public}@", &v4, 0xCu);
     }
 
     os_unfair_lock_lock_with_options();
     self->_suspended = 0;
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSuspended
@@ -323,6 +320,15 @@ LABEL_5:
   self->_launchAssertion = 1;
 
   os_unfair_lock_unlock(&self->_lock);
+}
+
+- (unint64_t)maxCPUUsageViolationPolicyForRole:(unsigned __int8)role
+{
+  roleCopy = role;
+  os_unfair_lock_lock_with_options();
+  v5 = [(RBAssertionTransientState *)self->_transientState maxCPUUsageViolationPolicyForRole:roleCopy];
+  os_unfair_lock_unlock(&self->_lock);
+  return v5;
 }
 
 - (RBInheritanceCollection)inheritances
@@ -488,87 +494,85 @@ LABEL_15:
 
 - (id)_initWithTarget:(void *)target identifier:(void *)identifier explanation:(void *)explanation attributes:(void *)attributes originator:(void *)originator context:(double)context creationTime:
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v16 = a2;
   targetCopy = target;
   identifierCopy = identifier;
   explanationCopy = explanation;
   attributesCopy = attributes;
   originatorCopy = originator;
-  if (self && (v58.receiver = self, v58.super_class = RBAssertion, v21 = objc_msgSendSuper2(&v58, sel_init), (self = v21) != 0))
+  if (self && (v53.receiver = self, v53.super_class = RBAssertion, v21 = objc_msgSendSuper2(&v53, sel_init), (self = v21) != 0))
   {
-    v49 = explanationCopy;
-    v51 = targetCopy;
-    v52 = v16;
+    v44 = explanationCopy;
+    v46 = targetCopy;
+    v47 = v16;
     *(v21 + 26) = 0;
     objc_storeStrong(v21 + 1, a2);
     objc_storeStrong(self + 3, target);
-    v22 = objc_alloc(MEMORY[0x277CCACA8]);
-    v23 = self[3];
-    v24 = [v22 initWithFormat:@"%@ (target:%@)", v23, self[1]];
-    v25 = self[16];
-    self[16] = v24;
+    v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ (target:%@)", self[3], self[1]];
+    v23 = self[16];
+    self[16] = v22;
 
-    v50 = identifierCopy;
-    v26 = [identifierCopy copy];
-    v27 = self[4];
-    self[4] = v26;
+    v45 = identifierCopy;
+    v24 = [identifierCopy copy];
+    v25 = self[4];
+    self[4] = v24;
 
     *(self + 111) = 0;
     objc_storeStrong(self + 5, explanation);
     objc_storeStrong(self + 15, attributes);
     *(self + 109) = 0;
     *(self + 12) = context;
-    v28 = objc_alloc_init(RBAssertionIntransientState);
-    v29 = self[8];
-    self[8] = v28;
+    v26 = objc_alloc_init(RBAssertionIntransientState);
+    v27 = self[8];
+    self[8] = v26;
 
     *(self + 108) = 0;
     *(self + 112) = 0;
     [originatorCopy setAssertion:self];
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v30 = self[5];
-    v31 = [v30 countByEnumeratingWithState:&v54 objects:v61 count:16];
-    if (v31)
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v28 = self[5];
+    v29 = [v28 countByEnumeratingWithState:&v49 objects:v56 count:16];
+    if (v29)
     {
-      v32 = v31;
-      v33 = 0;
-      v34 = *v55;
+      v30 = v29;
+      v31 = 0;
+      v32 = *v50;
       do
       {
-        v35 = 0;
-        v36 = v33;
+        v33 = 0;
+        v34 = v31;
         do
         {
-          if (*v55 != v34)
+          if (*v50 != v32)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v28);
           }
 
-          v33 = v36 + 1;
-          [*(*(&v54 + 1) + 8 * v35++) applyToAssertionIntransientState:self[8] attributePath:RBSAttributePathIncrement(0 context:{v36++), originatorCopy}];
+          v31 = v34 + 1;
+          [*(*(&v49 + 1) + 8 * v33++) applyToAssertionIntransientState:self[8] attributePath:RBSAttributePathIncrement(0 context:{v34++), originatorCopy}];
         }
 
-        while (v32 != v35);
-        v32 = [v30 countByEnumeratingWithState:&v54 objects:v61 count:16];
+        while (v30 != v33);
+        v30 = [v28 countByEnumeratingWithState:&v49 objects:v56 count:16];
       }
 
-      while (v32);
+      while (v30);
     }
 
-    identifierCopy = v50;
-    v37 = attributesCopy;
-    if (!v50)
+    identifierCopy = v45;
+    v35 = attributesCopy;
+    if (!v45)
     {
-      v38 = rbs_assertion_log();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+      v36 = rbs_assertion_log();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
         selfCopy = self;
-        _os_log_fault_impl(&dword_262485000, v38, OS_LOG_TYPE_FAULT, "Initializing assertion with null-proof explanation being null %{public}@", buf, 0xCu);
+        _os_log_fault_impl(&dword_262485000, v36, OS_LOG_TYPE_FAULT, "Initializing assertion with null-proof explanation being null %{public}@", buf, 0xCu);
       }
     }
 
@@ -576,34 +580,34 @@ LABEL_15:
     legacyReason = [self[8] legacyReason];
     if (legacyReason)
     {
-      v41 = legacyReason;
-      v42 = 3;
+      v39 = legacyReason;
+      v40 = 3;
     }
 
     else
     {
       if ([self[8] hasDomainAttribute])
       {
-        v42 = 2;
+        v40 = 2;
       }
 
       else
       {
-        v42 = 1;
+        v40 = 1;
       }
 
-      v41 = runningReason;
+      v39 = runningReason;
     }
 
-    targetCopy = v51;
-    explanationCopy = v49;
-    v43 = [objc_alloc(MEMORY[0x277D46F10]) initWithType:v42];
-    v44 = self[11];
-    self[11] = v43;
+    targetCopy = v46;
+    explanationCopy = v44;
+    v41 = [objc_alloc(MEMORY[0x277D46F10]) initWithType:v40];
+    v42 = self[11];
+    self[11] = v41;
 
-    if (v50)
+    if (v45)
     {
-      [self[11] setExplanation:v50];
+      [self[11] setExplanation:v45];
     }
 
     else
@@ -613,26 +617,23 @@ LABEL_15:
       [OUTLINED_FUNCTION_0_8() setExplanation:?];
     }
 
-    [self[11] setReason:v41];
-    v45 = self[11];
+    [self[11] setReason:v39];
     [self[8] domainAttributes];
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_0_8() setDomain:?];
 
-    v46 = self[11];
     NSStringFromRBSLegacyReason();
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_0_8() setName:?];
 
-    v16 = v52;
+    v16 = v47;
   }
 
   else
   {
-    v37 = attributesCopy;
+    v35 = attributesCopy;
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -653,7 +654,7 @@ LABEL_15:
 
 - (BOOL)_lock_resolveStateWithContext:(uint64_t)context
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (context)
   {
@@ -675,13 +676,13 @@ LABEL_15:
       {
         isSystem = [*(context + 8) isSystem];
         v17 = objc_alloc_init(RBAssertionTransientState);
-        v40 = conditions;
-        v41 = allInheritances;
+        v39 = conditions;
+        v40 = allInheritances;
         if (isSystem)
         {
           v18 = objc_alloc_init(RBMutableSystemState);
           v19 = 0;
-          v39 = v18;
+          v38 = v18;
         }
 
         else
@@ -691,31 +692,31 @@ LABEL_15:
           v19 = [(RBProcessState *)v20 initWithIdentity:identity];
 
           v18 = 0;
-          v39 = v19;
+          v38 = v19;
         }
 
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         contextCopy = context;
         obj = *(context + 40);
-        v22 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v22 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
         if (v22)
         {
           v23 = v22;
           v24 = 0;
-          v25 = *v45;
+          v25 = *v44;
           do
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v45 != v25)
+              if (*v44 != v25)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v27 = *(*(&v44 + 1) + 8 * i);
+              v27 = *(*(&v43 + 1) + 8 * i);
               v28 = RBSAttributePathIncrement(0, v24);
               [v27 applyToAssertionTransientState:v17 attributePath:v28 context:v3];
               if (v19)
@@ -731,7 +732,7 @@ LABEL_15:
               ++v24;
             }
 
-            v23 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+            v23 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
           }
 
           while (v23);
@@ -749,9 +750,9 @@ LABEL_15:
           [(RBMutableProcessState *)v19 addRBAssertion:v30];
         }
 
-        conditions = v40;
-        allInheritances = v41;
-        v31 = [(RBMutableSystemState *)v39 copy];
+        conditions = v39;
+        allInheritances = v40;
+        v31 = [(RBMutableSystemState *)v38 copy];
         v32 = *(contextCopy + 48);
         *(contextCopy + 48) = v31;
 
@@ -759,11 +760,11 @@ LABEL_15:
         *(contextCopy + 56) = v17;
         v34 = v17;
 
-        v35 = [(__CFSet *)v41 copy];
+        v35 = [(__CFSet *)v40 copy];
         v36 = *(contextCopy + 72);
         *(contextCopy + 72) = v35;
 
-        objc_storeStrong((contextCopy + 80), v40);
+        objc_storeStrong((contextCopy + 80), v39);
         v5 = 1;
       }
     }
@@ -790,7 +791,6 @@ LABEL_15:
     v5 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -886,11 +886,10 @@ LABEL_15:
 
 - (void)terminationContextForTargetProcess:(void *)a1 originatorProcessIsActive:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 explanation];
-  OUTLINED_FUNCTION_0(&dword_262485000, v2, v3, "%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_262485000, v2, v3, "%@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

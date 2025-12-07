@@ -1,599 +1,4 @@
-uint64_t FIK::IKRigUtils::rebalanceTaskWeights(uint64_t result)
-{
-  v1 = *(result + 176);
-  if (v1)
-  {
-    v2 = result;
-    v3 = *(result + 192);
-    v4 = &v3[3].i8[4];
-    v5 = 240 * v1;
-    v6 = 0.0;
-    v7 = 0.0;
-    v8 = 0.0;
-    do
-    {
-      if (*v4 == 1)
-      {
-        v9 = *(v4 + 28);
-        v6 = v6 + (COERCE_FLOAT(*(v4 + 36)) + vaddv_f32(*v9.f32));
-        v9.f32[3] = v7;
-        v7 = vmaxvq_f32(v9);
-      }
-
-      if (v4[1] == 1)
-      {
-        v8 = v8 + (COERCE_FLOAT(*(v4 + 52)) + vaddv_f32(*(v4 + 44)));
-      }
-
-      v4 += 240;
-      v5 -= 240;
-    }
-
-    while (v5);
-    v10 = v8 + v6;
-    if ((v8 + v6) > 0.0 && v7 > 0.0 || (v16 = v7, v15 = ikinemaLogObject(), result = ikinemaAssertHandler(*v15, 0, "rebalanceTaskWeights", "(totalWeight > 0 && pMax > 0) No active tasks"), v7 = v16, v3 = *(v2 + 192), (v1 = *(v2 + 176)) != 0))
-    {
-      v11 = 10.0 / v7;
-      if ((10.0 / v7) >= (100.0 / v10))
-      {
-        v11 = 100.0 / v10;
-      }
-
-      v12 = fminf(v11, 1.0);
-      v13 = v3 + 6;
-      v14 = 240 * v1;
-      do
-      {
-        if (v13[-3].i8[4] == 1)
-        {
-          v13[-1] = vmulq_n_f32(v13[-1], v12);
-        }
-
-        if (v13[-3].i8[5] == 1)
-        {
-          *v13 = vmulq_n_f32(*v13, v12);
-        }
-
-        v13 += 15;
-        v14 -= 240;
-      }
-
-      while (v14);
-    }
-  }
-
-  return result;
-}
-
-uint64_t FIK::IKRigUtils::getIndexForAxis(uint64_t result)
-{
-  if (result <= 2)
-  {
-    return result;
-  }
-
-  else
-  {
-    return (result - 3);
-  }
-}
-
-float FIK::IKRigUtils::getUnitVecForAxis@<S0>(unsigned int a1@<W0>, uint64_t a2@<X8>)
-{
-  if (a1 <= 5)
-  {
-    result = flt_245A03C1C[a1];
-    v3 = dword_245A03C34[a1];
-    v4 = dword_245A03C4C[a1];
-    *a2 = result;
-    *(a2 + 4) = v3;
-    *(a2 + 8) = v4;
-    *(a2 + 12) = 0;
-  }
-
-  return result;
-}
-
-uint64_t FIK::IKRigUtils::highestMagnitudeAxis(float32x4_t *a1)
-{
-  v1 = *a1;
-  v2 = vabsq_f32(*a1);
-  if (v2.f32[0] == v2.f32[1] && v2.f32[0] == v2.f32[2])
-  {
-    v6 = 0;
-    v5 = 0;
-  }
-
-  else
-  {
-    v4 = v2.f32[0] < v2.f32[1];
-    if (v2.f32[0] < v2.f32[1])
-    {
-      v2.f32[0] = v2.f32[1];
-    }
-
-    if (v2.f32[0] < v2.f32[2])
-    {
-      v4 = 2;
-    }
-
-    if (v4 == 2)
-    {
-      v5 = 2;
-      if (v1.f32[2] < 0.0)
-      {
-        v5 = 5;
-      }
-    }
-
-    else if (v4 == 1)
-    {
-      v5 = 4;
-      if (v1.f32[1] >= 0.0)
-      {
-        v5 = 1;
-      }
-    }
-
-    else
-    {
-      v5 = 3;
-      if (v1.f32[0] >= 0.0)
-      {
-        v5 = 0;
-      }
-    }
-
-    v6 = 0x100000000;
-  }
-
-  return v5 | v6;
-}
-
-void FIK::Characteriser::Characteriser(FIK::Characteriser *this)
-{
-  *(this + 2) = 0;
-  *(this + 1) = 0;
-  *this = this + 8;
-  FIK::Characterisation::Characterisation((this + 24), "undefined");
-  *(this + 3) = &unk_28589C410;
-  operator new();
-}
-
-uint64_t FIK::Characteriser::registerCharacterisation(uint64_t a1, uint64_t *a2)
-{
-  v4 = *a2;
-  v5 = *(*a2 + 16);
-  if (v5)
-  {
-    v6 = *(v4 + 8);
-  }
-
-  else
-  {
-    v6 = &unk_245A04BAE;
-  }
-
-  v10 = v2;
-  v11 = v3;
-  v8[0] = v6;
-  v8[1] = v5;
-  *a2 = 0;
-  v9 = v4;
-  std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::__emplace_unique_key_args<std::string_view,std::pair<std::string_view const,std::unique_ptr<FIK::Characterisation>>>(a1, v8);
-  result = v9;
-  v9 = 0;
-  if (result)
-  {
-    return (*(*result + 8))(result);
-  }
-
-  return result;
-}
-
-uint64_t FIK::Characteriser::operator[](uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6[0] = a2;
-  v6[1] = a3;
-  v4 = std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::find<std::string_view>(a1, v6);
-  if (a1 + 8 == v4)
-  {
-    return a1 + 24;
-  }
-
-  else
-  {
-    return *(v4 + 48);
-  }
-}
-
-FIK *FIK::Characterisation::Characterisation(FIK *a1, char *a2)
-{
-  *a1 = &unk_28589C010;
-  v4 = FIK::defaultAllocator(a1);
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
-  *(a1 + 3) = v4;
-  v5 = strlen(a2);
-  IKString::assign(a1 + 1, a2, v5);
-  return a1;
-}
-
-uint64_t std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::__emplace_unique_key_args<std::string_view,std::pair<std::string_view const,std::unique_ptr<FIK::Characterisation>>>(uint64_t a1, uint64_t a2)
-{
-  v2 = *std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::__find_equal<std::string_view>(a1, &v4, a2);
-  if (!v2)
-  {
-    operator new();
-  }
-
-  return v2;
-}
-
-void *std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::__find_equal<std::string_view>(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = (a1 + 8);
-  v4 = *(a1 + 8);
-  if (v4)
-  {
-    do
-    {
-      while (1)
-      {
-        v8 = v4;
-        if (!std::less<std::string_view>::operator()[abi:nn200100](a1, a3, (v4 + 4)))
-        {
-          break;
-        }
-
-        v4 = *v8;
-        v5 = v8;
-        if (!*v8)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      if (!std::less<std::string_view>::operator()[abi:nn200100](a1, (v8 + 4), a3))
-      {
-        break;
-      }
-
-      v5 = v8 + 1;
-      v4 = v8[1];
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    v8 = (a1 + 8);
-  }
-
-LABEL_9:
-  *a2 = v8;
-  return v5;
-}
-
-uint64_t std::less<std::string_view>::operator()[abi:nn200100](uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *a2;
-  v4 = *(a2 + 8);
-  v5 = *a3;
-  v6 = *(a3 + 8);
-  if (v6 >= v4)
-  {
-    v7 = v4;
-  }
-
-  else
-  {
-    v7 = *(a3 + 8);
-  }
-
-  v8 = memcmp(v3, v5, v7);
-  if (v4 < v6)
-  {
-    v9 = -1;
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (v4 == v6)
-  {
-    v9 = 0;
-  }
-
-  if (v8)
-  {
-    v9 = v8;
-  }
-
-  return v9 >> 31;
-}
-
-uint64_t std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::find<std::string_view>(uint64_t a1, uint64_t a2)
-{
-  v2 = a1 + 8;
-  v3 = *(a1 + 8);
-  if (!v3)
-  {
-    return v2;
-  }
-
-  v6 = a1 + 8;
-  do
-  {
-    v7 = std::less<std::string_view>::operator()[abi:nn200100](a1, v3 + 32, a2);
-    if (v7)
-    {
-      v8 = 8;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    if (!v7)
-    {
-      v6 = v3;
-    }
-
-    v3 = *(v3 + v8);
-  }
-
-  while (v3);
-  if (v6 == v2 || std::less<std::string_view>::operator()[abi:nn200100](a1, a2, v6 + 32))
-  {
-    return v2;
-  }
-
-  return v6;
-}
-
-uint64_t FIK::AnimNode::updateSolverBoneSettings(uint64_t a1, uint64_t a2)
-{
-  (*(*a1 + 136))(a1, *(a2 + 97), *(a2 + 98), *(a2 + 99));
-  if (((*(*a1 + 168))(a1) & 1) == 0)
-  {
-    (*(*a1 + 144))(a1, *(a2 + 105), *(a2 + 106), *(a2 + 107));
-  }
-
-  (*(*a1 + 176))(a1, *(a2 + 96), 0);
-  v4.n128_u32[0] = *(a2 + 116);
-  (*(*a1 + 968))(a1, v4);
-  (*(*a1 + 64))(a1, *(a2 + 104));
-  v5.n128_u32[0] = *(a2 + 124);
-  (*(*a1 + 696))(a1, v5);
-  v6 = 0;
-  v20[24] = *(a2 + 128);
-  v7 = (a2 + 192);
-  do
-  {
-    v8 = *(v7 - 4);
-    v9 = &v20[v6];
-    v10 = *v7++;
-    *v9 = v8;
-    v9[1] = v10;
-    v6 += 8;
-  }
-
-  while (v6 != 24);
-  (*(*a1 + 624))(a1, v20, 1);
-  (*(*a1 + 48))(a1, *(a2 + 103));
-  (*(*a1 + 16))(a1, *(a2 + 100), 0);
-  v11.n128_u32[0] = *(a2 + 120);
-  (*(*a1 + 712))(a1, v11);
-  v12.n128_u32[0] = *(a2 + 160);
-  (*(*a1 + 728))(a1, 0, v12);
-  v13.n128_u32[0] = *(a2 + 164);
-  (*(*a1 + 728))(a1, 1, v13);
-  v14.n128_u32[0] = *(a2 + 168);
-  (*(*a1 + 728))(a1, 2, v14);
-  (*(*a1 + 656))(a1, 0);
-  v15.n128_f32[0] = 1.0 - *(a2 + 144);
-  (*(*a1 + 280))(a1, 0, v15);
-  v16.n128_f32[0] = 1.0 - *(a2 + 148);
-  (*(*a1 + 280))(a1, 1, v16);
-  v17.n128_f32[0] = 1.0 - *(a2 + 152);
-  (*(*a1 + 280))(a1, 2, v17);
-  if ((*(a2 + 105) & 1) != 0 || (*(a2 + 106) & 1) != 0 || *(a2 + 107) == 1)
-  {
-    v18 = *(a2 + 101);
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  (*(*a1 + 88))(a1, v18 & 1);
-  return (*(*a1 + 104))(a1, 0);
-}
-
-uint64_t FIK::AnimNode::updateSolverSettings(FIK::IKSolver *a1, uint64_t a2)
-{
-  FIK::IKSolver::enableShadowPosing(a1, *(a2 + 25));
-  FIK::IKSolver::setLimitsGain(a1, *(a2 + 20));
-  FIK::IKSolver::setRetargetingGain(a1, *(a2 + 8));
-  FIK::IKSolver::setAddErrors(a1, *(a2 + 26));
-  FIK::IKSolver::setTranslationWeight(a1, 1.0);
-  FIK::IKSolver::setSolutionTolerance(a1, *(a2 + 4));
-  FIK::IKSolver::setPrecision(a1, *(a2 + 16));
-  result = FIK::IKSolver::setPGain(a1, *a2);
-  if (*(a2 + 24) == 1)
-  {
-    RootSegment = FIK::IKSolver::getRootSegment(a1);
-    (*(*RootSegment + 136))(RootSegment, 1, 1, 1);
-    FIK::IKSolver::translateRoot(a1, 1);
-    (*(*RootSegment + 160))(RootSegment, 1, 0);
-    v6 = *(*RootSegment + 120);
-
-    return v6(RootSegment, 0);
-  }
-
-  return result;
-}
-
-uint64_t FIK::AnimNode::updateConstraintSettings(uint64_t this, ikinema::Constraint *a2, const FIK::RigTask *a3)
-{
-  v4 = this;
-  if (*(a2 + 52) == 1)
-  {
-    v5 = *(this + 8);
-    if (!v5)
-    {
-      v16 = ikinemaLogObject();
-      ikinemaAssertHandler(*v16, 0, "updateConstraintSettings", "(constraint.positionTask) Position task should have been created.");
-      v5 = *(v4 + 8);
-    }
-
-    v6 = (a2 + 112);
-    v7 = -3;
-    do
-    {
-      (*(*(v5 + *(*v5 - 264)) + 80))(v5 + *(*v5 - 264), (v7 + 3), a3, *(v6 - 8));
-      v8 = *v6++;
-      (*(*(v5 + *(*v5 - 264)) + 104))(v5 + *(*v5 - 264), (v7 + 3), v8);
-      v9 = __CFADD__(v7++, 1);
-    }
-
-    while (!v9);
-    (*(*(v5 + *(*v5 - 264)) + 144))(v5 + *(*v5 - 264), *(a2 + 55), *(a2 + 56), *(a2 + 57));
-    (*(*(v5 + *(*v5 - 264)) + 56))(v5 + *(*v5 - 264), *(a2 + 16));
-    (*(*v5 + 392))(v5, *(a2 + 54));
-    this = (*(*v5 + 280))(v5, a2 + 144);
-  }
-
-  if (*(a2 + 53) == 1)
-  {
-    v10 = *(v4 + 16);
-    if (!v10)
-    {
-      v17 = ikinemaLogObject();
-      ikinemaAssertHandler(*v17, 0, "updateConstraintSettings", "(constraint.orientationTask) Orientation task should have been created.");
-      v10 = *(v4 + 16);
-    }
-
-    v11 = (a2 + 128);
-    v12 = -3;
-    do
-    {
-      (*(*&v10[*(*v10 - 264)] + 80))(&v10[*(*v10 - 264)], (v12 + 3), *(v11 - 8));
-      v13 = *v11++;
-      (*(*&v10[*(*v10 - 264)] + 104))(&v10[*(*v10 - 264)], (v12 + 3), v13);
-      v9 = __CFADD__(v12++, 1);
-    }
-
-    while (!v9);
-    (*(*&v10[*(*v10 - 264)] + 144))(&v10[*(*v10 - 264)], *(a2 + 58), *(a2 + 59), *(a2 + 60));
-    v14 = *(a2 + 17);
-    v15 = *(*&v10[*(*v10 - 264)] + 56);
-
-    return v15();
-  }
-
-  return this;
-}
-
-uint64_t FIK::AnimNode::loadSolverSkeletonFromRig(FIK::AnimNode *this)
-{
-  FIK::IKRigUtils::generateImportBonesFromRig<FIK::MoCapRig,void>(this + 18, v7);
-  FIK::IKSolver::importBones(this + 2, v7);
-  FIK::AnimNode::updateSolverSettings((this + 16), this + 208);
-  v2 = *(this + 44);
-  if (v2)
-  {
-    v3 = *(this + 46);
-    v4 = 544 * v2;
-    do
-    {
-      Segment = FIK::IKSolver::getSegment((this + 16), *v3);
-      FIK::AnimNode::updateSolverBoneSettings(Segment, v3);
-      v3 += 136;
-      v4 -= 544;
-    }
-
-    while (v4);
-  }
-
-  FIK::IKSolver::setup(this + 2);
-  return FIK::IKArray<FIK::ImportBone>::~IKArray(v7);
-}
-
-void *FIK::IKRigUtils::generateImportBonesFromRig<FIK::MoCapRig,void>@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v4 = FIK::defaultAllocator(a1);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  a2[3] = v4;
-  FIK::IKArray<FIK::ImportBone>::reserve(a2, a1[26]);
-  v5 = a1[28];
-  v6 = &v5[136 * a1[26]];
-
-  return std::transform[abi:nn200100]<FIK::IKArrayIterator<FIK::MoCapBone const>,std::back_insert_iterator<FIK::IKArray<FIK::ImportBone>>,FIK::IKArray<FIK::ImportBone> FIK::IKRigUtils::generateImportBonesFromRig<FIK::MoCapRig,void>(FIK::MoCapRig const&)::{lambda(FIK::RigBoneBase const&)#1}>(v5, v6, a2);
-}
-
-uint64_t FIK::AnimNode::AnimNode(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_28589C220;
-  *(a1 + 8) = *(a2 + 76);
-  *(a1 + 12) = 1114636288;
-  v4 = FIK::defaultAllocator(a1);
-  v5 = FIK::IKSolver::IKSolver((a1 + 16), v4);
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = xmmword_245A01E80;
-  *(a1 + 64) = 0;
-  v6 = FIK::defaultAllocator(v5);
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = 0;
-  *(a1 + 96) = v6;
-  v7 = FIK::defaultAllocator(v6);
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  *(a1 + 120) = 0;
-  *(a1 + 128) = v7;
-  IKString::IKString((a1 + 144), a2);
-  v8 = *(a2 + 24);
-  *(a1 + 180) = *(a2 + 36);
-  *(a1 + 168) = v8;
-  v9 = *(a2 + 80);
-  *(a1 + 208) = *(a2 + 64);
-  *(a1 + 224) = v9;
-  *(a1 + 240) = *(a2 + 96);
-  v10 = *(a2 + 120);
-  *(a1 + 256) = *(a2 + 112);
-  *(a1 + 264) = v10;
-  v11 = *(a2 + 128);
-  *(a1 + 275) = *(a2 + 131);
-  *(a1 + 272) = v11;
-  *(a1 + 288) = *(a2 + 144);
-  *(a1 + 304) = *(a2 + 160);
-  FIK::IKArray<FIK::MoCapTask>::IKArray((a1 + 320), (a2 + 176));
-  FIK::IKArray<FIK::MoCapBone>::IKArray((a1 + 352), (a2 + 208));
-  FIK::IKArray<FIK::RigBoneBase>::IKArray((a1 + 384), (a2 + 240));
-  *(a1 + 416) = *(a2 + 272);
-  *(a1 + 432) = *(a2 + 288);
-  *(a1 + 448) = *(a2 + 304);
-  *(a1 + 464) = 0;
-  FIK::AnimNode::loadSolverSkeletonFromRig(a1);
-  v12 = *FIK::IKSolver::getRootSegment((a1 + 16));
-  (*(v12 + 864))(v15);
-  v13 = v15[1];
-  *(a1 + 32) = v15[0];
-  *(a1 + 48) = v13;
-  return a1;
-}
-
-uint64_t FIK::AnimNode::PassFKPose(uint64_t a1, uint64_t a2)
+unint64_t FIK::AnimNode::PassFKPose(uint64_t a1, uint64_t a2)
 {
   result = FIK::IKSolver::numSegments((a1 + 16));
   if (result)
@@ -649,36 +54,38 @@ uint64_t FIK::AnimNode::SolveAndUpdatePose(uint64_t a1, uint64_t a2)
 
 void FIK::AnimNode::updateSolverBoneLengths(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (FIK::IKSolver::numSegments((a1 + 16)) != a3)
+  v6 = FIK::IKSolver::numSegments((a1 + 16));
+  if (v6 != a3)
   {
-    FIK::AnimNode::updateSolverBoneLengths();
+    FIK::AnimNode::updateSolverBoneLengths(v6, v7);
   }
 
   if (FIK::IKSolver::numSegments((a1 + 16)))
   {
-    v5 = 0;
-    v6 = 64;
+    v8 = 0;
+    v9 = 64;
     do
     {
-      v7 = *(a2 + 4 * v5);
-      if (v7 >= 0.0)
+      v10 = *(a2 + 4 * v8);
+      if (v10 >= 0.0)
       {
-        FIK::IKRigUtils::setBoneLength<FIK::MoCapBone>(a1 + 352, v5, v7);
-        v9 = *(*(a1 + 368) + v6);
-        if (FIK::IKSolver::numSegments((a1 + 16)) <= v5)
+        FIK::IKRigUtils::setBoneLength<FIK::MoCapBone>(a1 + 352, v8, v10);
+        v14 = *(*(a1 + 368) + v9);
+        v11 = FIK::IKSolver::numSegments((a1 + 16));
+        if (v11 <= v8)
         {
-          FIK::AnimNode::updateSolverBoneLengths();
+          FIK::AnimNode::updateSolverBoneLengths(v11, v12);
         }
 
-        Segment = FIK::IKSolver::getSegment((a1 + 16), v5);
-        (*(*Segment + 432))(Segment, &v9);
+        Segment = FIK::IKSolver::getSegment((a1 + 16), v8);
+        (*(*Segment + 432))(Segment, &v14);
       }
 
-      ++v5;
-      v6 += 544;
+      ++v8;
+      v9 += 544;
     }
 
-    while (FIK::IKSolver::numSegments((a1 + 16)) > v5);
+    while (FIK::IKSolver::numSegments((a1 + 16)) > v8);
   }
 
   FIK::IKSolver::resetSolver((a1 + 16));
@@ -695,7 +102,7 @@ uint64_t FIK::AnimNode::jointByIndex(FIK::AnimNode *this, unint64_t a2)
   return FIK::IKSolver::getSegment((this + 16), v2);
 }
 
-uint64_t FIK::AnimNode::GetTaskIndex(uint64_t a1, uint64_t *a2)
+uint64_t FIK::AnimNode::GetTaskIndex(uint64_t a1, void *a2)
 {
   v4 = (*(*a1 + 40))(a1);
   if (!v4)
@@ -712,9 +119,8 @@ uint64_t FIK::AnimNode::GetTaskIndex(uint64_t a1, uint64_t *a2)
     v9 = v8 ? *(v7 + 24) : &unk_245A04BAE;
     if (a2[1] == v8)
     {
-      v10 = *a2;
-      v11 = v8 ? *a2 : &unk_245A04BAE;
-      if (!memcmp(v11, v9, v8))
+      v10 = v8 ? *a2 : &unk_245A04BAE;
+      if (!memcmp(v10, v9, v8))
       {
         break;
       }
@@ -1028,7 +434,7 @@ void *FIK::IKArray<FIK::RigBoneBase>::MemoryBlock::MemoryBlock(void *a1, uint64_
   return a1;
 }
 
-void *std::transform[abi:nn200100]<FIK::IKArrayIterator<FIK::MoCapBone const>,std::back_insert_iterator<FIK::IKArray<FIK::ImportBone>>,FIK::IKArray<FIK::ImportBone> FIK::IKRigUtils::generateImportBonesFromRig<FIK::MoCapRig,void>(FIK::MoCapRig const&)::{lambda(FIK::RigBoneBase const&)#1}>(_DWORD *a1, _DWORD *a2, void *a3)
+uint64_t *std::transform[abi:nn200100]<FIK::IKArrayIterator<FIK::MoCapBone const>,std::back_insert_iterator<FIK::IKArray<FIK::ImportBone>>,FIK::IKArray<FIK::ImportBone> FIK::IKRigUtils::generateImportBonesFromRig<FIK::MoCapRig,void>(FIK::MoCapRig const&)::{lambda(FIK::RigBoneBase const&)#1}>(_DWORD *a1, _DWORD *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -1072,10 +478,10 @@ void *std::transform[abi:nn200100]<FIK::IKArrayIterator<FIK::MoCapBone const>,st
   return a3;
 }
 
-uint64_t FIK::ImportBone::ImportBone(uint64_t a1, uint64_t *a2, uint64_t *a3, _DWORD *a4)
+uint64_t FIK::ImportBone::ImportBone(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v7 = IKString::IKString(a1, a2, a2[2]);
-  IKString::IKString(v7 + 3, a3, a3[2]);
+  v7 = IKString::IKString(a1, a2, *(a2 + 16));
+  IKString::IKString(v7 + 3, a3, *(a3 + 16));
   *(a1 + 48) = xmmword_245A01E80;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
@@ -1090,7 +496,7 @@ uint64_t FIK::ImportBone::ImportBone(uint64_t a1, uint64_t *a2, uint64_t *a3, _D
   return a1;
 }
 
-__n128 FIK::IKArray<FIK::ImportBone>::push_back<FIK::ImportBone,void>(void *a1, uint64_t a2)
+__n128 FIK::IKArray<FIK::ImportBone>::push_back<FIK::ImportBone,void>(uint64_t *a1, uint64_t a2)
 {
   FIK::IKArray<FIK::ImportBone>::reserve(a1, *a1 + 1);
   v4 = a1[2] + 144 * *a1;
@@ -1149,77 +555,77 @@ uint64_t FIK::FootPlacement::SetupTaskParentIndices(uint64_t this)
 
 uint64_t FIK::FootPlacement::AddTaskToSolver(uint64_t a1, uint64_t a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v20 = &unk_28589BD98;
-  v21 = *(a2 + 8);
-  IKString::IKString(&v22, (a2 + 24), *(a2 + 40));
-  IKString::IKString(&v25, (a2 + 48), *(a2 + 64));
-  IKString::IKString(&v28, (a2 + 72), *(a2 + 88));
-  v31 = *(a2 + 96);
-  v32 = *(a2 + 112);
+  v57 = *MEMORY[0x277D85DE8];
+  v19 = &unk_28589BD98;
+  v20 = *(a2 + 8);
+  IKString::IKString(&v21, (a2 + 24), *(a2 + 40));
+  IKString::IKString(&v24, (a2 + 48), *(a2 + 64));
+  IKString::IKString(&v27, (a2 + 72), *(a2 + 88));
+  v30 = *(a2 + 96);
+  v31 = *(a2 + 112);
   v4 = *(a2 + 144);
-  v33 = *(a2 + 128);
-  v34 = v4;
+  v32 = *(a2 + 128);
+  v33 = v4;
   v5 = *(a2 + 176);
-  v35 = *(a2 + 160);
-  v36 = v5;
+  v34 = *(a2 + 160);
+  v35 = v5;
   v6 = *(a2 + 208);
-  v37 = *(a2 + 192);
-  v38 = v6;
+  v36 = *(a2 + 192);
+  v37 = v6;
   v7 = *(a2 + 240);
-  v39 = *(a2 + 224);
-  v40 = v7;
+  v38 = *(a2 + 224);
+  v39 = v7;
   v8 = *(a2 + 272);
-  v41 = *(a2 + 256);
-  v42 = v8;
-  v20 = &unk_28589C2E8;
-  v43 = *(a2 + 288);
+  v40 = *(a2 + 256);
+  v41 = v8;
+  v19 = &unk_28589C2E8;
+  v42 = *(a2 + 288);
   v9 = *(a2 + 320);
-  v44 = *(a2 + 304);
-  v45 = v9;
+  v43 = *(a2 + 304);
+  v44 = v9;
   v10 = *(a2 + 352);
-  v46 = *(a2 + 336);
-  v47 = v10;
+  v45 = *(a2 + 336);
+  v46 = v10;
   v11 = *(a2 + 384);
-  v48 = *(a2 + 368);
-  v49 = v11;
-  *(v52 + 14) = *(a2 + 446);
+  v47 = *(a2 + 368);
+  v48 = v11;
+  *(v51 + 14) = *(a2 + 446);
   v13 = *(a2 + 416);
   v12 = *(a2 + 432);
-  v50 = *(a2 + 400);
-  v51 = v13;
+  v49 = *(a2 + 400);
+  v50 = v13;
   v14 = *(a2 + 464);
   v15 = *(a2 + 480);
-  v52[0] = v12;
-  v52[2] = v14;
-  v52[3] = v15;
-  v53 = *(a2 + 496);
+  v51[0] = v12;
+  v51[2] = v14;
+  v51[3] = v15;
+  v52 = *(a2 + 496);
   v16 = *(a2 + 528);
-  v54 = *(a2 + 512);
-  v55 = v16;
-  v56 = *(a2 + 544);
-  v57 = *(a2 + 560);
-  v17 = FIK::GenericSolver::AddTaskToSolver(a1, &v20);
-  if (v29)
+  v53 = *(a2 + 512);
+  v54 = v16;
+  v55 = *(a2 + 544);
+  v56 = *(a2 + 560);
+  v17 = FIK::GenericSolver::AddTaskToSolver(a1, &v19);
+  if (v28)
   {
-    (*(*v30 + 24))(v30, v28, 0, 8);
+    (*(*v29 + 24))(v29, v27, 0, 8);
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
   }
 
-  if (v26)
+  if (v25)
   {
-    (*(*v27 + 24))(v27, v25, 0, 8);
+    (*(*v26 + 24))(v26, v24, 0, 8);
+    v24 = 0;
     v25 = 0;
-    v26 = 0;
   }
 
-  v20 = &unk_28589BD98;
-  if (v23)
+  v19 = &unk_28589BD98;
+  if (v22)
   {
-    (*(*v24 + 24))(v24, v22, 0, 8);
+    (*(*v23 + 24))(v23, v21, 0, 8);
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
   }
 
   if (v17 != -1)
@@ -1227,42 +633,40 @@ uint64_t FIK::FootPlacement::AddTaskToSolver(uint64_t a1, uint64_t a2)
     FIK::FootPlacement::SetupTaskParentIndices(a1);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-BOOL FIK::FootPlacement::RemoveTaskFromSolver(FIK *a1, char **a2)
+BOOL FIK::FootPlacement::RemoveTaskFromSolver(FIK *a1, uint64_t a2)
 {
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  v11 = FIK::defaultAllocator(a1);
-  v5 = *a2;
-  v4 = a2[1];
+  v10 = FIK::defaultAllocator(a1);
+  v4 = *(a2 + 8);
   if (v4)
   {
-    v6 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v6 = &unk_245A04BAE;
+    v5 = &unk_245A04BAE;
   }
 
-  IKString::assign(&v9, v6, v4);
-  v7 = FIK::GenericSolver::RemoveTaskFromSolver(a1, &v9);
-  if (v10)
+  IKString::assign(&v8, v5, v4);
+  v6 = FIK::GenericSolver::RemoveTaskFromSolver(a1, &v8);
+  if (v9)
   {
-    (*(*v11 + 3))(v11, v9, 0, 8);
+    (*(*v10 + 3))(v10, v8, 0, 8);
+    v8 = 0;
     v9 = 0;
-    v10 = 0;
   }
 
-  if (v7)
+  if (v6)
   {
     FIK::FootPlacement::SetupTaskParentIndices(a1);
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t FIK::FootPlacement::Solve(float32x4_t *a1, uint64_t *a2)
@@ -1285,7 +689,7 @@ uint64_t FIK::FootPlacement::Solve(float32x4_t *a1, uint64_t *a2)
 
 void FIK::FootPlacement::ProcessFootPlacementTasks(float32x4_t *a1, uint64_t *a2, double a3)
 {
-  v20 = 0uLL;
+  v22 = 0uLL;
   v4 = a1[3].i64[1];
   if (v4)
   {
@@ -1295,21 +699,21 @@ void FIK::FootPlacement::ProcessFootPlacementTasks(float32x4_t *a1, uint64_t *a2
     v9 = 0uLL;
     do
     {
-      v14 = v9;
+      v16 = v9;
       FIK::RTGameTask::GenerateAnimTarget(v7, *a2, a2[1], &a1[12]);
       FIK::RTGameTask::ConvertTargetSpace(v7, a1->i32[2], a1 + 1, v10);
       if (v7[17].i8[4] == 1)
       {
-        FIK::FootPlacement::GenerateRayTraceTarget(a1, v7, v20.f32, &v19);
-        HIDWORD(a3) = v19.i32[1];
-        v9 = vaddq_f32(v14, v19);
+        FIK::FootPlacement::GenerateRayTraceTarget(a1, v7, &v22, &v21);
+        HIDWORD(a3) = v21.i32[1];
+        v9 = vaddq_f32(v16, v21);
         ++v6;
       }
 
       else
       {
         FIK::RTGameTask::GenerateTarget(v7, a2, &a1[12]);
-        v9 = v14;
+        v9 = v16;
       }
 
       v7 += 36;
@@ -1327,17 +731,17 @@ void FIK::FootPlacement::ProcessFootPlacementTasks(float32x4_t *a1, uint64_t *a2
 
   if (a1[34].i32[2])
   {
-    v15 = v9;
-    FIK::FootPlacement::GenerateFootStabilization(a1, &v19);
-    HIDWORD(a3) = v19.i32[1];
-    v9 = vaddq_f32(v15, v19);
+    v17 = v9;
+    FIK::FootPlacement::GenerateFootStabilization(&v21, a1);
+    HIDWORD(a3) = v21.i32[1];
+    v9 = vaddq_f32(v17, v21);
   }
 
   if (a1[36].i32[0])
   {
-    v16 = v9;
-    FIK::FootPlacement::GenerateAimingBehaviour(a1);
-    v9 = v16;
+    v18 = v9;
+    FIK::FootPlacement::GenerateAimingBehaviour(a1, a2);
+    v9 = v18;
   }
 
   if (v6 >= 1)
@@ -1346,28 +750,30 @@ void FIK::FootPlacement::ProcessFootPlacementTasks(float32x4_t *a1, uint64_t *a2
     v9 = vdivq_f32(v9, vdupq_lane_s32(*&a3, 0));
   }
 
-  v18 = v9;
-  FIK::FootPlacement::AdjustAvrOffset(a1, &v18, &v20, a1[13].i32[3], &v19);
-  v11 = a1[3].i64[1];
-  if (v11)
+  v20 = v9;
+  FIK::FootPlacement::AdjustAvrOffset(a1, &v20, &v22, a1[13].i32[3], &v21);
+  v12 = a1[3].i64[1];
+  if (v12)
   {
-    v17 = v19;
-    v12 = a1[4].i64[1];
-    v13 = &v12[36 * v11];
+    v19 = v21;
+    v13 = a1[4].i64[1];
+    v14 = &v13[36 * v12];
     do
     {
-      FIK::RTGameTask::DoAlphaBlend(v12);
-      if ((v12[17].i8[4] & 1) == 0 && v12[28].i8[4] == 1)
+      FIK::RTGameTask::DoAlphaBlend(v13, v11);
+      if ((v13[17].i8[4] & 1) == 0 && v13[28].i8[4] == 1)
       {
-        v12[21] = vaddq_f32(v17, v12[21]);
+        v15 = vaddq_f32(v19, v13[21]);
+        v13[21] = v15;
       }
 
-      FIK::RTGameTask::BlendTaskTarget(v12, a1[3].f32[0]);
-      FIK::RTGameTask::SetSolverTaskTarget(v12);
-      v12 += 36;
+      v15.n128_u32[0] = a1[3].u32[0];
+      FIK::RTGameTask::BlendTaskTarget(v13, v15);
+      FIK::RTGameTask::SetSolverTaskTarget(v13);
+      v13 += 36;
     }
 
-    while (v12 != v13);
+    while (v13 != v14);
   }
 
   if (a1[17].i32[3] == 1)
@@ -1377,11 +783,11 @@ void FIK::FootPlacement::ProcessFootPlacementTasks(float32x4_t *a1, uint64_t *a2
       FIK::RTBalanceTask::ConvertTargetWorldToSolver(a1 + 6, a1 + 1);
     }
 
-    FIK::RTBalanceTask::SetSolverTaskTarget(&a1[6]);
+    FIK::RTBalanceTask::SetSolverTaskTarget(&a1[6], v11);
   }
 }
 
-uint64_t FIK::IKRigUtils::GetParentTaskIndexByBoneIndex<FIK::GameRig>(unsigned int a1, uint64_t a2)
+uint64_t FIK::IKRigUtils::GetParentTaskIndexByBoneIndex<FIK::GameRig>(signed int a1, uint64_t a2)
 {
   result = 0xFFFFFFFFLL;
   if ((a1 & 0x80000000) == 0 && *(a2 + 208) > a1)
@@ -1422,10 +828,9 @@ uint64_t FIK::IKRigUtils::GetParentTaskIndexByBoneIndex<FIK::GameRig>(unsigned i
   return result;
 }
 
-float32x4_t FIK::FootPlacement::GenerateRayTraceTarget@<Q0>(uint64_t a1@<X0>, float32x4_t *a2@<X1>, float *a3@<X2>, float32x4_t *a4@<X8>)
+float32x4_t FIK::FootPlacement::GenerateRayTraceTarget@<Q0>(uint64_t a1@<X0>, float32x4_t *a2@<X1>, float32x4_t *a3@<X2>, float32x4_t *a4@<X8>)
 {
-  a4->i64[0] = 0;
-  a4->i64[1] = 0;
+  *a4 = 0uLL;
   v8 = a2 + 21;
   if (a2[28].i8[5])
   {
@@ -1438,26 +843,26 @@ float32x4_t FIK::FootPlacement::GenerateRayTraceTarget@<Q0>(uint64_t a1@<X0>, fl
   }
 
   v10 = v9[1];
-  v19 = *v9;
-  v20 = v10;
-  f32 = a2[26].f32;
+  v21 = *v9;
+  v22 = v10;
+  v11 = a2 + 26;
   if (fabsf(a2[26].f32[1]) >= 0.000000001 && (a2[17].i8[7] & 1) == 0)
   {
-    FIK::FootPlacement::CalculateDeltaRotation(a1, a2, *(a1 + 220), &v20);
+    FIK::FootPlacement::CalculateDeltaRotation(a1, a2, *(a1 + 220), &v22);
   }
 
-  if (fabsf(*f32) >= 0.000000001)
+  if (fabsf(v11->f32[0]) >= 0.000000001)
   {
-    FIK::FootPlacement::CalculateDeltaTranslation(a1, a2, *(a1 + 220), &v18);
-    *a4 = v18;
-    v17 = *a4;
-    FIK::FootPlacement::ModifyTargetPosFromSettings(a1, a2, &v17, *(a1 + 220), &v18);
-    v12 = v18;
-    v13 = v19;
-    *a4 = v18;
-    v19 = vaddq_f32(v12, v13);
+    FIK::FootPlacement::CalculateDeltaTranslation(a2, *(a1 + 220), &v20, a1);
+    *a4 = v20;
+    v19 = *a4;
+    FIK::FootPlacement::ModifyTargetPosFromSettings(a1, a2, &v19, *(a1 + 220), &v20);
+    v12 = v20;
+    v13 = v21;
+    *a4 = v20;
+    v21 = vaddq_f32(v12, v13);
     UpElement = FIK::Utils::GetUpElement(a4->f32, *(a1 + 220));
-    if (UpElement <= FIK::Utils::GetUpElement(a3, *(a1 + 220)))
+    if (UpElement <= FIK::Utils::GetUpElement(a3->f32, *(a1 + 220)))
     {
       v15 = a3;
     }
@@ -1470,21 +875,21 @@ float32x4_t FIK::FootPlacement::GenerateRayTraceTarget@<Q0>(uint64_t a1@<X0>, fl
     *a3 = *v15;
   }
 
-  FIK::RTGameTask::SetTarget(a2, &v19);
-  if (FIK::Utils::ContainsNaN(v8))
+  FIK::RTGameTask::SetTarget(a2, &v21);
+  v16 = FIK::Utils::ContainsNaN(v8);
+  if (v16)
   {
-    FIK::FootPlacement::GenerateRayTraceTarget();
+    FIK::FootPlacement::GenerateRayTraceTarget(v16, v17);
   }
 
-  result = vmulq_n_f32(*a4, COERCE_FLOAT(*f32));
+  result = vmulq_n_f32(*a4, COERCE_FLOAT(*v11));
   *a4 = result;
   return result;
 }
 
-void FIK::FootPlacement::GenerateFootStabilization(FIK::FootPlacement *this@<X0>, float32x4_t *a2@<X8>)
+void FIK::FootPlacement::GenerateFootStabilization(float32x4_t *__return_ptr a1@<X8>, FIK::FootPlacement *this@<X0>)
 {
-  a2->i64[0] = 0;
-  a2->i64[1] = 0;
+  *a1 = 0uLL;
   v3 = *(this + 7);
   if (v3)
   {
@@ -1542,7 +947,7 @@ void FIK::FootPlacement::GenerateFootStabilization(FIK::FootPlacement *this@<X0>
       {
         FIK::FootPlacement::AdjustChildTaskFS((v6 + v5), v10 + 21, &v19, &v18);
 LABEL_14:
-        *a2 = vaddq_f32(v18, *a2);
+        *a1 = vaddq_f32(v18, *a1);
       }
 
 LABEL_15:
@@ -1553,23 +958,23 @@ LABEL_15:
   }
 }
 
-uint64_t FIK::FootPlacement::GenerateAimingBehaviour(FIK::FootPlacement *this)
+uint64_t FIK::FootPlacement::GenerateAimingBehaviour(float32x4_t *this, uint64_t a2)
 {
-  if (*(this + 145) == -1 || *(this + 146) == -1 || (v2 = *(this + 147), v2 == -1) || *(this + 148) == -1)
+  if (this[36].i32[1] == -1 || this[36].i32[2] == -1 || (a2 = this[36].u32[3], a2 == -1) || this[37].i32[0] == -1)
   {
-    v44 = ikinemaLogObject();
+    v44 = ikinemaLogObject(this, a2);
     ikinemaAssertHandler(*v44, 0, "GenerateAimingBehaviour", "(AimSettings.HandleHandIndex != -1 && AimSettings.TriggerHandIndex != -1 && AimSettings.ChestTaskIndex != -1 && AimSettings.HeadTaskIndex != -1) All indices must be valid");
-    v2 = *(this + 147);
+    LODWORD(a2) = this[36].i32[3];
   }
 
-  TaskInstance = FIK::GenericSolver::GetTaskInstance(this, v2);
-  v4 = FIK::GenericSolver::GetTaskInstance(this, *(this + 145));
-  v5 = FIK::GenericSolver::GetTaskInstance(this, *(this + 146));
-  if (*(this + 596) == 1)
+  TaskInstance = FIK::GenericSolver::GetTaskInstance(this, a2);
+  v4 = FIK::GenericSolver::GetTaskInstance(this, this[36].i32[1]);
+  v5 = FIK::GenericSolver::GetTaskInstance(this, this[36].i32[2]);
+  if (this[37].i8[4] == 1)
   {
-    v6 = FIK::GenericSolver::GetTaskInstance(this, *(this + 148));
-    v7 = FIK::RTGameTask::SetLookAtTarget(v6, this + 38);
-    if (*(this + 2) == 1)
+    v6 = FIK::GenericSolver::GetTaskInstance(this, this[37].i32[0]);
+    v7 = FIK::RTGameTask::SetLookAtTarget(v6, &this[38]);
+    if (this->i32[2] == 1)
     {
       FIK::RTGameTask::ConvertTargetSpace(v6, 1, this + 1, v7);
     }
@@ -1598,10 +1003,10 @@ uint64_t FIK::FootPlacement::GenerateAimingBehaviour(FIK::FootPlacement *this)
   v21 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v15, v14, 3), v20, v14, 2), v19);
   *(v4 + 336) = v16;
   *(v4 + 352) = v21;
-  if (*(this + 624) == 1)
+  if (this[39].i8[0] == 1)
   {
-    v23 = *(this + 40);
-    v22 = *(this + 41);
+    v23 = this[40];
+    v22 = this[41];
     v24 = vnegq_f32(v22);
     v25 = vtrn2q_s32(v22, vtrn1q_s32(v22, v24));
     v26 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v22, v24, 8uLL), *v21.f32, 1), vextq_s8(v25, v25, 8uLL), v21.f32[0]);
@@ -1623,7 +1028,7 @@ uint64_t FIK::FootPlacement::GenerateAimingBehaviour(FIK::FootPlacement *this)
   else
   {
     v36 = v5[29];
-    if (*(this + 144) == 2)
+    if (this[36].i32[0] == 2)
     {
       v28 = v5[30];
     }
@@ -1717,22 +1122,19 @@ float32x4_t FIK::FootPlacement::AdjustChildTaskFS@<Q0>(float32x4_t *a1@<X1>, flo
   return result;
 }
 
-uint64_t FIK::FootPlacement::CalculateReverseFootAlpha(uint64_t result, uint64_t a2, __int128 *a3, float a4, float a5)
+BOOL FIK::FootPlacement::CalculateReverseFootAlpha(_BOOL8 result, uint64_t a2, __int128 *a3, float a4, float a5)
 {
   if (a4 >= a5)
   {
-    v16 = v8;
-    v17 = v7;
-    v18 = v5;
-    v19 = v6;
-    v9 = result;
-    v10 = *(a2 + 496);
-    v11 = *(result + 220);
-    v12 = *a3;
-    v14 = *(a2 + 336);
-    v15 = v12;
-    result = FIK::Utils::PointAIsHigherThanB(&v15, &v14, v11);
-    v13 = *(v9 + 560);
+    v13 = v8;
+    v14 = v7;
+    v15 = v5;
+    v16 = v6;
+    v9 = *(result + 220);
+    v10 = *a3;
+    v11 = *(a2 + 336);
+    v12 = v10;
+    return FIK::Utils::PointAIsHigherThanB(&v12, &v11, v9);
   }
 
   return result;
@@ -1748,13 +1150,13 @@ uint64_t FIK::FootPlacement::AdjustParentTaskFS@<X0>(uint64_t a1@<X0>, float32x4
   v15 = vrev64q_s32(v11);
   v15.i32[0] = v12.i32[1];
   v15.i32[3] = v12.i32[2];
-  v65 = vmulq_f32(vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v11, v10, 3), v15, v10, 2), v14), xmmword_245A01F10);
-  v16 = vnegq_f32(v65);
-  v17 = vtrn2q_s32(v65, vtrn1q_s32(v65, v16));
-  v18 = vrev64q_s32(v65);
+  v66 = vmulq_f32(vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v11, v10, 3), v15, v10, 2), v14), xmmword_245A01F10);
+  v16 = vnegq_f32(v66);
+  v17 = vtrn2q_s32(v66, vtrn1q_s32(v66, v16));
+  v18 = vrev64q_s32(v66);
   v18.i32[0] = v16.i32[1];
   v18.i32[3] = v16.i32[2];
-  v19 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v65, v11, 3), v18, v11, 2), vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v65, v16, 8uLL), *v11.f32, 1), vextq_s8(v17, v17, 8uLL), v11.f32[0]));
+  v19 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v66, v11, 3), v18, v11, 2), vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v66, v16, 8uLL), *v11.f32, 1), vextq_s8(v17, v17, 8uLL), v11.f32[0]));
   v20 = a2[31].f32[0];
   v21 = vmulq_f32(v11, v19);
   v22 = vextq_s8(v21, v21, 8uLL);
@@ -1766,8 +1168,8 @@ uint64_t FIK::FootPlacement::AdjustParentTaskFS@<X0>(uint64_t a1@<X0>, float32x4
   v25 = 1.0 - v20;
   v26 = vsubq_f32(v11, v23);
   v27 = vmulq_f32(v26, v26);
-  v62 = v23;
-  v63 = v11;
+  v63 = v23;
+  v64 = v11;
   v28 = vaddq_f32(v11, v23);
   v29 = vmulq_f32(v28, v28);
   v30 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v27.i8, *&vextq_s8(v27, v27, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v29.i8, *&vextq_s8(v29, v29, 8uLL)))));
@@ -1785,9 +1187,9 @@ uint64_t FIK::FootPlacement::AdjustParentTaskFS@<X0>(uint64_t a1@<X0>, float32x4
   LODWORD(v37) = vmul_f32(v36, vrecps_f32(LODWORD(v34), v36)).u32[0];
   if ((v25 * v31) != 0.0)
   {
-    v60 = v37;
+    v61 = v37;
     v36.f32[0] = sinf(v25 * v31);
-    v37 = v60;
+    v37 = v61;
     v24 = v36.f32[0] / (v25 * v31);
   }
 
@@ -1797,15 +1199,15 @@ uint64_t FIK::FootPlacement::AdjustParentTaskFS@<X0>(uint64_t a1@<X0>, float32x4
   v40 = 1.0;
   if (v39 != 0.0)
   {
-    v59 = v38;
-    v61 = v37;
+    v60 = v38;
+    v62 = v37;
     v41 = sinf(v39);
-    v38 = v59;
-    v37 = v61;
+    v38 = v60;
+    v37 = v62;
     v40 = v41 / v39;
   }
 
-  v42 = vmlaq_f32(vmulq_n_f32(v62, v20 * (v37 * v40)), v63, v38);
+  v42 = vmlaq_f32(vmulq_n_f32(v63, v20 * (v37 * v40)), v64, v38);
   v43 = vmulq_f32(v42, v42);
   v44 = vadd_f32(*v43.i8, *&vextq_s8(v43, v43, 8uLL));
   v45 = xmmword_245A01E80;
@@ -1817,9 +1219,9 @@ uint64_t FIK::FootPlacement::AdjustParentTaskFS@<X0>(uint64_t a1@<X0>, float32x4
     v45 = vmulq_n_f32(v42, vmul_f32(v48, vrsqrts_f32(v46, vmul_f32(v48, v48))).f32[0]);
   }
 
-  v64 = v45;
-  FIK::Utils::SetUpElement(v65.f32, *(a1 + 220), 0.0);
-  v49 = vmulq_f32(v65, v65);
+  v65 = v45;
+  FIK::Utils::SetUpElement(v66.f32, *(a1 + 220), 0.0);
+  v49 = vmulq_f32(v66, v66);
   v50 = vadd_f32(*v49.i8, *&vextq_s8(v49, v49, 8uLL));
   v51 = xmmword_245A01E80;
   if (vaddv_f32(v50) != 0.0)
@@ -1827,10 +1229,10 @@ uint64_t FIK::FootPlacement::AdjustParentTaskFS@<X0>(uint64_t a1@<X0>, float32x4
     v52 = vadd_f32(v50, vdup_lane_s32(v50, 1)).u32[0];
     v53 = vrsqrte_f32(v52);
     v54 = vmul_f32(v53, vrsqrts_f32(v52, vmul_f32(v53, v53)));
-    v51 = vmulq_n_f32(v65, vmul_f32(v54, vrsqrts_f32(v52, vmul_f32(v54, v54))).f32[0]);
+    v51 = vmulq_n_f32(v66, vmul_f32(v54, vrsqrts_f32(v52, vmul_f32(v54, v54))).f32[0]);
   }
 
-  v65 = v51;
+  v66 = v51;
   v55 = *(a1 + 556) * a2[31].f32[0];
   if (v55 <= 0.0)
   {
@@ -1850,17 +1252,17 @@ uint64_t FIK::FootPlacement::AdjustParentTaskFS@<X0>(uint64_t a1@<X0>, float32x4
 
   *a5 = vsubq_f32(v56, v57);
   a2[21] = v56;
-  a2[22] = v64;
+  a2[22] = v65;
   result = FIK::Utils::ContainsNaN(a2 + 21);
   if (result)
   {
-    return FIK::FootPlacement::AdjustParentTaskFS();
+    return FIK::FootPlacement::AdjustParentTaskFS(result, v59);
   }
 
   return result;
 }
 
-uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, float32x4_t *a2@<X1>, int a3@<W2>, int *a4@<X8>)
+uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, float32x4_t *a2@<X1>, int a3@<W2>, _OWORD *a4@<X8>)
 {
   if (*(result + 676) == 1)
   {
@@ -1869,9 +1271,9 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
 
   else
   {
-    v122 = 0uLL;
-    FIK::Utils::SetUpElement(v122.f32, a3, 1.0);
-    v6 = vmulq_f32(v122, v122);
+    v123 = 0uLL;
+    FIK::Utils::SetUpElement(v123.f32, a3, 1.0);
+    v6 = vmulq_f32(v123, v123);
     v7 = a2[25];
     v8 = vmulq_f32(v7, v7);
     v9 = vsqrt_f32(vadd_f32(vzip1_s32(*&vextq_s8(v8, v8, 8uLL), *&vextq_s8(v6, v6, 8uLL)), vadd_f32(vzip1_s32(*v8.i8, *v6.i8), vzip2_s32(*v8.i8, *v6.i8))));
@@ -1883,7 +1285,7 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
       v10 = 0.0;
     }
 
-    v13 = vmulq_n_f32(v122, v10);
+    v13 = vmulq_n_f32(v123, v10);
     v14 = 1.0 / v9.f32[0];
     if ((v11.i8[0] & 1) == 0)
     {
@@ -1947,17 +1349,17 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
     }
 
     v35 = vextq_s8(vuzp1q_s32(v18, v18), v18, 0xCuLL);
-    v36 = vextq_s8(vuzp1q_s32(v122, v122), v122, 0xCuLL);
+    v36 = vextq_s8(vuzp1q_s32(v123, v123), v123, 0xCuLL);
     v37 = vnegq_f32(v18);
-    v38 = vmlaq_f32(vmulq_f32(v36, v37), v122, v35);
+    v38 = vmlaq_f32(vmulq_f32(v36, v37), v123, v35);
     v39 = vextq_s8(vuzp1q_s32(v38, v38), v38, 0xCuLL);
     v40 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL), v37), v39, v35);
     v41 = vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v40, v40), v40, 0xCuLL), v39, v18, 3);
     v42.i64[0] = 0x4000000040000000;
     v42.i64[1] = 0x4000000040000000;
-    v43 = vmlaq_f32(v122, v42, v41);
-    v121 = a2[30];
-    v44 = vmulq_f32(v121, xmmword_245A01F10);
+    v43 = vmlaq_f32(v123, v42, v41);
+    v122 = a2[30];
+    v44 = vmulq_f32(v122, xmmword_245A01F10);
     v45 = vextq_s8(vuzp1q_s32(v44, v44), v44, 0xCuLL);
     v46 = vnegq_f32(v44);
     v47 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v43, v43), v43, 0xCuLL), v46), v43, v45);
@@ -1966,11 +1368,11 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
     v50 = vmlaq_f32(v43, v42, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v49, v49), v49, 0xCuLL), v48, v44, 3));
     v51 = v50;
     v51.i32[3] = 0;
-    v52 = vmlaq_f32(vmulq_f32(v36, v46), v122, v45);
+    v52 = vmlaq_f32(vmulq_f32(v36, v46), v123, v45);
     v53 = vextq_s8(vuzp1q_s32(v52, v52), v52, 0xCuLL);
     v54 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v53, v53), v53, 0xCuLL), v46), v53, v45);
-    v55 = vmlaq_f32(v122, v42, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL), v53, v44, 3));
-    v122 = v55;
+    v55 = vmlaq_f32(v123, v42, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL), v53, v44, 3));
+    v123 = v55;
     v56 = vmulq_f32(v55, v55);
     v57 = vmulq_f32(v51, v51);
     v58 = vsqrt_f32(vadd_f32(vzip1_s32(*&vextq_s8(v57, v57, 8uLL), *&vextq_s8(v56, v56, 8uLL)), vadd_f32(vzip1_s32(*v57.i8, *v56.i8), vzip2_s32(*v57.i8, *v56.i8))));
@@ -2055,7 +1457,7 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
     v88 = 1.0 - v83;
     v89 = vsubq_f32(xmmword_245A01E80, v86);
     v90 = vmulq_f32(v89, v89);
-    v120 = v86;
+    v121 = v86;
     v91 = vaddq_f32(v86, xmmword_245A01E80);
     v92 = vmulq_f32(v91, v91);
     v93 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v90.i8, *&vextq_s8(v90, v90, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v92.i8, *&vextq_s8(v92, v92, 8uLL)))));
@@ -2073,9 +1475,9 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
     LODWORD(v100) = vmul_f32(v99, vrecps_f32(LODWORD(v97), v99)).u32[0];
     if ((v88 * v94) != 0.0)
     {
-      v118 = v100;
+      v119 = v100;
       v99.f32[0] = sinf(v88 * v94);
-      v100 = v118;
+      v100 = v119;
       v87 = v99.f32[0] / (v88 * v94);
     }
 
@@ -2085,15 +1487,15 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
     v103 = 1.0;
     if (v102 != 0.0)
     {
-      v117 = v101;
-      v119 = v100;
+      v118 = v101;
+      v120 = v100;
       v104 = sinf(v102);
-      v101 = v117;
-      v100 = v119;
+      v101 = v118;
+      v100 = v120;
       v103 = v104 / v102;
     }
 
-    v105 = vmulq_n_f32(v120, v83 * (v100 * v103));
+    v105 = vmulq_n_f32(v121, v83 * (v100 * v103));
     v106 = xmmword_245A01E80;
     v107 = vmlaq_f32(v105, xmmword_245A01E80, v101);
     v108 = vmulq_f32(v107, v107);
@@ -2108,47 +1510,49 @@ uint64_t FIK::FootPlacement::CalculateDeltaRotation@<X0>(uint64_t result@<X0>, f
 
     v113 = vnegq_f32(v106);
     v114 = vtrn2q_s32(v106, vtrn1q_s32(v106, v113));
-    v115 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v106, v113, 8uLL), *v121.f32, 1), vextq_s8(v114, v114, 8uLL), v121.f32[0]);
+    v115 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v106, v113, 8uLL), *v122.f32, 1), vextq_s8(v114, v114, 8uLL), v122.f32[0]);
     v116 = vrev64q_s32(v106);
     v116.i32[0] = v113.i32[1];
     v116.i32[3] = v113.i32[2];
-    *a4 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v106, v121, 3), v116, v121, 2), v115);
-    result = FIK::Utils::ContainsNaN(a4);
+    *a4 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v106, v122, 3), v116, v122, 2), v115);
+    result = FIK::Utils::ContainsNaN();
     if (result)
     {
-      return FIK::FootPlacement::CalculateDeltaRotation();
+      return FIK::FootPlacement::CalculateDeltaRotation(result, v117);
     }
   }
 
   return result;
 }
 
-float32x4_t FIK::FootPlacement::CalculateDeltaTranslation@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, float32x4_t *a4@<X8>)
+float32x4_t FIK::FootPlacement::CalculateDeltaTranslation@<Q0>(uint64_t a1@<X1>, uint64_t a2@<X2>, float32x4_t *a3@<X8>, uint64_t a4@<X0>)
 {
+  v4 = a2;
   v14 = xmmword_245A01EF0;
-  FIK::Utils::SetUpElement(v14.f32, a3, 0.0);
-  *a4 = *(a2 + 464);
-  v9 = vmulq_f32(*a4, v14);
-  *a4 = v9;
-  v13 = *(a2 + 384);
-  if (FIK::RTGameTask::ShouldBlendWithMaxVel(a2))
+  FIK::Utils::SetUpElement(v14.f32, a2, 0.0);
+  *a3 = *(a1 + 464);
+  v9 = vmulq_f32(*a3, v14);
+  *a3 = v9;
+  v13 = *(a1 + 384);
+  if (FIK::RTGameTask::ShouldBlendWithMaxVel(a1))
   {
     v12[0] = v13;
     v12[1] = xmmword_245A01E80;
-    v11[0] = *(a2 + 544);
+    v11[0] = *(a1 + 544);
     v11[1] = xmmword_245A01E80;
-    FIK::TargetSmoothing::smooth((a2 + 424), v12, v11, *(a1 + 220), &v10, COERCE_DOUBLE(*(a1 + 48)));
+    FIK::TargetSmoothing::smooth((a1 + 424), v12, &v10, v11, *(a4 + 220), COERCE_DOUBLE(*(a4 + 48)));
     v13 = v10;
   }
 
-  FIK::FootPlacement::SetImpactPoint(&v13, a4->f32, a3);
-  result = vsubq_f32(*a4, v9);
-  *a4 = result;
+  FIK::FootPlacement::SetImpactPoint(&v13, a3->f32, v4);
+  result = vsubq_f32(*a3, v9);
+  *a3 = result;
   return result;
 }
 
-__n128 FIK::FootPlacement::ModifyTargetPosFromSettings@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float32x4_t *a3@<X2>, unsigned int a4@<W3>, float32x4_t *a5@<X8>)
+__n128 FIK::FootPlacement::ModifyTargetPosFromSettings@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float32x4_t *a3@<X2>, uint64_t a4@<X3>, float32x4_t *a5@<X8>)
 {
+  v5 = a4;
   if (*(a1 + 676) == 1)
   {
     FIK::Utils::SetUpElement(a3->f32, a4, 0.0);
@@ -2157,7 +1561,7 @@ __n128 FIK::FootPlacement::ModifyTargetPosFromSettings@<Q0>(uint64_t a1@<X0>, ui
   if (*(a1 + 536))
   {
     v14 = *a3;
-    FIK::FootPlacement::LimitLegExtension(a1, v14.f32, a4, &v15);
+    FIK::FootPlacement::LimitLegExtension(a1, v14.f32, v5, &v15);
     *a3 = v15;
   }
 
@@ -2165,7 +1569,7 @@ __n128 FIK::FootPlacement::ModifyTargetPosFromSettings@<Q0>(uint64_t a1@<X0>, ui
   if (fabsf(v10) >= 0.000000001)
   {
     v15 = 0uLL;
-    FIK::Utils::SetUpElement(v15.f32, a4, v10);
+    FIK::Utils::SetUpElement(v15.f32, v5, v10);
     *a3 = vaddq_f32(v15, *a3);
   }
 
@@ -2457,7 +1861,7 @@ __n128 FIK::RTGameTask::SetLookAtTarget(__n128 *a1, __n128 *a2)
 {
   if ((a1[17].n128_u8[9] & 1) == 0)
   {
-    FIK::RTGameTask::SetLookAtTarget();
+    FIK::RTGameTask::SetLookAtTarget(a1, a2);
   }
 
   result = *a2;
@@ -2469,7 +1873,7 @@ __n128 FIK::RTGameTask::SetLookAtTargetParams(uint64_t a1, _OWORD *a2, __n128 *a
 {
   if ((*(a1 + 281) & 1) == 0)
   {
-    FIK::RTGameTask::SetLookAtTargetParams((a1 + 281));
+    FIK::RTGameTask::SetLookAtTargetParams((a1 + 281), a2);
   }
 
   *(a1 + 368) = *a2;
@@ -2484,7 +1888,7 @@ __n128 FIK::RTGameTask::SetImpactPointAndNormal(uint64_t a1, _OWORD *a2, __n128 
 {
   if ((*(a1 + 276) & 1) == 0)
   {
-    FIK::RTGameTask::SetImpactPointAndNormal();
+    FIK::RTGameTask::SetImpactPointAndNormal(a1, a2);
   }
 
   *(a1 + 384) = *a2;
@@ -2521,35 +1925,33 @@ uint64_t FIK::RTGameTask::SetProperties(uint64_t result, uint64_t a2)
     (*(*v10 + 104))(v10, 1, *(a2 + 116));
     v11 = *(v3 + 8) + *(**(v3 + 8) - 264);
     (*(*v11 + 104))(v11, 2, *(a2 + 120));
-    v12 = *(a2 + 54);
     (*(**(v3 + 8) + 392))();
     (*(**(v3 + 8) + 280))();
-    v13 = *(v3 + 8) + *(**(v3 + 8) - 264);
-    result = (*(*v13 + 136))(v13, *(a2 + 52), 0);
+    v12 = *(v3 + 8) + *(**(v3 + 8) - 264);
+    result = (*(*v12 + 136))(v12, *(a2 + 52), 0);
   }
 
-  v14 = *(v3 + 16);
-  if (v14)
+  v13 = *(v3 + 16);
+  if (v13)
   {
-    (*(*&v14[*(*v14 - 264)] + 144))(&v14[*(*v14 - 264)], *(a2 + 58), *(a2 + 59), *(a2 + 60));
+    (*(*&v13[*(*v13 - 264)] + 144))(&v13[*(*v13 - 264)], *(a2 + 58), *(a2 + 59), *(a2 + 60));
+    v14 = *(v3 + 16) + *(**(v3 + 16) - 264);
+    (*(*v14 + 56))(v14, *(a2 + 68));
     v15 = *(v3 + 16) + *(**(v3 + 16) - 264);
-    (*(*v15 + 56))(v15, *(a2 + 68));
+    (*(*v15 + 80))(v15, 0, *(a2 + 96));
     v16 = *(v3 + 16) + *(**(v3 + 16) - 264);
-    (*(*v16 + 80))(v16, 0, *(a2 + 96));
+    (*(*v16 + 80))(v16, 1, *(a2 + 100));
     v17 = *(v3 + 16) + *(**(v3 + 16) - 264);
-    (*(*v17 + 80))(v17, 1, *(a2 + 100));
+    (*(*v17 + 80))(v17, 2, *(a2 + 104));
     v18 = *(v3 + 16) + *(**(v3 + 16) - 264);
-    (*(*v18 + 80))(v18, 2, *(a2 + 104));
+    (*(*v18 + 104))(v18, 0, *(a2 + 128));
     v19 = *(v3 + 16) + *(**(v3 + 16) - 264);
-    (*(*v19 + 104))(v19, 0, *(a2 + 128));
+    (*(*v19 + 104))(v19, 1, *(a2 + 132));
     v20 = *(v3 + 16) + *(**(v3 + 16) - 264);
-    (*(*v20 + 104))(v20, 1, *(a2 + 132));
-    v21 = *(v3 + 16) + *(**(v3 + 16) - 264);
-    (*(*v21 + 104))(v21, 2, *(a2 + 136));
-    v22 = *(a2 + 53);
-    v23 = *(*(*(v3 + 16) + *(**(v3 + 16) - 264)) + 136);
+    (*(*v20 + 104))(v20, 2, *(a2 + 136));
+    v21 = *(*(*(v3 + 16) + *(**(v3 + 16) - 264)) + 136);
 
-    return v23();
+    return v21();
   }
 
   return result;
@@ -2557,14 +1959,14 @@ uint64_t FIK::RTGameTask::SetProperties(uint64_t result, uint64_t a2)
 
 uint64_t FIK::RTGameTask::GenerateAnimTarget(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(a1[6].u32[0], a2, a4, v7);
-  v5 = v7[1];
-  a1[29] = v7[0];
+  FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(a1[6].u32[0], a2, a4, v8);
+  v5 = v8[1];
+  a1[29] = v8[0];
   a1[30] = v5;
   result = FIK::Utils::ContainsNaN(a1 + 29);
   if (result)
   {
-    return FIK::RTGameTask::GenerateAnimTarget();
+    return FIK::RTGameTask::GenerateAnimTarget(result, v7);
   }
 
   return result;
@@ -2575,7 +1977,7 @@ uint64_t FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>@<X0>(uint64_t result@<X0>,
   v6 = result;
   if ((result & 0x80000000) != 0 || *(a3 + 208) <= result)
   {
-    result = FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>();
+    result = FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(result, a2);
   }
 
   v8 = *(a3 + 224);
@@ -2620,64 +2022,65 @@ float32x4_t FIK::RTGameTask::ConvertTargetSpace(float32x4_t *a1, int a2, float32
 {
   if (a2 == 1)
   {
-    if (FIK::Utils::ContainsNaN(a3))
+    v6 = FIK::Utils::ContainsNaN(a3);
+    if (v6)
     {
-      FIK::RTGameTask::ConvertTargetSpace();
+      FIK::RTGameTask::ConvertTargetSpace(v6, v7);
     }
 
-    v7 = a1[21];
-    v6 = a1[22];
-    v8 = vnegq_f32(v6);
-    v9 = vtrn2q_s32(v6, vtrn1q_s32(v6, v8));
-    v10 = a3[1];
-    v11 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v6, v8, 8uLL), *v10.f32, 1), vextq_s8(v9, v9, 8uLL), v10.f32[0]);
-    v12 = vrev64q_s32(v6);
-    v12.i32[0] = v8.i32[1];
-    v12.i32[3] = v8.i32[2];
-    v13 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v6, v10, 3), v12, v10, 2), v11);
-    v14 = vextq_s8(vuzp1q_s32(v10, v10), v10, 0xCuLL);
-    v15 = vnegq_f32(v10);
-    v16 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v7, v7), v7, 0xCuLL), v15), v7, v14);
-    v17 = vextq_s8(vuzp1q_s32(v16, v16), v16, 0xCuLL);
-    v18 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v17, v17), v17, 0xCuLL), v15), v17, v14);
+    v9 = a1[21];
+    v8 = a1[22];
+    v10 = vnegq_f32(v8);
+    v11 = vtrn2q_s32(v8, vtrn1q_s32(v8, v10));
+    v12 = a3[1];
+    v13 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v8, v10, 8uLL), *v12.f32, 1), vextq_s8(v11, v11, 8uLL), v12.f32[0]);
+    v14 = vrev64q_s32(v8);
+    v14.i32[0] = v10.i32[1];
+    v14.i32[3] = v10.i32[2];
+    v15 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v8, v12, 3), v14, v12, 2), v13);
+    v16 = vextq_s8(vuzp1q_s32(v12, v12), v12, 0xCuLL);
+    v17 = vnegq_f32(v12);
+    v18 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v9, v9), v9, 0xCuLL), v17), v9, v16);
+    v19 = vextq_s8(vuzp1q_s32(v18, v18), v18, 0xCuLL);
+    v20 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v19, v19), v19, 0xCuLL), v17), v19, v16);
     result.i64[0] = 0x4000000040000000;
     result.i64[1] = 0x4000000040000000;
-    a1[21] = vaddq_f32(*a3, vmlaq_f32(v7, result, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v18, v18), v18, 0xCuLL), v17, v10, 3)));
-    a1[22] = v13;
+    a1[21] = vaddq_f32(*a3, vmlaq_f32(v9, result, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v20, v20), v20, 0xCuLL), v19, v12, 3)));
+    a1[22] = v15;
     if (a1[17].i8[9] == 1)
     {
-      v19 = a3[1];
-      v20 = a1[23];
-      v21 = vextq_s8(vuzp1q_s32(v19, v19), v19, 0xCuLL);
-      v22 = vnegq_f32(v19);
-      v23 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v20, v20), v20, 0xCuLL), v22), v20, v21);
-      v24 = vextq_s8(vuzp1q_s32(v23, v23), v23, 0xCuLL);
-      v25 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL), v22), v24, v21);
-      result = vaddq_f32(*a3, vmlaq_f32(v20, result, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v25, v25), v25, 0xCuLL), v24, v19, 3)));
+      v21 = a3[1];
+      v22 = a1[23];
+      v23 = vextq_s8(vuzp1q_s32(v21, v21), v21, 0xCuLL);
+      v24 = vnegq_f32(v21);
+      v25 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v22, v22), v22, 0xCuLL), v24), v22, v23);
+      v26 = vextq_s8(vuzp1q_s32(v25, v25), v25, 0xCuLL);
+      v27 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v26, v26), v26, 0xCuLL), v24), v26, v23);
+      result = vaddq_f32(*a3, vmlaq_f32(v22, result, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v27, v27), v27, 0xCuLL), v26, v21, 3)));
       a1[23] = result;
     }
 
     if (a1[17].i8[4] == 1)
     {
-      v26 = a3[1];
-      v27 = vextq_s8(vuzp1q_s32(v26, v26), v26, 0xCuLL);
-      v29 = a1[24];
-      v28 = a1[25];
-      v30 = vnegq_f32(v26);
-      v31 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v28, v28), v28, 0xCuLL), v30), v28, v27);
-      v32 = vextq_s8(vuzp1q_s32(v31, v31), v31, 0xCuLL);
-      v33 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v32, v32), v32, 0xCuLL), v30), v32, v27);
-      v34 = vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v33, v33), v33, 0xCuLL), v32, v26, 3);
-      v26.i64[0] = 0x4000000040000000;
-      v26.i64[1] = 0x4000000040000000;
-      a1[25] = vmlaq_f32(v28, v26, v34);
-      v35 = a3[1];
-      v36 = vextq_s8(vuzp1q_s32(v35, v35), v35, 0xCuLL);
-      v37 = vnegq_f32(v35);
-      v38 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v29, v29), v29, 0xCuLL), v37), v29, v36);
-      v39 = vextq_s8(vuzp1q_s32(v38, v38), v38, 0xCuLL);
-      v40 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL), v37), v39, v36);
-      result = vaddq_f32(*a3, vmlaq_f32(v29, v26, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v40, v40), v40, 0xCuLL), v39, v35, 3)));
+      v28 = a3[1];
+      v29 = vextq_s8(vuzp1q_s32(v28, v28), v28, 0xCuLL);
+      v31 = a1[24];
+      v30 = a1[25];
+      v32 = vnegq_f32(v28);
+      v33 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v30, v30), v30, 0xCuLL), v32), v30, v29);
+      v34 = vextq_s8(vuzp1q_s32(v33, v33), v33, 0xCuLL);
+      v35 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v34, v34), v34, 0xCuLL), v32), v34, v29);
+      v36 = vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v35, v35), v35, 0xCuLL), v34, v28, 3);
+      v28.i64[0] = 0x4000000040000000;
+      v28.i64[1] = 0x4000000040000000;
+      a1[25] = vmlaq_f32(v30, v28, v36);
+      v37 = a3[1];
+      v38 = vextq_s8(vuzp1q_s32(v37, v37), v37, 0xCuLL);
+      v39 = vnegq_f32(v37);
+      v40 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v31, v31), v31, 0xCuLL), v39), v31, v38);
+      v41 = vextq_s8(vuzp1q_s32(v40, v40), v40, 0xCuLL);
+      v42 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v41, v41), v41, 0xCuLL), v39), v41, v38);
+      result = vaddq_f32(*a3, vmlaq_f32(v31, v28, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v42, v42), v42, 0xCuLL), v41, v37, 3)));
       a1[24] = result;
     }
   }
@@ -2685,24 +2088,24 @@ float32x4_t FIK::RTGameTask::ConvertTargetSpace(float32x4_t *a1, int a2, float32
   return result;
 }
 
-uint64_t FIK::RTGameTask::GenerateTarget(uint64_t this, uint64_t *a2, uint64_t a3)
+FIK::RTGameTask *FIK::RTGameTask::GenerateTarget(FIK::RTGameTask *result, uint64_t *a2, uint64_t a3)
 {
-  if (*(this + 281) == 1)
+  if (*(result + 281) == 1)
   {
-    return FIK::RTGameTask::GenerateLookAtTarget(this);
+    return FIK::RTGameTask::GenerateLookAtTarget(result);
   }
 
-  if (*(this + 102) == 1)
+  if (*(result + 102) == 1)
   {
-    return FIK::RTGameTask::GeneratePoleVecTarget(this, a2, a3);
+    return FIK::RTGameTask::GeneratePoleVecTarget(result, a2, a3);
   }
 
-  if (*(this + 278) == 1)
+  if (*(result + 278) == 1)
   {
-    return FIK::RTGameTask::GenerateVRTarget(this);
+    return FIK::RTGameTask::GenerateVRTarget(result);
   }
 
-  return this;
+  return result;
 }
 
 uint64_t FIK::RTGameTask::GenerateLookAtTarget(uint64_t this)
@@ -2845,67 +2248,66 @@ uint64_t FIK::RTGameTask::GenerateLookAtTarget(uint64_t this)
   v55 = vrev64q_s32(v36);
   v55.i32[0] = v52.i32[1];
   v55.i32[3] = v52.i32[2];
-  v65 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v36, v3, 3), v55, v3, 2), v54);
-  *(this + 352) = v65;
-  this = FIK::Utils::ContainsNaN(&v65);
+  *(this + 352) = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v36, v3, 3), v55, v3, 2), v54);
+  this = FIK::Utils::ContainsNaN();
   if (this)
   {
-    this = FIK::RTGameTask::GenerateLookAtTarget();
+    this = FIK::RTGameTask::GenerateLookAtTarget(this, v56);
   }
 
   if (*(v1 + 444) == 1)
   {
-    v56 = *(v1 + 368);
-    v57 = vmulq_f32(v56, v56);
-    v57.f32[0] = sqrtf(v57.f32[2] + vaddv_f32(*v57.f32));
-    v58 = 1.0 / v57.f32[0];
-    v59 = v57.f32[0] == 0.0;
-    v60 = 0.0;
-    if (v59)
+    v57 = *(v1 + 368);
+    v58 = vmulq_f32(v57, v57);
+    v58.f32[0] = sqrtf(v58.f32[2] + vaddv_f32(*v58.f32));
+    v59 = 1.0 / v58.f32[0];
+    v60 = v58.f32[0] == 0.0;
+    v61 = 0.0;
+    if (v60)
     {
-      v58 = 0.0;
+      v59 = 0.0;
     }
 
-    v61 = vmulq_f32(*(v1 + 224), vmulq_n_f32(v56, v58));
-    v62 = v61.f32[2] + vaddv_f32(*v61.f32);
-    v63 = *(v1 + 448);
-    if (v62 >= 0.0)
+    v62 = vmulq_f32(*(v1 + 224), vmulq_n_f32(v57, v59));
+    v63 = v62.f32[2] + vaddv_f32(*v62.f32);
+    v64 = *(v1 + 448);
+    if (v63 >= 0.0)
     {
-      if (v63 <= 0.0)
+      if (v64 <= 0.0)
       {
-        v60 = *(v1 + 420);
+        v61 = *(v1 + 420);
         goto LABEL_40;
       }
 
-      v60 = *(v1 + 560);
-      if (v63 >= 1.0)
+      v61 = *(v1 + 560);
+      if (v64 >= 1.0)
       {
 LABEL_40:
-        *(v1 + 560) = v60;
+        *(v1 + 560) = v61;
         return this;
       }
 
-      v64 = *(v1 + 420);
-      v60 = v60 - v64;
+      v65 = *(v1 + 420);
+      v61 = v61 - v65;
     }
 
     else
     {
-      if (v63 <= 0.0)
+      if (v64 <= 0.0)
       {
         goto LABEL_40;
       }
 
-      v60 = *(v1 + 560);
-      if (v63 >= 1.0)
+      v61 = *(v1 + 560);
+      if (v64 >= 1.0)
       {
         goto LABEL_40;
       }
 
-      v64 = 0.0;
+      v65 = 0.0;
     }
 
-    v60 = v64 + (v60 * v63);
+    v61 = v65 + (v61 * v64);
     goto LABEL_40;
   }
 
@@ -2968,74 +2370,72 @@ LABEL_7:
         v21 = *(v9 + (v8 << 8) + 4);
       }
 
-      v22 = a2[1];
-      FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(v21, *a2, a3, v48);
-      v47 = v48[0];
-      v23 = a2[1];
-      FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(v13, *a2, a3, v48);
-      v24 = v48[0];
-      v48[0] = v3[29];
-      v25 = vsubq_f32(v48[0], v47);
-      v26 = vsubq_f32(v48[0], v24);
-      v27 = vmulq_f32(v25, v25);
-      v27.f32[0] = sqrtf(v27.f32[2] + vaddv_f32(*v27.f32));
-      v28 = 1.0 / v27.f32[0];
-      if (v27.f32[0] == 0.0)
+      FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(v21, *a2, a3, v47);
+      v46 = v47[0];
+      FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(v13, *a2, a3, v47);
+      v22 = v47[0];
+      v47[0] = v3[29];
+      v23 = vsubq_f32(v47[0], v46);
+      v24 = vsubq_f32(v47[0], v22);
+      v25 = vmulq_f32(v23, v23);
+      v25.f32[0] = sqrtf(v25.f32[2] + vaddv_f32(*v25.f32));
+      v26 = 1.0 / v25.f32[0];
+      if (v25.f32[0] == 0.0)
       {
-        v28 = 0.0;
+        v26 = 0.0;
       }
 
-      v29 = vmulq_n_f32(v25, v28);
-      v30 = vmulq_f32(v26, v26);
-      v31 = sqrtf(v30.f32[2] + vaddv_f32(*v30.f32));
-      if (v31 == 0.0)
+      v27 = vmulq_n_f32(v23, v26);
+      v28 = vmulq_f32(v24, v24);
+      v29 = sqrtf(v28.f32[2] + vaddv_f32(*v28.f32));
+      if (v29 == 0.0)
       {
-        v32 = 0.0;
+        v30 = 0.0;
       }
 
       else
       {
-        v32 = 1.0 / v31;
+        v30 = 1.0 / v29;
       }
 
-      v33 = vmulq_n_f32(v26, v32);
+      v31 = vmulq_n_f32(v24, v30);
+      v32 = vextq_s8(vuzp1q_s32(v31, v31), v31, 0xCuLL);
+      v33 = vmlaq_f32(vmulq_f32(v32, vnegq_f32(v27)), v31, vextq_s8(vuzp1q_s32(v27, v27), v27, 0xCuLL));
       v34 = vextq_s8(vuzp1q_s32(v33, v33), v33, 0xCuLL);
-      v35 = vmlaq_f32(vmulq_f32(v34, vnegq_f32(v29)), v33, vextq_s8(vuzp1q_s32(v29, v29), v29, 0xCuLL));
-      v36 = vextq_s8(vuzp1q_s32(v35, v35), v35, 0xCuLL);
-      v37 = vmulq_f32(v35, v35);
-      v38 = sqrtf(v37.f32[1] + (v37.f32[2] + v37.f32[0]));
-      if (v38 == 0.0)
+      v35 = vmulq_f32(v33, v33);
+      v36 = sqrtf(v35.f32[1] + (v35.f32[2] + v35.f32[0]));
+      if (v36 == 0.0)
       {
-        v39 = 0.0;
+        v37 = 0.0;
       }
 
       else
       {
-        v39 = 1.0 / v38;
+        v37 = 1.0 / v36;
       }
 
-      v40 = vmulq_n_f32(v36, v39);
-      v41 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v40, v40), v40, 0xCuLL), vnegq_f32(v33)), v40, v34);
-      v42 = vextq_s8(vuzp1q_s32(v41, v41), v41, 0xCuLL);
-      v43 = vmulq_f32(v41, v41);
-      v44 = sqrtf(v43.f32[1] + (v43.f32[2] + v43.f32[0]));
-      if (v44 == 0.0)
+      v38 = vmulq_n_f32(v34, v37);
+      v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v38, v38), v38, 0xCuLL), vnegq_f32(v31)), v38, v32);
+      v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+      v41 = vmulq_f32(v39, v39);
+      v42 = sqrtf(v41.f32[1] + (v41.f32[2] + v41.f32[0]));
+      if (v42 == 0.0)
       {
-        v45 = 0.0;
+        v43 = 0.0;
       }
 
       else
       {
-        v45 = 1.0 / v44;
+        v43 = 1.0 / v42;
       }
 
-      v46 = vmulq_f32(v29, v29);
-      v48[0] = vaddq_f32(v48[0], vmulq_f32(vmulq_n_f32(vmulq_n_f32(v42, v45), sqrtf(v46.f32[2] + vaddv_f32(*v46.f32))), vdupq_n_s32(0x43160000u)));
-      v3[21] = v48[0];
-      result = FIK::Utils::ContainsNaN(v48);
+      v44 = vmulq_f32(v27, v27);
+      v47[0] = vaddq_f32(v47[0], vmulq_f32(vmulq_n_f32(vmulq_n_f32(v40, v43), sqrtf(v44.f32[2] + vaddv_f32(*v44.f32))), vdupq_n_s32(0x43160000u)));
+      v3[21] = v47[0];
+      result = FIK::Utils::ContainsNaN();
       if (result)
       {
-        return FIK::RTGameTask::GeneratePoleVecTarget();
+        return FIK::RTGameTask::GeneratePoleVecTarget(result, v45);
       }
     }
   }
@@ -3076,7 +2476,7 @@ uint64_t FIK::RTGameTask::GenerateVRTarget(uint64_t this)
     this = FIK::Utils::ContainsNaN((this + 336));
     if (this)
     {
-      return FIK::RTGameTask::GenerateVRTarget();
+      return FIK::RTGameTask::GenerateVRTarget(this, v15);
     }
   }
 
@@ -3110,7 +2510,7 @@ uint64_t FIK::RTGameTask::AddSolverTask(FIK::RTGameTask *this, FIK::Solver **a2)
 {
   if (*(this + 100) == 1)
   {
-    v4 = FIK::IKSolver::addPositionTask(a2, *(this + 24));
+    v4 = FIK::IKSolver::addPositionTask(a2, *(this + 24), 0);
     *(this + 1) = v4;
     v5 = v4 != 0;
   }
@@ -3151,12 +2551,12 @@ BOOL FIK::RTGameTask::RemoveSolverTask(FIK::RTGameTask *this, FIK::Solver **a2)
   return *(this + 2) == 0;
 }
 
-__n128 FIK::RTGameTask::BlendTaskTarget(float32x4_t *this, float a2)
+__n128 FIK::RTGameTask::BlendTaskTarget(float32x4_t *this, __n128 a2)
 {
   v3 = this[33];
   v8[0] = this[32];
   v8[1] = v3;
-  FIK::TargetSmoothing::smooth(&this[26].u32[2], this + 21, v8, a2, v7);
+  FIK::TargetSmoothing::smooth(&this[26].f32[2], this + 21, v8, a2, v7);
   result = v7[0];
   v5 = v7[1];
   this[21] = v7[0];
@@ -3167,53 +2567,53 @@ __n128 FIK::RTGameTask::BlendTaskTarget(float32x4_t *this, float a2)
   return result;
 }
 
-void FIK::RTGameTask::DoAlphaBlend(float32x4_t *this)
+void FIK::RTGameTask::DoAlphaBlend(float32x4_t *this, uint64_t a2)
 {
   if ((this[6].i8[6] & 1) == 0)
   {
-    v2 = this[26].f32[0];
-    v3 = 105;
+    v3 = this[26].f32[0];
+    v4 = 105;
     if (this[27].i32[3] == 1)
     {
-      v3 = 140;
+      v4 = 140;
     }
 
-    v4 = this->f32[v3];
-    if (v2 == 0.0 && v4 == 0.0)
+    v5 = this->f32[v4];
+    if (v3 == 0.0 && v5 == 0.0)
     {
-      v5 = this[29];
-      v6 = this[30];
+      v6 = this[29];
+      v7 = this[30];
     }
 
     else
     {
-      v7 = this[17].i32[0];
-      if (v7 == 2)
+      v8 = this[17].i32[0];
+      if (v8 == 2)
       {
-        FIK::Utils::BlendWithOffset(this + 29, this + 21, v8, v2, v4);
+        FIK::Utils::BlendWithOffset(this + 29, this + 21, v9, v3, v5);
       }
 
-      else if (v7 == 1)
+      else if (v8 == 1)
       {
-        FIK::Utils::BlendWithTarget(this + 29, this + 21, v8, v2, v4);
+        FIK::Utils::BlendWithTarget(this + 29, this + 21, v9, v3, v5);
       }
 
       else
       {
-        if (v7)
+        if (v8)
         {
-          FIK::RTGameTask::DoAlphaBlend();
+          FIK::RTGameTask::DoAlphaBlend(this, a2);
         }
 
-        FIK::Utils::BlendToTarget(this + 29, this + 21, v8, v2, v4);
+        FIK::Utils::BlendToTarget(this + 29, this + 21, v9, v3, v5);
       }
 
-      v5 = v8[0];
-      v6 = v8[1];
+      v6 = v9[0];
+      v7 = v9[1];
     }
 
-    this[21] = v5;
-    this[22] = v6;
+    this[21] = v6;
+    this[22] = v7;
   }
 }
 
@@ -3260,32 +2660,32 @@ FIK *ikinema::BoneNormalisationAlgorithmImpl::BoneNormalisationAlgorithmImpl(FIK
 uint64_t ikinema::BoneNormalisationAlgorithmImpl::process(uint64_t *a1, uint64_t a2, void *a3)
 {
   v5 = ikinema::BufferContainer::buffer(a3, a1[1]);
-  v6 = ikinema::Buffer::arrayView<FIK::Transform>(v5);
-  v8 = v7;
-  v9 = ikinema::BufferContainer::buffer(a3, a1[2]);
-  v10 = ikinema::Buffer::arrayView<FIK::Transform>(v9);
-  v12 = v11;
-  v13 = a1[3];
-  v14 = &v6[2 * v8];
-  if (!v13)
+  v7 = ikinema::Buffer::arrayView<FIK::Transform>(v5, v6);
+  v9 = v8;
+  v10 = ikinema::BufferContainer::buffer(a3, a1[2]);
+  v12 = ikinema::Buffer::arrayView<FIK::Transform>(v10, v11);
+  v14 = v13;
+  v15 = a1[3];
+  v16 = &v7[2 * v9];
+  if (!v15)
   {
-    std::__copy_impl::operator()[abi:nn200100]<FIK::Transform const*,FIK::Transform const*,std::back_insert_iterator<FIK::IKArray<FIK::Transform>>>(&v17, v6, &v6[2 * v8], a1 + 3);
-    v13 = a1[3];
+    std::__copy_impl::operator()[abi:nn200100]<FIK::Transform const*,FIK::Transform const*,std::back_insert_iterator<FIK::IKArray<FIK::Transform>>>(&v19, v7, &v7[2 * v9], a1 + 3);
+    v15 = a1[3];
   }
 
-  FIK::generateHelperHierarchyPose((a1 + 7), v6, v8, a1[5], v13, v10, v12);
-  if (v8)
+  FIK::generateHelperHierarchyPose((a1 + 7), v7, v9, a1[5], v15, v12, v14);
+  if (v9)
   {
-    v15 = a1[5];
+    v17 = a1[5];
     do
     {
-      *v15 = *v6;
-      v15[1] = v6[1];
-      v6 += 2;
-      v15 += 2;
+      *v17 = *v7;
+      v17[1] = v7[1];
+      v7 += 2;
+      v17 += 2;
     }
 
-    while (v6 != v14);
+    while (v7 != v16);
   }
 
   return 0;
@@ -3828,17 +3228,17 @@ float32x4_t FIK::AutoMatch::calculateSourceParentOffset@<Q0>(uint64_t a1@<X0>, u
   return result;
 }
 
-__n128 FIK::Enrollment::FrameAdaptor::getLiftedPositionForJoint@<Q0>(FIK::Enrollment::FrameAdaptor *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X8>)
+__n128 FIK::Enrollment::FrameAdaptor::getLiftedPositionForJoint@<Q0>(__n128 *__return_ptr a1@<X8>, FIK::Enrollment::FrameAdaptor *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  result = *(*(**this + 80 * a2) + 48 * a3 + 32);
-  *a4 = result;
+  result = *(*(**this + 80 * a3) + 48 * a4 + 32);
+  *a1 = result;
   return result;
 }
 
-__n128 FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint@<Q0>(FIK::Enrollment::FrameAdaptor *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X8>)
+__n128 FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint@<Q0>(__n128 *__return_ptr a1@<X8>, FIK::Enrollment::FrameAdaptor *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  result = *(*(**this + 80 * a2) + 48 * a3 + 16);
-  *a4 = result;
+  result = *(*(**this + 80 * a3) + 48 * a4 + 16);
+  *a1 = result;
   return result;
 }
 
@@ -3868,7 +3268,7 @@ float32x4_t FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint@<Q0>(FIK::Enr
   if (v10 == 0.0)
   {
     v12 = *(v7 + 16);
-    FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint();
+    FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint(this, a3);
     v8 = v12;
   }
 
@@ -3877,10 +3277,10 @@ float32x4_t FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint@<Q0>(FIK::Enr
   return result;
 }
 
-float32x4_t FIK::Enrollment::FrameAdaptor::getRayEndForJoint@<Q0>(FIK::Enrollment::FrameAdaptor *this@<X0>, float a2@<S0>, uint64_t a3@<X1>, uint64_t a4@<X2>, float32x4_t *a5@<X8>)
+float32x4_t FIK::Enrollment::FrameAdaptor::getRayEndForJoint@<Q0>(float32x4_t *__return_ptr a1@<X8>, FIK::Enrollment::FrameAdaptor *this@<X0>, float a3@<S0>, uint64_t a4@<X1>, uint64_t a5@<X2>)
 {
-  FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint(this, a2, a3, a4, &v17);
-  FIK::Transform::Transform(&v15, (**this + 80 * a3 + 16));
+  FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint(this, a3, a4, a5, &v17);
+  FIK::Transform::Transform(&v15, (**this + 80 * a4 + 16));
   v8 = vextq_s8(vuzp1q_s32(v16, v16), v16, 0xCuLL);
   v9 = vnegq_f32(v16);
   v10 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v17, v17), v17, 0xCuLL), v9), v17, v8);
@@ -3889,7 +3289,7 @@ float32x4_t FIK::Enrollment::FrameAdaptor::getRayEndForJoint@<Q0>(FIK::Enrollmen
   v13.i64[0] = 0x4000000040000000;
   v13.i64[1] = 0x4000000040000000;
   result = vaddq_f32(v15, vmlaq_f32(v17, v13, vmlaq_laneq_f32(vextq_s8(vuzp1q_s32(v12, v12), v12, 0xCuLL), v11, v16, 3)));
-  *a5 = result;
+  *a1 = result;
   return result;
 }
 
@@ -3965,7 +3365,7 @@ LABEL_29:
   if (!v7 || v6 != v8)
   {
 LABEL_44:
-    FIK::Enrollment::SourceDefinition::cameraIndexForName();
+    FIK::Enrollment::SourceDefinition::cameraIndexForName(a1, a2);
   }
 
   v13 = 3;
@@ -4164,178 +3564,176 @@ LABEL_32:
   return result;
 }
 
-void FIK::Enrollment::estimateHeadPose(void *a1@<X0>, unint64_t a2@<X1>, float32x4_t *a3@<X8>)
+void FIK::Enrollment::estimateHeadPose(float32x4_t **result@<X0>, unint64_t a2@<X1>, float32x4_t *a3@<X8>)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  if (a1[1] <= a2)
+  v34 = *MEMORY[0x277D85DE8];
+  if (result[1] <= a2)
   {
-LABEL_21:
-    a3->i8[0] = 0;
-    a3[2].i8[0] = 0;
-    goto LABEL_33;
+    goto LABEL_21;
   }
 
-  v20 = (*a1 + 160 * a2);
-  v21 = 1;
-  FIK::Enrollment::FrameAdaptor::getHeadPose(&v20, a3);
-  if (a3[2].i8[0] != 1)
+  v19 = &(*result)[10 * a2];
+  v20 = 1;
+  FIK::Enrollment::FrameAdaptor::getHeadPose(&v19, a3);
+  if (a3[2].i8[0] == 1)
   {
-    v24.i8[0] = 0;
-    v26 = 0;
-    v27.i8[0] = 0;
-    v29 = 0;
-    v8 = -1;
-    v30 = -1;
-    v31 = -1;
-    if (a2)
-    {
-      v9 = 1 - a2;
-      v10 = (*a1 + 160 * a2 - 160);
-      while (1)
-      {
-        v22 = v10;
-        v23 = 1;
-        FIK::Enrollment::FrameAdaptor::getHeadPose(&v22, &v32);
-        v11 = v34;
-        if (v34 == 1)
-        {
-          break;
-        }
+    return;
+  }
 
-        ++v9;
-        v10 -= 10;
-        if (v9 == 1)
-        {
-          v11 = 0;
-          v8 = -1;
-          goto LABEL_10;
-        }
+  v23.i8[0] = 0;
+  v25 = 0;
+  v26.i8[0] = 0;
+  v28 = 0;
+  v8 = -1;
+  v29 = -1;
+  v30 = -1;
+  if (a2)
+  {
+    v9 = 1 - a2;
+    v10 = &(*result)[10 * a2 - 10];
+    while (1)
+    {
+      v21 = v10;
+      v22 = 1;
+      FIK::Enrollment::FrameAdaptor::getHeadPose(&v21, &v31);
+      v11 = v33;
+      if (v33 == 1)
+      {
+        break;
       }
 
-      v8 = -v9;
-      v6 = v33;
-      v24 = v32;
-      v25 = v33;
-      v26 = 1;
-      v30 = v8;
+      ++v9;
+      v10 -= 10;
+      if (v9 == 1)
+      {
+        v11 = 0;
+        v8 = -1;
+        goto LABEL_10;
+      }
+    }
+
+    v8 = -v9;
+    v6 = v32;
+    v23 = v31;
+    v24 = v32;
+    v25 = 1;
+    v29 = v8;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+LABEL_10:
+  v12 = a2 + 1;
+  v13 = result[1] - a2 - 1;
+  if (v13)
+  {
+    v18 = v6;
+    v14 = &(*result)[10 * v12];
+    if (v13 <= 1)
+    {
+      v15 = 1;
     }
 
     else
     {
-      v11 = 0;
+      v15 = v13;
     }
 
-LABEL_10:
-    v12 = a2 + 1;
-    v13 = a1[1] - (a2 + 1);
-    if (v13)
+    while (1)
     {
-      v19 = v6;
-      v14 = (*a1 + 160 * v12);
-      if (v13 <= 1)
+      v21 = v14;
+      v22 = 1;
+      FIK::Enrollment::FrameAdaptor::getHeadPose(&v21, &v31);
+      LODWORD(v13) = v33;
+      if (v33 == 1)
       {
-        v15 = 1;
+        break;
       }
 
-      else
+      ++v12;
+      v14 += 10;
+      if (!--v15)
       {
-        v15 = v13;
-      }
-
-      while (1)
-      {
-        v22 = v14;
-        v23 = 1;
-        FIK::Enrollment::FrameAdaptor::getHeadPose(&v22, &v32);
-        LODWORD(v13) = v34;
-        if (v34 == 1)
+        LODWORD(v13) = 0;
+        v12 = -1;
+        v6 = v18;
+        if (v11)
         {
-          break;
+          goto LABEL_23;
         }
 
-        ++v12;
-        v14 += 10;
-        if (!--v15)
-        {
-          LODWORD(v13) = 0;
-          v12 = -1;
-          v6 = v19;
-          if (v11)
-          {
-            goto LABEL_23;
-          }
-
-          goto LABEL_19;
-        }
-      }
-
-      v7 = v33;
-      v27 = v32;
-      v28 = v33;
-      v29 = 1;
-      v6 = v19;
-      v31 = v12;
-      if (!v11)
-      {
         goto LABEL_19;
       }
-
-      goto LABEL_23;
     }
 
-    v12 = -1;
-    if (v11)
+    v7 = v32;
+    v26 = v31;
+    v27 = v32;
+    v28 = 1;
+    v6 = v18;
+    v30 = v12;
+    if (!v11)
     {
+      goto LABEL_19;
+    }
+
+    goto LABEL_23;
+  }
+
+  v12 = -1;
+  if (v11)
+  {
 LABEL_23:
-      if (v13)
+    if (v13)
+    {
+      v16 = (a2 - v8) / (v12 - v8);
+      if (v16 <= 0.0)
       {
-        v16 = (a2 - v8) / (v12 - v8);
-        if (v16 <= 0.0)
-        {
-          v32 = v24;
-        }
+        v31 = v23;
+      }
 
-        else if (v16 >= 1.0)
-        {
-          v32 = v27;
-          v6 = v7;
-        }
-
-        else
-        {
-          FIK::Slerp(&v25, &v28, &v33, v16);
-          v32 = vaddq_f32(v24, vmulq_n_f32(vsubq_f32(v27, v24), (a2 - v8) / (v12 - v8)));
-          v6 = v33;
-        }
-
-        v17 = v32;
+      else if (v16 >= 1.0)
+      {
+        v31 = v26;
+        v6 = v7;
       }
 
       else
       {
-        v17 = v24;
+        FIK::Slerp(&v24, &v27, &v32, v16);
+        v31 = vaddq_f32(v23, vmulq_n_f32(vsubq_f32(v26, v23), (a2 - v8) / (v12 - v8)));
+        v6 = v32;
       }
 
-      *a3 = v17;
-      a3[1] = v6;
-      goto LABEL_32;
+      v17 = v31;
     }
 
-LABEL_19:
-    if (v13)
+    else
     {
-      *a3 = v27;
-      a3[1] = v7;
-LABEL_32:
-      a3[2].i8[0] = 1;
-      goto LABEL_33;
+      v17 = v23;
     }
 
-    goto LABEL_21;
+    *a3 = v17;
+    a3[1] = v6;
+    goto LABEL_32;
   }
 
-LABEL_33:
-  v18 = *MEMORY[0x277D85DE8];
+LABEL_19:
+  if (!v13)
+  {
+LABEL_21:
+    a3->i8[0] = 0;
+    a3[2].i8[0] = 0;
+    return;
+  }
+
+  *a3 = v26;
+  a3[1] = v7;
+LABEL_32:
+  a3[2].i8[0] = 1;
 }
 
 FIK::Enrollment::DataPreprocessor *FIK::Enrollment::DataPreprocessor::DataPreprocessor(FIK::Enrollment::DataPreprocessor *this, uint64_t a2, uint64_t a3)
@@ -4392,7 +3790,7 @@ __n128 FIK::Enrollment::DataPreprocessor::addRaySource(uint64_t a1, __n128 *a2)
 
 uint64_t FIK::Enrollment::DataPreprocessor::generateSolverSources(int *a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 6);
   if (v8 >= 1)
   {
@@ -4413,7 +3811,7 @@ uint64_t FIK::Enrollment::DataPreprocessor::generateSolverSources(int *a1, uint6
   {
     --v10;
     v12 = (v12 + 160);
-    v11 += 160;
+    v11 += 10;
     if (v13 == v10)
     {
       goto LABEL_9;
@@ -4422,108 +3820,108 @@ uint64_t FIK::Enrollment::DataPreprocessor::generateSolverSources(int *a1, uint6
 
   if (v10 != 1)
   {
-    v17 = -v10;
-    FIK::Transform::Transform(v37, v12 - 1);
+    v15 = -v10;
+    FIK::Transform::Transform(v39, v12 - 1);
     v18 = (*(a1 + 4) + 32 * *a1);
-    *v18 = v37[0];
-    v18[1] = v37[1];
+    *v18 = v39[0];
+    v18[1] = v39[1];
     *(*(a1 + 8) + *a1) = 1;
     if (*(a2 + 16) != 1)
     {
-      FIK::Enrollment::DataPreprocessor::generateSolverSources();
+      SolverSources = FIK::Enrollment::DataPreprocessor::generateSolverSources(SolverSources, v17);
     }
 
     if (a1[1] == -1)
     {
-      FIK::Enrollment::DataPreprocessor::generateSolverSources();
+      FIK::Enrollment::DataPreprocessor::generateSolverSources(SolverSources, v17);
     }
 
-    FIK::Enrollment::estimateHeadPose(a2, v17, v42);
-    if ((v43 & 1) == 0)
+    FIK::Enrollment::estimateHeadPose(a2, v15, v44);
+    if ((v45 & 1) == 0)
     {
-      FIK::Enrollment::DataPreprocessor::generateSolverSources();
+      FIK::Enrollment::DataPreprocessor::generateSolverSources(v19, v20);
     }
 
-    v19 = (*(a1 + 4) + 32 * a1[1]);
-    *v19 = v42[0];
-    v19[1] = v42[1];
+    v21 = (*(a1 + 4) + 32 * a1[1]);
+    *v21 = v44[0];
+    v21[1] = v44[1];
     *(*(a1 + 8) + a1[1]) = 1;
-    v20 = *(a1 + 10);
-    if (v20)
+    v22 = *(a1 + 10);
+    if (v22)
     {
-      v21 = *(a1 + 12);
-      v22 = 12 * v20;
+      v23 = *(a1 + 12);
+      v24 = 12 * v22;
       do
       {
-        FIK::Enrollment::LiftedSource::getTarget(v21, a2, v17, &v40);
-        if (v41)
+        FIK::Enrollment::LiftedSource::getTarget(v23, a2, v15, &v42);
+        if (v43)
         {
-          v23 = -1;
+          v25 = -1;
         }
 
         else
         {
-          v23 = 0;
+          v25 = 0;
         }
 
-        v24 = vbslq_s8(vdupq_n_s32(v23), v40, 0);
-        v25 = (*(a1 + 4) + 32 * *v21);
-        *v25 = v24;
-        v25[1] = xmmword_245A01E80;
-        v26 = *v21;
-        v21 += 3;
-        *(*(a1 + 8) + v26) = v41;
-        v22 -= 12;
+        v26 = vbslq_s8(vdupq_n_s32(v25), v42, 0);
+        v27 = (*(a1 + 4) + 32 * *v23);
+        *v27 = v26;
+        v27[1] = xmmword_245A01E80;
+        v28 = *v23;
+        v23 = (v23 + 12);
+        *(*(a1 + 8) + v28) = v43;
+        v24 -= 12;
       }
 
-      while (v22);
+      while (v24);
     }
 
-    v27 = *(a1 + 14);
-    if (v27)
+    v29 = *(a1 + 14);
+    if (v29)
     {
-      v28 = *(a1 + 16);
-      v29 = &v28[6 * v27];
+      v30 = *(a1 + 16);
+      v31 = &v30[6 * v29];
       do
       {
-        FIK::Enrollment::RaySource::getTarget(v28, a2, v17, &v40);
-        if (v41)
+        FIK::Enrollment::RaySource::getTarget(v30, a2, v15, &v42);
+        if (v43)
         {
-          v30 = -1;
+          v32 = -1;
         }
 
         else
         {
-          v30 = 0;
+          v32 = 0;
         }
 
-        v31 = vbslq_s8(vdupq_n_s32(v30), v40, 0);
-        v32 = (*(a1 + 4) + 32 * v28[1]);
-        *v32 = v31;
-        v32[1] = xmmword_245A01E80;
-        *(*(a1 + 8) + v28[1]) = v41;
-        v28 += 6;
+        v33 = vbslq_s8(vdupq_n_s32(v32), v42, 0);
+        v34 = (*(a1 + 4) + 32 * v30[1]);
+        *v34 = v33;
+        v34[1] = xmmword_245A01E80;
+        *(*(a1 + 8) + v30[1]) = v43;
+        v30 += 6;
       }
 
-      while (v28 != v29);
+      while (v30 != v31);
     }
 
-    FIK::Enrollment::DataPreprocessor::getDetectedHipsAlignmentPosition(a1, v11, 1, &v40);
+    FIK::Enrollment::DataPreprocessor::getDetectedHipsAlignmentPosition(a1, v11, 1, &v42);
     if (a1[80])
     {
-      v33 = *(a1 + 4);
-      v34 = *(a1 + 2);
-      v35 = *(a1 + 8);
-      v36 = *(a1 + 6);
-      v38.i8[0] = 0;
-      v39 = 0;
-      if (v41 == 1)
+      v35 = *(a1 + 4);
+      v36 = *(a1 + 2);
+      v37 = *(a1 + 8);
+      v38 = *(a1 + 6);
+      v40.i8[0] = 0;
+      v41 = 0;
+      if (v43 == 1)
       {
-        v38 = v40;
-        v39 = v41;
+        v40 = v42;
+        v41 = v43;
       }
 
-      FIK::Enrollment::VirtualSourceController::updateDependents(a1 + 11, v33, v34, v35, v36, v37, &v38);
+      FIK::Enrollment::VirtualSourceController::updateDependents(a1 + 11, v35, v36, v37, v38, v39, &v40);
     }
 
     *a4 = 0;
@@ -4535,21 +3933,18 @@ LABEL_9:
     *a4 = 1;
   }
 
-  result = *(a1 + 4);
-  v15 = *(a1 + 2);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(a1 + 4);
 }
 
-void FIK::Enrollment::DataPreprocessor::getDetectedHipsAlignmentPosition(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X8>)
+void FIK::Enrollment::DataPreprocessor::getDetectedHipsAlignmentPosition(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X8>)
 {
-  if (*(a1 + 144))
+  if (*(result + 144))
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      FIK::Enrollment::LiftedSource::getTarget(*(a1 + 160) + v8, a2, a3, a4);
+      FIK::Enrollment::LiftedSource::getTarget(*(result + 160) + v8, a2, a3, a4);
       if (a4[1].n128_u8[0])
       {
         break;
@@ -4557,7 +3952,7 @@ void FIK::Enrollment::DataPreprocessor::getDetectedHipsAlignmentPosition(uint64_
 
       ++v9;
       v8 += 12;
-      if (v9 >= *(a1 + 144))
+      if (v9 >= *(result + 144))
       {
         goto LABEL_5;
       }
@@ -4585,16 +3980,16 @@ float32x2_t FIK::Transform::Transform(FIK::Transform *this, const simd_float4x4 
   v8 = v7 + (COERCE_FLOAT(*a2->columns) + v6);
   if (v8 >= 0.0)
   {
-    v17 = sqrtf(v8 + 1.0);
-    v18 = v17 + v17;
-    v19 = vrecpe_f32(COERCE_UNSIGNED_INT(v17 + v17));
-    v20 = vmul_f32(v19, vrecps_f32(COERCE_UNSIGNED_INT(v17 + v17), v19));
-    v20.i32[0] = vmul_f32(v20, vrecps_f32(COERCE_UNSIGNED_INT(v17 + v17), v20)).u32[0];
-    *&v31 = vmul_n_f32(vsub_f32(vzip1_s32(*&vextq_s8(v3, v3, 8uLL), *v5.f32), vext_s8(*v5.f32, *&vextq_s8(v4, v4, 8uLL), 4uLL)), v20.f32[0]);
-    v21.f32[0] = *&v4.i32[1] - *v3.i32;
-    v21.f32[1] = v18;
-    v20.i32[1] = 0.25;
-    result = vmul_f32(v21, v20);
+    v16 = sqrtf(v8 + 1.0);
+    v17 = v16 + v16;
+    v18 = vrecpe_f32(COERCE_UNSIGNED_INT(v16 + v16));
+    v19 = vmul_f32(v18, vrecps_f32(COERCE_UNSIGNED_INT(v16 + v16), v18));
+    v19.i32[0] = vmul_f32(v19, vrecps_f32(COERCE_UNSIGNED_INT(v16 + v16), v19)).u32[0];
+    *&v30 = vmul_n_f32(vsub_f32(vzip1_s32(*&vextq_s8(v3, v3, 8uLL), *v5.f32), vext_s8(*v5.f32, *&vextq_s8(v4, v4, 8uLL), 4uLL)), v19.f32[0]);
+    v20.f32[0] = *&v4.i32[1] - *v3.i32;
+    v20.f32[1] = v17;
+    v19.i32[1] = 0.25;
+    result = vmul_f32(v20, v19);
   }
 
   else if (*v4.i32 < v6 || *v4.i32 < v7)
@@ -4602,16 +3997,16 @@ float32x2_t FIK::Transform::Transform(FIK::Transform *this, const simd_float4x4 
     v10 = 1.0 - *v4.i32;
     if (v6 >= v7)
     {
-      v34 = sqrtf(v6 + (v10 - v7));
-      *&v35 = v34 + v34;
-      v36 = vrecpe_f32(v35);
-      v37 = vmul_f32(v36, vrecps_f32(v35, v36));
-      v38.i32[0] = vmul_f32(v37, vrecps_f32(v35, v37)).u32[0];
-      v37.f32[0] = *&v4.i32[1] + *v3.i32;
-      v37.i32[1] = v35;
-      result = vmul_n_f32(vext_s8(vadd_f32(*v5.f32, vdup_laneq_s32(v3, 2)), vsub_f32(*v5.f32, *&vextq_s8(v4, v4, 8uLL)), 4uLL), v38.f32[0]);
-      v38.i32[1] = 0.25;
-      *&v31 = vmul_f32(v37, v38);
+      v33 = sqrtf(v6 + (v10 - v7));
+      *&v34 = v33 + v33;
+      v35 = vrecpe_f32(v34);
+      v36 = vmul_f32(v35, vrecps_f32(v34, v35));
+      v37.i32[0] = vmul_f32(v36, vrecps_f32(v34, v36)).u32[0];
+      v36.f32[0] = *&v4.i32[1] + *v3.i32;
+      v36.i32[1] = v34;
+      result = vmul_n_f32(vext_s8(vadd_f32(*v5.f32, vdup_laneq_s32(v3, 2)), vsub_f32(*v5.f32, *&vextq_s8(v4, v4, 8uLL)), 4uLL), v37.f32[0]);
+      v37.i32[1] = 0.25;
+      *&v30 = vmul_f32(v36, v37);
     }
 
     else
@@ -4621,8 +4016,7 @@ float32x2_t FIK::Transform::Transform(FIK::Transform *this, const simd_float4x4 
       v13 = vrecpe_f32(COERCE_UNSIGNED_INT(v11 + v11));
       v14 = vmul_f32(v13, vrecps_f32(COERCE_UNSIGNED_INT(v11 + v11), v13));
       v14.i32[0] = vmul_f32(v14, vrecps_f32(COERCE_UNSIGNED_INT(v11 + v11), v14)).u32[0];
-      *&v31 = vmul_n_f32(vadd_f32(vzip1_s32(*&vextq_s8(v4, v4, 8uLL), *&vextq_s8(v3, v3, 8uLL)), *v5.f32), v14.f32[0]);
-      v15 = HIDWORD(a2->columns[0].i64[0]);
+      *&v30 = vmul_n_f32(vadd_f32(vzip1_s32(*&vextq_s8(v4, v4, 8uLL), *&vextq_s8(v3, v3, 8uLL)), *v5.f32), v14.f32[0]);
       v12.f32[1] = *&v4.i32[1] - *v3.i32;
       __asm { FMOV            V0.2S, #0.25 }
 
@@ -4633,23 +4027,23 @@ float32x2_t FIK::Transform::Transform(FIK::Transform *this, const simd_float4x4 
 
   else
   {
-    v22 = sqrtf(*v4.i32 + ((1.0 - v6) - v7));
-    v23.f32[0] = v22 + v22;
-    v24 = vrecpe_f32(v23.u32[0]);
-    v25 = vmul_f32(v24, vrecps_f32(v23.u32[0], v24));
-    LODWORD(v26) = vmul_f32(v25, vrecps_f32(v23.u32[0], v25)).u32[0];
-    v23.f32[1] = *&v4.i32[1] + *v3.i32;
+    v21 = sqrtf(*v4.i32 + ((1.0 - v6) - v7));
+    v22.f32[0] = v21 + v21;
+    v23 = vrecpe_f32(v22.u32[0]);
+    v24 = vmul_f32(v23, vrecps_f32(v22.u32[0], v23));
+    LODWORD(v25) = vmul_f32(v24, vrecps_f32(v22.u32[0], v24)).u32[0];
+    v22.f32[1] = *&v4.i32[1] + *v3.i32;
     __asm { FMOV            V5.2S, #0.25 }
 
-    _D5.f32[1] = v26;
-    *&v31 = vmul_f32(v23, _D5);
-    v32.i32[0] = vadd_f32(*&vextq_s8(v4, v4, 8uLL), *v5.f32).u32[0];
-    v32.i32[1] = vsub_f32(vdup_laneq_s32(v3, 2), *&v5).i32[1];
-    result = vmul_n_f32(v32, v26);
+    _D5.f32[1] = v25;
+    *&v30 = vmul_f32(v22, _D5);
+    v31.i32[0] = vadd_f32(*&vextq_s8(v4, v4, 8uLL), *v5.f32).u32[0];
+    v31.i32[1] = vsub_f32(vdup_laneq_s32(v3, 2), *&v5).i32[1];
+    result = vmul_n_f32(v31, v25);
   }
 
-  *(&v31 + 1) = result;
-  *(this + 1) = v31;
+  *(&v30 + 1) = result;
+  *(this + 1) = v30;
   return result;
 }
 
@@ -4824,6 +4218,7 @@ __n128 *FIK::CharacterisedHierarchy::CharacterisedHierarchy(__n128 *a1, __n128 *
   return a1;
 }
 
+uint64_t FIK::CharacterisedHierarchy::CharacterisedHierarchy(uint64_t a1, __n128 *a2, uint64_t a3)
 {
   FIK::Hierarchy::Hierarchy(a1, a2);
   *(v5 + 32) = *a3;
@@ -4844,16 +4239,16 @@ __n128 *FIK::CharacterisedHierarchy::CharacterisedHierarchy(__n128 *a1, __n128 *
 
   else
   {
-    a1[3].n128_u64[0] = v8;
+    *(a1 + 48) = v8;
   }
 
-  a1[4].n128_u64[1] = *(a3 + 40);
+  *(a1 + 72) = *(a3 + 40);
   v10 = (a3 + 48);
   v11 = *(a3 + 48);
-  a1[5].n128_u64[0] = v11;
-  v12 = a1 + 5;
+  *(a1 + 80) = v11;
+  v12 = a1 + 80;
   v13 = *(a3 + 56);
-  a1[5].n128_u64[1] = v13;
+  *(a1 + 88) = v13;
   if (v13)
   {
     *(v11 + 16) = v12;
@@ -4864,10 +4259,10 @@ __n128 *FIK::CharacterisedHierarchy::CharacterisedHierarchy(__n128 *a1, __n128 *
 
   else
   {
-    a1[4].n128_u64[1] = v12;
+    *(a1 + 72) = v12;
   }
 
-  IKString::IKString(&a1[6], (a3 + 64), *(a3 + 80));
+  IKString::IKString((a1 + 96), (a3 + 64), *(a3 + 80));
   return a1;
 }
 
@@ -4989,13 +4384,13 @@ uint64_t ikinema::SetMocapTargetAlgorithmImpl::process(float32x4_t *a1, FIK::Ani
   if (a1[3].i8[1] == 1)
   {
     v6 = ikinema::BufferContainer::buffer(a3, a1[5].i64[1]);
-    v7 = ikinema::Buffer::arrayView<FIK::Transform>(v6);
-    ikinema::SetMocapTargetAlgorithmImpl::setFkTargets(a1, v7, v8, a2);
+    v8 = ikinema::Buffer::arrayView<FIK::Transform>(v6, v7);
+    ikinema::SetMocapTargetAlgorithmImpl::setFkTargets(a1, v8, v9, a2);
   }
 
-  v9 = ikinema::BufferContainer::buffer(a3, a1[6].i64[0]);
-  v10 = ikinema::Buffer::arrayView<FIK::Transform>(v9);
-  ikinema::SetMocapTargetAlgorithmImpl::setConstraintTargets(a1, v10, v11, (a2 + 1));
+  v10 = ikinema::BufferContainer::buffer(a3, a1[6].i64[0]);
+  v12 = ikinema::Buffer::arrayView<FIK::Transform>(v10, v11);
+  ikinema::SetMocapTargetAlgorithmImpl::setConstraintTargets(a1, v12, v13, (a2 + 1));
   return 0;
 }
 
@@ -5211,19 +4606,19 @@ uint64_t *FIK::IKArray<ikinema::SetMocapTargetAlgorithmImpl::JointData>::reserve
   return result;
 }
 
-FIK *FIK::AutoRig::createMoCapRigForBiped@<X0>(FIK::Hierarchy *this@<X0>, FIK::Hierarchy *a2@<X1>, uint64_t *a3@<X8>)
+FIK *FIK::AutoRig::createMoCapRigForBiped@<X0>(FIK::Hierarchy *this@<X0>, FIK::Hierarchy *a2@<X1>, char **a5@<X8>)
 {
-  v6 = *(this + 8);
-  v7 = *(a2 + 8);
-  if (v6 != v7)
+  v8 = *(this + 8);
+  v9 = *(a2 + 8);
+  if (v8 != v9)
   {
-    if (v6 == 2)
+    if (v8 == 2)
     {
       FIK::RigBuilderUtils::alignToTPose(this);
-      v7 = *(a2 + 8);
+      v9 = *(a2 + 8);
     }
 
-    if (v7 == 2)
+    if (v9 == 2)
     {
       FIK::RigBuilderUtils::alignToTPose(a2);
     }
@@ -5231,7 +4626,7 @@ FIK *FIK::AutoRig::createMoCapRigForBiped@<X0>(FIK::Hierarchy *this@<X0>, FIK::H
 
   FIK::RigBuilderUtils::shiftHipsToOrigin<FIK::BipedIdentifiers::Joint>(this, 0);
   FIK::RigBuilderUtils::shiftHipsToOrigin<FIK::BipedIdentifiers::Joint>(a2, 0);
-  return FIK::MoCapRigBuilder::createMoCapRig(this, a2, "\b", 7, &FIK::AutoRig::createMoCapRigForBiped(FIK::CharacterisedHierarchy &,FIK::CharacterisedHierarchy &,FIK::Transform const&,FIK::Transform const&)::jointsToRemove, 2, a3, FIK::AutoRig::createMoCapRigForBiped(FIK::CharacterisedHierarchy &,FIK::CharacterisedHierarchy &,FIK::Transform const&,FIK::Transform const&)::groupsToRemove, 6);
+  return FIK::MoCapRigBuilder::createMoCapRig(this, a2, "\b", 7, a5, &FIK::AutoRig::createMoCapRigForBiped(FIK::CharacterisedHierarchy &,FIK::CharacterisedHierarchy &,FIK::Transform const&,FIK::Transform const&)::jointsToRemove, 2, FIK::AutoRig::createMoCapRigForBiped(FIK::CharacterisedHierarchy &,FIK::CharacterisedHierarchy &,FIK::Transform const&,FIK::Transform const&)::groupsToRemove, 6);
 }
 
 uint64_t ikinema::rig::generate_EnrollmentRigV2@<X0>(ikinema::rig *this@<X0>, uint64_t a2@<X8>)
@@ -5272,7 +4667,7 @@ uint64_t ikinema::rig::generate_EnrollmentRigV2@<X0>(ikinema::rig *this@<X0>, ui
   *(a2 + 108) = 0x3F80000000000000;
   *(a2 + 116) = 256;
   *(a2 + 120) = 1117782015;
-  FIK::IKArray<FIK::MoCapTask>::reserve(a2 + 176, 9uLL);
+  FIK::IKArray<FIK::MoCapTask>::reserve((a2 + 176), 9uLL);
   v5 = *(a2 + 16);
   v176 = 0u;
   v177 = v5;
@@ -5307,7 +4702,8 @@ uint64_t ikinema::rig::generate_EnrollmentRigV2@<X0>(ikinema::rig *this@<X0>, ui
   if (*&v195[3])
   {
     (*(*v196 + 24))(v196, *&v195[1], 0, 8);
-    *&v195[1] = 0uLL;
+    *&v195[1] = 0;
+    *&v195[3] = 0;
   }
 
   if (v179)
@@ -5963,7 +5359,7 @@ uint64_t ikinema::rig::generate_EnrollmentRigV2@<X0>(ikinema::rig *this@<X0>, ui
   *(v38 - 48) = xmmword_245A03F00;
   *(v38 - 32) = xmmword_245A03F10;
   *(v38 - 16) = v175;
-  FIK::IKArray<FIK::MoCapBone>::reserve(a2 + 208, 0x1FuLL);
+  FIK::IKArray<FIK::MoCapBone>::reserve((a2 + 208), 0x1FuLL);
   FIK::MoCapBone::MoCapBone(&v176, *(a2 + 16));
   FIK::IKArray<FIK::MoCapBone>::push_back<FIK::MoCapBone,void>((a2 + 208), &v176);
   FIK::IKArray<IKString>::~IKArray(v206);
@@ -7688,7 +7084,7 @@ uint64_t ikinema::rig::generate_EnrollmentRigV2@<X0>(ikinema::rig *this@<X0>, ui
   *(v145 - 208) = xmmword_245A01E80;
   IKString::assign((v145 - 288), "RightWrist", 0xA);
   *(v145 - 264) = -1;
-  FIK::IKArray<FIK::RigBoneBase>::reserve(a2 + 240, 0xAuLL);
+  FIK::IKArray<FIK::RigBoneBase>::reserve((a2 + 240), 0xAuLL);
   v148 = *(a2 + 16);
   v176 = 0xFFFFFFFFFFFFFFFFLL;
   v177 = 0;
@@ -7996,7 +7392,7 @@ uint64_t ikinema::rig::generate_EnrollmentRigV2@<X0>(ikinema::rig *this@<X0>, ui
   return result;
 }
 
-uint64_t FIK::IKArray<FIK::MoCapTask>::push_back<FIK::MoCapTask,void>(void *a1, uint64_t a2)
+uint64_t FIK::IKArray<FIK::MoCapTask>::push_back<FIK::MoCapTask,void>(uint64_t *a1, uint64_t a2)
 {
   FIK::IKArray<FIK::MoCapTask>::reserve(a1, *a1 + 1);
   result = FIK::MoCapTask::MoCapTask(a1[2] + (*a1 << 8), a2, a1[3]);
@@ -8004,7 +7400,7 @@ uint64_t FIK::IKArray<FIK::MoCapTask>::push_back<FIK::MoCapTask,void>(void *a1, 
   return result;
 }
 
-uint64_t FIK::IKArray<FIK::MoCapBone>::push_back<FIK::MoCapBone,void>(void *a1, uint64_t a2)
+uint64_t FIK::IKArray<FIK::MoCapBone>::push_back<FIK::MoCapBone,void>(uint64_t *a1, uint64_t a2)
 {
   FIK::IKArray<FIK::MoCapBone>::reserve(a1, *a1 + 1);
   result = FIK::MoCapBone::MoCapBone(a1[2] + 544 * *a1, a2, a1[3]);
@@ -8012,7 +7408,7 @@ uint64_t FIK::IKArray<FIK::MoCapBone>::push_back<FIK::MoCapBone,void>(void *a1, 
   return result;
 }
 
-uint64_t FIK::IKArray<FIK::RigBoneBase>::push_back<FIK::RigBoneBase,void>(void *a1, uint64_t a2)
+uint64_t FIK::IKArray<FIK::RigBoneBase>::push_back<FIK::RigBoneBase,void>(uint64_t *a1, uint64_t a2)
 {
   FIK::IKArray<FIK::RigBoneBase>::reserve(a1, *a1 + 1);
   result = FIK::RigBoneBase::RigBoneBase(a1[2] + 96 * *a1, a2, a1[3]);
@@ -8118,11 +7514,11 @@ unint64_t *FIK::IKArray<IKString>::IKArray(unint64_t *a1, uint64_t *a2, unint64_
       v10 = 0;
       do
       {
-        v11 = &v8[v9];
+        v11 = (v8 + v9);
         v12 = (a1[2] + v9);
         *v11 = 0;
-        *(v11 + 1) = 0;
-        *(v11 + 2) = a3;
+        v11[1] = 0;
+        v11[2] = a3;
         v15 = v12;
         v14 = *v12;
         v13 = v15[1];
@@ -8231,17 +7627,17 @@ _UNKNOWN **CoreIKDoubleExponentialTransformFilterDestroy(FIK *a1)
   return result;
 }
 
-void CoreIKDoubleExponentialTransformFilterSetProperties(_BYTE *a1, float a2, float a3)
+void CoreIKDoubleExponentialTransformFilterSetProperties(FIK::DoubleExponentialPositionFilter *a1, float a2, float a3)
 {
   v4 = a2;
   v3 = a3;
   FIK::TransformFilter<FIK::DoubleExponentialPositionFilter>::set<float &,float &>(a1, &v4, &v3);
 }
 
-void FIK::TransformFilter<FIK::DoubleExponentialPositionFilter>::set<float &,float &>(_BYTE *a1, float *a2, float *a3)
+void FIK::TransformFilter<FIK::DoubleExponentialPositionFilter>::set<float &,float &>(FIK::DoubleExponentialPositionFilter *a1, float *a2, float *a3)
 {
   FIK::DoubleExponentialPositionFilter::set(a1, *a2, *a3);
-  if (a1[320] == 1)
+  if (*(a1 + 320) == 1)
   {
     v6 = (a1 + 64);
     v7 = 4;
@@ -8267,16 +7663,16 @@ double CoreIKDoubleExponentialTransformFilterDoFilter(float32x4_t *a1, __n128 a2
 
 uint64_t CoreIKConstraint::setTarget(uint64_t a1)
 {
-  (**a1)(a1);
+  v2 = (**a1)(a1);
   if (*(a1 + 8) != 0)
   {
     return 0;
   }
 
-  v2 = ikinemaLogObject()[1];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = ikinemaLogObject(v2, v3)[1];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    CoreIKConstraint::setTarget(v2, v3, v4, v5, v6, v7, v8, v9);
+    CoreIKConstraint::setTarget(v4, v5, v6, v7, v8, v9, v10, v11);
   }
 
   return 1;
@@ -8284,16 +7680,16 @@ uint64_t CoreIKConstraint::setTarget(uint64_t a1)
 
 uint64_t CoreIKConstraint::setTargetTranslation(void *a1)
 {
-  (*(*a1 + 8))(a1);
+  v2 = (*(*a1 + 8))(a1);
   if (a1[1])
   {
     return 0;
   }
 
-  v3 = ikinemaLogObject()[1];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v5 = ikinemaLogObject(v2, v3)[1];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    CoreIKConstraint::setTargetTranslation(v3, v4, v5, v6, v7, v8, v9, v10);
+    CoreIKConstraint::setTargetTranslation(v5, v6, v7, v8, v9, v10, v11, v12);
   }
 
   return 1;
@@ -8301,16 +7697,16 @@ uint64_t CoreIKConstraint::setTargetTranslation(void *a1)
 
 uint64_t CoreIKConstraint::setTargetOrientation(void *a1)
 {
-  (*(*a1 + 16))(a1);
+  v2 = (*(*a1 + 16))(a1);
   if (a1[2])
   {
     return 0;
   }
 
-  v3 = ikinemaLogObject()[1];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v5 = ikinemaLogObject(v2, v3)[1];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    CoreIKConstraint::setTargetOrientation(v3, v4, v5, v6, v7, v8, v9, v10);
+    CoreIKConstraint::setTargetOrientation(v5, v6, v7, v8, v9, v10, v11, v12);
   }
 
   return 1;
@@ -8339,327 +7735,327 @@ __n128 CoreIKConstraint::getOffset@<Q0>(CoreIKConstraint *this@<X0>, _OWORD *a2@
   return result;
 }
 
-uint64_t CoreIKConstraint::getPositionEnabled(CoreIKConstraint *this)
+uint64_t CoreIKConstraint::getPositionEnabled(CoreIKConstraint *this, uint64_t a2)
 {
-  v2 = *(this + 1);
-  if (v2)
+  v3 = *(this + 1);
+  if (v3)
   {
-    v3 = *(*(v2 + *(*v2 - 264)) + 16);
+    v4 = *(*(v3 + *(*v3 - 264)) + 16);
 
-    return v3();
+    return v4();
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::getPositionEnabled(v5, v6, v7, v8, v9, v10, v11, v12);
+      CoreIKConstraint::getPositionEnabled(v6, v7, v8, v9, v10, v11, v12, v13);
     }
 
     return 0;
   }
 }
 
-void CoreIKConstraint::setPositionEnabled(CoreIKConstraint *this)
+void CoreIKConstraint::setPositionEnabled(CoreIKConstraint *this, uint64_t a2)
 {
-  v2 = *(this + 1);
-  if (v2)
+  v3 = *(this + 1);
+  if (v3)
   {
-    v3 = *(*(v2 + *(*v2 - 264)) + 136);
+    v4 = *(*(v3 + *(*v3 - 264)) + 136);
 
-    v3();
+    v4();
   }
 
   else
   {
-    v4 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::setPositionEnabled(v4, v5, v6, v7, v8, v9, v10, v11);
+      CoreIKConstraint::setPositionEnabled(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 }
 
-uint64_t CoreIKConstraint::getOrientationEnabled(CoreIKConstraint *this)
+uint64_t CoreIKConstraint::getOrientationEnabled(CoreIKConstraint *this, uint64_t a2)
+{
+  v3 = *(this + 2);
+  if (v3)
+  {
+    v4 = *(*(v3 + *(*v3 - 264)) + 16);
+
+    return v4();
+  }
+
+  else
+  {
+    v6 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::getOrientationEnabled(v6, v7, v8, v9, v10, v11, v12, v13);
+    }
+
+    return 0;
+  }
+}
+
+void CoreIKConstraint::setOrientationEnabled(CoreIKConstraint *this, uint64_t a2)
+{
+  v3 = *(this + 2);
+  if (v3)
+  {
+    v4 = *(*(v3 + *(*v3 - 264)) + 136);
+
+    v4();
+  }
+
+  else
+  {
+    v5 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::setOrientationEnabled(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+}
+
+uint64_t CoreIKConstraint::getPositionAsPole(CoreIKConstraint *this, uint64_t a2)
+{
+  v3 = *(this + 1);
+  if (v3)
+  {
+    v4 = *(*v3 + 400);
+
+    return v4();
+  }
+
+  else
+  {
+    v6 = ikinemaLogObject(v3, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::getPositionAsPole(v6, v7, v8, v9, v10, v11, v12, v13);
+    }
+
+    return 0;
+  }
+}
+
+void CoreIKConstraint::setPositionAsPole(CoreIKConstraint *this, uint64_t a2)
+{
+  v3 = *(this + 1);
+  if (v3)
+  {
+    v4 = *(*v3 + 392);
+
+    v4();
+  }
+
+  else
+  {
+    v5 = ikinemaLogObject(v3, a2)[1];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::setPositionAsPole(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+}
+
+uint64_t CoreIKConstraint::getPositionDoFEnabled(CoreIKConstraint *this, uint64_t a2)
+{
+  v2 = *(this + 1);
+  if (v2)
+  {
+    LODWORD(v3) = (*(*&v2[*(*v2 - 264)] + 152))(&v2[*(*v2 - 264)], 0);
+    (*(*&v2[*(*v2 - 264)] + 152))(&v2[*(*v2 - 264)], 1);
+    v3 = v3;
+    (*(*&v2[*(*v2 - 264)] + 152))(&v2[*(*v2 - 264)], 2);
+  }
+
+  else
+  {
+    v4 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::getPositionDoFEnabled(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+
+    return 0;
+  }
+
+  return v3;
+}
+
+void CoreIKConstraint::setPositionDoFEnabled(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  if (v3)
+  {
+    v4 = *(*(v3 + *(*v3 - 264)) + 144);
+
+    v4();
+  }
+
+  else
+  {
+    v5 = ikinemaLogObject(a1, a2)[1];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::setPositionDoFEnabled(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+}
+
+uint64_t CoreIKConstraint::getOrientationDoFEnabled(CoreIKConstraint *this, uint64_t a2)
 {
   v2 = *(this + 2);
   if (v2)
   {
-    v3 = *(*(v2 + *(*v2 - 264)) + 16);
-
-    return v3();
+    LODWORD(v3) = (*(*&v2[*(*v2 - 264)] + 152))(&v2[*(*v2 - 264)], 0);
+    (*(*&v2[*(*v2 - 264)] + 152))(&v2[*(*v2 - 264)], 1);
+    v3 = v3;
+    (*(*&v2[*(*v2 - 264)] + 152))(&v2[*(*v2 - 264)], 2);
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
+    v4 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::getOrientationDoFEnabled(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+
+    return 0;
+  }
+
+  return v3;
+}
+
+void CoreIKConstraint::setOrientationDoFEnabled(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+    v4 = *(*(v3 + *(*v3 - 264)) + 144);
+
+    v4();
+  }
+
+  else
+  {
+    v5 = ikinemaLogObject(a1, a2)[1];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::getOrientationEnabled(v5, v6, v7, v8, v9, v10, v11, v12);
+      CoreIKConstraint::setOrientationDoFEnabled(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+}
+
+uint64_t CoreIKConstraint::getPositionDepth(CoreIKConstraint *this, uint64_t a2)
+{
+  v3 = *(this + 1);
+  if (v3)
+  {
+    v4 = *(*(v3 + *(*v3 - 264)) + 64);
+
+    return v4();
+  }
+
+  else
+  {
+    v6 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::getPositionDepth(v6, v7, v8, v9, v10, v11, v12, v13);
     }
 
     return 0;
   }
 }
 
-void CoreIKConstraint::setOrientationEnabled(CoreIKConstraint *this)
+void CoreIKConstraint::setPositionDepth(CoreIKConstraint *this, uint64_t a2)
 {
-  v2 = *(this + 2);
-  if (v2)
+  v3 = *(this + 1);
+  if (v3)
   {
-    v3 = *(*(v2 + *(*v2 - 264)) + 136);
+    v4 = *(*(v3 + *(*v3 - 264)) + 56);
 
-    v3();
+    v4();
   }
 
   else
   {
-    v4 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::setOrientationEnabled(v4, v5, v6, v7, v8, v9, v10, v11);
+      CoreIKConstraint::setPositionDepth(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 }
 
-uint64_t CoreIKConstraint::getPositionAsPole(CoreIKConstraint *this)
+uint64_t CoreIKConstraint::getOrientationDepth(CoreIKConstraint *this, uint64_t a2)
+{
+  v3 = *(this + 2);
+  if (v3)
+  {
+    v4 = *(*(v3 + *(*v3 - 264)) + 64);
+
+    return v4();
+  }
+
+  else
+  {
+    v6 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::getOrientationDepth(v6, v7, v8, v9, v10, v11, v12, v13);
+    }
+
+    return 0;
+  }
+}
+
+void CoreIKConstraint::setOrientationDepth(CoreIKConstraint *this, uint64_t a2)
+{
+  v3 = *(this + 2);
+  if (v3)
+  {
+    v4 = *(*(v3 + *(*v3 - 264)) + 56);
+
+    v4();
+  }
+
+  else
+  {
+    v5 = ikinemaLogObject(this, a2)[1];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      CoreIKConstraint::setOrientationDepth(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+}
+
+double CoreIKConstraint::getPositionWeight(CoreIKConstraint *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (v2)
   {
-    v3 = *(*v2 + 400);
-
-    return v3();
+    v3 = (*(*&v2[*(*v2 - 264)] + 88))(&v2[*(*v2 - 264)], 0);
+    v16 = LODWORD(v3);
+    v4 = (*(*&v2[*(*v2 - 264)] + 88))(&v2[*(*v2 - 264)], 1);
+    v15 = LODWORD(v4);
+    (*(*&v2[*(*v2 - 264)] + 88))(&v2[*(*v2 - 264)], 2);
+    return COERCE_DOUBLE(__PAIR64__(v15, v16));
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::getPositionAsPole(v5, v6, v7, v8, v9, v10, v11, v12);
-    }
-
-    return 0;
-  }
-}
-
-void CoreIKConstraint::setPositionAsPole(CoreIKConstraint *this)
-{
-  v2 = *(this + 1);
-  if (v2)
-  {
-    v3 = *(*v2 + 392);
-
-    v3();
-  }
-
-  else
-  {
-    v4 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::setPositionAsPole(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-}
-
-uint64_t CoreIKConstraint::getPositionDoFEnabled(CoreIKConstraint *this)
-{
-  v1 = *(this + 1);
-  if (v1)
-  {
-    LODWORD(v2) = (*(*&v1[*(*v1 - 264)] + 152))(&v1[*(*v1 - 264)], 0);
-    (*(*&v1[*(*v1 - 264)] + 152))(&v1[*(*v1 - 264)], 1);
-    v2 = v2;
-    (*(*&v1[*(*v1 - 264)] + 152))(&v1[*(*v1 - 264)], 2);
-  }
-
-  else
-  {
-    v3 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::getPositionDoFEnabled(v3, v4, v5, v6, v7, v8, v9, v10);
-    }
-
-    return 0;
-  }
-
-  return v2;
-}
-
-void CoreIKConstraint::setPositionDoFEnabled(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    v3 = *(*(v2 + *(*v2 - 264)) + 144);
-
-    v3();
-  }
-
-  else
-  {
-    v4 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::setPositionDoFEnabled(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-}
-
-uint64_t CoreIKConstraint::getOrientationDoFEnabled(CoreIKConstraint *this)
-{
-  v1 = *(this + 2);
-  if (v1)
-  {
-    LODWORD(v2) = (*(*&v1[*(*v1 - 264)] + 152))(&v1[*(*v1 - 264)], 0);
-    (*(*&v1[*(*v1 - 264)] + 152))(&v1[*(*v1 - 264)], 1);
-    v2 = v2;
-    (*(*&v1[*(*v1 - 264)] + 152))(&v1[*(*v1 - 264)], 2);
-  }
-
-  else
-  {
-    v3 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::getOrientationDoFEnabled(v3, v4, v5, v6, v7, v8, v9, v10);
-    }
-
-    return 0;
-  }
-
-  return v2;
-}
-
-void CoreIKConstraint::setOrientationDoFEnabled(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    v3 = *(*(v2 + *(*v2 - 264)) + 144);
-
-    v3();
-  }
-
-  else
-  {
-    v4 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::setOrientationDoFEnabled(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-}
-
-uint64_t CoreIKConstraint::getPositionDepth(CoreIKConstraint *this)
-{
-  v2 = *(this + 1);
-  if (v2)
-  {
-    v3 = *(*(v2 + *(*v2 - 264)) + 64);
-
-    return v3();
-  }
-
-  else
-  {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::getPositionDepth(v5, v6, v7, v8, v9, v10, v11, v12);
-    }
-
-    return 0;
-  }
-}
-
-void CoreIKConstraint::setPositionDepth(CoreIKConstraint *this)
-{
-  v2 = *(this + 1);
-  if (v2)
-  {
-    v3 = *(*(v2 + *(*v2 - 264)) + 56);
-
-    v3();
-  }
-
-  else
-  {
-    v4 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::setPositionDepth(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-}
-
-uint64_t CoreIKConstraint::getOrientationDepth(CoreIKConstraint *this)
-{
-  v2 = *(this + 2);
-  if (v2)
-  {
-    v3 = *(*(v2 + *(*v2 - 264)) + 64);
-
-    return v3();
-  }
-
-  else
-  {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::getOrientationDepth(v5, v6, v7, v8, v9, v10, v11, v12);
-    }
-
-    return 0;
-  }
-}
-
-void CoreIKConstraint::setOrientationDepth(CoreIKConstraint *this)
-{
-  v2 = *(this + 2);
-  if (v2)
-  {
-    v3 = *(*(v2 + *(*v2 - 264)) + 56);
-
-    v3();
-  }
-
-  else
-  {
-    v4 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      CoreIKConstraint::setOrientationDepth(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-}
-
-double CoreIKConstraint::getPositionWeight(CoreIKConstraint *this)
-{
-  v1 = *(this + 1);
-  if (v1)
-  {
-    v2 = (*(*&v1[*(*v1 - 264)] + 88))(&v1[*(*v1 - 264)], 0);
-    v15 = LODWORD(v2);
-    v3 = (*(*&v1[*(*v1 - 264)] + 88))(&v1[*(*v1 - 264)], 1);
-    v14 = LODWORD(v3);
-    (*(*&v1[*(*v1 - 264)] + 88))(&v1[*(*v1 - 264)], 2);
-    return COERCE_DOUBLE(__PAIR64__(v14, v15));
-  }
-
-  else
-  {
-    v5 = ikinemaLogObject()[1];
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = ikinemaLogObject(this, a2)[1];
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     result = 0.0;
-    if (v6)
+    if (v7)
     {
-      CoreIKConstraint::getPositionWeight(v5, v7, v8, v9, v10, v11, v12, v13);
+      CoreIKConstraint::getPositionWeight(v6, v8, v9, v10, v11, v12, v13, v14);
       return 0.0;
     }
   }
@@ -8667,51 +8063,51 @@ double CoreIKConstraint::getPositionWeight(CoreIKConstraint *this)
   return result;
 }
 
-void CoreIKConstraint::setPositionWeight(uint64_t a1, __n128 a2)
+void CoreIKConstraint::setPositionWeight(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v2 = *(a1 + 8);
-  if (v2)
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    (*(*&v2[*(*v2 - 264)] + 80))(&v2[*(*v2 - 264)], 0);
-    (*(*&v2[*(*v2 - 264)] + 80))(&v2[*(*v2 - 264)], 1, a2.n128_f32[1]);
-    v3 = a2;
-    v3.n128_u32[0] = a2.n128_u32[2];
-    v4 = *(*&v2[*(*v2 - 264)] + 80);
+    (*(*&v3[*(*v3 - 264)] + 80))(&v3[*(*v3 - 264)], 0);
+    (*(*&v3[*(*v3 - 264)] + 80))(&v3[*(*v3 - 264)], 1, a3.n128_f32[1]);
+    v4 = a3;
+    v4.n128_u32[0] = a3.n128_u32[2];
+    v5 = *(*&v3[*(*v3 - 264)] + 80);
 
-    v4(v3);
+    v5(v4);
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ikinemaLogObject(a1, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::setPositionWeight(v5, v6, v7, v8, v9, v10, v11, v12);
+      CoreIKConstraint::setPositionWeight(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 }
 
-double CoreIKConstraint::getOrientationWeight(CoreIKConstraint *this)
+double CoreIKConstraint::getOrientationWeight(CoreIKConstraint *this, uint64_t a2)
 {
-  v1 = *(this + 2);
-  if (v1)
+  v2 = *(this + 2);
+  if (v2)
   {
-    v2 = (*(*&v1[*(*v1 - 264)] + 88))(&v1[*(*v1 - 264)], 0);
-    v15 = LODWORD(v2);
-    v3 = (*(*&v1[*(*v1 - 264)] + 88))(&v1[*(*v1 - 264)], 1);
-    v14 = LODWORD(v3);
-    (*(*&v1[*(*v1 - 264)] + 88))(&v1[*(*v1 - 264)], 2);
-    return COERCE_DOUBLE(__PAIR64__(v14, v15));
+    v3 = (*(*&v2[*(*v2 - 264)] + 88))(&v2[*(*v2 - 264)], 0);
+    v16 = LODWORD(v3);
+    v4 = (*(*&v2[*(*v2 - 264)] + 88))(&v2[*(*v2 - 264)], 1);
+    v15 = LODWORD(v4);
+    (*(*&v2[*(*v2 - 264)] + 88))(&v2[*(*v2 - 264)], 2);
+    return COERCE_DOUBLE(__PAIR64__(v15, v16));
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = ikinemaLogObject(this, a2)[1];
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     result = 0.0;
-    if (v6)
+    if (v7)
     {
-      CoreIKConstraint::getOrientationWeight(v5, v7, v8, v9, v10, v11, v12, v13);
+      CoreIKConstraint::getOrientationWeight(v6, v8, v9, v10, v11, v12, v13, v14);
       return 0.0;
     }
   }
@@ -8719,51 +8115,51 @@ double CoreIKConstraint::getOrientationWeight(CoreIKConstraint *this)
   return result;
 }
 
-void CoreIKConstraint::setOrientationWeight(uint64_t a1, __n128 a2)
+void CoreIKConstraint::setOrientationWeight(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v2 = *(a1 + 16);
-  if (v2)
+  v3 = *(a1 + 16);
+  if (v3)
   {
-    (*(*&v2[*(*v2 - 264)] + 80))(&v2[*(*v2 - 264)], 0);
-    (*(*&v2[*(*v2 - 264)] + 80))(&v2[*(*v2 - 264)], 1, a2.n128_f32[1]);
-    v3 = a2;
-    v3.n128_u32[0] = a2.n128_u32[2];
-    v4 = *(*&v2[*(*v2 - 264)] + 80);
+    (*(*&v3[*(*v3 - 264)] + 80))(&v3[*(*v3 - 264)], 0);
+    (*(*&v3[*(*v3 - 264)] + 80))(&v3[*(*v3 - 264)], 1, a3.n128_f32[1]);
+    v4 = a3;
+    v4.n128_u32[0] = a3.n128_u32[2];
+    v5 = *(*&v3[*(*v3 - 264)] + 80);
 
-    v4(v3);
+    v5(v4);
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ikinemaLogObject(a1, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::setOrientationWeight(v5, v6, v7, v8, v9, v10, v11, v12);
+      CoreIKConstraint::setOrientationWeight(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 }
 
-double CoreIKConstraint::getPositionPrecision(CoreIKConstraint *this)
+double CoreIKConstraint::getPositionPrecision(CoreIKConstraint *this, uint64_t a2)
 {
-  v1 = *(this + 1);
-  if (v1)
+  v2 = *(this + 1);
+  if (v2)
   {
-    v2 = (*(*&v1[*(*v1 - 264)] + 112))(&v1[*(*v1 - 264)], 0);
-    v15 = LODWORD(v2);
-    v3 = (*(*&v1[*(*v1 - 264)] + 112))(&v1[*(*v1 - 264)], 1);
-    v14 = LODWORD(v3);
-    (*(*&v1[*(*v1 - 264)] + 112))(&v1[*(*v1 - 264)], 2);
-    return COERCE_DOUBLE(__PAIR64__(v14, v15));
+    v3 = (*(*&v2[*(*v2 - 264)] + 112))(&v2[*(*v2 - 264)], 0);
+    v16 = LODWORD(v3);
+    v4 = (*(*&v2[*(*v2 - 264)] + 112))(&v2[*(*v2 - 264)], 1);
+    v15 = LODWORD(v4);
+    (*(*&v2[*(*v2 - 264)] + 112))(&v2[*(*v2 - 264)], 2);
+    return COERCE_DOUBLE(__PAIR64__(v15, v16));
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = ikinemaLogObject(this, a2)[1];
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     result = 0.0;
-    if (v6)
+    if (v7)
     {
-      CoreIKConstraint::getPositionPrecision(v5, v7, v8, v9, v10, v11, v12, v13);
+      CoreIKConstraint::getPositionPrecision(v6, v8, v9, v10, v11, v12, v13, v14);
       return 0.0;
     }
   }
@@ -8771,51 +8167,51 @@ double CoreIKConstraint::getPositionPrecision(CoreIKConstraint *this)
   return result;
 }
 
-void CoreIKConstraint::setPositionPrecision(uint64_t a1, __n128 a2)
+void CoreIKConstraint::setPositionPrecision(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v2 = *(a1 + 8);
-  if (v2)
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    (*(*&v2[*(*v2 - 264)] + 104))(&v2[*(*v2 - 264)], 0);
-    (*(*&v2[*(*v2 - 264)] + 104))(&v2[*(*v2 - 264)], 1, a2.n128_f32[1]);
-    v3 = a2;
-    v3.n128_u32[0] = a2.n128_u32[2];
-    v4 = *(*&v2[*(*v2 - 264)] + 104);
+    (*(*&v3[*(*v3 - 264)] + 104))(&v3[*(*v3 - 264)], 0);
+    (*(*&v3[*(*v3 - 264)] + 104))(&v3[*(*v3 - 264)], 1, a3.n128_f32[1]);
+    v4 = a3;
+    v4.n128_u32[0] = a3.n128_u32[2];
+    v5 = *(*&v3[*(*v3 - 264)] + 104);
 
-    v4(v3);
+    v5(v4);
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ikinemaLogObject(a1, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::setPositionPrecision(v5, v6, v7, v8, v9, v10, v11, v12);
+      CoreIKConstraint::setPositionPrecision(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 }
 
-double CoreIKConstraint::getOrientationPrecision(CoreIKConstraint *this)
+double CoreIKConstraint::getOrientationPrecision(CoreIKConstraint *this, uint64_t a2)
 {
-  v1 = *(this + 2);
-  if (v1)
+  v2 = *(this + 2);
+  if (v2)
   {
-    v2 = (*(*&v1[*(*v1 - 264)] + 112))(&v1[*(*v1 - 264)], 0);
-    v15 = LODWORD(v2);
-    v3 = (*(*&v1[*(*v1 - 264)] + 112))(&v1[*(*v1 - 264)], 1);
-    v14 = LODWORD(v3);
-    (*(*&v1[*(*v1 - 264)] + 112))(&v1[*(*v1 - 264)], 2);
-    return COERCE_DOUBLE(__PAIR64__(v14, v15));
+    v3 = (*(*&v2[*(*v2 - 264)] + 112))(&v2[*(*v2 - 264)], 0);
+    v16 = LODWORD(v3);
+    v4 = (*(*&v2[*(*v2 - 264)] + 112))(&v2[*(*v2 - 264)], 1);
+    v15 = LODWORD(v4);
+    (*(*&v2[*(*v2 - 264)] + 112))(&v2[*(*v2 - 264)], 2);
+    return COERCE_DOUBLE(__PAIR64__(v15, v16));
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = ikinemaLogObject(this, a2)[1];
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     result = 0.0;
-    if (v6)
+    if (v7)
     {
-      CoreIKConstraint::getOrientationPrecision(v5, v7, v8, v9, v10, v11, v12, v13);
+      CoreIKConstraint::getOrientationPrecision(v6, v8, v9, v10, v11, v12, v13, v14);
       return 0.0;
     }
   }
@@ -8823,55 +8219,55 @@ double CoreIKConstraint::getOrientationPrecision(CoreIKConstraint *this)
   return result;
 }
 
-void CoreIKConstraint::setOrientationPrecision(uint64_t a1, __n128 a2)
+void CoreIKConstraint::setOrientationPrecision(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v2 = *(a1 + 16);
-  if (v2)
+  v3 = *(a1 + 16);
+  if (v3)
   {
-    (*(*&v2[*(*v2 - 264)] + 104))(&v2[*(*v2 - 264)], 0);
-    (*(*&v2[*(*v2 - 264)] + 104))(&v2[*(*v2 - 264)], 1, a2.n128_f32[1]);
-    v3 = a2;
-    v3.n128_u32[0] = a2.n128_u32[2];
-    v4 = *(*&v2[*(*v2 - 264)] + 104);
+    (*(*&v3[*(*v3 - 264)] + 104))(&v3[*(*v3 - 264)], 0);
+    (*(*&v3[*(*v3 - 264)] + 104))(&v3[*(*v3 - 264)], 1, a3.n128_f32[1]);
+    v4 = a3;
+    v4.n128_u32[0] = a3.n128_u32[2];
+    v5 = *(*&v3[*(*v3 - 264)] + 104);
 
-    v4(v3);
+    v5(v4);
   }
 
   else
   {
-    v5 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ikinemaLogObject(a1, a2)[1];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      CoreIKConstraint::setOrientationPrecision(v5, v6, v7, v8, v9, v10, v11, v12);
+      CoreIKConstraint::setOrientationPrecision(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 }
 
-uint64_t CoreIKAutoMatchingGenerateRetargetRig(FIK *a1, unint64_t a2, __int128 *a3, FIK *a4, unint64_t a5, __int128 *a6, CFErrorRef *a7)
+FIK *CoreIKAutoMatchingGenerateRetargetRig(FIK *a1, unint64_t a2, __int128 *a3, FIK *a4, unint64_t a5, __int128 *a6, CFErrorRef *a7)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v13 = *a6;
   v12 = a6[1];
   HIDWORD(v13) = 0;
-  v39 = v13;
-  v40 = v12;
+  v38 = v13;
+  v39 = v12;
   v15 = *a3;
   v14 = a3[1];
   HIDWORD(v15) = 0;
-  v37 = v15;
-  v38 = v14;
-  MoCapRigForBiped = FIK::AutoRig::createMoCapRigForBiped(v25, v31, v41);
-  if (v46 == 1)
+  v36 = v15;
+  v37 = v14;
+  MoCapRigForBiped = FIK::AutoRig::createMoCapRigForBiped(v24, v30, v40);
+  if (v45 == 1)
   {
     v17 = FIK::defaultAllocator(MoCapRigForBiped);
     v18 = FIK::Allocator::create<CoreIKRig>(v17);
-    if ((v46 & 1) == 0)
+    if ((v45 & 1) == 0)
     {
-      v22 = std::__throw_bad_optional_access[abi:nn200100]();
+      v21 = std::__throw_bad_optional_access[abi:nn200100]();
     }
 
     v19 = v18;
-    std::__variant_detail::__assignment<std::__variant_detail::__traits<FIK::GameRig,FIK::MoCapRig>>::__assign_alt[abi:nn200100]<1ul,FIK::MoCapRig,FIK::MoCapRig const&>((v18 + 16), v18 + 16, v41);
+    std::__variant_detail::__assignment<std::__variant_detail::__traits<FIK::GameRig,FIK::MoCapRig>>::__assign_alt[abi:nn200100]<1ul,FIK::MoCapRig,FIK::MoCapRig const&>((v18 + 16), v18 + 16, v40);
     *v19 = 3;
   }
 
@@ -8880,46 +8276,45 @@ uint64_t CoreIKAutoMatchingGenerateRetargetRig(FIK *a1, unint64_t a2, __int128 *
     v19 = 0;
   }
 
-  if (v46 == 1)
+  if (v45 == 1)
   {
-    FIK::IKArray<FIK::RigBoneBase>::~IKArray(&v45);
-    FIK::IKArray<FIK::MoCapBone>::~IKArray(&v44);
-    FIK::IKArray<FIK::MoCapTask>::~IKArray(&v43);
-    if (v41[1])
+    FIK::IKArray<FIK::RigBoneBase>::~IKArray(&v44);
+    FIK::IKArray<FIK::MoCapBone>::~IKArray(&v43);
+    FIK::IKArray<FIK::MoCapTask>::~IKArray(&v42);
+    if (v40[1])
     {
-      (*(*v42 + 24))(v42, v41[0], 0, 8);
+      (*(*v41 + 24))(v41, v40[0], 0, 8);
     }
   }
 
-  if (v29)
+  if (v28)
   {
-    (*(*v30 + 24))(v30, v28, 0, 8);
+    (*(*v29 + 24))(v29, v27, 0, 8);
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
   }
 
-  std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v27, v27[1]);
-  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v26, v26[1]);
-  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v25);
-  if (v35)
+  std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v26, v26[1]);
+  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v25, v25[1]);
+  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v24);
+  if (v34)
   {
-    (*(*v36 + 24))(v36, v34, 0, 8);
+    (*(*v35 + 24))(v35, v33, 0, 8);
+    v33 = 0;
     v34 = 0;
-    v35 = 0;
   }
 
-  std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v33, v33[1]);
-  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v32, v32[1]);
-  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v31);
-  v20 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v32, v32[1]);
+  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v31, v31[1]);
+  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v30);
   return v19;
 }
 
-uint64_t anonymous namespace::makeCharacterisedHierarchy@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, __n128 *a3@<X8>)
+uint64_t anonymous namespace::makeCharacterisedHierarchy@<X0>(__n128 *a1@<X8>, FIK *a2@<X0>, unint64_t a3@<X1>)
 {
   FIK::Characteriser::Characteriser(v6);
   v4 = FIK::Characteriser::operator[](v6, "biped", 5);
-  FIK::CharacterisedHierarchy::CharacterisedHierarchy(a3, v9, v4);
+  FIK::CharacterisedHierarchy::CharacterisedHierarchy(a1, v9, v4);
   FIK::Characterisation::~Characterisation(&v8);
   std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::destroy(v6, v7);
   return FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v9);
@@ -8936,8 +8331,8 @@ uint64_t CoreIKAutoMatchingGenerateHierarchyToRigMapping(uint64_t result, uint64
         v6 = result;
         v7 = 0;
         v8 = *(a3 + 240);
-        v15 = (result + 48 * a2);
-        v16 = 48 * a2;
+        v17 = (result + 48 * a2);
+        v18 = 48 * a2;
         do
         {
           v9 = v8 + 544 * v7;
@@ -8957,7 +8352,7 @@ uint64_t CoreIKAutoMatchingGenerateHierarchyToRigMapping(uint64_t result, uint64
             {
 LABEL_7:
               v11 = strlen(v10);
-              v12 = v16;
+              v12 = v18;
               v13 = v6;
               while (1)
               {
@@ -8975,7 +8370,7 @@ LABEL_7:
                 v12 -= 48;
                 if (!v12)
                 {
-                  v13 = v15;
+                  v13 = v17;
                   goto LABEL_14;
                 }
               }
@@ -8994,54 +8389,54 @@ LABEL_14:
     else
     {
       v14 = std::__throw_bad_variant_access[abi:nn200100]();
-      return CoreIKAutoMatchingIdentifyJoints(v14);
+      return CoreIKAutoMatchingIdentifyJoints(v14, v15, v16);
     }
   }
 
   return result;
 }
 
-uint64_t CoreIKAutoMatchingIdentifyJoints@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, CFErrorRef *a3@<X2>, uint64_t a4@<X8>)
+uint64_t CoreIKAutoMatchingIdentifyJoints@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>, CFErrorRef *a4@<X2>)
 {
-  *(a4 + 256) = 0;
-  *(a4 + 224) = 0u;
-  *(a4 + 240) = 0u;
-  *(a4 + 192) = 0u;
-  *(a4 + 208) = 0u;
-  *(a4 + 160) = 0u;
-  *(a4 + 176) = 0u;
-  *(a4 + 128) = 0u;
-  *(a4 + 144) = 0u;
-  *(a4 + 96) = 0u;
-  *(a4 + 112) = 0u;
-  *(a4 + 64) = 0u;
-  *(a4 + 80) = 0u;
-  *(a4 + 32) = 0u;
-  *(a4 + 48) = 0u;
-  *a4 = 0u;
-  *(a4 + 16) = 0u;
-  *a4 = JointName;
-  *(a4 + 8) = v80;
-  *(a4 + 16) = v79;
-  *(a4 + 24) = v78;
-  *(a4 + 32) = v77;
-  *(a4 + 40) = v76;
-  *(a4 + 48) = v75;
-  *(a4 + 56) = v74;
-  *(a4 + 64) = v73;
-  *(a4 + 72) = v72;
-  *(a4 + 80) = v71;
-  *(a4 + 88) = v70;
-  *(a4 + 96) = v69;
-  *(a4 + 104) = v68;
-  *(a4 + 112) = v7;
-  *(a4 + 120) = v8;
-  *(a4 + 128) = v9;
-  *(a4 + 136) = v10;
-  *(a4 + 144) = v11;
-  *(a4 + 152) = v12;
-  *(a4 + 160) = v13;
-  *(a4 + 176) = v14;
+  *(a3 + 256) = 0;
+  *(a3 + 224) = 0u;
+  *(a3 + 240) = 0u;
+  *(a3 + 192) = 0u;
+  *(a3 + 208) = 0u;
+  *(a3 + 160) = 0u;
+  *(a3 + 176) = 0u;
+  *(a3 + 128) = 0u;
+  *(a3 + 144) = 0u;
+  *(a3 + 96) = 0u;
+  *(a3 + 112) = 0u;
+  *(a3 + 64) = 0u;
+  *(a3 + 80) = 0u;
+  *(a3 + 32) = 0u;
+  *(a3 + 48) = 0u;
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *a3 = JointName;
+  *(a3 + 8) = v80;
+  *(a3 + 16) = v79;
+  *(a3 + 24) = v78;
+  *(a3 + 32) = v77;
+  *(a3 + 40) = v76;
+  *(a3 + 48) = v75;
+  *(a3 + 56) = v74;
+  *(a3 + 64) = v73;
+  *(a3 + 72) = v72;
+  *(a3 + 80) = v71;
+  *(a3 + 88) = v70;
+  *(a3 + 96) = v69;
+  *(a3 + 104) = v68;
+  *(a3 + 112) = v7;
+  *(a3 + 120) = v8;
+  *(a3 + 128) = v9;
+  *(a3 + 136) = v10;
+  *(a3 + 144) = v11;
+  *(a3 + 152) = v12;
+  *(a3 + 160) = v13;
+  *(a3 + 176) = v14;
   v15 = v85[0];
   if (!v85[0])
   {
@@ -9065,7 +8460,7 @@ uint64_t CoreIKAutoMatchingIdentifyJoints@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, 
   {
 LABEL_13:
     v26 = &unk_245A04BAE;
-    *(a4 + 184) = &unk_245A04BAE;
+    *(a3 + 184) = &unk_245A04BAE;
     goto LABEL_14;
   }
 
@@ -9082,21 +8477,21 @@ LABEL_13:
 
       v45 = *(a1 + 6 * v18[1]);
       v46 = *(a1 + 6 * *v18);
-      *(a4 + 184) = v45;
-      *(a4 + 192) = v46;
+      *(a3 + 184) = v45;
+      *(a3 + 192) = v46;
       v26 = &unk_245A04BAE;
       goto LABEL_15;
     }
 
     v65 = *(a1 + 6 * *v18);
     v26 = &unk_245A04BAE;
-    *(a4 + 184) = v65;
+    *(a3 + 184) = v65;
 LABEL_14:
-    *(a4 + 192) = &unk_245A04BAE;
+    *(a3 + 192) = &unk_245A04BAE;
 LABEL_15:
-    *(a4 + 200) = &unk_245A04BAE;
+    *(a3 + 200) = &unk_245A04BAE;
 LABEL_16:
-    *(a4 + 208) = &unk_245A04BAE;
+    *(a3 + 208) = &unk_245A04BAE;
     goto LABEL_17;
   }
 
@@ -9107,20 +8502,20 @@ LABEL_16:
       v50 = *(a1 + 6 * v18[2]);
       v51 = *v18;
       v52 = *(a1 + 6 * v49);
-      *(a4 + 184) = v50;
-      *(a4 + 192) = v52;
+      *(a3 + 184) = v50;
+      *(a3 + 192) = v52;
       v53 = *(a1 + 6 * v51);
       v26 = &unk_245A04BAE;
-      *(a4 + 200) = v53;
+      *(a3 + 200) = v53;
       goto LABEL_16;
     case 4:
       v59 = *(a1 + 6 * v18[2]);
-      *(a4 + 184) = *(a1 + 6 * v18[3]);
-      *(a4 + 192) = v59;
+      *(a3 + 184) = *(a1 + 6 * v18[3]);
+      *(a3 + 192) = v59;
       v60 = *(a1 + 6 * v18[1]);
       v61 = *(a1 + 6 * *v18);
-      *(a4 + 200) = v60;
-      *(a4 + 208) = v61;
+      *(a3 + 200) = v60;
+      *(a3 + 208) = v61;
       v26 = &unk_245A04BAE;
       goto LABEL_17;
     case 5:
@@ -9130,13 +8525,13 @@ LABEL_16:
       v23 = *(a1 + 6 * v18[2]);
       v24 = *v18;
       v25 = *(a1 + 6 * v21);
-      *(a4 + 184) = v20;
-      *(a4 + 192) = v22;
-      *(a4 + 200) = v23;
-      *(a4 + 208) = v25;
+      *(a3 + 184) = v20;
+      *(a3 + 192) = v22;
+      *(a3 + 200) = v23;
+      *(a3 + 208) = v25;
       v26 = *(a1 + 6 * v24);
 LABEL_17:
-      *(a4 + 216) = v26;
+      *(a3 + 216) = v26;
       break;
   }
 
@@ -9162,7 +8557,7 @@ LABEL_18:
   {
 LABEL_30:
     v36 = &unk_245A04BAE;
-    *(a4 + 224) = &unk_245A04BAE;
+    *(a3 + 224) = &unk_245A04BAE;
     goto LABEL_31;
   }
 
@@ -9179,21 +8574,21 @@ LABEL_30:
 
       v47 = *(a1 + 6 * v28[1]);
       v48 = *(a1 + 6 * *v28);
-      *(a4 + 224) = v47;
-      *(a4 + 232) = v48;
+      *(a3 + 224) = v47;
+      *(a3 + 232) = v48;
       v36 = &unk_245A04BAE;
       goto LABEL_32;
     }
 
     v66 = *(a1 + 6 * *v28);
     v36 = &unk_245A04BAE;
-    *(a4 + 224) = v66;
+    *(a3 + 224) = v66;
 LABEL_31:
-    *(a4 + 232) = &unk_245A04BAE;
+    *(a3 + 232) = &unk_245A04BAE;
 LABEL_32:
-    *(a4 + 240) = &unk_245A04BAE;
+    *(a3 + 240) = &unk_245A04BAE;
 LABEL_33:
-    *(a4 + 248) = &unk_245A04BAE;
+    *(a3 + 248) = &unk_245A04BAE;
     goto LABEL_34;
   }
 
@@ -9204,20 +8599,20 @@ LABEL_33:
       v55 = *(a1 + 6 * v28[2]);
       v56 = *v28;
       v57 = *(a1 + 6 * v54);
-      *(a4 + 224) = v55;
-      *(a4 + 232) = v57;
+      *(a3 + 224) = v55;
+      *(a3 + 232) = v57;
       v58 = *(a1 + 6 * v56);
       v36 = &unk_245A04BAE;
-      *(a4 + 240) = v58;
+      *(a3 + 240) = v58;
       goto LABEL_33;
     case 4:
       v62 = *(a1 + 6 * v28[2]);
-      *(a4 + 224) = *(a1 + 6 * v28[3]);
-      *(a4 + 232) = v62;
+      *(a3 + 224) = *(a1 + 6 * v28[3]);
+      *(a3 + 232) = v62;
       v63 = *(a1 + 6 * v28[1]);
       v64 = *(a1 + 6 * *v28);
-      *(a4 + 240) = v63;
-      *(a4 + 248) = v64;
+      *(a3 + 240) = v63;
+      *(a3 + 248) = v64;
       v36 = &unk_245A04BAE;
       goto LABEL_34;
     case 5:
@@ -9227,13 +8622,13 @@ LABEL_33:
       v33 = *(a1 + 6 * v28[2]);
       v34 = *v28;
       v35 = *(a1 + 6 * v31);
-      *(a4 + 224) = v30;
-      *(a4 + 232) = v32;
-      *(a4 + 240) = v33;
-      *(a4 + 248) = v35;
+      *(a3 + 224) = v30;
+      *(a3 + 232) = v32;
+      *(a3 + 240) = v33;
+      *(a3 + 248) = v35;
       v36 = *(a1 + 6 * v34);
 LABEL_34:
-      *(a4 + 256) = v36;
+      *(a3 + 256) = v36;
       break;
   }
 
@@ -9363,55 +8758,55 @@ BOOL CoreIKAutoMatchingRequiredJointsAreValid(uint64_t a1, const char **a2, uint
 
 void CoreIKAutoMatchingGenerateRetargetRigFromDefinition(FIK *a1, unint64_t a2, const char **a3, uint64_t a4, __int128 *a5, FIK *a6, unint64_t a7, __int128 *a8, const char **a9, int32x2_t *a10, CFErrorRef *a11)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v51);
+  v56 = *MEMORY[0x277D85DE8];
+  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v50);
   if (!*a11)
   {
-    FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v51);
+    FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v50);
     if (!*a11)
     {
-      if (v33 == 1 && (v41 & 1) != 0)
+      if (v32 == 1 && (v40 & 1) != 0)
       {
-        v16 = v32;
-        if (v40 != v32)
+        v16 = v31;
+        if (v39 != v31)
         {
-          if ((v40 & 0xFFFFFFFE) == 2)
+          if ((v39 & 0xFFFFFFFE) == 2)
           {
-            FIK::RigBuilderUtils::alignToTPose(v39);
-            v16 = v32;
+            FIK::RigBuilderUtils::alignToTPose(v38);
+            v16 = v31;
           }
 
           if ((v16 & 0xFFFFFFFE) == 2)
           {
-            FIK::RigBuilderUtils::alignToTPose(v31);
+            FIK::RigBuilderUtils::alignToTPose(v30);
           }
         }
 
-        FIK::RigBuilderUtils::shiftHipsToOrigin<FIK::BipedIdentifiers::Joint>(v31, 0);
-        FIK::RigBuilderUtils::shiftHipsToOrigin<FIK::BipedIdentifiers::Joint>(v39, 0);
+        FIK::RigBuilderUtils::shiftHipsToOrigin<FIK::BipedIdentifiers::Joint>(v30, 0);
+        FIK::RigBuilderUtils::shiftHipsToOrigin<FIK::BipedIdentifiers::Joint>(v38, 0);
         v18 = *a8;
         v17 = a8[1];
         HIDWORD(v18) = 0;
-        v49 = v18;
-        v50 = v17;
+        v48 = v18;
+        v49 = v17;
         v20 = *a5;
         v19 = a5[1];
         HIDWORD(v20) = 0;
-        v47 = v20;
-        v48 = v19;
-        MoCapRig = FIK::MoCapRigBuilder::createMoCapRig(v39, v31, CoreIKAutoMatchingGenerateRetargetRigFromDefinition::taskJoints, 7, 0, 0, v51, 0, 0);
-        if (v56 == 1)
+        v46 = v20;
+        v47 = v19;
+        MoCapRig = FIK::MoCapRigBuilder::createMoCapRig(v38, v30, CoreIKAutoMatchingGenerateRetargetRigFromDefinition::taskJoints, 7, v50, 0, 0, 0, 0);
+        if (v55 == 1)
         {
           v22 = FIK::defaultAllocator(MoCapRig);
           v23 = FIK::Allocator::create<CoreIKRig>(v22);
-          if ((v56 & 1) == 0)
+          if ((v55 & 1) == 0)
           {
-            v26 = std::__throw_bad_optional_access[abi:nn200100]();
+            v25 = std::__throw_bad_optional_access[abi:nn200100]();
             return;
           }
 
           v24 = v23;
-          std::__variant_detail::__assignment<std::__variant_detail::__traits<FIK::GameRig,FIK::MoCapRig>>::__assign_alt[abi:nn200100]<1ul,FIK::MoCapRig,FIK::MoCapRig const&>((v23 + 16), v23 + 16, v51);
+          std::__variant_detail::__assignment<std::__variant_detail::__traits<FIK::GameRig,FIK::MoCapRig>>::__assign_alt[abi:nn200100]<1ul,FIK::MoCapRig,FIK::MoCapRig const&>((v23 + 16), v23 + 16, v50);
           *v24 = 3;
         }
 
@@ -9419,14 +8814,14 @@ void CoreIKAutoMatchingGenerateRetargetRigFromDefinition(FIK *a1, unint64_t a2, 
         {
         }
 
-        if (v56 == 1)
+        if (v55 == 1)
         {
-          FIK::IKArray<FIK::RigBoneBase>::~IKArray(&v55);
-          FIK::IKArray<FIK::MoCapBone>::~IKArray(&v54);
-          FIK::IKArray<FIK::MoCapTask>::~IKArray(&v53);
-          if (v51[1])
+          FIK::IKArray<FIK::RigBoneBase>::~IKArray(&v54);
+          FIK::IKArray<FIK::MoCapBone>::~IKArray(&v53);
+          FIK::IKArray<FIK::MoCapTask>::~IKArray(&v52);
+          if (v50[1])
           {
-            (*(*v52 + 24))(v52, v51[0], 0, 8);
+            (*(*v51 + 24))(v51, v50[0], 0, 8);
           }
         }
       }
@@ -9436,56 +8831,55 @@ void CoreIKAutoMatchingGenerateRetargetRigFromDefinition(FIK *a1, unint64_t a2, 
       }
     }
 
-    if (v37)
+    if (v36)
     {
-      (*(*v38 + 24))(v38, v36, 0, 8);
+      (*(*v37 + 24))(v37, v35, 0, 8);
+      v35 = 0;
       v36 = 0;
-      v37 = 0;
     }
 
-    std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v35, v35[1]);
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v34, v34[1]);
-    FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v31);
+    std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v34, v34[1]);
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v33, v33[1]);
+    FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v30);
   }
 
-  if (v45)
+  if (v44)
   {
-    (*(*v46 + 24))(v46, v44, 0, 8);
+    (*(*v45 + 24))(v45, v43, 0, 8);
+    v43 = 0;
     v44 = 0;
-    v45 = 0;
   }
 
-  std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v43, v43[1]);
-  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v42, v42[1]);
-  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v39);
-  v25 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(v42, v42[1]);
+  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(v41, v41[1]);
+  FIK::IKArray<FIK::Hierarchy::Joint>::~IKArray(v38);
 }
 
-void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **a2@<X1>, int32x2_t *a3@<X2>, CFErrorRef *a4@<X3>, uint64_t a5@<X8>)
+void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **a2@<X1>, int32x2_t *a3@<X2>, uint64_t a4@<X8>, CFErrorRef *a5@<X3>)
 {
-  LODWORD(v129) = 0;
-  BYTE4(v129) = 0;
-  v130 = v131;
-  v131[0] = 0;
-  v133[0] = 0;
-  v133[1] = 0;
-  v131[1] = 0;
-  v132 = v133;
+  LODWORD(v128) = 0;
+  BYTE4(v128) = 0;
+  v129 = v130;
+  v130[0] = 0;
+  v132[0] = 0;
+  v132[1] = 0;
+  v130[1] = 0;
+  v131 = v132;
   v10 = FIK::defaultAllocator(a1);
+  v133 = 0;
   v134 = 0;
-  v135 = 0;
-  v136 = v10;
-  IKString::assign(&v134, "undefined", 9);
+  v135 = v10;
+  IKString::assign(&v133, "undefined", 9);
   v11 = vrev64_s32(vadd_s32(*a3, -1));
-  *(&v129 + 1) = vand_s8(vadd_s32(v11, 0x100000001), vcgt_u32(0x500000005, v11));
-  BYTE4(v129) = 1;
+  *(&v128 + 1) = vand_s8(vadd_s32(v11, 0x100000001), vcgt_u32(0x500000005, v11));
+  BYTE4(v128) = 1;
   v12 = a3[1].i32[0];
   if ((v12 - 1) >= 3)
   {
     v12 = 0;
   }
 
-  LODWORD(v129) = v12;
+  LODWORD(v128) = v12;
   v13 = strlen(*a2);
   v14 = FIK::Hierarchy::indexOf(a1, *a2, v13);
   if (v14 == -1)
@@ -9494,9 +8888,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 0;
-    v120[0] = v14;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 0;
+    *(&v119 + 1) = v14;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v15 = strlen(a2[1]);
@@ -9507,9 +8901,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 1;
-    v120[0] = v16;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 1;
+    *(&v119 + 1) = v16;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v17 = strlen(a2[2]);
@@ -9520,9 +8914,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 8;
-    v120[0] = v18;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 8;
+    *(&v119 + 1) = v18;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v19 = strlen(a2[3]);
@@ -9533,9 +8927,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 9;
-    v120[0] = v20;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 9;
+    *(&v119 + 1) = v20;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v21 = strlen(a2[4]);
@@ -9546,9 +8940,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 14;
-    v120[0] = v22;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 14;
+    *(&v119 + 1) = v22;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v23 = strlen(a2[5]);
@@ -9559,9 +8953,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 16;
-    v120[0] = v24;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 16;
+    *(&v119 + 1) = v24;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v25 = strlen(a2[6]);
@@ -9572,9 +8966,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 17;
-    v120[0] = v26;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 17;
+    *(&v119 + 1) = v26;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v27 = strlen(a2[7]);
@@ -9585,9 +8979,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 19;
-    v120[0] = v28;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 19;
+    *(&v119 + 1) = v28;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v29 = strlen(a2[8]);
@@ -9598,9 +8992,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 21;
-    v120[0] = v30;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 21;
+    *(&v119 + 1) = v30;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v31 = strlen(a2[9]);
@@ -9611,9 +9005,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 23;
-    v120[0] = v32;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 23;
+    *(&v119 + 1) = v32;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v33 = strlen(a2[10]);
@@ -9624,9 +9018,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 24;
-    v120[0] = v34;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 24;
+    *(&v119 + 1) = v34;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v35 = strlen(a2[11]);
@@ -9637,9 +9031,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 26;
-    v120[0] = v36;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 26;
+    *(&v119 + 1) = v36;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v37 = strlen(a2[12]);
@@ -9650,9 +9044,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 28;
-    v120[0] = v38;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 28;
+    *(&v119 + 1) = v38;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v39 = strlen(a2[13]);
@@ -9663,9 +9057,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 30;
-    v120[0] = v40;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 30;
+    *(&v119 + 1) = v40;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v41 = strlen(a2[14]);
@@ -9676,9 +9070,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 32;
-    v120[0] = v42;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 32;
+    *(&v119 + 1) = v42;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v43 = strlen(a2[15]);
@@ -9689,9 +9083,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 34;
-    v120[0] = v44;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 34;
+    *(&v119 + 1) = v44;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v45 = strlen(a2[16]);
@@ -9702,9 +9096,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 35;
-    v120[0] = v46;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 35;
+    *(&v119 + 1) = v46;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v47 = strlen(a2[17]);
@@ -9715,9 +9109,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 39;
-    v120[0] = v48;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 39;
+    *(&v119 + 1) = v48;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v49 = strlen(a2[18]);
@@ -9728,9 +9122,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 41;
-    v120[0] = v50;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 41;
+    *(&v119 + 1) = v50;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v51 = strlen(a2[19]);
@@ -9741,9 +9135,9 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 43;
-    v120[0] = v52;
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 43;
+    *(&v119 + 1) = v52;
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v53 = strlen(a2[20]);
@@ -9754,16 +9148,16 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 
   else
   {
-    v119 = 44;
-    v120[0] = v54;
-    v55 = std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v130, &v119);
+    LODWORD(v119) = 44;
+    *(&v119 + 1) = v54;
+    v55 = std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::pair<int const,unsigned long>>(&v129, &v119, &v119);
   }
 
   v56 = FIK::defaultAllocator(v55);
-  v126[0] = 0;
-  v126[1] = 0;
-  v127 = 0;
-  v128 = v56;
+  v125[0] = 0;
+  v125[1] = 0;
+  v126 = 0;
+  v127 = v56;
   v57 = strlen(a2[23]);
   if (v57)
   {
@@ -9775,8 +9169,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v59 = v58;
-      FIK::IKArray<FIK::Segment *>::reserve(v126, v126[0] + 1);
-      *(v127 + 8 * v126[0]++) = v59;
+      FIK::IKArray<FIK::Segment *>::reserve(v125, v125[0] + 1);
+      *(v126 + 8 * v125[0]++) = v59;
     }
   }
 
@@ -9791,8 +9185,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v62 = v61;
-      FIK::IKArray<FIK::Segment *>::reserve(v126, v126[0] + 1);
-      *(v127 + 8 * v126[0]++) = v62;
+      FIK::IKArray<FIK::Segment *>::reserve(v125, v125[0] + 1);
+      *(v126 + 8 * v125[0]++) = v62;
     }
   }
 
@@ -9807,8 +9201,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v65 = v64;
-      FIK::IKArray<FIK::Segment *>::reserve(v126, v126[0] + 1);
-      *(v127 + 8 * v126[0]++) = v65;
+      FIK::IKArray<FIK::Segment *>::reserve(v125, v125[0] + 1);
+      *(v126 + 8 * v125[0]++) = v65;
     }
   }
 
@@ -9823,8 +9217,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v68 = v67;
-      FIK::IKArray<FIK::Segment *>::reserve(v126, v126[0] + 1);
-      *(v127 + 8 * v126[0]++) = v68;
+      FIK::IKArray<FIK::Segment *>::reserve(v125, v125[0] + 1);
+      *(v126 + 8 * v125[0]++) = v68;
     }
   }
 
@@ -9839,16 +9233,16 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v71 = v70;
-      v69 = FIK::IKArray<FIK::Segment *>::reserve(v126, v126[0] + 1);
-      *(v127 + 8 * v126[0]++) = v71;
+      v69 = FIK::IKArray<FIK::Segment *>::reserve(v125, v125[0] + 1);
+      *(v126 + 8 * v125[0]++) = v71;
     }
   }
 
   v72 = FIK::defaultAllocator(v69);
-  v123[0] = 0;
-  v123[1] = 0;
-  v124 = 0;
-  v125 = v72;
+  v122[0] = 0;
+  v122[1] = 0;
+  v123 = 0;
+  v124 = v72;
   v73 = strlen(a2[28]);
   if (v73)
   {
@@ -9860,8 +9254,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v75 = v74;
-      FIK::IKArray<FIK::Segment *>::reserve(v123, v123[0] + 1);
-      *(v124 + 8 * v123[0]++) = v75;
+      FIK::IKArray<FIK::Segment *>::reserve(v122, v122[0] + 1);
+      *(v123 + 8 * v122[0]++) = v75;
     }
   }
 
@@ -9876,8 +9270,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v78 = v77;
-      FIK::IKArray<FIK::Segment *>::reserve(v123, v123[0] + 1);
-      *(v124 + 8 * v123[0]++) = v78;
+      FIK::IKArray<FIK::Segment *>::reserve(v122, v122[0] + 1);
+      *(v123 + 8 * v122[0]++) = v78;
     }
   }
 
@@ -9892,8 +9286,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v81 = v80;
-      FIK::IKArray<FIK::Segment *>::reserve(v123, v123[0] + 1);
-      *(v124 + 8 * v123[0]++) = v81;
+      FIK::IKArray<FIK::Segment *>::reserve(v122, v122[0] + 1);
+      *(v123 + 8 * v122[0]++) = v81;
     }
   }
 
@@ -9908,8 +9302,8 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v84 = v83;
-      FIK::IKArray<FIK::Segment *>::reserve(v123, v123[0] + 1);
-      *(v124 + 8 * v123[0]++) = v84;
+      FIK::IKArray<FIK::Segment *>::reserve(v122, v122[0] + 1);
+      *(v123 + 8 * v122[0]++) = v84;
     }
   }
 
@@ -9924,27 +9318,27 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     else
     {
       v87 = v86;
-      FIK::IKArray<FIK::Segment *>::reserve(v123, v123[0] + 1);
-      *(v124 + 8 * v123[0]++) = v87;
+      FIK::IKArray<FIK::Segment *>::reserve(v122, v122[0] + 1);
+      *(v123 + 8 * v122[0]++) = v87;
     }
   }
 
-  v119 = 8;
-  FIK::IKArray<FIK::Task *>::IKArray(v120, v126);
-  std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v132, &v119);
-  v120[0] = 0;
-  if (v121)
+  LODWORD(v119) = 8;
+  FIK::IKArray<FIK::Task *>::IKArray(&v119 + 1, v125);
+  std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v131, &v119, &v119);
+  *(&v119 + 1) = 0;
+  if (v120)
   {
-    (*(*v122 + 24))(v122, v121, 0, 8);
+    (*(*v121 + 24))(v121, v120, 0, 8);
   }
 
-  v119 = 14;
-  FIK::IKArray<FIK::Task *>::IKArray(v120, v123);
-  std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v132, &v119);
-  v120[0] = 0;
-  if (v121)
+  LODWORD(v119) = 14;
+  FIK::IKArray<FIK::Task *>::IKArray(&v119 + 1, v122);
+  std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v131, &v119, &v119);
+  *(&v119 + 1) = 0;
+  if (v120)
   {
-    (*(*v122 + 24))(v122, v121, 0, 8);
+    (*(*v121 + 24))(v121, v120, 0, 8);
   }
 
   v88 = strlen(a2[1]);
@@ -9957,13 +9351,13 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
     goto LABEL_129;
   }
 
-  v119 = 1;
-  FIK::IKArray<FIK::Task *>::IKArray(v120, v116);
-  std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v132, &v119);
-  v120[0] = 0;
-  if (v121)
+  LODWORD(v119) = 1;
+  FIK::IKArray<FIK::Task *>::IKArray(&v119 + 1, v116);
+  std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v131, &v119, &v119);
+  *(&v119 + 1) = 0;
+  if (v120)
   {
-    (*(*v122 + 24))(v122, v121, 0, 8);
+    (*(*v121 + 24))(v121, v120, 0, 8);
   }
 
   v94 = strlen(a2[3]);
@@ -9974,27 +9368,27 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
   v99 = FIK::Hierarchy::parentIndexOf(a1, v98);
   if (v100)
   {
-    v119 = 2;
-    FIK::IKArray<FIK::Task *>::IKArray(v120, v113);
-    std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v132, &v119);
-    v120[0] = 0;
-    if (v121)
+    LODWORD(v119) = 2;
+    FIK::IKArray<FIK::Task *>::IKArray(&v119 + 1, v113);
+    std::__tree<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__map_value_compare<int,std::__value_type<int,FIK::IKArray<unsigned long>>,std::less<int>,true>,std::allocator<std::__value_type<int,FIK::IKArray<unsigned long>>>>::__emplace_unique_key_args<int,std::pair<int const,FIK::IKArray<unsigned long>>>(&v131, &v119, &v119);
+    *(&v119 + 1) = 0;
+    if (v120)
     {
-      (*(*v122 + 24))(v122, v121, 0, 8);
+      (*(*v121 + 24))(v121, v120, 0, 8);
     }
 
     FIK::Hierarchy::Hierarchy(v112, a1);
-    v104 = v129;
+    v104 = v128;
     v106[0] = 0;
     v106[1] = 0;
     v105 = v106;
-    std::map<int,unsigned long>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,unsigned long>,std::__tree_node<std::__value_type<int,unsigned long>,void *> *,long>>>(&v105, v130, v131);
+    std::map<int,unsigned long>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,unsigned long>,std::__tree_node<std::__value_type<int,unsigned long>,void *> *,long>>>(&v105, v129, v130);
     v108[0] = 0;
     v108[1] = 0;
     v107 = v108;
-    std::map<int,FIK::IKArray<unsigned long>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__tree_node<std::__value_type<int,FIK::IKArray<unsigned long>>,void *> *,long>>>(&v107, v132, v133);
-    IKString::IKString(&v109, &v134);
-    FIK::CharacterisedHierarchy::CharacterisedHierarchy(a5, v112, &v104);
+    std::map<int,FIK::IKArray<unsigned long>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,FIK::IKArray<unsigned long>>,std::__tree_node<std::__value_type<int,FIK::IKArray<unsigned long>>,void *> *,long>>>(&v107, v131, v132);
+    IKString::IKString(&v109, &v133);
+    FIK::CharacterisedHierarchy::CharacterisedHierarchy(a4, v112, &v104);
     if (v110)
     {
       (*(*v111 + 24))(v111, v109, 0, 8);
@@ -10017,27 +9411,27 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
       (*(*v118 + 24))(v118, v117, 0, 8);
     }
 
-    v123[0] = 0;
-    if (v124)
+    v122[0] = 0;
+    if (v123)
     {
-      (*(*v125 + 3))(v125, v124, 0, 8);
+      (*(*v124 + 3))(v124, v123, 0, 8);
     }
 
-    v126[0] = 0;
-    if (v127)
+    v125[0] = 0;
+    if (v126)
     {
-      (*(*v128 + 3))(v128, v127, 0, 8);
+      (*(*v127 + 3))(v127, v126, 0, 8);
     }
 
-    if (v135)
+    if (v134)
     {
-      (*(*v136 + 3))(v136, v134, 0, 8);
+      (*(*v135 + 3))(v135, v133, 0, 8);
+      v133 = 0;
       v134 = 0;
-      v135 = 0;
     }
 
-    std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(&v132, v133[0]);
-    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(&v130, v131[0]);
+    std::__tree<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,FIK::IKArray<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,FIK::IKArray<unsigned long>>>>::destroy(&v131, v132[0]);
+    std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::destroy(&v129, v130[0]);
   }
 
   else
@@ -10045,4 +9439,441 @@ void anonymous namespace::makeCharacterisedHierarchy(FIK *a1@<X0>, const char **
 LABEL_129:
     v101 = std::__throw_bad_optional_access[abi:nn200100]();
   }
+}
+
+uint64_t anonymous namespace::makeHierarchy@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, FIK *a3@<X8>)
+{
+  v4 = a1;
+  v25[0] = 0;
+  v25[1] = 0;
+  v26 = 0;
+  v27 = FIK::defaultAllocator(a1);
+  v6 = FIK::IKArray<FIK::JointDefinition>::reserve(v25, a2);
+  if (a2)
+  {
+    v7 = (v4 + 48 * a2);
+    do
+    {
+      v8 = FIK::defaultAllocator(v6);
+      v17 = 0;
+      v18 = 0;
+      v19 = v8;
+      v9 = strlen(*v4);
+      IKString::assign(&v17, *v4, v9);
+      v11 = FIK::defaultAllocator(v10);
+      v20 = 0;
+      v21 = 0;
+      v22 = v11;
+      v12 = strlen(*(v4 + 1));
+      IKString::assign(&v20, *(v4 + 1), v12);
+      v14 = *(v4 + 1);
+      v13 = *(v4 + 2);
+      HIDWORD(v14) = 0;
+      v23 = v14;
+      v24 = v13;
+      v15 = FIK::IKArray<FIK::JointDefinition>::push_back(v25, &v17);
+      if (v21)
+      {
+        v6 = (*(*v22 + 3))(v22, v20, 0, 8, v15);
+        v20 = 0;
+        v21 = 0;
+      }
+
+      if (v18)
+      {
+        v6 = (*(*v19 + 3))(v19, v17, 0, 8, v15);
+      }
+
+      v4 = (v4 + 48);
+    }
+
+    while (v4 != v7);
+  }
+
+  FIK::Hierarchy::Hierarchy(a3, v26, v25[0]);
+  return FIK::IKArray<FIK::JointDefinition>::~IKArray(v25);
+}
+
+void std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::destroy(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::destroy(a1, *a2);
+    std::__tree<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::unique_ptr<FIK::Characterisation>>>>::destroy(a1, a2[1]);
+    v4 = a2[6];
+    a2[6] = 0;
+    if (v4)
+    {
+      (*(*v4 + 8))(v4);
+    }
+
+    operator delete(a2);
+  }
+}
+
+FIK *FIK::Allocator::create<CoreIKRig>(uint64_t a1)
+{
+  v1 = (*(*a1 + 16))(a1, 384, 16);
+  v2 = v1;
+  if (v1)
+  {
+    *v1 = 0;
+    v3 = FIK::defaultAllocator(v1);
+    FIK::IKRig::IKRig((v2 + 16), v3);
+    *(v2 + 24) = 0;
+    *(v2 + 25) = 0;
+    *(v2 + 26) = 0;
+    *(v2 + 27) = v3;
+    *(v2 + 28) = 0;
+    *(v2 + 29) = 0;
+    *(v2 + 30) = 0;
+    *(v2 + 31) = v3;
+    *(v2 + 32) = 0;
+    *(v2 + 33) = 0;
+    *(v2 + 34) = 0;
+    *(v2 + 35) = v3;
+    *(v2 + 36) = 0;
+    *(v2 + 37) = 0;
+    *(v2 + 38) = 0;
+    *(v2 + 39) = v3;
+    *(v2 + 40) = 0;
+    *(v2 + 41) = 0;
+    *(v2 + 42) = 0;
+    *(v2 + 43) = v3;
+    *(v2 + 16) = 2;
+    *(v2 + 88) = 0;
+    *(v2 + 368) = 1;
+  }
+
+  return v2;
+}
+
+void anonymous namespace::makeError(CFIndex code, CFErrorRef *a2)
+{
+  if (!*a2)
+  {
+    userInfoValues[3] = v2;
+    userInfoValues[4] = v3;
+    userInfoValues[0] = 0;
+    v7 = *MEMORY[0x277CBEE30];
+    if (code <= 101)
+    {
+      if (code == 100)
+      {
+        v6 = "No required joints could be identified.";
+      }
+
+      else
+      {
+        if (code != 101)
+        {
+          goto LABEL_14;
+        }
+
+        v6 = "Not all required joints could be identified.";
+      }
+    }
+
+    else
+    {
+      switch(code)
+      {
+        case 102:
+          v6 = "Invalid Pose Descritpion.";
+          break;
+        case 103:
+          v6 = "Supplied Identified joint(s) not found in hierarchy.";
+          break;
+        case 200:
+          v6 = "Rig generation failed due to internal error.";
+          break;
+        default:
+          goto LABEL_14;
+      }
+    }
+
+    userInfoValues[0] = CFStringCreateWithCString(0, v6, 0x8000100u);
+LABEL_14:
+    *a2 = CFErrorCreateWithUserInfoKeysAndValues(0, @"CoreIKAutoMatchingErrorDomain", code, &v7, userInfoValues, 1);
+    if (userInfoValues[0])
+    {
+      CFRelease(userInfoValues[0]);
+    }
+  }
+}
+
+uint64_t *std::__variant_detail::__assignment<std::__variant_detail::__traits<FIK::GameRig,FIK::MoCapRig>>::__assign_alt[abi:nn200100]<1ul,FIK::MoCapRig,FIK::MoCapRig const&>(IKString *a1, uint64_t a2, IKString *a3)
+{
+  if (*(a1 + 84) == 1)
+  {
+    v5 = *(a3 + 1);
+    if (v5)
+    {
+      v6 = *a3;
+    }
+
+    else
+    {
+      v6 = &unk_245A04BAE;
+    }
+
+    IKString::assign(a2, v6, v5);
+    v7 = *(a3 + 24);
+    *(a2 + 36) = *(a3 + 36);
+    *(a2 + 24) = v7;
+    v8 = *(a3 + 5);
+    *(a2 + 64) = *(a3 + 4);
+    *(a2 + 80) = v8;
+    *(a2 + 96) = *(a3 + 6);
+    v9 = *(a3 + 30);
+    *(a2 + 112) = *(a3 + 14);
+    *(a2 + 120) = v9;
+    v10 = *(a3 + 32);
+    *(a2 + 131) = *(a3 + 131);
+    *(a2 + 128) = v10;
+    *(a2 + 144) = *(a3 + 9);
+    *(a2 + 160) = *(a3 + 10);
+    FIK::IKArray<FIK::MoCapTask>::operator=((a2 + 176), a3 + 22);
+    FIK::IKArray<FIK::MoCapBone>::operator=((a2 + 208), a3 + 26);
+    result = FIK::IKArray<FIK::RigBoneBase>::operator=((a2 + 240), a3 + 30);
+    *(a2 + 272) = *(a3 + 17);
+    *(a2 + 288) = *(a3 + 18);
+    *(a2 + 304) = *(a3 + 38);
+  }
+
+  else
+  {
+
+    return std::__variant_detail::__assignment<std::__variant_detail::__traits<FIK::GameRig,FIK::MoCapRig>>::__emplace[abi:nn200100]<1ul,FIK::MoCapRig const&>(a1, a3);
+  }
+
+  return result;
+}
+
+uint64_t *FIK::IKArray<FIK::MoCapTask>::operator=(uint64_t *a1, uint64_t *a2)
+{
+  if (*a2 >= a1[1])
+  {
+    v11 = a2[1];
+    v12 = a1[3];
+    if (v11)
+    {
+      v13 = (*(*v12 + 16))(a1[3], v11 << 8, 16);
+      v14 = v13;
+      if (v11 << 8)
+      {
+        bzero(v13, v11 << 8);
+      }
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v15 = *a2;
+    if (*a2)
+    {
+      v16 = 0;
+      v17 = a2[2];
+      do
+      {
+        v18 = v14 + v16;
+        IKString::IKString((v14 + v16), (v17 + v16));
+        IKString::IKString((v14 + v16 + 24), (v17 + v16 + 24));
+        v19 = *(v17 + v16 + 48);
+        *(v18 + 64) = *(v17 + v16 + 64);
+        *(v18 + 48) = v19;
+        *(v18 + 80) = *(v17 + v16 + 80);
+        *(v18 + 96) = *(v17 + v16 + 96);
+        *(v18 + 112) = *(v17 + v16 + 112);
+        *(v18 + 128) = *(v17 + v16 + 128);
+        *(v18 + 144) = *(v17 + v16 + 144);
+        *(v18 + 160) = *(v17 + v16 + 160);
+        IKString::IKString((v14 + v16 + 176), (v17 + v16 + 176));
+        v20 = *(v17 + v16 + 200);
+        *(v18 + 204) = *(v17 + v16 + 204);
+        *(v18 + 200) = v20;
+        *(v18 + 208) = *(v17 + v16 + 208);
+        *(v18 + 224) = *(v17 + v16 + 224);
+        *(v18 + 240) = *(v17 + v16 + 240);
+        v16 += 256;
+        --v15;
+      }
+
+      while (v15);
+    }
+
+    v22 = a1[2];
+    v21 = a1[3];
+    a1[1] = v11;
+    a1[2] = v14;
+    a1[3] = v12;
+    if (v22)
+    {
+      (*(*v21 + 24))(v21, v22, 0, 8);
+    }
+  }
+
+  else
+  {
+    FIK::IKArray<FIK::MoCapTask>::clear(a1);
+    v4 = *a2;
+    if (*a2)
+    {
+      v5 = 0;
+      v6 = a1[2];
+      v7 = a2[2];
+      do
+      {
+        v8 = v6 + v5;
+        IKString::IKString((v6 + v5), (v7 + v5));
+        IKString::IKString((v6 + v5 + 24), (v7 + v5 + 24));
+        v9 = *(v7 + v5 + 48);
+        *(v8 + 64) = *(v7 + v5 + 64);
+        *(v8 + 48) = v9;
+        *(v8 + 80) = *(v7 + v5 + 80);
+        *(v8 + 96) = *(v7 + v5 + 96);
+        *(v8 + 112) = *(v7 + v5 + 112);
+        *(v8 + 128) = *(v7 + v5 + 128);
+        *(v8 + 144) = *(v7 + v5 + 144);
+        *(v8 + 160) = *(v7 + v5 + 160);
+        IKString::IKString((v6 + v5 + 176), (v7 + v5 + 176));
+        v10 = *(v7 + v5 + 200);
+        *(v8 + 204) = *(v7 + v5 + 204);
+        *(v8 + 200) = v10;
+        *(v8 + 208) = *(v7 + v5 + 208);
+        *(v8 + 224) = *(v7 + v5 + 224);
+        *(v8 + 240) = *(v7 + v5 + 240);
+        v5 += 256;
+        --v4;
+      }
+
+      while (v4);
+    }
+  }
+
+  *a1 = *a2;
+  return a1;
+}
+
+uint64_t *FIK::IKArray<FIK::RigBoneBase>::operator=(uint64_t *a1, uint64_t *a2)
+{
+  if (*a2 >= a1[1])
+  {
+    v7 = a2[1];
+    v8 = a1[3];
+    if (v7)
+    {
+      v9 = (*(*v8 + 16))(a1[3], 96 * v7, 16);
+      v10 = v9;
+      if (96 * v7)
+      {
+        bzero(v9, 96 * v7);
+      }
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v11 = *a2;
+    if (*a2)
+    {
+      v12 = (v10 + 32);
+      v13 = (a2[2] + 32);
+      do
+      {
+        *(v12 - 4) = *(v13 - 4);
+        IKString::IKString((v12 - 24), (v13 - 24));
+        IKString::IKString(v12, v13);
+        v12[2] = v13[2];
+        v12[3] = v13[3];
+        v12 += 6;
+        v13 += 6;
+        --v11;
+      }
+
+      while (v11);
+    }
+
+    v15 = a1[2];
+    v14 = a1[3];
+    a1[1] = v7;
+    a1[2] = v10;
+    a1[3] = v8;
+    if (v15)
+    {
+      (*(*v14 + 24))(v14, v15, 0, 8);
+    }
+  }
+
+  else
+  {
+    FIK::IKArray<FIK::RigBoneBase>::clear(a1);
+    v4 = *a2;
+    if (*a2)
+    {
+      v5 = (a1[2] + 32);
+      v6 = (a2[2] + 32);
+      do
+      {
+        *(v5 - 4) = *(v6 - 4);
+        IKString::IKString((v5 - 24), (v6 - 24));
+        IKString::IKString(v5, v6);
+        v5[2] = v6[2];
+        v5[3] = v6[3];
+        v5 += 6;
+        v6 += 6;
+        --v4;
+      }
+
+      while (v4);
+    }
+  }
+
+  *a1 = *a2;
+  return a1;
+}
+
+void *FIK::IKArray<FIK::MoCapTask>::clear(void *result)
+{
+  v1 = result;
+  v2 = *result;
+  if (*result)
+  {
+    v3 = result[2];
+    do
+    {
+      if (*(v3 + 184))
+      {
+        result = (*(**(v3 + 192) + 24))(*(v3 + 192), *(v3 + 176), 0, 8);
+        *(v3 + 176) = 0;
+        *(v3 + 184) = 0;
+      }
+
+      if (*(v3 + 32))
+      {
+        result = (*(**(v3 + 40) + 24))(*(v3 + 40), *(v3 + 24), 0, 8);
+        *(v3 + 24) = 0;
+        *(v3 + 32) = 0;
+      }
+
+      if (*(v3 + 8))
+      {
+        result = (*(**(v3 + 16) + 24))(*(v3 + 16), *v3, 0, 8);
+        *v3 = 0;
+        *(v3 + 8) = 0;
+      }
+
+      v3 += 256;
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  *v1 = 0;
+  return result;
 }

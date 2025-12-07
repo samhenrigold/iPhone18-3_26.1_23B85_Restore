@@ -184,7 +184,7 @@ LABEL_3:
     v21 = videoPosterFrameAdjustmentController2;
     if (videoPosterFrameAdjustmentController2)
     {
-      [videoPosterFrameAdjustmentController2 posterFrameTime];
+      objc_msgSend_posterFrameTime(videoPosterFrameAdjustmentController2);
     }
 
     else
@@ -246,17 +246,17 @@ LABEL_3:
   return v14;
 }
 
-CMTime *__141__PEVideoTrimBurnInUtility__compositionControllerWithNormalizedTemporalAdjustmentsForBurnedInTrim_trimController_cinematographyScript_error___block_invoke@<X0>(uint64_t a1@<X0>, CMTime *a2@<X1>, CMTime *a3@<X8>)
+CMTime *__141__PEVideoTrimBurnInUtility__compositionControllerWithNormalizedTemporalAdjustmentsForBurnedInTrim_trimController_cinematographyScript_error___block_invoke@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, CMTime *a3@<X8>)
 {
   memset(&v13, 0, sizeof(v13));
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 endTime];
+    objc_msgSend_endTime(v6);
     v7 = *(a1 + 32);
     if (v7)
     {
-      [v7 startTime];
+      objc_msgSend_startTime(v7);
       goto LABEL_6;
     }
   }
@@ -274,7 +274,7 @@ LABEL_6:
   v8 = *(a1 + 32);
   if (v8)
   {
-    [v8 startTime];
+    objc_msgSend_startTime(v8);
   }
 
   else
@@ -295,7 +295,7 @@ void __141__PEVideoTrimBurnInUtility__compositionControllerWithNormalizedTempora
   v5 = *(a1 + 32);
   if (v3)
   {
-    [v3 startTime];
+    objc_msgSend_startTime(v3);
   }
 
   else
@@ -311,7 +311,7 @@ void __141__PEVideoTrimBurnInUtility__compositionControllerWithNormalizedTempora
   v6 = *(a1 + 32);
   if (v4)
   {
-    [v4 endTime];
+    objc_msgSend_endTime(v4);
   }
 
   else
@@ -343,7 +343,7 @@ void __141__PEVideoTrimBurnInUtility__compositionControllerWithNormalizedTempora
     goto LABEL_5;
   }
 
-  [v4 startTime];
+  objc_msgSend_startTime(v4);
   v5 = *(a1 + 32);
   if (!v5)
   {
@@ -352,7 +352,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v5 endTime];
+  objc_msgSend_endTime(v5);
 LABEL_6:
   CMTimeRangeFromTimeToTime(&v8, &start, &v6);
   [v3 trimToTimeRange:&v8 usingScript:*(a1 + 40)];

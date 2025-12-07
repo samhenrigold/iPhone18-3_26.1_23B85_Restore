@@ -44,7 +44,7 @@
 
 + (id)newDeclarationKeyWithSubscriberIdentifier:(id)identifier reference:(id)reference
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   referenceCopy = reference;
   declaration = [referenceCopy declaration];
@@ -54,29 +54,29 @@
     assetReferences = [declaration assetReferences];
     if ([assetReferences count])
     {
-      v22 = identifierCopy;
+      v21 = identifierCopy;
       v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(assetReferences, "count")}];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v10 = assetReferences;
-      v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v24;
+        v13 = *v23;
         do
         {
           v14 = 0;
           do
           {
-            if (*v24 != v13)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            identifier = [*(*(&v23 + 1) + 8 * v14) identifier];
+            identifier = [*(*(&v22 + 1) + 8 * v14) identifier];
             v16 = [referenceCopy assetWithIdentifier:identifier];
 
             if (v16)
@@ -88,13 +88,13 @@
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v12);
       }
 
-      identifierCopy = v22;
+      identifierCopy = v21;
     }
 
     else
@@ -112,7 +112,6 @@
   store = [referenceCopy store];
   v19 = [(RMStoreDeclarationKey *)v17 initWithSubscriberIdentifier:identifierCopy store:store declaration:declaration assets:v9];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -241,7 +240,7 @@ void __48__RMStoreDeclarationKey_initWithDeclarationKey___block_invoke(uint64_t 
 
 - (RMStoreDeclarationKey)initWithSubscriberIdentifier:(id)identifier storeIdentifier:(id)storeIdentifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token assets:(id)assets
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   storeIdentifierCopy = storeIdentifier;
   declarationIdentifierCopy = declarationIdentifier;
@@ -251,38 +250,38 @@ void __48__RMStoreDeclarationKey_initWithDeclarationKey___block_invoke(uint64_t 
   if (assetsCopy && [assetsCopy count])
   {
     selfCopy = self;
-    v29 = storeIdentifierCopy;
+    v28 = storeIdentifierCopy;
     v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v17, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v19 = v17;
-    v20 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v31;
+      v22 = *v30;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v31 != v22)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = [RMStoreAssetKey newAssetKeyWithAsset:*(*(&v30 + 1) + 8 * i)];
+          v24 = [RMStoreAssetKey newAssetKeyWithAsset:*(*(&v29 + 1) + 8 * i)];
           [v18 addObject:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v21);
     }
 
-    storeIdentifierCopy = v29;
+    storeIdentifierCopy = v28;
     self = selfCopy;
   }
 
@@ -293,26 +292,25 @@ void __48__RMStoreDeclarationKey_initWithDeclarationKey___block_invoke(uint64_t 
 
   v25 = [(RMStoreDeclarationKey *)self initWithSubscriberIdentifier:identifierCopy storeIdentifier:storeIdentifierCopy declarationIdentifier:declarationIdentifierCopy declarationServerToken:tokenCopy assetKeys:v18];
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (RMStoreDeclarationKey)initWithSubscriberIdentifier:(id)identifier storeIdentifier:(id)storeIdentifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token assetKeys:(id)keys
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   storeIdentifierCopy = storeIdentifier;
   declarationIdentifierCopy = declarationIdentifier;
   tokenCopy = token;
   keysCopy = keys;
-  v53.receiver = self;
-  v53.super_class = RMStoreDeclarationKey;
-  v17 = [(RMStoreDeclarationKey *)&v53 init];
+  v52.receiver = self;
+  v52.super_class = RMStoreDeclarationKey;
+  v17 = [(RMStoreDeclarationKey *)&v52 init];
   v18 = v17;
   if (v17)
   {
-    v46 = storeIdentifierCopy;
-    v47 = identifierCopy;
+    v45 = storeIdentifierCopy;
+    v46 = identifierCopy;
     objc_storeStrong(&v17->_subscriberIdentifier, identifier);
     objc_storeStrong(&v18->_storeIdentifier, storeIdentifier);
     objc_storeStrong(&v18->_declarationIdentifier, declarationIdentifier);
@@ -330,34 +328,34 @@ void __48__RMStoreDeclarationKey_initWithDeclarationKey___block_invoke(uint64_t 
     if (keysCopy && [keysCopy count])
     {
       v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(keysCopy, "count")}];
+      v48 = 0u;
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v52 = 0u;
       v27 = keysCopy;
-      v28 = [v27 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v48 objects:v53 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v50;
+        v30 = *v49;
         do
         {
           v31 = 0;
           do
           {
-            if (*v50 != v30)
+            if (*v49 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = [*(*(&v49 + 1) + 8 * v31) key];
+            v32 = [*(*(&v48 + 1) + 8 * v31) key];
             [v26 addObject:v32];
 
             ++v31;
           }
 
           while (v29 != v31);
-          v29 = [v27 countByEnumeratingWithState:&v49 objects:v54 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v48 objects:v53 count:16];
         }
 
         while (v29);
@@ -387,11 +385,10 @@ void __48__RMStoreDeclarationKey_initWithDeclarationKey___block_invoke(uint64_t 
       v18->_key = v43;
     }
 
-    storeIdentifierCopy = v46;
-    identifierCopy = v47;
+    storeIdentifierCopy = v45;
+    identifierCopy = v46;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -478,36 +475,36 @@ LABEL_13:
 
 + (void)synchronizeOldKeys:(id)keys newKeys:(id)newKeys returningUnchangedKeys:(id *)unchangedKeys returningApplyKeys:(id *)applyKeys returningRemoveKeys:(id *)removeKeys
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   newKeysCopy = newKeys;
   v10 = keysCopy;
   v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v10, "count")}];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v66 objects:v72 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v65 objects:v71 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v67;
+    v15 = *v66;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v67 != v15)
+        if (*v66 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v66 + 1) + 8 * i);
+        v17 = *(*(&v65 + 1) + 8 * i);
         keyWithoutServerToken = [v17 keyWithoutServerToken];
         [v11 setObject:v17 forKeyedSubscript:keyWithoutServerToken];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v65 objects:v71 count:16];
     }
 
     while (v14);
@@ -515,65 +512,65 @@ LABEL_13:
 
   v19 = newKeysCopy;
   v20 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v19, "count")}];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   v21 = v19;
-  v22 = [v21 countByEnumeratingWithState:&v66 objects:v72 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v65 objects:v71 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v67;
+    v24 = *v66;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v67 != v24)
+        if (*v66 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v66 + 1) + 8 * j);
+        v26 = *(*(&v65 + 1) + 8 * j);
         keyWithoutServerToken2 = [v26 keyWithoutServerToken];
         [v20 setObject:v26 forKeyedSubscript:keyWithoutServerToken2];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v65 objects:v71 count:16];
     }
 
     while (v23);
   }
 
   v28 = MEMORY[0x277CBEB98];
-  v50 = v20;
+  v49 = v20;
   allKeys = [v20 allKeys];
   v30 = [v28 setWithArray:allKeys];
 
   v31 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v21, "count")}];
-  v54 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v21, "count")}];
+  v53 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v21, "count")}];
+  v55 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v12, "count")}];
   v56 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v12, "count")}];
-  v57 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v12, "count")}];
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   obj = v21;
-  v32 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+  v32 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v63;
+    v34 = *v62;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v63 != v34)
+        if (*v62 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = *(*(&v62 + 1) + 8 * k);
+        v36 = *(*(&v61 + 1) + 8 * k);
         if ([v12 containsObject:v36])
         {
           [v31 addObject:v36];
@@ -586,65 +583,63 @@ LABEL_13:
           if (v38)
           {
             v39 = [RMStoreDeclarationKeyPair newDeclarationKeyPairWithUpdateKey:v36 replaceKey:v38];
-            [v54 addObject:v39];
+            [v53 addObject:v39];
 
-            [v56 addObject:v38];
+            [v55 addObject:v38];
           }
 
           else
           {
             v40 = [RMStoreDeclarationKeyPair newDeclarationKeyPairWithNewKey:v36];
-            [v54 addObject:v40];
+            [v53 addObject:v40];
           }
         }
       }
 
-      v33 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v33 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
     }
 
     while (v33);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v41 = v12;
-  v42 = [v41 countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v57 objects:v69 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v59;
+    v44 = *v58;
     do
     {
       for (m = 0; m != v43; ++m)
       {
-        if (*v59 != v44)
+        if (*v58 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = *(*(&v58 + 1) + 8 * m);
+        v46 = *(*(&v57 + 1) + 8 * m);
         keyWithoutServerToken4 = [v46 keyWithoutServerToken];
         v48 = [v30 containsObject:keyWithoutServerToken4];
 
-        if (!v48 || ([v31 containsObject:v46] & 1) == 0 && (objc_msgSend(v56, "containsObject:", v46) & 1) == 0)
+        if (!v48 || ([v31 containsObject:v46] & 1) == 0 && (objc_msgSend(v55, "containsObject:", v46) & 1) == 0)
         {
-          [v57 addObject:v46];
+          [v56 addObject:v46];
         }
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v58 objects:v70 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v57 objects:v69 count:16];
     }
 
     while (v43);
   }
 
   *unchangedKeys = [v31 copy];
-  *applyKeys = [v54 copy];
-  *removeKeys = [v57 copy];
-
-  v49 = *MEMORY[0x277D85DE8];
+  *applyKeys = [v53 copy];
+  *removeKeys = [v56 copy];
 }
 
 - (RMStoreDeclarationKey)initWithCoder:(id)coder

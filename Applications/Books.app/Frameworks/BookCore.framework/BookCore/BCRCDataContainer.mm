@@ -89,14 +89,14 @@
 
   sub_1EEAA4();
   [objc_allocWithZone(JSManagedValue) initWithValue:changeCopy];
-  sub_18AFC0(&qword_340DB8);
+  sub_18AFC0(&qword_340DB8, &qword_2A6200);
   sub_1EEAC4();
 }
 
 - (void)unregisterOnConfigChange:(id)change
 {
   selfCopy = self;
-  sub_18AFC0(&qword_340DB8);
+  sub_18AFC0(&qword_340DB8, &qword_2A6200);
   sub_1EEAC4();
 }
 

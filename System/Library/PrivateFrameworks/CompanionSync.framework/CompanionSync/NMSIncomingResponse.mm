@@ -8,32 +8,31 @@
 - (NSString)description
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v14.receiver = self;
-  v14.super_class = NMSIncomingResponse;
-  v4 = [(NMSIncomingResponse *)&v14 description];
+  v13.receiver = self;
+  v13.super_class = NMSIncomingResponse;
+  v4 = [(NMSIncomingResponse *)&v13 description];
   messageID = [(NMSIncomingResponse *)self messageID];
   pbResponse = self->_pbResponse;
   if (pbResponse)
   {
-    v7 = self->_pbResponse;
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
   }
 
   else
   {
-    v9 = @"none";
+    v8 = @"none";
   }
 
   idsIdentifier = [(NMSIncomingResponse *)self idsIdentifier];
   data = [(NMSIncomingResponse *)self data];
-  v12 = [v3 initWithFormat:@"%@ {messageID=%hu, protobuf class=%@, idsID=%@, data=%lu bytes}", v4, messageID, v9, idsIdentifier, objc_msgSend(data, "length")];
+  v11 = [v3 initWithFormat:@"%@ {messageID=%hu, protobuf class=%@, idsID=%@, data=%lu bytes}", v4, messageID, v8, idsIdentifier, objc_msgSend(data, "length")];
 
   if (pbResponse)
   {
   }
 
-  return v12;
+  return v11;
 }
 
 - (id)CPObfuscatedDescriptionObject

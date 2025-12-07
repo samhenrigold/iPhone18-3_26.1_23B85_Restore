@@ -8,7 +8,7 @@
 + (id)dictionaryForMessage:(id)message isHH2Payload:(BOOL)payload error:(id *)error
 {
   payloadCopy = payload;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (messageCopy)
   {
@@ -52,11 +52,11 @@
         {
           v46 = HMFGetLogIdentifier();
           messagePayload3 = [messageCopy messagePayload];
-          v56 = 138543618;
-          v57 = v46;
-          v58 = 2112;
-          v59 = messagePayload3;
-          _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Invalid message payload: %@", &v56, 0x16u);
+          v55 = 138543618;
+          v56 = v46;
+          v57 = 2112;
+          v58 = messagePayload3;
+          _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Invalid message payload: %@", &v55, 0x16u);
         }
 
         v48 = v44;
@@ -151,11 +151,11 @@ LABEL_11:
     {
       v52 = HMFGetLogIdentifier();
       headers4 = [messageCopy headers];
-      v56 = 138543618;
-      v57 = v52;
-      v58 = 2112;
-      v59 = headers4;
-      _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_ERROR, "%{public}@Invalid message headers: %@", &v56, 0x16u);
+      v55 = 138543618;
+      v56 = v52;
+      v57 = 2112;
+      v58 = headers4;
+      _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_ERROR, "%{public}@Invalid message headers: %@", &v55, 0x16u);
     }
 
     v48 = v49;
@@ -182,9 +182,9 @@ LABEL_39:
   if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
   {
     v43 = HMFGetLogIdentifier();
-    v56 = 138543362;
-    v57 = v43;
-    _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Message parameter is required", &v56, 0xCu);
+    v55 = 138543362;
+    v56 = v43;
+    _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Message parameter is required", &v55, 0xCu);
   }
 
   objc_autoreleasePoolPop(v41);
@@ -201,15 +201,13 @@ LABEL_39:
 
 LABEL_40:
 
-  v54 = *MEMORY[0x277D85DE8];
-
   return v40;
 }
 
 + (id)remoteMessageWithDictionary:(id)dictionary isHH2Payload:(BOOL)payload error:(id *)error
 {
   payloadCopy = payload;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v8 = [dictionaryCopy hmf_stringForKey:@"kIDSMessageNameKey"];
   if (!v8)
@@ -233,14 +231,14 @@ LABEL_40:
   v10 = [dictionaryCopy hmf_UUIDForKey:v9];
   if (v10)
   {
-    v63 = [dictionaryCopy hmf_UUIDForKey:@"kIDSMessageTargetKey"];
+    v62 = [dictionaryCopy hmf_UUIDForKey:@"kIDSMessageTargetKey"];
     v11 = [dictionaryCopy hmf_dictionaryForKey:@"kIDSMessagePayloadKey"];
     if ([dictionaryCopy hmf_BOOLForKey:@"kIDSMessageRequiresResponseKey"])
     {
-      v62 = [dictionaryCopy hmf_UUIDForKey:@"kIDSMessageRequestTransactionIDKey"];
-      if (v62)
+      v61 = [dictionaryCopy hmf_UUIDForKey:@"kIDSMessageRequestTransactionIDKey"];
+      if (v61)
       {
-        v60 = 0;
+        v59 = 0;
         goto LABEL_17;
       }
 
@@ -256,8 +254,8 @@ LABEL_48:
 
     if ([dictionaryCopy hmf_BOOLForKey:@"kIDSMessageIsResponseToRequest"])
     {
-      v62 = [dictionaryCopy hmf_UUIDForKey:@"kIDSMessageRequestTransactionIDKey"];
-      if (!v62)
+      v61 = [dictionaryCopy hmf_UUIDForKey:@"kIDSMessageRequestTransactionIDKey"];
+      if (!v61)
       {
         v20 = MEMORY[0x277CCA9B8];
         v21 = @"The transaction identifier is required for request-responses";
@@ -270,7 +268,7 @@ LABEL_48:
     else
     {
       v15 = [dictionaryCopy hmf_BOOLForKey:@"kIDSMessageIsNotificationKey"];
-      v62 = 0;
+      v61 = 0;
       v14 = 2;
       if (!v15)
       {
@@ -278,22 +276,22 @@ LABEL_48:
       }
     }
 
-    v60 = v14;
+    v59 = v14;
 LABEL_17:
     v16 = [dictionaryCopy hmf_dictionaryForKey:@"kRemoteMessageHeadersKey"];
     if ([v16 count])
     {
       v17 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v16, "count")}];
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __80__HMDRemoteMessageSerialization_remoteMessageWithDictionary_isHH2Payload_error___block_invoke;
-      v64[3] = &unk_278689790;
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __80__HMDRemoteMessageSerialization_remoteMessageWithDictionary_isHH2Payload_error___block_invoke;
+      v63[3] = &unk_278689790;
       v18 = v17;
-      v65 = v18;
-      [v16 enumerateKeysAndObjectsUsingBlock:v64];
+      v64 = v18;
+      [v16 enumerateKeysAndObjectsUsingBlock:v63];
       if ([v18 count])
       {
-        v19 = [v18 copy];
+        v19 = objc_msgSend_copy(v18);
       }
 
       else
@@ -307,11 +305,11 @@ LABEL_17:
       v19 = 0;
     }
 
-    v61 = v10;
+    v60 = v10;
 
-    if (v63)
+    if (v62)
     {
-      allMessageDestinations = [objc_alloc(MEMORY[0x277D0F820]) initWithTarget:v63];
+      allMessageDestinations = [objc_alloc(MEMORY[0x277D0F820]) initWithTarget:v62];
     }
 
     else
@@ -326,8 +324,8 @@ LABEL_17:
       v35 = [HMDRemoteMessage alloc];
       integerValue = 17;
 LABEL_36:
-      LOBYTE(v56) = 0;
-      v13 = [(HMDRemoteMessage *)v35 initWithName:v8 qualityOfService:integerValue destination:v23 payload:v11 headers:v19 type:v60 timeout:0.0 secure:v56];
+      LOBYTE(v55) = 0;
+      v13 = [(HMDRemoteMessage *)v35 initWithName:v8 qualityOfService:integerValue destination:v23 payload:v11 headers:v19 type:v59 timeout:0.0 secure:v55];
       if (v13)
       {
         v37 = v23;
@@ -340,8 +338,8 @@ LABEL_36:
           [(HMDRemoteMessage *)v13 setSourceVersion:v41];
         }
 
-        [(HMDRemoteMessage *)v13 setIdentifier:v61];
-        [(HMDRemoteMessage *)v13 setTransactionIdentifier:v62];
+        [(HMDRemoteMessage *)v13 setIdentifier:v60];
+        [(HMDRemoteMessage *)v13 setTransactionIdentifier:v61];
         v42 = [dictionaryCopy hmf_numberForKey:@"kRemoteMessageResponseRestrictionKey"];
         unsignedIntegerValue = [v42 unsignedIntegerValue];
 
@@ -367,9 +365,9 @@ LABEL_36:
           v47 = v19;
           v49 = v48 = v11;
           *buf = 138543618;
-          v67 = v49;
-          v68 = 2112;
-          v69 = dictionaryCopy;
+          v66 = v49;
+          v67 = 2112;
+          v68 = dictionaryCopy;
           _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Failed to create message with message dictionary: %@", buf, 0x16u);
 
           v11 = v48;
@@ -381,7 +379,7 @@ LABEL_36:
         v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
       }
 
-      v10 = v61;
+      v10 = v60;
       goto LABEL_48;
     }
 
@@ -395,7 +393,7 @@ LABEL_36:
     else
     {
       [v25 integerValue];
-      if (HMFQualityOfServiceCompare() || ((v53 = MEMORY[0x277CCABB0], v54 = [v25 integerValue], v54 <= 17) ? (v55 = 17) : (v55 = v54), objc_msgSend(v53, "numberWithInteger:", v55), (v26 = objc_claimAutoreleasedReturnValue()) == 0))
+      if (HMFQualityOfServiceCompare() || ((v52 = MEMORY[0x277CCABB0], v53 = [v25 integerValue], v53 <= 17) ? (v54 = 17) : (v54 = v53), objc_msgSend(v52, "numberWithInteger:", v54), (v26 = objc_claimAutoreleasedReturnValue()) == 0))
       {
 LABEL_35:
         v35 = [HMDRemoteMessage alloc];
@@ -410,34 +408,34 @@ LABEL_35:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v29 = v59 = v26;
+      v29 = v58 = v26;
       [v25 integerValue];
       HMFQualityOfServiceToString();
-      v57 = v27;
+      v56 = v27;
       v31 = v30 = v23;
-      [v59 integerValue];
+      [v58 integerValue];
       HMFQualityOfServiceToString();
-      v58 = v19;
+      v57 = v19;
       v33 = v32 = v11;
       *buf = 138544386;
-      v67 = v29;
-      v68 = 2112;
-      v69 = v31;
-      v70 = 2112;
-      v71 = v33;
-      v72 = 2112;
-      v73 = v8;
-      v74 = 2112;
-      v75 = v61;
+      v66 = v29;
+      v67 = 2112;
+      v68 = v31;
+      v69 = 2112;
+      v70 = v33;
+      v71 = 2112;
+      v72 = v8;
+      v73 = 2112;
+      v74 = v60;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Changing the QoS (%@ -> %@) of remote message: %@ (%@)", buf, 0x34u);
 
       v11 = v32;
-      v19 = v58;
+      v19 = v57;
 
       v23 = v30;
-      v27 = v57;
+      v27 = v56;
 
-      v26 = v59;
+      v26 = v58;
     }
 
     objc_autoreleasePoolPop(v27);
@@ -457,8 +455,6 @@ LABEL_50:
     v50 = v12;
     *error = v12;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

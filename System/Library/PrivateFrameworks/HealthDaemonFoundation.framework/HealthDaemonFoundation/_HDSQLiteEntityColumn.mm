@@ -1,5 +1,6 @@
 @interface _HDSQLiteEntityColumn
 - (_HDSQLiteEntityColumn)initWithName:(id)name columnType:(id)type keyPathType:(unsigned __int8)pathType foreignKey:(id)key;
+- (_HDSQLiteEntityColumn)initWithName:(id)name columnType:(id)type keyPathType:(unsigned __int8)pathType targetEntityClass:(Class)class targetProperty:(id)property deletionAction:(int64_t)action;
 - (id)_columnNameAndTypeString;
 - (id)creationSQL;
 - (id)description;
@@ -37,6 +38,33 @@
   }
 
   return v15;
+}
+
+- (_HDSQLiteEntityColumn)initWithName:(id)name columnType:(id)type keyPathType:(unsigned __int8)pathType targetEntityClass:(Class)class targetProperty:(id)property deletionAction:(int64_t)action
+{
+  pathTypeCopy = pathType;
+  nameCopy = name;
+  typeCopy = type;
+  propertyCopy = property;
+  v18 = propertyCopy;
+  if (class)
+  {
+    if (!propertyCopy)
+    {
+      [_HDSQLiteEntityColumn initWithName:a2 columnType:self keyPathType:? targetEntityClass:? targetProperty:? deletionAction:?];
+    }
+
+    v19 = [[HDSQLiteEntityForeignKey alloc] initWithEntityClass:class property:v18 deletionAction:action];
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = [(_HDSQLiteEntityColumn *)self initWithName:nameCopy columnType:typeCopy keyPathType:pathTypeCopy foreignKey:v19];
+
+  return v20;
 }
 
 - (id)creationSQL

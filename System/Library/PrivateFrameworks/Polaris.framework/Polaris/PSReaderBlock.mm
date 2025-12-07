@@ -20,7 +20,7 @@
 
   v19 = [graphCopy criticalityCPU] != 0;
   name = [readerCopy name];
-  v21 = ps_task_resources_create(1u, 0, [name UTF8String], manager, v19);
+  v21 = ps_task_resources_create(1, 0, [name UTF8String], manager, v19);
 
   if (v21)
   {
@@ -51,10 +51,10 @@ LABEL_8:
 
   else
   {
-    [PSReaderBlock initWithReader:readerCopy graph:? readerOptions:? resourceOptions:? withPRMManager:? forCABufferExpiry:? withFrameHistoryClientHandle:?];
+    [PSReaderBlock initWithReader:v32 graph:readerCopy readerOptions:? resourceOptions:? withPRMManager:? forCABufferExpiry:? withFrameHistoryClientHandle:?];
   }
 
-  v26 = [PSReaderBlock initWithReader:manager graph:? readerOptions:? resourceOptions:? withPRMManager:? forCABufferExpiry:? withFrameHistoryClientHandle:?];
+  v26 = [PSReaderBlock initWithReader:v32 graph:manager readerOptions:? resourceOptions:? withPRMManager:? forCABufferExpiry:? withFrameHistoryClientHandle:?];
   return [(PSReaderBlock *)v26 init3rdPartyReader:v27 graph:v28 readerOptions:v29 withPRMManager:v30, v31];
 }
 
@@ -62,120 +62,81 @@ LABEL_8:
 {
   readerCopy = reader;
   graphCopy = graph;
-  v24.receiver = self;
-  v24.super_class = PSReaderBlock;
-  v13 = [(PSReaderBlock *)&v24 init];
-  if (!v13)
+  v22.receiver = self;
+  v22.super_class = PSReaderBlock;
+  v13 = [(PSReaderBlock *)&v22 init];
+  if (v13)
   {
-    goto LABEL_8;
-  }
+    name = [readerCopy name];
+    v15 = ps_task_resources_create(1, 0, [name UTF8String], manager, 0);
 
-  name = [readerCopy name];
-  v15 = ps_task_resources_create(1u, 0, [name UTF8String], manager, 0);
+    if (!v15)
+    {
+      [PSReaderBlock init3rdPartyReader:v21 graph:readerCopy readerOptions:? withPRMManager:?];
+    }
 
-  if (!v15)
-  {
-    [PSReaderBlock init3rdPartyReader:readerCopy graph:? readerOptions:? withPRMManager:?];
-  }
+    input = [readerCopy input];
+    type = [input type];
+    if ((type - 1) >= 2)
+    {
+      if (!type || type == 3)
+      {
+        [PSReaderBlock init3rdPartyReader:v21 graph:input readerOptions:? withPRMManager:?];
+      }
+    }
 
-  input = [readerCopy input];
-  type = [input type];
-  if ((type - 1) < 2)
-  {
-    ps_task_3rdParty_resources_add_input(v15, [input type], options);
-LABEL_7:
+    else
+    {
+      ps_task_3rdParty_resources_add_input(v15, [input type], options);
+    }
+
     objc_storeStrong(&v13->_reader, reader);
     getContext = [readerCopy getContext];
     *getContext = v15;
     getContext[1] = ps_reader_block_acquire;
     getContext[2] = ps_reader_block_relinquish;
     v19 = v13;
-
-LABEL_8:
-    return v13;
   }
 
-  if (type && type != 3)
-  {
-    goto LABEL_7;
-  }
-
-  v21 = [PSReaderBlock init3rdPartyReader:input graph:? readerOptions:? withPRMManager:?];
-  [(PSReaderBlock *)v21 dealloc];
-  return result;
+  return v13;
 }
 
 - (void)dealloc
 {
   getContext = [(PSReader *)self->_reader getContext];
-  ps_task_resources_destroy_inputs(*getContext);
-  ps_task_resources_destroy_outputs(*getContext);
-  ps_task_resources_destroy(*getContext);
+  ps_task_resources_destroy_inputs(*getContext, v4);
+  ps_task_resources_destroy_outputs(*getContext, v5);
+  ps_task_resources_destroy(*getContext, v6);
   ps_frame_history_graph_metadata_set_removal_timestamp(*(getContext + 32));
   ps_frame_history_buffer_service_deallocate_buffer(*(getContext + 48), *(getContext + 32));
   reader = self->_reader;
   self->_reader = 0;
 
-  v5.receiver = self;
-  v5.super_class = PSReaderBlock;
-  [(PSReaderBlock *)&v5 dealloc];
+  v8.receiver = self;
+  v8.super_class = PSReaderBlock;
+  [(PSReaderBlock *)&v8 dealloc];
 }
 
 - (uint64_t)initWithReader:(char *)a1 graph:(void *)a2 readerOptions:resourceOptions:withPRMManager:forCABufferExpiry:withFrameHistoryClientHandle:.cold.1(char **a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "PSReader input cannot have policy wait/synced type%lu", [a2 type]);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a1, "PSReader input cannot have policy wait/synced type%lu", [a2 type]);
+  v5 = __PLSLogSharedInstance(v4);
+  if (OUTLINED_FUNCTION_5(v5))
   {
     [a2 type];
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d PSReader input cannot have policy wait/synced type%lu", v7, v8, v9, v10, v20, v21, v22);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d PSReader input cannot have policy wait/synced type%lu", v8, v9, v10, v11, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v12 = OSLogFlushBuffers();
+  if (v12)
   {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, v22);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v18 = OUTLINED_FUNCTION_0();
-  return [PSReaderBlock initWithReader:v18 graph:? readerOptions:? resourceOptions:? withPRMManager:? forCABufferExpiry:? withFrameHistoryClientHandle:?];
-}
-
-- (uint64_t)initWithReader:(char *)a1 graph:(void *)a2 readerOptions:resourceOptions:withPRMManager:forCABufferExpiry:withFrameHistoryClientHandle:.cold.2(char **a1, void *a2)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  v4 = [a2 name];
-  asprintf(a1, "Creating reader resources failed for %s", [v4 UTF8String]);
-
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
-  {
-    v6 = [a2 name];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Creating reader resources failed for %s", v9, v10, v11, v12, v22, v23, v24);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v13 = __PLSLogSharedInstance();
+    v13 = __PLSLogSharedInstance(v12);
     if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -185,29 +146,32 @@ LABEL_8:
   }
 
   v20 = OUTLINED_FUNCTION_0();
-  return [PSReaderBlock init3rdPartyReader:v20 graph:? readerOptions:? withPRMManager:?];
+  return [PSReaderBlock initWithReader:v20 graph:v21 readerOptions:? resourceOptions:? withPRMManager:? forCABufferExpiry:? withFrameHistoryClientHandle:?];
 }
 
-- (uint64_t)init3rdPartyReader:(char *)a1 graph:(void *)a2 readerOptions:withPRMManager:.cold.1(char **a1, void *a2)
+- (uint64_t)initWithReader:(char *)a1 graph:(void *)a2 readerOptions:resourceOptions:withPRMManager:forCABufferExpiry:withFrameHistoryClientHandle:.cold.2(char **a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "PSReader input cannot have policy wait/synced type%lu", [a2 type]);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = [a2 name];
+  asprintf(a1, "Creating reader resources failed for %s", [v4 UTF8String]);
+
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    [a2 type];
+    v7 = [a2 name];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d PSReader input cannot have policy wait/synced type%lu", v7, v8, v9, v10, v20, v21, v22);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Creating reader resources failed for %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, v22);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -216,33 +180,65 @@ LABEL_8:
     OUTLINED_FUNCTION_7();
   }
 
-  v18 = OUTLINED_FUNCTION_0();
-  return [PSReaderBlock init3rdPartyReader:v18 graph:? readerOptions:? withPRMManager:?];
+  v22 = OUTLINED_FUNCTION_0();
+  return [PSReaderBlock init3rdPartyReader:v22 graph:v23 readerOptions:? withPRMManager:?];
+}
+
+- (void)init3rdPartyReader:(char *)a1 graph:(void *)a2 readerOptions:withPRMManager:.cold.1(char **a1, void *a2)
+{
+  *a1 = 0;
+  v4 = asprintf(a1, "PSReader input cannot have policy wait/synced type%lu", [a2 type]);
+  v5 = __PLSLogSharedInstance(v4);
+  if (OUTLINED_FUNCTION_5(v5))
+  {
+    [a2 type];
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d PSReader input cannot have policy wait/synced type%lu", v8, v9, v10, v11, v22, v23);
+  }
+
+  v12 = OSLogFlushBuffers();
+  if (v12)
+  {
+    v13 = __PLSLogSharedInstance(v12);
+    if (OUTLINED_FUNCTION_6(v13))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v20 = OUTLINED_FUNCTION_0();
+  [PSReaderBlock init3rdPartyReader:v20 graph:v21 readerOptions:? withPRMManager:?];
 }
 
 - (void)init3rdPartyReader:(char *)a1 graph:(void *)a2 readerOptions:withPRMManager:.cold.2(char **a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 name];
   asprintf(a1, "Creating reader resources failed for %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 name];
-    [v6 UTF8String];
+    v7 = [a2 name];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Creating reader resources failed for %s", v9, v10, v11, v12, v20, v21, v22);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Creating reader resources failed for %s", v10, v11, v12, v13, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v20, v21, v22);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v22, v23);
     }
   }
 

@@ -34,11 +34,12 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider31RibbonBarItemCollectionViewCell_tapAction);
   if (v2)
   {
+    v3 = *&self->titleLabel[OBJC_IVAR____TtC18ASMessagesProvider31RibbonBarItemCollectionViewCell_tapAction];
     selfCopy = self;
-    v4 = sub_F714(v2);
-    v2(v4);
+    v5 = sub_F714(v2, v3);
+    v2(v5);
 
-    sub_F704(v2);
+    sub_F704(v2, v3);
   }
 }
 
@@ -47,7 +48,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_173868(v20);
-  sub_B170(v20, v20[3]);
+  sub_B170(v20, v21);
   traitCollection = [in traitCollection];
   sub_7673F0();
   v9 = v8;

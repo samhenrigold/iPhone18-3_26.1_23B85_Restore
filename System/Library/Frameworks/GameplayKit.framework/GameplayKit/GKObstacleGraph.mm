@@ -50,16 +50,16 @@
 
 - (GKObstacleGraph)initWithObstacles:(NSArray *)obstacles bufferRadius:(float)bufferRadius nodeClass:(Class)nodeClass
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v8 = obstacles;
   if (([(objc_class *)nodeClass isSubclassOfClass:objc_opt_class()]& 1) == 0)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"initWithObstacles: nodeClass does not descend from GKGraphNode2D"];
   }
 
-  v23.receiver = self;
-  v23.super_class = GKObstacleGraph;
-  v9 = [(GKGraph *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = GKObstacleGraph;
+  v9 = [(GKGraph *)&v22 init];
   v10 = v9;
   if (v9)
   {
@@ -69,37 +69,36 @@
     v10->_sourceObstacles = array;
 
     *(v10->_cObstacleGraph + 28) = fmaxf(bufferRadius, 0.0);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v13 = v8;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v14)
     {
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         v16 = 0;
         do
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          GKCObstacleGraph::addObstacle(v10->_cObstacleGraph, [*(*(&v19 + 1) + 8 * v16++) cPolygonObstacle], 1);
+          GKCObstacleGraph::addObstacle(v10->_cObstacleGraph, [*(*(&v18 + 1) + 8 * v16++) cPolygonObstacle], 1);
         }
 
         while (v14 != v16);
-        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v14);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -125,72 +124,68 @@
 
 - (void)addObstacles:(NSArray *)obstacles
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v4 = obstacles;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        GKCObstacleGraph::addObstacle(self->_cObstacleGraph, [*(*(&v9 + 1) + 8 * v7++) cPolygonObstacle]);
+        GKCObstacleGraph::addObstacle(self->_cObstacleGraph, [*(*(&v8 + 1) + 8 * v7++) cPolygonObstacle]);
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObstacles:(NSArray *)obstacles
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v4 = obstacles;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        GKCObstacleGraph::removeObstacle(self->_cObstacleGraph, [*(*(&v9 + 1) + 8 * v7++) cPolygonObstacle]);
+        GKCObstacleGraph::removeObstacle(self->_cObstacleGraph, [*(*(&v8 + 1) + 8 * v7++) cPolygonObstacle]);
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)nodesForObstacle:(GKPolygonObstacle *)obstacle
@@ -226,109 +221,108 @@
 
 - (GKObstacleGraph)initWithCoder:(id)coder
 {
-  v50[11] = *MEMORY[0x277D85DE8];
-  v48.receiver = self;
-  v48.super_class = GKObstacleGraph;
+  v48[11] = *MEMORY[0x277D85DE8];
+  v46.receiver = self;
+  v46.super_class = GKObstacleGraph;
   coderCopy = coder;
-  v3 = [(GKGraph *)&v48 initWithCoder:?];
+  v3 = [(GKGraph *)&v46 initWithCoder:?];
   if (v3)
   {
-    v36 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v50[0] = objc_opt_class();
-    v50[1] = objc_opt_class();
-    v50[2] = objc_opt_class();
-    v50[3] = objc_opt_class();
-    v50[4] = objc_opt_class();
-    v50[5] = objc_opt_class();
-    v50[6] = objc_opt_class();
-    v50[7] = objc_opt_class();
-    v50[8] = objc_opt_class();
-    v50[9] = objc_opt_class();
-    v50[10] = objc_opt_class();
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:11];
-    [v36 addObjectsFromArray:v4];
+    v34 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v48[0] = objc_opt_class();
+    v48[1] = objc_opt_class();
+    v48[2] = objc_opt_class();
+    v48[3] = objc_opt_class();
+    v48[4] = objc_opt_class();
+    v48[5] = objc_opt_class();
+    v48[6] = objc_opt_class();
+    v48[7] = objc_opt_class();
+    v48[8] = objc_opt_class();
+    v48[9] = objc_opt_class();
+    v48[10] = objc_opt_class();
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:11];
+    [v34 addObjectsFromArray:v4];
 
     allowedClasses = [coderCopy allowedClasses];
-    [v36 unionSet:allowedClasses];
+    [v34 unionSet:allowedClasses];
 
-    obj = [coderCopy decodeObjectOfClasses:v36 forKey:@"_sourceObstacles"];
-    v35 = [coderCopy decodeObjectOfClasses:v36 forKey:@"extrudedObstacles"];
+    obj = [coderCopy decodeObjectOfClasses:v34 forKey:@"_sourceObstacles"];
+    v33 = [coderCopy decodeObjectOfClasses:v34 forKey:@"extrudedObstacles"];
     [coderCopy decodeFloatForKey:@"bufferRadius"];
     *(v3->_cObstacleGraph + 28) = v6;
     objc_storeStrong(&v3->_sourceObstacles, obj);
-    std::vector<GKPolygonObstacle * {__strong}>::reserve(v3->_cObstacleGraph + 11, [v35 count]);
+    std::vector<GKPolygonObstacle * {__strong}>::reserve(v3->_cObstacleGraph + 11, [v33 count]);
     cObstacleGraph = v3->_cObstacleGraph;
-    v8 = [v35 count];
+    v8 = [v33 count];
     if (v8 > (cObstacleGraph[10] - cObstacleGraph[8]) >> 3)
     {
       if (!(v8 >> 61))
       {
-        v9 = cObstacleGraph[9];
         operator new();
       }
 
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
     }
 
+    v41 = 0u;
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v10 = v35;
-    v11 = [v10 countByEnumeratingWithState:&v43 objects:v49 count:16];
-    if (v11)
+    v9 = v33;
+    v10 = [v9 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    if (v10)
     {
-      v12 = *v44;
+      v11 = *v42;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v44 != v12)
+          if (*v42 != v11)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v43 + 1) + 8 * i);
-          v47 = v14;
-          v15 = v3->_cObstacleGraph;
-          v16 = v15[12];
-          if (v16 >= v15[13])
+          v13 = *(*(&v41 + 1) + 8 * i);
+          v45 = v13;
+          v14 = v3->_cObstacleGraph;
+          v15 = *(v14 + 12);
+          if (v15 >= *(v14 + 13))
           {
-            v17 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(v15 + 11, &v47);
+            v16 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(v14 + 11, &v45);
           }
 
           else
           {
-            *v16 = v14;
-            v17 = (v16 + 1);
+            *v15 = v13;
+            v16 = v15 + 1;
           }
 
-          v15[12] = v17;
-          v18 = v3->_cObstacleGraph;
-          cPolygonObstacle = [v47 cPolygonObstacle];
-          std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](v18 + 64, &cPolygonObstacle);
+          *(v14 + 12) = v16;
+          v17 = v3->_cObstacleGraph;
+          cPolygonObstacle = [v45 cPolygonObstacle];
+          std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](v17 + 64, &cPolygonObstacle);
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v41 objects:v47 count:16];
       }
 
-      while (v11);
+      while (v10);
     }
 
-    v19 = [obj count];
-    if (v19 >= 1)
+    v18 = [obj count];
+    if (v18 >= 1)
     {
-      v20 = 0;
-      v38 = v19 & 0x7FFFFFFF;
+      v19 = 0;
+      v36 = v18 & 0x7FFFFFFF;
       do
       {
-        v41 = [obj objectAtIndexedSubscript:v20];
-        v40 = [v10 objectAtIndexedSubscript:v20];
-        cPolygonObstacle2 = [v40 cPolygonObstacle];
-        v22 = v3->_cObstacleGraph;
-        cPolygonObstacle3 = [v41 cPolygonObstacle];
-        v24 = v22[19];
-        if (!v24)
+        v39 = [obj objectAtIndexedSubscript:v19];
+        v38 = [v9 objectAtIndexedSubscript:v19];
+        cPolygonObstacle2 = [v38 cPolygonObstacle];
+        v21 = v3->_cObstacleGraph;
+        cPolygonObstacle3 = [v39 cPolygonObstacle];
+        v23 = v21[19];
+        if (!v23)
         {
 LABEL_23:
           operator new();
@@ -338,38 +332,38 @@ LABEL_23:
         {
           while (1)
           {
-            v25 = v24;
-            v26 = v24[4];
-            if (cPolygonObstacle3 >= v26)
+            v24 = v23;
+            v25 = v23[4];
+            if (cPolygonObstacle3 >= v25)
             {
               break;
             }
 
-            v24 = *v25;
-            if (!*v25)
+            v23 = *v24;
+            if (!*v24)
             {
               goto LABEL_23;
             }
           }
 
-          if (v26 >= cPolygonObstacle3)
+          if (v25 >= cPolygonObstacle3)
           {
             break;
           }
 
-          v24 = v25[1];
-          if (!v24)
+          v23 = v24[1];
+          if (!v23)
           {
             goto LABEL_23;
           }
         }
 
-        v25[5] = cPolygonObstacle2;
-        cPolygonObstacle4 = [v41 cPolygonObstacle];
-        v28 = v3->_cObstacleGraph;
-        cPolygonObstacle5 = [v40 cPolygonObstacle];
-        v30 = v28[22];
-        if (!v30)
+        v24[5] = cPolygonObstacle2;
+        cPolygonObstacle4 = [v39 cPolygonObstacle];
+        v27 = v3->_cObstacleGraph;
+        cPolygonObstacle5 = [v38 cPolygonObstacle];
+        v29 = v27[22];
+        if (!v29)
         {
 LABEL_30:
           operator new();
@@ -379,55 +373,53 @@ LABEL_30:
         {
           while (1)
           {
-            v31 = v30;
-            v32 = v30[4];
-            if (cPolygonObstacle5 >= v32)
+            v30 = v29;
+            v31 = v29[4];
+            if (cPolygonObstacle5 >= v31)
             {
               break;
             }
 
-            v30 = *v31;
-            if (!*v31)
+            v29 = *v30;
+            if (!*v30)
             {
               goto LABEL_30;
             }
           }
 
-          if (v32 >= cPolygonObstacle5)
+          if (v31 >= cPolygonObstacle5)
           {
             break;
           }
 
-          v30 = v31[1];
-          if (!v30)
+          v29 = v30[1];
+          if (!v29)
           {
             goto LABEL_30;
           }
         }
 
-        v31[5] = cPolygonObstacle4;
+        v30[5] = cPolygonObstacle4;
 
-        ++v20;
+        ++v19;
       }
 
-      while (v20 != v38);
+      while (v19 != v36);
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v7.receiver = self;
-  v7.super_class = GKObstacleGraph;
-  [(GKGraph *)&v7 encodeWithCoder:coderCopy];
+  v6.receiver = self;
+  v6.super_class = GKObstacleGraph;
+  [(GKGraph *)&v6 encodeWithCoder:coderCopy];
   [coderCopy encodeObject:self->_sourceObstacles forKey:@"_sourceObstacles"];
-  v5 = *(self->_cObstacleGraph + 12) - *(self->_cObstacleGraph + 11);
-  v6 = [MEMORY[0x277CBEB18] arrayWithObjects:? count:?];
-  [coderCopy encodeObject:v6 forKey:@"extrudedObstacles"];
+  v5 = [MEMORY[0x277CBEB18] arrayWithObjects:? count:?];
+  [coderCopy encodeObject:v5 forKey:@"extrudedObstacles"];
   [(GKObstacleGraph *)self bufferRadius];
   [coderCopy encodeFloat:@"bufferRadius" forKey:?];
 }

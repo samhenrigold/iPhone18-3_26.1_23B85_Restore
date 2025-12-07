@@ -33,7 +33,7 @@
 
 - (id)dictionaryRepresentationWithContext:()Record
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v4 = a3;
   destination = [v4 destination];
   if (!destination)
@@ -57,17 +57,15 @@ LABEL_5:
 
   v9 = 0;
 LABEL_7:
-  v16[0] = @"DNDModeConfigurationAppForegroundTrigger";
-  v15[0] = @"class";
-  v15[1] = @"applicationIdentifier";
+  v15[0] = @"DNDModeConfigurationAppForegroundTrigger";
+  v14[0] = @"class";
+  v14[1] = @"applicationIdentifier";
   v10 = [v9 dictionaryRepresentationWithContext:v4];
-  v16[1] = v10;
-  v15[2] = @"enabledSetting";
+  v15[1] = v10;
+  v14[2] = @"enabledSetting";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "enabledSetting")}];
-  v16[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

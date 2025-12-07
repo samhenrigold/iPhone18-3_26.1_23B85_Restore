@@ -55,6 +55,7 @@
 - (void)getAccountPropertiesTask:(id)task completedWithError:(id)error;
 - (void)removePushedActionsForTaskGroup:(id)group;
 - (void)syncAddressBookURLsWithConsumer:(id)consumer;
+- (void)synchronizeContactsFolder:(id)folder previousTag:(id)tag previousSyncToken:(id)token actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed previousTagIsSuspect:(BOOL)self0 moreLocalChangesAvailable:(BOOL)self1 consumer:(id)self2;
 - (void)taskGroup:(id)group didFinishWithError:(id)error;
 @end
 
@@ -1792,23 +1793,10 @@ LABEL_7:
           folderURL3 = [v17 folderURL];
           v39 = [v35 da_leastInfoStringRepresentationRelativeToParentURL:folderURL3];
 
-          firstObject = [v93 objectForKeyedSubscript:v35];
-          if (firstObject)
+          v40 = [v93 objectForKeyedSubscript:v35];
+          if (v40 || (-[CardDAVDaemonAccount contactsProvider](self, "contactsProvider"), v41 = objc_claimAutoreleasedReturnValue(), v133 = v39, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v133, 1), v42 = objc_claimAutoreleasedReturnValue(), [v41 contactsWithExternalHREFs:v42 container:v88], v43 = objc_claimAutoreleasedReturnValue(), v42, v41, objc_msgSend(v43, "firstObject"), v40 = objc_claimAutoreleasedReturnValue(), v43, v40))
           {
-            goto LABEL_31;
-          }
-
-          contactsProvider = [(CardDAVDaemonAccount *)self contactsProvider];
-          v133 = v39;
-          v42 = [NSArray arrayWithObjects:&v133 count:1];
-          v43 = [contactsProvider contactsWithExternalHREFs:v42 container:v88];
-
-          firstObject = [v43 firstObject];
-
-          if (firstObject)
-          {
-LABEL_31:
-            [firstObject setETag:v37];
+            [v40 setETag:v37];
             if (+[DABehaviorOptions useContactsFramework])
             {
               goto LABEL_32;
@@ -1817,27 +1805,14 @@ LABEL_31:
             goto LABEL_33;
           }
 
-          firstObject = [v87 objectForKeyedSubscript:v35];
-          if (firstObject)
+          v40 = [v87 objectForKeyedSubscript:v35];
+          if (v40 || (-[CardDAVDaemonAccount groupsProvider](self, "groupsProvider"), v44 = objc_claimAutoreleasedReturnValue(), v132 = v39, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v132, 1), v45 = objc_claimAutoreleasedReturnValue(), [v44 groupsWithExternalHREFs:v45 container:v88], v46 = objc_claimAutoreleasedReturnValue(), v45, v44, objc_msgSend(v46, "firstObject"), v40 = objc_claimAutoreleasedReturnValue(), v46, v40))
           {
-            goto LABEL_38;
-          }
-
-          groupsProvider = [(CardDAVDaemonAccount *)self groupsProvider];
-          v132 = v39;
-          v45 = [NSArray arrayWithObjects:&v132 count:1];
-          v46 = [groupsProvider groupsWithExternalHREFs:v45 container:v88];
-
-          firstObject = [v46 firstObject];
-
-          if (firstObject)
-          {
-LABEL_38:
-            [firstObject setETag:v37];
+            [v40 setETag:v37];
             if (+[DABehaviorOptions useContactsFramework])
             {
 LABEL_32:
-              [firstObject updateSaveRequest:v90];
+              [v40 updateSaveRequest:v90];
             }
 
 LABEL_33:
@@ -1845,14 +1820,14 @@ LABEL_33:
             goto LABEL_34;
           }
 
-          firstObject = DALoggingwithCategory();
-          if (os_log_type_enabled(firstObject, type))
+          v40 = DALoggingwithCategory();
+          if (os_log_type_enabled(v40, type))
           {
             *v128 = 138412546;
             v129 = v35;
             v130 = 2112;
             v131 = v37;
-            _os_log_impl(&dword_0, firstObject, type, "For href %@, I have new etag %@, but no local record", v128, 0x16u);
+            _os_log_impl(&dword_0, v40, type, "For href %@, I have new etag %@, but no local record", v128, 0x16u);
           }
 
 LABEL_34:
@@ -2292,6 +2267,67 @@ LABEL_12:
   }
 
   return v5;
+}
+
+- (void)synchronizeContactsFolder:(id)folder previousTag:(id)tag previousSyncToken:(id)token actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed previousTagIsSuspect:(BOOL)self0 moreLocalChangesAvailable:(BOOL)self1 consumer:(id)self2
+{
+  syncCopy = sync;
+  actionsCopy = actions;
+  consumerCopy = consumer;
+  contextCopy = context;
+  tokenCopy = token;
+  tagCopy = tag;
+  v37 = [NSURL URLWithString:folder];
+  v38 = actionsCopy;
+  v22 = [(CardDAVDaemonAccount *)self cdvActionsFromDAActions:actionsCopy];
+  self->_hasOutstandingABChanges = 0;
+  contactsByExternalIdentifier = [(CardDAVDaemonAccount *)self contactsByExternalIdentifier];
+  [contactsByExternalIdentifier removeAllObjects];
+
+  groupsByExternalIdentifier = [(CardDAVDaemonAccount *)self groupsByExternalIdentifier];
+  [groupsByExternalIdentifier removeAllObjects];
+
+  databaseHelper = [(CardDAVDaemonAccount *)self databaseHelper];
+  if ((+[DABehaviorOptions useContactsFramework]& 1) == 0)
+  {
+    changeTrackingID = [(CardDAVDaemonAccount *)self changeTrackingID];
+    [databaseHelper abOpenDBWithClientIdentifier:changeTrackingID];
+  }
+
+  [CardDAVActionsLogger logSummaryForCardDAVActions:actionsCopy partialResults:available initialSync:syncCopy syncPhase:@"from local contact store" syncAccount:self];
+  v27 = [CardDAVFolderSyncTaskGroup alloc];
+  taskManager = [(CardDAVDaemonAccount *)self taskManager];
+  v29 = [v27 initWithFolderURL:v37 previousCTag:tagCopy previousSyncToken:tokenCopy actions:v22 syncItemOrder:0 context:contextCopy accountInfoProvider:self taskManager:taskManager appSpecificDataItemClass:{+[CardDAVVCardItem currentImplementationClass](CardDAVVCardItem, "currentImplementationClass")}];
+
+  [v29 setDelegate:self];
+  [v29 setIsInitialSync:syncCopy];
+  [v29 setEnsureUpdatedCTag:suspect];
+  [v29 setMaxRetryOnUnexpectedSyncTokenChange:2];
+  v30 = +[DABabysitter sharedBabysitter];
+  v31 = [v30 registerAccount:self forOperationWithName:@"CardDAVSync"];
+
+  if (v31)
+  {
+    v32 = consumerCopy;
+    [(CardDAVDaemonAccount *)self setConsumer:consumerCopy forTask:v29];
+    [v29 startTaskGroup];
+  }
+
+  else
+  {
+    v33 = DALoggingwithCategory();
+    v34 = _CPLog_to_os_log_type[3];
+    if (os_log_type_enabled(v33, v34))
+    {
+      *buf = 138412290;
+      selfCopy = self;
+      _os_log_impl(&dword_0, v33, v34, "The babysitter put us in timeout. Failing this sync. %@", buf, 0xCu);
+    }
+
+    v35 = [NSError errorWithDomain:DAErrorDomain code:6 userInfo:0];
+    v32 = consumerCopy;
+    [consumerCopy actionFailed:10 forTask:v29 error:v35];
+  }
 }
 
 - (id)_copyABAccount:(BOOL)account

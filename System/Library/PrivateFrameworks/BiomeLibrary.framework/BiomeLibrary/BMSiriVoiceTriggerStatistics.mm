@@ -364,7 +364,7 @@ LABEL_93:
 
 - (id)jsonDictionary
 {
-  v94[18] = *MEMORY[0x1E69E9840];
+  v93[18] = *MEMORY[0x1E69E9840];
   absoluteTimestamp = [(BMSiriVoiceTriggerStatistics *)self absoluteTimestamp];
   if (absoluteTimestamp)
   {
@@ -456,7 +456,7 @@ LABEL_93:
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasTriggerScoreJS]|| ([(BMSiriVoiceTriggerStatistics *)self triggerScoreJS], fabs(v23) == INFINITY))
   {
-    v92 = 0;
+    v91 = 0;
   }
 
   else
@@ -464,12 +464,12 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self triggerScoreJS];
     v24 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self triggerScoreJS];
-    v92 = [v24 numberWithDouble:?];
+    v91 = [v24 numberWithDouble:?];
   }
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasMitigationScore]|| ([(BMSiriVoiceTriggerStatistics *)self mitigationScore], fabs(v25) == INFINITY))
   {
-    v91 = 0;
+    v90 = 0;
   }
 
   else
@@ -477,22 +477,22 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self mitigationScore];
     v26 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self mitigationScore];
-    v91 = [v26 numberWithDouble:?];
+    v90 = [v26 numberWithDouble:?];
   }
 
   if ([(BMSiriVoiceTriggerStatistics *)self hasInvocationTypeID])
   {
-    v90 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriVoiceTriggerStatistics invocationTypeID](self, "invocationTypeID")}];
+    v89 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriVoiceTriggerStatistics invocationTypeID](self, "invocationTypeID")}];
   }
 
   else
   {
-    v90 = 0;
+    v89 = 0;
   }
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasRepetitionSimilarityScore]|| ([(BMSiriVoiceTriggerStatistics *)self repetitionSimilarityScore], fabs(v27) == INFINITY))
   {
-    v89 = 0;
+    v88 = 0;
   }
 
   else
@@ -500,12 +500,12 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self repetitionSimilarityScore];
     v28 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self repetitionSimilarityScore];
-    v89 = [v28 numberWithDouble:?];
+    v88 = [v28 numberWithDouble:?];
   }
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasTdSpeakerRecognizerCombinedScore]|| ([(BMSiriVoiceTriggerStatistics *)self tdSpeakerRecognizerCombinedScore], fabs(v29) == INFINITY))
   {
-    v88 = 0;
+    v87 = 0;
   }
 
   else
@@ -513,12 +513,12 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self tdSpeakerRecognizerCombinedScore];
     v30 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self tdSpeakerRecognizerCombinedScore];
-    v88 = [v30 numberWithDouble:?];
+    v87 = [v30 numberWithDouble:?];
   }
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasHwSampleRate]|| ([(BMSiriVoiceTriggerStatistics *)self hwSampleRate], fabs(v31) == INFINITY))
   {
-    v87 = 0;
+    v86 = 0;
   }
 
   else
@@ -526,13 +526,13 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self hwSampleRate];
     v32 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self hwSampleRate];
-    v87 = [v32 numberWithDouble:?];
+    v86 = [v32 numberWithDouble:?];
   }
 
   configVersion = [(BMSiriVoiceTriggerStatistics *)self configVersion];
   if (![(BMSiriVoiceTriggerStatistics *)self hasKeywordThresholdHS]|| ([(BMSiriVoiceTriggerStatistics *)self keywordThresholdHS], fabs(v33) == INFINITY))
   {
-    v85 = 0;
+    v84 = 0;
   }
 
   else
@@ -540,12 +540,12 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self keywordThresholdHS];
     v34 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self keywordThresholdHS];
-    v85 = [v34 numberWithDouble:?];
+    v84 = [v34 numberWithDouble:?];
   }
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasKeywordThresholdJS]|| ([(BMSiriVoiceTriggerStatistics *)self keywordThresholdJS], fabs(v35) == INFINITY))
   {
-    v84 = 0;
+    v83 = 0;
   }
 
   else
@@ -553,12 +553,12 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self keywordThresholdJS];
     v36 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self keywordThresholdJS];
-    v84 = [v36 numberWithDouble:?];
+    v83 = [v36 numberWithDouble:?];
   }
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasTdSpeakerRecognizerCombinedThresholdHS]|| ([(BMSiriVoiceTriggerStatistics *)self tdSpeakerRecognizerCombinedThresholdHS], fabs(v37) == INFINITY))
   {
-    v83 = 0;
+    v82 = 0;
   }
 
   else
@@ -566,7 +566,7 @@ LABEL_93:
     [(BMSiriVoiceTriggerStatistics *)self tdSpeakerRecognizerCombinedThresholdHS];
     v38 = MEMORY[0x1E696AD98];
     [(BMSiriVoiceTriggerStatistics *)self tdSpeakerRecognizerCombinedThresholdHS];
-    v83 = [v38 numberWithDouble:?];
+    v82 = [v38 numberWithDouble:?];
   }
 
   if (![(BMSiriVoiceTriggerStatistics *)self hasTdSpeakerRecognizerCombinedThresholdJS]|| ([(BMSiriVoiceTriggerStatistics *)self tdSpeakerRecognizerCombinedThresholdJS], fabs(v39) == INFINITY))
@@ -582,171 +582,175 @@ LABEL_93:
     v41 = [v40 numberWithDouble:?];
   }
 
-  v93[0] = @"absoluteTimestamp";
+  v92[0] = @"absoluteTimestamp";
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v75 = null;
-  v94[0] = null;
-  v93[1] = @"firstPassPeakScoreHS";
+  v74 = null;
+  v93[0] = null;
+  v92[1] = @"firstPassPeakScoreHS";
   null2 = v9;
   if (!v9)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v74 = null2;
-  v94[1] = null2;
-  v93[2] = @"firstPassPeakScoreJS";
+  v73 = null2;
+  v93[1] = null2;
+  v92[2] = @"firstPassPeakScoreJS";
   null3 = v12;
   if (!v12)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v73 = null3;
-  v94[2] = null3;
-  v93[3] = @"firstPassTriggerSource";
+  v72 = null3;
+  v93[2] = null3;
+  v92[3] = @"firstPassTriggerSource";
   null4 = v13;
   if (!v13)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v72 = null4;
-  v94[3] = null4;
-  v93[4] = @"recognizerScoreHS";
+  v71 = null4;
+  v93[3] = null4;
+  v92[4] = @"recognizerScoreHS";
   null5 = v16;
   if (!v16)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v71 = null5;
-  v94[4] = null5;
-  v93[5] = @"recognizerScoreJS";
+  v70 = null5;
+  v93[4] = null5;
+  v92[5] = @"recognizerScoreJS";
   null6 = v19;
   if (!v19)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v70 = null6;
-  v94[5] = null6;
-  v93[6] = @"triggerScoreHS";
+  v69 = null6;
+  v93[5] = null6;
+  v92[6] = @"triggerScoreHS";
   null7 = v22;
   if (!v22)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v69 = null7;
-  v94[6] = null7;
-  v93[7] = @"triggerScoreJS";
-  null8 = v92;
-  if (!v92)
+  v68 = null7;
+  v93[6] = null7;
+  v92[7] = @"triggerScoreJS";
+  null8 = v91;
+  if (!v91)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v94[7] = null8;
-  v93[8] = @"mitigationScore";
-  null9 = v91;
-  if (!v91)
+  v93[7] = null8;
+  v92[8] = @"mitigationScore";
+  null9 = v90;
+  if (!v90)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v94[8] = null9;
-  v93[9] = @"invocationTypeID";
-  null10 = v90;
-  if (!v90)
+  v93[8] = null9;
+  v92[9] = @"invocationTypeID";
+  null10 = v89;
+  if (!v89)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v79 = v22;
-  v78 = null10;
-  v94[9] = null10;
-  v93[10] = @"repetitionSimilarityScore";
-  null11 = v89;
-  if (!v89)
+  v78 = v22;
+  v77 = null10;
+  v93[9] = null10;
+  v92[10] = @"repetitionSimilarityScore";
+  null11 = v88;
+  if (!v88)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v81 = v13;
-  v94[10] = null11;
-  v93[11] = @"tdSpeakerRecognizerCombinedScore";
-  null12 = v88;
-  if (!v88)
+  v80 = v13;
+  v93[10] = null11;
+  v92[11] = @"tdSpeakerRecognizerCombinedScore";
+  null12 = v87;
+  if (!v87)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v82 = v6;
-  v65 = null12;
-  v94[11] = null12;
-  v93[12] = @"hwSampleRate";
-  null13 = v87;
-  if (!v87)
+  v81 = v6;
+  v64 = null12;
+  v93[11] = null12;
+  v92[12] = @"hwSampleRate";
+  null13 = v86;
+  if (!v86)
   {
     null13 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v67 = null9;
-  v68 = null8;
-  v80 = v9;
-  v94[12] = null13;
-  v93[13] = @"configVersion";
+  v66 = null9;
+  v67 = null8;
+  v79 = v9;
+  v93[12] = null13;
+  v92[13] = @"configVersion";
   null14 = configVersion;
   if (!configVersion)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v77 = v19;
+  v76 = v19;
   v56 = v12;
-  v94[13] = null14;
-  v93[14] = @"keywordThresholdHS";
-  null15 = v85;
-  if (!v85)
+  v93[13] = null14;
+  v92[14] = @"keywordThresholdHS";
+  null15 = v84;
+  if (!v84)
   {
     null15 = [MEMORY[0x1E695DFB0] null];
   }
 
   v58 = v16;
-  v94[14] = null15;
-  v93[15] = @"keywordThresholdJS";
-  null16 = v84;
-  if (!v84)
+  v93[14] = null15;
+  v92[15] = @"keywordThresholdJS";
+  null16 = v83;
+  if (!v83)
   {
     null16 = [MEMORY[0x1E695DFB0] null];
   }
 
   v60 = null11;
-  v94[15] = null16;
-  v93[16] = @"tdSpeakerRecognizerCombinedThresholdHS";
-  null17 = v83;
-  if (!v83)
+  v93[15] = null16;
+  v92[16] = @"tdSpeakerRecognizerCombinedThresholdHS";
+  null17 = v82;
+  if (!v82)
   {
     null17 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v94[16] = null17;
-  v93[17] = @"tdSpeakerRecognizerCombinedThresholdJS";
+  v93[16] = null17;
+  v92[17] = @"tdSpeakerRecognizerCombinedThresholdJS";
   null18 = v41;
   if (!v41)
   {
     null18 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v94[17] = null18;
-  v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:{18, v65}];
+  v93[17] = null18;
+  v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v93 forKeys:v92 count:{18, v64}];
   if (!v41)
+  {
+  }
+
+  if (!v82)
   {
   }
 
@@ -758,11 +762,11 @@ LABEL_93:
   {
   }
 
-  if (!v85)
+  if (!configVersion)
   {
   }
 
-  if (!configVersion)
+  if (!v86)
   {
   }
 
@@ -782,13 +786,9 @@ LABEL_93:
   {
   }
 
-  if (!v91)
+  if (v91)
   {
-  }
-
-  if (v92)
-  {
-    if (v79)
+    if (v78)
     {
       goto LABEL_124;
     }
@@ -797,10 +797,10 @@ LABEL_93:
   else
   {
 
-    if (v79)
+    if (v78)
     {
 LABEL_124:
-      if (v77)
+      if (v76)
       {
         goto LABEL_125;
       }
@@ -809,7 +809,7 @@ LABEL_124:
     }
   }
 
-  if (v77)
+  if (v76)
   {
 LABEL_125:
     if (v58)
@@ -825,7 +825,7 @@ LABEL_135:
   if (v58)
   {
 LABEL_126:
-    if (v81)
+    if (v80)
     {
       goto LABEL_127;
     }
@@ -835,7 +835,7 @@ LABEL_126:
 
 LABEL_136:
 
-  if (v81)
+  if (v80)
   {
 LABEL_127:
     if (v56)
@@ -851,14 +851,14 @@ LABEL_137:
   if (v56)
   {
 LABEL_128:
-    if (v80)
+    if (v79)
     {
       goto LABEL_129;
     }
 
 LABEL_139:
 
-    if (v82)
+    if (v81)
     {
       goto LABEL_130;
     }
@@ -868,13 +868,13 @@ LABEL_139:
 
 LABEL_138:
 
-  if (!v80)
+  if (!v79)
   {
     goto LABEL_139;
   }
 
 LABEL_129:
-  if (v82)
+  if (v81)
   {
     goto LABEL_130;
   }
@@ -882,17 +882,16 @@ LABEL_129:
 LABEL_140:
 
 LABEL_130:
-  v63 = *MEMORY[0x1E69E9840];
 
-  return v76;
+  return v75;
 }
 
 - (BMSiriVoiceTriggerStatistics)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v218[1] = *MEMORY[0x1E69E9840];
+  v217[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v182 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
-  if (!v182 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v181 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
+  if (!v181 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v6 = 0;
     goto LABEL_9;
@@ -902,7 +901,7 @@ LABEL_130:
   if (objc_opt_isKindOfClass())
   {
     v7 = MEMORY[0x1E695DF00];
-    v8 = v182;
+    v8 = v181;
     v9 = [v7 alloc];
     [v8 doubleValue];
     v11 = v10;
@@ -928,10 +927,10 @@ LABEL_6:
 
       v92 = objc_alloc(MEMORY[0x1E696ABC0]);
       v93 = *MEMORY[0x1E698F240];
-      v217 = *MEMORY[0x1E696A578];
-      v180 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"absoluteTimestamp"];
-      v218[0] = v180;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v218 forKeys:&v217 count:1];
+      v216 = *MEMORY[0x1E696A578];
+      v179 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"absoluteTimestamp"];
+      v217[0] = v179;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v217 forKeys:&v216 count:1];
       v94 = [v92 initWithDomain:v93 code:2 userInfo:v14];
       v6 = 0;
       v46 = 0;
@@ -939,51 +938,51 @@ LABEL_6:
       goto LABEL_143;
     }
 
-    v12 = v182;
+    v12 = v181;
     goto LABEL_6;
   }
 
   v13 = objc_alloc_init(MEMORY[0x1E696AC80]);
-  v6 = [v13 dateFromString:v182];
+  v6 = [v13 dateFromString:v181];
 
 LABEL_9:
   v14 = [dictionaryCopy objectForKeyedSubscript:@"firstPassPeakScoreHS"];
   if (!v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v180 = 0;
+    v179 = 0;
     goto LABEL_12;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v180 = v14;
+    v179 = v14;
 LABEL_12:
     v15 = [dictionaryCopy objectForKeyedSubscript:@"firstPassPeakScoreJS"];
     if (!v15 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v179 = 0;
+      v178 = 0;
       goto LABEL_15;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v179 = v15;
+      v178 = v15;
 LABEL_15:
       v16 = [dictionaryCopy objectForKeyedSubscript:@"firstPassTriggerSource"];
       if (!v16 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v176 = v16;
-        v178 = 0;
+        v175 = v16;
+        v177 = 0;
         goto LABEL_18;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v176 = v16;
-        v178 = v16;
+        v175 = v16;
+        v177 = v16;
 LABEL_18:
         v17 = [dictionaryCopy objectForKeyedSubscript:@"recognizerScoreHS"];
         if (!v17 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -1000,150 +999,150 @@ LABEL_21:
           v19 = [dictionaryCopy objectForKeyedSubscript:@"recognizerScoreJS"];
           if (!v19 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v171 = v19;
-            v175 = 0;
+            v170 = v19;
+            v174 = 0;
             goto LABEL_24;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v171 = v19;
-            v175 = v19;
+            v170 = v19;
+            v174 = v19;
 LABEL_24:
             v20 = [dictionaryCopy objectForKeyedSubscript:@"triggerScoreHS"];
-            v173 = v20;
+            v172 = v20;
             if (!v20 || (v21 = v20, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v174 = 0;
+              v173 = 0;
               goto LABEL_27;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v174 = v21;
+              v173 = v21;
 LABEL_27:
               v22 = [dictionaryCopy objectForKeyedSubscript:@"triggerScoreJS"];
-              v170 = v22;
+              v169 = v22;
               if (!v22 || (v23 = v22, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v172 = 0;
+                v171 = 0;
                 goto LABEL_30;
               }
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v172 = v23;
+                v171 = v23;
 LABEL_30:
                 v24 = [dictionaryCopy objectForKeyedSubscript:@"mitigationScore"];
-                v168 = v24;
+                v167 = v24;
                 if (!v24 || (v25 = v24, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                 {
-                  v169 = 0;
+                  v168 = 0;
                   goto LABEL_33;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v169 = v25;
+                  v168 = v25;
 LABEL_33:
                   v26 = [dictionaryCopy objectForKeyedSubscript:@"invocationTypeID"];
-                  v164 = v26;
+                  v163 = v26;
                   if (!v26 || (v27 = v26, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                   {
-                    v165 = 0;
+                    v164 = 0;
                     goto LABEL_36;
                   }
 
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v165 = v27;
+                    v164 = v27;
 LABEL_36:
                     v28 = [dictionaryCopy objectForKeyedSubscript:@"repetitionSimilarityScore"];
-                    v159 = v28;
+                    v158 = v28;
                     if (!v28 || (v29 = v28, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                     {
-                      v160 = 0;
+                      v159 = 0;
                       goto LABEL_39;
                     }
 
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v160 = v29;
+                      v159 = v29;
 LABEL_39:
                       v30 = [dictionaryCopy objectForKeyedSubscript:@"tdSpeakerRecognizerCombinedScore"];
-                      v157 = v30;
+                      v156 = v30;
                       if (!v30 || (v31 = v30, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                       {
-                        v158 = 0;
+                        v157 = 0;
                         goto LABEL_42;
                       }
 
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v158 = v31;
+                        v157 = v31;
 LABEL_42:
                         v32 = [dictionaryCopy objectForKeyedSubscript:@"hwSampleRate"];
-                        v155 = v32;
+                        v154 = v32;
                         if (!v32 || (v33 = v32, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                         {
-                          v156 = 0;
+                          v155 = 0;
                           goto LABEL_45;
                         }
 
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v156 = v33;
+                          v155 = v33;
 LABEL_45:
                           v34 = [dictionaryCopy objectForKeyedSubscript:@"configVersion"];
-                          v152 = v34;
+                          v151 = v34;
                           if (!v34 || (v35 = v34, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                           {
-                            v153 = 0;
+                            v152 = 0;
                             goto LABEL_48;
                           }
 
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v153 = v35;
+                            v152 = v35;
 LABEL_48:
                             v36 = [dictionaryCopy objectForKeyedSubscript:@"keywordThresholdHS"];
-                            v166 = v17;
-                            v149 = v36;
+                            v165 = v17;
+                            v148 = v36;
                             if (!v36 || (v37 = v36, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                             {
-                              v151 = 0;
+                              v150 = 0;
                               goto LABEL_51;
                             }
 
                             objc_opt_class();
                             if (objc_opt_isKindOfClass())
                             {
-                              v151 = v37;
+                              v150 = v37;
 LABEL_51:
                               v38 = [dictionaryCopy objectForKeyedSubscript:@"keywordThresholdJS"];
-                              v148 = v38;
+                              v147 = v38;
                               if (!v38 || (v39 = v38, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                               {
-                                v150 = 0;
+                                v149 = 0;
                                 goto LABEL_54;
                               }
 
                               objc_opt_class();
                               if (objc_opt_isKindOfClass())
                               {
-                                v150 = v39;
+                                v149 = v39;
 LABEL_54:
                                 v40 = [dictionaryCopy objectForKeyedSubscript:@"tdSpeakerRecognizerCombinedThresholdHS"];
-                                v161 = v40;
+                                v160 = v40;
                                 if (v40)
                                 {
                                   objc_opt_class();
@@ -1162,21 +1161,21 @@ LABEL_54:
                                       {
                                         v40 = 0;
                                         v46 = 0;
-                                        v62 = v171;
+                                        v62 = v170;
                                         goto LABEL_127;
                                       }
 
                                       v41 = v6;
-                                      v140 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                      v141 = *MEMORY[0x1E698F240];
-                                      v185 = *MEMORY[0x1E696A578];
+                                      v139 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                      v140 = *MEMORY[0x1E698F240];
+                                      v184 = *MEMORY[0x1E696A578];
                                       v114 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"tdSpeakerRecognizerCombinedThresholdHS"];
-                                      v186 = v114;
-                                      v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v186 forKeys:&v185 count:1];
-                                      v142 = [v140 initWithDomain:v141 code:2 userInfo:v113];
+                                      v185 = v114;
+                                      v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v185 forKeys:&v184 count:1];
+                                      v141 = [v139 initWithDomain:v140 code:2 userInfo:v113];
                                       v40 = 0;
                                       v46 = 0;
-                                      *error = v142;
+                                      *error = v141;
                                       goto LABEL_126;
                                     }
 
@@ -1198,13 +1197,13 @@ LABEL_54:
                                   {
                                     if (error)
                                     {
-                                      v147 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                      v146 = *MEMORY[0x1E698F240];
-                                      v183 = *MEMORY[0x1E696A578];
-                                      v143 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"tdSpeakerRecognizerCombinedThresholdJS"];
-                                      v184 = v143;
-                                      v144 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
-                                      *error = [v147 initWithDomain:v146 code:2 userInfo:v144];
+                                      v146 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                      v145 = *MEMORY[0x1E698F240];
+                                      v182 = *MEMORY[0x1E696A578];
+                                      v142 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"tdSpeakerRecognizerCombinedThresholdJS"];
+                                      v183 = v142;
+                                      v143 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
+                                      *error = [v146 initWithDomain:v145 code:2 userInfo:v143];
                                     }
 
                                     v114 = 0;
@@ -1220,18 +1219,18 @@ LABEL_54:
                                   v114 = 0;
                                 }
 
-                                v46 = [(BMSiriVoiceTriggerStatistics *)self initWithAbsoluteTimestamp:v41 firstPassPeakScoreHS:v180 firstPassPeakScoreJS:v179 firstPassTriggerSource:v178 recognizerScoreHS:v18 recognizerScoreJS:v175 triggerScoreHS:v174 triggerScoreJS:v172 mitigationScore:v169 invocationTypeID:v165 repetitionSimilarityScore:v160 tdSpeakerRecognizerCombinedScore:v158 hwSampleRate:v156 configVersion:v153 keywordThresholdHS:v151 keywordThresholdJS:v150 tdSpeakerRecognizerCombinedThresholdHS:v40 tdSpeakerRecognizerCombinedThresholdJS:v114];
+                                v46 = [(BMSiriVoiceTriggerStatistics *)self initWithAbsoluteTimestamp:v41 firstPassPeakScoreHS:v179 firstPassPeakScoreJS:v178 firstPassTriggerSource:v177 recognizerScoreHS:v18 recognizerScoreJS:v174 triggerScoreHS:v173 triggerScoreJS:v171 mitigationScore:v168 invocationTypeID:v164 repetitionSimilarityScore:v159 tdSpeakerRecognizerCombinedScore:v157 hwSampleRate:v155 configVersion:v152 keywordThresholdHS:v150 keywordThresholdJS:v149 tdSpeakerRecognizerCombinedThresholdHS:v40 tdSpeakerRecognizerCombinedThresholdJS:v114];
                                 self = v46;
 LABEL_126:
-                                v62 = v171;
+                                v62 = v170;
 
                                 v6 = v41;
-                                v17 = v166;
+                                v17 = v165;
 LABEL_127:
-                                v115 = v161;
+                                v115 = v160;
 LABEL_128:
 
-                                v16 = v176;
+                                v16 = v175;
 LABEL_129:
 
 LABEL_130:
@@ -1251,114 +1250,114 @@ LABEL_137:
 
                               if (error)
                               {
-                                v163 = v18;
-                                v132 = v14;
-                                v133 = v15;
-                                v134 = v6;
-                                v135 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                v136 = *MEMORY[0x1E698F240];
-                                v187 = *MEMORY[0x1E696A578];
-                                v137 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"keywordThresholdJS"];
-                                v188 = v137;
-                                v115 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v188 forKeys:&v187 count:1];
-                                v138 = v135;
-                                v6 = v134;
-                                v40 = v137;
-                                v15 = v133;
-                                v14 = v132;
-                                v18 = v163;
-                                v139 = [v138 initWithDomain:v136 code:2 userInfo:v115];
-                                v150 = 0;
+                                v162 = v18;
+                                v131 = v14;
+                                v132 = v15;
+                                v133 = v6;
+                                v134 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                v135 = *MEMORY[0x1E698F240];
+                                v186 = *MEMORY[0x1E696A578];
+                                v136 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"keywordThresholdJS"];
+                                v187 = v136;
+                                v115 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v187 forKeys:&v186 count:1];
+                                v137 = v134;
+                                v6 = v133;
+                                v40 = v136;
+                                v15 = v132;
+                                v14 = v131;
+                                v18 = v162;
+                                v138 = [v137 initWithDomain:v135 code:2 userInfo:v115];
+                                v149 = 0;
                                 v46 = 0;
-                                *error = v139;
-                                v62 = v171;
+                                *error = v138;
+                                v62 = v170;
                                 goto LABEL_128;
                               }
 
-                              v150 = 0;
+                              v149 = 0;
                               v46 = 0;
 LABEL_178:
-                              v16 = v176;
-                              v62 = v171;
+                              v16 = v175;
+                              v62 = v170;
                               goto LABEL_129;
                             }
 
                             if (error)
                             {
-                              v126 = v6;
-                              v127 = objc_alloc(MEMORY[0x1E696ABC0]);
-                              v128 = *MEMORY[0x1E698F240];
-                              v189 = *MEMORY[0x1E696A578];
-                              v150 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"keywordThresholdHS"];
-                              v190 = v150;
-                              v129 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v190 forKeys:&v189 count:1];
-                              v130 = v127;
-                              v6 = v126;
-                              v148 = v129;
-                              v131 = [v130 initWithDomain:v128 code:2 userInfo:?];
-                              v151 = 0;
+                              v125 = v6;
+                              v126 = objc_alloc(MEMORY[0x1E696ABC0]);
+                              v127 = *MEMORY[0x1E698F240];
+                              v188 = *MEMORY[0x1E696A578];
+                              v149 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"keywordThresholdHS"];
+                              v189 = v149;
+                              v128 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v189 forKeys:&v188 count:1];
+                              v129 = v126;
+                              v6 = v125;
+                              v147 = v128;
+                              v130 = [v129 initWithDomain:v127 code:2 userInfo:?];
+                              v150 = 0;
                               v46 = 0;
-                              *error = v131;
+                              *error = v130;
                               goto LABEL_178;
                             }
 
-                            v151 = 0;
+                            v150 = 0;
                             v46 = 0;
-                            v16 = v176;
+                            v16 = v175;
 LABEL_176:
-                            v62 = v171;
+                            v62 = v170;
                             goto LABEL_130;
                           }
 
                           if (error)
                           {
-                            v154 = objc_alloc(MEMORY[0x1E696ABC0]);
-                            v124 = *MEMORY[0x1E698F240];
-                            v191 = *MEMORY[0x1E696A578];
-                            v151 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"configVersion"];
-                            v192 = v151;
-                            v149 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v192 forKeys:&v191 count:1];
-                            v125 = [v154 initWithDomain:v124 code:2 userInfo:?];
-                            v153 = 0;
+                            v153 = objc_alloc(MEMORY[0x1E696ABC0]);
+                            v123 = *MEMORY[0x1E698F240];
+                            v190 = *MEMORY[0x1E696A578];
+                            v150 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"configVersion"];
+                            v191 = v150;
+                            v148 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v191 forKeys:&v190 count:1];
+                            v124 = [v153 initWithDomain:v123 code:2 userInfo:?];
+                            v152 = 0;
                             v46 = 0;
-                            *error = v125;
-                            v16 = v176;
+                            *error = v124;
+                            v16 = v175;
                             goto LABEL_176;
                           }
 
-                          v153 = 0;
+                          v152 = 0;
                           v46 = 0;
-                          v16 = v176;
+                          v16 = v175;
 LABEL_174:
-                          v62 = v171;
+                          v62 = v170;
                           goto LABEL_131;
                         }
 
                         if (error)
                         {
-                          v118 = v6;
-                          v119 = objc_alloc(MEMORY[0x1E696ABC0]);
-                          v120 = *MEMORY[0x1E698F240];
-                          v193 = *MEMORY[0x1E696A578];
-                          v153 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hwSampleRate"];
-                          v194 = v153;
-                          v121 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v194 forKeys:&v193 count:1];
-                          v122 = v119;
-                          v6 = v118;
-                          v152 = v121;
-                          v123 = [v122 initWithDomain:v120 code:2 userInfo:?];
-                          v156 = 0;
+                          v117 = v6;
+                          v118 = objc_alloc(MEMORY[0x1E696ABC0]);
+                          v119 = *MEMORY[0x1E698F240];
+                          v192 = *MEMORY[0x1E696A578];
+                          v152 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hwSampleRate"];
+                          v193 = v152;
+                          v120 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v193 forKeys:&v192 count:1];
+                          v121 = v118;
+                          v6 = v117;
+                          v151 = v120;
+                          v122 = [v121 initWithDomain:v119 code:2 userInfo:?];
+                          v155 = 0;
                           v46 = 0;
-                          *error = v123;
-                          v16 = v176;
+                          *error = v122;
+                          v16 = v175;
                           goto LABEL_174;
                         }
 
-                        v156 = 0;
+                        v155 = 0;
                         v46 = 0;
 LABEL_172:
-                        v16 = v176;
-                        v62 = v171;
+                        v16 = v175;
+                        v62 = v170;
                         goto LABEL_132;
                       }
 
@@ -1367,25 +1366,25 @@ LABEL_172:
                         v107 = v6;
                         v108 = objc_alloc(MEMORY[0x1E696ABC0]);
                         v109 = *MEMORY[0x1E698F240];
-                        v195 = *MEMORY[0x1E696A578];
-                        v156 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"tdSpeakerRecognizerCombinedScore"];
-                        v196 = v156;
-                        v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
+                        v194 = *MEMORY[0x1E696A578];
+                        v155 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"tdSpeakerRecognizerCombinedScore"];
+                        v195 = v155;
+                        v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v195 forKeys:&v194 count:1];
                         v111 = v108;
                         v6 = v107;
-                        v155 = v110;
+                        v154 = v110;
                         v112 = [v111 initWithDomain:v109 code:2 userInfo:?];
-                        v158 = 0;
+                        v157 = 0;
                         v46 = 0;
                         *error = v112;
                         goto LABEL_172;
                       }
 
-                      v158 = 0;
+                      v157 = 0;
                       v46 = 0;
 LABEL_167:
-                      v16 = v176;
-                      v62 = v171;
+                      v16 = v175;
+                      v62 = v170;
                       goto LABEL_133;
                     }
 
@@ -1394,25 +1393,25 @@ LABEL_167:
                       v101 = v6;
                       v102 = objc_alloc(MEMORY[0x1E696ABC0]);
                       v103 = *MEMORY[0x1E698F240];
-                      v197 = *MEMORY[0x1E696A578];
-                      v158 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"repetitionSimilarityScore"];
-                      v198 = v158;
-                      v104 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v198 forKeys:&v197 count:1];
+                      v196 = *MEMORY[0x1E696A578];
+                      v157 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"repetitionSimilarityScore"];
+                      v197 = v157;
+                      v104 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v197 forKeys:&v196 count:1];
                       v105 = v102;
                       v6 = v101;
-                      v157 = v104;
+                      v156 = v104;
                       v106 = [v105 initWithDomain:v103 code:2 userInfo:?];
-                      v160 = 0;
+                      v159 = 0;
                       v46 = 0;
                       *error = v106;
                       goto LABEL_167;
                     }
 
-                    v160 = 0;
+                    v159 = 0;
                     v46 = 0;
 LABEL_163:
-                    v16 = v176;
-                    v62 = v171;
+                    v16 = v175;
+                    v62 = v170;
                     goto LABEL_134;
                   }
 
@@ -1421,25 +1420,25 @@ LABEL_163:
                     v95 = v6;
                     v96 = objc_alloc(MEMORY[0x1E696ABC0]);
                     v97 = *MEMORY[0x1E698F240];
-                    v199 = *MEMORY[0x1E696A578];
-                    v160 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"invocationTypeID"];
-                    v200 = v160;
-                    v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v200 forKeys:&v199 count:1];
+                    v198 = *MEMORY[0x1E696A578];
+                    v159 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"invocationTypeID"];
+                    v199 = v159;
+                    v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v199 forKeys:&v198 count:1];
                     v99 = v96;
                     v6 = v95;
-                    v159 = v98;
+                    v158 = v98;
                     v100 = [v99 initWithDomain:v97 code:2 userInfo:?];
-                    v165 = 0;
+                    v164 = 0;
                     v46 = 0;
                     *error = v100;
                     goto LABEL_163;
                   }
 
-                  v165 = 0;
+                  v164 = 0;
                   v46 = 0;
 LABEL_159:
-                  v16 = v176;
-                  v62 = v171;
+                  v16 = v175;
+                  v62 = v170;
                   goto LABEL_135;
                 }
 
@@ -1448,25 +1447,25 @@ LABEL_159:
                   v86 = v6;
                   v87 = objc_alloc(MEMORY[0x1E696ABC0]);
                   v88 = *MEMORY[0x1E698F240];
-                  v201 = *MEMORY[0x1E696A578];
-                  v165 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"mitigationScore"];
-                  v202 = v165;
-                  v89 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v202 forKeys:&v201 count:1];
+                  v200 = *MEMORY[0x1E696A578];
+                  v164 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"mitigationScore"];
+                  v201 = v164;
+                  v89 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v201 forKeys:&v200 count:1];
                   v90 = v87;
                   v6 = v86;
-                  v164 = v89;
+                  v163 = v89;
                   v91 = [v90 initWithDomain:v88 code:2 userInfo:?];
-                  v169 = 0;
+                  v168 = 0;
                   v46 = 0;
                   *error = v91;
                   goto LABEL_159;
                 }
 
-                v169 = 0;
+                v168 = 0;
                 v46 = 0;
 LABEL_154:
-                v16 = v176;
-                v62 = v171;
+                v16 = v175;
+                v62 = v170;
                 goto LABEL_136;
               }
 
@@ -1475,25 +1474,25 @@ LABEL_154:
                 v80 = v6;
                 v81 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v82 = *MEMORY[0x1E698F240];
-                v203 = *MEMORY[0x1E696A578];
-                v169 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"triggerScoreJS"];
-                v204 = v169;
-                v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v204 forKeys:&v203 count:1];
+                v202 = *MEMORY[0x1E696A578];
+                v168 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"triggerScoreJS"];
+                v203 = v168;
+                v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v203 forKeys:&v202 count:1];
                 v84 = v81;
                 v6 = v80;
-                v168 = v83;
+                v167 = v83;
                 v85 = [v84 initWithDomain:v82 code:2 userInfo:?];
-                v172 = 0;
+                v171 = 0;
                 v46 = 0;
                 *error = v85;
                 goto LABEL_154;
               }
 
-              v172 = 0;
+              v171 = 0;
               v46 = 0;
 LABEL_148:
-              v16 = v176;
-              v62 = v171;
+              v16 = v175;
+              v62 = v170;
               goto LABEL_137;
             }
 
@@ -1502,24 +1501,24 @@ LABEL_148:
               v74 = v6;
               v75 = objc_alloc(MEMORY[0x1E696ABC0]);
               v76 = *MEMORY[0x1E698F240];
-              v205 = *MEMORY[0x1E696A578];
-              v172 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"triggerScoreHS"];
-              v206 = v172;
-              v77 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v206 forKeys:&v205 count:1];
+              v204 = *MEMORY[0x1E696A578];
+              v171 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"triggerScoreHS"];
+              v205 = v171;
+              v77 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v205 forKeys:&v204 count:1];
               v78 = v75;
               v6 = v74;
-              v170 = v77;
+              v169 = v77;
               v79 = [v78 initWithDomain:v76 code:2 userInfo:?];
-              v174 = 0;
+              v173 = 0;
               v46 = 0;
               *error = v79;
               goto LABEL_148;
             }
 
-            v174 = 0;
+            v173 = 0;
             v46 = 0;
-            v16 = v176;
-            v62 = v171;
+            v16 = v175;
+            v62 = v170;
 LABEL_138:
 
             goto LABEL_139;
@@ -1527,36 +1526,36 @@ LABEL_138:
 
           if (error)
           {
-            v162 = v18;
+            v161 = v18;
             v65 = v6;
             v66 = objc_alloc(MEMORY[0x1E696ABC0]);
             v67 = *MEMORY[0x1E698F240];
-            v207 = *MEMORY[0x1E696A578];
-            v167 = v17;
+            v206 = *MEMORY[0x1E696A578];
+            v166 = v17;
             errorCopy = error;
             v69 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v145 = objc_opt_class();
+            v144 = objc_opt_class();
             v70 = v69;
             v62 = v19;
-            v174 = [v70 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v145, @"recognizerScoreJS"];
-            v208 = v174;
-            v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v208 forKeys:&v207 count:1];
+            v173 = [v70 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v144, @"recognizerScoreJS"];
+            v207 = v173;
+            v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v207 forKeys:&v206 count:1];
             v72 = v66;
             v6 = v65;
-            v18 = v162;
-            v173 = v71;
+            v18 = v161;
+            v172 = v71;
             v73 = [v72 initWithDomain:v67 code:2 userInfo:?];
-            v175 = 0;
+            v174 = 0;
             v46 = 0;
             *errorCopy = v73;
-            v17 = v167;
-            v16 = v176;
+            v17 = v166;
+            v16 = v175;
             goto LABEL_138;
           }
 
-          v175 = 0;
+          v174 = 0;
           v46 = 0;
-          v16 = v176;
+          v16 = v175;
           v62 = v19;
 LABEL_139:
 
@@ -1568,27 +1567,27 @@ LABEL_139:
           v58 = v6;
           v59 = objc_alloc(MEMORY[0x1E696ABC0]);
           v60 = *MEMORY[0x1E698F240];
-          v209 = *MEMORY[0x1E696A578];
+          v208 = *MEMORY[0x1E696A578];
           errorCopy2 = error;
-          v175 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"recognizerScoreHS"];
-          v210 = v175;
-          v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v210 forKeys:&v209 count:1];
+          v174 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"recognizerScoreHS"];
+          v209 = v174;
+          v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v209 forKeys:&v208 count:1];
           v63 = v59;
           v6 = v58;
           v64 = [v63 initWithDomain:v60 code:2 userInfo:v62];
           v46 = 0;
           *errorCopy2 = v64;
           v18 = 0;
-          v16 = v176;
+          v16 = v175;
           goto LABEL_139;
         }
 
         v18 = 0;
         v46 = 0;
-        v16 = v176;
+        v16 = v175;
 LABEL_140:
 
-        v50 = v178;
+        v50 = v177;
         goto LABEL_141;
       }
 
@@ -1598,13 +1597,13 @@ LABEL_140:
         v54 = objc_alloc(MEMORY[0x1E696ABC0]);
         v55 = v6;
         v56 = *MEMORY[0x1E698F240];
-        v211 = *MEMORY[0x1E696A578];
+        v210 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"firstPassTriggerSource"];
-        v212 = v18;
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v212 forKeys:&v211 count:1];
+        v211 = v18;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v211 forKeys:&v210 count:1];
         v57 = v56;
         v6 = v55;
-        v178 = 0;
+        v177 = 0;
         v46 = 0;
         *errorCopy3 = [v54 initWithDomain:v57 code:2 userInfo:v17];
         goto LABEL_140;
@@ -1622,21 +1621,21 @@ LABEL_141:
       v47 = objc_alloc(MEMORY[0x1E696ABC0]);
       v48 = v6;
       v49 = *MEMORY[0x1E698F240];
-      v213 = *MEMORY[0x1E696A578];
+      v212 = *MEMORY[0x1E696A578];
       v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"firstPassPeakScoreJS"];
-      v214 = v50;
-      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v214 forKeys:&v213 count:1];
+      v213 = v50;
+      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v213 forKeys:&v212 count:1];
       v52 = v47;
       v16 = v51;
       v53 = v49;
       v6 = v48;
-      v179 = 0;
+      v178 = 0;
       v46 = 0;
       *error = [v52 initWithDomain:v53 code:2 userInfo:v51];
       goto LABEL_141;
     }
 
-    v179 = 0;
+    v178 = 0;
     v46 = 0;
 LABEL_142:
 
@@ -1648,24 +1647,23 @@ LABEL_142:
     v42 = objc_alloc(MEMORY[0x1E696ABC0]);
     v43 = v6;
     v44 = *MEMORY[0x1E698F240];
-    v215 = *MEMORY[0x1E696A578];
-    v179 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"firstPassPeakScoreHS"];
-    v216 = v179;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v216 forKeys:&v215 count:1];
+    v214 = *MEMORY[0x1E696A578];
+    v178 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"firstPassPeakScoreHS"];
+    v215 = v178;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v215 forKeys:&v214 count:1];
     v45 = v44;
     v6 = v43;
-    v180 = 0;
+    v179 = 0;
     v46 = 0;
     *error = [v42 initWithDomain:v45 code:2 userInfo:v15];
     goto LABEL_142;
   }
 
-  v180 = 0;
+  v179 = 0;
   v46 = 0;
 LABEL_143:
 
 LABEL_144:
-  v116 = *MEMORY[0x1E69E9840];
   return v46;
 }
 
@@ -1683,79 +1681,66 @@ LABEL_144:
   toCopy = to;
   if (self->_hasRaw_absoluteTimestamp)
   {
-    raw_absoluteTimestamp = self->_raw_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasFirstPassPeakScoreHS)
   {
-    firstPassPeakScoreHS = self->_firstPassPeakScoreHS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasFirstPassPeakScoreJS)
   {
-    firstPassPeakScoreJS = self->_firstPassPeakScoreJS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasFirstPassTriggerSource)
   {
-    firstPassTriggerSource = self->_firstPassTriggerSource;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasRecognizerScoreHS)
   {
-    recognizerScoreHS = self->_recognizerScoreHS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasRecognizerScoreJS)
   {
-    recognizerScoreJS = self->_recognizerScoreJS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasTriggerScoreHS)
   {
-    triggerScoreHS = self->_triggerScoreHS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasTriggerScoreJS)
   {
-    triggerScoreJS = self->_triggerScoreJS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasMitigationScore)
   {
-    mitigationScore = self->_mitigationScore;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasInvocationTypeID)
   {
-    invocationTypeID = self->_invocationTypeID;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasRepetitionSimilarityScore)
   {
-    repetitionSimilarityScore = self->_repetitionSimilarityScore;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasTdSpeakerRecognizerCombinedScore)
   {
-    tdSpeakerRecognizerCombinedScore = self->_tdSpeakerRecognizerCombinedScore;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasHwSampleRate)
   {
-    hwSampleRate = self->_hwSampleRate;
     PBDataWriterWriteFloatField();
   }
 
@@ -1766,25 +1751,21 @@ LABEL_144:
 
   if (self->_hasKeywordThresholdHS)
   {
-    keywordThresholdHS = self->_keywordThresholdHS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasKeywordThresholdJS)
   {
-    keywordThresholdJS = self->_keywordThresholdJS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasTdSpeakerRecognizerCombinedThresholdHS)
   {
-    tdSpeakerRecognizerCombinedThresholdHS = self->_tdSpeakerRecognizerCombinedThresholdHS;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasTdSpeakerRecognizerCombinedThresholdJS)
   {
-    tdSpeakerRecognizerCombinedThresholdJS = self->_tdSpeakerRecognizerCombinedThresholdJS;
     PBDataWriterWriteFloatField();
   }
 }
@@ -2610,94 +2591,90 @@ LABEL_128:
 
 + (id)protoFields
 {
-  v23[18] = *MEMORY[0x1E69E9840];
-  v22 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
-  v23[0] = v22;
-  v21 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"firstPassPeakScoreHS" number:2 type:1 subMessageClass:0];
-  v23[1] = v21;
-  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"firstPassPeakScoreJS" number:3 type:1 subMessageClass:0];
-  v23[2] = v20;
-  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"firstPassTriggerSource" number:4 type:2 subMessageClass:0];
-  v23[3] = v19;
-  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"recognizerScoreHS" number:5 type:1 subMessageClass:0];
-  v23[4] = v18;
-  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"recognizerScoreJS" number:6 type:1 subMessageClass:0];
-  v23[5] = v17;
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"triggerScoreHS" number:7 type:1 subMessageClass:0];
-  v23[6] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"triggerScoreJS" number:8 type:1 subMessageClass:0];
-  v23[7] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mitigationScore" number:9 type:1 subMessageClass:0];
-  v23[8] = v14;
+  v22[18] = *MEMORY[0x1E69E9840];
+  v21 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
+  v22[0] = v21;
+  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"firstPassPeakScoreHS" number:2 type:1 subMessageClass:0];
+  v22[1] = v20;
+  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"firstPassPeakScoreJS" number:3 type:1 subMessageClass:0];
+  v22[2] = v19;
+  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"firstPassTriggerSource" number:4 type:2 subMessageClass:0];
+  v22[3] = v18;
+  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"recognizerScoreHS" number:5 type:1 subMessageClass:0];
+  v22[4] = v17;
+  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"recognizerScoreJS" number:6 type:1 subMessageClass:0];
+  v22[5] = v16;
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"triggerScoreHS" number:7 type:1 subMessageClass:0];
+  v22[6] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"triggerScoreJS" number:8 type:1 subMessageClass:0];
+  v22[7] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mitigationScore" number:9 type:1 subMessageClass:0];
+  v22[8] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"invocationTypeID" number:10 type:2 subMessageClass:0];
-  v23[9] = v2;
+  v22[9] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"repetitionSimilarityScore" number:11 type:1 subMessageClass:0];
-  v23[10] = v3;
+  v22[10] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tdSpeakerRecognizerCombinedScore" number:12 type:1 subMessageClass:0];
-  v23[11] = v4;
+  v22[11] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hwSampleRate" number:13 type:1 subMessageClass:0];
-  v23[12] = v5;
+  v22[12] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"configVersion" number:14 type:13 subMessageClass:0];
-  v23[13] = v6;
+  v22[13] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"keywordThresholdHS" number:15 type:1 subMessageClass:0];
-  v23[14] = v7;
+  v22[14] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"keywordThresholdJS" number:16 type:1 subMessageClass:0];
-  v23[15] = v8;
+  v22[15] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tdSpeakerRecognizerCombinedThresholdHS" number:17 type:1 subMessageClass:0];
-  v23[16] = v9;
+  v22[16] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tdSpeakerRecognizerCombinedThresholdJS" number:18 type:1 subMessageClass:0];
-  v23[17] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:18];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v22[17] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:18];
 
   return v11;
 }
 
 + (id)columns
 {
-  v23[18] = *MEMORY[0x1E69E9840];
-  v22 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:2];
-  v21 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"firstPassPeakScoreHS" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:1 convertedType:0];
-  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"firstPassPeakScoreJS" dataType:1 requestOnly:0 fieldNumber:3 protoDataType:1 convertedType:0];
-  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"firstPassTriggerSource" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:2 convertedType:0];
-  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"recognizerScoreHS" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:1 convertedType:0];
-  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"recognizerScoreJS" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:1 convertedType:0];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"triggerScoreHS" dataType:1 requestOnly:0 fieldNumber:7 protoDataType:1 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"triggerScoreJS" dataType:1 requestOnly:0 fieldNumber:8 protoDataType:1 convertedType:0];
+  v22[18] = *MEMORY[0x1E69E9840];
+  v21 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:2];
+  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"firstPassPeakScoreHS" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:1 convertedType:0];
+  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"firstPassPeakScoreJS" dataType:1 requestOnly:0 fieldNumber:3 protoDataType:1 convertedType:0];
+  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"firstPassTriggerSource" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:2 convertedType:0];
+  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"recognizerScoreHS" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:1 convertedType:0];
+  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"recognizerScoreJS" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:1 convertedType:0];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"triggerScoreHS" dataType:1 requestOnly:0 fieldNumber:7 protoDataType:1 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"triggerScoreJS" dataType:1 requestOnly:0 fieldNumber:8 protoDataType:1 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mitigationScore" dataType:1 requestOnly:0 fieldNumber:9 protoDataType:1 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"invocationTypeID" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:2 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"repetitionSimilarityScore" dataType:1 requestOnly:0 fieldNumber:11 protoDataType:1 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tdSpeakerRecognizerCombinedScore" dataType:1 requestOnly:0 fieldNumber:12 protoDataType:1 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tdSpeakerRecognizerCombinedScore" dataType:1 requestOnly:0 fieldNumber:12 protoDataType:1 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hwSampleRate" dataType:1 requestOnly:0 fieldNumber:13 protoDataType:1 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"configVersion" dataType:2 requestOnly:0 fieldNumber:14 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"keywordThresholdHS" dataType:1 requestOnly:0 fieldNumber:15 protoDataType:1 convertedType:0];
-  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"keywordThresholdJS" dataType:1 requestOnly:0 fieldNumber:16 protoDataType:1 convertedType:0];
+  v12 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"keywordThresholdJS" dataType:1 requestOnly:0 fieldNumber:16 protoDataType:1 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tdSpeakerRecognizerCombinedThresholdHS" dataType:1 requestOnly:0 fieldNumber:17 protoDataType:1 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tdSpeakerRecognizerCombinedThresholdJS" dataType:1 requestOnly:0 fieldNumber:18 protoDataType:1 convertedType:0];
-  v23[0] = v22;
-  v23[1] = v21;
-  v23[2] = v20;
-  v23[3] = v19;
-  v23[4] = v18;
-  v23[5] = v17;
-  v23[6] = v16;
-  v23[7] = v15;
-  v23[8] = v2;
-  v23[9] = v3;
-  v23[10] = v4;
-  v23[11] = v14;
-  v23[12] = v5;
-  v23[13] = v6;
-  v23[14] = v7;
-  v23[15] = v13;
-  v23[16] = v8;
-  v23[17] = v9;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:18];
+  v22[0] = v21;
+  v22[1] = v20;
+  v22[2] = v19;
+  v22[3] = v18;
+  v22[4] = v17;
+  v22[5] = v16;
+  v22[6] = v15;
+  v22[7] = v14;
+  v22[8] = v2;
+  v22[9] = v3;
+  v22[10] = v4;
+  v22[11] = v13;
+  v22[12] = v5;
+  v22[13] = v6;
+  v22[14] = v7;
+  v22[15] = v12;
+  v22[16] = v8;
+  v22[17] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:18];
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

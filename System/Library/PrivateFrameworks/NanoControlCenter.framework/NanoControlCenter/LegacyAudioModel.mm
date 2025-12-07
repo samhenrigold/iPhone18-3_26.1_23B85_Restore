@@ -22,7 +22,7 @@
 
 - (void)volumeController:(id)controller volumeValueDidChange:(float)change
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FA24790);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FA24790, &qword_25B0090E0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   v8 = sub_25B005B64();

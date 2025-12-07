@@ -1,10 +1,12 @@
 @interface CHHandlePb
 + (id)handleWithCHHandle:(id)handle;
++ (id)handleWithType:(int)type value:(id)value normalizedValue:(id)normalizedValue;
 - (BOOL)isEqual:(id)equal;
 - (CHHandle)chHandle;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -14,6 +16,20 @@
 @end
 
 @implementation CHHandlePb
+
++ (id)handleWithType:(int)type value:(id)value normalizedValue:(id)normalizedValue
+{
+  v6 = *&type;
+  normalizedValueCopy = normalizedValue;
+  valueCopy = value;
+  v9 = objc_alloc_init(CHHandlePb);
+  [(CHHandlePb *)v9 setType:v6];
+  [(CHHandlePb *)v9 setValue:valueCopy];
+
+  [(CHHandlePb *)v9 setNormalizedValue:normalizedValueCopy];
+
+  return v9;
+}
 
 + (id)handleWithCHHandle:(id)handle
 {
@@ -85,6 +101,21 @@
   {
     return 0;
   }
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100050F70[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -166,24 +197,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_value)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_normalizedValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -239,7 +269,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_type != *(equalCopy + 4))
@@ -251,7 +280,7 @@
   else if (*(equalCopy + 32))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -264,17 +293,17 @@ LABEL_11:
   normalizedValue = self->_normalizedValue;
   if (normalizedValue | *(equalCopy + 1))
   {
-    v8 = [(NSString *)normalizedValue isEqual:?];
+    v7 = [(NSString *)normalizedValue isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

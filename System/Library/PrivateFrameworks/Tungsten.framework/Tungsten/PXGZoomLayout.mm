@@ -104,7 +104,7 @@ LABEL_6:
 
   layers2 = [(PXGZoomLayout *)self layers];
   sublayoutDataStore = [(PXGLayout *)self sublayoutDataStore];
-  indexSet = [MEMORY[0x277CCAB58] indexSet];
+  v9 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
   sublayoutDataStore2 = [(PXGLayout *)self sublayoutDataStore];
   v30[0] = MEMORY[0x277D85DD0];
   v30[1] = 3221225472;
@@ -112,7 +112,7 @@ LABEL_6:
   v30[3] = &unk_2782A7BD8;
   v11 = layers2;
   v31 = v11;
-  v12 = indexSet;
+  v12 = v9;
   v32 = v12;
   [sublayoutDataStore2 enumerateSublayoutsUsingBlock:v30];
 
@@ -951,7 +951,7 @@ LABEL_6:
   }
 }
 
-uint64_t __37__PXGZoomLayout__configureSublayouts__block_invoke(uint64_t a1, uint64_t a2)
+void *__37__PXGZoomLayout__configureSublayouts__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsObject:?];
   if ((result & 1) == 0)

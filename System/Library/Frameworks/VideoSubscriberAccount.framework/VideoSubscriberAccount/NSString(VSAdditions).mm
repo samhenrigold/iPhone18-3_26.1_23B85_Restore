@@ -4,9 +4,9 @@
 + (void)vs_localizedStringFromBool:()VSAdditions;
 - (BOOL)vs_composedCharacterIsLetter;
 - (BOOL)vs_composedCharacterIsWhitespace;
-- (uint64_t)vs_composedCharacterIsLowercase;
-- (uint64_t)vs_composedCharacterIsUppercase;
 - (unint64_t)vs_unsignedLongLongValue;
+- (void)vs_composedCharacterIsLowercase;
+- (void)vs_composedCharacterIsUppercase;
 @end
 
 @implementation NSString(VSAdditions)
@@ -46,7 +46,7 @@
   return v4;
 }
 
-- (uint64_t)vs_composedCharacterIsUppercase
+- (void)vs_composedCharacterIsUppercase
 {
   result = [self vs_composedCharacterIsLetter];
   if (result)
@@ -60,7 +60,7 @@
   return result;
 }
 
-- (uint64_t)vs_composedCharacterIsLowercase
+- (void)vs_composedCharacterIsLowercase
 {
   result = [self vs_composedCharacterIsLetter];
   if (result)

@@ -25,21 +25,20 @@
 
 - (NSString)encryptedKeyData
 {
-  v2 = (self + OBJC_IVAR____TtC15PlatformSSOCore16POPrebootDataKey_encryptedKeyData);
+  v2 = self + OBJC_IVAR____TtC15PlatformSSOCore16POPrebootDataKey_encryptedKeyData;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_25E941838();
+    v3 = sub_25E941838();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setEncryptedKeyData:(id)data
@@ -58,7 +57,6 @@
 
   v7 = (self + OBJC_IVAR____TtC15PlatformSSOCore16POPrebootDataKey_encryptedKeyData);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -127,7 +125,7 @@
 
   v5 = sub_25E9414D8();
   __swift_project_value_buffer(v5, qword_27FD0CD78);
-  v6 = Logger.PSSO_ERROR(code:description:)(-1001);
+  v6 = Logger.PSSO_ERROR(code:description:)(-1001, 0xD000000000000014, 0x800000025E9521B0);
   swift_willThrow();
   if (error)
   {

@@ -98,33 +98,31 @@ uint64_t __63__AMAmbientIlluminationTrigger_initWithBrightnessSystemClient___blo
 
 - (void)_setTriggered:(BOOL)triggered
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_triggered != triggered)
   {
     self->_triggered = triggered;
-    v4 = AMLogRedMode();
+    v4 = AMLogRedMode(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       triggered = self->_triggered;
       deactivationThresholdLux = self->_deactivationThresholdLux;
       ambientLux = self->_ambientLux;
       activationThresholdLux = self->_activationThresholdLux;
-      v11[0] = 67109888;
-      v11[1] = triggered;
-      v12 = 2048;
-      v13 = ambientLux;
-      v14 = 2048;
-      v15 = activationThresholdLux;
-      v16 = 2048;
-      v17 = deactivationThresholdLux;
-      _os_log_impl(&dword_23EE48000, v4, OS_LOG_TYPE_DEFAULT, "ambient illumination trigger triggered: %{BOOL}u [ ambient lux: %f  on threshold: %f  off threshold: %f ]", v11, 0x26u);
+      v10[0] = 67109888;
+      v10[1] = triggered;
+      v11 = 2048;
+      v12 = ambientLux;
+      v13 = 2048;
+      v14 = activationThresholdLux;
+      v15 = 2048;
+      v16 = deactivationThresholdLux;
+      _os_log_impl(&dword_23EE48000, v4, OS_LOG_TYPE_DEFAULT, "ambient illumination trigger triggered: %{BOOL}u [ ambient lux: %f  on threshold: %f  off threshold: %f ]", v10, 0x26u);
     }
 
     delegate = [(AMAmbientIlluminationTrigger *)self delegate];
     [delegate ambientIlluminationTrigger:self didUpdateTriggered:self->_triggered];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_effectiveDeactivationThresholdLux

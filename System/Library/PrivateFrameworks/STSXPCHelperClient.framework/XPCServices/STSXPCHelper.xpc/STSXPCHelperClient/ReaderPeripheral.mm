@@ -1,5 +1,7 @@
 @interface ReaderPeripheral
 - (BOOL)createGATTServer:(id)server serviceUUID:(id)d readerIdentCharacteristic:(id)characteristic;
+- (void)invalidateAndUpdateStateSignal:(BOOL)signal;
+- (void)invalidateAndUpdateStateSignal:(BOOL)signal reason:(unint64_t)reason;
 @end
 
 @implementation ReaderPeripheral
@@ -142,6 +144,24 @@ LABEL_29:
 LABEL_30:
 
   return v10;
+}
+
+- (void)invalidateAndUpdateStateSignal:(BOOL)signal
+{
+  v5.receiver = self;
+  v5.super_class = ReaderPeripheral;
+  [(ISO18013_3_Peripheral *)&v5 invalidateAndUpdateStateSignal:signal];
+  iso18Service = self->_iso18Service;
+  self->_iso18Service = 0;
+}
+
+- (void)invalidateAndUpdateStateSignal:(BOOL)signal reason:(unint64_t)reason
+{
+  v6.receiver = self;
+  v6.super_class = ReaderPeripheral;
+  [(ISO18013_3_Peripheral *)&v6 invalidateAndUpdateStateSignal:signal reason:reason];
+  iso18Service = self->_iso18Service;
+  self->_iso18Service = 0;
 }
 
 @end

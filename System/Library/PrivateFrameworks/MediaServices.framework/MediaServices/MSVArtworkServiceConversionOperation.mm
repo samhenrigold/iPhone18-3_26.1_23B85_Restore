@@ -84,7 +84,7 @@ LABEL_13:
   [v7 removeItemAtURL:destinationURL2 error:0];
 
   ImageFromSource = MSVImageUtilitiesCreateImageFromSource(ImageSource, 0);
-  v24 = MSVImageUtilitiesCopyUTTypeForImage();
+  v24 = MSVImageUtilitiesCopyUTTypeForImage(ImageFromSource);
   if (ImageFromSource)
   {
     CFRelease(ImageFromSource);

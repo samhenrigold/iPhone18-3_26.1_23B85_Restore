@@ -7,7 +7,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  CGSizeMake(self, a2, fits, *&fits.height);
+  CGSizeMake();
   result.height = v4;
   result.width = v3;
   return result;

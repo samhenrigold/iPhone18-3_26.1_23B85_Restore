@@ -32,6 +32,13 @@ id sub_100001038(uint64_t a1)
   return [*(a1 + 32) uncacheAllAffinitiesWithTag:0];
 }
 
+void sub_10000173C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100001760(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = *(a1 + 32);
@@ -566,7 +573,7 @@ void sub_10000AE88(uint64_t a1)
   [v2 locateCachingServersWithTimeout:v5 capabilities:v6 affinityID:v7 autoRefresh:v8 quickMiss:v9 forceMiss:v10 callback:v4 callbackQueue:v12 tag:v11];
 }
 
-void sub_10000B114(uint64_t a1, _BOOL4 a2, void *a3)
+void sub_10000B114(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
   v6 = gLogHandle;
@@ -658,9 +665,9 @@ void sub_10000B3E8(uint64_t a1)
   [v3 recentlySeenCachingServerWithAutoRefresh:v2 callback:v4 callbackQueue:v5 tag:*(a1 + 48)];
 }
 
-void sub_10000B608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000B608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -693,7 +700,7 @@ void sub_10000B704(uint64_t a1)
   *(v1 + 40) = 0;
 }
 
-void sub_10000BC4C(uint64_t a1, _BOOL4 a2, void *a3)
+void sub_10000BC4C(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
   v6 = gLogHandle;
@@ -791,41 +798,30 @@ uint64_t sub_10000BF20(uint64_t a1, uint64_t a2, void *a3)
   return 1;
 }
 
-uint64_t sub_10000BFC8(uint64_t a1, uint64_t a2, void *a3)
+BOOL sub_10000BFC8(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  if (xpc_get_type(v4) != &_xpc_type_uint64)
+  v10 = 1;
+  if (xpc_get_type(v4) == &_xpc_type_uint64)
   {
-    goto LABEL_6;
-  }
+    value = xpc_uint64_get_value(v4);
+    if (value - 1 <= 3)
+    {
+      v6 = value;
+      v7 = *(a1 + 40) + value;
+      if ((*(v7 - 1) & 1) == 0)
+      {
+        *(v7 - 1) = 1;
+        v8 = *(a1 + 32);
+        v9 = [NSNumber numberWithUnsignedLongLong:value];
+        [v8 addObject:v9];
 
-  value = xpc_uint64_get_value(v4);
-  if (value - 1 > 3)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = value;
-  v7 = *(a1 + 40) + value;
-  if (*(v7 - 1))
-  {
-    goto LABEL_6;
-  }
-
-  *(v7 - 1) = 1;
-  v8 = *(a1 + 32);
-  v9 = [NSNumber numberWithUnsignedLongLong:value];
-  [v8 addObject:v9];
-
-  if (v6 == 4)
-  {
-    v10 = 0;
-  }
-
-  else
-  {
-LABEL_6:
-    v10 = 1;
+        if (v6 == 4)
+        {
+          v10 = 0;
+        }
+      }
+    }
   }
 
   return v10;
@@ -1174,6 +1170,13 @@ uint64_t sub_10000EF58(uint64_t a1)
   }
 }
 
+void sub_10000FA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
+{
+  va_start(va, a58);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_10000FA98(uint64_t a1)
 {
   v3 = *(a1 + 32);
@@ -1476,10 +1479,11 @@ void sub_10001470C(id a1, int64_t a2)
   }
 }
 
-void sub_100014E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100014E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 176), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1542,7 +1546,7 @@ void sub_100014ED8(uint64_t a1, void *a2, void *a3)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v42 = v3;
+      v41 = v3;
       v11 = [[NSUUID alloc] initWithUUIDString:v10];
 
       if (v9)
@@ -1564,15 +1568,15 @@ void sub_100014ED8(uint64_t a1, void *a2, void *a3)
 
       v14 = [NSString stringWithFormat:@"%@:%@", v7, v8];
       v15 = *(a1 + 64);
-      v41 = [v6 objectForKey:@"connect-timeout"];
-      v43 = v14;
-      v39 = v12;
-      if (v41)
+      v40 = [v6 objectForKey:@"connect-timeout"];
+      v42 = v14;
+      v38 = v12;
+      if (v40)
       {
         v16 = &IOMainPort_ptr;
         if (objc_opt_respondsToSelector())
         {
-          [v41 doubleValue];
+          [v40 doubleValue];
           v15 = v17;
           if (v17 < 0.2)
           {
@@ -1595,16 +1599,16 @@ void sub_100014ED8(uint64_t a1, void *a2, void *a3)
       }
 
       v26 = [v6 objectForKey:@"rank"];
-      if (!v26 || (v27 = v16[236], objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if (!v26 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
 
         v26 = &off_100037628;
       }
 
-      v28 = v43;
+      v27 = v42;
       if (*(*(*(a1 + 48) + 8) + 40))
       {
-        if ([*(*(*(a1 + 56) + 8) + 40) containsObject:v43])
+        if ([*(*(*(a1 + 56) + 8) + 40) containsObject:v42])
         {
           goto LABEL_42;
         }
@@ -1612,39 +1616,39 @@ void sub_100014ED8(uint64_t a1, void *a2, void *a3)
 
       else
       {
-        v29 = +[NSMutableArray array];
-        v30 = *(*(a1 + 48) + 8);
-        v31 = *(v30 + 40);
-        *(v30 + 40) = v29;
+        v28 = +[NSMutableArray array];
+        v29 = *(*(a1 + 48) + 8);
+        v30 = *(v29 + 40);
+        *(v29 + 40) = v28;
 
-        v32 = +[NSMutableSet set];
-        v33 = *(*(a1 + 56) + 8);
-        v34 = *(v33 + 40);
-        *(v33 + 40) = v32;
+        v31 = +[NSMutableSet set];
+        v32 = *(*(a1 + 56) + 8);
+        v33 = *(v32 + 40);
+        *(v32 + 40) = v31;
       }
 
-      v38 = *(*(*(a1 + 48) + 8) + 40);
-      v53[0] = v43;
-      v52[0] = @"localAddressAndPort";
-      v52[1] = @"connectTimeout";
+      v37 = *(*(*(a1 + 48) + 8) + 40);
+      v52[0] = v42;
+      v51[0] = @"localAddressAndPort";
+      v51[1] = @"connectTimeout";
       [v16[236] numberWithDouble:v15];
-      v35 = v40 = v25;
-      v53[1] = v35;
-      v53[2] = v40;
-      v52[2] = @"details";
-      v52[3] = @"favored";
-      v36 = [v16[236] numberWithBool:v39];
-      v53[3] = v36;
-      v53[4] = v10;
-      v52[4] = @"guid";
-      v52[5] = @"rank";
-      v53[5] = v26;
-      v37 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:6];
-      [v38 addObject:v37];
+      v34 = v39 = v25;
+      v52[1] = v34;
+      v52[2] = v39;
+      v51[2] = @"details";
+      v51[3] = @"favored";
+      v35 = [v16[236] numberWithBool:v38];
+      v52[3] = v35;
+      v52[4] = v10;
+      v51[4] = @"guid";
+      v51[5] = @"rank";
+      v52[5] = v26;
+      v36 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:6];
+      [v37 addObject:v36];
 
-      v28 = v43;
-      v25 = v40;
-      [*(*(*(a1 + 56) + 8) + 40) addObject:v43];
+      v27 = v42;
+      v25 = v39;
+      [*(*(*(a1 + 56) + 8) + 40) addObject:v42];
 LABEL_42:
 
       goto LABEL_29;
@@ -1668,13 +1672,13 @@ LABEL_26:
     v22 = [v21 absoluteString];
     v23 = [*(a1 + 32) redactObject:v6];
     *buf = 67109890;
-    v45 = v19;
-    v46 = 2080;
-    v47 = v20;
-    v48 = 2112;
-    v49 = v22;
-    v50 = 2112;
-    v51 = v23;
+    v44 = v19;
+    v45 = 2080;
+    v46 = v20;
+    v47 = 2112;
+    v48 = v22;
+    v49 = 2112;
+    v50 = v23;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#%08x [%s] in response from %@, server entry is invalid: %@", buf, 0x26u);
 
 LABEL_29:
@@ -1863,9 +1867,9 @@ void sub_100015ED8(uint64_t a1, void *a2, void *a3, void *a4, double a5)
   (*(v17 + 16))(v17, v18, v19);
 }
 
-void sub_100016440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100016440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1976,7 +1980,7 @@ void sub_100017F3C(uint64_t a1)
     if (!os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_20:
-      v24 = 0;
+      v23 = 0;
       goto LABEL_21;
     }
 
@@ -1986,13 +1990,13 @@ LABEL_20:
     v6 = [*(a1 + 40) absoluteString];
     v7 = *(a1 + 32);
     *buf = 67109890;
-    v78 = v3;
-    v79 = 2080;
-    v80 = v5;
-    v81 = 2112;
-    v82 = v6;
-    v83 = 2112;
-    v84 = v7;
+    v77 = v3;
+    v78 = 2080;
+    v79 = v5;
+    v80 = 2112;
+    v81 = v6;
+    v82 = 2112;
+    v83 = v7;
     v8 = "#%08x [%s] Error sending %@: %@";
 LABEL_4:
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v8, buf, 0x26u);
@@ -2000,7 +2004,6 @@ LABEL_4:
     goto LABEL_20;
   }
 
-  v9 = *(a1 + 48);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2009,85 +2012,85 @@ LABEL_4:
       goto LABEL_20;
     }
 
-    v25 = gLogHandle;
+    v24 = gLogHandle;
     if (!os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_20;
     }
 
-    v26 = *(a1 + 152);
-    v4 = v25;
-    v27 = currentQueueName();
+    v25 = *(a1 + 152);
+    v4 = v24;
+    v26 = currentQueueName();
     v6 = [*(a1 + 40) absoluteString];
-    v28 = *(a1 + 48);
+    v27 = *(a1 + 48);
     *buf = 67109890;
-    v78 = v26;
-    v79 = 2080;
-    v80 = v27;
-    v81 = 2112;
-    v82 = v6;
-    v83 = 2112;
-    v84 = v28;
+    v77 = v25;
+    v78 = 2080;
+    v79 = v26;
+    v80 = 2112;
+    v81 = v6;
+    v82 = 2112;
+    v83 = v27;
     v8 = "#%08x [%s] Invalid response from %@: %@";
     goto LABEL_4;
   }
 
-  v10 = *(a1 + 48);
-  if ([v10 statusCode] != 200)
+  v9 = *(a1 + 48);
+  if ([v9 statusCode] != 200)
   {
-    v35 = [v10 statusCode];
-    v36 = gLogHandle;
-    v37 = os_log_type_enabled(gLogHandle, OS_LOG_TYPE_INFO);
-    if (v35 != 404)
+    v34 = [v9 statusCode];
+    v35 = gLogHandle;
+    v36 = os_log_type_enabled(gLogHandle, OS_LOG_TYPE_INFO);
+    if (v34 != 404)
     {
-      if (v37)
+      if (v36)
       {
-        v42 = *(a1 + 152);
-        v43 = v36;
-        v44 = currentQueueName();
-        v45 = [*(a1 + 40) absoluteString];
+        v41 = *(a1 + 152);
+        v42 = v35;
+        v43 = currentQueueName();
+        v44 = [*(a1 + 40) absoluteString];
         *buf = 67109890;
-        v78 = v42;
-        v79 = 2080;
-        v80 = v44;
-        v81 = 2112;
-        v82 = v45;
-        v83 = 1024;
-        LODWORD(v84) = [v10 statusCode];
-        v46 = "#%08x [%s] Error response from %@: %d";
-        v47 = v43;
-        v48 = OS_LOG_TYPE_INFO;
-        v49 = 34;
+        v77 = v41;
+        v78 = 2080;
+        v79 = v43;
+        v80 = 2112;
+        v81 = v44;
+        v82 = 1024;
+        LODWORD(v83) = [v9 statusCode];
+        v45 = "#%08x [%s] Error response from %@: %d";
+        v46 = v42;
+        v47 = OS_LOG_TYPE_INFO;
+        v48 = 34;
 LABEL_41:
-        _os_log_impl(&_mh_execute_header, v47, v48, v46, buf, v49);
+        _os_log_impl(&_mh_execute_header, v46, v47, v45, buf, v48);
       }
 
 LABEL_42:
-      v24 = 0;
+      v23 = 0;
       goto LABEL_43;
     }
 
-    if (v37)
+    if (v36)
     {
-      v38 = *(a1 + 152);
-      v39 = v36;
-      v40 = currentQueueName();
-      v41 = [*(a1 + 40) absoluteString];
+      v37 = *(a1 + 152);
+      v38 = v35;
+      v39 = currentQueueName();
+      v40 = [*(a1 + 40) absoluteString];
       *buf = 67109634;
-      v78 = v38;
-      v79 = 2080;
-      v80 = v40;
-      v81 = 2112;
-      v82 = v41;
-      v24 = 1;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "#%08x [%s] No affinity from %@", buf, 0x1Cu);
+      v77 = v37;
+      v78 = 2080;
+      v79 = v39;
+      v80 = 2112;
+      v81 = v40;
+      v23 = 1;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "#%08x [%s] No affinity from %@", buf, 0x1Cu);
 
 LABEL_43:
       goto LABEL_21;
     }
 
 LABEL_36:
-    v24 = 1;
+    v23 = 1;
     goto LABEL_43;
   }
 
@@ -2096,78 +2099,78 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v11 = *(a1 + 64);
-  if (!v11 || [v11 length] > 0x400)
+  v10 = *(a1 + 64);
+  if (!v10 || [v10 length] > 0x400)
   {
-    v50 = gLogHandle;
+    v49 = gLogHandle;
     if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = *(a1 + 152);
-      v43 = v50;
-      v52 = currentQueueName();
-      v45 = [*(a1 + 40) absoluteString];
-      v53 = [*(a1 + 64) length];
+      v50 = *(a1 + 152);
+      v42 = v49;
+      v51 = currentQueueName();
+      v44 = [*(a1 + 40) absoluteString];
+      v52 = [*(a1 + 64) length];
       *buf = 67109890;
-      v78 = v51;
-      v79 = 2080;
-      v80 = v52;
-      v81 = 2112;
-      v82 = v45;
-      v83 = 2048;
-      v84 = v53;
-      v46 = "#%08x [%s] Invalid response from %@: %ld bytes";
-      v47 = v43;
-      v48 = OS_LOG_TYPE_DEFAULT;
-      v49 = 38;
+      v77 = v50;
+      v78 = 2080;
+      v79 = v51;
+      v80 = 2112;
+      v81 = v44;
+      v82 = 2048;
+      v83 = v52;
+      v45 = "#%08x [%s] Invalid response from %@: %ld bytes";
+      v46 = v42;
+      v47 = OS_LOG_TYPE_DEFAULT;
+      v48 = 38;
       goto LABEL_41;
     }
 
     goto LABEL_42;
   }
 
-  v12 = *(a1 + 64);
-  v74 = 0;
-  v13 = [NSPropertyListSerialization propertyListWithData:v12 options:0 format:0 error:&v74];
-  v14 = v74;
-  if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v11 = *(a1 + 64);
+  v73 = 0;
+  v12 = [NSPropertyListSerialization propertyListWithData:v11 options:0 format:0 error:&v73];
+  v13 = v73;
+  if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v15 = [v13 objectForKey:@"lastSaved"];
-    if (v15)
+    v14 = [v12 objectForKey:@"lastSaved"];
+    if (v14)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v16 = gLogHandle;
+        v15 = gLogHandle;
         if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_INFO))
         {
-          v67 = v13;
-          v17 = v14;
-          v18 = *(a1 + 152);
-          v65 = v16;
-          v19 = v15;
-          v20 = currentQueueName();
-          v21 = [*(a1 + 40) absoluteString];
+          v66 = v12;
+          v16 = v13;
+          v17 = *(a1 + 152);
+          v64 = v15;
+          v18 = v14;
+          v19 = currentQueueName();
+          v20 = [*(a1 + 40) absoluteString];
           *buf = 67109890;
-          v78 = v18;
-          v14 = v17;
-          v79 = 2080;
-          v80 = v20;
-          v15 = v19;
-          v81 = 2112;
-          v82 = v21;
-          v83 = 2112;
-          v84 = v19;
-          v13 = v67;
-          _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "#%08x [%s] %@ lastSaved %@", buf, 0x26u);
+          v77 = v17;
+          v13 = v16;
+          v78 = 2080;
+          v79 = v19;
+          v14 = v18;
+          v80 = 2112;
+          v81 = v20;
+          v82 = 2112;
+          v83 = v18;
+          v12 = v66;
+          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_INFO, "#%08x [%s] %@ lastSaved %@", buf, 0x26u);
         }
 
-        v22 = *(a1 + 72);
-        v87[0] = @"server";
-        v87[1] = @"lastSaved";
-        v88[0] = v22;
-        v88[1] = v15;
-        v23 = [NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:2];
-        v24 = 1;
+        v21 = *(a1 + 72);
+        v86[0] = @"server";
+        v86[1] = @"lastSaved";
+        v87[0] = v21;
+        v87[1] = v14;
+        v22 = [NSDictionary dictionaryWithObjects:v87 forKeys:v86 count:2];
+        v23 = 1;
         goto LABEL_48;
       }
     }
@@ -2175,111 +2178,111 @@ LABEL_36:
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  v54 = gLogHandle;
+  v53 = gLogHandle;
   if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v64 = *(a1 + 152);
-    v66 = v54;
-    v68 = v13;
-    v55 = v14;
-    v56 = currentQueueName();
-    v57 = [*(a1 + 40) absoluteString];
-    v58 = *(a1 + 80);
-    v59 = v15;
-    v60 = [*(a1 + 64) bytes];
-    v61 = [*(a1 + 64) length];
-    v62 = v60;
-    v15 = v59;
-    v63 = [v58 safeString:v62 length:v61 forceHex:0];
+    v63 = *(a1 + 152);
+    v65 = v53;
+    v67 = v12;
+    v54 = v13;
+    v55 = currentQueueName();
+    v56 = [*(a1 + 40) absoluteString];
+    v57 = *(a1 + 80);
+    v58 = v14;
+    v59 = [*(a1 + 64) bytes];
+    v60 = [*(a1 + 64) length];
+    v61 = v59;
+    v14 = v58;
+    v62 = [v57 safeString:v61 length:v60 forceHex:0];
     *buf = 67110146;
-    v78 = v64;
-    v79 = 2080;
-    v80 = v56;
-    v14 = v55;
-    v13 = v68;
-    v81 = 2112;
-    v82 = v57;
-    v83 = 2112;
-    v84 = v63;
-    v85 = 2112;
-    v86 = v14;
-    _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "#%08x [%s] Invalid response from %@: %@ (%@)", buf, 0x30u);
+    v77 = v63;
+    v78 = 2080;
+    v79 = v55;
+    v13 = v54;
+    v12 = v67;
+    v80 = 2112;
+    v81 = v56;
+    v82 = 2112;
+    v83 = v62;
+    v84 = 2112;
+    v85 = v13;
+    _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "#%08x [%s] Invalid response from %@: %@ (%@)", buf, 0x30u);
   }
 
-  v24 = 0;
   v23 = 0;
+  v22 = 0;
 LABEL_48:
 
-  if (!v23)
+  if (!v22)
   {
 LABEL_21:
-    v29 = *(a1 + 72);
-    if ((v24 & 1) != 0 || *(a1 + 88))
+    v28 = *(a1 + 72);
+    if ((v23 & 1) != 0 || *(a1 + 88))
     {
-      v30 = v29;
+      v29 = v28;
     }
 
     else
     {
-      v30 = [v29 mutableCopy];
-      [v30 setObject:&off_100037640 forKeyedSubscript:@"failureCount"];
+      v29 = [v28 mutableCopy];
+      [v29 setObject:&off_100037640 forKeyedSubscript:@"failureCount"];
     }
 
-    v75[0] = @"server";
-    v75[1] = @"lastSaved";
-    v76[0] = v30;
-    v31 = +[NSDate distantPast];
-    v76[1] = v31;
-    v23 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:2];
+    v74[0] = @"server";
+    v74[1] = @"lastSaved";
+    v75[0] = v29;
+    v30 = +[NSDate distantPast];
+    v75[1] = v30;
+    v22 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:2];
 
     goto LABEL_26;
   }
 
-  if ((v24 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
     sub_10002179C();
   }
 
-  v24 = 1;
+  v23 = 1;
 LABEL_26:
-  [*(a1 + 96) addObject:v23];
-  v32 = [*(a1 + 96) count];
-  if (v32 != [*(a1 + 104) count])
+  [*(a1 + 96) addObject:v22];
+  v31 = [*(a1 + 96) count];
+  if (v31 != [*(a1 + 104) count])
   {
-    v34 = 0;
     v33 = 0;
+    v32 = 0;
     if (*(a1 + 88))
     {
       goto LABEL_32;
     }
 
 LABEL_31:
-    [*(a1 + 80) updateHealthOfCachingServerWithHostport:*(a1 + 136) healthy:v24 override:1 callback:v33 callbackQueue:v34 tag:*(a1 + 152)];
+    [*(a1 + 80) updateHealthOfCachingServerWithHostport:*(a1 + 136) healthy:v23 override:1 callback:v32 callbackQueue:v33 tag:*(a1 + 152)];
     goto LABEL_32;
   }
 
-  v69[0] = _NSConcreteStackBlock;
-  v69[1] = 3221225472;
-  v69[2] = sub_1000187A0;
-  v69[3] = &unk_100035198;
-  v70 = *(a1 + 96);
-  v71 = *(a1 + 112);
-  v73 = *(a1 + 144);
-  v72 = *(a1 + 120);
-  v33 = objc_retainBlock(v69);
-  v34 = *(a1 + 128);
+  v68[0] = _NSConcreteStackBlock;
+  v68[1] = 3221225472;
+  v68[2] = sub_1000187A0;
+  v68[3] = &unk_100035198;
+  v69 = *(a1 + 96);
+  v70 = *(a1 + 112);
+  v72 = *(a1 + 144);
+  v71 = *(a1 + 120);
+  v32 = objc_retainBlock(v68);
+  v33 = *(a1 + 128);
 
   if (!*(a1 + 88))
   {
     goto LABEL_31;
   }
 
-  if (v33)
+  if (v32)
   {
-    dispatch_async(v34, v33);
+    dispatch_async(v33, v32);
   }
 
 LABEL_32:
@@ -2562,9 +2565,9 @@ void sub_100019E3C(uint64_t a1)
   (*(v1 + 16))(v1, 0, 0, 0, v2, 300.0);
 }
 
-void sub_10001A148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10001A148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2817,13 +2820,12 @@ LABEL_17:
 
 void sub_10001AE90(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if ([v4 count])
+  v3 = a2;
+  if ([v3 count])
   {
-    [*(a1 + 32) cacheServers:v4 forAffinityID:*(a1 + 40) tag:*(a1 + 72)];
+    [*(a1 + 32) cacheServers:v3 forAffinityID:*(a1 + 40) tag:*(a1 + 72)];
   }
 
-  v3 = *(a1 + 48);
   (*(*(a1 + 56) + 16))(*(a1 + 64));
 }
 
@@ -3149,15 +3151,15 @@ void sub_10001BA90(uint64_t a1, void *a2, int a3)
     v8 = v6;
     v9 = currentQueueName();
     v10 = [*(a1 + 32) describeCapableServers:*(a1 + 40) fromAvailableServers:v5 withOtherServers:*(a1 + 48)];
-    v12[0] = 67109890;
-    v12[1] = v7;
-    v13 = 2080;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v10;
-    v17 = 1024;
-    v18 = a3;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#%08x [%s] found %@, sorted=%{BOOL}d", v12, 0x22u);
+    v11[0] = 67109890;
+    v11[1] = v7;
+    v12 = 2080;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v10;
+    v16 = 1024;
+    v17 = a3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#%08x [%s] found %@, sorted=%{BOOL}d", v11, 0x22u);
   }
 
   if (*(a1 + 56) && [v5 count])
@@ -3165,7 +3167,6 @@ void sub_10001BA90(uint64_t a1, void *a2, int a3)
     [*(a1 + 32) cacheServers:v5 forAffinityID:*(a1 + 56) tag:*(a1 + 80)];
   }
 
-  v11 = *(a1 + 48);
   (*(*(a1 + 64) + 16))(*(a1 + 72));
 }
 
@@ -3651,12 +3652,11 @@ void sub_10001E860(uint64_t a1)
   }
 
   [*(a1 + 32) setLocateResponseData:0];
-  v5 = *(a1 + 56);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = *(a1 + 56);
-    [*(a1 + 32) setLocateResponseCode:{objc_msgSend(v6, "statusCode")}];
+    v5 = *(a1 + 56);
+    [*(a1 + 32) setLocateResponseCode:{objc_msgSend(v5, "statusCode")}];
     (*(*(a1 + 64) + 16))();
   }
 
@@ -3903,13 +3903,12 @@ void sub_10001FD8C(void *a1, void *a2, void *a3)
   _os_log_error_impl(v8, v9, v10, v11, v12, 0x26u);
 }
 
-void sub_10001FE90(void *a1, uint64_t a2, uint64_t *a3)
+void sub_10001FE90(void *a1)
 {
-  v4 = a1;
+  v1 = a1;
   currentQueueName();
-  v10 = *a3;
   sub_10001F6E8();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x26u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_10001FF54()
@@ -4093,7 +4092,7 @@ void sub_100020B04()
   v1 = v0;
   currentQueueName();
   v7 = [sub_10001F764() diskCachePlistPath];
-  v8 = *__error();
+  __error();
   sub_10001F6E8();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
 }
@@ -4273,27 +4272,21 @@ void sub_100021B7C(void *a1, void *a2)
 void sub_100021C5C()
 {
   sub_10001F6F8();
-  v2 = v1;
+  v1 = v0;
   currentQueueName();
-  v3 = v0[5];
-  v4 = v0[6];
-  v5 = v0[7];
   sub_10001F710();
   sub_10001F6B4();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x30u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x30u);
 }
 
 void sub_100021D24()
 {
   sub_10001F6F8();
-  v2 = v1;
+  v1 = v0;
   currentQueueName();
-  v3 = v0[5];
-  v4 = v0[6];
-  v5 = v0[7];
   sub_10001F710();
   sub_10001F6B4();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x30u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x30u);
 }
 
 void sub_100021DEC()
@@ -4301,11 +4294,9 @@ void sub_100021DEC()
   sub_10001F6F8();
   v2 = v1;
   currentQueueName();
-  v3 = *(v0 + 40);
-  v4 = *(v0 + 48);
   [*(v0 + 56) length];
   sub_10001F68C();
   sub_10001F704();
   sub_10001F6B4();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x30u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x30u);
 }

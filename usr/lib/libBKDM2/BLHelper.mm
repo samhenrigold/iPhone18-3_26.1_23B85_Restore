@@ -10,7 +10,6 @@
 + (id)objectOrNSNull:(id)null;
 + (id)stringFromFrameType:(unsigned int)type;
 + (id)stringFromSequenceType:(unsigned int)type;
-+ (uint64_t)deviceBatteryLevel;
 + (void)displayUserPrompt:(unint64_t)prompt strings:(id)strings completion:(id)completion;
 + (void)median:(unsigned __int16 *)median count:(unint64_t)count queue:(id)queue completionBlock:(id)block;
 + (void)writeTailspinToFile:(id)file;
@@ -205,29 +204,29 @@ LABEL_8:
 
 + (id)numberForBootArg:(id)arg
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   argCopy = arg;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   bootArgs = [self bootArgs];
-  v6 = [bootArgs countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [bootArgs countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(bootArgs);
         }
 
-        v11 = [*(*(&v19 + 1) + 8 * i) componentsSeparatedByString:@"="];
+        v11 = [*(*(&v18 + 1) + 8 * i) componentsSeparatedByString:@"="];
         v12 = [v11 objectAtIndexedSubscript:0];
         v13 = [v12 isEqualToString:argCopy];
 
@@ -241,7 +240,7 @@ LABEL_8:
         }
       }
 
-      v7 = [bootArgs countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [bootArgs countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -251,8 +250,6 @@ LABEL_8:
   {
     v8 = 0;
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -290,37 +287,36 @@ void __30__BLHelper_buildVersionString__block_invoke()
   if (!v4)
   {
     +[BLHelper encryptData:];
-    v6 = 0;
+    v5 = 0;
 LABEL_10:
     data = 0;
     goto LABEL_5;
   }
 
-  v5 = *MEMORY[0x29EDB8ED8];
-  v6 = SecCertificateCreateWithPEM();
-  if (!v6)
+  v5 = SecCertificateCreateWithPEM();
+  if (!v5)
   {
     +[BLHelper encryptData:];
     goto LABEL_10;
   }
 
   data = [MEMORY[0x29EDB8DF8] data];
-  v8 = SecCMSCreateEnvelopedData();
-  if (v8)
+  v7 = SecCMSCreateEnvelopedData();
+  if (v7)
   {
-    [BLHelper encryptData:v8];
-    v6 = 0;
+    [BLHelper encryptData:v7];
+    v5 = 0;
   }
 
   else
   {
-    v6 = data;
-    data = v6;
+    v5 = data;
+    data = v5;
   }
 
 LABEL_5:
 
-  return v6;
+  return v5;
 }
 
 uint64_t __49__BLHelper_displayUserPrompt_strings_completion___block_invoke(uint64_t a1)
@@ -383,15 +379,15 @@ uint64_t __49__BLHelper_displayUserPrompt_strings_completion___block_invoke(uint
 
 + (void)writeTailspinToFile:(id)file
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   fileCopy = file;
   v4 = open([fileCopy fileSystemRepresentation], 514, 384);
   if (v4 != -1)
   {
     v5 = v4;
-    v9 = *MEMORY[0x29EDC9790];
-    v10[0] = MEMORY[0x29EDB8EB0];
-    v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x29EDC9790];
+    v9[0] = MEMORY[0x29EDB8EB0];
+    v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v7 = tailspin_dump_output_with_options_sync();
 
     if ((v7 & 1) == 0)
@@ -402,8 +398,6 @@ uint64_t __49__BLHelper_displayUserPrompt_strings_completion___block_invoke(uint
 
     close(v5);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 + (id)numberFromFloat:(float)float
@@ -483,7 +477,7 @@ uint64_t __47__BLHelper_median_count_queue_completionBlock___block_invoke(uint64
 {
   v2 = [*(a1 + 32) mutableBytes];
   v3 = *(a1 + 48);
-  v4 = (v2 + (v3 & 0xFFFFFFFFFFFFFFFELL));
+  v4 = v2 + (v3 & 0xFFFFFFFFFFFFFFFELL);
   if (v2)
   {
     if (v3 < 0)
@@ -554,7 +548,7 @@ uint64_t __47__BLHelper_median_count_queue_completionBlock___block_invoke(uint64
 
           else
           {
-            v5 = (v6 - 1);
+            v5 = v6 - 1;
           }
         }
       }
@@ -566,10 +560,9 @@ uint64_t __47__BLHelper_median_count_queue_completionBlock___block_invoke(uint64
     __47__BLHelper_median_count_queue_completionBlock___block_invoke_cold_3();
   }
 
-  v15 = *v4;
-  v16 = *(*(a1 + 40) + 16);
+  v15 = *(*(a1 + 40) + 16);
 
-  return v16();
+  return v15();
 }
 
 + (void)displayUserPrompt:(unint64_t)prompt strings:(id)strings completion:(id)completion
@@ -606,69 +599,6 @@ uint64_t __47__BLHelper_median_count_queue_completionBlock___block_invoke(uint64
   {
     fprintf(*MEMORY[0x29EDCA610], "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", "strings", &unk_296D32C0B, "/Library/Caches/com.apple.xbs/Sources/Pearl/BioLog/BLHelper.m", 223, 0);
   }
-}
-
-+ (uint64_t)deviceBatteryLevel
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 88, 0);
-}
-
-uint64_t __20__BLHelper_bootArgs__block_invoke_cold_1()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 130, 0);
-}
-
-+ (uint64_t)encryptData:.cold.2()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 206, 0);
-}
-
-+ (uint64_t)encryptData:.cold.3()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 203, 0);
-}
-
-+ (uint64_t)median:count:queue:completionBlock:.cold.1()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 376, 0);
-}
-
-+ (uint64_t)median:count:queue:completionBlock:.cold.2()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 373, 0);
-}
-
-uint64_t __47__BLHelper_median_count_queue_completionBlock___block_invoke_cold_1()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 330, 0);
-}
-
-uint64_t __47__BLHelper_median_count_queue_completionBlock___block_invoke_cold_2()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 329, 0);
-}
-
-uint64_t __47__BLHelper_median_count_queue_completionBlock___block_invoke_cold_3()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  OUTLINED_FUNCTION_0_0();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 326, 0);
 }
 
 @end

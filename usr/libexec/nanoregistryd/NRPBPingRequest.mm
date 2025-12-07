@@ -44,11 +44,8 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  responseIDSPriority = self->_responseIDSPriority;
   PBDataWriterWriteInt32Field();
-  timeout = self->_timeout;
   PBDataWriterWriteDoubleField();
-  pingType = self->_pingType;
   PBDataWriterWriteInt32Field();
   if (self->_payload)
   {

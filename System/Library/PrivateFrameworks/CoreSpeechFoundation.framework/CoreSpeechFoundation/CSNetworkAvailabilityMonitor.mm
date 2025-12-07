@@ -3,11 +3,23 @@
 - (CSNetworkAvailabilityMonitor)init;
 - (void)_availabilityChanged;
 - (void)_didReceivedNetworkAvailabilityChangedNotification:(BOOL)notification;
+- (void)_notifyObserver:(id)observer withNetworkAvailability:(BOOL)availability;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 @end
 
 @implementation CSNetworkAvailabilityMonitor
+
+- (void)_notifyObserver:(id)observer withNetworkAvailability:(BOOL)availability
+{
+  availabilityCopy = availability;
+  observerCopy = observer;
+  [(CSEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSNetworkAvailabilityMonitor:self didReceiveNetworkAvailabilityChanged:availabilityCopy];
+  }
+}
 
 - (void)_didReceivedNetworkAvailabilityChangedNotification:(BOOL)notification
 {
@@ -22,44 +34,41 @@
 
 - (void)_availabilityChanged
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSNetworkAvailabilityMonitor _availabilityChanged]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Network availability changed", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSNetworkAvailabilityMonitor _availabilityChanged]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Network availability changed", &v4, 0xCu);
   }
 
   [(CSNetworkAvailabilityMonitor *)self _didReceivedNetworkAvailabilityChangedNotification:isDNSAvailable()];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[CSNetworkAvailabilityMonitor _stopMonitoring]";
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : network availability", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSNetworkAvailabilityMonitor _stopMonitoring]";
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : network availability", &v5, 0xCu);
       notifyToken = self->_notifyToken;
     }
 
     notify_cancel(notifyToken);
     self->_notifyToken = -1;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_notifyToken == -1)
   {
@@ -68,9 +77,9 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v11 = "[CSNetworkAvailabilityMonitor _startMonitoringWithQueue:]";
-      v12 = 2080;
-      v13 = notify_key;
+      v10 = "[CSNetworkAvailabilityMonitor _startMonitoringWithQueue:]";
+      v11 = 2080;
+      v12 = notify_key;
       _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s network state notify key : %s", buf, 0x16u);
     }
 
@@ -86,11 +95,9 @@
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[CSNetworkAvailabilityMonitor _startMonitoringWithQueue:]";
+    v10 = "[CSNetworkAvailabilityMonitor _startMonitoringWithQueue:]";
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : network availability", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (CSNetworkAvailabilityMonitor)init

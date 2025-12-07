@@ -25,7 +25,7 @@
 
 id __59__HFHumiditySensorServiceItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 readResponse];
   v5 = [v4 responseForCharacteristicType:*MEMORY[0x277CCF850]];
@@ -35,7 +35,7 @@ id __59__HFHumiditySensorServiceItem__subclass_updateWithOptions___block_invoke(
   v8 = [v3 standardResults];
 
   v9 = [v8 mutableCopy];
-  v10 = [*(a1 + 32) service];
+  v10 = objc_msgSend_service(*(a1 + 32));
   v11 = [v10 accessory];
 
   if ([v11 hf_isHomePod] && ((objc_msgSend(v11, "hf_isReadyToInstallSoftwareUpdate") & 1) != 0 || objc_msgSend(v11, "hf_isSoftwareUpdateInProgress")))
@@ -45,11 +45,11 @@ id __59__HFHumiditySensorServiceItem__subclass_updateWithOptions___block_invoke(
     {
       v13 = *(a1 + 32);
       v14 = NSStringFromSelector(*(a1 + 40));
-      v30 = 138412546;
-      v31 = v13;
-      v32 = 2112;
-      v33 = v14;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "%@:%@ Clearing display elements for SU for Homepod Humidity Sensor", &v30, 0x16u);
+      v29 = 138412546;
+      v30 = v13;
+      v31 = 2112;
+      v32 = v14;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "%@:%@ Clearing display elements for SU for Homepod Humidity Sensor", &v29, 0x16u);
     }
 
     [v9 setObject:0 forKeyedSubscript:@"description"];
@@ -75,7 +75,7 @@ id __59__HFHumiditySensorServiceItem__subclass_updateWithOptions___block_invoke(
     [v9 na_safeSetObject:v17 forKey:@"controlDescription"];
   }
 
-  v18 = [*(a1 + 32) service];
+  v18 = objc_msgSend_service(*(a1 + 32));
   v19 = [v18 accessory];
   v20 = [v19 isCalibrating];
 
@@ -89,13 +89,13 @@ id __59__HFHumiditySensorServiceItem__subclass_updateWithOptions___block_invoke(
     {
       v23 = *(a1 + 32);
       v24 = NSStringFromSelector(*(a1 + 40));
-      v30 = 138412802;
-      v31 = v23;
-      v32 = 2112;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v9;
-      _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "%@:%@ Sensor calibrating, resetting potential error descriptions: %@", &v30, 0x20u);
+      v29 = 138412802;
+      v30 = v23;
+      v31 = 2112;
+      v32 = v24;
+      v33 = 2112;
+      v34 = v9;
+      _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "%@:%@ Sensor calibrating, resetting potential error descriptions: %@", &v29, 0x20u);
     }
 
     [v9 setObject:0 forKeyedSubscript:@"errorDescription"];
@@ -106,8 +106,6 @@ id __59__HFHumiditySensorServiceItem__subclass_updateWithOptions___block_invoke(
   v25 = MEMORY[0x277D2C900];
   v26 = [HFItemUpdateOutcome outcomeWithResults:v9];
   v27 = [v25 futureWithResult:v26];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

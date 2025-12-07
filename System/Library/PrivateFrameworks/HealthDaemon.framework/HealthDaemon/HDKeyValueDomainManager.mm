@@ -102,7 +102,7 @@
 void __78__HDKeyValueDomainManager_batchNotificationForDomain_category_forTransaction___block_invoke(uint64_t a1)
 {
   os_unfair_lock_lock((*(a1 + 32) + 16));
-  v2 = [*(*(a1 + 32) + 24) copy];
+  v2 = objc_msgSend_copy(*(*(a1 + 32) + 24));
   [*(*(a1 + 32) + 24) removeAllObjects];
   *(*(a1 + 32) + 32) = 0;
   os_unfair_lock_unlock((*(a1 + 32) + 16));

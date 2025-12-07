@@ -1,4 +1,5 @@
 @interface MTLToolsComputeCommandEncoder
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (BOOL)encodeEndIf;
 - (BOOL)encodeEndWhile;
 - (MTLToolsComputeCommandEncoder)initWithComputeCommandEncoder:(id)encoder parent:(id)parent descriptor:(id)descriptor;
@@ -9,13 +10,17 @@
 - (void)dispatchThreadgroupsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreads:(id *)threads threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreadsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset;
+- (void)enableNullBufferBinds:(BOOL)binds;
 - (void)encodeStartDoWhile;
 - (void)encodeStartElse;
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)offset;
 - (void)executeCommandsInBuffer:(id)buffer withRange:(_NSRange)range;
 - (void)insertCompressedTextureReinterpretationFlush;
 - (void)memoryBarrierWithResources:(const void *)resources count:(unint64_t)count;
 - (void)memoryBarrierWithScope:(unint64_t)scope;
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier;
 - (void)setAccelerationStructure:(id)structure atBufferIndex:(unint64_t)index;
 - (void)setBuffer:(id)buffer offset:(unint64_t)offset atIndex:(unint64_t)index;
 - (void)setBuffer:(id)buffer offset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index;
@@ -35,13 +40,17 @@
 - (void)setSamplerStates:(const void *)states withRange:(_NSRange)range;
 - (void)setStageInRegion:(id *)region;
 - (void)setStageInRegionWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset;
+- (void)setSubstream:(unsigned int)substream;
 - (void)setTexture:(id)texture atIndex:(unint64_t)index;
 - (void)setTextures:(const void *)textures withRange:(_NSRange)range;
 - (void)setThreadgroupDistributionMode:(int64_t)mode;
+- (void)setThreadgroupDistributionModeWithClusterGroupIndex:(unsigned int)index;
 - (void)setThreadgroupMemoryLength:(unint64_t)length atIndex:(unint64_t)index;
+- (void)setThreadgroupPackingDisabled:(BOOL)disabled;
 - (void)setToolsDispatchBufferSPI:(unint64_t)i atIndex:(unint64_t)index;
 - (void)setVisibleFunctionTable:(id)table atBufferIndex:(unint64_t)index;
 - (void)setVisibleFunctionTables:(const void *)tables withBufferRange:(_NSRange)range;
+- (void)signalProgress:(unsigned int)progress;
 - (void)updateFence:(id)fence;
 - (void)useHeap:(id)heap;
 - (void)useHeaps:(const void *)heaps count:(unint64_t)count;
@@ -51,6 +60,7 @@
 - (void)useResourceGroup:(id)group usage:(unint64_t)usage;
 - (void)useResources:(const void *)resources count:(unint64_t)count usage:(unint64_t)usage;
 - (void)waitForFence:(id)fence;
+- (void)waitForProgress:(unsigned int)progress;
 @end
 
 @implementation MTLToolsComputeCommandEncoder
@@ -108,11 +118,11 @@
 {
   length = range.length;
   location = range.location;
-  v14[31] = *MEMORY[0x277D85DE8];
+  v13[31] = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     buffersCopy = buffers;
-    v10 = v14;
+    v10 = v13;
     v11 = range.length;
     do
     {
@@ -126,7 +136,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBuffer:(id)buffer offset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index
@@ -142,11 +151,11 @@
 {
   length = range.length;
   location = range.location;
-  v16[31] = *MEMORY[0x277D85DE8];
+  v15[31] = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     buffersCopy = buffers;
-    v12 = v16;
+    v12 = v15;
     v13 = range.length;
     do
     {
@@ -160,7 +169,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBufferOffset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index
@@ -190,11 +198,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     texturesCopy = textures;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -208,7 +216,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSamplerState:(id)state atIndex:(unint64_t)index
@@ -224,11 +231,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -242,7 +249,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSamplerState:(id)state lodMinClamp:(float)clamp lodMaxClamp:(float)maxClamp atIndex:(unint64_t)index
@@ -260,11 +266,11 @@
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v12 = v16;
+    v12 = v15;
     v13 = range.length;
     do
     {
@@ -278,7 +284,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setThreadgroupMemoryLength:(unint64_t)length atIndex:(unint64_t)index
@@ -500,6 +505,28 @@
   }
 }
 
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier
+{
+  barrierCopy = barrier;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject sampleCountersInBuffer:baseObject2 atSampleIndex:index withBarrier:barrierCopy];
+}
+
+- (void)enableNullBufferBinds:(BOOL)binds
+{
+  bindsCopy = binds;
+  [(MTLToolsObject *)self baseObject];
+  if (objc_opt_respondsToSelector())
+  {
+    baseObject = [(MTLToolsObject *)self baseObject];
+
+    [baseObject enableNullBufferBinds:bindsCopy];
+  }
+}
+
 - (void)setVisibleFunctionTable:(id)table atBufferIndex:(unint64_t)index
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -591,11 +618,41 @@
   [baseObject encodeStartDoWhile];
 }
 
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v6 = *&value;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [while baseObject];
+
+  return [baseObject encodeEndDoWhile:baseObject2 offset:offset comparison:comparison referenceValue:v6];
+}
+
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v6 = *&value;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [while baseObject];
+
+  [baseObject encodeStartWhile:baseObject2 offset:offset comparison:comparison referenceValue:v6];
+}
+
 - (BOOL)encodeEndWhile
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject encodeEndWhile];
+}
+
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v6 = *&value;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [if baseObject];
+
+  [baseObject encodeStartIf:baseObject2 offset:offset comparison:comparison referenceValue:v6];
 }
 
 - (void)encodeStartElse
@@ -619,11 +676,51 @@
   return [baseObject endEncodingAndRetrieveProgramAddressTable];
 }
 
+- (void)setSubstream:(unsigned int)substream
+{
+  v3 = *&substream;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setSubstream:v3];
+}
+
+- (void)signalProgress:(unsigned int)progress
+{
+  v3 = *&progress;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject signalProgress:v3];
+}
+
+- (void)waitForProgress:(unsigned int)progress
+{
+  v3 = *&progress;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject waitForProgress:v3];
+}
+
+- (void)setThreadgroupPackingDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setThreadgroupPackingDisabled:disabledCopy];
+}
+
 - (void)setThreadgroupDistributionMode:(int64_t)mode
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setThreadgroupDistributionMode:mode];
+}
+
+- (void)setThreadgroupDistributionModeWithClusterGroupIndex:(unsigned int)index
+{
+  v3 = *&index;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setThreadgroupDistributionModeWithClusterGroupIndex:v3];
 }
 
 - (void)useResidencySet:(id)set

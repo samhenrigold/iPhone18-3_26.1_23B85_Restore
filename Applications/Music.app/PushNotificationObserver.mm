@@ -18,28 +18,28 @@
 
 - (void)connection:(id)connection didReceiveMessageForTopic:(id)topic userInfo:(id)info
 {
-  v8 = sub_10010FC20(&qword_1011A7F00);
-  __chkstk_darwin(v8 - 8);
-  v10 = &v16 - v9;
+  sub_10010FC20(&qword_1011A7F00, &qword_100EEDE10);
+  __chkstk_darwin();
+  v9 = &v15 - v8;
   if (topic)
   {
     topic = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = v11;
+    v11 = v10;
     if (info)
     {
 LABEL_3:
-      v13 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-      v14 = type metadata accessor for TaskPriority();
-      (*(*(v14 - 8) + 56))(v10, 1, 1, v14);
-      v15 = swift_allocObject();
-      v15[2] = 0;
-      v15[3] = 0;
-      v15[4] = self;
-      v15[5] = topic;
-      v15[6] = v12;
-      v15[7] = v13;
+      v12 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+      v13 = type metadata accessor for TaskPriority();
+      (*(*(v13 - 8) + 56))(v9, 1, 1, v13);
+      v14 = swift_allocObject();
+      v14[2] = 0;
+      v14[3] = 0;
+      v14[4] = self;
+      v14[5] = topic;
+      v14[6] = v11;
+      v14[7] = v12;
 
-      sub_100969440(0, 0, v10, &unk_100EF6750, v15);
+      sub_100969440(0, 0, v9, &unk_100EF6750, v14);
 
       return;
     }
@@ -47,7 +47,7 @@ LABEL_3:
 
   else
   {
-    v12 = 0;
+    v11 = 0;
     if (info)
     {
       goto LABEL_3;

@@ -23,8 +23,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v17[0] = @"code";
+  v17[4] = *MEMORY[0x1E69E9840];
+  v16[0] = @"code";
   code = [(INUpdateEventIntentResponse *)self code];
   v4 = code;
   if (code < 8)
@@ -39,8 +39,8 @@
     v6 = 0;
   }
 
-  v18[0] = null;
-  v17[1] = @"updatedEvent";
+  v17[0] = null;
+  v16[1] = @"updatedEvent";
   updatedEvent = [(INUpdateEventIntentResponse *)self updatedEvent];
   null2 = updatedEvent;
   if (!updatedEvent)
@@ -48,8 +48,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v17[2] = @"conflictingEventIdentifiers";
+  v17[1] = null2;
+  v16[2] = @"conflictingEventIdentifiers";
   conflictingEventIdentifiers = [(INUpdateEventIntentResponse *)self conflictingEventIdentifiers];
   null3 = conflictingEventIdentifiers;
   if (!conflictingEventIdentifiers)
@@ -57,8 +57,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null3;
-  v17[3] = @"confirmationReason";
+  v17[2] = null3;
+  v16[3] = @"confirmationReason";
   confirmationReason = [(INUpdateEventIntentResponse *)self confirmationReason];
   v12 = @"unknown";
   if (confirmationReason == 2)
@@ -72,8 +72,8 @@
   }
 
   v13 = v12;
-  v18[3] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
   if (!conflictingEventIdentifiers)
   {
@@ -86,8 +86,6 @@
   if (v4 >= 8)
   {
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -133,32 +131,32 @@
 
 - (void)setConflictingEventIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   _responseMessagePBRepresentation = [(INIntentResponse *)self _responseMessagePBRepresentation];
   [_responseMessagePBRepresentation clearConflictingEventIdentifiers];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         _responseMessagePBRepresentation2 = [(INIntentResponse *)self _responseMessagePBRepresentation];
         [_responseMessagePBRepresentation2 addConflictingEventIdentifiers:v11];
 
@@ -166,7 +164,7 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -175,8 +173,6 @@
   _responseMessagePBRepresentation3 = [(INIntentResponse *)self _responseMessagePBRepresentation];
   data = [_responseMessagePBRepresentation3 data];
   [(INIntentResponse *)self _setPayloadResponseMessageData:data];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUpdatedEvent:(id)event
@@ -342,7 +338,7 @@
 
 - (INUpdateEventIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -360,21 +356,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INUpdateEventIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INUpdateEventIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INUpdateEventIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INUpdateEventIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

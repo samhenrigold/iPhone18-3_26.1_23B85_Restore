@@ -143,7 +143,7 @@ uint64_t __42__PXGEffectComponent_cleanupUnusedObjects__block_invoke(uint64_t a1
   [(PXGComponent *)&v7 willDestroyEntities:entities count:count];
 }
 
-uint64_t __48__PXGEffectComponent_willDestroyEntities_count___block_invoke(uint64_t a1, id a2)
+_DWORD *__48__PXGEffectComponent_willDestroyEntities_count___block_invoke(uint64_t a1, id a2)
 {
   v4 = a2;
   result = [a2 mutableEffectIds];
@@ -154,7 +154,7 @@ uint64_t __48__PXGEffectComponent_willDestroyEntities_count___block_invoke(uint6
     do
     {
       v8 = *v7++;
-      *(result + 4 * v8) = 0;
+      result[v8] = 0;
       --v6;
     }
 

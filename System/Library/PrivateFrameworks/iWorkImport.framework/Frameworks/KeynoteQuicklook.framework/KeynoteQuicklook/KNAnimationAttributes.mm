@@ -23,76 +23,75 @@
 {
   attributesCopy = attributes;
   effectCopy = effect;
-  v7 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithEffect_attributes_(v7, v8, effectCopy, attributesCopy);
+  v7 = [objc_alloc(objc_opt_class()) initWithEffect:effectCopy attributes:attributesCopy];
 
-  return v9;
+  return v7;
 }
 
 + (id)supportedCustomAttributes
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "+[KNAnimationAttributes supportedCustomAttributes]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 32, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationAttributes supportedCustomAttributes]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:32 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "+[KNAnimationAttributes supportedCustomAttributes]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "+[KNAnimationAttributes supportedCustomAttributes]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 + (BOOL)customAttributeKeyIsValid:(id)valid
 {
   validCopy = valid;
   v4 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "+[KNAnimationAttributes customAttributeKeyIsValid:]");
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m");
-  v9 = objc_opt_class();
-  v10 = NSStringFromClass(v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v11, v6, v8, 37, 0, "Abstract method not overridden by %{public}@", v10);
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationAttributes customAttributeKeyIsValid:]"];
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m"];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [v4 handleFailureInFunction:v5 file:v6 lineNumber:37 isFatal:0 description:{"Abstract method not overridden by %{public}@", v8}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
-  v14 = MEMORY[0x277CBEAD8];
-  v15 = *MEMORY[0x277CBE658];
-  v16 = MEMORY[0x277CCACA8];
-  v17 = objc_opt_class();
-  v18 = NSStringFromClass(v17);
-  v20 = objc_msgSend_stringWithFormat_(v16, v19, @"Abstract method not overridden by %@: %s", v18, "+[KNAnimationAttributes customAttributeKeyIsValid:]");
-  v22 = objc_msgSend_exceptionWithName_reason_userInfo_(v14, v21, v15, v20, 0);
-  v23 = v22;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v9 = MEMORY[0x277CBEAD8];
+  v10 = *MEMORY[0x277CBE658];
+  v11 = MEMORY[0x277CCACA8];
+  v12 = objc_opt_class();
+  v13 = NSStringFromClass(v12);
+  v14 = [v11 stringWithFormat:@"Abstract method not overridden by %@: %s", v13, "+[KNAnimationAttributes customAttributeKeyIsValid:]"];
+  v15 = [v9 exceptionWithName:v10 reason:v14 userInfo:0];
+  v16 = v15;
 
-  objc_exception_throw(v22);
+  objc_exception_throw(v15);
 }
 
 - (KNAnimationAttributes)initWithEffect:(id)effect attributes:(id)attributes
 {
   effectCopy = effect;
   attributesCopy = attributes;
-  v18.receiver = self;
-  v18.super_class = KNAnimationAttributes;
-  v10 = [(KNAnimationAttributes *)&v18 init];
-  if (v10)
+  v14.receiver = self;
+  v14.super_class = KNAnimationAttributes;
+  v8 = [(KNAnimationAttributes *)&v14 init];
+  if (v8)
   {
-    v11 = objc_msgSend_copy(effectCopy, v8, v9);
-    effect = v10->_effect;
-    v10->_effect = v11;
+    v9 = [effectCopy copy];
+    effect = v8->_effect;
+    v8->_effect = v9;
 
-    v15 = objc_msgSend_copy(attributesCopy, v13, v14);
-    attributes = v10->_attributes;
-    v10->_attributes = v15;
+    v11 = [attributesCopy copy];
+    attributes = v8->_attributes;
+    v8->_attributes = v11;
   }
 
-  return v10;
+  return v8;
 }
 
 - (id)attributesByAddingAttributes:(id)attributes
@@ -100,35 +99,35 @@
   attributesCopy = attributes;
   if (!attributesCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNAnimationAttributes attributesByAddingAttributes:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 57, 0, "Invalid parameter not satisfying: %{public}s", "otherAttributes != nil");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationAttributes attributesByAddingAttributes:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:57 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "otherAttributes != nil"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v14 = objc_msgSend_effect(attributesCopy, v4, v5);
+  effect = [attributesCopy effect];
 
-  if (!v14)
+  if (!effect)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[KNAnimationAttributes attributesByAddingAttributes:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 58, 0, "Invalid parameter not satisfying: %{public}s", "otherAttributes.effect != nil");
+    v9 = MEMORY[0x277D81150];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationAttributes attributesByAddingAttributes:]"];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m"];
+    [v9 handleFailureInFunction:v10 file:v11 lineNumber:58 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "otherAttributes.effect != nil"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v24 = objc_msgSend_mutableCopy(self->_attributes, v15, v16);
-  v27 = objc_msgSend_attributes(attributesCopy, v25, v26);
-  objc_msgSend_addEntriesFromDictionary_(v24, v28, v27);
+  v12 = [(NSDictionary *)self->_attributes mutableCopy];
+  attributes = [attributesCopy attributes];
+  [v12 addEntriesFromDictionary:attributes];
 
-  v29 = objc_opt_class();
-  v32 = objc_msgSend_effect(attributesCopy, v30, v31);
-  v34 = objc_msgSend_attributesWithEffect_attributes_(v29, v33, v32, v24);
+  v14 = objc_opt_class();
+  effect2 = [attributesCopy effect];
+  v16 = [v14 attributesWithEffect:effect2 attributes:v12];
 
-  return v34;
+  return v16;
 }
 
 - (id)attributesBySettingValue:(id)value forAttributeKey:(id)key
@@ -137,70 +136,66 @@
   keyCopy = key;
   if (!keyCopy)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNAnimationAttributes attributesBySettingValue:forAttributeKey:]");
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v14, v11, v13, 69, 0, "invalid nil value for '%{public}s'", "attributeKey");
+    v8 = MEMORY[0x277D81150];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationAttributes attributesBySettingValue:forAttributeKey:]"];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m"];
+    [v8 handleFailureInFunction:v9 file:v10 lineNumber:69 isFatal:0 description:{"invalid nil value for '%{public}s'", "attributeKey"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v17 = objc_msgSend_mutableCopy(self->_attributes, v7, v8);
-  v19 = v17;
+  v11 = [(NSDictionary *)self->_attributes mutableCopy];
+  v12 = v11;
   if (valueCopy)
   {
-    objc_msgSend_setObject_forKey_(v17, v18, valueCopy, keyCopy);
+    [v11 setObject:valueCopy forKey:keyCopy];
   }
 
   else
   {
-    objc_msgSend_removeObjectForKey_(v17, v18, keyCopy);
+    [v11 removeObjectForKey:keyCopy];
   }
 
-  v20 = objc_opt_class();
-  v22 = objc_msgSend_attributesWithEffect_attributes_(v20, v21, self->_effect, v19);
+  v13 = [objc_opt_class() attributesWithEffect:self->_effect attributes:v12];
 
-  return v22;
+  return v13;
 }
 
 - (id)attributesByChangingEffectToEffect:(id)effect
 {
   effectCopy = effect;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend_attributesWithEffect_attributes_(v5, v6, effectCopy, self->_attributes);
+  v5 = [objc_opt_class() attributesWithEffect:effectCopy attributes:self->_attributes];
 
-  return v7;
+  return v5;
 }
 
 - (id)attributesByAddingAttributesFromDictionary:(id)dictionary
 {
   attributes = self->_attributes;
   dictionaryCopy = dictionary;
-  v8 = objc_msgSend_mutableCopy(attributes, v6, v7);
-  objc_msgSend_addEntriesFromDictionary_(v8, v9, dictionaryCopy);
+  v6 = [(NSDictionary *)attributes mutableCopy];
+  [v6 addEntriesFromDictionary:dictionaryCopy];
 
-  v10 = objc_opt_class();
-  v12 = objc_msgSend_attributesWithEffect_attributes_(v10, v11, self->_effect, v8);
+  v7 = [objc_opt_class() attributesWithEffect:self->_effect attributes:v6];
 
-  return v12;
+  return v7;
 }
 
 - (id)attributesByRemovingAttributeForKey:(id)key
 {
   attributes = self->_attributes;
   keyCopy = key;
-  v8 = objc_msgSend_mutableCopy(attributes, v6, v7);
-  objc_msgSend_removeObjectForKey_(v8, v9, keyCopy);
+  v6 = [(NSDictionary *)attributes mutableCopy];
+  [v6 removeObjectForKey:keyCopy];
 
-  v10 = objc_opt_class();
-  v12 = objc_msgSend_attributesWithEffect_attributes_(v10, v11, self->_effect, v8);
+  v7 = [objc_opt_class() attributesWithEffect:self->_effect attributes:v6];
 
-  return v12;
+  return v7;
 }
 
 - (BOOL)containsAttributeForKey:(id)key
 {
-  v3 = objc_msgSend_valueForAttributeKey_(self, a2, key);
+  v3 = [(KNAnimationAttributes *)self valueForAttributeKey:key];
   v4 = v3 != 0;
 
   return v4;
@@ -212,26 +207,26 @@
   selfCopy = self;
   if (!themeCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNAnimationAttributes attributesAdjustedForTheme:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 117, 0, "invalid nil value for '%{public}s'", "theme");
+    v6 = MEMORY[0x277D81150];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationAttributes attributesAdjustedForTheme:]"];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationAttributes.m"];
+    [v6 handleFailureInFunction:v7 file:v8 lineNumber:117 isFatal:0 description:{"invalid nil value for '%{public}s'", "theme"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v14 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x277CBEB38], v5, 3);
-  v16 = objc_msgSend_p_curveForNameKey_forTheme_(selfCopy, v15, @"KNAnimationAttributesCustomEffectTimingCurveThemeName1", themeCopy);
-  objc_msgSend_tsu_setNonNilObject_forKey_(v14, v17, v16, @"KNAnimationAttributesCustomEffectTimingCurve1");
-  v19 = objc_msgSend_p_curveForNameKey_forTheme_(selfCopy, v18, @"KNAnimationAttributesCustomEffectTimingCurveThemeName2", themeCopy);
-  objc_msgSend_tsu_setNonNilObject_forKey_(v14, v20, v19, @"KNAnimationAttributesCustomEffectTimingCurve2");
-  v22 = objc_msgSend_p_curveForNameKey_forTheme_(selfCopy, v21, @"KNAnimationAttributesCustomEffectTimingCurveThemeName3", themeCopy);
-  objc_msgSend_tsu_setNonNilObject_forKey_(v14, v23, v22, @"KNAnimationAttributesCustomEffectTimingCurve3");
-  if (objc_msgSend_count(v14, v24, v25))
+  v9 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
+  v10 = [(KNAnimationAttributes *)selfCopy p_curveForNameKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName1" forTheme:themeCopy];
+  [v9 tsu_setNonNilObject:v10 forKey:@"KNAnimationAttributesCustomEffectTimingCurve1"];
+  v11 = [(KNAnimationAttributes *)selfCopy p_curveForNameKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName2" forTheme:themeCopy];
+  [v9 tsu_setNonNilObject:v11 forKey:@"KNAnimationAttributesCustomEffectTimingCurve2"];
+  v12 = [(KNAnimationAttributes *)selfCopy p_curveForNameKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName3" forTheme:themeCopy];
+  [v9 tsu_setNonNilObject:v12 forKey:@"KNAnimationAttributesCustomEffectTimingCurve3"];
+  if ([v9 count])
   {
-    v27 = objc_msgSend_attributesByAddingAttributesFromDictionary_(selfCopy, v26, v14);
+    v13 = [(KNAnimationAttributes *)selfCopy attributesByAddingAttributesFromDictionary:v9];
 
-    selfCopy = v27;
+    selfCopy = v13;
   }
 
   return selfCopy;
@@ -241,27 +236,27 @@
 {
   mapCopy = map;
   selfCopy = self;
-  if (objc_msgSend_count(mapCopy, v6, v7))
+  if ([mapCopy count])
   {
-    v10 = objc_msgSend_attributes(selfCopy, v8, v9);
-    v12 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"KNAnimationAttributesCustomEffectTimingCurveThemeName1");
-    v14 = objc_msgSend_objectForKeyedSubscript_(v10, v13, @"KNAnimationAttributesCustomEffectTimingCurveThemeName2");
-    v16 = objc_msgSend_objectForKeyedSubscript_(v10, v15, @"KNAnimationAttributesCustomEffectTimingCurveThemeName3");
-    v35 = v12;
-    v18 = objc_msgSend_objectForKeyedSubscript_(mapCopy, v17, v12);
-    v34 = v14;
-    v20 = objc_msgSend_objectForKeyedSubscript_(mapCopy, v19, v14);
-    v33 = v16;
-    v22 = objc_msgSend_objectForKeyedSubscript_(mapCopy, v21, v16);
-    v24 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEB38], v23, v10);
-    objc_msgSend_tsu_setNonNilObject_forKey_(v24, v25, v18, @"KNAnimationAttributesCustomEffectTimingCurveThemeName1");
-    objc_msgSend_tsu_setNonNilObject_forKey_(v24, v26, v20, @"KNAnimationAttributesCustomEffectTimingCurveThemeName2");
-    objc_msgSend_tsu_setNonNilObject_forKey_(v24, v27, v22, @"KNAnimationAttributesCustomEffectTimingCurveThemeName3");
-    if (objc_msgSend_count(v24, v28, v29))
+    attributes = [(KNAnimationAttributes *)selfCopy attributes];
+    v7 = [attributes objectForKeyedSubscript:@"KNAnimationAttributesCustomEffectTimingCurveThemeName1"];
+    v8 = [attributes objectForKeyedSubscript:@"KNAnimationAttributesCustomEffectTimingCurveThemeName2"];
+    v9 = [attributes objectForKeyedSubscript:@"KNAnimationAttributesCustomEffectTimingCurveThemeName3"];
+    v18 = v7;
+    v10 = [mapCopy objectForKeyedSubscript:v7];
+    v17 = v8;
+    v11 = [mapCopy objectForKeyedSubscript:v8];
+    v16 = v9;
+    v12 = [mapCopy objectForKeyedSubscript:v9];
+    v13 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:attributes];
+    [v13 tsu_setNonNilObject:v10 forKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName1"];
+    [v13 tsu_setNonNilObject:v11 forKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName2"];
+    [v13 tsu_setNonNilObject:v12 forKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName3"];
+    if ([v13 count])
     {
-      v31 = objc_msgSend_attributesByAddingAttributesFromDictionary_(selfCopy, v30, v24);
+      v14 = [(KNAnimationAttributes *)selfCopy attributesByAddingAttributesFromDictionary:v13];
 
-      selfCopy = v31;
+      selfCopy = v14;
     }
   }
 
@@ -272,31 +267,31 @@
 {
   themeCopy = theme;
   keyCopy = key;
-  v10 = objc_msgSend_attributes(self, v8, v9);
-  v12 = objc_msgSend_objectForKeyedSubscript_(v10, v11, keyCopy);
+  attributes = [(KNAnimationAttributes *)self attributes];
+  v9 = [attributes objectForKeyedSubscript:keyCopy];
 
-  if (v12)
+  if (v9)
   {
-    v14 = objc_msgSend_customTimingCurveWithName_(themeCopy, v13, v12);
+    v10 = [themeCopy customTimingCurveWithName:v9];
   }
 
   else
   {
-    v14 = 0;
+    v10 = 0;
   }
 
-  return v14;
+  return v10;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v7 = objc_msgSend_effect(self, v5, v6);
-  v10 = objc_msgSend_attributes(self, v8, v9);
-  v12 = objc_msgSend_stringWithFormat_(v3, v11, @"<%@ %p %@ %@>", v4, self, v7, v10);
+  effect = [(KNAnimationAttributes *)self effect];
+  attributes = [(KNAnimationAttributes *)self attributes];
+  v7 = [v3 stringWithFormat:@"<%@ %p %@ %@>", v4, self, effect, attributes];
 
-  return v12;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -305,31 +300,31 @@
   objc_opt_class();
   v5 = TSUDynamicCast();
 
-  v8 = objc_msgSend_effect(v5, v6, v7);
-  v11 = objc_msgSend_effect(self, v9, v10);
-  if (objc_msgSend_isEqualToString_(v8, v12, v11))
+  effect = [v5 effect];
+  effect2 = [(KNAnimationAttributes *)self effect];
+  if ([effect isEqualToString:effect2])
   {
-    v15 = objc_msgSend_attributes(v5, v13, v14);
-    v18 = objc_msgSend_attributes(self, v16, v17);
-    isEqual = objc_msgSend_isEqual_(v15, v19, v18);
+    attributes = [v5 attributes];
+    attributes2 = [(KNAnimationAttributes *)self attributes];
+    v10 = [attributes isEqual:attributes2];
   }
 
   else
   {
-    isEqual = 0;
+    v10 = 0;
   }
 
-  return isEqual;
+  return v10;
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_attributes(self, a2, v2);
-  v7 = objc_msgSend_hash(v4, v5, v6);
-  v10 = objc_msgSend_effect(self, v8, v9);
-  v13 = objc_msgSend_hash(v10, v11, v12);
+  attributes = [(KNAnimationAttributes *)self attributes];
+  v4 = [attributes hash];
+  effect = [(KNAnimationAttributes *)self effect];
+  v6 = [effect hash];
 
-  return v13 + v7;
+  return v6 + v4;
 }
 
 @end

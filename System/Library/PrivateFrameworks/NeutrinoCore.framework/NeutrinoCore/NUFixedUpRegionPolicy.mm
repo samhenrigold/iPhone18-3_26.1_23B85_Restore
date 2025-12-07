@@ -12,7 +12,7 @@
   v5 = [(NUFixedRegionPolicy *)&v9 regionForGeometry:geometryCopy];
   if (geometryCopy)
   {
-    [geometryCopy extent];
+    objc_msgSend_extent(geometryCopy);
   }
 
   else

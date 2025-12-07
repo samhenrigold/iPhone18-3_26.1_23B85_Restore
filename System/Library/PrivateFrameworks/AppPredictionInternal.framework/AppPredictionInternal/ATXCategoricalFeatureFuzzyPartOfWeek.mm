@@ -19,8 +19,8 @@
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
       timeContext3 = [contextCopy timeContext];
       date = [timeContext3 date];
-      v14 = [date dateByAddingTimeInterval:86400.0];
-      dateInWeekend = [currentCalendar isDateInWeekend:v14];
+      v16 = [date dateByAddingTimeInterval:86400.0];
+      dateInWeekend = [currentCalendar isDateInWeekend:v16];
     }
 
     else
@@ -29,27 +29,27 @@
       dateInWeekend = [currentCalendar dateInWeekend];
     }
 
-    v15 = @"Weekday";
+    v17 = @"Weekday";
     if (dateInWeekend)
     {
-      v15 = @"Weekend";
+      v17 = @"Weekend";
     }
 
-    v11 = v15;
+    v13 = v17;
   }
 
   else
   {
-    v10 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_relevance_model(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [ATXCategoricalFeatureTimeOfDayHour categoricalFeatureValueForContext:candidate:];
+      [ATXCategoricalFeatureTimeOfDayHour categoricalFeatureValueForContext:? candidate:?];
     }
 
-    v11 = @"<Unexpected Category Value>";
+    v13 = @"<Unexpected Category Value>";
   }
 
-  return v11;
+  return v13;
 }
 
 @end

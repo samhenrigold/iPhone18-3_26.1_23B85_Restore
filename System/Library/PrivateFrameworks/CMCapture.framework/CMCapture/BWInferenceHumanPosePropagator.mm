@@ -55,7 +55,7 @@
   v9 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_7_48();
+    OUTLINED_FUNCTION_7_48(822150289);
   }
 
   if (storage)
@@ -102,16 +102,16 @@
 
   if (*v9 == 1)
   {
-    OUTLINED_FUNCTION_7_48();
+    OUTLINED_FUNCTION_7_48(822150290);
   }
 }
 
-uint64_t __136__BWInferenceHumanPosePropagator_propagateInferenceResultsToInferenceDictionary_usingStorage_inputSampleBuffer_propagationSampleBuffer___block_invoke(uint64_t a1, void *a2)
+uint64_t __136__BWInferenceHumanPosePropagator_propagateInferenceResultsToInferenceDictionary_usingStorage_inputSampleBuffer_propagationSampleBuffer___block_invoke(void *a1, void *a2)
 {
   v4 = a1;
-  IOSurfaceLock(*(*(a1 + 32) + 32), 5u, 0);
+  IOSurfaceLock(*(a1[4] + 32), 5u, 0);
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  IOSurfaceGetBaseAddress(*(*(v4 + 32) + 32));
+  IOSurfaceGetBaseAddress(*(v4[4] + 32));
   [BWInferenceHumanPosePropagator keypointsFromModelOutput:width:height:persons:];
   if ([v5 count])
   {
@@ -178,7 +178,7 @@ uint64_t __136__BWInferenceHumanPosePropagator_propagateInferenceResultsToInfere
     v17 = 0;
   }
 
-  IOSurfaceUnlock(*(*(v4 + 32) + 32), 5u, 0);
+  IOSurfaceUnlock(*(v4[4] + 32), 5u, 0);
 
   return v17;
 }
@@ -565,7 +565,7 @@ LABEL_89:
             v215 = 0u;
             v212 = 0u;
             v213 = 0u;
-            v120 = OUTLINED_FUNCTION_9_41(v80, v81, v82, v83, v84, v85, v86, v87, v155, v158, v161, v164, __srca, v170, v173, v176, obja, v182, v185, v188, v190, v191, v192, v193, v194, v195, v196, v197, v198, v199, v200, v201, v202, v203, v204, v205, v206, v207, v208, v209, v210, v211, 0);
+            v120 = OUTLINED_FUNCTION_9_41(v80, v81, v82, v83, v84, v85, v86, v87, v155, v158, v161, v164, __srca, v170, v173, v176, obja, v182, v185, v188, v190, v191, v192, v193, v194, v195, v196, v197, v198, v199, v200, v201, v202, v203, v204, v205, v206, v207, v208, v209, v210, v211);
             if (v120)
             {
               v121 = v120;
@@ -585,57 +585,60 @@ LABEL_89:
                   v127 = [v126 count];
                   if (v127)
                   {
-                    v135 = 0;
-                    v136 = 0.0;
+                    v136 = 0;
                     v137 = 0.0;
+                    v138 = 0.0;
                     while ([OUTLINED_FUNCTION_1_86() count] == 3)
                     {
-                      v138 = *(v165 + 16);
-                      v139 = MEMORY[0x1E696AD98];
-                      v140 = OUTLINED_FUNCTION_1_86();
-                      if (v138 == 1)
+                      v139 = *(v165 + 16);
+                      v140 = MEMORY[0x1E696AD98];
+                      v141 = OUTLINED_FUNCTION_1_86();
+                      if (v139 == 1)
                       {
-                        [objc_msgSend(v140 objectAtIndexedSubscript:{1), "floatValue"}];
-                        *&v142 = 1.0 - (v141 / v124);
-                        v143 = 0;
-                        v193 = [v139 numberWithFloat:v142];
-                        v144 = &v193;
-                        v145 = v123;
+                        [objc_msgSend(v141 objectAtIndexedSubscript:{1), "floatValue"}];
+                        *&v143 = 1.0 - (v142 / v124);
+                        v144 = 0;
+                        v193 = [v140 numberWithFloat:v143];
+                        v145 = &v193;
+                        v146 = v123;
                       }
 
                       else
                       {
-                        [objc_msgSend(v140 objectAtIndexedSubscript:{0), "floatValue"}];
-                        *&v147 = v146 / v123;
-                        v190 = [v139 numberWithFloat:v147];
-                        v144 = &v190;
-                        v143 = 1;
-                        v145 = v124;
+                        [objc_msgSend(v141 objectAtIndexedSubscript:{0), "floatValue"}];
+                        *&v148 = v147 / v123;
+                        v190 = [v140 numberWithFloat:v148];
+                        v145 = &v190;
+                        v144 = 1;
+                        v146 = v124;
                       }
 
-                      v148 = MEMORY[0x1E696AD98];
-                      [objc_msgSend(OUTLINED_FUNCTION_1_86() objectAtIndexedSubscript:{v143), "floatValue"}];
-                      *&v150 = v149 / v145;
-                      v144[1] = [v148 numberWithFloat:v150];
-                      v144[2] = [OUTLINED_FUNCTION_1_86() objectAtIndexedSubscript:2];
-                      [MEMORY[0x1E695DEC8] arrayWithObjects:v144 count:3];
+                      v149 = MEMORY[0x1E696AD98];
+                      [objc_msgSend(OUTLINED_FUNCTION_1_86() objectAtIndexedSubscript:{v144), "floatValue"}];
+                      *&v151 = v150 / v146;
+                      v145[1] = [v149 numberWithFloat:v151];
+                      v145[2] = [OUTLINED_FUNCTION_1_86() objectAtIndexedSubscript:2];
+                      [MEMORY[0x1E695DEC8] arrayWithObjects:v145 count:3];
                       [OUTLINED_FUNCTION_7() setObject:? atIndexedSubscript:?];
                       [objc_msgSend(OUTLINED_FUNCTION_1_86() objectAtIndexedSubscript:{2), "floatValue"}];
-                      if (v151 > 0.1)
+                      if (v152 > 0.1)
                       {
                         [objc_msgSend(OUTLINED_FUNCTION_1_86() objectAtIndexedSubscript:{2), "floatValue"}];
-                        v137 = v137 + v152;
-                        v136 = v136 + 1.0;
+                        v138 = v138 + v153;
+                        v137 = v137 + 1.0;
                       }
 
-                      ++v135;
+                      ++v136;
                       v127 = [v126 count];
-                      if (v127 <= v135)
+                      if (v127 <= v136)
                       {
-                        if (v136 > 4.0 && (v137 / v136) > 0.1)
+                        if (v137 > 4.0)
                         {
-                          *&v153 = v137 / v136;
-                          v127 = [v159 addObject:{v126, v153}];
+                          *&v135 = v138 / v137;
+                          if ((v138 / v137) > 0.1)
+                          {
+                            v127 = [v159 addObject:{v126, v135}];
+                          }
                         }
 
                         goto LABEL_106;
@@ -649,7 +652,7 @@ LABEL_106:
                   ;
                 }
 
-                v121 = OUTLINED_FUNCTION_9_41(v127, v128, v129, v130, v131, v132, v133, v134, v156, v159, v162, v165, __srcb, v171, v174, v177, objb, v183, v186, v189, v190, v191, v192, v193, v194, v195, v196, v197, v198, v199, v200, v201, v202, v203, v204, v205, v206, v207, v208, v209, v210, v211, v212);
+                v121 = OUTLINED_FUNCTION_9_41(v127, v128, v129, v130, v131, v132, v133, v134, v156, v159, v162, v165, __srcb, v171, v174, v177, objb, v183, v186, v189, v190, v191, v192, v193, v194, v195, v196, v197, v198, v199, v200, v201, v202, v203, v204, v205, v206, v207, v208, v209, v210, v211, v135);
                 if (v121)
                 {
                   continue;
@@ -681,26 +684,26 @@ LABEL_108:
     v6 = v5 >= [v3 count] ? v3 : v4;
     [v6 count];
     v7 = [OUTLINED_FUNCTION_7() initWithCapacity:?];
+    v111 = 0u;
     v112 = 0u;
     v113 = 0u;
     v114 = 0u;
-    v115 = 0u;
-    v73 = OUTLINED_FUNCTION_5_60(v7, v8, v9, v10, v11, v12, v13, v14, v7, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, *(&v107 + 1), v108, *(&v108 + 1), v109, *(&v109 + 1), v110, *(&v110 + 1), v111);
+    v73 = OUTLINED_FUNCTION_5_60(v7, v8, v9, v10, v11, v12, v13, v14, v7, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, *(&v107 + 1), v108, *(&v108 + 1), v109, *(&v109 + 1), v110, *(&v110 + 1));
     if (v73)
     {
-      v71 = *v113;
+      v71 = *v112;
       HIDWORD(v67) = 1045220557;
       v69 = v3;
       do
       {
         for (i = 0; i != v73; ++i)
         {
-          if (*v113 != v71)
+          if (*v112 != v71)
           {
             objc_enumerationMutation(v3);
           }
 
-          v16 = *(*(&v112 + 1) + 8 * i);
+          v16 = *(*(&v111 + 1) + 8 * i);
           v17 = [v3 objectForKeyedSubscript:v16];
           [objc_msgSend(v17 objectAtIndexedSubscript:{0), "floatValue"}];
           v19 = v18;
@@ -828,7 +831,7 @@ LABEL_108:
           }
         }
 
-        v73 = OUTLINED_FUNCTION_5_60(v26, v27, v28, v29, v30, v31, v32, v33, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, *(&v107 + 1), v108, *(&v108 + 1), v109, *(&v109 + 1), v110, *(&v110 + 1), v111);
+        v73 = OUTLINED_FUNCTION_5_60(v26, v27, v28, v29, v30, v31, v32, v33, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, *(&v107 + 1), v108, *(&v108 + 1), v109, *(&v109 + 1), v110, *(&v110 + 1));
       }
 
       while (v73);

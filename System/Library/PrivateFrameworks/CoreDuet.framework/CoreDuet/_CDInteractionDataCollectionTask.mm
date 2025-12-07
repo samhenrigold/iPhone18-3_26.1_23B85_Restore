@@ -122,26 +122,66 @@
 
 - (void)_execute
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error archiving subsequent _CDInteraction data collection session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  session = [self session];
+  v6 = [v4 numberWithUnsignedInteger:{objc_msgSend(session, "batchNumber")}];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "maxBatches")}];
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "Exiting _CDInteraction data collection because batch %@ is greater than max batches %@", &v8, 0x16u);
 }
 
 - (void)cleanup
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error remove previous session file (_CDInteraction data collection): %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
+  if ([(_CDInteractionDataCollectionTask *)self deleteSessionOnCleanup])
+  {
+    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    sessionPath = [(_CDInteractionDataCollectionTask *)self sessionPath];
+    v11 = 0;
+    [defaultManager removeItemAtPath:sessionPath error:&v11];
+    v5 = v11;
 
-- (void)initWithStore:activity:sessionPath:collectionDate:samplingRate:maxBatches:daysPerBatch:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error unarchiving _CDInteraction data collection session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+    if (!v5)
+    {
+LABEL_12:
+
+      return;
+    }
+
+    userInfo = [v5 userInfo];
+    v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
+
+    if (v7)
+    {
+      domain = [v7 domain];
+      if ([domain isEqualToString:*MEMORY[0x1E696A798]])
+      {
+        code = [v7 code];
+
+        if (code == 2)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      else
+      {
+      }
+
+      v10 = +[_CDLogging dataCollectionChannel];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        [_CDInteractionDataCollectionTask cleanup];
+      }
+    }
+
+LABEL_11:
+
+    goto LABEL_12;
+  }
 }
 
 @end

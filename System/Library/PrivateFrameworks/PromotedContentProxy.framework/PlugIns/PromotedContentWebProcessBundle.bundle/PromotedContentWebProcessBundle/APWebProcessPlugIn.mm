@@ -8,7 +8,7 @@
 
 - (void)webProcessPlugIn:(id)in initializeWithObject:(id)object
 {
-  v5 = sub_5A4C();
+  v5 = sub_5A4C(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v7 = 0;
@@ -22,7 +22,7 @@
 - (void)webProcessPlugIn:(id)in didCreateBrowserContextController:(id)controller
 {
   controllerCopy = controller;
-  v6 = sub_5A4C();
+  v6 = sub_5A4C(controllerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v15 = 0;
@@ -50,11 +50,11 @@
 - (void)webProcessPlugIn:(id)in willDestroyBrowserContextController:(id)controller
 {
   controllerCopy = controller;
-  v6 = sub_5A4C();
+  v6 = sub_5A4C(controllerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "[APWebProcessPlugIn] webProcessPlugIn:willDestroyBrowserContextController:", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "[APWebProcessPlugIn] webProcessPlugIn:willDestroyBrowserContextController:", v14, 2u);
   }
 
   browserContextControllersToLoadDelegates = [(APWebProcessPlugIn *)self browserContextControllersToLoadDelegates];
@@ -66,9 +66,9 @@
     [webProcessDelegate webProcessPlugInWillDestroyBrowserContextController];
 
     [v8 setWebProcessDelegate:0];
-    v10 = [_WKRemoteObjectInterface remoteObjectInterfaceWithProtocol:&OBJC_PROTOCOL___APWebProcessProxyProtocol];
+    v11 = [_WKRemoteObjectInterface remoteObjectInterfaceWithProtocol:&OBJC_PROTOCOL___APWebProcessProxyProtocol];
     _remoteObjectRegistry = [controllerCopy _remoteObjectRegistry];
-    [_remoteObjectRegistry unregisterExportedObject:v8 interface:v10];
+    [_remoteObjectRegistry unregisterExportedObject:v8 interface:v11];
 
     browserContextControllersToLoadDelegates2 = [(APWebProcessPlugIn *)self browserContextControllersToLoadDelegates];
     [browserContextControllersToLoadDelegates2 removeObjectForKey:controllerCopy];
@@ -76,10 +76,10 @@
 
   else
   {
-    v10 = sub_5A4C();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_5A4C(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_6F00(v10);
+      sub_6F00(v11);
     }
   }
 }

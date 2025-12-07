@@ -41,9 +41,11 @@
 
 uint64_t __29__MTSingleton_sharedInstance__block_invoke()
 {
-  _instanceMap = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = _instanceMap;
+  _instanceMap = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

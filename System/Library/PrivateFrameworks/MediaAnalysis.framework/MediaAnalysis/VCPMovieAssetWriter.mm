@@ -1403,7 +1403,7 @@ LABEL_38:
 
                       if (v6)
                       {
-                        [v6 preferredTransform];
+                        objc_msgSend_preferredTransform(v6);
                       }
 
                       else
@@ -1603,7 +1603,7 @@ LABEL_12:
         {
           if (self->_track)
           {
-            [(AVAssetTrack *)self->_track preferredTransform];
+            objc_msgSend_preferredTransform(self->_track);
             v25 = self->_input;
           }
 
@@ -1849,7 +1849,7 @@ LABEL_26:
     {
       if (v8)
       {
-        [v8 preferredTransform];
+        objc_msgSend_preferredTransform(v8);
         v58 = self->_auxInput;
       }
 
@@ -2589,7 +2589,7 @@ LABEL_17:
   [(AVAssetReader *)self->_assetReader cancelReading];
 }
 
-uint64_t __29__VCPMovieAssetWriter_cancel__block_invoke(uint64_t a1)
+void *__29__VCPMovieAssetWriter_cancel__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 240);
   v3 = MediaAnalysisLogLevel();

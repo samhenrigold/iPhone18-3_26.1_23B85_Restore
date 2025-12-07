@@ -358,7 +358,7 @@ void __80__OFNSOperation_operationWithBlock_progressBlock_cancelBlock_completion
   objc_sync_exit(subOperations);
 }
 
-id __32__OFNSOperation_cancelOperation__block_invoke()
+id __32__OFNSOperation_cancelOperation__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:@"OFNSOperationErrorDomain" code:2 localizedDescription:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"Operation was cancelled.", @"Operation was cancelled.", @"Localizable"}];
   cancelOperation_cancelError = result;

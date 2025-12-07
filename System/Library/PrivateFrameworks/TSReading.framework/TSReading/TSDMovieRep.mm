@@ -426,7 +426,7 @@
     v8 = [-[TSDRep info](self "info")];
     if (v8)
     {
-      [v8 transformBasedOnPoint:*MEMORY[0x277CBF348] centeredAtPoint:{*(MEMORY[0x277CBF348] + 8), *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
+      objc_msgSend_transformBasedOnPoint_centeredAtPoint_(v8, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8));
     }
 
     else
@@ -791,7 +791,7 @@ LABEL_8:
     mReflectionLayer = self->super.super.mReflectionLayer;
     if (mReflectionLayer)
     {
-      [(CALayer *)mReflectionLayer affineTransform];
+      objc_msgSend_affineTransform(mReflectionLayer);
     }
 
     else
@@ -1091,7 +1091,7 @@ LABEL_6:
   mMaskLayer = self->super.mMaskLayer;
   if (mMaskLayer)
   {
-    [(CAShapeLayer *)mMaskLayer affineTransform];
+    objc_msgSend_affineTransform(mMaskLayer);
   }
 
   else
@@ -1597,7 +1597,7 @@ LABEL_6:
   result = *&self->mDidCheckPlayability;
   if (!result)
   {
-    *&self->mDidCheckPlayability = -[TSDButtonKnob initWithImage:tag:onRep:]([TSDMovieKnob alloc], "initWithImage:tag:onRep:", [MEMORY[0x277D6C2F8] imageNamed:@"TSDMoviePlay" inBundle:TSDBundle()], 5, self);
+    *&self->mDidCheckPlayability = -[TSDButtonKnob initWithImage:tag:onRep:]([TSDMovieKnob alloc], "initWithImage:tag:onRep:", [MEMORY[0x277D6C2F8] imageNamed:@"TSDMoviePlay" inBundle:{TSDBundle(0, a2)}], 5, self);
     LOBYTE(self->mPlayButtonKnob) = 1;
     [*&self->mDidCheckPlayability setWorksWhenRepLocked:1];
     [*&self->mDidCheckPlayability setWorksWhenInVersionBrowsingMode:1];

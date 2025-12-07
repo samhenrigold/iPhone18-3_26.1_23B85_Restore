@@ -254,22 +254,20 @@ LABEL_19:
 
 + (id)scrollingInputOperationWithType:(unint64_t)type contentTransform:(CGAffineTransform *)transform environmentTransform:(CGAffineTransform *)environmentTransform
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v9 = objc_alloc_init(RTIInputOperation);
   v10 = [self _stringForScrollType:type];
   [(RTIInputOperation *)v9 setActionSelector:NSSelectorFromString(v10)];
 
   [(RTIInputOperation *)v9 setCustomInfoType:@"UIUserInteractionRemoteInputOperations"];
-  v16[0] = @"contentTransform";
+  v15[0] = @"contentTransform";
   v11 = [MEMORY[0x1E696B098] valueWithBytes:transform objCType:"{CGAffineTransform=dddddd}"];
-  v16[1] = @"environmentTransform";
-  v17[0] = v11;
+  v15[1] = @"environmentTransform";
+  v16[0] = v11;
   v12 = [MEMORY[0x1E696B098] valueWithBytes:environmentTransform objCType:"{CGAffineTransform=dddddd}"];
-  v17[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   [(RTIInputOperation *)v9 setCustomInfo:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

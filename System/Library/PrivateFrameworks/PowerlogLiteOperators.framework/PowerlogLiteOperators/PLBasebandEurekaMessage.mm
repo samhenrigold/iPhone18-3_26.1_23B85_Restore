@@ -48,7 +48,7 @@
 
 - (PLBasebandEurekaMessage)initWithData:(id)data
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -76,41 +76,25 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v6;
+        v20 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v18.receiver = self;
-  v18.super_class = PLBasebandEurekaMessage;
-  v12 = [(PLBasebandMessage *)&v18 initWithData:dataCopy];
+  v17.receiver = self;
+  v17.super_class = PLBasebandEurekaMessage;
+  v12 = [(PLBasebandMessage *)&v17 initWithData:dataCopy];
   v13 = v12;
-  if (!v12)
+  if (!v12 || (v12->_header = 0, payload = v12->_payload, v12->_payload = 0, payload, v13->_ssevent = 0, v13->_ssaction = 0, v13->_ssstate = 0, v13->_skip = 0, v15 = 0, [(PLBasebandEurekaMessage *)v13 parseData:dataCopy]))
   {
-    goto LABEL_10;
-  }
-
-  v12->_header = 0;
-  payload = v12->_payload;
-  v12->_payload = 0;
-
-  v13->_ssevent = 0;
-  v13->_ssaction = 0;
-  v13->_ssstate = 0;
-  v13->_skip = 0;
-  v15 = 0;
-  if ([(PLBasebandEurekaMessage *)v13 parseData:dataCopy])
-  {
-LABEL_10:
     v15 = v13;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-uint64_t __40__PLBasebandEurekaMessage_initWithData___block_invoke(uint64_t a1)
+void *__40__PLBasebandEurekaMessage_initWithData___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_22 = result;
@@ -119,16 +103,16 @@ uint64_t __40__PLBasebandEurekaMessage_initWithData___block_invoke(uint64_t a1)
 
 - (BOOL)parseData:(id)data
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __37__PLBasebandEurekaMessage_parseData___block_invoke;
-    v27 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v28 = v5;
+    v24 = 3221225472;
+    v25 = __37__PLBasebandEurekaMessage_parseData___block_invoke;
+    v26 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v27 = v5;
     if (qword_2811F4650 != -1)
     {
       dispatch_once(&qword_2811F4650, &block);
@@ -136,7 +120,7 @@ uint64_t __40__PLBasebandEurekaMessage_initWithData___block_invoke(uint64_t a1)
 
     if (byte_2811F4639 == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandEurekaMessage parseData:]", block, v25, v26, v27, v28];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandEurekaMessage parseData:]", block, v24, v25, v26, v27];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBasebandEurekaMessage.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -147,7 +131,7 @@ uint64_t __40__PLBasebandEurekaMessage_initWithData___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v30 = v6;
+        v29 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -176,23 +160,22 @@ uint64_t __40__PLBasebandEurekaMessage_initWithData___block_invoke(uint64_t a1)
     v19 = PLLogCommon();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v22 = v14 - [dataCopy bytes];
-      v23 = [dataCopy length];
+      v21 = v14 - [dataCopy bytes];
+      v22 = [dataCopy length];
       *buf = 134218498;
-      v30 = v22;
-      v31 = 2048;
-      v32 = v23;
-      v33 = 2080;
-      v34 = "[PLBasebandEurekaMessage parseData:]";
+      v29 = v21;
+      v30 = 2048;
+      v31 = v22;
+      v32 = 2080;
+      v33 = "[PLBasebandEurekaMessage parseData:]";
       _os_log_error_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_ERROR, "Expected data length %lu but got %lu in %s", buf, 0x20u);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17 <= v18;
 }
 
-uint64_t __37__PLBasebandEurekaMessage_parseData___block_invoke(uint64_t a1)
+void *__37__PLBasebandEurekaMessage_parseData___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4639 = result;
@@ -201,10 +184,10 @@ uint64_t __37__PLBasebandEurekaMessage_parseData___block_invoke(uint64_t a1)
 
 - (void)logWithLogger:(id)logger
 {
-  v285 = *MEMORY[0x277D85DE8];
-  v282.receiver = self;
-  v282.super_class = PLBasebandEurekaMessage;
-  [(PLBasebandMessage *)&v282 logWithLogger:logger];
+  v284 = *MEMORY[0x277D85DE8];
+  v281.receiver = self;
+  v281.super_class = PLBasebandEurekaMessage;
+  [(PLBasebandMessage *)&v281 logWithLogger:logger];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v4 = objc_opt_class();
@@ -231,7 +214,7 @@ uint64_t __37__PLBasebandEurekaMessage_parseData___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v284 = v5;
+        v283 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -396,14 +379,14 @@ LABEL_191:
               }
 
               v139 = objc_opt_class();
-              v270[0] = MEMORY[0x277D85DD0];
-              v270[1] = 3221225472;
-              v270[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_257;
-              v270[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v270[4] = v139;
+              v269[0] = MEMORY[0x277D85DD0];
+              v269[1] = 3221225472;
+              v269[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_257;
+              v269[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v269[4] = v139;
               if (qword_2811F46B0 != -1)
               {
-                dispatch_once(&qword_2811F46B0, v270);
+                dispatch_once(&qword_2811F46B0, v269);
               }
 
               if (byte_2811F4645 != 1)
@@ -425,7 +408,7 @@ LABEL_191:
               }
 
               *buf = 138412290;
-              v284 = v62;
+              v283 = v62;
               goto LABEL_220;
             }
 
@@ -590,14 +573,14 @@ LABEL_257:
             }
 
             v124 = objc_opt_class();
-            v272[0] = MEMORY[0x277D85DD0];
-            v272[1] = 3221225472;
-            v272[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_212;
-            v272[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v272[4] = v124;
+            v271[0] = MEMORY[0x277D85DD0];
+            v271[1] = 3221225472;
+            v271[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_212;
+            v271[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v271[4] = v124;
             if (qword_2811F46A0 != -1)
             {
-              dispatch_once(&qword_2811F46A0, v272);
+              dispatch_once(&qword_2811F46A0, v271);
             }
 
             if (byte_2811F4643 != 1)
@@ -619,7 +602,7 @@ LABEL_257:
             }
 
             *buf = 138412290;
-            v284 = v62;
+            v283 = v62;
             goto LABEL_220;
           }
 
@@ -695,14 +678,14 @@ LABEL_190:
           }
 
           v224 = objc_opt_class();
-          v273[0] = MEMORY[0x277D85DD0];
-          v273[1] = 3221225472;
-          v273[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_203;
-          v273[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v273[4] = v224;
+          v272[0] = MEMORY[0x277D85DD0];
+          v272[1] = 3221225472;
+          v272[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_203;
+          v272[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v272[4] = v224;
           if (qword_2811F4698 != -1)
           {
-            dispatch_once(&qword_2811F4698, v273);
+            dispatch_once(&qword_2811F4698, v272);
           }
 
           if (byte_2811F4642 != 1)
@@ -724,7 +707,7 @@ LABEL_190:
           }
 
           *buf = 138412290;
-          v284 = v62;
+          v283 = v62;
           goto LABEL_220;
         }
 
@@ -756,14 +739,14 @@ LABEL_190:
           }
 
           v83 = objc_opt_class();
-          v271[0] = MEMORY[0x277D85DD0];
-          v271[1] = 3221225472;
-          v271[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_233;
-          v271[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v271[4] = v83;
+          v270[0] = MEMORY[0x277D85DD0];
+          v270[1] = 3221225472;
+          v270[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_233;
+          v270[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v270[4] = v83;
           if (qword_2811F46A8 != -1)
           {
-            dispatch_once(&qword_2811F46A8, v271);
+            dispatch_once(&qword_2811F46A8, v270);
           }
 
           if (byte_2811F4644 != 1)
@@ -785,7 +768,7 @@ LABEL_190:
           }
 
           *buf = 138412290;
-          v284 = v62;
+          v283 = v62;
 LABEL_220:
           _os_log_debug_impl(&dword_21A4C6000, v67, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 LABEL_221:
@@ -866,14 +849,14 @@ LABEL_132:
         }
 
         v214 = objc_opt_class();
-        v278[0] = MEMORY[0x277D85DD0];
-        v278[1] = 3221225472;
-        v278[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_124;
-        v278[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v278[4] = v214;
+        v277[0] = MEMORY[0x277D85DD0];
+        v277[1] = 3221225472;
+        v277[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_124;
+        v277[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v277[4] = v214;
         if (qword_2811F4670 != -1)
         {
-          dispatch_once(&qword_2811F4670, v278);
+          dispatch_once(&qword_2811F4670, v277);
         }
 
         if (byte_2811F463D != 1)
@@ -895,7 +878,7 @@ LABEL_132:
         }
 
         *buf = 138412290;
-        v284 = v62;
+        v283 = v62;
         goto LABEL_220;
       }
 
@@ -942,14 +925,14 @@ LABEL_132:
             }
 
             v209 = objc_opt_class();
-            v275[0] = MEMORY[0x277D85DD0];
-            v275[1] = 3221225472;
-            v275[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_185;
-            v275[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v275[4] = v209;
+            v274[0] = MEMORY[0x277D85DD0];
+            v274[1] = 3221225472;
+            v274[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_185;
+            v274[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v274[4] = v209;
             if (qword_2811F4688 != -1)
             {
-              dispatch_once(&qword_2811F4688, v275);
+              dispatch_once(&qword_2811F4688, v274);
             }
 
             if (byte_2811F4640 != 1)
@@ -971,7 +954,7 @@ LABEL_132:
             }
 
             *buf = 138412290;
-            v284 = v62;
+            v283 = v62;
             goto LABEL_220;
           }
         }
@@ -991,14 +974,14 @@ LABEL_132:
             }
 
             v93 = objc_opt_class();
-            v274[0] = MEMORY[0x277D85DD0];
-            v274[1] = 3221225472;
-            v274[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_194;
-            v274[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v274[4] = v93;
+            v273[0] = MEMORY[0x277D85DD0];
+            v273[1] = 3221225472;
+            v273[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_194;
+            v273[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v273[4] = v93;
             if (qword_2811F4690 != -1)
             {
-              dispatch_once(&qword_2811F4690, v274);
+              dispatch_once(&qword_2811F4690, v273);
             }
 
             if (byte_2811F4641 != 1)
@@ -1020,7 +1003,7 @@ LABEL_132:
             }
 
             *buf = 138412290;
-            v284 = v62;
+            v283 = v62;
             goto LABEL_220;
           }
         }
@@ -1051,14 +1034,14 @@ LABEL_131:
             }
 
             v61 = objc_opt_class();
-            v276[0] = MEMORY[0x277D85DD0];
-            v276[1] = 3221225472;
-            v276[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_155;
-            v276[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v276[4] = v61;
+            v275[0] = MEMORY[0x277D85DD0];
+            v275[1] = 3221225472;
+            v275[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_155;
+            v275[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v275[4] = v61;
             if (qword_2811F4680 != -1)
             {
-              dispatch_once(&qword_2811F4680, v276);
+              dispatch_once(&qword_2811F4680, v275);
             }
 
             if (byte_2811F463F != 1)
@@ -1080,7 +1063,7 @@ LABEL_131:
             }
 
             *buf = 138412290;
-            v284 = v62;
+            v283 = v62;
             goto LABEL_220;
           }
 
@@ -1123,14 +1106,14 @@ LABEL_258:
         }
 
         v219 = objc_opt_class();
-        v277[0] = MEMORY[0x277D85DD0];
-        v277[1] = 3221225472;
-        v277[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_130;
-        v277[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v277[4] = v219;
+        v276[0] = MEMORY[0x277D85DD0];
+        v276[1] = 3221225472;
+        v276[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_130;
+        v276[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v276[4] = v219;
         if (qword_2811F4678 != -1)
         {
-          dispatch_once(&qword_2811F4678, v277);
+          dispatch_once(&qword_2811F4678, v276);
         }
 
         if (byte_2811F463E != 1)
@@ -1152,7 +1135,7 @@ LABEL_258:
         }
 
         *buf = 138412290;
-        v284 = v62;
+        v283 = v62;
         goto LABEL_220;
       }
 
@@ -1273,14 +1256,14 @@ LABEL_117:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v105 = objc_opt_class();
-        v269[0] = MEMORY[0x277D85DD0];
-        v269[1] = 3221225472;
-        v269[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_284;
-        v269[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v269[4] = v105;
+        v268[0] = MEMORY[0x277D85DD0];
+        v268[1] = 3221225472;
+        v268[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_284;
+        v268[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v268[4] = v105;
         if (qword_2811F46B8 != -1)
         {
-          dispatch_once(&qword_2811F46B8, v269);
+          dispatch_once(&qword_2811F46B8, v268);
         }
 
         if (byte_2811F4646 == 1)
@@ -1296,7 +1279,7 @@ LABEL_117:
           if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v284 = v106;
+            v283 = v106;
             _os_log_debug_impl(&dword_21A4C6000, v111, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -1367,14 +1350,14 @@ LABEL_157:
       }
 
       v157 = objc_opt_class();
-      v279[0] = MEMORY[0x277D85DD0];
-      v279[1] = 3221225472;
-      v279[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_115;
-      v279[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v279[4] = v157;
+      v278[0] = MEMORY[0x277D85DD0];
+      v278[1] = 3221225472;
+      v278[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_115;
+      v278[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v278[4] = v157;
       if (qword_2811F4668 != -1)
       {
-        dispatch_once(&qword_2811F4668, v279);
+        dispatch_once(&qword_2811F4668, v278);
       }
 
       if (byte_2811F463C != 1)
@@ -1396,7 +1379,7 @@ LABEL_157:
       }
 
       *buf = 138412290;
-      v284 = v62;
+      v283 = v62;
       goto LABEL_220;
     }
 
@@ -1589,14 +1572,14 @@ LABEL_245:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v261 = objc_opt_class();
-    v280[0] = MEMORY[0x277D85DD0];
-    v280[1] = 3221225472;
-    v280[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_88;
-    v280[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v280[4] = v261;
+    v279[0] = MEMORY[0x277D85DD0];
+    v279[1] = 3221225472;
+    v279[2] = __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_88;
+    v279[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v279[4] = v261;
     if (qword_2811F4660 != -1)
     {
-      dispatch_once(&qword_2811F4660, v280);
+      dispatch_once(&qword_2811F4660, v279);
     }
 
     if (byte_2811F463B == 1)
@@ -1612,7 +1595,7 @@ LABEL_245:
       if (os_log_type_enabled(v267, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v284 = v262;
+        v283 = v262;
         _os_log_debug_impl(&dword_21A4C6000, v267, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1624,95 +1607,93 @@ LABEL_259:
   {
     [(PLBBEurekaEventMsg *)v12 logEventForwardBBEurekaEventMsgLite];
   }
-
-  v268 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F463A = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_88(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_88(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F463B = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_115(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_115(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F463C = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_124(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_124(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F463D = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_130(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_130(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F463E = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_155(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_155(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F463F = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_185(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_185(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4640 = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_194(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_194(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4641 = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_203(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_203(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4642 = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_212(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_212(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4643 = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_233(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_233(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4644 = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_257(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_257(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4645 = result;
   return result;
 }
 
-uint64_t __41__PLBasebandEurekaMessage_logWithLogger___block_invoke_284(uint64_t a1)
+void *__41__PLBasebandEurekaMessage_logWithLogger___block_invoke_284(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4646 = result;

@@ -7,16 +7,17 @@
 
 - (void)disableAdvertRotationTap
 {
-  v3 = (self + OBJC_IVAR____TtC22SubscribePageExtension30AdvertsSearchResultContentView_disableAdvertRotation);
+  v3 = self + OBJC_IVAR____TtC22SubscribePageExtension30AdvertsSearchResultContentView_disableAdvertRotation;
   swift_beginAccess();
   v4 = *v3;
   if (*v3)
   {
+    v5 = *(v3 + 1);
     selfCopy = self;
-    v6 = sub_10001B5AC(v4);
-    v4(v6);
+    v7 = sub_10001B5AC(v4, v5);
+    v4(v7);
 
-    sub_1000164A8(v4);
+    sub_1000164A8(v4, v5);
   }
 }
 

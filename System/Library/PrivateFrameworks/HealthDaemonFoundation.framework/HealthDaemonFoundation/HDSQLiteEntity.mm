@@ -13,6 +13,7 @@
 + (id)distinctProperty:(id)property predicate:(id)predicate database:(id)database error:(id *)error;
 + (id)entityWithPersistentID:(id)d;
 + (id)firstInDatabase:(id)database predicate:(id)predicate orderingTerms:(id)terms error:(id *)error;
++ (id)insertOrReplaceEntity:(BOOL)entity database:(id)database properties:(id)properties error:(id *)error bindingHandler:(id)handler;
 + (id)maxPersistentIDWithPredicate:(id)predicate database:(id)database error:(id *)error;
 + (id)maxValueForProperty:(id)property predicate:(id)predicate database:(id)database error:(id *)error;
 + (id)propertyValueForAnyInDatabase:(id)database property:(id)property predicate:(id)predicate error:(id *)error;
@@ -100,6 +101,36 @@ id __42__HDSQLiteEntity__updateSQLForProperties___block_invoke(uint64_t a1, uint
   return v2;
 }
 
++ (id)insertOrReplaceEntity:(BOOL)entity database:(id)database properties:(id)properties error:(id *)error bindingHandler:(id)handler
+{
+  entityCopy = entity;
+  databaseCopy = database;
+  propertiesCopy = properties;
+  handlerCopy = handler;
+  v15 = [self insertSQLForProperties:propertiesCopy shouldReplace:entityCopy];
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __81__HDSQLiteEntity_insertOrReplaceEntity_database_properties_error_bindingHandler___block_invoke;
+  v25 = &unk_2796BE2A8;
+  v16 = propertiesCopy;
+  v26 = v16;
+  v17 = handlerCopy;
+  v27 = v17;
+  if ([databaseCopy executeSQL:v15 error:error bindingHandler:&v22 enumerationHandler:0])
+  {
+    v18 = [self alloc];
+    lastInsertRowID = [databaseCopy lastInsertRowID];
+    v20 = [v18 initWithPersistentID:{objc_msgSend(lastInsertRowID, "longLongValue")}];
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  return v20;
+}
+
 uint64_t __81__HDSQLiteEntity_insertOrReplaceEntity_database_properties_error_bindingHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   HDSQLiteStatementBinder::HDSQLiteStatementBinder(v4, a2, *(a1 + 32));
@@ -114,7 +145,7 @@ uint64_t __81__HDSQLiteEntity_insertOrReplaceEntity_database_properties_error_bi
   databaseCopy = database;
   v4 = MEMORY[0x277CCACA8];
   disambiguatedDatabaseTable = [objc_opt_class() disambiguatedDatabaseTable];
-  v6 = [v4 stringWithFormat:@"SELECT SUM(\"pgsize\"", disambiguatedDatabaseTable];
+  v6 = [v4 stringWithFormat:@"SELECT SUM(pgsize", disambiguatedDatabaseTable];
 
   v12 = 0;
   v13 = &v12;
@@ -271,36 +302,36 @@ uint64_t __43__HDSQLiteEntity_deleteFromDatabase_error___block_invoke(uint64_t a
 
 - (BOOL)getValuesForProperties:(id)properties database:(id)database error:(id *)error handler:(id)handler
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   databaseCopy = database;
   handlerCopy = handler;
   v11 = objc_opt_class();
-  v47 = [objc_msgSend(v11 "entityClassForEnumeration")];
+  v46 = [objc_msgSend(v11 "entityClassForEnumeration")];
   v12 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"SELECT "];
   errorCopy = error;
   selfCopy = self;
-  v49 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
+  v48 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v13 = propertiesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v71 objects:v77 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v70 objects:v76 count:16];
   if (v14)
   {
-    v15 = *v72;
+    v15 = *v71;
     v16 = 1;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v72 != v15)
+        if (*v71 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v71 + 1) + 8 * i);
+        v18 = *(*(&v70 + 1) + 8 * i);
         v19 = [v11 disambiguatedSQLForProperty:v18];
         if ((v16 & 1) == 0)
         {
@@ -311,13 +342,13 @@ uint64_t __43__HDSQLiteEntity_deleteFromDatabase_error___block_invoke(uint64_t a
         v20 = [v11 joinClausesForProperty:v18];
         if ([v20 count])
         {
-          [v49 unionSet:v20];
+          [v48 unionSet:v20];
         }
 
         v16 = 0;
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v71 objects:v77 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v70 objects:v76 count:16];
       v16 = 0;
     }
 
@@ -325,82 +356,82 @@ uint64_t __43__HDSQLiteEntity_deleteFromDatabase_error___block_invoke(uint64_t a
   }
 
   [v12 appendString:@" FROM "];
-  [v12 appendString:v47];
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
+  [v12 appendString:v46];
   v68 = 0u;
-  obj = v49;
-  v21 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  obj = v48;
+  v21 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
   if (v21)
   {
-    v22 = *v68;
+    v22 = *v67;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v68 != v22)
+        if (*v67 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v67 + 1) + 8 * j);
+        v24 = *(*(&v66 + 1) + 8 * j);
         [v12 appendString:@" "];
         sQLJoinClause = [v24 SQLJoinClause];
         [v12 appendString:sQLJoinClause];
       }
 
-      v21 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v21 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
     }
 
     while (v21);
   }
 
   [v12 appendString:@" WHERE "];
-  [v12 appendString:v47];
+  [v12 appendString:v46];
   [v12 appendString:@".ROWID = ?;"];
-  v65[0] = 0;
-  v65[1] = v65;
-  v65[2] = 0x2020000000;
-  v66 = 1;
+  v64[0] = 0;
+  v64[1] = v64;
+  v64[2] = 0x2020000000;
+  v65 = 1;
   __p = 0;
+  v62 = 0;
   v63 = 0;
-  v64 = 0;
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   v26 = v13;
-  v27 = [v26 countByEnumeratingWithState:&v58 objects:v75 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v57 objects:v74 count:16];
   if (v27)
   {
-    v28 = *v59;
+    v28 = *v58;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v59 != v28)
+        if (*v58 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        uTF8String = [*(*(&v58 + 1) + 8 * k) UTF8String];
-        v31 = v63;
-        if (v63 >= v64)
+        uTF8String = [*(*(&v57 + 1) + 8 * k) UTF8String];
+        v31 = v62;
+        if (v62 >= v63)
         {
-          v33 = (v63 - __p) >> 3;
+          v33 = (v62 - __p) >> 3;
           if ((v33 + 1) >> 61)
           {
             std::vector<char const*>::__throw_length_error[abi:ne200100]();
           }
 
-          v34 = (v64 - __p) >> 2;
+          v34 = (v63 - __p) >> 2;
           if (v34 <= v33 + 1)
           {
             v34 = v33 + 1;
           }
 
-          if (v64 - __p >= 0x7FFFFFFFFFFFFFF8)
+          if (v63 - __p >= 0x7FFFFFFFFFFFFFF8)
           {
             v35 = 0x1FFFFFFFFFFFFFFFLL;
           }
@@ -417,12 +448,12 @@ uint64_t __43__HDSQLiteEntity_deleteFromDatabase_error___block_invoke(uint64_t a
 
           *(8 * v33) = uTF8String;
           v32 = (8 * v33 + 8);
-          v36 = (8 * v33 - (v63 - __p));
-          memcpy(v36, __p, v63 - __p);
+          v36 = (8 * v33 - (v62 - __p));
+          memcpy(v36, __p, v62 - __p);
           v37 = __p;
           __p = v36;
-          v63 = v32;
-          v64 = 0;
+          v62 = v32;
+          v63 = 0;
           if (v37)
           {
             operator delete(v37);
@@ -431,140 +462,132 @@ uint64_t __43__HDSQLiteEntity_deleteFromDatabase_error___block_invoke(uint64_t a
 
         else
         {
-          *v63 = uTF8String;
+          *v62 = uTF8String;
           v32 = v31 + 1;
         }
 
-        v63 = v32;
+        v62 = v32;
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v58 objects:v75 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v57 objects:v74 count:16];
     }
 
     while (v27);
   }
 
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __64__HDSQLiteEntity_getValuesForProperties_database_error_handler___block_invoke;
-  v57[3] = &unk_2796BDFF0;
-  v57[4] = selfCopy;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3321888768;
-  v50[2] = __64__HDSQLiteEntity_getValuesForProperties_database_error_handler___block_invoke_2;
-  v50[3] = &unk_286379C30;
-  v53 = v65;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __64__HDSQLiteEntity_getValuesForProperties_database_error_handler___block_invoke;
+  v56[3] = &unk_2796BDFF0;
+  v56[4] = selfCopy;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3321888768;
+  v49[2] = __64__HDSQLiteEntity_getValuesForProperties_database_error_handler___block_invoke_2;
+  v49[3] = &unk_286379C30;
+  v52 = v64;
+  v53 = 0;
   v54 = 0;
   v55 = 0;
-  v56 = 0;
-  std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&v54, __p, v63, (v63 - __p) >> 3);
+  std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&v53, __p, v62, (v62 - __p) >> 3);
   v38 = handlerCopy;
-  v52 = v38;
+  v51 = v38;
   v39 = v26;
-  v51 = v39;
-  v40 = [databaseCopy executeSQL:v12 error:errorCopy bindingHandler:v57 enumerationHandler:v50];
+  v50 = v39;
+  v40 = [databaseCopy executeSQL:v12 error:errorCopy bindingHandler:v56 enumerationHandler:v49];
 
-  if (v54)
+  if (v53)
   {
-    v55 = v54;
-    operator delete(v54);
+    v54 = v53;
+    operator delete(v53);
   }
 
   if (__p)
   {
-    v63 = __p;
+    v62 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(v65, 8);
+  _Block_object_dispose(v64, 8);
 
-  v41 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
-uint64_t __64__HDSQLiteEntity_getValuesForProperties_database_error_handler___block_invoke_2(void *a1, uint64_t **a2)
+uint64_t __64__HDSQLiteEntity_getValuesForProperties_database_error_handler___block_invoke_2(uint64_t a1, uint64_t **a2)
 {
-  if (*(*(a1[6] + 8) + 24) == 1)
+  if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
-    std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&__p, a1[7], a1[8], (a1[8] - a1[7]) >> 3);
+    std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&__p, *(a1 + 56), *(a1 + 64), (*(a1 + 64) - *(a1 + 56)) >> 3);
     HDSQLiteRow::setColumnNames(a2, &__p);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
 
-    *(*(a1[6] + 8) + 24) = 0;
+    *(*(*(a1 + 48) + 8) + 24) = 0;
   }
 
-  v4 = a1[4];
-  (*(a1[5] + 16))();
+  (*(*(a1 + 40) + 16))();
   return 0;
 }
 
 - (id)valueForProperty:(id)property database:(id)database
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   databaseCopy = database;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v19[0] = propertyCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __44__HDSQLiteEntity_valueForProperty_database___block_invoke;
-  v12[3] = &unk_2796BE348;
-  v12[4] = &v13;
-  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v12];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v18[0] = propertyCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __44__HDSQLiteEntity_valueForProperty_database___block_invoke;
+  v11[3] = &unk_2796BE348;
+  v11[4] = &v12;
+  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v11];
 
-  v9 = v14[5];
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
 uint64_t __44__HDSQLiteEntity_valueForProperty_database___block_invoke(uint64_t a1, int a2, HDSQLiteRow *this)
 {
-  v4 = HDSQLiteRow::columnAsNaturalType(this, 0);
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 32) + 8) + 40) = HDSQLiteRow::columnAsNaturalType(this, 0);
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (BOOL)BOOLeanForProperty:(id)property database:(id)database
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   databaseCopy = database;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
-  v16[0] = propertyCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __46__HDSQLiteEntity_BOOLeanForProperty_database___block_invoke;
-  v11[3] = &unk_2796BE348;
-  v11[4] = &v12;
-  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v11];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v15[0] = propertyCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __46__HDSQLiteEntity_BOOLeanForProperty_database___block_invoke;
+  v10[3] = &unk_2796BE348;
+  v10[4] = &v11;
+  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v10];
 
-  LOBYTE(self) = *(v13 + 24);
-  _Block_object_dispose(&v12, 8);
+  LOBYTE(self) = *(v12 + 24);
+  _Block_object_dispose(&v11, 8);
 
-  v9 = *MEMORY[0x277D85DE8];
   return self & 1;
 }
 
@@ -577,152 +600,132 @@ BOOL __46__HDSQLiteEntity_BOOLeanForProperty_database___block_invoke(uint64_t a1
 
 - (id)dateForProperty:(id)property database:(id)database
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   databaseCopy = database;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v19[0] = propertyCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __43__HDSQLiteEntity_dateForProperty_database___block_invoke;
-  v12[3] = &unk_2796BE348;
-  v12[4] = &v13;
-  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v12];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v18[0] = propertyCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __43__HDSQLiteEntity_dateForProperty_database___block_invoke;
+  v11[3] = &unk_2796BE348;
+  v11[4] = &v12;
+  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v11];
 
-  v9 = v14[5];
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
 uint64_t __43__HDSQLiteEntity_dateForProperty_database___block_invoke(uint64_t a1, int a2, HDSQLiteRow *this)
 {
-  v4 = HDSQLiteRow::columnAsDate(this, 0);
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 32) + 8) + 40) = HDSQLiteRow::columnAsDate(this, 0);
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)numberForProperty:(id)property database:(id)database
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   databaseCopy = database;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v19[0] = propertyCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __45__HDSQLiteEntity_numberForProperty_database___block_invoke;
-  v12[3] = &unk_2796BE348;
-  v12[4] = &v13;
-  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v12];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v18[0] = propertyCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__HDSQLiteEntity_numberForProperty_database___block_invoke;
+  v11[3] = &unk_2796BE348;
+  v11[4] = &v12;
+  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v11];
 
-  v9 = v14[5];
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
 uint64_t __45__HDSQLiteEntity_numberForProperty_database___block_invoke(uint64_t a1, int a2, HDSQLiteRow *this)
 {
-  v4 = HDSQLiteRow::columnAsNumber(this, 0);
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 32) + 8) + 40) = HDSQLiteRow::columnAsNumber(this, 0);
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)stringForProperty:(id)property database:(id)database
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   databaseCopy = database;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v19[0] = propertyCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __45__HDSQLiteEntity_stringForProperty_database___block_invoke;
-  v12[3] = &unk_2796BE348;
-  v12[4] = &v13;
-  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v12];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v18[0] = propertyCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__HDSQLiteEntity_stringForProperty_database___block_invoke;
+  v11[3] = &unk_2796BE348;
+  v11[4] = &v12;
+  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v11];
 
-  v9 = v14[5];
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
 uint64_t __45__HDSQLiteEntity_stringForProperty_database___block_invoke(uint64_t a1, int a2, HDSQLiteRow *this)
 {
-  v4 = HDSQLiteRow::columnAsString(this, 0);
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 32) + 8) + 40) = HDSQLiteRow::columnAsString(this, 0);
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)UUIDForProperty:(id)property database:(id)database
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   databaseCopy = database;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v19[0] = propertyCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __43__HDSQLiteEntity_UUIDForProperty_database___block_invoke;
-  v12[3] = &unk_2796BE348;
-  v12[4] = &v13;
-  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v12];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v18[0] = propertyCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __43__HDSQLiteEntity_UUIDForProperty_database___block_invoke;
+  v11[3] = &unk_2796BE348;
+  v11[4] = &v12;
+  [(HDSQLiteEntity *)self getValuesForProperties:v8 database:databaseCopy handler:v11];
 
-  v9 = v14[5];
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
 uint64_t __43__HDSQLiteEntity_UUIDForProperty_database___block_invoke(uint64_t a1, int a2, HDSQLiteRow *this)
 {
-  v4 = HDSQLiteRow::columnAsUUID(this, 0);
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 32) + 8) + 40) = HDSQLiteRow::columnAsUUID(this, 0);
 
   return MEMORY[0x2821F96F8]();
 }
@@ -839,11 +842,10 @@ uint64_t __86__HDSQLiteEntity_SQLiteQueryAdditions__firstInDatabase_predicate_or
 
 uint64_t __103__HDSQLiteEntity_SQLiteQueryAdditions__enumerateEntitiesInDatabase_predicate_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 40);
-  v4 = [objc_alloc(objc_opt_class()) initWithPersistentID:a2];
-  v5 = (*(*(a1 + 32) + 16))();
+  v3 = [objc_alloc(objc_opt_class()) initWithPersistentID:a2];
+  v4 = (*(*(a1 + 32) + 16))();
 
-  return v5;
+  return v4;
 }
 
 + (BOOL)enumerateQueryResultsFromColumns:(id)columns properties:(id)properties predicate:(id)predicate groupBy:(id)by orderingTerms:(id)terms limit:(int64_t)limit database:(id)database error:(id *)self0 enumerationHandler:(id)self1
@@ -866,28 +868,26 @@ uint64_t __103__HDSQLiteEntity_SQLiteQueryAdditions__enumerateEntitiesInDatabase
 
 + (id)propertyValueForAnyInDatabase:(id)database property:(id)property predicate:(id)predicate error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__2;
-  v21 = __Block_byref_object_dispose__2;
-  v22 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__2;
+  v20 = __Block_byref_object_dispose__2;
+  v21 = 0;
   v11 = [self queryWithDatabase:database predicate:predicate limit:0 orderingTerms:0 groupBy:0];
-  v23[0] = propertyCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __95__HDSQLiteEntity_SQLiteQueryAdditions__propertyValueForAnyInDatabase_property_predicate_error___block_invoke;
-  v16[3] = &unk_2796BE550;
-  v16[4] = &v17;
-  [v11 enumeratePersistentIDsAndProperties:v12 error:error enumerationHandler:v16];
+  v22[0] = propertyCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __95__HDSQLiteEntity_SQLiteQueryAdditions__propertyValueForAnyInDatabase_property_predicate_error___block_invoke;
+  v15[3] = &unk_2796BE550;
+  v15[4] = &v16;
+  [v11 enumeratePersistentIDsAndProperties:v12 error:error enumerationHandler:v15];
 
-  v13 = v18[5];
-  _Block_object_dispose(&v17, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
   return v13;
 }
@@ -920,51 +920,51 @@ uint64_t __95__HDSQLiteEntity_SQLiteQueryAdditions__propertyValueForAnyInDatabas
 
 + (id)aggregateValuesForProperty:(id)property functions:(id)functions queryDescriptor:(id)descriptor database:(id)database error:(id *)error
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   functionsCopy = functions;
   descriptorCopy = descriptor;
   databaseCopy = database;
-  v44 = propertyCopy;
-  v45 = descriptorCopy;
+  v43 = propertyCopy;
+  v44 = descriptorCopy;
   groupBy = [descriptorCopy groupBy];
-  v46 = groupBy;
+  v45 = groupBy;
   v15 = [self disambiguatedSQLForProperty:propertyCopy];
   if (groupBy)
   {
-    v41 = [self disambiguatedSQLForProperty:groupBy];
+    v40 = [self disambiguatedSQLForProperty:groupBy];
   }
 
   else
   {
-    v41 = 0;
+    v40 = 0;
   }
 
   errorCopy = error;
   v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = functionsCopy;
-  v17 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+  v17 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
   if (v17)
   {
-    v18 = *v60;
+    v18 = *v59;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v60 != v18)
+        if (*v59 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@(%@)", *(*(&v59 + 1) + 8 * i), v15];
+        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@(%@)", *(*(&v58 + 1) + 8 * i), v15];
         [v16 addObject:v20];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+      v17 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
     }
 
     while (v17);
@@ -972,72 +972,72 @@ uint64_t __95__HDSQLiteEntity_SQLiteQueryAdditions__propertyValueForAnyInDatabas
 
   if (groupBy)
   {
-    [v16 addObject:v41];
-    v64[0] = v44;
-    v64[1] = groupBy;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+    [v16 addObject:v40];
+    v63[0] = v43;
+    v63[1] = groupBy;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
   }
 
   else
   {
-    v65 = v44;
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+    v64 = v43;
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
   }
-  v37 = ;
-  v38 = [descriptorCopy _SQLForSelectWithProperties:v37 columns:v16];
-  v42 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:v38];
+  v36 = ;
+  v37 = [descriptorCopy _SQLForSelectWithProperties:v36 columns:v16];
+  v41 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:v37];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v36 = [obj count];
+  v35 = [obj count];
   if (groupBy)
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v22 = obj;
-    v23 = [v22 countByEnumeratingWithState:&v55 objects:v63 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v54 objects:v62 count:16];
     if (v23)
     {
-      v24 = *v56;
+      v24 = *v55;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v56 != v24)
+          if (*v55 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v55 + 1) + 8 * j);
+          v26 = *(*(&v54 + 1) + 8 * j);
           dictionary2 = [MEMORY[0x277CBEB38] dictionary];
           [dictionary setObject:dictionary2 forKeyedSubscript:v26];
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v54 objects:v62 count:16];
       }
 
       while (v23);
     }
   }
 
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_functions_queryDescriptor_database_error___block_invoke;
-  v53[3] = &unk_2796BDFF0;
-  v28 = v45;
-  v54 = v28;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_functions_queryDescriptor_database_error___block_invoke_2;
-  v48[3] = &unk_2796BE578;
-  v29 = v46;
-  v49 = v29;
-  v52 = v36;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_functions_queryDescriptor_database_error___block_invoke;
+  v52[3] = &unk_2796BDFF0;
+  v28 = v44;
+  v53 = v28;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_functions_queryDescriptor_database_error___block_invoke_2;
+  v47[3] = &unk_2796BE578;
+  v29 = v45;
+  v48 = v29;
+  v51 = v35;
   v30 = dictionary;
-  v50 = v30;
+  v49 = v30;
   v31 = obj;
-  v51 = v31;
-  if ([databaseCopy executeSQL:v42 error:errorCopy bindingHandler:v53 enumerationHandler:v48])
+  v50 = v31;
+  if ([databaseCopy executeSQL:v41 error:errorCopy bindingHandler:v52 enumerationHandler:v47])
   {
     v32 = v30;
   }
@@ -1049,11 +1049,10 @@ uint64_t __95__HDSQLiteEntity_SQLiteQueryAdditions__propertyValueForAnyInDatabas
 
   v33 = v32;
 
-  v34 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
-uint64_t __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_functions_queryDescriptor_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
+uint64_t __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_functions_queryDescriptor_database_error___block_invoke_2(uint64_t a1, HDSQLiteRow *a2)
 {
   v4 = *(a1 + 56);
   if (*(a1 + 32))
@@ -1104,36 +1103,32 @@ uint64_t __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_
 
 + (id)aggregateSingleValueForProperty:(id)property function:(id)function predicate:(id)predicate database:(id)database error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   functionCopy = function;
   predicateCopy = predicate;
   databaseCopy = database;
-  v21[0] = functionCopy;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = functionCopy;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v17 = [self aggregateValuesForProperty:propertyCopy functions:v16 predicate:predicateCopy groupBy:0 database:databaseCopy error:error];
 
   v18 = [v17 objectForKeyedSubscript:functionCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (id)aggregateSingleValueForProperty:(id)property function:(id)function queryDescriptor:(id)descriptor database:(id)database error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   functionCopy = function;
   descriptorCopy = descriptor;
   databaseCopy = database;
-  v21[0] = functionCopy;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = functionCopy;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v17 = [self aggregateValuesForProperty:propertyCopy functions:v16 queryDescriptor:descriptorCopy database:databaseCopy error:error];
 
   v18 = [v17 objectForKeyedSubscript:functionCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1168,7 +1163,7 @@ uint64_t __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_
 
 + (id)countDistinctForProperty:(id)property predicate:(id)predicate database:(id)database error:(id *)error
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   predicateCopy = predicate;
   databaseCopy = database;
@@ -1179,34 +1174,33 @@ uint64_t __108__HDSQLiteEntity_SQLiteQueryAdditions__aggregateValuesForProperty_
   v15 = [self disambiguatedSQLForProperty:propertyCopy];
   v16 = [v14 initWithFormat:@"%@(DISTINCT %@)", @"COUNT", v15];
 
-  v34[0] = propertyCopy;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
-  v33 = v16;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+  v33[0] = propertyCopy;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32 = v16;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
   v19 = [(HDSQLiteQueryDescriptor *)v13 _SQLForSelectWithProperties:v17 columns:v18];
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__2;
-  v31 = __Block_byref_object_dispose__2;
-  v32 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_predicate_database_error___block_invoke;
-  v25[3] = &unk_2796BDFF0;
-  v20 = v13;
-  v26 = v20;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__2;
+  v30 = __Block_byref_object_dispose__2;
+  v31 = 0;
   v24[0] = MEMORY[0x277D85DD0];
   v24[1] = 3221225472;
-  v24[2] = __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_predicate_database_error___block_invoke_2;
-  v24[3] = &unk_2796BE2D0;
-  v24[4] = &v27;
-  [databaseCopy executeSQL:v19 error:error bindingHandler:v25 enumerationHandler:v24];
-  v21 = v28[5];
+  v24[2] = __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_predicate_database_error___block_invoke;
+  v24[3] = &unk_2796BDFF0;
+  v20 = v13;
+  v25 = v20;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_predicate_database_error___block_invoke_2;
+  v23[3] = &unk_2796BE2D0;
+  v23[4] = &v26;
+  [databaseCopy executeSQL:v19 error:error bindingHandler:v24 enumerationHandler:v23];
+  v21 = v27[5];
 
-  _Block_object_dispose(&v27, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 
   return v21;
 }
@@ -1218,7 +1212,7 @@ void __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_predica
   [v3 bindToStatement:a2 bindingIndex:&v4];
 }
 
-uint64_t __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_predicate_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
+uint64_t __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_predicate_database_error___block_invoke_2(uint64_t a1, HDSQLiteRow *a2)
 {
   v3 = HDSQLiteColumnAsNaturalType(a2, 0);
   v4 = *(*(a1 + 32) + 8);
@@ -1230,7 +1224,7 @@ uint64_t __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_pre
 
 + (id)distinctProperty:(id)property predicate:(id)predicate database:(id)database error:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   predicateCopy = predicate;
   databaseCopy = database;
@@ -1239,26 +1233,26 @@ uint64_t __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_pre
   [(HDSQLiteQueryDescriptor *)v13 setPredicate:predicateCopy];
   [(HDSQLiteQueryDescriptor *)v13 setReturnsDistinctEntities:1];
   v14 = [self disambiguatedSQLForProperty:propertyCopy];
-  v30[0] = propertyCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
-  v29 = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v29[0] = propertyCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28 = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   v17 = [(HDSQLiteQueryDescriptor *)v13 _SQLForSelectWithProperties:v15 columns:v16];
 
   array = [MEMORY[0x277CBEB18] array];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __82__HDSQLiteEntity_SQLiteQueryAdditions__distinctProperty_predicate_database_error___block_invoke;
-  v27[3] = &unk_2796BDFF0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __82__HDSQLiteEntity_SQLiteQueryAdditions__distinctProperty_predicate_database_error___block_invoke;
+  v26[3] = &unk_2796BDFF0;
   v19 = v13;
-  v28 = v19;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __82__HDSQLiteEntity_SQLiteQueryAdditions__distinctProperty_predicate_database_error___block_invoke_2;
-  v25[3] = &unk_2796BDFC8;
-  v26 = array;
+  v27 = v19;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __82__HDSQLiteEntity_SQLiteQueryAdditions__distinctProperty_predicate_database_error___block_invoke_2;
+  v24[3] = &unk_2796BDFC8;
+  v25 = array;
   v20 = array;
-  if ([databaseCopy executeSQL:v17 error:error bindingHandler:v27 enumerationHandler:v25])
+  if ([databaseCopy executeSQL:v17 error:error bindingHandler:v26 enumerationHandler:v24])
   {
     v21 = v20;
   }
@@ -1270,7 +1264,6 @@ uint64_t __90__HDSQLiteEntity_SQLiteQueryAdditions__countDistinctForProperty_pre
 
   v22 = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -1281,7 +1274,7 @@ void __82__HDSQLiteEntity_SQLiteQueryAdditions__distinctProperty_predicate_datab
   [v3 bindToStatement:a2 bindingIndex:&v4];
 }
 
-uint64_t __82__HDSQLiteEntity_SQLiteQueryAdditions__distinctProperty_predicate_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
+uint64_t __82__HDSQLiteEntity_SQLiteQueryAdditions__distinctProperty_predicate_database_error___block_invoke_2(uint64_t a1, HDSQLiteRow *a2)
 {
   v2 = *(a1 + 32);
   v3 = HDSQLiteColumnAsNaturalType(a2, 0);

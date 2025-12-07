@@ -73,8 +73,8 @@
 
 - (void)reloadMenuItems
 {
-  contacts = [(CNContactOrbActionsController *)self contacts];
-  v4 = [(CNContactOrbActionsController *)self shouldUseActionsManagerForContacts:contacts];
+  v3 = objc_msgSend_contacts(self, a2);
+  v4 = [(CNContactOrbActionsController *)self shouldUseActionsManagerForContacts:v3];
 
   if (v4)
   {
@@ -153,8 +153,8 @@
         }
 
         v8 = *(*(&v40 + 1) + 8 * i);
-        contacts = [(CNContactOrbActionsController *)self contacts];
-        v10 = [contacts count];
+        v9 = objc_msgSend_contacts(self, v35);
+        v10 = [v9 count];
 
         if (v10 < 2)
         {

@@ -39,37 +39,37 @@
 
 + (id)recentInteractionsFromStore:(id)store bundleIDs:(id)ds
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AE18];
   dsCopy = ds;
   storeCopy = store;
-  v35 = [v5 predicateWithFormat:@"(NOT derivedIntentIdentifier == NULL)"];
+  v34 = [v5 predicateWithFormat:@"(NOT derivedIntentIdentifier == NULL)"];
   v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism == %@)", &unk_1F2D8BD48];
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"(bundleId IN %@)", dsCopy];
   v10 = MEMORY[0x1E696AB28];
-  v39 = dsCopy;
-  v40 = v8;
-  v46[0] = dsCopy;
-  v46[1] = v8;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+  v38 = dsCopy;
+  v39 = v8;
+  v45[0] = dsCopy;
+  v45[1] = v8;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
   v12 = [v10 andPredicateWithSubpredicates:v11];
 
   v13 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism == %@)", &unk_1F2D8BD60];
   dsCopy2 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(targetBundleId IN %@)", dsCopy];
 
   v15 = MEMORY[0x1E696AB28];
-  v36 = dsCopy2;
-  v37 = v13;
-  v45[0] = v13;
-  v45[1] = dsCopy2;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+  v35 = dsCopy2;
+  v36 = v13;
+  v44[0] = v13;
+  v44[1] = dsCopy2;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
   v17 = [v15 andPredicateWithSubpredicates:v16];
 
   v18 = MEMORY[0x1E696AB28];
-  v38 = v12;
-  v44[0] = v12;
-  v44[1] = v17;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+  v37 = v12;
+  v43[0] = v12;
+  v43[1] = v17;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
   v20 = [v18 orPredicateWithSubpredicates:v19];
 
   v21 = MEMORY[0x1E696AE18];
@@ -77,19 +77,19 @@
   v23 = [v21 predicateWithFormat:@"(direction IN %@)", v22];
 
   v24 = MEMORY[0x1E696AB28];
-  v43[0] = v20;
-  v43[1] = v35;
-  v43[2] = v23;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:3];
+  v42[0] = v20;
+  v42[1] = v34;
+  v42[2] = v23;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:3];
   v26 = [v24 andPredicateWithSubpredicates:v25];
 
   v27 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v42 = v27;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-  v41 = 0;
-  v29 = [storeCopy queryInteractionsUsingPredicate:v26 sortDescriptors:v28 limit:500 error:&v41];
+  v41 = v27;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+  v40 = 0;
+  v29 = [storeCopy queryInteractionsUsingPredicate:v26 sortDescriptors:v28 limit:500 error:&v40];
 
-  v30 = v41;
+  v30 = v40;
   if (v30)
   {
     v31 = +[_PSLogging generalChannel];
@@ -105,8 +105,6 @@
   {
     v32 = v29;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
@@ -193,12 +191,12 @@
 
 + (id)interactionsFromStore:(id)store startDate:(id)date tillDate:(id)tillDate withMechanisms:(id)mechanisms withAccount:(id)account withBundleIds:(id)ids withTargetBundleIds:(id)bundleIds withDirections:(id)self0 withNsUserName:(id)self1 singleRecipient:(BOOL)self2 excludeAnonymousTemporaryRecipients:(BOOL)self3 fetchLimit:(unint64_t)self4 fetchOffset:(unint64_t)self5 sortAscending:(BOOL)self6
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   tillDateCopy = tillDate;
   mechanismsCopy = mechanisms;
   v24 = dateCopy;
-  v57 = mechanismsCopy;
+  v56 = mechanismsCopy;
   accountCopy = account;
   idsCopy = ids;
   bundleIdsCopy = bundleIds;
@@ -219,9 +217,9 @@
     [array addObject:tillDateCopy];
   }
 
-  if (v57)
+  if (v56)
   {
-    v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism IN %@)", v57];
+    v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism IN %@)", v56];
     [array addObject:v32];
   }
 
@@ -266,7 +264,7 @@
   }
 
   v42 = tillDateCopy;
-  v53 = v24;
+  v52 = v24;
   if (recipients)
   {
     v43 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(SUBQUERY(recipients, $recipient, $recipient.identifier BEGINSWITH %@).@count == 0)", @"temp:"];
@@ -275,12 +273,12 @@
 
   v44 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
   v45 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:ascending];
-  v59[0] = v45;
-  v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:1];
-  v58 = 0;
-  v47 = [storeCopy queryInteractionsUsingPredicate:v44 sortDescriptors:v46 limit:limit offset:offset error:&v58];
+  v58[0] = v45;
+  v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:1];
+  v57 = 0;
+  v47 = [storeCopy queryInteractionsUsingPredicate:v44 sortDescriptors:v46 limit:limit offset:offset error:&v57];
 
-  v48 = v58;
+  v48 = v57;
   if (v48)
   {
     v49 = +[_PSLogging generalChannel];
@@ -297,14 +295,12 @@
     v50 = v47;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
-
   return v50;
 }
 
 + (id)interactionsHyperRecentFromReferenceDate:(id)date bundleIds:(id)ids recencyMargin:(double)margin store:(id)store
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   idsCopy = ids;
   v11 = MEMORY[0x1E695DF70];
@@ -327,21 +323,21 @@
     v20 = [v18 predicateWithFormat:@"(startDate <= %@)", v19];
 
     v21 = MEMORY[0x1E696AB28];
-    v35[0] = v17;
-    v35[1] = v20;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+    v34[0] = v17;
+    v34[1] = v20;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
     v23 = [v21 andPredicateWithSubpredicates:v22];
     [array addObject:v23];
   }
 
   v24 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
   v25 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v34 = v25;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
-  v33 = 0;
-  v27 = [storeCopy queryInteractionsUsingPredicate:v24 sortDescriptors:v26 limit:1 error:&v33];
+  v33 = v25;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+  v32 = 0;
+  v27 = [storeCopy queryInteractionsUsingPredicate:v24 sortDescriptors:v26 limit:1 error:&v32];
 
-  v28 = v33;
+  v28 = v32;
   if (v28)
   {
     v29 = +[_PSLogging generalChannel];
@@ -358,15 +354,13 @@
     v30 = v27;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v30;
 }
 
 + (id)mostRecentInteractionWithSenderOrRecipientMatchingContactIdentifier:(id)identifier bundleIds:(id)ids store:(id)store singleRecipient:(BOOL)recipient
 {
   recipientCopy = recipient;
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   idsCopy = ids;
   storeCopy = store;
@@ -385,29 +379,29 @@
     identifierCopy = [MEMORY[0x1E696AE18] predicateWithFormat:v12, identifierCopy];
     identifierCopy2 = [MEMORY[0x1E696AE18] predicateWithFormat:@"sender.personId == %@", identifierCopy];
     v15 = MEMORY[0x1E696AB28];
-    v31 = identifierCopy2;
-    v32 = identifierCopy;
-    v37[0] = identifierCopy2;
-    v37[1] = identifierCopy;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+    v30 = identifierCopy2;
+    v31 = identifierCopy;
+    v36[0] = identifierCopy2;
+    v36[1] = identifierCopy;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
     v17 = [v15 orPredicateWithSubpredicates:v16];
 
-    v33 = idsCopy;
+    v32 = idsCopy;
     idsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"(bundleId IN %@)", idsCopy];
     v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism IN %@)", &unk_1F2D8C5D0];
     v20 = MEMORY[0x1E696AB28];
-    v36[0] = v17;
-    v36[1] = idsCopy;
-    v36[2] = v19;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
+    v35[0] = v17;
+    v35[1] = idsCopy;
+    v35[2] = v19;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
     v22 = [v20 andPredicateWithSubpredicates:v21];
 
     v23 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v35 = v23;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
-    v34 = 0;
-    v25 = [storeCopy queryInteractionsUsingPredicate:v22 sortDescriptors:v24 limit:1 error:&v34];
-    v26 = v34;
+    v34 = v23;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+    v33 = 0;
+    v25 = [storeCopy queryInteractionsUsingPredicate:v22 sortDescriptors:v24 limit:1 error:&v33];
+    v26 = v33;
 
     if (v26)
     {
@@ -425,7 +419,7 @@
       firstObject = [v25 firstObject];
     }
 
-    idsCopy = v33;
+    idsCopy = v32;
   }
 
   else
@@ -433,15 +427,13 @@
     firstObject = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)mostRecentInteractionWithRecipientMatchingContactIdentifier:(id)identifier bundleIds:(id)ids store:(id)store singleRecipient:(BOOL)recipient
 {
   recipientCopy = recipient;
-  v30[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   idsCopy = ids;
   storeCopy = store;
@@ -461,19 +453,19 @@
     idsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"(bundleId IN %@)", idsCopy];
     v15 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism IN %@)", &unk_1F2D8C5E8];
     v16 = MEMORY[0x1E696AB28];
-    v27 = identifierCopy;
-    v30[0] = identifierCopy;
-    v30[1] = idsCopy;
-    v30[2] = v15;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
+    v26 = identifierCopy;
+    v29[0] = identifierCopy;
+    v29[1] = idsCopy;
+    v29[2] = v15;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
     v18 = [v16 andPredicateWithSubpredicates:v17];
 
     v19 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v29 = v19;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-    v28 = 0;
-    v21 = [storeCopy queryInteractionsUsingPredicate:v18 sortDescriptors:v20 limit:1 error:&v28];
-    v22 = v28;
+    v28 = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+    v27 = 0;
+    v21 = [storeCopy queryInteractionsUsingPredicate:v18 sortDescriptors:v20 limit:1 error:&v27];
+    v22 = v27;
 
     if (v22)
     {
@@ -497,14 +489,12 @@
     firstObject = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)mostRecentInteractionWithSingleRecipientMatchingContactIdentifier:(id)identifier store:(id)store
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   storeCopy = store;
   if ([identifierCopy length])
@@ -515,17 +505,17 @@
     v10 = [v8 predicateWithFormat:@"(bundleId IN %@)", v9];
 
     v11 = MEMORY[0x1E696AB28];
-    v24[0] = identifierCopy;
-    v24[1] = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = identifierCopy;
+    v23[1] = v10;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v13 = [v11 andPredicateWithSubpredicates:v12];
 
     v14 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v23 = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
-    v22 = 0;
-    v16 = [storeCopy queryInteractionsUsingPredicate:v13 sortDescriptors:v15 limit:500 error:&v22];
-    v17 = v22;
+    v22 = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v21 = 0;
+    v16 = [storeCopy queryInteractionsUsingPredicate:v13 sortDescriptors:v15 limit:500 error:&v21];
+    v17 = v21;
 
     if (v17)
     {
@@ -549,20 +539,18 @@
     firstObject = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)mostRecentInteractionWithSingleRecipientMatchingHandle:(id)handle store:(id)store
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   storeCopy = store;
   if (handleCopy && ![handleCopy length])
   {
-    v13[0] = handleCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = handleCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v10 = [self interactionsMatchingAnyHandlesOrDomainIds:v9 account:0 directions:&unk_1F2D8C600 mechanisms:0 bundleIds:0 store:storeCopy fetchLimit:1];
     firstObject = [v10 firstObject];
   }
@@ -572,14 +560,12 @@
     firstObject = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)interactionsMatchingAnyHandlesOrDomainIds:(id)ids account:(id)account directions:(id)directions mechanisms:(id)mechanisms bundleIds:(id)bundleIds store:(id)store fetchLimit:(unint64_t)limit
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   accountCopy = account;
   directionsCopy = directions;
@@ -615,44 +601,44 @@
   }
 
   v29 = 0x1E696A000;
-  v66 = array;
+  v65 = array;
   if (idsCopy)
   {
-    v62 = bundleIdsCopy;
-    v63 = mechanismsCopy;
-    v64 = accountCopy;
+    v61 = bundleIdsCopy;
+    v62 = mechanismsCopy;
+    v63 = accountCopy;
     v30 = [_PSContactResolver normalizedHandlesDictionaryFromHandles:idsCopy];
     v31 = MEMORY[0x1E695DFD8];
-    v61 = v30;
+    v60 = v30;
     allValues = [v30 allValues];
     v33 = [v31 setWithArray:allValues];
     v34 = [v33 mutableCopy];
 
-    v60 = v34;
-    v59 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.identifier IN %@", v34];
+    v59 = v34;
+    v58 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.identifier IN %@", v34];
     idsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"domainIdentifier IN %@", idsCopy];
     v35 = objc_opt_new();
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
-    v65 = idsCopy;
+    v64 = idsCopy;
     v36 = idsCopy;
-    v37 = [v36 countByEnumeratingWithState:&v69 objects:v75 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v68 objects:v74 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v70;
+      v39 = *v69;
       do
       {
         for (i = 0; i != v38; ++i)
         {
-          if (*v70 != v39)
+          if (*v69 != v39)
           {
             objc_enumerationMutation(v36);
           }
 
-          v41 = *(*(&v69 + 1) + 8 * i);
+          v41 = *(*(&v68 + 1) + 8 * i);
           alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
           v43 = [v41 stringByAddingPercentEncodingWithAllowedCharacters:alphanumericCharacterSet];
 
@@ -660,7 +646,7 @@
           [v35 addObject:v44];
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v69 objects:v75 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v68 objects:v74 count:16];
       }
 
       while (v38);
@@ -668,18 +654,18 @@
 
     v45 = [MEMORY[0x1E696AE18] predicateWithFormat:@"derivedIntentIdentifier IN %@", v35];
     v46 = MEMORY[0x1E696AB28];
-    v74[0] = idsCopy;
-    v74[1] = v59;
-    v74[2] = v45;
-    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:3];
+    v73[0] = idsCopy;
+    v73[1] = v58;
+    v73[2] = v45;
+    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:3];
     v48 = [v46 orPredicateWithSubpredicates:v47];
     [array addObject:v48];
 
     v29 = 0x1E696A000uLL;
-    accountCopy = v64;
-    idsCopy = v65;
-    mechanismsCopy = v63;
-    bundleIdsCopy = v62;
+    accountCopy = v63;
+    idsCopy = v64;
+    mechanismsCopy = v62;
+    bundleIdsCopy = v61;
   }
 
   if (mechanismsCopy)
@@ -690,11 +676,11 @@
 
   v50 = [*(v29 + 2856) andPredicateWithSubpredicates:array];
   v51 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v73 = v51;
-  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
-  v68 = 0;
-  v53 = [storeCopy queryInteractionsUsingPredicate:v50 sortDescriptors:v52 limit:limit error:&v68];
-  v54 = v68;
+  v72 = v51;
+  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
+  v67 = 0;
+  v53 = [storeCopy queryInteractionsUsingPredicate:v50 sortDescriptors:v52 limit:limit error:&v67];
+  v54 = v67;
 
   if (v54)
   {
@@ -711,14 +697,12 @@
     v55 = v53;
   }
 
-  v56 = *MEMORY[0x1E69E9840];
-
   return v55;
 }
 
 + (id)interactionsMatchingAnyHandlesOrDomainIds:(id)ids store:(id)store fetchLimit:(unint64_t)limit messageInteractionCache:(id)cache
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   storeCopy = store;
   cacheCopy = cache;
@@ -729,40 +713,40 @@
   if (idsCopy)
   {
     limitCopy = limit;
-    v48 = array;
-    v49 = storeCopy;
+    v47 = array;
+    v48 = storeCopy;
     v16 = [_PSContactResolver normalizedHandlesDictionaryFromHandles:idsCopy];
     v17 = MEMORY[0x1E695DFD8];
-    v46 = v16;
+    v45 = v16;
     allValues = [v16 allValues];
     v19 = [v17 setWithArray:allValues];
     v20 = [v19 mutableCopy];
 
-    v45 = v20;
-    v44 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.identifier IN %@", v20];
+    v44 = v20;
+    v43 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.identifier IN %@", v20];
     idsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"domainIdentifier IN %@", idsCopy];
     v21 = objc_opt_new();
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v50 = idsCopy;
+    v49 = idsCopy;
     v22 = idsCopy;
-    v23 = [v22 countByEnumeratingWithState:&v52 objects:v58 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v51 objects:v57 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v53;
+      v25 = *v52;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v53 != v25)
+          if (*v52 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v52 + 1) + 8 * i);
+          v27 = *(*(&v51 + 1) + 8 * i);
           alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
           v29 = [v27 stringByAddingPercentEncodingWithAllowedCharacters:alphanumericCharacterSet];
 
@@ -770,7 +754,7 @@
           [v21 addObject:v30];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v51 objects:v57 count:16];
       }
 
       while (v24);
@@ -779,17 +763,17 @@
     v31 = [MEMORY[0x1E696AE18] predicateWithFormat:@"derivedIntentIdentifier IN %@", v21];
     v14 = 0x1E696A000uLL;
     v32 = MEMORY[0x1E696AB28];
-    v57[0] = idsCopy;
-    v57[1] = v44;
-    v57[2] = v31;
+    v56[0] = idsCopy;
+    v56[1] = v43;
+    v56[2] = v31;
     v15 = 0x1E695D000uLL;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:3];
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
     v34 = [v32 orPredicateWithSubpredicates:v33];
-    v13 = v48;
-    [v48 addObject:v34];
+    v13 = v47;
+    [v47 addObject:v34];
 
-    storeCopy = v49;
-    idsCopy = v50;
+    storeCopy = v48;
+    idsCopy = v49;
     limit = limitCopy;
   }
 
@@ -803,11 +787,11 @@
   else
   {
     interactions = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v56 = interactions;
-    v38 = [*(v15 + 3784) arrayWithObjects:&v56 count:1];
-    v51 = 0;
-    v39 = [storeCopy queryInteractionsUsingPredicate:v35 sortDescriptors:v38 limit:limit error:&v51];
-    v40 = v51;
+    v55 = interactions;
+    v38 = [*(v15 + 3784) arrayWithObjects:&v55 count:1];
+    v50 = 0;
+    v39 = [storeCopy queryInteractionsUsingPredicate:v35 sortDescriptors:v38 limit:limit error:&v50];
+    v40 = v50;
 
     if (v40)
     {
@@ -825,14 +809,12 @@
     }
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-
   return v37;
 }
 
 + (id)interactionsMatchingAnyHandlesOrDomainIds:(id)ids account:(id)account directions:(id)directions bundleIds:(id)bundleIds store:(id)store fetchLimit:(unint64_t)limit singleRecipientOnly:(BOOL)only
 {
-  v49[2] = *MEMORY[0x1E69E9840];
+  v48[2] = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   accountCopy = account;
   directionsCopy = directions;
@@ -867,7 +849,7 @@
     [array addObject:v27];
   }
 
-  v45 = accountCopy;
+  v44 = accountCopy;
   if (only)
   {
     v28 = [MEMORY[0x1E696AE18] predicateWithFormat:@"recipientCount == 1"];
@@ -879,21 +861,21 @@
     idsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.identifier IN %@", idsCopy];
     idsCopy2 = [MEMORY[0x1E696AE18] predicateWithFormat:@"domainIdentifier IN %@", idsCopy];
     v31 = MEMORY[0x1E696AB28];
-    v49[0] = idsCopy2;
-    v49[1] = idsCopy;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+    v48[0] = idsCopy2;
+    v48[1] = idsCopy;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
     v33 = [v31 orPredicateWithSubpredicates:v32];
     [array addObject:v33];
   }
 
   v34 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
   v35 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v48 = v35;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
-  v47 = 0;
-  v37 = [storeCopy queryInteractionsUsingPredicate:v34 sortDescriptors:v36 limit:limit error:&v47];
+  v47 = v35;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
+  v46 = 0;
+  v37 = [storeCopy queryInteractionsUsingPredicate:v34 sortDescriptors:v36 limit:limit error:&v46];
 
-  v38 = v47;
+  v38 = v46;
   if (v38)
   {
     v39 = directionsCopy;
@@ -913,31 +895,29 @@
     v40 = bundleIdsCopy;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
-
   return v41;
 }
 
 + (id)allAirDropInteractionsFromStore:(id)store fetchLimit:(unint64_t)limit
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AE18];
   storeCopy = store;
   v7 = [v5 predicateWithFormat:@"(targetBundleId == %@)", @"com.apple.UIKit.activity.AirDrop"];
   v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism == %@)", &unk_1F2D8BD60];
   v9 = MEMORY[0x1E696AB28];
-  v21[0] = v8;
-  v21[1] = v7;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[0] = v8;
+  v20[1] = v7;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   v11 = [v9 andPredicateWithSubpredicates:v10];
 
   v12 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v20 = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
-  v19 = 0;
-  v14 = [storeCopy queryInteractionsUsingPredicate:v11 sortDescriptors:v13 limit:limit error:&v19];
+  v19 = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+  v18 = 0;
+  v14 = [storeCopy queryInteractionsUsingPredicate:v11 sortDescriptors:v13 limit:limit error:&v18];
 
-  v15 = v19;
+  v15 = v18;
   if (v15)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -953,14 +933,12 @@
     v16 = v14;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)interactionsMatchingAnySender:(id)sender store:(id)store fetchLimit:(unint64_t)limit messageInteractionCache:(id)cache
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   senderCopy = sender;
   storeCopy = store;
   cacheCopy = cache;
@@ -981,11 +959,11 @@
   else
   {
     v17 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v25[0] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-    v24 = 0;
-    v19 = [storeCopy queryInteractionsUsingPredicate:v14 sortDescriptors:v18 limit:limit error:&v24];
-    v20 = v24;
+    v24[0] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23 = 0;
+    v19 = [storeCopy queryInteractionsUsingPredicate:v14 sortDescriptors:v18 limit:limit error:&v23];
+    v20 = v23;
 
     if (v20)
     {
@@ -1004,14 +982,12 @@
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)interactionsMatchingAnyHandles:(id)handles directions:(id)directions mechanisms:(id)mechanisms interactionDuration:(double)duration store:(id)store fetchLimit:(unint64_t)limit
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   directionsCopy = directions;
   mechanismsCopy = mechanisms;
   storeCopy = store;
@@ -1056,12 +1032,12 @@
 
   v31 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
   v32 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v41[0] = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
-  v40 = 0;
-  v34 = [storeCopy queryInteractionsUsingPredicate:v31 sortDescriptors:v33 limit:limit error:&v40];
+  v40[0] = v32;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+  v39 = 0;
+  v34 = [storeCopy queryInteractionsUsingPredicate:v31 sortDescriptors:v33 limit:limit error:&v39];
 
-  v35 = v40;
+  v35 = v39;
   if (v35)
   {
     v36 = +[_PSLogging generalChannel];
@@ -1078,14 +1054,12 @@
     v37 = v34;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
-
   return v37;
 }
 
 + (id)interactionsMatchingAnyHandles:(id)handles account:(id)account directions:(id)directions mechanisms:(id)mechanisms bundleIds:(id)ids store:(id)store fetchLimit:(unint64_t)limit messageInteractionCache:(id)self0
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   accountCopy = account;
   directionsCopy = directions;
@@ -1142,12 +1116,12 @@
 
   else
   {
-    v41 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v45[0] = v41;
-    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
-    v44 = 0;
-    v36 = [storeCopy queryInteractionsUsingPredicate:v32 sortDescriptors:v35 limit:limit error:&v44];
-    v37 = v44;
+    v40 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
+    v44[0] = v40;
+    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+    v43 = 0;
+    v36 = [storeCopy queryInteractionsUsingPredicate:v32 sortDescriptors:v35 limit:limit error:&v43];
+    v37 = v43;
 
     if (v37)
     {
@@ -1166,14 +1140,12 @@
     }
   }
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return v34;
 }
 
 + (id)interactionsMatchingAnyHandlesOrContactIds:(id)ids identifiers:(id)identifiers account:(id)account directions:(id)directions mechanisms:(id)mechanisms bundleIds:(id)bundleIds store:(id)store fetchLimit:(unint64_t)self0 messageInteractionCache:(id)self1
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   identifiersCopy = identifiers;
   accountCopy = account;
@@ -1215,46 +1187,46 @@
   }
 
   v33 = 0x1E696A000;
-  v78 = array;
-  v74 = bundleIdsCopy;
-  v75 = mechanismsCopy;
+  v77 = array;
+  v73 = bundleIdsCopy;
+  v74 = mechanismsCopy;
   if (idsCopy)
   {
-    v70 = directionsCopy;
-    v71 = accountCopy;
-    v72 = identifiersCopy;
+    v69 = directionsCopy;
+    v70 = accountCopy;
+    v71 = identifiersCopy;
     v34 = [_PSContactResolver normalizedHandlesDictionaryFromHandles:idsCopy];
     v35 = v23;
     v36 = MEMORY[0x1E695DFD8];
-    v69 = v34;
+    v68 = v34;
     allValues = [v34 allValues];
     v38 = [v36 setWithArray:allValues];
     v39 = [v38 mutableCopy];
 
-    v68 = v39;
-    v67 = [*(v35 + 3608) predicateWithFormat:@"ANY recipients.identifier IN %@", v39];
+    v67 = v39;
+    v66 = [*(v35 + 3608) predicateWithFormat:@"ANY recipients.identifier IN %@", v39];
     v40 = objc_opt_new();
+    v79 = 0u;
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
-    v83 = 0u;
-    v73 = idsCopy;
+    v72 = idsCopy;
     v41 = idsCopy;
-    v42 = [v41 countByEnumeratingWithState:&v80 objects:v86 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v79 objects:v85 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v81;
+      v44 = *v80;
       do
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v81 != v44)
+          if (*v80 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = *(*(&v80 + 1) + 8 * i);
+          v46 = *(*(&v79 + 1) + 8 * i);
           alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
           v48 = [v46 stringByAddingPercentEncodingWithAllowedCharacters:alphanumericCharacterSet];
 
@@ -1262,7 +1234,7 @@
           [v40 addObject:v49];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v80 objects:v86 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v79 objects:v85 count:16];
       }
 
       while (v43);
@@ -1270,21 +1242,21 @@
 
     v50 = [MEMORY[0x1E696AE18] predicateWithFormat:@"derivedIntentIdentifier IN %@", v40];
     v51 = MEMORY[0x1E696AB28];
-    v85[0] = v67;
-    v85[1] = v50;
-    v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:2];
+    v84[0] = v66;
+    v84[1] = v50;
+    v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:2];
     v53 = [v51 orPredicateWithSubpredicates:v52];
-    [v78 addObject:v53];
+    [v77 addObject:v53];
 
-    array = v78;
+    array = v77;
     v23 = 0x1E696A000uLL;
 
     v33 = 0x1E696A000uLL;
-    identifiersCopy = v72;
-    idsCopy = v73;
-    directionsCopy = v70;
-    accountCopy = v71;
-    mechanismsCopy = v75;
+    identifiersCopy = v71;
+    idsCopy = v72;
+    directionsCopy = v69;
+    accountCopy = v70;
+    mechanismsCopy = v74;
   }
 
   if (identifiersCopy)
@@ -1311,11 +1283,11 @@
   {
     v60 = directionsCopy;
     interactions = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v84 = interactions;
-    v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
-    v79 = 0;
-    v62 = [storeCopy queryInteractionsUsingPredicate:v56 sortDescriptors:v61 limit:limit error:&v79];
-    v63 = v79;
+    v83 = interactions;
+    v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+    v78 = 0;
+    v62 = [storeCopy queryInteractionsUsingPredicate:v56 sortDescriptors:v61 limit:limit error:&v78];
+    v63 = v78;
 
     if (v63)
     {
@@ -1336,18 +1308,16 @@
     v57 = 0;
 
     directionsCopy = v60;
-    bundleIdsCopy = v74;
-    mechanismsCopy = v75;
+    bundleIdsCopy = v73;
+    mechanismsCopy = v74;
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 
   return v59;
 }
 
 + (id)interactionsContainingSearchStringInDisplayName:(id)name account:(id)account directions:(id)directions bundleIds:(id)ids store:(id)store fetchLimit:(unint64_t)limit
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   accountCopy = account;
   directionsCopy = directions;
@@ -1390,12 +1360,12 @@
 
   v29 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
   v30 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v40[0] = v30;
-  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-  v39 = 0;
-  v32 = [storeCopy queryInteractionsUsingPredicate:v29 sortDescriptors:v31 limit:limit error:&v39];
+  v39[0] = v30;
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+  v38 = 0;
+  v32 = [storeCopy queryInteractionsUsingPredicate:v29 sortDescriptors:v31 limit:limit error:&v38];
 
-  v33 = v39;
+  v33 = v38;
   if (v33)
   {
     v34 = +[_PSLogging generalChannel];
@@ -1412,14 +1382,12 @@
     v35 = v32;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
 + (id)groupInteractionsContainingSearchStringInDisplayName:(id)name excludingInteractionUUIDs:(id)ds account:(id)account directions:(id)directions bundleIds:(id)ids excludedDomainIdentifiers:(id)identifiers startDate:(id)date store:(id)self0 fetchLimit:(unint64_t)self1 offset:(unint64_t)self2
 {
-  v74[2] = *MEMORY[0x1E69E9840];
+  v73[2] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dsCopy = ds;
   accountCopy = account;
@@ -1433,7 +1401,7 @@
   v23 = NSUserName();
   v24 = [v22 predicateWithFormat:@"(noindex:(nsUserName) = %@)", v23];
 
-  v64 = v24;
+  v63 = v24;
   [array addObject:v24];
   if (dateCopy)
   {
@@ -1441,7 +1409,7 @@
     [array addObject:dateCopy];
   }
 
-  v68 = dateCopy;
+  v67 = dateCopy;
   if ([dsCopy count])
   {
     v26 = MEMORY[0x1E696AE18];
@@ -1488,8 +1456,8 @@
     [array addObject:v41];
   }
 
-  v66 = directionsCopy;
-  v67 = dsCopy;
+  v65 = directionsCopy;
+  v66 = dsCopy;
   v42 = identifiersCopy;
   if ([identifiersCopy count])
   {
@@ -1509,9 +1477,9 @@
 
     v51 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(groupName BEGINSWITH[cd] %@ OR groupName CONTAINS[cd] %@ OR groupName MATCHES %@)", nameCopy, v46, v50];
     v52 = MEMORY[0x1E696AB28];
-    v74[0] = v51;
-    v74[1] = nameCopy;
-    v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:2];
+    v73[0] = v51;
+    v73[1] = nameCopy;
+    v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:2];
     v54 = [v52 orPredicateWithSubpredicates:v53];
     [array addObject:v54];
 
@@ -1523,11 +1491,11 @@
 
   v55 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
   v56 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v73 = v56;
-  v57 = [*(v44 + 3784) arrayWithObjects:&v73 count:1];
-  v72 = 0;
-  v58 = [storeCopy queryInteractionsUsingPredicate:v55 sortDescriptors:v57 limit:limit offset:offset error:&v72];
-  v59 = v72;
+  v72 = v56;
+  v57 = [*(v44 + 3784) arrayWithObjects:&v72 count:1];
+  v71 = 0;
+  v58 = [storeCopy queryInteractionsUsingPredicate:v55 sortDescriptors:v57 limit:limit offset:offset error:&v71];
+  v59 = v71;
 
   if (v59)
   {
@@ -1545,26 +1513,24 @@
     v61 = v58;
   }
 
-  v62 = *MEMORY[0x1E69E9840];
-
   return v61;
 }
 
 + (id)interactionsMostRecentForBundleId:(id)id store:(id)store resultLimit:(unint64_t)limit interactions:(id)interactions
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   idCopy = id;
   storeCopy = store;
   interactionsCopy = interactions;
   array = [MEMORY[0x1E695DF70] array];
   if (idCopy)
   {
-    v47 = interactionsCopy;
+    v46 = interactionsCopy;
     v13 = MEMORY[0x1E696AE18];
     v14 = MEMORY[0x1E695DFD8];
-    v45 = idCopy;
-    v56[0] = idCopy;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:1];
+    v44 = idCopy;
+    v55[0] = idCopy;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
     v16 = [v14 setWithArray:v15];
     v17 = [v13 predicateWithFormat:@"(bundleId IN %@)", v16];
 
@@ -1573,51 +1539,51 @@
     v20 = [v18 predicateWithFormat:@"(direction IN %@)", v19];
 
     v21 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v46 = storeCopy;
-    v43 = v21;
-    v44 = v20;
+    v45 = storeCopy;
+    v42 = v21;
+    v43 = v20;
     if (interactionsCopy)
     {
       v22 = [interactionsCopy filteredArrayUsingPredicate:v17];
-      v42 = 0;
+      v41 = 0;
     }
 
     else
     {
       v23 = v21;
       v24 = MEMORY[0x1E696AB28];
-      v55[0] = v17;
-      v55[1] = v20;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+      v54[0] = v17;
+      v54[1] = v20;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
       v26 = [v24 andPredicateWithSubpredicates:v25];
-      v54 = v23;
-      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
-      v52 = 0;
-      v22 = [storeCopy queryInteractionsUsingPredicate:v26 sortDescriptors:v27 limit:500 error:&v52];
-      v42 = v52;
+      v53 = v23;
+      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
+      v51 = 0;
+      v22 = [storeCopy queryInteractionsUsingPredicate:v26 sortDescriptors:v27 limit:500 error:&v51];
+      v41 = v51;
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v28 = v22;
-    v29 = [v28 countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v49;
+      v31 = *v48;
 LABEL_7:
       v32 = 0;
       while (1)
       {
         v33 = v17;
-        if (*v49 != v31)
+        if (*v48 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v34 = *(*(&v48 + 1) + 8 * v32);
+        v34 = *(*(&v47 + 1) + 8 * v32);
         domainIdentifier = [v34 domainIdentifier];
 
         if (domainIdentifier)
@@ -1640,7 +1606,7 @@ LABEL_7:
 
         if (v30 == ++v32)
         {
-          v30 = [v28 countByEnumeratingWithState:&v48 objects:v53 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v47 objects:v52 count:16];
           if (v30)
           {
             goto LABEL_7;
@@ -1651,14 +1617,12 @@ LABEL_7:
       }
     }
 
-    storeCopy = v46;
-    interactionsCopy = v47;
-    idCopy = v45;
+    storeCopy = v45;
+    interactionsCopy = v46;
+    idCopy = v44;
   }
 
   v39 = [array copy];
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v39;
 }
@@ -1793,7 +1757,7 @@ LABEL_6:
 
 + (id)interactionsWithContactIdentifiers:(id)identifiers store:(id)store bundleIds:(id)ids meContactIdentifier:(id)identifier
 {
-  v36[3] = *MEMORY[0x1E69E9840];
+  v35[3] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idsCopy = ids;
   identifierCopy = identifier;
@@ -1807,29 +1771,29 @@ LABEL_6:
   if ([v13 count] >= 2)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v32 = [MEMORY[0x1E695DFD8] setWithArray:idsCopy];
-    v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(bundleId IN %@)", v32];
+    v31 = [MEMORY[0x1E695DFD8] setWithArray:idsCopy];
+    v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(bundleId IN %@)", v31];
     v17 = [MEMORY[0x1E696AE18] predicateWithFormat:@"recipientCount > 1 AND SUBQUERY(recipients, $recipient, $recipient.personId IN %@).@count > 1", v13];
     v18 = MEMORY[0x1E696AE18];
     v19 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F2D8C630];
     v20 = [v18 predicateWithFormat:@"(direction IN %@)", v19];
 
-    v36[0] = v20;
-    v36[1] = v16;
-    v30 = v17;
-    v31 = v16;
-    v36[2] = v17;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
+    v35[0] = v20;
+    v35[1] = v16;
+    v29 = v17;
+    v30 = v16;
+    v35[2] = v17;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
     [array addObjectsFromArray:v21];
 
     v22 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
     v23 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v35 = v23;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
-    v33 = storeCopy;
-    v34 = 0;
-    v25 = [storeCopy queryInteractionsUsingPredicate:v22 sortDescriptors:v24 limit:1000 error:&v34];
-    v26 = v34;
+    v34 = v23;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+    v32 = storeCopy;
+    v33 = 0;
+    v25 = [storeCopy queryInteractionsUsingPredicate:v22 sortDescriptors:v24 limit:1000 error:&v33];
+    v26 = v33;
 
     if (v26)
     {
@@ -1847,7 +1811,7 @@ LABEL_6:
       v14 = v25;
     }
 
-    storeCopy = v33;
+    storeCopy = v32;
   }
 
   else
@@ -1855,79 +1819,77 @@ LABEL_6:
     v14 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)conversationIdWithMaximalIntersectionWithContactIdentifiers:(id)identifiers store:(id)store bundleIds:(id)ids meContactIdentifier:(id)identifier
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   idsCopy = ids;
   identifierCopy = identifier;
   v12 = 0x1E7C23000uLL;
-  v46 = identifiersCopy;
+  v45 = identifiersCopy;
   v13 = [_PSInteractionStoreUtils interactionsWithContactIdentifiers:identifiersCopy store:store bundleIds:idsCopy meContactIdentifier:identifierCopy];
   v14 = v13;
   if (v13 && [v13 count])
   {
-    v42 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
+    v41 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
     v15 = [MEMORY[0x1E695DFA8] set];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v41 = v14;
+    v40 = v14;
     obj = v14;
-    v16 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+    v16 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
     if (v16)
     {
       v17 = v16;
-      v51 = 0;
-      v18 = *v58;
-      v50 = 1;
-      v44 = v15;
-      v45 = idsCopy;
-      v43 = *v58;
+      v50 = 0;
+      v18 = *v57;
+      v49 = 1;
+      v43 = v15;
+      v44 = idsCopy;
+      v42 = *v57;
       do
       {
         v19 = 0;
-        v47 = v17;
+        v46 = v17;
         do
         {
-          if (*v58 != v18)
+          if (*v57 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v57 + 1) + 8 * v19);
-          v21 = [*(v12 + 1288) conversationIdFromInteraction:v20 bundleIds:{idsCopy, v41}];
+          v20 = *(*(&v56 + 1) + 8 * v19);
+          v21 = [*(v12 + 1288) conversationIdFromInteraction:v20 bundleIds:{idsCopy, v40}];
           if (v21 && ([v15 containsObject:v21] & 1) == 0)
           {
-            v52 = v21;
+            v51 = v21;
             v22 = [MEMORY[0x1E695DFA8] set];
+            v52 = 0u;
             v53 = 0u;
             v54 = 0u;
             v55 = 0u;
-            v56 = 0u;
-            v49 = v20;
+            v48 = v20;
             recipients = [v20 recipients];
-            v24 = [recipients countByEnumeratingWithState:&v53 objects:v61 count:16];
+            v24 = [recipients countByEnumeratingWithState:&v52 objects:v60 count:16];
             if (v24)
             {
               v25 = v24;
-              v26 = *v54;
+              v26 = *v53;
               do
               {
                 for (i = 0; i != v25; ++i)
                 {
-                  if (*v54 != v26)
+                  if (*v53 != v26)
                   {
                     objc_enumerationMutation(recipients);
                   }
 
-                  v28 = *(*(&v53 + 1) + 8 * i);
+                  v28 = *(*(&v52 + 1) + 8 * i);
                   personId = [v28 personId];
                   if (personId)
                   {
@@ -1942,48 +1904,48 @@ LABEL_6:
                   }
                 }
 
-                v25 = [recipients countByEnumeratingWithState:&v53 objects:v61 count:16];
+                v25 = [recipients countByEnumeratingWithState:&v52 objects:v60 count:16];
               }
 
               while (v25);
             }
 
-            [v22 intersectSet:v46];
+            [v22 intersectSet:v45];
             v33 = [v22 count];
-            v34 = [v46 count];
-            if ([v22 count] <= v50)
+            v34 = [v45 count];
+            if ([v22 count] <= v49)
             {
               v37 = v33 != v34;
-              v15 = v44;
-              idsCopy = v45;
+              v15 = v43;
+              idsCopy = v44;
               v12 = 0x1E7C23000;
-              v18 = v43;
-              v17 = v47;
-              v21 = v52;
-              if (((v51 | v37) & 1) == 0)
+              v18 = v42;
+              v17 = v46;
+              v21 = v51;
+              if (((v50 | v37) & 1) == 0)
               {
-                bundleId = [v49 bundleId];
-                [v42 setObject:v52 forKeyedSubscript:bundleId];
+                bundleId = [v48 bundleId];
+                [v41 setObject:v51 forKeyedSubscript:bundleId];
 
-                v50 = [v22 count];
-                v51 = 1;
+                v49 = [v22 count];
+                v50 = 1;
               }
             }
 
             else
             {
               v35 = v33 == v34;
-              bundleId2 = [v49 bundleId];
-              v21 = v52;
-              [v42 setObject:v52 forKeyedSubscript:bundleId2];
+              bundleId2 = [v48 bundleId];
+              v21 = v51;
+              [v41 setObject:v51 forKeyedSubscript:bundleId2];
 
-              v50 = [v22 count];
-              v51 |= v35;
-              v15 = v44;
-              idsCopy = v45;
+              v49 = [v22 count];
+              v50 |= v35;
+              v15 = v43;
+              idsCopy = v44;
               v12 = 0x1E7C23000;
-              v18 = v43;
-              v17 = v47;
+              v18 = v42;
+              v17 = v46;
             }
 
             [v15 addObject:v21];
@@ -1993,33 +1955,31 @@ LABEL_6:
         }
 
         while (v19 != v17);
-        v17 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+        v17 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
       }
 
       while (v17);
     }
 
-    v14 = v41;
+    v14 = v40;
   }
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
-
-  return v42;
+  return v41;
 }
 
 + (id)conversationIdWithExactMatchWithContactHandles:(id)handles store:(id)store bundleIds:(id)ids messageInteractionCache:(id)cache
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   storeCopy = store;
   idsCopy = ids;
   cacheCopy = cache;
-  v52 = handlesCopy;
+  v51 = handlesCopy;
   allObjects = [handlesCopy allObjects];
   v14 = [_PSContactResolver normalizedHandlesDictionaryFromHandles:allObjects];
 
@@ -2034,62 +1994,62 @@ LABEL_6:
 
   if (v21 && [v21 count])
   {
-    v43 = v18;
-    v44 = v14;
-    v45 = cacheCopy;
-    v46 = storeCopy;
-    v47 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v42 = v18;
+    v43 = v14;
+    v44 = cacheCopy;
+    v45 = storeCopy;
+    v46 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v22 = [MEMORY[0x1E695DFA8] set];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    v42 = v21;
+    v41 = v21;
     obj = v21;
-    v23 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+    v23 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v59;
-      v49 = v22;
-      v50 = idsCopy;
-      v48 = *v59;
+      v25 = *v58;
+      v48 = v22;
+      v49 = idsCopy;
+      v47 = *v58;
       while (2)
       {
         v26 = 0;
-        v51 = v24;
+        v50 = v24;
         do
         {
-          if (*v59 != v25)
+          if (*v58 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v58 + 1) + 8 * v26);
+          v27 = *(*(&v57 + 1) + 8 * v26);
           v28 = [*(v19 + 1288) conversationIdFromInteraction:v27 bundleIds:idsCopy];
           if (v28 && ([v22 containsObject:v28] & 1) == 0)
           {
             v29 = [MEMORY[0x1E695DFA8] set];
+            v53 = 0u;
             v54 = 0u;
             v55 = 0u;
             v56 = 0u;
-            v57 = 0u;
             recipients = [v27 recipients];
-            v31 = [recipients countByEnumeratingWithState:&v54 objects:v62 count:16];
+            v31 = [recipients countByEnumeratingWithState:&v53 objects:v61 count:16];
             if (v31)
             {
               v32 = v31;
-              v33 = *v55;
+              v33 = *v54;
               do
               {
                 for (i = 0; i != v32; ++i)
                 {
-                  if (*v55 != v33)
+                  if (*v54 != v33)
                   {
                     objc_enumerationMutation(recipients);
                   }
 
-                  v35 = *(*(&v54 + 1) + 8 * i);
+                  v35 = *(*(&v53 + 1) + 8 * i);
                   handle = [v35 handle];
 
                   if (handle)
@@ -2099,36 +2059,36 @@ LABEL_6:
                   }
                 }
 
-                v32 = [recipients countByEnumeratingWithState:&v54 objects:v62 count:16];
+                v32 = [recipients countByEnumeratingWithState:&v53 objects:v61 count:16];
               }
 
               while (v32);
             }
 
-            if ([v29 isEqualToSet:v52])
+            if ([v29 isEqualToSet:v51])
             {
               bundleId = [v27 bundleId];
-              [v47 setObject:v28 forKeyedSubscript:bundleId];
+              [v46 setObject:v28 forKeyedSubscript:bundleId];
 
-              v22 = v49;
-              idsCopy = v50;
+              v22 = v48;
+              idsCopy = v49;
               goto LABEL_26;
             }
 
-            v22 = v49;
-            [v49 addObject:v28];
+            v22 = v48;
+            [v48 addObject:v28];
 
-            idsCopy = v50;
-            v24 = v51;
+            idsCopy = v49;
+            v24 = v50;
             v19 = 0x1E7C23000;
-            v25 = v48;
+            v25 = v47;
           }
 
           ++v26;
         }
 
         while (v26 != v24);
-        v24 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v24 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
         if (v24)
         {
           continue;
@@ -2140,12 +2100,12 @@ LABEL_6:
 
 LABEL_26:
 
-    cacheCopy = v45;
-    storeCopy = v46;
-    v18 = v43;
-    v14 = v44;
-    v38 = v47;
-    v21 = v42;
+    cacheCopy = v44;
+    storeCopy = v45;
+    v18 = v42;
+    v14 = v43;
+    v38 = v46;
+    v21 = v41;
   }
 
   else
@@ -2153,14 +2113,12 @@ LABEL_26:
     v38 = 0;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v38;
 }
 
 + (id)someIMessageInteractionInvolvingContactIdentifier:(id)identifier store:(id)store contactType:(unint64_t)type afterStartDate:(id)date
 {
-  v33[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E696AE18];
   storeCopy = store;
   identifierCopy = identifier;
@@ -2175,16 +2133,16 @@ LABEL_26:
   v19 = [v17 predicateWithFormat:@"(nsUserName = nil OR nsUserName = %@ OR nsUserName = %@)", @"root", v18];
 
   v20 = MEMORY[0x1E695DF70];
-  v33[0] = date;
-  v33[1] = v15;
-  v33[2] = v16;
-  v33[3] = v19;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
+  v32[0] = date;
+  v32[1] = v15;
+  v32[2] = v16;
+  v32[3] = v19;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
   v22 = [v20 arrayWithArray:v21];
 
   if (type - 1 > 1)
   {
-    [MEMORY[0x1E696AE18] predicateWithFormat:@"(SUBQUERY(recipients, $recipient, $recipient.personId = %@).@count > 0)", identifierCopy, v31];
+    [MEMORY[0x1E696AE18] predicateWithFormat:@"(SUBQUERY(recipients, $recipient, $recipient.personId = %@).@count > 0)", identifierCopy, v30];
   }
 
   else
@@ -2195,10 +2153,10 @@ LABEL_26:
 
   [v22 addObject:v23];
   v24 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v22];
-  v32 = 0;
-  v25 = [storeCopy queryInteractionsUsingPredicate:v24 sortDescriptors:MEMORY[0x1E695E0F0] limit:1 error:&v32];
+  v31 = 0;
+  v25 = [storeCopy queryInteractionsUsingPredicate:v24 sortDescriptors:MEMORY[0x1E695E0F0] limit:1 error:&v31];
 
-  v26 = v32;
+  v26 = v31;
   if (v26)
   {
     v27 = +[_PSLogging generalChannel];
@@ -2215,14 +2173,12 @@ LABEL_26:
     firstObject = [v25 firstObject];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)someInteractionWithMatchingIdentifier:(id)identifier store:(id)store bundleIds:(id)ids afterStartDate:(id)date
 {
-  v30[4] = *MEMORY[0x1E69E9840];
+  v29[4] = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E696AE18];
   v10 = MEMORY[0x1E695DFD8];
   dateCopy = date;
@@ -2237,18 +2193,18 @@ LABEL_26:
   dateCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"(startDate >= %@)", dateCopy];
 
   v19 = MEMORY[0x1E695DF70];
-  v30[0] = v15;
-  v30[1] = v16;
-  v30[2] = identifierCopy;
-  v30[3] = dateCopy;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
+  v29[0] = v15;
+  v29[1] = v16;
+  v29[2] = identifierCopy;
+  v29[3] = dateCopy;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:4];
   v21 = [v19 arrayWithArray:v20];
 
   v22 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v21];
-  v29 = 0;
-  v23 = [storeCopy queryInteractionsUsingPredicate:v22 sortDescriptors:MEMORY[0x1E695E0F0] limit:1 error:&v29];
+  v28 = 0;
+  v23 = [storeCopy queryInteractionsUsingPredicate:v22 sortDescriptors:MEMORY[0x1E695E0F0] limit:1 error:&v28];
 
-  v24 = v29;
+  v24 = v28;
   if (v24)
   {
     v25 = +[_PSLogging generalChannel];
@@ -2265,14 +2221,12 @@ LABEL_26:
     firstObject = [v23 firstObject];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)mostRecentInteractionInvolvingMatchingIdentifier:(id)identifier store:(id)store bundleIds:(id)ids
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696AE18];
   v8 = MEMORY[0x1E695DFD8];
   storeCopy = store;
@@ -2283,19 +2237,19 @@ LABEL_26:
   identifierCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"(SUBQUERY(recipients, $recipient, $recipient.personId = %@ or $recipient.identifier = %@).@count > 0)", identifierCopy, identifierCopy];
 
   v14 = MEMORY[0x1E695DF70];
-  v28[0] = v12;
-  v28[1] = identifierCopy;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[0] = v12;
+  v27[1] = identifierCopy;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v16 = [v14 arrayWithArray:v15];
 
   v17 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v16];
   v18 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v27 = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
-  v26 = 0;
-  v20 = [storeCopy queryInteractionsUsingPredicate:v17 sortDescriptors:v19 limit:1 error:&v26];
+  v26 = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v25 = 0;
+  v20 = [storeCopy queryInteractionsUsingPredicate:v17 sortDescriptors:v19 limit:1 error:&v25];
 
-  v21 = v26;
+  v21 = v25;
   if (v21)
   {
     v22 = +[_PSLogging generalChannel];
@@ -2312,14 +2266,12 @@ LABEL_26:
     firstObject = [v20 firstObject];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)mostRecentInteractionWithExactMatchingIdentifiers:(id)identifiers store:(id)store bundleIds:(id)ids meContactIdentifier:(id)identifier
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   storeCopy = store;
   idsCopy = ids;
@@ -2335,29 +2287,29 @@ LABEL_26:
 
   if ([v15 count])
   {
-    v54 = identifierCopy;
-    v55 = v14;
-    v56 = idsCopy;
-    v53 = [MEMORY[0x1E695DFD8] setWithArray:idsCopy];
-    v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(bundleId IN %@)", v53];
+    v53 = identifierCopy;
+    v54 = v14;
+    v55 = idsCopy;
+    v52 = [MEMORY[0x1E695DFD8] setWithArray:idsCopy];
+    v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(bundleId IN %@)", v52];
     array = [MEMORY[0x1E695DF70] array];
     v18 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(direction = %@)", &unk_1F2D8BD90];
     v19 = MEMORY[0x1E696AE18];
-    v57 = storeCopy;
+    v56 = storeCopy;
     v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v15, "count")}];
     v21 = [v19 predicateWithFormat:@"(recipientCount = %@)", v20];
 
     [MEMORY[0x1E696AE18] predicateWithFormat:@"(SUBQUERY(recipients, $recipient, $recipient.personId IN %@ or $recipient.identifier IN %@).@count = %d)", v15, v15, objc_msgSend(v15, "count")];
-    v49 = v21;
-    v50 = v18;
-    v62[0] = v18;
-    v62[1] = v16;
-    v63 = v62[2] = v21;
-    v48 = v63;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:4];
+    v48 = v21;
+    v49 = v18;
+    v61[0] = v18;
+    v61[1] = v16;
+    v62 = v61[2] = v21;
+    v47 = v62;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:4];
     [array addObjectsFromArray:v22];
 
-    v51 = array;
+    v50 = array;
     v23 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
     array2 = [MEMORY[0x1E695DF70] array];
     v25 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(direction = %@)", &unk_1F2D8BDA8];
@@ -2367,32 +2319,32 @@ LABEL_26:
 
     v29 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(SUBQUERY(recipients, $recipient, $recipient.personId IN %@ or $recipient.identifier IN %@).@count = %d)", v15, v15, objc_msgSend(v15, "count") - 1];
     v30 = [MEMORY[0x1E696AE18] predicateWithFormat:@"((sender.personId IN %@) OR (sender.identifier IN %@))", v15, v15];
-    v45 = v29;
-    v46 = v25;
-    v61[0] = v25;
-    v61[1] = v16;
+    v44 = v29;
+    v45 = v25;
+    v60[0] = v25;
+    v60[1] = v16;
     v31 = array2;
-    v52 = v16;
-    v61[2] = v28;
-    v61[3] = v29;
-    v61[4] = v30;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:5];
+    v51 = v16;
+    v60[2] = v28;
+    v60[3] = v29;
+    v60[4] = v30;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:5];
     [array2 addObjectsFromArray:v32];
 
     v33 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array2];
     v34 = MEMORY[0x1E696AB28];
-    v47 = v23;
-    v60[0] = v23;
-    v60[1] = v33;
-    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
+    v46 = v23;
+    v59[0] = v23;
+    v59[1] = v33;
+    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
     v36 = [v34 orPredicateWithSubpredicates:v35];
 
     v37 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v59 = v37;
-    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
-    v58 = 0;
-    v39 = [v57 queryInteractionsUsingPredicate:v36 sortDescriptors:v38 limit:1 error:&v58];
-    v40 = v58;
+    v58 = v37;
+    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+    v57 = 0;
+    v39 = [v56 queryInteractionsUsingPredicate:v36 sortDescriptors:v38 limit:1 error:&v57];
+    v40 = v57;
 
     if (v40)
     {
@@ -2410,10 +2362,10 @@ LABEL_26:
       firstObject = [v39 firstObject];
     }
 
-    idsCopy = v56;
-    storeCopy = v57;
-    identifierCopy = v54;
-    v14 = v55;
+    idsCopy = v55;
+    storeCopy = v56;
+    identifierCopy = v53;
+    v14 = v54;
   }
 
   else
@@ -2421,37 +2373,35 @@ LABEL_26:
     firstObject = 0;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (int64_t)getHandleTypeFromHandleString:(id)string
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (stringCopy)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2050000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2050000000;
     v4 = getCNHandleStringClassifierClass_softClass;
-    v20 = getCNHandleStringClassifierClass_softClass;
+    v19 = getCNHandleStringClassifierClass_softClass;
     if (!getCNHandleStringClassifierClass_softClass)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __getCNHandleStringClassifierClass_block_invoke;
-      v16[3] = &unk_1E7C23BF0;
-      v16[4] = &v17;
-      __getCNHandleStringClassifierClass_block_invoke(v16);
-      v4 = v18[3];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __getCNHandleStringClassifierClass_block_invoke;
+      v15[3] = &unk_1E7C23BF0;
+      v15[4] = &v16;
+      __getCNHandleStringClassifierClass_block_invoke(v15);
+      v4 = v17[3];
     }
 
     v5 = v4;
-    _Block_object_dispose(&v17, 8);
-    v21[0] = stringCopy;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    _Block_object_dispose(&v16, 8);
+    v20[0] = stringCopy;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     v7 = [v4 classificationOfHandleStrings:v6];
 
     emailAddresses = [v7 emailAddresses];
@@ -2486,7 +2436,6 @@ LABEL_26:
     phoneNumbers = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return phoneNumbers;
 }
 
@@ -2651,22 +2600,6 @@ LABEL_26:
   [v4 setObject:v60 forKeyedSubscript:peopleSuggestionsDisabled];
 
   return v4;
-}
-
-+ (void)recentInteractionsFromStore:bundleIDs:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Error querying interactions database: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)interactionsMatchingAnyHandlesOrDomainIds:account:directions:mechanisms:bundleIds:store:fetchLimit:.cold.1()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, MEMORY[0x1E69E9C10], v0, "Error querying interactions database: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

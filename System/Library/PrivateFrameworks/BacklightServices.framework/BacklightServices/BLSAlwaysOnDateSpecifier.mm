@@ -171,7 +171,7 @@ void __50__BLSAlwaysOnDateSpecifier_bls_shortLoggingString__block_invoke(uint64_
   userObject = self->_userObject;
   if (userObject)
   {
-    [(BLSAlwaysOnDateSpecifier *)userObject encodeWithXPCDictionary:a2];
+    [(BLSAlwaysOnDateSpecifier *)userObject encodeWithXPCDictionary:a2, self];
   }
 }
 
@@ -187,7 +187,7 @@ void __50__BLSAlwaysOnDateSpecifier_bls_shortLoggingString__block_invoke(uint64_
 
   else
   {
-    v7 = bls_backlight_log();
+    v7 = bls_backlight_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [(BLSAlwaysOnDateSpecifier *)coderCopy initWithCoder:v7];
@@ -207,59 +207,58 @@ void __50__BLSAlwaysOnDateSpecifier_bls_shortLoggingString__block_invoke(uint64_
   userObject = self->_userObject;
   if (userObject)
   {
-    [(BLSAlwaysOnDateSpecifier *)userObject encodeWithCoder:a2];
+    [(BLSAlwaysOnDateSpecifier *)userObject encodeWithCoder:a2, self];
   }
 }
 
-- (void)encodeWithXPCDictionary:(uint64_t)a1 .cold.1(uint64_t a1, const char *a2)
+- (void)encodeWithXPCDictionary:(uint64_t)a3 .cold.1(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"User object is not sent over XPC: %@", a1];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"User object is not sent over XPC: %@", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a2);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v5 = NSStringFromSelector(a2);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0();
-    v9 = @"BLSAlwaysOnDateSpecifier.m";
-    v10 = 1024;
-    v11 = 110;
-    v12 = v7;
-    v13 = v3;
+    v10 = @"BLSAlwaysOnDateSpecifier.m";
+    v11 = 1024;
+    v12 = 110;
+    v13 = v8;
+    v14 = v4;
     _os_log_error_impl(&dword_21FE25000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "invalid date from %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "invalid date from %{public}@", &v2, 0xCu);
 }
 
-- (void)encodeWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, const char *a2)
+- (void)encodeWithCoder:(uint64_t)a3 .cold.1(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"User object is not sent over XPC: %@", a1];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"User object is not sent over XPC: %@", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a2);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v5 = NSStringFromSelector(a2);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0();
-    v9 = @"BLSAlwaysOnDateSpecifier.m";
-    v10 = 1024;
-    v11 = 133;
-    v12 = v7;
-    v13 = v3;
+    v10 = @"BLSAlwaysOnDateSpecifier.m";
+    v11 = 1024;
+    v12 = 133;
+    v13 = v8;
+    v14 = v4;
     _os_log_error_impl(&dword_21FE25000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

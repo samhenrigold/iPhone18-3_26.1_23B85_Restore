@@ -1,6 +1,7 @@
 @interface LACUIKeyboard
 + (id)activeKeyboard;
 - (CGRect)frame;
+- (void)setRenderInProcess:(BOOL)process;
 - (void)setupInParentView:(id)view;
 - (void)updateTopLayoutGuide:(id)guide;
 @end
@@ -28,7 +29,7 @@ uint64_t __31__LACUIKeyboard_activeKeyboard__block_invoke()
 
 - (void)setupInParentView:(id)view
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   v5 = [LACUIKeyboardView alloc];
   initWithDefaultSize = [[LACUIKeyboardInternal alloc] initWithDefaultSize];
@@ -59,16 +60,15 @@ uint64_t __31__LACUIKeyboard_activeKeyboard__block_invoke()
   [(NSLayoutConstraint *)self->_keyboardAnchorHorizontal setIdentifier:@"default.horizontal"];
   v18 = MEMORY[0x277CCAAD0];
   v19 = self->_keyboardAnchorVertical;
-  v22[0] = self->_keyboardAnchorHorizontal;
-  v22[1] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = self->_keyboardAnchorHorizontal;
+  v21[1] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   [v18 activateConstraints:v20];
 
   objc_storeWeak(&self->_keyboardContainer, v8);
   objc_storeWeak(&self->_parentView, viewCopy);
 
   objc_storeWeak(&self->_keyboardView, v7);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTopLayoutGuide:(id)guide
@@ -131,6 +131,13 @@ void __38__LACUIKeyboard_updateTopLayoutGuide___block_invoke(uint64_t a1)
 
     WeakRetained = v9;
   }
+}
+
+- (void)setRenderInProcess:(BOOL)process
+{
+  processCopy = process;
+  WeakRetained = objc_loadWeakRetained(&self->_keyboardView);
+  [WeakRetained setRenderInProcess:processCopy];
 }
 
 - (CGRect)frame

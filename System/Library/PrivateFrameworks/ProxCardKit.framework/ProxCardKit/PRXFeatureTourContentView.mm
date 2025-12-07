@@ -59,7 +59,7 @@
     [mainScreen bounds];
     v21 = PRXCardPreferredSizeClassForContainerBounds(v17, v18, v19, v20);
     v22 = 40.0;
-    if (v21 == 1)
+    if (v21)
     {
       v22 = 20.0;
     }

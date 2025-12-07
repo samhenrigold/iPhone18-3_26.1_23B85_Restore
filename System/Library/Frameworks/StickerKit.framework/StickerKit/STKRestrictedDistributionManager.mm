@@ -56,7 +56,7 @@
   swift_getObjCClassMetadata();
   forCopy = for;
   static RestrictedDistributionManager.presentRestrictedDistributionTermsAlertIfNecessary(for:isInPopover:completion:)(forCopy, popover, v7, v8);
-  sub_19A60126C(v7);
+  sub_19A60126C(v7, v8);
 }
 
 + (NSArray)restrictedStickerIdentifiers

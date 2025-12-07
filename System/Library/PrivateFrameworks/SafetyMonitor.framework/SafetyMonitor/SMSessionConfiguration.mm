@@ -553,10 +553,10 @@ LABEL_9:
 
 - (SMSessionConfiguration)initWithDictionary:(id)dictionary
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [[SMSessionTime alloc] initWithDictionary:dictionaryCopy];
-  v46 = [[SMSessionDestination alloc] initWithDictionary:dictionaryCopy];
+  v45 = [[SMSessionDestination alloc] initWithDictionary:dictionaryCopy];
   v6 = [[SMConversation alloc] initWithDictionary:dictionaryCopy];
   if (v6)
   {
@@ -567,7 +567,7 @@ LABEL_9:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v51 = "[SMSessionConfiguration initWithDictionary:]";
+    v50 = "[SMSessionConfiguration initWithDictionary:]";
     _os_log_error_impl(&dword_26455D000, v7, OS_LOG_TYPE_ERROR, "%s, conversation is nil", buf, 0xCu);
   }
 
@@ -576,8 +576,8 @@ LABEL_9:
   {
     v9 = v8;
     v10 = [SMConversation alloc];
-    v49 = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+    v48 = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
     v6 = [(SMConversation *)v10 initWithReceiverHandles:v11 identifier:0 displayName:0];
 
 LABEL_6:
@@ -588,31 +588,31 @@ LABEL_6:
     {
       v14 = MEMORY[0x277CBEAA8];
       [v12 doubleValue];
-      v47 = [v14 dateWithTimeIntervalSince1970:?];
+      v46 = [v14 dateWithTimeIntervalSince1970:?];
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v15 = [dictionaryCopy valueForKey:@"__kSMSessionConfigurationUserResponseSafeDateKey"];
     v16 = v15;
-    v44 = v5;
+    v43 = v5;
     if (v15)
     {
       v17 = MEMORY[0x277CBEAA8];
       [v15 doubleValue];
-      v45 = [v17 dateWithTimeIntervalSince1970:?];
+      v44 = [v17 dateWithTimeIntervalSince1970:?];
     }
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
-    v43 = [dictionaryCopy valueForKey:@"__kSMSessionConfigurationTypeKey"];
-    intValue = [v43 intValue];
+    v42 = [dictionaryCopy valueForKey:@"__kSMSessionConfigurationTypeKey"];
+    intValue = [v42 intValue];
     v19 = objc_alloc(MEMORY[0x277CCAD78]);
     v20 = [dictionaryCopy valueForKey:@"__kSMSessionConfigurationSessionIDKey"];
     v21 = [v19 initWithUUIDString:v20];
@@ -623,12 +623,12 @@ LABEL_6:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v51 = "[SMSessionConfiguration initWithDictionary:]";
+        v50 = "[SMSessionConfiguration initWithDictionary:]";
         _os_log_error_impl(&dword_26455D000, v34, OS_LOG_TYPE_ERROR, "%s, sessionID is nil", buf, 0xCu);
       }
 
       v35 = 0;
-      v32 = v46;
+      v32 = v45;
       goto LABEL_33;
     }
 
@@ -637,7 +637,7 @@ LABEL_6:
 
     v23 = objc_alloc(MEMORY[0x277CCAD78]);
     v24 = [dictionaryCopy valueForKey:@"__kSMSessionConfigurationSessionWorkoutIDKey"];
-    v42 = [v23 initWithUUIDString:v24];
+    v41 = [v23 initWithUUIDString:v24];
 
     v25 = [dictionaryCopy valueForKey:@"__kSMSessionConfigurationSessionWorkoutTypeKey"];
     integerValue = [v25 integerValue];
@@ -651,19 +651,19 @@ LABEL_6:
 
     if (intValue > 2)
     {
-      v32 = v46;
+      v32 = v45;
       if (intValue == 3)
       {
-        v33 = [(SMSessionConfiguration *)selfCopy initRoundTripSessionConfigurationWithConversation:v6 sessionID:v21 destination:v46 sessionStartDate:v47 userResponseSafeDate:v45 sessionSupportsHandoff:bOOLValue sosReceivers:v31];
+        v33 = [(SMSessionConfiguration *)selfCopy initRoundTripSessionConfigurationWithConversation:v6 sessionID:v21 destination:v45 sessionStartDate:v46 userResponseSafeDate:v44 sessionSupportsHandoff:bOOLValue sosReceivers:v31];
         goto LABEL_29;
       }
 
       if (intValue == 4)
       {
-        v36 = v42;
-        v37 = [(SMSessionConfiguration *)selfCopy initWorkoutBoundSessionConfigurationWithConversation:v6 sessionID:v21 sessionStartDate:v47 sessionSupportsHandoff:bOOLValue sosReceivers:v31 sessionWorkoutIdentifier:v42 sessionWorkoutType:integerValue sessionWorkoutMirrorType:integerValue2];
+        v36 = v41;
+        v37 = [(SMSessionConfiguration *)selfCopy initWorkoutBoundSessionConfigurationWithConversation:v6 sessionID:v21 sessionStartDate:v46 sessionSupportsHandoff:bOOLValue sosReceivers:v31 sessionWorkoutIdentifier:v41 sessionWorkoutType:integerValue sessionWorkoutMirrorType:integerValue2];
         selfCopy = v37;
-        v5 = v44;
+        v5 = v43;
 LABEL_32:
         v34 = v37;
 
@@ -677,20 +677,20 @@ LABEL_33:
 
     else
     {
-      v32 = v46;
+      v32 = v45;
       if (intValue == 1)
       {
-        v5 = v44;
-        v37 = [(SMSessionConfiguration *)selfCopy initTimeBoundSessionConfigurationWithConversation:v6 sessionID:v21 time:v44 sessionStartDate:v47 sessionSupportsHandoff:bOOLValue sosReceivers:v31];
+        v5 = v43;
+        v37 = [(SMSessionConfiguration *)selfCopy initTimeBoundSessionConfigurationWithConversation:v6 sessionID:v21 time:v43 sessionStartDate:v46 sessionSupportsHandoff:bOOLValue sosReceivers:v31];
         selfCopy = v37;
 LABEL_31:
-        v36 = v42;
+        v36 = v41;
         goto LABEL_32;
       }
 
       if (intValue == 2)
       {
-        v33 = [(SMSessionConfiguration *)selfCopy initDestinationBoundSessionConfigurationWithConversation:v6 sessionID:v21 destination:v46 sessionStartDate:v47 userResponseSafeDate:v45 sessionSupportsHandoff:bOOLValue sosReceivers:v31];
+        v33 = [(SMSessionConfiguration *)selfCopy initDestinationBoundSessionConfigurationWithConversation:v6 sessionID:v21 destination:v45 sessionStartDate:v46 userResponseSafeDate:v44 sessionSupportsHandoff:bOOLValue sosReceivers:v31];
 LABEL_29:
         v37 = v33;
         selfCopy = v37;
@@ -698,10 +698,10 @@ LABEL_29:
       }
     }
 
-    LOBYTE(v40) = bOOLValue;
-    v37 = [[SMSessionConfiguration alloc] initWithConversation:v6 sessionID:v21 sessionStartDate:0 sessionType:intValue time:0 destination:0 userResponseSafeDate:0 sessionSupportsHandoff:v40 sosReceivers:v31 sessionWorkoutIdentifier:0 sessionWorkoutType:0 sessionWorkoutMirrorType:0];
+    LOBYTE(v39) = bOOLValue;
+    v37 = [[SMSessionConfiguration alloc] initWithConversation:v6 sessionID:v21 sessionStartDate:0 sessionType:intValue time:0 destination:0 userResponseSafeDate:0 sessionSupportsHandoff:v39 sosReceivers:v31 sessionWorkoutIdentifier:0 sessionWorkoutType:0 sessionWorkoutMirrorType:0];
 LABEL_30:
-    v5 = v44;
+    v5 = v43;
     goto LABEL_31;
   }
 
@@ -709,15 +709,14 @@ LABEL_30:
   if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v51 = "[SMSessionConfiguration initWithDictionary:]";
+    v50 = "[SMSessionConfiguration initWithDictionary:]";
     _os_log_error_impl(&dword_26455D000, &v6->super, OS_LOG_TYPE_ERROR, "%s, toHandle is nil", buf, 0xCu);
   }
 
   v35 = 0;
-  v32 = v46;
+  v32 = v45;
 LABEL_34:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v35;
 }
 

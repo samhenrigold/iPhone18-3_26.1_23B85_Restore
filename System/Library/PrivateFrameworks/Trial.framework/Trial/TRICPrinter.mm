@@ -14,7 +14,7 @@
 + (void)_printAndLogString:(id)string error:(BOOL)error
 {
   errorCopy = error;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v6 = objc_autoreleasePoolPush();
   v7 = [stringCopy dataUsingEncoding:4];
@@ -48,12 +48,10 @@
 
   if (os_log_type_enabled(v9, v11))
   {
-    v13 = 138412290;
-    v14 = stringCopy;
-    _os_log_impl(&dword_22EA6B000, v10, v11, "%@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = stringCopy;
+    _os_log_impl(&dword_22EA6B000, v10, v11, "%@", &v12, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)printNewlineUsingStderr:(BOOL)stderr format:(id)format
@@ -120,7 +118,7 @@
 
 + (void)printTabularWithLogDefaultForLines:(id)lines
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   linesCopy = lines;
   if ([linesCopy count])
   {
@@ -141,65 +139,63 @@
       while (v8);
     }
 
-    v30[0] = 0;
-    v30[1] = v30;
-    v30[2] = 0x2020000000;
-    v30[3] = 0;
+    v29[0] = 0;
+    v29[1] = v29;
+    v29[2] = 0x2020000000;
+    v29[3] = 0;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     obj = linesCopy;
-    v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v9 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v9)
     {
-      v10 = *v27;
+      v10 = *v26;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v26 + 1) + 8 * i);
+          v12 = *(*(&v25 + 1) + 8 * i);
           if ([v12 count] != v6)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[TRICPrinter printTabularWithLogDefaultForLines:]"];
-            [currentHandler handleFailureInFunction:v15 file:@"TRICPrinter.m" lineNumber:97 description:@"Tabular data has mismatched column counts"];
+            v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[TRICPrinter printTabularWithLogDefaultForLines:]"];
+            [currentHandler handleFailureInFunction:v14 file:@"TRICPrinter.m" lineNumber:97 description:@"Tabular data has mismatched column counts"];
           }
 
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __50__TRICPrinter_printTabularWithLogDefaultForLines___block_invoke;
-          v23[3] = &unk_27885DF30;
-          v24 = v7;
-          v25 = v30;
-          [v12 enumerateObjectsUsingBlock:v23];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __50__TRICPrinter_printTabularWithLogDefaultForLines___block_invoke;
+          v22[3] = &unk_27885DF30;
+          v23 = v7;
+          v24 = v29;
+          [v12 enumerateObjectsUsingBlock:v22];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v9 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v9);
     }
 
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __50__TRICPrinter_printTabularWithLogDefaultForLines___block_invoke_2;
-    v19[3] = &unk_27885DF80;
-    v21 = v6;
-    v22 = selfCopy;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __50__TRICPrinter_printTabularWithLogDefaultForLines___block_invoke_2;
+    v18[3] = &unk_27885DF80;
+    v20 = v6;
+    v21 = selfCopy;
     v13 = v7;
-    v20 = v13;
-    [obj enumerateObjectsUsingBlock:v19];
+    v19 = v13;
+    [obj enumerateObjectsUsingBlock:v18];
 
-    _Block_object_dispose(v30, 8);
+    _Block_object_dispose(v29, 8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __50__TRICPrinter_printTabularWithLogDefaultForLines___block_invoke(uint64_t a1, void *a2, uint64_t a3)

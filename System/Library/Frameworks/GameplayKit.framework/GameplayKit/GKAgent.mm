@@ -8,7 +8,7 @@
 - (__n128)steerToAvoidAgents:(uint64_t)agents timeBeforeCollisionToAvoid:(void *)avoid;
 - (__n128)steerToAvoidObstacles:(uint64_t)obstacles timeBeforeCollisionToAvoid:(void *)avoid;
 - (__n128)steerToFollowPath:(uint64_t)path maxPredictionTime:(void *)time forward:(int)forward;
-- (__n128)steerToStayOnPath:(void *)path maxPredictionTime:;
+- (__n128)steerToStayOnPath:(uint64_t)path maxPredictionTime:(void *)time;
 - (__n64)steerForFlee:(void *)flee;
 - (__n64)steerForWander:(float)wander speed:;
 - (double)position3;
@@ -219,11 +219,11 @@
 
 - (__n128)steerToAvoidObstacles:(uint64_t)obstacles timeBeforeCollisionToAvoid:(void *)avoid
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   avoidCopy = avoid;
   __p = 0;
-  v24 = 0;
-  v25 = 0;
+  v20 = 0;
+  v21 = 0;
   v7 = [avoidCopy count];
   if (v7)
   {
@@ -235,45 +235,39 @@
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  memset(v18, 0, sizeof(v18));
   v8 = avoidCopy;
-  if ([v8 countByEnumeratingWithState:&v19 objects:v26 count:16])
+  if ([v8 countByEnumeratingWithState:v18 objects:v22 count:16])
   {
-    *v20;
-    *v20;
-    [**(&v19 + 1) obstacle];
+    [**(&v18[0] + 1) obstacle];
     operator new();
   }
 
   vehicle = [self vehicle];
   v10 = a2;
   OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToAvoidObstacles(vehicle, &__p, v10);
-  v16 = v11;
-  v17 = v13;
-  v18 = v12;
+  v15 = v11;
+  v16 = v13;
+  v17 = v12;
   if (__p)
   {
-    v24 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  result.n128_u32[0] = v18;
-  result.n128_u32[1] = v16;
-  result.n128_u32[2] = v17;
+  result.n128_u32[0] = v17;
+  result.n128_u32[1] = v15;
+  result.n128_u32[2] = v16;
   return result;
 }
 
 - (__n128)steerToAvoidAgents:(uint64_t)agents timeBeforeCollisionToAvoid:(void *)avoid
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   avoidCopy = avoid;
   __p = 0;
-  v24 = 0;
-  v25 = 0;
+  v20 = 0;
+  v21 = 0;
   v7 = [avoidCopy count];
   if (v7)
   {
@@ -285,45 +279,39 @@
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  memset(v18, 0, sizeof(v18));
   v8 = avoidCopy;
-  if ([v8 countByEnumeratingWithState:&v19 objects:v26 count:16])
+  if ([v8 countByEnumeratingWithState:v18 objects:v22 count:16])
   {
-    *v20;
-    *v20;
-    [**(&v19 + 1) vehicle];
+    [**(&v18[0] + 1) vehicle];
     operator new();
   }
 
   vehicle = [self vehicle];
   v10 = a2;
   OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToAvoidNeighbors(vehicle, &__p, v10);
-  v16 = v11;
-  v17 = v13;
-  v18 = v12;
+  v15 = v11;
+  v16 = v13;
+  v17 = v12;
   if (__p)
   {
-    v24 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  result.n128_u32[0] = v18;
-  result.n128_u32[1] = v16;
-  result.n128_u32[2] = v17;
+  result.n128_u32[0] = v17;
+  result.n128_u32[1] = v15;
+  result.n128_u32[2] = v16;
   return result;
 }
 
 - (__n128)steerForSeparation:(float)separation maxDistance:(uint64_t)distance maxAngle:(void *)angle
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   angleCopy = angle;
   __p = 0;
-  v26 = 0;
-  v27 = 0;
+  v22 = 0;
+  v23 = 0;
   v9 = [angleCopy count];
   if (v9)
   {
@@ -335,45 +323,39 @@
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  memset(v20, 0, sizeof(v20));
   v10 = angleCopy;
-  if ([v10 countByEnumeratingWithState:&v21 objects:v28 count:16])
+  if ([v10 countByEnumeratingWithState:v20 objects:v24 count:16])
   {
-    *v22;
-    *v22;
-    [**(&v21 + 1) vehicle];
+    [**(&v20[0] + 1) vehicle];
     operator new();
   }
 
   vehicle = [self vehicle];
   v12 = cosf(separation);
   v13 = OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerForSeparation(vehicle, &__p, a2, v12);
-  v18 = v14;
-  v19 = v15;
-  v20 = LODWORD(v13);
+  v17 = v14;
+  v18 = v15;
+  v19 = LODWORD(v13);
   if (__p)
   {
-    v26 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  result.n128_u32[0] = v20;
-  result.n128_u32[1] = v18;
-  result.n128_u32[2] = v19;
+  result.n128_u32[0] = v19;
+  result.n128_u32[1] = v17;
+  result.n128_u32[2] = v18;
   return result;
 }
 
 - (__n128)steerForAlignment:(float)alignment maxDistance:(uint64_t)distance maxAngle:(void *)angle
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   angleCopy = angle;
   __p = 0;
-  v26 = 0;
-  v27 = 0;
+  v22 = 0;
+  v23 = 0;
   v9 = [angleCopy count];
   if (v9)
   {
@@ -385,45 +367,39 @@
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  memset(v20, 0, sizeof(v20));
   v10 = angleCopy;
-  if ([v10 countByEnumeratingWithState:&v21 objects:v28 count:16])
+  if ([v10 countByEnumeratingWithState:v20 objects:v24 count:16])
   {
-    *v22;
-    *v22;
-    [**(&v21 + 1) vehicle];
+    [**(&v20[0] + 1) vehicle];
     operator new();
   }
 
   vehicle = [self vehicle];
   v12 = cosf(alignment);
   v13 = OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerForAlignment(vehicle, &__p, a2, v12);
-  v18 = v14;
-  v19 = v15;
-  v20 = LODWORD(v13);
+  v17 = v14;
+  v18 = v15;
+  v19 = LODWORD(v13);
   if (__p)
   {
-    v26 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  result.n128_u32[0] = v20;
-  result.n128_u32[1] = v18;
-  result.n128_u32[2] = v19;
+  result.n128_u32[0] = v19;
+  result.n128_u32[1] = v17;
+  result.n128_u32[2] = v18;
   return result;
 }
 
 - (__n128)steerForCohesion:(float)cohesion maxDistance:(uint64_t)distance maxAngle:(void *)angle
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   angleCopy = angle;
   __p = 0;
-  v26 = 0;
-  v27 = 0;
+  v22 = 0;
+  v23 = 0;
   v9 = [angleCopy count];
   if (v9)
   {
@@ -435,35 +411,29 @@
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  memset(v20, 0, sizeof(v20));
   v10 = angleCopy;
-  if ([v10 countByEnumeratingWithState:&v21 objects:v28 count:16])
+  if ([v10 countByEnumeratingWithState:v20 objects:v24 count:16])
   {
-    *v22;
-    *v22;
-    [**(&v21 + 1) vehicle];
+    [**(&v20[0] + 1) vehicle];
     operator new();
   }
 
   vehicle = [self vehicle];
   v12 = cosf(cohesion);
   v13 = OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerForCohesion(vehicle, &__p, a2, v12);
-  v18 = v14;
-  v19 = v15;
-  v20 = LODWORD(v13);
+  v17 = v14;
+  v18 = v15;
+  v19 = LODWORD(v13);
   if (__p)
   {
-    v26 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  result.n128_u32[0] = v20;
-  result.n128_u32[1] = v18;
-  result.n128_u32[2] = v19;
+  result.n128_u32[0] = v19;
+  result.n128_u32[1] = v17;
+  result.n128_u32[2] = v18;
   return result;
 }
 
@@ -550,17 +520,17 @@
   return result;
 }
 
-- (__n128)steerToStayOnPath:(void *)path maxPredictionTime:
+- (__n128)steerToStayOnPath:(uint64_t)path maxPredictionTime:(void *)time
 {
-  pathCopy = path;
-  v5 = OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToStayOnPath([self vehicle], objc_msgSend(pathCopy, "pathway"));
-  v9 = v6;
+  timeCopy = time;
+  v6 = OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToStayOnPath([self vehicle], objc_msgSend(timeCopy, "pathway"));
   v10 = v7;
-  v11 = LODWORD(v5);
+  v11 = v8;
+  v12 = LODWORD(v6);
 
-  result.n128_u32[0] = v11;
-  result.n128_u32[1] = v9;
-  result.n128_u32[2] = v10;
+  result.n128_u32[0] = v12;
+  result.n128_u32[1] = v10;
+  result.n128_u32[2] = v11;
   return result;
 }
 

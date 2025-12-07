@@ -10,47 +10,45 @@
 
 - (id)_descriptionComponentsForEvent:(id)event forProperties:(id)properties
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   propertiesCopy = properties;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = propertiesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [eventCopy propertyForKey:v13];
         if (v14)
         {
           v15 = objc_alloc(MEMORY[0x277CCACA8]);
           v16 = [v14 description];
-          v17 = [v15 initWithFormat:@"%@: %@", v13, v16, v20];
+          v17 = [v15 initWithFormat:@"%@: %@", v13, v16, v19];
           [v7 addObject:v17];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -58,7 +56,7 @@
 - (void)logEvent:(id)event withLabel:(id)label shouldLogEventName:(BOOL)name propertiesToLog:(id)log publicPropertiesToLog:(id)toLog
 {
   nameCopy = name;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   labelCopy = label;
   logCopy = log;
@@ -112,17 +110,15 @@
     timestamp = [eventCopy timestamp];
     v30 = [v28 stringFromDate:timestamp];
     *buf = 138544130;
-    v34 = labelCopy;
-    v35 = 2112;
-    v36 = v22;
-    v37 = 2114;
-    v38 = v26;
-    v39 = 2114;
-    v40 = v30;
+    v33 = labelCopy;
+    v34 = 2112;
+    v35 = v22;
+    v36 = 2114;
+    v37 = v26;
+    v38 = 2114;
+    v39 = v30;
     _os_log_impl(&dword_24260A000, v27, OS_LOG_TYPE_INFO, "%{public}@:%@%{public}@, (@ %{public}@)", buf, 0x2Au);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __105__CPAnalyticsLogDestination_logEvent_withLabel_shouldLogEventName_propertiesToLog_publicPropertiesToLog___block_invoke()
@@ -138,7 +134,7 @@ uint64_t __105__CPAnalyticsLogDestination_logEvent_withLabel_shouldLogEventName_
 
 - (id)_logEventMatchersInConfiguration:(id)configuration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v4 = [configurationCopy objectForKeyedSubscript:@"logEvents"];
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -147,7 +143,7 @@ uint64_t __105__CPAnalyticsLogDestination_logEvent_withLabel_shouldLogEventName_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = configurationCopy;
+      v21 = configurationCopy;
       _os_log_error_impl(&dword_24260A000, v6, OS_LOG_TYPE_ERROR, "Malformed logEvents in configuration %@", buf, 0xCu);
     }
 
@@ -157,70 +153,68 @@ uint64_t __105__CPAnalyticsLogDestination_logEvent_withLabel_shouldLogEventName_
   else
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           v12 = [CPAnalyticsLogEventMatcher alloc];
-          v13 = [(CPAnalyticsLogEventMatcher *)v12 initWithConfig:v11, v16];
+          v13 = [(CPAnalyticsLogEventMatcher *)v12 initWithConfig:v11, v15];
           if (v13)
           {
             [v5 addObject:v13];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)processEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventCopy = event;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   logEventMatchers = [(CPAnalyticsLogDestination *)self logEventMatchers];
-  v6 = [logEventMatchers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [logEventMatchers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(logEventMatchers);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 doesMatch:eventCopy])
         {
           eventTypeLabel = [v10 eventTypeLabel];
@@ -231,13 +225,11 @@ uint64_t __105__CPAnalyticsLogDestination_logEvent_withLabel_shouldLogEventName_
         }
       }
 
-      v7 = [logEventMatchers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [logEventMatchers countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (CPAnalyticsLogDestination)initWithConfig:(id)config cpAnalyticsInstance:(id)instance

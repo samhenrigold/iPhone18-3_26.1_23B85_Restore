@@ -3905,7 +3905,7 @@ LABEL_5:
 void __39__MKMapItem__launchOptionsWithOptions___block_invoke(uint64_t a1, uint64_t a2, double a3, double a4, uint64_t a5, uint64_t a6)
 {
   v10 = *(a1 + 32);
-  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{a5, a3}];
   [v10 setObject:v11 forKey:@"MKLaunchOptionsSessionIDLowKey"];
 
   v12 = *(a1 + 32);

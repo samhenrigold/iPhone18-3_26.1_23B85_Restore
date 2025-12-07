@@ -44,15 +44,15 @@
 - (IDSQRProtoMessage)initWithType:(int)type candidatePair:(id)pair options:(id)options
 {
   v6 = *&type;
-  v62 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   pairCopy = pair;
   optionsCopy = options;
-  v57.receiver = self;
-  v57.super_class = IDSQRProtoMessage;
-  v10 = [(IDSQRProtoMessage *)&v57 init];
+  v84.receiver = self;
+  v84.super_class = IDSQRProtoMessage;
+  v10 = [(IDSQRProtoMessage *)&v84 init];
   if (v10)
   {
-    if (![pairCopy isRelayStunCandidatePair] || (objc_msgSend(pairCopy, "isValidRelayStunCandidatePair") & 1) == 0)
+    if (!objc_msgSend_isRelayStunCandidatePair(pairCopy) || ([pairCopy isValidRelayStunCandidatePair] & 1) == 0)
     {
       v16 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -65,10 +65,10 @@
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"failed to create QRProtoMessage due to invalid relay candidate pair.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"failed to create QRProtoMessage due to invalid relay candidate pair.", v17, v18, v19, v20, v21, v80);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to create QRProtoMessage due to invalid relay candidate pair.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to create QRProtoMessage due to invalid relay candidate pair.", v22, v23, v24, v25, v81);
           }
         }
       }
@@ -87,8 +87,8 @@
       {
         if (v6 == 22)
         {
-          v36 = objc_alloc_init(IDSQRProtoUnAllocBindRequest);
-          [(IDSQRProtoH3Message *)v10->_message setUnallocbindRequest:v36];
+          v45 = objc_alloc_init(IDSQRProtoUnAllocBindRequest);
+          [(IDSQRProtoH3Message *)v10->_message setUnallocbindRequest:v45];
 
           unallocbindRequest = [(IDSQRProtoH3Message *)v10->_message unallocbindRequest];
           v15 = [(IDSQRProtoMessage *)v10 _setupUnallocbindRequest:unallocbindRequest candidatePair:pairCopy options:optionsCopy];
@@ -100,44 +100,40 @@
           {
             if (v6 == 27)
             {
-              v21 = [optionsCopy objectForKeyedSubscript:@"gl-option-materials-request-key"];
-              if (v21)
+              v30 = [optionsCopy objectForKeyedSubscript:@"gl-option-materials-request-key"];
+              if (v30)
               {
-                [(IDSQRProtoH3Message *)v10->_message setGetmaterialRequest:v21];
+                [(IDSQRProtoH3Message *)v10->_message setGetmaterialRequest:v30];
 
 LABEL_45:
-                v42 = OSLogHandleForTransportCategory();
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+                v51 = OSLogHandleForTransportCategory();
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
                 {
-                  v43 = off_1E77E1DE8[v6 - 1];
-                  v44 = v10->_message;
+                  v52 = off_1E77E1DE8[v6 - 1];
+                  v53 = v10->_message;
                   *buf = 138412546;
-                  v59 = v43;
-                  v60 = 2112;
-                  v61 = v44;
-                  _os_log_impl(&dword_1A7AD9000, v42, OS_LOG_TYPE_DEFAULT, "created %@ proto message %@", buf, 0x16u);
+                  v86 = v52;
+                  v87 = 2112;
+                  v88 = v53;
+                  _os_log_impl(&dword_1A7AD9000, v51, OS_LOG_TYPE_DEFAULT, "created %@ proto message %@", buf, 0x16u);
                 }
 
                 if (os_log_shim_legacy_logging_enabled())
                 {
                   if (_IDSShouldLogTransport())
                   {
-                    v53 = off_1E77E1DE8[v6 - 1];
-                    v54 = v10->_message;
-                    _IDSLogTransport(@"GL", @"IDS", @"created %@ proto message %@");
-                    if (_IDSShouldLog())
+                    _IDSLogTransport(@"GL", @"IDS", @"created %@ proto message %@", v54, v55, v56, v57, v58, off_1E77E1DE8[v6 - 1]);
+                    if (_IDSShouldLog(0))
                     {
-                      v53 = off_1E77E1F20[v6];
-                      v54 = v10->_message;
-                      _IDSLogV(0, @"IDSFoundation", @"GL", @"created %@ proto message %@");
+                      _IDSLogV(0, @"IDSFoundation", @"GL", @"created %@ proto message %@", v59, v60, v61, v62, off_1E77E1F20[v6]);
                     }
                   }
                 }
 
-                v45 = off_1E77E1F20[v6];
-                [(IDSQRProtoH3Message *)v10->_message description:v53];
-                v56 = v55 = v45;
-                v46 = v56;
+                v63 = off_1E77E1F20[v6];
+                [(IDSQRProtoH3Message *)v10->_message description];
+                v83 = v82 = v63;
+                v64 = v83;
                 cut_dispatch_log_queue();
 
                 goto LABEL_52;
@@ -147,8 +143,8 @@ LABEL_45:
             goto LABEL_53;
           }
 
-          v40 = objc_alloc_init(IDSQRProtoPutMaterialRequest);
-          [(IDSQRProtoH3Message *)v10->_message setPutmaterialRequest:v40];
+          v49 = objc_alloc_init(IDSQRProtoPutMaterialRequest);
+          [(IDSQRProtoH3Message *)v10->_message setPutmaterialRequest:v49];
 
           putmaterialRequest = [(IDSQRProtoH3Message *)v10->_message putmaterialRequest];
           v15 = [(IDSQRProtoMessage *)v10 _setupPutmaterialRequest:putmaterialRequest candidatePair:pairCopy options:optionsCopy];
@@ -161,8 +157,8 @@ LABEL_45:
       {
         if (v6 == 37)
         {
-          v32 = objc_alloc_init(IDSQRProtoCallModeUpdateRequest);
-          [(IDSQRProtoH3Message *)v10->_message setCallmodeupdateRequest:v32];
+          v41 = objc_alloc_init(IDSQRProtoCallModeUpdateRequest);
+          [(IDSQRProtoH3Message *)v10->_message setCallmodeupdateRequest:v41];
 
           callmodeupdateRequest = [(IDSQRProtoH3Message *)v10->_message callmodeupdateRequest];
           v15 = [(IDSQRProtoMessage *)v10 _setupCallModeUpdateRequest:callmodeupdateRequest candidatePair:pairCopy options:optionsCopy];
@@ -175,8 +171,8 @@ LABEL_45:
             goto LABEL_53;
           }
 
-          v24 = objc_alloc_init(IDSQRH3ChannelConfigRequest);
-          [(IDSQRProtoH3Message *)v10->_message setChannelconfigRequest:v24];
+          v33 = objc_alloc_init(IDSQRH3ChannelConfigRequest);
+          [(IDSQRProtoH3Message *)v10->_message setChannelconfigRequest:v33];
 
           channelconfigRequest = [(IDSQRProtoH3Message *)v10->_message channelconfigRequest];
           v15 = [(IDSQRProtoMessage *)v10 _setupChannelConfigRequest:channelconfigRequest candidatePair:pairCopy options:optionsCopy];
@@ -185,8 +181,8 @@ LABEL_45:
 
       else if (v6 == 29)
       {
-        v28 = objc_alloc_init(IDSQRProtoH3EndToEndChannelRegisterRequest);
-        [(IDSQRProtoH3Message *)v10->_message setRegisterRequest:v28];
+        v37 = objc_alloc_init(IDSQRProtoH3EndToEndChannelRegisterRequest);
+        [(IDSQRProtoH3Message *)v10->_message setRegisterRequest:v37];
 
         registerRequest = [(IDSQRProtoH3Message *)v10->_message registerRequest];
         v15 = [(IDSQRProtoMessage *)v10 _setupRegisterRequest:registerRequest candidatePair:pairCopy options:optionsCopy];
@@ -199,8 +195,8 @@ LABEL_45:
           goto LABEL_53;
         }
 
-        v17 = objc_alloc_init(IDSQRProtoH3EndToEndChannelRegisterAckRequest);
-        [(IDSQRProtoH3Message *)v10->_message setRegisterAckRequest:v17];
+        v26 = objc_alloc_init(IDSQRProtoH3EndToEndChannelRegisterAckRequest);
+        [(IDSQRProtoH3Message *)v10->_message setRegisterAckRequest:v26];
 
         registerAckRequest = [(IDSQRProtoH3Message *)v10->_message registerAckRequest];
         v15 = [(IDSQRProtoMessage *)v10 _setupRegisterAckRequest:registerAckRequest candidatePair:pairCopy options:optionsCopy];
@@ -212,24 +208,24 @@ LABEL_45:
       switch(v6)
       {
         case 1:
-          v34 = objc_alloc_init(IDSQRProtoAllocBindRequest);
-          [(IDSQRProtoH3Message *)v10->_message setAllocbindRequest:v34];
+          v43 = objc_alloc_init(IDSQRProtoAllocBindRequest);
+          [(IDSQRProtoH3Message *)v10->_message setAllocbindRequest:v43];
 
           allocbindRequest = [(IDSQRProtoH3Message *)v10->_message allocbindRequest];
           v15 = [(IDSQRProtoMessage *)v10 _setupAllocbindRequest:allocbindRequest candidatePair:pairCopy options:optionsCopy];
 
           break;
         case 5:
-          v38 = objc_alloc_init(IDSQRProtoInfoRequest);
-          [(IDSQRProtoH3Message *)v10->_message setInfoRequest:v38];
+          v47 = objc_alloc_init(IDSQRProtoInfoRequest);
+          [(IDSQRProtoH3Message *)v10->_message setInfoRequest:v47];
 
           infoRequest = [(IDSQRProtoH3Message *)v10->_message infoRequest];
           v15 = [(IDSQRProtoMessage *)v10 _setupInfoRequest:infoRequest candidatePair:pairCopy options:optionsCopy];
 
           break;
         case 7:
-          v19 = objc_alloc_init(IDSQRProtoParticipantUpdateRequest);
-          [(IDSQRProtoH3Message *)v10->_message setParticipantupdateRequest:v19];
+          v28 = objc_alloc_init(IDSQRProtoParticipantUpdateRequest);
+          [(IDSQRProtoH3Message *)v10->_message setParticipantupdateRequest:v28];
 
           participantupdateRequest = [(IDSQRProtoH3Message *)v10->_message participantupdateRequest];
           v15 = [(IDSQRProtoMessage *)v10 _setupParticipantUpdateRequest:participantupdateRequest candidatePair:pairCopy options:optionsCopy];
@@ -244,8 +240,8 @@ LABEL_45:
     {
       if (v6 == 18)
       {
-        v30 = objc_alloc_init(IDSQRProtoStatsRequest);
-        [(IDSQRProtoH3Message *)v10->_message setStatsRequest:v30];
+        v39 = objc_alloc_init(IDSQRProtoStatsRequest);
+        [(IDSQRProtoH3Message *)v10->_message setStatsRequest:v39];
 
         statsRequest = [(IDSQRProtoH3Message *)v10->_message statsRequest];
         v15 = [(IDSQRProtoMessage *)v10 _setupStatsRequest:statsRequest candidatePair:pairCopy options:optionsCopy];
@@ -258,8 +254,8 @@ LABEL_45:
           goto LABEL_53;
         }
 
-        v22 = objc_alloc_init(IDSQRProtoTestRequest);
-        [(IDSQRProtoH3Message *)v10->_message setTestRequest:v22];
+        v31 = objc_alloc_init(IDSQRProtoTestRequest);
+        [(IDSQRProtoH3Message *)v10->_message setTestRequest:v31];
 
         testRequest = [(IDSQRProtoH3Message *)v10->_message testRequest];
         v15 = [(IDSQRProtoMessage *)v10 _setupTestRequest:testRequest candidatePair:pairCopy options:optionsCopy];
@@ -282,61 +278,61 @@ LABEL_45:
         }
 
 LABEL_53:
-        v48 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+        v66 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
         {
           if (v6 >= 0x29)
           {
-            v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
+            v67 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
           }
 
           else
           {
-            v49 = off_1E77E1F20[v6];
+            v67 = off_1E77E1F20[v6];
           }
 
           *buf = 138412290;
-          v59 = v49;
-          _os_log_impl(&dword_1A7AD9000, v48, OS_LOG_TYPE_DEFAULT, "failed to create %@ message", buf, 0xCu);
+          v86 = v67;
+          _os_log_impl(&dword_1A7AD9000, v66, OS_LOG_TYPE_DEFAULT, "failed to create %@ message", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
         {
           if (v6 >= 0x29)
           {
-            v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
+            v73 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
           }
 
           else
           {
-            v50 = off_1E77E1F20[v6];
+            v73 = off_1E77E1F20[v6];
           }
 
-          _IDSLogTransport(@"GL", @"IDS", @"failed to create %@ message");
+          _IDSLogTransport(@"GL", @"IDS", @"failed to create %@ message", v68, v69, v70, v71, v72, v73);
 
-          if (_IDSShouldLog())
+          if (_IDSShouldLog(0))
           {
             if (v6 >= 0x29)
             {
-              v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
+              v78 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
             }
 
             else
             {
-              v51 = off_1E77E1F20[v6];
+              v78 = off_1E77E1F20[v6];
             }
 
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to create %@ message");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to create %@ message", v74, v75, v76, v77, v78);
           }
         }
 
 LABEL_68:
-        v47 = 0;
+        v65 = 0;
         goto LABEL_69;
       }
 
-      v26 = objc_alloc_init(IDSQRProtoPluginControlRequest);
-      [(IDSQRProtoH3Message *)v10->_message setPlugincontrolRequest:v26];
+      v35 = objc_alloc_init(IDSQRProtoPluginControlRequest);
+      [(IDSQRProtoH3Message *)v10->_message setPlugincontrolRequest:v35];
 
       plugincontrolRequest = [(IDSQRProtoH3Message *)v10->_message plugincontrolRequest];
       v15 = [(IDSQRProtoMessage *)v10 _setupPluginControlRequest:plugincontrolRequest candidatePair:pairCopy options:optionsCopy];
@@ -352,38 +348,38 @@ LABEL_44:
   }
 
 LABEL_52:
-  v47 = v10;
+  v65 = v10;
 LABEL_69:
 
-  return v47;
+  return v65;
 }
 
 - (BOOL)_setupAllocbindRequest:(id)request candidatePair:(id)pair options:(id)options
 {
-  v138 = *MEMORY[0x1E69E9840];
+  v206 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   pairCopy = pair;
   theDict = options;
   softwareData = [pairCopy softwareData];
-  v117 = [softwareData length];
-  if (v117 <= 2)
+  v185 = [softwareData length];
+  if (v185 <= 2)
   {
-    v28 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v37 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v135 = softwareData;
-      _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "invalid software data %@", buf, 0xCu);
+      v203 = softwareData;
+      _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "invalid software data %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"invalid software data %@");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"invalid software data %@", v38, v39, v40, v41, v42, softwareData);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid software data %@");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid software data %@", v43, v44, v45, v46, softwareData);
         }
       }
     }
@@ -401,8 +397,9 @@ LABEL_69:
     mEMORY[0x1E69A60B8]3 = [MEMORY[0x1E69A60B8] sharedInstance];
     productBuildVersion = [mEMORY[0x1E69A60B8]3 productBuildVersion];
 
-    v114 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@, %@", productName, productVersion, productBuildVersion];
-    [requestCopy setClientOsVersion:v114];
+    v174 = productName;
+    v181 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@, %@"];
+    [requestCopy setClientOsVersion:v181];
     mEMORY[0x1E69A60B8]4 = [MEMORY[0x1E69A60B8] sharedInstance];
     model = [mEMORY[0x1E69A60B8]4 model];
 
@@ -495,7 +492,7 @@ LABEL_69:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v135 = v19;
+      v203 = v19;
       _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "_setupAllocbindRequest: final capabilityFlags: %llx", buf, 0xCu);
     }
 
@@ -503,68 +500,64 @@ LABEL_69:
     {
       if (_IDSShouldLogTransport())
       {
-        v103 = v19;
-        _IDSLogTransport(@"GL", @"IDS", @"_setupAllocbindRequest: final capabilityFlags: %llx");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"_setupAllocbindRequest: final capabilityFlags: %llx", v27, v28, v29, v30, v31, v19);
+        if (_IDSShouldLog(0))
         {
-          v103 = v19;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"_setupAllocbindRequest: final capabilityFlags: %llx");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"_setupAllocbindRequest: final capabilityFlags: %llx", v32, v33, v34, v35, v19);
         }
       }
     }
 
-    v109 = 0;
+    v177 = 0;
     if (theDict && @"gs-started-as-u-plus-one-key")
     {
-      v27 = CFDictionaryGetValue(theDict, @"gs-started-as-u-plus-one-key");
-      if (v27)
+      v36 = CFDictionaryGetValue(theDict, @"gs-started-as-u-plus-one-key");
+      if (v36)
       {
-        v109 = v27;
+        v177 = v36;
         [requestCopy setCallModeInfo:?];
       }
 
       else
       {
-        v109 = 0;
+        v177 = 0;
       }
     }
 
-    v108 = 0;
+    v176 = 0;
     if (theDict && @"gl-option-fast-plugin-request-key")
     {
-      v29 = CFDictionaryGetValue(theDict, @"gl-option-fast-plugin-request-key");
-      if (v29)
+      v47 = CFDictionaryGetValue(theDict, @"gl-option-fast-plugin-request-key");
+      if (v47)
       {
-        v108 = v29;
+        v176 = v47;
         [requestCopy setFastPluginRequests:?];
       }
 
       else
       {
-        v108 = 0;
+        v176 = 0;
       }
     }
 
     stateFlags = [pairCopy stateFlags];
     [requestCopy setStateFlags:stateFlags];
-    v31 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v49 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v135) = stateFlags;
-      _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "_setupAllocbindRequest: final stateFlags: %x", buf, 8u);
+      LODWORD(v203) = stateFlags;
+      _os_log_impl(&dword_1A7AD9000, v49, OS_LOG_TYPE_DEFAULT, "_setupAllocbindRequest: final stateFlags: %x", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v104 = stateFlags;
-        _IDSLogTransport(@"GL", @"IDS", @"_setupAllocbindRequest: final stateFlags: %x");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"_setupAllocbindRequest: final stateFlags: %x", v50, v51, v52, v53, v54, stateFlags);
+        if (_IDSShouldLog(0))
         {
-          v104 = stateFlags;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"_setupAllocbindRequest: final stateFlags: %x");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"_setupAllocbindRequest: final stateFlags: %x", v55, v56, v57, v58, stateFlags);
         }
       }
     }
@@ -583,13 +576,13 @@ LABEL_69:
       sub_1A7C3A534(requestCopy, publishedStreams, subscribedStreams, relaySessionInfo2);
     }
 
-    v37 = 0;
+    v64 = 0;
     if (theDict && @"gl-option-additional-binding")
     {
-      v37 = CFDictionaryGetValue(theDict, @"gl-option-additional-binding");
+      v64 = CFDictionaryGetValue(theDict, @"gl-option-additional-binding");
     }
 
-    unsignedIntValue = [v37 unsignedIntValue];
+    unsignedIntValue = [v64 unsignedIntValue];
     if (([pairCopy isSelfQRSession] & 1) == 0)
     {
       local = [pairCopy local];
@@ -597,89 +590,84 @@ LABEL_69:
 
       if (@"gl-option-should-auto-disconnect-for-standard-participant")
       {
-        v41 = theDict != 0;
+        v68 = theDict != 0;
       }
 
       else
       {
-        v41 = 0;
+        v68 = 0;
       }
 
-      if (v41)
+      if (v68)
       {
-        v42 = CFDictionaryGetValue(theDict, @"gl-option-should-auto-disconnect-for-standard-participant");
+        v69 = CFDictionaryGetValue(theDict, @"gl-option-should-auto-disconnect-for-standard-participant");
       }
 
       else
       {
-        v42 = 0;
+        v69 = 0;
       }
 
-      bOOLValue6 = [v42 BOOLValue];
-      v44 = +[IDSServerBag sharedInstance];
-      v45 = [v44 objectForKey:@"ids-disallow-qr-auto-disconnect"];
+      bOOLValue6 = [v69 BOOLValue];
+      v71 = +[IDSServerBag sharedInstance];
+      v72 = [v71 objectForKey:@"ids-disallow-qr-auto-disconnect"];
 
-      v46 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v73 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
-        v47 = @"NO";
+        v74 = @"NO";
         if (bOOLValue6)
         {
-          v48 = @"YES";
+          v75 = @"YES";
         }
 
         else
         {
-          v48 = @"NO";
+          v75 = @"NO";
         }
 
         if (bOOLValue)
         {
-          v47 = @"YES";
+          v74 = @"YES";
         }
 
         *buf = 138412546;
-        v135 = v48;
-        v136 = 2112;
-        v137 = v47;
-        _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEFAULT, "_setupAllocbindRequest: auto disconnect supported: %@, isLightweightParticipant: %@", buf, 0x16u);
+        v203 = v75;
+        v204 = 2112;
+        v205 = v74;
+        _os_log_impl(&dword_1A7AD9000, v73, OS_LOG_TYPE_DEFAULT, "_setupAllocbindRequest: auto disconnect supported: %@, isLightweightParticipant: %@", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
-        v49 = bOOLValue6 ? @"YES" : @"NO";
-        v50 = bOOLValue ? @"YES" : @"NO";
-        v105 = v49;
-        v107 = v50;
-        _IDSLogTransport(@"GL", @"IDS", @"_setupAllocbindRequest: auto disconnect supported: %@, isLightweightParticipant: %@");
-        if (_IDSShouldLog())
+        v81 = bOOLValue6 ? @"YES" : @"NO";
+        _IDSLogTransport(@"GL", @"IDS", @"_setupAllocbindRequest: auto disconnect supported: %@, isLightweightParticipant: %@", v76, v77, v78, v79, v80, v81);
+        if (_IDSShouldLog(0))
         {
-          v105 = v49;
-          v107 = v50;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"_setupAllocbindRequest: auto disconnect supported: %@, isLightweightParticipant: %@");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"_setupAllocbindRequest: auto disconnect supported: %@, isLightweightParticipant: %@", v82, v83, v84, v85, v81);
         }
       }
 
-      v51 = (unsignedIntValue & 0x30 | isCellularStunCandidate);
+      v86 = unsignedIntValue & 0x30 | isCellularStunCandidate;
       if (bOOLValue6)
       {
-        if ([v45 BOOLValue])
+        if ([v72 BOOLValue])
         {
-          v52 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+          v87 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "disallowQRAutoDisconnectBagValue set to YES, don't set the channel binding bit", buf, 2u);
+            _os_log_impl(&dword_1A7AD9000, v87, OS_LOG_TYPE_DEFAULT, "disallowQRAutoDisconnectBagValue set to YES, don't set the channel binding bit", buf, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"GL", @"IDS", @"disallowQRAutoDisconnectBagValue set to YES, don't set the channel binding bit");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"GL", @"IDS", @"disallowQRAutoDisconnectBagValue set to YES, don't set the channel binding bit", v88, v89, v90, v91, v92, v174);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"GL", @"disallowQRAutoDisconnectBagValue set to YES, don't set the channel binding bit");
+                _IDSLogV(0, @"IDSFoundation", @"GL", @"disallowQRAutoDisconnectBagValue set to YES, don't set the channel binding bit", v93, v94, v95, v96, v175);
               }
             }
           }
@@ -687,202 +675,196 @@ LABEL_69:
 
         else
         {
-          v51 = (v51 | 0x200);
+          v86 = v86 | 0x200;
         }
       }
 
-      [requestCopy setChannelBindingInfo:{v51, v105, v107}];
-      v53 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      [requestCopy setChannelBindingInfo:v86];
+      v97 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v135) = v51;
-        _os_log_impl(&dword_1A7AD9000, v53, OS_LOG_TYPE_DEFAULT, "channelBindingInfo: %u", buf, 8u);
+        LODWORD(v203) = v86;
+        _os_log_impl(&dword_1A7AD9000, v97, OS_LOG_TYPE_DEFAULT, "channelBindingInfo: %u", buf, 8u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v105 = v51;
-          _IDSLogTransport(@"GL", @"IDS", @"channelBindingInfo: %u");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"channelBindingInfo: %u", v98, v99, v100, v101, v102, v86);
+          if (_IDSShouldLog(0))
           {
-            v105 = v51;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"channelBindingInfo: %u");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"channelBindingInfo: %u", v103, v104, v105, v106, v86);
           }
         }
       }
     }
 
-    v111 = 0;
+    v179 = 0;
     if (theDict && @"gl-option-qr-connection-id-avc-key")
     {
-      v111 = CFDictionaryGetValue(theDict, @"gl-option-qr-connection-id-avc-key");
-      if (v111)
+      v179 = CFDictionaryGetValue(theDict, @"gl-option-qr-connection-id-avc-key");
+      if (v179)
       {
-        v54 = objc_alloc_init(IDSQRProtoQuicConnectionInfo);
-        [(IDSQRProtoQuicConnectionInfo *)v54 setQuicConnectionType:0];
-        [(IDSQRProtoQuicConnectionInfo *)v54 setQuicConnectionId:v111];
-        [requestCopy addQuicConnectionInfo:v54];
+        v107 = objc_alloc_init(IDSQRProtoQuicConnectionInfo);
+        [(IDSQRProtoQuicConnectionInfo *)v107 setQuicConnectionType:0];
+        [(IDSQRProtoQuicConnectionInfo *)v107 setQuicConnectionId:v179];
+        [requestCopy addQuicConnectionInfo:v107];
       }
 
       else
       {
-        v111 = 0;
+        v179 = 0;
       }
     }
 
-    v110 = 0;
+    v178 = 0;
     if (theDict && @"gl-option-qr-connection-id-ids-key")
     {
-      v110 = CFDictionaryGetValue(theDict, @"gl-option-qr-connection-id-ids-key");
-      if (v110)
+      v178 = CFDictionaryGetValue(theDict, @"gl-option-qr-connection-id-ids-key");
+      if (v178)
       {
-        v55 = objc_alloc_init(IDSQRProtoQuicConnectionInfo);
-        [(IDSQRProtoQuicConnectionInfo *)v55 setQuicConnectionType:1];
-        [(IDSQRProtoQuicConnectionInfo *)v55 setQuicConnectionId:v110];
-        [requestCopy addQuicConnectionInfo:v55];
+        v108 = objc_alloc_init(IDSQRProtoQuicConnectionInfo);
+        [(IDSQRProtoQuicConnectionInfo *)v108 setQuicConnectionType:1];
+        [(IDSQRProtoQuicConnectionInfo *)v108 setQuicConnectionId:v178];
+        [requestCopy addQuicConnectionInfo:v108];
       }
 
       else
       {
-        v110 = 0;
+        v178 = 0;
       }
     }
 
-    v118 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v186 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if (@"gl-option-should-override-server-test-option-tle-disabled")
     {
-      v56 = theDict != 0;
+      v109 = theDict != 0;
     }
 
     else
     {
-      v56 = 0;
+      v109 = 0;
     }
 
-    if (v56)
+    if (v109)
     {
-      v57 = CFDictionaryGetValue(theDict, @"gl-option-should-override-server-test-option-tle-disabled");
+      v110 = CFDictionaryGetValue(theDict, @"gl-option-should-override-server-test-option-tle-disabled");
     }
 
     else
     {
-      v57 = 0;
+      v110 = 0;
     }
 
-    if ([v57 BOOLValue])
+    if ([v110 BOOLValue])
     {
-      v58 = 0;
+      v111 = 0;
       if (theDict && @"gl-option-server-test-option-tle-disabled")
       {
-        v58 = CFDictionaryGetValue(theDict, @"gl-option-server-test-option-tle-disabled");
+        v111 = CFDictionaryGetValue(theDict, @"gl-option-server-test-option-tle-disabled");
       }
 
-      bOOLValue7 = [v58 BOOLValue];
-      v60 = objc_alloc_init(IDSQRProtoExperimentOverride);
-      [(IDSQRProtoExperimentOverride *)v60 setExperimentName:@"tled"];
-      [(IDSQRProtoExperimentOverride *)v60 setValue:bOOLValue7];
-      [v118 addObject:v60];
+      bOOLValue7 = [v111 BOOLValue];
+      v113 = objc_alloc_init(IDSQRProtoExperimentOverride);
+      [(IDSQRProtoExperimentOverride *)v113 setExperimentName:@"tled"];
+      [(IDSQRProtoExperimentOverride *)v113 setValue:bOOLValue7];
+      [v186 addObject:v113];
     }
 
-    if ([v118 count])
+    if ([v186 count])
     {
-      v61 = objc_alloc_init(IDSQRProtoAllocBindTestOption);
-      [(IDSQRProtoAllocBindTestOption *)v61 setExperimentOverrides:v118];
-      [requestCopy setTestOption:v61];
+      v114 = objc_alloc_init(IDSQRProtoAllocBindTestOption);
+      [(IDSQRProtoAllocBindTestOption *)v114 setExperimentOverrides:v186];
+      [requestCopy setTestOption:v114];
     }
 
     if (theDict)
     {
       if (@"gl-option-qr-session-experiments")
       {
-        v62 = CFDictionaryGetValue(theDict, @"gl-option-qr-session-experiments");
-        if (v62)
+        v115 = CFDictionaryGetValue(theDict, @"gl-option-qr-session-experiments");
+        if (v115)
         {
-          v63 = v62;
+          v116 = v115;
           array = [MEMORY[0x1E695DF70] array];
           [requestCopy setSessionExperiments:array];
 
-          v130 = 0u;
-          v131 = 0u;
-          v128 = 0u;
-          v129 = 0u;
-          v65 = v63;
-          v66 = [v65 countByEnumeratingWithState:&v128 objects:v133 count:16];
-          if (!v66)
+          v198 = 0u;
+          v199 = 0u;
+          v196 = 0u;
+          v197 = 0u;
+          v118 = v116;
+          v119 = [v118 countByEnumeratingWithState:&v196 objects:v201 count:16];
+          if (!v119)
           {
-            goto LABEL_164;
+            goto LABEL_161;
           }
 
-          v67 = *v129;
+          v120 = *v197;
           while (1)
           {
-            v68 = 0;
+            v121 = 0;
             do
             {
-              if (*v129 != v67)
+              if (*v197 != v120)
               {
-                objc_enumerationMutation(v65);
+                objc_enumerationMutation(v118);
               }
 
-              v69 = *(*(&v128 + 1) + 8 * v68);
-              v70 = [v65 objectForKeyedSubscript:{v69, v106, v107}];
-              v71 = objc_alloc_init(IDSQRProtoSessionExperiment);
-              [(IDSQRProtoSessionExperiment *)v71 setExperimentName:v69];
-              v72 = v70;
+              v122 = *(*(&v196 + 1) + 8 * v121);
+              v123 = [v118 objectForKeyedSubscript:v122];
+              v124 = objc_alloc_init(IDSQRProtoSessionExperiment);
+              [(IDSQRProtoSessionExperiment *)v124 setExperimentName:v122];
+              v125 = v123;
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
 
-              v74 = v72;
+              v127 = v125;
               if (isKindOfClass)
               {
-                [(IDSQRProtoSessionExperiment *)v71 setStringValue:v74];
+                [(IDSQRProtoSessionExperiment *)v124 setStringValue:v127];
 
-LABEL_140:
-                v75 = OSLogHandleForTransportCategory();
-                if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+LABEL_137:
+                v128 = OSLogHandleForTransportCategory();
+                if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  v135 = v69;
-                  v136 = 2112;
-                  v137 = v71;
-                  _os_log_impl(&dword_1A7AD9000, v75, OS_LOG_TYPE_DEFAULT, "qrexp %@=%@", buf, 0x16u);
+                  v203 = v122;
+                  v204 = 2112;
+                  v205 = v124;
+                  _os_log_impl(&dword_1A7AD9000, v128, OS_LOG_TYPE_DEFAULT, "qrexp %@=%@", buf, 0x16u);
                 }
 
                 if (os_log_shim_legacy_logging_enabled())
                 {
                   if (_IDSShouldLogTransport())
                   {
-                    v106 = v69;
-                    v107 = v71;
-                    _IDSLogTransport(@"GL", @"IDS", @"qrexp %@=%@");
-                    if (_IDSShouldLog())
+                    _IDSLogTransport(@"GL", @"IDS", @"qrexp %@=%@", v129, v130, v131, v132, v133, v122);
+                    if (_IDSShouldLog(0))
                     {
-                      v106 = v69;
-                      v107 = v71;
-                      _IDSLogV(0, @"IDSFoundation", @"GL", @"qrexp %@=%@");
+                      _IDSLogV(0, @"IDSFoundation", @"GL", @"qrexp %@=%@", v134, v135, v136, v137, v122);
                     }
                   }
                 }
 
                 sessionExperiments = [requestCopy sessionExperiments];
-                [sessionExperiments addObject:v71];
+                [sessionExperiments addObject:v124];
 
-                goto LABEL_147;
+                goto LABEL_144;
               }
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v77 = CFGetTypeID(v74);
-                LODWORD(v77) = v77 == CFBooleanGetTypeID();
+                v139 = CFGetTypeID(v127);
+                LODWORD(v139) = v139 == CFBooleanGetTypeID();
 
-                if (v77)
+                if (v139)
                 {
-                  -[IDSQRProtoSessionExperiment setBoolValue:](v71, "setBoolValue:", [v74 BOOLValue]);
-                  goto LABEL_140;
+                  -[IDSQRProtoSessionExperiment setBoolValue:](v124, "setBoolValue:", [v127 BOOLValue]);
+                  goto LABEL_137;
                 }
               }
 
@@ -890,16 +872,16 @@ LABEL_140:
               {
               }
 
-              v78 = v74;
+              v140 = v127;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v79 = CFNumberIsFloatType(v78) == 0;
+                v141 = CFNumberIsFloatType(v140) == 0;
 
-                if (v79)
+                if (v141)
                 {
-                  [(IDSQRProtoSessionExperiment *)v71 setInt32Value:[(__CFNumber *)v78 intValue]];
-                  goto LABEL_140;
+                  [(IDSQRProtoSessionExperiment *)v124 setInt32Value:[(__CFNumber *)v140 intValue]];
+                  goto LABEL_137;
                 }
               }
 
@@ -907,43 +889,39 @@ LABEL_140:
               {
               }
 
-              v80 = OSLogHandleForTransportCategory();
-              if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+              v142 = OSLogHandleForTransportCategory();
+              if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v135 = v69;
-                v136 = 2112;
-                v137 = v78;
-                _os_log_impl(&dword_1A7AD9000, v80, OS_LOG_TYPE_DEFAULT, "qrexp %@ has unknown type (raw: %@)!", buf, 0x16u);
+                v203 = v122;
+                v204 = 2112;
+                v205 = v140;
+                _os_log_impl(&dword_1A7AD9000, v142, OS_LOG_TYPE_DEFAULT, "qrexp %@ has unknown type (raw: %@)!", buf, 0x16u);
               }
 
               if (os_log_shim_legacy_logging_enabled())
               {
                 if (_IDSShouldLogTransport())
                 {
-                  v106 = v69;
-                  v107 = v78;
-                  _IDSLogTransport(@"GL", @"IDS", @"qrexp %@ has unknown type (raw: %@)!");
-                  if (_IDSShouldLog())
+                  _IDSLogTransport(@"GL", @"IDS", @"qrexp %@ has unknown type (raw: %@)!", v143, v144, v145, v146, v147, v122);
+                  if (_IDSShouldLog(0))
                   {
-                    v106 = v69;
-                    v107 = v78;
-                    _IDSLogV(0, @"IDSFoundation", @"GL", @"qrexp %@ has unknown type (raw: %@)!");
+                    _IDSLogV(0, @"IDSFoundation", @"GL", @"qrexp %@ has unknown type (raw: %@)!", v148, v149, v150, v151, v122);
                   }
                 }
               }
 
-LABEL_147:
+LABEL_144:
 
-              ++v68;
+              ++v121;
             }
 
-            while (v66 != v68);
-            v81 = [v65 countByEnumeratingWithState:&v128 objects:v133 count:16];
-            v66 = v81;
-            if (!v81)
+            while (v119 != v121);
+            v152 = [v118 countByEnumeratingWithState:&v196 objects:v201 count:16];
+            v119 = v152;
+            if (!v152)
             {
-LABEL_164:
+LABEL_161:
 
               break;
             }
@@ -956,45 +934,45 @@ LABEL_164:
     {
       if (@"gl-option-used-links")
       {
-        v82 = CFDictionaryGetValue(theDict, @"gl-option-used-links");
-        if (v82)
+        v153 = CFDictionaryGetValue(theDict, @"gl-option-used-links");
+        if (v153)
         {
-          v83 = v82;
+          v154 = v153;
           array2 = [MEMORY[0x1E695DF70] array];
-          v126 = 0u;
-          v127 = 0u;
-          v124 = 0u;
-          v125 = 0u;
-          v85 = v83;
-          v86 = [v85 countByEnumeratingWithState:&v124 objects:v132 count:16];
-          if (v86)
+          v194 = 0u;
+          v195 = 0u;
+          v192 = 0u;
+          v193 = 0u;
+          v156 = v154;
+          v157 = [v156 countByEnumeratingWithState:&v192 objects:v200 count:16];
+          if (v157)
           {
-            v87 = *v125;
+            v158 = *v193;
             do
             {
-              for (i = 0; i != v86; ++i)
+              for (i = 0; i != v157; ++i)
               {
-                if (*v125 != v87)
+                if (*v193 != v158)
                 {
-                  objc_enumerationMutation(v85);
+                  objc_enumerationMutation(v156);
                 }
 
-                v89 = *(*(&v124 + 1) + 8 * i);
-                v90 = objc_alloc_init(IDSQRProtoAllocBindStaleLink);
-                localIP = [v89 localIP];
-                [(IDSQRProtoAllocBindStaleLink *)v90 setClientAddress:localIP];
+                v160 = *(*(&v192 + 1) + 8 * i);
+                v161 = objc_alloc_init(IDSQRProtoAllocBindStaleLink);
+                localIP = [v160 localIP];
+                [(IDSQRProtoAllocBindStaleLink *)v161 setClientAddress:localIP];
 
-                serverIP = [v89 serverIP];
-                [(IDSQRProtoAllocBindStaleLink *)v90 setServerAddress:serverIP];
+                serverIP = [v160 serverIP];
+                [(IDSQRProtoAllocBindStaleLink *)v161 setServerAddress:serverIP];
 
-                -[IDSQRProtoAllocBindStaleLink setLinkId:](v90, "setLinkId:", [v89 linkID]);
-                [array2 addObject:v90];
+                -[IDSQRProtoAllocBindStaleLink setLinkId:](v161, "setLinkId:", [v160 linkID]);
+                [array2 addObject:v161];
               }
 
-              v86 = [v85 countByEnumeratingWithState:&v124 objects:v132 count:16];
+              v157 = [v156 countByEnumeratingWithState:&v192 objects:v200 count:16];
             }
 
-            while (v86);
+            while (v157);
           }
 
           [requestCopy setStaleLinks:array2];
@@ -1006,11 +984,11 @@ LABEL_164:
     {
       if (@"gl-option-qr-server-data-blob")
       {
-        v93 = CFDictionaryGetValue(theDict, @"gl-option-qr-server-data-blob");
-        if (v93)
+        v164 = CFDictionaryGetValue(theDict, @"gl-option-qr-server-data-blob");
+        if (v164)
         {
-          v94 = v93;
-          [requestCopy setServerBlob:v93];
+          v165 = v164;
+          [requestCopy setServerBlob:v164];
         }
       }
     }
@@ -1019,38 +997,38 @@ LABEL_164:
     {
       if (@"gl-option-ids-context-blob-key")
       {
-        v95 = CFDictionaryGetValue(theDict, @"gl-option-ids-context-blob-key");
-        if (v95)
+        v166 = CFDictionaryGetValue(theDict, @"gl-option-ids-context-blob-key");
+        if (v166)
         {
-          v96 = v95;
-          [requestCopy setClientContextBlob:v95];
+          v167 = v166;
+          [requestCopy setClientContextBlob:v166];
         }
       }
     }
 
-    v97 = 0;
+    v168 = 0;
     if (theDict && @"gl-option-ids-context-reason-key")
     {
-      v97 = CFDictionaryGetValue(theDict, @"gl-option-ids-context-reason-key");
+      v168 = CFDictionaryGetValue(theDict, @"gl-option-ids-context-reason-key");
     }
 
-    intValue = [v97 intValue];
+    intValue = [v168 intValue];
     if (intValue)
     {
       [requestCopy setReason:intValue];
     }
 
-    v99 = [(__CFDictionary *)theDict objectForKeyedSubscript:@"gl-option-materials-key"];
-    [requestCopy setMaterials:v99];
+    v170 = [(__CFDictionary *)theDict objectForKeyedSubscript:@"gl-option-materials-key"];
+    [requestCopy setMaterials:v170];
 
     materials = [requestCopy materials];
-    v101 = [materials description];
+    v172 = [materials description];
 
-    v123 = v101;
+    v191 = v172;
     cut_dispatch_log_queue();
   }
 
-  return v117 > 2;
+  return v185 > 2;
 }
 
 - (BOOL)_setupInfoRequest:(id)request candidatePair:(id)pair options:(id)options
@@ -1154,7 +1132,7 @@ LABEL_164:
 
 - (BOOL)_setupRegisterRequest:(id)request candidatePair:(id)pair options:(id)options
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   pairCopy = pair;
   optionsCopy = options;
@@ -1165,21 +1143,21 @@ LABEL_164:
     v12 = v11;
     if (!v11)
     {
-      v22 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v31 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "Will not send register request due to reliable link UUID!", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "Will not send register request due to reliable link UUID!", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"Will not send register request due to reliable link UUID!");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"Will not send register request due to reliable link UUID!", v32, v33, v34, v35, v36, *v72);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request due to reliable link UUID!");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request due to reliable link UUID!", v37, v38, v39, v40, *v72);
           }
         }
       }
@@ -1218,21 +1196,21 @@ LABEL_41:
           goto LABEL_42;
         }
 
-        v25 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v61 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
         {
-          *v27 = 0;
-          _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "Will not send register request, invalid remote relay link ID!", v27, 2u);
+          *v72 = 0;
+          _os_log_impl(&dword_1A7AD9000, v61, OS_LOG_TYPE_DEFAULT, "Will not send register request, invalid remote relay link ID!", v72, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"Will not send register request, invalid remote relay link ID!");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"Will not send register request, invalid remote relay link ID!", v62, v63, v64, v65, v66, *v72);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request, invalid remote relay link ID!");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request, invalid remote relay link ID!", v67, v68, v69, v70, *v72);
             }
           }
         }
@@ -1240,21 +1218,21 @@ LABEL_41:
 
       else
       {
-        v24 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v51 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          *v27 = 0;
-          _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "Will not send register request, invalid local relay link ID!", v27, 2u);
+          *v72 = 0;
+          _os_log_impl(&dword_1A7AD9000, v51, OS_LOG_TYPE_DEFAULT, "Will not send register request, invalid local relay link ID!", v72, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"Will not send register request, invalid local relay link ID!");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"Will not send register request, invalid local relay link ID!", v52, v53, v54, v55, v56, *v72);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request, invalid local relay link ID!");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request, invalid local relay link ID!", v57, v58, v59, v60, *v72);
             }
           }
         }
@@ -1263,21 +1241,21 @@ LABEL_41:
 
     else
     {
-      v23 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v41 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        *v27 = 0;
-        _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "Will not send register request, can not convert UUID to NSData!", v27, 2u);
+        *v72 = 0;
+        _os_log_impl(&dword_1A7AD9000, v41, OS_LOG_TYPE_DEFAULT, "Will not send register request, can not convert UUID to NSData!", v72, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"Will not send register request, can not convert UUID to NSData!");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"Will not send register request, can not convert UUID to NSData!", v42, v43, v44, v45, v46, *v72);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request, can not convert UUID to NSData!");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request, can not convert UUID to NSData!", v47, v48, v49, v50, *v72);
           }
         }
       }
@@ -1298,10 +1276,10 @@ LABEL_41:
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"Will not send register request due to invalid candidatePairToken!");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"Will not send register request due to invalid candidatePairToken!", v22, v23, v24, v25, v26, *v72);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request due to invalid candidatePairToken!");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register request due to invalid candidatePairToken!", v27, v28, v29, v30, *v72);
       }
     }
   }
@@ -1314,7 +1292,7 @@ LABEL_42:
 
 - (BOOL)_setupRegisterAckRequest:(id)request candidatePair:(id)pair options:(id)options
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   pairCopy = pair;
   optionsCopy = options;
@@ -1337,21 +1315,21 @@ LABEL_42:
 
       else
       {
-        v17 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v35 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          *v19 = 0;
-          _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "Will not send register ack request, can not convert UUID to NSData!", v19, 2u);
+          *v46 = 0;
+          _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "Will not send register ack request, can not convert UUID to NSData!", v46, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"Will not send register ack request, can not convert UUID to NSData!");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"Will not send register ack request, can not convert UUID to NSData!", v36, v37, v38, v39, v40, *v46);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register ack request, can not convert UUID to NSData!");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register ack request, can not convert UUID to NSData!", v41, v42, v43, v44, *v46);
             }
           }
         }
@@ -1360,21 +1338,21 @@ LABEL_42:
 
     else
     {
-      v16 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v25 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "Will not send register ack request due to invalid reliable link UUID!", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "Will not send register ack request due to invalid reliable link UUID!", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"Will not send register ack request due to invalid reliable link UUID!");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"Will not send register ack request due to invalid reliable link UUID!", v26, v27, v28, v29, v30, *v46);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register ack request due to invalid reliable link UUID!");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register ack request due to invalid reliable link UUID!", v31, v32, v33, v34, *v46);
           }
         }
       }
@@ -1396,10 +1374,10 @@ LABEL_42:
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"Will not send register ack request due to invalid candidatePairToken!");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"Will not send register ack request due to invalid candidatePairToken!", v16, v17, v18, v19, v20, *v46);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register ack request due to invalid candidatePairToken!");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"Will not send register ack request due to invalid candidatePairToken!", v21, v22, v23, v24, *v46);
         }
       }
     }
@@ -1530,18 +1508,18 @@ LABEL_42:
     v24 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      *v26 = 0;
-      _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "session-info is not allowed in non-shared QR session", v26, 2u);
+      *v35 = 0;
+      _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "session-info is not allowed in non-shared QR session", v35, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"session-info is not allowed in non-shared QR session");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"session-info is not allowed in non-shared QR session", v25, v26, v27, v28, v29, *v35);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"session-info is not allowed in non-shared QR session");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"session-info is not allowed in non-shared QR session", v30, v31, v32, v33, *v35);
         }
       }
     }
@@ -1644,7 +1622,7 @@ LABEL_20:
 
 - (BOOL)_setupTestRequest:(id)request candidatePair:(id)pair options:(id)options
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   pairCopy = pair;
   optionsCopy = options;
@@ -1680,18 +1658,18 @@ LABEL_20:
   if (unsignedIntValue == 8)
   {
     v18 = unsignedIntValue2;
-    [requestCopy setRequestedMessageType:v18];
+    [requestCopy setRequestedMessageType:unsignedIntValue2];
     v19 = unsignedIntValue3;
-    [requestCopy setRequestedErrorCode:v19];
+    [requestCopy setRequestedErrorCode:unsignedIntValue3];
     v20 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      v26 = 8;
-      v27 = 1024;
-      v28 = v18;
-      v29 = 1024;
-      v30 = v19;
+      v32 = 8;
+      v33 = 1024;
+      v34 = v18;
+      v35 = 1024;
+      v36 = v19;
       _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u", buf, 0x14u);
     }
 
@@ -1699,22 +1677,16 @@ LABEL_20:
     {
       if (_IDSShouldLogTransport())
       {
-        v23 = v18;
-        v24 = v19;
-        v22 = 8;
-        _IDSLogTransport(@"GL", @"IDS", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u", v21, v22, v23, v24, v25, 8);
+        if (_IDSShouldLog(0))
         {
-          v23 = v18;
-          v24 = v19;
-          v22 = 8;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u", v26, v27, v28, v29, 8);
         }
       }
     }
   }
 
-  [requestCopy setSubOperation:{v17, v22, v23, v24}];
+  [requestCopy setSubOperation:v17];
 
   return 1;
 }
@@ -1774,26 +1746,26 @@ LABEL_20:
 
 - (IDSQRProtoMessage)initWithData:(id)data
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v19.receiver = self;
-  v19.super_class = IDSQRProtoMessage;
-  v5 = [(IDSQRProtoMessage *)&v19 init];
+  v26.receiver = self;
+  v26.super_class = IDSQRProtoMessage;
+  v5 = [(IDSQRProtoMessage *)&v26 init];
   if (v5)
   {
-    v5->_startTime = ids_monotonic_time();
+    *(v5 + 3) = ids_monotonic_time();
     v6 = [[IDSQRProtoH3Message alloc] initWithData:dataCopy];
-    message = v5->_message;
-    v5->_message = v6;
+    v7 = *(v5 + 1);
+    *(v5 + 1) = v6;
 
     v8 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = v5->_message;
+      v9 = *(v5 + 1);
       *buf = 138412546;
-      v21 = v9;
-      v22 = 2112;
-      v23 = dataCopy;
+      v28 = v9;
+      v29 = 2112;
+      v30 = dataCopy;
       _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "created proto message %@ with %@", buf, 0x16u);
     }
 
@@ -1801,36 +1773,32 @@ LABEL_20:
     {
       if (_IDSShouldLogTransport())
       {
-        v17 = v5->_message;
-        v18 = dataCopy;
-        _IDSLogTransport(@"GL", @"IDS", @"created proto message %@ with %@");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"created proto message %@ with %@", v10, v11, v12, v13, v14, *(v5 + 1));
+        if (_IDSShouldLog(0))
         {
-          v17 = v5->_message;
-          v18 = dataCopy;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"created proto message %@ with %@");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"created proto message %@ with %@", v15, v16, v17, v18, *(v5 + 1));
         }
       }
     }
 
-    v10 = [(IDSQRProtoH3Message *)v5->_message description:v17];
-    v11 = [dataCopy debugDescription];
-    v12 = v10;
-    v13 = v11;
+    v19 = [*(v5 + 1) description];
+    v20 = [dataCopy debugDescription];
+    v21 = v19;
+    v22 = v20;
     cut_dispatch_log_queue();
-    v14 = v5->_message;
-    if (!v14 || ![(IDSQRProtoH3Message *)v14 hasInnerMessage])
+    v23 = *(v5 + 1);
+    if (!v23 || ![v23 hasInnerMessage])
     {
 
-      v15 = 0;
+      v24 = 0;
       goto LABEL_13;
     }
   }
 
-  v15 = v5;
+  v24 = v5;
 LABEL_13:
 
-  return v15;
+  return v24;
 }
 
 - (id)allocbindResponse

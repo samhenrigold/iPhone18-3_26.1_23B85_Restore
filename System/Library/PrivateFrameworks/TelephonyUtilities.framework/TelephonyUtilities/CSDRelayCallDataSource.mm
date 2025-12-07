@@ -67,7 +67,7 @@
 {
   callsCopy = calls;
   unholdingCallsCopy = unholdingCalls;
-  v8 = sub_100004778();
+  v8 = sub_100004778(unholdingCallsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412546;
@@ -109,17 +109,18 @@ LABEL_11:
   callCopy = call;
   requestCopy = request;
   callsCopy = calls;
-  v11 = sub_100004778();
+  v11 = sub_100004778(callsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v47 = callCopy;
-    v48 = 2112;
-    v49 = callsCopy;
+    v48 = callCopy;
+    v49 = 2112;
+    v50 = callsCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Asked to answer relay call %@ while disconnecting active relay calls %@", buf, 0x16u);
   }
 
-  if ([callCopy canBeAnsweredWithRequest:requestCopy])
+  v12 = [callCopy canBeAnsweredWithRequest:requestCopy];
+  if (v12)
   {
     callStateController = [(CSDCallDataSource *)self callStateController];
     callController = [callStateController callController];
@@ -128,56 +129,56 @@ LABEL_11:
       relayMessagingController = [callStateController relayMessagingController];
       [relayMessagingController sendEndActiveAndAnswerCallMessageToHostForCall:callCopy];
 
-      v41 = 0u;
       v42 = 0u;
-      v39 = 0u;
+      v43 = 0u;
       v40 = 0u;
+      v41 = 0u;
       callContainer = [callController callContainer];
       callsHostedElsewhere = [callContainer callsHostedElsewhere];
 
-      v17 = [callsHostedElsewhere countByEnumeratingWithState:&v39 objects:v45 count:16];
-      if (v17)
+      v18 = [callsHostedElsewhere countByEnumeratingWithState:&v40 objects:v46 count:16];
+      if (v18)
       {
-        v18 = v17;
-        v19 = *v40;
+        v19 = v18;
+        v20 = *v41;
         while (2)
         {
-          for (i = 0; i != v18; i = i + 1)
+          for (i = 0; i != v19; i = i + 1)
           {
-            if (*v40 != v19)
+            if (*v41 != v20)
             {
               objc_enumerationMutation(callsHostedElsewhere);
             }
 
-            if ([*(*(&v39 + 1) + 8 * i) isOnHold])
+            if ([*(*(&v40 + 1) + 8 * i) isOnHold])
             {
 
-              v37 = 0u;
               v38 = 0u;
-              v35 = 0u;
+              v39 = 0u;
               v36 = 0u;
-              v26 = callsCopy;
-              v27 = [v26 countByEnumeratingWithState:&v35 objects:v44 count:16];
-              if (v27)
+              v37 = 0u;
+              v27 = callsCopy;
+              v28 = [v27 countByEnumeratingWithState:&v36 objects:v45 count:16];
+              if (v28)
               {
-                v28 = v27;
-                v29 = *v36;
+                v29 = v28;
+                v30 = *v37;
                 do
                 {
-                  for (j = 0; j != v28; j = j + 1)
+                  for (j = 0; j != v29; j = j + 1)
                   {
-                    if (*v36 != v29)
+                    if (*v37 != v30)
                     {
-                      objc_enumerationMutation(v26);
+                      objc_enumerationMutation(v27);
                     }
 
-                    [*(*(&v35 + 1) + 8 * j) setLocallyDisconnectedWithReasonIfNone:0];
+                    [*(*(&v36 + 1) + 8 * j) setLocallyDisconnectedWithReasonIfNone:0];
                   }
 
-                  v28 = [v26 countByEnumeratingWithState:&v35 objects:v44 count:16];
+                  v29 = [v27 countByEnumeratingWithState:&v36 objects:v45 count:16];
                 }
 
-                while (v28);
+                while (v29);
               }
 
               [callCopy answerWithRequest:requestCopy];
@@ -185,8 +186,8 @@ LABEL_11:
             }
           }
 
-          v18 = [callsHostedElsewhere countByEnumeratingWithState:&v39 objects:v45 count:16];
-          if (v18)
+          v19 = [callsHostedElsewhere countByEnumeratingWithState:&v40 objects:v46 count:16];
+          if (v19)
           {
             continue;
           }
@@ -196,32 +197,32 @@ LABEL_11:
       }
 
       [callCopy answerWithRequest:requestCopy];
-      v33 = 0u;
       v34 = 0u;
-      v31 = 0u;
+      v35 = 0u;
       v32 = 0u;
+      v33 = 0u;
       relayMessagingController2 = callsCopy;
-      v22 = [relayMessagingController2 countByEnumeratingWithState:&v31 objects:v43 count:16];
-      if (v22)
+      v23 = [relayMessagingController2 countByEnumeratingWithState:&v32 objects:v44 count:16];
+      if (v23)
       {
-        v23 = v22;
-        v24 = *v32;
+        v24 = v23;
+        v25 = *v33;
         do
         {
-          for (k = 0; k != v23; k = k + 1)
+          for (k = 0; k != v24; k = k + 1)
           {
-            if (*v32 != v24)
+            if (*v33 != v25)
             {
               objc_enumerationMutation(relayMessagingController2);
             }
 
-            [*(*(&v31 + 1) + 8 * k) setLocallyDisconnectedWithReasonIfNone:{0, v31}];
+            [*(*(&v32 + 1) + 8 * k) setLocallyDisconnectedWithReasonIfNone:{0, v32}];
           }
 
-          v23 = [relayMessagingController2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+          v24 = [relayMessagingController2 countByEnumeratingWithState:&v32 objects:v44 count:16];
         }
 
-        while (v23);
+        while (v24);
       }
     }
 
@@ -237,11 +238,11 @@ LABEL_33:
 
   else
   {
-    callStateController = sub_100004778();
+    callStateController = sub_100004778(v12);
     if (os_log_type_enabled(callStateController, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = callCopy;
+      v48 = callCopy;
       _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to answer call because canBeAnswered is NO: %@", buf, 0xCu);
     }
   }
@@ -253,49 +254,50 @@ LABEL_33:
   requestCopy = request;
   callsCopy = calls;
   holdingCallsCopy = holdingCalls;
-  v14 = sub_100004778();
+  v14 = sub_100004778(holdingCallsCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v28 = callCopy;
-    v29 = 2112;
-    v30 = callsCopy;
-    v31 = 2112;
-    v32 = holdingCallsCopy;
+    v29 = callCopy;
+    v30 = 2112;
+    v31 = callsCopy;
+    v32 = 2112;
+    v33 = holdingCallsCopy;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Asked to answer relay call %@ while disconnecting held relay calls %@ and holding relay calls %@", buf, 0x20u);
   }
 
-  if ([callCopy canBeAnsweredWithRequest:requestCopy])
+  v15 = [callCopy canBeAnsweredWithRequest:requestCopy];
+  if (v15)
   {
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v15 = callsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v16)
+    v24 = 0u;
+    v16 = callsCopy;
+    v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v23;
+      v18 = v17;
+      v19 = *v24;
       do
       {
-        v19 = 0;
+        v20 = 0;
         do
         {
-          if (*v23 != v18)
+          if (*v24 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          [*(*(&v22 + 1) + 8 * v19) setLocallyDisconnectedWithReasonIfNone:{0, v22}];
-          v19 = v19 + 1;
+          [*(*(&v23 + 1) + 8 * v20) setLocallyDisconnectedWithReasonIfNone:{0, v23}];
+          v20 = v20 + 1;
         }
 
-        while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        while (v18 != v20);
+        v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
     [callCopy answerWithRequest:requestCopy];
@@ -306,11 +308,11 @@ LABEL_33:
 
   else
   {
-    callStateController = sub_100004778();
+    callStateController = sub_100004778(v15);
     if (os_log_type_enabled(callStateController, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = callCopy;
+      v29 = callCopy;
       _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to answer call because canBeAnswered is NO: %@", buf, 0xCu);
     }
   }
@@ -321,47 +323,48 @@ LABEL_33:
   callCopy = call;
   requestCopy = request;
   callsCopy = calls;
-  v11 = sub_100004778();
+  v11 = sub_100004778(callsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v25 = callCopy;
-    v26 = 2112;
-    v27 = callsCopy;
+    v26 = callCopy;
+    v27 = 2112;
+    v28 = callsCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Asked to answer relay call %@ while holding relay calls %@", buf, 0x16u);
   }
 
-  if ([callCopy canBeAnsweredWithRequest:requestCopy])
+  v12 = [callCopy canBeAnsweredWithRequest:requestCopy];
+  if (v12)
   {
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v12 = callsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v13)
+    v21 = 0u;
+    v13 = callsCopy;
+    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v20;
+      v15 = v14;
+      v16 = *v21;
       do
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v20 != v15)
+          if (*v21 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          [*(*(&v19 + 1) + 8 * v16) setCallStatus:{2, v19}];
-          v16 = v16 + 1;
+          [*(*(&v20 + 1) + 8 * v17) setCallStatus:{2, v20}];
+          v17 = v17 + 1;
         }
 
-        while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        while (v15 != v17);
+        v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     [callCopy answerWithRequest:requestCopy];
@@ -372,11 +375,11 @@ LABEL_33:
 
   else
   {
-    callStateController = sub_100004778();
+    callStateController = sub_100004778(v12);
     if (os_log_type_enabled(callStateController, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = callCopy;
+      v26 = callCopy;
       _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to answer call because canBeAnswered is NO: %@", buf, 0xCu);
     }
   }
@@ -386,7 +389,7 @@ LABEL_33:
 {
   callsCopy = calls;
   withCallsCopy = withCalls;
-  v7 = sub_100004778();
+  v7 = sub_100004778(withCallsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -467,7 +470,7 @@ LABEL_33:
 {
   callCopy = call;
   groupCopy = group;
-  v7 = sub_100004778();
+  v7 = sub_100004778(groupCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -521,7 +524,7 @@ LABEL_33:
 {
   callCopy = call;
   ungroupingCallCopy = ungroupingCall;
-  v7 = sub_100004778();
+  v7 = sub_100004778(ungroupingCallCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -538,7 +541,7 @@ LABEL_33:
 - (void)disconnectAllCalls:(id)calls withReason:(int)reason
 {
   callsCopy = calls;
-  v6 = sub_100004778();
+  v6 = sub_100004778(callsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -592,7 +595,7 @@ LABEL_33:
   holdingCallsCopy = holdingCalls;
   unholdingCallsCopy = unholdingCalls;
   ungroupingCallsCopy = ungroupingCalls;
-  v14 = sub_100004778();
+  v14 = sub_100004778(ungroupingCallsCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
@@ -812,47 +815,47 @@ LABEL_33:
   queue = [(CSDCallDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = changedCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received notification: %@", buf, 0xCu);
+    v22 = changedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received notification: %@", buf, 0xCu);
   }
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   callStateController = [(CSDCallDataSource *)self callStateController];
   callController = [callStateController callController];
   callContainer = [callController callContainer];
   callsHostedElsewhere = [callContainer callsHostedElsewhere];
 
-  v11 = [callsHostedElsewhere countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v11)
+  v12 = [callsHostedElsewhere countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v16;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v16 != v13)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(callsHostedElsewhere);
         }
 
-        [*(*(&v15 + 1) + 8 * v14) propertiesChanged];
-        v14 = v14 + 1;
+        [*(*(&v16 + 1) + 8 * v15) propertiesChanged];
+        v15 = v15 + 1;
       }
 
-      while (v12 != v14);
-      v12 = [callsHostedElsewhere countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v13 != v15);
+      v13 = [callsHostedElsewhere countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 }
 
@@ -862,47 +865,47 @@ LABEL_33:
   queue = [(CSDCallDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = changedCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received notification: %@", buf, 0xCu);
+    v22 = changedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received notification: %@", buf, 0xCu);
   }
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   callStateController = [(CSDCallDataSource *)self callStateController];
   callController = [callStateController callController];
   callContainer = [callController callContainer];
   callsHostedElsewhere = [callContainer callsHostedElsewhere];
 
-  v11 = [callsHostedElsewhere countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v11)
+  v12 = [callsHostedElsewhere countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v16;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v16 != v13)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(callsHostedElsewhere);
         }
 
-        [*(*(&v15 + 1) + 8 * v14) propertiesChanged];
-        v14 = v14 + 1;
+        [*(*(&v16 + 1) + 8 * v15) propertiesChanged];
+        v15 = v15 + 1;
       }
 
-      while (v12 != v14);
-      v12 = [callsHostedElsewhere countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v13 != v15);
+      v13 = [callsHostedElsewhere countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 }
 

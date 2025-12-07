@@ -7,6 +7,7 @@
 - (void)_addWebViewConstraints;
 - (void)handlePanGesture:(id)gesture;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HODiscoverModalWebViewController
@@ -80,6 +81,25 @@
     v8 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:24 target:self action:"_dismissedButtonPressed:"];
     navigationItem = [(HODiscoverModalWebViewController *)self navigationItem];
     [navigationItem setRightBarButtonItem:v8];
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = HODiscoverModalWebViewController;
+  [(HODiscoverWebViewController *)&v9 viewWillAppear:appear];
+  webView = [(HODiscoverWebViewController *)self webView];
+
+  if (webView)
+  {
+    webView2 = [(HODiscoverWebViewController *)self webView];
+    scrollView = [webView2 scrollView];
+    [scrollView setContentOffset:{CGPointZero.x, CGPointZero.y}];
+
+    webView3 = [(HODiscoverWebViewController *)self webView];
+    scrollView2 = [webView3 scrollView];
+    [scrollView2 setBounces:0];
   }
 }
 

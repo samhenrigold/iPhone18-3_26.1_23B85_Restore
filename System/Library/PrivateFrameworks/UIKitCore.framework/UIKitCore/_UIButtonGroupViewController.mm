@@ -41,14 +41,14 @@
   if (![groupsCopy count])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v27 = objc_opt_class();
-    v28 = NSStringFromClass(v27);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"UIButtonGroupViewController.m" lineNumber:49 description:{@"You can't create a %@ with no bar button item groups...", v28}];
+    v28 = objc_opt_class();
+    v29 = NSStringFromClass(v28);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"UIButtonGroupViewController.m" lineNumber:49 description:{@"You can't create a %@ with no bar button item groups...", v29}];
   }
 
-  v32.receiver = self;
-  v32.super_class = _UIButtonGroupViewController;
-  v8 = [(UIViewController *)&v32 initWithNibName:0 bundle:0];
+  v33.receiver = self;
+  v33.super_class = _UIButtonGroupViewController;
+  v8 = [(UIViewController *)&v33 initWithNibName:0 bundle:0];
   if (v8)
   {
     v9 = [groupsCopy copy];
@@ -59,19 +59,19 @@
     buttonBar = v8->_buttonBar;
     v8->_buttonBar = v11;
 
-    objc_opt_class();
-    v13 = _UIButtonBarButtonMakerForVisualProvider();
-    [(_UIButtonBar *)v8->_buttonBar setViewUpdater:v13];
+    v13 = objc_opt_class();
+    v14 = _UIButtonBarButtonMakerForVisualProvider(v13);
+    [(_UIButtonBar *)v8->_buttonBar setViewUpdater:v14];
 
     [(_UIButtonBar *)v8->_buttonBar setItemsInGroupUseSameSize:1];
     v8->_overLightKeyboard = keyboard;
     objc_initWeak(&location, v8);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __78___UIButtonGroupViewController_initWithBarButtonItemGroups_overLightKeyboard___block_invoke;
-    v29[3] = &unk_1E70F7810;
-    objc_copyWeak(&v30, &location);
-    [(_UIButtonBar *)v8->_buttonBar setDefaultActionFilter:v29];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __78___UIButtonGroupViewController_initWithBarButtonItemGroups_overLightKeyboard___block_invoke;
+    v30[3] = &unk_1E70F7810;
+    objc_copyWeak(&v31, &location);
+    [(_UIButtonBar *)v8->_buttonBar setDefaultActionFilter:v30];
     [(UIViewController *)v8 setModalPresentationStyle:7];
     firstObject = [(NSArray *)v8->_barButtonItemGroups firstObject];
     representativeItem = [firstObject representativeItem];
@@ -89,27 +89,27 @@
 
     LODWORD(representativeItem) = v8->_overLightKeyboard;
     popoverPresentationController5 = [(UIViewController *)v8 popoverPresentationController];
-    v21 = popoverPresentationController5;
+    v22 = popoverPresentationController5;
     if (representativeItem)
     {
-      v22 = 6;
+      v23 = 6;
     }
 
     else
     {
-      v22 = 7;
+      v23 = 7;
     }
 
-    [popoverPresentationController5 _setPopoverBackgroundStyle:v22];
+    [popoverPresentationController5 _setPopoverBackgroundStyle:v23];
 
     if (!v8->_overLightKeyboard)
     {
-      v23 = [UIColor colorWithRed:0.498039216 green:0.501960784 blue:0.509803922 alpha:0.8];
+      v24 = [UIColor colorWithRed:0.498039216 green:0.501960784 blue:0.509803922 alpha:0.8];
       popoverPresentationController6 = [(UIViewController *)v8 popoverPresentationController];
-      [popoverPresentationController6 setBackgroundColor:v23];
+      [popoverPresentationController6 setBackgroundColor:v24];
     }
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
 
@@ -224,7 +224,7 @@
   {
     if (self->_overLightKeyboard)
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor, a2);
     }
 
     else

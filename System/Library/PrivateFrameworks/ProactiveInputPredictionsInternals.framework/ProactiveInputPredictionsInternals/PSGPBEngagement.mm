@@ -3,8 +3,10 @@
 - (NSString)triggerAttributeField;
 - (NSString)triggerAttributeSubtype;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dataSourceTypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)triggerSourceTypeAsString:(int)string;
 - (int)StringAsDataSourceType:(id)type;
 - (int)StringAsTriggerSourceType:(id)type;
 - (int)dataSourceType;
@@ -443,7 +445,6 @@ LABEL_28:
     }
   }
 
-  v9 = *(equalCopy + 74);
   if ((*&self->_has & 0x400) != 0)
   {
     if ((*(equalCopy + 74) & 0x400) == 0)
@@ -451,7 +452,6 @@ LABEL_28:
       goto LABEL_107;
     }
 
-    v15 = *(equalCopy + 142);
     if (self->_hasResponseContext)
     {
       if ((*(equalCopy + 142) & 1) == 0)
@@ -478,7 +478,6 @@ LABEL_28:
       goto LABEL_107;
     }
 
-    v16 = *(equalCopy + 144);
     if (self->_isResponseContextBlacklisted)
     {
       if ((*(equalCopy + 144) & 1) == 0)
@@ -505,7 +504,6 @@ LABEL_28:
       goto LABEL_107;
     }
 
-    v17 = *(equalCopy + 143);
     if (self->_isDocumentEmpty)
     {
       if ((*(equalCopy + 143) & 1) == 0)
@@ -550,29 +548,29 @@ LABEL_28:
   }
 
   has = self->_has;
-  v14 = *(equalCopy + 74);
+  v13 = *(equalCopy + 74);
   if ((has & 8) != 0)
   {
-    if ((v14 & 8) == 0 || self->_maxTextualResponseItems != *(equalCopy + 14))
+    if ((v13 & 8) == 0 || self->_maxTextualResponseItems != *(equalCopy + 14))
     {
       goto LABEL_107;
     }
   }
 
-  else if ((v14 & 8) != 0)
+  else if ((v13 & 8) != 0)
   {
     goto LABEL_107;
   }
 
   if ((has & 4) != 0)
   {
-    if ((v14 & 4) == 0 || self->_maxStructuredInfoItems != *(equalCopy + 13))
+    if ((v13 & 4) == 0 || self->_maxStructuredInfoItems != *(equalCopy + 13))
     {
       goto LABEL_107;
     }
   }
 
-  else if ((v14 & 4) != 0)
+  else if ((v13 & 4) != 0)
   {
     goto LABEL_107;
   }
@@ -586,18 +584,18 @@ LABEL_28:
     }
 
     has = self->_has;
-    v14 = *(equalCopy + 74);
+    v13 = *(equalCopy + 74);
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v14 & 0x20) == 0 || self->_numTextualResponseItems != *(equalCopy + 16))
+    if ((v13 & 0x20) == 0 || self->_numTextualResponseItems != *(equalCopy + 16))
     {
       goto LABEL_107;
     }
   }
 
-  else if ((v14 & 0x20) != 0)
+  else if ((v13 & 0x20) != 0)
   {
     goto LABEL_107;
   }
@@ -611,31 +609,31 @@ LABEL_28:
     }
 
     has = self->_has;
-    v14 = *(equalCopy + 74);
+    v13 = *(equalCopy + 74);
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v14 & 0x10) == 0 || self->_numStructuredInfoItems != *(equalCopy + 15))
+    if ((v13 & 0x10) == 0 || self->_numStructuredInfoItems != *(equalCopy + 15))
     {
       goto LABEL_107;
     }
   }
 
-  else if ((v14 & 0x10) != 0)
+  else if ((v13 & 0x10) != 0)
   {
     goto LABEL_107;
   }
 
   if ((has & 0x80) != 0)
   {
-    if ((v14 & 0x80) == 0 || self->_triggerSourceType != *(equalCopy + 34))
+    if ((v13 & 0x80) == 0 || self->_triggerSourceType != *(equalCopy + 34))
     {
       goto LABEL_107;
     }
   }
 
-  else if ((v14 & 0x80) != 0)
+  else if ((v13 & 0x80) != 0)
   {
     goto LABEL_107;
   }
@@ -673,16 +671,15 @@ LABEL_28:
     }
   }
 
-  v24 = self->_has;
-  v25 = *(equalCopy + 74);
-  if ((v24 & 0x100) != 0)
+  v20 = self->_has;
+  v21 = *(equalCopy + 74);
+  if ((v20 & 0x100) != 0)
   {
     if ((*(equalCopy + 74) & 0x100) == 0)
     {
       goto LABEL_107;
     }
 
-    v26 = *(equalCopy + 140);
     if (self->_hasContextBeforeInput)
     {
       if ((*(equalCopy + 140) & 1) == 0)
@@ -702,15 +699,15 @@ LABEL_28:
     goto LABEL_107;
   }
 
-  if ((v24 & 2) != 0)
+  if ((v20 & 2) != 0)
   {
-    if ((v25 & 2) == 0 || self->_maxPredictionItems != *(equalCopy + 12))
+    if ((v21 & 2) == 0 || self->_maxPredictionItems != *(equalCopy + 12))
     {
       goto LABEL_107;
     }
   }
 
-  else if ((v25 & 2) != 0)
+  else if ((v21 & 2) != 0)
   {
     goto LABEL_107;
   }
@@ -723,7 +720,7 @@ LABEL_28:
     }
 
 LABEL_107:
-    v27 = 0;
+    v22 = 0;
     goto LABEL_108;
   }
 
@@ -732,7 +729,6 @@ LABEL_107:
     goto LABEL_107;
   }
 
-  v28 = *(equalCopy + 141);
   if (self->_hasRecipientNames)
   {
     if ((*(equalCopy + 141) & 1) == 0)
@@ -747,24 +743,24 @@ LABEL_107:
   }
 
 LABEL_95:
-  if (v24)
+  if (v20)
   {
-    if ((v25 & 1) == 0 || self->_dataSourceType != *(equalCopy + 4))
+    if ((v21 & 1) == 0 || self->_dataSourceType != *(equalCopy + 4))
     {
       goto LABEL_107;
     }
 
-    v27 = 1;
+    v22 = 1;
   }
 
   else
   {
-    v27 = (v25 & 1) == 0;
+    v22 = (v21 & 1) == 0;
   }
 
 LABEL_108:
 
-  return v27;
+  return v22;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1146,7 +1142,6 @@ LABEL_46:
   toCopy = to;
   if ((*&self->_has & 0x40) != 0)
   {
-    position = self->_position;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1168,7 +1163,6 @@ LABEL_46:
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    hasResponseContext = self->_hasResponseContext;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 0x1000) == 0)
@@ -1188,12 +1182,10 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  isResponseContextBlacklisted = self->_isResponseContextBlacklisted;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x800) != 0)
   {
 LABEL_12:
-    isDocumentEmpty = self->_isDocumentEmpty;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1213,17 +1205,15 @@ LABEL_13:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
-    maxTextualResponseItems = self->_maxTextualResponseItems;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
-    maxStructuredInfoItems = self->_maxStructuredInfoItems;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1234,7 +1224,6 @@ LABEL_13:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    numTextualResponseItems = self->_numTextualResponseItems;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1243,17 +1232,15 @@ LABEL_13:
     PBDataWriterWriteStringField();
   }
 
-  v11 = self->_has;
-  if ((v11 & 0x10) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) != 0)
   {
-    numStructuredInfoItems = self->_numStructuredInfoItems;
     PBDataWriterWriteUint32Field();
-    v11 = self->_has;
+    v6 = self->_has;
   }
 
-  if ((v11 & 0x80) != 0)
+  if ((v6 & 0x80) != 0)
   {
-    triggerSourceType = self->_triggerSourceType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1277,16 +1264,15 @@ LABEL_13:
     PBDataWriterWriteStringField();
   }
 
-  v14 = self->_has;
-  if ((v14 & 0x100) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x100) != 0)
   {
-    hasContextBeforeInput = self->_hasContextBeforeInput;
     PBDataWriterWriteBOOLField();
-    v14 = self->_has;
-    if ((v14 & 2) == 0)
+    v7 = self->_has;
+    if ((v7 & 2) == 0)
     {
 LABEL_43:
-      if ((v14 & 0x200) == 0)
+      if ((v7 & 0x200) == 0)
       {
         goto LABEL_44;
       }
@@ -1295,18 +1281,17 @@ LABEL_43:
     }
   }
 
-  else if ((v14 & 2) == 0)
+  else if ((v7 & 2) == 0)
   {
     goto LABEL_43;
   }
 
-  maxPredictionItems = self->_maxPredictionItems;
   PBDataWriterWriteUint32Field();
-  v14 = self->_has;
-  if ((v14 & 0x200) == 0)
+  v7 = self->_has;
+  if ((v7 & 0x200) == 0)
   {
 LABEL_44:
-    if ((v14 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
       goto LABEL_46;
     }
@@ -1315,12 +1300,10 @@ LABEL_44:
   }
 
 LABEL_54:
-  hasRecipientNames = self->_hasRecipientNames;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
 LABEL_45:
-    dataSourceType = self->_dataSourceType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1657,6 +1640,21 @@ LABEL_50:
   return v4;
 }
 
+- (id)triggerSourceTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABE3E8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasTriggerSourceType:(BOOL)type
 {
   if (type)
@@ -1746,6 +1744,21 @@ LABEL_50:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)dataSourceTypeAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABE390[string];
   }
 
   return v4;

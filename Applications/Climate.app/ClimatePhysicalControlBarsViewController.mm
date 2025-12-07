@@ -9,7 +9,7 @@
 {
   if (_swiftEmptyArrayStorage >> 62 && _CocoaArrayWrapper.endIndex.getter())
   {
-    v4 = sub_100027E1C(_swiftEmptyArrayStorage);
+    sub_100027E1C(_swiftEmptyArrayStorage);
   }
 
   else

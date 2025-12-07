@@ -9,15 +9,15 @@
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
   succinctDescriptionBuilder = [(BKSAbstractDefaults *)self succinctDescriptionBuilder];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __61__BKSAbstractDefaults_descriptionBuilderWithMultilinePrefix___block_invoke;
-  v10[3] = &unk_1E6F47C78;
-  v10[4] = self;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __61__BKSAbstractDefaults_descriptionBuilderWithMultilinePrefix___block_invoke;
+  v13 = &unk_1E6F47C78;
+  selfCopy = self;
   v5 = succinctDescriptionBuilder;
-  v11 = v5;
-  v6 = [v5 modifyBody:v10];
-  v7 = v11;
+  v15 = v5;
+  v6 = [v5 modifyBody:{v10, 3221225472, __61__BKSAbstractDefaults_descriptionBuilderWithMultilinePrefix___block_invoke, &unk_1E6F47C78, selfCopy}];
+  v7 = v15;
   v8 = v5;
 
   return v5;
@@ -26,43 +26,44 @@
 void __61__BKSAbstractDefaults_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)
 {
   outCount = 0;
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = class_copyPropertyList(v3, &outCount);
-  if (v4)
+  v2 = objc_opt_class();
+  v3 = class_copyPropertyList(v2, &outCount);
+  if (v3)
   {
-    v5 = v4;
+    v4 = v3;
     if (outCount)
     {
       for (i = 0; i < outCount; ++i)
       {
-        v7 = v5[i];
-        Name = property_getName(v7);
-        if (Name)
+        v6 = v4[i];
+        if (property_getName(v6))
         {
-          v9 = [MEMORY[0x1E696AEC0] stringWithCString:Name encoding:{objc_msgSend(MEMORY[0x1E696AEC0], "defaultCStringEncoding")}];
-          v10 = property_copyAttributeValue(v7, "G");
-          if (v10)
+          v7 = MEMORY[0x1E696AEC0];
+          [MEMORY[0x1E696AEC0] defaultCStringEncoding];
+          v8 = [v7 stringWithCString:? encoding:?];
+          if (property_copyAttributeValue(v6, "G"))
           {
-            v11 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{objc_msgSend(MEMORY[0x1E696AEC0], "defaultCStringEncoding")}];
+            v9 = MEMORY[0x1E696AEC0];
+            [MEMORY[0x1E696AEC0] defaultCStringEncoding];
+            v10 = [v9 stringWithCString:? encoding:?];
 
-            v9 = v11;
+            v8 = v10;
           }
 
-          v12 = *(a1 + 40);
-          v13 = [*(a1 + 32) valueForKey:v9];
-          v14 = [v12 appendObject:v13 withName:v9];
+          v11 = *(a1 + 40);
+          v12 = [*(a1 + 32) valueForKey:?];
+          v13 = [v11 appendObject:? withName:?];
         }
       }
     }
 
-    free(v5);
+    free(v4);
   }
 }
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(BKSAbstractDefaults *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(BKSAbstractDefaults *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;

@@ -4,6 +4,8 @@
 - (void)close;
 - (void)dealloc;
 - (void)init__WithLong:(int64_t)long withInt:(int)int;
+- (void)seekChildWithInt:(int)int;
+- (void)setLastSkipDataWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneCodecsMultiLevelSkipListReader
@@ -125,6 +127,120 @@ LABEL_19:
   }
 
   return v19 + ~*(&skipInterval->super.size_ + 1);
+}
+
+- (void)seekChildWithInt:(int)int
+{
+  skipStream = self->skipStream_;
+  if (!skipStream)
+  {
+    goto LABEL_25;
+  }
+
+  v4 = *&int;
+  size = skipStream->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  v7 = (&skipStream->elementType_)[int];
+  if (!v7)
+  {
+    goto LABEL_25;
+  }
+
+  [(IOSClass *)v7 seekWithLong:self->lastChildPointer_];
+  numSkipped = self->numSkipped_;
+  v9 = numSkipped->super.size_;
+  v10 = v4 + 1;
+  v11 = v4 + 1;
+  if (v4 + 1 < 0 || v10 >= v9)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v9, v10);
+  }
+
+  skipInterval = self->skipInterval_;
+  if (!skipInterval)
+  {
+    goto LABEL_25;
+  }
+
+  v13 = *(&numSkipped->super.size_ + v11 + 1);
+  v14 = skipInterval->super.size_;
+  if ((v11 & 0x80000000) != 0 || v11 >= v14)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v14, v11);
+  }
+
+  v15 = self->numSkipped_;
+  if (!v15)
+  {
+    goto LABEL_25;
+  }
+
+  v16 = v13 - *(&skipInterval->super.size_ + v11 + 1);
+  v17 = v15->super.size_;
+  if ((v4 & 0x80000000) != 0 || v17 <= v4)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v17, v4);
+  }
+
+  *(&v15->super.size_ + v4 + 1) = v16;
+  skipDoc = self->skipDoc_;
+  if (!skipDoc)
+  {
+    goto LABEL_25;
+  }
+
+  v19 = skipDoc->super.size_;
+  if ((v4 & 0x80000000) != 0 || v19 <= v4)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v19, v4);
+  }
+
+  *(&skipDoc->super.size_ + v4 + 1) = self->lastDoc_;
+  if (v4 >= 1)
+  {
+    v20 = self->skipStream_;
+    v21 = v20->super.size_;
+    if (v21 <= v4)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v21, v4);
+    }
+
+    v22 = (&v20->elementType_)[v4];
+    if (v22)
+    {
+      readVLong = [(IOSClass *)v22 readVLong];
+      skipPointer = self->skipPointer_;
+      if (skipPointer)
+      {
+        v25 = readVLong;
+        v26 = skipPointer->super.size_;
+        if (v26 < v4)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v26, (v4 - 1));
+        }
+
+        childPointer = self->childPointer_;
+        if (childPointer)
+        {
+          v28 = childPointer->super.size_;
+          if (v28 <= v4)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v28, v4);
+          }
+
+          childPointer->buffer_[v4] = v25 + skipPointer->buffer_[(v4 - 1)];
+          return;
+        }
+      }
+    }
+
+LABEL_25:
+    JreThrowNullPointerException();
+  }
 }
 
 - (void)close
@@ -416,6 +532,37 @@ LABEL_48:
 
   *(v50 + 16) = getFilePointer2;
   return result;
+}
+
+- (void)setLastSkipDataWithInt:(int)int
+{
+  skipDoc = self->skipDoc_;
+  if (!skipDoc)
+  {
+    goto LABEL_8;
+  }
+
+  size = skipDoc->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  self->lastDoc_ = *(&skipDoc->super.size_ + int + 1);
+  childPointer = self->childPointer_;
+  if (!childPointer)
+  {
+LABEL_8:
+    JreThrowNullPointerException();
+  }
+
+  v7 = childPointer->super.size_;
+  if (int < 0 || v7 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v7, *&int);
+  }
+
+  self->lastChildPointer_ = childPointer->buffer_[int];
 }
 
 - (void)dealloc

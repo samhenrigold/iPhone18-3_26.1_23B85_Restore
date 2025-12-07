@@ -973,26 +973,26 @@ LABEL_13:
 
 - (id)absoluteQuadsWithOwner:(id)owner
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v5 = [WKQuadObject alloc];
+  v9[1] = *MEMORY[0x1E69E9840];
+  v4 = [WKQuadObject alloc];
   if (self)
   {
-    [(DOMHTMLAreaElement *)self absoluteQuadWithOwner:owner];
+    objc_msgSend_absoluteQuadWithOwner_(self);
   }
 
   else
   {
-    memset(v9, 0, sizeof(v9));
+    memset(v8, 0, sizeof(v8));
   }
 
-  v6 = [(WKQuadObject *)v5 initWithQuad:v9];
-  v10[0] = v6;
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-  if (v6)
+  v5 = [(WKQuadObject *)v4 initWithQuad:v8];
+  v9[0] = v5;
+  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  if (v5)
   {
-    v8 = result;
+    v7 = result;
 
-    return v8;
+    return v7;
   }
 
   return result;

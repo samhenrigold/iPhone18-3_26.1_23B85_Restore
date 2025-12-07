@@ -150,19 +150,19 @@ uint64_t __42___UIFloatingTabBar__indexPathForTabItem___block_invoke(uint64_t a1
   v8 = v7;
   if (v6 == v7)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
     if (v6 && v7)
     {
-      v9 = [v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  return v9;
+  return isEqual;
 }
 
 void __66___UIFloatingTabBar__updateSelectionViewFrameAnimated_completion___block_invoke(uint64_t a1)
@@ -258,7 +258,7 @@ void __50___UIFloatingTabBar_selectionFrameGroupCompletion__block_invoke(uint64_
   }
 }
 
-unint64_t __50___UIFloatingTabBar__pageIndexForItemAtIndexPath___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50___UIFloatingTabBar__pageIndexForItemAtIndexPath___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = *(a1 + 40);
   result = [a2 range];

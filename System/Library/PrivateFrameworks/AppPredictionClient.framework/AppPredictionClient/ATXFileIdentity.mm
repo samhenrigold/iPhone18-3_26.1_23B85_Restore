@@ -19,7 +19,7 @@
   v7 = v6;
   if (!v5 || v6)
   {
-    v9 = __atxlog_handle_document_predictor();
+    v9 = __atxlog_handle_document_predictor(v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(ATXFileIdentity *)lCopy initWithItemURL:v7, v9];

@@ -730,7 +730,7 @@ void __84__WFSystemOverlayViewController_dismissEmbeddedPlatterWithCompletion_in
   [v3 setAutoresizingMask:0];
 }
 
-uint64_t __84__WFSystemOverlayViewController_dismissEmbeddedPlatterWithCompletion_interruptible___block_invoke_17(uint64_t a1)
+void *__84__WFSystemOverlayViewController_dismissEmbeddedPlatterWithCompletion_interruptible___block_invoke_17(uint64_t a1)
 {
   result = [*(a1 + 32) dismissalPhase];
   if (result == 1)
@@ -2784,7 +2784,7 @@ void __52__WFSystemOverlayViewController_resetLocalIdleTimer__block_invoke(uint6
     v8 = containerView2;
     if (containerView2)
     {
-      [containerView2 transform];
+      objc_msgSend_transform(containerView2);
     }
 
     else

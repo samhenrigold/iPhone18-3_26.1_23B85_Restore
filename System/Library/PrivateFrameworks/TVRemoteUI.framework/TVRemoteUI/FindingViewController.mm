@@ -58,7 +58,7 @@
 
 - (void)session:(id)session didUpdateNearbyObjects:(id)objects
 {
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NINearbyObject);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NINearbyObject, 0x277CD8A58);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   selfCopy = self;

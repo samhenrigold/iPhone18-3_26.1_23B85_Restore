@@ -3233,7 +3233,7 @@ LABEL_11:
 
     _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, v32, v19);
 LABEL_17:
-    [(NSMutableDictionary *)self->_remoteMediaStates setObject:state forKeyedSubscript:type, *v32, *&v32[16], v33, selfCopy2, *v35, *&v35[16]];
+    [(NSMutableDictionary *)self->_remoteMediaStates setObject:state forKeyedSubscript:type, *v32, *&v32[8], v33, selfCopy2, *v35, *&v35[8], *&v35[16], *&v35[24]];
     [-[NSMutableDictionary objectForKeyedSubscript:](self->super._mediaTypeSettingsDict objectForKeyedSubscript:{type), "setRemoteMediaState:", objc_msgSend(state, "unsignedIntValue")}];
     if (unsignedIntValue2)
     {
@@ -3519,7 +3519,7 @@ void __55__VCSessionParticipantRemote_setRemoteMediaTypeStates___block_invoke(ui
   }
 }
 
-uint64_t __55__VCSessionParticipantRemote_setRemoteMediaTypeStates___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__55__VCSessionParticipantRemote_setRemoteMediaTypeStates___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = [*(*(a1 + 32) + 744) objectForKeyedSubscript:a2];
   if (!v6 || (result = [v6 isEqualToNumber:a3], (result & 1) == 0))
@@ -3987,7 +3987,7 @@ uint64_t __49__VCSessionParticipantRemote_setVisibilityIndex___block_invoke(uint
     v5 = [(VCSessionParticipantRemote *)self spatialMetadataEntryForMediaType:0];
     metadataPositionalInfo = [(VCPositionalInfo *)self->_positionalInfo metadataPositionalInfo];
 
-    VCSpatialAudioMetadata_UpdatePositionalInfo(v5, metadataPositionalInfo);
+    VCSpatialAudioMetadata_UpdatePositionalInfo(v5, &metadataPositionalInfo->positionX);
   }
 }
 
@@ -4061,7 +4061,7 @@ uint64_t __49__VCSessionParticipantRemote_setVisibilityIndex___block_invoke(uint
 {
   v4 = [(VCSessionParticipantRemote *)self spatialMetadataEntryForMediaType:0];
 
-  VCSpatialAudioMetadata_UpdatePositionalInfo(v4, info);
+  VCSpatialAudioMetadata_UpdatePositionalInfo(v4, &info->positionX);
 }
 
 - (BOOL)processParticipantInfo
@@ -4837,7 +4837,7 @@ LABEL_18:
 - (BOOL)supportsIDSParticipantIDBasedKeyIndexMatching
 {
   v27 = *MEMORY[0x1E69E9840];
-  if (self->_capabilities.participantType == 1 || !VCFeatureFlagManager_UseShortMKI())
+  if (self->_capabilities.participantType == 1 || !VCFeatureFlagManager_UseShortMKI(self, a2))
   {
     return 0;
   }
@@ -6624,7 +6624,7 @@ LABEL_28:
   return v3;
 }
 
-uint64_t __60__VCSessionParticipantRemote_lastDisplayedFrameRTPTimestamp__block_invoke(uint64_t a1)
+void *__60__VCSessionParticipantRemote_lastDisplayedFrameRTPTimestamp__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "cameraGroups")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6933,30 +6933,30 @@ uint64_t __71__VCSessionParticipantRemote_setVideoStreamDelegate_delegateFunctio
   dispatch_async(participantQueue, block);
 }
 
-uint64_t __49__VCSessionParticipantRemote_updateThermalLevel___block_invoke(uint64_t result)
+void *__49__VCSessionParticipantRemote_updateThermalLevel___block_invoke(void *result)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = result[4];
+  v2 = *(result + 10);
   if (*(v1 + 672) != v2)
   {
     v3 = result;
     *(v1 + 672) = v2;
-    if (objc_opt_class() == *(result + 32))
+    if (objc_opt_class() == result[4])
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        return [*(v3 + 32) updateShouldEnableMLEnhance];
+        return [v3[4] updateShouldEnableMLEnhance];
       }
 
       v5 = VRTraceErrorLogLevelToCSTR();
       v6 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(v3 + 32) updateShouldEnableMLEnhance];
+        return [v3[4] updateShouldEnableMLEnhance];
       }
 
-      v7 = *(v3 + 40);
+      v7 = *(v3 + 10);
       *v15 = 136315906;
       *&v15[4] = v5;
       *&v15[12] = 2080;
@@ -6974,7 +6974,7 @@ uint64_t __49__VCSessionParticipantRemote_updateThermalLevel___block_invoke(uint
     {
       if (objc_opt_respondsToSelector())
       {
-        v4 = [*(v3 + 32) performSelector:sel_logPrefix];
+        v4 = [v3[4] performSelector:sel_logPrefix];
       }
 
       else
@@ -6984,18 +6984,18 @@ uint64_t __49__VCSessionParticipantRemote_updateThermalLevel___block_invoke(uint
 
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        return [*(v3 + 32) updateShouldEnableMLEnhance];
+        return [v3[4] updateShouldEnableMLEnhance];
       }
 
       v11 = VRTraceErrorLogLevelToCSTR();
       v12 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(v3 + 32) updateShouldEnableMLEnhance];
+        return [v3[4] updateShouldEnableMLEnhance];
       }
 
-      v13 = *(v3 + 32);
-      v14 = *(v3 + 40);
+      v13 = v3[4];
+      v14 = *(v3 + 10);
       *v15 = 136316418;
       *&v15[4] = v11;
       *&v15[12] = 2080;
@@ -7014,7 +7014,7 @@ uint64_t __49__VCSessionParticipantRemote_updateThermalLevel___block_invoke(uint
     }
 
     _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, v8, v15, v10);
-    return [*(v3 + 32) updateShouldEnableMLEnhance];
+    return [v3[4] updateShouldEnableMLEnhance];
   }
 
   return result;
@@ -7035,7 +7035,7 @@ uint64_t __49__VCSessionParticipantRemote_updateThermalLevel___block_invoke(uint
   dispatch_async(participantQueue, v5);
 }
 
-uint64_t __47__VCSessionParticipantRemote_setMediaRecorder___block_invoke(uint64_t a1)
+void *__47__VCSessionParticipantRemote_setMediaRecorder___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -7064,7 +7064,7 @@ uint64_t __47__VCSessionParticipantRemote_setMediaRecorder___block_invoke(uint64
           return [v7 setMediaRecorder:*(*(a1 + 32) + 512)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -7244,7 +7244,7 @@ LABEL_32:
 
     _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, v33, v19);
 LABEL_26:
-    [systemAudioGroup removeSyncDestination:{v9, *v33, *&v33[16], v34, selfCopy3, v36}];
+    [systemAudioGroup removeSyncDestination:{v9, *v33, *&v33[8], v34, selfCopy3, v36}];
     [v8 addSyncDestination:v9];
     v27 = v10;
     v28 = 1;
@@ -7507,7 +7507,7 @@ LABEL_12:
 
 - (void)dispatchedReportConnectionTimingWithStreamGroup:(id)group
 {
-  v34[3] = *MEMORY[0x1E69E9840];
+  v37[3] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->super._participantQueue);
   if (group)
   {
@@ -7525,48 +7525,48 @@ LABEL_12:
   }
 
   v6 = reportingStreamGroupFromStreamGroupID();
-  v33[0] = @"VCSPIDSID";
+  v36[0] = @"VCSPIDSID";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->super._idsParticipantID];
   uuid = self->super._uuid;
-  v34[0] = v7;
-  v34[1] = uuid;
-  v33[1] = @"VCSPUUID";
-  v33[2] = @"VCMSStreamGroup";
-  v34[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
+  v37[0] = v7;
+  v37[1] = uuid;
+  v36[1] = @"VCSPUUID";
+  v36[2] = @"VCMSStreamGroup";
+  v37[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:3];
   perfTimers = self->_perfTimers;
   reportingAgent = [(VCSessionParticipant *)self reportingAgent];
-  VCPerfTimingUtilsReport(perfTimers, reportingAgent, v11);
-  v12 = micro();
+  VCPerfTimingUtilsReport(perfTimers, reportingAgent, 0, v9, v12);
+  v15 = micro(v13, v14);
   [(TimingCollection *)self->_perfTimers setStartTime:19 forKey:?];
-  [(TimingCollection *)self->_perfTimers setStopTime:19 forKey:v12];
-  [(TimingCollection *)self->_perfTimers setStartTime:23 forKey:v12];
-  [(TimingCollection *)self->_perfTimers setStopTime:23 forKey:v12];
+  [(TimingCollection *)self->_perfTimers setStopTime:19 forKey:v15];
+  [(TimingCollection *)self->_perfTimers setStartTime:23 forKey:v15];
+  [(TimingCollection *)self->_perfTimers setStopTime:23 forKey:v15];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v13 = VRTraceErrorLogLevelToCSTR();
-    v14 = *MEMORY[0x1E6986650];
+    v16 = VRTraceErrorLogLevelToCSTR();
+    v17 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       idsParticipantID = self->super._idsParticipantID;
       [(TimingCollection *)self->_perfTimers totalTimeForKey:19];
-      v17 = v16;
+      v20 = v19;
       [(TimingCollection *)self->_perfTimers totalTimeForKey:23];
-      v19 = 136316674;
-      v20 = v13;
-      v21 = 2080;
-      v22 = "[VCSessionParticipantRemote dispatchedReportConnectionTimingWithStreamGroup:]";
-      v23 = 1024;
-      v24 = 1851;
-      v25 = 2048;
-      v26 = idsParticipantID;
-      v27 = 2048;
-      v28 = v17;
-      v29 = 2048;
-      v30 = v18;
-      v31 = 2080;
-      v32 = FourccToCStr(streamGroupID);
-      _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, "VCSessionParticipantRemote [%s] %s:%d Remote participantID=%llu V2 connection timing=%f, connection timing started=%f clocked by '%s' streamGroup", &v19, 0x44u);
+      v22 = 136316674;
+      v23 = v16;
+      v24 = 2080;
+      v25 = "[VCSessionParticipantRemote dispatchedReportConnectionTimingWithStreamGroup:]";
+      v26 = 1024;
+      v27 = 1851;
+      v28 = 2048;
+      v29 = idsParticipantID;
+      v30 = 2048;
+      v31 = v20;
+      v32 = 2048;
+      v33 = v21;
+      v34 = 2080;
+      v35 = FourccToCStr(streamGroupID);
+      _os_log_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_DEFAULT, "VCSessionParticipantRemote [%s] %s:%d Remote participantID=%llu V2 connection timing=%f, connection timing started=%f clocked by '%s' streamGroup", &v22, 0x44u);
     }
   }
 }
@@ -7877,7 +7877,7 @@ LABEL_39:
   dispatch_sync(participantQueue, block);
 }
 
-uint64_t __57__VCSessionParticipantRemote_collectVideoChannelMetrics___block_invoke(uint64_t a1)
+void *__57__VCSessionParticipantRemote_collectVideoChannelMetrics___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -7900,7 +7900,8 @@ uint64_t __57__VCSessionParticipantRemote_collectVideoChannelMetrics___block_inv
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) collectAndLogChannelMetrics:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) collectAndLogChannelMetrics:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -8165,7 +8166,7 @@ LABEL_15:
 - (void)setVideoDegraded:(BOOL)degraded
 {
   degradedCopy = degraded;
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   isVideoDegraded = self->_isVideoDegraded;
   v6 = objc_opt_class();
   if (isVideoDegraded != degradedCopy)
@@ -8184,14 +8185,14 @@ LABEL_15:
         goto LABEL_24;
       }
 
-      *v26 = 136315906;
-      *&v26[4] = v15;
-      *&v26[12] = 2080;
-      *&v26[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
-      *&v26[22] = 1024;
-      LODWORD(v27) = 1982;
-      WORD2(v27) = 1024;
-      *(&v27 + 6) = degradedCopy;
+      *v28 = 136315906;
+      *&v28[4] = v15;
+      *&v28[12] = 2080;
+      *&v28[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
+      *&v28[22] = 1024;
+      LODWORD(v29) = 1982;
+      WORD2(v29) = 1024;
+      *(&v29 + 6) = degradedCopy;
       v17 = "VCSessionParticipantRemote [%s] %s:%d videoDegraded=%d";
       v18 = v16;
       v19 = 34;
@@ -8221,29 +8222,30 @@ LABEL_15:
         goto LABEL_24;
       }
 
-      *v26 = 136316418;
-      *&v26[4] = v23;
-      *&v26[12] = 2080;
-      *&v26[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
-      *&v26[22] = 1024;
-      LODWORD(v27) = 1982;
-      WORD2(v27) = 2112;
-      *(&v27 + 6) = v8;
-      HIWORD(v27) = 2048;
+      *v28 = 136316418;
+      *&v28[4] = v23;
+      *&v28[12] = 2080;
+      *&v28[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
+      *&v28[22] = 1024;
+      LODWORD(v29) = 1982;
+      WORD2(v29) = 2112;
+      *(&v29 + 6) = v8;
+      HIWORD(v29) = 2048;
       selfCopy2 = self;
-      LOWORD(v29) = 1024;
-      *(&v29 + 2) = degradedCopy;
+      LOWORD(v31) = 1024;
+      *(&v31 + 2) = degradedCopy;
       v17 = "VCSessionParticipantRemote [%s] %s:%d %@(%p) videoDegraded=%d";
       v18 = v24;
       v19 = 54;
     }
 
-    _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, v26, v19);
+    _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, v28, v19);
 LABEL_24:
-    streamToken = [(VCMediaStream *)[(VCSessionParticipantMediaStreamInfo *)[(VCSessionParticipantRemote *)self cameraStreamInfo:*v26] stream] streamToken];
-    if (![+[VCDefaults forceDisableVideoDegraded] sharedInstance]
+    streamToken = [(VCMediaStream *)[(VCSessionParticipantMediaStreamInfo *)[(VCSessionParticipantRemote *)self cameraStreamInfo:*v28] stream] streamToken];
+    forceDisableVideoDegraded = [+[VCDefaults sharedInstance](VCDefaults forceDisableVideoDegraded];
+    if ((forceDisableVideoDegraded & 1) == 0)
     {
-      [VCRemoteVideoManager_DefaultManager() remoteVideoDidDegrade:degradedCopy streamToken:streamToken];
+      [VCRemoteVideoManager_DefaultManager(forceDisableVideoDegraded v27)];
     }
 
     self->_isVideoDegraded = degradedCopy;
@@ -8262,19 +8264,19 @@ LABEL_24:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         v11 = self->_isVideoDegraded;
-        *v26 = 136315906;
-        *&v26[4] = v9;
-        *&v26[12] = 2080;
-        *&v26[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
-        *&v26[22] = 1024;
-        LODWORD(v27) = 1978;
-        WORD2(v27) = 1024;
-        *(&v27 + 6) = v11;
+        *v28 = 136315906;
+        *&v28[4] = v9;
+        *&v28[12] = 2080;
+        *&v28[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
+        *&v28[22] = 1024;
+        LODWORD(v29) = 1978;
+        WORD2(v29) = 1024;
+        *(&v29 + 6) = v11;
         v12 = "VCSessionParticipantRemote [%s] %s:%d Ignoring setVideoDegraded=%d with same value";
         v13 = v10;
         v14 = 34;
 LABEL_18:
-        _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, v26, v14);
+        _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, v28, v14);
       }
     }
   }
@@ -8298,18 +8300,18 @@ LABEL_18:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         v22 = self->_isVideoDegraded;
-        *v26 = 136316418;
-        *&v26[4] = v20;
-        *&v26[12] = 2080;
-        *&v26[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
-        *&v26[22] = 1024;
-        LODWORD(v27) = 1978;
-        WORD2(v27) = 2112;
-        *(&v27 + 6) = v7;
-        HIWORD(v27) = 2048;
+        *v28 = 136316418;
+        *&v28[4] = v20;
+        *&v28[12] = 2080;
+        *&v28[14] = "[VCSessionParticipantRemote setVideoDegraded:]";
+        *&v28[22] = 1024;
+        LODWORD(v29) = 1978;
+        WORD2(v29) = 2112;
+        *(&v29 + 6) = v7;
+        HIWORD(v29) = 2048;
         selfCopy2 = self;
-        LOWORD(v29) = 1024;
-        *(&v29 + 2) = v22;
+        LOWORD(v31) = 1024;
+        *(&v31 + 2) = v22;
         v12 = "VCSessionParticipantRemote [%s] %s:%d %@(%p) Ignoring setVideoDegraded=%d with same value";
         v13 = v21;
         v14 = 54;
@@ -8324,9 +8326,9 @@ LABEL_18:
   degradedCopy = degraded;
   degradeCopy = degrade;
   streamToken = [(VCMediaStream *)[(VCSessionParticipantMediaStreamInfo *)[(VCSessionParticipantRemote *)self cameraStreamInfo] stream] streamToken];
-  v7 = VCRemoteVideoManager_DefaultManager();
+  v8 = VCRemoteVideoManager_DefaultManager(streamToken, v7);
 
-  [v7 networkQualityDidDegrade:degradeCopy isLocalNetworkQualityDegraded:degradedCopy streamToken:streamToken];
+  [v8 networkQualityDidDegrade:degradeCopy isLocalNetworkQualityDegraded:degradedCopy streamToken:streamToken];
 }
 
 - (void)setRemoteMediaStalled:(BOOL)stalled
@@ -9632,7 +9634,7 @@ uint64_t __42__VCSessionParticipantRemote_mediaEntries__block_invoke(uint64_t a1
 - (void)setMediaSuspended:(BOOL)suspended forStreamToken:(id)token
 {
   suspendedCopy = suspended;
-  v6 = VCRemoteVideoManager_DefaultManager();
+  v6 = VCRemoteVideoManager_DefaultManager(self, a2);
   unsignedIntValue = [token unsignedIntValue];
 
   [v6 remoteVideoDidSuspend:suspendedCopy streamToken:unsignedIntValue];
@@ -11901,14 +11903,14 @@ LABEL_19:
   dispatch_async(participantQueue, block);
 }
 
-uint64_t __53__VCSessionParticipantRemote_setLowPowerModeEnabled___block_invoke(uint64_t result)
+unsigned __int8 *__53__VCSessionParticipantRemote_setLowPowerModeEnabled___block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 538) != v2)
   {
     *(v1 + 538) = v2;
-    return [*(result + 32) updateShouldEnableMLEnhance];
+    return [*(result + 4) updateShouldEnableMLEnhance];
   }
 
   return result;
@@ -12418,7 +12420,7 @@ LABEL_11:
     }
   }
 
-  v14 = [(VCSessionParticipantRemote *)self setShouldEnableMLEnhance:v3 streamWithVideoResolution:4 videoStreamGroup:videoGroup, *v25, *&v25[16], *v26, *&v26[16], streamToken, v28];
+  v14 = [(VCSessionParticipantRemote *)self setShouldEnableMLEnhance:v3 streamWithVideoResolution:4 videoStreamGroup:videoGroup, *v25, *&v25[8], *v26, *&v26[16], streamToken, v28];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -12570,7 +12572,7 @@ LABEL_11:
     }
   }
 
-  v14 = [(VCSessionParticipantRemote *)self setShouldEnableMLEnhance:v3 streamWithVideoResolution:11 videoStreamGroup:videoGroup, *v25, *&v25[16], *v26, *&v26[16], streamToken, v28];
+  v14 = [(VCSessionParticipantRemote *)self setShouldEnableMLEnhance:v3 streamWithVideoResolution:11 videoStreamGroup:videoGroup, *v25, *&v25[8], *v26, *&v26[16], streamToken, v28];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -13176,7 +13178,7 @@ LABEL_11:
     }
   }
 
-  return [a2 vcSessionParticipantFetchStreamGroupState:{*(a1 + 32), *v14, *&v14[16], v15, v16}];
+  return [a2 vcSessionParticipantFetchStreamGroupState:{*(a1 + 32), *v14, *&v14[8], v15, v16}];
 }
 
 void __55__VCSessionParticipantRemote_createAndResumeFetchTimer__block_invoke_181(uint64_t a1)
@@ -13269,8 +13271,9 @@ LABEL_13:
   isVideoExpected = self->_isVideoExpected;
   if (isVideoExpected != [(VCSessionParticipantRemote *)self isVideoExpected])
   {
-    self->_isVideoExpected = [(VCSessionParticipantRemote *)self isVideoExpected];
-    self->_lastVideoExpectationSwitch = micro();
+    isVideoExpected = [(VCSessionParticipantRemote *)self isVideoExpected];
+    self->_isVideoExpected = isVideoExpected;
+    self->_lastVideoExpectationSwitch = micro(isVideoExpected, v7);
   }
 
   if (!stall && self->_isRemoteMediaStalled && !self->_isVideoExpected)
@@ -13602,7 +13605,7 @@ LABEL_14:
     return;
   }
 
-  v13 = OUTLINED_FUNCTION_48(isAudioActive, v6, v7, v8, v9, v10, v11, v12, v37, v39);
+  v13 = OUTLINED_FUNCTION_48(isAudioActive, v6, v7, v8, v9, v10, v11, v12, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55);
   if (!v13)
   {
 LABEL_11:
@@ -13628,7 +13631,7 @@ LABEL_22:
         }
 
 LABEL_26:
-        VCTerminateProcess(@"Missing audio entries", @"VCSessionParticipantRemote", [(VCSessionParticipant *)self reportingAgent]);
+        VCTerminateProcess(@"Missing audio entries", @"VCSessionParticipantRemote", [(VCSessionParticipant *)self reportingAgent], 69);
         return;
       }
 
@@ -13715,7 +13718,7 @@ LABEL_4:
 
     if (v14 == ++v16)
     {
-      v14 = OUTLINED_FUNCTION_48(streamGroupID, v19, v20, v21, v22, v23, v24, v25, v38, v40);
+      v14 = OUTLINED_FUNCTION_48(streamGroupID, v19, v20, v21, v22, v23, v24, v25, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56);
       if (v14)
       {
         goto LABEL_4;
@@ -15076,7 +15079,7 @@ LABEL_9:
   OUTLINED_FUNCTION_39_0();
 }
 
-- (void)setupStreamConfigWithCodecs:(uint64_t)a3 streamConfig:(uint64_t)a4 codecConfigs:(uint64_t)a5 featureStringsDict:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, int a10, int a11, __int16 a12, uint64_t a13, __int128 a14, int a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+- (void)setupStreamConfigWithCodecs:(uint64_t)a3 streamConfig:(uint64_t)a4 codecConfigs:(uint64_t)a5 featureStringsDict:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11, __int16 a12, uint64_t a13, __int128 a14, int a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   OUTLINED_FUNCTION_40_0();
   a24 = v25;

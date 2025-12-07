@@ -1,5 +1,6 @@
 @interface RPCaptureManager
 + (id)sharedInstance;
+- (BOOL)updateAVAudioSessionMuteState:(BOOL)state;
 - (CGAffineTransform)cameraTransformForHQLR;
 - (RPCaptureManager)init;
 - (unsigned)getActiveCallSessionID;
@@ -13,7 +14,10 @@
 - (void)setAVAudioSessionCategory;
 - (void)setAVAudioSessionCategoryForHQLR;
 - (void)setSystemBroadcastHostBundleId:(id)id;
+- (void)startAppAudioCaptureForSystemRecording:(BOOL)recording processID:(int)d contextIDs:(id)ds outputHandler:(id)handler didStartHandler:(id)startHandler;
+- (void)startCameraCaptureWithDispatchGroup:(id)group usingCamera:(BOOL)camera;
 - (void)startCaptureForDelegate:(id)delegate forProcessID:(int)d shouldStartMicrophoneCapture:(BOOL)capture windowSize:(CGSize)size captureType:(int)type contextIDs:(id)ds mixedRealityCamera:(BOOL)camera systemCapture:(BOOL)self0 didStartHandler:(id)self1;
+- (void)startCaptureManagersForProcessID:(int)d windowSize:(CGSize)size captureType:(int)type contextIDs:(id)ds mixedRealityCamera:(BOOL)camera systemCapture:(BOOL)capture dispatchGroup:(id)group;
 - (void)startHQLRCaptureForDelegate:(id)delegate micDeviceID:(id)d cameraDeviceID:(id)iD windowSize:(CGSize)size audioOnly:(BOOL)only didStartHandler:(id)handler;
 - (void)startHQLRMicrophoneCaptureWithDispatchGroup:(id)group;
 - (void)startMicrophoneCaptureWithDispatchGroup:(id)group;
@@ -167,6 +171,41 @@
   [(RPMicAudioCaptureManager *)micAudioCaptureManager startHQLRMicrophoneCaptureWithOutput:v9 didStartHandler:v7];
 }
 
+- (void)startAppAudioCaptureForSystemRecording:(BOOL)recording processID:(int)d contextIDs:(id)ds outputHandler:(id)handler didStartHandler:(id)startHandler
+{
+  v9 = *&d;
+  recordingCopy = recording;
+  dsCopy = ds;
+  handlerCopy = handler;
+  startHandlerCopy = startHandler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = 136446722;
+    v23 = "[RPCaptureManager startAppAudioCaptureForSystemRecording:processID:contextIDs:outputHandler:didStartHandler:]";
+    v24 = 1024;
+    v25 = 133;
+    v26 = 1024;
+    v27 = v9;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d pid %d", &v22, 0x18u);
+  }
+
+  firstObject = [dsCopy firstObject];
+  v16 = [RPAppAudioCaptureManager audioCaptureConfigForSystemRecording:recordingCopy processID:v9 contextID:firstObject];
+  v18 = v17;
+
+  appAudioCaptureManager = self->_appAudioCaptureManager;
+  v20 = v18;
+  v21 = v20;
+  if (appAudioCaptureManager)
+  {
+    [(RPAppAudioCaptureManager *)appAudioCaptureManager startWithConfig:v16 outputHandler:v18 didStartHandler:handlerCopy, startHandlerCopy];
+  }
+
+  else
+  {
+  }
+}
+
 - (void)restartAppAudioCaptureForProcessID:(int)d
 {
   if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -310,6 +349,47 @@
   }
 
   _Block_object_dispose(buf, 8);
+}
+
+- (void)startCaptureManagersForProcessID:(int)d windowSize:(CGSize)size captureType:(int)type contextIDs:(id)ds mixedRealityCamera:(BOOL)camera systemCapture:(BOOL)capture dispatchGroup:(id)group
+{
+  captureCopy = capture;
+  cameraCopy = camera;
+  v12 = *&type;
+  height = size.height;
+  width = size.width;
+  v15 = *&d;
+  groupCopy = group;
+  dsCopy = ds;
+  dispatch_group_enter(groupCopy);
+  self->_mixedRealityCamera = cameraCopy;
+  screenCaptureManager = self->_screenCaptureManager;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10005AB30;
+  v27[3] = &unk_1000A28F0;
+  v27[4] = self;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10005ABC4;
+  v25[3] = &unk_1000A1BC0;
+  v20 = groupCopy;
+  v26 = v20;
+  [(RPScreenCaptureManager *)screenCaptureManager startSessionWithPID:v15 windowSize:v12 captureType:dsCopy contextIDs:cameraCopy mixedRealityCamera:captureCopy systemCapture:v27 outputHandler:width didStartHandler:height, v25];
+  [(RPCaptureManager *)self setAVAudioSessionCategory];
+  dispatch_group_enter(v20);
+  v23 = v20;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10005ACA4;
+  v24[3] = &unk_1000A2880;
+  v24[4] = self;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10005AD3C;
+  v22[3] = &unk_1000A1BC0;
+  v21 = v20;
+  [(RPCaptureManager *)self startAppAudioCaptureForSystemRecording:captureCopy processID:v15 contextIDs:dsCopy outputHandler:v24 didStartHandler:v22];
 }
 
 - (void)updateContextIDs:(id)ds forProcessID:(int)d systemRecording:(BOOL)recording
@@ -571,6 +651,59 @@ LABEL_21:
     observer2 = [(RPCaptureManager *)self observer];
     [v5 removeObserver:observer2];
   }
+}
+
+- (BOOL)updateAVAudioSessionMuteState:(BOOL)state
+{
+  stateCopy = state;
+  v4 = +[AVAudioSession sharedInstance];
+  v8 = 0;
+  v5 = [v4 muteSessionInput:stateCopy error:&v8];
+  v6 = v8;
+
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136447234;
+    v10 = "[RPCaptureManager updateAVAudioSessionMuteState:]";
+    v11 = 1024;
+    v12 = 485;
+    v13 = 1024;
+    v14 = stateCopy;
+    v15 = 1024;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Attempted to update audio session mute state. mute=%d, success=%d, error=%@", buf, 0x28u);
+  }
+
+  return v5;
+}
+
+- (void)startCameraCaptureWithDispatchGroup:(id)group usingCamera:(BOOL)camera
+{
+  cameraCopy = camera;
+  groupCopy = group;
+  if (!self->_cameraCaptureManager)
+  {
+    v7 = objc_alloc_init(RPCameraCaptureManager);
+    cameraCaptureManager = self->_cameraCaptureManager;
+    self->_cameraCaptureManager = v7;
+  }
+
+  dispatch_group_enter(groupCopy);
+  v9 = self->_cameraCaptureManager;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10005BD8C;
+  v12[3] = &unk_1000A1088;
+  v13 = groupCopy;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10005BE60;
+  v11[3] = &unk_1000A2880;
+  v11[4] = self;
+  v10 = groupCopy;
+  [(RPCameraCaptureManager *)v9 startWithAppUsingCamera:cameraCopy startHandler:v12 outputHandler:v11];
 }
 
 - (void)processCameraSampleBuffer:(opaqueCMSampleBuffer *)buffer

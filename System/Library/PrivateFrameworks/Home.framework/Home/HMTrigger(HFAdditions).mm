@@ -59,48 +59,48 @@
   selfCopy = self;
   if (objc_opt_isKindOfClass())
   {
-    v3 = selfCopy;
+    v4 = selfCopy;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    creator = [v4 creator];
+    creator = [v5 creator];
     if (creator)
     {
 
 LABEL_10:
-      events = [v4 events];
-      v6 = [events na_any:&__block_literal_global_19_5];
+      events = [v5 events];
+      v7 = [events na_any:&__block_literal_global_19_5];
 
       goto LABEL_11;
     }
 
-    events2 = [v4 events];
-    v8 = [events2 na_all:&__block_literal_global_16_5];
+    events2 = [v5 events];
+    v9 = [events2 na_all:&__block_literal_global_16_5];
 
-    if ((v8 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
       goto LABEL_10;
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
 LABEL_11:
 
-  return v6;
+  return v7;
 }
 
 - (id)hf_forceDisableReasons

@@ -43,10 +43,10 @@
 
 - (void)updateConstraints
 {
-  v56[3] = *MEMORY[0x1E69E9840];
-  v54.receiver = self;
-  v54.super_class = SWAttributionView;
-  [(SWAttributionView *)&v54 updateConstraints];
+  v55[3] = *MEMORY[0x1E69E9840];
+  v53.receiver = self;
+  v53.super_class = SWAttributionView;
+  [(SWAttributionView *)&v53 updateConstraints];
   constraints = [(SWAttributionView *)self constraints];
   v4 = [constraints count];
 
@@ -72,35 +72,35 @@
     {
       topAnchor = [slAttributionView2 topAnchor];
       topAnchor2 = [(SWAttributionView *)self topAnchor];
-      v48 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v55[0] = v48;
+      v47 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v54[0] = v47;
       slAttributionView3 = [(SWAttributionView *)self slAttributionView];
       bottomAnchor = [slAttributionView3 bottomAnchor];
       bottomAnchor2 = [(SWAttributionView *)self bottomAnchor];
-      v53 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v55[1] = v53;
+      v52 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v54[1] = v52;
       slAttributionView4 = [(SWAttributionView *)self slAttributionView];
       leadingAnchor = [slAttributionView4 leadingAnchor];
       leadingAnchor2 = [(SWAttributionView *)self leadingAnchor];
-      v50 = [leadingAnchor constraintEqualToAnchor:?];
-      v55[2] = v50;
+      v49 = [leadingAnchor constraintEqualToAnchor:?];
+      v54[2] = v49;
       slAttributionView5 = [(SWAttributionView *)self slAttributionView];
       trailingAnchor = [slAttributionView5 trailingAnchor];
       trailingAnchor2 = [(SWAttributionView *)self trailingAnchor];
-      v39 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v55[3] = v39;
+      v38 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v54[3] = v38;
       slAttributionView6 = [(SWAttributionView *)self slAttributionView];
       widthAnchor = [slAttributionView6 widthAnchor];
       widthAnchor2 = [(SWAttributionView *)self widthAnchor];
       v24 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-      v55[4] = v24;
+      v54[4] = v24;
       slAttributionView7 = [(SWAttributionView *)self slAttributionView];
       heightAnchor = [slAttributionView7 heightAnchor];
       [(SWAttributionView *)self heightAnchor];
       v28 = v27 = v12;
       v29 = [heightAnchor constraintEqualToAnchor:v28];
-      v55[5] = v29;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:6];
+      v54[5] = v29;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:6];
       v31 = v30 = array;
       [v30 addObjectsFromArray:v31];
 
@@ -115,7 +115,7 @@
       widthAnchor5 = bottomAnchor;
 
       widthAnchor3 = topAnchor;
-      widthAnchor4 = v48;
+      widthAnchor4 = v47;
     }
 
     else
@@ -123,21 +123,21 @@
       widthAnchor3 = [slAttributionView2 widthAnchor];
       [(SWAttributionView *)self preferredMaxLayoutWidth];
       v14 = [widthAnchor3 constraintEqualToConstant:?];
-      v56[0] = v14;
+      v55[0] = v14;
       widthAnchor4 = [(SWAttributionView *)self widthAnchor];
       slAttributionView8 = [(SWAttributionView *)self slAttributionView];
       widthAnchor5 = [slAttributionView8 widthAnchor];
       v18 = [widthAnchor4 constraintEqualToAnchor:widthAnchor5];
-      v56[1] = v18;
+      v55[1] = v18;
       heightAnchor2 = [(SWAttributionView *)self heightAnchor];
       slAttributionView4 = [(SWAttributionView *)self slAttributionView];
       heightAnchor3 = [slAttributionView4 heightAnchor];
-      v53 = heightAnchor2;
+      v52 = heightAnchor2;
       v21 = heightAnchor2;
       v22 = heightAnchor3;
       leadingAnchor2 = [v21 constraintEqualToAnchor:heightAnchor3];
-      v56[2] = leadingAnchor2;
-      v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
+      v55[2] = leadingAnchor2;
+      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
       [array addObjectsFromArray:?];
     }
   }
@@ -152,8 +152,6 @@
     constraints4 = [(SWAttributionView *)self constraints];
     [v34 activateConstraints:constraints4];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)intrinsicContentSize
@@ -280,7 +278,6 @@
 
 - (void)setPreferredMaxLayoutWidth:(CGFloat)preferredMaxLayoutWidth
 {
-  v5 = self->_preferredMaxLayoutWidth;
   if ((SL_CGFloatApproximatelyEqualToFloat() & 1) == 0)
   {
     [(SWAttributionView *)self setTranslatesAutoresizingMaskIntoConstraints:preferredMaxLayoutWidth == 0.0];

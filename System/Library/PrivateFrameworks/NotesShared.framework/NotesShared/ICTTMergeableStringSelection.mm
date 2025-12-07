@@ -263,7 +263,8 @@ LABEL_16:
   dataCopy = data;
   topotext::Selection::Selection(v10);
   bytes = [dataCopy bytes];
-  v6 = ICTTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v10, bytes, v6))
   {
     self = [(ICTTMergeableStringSelection *)self initWithArchive:v10];
@@ -348,12 +349,12 @@ LABEL_16:
         }
 
         v22 = v16;
-        v25 = v22;
-        v26 = v17;
+        v29 = v22;
+        v30 = v17;
         v23 = tTZero;
-        v27 = v23;
-        v28 = v19;
-        std::vector<std::pair<TopoID,TopoID>>::push_back[abi:ne200100](&v4->_selectionRanges.__begin_, &v25);
+        v31 = v23;
+        v32 = v19;
+        std::vector<std::pair<TopoID,TopoID>>::push_back[abi:ne200100](&v4->_selectionRanges, &v29, v24, v25, v26, v27);
       }
     }
 
@@ -383,7 +384,7 @@ LABEL_16:
     {
       if (v10 == *(archive + 20))
       {
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 64, v10 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 16, v10 + 1);
       }
 
       google::protobuf::internal::GenericTypeHandler<topotext::Selection_Range>::New();
@@ -465,7 +466,7 @@ LABEL_16:
         {
           if (v29 == *(archive + 14))
           {
-            v28 = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 40, v29 + 1);
+            v28 = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 10, v29 + 1);
           }
 
           google::protobuf::internal::StringTypeHandlerBase::New(v28);
@@ -529,15 +530,17 @@ uint64_t __46__ICTTMergeableStringSelection_saveToArchive___block_invoke(uint64_
 
 - (id)serialize
 {
-  topotext::Selection::Selection(v7);
-  [(ICTTMergeableStringSelection *)self saveToArchive:v7];
-  v3 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::Selection::ByteSize(v7)];
-  mutableBytes = [v3 mutableBytes];
-  v5 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v3 length]);
-  google::protobuf::MessageLite::SerializeToArray(v7, mutableBytes, v5);
-  topotext::Selection::~Selection(v7);
+  topotext::Selection::Selection(v9);
+  [(ICTTMergeableStringSelection *)self saveToArchive:v9];
+  v3 = objc_alloc(MEMORY[0x277CBEB28]);
+  v5 = [v3 initWithLength:{topotext::Selection::ByteSize(v9, v4)}];
+  mutableBytes = [v5 mutableBytes];
+  [v5 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  google::protobuf::MessageLite::SerializeToArray(v9, mutableBytes, v7);
+  topotext::Selection::~Selection(v9);
 
-  return v3;
+  return v5;
 }
 
 - (ICTTMergeableStringSelection)locationOnlySelection

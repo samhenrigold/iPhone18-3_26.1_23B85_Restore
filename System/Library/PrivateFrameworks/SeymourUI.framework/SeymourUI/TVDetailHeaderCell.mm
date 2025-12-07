@@ -14,7 +14,7 @@
   v2 = *(self + OBJC_IVAR____TtC9SeymourUI18TVDetailHeaderCell_buttonStackView);
   selfCopy = self;
   arrangedSubviews = [v2 arrangedSubviews];
-  sub_20B51C88C(0, &qword_27C762910);
+  sub_20B51C88C(0, &qword_27C762910, 0x277D75D18);
   v5 = sub_20C13CC74();
 
   if (v5 >> 62)

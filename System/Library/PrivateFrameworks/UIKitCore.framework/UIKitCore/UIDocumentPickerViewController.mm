@@ -46,11 +46,11 @@
     v8 = MEMORY[0x1E6982C40];
     firstObject = [(NSArray *)v7 firstObject];
     v10 = [v8 typeWithIdentifier:firstObject];
-    v11 = [v10 isEqual:*MEMORY[0x1E6982DC8]];
+    isEqual = objc_msgSend_isEqual_(v10);
 
     if (mode != UIDocumentPickerModeOpen)
     {
-      if (v11)
+      if (isEqual)
       {
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
         [currentHandler2 handleFailureInMethod:a2 object:self file:@"UIDocumentPickerViewController.m" lineNumber:118 description:{@"%s folder import is not supported, use open", "-[UIDocumentPickerViewController initWithDocumentTypes:inMode:]"}];
@@ -91,9 +91,9 @@
         v4 = MEMORY[0x1E6982C40];
         firstObject = [v22 firstObject];
         v6 = [v4 typeWithIdentifier:firstObject];
-        v7 = [v6 isEqual:*MEMORY[0x1E6982DC8]];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (v7)
+        if (isEqual)
         {
           configurationForFolderPicking = [getDOCConfigurationClass() configurationForFolderPicking];
 LABEL_15:

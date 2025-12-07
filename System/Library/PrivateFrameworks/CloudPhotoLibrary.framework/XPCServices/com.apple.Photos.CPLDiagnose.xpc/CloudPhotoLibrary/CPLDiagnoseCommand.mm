@@ -11,6 +11,9 @@
 - (BOOL)_path:(id)_path existsInFileIdentifiersAddIfNot:(id)not;
 - (BOOL)_url:(id)_url existsInFileIdentifiersAddIfNot:(id)not;
 - (BOOL)_wrapperStatusMatchesLibraryFilterRegExp:(id)exp;
+- (BOOL)collectOutputOfCommand:(id)command label:(id)label filename:(id)filename outputIsStderr:(BOOL)stderr timeout:(BOOL)timeout;
+- (BOOL)collectOutputOfCommandAndArguments:(id)arguments label:(id)label filename:(id)filename outputIsStderr:(BOOL)stderr timeout:(BOOL)timeout;
+- (BOOL)collectOutputOfTask:(id)task label:(id)label filename:(id)filename outputIsStderr:(BOOL)stderr timeout:(BOOL)timeout;
 - (BOOL)createBaseFolderAndLogFile;
 - (BOOL)parseCommandOptionsWithArgc:(int)argc argv:(char *)argv;
 - (id)_abbreviatedPathForURL:(id)l;
@@ -24,6 +27,7 @@
 - (id)interestingDatabasesForUBFLibraryPath:(id)path isSharingLibrary:(BOOL)library;
 - (id)interestingFilesInDirectoryPath:(id)path withPredicate:(id)predicate;
 - (id)mediaAnalysisSystemDatabasePath;
+- (id)preferencesforDomain:(id)domain withKeys:(id)keys currentUser:(BOOL)user;
 - (id)prependPath:(id)path toStringsInArray:(id)array;
 - (id)processes;
 - (int)execute;
@@ -82,6 +86,7 @@
 - (void)setUserMode:(BOOL)mode;
 - (void)signalProcesses;
 - (void)startDiagnostic;
+- (void)writePreferenceInDomain:(id)domain withKey:(id)key toDirectory:(id)directory currentUser:(BOOL)user;
 @end
 
 @implementation CPLDiagnoseCommand
@@ -219,8 +224,8 @@
   v19 = getopt(argc, argv, "o:l:tdDa:f:LcsSOmPir:nb:") << 24;
   if (v19 != -16777216)
   {
-    v77 = v14;
-    v76 = CPLDiagnosticsInProgressPrefix;
+    v76 = v14;
+    v75 = CPLDiagnosticsInProgressPrefix;
     v20 = 1;
     do
     {
@@ -302,8 +307,8 @@ LABEL_31:
 
             else
             {
-              v83 = lowercaseString;
-              [NSArray arrayWithObjects:&v83 count:1];
+              v82 = lowercaseString;
+              [NSArray arrayWithObjects:&v82 count:1];
             }
             v37 = ;
             v61 = self->_featureAreas;
@@ -341,10 +346,10 @@ LABEL_23:
 
             if ([lowercaseString length])
             {
-              v80 = 0;
+              v79 = 0;
               v47 = +[NSFileManager defaultManager];
-              v48 = [v47 fileExistsAtPath:lowercaseString isDirectory:&v80];
-              v49 = v80;
+              v48 = [v47 fileExistsAtPath:lowercaseString isDirectory:&v79];
+              v49 = v79;
 
               if (v48 && (v49 & 1) != 0)
               {
@@ -383,17 +388,17 @@ LABEL_60:
           }
 
           lastPathComponent = [lowercaseString lastPathComponent];
-          v75 = lastPathComponent;
+          v74 = lastPathComponent;
           if (self->_noAutoSuffix)
           {
             stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
-            [v76 stringByAppendingString:stringByDeletingPathExtension];
+            [v75 stringByAppendingString:stringByDeletingPathExtension];
           }
 
           else
           {
             stringByDeletingPathExtension2 = [lastPathComponent stringByDeletingPathExtension];
-            stringByDeletingPathExtension = [NSString stringWithFormat:@"%@%@-T%@", v76, stringByDeletingPathExtension2, self->_timestamp];
+            stringByDeletingPathExtension = [NSString stringWithFormat:@"%@%@-T%@", v75, stringByDeletingPathExtension2, self->_timestamp];
 
             [stringByDeletingPathExtension stringByAppendingPathExtension:@"cpldiagnostics"];
           }
@@ -420,9 +425,9 @@ LABEL_59:
           {
             v40 = v39;
             v41 = [NSRegularExpression alloc];
-            v79 = 0;
-            v42 = [v41 initWithPattern:v40 options:0 error:&v79];
-            v43 = v79;
+            v78 = 0;
+            v42 = [v41 initWithPattern:v40 options:0 error:&v78];
+            v43 = v78;
             v44 = v43;
             if (v42)
             {
@@ -469,14 +474,13 @@ LABEL_42:
     }
 
     while (v19 != -16777216);
-    v14 = v77;
+    v14 = v76;
     if ((v20 & 1) == 0)
     {
       goto LABEL_80;
     }
   }
 
-  pickInteractively = self->_pickInteractively;
   if (self->_libraryPath)
   {
     if (!self->_pickInteractively && !self->_libraryFilterRegExp)
@@ -486,7 +490,7 @@ LABEL_42:
 
 LABEL_69:
     [(CPLCTLCommand *)self printFormat:@"-l, -i and -r are mutually exclusive"];
-    v63 = 0;
+    v62 = 0;
     if (self->_libraryPath)
     {
       goto LABEL_75;
@@ -502,12 +506,12 @@ LABEL_69:
       goto LABEL_69;
     }
 
-    v63 = 1;
+    v62 = 1;
   }
 
   else
   {
-    v63 = 1;
+    v62 = 1;
   }
 
 LABEL_72:
@@ -517,31 +521,31 @@ LABEL_72:
 LABEL_80:
     toolName = [objc_opt_class() toolName];
     [(CPLCTLCommand *)self printFormat:@"Invalid parameters for %@", toolName];
-    v69 = 0;
+    v68 = 0;
     goto LABEL_81;
   }
 
 LABEL_75:
-  if (!v63)
+  if (!v62)
   {
     goto LABEL_80;
   }
 
 LABEL_76:
-  v64 = +[NSFileManager defaultManager];
-  v65 = [v64 attributesOfItemAtPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/photos" error:0];
+  v63 = +[NSFileManager defaultManager];
+  v64 = [v63 attributesOfItemAtPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/photos" error:0];
 
-  if (v65 && ([v65 fileOwnerAccountID], v66 = objc_claimAutoreleasedReturnValue(), v67 = objc_msgSend(v66, "intValue"), v66, !v67))
+  if (v64 && ([v64 fileOwnerAccountID], v65 = objc_claimAutoreleasedReturnValue(), v66 = objc_msgSend(v65, "intValue"), v65, !v66))
   {
-    v71 = +[NSFileManager defaultManager];
-    v81 = NSFileOwnerAccountName;
-    v82 = @"mobile";
-    v72 = [NSDictionary dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-    v78 = 0;
-    v73 = [v71 setAttributes:v72 ofItemAtPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/photos" error:&v78];
-    toolName = v78;
+    v70 = +[NSFileManager defaultManager];
+    v80 = NSFileOwnerAccountName;
+    v81 = @"mobile";
+    v71 = [NSDictionary dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    v77 = 0;
+    v72 = [v70 setAttributes:v71 ofItemAtPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/photos" error:&v77];
+    toolName = v77;
 
-    if ((v73 & 1) == 0)
+    if ((v72 & 1) == 0)
     {
       localizedDescription2 = [toolName localizedDescription];
       [(CPLCTLCommand *)self printFormat:@"Failed to repair output folder ownership: %@", localizedDescription2];
@@ -553,10 +557,10 @@ LABEL_76:
     toolName = 0;
   }
 
-  v69 = 1;
+  v68 = 1;
 LABEL_81:
 
-  return v69;
+  return v68;
 }
 
 - (id)_determineLibraryPathFromDiagnoseBundleIdentifier:(id)identifier
@@ -1220,17 +1224,8 @@ LABEL_58:
   name = [expCopy name];
   v6 = -[NSRegularExpression firstMatchInString:options:range:](self->_libraryFilterRegExp, "firstMatchInString:options:range:", name, 0, 0, [name length]);
 
-  if (v6)
+  if (v6 || ([expCopy containerIdentifier], v7 = objc_claimAutoreleasedReturnValue(), -[NSRegularExpression firstMatchInString:options:range:](self->_libraryFilterRegExp, "firstMatchInString:options:range:", v7, 0, 0, objc_msgSend(v7, "length")), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8) || (objc_msgSend(expCopy, "uuid"), v9 = objc_claimAutoreleasedReturnValue(), -[NSRegularExpression firstMatchInString:options:range:](self->_libraryFilterRegExp, "firstMatchInString:options:range:", v9, 0, 0, objc_msgSend(v9, "length")), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10))
   {
-    goto LABEL_4;
-  }
-
-  containerIdentifier = [expCopy containerIdentifier];
-  v8 = -[NSRegularExpression firstMatchInString:options:range:](self->_libraryFilterRegExp, "firstMatchInString:options:range:", containerIdentifier, 0, 0, [containerIdentifier length]);
-
-  if (v8 || ([expCopy uuid], v9 = objc_claimAutoreleasedReturnValue(), -[NSRegularExpression firstMatchInString:options:range:](self->_libraryFilterRegExp, "firstMatchInString:options:range:", v9, 0, 0, objc_msgSend(v9, "length")), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10))
-  {
-LABEL_4:
     v11 = 1;
   }
 
@@ -1745,51 +1740,50 @@ LABEL_65:
 - (BOOL)createBaseFolderAndLogFile
 {
   v3 = +[NSFileManager defaultManager];
-  v23[0] = NSFilePosixPermissions;
-  v23[1] = NSFileOwnerAccountName;
-  v24[0] = &off_10003B5C0;
-  v24[1] = @"mobile";
-  v4 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v22[0] = NSFilePosixPermissions;
+  v22[1] = NSFileOwnerAccountName;
+  v23[0] = &off_10003B5C0;
+  v23[1] = @"mobile";
+  v4 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
   uRLByDeletingLastPathComponent = [(NSURL *)self->_outputFile URLByDeletingLastPathComponent];
-  v22 = 0;
-  v6 = [v3 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v4 error:&v22];
-  v7 = v22;
+  v21 = 0;
+  v6 = [v3 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v4 error:&v21];
+  v7 = v21;
   v8 = v7;
   if (v6)
   {
     outputFolder = self->_outputFolder;
-    v21 = v7;
-    v10 = [v3 createDirectoryAtURL:outputFolder withIntermediateDirectories:1 attributes:v4 error:&v21];
-    v11 = v21;
+    v20 = v7;
+    v10 = [v3 createDirectoryAtURL:outputFolder withIntermediateDirectories:1 attributes:v4 error:&v20];
+    v11 = v20;
 
-    v12 = self->_outputFolder;
     if (v10)
     {
-      v13 = [(NSURL *)self->_outputFolder URLByAppendingPathComponent:@"diagnostic.log" isDirectory:0];
-      v14 = fopen([v13 fileSystemRepresentation], "a+");
-      self->_diagnosticLog = v14;
-      if (v14)
+      v12 = [(NSURL *)self->_outputFolder URLByAppendingPathComponent:@"diagnostic.log" isDirectory:0];
+      v13 = fopen([v12 fileSystemRepresentation], "a+");
+      self->_diagnosticLog = v13;
+      if (v13)
       {
-        [(CPLCTLCommand *)self setLogOutputFd:fileno(v14)];
+        [(CPLCTLCommand *)self setLogOutputFd:fileno(v13)];
       }
 
       else
       {
-        v18 = [(CPLDiagnoseCommand *)self _simplifiedPathForURL:v13];
-        v19 = __error();
-        [(CPLCTLCommand *)self printFormat:@"Can't create diagnostic log at %@: %s", v18, strerror(*v19)];
+        v17 = [(CPLDiagnoseCommand *)self _simplifiedPathForURL:v12];
+        v18 = __error();
+        [(CPLCTLCommand *)self printFormat:@"Can't create diagnostic log at %@: %s", v17, strerror(*v18)];
       }
 
-      v16 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v13 = [(CPLDiagnoseCommand *)self _simplifiedPathForURL:self->_outputFolder];
+      v12 = [(CPLDiagnoseCommand *)self _simplifiedPathForURL:self->_outputFolder];
       localizedDescription = [v11 localizedDescription];
-      [(CPLCTLCommand *)self printFormat:@"Can't create %@: %@", v13, localizedDescription];
+      [(CPLCTLCommand *)self printFormat:@"Can't create %@: %@", v12, localizedDescription];
 
-      v16 = 0;
+      v15 = 0;
     }
 
     v8 = v11;
@@ -1797,14 +1791,14 @@ LABEL_65:
 
   else
   {
-    v13 = [(CPLDiagnoseCommand *)self _simplifiedPathForURL:uRLByDeletingLastPathComponent];
+    v12 = [(CPLDiagnoseCommand *)self _simplifiedPathForURL:uRLByDeletingLastPathComponent];
     localizedDescription2 = [v8 localizedDescription];
-    [(CPLCTLCommand *)self printFormat:@"Can't create %@: %@", v13, localizedDescription2];
+    [(CPLCTLCommand *)self printFormat:@"Can't create %@: %@", v12, localizedDescription2];
 
-    v16 = 0;
+    v15 = 0;
   }
 
-  return v16;
+  return v15;
 }
 
 + (BOOL)isAppleInternal
@@ -1981,6 +1975,293 @@ LABEL_10:
     v6 = __error();
     [(CPLCTLCommand *)self printError:@"  error marking purgeable: %s", strerror(*v6)];
   }
+}
+
+- (id)preferencesforDomain:(id)domain withKeys:(id)keys currentUser:(BOOL)user
+{
+  userCopy = user;
+  v8 = &kCFPreferencesCurrentUser;
+  if (!user)
+  {
+    v8 = &kCFPreferencesAnyUser;
+  }
+
+  v9 = *v8;
+  if (domain)
+  {
+    domainCopy = domain;
+  }
+
+  else
+  {
+    domainCopy = kCFPreferencesAnyApplication;
+  }
+
+  keysCopy = keys;
+  domainCopy2 = domain;
+  [(CPLDiagnoseCommand *)self setUserMode:userCopy];
+  v13 = +[NSMutableDictionary dictionary];
+  v14 = CFPreferencesCopyMultiple(keysCopy, domainCopy, v9, kCFPreferencesCurrentHost);
+
+  v15 = CFGetTypeID(v14);
+  if (v15 == CFDictionaryGetTypeID())
+  {
+    [v13 addEntriesFromDictionary:v14];
+  }
+
+  else
+  {
+    [(CPLCTLCommand *)self printFormat:@"  Unable to get preferences"];
+  }
+
+  CFRelease(v14);
+  [(CPLDiagnoseCommand *)self revertToRootMode:userCopy];
+
+  return v13;
+}
+
+- (void)writePreferenceInDomain:(id)domain withKey:(id)key toDirectory:(id)directory currentUser:(BOOL)user
+{
+  userCopy = user;
+  domainCopy = domain;
+  keyCopy = key;
+  directoryCopy = directory;
+  if (keyCopy)
+  {
+    v28 = keyCopy;
+    v13 = [NSArray arrayWithObjects:&v28 count:1];
+    v14 = keyCopy;
+  }
+
+  else
+  {
+    v13 = 0;
+    v14 = @"all";
+  }
+
+  if (domainCopy)
+  {
+    v15 = domainCopy;
+  }
+
+  else
+  {
+    v15 = @"global";
+  }
+
+  [(CPLCTLCommand *)self printFormat:@"- Collecting preferences for domain: %@, key: %@.", v15, v14];
+  v16 = [(CPLDiagnoseCommand *)self preferencesforDomain:domainCopy withKeys:v13 currentUser:userCopy];
+  if (v16)
+  {
+    v17 = @"-";
+    v18 = &stru_100035A18;
+    if (keyCopy)
+    {
+      v18 = keyCopy;
+    }
+
+    else
+    {
+      v17 = &stru_100035A18;
+    }
+
+    v19 = [NSString stringWithFormat:@"%@%@%@", v15, v17, v18];
+    v20 = [v19 stringByAppendingPathExtension:@"plist"];
+    v26 = directoryCopy;
+    v21 = [directoryCopy URLByAppendingPathComponent:v20];
+
+    v22 = [NSPropertyListSerialization dataWithPropertyList:v16 format:100 options:0 error:0];
+    v27 = 0;
+    v23 = [v22 writeToURL:v21 options:0 error:&v27];
+    v24 = v27;
+    v25 = v24;
+    if ((v23 & 1) == 0)
+    {
+      [(CPLCTLCommand *)self printError:@"Failed to write defaults to file (%@): %@", v21, v24];
+    }
+
+    directoryCopy = v26;
+  }
+}
+
+- (BOOL)collectOutputOfCommand:(id)command label:(id)label filename:(id)filename outputIsStderr:(BOOL)stderr timeout:(BOOL)timeout
+{
+  timeoutCopy = timeout;
+  stderrCopy = stderr;
+  filenameCopy = filename;
+  labelCopy = label;
+  v14 = [CPLTask taskWithCommandAndArguments:command];
+  LOBYTE(timeoutCopy) = [(CPLDiagnoseCommand *)self collectOutputOfTask:v14 label:labelCopy filename:filenameCopy outputIsStderr:stderrCopy timeout:timeoutCopy];
+
+  return timeoutCopy;
+}
+
+- (BOOL)collectOutputOfCommandAndArguments:(id)arguments label:(id)label filename:(id)filename outputIsStderr:(BOOL)stderr timeout:(BOOL)timeout
+{
+  timeoutCopy = timeout;
+  stderrCopy = stderr;
+  filenameCopy = filename;
+  labelCopy = label;
+  argumentsCopy = arguments;
+  v15 = objc_alloc_init(CPLTask);
+  [(CPLTask *)v15 setArgv:argumentsCopy];
+
+  LOBYTE(timeoutCopy) = [(CPLDiagnoseCommand *)self collectOutputOfTask:v15 label:labelCopy filename:filenameCopy outputIsStderr:stderrCopy timeout:timeoutCopy];
+  return timeoutCopy;
+}
+
+- (BOOL)collectOutputOfTask:(id)task label:(id)label filename:(id)filename outputIsStderr:(BOOL)stderr timeout:(BOOL)timeout
+{
+  timeoutCopy = timeout;
+  stderrCopy = stderr;
+  taskCopy = task;
+  labelCopy = label;
+  filenameCopy = filename;
+  if (!self->_isAppleInternal)
+  {
+    command = [taskCopy command];
+    if ([command hasPrefix:@"/bin/"])
+    {
+    }
+
+    else
+    {
+      command2 = [taskCopy command];
+      v17 = [command2 hasPrefix:@"/usr/bin/"];
+
+      if ((v17 & 1) == 0)
+      {
+        command3 = [taskCopy command];
+        [(CPLCTLCommand *)self printFormat:@"  * attempt to run %@ on non-internal system *", command3];
+        v35 = 1;
+        goto LABEL_36;
+      }
+    }
+  }
+
+  command3 = +[NSDate date];
+  [taskCopy setCleanupEmptyFiles:1];
+  [taskCopy setCanTimeout:timeoutCopy];
+  if (filenameCopy)
+  {
+    v19 = [(NSURL *)self->_outputFolder URLByAppendingPathComponent:filenameCopy isDirectory:0];
+    path = [v19 path];
+    if (stderrCopy)
+    {
+      [taskCopy setRedirectStderrToFileAtPath:path];
+
+      diagnosticLog = self->_diagnosticLog;
+      if (diagnosticLog)
+      {
+        [taskCopy setRedirectStdoutToFileDescriptor:fileno(diagnosticLog)];
+      }
+    }
+
+    else
+    {
+      [taskCopy setRedirectStdoutToFileAtPath:path];
+    }
+
+    if (stderrCopy)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    v22 = self->_diagnosticLog;
+    if (v22)
+    {
+      [taskCopy setRedirectStdoutToFileDescriptor:fileno(v22)];
+    }
+
+    if (stderrCopy)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  v23 = self->_diagnosticLog;
+  if (v23)
+  {
+    [taskCopy setRedirectStderrToFileDescriptor:fileno(v23)];
+  }
+
+LABEL_17:
+  [(CPLCTLCommand *)self printFormat:@"- %@", labelCopy];
+  v24 = self->_diagnosticLog;
+  if (v24)
+  {
+    isRoot = self->_isRoot;
+    argv = [taskCopy argv];
+    v27 = [argv componentsJoinedByString:@" "];
+    uTF8String = [v27 UTF8String];
+    v29 = 37;
+    if (isRoot)
+    {
+      v29 = 35;
+    }
+
+    fprintf(v24, "  %c %s\n", v29, uTF8String);
+
+    fflush(self->_diagnosticLog);
+  }
+
+  if (filenameCopy)
+  {
+    exec = [taskCopy exec];
+  }
+
+  else
+  {
+    v31 = self->_diagnosticLog;
+    if (v31)
+    {
+      fwrite("--- Beginning ---\n", 0x12uLL, 1uLL, v31);
+      fflush(self->_diagnosticLog);
+    }
+
+    exec = [taskCopy exec];
+    v32 = self->_diagnosticLog;
+    if (v32)
+    {
+      fwrite("--- End ---\n", 0xCuLL, 1uLL, v32);
+      fflush(self->_diagnosticLog);
+    }
+  }
+
+  if (exec == 2)
+  {
+    redirectStdoutToFileAtPath = [taskCopy redirectStdoutToFileAtPath];
+
+    if (redirectStdoutToFileAtPath)
+    {
+      redirectStdoutToFileAtPath2 = [taskCopy redirectStdoutToFileAtPath];
+      [(CPLCTLCommand *)self printFormat:@"  took too long. %@ might end up being incomplete", redirectStdoutToFileAtPath2];
+    }
+
+    else
+    {
+      [(CPLCTLCommand *)self printFormat:@"  took too long."];
+    }
+
+    incompleteTasks = self->incompleteTasks;
+    labelCopy = [NSString stringWithFormat:@"Timed out %@.", labelCopy];
+    [(NSMutableArray *)incompleteTasks addObject:labelCopy];
+  }
+
+  else if (exec == 1)
+  {
+    [(CPLCTLCommand *)self printFormat:@"  failed"];
+  }
+
+  [command3 timeIntervalSinceNow];
+  [(CPLCTLCommand *)self printFormat:@"  elapsed time: %.2fs", fabs(v38)];
+  v35 = exec == 0;
+LABEL_36:
+
+  return v35;
 }
 
 - (void)collectFileListingAtPath:(id)path label:(id)label filename:(id)filename extendedDetail:(BOOL)detail

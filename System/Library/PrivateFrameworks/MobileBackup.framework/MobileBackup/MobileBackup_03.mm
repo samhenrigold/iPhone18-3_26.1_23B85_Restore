@@ -1,85 +1,3 @@
-void sub_100063EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_100063EFC(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_100063F14(void *a1, void *a2)
-{
-  v3 = a1[4];
-  v4 = a1[5];
-  v5 = a2;
-  v6 = [v4 encryptionKey];
-  v7 = a1[9];
-  v8 = [*(a1[6] + 16) hardwareModel];
-  v9 = *(a1[8] + 8);
-  obj = *(v9 + 40);
-  LOBYTE(v3) = [v5 decryptFileWithPath:v3 encryptionKey:v6 size:v7 hardwareModel:v8 error:&obj];
-
-  objc_storeStrong((v9 + 40), obj);
-  *(*(a1[7] + 8) + 24) = v3;
-}
-
-void sub_100064E3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
-{
-  objc_destroyWeak((v19 + 56));
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_100064E78(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = WeakRetained;
-  if (!WeakRetained)
-  {
-LABEL_6:
-    dispatch_group_leave(*(a1 + 32));
-    goto LABEL_10;
-  }
-
-  v4 = atomic_load(WeakRetained + 8);
-  v5 = MBGetDefaultLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
-  {
-    if (v6)
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=cache-delete= Request already cancelled", buf, 2u);
-      _MBLog();
-    }
-
-    goto LABEL_6;
-  }
-
-  if (v6)
-  {
-    v7 = *(a1 + 40);
-    *buf = 138412290;
-    v13 = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=cache-delete= Requesting purge: %@", buf, 0xCu);
-    v9 = *(a1 + 40);
-    _MBLog();
-  }
-
-  v8 = *(a1 + 40);
-  v11 = *(a1 + 48);
-  v10 = *(a1 + 32);
-  v3[2] = CacheDeletePurgeSpaceWithInfo();
-
-LABEL_10:
-}
-
 void sub_100065024(uint64_t a1, void *a2)
 {
   v4 = [a2 objectForKey:@"CACHE_DELETE_AMOUNT"];
@@ -94,23 +12,23 @@ uint64_t MBEnumerateDirectoryNodes(int a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v40[0] = word_10041F730;
-  v40[1] = 0;
-  v41 = dword_10041F734 | 0x20000001;
-  v42 = 0;
-  v43 = unk_10041F73C;
-  v44 = dword_10041F744;
+  v41[0] = word_10041F730;
+  v41[1] = 0;
+  v42 = dword_10041F734 | 0x20000001;
+  v43 = 0;
+  v44 = unk_10041F73C;
+  v45 = dword_10041F744;
   v7 = [v5 mutableBytes];
-  v33 = v5;
+  v34 = v5;
   v8 = [v5 length];
-  v37 = +[NSFileManager defaultManager];
-  v34 = v6;
-  v32 = a1;
-  v9 = getattrlistbulk(a1, v40, v7, v8, 0x29uLL);
+  v38 = +[NSFileManager defaultManager];
+  v35 = v6;
+  v33 = a1;
+  v9 = getattrlistbulk(a1, v41, v7, v8, 0x29uLL);
   if (v9 >= 1)
   {
-    v36 = &v8[v7];
-    v35 = v8;
+    v37 = &v8[v7];
+    v36 = v8;
     do
     {
       v10 = 0;
@@ -124,17 +42,17 @@ uint64_t MBEnumerateDirectoryNodes(int a1, void *a2, void *a3)
         v11 = v7 + v10;
         if (*(v7 + v10 + 24))
         {
-          v27 = v34;
+          v27 = v35;
           v28 = @"getattrlistbulk() enumeration error";
-          goto LABEL_32;
+          goto LABEL_31;
         }
 
         v12 = *v11;
         v13 = objc_autoreleasePoolPush();
-        v14 = v37;
+        v14 = v38;
         v15 = &v11[*(v11 + 7) + 28];
         v16 = *(v11 + 8);
-        if (v15 + v16 > v36)
+        if (v15 + v16 > v37)
         {
           __assert_rtn("_checkedNameFromRef", "MBNode.m", 94, "nameOffset + nameLen <= bufferEnd");
         }
@@ -157,7 +75,7 @@ uint64_t MBEnumerateDirectoryNodes(int a1, void *a2, void *a3)
             *buf = 138412290;
             *&buf[4] = v23;
             _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Unexpected mbNode name: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "Unexpected mbNode name: %@", v23);
           }
 
           if (MBIsInternalInstall())
@@ -168,10 +86,10 @@ uint64_t MBEnumerateDirectoryNodes(int a1, void *a2, void *a3)
               *buf = 138412290;
               *&buf[4] = v23;
               _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "Unexpected mbNode name: %@", buf, 0xCu);
-              goto LABEL_17;
+              _MBLog(@"F ", "Unexpected mbNode name: %@", v23);
             }
 
-            goto LABEL_18;
+            goto LABEL_17;
           }
 
           if (!dword_100421608 && !atomic_fetch_add_explicit(&dword_100421608, 1u, memory_order_relaxed))
@@ -181,54 +99,53 @@ uint64_t MBEnumerateDirectoryNodes(int a1, void *a2, void *a3)
             {
               *buf = 0;
               _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "Unexpected mbNode name", buf, 2u);
-LABEL_17:
-              _MBLog();
+              _MBLog(@"F ", "Unexpected mbNode name", v32);
             }
 
-LABEL_18:
+LABEL_17:
           }
 
           v21 = 0;
-LABEL_22:
+LABEL_21:
 
           objc_autoreleasePoolPop(v13);
-          goto LABEL_23;
+          goto LABEL_22;
         }
 
         v21 = v20;
 
-        v39 = 0;
-        memset(v38, 0, sizeof(v38));
-        v48 = *(v11 + 84);
-        v49 = *(v11 + 100);
-        v50 = *(v11 + 116);
-        v51 = *(v11 + 132);
+        v40 = 0;
+        memset(v39, 0, sizeof(v39));
+        v49 = *(v11 + 84);
+        v50 = *(v11 + 100);
+        v51 = *(v11 + 116);
+        v52 = *(v11 + 132);
         *buf = *(v11 + 36);
-        v46 = *(v11 + 52);
-        v47 = *(v11 + 68);
-        if ((sub_10006593C(buf, v38, v21, 0) & 1) == 0)
+        v47 = *(v11 + 52);
+        v48 = *(v11 + 68);
+        if ((sub_10006593C(buf, v39, v21, 0) & 1) == 0)
         {
-          goto LABEL_22;
+          goto LABEL_21;
         }
 
-        v22 = (*(v34 + 2))(v34, v21, v38, 0);
+        v22 = (*(v35 + 2))(v35, v21, v39, 0);
 
         objc_autoreleasePoolPop(v13);
         if ((v22 & 1) == 0)
         {
           v30 = 0;
-          goto LABEL_33;
+          goto LABEL_32;
         }
 
-LABEL_23:
+LABEL_22:
         v10 += v12;
         --v9;
         v7 = v19;
-        v8 = v35;
+        v8 = v36;
       }
 
       while (v9);
-      v26 = getattrlistbulk(v32, v40, v7, v35, 0x29uLL);
+      v26 = getattrlistbulk(v33, v41, v7, v36, 0x29uLL);
       v9 = v26;
     }
 
@@ -238,8 +155,8 @@ LABEL_23:
   if (v9 < 0)
   {
     v28 = @"getattrlistbulk() error";
-    v27 = v34;
-LABEL_32:
+    v27 = v35;
+LABEL_31:
     v29 = [MBError errorWithErrno:*__error() format:v28];
     (v27)[2](v27, 0, 0, v29);
 
@@ -249,8 +166,8 @@ LABEL_32:
   else
   {
     v30 = 1;
-LABEL_33:
-    v27 = v34;
+LABEL_32:
+    v27 = v35;
   }
 
   return v30;
@@ -631,7 +548,7 @@ void sub_100066A04(id *a1, void *a2, void *a3)
           v28 = 1024;
           v29 = v20;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "copyfile(%@, %@) failed (%d): %{errno}d", buf, 0x22u);
-          _MBLog();
+          _MBLog(@"E ", "copyfile(%@, %@) failed (%d): %{errno}d", v12, v10, v17, v20);
         }
       }
 
@@ -669,19 +586,20 @@ void sub_100067BB0(uint64_t a1, void *a2)
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "=keybag= Failed to save keybag record for %@ to server: %@", buf, 0x16u);
 
       v6 = [*(a1 + 32) keybagUUIDString];
-      _MBLog();
+      _MBLog(@"E ", "=keybag= Failed to save keybag record for %@ to server: %@", v6, v3);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
 }
 
-void sub_10006809C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location, char a26)
+void sub_10006809C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location, ...)
 {
-  objc_destroyWeak((v26 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v25 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v27 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -716,24 +634,24 @@ void sub_10006817C(uint64_t a1, uint64_t a2, void *a3)
     {
       v9 = *(a1 + 32);
       *buf = 138412802;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v5;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=keybag= Keybag %@ fetch operation %{public}@ failed with error: %@", buf, 0x20u);
-      v10 = *(a1 + 32);
-      _MBLog();
+      _MBLog(@"E ", "=keybag= Keybag %@ fetch operation %{public}@ failed with error: %@", *(a1 + 32), v7, v5);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void sub_10006947C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_10006947C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -926,13 +844,13 @@ LABEL_33:
     v42 = v22;
     _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "=keybag= Failed to unlock keybag %@: %@", buf, 0x16u);
 
-    v29 = [*(a1 + 32) keybagUUIDString];
-    _MBLog();
+    v27 = [*(a1 + 32) keybagUUIDString];
+    _MBLog(@"E ", "=keybag= Failed to unlock keybag %@: %@", v27, v22);
   }
 
-  v27 = *(*(a1 + 48) + 8);
-  v28 = *(v27 + 40);
-  *(v27 + 40) = v22;
+  v28 = *(*(a1 + 48) + 8);
+  v29 = *(v28 + 40);
+  *(v28 + 40) = v22;
 }
 
 uint64_t sub_1000699CC(uint64_t result)
@@ -947,9 +865,9 @@ uint64_t sub_1000699CC(uint64_t result)
   return result;
 }
 
-void sub_10006B864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10006B864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -965,8 +883,7 @@ intptr_t sub_10006B918(uint64_t a1, void *a2, void *a3)
       *buf = 138412290;
       v11 = a2;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Passcode policy evaluation succeeded: %@", buf, 0xCu);
-LABEL_10:
-      _MBLog();
+      _MBLog(@"Df", "Passcode policy evaluation succeeded: %@", a2);
     }
   }
 
@@ -979,7 +896,7 @@ LABEL_10:
       *buf = 138412290;
       v11 = a3;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Skipping passcode policy evaluation: %@", buf, 0xCu);
-      goto LABEL_10;
+      _MBLog(@"E ", "Skipping passcode policy evaluation: %@", a3);
     }
   }
 
@@ -991,7 +908,7 @@ LABEL_10:
       *buf = 138412290;
       v11 = a3;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Passcode policy evaluation failed: %@", buf, 0xCu);
-      goto LABEL_10;
+      _MBLog(@"E ", "Passcode policy evaluation failed: %@", a3);
     }
   }
 
@@ -1149,9 +1066,9 @@ uint64_t sub_1000714E4(void *a1)
   return v2;
 }
 
-void sub_100071CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100071CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1178,11 +1095,12 @@ uint64_t sub_100071D64(uint64_t a1, void *a2, uint64_t a3)
   return 1;
 }
 
-void sub_100072A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_100072A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
+  va_start(va, a35);
   _Block_object_dispose(&a28, 8);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a36, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1195,7 +1113,7 @@ uint64_t sub_100072AFC(uint64_t a1, void *a2)
     *buf = 138412290;
     v8 = v3;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=cloud-backup= Resuming previously uploaded domain: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "=cloud-backup= Resuming previously uploaded domain: %@", v3);
   }
 
   v5 = [*(*(a1 + 32) + 312) resumeInProgressManifest:v3];
@@ -1259,15 +1177,13 @@ void sub_100074398(uint64_t a1, void *a2)
       v5 = *(a1 + 32);
       v6 = *(a1 + 40);
       *buf = 138543874;
-      v12 = v5;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
       v13 = 2112;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v3;
+      v14 = v3;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "=cloud-backup= Failed to delete pending files for manifest %{public}@ (%@): %@", buf, 0x20u);
-      v10 = *(a1 + 40);
-      v9 = *(a1 + 32);
-      _MBLog();
+      _MBLog(@"E ", "=cloud-backup= Failed to delete pending files for manifest %{public}@ (%@): %@", *(a1 + 32), *(a1 + 40), v3);
     }
 
     v7 = [*(a1 + 48) cache];
@@ -1308,10 +1224,9 @@ uint64_t sub_1000744D0(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v96 = v11;
+          v92 = v11;
           _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=cloud-backup= Creating uninstalled domain (%@)", buf, 0xCu);
-          v75 = v11;
-          _MBLog();
+          _MBLog(@"Df", "=cloud-backup= Creating uninstalled domain (%@)", v11);
         }
 
         v23 = [MBDomain uninstalledDomainWithName:v11];
@@ -1326,23 +1241,23 @@ uint64_t sub_1000744D0(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5
       }
 
       v26 = v25;
-      v84 = v20;
+      v80 = v20;
       v27 = objc_alloc_init(MBCKFileChange);
       [(MBCKFileChange *)v27 setDomain:v26];
       [(MBCKFileChange *)v27 setRelativePath:v12];
       [(MBCKFileChange *)v27 setChangeType:a5];
       [(MBCKFileChange *)v27 setShouldCopy:a6];
-      v82 = v26;
-      v83 = v24;
-      v85 = v12;
+      v78 = v26;
+      v79 = v24;
+      v81 = v12;
       if (a5 == 3)
       {
-        v80 = [*(*(a1 + 32) + 312) resumeInProgressManifest:v11];
-        v28 = [(MBCKFileChange *)v80 manifestID];
+        v76 = [*(*(a1 + 32) + 312) resumeInProgressManifest:v11];
+        v28 = [(MBCKFileChange *)v76 manifestID];
         v29 = *(a1 + 40);
-        v92 = 0;
-        v30 = [v29 committedManifestContainsDomain:v11 relativePath:v12 pendingManifestID:v28 error:&v92];
-        v31 = v92;
+        v88 = 0;
+        v30 = [v29 committedManifestContainsDomain:v11 relativePath:v12 pendingManifestID:v28 error:&v88];
+        v31 = v88;
         if (v31)
         {
           v32 = v31;
@@ -1355,11 +1270,11 @@ uint64_t sub_1000744D0(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5
           if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v96 = v27;
-            v97 = 2112;
-            v98 = v28;
+            v92 = v27;
+            v93 = 2112;
+            v94 = v28;
             _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "=cloud-backup= Not uploading deletion marker for uncommitted file %@ pendingManifest %@", buf, 0x16u);
-            _MBLog();
+            _MBLog(@"I ", "=cloud-backup= Not uploading deletion marker for uncommitted file %@ pendingManifest %@", v27, v28);
           }
 
           v55 = [*(a1 + 32) cache];
@@ -1368,12 +1283,12 @@ uint64_t sub_1000744D0(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5
           if (!v32)
           {
             v18 = 1;
-            v33 = v80;
+            v33 = v76;
             goto LABEL_15;
           }
 
 LABEL_14:
-          v33 = v80;
+          v33 = v76;
           v34 = *(*(a1 + 56) + 8);
           v35 = *(v34 + 40);
           *(v34 + 40) = v32;
@@ -1382,9 +1297,9 @@ LABEL_14:
           v18 = 0;
 LABEL_15:
 
-          v37 = v83;
-          v38 = v84;
-LABEL_71:
+          v37 = v79;
+          v38 = v80;
+LABEL_70:
 
           goto LABEL_4;
         }
@@ -1409,21 +1324,21 @@ LABEL_71:
         [(MBCKFileChange *)v27 setAbsolutePath:v45];
       }
 
-      v91 = 0;
+      v87 = 0;
       v46 = *(a1 + 32);
       v47 = *(v46 + 312);
       v48 = *(a1 + 48);
-      v90 = 0;
-      v49 = [v47 addFileChange:v27 batchSave:v48 engine:v46 skipped:&v91 error:&v90];
-      v33 = v90;
+      v86 = 0;
+      v49 = [v47 addFileChange:v27 batchSave:v48 engine:v46 skipped:&v87 error:&v86];
+      v33 = v86;
       if (v49)
       {
-        v50 = v91;
-        v38 = v84;
-        v12 = v85;
-        if (v91)
+        v50 = v87;
+        v38 = v80;
+        v12 = v81;
+        if (v87)
         {
-          goto LABEL_55;
+          goto LABEL_54;
         }
 
         if (a5 == 3)
@@ -1446,7 +1361,7 @@ LABEL_71:
         if (__ROR8__(0xD288CE703AFB7E91 * (*(*(*(a1 + 64) + 8) + 24) + *(*(*(a1 + 80) + 8) + 24)), 4) > 0x68DB8BAC710CBuLL)
         {
           v50 = 0;
-          goto LABEL_55;
+          goto LABEL_54;
         }
 
         v56 = MBGetDefaultLog();
@@ -1456,74 +1371,70 @@ LABEL_71:
           v58 = *(*(*(a1 + 88) + 8) + 24);
           v59 = *(*(*(a1 + 64) + 8) + 24);
           *buf = 134218754;
-          v96 = v57;
-          v97 = 2048;
-          v98 = v58;
-          v99 = 2048;
-          v100 = v59;
-          v101 = 2114;
-          v102 = v11;
+          v92 = v57;
+          v93 = 2048;
+          v94 = v58;
+          v95 = 2048;
+          v96 = v59;
+          v97 = 2114;
+          v98 = v11;
           _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "=cloud-backup= Queued %llu files (%llu) and %llu deletes for %{public}@", buf, 0x2Au);
-          v78 = *(*(*(a1 + 64) + 8) + 24);
-          v79 = v11;
-          v76 = *(*(*(a1 + 80) + 8) + 24);
-          v77 = *(*(*(a1 + 88) + 8) + 24);
-          _MBLog();
+          _MBLog(@"Df", "=cloud-backup= Queued %llu files (%llu) and %llu deletes for %{public}@", *(*(*(a1 + 80) + 8) + 24), *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 64) + 8) + 24), v11);
         }
 
-LABEL_54:
+LABEL_53:
 
-        v50 = v91;
-LABEL_55:
+        v50 = v87;
+LABEL_54:
         v18 = 1;
         if (v50)
         {
-          goto LABEL_70;
+          goto LABEL_69;
         }
 
-        v63 = *(*(*(a1 + 72) + 8) + 24) + *(*(*(a1 + 96) + 8) + 24);
-        if (!v63 || v63 % 0x64)
+        v64 = *(*(*(a1 + 72) + 8) + 24) + *(*(*(a1 + 96) + 8) + 24);
+        if (!v64 || v64 % 0x64)
         {
-          goto LABEL_70;
+          goto LABEL_69;
         }
 
-        v88 = 0u;
-        v89 = 0u;
-        v86 = 0u;
-        v87 = 0u;
-        v64 = [*(*(a1 + 32) + 312) manifestsByDomainName];
-        v53 = [v64 allValues];
+        v84 = 0u;
+        v85 = 0u;
+        v82 = 0u;
+        v83 = 0u;
+        v65 = [*(*(a1 + 32) + 312) manifestsByDomainName];
+        v53 = [v65 allValues];
 
-        v65 = [v53 countByEnumeratingWithState:&v86 objects:v94 count:16];
-        if (v65)
+        v66 = [v53 countByEnumeratingWithState:&v82 objects:v90 count:16];
+        if (v66)
         {
-          v66 = v65;
-          v81 = v33;
-          v67 = v38;
-          v68 = *v87;
+          v67 = v66;
+          v77 = v33;
+          v68 = v38;
+          v69 = *v83;
           while (2)
           {
-            for (i = 0; i != v66; i = i + 1)
+            for (i = 0; i != v67; i = i + 1)
             {
-              if (*v87 != v68)
+              if (*v83 != v69)
               {
                 objc_enumerationMutation(v53);
               }
 
-              v70 = [*(*(&v86 + 1) + 8 * i) fileUploadError];
-              if (v70)
+              v71 = [*(*(&v82 + 1) + 8 * i) fileUploadError];
+              if (v71)
               {
-                v71 = *(*(a1 + 56) + 8);
-                v72 = *(v71 + 40);
-                *(v71 + 40) = v70;
+                v72 = *(*(a1 + 56) + 8);
+                v73 = *(v72 + 40);
+                *(v72 + 40) = v71;
 
                 v18 = 0;
-                goto LABEL_68;
+                goto LABEL_67;
               }
             }
 
-            v66 = [v53 countByEnumeratingWithState:&v86 objects:v94 count:16];
-            if (v66)
+            v67 = [v53 countByEnumeratingWithState:&v82 objects:v90 count:16];
+            if (v67)
             {
               continue;
             }
@@ -1531,31 +1442,30 @@ LABEL_55:
             break;
           }
 
-LABEL_68:
-          v38 = v67;
-          v33 = v81;
+LABEL_67:
+          v38 = v68;
+          v33 = v77;
         }
 
-LABEL_69:
+LABEL_68:
 
-LABEL_70:
-        v37 = v83;
-        goto LABEL_71;
+LABEL_69:
+        v37 = v79;
+        goto LABEL_70;
       }
 
-      v12 = v85;
+      v12 = v81;
       if ([MBError isError:v33 withCode:4])
       {
         v53 = MBGetDefaultLog();
         if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v96 = v27;
-          v97 = 2112;
-          v98 = v33;
+          v92 = v27;
+          v93 = 2112;
+          v94 = v33;
           _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "=cloud-backup= Deleted since scan: %@ %@", buf, 0x16u);
-LABEL_31:
-          _MBLog();
+          _MBLog(@"E ", "=cloud-backup= Deleted since scan: %@ %@", v27, v33);
         }
       }
 
@@ -1566,17 +1476,17 @@ LABEL_31:
           if ([MBError isError:v33 withCode:215])
           {
             v53 = MBGetDefaultLog();
-            v38 = v84;
+            v38 = v80;
             if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v96 = v27;
+              v92 = v27;
               _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "=cloud-backup= Encryption key: %@", buf, 0xCu);
-              _MBLog();
+              _MBLog(@"Df", "=cloud-backup= Encryption key: %@", v27);
             }
 
             v18 = 1;
-            goto LABEL_69;
+            goto LABEL_68;
           }
 
           if ([MBError isError:v33 withCode:13])
@@ -1585,13 +1495,12 @@ LABEL_31:
             if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v96 = v27;
+              v92 = v27;
               _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "=cloud-backup= SQLite file is locked: %@", buf, 0xCu);
-              v76 = v27;
-              _MBLog();
+              _MBLog(@"E ", "=cloud-backup= SQLite file is locked: %@", v27);
             }
 
-            v38 = v84;
+            v38 = v80;
           }
 
           else
@@ -1601,58 +1510,57 @@ LABEL_31:
             v56 = v61;
             if (!v60)
             {
-              v38 = v84;
+              v38 = v80;
               if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v96 = v27;
-                v97 = 2112;
-                v98 = v33;
+                v92 = v27;
+                v93 = 2112;
+                v94 = v33;
                 _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "=cloud-backup= Failed to add %@: %@", buf, 0x16u);
-                _MBLog();
+                _MBLog(@"E ", "=cloud-backup= Failed to add %@: %@", v27, v33);
               }
 
-              v73 = *(*(a1 + 56) + 8);
-              v74 = v33;
+              v74 = *(*(a1 + 56) + 8);
+              v75 = v33;
               v18 = 0;
-              v53 = *(v73 + 40);
-              *(v73 + 40) = v74;
-              goto LABEL_69;
+              v53 = *(v74 + 40);
+              *(v74 + 40) = v75;
+              goto LABEL_68;
             }
 
             if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
             {
               v62 = [MBError descriptionForError:v33 paths:0];
               *buf = 138412546;
-              v96 = v62;
-              v97 = 2112;
-              v98 = v27;
+              v92 = v62;
+              v93 = 2112;
+              v94 = v27;
               _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "=cloud-backup= %@: %@", buf, 0x16u);
 
-              v76 = [MBError descriptionForError:v33 paths:0];
-              v77 = v27;
-              _MBLog();
+              v63 = [MBError descriptionForError:v33 paths:0];
+              _MBLog(@"Df", "=cloud-backup= %@: %@", v63, v27);
             }
 
-            v38 = v84;
+            v38 = v80;
           }
 
-          goto LABEL_54;
+          goto LABEL_53;
         }
 
         v53 = MBGetDefaultLog();
         if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v96 = v27;
+          v92 = v27;
           _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "=cloud-backup= Missing encryption key for %@", buf, 0xCu);
-          goto LABEL_31;
+          _MBLog(@"Df", "=cloud-backup= Missing encryption key for %@", v27);
         }
       }
 
       v18 = 1;
-      v38 = v84;
-      goto LABEL_69;
+      v38 = v80;
+      goto LABEL_68;
     }
   }
 
@@ -1676,81 +1584,73 @@ void sub_100074FE8(uint64_t a1, void *a2)
       v8 = *(*(*(a1 + 96) + 8) + 24);
       v9 = [*(a1 + 32) count];
       *buf = 134219010;
-      v56 = v6;
-      v57 = 2048;
-      v58 = v7;
-      v59 = 2048;
-      v60 = v8;
-      v61 = 2048;
-      v62 = v9;
-      v63 = 2112;
-      v64 = v3;
+      v45 = v6;
+      v46 = 2048;
+      v47 = v7;
+      v48 = 2048;
+      v49 = v8;
+      v50 = 2048;
+      v51 = v9;
+      v52 = 2112;
+      v53 = v3;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "=cloud-backup= Finished uploading %llu files (%llu) and %llu deletes for %lu domains: %@", buf, 0x34u);
-      v10 = *(*(*(a1 + 80) + 8) + 24);
-      v11 = *(*(*(a1 + 88) + 8) + 24);
-      v12 = *(*(*(a1 + 96) + 8) + 24);
-      v46 = [*(a1 + 32) count];
-      v47 = v3;
-      v43 = v11;
-      v44 = v12;
-      v42 = v10;
-      _MBLog();
+      _MBLog(@"E ", "=cloud-backup= Finished uploading %llu files (%llu) and %llu deletes for %lu domains: %@", *(*(*(a1 + 80) + 8) + 24), *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 96) + 8) + 24), [*(a1 + 32) count], v3);
     }
 
     if ([MBError isCKPartialFailureError:v3])
     {
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v13 = [v3 userInfo];
-      v14 = [v13 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-      v15 = [v14 allValues];
+      v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v10 = [v3 userInfo];
+      v11 = [v10 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
+      v12 = [v11 allValues];
 
-      v16 = [v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
-      if (!v16)
+      v13 = [v12 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      if (!v13)
       {
 LABEL_28:
 
         goto LABEL_29;
       }
 
-      v17 = v16;
-      v18 = 0;
-      v19 = 0;
-      v20 = *v51;
+      v14 = v13;
+      v15 = 0;
+      v16 = 0;
+      v17 = *v40;
       do
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v51 != v20)
+          if (*v40 != v17)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v12);
           }
 
-          v22 = *(*(&v50 + 1) + 8 * i);
-          if ([MBError isCKError:v22 withCode:25, v42, v43, v44, v46, v47])
+          v19 = *(*(&v39 + 1) + 8 * i);
+          if ([MBError isCKError:v19 withCode:25])
           {
-            if (v18 & v19)
+            if (v15 & v16)
             {
-              v18 = 1;
-              v19 = 1;
+              v15 = 1;
+              v16 = 1;
             }
 
             else
             {
-              v19 = ![MBError isAssetTooLargeError:v22];
-              v18 = 1;
+              v16 = ![MBError isAssetTooLargeError:v19];
+              v15 = 1;
             }
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
-      while (v17);
+      while (v14);
 
-      if ((v18 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
         goto LABEL_29;
       }
@@ -1762,56 +1662,55 @@ LABEL_28:
       {
 LABEL_29:
         *(*(*(a1 + 104) + 8) + 24) = 0;
-        v37 = [*(a1 + 40) retryStrategy];
-        v38 = [v37 canRetryAfterError:v3];
+        v32 = [*(a1 + 40) retryStrategy];
+        v33 = [v32 canRetryAfterError:v3];
 
-        if (v38)
+        if (v33)
         {
-          v39 = *(a1 + 112);
+          v34 = *(a1 + 112);
         }
 
         else
         {
-          v39 = *(a1 + 120);
+          v34 = *(a1 + 120);
         }
 
-        v40 = *(v39 + 8);
-        v41 = v3;
-        v5 = *(v40 + 40);
-        *(v40 + 40) = v41;
+        v35 = *(v34 + 8);
+        v36 = v3;
+        v5 = *(v35 + 40);
+        *(v35 + 40) = v36;
         goto LABEL_33;
       }
 
-      v19 = ![MBError isAssetTooLargeError:v3];
+      v16 = ![MBError isAssetTooLargeError:v3];
     }
 
-    v29 = MBGetDefaultLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v24 = MBGetDefaultLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v56 = v3;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "=cloud-backup= Resetting pending snapshot ID to clear quota after error: %{public}@", buf, 0xCu);
-      v42 = v3;
-      _MBLog();
+      v45 = v3;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "=cloud-backup= Resetting pending snapshot ID to clear quota after error: %{public}@", buf, 0xCu);
+      _MBLog(@"E ", "=cloud-backup= Resetting pending snapshot ID to clear quota after error: %{public}@", v3);
     }
 
-    v30 = [*(a1 + 40) device];
-    [v30 clearPendingSnapshotFieldsAndRebuildFileChanges:1];
+    v25 = [*(a1 + 40) device];
+    [v25 clearPendingSnapshotFieldsAndRebuildFileChanges:1];
 
-    v31 = [*(a1 + 40) device];
-    v32 = *(a1 + 48);
-    v49 = 0;
-    LODWORD(v30) = [v31 saveWithOperationTracker:v32 error:&v49];
-    v33 = v49;
-    if ((v30 & v19) == 1)
+    v26 = [*(a1 + 40) device];
+    v27 = *(a1 + 48);
+    v38 = 0;
+    LODWORD(v25) = [v26 saveWithOperationTracker:v27 error:&v38];
+    v28 = v38;
+    if ((v25 & v16) == 1)
     {
-      v34 = *(a1 + 56);
-      v35 = *(a1 + 64);
-      v48 = v33;
-      v36 = [v34 resetCacheWithAccount:v35 error:&v48];
-      v15 = v48;
+      v29 = *(a1 + 56);
+      v30 = *(a1 + 64);
+      v37 = v28;
+      v31 = [v29 resetCacheWithAccount:v30 error:&v37];
+      v12 = v37;
 
-      if (v36)
+      if (v31)
       {
         MBExit(1);
       }
@@ -1820,7 +1719,7 @@ LABEL_29:
     else
     {
 
-      v15 = v33;
+      v12 = v28;
     }
 
     goto LABEL_28;
@@ -1828,24 +1727,20 @@ LABEL_29:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(*(*(a1 + 80) + 8) + 24);
-    v24 = *(*(*(a1 + 88) + 8) + 24);
-    v25 = *(*(*(a1 + 96) + 8) + 24);
-    v26 = [*(a1 + 32) count];
+    v20 = *(*(*(a1 + 80) + 8) + 24);
+    v21 = *(*(*(a1 + 88) + 8) + 24);
+    v22 = *(*(*(a1 + 96) + 8) + 24);
+    v23 = [*(a1 + 32) count];
     *buf = 134218752;
-    v56 = v23;
-    v57 = 2048;
-    v58 = v24;
-    v59 = 2048;
-    v60 = v25;
-    v61 = 2048;
-    v62 = v26;
+    v45 = v20;
+    v46 = 2048;
+    v47 = v21;
+    v48 = 2048;
+    v49 = v22;
+    v50 = 2048;
+    v51 = v23;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=cloud-backup= Finished uploading %llu files (%llu) and %llu deletes for %lu domains", buf, 0x2Au);
-    v27 = *(*(*(a1 + 80) + 8) + 24);
-    v28 = *(*(*(a1 + 88) + 8) + 24);
-    v45 = *(*(*(a1 + 96) + 8) + 24);
-    [*(a1 + 32) count];
-    _MBLog();
+    _MBLog(@"Df", "=cloud-backup= Finished uploading %llu files (%llu) and %llu deletes for %lu domains", *(*(*(a1 + 80) + 8) + 24), *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 96) + 8) + 24), [*(a1 + 32) count]);
   }
 
 LABEL_33:
@@ -1855,15 +1750,14 @@ LABEL_33:
 
 void sub_10007899C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v8 = [NSString stringWithFormat:@"%s.wifiQuality", class_getName(v2)];
-  v3 = v8;
-  v4 = [v8 UTF8String];
-  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v6 = dispatch_queue_create(v4, v5);
-  v7 = qword_100421640;
-  qword_100421640 = v6;
+  v1 = objc_opt_class();
+  v7 = [NSString stringWithFormat:@"%s.wifiQuality", class_getName(v1)];
+  v2 = v7;
+  v3 = [v7 UTF8String];
+  v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v5 = dispatch_queue_create(v3, v4);
+  v6 = qword_100421640;
+  qword_100421640 = v5;
 }
 
 void sub_100078A48(uint64_t a1)
@@ -1907,7 +1801,7 @@ void sub_100079AC8(uint64_t a1, void *a2)
       *buf = 138543362;
       v6 = v3;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "MDM request to install restored apps failed: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "MDM request to install restored apps failed: %{public}@", v3);
     }
   }
 
@@ -1918,315 +1812,301 @@ void sub_100079CAC(uint64_t a1)
 {
   atomic_store(0, (*(a1 + 32) + 8));
   v2 = objc_alloc_init(NSMutableDictionary);
-  v3 = *(a1 + 32);
-  v73 = 0;
-  v4 = [objc_opt_class() regularRestoreCoordinatorsAndReturnError:&v73];
-  v5 = v73;
-  if (!v4)
+  v70 = 0;
+  v3 = [objc_opt_class() regularRestoreCoordinatorsAndReturnError:&v70];
+  v4 = v70;
+  if (!v3)
   {
-    v6 = MBGetDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = MBGetDefaultLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v78 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "IX: error enumerateCoordinatorsUsingBlock: %@", buf, 0xCu);
-      v52 = v5;
-      _MBLog();
+      v75 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "IX: error enumerateCoordinatorsUsingBlock: %@", buf, 0xCu);
+      _MBLog(@"E ", "IX: error enumerateCoordinatorsUsingBlock: %@", v4);
     }
   }
 
-  v56 = v5;
-  v54 = v2;
-  v71 = 0u;
-  v72 = 0u;
+  v53 = v4;
+  v51 = v2;
+  v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
-  if (v7)
+  v66 = 0u;
+  v67 = 0u;
+  obj = v3;
+  v6 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v70;
+    v7 = v6;
+    v8 = *v67;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v70 != v9)
+        if (*v67 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v69 + 1) + 8 * i);
-        v12 = [v11 identity];
-        if (!v12)
+        v10 = *(*(&v66 + 1) + 8 * i);
+        v11 = [v10 identity];
+        if (v11)
         {
-          v13 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          if ([*(a1 + 32) shouldObserveCoordinatorWithIdentity:v11])
           {
-            goto LABEL_18;
+            v12 = [v11 bundleID];
+            [v51 setObject:v10 forKeyedSubscript:v12];
           }
 
-          *buf = 138412290;
-          v78 = v11;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "IX: InstallCoordinator %@ had no bundle ID", buf, 0xCu);
-          v52 = v11;
-          goto LABEL_17;
+          else
+          {
+            v12 = MBGetDefaultLog();
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138412290;
+              v75 = v10;
+              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "IX: InstallCoordinator %@ had a bundle ID associated with a different persona", buf, 0xCu);
+              _MBLog(@"Db", "IX: InstallCoordinator %@ had a bundle ID associated with a different persona", v10);
+            }
+          }
         }
 
-        if ([*(a1 + 32) shouldObserveCoordinatorWithIdentity:v12])
+        else
         {
-          v13 = [v12 bundleID];
-          [v54 setObject:v11 forKeyedSubscript:v13];
-          goto LABEL_18;
+          v12 = MBGetDefaultLog();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v75 = v10;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "IX: InstallCoordinator %@ had no bundle ID", buf, 0xCu);
+            _MBLog(@"E ", "IX: InstallCoordinator %@ had no bundle ID", v10);
+          }
         }
-
-        v13 = MBGetDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138412290;
-          v78 = v11;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "IX: InstallCoordinator %@ had a bundle ID associated with a different persona", buf, 0xCu);
-          v52 = v11;
-LABEL_17:
-          _MBLog();
-        }
-
-LABEL_18:
       }
 
-      v8 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
+      v7 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v14 = MBGetDefaultLog();
-  v15 = v54;
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v13 = MBGetDefaultLog();
+  v14 = v51;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [v54 count];
+    v15 = [v51 count];
     *buf = 134217984;
-    v78 = v16;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "IX: Done registering install coordination observers for regular apps (%lu)", buf, 0xCu);
-    v52 = [v54 count];
-    _MBLog();
+    v75 = v15;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "IX: Done registering install coordination observers for regular apps (%lu)", buf, 0xCu);
+    _MBLog(@"Df", "IX: Done registering install coordination observers for regular apps (%lu)", [v51 count]);
   }
 
-  v55 = objc_alloc_init(NSMutableArray);
-  v17 = *(a1 + 32);
-  v68 = v56;
-  v18 = [objc_opt_class() demotedRestoreCoordinatorsAndReturnError:&v68];
-  v19 = v68;
+  v52 = objc_alloc_init(NSMutableArray);
+  v65 = v53;
+  v16 = [objc_opt_class() demotedRestoreCoordinatorsAndReturnError:&v65];
+  v17 = v65;
 
-  if (!v18)
+  if (!v16)
   {
-    v20 = MBGetDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v18 = MBGetDefaultLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v78 = v19;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "IX: error (demoted) enumerateCoordinatorsUsingBlock: %@", buf, 0xCu);
-      v52 = v19;
-      _MBLog();
+      v75 = v17;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "IX: error (demoted) enumerateCoordinatorsUsingBlock: %@", buf, 0xCu);
+      _MBLog(@"E ", "IX: error (demoted) enumerateCoordinatorsUsingBlock: %@", v17);
     }
   }
 
-  v53 = v19;
-  v66 = 0u;
-  v67 = 0u;
+  v50 = v17;
+  v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  v58 = v18;
-  v21 = [v58 countByEnumeratingWithState:&v64 objects:v75 count:16];
-  if (v21)
+  v61 = 0u;
+  v62 = 0u;
+  v55 = v16;
+  v19 = [v55 countByEnumeratingWithState:&v61 objects:v72 count:16];
+  if (v19)
   {
-    v22 = v21;
-    v23 = *v65;
+    v20 = v19;
+    v21 = *v62;
     do
     {
-      for (j = 0; j != v22; j = j + 1)
+      for (j = 0; j != v20; j = j + 1)
       {
-        if (*v65 != v23)
+        if (*v62 != v21)
         {
-          objc_enumerationMutation(v58);
+          objc_enumerationMutation(v55);
         }
 
-        v25 = *(*(&v64 + 1) + 8 * j);
-        v26 = [v25 identity];
-        if (!v26)
+        v23 = *(*(&v61 + 1) + 8 * j);
+        v24 = [v23 identity];
+        if (v24)
         {
-          v27 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          if ([*(a1 + 32) shouldObserveCoordinatorWithIdentity:v24])
           {
-            goto LABEL_41;
+            v25 = [v24 bundleID];
+            v26 = MBGetDefaultLog();
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+            {
+              *buf = 138412290;
+              v75 = v25;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "IX: Tracking demoted app %@", buf, 0xCu);
+              _MBLog(@"I ", "IX: Tracking demoted app %@", v25);
+            }
+
+            [v51 setObject:v23 forKeyedSubscript:v25];
+            [v52 addObject:v25];
           }
 
-          *buf = 138412290;
-          v78 = v25;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "IX: Demoted InstallCoordinator %@ had no bundle ID", buf, 0xCu);
-          v52 = v25;
-LABEL_40:
-          _MBLog();
-          goto LABEL_41;
-        }
-
-        if (![*(a1 + 32) shouldObserveCoordinatorWithIdentity:v26])
-        {
-          v27 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          else
           {
-            goto LABEL_41;
+            v25 = MBGetDefaultLog();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138412290;
+              v75 = v23;
+              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "IX: InstallCoordinator %@ had a demoted bundle ID associated with a different persona", buf, 0xCu);
+              _MBLog(@"Db", "IX: InstallCoordinator %@ had a demoted bundle ID associated with a different persona", v23);
+            }
           }
-
-          *buf = 138412290;
-          v78 = v25;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "IX: InstallCoordinator %@ had a demoted bundle ID associated with a different persona", buf, 0xCu);
-          v52 = v25;
-          goto LABEL_40;
         }
 
-        v27 = [v26 bundleID];
-        v28 = MBGetDefaultLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        else
         {
-          *buf = 138412290;
-          v78 = v27;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "IX: Tracking demoted app %@", buf, 0xCu);
-          v52 = v27;
-          _MBLog();
+          v25 = MBGetDefaultLog();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v75 = v23;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "IX: Demoted InstallCoordinator %@ had no bundle ID", buf, 0xCu);
+            _MBLog(@"E ", "IX: Demoted InstallCoordinator %@ had no bundle ID", v23);
+          }
         }
-
-        [v54 setObject:v25 forKeyedSubscript:v27];
-        [v55 addObject:v27];
-LABEL_41:
       }
 
-      v22 = [v58 countByEnumeratingWithState:&v64 objects:v75 count:16];
+      v20 = [v55 countByEnumeratingWithState:&v61 objects:v72 count:16];
     }
 
-    while (v22);
+    while (v20);
+  }
+
+  v27 = MBGetDefaultLog();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    v28 = [v55 count];
+    *buf = 134217984;
+    v75 = v28;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "IX: Done registering install coordination observers for demoted apps (%lu)", buf, 0xCu);
+    _MBLog(@"Df", "IX: Done registering install coordination observers for demoted apps (%lu)", [v55 count]);
   }
 
   v29 = MBGetDefaultLog();
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = [v58 count];
+    v30 = [v51 count];
     *buf = 134217984;
-    v78 = v30;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "IX: Done registering install coordination observers for demoted apps (%lu)", buf, 0xCu);
-    [v58 count];
-    _MBLog();
+    v75 = v30;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "IX: Tracking %lu install coordinators", buf, 0xCu);
+    _MBLog(@"Df", "IX: Tracking %lu install coordinators", [v51 count]);
   }
 
-  v31 = MBGetDefaultLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v31 = [v51 count];
+  v32 = *(a1 + 32);
+  if (v31)
   {
-    v32 = [v54 count];
-    *buf = 134217984;
-    v78 = v32;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "IX: Tracking %lu install coordinators", buf, 0xCu);
-    [v54 count];
-    _MBLog();
-  }
+    objc_storeStrong(v32 + 3, v51);
+    v33 = [*(a1 + 32) account];
+    v34 = [v33 persona];
+    v35 = [v34 isDataSeparatedPersona];
 
-  v33 = [v54 count];
-  v34 = *(a1 + 32);
-  if (v33)
-  {
-    objc_storeStrong(v34 + 3, v54);
-    v35 = [*(a1 + 32) account];
-    v36 = [v35 persona];
-    v37 = [v36 isDataSeparatedPersona];
-
-    if (v37)
+    if (v35)
     {
       [*(a1 + 32) _requestMDMAppInstallation];
     }
 
-    v38 = objc_alloc_init(ASDCompleteCoordinatorsRequest);
-    [v38 startWithCompletionHandler:&stru_1003BCA98];
-    v39 = [v55 count];
-    v40 = MBGetDefaultLog();
-    v41 = v40;
-    if (v39)
+    v36 = objc_alloc_init(ASDCompleteCoordinatorsRequest);
+    [v36 startWithCompletionHandler:&stru_1003BCA98];
+    v37 = [v52 count];
+    v38 = MBGetDefaultLog();
+    v39 = v38;
+    if (v37)
     {
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = [v55 count];
+        v40 = [v52 count];
         *buf = 134217984;
-        v78 = v42;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "IX: Kicking off data restores for %lu demoted apps", buf, 0xCu);
-        [v55 count];
-        _MBLog();
+        v75 = v40;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "IX: Kicking off data restores for %lu demoted apps", buf, 0xCu);
+        _MBLog(@"Df", "IX: Kicking off data restores for %lu demoted apps", [v52 count]);
       }
 
-      v62 = 0u;
-      v63 = 0u;
+      v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
-      v41 = v55;
-      v43 = [v41 countByEnumeratingWithState:&v60 objects:v74 count:16];
-      if (v43)
+      v57 = 0u;
+      v58 = 0u;
+      v39 = v52;
+      v41 = [v39 countByEnumeratingWithState:&v57 objects:v71 count:16];
+      if (v41)
       {
-        v44 = v43;
-        v45 = *v61;
+        v42 = v41;
+        v43 = *v58;
         do
         {
-          for (k = 0; k != v44; k = k + 1)
+          for (k = 0; k != v42; k = k + 1)
           {
-            if (*v61 != v45)
+            if (*v58 != v43)
             {
-              objc_enumerationMutation(v41);
+              objc_enumerationMutation(v39);
             }
 
-            v47 = *(*(&v60 + 1) + 8 * k);
-            v48 = MBGetDefaultLog();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+            v45 = *(*(&v57 + 1) + 8 * k);
+            v46 = MBGetDefaultLog();
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v78 = v47;
-              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "IX: Queueing up data restore for demoted app %@", buf, 0xCu);
-              _MBLog();
+              v75 = v45;
+              _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "IX: Queueing up data restore for demoted app %@", buf, 0xCu);
+              _MBLog(@"I ", "IX: Queueing up data restore for demoted app %@", v45);
             }
 
-            v49 = *(a1 + 32);
-            v50 = *(v49 + 32);
+            v47 = *(a1 + 32);
+            v48 = *(v47 + 32);
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_10007A7F0;
             block[3] = &unk_1003BC060;
-            block[4] = v49;
-            block[5] = v47;
-            dispatch_async(v50, block);
+            block[4] = v47;
+            block[5] = v45;
+            dispatch_async(v48, block);
           }
 
-          v44 = [v41 countByEnumeratingWithState:&v60 objects:v74 count:16];
+          v42 = [v39 countByEnumeratingWithState:&v57 objects:v71 count:16];
         }
 
-        while (v44);
-        v51 = v53;
-        v15 = v54;
-        goto LABEL_67;
+        while (v42);
+        v49 = v50;
+        v14 = v51;
+        goto LABEL_65;
       }
     }
 
-    else if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "IX: No demoted apps found in backup", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "IX: No demoted apps found in backup", buf, 2u);
+      _MBLog(@"I ", "IX: No demoted apps found in backup");
     }
 
-    v51 = v53;
-LABEL_67:
+    v49 = v50;
+LABEL_65:
 
     atomic_store(0, (*(a1 + 32) + 8));
-    goto LABEL_68;
+    goto LABEL_66;
   }
 
-  [v34 _finishAppDataRestore];
-  v51 = v53;
-LABEL_68:
+  [v32 _finishAppDataRestore];
+  v49 = v50;
+LABEL_66:
 }
 
 void sub_10007A6D4(id a1, BOOL a2, NSError *a3)
@@ -2241,8 +2121,7 @@ void sub_10007A6D4(id a1, BOOL a2, NSError *a3)
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "IX: Done configuring install coordinators", buf, 2u);
-LABEL_6:
-      _MBLog();
+      _MBLog(@"I ", "IX: Done configuring install coordinators");
     }
   }
 
@@ -2251,7 +2130,7 @@ LABEL_6:
     *buf = 138412290;
     v8 = v4;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "IX: Done configuring install coordinators but couldn't signal appstored: %@", buf, 0xCu);
-    goto LABEL_6;
+    _MBLog(@"E ", "IX: Done configuring install coordinators but couldn't signal appstored: %@", v4);
   }
 }
 
@@ -2260,9 +2139,9 @@ void sub_10007A7F0(uint64_t a1)
   dispatch_semaphore_wait(*(*(a1 + 32) + 40), 0xFFFFFFFFFFFFFFFFLL);
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v12 = 0;
-  v4 = [v2 _restoreApplicationWithBundleID:v3 failed:0 context:v3 error:&v12];
-  v5 = v12;
+  v10 = 0;
+  v4 = [v2 _restoreApplicationWithBundleID:v3 failed:0 context:v3 error:&v10];
+  v5 = v10;
   v6 = MBGetDefaultLog();
   v7 = v6;
   if (v4)
@@ -2271,10 +2150,9 @@ void sub_10007A7F0(uint64_t a1)
     {
       v8 = *(a1 + 40);
       *buf = 138412290;
-      v14 = v8;
+      v12 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "IX: Set up restore of user data for demoted app with bundleID %@", buf, 0xCu);
-      v10 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"I ", "IX: Set up restore of user data for demoted app with bundleID %@", *(a1 + 40));
     }
   }
 
@@ -2284,12 +2162,11 @@ void sub_10007A7F0(uint64_t a1)
     {
       v9 = *(a1 + 40);
       *buf = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v5;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v5;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "IX: Could not set up restore of user data for demoted app with bundleID %@ error %@", buf, 0x16u);
-      v11 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"E ", "IX: Could not set up restore of user data for demoted app with bundleID %@ error %@", *(a1 + 40), v5);
     }
 
     dispatch_semaphore_signal(*(*(a1 + 32) + 40));
@@ -2308,22 +2185,21 @@ void sub_10007AAA0(uint64_t a1)
     v7 = [v6 personaIdentifier];
     v8 = *(a1 + 40);
     *buf = 138543874;
-    v15 = v5;
-    v16 = 2114;
-    v17 = v7;
-    v18 = 1024;
-    v19 = v8;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 1024;
+    v18 = v8;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Finished restoring all apps for account %{public}@(%{public}@ cancelled:%d", buf, 0x1Cu);
 
     v9 = [v3 accountIdentifier];
     v10 = [v3 persona];
-    v12 = [v10 personaIdentifier];
-    v13 = *(a1 + 40);
-    _MBLog();
+    v11 = [v10 personaIdentifier];
+    _MBLog(@"Df", "Finished restoring all apps for account %{public}@(%{public}@ cancelled:%d", v9, v11, *(a1 + 40));
   }
 
-  v11 = [*(a1 + 32) delegate];
-  [v11 didFinishAppRestoresWithAccount:v3 cancelled:*(a1 + 40)];
+  v12 = [*(a1 + 32) delegate];
+  [v12 didFinishAppRestoresWithAccount:v3 cancelled:*(a1 + 40)];
 
   objc_autoreleasePoolPop(v2);
 }
@@ -2333,9 +2209,9 @@ void sub_10007AE04(uint64_t a1)
   dispatch_semaphore_wait(*(*(a1 + 32) + 40), 0xFFFFFFFFFFFFFFFFLL);
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v12 = 0;
-  v4 = [v2 _restoreApplicationWithBundleID:v3 failed:0 context:v3 error:&v12];
-  v5 = v12;
+  v10 = 0;
+  v4 = [v2 _restoreApplicationWithBundleID:v3 failed:0 context:v3 error:&v10];
+  v5 = v10;
   v6 = MBGetDefaultLog();
   v7 = v6;
   if (v4)
@@ -2344,10 +2220,9 @@ void sub_10007AE04(uint64_t a1)
     {
       v8 = *(a1 + 40);
       *buf = 138412290;
-      v14 = v8;
+      v12 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "IX: Set up restore of user data for %@ because the app asset started downloading", buf, 0xCu);
-      v10 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"I ", "IX: Set up restore of user data for %@ because the app asset started downloading", *(a1 + 40));
     }
   }
 
@@ -2357,12 +2232,11 @@ void sub_10007AE04(uint64_t a1)
     {
       v9 = *(a1 + 40);
       *buf = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v5;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v5;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "IX: Could not set up restore of user data for %@ when the app asset started downloading error %@", buf, 0x16u);
-      v11 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"E ", "IX: Could not set up restore of user data for %@ when the app asset started downloading error %@", *(a1 + 40), v5);
     }
 
     dispatch_semaphore_signal(*(*(a1 + 32) + 40));
@@ -2377,14 +2251,14 @@ void sub_10007B2E8(uint64_t a1)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "IX: Coordinator was canceled but hasn't been promised app data yet. Starting to restore it", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "IX: Coordinator was canceled but hasn't been promised app data yet. Starting to restore it");
   }
 
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v13 = 0;
-  v5 = [v3 _restoreApplicationWithBundleID:v4 failed:0 context:v4 error:&v13];
-  v6 = v13;
+  v11 = 0;
+  v5 = [v3 _restoreApplicationWithBundleID:v4 failed:0 context:v4 error:&v11];
+  v6 = v11;
   v7 = MBGetDefaultLog();
   v8 = v7;
   if (v5)
@@ -2393,10 +2267,9 @@ void sub_10007B2E8(uint64_t a1)
     {
       v9 = *(a1 + 40);
       *buf = 138412290;
-      v15 = v9;
+      v13 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "IX: Set up restore of user data for %@ because the coordinator was canceled", buf, 0xCu);
-      v11 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"I ", "IX: Set up restore of user data for %@ because the coordinator was canceled", *(a1 + 40));
     }
   }
 
@@ -2406,12 +2279,11 @@ void sub_10007B2E8(uint64_t a1)
     {
       v10 = *(a1 + 40);
       *buf = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v6;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "IX: Could not set up restore of user data for %@ when the coordinator was canceled. error %@ ", buf, 0x16u);
-      v12 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"E ", "IX: Could not set up restore of user data for %@ when the coordinator was canceled. error %@ ", *(a1 + 40), v6);
     }
 
     dispatch_semaphore_signal(*(*(a1 + 32) + 40));
@@ -2589,7 +2461,7 @@ void sub_10007C430(uint64_t a1)
           *buf = 138412290;
           v18 = v7;
           _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "IX: Coordinator for %@ needs to be restarted because it hit a soft failure after backupd promised it data. Queuing restore", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"I ", "IX: Coordinator for %@ needs to be restarted because it hit a soft failure after backupd promised it data. Queuing restore", v7, context);
         }
 
         v9 = *(a1 + 40);
@@ -2617,10 +2489,23 @@ void sub_10007C60C(uint64_t a1)
   dispatch_semaphore_wait(*(*(a1 + 32) + 40), 0xFFFFFFFFFFFFFFFFLL);
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v16 = 0;
-  v4 = [v2 _restoreApplicationWithBundleID:v3 failed:0 context:v3 error:&v16];
-  v5 = v16;
-  if (!v4)
+  v13 = 0;
+  v4 = [v2 _restoreApplicationWithBundleID:v3 failed:0 context:v3 error:&v13];
+  v5 = v13;
+  if (v4)
+  {
+    v6 = MBGetDefaultLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v7 = *(a1 + 40);
+      *buf = 138412290;
+      v15 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "IX: Restarted restore of user data for %@", buf, 0xCu);
+      _MBLog(@"I ", "IX: Restarted restore of user data for %@", *(a1 + 40));
+    }
+  }
+
+  else
   {
     v8 = [MBError isError:v5 withCode:3];
     v9 = MBGetDefaultLog();
@@ -2631,11 +2516,9 @@ void sub_10007C60C(uint64_t a1)
       {
         v11 = *(a1 + 40);
         *buf = 138412290;
-        v18 = v11;
+        v15 = v11;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "IX: Restore already in progress for %@", buf, 0xCu);
-        v14 = *(a1 + 40);
-LABEL_10:
-        _MBLog();
+        _MBLog(@"I ", "IX: Restore already in progress for %@", *(a1 + 40));
       }
     }
 
@@ -2643,35 +2526,20 @@ LABEL_10:
     {
       v12 = *(a1 + 40);
       *buf = 138412546;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v5;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v5;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "IX: Could not restart restore of user data for %@: %@", buf, 0x16u);
-      v15 = *(a1 + 40);
-      goto LABEL_10;
+      _MBLog(@"E ", "IX: Could not restart restore of user data for %@: %@", *(a1 + 40), v5);
     }
 
     dispatch_semaphore_signal(*(*(a1 + 32) + 40));
-    goto LABEL_12;
   }
-
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    v7 = *(a1 + 40);
-    *buf = 138412290;
-    v18 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "IX: Restarted restore of user data for %@", buf, 0xCu);
-    v13 = *(a1 + 40);
-    _MBLog();
-  }
-
-LABEL_12:
 }
 
-void sub_10007C978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10007C978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2704,10 +2572,9 @@ void sub_10007C9A8(void *a1)
     {
       v7 = a1[5];
       *buf = 138412290;
-      v10 = v7;
+      v9 = v7;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "IX: Can't restore data for %@ because it doesn't have an InstallCoordinator", buf, 0xCu);
-      v8 = a1[5];
-      _MBLog();
+      _MBLog(@"E ", "IX: Can't restore data for %@ because it doesn't have an InstallCoordinator", a1[5]);
     }
   }
 }
@@ -2762,13 +2629,11 @@ void sub_10007CF20(uint64_t a1, void *a2)
     {
       v6 = *(a1 + 32);
       *buf = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v3;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v3;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "IX: Couldn't uninstall app %@: %@", buf, 0x16u);
-      v8 = *(a1 + 32);
-LABEL_6:
-      _MBLog();
+      _MBLog(@"E ", "IX: Couldn't uninstall app %@: %@", *(a1 + 32), v3);
     }
   }
 
@@ -2776,18 +2641,17 @@ LABEL_6:
   {
     v7 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v7;
+    v9 = v7;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "IX: Uninstalled app %@ after restore cancellation", buf, 0xCu);
-    v9 = *(a1 + 32);
-    goto LABEL_6;
+    _MBLog(@"I ", "IX: Uninstalled app %@ after restore cancellation", *(a1 + 32));
   }
 }
 
-void sub_10007D3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10007D3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 144), 8);
+  _Block_object_dispose((v22 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2827,13 +2691,13 @@ void sub_1000801D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100081398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_100081398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a61, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x310], 8);
   _Block_object_dispose(&STACK[0x330], 8);
-  _Block_object_dispose((v67 - 192), 8);
+  _Block_object_dispose((v65 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2867,32 +2731,32 @@ void sub_10008146C(uint64_t a1, void *a2, void *a3, void *a4)
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Fetched %lu file refs and %lu placeholder refs for manifest %{public}@(%{public}@)", buf, 0x2Au);
 
     v15 = [v7 recordID];
-    v21 = [v7 domainName];
-    _MBLog();
+    v16 = [v7 domainName];
+    _MBLog(@"I ", "Fetched %lu file refs and %lu placeholder refs for manifest %{public}@(%{public}@)", v10, v11, v15, v16);
   }
 
-  v16 = *(a1 + 32);
-  objc_sync_enter(v16);
+  v17 = *(a1 + 32);
+  objc_sync_enter(v17);
   *(*(*(a1 + 48) + 8) + 24) += v10;
   *(*(*(a1 + 56) + 8) + 24) += v11;
-  objc_sync_exit(v16);
+  objc_sync_exit(v17);
 
   if (v10)
   {
-    v17 = *(a1 + 40);
-    v18 = *(*(a1 + 64) + 8);
-    obj = *(v18 + 40);
-    [v17 addFileReferences:v8 forManifest:v7 error:&obj];
-    objc_storeStrong((v18 + 40), obj);
+    v18 = *(a1 + 40);
+    v19 = *(*(a1 + 64) + 8);
+    obj = *(v19 + 40);
+    [v18 addFileReferences:v8 forManifest:v7 error:&obj];
+    objc_storeStrong((v19 + 40), obj);
   }
 
   if (v11)
   {
-    v19 = *(a1 + 40);
-    v20 = *(*(a1 + 64) + 8);
-    v22 = *(v20 + 40);
-    [v19 addPlaceholderReferences:v9 forManifest:v7 error:&v22];
-    objc_storeStrong((v20 + 40), v22);
+    v20 = *(a1 + 40);
+    v21 = *(*(a1 + 64) + 8);
+    v22 = *(v21 + 40);
+    [v20 addPlaceholderReferences:v9 forManifest:v7 error:&v22];
+    objc_storeStrong((v21 + 40), v22);
   }
 }
 
@@ -2902,10 +2766,10 @@ void sub_1000816AC(uint64_t a1, void *a2)
   v4 = [*(a1 + 32) watchdog];
   [v4 resume];
 
-  v22 = 0;
-  v5 = [v3 saveToCacheWithError:&v22];
-  v6 = v22;
-  v7 = v22;
+  v21 = 0;
+  v5 = [v3 saveToCacheWithError:&v21];
+  v6 = v21;
+  v7 = v21;
   if ((v5 & 1) == 0)
   {
     v8 = *(a1 + 32);
@@ -2924,40 +2788,39 @@ void sub_1000816AC(uint64_t a1, void *a2)
         {
           v14 = [v3 recordID];
           *buf = 138543618;
-          v24 = v14;
-          v25 = 2114;
-          v26 = v7;
+          v23 = v14;
+          v24 = 2114;
+          v25 = v7;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to save manifest record %{public}@ to cache: %{public}@", buf, 0x16u);
         }
 
-        v20 = [v3 recordID];
-        _MBLog();
+        v15 = [v3 recordID];
+        _MBLog(@"E ", "Failed to save manifest record %{public}@ to cache: %{public}@", v15, v7);
       }
     }
 
     objc_sync_exit(v8);
   }
 
-  v15 = *(a1 + 32);
-  objc_sync_enter(v15);
-  v16 = *(*(a1 + 56) + 8);
-  v17 = *(v16 + 24) + 1;
-  *(v16 + 24) = v17;
-  objc_sync_exit(v15);
+  v16 = *(a1 + 32);
+  objc_sync_enter(v16);
+  v17 = *(*(a1 + 56) + 8);
+  v18 = *(v17 + 24) + 1;
+  *(v17 + 24) = v18;
+  objc_sync_exit(v16);
 
-  if (__ROR8__(0x8F5C28F5C28F5C29 * v17, 2) <= 0x28F5C28F5C28F5CuLL)
+  if (__ROR8__(0x8F5C28F5C28F5C29 * v18, 2) <= 0x28F5C28F5C28F5CuLL)
   {
-    v18 = MBGetDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = MBGetDefaultLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 40);
+      v20 = *(a1 + 40);
       *buf = 134218242;
-      v24 = v17;
-      v25 = 2114;
-      v26 = v19;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Fetched %lu manifest records for snapshot %{public}@", buf, 0x16u);
-      v21 = *(a1 + 40);
-      _MBLog();
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Fetched %lu manifest records for snapshot %{public}@", buf, 0x16u);
+      _MBLog(@"Df", "Fetched %lu manifest records for snapshot %{public}@", v18, *(a1 + 40));
     }
   }
 }
@@ -2973,12 +2836,11 @@ void sub_10008194C(uint64_t a1, void *a2)
     {
       v6 = *(a1 + 32);
       *buf = 138543618;
-      v18 = v6;
-      v19 = 2114;
-      v20 = v4;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v4;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to fetch all manifests for snapshot %{public}@: %{public}@", buf, 0x16u);
-      v12 = *(a1 + 32);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch all manifests for snapshot %{public}@: %{public}@", *(a1 + 32), v4);
     }
   }
 
@@ -2990,19 +2852,15 @@ void sub_10008194C(uint64_t a1, void *a2)
     v10 = *(*(*(a1 + 72) + 8) + 24);
     v11 = *(a1 + 32);
     *buf = 134218754;
-    v18 = v8;
-    v19 = 2048;
-    v20 = v9;
-    v21 = 2048;
-    v22 = v10;
-    v23 = 2114;
-    v24 = v11;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2114;
+    v19 = v11;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetched a total of %lu manifest records, %lu placeholder refs, %lu file refs for snapshot %{public}@", buf, 0x2Au);
-    v15 = *(*(*(a1 + 72) + 8) + 24);
-    v16 = *(a1 + 32);
-    v13 = *(*(*(a1 + 56) + 8) + 24);
-    v14 = *(*(*(a1 + 64) + 8) + 24);
-    _MBLog();
+    _MBLog(@"Df", "Fetched a total of %lu manifest records, %lu placeholder refs, %lu file refs for snapshot %{public}@", *(*(*(a1 + 56) + 8) + 24), *(*(*(a1 + 64) + 8) + 24), *(*(*(a1 + 72) + 8) + 24), *(a1 + 32));
   }
 
   dispatch_group_leave(*(a1 + 40));
@@ -3019,18 +2877,15 @@ void sub_100081B28(void *a1, void *a2)
     v7 = a1[5];
     v8 = *(*(a1[7] + 8) + 24);
     *buf = 138544130;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v4;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v7;
+    v13 = 2048;
+    v14 = v8;
+    v15 = 2114;
+    v16 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ query for snapshot %{public}@ updated the cursor (%lu): %{public}@", buf, 0x2Au);
-    v11 = *(*(a1[7] + 8) + 24);
-    v9 = a1[4];
-    v10 = a1[5];
-    _MBLog();
+    _MBLog(@"Df", "%{public}@ query for snapshot %{public}@ updated the cursor (%lu): %{public}@", a1[4], a1[5], *(*(a1[7] + 8) + 24), v4);
   }
 }
 
@@ -3039,36 +2894,33 @@ void sub_100081C54(uint64_t a1, void *a2)
   v3 = a2;
   if (MBIsInternalInstall() && *(*(*(a1 + 80) + 8) + 24) >= *(a1 + 104))
   {
-    v39 = MBGetDefaultLog();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v42 = MBGetDefaultLog();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = *(a1 + 32);
-      v41 = *(a1 + 40);
-      v42 = *(a1 + 104);
+      v43 = *(a1 + 32);
+      v44 = *(a1 + 40);
+      v45 = *(a1 + 104);
       *buf = 138543874;
-      v54 = v40;
-      v55 = 2114;
-      v56 = v41;
-      v57 = 2048;
-      v58 = v42;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Force cancelling %{public}@ query for snapshot %{public}@ after fetching %llu records", buf, 0x20u);
-      v50 = *(a1 + 104);
-      v47 = *(a1 + 32);
-      _MBLog();
+      v50 = v43;
+      v51 = 2114;
+      v52 = v44;
+      v53 = 2048;
+      v54 = v45;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Force cancelling %{public}@ query for snapshot %{public}@ after fetching %llu records", buf, 0x20u);
+      _MBLog(@"Df", "Force cancelling %{public}@ query for snapshot %{public}@ after fetching %llu records", *(a1 + 32), *(a1 + 40), *(a1 + 104));
     }
 
-    v43 = *(a1 + 48);
-    v44 = *(a1 + 32);
-    v14 = [MBError errorWithCode:202 format:@"Backup canceled (simulated for %@ after fetching %llu records)", v44, *(a1 + 104)];
-    [v43 cancelWithError:v14];
+    v46 = *(a1 + 48);
+    v15 = [MBError errorWithCode:202 format:@"Backup canceled (simulated for %@ after fetching %llu records)", *(a1 + 32), *(a1 + 104)];
+    [v46 cancelWithError:v15];
   }
 
   else
   {
     v4 = *(a1 + 56);
-    v52 = 0;
-    v5 = [v4 domainNameForFileRecord:v3 error:&v52];
-    v6 = v52;
+    v48 = 0;
+    v5 = [v4 domainNameForFileRecord:v3 error:&v48];
+    v6 = v48;
     if (v5)
     {
       v7 = [MBCKFile fileWithRecord:v3 cache:*(a1 + 64) snapshot:*(a1 + 72) domainName:v5];
@@ -3078,110 +2930,107 @@ void sub_100081C54(uint64_t a1, void *a2)
         v9 = [v7 recordIDString];
         v10 = [v7 domainName];
         *buf = 138412546;
-        v54 = v9;
-        v55 = 2112;
-        v56 = v10;
+        v50 = v9;
+        v51 = 2112;
+        v52 = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Fetched %@ (%@)", buf, 0x16u);
 
         v11 = [v7 recordIDString];
-        [v7 domainName];
-        v48 = v45 = v11;
-        _MBLog();
+        v12 = [v7 domainName];
+        _MBLog(@"Db", "Fetched %@ (%@)", v11, v12);
       }
 
-      v51 = v6;
-      v12 = [v7 saveToCacheWithError:&v51];
-      v13 = v51;
-      v14 = v51;
+      v47 = v6;
+      v13 = [v7 saveToCacheWithError:&v47];
+      v14 = v47;
+      v15 = v47;
 
-      if ((v12 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        v15 = *(*(a1 + 88) + 8);
-        v17 = *(v15 + 40);
-        v16 = (v15 + 40);
-        if (!v17)
+        v16 = *(*(a1 + 88) + 8);
+        v18 = *(v16 + 40);
+        v17 = (v16 + 40);
+        if (!v18)
         {
-          objc_storeStrong(v16, v13);
-          v18 = MBGetDefaultLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          objc_storeStrong(v17, v14);
+          v19 = MBGetDefaultLog();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v19 = [v3 recordID];
-            v20 = [v19 recordName];
+            v20 = [v3 recordID];
+            v21 = [v20 recordName];
             *buf = 138543618;
-            v54 = v20;
-            v55 = 2114;
-            v56 = v14;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to save file record %{public}@ to cache: %{public}@", buf, 0x16u);
+            v50 = v21;
+            v51 = 2114;
+            v52 = v15;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to save file record %{public}@ to cache: %{public}@", buf, 0x16u);
 
-            v21 = [v3 recordID];
-            v45 = [v21 recordName];
-            v48 = v14;
-            _MBLog();
+            v22 = [v3 recordID];
+            v23 = [v22 recordName];
+            _MBLog(@"E ", "Failed to save file record %{public}@ to cache: %{public}@", v23, v15);
           }
         }
       }
 
-      v22 = [v3 pluginFields];
+      v24 = [v3 pluginFields];
 
-      if (v22)
+      if (v24)
       {
-        v23 = [v3 pluginFields];
-        v24 = [v23 objectForKeyedSubscript:@"progress"];
-        [v24 doubleValue];
-        v26 = v25;
+        v25 = [v3 pluginFields];
+        v26 = [v25 objectForKeyedSubscript:@"progress"];
+        [v26 doubleValue];
+        v28 = v27;
 
-        v27 = v26 / 100.0;
-        v28 = [*(a1 + 48) progressModel];
-        [v28 updatingProgress:0 previousProgress:v27 size:*(*(*(a1 + 96) + 8) + 24)];
+        v29 = v28 / 100.0;
+        v30 = [*(a1 + 48) progressModel];
+        [v30 updatingProgress:0 previousProgress:v29 size:*(*(*(a1 + 96) + 8) + 24)];
 
-        *(*(*(a1 + 96) + 8) + 24) = v27;
+        *(*(*(a1 + 96) + 8) + 24) = v29;
       }
 
-      v29 = [*(a1 + 48) watchdog];
-      [v29 resume];
+      v31 = [*(a1 + 48) watchdog];
+      [v31 resume];
 
-      v30 = *(*(a1 + 80) + 8);
-      v31 = *(v30 + 24) + 1;
-      *(v30 + 24) = v31;
-      if (__ROR8__(0x1CAC083126E978D5 * v31, 3) <= 0x4189374BC6A7EFuLL)
+      v32 = *(*(a1 + 80) + 8);
+      v33 = *(v32 + 24) + 1;
+      *(v32 + 24) = v33;
+      if (__ROR8__(0x1CAC083126E978D5 * v33, 3) <= 0x4189374BC6A7EFuLL)
       {
-        v32 = MBGetDefaultLog();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v34 = MBGetDefaultLog();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = *(a1 + 40);
+          v35 = *(a1 + 40);
           *buf = 134218242;
-          v54 = v31;
-          v55 = 2114;
-          v56 = v33;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Fetched %lu file records for snapshot %{public}@", buf, 0x16u);
-          v49 = *(a1 + 40);
-          _MBLog();
+          v50 = v33;
+          v51 = 2114;
+          v52 = v35;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Fetched %lu file records for snapshot %{public}@", buf, 0x16u);
+          _MBLog(@"Df", "Fetched %lu file records for snapshot %{public}@", v33, *(a1 + 40));
         }
       }
     }
 
     else
     {
-      v34 = MBGetDefaultLog();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+      v36 = MBGetDefaultLog();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
       {
-        v35 = [v3 recordID];
-        v36 = [v35 recordName];
-        *buf = 138543618;
-        v54 = v36;
-        v55 = 2112;
-        v56 = v6;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_FAULT, "Failed to retrieve domain name for file ID: %{public}@ %@", buf, 0x16u);
-
         v37 = [v3 recordID];
-        v46 = [v37 recordName];
-        _MBLog();
+        v38 = [v37 recordName];
+        *buf = 138543618;
+        v50 = v38;
+        v51 = 2112;
+        v52 = v6;
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_FAULT, "Failed to retrieve domain name for file ID: %{public}@ %@", buf, 0x16u);
+
+        v39 = [v3 recordID];
+        v40 = [v39 recordName];
+        _MBLog(@"F ", "Failed to retrieve domain name for file ID: %{public}@ %@", v40, v6);
       }
 
-      v38 = *(*(a1 + 88) + 8);
-      v14 = v6;
-      v7 = *(v38 + 40);
-      *(v38 + 40) = v14;
+      v41 = *(*(a1 + 88) + 8);
+      v15 = v6;
+      v7 = *(v41 + 40);
+      *(v41 + 40) = v15;
     }
   }
 }
@@ -3199,15 +3048,13 @@ void sub_100082220(uint64_t a1, void *a2, void *a3)
       v9 = *(a1 + 32);
       v10 = *(a1 + 40);
       *buf = 138543874;
-      v33 = v9;
-      v34 = 2114;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v6;
+      v24 = v9;
+      v25 = 2114;
+      v26 = v10;
+      v27 = 2112;
+      v28 = v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ query for snapshot %{public}@ failed: %@", buf, 0x20u);
-      v27 = *(a1 + 40);
-      v23 = *(a1 + 32);
-      _MBLog();
+      _MBLog(@"Df", "%{public}@ query for snapshot %{public}@ failed: %@", *(a1 + 32), *(a1 + 40), v6);
     }
 
     v11 = *(*(a1 + 64) + 8);
@@ -3224,18 +3071,15 @@ void sub_100082220(uint64_t a1, void *a2, void *a3)
       v15 = *(a1 + 40);
       v16 = *(*(*(a1 + 72) + 8) + 24);
       *buf = 138544130;
-      v33 = v14;
-      v34 = 2114;
-      v35 = v15;
-      v36 = 2048;
-      v37 = v16;
-      v38 = 2114;
-      v39 = v5;
+      v24 = v14;
+      v25 = 2114;
+      v26 = v15;
+      v27 = 2048;
+      v28 = v16;
+      v29 = 2114;
+      v30 = v5;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ query for snapshot %{public}@ updated the query cursor (%lu): %{public}@", buf, 0x2Au);
-      v31 = *(*(*(a1 + 72) + 8) + 24);
-      v24 = *(a1 + 32);
-      v28 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"Df", "%{public}@ query for snapshot %{public}@ updated the query cursor (%lu): %{public}@", *(a1 + 32), *(a1 + 40), *(*(*(a1 + 72) + 8) + 24), v5);
     }
 
     v13 = MBGetDefaultLog();
@@ -3244,13 +3088,11 @@ void sub_100082220(uint64_t a1, void *a2, void *a3)
       v17 = *(a1 + 32);
       v18 = *(a1 + 40);
       *buf = 138543618;
-      v33 = v17;
-      v34 = 2114;
-      v35 = v18;
+      v24 = v17;
+      v25 = 2114;
+      v26 = v18;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ query for snapshot %{public}@ completed", buf, 0x16u);
-      v25 = *(a1 + 32);
-      v29 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"Df", "%{public}@ query for snapshot %{public}@ completed", *(a1 + 32), *(a1 + 40));
     }
   }
 
@@ -3260,13 +3102,11 @@ void sub_100082220(uint64_t a1, void *a2, void *a3)
     v20 = *(*(*(a1 + 72) + 8) + 24);
     v21 = *(a1 + 40);
     *buf = 134218242;
-    v33 = v20;
-    v34 = 2114;
-    v35 = v21;
+    v24 = v20;
+    v25 = 2114;
+    v26 = v21;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Fetched a total of %lu file records for snapshot %{public}@", buf, 0x16u);
-    v26 = *(*(*(a1 + 72) + 8) + 24);
-    v30 = *(a1 + 40);
-    _MBLog();
+    _MBLog(@"Df", "Fetched a total of %lu file records for snapshot %{public}@", *(*(*(a1 + 72) + 8) + 24), *(a1 + 40));
   }
 
   v22 = [*(a1 + 48) progressModel];
@@ -3300,8 +3140,7 @@ uint64_t sub_100084B54(uint64_t a1, void *a2)
     v11 = 2114;
     v12 = v3;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Found cached snapshot (%lu): %{public}@", buf, 0x16u);
-    [*(a1 + 32) count];
-    _MBLog();
+    _MBLog(@"Df", "Found cached snapshot (%lu): %{public}@", [*(a1 + 32) count], v3);
   }
 
   v6 = *(a1 + 32);
@@ -3367,30 +3206,30 @@ uint64_t sub_100084C80(id *a1)
         v36 = *&v20;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Adding pending snapshot %{public}@ into FileChanges table", buf, 0xCu);
 
-        v30 = [a1[7] pendingSnapshotRecordID];
-        _MBLog();
+        v21 = [a1[7] pendingSnapshotRecordID];
+        _MBLog(@"Df", "Adding pending snapshot %{public}@ into FileChanges table", v21);
       }
 
-      v21 = a1[4];
-      v22 = [a1[7] pendingSnapshotRecordID];
-      v23 = [v21 addSnapshotIntoFileChanges:v22];
+      v22 = a1[4];
+      v23 = [a1[7] pendingSnapshotRecordID];
+      v24 = [v22 addSnapshotIntoFileChanges:v23];
     }
   }
 
-  v24 = [a1[4] removeAllOrphanedItems];
+  v25 = [a1[4] removeAllOrphanedItems];
   +[NSDate timeIntervalSinceReferenceDate];
-  v26 = v25 - v4;
-  v27 = MBGetDefaultLog();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v27 = v26 - v4;
+  v28 = MBGetDefaultLog();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v36 = v26;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "FileChanges table recreated in %0.3fs", buf, 0xCu);
-    _MBLog();
+    v36 = v27;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "FileChanges table recreated in %0.3fs", buf, 0xCu);
+    _MBLog(@"Df", "FileChanges table recreated in %0.3fs", v27);
   }
 
-  v28 = [NSNumber numberWithDouble:v26];
-  [*(a1[6] + 27) setObject:v28 forKeyedSubscript:@"CacheFileChangesRebuildTime"];
+  v29 = [NSNumber numberWithDouble:v27];
+  [*(a1[6] + 27) setObject:v29 forKeyedSubscript:@"CacheFileChangesRebuildTime"];
 
   return 1;
 }
@@ -3447,13 +3286,13 @@ uint64_t sub_1000882DC(uint64_t a1)
   v6 = objc_alloc_init(NSMutableDictionary);
   v7 = [*(a1 + 32) cache];
   v8 = *(a1 + 48);
-  v215[0] = _NSConcreteStackBlock;
-  v215[1] = 3221225472;
-  v215[2] = sub_100089A34;
-  v215[3] = &unk_1003BC700;
+  v200[0] = _NSConcreteStackBlock;
+  v200[1] = 3221225472;
+  v200[2] = sub_100089A34;
+  v200[3] = &unk_1003BC700;
   v9 = v6;
-  v216 = v9;
-  v10 = [v7 enumerateManifestsForSnapshot:v8 foundManifest:v215];
+  v201 = v9;
+  v10 = [v7 enumerateManifestsForSnapshot:v8 foundManifest:v200];
   v11 = *(*(a1 + 80) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
@@ -3467,13 +3306,13 @@ uint64_t sub_1000882DC(uint64_t a1)
     v20 = objc_alloc_init(NSMutableDictionary);
     v21 = [*(a1 + 32) cache];
     v22 = *(a1 + 56);
-    v213[0] = _NSConcreteStackBlock;
-    v213[1] = 3221225472;
-    v213[2] = sub_100089A8C;
-    v213[3] = &unk_1003BC700;
+    v198[0] = _NSConcreteStackBlock;
+    v198[1] = 3221225472;
+    v198[2] = sub_100089A8C;
+    v198[3] = &unk_1003BC700;
     v16 = v20;
-    v214 = v16;
-    v23 = [v21 enumerateManifestsForSnapshot:v22 foundManifest:v213];
+    v199 = v16;
+    v23 = [v21 enumerateManifestsForSnapshot:v22 foundManifest:v198];
     v24 = *(*(a1 + 80) + 8);
     v25 = *(v24 + 40);
     *(v24 + 40) = v23;
@@ -3481,34 +3320,34 @@ uint64_t sub_1000882DC(uint64_t a1)
     if (!*(*(*(a1 + 80) + 8) + 40))
     {
       v30 = [NSMutableSet alloc];
-      v180 = v16;
+      v165 = v16;
       v31 = [v16 allKeys];
       v32 = [v30 initWithArray:v31];
 
-      v178 = v13;
+      v163 = v13;
       v33 = [[NSMutableSet alloc] initWithSet:v13];
-      v179 = v32;
+      v164 = v32;
       [v33 minusSet:v32];
-      v211 = 0u;
-      v212 = 0u;
-      v209 = 0u;
-      v210 = 0u;
+      v196 = 0u;
+      v197 = 0u;
+      v194 = 0u;
+      v195 = 0u;
       v29 = v33;
-      v34 = [v29 countByEnumeratingWithState:&v209 objects:v227 count:16];
+      v34 = [v29 countByEnumeratingWithState:&v194 objects:v212 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v210;
+        v36 = *v195;
         do
         {
           for (i = 0; i != v35; i = i + 1)
           {
-            if (*v210 != v36)
+            if (*v195 != v36)
             {
               objc_enumerationMutation(v29);
             }
 
-            v38 = *(*(&v209 + 1) + 8 * i);
+            v38 = *(*(&v194 + 1) + 8 * i);
             v39 = [*(a1 + 32) cache];
             v40 = [v39 moveManifest:v38 toSnapshot:*(a1 + 64)];
             v41 = *(*(a1 + 80) + 8);
@@ -3523,15 +3362,13 @@ uint64_t sub_1000882DC(uint64_t a1)
                 v94 = *(a1 + 64);
                 v95 = *(*(*(a1 + 80) + 8) + 40);
                 *buf = 138412802;
-                v222 = v38;
-                v223 = 2112;
-                v224 = v94;
-                v225 = 2112;
-                v226 = v95;
+                v207 = v38;
+                v208 = 2112;
+                v209 = v94;
+                v210 = 2112;
+                v211 = v95;
                 _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Unable to move manifest: %@ to snapshot: %@: %@", buf, 0x20u);
-                v162 = *(a1 + 64);
-                v169 = *(*(*(a1 + 80) + 8) + 40);
-                _MBLog();
+                _MBLog(@"E ", "Unable to move manifest: %@ to snapshot: %@: %@", v38, *(a1 + 64), *(*(*(a1 + 80) + 8) + 40));
               }
 
               v17 = 0;
@@ -3540,55 +3377,55 @@ uint64_t sub_1000882DC(uint64_t a1)
             }
           }
 
-          v35 = [v29 countByEnumeratingWithState:&v209 objects:v227 count:16];
+          v35 = [v29 countByEnumeratingWithState:&v194 objects:v212 count:16];
         }
 
         while (v35);
       }
 
-      v43 = [[NSMutableSet alloc] initWithSet:v179];
-      [v43 minusSet:v178];
-      v207 = 0u;
-      v208 = 0u;
-      v205 = 0u;
-      v206 = 0u;
+      v43 = [[NSMutableSet alloc] initWithSet:v164];
+      [v43 minusSet:v163];
+      v192 = 0u;
+      v193 = 0u;
+      v190 = 0u;
+      v191 = 0u;
       v44 = v43;
-      v45 = [v44 countByEnumeratingWithState:&v205 objects:v220 count:16];
+      v45 = [v44 countByEnumeratingWithState:&v190 objects:v205 count:16];
       if (!v45)
       {
 LABEL_24:
 
-        v13 = v178;
-        v54 = [[NSMutableSet alloc] initWithSet:v178];
-        v26 = v179;
-        [v54 intersectSet:v179];
-        v203 = 0u;
-        v204 = 0u;
-        v201 = 0u;
-        v202 = 0u;
+        v13 = v163;
+        v54 = [[NSMutableSet alloc] initWithSet:v163];
+        v26 = v164;
+        [v54 intersectSet:v164];
+        v188 = 0u;
+        v189 = 0u;
+        v186 = 0u;
+        v187 = 0u;
         v55 = v54;
-        v16 = v180;
-        v184 = v44;
-        v185 = v29;
-        obj = [v55 countByEnumeratingWithState:&v201 objects:v219 count:16];
+        v16 = v165;
+        v169 = v44;
+        v170 = v29;
+        obj = [v55 countByEnumeratingWithState:&v186 objects:v204 count:16];
         if (!obj)
         {
           goto LABEL_38;
         }
 
-        v181 = *v202;
-        v174 = v55;
+        v166 = *v187;
+        v159 = v55;
         while (1)
         {
           v56 = 0;
           do
           {
-            if (*v202 != v181)
+            if (*v187 != v166)
             {
               objc_enumerationMutation(v55);
             }
 
-            v57 = *(*(&v201 + 1) + 8 * v56);
+            v57 = *(*(&v186 + 1) + 8 * v56);
             v58 = [[NSString alloc] initWithFormat:@"%@:%@", *(a1 + 64), v57];
             v59 = v9;
             v60 = [v9 valueForKey:v57];
@@ -3597,10 +3434,9 @@ LABEL_24:
             if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v222 = v58;
+              v207 = v58;
               _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_INFO, "Merging into %@", buf, 0xCu);
-              v155 = v58;
-              _MBLog();
+              _MBLog(@"I ", "Merging into %@", v58);
             }
 
             WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 96));
@@ -3629,32 +3465,31 @@ LABEL_24:
                 v102 = [v61 manifestID];
                 v103 = *(*(*(a1 + 80) + 8) + 40);
                 *buf = 138412802;
-                v222 = v101;
-                v223 = 2112;
-                v224 = v102;
-                v225 = 2112;
-                v226 = v103;
+                v207 = v101;
+                v208 = 2112;
+                v209 = v102;
+                v210 = 2112;
+                v211 = v103;
                 _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "Unable to merge manifest: %@ %@ %@", buf, 0x20u);
 
                 v104 = [v60 manifestID];
-                v164 = [v61 manifestID];
-                v171 = *(*(*(a1 + 80) + 8) + 40);
-                _MBLog();
+                v105 = [v61 manifestID];
+                _MBLog(@"E ", "Unable to merge manifest: %@ %@ %@", v104, v105, *(*(*(a1 + 80) + 8) + 40));
 
-                goto LABEL_62;
+                goto LABEL_61;
               }
 
+LABEL_62:
+              v13 = v163;
 LABEL_63:
-              v13 = v178;
-LABEL_64:
-              v44 = v184;
+              v44 = v169;
 
-              v55 = v174;
+              v55 = v159;
               v17 = 0;
               v9 = v59;
 LABEL_49:
-              v26 = v179;
-              v16 = v180;
+              v26 = v164;
+              v16 = v165;
               goto LABEL_50;
             }
 
@@ -3669,25 +3504,23 @@ LABEL_49:
               v100 = MBGetDefaultLog();
               if (!os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_63;
+                goto LABEL_62;
               }
 
-              v105 = [v60 manifestID];
-              v106 = *(*(*(a1 + 80) + 8) + 40);
+              v106 = [v60 manifestID];
+              v107 = *(*(*(a1 + 80) + 8) + 40);
               *buf = 138412546;
-              v222 = v105;
-              v223 = 2112;
-              v224 = v106;
+              v207 = v106;
+              v208 = 2112;
+              v209 = v107;
               _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "Unable to remove old manifestA: %@ %@", buf, 0x16u);
 
               v104 = [v60 manifestID];
-              v165 = *(*(*(a1 + 80) + 8) + 40);
+              _MBLog(@"E ", "Unable to remove old manifestA: %@ %@", v104, *(*(*(a1 + 80) + 8) + 40));
 LABEL_61:
-              _MBLog();
-LABEL_62:
-              v13 = v178;
+              v13 = v163;
 
-              goto LABEL_64;
+              goto LABEL_63;
             }
 
             v76 = [*(a1 + 32) cache];
@@ -3701,19 +3534,19 @@ LABEL_62:
               v100 = MBGetDefaultLog();
               if (!os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_63;
+                goto LABEL_62;
               }
 
-              v107 = [v61 manifestID];
-              v108 = *(*(*(a1 + 80) + 8) + 40);
+              v108 = [v61 manifestID];
+              v109 = *(*(*(a1 + 80) + 8) + 40);
               *buf = 138412546;
-              v222 = v107;
-              v223 = 2112;
-              v224 = v108;
+              v207 = v108;
+              v208 = 2112;
+              v209 = v109;
               _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "Unable to remove old manifestB: %@ %@", buf, 0x16u);
 
               v104 = [v61 manifestID];
-              v166 = *(*(*(a1 + 80) + 8) + 40);
+              _MBLog(@"E ", "Unable to remove old manifestB: %@ %@", v104, *(*(*(a1 + 80) + 8) + 40));
               goto LABEL_61;
             }
 
@@ -3722,20 +3555,20 @@ LABEL_62:
             v82 = [*(a1 + 32) cache];
             v83 = [MBCKManifest manifestWithSnapshot:v80 domainName:v81 count:0 cache:v82];
 
-            v29 = v185;
+            v29 = v170;
             v84 = [*(a1 + 32) cache];
             v85 = [v84 addManifest:v83 toPendingSnapshot:*(a1 + 40)];
 
             v56 = v56 + 1;
-            v55 = v174;
+            v55 = v159;
             v9 = v59;
-            v16 = v180;
+            v16 = v165;
           }
 
           while (obj != v56);
-          v13 = v178;
-          v26 = v179;
-          obj = [v174 countByEnumeratingWithState:&v201 objects:v219 count:16];
+          v13 = v163;
+          v26 = v164;
+          obj = [v159 countByEnumeratingWithState:&v186 objects:v204 count:16];
           if (!obj)
           {
 LABEL_38:
@@ -3754,291 +3587,283 @@ LABEL_38:
                 v91 = [*(a1 + 48) snapshotID];
                 v92 = *(*(*(a1 + 80) + 8) + 40);
                 *buf = 138412546;
-                v222 = v91;
-                v223 = 2112;
-                v224 = v92;
+                v207 = v91;
+                v208 = 2112;
+                v209 = v92;
                 _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "Unable to remove old snapshotA: %@ %@", buf, 0x16u);
 
                 v93 = [*(a1 + 48) snapshotID];
-                v161 = *(*(*(a1 + 80) + 8) + 40);
-                goto LABEL_68;
+                _MBLog(@"E ", "Unable to remove old snapshotA: %@ %@", v93, *(*(*(a1 + 80) + 8) + 40));
+                goto LABEL_67;
               }
 
-              goto LABEL_69;
+              goto LABEL_68;
             }
 
-            v109 = [*(a1 + 32) cache];
-            v110 = [v109 removeSnapshot:*(a1 + 56)];
+            v110 = [*(a1 + 32) cache];
+            v111 = [v110 removeSnapshot:*(a1 + 56)];
 
             if (*(*(*(a1 + 80) + 8) + 40))
             {
               v90 = MBGetDefaultLog();
               if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
               {
-                v111 = [*(a1 + 56) snapshotID];
-                v112 = *(*(*(a1 + 80) + 8) + 40);
+                v112 = [*(a1 + 56) snapshotID];
+                v113 = *(*(*(a1 + 80) + 8) + 40);
                 *buf = 138412546;
-                v222 = v111;
-                v223 = 2112;
-                v224 = v112;
+                v207 = v112;
+                v208 = 2112;
+                v209 = v113;
                 _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "Unable to remove old snapshotB: %@ %@", buf, 0x16u);
 
                 v93 = [*(a1 + 56) snapshotID];
-                v167 = *(*(*(a1 + 80) + 8) + 40);
-LABEL_68:
-                _MBLog();
+                _MBLog(@"E ", "Unable to remove old snapshotB: %@ %@", v93, *(*(*(a1 + 80) + 8) + 40));
+LABEL_67:
               }
 
-LABEL_69:
+LABEL_68:
 
               v17 = 0;
-              v44 = v184;
+              v44 = v169;
               goto LABEL_50;
             }
 
-            v113 = *(a1 + 72);
-            v44 = v184;
-            if (!v113)
-            {
-              goto LABEL_117;
-            }
-
-            v175 = v55;
-            v199 = 0u;
-            v200 = 0u;
-            v197 = 0u;
-            v198 = 0u;
-            obja = [v113 manifestsByDomainName];
-            v114 = [obja countByEnumeratingWithState:&v197 objects:v218 count:16];
-            v172 = v9;
+            v114 = *(a1 + 72);
+            v44 = v169;
             if (!v114)
             {
-
-              goto LABEL_92;
+              goto LABEL_116;
             }
 
-            v115 = v114;
-            v182 = *v198;
-            v173 = 1;
+            v160 = v55;
+            v184 = 0u;
+            v185 = 0u;
+            v182 = 0u;
+            v183 = 0u;
+            obja = [v114 manifestsByDomainName];
+            v115 = [obja countByEnumeratingWithState:&v182 objects:v203 count:16];
+            v157 = v9;
+            if (!v115)
+            {
+
+              goto LABEL_91;
+            }
+
+            v116 = v115;
+            v167 = *v183;
+            v158 = 1;
             while (2)
             {
-              v116 = 0;
-LABEL_74:
-              if (*v198 != v182)
+              v117 = 0;
+LABEL_73:
+              if (*v183 != v167)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v117 = *(*(&v197 + 1) + 8 * v116);
-              v118 = [*(a1 + 72) manifestsByDomainName];
-              v119 = [v118 objectForKeyedSubscript:v117];
+              v118 = *(*(&v182 + 1) + 8 * v117);
+              v119 = [*(a1 + 72) manifestsByDomainName];
+              v120 = [v119 objectForKeyedSubscript:v118];
 
-              v120 = [*(a1 + 72) manifestIDs];
-              v121 = [v119 baseRecordIDString];
-              v122 = [v120 indexOfObject:v121];
+              v121 = [*(a1 + 72) manifestIDs];
+              v122 = [v120 baseRecordIDString];
+              v123 = [v121 indexOfObject:v122];
 
-              v123 = [*(a1 + 32) cache];
-              v124 = [v119 manifestID];
-              v125 = *(*(a1 + 80) + 8);
-              v196 = *(v125 + 40);
-              v126 = [v123 checksumForManifest:v124 error:&v196];
-              objc_storeStrong((v125 + 40), v196);
+              v124 = [*(a1 + 32) cache];
+              v125 = [v120 manifestID];
+              v126 = *(*(a1 + 80) + 8);
+              v181 = *(v126 + 40);
+              v127 = [v124 checksumForManifest:v125 error:&v181];
+              objc_storeStrong((v126 + 40), v181);
 
-              if (v122 == 0x7FFFFFFFFFFFFFFFLL)
+              if (v123 == 0x7FFFFFFFFFFFFFFFLL)
               {
-                v127 = MBGetDefaultLog();
-                if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+                v128 = MBGetDefaultLog();
+                if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
                 {
-                  v128 = [*(a1 + 72) manifestIDs];
-                  v129 = [v119 recordIDString];
+                  v129 = [*(a1 + 72) manifestIDs];
+                  v130 = [v120 recordIDString];
                   *buf = 138412802;
-                  v222 = v117;
-                  v223 = 2114;
-                  v224 = v128;
-                  v225 = 2114;
-                  v226 = v129;
-                  _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_ERROR, "Manifest: %@ %{public}@ %{public}@ - unable to find index to verify cache", buf, 0x20u);
+                  v207 = v118;
+                  v208 = 2114;
+                  v209 = v129;
+                  v210 = 2114;
+                  v211 = v130;
+                  _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_ERROR, "Manifest: %@ %{public}@ %{public}@ - unable to find index to verify cache", buf, 0x20u);
 
-                  v130 = [*(a1 + 72) manifestIDs];
-                  [v119 recordIDString];
-                  v168 = v158 = v130;
-                  v154 = v117;
-                  _MBLog();
+                  v131 = [*(a1 + 72) manifestIDs];
+                  v132 = [v120 recordIDString];
+                  _MBLog(@"E ", "Manifest: %@ %{public}@ %{public}@ - unable to find index to verify cache", v118, v131, v132);
 
-                  v44 = v184;
-                  v29 = v185;
-                  goto LABEL_83;
+                  v44 = v169;
+                  v29 = v170;
+                  goto LABEL_82;
                 }
 
-                v44 = v184;
-                v29 = v185;
-LABEL_86:
+                v44 = v169;
+                v29 = v170;
+LABEL_85:
               }
 
               else
               {
-                v131 = [*(a1 + 72) manifestChecksums];
-                v132 = [v131 objectAtIndexedSubscript:v122];
-                v133 = [v132 longLongValue];
+                v133 = [*(a1 + 72) manifestChecksums];
+                v134 = [v133 objectAtIndexedSubscript:v123];
+                v135 = [v134 longLongValue];
 
-                v44 = v184;
-                v29 = v185;
-                if (*(*(*(a1 + 80) + 8) + 40) || v133 != v126)
+                v44 = v169;
+                v29 = v170;
+                if (*(*(*(a1 + 80) + 8) + 40) || v135 != v127)
                 {
-                  v127 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+                  v128 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
                   {
-                    v134 = [v119 manifestID];
+                    v136 = [v120 manifestID];
                     *buf = 138412546;
-                    v222 = v117;
-                    v223 = 2112;
-                    v224 = v134;
-                    _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) maybe corrupted in the cache.", buf, 0x16u);
+                    v207 = v118;
+                    v208 = 2112;
+                    v209 = v136;
+                    _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) maybe corrupted in the cache.", buf, 0x16u);
 
-                    v130 = [v119 manifestID];
-                    v154 = v117;
-                    v158 = v130;
-                    _MBLog();
-                    v173 = 0;
-LABEL_83:
+                    v131 = [v120 manifestID];
+                    _MBLog(@"E ", "Manifest: %@ (%@) maybe corrupted in the cache.", v118, v131);
+                    v158 = 0;
+LABEL_82:
                   }
 
                   else
                   {
-                    v173 = 0;
+                    v158 = 0;
                   }
 
-                  goto LABEL_86;
+                  goto LABEL_85;
                 }
               }
 
-              if (v115 == ++v116)
+              if (v116 == ++v117)
               {
-                v115 = [obja countByEnumeratingWithState:&v197 objects:v218 count:16];
-                if (!v115)
+                v116 = [obja countByEnumeratingWithState:&v182 objects:v203 count:16];
+                if (!v116)
                 {
 
-                  v9 = v172;
-                  v13 = v178;
-                  v26 = v179;
-                  v55 = v175;
-                  if ((v173 & 1) == 0)
+                  v9 = v157;
+                  v13 = v163;
+                  v26 = v164;
+                  v55 = v160;
+                  if ((v158 & 1) == 0)
                   {
-                    goto LABEL_114;
+                    goto LABEL_113;
                   }
 
-LABEL_92:
-                  v194 = 0u;
-                  v195 = 0u;
-                  v192 = 0u;
-                  v193 = 0u;
-                  v183 = [*(a1 + 72) manifestsByDomainName];
-                  v135 = [v183 countByEnumeratingWithState:&v192 objects:v217 count:16];
-                  if (v135)
+LABEL_91:
+                  v179 = 0u;
+                  v180 = 0u;
+                  v177 = 0u;
+                  v178 = 0u;
+                  v168 = [*(a1 + 72) manifestsByDomainName];
+                  v137 = [v168 countByEnumeratingWithState:&v177 objects:v202 count:16];
+                  if (v137)
                   {
-                    v136 = v135;
-                    v137 = *v193;
-                    v138 = 1;
+                    v138 = v137;
+                    v139 = *v178;
+                    v140 = 1;
                     do
                     {
-                      for (j = 0; j != v136; j = j + 1)
+                      for (j = 0; j != v138; j = j + 1)
                       {
-                        if (*v193 != v137)
+                        if (*v178 != v139)
                         {
-                          objc_enumerationMutation(v183);
+                          objc_enumerationMutation(v168);
                         }
 
-                        v140 = *(*(&v192 + 1) + 8 * j);
-                        v141 = [*(a1 + 72) manifestsByDomainName];
-                        v142 = [v141 objectForKeyedSubscript:v140];
+                        v142 = *(*(&v177 + 1) + 8 * j);
+                        v143 = [*(a1 + 72) manifestsByDomainName];
+                        v144 = [v143 objectForKeyedSubscript:v142];
 
-                        v143 = dispatch_semaphore_create(0);
-                        v189[0] = _NSConcreteStackBlock;
-                        v189[1] = 3221225472;
-                        v189[2] = sub_100089AE4;
-                        v189[3] = &unk_1003BC160;
-                        v191 = *(a1 + 80);
-                        v144 = v143;
-                        v190 = v144;
-                        [v142 saveToCacheWithCompletion:v189];
-                        dispatch_semaphore_wait(v144, 0xFFFFFFFFFFFFFFFFLL);
+                        v145 = dispatch_semaphore_create(0);
+                        v174[0] = _NSConcreteStackBlock;
+                        v174[1] = 3221225472;
+                        v174[2] = sub_100089AE4;
+                        v174[3] = &unk_1003BC160;
+                        v176 = *(a1 + 80);
+                        v146 = v145;
+                        v175 = v146;
+                        [v144 saveToCacheWithCompletion:v174];
+                        dispatch_semaphore_wait(v146, 0xFFFFFFFFFFFFFFFFLL);
                         if (*(*(*(a1 + 80) + 8) + 40))
                         {
-                          v145 = MBGetDefaultLog();
-                          if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
+                          v147 = MBGetDefaultLog();
+                          if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
                           {
-                            v146 = [v142 manifestID];
-                            v147 = *(*(*(a1 + 80) + 8) + 40);
+                            v148 = [v144 manifestID];
+                            v149 = *(*(*(a1 + 80) + 8) + 40);
                             *buf = 138412802;
-                            v222 = v140;
-                            v223 = 2112;
-                            v224 = v146;
-                            v225 = 2112;
-                            v226 = v147;
-                            _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) unable to save to the cache: %@", buf, 0x20u);
+                            v207 = v142;
+                            v208 = 2112;
+                            v209 = v148;
+                            v210 = 2112;
+                            v211 = v149;
+                            _os_log_impl(&_mh_execute_header, v147, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) unable to save to the cache: %@", buf, 0x20u);
 
-                            v158 = [v142 manifestID];
-                            v168 = *(*(*(a1 + 80) + 8) + 40);
-                            v156 = v140;
-                            _MBLog();
+                            v150 = [v144 manifestID];
+                            _MBLog(@"E ", "Manifest: %@ (%@) unable to save to the cache: %@", v142, v150, *(*(*(a1 + 80) + 8) + 40));
                           }
 
-                          v138 = 0;
+                          v140 = 0;
                         }
                       }
 
-                      v136 = [v183 countByEnumeratingWithState:&v192 objects:v217 count:16];
+                      v138 = [v168 countByEnumeratingWithState:&v177 objects:v202 count:16];
                     }
 
-                    while (v136);
+                    while (v138);
                   }
 
                   else
                   {
-                    v138 = 1;
+                    v140 = 1;
                   }
 
-                  v148 = dispatch_semaphore_create(0);
-                  v186[0] = _NSConcreteStackBlock;
-                  v186[1] = 3221225472;
-                  v186[2] = sub_100089B44;
-                  v186[3] = &unk_1003BC160;
-                  v149 = *(a1 + 72);
-                  v188 = *(a1 + 80);
-                  v150 = v148;
-                  v187 = v150;
-                  [v149 saveToCacheWithCompletion:v186];
-                  dispatch_semaphore_wait(v150, 0xFFFFFFFFFFFFFFFFLL);
-                  v13 = v178;
-                  v44 = v184;
+                  v151 = dispatch_semaphore_create(0);
+                  v171[0] = _NSConcreteStackBlock;
+                  v171[1] = 3221225472;
+                  v171[2] = sub_100089B44;
+                  v171[3] = &unk_1003BC160;
+                  v152 = *(a1 + 72);
+                  v173 = *(a1 + 80);
+                  v153 = v151;
+                  v172 = v153;
+                  [v152 saveToCacheWithCompletion:v171];
+                  dispatch_semaphore_wait(v153, 0xFFFFFFFFFFFFFFFFLL);
+                  v13 = v163;
+                  v44 = v169;
                   if (*(*(*(a1 + 80) + 8) + 40))
                   {
-                    v151 = MBGetDefaultLog();
-                    v9 = v172;
-                    v26 = v179;
-                    v29 = v185;
-                    v55 = v175;
-                    if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+                    v154 = MBGetDefaultLog();
+                    v9 = v157;
+                    v26 = v164;
+                    v29 = v170;
+                    v55 = v160;
+                    if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
                     {
-                      v152 = *(*(*(a1 + 80) + 8) + 40);
+                      v155 = *(*(*(a1 + 80) + 8) + 40);
                       *buf = 138412290;
-                      v222 = v152;
-                      _os_log_impl(&_mh_execute_header, v151, OS_LOG_TYPE_ERROR, "Could not save cache: %@", buf, 0xCu);
-                      v157 = *(*(*(a1 + 80) + 8) + 40);
-                      _MBLog();
+                      v207 = v155;
+                      _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_ERROR, "Could not save cache: %@", buf, 0xCu);
+                      _MBLog(@"E ", "Could not save cache: %@", *(*(*(a1 + 80) + 8) + 40));
                     }
 
-LABEL_114:
-                    v153 = MBGetDefaultLog();
-                    if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+LABEL_113:
+                    v156 = MBGetDefaultLog();
+                    if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 0;
-                      _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_ERROR, "Journal replay merge action did not succeed.", buf, 2u);
-                      _MBLog();
+                      _os_log_impl(&_mh_execute_header, v156, OS_LOG_TYPE_ERROR, "Journal replay merge action did not succeed.", buf, 2u);
+                      _MBLog(@"E ", "Journal replay merge action did not succeed.");
                     }
 
-                    v16 = v180;
-LABEL_119:
+                    v16 = v165;
+LABEL_118:
 
                     [*(a1 + 72) forgetManifests];
                     v17 = 1;
@@ -4048,69 +3873,69 @@ LABEL_51:
                     goto LABEL_52;
                   }
 
-                  v9 = v172;
-                  v26 = v179;
-                  v29 = v185;
-                  v55 = v175;
-                  if ((v138 & 1) == 0)
+                  v9 = v157;
+                  v26 = v164;
+                  v29 = v170;
+                  v55 = v160;
+                  if ((v140 & 1) == 0)
                   {
-                    goto LABEL_114;
+                    goto LABEL_113;
                   }
 
-                  v16 = v180;
+                  v16 = v165;
                   if (*(a1 + 72))
                   {
-                    v153 = MBGetDefaultLog();
-                    if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
+                    v156 = MBGetDefaultLog();
+                    if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "Journal replay merge action succeeded.", buf, 2u);
-                      _MBLog();
+                      _os_log_impl(&_mh_execute_header, v156, OS_LOG_TYPE_DEFAULT, "Journal replay merge action succeeded.", buf, 2u);
+                      _MBLog(@"Df", "Journal replay merge action succeeded.");
                     }
 
-                    v9 = v172;
-                    v13 = v178;
-                    v26 = v179;
-                    v16 = v180;
-                    v44 = v184;
-                    v29 = v185;
-                    v55 = v175;
-                    goto LABEL_119;
+                    v9 = v157;
+                    v13 = v163;
+                    v26 = v164;
+                    v16 = v165;
+                    v44 = v169;
+                    v29 = v170;
+                    v55 = v160;
+                    goto LABEL_118;
                   }
 
-LABEL_117:
-                  v153 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
+LABEL_116:
+                  v156 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "Journal replay merge action succeeded (intermediate action).", buf, 2u);
-                    _MBLog();
+                    _os_log_impl(&_mh_execute_header, v156, OS_LOG_TYPE_DEFAULT, "Journal replay merge action succeeded (intermediate action).", buf, 2u);
+                    _MBLog(@"Df", "Journal replay merge action succeeded (intermediate action).");
                   }
 
-                  goto LABEL_119;
+                  goto LABEL_118;
                 }
 
                 continue;
               }
 
-              goto LABEL_74;
+              goto LABEL_73;
             }
           }
         }
       }
 
       v46 = v45;
-      v47 = *v206;
+      v47 = *v191;
 LABEL_18:
       v48 = 0;
       while (1)
       {
-        if (*v206 != v47)
+        if (*v191 != v47)
         {
           objc_enumerationMutation(v44);
         }
 
-        v49 = *(*(&v205 + 1) + 8 * v48);
+        v49 = *(*(&v190 + 1) + 8 * v48);
         v50 = [*(a1 + 32) cache];
         v51 = [v50 moveManifest:v49 toSnapshot:*(a1 + 64)];
         v52 = *(*(a1 + 80) + 8);
@@ -4124,7 +3949,7 @@ LABEL_18:
 
         if (v46 == ++v48)
         {
-          v46 = [v44 countByEnumeratingWithState:&v205 objects:v220 count:16];
+          v46 = [v44 countByEnumeratingWithState:&v190 objects:v205 count:16];
           if (!v46)
           {
             goto LABEL_24;
@@ -4140,21 +3965,19 @@ LABEL_18:
         v97 = *(a1 + 64);
         v98 = *(*(*(a1 + 80) + 8) + 40);
         *buf = 138412802;
-        v222 = v49;
-        v223 = 2112;
-        v224 = v97;
-        v225 = 2112;
-        v226 = v98;
+        v207 = v49;
+        v208 = 2112;
+        v209 = v97;
+        v210 = 2112;
+        v211 = v98;
         _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "Unable to move manifest: %@ to snapshot: %@: %@", buf, 0x20u);
-        v163 = *(a1 + 64);
-        v170 = *(*(*(a1 + 80) + 8) + 40);
-        _MBLog();
+        _MBLog(@"E ", "Unable to move manifest: %@ to snapshot: %@: %@", v49, *(a1 + 64), *(*(*(a1 + 80) + 8) + 40));
       }
 
       v17 = 0;
       v55 = v44;
 LABEL_48:
-      v13 = v178;
+      v13 = v163;
       goto LABEL_49;
     }
 
@@ -4164,14 +3987,13 @@ LABEL_48:
       v27 = [*(a1 + 56) snapshotID];
       v28 = *(*(*(a1 + 80) + 8) + 40);
       *buf = 138412546;
-      v222 = v27;
-      v223 = 2112;
-      v224 = v28;
+      v207 = v27;
+      v208 = 2112;
+      v209 = v28;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Unable to enumerate manifests for snapshot %@: %@", buf, 0x16u);
 
       v29 = [*(a1 + 56) snapshotID];
-      v160 = *(*(*(a1 + 80) + 8) + 40);
-      _MBLog();
+      _MBLog(@"E ", "Unable to enumerate manifests for snapshot %@: %@", v29, *(*(*(a1 + 80) + 8) + 40));
       v17 = 0;
       goto LABEL_51;
     }
@@ -4188,14 +4010,13 @@ LABEL_52:
     v14 = [*(a1 + 48) snapshotID];
     v15 = *(*(*(a1 + 80) + 8) + 40);
     *buf = 138412546;
-    v222 = v14;
-    v223 = 2112;
-    v224 = v15;
+    v207 = v14;
+    v208 = 2112;
+    v209 = v15;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Unable to enumerate manifests for snapshot %@: %@", buf, 0x16u);
 
     v16 = [*(a1 + 48) snapshotID];
-    v159 = *(*(*(a1 + 80) + 8) + 40);
-    _MBLog();
+    _MBLog(@"E ", "Unable to enumerate manifests for snapshot %@: %@", v16, *(*(*(a1 + 80) + 8) + 40));
     v17 = 0;
 LABEL_53:
 
@@ -4242,9 +4063,9 @@ void sub_100089B44(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100089F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100089F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4258,17 +4079,17 @@ uint64_t sub_100089F58(uint64_t a1)
   v5 = [*v2 cache];
   v6 = [v5 commitSnapshot:*(a1 + 40)];
 
-  v113 = [[NSSet alloc] initWithArray:*(a1 + 48)];
+  v103 = [[NSSet alloc] initWithArray:*(a1 + 48)];
   v7 = objc_alloc_init(NSMutableDictionary);
   v8 = [*v2 cache];
   v9 = *(a1 + 56);
-  v136[0] = _NSConcreteStackBlock;
-  v136[1] = 3221225472;
-  v136[2] = sub_10008AED4;
-  v136[3] = &unk_1003BC700;
-  v111 = v7;
-  v137 = v111;
-  v10 = [v8 enumerateManifestsForSnapshot:v9 foundManifest:v136];
+  v126[0] = _NSConcreteStackBlock;
+  v126[1] = 3221225472;
+  v126[2] = sub_10008AED4;
+  v126[3] = &unk_1003BC700;
+  v101 = v7;
+  v127 = v101;
+  v10 = [v8 enumerateManifestsForSnapshot:v9 foundManifest:v126];
   v11 = *(*(a1 + 80) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
@@ -4286,69 +4107,67 @@ uint64_t sub_100089F58(uint64_t a1)
       *&buf[14] = v15;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Couldn't enumerate manifest for snapshot %@: %@", buf, 0x16u);
 
-      v98 = [*(a1 + 56) snapshotID];
-      v103 = *(*(*(a1 + 80) + 8) + 40);
-      _MBLog();
+      v16 = [*(a1 + 56) snapshotID];
+      _MBLog(@"E ", "Couldn't enumerate manifest for snapshot %@: %@", v16, *(*(*(a1 + 80) + 8) + 40));
     }
 
     goto LABEL_28;
   }
 
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
-  v133 = 0u;
-  v16 = v111;
-  v17 = [v16 countByEnumeratingWithState:&v132 objects:v150 count:16];
-  if (v17)
+  v124 = 0u;
+  v125 = 0u;
+  v122 = 0u;
+  v123 = 0u;
+  v17 = v101;
+  v18 = [v17 countByEnumeratingWithState:&v122 objects:v140 count:16];
+  if (v18)
   {
-    v18 = *v133;
+    v19 = *v123;
     do
     {
-      for (i = 0; i != v17; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v133 != v18)
+        if (*v123 != v19)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v20 = *(*(&v132 + 1) + 8 * i);
-        v21 = [v16 objectForKeyedSubscript:v20];
+        v21 = *(*(&v122 + 1) + 8 * i);
+        v22 = [v17 objectForKeyedSubscript:v21];
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 96));
-        v23 = [WeakRetained isBackupEngine];
+        v24 = [WeakRetained isBackupEngine];
 
-        if (v23)
+        if (v24)
         {
-          v24 = objc_loadWeakRetained((*(a1 + 32) + 96));
-          [v24 resumeWatchdogIfNeeded];
+          v25 = objc_loadWeakRetained((*(a1 + 32) + 96));
+          [v25 resumeWatchdogIfNeeded];
         }
 
-        v25 = [v113 containsObject:v20];
-        v26 = [*(a1 + 32) cache];
-        v27 = v26;
-        if (v25)
+        v26 = [v103 containsObject:v21];
+        v27 = [*(a1 + 32) cache];
+        v28 = v27;
+        if (v26)
         {
-          v28 = [v26 removeManifestAndFiles:v21];
-          v29 = *(*(a1 + 80) + 8);
-          v30 = *(v29 + 40);
-          *(v29 + 40) = v28;
+          v29 = [v27 removeManifestAndFiles:v22];
+          v30 = *(*(a1 + 80) + 8);
+          v31 = *(v30 + 40);
+          *(v30 + 40) = v29;
 
           if (*(*(*(a1 + 80) + 8) + 40))
           {
-            v42 = MBGetDefaultLog();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+            v44 = MBGetDefaultLog();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
-              v44 = [v21 manifestID];
-              v45 = *(*(*(a1 + 80) + 8) + 40);
+              v46 = [v22 manifestID];
+              v47 = *(*(*(a1 + 80) + 8) + 40);
               *buf = 138412546;
-              *&buf[4] = v44;
+              *&buf[4] = v46;
               *&buf[12] = 2112;
-              *&buf[14] = v45;
-              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Unable to remove old manifest: %@ %@", buf, 0x16u);
+              *&buf[14] = v47;
+              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Unable to remove old manifest: %@ %@", buf, 0x16u);
 
-              v46 = [v21 manifestID];
-              v105 = *(*(*(a1 + 80) + 8) + 40);
-              _MBLog();
+              v48 = [v22 manifestID];
+              _MBLog(@"E ", "Unable to remove old manifest: %@ %@", v48, *(*(*(a1 + 80) + 8) + 40));
               goto LABEL_26;
             }
 
@@ -4358,33 +4177,31 @@ uint64_t sub_100089F58(uint64_t a1)
 
         else
         {
-          v31 = [v21 manifestID];
-          v32 = [v27 moveManifest:v31 toSnapshot:*(a1 + 64)];
-          v33 = *(*(a1 + 80) + 8);
-          v34 = *(v33 + 40);
-          *(v33 + 40) = v32;
+          v32 = [v22 manifestID];
+          v33 = [v28 moveManifest:v32 toSnapshot:*(a1 + 64)];
+          v34 = *(*(a1 + 80) + 8);
+          v35 = *(v34 + 40);
+          *(v34 + 40) = v33;
 
           if (*(*(*(a1 + 80) + 8) + 40))
           {
-            v42 = MBGetDefaultLog();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+            v44 = MBGetDefaultLog();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
-              v47 = [v21 manifestID];
-              v49 = *(a1 + 64);
-              v48 = (a1 + 64);
-              v50 = *(*(v48[2] + 8) + 40);
+              v49 = [v22 manifestID];
+              v51 = *(a1 + 64);
+              v50 = (a1 + 64);
+              v52 = *(*(v50[2] + 8) + 40);
               *buf = 138412802;
-              *&buf[4] = v47;
+              *&buf[4] = v49;
               *&buf[12] = 2112;
-              *&buf[14] = v49;
+              *&buf[14] = v51;
               *&buf[22] = 2112;
-              v146 = v50;
-              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Unable to move manifest: %@ to snapshot: %@: %@", buf, 0x20u);
+              v136 = v52;
+              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Unable to move manifest: %@ to snapshot: %@: %@", buf, 0x20u);
 
-              v46 = [v21 manifestID];
-              v106 = *v48;
-              v110 = *(*(v48[2] + 8) + 40);
-              _MBLog();
+              v48 = [v22 manifestID];
+              _MBLog(@"E ", "Unable to move manifest: %@ to snapshot: %@: %@", v48, *v50, *(*(v50[2] + 8) + 40));
 LABEL_26:
             }
 
@@ -4395,103 +4212,100 @@ LABEL_27:
         }
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v132 objects:v150 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v122 objects:v140 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
-  v35 = [*(a1 + 32) cache];
-  v36 = [v35 removeSnapshot:*(a1 + 56)];
-  v37 = *(*(a1 + 80) + 8);
-  v38 = *(v37 + 40);
-  *(v37 + 40) = v36;
+  v36 = [*(a1 + 32) cache];
+  v37 = [v36 removeSnapshot:*(a1 + 56)];
+  v38 = *(*(a1 + 80) + 8);
+  v39 = *(v38 + 40);
+  *(v38 + 40) = v37;
 
   if (*(*(*(a1 + 80) + 8) + 40))
   {
-    v39 = MBGetDefaultLog();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v40 = MBGetDefaultLog();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      v40 = [*(a1 + 56) snapshotID];
-      v41 = *(*(*(a1 + 80) + 8) + 40);
+      v41 = [*(a1 + 56) snapshotID];
+      v42 = *(*(*(a1 + 80) + 8) + 40);
       *buf = 138412546;
-      *&buf[4] = v40;
+      *&buf[4] = v41;
       *&buf[12] = 2112;
-      *&buf[14] = v41;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Unable to remove old snapshot: %@ %@", buf, 0x16u);
+      *&buf[14] = v42;
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Unable to remove old snapshot: %@ %@", buf, 0x16u);
 
-      v99 = [*(a1 + 56) snapshotID];
-      v104 = *(*(*(a1 + 80) + 8) + 40);
-      _MBLog();
+      v43 = [*(a1 + 56) snapshotID];
+      _MBLog(@"E ", "Unable to remove old snapshot: %@ %@", v43, *(*(*(a1 + 80) + 8) + 40));
     }
 
     goto LABEL_28;
   }
 
-  v53 = *(a1 + 72);
-  if (!v53)
+  v55 = *(a1 + 72);
+  if (!v55)
   {
     goto LABEL_77;
   }
 
-  v130 = 0u;
-  v131 = 0u;
-  v128 = 0u;
-  v129 = 0u;
-  obj = [v53 manifestsByDomainName];
-  v54 = [obj countByEnumeratingWithState:&v128 objects:v149 count:16];
-  if (!v54)
+  v120 = 0u;
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  obj = [v55 manifestsByDomainName];
+  v56 = [obj countByEnumeratingWithState:&v118 objects:v139 count:16];
+  if (!v56)
   {
 
     goto LABEL_51;
   }
 
-  v115 = *v129;
-  v112 = 1;
+  v105 = *v119;
+  v102 = 1;
   do
   {
-    for (j = 0; j != v54; j = j + 1)
+    for (j = 0; j != v56; j = j + 1)
     {
-      if (*v129 != v115)
+      if (*v119 != v105)
       {
         objc_enumerationMutation(obj);
       }
 
-      v56 = *(*(&v128 + 1) + 8 * j);
-      v57 = [*(a1 + 72) manifestsByDomainName];
-      v58 = [v57 objectForKeyedSubscript:v56];
+      v58 = *(*(&v118 + 1) + 8 * j);
+      v59 = [*(a1 + 72) manifestsByDomainName];
+      v60 = [v59 objectForKeyedSubscript:v58];
 
-      v59 = [*(a1 + 72) manifestIDs];
-      v60 = [v58 baseRecordIDString];
-      v61 = [v59 indexOfObject:v60];
+      v61 = [*(a1 + 72) manifestIDs];
+      v62 = [v60 baseRecordIDString];
+      v63 = [v61 indexOfObject:v62];
 
-      v62 = [*(a1 + 32) cache];
-      v63 = [v58 manifestID];
-      v64 = *(*(a1 + 80) + 8);
-      v127 = *(v64 + 40);
-      v65 = [v62 checksumForManifest:v63 error:&v127];
-      objc_storeStrong((v64 + 40), v127);
+      v64 = [*(a1 + 32) cache];
+      v65 = [v60 manifestID];
+      v66 = *(*(a1 + 80) + 8);
+      v117 = *(v66 + 40);
+      v67 = [v64 checksumForManifest:v65 error:&v117];
+      objc_storeStrong((v66 + 40), v117);
 
-      if (v61 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v63 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v66 = MBGetDefaultLog();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v68 = MBGetDefaultLog();
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
-          v67 = [*(a1 + 72) manifestIDs];
-          v68 = [v58 recordIDString];
-          *buf = 138412802;
-          *&buf[4] = v56;
-          *&buf[12] = 2114;
-          *&buf[14] = v67;
-          *&buf[22] = 2114;
-          v146 = v68;
-          _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Manifest: %@ %{public}@ %{public}@ - unable to find index to verify cache", buf, 0x20u);
-
           v69 = [*(a1 + 72) manifestIDs];
-          [v58 recordIDString];
-          v109 = v102 = v69;
-          v97 = v56;
-          _MBLog();
+          v70 = [v60 recordIDString];
+          *buf = 138412802;
+          *&buf[4] = v58;
+          *&buf[12] = 2114;
+          *&buf[14] = v69;
+          *&buf[22] = 2114;
+          v136 = v70;
+          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Manifest: %@ %{public}@ %{public}@ - unable to find index to verify cache", buf, 0x20u);
+
+          v71 = [*(a1 + 72) manifestIDs];
+          v72 = [v60 recordIDString];
+          _MBLog(@"E ", "Manifest: %@ %{public}@ %{public}@ - unable to find index to verify cache", v58, v71, v72);
 
           goto LABEL_43;
         }
@@ -4499,49 +4313,46 @@ LABEL_27:
         goto LABEL_45;
       }
 
-      v70 = [*(a1 + 72) manifestChecksums];
-      v71 = [v70 objectAtIndexedSubscript:v61];
-      v72 = [v71 longLongValue];
+      v73 = [*(a1 + 72) manifestChecksums];
+      v74 = [v73 objectAtIndexedSubscript:v63];
+      v75 = [v74 longLongValue];
 
-      if (*(*(*(a1 + 80) + 8) + 40) || v72 != v65)
+      if (*(*(*(a1 + 80) + 8) + 40) || v75 != v67)
       {
-        v66 = MBGetDefaultLog();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v68 = MBGetDefaultLog();
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
-          v73 = [v58 manifestID];
-          v74 = *(*(*(a1 + 80) + 8) + 40);
+          v76 = [v60 manifestID];
+          v77 = *(*(*(a1 + 80) + 8) + 40);
           *buf = 138412802;
-          *&buf[4] = v56;
+          *&buf[4] = v58;
           *&buf[12] = 2112;
-          *&buf[14] = v73;
+          *&buf[14] = v76;
           *&buf[22] = 2112;
-          v146 = v74;
-          _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) maybe corrupted in the cache, error:%@", buf, 0x20u);
+          v136 = v77;
+          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) maybe corrupted in the cache, error:%@", buf, 0x20u);
 
-          v69 = [v58 manifestID];
-          v102 = v69;
-          v109 = *(*(*(a1 + 80) + 8) + 40);
-          v97 = v56;
-          _MBLog();
-          v112 = 0;
+          v71 = [v60 manifestID];
+          _MBLog(@"E ", "Manifest: %@ (%@) maybe corrupted in the cache, error:%@", v58, v71, *(*(*(a1 + 80) + 8) + 40));
+          v102 = 0;
 LABEL_43:
         }
 
         else
         {
-          v112 = 0;
+          v102 = 0;
         }
 
 LABEL_45:
       }
     }
 
-    v54 = [obj countByEnumeratingWithState:&v128 objects:v149 count:16];
+    v56 = [obj countByEnumeratingWithState:&v118 objects:v139 count:16];
   }
 
-  while (v54);
+  while (v56);
 
-  if ((v112 & 1) == 0)
+  if ((v102 & 1) == 0)
   {
     goto LABEL_74;
   }
@@ -4550,168 +4361,162 @@ LABEL_51:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v146 = sub_1000882C4;
-  v147 = sub_1000882D4;
-  v148 = 0;
-  v123 = 0u;
-  v124 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v75 = [*(a1 + 72) manifestsByDomainName];
-  v76 = [v75 countByEnumeratingWithState:&v123 objects:v144 count:16];
-  if (v76)
+  v136 = sub_1000882C4;
+  v137 = sub_1000882D4;
+  v138 = 0;
+  v113 = 0u;
+  v114 = 0u;
+  v115 = 0u;
+  v116 = 0u;
+  v78 = [*(a1 + 72) manifestsByDomainName];
+  v79 = [v78 countByEnumeratingWithState:&v113 objects:v134 count:16];
+  if (v79)
   {
-    v77 = *v124;
-    v78 = 1;
-    v116 = v75;
+    v80 = *v114;
+    v81 = 1;
+    v106 = v78;
     do
     {
-      for (k = 0; k != v76; k = k + 1)
+      for (k = 0; k != v79; k = k + 1)
       {
-        if (*v124 != v77)
+        if (*v114 != v80)
         {
-          objc_enumerationMutation(v116);
+          objc_enumerationMutation(v106);
         }
 
-        v80 = *(*(&v123 + 1) + 8 * k);
-        v81 = [*(a1 + 72) manifestsByDomainName];
-        v82 = [v81 objectForKeyedSubscript:v80];
+        v83 = *(*(&v113 + 1) + 8 * k);
+        v84 = [*(a1 + 72) manifestsByDomainName];
+        v85 = [v84 objectForKeyedSubscript:v83];
 
-        v83 = dispatch_semaphore_create(0);
-        v120[0] = _NSConcreteStackBlock;
-        v120[1] = 3221225472;
-        v120[2] = sub_10008AF2C;
-        v120[3] = &unk_1003BC160;
-        v122 = buf;
-        v84 = v83;
-        v121 = v84;
-        [v82 saveToCacheWithCompletion:v120];
-        dispatch_semaphore_wait(v84, 0xFFFFFFFFFFFFFFFFLL);
+        v86 = dispatch_semaphore_create(0);
+        v110[0] = _NSConcreteStackBlock;
+        v110[1] = 3221225472;
+        v110[2] = sub_10008AF2C;
+        v110[3] = &unk_1003BC160;
+        v112 = buf;
+        v87 = v86;
+        v111 = v87;
+        [v85 saveToCacheWithCompletion:v110];
+        dispatch_semaphore_wait(v87, 0xFFFFFFFFFFFFFFFFLL);
         if (*(*&buf[8] + 40))
         {
-          v85 = MBGetDefaultLog();
-          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+          v88 = MBGetDefaultLog();
+          if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
           {
-            v86 = v85;
-            if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+            v89 = v88;
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
             {
-              v87 = [v82 manifestID];
-              v88 = *(*&buf[8] + 40);
-              *v138 = 138412802;
-              v139 = v80;
-              v140 = 2112;
-              v141 = v87;
-              v142 = 2112;
-              v143 = v88;
-              _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) unable to save to the cache: %@", v138, 0x20u);
+              v90 = [v85 manifestID];
+              v91 = *(*&buf[8] + 40);
+              *v128 = 138412802;
+              v129 = v83;
+              v130 = 2112;
+              v131 = v90;
+              v132 = 2112;
+              v133 = v91;
+              _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "Manifest: %@ (%@) unable to save to the cache: %@", v128, 0x20u);
             }
 
-            v107 = [v82 manifestID];
-            v109 = *(*&buf[8] + 40);
-            v100 = v80;
-            _MBLog();
+            v92 = [v85 manifestID];
+            _MBLog(@"E ", "Manifest: %@ (%@) unable to save to the cache: %@", v83, v92, *(*&buf[8] + 40));
           }
 
           objc_storeStrong((*(*(a1 + 80) + 8) + 40), *(*&buf[8] + 40));
-          v78 = 0;
+          v81 = 0;
         }
       }
 
-      v75 = v116;
-      v76 = [v116 countByEnumeratingWithState:&v123 objects:v144 count:16];
+      v78 = v106;
+      v79 = [v106 countByEnumeratingWithState:&v113 objects:v134 count:16];
     }
 
-    while (v76);
+    while (v79);
   }
 
   else
   {
-    v78 = 1;
+    v81 = 1;
   }
 
-  v89 = dispatch_semaphore_create(0);
-  v90 = *(a1 + 72);
-  v117[0] = _NSConcreteStackBlock;
-  v117[1] = 3221225472;
-  v117[2] = sub_10008AF8C;
-  v117[3] = &unk_1003BC160;
-  v119 = buf;
-  v91 = v89;
-  v118 = v91;
-  [v90 saveToCacheWithCompletion:v117];
-  dispatch_semaphore_wait(v91, 0xFFFFFFFFFFFFFFFFLL);
+  v93 = dispatch_semaphore_create(0);
+  v94 = *(a1 + 72);
+  v107[0] = _NSConcreteStackBlock;
+  v107[1] = 3221225472;
+  v107[2] = sub_10008AF8C;
+  v107[3] = &unk_1003BC160;
+  v109 = buf;
+  v95 = v93;
+  v108 = v95;
+  [v94 saveToCacheWithCompletion:v107];
+  dispatch_semaphore_wait(v95, 0xFFFFFFFFFFFFFFFFLL);
   if (!*(*&buf[8] + 40))
   {
 
     _Block_object_dispose(buf, 8);
-    if ((v78 & 1) == 0)
+    if ((v81 & 1) == 0)
     {
       goto LABEL_74;
     }
 
     if (*(a1 + 72))
     {
-      v95 = MBGetDefaultLog();
-      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+      v99 = MBGetDefaultLog();
+      if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "Journal replay removeDomain action succeeded.", buf, 2u);
-LABEL_79:
-        _MBLog();
-        goto LABEL_80;
+        _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "Journal replay removeDomain action succeeded.", buf, 2u);
+        _MBLog(@"Df", "Journal replay removeDomain action succeeded.");
       }
 
-      goto LABEL_80;
+LABEL_79:
+
+      [*(a1 + 72) forgetManifests];
+      v53 = 1;
+      goto LABEL_29;
     }
 
 LABEL_77:
-    v95 = MBGetDefaultLog();
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+    v99 = MBGetDefaultLog();
+    if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "Journal replay removeDomain action succeeded (intermediate action).", buf, 2u);
-      goto LABEL_79;
+      _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "Journal replay removeDomain action succeeded (intermediate action).", buf, 2u);
+      _MBLog(@"Df", "Journal replay removeDomain action succeeded (intermediate action).");
     }
 
-LABEL_80:
-
-    [*(a1 + 72) forgetManifests];
-    v51 = 1;
-    goto LABEL_29;
+    goto LABEL_79;
   }
 
-  v92 = MBGetDefaultLog();
-  if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+  v96 = MBGetDefaultLog();
+  if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
   {
-    v93 = *(a1 + 64);
-    v94 = *(*&buf[8] + 40);
-    *v138 = 138412546;
-    v139 = v93;
-    v140 = 2112;
-    v141 = v94;
-    _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_ERROR, "Snapshot: %@ unable to save to the cache: %@", v138, 0x16u);
-    v101 = *(a1 + 64);
-    v108 = *(*&buf[8] + 40);
-    _MBLog();
+    v97 = *(a1 + 64);
+    v98 = *(*&buf[8] + 40);
+    *v128 = 138412546;
+    v129 = v97;
+    v130 = 2112;
+    v131 = v98;
+    _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "Snapshot: %@ unable to save to the cache: %@", v128, 0x16u);
+    _MBLog(@"E ", "Snapshot: %@ unable to save to the cache: %@", *(a1 + 64), *(*&buf[8] + 40));
   }
 
   objc_storeStrong((*(*(a1 + 80) + 8) + 40), *(*&buf[8] + 40));
   _Block_object_dispose(buf, 8);
 
 LABEL_74:
-  v96 = MBGetDefaultLog();
-  if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+  v100 = MBGetDefaultLog();
+  if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "Journal replay removeDomain action did not succeed.", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "Journal replay removeDomain action did not succeed.", buf, 2u);
+    _MBLog(@"E ", "Journal replay removeDomain action did not succeed.");
   }
 
 LABEL_28:
-  v51 = 0;
+  v53 = 0;
 LABEL_29:
 
-  return v51;
+  return v53;
 }
 
 uint64_t sub_10008AED4(uint64_t a1, void *a2)
@@ -4796,7 +4601,7 @@ BOOL sub_10008E27C(uint64_t a1, void *a2, void *a3, int a4, void *a5)
         v30 = 2112;
         v31 = v19;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=quota-calculation= Error fetching local size of domain: %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=quota-calculation= Error fetching local size of domain: %@: %@", v9, v19);
       }
 
       if (a5)
@@ -4821,7 +4626,7 @@ BOOL sub_10008E27C(uint64_t a1, void *a2, void *a3, int a4, void *a5)
           *buf = 138412290;
           v29 = v9;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_FAULT, "=quota-calculation= Using local size estimate for domain %@ because domainQuota wasn't present on the snapshotRecord", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"F ", "=quota-calculation= Using local size estimate for domain %@ because domainQuota wasn't present on the snapshotRecord", v9);
         }
 
         v23 = v18;
@@ -4839,7 +4644,7 @@ BOOL sub_10008E27C(uint64_t a1, void *a2, void *a3, int a4, void *a5)
         v34 = 2112;
         v35 = v10;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "=quota-calculation= Fetched server quota of %llu bytes and scanned size of %llu bytes for domain %@ with hmac  %@", buf, 0x2Au);
-        _MBLog();
+        _MBLog(@"I ", "=quota-calculation= Fetched server quota of %llu bytes and scanned size of %llu bytes for domain %@ with hmac  %@", v23, v18, v9, v10);
       }
 
       [*(a1 + 32) _addCloudSize:v23 localSize:v18 forDomain:v9];
@@ -4868,8 +4673,8 @@ uint64_t sub_10008E5DC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
       v16 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "=quota-calculation= Fetched placeholder size of %llu for %@ (total: %@)", buf, 0x20u);
 
-      v10 = [*(a1 + 32) _sizeOfDomain:v6];
-      _MBLog();
+      v9 = [*(a1 + 32) _sizeOfDomain:v6];
+      _MBLog(@"I ", "=quota-calculation= Fetched placeholder size of %llu for %@ (total: %@)", a4, v6, v9);
     }
   }
 
@@ -4913,7 +4718,7 @@ LABEL_9:
     *buf = 138412290;
     v10 = v1;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "=quota-calculation= Skipping health-related domain %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "=quota-calculation= Skipping health-related domain %@", v1);
   }
 
   v7 = 1;
@@ -4945,8 +4750,8 @@ uint64_t sub_10008F140(uint64_t a1, void *a2, void *a3)
       v20 = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "=quota-calculation= Fetched child domain %@ of %@ with size %@ (total: %@)", buf, 0x2Au);
 
-      v12 = [*(a1 + 32) _sizeOfDomain:v5];
-      _MBLog();
+      v11 = [*(a1 + 32) _sizeOfDomain:v5];
+      _MBLog(@"I ", "=quota-calculation= Fetched child domain %@ of %@ with size %@ (total: %@)", v6, v5, v8, v11);
     }
   }
 
@@ -5028,7 +4833,7 @@ id MBCalculateQuotaForDomainsInCurrentDevice(void *a1, void *a2, void *a3)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=quota-calculation= Calculating quota for domains in current device", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "=quota-calculation= Calculating quota for domains in current device");
   }
 
   v9 = +[MBCKManager sharedInstance];
@@ -5062,7 +4867,7 @@ id MBCalculateQuotaForDomainsInCurrentDevice(void *a1, void *a2, void *a3)
         *buf = 138412290;
         v36 = v17;
         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "=quota-calculation= Failed to fetch device record: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=quota-calculation= Failed to fetch device record: %@", v17);
       }
 
       if (a3)
@@ -5104,7 +4909,7 @@ LABEL_14:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "=quota-calculation= Calculating quota for all manifest sizer", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=quota-calculation= Calculating quota for all manifest sizer");
     }
 
     v25 = [_ManifestSizer sizeDomainsWithManager:v9 account:v5 error:a3];
@@ -5116,7 +4921,7 @@ LABEL_14:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "=quota-calculation= Calculating quota using domain sizer", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "=quota-calculation= Calculating quota using domain sizer");
   }
 
   v16 = v20;
@@ -5131,8 +4936,7 @@ LABEL_17:
     *buf = 134217984;
     v36 = v28;
     _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Fetched %lu domain infos", buf, 0xCu);
-    [v25 count];
-    _MBLog();
+    _MBLog(@"Df", "=quota-calculation= Fetched %lu domain infos", [v25 count]);
   }
 
   v29 = MBGetDefaultLog();
@@ -5141,7 +4945,7 @@ LABEL_17:
     *buf = 138412290;
     v36 = v25;
     _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "=quota-calculation= Domain infos: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Db", "=quota-calculation= Domain infos: %@", v25);
   }
 
 LABEL_22:
@@ -5167,7 +4971,7 @@ id MBCalculateQuotaForDomain(void *a1, void *a2, void *a3, void *a4)
     *buf = 138412290;
     v35 = v7;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "=quota-calculation= Calculating quota for domain %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "=quota-calculation= Calculating quota for domain %@", v7);
   }
 
   v12 = +[MBCKManager sharedInstance];
@@ -5201,7 +5005,7 @@ id MBCalculateQuotaForDomain(void *a1, void *a2, void *a3, void *a4)
         *buf = 138412290;
         v35 = v20;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "=quota-calculation= Failed to fetch device record: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=quota-calculation= Failed to fetch device record: %@", v20);
       }
 
       if (a4)
@@ -5240,7 +5044,7 @@ LABEL_14:
       *buf = 138412290;
       v35 = v7;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "=quota-calculation= Calculating quota for domain %@ using manifest sizer", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "=quota-calculation= Calculating quota for domain %@ using manifest sizer", v7);
     }
 
     v26 = [_ManifestSizer sizeDomainWithName:v7 manager:v12 account:v8 error:a4];
@@ -5252,7 +5056,7 @@ LABEL_14:
       v36 = 2112;
       v37 = v26;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Fetched domain info for %@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=quota-calculation= Fetched domain info for %@: %@", v7, v26);
     }
 
     goto LABEL_18;
@@ -5264,7 +5068,7 @@ LABEL_14:
     *buf = 138412290;
     v35 = v7;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "=quota-calculation= Calculating quota for domain %@ using domain sizer", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "=quota-calculation= Calculating quota for domain %@ using domain sizer", v7);
   }
 
   v25 = [_DomainSizer sizeDomain:v7 manager:v12 operationTracker:v15 account:v8 device:v19 error:a4];
@@ -5351,8 +5155,8 @@ void sub_100092594(uint64_t a1)
     v7 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Received notification: %@", buf, 0xCu);
 
-    v5 = [*(a1 + 32) name];
-    _MBLog();
+    v4 = [*(a1 + 32) name];
+    _MBLog(@"Df", "Received notification: %@", v4);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -5368,10 +5172,7 @@ uint64_t sub_100093324(uint64_t result, uint64_t a2)
 
 uint64_t sub_10009333C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) loadRestoreStateWithAccount:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) loadRestoreStateWithAccount:*(a1 + 40)];
 
   return _objc_release_x1();
 }
@@ -5384,7 +5185,7 @@ void sub_1000948A0(uint64_t a1)
   {
     *v6 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Delayed restore timer fired", v6, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Delayed restore timer fired");
   }
 
   v4 = +[MBXPCServer sharedInstance];
@@ -5402,7 +5203,7 @@ void sub_100094D44(uint64_t a1)
   {
     *v5 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Background Restore TTR timer fired", v5, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Background Restore TTR timer fired");
   }
 
   v4 = +[MBTapToRadar sharedInstance];
@@ -5458,8 +5259,7 @@ void sub_100096CE0(uint64_t a1)
       *buf = 67109120;
       v10 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Can't set up the backup while busy (%d)", buf, 8u);
-      [*(a1 + 32) serviceState];
-      _MBLog();
+      _MBLog(@"Df", "Can't set up the backup while busy (%d)", [*(a1 + 32) serviceState]);
     }
 
     v6 = [MBError errorWithCode:14 format:@"Manager not in idle state"];
@@ -5474,7 +5274,7 @@ void sub_100096CE0(uint64_t a1)
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Setting up backup", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Setting up backup");
     }
 
     [*(a1 + 32) setServiceState:2];
@@ -5504,18 +5304,14 @@ void sub_1000975F8(uint64_t a1)
   v3 = +[MBDaemon sharedDaemon];
   [v3 releaseWorkAssertion:*(a1 + 64)];
 
-  v4 = *(a1 + 56);
-  v5 = objc_opt_self();
+  v4 = objc_opt_self();
 
   objc_autoreleasePoolPop(v2);
 }
 
 uint64_t sub_100097B44(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _copyBackupStateInfoForInitialMegaBackup:*(a1 + 56) account:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _copyBackupStateInfoForInitialMegaBackup:*(a1 + 56) account:*(a1 + 40)];
 
   return _objc_release_x1();
 }
@@ -5530,13 +5326,14 @@ uint64_t sub_100098118(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Removing snapshot (MegaBackup): %{public}@", buf, 0xCu);
-LABEL_9:
-      _MBLog();
-      goto LABEL_10;
+      _MBLog(@"Df", "Removing snapshot (MegaBackup): %{public}@", v5);
     }
 
+LABEL_9:
+
+    v9 = 0;
     goto LABEL_10;
   }
 
@@ -5548,37 +5345,32 @@ LABEL_9:
     {
       v10 = *(a1 + 32);
       *buf = 134218498;
-      v14 = v10;
-      v15 = 2048;
-      v16 = [v5 accountType];
-      v17 = 2114;
-      v18 = v5;
+      v13 = v10;
+      v14 = 2048;
+      v15 = [v5 accountType];
+      v16 = 2114;
+      v17 = v5;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Removing snapshot (account type: %ld/%ld): %{public}@", buf, 0x20u);
-      v11 = *(a1 + 32);
-      [v5 accountType];
-      goto LABEL_9;
+      _MBLog(@"Df", "Removing snapshot (account type: %ld/%ld): %{public}@", *(a1 + 32), [v5 accountType], v5);
     }
 
-LABEL_10:
-
-    v9 = 0;
-    goto LABEL_11;
+    goto LABEL_9;
   }
 
   v9 = 1;
-LABEL_11:
+LABEL_10:
 
   return v9;
 }
 
-void sub_100098B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_100098B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a42, 8);
   _Block_object_dispose(&a48, 8);
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x210], 8);
-  _Block_object_dispose((v71 - 192), 8);
+  _Block_object_dispose((v66 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5756,35 +5548,35 @@ void sub_100099054(uint64_t a1)
   v3 = *(*(a1 + 48) + 8);
   if (*(v3 + 24) == 1)
   {
-    v59 = v2;
+    v57 = v2;
     *(v3 + 24) = 0;
-    v60 = objc_opt_new();
+    v58 = objc_opt_new();
     v4 = objc_opt_new();
+    v67 = 0u;
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
     v5 = *(*(*(a1 + 56) + 8) + 40);
-    v6 = [v5 countByEnumeratingWithState:&v69 objects:v76 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v67 objects:v74 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v70;
+      v8 = *v68;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v70 != v8)
+          if (*v68 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v69 + 1) + 8 * i);
+          v10 = *(*(&v67 + 1) + 8 * i);
           v11 = objc_opt_new();
           [v4 setObject:v11 forKey:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v69 objects:v76 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v67 objects:v74 count:16];
       }
 
       while (v7);
@@ -5794,25 +5586,25 @@ void sub_100099054(uint64_t a1)
     v13 = *(v12 + 40);
     *(v12 + 40) = 0;
 
-    v67 = 0u;
-    v68 = 0u;
     v65 = 0u;
     v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     obj = *(*(*(a1 + 64) + 8) + 40);
-    v63 = [obj countByEnumeratingWithState:&v65 objects:v75 count:16];
-    if (v63)
+    v61 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
+    if (v61)
     {
-      v62 = *v66;
+      v60 = *v64;
       do
       {
-        for (j = 0; j != v63; j = j + 1)
+        for (j = 0; j != v61; j = j + 1)
         {
-          if (*v66 != v62)
+          if (*v64 != v60)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v65 + 1) + 8 * j);
+          v15 = *(*(&v63 + 1) + 8 * j);
           v16 = objc_autoreleasePoolPush();
           v17 = [v15 recordID];
           if (!v17)
@@ -5851,7 +5643,7 @@ void sub_100099054(uint64_t a1)
             [v15 setCreated:v29];
           }
 
-          v30 = [v21 objectForKey:{v20, v58}];
+          v30 = [v21 objectForKey:v20];
           if (!v30)
           {
             __assert_rtn("[MBCKManager _getBackupListWithOperationTracker:shouldFilter:error:]_block_invoke_3", "MBCKManager.m", 1129, "snapshots");
@@ -5863,10 +5655,9 @@ void sub_100099054(uint64_t a1)
           if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v74 = v15;
+            v72 = v15;
             _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Found snapshot: %@", buf, 0xCu);
-            v58 = v15;
-            _MBLog();
+            _MBLog(@"I ", "Found snapshot: %@", v15);
           }
 
           objc_autoreleasePoolPop(context);
@@ -5874,10 +5665,10 @@ void sub_100099054(uint64_t a1)
           v4 = v21;
         }
 
-        v63 = [obj countByEnumeratingWithState:&v65 objects:v75 count:16];
+        v61 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
       }
 
-      while (v63);
+      while (v61);
     }
 
     v33 = [v4 keyEnumerator];
@@ -5887,63 +5678,62 @@ void sub_100099054(uint64_t a1)
       v35 = v34;
       do
       {
-        v36 = [v4 objectForKey:{v35, v58}];
-        v37 = *(a1 + 40);
-        v38 = [objc_opt_class() _removeIncompatibleSnapshotsWithAccountType:*(a1 + 88) device:v35 snapshots:v36];
+        v36 = [v4 objectForKey:v35];
+        v37 = [objc_opt_class() _removeIncompatibleSnapshotsWithAccountType:*(a1 + 88) device:v35 snapshots:v36];
 
-        v39 = [v35 deviceUUID];
-        if (!v39)
+        v38 = [v35 deviceUUID];
+        if (!v38)
         {
           __assert_rtn("[MBCKManager _getBackupListWithOperationTracker:shouldFilter:error:]_block_invoke", "MBCKManager.m", 1142, "backupUUID");
         }
 
-        v40 = v39;
-        v41 = MBDeviceUUID();
-        v42 = [v40 isEqualToString:v41];
+        v39 = v38;
+        v40 = MBDeviceUUID();
+        v41 = [v39 isEqualToString:v40];
 
-        if (v42)
+        if (v41)
         {
-          v43 = MBDeviceUDID_Legacy();
+          v42 = MBDeviceUDID_Legacy();
 
-          v40 = v43;
+          v39 = v42;
         }
 
-        v44 = [v60 objectForKey:v40];
-        v45 = [MBBackup backupByMergingMBSBackup:v44 device:v35 snapshots:v38 filterSnapshots:*(a1 + 96)];
-        [v60 setObject:v45 forKey:v40];
+        v43 = [v58 objectForKey:v39];
+        v44 = [MBBackup backupByMergingMBSBackup:v43 device:v35 snapshots:v37 filterSnapshots:*(a1 + 96)];
+        [v58 setObject:v44 forKey:v39];
 
-        v46 = [v33 nextObject];
+        v45 = [v33 nextObject];
 
-        v35 = v46;
+        v35 = v45;
       }
 
-      while (v46);
+      while (v45);
     }
 
-    v47 = [v60 dictionaryRepresentation];
-    v48 = *(*(a1 + 72) + 8);
-    v49 = *(v48 + 40);
-    *(v48 + 40) = v47;
+    v46 = [v58 dictionaryRepresentation];
+    v47 = *(*(a1 + 72) + 8);
+    v48 = *(v47 + 40);
+    *(v47 + 40) = v46;
 
-    v50 = [*(*(*(a1 + 72) + 8) + 40) allValues];
-    v51 = [v50 mutableCopy];
+    v49 = [*(*(*(a1 + 72) + 8) + 40) allValues];
+    v50 = [v49 mutableCopy];
 
-    v52 = [v51 indexOfObjectPassingTest:&stru_1003BD0F0];
-    if (v52 != 0x7FFFFFFFFFFFFFFFLL)
+    v51 = [v50 indexOfObjectPassingTest:&stru_1003BD0F0];
+    if (v51 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v53 = v52;
-      v54 = [v51 objectAtIndexedSubscript:v52];
-      [v51 removeObjectAtIndex:v53];
-      [v51 insertObject:v54 atIndex:0];
+      v52 = v51;
+      v53 = [v50 objectAtIndexedSubscript:v51];
+      [v50 removeObjectAtIndex:v52];
+      [v50 insertObject:v53 atIndex:0];
     }
 
-    v55 = *(*(a1 + 80) + 8);
-    v56 = *(v55 + 40);
-    *(v55 + 40) = v51;
-    v57 = v51;
+    v54 = *(*(a1 + 80) + 8);
+    v55 = *(v54 + 40);
+    *(v54 + 40) = v50;
+    v56 = v50;
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    v2 = v59;
+    v2 = v57;
   }
 
   objc_autoreleasePoolPop(v2);
@@ -5970,7 +5760,7 @@ void sub_10009B04C(id a1, CKRecord *a2)
   {
     *v3 = 0;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "InheritBackup record fetched block. Nothing to do here", v3, 2u);
-    _MBLog();
+    _MBLog(@"Db", "InheritBackup record fetched block. Nothing to do here");
   }
 }
 
@@ -5985,7 +5775,7 @@ void sub_10009B0C8(uint64_t a1, uint64_t a2, void *a3)
       *buf = 138412290;
       v9 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Hitting InheritBackup endpoint resulted in error %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Hitting InheritBackup endpoint resulted in error %@", v5);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
@@ -6001,19 +5791,16 @@ void sub_10009B0C8(uint64_t a1, uint64_t a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_10009B328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10009B328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_10009B340(uint64_t a1)
 {
-  v2 = [*(a1 + 32) nextBackupSize];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) nextBackupSize];
 
   return _objc_release_x1();
 }
@@ -6040,7 +5827,7 @@ void sub_10009B738(id a1)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Backup engine timed out - exiting", buf, 2u);
-    _MBLog();
+    _MBLog(@"E ", "Backup engine timed out - exiting");
   }
 
   if (MBIsInternalInstall())
@@ -6050,7 +5837,7 @@ void sub_10009B738(id a1)
     {
       *v3 = 0;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "Backup engine timed out", v3, 2u);
-      _MBLog();
+      _MBLog(@"F ", "Backup engine timed out");
     }
   }
 
@@ -6115,8 +5902,7 @@ void sub_10009C2F4(uint64_t a1)
       *buf = 67109120;
       v24 = v3;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Ignoring backup request while busy (%d)", buf, 8u);
-      [*(a1 + 32) serviceState];
-      _MBLog();
+      _MBLog(@"Df", "Ignoring backup request while busy (%d)", [*(a1 + 32) serviceState]);
     }
 
     v4 = [MBError errorWithCode:14 format:@"Manager not in idle state"];
@@ -6156,7 +5942,7 @@ void sub_10009C2F4(uint64_t a1)
             {
               *buf = 0;
               _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Ignoring backup request because a concurrent backup is already in progress", buf, 2u);
-              _MBLog();
+              _MBLog(@"Df", "Ignoring backup request because a concurrent backup is already in progress");
             }
 
             v15 = [MBError errorWithCode:14 format:@"Backup already in progress"];
@@ -6195,7 +5981,7 @@ LABEL_17:
   }
 }
 
-void sub_10009CC4C(uint64_t a1, unsigned int a2, void *a3, double a4)
+void sub_10009CC4C(uint64_t a1, int a2, void *a3, double a4)
 {
   v7 = a3;
   v8 = MBGetDefaultLog();
@@ -6212,7 +5998,7 @@ void sub_10009CC4C(uint64_t a1, unsigned int a2, void *a3, double a4)
     }
 
     *buf = 138412290;
-    *v73 = v9;
+    *v69 = v9;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Engine callback (%@)", buf, 0xCu);
     if (a2 > 4)
     {
@@ -6224,8 +6010,7 @@ void sub_10009CC4C(uint64_t a1, unsigned int a2, void *a3, double a4)
       v10 = *(&off_1003BDB50 + a2);
     }
 
-    v61 = v10;
-    _MBLog();
+    _MBLog(@"Db", "Engine callback (%@)", v10);
   }
 
   v11 = [*(a1 + 32) watchdog];
@@ -6237,7 +6022,7 @@ void sub_10009CC4C(uint64_t a1, unsigned int a2, void *a3, double a4)
   v16 = 0;
   v17 = 0;
   v18 = -1;
-  v65 = v7;
+  v61 = v7;
   if (a2 <= 1)
   {
     if (a2)
@@ -6263,12 +6048,12 @@ void sub_10009CC4C(uint64_t a1, unsigned int a2, void *a3, double a4)
         [*(a1 + 72) reset];
       }
 
-      v48 = *(a1 + 72);
-      v49 = 0.25;
+      v47 = *(a1 + 72);
+      v48 = 0.25;
       if (a4 >= 0.25)
       {
-        *&v49 = a4;
-        if (![v48 shouldUpdateWithProgress:v49])
+        *&v48 = a4;
+        if (![v47 shouldUpdateWithProgress:v48])
         {
           v17 = 0;
 LABEL_17:
@@ -6278,18 +6063,18 @@ LABEL_17:
 
         v18 = [*(a1 + 72) minutesRemaining];
         [*(a1 + 48) setEstimatedTimeRemaining:v18];
-        v60 = *(a1 + 40);
-        v51 = [*(a1 + 80) bytesRemaining];
+        v57 = *(a1 + 40);
+        v50 = [*(a1 + 80) bytesRemaining];
         v32 = *(a1 + 48);
         v33 = *(a1 + 64);
         v34 = *(a1 + 97);
-        v31 = v60;
+        v31 = v57;
         *&v35 = a4;
-        v50 = v18;
+        v49 = v18;
         goto LABEL_47;
       }
 
-      [v48 reset];
+      [v47 reset];
       v31 = *(a1 + 40);
       v32 = *(a1 + 48);
       v33 = *(a1 + 64);
@@ -6304,16 +6089,15 @@ LABEL_17:
       {
         v22 = *(a1 + 56);
         *buf = 138543362;
-        *v73 = v22;
+        *v69 = v22;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Started backup, reason:%{public}@", buf, 0xCu);
-        v61 = *(a1 + 56);
-        _MBLog();
+        _MBLog(@"Df", "Started backup, reason:%{public}@", *(a1 + 56));
       }
 
       [v11 resume];
       if (*(a1 + 96) == 1)
       {
-        v63 = v13;
+        v59 = v13;
         [*(a1 + 40) _updateMegaBackupStatus:0 account:*(a1 + 64)];
         [*(a1 + 40) submitMegaLifeCycleTelemetriesWithAccount:*(a1 + 64)];
         v23 = [*(a1 + 64) persona];
@@ -6331,9 +6115,9 @@ LABEL_17:
           v12 = v27;
         }
 
-        [*(a1 + 40) submitMegaLifeCycleTelemetriesWithAccount:{*(a1 + 64), v61}];
+        [*(a1 + 40) submitMegaLifeCycleTelemetriesWithAccount:*(a1 + 64)];
 
-        v13 = v63;
+        v13 = v59;
       }
 
       v31 = *(a1 + 40);
@@ -6344,17 +6128,17 @@ LABEL_17:
       v35 = 0.0;
     }
 
+    v49 = -1;
     v50 = -1;
-    v51 = -1;
 LABEL_47:
-    [v31 _didUpdateBackupProgress:v50 estimatedTimeRemaining:v51 bytesRemaining:v12 engineState:v32 stateInfo:v33 account:v34 shouldUpdatePrebuddyFollowUp:{v35, v61}];
+    [v31 _didUpdateBackupProgress:v49 estimatedTimeRemaining:v50 bytesRemaining:v12 engineState:v32 stateInfo:v33 account:v34 shouldUpdatePrebuddyFollowUp:v35];
     v17 = 0;
     goto LABEL_48;
   }
 
   switch(a2)
   {
-    case 2u:
+    case 2:
       [v11 resume];
       [*(a1 + 48) setState:4];
       LODWORD(v36) = 1.0;
@@ -6372,7 +6156,7 @@ LABEL_47:
       if (*(a1 + 96) != 1)
       {
 LABEL_40:
-        [v13 managerDidFinishBackup:{*(a1 + 40), v61}];
+        [v13 managerDidFinishBackup:*(a1 + 40)];
 LABEL_48:
         v16 = 1;
         break;
@@ -6380,41 +6164,40 @@ LABEL_48:
 
       [*(a1 + 40) _updateMegaBackupStatus:1 account:*(a1 + 64)];
       [*(a1 + 40) _setIsInitialMegaBackupCompleted:1];
-      v39 = *(a1 + 40);
       [objc_opt_class() saveBackupStateInfo:*(a1 + 48) forInitialMegaBackup:1 account:*(a1 + 64)];
-      v40 = [*(a1 + 40) prebuddyFollowUpTimer];
-      if (!v40)
+      v39 = [*(a1 + 40) prebuddyFollowUpTimer];
+      if (!v39)
       {
         if (*(a1 + 97) != 1)
         {
           goto LABEL_36;
         }
 
-        v40 = [*(a1 + 40) prebuddyFollowUpTimerForAccount:*(a1 + 64)];
-        [*(a1 + 40) setPrebuddyFollowUpTimer:v40];
+        v39 = [*(a1 + 40) prebuddyFollowUpTimerForAccount:*(a1 + 64)];
+        [*(a1 + 40) setPrebuddyFollowUpTimer:v39];
       }
 
 LABEL_36:
-      v62 = v12;
-      v64 = v13;
-      v41 = [*(a1 + 64) persona];
-      v42 = [v41 copyPreferencesValueForKey:@"MegaBackupFlowStartDate" class:objc_opt_class()];
-      v43 = [v41 copyPreferencesValueForKey:@"InitialMegaBackupFinishedDateDelta" class:objc_opt_class()];
-      v44 = v43;
-      if (v42 && !v43)
+      v58 = v12;
+      v60 = v13;
+      v40 = [*(a1 + 64) persona];
+      v41 = [v40 copyPreferencesValueForKey:@"MegaBackupFlowStartDate" class:objc_opt_class()];
+      v42 = [v40 copyPreferencesValueForKey:@"InitialMegaBackupFinishedDateDelta" class:objc_opt_class()];
+      v43 = v42;
+      if (v41 && !v42)
       {
-        v45 = +[NSDate now];
-        [v45 timeIntervalSinceDate:v42];
-        v47 = [NSNumber numberWithInt:v46];
-        [v41 setPreferencesValue:v47 forKey:@"InitialMegaBackupFinishedDateDelta"];
+        v44 = +[NSDate now];
+        [v44 timeIntervalSinceDate:v41];
+        v46 = [NSNumber numberWithInt:v45];
+        [v40 setPreferencesValue:v46 forKey:@"InitialMegaBackupFinishedDateDelta"];
       }
 
       [*(a1 + 40) submitMegaLifeCycleTelemetriesWithAccount:*(a1 + 64)];
 
-      v12 = v62;
-      v13 = v64;
+      v12 = v58;
+      v13 = v60;
       goto LABEL_40;
-    case 4u:
+    case 4:
       [v11 resume];
       [*(a1 + 48) setState:6];
       v17 = MBSanitizeErrorWithDateAndBuild(v7);
@@ -6425,7 +6208,7 @@ LABEL_36:
         [v19 updateFollowupWithBackupProgress:*(a1 + 48) account:*(a1 + 64)];
       }
 
-      [v13 manager:*(a1 + 40) didFailBackupWithError:{v7, v61}];
+      [v13 manager:*(a1 + 40) didFailBackupWithError:v7];
       if ([MBError isError:v7 withCode:204])
       {
         [*(a1 + 40) _syncBackupEnabledWithAccount:*(a1 + 64) connection:0];
@@ -6433,21 +6216,21 @@ LABEL_36:
 
       [*(a1 + 48) setBackupAttemptCount:{objc_msgSend(*(a1 + 48), "backupAttemptCount") + 1}];
       goto LABEL_17;
-    case 3u:
+    case 3:
       __assert_rtn("[MBCKManager _startBackupWithEngine:account:]_block_invoke", "MBCKManager.m", 1790, "0 && Unexpected state");
   }
 
 LABEL_49:
-  v52 = *(*(a1 + 40) + 160);
+  v51 = *(*(a1 + 40) + 160);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10009D61C;
   block[3] = &unk_1003BCFC8;
-  v69 = *(a1 + 88);
-  v70 = *(a1 + 48);
-  v71 = *(a1 + 96);
-  dispatch_async(v52, block);
-  if (a2 - 2 <= 2)
+  v65 = *(a1 + 88);
+  v66 = *(a1 + 48);
+  v67 = *(a1 + 96);
+  dispatch_async(v51, block);
+  if ((a2 - 2) <= 2)
   {
     if (v18 == -1)
     {
@@ -6455,63 +6238,60 @@ LABEL_49:
     }
 
     [v11 suspend];
-    v53 = *(a1 + 40);
     [objc_opt_class() saveBackupStateInfo:*(a1 + 48) forInitialMegaBackup:0 account:*(a1 + 64)];
     if (*(a1 + 96) == 1)
     {
-      v54 = *(a1 + 40);
       [objc_opt_class() saveBackupStateInfo:*(a1 + 48) forInitialMegaBackup:1 account:*(a1 + 64)];
     }
 
     [MBBackupScheduler postBackupCompletionNotificationWithAccount:*(a1 + 64) completionError:v17];
-    v55 = *(*(a1 + 40) + 160);
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_10009D670;
-    v66[3] = &unk_1003BC0B0;
-    v67 = *(a1 + 88);
-    dispatch_async(v55, v66);
+    v52 = *(*(a1 + 40) + 160);
+    v62[0] = _NSConcreteStackBlock;
+    v62[1] = 3221225472;
+    v62[2] = sub_10009D670;
+    v62[3] = &unk_1003BC0B0;
+    v63 = *(a1 + 88);
+    dispatch_async(v52, v62);
 
     v16 = 1;
   }
 
-  v56 = +[MBNotificationCenter sharedNotificationCenter];
-  [v56 postNotification:kMBManagerBackupStateChangedNotification ifStateChanged:{objc_msgSend(*(a1 + 48), "state")}];
+  v53 = +[MBNotificationCenter sharedNotificationCenter];
+  [v53 postNotification:kMBManagerBackupStateChangedNotification ifStateChanged:{objc_msgSend(*(a1 + 48), "state")}];
 
   if (v16)
   {
     if (v18 == -1)
     {
-      v59 = MBGetDefaultLog();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+      v56 = MBGetDefaultLog();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
       {
         *buf = 67109376;
-        *v73 = a2;
-        *&v73[4] = 2048;
-        *&v73[6] = a4;
-        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "p:%d|%0.2f|?|?", buf, 0x12u);
-        goto LABEL_61;
+        *v69 = a2;
+        *&v69[4] = 2048;
+        *&v69[6] = a4;
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "p:%d|%0.2f|?|?", buf, 0x12u);
+        _MBLog(@"I ", "p:%d|%0.2f|?|?");
       }
     }
 
     else
     {
       [*(a1 + 72) secondsRemaining];
-      v58 = v57;
-      v59 = MBGetDefaultLog();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+      v55 = v54;
+      v56 = MBGetDefaultLog();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
       {
         *buf = 67109888;
-        *v73 = a2;
-        *&v73[4] = 2048;
-        *&v73[6] = a4;
-        v74 = 2048;
-        v75 = v58;
-        v76 = 2048;
-        v77 = v18;
-        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "p:%d|%0.2f|%.0fs|%lum", buf, 0x26u);
-LABEL_61:
-        _MBLog();
+        *v69 = a2;
+        *&v69[4] = 2048;
+        *&v69[6] = a4;
+        v70 = 2048;
+        v71 = v55;
+        v72 = 2048;
+        v73 = v18;
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "p:%d|%0.2f|%.0fs|%lum", buf, 0x26u);
+        _MBLog(@"I ", "p:%d|%0.2f|%.0fs|%lum");
       }
     }
   }
@@ -6559,7 +6339,7 @@ void sub_10009DF5C(uint64_t a1, void *a2)
       *buf = 138412290;
       v7 = v3;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ fired. Updating prebuddy followup", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "%@ fired. Updating prebuddy followup", v3);
     }
 
     [WeakRetained updatePrebuddyFollowUp:*(a1 + 32)];
@@ -6596,10 +6376,9 @@ void sub_10009E8D8(uint64_t a1, void *a2)
     {
       v7 = *(a1 + 48);
       *buf = 138543362;
-      v41 = v7;
+      v37 = v7;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Clearing pending snapshot for %{public}@", buf, 0xCu);
-      v33 = *(a1 + 48);
-      _MBLog();
+      _MBLog(@"Df", "Clearing pending snapshot for %{public}@", *(a1 + 48));
     }
 
     [*(a1 + 40) clearPendingSnapshotFieldsAndRebuildFileChanges:1];
@@ -6612,10 +6391,9 @@ void sub_10009E8D8(uint64_t a1, void *a2)
     {
       v9 = *(a1 + 48);
       *buf = 138543362;
-      v41 = v9;
+      v37 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Turning off backupEnabled in the device record for %{public}@", buf, 0xCu);
-      v33 = *(a1 + 48);
-      _MBLog();
+      _MBLog(@"Df", "Turning off backupEnabled in the device record for %{public}@", *(a1 + 48));
     }
   }
 
@@ -6628,7 +6406,7 @@ void sub_10009E8D8(uint64_t a1, void *a2)
   v11 = *(a1 + 56);
   v12 = *(*(a1 + 96) + 8);
   obj = *(v12 + 40);
-  v13 = [v10 saveWithOperationTracker:v11 error:{&obj, v33}];
+  v13 = [v10 saveWithOperationTracker:v11 error:&obj];
   objc_storeStrong((v12 + 40), obj);
   if ((v13 & 1) == 0)
   {
@@ -6638,13 +6416,11 @@ void sub_10009E8D8(uint64_t a1, void *a2)
       v15 = *(a1 + 48);
       v16 = *(*(*(a1 + 96) + 8) + 40);
       *buf = 138543618;
-      v41 = v15;
-      v42 = 2112;
-      v43 = v16;
+      v37 = v15;
+      v38 = 2112;
+      v39 = v16;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to save the device record for %{public}@: %@", buf, 0x16u);
-      v33 = *(a1 + 48);
-      v35 = *(*(*(a1 + 96) + 8) + 40);
-      _MBLog();
+      _MBLog(@"E ", "Failed to save the device record for %{public}@: %@", *(a1 + 48), *(*(*(a1 + 96) + 8) + 40));
     }
 
     v17 = *(*(a1 + 96) + 8);
@@ -6661,9 +6437,9 @@ LABEL_18:
   v19 = *(a1 + 32);
   v20 = *(a1 + 64);
   v21 = *(*(a1 + 96) + 8);
-  v38 = *(v21 + 40);
-  v22 = [v19 resetCacheWithAccount:v20 error:{&v38, v33, v35}];
-  objc_storeStrong((v21 + 40), v38);
+  v34 = *(v21 + 40);
+  v22 = [v19 resetCacheWithAccount:v20 error:&v34];
+  objc_storeStrong((v21 + 40), v34);
   if ((v22 & 1) == 0)
   {
     v28 = MBGetDefaultLog();
@@ -6671,25 +6447,21 @@ LABEL_18:
     {
       v29 = *(*(*(a1 + 96) + 8) + 40);
       *buf = 138412290;
-      v41 = v29;
+      v37 = v29;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to reset the cache: %@", buf, 0xCu);
-      v34 = *(*(*(a1 + 96) + 8) + 40);
-LABEL_27:
-      _MBLog();
+      _MBLog(@"E ", "Failed to reset the cache: %@", *(*(*(a1 + 96) + 8) + 40), v32);
     }
 
-LABEL_28:
-
-    goto LABEL_29;
+    goto LABEL_27;
   }
 
   v23 = *(a1 + 80);
   v25 = *(a1 + 48);
   v24 = *(a1 + 56);
   v26 = *(*(a1 + 96) + 8);
-  v37 = *(v26 + 40);
-  v27 = [v23 deleteDeviceWithOperationTracker:v24 deviceUUID:v25 error:&v37];
-  objc_storeStrong((v26 + 40), v37);
+  v33 = *(v26 + 40);
+  v27 = [v23 deleteDeviceWithOperationTracker:v24 deviceUUID:v25 error:&v33];
+  objc_storeStrong((v26 + 40), v33);
   if ((v27 & 1) == 0)
   {
     v28 = MBGetDefaultLog();
@@ -6698,21 +6470,21 @@ LABEL_28:
       v30 = *(a1 + 48);
       v31 = *(*(*(a1 + 96) + 8) + 40);
       *buf = 138543618;
-      v41 = v30;
-      v42 = 2112;
-      v43 = v31;
+      v37 = v30;
+      v38 = 2112;
+      v39 = v31;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to delete the device record for %{public}@: %@", buf, 0x16u);
-      v32 = *(a1 + 48);
-      v36 = *(*(*(a1 + 96) + 8) + 40);
-      goto LABEL_27;
+      _MBLog(@"E ", "Failed to delete the device record for %{public}@: %@", *(a1 + 48), *(*(*(a1 + 96) + 8) + 40));
     }
+
+LABEL_27:
 
     goto LABEL_28;
   }
 
   [*(a1 + 32) clearPrebuddyWithAccount:*(a1 + 64) accountSignOut:0];
   *(*(*(a1 + 104) + 8) + 24) = 1;
-LABEL_29:
+LABEL_28:
   dispatch_group_leave(*(a1 + 88));
 }
 
@@ -6738,13 +6510,11 @@ void sub_10009ED60(void *a1)
       v8 = a1[6];
       v9 = *(*(a1[7] + 8) + 40);
       *buf = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to delete the device record for %{public}@: %@", buf, 0x16u);
-      v10 = a1[6];
-      v11 = *(*(a1[7] + 8) + 40);
-      _MBLog();
+      _MBLog(@"E ", "Failed to delete the device record for %{public}@: %@", a1[6], *(*(a1[7] + 8) + 40));
     }
   }
 }
@@ -6758,23 +6528,23 @@ void sub_10009F0E8(id a1, NSString *a2, MBCKSnapshotToDomainRecordReference *a3,
     *buf = 138412290;
     v7 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Synchronizing %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Synchronizing %@", v4);
   }
 }
 
-void sub_10009F74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10009F74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6786,10 +6556,7 @@ uint64_t sub_10009F784(uint64_t a1)
   *(v3 + 40) = v2;
 
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) finishedAppRestores];
-  v5 = [*(a1 + 32) backgroundRestoreProgressMonitor];
-  v6 = *(*(a1 + 56) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) backgroundRestoreProgressMonitor];
 
   return _objc_release_x1();
 }
@@ -6804,18 +6571,19 @@ id sub_10009FCB0(uint64_t a1, uint64_t a2, uint64_t a3)
     v11 = v7;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Cellular access changed for account %@ - retrying pending downloads if necessary", buf, 0xCu);
 
-    v9 = [*(a1 + 32) accountIdentifier];
-    _MBLog();
+    v8 = [*(a1 + 32) accountIdentifier];
+    _MBLog(@"Df", "Cellular access changed for account %@ - retrying pending downloads if necessary", v8);
   }
 
   return [*(a1 + 40) _retryAppDataDownloadsWithConnectivity:a2 account:{a3, *(a1 + 32)}];
 }
 
-void sub_1000A0480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1000A0480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6838,19 +6606,19 @@ void sub_1000A04C0(uint64_t a1)
   *(v9 + 40) = v8;
 }
 
-void sub_1000A09E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000A09E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 160), 8);
+  _Block_object_dispose((v18 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6873,21 +6641,25 @@ void sub_1000A0A34(uint64_t a1)
   *(v9 + 40) = v8;
 }
 
+void sub_1000A1020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_1000A1078(uint64_t a1)
 {
-  v2 = [*(a1 + 32) restoreSession];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) restoreSession];
 
   return _objc_release_x1();
 }
 
-void sub_1000A1708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A1708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 160), 8);
+  _Block_object_dispose((v22 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6898,10 +6670,7 @@ uint64_t sub_1000A1758(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [*(a1 + 32) lockManager];
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) lockManager];
 
   return _objc_release_x1();
 }
@@ -6916,15 +6685,14 @@ void sub_1000A1D48(uint64_t a1)
       v9 = [*(a1 + 32) serviceState];
       v10 = [*(a1 + 40) restoreMode];
       *buf = 67109378;
-      *v44 = v9;
-      *&v44[4] = 2114;
-      *&v44[6] = v10;
+      *v43 = v9;
+      *&v43[4] = 2114;
+      *&v43[6] = v10;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Ignoring background restore request while not in restore session (%d): %{public}@", buf, 0x12u);
 
       v11 = [*(a1 + 32) serviceState];
-      [*(a1 + 40) restoreMode];
-      v37 = v35 = v11;
-      _MBLog();
+      v12 = [*(a1 + 40) restoreMode];
+      _MBLog(@"Df", "Ignoring background restore request while not in restore session (%d): %{public}@", v11, v12);
     }
 
     v6 = @"Manager not in restore session";
@@ -6942,73 +6710,72 @@ void sub_1000A1D48(uint64_t a1)
     {
       v5 = *(a1 + 48);
       *buf = 138412290;
-      *v44 = v5;
+      *v43 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Ignoring multiple concurrent request made from client %@", buf, 0xCu);
-      v35 = *(a1 + 48);
-      _MBLog();
+      _MBLog(@"Df", "Ignoring multiple concurrent request made from client %@", *(a1 + 48));
     }
 
     v6 = @"Restore request exists for client";
     v7 = 3;
 LABEL_9:
-    v12 = [MBError errorWithCode:v7 format:v6, v35, v37];
-    v13 = *(*(a1 + 80) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v13 = [MBError errorWithCode:v7 format:v6];
+    v14 = *(*(a1 + 80) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
     goto LABEL_10;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v14 = [*(a1 + 32) engines];
-  v15 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
-  if (v15)
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v15 = [*(a1 + 32) engines];
+  v16 = [v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = *v39;
+    v17 = v16;
+    v18 = *v38;
     while (2)
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v17; i = i + 1)
       {
-        if (*v39 != v17)
+        if (*v38 != v18)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * i);
-        v20 = [*(a1 + 40) restoreMode];
-        v21 = [v19 context];
-        v22 = [v21 restoreMode];
-        v23 = [v20 isEqual:v22];
+        v20 = *(*(&v37 + 1) + 8 * i);
+        v21 = [*(a1 + 40) restoreMode];
+        v22 = [v20 context];
+        v23 = [v22 restoreMode];
+        v24 = [v21 isEqual:v23];
 
-        if (v23)
+        if (v24)
         {
-          v29 = MBGetDefaultLog();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v30 = MBGetDefaultLog();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v30 = [*(a1 + 40) restoreMode];
+            v31 = [*(a1 + 40) restoreMode];
             *buf = 138412290;
-            *v44 = v30;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Ignoring duplicate background restore request: %@", buf, 0xCu);
+            *v43 = v31;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Ignoring duplicate background restore request: %@", buf, 0xCu);
 
-            v36 = [*(a1 + 40) restoreMode];
-            _MBLog();
+            v32 = [*(a1 + 40) restoreMode];
+            _MBLog(@"Df", "Ignoring duplicate background restore request: %@", v32);
           }
 
-          v31 = [*(a1 + 40) restoreMode];
-          v32 = [MBError errorWithCode:3 format:@"Manager already background restoring %@", v31];
-          v33 = *(*(a1 + 80) + 8);
-          v34 = *(v33 + 40);
-          *(v33 + 40) = v32;
+          v33 = [*(a1 + 40) restoreMode];
+          v34 = [MBError errorWithCode:3 format:@"Manager already background restoring %@", v33];
+          v35 = *(*(a1 + 80) + 8);
+          v36 = *(v35 + 40);
+          *(v35 + 40) = v34;
 
           goto LABEL_10;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
-      if (v16)
+      v17 = [v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      if (v17)
       {
         continue;
       }
@@ -7017,20 +6784,20 @@ LABEL_9:
     }
   }
 
-  v24 = *(a1 + 56);
-  v25 = *(a1 + 40);
-  v26 = [v24 debugContext];
-  v14 = [v24 _restoreEngineWithRestoreType:2 settingsContext:v25 debugContext:v26 excludedAppBundleIDs:0];
+  v25 = *(a1 + 56);
+  v26 = *(a1 + 40);
+  v27 = [v25 debugContext];
+  v15 = [v25 _restoreEngineWithRestoreType:2 settingsContext:v26 debugContext:v27 excludedAppBundleIDs:0];
 
-  [v14 setCkOperationGroup:*(a1 + 64)];
-  [v14 setCkOperationPolicy:*(a1 + 72)];
-  [v14 setCkOperationTracker:0];
-  v27 = [*(a1 + 32) restoreLogger];
-  [v14 setRestoreLogger:v27];
+  [v15 setCkOperationGroup:*(a1 + 64)];
+  [v15 setCkOperationPolicy:*(a1 + 72)];
+  [v15 setCkOperationTracker:0];
+  v28 = [*(a1 + 32) restoreLogger];
+  [v15 setRestoreLogger:v28];
 
-  [*(a1 + 56) _startRestoreWithEngine:v14 delegateContext:*(a1 + 48)];
-  v28 = [*(a1 + 56) serviceDelegate];
-  [v28 manager:*(a1 + 56) didUpdateBackgroundRestoreWithContext:0];
+  [*(a1 + 56) _startRestoreWithEngine:v15 delegateContext:*(a1 + 48)];
+  v29 = [*(a1 + 56) serviceDelegate];
+  [v29 manager:*(a1 + 56) didUpdateBackgroundRestoreWithContext:0];
 
   *(*(*(a1 + 88) + 8) + 24) = 1;
 LABEL_10:
@@ -7054,8 +6821,7 @@ void sub_1000A2A60(uint64_t a1)
       *buf = 67109120;
       LODWORD(v49) = v3;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Ignoring restore request while busy (%d)", buf, 8u);
-      [*(a1 + 32) serviceState];
-      _MBLog();
+      _MBLog(@"Df", "Ignoring restore request while busy (%d)", [*(a1 + 32) serviceState]);
     }
 
     v4 = [MBError errorWithCode:14 format:@"Manager not in idle state"];
@@ -7093,7 +6859,7 @@ void sub_1000A2A60(uint64_t a1)
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Using restore operation log for foreground restore", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Using restore operation log for foreground restore");
         }
 
         v18 = [MBRestoreOperationLogger alloc];
@@ -7149,43 +6915,44 @@ void sub_1000A2A60(uint64_t a1)
 
         v36 = [*(a1 + 40) accountIdentifier];
         v37 = [*(a1 + 88) personaIdentifier];
-        v46 = [(MBServiceRestoreSession *)v31 propertyList];
-        _MBLog();
+        v38 = [(MBServiceRestoreSession *)v31 propertyList];
+        _MBLog(@"Df", "Created new restore session for account %{public}@(%{public}@): (%p) %{public}@", v36, v37, v31, v38);
       }
 
-      v38 = +[MBRemoteConfiguration sharedInstance];
-      [v38 resetCachedConfigurationForAccount:*(a1 + 40)];
+      v39 = +[MBRemoteConfiguration sharedInstance];
+      [v39 resetCachedConfigurationForAccount:*(a1 + 40)];
 
       [(MBCKLockManager *)v6 startRenewingLock];
-      v39 = *(a1 + 56);
-      v40 = [v39 debugContext];
-      v41 = [*(a1 + 96) excludedAppBundleIDs];
-      v42 = [v39 _restoreEngineWithRestoreType:1 settingsContext:v14 debugContext:v40 excludedAppBundleIDs:v41];
+      v40 = *(a1 + 56);
+      v41 = [v40 debugContext];
+      v42 = [*(a1 + 96) excludedAppBundleIDs];
+      v43 = [v40 _restoreEngineWithRestoreType:1 settingsContext:v14 debugContext:v41 excludedAppBundleIDs:v42];
 
-      [v42 setCkOperationGroup:*(a1 + 64)];
-      [v42 setCkOperationPolicy:*(a1 + 104)];
-      [v42 setCkOperationTracker:*(a1 + 112)];
-      v43 = [*(a1 + 32) restoreLogger];
-      [v42 setRestoreLogger:v43];
+      [v43 setCkOperationGroup:*(a1 + 64)];
+      [v43 setCkOperationPolicy:*(a1 + 104)];
+      [v43 setCkOperationTracker:*(a1 + 112)];
+      v44 = [*(a1 + 32) restoreLogger];
+      [v43 setRestoreLogger:v44];
 
-      [*(a1 + 56) _startRestoreWithEngine:v42 delegateContext:*(a1 + 120)];
+      [*(a1 + 56) _startRestoreWithEngine:v43 delegateContext:*(a1 + 120)];
       *(*(*(a1 + 136) + 8) + 24) = 1;
     }
 
     else
     {
-      v44 = *(*(a1 + 128) + 8);
-      v45 = v26;
-      v28 = *(v44 + 40);
-      *(v44 + 40) = v45;
+      v45 = *(*(a1 + 128) + 8);
+      v46 = v26;
+      v28 = *(v45 + 40);
+      *(v45 + 40) = v46;
     }
   }
 }
 
-void sub_1000A363C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1000A363C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7199,18 +6966,18 @@ void sub_1000A3670(id a1)
 
 void sub_1000A36D4(uint64_t a1)
 {
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2020000000;
-  v71 = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x2020000000;
+  v67 = 0;
   v2 = *(*(a1 + 32) + 160);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000A3E74;
   block[3] = &unk_1003BD340;
-  v66 = *(a1 + 72);
-  v65 = *(a1 + 40);
-  v67 = &v68;
+  v62 = *(a1 + 72);
+  v61 = *(a1 + 40);
+  v63 = &v64;
   dispatch_sync(v2, block);
   v3 = *(a1 + 72);
   if ((*(a1 + 88) & 1) != 0 || (v4 = *(*(v3 + 8) + 40)) == 0)
@@ -7225,10 +6992,9 @@ LABEL_9:
     {
       v13 = *(a1 + 48);
       *buf = 138412290;
-      v73 = v13;
+      v69 = v13;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Fetching device for restore %@", buf, 0xCu);
-      v53 = *(a1 + 48);
-      _MBLog();
+      _MBLog(@"I ", "Fetching device for restore %@", *(a1 + 48));
     }
 
     v14 = *(a1 + 56);
@@ -7244,9 +7010,9 @@ LABEL_9:
     if (v7)
     {
       v21 = *(a1 + 56);
-      v62 = v18;
-      v22 = [v7 fetchDevicesWithOperationTracker:v21 error:&v62];
-      objc_storeStrong(v19, v62);
+      v58 = v18;
+      v22 = [v7 fetchDevicesWithOperationTracker:v21 error:&v58];
+      objc_storeStrong(v19, v58);
       if (!v22)
       {
         goto LABEL_30;
@@ -7262,26 +7028,13 @@ LABEL_9:
       {
         v27 = *(a1 + 56);
         v28 = *(*(a1 + 80) + 8);
-        v61 = *(v28 + 40);
-        v29 = [v26 fetchSnapshotsWithOperationTracker:v27 error:&v61];
-        objc_storeStrong((v28 + 40), v61);
+        v57 = *(v28 + 40);
+        v29 = [v26 fetchSnapshotsWithOperationTracker:v27 error:&v57];
+        objc_storeStrong((v28 + 40), v57);
         if (v29)
         {
-          if (v69[3])
+          if (v65[3] & 1) != 0 || ([*(*(*(a1 + 72) + 8) + 40) keybagManager], v30 = objc_claimAutoreleasedReturnValue(), v31 = *(a1 + 56), v32 = *(*(a1 + 80) + 8), v56 = *(v32 + 40), v33 = objc_msgSend(v30, "fetchKeybagsWithOperationTracker:error:", v31, &v56), objc_storeStrong((v32 + 40), v56), v30, (v33))
           {
-            goto LABEL_17;
-          }
-
-          v30 = [*(*(*(a1 + 72) + 8) + 40) keybagManager];
-          v31 = *(a1 + 56);
-          v32 = *(*(a1 + 80) + 8);
-          v60 = *(v32 + 40);
-          v33 = [v30 fetchKeybagsWithOperationTracker:v31 error:&v60];
-          objc_storeStrong((v32 + 40), v60);
-
-          if (v33)
-          {
-LABEL_17:
             v34 = [*(a1 + 32) debugContext];
             [v34 setFlag:@"DidFetchDeviceDuringRestore"];
 
@@ -7296,30 +7049,29 @@ LABEL_17:
                 v39 = [v38 keybagsByUUIDString];
                 v40 = [v39 count];
                 *buf = 138543618;
-                v73 = v37;
-                v74 = 2048;
-                v75 = v40;
+                v69 = v37;
+                v70 = 2048;
+                v71 = v40;
                 _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Fetched device for restore: %{public}@ keybagCount: %lu", buf, 0x16u);
               }
 
               v41 = [*(*(*(a1 + 72) + 8) + 40) deviceUUID];
               v42 = [*(*(*(a1 + 72) + 8) + 40) keybagManager];
               v43 = [v42 keybagsByUUIDString];
-              [v43 count];
-              _MBLog();
+              _MBLog(@"Df", "Fetched device for restore: %{public}@ keybagCount: %lu", v41, [v43 count]);
             }
 
             v44 = *(*(a1 + 32) + 160);
-            v57[0] = _NSConcreteStackBlock;
-            v57[1] = 3221225472;
-            v57[2] = sub_1000A3EF8;
-            v57[3] = &unk_1003BC088;
+            v53[0] = _NSConcreteStackBlock;
+            v53[1] = 3221225472;
+            v53[2] = sub_1000A3EF8;
+            v53[3] = &unk_1003BC088;
             v45 = *(a1 + 40);
             v46 = *(a1 + 72);
-            v58 = v45;
-            v59 = v46;
-            dispatch_sync(v44, v57);
-            v9 = v58;
+            v54 = v45;
+            v55 = v46;
+            dispatch_sync(v44, v53);
+            v9 = v54;
           }
 
           else
@@ -7329,10 +7081,9 @@ LABEL_17:
             {
               v52 = *(*(*(a1 + 80) + 8) + 40);
               *buf = 138412290;
-              v73 = v52;
+              v69 = v52;
               _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed to fetch keybags: %@", buf, 0xCu);
-              v56 = *(*(*(a1 + 80) + 8) + 40);
-              _MBLog();
+              _MBLog(@"Df", "Failed to fetch keybags: %@", *(*(*(a1 + 80) + 8) + 40));
             }
           }
         }
@@ -7344,10 +7095,9 @@ LABEL_17:
           {
             v51 = *(a1 + 48);
             *buf = 138543362;
-            v73 = v51;
+            v69 = v51;
             _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to prefetch snapshots for for %{public}@", buf, 0xCu);
-            v55 = *(a1 + 48);
-            _MBLog();
+            _MBLog(@"E ", "Failed to prefetch snapshots for for %{public}@", *(a1 + 48));
           }
         }
 
@@ -7359,10 +7109,9 @@ LABEL_17:
       {
         v49 = *(a1 + 48);
         *buf = 138543362;
-        v73 = v49;
+        v69 = v49;
         _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "No device record found for %{public}@", buf, 0xCu);
-        v54 = *(a1 + 48);
-        _MBLog();
+        _MBLog(@"E ", "No device record found for %{public}@", *(a1 + 48));
       }
 
       v47 = [MBError errorWithCode:204 format:@"No backups found"];
@@ -7405,18 +7154,25 @@ LABEL_29:
     {
       v8 = [*(*(*(a1 + 72) + 8) + 40) deviceUUID];
       *buf = 138543362;
-      v73 = v8;
+      v69 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Found cached restore device: %{public}@", buf, 0xCu);
     }
 
     v9 = [*(*(*(a1 + 72) + 8) + 40) deviceUUID];
-    _MBLog();
+    _MBLog(@"Db", "Found cached restore device: %{public}@", v9);
     goto LABEL_29;
   }
 
 LABEL_30:
 
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v64, 8);
+}
+
+void sub_1000A3E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000A3E74(uint64_t a1)
@@ -7441,7 +7197,7 @@ id sub_1000A4500(uint64_t a1)
   return [v3 clearRestoreSession];
 }
 
-void sub_1000A4558(uint64_t a1, unsigned int a2, void *a3, double a4)
+void sub_1000A4558(uint64_t a1, int a2, void *a3, double a4)
 {
   v7 = a3;
   dispatch_assert_queue_not_V2(*(*(a1 + 32) + 160));
@@ -7459,7 +7215,7 @@ void sub_1000A4558(uint64_t a1, unsigned int a2, void *a3, double a4)
     }
 
     *buf = 138412290;
-    *v83 = v9;
+    *v81 = v9;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Engine callback (%@)", buf, 0xCu);
     if (a2 > 4)
     {
@@ -7471,8 +7227,7 @@ void sub_1000A4558(uint64_t a1, unsigned int a2, void *a3, double a4)
       v10 = *(&off_1003BDB50 + a2);
     }
 
-    v48 = v10;
-    _MBLog();
+    _MBLog(@"Db", "Engine callback (%@)", v10);
   }
 
   if (*(a1 + 104) == 1)
@@ -7482,8 +7237,8 @@ void sub_1000A4558(uint64_t a1, unsigned int a2, void *a3, double a4)
     block[1] = 3221225472;
     block[2] = sub_1000A4F2C;
     block[3] = &unk_1003BDAE8;
-    v80 = *(a1 + 40);
-    v81 = a4;
+    v78 = *(a1 + 40);
+    v79 = a4;
     dispatch_sync(v11, block);
   }
 
@@ -7492,168 +7247,163 @@ void sub_1000A4558(uint64_t a1, unsigned int a2, void *a3, double a4)
   v15 = -1;
   if (a2 > 1)
   {
-    if (a2 != 2)
+    switch(a2)
     {
-      if (a2 == 3)
-      {
+      case 2:
+        v16 = *(a1 + 104);
+        if (v16 == 1)
+        {
+          if (MBIsInternalInstall())
+          {
+            v23 = +[MBBehaviorOptions sharedOptions];
+            v24 = [v23 snapshotAfterForegroundRestore];
+
+            if (v24)
+            {
+              v71 = 0;
+              v25 = [MBFileSystemManager createSnapshotForVolume:@"/private/var" name:@"snapshotAfterForegroundRestore" error:&v71 cancelationHandler:0];
+              v26 = v71;
+              v27 = MBGetDefaultLog();
+              v28 = v27;
+              if (v25)
+              {
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 0;
+                  _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Created snapshotAfterForegroundRestore", buf, 2u);
+                  _MBLog(@"Df", "Created snapshotAfterForegroundRestore", v47);
+                }
+              }
+
+              else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138412290;
+                *v81 = v26;
+                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Unable to create snapshot after foreground restore: %@", buf, 0xCu);
+                _MBLog(@"E ", "Unable to create snapshot after foreground restore: %@", v26);
+              }
+            }
+          }
+
+          v36 = *(*(a1 + 32) + 160);
+          v65[0] = _NSConcreteStackBlock;
+          v65[1] = 3221225472;
+          v65[2] = sub_1000A4F50;
+          v65[3] = &unk_1003BD400;
+          v70 = *(a1 + 105);
+          v18 = &v66;
+          v66 = *(a1 + 40);
+          v37 = *(a1 + 72);
+          v38 = *(a1 + 32);
+          v67 = v37;
+          v68 = v38;
+          v69 = *(a1 + 80);
+          dispatch_sync(v36, v65);
+
+          v19 = v67;
+          goto LABEL_56;
+        }
+
+        break;
+      case 3:
         v16 = *(a1 + 104);
         if (v16 == 1)
         {
           v29 = *(*(a1 + 32) + 160);
-          v65[0] = _NSConcreteStackBlock;
-          v65[1] = 3221225472;
-          v65[2] = sub_1000A4FCC;
-          v65[3] = &unk_1003BC0B0;
-          v18 = &v66;
-          v66 = *(a1 + 40);
-          dispatch_sync(v29, v65);
-LABEL_58:
+          v63[0] = _NSConcreteStackBlock;
+          v63[1] = 3221225472;
+          v63[2] = sub_1000A4FCC;
+          v63[3] = &unk_1003BC0B0;
+          v18 = &v64;
+          v64 = *(a1 + 40);
+          dispatch_sync(v29, v63);
+LABEL_57:
 
           if (*(a1 + 104))
           {
-            goto LABEL_59;
+            goto LABEL_58;
           }
 
           v15 = -1;
-          goto LABEL_63;
-        }
-      }
-
-      else
-      {
-        if (a2 != 4)
-        {
-          goto LABEL_65;
+          goto LABEL_62;
         }
 
+        break;
+      case 4:
         v16 = *(a1 + 104);
         if (v16 == 1)
         {
           v17 = *(*(a1 + 32) + 160);
-          v61[0] = _NSConcreteStackBlock;
-          v61[1] = 3221225472;
-          v61[2] = sub_1000A4FD8;
-          v61[3] = &unk_1003BC2E0;
-          v18 = &v62;
-          v62 = *(a1 + 40);
-          v63 = v7;
-          v64 = *(a1 + 72);
-          dispatch_sync(v17, v61);
+          v59[0] = _NSConcreteStackBlock;
+          v59[1] = 3221225472;
+          v59[2] = sub_1000A4FD8;
+          v59[3] = &unk_1003BC2E0;
+          v18 = &v60;
+          v60 = *(a1 + 40);
+          v61 = v7;
+          v62 = *(a1 + 72);
+          dispatch_sync(v17, v59);
 
-          v19 = v63;
-LABEL_57:
-
-          goto LABEL_58;
-        }
-      }
-
-LABEL_35:
-      if (v16)
-      {
-LABEL_59:
-        v15 = [*(a1 + 64) minutesRemaining];
-        if (a2 == 4 && (*(a1 + 104) & 1) != 0)
-        {
-          v39 = *(a1 + 32);
-          [objc_opt_class() saveRestoreStateInfo:*(a1 + 40) account:*(a1 + 80)];
-        }
-      }
-
-LABEL_63:
-      v40 = *(*(a1 + 32) + 160);
-      v50[0] = _NSConcreteStackBlock;
-      v50[1] = 3221225472;
-      v50[2] = sub_1000A503C;
-      v50[3] = &unk_1003BD428;
-      v59 = a2;
-      v41 = *(a1 + 48);
-      v42 = *(a1 + 32);
-      v51 = v41;
-      v52 = v42;
-      v58 = v15;
-      v53 = *(a1 + 64);
-      v54 = *(a1 + 56);
-      v55 = *(a1 + 80);
-      v56 = v7;
-      v57 = *(a1 + 88);
-      v60 = *(a1 + 104);
-      dispatch_async(v40, v50);
-
-      goto LABEL_64;
-    }
-
-    v16 = *(a1 + 104);
-    if (v16 != 1)
-    {
-      goto LABEL_35;
-    }
-
-    if (!MBIsInternalInstall() || (+[MBBehaviorOptions sharedOptions](MBBehaviorOptions, "sharedOptions"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v23 snapshotAfterForegroundRestore], v23, !v24))
-    {
+          v19 = v61;
 LABEL_56:
-      v36 = *(*(a1 + 32) + 160);
-      v67[0] = _NSConcreteStackBlock;
-      v67[1] = 3221225472;
-      v67[2] = sub_1000A4F50;
-      v67[3] = &unk_1003BD400;
-      v72 = *(a1 + 105);
-      v18 = &v68;
-      v68 = *(a1 + 40);
-      v37 = *(a1 + 72);
-      v38 = *(a1 + 32);
-      v69 = v37;
-      v70 = v38;
-      v71 = *(a1 + 80);
-      dispatch_sync(v36, v67);
 
-      v19 = v69;
-      goto LABEL_57;
+          goto LABEL_57;
+        }
+
+        break;
+      default:
+        goto LABEL_64;
     }
 
-    v73 = 0;
-    v25 = [MBFileSystemManager createSnapshotForVolume:@"/private/var" name:@"snapshotAfterForegroundRestore" error:&v73 cancelationHandler:0];
-    v26 = v73;
-    v27 = MBGetDefaultLog();
-    v28 = v27;
-    if (v25)
+    if (v16)
     {
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+LABEL_58:
+      v15 = [*(a1 + 64) minutesRemaining];
+      if (a2 == 4 && (*(a1 + 104) & 1) != 0)
       {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Created snapshotAfterForegroundRestore", buf, 2u);
-LABEL_54:
-        _MBLog();
+        [objc_opt_class() saveRestoreStateInfo:*(a1 + 40) account:*(a1 + 80)];
       }
     }
 
-    else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      *v83 = v26;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Unable to create snapshot after foreground restore: %@", buf, 0xCu);
-      v49 = v26;
-      goto LABEL_54;
-    }
+LABEL_62:
+    v39 = *(*(a1 + 32) + 160);
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_1000A503C;
+    v48[3] = &unk_1003BD428;
+    v57 = a2;
+    v40 = *(a1 + 48);
+    v41 = *(a1 + 32);
+    v49 = v40;
+    v50 = v41;
+    v56 = v15;
+    v51 = *(a1 + 64);
+    v52 = *(a1 + 56);
+    v53 = *(a1 + 80);
+    v54 = v7;
+    v55 = *(a1 + 88);
+    v58 = *(a1 + 104);
+    dispatch_async(v39, v48);
 
-    goto LABEL_56;
+    goto LABEL_63;
   }
 
   if (a2)
   {
     if (a2 != 1)
     {
-      goto LABEL_65;
+      goto LABEL_64;
     }
 
     if (*(a1 + 104) == 1)
     {
       v20 = *(*(a1 + 32) + 160);
-      v77[0] = _NSConcreteStackBlock;
-      v77[1] = 3221225472;
-      v77[2] = sub_1000A4F3C;
-      v77[3] = &unk_1003BC0B0;
-      v78 = *(a1 + 40);
-      dispatch_sync(v20, v77);
+      v75[0] = _NSConcreteStackBlock;
+      v75[1] = 3221225472;
+      v75[2] = sub_1000A4F3C;
+      v75[3] = &unk_1003BC0B0;
+      v76 = *(a1 + 40);
+      dispatch_sync(v20, v75);
     }
 
     if (*(*(*(a1 + 96) + 8) + 24) != 1)
@@ -7694,16 +7444,16 @@ LABEL_48:
       }
 
       v35 = *(*(a1 + 32) + 160);
-      v74[0] = _NSConcreteStackBlock;
-      v74[1] = 3221225472;
-      v74[2] = sub_1000A4F48;
-      v74[3] = &unk_1003BDAE8;
-      v75 = *(a1 + 40);
-      v76 = v15;
-      dispatch_sync(v35, v74);
+      v72[0] = _NSConcreteStackBlock;
+      v72[1] = 3221225472;
+      v72[2] = sub_1000A4F48;
+      v72[3] = &unk_1003BDAE8;
+      v73 = *(a1 + 40);
+      v74 = v15;
+      dispatch_sync(v35, v72);
     }
 
-    goto LABEL_65;
+    goto LABEL_64;
   }
 
   if (!*(a1 + 48))
@@ -7720,9 +7470,9 @@ LABEL_41:
     *&v13 = a4;
     v15 = -1;
     [v12 manager:*(a1 + 32) didUpdateProgress:-1 estimatedTimeRemaining:v30 context:v13];
-LABEL_64:
+LABEL_63:
     v14 = 1;
-    goto LABEL_65;
+    goto LABEL_64;
   }
 
   v31 = [*(a1 + 56) installCoordinator];
@@ -7735,61 +7485,60 @@ LABEL_64:
 
   v14 = 0;
   v15 = -1;
-LABEL_65:
+LABEL_64:
   *(*(*(a1 + 96) + 8) + 24) = a2;
-  v43 = *(a1 + 104);
+  v42 = *(a1 + 104);
   if (*(a1 + 106) == 1)
   {
-    if ((v43 & 1) == 0)
+    if ((v42 & 1) == 0)
     {
-      goto LABEL_76;
+      goto LABEL_74;
     }
 
-    v44 = +[MBNotificationCenter sharedNotificationCenter];
-    [v44 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{objc_msgSend(*(a1 + 40), "state")}];
+    v43 = +[MBNotificationCenter sharedNotificationCenter];
+    [v43 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{objc_msgSend(*(a1 + 40), "state")}];
 
-    v43 = *(a1 + 104);
+    v42 = *(a1 + 104);
   }
 
-  if ((v14 & v43) == 1)
+  if ((v14 & v42) == 1)
   {
     if (v15 == -1)
     {
-      v47 = MBGetDefaultLog();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+      v46 = MBGetDefaultLog();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         *buf = 67109376;
-        *v83 = a2;
-        *&v83[4] = 2048;
-        *&v83[6] = a4;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "p:%d|%0.2f|?|?", buf, 0x12u);
-        goto LABEL_74;
+        *v81 = a2;
+        *&v81[4] = 2048;
+        *&v81[6] = a4;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "p:%d|%0.2f|?|?", buf, 0x12u);
+        _MBLog(@"I ", "p:%d|%0.2f|?|?");
       }
     }
 
     else
     {
       [*(a1 + 64) secondsRemaining];
-      v46 = v45;
-      v47 = MBGetDefaultLog();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+      v45 = v44;
+      v46 = MBGetDefaultLog();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         *buf = 67109888;
-        *v83 = a2;
-        *&v83[4] = 2048;
-        *&v83[6] = a4;
+        *v81 = a2;
+        *&v81[4] = 2048;
+        *&v81[6] = a4;
+        v82 = 2048;
+        v83 = v45;
         v84 = 2048;
-        v85 = v46;
-        v86 = 2048;
-        v87 = v15;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "p:%d|%0.2f|%.0fs|%lum", buf, 0x26u);
-LABEL_74:
-        _MBLog();
+        v85 = v15;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "p:%d|%0.2f|%.0fs|%lum", buf, 0x26u);
+        _MBLog(@"I ", "p:%d|%0.2f|%.0fs|%lum");
       }
     }
   }
 
-LABEL_76:
+LABEL_74:
 }
 
 id sub_1000A4F2C(uint64_t a1)
@@ -7840,31 +7589,31 @@ void sub_1000A503C(uint64_t a1)
 
       if (v26)
       {
-        v68 = 0u;
-        v69 = 0u;
+        v65 = 0u;
         v66 = 0u;
-        v67 = 0u;
+        v63 = 0u;
+        v64 = 0u;
         v27 = [*(a1 + 56) restoreMode];
         v28 = [v27 paths];
 
-        v29 = [v28 countByEnumeratingWithState:&v66 objects:v78 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v63 objects:v75 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v67;
+          v31 = *v64;
           do
           {
             for (i = 0; i != v30; i = i + 1)
             {
-              if (*v67 != v31)
+              if (*v64 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              [v24 manager:*(a1 + 40) didFailRestoreForPath:*(*(&v66 + 1) + 8 * i) withContext:*(a1 + 32) error:*(a1 + 72)];
+              [v24 manager:*(a1 + 40) didFailRestoreForPath:*(*(&v63 + 1) + 8 * i) withContext:*(a1 + 32) error:*(a1 + 72)];
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v66 objects:v78 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v63 objects:v75 count:16];
           }
 
           while (v30);
@@ -7889,10 +7638,9 @@ void sub_1000A503C(uint64_t a1)
         {
           v38 = *(a1 + 64);
           *buf = 138412290;
-          v75 = v38;
+          v72 = v38;
           _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to find the app restore manager for %@", buf, 0xCu);
-          v60 = *(a1 + 64);
-          _MBLog();
+          _MBLog(@"E ", "Failed to find the app restore manager for %@", *(a1 + 64));
         }
       }
 
@@ -7916,19 +7664,18 @@ void sub_1000A503C(uint64_t a1)
             v48 = [v47 bundleID];
             v49 = *(a1 + 72);
             *buf = 138412546;
-            v75 = v48;
-            v76 = 2112;
-            v77 = v49;
+            v72 = v48;
+            v73 = 2112;
+            v74 = v49;
             _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "IX: Not canceling data promise for %@ because restore needs to be retried after transient error - %@", buf, 0x16u);
 
             v50 = [*(a1 + 56) restoreMode];
-            v61 = [v50 bundleID];
-            v63 = *(a1 + 72);
-            _MBLog();
+            v51 = [v50 bundleID];
+            _MBLog(@"I ", "IX: Not canceling data promise for %@ because restore needs to be retried after transient error - %@", v51, *(a1 + 72));
           }
 
-          v51 = [*(a1 + 56) installCoordinator];
-          [v51 updateProgress:0.0];
+          v52 = [*(a1 + 56) installCoordinator];
+          [v52 updateProgress:0.0];
 
           [v36 openRestoreSlot];
         }
@@ -7937,42 +7684,41 @@ void sub_1000A503C(uint64_t a1)
         {
           if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
-            v52 = [*(a1 + 56) restoreMode];
-            v53 = [v52 bundleID];
-            v54 = *(a1 + 72);
+            v53 = [*(a1 + 56) restoreMode];
+            v54 = [v53 bundleID];
+            v55 = *(a1 + 72);
             *buf = 138412546;
-            v75 = v53;
-            v76 = 2112;
-            v77 = v54;
+            v72 = v54;
+            v73 = 2112;
+            v74 = v55;
             _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "IX: Cancelling the data promise because restore failed for bundleID %@ with a non retryable error - %@", buf, 0x16u);
 
-            v55 = [*(a1 + 56) restoreMode];
-            v62 = [v55 bundleID];
-            v64 = *(a1 + 72);
-            _MBLog();
+            v56 = [*(a1 + 56) restoreMode];
+            v57 = [v56 bundleID];
+            _MBLog(@"E ", "IX: Cancelling the data promise because restore failed for bundleID %@ with a non retryable error - %@", v57, *(a1 + 72));
           }
 
-          v56 = [*(a1 + 56) installCoordinator];
-          [v36 stopTrackingCoordinator:v56 withSuccess:0];
+          v58 = [*(a1 + 56) installCoordinator];
+          [v36 stopTrackingCoordinator:v58 withSuccess:0];
         }
       }
     }
 
     if (*(a1 + 100) == 1)
     {
-      v57 = MBGetDefaultLog();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+      v59 = MBGetDefaultLog();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Restore failed. Clearing all restore data", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "Restore failed. Clearing all restore data", buf, 2u);
+        _MBLog(@"I ", "Restore failed. Clearing all restore data");
       }
 
-      v58 = *(a1 + 40);
-      v59 = *(a1 + 64);
-      v65 = 0;
-      [v58 resetCacheWithAccount:v59 error:&v65];
-      v22 = v65;
+      v60 = *(a1 + 40);
+      v61 = *(a1 + 64);
+      v62 = 0;
+      [v60 resetCacheWithAccount:v61 error:&v62];
+      v22 = v62;
       if (!v22)
       {
         goto LABEL_58;
@@ -7982,9 +7728,9 @@ void sub_1000A503C(uint64_t a1)
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v75 = v22;
+        v72 = v22;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Failed to remove all restore data: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Failed to remove all restore data: %@", v22);
       }
 
 LABEL_57:
@@ -8011,31 +7757,31 @@ LABEL_58:
 
       if (v7)
       {
-        v72 = 0u;
-        v73 = 0u;
+        v69 = 0u;
         v70 = 0u;
-        v71 = 0u;
+        v67 = 0u;
+        v68 = 0u;
         v8 = [*(a1 + 56) restoreMode];
         v9 = [v8 paths];
 
-        v10 = [v9 countByEnumeratingWithState:&v70 objects:v79 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v67 objects:v76 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v71;
+          v12 = *v68;
           do
           {
             for (j = 0; j != v11; j = j + 1)
             {
-              if (*v71 != v12)
+              if (*v68 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [v3 manager:*(a1 + 40) didFinishRestoreForPath:*(*(&v70 + 1) + 8 * j) withContext:*(a1 + 32)];
+              [v3 manager:*(a1 + 40) didFinishRestoreForPath:*(*(&v67 + 1) + 8 * j) withContext:*(a1 + 32)];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v70 objects:v79 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v67 objects:v76 count:16];
           }
 
           while (v11);
@@ -8064,10 +7810,9 @@ LABEL_58:
           {
             v20 = *(a1 + 64);
             *buf = 138412290;
-            v75 = v20;
+            v72 = v20;
             _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to find the app restore manager for %@", buf, 0xCu);
-            v60 = *(a1 + 64);
-            _MBLog();
+            _MBLog(@"E ", "Failed to find the app restore manager for %@", *(a1 + 64));
           }
         }
 
@@ -8156,12 +7901,16 @@ LABEL_7:
   return v12;
 }
 
+void sub_1000A6588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_1000A65B0(uint64_t a1)
 {
-  v2 = [*(a1 + 32) restoreSession];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) restoreSession];
 
   return _objc_release_x1();
 }
@@ -8173,395 +7922,392 @@ void sub_1000A65FC(uint64_t a1)
   {
     v3 = [*(a1 + 32) finishedAppRestores];
     v4 = [*(a1 + 40) airTrafficDidFinishRestore];
-    if ((*(a1 + 64) & 1) == 0)
+    if (*(a1 + 64))
     {
-      v5 = v4;
-      if ([*(a1 + 32) serviceState] == 5)
+      goto LABEL_24;
+    }
+
+    v5 = v4;
+    if ([*(a1 + 32) serviceState] != 5)
+    {
+      goto LABEL_24;
+    }
+
+    if ([*(a1 + 48) isPrimaryAccount])
+    {
+      if ((v3 & v5 & 1) == 0)
       {
-        if ([*(a1 + 48) isPrimaryAccount])
+        v6 = MBGetDefaultLog();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          if ((v3 & v5 & 1) == 0)
+          if (v5)
           {
-            v6 = MBGetDefaultLog();
-            if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-            {
-              if (v5)
-              {
-                v7 = @"done";
-              }
-
-              else
-              {
-                v7 = @"ongoing";
-              }
-
-              if (v3)
-              {
-                v8 = @"done";
-              }
-
-              else
-              {
-                v8 = @"ongoing";
-              }
-
-              *buf = 138412546;
-              v84 = v7;
-              v85 = 2112;
-              v86 = v8;
-              _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring finish restore request while either app data restore or air traffic restore is incomplete. ATC: %@, IX: %@", buf, 0x16u);
-LABEL_19:
-              _MBLog();
-              goto LABEL_78;
-            }
-
-            goto LABEL_78;
-          }
-        }
-
-        else if ((v3 & 1) == 0)
-        {
-          v6 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_78;
+            v7 = @"done";
           }
 
-          *buf = 138412290;
-          v84 = @"ongoing";
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring finish restore request while app data restore is incomplete. IX: %@", buf, 0xCu);
-          goto LABEL_19;
-        }
-      }
-    }
-
-    v11 = MBGetDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      if (*(a1 + 64))
-      {
-        v12 = @"Cancelling";
-      }
-
-      else
-      {
-        v12 = @"Finishing";
-      }
-
-      *buf = 138412290;
-      v84 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@ restore and releasing lock", buf, 0xCu);
-      if (*(a1 + 64))
-      {
-        v13 = @"Cancelling";
-      }
-
-      else
-      {
-        v13 = @"Finishing";
-      }
-
-      v68 = v13;
-      _MBLog();
-    }
-
-    v6 = [*(a1 + 56) placeholderRestoreDirectory];
-    v14 = MBGetDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v84 = v6;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Removing placeholderRestoreDirectory: %@", buf, 0xCu);
-      v68 = v6;
-      _MBLog();
-    }
-
-    v15 = +[NSFileManager defaultManager];
-    v82 = 0;
-    v16 = [v15 removeItemAtPath:v6 error:&v82];
-    v17 = v82;
-
-    if ((v16 & 1) == 0)
-    {
-      v18 = MBGetDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138412290;
-        v84 = v17;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to remove placeholderRestoreDirectory: %@", buf, 0xCu);
-        v68 = v17;
-        _MBLog();
-      }
-    }
-
-    if (*(a1 + 64) == 1)
-    {
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
-      v79 = 0u;
-      v19 = [*(a1 + 32) engines];
-      v20 = [v19 countByEnumeratingWithState:&v78 objects:v91 count:16];
-      if (v20)
-      {
-        v21 = v20;
-        v22 = *v79;
-        do
-        {
-          for (i = 0; i != v21; i = i + 1)
+          else
           {
-            if (*v79 != v22)
-            {
-              objc_enumerationMutation(v19);
-            }
-
-            [*(*(&v78 + 1) + 8 * i) cancel];
+            v7 = @"ongoing";
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v78 objects:v91 count:16];
+          if (v3)
+          {
+            v8 = @"done";
+          }
+
+          else
+          {
+            v8 = @"ongoing";
+          }
+
+          *buf = 138412546;
+          v79 = v7;
+          v80 = 2112;
+          v81 = v8;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring finish restore request while either app data restore or air traffic restore is incomplete. ATC: %@, IX: %@", buf, 0x16u);
+          _MBLog(@"Df", "Ignoring finish restore request while either app data restore or air traffic restore is incomplete. ATC: %@, IX: %@", v7, v8);
         }
 
-        while (v21);
+        goto LABEL_80;
       }
 
-      if (*(a1 + 64))
-      {
-        goto LABEL_61;
-      }
+      goto LABEL_24;
     }
 
-    v77 = 0;
-    v24 = [*(a1 + 56) getBooleanValueForKey:@"UseInheritBackupEndpoint" keyExists:{&v77, v68}];
-    if (v77)
+    if (v3)
     {
-      v25 = v24;
-      v26 = MBGetDefaultLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+LABEL_24:
+      v12 = MBGetDefaultLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        if (v25)
+        if (*(a1 + 64))
         {
-          v27 = "YES";
+          v13 = @"Cancelling";
         }
 
         else
         {
-          v27 = "NO";
+          v13 = @"Finishing";
         }
 
-        *buf = 138412546;
-        v84 = @"UseInheritBackupEndpoint";
-        v85 = 2080;
-        v86 = v27;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%@=%s", buf, 0x16u);
-        v68 = @"UseInheritBackupEndpoint";
-        v71 = v27;
-        _MBLog();
-      }
-
-      if (v77)
-      {
-        if (!v25)
+        *buf = 138412290;
+        v79 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ restore and releasing lock", buf, 0xCu);
+        if (*(a1 + 64))
         {
-LABEL_61:
-          v39 = *(a1 + 56);
-          v75 = 0;
-          v40 = [_TtC7backupd14MBRestoreDepot disposeAllDepotsForPersona:v39 error:&v75, v68, v71];
-          v41 = v75;
-          if ((v40 & 1) == 0)
-          {
-            v42 = MBGetDefaultLog();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 138412290;
-              v84 = v41;
-              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Failed to dispose all depots: %@", buf, 0xCu);
-              v69 = v41;
-              _MBLog();
-            }
-          }
+          v14 = @"Cancelling";
+        }
 
-          [*(a1 + 32) setServiceState:{6, v69}];
-          v43 = +[MBTapToRadar sharedInstance];
-          v44 = [*(a1 + 32) restorePlan];
-          [v43 reportBackgroundRestoreErrorsIn:v44 persona:*(a1 + 56)];
+        else
+        {
+          v14 = @"Finishing";
+        }
 
-          v45 = [*(a1 + 32) restore];
-          [v45 setState:3];
-          [v45 setIsBackground:1];
-          v46 = *(a1 + 40);
-          [objc_opt_class() saveRestoreStateInfo:v45 account:*(a1 + 48)];
-          v47 = +[MBNotificationCenter sharedNotificationCenter];
-          [v47 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{objc_msgSend(v45, "state")}];
+        _MBLog(@"Df", "%@ restore and releasing lock", v14);
+      }
 
-          v48 = [*(a1 + 32) restoreSession];
-          [v48 setFinishing:1];
+      v6 = [*(a1 + 56) placeholderRestoreDirectory];
+      v15 = MBGetDefaultLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v79 = v6;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Removing placeholderRestoreDirectory: %@", buf, 0xCu);
+        _MBLog(@"Df", "Removing placeholderRestoreDirectory: %@", v6);
+      }
 
-          v49 = *(a1 + 64);
-          v50 = [*(a1 + 32) restoreSession];
-          [v50 setCancelled:v49];
+      v16 = +[NSFileManager defaultManager];
+      v77 = 0;
+      v17 = [v16 removeItemAtPath:v6 error:&v77];
+      v18 = v77;
 
-          v51 = [*(a1 + 32) backgroundRestoreProgressMonitor];
-          [v51 cancel];
-
-          [*(a1 + 32) setBackgroundRestoreProgressMonitor:0];
-          v52 = [*(a1 + 32) restoreLogger];
-          [v52 close];
-
-          [*(a1 + 32) setRestoreLogger:0];
-          v53 = [v45 date];
-          if (v53)
-          {
-            v54 = +[NSDate date];
-            v55 = [v45 date];
-            [v54 timeIntervalSinceDate:v55];
-            v57 = v56;
-          }
-
-          else
-          {
-            v57 = 0;
-          }
-
-          v58 = MBGetDefaultLog();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 134217984;
-            v84 = v57;
-            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Total duration of iCloud background restore: %0.3fs", buf, 0xCu);
-            v70 = v57;
-            _MBLog();
-          }
-
-          v59 = [*(a1 + 32) restoreSession];
-          v60 = v59;
-          if (*(a1 + 65) == 1)
-          {
-            v61 = [v59 propertyList];
-            v62 = MBGetDefaultLog();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
-            {
-              v63 = [*(a1 + 48) accountIdentifier];
-              v64 = [*(a1 + 56) personaIdentifier];
-              *buf = 138413058;
-              v84 = v63;
-              v85 = 2114;
-              v86 = v64;
-              v87 = 2048;
-              v88 = v60;
-              v89 = 2114;
-              v90 = v61;
-              _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Saving restore session for account %@(%{public}@): (%p) %{public}@", buf, 0x2Au);
-
-              v65 = [*(a1 + 48) accountIdentifier];
-              [*(a1 + 56) personaIdentifier];
-              v73 = v60;
-              v74 = v61;
-              v72 = v70 = v65;
-              _MBLog();
-            }
-
-            [*(a1 + 56) setPreferencesValue:v61 forKey:@"RestoreSession"];
-          }
-
-          else
-          {
-            [v59 saveAtPath:@"/var/mobile/Library/Preferences/com.apple.MobileBackup.plist"];
-          }
-
-          v66 = [*(a1 + 32) lockManager];
-          [v66 releaseLockSync];
-
-          if (*(a1 + 64) == 1)
-          {
-            v67 = [*(a1 + 40) delegate];
-            [v67 managerDidCancelRestore:*(a1 + 40)];
-          }
-
-          goto LABEL_78;
+      if ((v17 & 1) == 0)
+      {
+        v19 = MBGetDefaultLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412290;
+          v79 = v18;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to remove placeholderRestoreDirectory: %@", buf, 0xCu);
+          _MBLog(@"E ", "Failed to remove placeholderRestoreDirectory: %@", v18);
         }
       }
-    }
 
-    v28 = [*(*(a1 + 40) + 184) objectForKeyedSubscript:{*(a1 + 48), v68, v71}];
-    v29 = [v28 restoreSession];
-
-    v30 = [v29 snapshotUUID];
-    v31 = [v29 backupUDID];
-    v32 = MBGetDefaultLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412546;
-      v84 = v30;
-      v85 = 2112;
-      v86 = v31;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Trying to inherit backup snapshot %@ from device %@", buf, 0x16u);
-      v68 = v30;
-      v71 = v31;
-      _MBLog();
-    }
-
-    v33 = *(a1 + 40);
-    v34 = *(a1 + 48);
-    v76 = 0;
-    v35 = [v33 inheritSnapshotWithAccount:v34 fromSnapshot:v30 fromDevice:v31 error:&v76];
-    v36 = v76;
-    v37 = MBGetDefaultLog();
-    v38 = v37;
-    if (v35)
-    {
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      if (*(a1 + 64) != 1)
       {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "InheritBackup succeeded", buf, 2u);
-LABEL_59:
-        _MBLog();
+        goto LABEL_47;
       }
+
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v20 = [*(a1 + 32) engines];
+      v21 = [v20 countByEnumeratingWithState:&v73 objects:v86 count:16];
+      if (v21)
+      {
+        v22 = v21;
+        v23 = *v74;
+        do
+        {
+          for (i = 0; i != v22; i = i + 1)
+          {
+            if (*v74 != v23)
+            {
+              objc_enumerationMutation(v20);
+            }
+
+            [*(*(&v73 + 1) + 8 * i) cancel];
+          }
+
+          v22 = [v20 countByEnumeratingWithState:&v73 objects:v86 count:16];
+        }
+
+        while (v22);
+      }
+
+      if ((*(a1 + 64) & 1) == 0)
+      {
+LABEL_47:
+        v72 = 0;
+        v25 = [*(a1 + 56) getBooleanValueForKey:@"UseInheritBackupEndpoint" keyExists:&v72];
+        if (!v72)
+        {
+          goto LABEL_55;
+        }
+
+        v26 = v25;
+        v27 = MBGetDefaultLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        {
+          if (v26)
+          {
+            v28 = "YES";
+          }
+
+          else
+          {
+            v28 = "NO";
+          }
+
+          *buf = 138412546;
+          v79 = @"UseInheritBackupEndpoint";
+          v80 = 2080;
+          v81 = v28;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%@=%s", buf, 0x16u);
+          _MBLog(@"Df", "%@=%s", @"UseInheritBackupEndpoint", v28);
+        }
+
+        if (!v72 || v26)
+        {
+LABEL_55:
+          v29 = [*(*(a1 + 40) + 184) objectForKeyedSubscript:*(a1 + 48)];
+          v30 = [v29 restoreSession];
+
+          v31 = [v30 snapshotUUID];
+          v32 = [v30 backupUDID];
+          v33 = MBGetDefaultLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v79 = v31;
+            v80 = 2112;
+            v81 = v32;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Trying to inherit backup snapshot %@ from device %@", buf, 0x16u);
+            _MBLog(@"Df", "Trying to inherit backup snapshot %@ from device %@", v31, v32);
+          }
+
+          v34 = *(a1 + 40);
+          v35 = *(a1 + 48);
+          v71 = 0;
+          v36 = [v34 inheritSnapshotWithAccount:v35 fromSnapshot:v31 fromDevice:v32 error:&v71];
+          v37 = v71;
+          v38 = MBGetDefaultLog();
+          v39 = v38;
+          if (v36)
+          {
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "InheritBackup succeeded", buf, 2u);
+              _MBLog(@"Df", "InheritBackup succeeded", v69);
+            }
+          }
+
+          else if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v79 = v37;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "InheritBackup failed: %@", buf, 0xCu);
+            _MBLog(@"E ", "InheritBackup failed: %@", v37);
+          }
+        }
+      }
+
+      v40 = *(a1 + 56);
+      v70 = 0;
+      v41 = [_TtC7backupd14MBRestoreDepot disposeAllDepotsForPersona:v40 error:&v70];
+      v42 = v70;
+      if ((v41 & 1) == 0)
+      {
+        v43 = MBGetDefaultLog();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412290;
+          v79 = v42;
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to dispose all depots: %@", buf, 0xCu);
+          _MBLog(@"E ", "Failed to dispose all depots: %@", v42);
+        }
+      }
+
+      [*(a1 + 32) setServiceState:6];
+      v44 = +[MBTapToRadar sharedInstance];
+      v45 = [*(a1 + 32) restorePlan];
+      [v44 reportBackgroundRestoreErrorsIn:v45 persona:*(a1 + 56)];
+
+      v46 = [*(a1 + 32) restore];
+      [v46 setState:3];
+      [v46 setIsBackground:1];
+      [objc_opt_class() saveRestoreStateInfo:v46 account:*(a1 + 48)];
+      v47 = +[MBNotificationCenter sharedNotificationCenter];
+      [v47 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{objc_msgSend(v46, "state")}];
+
+      v48 = [*(a1 + 32) restoreSession];
+      [v48 setFinishing:1];
+
+      v49 = *(a1 + 64);
+      v50 = [*(a1 + 32) restoreSession];
+      [v50 setCancelled:v49];
+
+      v51 = [*(a1 + 32) backgroundRestoreProgressMonitor];
+      [v51 cancel];
+
+      [*(a1 + 32) setBackgroundRestoreProgressMonitor:0];
+      v52 = [*(a1 + 32) restoreLogger];
+      [v52 close];
+
+      [*(a1 + 32) setRestoreLogger:0];
+      v53 = [v46 date];
+      if (v53)
+      {
+        v54 = +[NSDate date];
+        v55 = [v46 date];
+        [v54 timeIntervalSinceDate:v55];
+        v57 = v56;
+      }
+
+      else
+      {
+        v57 = 0.0;
+      }
+
+      v58 = MBGetDefaultLog();
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134217984;
+        v79 = *&v57;
+        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Total duration of iCloud background restore: %0.3fs", buf, 0xCu);
+        _MBLog(@"Df", "Total duration of iCloud background restore: %0.3fs", v57);
+      }
+
+      v59 = [*(a1 + 32) restoreSession];
+      v60 = v59;
+      if (*(a1 + 65) == 1)
+      {
+        v61 = [v59 propertyList];
+        v62 = MBGetDefaultLog();
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+        {
+          v63 = [*(a1 + 48) accountIdentifier];
+          v64 = [*(a1 + 56) personaIdentifier];
+          *buf = 138413058;
+          v79 = v63;
+          v80 = 2114;
+          v81 = v64;
+          v82 = 2048;
+          v83 = v60;
+          v84 = 2114;
+          v85 = v61;
+          _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Saving restore session for account %@(%{public}@): (%p) %{public}@", buf, 0x2Au);
+
+          v65 = [*(a1 + 48) accountIdentifier];
+          v66 = [*(a1 + 56) personaIdentifier];
+          _MBLog(@"Df", "Saving restore session for account %@(%{public}@): (%p) %{public}@", v65, v66, v60, v61);
+        }
+
+        [*(a1 + 56) setPreferencesValue:v61 forKey:@"RestoreSession"];
+      }
+
+      else
+      {
+        [v59 saveAtPath:@"/var/mobile/Library/Preferences/com.apple.MobileBackup.plist"];
+      }
+
+      v67 = [*(a1 + 32) lockManager];
+      [v67 releaseLockSync];
+
+      if (*(a1 + 64) == 1)
+      {
+        v68 = [*(a1 + 40) delegate];
+        [v68 managerDidCancelRestore:*(a1 + 40)];
+      }
+
+      goto LABEL_80;
     }
 
-    else if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v6 = MBGetDefaultLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v84 = v36;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "InheritBackup failed: %@", buf, 0xCu);
-      v68 = v36;
-      goto LABEL_59;
+      v79 = @"ongoing";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring finish restore request while app data restore is incomplete. IX: %@", buf, 0xCu);
+      _MBLog(@"Df", "Ignoring finish restore request while app data restore is incomplete. IX: %@", @"ongoing");
     }
-
-    goto LABEL_61;
   }
 
-  v9 = v2;
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else
   {
-    if (*(a1 + 64))
+    v9 = v2;
+    v6 = MBGetDefaultLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @"cancel";
-    }
+      if (*(a1 + 64))
+      {
+        v10 = @"cancel";
+      }
 
-    else
-    {
-      v10 = @"finish";
-    }
+      else
+      {
+        v10 = @"finish";
+      }
 
-    *buf = 138543618;
-    v84 = v10;
-    v85 = 1024;
-    LODWORD(v86) = v9;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring %{public}@ restore request while not in background restore (%d) ", buf, 0x12u);
-    *(a1 + 64);
-    goto LABEL_19;
+      *buf = 138543618;
+      v79 = v10;
+      v80 = 1024;
+      LODWORD(v81) = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring %{public}@ restore request while not in background restore (%d) ", buf, 0x12u);
+      if (*(a1 + 64))
+      {
+        v11 = @"cancel";
+      }
+
+      else
+      {
+        v11 = @"finish";
+      }
+
+      _MBLog(@"Df", "Ignoring %{public}@ restore request while not in background restore (%d) ", v11, v9);
+    }
   }
 
-LABEL_78:
+LABEL_80:
 }
 
 void sub_1000A73EC(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
   [*(a1 + 32) finishAirTrafficRestoreWithAccount:*(a1 + 40)];
-  v3 = *(a1 + 48);
-  v4 = objc_opt_self();
+  v3 = objc_opt_self();
 
   objc_autoreleasePoolPop(v2);
 }
@@ -8582,44 +8328,43 @@ void sub_1000A8610(void *a1)
   {
     v3 = a1[5];
     v2 = a1[6];
-    v25 = 0;
-    v4 = [v2 domainForPath:v3 relativePath:&v25];
-    v5 = v25;
+    v22 = 0;
+    v4 = [v2 domainForPath:v3 relativePath:&v22];
+    v5 = v22;
     if (v4)
     {
       v6 = a1[7];
       v7 = a1[5];
-      v24 = 0;
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_1000A8980;
-      v22[3] = &unk_1003BC6D8;
-      v23 = v4;
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_1000A8988;
-      v21[3] = &unk_1003BD518;
-      v21[4] = a1[9];
-      [v6 atcRestorableForAbsolutePath:v7 error:&v24 domainProvider:v22 restorableAccessor:v21];
-      v8 = v24;
+      v21 = 0;
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_1000A8980;
+      v19[3] = &unk_1003BC6D8;
+      v20 = v4;
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_1000A8988;
+      v18[3] = &unk_1003BD518;
+      v18[4] = a1[9];
+      [v6 atcRestorableForAbsolutePath:v7 error:&v21 domainProvider:v19 restorableAccessor:v18];
+      v8 = v21;
       if (v8)
       {
         v9 = MBGetDefaultLog();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v27 = v8;
+          v24 = v8;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "=atc= Failed to get restore plan restorable: %@", buf, 0xCu);
-          v17 = v8;
-          _MBLog();
+          _MBLog(@"E ", "=atc= Failed to get restore plan restorable: %@", v8);
         }
       }
 
       v10 = a1[8];
       v11 = a1[5];
-      v20 = v8;
-      v12 = [v10 fetchRestorableFileForPath:v11 error:{&v20, v17}];
-      v13 = v20;
+      v17 = v8;
+      v12 = [v10 fetchRestorableFileForPath:v11 error:&v17];
+      v13 = v17;
 
       if (v12)
       {
@@ -8632,9 +8377,9 @@ void sub_1000A8610(void *a1)
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v27 = v13;
+          v24 = v13;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=atc= Failed to get legacy cache restorable: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "=atc= Failed to get legacy cache restorable: %@", v13);
         }
       }
     }
@@ -8646,10 +8391,9 @@ void sub_1000A8610(void *a1)
       {
         v15 = a1[5];
         *buf = 138412290;
-        v27 = v15;
+        v24 = v15;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=atc= Failed to get domain for %@", buf, 0xCu);
-        v19 = a1[5];
-        _MBLog();
+        _MBLog(@"E ", "=atc= Failed to get domain for %@", a1[5]);
       }
     }
   }
@@ -8661,159 +8405,150 @@ void sub_1000A8610(void *a1)
     {
       v14 = a1[5];
       *buf = 138412290;
-      v27 = v14;
+      v24 = v14;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "=atc= No active restore session for request for whether file exists: %@", buf, 0xCu);
-      v18 = a1[5];
-      _MBLog();
+      _MBLog(@"E ", "=atc= No active restore session for request for whether file exists: %@", a1[5]);
     }
   }
 }
 
 void sub_1000A8B88(uint64_t a1)
 {
-  if (!*(a1 + 32))
+  if (*(a1 + 32))
+  {
+    v2 = [MBDomain nameWithAppID:*(a1 + 40)];
+    if (!v2)
+    {
+      return;
+    }
+
+    v3 = v2;
+    v4 = [*(a1 + 48) dependentDomainsForApp:v2 error:0];
+    v5 = [v4 mutableCopy];
+    if (!v5)
+    {
+      v5 = [[NSMutableSet alloc] initWithCapacity:1];
+    }
+
+    [v5 addObject:v3];
+    v6 = MBGetDefaultLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v7 = *(a1 + 40);
+      *buf = 138412546;
+      v34 = v7;
+      v35 = 2112;
+      v36 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Finding pending restore size for app %@: %@", buf, 0x16u);
+      _MBLog(@"I ", "Finding pending restore size for app %@: %@", *(a1 + 40), v5);
+    }
+
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    obj = v5;
+    v8 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+    v25 = v4;
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v30;
+      do
+      {
+        v11 = 0;
+        v12 = v3;
+        do
+        {
+          if (*v30 != v10)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v3 = *(*(&v29 + 1) + 8 * v11);
+
+          v13 = *(a1 + 48);
+          v27[0] = _NSConcreteStackBlock;
+          v27[1] = 3221225472;
+          v27[2] = sub_1000A9018;
+          v27[3] = &unk_1003BD568;
+          v28 = *(a1 + 56);
+          v14 = [v13 fetchRestoreSizeForDomain:v3 callback:v27];
+          if (v14)
+          {
+            v15 = MBGetDefaultLog();
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            {
+              v16 = *(a1 + 40);
+              *buf = 138412546;
+              v34 = v16;
+              v35 = 2112;
+              v36 = v14;
+              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to get pending restore size for app %@: %@", buf, 0x16u);
+              _MBLog(@"E ", "Failed to get pending restore size for app %@: %@", *(a1 + 40), v14);
+            }
+          }
+
+          v11 = v11 + 1;
+          v12 = v3;
+        }
+
+        while (v9 != v11);
+        v9 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+      }
+
+      while (v9);
+    }
+
+    v17 = *(*(*(a1 + 56) + 8) + 24);
+    v18 = MBGetDefaultLog();
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    if (v17 == 1)
+    {
+      v20 = v25;
+      if (v19)
+      {
+        v21 = *(*(*(a1 + 64) + 8) + 24);
+        v22 = *(a1 + 40);
+        *buf = 134218498;
+        v34 = v21;
+        v35 = 2112;
+        v36 = v22;
+        v37 = 2112;
+        v38 = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Restore data exists of size %{bytes}llu for app with bundle ID %@ (%@)", buf, 0x20u);
+        _MBLog(@"Df", "Restore data exists of size %{bytes}llu for app with bundle ID %@ (%@)", *(*(*(a1 + 64) + 8) + 24), *(a1 + 40), 0);
+      }
+    }
+
+    else
+    {
+      v20 = v25;
+      if (v19)
+      {
+        v24 = *(a1 + 40);
+        *buf = 138412546;
+        v34 = v24;
+        v35 = 2112;
+        v36 = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Restore data does not exist for app with bundle ID %@ (%@)", buf, 0x16u);
+        _MBLog(@"Df", "Restore data does not exist for app with bundle ID %@ (%@)", *(a1 + 40), 0);
+      }
+    }
+  }
+
+  else
   {
     v20 = MBGetDefaultLog();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v23 = *(a1 + 40);
       *buf = 138412290;
-      v40 = v23;
+      v34 = v23;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "No active restore session for request for whether app data exists for %@", buf, 0xCu);
-      v28 = *(a1 + 40);
-      _MBLog();
-    }
-
-    goto LABEL_27;
-  }
-
-  v2 = [MBDomain nameWithAppID:*(a1 + 40)];
-  if (!v2)
-  {
-    return;
-  }
-
-  v3 = v2;
-  v4 = [*(a1 + 48) dependentDomainsForApp:v2 error:0];
-  v5 = [v4 mutableCopy];
-  if (!v5)
-  {
-    v5 = [[NSMutableSet alloc] initWithCapacity:1];
-  }
-
-  [v5 addObject:v3];
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    v7 = *(a1 + 40);
-    *buf = 138412546;
-    v40 = v7;
-    v41 = 2112;
-    v42 = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Finding pending restore size for app %@: %@", buf, 0x16u);
-    v25 = *(a1 + 40);
-    _MBLog();
-  }
-
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  obj = v5;
-  v8 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
-  v31 = v4;
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v36;
-    do
-    {
-      v11 = 0;
-      v12 = v3;
-      do
-      {
-        if (*v36 != v10)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v3 = *(*(&v35 + 1) + 8 * v11);
-
-        v13 = *(a1 + 48);
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = sub_1000A9018;
-        v33[3] = &unk_1003BD568;
-        v34 = *(a1 + 56);
-        v14 = [v13 fetchRestoreSizeForDomain:v3 callback:v33];
-        if (v14)
-        {
-          v15 = MBGetDefaultLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-          {
-            v16 = *(a1 + 40);
-            *buf = 138412546;
-            v40 = v16;
-            v41 = 2112;
-            v42 = v14;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to get pending restore size for app %@: %@", buf, 0x16u);
-            v26 = *(a1 + 40);
-            _MBLog();
-          }
-        }
-
-        v11 = v11 + 1;
-        v12 = v3;
-      }
-
-      while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
-    }
-
-    while (v9);
-  }
-
-  v17 = *(*(*(a1 + 56) + 8) + 24);
-  v18 = MBGetDefaultLog();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-  if (v17 == 1)
-  {
-    v20 = v31;
-    if (v19)
-    {
-      v21 = *(*(*(a1 + 64) + 8) + 24);
-      v22 = *(a1 + 40);
-      *buf = 134218498;
-      v40 = v21;
-      v41 = 2112;
-      v42 = v22;
-      v43 = 2112;
-      v44 = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Restore data exists of size %{bytes}llu for app with bundle ID %@ (%@)", buf, 0x20u);
-      v30 = *(a1 + 40);
-      v27 = *(*(*(a1 + 64) + 8) + 24);
-LABEL_25:
-      _MBLog();
+      _MBLog(@"E ", "No active restore session for request for whether app data exists for %@", *(a1 + 40));
     }
   }
-
-  else
-  {
-    v20 = v31;
-    if (v19)
-    {
-      v24 = *(a1 + 40);
-      *buf = 138412546;
-      v40 = v24;
-      v41 = 2112;
-      v42 = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Restore data does not exist for app with bundle ID %@ (%@)", buf, 0x16u);
-      v29 = *(a1 + 40);
-      goto LABEL_25;
-    }
-  }
-
-LABEL_27:
 }
 
 uint64_t sub_1000A9018(uint64_t result, uint64_t a2, uint64_t a3)
@@ -8823,26 +8558,18 @@ uint64_t sub_1000A9018(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
+void sub_1000A95DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_1000A9614(void *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
-  if (!a1[4])
-  {
-    goto LABEL_4;
-  }
-
-  v5 = [v3 relativePath];
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = v5;
-  v7 = [v4 relativePath];
-  v8 = [v7 hasPrefix:a1[4]];
-
-  if ((v8 & 1) == 0)
+  if (a1[4] && ([v3 relativePath], (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, objc_msgSend(v4, "relativePath"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "hasPrefix:", a1[4]), v7, v6, (v8 & 1) == 0))
   {
     ++*(*(a1[7] + 8) + 24);
     v12 = a1[5];
@@ -8852,7 +8579,6 @@ uint64_t sub_1000A9614(void *a1, void *a2)
 
   else
   {
-LABEL_4:
     [v4 setupWithDomain:a1[6]];
     v9 = [MBFileInfo fileInfoWithRestorable:v4];
     v10 = a1[5];
@@ -8871,10 +8597,10 @@ void sub_1000AB25C(uint64_t a1)
     v3 = *(a1 + 40);
     v4 = *(a1 + 48);
     v5 = *(v4 + 160);
-    v14 = 0;
-    v6 = [v2 appRestorerForAccount:v3 stateQueue:v5 delegate:v4 error:&v14];
-    v7 = v14;
-    v8 = v14;
+    v13 = 0;
+    v6 = [v2 appRestorerForAccount:v3 stateQueue:v5 delegate:v4 error:&v13];
+    v7 = v13;
+    v8 = v13;
 
     if (v6)
     {
@@ -8890,12 +8616,11 @@ void sub_1000AB25C(uint64_t a1)
       {
         v12 = *(a1 + 40);
         *buf = 138412546;
-        v16 = v12;
-        v17 = 2112;
-        v18 = v8;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v8;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to find the app restore manager for %@: %@", buf, 0x16u);
-        v13 = *(a1 + 40);
-        _MBLog();
+        _MBLog(@"E ", "Failed to find the app restore manager for %@: %@", *(a1 + 40), v8);
       }
 
       objc_storeStrong((*(*(a1 + 64) + 8) + 40), v7);
@@ -8909,21 +8634,20 @@ void sub_1000AB25C(uint64_t a1)
     {
       v10 = [*(a1 + 32) serviceState];
       *buf = 67109120;
-      LODWORD(v16) = v10;
+      LODWORD(v15) = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not currently in bg restore (%d)", buf, 8u);
-      [*(a1 + 32) serviceState];
-      _MBLog();
+      _MBLog(@"Df", "Not currently in bg restore (%d)", [*(a1 + 32) serviceState]);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
 }
 
-void sub_1000AB7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000AB7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8938,10 +8662,9 @@ void sub_1000AB7D4(uint64_t a1)
     {
       v5 = [*(a1 + 32) serviceState];
       *buf = 67109120;
-      LODWORD(v37) = v5;
+      LODWORD(v36) = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Not scanning while busy (%d)", buf, 8u);
-      v28 = [*(a1 + 32) serviceState];
-      _MBLog();
+      _MBLog(@"Df", "Not scanning while busy (%d)", [*(a1 + 32) serviceState]);
     }
 
     if ([*(a1 + 32) serviceState] == 1)
@@ -8956,10 +8679,10 @@ void sub_1000AB7D4(uint64_t a1)
       v7 = 14;
     }
 
-    v25 = [MBError errorWithCode:v7 format:v6, v28];
-    v26 = *(*(a1 + 64) + 8);
-    v27 = *(v26 + 40);
-    *(v26 + 40) = v25;
+    v26 = [MBError errorWithCode:v7 format:v6];
+    v27 = *(*(a1 + 64) + 8);
+    v28 = *(v27 + 40);
+    *(v27 + 40) = v26;
 
     *(*(*(a1 + 72) + 8) + 24) = 0;
   }
@@ -8972,53 +8695,53 @@ void sub_1000AB7D4(uint64_t a1)
       v9 = [*(a1 + 40) persona];
       v10 = [v9 personaIdentifier];
       *buf = 138543618;
-      v37 = v8;
-      v38 = 2114;
-      v39 = v10;
+      v36 = v8;
+      v37 = 2114;
+      v38 = v10;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting scanning for account %{public}@(%{public}@)", buf, 0x16u);
 
       v11 = [*(a1 + 40) accountIdentifier];
       v12 = [*(a1 + 40) persona];
-      v29 = [v12 personaIdentifier];
-      _MBLog();
+      v13 = [v12 personaIdentifier];
+      _MBLog(@"Df", "Starting scanning for account %{public}@(%{public}@)", v11, v13);
     }
 
-    v13 = os_transaction_create();
+    v14 = os_transaction_create();
     [*(a1 + 32) setServiceState:1];
     [*(a1 + 32) setNextBackupSize:0];
-    v14 = [[MBCKSizingEngine alloc] initWithSettingsContext:*(a1 + 48) serviceManager:*(a1 + 56)];
-    [(MBCKEngine *)v14 cache];
+    v15 = [[MBCKSizingEngine alloc] initWithSettingsContext:*(a1 + 48) serviceManager:*(a1 + 56)];
+    [(MBCKEngine *)v15 cache];
     if (objc_claimAutoreleasedReturnValue())
     {
       __assert_rtn("[MBCKManager _startScanWithSettingsContext:error:]_block_invoke", "MBCKManager.m", 3834, "!engine.cache");
     }
 
-    v15 = MBAllCKPlugins();
-    v16 = [(MBCKEngine *)v14 context];
-    [v16 setPlugins:v15];
+    v16 = MBAllCKPlugins();
+    v17 = [(MBCKEngine *)v15 context];
+    [v17 setPlugins:v16];
 
-    v17 = [*(a1 + 32) engines];
-    v18 = [v17 arrayByAddingObject:v14];
-    [*(a1 + 32) setEngines:v18];
+    v18 = [*(a1 + 32) engines];
+    v19 = [v18 arrayByAddingObject:v15];
+    [*(a1 + 32) setEngines:v19];
 
-    v19 = +[MBDaemon sharedDaemon];
-    [v19 holdWorkAssertion:*(a1 + 80)];
+    v20 = +[MBDaemon sharedDaemon];
+    [v20 holdWorkAssertion:*(a1 + 80)];
 
-    v20 = [*(a1 + 32) serviceGroup];
-    v21 = dispatch_get_global_queue(17, 0);
+    v21 = [*(a1 + 32) serviceGroup];
+    v22 = dispatch_get_global_queue(17, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000ABBBC;
     block[3] = &unk_1003BD018;
-    v22 = *(a1 + 56);
-    v31 = v14;
-    v32 = v22;
-    v33 = *(a1 + 32);
-    v34 = v13;
-    v35 = *(a1 + 80);
-    v23 = v13;
+    v23 = *(a1 + 56);
+    v30 = v15;
+    v31 = v23;
+    v32 = *(a1 + 32);
+    v33 = v14;
+    v34 = *(a1 + 80);
     v24 = v14;
-    dispatch_group_async(v20, v21, block);
+    v25 = v15;
+    dispatch_group_async(v21, v22, block);
 
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
@@ -9028,25 +8751,23 @@ void sub_1000ABBBC(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v15 = 0;
-  v4 = [v3 runWithError:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [v3 runWithError:&v14];
+  v5 = v14;
   v6 = *(*(a1 + 40) + 160);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000ABCF8;
   block[3] = &unk_1003BD5E0;
-  v14 = v4;
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 32);
-  v13 = *(a1 + 56);
+  v13 = v4;
+  v10 = *(a1 + 48);
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 56);
   dispatch_sync(v6, block);
   v7 = +[MBDaemon sharedDaemon];
   [v7 releaseWorkAssertion:*(a1 + 64)];
 
-  v8 = *(a1 + 56);
-  v9 = objc_opt_self();
-
+  v8 = objc_opt_self();
   objc_autoreleasePoolPop(v2);
 }
 
@@ -9060,11 +8781,268 @@ id sub_1000ABCF8(uint64_t a1)
 
   [*(a1 + 32) setServiceState:0];
   v3 = [*(a1 + 32) engines];
-  v8 = *(a1 + 40);
-  v4 = [NSArray arrayWithObjects:&v8 count:1];
+  v7 = *(a1 + 40);
+  v4 = [NSArray arrayWithObjects:&v7 count:1];
   v5 = [v3 arrayByExcludingObjectsInArray:v4];
   [*(a1 + 32) setEngines:v5];
 
-  v6 = *(a1 + 48);
   return objc_opt_self();
+}
+
+uint64_t sub_1000AC6D4(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [v3 domainName];
+  v5 = [v3 relativePath];
+  if (v5)
+  {
+    v6 = [*(a1 + 32) objectForKeyedSubscript:v4];
+    if (!v6)
+    {
+      v6 = objc_opt_new();
+      [*(a1 + 32) setObject:v6 forKeyedSubscript:v4];
+    }
+
+    v7 = [NSMutableArray arrayWithCapacity:3];
+    [v7 addObject:v5];
+    v8 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v3 size]);
+    v9 = [v8 stringValue];
+    [v7 addObject:v9];
+
+    if ([v3 deleted])
+    {
+      v10 = @"-";
+    }
+
+    else if ([v3 isRegularFile])
+    {
+      v10 = @"f";
+    }
+
+    else if ([v3 isDirectory])
+    {
+      v10 = @"d";
+    }
+
+    else if ([v3 isSymbolicLink])
+    {
+      v10 = @"l";
+    }
+
+    else
+    {
+      v10 = @"?";
+    }
+
+    [v7 addObject:v10];
+    v11 = [v7 componentsJoinedByString:@"|"];
+    [v6 addObject:v11];
+  }
+
+  return 1;
+}
+
+void sub_1000AE2E4(uint64_t a1)
+{
+  v2 = [*(a1 + 32) serviceState];
+  if (v2 == 4 || [*(a1 + 32) serviceState] == 5)
+  {
+    v3 = [*(a1 + 32) enginesByContext];
+    v4 = [v3 objectForKey:*(a1 + 40)];
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v5 = MBGetDefaultLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = *(a1 + 40);
+        if (v2 == 4)
+        {
+          v7 = "foreground";
+        }
+
+        else
+        {
+          v7 = "background";
+        }
+
+        *buf = 136315394;
+        v9 = v7;
+        v10 = 2112;
+        v11 = v6;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Canceling %s restore for %@", buf, 0x16u);
+        _MBLog(@"Df", "Canceling %s restore for %@", v7, *(a1 + 40));
+      }
+
+      [v4 cancelWithReason:*(a1 + 48)];
+    }
+  }
+}
+
+id sub_1000AE540(uint64_t a1)
+{
+  if ([*(a1 + 32) serviceState])
+  {
+    v2 = [*(a1 + 32) engines];
+    [v2 makeObjectsPerformSelector:"cancel"];
+  }
+
+  else
+  {
+    v2 = MBGetDefaultLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    {
+      *v4 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Ignoring cancel request while idle", v4, 2u);
+      _MBLog(@"I ", "Ignoring cancel request while idle");
+    }
+  }
+
+  return objc_opt_self();
+}
+
+void sub_1000AE76C(uint64_t a1)
+{
+  if ([*(a1 + 32) serviceState] == 3)
+  {
+    if (*(a1 + 48))
+    {
+      v2 = [*(a1 + 32) enginesByContext];
+      v3 = [v2 objectForKey:*(a1 + 48)];
+
+      [v3 cancelWithError:*(a1 + 56)];
+    }
+
+    else
+    {
+      v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v12 = [*(a1 + 32) engines];
+      v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v13)
+      {
+        v14 = v13;
+        v15 = *v20;
+        do
+        {
+          v16 = 0;
+          do
+          {
+            if (*v20 != v15)
+            {
+              objc_enumerationMutation(v12);
+            }
+
+            v17 = *(*(&v19 + 1) + 8 * v16);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              [v17 cancelWithError:*(a1 + 56)];
+            }
+
+            v16 = v16 + 1;
+          }
+
+          while (v14 != v16);
+          v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        }
+
+        while (v14);
+      }
+    }
+
+    v18 = objc_opt_self();
+  }
+
+  else
+  {
+    v4 = MBGetDefaultLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [*(a1 + 40) accountIdentifier];
+      v6 = [*(a1 + 40) persona];
+      v7 = [v6 personaIdentifier];
+      v8 = [*(a1 + 32) serviceState];
+      *buf = 138543874;
+      v25 = v5;
+      v26 = 2114;
+      v27 = v7;
+      v28 = 1024;
+      v29 = v8;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Ignoring cancelation request for account %{public}@(%{public}@) (%d)", buf, 0x1Cu);
+
+      v9 = [*(a1 + 40) accountIdentifier];
+      v10 = [*(a1 + 40) persona];
+      v11 = [v10 personaIdentifier];
+      _MBLog(@"Df", "Ignoring cancelation request for account %{public}@(%{public}@) (%d)", v9, v11, [*(a1 + 32) serviceState]);
+    }
+  }
+}
+
+id sub_1000AED5C(uint64_t a1, uint64_t a2)
+{
+  result = objc_retainBlock(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_1000AED90(void *a1)
+{
+  if (*(*(a1[6] + 8) + 40))
+  {
+    [*(a1[4] + 184) allPersonaStates];
+    v11 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v2 = v14 = 0u;
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v3)
+    {
+      v4 = v3;
+      v5 = *v12;
+      while (2)
+      {
+        v6 = 0;
+        do
+        {
+          if (*v12 != v5)
+          {
+            objc_enumerationMutation(v2);
+          }
+
+          if ([*(*(&v11 + 1) + 8 * v6) serviceState])
+          {
+
+            goto LABEL_12;
+          }
+
+          v6 = v6 + 1;
+        }
+
+        while (v4 != v6);
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        if (v4)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    dispatch_block_cancel(*(*(a1[6] + 8) + 40));
+    v7 = *(a1[6] + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = 0;
+
+    v9 = *(a1[7] + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = 0;
+
+    (*(a1[5] + 16))();
+LABEL_12:
+  }
 }

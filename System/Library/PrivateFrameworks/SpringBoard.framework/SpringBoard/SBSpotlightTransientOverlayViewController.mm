@@ -609,7 +609,7 @@ uint64_t __99__SBSpotlightTransientOverlayViewController_updateInteractivePresen
   self->_performedAlongsideAnimations = 0;
 }
 
-uint64_t __72__SBSpotlightTransientOverlayViewController_endInteractivePresentation___block_invoke(uint64_t a1)
+void *__72__SBSpotlightTransientOverlayViewController_endInteractivePresentation___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = 0.0;
@@ -630,11 +630,11 @@ uint64_t __72__SBSpotlightTransientOverlayViewController_endInteractivePresentat
   return result;
 }
 
-uint64_t __72__SBSpotlightTransientOverlayViewController_endInteractivePresentation___block_invoke_2(uint64_t result, uint64_t a2, char a3)
+id *__72__SBSpotlightTransientOverlayViewController_endInteractivePresentation___block_invoke_2(id *result, uint64_t a2, char a3)
 {
-  if ((a3 & 1) == 0 && (*(result + 40) & 1) == 0)
+  if ((a3 & 1) == 0 && (result[5] & 1) == 0)
   {
-    return [*(result + 32) setPresentationDimmingViewHidden:1];
+    return [result[4] setPresentationDimmingViewHidden:1];
   }
 
   return result;

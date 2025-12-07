@@ -163,7 +163,7 @@ void _mfi4Auth_endpoint_firstUnlockHandler()
     *(v10[1] + 32) = 1;
     if (acc_endpoint_getTransportType(*v10) == 13)
     {
-      acc_endpoint_setProperty(*v10, kCFACCProperties_Endpoint_NFC_RequestSessionOpen, kCFBooleanTrue);
+      acc_endpoint_setProperty();
     }
   }
 
@@ -408,7 +408,7 @@ uint64_t mfi4Auth_endpoint_sendOutgoingData(uint64_t *a1, uint64_t a2)
   return v14;
 }
 
-uint64_t mfi4Auth_endpoint_setEndpointSecureTunnelDataReceiveTypeHandler(const void *a1, unsigned int a2, void *a3)
+uint64_t mfi4Auth_endpoint_setEndpointSecureTunnelDataReceiveTypeHandler(const void *a1, uint64_t a2, void *a3)
 {
   if (a1)
   {
@@ -569,19 +569,19 @@ void ___mfi4Auth_endpoint_sendAuthSetupStart_block_invoke(uint64_t a1)
 
       else
       {
-        ___mfi4Auth_endpoint_sendAuthSetupStart_block_invoke_cold_3(v3);
+        ___mfi4Auth_endpoint_sendAuthSetupStart_block_invoke_cold_3();
       }
     }
 
     else
     {
-      ___mfi4Auth_endpoint_sendAuthSetupStart_block_invoke_cold_4(v3);
+      ___mfi4Auth_endpoint_sendAuthSetupStart_block_invoke_cold_4();
     }
   }
 
   else
   {
-    ___mfi4Auth_endpoint_sendAuthSetupStart_block_invoke_cold_5(v3);
+    ___mfi4Auth_endpoint_sendAuthSetupStart_block_invoke_cold_5();
   }
 
   if (v10)
@@ -629,7 +629,7 @@ void ___mfi4Auth_endpoint_handlePropertiesDidChange_block_invoke(uint64_t a1)
 
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
             {
-              v8[0] = 0;
+              *v8 = 0;
               _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_mfi4Auth_endpoint_handlePropertiesDidChange: sendAuthSetupStart", v8, 2u);
             }
 
@@ -646,19 +646,20 @@ void ___mfi4Auth_endpoint_handlePropertiesDidChange_block_invoke(uint64_t a1)
 void *OUTLINED_FUNCTION_9_15()
 {
 
-  return logObjectForModule_1(55);
+  return logObjectForModule_1(0x37u);
 }
 
 void *OUTLINED_FUNCTION_15_14()
 {
 
-  return logObjectForModule_1(55);
+  return logObjectForModule_1(0x37u);
 }
 
-void OUTLINED_FUNCTION_16_13(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_16_13(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 void *qiAuth_endpoint_create(uint64_t a1)
@@ -728,12 +729,12 @@ void *qiAuth_endpoint_create(uint64_t a1)
               handler[2] = __qiAuth_endpoint_create_block_invoke;
               handler[3] = &__block_descriptor_tmp_9;
               handler[4] = v3;
-              v24 = v12;
+              v18 = v12;
               dispatch_source_set_event_handler(v15, handler);
               dispatch_activate(v14[256]);
               if (++v12 == 4)
               {
-                acc_platform_packetLogging_logEvent(*v3, "ATTACH", "QiAuth accessory attached!", v16, v17, v18, v19, v20, v22);
+                acc_platform_packetLogging_logEvent(*v3, "ATTACH", "QiAuth accessory attached!");
                 return v3;
               }
             }
@@ -745,12 +746,12 @@ void *qiAuth_endpoint_create(uint64_t a1)
 
   else
   {
-    qiAuth_endpoint_create_cold_1(&v25);
-    v3 = v25;
+    qiAuth_endpoint_create_cold_1(&v19);
+    v3 = v19;
   }
 
-  qiAuth_endpoint_create_cold_2(v3, &v25);
-  return v25;
+  qiAuth_endpoint_create_cold_2(v3, &v19);
+  return v19;
 }
 
 void *logObjectForModule_22()
@@ -862,41 +863,39 @@ void __qiAuth_endpoint_create_block_invoke(uint64_t a1)
   {
     v3 = *(a1 + 40);
     v4 = *(*(a1 + 32) + 8 * v3 + 2080) != 0;
-    v9[0] = 67109376;
-    v9[1] = v4;
-    v10 = 1024;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "QiAuth timer source fired!!! qiAuthTimerCallback(%d), timerID %d", v9, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = v4;
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "QiAuth timer source fired!!! qiAuthTimerCallback(%d), timerID %d", v7, 0xEu);
   }
 
   v5 = *(a1 + 32);
-  v6 = v5 + 8 * *(a1 + 40);
-  v7 = *(v6 + 2080);
-  if (v7)
+  v6 = *(v5 + 8 * *(a1 + 40) + 2080);
+  if (v6)
   {
-    v8 = *(v6 + 2120);
-    v7(*(v5 + 2040));
+    v6(*(v5 + 2040));
     *(*(a1 + 32) + 8 * *(a1 + 40) + 2080) = 0;
   }
 }
 
-uint64_t qiAuth_endpoint_destroy(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t qiAuth_endpoint_destroy(uint64_t **a1)
 {
   if (a1)
   {
-    v9 = *a1;
+    v2 = *a1;
     if (*a1)
     {
-      acc_platform_packetLogging_logEvent(*v9, "DETACH", "QiAuth accessory detached!", a4, a5, a6, a7, a8, v14);
-      v10 = (*a1)[4];
+      acc_platform_packetLogging_logEvent(*v2, "DETACH", "QiAuth accessory detached!");
+      v3 = (*a1)[4];
       (*a1)[4] = 0;
       block[0] = _NSConcreteStackBlock;
       block[1] = 0x40000000;
       block[2] = __qiAuth_endpoint_destroy_block_invoke;
       block[3] = &__block_descriptor_tmp_7_1;
-      block[4] = v9;
-      dispatch_sync(v10, block);
-      dispatch_release(v10);
+      block[4] = v2;
+      dispatch_sync(v3, block);
+      dispatch_release(v3);
       *a1 = 0;
       return 1;
     }
@@ -905,24 +904,24 @@ uint64_t qiAuth_endpoint_destroy(uint64_t **a1, uint64_t a2, uint64_t a3, uint64
     {
       if (gLogObjects && gNumLogObjects >= 60)
       {
-        v12 = *(gLogObjects + 472);
+        v5 = *(gLogObjects + 472);
       }
 
       else
       {
-        v12 = &_os_log_default;
+        v5 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
       result = 0;
-      if (v13)
+      if (v6)
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "QiAuth Endpoint Destroy. *ppProtocolEndpoint is null!", &v14, 2u);
+        *v7 = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "QiAuth Endpoint Destroy. *ppProtocolEndpoint is null!", v7, 2u);
         return 0;
       }
     }
@@ -930,8 +929,8 @@ uint64_t qiAuth_endpoint_destroy(uint64_t **a1, uint64_t a2, uint64_t a3, uint64
 
   else
   {
-    qiAuth_endpoint_destroy_cold_2(&v14);
-    return v14;
+    qiAuth_endpoint_destroy_cold_2(v7);
+    return v7[0];
   }
 
   return result;
@@ -1051,53 +1050,61 @@ uint64_t qiAuth_endpoint_sendOutgoingData(uint64_t *a1, const UInt8 *a2, CFIndex
   return v5;
 }
 
-uint64_t qiAuth_endpoint_setAuthState(uint64_t **a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t qiAuth_endpoint_setAuthState(uint64_t **a1, uint64_t a2)
 {
-  if (!a1)
+  if (a1)
   {
-    _qiAuth_endpoint_handleMessage_cold_3(&v18);
-    return v18;
+    v2 = a2;
+    if (a2)
+    {
+      v3 = *a1;
+      if (v3)
+      {
+        v4 = *v3;
+        if (*v3)
+        {
+          switch(a2)
+          {
+            case 1:
+              acc_platform_packetLogging_logEvent(v3, "AUTH FAILED", "QiAuth accessory authentication Failed!");
+              break;
+            case 3:
+              acc_platform_packetLogging_logEvent(v3, "AUTH TIMEOUT", "QiAuth accessory authentication Timed Out!");
+              break;
+            case 2:
+              acc_platform_packetLogging_logEvent(v3, "AUTH PASSED", "QiAuth accessory authentication Passed!");
+              break;
+          }
+
+          return acc_connection_setAuthStatus(v4, 3, v2);
+        }
+
+        else
+        {
+          qiAuth_endpoint_setAuthState_cold_1(&v6);
+          return v6;
+        }
+      }
+
+      else
+      {
+        qiAuth_endpoint_setAuthState_cold_2(&v7);
+        return v7;
+      }
+    }
+
+    else
+    {
+      qiAuth_endpoint_setAuthState_cold_3(&v8);
+      return v8;
+    }
   }
 
-  if (!a2)
+  else
   {
-    qiAuth_endpoint_setAuthState_cold_3(&v17);
-    return v17;
+    _qiAuth_endpoint_handleMessage_cold_3(&v9);
+    return v9;
   }
-
-  v9 = *a1;
-  if (!v9)
-  {
-    qiAuth_endpoint_setAuthState_cold_2(&v16);
-    return v16;
-  }
-
-  v10 = *v9;
-  if (!*v9)
-  {
-    qiAuth_endpoint_setAuthState_cold_1(&v15);
-    return v15;
-  }
-
-  switch(a2)
-  {
-    case 1:
-      v11 = "AUTH FAILED";
-      v12 = "QiAuth accessory authentication Failed!";
-      goto LABEL_11;
-    case 3:
-      v11 = "AUTH TIMEOUT";
-      v12 = "QiAuth accessory authentication Timed Out!";
-      goto LABEL_11;
-    case 2:
-      v11 = "AUTH PASSED";
-      v12 = "QiAuth accessory authentication Passed!";
-LABEL_11:
-      acc_platform_packetLogging_logEvent(v9, v11, v12, a4, a5, a6, a7, a8, v14);
-      break;
-  }
-
-  return acc_connection_setAuthStatus(v10, 3, a2);
 }
 
 void *logObjectForModule_23()
@@ -1212,24 +1219,25 @@ uint64_t OUTLINED_FUNCTION_0_16@<X0>(uint64_t result@<X0>, int a2@<W8>)
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_9_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __n128 a11)
+__n128 OUTLINED_FUNCTION_9_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a11, uint64_t a9, uint64_t a10, __n128 a12)
 {
-  result = a11;
-  *(v13 - 144) = a11.n128_u32[0];
-  *(v13 - 140) = v11;
-  *(v13 - 132) = 1024;
-  *(v13 - 130) = v12;
+  result = a12;
+  *(v14 - 144) = a12.n128_u32[0];
+  *(v14 - 140) = v12;
+  *(v14 - 132) = 1024;
+  *(v14 - 130) = v13;
   return result;
 }
 
-void ACCAuthProtocol_PrintMessage(unsigned __int8 *a1, unsigned int a2, const char *a3, int a4, int a5)
+void ACCAuthProtocol_PrintMessage(unsigned __int8 *a1, uint64_t a2, const char *a3, int a4, int a5)
 {
   if (a1)
   {
+    v8 = a2;
     memset(v39, 0, sizeof(v39));
     v26 = 0;
     v10 = acc_auth_protocol_sizeofMessage(a1, a2, 0, &v26);
-    __acc_auth_protocol_getMessagePayloadString(a1, a2, v39, 256);
+    __acc_auth_protocol_getMessagePayloadString(a1, v8, v39, 256);
     if (a4)
     {
       v11 = "";
@@ -1376,9 +1384,9 @@ LABEL_27:
 
 const char *__acc_auth_protocol_getMessagePayloadString(unsigned __int8 *a1, unsigned int a2, char *a3, int a4)
 {
-  v49 = 0;
-  v48 = 0;
-  v7 = acc_auth_protocol_messagePayload(a1, a2, &v49 + 1, &v49, &v48);
+  v12 = 0;
+  v11 = 0;
+  v7 = acc_auth_protocol_messagePayload(a1, a2, &v12 + 1, &v12, &v11);
   if (!a1)
   {
     return "";
@@ -1392,56 +1400,31 @@ const char *__acc_auth_protocol_getMessagePayloadString(unsigned __int8 *a1, uns
     {
       if (((1 << v9) & 0xC) != 0)
       {
-        if (v48 < 6)
+        if (v11 < 6)
         {
-          if (v48 < 4)
+          if (v11 < 4)
           {
-            if (v48 >= 2)
+            if (v11 >= 2)
             {
-              v18 = *v7;
-              if (v7[1] <= 9u)
-              {
-                v19 = off_1002287E0[v7[1]];
-              }
-
-              v29 = v7[1];
               snprintf(a3, a4, "info(%02X)[%02X %s]");
             }
           }
 
           else
           {
-            v16 = *v7;
-            if (v7[1] <= 9u)
-            {
-              v17 = off_1002287E0[v7[1]];
-            }
-
-            v39 = v7[2];
-            v43 = v7[3];
             snprintf(a3, a4, "info(%02X)[%02X %s], param1(%02X)[%02X]");
           }
         }
 
         else
         {
-          v10 = v7[1];
-          if (v10 <= 9)
-          {
-            v11 = off_1002287E0[v7[1]];
-          }
-
-          v12 = v7[2];
-          v13 = v7[3];
-          v14 = v7[4];
-          v45 = v7[5];
-          snprintf(a3, a4, "info(%02X)[%02X %s], param1(%02X)[%02X %02X %02X%s]", *v7, v10);
+          snprintf(a3, a4, "info(%02X)[%02X %s], param1(%02X)[%02X %02X %02X%s]", *v7, v7[1]);
         }
 
         return a3;
       }
 
-      if (v48)
+      if (v11)
       {
         if (!*v7)
         {
@@ -1449,24 +1432,23 @@ const char *__acc_auth_protocol_getMessagePayloadString(unsigned __int8 *a1, uns
           return a3;
         }
 
-        if (v48 >= 5 && *v7 == 1)
+        if (v11 >= 5 && *v7 == 1)
         {
-          v22 = bswap32(*(v7 + 1));
           snprintf(a3, a4, "FAILED: %#10x");
           return a3;
         }
       }
 
-LABEL_28:
+LABEL_26:
       snprintf(a3, a4, "no parameters");
       return a3;
     }
 
-    if (v48 < 0x45)
+    if (v11 < 0x45)
     {
-      if (v48 < 0x22 || *v7)
+      if (v11 < 0x22 || *v7)
       {
-        goto LABEL_28;
+        goto LABEL_26;
       }
     }
 
@@ -1474,26 +1456,16 @@ LABEL_28:
     {
       if (*v7)
       {
-        goto LABEL_28;
+        goto LABEL_26;
       }
 
       if (v7[34] == 1)
       {
-        v46 = v7[37];
-        v47 = v7[38];
-        v42 = v7[35];
-        v44 = v7[36];
-        v32 = v7[3];
-        v37 = v7[4];
         snprintf(a3, a4, "nonce(%d bytes)[%02X %02X %02X ...], ecdhKey(%d bytes)[%02X %02X %02X ...]", v7[1], v7[2]);
         return a3;
       }
     }
 
-    v20 = v7[1];
-    v35 = v7[3];
-    v40 = v7[4];
-    v30 = v7[2];
     snprintf(a3, a4, "nonce(%d bytes)[%02X %02X %02X ...], ecdhKey - cannot parse parameter");
     return a3;
   }
@@ -1503,42 +1475,29 @@ LABEL_28:
     snprintf(a3, a4, "Unknown messageID !!");
   }
 
-  else if (v48 < 9)
+  else if (v11 < 9)
   {
-    if (v48 == 8)
+    if (v11 == 8)
     {
-      v33 = v7[7];
-      v38 = v7[8];
-      v23 = bswap32(*(v7 + 1));
-      v27 = v7[6];
       snprintf(a3, a4, "characteristics[0x%08X], authTypes(%d)[%02X %02X]");
     }
 
-    else if (v48 < 7)
+    else if (v11 < 7)
     {
-      if (v48 >= 5)
+      if (v11 >= 5)
       {
-        v25 = bswap32(*(v7 + 1));
         snprintf(a3, a4, "characteristics[0x%08X], authTypes - insufficient bytes");
       }
     }
 
     else
     {
-      v28 = v7[6];
-      v34 = v7[7];
-      v24 = bswap32(*(v7 + 1));
       snprintf(a3, a4, "characteristics[0x%08X], authTypes(%d)[%02X]");
     }
   }
 
   else
   {
-    v36 = v7[8];
-    v41 = v7[9];
-    v26 = v7[6];
-    v31 = v7[7];
-    v21 = bswap32(*(v7 + 1));
     snprintf(a3, a4, "characteristics[0x%08X], authTypes(%d)[%02X %02X %02X]");
   }
 
@@ -1651,10 +1610,11 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
     if (bswap64(*(v4 + 1)) == *v3)
     {
       v5 = bswap64(*(v4 + 9));
-      v72 = NAN;
       v73 = NAN;
+      v74 = NAN;
       CurTimeMsInt64 = iAP2TimeGetCurTimeMsInt64();
-      v7 = 2 * v5;
+      v7 = CurTimeMsInt64;
+      v8 = 2 * v5;
       if ((_iAP2LogEnableMask & 4) == 0)
       {
         goto LABEL_22;
@@ -1662,7 +1622,7 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
 
       if (gLogObjects && gNumLogObjects >= 20)
       {
-        v8 = *(gLogObjects + 152);
+        v9 = *(gLogObjects + 152);
       }
 
       else
@@ -1672,13 +1632,13 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v8 = &_os_log_default;
         v9 = &_os_log_default;
+        v10 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        iAP2LinkActionHandleTimeSyncResponse_cold_2(v3, v8, v10, v11, v12, v13, v14, v15);
+        iAP2LinkActionHandleTimeSyncResponse_cold_2(v3, v9, v11, v12, v13, v14, v15, v16);
       }
 
       if ((_iAP2LogEnableMask & 4) == 0)
@@ -1688,7 +1648,7 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
 
       if (gLogObjects && gNumLogObjects >= 20)
       {
-        v16 = *(gLogObjects + 152);
+        v17 = *(gLogObjects + 152);
       }
 
       else
@@ -1698,20 +1658,20 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v16 = &_os_log_default;
         v17 = &_os_log_default;
+        v18 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        iAP2LinkActionHandleTimeSyncResponse_cold_4(v5, v16, v18, v19, v20, v21, v22, v23);
+        iAP2LinkActionHandleTimeSyncResponse_cold_4(v5, v17, v19, v20, v21, v22, v23, v24);
       }
 
       if ((_iAP2LogEnableMask & 4) != 0)
       {
         if (gLogObjects && gNumLogObjects >= 20)
         {
-          v40 = *(gLogObjects + 152);
+          v41 = *(gLogObjects + 152);
         }
 
         else
@@ -1721,21 +1681,21 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
 
-          v40 = &_os_log_default;
-          v53 = &_os_log_default;
+          v41 = &_os_log_default;
+          v54 = &_os_log_default;
         }
 
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
-          iAP2LinkActionHandleTimeSyncResponse_cold_6(CurTimeMsInt64, v40, v54, v55, v56, v57, v58, v59);
+          iAP2LinkActionHandleTimeSyncResponse_cold_6(v7, v41, v55, v56, v57, v58, v59, v60);
         }
 
-        v24 = (v7 - (CurTimeMsInt64 + *v3)) / 2;
+        v25 = (v8 - (v7 + *v3)) / 2;
         if ((_iAP2LogEnableMask & 4) != 0)
         {
           if (gLogObjects && gNumLogObjects >= 20)
           {
-            v60 = *(gLogObjects + 152);
+            v61 = *(gLogObjects + 152);
           }
 
           else
@@ -1745,13 +1705,13 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
               platform_connectionInfo_configStreamGetCategories_cold_2();
             }
 
-            v60 = &_os_log_default;
-            v64 = &_os_log_default;
+            v61 = &_os_log_default;
+            v65 = &_os_log_default;
           }
 
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
           {
-            iAP2LinkActionHandleTimeSyncResponse_cold_8(v24, v60, v65, v66, v67, v68, v69, v70);
+            iAP2LinkActionHandleTimeSyncResponse_cold_8(v25, v61, v66, v67, v68, v69, v70, v71);
           }
         }
       }
@@ -1759,20 +1719,20 @@ void iAP2LinkActionHandleTimeSyncResponse(uint64_t a1, _BYTE *a2)
       else
       {
 LABEL_22:
-        v24 = (v7 - (CurTimeMsInt64 + *v3)) / 2;
+        v25 = (v8 - (v7 + *v3)) / 2;
       }
 
-      v25 = _getFilterList();
-      v26 = [NSNumber numberWithUnsignedLongLong:*(v3 + 64)];
-      v27 = [v25 objectForKey:v26];
+      v26 = _getFilterList(CurTimeMsInt64);
+      v27 = [NSNumber numberWithUnsignedLongLong:*(v3 + 64)];
+      v28 = [v26 objectForKey:v27];
 
-      if (!v27)
+      if (!v28)
       {
         if (_iAP2LogEnableMask)
         {
           if (gLogObjects && gNumLogObjects >= 20)
           {
-            v31 = *(gLogObjects + 152);
+            v32 = *(gLogObjects + 152);
           }
 
           else
@@ -1782,26 +1742,26 @@ LABEL_22:
               platform_connectionInfo_configStreamGetCategories_cold_2();
             }
 
-            v31 = &_os_log_default;
-            v41 = &_os_log_default;
+            v32 = &_os_log_default;
+            v42 = &_os_log_default;
           }
 
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            v71[0] = 0;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "ERROR: ERROR: No kalman filter!", v71, 2u);
+            v72[0] = 0;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "ERROR: ERROR: No kalman filter!", v72, 2u);
           }
         }
 
         goto LABEL_66;
       }
 
-      [v27 iAP2KalmanFilterUpdateDeviceTime:&v73 Offset:&v72 FilteredOffset:CurTimeMsInt64 / 1000.0 OffsetUncertainty:v24 / 1000.0];
-      v28 = (v73 * 1000.0);
-      v29 = (v72 * 1000.0);
-      *(v3 + 16) = v29;
-      *(v3 + 8) = v28;
-      if (*(v3 + 24) < v29)
+      [v28 iAP2KalmanFilterUpdateDeviceTime:&v74 Offset:&v73 FilteredOffset:v7 / 1000.0 OffsetUncertainty:v25 / 1000.0];
+      v29 = (v74 * 1000.0);
+      v30 = (v73 * 1000.0);
+      *(v3 + 16) = v30;
+      *(v3 + 8) = v29;
+      if (*(v3 + 24) < v30)
       {
         *(v3 + 72) = 0;
       }
@@ -1810,7 +1770,7 @@ LABEL_22:
       {
         if (gLogObjects && gNumLogObjects >= 20)
         {
-          v30 = *(gLogObjects + 152);
+          v31 = *(gLogObjects + 152);
         }
 
         else
@@ -1820,20 +1780,20 @@ LABEL_22:
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
 
-          v30 = &_os_log_default;
-          v32 = &_os_log_default;
+          v31 = &_os_log_default;
+          v33 = &_os_log_default;
         }
 
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          iAP2LinkActionHandleTimeSyncResponse_cold_10((v3 + 8), v30, v33, v34, v35, v36, v37, v38);
+          iAP2LinkActionHandleTimeSyncResponse_cold_10((v3 + 8), v31, v34, v35, v36, v37, v38, v39);
         }
 
         if ((_iAP2LogEnableMask & 4) != 0)
         {
           if (gLogObjects && gNumLogObjects >= 20)
           {
-            v39 = *(gLogObjects + 152);
+            v40 = *(gLogObjects + 152);
           }
 
           else
@@ -1843,13 +1803,13 @@ LABEL_22:
               platform_connectionInfo_configStreamGetCategories_cold_2();
             }
 
-            v39 = &_os_log_default;
-            v42 = &_os_log_default;
+            v40 = &_os_log_default;
+            v43 = &_os_log_default;
           }
 
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
-            iAP2LinkActionHandleTimeSyncResponse_cold_12((v3 + 16), v39, v43, v44, v45, v46, v47, v48);
+            iAP2LinkActionHandleTimeSyncResponse_cold_12((v3 + 16), v40, v44, v45, v46, v47, v48, v49);
           }
         }
       }
@@ -1862,26 +1822,26 @@ LABEL_66:
         return;
       }
 
-      *v3 = CurTimeMsInt64;
-      TimeSyncPacket = iAP2PacketCreateTimeSyncPacket(v2, 84, *(v2 + 190), (v2 + 191), CurTimeMsInt64, 0, *(v3 + 8));
+      *v3 = v7;
+      TimeSyncPacket = iAP2PacketCreateTimeSyncPacket(v2, 84, *(v2 + 190), (v2 + 191), v7, 0, *(v3 + 8));
       iAP2LinkSendPacket(v2, TimeSyncPacket, 0);
       iAP2PacketRelease(TimeSyncPacket);
       if (*(v3 + 16) >= *(v3 + 24))
       {
         if ((*(v3 + 72) & 1) == 0)
         {
-          v61 = CurTimeMsInt64 - *(v3 + 40);
-          v62 = *(v3 + 52);
-          v63 = *(v3 + 48) + 1;
-          *(v3 + 48) = v63;
-          if (v61 <= v62 && v63 <= *(v3 + 56))
+          v62 = v7 - *(v3 + 40);
+          v63 = *(v3 + 52);
+          v64 = *(v3 + 48) + 1;
+          *(v3 + 48) = v64;
+          if (v62 <= v63 && v64 <= *(v3 + 56))
           {
             goto LABEL_66;
           }
 
-          v50 = v2;
-          v51 = CurTimeMsInt64;
-          v52 = 0;
+          v51 = v2;
+          v52 = v7;
+          v53 = 0;
           goto LABEL_65;
         }
       }
@@ -1891,11 +1851,11 @@ LABEL_66:
         *(v3 + 72) = 1;
       }
 
-      v50 = v2;
-      v51 = CurTimeMsInt64;
-      v52 = 1;
+      v51 = v2;
+      v52 = v7;
+      v53 = 1;
 LABEL_65:
-      __iAP2TimeSyncDeviceSendTimeSyncMeasurement(v50, v51, v52);
+      __iAP2TimeSyncDeviceSendTimeSyncMeasurement(v51, v52, v53);
       *(v3 + 40) = 0;
       *(v3 + 48) = 0;
       goto LABEL_66;
@@ -2088,11 +2048,12 @@ uint64_t iAP2TimeSyncInit(uint64_t a1)
   *(a1 + 56) = __defaultMaxAttempts;
   *(a1 + 64) = arc4random();
   v3 = [[iAP2KalmanFilter alloc] initWithReseedTimeout:20 AndCountForNoiseTraining:61.0];
+  v4 = v3;
   if (v3)
   {
-    v4 = _getFilterList();
-    v5 = [NSNumber numberWithUnsignedLongLong:*(a1 + 64)];
-    [v4 setObject:v3 forKey:v5];
+    v5 = _getFilterList(v3);
+    v6 = [NSNumber numberWithUnsignedLongLong:*(a1 + 64)];
+    [v5 setObject:v4 forKey:v6];
   }
 
   *(a1 + 72) = 0;
@@ -2104,7 +2065,7 @@ void iAP2TimeSyncCleanup(uint64_t a1)
 {
   if (*(a1 + 64))
   {
-    v2 = _getFilterList();
+    v2 = _getFilterList(a1);
     v3 = [NSNumber numberWithUnsignedLongLong:*(a1 + 64)];
     [v2 removeObjectForKey:v3];
 
@@ -2112,16 +2073,16 @@ void iAP2TimeSyncCleanup(uint64_t a1)
   }
 }
 
-id _getFilterList()
+id _getFilterList(uint64_t a1)
 {
   if (_getFilterList_onceToken != -1)
   {
     _getFilterList_cold_1();
   }
 
-  v1 = _getFilterList_filterList;
+  v2 = _getFilterList_filterList;
 
-  return v1;
+  return v2;
 }
 
 void ___getFilterList_block_invoke(id a1)
@@ -2134,7 +2095,6 @@ void ___getFilterList_block_invoke(id a1)
 void iAP2MsgSendControlAndCallbackOnAck(uint64_t a1, uint64_t a2)
 {
   v4 = iAP2MsgCalcMessageLen(a2);
-  v5 = *(a1 + 16);
   iAP2MsgPreSendCtlProcess();
   *(*(a2 + 24) + 2) = HIBYTE(v4);
   *(*(a2 + 24) + 3) = v4;
@@ -2143,20 +2103,20 @@ void iAP2MsgSendControlAndCallbackOnAck(uint64_t a1, uint64_t a2)
     *a2 = *(a2 + 24);
     *(a2 + 8) = v4;
     *(a2 + 56) = 1;
-    v6 = *(a1 + 24);
+    v5 = *(a1 + 24);
 
-    __iAP2LinkDataSentCB(v6, a2);
+    __iAP2LinkDataSentCB(v5, a2);
   }
 }
 
-void sub_10008194C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008194C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *logObjectForModule_24(int a1)
+void *logObjectForModule_24(unsigned int a1)
 {
   v1 = gLogObjects;
   if (gLogObjects)
@@ -2247,7 +2207,7 @@ const char *GetCStringFromCFString(const __CFString *a1)
 uint64_t _checkIdentificationInfo_6(uint64_t a1)
 {
   v6 = 0;
-  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_gskMsgMediaLibraryList, 0xAu, &v6);
+  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_gskMsgMediaLibraryList, 10, &v6);
   v3 = v2;
   if (v6 == 1 && v2 == 0)
   {
@@ -2271,24 +2231,24 @@ uint64_t _compareLibraryUID(uint64_t a1, uint64_t a2)
   }
 }
 
-__n128 OUTLINED_FUNCTION_0_17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, __n128 a35)
+__n128 OUTLINED_FUNCTION_0_17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a35, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, __n128 a36)
 {
-  result = a35;
-  *(v37 - 256) = a35.n128_u32[0];
-  *(v37 - 252) = v35;
-  *(v37 - 244) = 1024;
-  *(v37 - 242) = v36;
+  result = a36;
+  *(v38 - 256) = a36.n128_u32[0];
+  *(v38 - 252) = v36;
+  *(v38 - 244) = 1024;
+  *(v38 - 242) = v37;
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_2_30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, __n128 a35)
+__n128 OUTLINED_FUNCTION_2_30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a35, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, __n128 a36)
 {
-  v38 = v37 - 128;
-  result = a35;
-  *v38 = a35.n128_u32[0];
-  *(v38 + 4) = v35;
-  *(v38 + 12) = 1024;
-  *(v38 + 14) = v36;
+  v39 = v38 - 128;
+  result = a36;
+  *v39 = a36.n128_u32[0];
+  *(v39 + 4) = v36;
+  *(v39 + 12) = 1024;
+  *(v39 + 14) = v37;
   return result;
 }
 
@@ -2321,18 +2281,18 @@ double OUTLINED_FUNCTION_31_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_36_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, __n128 a35)
+__n128 OUTLINED_FUNCTION_36_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a35, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, __n128 a36)
 {
-  result = a35;
-  *(v35 - 256) = a35.n128_u32[0];
+  result = a36;
+  *(v36 - 256) = a36.n128_u32[0];
   return result;
 }
 
-unint64_t OUTLINED_FUNCTION_38_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+unint64_t OUTLINED_FUNCTION_38_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a13);
+  va_start(va, a21);
 
-  return iap2_sessionFileTransfer_findTransferEntryForFeature(v13, 128, va, _compareLibraryUID);
+  return iap2_sessionFileTransfer_findTransferEntryForFeature(v21, 128, va, _compareLibraryUID);
 }
 
 void OUTLINED_FUNCTION_50_2(int a1@<W8>)
@@ -2345,15 +2305,6 @@ void OUTLINED_FUNCTION_50_2(int a1@<W8>)
   *(v4 - 234) = v2;
   *(v4 - 230) = 1024;
   *(v4 - 228) = v3;
-}
-
-void OUTLINED_FUNCTION_51_1()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = *(v0 + 6);
-  v5 = *(v0 + 28);
 }
 
 uint64_t OUTLINED_FUNCTION_74_1(const __CFString *a1, char *a2)
@@ -2392,29 +2343,6 @@ uint64_t OUTLINED_FUNCTION_100_1(uint64_t result)
   *(v2 - 232) = result;
   *(v2 - 228) = v1;
   return result;
-}
-
-void OUTLINED_FUNCTION_102_0()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = *(v0 + 6);
-  v5 = *(v0 + 28);
-}
-
-void OUTLINED_FUNCTION_103_0()
-{
-  v1 = v0[1];
-  v2 = v0[2];
-  v3 = v0[3];
-}
-
-void OUTLINED_FUNCTION_110()
-{
-  v1 = *(v0 + 104);
-  v2 = *(v0 + 109);
-  v3 = *(v0 + 16);
 }
 
 void *OUTLINED_FUNCTION_112(size_t a1)
@@ -2529,7 +2457,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t parseMessage(uint64_t a1, __int16 a2, uint64_t a3, unsigned int a4)
+uint64_t parseMessage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 < 6)
   {
@@ -2756,7 +2684,7 @@ uint64_t _checkEAIdentificationInfo(uint64_t a1)
 {
   Feature = iap2_feature_getFeature(a1, 0xAu);
   v21 = 0;
-  v3 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkEAIdentificationInfo_kMsgExternalAccessoryList, 3u, &v21);
+  v3 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkEAIdentificationInfo_kMsgExternalAccessoryList, 3, &v21);
   if (v21 == 1 && v3 == 0)
   {
     if (!Feature)
@@ -3462,20 +3390,13 @@ LABEL_26:
   return v7 == 0;
 }
 
-__n128 OUTLINED_FUNCTION_19_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9)
-{
-  result = a9;
-  v11 = *v9;
-  return result;
-}
-
 void OUTLINED_FUNCTION_30_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
 }
 
-BOOL OUTLINED_FUNCTION_42_3(uint64_t a1, char *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, int a21, unsigned int a22)
+BOOL OUTLINED_FUNCTION_42_3(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, int a21, unsigned int a22)
 {
 
   return iAP2LinkQueueSendData(a1, a2, a3, a22, a20, a6, 0, 0);
@@ -3516,7 +3437,7 @@ _BYTE *___requestAppLaunchHandler_block_invoke_16(uint64_t a1)
 uint64_t _checkIdentificationInfo_7(uint64_t a1)
 {
   v6 = 0;
-  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_kMsgTestList_0, 1u, &v6);
+  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_kMsgTestList_0, 1, &v6);
   v3 = v2;
   if (v6 == 1 && v2 == 0)
   {
@@ -3609,9 +3530,9 @@ void __accSNTPTimeSync_endpoint_processIncomingData_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t accSNTPTimeSync_endpoint_getAccessoryTime(void *a1, uint64_t a2)
+uint64_t accSNTPTimeSync_endpoint_getAccessoryTime(void *AccessoryTime_cold_2, uint64_t a2)
 {
-  if (!a1 || !*a1)
+  if (!AccessoryTime_cold_2 || !*AccessoryTime_cold_2)
   {
     goto LABEL_7;
   }
@@ -3621,11 +3542,11 @@ uint64_t accSNTPTimeSync_endpoint_getAccessoryTime(void *a1, uint64_t a2)
   {
     accSNTPTimeSync_endpoint_getAccessoryTime_cold_2();
 LABEL_7:
-    CFRelease(a1);
+    CFRelease(AccessoryTime_cold_2);
     return 0;
   }
 
-  accSNTPTimeSync_endpoint_getAccessoryTime_cold_1(v4, a2, a1, &v6);
+  accSNTPTimeSync_endpoint_getAccessoryTime_cold_1(v4, a2, AccessoryTime_cold_2, &v6);
   return v6;
 }
 
@@ -3718,65 +3639,61 @@ uint64_t platform_wifisharing_request_device_wifi_information(const void *a1)
   isDeviceLocked = platform_system_isDeviceLocked();
   if (!isDeviceLocked)
   {
-    v11 = _getWiFiSharingPluginInstance();
-    v12 = v11;
-    if (!v11)
+    v12 = _getWiFiSharingPluginInstance();
+    v13 = v12;
+    if (!v12)
     {
 LABEL_78:
 
       return isDeviceLocked ^ 1u;
     }
 
-    if ([v11 isDeviceConnectedToWiFi])
+    v14 = [v12 isDeviceConnectedToWiFi];
+    if (v14)
     {
-      v13 = systemInfo_systemSupportsWAPI();
-      v14 = acc_strings_bundleCF();
-      if (v13)
+      v16 = systemInfo_systemSupportsWAPI(v14, v15);
+      v17 = acc_strings_bundleCF();
+      if (v16)
       {
-        v15 = @"Share WLAN Settings?";
+        v18 = @"Share WLAN Settings?";
       }
 
       else
       {
-        v15 = @"Share Wi-Fi Settings?";
+        v18 = @"Share Wi-Fi Settings?";
       }
 
-      v30 = CFBundleCopyLocalizedString(v14, v15, v15, 0);
-      v31 = systemInfo_systemSupportsWAPI();
-      v32 = acc_strings_bundleCF();
-      if (v31)
-      {
-        v33 = @"Do you want to share your WLAN settings so this accessory can connect to the WLAN network?";
-      }
-
-      else
-      {
-        v33 = @"Do you want to share your Wi-Fi settings so this accessory can connect to the Wi-Fi network?";
-      }
-
-      v34 = CFBundleCopyLocalizedString(v32, v33, v33, 0);
-      v35 = acc_strings_bundleCF();
-      v36 = CFBundleCopyLocalizedString(v35, @"Allow", @"Allow", 0);
+      v34 = CFBundleCopyLocalizedString(v17, v18, v18, 0);
+      v36 = systemInfo_systemSupportsWAPI(v34, v35);
       v37 = acc_strings_bundleCF();
-      v38 = CFBundleCopyLocalizedString(v37, @"Ignore", @"Ignore", 0);
+      if (v36)
+      {
+        v38 = @"Do you want to share your WLAN settings so this accessory can connect to the WLAN network?";
+      }
+
+      else
+      {
+        v38 = @"Do you want to share your Wi-Fi settings so this accessory can connect to the Wi-Fi network?";
+      }
+
+      v39 = CFBundleCopyLocalizedString(v37, v38, v38, 0);
+      v40 = acc_strings_bundleCF();
+      v41 = CFBundleCopyLocalizedString(v40, @"Allow", @"Allow", 0);
+      v42 = acc_strings_bundleCF();
+      v43 = CFBundleCopyLocalizedString(v42, @"Ignore", @"Ignore", 0);
       Identifier = acc_userNotifications_createIdentifier(@"wifi-sharing-share", a1);
       EndpointWithUUID = acc_manager_getEndpointWithUUID(a1);
-      v41 = ACCUNCreate(1, v30, v34, v36, v38, 0, 1, Identifier, 0.0, **EndpointWithUUID);
+      v46 = ACCUNCreate(1, v34, v39, v41, v43, 0, 1, Identifier, 0.0, **EndpointWithUUID);
       CFRetain(a1);
-      v56 = _NSConcreteStackBlock;
-      v57 = 3221225472;
-      v58 = ___presentShareWiFiCredentialsNotification_block_invoke;
-      v59 = &__block_descriptor_40_e8_v12__0i8l;
-      v60 = a1;
-      ACCUNManagerPresentNotification(v41, &v56);
-      if (v41)
+      v62 = _NSConcreteStackBlock;
+      v63 = 3221225472;
+      v64 = ___presentShareWiFiCredentialsNotification_block_invoke;
+      v65 = &__block_descriptor_40_e8_v12__0i8l;
+      v66 = a1;
+      ACCUNManagerPresentNotification(v46, &v62);
+      if (v46)
       {
-        CFRelease(v41);
-      }
-
-      if (v30)
-      {
-        CFRelease(v30);
+        CFRelease(v46);
       }
 
       if (v34)
@@ -3784,27 +3701,32 @@ LABEL_78:
         CFRelease(v34);
       }
 
-      if (v36)
+      if (v39)
       {
-        CFRelease(v36);
+        CFRelease(v39);
       }
 
-      if (!v38)
+      if (v41)
+      {
+        CFRelease(v41);
+      }
+
+      if (!v43)
       {
         goto LABEL_70;
       }
 
-      v42 = v38;
+      v47 = v43;
     }
 
     else
     {
-      v25 = systemInfo_copyDeviceClass();
-      if (!v25)
+      v28 = systemInfo_copyDeviceClass();
+      if (!v28)
       {
         if (gLogObjects && gNumLogObjects >= 8)
         {
-          v43 = *(gLogObjects + 56);
+          v48 = *(gLogObjects + 56);
         }
 
         else
@@ -3814,66 +3736,61 @@ LABEL_78:
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
 
-          v43 = &_os_log_default;
-          v54 = &_os_log_default;
+          v48 = &_os_log_default;
+          v60 = &_os_log_default;
         }
 
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
-          platform_wifisharing_request_device_wifi_information_cold_2(v43);
+          platform_wifisharing_request_device_wifi_information_cold_2(v48);
         }
 
         goto LABEL_78;
       }
 
-      v26 = v25;
-      v27 = systemInfo_systemSupportsWAPI();
-      v28 = acc_strings_bundleCF();
-      if (v27)
+      v30 = v28;
+      v31 = systemInfo_systemSupportsWAPI(v28, v29);
+      v32 = acc_strings_bundleCF();
+      if (v31)
       {
-        v29 = @"Connect to WLAN";
+        v33 = @"Connect to WLAN";
       }
 
       else
       {
-        v29 = @"Connect to Wi-Fi";
+        v33 = @"Connect to Wi-Fi";
       }
 
-      v44 = CFBundleCopyLocalizedString(v28, v29, v29, 0);
-      v45 = systemInfo_systemSupportsWAPI();
-      v46 = acc_strings_bundleCF();
-      if (v45)
+      v49 = CFBundleCopyLocalizedString(v32, v33, v33, 0);
+      v51 = systemInfo_systemSupportsWAPI(v49, v50);
+      v52 = acc_strings_bundleCF();
+      if (v51)
       {
-        v47 = @"This accessory would like to use a WLAN network. Connect this %@ to WLAN if you want to share WLAN settings with this accessory.";
+        v53 = @"This accessory would like to use a WLAN network. Connect this %@ to WLAN if you want to share WLAN settings with this accessory.";
       }
 
       else
       {
-        v47 = @"This accessory would like to use a Wi-Fi network. Connect this %@ to Wi-Fi if you want to share Wi-Fi settings with this accessory.";
+        v53 = @"This accessory would like to use a Wi-Fi network. Connect this %@ to Wi-Fi if you want to share Wi-Fi settings with this accessory.";
       }
 
-      v48 = CFBundleCopyLocalizedString(v46, v47, v47, 0);
-      v49 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, v48, v26);
-      v50 = acc_strings_bundleCF();
-      v51 = CFBundleCopyLocalizedString(v50, @"OK", @"OK", 0);
+      v54 = CFBundleCopyLocalizedString(v52, v53, v53, 0);
+      v55 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, v54, v30);
+      v56 = acc_strings_bundleCF();
+      v57 = CFBundleCopyLocalizedString(v56, @"OK", @"OK", 0);
       Identifier = acc_userNotifications_createIdentifier(@"wifi-sharing-connect", a1);
-      v52 = acc_manager_getEndpointWithUUID(a1);
-      v53 = ACCUNCreate(1, v44, v49, v51, 0, 0, 1, Identifier, 0.0, **v52);
+      v58 = acc_manager_getEndpointWithUUID(a1);
+      v59 = ACCUNCreate(1, v49, v55, v57, 0, 0, 1, Identifier, 0.0, **v58);
       CFRetain(a1);
-      v56 = _NSConcreteStackBlock;
-      v57 = 3221225472;
-      v58 = ___presentConnectToWiFiNotification_block_invoke;
-      v59 = &__block_descriptor_40_e8_v12__0i8l;
-      v60 = a1;
-      ACCUNManagerPresentNotification(v53, &v56);
-      if (v53)
+      v62 = _NSConcreteStackBlock;
+      v63 = 3221225472;
+      v64 = ___presentConnectToWiFiNotification_block_invoke;
+      v65 = &__block_descriptor_40_e8_v12__0i8l;
+      v66 = a1;
+      ACCUNManagerPresentNotification(v59, &v62);
+      if (v59)
       {
-        CFRelease(v53);
-      }
-
-      if (v44)
-      {
-        CFRelease(v44);
+        CFRelease(v59);
       }
 
       if (v49)
@@ -3881,20 +3798,25 @@ LABEL_78:
         CFRelease(v49);
       }
 
-      if (v48)
+      if (v55)
       {
-        CFRelease(v48);
+        CFRelease(v55);
       }
 
-      if (v51)
+      if (v54)
       {
-        CFRelease(v51);
+        CFRelease(v54);
       }
 
-      v42 = v26;
+      if (v57)
+      {
+        CFRelease(v57);
+      }
+
+      v47 = v30;
     }
 
-    CFRelease(v42);
+    CFRelease(v47);
 LABEL_70:
     if (Identifier)
     {
@@ -3909,33 +3831,33 @@ LABEL_70:
   {
     if (gLogObjects)
     {
-      v16 = gNumLogObjects < 8;
+      v19 = gNumLogObjects < 8;
     }
 
     else
     {
-      v16 = 1;
+      v19 = 1;
     }
 
-    if (v16)
+    if (v19)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v12 = &_os_log_default;
-      v17 = &_os_log_default;
+      v13 = &_os_log_default;
+      v20 = &_os_log_default;
     }
 
     else
     {
-      v12 = *(gLogObjects + 56);
+      v13 = *(gLogObjects + 56);
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      platform_wifisharing_request_device_wifi_information_cold_4(v12);
+      platform_wifisharing_request_device_wifi_information_cold_4(v13);
     }
 
     goto LABEL_78;
@@ -3945,35 +3867,35 @@ LABEL_70:
   v5 = acc_strings_bundleCF();
   v6 = CFBundleCopyLocalizedString(v5, @"%@ is Locked", @"%@ is Locked", 0);
   v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, v6, v4);
-  v8 = systemInfo_systemSupportsWAPI();
-  v9 = acc_strings_bundleCF();
-  if (v8)
+  v9 = systemInfo_systemSupportsWAPI(v7, v8);
+  v10 = acc_strings_bundleCF();
+  if (v9)
   {
-    v10 = @"This accessory would like to use the WLAN network. Unlock your %@ to configure WLAN settings.";
+    v11 = @"This accessory would like to use the WLAN network. Unlock your %@ to configure WLAN settings.";
   }
 
   else
   {
-    v10 = @"This accessory would like to use the Wi-Fi network. Unlock your %@ to configure Wi-Fi settings.";
+    v11 = @"This accessory would like to use the Wi-Fi network. Unlock your %@ to configure Wi-Fi settings.";
   }
 
-  v18 = CFBundleCopyLocalizedString(v9, v10, v10, 0);
-  v19 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, v18, v4);
-  v20 = acc_strings_bundleCF();
-  v21 = CFBundleCopyLocalizedString(v20, @"OK", @"OK", 0);
-  v22 = acc_userNotifications_createIdentifier(@"wifi-sharing-unlock", a1);
-  v23 = acc_manager_getEndpointWithUUID(a1);
-  v24 = ACCUNCreate(1, v7, v19, v21, 0, 0, 1, v22, 0.0, **v23);
+  v21 = CFBundleCopyLocalizedString(v10, v11, v11, 0);
+  v22 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, v21, v4);
+  v23 = acc_strings_bundleCF();
+  v24 = CFBundleCopyLocalizedString(v23, @"OK", @"OK", 0);
+  v25 = acc_userNotifications_createIdentifier(@"wifi-sharing-unlock", a1);
+  v26 = acc_manager_getEndpointWithUUID(a1);
+  v27 = ACCUNCreate(1, v7, v22, v24, 0, 0, 1, v25, 0.0, **v26);
   CFRetain(a1);
-  v56 = _NSConcreteStackBlock;
-  v57 = 3221225472;
-  v58 = ___presentUnlockForWiFiSharingNotification_block_invoke;
-  v59 = &__block_descriptor_40_e8_v12__0i8l;
-  v60 = a1;
-  ACCUNManagerPresentNotification(v24, &v56);
-  if (v24)
+  v62 = _NSConcreteStackBlock;
+  v63 = 3221225472;
+  v64 = ___presentUnlockForWiFiSharingNotification_block_invoke;
+  v65 = &__block_descriptor_40_e8_v12__0i8l;
+  v66 = a1;
+  ACCUNManagerPresentNotification(v27, &v62);
+  if (v27)
   {
-    CFRelease(v24);
+    CFRelease(v27);
   }
 
   if (v7)
@@ -3986,14 +3908,9 @@ LABEL_70:
     CFRelease(v6);
   }
 
-  if (v19)
+  if (v22)
   {
-    CFRelease(v19);
-  }
-
-  if (v18)
-  {
-    CFRelease(v18);
+    CFRelease(v22);
   }
 
   if (v21)
@@ -4001,10 +3918,15 @@ LABEL_70:
     CFRelease(v21);
   }
 
-  CFRelease(v4);
-  if (v22)
+  if (v24)
   {
-    CFRelease(v22);
+    CFRelease(v24);
+  }
+
+  CFRelease(v4);
+  if (v25)
+  {
+    CFRelease(v25);
   }
 
   return isDeviceLocked ^ 1u;
@@ -4314,10 +4236,10 @@ void ___presentShareWiFiCredentialsNotification_block_invoke(uint64_t a1, int a2
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "User did not approve wifi sharing", buf, 2u);
     }
 
-    v46 = kCFWiFiSharing_WiFiNetworkInformationStatus;
+    v48 = kCFWiFiSharing_WiFiNetworkInformationStatus;
     v8 = [NSNumber numberWithUnsignedInt:1];
-    v47 = v8;
-    v9 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v49 = v8;
+    v9 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
 
     if (gLogObjects && gNumLogObjects >= 8)
     {
@@ -4346,8 +4268,8 @@ void ___presentShareWiFiCredentialsNotification_block_invoke(uint64_t a1, int a2
     block[2] = ___presentShareWiFiCredentialsNotification_block_invoke_102;
     block[3] = &unk_100228CA8;
     v13 = *(a1 + 32);
-    v37 = v9;
-    v38 = v13;
+    v39 = v9;
+    v40 = v13;
     v14 = v9;
     dispatch_async(v12, block);
   }
@@ -4406,52 +4328,48 @@ void ___presentShareWiFiCredentialsNotification_block_invoke(uint64_t a1, int a2
       CFRetain(v16);
       v21 = dispatch_get_global_queue(0, 0);
       *buf = _NSConcreteStackBlock;
-      v40 = 3221225472;
-      v41 = ___handleDeviceWiFiConfigurationInformation_block_invoke;
-      v42 = &unk_100228CA8;
-      v44 = v16;
+      v42 = 3221225472;
+      v43 = ___handleDeviceWiFiConfigurationInformation_block_invoke;
+      v44 = &unk_100228CA8;
+      v46 = v16;
       v22 = v18;
-      v43 = v22;
+      v45 = v22;
       dispatch_async(v21, buf);
 
       v23 = [v22 objectForKey:kCFWiFiSharing_WiFiNetworkInformationStatus];
-      if ([v23 unsignedIntValue] == 2)
+      v24 = [v23 unsignedIntValue];
+      if (v24 == 2)
       {
-        v24 = systemInfo_systemSupportsWAPI();
-        v25 = acc_strings_bundleCF();
-        if (v24)
+        v26 = systemInfo_systemSupportsWAPI(v24, v25);
+        v27 = acc_strings_bundleCF();
+        if (v26)
         {
-          v26 = @"WLAN Settings";
+          v28 = @"WLAN Settings";
         }
 
         else
         {
-          v26 = @"Wi-Fi Settings";
+          v28 = @"Wi-Fi Settings";
         }
 
-        v27 = CFBundleCopyLocalizedString(v25, v26, v26, 0);
-        v28 = acc_strings_bundleCF();
-        v29 = CFBundleCopyLocalizedString(v28, @"This network’s settings are not available for sharing with accessories.", @"This network’s settings are not available for sharing with accessories.", 0);
+        v29 = CFBundleCopyLocalizedString(v27, v28, v28, 0);
         v30 = acc_strings_bundleCF();
-        v31 = CFBundleCopyLocalizedString(v30, @"OK", @"OK", 0);
+        v31 = CFBundleCopyLocalizedString(v30, @"This network’s settings are not available for sharing with accessories.", @"This network’s settings are not available for sharing with accessories.", 0);
+        v32 = acc_strings_bundleCF();
+        v33 = CFBundleCopyLocalizedString(v32, @"OK", @"OK", 0);
         Identifier = acc_userNotifications_createIdentifier(@"wifi-sharing-unavailable", v16);
         EndpointWithUUID = acc_manager_getEndpointWithUUID(v16);
-        v34 = ACCUNCreate(1, v27, v29, v31, 0, 0, 1, Identifier, 0.0, **EndpointWithUUID);
+        v36 = ACCUNCreate(1, v29, v31, v33, 0, 0, 1, Identifier, 0.0, **EndpointWithUUID);
         CFRetain(v16);
-        v45[0] = _NSConcreteStackBlock;
-        v45[1] = 3221225472;
-        v45[2] = ___presentWiFiSharingUnavailableNotification_block_invoke;
-        v45[3] = &__block_descriptor_40_e8_v12__0i8l;
-        v45[4] = v16;
-        ACCUNManagerPresentNotification(v34, v45);
-        if (v34)
+        v47[0] = _NSConcreteStackBlock;
+        v47[1] = 3221225472;
+        v47[2] = ___presentWiFiSharingUnavailableNotification_block_invoke;
+        v47[3] = &__block_descriptor_40_e8_v12__0i8l;
+        v47[4] = v16;
+        ACCUNManagerPresentNotification(v36, v47);
+        if (v36)
         {
-          CFRelease(v34);
-        }
-
-        if (v27)
-        {
-          CFRelease(v27);
+          CFRelease(v36);
         }
 
         if (v29)
@@ -4464,6 +4382,11 @@ void ___presentShareWiFiCredentialsNotification_block_invoke(uint64_t a1, int a2
           CFRelease(v31);
         }
 
+        if (v33)
+        {
+          CFRelease(v33);
+        }
+
         if (Identifier)
         {
           CFRelease(Identifier);
@@ -4472,10 +4395,10 @@ void ___presentShareWiFiCredentialsNotification_block_invoke(uint64_t a1, int a2
     }
   }
 
-  v35 = *(a1 + 32);
-  if (v35)
+  v37 = *(a1 + 32);
+  if (v37)
   {
-    CFRelease(v35);
+    CFRelease(v37);
   }
 }
 
@@ -4573,7 +4496,7 @@ _BYTE *iAP2ListArrayCleanup(_BYTE *result, void (*a2)(unsigned __int8 *))
     {
       for (i = result[2]; i != 255; i = *v7)
       {
-        v7 = (v3 + 8 + (*(v3 + 5) + 2) * i);
+        v7 = &v3[(v3[5] + 2) * i + 8];
         a2(v7 + 2);
       }
     }
@@ -4603,7 +4526,7 @@ void *logObjectForModule_26()
 uint64_t _checkIdentificationInfo_8(uint64_t a1)
 {
   v6 = 0;
-  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_kMsgTestList_1, 5u, &v6);
+  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_kMsgTestList_1, 5, &v6);
   v3 = v2;
   if (v6 == 1 && v2 == 0)
   {
@@ -4683,13 +4606,13 @@ void _appIconFileTransferIDSent(void *a1, int a2)
       }
 
       *buf = 134218754;
-      v33 = v6;
-      v34 = 1024;
-      *v35 = v7;
-      *&v35[4] = 1024;
-      *&v35[6] = a2;
-      *v36 = 2080;
-      *&v36[2] = dispatch_queue_get_label(0);
+      v40 = v6;
+      v41 = 1024;
+      *v42 = v7;
+      *&v42[4] = 1024;
+      *&v42[6] = a2;
+      *v43 = 2080;
+      *&v43[2] = dispatch_queue_get_label(0);
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#AppIcon File transfer ID sent callback fired! context=%p (type=%d) needDelete=%d currentDispatchQueue: %s", buf, 0x22u);
     }
 
@@ -4725,17 +4648,17 @@ void _appIconFileTransferIDSent(void *a1, int a2)
               v14 = *(v9 + 89);
               v15 = *(v9 + 91);
               *buf = 138544642;
-              v33 = @"#AppIcon";
-              v34 = 1024;
-              *v35 = v11;
-              *&v35[4] = 1024;
-              *&v35[6] = v12;
-              *v36 = 1024;
-              *&v36[2] = v13;
-              *&v36[6] = 1024;
-              *&v36[8] = v14;
-              LOWORD(v37) = 1024;
-              *(&v37 + 2) = v15;
+              v40 = @"#AppIcon";
+              v41 = 1024;
+              *v42 = v11;
+              *&v42[4] = 1024;
+              *&v42[6] = v12;
+              *v43 = 1024;
+              *&v43[2] = v13;
+              *&v43[6] = 1024;
+              *&v43[8] = v14;
+              LOWORD(v44) = 1024;
+              *(&v44 + 2) = v15;
               _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%{public}@ File transfer ID sent callback fired! context(ID=%u type=%u) currentTransferInfo(ID=%u valid=%d type=%u)", buf, 0x2Au);
             }
 
@@ -4811,17 +4734,17 @@ void _appIconFileTransferIDSent(void *a1, int a2)
                             v24 = *(v18 + 104);
                             v25 = obfuscatedPointer(BytePtr);
                             *buf = 138544642;
-                            v33 = @"#AppIcon";
-                            v34 = 2048;
-                            *v35 = v18;
-                            *&v35[8] = 1024;
-                            *v36 = v23;
-                            *&v36[4] = 1024;
-                            *&v36[6] = v24;
-                            *&v36[10] = 2048;
-                            v37 = v25;
-                            v38 = 1024;
-                            v39 = Length;
+                            v40 = @"#AppIcon";
+                            v41 = 2048;
+                            *v42 = v18;
+                            *&v42[8] = 1024;
+                            *v43 = v23;
+                            *&v43[4] = 1024;
+                            *&v43[6] = v24;
+                            *&v43[10] = 2048;
+                            v44 = v25;
+                            v45 = 1024;
+                            v46 = Length;
                             _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%{public}@ start transfer (%p id=%d state=%d) pBuffer=%p bufferLen=%u", buf, 0x32u);
                           }
 
@@ -4843,10 +4766,10 @@ void _appIconFileTransferIDSent(void *a1, int a2)
 
                           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
                           {
-                            _appIconFileTransferIDSent_cold_7(v18, (v18 + 104));
+                            _appIconFileTransferIDSent_cold_7();
                           }
 
-                          if ((iAP2FileTransferStart(v18, BytePtr, Length, Length, _appIconFileTransferEndHandler, v26, 0, 0) & 1) == 0)
+                          if (!iAP2FileTransferStart(v18, BytePtr, Length, Length, _appIconFileTransferEndHandler, v26, 0, 0))
                           {
                             v28 = logObjectForModule_26();
                             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -4854,7 +4777,7 @@ void _appIconFileTransferIDSent(void *a1, int a2)
                               _appIconFileTransferIDSent_cold_8(v28);
                             }
 
-                            iAP2FileTransferCancel(v18);
+                            iAP2FileTransferCancel(v18, v29, v30, v31, v32, v33, v34, v35);
                           }
                         }
                       }
@@ -4870,17 +4793,17 @@ void _appIconFileTransferIDSent(void *a1, int a2)
 
     if (a2)
     {
-      v29 = a1[6];
-      if (v29)
+      v36 = a1[6];
+      if (v36)
       {
-        free(v29);
+        free(v36);
         a1[6] = 0;
       }
 
-      v30 = a1[3];
-      if (v30)
+      v37 = a1[3];
+      if (v37)
       {
-        free(v30);
+        free(v37);
       }
 
       free(a1);
@@ -4893,13 +4816,6 @@ uint64_t OUTLINED_FUNCTION_3_28()
   v2 = *(v0 + 192);
 
   return iAP2MsgInit(v0 + 120, 44289, v2, 0xFFFF, 0, 0);
-}
-
-void OUTLINED_FUNCTION_12_15()
-{
-  v1 = *(v0 + 109);
-  v2 = *(v0 + 112);
-  v3 = *(v0 + 104);
 }
 
 uint64_t OUTLINED_FUNCTION_50_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, int a23)
@@ -4954,7 +4870,7 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         v8 = "<Undefined>";
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_signpost_modules_block_invoke_cold_1(v15, v4, &v16);
+          __init_logging_signpost_modules_block_invoke_cold_1(v15, v4, &v15[4]);
           v8 = "<Undefined>";
         }
       }
@@ -5346,9 +5262,9 @@ uint64_t platform_connectionInfo_accessoryInfoForConnection(void *a1)
   return v1;
 }
 
-void sub_10008BAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008BAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5379,9 +5295,9 @@ uint64_t platform_connectionInfo_accessoryPropertiesForConnection(void *a1)
   return v1;
 }
 
-void sub_10008BBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008BBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5408,9 +5324,9 @@ uint64_t platform_connectionInfo_accessoryPropertiesForEndpoint(uint64_t a1, voi
   return v2;
 }
 
-void sub_10008BC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008BC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5490,36 +5406,30 @@ void platform_connectionInfo_setAccessoryUserName(const __CFString *a1, uint64_t
     goto LABEL_36;
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   *buffer = 0u;
   Length = CFStringGetLength(a1);
   CString = CFStringGetCString(a1, buffer, Length + 1, 0x8000100u);
-  if (!gLogObjects)
-  {
-    goto LABEL_40;
-  }
-
-  if (gNumLogObjects >= 9)
+  if (gLogObjects && gNumLogObjects >= 9)
   {
     v11 = *(gLogObjects + 64);
   }
 
   else
   {
-LABEL_40:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -5531,11 +5441,11 @@ LABEL_40:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v22[0] = 67109378;
-    v22[1] = CString != 0;
-    v23 = 2080;
-    v24 = buffer;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "platform_connectionInfo_setAccessoryUserName: %d, %s", v22, 0x12u);
+    v21[0] = 67109378;
+    v21[1] = CString != 0;
+    v22 = 2080;
+    v23 = buffer;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "platform_connectionInfo_setAccessoryUserName: %d, %s", v21, 0x12u);
   }
 
   EndpointWithUUID = acc_manager_getEndpointWithUUID(a3);
@@ -5576,7 +5486,7 @@ LABEL_40:
       }
 
       v18 = &_os_log_default;
-      v21 = &_os_log_default;
+      v20 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -5607,11 +5517,10 @@ LABEL_36:
 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v22[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "platform_connectionInfo_setAccessoryUserName", v22, 2u);
+    LOWORD(v21[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "platform_connectionInfo_setAccessoryUserName", v21, 2u);
   }
 
-  v20 = *(v14 + 56);
   mfi4Auth_endpoint_setAccessoryUserName();
 LABEL_37:
 }
@@ -5659,7 +5568,7 @@ LABEL_28:
       }
 
       v12 = &_os_log_default;
-      v15 = &_os_log_default;
+      v14 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -5688,11 +5597,10 @@ LABEL_28:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "platform_connectionInfo_getAccessoryUserName", v16, 2u);
+    v15[0] = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "platform_connectionInfo_getAccessoryUserName", v15, 2u);
   }
 
-  v14 = *(v8 + 56);
   mfi4Auth_endpoint_getAccessoryUserName();
 LABEL_29:
 }
@@ -5740,7 +5648,7 @@ LABEL_28:
       }
 
       v12 = &_os_log_default;
-      v15 = &_os_log_default;
+      v14 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -5769,11 +5677,10 @@ LABEL_28:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[FindMy] platform_connectionInfo_provisionPairing", v16, 2u);
+    v15[0] = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[FindMy] platform_connectionInfo_provisionPairing", v15, 2u);
   }
 
-  v14 = *(v8 + 56);
   mfi4Auth_endpoint_provisionPairing();
 LABEL_29:
 }
@@ -6791,9 +6698,9 @@ uint64_t ___platform_connectionInfo_sendDataForiAP2Endpoint_block_invoke(uint64_
   return result;
 }
 
-void sub_10008F878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008F878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6930,7 +6837,7 @@ CFStringRef CFSetCreateRawValuesString(const __CFSet *a1, int a2)
   return Copy;
 }
 
-const __CFString *CFStringCreateFromCFData(const __CFData *a1, const __CFString *a2)
+CFStringRef CFStringCreateFromCFData(const __CFData *a1, const __CFString *a2)
 {
   if (!a1)
   {
@@ -7074,16 +6981,16 @@ void OUTLINED_FUNCTION_7_19(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_impl(a1, v4, OS_LOG_TYPE_INFO, a4, (v5 - 144), 2u);
 }
 
-id __getSessionIDLock()
+id __getSessionIDLock(uint64_t a1)
 {
   if (__getSessionIDLock_onceToken != -1)
   {
     __getSessionIDLock_cold_1();
   }
 
-  v1 = __getSessionIDLock___sessionIDLock;
+  v2 = __getSessionIDLock___sessionIDLock;
 
-  return v1;
+  return v2;
 }
 
 void ____getSessionIDLock_block_invoke(id a1)
@@ -7198,7 +7105,7 @@ id logObjectForModule_28()
 
 uint64_t _acc_auth_protocol_reserveFreeSessionID(_BYTE *a1)
 {
-  v2 = __getSessionIDLock();
+  v2 = __getSessionIDLock(a1);
   [v2 lock];
 
   if (a1)
@@ -7249,7 +7156,7 @@ LABEL_10:
     v4 = 1;
   }
 
-  v6 = __getSessionIDLock();
+  v6 = __getSessionIDLock(v3);
   [v6 unlock];
 
   if (gLogObjects && gNumLogObjects >= 55)
@@ -7290,18 +7197,19 @@ LABEL_10:
   return v4;
 }
 
-BOOL _acc_auth_protocol_isBusySessionID(int a1)
+BOOL _acc_auth_protocol_isBusySessionID(uint64_t a1)
 {
-  v2 = __getSessionIDLock();
+  v1 = a1;
+  v2 = __getSessionIDLock(a1);
   [v2 lock];
 
   v3 = __availableSessionIDs;
-  v4 = __getSessionIDLock();
-  [v4 unlock];
+  v5 = __getSessionIDLock(v4);
+  [v5 unlock];
 
   if (gLogObjects && gNumLogObjects >= 55)
   {
-    v5 = *(gLogObjects + 432);
+    v6 = *(gLogObjects + 432);
   }
 
   else
@@ -7311,37 +7219,38 @@ BOOL _acc_auth_protocol_isBusySessionID(int a1)
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v5 = &_os_log_default;
     v6 = &_os_log_default;
+    v7 = &_os_log_default;
   }
 
-  v7 = (1 << a1) & v3;
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v8 = (1 << v1) & v3;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    _acc_auth_protocol_isBusySessionID_cold_2(v7 == 0, a1, v5);
+    _acc_auth_protocol_isBusySessionID_cold_2(v8 == 0, v1, v6);
   }
 
-  return v7 == 0;
+  return v8 == 0;
 }
 
-uint64_t _acc_auth_protocol_returnSessionID(int a1)
+uint64_t _acc_auth_protocol_returnSessionID(uint64_t a1)
 {
-  v2 = __getSessionIDLock();
+  v1 = a1;
+  v2 = __getSessionIDLock(a1);
   [v2 lock];
 
-  v3 = 1;
-  if (((1 << a1) & __availableSessionIDs) == 0)
+  v4 = 1;
+  if (((1 << v1) & __availableSessionIDs) == 0)
   {
-    v3 = 0;
-    __availableSessionIDs |= 1 << a1;
+    v4 = 0;
+    __availableSessionIDs |= 1 << v1;
   }
 
-  v4 = __getSessionIDLock();
-  [v4 unlock];
+  v5 = __getSessionIDLock(v3);
+  [v5 unlock];
 
   if (gLogObjects && gNumLogObjects >= 55)
   {
-    v5 = *(gLogObjects + 432);
+    v6 = *(gLogObjects + 432);
   }
 
   else
@@ -7351,20 +7260,20 @@ uint64_t _acc_auth_protocol_returnSessionID(int a1)
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v5 = &_os_log_default;
     v6 = &_os_log_default;
+    v7 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109376;
-    v8[1] = a1;
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[AccAuth] _returnSessionID: sessionID %d, errorNo %d \n", v8, 0xEu);
+    v9[0] = 67109376;
+    v9[1] = v1;
+    v10 = 1024;
+    v11 = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[AccAuth] _returnSessionID: sessionID %d, errorNo %d \n", v9, 0xEu);
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t _acc_auth_protocol_createSessionImplementation(uint64_t a1, unsigned __int8 *a2)
@@ -7510,7 +7419,7 @@ uint64_t _acc_auth_protocol_cleanupCertificateInfo(uint64_t a1)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    _acc_auth_protocol_cleanupCertificateInfo_cold_2(a1);
+    _acc_auth_protocol_cleanupCertificateInfo_cold_2();
   }
 
   if (a1)
@@ -7760,7 +7669,7 @@ LABEL_47:
 
 uint64_t _acc_auth_protocol_certificateCacheSaveCert(uint64_t a1, uint64_t a2)
 {
-  if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+  if (platform_systemInfo_isInternalBuild(a1, a2) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
   {
     return 1;
   }
@@ -8000,7 +7909,7 @@ LABEL_24:
   return 0;
 }
 
-uint64_t _acc_auth_protocol_getSigningCertificateHash(uint64_t a1, uint64_t *a2, void *a3, unsigned int a4, _BYTE *a5)
+uint64_t _acc_auth_protocol_getSigningCertificateHash(uint64_t a1, uint64_t a2, void *a3, unsigned int a4, _BYTE *a5)
 {
   if (gLogObjects && gNumLogObjects >= 55)
   {
@@ -8020,7 +7929,7 @@ uint64_t _acc_auth_protocol_getSigningCertificateHash(uint64_t a1, uint64_t *a2,
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(a2 + 2);
+    v23 = *(a2 + 8);
     v24 = 67109632;
     v25 = v23;
     v26 = 1024;
@@ -8030,13 +7939,13 @@ uint64_t _acc_auth_protocol_getSigningCertificateHash(uint64_t a1, uint64_t *a2,
     _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "[AccAuth] _getSigningCertificateHash: inCertificateData %d, outCertificateHashSize %d, outCertificateHashLen %p \n", &v24, 0x18u);
   }
 
-  v12 = 1;
+  v14 = 1;
   if (a1 && a2 && a3 && a4 >= 0x20 && a5)
   {
-    if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+    if (platform_systemInfo_isInternalBuild(v12, v13) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
     {
       arc4random_buf(a3, a4);
-      v12 = 0;
+      v14 = 0;
       *a5 = a4;
     }
 
@@ -8048,8 +7957,6 @@ uint64_t _acc_auth_protocol_getSigningCertificateHash(uint64_t a1, uint64_t *a2,
         goto LABEL_23;
       }
 
-      v13 = *a2;
-      v14 = *(a2 + 2);
       if (!SecCertificateCreateWithBytes())
       {
         goto LABEL_24;
@@ -8059,13 +7966,13 @@ uint64_t _acc_auth_protocol_getSigningCertificateHash(uint64_t a1, uint64_t *a2,
       if (!AuthorityKeyID)
       {
 LABEL_23:
-        v12 = 2;
+        v14 = 2;
         goto LABEL_24;
       }
 
       v16 = AuthorityKeyID;
       Length = CFDataGetLength(AuthorityKeyID);
-      v12 = 22;
+      v14 = 22;
       if (Length <= 255)
       {
         v18 = Length;
@@ -8076,7 +7983,7 @@ LABEL_23:
           CFDataGetBytes(v16, v30, a3);
           *a5 = v18;
           CFRelease(v16);
-          v12 = 0;
+          v14 = 0;
         }
       }
     }
@@ -8116,11 +8023,11 @@ LABEL_24:
     v26 = 1024;
     v27 = v21;
     v28 = 1024;
-    LODWORD(v29) = v12;
+    LODWORD(v29) = v14;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "[AccAuth] _getSigningCertificateHash: outCertificateHashSize %d, outCertificateHashLen %d, errorNo %d \n", &v24, 0x14u);
   }
 
-  return v12;
+  return v14;
 }
 
 uint64_t _acc_auth_protocol_createCertificateData(uint64_t a1, unsigned int a2, int a3, uint64_t *a4)
@@ -8551,7 +8458,7 @@ uint64_t _acc_auth_protocol_cleanupCertificateData(uint64_t a1)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    _acc_auth_protocol_cleanupCertificateData_cold_2(a1);
+    _acc_auth_protocol_cleanupCertificateData_cold_2();
   }
 
   if (a1)
@@ -8778,7 +8685,7 @@ uint64_t _acc_auth_protocol_setPeerLeafCertificateData(unsigned __int8 *a1, uint
     v5 = *(a1 + 176);
     if (v5)
     {
-      if (platform_systemInfo_isInternalBuild() && acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") && *(v5 + 352) >= 3u)
+      if (platform_systemInfo_isInternalBuild(a1, a2) && acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") && *(v5 + 352) >= 3u)
       {
         _acc_auth_protocol_cleanupCertificateInfo(v5);
       }
@@ -8954,23 +8861,24 @@ uint64_t _acc_auth_protocol_addPeerIntermediateCertificateData(unsigned __int8 *
   return v5;
 }
 
-uint64_t _acc_auth_protocol_validatePeerCertificateChain(uint64_t a1)
+uint64_t _acc_auth_protocol_validatePeerCertificateChain(uint64_t isInternalBuild, uint64_t a2)
 {
-  if (!a1)
+  if (!isInternalBuild)
   {
-    v2 = 0;
+    v3 = 0;
     goto LABEL_22;
   }
 
-  v2 = *(a1 + 1408);
-  if (!v2)
+  v2 = isInternalBuild;
+  v3 = *(isInternalBuild + 1408);
+  if (!v3)
   {
     goto LABEL_22;
   }
 
   if (gLogObjects && gNumLogObjects >= 55)
   {
-    v3 = *(gLogObjects + 432);
+    v4 = *(gLogObjects + 432);
   }
 
   else
@@ -8980,40 +8888,45 @@ uint64_t _acc_auth_protocol_validatePeerCertificateChain(uint64_t a1)
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v3 = &_os_log_default;
     v4 = &_os_log_default;
+    v5 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    _acc_auth_protocol_validatePeerCertificateChain_cold_2(v2);
+    _acc_auth_protocol_validatePeerCertificateChain_cold_2();
   }
 
-  if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+  isInternalBuild = platform_systemInfo_isInternalBuild(v6, v7);
+  if (isInternalBuild)
   {
-    v5 = 0;
-    goto LABEL_23;
+    isInternalBuild = acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth");
+    if (isInternalBuild)
+    {
+      v8 = 0;
+      goto LABEL_23;
+    }
   }
 
-  if (!*(v2 + 352) || acc_auth_protocol_negotiatedMFi4Cert(a1) && *(v2 + 352) < 2u)
+  if (!*(v3 + 352) || (isInternalBuild = acc_auth_protocol_negotiatedMFi4Cert(v2), isInternalBuild) && *(v3 + 352) < 2u)
   {
 LABEL_22:
-    v5 = 1;
+    v8 = 1;
     goto LABEL_23;
   }
 
-  if (!acc_auth_protocol_negotiatedMFi4Cert(a1) || (v6 = _acc_auth_protocol_decompressCerts(a1, v2), !v6))
+  if (!acc_auth_protocol_negotiatedMFi4Cert(v2) || (isInternalBuild = _acc_auth_protocol_decompressCerts(v2, v3), !isInternalBuild))
   {
-    v6 = _acc_auth_protocol_validateCertificateChain(a1, v2);
+    isInternalBuild = _acc_auth_protocol_validateCertificateChain(v2, v3);
   }
 
-  v5 = v6;
+  v8 = isInternalBuild;
 LABEL_23:
-  if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+  if (platform_systemInfo_isInternalBuild(isInternalBuild, a2) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
   {
     if (gLogObjects && gNumLogObjects >= 55)
     {
-      v7 = *(gLogObjects + 432);
+      v9 = *(gLogObjects + 432);
     }
 
     else
@@ -9023,19 +8936,19 @@ LABEL_23:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v7 = &_os_log_default;
-      v13 = &_os_log_default;
+      v9 = &_os_log_default;
+      v15 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v15 = 67109120;
-      v16 = v5;
-      v10 = "[AccAuth] _acc_auth_protocol_validatePeerCertificateChain: errorNo %d \n";
-      v11 = v7;
-      v12 = 8;
+      v17 = 67109120;
+      v18 = v8;
+      v12 = "[AccAuth] _acc_auth_protocol_validatePeerCertificateChain: errorNo %d \n";
+      v13 = v9;
+      v14 = 8;
 LABEL_44:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, v10, &v15, v12);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, v12, &v17, v14);
     }
   }
 
@@ -9043,7 +8956,7 @@ LABEL_44:
   {
     if (gLogObjects && gNumLogObjects >= 55)
     {
-      v7 = *(gLogObjects + 432);
+      v9 = *(gLogObjects + 432);
     }
 
     else
@@ -9053,34 +8966,34 @@ LABEL_44:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v7 = &_os_log_default;
-      v8 = &_os_log_default;
+      v9 = &_os_log_default;
+      v10 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      if (v2)
+      if (v3)
       {
-        v9 = *(v2 + 352);
+        v11 = *(v3 + 352);
       }
 
       else
       {
-        v9 = -1;
+        v11 = -1;
       }
 
-      v15 = 67109376;
-      v16 = v9;
-      v17 = 1024;
-      v18 = v5;
-      v10 = "[AccAuth] _acc_auth_protocol_validatePeerCertificateChain: peer certificateDataCount %d, errorNo %d \n";
-      v11 = v7;
-      v12 = 14;
+      v17 = 67109376;
+      v18 = v11;
+      v19 = 1024;
+      v20 = v8;
+      v12 = "[AccAuth] _acc_auth_protocol_validatePeerCertificateChain: peer certificateDataCount %d, errorNo %d \n";
+      v13 = v9;
+      v14 = 14;
       goto LABEL_44;
     }
   }
 
-  return v5;
+  return v8;
 }
 
 uint64_t _acc_auth_protocol_decompressCerts(uint64_t a1, uint64_t a2)
@@ -9111,10 +9024,10 @@ uint64_t _acc_auth_protocol_decompressCerts(uint64_t a1, uint64_t a2)
 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        _acc_auth_protocol_decompressCerts_cold_2(a2);
+        _acc_auth_protocol_decompressCerts_cold_2();
       }
 
-      if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+      if (platform_systemInfo_isInternalBuild(v10, v11) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
       {
         v3 = 0;
 LABEL_47:
@@ -9122,25 +9035,25 @@ LABEL_47:
         goto LABEL_55;
       }
 
-      v34 = (a2 + 352);
-      v10 = [[NSMutableArray alloc] initWithCapacity:*(a2 + 352)];
+      v36 = (a2 + 352);
+      v12 = [[NSMutableArray alloc] initWithCapacity:*(a2 + 352)];
       if (gLogObjects)
       {
-        v11 = gNumLogObjects <= 54;
+        v13 = gNumLogObjects <= 54;
       }
 
       else
       {
-        v11 = 1;
+        v13 = 1;
       }
 
-      v12 = !v11;
-      if (v10)
+      v14 = !v13;
+      if (v12)
       {
-        v3 = v10;
-        if (v12)
+        v3 = v12;
+        if (v14)
         {
-          v13 = *(gLogObjects + 432);
+          v15 = *(gLogObjects + 432);
         }
 
         else
@@ -9150,28 +9063,28 @@ LABEL_47:
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
 
-          v13 = &_os_log_default;
           v15 = &_os_log_default;
+          v17 = &_os_log_default;
         }
 
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          _acc_auth_protocol_decompressCerts_cold_4(v34);
+          _acc_auth_protocol_decompressCerts_cold_4();
         }
 
-        if (*v34)
+        if (*v36)
         {
-          v16 = 0;
-          v17 = a2;
+          v18 = 0;
+          v19 = a2;
           while (1)
           {
-            v18 = v5;
-            v19 = v5[491];
-            v20 = v6;
-            v21 = *(v6 + 984);
-            if (v19 && v21 >= 55)
+            v20 = v5;
+            v21 = v5[491];
+            v22 = v6;
+            v23 = *(v6 + 984);
+            if (v21 && v23 >= 55)
             {
-              v22 = *(v19 + 432);
+              v24 = *(v21 + 432);
             }
 
             else
@@ -9179,50 +9092,50 @@ LABEL_47:
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *v36 = v19;
-                *&v36[8] = 1024;
-                v37 = v21;
+                *v38 = v21;
+                *&v38[8] = 1024;
+                v39 = v23;
                 _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
-              v23 = &_os_log_default;
-              v22 = &_os_log_default;
+              v25 = &_os_log_default;
+              v24 = &_os_log_default;
             }
 
-            v6 = v20;
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+            v6 = v22;
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
-              v27 = *(v17 + 8);
+              v29 = *(v19 + 8);
               *buf = 67109376;
-              *v36 = v16;
-              *&v36[4] = 1024;
-              *&v36[6] = v27;
-              _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "[AccAuth] _decompressCerts: [%d] certificateDataLen %u \n", buf, 0xEu);
+              *v38 = v18;
+              *&v38[4] = 1024;
+              *&v38[6] = v29;
+              _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "[AccAuth] _decompressCerts: [%d] certificateDataLen %u \n", buf, 0xEu);
             }
 
-            v5 = v18;
-            if (*(v17 + 8))
+            v5 = v20;
+            if (*(v19 + 8))
             {
-              v24 = _acc_auth_protocol_decompressCert(a1, v17);
-              if (v24)
+              v26 = _acc_auth_protocol_decompressCert(a1, v19);
+              if (v26)
               {
-                v4 = v24;
+                v4 = v26;
                 goto LABEL_55;
               }
 
-              v25 = [NSData dataWithBytes:*v17 length:*(v17 + 8)];
-              if (!v25)
+              v27 = [NSData dataWithBytes:*v19 length:*(v19 + 8)];
+              if (!v27)
               {
                 goto LABEL_54;
               }
 
-              v26 = v25;
-              [v3 addObject:v25];
+              v28 = v27;
+              [v3 addObject:v27];
             }
 
-            ++v16;
-            v17 += 88;
-            if (v16 >= *v34)
+            ++v18;
+            v19 += 88;
+            if (v18 >= *v36)
             {
               goto LABEL_47;
             }
@@ -9232,9 +9145,9 @@ LABEL_47:
         goto LABEL_47;
       }
 
-      if (v12)
+      if (v14)
       {
-        v14 = *(gLogObjects + 432);
+        v16 = *(gLogObjects + 432);
       }
 
       else
@@ -9244,13 +9157,13 @@ LABEL_47:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v14 = &_os_log_default;
-        v28 = &_os_log_default;
+        v16 = &_os_log_default;
+        v30 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        _acc_auth_protocol_decompressCerts_cold_6(v34);
+        _acc_auth_protocol_decompressCerts_cold_6();
       }
 
       v3 = 0;
@@ -9265,10 +9178,10 @@ LABEL_54:
   }
 
 LABEL_55:
-  v29 = v5[491];
-  if (v29 && *(v6 + 984) >= 55)
+  v31 = v5[491];
+  if (v31 && *(v6 + 984) >= 55)
   {
-    v30 = *(v29 + 432);
+    v32 = *(v31 + 432);
   }
 
   else
@@ -9278,27 +9191,27 @@ LABEL_55:
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v30 = &_os_log_default;
-    v31 = &_os_log_default;
+    v32 = &_os_log_default;
+    v33 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
     if (a2)
     {
-      v32 = *(a2 + 352);
+      v34 = *(a2 + 352);
     }
 
     else
     {
-      v32 = -1;
+      v34 = -1;
     }
 
     *buf = 67109376;
-    *v36 = v32;
-    *&v36[4] = 1024;
-    *&v36[6] = v4;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "[AccAuth] _decompressCerts: certificateDataCount %d, errorNo %d \n", buf, 0xEu);
+    *v38 = v34;
+    *&v38[4] = 1024;
+    *&v38[6] = v4;
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "[AccAuth] _decompressCerts: certificateDataCount %d, errorNo %d \n", buf, 0xEu);
   }
 
   return v4;
@@ -9329,10 +9242,10 @@ uint64_t _acc_auth_protocol_validateCertificateChain(uint64_t a1, uint64_t a2)
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      _acc_auth_protocol_validateCertificateChain_cold_2(a2);
+      _acc_auth_protocol_validateCertificateChain_cold_2();
     }
 
-    if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+    if (platform_systemInfo_isInternalBuild(v9, v10) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
     {
       v3 = 0;
       v5 = 0;
@@ -9340,25 +9253,25 @@ uint64_t _acc_auth_protocol_validateCertificateChain(uint64_t a1, uint64_t a2)
       goto LABEL_95;
     }
 
-    v9 = (a2 + 352);
-    v10 = [[NSMutableArray alloc] initWithCapacity:*(a2 + 352)];
+    v11 = (a2 + 352);
+    v12 = [[NSMutableArray alloc] initWithCapacity:*(a2 + 352)];
     if (gLogObjects)
     {
-      v11 = gNumLogObjects <= 54;
+      v13 = gNumLogObjects <= 54;
     }
 
     else
     {
-      v11 = 1;
+      v13 = 1;
     }
 
-    v12 = !v11;
-    if (v10)
+    v14 = !v13;
+    if (v12)
     {
-      v5 = v10;
-      if (v12)
+      v5 = v12;
+      if (v14)
       {
-        v13 = *(gLogObjects + 432);
+        v15 = *(gLogObjects + 432);
       }
 
       else
@@ -9368,26 +9281,26 @@ uint64_t _acc_auth_protocol_validateCertificateChain(uint64_t a1, uint64_t a2)
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v13 = &_os_log_default;
         v15 = &_os_log_default;
+        v17 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        _acc_auth_protocol_validateCertificateChain_cold_4((a2 + 352));
+        _acc_auth_protocol_validateCertificateChain_cold_4();
       }
 
-      if (*v9)
+      if (*v11)
       {
-        v16 = 0;
-        v17 = a2;
+        v18 = 0;
+        v19 = a2;
         while (1)
         {
-          v18 = gLogObjects;
-          v19 = gNumLogObjects;
+          v20 = gLogObjects;
+          v21 = gNumLogObjects;
           if (gLogObjects && gNumLogObjects >= 55)
           {
-            v20 = *(gLogObjects + 432);
+            v22 = *(gLogObjects + 432);
           }
 
           else
@@ -9395,41 +9308,41 @@ uint64_t _acc_auth_protocol_validateCertificateChain(uint64_t a1, uint64_t a2)
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              *v52 = v18;
-              *&v52[8] = 1024;
-              *v53 = v19;
+              *v54 = v20;
+              *&v54[8] = 1024;
+              *v55 = v21;
               _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
-            v21 = &_os_log_default;
-            v20 = &_os_log_default;
+            v23 = &_os_log_default;
+            v22 = &_os_log_default;
           }
 
-          v22 = &kACCExternalAccessoryProtocolFirmwareVersionPendingKey_ptr;
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          v24 = &kACCExternalAccessoryProtocolFirmwareVersionPendingKey_ptr;
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            v27 = *(v17 + 40);
-            v28 = *(v17 + 14);
-            v29 = *(v17 + 2);
-            v30 = *(v17 + 24);
+            v29 = *(v19 + 40);
+            v30 = *(v19 + 14);
+            v31 = *(v19 + 2);
+            v32 = *(v19 + 24);
             *buf = 136316674;
-            *v52 = "_acc_auth_protocol_validateCertificateChain";
-            *&v52[8] = 1024;
-            *v53 = 2032;
-            *&v53[4] = 1024;
-            *&v53[6] = v16;
-            v54 = 1024;
-            v55 = v27;
+            *v54 = "_acc_auth_protocol_validateCertificateChain";
+            *&v54[8] = 1024;
+            *v55 = 2032;
+            *&v55[4] = 1024;
+            *&v55[6] = v18;
             v56 = 1024;
-            v57 = v28;
+            v57 = v29;
             v58 = 1024;
-            v59 = v29;
+            v59 = v30;
             v60 = 1024;
-            v61 = v30;
-            _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "[AccAuth] %s:%d [%d] privacyPrefixLen %u, compressedCertLen %u, certificateDataLen %u, certificateHashLen %u \n", buf, 0x30u);
+            v61 = v31;
+            v62 = 1024;
+            v63 = v32;
+            _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "[AccAuth] %s:%d [%d] privacyPrefixLen %u, compressedCertLen %u, certificateDataLen %u, certificateHashLen %u \n", buf, 0x30u);
           }
 
-          if (!*(v17 + 2))
+          if (!*(v19 + 2))
           {
             goto LABEL_92;
           }
@@ -9437,60 +9350,60 @@ uint64_t _acc_auth_protocol_validateCertificateChain(uint64_t a1, uint64_t a2)
           EndpointWithUUID = acc_manager_getEndpointWithUUID(*(a1 + 1400));
           if (!EndpointWithUUID)
           {
-            v25 = 0;
+            v27 = 0;
             goto LABEL_63;
           }
 
-          v24 = EndpointWithUUID;
-          if (!v17[6] || !*(v17 + 14))
+          v26 = EndpointWithUUID;
+          if (!v19[6] || !*(v19 + 14))
           {
             break;
           }
 
-          if (v16)
+          if (v18)
           {
-            [NSString stringWithFormat:@"MFi40Accessory-Compressed-Intermediate-%d", v16];
+            [NSString stringWithFormat:@"MFi40Accessory-Compressed-Intermediate-%d", v18];
           }
 
           else
           {
-            [NSString stringWithFormat:@"MFi40Accessory-Compressed-Certificate", v49];
+            [NSString stringWithFormat:@"MFi40Accessory-Compressed-Certificate", v51];
           }
-          v25 = ;
-          acc_platform_packetLogging_logData(v24, v25, @"AccAuth", [NSData dataWithBytes:v17[6] length:*(v17 + 14)], 1);
-          if (*v17 && *(v17 + 2) >= 0x191u)
+          v27 = ;
+          acc_platform_packetLogging_logData(v26, v27, @"AccAuth", [NSData dataWithBytes:v19[6] length:*(v19 + 14)], 1);
+          if (*v19 && *(v19 + 2) >= 0x191u)
           {
-            if (v16)
+            if (v18)
             {
-              [NSString stringWithFormat:@"MFi40Accessory-Intermediate-%d", v16];
+              [NSString stringWithFormat:@"MFi40Accessory-Intermediate-%d", v18];
             }
 
             else
             {
-              [NSString stringWithFormat:@"MFi40Accessory-Certificate", v49];
+              [NSString stringWithFormat:@"MFi40Accessory-Certificate", v51];
             }
-            v39 = ;
+            v41 = ;
 
-            v25 = v39;
-            v22 = &kACCExternalAccessoryProtocolFirmwareVersionPendingKey_ptr;
+            v27 = v41;
+            v24 = &kACCExternalAccessoryProtocolFirmwareVersionPendingKey_ptr;
             goto LABEL_62;
           }
 
 LABEL_63:
 
-          v31 = [v22[219] dataWithBytes:*v17 length:*(v17 + 2)];
-          if (!v31)
+          v33 = [v24[219] dataWithBytes:*v19 length:*(v19 + 2)];
+          if (!v33)
           {
             v3 = 0;
             goto LABEL_94;
           }
 
-          v32 = v31;
-          v33 = gLogObjects;
-          v34 = gNumLogObjects;
+          v34 = v33;
+          v35 = gLogObjects;
+          v36 = gNumLogObjects;
           if (gLogObjects && gNumLogObjects >= 55)
           {
-            v35 = *(gLogObjects + 432);
+            v37 = *(gLogObjects + 432);
           }
 
           else
@@ -9498,71 +9411,71 @@ LABEL_63:
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              *v52 = v33;
-              *&v52[8] = 1024;
-              *v53 = v34;
+              *v54 = v35;
+              *&v54[8] = 1024;
+              *v55 = v36;
               _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
-            v36 = &_os_log_default;
-            v35 = &_os_log_default;
+            v38 = &_os_log_default;
+            v37 = &_os_log_default;
           }
 
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
-            v37 = [v32 length];
-            v38 = [v32 bytes];
+            v39 = [v34 length];
+            v40 = [v34 bytes];
             *buf = 67109634;
-            *v52 = v16;
-            *&v52[4] = 1040;
-            *&v52[6] = v37;
-            *v53 = 2098;
-            *&v53[2] = v38;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "[AccAuth] _validateCertificateChain: [%d] certificateData: \n<%{public,coreacc:bytes}.*P>", buf, 0x18u);
+            *v54 = v18;
+            *&v54[4] = 1040;
+            *&v54[6] = v39;
+            *v55 = 2098;
+            *&v55[2] = v40;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "[AccAuth] _validateCertificateChain: [%d] certificateData: \n<%{public,coreacc:bytes}.*P>", buf, 0x18u);
           }
 
-          [v5 addObject:v32];
-          ++v16;
-          v17 += 11;
-          if (v16 >= *v9)
+          [v5 addObject:v34];
+          ++v18;
+          v19 += 11;
+          if (v18 >= *v11)
           {
             goto LABEL_76;
           }
         }
 
-        if (*v17 && *(v17 + 2) <= 0x190u)
+        if (*v19 && *(v19 + 2) <= 0x190u)
         {
-          if (v16)
+          if (v18)
           {
-            [NSString stringWithFormat:@"MFi40Accessory-Compressed-Intermediate-%d", v16];
-            v25 = LABEL_61:;
+            [NSString stringWithFormat:@"MFi40Accessory-Compressed-Intermediate-%d", v18];
+            v27 = LABEL_61:;
 LABEL_62:
-            acc_platform_packetLogging_logData(v24, v25, @"AccAuth", [v22[219] dataWithBytes:*v17 length:*(v17 + 2)], 1);
+            acc_platform_packetLogging_logData(v26, v27, @"AccAuth", [v24[219] dataWithBytes:*v19 length:*(v19 + 2)], 1);
             goto LABEL_63;
           }
 
-          v26 = @"MFi40Accessory-Compressed-Certificate";
+          v28 = @"MFi40Accessory-Compressed-Certificate";
         }
 
         else
         {
-          if (v16)
+          if (v18)
           {
-            [NSString stringWithFormat:@"Accessory-Intermediate-%d", v16];
+            [NSString stringWithFormat:@"Accessory-Intermediate-%d", v18];
             goto LABEL_61;
           }
 
-          v26 = @"Accessory-Certificate";
+          v28 = @"Accessory-Certificate";
         }
 
-        [NSString stringWithFormat:v26, v49];
+        [NSString stringWithFormat:v28, v51];
         goto LABEL_61;
       }
 
 LABEL_76:
       if (gLogObjects && gNumLogObjects >= 55)
       {
-        v40 = *(gLogObjects + 432);
+        v42 = *(gLogObjects + 432);
       }
 
       else
@@ -9572,23 +9485,23 @@ LABEL_76:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v40 = &_os_log_default;
         v42 = &_os_log_default;
+        v44 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
-        _acc_auth_protocol_validateCertificateChain_cold_6(v5, v40);
+        _acc_auth_protocol_validateCertificateChain_cold_6(v5, v42);
       }
 
       if ([v5 count])
       {
-        v43 = +[MFAACertificateManager sharedManager];
-        v50 = 0;
-        v44 = [v43 validateCertificateChain:v5 realtime:0 error:&v50];
-        v3 = v50;
+        v45 = +[MFAACertificateManager sharedManager];
+        v52 = 0;
+        v46 = [v45 validateCertificateChain:v5 realtime:0 error:&v52];
+        v3 = v52;
 
-        v4 = v44 != 1;
+        v4 = v46 != 1;
       }
 
       else
@@ -9601,9 +9514,9 @@ LABEL_92:
 
     else
     {
-      if (v12)
+      if (v14)
       {
-        v14 = *(gLogObjects + 432);
+        v16 = *(gLogObjects + 432);
       }
 
       else
@@ -9613,13 +9526,13 @@ LABEL_92:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v14 = &_os_log_default;
-        v41 = &_os_log_default;
+        v16 = &_os_log_default;
+        v43 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        _acc_auth_protocol_validateCertificateChain_cold_8((a2 + 352));
+        _acc_auth_protocol_validateCertificateChain_cold_8();
       }
 
       v3 = 0;
@@ -9632,7 +9545,7 @@ LABEL_94:
 LABEL_95:
   if (gLogObjects && gNumLogObjects >= 55)
   {
-    v45 = *(gLogObjects + 432);
+    v47 = *(gLogObjects + 432);
   }
 
   else
@@ -9642,27 +9555,27 @@ LABEL_95:
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v45 = &_os_log_default;
-    v46 = &_os_log_default;
+    v47 = &_os_log_default;
+    v48 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
   {
     if (a2)
     {
-      v47 = *(a2 + 352);
+      v49 = *(a2 + 352);
     }
 
     else
     {
-      v47 = -1;
+      v49 = -1;
     }
 
     *buf = 67109376;
-    *v52 = v47;
-    *&v52[4] = 1024;
-    *&v52[6] = v4;
-    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "[AccAuth] _validateCertificateChain: certificateDataCount %d, errorNo %d \n", buf, 0xEu);
+    *v54 = v49;
+    *&v54[4] = 1024;
+    *&v54[6] = v4;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "[AccAuth] _validateCertificateChain: certificateDataCount %d, errorNo %d \n", buf, 0xEu);
   }
 
   return v4;
@@ -9698,13 +9611,14 @@ uint64_t _acc_auth_protocol_challengeSizeForCertificate(uint64_t a1, uint64_t a2
       v4 = 32;
       break;
     default:
-      if (acc_auth_protocol_negotiatedMFi4Cert(a1))
+      v8 = acc_auth_protocol_negotiatedMFi4Cert(a1);
+      if (v8)
       {
 LABEL_12:
         v4 = 16;
       }
 
-      else if (platform_systemInfo_isInternalBuild())
+      else if (platform_systemInfo_isInternalBuild(v8, v9))
       {
         if (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth"))
         {
@@ -9733,7 +9647,7 @@ LABEL_12:
 LABEL_15:
   if (gLogObjects && gNumLogObjects >= 55)
   {
-    v8 = *(gLogObjects + 432);
+    v10 = *(gLogObjects + 432);
   }
 
   else
@@ -9743,33 +9657,33 @@ LABEL_15:
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v8 = &_os_log_default;
-    v9 = &_os_log_default;
+    v10 = &_os_log_default;
+    v11 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     if (a2)
     {
-      v10 = *(a2 + 8);
-      v11 = *(a2 + 24);
+      v12 = *(a2 + 8);
+      v13 = *(a2 + 24);
     }
 
     else
     {
-      v10 = -1;
-      v11 = -1;
+      v12 = -1;
+      v13 = -1;
     }
 
-    v13[0] = 67109888;
-    v13[1] = v10;
-    v14 = 1024;
-    v15 = v11;
+    v15[0] = 67109888;
+    v15[1] = v12;
     v16 = 1024;
-    v17 = v3;
+    v17 = v13;
     v18 = 1024;
-    v19 = v4;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "[AccAuth] _challengeSizeForCertificate: certificateDataLen %d, certificateHashLen %d, authVerMajor %d, challengeSize %d \n", v13, 0x1Au);
+    v19 = v3;
+    v20 = 1024;
+    v21 = v4;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "[AccAuth] _challengeSizeForCertificate: certificateDataLen %d, certificateHashLen %d, authVerMajor %d, challengeSize %d \n", v15, 0x1Au);
   }
 
   return v4;

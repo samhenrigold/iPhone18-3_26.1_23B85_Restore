@@ -41,149 +41,154 @@
 
   if (!userDataVolumeMountPath)
   {
-    v32 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:v32];
+    v38 = DRGetLogHandle(v6);
+    [DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:v38];
 
-    v33 = [NSString stringWithFormat:@"Unable to free space on container since data volume not mounted"];
-    v10 = DRCreateError(@"DeviceRecoveryError", 8, v33, @"Unable to free space on container since data volume not mounted", 0, "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x2Cu);
-    v6 = 0;
-
-    goto LABEL_29;
-  }
-
-  v43 = 0;
-  v6 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnDeviceForUser:&v43];
-  v7 = v43;
-  if (v7 || !v6)
-  {
-    v34 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:v34];
-
-    v35 = [NSString stringWithFormat:@"Initial free space query failed"];
-    v10 = DRCreateError(@"DeviceRecoveryError", 18, v35, @"Initial free space query failed", v7, "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x32u);
+    v39 = [NSString stringWithFormat:@"Unable to free space on container since data volume not mounted"];
+    v13 = DRCreateError(@"DeviceRecoveryError", 8, v39, @"Unable to free space on container since data volume not mounted", 0, "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x2Cu);
+    v7 = 0;
 
     goto LABEL_29;
   }
 
-  unsignedLongLongValue = [v6 unsignedLongLongValue];
-  if (unsignedLongLongValue > [thresholdCopy unsignedLongLongValue])
+  v49 = 0;
+  v7 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnDeviceForUser:&v49];
+  v8 = v49;
+  v9 = v8;
+  if (v8 || !v7)
   {
-    v9 = DRGetLogHandle();
-    obj = v9;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v40 = DRGetLogHandle(v8);
+    [DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:v40];
+
+    v41 = [NSString stringWithFormat:@"Initial free space query failed"];
+    v13 = DRCreateError(@"DeviceRecoveryError", 18, v41, @"Initial free space query failed", v9, "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x32u);
+
+    goto LABEL_29;
+  }
+
+  unsignedLongLongValue = [v7 unsignedLongLongValue];
+  unsignedLongLongValue2 = [thresholdCopy unsignedLongLongValue];
+  if (unsignedLongLongValue > unsignedLongLongValue2)
+  {
+    v12 = DRGetLogHandle(unsignedLongLongValue2);
+    obj = v12;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v45 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Sufficient free space already exists. Nothing to do", buf, 0xCu);
+      v51 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Sufficient free space already exists. Nothing to do", buf, 0xCu);
     }
 
-    v10 = 0;
+    v13 = 0;
     goto LABEL_28;
   }
 
-  v11 = NSStringFromSelector("deleteMobileBackupSnapshots");
-  v49[0] = v11;
-  v12 = NSStringFromSelector("cleanupUpdateVolume");
-  v49[1] = v12;
-  v13 = NSStringFromSelector("performAPFSPurge");
-  v49[2] = v13;
-  v14 = NSStringFromSelector("cleanupMobileAssets");
-  v49[3] = v14;
-  v15 = [NSArray arrayWithObjects:v49 count:4];
+  v14 = NSStringFromSelector("deleteMobileBackupSnapshots");
+  v55[0] = v14;
+  v15 = NSStringFromSelector("cleanupUpdateVolume");
+  v55[1] = v15;
+  v16 = NSStringFromSelector("performAPFSPurge");
+  v55[2] = v16;
+  v17 = NSStringFromSelector("cleanupMobileAssets");
+  v55[3] = v17;
+  v18 = [NSArray arrayWithObjects:v55 count:4];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  obj = v15;
-  v10 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
-  if (!v10)
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  obj = v18;
+  v19 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v13 = v19;
+  if (!v19)
   {
     goto LABEL_27;
   }
 
-  v16 = *v40;
+  v20 = *v46;
   while (2)
   {
-    v17 = 0;
-    v18 = v6;
+    v21 = 0;
+    v22 = v7;
     do
     {
-      if (*v40 != v16)
+      if (*v46 != v20)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v39 + 1) + 8 * v17);
-      v20 = DRGetLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v23 = *(*(&v45 + 1) + 8 * v21);
+      v24 = DRGetLogHandle(v19);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v45 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
-        v46 = 2114;
-        v47 = v19;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to run cleanup step %{public}@", buf, 0x16u);
+        v51 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
+        v52 = 2114;
+        v53 = v23;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to run cleanup step %{public}@", buf, 0x16u);
       }
 
-      v21 = NSSelectorFromString(v19);
-      v22 = [(DeviceRecoveryBrainSpaceManager *)selfCopy methodSignatureForSelector:v21];
-      v23 = [NSInvocation invocationWithMethodSignature:v22];
+      v25 = NSSelectorFromString(v23);
+      v26 = [(DeviceRecoveryBrainSpaceManager *)selfCopy methodSignatureForSelector:v25];
+      v27 = [NSInvocation invocationWithMethodSignature:v26];
 
-      [v23 setSelector:v21];
-      [v23 setTarget:selfCopy];
-      [v23 invoke];
-      v38 = 0;
-      v6 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnDeviceForUser:&v38];
-      v24 = v38;
+      [v27 setSelector:v25];
+      [v27 setTarget:selfCopy];
+      [v27 invoke];
+      v44 = 0;
+      v7 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnDeviceForUser:&v44];
+      v28 = v44;
 
-      if (v24 || !v6)
+      if (v28 || !v7)
       {
-        v31 = DRGetLogHandle();
-        [DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:v31];
+        v37 = DRGetLogHandle(v29);
+        [DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:v37];
 
-        v28 = [NSString stringWithFormat:@"Failed to query for free space after cleanup step"];
-        v10 = DRCreateError(@"DeviceRecoveryError", 18, v28, @"Failed to query for free space after cleanup step", v24, "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x4Eu);
+        v34 = [NSString stringWithFormat:@"Failed to query for free space after cleanup step"];
+        v13 = DRCreateError(@"DeviceRecoveryError", 18, v34, @"Failed to query for free space after cleanup step", v28, "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x4Eu);
 
 LABEL_26:
         goto LABEL_27;
       }
 
-      unsignedLongLongValue2 = [v6 unsignedLongLongValue];
-      if (unsignedLongLongValue2 > [thresholdCopy unsignedLongLongValue])
+      unsignedLongLongValue3 = [v7 unsignedLongLongValue];
+      unsignedLongLongValue4 = [thresholdCopy unsignedLongLongValue];
+      if (unsignedLongLongValue3 > unsignedLongLongValue4)
       {
-        v28 = DRGetLogHandle();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v34 = DRGetLogHandle(unsignedLongLongValue4);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
-          unsignedLongLongValue3 = [v6 unsignedLongLongValue];
+          unsignedLongLongValue5 = [v7 unsignedLongLongValue];
           *buf = 136446466;
-          v45 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
-          v46 = 2048;
-          v47 = unsignedLongLongValue3;
-          _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "%{public}s: Sufficient free space now availaible(%llu)", buf, 0x16u);
+          v51 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
+          v52 = 2048;
+          v53 = unsignedLongLongValue5;
+          _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}s: Sufficient free space now availaible(%llu)", buf, 0x16u);
         }
 
-        v10 = 0;
+        v13 = 0;
         goto LABEL_26;
       }
 
-      v26 = DRGetLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v32 = DRGetLogHandle(unsignedLongLongValue4);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        unsignedLongLongValue4 = [v6 unsignedLongLongValue];
+        unsignedLongLongValue6 = [v7 unsignedLongLongValue];
         *buf = 136446466;
-        v45 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
-        v46 = 2048;
-        v47 = unsignedLongLongValue4;
-        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space is not yet sufficient(%llu). Proceeding to next cleanup step", buf, 0x16u);
+        v51 = "[DeviceRecoveryBrainSpaceManager freeSpaceOnMainContainerTillThreshold:]";
+        v52 = 2048;
+        v53 = unsignedLongLongValue6;
+        _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space is not yet sufficient(%llu). Proceeding to next cleanup step", buf, 0x16u);
       }
 
-      v17 = v17 + 1;
-      v18 = v6;
+      v21 = v21 + 1;
+      v22 = v7;
     }
 
-    while (v10 != v17);
-    v10 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
-    if (v10)
+    while (v13 != v21);
+    v19 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v13 = v19;
+    if (v19)
     {
       continue;
     }
@@ -197,7 +202,7 @@ LABEL_28:
 LABEL_29:
   objc_sync_exit(selfCopy);
 
-  return v10;
+  return v13;
 }
 
 - (id)getFreeSpaceOnDeviceForUser:(id *)user
@@ -205,460 +210,246 @@ LABEL_29:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   userDataVolumeMountPath = [(DeviceRecoveryBrainSpaceManager *)selfCopy userDataVolumeMountPath];
-  v48 = 0;
-  v5 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getContainerDeviceNodeForVolumeAtPath:userDataVolumeMountPath outError:&v48];
-  v6 = v48;
+  v56 = 0;
+  v5 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getContainerDeviceNodeForVolumeAtPath:userDataVolumeMountPath outError:&v56];
+  v6 = v56;
 
   if (!v5)
   {
-    v30 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v30];
+    v38 = DRGetLogHandle(v7);
+    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v38];
 
-    v11 = [NSString stringWithFormat:@"Failed to determine device node for userdata volume container"];
-    v19 = DRCreateError(@"DeviceRecoveryError", 1, v11, @"Failed to determine device node for userdata volume container", v6, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x67u);
-    v41 = 0;
-    v42 = 0;
-    v20 = 0;
-    v26 = 0;
-    v8 = 0;
+    v13 = [NSString stringWithFormat:@"Failed to determine device node for userdata volume container"];
+    v26 = DRCreateError(@"DeviceRecoveryError", 1, v13, @"Failed to determine device node for userdata volume container", v6, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x67u);
+    v49 = 0;
+    v50 = 0;
+    v27 = 0;
+    v33 = 0;
+    v9 = 0;
     goto LABEL_24;
   }
 
   userDataVolumeMountPath2 = [(DeviceRecoveryBrainSpaceManager *)selfCopy userDataVolumeMountPath];
-  v47 = 0;
-  v42 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnContainerForVolumeMountedAtPath:userDataVolumeMountPath2 error:&v47];
-  v8 = v47;
+  v55 = 0;
+  v50 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnContainerForVolumeMountedAtPath:userDataVolumeMountPath2 error:&v55];
+  v9 = v55;
 
-  if (v8)
+  if (v9)
   {
-    v31 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v31];
+    v39 = DRGetLogHandle(v10);
+    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v39];
 
-    v11 = [NSString stringWithFormat:@"Unable to determine free space on userdata volume"];
-    v19 = DRCreateError(@"DeviceRecoveryError", 18, v11, @"Unable to determine free space on userdata volume", v8, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x6Cu);
-    v41 = 0;
-    v20 = 0;
-    v26 = 0;
+    v13 = [NSString stringWithFormat:@"Unable to determine free space on userdata volume"];
+    v26 = DRCreateError(@"DeviceRecoveryError", 18, v13, @"Unable to determine free space on userdata volume", v9, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x6Cu);
+    v49 = 0;
+    v27 = 0;
+    v33 = 0;
     goto LABEL_24;
   }
 
-  v9 = DRGetLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = DRGetLogHandle(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v50 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
-    v51 = 2114;
-    v52 = v42;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space on userdata volume: %{public}@ bytes", buf, 0x16u);
+    v58 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
+    v59 = 2114;
+    v60 = v50;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space on userdata volume: %{public}@ bytes", buf, 0x16u);
   }
 
   systemDataVolumeMountPath = [(DeviceRecoveryBrainSpaceManager *)selfCopy systemDataVolumeMountPath];
-  v46 = v6;
-  v11 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getContainerDeviceNodeForVolumeAtPath:systemDataVolumeMountPath outError:&v46];
-  v12 = v46;
+  v54 = v6;
+  v13 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getContainerDeviceNodeForVolumeAtPath:systemDataVolumeMountPath outError:&v54];
+  v14 = v54;
 
-  if (!v11)
+  if (!v13)
   {
-    v32 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v32];
+    v40 = DRGetLogHandle(v15);
+    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v40];
 
-    v16 = [NSString stringWithFormat:@"Failed to determine device node for systemdata volume container"];
-    v19 = DRCreateError(@"DeviceRecoveryError", 1, v16, @"Failed to determine device node for systemdata volume container", v12, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x74u);
-    v41 = 0;
-    v20 = 0;
-    v26 = 0;
-    v8 = 0;
+    v21 = [NSString stringWithFormat:@"Failed to determine device node for systemdata volume container"];
+    v26 = DRCreateError(@"DeviceRecoveryError", 1, v21, @"Failed to determine device node for systemdata volume container", v14, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x74u);
+    v49 = 0;
+    v27 = 0;
+    v33 = 0;
+    v9 = 0;
     goto LABEL_23;
   }
 
-  if ([v11 isEqualToString:v5])
+  v16 = [v13 isEqualToString:v5];
+  if (v16)
   {
-    v13 = DRGetLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = DRGetLogHandle(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v50 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: Space check on system data volume not required(shared container)", buf, 0xCu);
+      v58 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: Space check on system data volume not required(shared container)", buf, 0xCu);
     }
 
-    v41 = &off_33A78;
+    v49 = &off_33A78;
   }
 
   else
   {
     systemDataVolumeMountPath2 = [(DeviceRecoveryBrainSpaceManager *)selfCopy systemDataVolumeMountPath];
-    v45 = 0;
-    v41 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnContainerForVolumeMountedAtPath:systemDataVolumeMountPath2 error:&v45];
-    v8 = v45;
+    v53 = 0;
+    v49 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnContainerForVolumeMountedAtPath:systemDataVolumeMountPath2 error:&v53];
+    v9 = v53;
 
-    if (v8)
+    if (v9)
     {
-      v39 = DRGetLogHandle();
-      [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v39];
+      v47 = DRGetLogHandle(v19);
+      [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v47];
 
-      v16 = [NSString stringWithFormat:@"Unable to determine free space on systemdata volume"];
-      v19 = DRCreateError(@"DeviceRecoveryError", 18, v16, @"Unable to determine free space on systemdata volume", v8, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x80u);
-      v20 = 0;
-      v26 = 0;
+      v21 = [NSString stringWithFormat:@"Unable to determine free space on systemdata volume"];
+      v26 = DRCreateError(@"DeviceRecoveryError", 18, v21, @"Unable to determine free space on systemdata volume", v9, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x80u);
+      v27 = 0;
+      v33 = 0;
       goto LABEL_23;
     }
 
-    v13 = DRGetLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = DRGetLogHandle(v19);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v50 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
-      v51 = 2114;
-      v52 = v41;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space on systemData volume: %{public}@ bytes", buf, 0x16u);
+      v58 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
+      v59 = 2114;
+      v60 = v49;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space on systemData volume: %{public}@ bytes", buf, 0x16u);
     }
   }
 
   updateVolumeMountPath = [(DeviceRecoveryBrainSpaceManager *)selfCopy updateVolumeMountPath];
-  v44 = v12;
-  v16 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getContainerDeviceNodeForVolumeAtPath:updateVolumeMountPath outError:&v44];
-  v17 = v44;
+  v52 = v14;
+  v21 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getContainerDeviceNodeForVolumeAtPath:updateVolumeMountPath outError:&v52];
+  v22 = v52;
 
-  if (!v16)
+  if (!v21)
   {
-    v33 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v33];
+    v41 = DRGetLogHandle(v23);
+    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v41];
 
-    v34 = [NSString stringWithFormat:@"Failed to determine device node for update volume container"];
-    v35 = DRCreateError(@"DeviceRecoveryError", 1, v34, @"Failed to determine device node for update volume container", v17, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x89u);
-    v20 = 0;
+    v42 = [NSString stringWithFormat:@"Failed to determine device node for update volume container"];
+    v43 = DRCreateError(@"DeviceRecoveryError", 1, v42, @"Failed to determine device node for update volume container", v22, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x89u);
+    v27 = 0;
 LABEL_39:
 
-    v26 = 0;
-    v8 = 0;
-    v19 = v35;
+    v33 = 0;
+    v9 = 0;
+    v26 = v43;
     goto LABEL_22;
   }
 
-  if (([v16 isEqualToString:v5] & 1) != 0 || objc_msgSend(v16, "isEqualToString:", v11))
+  v24 = [v21 isEqualToString:v5];
+  if ((v24 & 1) != 0 || (v24 = [v21 isEqualToString:v13], v24))
   {
-    v18 = DRGetLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v25 = DRGetLogHandle(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v50 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: Space check for update volume not require(shared container", buf, 0xCu);
+      v58 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "%{public}s: Space check for update volume not require(shared container", buf, 0xCu);
     }
 
-    v19 = 0;
-    v20 = &off_33A78;
+    v26 = 0;
+    v27 = &off_33A78;
   }
 
   else
   {
     updateVolumeMountPath2 = [(DeviceRecoveryBrainSpaceManager *)selfCopy updateVolumeMountPath];
-    v43 = 0;
-    v20 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnContainerForVolumeMountedAtPath:updateVolumeMountPath2 error:&v43];
-    v19 = v43;
+    v51 = 0;
+    v27 = [(DeviceRecoveryBrainSpaceManager *)selfCopy getFreeSpaceOnContainerForVolumeMountedAtPath:updateVolumeMountPath2 error:&v51];
+    v26 = v51;
 
-    v18 = DRGetLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v25 = DRGetLogHandle(v37);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v50 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
-      v51 = 2114;
-      v52 = v20;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space on update volume: %{public}@ bytes", buf, 0x16u);
+      v58 = "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]";
+      v59 = 2114;
+      v60 = v27;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "%{public}s: Free space on update volume: %{public}@ bytes", buf, 0x16u);
     }
   }
 
-  unsignedLongLongValue = [v42 unsignedLongLongValue];
-  unsignedLongLongValue2 = [v41 unsignedLongLongValue];
-  v23 = __CFADD__(unsignedLongLongValue, unsignedLongLongValue2);
-  v24 = &unsignedLongLongValue2[unsignedLongLongValue];
-  if (v23)
+  unsignedLongLongValue = [v50 unsignedLongLongValue];
+  unsignedLongLongValue2 = [v49 unsignedLongLongValue];
+  v30 = __CFADD__(unsignedLongLongValue, unsignedLongLongValue2);
+  v31 = &unsignedLongLongValue2[unsignedLongLongValue];
+  if (v30)
   {
-    v36 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v36];
+    v44 = DRGetLogHandle(unsignedLongLongValue2);
+    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v44];
 
-    v34 = [NSString stringWithFormat:@"Overflow while calculating total free space"];
-    v37 = DRCreateError(@"DeviceRecoveryError", 18, v34, @"Overflow while calculating total free space", 0, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x9Bu);
+    v42 = [NSString stringWithFormat:@"Overflow while calculating total free space"];
+    v45 = DRCreateError(@"DeviceRecoveryError", 18, v42, @"Overflow while calculating total free space", 0, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x9Bu);
 LABEL_38:
-    v35 = v37;
+    v43 = v45;
 
     goto LABEL_39;
   }
 
-  unsignedLongLongValue3 = [v20 unsignedLongLongValue];
-  if (__CFADD__(v24, unsignedLongLongValue3))
+  unsignedLongLongValue3 = [v27 unsignedLongLongValue];
+  if (__CFADD__(v31, unsignedLongLongValue3))
   {
-    v38 = DRGetLogHandle();
-    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v38];
+    v46 = DRGetLogHandle(unsignedLongLongValue3);
+    [DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:v46];
 
-    v34 = [NSString stringWithFormat:@"Overflow while calculating total free space"];
-    v37 = DRCreateError(@"DeviceRecoveryError", 18, v34, @"Overflow while calculating total free space", 0, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x9Fu);
+    v42 = [NSString stringWithFormat:@"Overflow while calculating total free space"];
+    v45 = DRCreateError(@"DeviceRecoveryError", 18, v42, @"Overflow while calculating total free space", 0, "[DeviceRecoveryBrainSpaceManager getFreeSpaceOnDeviceForUser:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecoveryBrainSupport_Framework/DeviceRecoveryBrainSpaceManager.m", 0x9Fu);
     goto LABEL_38;
   }
 
-  v26 = [NSNumber numberWithUnsignedLongLong:&unsignedLongLongValue3[v24]];
-  v8 = 0;
+  v33 = [NSNumber numberWithUnsignedLongLong:&unsignedLongLongValue3[v31]];
+  v9 = 0;
 LABEL_22:
-  v12 = v17;
+  v14 = v22;
 LABEL_23:
 
-  v6 = v12;
+  v6 = v14;
 LABEL_24:
 
   objc_sync_exit(selfCopy);
-  if (user && v19)
+  if (user && v26)
   {
-    v27 = v19;
-    *user = v19;
+    v34 = v26;
+    *user = v26;
   }
 
-  return v26;
+  return v33;
 }
 
 - (void)deleteMobileBackupSnapshots
 {
-  v0 = __error();
-  strerror(*v0);
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DeviceRecoveryBrainSpaceManager deleteMobileBackupSnapshots]";
+  OUTLINED_FUNCTION_8_2(&dword_0, self, a3, "%{public}s: Data volume mount not known. Skipping.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cleanupUpdateVolume
 {
-  v3 = objc_autoreleasePoolPush();
-  v4 = +[NSFileManager defaultManager];
-  updateVolumeMountPath = [(DeviceRecoveryBrainSpaceManager *)self updateVolumeMountPath];
-
-  if (updateVolumeMountPath)
-  {
-    v37 = updateVolumeMountPath;
-    v38 = v3;
-    updateVolumeMountPath2 = [(DeviceRecoveryBrainSpaceManager *)self updateVolumeMountPath];
-    v40 = v4;
-    v7 = [v4 enumeratorAtPath:updateVolumeMountPath2];
-
-    v8 = objc_alloc_init(NSMutableArray);
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v46 objects:v57 count:16];
-    selfCopy = self;
-    if (v10)
-    {
-      v11 = v10;
-      v12 = 0;
-      v13 = *v47;
-      do
-      {
-        for (i = 0; i != v11; i = i + 1)
-        {
-          if (*v47 != v13)
-          {
-            objc_enumerationMutation(v9);
-          }
-
-          v15 = *(*(&v46 + 1) + 8 * i);
-          if (([&off_33AC0 containsObject:v15] & 1) != 0 || (objc_msgSend(v15, "hasPrefix:", @"softwareupdated.") & 1) != 0 || objc_msgSend(v15, "hasSuffix:", @"-MSUData"))
-          {
-            updateVolumeMountPath3 = [(DeviceRecoveryBrainSpaceManager *)self updateVolumeMountPath];
-            v17 = [NSString stringWithFormat:@"/%@", v15];
-            v18 = [updateVolumeMountPath3 stringByAppendingString:v17];
-
-            [v8 addObject:v18];
-            v12 = v18;
-            self = selfCopy;
-          }
-        }
-
-        v11 = [v9 countByEnumeratingWithState:&v46 objects:v57 count:16];
-      }
-
-      while (v11);
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    v27 = DRGetLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-    {
-      v28 = [v8 count];
-      *buf = 136446466;
-      v51 = "[DeviceRecoveryBrainSpaceManager cleanupUpdateVolume]";
-      v52 = 2048;
-      v53 = v28;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "%{public}s: Found %lu files/folders for deleting on the update volume", buf, 0x16u);
-    }
-
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v19 = v8;
-    v29 = [v19 countByEnumeratingWithState:&v42 objects:v56 count:16];
-    if (v29)
-    {
-      v30 = v29;
-      v31 = *v43;
-      do
-      {
-        for (j = 0; j != v30; j = j + 1)
-        {
-          if (*v43 != v31)
-          {
-            objc_enumerationMutation(v19);
-          }
-
-          v33 = *(*(&v42 + 1) + 8 * j);
-          v41 = 0;
-          [v40 removeItemAtPath:v33 error:&v41];
-          v34 = v41;
-          v35 = DRGetLogHandle();
-          v36 = v35;
-          if (v34)
-          {
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136446722;
-              v51 = "[DeviceRecoveryBrainSpaceManager cleanupUpdateVolume]";
-              v52 = 2114;
-              v53 = v33;
-              v54 = 2114;
-              v55 = v34;
-              _os_log_error_impl(&dword_0, v36, OS_LOG_TYPE_ERROR, "%{public}s: Failed to remove %{public}@: %{public}@", buf, 0x20u);
-            }
-          }
-
-          else
-          {
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 136446466;
-              v51 = "[DeviceRecoveryBrainSpaceManager cleanupUpdateVolume]";
-              v52 = 2114;
-              v53 = v33;
-              _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully deleted %{public}@", buf, 0x16u);
-            }
-
-            v34 = v36;
-          }
-        }
-
-        v30 = [v19 countByEnumeratingWithState:&v42 objects:v56 count:16];
-      }
-
-      while (v30);
-    }
-
-    self = selfCopy;
-    v4 = v40;
-    updateVolumeMountPath = v37;
-    v3 = v38;
-  }
-
-  else
-  {
-    v19 = DRGetLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      [(DeviceRecoveryBrainSpaceManager *)v19 cleanupUpdateVolume:v20];
-    }
-
-    v12 = 0;
-  }
-
-  objc_autoreleasePoolPop(v3);
-  if (updateVolumeMountPath)
-  {
-    [(DeviceRecoveryBrainSpaceManager *)self syncVolumes];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DeviceRecoveryBrainSpaceManager cleanupUpdateVolume]";
+  OUTLINED_FUNCTION_8_2(&dword_0, self, a3, "%{public}s: Update volume mount not known. Skipping", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)performAPFSPurge
 {
-  userDataVolumeMountPath = [(DeviceRecoveryBrainSpaceManager *)self userDataVolumeMountPath];
-
-  v4 = DRGetLogHandle();
-  v5 = v4;
-  if (userDataVolumeMountPath)
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      LODWORD(buf[0]) = 136446210;
-      *(buf + 4) = "[DeviceRecoveryBrainSpaceManager performAPFSPurge]";
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to trigger APFS purge", buf, 0xCu);
-    }
-
-    v37 = 0u;
-    v36 = 0u;
-    v35 = 0u;
-    v34 = 0u;
-    v33 = 0u;
-    v32 = 0u;
-    v31 = 0u;
-    v30 = 0u;
-    v29 = 0u;
-    *&buf[1] = 0u;
-    buf[0] = 256;
-    userDataVolumeMountPath2 = [(DeviceRecoveryBrainSpaceManager *)self userDataVolumeMountPath];
-    v7 = fsctl([userDataVolumeMountPath2 fileSystemRepresentation], 0xC0A84A6EuLL, buf, 0);
-
-    v8 = DRGetLogHandle();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7)
-    {
-      if (v9)
-      {
-        v10 = __error();
-        v11 = strerror(*v10);
-        v22 = 136446466;
-        v23 = "[DeviceRecoveryBrainSpaceManager performAPFSPurge]";
-        v24 = 2082;
-        v25 = v11;
-        v12 = "%{public}s: APFS purge failed: %{public}s";
-        v13 = v8;
-        v14 = 22;
-LABEL_12:
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, v12, &v22, v14);
-      }
-    }
-
-    else if (v9)
-    {
-      v22 = 136446722;
-      v23 = "[DeviceRecoveryBrainSpaceManager performAPFSPurge]";
-      v24 = 2048;
-      v25 = *(&v36 + 1);
-      v26 = 2048;
-      v27 = v37;
-      v12 = "%{public}s: APFS purge completed successfully. BytesRemoved: %llu FilesRemoved: %llu";
-      v13 = v8;
-      v14 = 32;
-      goto LABEL_12;
-    }
-
-    [(DeviceRecoveryBrainSpaceManager *)self syncVolumes];
-    return;
-  }
-
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    [(DeviceRecoveryBrainSpaceManager *)v5 performAPFSPurge:v15];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DeviceRecoveryBrainSpaceManager performAPFSPurge]";
+  OUTLINED_FUNCTION_8_2(&dword_0, self, a3, "%{public}s: Data volume mount not known. Skipping", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cleanupMobileAssets
 {
   v3 = +[NSFileManager defaultManager];
-  v4 = DRGetLogHandle();
+  v4 = DRGetLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v55 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
+    v56 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to purge MobileAssets", buf, 0xCu);
   }
 
@@ -683,164 +474,170 @@ LABEL_12:
     [v5 addObject:v11];
   }
 
-  v52 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
+  v52 = 0u;
   obj = v5;
-  v37 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
-  if (v37)
+  v38 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+  if (v38)
   {
-    v36 = *v51;
+    v37 = *v52;
     do
     {
       v12 = 0;
       do
       {
-        if (*v51 != v36)
+        if (*v52 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v39 = v12;
-        v13 = *(*(&v50 + 1) + 8 * v12);
+        v40 = v12;
+        v13 = *(*(&v51 + 1) + 8 * v12);
         context = objc_autoreleasePoolPush();
-        v14 = DRGetLogHandle();
+        v14 = DRGetLogHandle(context);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v55 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
-          v56 = 2114;
-          v57 = v13;
+          v56 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
+          v57 = 2114;
+          v58 = v13;
           _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to clean MA repo at %{public}@", buf, 0x16u);
         }
 
         v15 = [v3 enumeratorAtPath:v13];
         v16 = objc_alloc_init(NSMutableArray);
-        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v40 = v15;
-        v17 = [v40 countByEnumeratingWithState:&v46 objects:v61 count:16];
+        v50 = 0u;
+        v41 = v15;
+        v17 = [v41 countByEnumeratingWithState:&v47 objects:v62 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v47;
+          v19 = *v48;
           do
           {
             for (i = 0; i != v18; i = i + 1)
             {
-              if (*v47 != v19)
+              if (*v48 != v19)
               {
-                objc_enumerationMutation(v40);
+                objc_enumerationMutation(v41);
               }
 
-              v21 = *(*(&v46 + 1) + 8 * i);
-              if ([v21 containsString:@"com_apple_MobileAsset_DeviceRecoveryBrain"])
+              v21 = *(*(&v47 + 1) + 8 * i);
+              v22 = [v21 containsString:@"com_apple_MobileAsset_DeviceRecoveryBrain"];
+              if (v22)
               {
-                v22 = DRGetLogHandle();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+                v23 = DRGetLogHandle(v22);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136446210;
-                  v55 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
-                  _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: NOT deleting DeviceRecoveryBrain asset", buf, 0xCu);
+                  v56 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
+                  _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "%{public}s: NOT deleting DeviceRecoveryBrain asset", buf, 0xCu);
                 }
               }
 
               else
               {
-                v22 = [v13 stringByAppendingPathComponent:v21];
-                stringByDeletingLastPathComponent = [v22 stringByDeletingLastPathComponent];
-                v24 = [stringByDeletingLastPathComponent isEqualToString:v13];
+                v23 = [v13 stringByAppendingPathComponent:v21];
+                stringByDeletingLastPathComponent = [v23 stringByDeletingLastPathComponent];
+                v25 = [stringByDeletingLastPathComponent isEqualToString:v13];
 
-                if (v24)
+                if (v25)
                 {
-                  [v16 addObject:v22];
+                  [v16 addObject:v23];
                 }
               }
             }
 
-            v18 = [v40 countByEnumeratingWithState:&v46 objects:v61 count:16];
+            v18 = [v41 countByEnumeratingWithState:&v47 objects:v62 count:16];
           }
 
           while (v18);
         }
 
-        v44 = 0u;
         v45 = 0u;
-        v42 = 0u;
+        v46 = 0u;
         v43 = 0u;
-        v25 = v16;
-        v26 = [v25 countByEnumeratingWithState:&v42 objects:v60 count:16];
-        if (v26)
+        v44 = 0u;
+        v26 = v16;
+        v27 = [v26 countByEnumeratingWithState:&v43 objects:v61 count:16];
+        if (v27)
         {
-          v27 = v26;
-          v28 = *v43;
+          v28 = v27;
+          v29 = *v44;
           do
           {
-            for (j = 0; j != v27; j = j + 1)
+            v30 = 0;
+            do
             {
-              if (*v43 != v28)
+              if (*v44 != v29)
               {
-                objc_enumerationMutation(v25);
+                objc_enumerationMutation(v26);
               }
 
-              v30 = *(*(&v42 + 1) + 8 * j);
-              v31 = DRGetLogHandle();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v31 = *(*(&v43 + 1) + 8 * v30);
+              v32 = DRGetLogHandle(v27);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136446466;
-                v55 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
-                v56 = 2114;
-                v57 = v30;
-                _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to delete %{public}@", buf, 0x16u);
+                v56 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
+                v57 = 2114;
+                v58 = v31;
+                _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to delete %{public}@", buf, 0x16u);
               }
 
-              v41 = 0;
-              [v3 removeItemAtPath:v30 error:&v41];
-              v32 = v41;
-              v33 = DRGetLogHandle();
-              v34 = v33;
-              if (v32)
+              v42 = 0;
+              [v3 removeItemAtPath:v31 error:&v42];
+              v33 = v42;
+              v34 = DRGetLogHandle(v33);
+              v35 = v34;
+              if (v33)
               {
-                if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136446722;
-                  v55 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
-                  v56 = 2114;
-                  v57 = v30;
-                  v58 = 2114;
-                  v59 = v32;
-                  _os_log_error_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "%{public}s: Failed to delete %{public}@: %{public}@", buf, 0x20u);
+                  v56 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
+                  v57 = 2114;
+                  v58 = v31;
+                  v59 = 2114;
+                  v60 = v33;
+                  _os_log_error_impl(&dword_0, v35, OS_LOG_TYPE_ERROR, "%{public}s: Failed to delete %{public}@: %{public}@", buf, 0x20u);
                 }
               }
 
-              else if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              else if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136446466;
-                v55 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
-                v56 = 2114;
-                v57 = v30;
-                _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully deleted %{public}@", buf, 0x16u);
+                v56 = "[DeviceRecoveryBrainSpaceManager cleanupMobileAssets]";
+                v57 = 2114;
+                v58 = v31;
+                _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully deleted %{public}@", buf, 0x16u);
               }
+
+              v30 = v30 + 1;
             }
 
-            v27 = [v25 countByEnumeratingWithState:&v42 objects:v60 count:16];
+            while (v28 != v30);
+            v27 = [v26 countByEnumeratingWithState:&v43 objects:v61 count:16];
+            v28 = v27;
           }
 
           while (v27);
         }
 
         objc_autoreleasePoolPop(context);
-        v12 = v39 + 1;
+        v12 = v40 + 1;
       }
 
-      while ((v39 + 1) != v37);
-      v37 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
+      while ((v40 + 1) != v38);
+      v38 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
     }
 
-    while (v37);
+    while (v38);
   }
 }
 
@@ -848,7 +645,7 @@ LABEL_12:
 {
   v4 = 0;
   *&v2 = 136446722;
-  v13 = v2;
+  v15 = v2;
   do
   {
     updateVolumeMountPath = [(DeviceRecoveryBrainSpaceManager *)self updateVolumeMountPath];
@@ -860,16 +657,16 @@ LABEL_12:
 
       if (v7)
       {
-        v8 = DRGetLogHandle();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = DRGetLogHandle(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          *buf = v13;
-          v15 = "[DeviceRecoveryBrainSpaceManager syncVolumes]";
-          v16 = 1024;
-          v17 = v7;
+          *buf = v15;
+          v17 = "[DeviceRecoveryBrainSpaceManager syncVolumes]";
           v18 = 1024;
-          v19 = v4;
-          _os_log_error_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%{public}s: Got error(%d) from sync_volume_np update volume call attempt %d", buf, 0x18u);
+          v19 = v7;
+          v20 = 1024;
+          v21 = v4;
+          _os_log_error_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%{public}s: Got error(%d) from sync_volume_np update volume call attempt %d", buf, 0x18u);
         }
       }
     }
@@ -879,20 +676,20 @@ LABEL_12:
     if (userDataVolumeMountPath)
     {
       userDataVolumeMountPath2 = [(DeviceRecoveryBrainSpaceManager *)self userDataVolumeMountPath];
-      v11 = sync_volume_np([userDataVolumeMountPath2 fileSystemRepresentation], 3);
+      v12 = sync_volume_np([userDataVolumeMountPath2 fileSystemRepresentation], 3);
 
-      if (v11)
+      if (v12)
       {
-        v12 = DRGetLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = DRGetLogHandle(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          *buf = v13;
-          v15 = "[DeviceRecoveryBrainSpaceManager syncVolumes]";
-          v16 = 1024;
-          v17 = v11;
+          *buf = v15;
+          v17 = "[DeviceRecoveryBrainSpaceManager syncVolumes]";
           v18 = 1024;
-          v19 = v4;
-          _os_log_error_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "%{public}s: Got error(%d) from sync_volume_np update volume call attempt %d", buf, 0x18u);
+          v19 = v12;
+          v20 = 1024;
+          v21 = v4;
+          _os_log_error_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%{public}s: Got error(%d) from sync_volume_np update volume call attempt %d", buf, 0x18u);
         }
       }
     }
@@ -911,7 +708,7 @@ LABEL_12:
   v20 = 0;
   v7 = [(DeviceRecoveryBrainSpaceManager *)self getContainerDeviceNodeForVolumeAtPath:pathCopy outError:&v20];
   v8 = v20;
-  v9 = DRGetLogHandle();
+  v9 = DRGetLogHandle(v8);
   v10 = v9;
   if (!v7)
   {
@@ -940,7 +737,7 @@ LABEL_12:
   if (SpaceInfo)
   {
     spaceInfo = [NSString stringWithFormat:@"Unable to determine free space on container %@: %d", v7, SpaceInfo];
-    v13 = DRGetLogHandle();
+    v13 = DRGetLogHandle(spaceInfo);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [DeviceRecoveryBrainSpaceManager getFreeSpaceOnContainerForVolumeMountedAtPath:error:];
@@ -961,7 +758,7 @@ LABEL_8:
     goto LABEL_14;
   }
 
-  v18 = DRGetLogHandle();
+  v18 = DRGetLogHandle(SpaceInfo);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -1189,7 +986,7 @@ LABEL_10:
 
 - (uint64_t)getContainerDeviceNodeForVolumeAtPath:(uint64_t *)a3 outError:.cold.1(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v6 = DRGetLogHandle();
+  v6 = DRGetLogHandle(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v17[0] = 136447490;
@@ -1211,7 +1008,7 @@ LABEL_10:
 
 - (uint64_t)getContainerDeviceNodeForVolumeAtPath:(uint64_t *)a3 outError:.cold.2(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v6 = DRGetLogHandle();
+  v6 = DRGetLogHandle(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v17[0] = 136447490;
@@ -1233,7 +1030,7 @@ LABEL_10:
 
 - (uint64_t)getContainerDeviceNodeForVolumeAtPath:(void *)a1 outError:(uint64_t *)a2 .cold.3(void *a1, uint64_t *a2)
 {
-  v4 = DRGetLogHandle();
+  v4 = DRGetLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v8 = 136447490;

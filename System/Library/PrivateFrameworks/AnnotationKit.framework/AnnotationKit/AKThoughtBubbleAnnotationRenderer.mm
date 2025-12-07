@@ -315,7 +315,7 @@
     [self _transformContextToModelCoordinates:context forAnnotation:annotationCopy forDisplay:objc_msgSend(optionsCopy pageControllerOrNil:{"forDisplay"), nilCopy}];
     CGContextSaveGState(context);
     memset(&v17[1], 0, sizeof(CGAffineTransform));
-    [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+    objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
     v17[0] = v17[1];
     CGContextConcatCTM(context, v17);
     CGContextSaveGState(context);
@@ -360,7 +360,7 @@
   }
 
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   v27 = m;
   CGAffineTransformInvert(&v28, &v27);
   m = v28;
@@ -454,7 +454,7 @@ LABEL_19:
   x = inside.x;
   annotationCopy = annotation;
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   v18 = m;
   CGAffineTransformInvert(&v19, &v18);
   m = v19;
@@ -605,7 +605,7 @@ LABEL_19:
   v8 = v7;
   v10 = v9;
   [AKGeometryHelper angleBetweenPoint:-v7 andPoint:-v9, v15 - v7, v14 - v9];
-  [AKGeometryHelper rotationTransformAroundPoint:v8 withAngle:v10, -v11];
+  objc_msgSend_rotationTransformAroundPoint_withAngle_(AKGeometryHelper, v8, v10, -v11);
   v12 = [self _newSmallBubblePathForAnnotation:annotationCopy atCenter:vaddq_f64(vaddq_f64(v18 withSize:{vmlaq_n_f64(vmulq_n_f64(v17, v14), v16, v15)), vdupq_n_s64(0x3FA47AE147AE147BuLL)), 0.08, 0.08}];
 
   return v12;
@@ -667,7 +667,7 @@ LABEL_19:
   v14 = v13;
   [self _unitAnnotationPointyPointForAnnotation:annotationCopy];
   [AKGeometryHelper angleBetweenPoint:-v12 andPoint:-v14, v15 - v12, v16 - v14];
-  [AKGeometryHelper rotationTransformAroundPoint:v12 withAngle:v14, v17];
+  objc_msgSend_rotationTransformAroundPoint_withAngle_(AKGeometryHelper, v12, v14, v17);
   v18 = y * 0.0 + 0.0 * x + 0.0;
   Mutable = CGPathCreateMutable();
   v22.origin.x = v18 + width * -0.5;

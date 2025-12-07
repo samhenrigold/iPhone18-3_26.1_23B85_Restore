@@ -17,7 +17,7 @@ uint64_t __66__NSOrderedSet_FCAdditions__fc_orderedSetByTransformingWithBlock___
   return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
-void __93__NSOrderedSet_FCAdditions__fc_diffAgainstOrderedSet_withEqualityTest_identityValueProvider___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __93__NSOrderedSet_FCAdditions__fc_diffAgainstOrderedSet_withEqualityTest_identityValueProvider___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v10 = a2;
   if (([*(a1 + 32) containsIndex:a3] & 1) == 0)
@@ -40,7 +40,7 @@ void __93__NSOrderedSet_FCAdditions__fc_diffAgainstOrderedSet_withEqualityTest_i
   }
 }
 
-void __54__NSOrderedSet_FCAdditions__fc_diffAgainstOrderedSet___block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
+void __54__NSOrderedSet_FCAdditions__fc_diffAgainstOrderedSet___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
   v10 = a2;
   if (((*(*(a1 + 56) + 16))() & 1) == 0 && ((*(*(a1 + 64) + 16))() & 1) == 0)

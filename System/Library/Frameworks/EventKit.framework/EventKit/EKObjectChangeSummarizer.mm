@@ -17,52 +17,52 @@
 
 + (id)diffSummaryBetweenObject:(id)object andObject:(id)andObject
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   andObjectCopy = andObject;
   v9 = andObjectCopy;
-  v47 = 0;
-  v42 = objectCopy;
+  v46 = 0;
+  v41 = objectCopy;
   if (objectCopy && andObjectCopy)
   {
-    v44 = objc_opt_class();
-    if (v44 != objc_opt_class())
+    v43 = objc_opt_class();
+    if (v43 != objc_opt_class())
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"EKObjectChangeSummarizer.m" lineNumber:93 description:@"Diff summary called on objects of different class"];
     }
 
-    v39 = v9;
+    v38 = v9;
     v11 = [objectCopy diffWithObject:v9];
     summaryDictionary = [v11 summaryDictionary];
 
-    v47 = objc_opt_new();
-    [v44 EKObjectChangeSummarizer_singleValueDiffKeys];
+    v46 = objc_opt_new();
+    [v43 EKObjectChangeSummarizer_singleValueDiffKeys];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    v41 = v59 = 0u;
-    allKeys = [v41 allKeys];
-    v14 = [allKeys countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v40 = v58 = 0u;
+    allKeys = [v40 allKeys];
+    v14 = [allKeys countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v57;
+      v16 = *v56;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v57 != v16)
+          if (*v56 != v16)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v18 = *(*(&v56 + 1) + 8 * i);
+          v18 = *(*(&v55 + 1) + 8 * i);
           v19 = [summaryDictionary objectForKey:v18];
 
           if (v19)
           {
-            v20 = [v42 valueForKeyPath:v18];
+            v20 = [v41 valueForKeyPath:v18];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -75,60 +75,60 @@
             }
 
             v22 = null;
-            v23 = [v41 objectForKeyedSubscript:v18];
-            [v47 setObject:v22 forKeyedSubscript:v23];
+            v23 = [v40 objectForKeyedSubscript:v18];
+            [v46 setObject:v22 forKeyedSubscript:v23];
           }
         }
 
-        v15 = [allKeys countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v15 = [allKeys countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
       while (v15);
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
-    obj = [v44 EKObjectChangeSummarizer_multiValueDiffKeys];
-    v45 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
-    if (v45)
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    obj = [v43 EKObjectChangeSummarizer_multiValueDiffKeys];
+    v44 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+    if (v44)
     {
-      v43 = *v53;
+      v42 = *v52;
       do
       {
         v24 = 0;
         do
         {
-          if (*v53 != v43)
+          if (*v52 != v42)
           {
             objc_enumerationMutation(obj);
           }
 
-          v46 = v24;
-          v25 = *(*(&v52 + 1) + 8 * v24);
-          eKObjectChangeSummarizer_multiValueDiffKeys = [v44 EKObjectChangeSummarizer_multiValueDiffKeys];
+          v45 = v24;
+          v25 = *(*(&v51 + 1) + 8 * v24);
+          eKObjectChangeSummarizer_multiValueDiffKeys = [v43 EKObjectChangeSummarizer_multiValueDiffKeys];
           v27 = [eKObjectChangeSummarizer_multiValueDiffKeys objectForKeyedSubscript:v25];
 
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
           v49 = 0u;
-          v28 = [&unk_1F1B6B1E8 countByEnumeratingWithState:&v48 objects:v60 count:16];
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v28 = [&unk_1F1B6B1E8 countByEnumeratingWithState:&v47 objects:v59 count:16];
           if (v28)
           {
             v29 = v28;
-            v30 = *v49;
+            v30 = *v48;
             do
             {
               for (j = 0; j != v29; ++j)
               {
-                if (*v49 != v30)
+                if (*v48 != v30)
                 {
                   objc_enumerationMutation(&unk_1F1B6B1E8);
                 }
 
-                v32 = *(*(&v48 + 1) + 8 * j);
+                v32 = *(*(&v47 + 1) + 8 * j);
                 v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", v25, v32];
                 v34 = [summaryDictionary objectForKey:v33];
 
@@ -138,33 +138,31 @@
                   if (v35)
                   {
                     v36 = [summaryDictionary objectForKeyedSubscript:v33];
-                    [v47 setObject:v36 forKeyedSubscript:v35];
+                    [v46 setObject:v36 forKeyedSubscript:v35];
                   }
                 }
               }
 
-              v29 = [&unk_1F1B6B1E8 countByEnumeratingWithState:&v48 objects:v60 count:16];
+              v29 = [&unk_1F1B6B1E8 countByEnumeratingWithState:&v47 objects:v59 count:16];
             }
 
             while (v29);
           }
 
-          v24 = v46 + 1;
+          v24 = v45 + 1;
         }
 
-        while (v46 + 1 != v45);
-        v45 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+        while (v45 + 1 != v44);
+        v44 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
-      while (v45);
+      while (v44);
     }
 
-    v9 = v39;
+    v9 = v38;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v47;
+  return v46;
 }
 
 @end

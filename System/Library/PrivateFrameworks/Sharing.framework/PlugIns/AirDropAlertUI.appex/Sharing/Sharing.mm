@@ -55,29 +55,32 @@ void sub_1000018A4(uint64_t a1)
   }
 }
 
-void sub_100001D00(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001D00(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_100001D1C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001D1C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_100002060(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100002060(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a2 == 1)
   {
-    v11 = objc_begin_catch(exception_object);
-    v12 = airdrop_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = objc_begin_catch(exception_object);
+    v11 = airdrop_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      sub_100002BD4(v14, &buf, v12);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      sub_100002BD4(v13, va, v11);
     }
 
     objc_end_catch();
@@ -127,7 +130,6 @@ void sub_100002714(uint64_t a1)
   v2 = *(a1 + 40);
   if (*(v3 - 1) == v2[7])
   {
-    v5 = *(a1 + 48);
 
     [v2 handleKVOUpdateForProgress:? keyPath:?];
   }
@@ -166,15 +168,14 @@ void sub_100002BD4(void *a1, uint8_t *buf, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%@: remove progress observer failed", buf, 0xCu);
 }
 
-void sub_100002C2C(uint64_t *a1, uint64_t a2, NSObject *a3)
+void sub_100002C2C(void *a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *a1;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = *(a2 + 48);
-  v9 = 138412546;
-  v10 = v7;
-  v11 = 2112;
-  v12 = v8;
-  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%@: incorrect object for keypath %@", &v9, 0x16u);
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = *(a2 + 48);
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%@: incorrect object for keypath %@", &v8, 0x16u);
 }

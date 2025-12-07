@@ -52,9 +52,9 @@
 {
   identifierCopy = identifier;
   dCopy = d;
-  v44.receiver = self;
-  v44.super_class = NTKComplicationCollection;
-  v9 = [(NTKComplicationCollection *)&v44 init];
+  v46.receiver = self;
+  v46.super_class = NTKComplicationCollection;
+  v9 = [(NTKComplicationCollection *)&v46 init];
   v10 = v9;
   if (v9)
   {
@@ -89,38 +89,38 @@
     v10->_connection = v23;
 
     v25 = v10->_connection;
-    v26 = NTKComplicationStoreServerInterface();
-    [(NSXPCConnection *)v25 setRemoteObjectInterface:v26];
+    v27 = NTKComplicationStoreServerInterface(v26);
+    [(NSXPCConnection *)v25 setRemoteObjectInterface:v27];
 
-    v27 = v10->_connection;
-    v28 = NTKComplicationStoreClientInterface();
-    [(NSXPCConnection *)v27 setExportedInterface:v28];
+    v28 = v10->_connection;
+    v30 = NTKComplicationStoreClientInterface(v29);
+    [(NSXPCConnection *)v28 setExportedInterface:v30];
 
-    v29 = [[_NTKComplicationStoreClientProxy alloc] initWithWeakProxy:v10];
-    [(NSXPCConnection *)v10->_connection setExportedObject:v29];
+    v31 = [[_NTKComplicationStoreClientProxy alloc] initWithWeakProxy:v10];
+    [(NSXPCConnection *)v10->_connection setExportedObject:v31];
     objc_initWeak(&location, v10);
-    v30 = v10->_connection;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __69__NTKComplicationCollection_initWithCollectionIdentifier_deviceUUID___block_invoke;
-    v40[3] = &unk_27877F610;
-    objc_copyWeak(&v42, &location);
-    v31 = identifierCopy;
-    v41 = v31;
-    [(NSXPCConnection *)v30 setInterruptionHandler:v40];
     v32 = v10->_connection;
-    v35 = MEMORY[0x277D85DD0];
-    v36 = 3221225472;
-    v37 = __69__NTKComplicationCollection_initWithCollectionIdentifier_deviceUUID___block_invoke_22;
-    v38 = &unk_27877DB10;
-    v39 = v31;
-    [(NSXPCConnection *)v32 setInvalidationHandler:&v35];
-    [(NSXPCConnection *)v10->_connection resume:v35];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __69__NTKComplicationCollection_initWithCollectionIdentifier_deviceUUID___block_invoke;
+    v42[3] = &unk_27877F610;
+    objc_copyWeak(&v44, &location);
+    v33 = identifierCopy;
+    v43 = v33;
+    [(NSXPCConnection *)v32 setInterruptionHandler:v42];
+    v34 = v10->_connection;
+    v37 = MEMORY[0x277D85DD0];
+    v38 = 3221225472;
+    v39 = __69__NTKComplicationCollection_initWithCollectionIdentifier_deviceUUID___block_invoke_22;
+    v40 = &unk_27877DB10;
+    v41 = v33;
+    [(NSXPCConnection *)v34 setInvalidationHandler:&v37];
+    [(NSXPCConnection *)v10->_connection resume:v37];
     [(NTKComplicationCollection *)v10 _register];
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v10, _handleDaemonDidLaunchNotification_0, @"com.apple.nanotimekit.daemondidlaunch", 0, 0);
 
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
   }
 
@@ -1630,6 +1630,27 @@ void __53__NTKComplicationCollection__performOrEnqueueUpdate___block_invoke(uint
 
     v5();
   }
+}
+
+void __69__NTKComplicationCollection_initWithCollectionIdentifier_deviceUUID___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "Complication collection %@ connection interrupted", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __69__NTKComplicationCollection_initWithCollectionIdentifier_deviceUUID___block_invoke_22_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "Complication collection %@ connection invalidated. This is unrecoverable.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)lsSDKVersionForApplicationID:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "No errors retreiving application or extension records for %@, but got a nil SDKVersion", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_bundleForWatchKitAppID:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)

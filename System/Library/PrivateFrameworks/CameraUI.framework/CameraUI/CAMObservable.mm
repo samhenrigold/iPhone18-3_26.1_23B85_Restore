@@ -396,7 +396,7 @@ LABEL_7:
   return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
-uint64_t __48__CAMObservable_registerChangeObserver_context___block_invoke_cold_1(void *a1, uint64_t a2, void *a3)
+void *__48__CAMObservable_registerChangeObserver_context___block_invoke_cold_1(void *a1, uint64_t a2, void *a3)
 {
   v6 = [a1 count];
   if (v6)

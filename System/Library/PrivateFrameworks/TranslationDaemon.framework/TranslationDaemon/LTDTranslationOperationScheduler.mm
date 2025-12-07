@@ -13,18 +13,16 @@ void __51___LTDTranslationOperationScheduler_initWithQueue___block_invoke(uint64
     v3 = [WeakRetained[1] operationCount];
     if (v3)
     {
-      v4 = v3;
-      v5 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v5 = v3;
+      v6 = _LTOSLogTranslationEngine(v3, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = 134217984;
-        v8 = v4;
-        _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_INFO, "Offline engine queue has pending operations: %zu", &v7, 0xCu);
+        v8 = v5;
+        _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "Offline engine queue has pending operations: %zu", &v7, 0xCu);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -15,7 +15,7 @@ CRDT::Dictionary_Element *__43__CRDictionary_initWithCRCoder_dictionary___block_
       v9 = *(CRDT::Dictionary_Element::default_instance(v6) + 48);
     }
 
-    v6 = [(CRDT::Dictionary_Element *)v7 decodeObjectForProtobufObjectID:v9];
+    v6 = [v7 decodeObjectForProtobufObjectID:v9];
     v8 = v6;
   }
 
@@ -33,7 +33,7 @@ CRDT::Dictionary_Element *__43__CRDictionary_initWithCRCoder_dictionary___block_
       v10 = *(CRDT::Dictionary_Element::default_instance(v6) + 40);
     }
 
-    *a3 = [(CRDT::Dictionary_Element *)v7 decodeObjectForProtobufObjectID:v10];
+    *a3 = [v7 decodeObjectForProtobufObjectID:v10];
   }
 
   return v8;

@@ -21,7 +21,7 @@
 
 - (BOOL)_connectToService
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   xpcConnection = [(SOServiceConnection *)self xpcConnection];
 
   if (xpcConnection)
@@ -32,9 +32,7 @@
       [SOServiceConnection _connectToService];
     }
 
-LABEL_9:
-    result = 1;
-    goto LABEL_10;
+    return 1;
   }
 
   v5 = [(SOServiceConnection *)self _doConnectWithOptions:4096];
@@ -49,21 +47,21 @@ LABEL_9:
     [xpcConnection3 setRemoteObjectInterface:v7];
 
     objc_initWeak(&location, self);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __40__SOServiceConnection__connectToService__block_invoke;
-    v20[3] = &unk_1E836CBB8;
-    objc_copyWeak(&v21, &location);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __40__SOServiceConnection__connectToService__block_invoke;
+    v19[3] = &unk_1E836CBB8;
+    objc_copyWeak(&v20, &location);
     xpcConnection4 = [(SOServiceConnection *)self xpcConnection];
-    [xpcConnection4 setInvalidationHandler:v20];
+    [xpcConnection4 setInvalidationHandler:v19];
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __40__SOServiceConnection__connectToService__block_invoke_71;
-    v18[3] = &unk_1E836CBB8;
-    objc_copyWeak(&v19, &location);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __40__SOServiceConnection__connectToService__block_invoke_71;
+    v17[3] = &unk_1E836CBB8;
+    objc_copyWeak(&v18, &location);
     xpcConnection5 = [(SOServiceConnection *)self xpcConnection];
-    [xpcConnection5 setInterruptionHandler:v18];
+    [xpcConnection5 setInterruptionHandler:v17];
 
     xpcConnection6 = [(SOServiceConnection *)self xpcConnection];
     queue = [(SOServiceConnection *)self queue];
@@ -80,22 +78,19 @@ LABEL_9:
       _os_log_impl(&dword_1CA238000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: new XPC connection", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
-    goto LABEL_9;
+    return 1;
   }
 
-  v17 = SO_LOG_SOServiceConnection();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v16 = SO_LOG_SOServiceConnection();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [SOServiceConnection _connectToService];
   }
 
-  result = 0;
-LABEL_10:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (SOServiceConnection)initWithQueue:(id)queue
@@ -320,14 +315,14 @@ void __51__SOServiceConnection_configurationWithCompletion___block_invoke(uint64
 
 - (void)realmsWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = SO_LOG_SOServiceConnection();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "[SOServiceConnection realmsWithCompletion:]";
-    v15 = 2112;
+    v13 = "[SOServiceConnection realmsWithCompletion:]";
+    v14 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -335,16 +330,16 @@ void __51__SOServiceConnection_configurationWithCompletion___block_invoke(uint64
   if ([(SOServiceConnection *)self _connectToService])
   {
     xpcConnection = [(SOServiceConnection *)self xpcConnection];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __44__SOServiceConnection_realmsWithCompletion___block_invoke;
-    v11[3] = &unk_1E836CB70;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __44__SOServiceConnection_realmsWithCompletion___block_invoke;
+    v10[3] = &unk_1E836CB70;
     v7 = completionCopy;
-    v12 = v7;
-    v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v11];
+    v11 = v7;
+    v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v10];
     [v8 realmsWithCompletion:v7];
 
-    v9 = v12;
+    v9 = v11;
 LABEL_7:
 
     goto LABEL_8;
@@ -358,8 +353,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __44__SOServiceConnection_realmsWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -380,14 +373,14 @@ void __44__SOServiceConnection_realmsWithCompletion___block_invoke(uint64_t a1, 
 
 - (void)debugHintsWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = SO_LOG_SOServiceConnection();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "[SOServiceConnection debugHintsWithCompletion:]";
-    v15 = 2112;
+    v13 = "[SOServiceConnection debugHintsWithCompletion:]";
+    v14 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -395,16 +388,16 @@ void __44__SOServiceConnection_realmsWithCompletion___block_invoke(uint64_t a1, 
   if ([(SOServiceConnection *)self _connectToService])
   {
     xpcConnection = [(SOServiceConnection *)self xpcConnection];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __48__SOServiceConnection_debugHintsWithCompletion___block_invoke;
-    v11[3] = &unk_1E836CB70;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __48__SOServiceConnection_debugHintsWithCompletion___block_invoke;
+    v10[3] = &unk_1E836CB70;
     v7 = completionCopy;
-    v12 = v7;
-    v8 = [xpcConnection remoteObjectProxyWithErrorHandler:v11];
+    v11 = v7;
+    v8 = [xpcConnection remoteObjectProxyWithErrorHandler:v10];
     [v8 debugHintsWithCompletion:v7];
 
-    v9 = v12;
+    v9 = v11;
 LABEL_7:
 
     goto LABEL_8;
@@ -418,8 +411,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SOServiceConnection_debugHintsWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -440,15 +431,15 @@ void __48__SOServiceConnection_debugHintsWithCompletion___block_invoke(uint64_t 
 
 - (void)finishAuthorization:(id)authorization completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   completionCopy = completion;
   v8 = SO_LOG_SOServiceConnection();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v17 = "[SOServiceConnection finishAuthorization:completion:]";
-    v18 = 2112;
+    v16 = "[SOServiceConnection finishAuthorization:completion:]";
+    v17 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v8, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -456,16 +447,16 @@ void __48__SOServiceConnection_debugHintsWithCompletion___block_invoke(uint64_t 
   if ([(SOServiceConnection *)self _connectToService])
   {
     xpcConnection = [(SOServiceConnection *)self xpcConnection];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __54__SOServiceConnection_finishAuthorization_completion___block_invoke;
-    v14[3] = &unk_1E836CB70;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __54__SOServiceConnection_finishAuthorization_completion___block_invoke;
+    v13[3] = &unk_1E836CB70;
     v10 = completionCopy;
-    v15 = v10;
-    v11 = [xpcConnection remoteObjectProxyWithErrorHandler:v14];
+    v14 = v10;
+    v11 = [xpcConnection remoteObjectProxyWithErrorHandler:v13];
     [v11 finishAuthorization:authorizationCopy completion:v10];
 
-    v12 = v15;
+    v12 = v14;
 LABEL_7:
 
     goto LABEL_8;
@@ -479,8 +470,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __54__SOServiceConnection_finishAuthorization_completion___block_invoke(uint64_t a1, void *a2)
@@ -501,7 +490,7 @@ void __54__SOServiceConnection_finishAuthorization_completion___block_invoke(uin
 
 - (void)isExtensionProcessWithAuditToken:(id *)token completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = SO_LOG_SOServiceConnection();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -516,19 +505,19 @@ void __54__SOServiceConnection_finishAuthorization_completion___block_invoke(uin
   if ([(SOServiceConnection *)self _connectToService])
   {
     xpcConnection = [(SOServiceConnection *)self xpcConnection];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __67__SOServiceConnection_isExtensionProcessWithAuditToken_completion___block_invoke;
-    v14[3] = &unk_1E836CB70;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __67__SOServiceConnection_isExtensionProcessWithAuditToken_completion___block_invoke;
+    v13[3] = &unk_1E836CB70;
     v9 = completionCopy;
-    v15 = v9;
-    v10 = [xpcConnection remoteObjectProxyWithErrorHandler:v14];
+    v14 = v9;
+    v10 = [xpcConnection remoteObjectProxyWithErrorHandler:v13];
     v11 = *&token->var0[4];
     *buf = *token->var0;
     *&buf[16] = v11;
     [v10 isExtensionProcessWithAuditToken:buf completion:v9];
 
-    v12 = v15;
+    v12 = v14;
 LABEL_7:
 
     goto LABEL_8;
@@ -542,8 +531,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SOServiceConnection_isExtensionProcessWithAuditToken_completion___block_invoke(uint64_t a1, void *a2)
@@ -564,15 +551,15 @@ void __67__SOServiceConnection_isExtensionProcessWithAuditToken_completion___blo
 
 - (void)profilesWithExtensionBundleIdentifier:(id)identifier completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = SO_LOG_SOServiceConnection();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v17 = "[SOServiceConnection profilesWithExtensionBundleIdentifier:completion:]";
-    v18 = 2112;
+    v16 = "[SOServiceConnection profilesWithExtensionBundleIdentifier:completion:]";
+    v17 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v8, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -580,16 +567,16 @@ void __67__SOServiceConnection_isExtensionProcessWithAuditToken_completion___blo
   if ([(SOServiceConnection *)self _connectToService])
   {
     xpcConnection = [(SOServiceConnection *)self xpcConnection];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __72__SOServiceConnection_profilesWithExtensionBundleIdentifier_completion___block_invoke;
-    v14[3] = &unk_1E836CB70;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __72__SOServiceConnection_profilesWithExtensionBundleIdentifier_completion___block_invoke;
+    v13[3] = &unk_1E836CB70;
     v10 = completionCopy;
-    v15 = v10;
-    v11 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v14];
+    v14 = v10;
+    v11 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
     [v11 profilesWithExtensionBundleIdentifier:identifierCopy completion:v10];
 
-    v12 = v15;
+    v12 = v14;
 LABEL_7:
 
     goto LABEL_8;
@@ -603,8 +590,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SOServiceConnection_profilesWithExtensionBundleIdentifier_completion___block_invoke(uint64_t a1, void *a2)
@@ -698,36 +683,18 @@ void __40__SOServiceConnection__connectToService__block_invoke_71(uint64_t a1)
   return v3;
 }
 
-void __76__SOServiceConnection_getAuthorizationHintsWithURL_responseCode_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "XPC error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_connectToService
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "%{public}@: failed to create XPC connection", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CA238000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: XPC connection already exists", v1, 0xCu);
 }
 
 void __40__SOServiceConnection__connectToService__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1CA238000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: XPC connection invalidated", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __40__SOServiceConnection__connectToService__block_invoke_71_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1CA238000, v0, v1, "%{public}@: XPC connection interrupted", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CA238000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: XPC connection invalidated", v1, 0xCu);
 }
 
 @end

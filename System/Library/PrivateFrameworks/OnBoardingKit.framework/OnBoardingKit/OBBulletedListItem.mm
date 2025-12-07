@@ -46,7 +46,7 @@
 
 - (OBBulletedListItem)initWithTitle:(id)title description:(id)description image:(id)image tintColor:(id)color linkButton:(id)button
 {
-  v143[9] = *MEMORY[0x1E69E9840];
+  v142[9] = *MEMORY[0x1E69E9840];
   titleCopy = title;
   descriptionCopy = description;
   imageCopy = image;
@@ -54,13 +54,13 @@
   buttonCopy = button;
   if (titleCopy | descriptionCopy)
   {
-    v142.receiver = self;
-    v142.super_class = OBBulletedListItem;
+    v141.receiver = self;
+    v141.super_class = OBBulletedListItem;
     v18 = *MEMORY[0x1E695F058];
     v19 = *(MEMORY[0x1E695F058] + 8);
     v20 = *(MEMORY[0x1E695F058] + 16);
     v21 = *(MEMORY[0x1E695F058] + 24);
-    v22 = [(OBBulletedListItem *)&v142 initWithFrame:*MEMORY[0x1E695F058], v19, v20, v21];
+    v22 = [(OBBulletedListItem *)&v141 initWithFrame:*MEMORY[0x1E695F058], v19, v20, v21];
     if (!v22)
     {
 LABEL_25:
@@ -69,7 +69,7 @@ LABEL_25:
       goto LABEL_26;
     }
 
-    v139 = imageCopy;
+    v138 = imageCopy;
     v23 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:imageCopy];
     [(OBBulletedListItem *)v22 setImageView:v23];
 
@@ -107,7 +107,7 @@ LABEL_25:
       [titleLabel4 setContentHuggingPriority:1 forAxis:v34];
     }
 
-    v141 = titleCopy;
+    v140 = titleCopy;
     if ([descriptionCopy length])
     {
       v35 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v18, v19, v20, v21}];
@@ -182,8 +182,8 @@ LABEL_25:
       [stackView6 addArrangedSubview:accessoryButton];
     }
 
-    v138 = colorCopy;
-    v140 = descriptionCopy;
+    v137 = colorCopy;
+    v139 = descriptionCopy;
     [(OBBulletedListItem *)v22 addSubview:v22->_imageContainer];
     stackView7 = [(OBBulletedListItem *)v22 stackView];
     [(OBBulletedListItem *)v22 addSubview:stackView7];
@@ -252,63 +252,63 @@ LABEL_25:
     }
 
 LABEL_20:
-    v122 = MEMORY[0x1E696ACD8];
+    v121 = MEMORY[0x1E696ACD8];
     imageView8 = [(OBBulletedListItem *)v22 imageView];
     widthAnchor = [imageView8 widthAnchor];
-    v134 = [widthAnchor constraintEqualToConstant:v79];
-    v143[0] = v134;
+    v133 = [widthAnchor constraintEqualToConstant:v79];
+    v142[0] = v133;
     imageView9 = [(OBBulletedListItem *)v22 imageView];
     heightAnchor = [imageView9 heightAnchor];
     imageView10 = [(OBBulletedListItem *)v22 imageView];
     widthAnchor2 = [imageView10 widthAnchor];
-    v129 = [heightAnchor constraintEqualToAnchor:widthAnchor2 multiplier:v80];
-    v143[1] = v129;
+    v128 = [heightAnchor constraintEqualToAnchor:widthAnchor2 multiplier:v80];
+    v142[1] = v128;
     imageView11 = [(OBBulletedListItem *)v22 imageView];
     centerXAnchor = [imageView11 centerXAnchor];
     imageContainer3 = [(OBBulletedListItem *)v22 imageContainer];
     centerXAnchor2 = [imageContainer3 centerXAnchor];
-    v124 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v143[2] = v124;
+    v123 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v142[2] = v123;
     imageView12 = [(OBBulletedListItem *)v22 imageView];
     centerYAnchor = [imageView12 centerYAnchor];
     imageContainer4 = [(OBBulletedListItem *)v22 imageContainer];
     centerYAnchor2 = [imageContainer4 centerYAnchor];
-    v118 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v143[3] = v118;
+    v117 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v142[3] = v117;
     imageView13 = [(OBBulletedListItem *)v22 imageView];
     topAnchor5 = [imageView13 topAnchor];
     imageContainer5 = [(OBBulletedListItem *)v22 imageContainer];
     topAnchor6 = [imageContainer5 topAnchor];
-    v113 = [topAnchor5 constraintLessThanOrEqualToAnchor:topAnchor6];
-    v143[4] = v113;
+    v112 = [topAnchor5 constraintLessThanOrEqualToAnchor:topAnchor6];
+    v142[4] = v112;
     imageView14 = [(OBBulletedListItem *)v22 imageView];
     bottomAnchor5 = [imageView14 bottomAnchor];
     imageContainer6 = [(OBBulletedListItem *)v22 imageContainer];
     bottomAnchor6 = [imageContainer6 bottomAnchor];
     v95 = [bottomAnchor5 constraintLessThanOrEqualToAnchor:bottomAnchor6];
-    v143[5] = v95;
+    v142[5] = v95;
     stackView11 = [(OBBulletedListItem *)v22 stackView];
     [stackView11 trailingAnchor];
-    v97 = v137 = buttonCopy;
+    v97 = v136 = buttonCopy;
     trailingAnchor = [(OBBulletedListItem *)v22 trailingAnchor];
     [(OBBulletedListItem *)v22 trailingMargin];
     v100 = [v97 constraintEqualToAnchor:trailingAnchor constant:-v99];
-    v143[6] = v100;
+    v142[6] = v100;
     topConstraintToStackView = [(OBBulletedListItem *)v22 topConstraintToStackView];
-    v143[7] = topConstraintToStackView;
+    v142[7] = topConstraintToStackView;
     bottomConstraintToStackView = [(OBBulletedListItem *)v22 bottomConstraintToStackView];
-    v143[8] = bottomConstraintToStackView;
-    v103 = [MEMORY[0x1E695DEC8] arrayWithObjects:v143 count:9];
-    [v122 activateConstraints:v103];
+    v142[8] = bottomConstraintToStackView;
+    v103 = [MEMORY[0x1E695DEC8] arrayWithObjects:v142 count:9];
+    [v121 activateConstraints:v103];
 
-    buttonCopy = v137;
+    buttonCopy = v136;
     [(OBBulletedListItem *)v22 _updateImageViewLayout];
     accessoryButton2 = [(OBBulletedListItem *)v22 accessoryButton];
 
-    descriptionCopy = v140;
-    titleCopy = v141;
-    colorCopy = v138;
-    imageCopy = v139;
+    descriptionCopy = v139;
+    titleCopy = v140;
+    colorCopy = v137;
+    imageCopy = v138;
     if (accessoryButton2)
     {
       descriptionLabel8 = [(OBBulletedListItem *)v22 descriptionLabel];
@@ -333,7 +333,6 @@ LABEL_20:
   selfCopy = 0;
 LABEL_26:
 
-  v108 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -424,7 +423,7 @@ LABEL_26:
 
 - (NSArray)imageContainerSizeConstraints
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   if (!self->_imageContainerSizeConstraints)
   {
     if (!+[OBFeatureFlags isNaturalUIEnabled](OBFeatureFlags, "isNaturalUIEnabled") || +[OBViewUtilities shouldUseAccessibilityLayout])
@@ -432,12 +431,12 @@ LABEL_26:
       imageContainer = [(OBBulletedListItem *)self imageContainer];
       widthAnchor = [imageContainer widthAnchor];
       v5 = [widthAnchor constraintEqualToConstant:40.0];
-      v35[0] = v5;
+      v34[0] = v5;
       imageContainer2 = [(OBBulletedListItem *)self imageContainer];
       heightAnchor = [imageContainer2 heightAnchor];
       imageContainer3 = [heightAnchor constraintEqualToConstant:40.0];
-      v35[1] = imageContainer3;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+      v34[1] = imageContainer3;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
       imageContainerSizeConstraints = self->_imageContainerSizeConstraints;
       self->_imageContainerSizeConstraints = v9;
 LABEL_11:
@@ -487,14 +486,14 @@ LABEL_10:
     imageContainer = [(OBBulletedListItem *)self imageContainer];
     widthAnchor = [imageContainer widthAnchor];
     v5 = [widthAnchor constraintEqualToConstant:v14];
-    v36[0] = v5;
+    v35[0] = v5;
     imageContainer2 = [(OBBulletedListItem *)self imageContainer];
     heightAnchor = [imageContainer2 heightAnchor];
     imageContainer3 = [(OBBulletedListItem *)self imageContainer];
     imageContainerSizeConstraints = [imageContainer3 widthAnchor];
     v29 = [heightAnchor constraintEqualToAnchor:imageContainerSizeConstraints multiplier:v15];
-    v36[1] = v29;
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+    v35[1] = v29;
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
     v31 = self->_imageContainerSizeConstraints;
     self->_imageContainerSizeConstraints = v30;
 
@@ -503,14 +502,13 @@ LABEL_10:
 
 LABEL_12:
   v32 = self->_imageContainerSizeConstraints;
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 - (void)_updateImageViewLayout
 {
-  v68[5] = *MEMORY[0x1E69E9840];
+  v66[5] = *MEMORY[0x1E69E9840];
   imageContainer = [(OBBulletedListItem *)self imageContainer];
   [imageContainer removeFromSuperview];
 
@@ -551,7 +549,6 @@ LABEL_12:
     v21 = MEMORY[0x1E696ACD8];
     imageContainerSizeConstraints = [(OBBulletedListItem *)self imageContainerSizeConstraints];
     [v21 activateConstraints:?];
-    v22 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -568,13 +565,13 @@ LABEL_12:
       imageContainer5 = [(OBBulletedListItem *)self imageContainer];
       trailingAnchor = [imageContainer5 trailingAnchor];
       [(OBBulletedListItem *)self _imageTextPadding];
-      v29 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:?];
-      [(OBBulletedListItem *)self setStackViewLeadingConstraintHorizontal:v29];
+      v28 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:?];
+      [(OBBulletedListItem *)self setStackViewLeadingConstraintHorizontal:v28];
     }
 
-    v30 = MEMORY[0x1E696ACD8];
+    v29 = MEMORY[0x1E696ACD8];
     imageContainerSizeConstraints2 = [(OBBulletedListItem *)self imageContainerSizeConstraints];
-    [v30 deactivateConstraints:imageContainerSizeConstraints2];
+    [v29 deactivateConstraints:imageContainerSizeConstraints2];
 
     stackViewLeadingConstraintHorizontal3 = [(OBBulletedListItem *)self stackViewLeadingConstraintHorizontal];
     [stackViewLeadingConstraintHorizontal3 setActive:1];
@@ -582,44 +579,44 @@ LABEL_12:
     stackViewLeadingConstraintVertical3 = [(OBBulletedListItem *)self stackViewLeadingConstraintVertical];
     [stackViewLeadingConstraintVertical3 setActive:0];
 
-    v59 = MEMORY[0x1E696ACD8];
+    v57 = MEMORY[0x1E696ACD8];
     topConstraintToImageContainer = [(OBBulletedListItem *)self topConstraintToImageContainer];
-    v68[0] = topConstraintToImageContainer;
+    v66[0] = topConstraintToImageContainer;
     bottomConstraintToImageContainer = [(OBBulletedListItem *)self bottomConstraintToImageContainer];
-    v68[1] = bottomConstraintToImageContainer;
+    v66[1] = bottomConstraintToImageContainer;
     imageContainer6 = [(OBBulletedListItem *)self imageContainer];
     widthAnchor = [imageContainer6 widthAnchor];
-    v60 = [widthAnchor constraintEqualToConstant:v7];
-    v68[2] = v60;
+    v58 = [widthAnchor constraintEqualToConstant:v7];
+    v66[2] = v58;
     leadingAnchor4 = [(OBBulletedListItem *)self leadingAnchor];
     imageContainer7 = [(OBBulletedListItem *)self imageContainer];
     leadingAnchor5 = [imageContainer7 leadingAnchor];
     [(OBBulletedListItem *)self leadingMargin];
-    v37 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5 constant:-v36];
-    v68[3] = v37;
+    v36 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5 constant:-v35];
+    v66[3] = v36;
     imageContainer8 = [(OBBulletedListItem *)self imageContainer];
     trailingAnchor2 = [imageContainer8 trailingAnchor];
     stackView5 = [(OBBulletedListItem *)self stackView];
     leadingAnchor6 = [stackView5 leadingAnchor];
     [(OBBulletedListItem *)self _imageTextPadding];
-    v43 = [trailingAnchor2 constraintEqualToAnchor:leadingAnchor6 constant:-v42];
-    v68[4] = v43;
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:5];
-    [v59 activateConstraints:v44];
+    v42 = [trailingAnchor2 constraintEqualToAnchor:leadingAnchor6 constant:-v41];
+    v66[4] = v42;
+    v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:5];
+    [v57 activateConstraints:v43];
 
-    v45 = +[OBFeatureFlags isNaturalUIEnabled];
-    v46 = MEMORY[0x1E696ACD8];
-    if (v45)
+    v44 = +[OBFeatureFlags isNaturalUIEnabled];
+    v45 = MEMORY[0x1E696ACD8];
+    if (v44)
     {
       imageContainer9 = [(OBBulletedListItem *)self imageContainer];
       topAnchor = [imageContainer9 topAnchor];
       stackView6 = [(OBBulletedListItem *)self stackView];
       topAnchor2 = [stackView6 topAnchor];
       [(OBBulletedListItem *)self topMargin];
-      v51 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-      v67 = v51;
-      v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
-      [v46 activateConstraints:v52];
+      v50 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
+      v65 = v50;
+      v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
+      [v45 activateConstraints:v51];
     }
 
     else
@@ -628,13 +625,11 @@ LABEL_12:
       topAnchor = [imageContainer9 centerYAnchor];
       imageContainer10 = [(OBBulletedListItem *)self imageContainer];
       centerYAnchor = [imageContainer10 centerYAnchor];
-      v55 = [topAnchor constraintEqualToAnchor:centerYAnchor];
-      v66 = v55;
-      v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
-      [v46 activateConstraints:v56];
+      v54 = [topAnchor constraintEqualToAnchor:centerYAnchor];
+      v64 = v54;
+      v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+      [v45 activateConstraints:v55];
     }
-
-    v57 = *MEMORY[0x1E69E9840];
   }
 }
 

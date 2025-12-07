@@ -2,6 +2,7 @@
 - (CAAPIHandler)initWithURLString:(id)string queue:(id)queue responseHandler:(id)handler;
 - (void)cancel;
 - (void)fetchAPI;
+- (void)sendResponseCode:(unsigned int)code dictionary:(id)dictionary;
 @end
 
 @implementation CAAPIHandler
@@ -57,6 +58,21 @@ LABEL_5:
 {
   dataTask = [(CAAPIHandler *)self dataTask];
   [dataTask cancel];
+}
+
+- (void)sendResponseCode:(unsigned int)code dictionary:(id)dictionary
+{
+  v4 = *&code;
+  dictionaryCopy = dictionary;
+  responseHandler = [(CAAPIHandler *)self responseHandler];
+
+  if (responseHandler)
+  {
+    responseHandler2 = [(CAAPIHandler *)self responseHandler];
+    (responseHandler2)[2](responseHandler2, v4, dictionaryCopy);
+  }
+
+  [(CAAPIHandler *)self cancel];
 }
 
 - (void)fetchAPI

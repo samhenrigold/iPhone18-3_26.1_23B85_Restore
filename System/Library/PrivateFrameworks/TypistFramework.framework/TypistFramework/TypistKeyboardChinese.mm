@@ -2,6 +2,7 @@
 - (BOOL)_isPinyin;
 - (BOOL)_isWubihua;
 - (BOOL)isHandwriting;
+- (BOOL)isPinyinCharacter:(unsigned __int16)character;
 - (BOOL)isSwitchedToDefaultPlane:(id)plane;
 - (BOOL)isTenKey;
 - (BOOL)keyWillCommitCandidate:(id)candidate;
@@ -194,9 +195,27 @@ LABEL_12:
   return v12;
 }
 
+- (BOOL)isPinyinCharacter:(unsigned __int16)character
+{
+  characterCopy = character;
+  v4 = [MEMORY[0x277CCA900] characterSetWithRange:{97, 26}];
+  if ([v4 characterIsMember:characterCopy])
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v6 = [MEMORY[0x277CCA900] characterSetWithRange:{65, 26}];
+    v5 = [v6 characterIsMember:characterCopy];
+  }
+
+  return v5;
+}
+
 - (void)setupTenKey:(id)key forKey:(id)forKey keyName:(id)name planeName:(id)planeName
 {
-  v84[9] = *MEMORY[0x277D85DE8];
+  v81[9] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   forKeyCopy = forKey;
   planeNameCopy = planeName;
@@ -205,7 +224,7 @@ LABEL_12:
     goto LABEL_22;
   }
 
-  v79 = planeNameCopy;
+  v76 = planeNameCopy;
   selfCopy = self;
   if ([planeNameCopy containsString:@"pinyin"])
   {
@@ -221,114 +240,112 @@ LABEL_12:
     self = selfCopy;
     if (v19)
     {
-      v76 = keyCopy;
-      planeNameCopy = v79;
+      v73 = keyCopy;
+      planeNameCopy = v76;
 LABEL_9:
       whiteSpaceRegex = [(TypistKeyboardChinese *)self whiteSpaceRegex];
       v29 = [whiteSpaceRegex stringByReplacingMatchesInString:v19 options:0 range:0 withTemplate:{objc_msgSend(v19, "length"), @" "}];
 
       whitespaceCharacterSet2 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-      v75 = v29;
+      v72 = v29;
       v31 = [v29 componentsSeparatedByCharactersInSet:whitespaceCharacterSet2];
       v32 = [v31 mutableCopy];
 
       lastObject = [v32 lastObject];
       [v32 removeLastObject];
-      v74 = lastObject;
+      v71 = lastObject;
       [v32 insertObject:lastObject atIndex:1];
       v34 = [v32 objectAtIndexedSubscript:0];
       v35 = [v32 objectAtIndexedSubscript:1];
       v36 = [v34 isEqualToString:v35];
 
-      v77 = forKeyCopy;
+      v74 = forKeyCopy;
       [forKeyCopy frame];
       UIRectGetCenter();
-      v37 = *MEMORY[0x277CBF348];
-      v38 = *(MEMORY[0x277CBF348] + 8);
       [TypistKeyboard centerOfKey:"centerOfKey:withOffset:" withOffset:?];
+      v38 = v37;
       v40 = v39;
-      v42 = v41;
       if (v36)
       {
-        v43 = 2;
+        v41 = 2;
       }
 
       else
       {
-        v43 = 1;
+        v41 = 1;
       }
 
-      v81 = v32;
-      if (v43 < [v32 count])
+      v78 = v32;
+      if (v41 < [v32 count])
       {
-        v44 = v43 - 6;
-        while (v44)
+        v42 = v41 - 6;
+        while (v42)
         {
-          v45 = [v81 objectAtIndexedSubscript:v43];
+          v43 = [v78 objectAtIndexedSubscript:v41];
           _flickGestureDirection = [(TypistKeyboardChinese *)selfCopy _flickGestureDirection];
-          v47 = [_flickGestureDirection objectAtIndexedSubscript:v43 - 1];
-          v82.receiver = selfCopy;
-          v82.super_class = TypistKeyboardChinese;
-          LODWORD(v48) = 1118175232;
-          [(TypistKeyboard *)&v82 calculateCoordinatesForFlickGesture:v47 direction:v40 offset:v42, v48];
+          v45 = [_flickGestureDirection objectAtIndexedSubscript:v41 - 1];
+          v79.receiver = selfCopy;
+          v79.super_class = TypistKeyboardChinese;
+          LODWORD(v46) = 1118175232;
+          [(TypistKeyboard *)&v79 calculateCoordinatesForFlickGesture:v45 direction:v38 offset:v40, v46];
+          v48 = v47;
           v50 = v49;
-          v52 = v51;
 
-          v84[0] = v45;
-          v53 = v45;
-          v83[0] = @"key";
-          v83[1] = @"basekey";
-          v80 = [v81 objectAtIndexedSubscript:0];
-          v84[1] = v80;
-          v84[2] = @"flick";
-          v83[2] = @"action";
-          v83[3] = @"x";
-          v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2f", v50];
-          v84[3] = v54;
-          v83[4] = @"y";
-          v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2f", v52];
-          v84[4] = v55;
-          v84[5] = planeNameCopy;
-          v83[5] = @"plane";
-          v83[6] = @"type";
-          v84[6] = @"gesture";
-          v83[7] = @"more-after";
-          cache = [v77 cache];
-          v57 = [cache objectForKey:@"more-after"];
-          v58 = v57;
-          v59 = &unk_2880299B8;
-          if (v57)
+          v81[0] = v43;
+          v51 = v43;
+          v80[0] = @"key";
+          v80[1] = @"basekey";
+          v77 = [v78 objectAtIndexedSubscript:0];
+          v81[1] = v77;
+          v81[2] = @"flick";
+          v80[2] = @"action";
+          v80[3] = @"x";
+          v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2f", v48];
+          v81[3] = v52;
+          v80[4] = @"y";
+          v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2f", v50];
+          v81[4] = v53;
+          v81[5] = planeNameCopy;
+          v80[5] = @"plane";
+          v80[6] = @"type";
+          v81[6] = @"gesture";
+          v80[7] = @"more-after";
+          cache = [v74 cache];
+          v55 = [cache objectForKey:@"more-after"];
+          v56 = v55;
+          v57 = &unk_2880299B8;
+          if (v55)
           {
-            v59 = v57;
+            v57 = v55;
           }
 
-          v84[7] = v59;
-          v83[8] = @"direction";
+          v81[7] = v57;
+          v80[8] = @"direction";
           _flickGestureDirection2 = [(TypistKeyboardChinese *)selfCopy _flickGestureDirection];
-          v61 = [_flickGestureDirection2 objectAtIndexedSubscript:v43 - 1];
-          v84[8] = v61;
-          v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:9];
-          [v76 setObject:v62 forKey:v53];
+          v59 = [_flickGestureDirection2 objectAtIndexedSubscript:v41 - 1];
+          v81[8] = v59;
+          v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:9];
+          [v73 setObject:v60 forKey:v51];
 
-          planeNameCopy = v79;
-          ++v43;
-          ++v44;
-          if (v43 >= [v81 count])
+          planeNameCopy = v76;
+          ++v41;
+          ++v42;
+          if (v41 >= [v78 count])
           {
             goto LABEL_21;
           }
         }
 
-        v63 = objc_opt_class();
-        v64 = NSStringFromClass(v63);
-        representedString = [v77 representedString];
-        TYLog(@"%@ - setupTenKey: WARNING! More than 4 flicks found for %@ - %@", v65, v66, v67, v68, v69, v70, v71, v64);
+        v61 = objc_opt_class();
+        v62 = NSStringFromClass(v61);
+        representedString = [v74 representedString];
+        TYLog(@"%@ - setupTenKey: WARNING! More than 4 flicks found for %@ - %@", v64, v65, v66, v67, v68, v69, v70, v62, representedString, v72);
       }
 
 LABEL_21:
 
-      keyCopy = v76;
-      forKeyCopy = v77;
+      keyCopy = v73;
+      forKeyCopy = v74;
       goto LABEL_22;
     }
   }
@@ -345,7 +362,7 @@ LABEL_21:
   if ((v23 & 1) == 0)
   {
 
-    planeNameCopy = v79;
+    planeNameCopy = v76;
     goto LABEL_22;
   }
 
@@ -353,16 +370,14 @@ LABEL_21:
   whitespaceCharacterSet3 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
   v19 = [v26 stringByTrimmingCharactersInSet:whitespaceCharacterSet3];
 
-  planeNameCopy = v79;
+  planeNameCopy = v76;
   if (v19)
   {
-    v76 = keyCopy;
+    v73 = keyCopy;
     goto LABEL_9;
   }
 
 LABEL_22:
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupSentenceBoundryStrings

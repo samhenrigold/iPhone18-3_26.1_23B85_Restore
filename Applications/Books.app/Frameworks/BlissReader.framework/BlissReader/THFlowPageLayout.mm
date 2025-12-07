@@ -615,7 +615,7 @@ LABEL_3:
     CGAffineTransformMakeScale(&v14, v8 / 768.0, v8 / 768.0);
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else
@@ -649,7 +649,7 @@ LABEL_3:
         CGAffineTransformMakeScale(&v14, v8 / 768.0, v8 / 768.0);
         if (geometryCopy)
         {
-          [geometryCopy transform];
+          objc_msgSend_transform(geometryCopy);
         }
 
         else

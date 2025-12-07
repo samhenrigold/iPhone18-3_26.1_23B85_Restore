@@ -26,7 +26,7 @@
 
 + (void)autoCompletePersonFrom:(MapsSuggestionsEntry *)from completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -52,7 +52,7 @@
 
 + (void)autoCompletePersonWithHandleIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -78,7 +78,7 @@
 
 + (void)autoCompletePersonWithContact:(CNContact *)contact completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

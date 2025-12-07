@@ -96,11 +96,11 @@
   }
 
   memset(buf, 0, 32);
-  [(_NUFixedTileSizeImageLayout *)self frameRectForTileAtIndex:index];
+  objc_msgSend_frameRectForTileAtIndex_(self);
   v5 = *&buf[16];
   v23[0] = *buf;
   v23[1] = *&buf[16];
-  [(_NUFixedTileSizeImageLayout *)self contentRectForTileAtIndex:index];
+  objc_msgSend_contentRectForTileAtIndex_(self);
   v6 = [NUTileInfo tileInfoWithIndex:index size:v5 frameRect:v23 contentRect:v22];
 
   return v6;

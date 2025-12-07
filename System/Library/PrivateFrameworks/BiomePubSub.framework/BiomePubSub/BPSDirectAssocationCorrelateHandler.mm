@@ -69,11 +69,9 @@
 void __65__BPSDirectAssocationCorrelateHandler_correlateWithCurrentEvent___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v6 = *(a1 + 40);
-  v7 = v5;
   if ((*(*(*(a1 + 32) + 16) + 16))())
   {
-    [*(a1 + 48) addObject:v7];
+    [*(a1 + 48) addObject:v5];
     [*(a1 + 56) addIndex:a3];
   }
 }

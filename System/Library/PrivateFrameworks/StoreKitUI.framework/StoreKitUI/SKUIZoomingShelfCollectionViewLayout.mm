@@ -3,12 +3,17 @@
 + (Class)invalidationContextClass;
 + (Class)layoutAttributesClass;
 + (double)snapToBoundariesDecelerationRate;
++ (void)collectionViewCanClipToBounds;
++ (void)invalidationContextClass;
++ (void)layoutAttributesClass;
++ (void)snapToBoundariesDecelerationRate;
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)offset withScrollingVelocity:(CGPoint)velocity;
 - (CGSize)collectionViewContentSize;
 - (id)invalidationContextForBoundsChange:(CGRect)change;
 - (id)layoutAttributesForElementsInRect:(CGRect)rect;
 - (id)layoutAttributesForItemAtIndexPath:(id)path;
 - (id)menuBarFocusedItemIndexPathWithTransitionProgress:(double *)progress;
+- (void)collectionViewContentSize;
 - (void)invalidateLayoutWithContext:(id)context;
 - (void)prepareLayout;
 - (void)setFocusedItemHorizontalCenterOffset:(double)offset;
@@ -42,144 +47,8 @@
 
 - (void)prepareLayout
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIZoomingShelfCollectionViewLayout *)v3 prepareLayout:v4];
-      }
-    }
-  }
-
-  v71.receiver = self;
-  v71.super_class = SKUIZoomingShelfCollectionViewLayout;
-  [(SKUIZoomingShelfCollectionViewLayout *)&v71 prepareLayout];
-  collectionView = [(SKUIZoomingShelfCollectionViewLayout *)self collectionView];
-  backgroundColor = [collectionView backgroundColor];
-  [collectionView bounds];
-  v69 = v13;
-  v70 = v12;
-  v67 = v15;
-  v68 = v14;
-  v57 = collectionView;
-  [collectionView contentOffset];
-  v17 = v16;
-  focusedItemHorizontalCenterOffset = self->_focusedItemHorizontalCenterOffset;
-  interItemSpacing = self->_interItemSpacing;
-  itemWidth = self->_itemWidth;
-  scaledItemWidth = self->_scaledItemWidth;
-  v22 = scaledItemWidth * 0.5;
-  if (self->_cachedLayoutAttributes && self->_invalidateGeometryOnlyOfExistingLayoutAttributes)
-  {
-    v63 = 0;
-  }
-
-  else
-  {
-    v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    cachedLayoutAttributes = self->_cachedLayoutAttributes;
-    self->_cachedLayoutAttributes = v23;
-
-    v63 = 1;
-  }
-
-  v25 = itemWidth * 0.5;
-  v65 = interItemSpacing + itemWidth;
-  v66 = focusedItemHorizontalCenterOffset - v22;
-  numberOfSections = [collectionView numberOfSections];
-  if (numberOfSections <= 0)
-  {
-    v52 = scaledItemWidth - itemWidth;
-    v51 = -1.0;
-  }
-
-  else
-  {
-    v26 = 0;
-    v27 = 0;
-    v54 = scaledItemWidth * 0.5;
-    v55 = focusedItemHorizontalCenterOffset;
-    v28 = v25 + interItemSpacing + v22 + v25 + interItemSpacing + v22;
-    v61 = v28 * 0.5;
-    v62 = v17 + focusedItemHorizontalCenterOffset;
-    v64 = scaledItemWidth - itemWidth;
-    v60 = v28 - (scaledItemWidth - itemWidth);
-    v29 = *(MEMORY[0x277CBF3A0] + 8);
-    v59 = *MEMORY[0x277CBF3A0];
-    v30 = *MEMORY[0x277CDA7B8];
-    v31 = scaledItemWidth / itemWidth;
-    v32 = 1.0 - scaledItemWidth / itemWidth + 1.0 - scaledItemWidth / itemWidth;
-    do
-    {
-      v33 = [v57 numberOfItemsInSection:{v27, *&v54, *&v55}];
-      if (v33 >= 1)
-      {
-        for (i = 0; i != v33; ++i)
-        {
-          v35 = [MEMORY[0x277CCAA70] indexPathForItem:i inSection:v27];
-          if ((v63 & 1) != 0 || ([(NSMutableDictionary *)self->_cachedLayoutAttributes objectForKey:v35], (v36 = objc_claimAutoreleasedReturnValue()) == 0))
-          {
-            v36 = [objc_msgSend(objc_opt_class() "layoutAttributesClass")];
-            [v36 setBackgroundColor:backgroundColor];
-          }
-
-          [(SKUIShelfLayoutData *)self->_layoutData sizeForItemAtIndex:v26 + i];
-          v38 = v37;
-          v39 = v25 + v66 + (v26 + i) * v65;
-          v40 = (v61 + v39 - v62) / v60;
-          if (v40 < 0.0)
-          {
-            v40 = 0.0;
-          }
-
-          v41 = fmin(v40, 1.0);
-          [v36 _setZoomingImageLambda:v41];
-          v72.origin.y = v69;
-          v72.origin.x = v70;
-          v72.size.height = v67;
-          v72.size.width = v68;
-          [v36 setCenter:{v39 + v41 * v64, CGRectGetMinY(v72) + v38 * 0.5}];
-          [v36 setBounds:{v59, v29, itemWidth, v38}];
-          v42 = fabs(v41 + -0.5);
-          v43 = [MEMORY[0x277CD9EF8] functionWithName:v30];
-          *&v44 = 1.0 - v42;
-          [v43 _solveForInput:v44];
-          v46 = v45;
-
-          [v36 setZoomingImageAlpha:v46];
-          [v36 setZoomingImageWidth:itemWidth * (v31 + v32 * v42)];
-          v47 = [MEMORY[0x277CD9EF8] functionWithName:v30];
-          *&v48 = v42 + v42;
-          [v47 _solveForInput:v48];
-          v50 = v49;
-
-          [v36 setZoomingImageImposedAlphaOfOtherViews:v50];
-          [(NSMutableDictionary *)self->_cachedLayoutAttributes setObject:v36 forKey:v35];
-        }
-      }
-
-      v26 += v33;
-      ++v27;
-    }
-
-    while (v27 != numberOfSections);
-    v51 = (v26 - 1);
-    v22 = v54;
-    focusedItemHorizontalCenterOffset = v55;
-    v52 = v64;
-  }
-
-  [(SKUIShelfLayoutData *)self->_layoutData totalContentSize];
-  self->_cachedCollectionViewContentSize.width = v25 + v52 + v25 + v66 + v51 * v65;
-  self->_cachedCollectionViewContentSize.height = v53;
-  v73.origin.y = v69;
-  v73.origin.x = v70;
-  v73.size.height = v67;
-  v73.size.width = v68;
-  self->_cachedCollectionViewContentSize.width = self->_cachedCollectionViewContentSize.width + CGRectGetWidth(v73) - focusedItemHorizontalCenterOffset - v22;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout prepareLayout]";
 }
 
 - (CGSize)collectionViewContentSize
@@ -721,6 +590,108 @@ void __106__SKUIZoomingShelfCollectionViewLayout_targetContentOffsetForProposedC
   }
 
   return 0;
+}
+
++ (void)layoutAttributesClass
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIZoomingShelfCollectionViewLayout layoutAttributesClass]";
+}
+
+- (void)collectionViewContentSize
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout collectionViewContentSize]";
+}
+
+- (void)layoutAttributesForElementsInRect:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout layoutAttributesForElementsInRect:]";
+}
+
+- (void)layoutAttributesForItemAtIndexPath:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout layoutAttributesForItemAtIndexPath:]";
+}
+
++ (void)invalidationContextClass
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIZoomingShelfCollectionViewLayout invalidationContextClass]";
+}
+
+- (void)invalidationContextForBoundsChange:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout invalidationContextForBoundsChange:]";
+}
+
+- (void)invalidateLayoutWithContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout invalidateLayoutWithContext:]";
+}
+
+- (void)targetContentOffsetForProposedContentOffset:(uint64_t)a3 withScrollingVelocity:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout targetContentOffsetForProposedContentOffset:withScrollingVelocity:]";
+}
+
+- (void)menuBarFocusedItemIndexPathWithTransitionProgress:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout menuBarFocusedItemIndexPathWithTransitionProgress:]";
+}
+
+- (void)setMenuBarFocusedItemIndexPath:(uint64_t)a3 withTransitionProgress:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout setMenuBarFocusedItemIndexPath:withTransitionProgress:]";
+}
+
+- (void)setFocusedItemHorizontalCenterOffset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout setFocusedItemHorizontalCenterOffset:]";
+}
+
+- (void)setLayoutData:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout setLayoutData:]";
+}
+
+- (void)setInterItemSpacing:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout setInterItemSpacing:]";
+}
+
+- (void)setItemWidth:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout setItemWidth:]";
+}
+
+- (void)setScaledItemWidth:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIZoomingShelfCollectionViewLayout setScaledItemWidth:]";
+}
+
++ (void)snapToBoundariesDecelerationRate
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIZoomingShelfCollectionViewLayout snapToBoundariesDecelerationRate]";
+}
+
++ (void)collectionViewCanClipToBounds
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIZoomingShelfCollectionViewLayout collectionViewCanClipToBounds]";
 }
 
 @end

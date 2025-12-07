@@ -7,36 +7,36 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v12 = v7;
-  v28 = 0;
+  v11 = v7;
+  v25 = 0;
   if (v7)
   {
-    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v28);
-    v13 = v28;
-    if (v13)
+    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v25);
+    v12 = v25;
+    if (v12)
     {
-      v14 = v13;
-      v15 = objc_msgSend_raiseErrorOrConvert_(context, v8, v13, v10, v11);
+      v13 = v12;
+      v14 = objc_msgSend_raiseErrorOrConvert_(context, v8, v12, v10);
       goto LABEL_6;
     }
   }
 
   else
   {
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
+    v26 = 0;
+    v27 = 0;
+    v28 = 0;
   }
 
-  v16 = objc_msgSend_locale(context, v8, v9, v10, v11);
-  v21 = objc_msgSend_locale(v16, v17, v18, v19, v20);
-  sub_2210787C4(&v29, v21, v27);
-  v15 = sub_2210789F4(v27, v22, v23, v24, v25);
+  v15 = objc_msgSend_locale(context, v8, v9, v10);
+  v19 = objc_msgSend_locale(v15, v16, v17, v18);
+  sub_2210787C4(&v26, v19, v24);
+  v14 = sub_2210789F4(v24, v20, v21, v22);
 
-  v14 = 0;
+  v13 = 0;
 LABEL_6:
 
-  return v15;
+  return v14;
 }
 
 @end

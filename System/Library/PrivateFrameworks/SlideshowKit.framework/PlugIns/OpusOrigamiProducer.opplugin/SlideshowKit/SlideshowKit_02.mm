@@ -1,4 +1,4 @@
-uint64_t MRIsAppleTV()
+uint64_t MRIsAppleTV(uint64_t a1, uint64_t a2)
 {
   if (qword_1EF2F0 != -1)
   {
@@ -64,12 +64,12 @@ uint64_t MRMatrix_SetDiagonal(uint64_t result, float a2, float a3, float a4)
   return result;
 }
 
-float MRMatrix_SetRotationFromAnglesYXZDeg(uint64_t a1, float a2, float a3, float a4)
+float MRMatrix_SetRotationFromAnglesYXZDeg(__n128 a1, __n128 a2, __n128 a3, uint64_t a4)
 {
-  v4 = a3 * 0.0174532925;
-  v5 = a2 * 0.0174532925;
-  v6 = a4 * 0.0174532925;
-  return MRMatrix_SetRotationFromAnglesYXZRad(a1, v5, v4, v6);
+  v4 = a2.n128_f32[0] * 0.0174532925;
+  v5 = a1.n128_f32[0] * 0.0174532925;
+  v6 = a3.n128_f32[0] * 0.0174532925;
+  return MRMatrix_SetRotationFromAnglesYXZRad(a4, v5, v4, v6);
 }
 
 float MRMatrix_SetRotationFromAnglesYXZRad(uint64_t a1, float a2, float a3, float a4)
@@ -248,7 +248,7 @@ float32_t MRMatrix_Scale(float32x2_t *a1, float32x2_t a2, float32_t a3, float a4
   return result;
 }
 
-double MRMatrix_PreMultiply(float *a1, uint64_t a2)
+double MRMatrix_PreMultiply(float *a1, float *a2)
 {
   v8 = 0u;
   v9 = 0u;
@@ -257,11 +257,11 @@ double MRMatrix_PreMultiply(float *a1, uint64_t a2)
   MRMatrix_MultiplyWithMatrix(a1, a2, &v6);
   v3 = v7;
   *a2 = v6;
-  *(a2 + 16) = v3;
+  *(a2 + 1) = v3;
   result = *&v8;
   v5 = v9;
-  *(a2 + 32) = v8;
-  *(a2 + 48) = v5;
+  *(a2 + 2) = v8;
+  *(a2 + 3) = v5;
   return result;
 }
 
@@ -2573,9 +2573,9 @@ uint64_t sub_DBE40(uint64_t a1)
   return result;
 }
 
-void sub_DC62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_DC62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2650,7 +2650,7 @@ LABEL_14:
   v18 = *(*(a1 + 32) + 72);
   if (v18)
   {
-    [v18 currentTime];
+    objc_msgSend_currentTime(v18);
   }
 
   else
@@ -3203,7 +3203,7 @@ id sub_10F934(uint64_t a1)
   return [v2 setHidden:1];
 }
 
-id sub_10FC4C(uint64_t a1, int a2)
+void *sub_10FC4C(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -3224,7 +3224,7 @@ id sub_10FC4C(uint64_t a1, int a2)
       return result;
     }
 
-    v4 = *(result + 2);
+    v4 = result[2];
   }
 
   else
@@ -3235,7 +3235,7 @@ id sub_10FC4C(uint64_t a1, int a2)
       return result;
     }
 
-    v4 = *(result + 2);
+    v4 = result[2];
   }
 
   return v4();
@@ -3392,7 +3392,7 @@ id sub_1214A8(id *a1)
 {
   [a1[4] startTime];
   v3 = v2;
-  [a1[4] duration];
+  objc_msgSend_duration(a1[4]);
   v5 = v3 + v4;
   [a1[4] outroTransitionDuration];
   v7 = v5 - v6;
@@ -3421,9 +3421,9 @@ id sub_1214A8(id *a1)
   return result;
 }
 
-void sub_122D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_122D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3508,9 +3508,9 @@ uint64_t sub_122D48(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_1230C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1230C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

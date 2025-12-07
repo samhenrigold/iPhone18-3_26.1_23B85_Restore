@@ -1,5 +1,6 @@
 @interface UICloudSharingController
 + (id)allowedSharingOptionsFromPermissions:(unint64_t)permissions;
+- (BOOL)_commonInit;
 - (UICloudSharingController)initWithPreparationHandler:(void *)preparationHandler;
 - (UICloudSharingController)initWithShare:(CKShare *)share container:(CKContainer *)container;
 - (UICloudSharingController)initWithShare:(id)share preparationHandler:(id)handler;
@@ -13,7 +14,6 @@
 - (id)delegate;
 - (id)excludedActivityTypes;
 - (int64_t)modalPresentationStyle;
-- (uint64_t)_commonInit;
 - (void)__viewControllerWillBePresented:(BOOL)presented;
 - (void)_callPreparationHandler:(id)handler;
 - (void)_cloudSharingControllerDidActivateAddPeopleWithRemoteSourceX:(double)x y:(double)y width:(double)width height:(double)height;
@@ -46,7 +46,7 @@
 
 @implementation UICloudSharingController
 
-- (uint64_t)_commonInit
+- (BOOL)_commonInit
 {
   preparationHandler = [self preparationHandler];
   if (!preparationHandler)
@@ -501,9 +501,9 @@ void __60__UICloudSharingController___viewControllerWillBePresented___block_invo
   }
 }
 
-id __60__UICloudSharingController___viewControllerWillBePresented___block_invoke_7(uint64_t a1, uint64_t a2, void *a3)
+id __60__UICloudSharingController___viewControllerWillBePresented___block_invoke_7(uint64_t a1, const char *a2, void *a3)
 {
-  if ([a3 isEqualToString:@"linkPresentationMetadata"])
+  if (objc_msgSend_isEqualToString_(a3, a2, @"linkPresentationMetadata"))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     v5 = [WeakRetained createActivityLinkMetadata];
@@ -1324,9 +1324,9 @@ void __49__UICloudSharingController_excludedActivityTypes__block_invoke(uint64_t
   v4 = [*(a1 + 32) container];
   v5 = [v4 containerID];
   v6 = [v5 containerIdentifier];
-  v7 = [v6 isEqualToString:@"com.apple.reminders"];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     v8 = [_MergedGlobals_5_22 arrayByAddingObject:*MEMORY[0x1E69CDA98]];
     v9 = _MergedGlobals_5_22;
@@ -1406,9 +1406,9 @@ void __49__UICloudSharingController_excludedActivityTypes__block_invoke(uint64_t
   objc_destroyWeak(&location);
 }
 
-id __104__UICloudSharingController__cloudSharingControllerDidActivateAddPeopleWithRemoteSourceX_y_width_height___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+id __104__UICloudSharingController__cloudSharingControllerDidActivateAddPeopleWithRemoteSourceX_y_width_height___block_invoke(uint64_t a1, const char *a2, void *a3)
 {
-  if ([a3 isEqualToString:@"linkPresentationMetadata"])
+  if (objc_msgSend_isEqualToString_(a3, a2, @"linkPresentationMetadata"))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     v5 = [WeakRetained createActivityLinkMetadata];

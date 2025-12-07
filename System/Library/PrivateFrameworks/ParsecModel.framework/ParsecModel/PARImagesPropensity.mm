@@ -8,7 +8,7 @@
 {
   entityCopy = entity;
   contextCopy = context;
-  return PARImagesPropensity.init(entity:insertInto:)();
+  return PARImagesPropensity.init(entity:insertInto:)(entityCopy, context);
 }
 
 @end

@@ -34,7 +34,7 @@
 
 - (void)updateHomeEnergyAvailableFeaturesWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -59,7 +59,7 @@
 
 - (void)fetchPillAdviceWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -84,7 +84,7 @@
 
 - (void)updateHomeLocationWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -109,7 +109,7 @@
 
 - (void)initializeGridForecastSnapshots
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v9 - v4;
   v6 = sub_20D567C58();
@@ -124,7 +124,7 @@
 
 - (void)homeLocationRegionWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -149,7 +149,7 @@
 
 - (void)utilityDetailsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -174,7 +174,7 @@
 
 - (void)revokeSubscriptionWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -199,7 +199,7 @@
 
 + (void)setHasDismissedConnectAccountBannerWithHome:(id)home
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v18 - v5;
   v7 = sub_20D563818();
@@ -225,7 +225,7 @@
 
 + (void)shouldShowConnectAccountBannerFor:(HMHome *)for checkLocation:(BOOL)location completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(handler);
@@ -252,7 +252,7 @@
 
 + (void)utilityInformation:(NSString *)information completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

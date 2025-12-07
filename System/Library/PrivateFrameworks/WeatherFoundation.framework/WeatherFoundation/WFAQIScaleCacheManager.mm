@@ -130,7 +130,7 @@ LABEL_9:
 
 - (void)clearCache
 {
-  v3 = WeatherFoundationInternalUserDefaults();
+  v3 = WeatherFoundationInternalUserDefaults(self);
   [v3 removeObjectForKey:@"aqiRemoteScales"];
 
   os_unfair_lock_lock_with_options();

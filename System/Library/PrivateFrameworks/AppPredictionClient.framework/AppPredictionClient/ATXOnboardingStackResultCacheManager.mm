@@ -43,25 +43,26 @@
 - (BOOL)updateCacheWithActivity:(id)activity widgetCache:(id)cache
 {
   cacheCopy = cache;
-  if ([activity didDefer])
+  didDefer = [activity didDefer];
+  if (didDefer)
   {
-    v7 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_home_screen(didDefer);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackResultCacheManager: Activity was deferred, stopping early", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackResultCacheManager: Activity was deferred, stopping early", v12, 2u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v9 = [(ATXOnboardingStackResultCacheManager *)self _generateResultCacheWithWidgetCache:cacheCopy];
-    v8 = [(ATXOnboardingStackResultCacheManager *)self _writeOnboardingStackResultCache:v9];
+    v10 = [(ATXOnboardingStackResultCacheManager *)self _generateResultCacheWithWidgetCache:cacheCopy];
+    v9 = [(ATXOnboardingStackResultCacheManager *)self _writeOnboardingStackResultCache:v10];
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)_generateResultCacheWithWidgetCache:(id)cache
@@ -94,7 +95,7 @@
   cacheCopy = cache;
   v6 = [v4 alloc];
   path = self->_path;
-  v8 = __atxlog_handle_home_screen();
+  v8 = __atxlog_handle_home_screen(v6);
   v9 = [v6 initWithCacheFilePath:path loggingHandle:v8 debugName:@"onboarding stacks"];
 
   LOBYTE(v6) = [v9 storeSecureCodedObject:cacheCopy error:0];
@@ -105,7 +106,7 @@
 {
   v3 = objc_alloc(MEMORY[0x1E698AFF0]);
   path = self->_path;
-  v5 = __atxlog_handle_home_screen();
+  v5 = __atxlog_handle_home_screen(v3);
   v6 = [v3 initWithCacheFilePath:path loggingHandle:v5 debugName:@"onboarding stacks"];
 
   v7 = objc_autoreleasePoolPush();

@@ -98,11 +98,12 @@ LABEL_14:
 + (id)createListPairingsRequest:(id *)request
 {
   v9 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, sizeof(v8));
   TLV8BufferInit();
-  appended = appendRequestMethodAndState();
+  appended = appendRequestMethodAndState(v8, 5u);
   if (!appended)
   {
-    v6 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
+    v6 = [MEMORY[0x277CBEA90] dataWithBytes:v8[0] length:?];
     if (v6)
     {
       v5 = v6;
@@ -126,7 +127,6 @@ LABEL_14:
   }
 
 LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -147,8 +147,9 @@ LABEL_7:
 {
   v14 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
+  memset(v13, 0, sizeof(v13));
   TLV8BufferInit();
-  appended = appendRequestMethodAndState();
+  appended = appendRequestMethodAndState(v13, 4u);
   if (appended)
   {
     goto LABEL_2;
@@ -174,7 +175,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v13[0] length:?];
   if (v11)
   {
     v7 = v11;
@@ -198,8 +199,6 @@ LABEL_2:
 
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
@@ -219,8 +218,9 @@ LABEL_9:
 {
   v18 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
+  memset(v17, 0, sizeof(v17));
   TLV8BufferInit();
-  appended = appendRequestMethodAndState();
+  appended = appendRequestMethodAndState(v17, 3u);
   if (appended)
   {
     goto LABEL_2;
@@ -264,10 +264,10 @@ LABEL_2:
       goto LABEL_6;
     }
 
-    v17 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
-    if (v17)
+    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v17[0] length:?];
+    if (v16)
     {
-      v14 = v17;
+      v14 = v16;
       TLV8BufferFree();
       goto LABEL_9;
     }
@@ -289,8 +289,6 @@ LABEL_6:
   }
 
 LABEL_9:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

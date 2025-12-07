@@ -390,7 +390,7 @@
 
 - (int64_t)currentPhoneUserSubscriptionSourceWithError:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (qword_1EAEDC0F8 != -1)
   {
     sub_195B2B434();
@@ -409,9 +409,9 @@
   }
 
   sharedInstance = [v5 sharedInstance];
-  v18 = 0;
-  v8 = [sharedInstance selectedPhoneNumberRegistrationSubscriptionWithError:&v18];
-  v9 = v18;
+  v17 = 0;
+  v8 = [sharedInstance selectedPhoneNumberRegistrationSubscriptionWithError:&v17];
+  v9 = v17;
 
   if (v8 && (v10 = [(IDSPhoneCertificateVendor *)self _subscriptionSourceForContext:v8]) != 0)
   {
@@ -425,11 +425,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v20 = 0;
-      v21 = 2112;
-      v22 = v8;
-      v23 = 2112;
-      v24 = v9;
+      v19 = 0;
+      v20 = 2112;
+      v21 = v8;
+      v22 = 2112;
+      v23 = v9;
       _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "Unable to determine selected phone user subscription source synchronously {subscriptionSource: %ld, selectedContext: %@, subscriptionError: %@}", buf, 0x20u);
     }
 
@@ -441,9 +441,9 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v12;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v12;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Returning current phone user subscription source synchronously {subscriptionSource: %ld, clientError: %@}", buf, 0x16u);
   }
 
@@ -453,7 +453,6 @@
     *error = v12;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

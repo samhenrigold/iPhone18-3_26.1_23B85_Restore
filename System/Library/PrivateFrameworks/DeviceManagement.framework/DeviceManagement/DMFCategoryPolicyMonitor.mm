@@ -42,12 +42,13 @@
 void __56__DMFCategoryPolicyMonitor_initWithPolicyChangeHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (!a2)
   {
-    v6 = DMFPolicyLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = DMFPolicyLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __56__DMFCategoryPolicyMonitor_initWithPolicyChangeHandler___block_invoke_cold_1(a1, v5, v6);
+      __56__DMFCategoryPolicyMonitor_initWithPolicyChangeHandler___block_invoke_cold_1(a1, v6, v7);
     }
   }
 }
@@ -76,17 +77,15 @@ void __56__DMFCategoryPolicyMonitor_initWithPolicyChangeHandler___block_invoke(u
 
 void __39__DMFCategoryPolicyMonitor_policyTypes__block_invoke()
 {
-  v5[3] = *MEMORY[0x1E69E9840];
+  v4[3] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"applicationcategories";
-  v5[1] = @"categories";
-  v5[2] = @"websitecategories";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
+  v4[0] = @"applicationcategories";
+  v4[1] = @"categories";
+  v4[2] = @"websitecategories";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
   v2 = [v0 setWithArray:v1];
   v3 = policyTypes_types_0;
   policyTypes_types_0 = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestPoliciesForCategoryIdentifiers:(id)identifiers completionHandler:(id)handler
@@ -99,17 +98,16 @@ void __39__DMFCategoryPolicyMonitor_policyTypes__block_invoke()
 
 void __56__DMFCategoryPolicyMonitor_initWithPolicyChangeHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
   v4 = *(*(a1 + 32) + 8);
-  v6 = 138543874;
-  v7 = v4;
-  v8 = 2114;
-  v9 = v3;
-  v10 = 2114;
-  v11 = a2;
-  _os_log_error_impl(&dword_1DBFFF000, log, OS_LOG_TYPE_ERROR, "Failed to register category policy monitor with identifier %{public}@ for types %{public}@ with error: %{public}@", &v6, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543874;
+  v6 = v4;
+  v7 = 2114;
+  v8 = v3;
+  v9 = 2114;
+  v10 = a2;
+  _os_log_error_impl(&dword_1DBFFF000, log, OS_LOG_TYPE_ERROR, "Failed to register category policy monitor with identifier %{public}@ for types %{public}@ with error: %{public}@", &v5, 0x20u);
 }
 
 @end

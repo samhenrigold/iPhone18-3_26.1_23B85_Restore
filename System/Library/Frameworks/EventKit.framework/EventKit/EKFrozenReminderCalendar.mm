@@ -202,20 +202,8 @@ id __34__EKFrozenReminderCalendar_source__block_invoke(uint64_t a1)
   v8 = [v7 UUIDString];
   v9 = [v5 eventSourceIDForReminderSourceID:v8];
 
-  if (!v9)
+  if (!v9 || (v10 = objc_loadWeakRetained((*(a1 + 32) + 128)), [v10 eventStore], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "sourceWithIdentifier:", v9), v12 = objc_claimAutoreleasedReturnValue(), v11, v10, objc_msgSend(v12, "backingObject"), v13 = objc_claimAutoreleasedReturnValue(), v12, !v13))
   {
-    goto LABEL_3;
-  }
-
-  v10 = objc_loadWeakRetained((*(a1 + 32) + 128));
-  v11 = [v10 eventStore];
-  v12 = [v11 sourceWithIdentifier:v9];
-
-  v13 = [v12 backingObject];
-
-  if (!v13)
-  {
-LABEL_3:
     v14 = objc_loadWeakRetained((*(a1 + 32) + 128));
     v13 = [v14 frozenObjectForReminderObject:v3];
   }

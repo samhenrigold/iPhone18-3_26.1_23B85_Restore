@@ -355,13 +355,14 @@ LABEL_10:
 
 - (void)refreshTimeout
 {
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(self, a2);
+  if (isInternalInstall)
   {
-    v3 = _RUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_21B93D000, v3, OS_LOG_TYPE_DEFAULT, "Refresh page from timeout", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_21B93D000, v4, OS_LOG_TYPE_DEFAULT, "Refresh page from timeout", v5, 2u);
     }
   }
 
@@ -884,11 +885,11 @@ LABEL_16:
   }
 }
 
-uint64_t __41__RUIObjectModel_refreshWithObjectModel___block_invoke_2(uint64_t result, uint64_t a2, unint64_t a3, _BYTE *a4)
+id *__41__RUIObjectModel_refreshWithObjectModel___block_invoke_2(id *result, uint64_t a2, unint64_t a3, _BYTE *a4)
 {
-  if (*(result + 40) >= a3)
+  if (result[5] >= a3)
   {
-    return [*(result + 32) navigateToNextPageAnimated:0];
+    return [result[4] navigateToNextPageAnimated:{0, a4}];
   }
 
   *a4 = 1;
@@ -1413,22 +1414,23 @@ LABEL_30:
 
 - (id)relativeURLWithString:(id)string
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stringCopy = string;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(stringCopy, v5);
+  if (isInternalInstall)
   {
-    v5 = _RUILoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[RUIObjectModel relativeURLWithString:]";
-      _os_log_impl(&dword_21B93D000, v5, OS_LOG_TYPE_DEFAULT, "Using deprecating method %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "[RUIObjectModel relativeURLWithString:]";
+      _os_log_impl(&dword_21B93D000, v7, OS_LOG_TYPE_DEFAULT, "Using deprecating method %s", &v10, 0xCu);
     }
   }
 
-  v6 = [(RUIObjectModel *)self absoluteURLWithString:stringCopy];
+  v8 = [(RUIObjectModel *)self absoluteURLWithString:stringCopy];
 
-  return v6;
+  return v8;
 }
 
 - (id)elementsWithName:(id)name
@@ -1945,7 +1947,7 @@ uint64_t __70__RUIObjectModel__presentSecondConfirmationWithAttributes_completio
 
 - (void)handleAppleIDAuthenticationIfNeededForAttributes:(id)attributes completion:(id)completion
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   completionCopy = completion;
   v8 = [attributesCopy objectForKeyedSubscript:@"authRequired"];
@@ -1961,64 +1963,64 @@ uint64_t __70__RUIObjectModel__presentSecondConfirmationWithAttributes_completio
   if (bOOLValue)
   {
 LABEL_4:
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x3032000000;
-    v61 = __Block_byref_object_copy__0;
-    v62 = __Block_byref_object_dispose__0;
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x2050000000;
+    v62 = 0;
+    v63 = &v62;
+    v64 = 0x3032000000;
+    v65 = __Block_byref_object_copy__0;
+    v66 = __Block_byref_object_dispose__0;
+    v68 = 0;
+    v69 = &v68;
+    v70 = 0x2050000000;
     v11 = getAKAppleIDAuthenticationInAppContextClass_softClass;
-    v67 = getAKAppleIDAuthenticationInAppContextClass_softClass;
+    v71 = getAKAppleIDAuthenticationInAppContextClass_softClass;
     if (!getAKAppleIDAuthenticationInAppContextClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v74 = __getAKAppleIDAuthenticationInAppContextClass_block_invoke;
-      v75 = &unk_2782E8258;
-      v76 = &v64;
+      v78 = __getAKAppleIDAuthenticationInAppContextClass_block_invoke;
+      v79 = &unk_2782E8258;
+      v80 = &v68;
       __getAKAppleIDAuthenticationInAppContextClass_block_invoke(&buf);
-      v11 = *(v65 + 24);
+      v11 = *(v69 + 24);
     }
 
     v12 = v11;
-    _Block_object_dispose(&v64, 8);
-    v63 = objc_opt_new();
+    _Block_object_dispose(&v68, 8);
+    v67 = objc_opt_new();
     v13 = [attributesCopy objectForKeyedSubscript:@"authAccountIsPrimary"];
     bOOLValue2 = [v13 BOOLValue];
 
     if (bOOLValue2)
     {
-      v64 = 0;
-      v65 = &v64;
-      v66 = 0x2050000000;
+      v68 = 0;
+      v69 = &v68;
+      v70 = 0x2050000000;
       v15 = getACAccountStoreClass_softClass;
-      v67 = getACAccountStoreClass_softClass;
+      v71 = getACAccountStoreClass_softClass;
       if (!getACAccountStoreClass_softClass)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v74 = __getACAccountStoreClass_block_invoke;
-        v75 = &unk_2782E8258;
-        v76 = &v64;
+        v78 = __getACAccountStoreClass_block_invoke;
+        v79 = &unk_2782E8258;
+        v80 = &v68;
         __getACAccountStoreClass_block_invoke(&buf);
-        v15 = *(v65 + 24);
+        v15 = *(v69 + 24);
       }
 
       v16 = v15;
-      _Block_object_dispose(&v64, 8);
+      _Block_object_dispose(&v68, 8);
       v17 = objc_opt_new();
       aa_primaryAppleAccount = [v17 aa_primaryAppleAccount];
       username = [aa_primaryAppleAccount username];
 
       if ([username length])
       {
-        [v59[5] setUsername:username];
+        [v63[5] setUsername:username];
       }
     }
 
-    username2 = [v59[5] username];
+    username2 = [v63[5] username];
     if (![username2 length])
     {
       v21 = [attributesCopy objectForKeyedSubscript:@"authUsername"];
@@ -2029,40 +2031,44 @@ LABEL_4:
         goto LABEL_16;
       }
 
-      v23 = v59[5];
+      v23 = v63[5];
       username2 = [attributesCopy objectForKeyedSubscript:@"authUsername"];
       [v23 setUsername:username2];
     }
 
 LABEL_16:
-    username3 = [v59[5] username];
+    username3 = [v63[5] username];
     if (![username3 length])
     {
-      v29 = [attributesCopy objectForKeyedSubscript:@"authUsernameFieldID"];
-      v30 = [v29 length] == 0;
+      v30 = [attributesCopy objectForKeyedSubscript:@"authUsernameFieldID"];
+      v31 = [v30 length] == 0;
 
-      if (v30)
+      if (v31)
       {
         goto LABEL_18;
       }
 
-      v31 = [attributesCopy objectForKeyedSubscript:@"authUsernameFieldID"];
-      username3 = [(RUIObjectModel *)self textInRowWithIdentifier:v31];
+      v32 = [attributesCopy objectForKeyedSubscript:@"authUsernameFieldID"];
+      username3 = [(RUIObjectModel *)self textInRowWithIdentifier:v32];
 
       if ([username3 length])
       {
-        [v59[5] setUsername:username3];
+        [v63[5] setUsername:username3];
       }
 
-      else if (_isInternalInstall())
+      else
       {
-        v51 = _RUILoggingFacility();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+        isInternalInstall = _isInternalInstall(0, v33);
+        if (isInternalInstall)
         {
-          v52 = [attributesCopy objectForKeyedSubscript:@"authUsernameFieldID"];
-          LODWORD(buf) = 138412290;
-          *(&buf + 4) = v52;
-          _os_log_impl(&dword_21B93D000, v51, OS_LOG_TYPE_DEFAULT, "Could not find a username in usernameFieldID %@", &buf, 0xCu);
+          v55 = _RUILoggingFacility(isInternalInstall);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          {
+            v56 = [attributesCopy objectForKeyedSubscript:@"authUsernameFieldID"];
+            LODWORD(buf) = 138412290;
+            *(&buf + 4) = v56;
+            _os_log_impl(&dword_21B93D000, v55, OS_LOG_TYPE_DEFAULT, "Could not find a username in usernameFieldID %@", &buf, 0xCu);
+          }
         }
       }
     }
@@ -2078,98 +2084,102 @@ LABEL_18:
 
       if ([v28 length])
       {
-        [v59[5] _setPassword:v28];
+        [v63[5] _setPassword:v28];
       }
 
-      else if (_isInternalInstall())
+      else
       {
-        v32 = _RUILoggingFacility();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v34 = _isInternalInstall(0, v29);
+        if (v34)
         {
-          v33 = [attributesCopy objectForKeyedSubscript:@"authPasswordFieldID"];
-          LODWORD(buf) = 138412290;
-          *(&buf + 4) = v33;
-          _os_log_impl(&dword_21B93D000, v32, OS_LOG_TYPE_DEFAULT, "Could not find a password in passwordFieldID %@", &buf, 0xCu);
+          v35 = _RUILoggingFacility(v34);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          {
+            v36 = [attributesCopy objectForKeyedSubscript:@"authPasswordFieldID"];
+            LODWORD(buf) = 138412290;
+            *(&buf + 4) = v36;
+            _os_log_impl(&dword_21B93D000, v35, OS_LOG_TYPE_DEFAULT, "Could not find a password in passwordFieldID %@", &buf, 0xCu);
+          }
         }
       }
     }
 
-    v34 = v59[5];
-    v35 = [attributesCopy objectForKeyedSubscript:@"authReason"];
-    [v34 setReason:v35];
+    v37 = v63[5];
+    v38 = [attributesCopy objectForKeyedSubscript:@"authReason"];
+    [v37 setReason:v38];
 
     _parentNavigationController = [(RUIObjectModel *)self _parentNavigationController];
-    [v59[5] setPresentingViewController:_parentNavigationController];
-    v37 = [attributesCopy objectForKeyedSubscript:@"authIsEphemeral"];
-    bOOLValue3 = [v37 BOOLValue];
+    [v63[5] setPresentingViewController:_parentNavigationController];
+    v40 = [attributesCopy objectForKeyedSubscript:@"authIsEphemeral"];
+    bOOLValue3 = [v40 BOOLValue];
 
-    [v59[5] setIsEphemeral:bOOLValue3];
-    v39 = [attributesCopy objectForKeyedSubscript:@"authCredentialRecoveryRequired"];
-    bOOLValue4 = [v39 BOOLValue];
+    [v63[5] setIsEphemeral:bOOLValue3];
+    v42 = [attributesCopy objectForKeyedSubscript:@"authCredentialRecoveryRequired"];
+    bOOLValue4 = [v42 BOOLValue];
 
-    [v59[5] setNeedsCredentialRecovery:bOOLValue4];
-    v41 = [attributesCopy objectForKeyedSubscript:@"authIsTwoFactor"];
-    if (v41)
+    [v63[5] setNeedsCredentialRecovery:bOOLValue4];
+    v44 = [attributesCopy objectForKeyedSubscript:@"authIsTwoFactor"];
+    if (v44)
     {
-      v42 = [attributesCopy objectForKeyedSubscript:@"authIsTwoFactor"];
-      bOOLValue5 = [v42 BOOLValue];
+      v45 = [attributesCopy objectForKeyedSubscript:@"authIsTwoFactor"];
+      bOOLValue5 = [v45 BOOLValue];
 
-      v44 = bOOLValue5 ^ 1u;
+      v47 = bOOLValue5 ^ 1u;
     }
 
     else
     {
-      v44 = 0;
+      v47 = 0;
     }
 
-    [v59[5] setShouldPromptForPasswordOnly:v44];
-    username4 = [v59[5] username];
-    v46 = [username4 length] == 0;
+    [v63[5] setShouldPromptForPasswordOnly:v47];
+    username4 = [v63[5] username];
+    v49 = [username4 length] == 0;
 
-    if (!v46)
+    if (!v49)
     {
-      [v59[5] setIsUsernameEditable:0];
+      [v63[5] setIsUsernameEditable:0];
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v74 = 0x3032000000;
-    v75 = __Block_byref_object_copy__0;
-    v76 = __Block_byref_object_dispose__0;
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2050000000;
-    v47 = getAKAppleIDAuthenticationControllerClass_softClass;
-    v72 = getAKAppleIDAuthenticationControllerClass_softClass;
+    v78 = 0x3032000000;
+    v79 = __Block_byref_object_copy__0;
+    v80 = __Block_byref_object_dispose__0;
+    v73 = 0;
+    v74 = &v73;
+    v75 = 0x2050000000;
+    v50 = getAKAppleIDAuthenticationControllerClass_softClass;
+    v76 = getAKAppleIDAuthenticationControllerClass_softClass;
     if (!getAKAppleIDAuthenticationControllerClass_softClass)
     {
-      v64 = MEMORY[0x277D85DD0];
-      v65 = 3221225472;
-      v66 = __getAKAppleIDAuthenticationControllerClass_block_invoke;
-      v67 = &unk_2782E8258;
-      v68 = &v69;
-      __getAKAppleIDAuthenticationControllerClass_block_invoke(&v64);
-      v47 = v70[3];
+      v68 = MEMORY[0x277D85DD0];
+      v69 = 3221225472;
+      v70 = __getAKAppleIDAuthenticationControllerClass_block_invoke;
+      v71 = &unk_2782E8258;
+      v72 = &v73;
+      __getAKAppleIDAuthenticationControllerClass_block_invoke(&v68);
+      v50 = v74[3];
     }
 
-    v48 = v47;
-    _Block_object_dispose(&v69, 8);
-    v77 = objc_opt_new();
-    v49 = *(*(&buf + 1) + 40);
-    v50 = v59[5];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __78__RUIObjectModel_handleAppleIDAuthenticationIfNeededForAttributes_completion___block_invoke;
-    v53[3] = &unk_2782E8898;
-    v53[4] = self;
-    v54 = attributesCopy;
-    v55 = completionCopy;
+    v51 = v50;
+    _Block_object_dispose(&v73, 8);
+    v81 = objc_opt_new();
+    v52 = *(*(&buf + 1) + 40);
+    v53 = v63[5];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __78__RUIObjectModel_handleAppleIDAuthenticationIfNeededForAttributes_completion___block_invoke;
+    v57[3] = &unk_2782E8898;
+    v57[4] = self;
+    v58 = attributesCopy;
+    v59 = completionCopy;
     p_buf = &buf;
-    v57 = &v58;
-    [v49 authenticateWithContext:v50 completion:v53];
+    v61 = &v62;
+    [v52 authenticateWithContext:v53 completion:v57];
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v62, 8);
 
     goto LABEL_39;
   }
@@ -2203,53 +2213,53 @@ void __78__RUIObjectModel_handleAppleIDAuthenticationIfNeededForAttributes_compl
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __78__RUIObjectModel_handleAppleIDAuthenticationIfNeededForAttributes_completion___block_invoke_2(uint64_t a1)
+void __78__RUIObjectModel_handleAppleIDAuthenticationIfNeededForAttributes_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
-    v12 = *(a1 + 48);
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
-    v13 = getAKAuthenticationUsernameKeySymbolLoc_ptr;
-    v42 = getAKAuthenticationUsernameKeySymbolLoc_ptr;
+    v14 = *(a1 + 48);
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v15 = getAKAuthenticationUsernameKeySymbolLoc_ptr;
+    v44 = getAKAuthenticationUsernameKeySymbolLoc_ptr;
     if (!getAKAuthenticationUsernameKeySymbolLoc_ptr)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v44 = __getAKAuthenticationUsernameKeySymbolLoc_block_invoke;
-      v45 = &unk_2782E8258;
-      v46 = &v39;
-      v14 = AuthKitLibrary();
-      v15 = dlsym(v14, "AKAuthenticationUsernameKey");
-      *(v46[1] + 24) = v15;
-      getAKAuthenticationUsernameKeySymbolLoc_ptr = *(v46[1] + 24);
-      v13 = v40[3];
+      v46 = __getAKAuthenticationUsernameKeySymbolLoc_block_invoke;
+      v47 = &unk_2782E8258;
+      v48 = &v41;
+      v16 = AuthKitLibrary();
+      v17 = dlsym(v16, "AKAuthenticationUsernameKey");
+      *(v48[1] + 24) = v17;
+      getAKAuthenticationUsernameKeySymbolLoc_ptr = *(v48[1] + 24);
+      v15 = v42[3];
     }
 
-    _Block_object_dispose(&v39, 8);
-    if (!v13)
+    _Block_object_dispose(&v41, 8);
+    if (!v15)
     {
       __78__RUIObjectModel_handleAppleIDAuthenticationIfNeededForAttributes_completion___block_invoke_2_cold_1();
     }
 
-    v4 = [v12 objectForKeyedSubscript:*v13];
-    v16 = *(a1 + 48);
-    v17 = getAKAuthenticationPasswordKey();
-    v5 = [v16 objectForKeyedSubscript:v17];
+    v6 = [v14 objectForKeyedSubscript:*v15];
+    v18 = *(a1 + 48);
+    v19 = getAKAuthenticationPasswordKey();
+    v7 = [v18 objectForKeyedSubscript:v19];
 
-    [*(a1 + 40) setAuthPasswordEquivalent:v5];
-    v18 = [*(a1 + 56) objectForKeyedSubscript:@"authPasswordFieldID"];
-    [*(a1 + 40) setAuthPasswordFieldID:v18];
+    [*(a1 + 40) setAuthPasswordEquivalent:v7];
+    v20 = [*(a1 + 56) objectForKeyedSubscript:@"authPasswordFieldID"];
+    [*(a1 + 40) setAuthPasswordFieldID:v20];
 
-    if ([v4 length] && objc_msgSend(v5, "length"))
+    if ([v6 length] && objc_msgSend(v7, "length"))
     {
-      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", v4, v5, v39];
-      v20 = [v19 dataUsingEncoding:4];
-      v21 = [v20 base64EncodedStringWithOptions:0];
+      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", v6, v7, v41];
+      v22 = [v21 dataUsingEncoding:4];
+      v23 = [v22 base64EncodedStringWithOptions:0];
 
-      [*(*(a1 + 40) + 160) setObject:v21 forKeyedSubscript:@"Authorization"];
+      [*(*(a1 + 40) + 160) setObject:v23 forKeyedSubscript:@"Authorization"];
     }
 
     else
@@ -2260,55 +2270,56 @@ void __78__RUIObjectModel_handleAppleIDAuthenticationIfNeededForAttributes_compl
     goto LABEL_24;
   }
 
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(a1, a2);
+  if (isInternalInstall)
   {
-    v2 = _RUILoggingFacility();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v5 = *(a1 + 32);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v3;
-      _os_log_impl(&dword_21B93D000, v2, OS_LOG_TYPE_DEFAULT, "Auth failed with error %@", &buf, 0xCu);
+      *(&buf + 4) = v5;
+      _os_log_impl(&dword_21B93D000, v4, OS_LOG_TYPE_DEFAULT, "Auth failed with error %@", &buf, 0xCu);
     }
   }
 
-  v4 = [*(a1 + 32) domain];
-  v5 = getAKAppleIDAuthenticationErrorDomain();
-  if ([v4 isEqualToString:v5])
+  v6 = [*(a1 + 32) domain];
+  v7 = getAKAppleIDAuthenticationErrorDomain();
+  if ([v6 isEqualToString:v7])
   {
-    v6 = [*(a1 + 32) code] == -7003;
+    v8 = [*(a1 + 32) code] == -7003;
 
-    if (v6)
+    if (v8)
     {
       goto LABEL_25;
     }
 
-    v7 = [*(a1 + 32) domain];
-    v8 = getAKAppleIDAuthenticationErrorDomain();
-    if ([v7 isEqualToString:v8])
+    v9 = [*(a1 + 32) domain];
+    v10 = getAKAppleIDAuthenticationErrorDomain();
+    if ([v9 isEqualToString:v10])
     {
-      v9 = [*(a1 + 32) code] == -7006;
+      v11 = [*(a1 + 32) code] == -7006;
 
-      if (v9)
+      if (v11)
       {
-        v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v11 = [v10 localizedStringForKey:@"AUTH_WRONG_PASSWORD_ALERT_MESSAGE_REBRAND" value:&stru_282D68F58 table:@"Localizable"];
+        v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v13 = [v12 localizedStringForKey:@"AUTH_WRONG_PASSWORD_ALERT_MESSAGE_REBRAND" value:&stru_282D68F58 table:@"Localizable"];
 LABEL_23:
-        v4 = v11;
+        v6 = v13;
 
-        v25 = MEMORY[0x277D75110];
-        v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v27 = [v26 localizedStringForKey:@"AUTH_ERROR_ALERT_TITLE" value:&stru_282D68F58 table:@"Localizable"];
-        v5 = [v25 alertControllerWithTitle:v27 message:v4 preferredStyle:1];
+        v27 = MEMORY[0x277D75110];
+        v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v29 = [v28 localizedStringForKey:@"AUTH_ERROR_ALERT_TITLE" value:&stru_282D68F58 table:@"Localizable"];
+        v7 = [v27 alertControllerWithTitle:v29 message:v6 preferredStyle:1];
 
-        v28 = MEMORY[0x277D750F8];
-        v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v30 = [v29 localizedStringForKey:@"AUTH_ERROR_OK_BUTTON" value:&stru_282D68F58 table:@"Localizable"];
-        v31 = [v28 actionWithTitle:v30 style:0 handler:0];
-        [v5 addAction:v31];
+        v30 = MEMORY[0x277D750F8];
+        v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v32 = [v31 localizedStringForKey:@"AUTH_ERROR_OK_BUTTON" value:&stru_282D68F58 table:@"Localizable"];
+        v33 = [v30 actionWithTitle:v32 style:0 handler:0];
+        [v7 addAction:v33];
 
-        v32 = [*(a1 + 40) _parentViewController];
-        [v32 presentViewController:v5 animated:1 completion:0];
+        v34 = [*(a1 + 40) _parentViewController];
+        [v34 presentViewController:v7 animated:1 completion:0];
 
         goto LABEL_24;
       }
@@ -2318,22 +2329,22 @@ LABEL_23:
     {
     }
 
-    v22 = [*(a1 + 32) userInfo];
-    v23 = *MEMORY[0x277CCA450];
-    v24 = [v22 objectForKeyedSubscript:*MEMORY[0x277CCA450]];
+    v24 = [*(a1 + 32) userInfo];
+    v25 = *MEMORY[0x277CCA450];
+    v26 = [v24 objectForKeyedSubscript:*MEMORY[0x277CCA450]];
 
-    if (v24)
+    if (v26)
     {
-      v10 = [*(a1 + 32) userInfo];
-      [v10 objectForKeyedSubscript:v23];
+      v12 = [*(a1 + 32) userInfo];
+      [v12 objectForKeyedSubscript:v25];
     }
 
     else
     {
-      v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      [v10 localizedStringForKey:@"AUTH_OTHER_ERROR_ALERT_MESSAGE" value:&stru_282D68F58 table:@"Localizable"];
+      v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      [v12 localizedStringForKey:@"AUTH_OTHER_ERROR_ALERT_MESSAGE" value:&stru_282D68F58 table:@"Localizable"];
     }
-    v11 = ;
+    v13 = ;
     goto LABEL_23;
   }
 
@@ -2342,20 +2353,20 @@ LABEL_24:
 LABEL_25:
   if (*(a1 + 64))
   {
-    v33 = *(a1 + 48);
-    v34 = getAKAuthenticationPasswordKey();
-    [v33 objectForKeyedSubscript:v34];
+    v35 = *(a1 + 48);
+    v36 = getAKAuthenticationPasswordKey();
+    [v35 objectForKeyedSubscript:v36];
 
     (*(*(a1 + 64) + 16))();
   }
 
-  v35 = *(*(a1 + 72) + 8);
-  v36 = *(v35 + 40);
-  *(v35 + 40) = 0;
-
-  v37 = *(*(a1 + 80) + 8);
+  v37 = *(*(a1 + 72) + 8);
   v38 = *(v37 + 40);
   *(v37 + 40) = 0;
+
+  v39 = *(*(a1 + 80) + 8);
+  v40 = *(v39 + 40);
+  *(v39 + 40) = 0;
 }
 
 - (id)subElementWithID:(id)d
@@ -2512,26 +2523,28 @@ LABEL_26:
 
 - (void)activateElement:(id)element completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   completionCopy = completion;
-  if ([(RUIElement *)self->_activeElement isEqual:elementCopy])
+  v9 = [(RUIElement *)self->_activeElement isEqual:elementCopy];
+  if (v9)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v9, v10);
+    if (isInternalInstall)
     {
-      v9 = _RUILoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v12 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = elementCopy;
-        _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Already handling activation for element: %@", buf, 0xCu);
+        v29 = elementCopy;
+        _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Already handling activation for element: %@", buf, 0xCu);
       }
     }
 
     if (completionCopy)
     {
-      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.RemoteUI" code:4 userInfo:0];
-      completionCopy[2](completionCopy, 0, v10);
+      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.RemoteUI" code:4 userInfo:0];
+      completionCopy[2](completionCopy, 0, v13);
     }
   }
 
@@ -2544,59 +2557,62 @@ LABEL_26:
     if (sourceXMLElement)
     {
       telemetryDelegate = [(RUIObjectModel *)self telemetryDelegate];
-      v13 = [RUITelemetryElement alloc];
+      v18 = [RUITelemetryElement alloc];
       sourceXMLElement2 = [(RUIElement *)elementCopy sourceXMLElement];
       sourceURL = [(RUIObjectModel *)self sourceURL];
-      v16 = [(RUITelemetryElement *)v13 initWithXMLElement:sourceXMLElement2 url:sourceURL];
-      [telemetryDelegate willActivateElement:v16];
+      v21 = [(RUITelemetryElement *)v18 initWithXMLElement:sourceXMLElement2 url:sourceURL];
+      [telemetryDelegate willActivateElement:v21];
     }
 
-    if (_isInternalInstall())
+    v22 = _isInternalInstall(v15, v16);
+    if (v22)
     {
-      v17 = _RUILoggingFacility();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v23 = _RUILoggingFacility(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         activeElement = self->_activeElement;
         *buf = 138412290;
-        v23 = activeElement;
-        _os_log_impl(&dword_21B93D000, v17, OS_LOG_TYPE_DEFAULT, "Active element set %@", buf, 0xCu);
+        v29 = activeElement;
+        _os_log_impl(&dword_21B93D000, v23, OS_LOG_TYPE_DEFAULT, "Active element set %@", buf, 0xCu);
       }
     }
 
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __45__RUIObjectModel_activateElement_completion___block_invoke;
-    v19[3] = &unk_2782E88C0;
-    v19[4] = self;
-    v20 = elementCopy;
-    v21 = completionCopy;
-    [(RUIObjectModel *)self handleElementChange:v20 action:2 completion:v19];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __45__RUIObjectModel_activateElement_completion___block_invoke;
+    v25[3] = &unk_2782E88C0;
+    v25[4] = self;
+    v26 = elementCopy;
+    v27 = completionCopy;
+    [(RUIObjectModel *)self handleElementChange:v26 action:2 completion:v25];
   }
 }
 
 void __45__RUIObjectModel_activateElement_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = [*(a1 + 32) telemetryDelegate];
-    v7 = [RUITelemetryElement alloc];
-    v8 = [*(a1 + 40) sourceXMLElement];
-    v9 = [*(a1 + 32) sourceURL];
-    v10 = [(RUITelemetryElement *)v7 initWithXMLElement:v8 url:v9];
-    [v6 processedElementWithError:v5 forElement:v10];
+    v8 = [*(a1 + 32) telemetryDelegate];
+    v9 = [RUITelemetryElement alloc];
+    v10 = [*(a1 + 40) sourceXMLElement];
+    v11 = [*(a1 + 32) sourceURL];
+    v12 = [(RUITelemetryElement *)v9 initWithXMLElement:v10 url:v11];
+    [v8 processedElementWithError:v7 forElement:v12];
   }
 
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(v5, v6);
+  if (isInternalInstall)
   {
-    v11 = _RUILoggingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(*(a1 + 32) + 216);
-      v18 = 138412290;
-      v19 = v12;
-      _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "Removing active element %@", &v18, 0xCu);
+      v15 = *(*(a1 + 32) + 216);
+      v21 = 138412290;
+      v22 = v15;
+      _os_log_impl(&dword_21B93D000, v14, OS_LOG_TYPE_DEFAULT, "Removing active element %@", &v21, 0xCu);
     }
   }
 
@@ -2606,18 +2622,18 @@ void __45__RUIObjectModel_activateElement_completion___block_invoke(uint64_t a1,
     [*(a1 + 32) setActivityIndicatorStatus:0 forElement:?];
   }
 
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 264);
-  *(v13 + 264) = 0;
+  v16 = *(a1 + 32);
+  v17 = *(v16 + 264);
+  *(v16 + 264) = 0;
 
-  v15 = *(a1 + 32);
-  v16 = *(v15 + 216);
-  *(v15 + 216) = 0;
+  v18 = *(a1 + 32);
+  v19 = *(v18 + 216);
+  *(v18 + 216) = 0;
 
-  v17 = *(a1 + 48);
-  if (v17)
+  v20 = *(a1 + 48);
+  if (v20)
   {
-    (*(v17 + 16))(v17, a2, v5);
+    (*(v20 + 16))(v20, a2, v7);
   }
 }
 
@@ -2701,7 +2717,7 @@ void __45__RUIObjectModel_activateElement_completion___block_invoke(uint64_t a1,
   [(RUIObjectModel *)self presentConfirmationIfNeededForElement:v10 completion:v12];
 }
 
-void __56__RUIObjectModel_handleElementChange_action_completion___block_invoke(uint64_t a1, int a2, char a3)
+void __56__RUIObjectModel_handleElementChange_action_completion___block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
   if (!a2 || (a3 & 1) != 0)
   {
@@ -2791,28 +2807,28 @@ void __56__RUIObjectModel_handleElementChange_action_completion___block_invoke_3
       {
         if (v13 == 2)
         {
-          v14 = [*(a1 + 40) visiblePage];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __56__RUIObjectModel_handleElementChange_action_completion___block_invoke_5;
-          v23[3] = &unk_2782E8180;
-          v24 = *(a1 + 48);
-          [v14 dismissIfPresentedWithCompletion:v23];
+          v15 = [*(a1 + 40) visiblePage];
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __56__RUIObjectModel_handleElementChange_action_completion___block_invoke_5;
+          v24[3] = &unk_2782E8180;
+          v25 = *(a1 + 48);
+          [v15 dismissIfPresentedWithCompletion:v24];
 
           goto LABEL_18;
         }
 
 LABEL_13:
-        v20 = _RUILoggingFacility();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = _RUILoggingFacility(v14);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          __56__RUIObjectModel_handleElementChange_action_completion___block_invoke_3_cold_1(a1, v20);
+          __56__RUIObjectModel_handleElementChange_action_completion___block_invoke_3_cold_1(a1, v21);
         }
 
-        v21 = *(a1 + 48);
-        if (v21)
+        v22 = *(a1 + 48);
+        if (v22)
         {
-          v10 = *(v21 + 16);
+          v10 = *(v22 + 16);
           goto LABEL_17;
         }
 
@@ -2829,20 +2845,20 @@ LABEL_13:
       }
     }
 
-    v15 = [*(a1 + 32) attributes];
-    v16 = [v15 objectForKeyedSubscript:@"url"];
+    v16 = [*(a1 + 32) attributes];
+    v17 = [v16 objectForKeyedSubscript:@"url"];
 
-    v17 = *(a1 + 40);
-    v18 = [*(a1 + 32) attributes];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __56__RUIObjectModel_handleElementChange_action_completion___block_invoke_4;
-    v25[3] = &unk_2782E88C0;
-    v22 = *(a1 + 32);
-    v19 = v22.i64[0];
-    v26 = vextq_s8(v22, v22, 8uLL);
-    v27 = *(a1 + 48);
-    [v17 _handleLinkPress:v16 attributes:v18 completion:v25];
+    v18 = *(a1 + 40);
+    v19 = [*(a1 + 32) attributes];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __56__RUIObjectModel_handleElementChange_action_completion___block_invoke_4;
+    v26[3] = &unk_2782E88C0;
+    v23 = *(a1 + 32);
+    v20 = v23.i64[0];
+    v27 = vextq_s8(v23, v23, 8uLL);
+    v28 = *(a1 + 48);
+    [v18 _handleLinkPress:v17 attributes:v19 completion:v26];
 
     goto LABEL_18;
   }
@@ -2935,7 +2951,7 @@ uint64_t __56__RUIObjectModel_handleElementChange_action_completion___block_invo
 
 - (void)_handleLinkPress:(id)press attributes:(id)attributes completion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   pressCopy = press;
   attributesCopy = attributes;
   completionCopy = completion;
@@ -2969,14 +2985,15 @@ uint64_t __56__RUIObjectModel_handleElementChange_action_completion___block_invo
 
     else
     {
-      v22 = [(NSMutableDictionary *)self->_namedAlerts objectForKey:v11];
-      if (v22 && [(RUIObjectModel *)self _shouldDisplayNamedElement:0 page:0])
+      v26 = [(NSMutableDictionary *)self->_namedAlerts objectForKey:v11];
+      v28 = v26;
+      if (v26 && (v26 = [(RUIObjectModel *)self _shouldDisplayNamedElement:0 page:0], v26))
       {
         _parentViewController = [(RUIObjectModel *)self _parentViewController];
         v13 = _parentViewController != 0;
         if (_parentViewController)
         {
-          [v22 runAlertInController:_parentViewController completion:0];
+          [v28 runAlertInController:_parentViewController completion:0];
         }
 
         v14 = 0;
@@ -2984,14 +3001,15 @@ uint64_t __56__RUIObjectModel_handleElementChange_action_completion___block_invo
 
       else
       {
-        if (_isInternalInstall())
+        isInternalInstall = _isInternalInstall(v26, v27);
+        if (isInternalInstall)
         {
-          v24 = _RUILoggingFacility();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v31 = _RUILoggingFacility(isInternalInstall);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v53 = pressCopy;
-            _os_log_impl(&dword_21B93D000, v24, OS_LOG_TYPE_DEFAULT, "Link press for named element %@ did not find an element", buf, 0xCu);
+            v65 = pressCopy;
+            _os_log_impl(&dword_21B93D000, v31, OS_LOG_TYPE_DEFAULT, "Link press for named element %@ did not find an element", buf, 0xCu);
           }
         }
 
@@ -3024,120 +3042,124 @@ LABEL_39:
     rui_isSupportedSafariURL = 0;
   }
 
-  if (([v11 rui_isSupportedNativeURL] & 1) != 0 || rui_isSupportedSafariURL)
+  rui_isSupportedNativeURL = [v11 rui_isSupportedNativeURL];
+  if ((rui_isSupportedNativeURL & 1) != 0 || rui_isSupportedSafariURL)
   {
-    if (_isInternalInstall())
+    v20 = _isInternalInstall(rui_isSupportedNativeURL, v18);
+    if (v20)
     {
-      v18 = _RUILoggingFacility();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v21 = _RUILoggingFacility(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B93D000, v18, OS_LOG_TYPE_DEFAULT, "RUIObjectModel - url provided is native", buf, 2u);
+        _os_log_impl(&dword_21B93D000, v21, OS_LOG_TYPE_DEFAULT, "RUIObjectModel - url provided is native", buf, 2u);
       }
     }
 
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v51 = 0;
-    [defaultWorkspace openSensitiveURL:v11 withOptions:0 error:&v51];
-    v20 = v51;
+    v63 = 0;
+    [defaultWorkspace openSensitiveURL:v11 withOptions:0 error:&v63];
+    v23 = v63;
 
-    if (v20)
+    if (v23)
     {
-      v21 = _RUILoggingFacility();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v25 = _RUILoggingFacility(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [RUIObjectModel _handleLinkPress:v11 attributes:v20 completion:v21];
+        [RUIObjectModel _handleLinkPress:v11 attributes:v23 completion:v25];
       }
     }
 
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, v20 == 0, v20);
+      completionCopy[2](completionCopy, v23 == 0, v23);
     }
 
     goto LABEL_40;
   }
 
-  v17 = [attributesCopy objectForKeyedSubscript:@"fetchLinksInModalWebView"];
-  if ([v17 BOOLValue])
+  v19 = [attributesCopy objectForKeyedSubscript:@"fetchLinksInModalWebView"];
+  if ([v19 BOOLValue])
   {
   }
 
   else
   {
-    v25 = [attributesCopy objectForKeyedSubscript:@"isModalHTMLView"];
-    bOOLValue = [v25 BOOLValue];
+    v32 = [attributesCopy objectForKeyedSubscript:@"isModalHTMLView"];
+    bOOLValue = [v32 BOOLValue];
 
     if (!bOOLValue)
     {
       if (v11)
       {
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        v34 = objc_opt_respondsToSelector();
+        v41 = objc_opt_respondsToSelector();
 
-        if (v34)
+        if (v41)
         {
           [(RUIObjectModel *)self _startNavigationBarSpinnerIfNeededForAttributes:attributesCopy];
-          v35 = objc_loadWeakRetained(&self->_delegate);
-          v36 = objc_opt_respondsToSelector();
+          v42 = objc_loadWeakRetained(&self->_delegate);
+          v43 = objc_opt_respondsToSelector();
 
-          if (v36)
+          if (v43)
           {
-            v37 = objc_loadWeakRetained(&self->_delegate);
-            [v37 objectModel:self willLoadLinkURL:v11 attributes:attributesCopy];
+            v44 = objc_loadWeakRetained(&self->_delegate);
+            [v44 objectModel:self willLoadLinkURL:v11 attributes:attributesCopy];
           }
 
-          v38 = objc_loadWeakRetained(&self->_delegate);
-          v39 = [attributesCopy objectForKeyedSubscript:@"httpMethod"];
-          v48[0] = MEMORY[0x277D85DD0];
-          v48[1] = 3221225472;
-          v48[2] = __57__RUIObjectModel__handleLinkPress_attributes_completion___block_invoke;
-          v48[3] = &unk_2782E88C0;
-          v48[4] = self;
-          v49 = attributesCopy;
-          v50 = completionCopy;
-          [v38 objectModel:self pressedLink:v11 httpMethod:v39 completion:v48];
+          v45 = objc_loadWeakRetained(&self->_delegate);
+          v46 = [attributesCopy objectForKeyedSubscript:@"httpMethod"];
+          v60[0] = MEMORY[0x277D85DD0];
+          v60[1] = 3221225472;
+          v60[2] = __57__RUIObjectModel__handleLinkPress_attributes_completion___block_invoke;
+          v60[3] = &unk_2782E88C0;
+          v60[4] = self;
+          v61 = attributesCopy;
+          v62 = completionCopy;
+          [v45 objectModel:self pressedLink:v11 httpMethod:v46 completion:v60];
 
-          v40 = v49;
+          v47 = v61;
         }
 
         else
         {
-          v41 = objc_loadWeakRetained(&self->_delegate);
-          v42 = objc_opt_respondsToSelector();
+          v48 = objc_loadWeakRetained(&self->_delegate);
+          v49 = objc_opt_respondsToSelector();
 
-          if ((v42 & 1) == 0)
+          if ((v49 & 1) == 0)
           {
             goto LABEL_40;
           }
 
-          v43 = objc_loadWeakRetained(&self->_delegate);
-          v44 = [attributesCopy objectForKeyedSubscript:@"httpMethod"];
-          [v43 objectModel:self pressedLink:v11 httpMethod:v44];
+          v50 = objc_loadWeakRetained(&self->_delegate);
+          v51 = [attributesCopy objectForKeyedSubscript:@"httpMethod"];
+          [v50 objectModel:self pressedLink:v11 httpMethod:v51];
 
-          if (_isInternalInstall())
+          v54 = _isInternalInstall(v52, v53);
+          if (v54)
           {
-            v45 = _RUILoggingFacility();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+            v56 = _RUILoggingFacility(v54);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21B93D000, v45, OS_LOG_TYPE_DEFAULT, "DEPRECATED - Please use objectModel:pressedLink:httpMethod:completion:", buf, 2u);
+              _os_log_impl(&dword_21B93D000, v56, OS_LOG_TYPE_DEFAULT, "DEPRECATED - Please use objectModel:pressedLink:httpMethod:completion:", buf, 2u);
             }
           }
 
-          if (_isInternalInstall())
+          v57 = _isInternalInstall(v54, v55);
+          if (v57)
           {
-            v46 = _RUILoggingFacility();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+            v58 = _RUILoggingFacility(v57);
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
             {
               activeElement = self->_activeElement;
               *buf = 138412290;
-              v53 = activeElement;
-              _os_log_impl(&dword_21B93D000, v46, OS_LOG_TYPE_DEFAULT, "Removing active element %@", buf, 0xCu);
+              v65 = activeElement;
+              _os_log_impl(&dword_21B93D000, v58, OS_LOG_TYPE_DEFAULT, "Removing active element %@", buf, 0xCu);
             }
           }
 
-          v40 = self->_activeElement;
+          v47 = self->_activeElement;
           self->_activeElement = 0;
         }
 
@@ -3151,15 +3173,15 @@ LABEL_39:
 
   if (v11)
   {
-    v27 = objc_loadWeakRetained(&self->_delegate);
-    v28 = objc_opt_respondsToSelector();
+    v34 = objc_loadWeakRetained(&self->_delegate);
+    v35 = objc_opt_respondsToSelector();
 
-    if ((v28 & 1) == 0 || (v29 = objc_loadWeakRetained(&self->_delegate), v30 = [v29 objectModel:self shouldShowModalHTMLViewWithURL:v11], v29, v30))
+    if ((v35 & 1) == 0 || (v36 = objc_loadWeakRetained(&self->_delegate), v37 = [v36 objectModel:self shouldShowModalHTMLViewWithURL:v11], v36, v37))
     {
       v12 = [attributesCopy objectForKeyedSubscript:@"dismissButtonLabel"];
-      v31 = [attributesCopy objectForKeyedSubscript:@"dismissButtonAlignment"];
-      v32 = [attributesCopy objectForKeyedSubscript:@"shouldScaleHTMLPageToFit"];
-      -[RUIObjectModel showModalWebViewWithLinkURL:dismissButtonLabel:dismissButtonAlignment:scaleToFit:loadCompletion:dismissHandler:](self, "showModalWebViewWithLinkURL:dismissButtonLabel:dismissButtonAlignment:scaleToFit:loadCompletion:dismissHandler:", v11, v12, v31, [v32 BOOLValue], completionCopy, 0);
+      v38 = [attributesCopy objectForKeyedSubscript:@"dismissButtonAlignment"];
+      v39 = [attributesCopy objectForKeyedSubscript:@"shouldScaleHTMLPageToFit"];
+      -[RUIObjectModel showModalWebViewWithLinkURL:dismissButtonLabel:dismissButtonAlignment:scaleToFit:loadCompletion:dismissHandler:](self, "showModalWebViewWithLinkURL:dismissButtonLabel:dismissButtonAlignment:scaleToFit:loadCompletion:dismissHandler:", v11, v12, v38, [v39 BOOLValue], completionCopy, 0);
 
       goto LABEL_39;
     }
@@ -3309,54 +3331,54 @@ LABEL_11:
 - (void)showModalWebViewWithLinkURL:(id)l dismissButtonLabel:(id)label dismissButtonAlignment:(id)alignment scaleToFit:(BOOL)fit loadCompletion:(id)completion dismissHandler:(id)handler
 {
   fitCopy = fit;
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lCopy = l;
   labelCopy = label;
   alignmentCopy = alignment;
   completionCopy = completion;
   handlerCopy = handler;
   webViewDismissHandler = self->_webViewDismissHandler;
-  isInternalInstall = _isInternalInstall();
+  isInternalInstall = _isInternalInstall(handlerCopy, v20);
   if (!webViewDismissHandler)
   {
     if (isInternalInstall)
     {
-      v22 = _RUILoggingFacility();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         host = [lCopy host];
-        v28 = 138412290;
-        v29 = host;
-        _os_log_impl(&dword_21B93D000, v22, OS_LOG_TYPE_DEFAULT, "Showing modal web view with domain '%@'", &v28, 0xCu);
+        v29 = 138412290;
+        v30 = host;
+        _os_log_impl(&dword_21B93D000, v23, OS_LOG_TYPE_DEFAULT, "Showing modal web view with domain '%@'", &v29, 0xCu);
       }
     }
 
-    v24 = _Block_copy(handlerCopy);
-    v25 = self->_webViewDismissHandler;
-    self->_webViewDismissHandler = v24;
+    v25 = _Block_copy(handlerCopy);
+    v26 = self->_webViewDismissHandler;
+    self->_webViewDismissHandler = v25;
 
-    v21 = [[RemoteUIWebViewController alloc] initWithNibName:0 bundle:0];
+    v22 = [[RemoteUIWebViewController alloc] initWithNibName:0 bundle:0];
     style = [(RUIObjectModel *)self style];
-    [(RemoteUIWebViewController *)v21 setStyle:style];
+    [(RemoteUIWebViewController *)v22 setStyle:style];
 
-    [(RemoteUIWebViewController *)v21 setDismissButtonAlignment:alignmentCopy];
-    [(RemoteUIWebViewController *)v21 setDismissButtonLabel:labelCopy];
-    [(RemoteUIWebViewController *)v21 setScalesPageToFit:fitCopy];
-    [(RemoteUIWebViewController *)v21 setDelegate:self];
+    [(RemoteUIWebViewController *)v22 setDismissButtonAlignment:alignmentCopy];
+    [(RemoteUIWebViewController *)v22 setDismissButtonLabel:labelCopy];
+    [(RemoteUIWebViewController *)v22 setScalesPageToFit:fitCopy];
+    [(RemoteUIWebViewController *)v22 setDelegate:self];
     _parentViewController = [(RUIObjectModel *)self _parentViewController];
-    [_parentViewController presentViewController:v21 animated:1 completion:0];
+    [_parentViewController presentViewController:v22 animated:1 completion:0];
 
-    [(RemoteUIWebViewController *)v21 loadURL:lCopy completion:completionCopy];
+    [(RemoteUIWebViewController *)v22 loadURL:lCopy completion:completionCopy];
     goto LABEL_10;
   }
 
   if (isInternalInstall)
   {
-    v21 = _RUILoggingFacility();
-    if (os_log_type_enabled(&v21->super.super.super, OS_LOG_TYPE_DEFAULT))
+    v22 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(&v22->super.super.super, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_21B93D000, &v21->super.super.super, OS_LOG_TYPE_DEFAULT, "Error: Can't show a modal web view, already showing one!", &v28, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_21B93D000, &v22->super.super.super, OS_LOG_TYPE_DEFAULT, "Error: Can't show a modal web view, already showing one!", &v29, 2u);
     }
 
 LABEL_10:
@@ -3920,7 +3942,7 @@ LABEL_11:
 
 - (void)RUIPage:(id)page pressedNavBarButton:(id)button
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   buttonCopy = button;
   attributes = [(RUIElement *)buttonCopy attributes];
   v8 = [attributes objectForKey:@"validationFunction"];
@@ -3932,16 +3954,18 @@ LABEL_11:
       [(RUIObjectModel *)self _navigateToNextPageAnimated];
     }
 
-    if ([(RUIElement *)self->_activeElement isEqual:buttonCopy])
+    v11 = [(RUIElement *)self->_activeElement isEqual:buttonCopy];
+    if (v11)
     {
-      if (_isInternalInstall())
+      isInternalInstall = _isInternalInstall(v11, v12);
+      if (isInternalInstall)
       {
-        v11 = _RUILoggingFacility();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v14 = _RUILoggingFacility(isInternalInstall);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v17 = buttonCopy;
-          _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "Already handling activation for barButtonItem: %@", buf, 0xCu);
+          v23 = buttonCopy;
+          _os_log_impl(&dword_21B93D000, v14, OS_LOG_TYPE_DEFAULT, "Already handling activation for barButtonItem: %@", buf, 0xCu);
         }
       }
     }
@@ -3952,57 +3976,60 @@ LABEL_11:
       barButtonItem = [(RUIElement *)buttonCopy barButtonItem];
       [(RUIObjectModel *)self setPopoverSourceItem:barButtonItem];
 
-      if (_isInternalInstall())
+      v18 = _isInternalInstall(v16, v17);
+      if (v18)
       {
-        v13 = _RUILoggingFacility();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v19 = _RUILoggingFacility(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           activeElement = self->_activeElement;
           *buf = 138412290;
-          v17 = activeElement;
-          _os_log_impl(&dword_21B93D000, v13, OS_LOG_TYPE_DEFAULT, "Active barButtonItem set %@", buf, 0xCu);
+          v23 = activeElement;
+          _os_log_impl(&dword_21B93D000, v19, OS_LOG_TYPE_DEFAULT, "Active barButtonItem set %@", buf, 0xCu);
         }
       }
 
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __46__RUIObjectModel_RUIPage_pressedNavBarButton___block_invoke;
-      v15[3] = &unk_2782E8018;
-      v15[4] = self;
-      [(RUIObjectModel *)self handleElementChange:buttonCopy action:2 completion:v15];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __46__RUIObjectModel_RUIPage_pressedNavBarButton___block_invoke;
+      v21[3] = &unk_2782E8018;
+      v21[4] = self;
+      [(RUIObjectModel *)self handleElementChange:buttonCopy action:2 completion:v21];
     }
   }
 }
 
 void __46__RUIObjectModel_RUIPage_pressedNavBarButton___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = [*(a1 + 32) telemetryDelegate];
-    v6 = [RUITelemetryElement alloc];
-    v7 = [*(*(a1 + 32) + 216) sourceXMLElement];
-    v8 = [*(a1 + 32) sourceURL];
-    v9 = [(RUITelemetryElement *)v6 initWithXMLElement:v7 url:v8];
-    [v5 processedElementWithError:v4 forElement:v9];
+    v7 = [*(a1 + 32) telemetryDelegate];
+    v8 = [RUITelemetryElement alloc];
+    v9 = [*(*(a1 + 32) + 216) sourceXMLElement];
+    v10 = [*(a1 + 32) sourceURL];
+    v11 = [(RUITelemetryElement *)v8 initWithXMLElement:v9 url:v10];
+    [v7 processedElementWithError:v6 forElement:v11];
   }
 
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(v4, v5);
+  if (isInternalInstall)
   {
-    v10 = _RUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*(a1 + 32) + 216);
-      v14 = 138412290;
-      v15 = v11;
-      _os_log_impl(&dword_21B93D000, v10, OS_LOG_TYPE_DEFAULT, "Removing active barButtonItem %@", &v14, 0xCu);
+      v14 = *(*(a1 + 32) + 216);
+      v17 = 138412290;
+      v18 = v14;
+      _os_log_impl(&dword_21B93D000, v13, OS_LOG_TYPE_DEFAULT, "Removing active barButtonItem %@", &v17, 0xCu);
     }
   }
 
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 216);
-  *(v12 + 216) = 0;
+  v15 = *(a1 + 32);
+  v16 = *(v15 + 216);
+  *(v15 + 216) = 0;
 }
 
 - (void)RUIPage:(id)page toggledEditing:(BOOL)editing
@@ -4067,45 +4094,48 @@ void __46__RUIObjectModel_RUIPage_pressedNavBarButton___block_invoke(uint64_t a1
 
 - (BOOL)validateWithFunction:(id)function
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   functionCopy = function;
-  if (![(RUIObjectModel *)self prepareScriptContext])
+  prepareScriptContext = [(RUIObjectModel *)self prepareScriptContext];
+  if ((prepareScriptContext & 1) == 0)
   {
-    if (!_isInternalInstall())
+    isInternalInstall = _isInternalInstall(prepareScriptContext, v6);
+    if (!isInternalInstall)
     {
       goto LABEL_21;
     }
 
-    v11 = _RUILoggingFacility();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v20 = _RUILoggingFacility(isInternalInstall);
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_20;
     }
 
     *buf = 138412290;
-    v16 = functionCopy;
-    v12 = "Validation with '%@': No script context!";
+    v28 = functionCopy;
+    v21 = "Validation with '%@': No script context!";
 LABEL_19:
-    _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
+    _os_log_impl(&dword_21B93D000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
     goto LABEL_20;
   }
 
   if (![(__CFString *)functionCopy length])
   {
-    if (!_isInternalInstall())
+    v22 = _isInternalInstall(0, v7);
+    if (!v22)
     {
       goto LABEL_21;
     }
 
-    v11 = _RUILoggingFacility();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v20 = _RUILoggingFacility(v22);
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_20;
     }
 
     *buf = 138412290;
-    v16 = functionCopy;
-    v12 = "Validation with '%@': Empty function!";
+    v28 = functionCopy;
+    v21 = "Validation with '%@': Empty function!";
     goto LABEL_19;
   }
 
@@ -4113,14 +4143,15 @@ LABEL_19:
   ObjectProperty = getObjectProperty(self->_ctx, GlobalObject, functionCopy);
   if (!ObjectProperty)
   {
-    if (_isInternalInstall())
+    v23 = _isInternalInstall(0, v10);
+    if (v23)
     {
-      v11 = _RUILoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v20 = _RUILoggingFacility(v23);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = functionCopy;
-        v12 = "Validation with '%@': Invalid script!";
+        v28 = functionCopy;
+        v21 = "Validation with '%@': Invalid script!";
         goto LABEL_19;
       }
 
@@ -4128,49 +4159,52 @@ LABEL_20:
     }
 
 LABEL_21:
-    LOBYTE(v8) = 1;
+    LOBYTE(v14) = 1;
     goto LABEL_22;
   }
 
   exception = 0;
-  v7 = JSObjectCallAsFunction(self->_ctx, ObjectProperty, 0, 0, 0, &exception);
+  v11 = JSObjectCallAsFunction(self->_ctx, ObjectProperty, 0, 0, 0, &exception);
   [(RUIObjectModel *)self _logException:exception];
-  if (!JSValueIsBoolean(self->_ctx, v7))
+  IsBoolean = JSValueIsBoolean(self->_ctx, v11);
+  if (!IsBoolean)
   {
-    if (_isInternalInstall())
+    v25 = _isInternalInstall(IsBoolean, v13);
+    if (v25)
     {
-      v9 = _RUILoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v17 = _RUILoggingFacility(v25);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = functionCopy;
-        _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Validation with '%@': Didn't return a BOOL!", buf, 0xCu);
+        v28 = functionCopy;
+        _os_log_impl(&dword_21B93D000, v17, OS_LOG_TYPE_DEFAULT, "Validation with '%@': Didn't return a BOOL!", buf, 0xCu);
       }
 
-      LOBYTE(v8) = 1;
+      LOBYTE(v14) = 1;
       goto LABEL_27;
     }
 
     goto LABEL_21;
   }
 
-  v8 = JSValueToBoolean(self->_ctx, v7);
-  if (_isInternalInstall())
+  v14 = JSValueToBoolean(self->_ctx, v11);
+  v16 = _isInternalInstall(v14, v15);
+  if (v16)
   {
-    v9 = _RUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v17 = _RUILoggingFacility(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @"false";
-      if (v8)
+      v18 = @"false";
+      if (v14)
       {
-        v10 = @"true";
+        v18 = @"true";
       }
 
       *buf = 138412546;
-      v16 = functionCopy;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Validation with '%@': %@", buf, 0x16u);
+      v28 = functionCopy;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_21B93D000, v17, OS_LOG_TYPE_DEFAULT, "Validation with '%@': %@", buf, 0x16u);
     }
 
 LABEL_27:
@@ -4178,7 +4212,7 @@ LABEL_27:
 
 LABEL_22:
 
-  return v8;
+  return v14;
 }
 
 - (id)objectForJSValue:(OpaqueJSValue *)value
@@ -4280,15 +4314,17 @@ LABEL_22:
 
 - (id)invokeScriptFunction:(id)function withArguments:(id)arguments
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   functionCopy = function;
   argumentsCopy = arguments;
-  if (![(RUIObjectModel *)self prepareScriptContext])
+  prepareScriptContext = [(RUIObjectModel *)self prepareScriptContext];
+  if ((prepareScriptContext & 1) == 0)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(prepareScriptContext, v9);
+    if (isInternalInstall)
     {
-      v29 = _RUILoggingFacility();
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v33 = _RUILoggingFacility(isInternalInstall);
+      if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_41:
 
@@ -4297,14 +4333,14 @@ LABEL_41:
 
       *buf = 138412290;
       *&buf[4] = functionCopy;
-      v30 = "Script invocation for '%@': No script context!";
+      v34 = "Script invocation for '%@': No script context!";
 LABEL_40:
-      _os_log_impl(&dword_21B93D000, v29, OS_LOG_TYPE_DEFAULT, v30, buf, 0xCu);
+      _os_log_impl(&dword_21B93D000, v33, OS_LOG_TYPE_DEFAULT, v34, buf, 0xCu);
       goto LABEL_41;
     }
 
 LABEL_42:
-    v31 = 0;
+    v35 = 0;
     goto LABEL_43;
   }
 
@@ -4317,43 +4353,44 @@ LABEL_42:
   ObjectProperty = getObjectProperty(self->_ctx, GlobalObject, functionCopy);
   if (!ObjectProperty)
   {
-    if (!_isInternalInstall())
+    v37 = _isInternalInstall(0, v12);
+    if (!v37)
     {
       goto LABEL_42;
     }
 
-    v29 = _RUILoggingFacility();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v33 = _RUILoggingFacility(v37);
+    if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
     }
 
     *buf = 138412290;
     *&buf[4] = functionCopy;
-    v30 = "Script invocation for '%@': Invalid script!";
+    v34 = "Script invocation for '%@': Invalid script!";
     goto LABEL_40;
   }
 
-  v10 = ObjectProperty;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v11 = argumentsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v46 objects:v51 count:16];
-  if (v12)
+  v13 = ObjectProperty;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v14 = argumentsCopy;
+  v15 = [v14 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  if (v15)
   {
     selfCopy = self;
-    v34 = functionCopy;
-    v13 = 0;
-    v14 = *v47;
+    v39 = functionCopy;
+    v16 = 0;
+    v17 = *v52;
     do
     {
-      for (i = 0; i != v12; i = (i + 1))
+      for (i = 0; i != v15; i = (i + 1))
       {
-        if (*v47 != v14)
+        if (*v52 != v17)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v14);
         }
 
         objc_opt_class();
@@ -4374,57 +4411,57 @@ LABEL_42:
           }
         }
 
-        ++v13;
+        ++v16;
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
-    while (v12);
+    while (v15);
 
-    if (v13 >= 1)
+    if (v16 >= 1)
     {
-      v12 = malloc_type_calloc(v13, 8uLL, 0x6004044C4A2DFuLL);
-      v42 = 0u;
-      v43 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      obj = v11;
+      v15 = malloc_type_calloc(v16, 8uLL, 0x6004044C4A2DFuLL);
+      v47 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      obj = v14;
       self = selfCopy;
-      v40 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
-      if (!v40)
+      v45 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+      if (!v45)
       {
         goto LABEL_51;
       }
 
-      v16 = 0;
-      v38 = v12;
-      v39 = *v43;
+      v19 = 0;
+      v43 = v15;
+      v44 = *v48;
 LABEL_19:
-      v17 = 0;
+      v20 = 0;
       while (1)
       {
-        if (*v43 != v39)
+        if (*v48 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        if (v16 == v13)
+        if (v19 == v16)
         {
 LABEL_36:
-          functionCopy = v34;
-          v12 = v38;
+          functionCopy = v39;
+          v15 = v43;
           goto LABEL_51;
         }
 
-        v18 = *(*(&v42 + 1) + 8 * v17);
+        v21 = *(*(&v47 + 1) + 8 * v20);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v19 = JSStringCreateWithCFString(v18);
-          String = JSValueMakeString(self->_ctx, v19);
-          JSStringRelease(v19);
-          v38[v16] = String;
+          v22 = JSStringCreateWithCFString(v21);
+          String = JSValueMakeString(self->_ctx, v22);
+          JSStringRelease(v22);
+          v43[v19] = String;
           self = selfCopy;
         }
 
@@ -4434,10 +4471,10 @@ LABEL_36:
           if (objc_opt_isKindOfClass())
           {
             ctx = selfCopy->_ctx;
-            [(__CFString *)v18 floatValue];
-            v23 = ctx;
+            [(__CFString *)v21 floatValue];
+            v26 = ctx;
             self = selfCopy;
-            Number = JSValueMakeNumber(v23, v22);
+            Number = JSValueMakeNumber(v26, v25);
           }
 
           else
@@ -4445,13 +4482,13 @@ LABEL_36:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v25 = [MEMORY[0x277CD4640] contextWithJSGlobalContextRef:self->_ctx];
-              v35 = MEMORY[0x277CD4658];
-              v36 = v25;
-              v26 = [(__CFString *)v18 copy];
-              v27 = [v35 valueWithObject:v26 inContext:v25];
+              v28 = [MEMORY[0x277CD4640] contextWithJSGlobalContextRef:self->_ctx];
+              v40 = MEMORY[0x277CD4658];
+              v41 = v28;
+              v29 = [(__CFString *)v21 copy];
+              v30 = [v40 valueWithObject:v29 inContext:v28];
 
-              v38[v16++] = [v27 JSValueRef];
+              v43[v19++] = [v30 JSValueRef];
               self = selfCopy;
 
               goto LABEL_29;
@@ -4463,19 +4500,19 @@ LABEL_36:
               goto LABEL_29;
             }
 
-            Number = [(__CFString *)v18 JSValueForContext:self->_ctx];
+            Number = [(__CFString *)v21 JSValueForContext:self->_ctx];
           }
 
-          v38[v16] = Number;
+          v43[v19] = Number;
         }
 
-        ++v16;
+        ++v19;
 LABEL_29:
-        if (v40 == ++v17)
+        if (v45 == ++v20)
         {
-          v28 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
-          v40 = v28;
-          if (v28)
+          v31 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+          v45 = v31;
+          if (v31)
           {
             goto LABEL_19;
           }
@@ -4485,28 +4522,28 @@ LABEL_29:
       }
     }
 
-    v12 = 0;
+    v15 = 0;
     self = selfCopy;
   }
 
   else
   {
-    v13 = 0;
+    v16 = 0;
 LABEL_51:
   }
 
   *buf = 0;
-  v33 = JSObjectCallAsFunction(self->_ctx, v10, 0, v13, v12, buf);
+  v38 = JSObjectCallAsFunction(self->_ctx, v13, 0, v16, v15, buf);
   [(RUIObjectModel *)self _logException:*buf];
-  if (v12)
+  if (v15)
   {
-    free(v12);
+    free(v15);
   }
 
-  v31 = [(RUIObjectModel *)self objectForJSValue:v33];
+  v35 = [(RUIObjectModel *)self objectForJSValue:v38];
 LABEL_43:
 
-  return v31;
+  return v35;
 }
 
 - (OpaqueJSContext)jsContextRef

@@ -12,7 +12,7 @@
 
 - (GDKnosisRequest)initWithCoder:(id)coder
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_query);
@@ -56,9 +56,9 @@ LABEL_30:
       if (!v10)
       {
         v39 = MEMORY[0x1E696ABC0];
-        v48 = *MEMORY[0x1E696A578];
-        v49 = @"GDKnosisRequest either kgq or intentArgs is required";
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+        v47 = *MEMORY[0x1E696A578];
+        v48 = @"GDKnosisRequest either kgq or intentArgs is required";
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
         v21 = [v39 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v18];
         [coderCopy failWithError:v21];
         goto LABEL_26;
@@ -115,9 +115,9 @@ LABEL_4:
           if (!error5)
           {
             v36 = MEMORY[0x1E696ABC0];
-            v44 = *MEMORY[0x1E696A578];
-            v45 = @"GDKnosisRequest offset is nil";
-            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+            v43 = *MEMORY[0x1E696A578];
+            v44 = @"GDKnosisRequest offset is nil";
+            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
             v38 = [v36 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v37];
             [coderCopy failWithError:v38];
           }
@@ -140,9 +140,9 @@ LABEL_28:
         }
 
         v40 = MEMORY[0x1E696ABC0];
-        v46 = *MEMORY[0x1E696A578];
-        v47 = @"GDKnosisRequest limit is nil";
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+        v45 = *MEMORY[0x1E696A578];
+        v46 = @"GDKnosisRequest limit is nil";
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
         v41 = [v40 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v21];
         [coderCopy failWithError:v41];
 
@@ -169,9 +169,9 @@ LABEL_29:
   if (!error7)
   {
     v33 = MEMORY[0x1E696ABC0];
-    v50 = *MEMORY[0x1E696A578];
-    v51[0] = @"GDKnosisRequest query is nil";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+    v49 = *MEMORY[0x1E696A578];
+    v50[0] = @"GDKnosisRequest query is nil";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
     v15 = [v33 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v10];
     [coderCopy failWithError:v15];
     goto LABEL_17;
@@ -180,7 +180,6 @@ LABEL_29:
   selfCopy = 0;
 LABEL_31:
 
-  v42 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

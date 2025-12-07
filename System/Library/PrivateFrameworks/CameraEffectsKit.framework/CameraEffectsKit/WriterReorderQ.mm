@@ -35,7 +35,7 @@
   v6 = colorSampleBuffer;
   if (colorSampleBuffer)
   {
-    [colorSampleBuffer presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(colorSampleBuffer);
   }
 
   else
@@ -62,7 +62,7 @@
     v11 = colorSampleBuffer2;
     if (colorSampleBuffer2)
     {
-      [colorSampleBuffer2 presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(colorSampleBuffer2);
     }
 
     else
@@ -101,7 +101,7 @@
     v18 = colorSampleBuffer3;
     if (colorSampleBuffer3)
     {
-      [colorSampleBuffer3 presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(colorSampleBuffer3);
     }
 
     else
@@ -109,7 +109,7 @@
       memset(&time1, 0, sizeof(time1));
     }
 
-    [(WriterReorderQ *)self lastReorderedTime];
+    objc_msgSend_lastReorderedTime(self);
     v21 = time1;
     if ((CMTimeCompare(&v21, &time2) & 0x80000000) == 0)
     {
@@ -168,7 +168,7 @@ LABEL_31:
   OUTLINED_FUNCTION_0_10(a1);
   v2 = JFXNSStringForCMTime(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Queued frame was out of order: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Queued frame was out of order: %@", v5, v6, v7, v8);
 }
 
 - (void)getReorderedFrameSet:(uint64_t)a1 .cold.3(uint64_t a1)
@@ -176,7 +176,7 @@ LABEL_31:
   OUTLINED_FUNCTION_0_10(a1);
   v2 = JFXNSStringForCMTime(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Queued frame was in order:  %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Queued frame was in order:  %@", v5, v6, v7, v8);
 }
 
 - (void)getReorderedFrameSet:(uint64_t)a1 .cold.5(uint64_t a1)
@@ -184,7 +184,7 @@ LABEL_31:
   OUTLINED_FUNCTION_0_10(a1);
   v2 = JFXNSStringForCMTime(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Queued first reorder frame:   %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Queued first reorder frame:   %@", v5, v6, v7, v8);
 }
 
 - (void)clearQueuedFrameSet
@@ -195,7 +195,7 @@ LABEL_31:
   v5 = colorSampleBuffer;
   if (colorSampleBuffer)
   {
-    [colorSampleBuffer presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(colorSampleBuffer);
   }
 
   else

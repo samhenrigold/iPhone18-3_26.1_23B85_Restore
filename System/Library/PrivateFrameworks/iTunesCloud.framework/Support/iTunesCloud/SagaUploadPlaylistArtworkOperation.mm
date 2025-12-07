@@ -879,8 +879,8 @@ LABEL_38:
 
       if (unsignedIntValue)
       {
-        musicLibrary11 = [[ML3ArtworkTokenSet alloc] initWithEntity:v7 artworkType:5];
-        v12 = [musicLibrary11 artworkTokenForSource:100];
+        musicLibrary10 = [[ML3ArtworkTokenSet alloc] initWithEntity:v7 artworkType:5];
+        v12 = [musicLibrary10 artworkTokenForSource:100];
         [(SagaUploadPlaylistArtworkOperation *)self setUserArtworkToken:v12];
 
         userArtworkToken = [(SagaUploadPlaylistArtworkOperation *)self userArtworkToken];
@@ -997,9 +997,9 @@ LABEL_28:
                 [(CloudLibraryOperation *)self setError:v47];
 
 LABEL_29:
-                musicLibrary8 = [(CloudLibraryOperation *)self musicLibrary];
+                v48 = [(CloudLibraryOperation *)self musicLibrary:*v61];
                 v49 = MSVTCCIdentityForCurrentProcess();
-                [musicLibrary8 setClientIdentity:v49];
+                [v48 setClientIdentity:v49];
 
 LABEL_30:
                 goto LABEL_31;
@@ -1015,12 +1015,12 @@ LABEL_30:
 
             if (v51)
             {
-              musicLibrary9 = [(CloudLibraryOperation *)self musicLibrary];
-              sagaCloudLibraryCUID2 = [musicLibrary9 sagaCloudLibraryCUID];
+              musicLibrary8 = [(CloudLibraryOperation *)self musicLibrary];
+              sagaCloudLibraryCUID2 = [musicLibrary8 sagaCloudLibraryCUID];
               [(SagaUploadPlaylistArtworkOperation *)self setCuid:sagaCloudLibraryCUID2];
 
-              musicLibrary10 = [(CloudLibraryOperation *)self musicLibrary];
-              sagaCloudLibraryTroveID2 = [musicLibrary10 sagaCloudLibraryTroveID];
+              musicLibrary9 = [(CloudLibraryOperation *)self musicLibrary];
+              sagaCloudLibraryTroveID2 = [musicLibrary9 sagaCloudLibraryTroveID];
               [(SagaUploadPlaylistArtworkOperation *)self setTroveID:sagaCloudLibraryTroveID2];
             }
 
@@ -1086,9 +1086,9 @@ LABEL_18:
     }
 
     [(CloudLibraryOperation *)self setStatus:1];
-    musicLibrary11 = [(CloudLibraryOperation *)self musicLibrary];
+    musicLibrary10 = [(CloudLibraryOperation *)self musicLibrary];
     musicLibrary3 = MSVTCCIdentityForCurrentProcess();
-    [musicLibrary11 setClientIdentity:musicLibrary3];
+    [musicLibrary10 setClientIdentity:musicLibrary3];
 LABEL_31:
 
     return;

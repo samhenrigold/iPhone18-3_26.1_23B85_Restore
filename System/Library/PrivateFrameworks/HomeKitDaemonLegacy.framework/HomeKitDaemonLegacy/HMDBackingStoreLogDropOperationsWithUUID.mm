@@ -7,89 +7,76 @@
 
 - (id)mainReturningError
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__133678;
-  v43 = __Block_byref_object_dispose__133679;
-  v44 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__133678;
+  v42 = __Block_byref_object_dispose__133679;
+  v43 = 0;
   store = [(HMDBackingStoreOperation *)self store];
   local = [store local];
   store2 = [(HMDBackingStoreOperation *)self store];
   root = [store2 root];
   maskValue = [(HMDBackingStoreLogDropOperationsWithUUID *)self maskValue];
   compareValue = [(HMDBackingStoreLogDropOperationsWithUUID *)self compareValue];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __62__HMDBackingStoreLogDropOperationsWithUUID_mainReturningError__block_invoke;
-  v36[3] = &unk_27972D138;
-  v38 = &v39;
-  v36[4] = self;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __62__HMDBackingStoreLogDropOperationsWithUUID_mainReturningError__block_invoke;
+  v35[3] = &unk_27972D138;
+  v37 = &v38;
+  v35[4] = self;
   v10 = array;
-  v37 = v10;
-  [local _selectLogWithRoot:root after:0 mask:maskValue compare:compareValue callback:v36];
+  v36 = v10;
+  [local _selectLogWithRoot:root after:0 mask:maskValue compare:compareValue callback:v35];
 
-  v11 = v40[5];
-  if (v11)
+  v11 = v39[5];
+  if (v11 || (-[HMDBackingStoreOperation store](self, "store"), v12 = objc_claimAutoreleasedReturnValue(), [v12 local], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "_begin"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v39[5], v39[5] = v14, v15, v13, v12, (v11 = v39[5]) != 0))
   {
-    goto LABEL_3;
-  }
-
-  store3 = [(HMDBackingStoreOperation *)self store];
-  local2 = [store3 local];
-  _begin = [local2 _begin];
-  v15 = v40[5];
-  v40[5] = _begin;
-
-  v11 = v40[5];
-  if (v11)
-  {
-LABEL_3:
     _commit = v11;
   }
 
   else
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v19 = v10;
-    v20 = [v19 countByEnumeratingWithState:&v32 objects:v45 count:16];
-    if (v20)
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v18 = v10;
+    v19 = [v18 countByEnumeratingWithState:&v31 objects:v44 count:16];
+    if (v19)
     {
-      v21 = *v33;
+      v20 = *v32;
       while (2)
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v33 != v21)
+          if (*v32 != v20)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v32 + 1) + 8 * i);
-          store4 = [(HMDBackingStoreOperation *)self store];
-          local3 = [store4 local];
-          v26 = [local3 _deleteLog:{objc_msgSend(v23, "unsignedIntegerValue")}];
-          v27 = v40[5];
-          v40[5] = v26;
+          v22 = *(*(&v31 + 1) + 8 * i);
+          store3 = [(HMDBackingStoreOperation *)self store];
+          local2 = [store3 local];
+          v25 = [local2 _deleteLog:{objc_msgSend(v22, "unsignedIntegerValue")}];
+          v26 = v39[5];
+          v39[5] = v25;
 
-          if (v40[5])
+          if (v39[5])
           {
-            store5 = [(HMDBackingStoreOperation *)self store];
-            local4 = [store5 local];
-            [local4 _rollback];
+            store4 = [(HMDBackingStoreOperation *)self store];
+            local3 = [store4 local];
+            [local3 _rollback];
 
-            _commit = v40[5];
+            _commit = v39[5];
             goto LABEL_4;
           }
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v32 objects:v45 count:16];
-        if (v20)
+        v19 = [v18 countByEnumeratingWithState:&v31 objects:v44 count:16];
+        if (v19)
         {
           continue;
         }
@@ -98,15 +85,14 @@ LABEL_3:
       }
     }
 
-    store6 = [(HMDBackingStoreOperation *)self store];
-    local5 = [store6 local];
-    _commit = [local5 _commit];
+    store5 = [(HMDBackingStoreOperation *)self store];
+    local4 = [store5 local];
+    _commit = [local4 _commit];
   }
 
 LABEL_4:
 
-  _Block_object_dispose(&v39, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
 
   return _commit;
 }

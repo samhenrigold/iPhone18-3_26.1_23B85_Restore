@@ -1,4 +1,5 @@
 @interface ATXPredictionLocationMotionContext
+- (ATXPredictionLocationMotionContext)initWithCurrentLOI:(id)i previousLOI:(id)oI motionType:(int64_t)type currentLocation:(id)location locationEnabled:(BOOL)enabled distanceFromHome:(double)home distanceFromWork:(double)work distanceFromSchool:(double)self0 distanceFromGym:(double)self1 canPredictClipsGivenRecentMotion:(BOOL)self2;
 - (ATXPredictionLocationMotionContext)initWithCurrentLOI:(id)i previousLOI:(id)oI motionType:(int64_t)type geohash:(int64_t)geohash coarseGeohash:(int64_t)coarseGeohash largeGeohash:(int64_t)largeGeohash locationEnabled:(BOOL)enabled distanceFromHome:(double)self0 distanceFromWork:(double)self1 distanceFromSchool:(double)self2 distanceFromGym:(double)self3 canPredictClipsGivenRecentMotion:(BOOL)self4;
 - (ATXPredictionLocationMotionContext)initWithProto:(id)proto;
 - (ATXPredictionLocationMotionContext)initWithProtoData:(id)data;
@@ -14,6 +15,23 @@
 @end
 
 @implementation ATXPredictionLocationMotionContext
+
+- (ATXPredictionLocationMotionContext)initWithCurrentLOI:(id)i previousLOI:(id)oI motionType:(int64_t)type currentLocation:(id)location locationEnabled:(BOOL)enabled distanceFromHome:(double)home distanceFromWork:(double)work distanceFromSchool:(double)self0 distanceFromGym:(double)self1 canPredictClipsGivenRecentMotion:(BOOL)self2
+{
+  enabledCopy = enabled;
+  locationCopy = location;
+  oICopy = oI;
+  iCopy = i;
+  v25 = [ATXPrivacyPreservingLocationHash privacyPreservingGeohashForLocation:locationCopy locationEnabled:enabledCopy];
+  v26 = [ATXPrivacyPreservingLocationHash privacyPreservingCoarseGeohashForLocation:locationCopy locationEnabled:enabledCopy];
+  v27 = [ATXPrivacyPreservingLocationHash privacyPreservingZoom7GeohashForLocation:locationCopy locationEnabled:enabledCopy];
+
+  BYTE1(v30) = motion;
+  LOBYTE(v30) = enabledCopy;
+  v28 = [(ATXPredictionLocationMotionContext *)self initWithCurrentLOI:iCopy previousLOI:oICopy motionType:type geohash:v25 coarseGeohash:v26 largeGeohash:v27 locationEnabled:home distanceFromHome:work distanceFromWork:school distanceFromSchool:gym distanceFromGym:v30 canPredictClipsGivenRecentMotion:?];
+
+  return v28;
+}
 
 - (ATXPredictionLocationMotionContext)initWithCurrentLOI:(id)i previousLOI:(id)oI motionType:(int64_t)type geohash:(int64_t)geohash coarseGeohash:(int64_t)coarseGeohash largeGeohash:(int64_t)largeGeohash locationEnabled:(BOOL)enabled distanceFromHome:(double)self0 distanceFromWork:(double)self1 distanceFromSchool:(double)self2 distanceFromGym:(double)self3 canPredictClipsGivenRecentMotion:(BOOL)self4
 {
@@ -52,10 +70,10 @@
 
 - (id)jsonDict
 {
-  v27[11] = *MEMORY[0x277D85DE8];
-  v26[0] = @"currentLOI";
+  v26[11] = *MEMORY[0x277D85DE8];
+  v25[0] = @"currentLOI";
   v3 = [(ATXLocationOfInterest *)self->_currentLOI description];
-  v25 = v3;
+  v24 = v3;
   if (v3)
   {
     v4 = v3;
@@ -66,10 +84,10 @@
     v4 = @"nil";
   }
 
-  v27[0] = v4;
-  v26[1] = @"previousLOI";
+  v26[0] = v4;
+  v25[1] = @"previousLOI";
   v5 = [(ATXLocationOfInterest *)self->_previousLOI description];
-  v24 = v5;
+  v23 = v5;
   if (v5)
   {
     v6 = v5;
@@ -80,17 +98,17 @@
     v6 = @"nil";
   }
 
-  v27[1] = v6;
-  v26[2] = @"motionType";
-  v23 = [MEMORY[0x277D41C40] stringForMotionType:self->_motionType];
-  v27[2] = v23;
-  v26[3] = @"geohash";
-  v22 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_geohash];
-  v27[3] = v22;
-  v26[4] = @"coarseGeohash";
-  v21 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_coarseGeohash];
-  v27[4] = v21;
-  v26[5] = @"largeGeohash";
+  v26[1] = v6;
+  v25[2] = @"motionType";
+  v22 = [MEMORY[0x277D41C40] stringForMotionType:self->_motionType];
+  v26[2] = v22;
+  v25[3] = @"geohash";
+  v21 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_geohash];
+  v26[3] = v21;
+  v25[4] = @"coarseGeohash";
+  v20 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_coarseGeohash];
+  v26[4] = v20;
+  v25[5] = @"largeGeohash";
   v7 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_largeGeohash];
   v8 = v7;
   v9 = @"YES";
@@ -99,28 +117,26 @@
     v9 = @"NO";
   }
 
-  v27[5] = v7;
-  v27[6] = v9;
-  v26[6] = @"locationEnabled";
-  v26[7] = @"distanceFromHome";
+  v26[5] = v7;
+  v26[6] = v9;
+  v25[6] = @"locationEnabled";
+  v25[7] = @"distanceFromHome";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:self->_distanceFromHomeOfCurrentLocationInMeters];
   stringValue = [v10 stringValue];
-  v27[7] = stringValue;
-  v26[8] = @"distanceFromWork";
+  v26[7] = stringValue;
+  v25[8] = @"distanceFromWork";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:self->_distanceFromWorkOfCurrentLocationInMeters];
   stringValue2 = [v12 stringValue];
-  v27[8] = stringValue2;
-  v26[9] = @"distanceFromSchool";
+  v26[8] = stringValue2;
+  v25[9] = @"distanceFromSchool";
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:self->_distanceFromSchoolOfCurrentLocationInMeters];
   stringValue3 = [v14 stringValue];
-  v27[9] = stringValue3;
-  v26[10] = @"distanceFromGym";
+  v26[9] = stringValue3;
+  v25[10] = @"distanceFromGym";
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:self->_distanceFromGymOfCurrentLocationInMeters];
   stringValue4 = [v16 stringValue];
-  v27[10] = stringValue4;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:11];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v26[10] = stringValue4;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:11];
 
   return v18;
 }
@@ -163,43 +179,44 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v24 = __atxlog_handle_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v25 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
-      [(ATXPredictionLocationMotionContext *)self initWithProto:v24];
+      [(ATXPredictionLocationMotionContext *)self initWithProto:v25];
     }
 
     goto LABEL_9;
   }
 
-  v5 = protoCopy;
-  v6 = objc_alloc(MEMORY[0x277D41C18]);
-  currentLOI = [v5 currentLOI];
-  v8 = [v6 initWithProto:currentLOI];
+  v6 = protoCopy;
+  v7 = objc_alloc(MEMORY[0x277D41C18]);
+  currentLOI = [v6 currentLOI];
+  v9 = [v7 initWithProto:currentLOI];
 
-  v9 = objc_alloc(MEMORY[0x277D41C18]);
-  previousLOI = [v5 previousLOI];
-  v11 = [v9 initWithProto:previousLOI];
+  v10 = objc_alloc(MEMORY[0x277D41C18]);
+  previousLOI = [v6 previousLOI];
+  v12 = [v10 initWithProto:previousLOI];
 
-  v12 = -[ATXPredictionLocationMotionContext _atxMotionTypeFromPBMotionType:](self, "_atxMotionTypeFromPBMotionType:", [v5 motionType]);
-  if ([v5 hasCurrentLocation])
+  v13 = -[ATXPredictionLocationMotionContext _atxMotionTypeFromPBMotionType:](self, "_atxMotionTypeFromPBMotionType:", [v6 motionType]);
+  if ([v6 hasCurrentLocation])
   {
-    currentLocation = [v5 currentLocation];
-    v14 = [(ATXPredictionLocationMotionContext *)self _unarchiveCLLocation:currentLocation];
+    currentLocation = [v6 currentLocation];
+    v15 = [(ATXPredictionLocationMotionContext *)self _unarchiveCLLocation:currentLocation];
 
-    if (v14)
+    if (v15)
     {
-      locationEnabled = [v5 locationEnabled];
-      [v5 distanceFromHome];
-      v17 = v16;
-      [v5 distanceFromWork];
-      v19 = v18;
-      [v5 distanceFromSchool];
-      v21 = v20;
-      [v5 distanceFromGym];
-      self = -[ATXPredictionLocationMotionContext initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:](self, "initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:", v8, v11, v12, v14, locationEnabled, [v5 canPredictClipsGivenRecentMotion], v17, v19, v21, v22);
+      locationEnabled = [v6 locationEnabled];
+      [v6 distanceFromHome];
+      v18 = v17;
+      [v6 distanceFromWork];
+      v20 = v19;
+      [v6 distanceFromSchool];
+      v22 = v21;
+      [v6 distanceFromGym];
+      self = -[ATXPredictionLocationMotionContext initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:](self, "initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:", v9, v12, v13, v15, locationEnabled, [v6 canPredictClipsGivenRecentMotion], v18, v20, v22, v23);
       selfCopy2 = self;
     }
 
@@ -211,39 +228,39 @@ LABEL_9:
 
   else
   {
-    if (([v5 hasGeohash] & 1) != 0 || (objc_msgSend(v5, "hasCoarseGeohash") & 1) != 0 || objc_msgSend(v5, "hasLargeGeohash"))
+    if (([v6 hasGeohash] & 1) != 0 || (objc_msgSend(v6, "hasCoarseGeohash") & 1) != 0 || objc_msgSend(v6, "hasLargeGeohash"))
     {
-      geohash = [v5 geohash];
-      coarseGeohash = [v5 coarseGeohash];
-      largeGeohash = [v5 largeGeohash];
-      locationEnabled2 = [v5 locationEnabled];
-      [v5 distanceFromHome];
-      v30 = v29;
-      [v5 distanceFromWork];
-      v32 = v31;
-      [v5 distanceFromSchool];
-      v34 = v33;
-      [v5 distanceFromGym];
-      v36 = v35;
-      BYTE1(v47) = [v5 canPredictClipsGivenRecentMotion];
-      LOBYTE(v47) = locationEnabled2;
-      v37 = [(ATXPredictionLocationMotionContext *)self initWithCurrentLOI:v8 previousLOI:v11 motionType:v12 geohash:geohash coarseGeohash:coarseGeohash largeGeohash:largeGeohash locationEnabled:v30 distanceFromHome:v32 distanceFromWork:v34 distanceFromSchool:v36 distanceFromGym:v47 canPredictClipsGivenRecentMotion:?];
+      geohash = [v6 geohash];
+      coarseGeohash = [v6 coarseGeohash];
+      largeGeohash = [v6 largeGeohash];
+      locationEnabled2 = [v6 locationEnabled];
+      [v6 distanceFromHome];
+      v31 = v30;
+      [v6 distanceFromWork];
+      v33 = v32;
+      [v6 distanceFromSchool];
+      v35 = v34;
+      [v6 distanceFromGym];
+      v37 = v36;
+      BYTE1(v48) = [v6 canPredictClipsGivenRecentMotion];
+      LOBYTE(v48) = locationEnabled2;
+      v38 = [(ATXPredictionLocationMotionContext *)self initWithCurrentLOI:v9 previousLOI:v12 motionType:v13 geohash:geohash coarseGeohash:coarseGeohash largeGeohash:largeGeohash locationEnabled:v31 distanceFromHome:v33 distanceFromWork:v35 distanceFromSchool:v37 distanceFromGym:v48 canPredictClipsGivenRecentMotion:?];
     }
 
     else
     {
-      locationEnabled3 = [v5 locationEnabled];
-      [v5 distanceFromHome];
-      v41 = v40;
-      [v5 distanceFromWork];
-      v43 = v42;
-      [v5 distanceFromSchool];
-      v45 = v44;
-      [v5 distanceFromGym];
-      v37 = -[ATXPredictionLocationMotionContext initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:](self, "initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:", v8, v11, v12, 0, locationEnabled3, [v5 canPredictClipsGivenRecentMotion], v41, v43, v45, v46);
+      locationEnabled3 = [v6 locationEnabled];
+      [v6 distanceFromHome];
+      v42 = v41;
+      [v6 distanceFromWork];
+      v44 = v43;
+      [v6 distanceFromSchool];
+      v46 = v45;
+      [v6 distanceFromGym];
+      v38 = -[ATXPredictionLocationMotionContext initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:](self, "initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:", v9, v12, v13, 0, locationEnabled3, [v6 canPredictClipsGivenRecentMotion], v42, v44, v46, v47);
     }
 
-    self = v37;
+    self = v38;
     selfCopy2 = self;
   }
 
@@ -404,14 +421,12 @@ LABEL_19:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionLocationMotionContext proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionLocationMotionContext proto", &v5, 0xCu);
 }
 
 @end

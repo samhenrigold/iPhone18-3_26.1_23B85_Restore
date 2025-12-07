@@ -8,7 +8,7 @@
 
 - (id)outputImage
 {
-  v3 = sub_23378E104();
+  v3 = sub_23378E104(self);
   v4 = v3;
   if (&self->super.super.super.isa + 1 >= 2 && os_signpost_enabled(v3))
   {
@@ -30,28 +30,28 @@
 
 + (id)customAttributes
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"inputColorSpace";
-  v9[0] = *MEMORY[0x277CBF798];
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"inputColorSpace";
+  v7[0] = *MEMORY[0x277CBF798];
   v2 = sub_2338F2BB4();
-  v9[1] = *MEMORY[0x277CBF7A0];
-  v10[0] = v2;
-  v10[1] = @"inputColorSpace";
-  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v3, v10, v9, 2);
-  v11[1] = @"kCIRAWFilterDoesClip";
-  v5 = *MEMORY[0x277CBED10];
-  v12[0] = v4;
-  v12[1] = v5;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v12, v11, 2);
+  v7[1] = *MEMORY[0x277CBF7A0];
+  v8[0] = v2;
+  v8[1] = @"inputColorSpace";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v9[1] = @"kCIRAWFilterDoesClip";
+  v4 = *MEMORY[0x277CBED10];
+  v10[0] = v3;
+  v10[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
-  return v7;
+  return v5;
 }
 
 - (id)customAttributes
 {
   v2 = objc_opt_class();
 
-  return MEMORY[0x2821F9670](v2, sel_customAttributes, v3, v4, v5);
+  return MEMORY[0x2821F9670](v2, sel_customAttributes);
 }
 
 @end

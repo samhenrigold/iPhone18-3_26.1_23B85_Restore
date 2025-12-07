@@ -37,16 +37,16 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20C12E184();
+  sub_20C12E184(selfCopy);
 }
 
 - (void)safeAreaInsetsDidChange
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for SessionOverlayView();
-  v2 = v3.receiver;
-  [(SessionOverlayView *)&v3 safeAreaInsetsDidChange];
-  sub_20C12E448();
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for SessionOverlayView();
+  v2 = v4.receiver;
+  safeAreaInsetsDidChange = [(SessionOverlayView *)&v4 safeAreaInsetsDidChange];
+  sub_20C12E448(safeAreaInsetsDidChange);
   sub_20C12E614();
 }
 

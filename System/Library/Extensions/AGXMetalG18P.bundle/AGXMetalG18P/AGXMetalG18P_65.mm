@@ -427,7 +427,7 @@ void sub_29CDB558C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::IndirectArgumentLayoutGen2::parseStruct(unsigned int *a1, void *a2, uint64_t a3)
+void *AGX::IndirectArgumentLayoutGen2::parseStruct(unsigned int *a1, void *a2, int *a3)
 {
   result = [objc_msgSend(a2 "members")];
   v7 = result;
@@ -435,14 +435,14 @@ uint64_t AGX::IndirectArgumentLayoutGen2::parseStruct(unsigned int *a1, void *a2
   {
     v8 = 0;
     v9 = *a3;
-    v10 = *(a3 + 8);
+    v10 = *(a3 + 1);
     do
     {
       v11 = [objc_msgSend(a2 "members")];
       v12 = v9 + [v11 indirectArgumentIndex];
       v13 = [v11 offset];
       *a3 = v12;
-      *(a3 + 8) = v13 + v10;
+      *(a3 + 1) = v13 + v10;
       v14 = [v11 dataType];
       if ((v14 - 78) > 0x3D || ((1 << (v14 - 78)) & 0x2000000000000003) == 0)
       {
@@ -476,7 +476,7 @@ uint64_t AGX::IndirectArgumentLayoutGen2::parseStruct(unsigned int *a1, void *a2
   return result;
 }
 
-unsigned int *AGX::IndirectArgumentLayoutGen2::addToMap(unsigned int *result, unsigned __int8 a2, int *a3, uint64_t a4, unint64_t a5)
+unsigned int *AGX::IndirectArgumentLayoutGen2::addToMap(unsigned int *result, unsigned __int8 a2, unsigned int *a3, uint64_t a4, unint64_t a5)
 {
   v5 = *(a3 + 1);
   v6 = result + 2;
@@ -604,7 +604,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t AGX::IndirectArgumentLayoutGen2::parseArray(unsigned int *a1, void *a2, uint64_t a3)
+void *AGX::IndirectArgumentLayoutGen2::parseArray(unsigned int *a1, void *a2, uint64_t a3)
 {
   result = [a2 arrayLength];
   v7 = result;
@@ -663,12 +663,12 @@ LABEL_4:
   return result;
 }
 
-uint64_t AGX::IndirectArgumentLayoutGen2::parseIndirectArgument(unsigned int *a1, void *a2, int *a3)
+unsigned int *AGX::IndirectArgumentLayoutGen2::parseIndirectArgument(unsigned int *a1, void *a2, unsigned int *a3)
 {
   result = [a2 type];
   if (result > 22)
   {
-    if (result > 24 && (result - 25) >= 3)
+    if (result > 24 && result - 25 >= 3)
     {
       if (result != 37)
       {
@@ -703,13 +703,16 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  switch(result)
+  if (result == 3)
   {
-    case 3:
-      v7 = a1;
-      v8 = 59;
-      break;
-    case 4:
+    v7 = a1;
+    v8 = 59;
+  }
+
+  else
+  {
+    if (result == 4)
+    {
       v12 = [a2 indirectConstantDataType];
       v13 = [a2 indirectConstantDataSize];
       v11 = [a2 indirectConstantAlignment];
@@ -718,12 +721,15 @@ LABEL_14:
       v9 = a3;
       v10 = v13;
       goto LABEL_16;
-    case 21:
-      v7 = a1;
-      v8 = 80;
-      break;
-    default:
+    }
+
+    if (result != 21)
+    {
       return result;
+    }
+
+    v7 = a1;
+    v8 = 80;
   }
 
 LABEL_15:
@@ -770,7 +776,7 @@ unsigned int *agx::SmallDenseMap<unsigned int,AGX::IndirectArgumentLayoutGen2::P
       *v2 = *v2 & 1;
       if ((v32 & 1) == 0)
       {
-        v33 = &v31[16 * v30];
+        v33 = &v31[4 * v30];
         goto LABEL_48;
       }
     }
@@ -781,14 +787,14 @@ unsigned int *agx::SmallDenseMap<unsigned int,AGX::IndirectArgumentLayoutGen2::P
       *result = 1;
     }
 
-    v33 = (v2 + 66);
-    v31 = (v2 + 2);
+    v33 = v2 + 66;
+    v31 = v2 + 2;
 LABEL_48:
     v34 = v33 - v31 - 16;
     if (v34 >= 0x10)
     {
       v35 = (v34 >> 4) + 1;
-      v36 = v31 + 16;
+      v36 = v31 + 4;
       v37 = v35 & 0x1FFFFFFFFFFFFFFELL;
       do
       {
@@ -877,13 +883,13 @@ LABEL_58:
         JUMPOUT(0x29ED520C0);
       }
 
-      v31 += 16 * (v35 & 0x1FFFFFFFFFFFFFFELL);
+      v31 += 4 * (v35 & 0x1FFFFFFFFFFFFFFELL);
     }
 
     do
     {
       *v31 = -1;
-      v31 += 16;
+      v31 += 4;
     }
 
     while (v31 != v33);
@@ -1032,8 +1038,8 @@ LABEL_58:
   *v2 = v25 & 1;
   if (v25)
   {
-    v29 = (v2 + 66);
-    v28 = (v2 + 2);
+    v29 = v2 + 66;
+    v28 = v2 + 2;
   }
 
   else
@@ -1045,7 +1051,7 @@ LABEL_58:
     }
 
     v28 = *(v2 + 1);
-    v29 = &v28[16 * v27];
+    v29 = &v28[4 * v27];
   }
 
   v49 = v29 - v28 - 16;
@@ -1055,7 +1061,7 @@ LABEL_58:
   }
 
   v50 = (v49 >> 4) + 1;
-  v51 = v28 + 16;
+  v51 = v28 + 4;
   v52 = v50 & 0x1FFFFFFFFFFFFFFELL;
   do
   {
@@ -1068,12 +1074,12 @@ LABEL_58:
   while (v52);
   if (v50 != (v50 & 0x1FFFFFFFFFFFFFFELL))
   {
-    v28 += 16 * (v50 & 0x1FFFFFFFFFFFFFFELL);
+    v28 += 4 * (v50 & 0x1FFFFFFFFFFFFFFELL);
     do
     {
 LABEL_84:
       *v28 = -1;
-      v28 += 16;
+      v28 += 4;
     }
 
     while (v28 != v29);
@@ -1281,7 +1287,7 @@ void ___ZN3AGX25IndirectCommandBufferGen4INS_6HAL3008EncodersENS1_7ClassesENS1_1
   }
 }
 
-uint64_t AGX::IndirectComputeCommandBufferGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::resetCommands(uint64_t a1, char *a2, unsigned int a3, unsigned int a4)
+char *AGX::IndirectComputeCommandBufferGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::resetCommands(uint64_t a1, char *a2, unsigned int a3, unsigned int a4)
 {
   {
   }
@@ -1357,7 +1363,7 @@ uint64_t AGX::IndirectComputeCommandBufferGen4<AGX::HAL300::Encoders,AGX::HAL300
   }
 
   result = [a2 contents];
-  *(result + (*(a1 + 52) + *(a1 + 56) * *a1)) = 0x80000000;
+  *&result[*(a1 + 52) + *(a1 + 56) * *a1] = 0x80000000;
   return result;
 }
 
@@ -1530,71 +1536,72 @@ void AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::grow(uint64_t a1, unsig
     memcpy(*&v10[*MEMORY[0x29EDC5638] + 24], *(v8 + *MEMORY[0x29EDC5638] + 24), 8 * *(a1 + 692));
   }
 
-  if (*(a1 + 692) <= 1u)
+  v11 = *(a1 + 692);
+  if (v11 <= 1)
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v11 = *(a1 + 692);
+    v12 = v11;
   }
 
   *(a1 + 692) = a2;
   atomic_fetch_add((v9 + 24 * v7), 0x80000000);
   if ((add & 0x80000000) == 0)
   {
-    v12 = v9 + 24 * add;
-    if (atomic_fetch_add(v12, 0x80000000) == 0x80000000)
+    v13 = v9 + 24 * add;
+    if (atomic_fetch_add(v13, 0x80000000) == 0x80000000)
     {
       os_unfair_lock_assert_owner((a1 + 752));
-      if ((*(v12 + 4) & 1) == 0)
+      if ((*(v13 + 4) & 1) == 0)
       {
-        *(v12 + 4) = 1;
+        *(v13 + 4) = 1;
       }
     }
   }
 
   if (a3)
   {
-    AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(a1 + 696, v11, a2 - 1);
+    AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(a1 + 696, v12, a2 - 1);
   }
 
-  v13 = *(a1 + 768);
-  v14 = *v13;
-  if ((*v13 + 1) > 1)
+  v14 = *(a1 + 768);
+  v15 = *v14;
+  if ((*v14 + 1) > 1)
   {
-    v15 = v14 + 1;
+    v16 = v15 + 1;
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  v16 = *v13;
-  atomic_compare_exchange_strong(v13, &v16, v15);
-  if (v16 != v14)
+  v17 = *v14;
+  atomic_compare_exchange_strong(v14, &v17, v16);
+  if (v17 != v15)
   {
-    v17 = v16;
+    v18 = v17;
     do
     {
-      if ((v16 + 1) > 1)
+      if ((v17 + 1) > 1)
       {
-        v18 = v16 + 1;
+        v19 = v17 + 1;
       }
 
       else
       {
-        v18 = 1;
+        v19 = 1;
       }
 
-      atomic_compare_exchange_strong(v13, &v17, v18);
-      v19 = v17 == v16;
-      v16 = v17;
+      atomic_compare_exchange_strong(v14, &v18, v19);
+      v20 = v18 == v17;
+      v17 = v18;
     }
 
-    while (!v19);
+    while (!v20);
   }
 }
 
@@ -1607,7 +1614,7 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::Ra
   os_unfair_lock_lock(a2 + 188);
   if ((*(a1 + 16) & 1) == 0)
   {
-    v5 = AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::pop((*(a1 + 8) + 696));
+    v5 = AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::pop(*(a1 + 8) + 696);
     *a1 = v5;
     if (!v5)
     {
@@ -1638,7 +1645,7 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::Ra
         AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::grow(v8, 0x20u, 1);
       }
 
-      *a1 = AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::pop((*(a1 + 8) + 696));
+      *a1 = AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::pop(*(a1 + 8) + 696);
     }
   }
 
@@ -1654,16 +1661,16 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::Ra
   return a1;
 }
 
-uint64_t AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::~RangeAllocation(uint64_t result)
+unsigned int *AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::~RangeAllocation(unsigned int *result)
 {
   if (*result)
   {
-    if ((*(result + 16) & 1) == 0)
+    if ((result[4] & 1) == 0)
     {
-      v1 = *(result + 8);
+      v1 = *(result + 1);
       v2 = result;
       os_unfair_lock_lock(v1 + 188);
-      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(v2 + 8) + 696, *v2, *v2 + *(v2 + 4) - 1);
+      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(v2 + 1) + 696, *v2, *v2 + v2[1] - 1);
       os_unfair_lock_unlock(v1 + 188);
       return v2;
     }
@@ -1679,35 +1686,35 @@ void sub_29CDB9F44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(os_unfair_lock_s *a1, uint64_t a2)
+uint64_t AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3)
 {
   os_unfair_lock_lock(a1 + 188);
   os_unfair_lock_assert_owner(a1 + 188);
-  v4 = &a1[6 * a1[170]._os_unfair_lock_opaque];
-  v6 = *&v4[4]._os_unfair_lock_opaque;
-  v5 = v4 + 4;
-  v7 = *(a2 + 8);
-  v8 = MEMORY[0x29EDC5638];
-  v9 = v6 + *MEMORY[0x29EDC5638];
-  v10 = *(v9 + 8);
-  if (**a2 == v10 && ((*(v9 + 40) ^ *(*v7 + 40)) & 0xFFFFFFFFFFFFFFLL) == 0)
+  v5 = &a1[6 * a1[170]._os_unfair_lock_opaque];
+  v7 = *&v5[4]._os_unfair_lock_opaque;
+  v6 = v5 + 4;
+  v8 = *(a2 + 8);
+  v9 = MEMORY[0x29EDC5638];
+  v10 = v7 + *MEMORY[0x29EDC5638];
+  v11 = *(v10 + 8);
+  if (**a2 == v11 && ((*(v10 + 40) ^ *(*v8 + 40)) & 0xFFFFFFFFFFFFFFLL) == 0)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    **a2 = v10;
-    *v7 = *&v5->_os_unfair_lock_opaque + *v8;
+    **a2 = v11;
+    *v8 = *&v6->_os_unfair_lock_opaque + *v9;
     MTLResourceListAddResource();
-    v11 = 1;
+    v12 = 1;
   }
 
   os_unfair_lock_unlock(a1 + 188);
-  return v11;
+  return v12;
 }
 
-void AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::reserve(uint64_t a1, uint64_t a2, uint64_t a3)
+void AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::reserve(uint64_t a1, const void *a2, uint64_t a3)
 {
   v12 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock((a1 + 752));

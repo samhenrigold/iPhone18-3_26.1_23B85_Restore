@@ -15,533 +15,520 @@
 
 - (APOdmlFeatureHandler)initWithResponses:(id)responses assetManager:(id)manager model:(id)model
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   managerCopy = manager;
   modelCopy = model;
-  v83.receiver = self;
-  v83.super_class = APOdmlFeatureHandler;
-  v11 = [(APOdmlFeatureHandler *)&v83 init];
+  v54.receiver = self;
+  v54.super_class = APOdmlFeatureHandler;
+  v11 = [(APOdmlFeatureHandler *)&v54 init];
   v12 = v11;
   if (v11)
   {
-    v68 = managerCopy;
+    v39 = managerCopy;
     objc_storeStrong(&v11->_assetManager, manager);
-    v66 = modelCopy;
-    v12->_isTwoDimensional = objc_msgSend_isTwoDimensional_(v12, v13, modelCopy);
-    objc_msgSend_fetchOnDeviceFeatures(v12, v14, v15);
-    v17 = objc_msgSend_valueForKey_(responsesCopy, v16, @"odmlResponse");
-    v19 = objc_msgSend_computeUserQueryVectorWithResponses_(v12, v18, v17);
-    objc_msgSend_setUserQueryVector_(v12, v20, v19);
+    v37 = modelCopy;
+    v12->_isTwoDimensional = [(APOdmlFeatureHandler *)v12 isTwoDimensional:modelCopy];
+    [(APOdmlFeatureHandler *)v12 fetchOnDeviceFeatures];
+    v13 = [responsesCopy valueForKey:@"odmlResponse"];
+    v14 = [(APOdmlFeatureHandler *)v12 computeUserQueryVectorWithResponses:v13];
+    [(APOdmlFeatureHandler *)v12 setUserQueryVector:v14];
 
-    v21 = dispatch_get_global_queue(17, 0);
+    v15 = dispatch_get_global_queue(17, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_260EE4CDC;
     block[3] = &unk_279AC6188;
-    v67 = v12;
-    v22 = v12;
-    v82 = v22;
-    dispatch_async(v21, block);
+    v38 = v12;
+    v16 = v12;
+    v53 = v16;
+    dispatch_async(v15, block);
 
-    v24 = objc_msgSend_valueForKey_(responsesCopy, v23, @"adamID");
-    v27 = objc_msgSend_array(MEMORY[0x277CBEB18], v25, v26);
-    v77 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v80 = 0u;
-    v69 = responsesCopy;
-    v28 = responsesCopy;
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v77, v84, 16);
-    if (v30)
+    v17 = [responsesCopy valueForKey:@"adamID"];
+    array = [MEMORY[0x277CBEB18] array];
+    v48 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v40 = responsesCopy;
+    v19 = responsesCopy;
+    v20 = [v19 countByEnumeratingWithState:&v48 objects:v55 count:16];
+    if (v20)
     {
-      v32 = v30;
-      v33 = *v78;
+      v21 = v20;
+      v22 = *v49;
       do
       {
-        v34 = 0;
+        v23 = 0;
         do
         {
-          if (*v78 != v33)
+          if (*v49 != v22)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v19);
           }
 
-          v35 = objc_msgSend_adSpecificFeatures_(v22, v31, *(*(&v77 + 1) + 8 * v34));
-          objc_msgSend_addObject_(v27, v36, v35);
+          v24 = [(APOdmlFeatureHandler *)v16 adSpecificFeatures:*(*(&v48 + 1) + 8 * v23)];
+          [array addObject:v24];
 
-          ++v34;
+          ++v23;
         }
 
-        while (v32 != v34);
-        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v77, v84, 16);
+        while (v21 != v23);
+        v21 = [v19 countByEnumeratingWithState:&v48 objects:v55 count:16];
       }
 
-      while (v32);
+      while (v21);
     }
 
-    v37 = MEMORY[0x277CBEB18];
-    v40 = objc_msgSend_count(v17, v38, v39);
-    v42 = objc_msgSend_arrayWithCapacity_(v37, v41, v40);
-    v70 = v24;
-    if (objc_msgSend_count(v17, v43, v44))
+    v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+    v41 = v17;
+    if ([v13 count])
     {
-      v46 = 0;
+      v26 = 0;
       do
       {
-        v47 = objc_msgSend_objectAtIndexedSubscript_(v17, v45, v46);
-        v49 = objc_msgSend_objectAtIndexedSubscript_(v27, v48, v46);
-        v51 = objc_msgSend_featuresForResponse_adSpecificFeatures_(v22, v50, v47, v49);
+        v27 = [v13 objectAtIndexedSubscript:v26];
+        v28 = [array objectAtIndexedSubscript:v26];
+        v29 = [(APOdmlFeatureHandler *)v16 featuresForResponse:v27 adSpecificFeatures:v28];
 
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = sub_260EE4CE4;
-        v71[3] = &unk_279AC6338;
-        v72 = v51;
-        v73 = v70;
-        v76 = v46;
-        v74 = v22;
-        v52 = v17;
-        v75 = v52;
-        v53 = v51;
-        dispatch_async(v21, v71);
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = sub_260EE4CE4;
+        v42[3] = &unk_279AC6338;
+        v43 = v29;
+        v44 = v41;
+        v47 = v26;
+        v45 = v16;
+        v30 = v13;
+        v46 = v30;
+        v31 = v29;
+        dispatch_async(v15, v42);
 
-        objc_msgSend_addObject_(v42, v54, v53);
-        ++v46;
+        [v25 addObject:v31];
+        ++v26;
       }
 
-      while (v46 < objc_msgSend_count(v52, v55, v56));
+      while (v26 < [v30 count]);
     }
 
-    v57 = objc_alloc_init(APOdmlFeatureValidator);
-    modelCopy = v66;
-    v59 = objc_msgSend_validateFeatures_predictionModel_(v57, v58, v42, v66);
-    v60 = objc_alloc(MEMORY[0x277CBFEB0]);
-    v62 = objc_msgSend_initWithFeatureProviderArray_(v60, v61, v59);
-    batchInput = v22->_batchInput;
-    v22->_batchInput = v62;
+    v32 = objc_alloc_init(APOdmlFeatureValidator);
+    modelCopy = v37;
+    v33 = [(APOdmlFeatureValidator *)v32 validateFeatures:v25 predictionModel:v37];
+    v34 = [objc_alloc(MEMORY[0x277CBFEB0]) initWithFeatureProviderArray:v33];
+    batchInput = v16->_batchInput;
+    v16->_batchInput = v34;
 
-    managerCopy = v68;
-    responsesCopy = v69;
-    v12 = v67;
+    managerCopy = v39;
+    responsesCopy = v40;
+    v12 = v38;
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)adSpecificFeatures:(id)features
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
-  v6 = objc_msgSend_UTF8String(@"DupeFirstOrganic", v4, v5);
-  v7 = objc_getAssociatedObject(featuresCopy, v6);
-  v10 = objc_msgSend_UTF8String(@"Installed", v8, v9);
-  v11 = objc_getAssociatedObject(featuresCopy, v10);
-  v16 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v12, v13);
-  if (v7)
+  v4 = objc_getAssociatedObject(featuresCopy, [@"DupeFirstOrganic" UTF8String]);
+  v5 = objc_getAssociatedObject(featuresCopy, [@"Installed" UTF8String]);
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  if (v4)
   {
-    v17 = OdmlLogForCategory(5uLL);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v7 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_msgSend_adamID(featuresCopy, v18, v19);
-      v23 = objc_msgSend_BOOLValue(v7, v21, v22);
-      v24 = @" not ";
-      if (v23)
+      adamID = [featuresCopy adamID];
+      bOOLValue = [v4 BOOLValue];
+      v10 = @" not ";
+      if (bOOLValue)
       {
-        v24 = @" ";
+        v10 = @" ";
       }
 
-      v42 = 138412546;
-      v43 = v20;
-      v44 = 2112;
-      v45 = v24;
-      _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_ERROR, "Ad %@ is%@dupe.", &v42, 0x16u);
+      v19 = 138412546;
+      v20 = adamID;
+      v21 = 2112;
+      v22 = v10;
+      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_ERROR, "Ad %@ is%@dupe.", &v19, 0x16u);
     }
 
-    v26 = objc_msgSend_featureValueOfTypeDouble_(MEMORY[0x277CBFEF8], v25, v7);
-    objc_msgSend_setValue_forKey_(v16, v27, v26, @"DupeFirstOrganic");
+    v11 = [MEMORY[0x277CBFEF8] featureValueOfTypeDouble:v4];
+    [dictionary setValue:v11 forKey:@"DupeFirstOrganic"];
   }
 
-  if (v11)
+  if (v5)
   {
-    v28 = OdmlLogForCategory(5uLL);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v12 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v31 = objc_msgSend_adamID(featuresCopy, v29, v30);
-      v34 = objc_msgSend_BOOLValue(v11, v32, v33);
-      v35 = @" not ";
-      if (v34)
+      adamID2 = [featuresCopy adamID];
+      bOOLValue2 = [v5 BOOLValue];
+      v15 = @" not ";
+      if (bOOLValue2)
       {
-        v35 = @" ";
+        v15 = @" ";
       }
 
-      v42 = 138412546;
-      v43 = v31;
-      v44 = 2112;
-      v45 = v35;
-      _os_log_impl(&dword_260ECB000, v28, OS_LOG_TYPE_ERROR, "Ad %@ is%@installed.", &v42, 0x16u);
+      v19 = 138412546;
+      v20 = adamID2;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_ERROR, "Ad %@ is%@installed.", &v19, 0x16u);
     }
 
-    v37 = objc_msgSend_featureValueOfTypeDouble_(MEMORY[0x277CBFEF8], v36, v11);
-    objc_msgSend_setValue_forKey_(v16, v38, v37, @"Installed");
+    v16 = [MEMORY[0x277CBFEF8] featureValueOfTypeDouble:v5];
+    [dictionary setValue:v16 forKey:@"Installed"];
   }
 
-  v39 = objc_msgSend_copy(v16, v14, v15);
+  v17 = [dictionary copy];
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v17;
 }
 
 - (id)featuresForResponse:(id)response adSpecificFeatures:(id)features
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   responseCopy = response;
-  isTwoDimensional = objc_msgSend_isTwoDimensional(self, v8, v9);
-  v13 = objc_msgSend_featureValues(responseCopy, v11, v12);
+  isTwoDimensional = [(APOdmlFeatureHandler *)self isTwoDimensional];
+  featureValues = [responseCopy featureValues];
 
   if (isTwoDimensional)
   {
-    v16 = objc_msgSend__translateFeaturesToTwoDimensional_(self, v14, v13);
-    v19 = objc_msgSend_mutableCopy(v16, v17, v18);
+    v10 = [(APOdmlFeatureHandler *)self _translateFeaturesToTwoDimensional:featureValues];
+    v11 = [v10 mutableCopy];
   }
 
   else
   {
-    v19 = objc_msgSend_mutableCopy(v13, v14, v15);
+    v11 = [featureValues mutableCopy];
   }
 
-  objc_msgSend_addOnDeviceFeaturesToDictionary_(self, v20, v19);
-  if (objc_msgSend_isTwoDimensional(self, v21, v22))
+  [(APOdmlFeatureHandler *)self addOnDeviceFeaturesToDictionary:v11];
+  if ([(APOdmlFeatureHandler *)self isTwoDimensional])
   {
-    v24 = objc_msgSend__translateFeaturesToTwoDimensional_(self, v23, featuresCopy);
-    v27 = objc_msgSend_mutableCopy(v24, v25, v26);
+    v12 = [(APOdmlFeatureHandler *)self _translateFeaturesToTwoDimensional:featuresCopy];
+    v13 = [v12 mutableCopy];
 
-    objc_msgSend_addEntriesFromDictionary_(v19, v28, v27);
+    [v11 addEntriesFromDictionary:v13];
   }
 
   else
   {
-    objc_msgSend_addEntriesFromDictionary_(v19, v23, featuresCopy);
+    [v11 addEntriesFromDictionary:featuresCopy];
   }
 
-  v29 = objc_alloc(MEMORY[0x277CBFED0]);
-  v32 = objc_msgSend_copy(v19, v30, v31);
-  v41 = 0;
-  v34 = objc_msgSend_initWithDictionary_error_(v29, v33, v32, &v41);
-  v35 = v41;
+  v14 = objc_alloc(MEMORY[0x277CBFED0]);
+  v15 = [v11 copy];
+  v22 = 0;
+  v16 = [v14 initWithDictionary:v15 error:&v22];
+  v17 = v22;
 
-  if (!v34 || v35)
+  if (!v16 || v17)
   {
-    v36 = OdmlLogForCategory(5uLL);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v18 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v37 = objc_opt_class();
+      v19 = objc_opt_class();
       *buf = 138412546;
-      v43 = v37;
-      v44 = 2112;
-      v45 = v35;
-      v38 = v37;
-      _os_log_impl(&dword_260ECB000, v36, OS_LOG_TYPE_ERROR, "[%@] Error constructing FeatureProvider from ODMLResponseV2: %@", buf, 0x16u);
+      v24 = v19;
+      v25 = 2112;
+      v26 = v17;
+      v20 = v19;
+      _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_ERROR, "[%@] Error constructing FeatureProvider from ODMLResponseV2: %@", buf, 0x16u);
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v16;
 }
 
 - (id)computeUserQueryVectorWithResponses:(id)responses
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
-  v87 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5);
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  v91 = 0u;
+  array = [MEMORY[0x277CBEB18] array];
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = responsesCopy;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v88, v92, 16);
-  if (v7)
+  v4 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v4)
   {
-    v10 = v7;
-    v11 = *v89;
+    v5 = v4;
+    v6 = *v41;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v89 != v11)
+        if (*v41 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = objc_msgSend_featureValues(*(*(&v88 + 1) + 8 * i), v8, v9);
-        v15 = objc_msgSend_objectForKey_(v13, v14, @"queryVector");
+        featureValues = [*(*(&v40 + 1) + 8 * i) featureValues];
+        v9 = [featureValues objectForKey:@"queryVector"];
 
-        v16 = [APOdmlVector alloc];
-        v17 = MEMORY[0x277CCACA8];
-        v20 = objc_msgSend_assetManager(self, v18, v19);
-        v23 = objc_msgSend_odmlVersion(v20, v21, v22);
-        v25 = objc_msgSend_stringWithFormat_(v17, v24, @"%d", v23);
-        v28 = objc_msgSend_multiArrayValue(v15, v26, v27);
-        v31 = objc_msgSend_arrayFromMultiarray(v28, v29, v30);
-        v33 = objc_msgSend_initWithVersion_andArray_(v16, v32, v25, v31);
+        v10 = [APOdmlVector alloc];
+        v11 = MEMORY[0x277CCACA8];
+        assetManager = [(APOdmlFeatureHandler *)self assetManager];
+        v13 = [v11 stringWithFormat:@"%d", objc_msgSend(assetManager, "odmlVersion")];
+        multiArrayValue = [v9 multiArrayValue];
+        arrayFromMultiarray = [multiArrayValue arrayFromMultiarray];
+        v16 = [(APOdmlVector *)v10 initWithVersion:v13 andArray:arrayFromMultiarray];
 
-        objc_msgSend_addObject_(v87, v34, v33);
+        [array addObject:v16];
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v88, v92, 16);
+      v5 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
-    while (v10);
+    while (v5);
   }
 
-  v35 = MEMORY[0x277CBEB18];
-  v38 = objc_msgSend_assetManager(self, v36, v37);
-  v40 = objc_msgSend_featuresForName_(v38, v39, @"queryVector");
-  v42 = objc_msgSend_arrayWithArray_(v35, v41, v40);
+  v17 = MEMORY[0x277CBEB18];
+  assetManager2 = [(APOdmlFeatureHandler *)self assetManager];
+  v19 = [assetManager2 featuresForName:@"queryVector"];
+  v20 = [v17 arrayWithArray:v19];
 
-  if (!v42 || !objc_msgSend_count(v42, v43, v44))
+  if (!v20 || ![v20 count])
   {
-    v45 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v43, @"APOdmlPredictionErrorDomain", 4008, 0);
-    objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsPrediction, v46, v45, 0);
+    v21 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlPredictionErrorDomain" code:4008 userInfo:0];
+    [APOdmlAnalyticsPrediction sendEvent:v21 additionalDetails:0];
   }
 
-  v47 = objc_msgSend_arrayByAddingObjectsFromArray_(v42, v43, v87);
-  if (objc_msgSend_count(v47, v48, v49))
+  v22 = [v20 arrayByAddingObjectsFromArray:array];
+  if ([v22 count])
   {
-    v51 = objc_msgSend_objectAtIndexedSubscript_(v47, v50, 0);
-    if (objc_msgSend_count(v47, v52, v53) < 2 || objc_msgSend_count(v47, v54, v55) < 2)
+    v23 = [v22 objectAtIndexedSubscript:0];
+    if ([v22 count] < 2 || objc_msgSend(v22, "count") < 2)
     {
-      v59 = v51;
+      v26 = v23;
     }
 
     else
     {
-      v56 = 1;
+      v24 = 1;
       do
       {
-        v57 = objc_msgSend_objectAtIndexedSubscript_(v47, v54, v56);
-        v59 = objc_msgSend_vectorAdd_(v51, v58, v57);
+        v25 = [v22 objectAtIndexedSubscript:v24];
+        v26 = [v23 vectorAdd:v25];
 
-        ++v56;
-        v51 = v59;
+        ++v24;
+        v23 = v26;
       }
 
-      while (v56 < objc_msgSend_count(v47, v60, v61));
+      while (v24 < [v22 count]);
     }
 
-    objc_msgSend_magnitude(v59, v54, v55);
-    *&v63 = 1.0 / v62;
-    v66 = objc_msgSend_scalarMultiply_(v59, v64, v65, v63);
-    isTwoDimensional = objc_msgSend_isTwoDimensional(self, v67, v68);
-    v70 = MEMORY[0x277CBFF48];
-    v74 = objc_msgSend_arrayOfNumbers(v66, v71, v72);
+    [v26 magnitude];
+    *&v28 = 1.0 / v27;
+    v29 = [v26 scalarMultiply:v28];
+    isTwoDimensional = [(APOdmlFeatureHandler *)self isTwoDimensional];
+    v31 = MEMORY[0x277CBFF48];
+    arrayOfNumbers = [v29 arrayOfNumbers];
     if (isTwoDimensional)
     {
-      objc_msgSend_twoDimensionalMultiarrayFromArray_(v70, v73, v74);
+      [v31 twoDimensionalMultiarrayFromArray:arrayOfNumbers];
     }
 
     else
     {
-      objc_msgSend_multiarrayFromArray_(v70, v73, v74);
+      [v31 multiarrayFromArray:arrayOfNumbers];
     }
-    v77 = ;
+    v34 = ;
 
-    if (objc_msgSend_count(v77, v78, v79) < 1)
+    if ([v34 count] < 1)
     {
-      v81 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v80, @"APOdmlPredictionErrorDomain", 4009, 0);
-      objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsPrediction, v82, v81, 0);
+      v35 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlPredictionErrorDomain" code:4009 userInfo:0];
+      [APOdmlAnalyticsPrediction sendEvent:v35 additionalDetails:0];
 
-      v76 = 0;
+      v33 = 0;
     }
 
     else
     {
-      v76 = objc_msgSend_featureValueWithMultiArray_(MEMORY[0x277CBFEF8], v80, v77);
+      v33 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v34];
     }
   }
 
   else
   {
-    v59 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v50, @"APOdmlPredictionErrorDomain", 4009, 0);
-    objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsPrediction, v75, v59, 0);
-    v76 = 0;
+    v26 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlPredictionErrorDomain" code:4009 userInfo:0];
+    [APOdmlAnalyticsPrediction sendEvent:v26 additionalDetails:0];
+    v33 = 0;
   }
 
-  v83 = *MEMORY[0x277D85DE8];
-
-  return v76;
+  return v33;
 }
 
 - (void)fetchOnDeviceFeatures
 {
-  v4 = objc_msgSend_assetManager(self, a2, v2);
-  v56 = objc_msgSend_featureForName_(v4, v5, @"appUsageVector");
+  assetManager = [(APOdmlFeatureHandler *)self assetManager];
+  v23 = [assetManager featureForName:@"appUsageVector"];
 
-  v8 = objc_msgSend_assetManager(self, v6, v7);
-  v10 = objc_msgSend_featureForName_(v8, v9, @"appDownloadVector");
+  assetManager2 = [(APOdmlFeatureHandler *)self assetManager];
+  v5 = [assetManager2 featureForName:@"appDownloadVector"];
 
-  v13 = objc_msgSend_assetManager(self, v11, v12);
-  v15 = objc_msgSend_featureForName_(v13, v14, @"installedAppVector");
+  assetManager3 = [(APOdmlFeatureHandler *)self assetManager];
+  v7 = [assetManager3 featureForName:@"installedAppVector"];
 
-  isTwoDimensional = objc_msgSend_isTwoDimensional(self, v16, v17);
-  v19 = MEMORY[0x277CBFF48];
-  v23 = objc_msgSend_arrayOfNumbers(v56, v20, v21);
+  isTwoDimensional = [(APOdmlFeatureHandler *)self isTwoDimensional];
+  v9 = MEMORY[0x277CBFF48];
+  arrayOfNumbers = [v23 arrayOfNumbers];
   if (isTwoDimensional)
   {
-    objc_msgSend_twoDimensionalMultiarrayFromArray_(v19, v22, v23);
+    [v9 twoDimensionalMultiarrayFromArray:arrayOfNumbers];
   }
 
   else
   {
-    objc_msgSend_multiarrayFromArray_(v19, v22, v23);
+    [v9 multiarrayFromArray:arrayOfNumbers];
   }
-  v24 = ;
+  v11 = ;
 
-  v27 = objc_msgSend_isTwoDimensional(self, v25, v26);
-  v28 = MEMORY[0x277CBFF48];
-  v32 = objc_msgSend_arrayOfNumbers(v10, v29, v30);
-  if (v27)
+  isTwoDimensional2 = [(APOdmlFeatureHandler *)self isTwoDimensional];
+  v13 = MEMORY[0x277CBFF48];
+  arrayOfNumbers2 = [v5 arrayOfNumbers];
+  if (isTwoDimensional2)
   {
-    objc_msgSend_twoDimensionalMultiarrayFromArray_(v28, v31, v32);
-  }
-
-  else
-  {
-    objc_msgSend_multiarrayFromArray_(v28, v31, v32);
-  }
-  v33 = ;
-
-  v36 = objc_msgSend_isTwoDimensional(self, v34, v35);
-  v37 = MEMORY[0x277CBFF48];
-  v41 = objc_msgSend_arrayOfNumbers(v15, v38, v39);
-  if (v36)
-  {
-    objc_msgSend_twoDimensionalMultiarrayFromArray_(v37, v40, v41);
+    [v13 twoDimensionalMultiarrayFromArray:arrayOfNumbers2];
   }
 
   else
   {
-    objc_msgSend_multiarrayFromArray_(v37, v40, v41);
+    [v13 multiarrayFromArray:arrayOfNumbers2];
   }
-  v42 = ;
+  v15 = ;
 
-  if (objc_msgSend_count(v24, v43, v44))
+  isTwoDimensional3 = [(APOdmlFeatureHandler *)self isTwoDimensional];
+  v17 = MEMORY[0x277CBFF48];
+  arrayOfNumbers3 = [v7 arrayOfNumbers];
+  if (isTwoDimensional3)
   {
-    v47 = objc_msgSend_featureValueWithMultiArray_(MEMORY[0x277CBFEF8], v45, v24);
-    objc_msgSend_setAppUsageVector_(self, v48, v47);
-  }
-
-  if (objc_msgSend_count(v33, v45, v46))
-  {
-    v51 = objc_msgSend_featureValueWithMultiArray_(MEMORY[0x277CBFEF8], v49, v33);
-    objc_msgSend_setAppDownloadVector_(self, v52, v51);
+    [v17 twoDimensionalMultiarrayFromArray:arrayOfNumbers3];
   }
 
-  if (objc_msgSend_count(v42, v49, v50))
+  else
   {
-    v54 = objc_msgSend_featureValueWithMultiArray_(MEMORY[0x277CBFEF8], v53, v42);
-    objc_msgSend_setInstalledAppVector_(self, v55, v54);
+    [v17 multiarrayFromArray:arrayOfNumbers3];
+  }
+  v19 = ;
+
+  if ([v11 count])
+  {
+    v20 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v11];
+    [(APOdmlFeatureHandler *)self setAppUsageVector:v20];
+  }
+
+  if ([v15 count])
+  {
+    v21 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v15];
+    [(APOdmlFeatureHandler *)self setAppDownloadVector:v21];
+  }
+
+  if ([v19 count])
+  {
+    v22 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v19];
+    [(APOdmlFeatureHandler *)self setInstalledAppVector:v22];
   }
 }
 
 - (void)addOnDeviceFeaturesToDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  if (objc_msgSend_isTwoDimensional(self, v4, v5))
+  if ([(APOdmlFeatureHandler *)self isTwoDimensional])
   {
-    v8 = objc_msgSend_copy(dictionaryCopy, v6, v7);
-    v10 = objc_msgSend__translateFeaturesToTwoDimensional_(self, v9, v8);
-    v13 = objc_msgSend_mutableCopy(v10, v11, v12);
-    objc_msgSend_addEntriesFromDictionary_(dictionaryCopy, v14, v13);
+    v4 = [dictionaryCopy copy];
+    v5 = [(APOdmlFeatureHandler *)self _translateFeaturesToTwoDimensional:v4];
+    v6 = [v5 mutableCopy];
+    [dictionaryCopy addEntriesFromDictionary:v6];
   }
 
-  v15 = objc_msgSend_appUsageVector(self, v6, v7);
+  appUsageVector = [(APOdmlFeatureHandler *)self appUsageVector];
 
-  if (v15)
+  if (appUsageVector)
   {
-    v18 = objc_msgSend_appUsageVector(self, v16, v17);
-    objc_msgSend_setValue_forKey_(dictionaryCopy, v19, v18, @"appUsageVector");
+    appUsageVector2 = [(APOdmlFeatureHandler *)self appUsageVector];
+    [dictionaryCopy setValue:appUsageVector2 forKey:@"appUsageVector"];
 
-    v22 = objc_msgSend_appUsageVector(self, v20, v21);
-    objc_msgSend_setValue_forKey_(dictionaryCopy, v23, v22, @"AppUsageVector");
+    appUsageVector3 = [(APOdmlFeatureHandler *)self appUsageVector];
+    [dictionaryCopy setValue:appUsageVector3 forKey:@"AppUsageVector"];
   }
 
-  v24 = objc_msgSend_appDownloadVector(self, v16, v17);
+  appDownloadVector = [(APOdmlFeatureHandler *)self appDownloadVector];
 
-  if (v24)
+  if (appDownloadVector)
   {
-    v27 = objc_msgSend_appDownloadVector(self, v25, v26);
-    objc_msgSend_setValue_forKey_(dictionaryCopy, v28, v27, @"appDownloadVector");
+    appDownloadVector2 = [(APOdmlFeatureHandler *)self appDownloadVector];
+    [dictionaryCopy setValue:appDownloadVector2 forKey:@"appDownloadVector"];
 
-    v31 = objc_msgSend_appDownloadVector(self, v29, v30);
-    objc_msgSend_setValue_forKey_(dictionaryCopy, v32, v31, @"AppDownloadVector");
+    appDownloadVector3 = [(APOdmlFeatureHandler *)self appDownloadVector];
+    [dictionaryCopy setValue:appDownloadVector3 forKey:@"AppDownloadVector"];
   }
 
-  v33 = objc_msgSend_installedAppVector(self, v25, v26);
+  installedAppVector = [(APOdmlFeatureHandler *)self installedAppVector];
 
-  if (v33)
+  if (installedAppVector)
   {
-    v36 = objc_msgSend_installedAppVector(self, v34, v35);
-    objc_msgSend_setValue_forKey_(dictionaryCopy, v37, v36, @"installedAppVector");
+    installedAppVector2 = [(APOdmlFeatureHandler *)self installedAppVector];
+    [dictionaryCopy setValue:installedAppVector2 forKey:@"installedAppVector"];
 
-    v40 = objc_msgSend_installedAppVector(self, v38, v39);
-    objc_msgSend_setValue_forKey_(dictionaryCopy, v41, v40, @"AppInstalledVector");
+    installedAppVector3 = [(APOdmlFeatureHandler *)self installedAppVector];
+    [dictionaryCopy setValue:installedAppVector3 forKey:@"AppInstalledVector"];
   }
 
-  v42 = objc_msgSend_userQueryVector(self, v34, v35);
+  userQueryVector = [(APOdmlFeatureHandler *)self userQueryVector];
 
-  v45 = dictionaryCopy;
-  if (v42)
+  v17 = dictionaryCopy;
+  if (userQueryVector)
   {
-    v46 = objc_msgSend_userQueryVector(self, v43, v44);
-    objc_msgSend_setValue_forKey_(dictionaryCopy, v47, v46, @"userQueryVector");
+    userQueryVector2 = [(APOdmlFeatureHandler *)self userQueryVector];
+    [dictionaryCopy setValue:userQueryVector2 forKey:@"userQueryVector"];
 
-    v45 = dictionaryCopy;
+    v17 = dictionaryCopy;
   }
 }
 
 - (BOOL)isTwoDimensional:(id)dimensional
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = objc_msgSend_modelDescription(dimensional, a2, dimensional);
-  v6 = objc_msgSend_inputDescriptionsByName(v3, v4, v5);
-  v9 = objc_msgSend_allValues(v6, v7, v8);
+  v19 = *MEMORY[0x277D85DE8];
+  modelDescription = [dimensional modelDescription];
+  inputDescriptionsByName = [modelDescription inputDescriptionsByName];
+  allValues = [inputDescriptionsByName allValues];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v10 = v9;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v26, v30, 16);
-  if (v14)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = allValues;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
   {
-    v15 = *v27;
+    v8 = *v15;
     while (2)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v15)
+        if (*v15 != v8)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v6);
         }
 
-        v17 = objc_msgSend_multiArrayConstraint(*(*(&v26 + 1) + 8 * i), v12, v13, v26);
-        v20 = objc_msgSend_shape(v17, v18, v19);
-        v23 = objc_msgSend_count(v20, v21, v22);
+        multiArrayConstraint = [*(*(&v14 + 1) + 8 * i) multiArrayConstraint];
+        shape = [multiArrayConstraint shape];
+        v12 = [shape count];
 
-        if (v23 > 1)
+        if (v12 > 1)
         {
-          LOBYTE(v14) = 1;
+          LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v26, v30, 16);
-      if (v14)
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v7)
       {
         continue;
       }
@@ -552,132 +539,126 @@
 
 LABEL_11:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v7;
 }
 
 - (id)_translateFeaturesToTwoDimensional:(id)dimensional
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dimensionalCopy = dimensional;
-  v6 = objc_msgSend_mutableCopy(dimensionalCopy, v4, v5);
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
+  v4 = [dimensionalCopy mutableCopy];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = dimensionalCopy;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v36, v40, 16);
-  if (v8)
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v5)
   {
-    v10 = v8;
-    v11 = *v37;
+    v6 = v5;
+    v7 = *v21;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v37 != v11)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
-        v14 = objc_msgSend_objectForKeyedSubscript_(v6, v9, v13);
-        if (objc_msgSend_type(v14, v15, v16) == 5)
+        v9 = *(*(&v20 + 1) + 8 * i);
+        v10 = [v4 objectForKeyedSubscript:v9];
+        if ([v10 type] == 5)
         {
-          v19 = MEMORY[0x277CBFEF8];
-          v20 = MEMORY[0x277CBFF48];
-          v21 = objc_msgSend_multiArrayValue(v14, v17, v18);
-          v24 = objc_msgSend_arrayFromMultiarray(v21, v22, v23);
-          v26 = objc_msgSend_twoDimensionalMultiarrayFromArray_(v20, v25, v24);
-          v28 = objc_msgSend_featureValueWithMultiArray_(v19, v27, v26);
+          v11 = MEMORY[0x277CBFEF8];
+          v12 = MEMORY[0x277CBFF48];
+          multiArrayValue = [v10 multiArrayValue];
+          arrayFromMultiarray = [multiArrayValue arrayFromMultiarray];
+          v15 = [v12 twoDimensionalMultiarrayFromArray:arrayFromMultiarray];
+          v16 = [v11 featureValueWithMultiArray:v15];
 
-          objc_msgSend_setObject_forKeyedSubscript_(v6, v29, v28, v13);
+          [v4 setObject:v16 forKeyedSubscript:v9];
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v36, v40, 16);
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v10);
+    while (v6);
   }
 
-  v32 = objc_msgSend_copy(v6, v30, v31);
-  v33 = *MEMORY[0x277D85DE8];
+  v17 = [v4 copy];
 
-  return v32;
+  return v17;
 }
 
 - (void)saveFeaturesFromResponse:(id)response
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v27 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   responseCopy = response;
-  obj = objc_msgSend_featureValues(responseCopy, v4, v5);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v43, v47, 16);
-  if (v7)
+  obj = [responseCopy featureValues];
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v4)
   {
-    v10 = v7;
-    v41 = *v44;
+    v5 = v4;
+    v20 = *v23;
     do
     {
-      v11 = 0;
+      v6 = 0;
       do
       {
-        if (*v44 != v41)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v43 + 1) + 8 * v11);
-        v13 = objc_msgSend_featureValues(responseCopy, v8, v9);
-        v15 = objc_msgSend_valueForKey_(v13, v14, v12);
+        v7 = *(*(&v22 + 1) + 8 * v6);
+        featureValues = [responseCopy featureValues];
+        v9 = [featureValues valueForKey:v7];
 
-        v16 = [APOdmlVector alloc];
-        v17 = MEMORY[0x277CCACA8];
-        v20 = objc_msgSend_assetManager(self, v18, v19);
-        v23 = objc_msgSend_odmlVersion(v20, v21, v22);
-        v25 = objc_msgSend_stringWithFormat_(v17, v24, @"%d", v23);
-        v28 = objc_msgSend_multiArrayValue(v15, v26, v27);
-        v31 = objc_msgSend_arrayFromMultiarray(v28, v29, v30);
-        v33 = objc_msgSend_initWithVersion_andArray_(v16, v32, v25, v31);
+        v10 = [APOdmlVector alloc];
+        v11 = MEMORY[0x277CCACA8];
+        assetManager = [(APOdmlFeatureHandler *)self assetManager];
+        v13 = [v11 stringWithFormat:@"%d", objc_msgSend(assetManager, "odmlVersion")];
+        multiArrayValue = [v9 multiArrayValue];
+        arrayFromMultiarray = [multiArrayValue arrayFromMultiarray];
+        v16 = [(APOdmlVector *)v10 initWithVersion:v13 andArray:arrayFromMultiarray];
 
-        v36 = objc_msgSend_assetManager(self, v34, v35);
-        v38 = objc_msgSend_saveFeatureFromObject_withName_(v36, v37, v33, v12);
+        assetManager2 = [(APOdmlFeatureHandler *)self assetManager];
+        v18 = [assetManager2 saveFeatureFromObject:v16 withName:v7];
 
-        ++v11;
+        ++v6;
       }
 
-      while (v10 != v11);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v43, v47, 16);
+      while (v5 != v6);
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v5);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveUserQueryVector
 {
-  v4 = objc_msgSend_userQueryVector(self, a2, v2);
+  userQueryVector = [(APOdmlFeatureHandler *)self userQueryVector];
 
-  if (v4)
+  if (userQueryVector)
   {
-    v5 = [APOdmlVector alloc];
-    v6 = MEMORY[0x277CCACA8];
-    v9 = objc_msgSend_assetManager(self, v7, v8);
-    v12 = objc_msgSend_odmlVersion(v9, v10, v11);
-    v14 = objc_msgSend_stringWithFormat_(v6, v13, @"%d", v12);
-    v17 = objc_msgSend_userQueryVector(self, v15, v16);
-    v20 = objc_msgSend_multiArrayValue(v17, v18, v19);
-    v23 = objc_msgSend_arrayFromMultiarray(v20, v21, v22);
-    v30 = objc_msgSend_initWithVersion_andArray_(v5, v24, v14, v23);
+    v4 = [APOdmlVector alloc];
+    v5 = MEMORY[0x277CCACA8];
+    assetManager = [(APOdmlFeatureHandler *)self assetManager];
+    v7 = [v5 stringWithFormat:@"%d", objc_msgSend(assetManager, "odmlVersion")];
+    userQueryVector2 = [(APOdmlFeatureHandler *)self userQueryVector];
+    multiArrayValue = [userQueryVector2 multiArrayValue];
+    arrayFromMultiarray = [multiArrayValue arrayFromMultiarray];
+    v13 = [(APOdmlVector *)v4 initWithVersion:v7 andArray:arrayFromMultiarray];
 
-    v27 = objc_msgSend_assetManager(self, v25, v26);
-    v29 = objc_msgSend_saveFeatureFromObject_withName_(v27, v28, v30, @"userQueryVector");
+    assetManager2 = [(APOdmlFeatureHandler *)self assetManager];
+    v12 = [assetManager2 saveFeatureFromObject:v13 withName:@"userQueryVector"];
   }
 }
 

@@ -106,7 +106,7 @@
     type = self->_type;
     self->_type = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, type);
   }
 }
 
@@ -118,7 +118,7 @@
     key = self->_key;
     self->_key = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, key);
   }
 }
 
@@ -130,7 +130,7 @@
     status = self->_status;
     self->_status = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, status);
   }
 }
 

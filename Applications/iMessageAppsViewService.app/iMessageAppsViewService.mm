@@ -1,6 +1,6 @@
-void sub_1000012B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000012B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8,16 +8,16 @@ void sub_1000012B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10000139C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100007044();
+  v3 = sub_100007044(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100007124(v2, v3);
   }
 }
 
-void sub_1000015DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000015DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -37,15 +37,21 @@ uint64_t sub_100001638(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100001650(void *a1, void *a2)
+uint64_t sub_100001650(uint64_t a1, void *a2)
 {
   v3 = [a2 __ck_heicsImageData];
-  [*(*(a1[6] + 8) + 40) setData:v3];
+  [*(*(*(a1 + 48) + 8) + 40) setData:v3];
 
-  v4 = a1[4];
-  v5 = *(a1[5] + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v4();
+}
+
+void sub_100001A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100001A80(uint64_t a1, void *a2)
@@ -61,18 +67,16 @@ void *sub_100001AE0(void *result, int a2)
   if (a2)
   {
     v2 = result;
-    v3 = sub_100007044();
+    v3 = sub_100007044(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = v2[4];
       *buf = 138412290;
-      v8 = v4;
+      v6 = v4;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Donating sticker to recents with identifier %@", buf, 0xCu);
     }
 
-    v5 = sub_100001BA8();
-    v6 = v2[9];
-    return [v5 donateStickerToRecentsWithIdentifier:v2[4] representations:v2[5] stickerEffectType:v2[11] externalURI:v2[6] name:v2[7] accessibilityLabel:v2[8] metadata:v6 ckAttributionInfo:v2[10]];
+    return [sub_100001BA8() donateStickerToRecentsWithIdentifier:v2[4] representations:v2[5] stickerEffectType:v2[11] externalURI:v2[6] name:v2[7] accessibilityLabel:v2[8] metadata:v2[9] ckAttributionInfo:v2[10]];
   }
 
   return result;
@@ -102,9 +106,9 @@ id sub_100001BA8()
   return v1;
 }
 
-void sub_100001C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -190,7 +194,7 @@ Class sub_100002A24(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -210,7 +214,6 @@ LABEL_4:
 
 uint64_t sub_100002B68(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015DD0 = result;
   return result;
@@ -240,7 +243,7 @@ Class sub_100002BDC(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -260,7 +263,6 @@ LABEL_4:
 
 uint64_t sub_100002D20(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015DE0 = result;
   return result;
@@ -290,7 +292,7 @@ Class sub_100002D94(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -310,16 +312,16 @@ LABEL_4:
 
 uint64_t sub_100002ED8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015DF0 = result;
   return result;
 }
 
-void sub_100002F4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002F4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_1000032A4(uint64_t a1)
@@ -328,68 +330,68 @@ void sub_1000032A4(uint64_t a1)
   [v1 updateAppFrameForRotation];
 }
 
-void sub_100003758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100003778(uint64_t a1, int a2)
+void sub_100003778(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    v3 = sub_100007044();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = sub_100007044(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v4 = [*(a1 + 32) stickerIdentifier];
+      v6 = [*(a1 + 32) stickerIdentifier];
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Donating sticker to recents with identifier %@", &buf, 0xCu);
+      *(&buf + 4) = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Donating sticker to recents with identifier %@", &buf, 0xCu);
     }
 
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2050000000;
-    v5 = qword_100015E20;
-    v22 = qword_100015E20;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
+    v7 = qword_100015E20;
+    v24 = qword_100015E20;
     if (!qword_100015E20)
     {
       *&buf = _NSConcreteStackBlock;
       *(&buf + 1) = 3221225472;
-      v24 = sub_100004EFC;
-      v25 = &unk_100010560;
-      v26 = &v19;
+      v26 = sub_100004EFC;
+      v27 = &unk_100010560;
+      v28 = &v21;
       sub_100004EFC(&buf);
-      v5 = v20[3];
+      v7 = v22[3];
     }
 
-    v6 = v5;
-    _Block_object_dispose(&v19, 8);
-    v7 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v8 = a1 + 32;
-    v10 = *(v8 + 16);
-    v11 = [v7 stickerEffectType];
-    v12 = v11;
-    if (!v11)
+    v8 = v7;
+    _Block_object_dispose(&v21, 8);
+    v9 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v10 = a1 + 32;
+    v12 = *(v10 + 16);
+    v13 = [v9 stickerEffectType];
+    v14 = v13;
+    if (!v13)
     {
-      v11 = &off_100010A70;
+      v13 = &off_100010A70;
     }
 
-    v13 = [v11 intValue];
-    v14 = [*v8 externalURI];
-    v15 = [*v8 stickerName];
-    v16 = [*v8 accessibilityLabel];
-    v17 = [*v8 metadata];
-    v18 = [*v8 ckAttributionInfo];
-    [v5 donateStickerToRecentsWithIdentifier:v9 representations:v10 stickerEffectType:v13 externalURI:v14 name:v15 accessibilityLabel:v16 metadata:v17 ckAttributionInfo:{v18, v19}];
+    v15 = [v13 intValue];
+    v16 = [*v10 externalURI];
+    v17 = [*v10 stickerName];
+    v18 = [*v10 accessibilityLabel];
+    v19 = [*v10 metadata];
+    v20 = [*v10 ckAttributionInfo];
+    [v7 donateStickerToRecentsWithIdentifier:v11 representations:v12 stickerEffectType:v15 externalURI:v16 name:v17 accessibilityLabel:v18 metadata:v19 ckAttributionInfo:{v20, v21}];
   }
 }
 
-void sub_10000399C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10000399C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -397,42 +399,43 @@ void sub_10000399C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 void sub_100003E9C(uint64_t a1, void *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
   v11 = a2;
+  v12 = v11;
   if (v11)
   {
-    v12 = sub_100007044();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100007044(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_100007340(v11);
+      sub_100007340(v12);
     }
   }
 
-  v25.origin.x = a3;
-  v25.origin.y = a4;
-  v25.size.width = a5;
-  v25.size.height = a6;
-  if (!CGRectIsNull(v25))
+  v27.origin.x = a3;
+  v27.origin.y = a4;
+  v27.size.width = a5;
+  v27.size.height = a6;
+  if (!CGRectIsNull(v27))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v14 = [WeakRetained view];
-    v15 = [*(a1 + 32) view];
-    v16 = [v15 window];
-    [v14 convertRect:v16 toCoordinateSpace:{a3, a4, a5, a6}];
-    a3 = v17;
-    a4 = v18;
-    a5 = v19;
-    a6 = v20;
+    v15 = [WeakRetained view];
+    v16 = [*(a1 + 32) view];
+    v17 = [v16 window];
+    [v15 convertRect:v17 toCoordinateSpace:{a3, a4, a5, a6}];
+    a3 = v18;
+    a4 = v19;
+    a5 = v20;
+    a6 = v21;
 
-    v21 = sub_100007044();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v23 = sub_100007044(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v26.origin.x = a3;
-      v26.origin.y = a4;
-      v26.size.width = a5;
-      v26.size.height = a6;
-      v22 = NSStringFromCGRect(v26);
-      v23 = 138412290;
-      v24 = v22;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Added sticker to %@", &v23, 0xCu);
+      v28.origin.x = a3;
+      v28.origin.y = a4;
+      v28.size.width = a5;
+      v28.size.height = a6;
+      v24 = NSStringFromCGRect(v28);
+      v25 = 138412290;
+      v26 = v24;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Added sticker to %@", &v25, 0xCu);
     }
   }
 
@@ -450,30 +453,31 @@ void sub_100004228(uint64_t a1, void *a2, void *a3, CGFloat a4, CGFloat a5, CGFl
 {
   v13 = a2;
   v14 = a3;
+  v15 = v14;
   if (v14)
   {
-    v15 = sub_100007044();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100007044(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100007340(v14);
+      sub_100007340(v15);
     }
   }
 
-  v24.origin.x = a4;
-  v24.origin.y = a5;
-  v24.size.width = a6;
-  v24.size.height = a7;
-  if (!CGRectIsNull(v24))
+  v25.origin.x = a4;
+  v25.origin.y = a5;
+  v25.size.width = a6;
+  v25.size.height = a7;
+  if (!CGRectIsNull(v25))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v17 = [WeakRetained view];
-    v18 = [*(a1 + 32) view];
-    v19 = [v18 window];
-    [v17 convertRect:v19 toCoordinateSpace:{a4, a5, a6, a7}];
-    a4 = v20;
-    a5 = v21;
-    a6 = v22;
-    a7 = v23;
+    v18 = [WeakRetained view];
+    v19 = [*(a1 + 32) view];
+    v20 = [v19 window];
+    [v18 convertRect:v20 toCoordinateSpace:{a4, a5, a6, a7}];
+    a4 = v21;
+    a5 = v22;
+    a6 = v23;
+    a7 = v24;
   }
 
   (*(*(a1 + 40) + 16))(a4, a5, a6, a7);
@@ -483,12 +487,13 @@ void sub_1000044F8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_100007044();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100007044(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100007340(v6);
+      sub_100007340(v7);
     }
   }
 
@@ -499,21 +504,22 @@ void sub_1000046F8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_100007044();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100007044(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100007340(v6);
+      sub_100007340(v7);
     }
   }
 
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1000049D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000049D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -605,7 +611,7 @@ void sub_100004F54()
   v0 = v1[0];
   if (!qword_100015E28)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -618,7 +624,6 @@ LABEL_7:
 
 uint64_t sub_100005050(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015E28 = result;
   return result;
@@ -648,7 +653,7 @@ Class sub_1000050C4(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -668,13 +673,12 @@ LABEL_4:
 
 uint64_t sub_100005208(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015E38 = result;
   return result;
 }
 
-void sub_10000527C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000527C(uint64_t a1)
 {
   sub_100004F54();
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CKPluginExtensionStateObserver");
@@ -685,15 +689,16 @@ void sub_10000527C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   else
   {
-    v10 = sub_1000073EC();
-    sub_1000052D4(v10, v11, v12, v13, v14, v15, v16, v17, a9);
+    sub_1000073EC();
+    sub_1000052D4(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 
-void sub_1000052D4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000052D4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_1000054AC(uint64_t a1, int token)
@@ -718,8 +723,7 @@ uint64_t sub_1000054AC(uint64_t a1, int token)
 
 void sub_1000055FC(uint64_t a1)
 {
-  [*(*(a1 + 32) + 16) resume];
-  v1 = sub_100007044();
+  v1 = sub_100007044([*(*(a1 + 32) + 16) resume]);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -738,7 +742,7 @@ void sub_10000586C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1000058A4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_100007044();
+  v2 = sub_100007044(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3[0] = 67109120;
@@ -752,7 +756,7 @@ void sub_1000058A4(uint64_t a1)
 void sub_100005964(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_100007044();
+  v2 = sub_100007044(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3[0] = 67109120;
@@ -778,9 +782,9 @@ void sub_100005E7C(uint64_t a1)
   [v1 updateAppFrameForRotation];
 }
 
-void sub_100006090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -827,7 +831,7 @@ Class sub_100006518(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -847,22 +851,21 @@ LABEL_4:
 
 uint64_t sub_10000665C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015E78 = result;
   return result;
 }
 
-void sub_100006910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100006910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100006BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -919,7 +922,7 @@ void sub_100006E24()
   v0 = v1[0];
   if (!qword_100015EA8)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -932,7 +935,6 @@ LABEL_7:
 
 uint64_t sub_100006F20(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100015EA8 = result;
   return result;
@@ -951,7 +953,7 @@ Class sub_100006F94(uint64_t a1)
   else
   {
     sub_10000748C();
-    return sub_100006FEC();
+    return sub_100006FEC(v3);
   }
 
   return result;
@@ -970,22 +972,22 @@ Class sub_100006FEC(uint64_t a1)
   else
   {
     sub_1000072E4();
-    return sub_100007044();
+    return sub_100007044(v3);
   }
 
   return result;
 }
 
-id sub_100007044()
+id sub_100007044(uint64_t a1)
 {
   if (qword_100015EC8 != -1)
   {
     sub_1000074B4();
   }
 
-  v1 = qword_100015EC0;
+  v2 = qword_100015EC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100007088(id a1)
@@ -1006,5 +1008,5 @@ void sub_100007340(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_1000052F4();
-  sub_1000052D4(&_mh_execute_header, v2, v3, "Unable to add sticker to store: %@", v4, v5, v6, v7, v8);
+  sub_1000052D4(&_mh_execute_header, v2, v3, "Unable to add sticker to store: %@", v4, v5, v6, v7);
 }

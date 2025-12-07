@@ -21,10 +21,11 @@
 
 - (void)vehicleInformationService:(id)service didUpdateVehicleUserVisibleLabel:(id)label
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFVehicleInformationObservable.vehicleInformationService(_:didUpdateVehicleUserVisibleLabel:)();
+  CAFVehicleInformationObservable.vehicleInformationService(_:didUpdateVehicleUserVisibleLabel:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

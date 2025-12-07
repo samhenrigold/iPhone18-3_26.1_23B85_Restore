@@ -163,12 +163,12 @@ LABEL_23:
 - (DESGaussianAlgorithmParameters)initWith:(id)with epsilon:(double)epsilon delta:(double)delta clippingBound:(double)bound momentsAccountantParameters:(id)parameters
 {
   withCopy = with;
-  v66[6] = *MEMORY[0x277D85DE8];
+  v65[6] = *MEMORY[0x277D85DE8];
   withCopy2 = with;
   parametersCopy = parameters;
-  v62.receiver = self;
-  v62.super_class = DESGaussianAlgorithmParameters;
-  v15 = [(DESGaussianAlgorithmParameters *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = DESGaussianAlgorithmParameters;
+  v15 = [(DESGaussianAlgorithmParameters *)&v61 init];
   v16 = v15;
   if (!v15)
   {
@@ -192,18 +192,18 @@ LABEL_20:
     }
 
     objc_storeStrong(&v16->_key, withCopy);
-    v64[0] = @"GaussianFromSigma";
-    v63[0] = @"Mechanism";
-    v63[1] = @"OverallEpsilon";
+    v63[0] = @"GaussianFromSigma";
+    v62[0] = @"Mechanism";
+    v62[1] = @"OverallEpsilon";
     v37 = [MEMORY[0x277CCABB0] numberWithDouble:epsilon];
-    v64[1] = v37;
-    v63[2] = @"OverallDelta";
+    v63[1] = v37;
+    v62[2] = @"OverallDelta";
     v38 = [MEMORY[0x277CCABB0] numberWithDouble:delta];
-    v64[2] = v38;
-    v63[3] = @"OverallClippingBound";
+    v63[2] = v38;
+    v62[3] = @"OverallClippingBound";
     v39 = [MEMORY[0x277CCABB0] numberWithDouble:bound];
-    v64[3] = v39;
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:4];
+    v63[3] = v39;
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:4];
 
     v41 = [v40 mutableCopy];
     parameters = v16->_parameters;
@@ -219,36 +219,36 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v55 = withCopy;
-  v66[0] = @"RenyiOrder";
-  v66[1] = @"CohortSigma";
-  v66[2] = @"NumIterations";
-  v66[3] = @"MaxCohortSize";
-  v66[4] = @"CurrentCohortSize";
-  v66[5] = @"PopulationSize";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:6];
+  v54 = withCopy;
+  v65[0] = @"RenyiOrder";
+  v65[1] = @"CohortSigma";
+  v65[2] = @"NumIterations";
+  v65[3] = @"MaxCohortSize";
+  v65[4] = @"CurrentCohortSize";
+  v65[5] = @"PopulationSize";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:6];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v18 = v61 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v58 objects:v65 count:16];
+  v18 = v60 = 0u;
+  v19 = [v18 countByEnumeratingWithState:&v57 objects:v64 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v59;
-    v56 = v16;
-    v57 = withCopy2;
+    v21 = *v58;
+    v55 = v16;
+    v56 = withCopy2;
     while (2)
     {
       v22 = v18;
       for (i = 0; i != v20; ++i)
       {
-        if (*v59 != v21)
+        if (*v58 != v21)
         {
           objc_enumerationMutation(v22);
         }
 
-        v24 = *(*(&v58 + 1) + 8 * i);
+        v24 = *(*(&v57 + 1) + 8 * i);
         v25 = [parametersCopy objectForKeyedSubscript:v24];
         if (v25)
         {
@@ -271,15 +271,15 @@ LABEL_25:
 
         v18 = v22;
         v33 = v22;
-        v16 = v56;
-        withCopy2 = v57;
+        v16 = v55;
+        withCopy2 = v56;
         goto LABEL_18;
       }
 
       v18 = v22;
-      v20 = [v22 countByEnumeratingWithState:&v58 objects:v65 count:16];
-      v16 = v56;
-      withCopy2 = v57;
+      v20 = [v22 countByEnumeratingWithState:&v57 objects:v64 count:16];
+      v16 = v55;
+      withCopy2 = v56;
       if (v20)
       {
         continue;
@@ -298,8 +298,8 @@ LABEL_25:
 
   if ((intValue - 33) > 0xFFFFFFE0)
   {
-    v45 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"NumIterations"];
-    longLongValue = [v45 longLongValue];
+    v44 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"NumIterations"];
+    longLongValue = [v44 longLongValue];
 
     if (longLongValue <= 0)
     {
@@ -312,14 +312,14 @@ LABEL_25:
       goto LABEL_18;
     }
 
-    v47 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"MaxCohortSize"];
-    longLongValue2 = [v47 longLongValue];
+    v46 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"MaxCohortSize"];
+    longLongValue2 = [v46 longLongValue];
 
-    v49 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"CurrentCohortSize"];
-    longLongValue3 = [v49 longLongValue];
+    v48 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"CurrentCohortSize"];
+    longLongValue3 = [v48 longLongValue];
 
-    v51 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"PopulationSize"];
-    longLongValue4 = [v51 longLongValue];
+    v50 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"PopulationSize"];
+    longLongValue4 = [v50 longLongValue];
 
     if (longLongValue2 < 1 || longLongValue3 < 1 || longLongValue4 < 1 || longLongValue3 > longLongValue2 || longLongValue2 > longLongValue4)
     {
@@ -332,12 +332,12 @@ LABEL_25:
       goto LABEL_18;
     }
 
-    v53 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"CohortSigma"];
-    [v53 doubleValue];
-    v16->_sigma = v54;
+    v52 = [(NSDictionary *)v16->_momentsAccountantParameters objectForKeyedSubscript:@"CohortSigma"];
+    [v52 doubleValue];
+    v16->_sigma = v53;
 
     sigma = v16->_sigma;
-    withCopy = v55;
+    withCopy = v54;
     goto LABEL_20;
   }
 
@@ -353,7 +353,6 @@ LABEL_21:
   v36 = 0;
 LABEL_26:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -377,19 +376,19 @@ LABEL_26:
 
 - (BOOL)calculateAndVerifyPerChunkClippingBoundsIn:(id)in withOverallClippingBound:(double)bound
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   inCopy = in;
   v7 = [inCopy count];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v8 = inCopy;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     v12 = bound / sqrt(v7);
     v13 = 0.0;
     v14 = 1;
@@ -397,12 +396,12 @@ LABEL_26:
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * i);
+        v16 = *(*(&v27 + 1) + 8 * i);
         clippingBound = [v16 clippingBound];
         v18 = clippingBound;
         if (clippingBound && ([clippingBound doubleValue], v19 != 0.0))
@@ -422,7 +421,7 @@ LABEL_26:
         [v16 setClippingBound:v21];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v27 objects:v37 count:16];
     }
 
     while (v10);
@@ -451,20 +450,19 @@ LABEL_16:
   v24 = +[DESLogging coreChannel];
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    v27 = [(DESGaussianAlgorithmParameters *)self key];
+    v26 = [(DESGaussianAlgorithmParameters *)self key];
     *buf = 134218498;
-    v33 = v22;
-    v34 = 2048;
+    v32 = v22;
+    v33 = 2048;
     boundCopy = bound;
-    v36 = 2112;
-    v37 = v27;
+    v35 = 2112;
+    v36 = v26;
     _os_log_error_impl(&dword_248FF7000, v24, OS_LOG_TYPE_ERROR, "Per chunk clipping bound root sum squared does not match overall clipping bound: %f vs. %f, for %@", buf, 0x20u);
   }
 
   v23 = 0;
 LABEL_20:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -477,89 +475,42 @@ LABEL_20:
 
 - (void)initWith:(void *)a1 recipe:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recipeID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWith:(void *)a1 recipe:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recipeID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWith:(void *)a1 recipe:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recipeID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWith:(void *)a1 recipe:.cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recipeID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWith:(void *)a1 recipe:.cold.5(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recipeID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWith:epsilon:delta:clippingBound:momentsAccountantParameters:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWith:epsilon:delta:clippingBound:momentsAccountantParameters:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWith:epsilon:delta:clippingBound:momentsAccountantParameters:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWith:epsilon:delta:clippingBound:momentsAccountantParameters:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

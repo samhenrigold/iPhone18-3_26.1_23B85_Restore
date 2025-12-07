@@ -118,7 +118,7 @@ void __94__MusicModelTVShowEpisodeDetailItem_objectWithStoreLibraryPersonalizati
 {
   forCopy = for;
   selfCopy = self;
-  v6 = sub_272264(forCopy);
+  v6 = sub_272264(forCopy, MusicModelRelationshipTVShowEpisodeDetailItemContentItem);
 
   return v6;
 }

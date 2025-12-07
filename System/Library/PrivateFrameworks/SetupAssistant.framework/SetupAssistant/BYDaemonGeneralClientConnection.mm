@@ -10,6 +10,7 @@
 - (void)ensureSilentLoginUpgrade:(id)upgrade;
 - (void)fetchAuthenticationContextForApplePay:(id)pay;
 - (void)fetchAuthenticationContextForBiometric:(id)biometric;
+- (void)migrateWithStoredMigratorVersion:(unsigned int)version userDataDisposition:(unsigned int)disposition;
 - (void)observeFinishSetupTriggers:(id)triggers;
 - (void)performSilentICDPUpgrade:(id)upgrade;
 - (void)setDeviceLockAssertion:(__MKBAssertion *)assertion;
@@ -288,6 +289,14 @@
   dispatch_async(v3, block);
 
   _Block_object_dispose(v7, 8);
+}
+
+- (void)migrateWithStoredMigratorVersion:(unsigned int)version userDataDisposition:(unsigned int)disposition
+{
+  v4 = *&disposition;
+  v5 = *&version;
+  v6 = objc_alloc_init(BYDaemonDataMigrator);
+  [(BYDaemonDataMigrator *)v6 migrateWithStoredMigratorVersion:v5 userDataDisposition:v4];
 }
 
 - (void)attemptSettingsUploadForAttempt:(unint64_t)attempt maxNumberOfAttempts:(unint64_t)attempts queue:(id)queue completion:(id)completion

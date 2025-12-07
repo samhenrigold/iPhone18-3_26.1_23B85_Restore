@@ -20,20 +20,19 @@
 {
   height = size.height;
   width = size.width;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = CarPlayFrameworkGeneralLogging();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 134349312;
-    v8 = width;
-    v9 = 2050;
-    v10 = height;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPGridTemplate setting maxImageSize (%{public}f,%{public}f)", &v7, 0x16u);
+    v6 = 134349312;
+    v7 = width;
+    v8 = 2050;
+    v9 = height;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPGridTemplate setting maxImageSize (%{public}f,%{public}f)", &v6, 0x16u);
   }
 
   _maximumGridButtonImageSize_0 = *&width;
   _maximumGridButtonImageSize_1 = *&height;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (CGSize)maximumGridButtonImageSize
@@ -141,19 +140,19 @@ void __51__CPGridTemplate_handleActionForControlIdentifier___block_invoke(uint64
 
   if (v14[5])
   {
-    v3 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = CarPlayFrameworkGeneralLogging(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = v14[5];
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
+      v5 = v14[5];
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
       *buf = 138412802;
-      v20 = v5;
+      v20 = v6;
       v21 = 2112;
-      v22 = v4;
+      v22 = v5;
       v23 = 2112;
-      v24 = v6;
-      _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
+      v24 = v7;
+      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
     }
 
     [v14[5] handlePrimaryAction];
@@ -161,14 +160,13 @@ void __51__CPGridTemplate_handleActionForControlIdentifier___block_invoke(uint64
 
   else
   {
-    v7 = *(a1 + 40);
+    v8 = *(a1 + 40);
     v9.receiver = *(a1 + 32);
     v9.super_class = CPGridTemplate;
-    objc_msgSendSuper2(&v9, sel_handleActionForControlIdentifier_, v7);
+    objc_msgSendSuper2(&v9, sel_handleActionForControlIdentifier_, v8);
   }
 
   _Block_object_dispose(&v13, 8);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__CPGridTemplate_handleActionForControlIdentifier___block_invoke_11(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

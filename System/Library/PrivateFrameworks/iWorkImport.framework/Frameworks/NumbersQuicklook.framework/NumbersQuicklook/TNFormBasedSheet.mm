@@ -48,7 +48,7 @@
       return;
     }
 
-    v17 = sub_275F37BC8();
+    v17 = sub_275F37BC8(0);
     v14 = objc_msgSend_localizedStringForKey_value_table_(v17, v13, @"Empty Form", &stru_2884F65E0, @"Numbers");
     objc_msgSend_setName_(self, v15, v14);
 

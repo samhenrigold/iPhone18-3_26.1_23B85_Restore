@@ -484,7 +484,7 @@ LABEL_10:
 
 - (BOOL)finalizeWithError:(id *)error
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([(HKHealthWrapEncryptor *)self _finalizeCryptorWithError:?]&& (CCHmacFinal(&self->_hmacContext, macOut), [(HKHealthWrapEncryptor *)self _writeStream:macOut length:32 hash:1 error:error]))
   {
     CC_SHA256_Final(md, &self->_sha256Context);
@@ -500,7 +500,6 @@ LABEL_10:
     LOBYTE(v5) = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

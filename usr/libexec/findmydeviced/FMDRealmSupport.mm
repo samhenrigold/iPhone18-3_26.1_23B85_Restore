@@ -93,32 +93,33 @@
   }
 
   v12 = v11;
+  v13 = v12;
   if (!forHostCopy)
   {
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002880(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v15[0] = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Can't cache realm host - NULL host value", v15, 2u);
+      v16[0] = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Can't cache realm host - NULL host value", v16, 2u);
     }
   }
 
   [qword_100314630 lock];
-  v14 = [qword_100314628 objectForKeyedSubscript:v12];
-  if (!v14)
+  v15 = [qword_100314628 objectForKeyedSubscript:v13];
+  if (!v15)
   {
-    v14 = +[NSMutableDictionary dictionary];
-    [qword_100314628 setObject:v14 forKeyedSubscript:v12];
+    v15 = +[NSMutableDictionary dictionary];
+    [qword_100314628 setObject:v15 forKeyedSubscript:v13];
   }
 
   if (hostCopy)
   {
-    [v14 setObject:hostCopy forKeyedSubscript:forHostCopy];
+    [v15 setObject:hostCopy forKeyedSubscript:forHostCopy];
   }
 
   else
   {
-    [v14 removeObjectForKey:forHostCopy];
+    [v15 removeObjectForKey:forHostCopy];
   }
 
   +[FMDRealmSupport _updateRealmPrefs];

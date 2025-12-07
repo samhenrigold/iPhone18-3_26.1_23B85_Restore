@@ -11,36 +11,31 @@
 
 - (NSDictionary)dictionary
 {
-  v2 = *(self + OBJC_IVAR___TPSContextualEventBuilder_dictionary);
 
-  v3 = sub_232E01450();
+  v2 = sub_232E01450();
 
-  return v3;
+  return v2;
 }
 
 - (void)setDictionary:(id)dictionary
 {
-  v4 = sub_232E01470();
-  v5 = *(self + OBJC_IVAR___TPSContextualEventBuilder_dictionary);
-  *(self + OBJC_IVAR___TPSContextualEventBuilder_dictionary) = v4;
+  *(self + OBJC_IVAR___TPSContextualEventBuilder_dictionary) = sub_232E01470();
 }
 
 - (NSString)stream
 {
   if (*(self + OBJC_IVAR___TPSContextualEventBuilder_stream + 8))
   {
-    v2 = *(self + OBJC_IVAR___TPSContextualEventBuilder_stream);
-    v3 = *(self + OBJC_IVAR___TPSContextualEventBuilder_stream + 8);
 
-    v4 = sub_232E014C0();
+    v2 = sub_232E014C0();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setStream:(id)stream
@@ -57,7 +52,6 @@
   }
 
   v6 = (self + OBJC_IVAR___TPSContextualEventBuilder_stream);
-  v7 = *(self + OBJC_IVAR___TPSContextualEventBuilder_stream + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -65,9 +59,9 @@
 - (id)contextualEvent
 {
   selfCopy = self;
-  v3 = sub_232DC927C();
+  v4 = sub_232DC927C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (TPSContextualEventBuilder)init

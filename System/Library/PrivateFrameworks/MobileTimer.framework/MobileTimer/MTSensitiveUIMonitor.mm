@@ -54,17 +54,17 @@ void __40__MTSensitiveUIMonitor__isVendorRelease__block_invoke()
 
 - (MTSensitiveUIMonitor)init
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = MTSensitiveUIMonitor;
-  v2 = [(MTSensitiveUIMonitor *)&v8 init];
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = MTSensitiveUIMonitor;
+  v2 = [(MTSensitiveUIMonitor *)&v7 init];
   if (v2)
   {
     v3 = MTLogForCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v10 = v2;
+      v9 = v2;
       _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -76,7 +76,6 @@ void __40__MTSensitiveUIMonitor__isVendorRelease__block_invoke()
     [(MTSensitiveUIMonitor *)v2 registerForNotifications];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -99,7 +98,7 @@ void __40__MTSensitiveUIMonitor__isVendorRelease__block_invoke()
 
 - (void)_handleNotification
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -108,14 +107,13 @@ void __40__MTSensitiveUIMonitor__isVendorRelease__block_invoke()
     _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ sensitiveUIStateChanged", buf, 0xCu);
   }
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __43__MTSensitiveUIMonitor__handleNotification__block_invoke;
-  v5[3] = &unk_1E7B0C9D8;
-  v5[4] = self;
-  [(MTSensitiveUIMonitor *)self _withLock:v5];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __43__MTSensitiveUIMonitor__handleNotification__block_invoke;
+  v4[3] = &unk_1E7B0C9D8;
+  v4[4] = self;
+  [(MTSensitiveUIMonitor *)self _withLock:v4];
   [(MTObserverStore *)self->_observers enumerateObserversWithBlock:&__block_literal_global_9_3];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __43__MTSensitiveUIMonitor__handleNotification__block_invoke_2(uint64_t a1, void *a2)

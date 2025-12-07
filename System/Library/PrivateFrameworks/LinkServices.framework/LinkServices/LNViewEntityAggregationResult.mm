@@ -50,7 +50,7 @@
 
 - (void)addResults:(id)results error:(id)error forBundle:(id)bundle
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   errorCopy = error;
   bundleCopy = bundle;
@@ -68,9 +68,9 @@
     {
       v13 = [resultsCopy count];
       *buf = 134218242;
-      v19 = v13;
-      v20 = 2112;
-      v21 = bundleCopy;
+      v18 = v13;
+      v19 = 2112;
+      v20 = bundleCopy;
       _os_log_impl(&dword_19763D000, v12, OS_LOG_TYPE_INFO, "Successfully fetched %lu view entities from %@", buf, 0x16u);
     }
 
@@ -89,9 +89,9 @@ LABEL_9:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v19 = bundleCopy;
-      v20 = 2112;
-      v21 = errorCopy;
+      v18 = bundleCopy;
+      v19 = 2112;
+      v20 = errorCopy;
       v14 = 16;
       _os_log_impl(&dword_19763D000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch view entities from %@: %@", buf, 0x16u);
     }
@@ -102,8 +102,6 @@ LABEL_9:
 
 LABEL_10:
   v11[2](v11);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (LNViewEntityAggregationResult)init

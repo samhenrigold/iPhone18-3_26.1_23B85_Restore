@@ -7,7 +7,7 @@
 - (id)stringByComposingInput:(id)input
 {
   inputCopy = input;
-  if ([inputCopy isEqualToString:@"ஷ"] && (-[TIIndicScriptComposer context](self, "context"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "hasSuffix:", @"க்"), v5, (v6 & 1) != 0))
+  if (objc_msgSend_isEqualToString_(inputCopy) && (-[TIIndicScriptComposer context](self, "context"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 hasSuffix:@"க்"], v5, (v6 & 1) != 0))
   {
     v7 = @"‌ஷ";
   }

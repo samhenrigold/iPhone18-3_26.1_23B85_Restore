@@ -45,23 +45,22 @@
 
 - (NSData)hashValue
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sha224DigestOperationInternal = self->_sha224DigestOperationInternal;
   v3 = *(sha224DigestOperationInternal + 40);
   v4 = *(sha224DigestOperationInternal + 24);
-  *v11.count = *(sha224DigestOperationInternal + 8);
-  *&v11.hash[2] = v4;
-  *&v11.hash[6] = v3;
+  *v10.count = *(sha224DigestOperationInternal + 8);
+  *&v10.hash[2] = v4;
+  *&v10.hash[6] = v3;
   v5 = *(sha224DigestOperationInternal + 56);
   v6 = *(sha224DigestOperationInternal + 72);
   v7 = *(sha224DigestOperationInternal + 88);
-  *&v11.wbuf[14] = *(sha224DigestOperationInternal + 13);
-  *&v11.wbuf[6] = v6;
-  *&v11.wbuf[10] = v7;
-  *&v11.wbuf[2] = v5;
-  CC_SHA224_Final(md, &v11);
+  *&v10.wbuf[14] = *(sha224DigestOperationInternal + 13);
+  *&v10.wbuf[6] = v6;
+  *&v10.wbuf[10] = v7;
+  *&v10.wbuf[2] = v5;
+  CC_SHA224_Final(md, &v10);
   v8 = [MEMORY[0x277CBEA90] dataWithBytes:md length:28];
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

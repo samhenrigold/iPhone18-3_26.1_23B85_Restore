@@ -1,6 +1,7 @@
 @interface BKAccelerometerInterfaceAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (int64_t)processEvent:(__IOHIDEvent *)event sender:(id)sender dispatcher:(id)dispatcher;
+- (void)orientationManager:(id)manager deviceOrientationMayHaveChanged:(int64_t)changed changeSource:(int64_t)source isDeviceOrientationLocked:(BOOL)locked;
 @end
 
 @implementation BKAccelerometerInterfaceAccessibility
@@ -37,6 +38,21 @@
   }
 
   return v12;
+}
+
+- (void)orientationManager:(id)manager deviceOrientationMayHaveChanged:(int64_t)changed changeSource:(int64_t)source isDeviceOrientationLocked:(BOOL)locked
+{
+  lockedCopy = locked;
+  managerCopy = manager;
+  v11 = +[AXBAccessibilityManager sharedManager];
+  accelerometerDisabled = [v11 accelerometerDisabled];
+
+  if (source == 2 || (accelerometerDisabled & 1) == 0)
+  {
+    v13.receiver = self;
+    v13.super_class = BKAccelerometerInterfaceAccessibility;
+    [(BKAccelerometerInterfaceAccessibility *)&v13 orientationManager:managerCopy deviceOrientationMayHaveChanged:changed changeSource:source isDeviceOrientationLocked:lockedCopy];
+  }
 }
 
 @end

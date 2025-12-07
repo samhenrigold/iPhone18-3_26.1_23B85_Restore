@@ -14,21 +14,20 @@
 - (NSData)sessionId
 {
   v3 = type metadata accessor for SASCommit(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = (&v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = *((swift_isaMask & self->super.isa) + 0x58);
+  v5 = (&v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
-  v7();
+  v6();
 
-  v9 = *v6;
-  v10 = v6[1];
-  sub_10005F0F8(*v6, v10);
-  sub_10006CDDC(v6, type metadata accessor for SASCommit);
-  v11.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_10005F14C(v9, v10);
+  v8 = *v5;
+  v9 = v5[1];
+  sub_10005F0F8(*v5, v9);
+  sub_10006CDDC(v5, type metadata accessor for SASCommit);
+  v10.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_10005F14C(v8, v9);
 
-  return v11.super.isa;
+  return v10.super.isa;
 }
 
 - (void)setSessionId:(id)id
@@ -54,21 +53,20 @@
 - (NSData)publicInfo
 {
   v3 = type metadata accessor for SASCommit(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *((swift_isaMask & self->super.isa) + 0x58);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
-  v7();
+  v6();
 
-  v9 = *(v6 + 2);
-  v10 = *(v6 + 3);
-  sub_10005F0F8(v9, v10);
-  sub_10006CDDC(v6, type metadata accessor for SASCommit);
-  v11.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_10005F14C(v9, v10);
+  v8 = *(v5 + 2);
+  v9 = *(v5 + 3);
+  sub_10005F0F8(v8, v9);
+  sub_10006CDDC(v5, type metadata accessor for SASCommit);
+  v10.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_10005F14C(v8, v9);
 
-  return v11.super.isa;
+  return v10.super.isa;
 }
 
 - (void)setPublicInfo:(id)info
@@ -94,21 +92,20 @@
 - (NSData)aCommitRandom
 {
   v3 = type metadata accessor for SASCommit(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *((swift_isaMask & self->super.isa) + 0x58);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
-  v7();
+  v6();
 
-  v9 = *(v6 + 4);
-  v10 = *(v6 + 5);
-  sub_10005F0F8(v9, v10);
-  sub_10006CDDC(v6, type metadata accessor for SASCommit);
-  v11.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_10005F14C(v9, v10);
+  v8 = *(v5 + 4);
+  v9 = *(v5 + 5);
+  sub_10005F0F8(v8, v9);
+  sub_10006CDDC(v5, type metadata accessor for SASCommit);
+  v10.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_10005F14C(v8, v9);
 
-  return v11.super.isa;
+  return v10.super.isa;
 }
 
 - (void)setACommitRandom:(id)random
@@ -134,35 +131,33 @@
 - (_TtC21transparencyStaticKey10GSASCommit)init
 {
   v3 = type metadata accessor for SASCommit(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = (&v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  sub_1000579A0(v6);
-  sub_10006CEA4(v6, self + OBJC_IVAR____TtC21transparencyStaticKey10GSASCommit_commit, type metadata accessor for SASCommit);
-  v7 = type metadata accessor for GSASCommit(0);
-  v9.receiver = self;
-  v9.super_class = v7;
-  return [(GSASCommit *)&v9 init];
+  v5 = (&v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  sub_1000579A0(v5);
+  sub_10006CEA4(v5, self + OBJC_IVAR____TtC21transparencyStaticKey10GSASCommit_commit, type metadata accessor for SASCommit);
+  v6 = type metadata accessor for GSASCommit(0);
+  v8.receiver = self;
+  v8.super_class = v6;
+  return [(GSASCommit *)&v8 init];
 }
 
 - (NSData)data
 {
   v3 = type metadata accessor for SASCommit(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *((swift_isaMask & self->super.isa) + 0x58);
+  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
-  v7();
-  sub_10006CE3C(&qword_1000AE3B8, type metadata accessor for SASCommit);
-  v9 = Message.serializedData(partial:)();
-  v11 = v10;
+  v6();
+  sub_10006CE3C(&qword_1000AE3B8, type metadata accessor for SASCommit, &unk_10008C808);
+  v8 = Message.serializedData(partial:)();
+  v10 = v9;
 
-  sub_10006CDDC(v6, type metadata accessor for SASCommit);
-  v12.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_10005F14C(v9, v11);
+  sub_10006CDDC(v5, type metadata accessor for SASCommit);
+  v11.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_10005F14C(v8, v10);
 
-  return v12.super.isa;
+  return v11.super.isa;
 }
 
 @end

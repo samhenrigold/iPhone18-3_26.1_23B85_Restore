@@ -10,6 +10,7 @@
 - (void)nearbyInvitationInvalidateSessionID:(id)d;
 - (void)nearbyInvitationSendEventID:(id)d event:(id)event options:(id)options completion:(id)completion;
 - (void)nearbyInvitationSendRequestID:(id)d request:(id)request options:(id)options responseHandler:(id)handler;
+- (void)reportChangedDevice:(id)device changes:(unsigned int)changes;
 - (void)reportLostDevice:(id)device;
 - (void)sessionActivatedWithError:(id)error;
 - (void)sessionEndedWithID:(id)d netCnx:(id)cnx;
@@ -93,7 +94,7 @@
 
     if (v8)
     {
-      v9 = 0;
+      v15 = 0;
       self->_entitled = 1;
     }
 
@@ -104,11 +105,11 @@
         sub_10011A004(p_xpcCnx);
       }
 
-      v9 = RPErrorF();
+      v15 = RPErrorF(4294896128, "Missing entitlement '%@'", v9, v10, v11, v12, v13, v14, @"com.apple.rapport.NearbyInvitation");
     }
 
-    v10 = v9;
-    *error = v10;
+    v16 = v15;
+    *error = v16;
 
     return self->_entitled;
   }
@@ -132,7 +133,7 @@
 
   if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D3D90, "[RPNearbyInvitationXPCConnection sessionStartWithID:netCnx:completion:]", 30, "Server session started: %@ device:%@\n", dCopy, v11);
   }
 
   xpcCnx = self->_xpcCnx;
@@ -154,7 +155,7 @@
   {
     if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011A094();
+      sub_10011A094(dCopy);
     }
 
     remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
@@ -233,9 +234,9 @@
   serverCopy = server;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v18 = 0;
-  v9 = [(RPNearbyInvitationXPCConnection *)self _entitledAndReturnError:&v18];
-  v10 = v18;
+  v31 = 0;
+  v9 = [(RPNearbyInvitationXPCConnection *)self _entitledAndReturnError:&v31];
+  v10 = v31;
   if (v9)
   {
     serviceType = [serverCopy serviceType];
@@ -244,15 +245,15 @@
     {
       activatedServerXPCCnxMap = self->_daemon->_activatedServerXPCCnxMap;
       serviceType2 = [serverCopy serviceType];
-      v14 = [(NSMutableDictionary *)activatedServerXPCCnxMap objectForKey:serviceType2];
+      v20 = [(NSMutableDictionary *)activatedServerXPCCnxMap objectForKey:serviceType2];
 
-      if (v14)
+      if (v20)
       {
         if (completionCopy)
         {
           serviceType3 = [serverCopy serviceType];
-          v15 = RPErrorF();
-          completionCopy[2](completionCopy, v15);
+          v28 = RPErrorF(4294960575, "Server with service type %@ is already active", v22, v23, v24, v25, v26, v27, serviceType3);
+          completionCopy[2](completionCopy, v28);
         }
       }
 
@@ -260,7 +261,7 @@
       {
         if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
         {
-          sub_10011A11C(self);
+          sub_10011A11C(self, serverCopy);
         }
 
         [serverCopy setDispatchQueue:self->_dispatchQueue];
@@ -277,14 +278,14 @@
 
     else
     {
-      v16 = RPErrorF();
+      v29 = RPErrorF(4294896129, "Missing service type for server\n", v12, v13, v14, v15, v16, v17, v30);
 
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, v16);
+        completionCopy[2](completionCopy, v29);
       }
 
-      v10 = v16;
+      v10 = v29;
     }
   }
 
@@ -299,96 +300,112 @@
   sessionCopy = session;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = sub_1000029EC;
-  v41 = sub_10000318C;
-  v42 = 0;
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_1000640E8;
-  v34[3] = &unk_1001ABD58;
-  v36 = &v37;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = sub_1000029EC;
+  v60 = sub_10000318C;
+  v61 = 0;
+  v53[0] = _NSConcreteStackBlock;
+  v53[1] = 3221225472;
+  v53[2] = sub_1000640E8;
+  v53[3] = &unk_1001ABD58;
+  v55 = &v56;
   v9 = completionCopy;
-  v35 = v9;
-  v10 = objc_retainBlock(v34);
-  v11 = (v38 + 5);
-  obj = v38[5];
+  v54 = v9;
+  v10 = objc_retainBlock(v53);
+  v11 = (v57 + 5);
+  obj = v57[5];
   v12 = [(RPNearbyInvitationXPCConnection *)self _entitledAndReturnError:&obj];
   objc_storeStrong(v11, obj);
   if (v12)
   {
     if (self->_activatedSession)
     {
-      v13 = RPErrorF();
-      identifier = v38[5];
-      v38[5] = v13;
+      v19 = RPErrorF(4294960575, "Session already active", v13, v14, v15, v16, v17, v18, v51);
+      identifier = v57[5];
+      v57[5] = v19;
+LABEL_19:
+
+      goto LABEL_20;
     }
 
-    else
-    {
-      destinationDevice = [sessionCopy destinationDevice];
-      identifier = [destinationDevice identifier];
+    destinationDevice = [sessionCopy destinationDevice];
+    identifier = [destinationDevice identifier];
 
-      if (identifier)
+    if (identifier)
+    {
+      v28 = [(RPNearbyInvitationDaemon *)self->_daemon _findMatchingDeviceWithIdentifier:identifier];
+      v35 = v28;
+      if (v28)
       {
-        v16 = [(RPNearbyInvitationDaemon *)self->_daemon _findMatchingDeviceWithIdentifier:identifier];
-        v17 = v16;
-        if (v16 && ([v16 identifier], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(identifier, "isEqualToString:", v18), v18, (v19 & 1) != 0))
+        identifier2 = [v28 identifier];
+        v37 = [identifier isEqualToString:identifier2];
+
+        if (v37)
         {
-          [sessionCopy setDaemonDevice:v17];
+          [sessionCopy setDaemonDevice:v35];
           if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
           {
             processIdentifier = [(NSXPCConnection *)self->_xpcCnx processIdentifier];
             serviceType = [sessionCopy serviceType];
-            v32 = v17;
-            v30 = processIdentifier;
-            LogPrintF();
+            LogPrintF(&dword_1001D3D90, "[RPNearbyInvitationXPCConnection nearbyInvitationActivateSession:completion:]", 30, "Activate session from %#{pid} service type %@ to %@\n", processIdentifier, serviceType, v35);
           }
 
-          [sessionCopy setWaitingToConnect:{1, v30, serviceType, v32}];
+          [sessionCopy setWaitingToConnect:1];
           [sessionCopy setDispatchQueue:self->_dispatchQueue];
           objc_storeStrong(&self->_activatedSession, session);
-          v24 = objc_retainBlock(v9);
+          v45 = objc_retainBlock(v9);
           activateCompletionHandler = self->_activateCompletionHandler;
-          self->_activateCompletionHandler = v24;
+          self->_activateCompletionHandler = v45;
 
           activatedSessionSet = self->_daemon->_activatedSessionSet;
           if (!activatedSessionSet)
           {
-            v27 = objc_alloc_init(NSMutableSet);
+            v48 = objc_alloc_init(NSMutableSet);
             daemon = self->_daemon;
-            v29 = daemon->_activatedSessionSet;
-            daemon->_activatedSessionSet = v27;
+            v50 = daemon->_activatedSessionSet;
+            daemon->_activatedSessionSet = v48;
 
             activatedSessionSet = self->_daemon->_activatedSessionSet;
           }
 
           [(NSMutableSet *)activatedSessionSet addObject:sessionCopy];
           [(RPNearbyInvitationDaemon *)self->_daemon _update];
+          goto LABEL_18;
         }
 
-        else
-        {
-          v22 = RPErrorF();
-          v23 = v38[5];
-          v38[5] = v22;
-        }
+        v41 = "Destination device identifier did not match the cached device identifier";
+        v42 = 4294960548;
       }
 
       else
       {
-        v21 = RPErrorF();
-        v17 = v38[5];
-        v38[5] = v21;
+        v41 = "Destination device not found";
+        v42 = 4294960569;
       }
+
+      v43 = RPErrorF(v42, v41, v29, v30, v31, v32, v33, v34, v51);
+      v44 = v57[5];
+      v57[5] = v43;
     }
+
+    else
+    {
+      v40 = RPErrorF(4294960591, "No destination device", v22, v23, v24, v25, v26, v27, v51);
+      v35 = v57[5];
+      v57[5] = v40;
+    }
+
+LABEL_18:
+
+    goto LABEL_19;
   }
 
+LABEL_20:
   (v10[2])(v10);
 
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v56, 8);
 }
 
 - (void)nearbyInvitationInvalidateClientSession
@@ -419,7 +436,7 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011A1B8(self);
+    sub_10011A1B8(self, dCopy);
   }
 }
 
@@ -430,13 +447,13 @@
   optionsCopy = options;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v19 = 0;
-  v14 = [(RPNearbyInvitationXPCConnection *)self _entitledAndReturnError:&v19];
-  v15 = v19;
+  v26 = 0;
+  v14 = [(RPNearbyInvitationXPCConnection *)self _entitledAndReturnError:&v26];
+  v15 = v26;
   if (v14)
   {
     v16 = self->_netCnx;
-    v17 = v16;
+    v23 = v16;
     if (v16)
     {
       [(RPConnection *)v16 sendEncryptedEventID:dCopy event:eventCopy options:optionsCopy completion:completionCopy];
@@ -444,8 +461,8 @@
 
     else if (completionCopy)
     {
-      v18 = RPErrorF();
-      completionCopy[2](completionCopy, v18);
+      v24 = RPErrorF(4294960543, "No connection", v17, v18, v19, v20, v21, v22, v25);
+      completionCopy[2](completionCopy, v24);
     }
   }
 
@@ -462,9 +479,9 @@
   optionsCopy = options;
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v18 = 0;
-  v14 = [(RPNearbyInvitationXPCConnection *)self _entitledAndReturnError:&v18];
-  v15 = v18;
+  v25 = 0;
+  v14 = [(RPNearbyInvitationXPCConnection *)self _entitledAndReturnError:&v25];
+  v21 = v25;
   if (v14)
   {
     netCnx = self->_netCnx;
@@ -475,14 +492,14 @@
 
     else
     {
-      v17 = RPErrorF();
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v17);
+      v23 = RPErrorF(4294960543, "No connection", v15, v16, v17, v18, v19, v20, v24);
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v23);
     }
   }
 
   else
   {
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v15);
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v21);
   }
 }
 
@@ -564,6 +581,63 @@ LABEL_15:
       [remoteObjectProxy nearbyInvitationLostDevice:deviceCopy];
     }
   }
+}
+
+- (void)reportChangedDevice:(id)device changes:(unsigned int)changes
+{
+  v4 = *&changes;
+  deviceCopy = device;
+  identifier = [deviceCopy identifier];
+  if (identifier)
+  {
+    v7 = [(NSMutableDictionary *)self->_devices objectForKeyedSubscript:identifier];
+    if ([(RPNearbyInvitationDiscovery *)self->_activatedDiscovery shouldReportDevice:deviceCopy])
+    {
+      devices = self->_devices;
+      if (v7)
+      {
+        [(NSMutableDictionary *)devices setObject:deviceCopy forKeyedSubscript:identifier];
+        remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
+        [remoteObjectProxy nearbyInvitationChangedDevice:deviceCopy changes:v4];
+      }
+
+      else
+      {
+        v10 = deviceCopy;
+        if (!devices)
+        {
+          v11 = objc_alloc_init(NSMutableDictionary);
+          v12 = self->_devices;
+          self->_devices = v11;
+
+          v10 = deviceCopy;
+          devices = self->_devices;
+        }
+
+        [(NSMutableDictionary *)devices setObject:v10 forKeyedSubscript:identifier];
+        remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
+        [remoteObjectProxy nearbyInvitationFoundDevice:deviceCopy];
+      }
+    }
+
+    else
+    {
+      if (!v7)
+      {
+LABEL_11:
+
+        goto LABEL_12;
+      }
+
+      [(NSMutableDictionary *)self->_devices setObject:0 forKeyedSubscript:identifier];
+      remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
+      [remoteObjectProxy nearbyInvitationLostDevice:deviceCopy];
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_12:
 }
 
 @end

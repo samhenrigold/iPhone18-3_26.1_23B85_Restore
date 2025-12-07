@@ -4859,7 +4859,7 @@ void __54__SMReceiverCacheManager_storeReceiverContactInStore___block_invoke(uin
   dispatch_async(v4, v8);
 }
 
-uint64_t __54__SMReceiverCacheManager_storeReceiverContactInStore___block_invoke_2(uint64_t a1)
+void *__54__SMReceiverCacheManager_storeReceiverContactInStore___block_invoke_2(uint64_t a1)
 {
   v28 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setReceiverContactStoreInProgress:0];

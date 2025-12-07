@@ -514,7 +514,7 @@ LABEL_10:
   if ([(CRLWPShapeLayout *)self autosizes])
   {
     memset(&v17, 0, sizeof(v17));
-    [(CRLWPShapeLayout *)self autosizedTransform];
+    objc_msgSend_autosizedTransform(self);
     layoutInfoGeometry = [(CRLShapeLayout *)self layoutInfoGeometry];
     [layoutInfoGeometry position];
     v7 = v6;
@@ -543,7 +543,7 @@ LABEL_10:
 - (CGAffineTransform)autosizedTransform
 {
   layoutInfoGeometry = [(CRLShapeLayout *)self layoutInfoGeometry];
-  [(CRLWPShapeLayout *)self autosizedTransformForInfoGeometry:layoutInfoGeometry];
+  objc_msgSend_autosizedTransformForInfoGeometry_(self);
 
   return result;
 }
@@ -584,7 +584,7 @@ LABEL_10:
 {
   heightCopy = height;
   widthCopy = width;
-  [(CRLWPShapeLayout *)self autosizedTransform];
+  objc_msgSend_autosizedTransform(self, a2);
   [(CRLShapeLayout *)self pathBoundsWithoutStroke];
   v8 = v7;
   v10 = v9;
@@ -607,7 +607,7 @@ LABEL_10:
   }
 
   [v12 setSize:{v14, v16}];
-  [(CRLWPShapeLayout *)self autosizedTransformForInfoGeometry:v12];
+  objc_msgSend_autosizedTransformForInfoGeometry_(self);
   v17 = vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, CGPointZero.y), 0, CGPointZero.x));
   v18 = sub_10011F31C(v17.f64[0], v17.f64[1], v17.f64[0]);
   v20 = v19;
@@ -863,14 +863,14 @@ LABEL_10:
   {
     if (trackerCopy)
     {
-      [trackerCopy flippedIfNecessaryTransformForLayout:self];
+      objc_msgSend_flippedIfNecessaryTransformForLayout_(trackerCopy);
       goto LABEL_9;
     }
   }
 
   else if (trackerCopy)
   {
-    [trackerCopy transformForLayout:self];
+    objc_msgSend_transformForLayout_(trackerCopy);
     goto LABEL_9;
   }
 
@@ -882,7 +882,7 @@ LABEL_9:
   v8 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry transform];
+    objc_msgSend_transform(originalPureGeometry);
   }
 
   else
@@ -1050,7 +1050,7 @@ LABEL_49:
       v49 = 0u;
       if (trackerCopy)
       {
-        [trackerCopy resizeTransformForLayout:self];
+        objc_msgSend_resizeTransformForLayout_(trackerCopy);
         v5 = 0uLL;
       }
 
@@ -1061,7 +1061,7 @@ LABEL_49:
       v7 = originalPureGeometry;
       if (originalPureGeometry)
       {
-        [originalPureGeometry transform];
+        objc_msgSend_transform(originalPureGeometry);
       }
 
       else
@@ -1354,7 +1354,7 @@ LABEL_49:
   selfCopy = self;
   CRLWPShapeLayout.dependents(of:)(ofCopy);
 
-  sub_100006370(0, &qword_101A287B0);
+  sub_100006370(0, &qword_101A287B0, off_10182F780);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -1362,7 +1362,7 @@ LABEL_49:
 
 - (Class)repClassFor:(id)for
 {
-  sub_100006370(0, &unk_101A0D840);
+  sub_100006370(0, &unk_101A0D840, off_10182F9E8);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -1419,9 +1419,9 @@ LABEL_49:
   selfCopy = self;
   CRLWPShapeLayout.makeStorageRangeToFontSizeDict()();
 
-  sub_100006370(0, &qword_101A04270);
-  sub_100006370(0, &qword_1019FF3E0);
-  sub_10000FDE0(&qword_101A0A0F0, &qword_101A04270);
+  sub_100006370(0, &qword_101A04270, NSValue_ptr);
+  sub_100006370(0, &qword_1019FF3E0, NSNumber_ptr);
+  sub_10000FDE0(&qword_101A0A0F0, &qword_101A04270, NSValue_ptr, &protocol conformance descriptor for NSObject);
   v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -1429,9 +1429,9 @@ LABEL_49:
 
 - (id)commandsToSetFontSizesWithFontRangeToSizeDict:(id)dict scale:(double)scale
 {
-  sub_100006370(0, &qword_101A04270);
-  sub_100006370(0, &qword_1019FF3E0);
-  sub_10000FDE0(&qword_101A0A0F0, &qword_101A04270);
+  sub_100006370(0, &qword_101A04270, NSValue_ptr);
+  sub_100006370(0, &qword_1019FF3E0, NSNumber_ptr);
+  sub_10000FDE0(&qword_101A0A0F0, &qword_101A04270, NSValue_ptr, &protocol conformance descriptor for NSObject);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100990D14(v6, scale);

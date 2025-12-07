@@ -3,9 +3,9 @@
 + (id)planeListWithAnchors:(id)anchors;
 - (OZARPlaneInfo)initWithARPlaneAnchor:(id)anchor;
 - (OZARPlaneInfo)initWithCoder:(id)coder;
-- (uint64_t)simdTransform;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
+- (void)simdTransform;
 @end
 
 @implementation OZARPlaneInfo
@@ -31,7 +31,7 @@
     [anchor center];
     -[OZARPlaneInfo setCenter:](v4, "setCenter:", [v6 PCValueWithSIMDFloat3:?]);
     v7 = MEMORY[0x277CCAE60];
-    [anchor transform];
+    objc_msgSend_transform(anchor);
     -[OZARPlaneInfo setTransform:](v4, "setTransform:", [v7 PCValueWithSIMDFloat4x4:?]);
     -[OZARPlaneInfo setIdentifier:](v4, "setIdentifier:", [anchor identifier]);
   }
@@ -123,11 +123,11 @@
   return array;
 }
 
-- (uint64_t)simdTransform
+- (void)simdTransform
 {
-  transform = [self transform];
+  v3 = objc_msgSend_transform(self, a2);
 
-  return [transform PCSIMDFloat4x4Value];
+  return [v3 PCSIMDFloat4x4Value];
 }
 
 - (OZARPlaneInfo)initWithCoder:(id)coder
@@ -154,7 +154,7 @@
   [coder encodeObject:-[OZARPlaneInfo classification](self forKey:{"classification"), @"classification"}];
   [coder encodeObject:-[OZARPlaneInfo extent](self forKey:{"extent"), @"extent"}];
   [coder encodeObject:-[OZARPlaneInfo center](self forKey:{"center"), @"center"}];
-  [coder encodeObject:-[OZARPlaneInfo transform](self forKey:{"transform"), @"transform"}];
+  [coder encodeObject:objc_msgSend_transform(self) forKey:@"transform"];
   identifier = [(OZARPlaneInfo *)self identifier];
 
   [coder encodeObject:identifier forKey:@"identifier"];

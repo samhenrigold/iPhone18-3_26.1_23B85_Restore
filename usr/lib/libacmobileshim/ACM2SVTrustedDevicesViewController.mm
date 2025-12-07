@@ -332,13 +332,13 @@ LABEL_11:
   }
 }
 
-uint64_t __92__ACM2SVTrustedDevicesViewController_presentWithParentViewController_deviceList_completion___block_invoke(uint64_t result)
+id *__92__ACM2SVTrustedDevicesViewController_presentWithParentViewController_deviceList_completion___block_invoke(id *result)
 {
-  if (!*(result + 32))
+  if (!result[4])
   {
     v2 = result;
-    v3 = [*(result + 40) delegate];
-    v4 = *(v2 + 40);
+    v3 = [result[5] delegate];
+    v4 = v2[5];
 
     return [v3 trustedDevicesViewControllerNeedsRefresh:v4];
   }

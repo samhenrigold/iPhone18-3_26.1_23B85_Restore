@@ -22,6 +22,7 @@
 - (void)executePlatformFunction;
 - (void)performPlaybackLoopIterationPostCaptureActions:(unsigned int)actions;
 - (void)performPlaybackLoopIterationPreCaptureActions:(unsigned int)actions;
+- (void)performPostGraphicsFunctionDispatchActions:(BOOL)actions;
 @end
 
 @implementation DYGLShaderProfilerFunctionPlayerSupport
@@ -324,7 +325,7 @@ LABEL_12:
     gliDispatch[104](gliContext, 36006, &v64);
     v12 = v64;
     v65 = function + 2;
-    *(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2) + 6) = v12;
+    *(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2, &unk_21051, &v65) + 6) = v12;
     goto LABEL_13;
   }
 
@@ -374,7 +375,7 @@ LABEL_49:
   }
 
   v65 = function + 2;
-  [(DYGLShaderProfilerFunctionPlayerSupport *)self _saveColorAttachmentFramebuffer:*(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2) + 6)];
+  [(DYGLShaderProfilerFunctionPlayerSupport *)self _saveColorAttachmentFramebuffer:*(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2, &unk_21051, &v65) + 6)];
   if ((unsignedIntValue & 4) != 0)
   {
     goto LABEL_49;
@@ -561,7 +562,7 @@ LABEL_78:
       if (!sub_5308(&self->_drawCallIndexMap.__table_.__bucket_list_.__ptr_, &v64))
       {
         v65 = &v64;
-        v50 = sub_1271C(&self->_drawCallIndexMap.__table_.__bucket_list_.__ptr_, &v64);
+        v50 = sub_1271C(&self->_drawCallIndexMap.__table_.__bucket_list_.__ptr_, &v64, &unk_21051, &v65);
         v52 = v50 + 3;
         v51 = v50[3];
         if (v51)
@@ -579,7 +580,7 @@ LABEL_78:
       }
 
       v65 = &v64;
-      v53 = sub_1271C(&self->_drawCallIndexMap.__table_.__bucket_list_.__ptr_, &v64);
+      v53 = sub_1271C(&self->_drawCallIndexMap.__table_.__bucket_list_.__ptr_, &v64, &unk_21051, &v65);
       strongFunctionPlayer12 = [(DYGLShaderProfilerFunctionPlayerSupport *)self strongFunctionPlayer];
       LODWORD(v65) = [strongFunctionPlayer12 currentExecutionModeFunctionIndex];
       sub_F738(v53 + 3, &v65, &self->_drawCallIndex);
@@ -650,6 +651,63 @@ LABEL_46:
   return result;
 }
 
+- (void)performPostGraphicsFunctionDispatchActions:(BOOL)actions
+{
+  strongFunctionPlayer = [(DYGLShaderProfilerFunctionPlayerSupport *)self strongFunctionPlayer];
+  function = [strongFunctionPlayer function];
+
+  [(DYGLShaderProfilerFunctionPlayerSupport *)self setShouldReturn:1];
+  [(DYGLShaderProfilerFunctionPlayerSupport *)self setShouldCallSuper:0];
+  v5 = *function;
+  if (*function <= 381)
+  {
+    v8 = (v5 - 139) <= 7 && ((1 << (v5 + 117)) & 0x91) != 0 || v5 == 28;
+    if (!v8 && v5 != 36)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v6 = (v5 - 823) > 0x1F || ((1 << (v5 - 55)) & 0xF0784003) == 0;
+    if (v6 && v5 != 382 && v5 != 384)
+    {
+      return;
+    }
+  }
+
+  if (self->_queryShaderState == 2)
+  {
+    strongFunctionPlayer2 = [(DYGLShaderProfilerFunctionPlayerSupport *)self strongFunctionPlayer];
+    if ([strongFunctionPlayer2 mainExecutionMode])
+    {
+      strongFunctionPlayer3 = [(DYGLShaderProfilerFunctionPlayerSupport *)self strongFunctionPlayer];
+      currentExecutionModeFunctionIndex = [strongFunctionPlayer3 currentExecutionModeFunctionIndex];
+      v11 = [(NSArray *)self->_functionFlag count];
+
+      if (v11 > currentExecutionModeFunctionIndex)
+      {
+        functionFlag = self->_functionFlag;
+        strongFunctionPlayer4 = [(DYGLShaderProfilerFunctionPlayerSupport *)self strongFunctionPlayer];
+        v13 = -[NSArray objectAtIndexedSubscript:](functionFlag, "objectAtIndexedSubscript:", [strongFunctionPlayer4 currentExecutionModeFunctionIndex]);
+        v14 = [v13 objectForKeyedSubscript:@"flag"];
+        unsignedIntValue = [v14 unsignedIntValue];
+
+        if ((unsignedIntValue & 8) != 0)
+        {
+
+          [(DYGLShaderProfilerFunctionPlayerSupport *)self _harvestShaderBinaries];
+        }
+      }
+    }
+
+    else
+    {
+    }
+  }
+}
+
 - (void)executePlatformFunction
 {
   strongFunctionPlayer = [(DYGLShaderProfilerFunctionPlayerSupport *)self strongFunctionPlayer];
@@ -683,7 +741,8 @@ LABEL_46:
 
         if (unsignedIntValue)
         {
-          [(DYGLShaderProfilerFunctionPlayerSupport *)self _saveColorAttachmentFramebuffer:*(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2) + 6)];
+          v26 = function + 2;
+          [(DYGLShaderProfilerFunctionPlayerSupport *)self _saveColorAttachmentFramebuffer:*(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2, &unk_21051, &v26) + 6)];
           if ((unsignedIntValue & 4) == 0)
           {
 LABEL_6:
@@ -751,7 +810,8 @@ LABEL_22:
 
     if (v25 == 1)
     {
-      *(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2) + 6) = 0;
+      v26 = function + 2;
+      *(sub_124E8(&self->_lastUpdatedFramebuffer.__table_.__bucket_list_.__ptr_, function + 2, &unk_21051, &v26) + 6) = 0;
     }
 
     return;
@@ -1184,16 +1244,16 @@ LABEL_16:
     v40 = 0u;
     v41 = 1065353216;
     v51 = v37 + 16;
-    v32 = sub_131BC(&selfCopy->_colorAttachmentMap.__table_.__bucket_list_.__ptr_, v31);
+    v32 = sub_131BC(&selfCopy->_colorAttachmentMap.__table_.__bucket_list_.__ptr_, v31, &unk_21051, &v51);
     sub_13478((v32 + 3), &v39);
     sub_459C(&v39);
   }
 
   *&v39 = v37 + 16;
-  v33 = sub_131BC(&selfCopy->_colorAttachmentMap.__table_.__bucket_list_.__ptr_, v31);
+  v33 = sub_131BC(&selfCopy->_colorAttachmentMap.__table_.__bucket_list_.__ptr_, v31, &unk_21051, &v39);
   LODWORD(v51) = HIDWORD(v50);
   *&v39 = &v51;
-  v34 = sub_1351C(v33 + 3, &v51);
+  v34 = sub_1351C(v33 + 3, &v51, &unk_21051, &v39);
   v35 = v34[3];
   if (v35)
   {
@@ -1224,7 +1284,7 @@ LABEL_16:
   if (framebuffer)
   {
     strongFunctionPlayer = [(DYGLShaderProfilerFunctionPlayerSupport *)self strongFunctionPlayer];
-    v4 = *([strongFunctionPlayer function] + 2);
+    [strongFunctionPlayer function];
     DYHarvestRenderbufferInfo();
   }
 }

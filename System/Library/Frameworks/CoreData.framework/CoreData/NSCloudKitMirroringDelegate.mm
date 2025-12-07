@@ -1,5 +1,6 @@
 @interface NSCloudKitMirroringDelegate
 + (BOOL)checkAndCreateDirectoryAtURL:(id)l wipeIfExists:(BOOL)exists error:(id *)error;
++ (BOOL)checkIfContentsOfStore:(id)store matchContentsOfStore:(id)ofStore onlyCompareSharedZones:(BOOL)zones error:(id *)error;
 + (BOOL)printEventsInStores:(id)stores startingAt:(id)at endingAt:(id)endingAt error:(id *)error;
 + (BOOL)printSharedZoneWithName:(id)name inStoreAtURL:(id)l error:(id *)error;
 + (BOOL)traceObjectMatchingRecordName:(id)name inStores:(id)stores startingAt:(id)at endingAt:(id)endingAt error:(id *)error;
@@ -9,23 +10,22 @@
 + (void)initialize;
 + (void)printMetadataForStoreAtURL:(id)l withConfiguration:(id)configuration operateOnACopy:(BOOL)copy;
 + (void)printRepresentativeSchemaForModelAtURL:(id)l orStoreAtURL:(id)rL withConfiguration:(id)configuration;
+- (BOOL)_dateExceedsSchedulingThreshold:(_BOOL8)result;
 - (BOOL)validateManagedObjectModel:(id)model forUseWithStoreWithDescription:(id)description error:(id *)error;
 - (NSCloudKitMirroringDelegate)initWithCloudKitContainerOptions:(id)options;
 - (NSCloudKitMirroringDelegate)initWithOptions:(id)options;
 - (NSPersistentStoreResult)executeMirroringRequest:(uint64_t *)request error:;
-- (uint64_t)_dateExceedsSchedulingThreshold:(uint64_t)result;
-- (uint64_t)_exportFinishedWithResult:(uint64_t)result exporter:;
-- (uint64_t)_finishedRequest:(void *)request withResult:;
-- (uint64_t)_importFinishedWithResult:(uint64_t)result importer:;
+- (id)_importFinishedWithResult:(uint64_t)result importer:;
 - (uint64_t)_markZonesNeedingRecoveryFromManateeIdentityLoss:(uint64_t)loss databaseScope:(uint64_t)scope inStore:(void *)store error:;
 - (uint64_t)_recoverFromError:(void *)error withZoneIDs:(uint64_t)ds forStore:(uint64_t)store inMonitor:;
 - (uint64_t)recoverFromError:(uint64_t)error;
-- (uint64_t)retryAfterInSecondsFromError:(void *)error;
 - (uint64_t)shouldAttemptSetupRecoveryFromError:(char)error viaPush:;
 - (unsigned)qosClassForAccountMonitor:(id)monitor;
 - (void)_acceptShareMetadatasInRequest:(uint64_t)request workBlockContext:;
 - (void)_disableAutomaticExports;
 - (void)_enableAutomaticExports;
+- (void)_exportFinishedWithResult:(uint64_t)result exporter:;
+- (void)_finishedRequest:(void *)request withResult:;
 - (void)_openTransactionWithLabel:(uint64_t)label assertionLabel:(uint64_t)assertionLabel andExecuteWorkBlock:;
 - (void)_performAcceptShareInvitationsRequest:(uint64_t)request;
 - (void)_performDelegateResetRequest:(uint64_t)request;
@@ -63,6 +63,7 @@
 - (void)remoteStoreDidChange:(id)change;
 - (void)removeNotificationRegistrations;
 - (void)resetAfterError:(uint64_t)error andKeepContainer:(void *)container;
+- (void)retryAfterInSecondsFromError:(void *)error;
 - (void)scheduleExportAndStartAfterDate:(uint64_t)date;
 - (void)storesDidChange:(id)change;
 - (void)tearDown:(uint64_t)down;
@@ -134,7 +135,7 @@
 
 - (void)checkAndExecuteNextRequest
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_autoreleasePoolPush();
@@ -168,32 +169,30 @@
     if (os_log_type_enabled(Stream, v6))
     {
       *buf = 136315650;
-      v11 = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]";
-      v12 = 1024;
-      v13 = 3570;
-      v14 = 2112;
+      v10 = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]";
+      v11 = 1024;
+      v12 = 3570;
+      v13 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_18565F000, v4, v6, "CoreData+CloudKit: %s(%d): %@: Checking for pending requests.", buf, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v2);
     objc_initWeak(buf, self);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke;
-    v8[3] = &unk_1E6EC4DB8;
-    objc_copyWeak(&v9, buf);
-    [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v8 andExecuteWorkBlock:?];
-    objc_destroyWeak(&v9);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke;
+    v7[3] = &unk_1E6EC4DB8;
+    objc_copyWeak(&v8, buf);
+    [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v7 andExecuteWorkBlock:?];
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -233,15 +232,15 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
       if (os_log_type_enabled(Stream, v9))
       {
         v10 = v4[12];
-        *v33 = 136315906;
-        *&v33[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
-        *&v33[12] = 1024;
-        *&v33[14] = 3579;
-        *&v33[18] = 2112;
-        *&v33[20] = v2;
-        *&v33[28] = 2112;
-        *&v33[30] = v10;
-        _os_log_impl(&dword_18565F000, v7, v9, "CoreData+CloudKit: %s(%d): %@: Deferring additional work. There is still an active request: %@", v33, 0x26u);
+        *v32 = 136315906;
+        *&v32[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
+        *&v32[12] = 1024;
+        *&v32[14] = 3579;
+        *&v32[18] = 2112;
+        *&v32[20] = v2;
+        *&v32[28] = 2112;
+        *&v32[30] = v10;
+        _os_log_impl(&dword_18565F000, v7, v9, "CoreData+CloudKit: %s(%d): %@: Deferring additional work. There is still an active request: %@", v32, 0x26u);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -282,13 +281,13 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
     {
       if (v23)
       {
-        *v33 = 136315650;
-        *&v33[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
-        *&v33[12] = 1024;
-        *&v33[14] = 3586;
-        *&v33[18] = 2112;
-        *&v33[20] = v2;
-        _os_log_impl(&dword_18565F000, v20, v22, "CoreData+CloudKit: %s(%d): %@: No more requests to execute.", v33, 0x1Cu);
+        *v32 = 136315650;
+        *&v32[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
+        *&v32[12] = 1024;
+        *&v32[14] = 3586;
+        *&v32[18] = 2112;
+        *&v32[20] = v2;
+        _os_log_impl(&dword_18565F000, v20, v22, "CoreData+CloudKit: %s(%d): %@: No more requests to execute.", v32, 0x1Cu);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -297,15 +296,15 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
 
     if (v23)
     {
-      *v33 = 136315906;
-      *&v33[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
-      *&v33[12] = 1024;
-      *&v33[14] = 3583;
-      *&v33[18] = 2112;
-      *&v33[20] = v2;
-      *&v33[28] = 2112;
-      *&v33[30] = v17;
-      _os_log_impl(&dword_18565F000, v20, v22, "CoreData+CloudKit: %s(%d): %@: Executing: %@", v33, 0x26u);
+      *v32 = 136315906;
+      *&v32[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
+      *&v32[12] = 1024;
+      *&v32[14] = 3583;
+      *&v32[18] = 2112;
+      *&v32[20] = v2;
+      *&v32[28] = 2112;
+      *&v32[30] = v17;
+      _os_log_impl(&dword_18565F000, v20, v22, "CoreData+CloudKit: %s(%d): %@: Executing: %@", v32, 0x26u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -322,29 +321,29 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        *v33 = 138412290;
-        *&v33[4] = v24;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: I don't know how to handle this type of activity yet: %@\n", v33, 0xCu);
+        *v32 = 138412290;
+        *&v32[4] = v24;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: I don't know how to handle this type of activity yet: %@\n", v32, 0xCu);
       }
 
       v27 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
-        *v33 = 138412290;
-        *&v33[4] = v24;
-        _os_log_fault_impl(&dword_18565F000, v27, OS_LOG_TYPE_FAULT, "CoreData: I don't know how to handle this type of activity yet: %@", v33, 0xCu);
+        *v32 = 138412290;
+        *&v32[4] = v24;
+        _os_log_fault_impl(&dword_18565F000, v27, OS_LOG_TYPE_FAULT, "CoreData: I don't know how to handle this type of activity yet: %@", v32, 0xCu);
       }
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      *v33 = MEMORY[0x1E69E9820];
-      *&v33[8] = 3221225472;
-      *&v33[16] = __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invoke;
-      *&v33[24] = &unk_1E6EC4B10;
-      *&v33[32] = v2;
-      v34 = v17;
+      *v32 = MEMORY[0x1E69E9820];
+      *&v32[8] = 3221225472;
+      *&v32[16] = __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invoke;
+      *&v32[24] = &unk_1E6EC4B10;
+      *&v32[32] = v2;
+      v33 = v17;
       v28 = @"com.apple.coredata.cloudkit.fetch.records";
       v29 = @"CoreData: CloudKit Fetch Records";
     }
@@ -354,12 +353,12 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        *v33 = MEMORY[0x1E69E9820];
-        *&v33[8] = 3221225472;
-        *&v33[16] = __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke;
-        *&v33[24] = &unk_1E6EC4B10;
-        *&v33[32] = v2;
-        v34 = v17;
+        *v32 = MEMORY[0x1E69E9820];
+        *&v32[8] = 3221225472;
+        *&v32[16] = __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke;
+        *&v32[24] = &unk_1E6EC4B10;
+        *&v32[32] = v2;
+        v33 = v17;
         v28 = @"com.apple.coredata.cloudkit.import";
         v29 = @"CoreData: CloudKit Import";
       }
@@ -369,12 +368,12 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          *v33 = MEMORY[0x1E69E9820];
-          *&v33[8] = 3221225472;
-          *&v33[16] = __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke;
-          *&v33[24] = &unk_1E6EC4B10;
-          *&v33[32] = v2;
-          v34 = v17;
+          *v32 = MEMORY[0x1E69E9820];
+          *&v32[8] = 3221225472;
+          *&v32[16] = __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke;
+          *&v32[24] = &unk_1E6EC4B10;
+          *&v32[32] = v2;
+          v33 = v17;
           v28 = @"com.apple.coredata.cloudkit.export";
           v29 = @"CoreData: CloudKit Export";
         }
@@ -384,12 +383,12 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            *v33 = MEMORY[0x1E69E9820];
-            *&v33[8] = 3221225472;
-            *&v33[16] = __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke;
-            *&v33[24] = &unk_1E6EC4B10;
-            *&v33[32] = v2;
-            v34 = v17;
+            *v32 = MEMORY[0x1E69E9820];
+            *&v32[8] = 3221225472;
+            *&v32[16] = __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke;
+            *&v32[24] = &unk_1E6EC4B10;
+            *&v32[32] = v2;
+            v33 = v17;
             v28 = @"com.apple.coredata.cloudkit.zone.reset";
             v29 = @"CoreData: CloudKit Zone Reset";
           }
@@ -447,24 +446,24 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
 
                         else
                         {
-                          v31 = _PFLogGetLogStream(17);
-                          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                          v30 = _PFLogGetLogStream(17);
+                          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                           {
-                            *v33 = 138412546;
-                            *&v33[4] = v2;
-                            *&v33[12] = 2112;
-                            *&v33[14] = v17;
-                            _os_log_error_impl(&dword_18565F000, v31, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Asked to execute a request that isn't understood yet: %@\n", v33, 0x16u);
+                            *v32 = 138412546;
+                            *&v32[4] = v2;
+                            *&v32[12] = 2112;
+                            *&v32[14] = v17;
+                            _os_log_error_impl(&dword_18565F000, v30, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Asked to execute a request that isn't understood yet: %@\n", v32, 0x16u);
                           }
 
-                          v32 = _PFLogGetLogStream(17);
-                          if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+                          v31 = _PFLogGetLogStream(17);
+                          if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
                           {
-                            *v33 = 138412546;
-                            *&v33[4] = v2;
-                            *&v33[12] = 2112;
-                            *&v33[14] = v17;
-                            _os_log_fault_impl(&dword_18565F000, v32, OS_LOG_TYPE_FAULT, "CoreData: %@: Asked to execute a request that isn't understood yet: %@", v33, 0x16u);
+                            *v32 = 138412546;
+                            *&v32[4] = v2;
+                            *&v32[12] = 2112;
+                            *&v32[14] = v17;
+                            _os_log_fault_impl(&dword_18565F000, v31, OS_LOG_TYPE_FAULT, "CoreData: %@: Asked to execute a request that isn't understood yet: %@", v32, 0x16u);
                           }
                         }
                       }
@@ -476,12 +475,12 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
               goto LABEL_63;
             }
 
-            *v33 = MEMORY[0x1E69E9820];
-            *&v33[8] = 3221225472;
-            *&v33[16] = __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invoke;
-            *&v33[24] = &unk_1E6EC4B10;
-            *&v33[32] = v2;
-            v34 = v17;
+            *v32 = MEMORY[0x1E69E9820];
+            *&v32[8] = 3221225472;
+            *&v32[16] = __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invoke;
+            *&v32[24] = &unk_1E6EC4B10;
+            *&v32[32] = v2;
+            v33 = v17;
             v28 = @"com.apple.coredata.cloudkit.metadata.reset";
             v29 = @"CoreData: CloudKit Metadata Reset";
           }
@@ -489,7 +488,7 @@ void __57__NSCloudKitMirroringDelegate_checkAndExecuteNextRequest__block_invoke(
       }
     }
 
-    [(NSCloudKitMirroringDelegate *)v2 _openTransactionWithLabel:v28 assertionLabel:v29 andExecuteWorkBlock:v33];
+    [(NSCloudKitMirroringDelegate *)v2 _openTransactionWithLabel:v28 assertionLabel:v29 andExecuteWorkBlock:v32];
 LABEL_63:
 
 LABEL_64:
@@ -541,17 +540,15 @@ LABEL_64:
 
   if (os_log_type_enabled(v12, v16))
   {
-    *v33 = 136315394;
-    *&v33[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
-    *&v33[12] = 1024;
-    *&v33[14] = 3592;
-    _os_log_impl(&dword_18565F000, v13, v16, "CoreData+CloudKit: %s(%d): Unable to schedule work because the mirroring delegate was deallocated.", v33, 0x12u);
+    *v32 = 136315394;
+    *&v32[4] = "[NSCloudKitMirroringDelegate checkAndExecuteNextRequest]_block_invoke";
+    *&v32[12] = 1024;
+    *&v32[14] = 3592;
+    _os_log_impl(&dword_18565F000, v13, v16, "CoreData+CloudKit: %s(%d): Unable to schedule work because the mirroring delegate was deallocated.", v32, 0x12u);
   }
 
   objc_autoreleasePoolPop(v11);
 LABEL_65:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerForAccountAndIdentityNotificationsIfNeeded
@@ -597,7 +594,7 @@ LABEL_7:
 
 - (NSCloudKitMirroringDelegate)initWithOptions:(id)options
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = [(NSCloudKitMirroringDelegate *)self init];
   if (v4)
   {
@@ -623,29 +620,29 @@ LABEL_7:
     v4->_registeredForAccountChangeNotifications = 0;
     v4->_requestManager = objc_alloc_init(NSCloudKitMirroringRequestManager);
     v4->_voucherManager = objc_alloc_init(NSCloudKitMirroringActivityVoucherManager);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     activityVouchers = [options activityVouchers];
-    v8 = [activityVouchers countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [activityVouchers countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(activityVouchers);
           }
 
-          [(NSCloudKitMirroringActivityVoucherManager *)v4->_voucherManager addVoucher:*(*(&v21 + 1) + 8 * i)];
+          [(NSCloudKitMirroringActivityVoucherManager *)v4->_voucherManager addVoucher:*(*(&v20 + 1) + 8 * i)];
         }
 
-        v9 = [activityVouchers countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [activityVouchers countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
@@ -693,7 +690,6 @@ LABEL_7:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -747,7 +743,7 @@ dispatch_queue_t __47__NSCloudKitMirroringDelegate_initWithOptions___block_invok
   {
 LABEL_6:
     LOBYTE(v8) = 1;
-    goto LABEL_25;
+    return v8;
   }
 
   v12 = -[PFCloudKitModelValidator initWithManagedObjectModel:configuration:mirroringDelegateOptions:]([PFCloudKitModelValidator alloc], "initWithManagedObjectModel:configuration:mirroringDelegateOptions:", model, [description configuration], self->_options);
@@ -773,16 +769,17 @@ LABEL_6:
   {
     v17 = MEMORY[0x1E696AEC0];
     v18 = objc_opt_class();
-    v19 = [v17 stringWithFormat:@"Cannot be used without an instance of %@.", NSStringFromClass(v18)];
-    v20 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A250];
+    v19 = NSStringFromClass(v18);
+    v20 = objc_msgSend_stringWithFormat_(v17, v19);
+    v21 = MEMORY[0x1E696ABC0];
+    v22 = *MEMORY[0x1E696A250];
     v37 = *MEMORY[0x1E696A588];
-    v38 = v19;
-    v22 = MEMORY[0x1E695DF20];
-    v23 = &v38;
-    v24 = &v37;
+    v38 = v20;
+    v23 = MEMORY[0x1E695DF20];
+    v24 = &v38;
+    v25 = &v37;
 LABEL_17:
-    v30 = [v20 errorWithDomain:v21 code:134060 userInfo:{objc_msgSend(v22, "dictionaryWithObjects:forKeys:count:", v23, v24, 1)}];
+    v30 = [v21 errorWithDomain:v22 code:134060 userInfo:{objc_msgSend(v23, "dictionaryWithObjects:forKeys:count:", v24, v25, 1)}];
 LABEL_18:
 
     goto LABEL_19;
@@ -790,14 +787,14 @@ LABEL_18:
 
   if (([objc_msgSend(description "type")] & 1) == 0)
   {
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CloudKit integration is only supported for %@ stores.", @"SQLite"];
-    v20 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A250];
+    v26 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"SQLite");
+    v21 = MEMORY[0x1E696ABC0];
+    v22 = *MEMORY[0x1E696A250];
     v39 = *MEMORY[0x1E696A588];
-    v40[0] = v25;
-    v22 = MEMORY[0x1E695DF20];
-    v23 = v40;
-    v24 = &v39;
+    v40[0] = v26;
+    v23 = MEMORY[0x1E695DF20];
+    v24 = v40;
+    v25 = &v39;
     goto LABEL_17;
   }
 
@@ -818,12 +815,12 @@ LABEL_3:
     {
       LOBYTE(v8) = 0;
       *error = v7;
-      goto LABEL_25;
+      return v8;
     }
 
 LABEL_24:
     LOBYTE(v8) = 0;
-    goto LABEL_25;
+    return v8;
   }
 
 LABEL_20:
@@ -837,20 +834,18 @@ LABEL_20:
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
-  v27 = _PFLogGetLogStream(17);
-  v8 = os_log_type_enabled(v27, OS_LOG_TYPE_FAULT);
+  v28 = _PFLogGetLogStream(17);
+  v8 = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
   if (v8)
   {
     *buf = 136315394;
     v32 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
     v33 = 1024;
     v34 = 371;
-    _os_log_fault_impl(&dword_18565F000, v27, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+    _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     goto LABEL_24;
   }
 
-LABEL_25:
-  v28 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -868,7 +863,7 @@ LABEL_25:
 
 void __108__NSCloudKitMirroringDelegate_persistentStoreCoordinator_didSuccessfullyAddPersistentStore_withDescription___block_invoke(void *a1)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v1 = a1[4];
   if (v1)
   {
@@ -945,44 +940,44 @@ void __108__NSCloudKitMirroringDelegate_persistentStoreCoordinator_didSuccessful
       [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
       v13 = [v2 identifier];
       *(v1 + 152) = v13;
-      *(v1 + 160) = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"com.apple.coredata.cloudkit.activity.import", v13];
-      *(v1 + 168) = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"com.apple.coredata.cloudkit.activity.export", *(v1 + 152)];
-      *(v1 + 176) = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"com.apple.coredata.cloudkit.activity.setup", *(v1 + 152)];
-      *(v1 + 184) = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coredata.cloudkit.%@.%@", objc_msgSend(objc_msgSend(MEMORY[0x1E696AE30], "processInfo"), "processName"), *(v1 + 152)];
+      *(v1 + 160) = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"com.apple.coredata.cloudkit.activity.import", v13);
+      *(v1 + 168) = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"com.apple.coredata.cloudkit.activity.export", *(v1 + 152));
+      *(v1 + 176) = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"com.apple.coredata.cloudkit.activity.setup", *(v1 + 152));
+      *(v1 + 184) = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [objc_msgSend(MEMORY[0x1E696AE30] "processInfo")], *(v1 + 152));
       if ([*(v1 + 8) automaticallyScheduleImportAndExportOperations])
       {
         objc_initWeak(location, v1);
         v14 = *(v1 + 64);
         v15 = *(v1 + 168);
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke;
-        v21[3] = &unk_1E6EC4A70;
-        objc_copyWeak(&v22, location);
-        [v14 registerActivityIdentifier:v15 handler:v21];
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke;
+        v20[3] = &unk_1E6EC4A70;
+        objc_copyWeak(&v21, location);
+        [v14 registerActivityIdentifier:v15 handler:v20];
         *(v1 + 130) = 1;
-        objc_destroyWeak(&v22);
+        objc_destroyWeak(&v21);
         v16 = *(v1 + 64);
         v17 = *(v1 + 160);
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke_179;
-        v26[3] = &unk_1E6EC4A70;
-        objc_copyWeak(v27, location);
-        [v16 registerActivityIdentifier:v17 handler:v26];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke_179;
+        v25[3] = &unk_1E6EC4A70;
+        objc_copyWeak(v26, location);
+        [v16 registerActivityIdentifier:v17 handler:v25];
         *(v1 + 131) = 1;
-        objc_destroyWeak(v27);
+        objc_destroyWeak(v26);
         v18 = *(v1 + 64);
         v19 = *(v1 + 176);
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke_186;
         *&buf[24] = &unk_1E6EC3568;
-        objc_copyWeak(v25, location);
+        objc_copyWeak(v24, location);
         *&buf[32] = v1;
         [v18 registerActivityIdentifier:v19 handler:buf];
         *(v1 + 132) = 1;
-        objc_destroyWeak(v25);
+        objc_destroyWeak(v24);
         objc_destroyWeak(location);
       }
 
@@ -990,8 +985,6 @@ void __108__NSCloudKitMirroringDelegate_persistentStoreCoordinator_didSuccessful
       objc_autoreleasePoolPop(v11);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_openTransactionWithLabel:(uint64_t)label assertionLabel:(uint64_t)assertionLabel andExecuteWorkBlock:
@@ -1012,7 +1005,7 @@ void __108__NSCloudKitMirroringDelegate_persistentStoreCoordinator_didSuccessful
 
 void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = WeakRetained;
   if (WeakRetained)
@@ -1037,22 +1030,20 @@ void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreC
 
     if (os_log_type_enabled(Stream, v10))
     {
-      v12 = 136315394;
-      v13 = "[NSCloudKitMirroringDelegate observeChangesForStore:inPersistentStoreCoordinator:]_block_invoke";
-      v14 = 1024;
-      v15 = 447;
-      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Got called back for an export activity but the mirroring delegate is gone.", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = "[NSCloudKitMirroringDelegate observeChangesForStore:inPersistentStoreCoordinator:]_block_invoke";
+      v13 = 1024;
+      v14 = 447;
+      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Got called back for an export activity but the mirroring delegate is gone.", &v11, 0x12u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleAutomatedExportWithLabel:(uint64_t)label activity:(uint64_t)activity voucher:(uint64_t)voucher completionHandler:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v10 = objc_autoreleasePoolPush();
@@ -1086,48 +1077,48 @@ void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreC
     if (os_log_type_enabled(Stream, v14))
     {
       *buf = 136316162;
-      v25 = "[NSCloudKitMirroringDelegate _scheduleAutomatedExportWithLabel:activity:voucher:completionHandler:]";
-      v26 = 1024;
-      v27 = 3702;
-      v28 = 2112;
+      v24 = "[NSCloudKitMirroringDelegate _scheduleAutomatedExportWithLabel:activity:voucher:completionHandler:]";
+      v25 = 1024;
+      v26 = 3702;
+      v27 = 2112;
       selfCopy = self;
-      v30 = 2112;
-      v31 = a2;
-      v32 = 2112;
+      v29 = 2112;
+      v30 = a2;
+      v31 = 2112;
       labelCopy = label;
       _os_log_impl(&dword_18565F000, v12, v14, "CoreData+CloudKit: %s(%d): %@ - Beginning automated export - %@:\n%@", buf, 0x30u);
     }
 
     objc_autoreleasePoolPop(v10);
     v15 = objc_alloc_init(NSCloudKitMirroringRequestOptions);
-    if ([*(self + 8) defaultOperationConfiguration])
+    if ([(objc_class *)self[1].super.isa defaultOperationConfiguration])
     {
-      -[NSCloudKitMirroringRequestOptions setOperationConfiguration:](v15, "setOperationConfiguration:", [*(self + 8) defaultOperationConfiguration]);
+      [(NSCloudKitMirroringRequestOptions *)v15 setOperationConfiguration:[(objc_class *)self[1].super.isa defaultOperationConfiguration]];
     }
 
-    if (activity || (activity = [*(self + 208) usableVoucherForEventType:2]) != 0)
+    if (activity || (activity = [(objc_class *)self[26].super.isa usableVoucherForEventType:2]) != 0)
     {
       activityCopy = activity;
       -[NSCloudKitMirroringRequestOptions setVouchers:](v15, "setVouchers:", [MEMORY[0x1E695DEC8] arrayWithObjects:&activityCopy count:1]);
     }
 
     v16 = [NSCloudKitMirroringExportRequest alloc];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __100__NSCloudKitMirroringDelegate__scheduleAutomatedExportWithLabel_activity_voucher_completionHandler___block_invoke;
-    v22[3] = &unk_1E6EC4DE0;
-    v22[4] = self;
-    v22[5] = a2;
-    v22[6] = voucher;
-    v17 = [(NSCloudKitMirroringRequest *)v16 initWithActivity:label options:v15 completionBlock:v22];
-    v21 = 0;
-    if (![(NSCloudKitMirroringDelegate *)self executeMirroringRequest:v17 error:&v21])
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __100__NSCloudKitMirroringDelegate__scheduleAutomatedExportWithLabel_activity_voucher_completionHandler___block_invoke;
+    v21[3] = &unk_1E6EC4DE0;
+    v21[4] = self;
+    v21[5] = a2;
+    v21[6] = voucher;
+    v17 = [(NSCloudKitMirroringRequest *)v16 initWithActivity:label options:v15 completionBlock:v21];
+    v20 = 0;
+    if (![(NSCloudKitMirroringDelegate *)self executeMirroringRequest:v17 error:&v20])
     {
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v21;
+        v24 = v20;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to execute mirroring request for automated export: %@\n", buf, 0xCu);
       }
 
@@ -1135,18 +1126,16 @@ void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreC
       if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v25 = v21;
+        v24 = v20;
         _os_log_fault_impl(&dword_18565F000, v19, OS_LOG_TYPE_FAULT, "CoreData: Failed to execute mirroring request for automated export: %@", buf, 0xCu);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke_179(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = WeakRetained;
   if (WeakRetained)
@@ -1171,24 +1160,22 @@ void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreC
 
     if (os_log_type_enabled(Stream, v10))
     {
-      v12 = 136315650;
-      v13 = "[NSCloudKitMirroringDelegate observeChangesForStore:inPersistentStoreCoordinator:]_block_invoke";
-      v14 = 1024;
-      v15 = 478;
-      v16 = 2112;
-      v17 = a2;
-      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Got called back for activity: %@, but the mirroring delegate is gone.", &v12, 0x1Cu);
+      v11 = 136315650;
+      v12 = "[NSCloudKitMirroringDelegate observeChangesForStore:inPersistentStoreCoordinator:]_block_invoke";
+      v13 = 1024;
+      v14 = 478;
+      v15 = 2112;
+      v16 = a2;
+      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Got called back for activity: %@, but the mirroring delegate is gone.", &v11, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleAutomatedImportWithLabel:(uint64_t)label activity:(uint64_t)activity voucher:(uint64_t)voucher completionHandler:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v10 = objc_autoreleasePoolPush();
@@ -1222,48 +1209,48 @@ void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreC
     if (os_log_type_enabled(Stream, v14))
     {
       *buf = 136316162;
-      v25 = "[NSCloudKitMirroringDelegate _scheduleAutomatedImportWithLabel:activity:voucher:completionHandler:]";
-      v26 = 1024;
-      v27 = 3663;
-      v28 = 2112;
+      v24 = "[NSCloudKitMirroringDelegate _scheduleAutomatedImportWithLabel:activity:voucher:completionHandler:]";
+      v25 = 1024;
+      v26 = 3663;
+      v27 = 2112;
       selfCopy = self;
-      v30 = 2112;
-      v31 = a2;
-      v32 = 2112;
+      v29 = 2112;
+      v30 = a2;
+      v31 = 2112;
       labelCopy = label;
       _os_log_impl(&dword_18565F000, v12, v14, "CoreData+CloudKit: %s(%d): %@ - Beginning automated import - %@ - in response to activity:\n%@", buf, 0x30u);
     }
 
     objc_autoreleasePoolPop(v10);
     v15 = objc_alloc_init(NSCloudKitMirroringRequestOptions);
-    if ([*(self + 8) defaultOperationConfiguration])
+    if ([(objc_class *)self[1].super.isa defaultOperationConfiguration])
     {
-      -[NSCloudKitMirroringRequestOptions setOperationConfiguration:](v15, "setOperationConfiguration:", [*(self + 8) defaultOperationConfiguration]);
+      [(NSCloudKitMirroringRequestOptions *)v15 setOperationConfiguration:[(objc_class *)self[1].super.isa defaultOperationConfiguration]];
     }
 
-    if (activity || (activity = [*(self + 208) usableVoucherForEventType:1]) != 0)
+    if (activity || (activity = [(objc_class *)self[26].super.isa usableVoucherForEventType:1]) != 0)
     {
       activityCopy = activity;
       -[NSCloudKitMirroringRequestOptions setVouchers:](v15, "setVouchers:", [MEMORY[0x1E695DEC8] arrayWithObjects:&activityCopy count:1]);
     }
 
     v16 = [NSCloudKitMirroringImportRequest alloc];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __100__NSCloudKitMirroringDelegate__scheduleAutomatedImportWithLabel_activity_voucher_completionHandler___block_invoke;
-    v22[3] = &unk_1E6EC4DE0;
-    v22[4] = self;
-    v22[5] = a2;
-    v22[6] = voucher;
-    v17 = [(NSCloudKitMirroringRequest *)v16 initWithActivity:label options:v15 completionBlock:v22];
-    v21 = 0;
-    if (![(NSCloudKitMirroringDelegate *)self executeMirroringRequest:v17 error:&v21])
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __100__NSCloudKitMirroringDelegate__scheduleAutomatedImportWithLabel_activity_voucher_completionHandler___block_invoke;
+    v21[3] = &unk_1E6EC4DE0;
+    v21[4] = self;
+    v21[5] = a2;
+    v21[6] = voucher;
+    v17 = [(NSCloudKitMirroringRequest *)v16 initWithActivity:label options:v15 completionBlock:v21];
+    v20 = 0;
+    if (![(NSCloudKitMirroringDelegate *)self executeMirroringRequest:v17 error:&v20])
     {
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v21;
+        v24 = v20;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to execute mirroring request for automated import: %@\n", buf, 0xCu);
       }
 
@@ -1271,18 +1258,16 @@ void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreC
       if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v25 = v21;
+        v24 = v20;
         _os_log_fault_impl(&dword_18565F000, v19, OS_LOG_TYPE_FAULT, "CoreData: Failed to execute mirroring request for automated import: %@", buf, 0xCu);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke_186(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
   if (WeakRetained)
@@ -1316,21 +1301,19 @@ void __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreC
     if (os_log_type_enabled(Stream, v12))
     {
       *buf = 136315650;
-      v16 = "[NSCloudKitMirroringDelegate observeChangesForStore:inPersistentStoreCoordinator:]_block_invoke";
-      v17 = 1024;
-      v18 = 510;
-      v19 = 2112;
-      v20 = a2;
+      v15 = "[NSCloudKitMirroringDelegate observeChangesForStore:inPersistentStoreCoordinator:]_block_invoke";
+      v16 = 1024;
+      v17 = 510;
+      v18 = 2112;
+      v19 = a2;
       _os_log_impl(&dword_18565F000, v11, v12, "CoreData+CloudKit: %s(%d): Got called back for activity: %@, but the mirroring delegate is gone.", buf, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke_2(uint64_t *a1)
+uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentStoreCoordinator___block_invoke_2(void *a1)
 {
   [(NSCloudKitMirroringDelegate *)a1[4] _setUpCloudKitIntegration:?];
   v2 = *(a1[6] + 16);
@@ -1340,7 +1323,7 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
 
 - (void)_setUpCloudKitIntegration:(uint64_t)integration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (integration)
   {
     v4 = objc_alloc_init(NSCloudKitMirroringDelegateSetupRequestOptions);
@@ -1351,8 +1334,8 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
 
     v5 = [(NSCloudKitMirroringRequest *)[NSCloudKitMirroringDelegateSetupRequest alloc] initWithActivity:a2 options:v4 completionBlock:0];
     [(NSCloudKitMirroringDelegate *)integration beginActivitiesForRequest:v5];
-    v14 = 0;
-    v6 = [(NSCloudKitMirroringRequestManager *)*(integration + 144) enqueueRequest:v5 error:&v14];
+    v13 = 0;
+    v6 = [(NSCloudKitMirroringRequestManager *)*(integration + 144) enqueueRequest:v5 error:&v13];
     v7 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
     v9 = Stream;
@@ -1386,13 +1369,13 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
       if (os_log_type_enabled(Stream, v11))
       {
         *buf = 136315906;
-        v16 = "[NSCloudKitMirroringDelegate _setUpCloudKitIntegration:]";
-        v17 = 1024;
-        v18 = 568;
-        v19 = 2112;
+        v15 = "[NSCloudKitMirroringDelegate _setUpCloudKitIntegration:]";
+        v16 = 1024;
+        v17 = 568;
+        v18 = 2112;
         integrationCopy2 = integration;
-        v21 = 2112;
-        v22 = v5;
+        v20 = 2112;
+        v21 = v5;
         _os_log_impl(&dword_18565F000, v9, v11, "CoreData+CloudKit: %s(%d): %@: Successfully enqueued setup request: %@", buf, 0x26u);
       }
 
@@ -1415,21 +1398,19 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
       if (os_log_type_enabled(Stream, v12))
       {
         *buf = 136315906;
-        v16 = "[NSCloudKitMirroringDelegate _setUpCloudKitIntegration:]";
-        v17 = 1024;
-        v18 = 571;
-        v19 = 2112;
+        v15 = "[NSCloudKitMirroringDelegate _setUpCloudKitIntegration:]";
+        v16 = 1024;
+        v17 = 571;
+        v18 = 2112;
         integrationCopy2 = integration;
-        v21 = 2112;
-        v22 = v14;
+        v20 = 2112;
+        v21 = v13;
         _os_log_impl(&dword_18565F000, v9, v12, "CoreData+CloudKit: %s(%d): %@: Failed to enqueue setup request, this likely means one is already scheduled and this has collided: %@", buf, 0x26u);
       }
 
       objc_autoreleasePoolPop(v7);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tearDown:(uint64_t)down
@@ -1472,7 +1453,7 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
 
 - (void)resetAfterError:(uint64_t)error andKeepContainer:(void *)container
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (error)
   {
     if (!container)
@@ -1480,15 +1461,15 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v11) = 0;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: resetAfterError illegally passed nil instead of an error on a failure condition\n", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: resetAfterError illegally passed nil instead of an error on a failure condition\n", &v10, 2u);
       }
 
       v5 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: resetAfterError illegally passed nil instead of an error on a failure condition", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: resetAfterError illegally passed nil instead of an error on a failure condition", &v10, 2u);
       }
     }
 
@@ -1507,15 +1488,15 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
 
     if (os_log_type_enabled(Stream, v9))
     {
-      v11 = 136315906;
-      v12 = "[NSCloudKitMirroringDelegate resetAfterError:andKeepContainer:]";
-      v13 = 1024;
-      v14 = 589;
-      v15 = 2112;
+      v10 = 136315906;
+      v11 = "[NSCloudKitMirroringDelegate resetAfterError:andKeepContainer:]";
+      v12 = 1024;
+      v13 = 589;
+      v14 = 2112;
       errorCopy = error;
-      v17 = 2112;
+      v16 = 2112;
       containerCopy = container;
-      _os_log_impl(&dword_18565F000, v8, v9, "CoreData+CloudKit: %s(%d): %@ - resetting internal state after error: %@", &v11, 0x26u);
+      _os_log_impl(&dword_18565F000, v8, v9, "CoreData+CloudKit: %s(%d): %@ - resetting internal state after error: %@", &v10, 0x26u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1532,8 +1513,6 @@ uint64_t __83__NSCloudKitMirroringDelegate_observeChangesForStore_inPersistentSt
 
     [(NSCloudKitMirroringDelegate *)error registerForAccountAndIdentityNotificationsIfNeeded];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)shouldAttemptSetupRecoveryFromError:(char)error viaPush:
@@ -1596,9 +1575,9 @@ LABEL_51:
   return v11 & 1;
 }
 
-uint64_t __75__NSCloudKitMirroringDelegate_shouldAttemptSetupRecoveryFromError_viaPush___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+uint64_t __75__NSCloudKitMirroringDelegate_shouldAttemptSetupRecoveryFromError_viaPush___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  getCloudKitCKRecordIDClass[0]();
+  getCloudKitCKRecordIDClass();
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (getCloudKitCKRecordZoneIDClass[0](), objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), result = objc_opt_isKindOfClass(), (result))
   {
@@ -1615,19 +1594,19 @@ uint64_t __75__NSCloudKitMirroringDelegate_shouldAttemptSetupRecoveryFromError_v
 
 void __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = WeakRetained;
   if (WeakRetained)
   {
-    *v12 = MEMORY[0x1E69E9820];
-    *&v12[8] = 3221225472;
-    *&v12[16] = __74__NSCloudKitMirroringDelegate__respondToPushNotification_forSubscription___block_invoke;
-    *&v12[24] = &unk_1E6EC4A48;
-    *&v12[32] = WeakRetained;
-    v13 = a3;
-    v14 = a2;
-    [(NSCloudKitMirroringDelegate *)WeakRetained _openTransactionWithLabel:@"CoreData: CloudKit Responding to Push" assertionLabel:v12 andExecuteWorkBlock:?];
+    *v11 = MEMORY[0x1E69E9820];
+    *&v11[8] = 3221225472;
+    *&v11[16] = __74__NSCloudKitMirroringDelegate__respondToPushNotification_forSubscription___block_invoke;
+    *&v11[24] = &unk_1E6EC4A48;
+    *&v11[32] = WeakRetained;
+    v12 = a3;
+    v13 = a2;
+    [(NSCloudKitMirroringDelegate *)WeakRetained _openTransactionWithLabel:@"CoreData: CloudKit Responding to Push" assertionLabel:v11 andExecuteWorkBlock:?];
   }
 
   else
@@ -1647,107 +1626,101 @@ void __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke(u
 
     if (os_log_type_enabled(Stream, v10))
     {
-      *v12 = 136315906;
-      *&v12[4] = "[NSCloudKitMirroringDelegate _beginWatchingForChanges:]_block_invoke";
-      *&v12[12] = 1024;
-      *&v12[14] = 744;
-      *&v12[18] = 2112;
-      *&v12[20] = a3;
-      *&v12[28] = 2112;
-      *&v12[30] = a2;
-      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Got called back for subscription: %@, but the mirroring delegate is gone. Notification:\n%@", v12, 0x26u);
+      *v11 = 136315906;
+      *&v11[4] = "[NSCloudKitMirroringDelegate _beginWatchingForChanges:]_block_invoke";
+      *&v11[12] = 1024;
+      *&v11[14] = 744;
+      *&v11[18] = 2112;
+      *&v11[20] = a3;
+      *&v11[28] = 2112;
+      *&v11[30] = a2;
+      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Got called back for subscription: %@, but the mirroring delegate is gone. Notification:\n%@", v11, 0x26u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleExportAndStartAfterDate:(uint64_t)date
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (!date || ![*(date + 8) automaticallyScheduleImportAndExportOperations])
+  v21 = *MEMORY[0x1E69E9840];
+  if (date && [*(date + 8) automaticallyScheduleImportAndExportOperations])
   {
-    goto LABEL_23;
-  }
-
-  if (*(date + 89) != 1)
-  {
-    v7 = objc_autoreleasePoolPush();
-    Stream = __PFCloudKitLoggingGetStream();
-    v9 = Stream;
-    if (__ckLoggingOverride == 17)
+    if (*(date + 89) == 1)
     {
-      v10 = 17;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    if (__ckLoggingOverride == 16)
-    {
-      v10 = 16;
-    }
-
-    if (__ckLoggingOverride)
-    {
-      v11 = v10;
-    }
-
-    else
-    {
-      v11 = OS_LOG_TYPE_DEFAULT;
-    }
-
-    if (os_log_type_enabled(Stream, v11))
-    {
-      v12 = *(date + 80);
-      *buf = 136315906;
-      v16 = "[NSCloudKitMirroringDelegate scheduleExportAndStartAfterDate:]";
-      v17 = 1024;
-      v18 = 3292;
-      v19 = 2112;
-      dateCopy = date;
-      v21 = 2112;
-      v22 = v12;
-      _os_log_impl(&dword_18565F000, v9, v11, "CoreData+CloudKit: %s(%d): %@: Deferring export because the mirroring delegate is not initialized:\n%@", buf, 0x26u);
-    }
-
-    objc_autoreleasePoolPop(v7);
-    goto LABEL_23;
-  }
-
-  v4 = [*(date + 208) usableVoucherForEventType:2];
-  v5 = v4;
-  if (a2)
-  {
-    v6 = [(NSCloudKitMirroringDelegate *)date newActivityWithIdentifier:v4 andVoucher:?];
-    [v6 setEarliestStartDate:a2];
+      v4 = [*(date + 208) usableVoucherForEventType:2];
+      v5 = v4;
+      if (a2)
+      {
+        v6 = [(NSCloudKitMirroringDelegate *)date newActivityWithIdentifier:v4 andVoucher:?];
+        [v6 setEarliestStartDate:a2];
 LABEL_22:
-    [*(date + 64) submitActivity:v6];
+        [*(date + 64) submitActivity:v6];
 
-LABEL_23:
-    v14 = *MEMORY[0x1E69E9840];
-    return;
+        return;
+      }
+
+      if ([objc_msgSend(v4 "operationConfiguration")] <= 24)
+      {
+        v6 = [(NSCloudKitMirroringDelegate *)date newActivityWithIdentifier:v5 andVoucher:?];
+        goto LABEL_22;
+      }
+
+      [(NSCloudKitMirroringDelegate *)date _scheduleAutomatedExportWithLabel:0 activity:v5 voucher:0 completionHandler:?];
+    }
+
+    else
+    {
+      v7 = objc_autoreleasePoolPush();
+      Stream = __PFCloudKitLoggingGetStream();
+      v9 = Stream;
+      if (__ckLoggingOverride == 17)
+      {
+        v10 = 17;
+      }
+
+      else
+      {
+        v10 = 1;
+      }
+
+      if (__ckLoggingOverride == 16)
+      {
+        v10 = 16;
+      }
+
+      if (__ckLoggingOverride)
+      {
+        v11 = v10;
+      }
+
+      else
+      {
+        v11 = OS_LOG_TYPE_DEFAULT;
+      }
+
+      if (os_log_type_enabled(Stream, v11))
+      {
+        v12 = *(date + 80);
+        *buf = 136315906;
+        v14 = "[NSCloudKitMirroringDelegate scheduleExportAndStartAfterDate:]";
+        v15 = 1024;
+        v16 = 3292;
+        v17 = 2112;
+        dateCopy = date;
+        v19 = 2112;
+        v20 = v12;
+        _os_log_impl(&dword_18565F000, v9, v11, "CoreData+CloudKit: %s(%d): %@: Deferring export because the mirroring delegate is not initialized:\n%@", buf, 0x26u);
+      }
+
+      objc_autoreleasePoolPop(v7);
+    }
   }
-
-  if ([objc_msgSend(v4 "operationConfiguration")] <= 24)
-  {
-    v6 = [(NSCloudKitMirroringDelegate *)date newActivityWithIdentifier:v5 andVoucher:?];
-    goto LABEL_22;
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
-
-  [(NSCloudKitMirroringDelegate *)date _scheduleAutomatedExportWithLabel:0 activity:v5 voucher:0 completionHandler:?];
 }
 
 void __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke_208(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1806,17 +1779,15 @@ void __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke_2
 
     if (os_log_type_enabled(Stream, v8))
     {
-      v10 = 136315394;
-      v11 = "[NSCloudKitMirroringDelegate _beginWatchingForChanges:]_block_invoke";
-      v12 = 1024;
-      v13 = 778;
-      _os_log_impl(&dword_18565F000, v5, v8, "CoreData+CloudKit: %s(%d): Tried to schedule sandbox operations but the mirroring delegate was gone.", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[NSCloudKitMirroringDelegate _beginWatchingForChanges:]_block_invoke";
+      v11 = 1024;
+      v12 = 778;
+      _os_log_impl(&dword_18565F000, v5, v8, "CoreData+CloudKit: %s(%d): Tried to schedule sandbox operations but the mirroring delegate was gone.", &v9, 0x12u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAndScheduleImportIfNecessaryFromPush:(char)push fromErrorRecovery:fromShareAccept:andStartAfterDate:
@@ -1838,7 +1809,7 @@ void __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke_2
 
 void __40__NSCloudKitMirroringDelegate_tearDown___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v4 = Stream;
@@ -1857,13 +1828,13 @@ void __40__NSCloudKitMirroringDelegate_tearDown___block_invoke(uint64_t a1)
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
     *buf = 136315906;
-    v36 = "[NSCloudKitMirroringDelegate tearDown:]_block_invoke";
-    v37 = 1024;
-    v38 = 797;
-    v39 = 2112;
-    v40 = v6;
-    v41 = 2112;
-    v42 = v7;
+    v35 = "[NSCloudKitMirroringDelegate tearDown:]_block_invoke";
+    v36 = 1024;
+    v37 = 797;
+    v38 = 2112;
+    v39 = v6;
+    v40 = 2112;
+    v41 = v7;
     _os_log_impl(&dword_18565F000, v4, v5, "CoreData+CloudKit: %s(%d): %@: Told to tear down with reason: %@", buf, 0x26u);
   }
 
@@ -1902,28 +1873,28 @@ void __40__NSCloudKitMirroringDelegate_tearDown___block_invoke(uint64_t a1)
   if (*(v9 + 89) == 1)
   {
     v10 = [(NSCloudKitMirroringRequestManager *)*(v9 + 144) dequeueAllPendingRequests];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = v10;
-    v11 = [v10 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v29;
+      v13 = *v28;
       v14 = *MEMORY[0x1E696A250];
       v15 = *MEMORY[0x1E696A588];
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v28 + 1) + 8 * i);
+          v17 = *(*(&v27 + 1) + 8 * i);
           v18 = objc_autoreleasePoolPush();
           v19 = __PFCloudKitLoggingGetStream();
           v20 = v19;
@@ -1956,25 +1927,25 @@ void __40__NSCloudKitMirroringDelegate_tearDown___block_invoke(uint64_t a1)
           {
             v23 = *(a1 + 32);
             *buf = 136315906;
-            v36 = "[NSCloudKitMirroringDelegate tearDown:]_block_invoke";
-            v37 = 1024;
-            v38 = 827;
-            v39 = 2112;
-            v40 = v23;
-            v41 = 2112;
-            v42 = v17;
+            v35 = "[NSCloudKitMirroringDelegate tearDown:]_block_invoke";
+            v36 = 1024;
+            v37 = 827;
+            v38 = 2112;
+            v39 = v23;
+            v40 = 2112;
+            v41 = v17;
             _os_log_impl(&dword_18565F000, v20, v22, "CoreData+CloudKit: %s(%d): %@: Cancelling pending request: %@", buf, 0x26u);
           }
 
           objc_autoreleasePoolPop(v18);
           v24 = MEMORY[0x1E696ABC0];
-          v32 = v15;
-          v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v17, "requestIdentifier")];
-          v25 = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:]([NSCloudKitMirroringResult alloc], "initWithRequest:storeIdentifier:success:madeChanges:error:", v17, *(*(a1 + 32) + 152), 0, 0, [v24 errorWithDomain:v14 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v33, &v32, 1)}]);
+          v31 = v15;
+          v32 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v17 requestIdentifier]);
+          v25 = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:]([NSCloudKitMirroringResult alloc], "initWithRequest:storeIdentifier:success:madeChanges:error:", v17, *(*(a1 + 32) + 152), 0, 0, [v24 errorWithDomain:v14 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v32, &v31, 1)}]);
           [(NSCloudKitMirroringRequest *)v17 invokeCompletionBlockWithResult:v25];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v12 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
       while (v12);
@@ -1989,8 +1960,6 @@ void __40__NSCloudKitMirroringDelegate_tearDown___block_invoke(uint64_t a1)
 
     *(*(a1 + 32) + 96) = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)coordinatorWillRemoveStore:(id)store
@@ -2015,69 +1984,69 @@ void __40__NSCloudKitMirroringDelegate_tearDown___block_invoke(uint64_t a1)
 
 - (void)accountMonitorAccountChanged:(id)changed
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(changed "userInfo")];
-  if (!v5)
+  if (v5)
   {
-    LogStream = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    goto LABEL_5;
+  }
+
+  LogStream = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v11) = 138412290;
+    *(&v11 + 4) = changed;
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal account change notification (missing the name of the notification that triggered it): %@\n", &v11, 0xCu);
+  }
+
+  v7 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  {
+    LODWORD(v11) = 138412290;
+    *(&v11 + 4) = changed;
+    _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Illegal account change notification (missing the name of the notification that triggered it): %@", &v11, 0xCu);
+    if (!self)
     {
-      LODWORD(v12) = 138412290;
-      *(&v12 + 4) = changed;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal account change notification (missing the name of the notification that triggered it): %@\n", &v12, 0xCu);
+      return;
     }
+  }
 
-    v7 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  else
+  {
+LABEL_5:
+    if (!self)
     {
-      LODWORD(v12) = 138412290;
-      *(&v12 + 4) = changed;
-      _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Illegal account change notification (missing the name of the notification that triggered it): %@", &v12, 0xCu);
-      if (!self)
-      {
-        goto LABEL_12;
-      }
+      return;
+    }
+  }
 
-LABEL_6:
-      v8 = 134415;
-      if ([v5 isEqualToString:getCloudKitCKIdentityUpdateNotification[0]()])
-      {
-        v8 = 134416;
-      }
+  v8 = 134415;
+  if ([v5 isEqualToString:getCloudKitCKIdentityUpdateNotification[0]()])
+  {
+    v8 = 134416;
+  }
 
-      else if (![v5 isEqualToString:getCloudKitCKAccountChangedNotification()])
-      {
-        v9 = 0;
-        goto LABEL_11;
-      }
+  else if (![v5 isEqualToString:getCloudKitCKAccountChangedNotification()])
+  {
+    v9 = 0;
+    goto LABEL_11;
+  }
 
-      v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:v8 userInfo:0];
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:v8 userInfo:0];
 LABEL_11:
-      v10 = [[NSCloudKitMirroringDelegateResetRequest alloc] initWithError:v9 completionBlock:0];
-      *&v12 = MEMORY[0x1E69E9820];
-      *(&v12 + 1) = 3221225472;
-      v13 = __47__NSCloudKitMirroringDelegate__enqueueRequest___block_invoke;
-      v14 = &unk_1E6EC4B10;
-      selfCopy = self;
-      v16 = v10;
-      [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:&v12 andExecuteWorkBlock:?];
-
-      goto LABEL_12;
-    }
-  }
-
-  if (self)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = [[NSCloudKitMirroringDelegateResetRequest alloc] initWithError:v9 completionBlock:0];
+  *&v11 = MEMORY[0x1E69E9820];
+  *(&v11 + 1) = 3221225472;
+  v12 = __47__NSCloudKitMirroringDelegate__enqueueRequest___block_invoke;
+  v13 = &unk_1E6EC4B10;
+  selfCopy = self;
+  v15 = v10;
+  [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:&v11 andExecuteWorkBlock:?];
 }
 
 void __74__NSCloudKitMirroringDelegate__respondToPushNotification_forSubscription___block_invoke(void *a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v4 = Stream;
@@ -2111,37 +2080,37 @@ void __74__NSCloudKitMirroringDelegate__respondToPushNotification_forSubscriptio
     v7 = a1[4];
     v8 = a1[5];
     v9 = a1[6];
-    *v35 = 136316162;
-    *&v35[4] = "[NSCloudKitMirroringDelegate _respondToPushNotification:forSubscription:]_block_invoke";
-    *&v35[12] = 1024;
-    *&v35[14] = 904;
-    *&v35[18] = 2112;
-    *&v35[20] = v7;
-    *&v35[28] = 2112;
-    *&v35[30] = v8;
-    *&v35[38] = 2112;
-    v36 = v9;
-    _os_log_impl(&dword_18565F000, v4, v6, "CoreData+CloudKit: %s(%d): %@ - Got notification for subscription: %@\n%@", v35, 0x30u);
+    *v34 = 136316162;
+    *&v34[4] = "[NSCloudKitMirroringDelegate _respondToPushNotification:forSubscription:]_block_invoke";
+    *&v34[12] = 1024;
+    *&v34[14] = 904;
+    *&v34[18] = 2112;
+    *&v34[20] = v7;
+    *&v34[28] = 2112;
+    *&v34[30] = v8;
+    *&v34[38] = 2112;
+    v35 = v9;
+    _os_log_impl(&dword_18565F000, v4, v6, "CoreData+CloudKit: %s(%d): %@ - Got notification for subscription: %@\n%@", v34, 0x30u);
   }
 
   objc_autoreleasePoolPop(v2);
   v10 = a1[4];
   if (*(v10 + 89) == 1)
   {
-    *v35 = MEMORY[0x1E69E9820];
-    *&v35[8] = 3221225472;
-    *&v35[16] = __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke;
-    *&v35[24] = &unk_1E6EC4D90;
-    v37 = 1;
-    LOBYTE(v38) = 0;
-    *&v35[32] = v10;
-    v36 = 0;
+    *v34 = MEMORY[0x1E69E9820];
+    *&v34[8] = 3221225472;
+    *&v34[16] = __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke;
+    *&v34[24] = &unk_1E6EC4D90;
+    v36 = 1;
+    LOBYTE(v37) = 0;
+    *&v34[32] = v10;
+    v35 = 0;
     v11 = @"com.apple.coredata.cloudkit.schedule";
     v12 = @"CoreData: CloudKit Scheduling";
     v13 = v10;
 LABEL_44:
-    [(NSCloudKitMirroringDelegate *)v13 _openTransactionWithLabel:v11 assertionLabel:v12 andExecuteWorkBlock:v35];
-    goto LABEL_52;
+    [(NSCloudKitMirroringDelegate *)v13 _openTransactionWithLabel:v11 assertionLabel:v12 andExecuteWorkBlock:v34];
+    return;
   }
 
   v14 = *(v10 + 80);
@@ -2213,28 +2182,28 @@ LABEL_36:
       v23 = a1[4];
       v24 = a1[5];
       v25 = a1[6];
-      *v35 = 136316162;
-      *&v35[4] = "[NSCloudKitMirroringDelegate _respondToPushNotification:forSubscription:]_block_invoke";
-      *&v35[12] = 1024;
-      *&v35[14] = 912;
-      *&v35[18] = 2112;
-      *&v35[20] = v23;
-      *&v35[28] = 2112;
-      *&v35[30] = v24;
-      *&v35[38] = 2112;
-      v36 = v25;
-      _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): %@ - Reviving the mirroring delegate after notification for subscription: %@\n%@", v35, 0x30u);
+      *v34 = 136316162;
+      *&v34[4] = "[NSCloudKitMirroringDelegate _respondToPushNotification:forSubscription:]_block_invoke";
+      *&v34[12] = 1024;
+      *&v34[14] = 912;
+      *&v34[18] = 2112;
+      *&v34[20] = v23;
+      *&v34[28] = 2112;
+      *&v34[30] = v24;
+      *&v34[38] = 2112;
+      v35 = v25;
+      _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): %@ - Reviving the mirroring delegate after notification for subscription: %@\n%@", v34, 0x30u);
     }
 
     objc_autoreleasePoolPop(v18);
     v13 = a1[4];
     if (v13)
     {
-      *v35 = MEMORY[0x1E69E9820];
-      *&v35[8] = 3221225472;
-      *&v35[16] = __73__NSCloudKitMirroringDelegate_setupMirroringDelegateFromPushNotification__block_invoke;
-      *&v35[24] = &unk_1E6EC4D18;
-      *&v35[32] = v13;
+      *v34 = MEMORY[0x1E69E9820];
+      *&v34[8] = 3221225472;
+      *&v34[16] = __73__NSCloudKitMirroringDelegate_setupMirroringDelegateFromPushNotification__block_invoke;
+      *&v34[24] = &unk_1E6EC4D18;
+      *&v34[32] = v13;
       v11 = @"com.apple.coredata.cloudkit.setup.push";
       v12 = @"CoreData: CloudKit Setup From Push";
       goto LABEL_44;
@@ -2271,28 +2240,25 @@ LABEL_36:
       v31 = [v30 code];
       v32 = a1[5];
       v33 = a1[6];
-      *v35 = 136316674;
-      *&v35[4] = "[NSCloudKitMirroringDelegate _respondToPushNotification:forSubscription:]_block_invoke";
-      *&v35[12] = 1024;
-      *&v35[14] = 915;
-      *&v35[18] = 2112;
-      *&v35[20] = v26;
-      *&v35[28] = 2112;
-      *&v35[30] = v28;
-      *&v35[38] = 2048;
-      v36 = v31;
-      v37 = 2112;
-      v38 = v32;
-      v39 = 2112;
-      v40 = v33;
-      _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): %@ - Not reviving the mirroring delegate (%@:%ld) after notification for subscription: %@\n%@", v35, 0x44u);
+      *v34 = 136316674;
+      *&v34[4] = "[NSCloudKitMirroringDelegate _respondToPushNotification:forSubscription:]_block_invoke";
+      *&v34[12] = 1024;
+      *&v34[14] = 915;
+      *&v34[18] = 2112;
+      *&v34[20] = v26;
+      *&v34[28] = 2112;
+      *&v34[30] = v28;
+      *&v34[38] = 2048;
+      v35 = v31;
+      v36 = 2112;
+      v37 = v32;
+      v38 = 2112;
+      v39 = v33;
+      _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): %@ - Not reviving the mirroring delegate (%@:%ld) after notification for subscription: %@\n%@", v34, 0x44u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-LABEL_52:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 id __92__NSCloudKitMirroringDelegate__openTransactionWithLabel_assertionLabel_andExecuteWorkBlock___block_invoke(uint64_t a1)
@@ -2355,7 +2321,7 @@ id __92__NSCloudKitMirroringDelegate__openTransactionWithLabel_assertionLabel_an
     }
 
     objc_autoreleasePoolPop(v7);
-    if ([a2 validateForUseWithStore:objc_loadWeak((v5 + 112)) error:&v23])
+    if ([a2 validateForUseWithStore:objc_loadWeak(&v5[14].super.isa) error:&v23])
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -2392,7 +2358,8 @@ id __92__NSCloudKitMirroringDelegate__openTransactionWithLabel_assertionLabel_an
                         v17 = objc_opt_class();
                         v18 = NSStringFromClass(v17);
                         v19 = objc_opt_class();
-                        v25 = [v16 stringWithFormat:@"Instances of '%@' are ambiguous and not understood by '%@', use one of the subclasses instead.", v18, NSStringFromClass(v19)];
+                        v20 = NSStringFromClass(v19);
+                        v25 = objc_msgSend_stringWithFormat_(v16, v18, v20);
                         v13 = [v14 errorWithDomain:v15 code:134091 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v25, &v24, 1)}];
                         v23 = v13;
                         if (v13)
@@ -2402,12 +2369,12 @@ LABEL_26:
                           {
                             v6 = 0;
                             *request = v13;
-                            goto LABEL_34;
+                            return v6;
                           }
 
 LABEL_33:
                           v6 = 0;
-                          goto LABEL_34;
+                          return v6;
                         }
 
 LABEL_29:
@@ -2421,14 +2388,14 @@ LABEL_29:
                           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
                         }
 
-                        v21 = _PFLogGetLogStream(17);
-                        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+                        v22 = _PFLogGetLogStream(17);
+                        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
                         {
                           *buf = 136315394;
                           *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
                           *&buf[12] = 1024;
                           *&buf[14] = 995;
-                          _os_log_fault_impl(&dword_18565F000, v21, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+                          _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
                         }
 
                         goto LABEL_33;
@@ -2453,9 +2420,7 @@ LABEL_29:
 
       if (v6)
       {
-LABEL_34:
-        result = v6;
-        goto LABEL_35;
+        return v6;
       }
     }
 
@@ -2472,98 +2437,89 @@ LABEL_34:
     goto LABEL_29;
   }
 
-LABEL_35:
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void __47__NSCloudKitMirroringDelegate__enqueueRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __47__NSCloudKitMirroringDelegate__enqueueRequest___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v4 = objc_autoreleasePoolPush();
+  v24 = *MEMORY[0x1E69E9840];
+  v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
-  v6 = Stream;
+  v4 = Stream;
   if (__ckLoggingOverride == 17)
   {
-    v7 = 17;
+    v5 = 17;
   }
 
   else
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   if (__ckLoggingOverride == 16)
   {
-    v7 = 16;
+    v5 = 16;
   }
 
   if (__ckLoggingOverride)
   {
-    v8 = v7;
+    v6 = v5;
   }
 
   else
   {
-    v8 = OS_LOG_TYPE_DEFAULT;
+    v6 = OS_LOG_TYPE_DEFAULT;
   }
 
-  if (os_log_type_enabled(Stream, v8))
+  if (os_log_type_enabled(Stream, v6))
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
     *buf = 136315906;
-    v21 = "[NSCloudKitMirroringDelegate _enqueueRequest:]_block_invoke";
-    v22 = 1024;
-    v23 = 1005;
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v10;
-    _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): %@: enqueuing request: %@", buf, 0x26u);
+    v17 = "[NSCloudKitMirroringDelegate _enqueueRequest:]_block_invoke";
+    v18 = 1024;
+    v19 = 1005;
+    v20 = 2112;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
+    _os_log_impl(&dword_18565F000, v4, v6, "CoreData+CloudKit: %s(%d): %@: enqueuing request: %@", buf, 0x26u);
   }
 
-  objc_autoreleasePoolPop(v4);
-  v11 = *(a1 + 32);
-  if (v11 && (v12 = *(v11 + 8)) != 0)
+  objc_autoreleasePoolPop(v2);
+  v9 = *(a1 + 32);
+  if (v9 && (v10 = *(v9 + 8)) != 0)
   {
-    v13 = *(v12 + 88);
+    v11 = *(v10 + 88);
   }
 
   else
   {
-    v13 = 0;
+    v11 = 0;
   }
 
-  Weak = objc_loadWeak((v11 + 112));
-  if (a2)
-  {
-    v15 = *(a2 + 8);
-  }
-
-  v16 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v13 inTransactionWithLabel:Weak];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __47__NSCloudKitMirroringDelegate__enqueueRequest___block_invoke_259;
-  v18[3] = &unk_1E6EC19D8;
-  v18[4] = v16;
-  v19 = *(a1 + 32);
-  [(PFCloudKitStoreMonitor *)v16 performBlock:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  Weak = objc_loadWeak((v9 + 112));
+  v13 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v11 inTransactionWithLabel:Weak];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __47__NSCloudKitMirroringDelegate__enqueueRequest___block_invoke_259;
+  v14[3] = &unk_1E6EC19D8;
+  v14[4] = v13;
+  v15 = *(a1 + 32);
+  [(PFCloudKitStoreMonitor *)v13 performBlock:v14];
 }
 
 void __47__NSCloudKitMirroringDelegate__enqueueRequest___block_invoke_259(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (!v2)
   {
     v12 = MEMORY[0x1E696ABC0];
     v13 = *MEMORY[0x1E696A250];
-    v24 = *MEMORY[0x1E696A588];
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(*(a1 + 48), "requestIdentifier")];
-    v14 = [v12 errorWithDomain:v13 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v25, &v24, 1)}];
+    v23 = *MEMORY[0x1E696A588];
+    v24 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) requestIdentifier]);
+    v14 = [v12 errorWithDomain:v13 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v24, &v23, 1)}];
     v15 = [NSCloudKitMirroringResult alloc];
     v16 = *(a1 + 48);
     v17 = *(*(a1 + 40) + 152);
@@ -2575,7 +2531,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v23 = 0;
+  v22 = 0;
   v3 = *(a1 + 40);
   if (v3)
   {
@@ -2587,7 +2543,7 @@ LABEL_23:
     v4 = 0;
   }
 
-  v5 = [(NSCloudKitMirroringRequestManager *)v4 enqueueRequest:&v23 error:?];
+  v5 = [(NSCloudKitMirroringRequestManager *)v4 enqueueRequest:&v22 error:?];
   v6 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v8 = Stream;
@@ -2607,13 +2563,13 @@ LABEL_23:
     {
       v20 = *(a1 + 48);
       *buf = 136315906;
-      v27 = "[NSCloudKitMirroringDelegate _enqueueRequest:]_block_invoke";
-      v28 = 1024;
-      v29 = 1018;
-      v30 = 2112;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v23;
+      v26 = "[NSCloudKitMirroringDelegate _enqueueRequest:]_block_invoke";
+      v27 = 1024;
+      v28 = 1018;
+      v29 = 2112;
+      v30 = v20;
+      v31 = 2112;
+      v32 = v22;
       _os_log_impl(&dword_18565F000, v8, v19, "CoreData+CloudKit: %s(%d): Failed to enqueue request: %@\n%@", buf, 0x26u);
     }
 
@@ -2621,7 +2577,7 @@ LABEL_23:
     v15 = [NSCloudKitMirroringResult alloc];
     v16 = *(a1 + 48);
     v17 = *(*(a1 + 40) + 152);
-    v18 = v23;
+    v18 = v22;
     goto LABEL_23;
   }
 
@@ -2654,11 +2610,11 @@ LABEL_23:
   {
     v11 = *(a1 + 48);
     *buf = 136315650;
-    v27 = "[NSCloudKitMirroringDelegate _enqueueRequest:]_block_invoke";
-    v28 = 1024;
-    v29 = 1014;
-    v30 = 2112;
-    v31 = v11;
+    v26 = "[NSCloudKitMirroringDelegate _enqueueRequest:]_block_invoke";
+    v27 = 1024;
+    v28 = 1014;
+    v29 = 2112;
+    v30 = v11;
     _os_log_impl(&dword_18565F000, v8, v10, "CoreData+CloudKit: %s(%d): Enqueued request: %@", buf, 0x1Cu);
   }
 
@@ -2666,20 +2622,18 @@ LABEL_23:
   [(NSCloudKitMirroringDelegate *)*(a1 + 40) beginActivitiesForRequest:?];
   [(NSCloudKitMirroringDelegate *)*(a1 + 40) checkAndExecuteNextRequest];
 LABEL_24:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performSetupRequest:(uint64_t)request
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([a2 requestCompletionBlock])
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = a2;
+      v8 = a2;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Setup request executed with a completion block that will never be called: %@\n", buf, 0xCu);
     }
 
@@ -2687,31 +2641,30 @@ LABEL_24:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v9 = a2;
+      v8 = a2;
       _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: Setup request executed with a completion block that will never be called: %@", buf, 0xCu);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke;
-  v7[3] = &unk_1E6EC4B10;
-  v7[4] = request;
-  v7[5] = a2;
-  [(NSCloudKitMirroringDelegate *)request _openTransactionWithLabel:@"CoreData: CloudKit Setup" assertionLabel:v7 andExecuteWorkBlock:?];
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke;
+  v6[3] = &unk_1E6EC4B10;
+  v6[4] = request;
+  v6[5] = a2;
+  [(NSCloudKitMirroringDelegate *)request _openTransactionWithLabel:@"CoreData: CloudKit Setup" assertionLabel:v6 andExecuteWorkBlock:?];
 }
 
 - (void)_performDelegateResetRequest:(uint64_t)request
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!a2 || !*(a2 + 80))
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = a2;
+      v8 = a2;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Reset request was scheduled without a root cause error: %@\n", buf, 0xCu);
     }
 
@@ -2719,19 +2672,18 @@ LABEL_24:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v9 = a2;
+      v8 = a2;
       _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: Reset request was scheduled without a root cause error: %@", buf, 0xCu);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __60__NSCloudKitMirroringDelegate__performDelegateResetRequest___block_invoke;
-  v7[3] = &unk_1E6EC4B10;
-  v7[4] = request;
-  v7[5] = a2;
-  [(NSCloudKitMirroringDelegate *)request _openTransactionWithLabel:@"CoreData: CloudKit Setup Reset" assertionLabel:v7 andExecuteWorkBlock:?];
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __60__NSCloudKitMirroringDelegate__performDelegateResetRequest___block_invoke;
+  v6[3] = &unk_1E6EC4B10;
+  v6[4] = request;
+  v6[5] = a2;
+  [(NSCloudKitMirroringDelegate *)request _openTransactionWithLabel:@"CoreData: CloudKit Setup Reset" assertionLabel:v6 andExecuteWorkBlock:?];
 }
 
 - (void)_performSchemaInitializationRequest:(uint64_t)request
@@ -2803,12 +2755,11 @@ void __60__NSCloudKitMirroringDelegate__performDelegateResetRequest___block_invo
   [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v5 withResult:?];
 }
 
-- (uint64_t)_finishedRequest:(void *)request withResult:
+- (void)_finishedRequest:(void *)request withResult:
 {
-  v32 = *MEMORY[0x1E69E9840];
-  if (result)
+  v31 = *MEMORY[0x1E69E9840];
+  if (self)
   {
-    v5 = result;
     v6 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
     v8 = Stream;
@@ -2839,19 +2790,19 @@ void __60__NSCloudKitMirroringDelegate__performDelegateResetRequest___block_invo
 
     if (os_log_type_enabled(Stream, v10))
     {
-      *v29 = 136315906;
-      *&v29[4] = "[NSCloudKitMirroringDelegate _finishedRequest:withResult:]";
-      *&v29[12] = 1024;
-      *&v29[14] = 3601;
-      *&v29[18] = 2112;
-      *&v29[20] = a2;
-      v30 = 2112;
+      *v28 = 136315906;
+      *&v28[4] = "[NSCloudKitMirroringDelegate _finishedRequest:withResult:]";
+      *&v28[12] = 1024;
+      *&v28[14] = 3601;
+      *&v28[18] = 2112;
+      *&v28[20] = a2;
+      v29 = 2112;
       requestCopy = request;
-      _os_log_impl(&dword_18565F000, v8, v10, "CoreData+CloudKit: %s(%d): Finished request: %@ with result: %@", v29, 0x26u);
+      _os_log_impl(&dword_18565F000, v8, v10, "CoreData+CloudKit: %s(%d): Finished request: %@ with result: %@", v28, 0x26u);
     }
 
     objc_autoreleasePoolPop(v6);
-    [(NSCloudKitMirroringRequestManager *)*(v5 + 144) requestFinished:a2];
+    [(NSCloudKitMirroringRequestManager *)*(self + 144) requestFinished:a2];
     error = [request error];
     if (a2)
     {
@@ -2868,7 +2819,7 @@ void __60__NSCloudKitMirroringDelegate__performDelegateResetRequest___block_invo
     if (v13)
     {
       [v13 finishWithError:error];
-      [objc_msgSend(*(v5 + 8) "progressProvider")];
+      [objc_msgSend(*(self + 8) "progressProvider")];
     }
 
     if ([request success] & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -2877,8 +2828,8 @@ void __60__NSCloudKitMirroringDelegate__performDelegateResetRequest___block_invo
 LABEL_20:
       [(NSCloudKitMirroringRequest *)v15 invokeCompletionBlockWithResult:request];
 LABEL_21:
-      result = [(NSCloudKitMirroringDelegate *)v5 checkAndExecuteNextRequest];
-      goto LABEL_22;
+      [(NSCloudKitMirroringDelegate *)self checkAndExecuteNextRequest];
+      return;
     }
 
     error2 = [request error];
@@ -2889,46 +2840,46 @@ LABEL_21:
         LogStream = _PFLogGetLogStream(17);
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
-          *v29 = 138412546;
-          *&v29[4] = request;
-          *&v29[12] = 2112;
-          *&v29[14] = error2;
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: handleErrorInResult passed a sucessful result (%@) with an illegal error object (%@)\n", v29, 0x16u);
+          *v28 = 138412546;
+          *&v28[4] = request;
+          *&v28[12] = 2112;
+          *&v28[14] = error2;
+          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: handleErrorInResult passed a sucessful result (%@) with an illegal error object (%@)\n", v28, 0x16u);
         }
 
-        v19 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+        v18 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
         {
-          *v29 = 138412546;
-          *&v29[4] = request;
-          *&v29[12] = 2112;
-          *&v29[14] = error2;
-          v20 = "CoreData: handleErrorInResult passed a sucessful result (%@) with an illegal error object (%@)";
-          v21 = v19;
-          v22 = 22;
+          *v28 = 138412546;
+          *&v28[4] = request;
+          *&v28[12] = 2112;
+          *&v28[14] = error2;
+          v19 = "CoreData: handleErrorInResult passed a sucessful result (%@) with an illegal error object (%@)";
+          v20 = v18;
+          v21 = 22;
 LABEL_40:
-          _os_log_fault_impl(&dword_18565F000, v21, OS_LOG_TYPE_FAULT, v20, v29, v22);
+          _os_log_fault_impl(&dword_18565F000, v20, OS_LOG_TYPE_FAULT, v19, v28, v21);
         }
       }
 
       else if (([request success] & 1) == 0 && !error2)
       {
-        v25 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v24 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          *v29 = 138412290;
-          *&v29[4] = request;
-          _os_log_error_impl(&dword_18565F000, v25, OS_LOG_TYPE_ERROR, "CoreData: fault: handleErrorInResult illegally passed a failed result (%@) with nil instead of an error on a failure condition\n", v29, 0xCu);
+          *v28 = 138412290;
+          *&v28[4] = request;
+          _os_log_error_impl(&dword_18565F000, v24, OS_LOG_TYPE_ERROR, "CoreData: fault: handleErrorInResult illegally passed a failed result (%@) with nil instead of an error on a failure condition\n", v28, 0xCu);
         }
 
-        v26 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+        v25 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
         {
-          *v29 = 138412290;
-          *&v29[4] = request;
-          v20 = "CoreData: handleErrorInResult illegally passed a failed result (%@) with nil instead of an error on a failure condition";
-          v21 = v26;
-          v22 = 12;
+          *v28 = 138412290;
+          *&v28[4] = request;
+          v19 = "CoreData: handleErrorInResult illegally passed a failed result (%@) with nil instead of an error on a failure condition";
+          v20 = v25;
+          v21 = 12;
           goto LABEL_40;
         }
       }
@@ -2936,20 +2887,20 @@ LABEL_40:
 
     else
     {
-      v23 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v22 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        *v29 = 0;
-        _os_log_error_impl(&dword_18565F000, v23, OS_LOG_TYPE_ERROR, "CoreData: fault: handleErrorInResult illegally passed nil instead of a result\n", v29, 2u);
+        *v28 = 0;
+        _os_log_error_impl(&dword_18565F000, v22, OS_LOG_TYPE_ERROR, "CoreData: fault: handleErrorInResult illegally passed nil instead of a result\n", v28, 2u);
       }
 
-      v24 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v23 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        *v29 = 0;
-        v20 = "CoreData: handleErrorInResult illegally passed nil instead of a result";
-        v21 = v24;
-        v22 = 2;
+        *v28 = 0;
+        v19 = "CoreData: handleErrorInResult illegally passed nil instead of a result";
+        v20 = v23;
+        v21 = 2;
         goto LABEL_40;
       }
     }
@@ -2960,7 +2911,7 @@ LABEL_40:
     {
       if ([error2 code] == 134407)
       {
-        [NSCloudKitMirroringDelegate resetAfterError:v5 andKeepContainer:error2];
+        [NSCloudKitMirroringDelegate resetAfterError:self andKeepContainer:error2];
 LABEL_47:
         v15 = request;
         goto LABEL_20;
@@ -2972,56 +2923,52 @@ LABEL_47:
       }
     }
 
-    if ([(NSCloudKitMirroringDelegate *)v5 recoverFromError:error2])
+    if ([(NSCloudKitMirroringDelegate *)self recoverFromError:error2])
     {
-      [(NSCloudKitMirroringDelegate *)v5 _requestEncounteredRecoverableError:request withResult:request];
+      [(NSCloudKitMirroringDelegate *)self _requestEncounteredRecoverableError:request withResult:request];
     }
 
     else
     {
-      [(NSCloudKitMirroringDelegate *)v5 _requestEncounteredUnrecoverableError:request withResult:request];
+      [(NSCloudKitMirroringDelegate *)self _requestEncounteredUnrecoverableError:request withResult:request];
     }
 
     goto LABEL_21;
   }
-
-LABEL_22:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke(uint64_t a1)
 {
   location[2] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 112));
-  v5 = *(a1 + 32);
-  if (v5)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v6 = *(v5 + 8);
+    v4 = *(v3 + 8);
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  v7 = [v6 progressProvider];
-  v8 = *(a1 + 32);
-  if ((*(v8 + 89) & 1) == 0)
+  v5 = [v4 progressProvider];
+  v6 = *(a1 + 32);
+  if ((*(v6 + 89) & 1) == 0)
   {
-    v21 = [*(v8 + 208) usableVoucherForEventType:0];
-    if (v21)
+    v18 = [*(v6 + 208) usableVoucherForEventType:0];
+    if (v18)
     {
-      v116 = v21;
+      v109 = v18;
       [objc_msgSend(*(a1 + 40) "options")];
     }
 
-    v22 = [[PFCloudKitSetupAssistant alloc] initWithSetupRequest:*(a1 + 40) mirroringOptions:*(*(a1 + 32) + 8) accountMonitor:*(*(a1 + 32) + 136) observedStore:WeakRetained];
-    v113 = 0;
-    v23 = [(PFCloudKitSetupAssistant *)v22 _initializeCloudKitForObservedStore:(*(a1 + 32) + 128) andNoteMetadataInitialization:?];
-    if (v22)
+    v19 = [[PFCloudKitSetupAssistant alloc] initWithSetupRequest:*(a1 + 40) mirroringOptions:*(*(a1 + 32) + 8) accountMonitor:*(*(a1 + 32) + 136) observedStore:WeakRetained];
+    v106 = 0;
+    v20 = [(PFCloudKitSetupAssistant *)v19 _initializeCloudKitForObservedStore:(*(a1 + 32) + 128) andNoteMetadataInitialization:?];
+    if (v19)
     {
-      setupEvent = v22->_setupEvent;
+      setupEvent = v19->_setupEvent;
     }
 
     else
@@ -3029,50 +2976,50 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke(uint6
       setupEvent = 0;
     }
 
-    v20 = setupEvent;
-    if (v23)
+    v17 = setupEvent;
+    if (v20)
     {
-      v25 = objc_autoreleasePoolPush();
+      v22 = objc_autoreleasePoolPush();
       Stream = __PFCloudKitLoggingGetStream();
-      v27 = Stream;
+      v24 = Stream;
       if (__ckLoggingOverride == 17)
       {
-        v28 = OS_LOG_TYPE_FAULT;
+        v25 = OS_LOG_TYPE_FAULT;
       }
 
       else
       {
-        v28 = 16 * (__ckLoggingOverride == 16);
+        v25 = 16 * (__ckLoggingOverride == 16);
       }
 
-      if (os_log_type_enabled(Stream, v28))
+      if (os_log_type_enabled(Stream, v25))
       {
-        v29 = *(a1 + 32);
-        v30 = [WeakRetained identifier];
+        v26 = *(a1 + 32);
+        v27 = [WeakRetained identifier];
         *buf = 136316162;
         *&buf[4] = "[NSCloudKitMirroringDelegate _performSetupRequest:]_block_invoke";
         *&buf[12] = 1024;
         *&buf[14] = 1137;
         *&buf[18] = 2112;
-        *&buf[20] = v29;
+        *&buf[20] = v26;
         *&buf[28] = 2112;
-        *&buf[30] = v30;
+        *&buf[30] = v27;
         *&buf[38] = 2112;
-        v118 = WeakRetained;
-        _os_log_impl(&dword_18565F000, v27, v28, "CoreData+CloudKit: %s(%d): %@: Successfully set up CloudKit integration for store (%@): %@", buf, 0x30u);
+        v111 = WeakRetained;
+        _os_log_impl(&dword_18565F000, v24, v25, "CoreData+CloudKit: %s(%d): %@: Successfully set up CloudKit integration for store (%@): %@", buf, 0x30u);
       }
 
-      objc_autoreleasePoolPop(v25);
-      v31 = *(*(a1 + 32) + 56);
-      if (v31)
+      objc_autoreleasePoolPop(v22);
+      v28 = *(*(a1 + 32) + 56);
+      if (v28)
       {
 
         *(*(a1 + 32) + 56) = 0;
       }
 
-      if (v22)
+      if (v19)
       {
-        database = v22->_database;
+        database = v19->_database;
       }
 
       else
@@ -3081,16 +3028,16 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke(uint6
       }
 
       *(*(a1 + 32) + 56) = database;
-      v33 = *(*(a1 + 32) + 40);
-      if (v33)
+      v30 = *(*(a1 + 32) + 40);
+      if (v30)
       {
 
         *(*(a1 + 32) + 40) = 0;
       }
 
-      if (v22)
+      if (v19)
       {
-        databaseSubscription = v22->_databaseSubscription;
+        databaseSubscription = v19->_databaseSubscription;
       }
 
       else
@@ -3099,16 +3046,16 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke(uint6
       }
 
       *(*(a1 + 32) + 40) = databaseSubscription;
-      v35 = *(*(a1 + 32) + 48);
-      if (v35)
+      v32 = *(*(a1 + 32) + 48);
+      if (v32)
       {
 
         *(*(a1 + 32) + 48) = 0;
       }
 
-      if (v22)
+      if (v19)
       {
-        container = v22->_container;
+        container = v19->_container;
       }
 
       else
@@ -3117,74 +3064,74 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke(uint6
       }
 
       *(*(a1 + 32) + 48) = container;
-      v37 = *(a1 + 32);
-      v38 = *(v37 + 200);
-      if (v38)
+      v34 = *(a1 + 32);
+      v35 = *(v34 + 200);
+      if (v35)
       {
 
         *(*(a1 + 32) + 200) = 0;
-        v37 = *(a1 + 32);
+        v34 = *(a1 + 32);
       }
 
-      if (*(v37 + 48) && ([*(v37 + 8) databaseScope] == 2 || objc_msgSend(*(*(a1 + 32) + 8), "databaseScope") == 3))
+      if (*(v34 + 48) && ([*(v34 + 8) databaseScope] == 2 || objc_msgSend(*(*(a1 + 32) + 8), "databaseScope") == 3))
       {
-        objc_initWeak(buf, *(a1 + 32));
-        *(*(a1 + 32) + 200) = [objc_alloc(getCloudKitCKSystemSharingUIObserverClass()) initWithContainer:*(*(a1 + 32) + 48)];
-        v111[0] = MEMORY[0x1E69E9820];
-        v111[1] = 3221225472;
-        v111[2] = __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_274;
-        v111[3] = &unk_1E6EC4B38;
-        objc_copyWeak(&v112, buf);
-        [*(*(a1 + 32) + 200) setSystemSharingUIDidSaveShareBlock:v111];
-        v109[0] = MEMORY[0x1E69E9820];
-        v109[1] = 3221225472;
-        v109[2] = __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276;
-        v109[3] = &unk_1E6EC4B60;
-        objc_copyWeak(&v110, buf);
-        [*(*(a1 + 32) + 200) setSystemSharingUIDidStopSharingBlock:v109];
-        objc_destroyWeak(&v110);
-        objc_destroyWeak(&v112);
+        inited = objc_initWeak(buf, *(a1 + 32));
+        *(*(a1 + 32) + 200) = [objc_alloc(getCloudKitCKSystemSharingUIObserverClass(inited)) initWithContainer:*(*(a1 + 32) + 48)];
+        v104[0] = MEMORY[0x1E69E9820];
+        v104[1] = 3221225472;
+        v104[2] = __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_274;
+        v104[3] = &unk_1E6EC4B38;
+        objc_copyWeak(&v105, buf);
+        [*(*(a1 + 32) + 200) setSystemSharingUIDidSaveShareBlock:v104];
+        v102[0] = MEMORY[0x1E69E9820];
+        v102[1] = 3221225472;
+        v102[2] = __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276;
+        v102[3] = &unk_1E6EC4B60;
+        objc_copyWeak(&v103, buf);
+        [*(*(a1 + 32) + 200) setSystemSharingUIDidStopSharingBlock:v102];
+        objc_destroyWeak(&v103);
+        objc_destroyWeak(&v105);
         objc_destroyWeak(buf);
       }
 
       *(*(a1 + 32) + 96) = [[PFCloudKitExporterOptions alloc] initWithDatabase:*(*(a1 + 32) + 56) options:*(*(a1 + 32) + 8)];
-      v39 = [*(*(a1 + 32) + 136) currentUserRecordID];
-      v40 = *(a1 + 32);
-      if (v39 || (v41 = [*(v40 + 8) databaseScope], v40 = *(a1 + 32), v41 == 1))
+      v37 = [*(*(a1 + 32) + 136) currentUserRecordID];
+      v38 = *(a1 + 32);
+      if (v37 || (v39 = [*(v38 + 8) databaseScope], v38 = *(a1 + 32), v39 == 1))
       {
-        *(v40 + 89) = 1;
-        goto LABEL_46;
+        *(v38 + 89) = 1;
+        goto LABEL_45;
       }
 
-      v84 = *(v40 + 8);
-      if (v84)
+      v82 = *(v38 + 8);
+      if (v82)
       {
-        v85 = (v40 + 89);
-        if (*(v84 + 12) == 1)
+        v83 = (v38 + 89);
+        if (*(v82 + 12) == 1)
         {
-          *v85 = 1;
-          goto LABEL_46;
+          *v83 = 1;
+          goto LABEL_45;
         }
       }
 
       else
       {
-        v85 = (v40 + 89);
+        v83 = (v38 + 89);
       }
 
-      *v85 = 0;
-      v101 = *(*(a1 + 32) + 80);
-      if (v101)
+      *v83 = 0;
+      v94 = *(*(a1 + 32) + 80);
+      if (v94)
       {
 
         *(*(a1 + 32) + 80) = 0;
       }
 
-      v102 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v114 = *MEMORY[0x1E696A580];
-      v115 = @"Failed to initialize because there is no user signed in to this device.";
-      v103 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
-      *(*(a1 + 32) + 80) = [v102 initWithDomain:*MEMORY[0x1E696A250] code:134400 userInfo:v103];
+      v95 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v107 = *MEMORY[0x1E696A580];
+      v108 = @"Failed to initialize because there is no user signed in to this device.";
+      v96 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+      *(*(a1 + 32) + 80) = [v95 initWithDomain:*MEMORY[0x1E696A250] code:134400 userInfo:v96];
       [(NSCloudKitMirroringDelegate *)*(a1 + 32) registerForAccountAndIdentityNotificationsIfNeeded];
       if (*(*(a1 + 32) + 129) == 1)
       {
@@ -3192,168 +3139,168 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke(uint6
         *(*(a1 + 32) + 129) = 0;
       }
 
-LABEL_46:
-      v42 = *(a1 + 32);
-      if (*(v42 + 89) == 1)
+LABEL_45:
+      v40 = *(a1 + 32);
+      if (*(v40 + 89) == 1)
       {
-        v43 = *(v42 + 80);
-        if (v43)
+        v41 = *(v40 + 80);
+        if (v41)
         {
 
           *(*(a1 + 32) + 80) = 0;
-          v42 = *(a1 + 32);
+          v40 = *(a1 + 32);
         }
 
-        v44 = [*(a1 + 40) options];
-        if (v44)
+        v42 = [*(a1 + 40) options];
+        if (v42)
         {
-          v45 = *(v44 + 24);
-          if (v42)
+          v43 = *(v42 + 24);
+          if (v40)
           {
-LABEL_51:
-            context = v45;
-            v107 = objc_autoreleasePoolPush();
-            Weak = objc_loadWeak((v42 + 120));
-            [(NSCloudKitMirroringDelegate *)v42 registerForAccountAndIdentityNotificationsIfNeeded];
-            objc_initWeak(location, v42);
-            if ([*(v42 + 8) automaticallyScheduleImportAndExportOperations])
+LABEL_50:
+            context = v43;
+            v100 = objc_autoreleasePoolPush();
+            Weak = objc_loadWeak((v40 + 120));
+            [(NSCloudKitMirroringDelegate *)v40 registerForAccountAndIdentityNotificationsIfNeeded];
+            objc_initWeak(location, v40);
+            if ([*(v40 + 8) automaticallyScheduleImportAndExportOperations])
             {
-              if ([objc_msgSend(v42 "accountMonitor")])
+              if ([objc_msgSend(v40 "accountMonitor")])
               {
                 [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
                 [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
               }
 
-              v47 = *(v42 + 40);
-              if (v47 && (*(v42 + 129) & 1) == 0)
+              v45 = *(v40 + 40);
+              if (v45 && (*(v40 + 129) & 1) == 0)
               {
-                v104 = *(v42 + 72);
-                v48 = [v47 subscriptionID];
-                v49 = *(v42 + 56);
-                v119[0] = MEMORY[0x1E69E9820];
-                v119[1] = 3221225472;
-                v119[2] = __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke;
-                v119[3] = &unk_1E6EC4AC0;
-                objc_copyWeak(&v120, location);
-                [v104 registerForSubscriptionWithID:v48 inDatabase:v49 handler:v119];
-                *(v42 + 129) = 1;
-                objc_destroyWeak(&v120);
+                v97 = *(v40 + 72);
+                v46 = [v45 subscriptionID];
+                v47 = *(v40 + 56);
+                v112[0] = MEMORY[0x1E69E9820];
+                v112[1] = 3221225472;
+                v112[2] = __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke;
+                v112[3] = &unk_1E6EC4AC0;
+                objc_copyWeak(&v113, location);
+                [v97 registerForSubscriptionWithID:v46 inDatabase:v47 handler:v112];
+                *(v40 + 129) = 1;
+                objc_destroyWeak(&v113);
               }
 
-              if (!*(v42 + 192))
+              if (!*(v40 + 192))
               {
-                v50 = objc_alloc_init(PFApplicationStateMonitor);
-                *(v42 + 192) = v50;
-                if (v50)
+                v48 = objc_alloc_init(PFApplicationStateMonitor);
+                *(v40 + 192) = v48;
+                if (v48)
                 {
-                  objc_storeWeak(&v50->_delegate, v42);
+                  objc_storeWeak(&v48->_delegate, v40);
                 }
               }
 
-              if ([objc_msgSend(v42 "accountMonitor")])
+              if ([objc_msgSend(v40 "accountMonitor")])
               {
-                v51 = objc_autoreleasePoolPush();
-                v52 = __PFCloudKitLoggingGetStream();
-                v53 = v52;
-                v54 = __ckLoggingOverride;
+                v49 = objc_autoreleasePoolPush();
+                v50 = __PFCloudKitLoggingGetStream();
+                v51 = v50;
+                v52 = __ckLoggingOverride;
                 if (__ckLoggingOverride && __ckLoggingOverride != 16 && __ckLoggingOverride != 17)
                 {
-                  v54 = OS_LOG_TYPE_INFO;
+                  v52 = OS_LOG_TYPE_INFO;
                 }
 
-                if (os_log_type_enabled(v52, v54))
+                if (os_log_type_enabled(v50, v52))
                 {
                   *buf = 136315650;
                   *&buf[4] = "[NSCloudKitMirroringDelegate _beginWatchingForChanges:]";
                   *&buf[12] = 1024;
                   *&buf[14] = 757;
                   *&buf[18] = 2112;
-                  *&buf[20] = v42;
-                  _os_log_impl(&dword_18565F000, v53, v54, "CoreData+CloudKit: %s(%d): %@: Scheduling post-setup export", buf, 0x1Cu);
+                  *&buf[20] = v40;
+                  _os_log_impl(&dword_18565F000, v51, v52, "CoreData+CloudKit: %s(%d): %@: Scheduling post-setup export", buf, 0x1Cu);
                 }
 
-                objc_autoreleasePoolPop(v51);
-                [(NSCloudKitMirroringDelegate *)v42 scheduleExportAndStartAfterDate:?];
+                objc_autoreleasePoolPop(v49);
+                [(NSCloudKitMirroringDelegate *)v40 scheduleExportAndStartAfterDate:?];
               }
 
-              if ([objc_msgSend(*(v42 + 48) "containerID")] == 2)
+              if ([objc_msgSend(*(v40 + 48) "containerID")] == 2)
               {
                 *buf = MEMORY[0x1E69E9820];
                 *&buf[8] = 3221225472;
                 *&buf[16] = __56__NSCloudKitMirroringDelegate__beginWatchingForChanges___block_invoke_208;
                 *&buf[24] = &unk_1E6EC4AE8;
-                objc_copyWeak(&v118, location);
-                *&buf[32] = v42;
-                [(NSCloudKitMirroringDelegate *)v42 _openTransactionWithLabel:@"CoreData: CloudKit Sandbox Operations" assertionLabel:buf andExecuteWorkBlock:?];
-                objc_destroyWeak(&v118);
+                objc_copyWeak(&v111, location);
+                *&buf[32] = v40;
+                [(NSCloudKitMirroringDelegate *)v40 _openTransactionWithLabel:@"CoreData: CloudKit Sandbox Operations" assertionLabel:buf andExecuteWorkBlock:?];
+                objc_destroyWeak(&v111);
               }
 
               else
               {
-                [NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:v42 fromErrorRecovery:context & 1 fromShareAccept:0 andStartAfterDate:?];
+                [NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:v40 fromErrorRecovery:context & 1 fromShareAccept:0 andStartAfterDate:?];
               }
             }
 
             objc_destroyWeak(location);
-            objc_autoreleasePoolPop(v107);
+            objc_autoreleasePoolPop(v100);
           }
         }
 
         else
         {
-          v45 = 0;
-          if (v42)
+          v43 = 0;
+          if (v40)
           {
-            goto LABEL_51;
+            goto LABEL_50;
           }
         }
       }
 
-LABEL_122:
+LABEL_121:
 
-      goto LABEL_123;
+      goto LABEL_122;
     }
 
-    v60 = *(*(a1 + 32) + 80);
-    if (v60)
+    v58 = *(*(a1 + 32) + 80);
+    if (v58)
     {
 
       *(*(a1 + 32) + 80) = 0;
     }
 
-    *(*(a1 + 32) + 80) = v113;
+    *(*(a1 + 32) + 80) = v106;
     *(*(a1 + 32) + 89) = 0;
-    v61 = objc_autoreleasePoolPush();
-    v62 = __PFCloudKitLoggingGetStream();
-    v63 = v62;
+    v59 = objc_autoreleasePoolPush();
+    v60 = __PFCloudKitLoggingGetStream();
+    v61 = v60;
     if (__ckLoggingOverride == 17)
     {
-      v64 = OS_LOG_TYPE_FAULT;
+      v62 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      v64 = OS_LOG_TYPE_ERROR;
+      v62 = OS_LOG_TYPE_ERROR;
     }
 
-    if (os_log_type_enabled(v62, v64))
+    if (os_log_type_enabled(v60, v62))
     {
-      v65 = *(a1 + 32);
+      v63 = *(a1 + 32);
       *buf = 136316162;
       *&buf[4] = "[NSCloudKitMirroringDelegate _performSetupRequest:]_block_invoke";
       *&buf[12] = 1024;
       *&buf[14] = 1230;
       *&buf[18] = 2112;
-      *&buf[20] = v65;
+      *&buf[20] = v63;
       *&buf[28] = 2112;
       *&buf[30] = WeakRetained;
       *&buf[38] = 2112;
-      v118 = v113;
-      _os_log_impl(&dword_18565F000, v63, v64, "CoreData+CloudKit: %s(%d): %@: Failed to set up CloudKit integration for store: %@\n%@", buf, 0x30u);
+      v111 = v106;
+      _os_log_impl(&dword_18565F000, v61, v62, "CoreData+CloudKit: %s(%d): %@: Failed to set up CloudKit integration for store: %@\n%@", buf, 0x30u);
     }
 
-    objc_autoreleasePoolPop(v61);
-    if (!v113)
+    objc_autoreleasePoolPop(v59);
+    if (!v106)
     {
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
@@ -3362,33 +3309,33 @@ LABEL_122:
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: _initializeCloudKitForObservedStore failed but did not return an error.\n", buf, 2u);
       }
 
-      v80 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+      v78 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_18565F000, v80, OS_LOG_TYPE_FAULT, "CoreData: _initializeCloudKitForObservedStore failed but did not return an error.", buf, 2u);
+        _os_log_fault_impl(&dword_18565F000, v78, OS_LOG_TYPE_FAULT, "CoreData: _initializeCloudKitForObservedStore failed but did not return an error.", buf, 2u);
       }
 
-      goto LABEL_122;
+      goto LABEL_121;
     }
 
-    if (([(NSCloudKitMirroringDelegate *)*(a1 + 32) recoverFromError:v113]& 1) == 0)
+    if (([(NSCloudKitMirroringDelegate *)*(a1 + 32) recoverFromError:v106]& 1) == 0)
     {
-      if (v22)
+      if (v19)
       {
-        v81 = v22->_container;
-        if (v81)
+        v79 = v19->_container;
+        if (v79)
         {
-          v82 = *(a1 + 32);
-          v83 = *(v82 + 48);
-          if (v83 != v81)
+          v80 = *(a1 + 32);
+          v81 = *(v80 + 48);
+          if (v81 != v79)
           {
 
-            *(*(a1 + 32) + 48) = v22->_container;
-            v82 = *(a1 + 32);
+            *(*(a1 + 32) + 48) = v19->_container;
+            v80 = *(a1 + 32);
           }
 
-          [(NSCloudKitMirroringDelegate *)v82 registerForAccountAndIdentityNotificationsIfNeeded];
+          [(NSCloudKitMirroringDelegate *)v80 registerForAccountAndIdentityNotificationsIfNeeded];
         }
       }
 
@@ -3397,274 +3344,245 @@ LABEL_122:
         [*(*(a1 + 32) + 136) clearEstablishedAccountInfoAndUserRecordID];
       }
 
-      goto LABEL_122;
+      goto LABEL_121;
     }
 
-    if (![(NSCloudKitMirroringDelegate *)*(a1 + 32) shouldAttemptSetupRecoveryFromError:v113 viaPush:0])
+    if (![(NSCloudKitMirroringDelegate *)*(a1 + 32) shouldAttemptSetupRecoveryFromError:v106 viaPush:0])
     {
-      goto LABEL_122;
+      goto LABEL_121;
     }
 
-    v66 = *(a1 + 32);
-    v67 = *(v66 + 48);
-    if (v22)
+    v64 = *(a1 + 32);
+    v65 = *(v64 + 48);
+    if (v19)
     {
-      if (v67 == v22->_container)
+      if (v65 == v19->_container)
       {
-        goto LABEL_91;
+        goto LABEL_90;
       }
 
-      v68 = v22->_container;
+      v66 = v19->_container;
     }
 
     else
     {
-      if (!v67)
+      if (!v65)
       {
-        goto LABEL_91;
+        goto LABEL_90;
       }
 
-      v68 = 0;
+      v66 = 0;
     }
 
-    *(*(a1 + 32) + 48) = v68;
-    v66 = *(a1 + 32);
-    if (!v66)
+    *(*(a1 + 32) + 48) = v66;
+    v64 = *(a1 + 32);
+    if (!v64)
     {
-      goto LABEL_122;
+      goto LABEL_121;
     }
 
-LABEL_91:
-    v108 = v113;
-    if (!v113)
+LABEL_90:
+    v101 = v106;
+    if (!v106)
     {
-      v69 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_error_impl(&dword_18565F000, v69, OS_LOG_TYPE_ERROR, "CoreData: fault: Expected a non-nil error to schedule a setup activity from.\n", buf, 2u);
-      }
-
-      v70 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
+      v67 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_18565F000, v70, OS_LOG_TYPE_FAULT, "CoreData: Expected a non-nil error to schedule a setup activity from.", buf, 2u);
+        _os_log_error_impl(&dword_18565F000, v67, OS_LOG_TYPE_ERROR, "CoreData: fault: Expected a non-nil error to schedule a setup activity from.\n", buf, 2u);
+      }
+
+      v68 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 0;
+        _os_log_fault_impl(&dword_18565F000, v68, OS_LOG_TYPE_FAULT, "CoreData: Expected a non-nil error to schedule a setup activity from.", buf, 2u);
       }
     }
 
-    [*(v66 + 208) expireVouchersForEventType:0];
-    if ([*(v66 + 8) automaticallyScheduleImportAndExportOperations])
+    [*(v64 + 208) expireVouchersForEventType:0];
+    if ([*(v64 + 8) automaticallyScheduleImportAndExportOperations])
     {
-      v71 = objc_loadWeak((v66 + 112));
+      v69 = objc_loadWeak((v64 + 112));
       contexta = objc_autoreleasePoolPush();
-      v72 = __PFCloudKitLoggingGetStream();
-      v73 = v72;
-      v74 = __ckLoggingOverride;
+      v70 = __PFCloudKitLoggingGetStream();
+      v71 = v70;
+      v72 = __ckLoggingOverride;
       if (__ckLoggingOverride && __ckLoggingOverride != 16 && __ckLoggingOverride != 17)
       {
-        v74 = OS_LOG_TYPE_INFO;
+        v72 = OS_LOG_TYPE_INFO;
       }
 
-      if (os_log_type_enabled(v72, v74))
+      if (os_log_type_enabled(v70, v72))
       {
         *buf = 136315906;
         *&buf[4] = "[NSCloudKitMirroringDelegate _scheduleSetupActivityFromError:]";
         *&buf[12] = 1024;
         *&buf[14] = 3747;
         *&buf[18] = 2112;
-        *&buf[20] = v66;
+        *&buf[20] = v64;
         *&buf[28] = 2112;
-        *&buf[30] = v71;
-        _os_log_impl(&dword_18565F000, v73, v74, "CoreData+CloudKit: %s(%d): %@: Submitting setup activity as recovery for %@", buf, 0x26u);
+        *&buf[30] = v69;
+        _os_log_impl(&dword_18565F000, v71, v72, "CoreData+CloudKit: %s(%d): %@: Submitting setup activity as recovery for %@", buf, 0x26u);
       }
 
       objc_autoreleasePoolPop(contexta);
 
-      v75 = [(NSCloudKitMirroringDelegate *)v66 newActivityWithIdentifier:0 andVoucher:?];
-      v76 = [NSCloudKitMirroringDelegate retryAfterInSecondsFromError:v108];
-      [v76 doubleValue];
-      if (v77 > 0.0)
+      v73 = [(NSCloudKitMirroringDelegate *)v64 newActivityWithIdentifier:0 andVoucher:?];
+      v74 = [NSCloudKitMirroringDelegate retryAfterInSecondsFromError:v101];
+      [v74 doubleValue];
+      if (v75 > 0.0)
       {
-        v78 = MEMORY[0x1E695DF00];
-        [v76 doubleValue];
-        [v75 setEarliestStartDate:{objc_msgSend(v78, "dateWithTimeIntervalSinceNow:")}];
+        v76 = MEMORY[0x1E695DF00];
+        [v74 doubleValue];
+        [v73 setEarliestStartDate:{objc_msgSend(v76, "dateWithTimeIntervalSinceNow:")}];
       }
 
-      [*(v66 + 64) submitActivity:v75];
-      [NSCloudKitMirroringDelegate resetAfterError:v66 andKeepContainer:v108];
+      [*(v64 + 64) submitActivity:v73];
+      [NSCloudKitMirroringDelegate resetAfterError:v64 andKeepContainer:v101];
     }
 
-    goto LABEL_122;
+    goto LABEL_121;
   }
 
-  v9 = objc_autoreleasePoolPush();
-  v10 = __PFCloudKitLoggingGetStream();
-  v11 = v10;
+  v7 = objc_autoreleasePoolPush();
+  v8 = __PFCloudKitLoggingGetStream();
+  v9 = v8;
   if (__ckLoggingOverride == 17)
   {
-    v12 = OS_LOG_TYPE_FAULT;
+    v10 = OS_LOG_TYPE_FAULT;
   }
 
   else
   {
-    v12 = 16 * (__ckLoggingOverride == 16);
+    v10 = 16 * (__ckLoggingOverride == 16);
   }
 
-  if (os_log_type_enabled(v10, v12))
+  if (os_log_type_enabled(v8, v10))
   {
-    v13 = *(a1 + 32);
-    v14 = *(a1 + 40);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
     *buf = 136315906;
     *&buf[4] = "[NSCloudKitMirroringDelegate _performSetupRequest:]_block_invoke";
     *&buf[12] = 1024;
     *&buf[14] = 1261;
     *&buf[18] = 2112;
-    *&buf[20] = v13;
+    *&buf[20] = v11;
     *&buf[28] = 2112;
-    *&buf[30] = v14;
-    _os_log_impl(&dword_18565F000, v11, v12, "CoreData+CloudKit: %s(%d): %@: Asked to set up but already successfully initialized: %@", buf, 0x26u);
+    *&buf[30] = v12;
+    _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): %@: Asked to set up but already successfully initialized: %@", buf, 0x26u);
   }
 
-  objc_autoreleasePoolPop(v9);
-  v119[0] = 0;
-  v15 = *(a1 + 32);
-  if (v15 && (v16 = *(v15 + 8)) != 0)
+  objc_autoreleasePoolPop(v7);
+  v112[0] = 0;
+  v13 = *(a1 + 32);
+  if (v13 && (v14 = *(v13 + 8)) != 0)
   {
-    v17 = *(v16 + 88);
-    if (!a2)
-    {
-      goto LABEL_13;
-    }
+    v15 = *(v14 + 88);
   }
 
   else
   {
-    v17 = 0;
-    if (!a2)
-    {
-      goto LABEL_13;
-    }
+    v15 = 0;
   }
 
-  v18 = *(a2 + 8);
-LABEL_13:
-  v19 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v17 inTransactionWithLabel:WeakRetained];
-  v20 = [NSCKEvent beginEventForRequest:v19 withMonitor:v119 error:?];
-  if (v20)
+  v16 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v15 inTransactionWithLabel:WeakRetained];
+  v17 = [NSCKEvent beginEventForRequest:v16 withMonitor:v112 error:?];
+  if (v17)
   {
-    [v7 eventUpdated:v20];
+    [v5 eventUpdated:v17];
   }
 
   else
   {
-    v55 = objc_autoreleasePoolPush();
-    v56 = __PFCloudKitLoggingGetStream();
-    v57 = v56;
+    v53 = objc_autoreleasePoolPush();
+    v54 = __PFCloudKitLoggingGetStream();
+    v55 = v54;
     if (__ckLoggingOverride == 17)
     {
-      v58 = OS_LOG_TYPE_FAULT;
+      v56 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      v58 = OS_LOG_TYPE_ERROR;
+      v56 = OS_LOG_TYPE_ERROR;
     }
 
-    if (os_log_type_enabled(v56, v58))
+    if (os_log_type_enabled(v54, v56))
     {
-      v59 = *(a1 + 32);
+      v57 = *(a1 + 32);
       *buf = 136315906;
       *&buf[4] = "[NSCloudKitMirroringDelegate _performSetupRequest:]_block_invoke";
       *&buf[12] = 1024;
       *&buf[14] = 1271;
       *&buf[18] = 2112;
-      *&buf[20] = v59;
+      *&buf[20] = v57;
       *&buf[28] = 2112;
-      *&buf[30] = v119[0];
-      _os_log_impl(&dword_18565F000, v57, v58, "CoreData+CloudKit: %s(%d): %@: Failed to create setup event: %@", buf, 0x26u);
+      *&buf[30] = v112[0];
+      _os_log_impl(&dword_18565F000, v55, v56, "CoreData+CloudKit: %s(%d): %@: Failed to create setup event: %@", buf, 0x26u);
     }
 
-    objc_autoreleasePoolPop(v55);
+    objc_autoreleasePoolPop(v53);
   }
 
-LABEL_123:
-  v86 = [NSCloudKitMirroringResult alloc];
-  v87 = *(a1 + 32);
-  if ((*(v87 + 89) & 1) == 0)
+LABEL_122:
+  v84 = [NSCloudKitMirroringResult initWithRequest:"initWithRequest:storeIdentifier:success:madeChanges:error:" storeIdentifier:*(a1 + 40) success:*(*(a1 + 32) + 152) madeChanges:? error:?];
+  [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v84 withResult:?];
+  if (v17)
   {
-    v88 = *(v87 + 80);
-  }
-
-  v89 = [NSCloudKitMirroringResult initWithRequest:v86 storeIdentifier:"initWithRequest:storeIdentifier:success:madeChanges:error:" success:*(a1 + 40) madeChanges:*(v87 + 152) error:?];
-  [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v89 withResult:?];
-  if (v20)
-  {
-    v119[0] = 0;
-    v90 = *(a1 + 32);
-    if (v90 && (v91 = *(v90 + 8)) != 0)
+    v112[0] = 0;
+    v85 = *(a1 + 32);
+    if (v85 && (v86 = *(v85 + 8)) != 0)
     {
-      v92 = *(v91 + 88);
-      if (!a2)
-      {
-        goto LABEL_130;
-      }
+      v87 = *(v86 + 88);
     }
 
     else
     {
-      v92 = 0;
-      if (!a2)
-      {
-        goto LABEL_130;
-      }
+      v87 = 0;
     }
 
-    v93 = *(a2 + 8);
-LABEL_130:
-    v94 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v92 inTransactionWithLabel:WeakRetained];
-    v95 = [NSCKEvent finishEventForResult:v89 withMonitor:v94 error:v119];
-    if (v95)
+    v88 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v87 inTransactionWithLabel:WeakRetained];
+    v89 = [NSCKEvent finishEventForResult:v84 withMonitor:v88 error:v112];
+    if (v89)
     {
-      [v7 eventUpdated:v95];
+      [v5 eventUpdated:v89];
     }
 
     else
     {
-      v96 = objc_autoreleasePoolPush();
-      v97 = __PFCloudKitLoggingGetStream();
-      v98 = v97;
+      v90 = objc_autoreleasePoolPush();
+      v91 = __PFCloudKitLoggingGetStream();
+      v92 = v91;
       if (__ckLoggingOverride == 17)
       {
-        v99 = OS_LOG_TYPE_FAULT;
+        v93 = OS_LOG_TYPE_FAULT;
       }
 
       else
       {
-        v99 = OS_LOG_TYPE_ERROR;
+        v93 = OS_LOG_TYPE_ERROR;
       }
 
-      if (os_log_type_enabled(v97, v99))
+      if (os_log_type_enabled(v91, v93))
       {
         *buf = 136315650;
         *&buf[4] = "[NSCloudKitMirroringDelegate _performSetupRequest:]_block_invoke";
         *&buf[12] = 1024;
         *&buf[14] = 1296;
         *&buf[18] = 2112;
-        *&buf[20] = v119[0];
-        _os_log_impl(&dword_18565F000, v98, v99, "CoreData+CloudKit: %s(%d): Failed to finish setup event: %@", buf, 0x1Cu);
+        *&buf[20] = v112[0];
+        _os_log_impl(&dword_18565F000, v92, v93, "CoreData+CloudKit: %s(%d): Failed to finish setup event: %@", buf, 0x1Cu);
       }
 
-      objc_autoreleasePoolPop(v96);
+      objc_autoreleasePoolPop(v90);
     }
   }
-
-  v100 = *MEMORY[0x1E69E9840];
 }
 
 void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_274(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -3681,7 +3599,7 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_274(u
         v7 = 0;
       }
 
-      v18 = WeakRetained;
+      v16 = WeakRetained;
       Weak = objc_loadWeak(WeakRetained + 14);
       v9 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v7 inTransactionWithLabel:Weak];
       *buf = MEMORY[0x1E69E9820];
@@ -3689,32 +3607,30 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_274(u
       *&buf[16] = __52__NSCloudKitMirroringDelegate__persistUpdatedShare___block_invoke;
       *&buf[24] = &unk_1E6EC19D8;
       *&buf[32] = v9;
-      v20 = v18;
-      v21 = a3;
+      v18 = v16;
+      v19 = a3;
       [(PFCloudKitStoreMonitor *)v9 performBlock:buf];
 
-      WeakRetained = v18;
+      WeakRetained = v16;
     }
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v13 = objc_autoreleasePoolPush();
+    v12 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
-    v15 = Stream;
+    v14 = Stream;
     if (__ckLoggingOverride == 17)
     {
-      v16 = OS_LOG_TYPE_FAULT;
+      v15 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      v16 = OS_LOG_TYPE_ERROR;
+      v15 = OS_LOG_TYPE_ERROR;
     }
 
-    if (os_log_type_enabled(Stream, v16))
+    if (os_log_type_enabled(Stream, v15))
     {
       *buf = 136315906;
       *&buf[4] = "[NSCloudKitMirroringDelegate _performSetupRequest:]_block_invoke";
@@ -3724,17 +3640,16 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_274(u
       *&buf[20] = a2;
       *&buf[28] = 2112;
       *&buf[30] = a4;
-      _os_log_impl(&dword_18565F000, v15, v16, "CoreData+CloudKit: %s(%d): Called about a failure to save a share: %@ - %@", buf, 0x26u);
+      _os_log_impl(&dword_18565F000, v14, v15, "CoreData+CloudKit: %s(%d): Called about a failure to save a share: %@ - %@", buf, 0x26u);
     }
 
-    objc_autoreleasePoolPop(v13);
-    v17 = *MEMORY[0x1E69E9840];
+    objc_autoreleasePoolPop(v12);
   }
 }
 
 void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v5 = objc_autoreleasePoolPush();
@@ -3764,7 +3679,6 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276(u
     }
 
     objc_autoreleasePoolPop(v5);
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -3773,41 +3687,39 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276(u
     if (val)
     {
       objc_initWeak(&location, val);
-      v10 = val[1];
-      if (v10)
+      v9 = val[1];
+      if (v9)
       {
-        v11 = v10[11];
+        v10 = v9[11];
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
       }
 
       Weak = objc_loadWeak(val + 14);
-      v13 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v11 inTransactionWithLabel:Weak];
+      v12 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v10 inTransactionWithLabel:Weak];
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke;
       *&buf[24] = &unk_1E6EC4E80;
-      *&buf[32] = v13;
-      v18 = val;
-      v19 = a2;
-      objc_copyWeak(v20, &location);
-      [(PFCloudKitStoreMonitor *)v13 performBlock:buf];
+      *&buf[32] = v12;
+      v16 = val;
+      v17 = a2;
+      objc_copyWeak(v18, &location);
+      [(PFCloudKitStoreMonitor *)v12 performBlock:buf];
 
-      objc_destroyWeak(v20);
+      objc_destroyWeak(v18);
       objc_destroyWeak(&location);
     }
-
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (uint64_t)recoverFromError:(uint64_t)error
 {
   errorCopy = error;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (error)
   {
     if (!a2)
@@ -3827,10 +3739,10 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276(u
       }
     }
 
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
     v6 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
     v8 = Stream;
@@ -3847,13 +3759,13 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276(u
     if (os_log_type_enabled(Stream, v9))
     {
       *buf = 136315906;
-      v22 = "[NSCloudKitMirroringDelegate recoverFromError:]";
-      v23 = 1024;
-      v24 = 2304;
-      v25 = 2112;
-      v26 = errorCopy;
-      v27 = 2112;
-      v28 = a2;
+      v21 = "[NSCloudKitMirroringDelegate recoverFromError:]";
+      v22 = 1024;
+      v23 = 2304;
+      v24 = 2112;
+      v25 = errorCopy;
+      v26 = 2112;
+      v27 = a2;
       _os_log_impl(&dword_18565F000, v8, v9, "CoreData+CloudKit: %s(%d): %@ - Attempting recovery from error: %@", buf, 0x26u);
     }
 
@@ -3871,21 +3783,20 @@ void __52__NSCloudKitMirroringDelegate__performSetupRequest___block_invoke_276(u
 
     Weak = objc_loadWeak((errorCopy + 112));
     v13 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v11 inTransactionWithLabel:Weak];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke;
-    v16[3] = &unk_1E6EC2748;
-    v16[4] = v13;
-    v16[5] = a2;
-    v16[6] = errorCopy;
-    v16[7] = &v17;
-    [(PFCloudKitStoreMonitor *)v13 performBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke;
+    v15[3] = &unk_1E6EC2748;
+    v15[4] = v13;
+    v15[5] = a2;
+    v15[6] = errorCopy;
+    v15[7] = &v16;
+    [(PFCloudKitStoreMonitor *)v13 performBlock:v15];
 
-    LOBYTE(errorCopy) = *(v18 + 24);
-    _Block_object_dispose(&v17, 8);
+    LOBYTE(errorCopy) = *(v17 + 24);
+    _Block_object_dispose(&v16, 8);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return errorCopy & 1;
 }
 
@@ -3899,79 +3810,70 @@ void __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke(
     if (v6 && (v7 = *(v6 + 8)) != 0)
     {
       v8 = *(v7 + 88);
-      if (!a2)
-      {
-        goto LABEL_6;
-      }
     }
 
     else
     {
       v8 = 0;
-      if (!a2)
-      {
-        goto LABEL_6;
-      }
     }
 
-    v9 = *(a2 + 8);
-LABEL_6:
-    v10 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v8 inTransactionWithLabel:WeakRetained];
-    v21 = 0;
-    v11 = [NSCKEvent beginEventForRequest:v10 withMonitor:&v21 error:?];
-    if (v11)
+    v9 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v8 inTransactionWithLabel:WeakRetained];
+    v20 = 0;
+    v10 = [NSCKEvent beginEventForRequest:v9 withMonitor:&v20 error:?];
+    if (v10)
     {
-      v12 = *(a1 + 32);
-      if (v12)
+      v11 = *(a1 + 32);
+      if (v11)
       {
-        v13 = *(v12 + 8);
+        v12 = *(v11 + 8);
       }
 
       else
       {
-        v13 = 0;
+        v12 = 0;
       }
 
-      [objc_msgSend(v13 "progressProvider")];
-      v14 = [[PFCloudKitImporterOptions alloc] initWithOptions:*(*(a1 + 32) + 8) monitor:v10 assetStorageURL:[PFCloudKitSerializer assetStorageDirectoryURLForStore:?]andDatabase:*(*(a1 + 32) + 32), *(*(a1 + 32) + 56)];
-      v15 = [[PFCloudKitImporter alloc] initWithOptions:v14 request:*(a1 + 40)];
+      [objc_msgSend(v12 "progressProvider")];
+      v13 = [[PFCloudKitImporterOptions alloc] initWithOptions:*(*(a1 + 32) + 8) monitor:v9 assetStorageURL:[PFCloudKitSerializer assetStorageDirectoryURLForStore:?]andDatabase:*(*(a1 + 32) + 32), *(*(a1 + 32) + 56)];
+      v14 = [[PFCloudKitImporter alloc] initWithOptions:v13 request:*(a1 + 40)];
 
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke_2;
-      v20[3] = &unk_1E6EC35E0;
-      v20[4] = v15;
-      v20[5] = a2;
-      v16 = *(a1 + 32);
-      v20[6] = v10;
-      v20[7] = v16;
-      [(PFCloudKitImporter *)v15 importIfNecessaryWithCompletion:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke_2;
+      v19[3] = &unk_1E6EC35E0;
+      v19[4] = v14;
+      v19[5] = a2;
+      v15 = *(a1 + 32);
+      v19[6] = v9;
+      v19[7] = v15;
+      [(PFCloudKitImporter *)v14 importIfNecessaryWithCompletion:v19];
     }
 
     else
     {
-      v18 = [NSCloudKitMirroringResult alloc];
-      v19 = [(NSCloudKitMirroringResult *)v18 initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 32) + 152) success:0 madeChanges:0 error:v21];
-      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _importFinishedWithResult:v19 importer:0];
+      v17 = [NSCloudKitMirroringResult alloc];
+      v18 = [(NSCloudKitMirroringResult *)v17 initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 32) + 152) success:0 madeChanges:0 error:v20];
+      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _importFinishedWithResult:v18 importer:0];
 
-      v15 = 0;
+      v14 = 0;
     }
-
-    return;
   }
 
-  v17 = *(a1 + 40);
+  else
+  {
+    v16 = *(a1 + 40);
 
-  [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v17];
+    [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v16];
+  }
 }
 
 void __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v14 = 0;
-  v6 = [NSCKEvent finishEventForResult:a2 withMonitor:*(a1 + 48) error:&v14];
+  v13 = 0;
+  v6 = [NSCKEvent finishEventForResult:a2 withMonitor:*(a1 + 48) error:&v13];
   if (v6)
   {
     v7 = *(a1 + 56);
@@ -4006,11 +3908,11 @@ void __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke_
     if (os_log_type_enabled(Stream, v12))
     {
       *buf = 136315650;
-      v16 = "[NSCloudKitMirroringDelegate _performImportWithRequest:]_block_invoke_2";
-      v17 = 1024;
-      v18 = 1353;
-      v19 = 2112;
-      v20 = v14;
+      v15 = "[NSCloudKitMirroringDelegate _performImportWithRequest:]_block_invoke_2";
+      v16 = 1024;
+      v17 = 1353;
+      v18 = 2112;
+      v19 = v13;
       _os_log_impl(&dword_18565F000, v11, v12, "CoreData+CloudKit: %s(%d): Failed to finish import event: %@", buf, 0x1Cu);
     }
 
@@ -4018,33 +3920,32 @@ void __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke_
   }
 
   [(NSCloudKitMirroringDelegate *)*(a1 + 56) _importFinishedWithResult:a2 importer:v4];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)_importFinishedWithResult:(uint64_t)result importer:
+- (id)_importFinishedWithResult:(uint64_t)result importer:
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   if (result)
   {
     resultCopy = result;
     v6 = MEMORY[0x1E695DF90];
-    v15[0] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(a2, "success", @"success"}];
-    v14[1] = @"madeChanges";
-    v14[2] = @"result";
-    v15[1] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(a2, "madeChanges")}];
-    v15[2] = a2;
-    v7 = [v6 dictionaryWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v15, v14, 3)}];
+    v14[0] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(a2, "success", @"success"}];
+    v13[1] = @"madeChanges";
+    v13[2] = @"result";
+    v14[1] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(a2, "madeChanges")}];
+    v14[2] = a2;
+    v7 = [v6 dictionaryWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v14, v13, 3)}];
     if ([a2 success])
     {
-      if ([*(resultCopy + 8) automaticallyScheduleImportAndExportOperations])
+      if ([resultCopy[1] automaticallyScheduleImportAndExportOperations])
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke;
         *&buf[24] = &unk_1E6EC4D90;
         *&buf[32] = resultCopy;
-        v17[0] = 0;
-        *(v17 + 7) = 0;
+        v16[0] = 0;
+        *(v16 + 7) = 0;
         [(NSCloudKitMirroringDelegate *)resultCopy _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:buf andExecuteWorkBlock:?];
       }
     }
@@ -4087,16 +3988,15 @@ void __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke_
     }
 
     -[NSCloudKitMirroringDelegate _finishedRequest:withResult:](resultCopy, [a2 request], a2);
-    result = [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
+    return [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_requestAbortedNotInitialized:(uint64_t)initialized
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (initialized)
   {
     v4 = objc_autoreleasePoolPush();
@@ -4116,35 +4016,33 @@ void __57__NSCloudKitMirroringDelegate__performImportWithRequest___block_invoke_
     {
       v8 = *(initialized + 80);
       *buf = 136316162;
-      v18 = "[NSCloudKitMirroringDelegate _requestAbortedNotInitialized:]";
-      v19 = 1024;
-      v20 = 2192;
-      v21 = 2112;
+      v17 = "[NSCloudKitMirroringDelegate _requestAbortedNotInitialized:]";
+      v18 = 1024;
+      v19 = 2192;
+      v20 = 2112;
       initializedCopy = initialized;
-      v23 = 2112;
-      v24 = a2;
-      v25 = 2112;
-      v26 = v8;
+      v22 = 2112;
+      v23 = a2;
+      v24 = 2112;
+      v25 = v8;
       _os_log_impl(&dword_18565F000, v6, v7, "CoreData+CloudKit: %s(%d): %@ - Never successfully initialized and cannot execute request '%@' due to error: %@", buf, 0x30u);
     }
 
     objc_autoreleasePoolPop(v4);
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was aborted because the mirroring delegate never successfully initialized due to error: %@", objc_msgSend(a2, "requestIdentifier"), *(initialized + 80)];
+    v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [a2 requestIdentifier], *(initialized + 80));
     v10 = [NSCloudKitMirroringResult alloc];
     v11 = *(initialized + 152);
     v12 = *MEMORY[0x1E696A250];
-    v15 = *MEMORY[0x1E696A588];
-    v16 = v9;
-    v13 = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:](v10, "initWithRequest:storeIdentifier:success:madeChanges:error:", a2, v11, 0, 0, [MEMORY[0x1E696ABC0] errorWithDomain:v12 code:134406 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v16, &v15, 1)}]);
+    v14 = *MEMORY[0x1E696A588];
+    v15 = v9;
+    v13 = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:](v10, "initWithRequest:storeIdentifier:success:madeChanges:error:", a2, v11, 0, 0, [MEMORY[0x1E696ABC0] errorWithDomain:v12 code:134406 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1)}]);
     [(NSCloudKitMirroringDelegate *)initialized _finishedRequest:a2 withResult:v13];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke(uint64_t a1, void (*a2)(void, void))
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (*(v3 + 89) == 1)
   {
@@ -4153,6 +4051,26 @@ void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke(
     {
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      {
+        v21 = *(a1 + 32);
+        v22 = [WeakRetained URL];
+        v23 = *(a1 + 32);
+        if (v23)
+        {
+          v23 = *(v23 + 8);
+        }
+
+        *buf = 138412802;
+        *&buf[4] = v21;
+        v29 = 2112;
+        v30 = v22;
+        v31 = 2112;
+        v32 = v23;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Illegal attempt to export without an account: %@ - %@\n", buf, 0x20u);
+      }
+
+      v7 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         v24 = *(a1 + 32);
         v25 = [WeakRetained URL];
@@ -4164,30 +4082,10 @@ void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke(
 
         *buf = 138412802;
         *&buf[4] = v24;
-        v32 = 2112;
-        v33 = v25;
-        v34 = 2112;
-        v35 = v26;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Illegal attempt to export without an account: %@ - %@\n", buf, 0x20u);
-      }
-
-      v7 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-      {
-        v27 = *(a1 + 32);
-        v28 = [WeakRetained URL];
-        v29 = *(a1 + 32);
-        if (v29)
-        {
-          v29 = *(v29 + 8);
-        }
-
-        *buf = 138412802;
-        *&buf[4] = v27;
-        v32 = 2112;
-        v33 = v28;
-        v34 = 2112;
-        v35 = v29;
+        v29 = 2112;
+        v30 = v25;
+        v31 = 2112;
+        v32 = v26;
         _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: %@: Illegal attempt to export without an account: %@ - %@", buf, 0x20u);
       }
     }
@@ -4196,86 +4094,75 @@ void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke(
     if (v8 && (v9 = *(v8 + 8)) != 0)
     {
       v10 = *(v9 + 88);
-      if (!a2)
-      {
-        goto LABEL_9;
-      }
     }
 
     else
     {
       v10 = 0;
-      if (!a2)
-      {
-        goto LABEL_9;
-      }
     }
 
-    v11 = *(a2 + 8);
-LABEL_9:
-    v12 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v10 inTransactionWithLabel:WeakRetained];
+    v11 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v10 inTransactionWithLabel:WeakRetained];
 
     *buf = 0;
-    v13 = [NSCKEvent beginEventForRequest:v12 withMonitor:buf error:?];
-    if (v13)
+    v12 = [NSCKEvent beginEventForRequest:v11 withMonitor:buf error:?];
+    if (v12)
     {
-      v14 = *(a1 + 32);
-      if (v14)
+      v13 = *(a1 + 32);
+      if (v13)
       {
-        v15 = *(v14 + 8);
+        v14 = *(v13 + 8);
       }
 
       else
       {
-        v15 = 0;
+        v14 = 0;
       }
 
-      [objc_msgSend(v15 "progressProvider")];
-      v16 = [[PFCloudKitExporter alloc] initWithOptions:*(*(a1 + 32) + 96) request:*(a1 + 40) monitor:v12 workQueue:*(*(a1 + 32) + 32)];
-      v17 = v16;
-      if (v16)
+      [objc_msgSend(v14 "progressProvider")];
+      v15 = [[PFCloudKitExporter alloc] initWithOptions:*(*(a1 + 32) + 96) request:*(a1 + 40) monitor:v11 workQueue:*(*(a1 + 32) + 32)];
+      v16 = v15;
+      if (v15)
       {
-        objc_storeWeak(&v16->_delegate, *(a1 + 32));
+        objc_storeWeak(&v15->_delegate, *(a1 + 32));
       }
 
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke_314;
-      v30[3] = &unk_1E6EC35E0;
-      v30[4] = a2;
-      v30[5] = v17;
-      v18 = *(a1 + 32);
-      v30[6] = v12;
-      v30[7] = v18;
-      [(PFCloudKitExporter *)v17 exportIfNecessaryWithCompletion:v30];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke_314;
+      v27[3] = &unk_1E6EC35E0;
+      v27[4] = a2;
+      v27[5] = v16;
+      v17 = *(a1 + 32);
+      v27[6] = v11;
+      v27[7] = v17;
+      [(PFCloudKitExporter *)v16 exportIfNecessaryWithCompletion:v27];
 
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v21 = [NSCloudKitMirroringResult alloc];
-      v22 = [(NSCloudKitMirroringResult *)v21 initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 32) + 152) success:0 madeChanges:0 error:*buf];
-      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _exportFinishedWithResult:v22 exporter:0];
+      v19 = [NSCloudKitMirroringResult alloc];
+      v20 = [(NSCloudKitMirroringResult *)v19 initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 32) + 152) success:0 madeChanges:0 error:*buf];
+      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _exportFinishedWithResult:v20 exporter:0];
     }
-
-    v23 = *MEMORY[0x1E69E9840];
-    return;
   }
 
-  v19 = *(a1 + 40);
-  v20 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v18 = *(a1 + 40);
 
-  [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v19];
+    [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v18];
+  }
 }
 
 void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke_314(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v14 = 0;
-  v6 = [NSCKEvent finishEventForResult:a2 withMonitor:*(a1 + 48) error:&v14];
+  v13 = 0;
+  v6 = [NSCKEvent finishEventForResult:a2 withMonitor:*(a1 + 48) error:&v13];
   if (v6)
   {
     v7 = *(a1 + 56);
@@ -4310,11 +4197,11 @@ void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke_
     if (os_log_type_enabled(Stream, v12))
     {
       *buf = 136315650;
-      v16 = "[NSCloudKitMirroringDelegate _performExportWithRequest:]_block_invoke";
-      v17 = 1024;
-      v18 = 1449;
-      v19 = 2112;
-      v20 = v14;
+      v15 = "[NSCloudKitMirroringDelegate _performExportWithRequest:]_block_invoke";
+      v16 = 1024;
+      v17 = 1449;
+      v18 = 2112;
+      v19 = v13;
       _os_log_impl(&dword_18565F000, v11, v12, "CoreData+CloudKit: %s(%d): Failed to finish export event: %@", buf, 0x1Cu);
     }
 
@@ -4322,12 +4209,11 @@ void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke_
   }
 
   [(NSCloudKitMirroringDelegate *)*(a1 + 56) _exportFinishedWithResult:a2 exporter:*(a1 + 40)];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)_exportFinishedWithResult:(uint64_t)result exporter:
+- (void)_exportFinishedWithResult:(uint64_t)result exporter:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (result)
   {
     resultCopy = result;
@@ -4353,10 +4239,10 @@ void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke_
       }
 
       *buf = 136315650;
-      v21 = "[NSCloudKitMirroringDelegate _exportFinishedWithResult:exporter:]";
-      v22 = 1024;
-      v23 = 1484;
-      v24 = 2112;
+      v20 = "[NSCloudKitMirroringDelegate _exportFinishedWithResult:exporter:]";
+      v21 = 1024;
+      v22 = 1484;
+      v23 = 2112;
       resultCopy3 = result;
       v11 = "CoreData+CloudKit: %s(%d): Finished export: %@";
       v12 = v9;
@@ -4382,12 +4268,12 @@ void __57__NSCloudKitMirroringDelegate__performExportWithRequest___block_invoke_
       }
 
       *buf = 136315906;
-      v21 = "[NSCloudKitMirroringDelegate _exportFinishedWithResult:exporter:]";
-      v22 = 1024;
-      v23 = 1486;
-      v24 = 2112;
+      v20 = "[NSCloudKitMirroringDelegate _exportFinishedWithResult:exporter:]";
+      v21 = 1024;
+      v22 = 1486;
+      v23 = 2112;
       resultCopy3 = result;
-      v26 = 2112;
+      v25 = 2112;
       error = [a2 error];
       v11 = "CoreData+CloudKit: %s(%d): %@: Export failed with error:\n%@";
       v13 = v15;
@@ -4400,120 +4286,111 @@ LABEL_14:
     objc_autoreleasePoolPop(v7);
     -[NSCloudKitMirroringDelegate _finishedRequest:withResult:](resultCopy, [a2 request], a2);
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v18[1] = @"result";
-    v19[0] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(a2, "madeChanges", @"madeChanges"}];
-    v19[1] = a2;
-    result = [defaultCenter postNotificationName:@"PFCloudKitDidExportNotificationName" object:resultCopy userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v19, v18, 2)}];
+    v17[1] = @"result";
+    v18[0] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(a2, "madeChanges", @"madeChanges"}];
+    v18[1] = a2;
+    return [defaultCenter postNotificationName:@"PFCloudKitDidExportNotificationName" object:resultCopy userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v18, v17, 2)}];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  if (*(v3 + 89) == 1)
+  v30 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  if (*(v2 + 89) == 1)
   {
-    v5 = *(v3 + 8);
-    if (v5)
+    v3 = *(v2 + 8);
+    if (v3)
     {
-      v6 = *(v5 + 88);
+      v4 = *(v3 + 88);
     }
 
     else
     {
-      v6 = 0;
+      v4 = 0;
     }
 
-    Weak = objc_loadWeak((v3 + 112));
-    if (a2)
+    Weak = objc_loadWeak((v2 + 112));
+    v6 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v4 inTransactionWithLabel:Weak];
+    v7 = *(a1 + 40);
+    if (v7)
     {
-      v8 = *(a2 + 8);
-    }
-
-    v9 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v6 inTransactionWithLabel:Weak];
-    v10 = *(a1 + 40);
-    if (v10)
-    {
-      v11 = *(v10 + 80);
+      v8 = *(v7 + 80);
     }
 
     else
     {
-      v11 = 0;
+      v8 = 0;
     }
 
-    if ([v11 count])
+    if ([v8 count])
     {
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2;
-      v23[3] = &unk_1E6EC19D8;
-      v23[4] = v9;
-      v24 = *(a1 + 32);
-      [(PFCloudKitStoreMonitor *)v9 performBlock:v23];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2;
+      v18[3] = &unk_1E6EC19D8;
+      v18[4] = v6;
+      v19 = *(a1 + 32);
+      [(PFCloudKitStoreMonitor *)v6 performBlock:v18];
     }
 
     else
     {
-      v14 = objc_autoreleasePoolPush();
+      v10 = objc_autoreleasePoolPush();
       Stream = __PFCloudKitLoggingGetStream();
-      v16 = Stream;
+      v12 = Stream;
       if (__ckLoggingOverride == 17)
       {
-        v17 = OS_LOG_TYPE_FAULT;
+        v13 = OS_LOG_TYPE_FAULT;
       }
 
       else
       {
-        v17 = OS_LOG_TYPE_ERROR;
+        v13 = OS_LOG_TYPE_ERROR;
       }
 
-      if (os_log_type_enabled(Stream, v17))
+      if (os_log_type_enabled(Stream, v13))
       {
-        v18 = *(a1 + 32);
-        v19 = *(a1 + 40);
+        v14 = *(a1 + 32);
+        v15 = *(a1 + 40);
         *buf = 136315906;
-        v28 = "[NSCloudKitMirroringDelegate _performResetZoneRequest:]_block_invoke_3";
-        v29 = 1024;
-        v30 = 1638;
-        v31 = 2112;
-        v32 = v18;
-        v33 = 2112;
-        v34 = v19;
-        _os_log_impl(&dword_18565F000, v16, v17, "CoreData+CloudKit: %s(%d): %@: Asked to schedule a zone reset operation without a zoneID: %@", buf, 0x26u);
+        v23 = "[NSCloudKitMirroringDelegate _performResetZoneRequest:]_block_invoke_3";
+        v24 = 1024;
+        v25 = 1638;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v15;
+        _os_log_impl(&dword_18565F000, v12, v13, "CoreData+CloudKit: %s(%d): %@: Asked to schedule a zone reset operation without a zoneID: %@", buf, 0x26u);
       }
 
-      objc_autoreleasePoolPop(v14);
-      v20 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A588];
-      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The mirroring delegate could not complete request '%@' because it does not have a zone.", objc_msgSend(*(a1 + 40), "requestIdentifier")];
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      -[NSCloudKitMirroringDelegate resetAfterError:andKeepContainer:](*(a1 + 32), [v20 errorWithDomain:*MEMORY[0x1E696A250] code:134406 userInfo:v21]);
+      objc_autoreleasePoolPop(v10);
+      v16 = MEMORY[0x1E696ABC0];
+      v20 = *MEMORY[0x1E696A588];
+      v21 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 40) requestIdentifier]);
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      -[NSCloudKitMirroringDelegate resetAfterError:andKeepContainer:](*(a1 + 32), [v16 errorWithDomain:*MEMORY[0x1E696A250] code:134406 userInfo:v17]);
       [(NSCloudKitMirroringDelegate *)*(a1 + 32) _requestAbortedNotInitialized:?];
     }
-
-    v22 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v12 = *(a1 + 40);
-    v13 = *MEMORY[0x1E69E9840];
+    v9 = *(a1 + 40);
 
-    [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v12];
+    [(NSCloudKitMirroringDelegate *)v2 _requestAbortedNotInitialized:v9];
   }
 }
 
 void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2(uint64_t a1)
 {
-  v68 = *MEMORY[0x1E69E9840];
-  v45 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
-  if (v45)
+  v67 = *MEMORY[0x1E69E9840];
+  v44 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
+  if (v44)
   {
-    v54 = 0;
+    v53 = 0;
     v2 = *(a1 + 40);
     v3 = *(v2 + 8);
     if (v3)
@@ -4539,13 +4416,13 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
 
     v7 = *(a1 + 32);
     v8 = [*(v2 + 56) databaseScope];
-    if (v4 && ([(PFCloudKitMetadataPurger *)v4 purgeMetadataFromStore:v45 inMonitor:v7 withOptions:9 forRecordZones:v6 inDatabaseWithScope:v8 andTransactionAuthor:0 error:&v54]& 1) != 0)
+    if (v4 && ([(PFCloudKitMetadataPurger *)v4 purgeMetadataFromStore:v44 inMonitor:v7 withOptions:9 forRecordZones:v6 inDatabaseWithScope:v8 andTransactionAuthor:0 error:&v53]& 1) != 0)
     {
-      v46 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
+      v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v51 = 0u;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
       v9 = *(a1 + 48);
       if (v9)
       {
@@ -4557,24 +4434,24 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
         v10 = 0;
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v49 objects:v56 count:16];
       if (v11)
       {
-        v12 = *v51;
+        v12 = *v50;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v51 != v12)
+            if (*v50 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v50 + 1) + 8 * i);
+            v14 = *(*(&v49 + 1) + 8 * i);
             v15 = [v14 ownerName];
             if ([v15 isEqualToString:getCloudKitCKCurrentUserDefaultName()])
             {
-              [v46 addObject:v14];
+              [v45 addObject:v14];
             }
 
             else
@@ -4596,13 +4473,13 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
               {
                 v20 = *(a1 + 40);
                 *buf = 136315906;
-                v59 = "[NSCloudKitMirroringDelegate _performResetZoneRequest:]_block_invoke";
-                v60 = 1024;
-                v61 = 1530;
-                v62 = 2112;
-                v63 = v20;
-                v64 = 2112;
-                v65 = v14;
+                v58 = "[NSCloudKitMirroringDelegate _performResetZoneRequest:]_block_invoke";
+                v59 = 1024;
+                v60 = 1530;
+                v61 = 2112;
+                v62 = v20;
+                v63 = 2112;
+                v64 = v14;
                 _os_log_impl(&dword_18565F000, v18, v19, "CoreData+CloudKit: %s(%d): %@: Skipping delete of zone because it's not owned by the current user: %@", buf, 0x26u);
               }
 
@@ -4610,15 +4487,15 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
             }
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v50 objects:v57 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v49 objects:v56 count:16];
         }
 
         while (v11);
       }
 
-      if ([v46 count])
+      if ([v45 count])
       {
-        v21 = [objc_alloc(getCloudKitCKModifyRecordZonesOperationClass()) initWithRecordZonesToSave:0 recordZoneIDsToDelete:v46];
+        v21 = [objc_alloc(getCloudKitCKModifyRecordZonesOperationClass()) initWithRecordZonesToSave:0 recordZoneIDsToDelete:v45];
         if ([*(a1 + 48) options])
         {
           -[NSCloudKitMirroringRequestOptions applyToOperation:]([*(a1 + 48) options], v21);
@@ -4626,16 +4503,16 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
 
         [v21 setMarkZonesAsUserPurged:1];
         objc_initWeak(buf, *(a1 + 40));
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_323;
-        v47[3] = &unk_1E6EC4B88;
-        objc_copyWeak(&v49, buf);
-        v48 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-        [v21 setModifyRecordZonesCompletionBlock:v47];
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_323;
+        v46[3] = &unk_1E6EC4B88;
+        objc_copyWeak(&v48, buf);
+        v47 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+        [v21 setModifyRecordZonesCompletionBlock:v46];
         [*(*(a1 + 40) + 56) addOperation:v21];
 
-        objc_destroyWeak(&v49);
+        objc_destroyWeak(&v48);
         objc_destroyWeak(buf);
       }
 
@@ -4665,27 +4542,27 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
       {
         v32 = *(a1 + 48);
         *buf = 136316162;
-        v59 = "[NSCloudKitMirroringDelegate _performResetZoneRequest:]_block_invoke_2";
-        v60 = 1024;
-        v61 = 1521;
-        v62 = 2112;
-        v63 = v32;
-        v64 = 2112;
-        v65 = v45;
-        v66 = 2112;
-        v67 = v54;
+        v58 = "[NSCloudKitMirroringDelegate _performResetZoneRequest:]_block_invoke_2";
+        v59 = 1024;
+        v60 = 1521;
+        v61 = 2112;
+        v62 = v32;
+        v63 = 2112;
+        v64 = v44;
+        v65 = 2112;
+        v66 = v53;
         _os_log_impl(&dword_18565F000, v30, v31, "CoreData+CloudKit: %s(%d): Zone reset request failed: %@\nFailed to clear metadata from store: %@\n%@", buf, 0x30u);
       }
 
       objc_autoreleasePoolPop(v28);
       v33 = MEMORY[0x1E696AEC0];
       v34 = [*(a1 + 48) requestIdentifier];
-      v35 = [v33 stringWithFormat:@"Request '%@' was aborted because the mirroring delegate failed to reset the local store's metadata: %@", v34, v54];
+      v35 = objc_msgSend_stringWithFormat_(v33, v34, v53);
       v36 = objc_alloc_init(MEMORY[0x1E695DF90]);
       [v36 setObject:v35 forKey:*MEMORY[0x1E696A588]];
-      if (v54)
+      if (v53)
       {
-        [v36 setObject:v54 forKey:*MEMORY[0x1E696AA08]];
+        [v36 setObject:v53 forKey:*MEMORY[0x1E696AA08]];
       }
 
       v37 = [NSCloudKitMirroringResult alloc];
@@ -4701,17 +4578,15 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
   else
   {
     v22 = MEMORY[0x1E696ABC0];
-    v55 = *MEMORY[0x1E696A588];
+    v54 = *MEMORY[0x1E696A588];
     v23 = a1;
     v25 = *(a1 + 48);
     v24 = (a1 + 48);
-    v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v25, "requestIdentifier")];
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v55 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v25 requestIdentifier]);
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
     v27 = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:]([NSCloudKitMirroringResult alloc], "initWithRequest:storeIdentifier:success:madeChanges:error:", *v24, *(*(v23 + 40) + 152), 0, 0, [v22 errorWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v26]);
     [(NSCloudKitMirroringDelegate *)*(v23 + 40) _finishedRequest:v27 withResult:?];
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_323(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -4734,7 +4609,7 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_3
 
 void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2_324(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1[4])
   {
     v2 = [[NSCloudKitMirroringResult alloc] initWithRequest:a1[5] storeIdentifier:*(a1[6] + 152) success:0 madeChanges:0 error:a1[4]];
@@ -4743,21 +4618,21 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = a1[7];
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
-      v5 = *v13;
+      v5 = *v12;
       do
       {
         v6 = 0;
         do
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v3);
           }
@@ -4773,7 +4648,7 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
             v8 = 0;
           }
 
-          if ([v8 containsObject:*(*(&v12 + 1) + 8 * v6)])
+          if ([v8 containsObject:*(*(&v11 + 1) + 8 * v6)])
           {
             v10 = 1;
             goto LABEL_17;
@@ -4783,7 +4658,7 @@ void __56__NSCloudKitMirroringDelegate__performResetZoneRequest___block_invoke_2
         }
 
         while (v4 != v6);
-        v9 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v9 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
         v4 = v9;
       }
 
@@ -4795,8 +4670,6 @@ LABEL_17:
     v2 = [[NSCloudKitMirroringResult alloc] initWithRequest:a1[5] storeIdentifier:*(a1[6] + 152) success:1 madeChanges:v10 error:0];
     [(NSCloudKitMirroringDelegate *)a1[6] _finishedRequest:v2 withResult:?];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invoke(uint64_t a1, uint64_t a2)
@@ -4809,81 +4682,72 @@ void __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invok
     if (v6 && (v7 = *(v6 + 8)) != 0)
     {
       v8 = *(v7 + 88);
-      if (!a2)
-      {
-        goto LABEL_6;
-      }
     }
 
     else
     {
       v8 = 0;
-      if (!a2)
-      {
-        goto LABEL_6;
-      }
     }
 
-    v9 = *(a2 + 8);
-LABEL_6:
-    v10 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v8 inTransactionWithLabel:WeakRetained];
-    v22 = 0;
-    v11 = [NSCKEvent beginEventForRequest:v10 withMonitor:&v22 error:?];
-    if (v11)
+    v9 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v8 inTransactionWithLabel:WeakRetained];
+    v21 = 0;
+    v10 = [NSCKEvent beginEventForRequest:v9 withMonitor:&v21 error:?];
+    if (v10)
     {
-      v12 = v11;
-      v13 = *(a1 + 32);
-      if (v13)
+      v11 = v10;
+      v12 = *(a1 + 32);
+      if (v12)
       {
-        v14 = *(v13 + 8);
+        v13 = *(v12 + 8);
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      [objc_msgSend(v14 "progressProvider")];
-      v15 = [[PFCloudKitImporterOptions alloc] initWithOptions:*(*(a1 + 32) + 8) monitor:v10 assetStorageURL:[PFCloudKitSerializer assetStorageDirectoryURLForStore:?]andDatabase:*(*(a1 + 32) + 32), *(*(a1 + 32) + 56)];
-      v16 = [[PFCloudKitImporter alloc] initWithOptions:v15 request:*(a1 + 40)];
+      [objc_msgSend(v13 "progressProvider")];
+      v14 = [[PFCloudKitImporterOptions alloc] initWithOptions:*(*(a1 + 32) + 8) monitor:v9 assetStorageURL:[PFCloudKitSerializer assetStorageDirectoryURLForStore:?]andDatabase:*(*(a1 + 32) + 32), *(*(a1 + 32) + 56)];
+      v15 = [[PFCloudKitImporter alloc] initWithOptions:v14 request:*(a1 + 40)];
 
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invoke_2;
-      v21[3] = &unk_1E6EC35E0;
-      v21[4] = v16;
-      v21[5] = a2;
-      v17 = *(a1 + 32);
-      v21[6] = v10;
-      v21[7] = v17;
-      [(PFCloudKitImporter *)v16 importIfNecessaryWithCompletion:v21];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invoke_2;
+      v20[3] = &unk_1E6EC35E0;
+      v20[4] = v15;
+      v20[5] = a2;
+      v16 = *(a1 + 32);
+      v20[6] = v9;
+      v20[7] = v16;
+      [(PFCloudKitImporter *)v15 importIfNecessaryWithCompletion:v20];
     }
 
     else
     {
-      v19 = [NSCloudKitMirroringResult alloc];
-      v20 = [(NSCloudKitMirroringResult *)v19 initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 32) + 152) success:0 madeChanges:0 error:v22];
-      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _importFinishedWithResult:v20 importer:0];
+      v18 = [NSCloudKitMirroringResult alloc];
+      v19 = [(NSCloudKitMirroringResult *)v18 initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 32) + 152) success:0 madeChanges:0 error:v21];
+      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _importFinishedWithResult:v19 importer:0];
 
-      v16 = 0;
-      v12 = 0;
+      v15 = 0;
+      v11 = 0;
     }
-
-    return;
   }
 
-  v18 = *(a1 + 40);
+  else
+  {
+    v17 = *(a1 + 40);
 
-  [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v18];
+    [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v17];
+  }
 }
 
 void __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v14 = 0;
-  v6 = [NSCKEvent finishEventForResult:a2 withMonitor:*(a1 + 48) error:&v14];
+  v13 = 0;
+  v6 = [NSCKEvent finishEventForResult:a2 withMonitor:*(a1 + 48) error:&v13];
   if (v6)
   {
     v7 = *(a1 + 56);
@@ -4918,11 +4782,11 @@ void __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invok
     if (os_log_type_enabled(Stream, v12))
     {
       *buf = 136315650;
-      v16 = "[NSCloudKitMirroringDelegate _performFetchRecordsRequest:]_block_invoke_2";
-      v17 = 1024;
-      v18 = 1691;
-      v19 = 2112;
-      v20 = v14;
+      v15 = "[NSCloudKitMirroringDelegate _performFetchRecordsRequest:]_block_invoke_2";
+      v16 = 1024;
+      v17 = 1691;
+      v18 = 2112;
+      v19 = v13;
       _os_log_impl(&dword_18565F000, v11, v12, "CoreData+CloudKit: %s(%d): Failed to finish import event: %@", buf, 0x1Cu);
     }
 
@@ -4930,71 +4794,65 @@ void __59__NSCloudKitMirroringDelegate__performFetchRecordsRequest___block_invok
   }
 
   [(NSCloudKitMirroringDelegate *)*(a1 + 56) _importFinishedWithResult:a2 importer:v4];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invoke(uint64_t a1)
 {
-  v3 = *(a1 + 32);
-  if (*(v3 + 89) == 1)
+  v2 = *(a1 + 32);
+  if (*(v2 + 89) == 1)
   {
-    v5 = +[PFCloudKitSerializer defaultRecordZoneIDForDatabaseScope:](PFCloudKitSerializer, "defaultRecordZoneIDForDatabaseScope:", [*(v3 + 8) databaseScope]);
-    v6 = *(a1 + 32);
-    if (v6 && (v7 = *(v6 + 8)) != 0)
+    v3 = +[PFCloudKitSerializer defaultRecordZoneIDForDatabaseScope:](PFCloudKitSerializer, "defaultRecordZoneIDForDatabaseScope:", [*(v2 + 8) databaseScope]);
+    v4 = *(a1 + 32);
+    if (v4 && (v5 = *(v4 + 8)) != 0)
     {
-      v8 = *(v7 + 88);
+      v6 = *(v5 + 88);
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
 
-    Weak = objc_loadWeak((v6 + 112));
-    if (a2)
-    {
-      v10 = *(a2 + 8);
-    }
+    Weak = objc_loadWeak((v4 + 112));
+    v8 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v6 inTransactionWithLabel:Weak];
+    v21[0] = 0;
+    v21[1] = v21;
+    v21[2] = 0x2020000000;
+    v22 = 0;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3052000000;
+    v18 = __Block_byref_object_copy__41;
+    v19 = __Block_byref_object_dispose__41;
+    v20 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invoke_344;
+    v10[3] = &unk_1E6EC2660;
+    v10[4] = v8;
+    v11 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
+    v12 = v3;
+    v13 = v21;
+    v14 = &v15;
+    [(PFCloudKitStoreMonitor *)v8 performBlock:v10];
+    [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v16[5] withResult:?];
 
-    v11 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v8 inTransactionWithLabel:Weak];
-    v24[0] = 0;
-    v24[1] = v24;
-    v24[2] = 0x2020000000;
-    v25 = 0;
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3052000000;
-    v21 = __Block_byref_object_copy__41;
-    v22 = __Block_byref_object_dispose__41;
-    v23 = 0;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invoke_344;
-    v13[3] = &unk_1E6EC2660;
-    v13[4] = v11;
-    v14 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
-    v15 = v5;
-    v16 = v24;
-    v17 = &v18;
-    [(PFCloudKitStoreMonitor *)v11 performBlock:v13];
-    [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v19[5] withResult:?];
-
-    v19[5] = 0;
-    _Block_object_dispose(&v18, 8);
-    _Block_object_dispose(v24, 8);
+    v16[5] = 0;
+    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(v21, 8);
   }
 
   else
   {
-    v12 = *(a1 + 40);
+    v9 = *(a1 + 40);
 
-    [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v12];
+    [(NSCloudKitMirroringDelegate *)v2 _requestAbortedNotInitialized:v9];
   }
 }
 
 void __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invoke_344(uint64_t a1)
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (!v2)
   {
@@ -5003,9 +4861,9 @@ void __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invo
     v9 = *(*(a1 + 48) + 152);
     v10 = MEMORY[0x1E696ABC0];
     v11 = *MEMORY[0x1E696A250];
-    v44 = *MEMORY[0x1E696A588];
-    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v8, "requestIdentifier")];
-    v12 = [v10 errorWithDomain:v11 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v45, &v44, 1)}];
+    v43 = *MEMORY[0x1E696A588];
+    v44 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v8 requestIdentifier]);
+    v12 = [v10 errorWithDomain:v11 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v44, &v43, 1)}];
     v13 = v7;
     v14 = v8;
     v15 = v9;
@@ -5027,8 +4885,8 @@ void __60__NSCloudKitMirroringDelegate__performMetadataResetRequest___block_invo
 
 LABEL_7:
     v18 = *(a1 + 32);
-    v46[0] = *(a1 + 56);
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
+    v45[0] = *(a1 + 56);
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
     v20 = *(a1 + 48);
     if (v20)
     {
@@ -5110,12 +4968,12 @@ LABEL_12:
     v28 = *(*(*(a1 + 72) + 8) + 40);
     *buf = 136315906;
     *&buf[4] = "[NSCloudKitMirroringDelegate _performMetadataResetRequest:]_block_invoke";
-    v38 = 1024;
-    v39 = 1769;
-    v40 = 2112;
-    v41 = v2;
-    v42 = 2112;
-    v43 = v28;
+    v37 = 1024;
+    v38 = 1769;
+    v39 = 2112;
+    v40 = v2;
+    v41 = 2112;
+    v42 = v28;
     v29 = "CoreData+CloudKit: %s(%d): Purged cloudkit metadata from store: %@\nResult: %@";
     v30 = v25;
     v31 = v27;
@@ -5145,12 +5003,12 @@ LABEL_12:
     v35 = [*(*(*(a1 + 72) + 8) + 40) error];
     *buf = 136315906;
     *&buf[4] = "[NSCloudKitMirroringDelegate _performMetadataResetRequest:]_block_invoke";
-    v38 = 1024;
-    v39 = 1771;
-    v40 = 2112;
-    v41 = v2;
-    v42 = 2112;
-    v43 = v35;
+    v37 = 1024;
+    v38 = 1771;
+    v39 = 2112;
+    v40 = v2;
+    v41 = 2112;
+    v42 = v35;
     v29 = "CoreData+CloudKit: %s(%d): Failed to purge cloudkit metadata from store: %@\n%@";
     v31 = v34;
     v30 = v33;
@@ -5159,93 +5017,86 @@ LABEL_29:
 LABEL_30:
     objc_autoreleasePoolPop(v23);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
-void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke(uint64_t a1)
 {
-  v3 = *(a1 + 32);
-  if (*(v3 + 89) == 1)
+  v2 = *(a1 + 32);
+  if (*(v2 + 89) == 1)
   {
-    v5 = *(v3 + 8);
-    if (v5)
+    v3 = *(v2 + 8);
+    if (v3)
     {
-      v6 = *(v5 + 88);
+      v4 = *(v3 + 88);
     }
 
     else
     {
-      v6 = 0;
+      v4 = 0;
     }
 
-    Weak = objc_loadWeak((v3 + 112));
-    if (a2)
-    {
-      v8 = *(a2 + 8);
-    }
+    Weak = objc_loadWeak((v2 + 112));
+    v6 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v4 inTransactionWithLabel:Weak];
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3052000000;
+    v14 = __Block_byref_object_copy__41;
+    v15 = __Block_byref_object_dispose__41;
+    v16 = 0;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke_2;
+    v8[3] = &unk_1E6EC28A8;
+    v8[4] = v6;
+    v9 = *(a1 + 32);
+    v10 = &v11;
+    [(PFCloudKitStoreMonitor *)v6 performBlock:v8];
+    [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v12[5] withResult:?];
 
-    v9 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v6 inTransactionWithLabel:Weak];
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x3052000000;
-    v17 = __Block_byref_object_copy__41;
-    v18 = __Block_byref_object_dispose__41;
-    v19 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke_2;
-    v11[3] = &unk_1E6EC28A8;
-    v11[4] = v9;
-    v12 = *(a1 + 32);
-    v13 = &v14;
-    [(PFCloudKitStoreMonitor *)v9 performBlock:v11];
-    [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v15[5] withResult:?];
-
-    v15[5] = 0;
-    _Block_object_dispose(&v14, 8);
+    v12[5] = 0;
+    _Block_object_dispose(&v11, 8);
   }
 
   else
   {
-    v10 = *(a1 + 40);
+    v7 = *(a1 + 40);
 
-    [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v10];
+    [(NSCloudKitMirroringDelegate *)v2 _requestAbortedNotInitialized:v7];
   }
 }
 
 void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke_2(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 1;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3052000000;
-    v23 = __Block_byref_object_copy__41;
-    v24 = __Block_byref_object_dispose__41;
     v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 1;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3052000000;
+    v22 = __Block_byref_object_copy__41;
+    v23 = __Block_byref_object_dispose__41;
+    v24 = 0;
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v4 = [(PFCloudKitStoreMonitor *)*(a1 + 32) newBackgroundContextForMonitoredCoordinator];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke_3;
-    v13[3] = &unk_1E6EC3428;
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 32);
-    v16 = v4;
-    v17 = v3;
-    v18 = &v20;
-    v19 = &v26;
-    [(NSManagedObjectContext *)v4 performBlockAndWait:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke_3;
+    v12[3] = &unk_1E6EC3428;
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 32);
+    v15 = v4;
+    v16 = v3;
+    v17 = &v19;
+    v18 = &v25;
+    [(NSManagedObjectContext *)v4 performBlockAndWait:v12];
 
     v5 = [NSCloudKitMirroringDelegateSerializationRequestResult alloc];
-    if (*(v27 + 24))
+    if (*(v26 + 24))
     {
       v6 = v3;
     }
@@ -5255,10 +5106,10 @@ void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invo
       v6 = 0;
     }
 
-    *(*(*(a1 + 56) + 8) + 40) = [(NSCloudKitMirroringDelegateSerializationRequestResult *)v5 initWithRequest:*(a1 + 48) storeIdentifier:*(*(a1 + 40) + 152) serializedObjects:v6 error:v21[5]];
+    *(*(*(a1 + 56) + 8) + 40) = [(NSCloudKitMirroringDelegateSerializationRequestResult *)v5 initWithRequest:*(a1 + 48) storeIdentifier:*(*(a1 + 40) + 152) serializedObjects:v6 error:v20[5]];
 
-    _Block_object_dispose(&v20, 8);
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -5267,18 +5118,16 @@ void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invo
     v8 = *(a1 + 48);
     v9 = *(*(a1 + 40) + 152);
     v10 = MEMORY[0x1E696ABC0];
-    v30 = *MEMORY[0x1E696A588];
-    v31[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v8, "requestIdentifier")];
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = *MEMORY[0x1E696A588];
+    v30[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v8 requestIdentifier]);
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     *(*(*(a1 + 56) + 8) + 40) = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:](v7, "initWithRequest:storeIdentifier:success:madeChanges:error:", v8, v9, 0, 0, [v10 errorWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v11]);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invoke_3(uint64_t a1)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(PFCloudKitMetadataCache);
   v3 = [PFCloudKitSerializer alloc];
   v4 = *(a1 + 32);
@@ -5292,31 +5141,31 @@ void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invo
     v5 = 0;
   }
 
-  v50 = v2;
+  v49 = v2;
   v6 = [(PFCloudKitSerializer *)v3 initWithMirroringOptions:v5 metadataCache:v2 recordNamePrefix:0];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v7 = [*(a1 + 40) objectIDsToSerialize];
-  v8 = [v7 countByEnumeratingWithState:&v52 objects:v62 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v51 objects:v61 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v53;
+    v11 = *v52;
     *&v9 = 134218242;
-    v49 = v9;
+    v48 = v9;
     do
     {
       v12 = 0;
       do
       {
-        if (*v53 != v11)
+        if (*v52 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v52 + 1) + 8 * v12);
+        v13 = *(*(&v51 + 1) + 8 * v12);
         v14 = [objc_msgSend(v13 persistentStore];
         v15 = *(a1 + 48);
         if (v15)
@@ -5331,15 +5180,15 @@ void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invo
 
         if ([v14 isEqualToString:v16])
         {
-          v51 = 0;
-          v17 = [*(a1 + 56) existingObjectWithID:v13 error:&v51];
+          v50 = 0;
+          v17 = [*(a1 + 56) existingObjectWithID:v13 error:&v50];
           if (v17)
           {
             v18 = v17;
-            v19 = [(PFCloudKitSerializer *)v6 newCKRecordsFromObject:v17 fullyMaterializeRecords:0 includeRelationships:0 error:&v51];
+            v19 = [(PFCloudKitSerializer *)v6 newCKRecordsFromObject:v17 fullyMaterializeRecords:0 includeRelationships:0 error:&v50];
             if (!v19)
             {
-              *(*(*(a1 + 72) + 8) + 40) = v51;
+              *(*(*(a1 + 72) + 8) + 40) = v50;
               *(*(*(a1 + 80) + 8) + 24) = 0;
               goto LABEL_46;
             }
@@ -5353,9 +5202,9 @@ void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invo
                 if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v57 = v18;
-                  v58 = 2112;
-                  *v59 = v20;
+                  v56 = v18;
+                  v57 = 2112;
+                  *v58 = v20;
                   _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Multiple records returned for object even though we didn't ask for relationships: %@\n%@\n", buf, 0x16u);
                 }
 
@@ -5363,9 +5212,9 @@ void __60__NSCloudKitMirroringDelegate__performSerializationRequest___block_invo
                 if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412546;
-                  v57 = v18;
-                  v58 = 2112;
-                  *v59 = v20;
+                  v56 = v18;
+                  v57 = 2112;
+                  *v58 = v20;
                   _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Multiple records returned for object even though we didn't ask for relationships: %@\n%@", buf, 0x16u);
                 }
               }
@@ -5392,10 +5241,10 @@ LABEL_33:
               {
                 v38 = [*(a1 + 40) resultType];
                 v39 = *(a1 + 40);
-                *buf = v49;
-                v57 = v38;
-                v58 = 2112;
-                *v59 = v39;
+                *buf = v48;
+                v56 = v38;
+                v57 = 2112;
+                *v58 = v39;
                 _os_log_error_impl(&dword_18565F000, v36, OS_LOG_TYPE_ERROR, "CoreData: fault: Unsupported resultType: %lu, %@\n", buf, 0x16u);
               }
 
@@ -5409,10 +5258,10 @@ LABEL_37:
 
               v40 = [*(a1 + 40) resultType];
               v41 = *(a1 + 40);
-              *buf = v49;
-              v57 = v40;
-              v58 = 2112;
-              *v59 = v41;
+              *buf = v48;
+              v56 = v40;
+              v57 = 2112;
+              *v58 = v41;
               v33 = v37;
               v34 = "CoreData: Unsupported resultType: %lu, %@";
               v35 = 22;
@@ -5424,7 +5273,7 @@ LABEL_37:
               if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v57 = v18;
+                v56 = v18;
                 _os_log_error_impl(&dword_18565F000, v31, OS_LOG_TYPE_ERROR, "CoreData: fault: No records returned from the serializer for object: %@\n", buf, 0xCu);
               }
 
@@ -5435,7 +5284,7 @@ LABEL_37:
               }
 
               *buf = 138412290;
-              v57 = v18;
+              v56 = v18;
               v33 = v32;
               v34 = "CoreData: No records returned from the serializer for object: %@";
               v35 = 12;
@@ -5462,13 +5311,13 @@ LABEL_37:
           {
             v30 = *(a1 + 32);
             *buf = 136315906;
-            v57 = "[NSCloudKitMirroringDelegate _performSerializationRequest:]_block_invoke";
-            v58 = 1024;
-            *v59 = 1850;
-            *&v59[4] = 2112;
-            *&v59[6] = v30;
-            v60 = 2112;
-            v61 = v13;
+            v56 = "[NSCloudKitMirroringDelegate _performSerializationRequest:]_block_invoke";
+            v57 = 1024;
+            *v58 = 1850;
+            *&v58[4] = 2112;
+            *&v58[6] = v30;
+            v59 = 2112;
+            v60 = v13;
             _os_log_impl(&dword_18565F000, v28, v29, "CoreData+CloudKit: %s(%d): %@ - Unable to serialize object '%@' because it appears to be missing from the store.", buf, 0x26u);
           }
 
@@ -5480,7 +5329,7 @@ LABEL_38:
       }
 
       while (v10 != v12);
-      v42 = [v7 countByEnumeratingWithState:&v52 objects:v62 count:16];
+      v42 = [v7 countByEnumeratingWithState:&v51 objects:v61 count:16];
       v10 = v42;
     }
 
@@ -5492,8 +5341,8 @@ LABEL_46:
   {
     if ([*(a1 + 56) hasChanges])
     {
-      v51 = 0;
-      if (([*(a1 + 56) save:&v51] & 1) == 0)
+      v50 = 0;
+      if (([*(a1 + 56) save:&v50] & 1) == 0)
       {
         v43 = objc_autoreleasePoolPush();
         v44 = __PFCloudKitLoggingGetStream();
@@ -5512,13 +5361,13 @@ LABEL_46:
         {
           v47 = *(a1 + 40);
           *buf = 136315906;
-          v57 = "[NSCloudKitMirroringDelegate _performSerializationRequest:]_block_invoke";
-          v58 = 1024;
-          *v59 = 1859;
-          *&v59[4] = 2112;
-          *&v59[6] = v51;
-          v60 = 2112;
-          v61 = v47;
+          v56 = "[NSCloudKitMirroringDelegate _performSerializationRequest:]_block_invoke";
+          v57 = 1024;
+          *v58 = 1859;
+          *&v58[4] = 2112;
+          *&v58[6] = v50;
+          v59 = 2112;
+          v60 = v47;
           _os_log_impl(&dword_18565F000, v45, v46, "CoreData+CloudKit: %s(%d): Failed to save metadata changes from serialization of records: %@\n%@", buf, 0x26u);
         }
 
@@ -5526,79 +5375,72 @@ LABEL_46:
       }
     }
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
-void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke(uint64_t a1)
 {
-  v3 = *(a1 + 32);
-  if (*(v3 + 89) == 1)
+  v2 = *(a1 + 32);
+  if (*(v2 + 89) == 1)
   {
-    v5 = *(v3 + 8);
-    if (v5)
+    v3 = *(v2 + 8);
+    if (v3)
     {
-      v6 = *(v5 + 88);
+      v4 = *(v3 + 88);
     }
 
     else
     {
-      v6 = 0;
+      v4 = 0;
     }
 
-    Weak = objc_loadWeak((v3 + 112));
-    if (a2)
-    {
-      v8 = *(a2 + 8);
-    }
+    Weak = objc_loadWeak((v2 + 112));
+    v6 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v4 inTransactionWithLabel:Weak];
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3052000000;
+    v14 = __Block_byref_object_copy__41;
+    v15 = __Block_byref_object_dispose__41;
+    v16 = 0;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_2;
+    v8[3] = &unk_1E6EC2748;
+    v8[4] = v6;
+    v10 = &v11;
+    v9 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
+    [(PFCloudKitStoreMonitor *)v6 performBlock:v8];
+    [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v12[5] withResult:?];
 
-    v9 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v6 inTransactionWithLabel:Weak];
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x3052000000;
-    v17 = __Block_byref_object_copy__41;
-    v18 = __Block_byref_object_dispose__41;
-    v19 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_2;
-    v11[3] = &unk_1E6EC2748;
-    v11[4] = v9;
-    v13 = &v14;
-    v12 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
-    [(PFCloudKitStoreMonitor *)v9 performBlock:v11];
-    [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v15[5] withResult:?];
-
-    v15[5] = 0;
-    _Block_object_dispose(&v14, 8);
+    v12[5] = 0;
+    _Block_object_dispose(&v11, 8);
   }
 
   else
   {
-    v10 = *(a1 + 40);
+    v7 = *(a1 + 40);
 
-    [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v10];
+    [(NSCloudKitMirroringDelegate *)v2 _requestAbortedNotInitialized:v7];
   }
 }
 
 void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_2(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
     v3 = [(PFCloudKitStoreMonitor *)*(a1 + 32) newBackgroundContextForMonitoredCoordinator];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_3;
-    v11[3] = &unk_1E6EC4BD8;
-    v11[4] = v2;
-    v11[5] = v3;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_3;
+    v10[3] = &unk_1E6EC4BD8;
+    v10[4] = v2;
+    v10[5] = v3;
     v4 = *(a1 + 56);
-    v12 = *(a1 + 40);
-    v13 = *(a1 + 32);
-    v14 = v4;
-    [(NSManagedObjectContext *)v3 performBlockAndWait:v11];
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 32);
+    v13 = v4;
+    [(NSManagedObjectContext *)v3 performBlockAndWait:v10];
   }
 
   else
@@ -5608,45 +5450,43 @@ void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_inv
     v7 = *(*(a1 + 48) + 152);
     v8 = MEMORY[0x1E696ABC0];
     v9 = *MEMORY[0x1E696A250];
-    v15 = *MEMORY[0x1E696A588];
-    v16[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v6, "requestIdentifier")];
-    *(*(*(a1 + 56) + 8) + 40) = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:](v5, "initWithRequest:storeIdentifier:success:madeChanges:error:", v6, v7, 0, 0, [v8 errorWithDomain:v9 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v16, &v15, 1)}]);
+    v14 = *MEMORY[0x1E696A588];
+    v15[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v6 requestIdentifier]);
+    *(*(*(a1 + 56) + 8) + 40) = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:](v5, "initWithRequest:storeIdentifier:success:madeChanges:error:", v6, v7, 0, 0, [v8 errorWithDomain:v9 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v15, &v14, 1)}]);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_3(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v39 = 0;
-  v2 = [NSCKMetadataEntry entryForKey:*(a1 + 32) fromStore:*(a1 + 40) inManagedObjectContext:&v39 error:?];
+  v40 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v2 = [NSCKMetadataEntry entryForKey:*(a1 + 32) fromStore:*(a1 + 40) inManagedObjectContext:&v38 error:?];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v4 = [v2 transformedValue];
     if ([objc_msgSend(objc_msgSend(v4 "storeTokens")] < 1)
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v13 = [*(a1 + 48) objectIDsToFetch];
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v40 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v39 count:16];
       if (v14)
       {
-        v15 = *v25;
+        v15 = *v24;
         do
         {
           v16 = 0;
           do
           {
-            if (*v25 != v15)
+            if (*v24 != v15)
             {
               objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v24 + 1) + 8 * v16);
+            v17 = *(*(&v23 + 1) + 8 * v16);
             v18 = [objc_msgSend(v17 "persistentStore")];
             v19 = *(a1 + 64);
             if (v19)
@@ -5668,7 +5508,7 @@ void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_inv
           }
 
           while (v14 != v16);
-          v21 = [v13 countByEnumeratingWithState:&v24 objects:v40 count:16];
+          v21 = [v13 countByEnumeratingWithState:&v23 objects:v39 count:16];
           v14 = v21;
         }
 
@@ -5680,29 +5520,29 @@ void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_inv
 
     else
     {
-      v33 = 0;
-      v34 = &v33;
-      v35 = 0x3052000000;
-      v36 = __Block_byref_object_copy__41;
-      v37 = __Block_byref_object_dispose__41;
-      v38 = 0;
-      v29 = 0;
-      v30 = &v29;
-      v31 = 0x2020000000;
-      v32 = 1;
+      v32 = 0;
+      v33 = &v32;
+      v34 = 0x3052000000;
+      v35 = __Block_byref_object_copy__41;
+      v36 = __Block_byref_object_dispose__41;
+      v37 = 0;
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x2020000000;
+      v31 = 1;
       v5 = [*(a1 + 48) objectIDsToFetch];
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_4;
-      v28[3] = &unk_1E6EC4BB0;
-      v28[4] = v6;
-      v28[5] = v3;
-      v28[6] = &v29;
-      v28[7] = &v33;
-      [NSCKRecordMetadata enumerateRecordMetadataDictionariesMatchingObjectIDs:v5 withProperties:&unk_1EF43D648 inStore:v6 withManagedObjectContext:v7 block:v28];
-      if (*(v30 + 24) == 1)
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_4;
+      v27[3] = &unk_1E6EC4BB0;
+      v27[4] = v6;
+      v27[5] = v3;
+      v27[6] = &v28;
+      v27[7] = &v32;
+      [NSCKRecordMetadata enumerateRecordMetadataDictionariesMatchingObjectIDs:v5 withProperties:&unk_1EF43D648 inStore:v6 withManagedObjectContext:v7 block:v27];
+      if (*(v29 + 24) == 1)
       {
         v8 = [NSCloudKitMirroringExportProgressResult alloc];
         v9 = 0;
@@ -5713,23 +5553,23 @@ void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_inv
       {
         v8 = [NSCloudKitMirroringExportProgressResult alloc];
         v10 = 0;
-        v9 = v34[5];
+        v9 = v33[5];
       }
 
       *(*(*(a1 + 72) + 8) + 40) = [(NSCloudKitMirroringExportProgressResult *)v8 initWithRequest:*(a1 + 48) storeIdentifier:*(*(a1 + 56) + 152) objectIDToLastExportedToken:v10 error:v9];
 
-      v34[5] = 0;
-      _Block_object_dispose(&v29, 8);
-      _Block_object_dispose(&v33, 8);
+      v33[5] = 0;
+      _Block_object_dispose(&v28, 8);
+      _Block_object_dispose(&v32, 8);
     }
   }
 
   else
   {
-    if (v39)
+    if (v38)
     {
       v11 = [NSCloudKitMirroringResult alloc];
-      v12 = [(NSCloudKitMirroringResult *)v11 initWithRequest:*(a1 + 48) storeIdentifier:*(*(a1 + 56) + 152) success:0 madeChanges:0 error:v39];
+      v12 = [(NSCloudKitMirroringResult *)v11 initWithRequest:*(a1 + 48) storeIdentifier:*(*(a1 + 56) + 152) success:0 madeChanges:0 error:v38];
     }
 
     else
@@ -5740,8 +5580,6 @@ void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_inv
 
     *(*(*(a1 + 72) + 8) + 40) = v12;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_invoke_4(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -5770,16 +5608,79 @@ void __61__NSCloudKitMirroringDelegate__performExportProgressRequest___block_inv
 
 void __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v36[3] = *MEMORY[0x1E69E9840];
+  v33[3] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (*(v3 + 89) == 1)
   {
-    if ([*(v3 + 8) databaseScope] != 3)
+    if ([*(v3 + 8) databaseScope] == 3)
     {
-      v15 = *(a1 + 32);
-      if (v15)
+      v5 = *(a1 + 40);
+      if (v5)
       {
-        Weak = objc_loadWeak((v15 + 112));
+        v6 = *(v5 + 80);
+      }
+
+      else
+      {
+        v6 = 0;
+      }
+
+      if ([v6 count])
+      {
+        v7 = objc_alloc(getCloudKitCKFetchShareMetadataOperationClass());
+        v8 = *(a1 + 40);
+        if (v8)
+        {
+          v9 = *(v8 + 80);
+        }
+
+        else
+        {
+          v9 = 0;
+        }
+
+        v10 = [v7 initWithShareURLs:v9];
+        v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___block_invoke_2;
+        v31[3] = &unk_1E6EC4C00;
+        v31[4] = v11;
+        v31[5] = 0;
+        [v10 setPerShareMetadataBlock:v31];
+        objc_initWeak(&location, *(a1 + 32));
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___block_invoke_381;
+        v28[3] = &unk_1E6EC4C28;
+        objc_copyWeak(&v29, &location);
+        v12 = *(a1 + 40);
+        v28[4] = 0;
+        v28[5] = v12;
+        v28[6] = v11;
+        v28[7] = a2;
+        [v10 setFetchShareMetadataCompletionBlock:v28];
+        [*(*(a1 + 32) + 48) addOperation:v10];
+
+        objc_destroyWeak(&v29);
+        objc_destroyWeak(&location);
+      }
+
+      else
+      {
+        v24 = *(a1 + 32);
+        v25 = *(a1 + 40);
+
+        [(NSCloudKitMirroringDelegate *)v24 _acceptShareMetadatasInRequest:v25 workBlockContext:a2];
+      }
+    }
+
+    else
+    {
+      v14 = *(a1 + 32);
+      if (v14)
+      {
+        Weak = objc_loadWeak((v14 + 112));
       }
 
       else
@@ -5787,102 +5688,38 @@ void __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___b
         Weak = 0;
       }
 
-      v17 = Weak;
-      v18 = [NSCloudKitMirroringResult alloc];
-      v19 = *(a1 + 40);
-      v20 = *(*(a1 + 32) + 152);
-      v21 = MEMORY[0x1E696ABC0];
-      v22 = *MEMORY[0x1E696A588];
-      v36[0] = @"Provided persistent store is not set to the shared database scope and cannot accept share invitation.";
-      v23 = *MEMORY[0x1E696A998];
-      v35[0] = v22;
-      v35[1] = v23;
-      if ([v17 URL])
+      v16 = Weak;
+      v17 = [NSCloudKitMirroringResult alloc];
+      v18 = *(a1 + 40);
+      v19 = *(*(a1 + 32) + 152);
+      v20 = MEMORY[0x1E696ABC0];
+      v21 = *MEMORY[0x1E696A588];
+      v33[0] = @"Provided persistent store is not set to the shared database scope and cannot accept share invitation.";
+      v22 = *MEMORY[0x1E696A998];
+      v32[0] = v21;
+      v32[1] = v22;
+      if ([v16 URL])
       {
-        v24 = [v17 URL];
+        v23 = [v16 URL];
       }
 
       else
       {
-        v24 = @"nil";
+        v23 = @"nil";
       }
 
-      v36[1] = v24;
-      v35[2] = @"databaseScope";
-      v36[2] = (softLinkCKDatabaseScopeString[0])([*(*(a1 + 32) + 8) databaseScope]);
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
-      v29 = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:](v18, "initWithRequest:storeIdentifier:success:madeChanges:error:", v19, v20, 0, 0, [v21 errorWithDomain:*MEMORY[0x1E696A250] code:134091 userInfo:v28]);
-      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v29 withResult:?];
-
-      goto LABEL_21;
+      v33[1] = v23;
+      v32[2] = @"databaseScope";
+      v33[2] = softLinkCKDatabaseScopeString([*(*(a1 + 32) + 8) databaseScope]);
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:3];
+      v27 = -[NSCloudKitMirroringResult initWithRequest:storeIdentifier:success:madeChanges:error:](v17, "initWithRequest:storeIdentifier:success:madeChanges:error:", v18, v19, 0, 0, [v20 errorWithDomain:*MEMORY[0x1E696A250] code:134091 userInfo:v26]);
+      [(NSCloudKitMirroringDelegate *)*(a1 + 32) _finishedRequest:v27 withResult:?];
     }
-
-    v5 = *(a1 + 40);
-    if (v5)
-    {
-      v6 = *(v5 + 80);
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    if ([v6 count])
-    {
-      v7 = objc_alloc(getCloudKitCKFetchShareMetadataOperationClass());
-      v8 = *(a1 + 40);
-      if (v8)
-      {
-        v9 = *(v8 + 80);
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      v10 = [v7 initWithShareURLs:v9];
-      v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___block_invoke_2;
-      v34[3] = &unk_1E6EC4C00;
-      v34[4] = v11;
-      v34[5] = 0;
-      [v10 setPerShareMetadataBlock:v34];
-      objc_initWeak(&location, *(a1 + 32));
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___block_invoke_381;
-      v31[3] = &unk_1E6EC4C28;
-      objc_copyWeak(&v32, &location);
-      v12 = *(a1 + 40);
-      v31[4] = 0;
-      v31[5] = v12;
-      v31[6] = v11;
-      v31[7] = a2;
-      [v10 setFetchShareMetadataCompletionBlock:v31];
-      [*(*(a1 + 32) + 48) addOperation:v10];
-
-      objc_destroyWeak(&v32);
-      objc_destroyWeak(&location);
-LABEL_21:
-      v30 = *MEMORY[0x1E69E9840];
-      return;
-    }
-
-    v25 = *(a1 + 32);
-    v26 = *(a1 + 40);
-    v27 = *MEMORY[0x1E69E9840];
-
-    [(NSCloudKitMirroringDelegate *)v25 _acceptShareMetadatasInRequest:v26 workBlockContext:a2];
   }
 
   else
   {
     v13 = *(a1 + 40);
-    v14 = *MEMORY[0x1E69E9840];
 
     [(NSCloudKitMirroringDelegate *)v3 _requestAbortedNotInitialized:v13];
   }
@@ -5890,21 +5727,19 @@ LABEL_21:
 
 void __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v4 = *(a1 + 32);
-    v5 = *MEMORY[0x1E69E9840];
 
     [v4 addObject:?];
   }
 
   else if (a4)
   {
-    v7 = *(a1 + 40);
-    v8 = *MEMORY[0x1E69E9840];
+    v6 = *(a1 + 40);
 
-    [v7 setObject:a4 forKey:a2];
+    [v6 setObject:a4 forKey:a2];
   }
 
   else
@@ -5912,20 +5747,18 @@ void __69__NSCloudKitMirroringDelegate__performAcceptShareInvitationsRequest___b
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = a2;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: No metadata or error for share URL: %@\n", &v12, 0xCu);
+      v9 = 138412290;
+      v10 = a2;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: No metadata or error for share URL: %@\n", &v9, 0xCu);
     }
 
-    v10 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v8 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v12 = 138412290;
-      v13 = a2;
-      _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: No metadata or error for share URL: %@", &v12, 0xCu);
+      v9 = 138412290;
+      v10 = a2;
+      _os_log_fault_impl(&dword_18565F000, v8, OS_LOG_TYPE_FAULT, "CoreData: No metadata or error for share URL: %@", &v9, 0xCu);
     }
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -6009,7 +5842,7 @@ LABEL_14:
 
 - (void)_acceptShareMetadatasInRequest:(uint64_t)request workBlockContext:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v6 = objc_autoreleasePoolPush();
@@ -6028,13 +5861,13 @@ LABEL_14:
     if (os_log_type_enabled(Stream, v9))
     {
       *buf = 136315906;
-      v19 = "[NSCloudKitMirroringDelegate _acceptShareMetadatasInRequest:workBlockContext:]";
-      v20 = 1024;
-      v21 = 2076;
-      v22 = 2112;
+      v18 = "[NSCloudKitMirroringDelegate _acceptShareMetadatasInRequest:workBlockContext:]";
+      v19 = 1024;
+      v20 = 2076;
+      v21 = 2112;
       selfCopy = self;
-      v24 = 2112;
-      v25 = a2;
+      v23 = 2112;
+      v24 = a2;
       _os_log_impl(&dword_18565F000, v8, v9, "CoreData+CloudKit: %s(%d): %@: Accepting shares defined by request: %@", buf, 0x26u);
     }
 
@@ -6053,94 +5886,86 @@ LABEL_14:
     v12 = [v10 initWithShareMetadatas:v11];
     v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke;
-    v17[3] = &unk_1E6EC4C50;
-    v17[4] = v13;
-    v17[5] = v14;
-    [v12 setPerShareCompletionBlock:v17];
     v16[0] = MEMORY[0x1E69E9820];
     v16[1] = 3221225472;
-    v16[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_393;
-    v16[3] = &unk_1E6EC4CA0;
-    v16[4] = self;
-    v16[5] = a2;
-    v16[6] = request;
-    v16[7] = v13;
-    v16[8] = v14;
-    [v12 setAcceptSharesCompletionBlock:v16];
+    v16[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke;
+    v16[3] = &unk_1E6EC4C50;
+    v16[4] = v13;
+    v16[5] = v14;
+    [v12 setPerShareCompletionBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_393;
+    v15[3] = &unk_1E6EC4CA0;
+    v15[4] = self;
+    v15[5] = a2;
+    v15[6] = request;
+    v15[7] = v13;
+    v15[8] = v14;
+    [v12 setAcceptSharesCompletionBlock:v15];
     [*(self + 48) addOperation:v12];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    [*(a1 + 32) addObject:?];
+    [*(a1 + 32) addObject:{a3, a4}];
     v6 = *(a1 + 40);
-    v7 = *MEMORY[0x1E69E9840];
 
     [v6 addObject:a2];
   }
 
-  else
+  else if (a4)
   {
-    if (a4)
+    v8 = objc_autoreleasePoolPush();
+    Stream = __PFCloudKitLoggingGetStream();
+    v10 = Stream;
+    if (__ckLoggingOverride == 17)
     {
-      v9 = objc_autoreleasePoolPush();
-      Stream = __PFCloudKitLoggingGetStream();
-      v11 = Stream;
-      if (__ckLoggingOverride == 17)
-      {
-        v12 = OS_LOG_TYPE_FAULT;
-      }
-
-      else
-      {
-        v12 = OS_LOG_TYPE_ERROR;
-      }
-
-      if (os_log_type_enabled(Stream, v12))
-      {
-        v16 = 136315906;
-        v17 = "[NSCloudKitMirroringDelegate _acceptShareMetadatasInRequest:workBlockContext:]_block_invoke";
-        v18 = 1024;
-        v19 = 2085;
-        v20 = 2112;
-        v21 = a2;
-        v22 = 2112;
-        v23 = a4;
-        _os_log_impl(&dword_18565F000, v11, v12, "CoreData+CloudKit: %s(%d): Failed to accept share: %@\n%@", &v16, 0x26u);
-      }
-
-      objc_autoreleasePoolPop(v9);
+      v11 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      LogStream = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-      {
-        v16 = 138412290;
-        v17 = a2;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: No error or share for accepted share metadata: %@\n", &v16, 0xCu);
-      }
-
-      v14 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
-      {
-        v16 = 138412290;
-        v17 = a2;
-        _os_log_fault_impl(&dword_18565F000, v14, OS_LOG_TYPE_FAULT, "CoreData: No error or share for accepted share metadata: %@", &v16, 0xCu);
-      }
+      v11 = OS_LOG_TYPE_ERROR;
     }
 
-    v15 = *MEMORY[0x1E69E9840];
+    if (os_log_type_enabled(Stream, v11))
+    {
+      v14 = 136315906;
+      v15 = "[NSCloudKitMirroringDelegate _acceptShareMetadatasInRequest:workBlockContext:]_block_invoke";
+      v16 = 1024;
+      v17 = 2085;
+      v18 = 2112;
+      v19 = a2;
+      v20 = 2112;
+      v21 = a4;
+      _os_log_impl(&dword_18565F000, v10, v11, "CoreData+CloudKit: %s(%d): Failed to accept share: %@\n%@", &v14, 0x26u);
+    }
+
+    objc_autoreleasePoolPop(v8);
+  }
+
+  else
+  {
+    LogStream = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    {
+      v14 = 138412290;
+      v15 = a2;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: No error or share for accepted share metadata: %@\n", &v14, 0xCu);
+    }
+
+    v13 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    {
+      v14 = 138412290;
+      v15 = a2;
+      _os_log_fault_impl(&dword_18565F000, v13, OS_LOG_TYPE_FAULT, "CoreData: No error or share for accepted share metadata: %@", &v14, 0xCu);
+    }
   }
 }
 
@@ -6163,8 +5988,8 @@ void __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockC
 {
   if (*(a1 + 32))
   {
-    v11 = [[NSCloudKitMirroringResult alloc] initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 48) + 152) success:0 madeChanges:0 error:*(a1 + 32)];
-    [(NSCloudKitMirroringDelegate *)*(a1 + 48) _finishedRequest:v11 withResult:?];
+    v9 = [[NSCloudKitMirroringResult alloc] initWithRequest:*(a1 + 40) storeIdentifier:*(*(a1 + 48) + 152) success:0 madeChanges:0 error:*(a1 + 32)];
+    [(NSCloudKitMirroringDelegate *)*(a1 + 48) _finishedRequest:v9 withResult:?];
   }
 
   else
@@ -6181,55 +6006,49 @@ void __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockC
     }
 
     Weak = objc_loadWeak((v2 + 112));
-    v6 = *(a1 + 56);
-    if (v6)
-    {
-      v7 = *(v6 + 8);
-    }
+    v6 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v4 inTransactionWithLabel:Weak];
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3052000000;
+    v17 = __Block_byref_object_copy__41;
+    v18 = __Block_byref_object_dispose__41;
+    v19 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_3;
+    v10[3] = &unk_1E6EC4BD8;
+    v7 = *(a1 + 64);
+    v8 = *(a1 + 72);
+    v10[4] = v6;
+    v10[5] = v7;
+    v11 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+    v12 = v8;
+    v13 = &v14;
+    [(PFCloudKitStoreMonitor *)v6 performBlock:v10];
+    [(NSCloudKitMirroringDelegate *)*(a1 + 48) _finishedRequest:v15[5] withResult:?];
 
-    v8 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v4 inTransactionWithLabel:Weak];
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3052000000;
-    v19 = __Block_byref_object_copy__41;
-    v20 = __Block_byref_object_dispose__41;
-    v21 = 0;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_3;
-    v12[3] = &unk_1E6EC4BD8;
-    v9 = *(a1 + 64);
-    v10 = *(a1 + 72);
-    v12[4] = v8;
-    v12[5] = v9;
-    v13 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-    v14 = v10;
-    v15 = &v16;
-    [(PFCloudKitStoreMonitor *)v8 performBlock:v12];
-    [(NSCloudKitMirroringDelegate *)*(a1 + 48) _finishedRequest:v17[5] withResult:?];
-
-    v17[5] = 0;
-    _Block_object_dispose(&v16, 8);
+    v15[5] = 0;
+    _Block_object_dispose(&v14, 8);
   }
 }
 
 void __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_3(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
     v3 = [(PFCloudKitStoreMonitor *)*(a1 + 32) newBackgroundContextForMonitoredCoordinator];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_4;
-    v10[3] = &unk_1E6EC4C78;
-    v11 = *(a1 + 40);
-    v12 = v2;
-    v13 = v3;
-    v15 = *(a1 + 72);
-    v14 = *(a1 + 56);
-    [(NSManagedObjectContext *)v3 performBlockAndWait:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_4;
+    v9[3] = &unk_1E6EC4C78;
+    v10 = *(a1 + 40);
+    v11 = v2;
+    v12 = v3;
+    v14 = *(a1 + 72);
+    v13 = *(a1 + 56);
+    [(NSManagedObjectContext *)v3 performBlockAndWait:v9];
   }
 
   else
@@ -6239,49 +6058,47 @@ void __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockC
     v6 = *(*(a1 + 48) + 152);
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(v5, "requestIdentifier")];
-    *(*(*(a1 + 72) + 8) + 40) = -[NSCloudKitMirroringAcceptShareInvitationsResult initWithRequest:storeIdentifier:acceptedShares:acceptedShareMetadatas:error:](v4, "initWithRequest:storeIdentifier:acceptedShares:acceptedShareMetadatas:error:", v5, v6, 0, 0, [v7 errorWithDomain:v8 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v17, &v16, 1)}]);
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v5 requestIdentifier]);
+    *(*(*(a1 + 72) + 8) + 40) = -[NSCloudKitMirroringAcceptShareInvitationsResult initWithRequest:storeIdentifier:acceptedShares:acceptedShareMetadatas:error:](v4, "initWithRequest:storeIdentifier:acceptedShares:acceptedShareMetadatas:error:", v5, v6, 0, 0, [v7 errorWithDomain:v8 code:134407 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v16, &v15, 1)}]);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_4(uint64_t a1)
+NSCloudKitMirroringAcceptShareInvitationsResult *__79__NSCloudKitMirroringDelegate__acceptShareMetadatasInRequest_workBlockContext___block_invoke_4(void *a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v36 = 0;
+  v43 = *MEMORY[0x1E69E9840];
+  v35 = 0;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v32 objects:v43 count:16];
+  v2 = a1[4];
+  v3 = [v2 countByEnumeratingWithState:&v31 objects:v42 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v33;
+    v5 = *v32;
     v6 = 1;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v33 != v5)
+      if (*v32 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v8 = *(*(&v32 + 1) + 8 * v7);
-      v9 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, [objc_msgSend(v8 "recordID")], objc_msgSend(*(*(a1 + 40) + 56), "databaseScope"), *(a1 + 48), *(a1 + 56), &v36);
+      v8 = *(*(&v31 + 1) + 8 * v7);
+      v9 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, [objc_msgSend(v8 "recordID")], objc_msgSend(*(a1[5] + 56), "databaseScope"), a1[6], a1[7], &v35);
       if (!v9)
       {
         goto LABEL_24;
       }
 
-      v10 = *(*(a1 + 40) + 8);
+      v10 = *(a1[5] + 8);
       if (v10 && (v11 = v9, (v12 = *(v10 + 136)) != 0))
       {
-        v13 = [(PFCloudKitArchivingUtilities *)v12 encodeRecord:v8 error:&v36];
+        v13 = [(PFCloudKitArchivingUtilities *)v12 encodeRecord:v8 error:&v35];
         if (v13)
         {
           [(NSManagedObject *)v11 setNeedsImport:1];
@@ -6292,34 +6109,34 @@ LABEL_3:
             LogStream = _PFLogGetLogStream(17);
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
-              v29 = [objc_msgSend(v8 "recordID")];
-              v31 = v6;
+              v28 = [objc_msgSend(v8 "recordID")];
+              v30 = v6;
               v18 = [objc_msgSend(v8 "currentUserParticipant")];
               v19 = [objc_msgSend(v8 "currentUserParticipant")];
               *buf = 138412802;
-              v38 = v29;
-              v39 = 2048;
-              v40 = v18;
-              v6 = v31;
-              v41 = 2048;
-              v42 = v19;
+              v37 = v28;
+              v38 = 2048;
+              v39 = v18;
+              v6 = v30;
+              v40 = 2048;
+              v41 = v19;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Accepted share %@ but the invitation status %lu or acceptance status %lu is incorrect.\n", buf, 0x20u);
             }
 
             v15 = _PFLogGetLogStream(17);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
             {
-              v28 = [objc_msgSend(v8 "recordID")];
-              v30 = v6;
+              v27 = [objc_msgSend(v8 "recordID")];
+              v29 = v6;
               v16 = [objc_msgSend(v8 "currentUserParticipant")];
               v17 = [objc_msgSend(v8 "currentUserParticipant")];
               *buf = 138412802;
-              v38 = v28;
-              v39 = 2048;
-              v40 = v16;
-              v6 = v30;
-              v41 = 2048;
-              v42 = v17;
+              v37 = v27;
+              v38 = 2048;
+              v39 = v16;
+              v6 = v29;
+              v40 = 2048;
+              v41 = v17;
               _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: Accepted share %@ but the invitation status %lu or acceptance status %lu is incorrect.", buf, 0x20u);
             }
           }
@@ -6338,7 +6155,7 @@ LABEL_18:
 
       if (v4 == ++v7)
       {
-        v4 = [v2 countByEnumeratingWithState:&v32 objects:v43 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v31 objects:v42 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -6354,13 +6171,13 @@ LABEL_18:
     }
   }
 
-  if ([*(a1 + 56) hasChanges] && !objc_msgSend(*(a1 + 56), "save:", &v36))
+  if ([a1[7] hasChanges] && !objc_msgSend(a1[7], "save:", &v35))
   {
 LABEL_24:
     v20 = [NSCloudKitMirroringAcceptShareInvitationsResult alloc];
-    v23 = *(a1 + 64);
-    v22 = *(*(a1 + 40) + 152);
-    v25 = v36;
+    v23 = a1[8];
+    v22 = *(a1[5] + 152);
+    v25 = v35;
     v21 = 0;
     v24 = 0;
   }
@@ -6369,16 +6186,15 @@ LABEL_24:
   {
     [NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:0 fromErrorRecovery:1 fromShareAccept:? andStartAfterDate:?];
     v20 = [NSCloudKitMirroringAcceptShareInvitationsResult alloc];
-    v21 = *(a1 + 32);
-    v22 = *(*(a1 + 40) + 152);
-    v23 = *(a1 + 64);
-    v24 = *(a1 + 72);
+    v21 = a1[4];
+    v22 = *(a1[5] + 152);
+    v23 = a1[8];
+    v24 = a1[9];
     v25 = 0;
   }
 
   result = [(NSCloudKitMirroringAcceptShareInvitationsResult *)v20 initWithRequest:v23 storeIdentifier:v22 acceptedShares:v21 acceptedShareMetadatas:v24 error:v25];
-  *(*(*(a1 + 80) + 8) + 40) = result;
-  v27 = *MEMORY[0x1E69E9840];
+  *(*(a1[10] + 8) + 40) = result;
   return result;
 }
 
@@ -6425,7 +6241,7 @@ LABEL_24:
 
 void __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke(uint64_t a1)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -6455,35 +6271,35 @@ void __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke(uint64_t 
         {
           v11 = [v8 userInfo];
           v12 = [v11 objectForKey:getCloudKitCKPartialErrorsByItemIDKey()];
-          v50 = 0;
-          v51 = &v50;
-          v52 = 0x2020000000;
-          v53 = 0;
-          v44 = 0;
-          v45 = &v44;
-          v46 = 0x3052000000;
-          v47 = __Block_byref_object_copy__41;
-          v48 = __Block_byref_object_dispose__41;
           v49 = 0;
-          v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v50 = &v49;
+          v51 = 0x2020000000;
+          v52 = 0;
+          v43 = 0;
+          v44 = &v43;
+          v45 = 0x3052000000;
+          v46 = __Block_byref_object_copy__41;
+          v47 = __Block_byref_object_dispose__41;
+          v48 = 0;
+          v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
           v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
           v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
           v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          *v58 = MEMORY[0x1E69E9820];
-          *&v58[8] = 3221225472;
-          *&v58[16] = __75__NSCloudKitMirroringDelegate__recoverFromPartialError_forStore_inMonitor___block_invoke;
-          *&v58[24] = &unk_1E6EC4CC8;
-          v66 = &v50;
-          v67 = &v44;
-          v59 = v8;
+          *v57 = MEMORY[0x1E69E9820];
+          *&v57[8] = 3221225472;
+          *&v57[16] = __75__NSCloudKitMirroringDelegate__recoverFromPartialError_forStore_inMonitor___block_invoke;
+          *&v57[24] = &unk_1E6EC4CC8;
+          v65 = &v49;
+          v66 = &v43;
+          v58 = v8;
+          v59 = v40;
           v60 = v41;
           v61 = v42;
-          v62 = v43;
-          v63 = v13;
-          v64 = v14;
-          v65 = v7;
-          [v12 enumerateKeysAndObjectsUsingBlock:v58];
+          v62 = v13;
+          v63 = v14;
+          v64 = v7;
+          [v12 enumerateKeysAndObjectsUsingBlock:v57];
           if ([v13 count])
           {
             v15 = objc_autoreleasePoolPush();
@@ -6517,35 +6333,35 @@ void __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke(uint64_t 
 
           else
           {
-            if (*(v51 + 24) == 1)
+            if (*(v50 + 24) == 1)
             {
-              v40 = [(NSCloudKitMirroringDelegate *)v7 _recoverFromError:v41 withZoneIDs:v5 forStore:v9 inMonitor:?];
+              v39 = [(NSCloudKitMirroringDelegate *)v7 _recoverFromError:v40 withZoneIDs:v5 forStore:v9 inMonitor:?];
             }
 
             else
             {
-              v40 = 1;
+              v39 = 1;
             }
 
-            if ([v43 count])
+            if ([v42 count])
             {
-              v54 = 0;
-              v55 = &v54;
-              v56 = 0x2020000000;
-              v57 = 0;
+              v53 = 0;
+              v54 = &v53;
+              v55 = 0x2020000000;
+              v56 = 0;
               v29 = [(PFCloudKitStoreMonitor *)v9 newBackgroundContextForMonitoredCoordinator];
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __79__NSCloudKitMirroringDelegate__recoverUnknownItemRecordIDs_forStore_inMonitor___block_invoke;
               *&buf[24] = &unk_1E6EC3450;
-              *&buf[32] = v43;
-              v72 = v5;
-              v73 = v29;
-              v74 = v7;
-              v75 = &v54;
+              *&buf[32] = v42;
+              v71 = v5;
+              v72 = v29;
+              v73 = v7;
+              v74 = &v53;
               [(NSManagedObjectContext *)v29 performBlockAndWait:buf];
 
-              if (*(v55 + 24) == 1)
+              if (*(v54 + 24) == 1)
               {
                 context = objc_autoreleasePoolPush();
                 v30 = __PFCloudKitLoggingGetStream();
@@ -6558,19 +6374,19 @@ void __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke(uint64_t 
 
                 if (os_log_type_enabled(v30, v32))
                 {
-                  *v68 = 136315906;
-                  *&v68[4] = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]";
-                  *&v68[12] = 1024;
-                  *&v68[14] = 2958;
-                  *&v68[18] = 2112;
-                  *&v68[20] = v7;
-                  v69 = 2112;
-                  v70 = v43;
-                  _os_log_impl(&dword_18565F000, v31, v32, "CoreData+CloudKit: %s(%d): %@: Recovered from unknown item error for recordIDs: %@", v68, 0x26u);
+                  *v67 = 136315906;
+                  *&v67[4] = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]";
+                  *&v67[12] = 1024;
+                  *&v67[14] = 2958;
+                  *&v67[18] = 2112;
+                  *&v67[20] = v7;
+                  v68 = 2112;
+                  v69 = v42;
+                  _os_log_impl(&dword_18565F000, v31, v32, "CoreData+CloudKit: %s(%d): %@: Recovered from unknown item error for recordIDs: %@", v67, 0x26u);
                 }
 
                 objc_autoreleasePoolPop(context);
-                contexta = *(v55 + 24);
+                contexta = *(v54 + 24);
               }
 
               else
@@ -6578,7 +6394,7 @@ void __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke(uint64_t 
                 contexta = 0;
               }
 
-              _Block_object_dispose(&v54, 8);
+              _Block_object_dispose(&v53, 8);
             }
 
             else
@@ -6589,46 +6405,46 @@ void __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke(uint64_t 
             v33 = 1;
             if ([v14 count])
             {
-              *v68 = 0;
-              *&v68[8] = v68;
-              *&v68[16] = 0x2020000000;
-              v68[24] = 1;
+              *v67 = 0;
+              *&v67[8] = v67;
+              *&v67[16] = 0x2020000000;
+              v67[24] = 1;
               v34 = [(PFCloudKitStoreMonitor *)v9 newBackgroundContextForMonitoredCoordinator];
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __79__NSCloudKitMirroringDelegate__recoverConflictedZoneShares_forStore_inMonitor___block_invoke;
               *&buf[24] = &unk_1E6EC3450;
               *&buf[32] = v14;
-              v72 = v7;
-              v73 = v5;
-              v74 = v34;
-              v75 = v68;
+              v71 = v7;
+              v72 = v5;
+              v73 = v34;
+              v74 = v67;
               [(NSManagedObjectContext *)v34 performBlockAndWait:buf];
 
-              v33 = *(*&v68[8] + 24);
-              _Block_object_dispose(v68, 8);
+              v33 = *(*&v67[8] + 24);
+              _Block_object_dispose(v67, 8);
             }
 
-            if ([v42 count])
+            if ([v41 count])
             {
-              *v68 = 0;
-              *&v68[8] = v68;
-              *&v68[16] = 0x2020000000;
-              v68[24] = 0;
+              *v67 = 0;
+              *&v67[8] = v67;
+              *&v67[16] = 0x2020000000;
+              v67[24] = 0;
               v35 = [(PFCloudKitStoreMonitor *)v9 newBackgroundContextForMonitoredCoordinator];
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_forStore_inMonitor___block_invoke;
               *&buf[24] = &unk_1E6EC3450;
-              *&buf[32] = v42;
-              v72 = v7;
-              v73 = v5;
-              v74 = v35;
-              v75 = v68;
+              *&buf[32] = v41;
+              v71 = v7;
+              v72 = v5;
+              v73 = v35;
+              v74 = v67;
               [(NSManagedObjectContext *)v35 performBlockAndWait:buf];
 
-              v36 = *(*&v68[8] + 24);
-              _Block_object_dispose(v68, 8);
+              v36 = *(*&v67[8] + 24);
+              _Block_object_dispose(v67, 8);
             }
 
             else
@@ -6636,14 +6452,14 @@ void __48__NSCloudKitMirroringDelegate_recoverFromError___block_invoke(uint64_t 
               v36 = 1;
             }
 
-            if ((v40 & contexta) == 1)
+            if ((v39 & contexta) == 1)
             {
               v28 = v33 & v36;
 LABEL_53:
 
-              v45[5] = 0;
-              _Block_object_dispose(&v44, 8);
-              _Block_object_dispose(&v50, 8);
+              v44[5] = 0;
+              _Block_object_dispose(&v43, 8);
+              _Block_object_dispose(&v49, 8);
               goto LABEL_54;
             }
           }
@@ -6667,13 +6483,13 @@ LABEL_53:
 
         if (os_log_type_enabled(v25, v27))
         {
-          *v58 = 136315650;
-          *&v58[4] = "[NSCloudKitMirroringDelegate _recoverFromPartialError:forStore:inMonitor:]";
-          *&v58[12] = 1024;
-          *&v58[14] = 2831;
-          *&v58[18] = 2112;
-          *&v58[20] = v8;
-          _os_log_impl(&dword_18565F000, v26, v27, "CoreData+CloudKit: %s(%d): Unknown error passed to partial error handler: %@", v58, 0x1Cu);
+          *v57 = 136315650;
+          *&v57[4] = "[NSCloudKitMirroringDelegate _recoverFromPartialError:forStore:inMonitor:]";
+          *&v57[12] = 1024;
+          *&v57[14] = 2831;
+          *&v57[18] = 2112;
+          *&v57[20] = v8;
+          _os_log_impl(&dword_18565F000, v26, v27, "CoreData+CloudKit: %s(%d): Unknown error passed to partial error handler: %@", v57, 0x1Cu);
         }
 
         objc_autoreleasePoolPop(v24);
@@ -6706,31 +6522,29 @@ LABEL_54:
     if (os_log_type_enabled(v20, v22))
     {
       v23 = *(a1 + 40);
-      *v58 = 136315650;
-      *&v58[4] = "[NSCloudKitMirroringDelegate recoverFromError:]_block_invoke";
-      *&v58[12] = 1024;
-      *&v58[14] = 2323;
-      *&v58[18] = 2112;
-      *&v58[20] = v23;
-      _os_log_impl(&dword_18565F000, v21, v22, "CoreData+CloudKit: %s(%d): The store was removed before the mirroring delegate could recover from an error:\n%@", v58, 0x1Cu);
+      *v57 = 136315650;
+      *&v57[4] = "[NSCloudKitMirroringDelegate recoverFromError:]_block_invoke";
+      *&v57[12] = 1024;
+      *&v57[14] = 2323;
+      *&v57[18] = 2112;
+      *&v57[20] = v23;
+      _os_log_impl(&dword_18565F000, v21, v22, "CoreData+CloudKit: %s(%d): The store was removed before the mirroring delegate could recover from an error:\n%@", v57, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
 
 LABEL_55:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_recoverFromError:(void *)error withZoneIDs:(uint64_t)ds forStore:(uint64_t)store inMonitor:
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v8 = a2;
     selfCopy = self;
-    v105 = 0;
+    v104 = 0;
     domain = [a2 domain];
     if ([domain isEqualToString:getCloudKitCKErrorDomain()])
     {
@@ -6744,7 +6558,7 @@ LABEL_55:
           {
             v37 = *(v36 + 96);
             databaseScope = [*(selfCopy + 56) databaseScope];
-            if (v37 && [(PFCloudKitMetadataPurger *)v37 purgeMetadataFromStore:ds inMonitor:store withOptions:294 forRecordZones:error inDatabaseWithScope:databaseScope andTransactionAuthor:0 error:&v105])
+            if (v37 && [(PFCloudKitMetadataPurger *)v37 purgeMetadataFromStore:ds inMonitor:store withOptions:294 forRecordZones:error inDatabaseWithScope:databaseScope andTransactionAuthor:0 error:&v104])
             {
               if ([v8 code] != 112)
               {
@@ -6755,7 +6569,7 @@ LABEL_55:
                 }
               }
 
-              if (-[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:](selfCopy, error, [*(selfCopy + 56) databaseScope], ds, &v105))
+              if (-[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:](selfCopy, error, [*(selfCopy + 56) databaseScope], ds, &v104))
               {
                 goto LABEL_107;
               }
@@ -6771,29 +6585,29 @@ LABEL_55:
         }
 
         storeCopy = store;
-        v100 = v8;
+        v99 = v8;
         v11 = selfCopy;
         v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v100 = 0u;
         v101 = 0u;
         v102 = 0u;
         v103 = 0u;
-        v104 = 0u;
-        v14 = [error countByEnumeratingWithState:&v101 objects:v122 count:16];
+        v14 = [error countByEnumeratingWithState:&v100 objects:v121 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v102;
+          v16 = *v101;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v102 != v16)
+              if (*v101 != v16)
               {
                 objc_enumerationMutation(error);
               }
 
-              v18 = *(*(&v101 + 1) + 8 * i);
+              v18 = *(*(&v100 + 1) + 8 * i);
               ownerName = [v18 ownerName];
               if ([ownerName isEqualToString:getCloudKitCKCurrentUserDefaultName()])
               {
@@ -6808,14 +6622,14 @@ LABEL_55:
               [v20 addObject:v18];
             }
 
-            v15 = [error countByEnumeratingWithState:&v101 objects:v122 count:16];
+            v15 = [error countByEnumeratingWithState:&v100 objects:v121 count:16];
           }
 
           while (v15);
         }
 
         selfCopy = v11;
-        v8 = v100;
+        v8 = v99;
         if ([v12 count])
         {
           v21 = *(selfCopy + 8);
@@ -6832,14 +6646,14 @@ LABEL_194:
 
           v22 = *(v21 + 96);
           databaseScope2 = [*(selfCopy + 56) databaseScope];
-          if (!v22 || ![(PFCloudKitMetadataPurger *)v22 purgeMetadataFromStore:ds inMonitor:storeCopy withOptions:298 forRecordZones:v12 inDatabaseWithScope:databaseScope2 andTransactionAuthor:0 error:&v105])
+          if (!v22 || ![(PFCloudKitMetadataPurger *)v22 purgeMetadataFromStore:ds inMonitor:storeCopy withOptions:298 forRecordZones:v12 inDatabaseWithScope:databaseScope2 andTransactionAuthor:0 error:&v104])
           {
             goto LABEL_193;
           }
 
-          if ([v100 code] == 112 || (v24 = objc_msgSend(v100, "userInfo"), objc_msgSend(objc_msgSend(v24, "objectForKey:", getCloudKitCKErrorUserDidResetEncryptedDataKey()), "BOOLValue")))
+          if ([v99 code] == 112 || (v24 = objc_msgSend(v99, "userInfo"), objc_msgSend(objc_msgSend(v24, "objectForKey:", getCloudKitCKErrorUserDidResetEncryptedDataKey()), "BOOLValue")))
           {
-            if (!-[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:](selfCopy, v12, [*(selfCopy + 56) databaseScope], ds, &v105))
+            if (!-[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:](selfCopy, v12, [*(selfCopy + 56) databaseScope], ds, &v104))
             {
               goto LABEL_193;
             }
@@ -6858,11 +6672,11 @@ LABEL_109:
           goto LABEL_110;
         }
 
-        if ([v100 code] == 26 || objc_msgSend(v100, "code") == 112 || (v25 = objc_msgSend(v100, "userInfo"), objc_msgSend(objc_msgSend(v25, "objectForKey:", getCloudKitCKErrorUserDidResetEncryptedDataKey()), "BOOLValue")))
+        if ([v99 code] == 26 || objc_msgSend(v99, "code") == 112 || (v25 = objc_msgSend(v99, "userInfo"), objc_msgSend(objc_msgSend(v25, "objectForKey:", getCloudKitCKErrorUserDidResetEncryptedDataKey()), "BOOLValue")))
         {
-          if ([v100 code] == 112)
+          if ([v99 code] == 112)
           {
-            v26 = -[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:](selfCopy, v13, [*(selfCopy + 56) databaseScope], ds, &v105);
+            v26 = -[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:](selfCopy, v13, [*(selfCopy + 56) databaseScope], ds, &v104);
             goto LABEL_106;
           }
 
@@ -6879,7 +6693,7 @@ LABEL_109:
               v51 = storeCopy;
               v52 = 9;
 LABEL_105:
-              v26 = [(PFCloudKitMetadataPurger *)v49 purgeMetadataFromStore:dsCopy2 inMonitor:v51 withOptions:v52 forRecordZones:v13 inDatabaseWithScope:v48 andTransactionAuthor:0 error:&v105];
+              v26 = [(PFCloudKitMetadataPurger *)v49 purgeMetadataFromStore:dsCopy2 inMonitor:v51 withOptions:v52 forRecordZones:v13 inDatabaseWithScope:v48 andTransactionAuthor:0 error:&v104];
 LABEL_106:
               v63 = v26;
 
@@ -6927,7 +6741,7 @@ LABEL_106:
         {
           v43 = *(v42 + 96);
           databaseScope5 = [*(selfCopy + 56) databaseScope];
-          if (v43 && [(PFCloudKitMetadataPurger *)v43 purgeMetadataFromStore:ds inMonitor:store withOptions:9 forRecordZones:error inDatabaseWithScope:databaseScope5 andTransactionAuthor:0 error:&v105])
+          if (v43 && [(PFCloudKitMetadataPurger *)v43 purgeMetadataFromStore:ds inMonitor:store withOptions:9 forRecordZones:error inDatabaseWithScope:databaseScope5 andTransactionAuthor:0 error:&v104])
           {
             goto LABEL_107;
           }
@@ -6950,22 +6764,22 @@ LABEL_195:
           {
             domain2 = [v8 domain];
             code = [v8 code];
-            domain3 = [v105 domain];
-            code2 = [v105 code];
+            domain3 = [v104 domain];
+            code2 = [v104 code];
             *buf = 136316674;
-            v107 = "[NSCloudKitMirroringDelegate _recoverFromError:withZoneIDs:forStore:inMonitor:]";
-            v108 = 1024;
-            v109 = 2617;
-            v110 = 2112;
-            v111 = selfCopy;
-            v112 = 2112;
-            v113 = domain2;
-            v114 = 2048;
-            v115 = code;
-            v116 = 2112;
-            v117 = domain3;
-            v118 = 2048;
-            v119 = code2;
+            v106 = "[NSCloudKitMirroringDelegate _recoverFromError:withZoneIDs:forStore:inMonitor:]";
+            v107 = 1024;
+            v108 = 2617;
+            v109 = 2112;
+            v110 = selfCopy;
+            v111 = 2112;
+            v112 = domain2;
+            v113 = 2048;
+            v114 = code;
+            v115 = 2112;
+            v116 = domain3;
+            v117 = 2048;
+            v118 = code2;
             _os_log_impl(&dword_18565F000, v91, v92, "CoreData+CloudKit: %s(%d): %@ - Failed to recover from error: %@:%ld\nRecovery encountered the following error: %@:%ld", buf, 0x44u);
           }
 
@@ -6992,7 +6806,7 @@ LABEL_206:
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v107 = v8;
+          v106 = v8;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Invalid recursion detected, this method should never have been passed a partial error: %@\n", buf, 0xCu);
         }
 
@@ -7003,7 +6817,7 @@ LABEL_206:
         }
 
         *buf = 138412290;
-        v107 = v8;
+        v106 = v8;
         v35 = "CoreData: Invalid recursion detected, this method should never have been passed a partial error: %@";
         goto LABEL_101;
       }
@@ -7044,9 +6858,9 @@ LABEL_188:
         }
 
         v88 = *MEMORY[0x1E696A250];
-        v120 = *MEMORY[0x1E696A588];
-        v121 = @"The mirroring delegate can no longer export because it cannot stay under the CloudKit operation limits.";
-        v105 = [MEMORY[0x1E696ABC0] errorWithDomain:v88 code:134411 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v121, &v120, 1)}];
+        v119 = *MEMORY[0x1E696A588];
+        v120 = @"The mirroring delegate can no longer export because it cannot stay under the CloudKit operation limits.";
+        v104 = [MEMORY[0x1E696ABC0] errorWithDomain:v88 code:134411 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v120, &v119, 1)}];
         goto LABEL_195;
       }
 
@@ -7067,7 +6881,7 @@ LABEL_188:
               v77 = 0;
             }
 
-            if (-[PFCloudKitMetadataPurger deleteZoneMetadataFromStore:inMonitor:forRecordZones:inDatabaseWithScope:error:](v77, ds, store, error, [v76 databaseScope], &v105))
+            if (-[PFCloudKitMetadataPurger deleteZoneMetadataFromStore:inMonitor:forRecordZones:inDatabaseWithScope:error:](v77, ds, store, error, [v76 databaseScope], &v104))
             {
               goto LABEL_110;
             }
@@ -7105,22 +6919,22 @@ LABEL_110:
         domain4 = [v8 domain];
         code3 = [v8 code];
         *buf = 136316162;
-        v107 = "[NSCloudKitMirroringDelegate _recoverFromError:withZoneIDs:forStore:inMonitor:]";
-        v108 = 1024;
-        v109 = 2619;
-        v110 = 2112;
-        v111 = selfCopy;
-        v112 = 2112;
-        v113 = domain4;
-        v114 = 2048;
-        v115 = code3;
+        v106 = "[NSCloudKitMirroringDelegate _recoverFromError:withZoneIDs:forStore:inMonitor:]";
+        v107 = 1024;
+        v108 = 2619;
+        v109 = 2112;
+        v110 = selfCopy;
+        v111 = 2112;
+        v112 = domain4;
+        v113 = 2048;
+        v114 = code3;
         _os_log_impl(&dword_18565F000, v66, v67, "CoreData+CloudKit: %s(%d): %@ - Recovered from error: %@:%ld", buf, 0x30u);
       }
 
       v70 = 1;
 LABEL_201:
       objc_autoreleasePoolPop(v64);
-      goto LABEL_202;
+      return v70;
     }
 
     domain5 = [v8 domain];
@@ -7134,7 +6948,7 @@ LABEL_201:
         {
           v29 = v28[12];
           databaseScope6 = [v28 databaseScope];
-          if (v29 && [(PFCloudKitMetadataPurger *)v29 purgeMetadataFromStore:ds inMonitor:store withOptions:37 forRecordZones:MEMORY[0x1E695E0F0] inDatabaseWithScope:databaseScope6 andTransactionAuthor:0 error:&v105])
+          if (v29 && [(PFCloudKitMetadataPurger *)v29 purgeMetadataFromStore:ds inMonitor:store withOptions:37 forRecordZones:MEMORY[0x1E695E0F0] inDatabaseWithScope:databaseScope6 andTransactionAuthor:0 error:&v104])
           {
             goto LABEL_109;
           }
@@ -7165,7 +6979,7 @@ LABEL_201:
           v41 = 0;
         }
 
-        if (-[PFCloudKitMetadataPurger purgeMetadataAfterAccountChangeFromStore:inMonitor:inDatabaseWithScope:error:](v41, ds, store, [v40 databaseScope], &v105))
+        if (-[PFCloudKitMetadataPurger purgeMetadataAfterAccountChangeFromStore:inMonitor:inDatabaseWithScope:error:](v41, ds, store, [v40 databaseScope], &v104))
         {
           goto LABEL_108;
         }
@@ -7526,7 +7340,7 @@ LABEL_97:
     if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v107 = v8;
+      v106 = v8;
       _os_log_error_impl(&dword_18565F000, v57, OS_LOG_TYPE_ERROR, "CoreData: fault: NSCloudKitMirroringDelegate was handed a scary NRULErrorDomain error (of some code that's not already in the switch) that it probably shouldn't have been: %@\n", buf, 0xCu);
     }
 
@@ -7537,7 +7351,7 @@ LABEL_97:
     }
 
     *buf = 138412290;
-    v107 = v8;
+    v106 = v8;
     v35 = "CoreData: NSCloudKitMirroringDelegate was handed a scary NRULErrorDomain error (of some code that's not already in the switch) that it probably shouldn't have been: %@";
 LABEL_101:
     v58 = v55;
@@ -7547,25 +7361,22 @@ LABEL_184:
     goto LABEL_195;
   }
 
-  v70 = 0;
-LABEL_202:
-  v97 = *MEMORY[0x1E69E9840];
-  return v70;
+  return 0;
 }
 
 - (uint64_t)_markZonesNeedingRecoveryFromManateeIdentityLoss:(uint64_t)loss databaseScope:(uint64_t)scope inStore:(void *)store error:
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3052000000;
-  v24 = __Block_byref_object_copy__41;
-  v25 = __Block_byref_object_dispose__41;
+  v34 = *MEMORY[0x1E69E9840];
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3052000000;
+  v23 = __Block_byref_object_copy__41;
+  v24 = __Block_byref_object_dispose__41;
+  v25 = 0;
   v10 = [[PFCloudKitStoreMonitor alloc] initForStore:scope];
   v11 = v10;
   if (v10)
@@ -7578,20 +7389,20 @@ LABEL_202:
     WeakRetained = 0;
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIdentityLoss_databaseScope_inStore_error___block_invoke;
-  v20[3] = &unk_1E6EC2E40;
-  v20[4] = self;
-  v20[5] = a2;
-  v20[6] = v11;
-  v20[7] = scope;
-  v20[8] = &v21;
-  v20[9] = &v27;
-  v20[10] = loss;
-  [(PFCloudKitStoreMonitor *)v11 performBlock:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIdentityLoss_databaseScope_inStore_error___block_invoke;
+  v19[3] = &unk_1E6EC2E40;
+  v19[4] = self;
+  v19[5] = a2;
+  v19[6] = v11;
+  v19[7] = scope;
+  v19[8] = &v20;
+  v19[9] = &v26;
+  v19[10] = loss;
+  [(PFCloudKitStoreMonitor *)v11 performBlock:v19];
 
-  v13 = v22[5];
+  v13 = v21[5];
   if (v13)
   {
     v14 = v13;
@@ -7609,9 +7420,9 @@ LABEL_202:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
-        v33 = 1024;
-        v34 = 3836;
+        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
+        v32 = 1024;
+        v33 = 3836;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -7619,27 +7430,26 @@ LABEL_202:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
-        v33 = 1024;
-        v34 = 3836;
+        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
+        v32 = 1024;
+        v33 = 3836;
         _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
-    v22[5] = 0;
+    v21[5] = 0;
   }
 
-  v17 = *(v28 + 24);
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *(v27 + 24);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
   return v17;
 }
 
 void __75__NSCloudKitMirroringDelegate__recoverFromPartialError_forStore_inMonitor___block_invoke(uint64_t a1, char *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  getCloudKitCKRecordIDClass[0]();
+  v39 = *MEMORY[0x1E69E9840];
+  getCloudKitCKRecordIDClass();
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (getCloudKitCKRecordZoneIDClass[0](), objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
@@ -7650,22 +7460,22 @@ void __75__NSCloudKitMirroringDelegate__recoverFromPartialError_forStore_inMonit
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         v27 = *(a1 + 32);
-        v36 = 138412546;
-        v37 = a2;
-        v38 = 2112;
-        *v39 = v27;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unexpected string item for partial failure: %@ - %@\n", &v36, 0x16u);
+        v35 = 138412546;
+        v36 = a2;
+        v37 = 2112;
+        *v38 = v27;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unexpected string item for partial failure: %@ - %@\n", &v35, 0x16u);
       }
 
       v7 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         v28 = *(a1 + 32);
-        v36 = 138412546;
-        v37 = a2;
-        v38 = 2112;
-        *v39 = v28;
-        _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Unexpected string item for partial failure: %@ - %@", &v36, 0x16u);
+        v35 = 138412546;
+        v36 = a2;
+        v37 = 2112;
+        *v38 = v28;
+        _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Unexpected string item for partial failure: %@ - %@", &v35, 0x16u);
       }
     }
 
@@ -7680,7 +7490,7 @@ void __75__NSCloudKitMirroringDelegate__recoverFromPartialError_forStore_inMonit
           *(*(*(a1 + 96) + 8) + 40) = a3;
         }
 
-        getCloudKitCKRecordIDClass[0]();
+        getCloudKitCKRecordIDClass();
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -7690,27 +7500,27 @@ void __75__NSCloudKitMirroringDelegate__recoverFromPartialError_forStore_inMonit
             if ([v9 objectForKeyedSubscript:getCloudKitCKErrorRetryAfterKey()])
             {
               *(*(*(a1 + 88) + 8) + 24) = 0;
-              goto LABEL_94;
+              return;
             }
 
             v16 = _PFLogGetLogStream(17);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              v36 = 138412546;
-              v37 = a2;
-              v38 = 2112;
-              *v39 = a3;
-              _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: fault: Got server rejected request as part of a partial error for a CKRecord: %@ - %@\n", &v36, 0x16u);
+              v35 = 138412546;
+              v36 = a2;
+              v37 = 2112;
+              *v38 = a3;
+              _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: fault: Got server rejected request as part of a partial error for a CKRecord: %@ - %@\n", &v35, 0x16u);
             }
 
             v17 = _PFLogGetLogStream(17);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
-              v36 = 138412546;
-              v37 = a2;
-              v38 = 2112;
-              *v39 = a3;
-              _os_log_fault_impl(&dword_18565F000, v17, OS_LOG_TYPE_FAULT, "CoreData: Got server rejected request as part of a partial error for a CKRecord: %@ - %@", &v36, 0x16u);
+              v35 = 138412546;
+              v36 = a2;
+              v37 = 2112;
+              *v38 = a3;
+              _os_log_fault_impl(&dword_18565F000, v17, OS_LOG_TYPE_FAULT, "CoreData: Got server rejected request as part of a partial error for a CKRecord: %@ - %@", &v35, 0x16u);
             }
 
             *(*(*(a1 + 88) + 8) + 24) = 0;
@@ -7734,7 +7544,7 @@ LABEL_87:
           *(*(*(a1 + 96) + 8) + 40) = a3;
         }
 
-        getCloudKitCKRecordIDClass[0]();
+        getCloudKitCKRecordIDClass();
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         v15 = *(a1 + 40);
@@ -7745,7 +7555,7 @@ LABEL_90:
           v11 = v15;
 LABEL_93:
           [v11 addObject:v30];
-          goto LABEL_94;
+          return;
         }
 
         v11 = v15;
@@ -7756,12 +7566,12 @@ LABEL_92:
 
       if ([a3 code] == 11)
       {
-        getCloudKitCKRecordIDClass[0]();
+        getCloudKitCKRecordIDClass();
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v32 = [a2 recordName];
-          if ([v32 isEqualToString:getCloudKitCKRecordNameZoneWideShare()])
+          v31 = [a2 recordName];
+          if ([v31 isEqualToString:getCloudKitCKRecordNameZoneWideShare()])
           {
             v11 = *(a1 + 48);
           }
@@ -7774,24 +7584,24 @@ LABEL_92:
           goto LABEL_92;
         }
 
-        v34 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v33 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v36 = 138412546;
-          v37 = a2;
-          v38 = 2112;
-          *v39 = a3;
-          _os_log_error_impl(&dword_18565F000, v34, OS_LOG_TYPE_ERROR, "CoreData: fault: Got an unknown item error back for a zone: %@ - %@\n", &v36, 0x16u);
+          v35 = 138412546;
+          v36 = a2;
+          v37 = 2112;
+          *v38 = a3;
+          _os_log_error_impl(&dword_18565F000, v33, OS_LOG_TYPE_ERROR, "CoreData: fault: Got an unknown item error back for a zone: %@ - %@\n", &v35, 0x16u);
         }
 
-        v35 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+        v34 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
         {
-          v36 = 138412546;
-          v37 = a2;
-          v38 = 2112;
-          *v39 = a3;
-          _os_log_fault_impl(&dword_18565F000, v35, OS_LOG_TYPE_FAULT, "CoreData: Got an unknown item error back for a zone: %@ - %@", &v36, 0x16u);
+          v35 = 138412546;
+          v36 = a2;
+          v37 = 2112;
+          *v38 = a3;
+          _os_log_fault_impl(&dword_18565F000, v34, OS_LOG_TYPE_FAULT, "CoreData: Got an unknown item error back for a zone: %@ - %@", &v35, 0x16u);
         }
       }
 
@@ -7801,17 +7611,17 @@ LABEL_92:
         {
 LABEL_81:
           [*(a1 + 64) setObject:a3 forKey:a2];
-          goto LABEL_94;
+          return;
         }
 
         if ([a3 code] == 14)
         {
-          getCloudKitCKRecordIDClass[0]();
+          getCloudKitCKRecordIDClass();
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v33 = [a2 recordName];
-            if ([v33 isEqualToString:getCloudKitCKRecordNameZoneWideShare()])
+            v32 = [a2 recordName];
+            if ([v32 isEqualToString:getCloudKitCKRecordNameZoneWideShare()])
             {
               v11 = *(a1 + 72);
               v30 = a3;
@@ -7848,15 +7658,15 @@ LABEL_73:
     if (os_log_type_enabled(Stream, v21))
     {
       v22 = *(a1 + 80);
-      v36 = 136315906;
-      v37 = "[NSCloudKitMirroringDelegate _recoverFromPartialError:forStore:inMonitor:]_block_invoke";
-      v38 = 1024;
-      *v39 = 2775;
-      *&v39[4] = 2112;
-      *&v39[6] = v22;
-      *&v39[14] = 2112;
-      *&v39[16] = a3;
-      _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): %@: Found unknown error as part of a partial failure: %@", &v36, 0x26u);
+      v35 = 136315906;
+      v36 = "[NSCloudKitMirroringDelegate _recoverFromPartialError:forStore:inMonitor:]_block_invoke";
+      v37 = 1024;
+      *v38 = 2775;
+      *&v38[4] = 2112;
+      *&v38[6] = v22;
+      *&v38[14] = 2112;
+      *&v38[16] = a3;
+      _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): %@: Found unknown error as part of a partial failure: %@", &v35, 0x26u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -7881,71 +7691,68 @@ LABEL_73:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v26 = *(a1 + 80);
-    v36 = 138412802;
-    v37 = v26;
-    v38 = 2112;
-    *v39 = a2;
-    *&v39[8] = 2112;
-    *&v39[10] = a3;
-    _os_log_error_impl(&dword_18565F000, v12, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Found unknown itemID (%@) as part of a partial failure: %@\n", &v36, 0x20u);
+    v35 = 138412802;
+    v36 = v26;
+    v37 = 2112;
+    *v38 = a2;
+    *&v38[8] = 2112;
+    *&v38[10] = a3;
+    _os_log_error_impl(&dword_18565F000, v12, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Found unknown itemID (%@) as part of a partial failure: %@\n", &v35, 0x20u);
   }
 
   v13 = _PFLogGetLogStream(17);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     v14 = *(a1 + 80);
-    v36 = 138412802;
-    v37 = v14;
-    v38 = 2112;
-    *v39 = a2;
-    *&v39[8] = 2112;
-    *&v39[10] = a3;
-    _os_log_fault_impl(&dword_18565F000, v13, OS_LOG_TYPE_FAULT, "CoreData: %@: Found unknown itemID (%@) as part of a partial failure: %@", &v36, 0x20u);
+    v35 = 138412802;
+    v36 = v14;
+    v37 = 2112;
+    *v38 = a2;
+    *&v38[8] = 2112;
+    *&v38[10] = a3;
+    _os_log_fault_impl(&dword_18565F000, v13, OS_LOG_TYPE_FAULT, "CoreData: %@: Found unknown itemID (%@) as part of a partial failure: %@", &v35, 0x20u);
   }
-
-LABEL_94:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
-void __79__NSCloudKitMirroringDelegate__recoverConflictedZoneShares_forStore_inMonitor___block_invoke(uint64_t a1)
+void __79__NSCloudKitMirroringDelegate__recoverConflictedZoneShares_forStore_inMonitor___block_invoke(void *a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+  obj = a1[4];
+  v2 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v32;
+    v4 = *v31;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v32 != v4)
+        if (*v31 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v31 + 1) + 8 * i);
+        v6 = *(*(&v30 + 1) + 8 * i);
         v7 = objc_autoreleasePoolPush();
-        v30 = 0;
+        v29 = 0;
         v8 = [v6 userInfo];
         v9 = [v8 objectForKey:getCloudKitCKRecordChangedErrorServerRecordKey()];
-        v10 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, [objc_msgSend(v9 "recordID")], objc_msgSend(*(*(a1 + 40) + 8), "databaseScope"), *(a1 + 48), *(a1 + 56), &v30);
+        v10 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, [objc_msgSend(v9 "recordID")], objc_msgSend(*(a1[5] + 8), "databaseScope"), a1[6], a1[7], &v29);
         if (v10)
         {
-          v11 = *(*(a1 + 40) + 8);
-          if (v11 && (v12 = v10, (v13 = *(v11 + 136)) != 0) && (v14 = [(PFCloudKitArchivingUtilities *)v13 encodeRecord:v9 error:&v30]) != 0)
+          v11 = *(a1[5] + 8);
+          if (v11 && (v12 = v10, (v13 = *(v11 + 136)) != 0) && (v14 = [(PFCloudKitArchivingUtilities *)v13 encodeRecord:v9 error:&v29]) != 0)
           {
             v15 = v14;
             [(NSManagedObject *)v12 updateEncodedShareWithData:v14];
             [(NSManagedObject *)v12 setNeedsShareUpdate:0];
-            if (([*(a1 + 56) save:&v30] & 1) == 0)
+            if (([a1[7] save:&v29] & 1) == 0)
             {
-              *(*(*(a1 + 64) + 8) + 24) = 0;
+              *(*(a1[8] + 8) + 24) = 0;
               v16 = objc_autoreleasePoolPush();
               Stream = __PFCloudKitLoggingGetStream();
               v18 = Stream;
@@ -7962,13 +7769,13 @@ void __79__NSCloudKitMirroringDelegate__recoverConflictedZoneShares_forStore_inM
               if (os_log_type_enabled(Stream, v19))
               {
                 *buf = 136315906;
-                v36 = "[NSCloudKitMirroringDelegate _recoverConflictedZoneShares:forStore:inMonitor:]_block_invoke";
-                v37 = 1024;
-                v38 = 2861;
-                v39 = 2112;
-                v40 = v9;
-                v41 = 2112;
-                v42 = v30;
+                v35 = "[NSCloudKitMirroringDelegate _recoverConflictedZoneShares:forStore:inMonitor:]_block_invoke";
+                v36 = 1024;
+                v37 = 2861;
+                v38 = 2112;
+                v39 = v9;
+                v40 = 2112;
+                v41 = v29;
                 _os_log_impl(&dword_18565F000, v18, v19, "CoreData+CloudKit: %s(%d): Failed to recover conflict for record: %@ due to save failure: %@", buf, 0x26u);
               }
 
@@ -7978,7 +7785,7 @@ void __79__NSCloudKitMirroringDelegate__recoverConflictedZoneShares_forStore_inM
 
           else
           {
-            *(*(*(a1 + 64) + 8) + 24) = 0;
+            *(*(a1[8] + 8) + 24) = 0;
             v16 = objc_autoreleasePoolPush();
             v24 = __PFCloudKitLoggingGetStream();
             v25 = v24;
@@ -7995,13 +7802,13 @@ void __79__NSCloudKitMirroringDelegate__recoverConflictedZoneShares_forStore_inM
             if (os_log_type_enabled(v24, v26))
             {
               *buf = 136315906;
-              v36 = "[NSCloudKitMirroringDelegate _recoverConflictedZoneShares:forStore:inMonitor:]_block_invoke";
-              v37 = 1024;
-              v38 = 2865;
-              v39 = 2112;
-              v40 = v9;
-              v41 = 2112;
-              v42 = v30;
+              v35 = "[NSCloudKitMirroringDelegate _recoverConflictedZoneShares:forStore:inMonitor:]_block_invoke";
+              v36 = 1024;
+              v37 = 2865;
+              v38 = 2112;
+              v39 = v9;
+              v40 = 2112;
+              v41 = v29;
               _os_log_impl(&dword_18565F000, v25, v26, "CoreData+CloudKit: %s(%d): Failed to recover conflict for record: %@ due to error: %@", buf, 0x26u);
             }
 
@@ -8029,41 +7836,38 @@ LABEL_28:
         if (os_log_type_enabled(v21, v23))
         {
           *buf = 136315906;
-          v36 = "[NSCloudKitMirroringDelegate _recoverConflictedZoneShares:forStore:inMonitor:]_block_invoke";
-          v37 = 1024;
-          v38 = 2869;
-          v39 = 2112;
-          v40 = v9;
-          v41 = 2112;
-          v42 = v30;
+          v35 = "[NSCloudKitMirroringDelegate _recoverConflictedZoneShares:forStore:inMonitor:]_block_invoke";
+          v36 = 1024;
+          v37 = 2869;
+          v38 = 2112;
+          v39 = v9;
+          v40 = 2112;
+          v41 = v29;
           _os_log_impl(&dword_18565F000, v22, v23, "CoreData+CloudKit: %s(%d): Failed to recover conflict for record: %@ due to error: %@", buf, 0x26u);
         }
 
         objc_autoreleasePoolPop(v20);
 LABEL_30:
-        v27 = *(*(*(a1 + 64) + 8) + 24);
+        v27 = *(*(a1[8] + 8) + 24);
         objc_autoreleasePoolPop(v7);
         if (!v27)
         {
-          goto LABEL_33;
+          return;
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v3 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v3);
   }
-
-LABEL_33:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __79__NSCloudKitMirroringDelegate__recoverUnknownItemRecordIDs_forStore_inMonitor___block_invoke(uint64_t a1)
 {
-  v85 = *MEMORY[0x1E69E9840];
-  v75 = 0;
-  v2 = [NSCKRecordMetadata metadataForRecordIDs:*(a1 + 40) fromStore:*(a1 + 48) inManagedObjectContext:&v75 error:?];
+  v84 = *MEMORY[0x1E69E9840];
+  v74 = 0;
+  v2 = [NSCKRecordMetadata metadataForRecordIDs:*(a1 + 40) fromStore:*(a1 + 48) inManagedObjectContext:&v74 error:?];
   v3 = v2;
   if (!v2)
   {
@@ -8087,37 +7891,37 @@ void __79__NSCloudKitMirroringDelegate__recoverUnknownItemRecordIDs_forStore_inM
 
     v39 = *(a1 + 56);
     *buf = 136315906;
-    v77 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
-    v78 = 1024;
-    *v79 = 2949;
-    *&v79[4] = 2112;
-    *&v79[6] = v39;
-    v80 = 2112;
-    v81 = v75;
+    v76 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
+    v77 = 1024;
+    *v78 = 2949;
+    *&v78[4] = 2112;
+    *&v78[6] = v39;
+    v79 = 2112;
+    v80 = v74;
     v40 = "CoreData+CloudKit: %s(%d): %@: Failed to recover from unknown item error due to record metadata fetch error: %@";
     goto LABEL_57;
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
-  v4 = [v2 countByEnumeratingWithState:&v71 objects:v84 count:16];
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v4 = [v2 countByEnumeratingWithState:&v70 objects:v83 count:16];
   if (v4)
   {
-    v6 = *v72;
+    v6 = *v71;
     *&v5 = 138412546;
-    v60 = v5;
+    v59 = v5;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v72 != v6)
+        if (*v71 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v71 + 1) + 8 * i);
+        v8 = *(*(&v70 + 1) + 8 * i);
         if ([v8 needsCloudDelete])
         {
           [*(a1 + 48) deleteObject:v8];
@@ -8129,10 +7933,10 @@ void __79__NSCloudKitMirroringDelegate__recoverUnknownItemRecordIDs_forStore_inM
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
             v11 = *(a1 + 56);
-            *buf = v60;
-            v77 = v11;
-            v78 = 2112;
-            *v79 = v8;
+            *buf = v59;
+            v76 = v11;
+            v77 = 2112;
+            *v78 = v8;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Unexpected state for record metadata. It was not found on the server but the local row was not expected to be deleted, how did we get here? %@\n", buf, 0x16u);
           }
 
@@ -8140,22 +7944,22 @@ void __79__NSCloudKitMirroringDelegate__recoverUnknownItemRecordIDs_forStore_inM
           if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
           {
             v12 = *(a1 + 56);
-            *buf = v60;
-            v77 = v12;
-            v78 = 2112;
-            *v79 = v8;
+            *buf = v59;
+            v76 = v12;
+            v77 = 2112;
+            *v78 = v8;
             _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: %@: Unexpected state for record metadata. It was not found on the server but the local row was not expected to be deleted, how did we get here? %@", buf, 0x16u);
           }
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v71 objects:v84 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v70 objects:v83 count:16];
     }
 
     while (v4);
   }
 
-  if (![*(a1 + 48) save:&v75])
+  if (![*(a1 + 48) save:&v74])
   {
     v35 = objc_autoreleasePoolPush();
     v41 = __PFCloudKitLoggingGetStream();
@@ -8177,22 +7981,22 @@ void __79__NSCloudKitMirroringDelegate__recoverUnknownItemRecordIDs_forStore_inM
 
     v42 = *(a1 + 56);
     *buf = 136315906;
-    v77 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
-    v78 = 1024;
-    *v79 = 2946;
-    *&v79[4] = 2112;
-    *&v79[6] = v42;
-    v80 = 2112;
-    v81 = v75;
+    v76 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
+    v77 = 1024;
+    *v78 = 2946;
+    *&v78[4] = 2112;
+    *&v78[6] = v42;
+    v79 = 2112;
+    v80 = v74;
     v40 = "CoreData+CloudKit: %s(%d): %@: Failed to save record metadata changes from recovering unknown item errors: %@";
 LABEL_57:
     _os_log_impl(&dword_18565F000, v37, v38, v40, buf, 0x26u);
 LABEL_58:
     objc_autoreleasePoolPop(v35);
-    goto LABEL_83;
+    return;
   }
 
-  v13 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:*(a1 + 32) andRelatingRecordIDs:*(a1 + 40) fromStore:*(a1 + 48) inManagedObjectContext:&v75 error:?];
+  v13 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:*(a1 + 32) andRelatingRecordIDs:*(a1 + 40) fromStore:*(a1 + 48) inManagedObjectContext:&v74 error:?];
   v14 = v13;
   if (!v13)
   {
@@ -8216,37 +8020,37 @@ LABEL_58:
 
     v47 = *(a1 + 56);
     *buf = 136315906;
-    v77 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
-    v78 = 1024;
-    *v79 = 2943;
-    *&v79[4] = 2112;
-    *&v79[6] = v47;
-    v80 = 2112;
-    v81 = v75;
+    v76 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
+    v77 = 1024;
+    *v78 = 2943;
+    *&v78[4] = 2112;
+    *&v78[6] = v47;
+    v79 = 2112;
+    v80 = v74;
     v48 = "CoreData+CloudKit: %s(%d): %@: Failed to recover from unknown item error due to mirrored relationship fetch error: %@";
     goto LABEL_69;
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
-  v15 = [v13 countByEnumeratingWithState:&v67 objects:v83 count:16];
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v15 = [v13 countByEnumeratingWithState:&v66 objects:v82 count:16];
   if (v15)
   {
-    v17 = *v68;
+    v17 = *v67;
     *&v16 = 138412546;
-    v61 = v16;
+    v60 = v16;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v68 != v17)
+        if (*v67 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v67 + 1) + 8 * j);
+        v19 = *(*(&v66 + 1) + 8 * j);
         if ([v19 needsDeleteBool])
         {
           [*(a1 + 48) deleteObject:v19];
@@ -8258,10 +8062,10 @@ LABEL_58:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             v22 = *(a1 + 56);
-            *buf = v61;
-            v77 = v22;
-            v78 = 2112;
-            *v79 = v19;
+            *buf = v60;
+            v76 = v22;
+            v77 = 2112;
+            *v78 = v19;
             _os_log_error_impl(&dword_18565F000, v20, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Unexpected state for mirrored relationship metadata. It was not found on the server but the local row was not expected to be deleted, how did we get here? %@\n", buf, 0x16u);
           }
 
@@ -8269,22 +8073,22 @@ LABEL_58:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
             v23 = *(a1 + 56);
-            *buf = v61;
-            v77 = v23;
-            v78 = 2112;
-            *v79 = v19;
+            *buf = v60;
+            v76 = v23;
+            v77 = 2112;
+            *v78 = v19;
             _os_log_fault_impl(&dword_18565F000, v21, OS_LOG_TYPE_FAULT, "CoreData: %@: Unexpected state for mirrored relationship metadata. It was not found on the server but the local row was not expected to be deleted, how did we get here? %@", buf, 0x16u);
           }
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v67 objects:v83 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v66 objects:v82 count:16];
     }
 
     while (v15);
   }
 
-  if (![*(a1 + 48) save:&v75])
+  if (![*(a1 + 48) save:&v74])
   {
     v43 = objc_autoreleasePoolPush();
     v49 = __PFCloudKitLoggingGetStream();
@@ -8306,24 +8110,119 @@ LABEL_58:
 
     v50 = *(a1 + 56);
     *buf = 136315906;
-    v77 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
-    v78 = 1024;
-    *v79 = 2940;
-    *&v79[4] = 2112;
-    *&v79[6] = v50;
-    v80 = 2112;
-    v81 = v75;
+    v76 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
+    v77 = 1024;
+    *v78 = 2940;
+    *&v78[4] = 2112;
+    *&v78[6] = v50;
+    v79 = 2112;
+    v80 = v74;
     v48 = "CoreData+CloudKit: %s(%d): %@: Failed to save mirrored relationship changes from recovering unknown item errors: %@";
 LABEL_69:
     _os_log_impl(&dword_18565F000, v45, v46, v48, buf, 0x26u);
 LABEL_70:
     objc_autoreleasePoolPop(v43);
-    goto LABEL_83;
+    return;
   }
 
-  v24 = [NSCKRecordZoneMoveReceipt moveReceiptsMatchingRecordIDs:*(a1 + 32) inManagedObjectContext:*(a1 + 48) persistentStore:*(a1 + 40) error:&v75];
+  v24 = [NSCKRecordZoneMoveReceipt moveReceiptsMatchingRecordIDs:*(a1 + 32) inManagedObjectContext:*(a1 + 48) persistentStore:*(a1 + 40) error:&v74];
   v25 = v24;
-  if (!v24)
+  if (v24)
+  {
+    v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v26 = [v24 countByEnumeratingWithState:&v62 objects:v81 count:16];
+    if (v26)
+    {
+      v28 = *v63;
+      *&v27 = 138412546;
+      v61 = v27;
+      do
+      {
+        for (k = 0; k != v26; ++k)
+        {
+          if (*v63 != v28)
+          {
+            objc_enumerationMutation(v25);
+          }
+
+          v30 = *(*(&v62 + 1) + 8 * k);
+          if ([v30 needsCloudDelete])
+          {
+            [*(a1 + 48) deleteObject:v30];
+          }
+
+          else
+          {
+            v31 = _PFLogGetLogStream(17);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            {
+              v33 = *(a1 + 56);
+              *buf = v61;
+              v76 = v33;
+              v77 = 2112;
+              *v78 = v30;
+              _os_log_error_impl(&dword_18565F000, v31, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Unexpected move receipt state. It was not found on the server but the local row was not marked for cloud deletion. Why were we trying to access it? %@\n", buf, 0x16u);
+            }
+
+            v32 = _PFLogGetLogStream(17);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+            {
+              v34 = *(a1 + 56);
+              *buf = v61;
+              v76 = v34;
+              v77 = 2112;
+              *v78 = v30;
+              _os_log_fault_impl(&dword_18565F000, v32, OS_LOG_TYPE_FAULT, "CoreData: %@: Unexpected move receipt state. It was not found on the server but the local row was not marked for cloud deletion. Why were we trying to access it? %@", buf, 0x16u);
+            }
+          }
+        }
+
+        v26 = [v25 countByEnumeratingWithState:&v62 objects:v81 count:16];
+      }
+
+      while (v26);
+    }
+
+    if ([*(a1 + 48) save:&v74])
+    {
+      *(*(*(a1 + 64) + 8) + 24) = 1;
+      return;
+    }
+
+    v51 = objc_autoreleasePoolPush();
+    v57 = __PFCloudKitLoggingGetStream();
+    v53 = v57;
+    if (__ckLoggingOverride == 17)
+    {
+      v54 = OS_LOG_TYPE_FAULT;
+    }
+
+    else
+    {
+      v54 = OS_LOG_TYPE_ERROR;
+    }
+
+    if (!os_log_type_enabled(v57, v54))
+    {
+      goto LABEL_82;
+    }
+
+    v58 = *(a1 + 56);
+    *buf = 136315906;
+    v76 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
+    v77 = 1024;
+    *v78 = 2934;
+    *&v78[4] = 2112;
+    *&v78[6] = v58;
+    v79 = 2112;
+    v80 = v74;
+    v56 = "CoreData+CloudKit: %s(%d): %@: Failed to recover from unknown item error due to a save failure after deleting move receipts: %@";
+  }
+
+  else
   {
     v51 = objc_autoreleasePoolPush();
     v52 = __PFCloudKitLoggingGetStream();
@@ -8345,155 +8244,60 @@ LABEL_70:
 
     v55 = *(a1 + 56);
     *buf = 136315906;
-    v77 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
-    v78 = 1024;
-    *v79 = 2937;
-    *&v79[4] = 2112;
-    *&v79[6] = v55;
-    v80 = 2112;
-    v81 = v75;
+    v76 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
+    v77 = 1024;
+    *v78 = 2937;
+    *&v78[4] = 2112;
+    *&v78[6] = v55;
+    v79 = 2112;
+    v80 = v74;
     v56 = "CoreData+CloudKit: %s(%d): %@: Failed to recover from unknown item error due to move receipt fetch error: %@";
-    goto LABEL_81;
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v26 = [v24 countByEnumeratingWithState:&v63 objects:v82 count:16];
-  if (v26)
-  {
-    v28 = *v64;
-    *&v27 = 138412546;
-    v62 = v27;
-    do
-    {
-      for (k = 0; k != v26; ++k)
-      {
-        if (*v64 != v28)
-        {
-          objc_enumerationMutation(v25);
-        }
-
-        v30 = *(*(&v63 + 1) + 8 * k);
-        if ([v30 needsCloudDelete])
-        {
-          [*(a1 + 48) deleteObject:v30];
-        }
-
-        else
-        {
-          v31 = _PFLogGetLogStream(17);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-          {
-            v33 = *(a1 + 56);
-            *buf = v62;
-            v77 = v33;
-            v78 = 2112;
-            *v79 = v30;
-            _os_log_error_impl(&dword_18565F000, v31, OS_LOG_TYPE_ERROR, "CoreData: fault: %@: Unexpected move receipt state. It was not found on the server but the local row was not marked for cloud deletion. Why were we trying to access it? %@\n", buf, 0x16u);
-          }
-
-          v32 = _PFLogGetLogStream(17);
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
-          {
-            v34 = *(a1 + 56);
-            *buf = v62;
-            v77 = v34;
-            v78 = 2112;
-            *v79 = v30;
-            _os_log_fault_impl(&dword_18565F000, v32, OS_LOG_TYPE_FAULT, "CoreData: %@: Unexpected move receipt state. It was not found on the server but the local row was not marked for cloud deletion. Why were we trying to access it? %@", buf, 0x16u);
-          }
-        }
-      }
-
-      v26 = [v25 countByEnumeratingWithState:&v63 objects:v82 count:16];
-    }
-
-    while (v26);
-  }
-
-  if (![*(a1 + 48) save:&v75])
-  {
-    v51 = objc_autoreleasePoolPush();
-    v57 = __PFCloudKitLoggingGetStream();
-    v53 = v57;
-    if (__ckLoggingOverride == 17)
-    {
-      v54 = OS_LOG_TYPE_FAULT;
-    }
-
-    else
-    {
-      v54 = OS_LOG_TYPE_ERROR;
-    }
-
-    if (!os_log_type_enabled(v57, v54))
-    {
-      goto LABEL_82;
-    }
-
-    v58 = *(a1 + 56);
-    *buf = 136315906;
-    v77 = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
-    v78 = 1024;
-    *v79 = 2934;
-    *&v79[4] = 2112;
-    *&v79[6] = v58;
-    v80 = 2112;
-    v81 = v75;
-    v56 = "CoreData+CloudKit: %s(%d): %@: Failed to recover from unknown item error due to a save failure after deleting move receipts: %@";
-LABEL_81:
-    _os_log_impl(&dword_18565F000, v53, v54, v56, buf, 0x26u);
+  _os_log_impl(&dword_18565F000, v53, v54, v56, buf, 0x26u);
 LABEL_82:
-    objc_autoreleasePoolPop(v51);
-    goto LABEL_83;
-  }
-
-  *(*(*(a1 + 64) + 8) + 24) = 1;
-LABEL_83:
-  v59 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v51);
 }
 
-uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_forStore_inMonitor___block_invoke(uint64_t a1)
+void *__84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_forStore_inMonitor___block_invoke(void *a1)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
-  v2 = *(a1 + 32);
-  result = [v2 countByEnumeratingWithState:&v64 objects:v75 count:16];
-  v58 = result;
+  v2 = a1[4];
+  result = [v2 countByEnumeratingWithState:&v63 objects:v74 count:16];
+  v57 = result;
   if (result)
   {
     p_superclass = NSCloudKitMirroringRequestManager.superclass;
-    v57 = *v65;
+    v56 = *v64;
     *&v4 = 138412546;
-    v52 = v4;
-    v53 = v2;
+    v51 = v4;
+    v52 = v2;
     do
     {
       v6 = 0;
       do
       {
-        if (*v65 != v57)
+        if (*v64 != v56)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v64 + 1) + 8 * v6);
+        v7 = *(*(&v63 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        v63 = 0;
-        v9 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:]((p_superclass + 19), [v7 zoneID], objc_msgSend(*(*(a1 + 40) + 8), "databaseScope"), *(a1 + 48), *(a1 + 56), &v63);
+        v62 = 0;
+        v9 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:]((p_superclass + 19), [v7 zoneID], objc_msgSend(*(a1[5] + 8), "databaseScope"), a1[6], a1[7], &v62);
         if (v9)
         {
           v10 = v9;
           if ([(NSManagedObject *)v9 encodedShareAsset])
           {
-            v56 = v8;
+            v55 = v8;
             v11 = [(NSCKRecordZoneMetadata *)v10 createRecordZoneID];
-            v12 = *(*(a1 + 40) + 8);
+            v12 = *(a1[5] + 8);
             if (v12)
             {
               v13 = *(v12 + 136);
@@ -8526,53 +8330,53 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
               v24 = 0;
             }
 
-            v55 = v11;
-            v25 = [(PFCloudKitArchivingUtilities *)v13 shareFromEncodedData:v24 inZoneWithID:v11 error:&v63];
+            v54 = v11;
+            v25 = [(PFCloudKitArchivingUtilities *)v13 shareFromEncodedData:v24 inZoneWithID:v11 error:&v62];
             if (v25)
             {
-              v26 = [objc_alloc(getCloudKitCKShareClass[0]()) initWithRecordZoneID:{objc_msgSend(v7, "zoneID")}];
+              v26 = [objc_alloc(getCloudKitCKShareClass()) initWithRecordZoneID:{objc_msgSend(v7, "zoneID")}];
+              v58 = 0u;
               v59 = 0u;
               v60 = 0u;
               v61 = 0u;
-              v62 = 0u;
-              v54 = v25;
+              v53 = v25;
               v27 = [v25 participants];
-              v28 = [v27 countByEnumeratingWithState:&v59 objects:v74 count:16];
+              v28 = [v27 countByEnumeratingWithState:&v58 objects:v73 count:16];
               if (v28)
               {
                 v29 = v28;
-                v30 = *v60;
+                v30 = *v59;
                 do
                 {
                   for (i = 0; i != v29; ++i)
                   {
-                    if (*v60 != v30)
+                    if (*v59 != v30)
                     {
                       objc_enumerationMutation(v27);
                     }
 
-                    v32 = *(*(&v59 + 1) + 8 * i);
+                    v32 = *(*(&v58 + 1) + 8 * i);
                     if ([v32 role] != 1)
                     {
                       [v26 addParticipant:v32];
                     }
                   }
 
-                  v29 = [v27 countByEnumeratingWithState:&v59 objects:v74 count:16];
+                  v29 = [v27 countByEnumeratingWithState:&v58 objects:v73 count:16];
                 }
 
                 while (v29);
               }
 
-              v33 = *(*(a1 + 40) + 8);
-              if (v33 && (v34 = *(v33 + 136)) != 0 && (v35 = [(PFCloudKitArchivingUtilities *)v34 encodeRecord:v26 error:&v63]) != 0)
+              v33 = *(a1[5] + 8);
+              if (v33 && (v34 = *(v33 + 136)) != 0 && (v35 = [(PFCloudKitArchivingUtilities *)v34 encodeRecord:v26 error:&v62]) != 0)
               {
                 v36 = v35;
                 [(NSManagedObject *)v10 updateEncodedShareWithData:v35];
                 p_superclass = (NSCloudKitMirroringRequestManager + 8);
-                if ([*(a1 + 56) save:&v63])
+                if ([a1[7] save:&v62])
                 {
-                  *(*(*(a1 + 64) + 8) + 24) = 1;
+                  *(*(a1[8] + 8) + 24) = 1;
                 }
 
                 else
@@ -8593,13 +8397,13 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
                   if (os_log_type_enabled(Stream, v50))
                   {
                     *buf = 136315906;
-                    v69 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
-                    v70 = 1024;
-                    *v71 = 2998;
-                    *&v71[4] = 2112;
-                    *&v71[6] = v7;
-                    v72 = 2112;
-                    v73 = v63;
+                    v68 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
+                    v69 = 1024;
+                    *v70 = 2998;
+                    *&v70[4] = 2112;
+                    *&v70[6] = v7;
+                    v71 = 2112;
+                    v72 = v62;
                     _os_log_impl(&dword_18565F000, v49, v50, "CoreData+CloudKit: %s(%d): Failed to recover from an unknown item error because the share recovery save failed: %@\n%@", buf, 0x26u);
                   }
 
@@ -8626,13 +8430,13 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
                 if (os_log_type_enabled(v44, v46))
                 {
                   *buf = 136315906;
-                  v69 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
-                  v70 = 1024;
-                  *v71 = 3001;
-                  *&v71[4] = 2112;
-                  *&v71[6] = v7;
-                  v72 = 2112;
-                  v73 = v63;
+                  v68 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
+                  v69 = 1024;
+                  *v70 = 3001;
+                  *&v70[4] = 2112;
+                  *&v70[6] = v7;
+                  v71 = 2112;
+                  v72 = v62;
                   _os_log_impl(&dword_18565F000, v45, v46, "CoreData+CloudKit: %s(%d): Failed to recover from an unknown item error because the replacement share record couldn't be encoded: %@\n%@", buf, 0x26u);
                 }
 
@@ -8640,9 +8444,9 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
                 v36 = 0;
               }
 
-              v2 = v53;
-              v37 = v54;
-              v42 = v55;
+              v2 = v52;
+              v37 = v53;
+              v42 = v54;
             }
 
             else
@@ -8664,21 +8468,21 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
               if (os_log_type_enabled(v39, v41))
               {
                 *buf = 136315906;
-                v69 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
-                v70 = 1024;
-                *v71 = 3006;
-                *&v71[4] = 2112;
-                *&v71[6] = v7;
-                v72 = 2112;
-                v73 = v63;
+                v68 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
+                v69 = 1024;
+                *v70 = 3006;
+                *&v70[4] = 2112;
+                *&v70[6] = v7;
+                v71 = 2112;
+                v72 = v62;
                 _os_log_impl(&dword_18565F000, v40, v41, "CoreData+CloudKit: %s(%d): Failed to recover from unknown item error because the current share couldn't be decoded: %@ - %@", buf, 0x26u);
               }
 
               objc_autoreleasePoolPop(v38);
-              v42 = v55;
+              v42 = v54;
             }
 
-            v8 = v56;
+            v8 = v55;
           }
 
           else
@@ -8686,20 +8490,20 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
             LogStream = _PFLogGetLogStream(17);
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
-              *buf = v52;
-              v69 = v7;
-              v70 = 2112;
-              *v71 = v10;
+              *buf = v51;
+              v68 = v7;
+              v69 = 2112;
+              *v70 = v10;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Got an unknown item error for a zone metadata without a share: %@ - %@\n", buf, 0x16u);
             }
 
             v23 = _PFLogGetLogStream(17);
             if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
             {
-              *buf = v52;
-              v69 = v7;
-              v70 = 2112;
-              *v71 = v10;
+              *buf = v51;
+              v68 = v7;
+              v69 = 2112;
+              *v70 = v10;
               _os_log_fault_impl(&dword_18565F000, v23, OS_LOG_TYPE_FAULT, "CoreData: Got an unknown item error for a zone metadata without a share: %@ - %@", buf, 0x16u);
             }
           }
@@ -8724,13 +8528,13 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
           if (os_log_type_enabled(v19, v21))
           {
             *buf = 136315906;
-            v69 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
-            v70 = 1024;
-            *v71 = 3014;
-            *&v71[4] = 2112;
-            *&v71[6] = v7;
-            v72 = 2112;
-            v73 = v63;
+            v68 = "[NSCloudKitMirroringDelegate _recoverFromUnknownShareRecordIDs:forStore:inMonitor:]_block_invoke";
+            v69 = 1024;
+            *v70 = 3014;
+            *&v70[4] = 2112;
+            *&v70[6] = v7;
+            v71 = 2112;
+            v72 = v62;
             _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): Failed to recover from an unknown item error for '%@' because the zone metadata couldn't be fetched: %@", buf, 0x26u);
           }
 
@@ -8739,18 +8543,17 @@ uint64_t __84__NSCloudKitMirroringDelegate__recoverFromUnknownShareRecordIDs_for
         }
 
         objc_autoreleasePoolPop(v8);
-        ++v6;
+        v6 = v6 + 1;
       }
 
-      while (v6 != v58);
-      result = [v2 countByEnumeratingWithState:&v64 objects:v75 count:16];
-      v58 = result;
+      while (v6 != v57);
+      result = [v2 countByEnumeratingWithState:&v63 objects:v74 count:16];
+      v57 = result;
     }
 
     while (result);
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8760,47 +8563,46 @@ void __62__NSCloudKitMirroringDelegate__handleError_duringShareAccept___block_in
   [(NSCloudKitMirroringDelegate *)a1[5] _finishedRequest:v2 withResult:?];
 }
 
-- (uint64_t)retryAfterInSecondsFromError:(void *)error
+- (void)retryAfterInSecondsFromError:(void *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   code = [error code];
   userInfo = [error userInfo];
   if (code == 2)
   {
     v4 = [userInfo objectForKeyedSubscript:getCloudKitCKPartialErrorsByItemIDKey()];
+    v13 = 0u;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    result = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    result = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (result)
     {
       v6 = result;
-      v7 = *v16;
+      v7 = *v14;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v16 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [v4 objectForKey:*(*(&v15 + 1) + 8 * v8)];
+          v9 = [v4 objectForKey:*(*(&v13 + 1) + 8 * v8)];
           userInfo2 = [v9 userInfo];
           if ([userInfo2 objectForKeyedSubscript:getCloudKitCKErrorRetryAfterKey()])
           {
             userInfo3 = [v9 userInfo];
-            result = [userInfo3 objectForKeyedSubscript:getCloudKitCKErrorRetryAfterKey()];
-            goto LABEL_15;
+            return [userInfo3 objectForKeyedSubscript:getCloudKitCKErrorRetryAfterKey()];
           }
 
-          ++v8;
+          v8 = v8 + 1;
         }
 
         while (v6 != v8);
-        result = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        result = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
         v6 = result;
         if (result)
         {
@@ -8810,15 +8612,11 @@ void __62__NSCloudKitMirroringDelegate__handleError_duringShareAccept___block_in
         break;
       }
     }
-
-LABEL_15:
-    v14 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     CloudKitCKErrorRetryAfterKey = getCloudKitCKErrorRetryAfterKey();
-    v12 = *MEMORY[0x1E69E9840];
 
     return [userInfo objectForKey:CloudKitCKErrorRetryAfterKey];
   }
@@ -8828,7 +8626,7 @@ LABEL_15:
 
 - (void)_postResetSyncNotificationWithName:(void *)name forError:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = objc_autoreleasePoolPush();
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [v7 setObject:name forKey:*MEMORY[0x1E696AA08]];
@@ -8896,17 +8694,17 @@ LABEL_15:
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    v16 = 138412290;
+    v15 = 138412290;
     nameCopy2 = name;
-    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to get a reset sync reason for error even though we're posting a notification for it: %@\n", &v16, 0xCu);
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to get a reset sync reason for error even though we're posting a notification for it: %@\n", &v15, 0xCu);
   }
 
   v12 = _PFLogGetLogStream(17);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
   {
-    v16 = 138412290;
+    v15 = 138412290;
     nameCopy2 = name;
-    _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: Failed to get a reset sync reason for error even though we're posting a notification for it: %@", &v16, 0xCu);
+    _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: Failed to get a reset sync reason for error even though we're posting a notification for it: %@", &v15, 0xCu);
   }
 
 LABEL_21:
@@ -8916,14 +8714,12 @@ LABEL_21:
   [self logResetSyncNotification:v14];
   [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 
-  v15 = *MEMORY[0x1E69E9840];
-
   objc_autoreleasePoolPop(v6);
 }
 
 - (void)logResetSyncNotification:(id)notification
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@: Sending '%@'", self, objc_msgSend(notification, "name")];
   if ([objc_msgSend(notification "userInfo")])
   {
@@ -8946,36 +8742,35 @@ LABEL_21:
   if (os_log_type_enabled(Stream, v8))
   {
     *buf = 136315650;
-    v11 = "[NSCloudKitMirroringDelegate logResetSyncNotification:]";
-    v12 = 1024;
-    v13 = 3086;
-    v14 = 2112;
-    v15 = v4;
+    v10 = "[NSCloudKitMirroringDelegate logResetSyncNotification:]";
+    v11 = 1024;
+    v12 = 3086;
+    v13 = 2112;
+    v14 = v4;
     _os_log_impl(&dword_18565F000, v7, v8, "CoreData+CloudKit: %s(%d): %@", buf, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v5);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)exporter:(id)exporter willScheduleOperations:(id)operations
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  if (operations && [operations count])
+  v8[1] = *MEMORY[0x1E69E9840];
+  if (operations)
   {
-    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v8 = @"operations";
-    v9[0] = operations;
-    [defaultCenter postNotificationName:@"PFCloudKitWillExportNotificationName" object:self userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
+    if ([operations count])
+    {
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      v7 = @"operations";
+      v8[0] = operations;
+      [defaultCenter postNotificationName:@"PFCloudKitWillExportNotificationName" object:self userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
+    }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)managedObjectContextSaved:(id)saved
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(saved "userInfo")];
   if (v5)
   {
@@ -9033,114 +8828,107 @@ LABEL_21:
   if (os_log_type_enabled(Stream, v12))
   {
     *buf = 136316162;
-    v16 = "[NSCloudKitMirroringDelegate managedObjectContextSaved:]";
-    v17 = 1024;
-    v18 = 3140;
-    v19 = 2112;
+    v15 = "[NSCloudKitMirroringDelegate managedObjectContextSaved:]";
+    v16 = 1024;
+    v17 = 3140;
+    v18 = 2112;
     selfCopy = self;
-    v21 = 2112;
+    v20 = 2112;
     object = [saved object];
-    v23 = 2112;
-    v24 = WeakRetained;
+    v22 = 2112;
+    v23 = WeakRetained;
     _os_log_impl(&dword_18565F000, v9, v12, "CoreData+CloudKit: %s(%d): %@: Observed context save: %@ - %@", buf, 0x30u);
   }
 
   objc_autoreleasePoolPop(v7);
   if (!+[PFCloudKitHistoryAnalyzer isPrivateTransactionAuthor:](PFCloudKitHistoryAnalyzer, "isPrivateTransactionAuthor:", [WeakRetained transactionAuthor]) && !+[PFCloudKitHistoryAnalyzer isPrivateContextName:](PFCloudKitHistoryAnalyzer, "isPrivateContextName:", objc_msgSend(WeakRetained, "name")))
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke;
-    v14[3] = &unk_1E6EC4B10;
-    v14[4] = self;
-    v14[5] = saved;
-    [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v14 andExecuteWorkBlock:?];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke;
+    v13[3] = &unk_1E6EC4B10;
+    v13[4] = self;
+    v13[5] = saved;
+    [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v13 andExecuteWorkBlock:?];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke(int8x16_t *a1, uint64_t a2)
+void __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke(int8x16_t *a1)
 {
   WeakRetained = objc_loadWeakRetained((a1[2].i64[0] + 120));
-  v5 = a1[2].i64[0];
-  if (v5 && (v6 = *(v5 + 8)) != 0)
+  v3 = a1[2].i64[0];
+  if (v3 && (v4 = *(v3 + 8)) != 0)
   {
-    v7 = *(v6 + 88);
+    v5 = *(v4 + 88);
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  Weak = objc_loadWeak((v5 + 112));
-  if (a2)
-  {
-    v9 = *(a2 + 8);
-  }
-
-  v10 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v7 inTransactionWithLabel:Weak];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke_2;
-  v11[3] = &unk_1E6EC19D8;
-  v11[4] = v10;
-  v12 = vextq_s8(a1[2], a1[2], 8uLL);
-  [(PFCloudKitStoreMonitor *)v10 performBlock:v11];
+  Weak = objc_loadWeak((v3 + 112));
+  v7 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v5 inTransactionWithLabel:Weak];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke_2;
+  v8[3] = &unk_1E6EC19D8;
+  v8[4] = v7;
+  v9 = vextq_s8(a1[2], a1[2], 8uLL);
+  [(PFCloudKitStoreMonitor *)v7 performBlock:v8];
 }
 
 void __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v29[0] = @"inserted_objectIDs";
-    v29[1] = @"updated_objectIDs";
-    v29[2] = @"deleted_objectIDs";
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
-    v4 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v28[0] = @"inserted_objectIDs";
+    v28[1] = @"updated_objectIDs";
+    v28[2] = @"deleted_objectIDs";
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+    v4 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v4)
     {
       v5 = v4;
-      v19 = v2;
+      v18 = v2;
       v6 = 0;
-      v7 = *v25;
+      v7 = *v24;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v25 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
           v9 = [objc_msgSend(*(a1 + 40) "userInfo")];
+          v19 = 0u;
           v20 = 0u;
           v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
-          v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v21;
+            v12 = *v20;
             do
             {
               v13 = 0;
               do
               {
-                if (*v21 != v12)
+                if (*v20 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v14 = [*(*(&v20 + 1) + 8 * v13) _storeIdentifier];
+                v14 = [*(*(&v19 + 1) + 8 * v13) _storeIdentifier];
                 v15 = *(a1 + 32);
                 if (v15)
                 {
@@ -9162,7 +8950,7 @@ void __57__NSCloudKitMirroringDelegate_managedObjectContextSaved___block_invoke_
               }
 
               while (v11 != v13);
-              v17 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v17 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
               v11 = v17;
             }
 
@@ -9173,24 +8961,22 @@ LABEL_21:
           ;
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v5);
-      v2 = v19;
+      v2 = v18;
       if (v6)
       {
         [(NSCloudKitMirroringDelegate *)*(a1 + 48) scheduleExportAndStartAfterDate:?];
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteStoreDidChange:(id)change
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(change "userInfo")];
   v6 = [objc_msgSend(change "userInfo")];
   v7 = [objc_msgSend(change "userInfo")];
@@ -9240,59 +9026,53 @@ LABEL_21:
   if (os_log_type_enabled(Stream, v13))
   {
     *buf = 136316674;
-    v17 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]";
-    v18 = 1024;
-    v19 = 3183;
-    v20 = 2112;
+    v16 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]";
+    v17 = 1024;
+    v18 = 3183;
+    v19 = 2112;
     selfCopy = self;
-    v22 = 2112;
+    v21 = 2112;
     object = [change object];
-    v24 = 2112;
-    v25 = v7;
-    v26 = 2112;
-    v27 = v6;
-    v28 = 2112;
-    v29 = v5;
+    v23 = 2112;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v6;
+    v27 = 2112;
+    v28 = v5;
     _os_log_impl(&dword_18565F000, v10, v13, "CoreData+CloudKit: %s(%d): %@: Observed remote store notification: %@ - %@ - %@ - %@", buf, 0x44u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke;
-  v15[3] = &unk_1E6EC4CF0;
-  v15[4] = self;
-  v15[5] = v7;
-  v15[6] = v6;
-  v15[7] = v5;
-  [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v15 andExecuteWorkBlock:?];
-  v14 = *MEMORY[0x1E69E9840];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke;
+  v14[3] = &unk_1E6EC4CF0;
+  v14[4] = self;
+  v14[5] = v7;
+  v14[6] = v6;
+  v14[7] = v5;
+  [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v14 andExecuteWorkBlock:?];
 }
 
-void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke(uint64_t a1, uint64_t a2)
+void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke(uint64_t a1)
 {
-  v4 = *(a1 + 32);
-  if (v4 && (v5 = *(v4 + 8)) != 0)
+  v2 = *(a1 + 32);
+  if (v2 && (v3 = *(v2 + 8)) != 0)
   {
-    v6 = *(v5 + 88);
+    v4 = *(v3 + 88);
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  Weak = objc_loadWeak((v4 + 112));
-  if (a2)
+  Weak = objc_loadWeak((v2 + 112));
+  v6 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v4 inTransactionWithLabel:Weak];
+  v7 = v6;
+  if (v6)
   {
-    v8 = *(a2 + 8);
-  }
-
-  v9 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v6 inTransactionWithLabel:Weak];
-  v10 = v9;
-  if (v9)
-  {
-    WeakRetained = objc_loadWeakRetained((v9 + 32));
+    WeakRetained = objc_loadWeakRetained(v6 + 4);
   }
 
   else
@@ -9300,21 +9080,21 @@ void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke(uint6
     WeakRetained = 0;
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_2;
-  v13[3] = &unk_1E6EC4470;
-  v13[4] = v10;
-  v14 = *(a1 + 40);
-  v12 = *(a1 + 56);
-  v15 = *(a1 + 32);
-  v16 = v12;
-  [(PFCloudKitStoreMonitor *)v10 performBlock:v13];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_2;
+  v10[3] = &unk_1E6EC4470;
+  v10[4] = v7;
+  v11 = *(a1 + 40);
+  v9 = *(a1 + 56);
+  v12 = *(a1 + 32);
+  v13 = v9;
+  [(PFCloudKitStoreMonitor *)v7 performBlock:v10];
 }
 
 void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_2(uint64_t *a1)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)a1[4] retainedMonitoredStore];
   if (v2)
   {
@@ -9350,34 +9130,34 @@ void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_2(uin
         if (v9)
         {
           v10 = v9;
-          v67 = 0;
-          v68 = &v67;
-          v69 = 0x2020000000;
-          v70 = 1;
-          v61 = 0;
-          v62 = &v61;
-          v63 = 0x3052000000;
-          v64 = __Block_byref_object_copy__41;
-          v65 = __Block_byref_object_dispose__41;
           v66 = 0;
-          v55 = 0;
-          v56 = &v55;
-          v57 = 0x3052000000;
-          v58 = __Block_byref_object_copy__41;
-          v59 = __Block_byref_object_dispose__41;
+          v67 = &v66;
+          v68 = 0x2020000000;
+          v69 = 1;
           v60 = 0;
+          v61 = &v60;
+          v62 = 0x3052000000;
+          v63 = __Block_byref_object_copy__41;
+          v64 = __Block_byref_object_dispose__41;
+          v65 = 0;
+          v54 = 0;
+          v55 = &v54;
+          v56 = 0x3052000000;
+          v57 = __Block_byref_object_copy__41;
+          v58 = __Block_byref_object_dispose__41;
+          v59 = 0;
           v11 = [(PFCloudKitStoreMonitor *)a1[4] newBackgroundContextForMonitoredCoordinator];
-          v54[0] = MEMORY[0x1E69E9820];
-          v54[1] = 3221225472;
-          v54[2] = __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_3;
-          v54[3] = &unk_1E6EC3A80;
-          v54[4] = v2;
-          v54[5] = v11;
-          v54[6] = &v55;
-          v54[7] = &v67;
-          v54[8] = &v61;
-          [(NSManagedObjectContext *)v11 performBlockAndWait:v54];
-          if (*(v68 + 24) != 1)
+          v53[0] = MEMORY[0x1E69E9820];
+          v53[1] = 3221225472;
+          v53[2] = __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_3;
+          v53[3] = &unk_1E6EC3A80;
+          v53[4] = v2;
+          v53[5] = v11;
+          v53[6] = &v54;
+          v53[7] = &v66;
+          v53[8] = &v60;
+          [(NSManagedObjectContext *)v11 performBlockAndWait:v53];
+          if (*(v67 + 24) != 1)
           {
             v46 = objc_autoreleasePoolPush();
             Stream = __PFCloudKitLoggingGetStream();
@@ -9395,17 +9175,17 @@ void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_2(uin
             if (os_log_type_enabled(Stream, v49))
             {
               v50 = a1[7];
-              v51 = v56[5];
+              v51 = v55[5];
               *buf = 136316162;
-              v72 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
-              v73 = 1024;
-              v74 = 3224;
-              v75 = 2112;
-              v76 = v50;
-              v77 = 2112;
-              v78 = v51;
-              v79 = 2112;
-              v80 = v2;
+              v71 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
+              v72 = 1024;
+              v73 = 3224;
+              v74 = 2112;
+              v75 = v50;
+              v76 = 2112;
+              v77 = v51;
+              v78 = 2112;
+              v79 = v2;
               _os_log_impl(&dword_18565F000, v48, v49, "CoreData+CloudKit: %s(%d): %@ - Ignoring remote change notification because the current history token couldn't be read: %@ - %@", buf, 0x30u);
             }
 
@@ -9413,18 +9193,18 @@ void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_2(uin
             goto LABEL_94;
           }
 
-          v12 = [objc_msgSend(v62[5] "storeTokens")];
+          v12 = [objc_msgSend(v61[5] "storeTokens")];
           v13 = v12;
           if (!v12 || [v12 compare:v10] == -1)
           {
             [(NSCloudKitMirroringDelegate *)a1[7] scheduleExportAndStartAfterDate:?];
 LABEL_94:
 
-            v62[5] = 0;
-            v56[5] = 0;
-            _Block_object_dispose(&v55, 8);
-            _Block_object_dispose(&v61, 8);
-            _Block_object_dispose(&v67, 8);
+            v61[5] = 0;
+            v55[5] = 0;
+            _Block_object_dispose(&v54, 8);
+            _Block_object_dispose(&v60, 8);
+            _Block_object_dispose(&v66, 8);
             goto LABEL_95;
           }
 
@@ -9451,17 +9231,17 @@ LABEL_91:
           {
             v52 = a1[7];
             *buf = 136316418;
-            v72 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
-            v73 = 1024;
-            v74 = 3221;
-            v75 = 2112;
-            v76 = v52;
-            v77 = 2112;
-            v78 = v13;
-            v79 = 2112;
-            v80 = v10;
-            v81 = 2112;
-            v82 = v2;
+            v71 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
+            v72 = 1024;
+            v73 = 3221;
+            v74 = 2112;
+            v75 = v52;
+            v76 = 2112;
+            v77 = v13;
+            v78 = 2112;
+            v79 = v10;
+            v80 = 2112;
+            v81 = v2;
             _os_log_impl(&dword_18565F000, v16, v17, "CoreData+CloudKit: %s(%d): %@ - Ignoring remote change notification because the exporter has already caught up to this transaction: %@ / %@ - %@", buf, 0x3Au);
           }
 
@@ -9516,13 +9296,13 @@ LABEL_91:
         {
           v45 = a1[7];
           *buf = 136315906;
-          v72 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
-          v73 = 1024;
-          v74 = 3230;
-          v75 = 2112;
-          v76 = v45;
-          v77 = 2112;
-          v78 = v2;
+          v71 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
+          v72 = 1024;
+          v73 = 3230;
+          v74 = 2112;
+          v75 = v45;
+          v76 = 2112;
+          v77 = v2;
           _os_log_impl(&dword_18565F000, v41, v44, "CoreData+CloudKit: %s(%d): %@ - Ignoring remote change notification because it didn't change any entities in the monitored store: %@", buf, 0x26u);
         }
       }
@@ -9576,13 +9356,13 @@ LABEL_91:
         {
           v39 = a1[7];
           *buf = 136315906;
-          v72 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
-          v73 = 1024;
-          v74 = 3233;
-          v75 = 2112;
-          v76 = v39;
-          v77 = 2112;
-          v78 = v2;
+          v71 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
+          v72 = 1024;
+          v73 = 3233;
+          v74 = 2112;
+          v75 = v39;
+          v76 = 2112;
+          v77 = v2;
           _os_log_impl(&dword_18565F000, v35, v38, "CoreData+CloudKit: %s(%d): %@ - Ignoring remote change notification because it didn't change any entities tracked by persistent history: %@", buf, 0x26u);
         }
       }
@@ -9644,15 +9424,15 @@ LABEL_91:
 
         v33 = a1[5];
         *buf = 136316162;
-        v72 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
-        v73 = 1024;
-        v74 = 3236;
-        v75 = 2112;
-        v76 = v31;
-        v77 = 2112;
-        v78 = v32;
-        v79 = 2112;
-        v80 = v33;
+        v71 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
+        v72 = 1024;
+        v73 = 3236;
+        v74 = 2112;
+        v75 = v31;
+        v76 = 2112;
+        v77 = v32;
+        v78 = 2112;
+        v79 = v33;
         _os_log_impl(&dword_18565F000, v27, v30, "CoreData+CloudKit: %s(%d): %@ - Ignoring remote change notification because it's for a different store: %@ / %@", buf, 0x30u);
       }
     }
@@ -9708,31 +9488,29 @@ LABEL_91:
       v24 = a1[7];
       v25 = a1[8];
       *buf = 136315906;
-      v72 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
-      v73 = 1024;
-      v74 = 3240;
-      v75 = 2112;
-      v76 = v24;
-      v77 = 2112;
-      v78 = v25;
+      v71 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke";
+      v72 = 1024;
+      v73 = 3240;
+      v74 = 2112;
+      v75 = v24;
+      v76 = 2112;
+      v77 = v25;
       _os_log_impl(&dword_18565F000, v20, v23, "CoreData+CloudKit: %s(%d): %@: Ignoring remote change notification because the store has been removed from the coordinator: %@", buf, 0x26u);
     }
   }
 
   objc_autoreleasePoolPop(v18);
 LABEL_95:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
-void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_3(uint64_t a1)
+void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_3(uint64_t *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = [NSCKMetadataEntry entryForKey:*(a1 + 32) fromStore:*(a1 + 40) inManagedObjectContext:*(*(a1 + 48) + 8) + 40 error:?];
-  if (*(*(*(a1 + 48) + 8) + 40))
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = [NSCKMetadataEntry entryForKey:a1[4] fromStore:a1[5] inManagedObjectContext:*(a1[6] + 8) + 40 error:?];
+  if (*(*(a1[6] + 8) + 40))
   {
-    *(*(*(a1 + 56) + 8) + 24) = 0;
-    v3 = *(*(*(a1 + 48) + 8) + 40);
+    *(*(a1[7] + 8) + 24) = 0;
+    v3 = *(*(a1[6] + 8) + 40);
     v4 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
     v6 = Stream;
@@ -9748,14 +9526,14 @@ void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_3(uin
 
     if (os_log_type_enabled(Stream, v7))
     {
-      v8 = *(*(*(a1 + 48) + 8) + 40);
-      v10 = 136315650;
-      v11 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke_3";
-      v12 = 1024;
-      v13 = 3209;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_18565F000, v6, v7, "CoreData+CloudKit: %s(%d): Unable to read the last history token: %@", &v10, 0x1Cu);
+      v8 = *(*(a1[6] + 8) + 40);
+      v9 = 136315650;
+      v10 = "[NSCloudKitMirroringDelegate remoteStoreDidChange:]_block_invoke_3";
+      v11 = 1024;
+      v12 = 3209;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_18565F000, v6, v7, "CoreData+CloudKit: %s(%d): Unable to read the last history token: %@", &v9, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -9763,10 +9541,8 @@ void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_3(uin
 
   else
   {
-    *(*(*(a1 + 64) + 8) + 40) = [v2 transformedValue];
+    *(*(a1[8] + 8) + 40) = [v2 transformedValue];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newActivityWithIdentifier:(void *)identifier andVoucher:
@@ -9816,7 +9592,7 @@ void __52__NSCloudKitMirroringDelegate_remoteStoreDidChange___block_invoke_3(uin
 
 void __73__NSCloudKitMirroringDelegate_setupMirroringDelegateFromPushNotification__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(NSCloudKitMirroringDelegateSetupRequestOptions);
   if ([*(*(a1 + 32) + 8) defaultOperationConfiguration])
   {
@@ -9830,7 +9606,7 @@ void __73__NSCloudKitMirroringDelegate_setupMirroringDelegateFromPushNotificatio
 
   v3 = [(NSCloudKitMirroringRequest *)[NSCloudKitMirroringDelegateSetupRequest alloc] initWithOptions:v2 completionBlock:0];
   [(NSCloudKitMirroringDelegate *)*(a1 + 32) beginActivitiesForRequest:v3];
-  v16 = 0;
+  v15 = 0;
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -9842,7 +9618,7 @@ void __73__NSCloudKitMirroringDelegate_setupMirroringDelegateFromPushNotificatio
     v5 = 0;
   }
 
-  v6 = [(NSCloudKitMirroringRequestManager *)v5 enqueueRequest:v3 error:&v16];
+  v6 = [(NSCloudKitMirroringRequestManager *)v5 enqueueRequest:v3 error:&v15];
   v7 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v9 = Stream;
@@ -9877,13 +9653,13 @@ void __73__NSCloudKitMirroringDelegate_setupMirroringDelegateFromPushNotificatio
     {
       v12 = *(a1 + 32);
       *buf = 136315906;
-      v18 = "[NSCloudKitMirroringDelegate setupMirroringDelegateFromPushNotification]_block_invoke";
-      v19 = 1024;
-      v20 = 3315;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v3;
+      v17 = "[NSCloudKitMirroringDelegate setupMirroringDelegateFromPushNotification]_block_invoke";
+      v18 = 1024;
+      v19 = 3315;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v3;
       _os_log_impl(&dword_18565F000, v9, v11, "CoreData+CloudKit: %s(%d): %@: Successfully enqueued setup request from push notification: %@", buf, 0x26u);
     }
 
@@ -9907,20 +9683,18 @@ void __73__NSCloudKitMirroringDelegate_setupMirroringDelegateFromPushNotificatio
     {
       v14 = *(a1 + 32);
       *buf = 136315906;
-      v18 = "[NSCloudKitMirroringDelegate setupMirroringDelegateFromPushNotification]_block_invoke";
-      v19 = 1024;
-      v20 = 3318;
-      v21 = 2112;
-      v22 = v14;
-      v23 = 2112;
-      v24 = v16;
+      v17 = "[NSCloudKitMirroringDelegate setupMirroringDelegateFromPushNotification]_block_invoke";
+      v18 = 1024;
+      v19 = 3318;
+      v20 = 2112;
+      v21 = v14;
+      v22 = 2112;
+      v23 = v15;
       _os_log_impl(&dword_18565F000, v9, v13, "CoreData+CloudKit: %s(%d): %@: Failed to enqueue setup request, this likely means one is already scheduled and this has collided: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke(uint64_t a1)
@@ -9952,7 +9726,7 @@ void __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPus
 
 void __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v4 = Stream;
@@ -10012,40 +9786,40 @@ void __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPus
   v9 = [(PFCloudKitStoreMonitor *)*(a1 + 40) retainedMonitoredStore];
   if (v9)
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 1;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
+    v26 = 1;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3052000000;
     *&buf[24] = __Block_byref_object_copy__41;
-    v29 = __Block_byref_object_dispose__41;
-    v30 = 0;
+    v28 = __Block_byref_object_dispose__41;
+    v29 = 0;
     v10 = [(PFCloudKitStoreMonitor *)*(a1 + 40) newBackgroundContextForMonitoredCoordinator];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke_444;
-    v21[3] = &unk_1E6EC4D40;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke_444;
+    v20[3] = &unk_1E6EC4D40;
     v11 = *(a1 + 32);
-    v22 = *(a1 + 56);
-    v23 = *(a1 + 57);
-    v21[4] = v11;
-    v21[5] = v9;
+    v21 = *(a1 + 56);
+    v22 = *(a1 + 57);
+    v20[4] = v11;
+    v20[5] = v9;
     v12 = *(a1 + 48);
-    v21[6] = v10;
-    v21[7] = v12;
-    v21[8] = &v24;
-    v21[9] = buf;
-    [(NSManagedObjectContext *)v10 performBlockAndWait:v21];
-    if ((v25[3] & 1) == 0)
+    v20[6] = v10;
+    v20[7] = v12;
+    v20[8] = &v23;
+    v20[9] = buf;
+    [(NSManagedObjectContext *)v10 performBlockAndWait:v20];
+    if ((v24[3] & 1) == 0)
     {
       [NSCloudKitMirroringDelegate resetAfterError:*(*&buf[8] + 40) andKeepContainer:?];
     }
 
     *(*&buf[8] + 40) = 0;
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
   }
 
   else
@@ -10107,23 +9881,21 @@ void __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPus
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke_444(uint64_t a1)
 {
   v1 = a1;
-  v88 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 208) usableVoucherForEventType:1];
-  v75[0] = 0;
-  v61 = v2;
+  v76[0] = 0;
+  v62 = v2;
   if (v2)
   {
     v3 = [objc_msgSend(v2 "operationConfiguration")] > 24;
     if (*(v1 + 80) == 1)
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Push-Voucher-%@", objc_msgSend(v61, "label")];
+      v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v62 label]);
 LABEL_16:
       v10 = 1;
       goto LABEL_17;
@@ -10163,13 +9935,13 @@ LABEL_16:
     v6 = 0;
   }
 
-  v7 = +[NSCKDatabaseMetadata databaseMetadataForScope:forStore:inContext:error:](NSCKDatabaseMetadata, [v6 databaseScope], *(v1 + 40), *(v1 + 48), v75);
+  v7 = +[NSCKDatabaseMetadata databaseMetadataForScope:forStore:inContext:error:](NSCKDatabaseMetadata, [v6 databaseScope], *(v1 + 40), *(v1 + 48), v76);
   v8 = v7;
   if (v7)
   {
     if ([(NSCloudKitMirroringDelegate *)*(v1 + 32) _dateExceedsSchedulingThreshold:?])
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Database-LastFetchDate-%@", -[NSManagedObject lastFetchDate](v8, "lastFetchDate")];
+      v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSManagedObject *)v8 lastFetchDate]);
       v9 = *(*(v1 + 32) + 8);
       if (v9)
       {
@@ -10179,74 +9951,74 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v73 = 0u;
     v74 = 0u;
-    v71 = 0u;
+    v75 = 0u;
     v72 = 0u;
-    v38 = [(NSManagedObject *)v8 recordZones];
-    v39 = [v38 countByEnumeratingWithState:&v71 objects:v87 count:16];
-    if (!v39)
+    v73 = 0u;
+    v40 = [(NSManagedObject *)v8 recordZones];
+    v41 = [v40 countByEnumeratingWithState:&v72 objects:v88 count:16];
+    if (!v41)
     {
       v10 = 0;
       v4 = 0;
       goto LABEL_17;
     }
 
-    v66 = v1;
+    v67 = v1;
     v10 = 0;
     v4 = 0;
-    obj = v38;
-    v63 = *v72;
+    obj = v40;
+    v64 = *v73;
 LABEL_58:
-    v64 = v39;
-    v40 = 0;
+    v65 = v41;
+    v42 = 0;
     while (1)
     {
-      if (*v72 != v63)
+      if (*v73 != v64)
       {
         objc_enumerationMutation(obj);
       }
 
-      v41 = *(*(&v71 + 1) + 8 * v40);
-      v65 = v40;
-      if ([v41 needsImport])
+      v43 = *(*(&v72 + 1) + 8 * v42);
+      v66 = v42;
+      if ([v43 needsImport])
       {
-        v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Zone-%@", objc_msgSend(v41, "ckRecordZoneName")];
+        v44 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v43 ckRecordZoneName]);
 LABEL_65:
-        v4 = v42;
+        v4 = v44;
         v10 = 1;
         goto LABEL_66;
       }
 
-      if (-[NSCloudKitMirroringDelegate _dateExceedsSchedulingThreshold:](*(v66 + 32), [v41 lastFetchDate]))
+      if (-[NSCloudKitMirroringDelegate _dateExceedsSchedulingThreshold:](*(v67 + 32), [v43 lastFetchDate]))
       {
-        [v41 setNeedsImport:1];
-        v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Zone-LastFetchDate-%@-%@", objc_msgSend(v41, "ckRecordZoneName"), objc_msgSend(v41, "lastFetchDate")];
+        [v43 setNeedsImport:1];
+        v44 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v43 ckRecordZoneName], objc_msgSend(v43, "lastFetchDate"));
         goto LABEL_65;
       }
 
-      if ([*(*(v66 + 32) + 8) databaseScope] == 1)
+      if ([*(*(v67 + 32) + 8) databaseScope] == 1)
       {
-        v69 = 0u;
         v70 = 0u;
-        v67 = 0u;
+        v71 = 0u;
         v68 = 0u;
-        v43 = [v41 queries];
-        v44 = [v43 countByEnumeratingWithState:&v67 objects:v86 count:16];
-        if (v44)
+        v69 = 0u;
+        v45 = [v43 queries];
+        v46 = [v45 countByEnumeratingWithState:&v68 objects:v87 count:16];
+        if (v46)
         {
           break;
         }
       }
 
 LABEL_66:
-      ++v40;
-      if (v65 + 1 == v64)
+      ++v42;
+      if (v66 + 1 == v65)
       {
-        v39 = [obj countByEnumeratingWithState:&v71 objects:v87 count:16];
-        if (!v39)
+        v41 = [obj countByEnumeratingWithState:&v72 objects:v88 count:16];
+        if (!v41)
         {
-          v1 = v66;
+          v1 = v67;
           goto LABEL_17;
         }
 
@@ -10254,34 +10026,34 @@ LABEL_66:
       }
     }
 
-    v45 = *v68;
+    v47 = *v69;
 LABEL_71:
-    v46 = 0;
+    v48 = 0;
     while (1)
     {
-      if (*v68 != v45)
+      if (*v69 != v47)
       {
-        objc_enumerationMutation(v43);
+        objc_enumerationMutation(v45);
       }
 
-      v47 = *(*(&v67 + 1) + 8 * v46);
-      if ([v47 queryCursor])
+      v49 = *(*(&v68 + 1) + 8 * v48);
+      if ([v49 queryCursor])
       {
         break;
       }
 
-      if (-[NSCloudKitMirroringDelegate _dateExceedsSchedulingThreshold:](*(v66 + 32), [v47 lastFetchDate]))
+      if (-[NSCloudKitMirroringDelegate _dateExceedsSchedulingThreshold:](*(v67 + 32), [v49 lastFetchDate]))
       {
-        [v41 setNeedsImport:1];
-        v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Zone-QueryLastFetchDate-%@-%@-%@", objc_msgSend(v41, "ckRecordZoneName"), objc_msgSend(v47, "recordType"), objc_msgSend(v47, "lastFetchDate")];
+        [v43 setNeedsImport:1];
+        v50 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v43 ckRecordZoneName], objc_msgSend(v49, "recordType"), objc_msgSend(v49, "lastFetchDate"));
         goto LABEL_78;
       }
 
 LABEL_79:
-      if (v44 == ++v46)
+      if (v46 == ++v48)
       {
-        v44 = [v43 countByEnumeratingWithState:&v67 objects:v86 count:16];
-        if (!v44)
+        v46 = [v45 countByEnumeratingWithState:&v68 objects:v87 count:16];
+        if (!v46)
         {
           goto LABEL_66;
         }
@@ -10290,10 +10062,10 @@ LABEL_79:
       }
     }
 
-    [v41 setNeedsImport:1];
-    v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Zone-QueryCursor-%@-%@", objc_msgSend(v41, "ckRecordZoneName"), objc_msgSend(v47, "recordType")];
+    [v43 setNeedsImport:1];
+    v50 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v43 ckRecordZoneName], objc_msgSend(v49, "recordType"));
 LABEL_78:
-    v4 = v48;
+    v4 = v50;
     v10 = 1;
     goto LABEL_79;
   }
@@ -10302,7 +10074,7 @@ LABEL_78:
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v77 = v75[0];
+    v78 = v76[0];
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to fetch database metadata during automatic import check: %@\n", buf, 0xCu);
   }
 
@@ -10310,14 +10082,14 @@ LABEL_78:
   if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v77 = v75[0];
+    v78 = v76[0];
     _os_log_fault_impl(&dword_18565F000, v33, OS_LOG_TYPE_FAULT, "CoreData: Failed to fetch database metadata during automatic import check: %@", buf, 0xCu);
   }
 
   v10 = 0;
   v4 = 0;
 LABEL_17:
-  if ([*(v1 + 48) hasChanges] && (objc_msgSend(*(v1 + 48), "save:", v75) & 1) == 0)
+  if ([*(v1 + 48) hasChanges] && (objc_msgSend(*(v1 + 48), "save:", v76) & 1) == 0)
   {
     v11 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
@@ -10336,13 +10108,13 @@ LABEL_17:
     {
       v15 = *(v1 + 32);
       *buf = 136315906;
-      v77 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
-      v78 = 1024;
-      v79 = 3417;
-      v80 = 2112;
-      v81 = v15;
-      v82 = 2112;
-      v83 = v75[0];
+      v78 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
+      v79 = 1024;
+      v80 = 3417;
+      v81 = 2112;
+      v82 = v15;
+      v83 = 2112;
+      v84 = v76[0];
       _os_log_impl(&dword_18565F000, v13, v14, "CoreData+CloudKit: %s(%d): %@: Failed to save metadata changes during import check: %@", buf, 0x26u);
     }
 
@@ -10361,24 +10133,24 @@ LABEL_17:
       v16 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v49 = *(v1 + 32);
+        v51 = *(v1 + 32);
         *buf = 138412290;
-        v77 = v49;
+        v78 = v51;
         _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: fault: Mirroring delegate is scheduling an import but didn't log why: %@\n", buf, 0xCu);
       }
 
       v17 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        v50 = *(v1 + 32);
+        v52 = *(v1 + 32);
         *buf = 138412290;
-        v77 = v50;
+        v78 = v52;
         _os_log_fault_impl(&dword_18565F000, v17, OS_LOG_TYPE_FAULT, "CoreData: Mirroring delegate is scheduling an import but didn't log why: %@", buf, 0xCu);
         if (v3)
         {
 LABEL_32:
           v18 = objc_autoreleasePoolPush();
-          if (v61)
+          if (v62)
           {
             v19 = __PFCloudKitLoggingGetStream();
             v20 = v19;
@@ -10399,15 +10171,15 @@ LABEL_32:
 
             v22 = *(v1 + 32);
             *buf = 136316162;
-            v77 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
-            v78 = 1024;
-            v79 = 3446;
-            v80 = 2112;
-            v81 = v22;
-            v82 = 2112;
-            v83 = v4;
-            v84 = 2112;
-            v85 = v61;
+            v78 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
+            v79 = 1024;
+            v80 = 3446;
+            v81 = 2112;
+            v82 = v22;
+            v83 = 2112;
+            v84 = v4;
+            v85 = 2112;
+            v86 = v62;
             v23 = "CoreData+CloudKit: %s(%d): %@: Bypassing dasd for scheduling for voucher: %@\n%@";
             v24 = v20;
             v25 = v21;
@@ -10435,13 +10207,13 @@ LABEL_32:
 
             v37 = *(v1 + 32);
             *buf = 136315906;
-            v77 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
-            v78 = 1024;
-            v79 = 3448;
-            v80 = 2112;
-            v81 = v37;
-            v82 = 2112;
-            v83 = v4;
+            v78 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
+            v79 = 1024;
+            v80 = 3448;
+            v81 = 2112;
+            v82 = v37;
+            v83 = 2112;
+            v84 = v4;
             v23 = "CoreData+CloudKit: %s(%d): %@: Bypassing dasd for scheduling for HomeKit: %@";
             v24 = v35;
             v25 = v36;
@@ -10451,7 +10223,9 @@ LABEL_32:
           _os_log_impl(&dword_18565F000, v24, v25, v23, buf, v26);
 LABEL_55:
           objc_autoreleasePoolPop(v18);
-          -[NSCloudKitMirroringDelegate _scheduleAutomatedImportWithLabel:activity:voucher:completionHandler:](*(v1 + 32), [MEMORY[0x1E696AEC0] stringWithFormat:@"InitialImport-BypassingDasd-%@", v4], 0, v61, 0);
+          v38 = *(v1 + 32);
+          v39 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4);
+          [(NSCloudKitMirroringDelegate *)v38 _scheduleAutomatedImportWithLabel:v39 activity:0 voucher:v62 completionHandler:0];
           goto LABEL_96;
         }
       }
@@ -10465,55 +10239,55 @@ LABEL_31:
         }
       }
 
-      v51 = [(NSCloudKitMirroringDelegate *)*(v1 + 32) newActivityWithIdentifier:v61 andVoucher:?];
-      v52 = v51;
+      v53 = [(NSCloudKitMirroringDelegate *)*(v1 + 32) newActivityWithIdentifier:v62 andVoucher:?];
+      v54 = v53;
       if (*(v1 + 56))
       {
-        [v51 setEarliestStartDate:?];
+        [v53 setEarliestStartDate:?];
       }
 
-      v53 = objc_autoreleasePoolPush();
-      v54 = __PFCloudKitLoggingGetStream();
-      v55 = v54;
+      v55 = objc_autoreleasePoolPush();
+      v56 = __PFCloudKitLoggingGetStream();
+      v57 = v56;
       if (__ckLoggingOverride == 17)
       {
-        v56 = OS_LOG_TYPE_FAULT;
+        v58 = OS_LOG_TYPE_FAULT;
       }
 
       else
       {
-        v56 = 16 * (__ckLoggingOverride == 16);
+        v58 = 16 * (__ckLoggingOverride == 16);
       }
 
-      if (os_log_type_enabled(v54, v56))
+      if (os_log_type_enabled(v56, v58))
       {
-        v57 = *(v1 + 32);
+        v59 = *(v1 + 32);
         *buf = 136316162;
-        v77 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
-        v78 = 1024;
-        v79 = 3433;
-        v80 = 2112;
-        v81 = v57;
-        v82 = 2112;
-        v83 = v4;
-        v84 = 2112;
-        v85 = v52;
-        _os_log_impl(&dword_18565F000, v55, v56, "CoreData+CloudKit: %s(%d): %@: Scheduling automated import with activity (%@): %@", buf, 0x30u);
+        v78 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
+        v79 = 1024;
+        v80 = 3433;
+        v81 = 2112;
+        v82 = v59;
+        v83 = 2112;
+        v84 = v4;
+        v85 = 2112;
+        v86 = v54;
+        _os_log_impl(&dword_18565F000, v57, v58, "CoreData+CloudKit: %s(%d): %@: Scheduling automated import with activity (%@): %@", buf, 0x30u);
       }
 
-      objc_autoreleasePoolPop(v53);
-      v58 = *(v1 + 32);
-      if (v58)
+      objc_autoreleasePoolPop(v55);
+      v60 = *(v1 + 32);
+      if (v60)
       {
-        v59 = *(v58 + 64);
+        v61 = *(v60 + 64);
       }
 
       else
       {
-        v59 = 0;
+        v61 = 0;
       }
 
-      [v59 submitActivity:v52];
+      [v61 submitActivity:v54];
     }
 
     else
@@ -10535,13 +10309,13 @@ LABEL_31:
       {
         v31 = *(v1 + 32);
         *buf = 136315906;
-        v77 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
-        v78 = 1024;
-        v79 = 3456;
-        v80 = 2112;
-        v81 = v31;
-        v82 = 2112;
-        v83 = v4;
+        v78 = "[NSCloudKitMirroringDelegate checkAndScheduleImportIfNecessaryFromPush:fromErrorRecovery:fromShareAccept:andStartAfterDate:]_block_invoke";
+        v79 = 1024;
+        v80 = 3456;
+        v81 = 2112;
+        v82 = v31;
+        v83 = 2112;
+        v84 = v4;
         _os_log_impl(&dword_18565F000, v29, v30, "CoreData+CloudKit: %s(%d): %@: Deferring scheduling an import because not initialized yet: %@", buf, 0x26u);
       }
 
@@ -10550,90 +10324,85 @@ LABEL_31:
   }
 
 LABEL_96:
-
-  v60 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)_dateExceedsSchedulingThreshold:(uint64_t)result
+- (BOOL)_dateExceedsSchedulingThreshold:(_BOOL8)result
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    if (a2)
+    if (!a2)
     {
-      v3 = result;
-      v4 = +[NSCloudKitMirroringDelegate isFirstPartyContainerIdentifier:](NSCloudKitMirroringDelegate, "isFirstPartyContainerIdentifier:", [*(result + 8) containerIdentifier]);
-      databaseScope = [*(v3 + 8) databaseScope];
-      if ((databaseScope - 2) >= 2)
-      {
-        if (databaseScope != 1)
-        {
-          LogStream = _PFLogGetLogStream(17);
-          if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-          {
-            databaseScope2 = [*(v3 + 8) databaseScope];
-            v16 = 134217984;
-            v17 = databaseScope2;
-            _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unsupported database scope in date threshold calculation: %ld\n", &v16, 0xCu);
-          }
-
-          v11 = _PFLogGetLogStream(17);
-          v9 = -86400.0;
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
-          {
-            databaseScope3 = [*(v3 + 8) databaseScope];
-            v16 = 134217984;
-            v17 = databaseScope3;
-            _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Unsupported database scope in date threshold calculation: %ld", &v16, 0xCu);
-          }
-
-          goto LABEL_17;
-        }
-
-        v6 = [objc_msgSend(*(v3 + 48) "containerID")];
-        v7 = !v4;
-        v8 = -1800.0;
-      }
-
-      else
-      {
-        v6 = [objc_msgSend(*(v3 + 48) "containerID")];
-        v7 = !v4;
-        v8 = -300.0;
-      }
-
-      if (!v7)
-      {
-        v8 = -86400.0;
-      }
-
-      if (v6 == 2)
-      {
-        v9 = -60.0;
-      }
-
-      else
-      {
-        v9 = v8;
-      }
-
-LABEL_17:
-      [a2 timeIntervalSinceNow];
-      result = v9 > v12;
-      goto LABEL_18;
+      return 1;
     }
 
-    result = 1;
+    v3 = result;
+    v4 = +[NSCloudKitMirroringDelegate isFirstPartyContainerIdentifier:](NSCloudKitMirroringDelegate, "isFirstPartyContainerIdentifier:", [*(result + 8) containerIdentifier]);
+    databaseScope = [*(v3 + 8) databaseScope];
+    if ((databaseScope - 2) >= 2)
+    {
+      if (databaseScope != 1)
+      {
+        LogStream = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+        {
+          databaseScope2 = [*(v3 + 8) databaseScope];
+          v15 = 134217984;
+          v16 = databaseScope2;
+          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unsupported database scope in date threshold calculation: %ld\n", &v15, 0xCu);
+        }
+
+        v11 = _PFLogGetLogStream(17);
+        v9 = -86400.0;
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        {
+          databaseScope3 = [*(v3 + 8) databaseScope];
+          v15 = 134217984;
+          v16 = databaseScope3;
+          _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Unsupported database scope in date threshold calculation: %ld", &v15, 0xCu);
+        }
+
+        goto LABEL_17;
+      }
+
+      v6 = [objc_msgSend(*(v3 + 48) "containerID")];
+      v7 = !v4;
+      v8 = -1800.0;
+    }
+
+    else
+    {
+      v6 = [objc_msgSend(*(v3 + 48) "containerID")];
+      v7 = !v4;
+      v8 = -300.0;
+    }
+
+    if (!v7)
+    {
+      v8 = -86400.0;
+    }
+
+    if (v6 == 2)
+    {
+      v9 = -60.0;
+    }
+
+    else
+    {
+      v9 = v8;
+    }
+
+LABEL_17:
+    [a2 timeIntervalSinceNow];
+    return v9 > v12;
   }
 
-LABEL_18:
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)finishedAutomatedRequestWithResult:(uint64_t)result
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v4 = objc_autoreleasePoolPush();
@@ -10726,7 +10495,7 @@ LABEL_18:
             v19 = v18;
             if (v18)
             {
-              WeakRetained = objc_loadWeakRetained((v18 + 32));
+              WeakRetained = objc_loadWeakRetained(v18 + 4);
             }
 
             else
@@ -10734,14 +10503,14 @@ LABEL_18:
               WeakRetained = 0;
             }
 
-            v26[0] = MEMORY[0x1E69E9820];
-            v26[1] = 3221225472;
-            v26[2] = __66__NSCloudKitMirroringDelegate_finishedAutomatedRequestWithResult___block_invoke;
-            v26[3] = &unk_1E6EC19D8;
-            v26[4] = v19;
-            v26[5] = result;
-            v26[6] = v13;
-            [(PFCloudKitStoreMonitor *)v19 performBlock:v26];
+            v25[0] = MEMORY[0x1E69E9820];
+            v25[1] = 3221225472;
+            v25[2] = __66__NSCloudKitMirroringDelegate_finishedAutomatedRequestWithResult___block_invoke;
+            v25[3] = &unk_1E6EC19D8;
+            v25[4] = v19;
+            v25[5] = result;
+            v25[6] = v13;
+            [(PFCloudKitStoreMonitor *)v19 performBlock:v25];
           }
 
           else
@@ -10754,10 +10523,10 @@ LABEL_18:
               *&buf[8] = 3221225472;
               *&buf[16] = __125__NSCloudKitMirroringDelegate_checkAndScheduleImportIfNecessaryFromPush_fromErrorRecovery_fromShareAccept_andStartAfterDate___block_invoke;
               *&buf[24] = &unk_1E6EC4D90;
-              v29 = 256;
-              v30 = 0;
+              v28 = 256;
+              v29 = 0;
               *&buf[32] = result;
-              v28 = v13;
+              v27 = v13;
               [(NSCloudKitMirroringDelegate *)result _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:buf andExecuteWorkBlock:?];
             }
 
@@ -10767,9 +10536,9 @@ LABEL_18:
               if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
               {
                 [a2 request];
-                v24 = objc_opt_class();
+                v23 = objc_opt_class();
                 *buf = 138412290;
-                *&buf[4] = v24;
+                *&buf[4] = v23;
                 _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Can't handle automated requests of type '%@' yet.\n", buf, 0xCu);
               }
 
@@ -10777,9 +10546,9 @@ LABEL_18:
               if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
               {
                 [a2 request];
-                v25 = objc_opt_class();
+                v24 = objc_opt_class();
                 *buf = 138412290;
-                *&buf[4] = v25;
+                *&buf[4] = v24;
                 _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Can't handle automated requests of type '%@' yet.", buf, 0xCu);
               }
             }
@@ -10788,8 +10557,6 @@ LABEL_18:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __66__NSCloudKitMirroringDelegate_finishedAutomatedRequestWithResult___block_invoke(uint64_t *a1)
@@ -10805,7 +10572,7 @@ void __66__NSCloudKitMirroringDelegate_finishedAutomatedRequestWithResult___bloc
 
 void __100__NSCloudKitMirroringDelegate__scheduleAutomatedImportWithLabel_activity_voucher_completionHandler___block_invoke(uint64_t *a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v6 = Stream;
@@ -10838,17 +10605,17 @@ void __100__NSCloudKitMirroringDelegate__scheduleAutomatedImportWithLabel_activi
   {
     v9 = a1[4];
     v10 = a1[5];
-    v13 = 136316162;
-    v14 = "[NSCloudKitMirroringDelegate _scheduleAutomatedImportWithLabel:activity:voucher:completionHandler:]_block_invoke";
-    v15 = 1024;
-    v16 = 3676;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = a2;
-    _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): %@ - Finished automatic import - %@ - with result: %@", &v13, 0x30u);
+    v12 = 136316162;
+    v13 = "[NSCloudKitMirroringDelegate _scheduleAutomatedImportWithLabel:activity:voucher:completionHandler:]_block_invoke";
+    v14 = 1024;
+    v15 = 3676;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = a2;
+    _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): %@ - Finished automatic import - %@ - with result: %@", &v12, 0x30u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -10867,12 +10634,11 @@ void __100__NSCloudKitMirroringDelegate__scheduleAutomatedImportWithLabel_activi
   }
 
   [(NSCloudKitMirroringDelegate *)a1[4] finishedAutomatedRequestWithResult:a2];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __100__NSCloudKitMirroringDelegate__scheduleAutomatedExportWithLabel_activity_voucher_completionHandler___block_invoke(void *a1, void *a2)
+void __100__NSCloudKitMirroringDelegate__scheduleAutomatedExportWithLabel_activity_voucher_completionHandler___block_invoke(uint64_t *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v6 = Stream;
@@ -10905,17 +10671,17 @@ uint64_t __100__NSCloudKitMirroringDelegate__scheduleAutomatedExportWithLabel_ac
   {
     v9 = a1[4];
     v10 = a1[5];
-    v14 = 136316162;
-    v15 = "[NSCloudKitMirroringDelegate _scheduleAutomatedExportWithLabel:activity:voucher:completionHandler:]_block_invoke";
-    v16 = 1024;
-    v17 = 3716;
+    v12 = 136316162;
+    v13 = "[NSCloudKitMirroringDelegate _scheduleAutomatedExportWithLabel:activity:voucher:completionHandler:]_block_invoke";
+    v14 = 1024;
+    v15 = 3716;
+    v16 = 2112;
+    v17 = v9;
     v18 = 2112;
-    v19 = v9;
+    v19 = v10;
     v20 = 2112;
-    v21 = v10;
-    v22 = 2112;
-    v23 = a2;
-    _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): %@ - Finished automatic export - %@ - with result: %@", &v14, 0x30u);
+    v21 = a2;
+    _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): %@ - Finished automatic export - %@ - with result: %@", &v12, 0x30u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -10933,14 +10699,12 @@ uint64_t __100__NSCloudKitMirroringDelegate__scheduleAutomatedExportWithLabel_ac
     (*(a1[6] + 16))();
   }
 
-  result = [(NSCloudKitMirroringDelegate *)a1[4] finishedAutomatedRequestWithResult:a2];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  [(NSCloudKitMirroringDelegate *)a1[4] finishedAutomatedRequestWithResult:a2];
 }
 
 void __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIdentityLoss_databaseScope_inStore_error___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v4 = Stream;
@@ -10974,13 +10738,13 @@ void __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIden
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     *buf = 136315906;
-    v25 = "[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:]_block_invoke";
-    v26 = 1024;
-    v27 = 3781;
-    v28 = 2112;
-    v29 = v7;
-    v30 = 2112;
-    v31 = v8;
+    v24 = "[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:]_block_invoke";
+    v25 = 1024;
+    v26 = 3781;
+    v27 = 2112;
+    v28 = v7;
+    v29 = 2112;
+    v30 = v8;
     _os_log_impl(&dword_18565F000, v4, v6, "CoreData+CloudKit: %s(%d): %@: Marking zones %@ needing recovery from Manatee identity loss", buf, 0x26u);
   }
 
@@ -10989,19 +10753,19 @@ void __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIden
   if (v9)
   {
     v10 = [(PFCloudKitStoreMonitor *)*(a1 + 48) newBackgroundContextForMonitoredCoordinator];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIdentityLoss_databaseScope_inStore_error___block_invoke_487;
-    v21[3] = &unk_1E6EC2E40;
-    v23 = *(a1 + 80);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIdentityLoss_databaseScope_inStore_error___block_invoke_487;
+    v20[3] = &unk_1E6EC2E40;
+    v22 = *(a1 + 80);
     v11 = *(a1 + 56);
     v12 = *(a1 + 32);
-    v21[4] = *(a1 + 40);
-    v21[5] = v11;
-    v21[6] = v10;
-    v21[7] = v12;
-    v22 = *(a1 + 64);
-    [(NSManagedObjectContext *)v10 performBlockAndWait:v21];
+    v20[4] = *(a1 + 40);
+    v20[5] = v11;
+    v20[6] = v10;
+    v20[7] = v12;
+    v21 = *(a1 + 64);
+    [(NSManagedObjectContext *)v10 performBlockAndWait:v20];
   }
 
   else
@@ -11053,49 +10817,47 @@ void __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIden
     {
       v19 = *(a1 + 32);
       *buf = 136315650;
-      v25 = "[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:]_block_invoke";
-      v26 = 1024;
-      v27 = 3827;
-      v28 = 2112;
-      v29 = v19;
+      v24 = "[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:]_block_invoke";
+      v25 = 1024;
+      v26 = 3827;
+      v27 = 2112;
+      v28 = v19;
       _os_log_impl(&dword_18565F000, v15, v18, "CoreData+CloudKit: %s(%d): %@: Cancelling marking zones needing recovery from Manatee identity loss because the store is dead.", buf, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIdentityLoss_databaseScope_inStore_error___block_invoke_487(uint64_t a1)
+id __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManateeIdentityLoss_databaseScope_inStore_error___block_invoke_487(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v21[0] = 0;
+  v30 = *MEMORY[0x1E69E9840];
+  v20[0] = 0;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v30 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v29 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [NSCKRecordZoneMetadata zoneMetadataForZoneID:*(a1 + 80) inDatabaseWithScope:*(a1 + 40) forStore:*(a1 + 48) inContext:v21 error:?];
+        v6 = [NSCKRecordZoneMetadata zoneMetadataForZoneID:*(a1 + 80) inDatabaseWithScope:*(a1 + 40) forStore:*(a1 + 48) inContext:v20 error:?];
         v7 = v6;
         if (!v6)
         {
-          if (v21[0])
+          if (v20[0])
           {
-            *(*(*(a1 + 64) + 8) + 40) = v21[0];
+            *(*(*(a1 + 64) + 8) + 40) = v20[0];
           }
 
           *(*(*(a1 + 72) + 8) + 24) = 0;
@@ -11103,7 +10865,7 @@ uint64_t __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManatee
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v23 = v21[0];
+            v22 = v20[0];
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to fetch zone metadata during marking zones needing recovery from Manatee identity loss: %@\n", buf, 0xCu);
           }
 
@@ -11111,7 +10873,7 @@ uint64_t __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManatee
           if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v23 = v21[0];
+            v22 = v20[0];
             _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, "CoreData: Failed to fetch zone metadata during marking zones needing recovery from Manatee identity loss: %@", buf, 0xCu);
           }
 
@@ -11125,7 +10887,7 @@ uint64_t __108__NSCloudKitMirroringDelegate__markZonesNeedingRecoveryFromManatee
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v17 objects:v30 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v16 objects:v29 count:16];
       if (v3)
       {
         continue;
@@ -11139,7 +10901,7 @@ LABEL_18:
   result = [*(a1 + 48) hasChanges];
   if (result)
   {
-    result = [*(a1 + 48) save:v21];
+    result = [*(a1 + 48) save:v20];
     if ((result & 1) == 0)
     {
       v11 = objc_autoreleasePoolPush();
@@ -11159,107 +10921,101 @@ LABEL_18:
       {
         v15 = *(a1 + 56);
         *buf = 136315906;
-        v23 = "[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:]_block_invoke";
-        v24 = 1024;
-        v25 = 3812;
-        v26 = 2112;
-        v27 = v15;
-        v28 = 2112;
-        v29 = v21[0];
+        v22 = "[NSCloudKitMirroringDelegate _markZonesNeedingRecoveryFromManateeIdentityLoss:databaseScope:inStore:error:]_block_invoke";
+        v23 = 1024;
+        v24 = 3812;
+        v25 = 2112;
+        v26 = v15;
+        v27 = 2112;
+        v28 = v20[0];
         _os_log_impl(&dword_18565F000, v13, v14, "CoreData+CloudKit: %s(%d): %@: Failed to save metadata while marking zones needing recovery from Manatee identity loss: %@", buf, 0x26u);
       }
 
       objc_autoreleasePoolPop(v11);
-      result = v21[0];
+      result = v20[0];
       *(*(*(a1 + 64) + 8) + 40) = result;
       *(*(*(a1 + 72) + 8) + 24) = 0;
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___block_invoke(uint64_t a1, uint64_t a2)
+void __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v4 = objc_autoreleasePoolPush();
+  v29 = *MEMORY[0x1E69E9840];
+  v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
-  v6 = Stream;
+  v4 = Stream;
   if (__ckLoggingOverride == 17)
   {
-    v7 = 17;
+    v5 = 17;
   }
 
   else
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   if (__ckLoggingOverride == 16)
   {
-    v7 = 16;
+    v5 = 16;
   }
 
   if (__ckLoggingOverride)
   {
-    v8 = v7;
+    v6 = v5;
   }
 
   else
   {
-    v8 = OS_LOG_TYPE_DEFAULT;
+    v6 = OS_LOG_TYPE_DEFAULT;
   }
 
-  if (os_log_type_enabled(Stream, v8))
+  if (os_log_type_enabled(Stream, v6))
   {
-    v9 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 136315650;
     *&buf[4] = "[NSCloudKitMirroringDelegate _performSchemaInitializationRequest:]_block_invoke";
     *&buf[12] = 1024;
     *&buf[14] = 3848;
     *&buf[18] = 2112;
-    *&buf[20] = v9;
-    _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): Executing schema initialization request: %@", buf, 0x1Cu);
+    *&buf[20] = v7;
+    _os_log_impl(&dword_18565F000, v4, v6, "CoreData+CloudKit: %s(%d): Executing schema initialization request: %@", buf, 0x1Cu);
   }
 
-  objc_autoreleasePoolPop(v4);
-  v10 = *(a1 + 40);
-  if (*(v10 + 89) == 1)
+  objc_autoreleasePoolPop(v2);
+  v8 = *(a1 + 40);
+  if (*(v8 + 89) == 1)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3052000000;
     *&buf[24] = __Block_byref_object_copy__41;
-    v31 = __Block_byref_object_dispose__41;
-    v32 = 0;
-    v11 = *(v10 + 8);
-    v12 = v11;
-    if (v11)
+    v27 = __Block_byref_object_dispose__41;
+    v28 = 0;
+    v9 = *(v8 + 8);
+    v10 = v9;
+    if (v9)
     {
-      v13 = v11[11];
+      v11 = *(v9 + 11);
     }
 
     else
     {
-      v13 = 0;
+      v11 = 0;
     }
 
     Weak = objc_loadWeak((*(a1 + 40) + 112));
-    if (a2)
+    v13 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v11 inTransactionWithLabel:Weak];
+    v14 = v13;
+    if (v13)
     {
-      v15 = *(a2 + 8);
-    }
-
-    v16 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v13 inTransactionWithLabel:Weak];
-    v17 = v16;
-    if (v16)
-    {
-      WeakRetained = objc_loadWeakRetained((v16 + 32));
+      WeakRetained = objc_loadWeakRetained(v13 + 4);
     }
 
     else
@@ -11267,220 +11023,218 @@ void __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___blo
       WeakRetained = 0;
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___block_invoke_497;
-    v22[3] = &unk_1E6EC4E08;
-    v22[4] = v17;
-    v22[5] = v12;
-    v24 = &v26;
-    v25 = buf;
-    v23 = *(a1 + 32);
-    [(PFCloudKitStoreMonitor *)v17 performBlock:v22];
-    v19 = [NSCloudKitMirroringResult alloc];
-    v20 = [(NSCloudKitMirroringResult *)v19 initWithRequest:*(a1 + 32) storeIdentifier:*(*(a1 + 40) + 152) success:*(v27 + 24) madeChanges:*(v27 + 24) error:*(*&buf[8] + 40)];
-    [(NSCloudKitMirroringDelegate *)*(a1 + 40) _finishedRequest:v20 withResult:?];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___block_invoke_497;
+    v18[3] = &unk_1E6EC4E08;
+    v18[4] = v14;
+    v18[5] = v10;
+    v20 = &v22;
+    v21 = buf;
+    v19 = *(a1 + 32);
+    [(PFCloudKitStoreMonitor *)v14 performBlock:v18];
+    v16 = [NSCloudKitMirroringResult alloc];
+    v17 = [(NSCloudKitMirroringResult *)v16 initWithRequest:*(a1 + 32) storeIdentifier:*(*(a1 + 40) + 152) success:*(v23 + 24) madeChanges:*(v23 + 24) error:*(*&buf[8] + 40)];
+    [(NSCloudKitMirroringDelegate *)*(a1 + 40) _finishedRequest:v17 withResult:?];
 
     *(*&buf[8] + 40) = 0;
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v22, 8);
   }
 
   else
   {
-    [(NSCloudKitMirroringDelegate *)v10 _requestAbortedNotInitialized:?];
+    [(NSCloudKitMirroringDelegate *)v8 _requestAbortedNotInitialized:?];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___block_invoke_497(uint64_t a1)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
     if ([*(a1 + 40) databaseScope] != 3)
     {
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 56);
-      v11 = [*(a1 + 48) schemaInitializationOptions];
-      v12 = *(a1 + 72);
-      if (v10)
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 56);
+      v10 = [*(a1 + 48) schemaInitializationOptions];
+      v11 = *(a1 + 72);
+      if (v9)
       {
-        v13 = v11;
-        v43 = *(v12 + 8);
-        v54 = 0;
-        v55 = &v54;
-        v56 = 0x2020000000;
-        v57 = 0;
-        v48 = 0;
-        v49 = &v48;
-        v50 = 0x3052000000;
-        v51 = __Block_byref_object_copy__41;
-        v52 = __Block_byref_object_dispose__41;
+        v12 = v10;
+        v42 = *(v11 + 8);
         v53 = 0;
-        v44 = [[PFCloudKitSchemaGenerator alloc] initWithMirroringOptions:v10[1].super.isa forStoreInMonitor:v9];
-        v14 = [(PFCloudKitSchemaGenerator *)v44 newRepresentativeRecords:?];
-        if (v14)
+        v54 = &v53;
+        v55 = 0x2020000000;
+        v56 = 0;
+        v47 = 0;
+        v48 = &v47;
+        v49 = 0x3052000000;
+        v50 = __Block_byref_object_copy__41;
+        v51 = __Block_byref_object_dispose__41;
+        v52 = 0;
+        v43 = [[PFCloudKitSchemaGenerator alloc] initWithMirroringOptions:v9[1].super.isa forStoreInMonitor:v8];
+        v13 = [(PFCloudKitSchemaGenerator *)v43 newRepresentativeRecords:?];
+        if (v13)
         {
-          if ((v13 & 4) != 0)
+          if ((v12 & 4) != 0)
           {
-            v15 = objc_autoreleasePoolPush();
+            v14 = objc_autoreleasePoolPush();
             Stream = __PFCloudKitLoggingGetStream();
-            v17 = Stream;
+            v16 = Stream;
             if (__ckLoggingOverride == 17)
             {
-              v18 = OS_LOG_TYPE_FAULT;
+              v17 = OS_LOG_TYPE_FAULT;
             }
 
             else
             {
-              v18 = OS_LOG_TYPE_ERROR;
+              v17 = OS_LOG_TYPE_ERROR;
             }
 
-            if (os_log_type_enabled(Stream, v18))
+            if (os_log_type_enabled(Stream, v17))
             {
-              v19 = objc_opt_class();
-              v20 = NSStringFromClass(v19);
+              v18 = objc_opt_class();
+              v19 = NSStringFromClass(v18);
               *buf = 136316162;
-              v63 = "[NSCloudKitMirroringDelegate _createSchemaForStore:withMonitor:options:error:]";
-              v64 = 1024;
-              v65 = 3917;
-              v66 = 2112;
-              v67 = v20;
-              v68 = 2112;
-              v69 = v2;
-              v70 = 2112;
-              v71 = v14;
-              _os_log_impl(&dword_18565F000, v17, v18, "CoreData+CloudKit: %s(%d): %@ generated the following records for the model associated with the store: %@\n%@", buf, 0x30u);
+              v62 = "[NSCloudKitMirroringDelegate _createSchemaForStore:withMonitor:options:error:]";
+              v63 = 1024;
+              v64 = 3917;
+              v65 = 2112;
+              v66 = v19;
+              v67 = 2112;
+              v68 = v2;
+              v69 = 2112;
+              v70 = v13;
+              _os_log_impl(&dword_18565F000, v16, v17, "CoreData+CloudKit: %s(%d): %@ generated the following records for the model associated with the store: %@\n%@", buf, 0x30u);
             }
 
-            objc_autoreleasePoolPop(v15);
+            objc_autoreleasePoolPop(v14);
           }
 
-          if ((v13 & 2) != 0)
+          if ((v12 & 2) != 0)
           {
-            *(v55 + 24) = 1;
+            *(v54 + 24) = 1;
           }
 
           else
           {
-            v21 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v14, "count")}];
-            v47[0] = MEMORY[0x1E69E9820];
-            v47[1] = 3221225472;
-            v47[2] = __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_options_error___block_invoke;
-            v47[3] = &unk_1E6EC4E30;
-            v47[4] = v21;
-            [v14 enumerateObjectsUsingBlock:v47];
-            v22 = dispatch_semaphore_create(0);
-            v23 = [objc_alloc(getCloudKitCKModifyRecordsOperationClass()) initWithRecordsToSave:v14 recordIDsToDelete:0];
+            v20 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v13, "count")}];
             v46[0] = MEMORY[0x1E69E9820];
             v46[1] = 3221225472;
-            v46[2] = __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_options_error___block_invoke_2;
-            v46[3] = &unk_1E6EC3BE8;
-            v46[6] = &v54;
-            v46[7] = &v48;
-            v46[4] = v21;
-            v46[5] = v22;
-            [v23 setModifyRecordsCompletionBlock:v46];
-            [(objc_class *)v10[7].super.isa addOperation:v23];
-            v24 = objc_autoreleasePoolPush();
-            v25 = __PFCloudKitLoggingGetStream();
-            v26 = v25;
+            v46[2] = __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_options_error___block_invoke;
+            v46[3] = &unk_1E6EC4E30;
+            v46[4] = v20;
+            [v13 enumerateObjectsUsingBlock:v46];
+            v21 = dispatch_semaphore_create(0);
+            v22 = [objc_alloc(getCloudKitCKModifyRecordsOperationClass()) initWithRecordsToSave:v13 recordIDsToDelete:0];
+            v45[0] = MEMORY[0x1E69E9820];
+            v45[1] = 3221225472;
+            v45[2] = __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_options_error___block_invoke_2;
+            v45[3] = &unk_1E6EC3BE8;
+            v45[6] = &v53;
+            v45[7] = &v47;
+            v45[4] = v20;
+            v45[5] = v21;
+            [v22 setModifyRecordsCompletionBlock:v45];
+            [(objc_class *)v9[7].super.isa addOperation:v22];
+            v23 = objc_autoreleasePoolPush();
+            v24 = __PFCloudKitLoggingGetStream();
+            v25 = v24;
             if (__ckLoggingOverride == 17)
             {
-              v27 = OS_LOG_TYPE_FAULT;
+              v26 = OS_LOG_TYPE_FAULT;
             }
 
             else
             {
-              v27 = 16 * (__ckLoggingOverride == 16);
+              v26 = 16 * (__ckLoggingOverride == 16);
             }
 
-            if (os_log_type_enabled(v25, v27))
+            if (os_log_type_enabled(v24, v26))
             {
-              v28 = [v2 identifier];
+              v27 = [v2 identifier];
               *buf = 136315906;
-              v63 = "[NSCloudKitMirroringDelegate _createSchemaForStore:withMonitor:options:error:]";
-              v64 = 1024;
-              v65 = 3946;
-              v66 = 2048;
-              v67 = v10;
-              v68 = 2112;
-              v69 = v28;
-              _os_log_impl(&dword_18565F000, v26, v27, "CoreData+CloudKit: %s(%d): Mirroring delegate %p waiting on schema creation records to save for store %@", buf, 0x26u);
+              v62 = "[NSCloudKitMirroringDelegate _createSchemaForStore:withMonitor:options:error:]";
+              v63 = 1024;
+              v64 = 3946;
+              v65 = 2048;
+              v66 = v9;
+              v67 = 2112;
+              v68 = v27;
+              _os_log_impl(&dword_18565F000, v25, v26, "CoreData+CloudKit: %s(%d): Mirroring delegate %p waiting on schema creation records to save for store %@", buf, 0x26u);
             }
 
-            objc_autoreleasePoolPop(v24);
-            dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
+            objc_autoreleasePoolPop(v23);
+            dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
 
-            if (*(v55 + 24) == 1)
+            if (*(v54 + 24) == 1)
             {
-              v29 = [v21 allObjects];
-              *(v55 + 24) = 0;
-              v30 = [objc_alloc(getCloudKitCKModifyRecordsOperationClass()) initWithRecordsToSave:0 recordIDsToDelete:v29];
-              v45[0] = MEMORY[0x1E69E9820];
-              v45[1] = 3221225472;
-              v45[2] = __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_options_error___block_invoke_505;
-              v45[3] = &unk_1E6EC3BE8;
-              v45[6] = &v54;
-              v45[7] = &v48;
-              v45[4] = v21;
-              v45[5] = v22;
-              [v30 setModifyRecordsCompletionBlock:v45];
+              v28 = [v20 allObjects];
+              *(v54 + 24) = 0;
+              v29 = [objc_alloc(getCloudKitCKModifyRecordsOperationClass()) initWithRecordsToSave:0 recordIDsToDelete:v28];
+              v44[0] = MEMORY[0x1E69E9820];
+              v44[1] = 3221225472;
+              v44[2] = __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_options_error___block_invoke_505;
+              v44[3] = &unk_1E6EC3BE8;
+              v44[6] = &v53;
+              v44[7] = &v47;
+              v44[4] = v20;
+              v44[5] = v21;
+              [v29 setModifyRecordsCompletionBlock:v44];
 
-              [(objc_class *)v10[7].super.isa addOperation:v30];
-              v31 = objc_autoreleasePoolPush();
-              v32 = __PFCloudKitLoggingGetStream();
-              v33 = v32;
+              [(objc_class *)v9[7].super.isa addOperation:v29];
+              v30 = objc_autoreleasePoolPush();
+              v31 = __PFCloudKitLoggingGetStream();
+              v32 = v31;
               if (__ckLoggingOverride == 17)
               {
-                v34 = OS_LOG_TYPE_FAULT;
+                v33 = OS_LOG_TYPE_FAULT;
               }
 
               else
               {
-                v34 = 16 * (__ckLoggingOverride == 16);
+                v33 = 16 * (__ckLoggingOverride == 16);
               }
 
-              if (os_log_type_enabled(v32, v34))
+              if (os_log_type_enabled(v31, v33))
               {
-                v35 = [v2 identifier];
+                v34 = [v2 identifier];
                 *buf = 136315906;
-                v63 = "[NSCloudKitMirroringDelegate _createSchemaForStore:withMonitor:options:error:]";
-                v64 = 1024;
-                v65 = 3971;
-                v66 = 2048;
-                v67 = v10;
-                v68 = 2112;
-                v69 = v35;
-                _os_log_impl(&dword_18565F000, v33, v34, "CoreData+CloudKit: %s(%d): Mirroring delegate %p waiting on schema creation records to delete for store %@", buf, 0x26u);
+                v62 = "[NSCloudKitMirroringDelegate _createSchemaForStore:withMonitor:options:error:]";
+                v63 = 1024;
+                v64 = 3971;
+                v65 = 2048;
+                v66 = v9;
+                v67 = 2112;
+                v68 = v34;
+                _os_log_impl(&dword_18565F000, v32, v33, "CoreData+CloudKit: %s(%d): Mirroring delegate %p waiting on schema creation records to delete for store %@", buf, 0x26u);
               }
 
-              objc_autoreleasePoolPop(v31);
-              dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
+              objc_autoreleasePoolPop(v30);
+              dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            if (v22)
+            if (v21)
             {
-              dispatch_release(v22);
+              dispatch_release(v21);
             }
           }
         }
 
         else
         {
-          v36 = v49[5];
+          v35 = v48[5];
         }
 
-        v37 = v49[5];
-        if ((v55[3] & 1) == 0)
+        v36 = v48[5];
+        if ((v54[3] & 1) == 0)
         {
-          v38 = v49[5];
-          if (v38)
+          v37 = v48[5];
+          if (v37)
           {
-            *(v43 + 40) = v38;
+            *(v42 + 40) = v37;
           }
 
           else
@@ -11489,47 +11243,47 @@ void __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___blo
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v63 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
-              v64 = 1024;
-              v65 = 3987;
+              v62 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
+              v63 = 1024;
+              v64 = 3987;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
             }
 
-            v40 = _PFLogGetLogStream(17);
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+            v39 = _PFLogGetLogStream(17);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315394;
-              v63 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
-              v64 = 1024;
-              v65 = 3987;
-              _os_log_fault_impl(&dword_18565F000, v40, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+              v62 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate.m";
+              v63 = 1024;
+              v64 = 3987;
+              _os_log_fault_impl(&dword_18565F000, v39, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
             }
           }
         }
 
-        v41 = *(v55 + 24);
-        _Block_object_dispose(&v48, 8);
-        _Block_object_dispose(&v54, 8);
-        if (v41)
+        v40 = *(v54 + 24);
+        _Block_object_dispose(&v47, 8);
+        _Block_object_dispose(&v53, 8);
+        if (v40)
         {
           *(*(*(a1 + 64) + 8) + 24) = 1;
           goto LABEL_6;
         }
 
-        v12 = *(a1 + 72);
+        v11 = *(a1 + 72);
       }
 
-      v42 = *(*(v12 + 8) + 40);
+      v41 = *(*(v11 + 8) + 40);
       goto LABEL_6;
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
     v3 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v60[0] = *MEMORY[0x1E696A588];
-    v61[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was skipped because it was configured with databaseScope == CKDatabaseShared.", objc_msgSend(*(a1 + 48), "requestIdentifier")];
-    v60[1] = *MEMORY[0x1E696A368];
-    v61[1] = [objc_msgSend(v2 "URL")];
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
+    v59[0] = *MEMORY[0x1E696A588];
+    v60[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) requestIdentifier]);
+    v59[1] = *MEMORY[0x1E696A368];
+    v60[1] = [objc_msgSend(v2 "URL")];
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
     v5 = [v3 initWithDomain:*MEMORY[0x1E696A250] code:134419 userInfo:v4];
   }
 
@@ -11537,16 +11291,14 @@ void __67__NSCloudKitMirroringDelegate__performSchemaInitializationRequest___blo
   {
     *(*(*(a1 + 64) + 8) + 24) = 0;
     v6 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v58 = *MEMORY[0x1E696A588];
-    v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request '%@' was cancelled because the store was removed from the coordinator.", objc_msgSend(*(a1 + 48), "requestIdentifier")];
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+    v57 = *MEMORY[0x1E696A588];
+    v58 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) requestIdentifier]);
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
     v5 = [v6 initWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:v7];
   }
 
   *(*(*(a1 + 72) + 8) + 40) = v5;
 LABEL_6:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_options_error___block_invoke(uint64_t a1, void *a2)
@@ -11610,14 +11362,13 @@ intptr_t __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_opt
 
 - (void)eventUpdated:(id)updated
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v8 = @"event";
-  v9[0] = updated;
-  [defaultCenter postNotificationName:@"NSPersistentCloudKitContainerEventChangedNotification" object:self userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
+  v7 = @"event";
+  v8[0] = updated;
+  [defaultCenter postNotificationName:@"NSPersistentCloudKitContainerEventChangedNotification" object:self userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
   objc_autoreleasePoolPop(v5);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)publishActivity:(id)activity
@@ -11633,7 +11384,7 @@ intptr_t __79__NSCloudKitMirroringDelegate__createSchemaForStore_withMonitor_opt
 
 void __52__NSCloudKitMirroringDelegate__persistUpdatedShare___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   v3 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
@@ -11653,15 +11404,15 @@ void __52__NSCloudKitMirroringDelegate__persistUpdatedShare___block_invoke(uint6
     v7 = *(a1 + 40);
     v8 = *(a1 + 48);
     *buf = 136316162;
-    v16 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
-    v17 = 1024;
-    v18 = 4072;
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v2;
-    v23 = 2112;
-    v24 = v8;
+    v15 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
+    v16 = 1024;
+    v17 = 4072;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v2;
+    v22 = 2112;
+    v23 = v8;
     _os_log_impl(&dword_18565F000, v5, v6, "CoreData+CloudKit: %s(%d): %@: Persisting share by the system UI: %@ / %@", buf, 0x30u);
   }
 
@@ -11669,36 +11420,34 @@ void __52__NSCloudKitMirroringDelegate__persistUpdatedShare___block_invoke(uint6
   if (v2)
   {
     v9 = [(PFCloudKitStoreMonitor *)*(a1 + 32) newBackgroundContextForMonitoredCoordinator];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __52__NSCloudKitMirroringDelegate__persistUpdatedShare___block_invoke_513;
-    v11[3] = &unk_1E6EC2920;
-    v12 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-    v13 = v2;
-    v14 = v9;
-    [(NSManagedObjectContext *)v9 performBlockAndWait:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __52__NSCloudKitMirroringDelegate__persistUpdatedShare___block_invoke_513;
+    v10[3] = &unk_1E6EC2920;
+    v11 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+    v12 = v2;
+    v13 = v9;
+    [(NSManagedObjectContext *)v9 performBlockAndWait:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __52__NSCloudKitMirroringDelegate__persistUpdatedShare___block_invoke_513(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v2 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:createIfMissing:error:](NSCKRecordZoneMetadata, [objc_msgSend(*(a1 + 32) "recordID")], objc_msgSend(*(*(a1 + 40) + 8), "databaseScope"), *(a1 + 48), *(a1 + 56), 0, &v21);
+  v29 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v2 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:createIfMissing:error:](NSCKRecordZoneMetadata, [objc_msgSend(*(a1 + 32) "recordID")], objc_msgSend(*(*(a1 + 40) + 8), "databaseScope"), *(a1 + 48), *(a1 + 56), 0, &v20);
   if (v2)
   {
     v3 = *(*(a1 + 40) + 8);
-    if (v3 && (v4 = v2, (v5 = *(v3 + 136)) != 0) && (v6 = [(PFCloudKitArchivingUtilities *)v5 encodeRecord:&v21 error:?]) != 0)
+    if (v3 && (v4 = v2, (v5 = *(v3 + 136)) != 0) && (v6 = [(PFCloudKitArchivingUtilities *)v5 encodeRecord:&v20 error:?]) != 0)
     {
       v7 = v6;
       [(NSManagedObject *)v4 updateEncodedShareWithData:v6];
-      if ([*(a1 + 56) save:&v21])
+      if ([*(a1 + 56) save:&v20])
       {
 LABEL_25:
 
-        goto LABEL_26;
+        return;
       }
 
       v8 = objc_autoreleasePoolPush();
@@ -11717,11 +11466,11 @@ LABEL_25:
       if (os_log_type_enabled(Stream, v11))
       {
         *buf = 136315650;
-        v23 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
-        v24 = 1024;
-        v25 = 4089;
-        v26 = 2112;
-        v27 = v21;
+        v22 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
+        v23 = 1024;
+        v24 = 4089;
+        v25 = 2112;
+        v26 = v20;
         _os_log_impl(&dword_18565F000, v10, v11, "CoreData+CloudKit: %s(%d): Failed to save changes after share update: %@", buf, 0x1Cu);
       }
     }
@@ -11744,11 +11493,11 @@ LABEL_25:
       if (os_log_type_enabled(v17, v19))
       {
         *buf = 136315650;
-        v23 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
-        v24 = 1024;
-        v25 = 4092;
-        v26 = 2112;
-        v27 = v21;
+        v22 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
+        v23 = 1024;
+        v24 = 4092;
+        v25 = 2112;
+        v26 = v20;
         _os_log_impl(&dword_18565F000, v18, v19, "CoreData+CloudKit: %s(%d): Failed to encode share data: %@", buf, 0x1Cu);
       }
 
@@ -11759,7 +11508,7 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  if (v21)
+  if (v20)
   {
     v12 = objc_autoreleasePoolPush();
     v13 = __PFCloudKitLoggingGetStream();
@@ -11778,26 +11527,23 @@ LABEL_25:
     {
       v16 = [*(a1 + 32) recordID];
       *buf = 136315906;
-      v23 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
-      v24 = 1024;
-      v25 = 4096;
-      v26 = 2112;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v21;
+      v22 = "[NSCloudKitMirroringDelegate _persistUpdatedShare:]_block_invoke";
+      v23 = 1024;
+      v24 = 4096;
+      v25 = 2112;
+      v26 = v16;
+      v27 = 2112;
+      v28 = v20;
       _os_log_impl(&dword_18565F000, v14, v15, "CoreData+CloudKit: %s(%d): Failed to fetch zone metadata for %@: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-LABEL_26:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   v3 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
@@ -11817,15 +11563,15 @@ void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke(u
     v7 = *(a1 + 40);
     v8 = *(a1 + 48);
     *buf = 136316162;
-    v32 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke";
-    v33 = 1024;
-    v34 = 4112;
-    v35 = 2112;
-    v36 = v7;
-    v37 = 2112;
-    v38 = v2;
-    v39 = 2112;
-    v40 = v8;
+    v31 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke";
+    v32 = 1024;
+    v33 = 4112;
+    v34 = 2112;
+    v35 = v7;
+    v36 = 2112;
+    v37 = v2;
+    v38 = 2112;
+    v39 = v8;
     _os_log_impl(&dword_18565F000, v5, v6, "CoreData+CloudKit: %s(%d): %@: Deleting metadata for share deleted by the system UI: %@ / %@", buf, 0x30u);
   }
 
@@ -11835,16 +11581,16 @@ void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke(u
     if ([*(*(a1 + 40) + 8) databaseScope] == 3)
     {
       v9 = [NSCloudKitMirroringResetZoneRequest alloc];
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke_514;
-      v28[3] = &unk_1E6EC4E58;
-      objc_copyWeak(&v29, (a1 + 56));
-      v10 = [(NSCloudKitMirroringResetZoneRequest *)v9 initWithOptions:0 completionBlock:v28];
-      v30 = [*(a1 + 48) zoneID];
-      -[NSCloudKitMirroringResetZoneRequest setRecordZoneIDsToReset:](v10, [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1]);
-      v27 = 0;
-      if (![(NSCloudKitMirroringDelegate *)*(a1 + 40) executeMirroringRequest:v10 error:&v27])
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke_514;
+      v27[3] = &unk_1E6EC4E58;
+      objc_copyWeak(&v28, (a1 + 56));
+      v10 = [(NSCloudKitMirroringResetZoneRequest *)v9 initWithOptions:0 completionBlock:v27];
+      v29 = [*(a1 + 48) zoneID];
+      -[NSCloudKitMirroringResetZoneRequest setRecordZoneIDsToReset:](v10, [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1]);
+      v26 = 0;
+      if (![(NSCloudKitMirroringDelegate *)*(a1 + 40) executeMirroringRequest:v10 error:&v26])
       {
         v11 = objc_autoreleasePoolPush();
         v12 = __PFCloudKitLoggingGetStream();
@@ -11864,35 +11610,35 @@ void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke(u
           v15 = *(a1 + 40);
           v16 = *(a1 + 48);
           *buf = 136316162;
-          v32 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke_2";
-          v33 = 1024;
-          v34 = 4132;
-          v35 = 2112;
-          v36 = v15;
-          v37 = 2112;
-          v38 = v16;
-          v39 = 2112;
-          v40 = v27;
+          v31 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke_2";
+          v32 = 1024;
+          v33 = 4132;
+          v34 = 2112;
+          v35 = v15;
+          v36 = 2112;
+          v37 = v16;
+          v38 = 2112;
+          v39 = v26;
           _os_log_impl(&dword_18565F000, v13, v14, "CoreData+CloudKit: %s(%d): %@: Failed to execute mirroring request for deleted share: %@\n%@", buf, 0x30u);
         }
 
         objc_autoreleasePoolPop(v11);
       }
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v28);
     }
 
     else if ([*(*(a1 + 40) + 8) databaseScope] == 2)
     {
       v17 = [(PFCloudKitStoreMonitor *)*(a1 + 32) newBackgroundContextForMonitoredCoordinator];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke_516;
-      v23[3] = &unk_1E6EC2920;
-      v24 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-      v25 = v2;
-      v26 = v17;
-      [(NSManagedObjectContext *)v17 performBlockAndWait:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke_516;
+      v22[3] = &unk_1E6EC2920;
+      v23 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+      v24 = v2;
+      v25 = v17;
+      [(NSManagedObjectContext *)v17 performBlockAndWait:v22];
     }
 
     else
@@ -11900,24 +11646,22 @@ void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke(u
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(a1 + 40);
+        v20 = *(a1 + 40);
         *buf = 138412290;
-        v32 = v21;
+        v31 = v20;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Called about a share delete for the public database? %@\n", buf, 0xCu);
       }
 
       v19 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        v22 = *(a1 + 40);
+        v21 = *(a1 + 40);
         *buf = 138412290;
-        v32 = v22;
+        v31 = v21;
         _os_log_fault_impl(&dword_18565F000, v19, OS_LOG_TYPE_FAULT, "CoreData: Called about a share delete for the public database? %@", buf, 0xCu);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke_514(uint64_t a1)
@@ -11927,100 +11671,102 @@ void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke_5
 
 void __56__NSCloudKitMirroringDelegate__deleteShareWithRecordID___block_invoke_516(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v2 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:createIfMissing:error:](NSCKRecordZoneMetadata, [*(a1 + 32) zoneID], objc_msgSend(*(*(a1 + 40) + 8), "databaseScope"), *(a1 + 48), *(a1 + 56), 0, &v16);
+  v24 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v2 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:createIfMissing:error:](NSCKRecordZoneMetadata, [*(a1 + 32) zoneID], objc_msgSend(*(*(a1 + 40) + 8), "databaseScope"), *(a1 + 48), *(a1 + 56), 0, &v15);
   if (v2)
   {
     [(NSManagedObject *)v2 destroyEncodedShareData];
-    if (([*(a1 + 56) save:&v16] & 1) == 0)
+    if ([*(a1 + 56) save:&v15])
     {
-      v3 = objc_autoreleasePoolPush();
-      Stream = __PFCloudKitLoggingGetStream();
-      v5 = Stream;
-      if (__ckLoggingOverride == 17)
-      {
-        v6 = OS_LOG_TYPE_FAULT;
-      }
-
-      else
-      {
-        v6 = OS_LOG_TYPE_ERROR;
-      }
-
-      if (!os_log_type_enabled(Stream, v6))
-      {
-        goto LABEL_15;
-      }
-
-      *buf = 136315650;
-      v18 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke";
-      v19 = 1024;
-      v20 = 4149;
-      v21 = 2112;
-      v22 = v16;
-      v7 = "CoreData+CloudKit: %s(%d): Failed to save changes after share delete: %@";
-      v8 = v6;
-      v9 = v5;
-      v10 = 28;
-LABEL_14:
-      _os_log_impl(&dword_18565F000, v9, v8, v7, buf, v10);
-LABEL_15:
-      objc_autoreleasePoolPop(v3);
+      return;
     }
-  }
 
-  else if (v16)
-  {
     v3 = objc_autoreleasePoolPush();
-    v11 = __PFCloudKitLoggingGetStream();
-    v12 = v11;
+    Stream = __PFCloudKitLoggingGetStream();
+    v5 = Stream;
     if (__ckLoggingOverride == 17)
     {
-      v13 = OS_LOG_TYPE_FAULT;
+      v6 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      v13 = OS_LOG_TYPE_ERROR;
+      v6 = OS_LOG_TYPE_ERROR;
     }
 
-    if (!os_log_type_enabled(v11, v13))
+    if (!os_log_type_enabled(Stream, v6))
     {
       goto LABEL_15;
     }
 
+    *buf = 136315650;
+    v17 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke";
+    v18 = 1024;
+    v19 = 4149;
+    v20 = 2112;
+    v21 = v15;
+    v7 = "CoreData+CloudKit: %s(%d): Failed to save changes after share delete: %@";
+    v8 = v6;
+    v9 = v5;
+    v10 = 28;
+    goto LABEL_14;
+  }
+
+  if (!v15)
+  {
+    return;
+  }
+
+  v3 = objc_autoreleasePoolPush();
+  v11 = __PFCloudKitLoggingGetStream();
+  v12 = v11;
+  if (__ckLoggingOverride == 17)
+  {
+    v13 = OS_LOG_TYPE_FAULT;
+  }
+
+  else
+  {
+    v13 = OS_LOG_TYPE_ERROR;
+  }
+
+  if (os_log_type_enabled(v11, v13))
+  {
     v14 = *(a1 + 40);
     *buf = 136315906;
-    v18 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke";
-    v19 = 1024;
-    v20 = 4152;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v16;
+    v17 = "[NSCloudKitMirroringDelegate _deleteShareWithRecordID:]_block_invoke";
+    v18 = 1024;
+    v19 = 4152;
+    v20 = 2112;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v15;
     v7 = "CoreData+CloudKit: %s(%d): %@: Failed to respond to share record delete due to error: %@";
     v8 = v13;
     v9 = v12;
     v10 = 38;
-    goto LABEL_14;
+LABEL_14:
+    _os_log_impl(&dword_18565F000, v9, v8, v7, buf, v10);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
+LABEL_15:
+  objc_autoreleasePoolPop(v3);
 }
 
 - (void)addActivityVoucher:(id)voucher
 {
   v5 = MEMORY[0x1E696AEC0];
   v6 = objc_opt_class();
-  v7 = [v5 stringWithFormat:@"CoreData: %@ Apply", NSStringFromClass(v6)];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __50__NSCloudKitMirroringDelegate_addActivityVoucher___block_invoke;
-  v8[3] = &unk_1E6EC4B10;
-  v8[4] = self;
-  v8[5] = voucher;
-  [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:v7 assertionLabel:v8 andExecuteWorkBlock:?];
+  v7 = NSStringFromClass(v6);
+  v8 = objc_msgSend_stringWithFormat_(v5, v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__NSCloudKitMirroringDelegate_addActivityVoucher___block_invoke;
+  v9[3] = &unk_1E6EC4B10;
+  v9[4] = self;
+  v9[5] = voucher;
+  [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:v8 assertionLabel:v9 andExecuteWorkBlock:?];
 }
 
 void __50__NSCloudKitMirroringDelegate_addActivityVoucher___block_invoke(uint64_t a1)
@@ -12051,47 +11797,42 @@ void __50__NSCloudKitMirroringDelegate_addActivityVoucher___block_invoke(uint64_
 {
   v5 = MEMORY[0x1E696AEC0];
   v6 = objc_opt_class();
-  v7 = [v5 stringWithFormat:@"CoreData: %@ Expire", NSStringFromClass(v6)];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __53__NSCloudKitMirroringDelegate_expireActivityVoucher___block_invoke;
-  v8[3] = &unk_1E6EC4B10;
-  v8[4] = self;
-  v8[5] = voucher;
-  [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:v7 assertionLabel:v8 andExecuteWorkBlock:?];
+  v7 = NSStringFromClass(v6);
+  v8 = objc_msgSend_stringWithFormat_(v5, v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __53__NSCloudKitMirroringDelegate_expireActivityVoucher___block_invoke;
+  v9[3] = &unk_1E6EC4B10;
+  v9[4] = self;
+  v9[5] = voucher;
+  [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:v8 assertionLabel:v9 andExecuteWorkBlock:?];
 }
 
 + (id)stringForResetReason:(unint64_t)reason
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (reason - 1 >= 7)
+  v9 = *MEMORY[0x1E69E9840];
+  if (reason - 1 < 7)
   {
-    LogStream = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 134217984;
-      reasonCopy2 = reason;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Can't generate string for unknown reset sync reason: %lu\n", &v8, 0xCu);
-    }
-
-    v6 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-    {
-      v8 = 134217984;
-      reasonCopy2 = reason;
-      _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Can't generate string for unknown reset sync reason: %lu", &v8, 0xCu);
-    }
-
-    result = 0;
+    return off_1E6EC4F20[reason - 1];
   }
 
-  else
+  LogStream = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    result = off_1E6EC4F20[reason - 1];
+    v7 = 134217984;
+    reasonCopy2 = reason;
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Can't generate string for unknown reset sync reason: %lu\n", &v7, 0xCu);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  {
+    v7 = 134217984;
+    reasonCopy2 = reason;
+    _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Can't generate string for unknown reset sync reason: %lu", &v7, 0xCu);
+  }
+
+  return 0;
 }
 
 - (void)_disableAutomaticExports
@@ -12126,40 +11867,35 @@ void __50__NSCloudKitMirroringDelegate_addActivityVoucher___block_invoke(uint64_
   [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v3 andExecuteWorkBlock:?];
 }
 
-void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredBackground___block_invoke(uint64_t a1, uint64_t a2)
+void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredBackground___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 120));
-  v5 = *(a1 + 32);
-  if (v5 && (v6 = *(v5 + 8)) != 0)
+  v3 = *(a1 + 32);
+  if (v3 && (v4 = *(v3 + 8)) != 0)
   {
-    v7 = *(v6 + 88);
+    v5 = *(v4 + 88);
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  Weak = objc_loadWeak((v5 + 112));
-  if (a2)
-  {
-    v9 = *(a2 + 8);
-  }
-
-  v10 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v7 inTransactionWithLabel:Weak];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredBackground___block_invoke_2;
-  v12[3] = &unk_1E6EC1600;
-  v11 = *(a1 + 32);
-  v12[4] = v10;
-  v12[5] = v11;
-  [(PFCloudKitStoreMonitor *)v10 performBlock:v12];
+  Weak = objc_loadWeak((v3 + 112));
+  v7 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v5 inTransactionWithLabel:Weak];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredBackground___block_invoke_2;
+  v9[3] = &unk_1E6EC1600;
+  v8 = *(a1 + 32);
+  v9[4] = v7;
+  v9[5] = v8;
+  [(PFCloudKitStoreMonitor *)v7 performBlock:v9];
 }
 
 void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredBackground___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
@@ -12198,17 +11934,15 @@ void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredBackground_
 
     if (os_log_type_enabled(Stream, v7))
     {
-      v9 = 136315394;
-      v10 = "[NSCloudKitMirroringDelegate applicationStateMonitorEnteredBackground:]_block_invoke_2";
-      v11 = 1024;
-      v12 = 4322;
-      _os_log_impl(&dword_18565F000, v5, v7, "CoreData+CloudKit: %s(%d): Ignoring application deactivation notification because the store is dead.", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "[NSCloudKitMirroringDelegate applicationStateMonitorEnteredBackground:]_block_invoke_2";
+      v10 = 1024;
+      v11 = 4322;
+      _os_log_impl(&dword_18565F000, v5, v7, "CoreData+CloudKit: %s(%d): Ignoring application deactivation notification because the store is dead.", &v8, 0x12u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applicationStateMonitorEnteredForeground:(id)foreground
@@ -12221,40 +11955,35 @@ void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredBackground_
   [(NSCloudKitMirroringDelegate *)self _openTransactionWithLabel:@"CoreData: CloudKit Scheduling" assertionLabel:v3 andExecuteWorkBlock:?];
 }
 
-void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground___block_invoke(uint64_t a1, uint64_t a2)
+void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 120));
-  v5 = *(a1 + 32);
-  if (v5 && (v6 = *(v5 + 8)) != 0)
+  v3 = *(a1 + 32);
+  if (v3 && (v4 = *(v3 + 8)) != 0)
   {
-    v7 = *(v6 + 88);
+    v5 = *(v4 + 88);
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  Weak = objc_loadWeak((v5 + 112));
-  if (a2)
-  {
-    v9 = *(a2 + 8);
-  }
-
-  v10 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v7 inTransactionWithLabel:Weak];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground___block_invoke_2;
-  v12[3] = &unk_1E6EC1600;
-  v11 = *(a1 + 32);
-  v12[4] = v10;
-  v12[5] = v11;
-  [(PFCloudKitStoreMonitor *)v10 performBlock:v12];
+  Weak = objc_loadWeak((v3 + 112));
+  v7 = [PFCloudKitStoreMonitorProvider createMonitorForObservedStore:v5 inTransactionWithLabel:Weak];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground___block_invoke_2;
+  v9[3] = &unk_1E6EC1600;
+  v8 = *(a1 + 32);
+  v9[4] = v7;
+  v9[5] = v8;
+  [(PFCloudKitStoreMonitor *)v7 performBlock:v9];
 }
 
 void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [(PFCloudKitStoreMonitor *)*(a1 + 32) retainedMonitoredStore];
   if (v2)
   {
@@ -12294,22 +12023,20 @@ void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground_
 
     if (os_log_type_enabled(Stream, v7))
     {
-      v9 = 136315394;
-      v10 = "[NSCloudKitMirroringDelegate applicationStateMonitorEnteredForeground:]_block_invoke_2";
-      v11 = 1024;
-      v12 = 4350;
-      _os_log_impl(&dword_18565F000, v5, v7, "CoreData+CloudKit: %s(%d): Ignoring application activation notification because the store is dead.", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "[NSCloudKitMirroringDelegate applicationStateMonitorEnteredForeground:]_block_invoke_2";
+      v10 = 1024;
+      v11 = 4350;
+      _os_log_impl(&dword_18565F000, v5, v7, "CoreData+CloudKit: %s(%d): Ignoring application activation notification because the store is dead.", &v8, 0x12u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applicationStateMonitorExpiredBackgroundActivityTimeout:(id)timeout
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v6 = Stream;
@@ -12331,15 +12058,15 @@ void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground_
       requestManager = requestManager->_activeRequest;
     }
 
-    v12 = 136315906;
-    v13 = "[NSCloudKitMirroringDelegate applicationStateMonitorExpiredBackgroundActivityTimeout:]";
-    v14 = 1024;
-    v15 = 4360;
-    v16 = 2112;
+    v11 = 136315906;
+    v12 = "[NSCloudKitMirroringDelegate applicationStateMonitorExpiredBackgroundActivityTimeout:]";
+    v13 = 1024;
+    v14 = 4360;
+    v15 = 2112;
     selfCopy = self;
-    v18 = 2112;
-    v19 = requestManager;
-    _os_log_impl(&dword_18565F000, v6, v7, "CoreData+CloudKit: %s(%d): %@: Deferring active request due to background timeout: %@", &v12, 0x26u);
+    v17 = 2112;
+    v18 = requestManager;
+    _os_log_impl(&dword_18565F000, v6, v7, "CoreData+CloudKit: %s(%d): %@: Deferring active request due to background timeout: %@", &v11, 0x26u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -12352,8 +12079,6 @@ void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground_
       activeRequest->_deferredByBackgroundTimeout = 1;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)qosClassForAccountMonitor:(id)monitor
@@ -12372,217 +12097,218 @@ void __72__NSCloudKitMirroringDelegate_applicationStateMonitorEnteredForeground_
 + (void)printMetadataForStoreAtURL:(id)l withConfiguration:(id)configuration operateOnACopy:(BOOL)copy
 {
   copyCopy = copy;
-  v52[1] = *MEMORY[0x1E69E9840];
-  v39 = 0;
-  v44 = @"NSReadOnlyPersistentStoreOption";
-  v45 = MEMORY[0x1E695E118];
-  v8 = +[NSPersistentStore cachedModelForPersistentStoreWithURL:options:error:](NSPersistentStore, "cachedModelForPersistentStoreWithURL:options:error:", l, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1], &v39);
-  if (v8)
+  v57[1] = *MEMORY[0x1E69E9840];
+  v44 = 0;
+  v49 = @"NSReadOnlyPersistentStoreOption";
+  v50 = MEMORY[0x1E695E118];
+  v8 = +[NSPersistentStore cachedModelForPersistentStoreWithURL:options:error:](NSPersistentStore, "cachedModelForPersistentStoreWithURL:options:error:", l, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1], &v44);
+  if (!v8)
   {
-    v9 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v8];
-    objc_opt_self();
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v43 = 0;
-    v52[0] = 0;
-    v50 = @"NSReadOnlyPersistentStoreOption";
-    v51 = MEMORY[0x1E695E118];
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-    v10 = [NSPersistentStoreCoordinator addPersistentStoreWithType:v9 configuration:"addPersistentStoreWithType:configuration:URL:options:error:" URL:? options:? error:?];
-    if (v10)
+    v14 = *MEMORY[0x1E69E9848];
+    v15 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] l];
+    fputs(v15, v14);
+    return;
+  }
+
+  v9 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v8];
+  objc_opt_self();
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
+  v57[0] = 0;
+  v55 = @"NSReadOnlyPersistentStoreOption";
+  v56 = MEMORY[0x1E695E118];
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+  v10 = [NSPersistentStoreCoordinator addPersistentStoreWithType:v9 configuration:"addPersistentStoreWithType:configuration:URL:options:error:" URL:? options:? error:?];
+  if (!v10)
+  {
+    v16 = *MEMORY[0x1E69E9848];
+    v17 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] l];
+LABEL_12:
+    fputs(v17, v16);
+    goto LABEL_13;
+  }
+
+  *buf = MEMORY[0x1E69E9820];
+  *&buf[8] = 3221225472;
+  *&buf[16] = __122__NSCloudKitMirroringDelegate___CLI__checkForCloudKitTablesInStoreAtURL_withPersistentStoreCoordinator_withConfiguration___block_invoke;
+  v52 = &unk_1E6EC3778;
+  v53 = &v45;
+  v11 = [[NSSQLBlockRequestContext alloc] initWithBlock:buf context:0 sqlCore:v10];
+  [(NSSQLCore *)v10 dispatchRequest:v11 withRetries:0];
+  v12 = MEMORY[0x1E69E9848];
+  if (v11)
+  {
+    exception = v11->super._exception;
+    if (exception || (exception = v11->super._error) != 0)
     {
-      *buf = MEMORY[0x1E69E9820];
-      *&buf[8] = 3221225472;
-      *&buf[16] = __122__NSCloudKitMirroringDelegate___CLI__checkForCloudKitTablesInStoreAtURL_withPersistentStoreCoordinator_withConfiguration___block_invoke;
-      v47 = &unk_1E6EC3778;
-      v48 = &v40;
-      v11 = [[NSSQLBlockRequestContext alloc] initWithBlock:buf context:0 sqlCore:v10];
-      [(NSSQLCore *)v10 dispatchRequest:v11 withRetries:0];
-      v12 = MEMORY[0x1E69E9848];
-      if (v11)
-      {
-        exception = v11->super._exception;
-        if (exception || (exception = v11->super._error) != 0)
-        {
-          fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Attepmting to check for CloudKit tables failed: %@\n%@", l, exception), "UTF8String"], *MEMORY[0x1E69E9848]);
-        }
-      }
+      v18 = *MEMORY[0x1E69E9848];
+      v19 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] l];
+      fputs(v19, v18);
+    }
+  }
 
-      if ([(NSPersistentStoreCoordinator *)v9 removePersistentStore:v10 error:v52])
-      {
+  if (![(NSPersistentStoreCoordinator *)v9 removePersistentStore:v10 error:v57])
+  {
+    v16 = *v12;
+    v17 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] l];
+    goto LABEL_12;
+  }
+
 LABEL_13:
-        v16 = *(v41 + 24);
-        _Block_object_dispose(&v40, 8);
-        if (v16 != 1)
-        {
-          v21 = *MEMORY[0x1E69E9858];
-          v22 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"This store has never been used with CloudKit (use cdutil dumpmetadata [storePath] to show store metadata): %@", l), "UTF8String"];
-LABEL_36:
-          fputs(v22, v21);
-LABEL_37:
+  v20 = *(v46 + 24);
+  _Block_object_dispose(&v45, 8);
+  if (v20 == 1)
+  {
+    lCopy = l;
+    if (!copyCopy)
+    {
+      goto LABEL_22;
+    }
 
-          goto LABEL_38;
-        }
-
-        lCopy = l;
-        if (!copyCopy)
-        {
-          goto LABEL_22;
-        }
-
-        objc_opt_self();
-        lCopy = [MEMORY[0x1E695DFF8] fileURLWithPath:{-[NSString stringByAppendingPathComponent:](-[NSString stringByAppendingPathComponent:](-[NSString stringByAppendingPathComponent:](NSTemporaryDirectory(), "stringByAppendingPathComponent:", @"cdutil", "stringByAppendingPathComponent:", objc_msgSend(objc_msgSend(MEMORY[0x1E696AFB0], "UUID"), "UUIDString")), "stringByAppendingPathComponent:", objc_msgSend(l, "lastPathComponent"))}];
-        v40 = 0;
-        if (+[NSCloudKitMirroringDelegate checkAndCreateDirectoryAtURL:wipeIfExists:error:](NSCloudKitMirroringDelegate, "checkAndCreateDirectoryAtURL:wipeIfExists:error:", [lCopy URLByDeletingLastPathComponent], 1, &v40))
-        {
-          v51 = @"NSReadOnlyPersistentStoreOption";
-          v52[0] = MEMORY[0x1E695E118];
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
-          v49 = @"NSReadOnlyPersistentStoreOption";
-          v50 = MEMORY[0x1E695E118];
-          if (-[NSPersistentStoreCoordinator replacePersistentStoreAtURL:destinationOptions:withPersistentStoreFromURL:sourceOptions:storeType:error:](v9, "replacePersistentStoreAtURL:destinationOptions:withPersistentStoreFromURL:sourceOptions:storeType:error:", lCopy, v18, l, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1], @"SQLite", &v40))
-          {
-            goto LABEL_22;
-          }
-
-          v19 = *MEMORY[0x1E69E9848];
-          v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to move store to a temporary location: %@\n%@", lCopy, v40];
-        }
-
-        else
-        {
-          v19 = *MEMORY[0x1E69E9848];
-          v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create a temporary directory for working on the store.\n%@", v40];
-        }
-
-        fputs([v20 UTF8String], v19);
-        if (!v40)
-        {
-          LogStream = _PFLogGetLogStream(17);
-          if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315394;
-            *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-            *&buf[12] = 1024;
-            *&buf[14] = 306;
-            _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
-          }
-
-          v34 = _PFLogGetLogStream(17);
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
-          {
-            *buf = 136315394;
-            *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-            *&buf[12] = 1024;
-            *&buf[14] = 306;
-            _os_log_fault_impl(&dword_18565F000, v34, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-          }
-
-LABEL_35:
-          v21 = *MEMORY[0x1E69E9848];
-          v22 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create a copy of the store at url: %@\n%@", l, v39), "UTF8String"];
-          goto LABEL_36;
-        }
-
-        lCopy = 0;
-        v39 = v40;
-LABEL_22:
-        if (lCopy)
-        {
-          v23 = [[NSCloudKitMirroringDelegateOptions alloc] initWithContainerIdentifier:@"cdutil-stub-container"];
-          v24 = v23;
-          if (v23)
-          {
-            v23->_skipCloudKitSetup = 1;
-          }
-
-          v25 = [[NSCloudKitMirroringDelegate alloc] initWithOptions:v23];
-
-          v26 = [[NSPersistentStoreDescription alloc] initWithURL:lCopy];
-          [(NSPersistentStoreDescription *)v26 setType:@"SQLite"];
-          [(NSPersistentStoreDescription *)v26 setConfiguration:configuration];
-          [(NSPersistentStoreDescription *)v26 setShouldMigrateStoreAutomatically:1];
-          [(NSPersistentStoreDescription *)v26 setShouldInferMappingModelAutomatically:1];
-          [(NSPersistentStoreDescription *)v26 setMirroringDelegate:v25];
-          [(NSPersistentStoreDescription *)v26 setOption:MEMORY[0x1E695E118] forKey:@"NSPersistentHistoryTrackingKey"];
-          [(NSPersistentStoreDescription *)v26 setOption:MEMORY[0x1E695E118] forKey:@"NSCloudKitMirroringDelegateReadOnlyOptionKey"];
-          v27 = dispatch_semaphore_create(0);
-          defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-          v38[0] = MEMORY[0x1E69E9820];
-          v38[1] = 3221225472;
-          v38[2] = __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke;
-          v38[3] = &unk_1E6EC3590;
-          v38[4] = v27;
-          v29 = [defaultCenter addObserverForName:@"NSPersistentCloudKitContainerEventChangedNotification" object:v25 queue:0 usingBlock:v38];
-          *buf = 0;
-          *&buf[8] = buf;
-          *&buf[16] = 0x2020000000;
-          LOBYTE(v47) = 0;
-          v37[0] = MEMORY[0x1E69E9820];
-          v37[1] = 3221225472;
-          v37[2] = __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_8;
-          v37[3] = &unk_1E6EC5028;
-          v37[5] = v27;
-          v37[6] = buf;
-          v37[4] = lCopy;
-          [(NSPersistentStoreCoordinator *)v9 addPersistentStoreWithDescription:v26 completionHandler:v37];
-          v30 = dispatch_time(0, 10000000000);
-          if (dispatch_semaphore_wait(v27, v30))
-          {
-            fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Timed out waiting for the mirroring delegate to finish setting up. This is a bug. Please re-run and attach a sample of cdutil if you can.", "UTF8String"], *MEMORY[0x1E69E9848]);
-            v31 = 0;
-          }
-
-          else
-          {
-            v31 = *(*&buf[8] + 24);
-          }
-
-          [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-          dispatch_release(v27);
-          if (v31)
-          {
-            v32 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
-            [(NSManagedObjectContext *)v32 setPersistentStoreCoordinator:v9];
-            [(NSManagedObjectContext *)v32 _setAllowAncillaryEntities:1];
-            v36[0] = MEMORY[0x1E69E9820];
-            v36[1] = 3221225472;
-            v36[2] = __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_2;
-            v36[3] = &unk_1E6EC16F0;
-            v36[4] = v32;
-            [(NSManagedObjectContext *)v32 performBlockAndWait:v36];
-          }
-
-          _Block_object_dispose(buf, 8);
-          goto LABEL_37;
-        }
-
-        goto LABEL_35;
+    objc_opt_self();
+    lCopy = [MEMORY[0x1E695DFF8] fileURLWithPath:{-[NSString stringByAppendingPathComponent:](-[NSString stringByAppendingPathComponent:](-[NSString stringByAppendingPathComponent:](NSTemporaryDirectory(), "stringByAppendingPathComponent:", @"cdutil", "stringByAppendingPathComponent:", objc_msgSend(objc_msgSend(MEMORY[0x1E696AFB0], "UUID"), "UUIDString")), "stringByAppendingPathComponent:", objc_msgSend(l, "lastPathComponent"))}];
+    v45 = 0;
+    if (+[NSCloudKitMirroringDelegate checkAndCreateDirectoryAtURL:wipeIfExists:error:](NSCloudKitMirroringDelegate, "checkAndCreateDirectoryAtURL:wipeIfExists:error:", [lCopy URLByDeletingLastPathComponent], 1, &v45))
+    {
+      v56 = @"NSReadOnlyPersistentStoreOption";
+      v57[0] = MEMORY[0x1E695E118];
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+      v54 = @"NSReadOnlyPersistentStoreOption";
+      v55 = MEMORY[0x1E695E118];
+      if (-[NSPersistentStoreCoordinator replacePersistentStoreAtURL:destinationOptions:withPersistentStoreFromURL:sourceOptions:storeType:error:](v9, "replacePersistentStoreAtURL:destinationOptions:withPersistentStoreFromURL:sourceOptions:storeType:error:", lCopy, v22, l, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1], @"SQLite", &v45))
+      {
+        goto LABEL_22;
       }
 
-      v14 = *v12;
-      v15 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to tear down read-only store: %@\n%@", l, v52[0]), "UTF8String"];
+      v23 = *MEMORY[0x1E69E9848];
+      v24 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], lCopy, v45);
     }
 
     else
     {
-      v14 = *MEMORY[0x1E69E9848];
-      v15 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to open store: %@\n%@", l, v52[0]), "UTF8String"];
+      v23 = *MEMORY[0x1E69E9848];
+      v24 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v45);
     }
 
-    fputs(v15, v14);
-    goto LABEL_13;
+    fputs([v24 UTF8String], v23);
+    if (!v45)
+    {
+      LogStream = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        *&buf[12] = 1024;
+        *&buf[14] = 306;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+      }
+
+      v40 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 136315394;
+        *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        *&buf[12] = 1024;
+        *&buf[14] = 306;
+        _os_log_fault_impl(&dword_18565F000, v40, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+      }
+
+LABEL_35:
+      v25 = *MEMORY[0x1E69E9848];
+      v26 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] l];
+      goto LABEL_36;
+    }
+
+    lCopy = 0;
+    v44 = v45;
+LABEL_22:
+    if (lCopy)
+    {
+      v27 = [[NSCloudKitMirroringDelegateOptions alloc] initWithContainerIdentifier:@"cdutil-stub-container"];
+      v28 = v27;
+      if (v27)
+      {
+        v27->_skipCloudKitSetup = 1;
+      }
+
+      v29 = [[NSCloudKitMirroringDelegate alloc] initWithOptions:v27];
+
+      v30 = [[NSPersistentStoreDescription alloc] initWithURL:lCopy];
+      [(NSPersistentStoreDescription *)v30 setType:@"SQLite"];
+      [(NSPersistentStoreDescription *)v30 setConfiguration:configuration];
+      [(NSPersistentStoreDescription *)v30 setShouldMigrateStoreAutomatically:1];
+      [(NSPersistentStoreDescription *)v30 setShouldInferMappingModelAutomatically:1];
+      [(NSPersistentStoreDescription *)v30 setMirroringDelegate:v29];
+      [(NSPersistentStoreDescription *)v30 setOption:MEMORY[0x1E695E118] forKey:@"NSPersistentHistoryTrackingKey"];
+      [(NSPersistentStoreDescription *)v30 setOption:MEMORY[0x1E695E118] forKey:@"NSCloudKitMirroringDelegateReadOnlyOptionKey"];
+      v31 = dispatch_semaphore_create(0);
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke;
+      v43[3] = &unk_1E6EC3590;
+      v43[4] = v31;
+      v33 = [defaultCenter addObserverForName:@"NSPersistentCloudKitContainerEventChangedNotification" object:v29 queue:0 usingBlock:v43];
+      *buf = 0;
+      *&buf[8] = buf;
+      *&buf[16] = 0x2020000000;
+      LOBYTE(v52) = 0;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_8;
+      v42[3] = &unk_1E6EC5028;
+      v42[5] = v31;
+      v42[6] = buf;
+      v42[4] = lCopy;
+      [(NSPersistentStoreCoordinator *)v9 addPersistentStoreWithDescription:v30 completionHandler:v42];
+      v34 = dispatch_time(0, 10000000000);
+      if (dispatch_semaphore_wait(v31, v34))
+      {
+        v35 = *MEMORY[0x1E69E9848];
+        uTF8String = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]) UTF8String];
+        fputs(uTF8String, v35);
+        v37 = 0;
+      }
+
+      else
+      {
+        v37 = *(*&buf[8] + 24);
+      }
+
+      [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
+      dispatch_release(v31);
+      if (v37)
+      {
+        v38 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
+        [(NSManagedObjectContext *)v38 setPersistentStoreCoordinator:v9];
+        [(NSManagedObjectContext *)v38 _setAllowAncillaryEntities:1];
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_2;
+        v41[3] = &unk_1E6EC16F0;
+        v41[4] = v38;
+        [(NSManagedObjectContext *)v38 performBlockAndWait:v41];
+      }
+
+      _Block_object_dispose(buf, 8);
+      goto LABEL_37;
+    }
+
+    goto LABEL_35;
   }
 
-  fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to load model from store: %@\n%@", l, v39), "UTF8String"], *MEMORY[0x1E69E9848]);
-LABEL_38:
-  v35 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9858];
+  v26 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] l)];
+LABEL_36:
+  fputs(v26, v25);
+LABEL_37:
 }
 
 void __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(a2 "userInfo")];
   if (v4)
   {
@@ -12599,8 +12325,8 @@ void __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withCon
         LogStream = _PFLogGetLogStream(17);
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v13) = 0;
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Error was non-nil, but expected nil\n", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Error was non-nil, but expected nil\n", &v12, 2u);
         }
 
         v7 = _PFLogGetLogStream(17);
@@ -12609,7 +12335,7 @@ void __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withCon
           goto LABEL_17;
         }
 
-        LOWORD(v13) = 0;
+        LOWORD(v12) = 0;
         v8 = "CoreData: Error was non-nil, but expected nil";
       }
 
@@ -12618,8 +12344,8 @@ void __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withCon
         v11 = _PFLogGetLogStream(17);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v13) = 0;
-          _os_log_error_impl(&dword_18565F000, v11, OS_LOG_TYPE_ERROR, "CoreData: fault: Success was NO but expected YES\n", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_error_impl(&dword_18565F000, v11, OS_LOG_TYPE_ERROR, "CoreData: fault: Success was NO but expected YES\n", &v12, 2u);
         }
 
         v7 = _PFLogGetLogStream(17);
@@ -12628,11 +12354,11 @@ void __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withCon
           goto LABEL_17;
         }
 
-        LOWORD(v13) = 0;
+        LOWORD(v12) = 0;
         v8 = "CoreData: Success was NO but expected YES";
       }
 
-      _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, v8, &v13, 2u);
+      _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, v8, &v12, 2u);
 LABEL_17:
       dispatch_semaphore_signal(*(a1 + 32));
     }
@@ -12643,33 +12369,33 @@ LABEL_17:
     v9 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = a2;
-      _os_log_error_impl(&dword_18565F000, v9, OS_LOG_TYPE_ERROR, "CoreData: fault: Missing event %@\n", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = a2;
+      _os_log_error_impl(&dword_18565F000, v9, OS_LOG_TYPE_ERROR, "CoreData: fault: Missing event %@\n", &v12, 0xCu);
     }
 
     v10 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v13 = 138412290;
-      v14 = a2;
-      _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Missing event %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = a2;
+      _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Missing event %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-intptr_t __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_8(intptr_t result, uint64_t a2, uint64_t a3)
+intptr_t __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_8(intptr_t result, const char *a2, uint64_t a3)
 {
   v3 = result;
   if (a3)
   {
-    fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load persistent store at url: %@\n%@", *(result + 32), a3), "UTF8String"], *MEMORY[0x1E69E9848]);
+    v4 = *MEMORY[0x1E69E9848];
+    v5 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] a2];
+    fputs(v5, v4);
     *(*(*(v3 + 48) + 8) + 24) = 0;
-    v4 = *(v3 + 40);
+    v6 = *(v3 + 40);
 
-    return dispatch_semaphore_signal(v4);
+    return dispatch_semaphore_signal(v6);
   }
 
   else
@@ -12680,157 +12406,165 @@ intptr_t __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_wit
   return result;
 }
 
-uint64_t __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_2(uint64_t a1)
+void *__98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_withConfiguration_operateOnACopy___block_invoke_2(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v49 = 0;
-  v1 = [*(a1 + 32) executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKMetadataEntry entityPath](NSCKMetadataEntry, "entityPath")), &v49}];
+  v62 = *MEMORY[0x1E69E9840];
+  v58 = 0;
+  v1 = [*(a1 + 32) executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKMetadataEntry entityPath](NSCKMetadataEntry, "entityPath")), &v58}];
   if (v1)
   {
     v2 = v1;
     if ([v1 count])
     {
-      fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"CloudKit Metadata:\n", "UTF8String"], *MEMORY[0x1E69E9858]);
-      v45 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v48 = 0u;
+      v3 = *MEMORY[0x1E69E9858];
+      v4 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]) UTF8String];
+      fputs(v4, v3);
+      v54 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       obj = [v2 sortedArrayUsingComparator:&__block_literal_global_30];
-      v3 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-      if (v3)
+      v5 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
+      if (v5)
       {
-        v4 = v3;
-        v5 = *v46;
+        v6 = v5;
+        v7 = *v55;
         do
         {
-          for (i = 0; i != v4; ++i)
+          for (i = 0; i != v6; ++i)
           {
-            if (*v46 != v5)
+            if (*v55 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            v7 = *(*(&v45 + 1) + 8 * i);
-            v8 = [(NSCKMetadataEntry *)v7 describeValue];
-            if ([(__CFString *)v8 containsString:@"\n"])
+            v9 = *(*(&v54 + 1) + 8 * i);
+            v10 = [(NSCKMetadataEntry *)v9 describeValue];
+            if ([(__CFString *)v10 containsString:@"\n"])
             {
-              v8 = [@"\n\t\t" stringByAppendingString:{-[__CFString stringByReplacingOccurrencesOfString:withString:](v8, "stringByReplacingOccurrencesOfString:withString:", @"\n", @"\n\t\t"}];
+              v10 = [@"\n\t\t" stringByAppendingString:{-[__CFString stringByReplacingOccurrencesOfString:withString:](v10, "stringByReplacingOccurrencesOfString:withString:", @"\n", @"\n\t\t"}];
             }
 
-            fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"\t%@: %@\n", -[__CFString key](v7, "key"), v8), "UTF8String"], *MEMORY[0x1E69E9858]);
+            v11 = *MEMORY[0x1E69E9858];
+            v12 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] -[:"key") :{v10), "UTF8String"}CFString key](v9];
+            fputs(v12, v11);
           }
 
-          v4 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+          v6 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
         }
 
-        while (v4);
+        while (v6);
       }
     }
   }
 
   else
   {
-    fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to fetch metadata entries:\n%@", v49), "UTF8String"], *MEMORY[0x1E69E9848]);
+    v13 = *MEMORY[0x1E69E9848];
+    v14 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v58)];
+    fputs(v14, v13);
   }
 
-  v9 = [*(a1 + 32) executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKDatabaseMetadata entityPath](NSCKDatabaseMetadata, "entityPath")), &v49}];
-  if (v9)
+  v15 = [*(a1 + 32) executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKDatabaseMetadata entityPath](NSCKDatabaseMetadata, "entityPath")), &v58}];
+  if (v15)
   {
-    v29 = v9;
-    result = [v9 count];
+    v38 = v15;
+    result = [v15 count];
     if (result)
     {
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      result = [v29 countByEnumeratingWithState:&v41 objects:v51 count:16];
-      v31 = result;
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      result = [v38 countByEnumeratingWithState:&v50 objects:v60 count:16];
+      v40 = result;
       if (result)
       {
-        v30 = *v42;
+        v39 = *v51;
         do
         {
-          v11 = 0;
+          v17 = 0;
           do
           {
-            if (*v42 != v30)
+            if (*v51 != v39)
             {
-              objc_enumerationMutation(v29);
+              objc_enumerationMutation(v38);
             }
 
-            v32 = v11;
-            v12 = *(*(&v41 + 1) + 8 * v11);
-            v13 = *MEMORY[0x1E69E9858];
-            v14 = MEMORY[0x1E696AEC0];
-            v15 = [v12 databaseName];
-            v16 = [v12 databaseScope];
-            if ([v12 hasSubscription])
+            v41 = v17;
+            v18 = *(*(&v50 + 1) + 8 * v17);
+            v19 = *MEMORY[0x1E69E9858];
+            v20 = MEMORY[0x1E696AEC0];
+            v21 = [v18 databaseName];
+            v22 = [v18 databaseScope];
+            if ([v18 hasSubscription])
             {
-              v17 = @"YES";
+              v23 = @"YES";
             }
 
             else
             {
-              v17 = @"NO";
+              v23 = @"NO";
             }
 
-            fputs([objc_msgSend(v14 stringWithFormat:@"Database: %@ (%ld): hasSubscription: %@, currentChangeToken: %@\n", v15, v16, v17, objc_msgSend(v12, "currentChangeToken")), "UTF8String"], v13);
-            v37 = 0u;
-            v38 = 0u;
-            v39 = 0u;
-            v40 = 0u;
-            v34 = [v12 recordZones];
-            v18 = [v34 countByEnumeratingWithState:&v37 objects:v50 count:16];
-            if (v18)
+            v24 = [objc_msgSend_stringWithFormat_(v20 v21];
+            fputs(v24, v19);
+            v46 = 0u;
+            v47 = 0u;
+            v48 = 0u;
+            v49 = 0u;
+            v43 = [v18 recordZones];
+            v25 = [v43 countByEnumeratingWithState:&v46 objects:v59 count:16];
+            if (v25)
             {
-              v19 = v18;
-              obja = *v38;
+              v26 = v25;
+              obja = *v47;
               do
               {
-                for (j = 0; j != v19; ++j)
+                for (j = 0; j != v26; ++j)
                 {
-                  if (*v38 != obja)
+                  if (*v47 != obja)
                   {
-                    objc_enumerationMutation(v34);
+                    objc_enumerationMutation(v43);
                   }
 
-                  v21 = *(*(&v37 + 1) + 8 * j);
-                  v22 = *MEMORY[0x1E69E9858];
-                  v23 = MEMORY[0x1E696AEC0];
-                  v24 = [v21 ckRecordZoneName];
-                  v25 = [v21 ckOwnerName];
-                  v26 = @"NO";
-                  if ([v21 hasRecordZone])
+                  v28 = *(*(&v46 + 1) + 8 * j);
+                  v29 = *MEMORY[0x1E69E9858];
+                  v30 = MEMORY[0x1E696AEC0];
+                  v31 = [v28 ckRecordZoneName];
+                  v32 = [v28 ckOwnerName];
+                  v33 = @"NO";
+                  if ([v28 hasRecordZone])
                   {
-                    v27 = @"YES";
+                    v34 = @"YES";
                   }
 
                   else
                   {
-                    v27 = @"NO";
+                    v34 = @"NO";
                   }
 
-                  if ([v21 hasSubscription])
+                  if ([v28 hasSubscription])
                   {
-                    v26 = @"YES";
+                    v33 = @"YES";
                   }
 
-                  fputs([objc_msgSend(v23 stringWithFormat:@"\tZone: %@:%@: hasRecordZone: %@, hasSubscription: %@, currentChangeToken: %@\n", v24, v25, v27, v26, objc_msgSend(v21, "currentChangeToken")), "UTF8String"], v22);
+                  v35 = [objc_msgSend_stringWithFormat_(v30 v31];
+                  fputs(v35, v29);
                 }
 
-                v19 = [v34 countByEnumeratingWithState:&v37 objects:v50 count:16];
+                v26 = [v43 countByEnumeratingWithState:&v46 objects:v59 count:16];
               }
 
-              while (v19);
+              while (v26);
             }
 
-            v11 = v32 + 1;
+            v17 = v41 + 1;
           }
 
-          while (v32 + 1 != v31);
-          result = [v29 countByEnumeratingWithState:&v41 objects:v51 count:16];
-          v31 = result;
+          while ((v41 + 1) != v40);
+          result = [v38 countByEnumeratingWithState:&v50 objects:v60 count:16];
+          v40 = result;
         }
 
         while (result);
@@ -12840,10 +12574,11 @@ uint64_t __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_wit
 
   else
   {
-    result = fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to fetch database metadata entries:\n%@", v49), "UTF8String"], *MEMORY[0x1E69E9848]);
+    v36 = *MEMORY[0x1E69E9848];
+    v37 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v58)];
+    return fputs(v37, v36);
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -12858,8 +12593,8 @@ uint64_t __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_wit
 + (void)printRepresentativeSchemaForModelAtURL:(id)l orStoreAtURL:(id)rL withConfiguration:(id)configuration
 {
   rLCopy = rL;
-  v32[1] = *MEMORY[0x1E69E9840];
-  v30 = 0;
+  v41[1] = *MEMORY[0x1E69E9840];
+  v39 = 0;
   if (l)
   {
     v8 = [[NSManagedObjectModel alloc] initWithContentsOfURL:l];
@@ -12869,21 +12604,23 @@ uint64_t __98__NSCloudKitMirroringDelegate___CLI__printMetadataForStoreAtURL_wit
   {
     if (!rL)
     {
-      v19 = 0;
+      v21 = 0;
       goto LABEL_20;
     }
 
-    v31 = @"NSReadOnlyPersistentStoreOption";
-    v32[0] = MEMORY[0x1E695E118];
-    v8 = +[NSPersistentStore cachedModelForPersistentStoreWithURL:options:error:](NSPersistentStore, "cachedModelForPersistentStoreWithURL:options:error:", rL, [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1], &v30);
+    v40 = @"NSReadOnlyPersistentStoreOption";
+    v41[0] = MEMORY[0x1E695E118];
+    v8 = +[NSPersistentStore cachedModelForPersistentStoreWithURL:options:error:](NSPersistentStore, "cachedModelForPersistentStoreWithURL:options:error:", rL, [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1], &v39);
   }
 
   v9 = v8;
   if (!v8)
   {
-    v19 = v30;
+    v21 = v39;
 LABEL_20:
-    fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load a managed object model. Arguments:\nstoreURL: %@\nmodelURL: %@\nEncountered error: %@", rLCopy, l, v19), "UTF8String"], *MEMORY[0x1E69E9848]);
+    v27 = *MEMORY[0x1E69E9848];
+    rLCopy = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] rLCopy];
+    fputs(rLCopy, v27);
     v9 = 0;
     goto LABEL_25;
   }
@@ -12891,9 +12628,11 @@ LABEL_20:
   if (!rLCopy)
   {
     rLCopy = [MEMORY[0x1E695DFF8] fileURLWithPath:{-[NSString stringByAppendingPathComponent:](-[NSString stringByAppendingPathComponent:](NSTemporaryDirectory(), "stringByAppendingPathComponent:", @"cdutil", "stringByAppendingPathComponent:", objc_msgSend(objc_msgSend(MEMORY[0x1E696AFB0], "UUID"), "UUIDString"))}];
-    if (!+[NSCloudKitMirroringDelegate checkAndCreateDirectoryAtURL:wipeIfExists:error:](NSCloudKitMirroringDelegate, "checkAndCreateDirectoryAtURL:wipeIfExists:error:", [rLCopy URLByDeletingLastPathComponent], 0, &v30))
+    if (!+[NSCloudKitMirroringDelegate checkAndCreateDirectoryAtURL:wipeIfExists:error:](NSCloudKitMirroringDelegate, "checkAndCreateDirectoryAtURL:wipeIfExists:error:", [rLCopy URLByDeletingLastPathComponent], 0, &v39))
     {
-      fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create temporary directory: %@", v30), "UTF8String"], *MEMORY[0x1E69E9848]);
+      v29 = *MEMORY[0x1E69E9848];
+      v30 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v39)];
+      fputs(v30, v29);
       goto LABEL_25;
     }
 
@@ -12921,58 +12660,62 @@ LABEL_20:
   [(NSPersistentStoreDescription *)v14 setOption:MEMORY[0x1E695E118] forKey:@"NSPersistentHistoryTrackingKey"];
   v15 = dispatch_semaphore_create(0);
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke;
-  v29[3] = &unk_1E6EC3590;
-  v29[4] = v15;
-  v17 = [defaultCenter addObserverForName:@"PFCloudKitDidSetupNotificationName" object:v13 queue:0 usingBlock:v29];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke_78;
-  v24[3] = &unk_1E6EC5070;
-  v24[4] = rLCopy;
-  v24[5] = &v25;
-  [(NSPersistentStoreCoordinator *)v10 addPersistentStoreWithDescription:v14 completionHandler:v24];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke;
+  v38[3] = &unk_1E6EC3590;
+  v38[4] = v15;
+  v17 = [defaultCenter addObserverForName:@"PFCloudKitDidSetupNotificationName" object:v13 queue:0 usingBlock:v38];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke_78;
+  v33[3] = &unk_1E6EC5070;
+  v33[4] = rLCopy;
+  v33[5] = &v34;
+  [(NSPersistentStoreCoordinator *)v10 addPersistentStoreWithDescription:v14 completionHandler:v33];
   v18 = dispatch_time(0, 10000000000);
   if (dispatch_semaphore_wait(v15, v18))
   {
-    *(v26 + 24) = 0;
-    fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Timed out waiting for the mirroring delegate to finish setting up. This is a bug. Please re-run and attach a sample of cdutil if you can.", "UTF8String"], *MEMORY[0x1E69E9848]);
+    *(v35 + 24) = 0;
+    v19 = *MEMORY[0x1E69E9848];
+    uTF8String = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]) UTF8String];
+    fputs(uTF8String, v19);
   }
 
   else
   {
-    *(v26 + 24) = 1;
+    *(v35 + 24) = 1;
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-  if (*(v26 + 24) == 1)
+  if (*(v35 + 24) == 1)
   {
-    v20 = [[PFCloudKitStoreMonitor alloc] initForStore:[(NSArray *)[(NSPersistentStoreCoordinator *)v10 persistentStores] lastObject]];
-    v21 = [[PFCloudKitSchemaGenerator alloc] initWithMirroringOptions:v12 forStoreInMonitor:v20];
-    v22 = [(PFCloudKitSchemaGenerator *)v21 newRepresentativeRecords:?];
-    if (v22)
+    v22 = [[PFCloudKitStoreMonitor alloc] initForStore:[(NSArray *)[(NSPersistentStoreCoordinator *)v10 persistentStores] lastObject]];
+    v23 = [[PFCloudKitSchemaGenerator alloc] initWithMirroringOptions:v12 forStoreInMonitor:v22];
+    v24 = [(PFCloudKitSchemaGenerator *)v23 newRepresentativeRecords:?];
+    if (v24)
     {
-      fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Generated records:\n", "UTF8String"], *MEMORY[0x1E69E9858]);
-      [v22 enumerateObjectsUsingBlock:&__block_literal_global_86];
+      v25 = *MEMORY[0x1E69E9858];
+      uTF8String2 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]) UTF8String];
+      fputs(uTF8String2, v25);
+      [v24 enumerateObjectsUsingBlock:&__block_literal_global_86];
     }
 
     else
     {
-      *(v26 + 24) = 0;
-      fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to generate records: %@", v30), "UTF8String"], *MEMORY[0x1E69E9848]);
+      *(v35 + 24) = 0;
+      v31 = *MEMORY[0x1E69E9848];
+      v32 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v39)];
+      fputs(v32, v31);
     }
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v34, 8);
 LABEL_25:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 intptr_t __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke(uint64_t a1, void *a2)
@@ -13023,28 +12766,30 @@ LABEL_12:
   return dispatch_semaphore_signal(*(a1 + 32));
 }
 
-uint64_t __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke_78(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke_78(uint64_t result, const char *a2, uint64_t a3)
 {
   v3 = result;
   if (a3)
   {
-    result = fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load persistent store at url: %@\n%@", *(result + 32), a3), "UTF8String"], *MEMORY[0x1E69E9848]);
-    v4 = 0;
+    v4 = *MEMORY[0x1E69E9848];
+    v5 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] a2];
+    result = fputs(v5, v4);
+    v6 = 0;
   }
 
   else
   {
-    v4 = 1;
+    v6 = 1;
   }
 
-  *(*(*(v3 + 40) + 8) + 24) = v4;
+  *(*(*(v3 + 40) + 8) + 24) = v6;
   return result;
 }
 
 uint64_t __108__NSCloudKitMirroringDelegate___CLI__printRepresentativeSchemaForModelAtURL_orStoreAtURL_withConfiguration___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = *MEMORY[0x1E69E9858];
-  v3 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", objc_msgSend(a2, "description")), "UTF8String"];
+  v3 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] objc_msgSend(a2];
 
   return fputs(v3, v2);
 }
@@ -13105,60 +12850,70 @@ uint64_t __122__NSCloudKitMirroringDelegate___CLI__checkForCloudKitTablesInStore
   return result;
 }
 
++ (BOOL)checkIfContentsOfStore:(id)store matchContentsOfStore:(id)ofStore onlyCompareSharedZones:(BOOL)zones error:(id *)error
+{
+  zonesCopy = zones;
+  v8 = [[PFCloudKitStoreComparer alloc] initWithStore:store otherStore:ofStore];
+  [(PFCloudKitStoreComparer *)v8 setOnlyCompareSharedZones:zonesCopy];
+  LOBYTE(error) = [(PFCloudKitStoreComparer *)v8 ensureContentsMatch:error];
+
+  return error;
+}
+
 + (BOOL)traceObjectMatchingValue:(id)value atKeyPath:(id)path inStores:(id)stores startingAt:(id)at endingAt:(id)endingAt error:(id *)error
 {
-  v73 = *MEMORY[0x1E69E9840];
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3052000000;
-  v55 = __Block_byref_object_copy__44;
-  v56 = __Block_byref_object_dispose__44;
-  v57 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 1;
+  v72 = *MEMORY[0x1E69E9840];
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3052000000;
+  v54 = __Block_byref_object_copy__44;
+  v55 = __Block_byref_object_dispose__44;
+  v56 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 1;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v8 = [stores countByEnumeratingWithState:&v44 objects:v72 count:16];
+  v8 = [stores countByEnumeratingWithState:&v43 objects:v71 count:16];
   if (v8)
   {
-    v42 = *v45;
-    v38 = *MEMORY[0x1E696A250];
-    v39 = *MEMORY[0x1E696A588];
+    v41 = *v44;
+    v37 = *MEMORY[0x1E696A250];
+    v38 = *MEMORY[0x1E696A588];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v45 != v42)
+        if (*v44 != v41)
         {
           objc_enumerationMutation(stores);
         }
 
-        v10 = *(*(&v44 + 1) + 8 * i);
+        v10 = *(*(&v43 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
-        v70 = @"NSReadOnlyPersistentStoreOption";
-        v71 = MEMORY[0x1E695E118];
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-        v13 = [NSPersistentStore cachedModelForPersistentStoreWithURL:v10 options:v12 error:v53 + 5];
+        v69 = @"NSReadOnlyPersistentStoreOption";
+        v70 = MEMORY[0x1E695E118];
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+        v13 = [NSPersistentStore cachedModelForPersistentStoreWithURL:v10 options:v12 error:v52 + 5];
         if (!v13)
         {
-          *(v49 + 24) = 0;
-          v23 = v53[5];
+          *(v48 + 24) = 0;
+          v23 = v52[5];
           goto LABEL_19;
         }
 
         v14 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v13];
-        v68[0] = @"NSReadOnlyPersistentStoreOption";
-        v68[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
-        v69[0] = MEMORY[0x1E695E118];
-        v69[1] = MEMORY[0x1E695E118];
-        v68[2] = @"NSPersistentHistoryTrackingKey";
-        v69[2] = MEMORY[0x1E695E118];
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:3];
-        v16 = [(NSPersistentStoreCoordinator *)v14 addPersistentStoreWithType:@"SQLite" configuration:0 URL:v10 options:v15 error:v53 + 5];
+        v67[0] = @"NSReadOnlyPersistentStoreOption";
+        v67[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
+        v68[0] = MEMORY[0x1E695E118];
+        v68[1] = MEMORY[0x1E695E118];
+        v67[2] = @"NSPersistentHistoryTrackingKey";
+        v68[2] = MEMORY[0x1E695E118];
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:3];
+        v16 = [(NSPersistentStoreCoordinator *)v14 addPersistentStoreWithType:@"SQLite" configuration:0 URL:v10 options:v15 error:v52 + 5];
         if (!v16)
         {
           goto LABEL_17;
@@ -13168,13 +12923,13 @@ uint64_t __122__NSCloudKitMirroringDelegate___CLI__checkForCloudKitTablesInStore
         if ([v17 count] != 2)
         {
           v24 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v62 = v39;
-          path = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to parse provided keypath. Expected two components when split by '.': %@", path];
-          v25 = [v24 initWithDomain:v38 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &path, &v62, 1)}];
+          v61 = v38;
+          v62 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], path);
+          v25 = [v24 initWithDomain:v37 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v62, &v61, 1)}];
 LABEL_16:
-          v53[5] = v25;
+          v52[5] = v25;
 LABEL_17:
-          *(v49 + 24) = 0;
+          *(v48 + 24) = 0;
           goto LABEL_18;
         }
 
@@ -13184,9 +12939,9 @@ LABEL_17:
         if (!v20)
         {
           v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v64 = v39;
-          v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to parse provided keypath. An entity named '%@' could not be found in the model for the store: %@", v18, v10];
-          v25 = [v26 initWithDomain:v38 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v65, &v64, 1)}];
+          v63 = v38;
+          v64 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v18, v10);
+          v25 = [v26 initWithDomain:v37 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v64, &v63, 1)}];
           goto LABEL_16;
         }
 
@@ -13194,34 +12949,34 @@ LABEL_17:
         if (!v21)
         {
           v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v66 = v39;
-          v67 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to parse provided keypath. An attribute named '%@' could not be found on the entity '%@' in the store: %@", v19, v18, v10];
-          v25 = [v27 initWithDomain:v38 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v67, &v66, 1)}];
+          v65 = v38;
+          v66 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v19, v18, v10);
+          v25 = [v27 initWithDomain:v37 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v66, &v65, 1)}];
           goto LABEL_16;
         }
 
         v22 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
         [(NSManagedObjectContext *)v22 setPersistentStoreCoordinator:v14];
         [(NSManagedObjectContext *)v22 _setAllowAncillaryEntities:1];
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __108__NSCloudKitMirroringDelegate___CLI__traceObjectMatchingValue_atKeyPath_inStores_startingAt_endingAt_error___block_invoke;
-        v43[3] = &unk_1E6EC50B8;
-        v43[4] = v18;
-        v43[5] = v21;
-        v43[6] = value;
-        v43[7] = v19;
-        v43[8] = v10;
-        v43[9] = v22;
-        v43[14] = &v48;
-        v43[10] = at;
-        v43[11] = endingAt;
-        v43[12] = v16;
-        v43[13] = &v52;
-        [(NSManagedObjectContext *)v22 performBlockAndWait:v43];
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __108__NSCloudKitMirroringDelegate___CLI__traceObjectMatchingValue_atKeyPath_inStores_startingAt_endingAt_error___block_invoke;
+        v42[3] = &unk_1E6EC50B8;
+        v42[4] = v18;
+        v42[5] = v21;
+        v42[6] = value;
+        v42[7] = v19;
+        v42[8] = v10;
+        v42[9] = v22;
+        v42[14] = &v47;
+        v42[10] = at;
+        v42[11] = endingAt;
+        v42[12] = v16;
+        v42[13] = &v51;
+        [(NSManagedObjectContext *)v22 performBlockAndWait:v42];
 
 LABEL_18:
-        LODWORD(v13) = *(v49 + 24);
+        LODWORD(v13) = *(v48 + 24);
 LABEL_19:
         objc_autoreleasePoolPop(v11);
         if (!v13)
@@ -13230,21 +12985,21 @@ LABEL_19:
         }
       }
 
-      v8 = [stores countByEnumeratingWithState:&v44 objects:v72 count:16];
+      v8 = [stores countByEnumeratingWithState:&v43 objects:v71 count:16];
     }
 
     while (v8);
   }
 
 LABEL_22:
-  if ((v49[3] & 1) == 0)
+  if ((v48[3] & 1) == 0)
   {
-    v31 = v53[5];
-    if (v31)
+    v30 = v52[5];
+    if (v30)
     {
       if (error)
       {
-        *error = v31;
+        *error = v30;
       }
     }
 
@@ -13254,35 +13009,34 @@ LABEL_22:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v59 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v60 = 1024;
-        v61 = 592;
+        v58 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v59 = 1024;
+        v60 = 592;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v33 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+      v32 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v59 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v60 = 1024;
-        v61 = 592;
-        _os_log_fault_impl(&dword_18565F000, v33, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v58 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v59 = 1024;
+        v60 = 592;
+        _os_log_fault_impl(&dword_18565F000, v32, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v53[5] = 0;
-  v28 = *(v49 + 24);
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
-  v29 = *MEMORY[0x1E69E9840];
+  v52[5] = 0;
+  v28 = *(v48 + 24);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
   return v28;
 }
 
 void __108__NSCloudKitMirroringDelegate___CLI__traceObjectMatchingValue_atKeyPath_inStores_startingAt_endingAt_error___block_invoke(uint64_t a1)
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   v2 = [NSFetchRequest fetchRequestWithEntityName:*(a1 + 32)];
   v3 = [*(a1 + 40) attributeType];
   if (v3 == 700)
@@ -13302,24 +13056,24 @@ LABEL_5:
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    v68 = *(a1 + 40);
-    v67 = *(a1 + 48);
+    v80 = *(a1 + 40);
+    v79 = *(a1 + 48);
     *buf = 138412546;
-    *&buf[4] = v67;
-    v115 = 2112;
-    v116 = v68;
+    *&buf[4] = v79;
+    v127 = 2112;
+    v128 = v80;
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Sorry, I don't know how to translate this value in to a predicate yet: %@ / %@\n", buf, 0x16u);
   }
 
   v7 = _PFLogGetLogStream(17);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
-    v70 = *(a1 + 40);
-    v69 = *(a1 + 48);
+    v82 = *(a1 + 40);
+    v81 = *(a1 + 48);
     *buf = 138412546;
-    *&buf[4] = v69;
-    v115 = 2112;
-    v116 = v70;
+    *&buf[4] = v81;
+    v127 = 2112;
+    v128 = v82;
     _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Sorry, I don't know how to translate this value in to a predicate yet: %@ / %@", buf, 0x16u);
   }
 
@@ -13329,16 +13083,20 @@ LABEL_11:
   -[NSFetchRequest setPredicate:](v2, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %@", *(a1 + 56), v5]);
   [(NSFetchRequest *)v2 setReturnsObjectsAsFaults:0];
   v9 = MEMORY[0x1E69E9858];
-  fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Tracing %@.%@ == %@ in store: %@\nWith fetch: %@\n", *(a1 + 32), *(a1 + 56), *(a1 + 48), *(a1 + 64), v2), "UTF8String"], *MEMORY[0x1E69E9858]);
+  v10 = *MEMORY[0x1E69E9858];
+  v11 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] *(a1 + 32)];
+  fputs(v11, v10);
   *buf = 0;
-  v10 = [*(a1 + 72) executeFetchRequest:v2 error:buf];
-  v85 = v8;
-  v86 = v5;
-  if (v10)
+  v12 = [*(a1 + 72) executeFetchRequest:v2 error:buf];
+  v97 = v8;
+  v98 = v5;
+  if (v12)
   {
-    v11 = v10;
-    fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Found rows: %@\n", v10), "UTF8String"], *v9);
-    [v8 addObjectsFromArray:{objc_msgSend(v11, "valueForKey:", @"objectID"}];
+    v13 = v12;
+    v14 = *v9;
+    v15 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v12)];
+    fputs(v15, v14);
+    [v8 addObjectsFromArray:objc_msgSend_valueForKey_(v13)];
   }
 
   else
@@ -13347,77 +13105,77 @@ LABEL_11:
     *(*(*(a1 + 112) + 8) + 24) = 0;
   }
 
-  v87 = a1;
+  v99 = a1;
   if (*(*(*(a1 + 112) + 8) + 24) == 1)
   {
-    v12 = +[NSPersistentHistoryChange fetchRequest];
-    -[NSFetchRequest setPredicate:](v12, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"changeType == %ld", 2]);
-    v13 = [NSPersistentHistoryChangeRequest fetchHistoryWithFetchRequest:v12];
-    [(NSPersistentHistoryChangeRequest *)v13 setResultType:5];
-    v14 = [objc_msgSend(*(a1 + 72) executeRequest:v13 error:{buf), "result"}];
-    if (v14)
+    v16 = +[NSPersistentHistoryChange fetchRequest];
+    -[NSFetchRequest setPredicate:](v16, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"changeType == %ld", 2]);
+    v17 = [NSPersistentHistoryChangeRequest fetchHistoryWithFetchRequest:v16];
+    [(NSPersistentHistoryChangeRequest *)v17 setResultType:5];
+    v18 = [objc_msgSend(*(a1 + 72) executeRequest:v17 error:{buf), "result"}];
+    if (v18)
     {
-      v15 = v14;
-      v107 = 0u;
-      v108 = 0u;
-      v105 = 0u;
-      v106 = 0u;
-      v16 = [v14 countByEnumeratingWithState:&v105 objects:v113 count:16];
-      if (v16)
+      v19 = v18;
+      v119 = 0u;
+      v120 = 0u;
+      v117 = 0u;
+      v118 = 0u;
+      v20 = [v18 countByEnumeratingWithState:&v117 objects:v125 count:16];
+      if (v20)
       {
-        v17 = v16;
-        v18 = *v106;
+        v21 = v20;
+        v22 = *v118;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v106 != v18)
+            if (*v118 != v22)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v19);
             }
 
-            v20 = *(*(&v105 + 1) + 8 * i);
-            v21 = objc_autoreleasePoolPush();
-            v101 = 0u;
-            v102 = 0u;
-            v103 = 0u;
-            v104 = 0u;
-            v22 = [v20 changes];
-            v23 = [v22 countByEnumeratingWithState:&v101 objects:v112 count:16];
-            if (v23)
+            v24 = *(*(&v117 + 1) + 8 * i);
+            v25 = objc_autoreleasePoolPush();
+            v113 = 0u;
+            v114 = 0u;
+            v115 = 0u;
+            v116 = 0u;
+            v26 = [v24 changes];
+            v27 = [v26 countByEnumeratingWithState:&v113 objects:v124 count:16];
+            if (v27)
             {
-              v24 = v23;
-              v25 = *v102;
+              v28 = v27;
+              v29 = *v114;
               do
               {
-                for (j = 0; j != v24; ++j)
+                for (j = 0; j != v28; ++j)
                 {
-                  if (*v102 != v25)
+                  if (*v114 != v29)
                   {
-                    objc_enumerationMutation(v22);
+                    objc_enumerationMutation(v26);
                   }
 
-                  v27 = *(*(&v101 + 1) + 8 * j);
-                  v28 = [objc_msgSend(v27 "tombstone")];
-                  if (v28 && [v86 isEqual:v28])
+                  v31 = *(*(&v113 + 1) + 8 * j);
+                  v32 = [objc_msgSend(v31 "tombstone")];
+                  if (v32 && [v98 isEqual:v32])
                   {
-                    [v85 addObject:{objc_msgSend(v27, "changedObjectID")}];
+                    [v97 addObject:{objc_msgSend(v31, "changedObjectID")}];
                   }
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v101 objects:v112 count:16];
+                v28 = [v26 countByEnumeratingWithState:&v113 objects:v124 count:16];
               }
 
-              while (v24);
+              while (v28);
             }
 
-            objc_autoreleasePoolPop(v21);
+            objc_autoreleasePoolPop(v25);
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v105 objects:v113 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v117 objects:v125 count:16];
         }
 
-        while (v17);
+        while (v21);
       }
     }
 
@@ -13428,293 +13186,300 @@ LABEL_11:
     }
   }
 
-  v29 = v87;
-  v30 = 0x1E696A000uLL;
-  if (*(*(*(v87 + 112) + 8) + 24) == 1)
+  v33 = v99;
+  v34 = 0x1E696A000uLL;
+  if (*(*(*(v99 + 112) + 8) + 24) == 1)
   {
-    fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Found objectIDs: %@\n", v85), "UTF8String"], *MEMORY[0x1E69E9858]);
-    if ([v85 count])
+    v35 = *MEMORY[0x1E69E9858];
+    v36 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v97)];
+    fputs(v36, v35);
+    if ([v97 count])
     {
-      v31 = [NSPersistentHistoryChangeRequest fetchHistoryAfterToken:0];
-      [(NSPersistentHistoryChangeRequest *)v31 setResultType:5];
-      v32 = [objc_msgSend(*(v87 + 72) executeRequest:v31 error:{buf), "result"}];
-      if (v32)
+      v37 = [NSPersistentHistoryChangeRequest fetchHistoryAfterToken:0];
+      [(NSPersistentHistoryChangeRequest *)v37 setResultType:5];
+      v38 = [objc_msgSend(*(v99 + 72) executeRequest:v37 error:{buf), "result"}];
+      if (v38)
       {
-        v33 = v32;
-        v79 = objc_alloc_init(MEMORY[0x1E696AB78]);
-        [v79 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSZ"];
-        v99 = 0u;
-        v100 = 0u;
-        v97 = 0u;
-        v98 = 0u;
-        obj = v33;
-        v34 = v85;
-        v76 = [v33 countByEnumeratingWithState:&v97 objects:v111 count:16];
-        if (v76)
+        v39 = v38;
+        v91 = objc_alloc_init(MEMORY[0x1E696AB78]);
+        [v91 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSZ"];
+        v111 = 0u;
+        v112 = 0u;
+        v109 = 0u;
+        v110 = 0u;
+        obj = v39;
+        v40 = v97;
+        v88 = [v39 countByEnumeratingWithState:&v109 objects:v123 count:16];
+        if (v88)
         {
-          v75 = *v98;
+          v87 = *v110;
           do
           {
-            v35 = 0;
+            v41 = 0;
             do
             {
-              if (*v98 != v75)
+              if (*v110 != v87)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v78 = v35;
-              v81 = *(*(&v97 + 1) + 8 * v35);
+              v90 = v41;
+              v93 = *(*(&v109 + 1) + 8 * v41);
               context = objc_autoreleasePoolPush();
-              v36 = *(v29 + 80);
-              if (!v36 || [v36 compare:{objc_msgSend(v81, "timestamp")}] != 1)
+              v42 = *(v33 + 80);
+              if (!v42 || [v42 compare:{objc_msgSend(v93, "timestamp")}] != 1)
               {
-                v37 = *(v87 + 88);
-                if (!v37 || [v37 compare:{objc_msgSend(v81, "timestamp")}] != -1)
+                v43 = *(v99 + 88);
+                if (!v43 || [v43 compare:{objc_msgSend(v93, "timestamp")}] != -1)
                 {
-                  v95 = 0u;
-                  v96 = 0u;
-                  v93 = 0u;
-                  v94 = 0u;
-                  v83 = [v81 changes];
-                  v38 = [v83 countByEnumeratingWithState:&v93 objects:v110 count:16];
-                  if (v38)
+                  v107 = 0u;
+                  v108 = 0u;
+                  v105 = 0u;
+                  v106 = 0u;
+                  v95 = [v93 changes];
+                  v44 = [v95 countByEnumeratingWithState:&v105 objects:v122 count:16];
+                  if (v44)
                   {
-                    v39 = v38;
-                    v40 = *v94;
-                    v80 = *v94;
+                    v45 = v44;
+                    v46 = *v106;
+                    v92 = *v106;
                     do
                     {
-                      v41 = 0;
-                      v82 = v39;
+                      v47 = 0;
+                      v94 = v45;
                       do
                       {
-                        if (*v94 != v40)
+                        if (*v106 != v46)
                         {
-                          objc_enumerationMutation(v83);
+                          objc_enumerationMutation(v95);
                         }
 
-                        v42 = *(*(&v93 + 1) + 8 * v41);
-                        v43 = objc_autoreleasePoolPush();
-                        if ([v34 containsObject:{objc_msgSend(v42, "changedObjectID")}])
+                        v48 = *(*(&v105 + 1) + 8 * v47);
+                        v49 = objc_autoreleasePoolPush();
+                        if ([v40 containsObject:{objc_msgSend(v48, "changedObjectID")}])
                         {
-                          fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Transaction (%lld): %@:%@:%@ at %@\n", objc_msgSend(v81, "transactionNumber"), objc_msgSend(v81, "processID"), objc_msgSend(v81, "bundleID"), objc_msgSend(v81, "author"), objc_msgSend(v79, "stringFromDate:", objc_msgSend(v81, "timestamp"))), "UTF8String"], *MEMORY[0x1E69E9858]);
-                          v44 = *MEMORY[0x1E69E9858];
-                          v45 = MEMORY[0x1E696AEC0];
-                          v46 = [v42 changeID];
-                          v47 = [v42 changedObjectID];
-                          v48 = +[NSPersistentHistoryChange stringForChangeType:](NSPersistentHistoryChange, "stringForChangeType:", [v42 changeType]);
-                          v73 = [objc_msgSend(objc_msgSend(objc_msgSend(v42 "updatedProperties")];
-                          v71 = v46;
-                          v72 = v47;
-                          v34 = v85;
-                          v39 = v82;
-                          v49 = v45;
-                          v40 = v80;
-                          fputs([objc_msgSend(v49 stringWithFormat:@"\tChange (%llu): %@: %@ - %@\n", v71, v72, v48, v73), "UTF8String"], v44);
+                          v50 = *MEMORY[0x1E69E9858];
+                          v51 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] objc_msgSend(v93];
+                          fputs(v51, v50);
+                          v52 = *MEMORY[0x1E69E9858];
+                          v53 = MEMORY[0x1E696AEC0];
+                          v54 = [v48 changeID];
+                          v55 = [v48 changedObjectID];
+                          v56 = +[NSPersistentHistoryChange stringForChangeType:](NSPersistentHistoryChange, "stringForChangeType:", [v48 changeType]);
+                          v85 = [objc_msgSend(objc_msgSend_valueForKey_(objc_msgSend(v48 "updatedProperties"))];
+                          v83 = v54;
+                          v84 = v55;
+                          v40 = v97;
+                          v45 = v94;
+                          v57 = v53;
+                          v46 = v92;
+                          v58 = [objc_msgSend_stringWithFormat_(v57 v83];
+                          fputs(v58, v52);
                         }
 
-                        objc_autoreleasePoolPop(v43);
-                        ++v41;
+                        objc_autoreleasePoolPop(v49);
+                        ++v47;
                       }
 
-                      while (v39 != v41);
-                      v39 = [v83 countByEnumeratingWithState:&v93 objects:v110 count:16];
+                      while (v45 != v47);
+                      v45 = [v95 countByEnumeratingWithState:&v105 objects:v122 count:16];
                     }
 
-                    while (v39);
+                    while (v45);
                   }
                 }
               }
 
               objc_autoreleasePoolPop(context);
-              v35 = v78 + 1;
-              v29 = v87;
+              v41 = v90 + 1;
+              v33 = v99;
             }
 
-            while (v78 + 1 != v76);
-            v76 = [obj countByEnumeratingWithState:&v97 objects:v111 count:16];
+            while (v90 + 1 != v88);
+            v88 = [obj countByEnumeratingWithState:&v109 objects:v123 count:16];
           }
 
-          while (v76);
+          while (v88);
         }
 
-        v30 = 0x1E696A000;
+        v34 = 0x1E696A000;
       }
 
       else
       {
-        *(*(*(v87 + 112) + 8) + 24) = 0;
-        *(*(*(v87 + 104) + 8) + 40) = *buf;
+        *(*(*(v99 + 112) + 8) + 24) = 0;
+        *(*(*(v99 + 104) + 8) + 40) = *buf;
       }
 
-      if (*(*(*(v29 + 112) + 8) + 24) == 1)
+      if (*(*(*(v33 + 112) + 8) + 24) == 1)
       {
-        v50 = +[NSCKRecordMetadata metadataForObjectIDs:inStore:withManagedObjectContext:error:](NSCKRecordMetadata, [v85 allObjects], *(v29 + 96), *(v29 + 72), buf);
-        if (v50)
+        v59 = +[NSCKRecordMetadata metadataForObjectIDs:inStore:withManagedObjectContext:error:](NSCKRecordMetadata, [v97 allObjects], *(v33 + 96), *(v33 + 72), buf);
+        if (v59)
         {
-          v51 = v50;
-          v91 = 0u;
-          v92 = 0u;
-          v89 = 0u;
-          v90 = 0u;
-          v52 = [v50 countByEnumeratingWithState:&v89 objects:v109 count:16];
-          if (v52)
+          v60 = v59;
+          v103 = 0u;
+          v104 = 0u;
+          v101 = 0u;
+          v102 = 0u;
+          v61 = [v59 countByEnumeratingWithState:&v101 objects:v121 count:16];
+          if (v61)
           {
-            v53 = v52;
-            v88 = *v90;
-            v84 = v51;
+            v62 = v61;
+            v100 = *v102;
+            v96 = v60;
             do
             {
-              for (k = 0; k != v53; ++k)
+              for (k = 0; k != v62; ++k)
               {
-                if (*v90 != v88)
+                if (*v102 != v100)
                 {
-                  objc_enumerationMutation(v84);
+                  objc_enumerationMutation(v96);
                 }
 
-                v55 = *(*(&v89 + 1) + 8 * k);
-                v56 = objc_autoreleasePoolPush();
-                v57 = [(NSCKRecordMetadata *)v55 createObjectIDForLinkedRow];
-                fputs([objc_msgSend(*(v30 + 3776) stringWithFormat:@"Found record metadata for objectID: %@\n%@\n", v57, v55), "UTF8String"], *MEMORY[0x1E69E9858]);
-                v58 = [v55 encodedRecordAsset];
-                if (v58)
+                v64 = *(*(&v101 + 1) + 8 * k);
+                v65 = objc_autoreleasePoolPush();
+                v66 = [(NSCKRecordMetadata *)v64 createObjectIDForLinkedRow];
+                v67 = *MEMORY[0x1E69E9858];
+                v68 = [objc_msgSend_stringWithFormat_(*(v34 + 3776) v66];
+                fputs(v68, v67);
+                v69 = [v64 encodedRecordAsset];
+                if (v69)
                 {
-                  v59 = v58;
-                  if ([objc_msgSend(v58 "binaryData")])
+                  v70 = v69;
+                  if ([objc_msgSend(v69 "binaryData")])
                   {
-                    v58 = [v59 binaryData];
+                    v69 = [v70 binaryData];
                   }
 
                   else
                   {
-                    v58 = [v59 externalBinaryData];
+                    v69 = [v70 externalBinaryData];
                   }
                 }
 
-                v60 = v58;
-                if (v60)
+                v71 = v69;
+                if (v71)
                 {
-                  v61 = [NSCKRecordMetadata recordFromEncodedData:v60 error:buf];
-                  v62 = v61;
-                  v63 = *(v30 + 3776);
-                  if (v61)
+                  v72 = [NSCKRecordMetadata recordFromEncodedData:v71 error:buf];
+                  v73 = v72;
+                  v74 = *(v34 + 3776);
+                  if (v72)
                   {
-                    v64 = *MEMORY[0x1E69E9858];
-                    v65 = [v63 stringWithFormat:@"Encoded record:\n%@\n", objc_msgSend(v61, "debugDescription")];
+                    v75 = *MEMORY[0x1E69E9858];
+                    v76 = objc_msgSend_stringWithFormat_(v74, [v72 debugDescription]);
                   }
 
                   else
                   {
-                    v64 = *MEMORY[0x1E69E9848];
-                    v65 = [v63 stringWithFormat:@"Failed to decode record for metadata: %@", *buf];
+                    v75 = *MEMORY[0x1E69E9848];
+                    v76 = objc_msgSend_stringWithFormat_(v74, *buf);
                   }
 
-                  fputs([v65 UTF8String], v64);
+                  fputs([v76 UTF8String], v75);
 
-                  v30 = 0x1E696A000;
+                  v34 = 0x1E696A000;
                 }
 
-                objc_autoreleasePoolPop(v56);
+                objc_autoreleasePoolPop(v65);
               }
 
-              v53 = [v84 countByEnumeratingWithState:&v89 objects:v109 count:16];
+              v62 = [v96 countByEnumeratingWithState:&v101 objects:v121 count:16];
             }
 
-            while (v53);
+            while (v62);
           }
         }
 
         else
         {
-          fputs([objc_msgSend(*(v30 + 3776) stringWithFormat:@"Failed to fetch record metadata for objectIDs: %@\n%@\n", v85, *buf), "UTF8String"], *MEMORY[0x1E69E9848]);
-          *(*(*(v29 + 112) + 8) + 24) = 0;
-          *(*(*(v29 + 104) + 8) + 40) = *buf;
+          v77 = *MEMORY[0x1E69E9848];
+          v78 = [objc_msgSend_stringWithFormat_(*(v34 + 3776) v97];
+          fputs(v78, v77);
+          *(*(*(v33 + 112) + 8) + 24) = 0;
+          *(*(*(v33 + 104) + 8) + 40) = *buf;
         }
       }
     }
   }
-
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)traceObjectMatchingRecordName:(id)name inStores:(id)stores startingAt:(id)at endingAt:(id)endingAt error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3052000000;
-  v41 = __Block_byref_object_copy__44;
-  v42 = __Block_byref_object_dispose__44;
-  v43 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 1;
+  v52 = *MEMORY[0x1E69E9840];
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3052000000;
+  v40 = __Block_byref_object_copy__44;
+  v41 = __Block_byref_object_dispose__44;
+  v42 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 1;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v7 = [stores countByEnumeratingWithState:&v30 objects:v52 count:16];
+  v7 = [stores countByEnumeratingWithState:&v29 objects:v51 count:16];
   if (v7)
   {
-    v8 = *v31;
+    v8 = *v30;
     v9 = MEMORY[0x1E695E118];
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v31 != v8)
+      if (*v30 != v8)
       {
         objc_enumerationMutation(stores);
       }
 
-      v11 = *(*(&v30 + 1) + 8 * v10);
+      v11 = *(*(&v29 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
-      v50 = @"NSReadOnlyPersistentStoreOption";
-      v51 = v9;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-      v14 = [NSPersistentStore cachedModelForPersistentStoreWithURL:v11 options:v13 error:v39 + 5];
+      v49 = @"NSReadOnlyPersistentStoreOption";
+      v50 = v9;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v14 = [NSPersistentStore cachedModelForPersistentStoreWithURL:v11 options:v13 error:v38 + 5];
       if (v14)
       {
         v15 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v14];
-        v48[0] = @"NSReadOnlyPersistentStoreOption";
-        v48[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
-        v49[0] = v9;
-        v49[1] = v9;
-        v48[2] = @"NSPersistentHistoryTrackingKey";
-        v49[2] = v9;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:3];
-        if ([(NSPersistentStoreCoordinator *)v15 addPersistentStoreWithType:@"SQLite" configuration:0 URL:v11 options:v16 error:v39 + 5])
+        v47[0] = @"NSReadOnlyPersistentStoreOption";
+        v47[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
+        v48[0] = v9;
+        v48[1] = v9;
+        v47[2] = @"NSPersistentHistoryTrackingKey";
+        v48[2] = v9;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:3];
+        if ([(NSPersistentStoreCoordinator *)v15 addPersistentStoreWithType:@"SQLite" configuration:0 URL:v11 options:v16 error:v38 + 5])
         {
           v17 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
           [(NSManagedObjectContext *)v17 setPersistentStoreCoordinator:v15];
           [(NSManagedObjectContext *)v17 _setAllowAncillaryEntities:1];
-          v29[0] = MEMORY[0x1E69E9820];
-          v29[1] = 3221225472;
-          v29[2] = __103__NSCloudKitMirroringDelegate___CLI__traceObjectMatchingRecordName_inStores_startingAt_endingAt_error___block_invoke;
-          v29[3] = &unk_1E6EC50E0;
-          v29[4] = name;
-          v29[5] = v11;
-          v29[10] = &v34;
-          v29[6] = v17;
-          v29[7] = at;
-          v29[9] = &v38;
-          v29[8] = endingAt;
-          [(NSManagedObjectContext *)v17 performBlockAndWait:v29];
+          v28[0] = MEMORY[0x1E69E9820];
+          v28[1] = 3221225472;
+          v28[2] = __103__NSCloudKitMirroringDelegate___CLI__traceObjectMatchingRecordName_inStores_startingAt_endingAt_error___block_invoke;
+          v28[3] = &unk_1E6EC50E0;
+          v28[4] = name;
+          v28[5] = v11;
+          v28[10] = &v33;
+          v28[6] = v17;
+          v28[7] = at;
+          v28[9] = &v37;
+          v28[8] = endingAt;
+          [(NSManagedObjectContext *)v17 performBlockAndWait:v28];
         }
 
         else
         {
-          *(v35 + 24) = 0;
+          *(v34 + 24) = 0;
         }
 
-        LODWORD(v14) = *(v35 + 24);
+        LODWORD(v14) = *(v34 + 24);
       }
 
       else
       {
-        *(v35 + 24) = 0;
+        *(v34 + 24) = 0;
       }
 
       objc_autoreleasePoolPop(v12);
@@ -13725,7 +13490,7 @@ LABEL_3:
 
       if (v7 == ++v10)
       {
-        v7 = [stores countByEnumeratingWithState:&v30 objects:v52 count:16];
+        v7 = [stores countByEnumeratingWithState:&v29 objects:v51 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -13736,14 +13501,14 @@ LABEL_3:
     }
   }
 
-  if ((v35[3] & 1) == 0)
+  if ((v34[3] & 1) == 0)
   {
-    v21 = v39[5];
-    if (v21)
+    v20 = v38[5];
+    if (v20)
     {
       if (error)
       {
-        *error = v21;
+        *error = v20;
       }
     }
 
@@ -13753,358 +13518,369 @@ LABEL_3:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v46 = 1024;
-        v47 = 709;
+        v44 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v45 = 1024;
+        v46 = 709;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v23 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      v22 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v46 = 1024;
-        v47 = 709;
-        _os_log_fault_impl(&dword_18565F000, v23, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v44 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v45 = 1024;
+        v46 = 709;
+        _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v39[5] = 0;
-  v18 = *(v35 + 24);
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  v38[5] = 0;
+  v18 = *(v34 + 24);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
   return v18;
 }
 
 void __103__NSCloudKitMirroringDelegate___CLI__traceObjectMatchingRecordName_inStores_startingAt_endingAt_error___block_invoke(uint64_t a1)
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   v2 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
-  v66 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v79 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   -[NSFetchRequest setPredicate:](v2, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"ckRecordName == %@", *(a1 + 32)]);
   v3 = MEMORY[0x1E69E9858];
-  v4 = 0x1E696A000uLL;
-  fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Tracing record %@ in store: %@\nWith fetch: %@\n", *(a1 + 32), *(a1 + 40), v2), "UTF8String"], *MEMORY[0x1E69E9858]);
-  v83 = 0;
-  v5 = [*(a1 + 48) executeFetchRequest:v2 error:&v83];
-  v52 = a1;
-  if (v5)
+  v4 = *MEMORY[0x1E69E9858];
+  v5 = 0x1E696A000uLL;
+  v6 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] *(a1 + 32)];
+  fputs(v6, v4);
+  v96 = 0;
+  v7 = [*(a1 + 48) executeFetchRequest:v2 error:&v96];
+  v65 = a1;
+  if (v7)
   {
-    v6 = v5;
-    fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Found record metadata: %@\n", v5), "UTF8String"], *v3);
-    obj = v6;
-    v56 = objc_alloc_init(PFCloudKitArchivingUtilities);
-    v79 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v60 = [v6 countByEnumeratingWithState:&v79 objects:v87 count:16];
-    if (v60)
+    v8 = v7;
+    v9 = *v3;
+    v10 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v7)];
+    fputs(v10, v9);
+    obj = v8;
+    v69 = objc_alloc_init(PFCloudKitArchivingUtilities);
+    v92 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v73 = [v8 countByEnumeratingWithState:&v92 objects:v100 count:16];
+    if (v73)
     {
-      v58 = *v80;
+      v71 = *v93;
       do
       {
-        v7 = 0;
+        v11 = 0;
         do
         {
-          if (*v80 != v58)
+          if (*v93 != v71)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v79 + 1) + 8 * v7);
-          v9 = objc_autoreleasePoolPush();
-          v10 = [(NSCKRecordMetadata *)v8 createObjectIDForLinkedRow];
-          fputs([objc_msgSend(*(v4 + 3776) stringWithFormat:@"Found metadata for row '%@': %@\n", v10, v8), "UTF8String"], *v3);
-          if ([v8 encodedRecordAsset])
+          v12 = *(*(&v92 + 1) + 8 * v11);
+          v13 = objc_autoreleasePoolPush();
+          v14 = [(NSCKRecordMetadata *)v12 createObjectIDForLinkedRow];
+          v15 = *v3;
+          v16 = [objc_msgSend_stringWithFormat_(*(v5 + 3776) v14];
+          fputs(v16, v15);
+          if ([v12 encodedRecordAsset])
           {
-            v11 = [v8 encodedRecordAsset];
-            v64 = v9;
-            if (v11)
+            v17 = [v12 encodedRecordAsset];
+            v77 = v13;
+            if (v17)
             {
-              v12 = v11;
-              if ([objc_msgSend(v11 "binaryData")])
+              v18 = v17;
+              if ([objc_msgSend(v17 "binaryData")])
               {
-                v13 = [v12 binaryData];
+                v19 = [v18 binaryData];
               }
 
               else
               {
-                v13 = [v12 externalBinaryData];
+                v19 = [v18 externalBinaryData];
               }
 
-              v14 = v13;
+              v20 = v19;
             }
 
             else
             {
-              v14 = 0;
+              v20 = 0;
             }
 
-            v15 = [(PFCloudKitArchivingUtilities *)v56 recordFromEncodedData:v14 error:&v83];
-            v62 = v10;
-            fputs([objc_msgSend(*(v4 + 3776) stringWithFormat:@"Record for row '%@': %@\n", v10, v15), "UTF8String"], *v3);
-            v75 = 0u;
-            v76 = 0u;
-            v77 = 0u;
-            v78 = 0u;
-            v16 = [objc_msgSend(v15 "encryptedValues")];
-            v17 = [v16 countByEnumeratingWithState:&v75 objects:v86 count:16];
-            if (v17)
+            v21 = [(PFCloudKitArchivingUtilities *)v69 recordFromEncodedData:v20 error:&v96];
+            v22 = *v3;
+            v75 = v14;
+            v23 = [objc_msgSend_stringWithFormat_(*(v5 + 3776) v14];
+            fputs(v23, v22);
+            v88 = 0u;
+            v89 = 0u;
+            v90 = 0u;
+            v91 = 0u;
+            v24 = [objc_msgSend(v21 "encryptedValues")];
+            v25 = [v24 countByEnumeratingWithState:&v88 objects:v99 count:16];
+            if (v25)
             {
-              v18 = v17;
-              v19 = *v76;
+              v26 = v25;
+              v27 = *v89;
               do
               {
-                for (i = 0; i != v18; ++i)
+                for (i = 0; i != v26; ++i)
                 {
-                  if (*v76 != v19)
+                  if (*v89 != v27)
                   {
-                    objc_enumerationMutation(v16);
+                    objc_enumerationMutation(v24);
                   }
 
-                  v21 = *(*(&v75 + 1) + 8 * i);
-                  v22 = *v3;
-                  v23 = MEMORY[0x1E696AEC0];
-                  v47 = [objc_msgSend(v15 "encryptedValues")];
-                  v24 = v23;
+                  v29 = *(*(&v88 + 1) + 8 * i);
+                  v30 = *v3;
+                  v31 = MEMORY[0x1E696AEC0];
+                  v60 = [objc_msgSend(v21 "encryptedValues")];
+                  v32 = v31;
                   v3 = MEMORY[0x1E69E9858];
-                  fputs([objc_msgSend(v24 stringWithFormat:@"\t%@: %@\n", v21, v47), "UTF8String"], v22);
+                  v33 = [objc_msgSend_stringWithFormat_(v32 v29];
+                  fputs(v33, v30);
                 }
 
-                v18 = [v16 countByEnumeratingWithState:&v75 objects:v86 count:16];
+                v26 = [v24 countByEnumeratingWithState:&v88 objects:v99 count:16];
               }
 
-              while (v18);
+              while (v26);
             }
 
-            v4 = 0x1E696A000;
-            v10 = v62;
-            v9 = v64;
+            v5 = 0x1E696A000;
+            v14 = v75;
+            v13 = v77;
           }
 
-          [v66 addObject:v10];
+          [v79 addObject:v14];
 
-          objc_autoreleasePoolPop(v9);
-          ++v7;
+          objc_autoreleasePoolPop(v13);
+          ++v11;
         }
 
-        while (v7 != v60);
-        v25 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
-        v60 = v25;
+        while (v11 != v73);
+        v34 = [obj countByEnumeratingWithState:&v92 objects:v100 count:16];
+        v73 = v34;
       }
 
-      while (v25);
+      while (v34);
     }
 
-    a1 = v52;
+    a1 = v65;
   }
 
   else
   {
-    *(*(*(a1 + 72) + 8) + 40) = v83;
+    *(*(*(a1 + 72) + 8) + 40) = v96;
     *(*(*(a1 + 80) + 8) + 24) = 0;
   }
 
   if (*(*(*(a1 + 80) + 8) + 24) == 1)
   {
-    fputs([objc_msgSend(*(v4 + 3776) stringWithFormat:@"Found objectIDs: %@\n", v66), "UTF8String"], *v3);
-    if ([v66 count])
+    v35 = *v3;
+    v36 = [objc_msgSend_stringWithFormat_(*(v5 + 3776) v79)];
+    fputs(v36, v35);
+    if ([v79 count])
     {
-      v26 = [NSPersistentHistoryChangeRequest fetchHistoryAfterToken:0];
-      [(NSPersistentHistoryChangeRequest *)v26 setResultType:5];
-      v27 = [objc_msgSend(*(v52 + 48) executeRequest:v26 error:{&v83), "result"}];
-      if (v27)
+      v37 = [NSPersistentHistoryChangeRequest fetchHistoryAfterToken:0];
+      [(NSPersistentHistoryChangeRequest *)v37 setResultType:5];
+      v38 = [objc_msgSend(*(v65 + 48) executeRequest:v37 error:{&v96), "result"}];
+      if (v38)
       {
-        v28 = v27;
-        v57 = objc_alloc_init(MEMORY[0x1E696AB78]);
-        [v57 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSZ"];
-        v73 = 0u;
-        v74 = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v51 = [v28 countByEnumeratingWithState:&v71 objects:v85 count:16];
-        if (v51)
+        v39 = v38;
+        v70 = objc_alloc_init(MEMORY[0x1E696AB78]);
+        [v70 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSZ"];
+        v86 = 0u;
+        v87 = 0u;
+        v84 = 0u;
+        v85 = 0u;
+        v64 = [v39 countByEnumeratingWithState:&v84 objects:v98 count:16];
+        if (v64)
         {
-          v49 = v28;
-          v50 = *v72;
+          v62 = v39;
+          v63 = *v85;
           do
           {
-            v29 = 0;
+            v40 = 0;
             do
             {
-              if (*v72 != v50)
+              if (*v85 != v63)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v62);
               }
 
-              obja = v29;
-              v61 = *(*(&v71 + 1) + 8 * v29);
+              obja = v40;
+              v74 = *(*(&v84 + 1) + 8 * v40);
               context = objc_autoreleasePoolPush();
-              v30 = *(v52 + 56);
-              if (!v30 || [v30 compare:{objc_msgSend(v61, "timestamp")}] != 1)
+              v41 = *(v65 + 56);
+              if (!v41 || [v41 compare:{objc_msgSend(v74, "timestamp")}] != 1)
               {
-                v31 = *(v52 + 64);
-                if (!v31 || [v31 compare:{objc_msgSend(v61, "timestamp")}] != -1)
+                v42 = *(v65 + 64);
+                if (!v42 || [v42 compare:{objc_msgSend(v74, "timestamp")}] != -1)
                 {
-                  v69 = 0u;
-                  v70 = 0u;
-                  v67 = 0u;
-                  v68 = 0u;
-                  v65 = [v61 changes];
-                  v32 = [v65 countByEnumeratingWithState:&v67 objects:v84 count:16];
-                  if (v32)
+                  v82 = 0u;
+                  v83 = 0u;
+                  v80 = 0u;
+                  v81 = 0u;
+                  v78 = [v74 changes];
+                  v43 = [v78 countByEnumeratingWithState:&v80 objects:v97 count:16];
+                  if (v43)
                   {
-                    v33 = v32;
-                    v34 = *v68;
-                    v59 = *v68;
+                    v44 = v43;
+                    v45 = *v81;
+                    v72 = *v81;
                     do
                     {
-                      v35 = 0;
-                      v63 = v33;
+                      v46 = 0;
+                      v76 = v44;
                       do
                       {
-                        if (*v68 != v34)
+                        if (*v81 != v45)
                         {
-                          objc_enumerationMutation(v65);
+                          objc_enumerationMutation(v78);
                         }
 
-                        v36 = *(*(&v67 + 1) + 8 * v35);
-                        v37 = objc_autoreleasePoolPush();
-                        if ([v66 containsObject:{objc_msgSend(v36, "changedObjectID")}])
+                        v47 = *(*(&v80 + 1) + 8 * v46);
+                        v48 = objc_autoreleasePoolPush();
+                        if ([v79 containsObject:{objc_msgSend(v47, "changedObjectID")}])
                         {
-                          v38 = *(v4 + 3776);
-                          v4 = 0x1E696A000uLL;
-                          fputs([objc_msgSend(v38 stringWithFormat:@"Transaction (%lld): %@:%@:%@ at %@\n", objc_msgSend(v61, "transactionNumber"), objc_msgSend(v61, "processID"), objc_msgSend(v61, "bundleID"), objc_msgSend(v61, "author"), objc_msgSend(v57, "stringFromDate:", objc_msgSend(v61, "timestamp"))), "UTF8String"], *MEMORY[0x1E69E9858]);
-                          v39 = *MEMORY[0x1E69E9858];
-                          v40 = MEMORY[0x1E696AEC0];
-                          v41 = [v36 changeID];
-                          v42 = [v36 changedObjectID];
-                          v43 = +[NSPersistentHistoryChange stringForChangeType:](NSPersistentHistoryChange, "stringForChangeType:", [v36 changeType]);
-                          v48 = [objc_msgSend(objc_msgSend(objc_msgSend(v36 "updatedProperties")];
-                          v46 = v41;
-                          v33 = v63;
-                          v44 = v40;
-                          v34 = v59;
-                          fputs([objc_msgSend(v44 stringWithFormat:@"\tChange (%llu): %@: %@ - %@\n", v46, v42, v43, v48), "UTF8String"], v39);
+                          v49 = *MEMORY[0x1E69E9858];
+                          v50 = *(v5 + 3776);
+                          v5 = 0x1E696A000uLL;
+                          v51 = [objc_msgSend_stringWithFormat_(v50 objc_msgSend(v74];
+                          fputs(v51, v49);
+                          v52 = *MEMORY[0x1E69E9858];
+                          v53 = MEMORY[0x1E696AEC0];
+                          v54 = [v47 changeID];
+                          v55 = [v47 changedObjectID];
+                          v56 = +[NSPersistentHistoryChange stringForChangeType:](NSPersistentHistoryChange, "stringForChangeType:", [v47 changeType]);
+                          v61 = [objc_msgSend(objc_msgSend_valueForKey_(objc_msgSend(v47 "updatedProperties"))];
+                          v59 = v54;
+                          v44 = v76;
+                          v57 = v53;
+                          v45 = v72;
+                          v58 = [objc_msgSend_stringWithFormat_(v57 v59];
+                          fputs(v58, v52);
                         }
 
-                        objc_autoreleasePoolPop(v37);
-                        ++v35;
+                        objc_autoreleasePoolPop(v48);
+                        ++v46;
                       }
 
-                      while (v33 != v35);
-                      v33 = [v65 countByEnumeratingWithState:&v67 objects:v84 count:16];
+                      while (v44 != v46);
+                      v44 = [v78 countByEnumeratingWithState:&v80 objects:v97 count:16];
                     }
 
-                    while (v33);
+                    while (v44);
                   }
                 }
               }
 
               objc_autoreleasePoolPop(context);
-              v29 = obja + 1;
+              v40 = obja + 1;
             }
 
-            while (obja + 1 != v51);
-            v51 = [v49 countByEnumeratingWithState:&v71 objects:v85 count:16];
+            while (obja + 1 != v64);
+            v64 = [v62 countByEnumeratingWithState:&v84 objects:v98 count:16];
           }
 
-          while (v51);
+          while (v64);
         }
       }
 
       else
       {
-        *(*(*(v52 + 80) + 8) + 24) = 0;
-        *(*(*(v52 + 72) + 8) + 40) = v83;
+        *(*(*(v65 + 80) + 8) + 24) = 0;
+        *(*(*(v65 + 72) + 8) + 40) = v96;
       }
     }
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)printEventsInStores:(id)stores startingAt:(id)at endingAt:(id)endingAt error:(id *)error
 {
-  v52 = *MEMORY[0x1E69E9840];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3052000000;
-  v36 = __Block_byref_object_copy__44;
-  v37 = __Block_byref_object_dispose__44;
+  v51 = *MEMORY[0x1E69E9840];
   v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3052000000;
+  v35 = __Block_byref_object_copy__44;
+  v36 = __Block_byref_object_dispose__44;
+  v37 = 0;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v6 = [stores countByEnumeratingWithState:&v29 objects:v51 count:16];
+  v6 = [stores countByEnumeratingWithState:&v28 objects:v50 count:16];
   if (v6)
   {
-    v7 = *v30;
+    v7 = *v29;
     v8 = MEMORY[0x1E695E118];
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v30 != v7)
+      if (*v29 != v7)
       {
         objc_enumerationMutation(stores);
       }
 
-      v10 = *(*(&v29 + 1) + 8 * v9);
+      v10 = *(*(&v28 + 1) + 8 * v9);
       v11 = objc_autoreleasePoolPush();
-      v49 = @"NSReadOnlyPersistentStoreOption";
-      v50 = v8;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-      v13 = [NSPersistentStore cachedModelForPersistentStoreWithURL:v10 options:v12 error:v34 + 5];
+      v48 = @"NSReadOnlyPersistentStoreOption";
+      v49 = v8;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v13 = [NSPersistentStore cachedModelForPersistentStoreWithURL:v10 options:v12 error:v33 + 5];
       if (v13)
       {
         v14 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v13];
-        v47[0] = @"NSReadOnlyPersistentStoreOption";
-        v47[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
-        v48[0] = v8;
-        v48[1] = v8;
-        v47[2] = @"NSPersistentHistoryTrackingKey";
-        v48[2] = v8;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:3];
-        if ([(NSPersistentStoreCoordinator *)v14 addPersistentStoreWithType:@"SQLite" configuration:0 URL:v10 options:v15 error:v34 + 5])
+        v46[0] = @"NSReadOnlyPersistentStoreOption";
+        v46[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
+        v47[0] = v8;
+        v47[1] = v8;
+        v46[2] = @"NSPersistentHistoryTrackingKey";
+        v47[2] = v8;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:3];
+        if ([(NSPersistentStoreCoordinator *)v14 addPersistentStoreWithType:@"SQLite" configuration:0 URL:v10 options:v15 error:v33 + 5])
         {
           v16 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
           [(NSManagedObjectContext *)v16 setPersistentStoreCoordinator:v14];
           [(NSManagedObjectContext *)v16 _setAllowAncillaryEntities:1];
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __84__NSCloudKitMirroringDelegate___CLI__printEventsInStores_startingAt_endingAt_error___block_invoke;
-          v28[3] = &unk_1E6EC3180;
-          v28[4] = at;
-          v28[5] = endingAt;
-          v28[6] = v10;
-          v28[7] = v16;
-          v28[8] = &v39;
-          v28[9] = &v33;
-          [(NSManagedObjectContext *)v16 performBlockAndWait:v28];
+          v27[0] = MEMORY[0x1E69E9820];
+          v27[1] = 3221225472;
+          v27[2] = __84__NSCloudKitMirroringDelegate___CLI__printEventsInStores_startingAt_endingAt_error___block_invoke;
+          v27[3] = &unk_1E6EC3180;
+          v27[4] = at;
+          v27[5] = endingAt;
+          v27[6] = v10;
+          v27[7] = v16;
+          v27[8] = &v38;
+          v27[9] = &v32;
+          [(NSManagedObjectContext *)v16 performBlockAndWait:v27];
         }
 
         else
         {
-          *(v40 + 24) = 0;
+          *(v39 + 24) = 0;
         }
 
-        v17 = *(v40 + 24);
+        v17 = *(v39 + 24);
       }
 
       else
       {
         v17 = 0;
-        *(v40 + 24) = 0;
+        *(v39 + 24) = 0;
       }
 
       objc_autoreleasePoolPop(v11);
@@ -14115,7 +13891,7 @@ LABEL_3:
 
       if (v6 == ++v9)
       {
-        v6 = [stores countByEnumeratingWithState:&v29 objects:v51 count:16];
+        v6 = [stores countByEnumeratingWithState:&v28 objects:v50 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -14126,14 +13902,14 @@ LABEL_3:
     }
   }
 
-  if ((v40[3] & 1) == 0)
+  if ((v39[3] & 1) == 0)
   {
-    v21 = v34[5];
-    if (v21)
+    v20 = v33[5];
+    if (v20)
     {
       if (error)
       {
-        *error = v21;
+        *error = v20;
       }
     }
 
@@ -14143,39 +13919,38 @@ LABEL_3:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v44 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v45 = 1024;
-        v46 = 802;
+        v43 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v44 = 1024;
+        v45 = 802;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v23 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      v22 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v44 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v45 = 1024;
-        v46 = 802;
-        _os_log_fault_impl(&dword_18565F000, v23, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v43 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v44 = 1024;
+        v45 = 802;
+        _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v34[5] = 0;
-  v18 = *(v40 + 24);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  v33[5] = 0;
+  v18 = *(v39 + 24);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
   return v18;
 }
 
 void __84__NSCloudKitMirroringDelegate___CLI__printEventsInStores_startingAt_endingAt_error___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v2 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKEvent entityPath]);
   [(NSFetchRequest *)v2 setFetchBatchSize:1000];
-  v21[0] = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startedAt" ascending:1];
-  -[NSFetchRequest setSortDescriptors:](v2, "setSortDescriptors:", [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1]);
+  v25[0] = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startedAt" ascending:1];
+  -[NSFetchRequest setSortDescriptors:](v2, "setSortDescriptors:", [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1]);
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (*(a1 + 32))
   {
@@ -14192,133 +13967,140 @@ void __84__NSCloudKitMirroringDelegate___CLI__printEventsInStores_startingAt_end
     -[NSFetchRequest setPredicate:](v2, "setPredicate:", [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v3]);
   }
 
-  fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Fetching events from store: %@\nWith fetch: %@\n", *(a1 + 48), v2), "UTF8String"], *MEMORY[0x1E69E9858]);
-  v19 = 0;
-  v4 = [*(a1 + 56) executeFetchRequest:v2 error:&v19];
-  if (v4)
+  v4 = *MEMORY[0x1E69E9858];
+  v5 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] *(a1 + 48)];
+  fputs(v5, v4);
+  v23 = 0;
+  v6 = [*(a1 + 56) executeFetchRequest:v2 error:&v23];
+  if (v6)
   {
-    v5 = v4;
-    v14 = v3;
+    v7 = v6;
+    v17 = v3;
     *(*(*(a1 + 64) + 8) + 24) = 1;
-    v6 = objc_alloc_init(MEMORY[0x1E696AB78]);
-    [v6 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSZ"];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
-    if (v7)
+    v8 = objc_alloc_init(MEMORY[0x1E696AB78]);
+    [v8 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSZ"];
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    obj = v7;
+    v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    if (v9)
     {
-      v8 = v7;
-      v9 = *v16;
+      v10 = v9;
+      v11 = *v20;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v12 = 0;
+        do
         {
-          if (*v16 != v9)
+          if (*v20 != v11)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
-          v12 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@ - %@: %@ - ", objc_msgSend(v6, "stringFromDate:", objc_msgSend(v11, "startedAt")), objc_msgSend(v6, "stringFromDate:", objc_msgSend(v11, "endedAt")), +[NSPersistentCloudKitContainerEvent eventTypeString:](NSPersistentCloudKitContainerEvent, "eventTypeString:", objc_msgSend(v11, "cloudKitEventType"))];
-          if ([v11 succeeded])
+          v13 = *(*(&v19 + 1) + 8 * v12);
+          v14 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@ - %@: %@ - ", objc_msgSend(v8, "stringFromDate:", objc_msgSend(v13, "startedAt")), objc_msgSend(v8, "stringFromDate:", objc_msgSend(v13, "endedAt")), +[NSPersistentCloudKitContainerEvent eventTypeString:](NSPersistentCloudKitContainerEvent, "eventTypeString:", objc_msgSend(v13, "cloudKitEventType"))];
+          if ([v13 succeeded])
           {
-            [v12 appendString:@"succeeded"];
+            [v14 appendString:@"succeeded"];
           }
 
           else
           {
-            [v12 appendFormat:@"failed - %@:%lld", objc_msgSend(v11, "errorDomain"), objc_msgSend(v11, "errorCode")];
+            [v14 appendFormat:@"failed - %@:%lld", objc_msgSend(v13, "errorDomain"), objc_msgSend(v13, "errorCode")];
           }
 
-          fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", v12), "UTF8String"], *MEMORY[0x1E69E9858]);
+          v15 = *MEMORY[0x1E69E9858];
+          v16 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v14)];
+          fputs(v16, v15);
+
+          ++v12;
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        while (v10 != v12);
+        v10 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
-      while (v8);
+      while (v10);
     }
 
-    v3 = v14;
+    v3 = v17;
   }
 
   else
   {
-    *(*(*(a1 + 72) + 8) + 40) = v19;
+    *(*(*(a1 + 72) + 8) + 40) = v23;
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)printSharedZoneWithName:(id)name inStoreAtURL:(id)l error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3052000000;
-  v26 = __Block_byref_object_copy__44;
-  v27 = __Block_byref_object_dispose__44;
+  v39[1] = *MEMORY[0x1E69E9840];
   v28 = 0;
-  v39 = @"NSReadOnlyPersistentStoreOption";
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3052000000;
+  v25 = __Block_byref_object_copy__44;
+  v26 = __Block_byref_object_dispose__44;
+  v27 = 0;
+  v38 = @"NSReadOnlyPersistentStoreOption";
   v8 = MEMORY[0x1E695E118];
-  v40[0] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
-  v10 = [NSPersistentStore cachedModelForPersistentStoreWithURL:l options:v9 error:v24 + 5];
+  v39[0] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v10 = [NSPersistentStore cachedModelForPersistentStoreWithURL:l options:v9 error:v23 + 5];
   if (v10)
   {
     v11 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v10];
-    v37[0] = @"NSReadOnlyPersistentStoreOption";
-    v37[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
-    v38[0] = v8;
-    v38[1] = v8;
-    v37[2] = @"NSPersistentHistoryTrackingKey";
-    v38[2] = v8;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
-    if ([(NSPersistentStoreCoordinator *)v11 addPersistentStoreWithType:@"SQLite" configuration:0 URL:l options:v12 error:v24 + 5])
+    v36[0] = @"NSReadOnlyPersistentStoreOption";
+    v36[1] = @"NSCloudKitMirroringDelegateReadOnlyOptionKey";
+    v37[0] = v8;
+    v37[1] = v8;
+    v36[2] = @"NSPersistentHistoryTrackingKey";
+    v37[2] = v8;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:3];
+    if ([(NSPersistentStoreCoordinator *)v11 addPersistentStoreWithType:@"SQLite" configuration:0 URL:l options:v12 error:v23 + 5])
     {
       v13 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
       [(NSManagedObjectContext *)v13 setPersistentStoreCoordinator:v11];
       [(NSManagedObjectContext *)v13 _setAllowAncillaryEntities:1];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __81__NSCloudKitMirroringDelegate___CLI__printSharedZoneWithName_inStoreAtURL_error___block_invoke;
-      v22[3] = &unk_1E6EC3540;
-      v22[4] = name;
-      v22[5] = v13;
-      v22[6] = l;
-      v22[7] = &v29;
-      v22[8] = &v23;
-      [(NSManagedObjectContext *)v13 performBlockAndWait:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __81__NSCloudKitMirroringDelegate___CLI__printSharedZoneWithName_inStoreAtURL_error___block_invoke;
+      v21[3] = &unk_1E6EC3540;
+      v21[4] = name;
+      v21[5] = v13;
+      v21[6] = l;
+      v21[7] = &v28;
+      v21[8] = &v22;
+      [(NSManagedObjectContext *)v13 performBlockAndWait:v21];
     }
 
     else
     {
-      *(v30 + 24) = 0;
-      v15 = v24[5];
+      *(v29 + 24) = 0;
+      v15 = v23[5];
     }
   }
 
   else
   {
-    *(v30 + 24) = 0;
-    v14 = v24[5];
+    *(v29 + 24) = 0;
+    v14 = v23[5];
   }
 
-  if ((v30[3] & 1) == 0)
+  if ((v29[3] & 1) == 0)
   {
-    v19 = v24[5];
-    if (v19)
+    v18 = v23[5];
+    if (v18)
     {
       if (error)
       {
-        *error = v19;
+        *error = v18;
       }
     }
 
@@ -14328,40 +14110,39 @@ void __84__NSCloudKitMirroringDelegate___CLI__printEventsInStores_startingAt_end
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v34 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v35 = 1024;
-        v36 = 883;
+        v33 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v34 = 1024;
+        v35 = 883;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v21 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v20 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v34 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
-        v35 = 1024;
-        v36 = 883;
-        _os_log_fault_impl(&dword_18565F000, v21, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v33 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegate+CLI.m";
+        v34 = 1024;
+        v35 = 883;
+        _os_log_fault_impl(&dword_18565F000, v20, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v24[5] = 0;
-  v16 = *(v30 + 24);
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v29, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  v23[5] = 0;
+  v16 = *(v29 + 24);
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v28, 8);
   return v16;
 }
 
 void __81__NSCloudKitMirroringDelegate___CLI__printSharedZoneWithName_inStoreAtURL_error___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v2 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordZoneMetadata entityPath]);
   -[NSFetchRequest setPredicate:](v2, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"ckRecordZoneName == %@", *(a1 + 32)]);
   [(NSFetchRequest *)v2 setReturnsObjectsAsFaults:0];
-  v27 = 0;
-  v3 = [*(a1 + 40) executeFetchRequest:v2 error:&v27];
+  v36 = 0;
+  v3 = [*(a1 + 40) executeFetchRequest:v2 error:&v36];
   v4 = *(*(a1 + 56) + 8);
   if (v3)
   {
@@ -14369,72 +14150,80 @@ void __81__NSCloudKitMirroringDelegate___CLI__printSharedZoneWithName_inStoreAtU
     *(v4 + 24) = 1;
     if ([v3 count])
     {
-      v21 = a1;
-      v22 = objc_alloc_init(PFCloudKitArchivingUtilities);
-      v23 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v30 = a1;
+      v31 = objc_alloc_init(PFCloudKitArchivingUtilities);
+      v32 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v6 = [v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v6)
       {
         v7 = v6;
         v8 = MEMORY[0x1E69E9858];
-        v9 = *v24;
+        v9 = *v33;
         do
         {
           v10 = 0;
           do
           {
-            if (*v24 != v9)
+            if (*v33 != v9)
             {
               objc_enumerationMutation(v5);
             }
 
-            v11 = *(*(&v23 + 1) + 8 * v10);
+            v11 = *(*(&v32 + 1) + 8 * v10);
             v12 = objc_autoreleasePoolPush();
-            fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Metadata:\n%@\n", v11), "UTF8String"], *v8);
+            v13 = *v8;
+            v14 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v11)];
+            fputs(v14, v13);
             if ([v11 encodedShareAsset])
             {
-              v13 = [(NSCKRecordZoneMetadata *)v11 createRecordZoneID];
-              v14 = [v11 encodedShareAsset];
-              if (v14)
+              v15 = [(NSCKRecordZoneMetadata *)v11 createRecordZoneID];
+              v16 = [v11 encodedShareAsset];
+              if (v16)
               {
-                v15 = v14;
-                if ([objc_msgSend(v14 "binaryData")])
+                v17 = v16;
+                if ([objc_msgSend(v16 "binaryData")])
                 {
-                  v16 = [v15 binaryData];
+                  v18 = [v17 binaryData];
                 }
 
                 else
                 {
-                  v16 = [v15 externalBinaryData];
+                  v18 = [v17 externalBinaryData];
                 }
 
-                v17 = v16;
+                v21 = v18;
               }
 
               else
               {
-                v17 = 0;
+                v21 = 0;
               }
 
-              v18 = [(PFCloudKitArchivingUtilities *)v22 shareFromEncodedData:v17 inZoneWithID:v13 error:&v27];
-              if (v18)
+              v22 = [(PFCloudKitArchivingUtilities *)v31 shareFromEncodedData:v21 inZoneWithID:v15 error:&v36];
+              if (v22)
               {
-                fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Share:\n%@\n", v18), "UTF8String"], *v8);
+                v23 = *v8;
+                v24 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v22)];
+                fputs(v24, v23);
               }
 
               else
               {
-                fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode share data for %@: %@\n", v13, v27), "UTF8String"], *MEMORY[0x1E69E9848]);
-                v27 = 0;
+                v25 = *MEMORY[0x1E69E9848];
+                v26 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] v15];
+                fputs(v26, v25);
+                v36 = 0;
               }
             }
 
             else
             {
-              fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"No encoded share was found on the metadata for %@\n", *(v21 + 32)), "UTF8String"], *v8);
+              v19 = *v8;
+              v20 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] *(v30 + 32))];
+              fputs(v20, v19);
             }
 
             objc_autoreleasePoolPop(v12);
@@ -14442,27 +14231,27 @@ void __81__NSCloudKitMirroringDelegate___CLI__printSharedZoneWithName_inStoreAtU
           }
 
           while (v7 != v10);
-          v19 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
-          v7 = v19;
+          v27 = [v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
+          v7 = v27;
         }
 
-        while (v19);
+        while (v27);
       }
     }
 
     else
     {
-      fputs([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@ does not container a zone named %@", objc_msgSend(*(a1 + 48), "lastPathComponent"), *(a1 + 32)), "UTF8String"], *MEMORY[0x1E69E9858]);
+      v28 = *MEMORY[0x1E69E9858];
+      v29 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] objc_msgSend(*(a1 + 48)];
+      fputs(v29, v28);
     }
   }
 
   else
   {
     *(v4 + 24) = 0;
-    *(*(*(a1 + 64) + 8) + 40) = v27;
+    *(*(*(a1 + 64) + 8) + 40) = v36;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

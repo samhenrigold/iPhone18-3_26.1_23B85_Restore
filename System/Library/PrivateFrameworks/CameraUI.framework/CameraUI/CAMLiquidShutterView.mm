@@ -32,7 +32,7 @@
   *(v4 + 1) = unk_1A3A6AD00;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8CameraUI20CAMLiquidShutterView_showDragHandle) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8CameraUI20CAMLiquidShutterView_glassSmoothness) = 0x403E000000000000;
-  result = sub_1A3A32070();
+  result = sub_1A3A32070("Fatal error", 11, 2, 0xD000000000000025, 0x80000001A3AA4060, "CameraUI/CAMLiquidShutterView.swift", 35, 2, 50, 0);
   __break(1u);
   return result;
 }

@@ -116,7 +116,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -539,7 +539,7 @@ uint64_t __93__PHTableViewController_tableView_performReloadRowsAtIndexPaths_wit
 - (void)handleUIContentSizeCategoryDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;

@@ -56,8 +56,8 @@
     inputImage2 = v14;
   }
 
-  [inputMatteImage2 extent];
-  if (CGRectIsEmpty(v166) || ([inputMatteImage2 extent], CGRectIsInfinite(v167)))
+  objc_msgSend_extent(inputMatteImage2);
+  if (CGRectIsEmpty(v166) || (objc_msgSend_extent(inputMatteImage2), CGRectIsInfinite(v167)))
   {
     v123 = NUAssertLogger_6081();
     if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
@@ -102,8 +102,8 @@
     goto LABEL_62;
   }
 
-  [inputImage2 extent];
-  if (CGRectIsEmpty(v168) || ([inputImage2 extent], CGRectIsInfinite(v169)))
+  objc_msgSend_extent(inputImage2);
+  if (CGRectIsEmpty(v168) || (objc_msgSend_extent(inputImage2), CGRectIsInfinite(v169)))
   {
     v129 = NUAssertLogger_6081();
     if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
@@ -153,13 +153,13 @@ LABEL_62:
     goto LABEL_64;
   }
 
-  [inputImage2 extent];
+  objc_msgSend_extent(inputImage2);
   v17 = v16;
-  [inputMatteImage2 extent];
+  objc_msgSend_extent(inputMatteImage2);
   v19 = v17 / v18;
-  [inputImage2 extent];
+  objc_msgSend_extent(inputImage2);
   v21 = v20;
-  [inputMatteImage2 extent];
+  objc_msgSend_extent(inputMatteImage2);
   if (v19 >= v21 / v22)
   {
     v23 = v19;
@@ -173,12 +173,12 @@ LABEL_62:
   v24 = 1.0 / v23;
   CGAffineTransformMakeScale(&v163, 1.0 / v23, 1.0 / v23);
   v25 = [inputImage2 imageByApplyingTransform:&v163];
-  [inputMatteImage2 extent];
+  objc_msgSend_extent(inputMatteImage2);
   v26 = [v25 imageByCroppingToRect:?];
 
   CGAffineTransformMakeScale(&v163, 1.0 / v23, 1.0 / v23);
   v27 = [v9 imageByApplyingTransform:&v163];
-  [inputMatteImage2 extent];
+  objc_msgSend_extent(inputMatteImage2);
   v28 = [v27 imageByCroppingToRect:?];
 
   inputAlphaThresholdLog10 = [(PISpillSuppression *)self inputAlphaThresholdLog10];
@@ -255,7 +255,7 @@ LABEL_62:
   v53 = [inputMatteImage2 imageByApplyingFilter:@"CIBoxBlur" withInputParameters:v52];
 
   v54 = +[PISpillSuppression prepareSpillMatteKernel];
-  [inputMatteImage2 extent];
+  objc_msgSend_extent(inputMatteImage2);
   v56 = v55;
   v58 = v57;
   v60 = v59;
@@ -272,7 +272,7 @@ LABEL_62:
   v144 = v54;
   v65 = [v54 applyWithExtent:v64 arguments:{v56, v58, v60, v62}];
 
-  [inputMatteImage2 extent];
+  objc_msgSend_extent(inputMatteImage2);
   v67 = v66;
   v69 = v68;
   v71 = v70;
@@ -359,7 +359,7 @@ LABEL_65:
   imageByClampingToExtent = [callStackSymbols imageByClampingToExtent];
   v92 = [imageByClampingToExtent imageByApplyingGaussianBlurWithSigma:v140];
 
-  [callStackSymbols extent];
+  objc_msgSend_extent(callStackSymbols);
   v93 = [v92 imageByCroppingToRect:?];
 
   v155 = @"inputBackgroundImage";
@@ -381,7 +381,7 @@ LABEL_65:
   }
 
   v98 = +[PISpillSuppression applySpillMatteKernel];
-  [v149 extent];
+  objc_msgSend_extent(v149);
   v100 = v99;
   v102 = v101;
   v104 = v103;

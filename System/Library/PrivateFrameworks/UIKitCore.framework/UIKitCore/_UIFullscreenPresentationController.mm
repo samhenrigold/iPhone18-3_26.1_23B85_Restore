@@ -312,7 +312,7 @@
   memset(&v21, 0, sizeof(v21));
   if (viewCopy)
   {
-    [(UIView *)viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   v15 = 0.0;
@@ -382,7 +382,7 @@
   if (counterRotatedView)
   {
     memset(&v9, 0, sizeof(v9));
-    [(UIView *)counterRotatedView transform];
+    objc_msgSend_transform(counterRotatedView, a2);
     v4 = -self->_counterRotatedAngle;
     v7 = v9;
     CGAffineTransformRotate(&v8, &v7, v4);

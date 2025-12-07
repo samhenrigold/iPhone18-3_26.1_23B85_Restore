@@ -10,7 +10,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19E74();
+    sub_1A7E19E74(self);
   }
 
   return 0;
@@ -21,7 +21,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19F00();
+    sub_1A7E19F00(self);
   }
 
   return 0;

@@ -151,56 +151,61 @@
 
 - (void)begin
 {
-  [(PSPowerbillSession *)self setTargetStartTimestampInNanoseconds:clock_gettime_nsec_np(_CLOCK_UPTIME_RAW)];
-  ps_telemetry_init_reader();
+  v3 = [(PSPowerbillSession *)self setTargetStartTimestampInNanoseconds:clock_gettime_nsec_np(_CLOCK_UPTIME_RAW)];
+  ps_telemetry_init_reader(v3, v4);
   ps_telemetry_enable();
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __27__PSPowerbillSession_begin__block_invoke;
-  v3[3] = &unk_279A48CC8;
-  v3[4] = self;
-  ps_telemetry_start_reader(0, v3);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __27__PSPowerbillSession_begin__block_invoke;
+  v5[3] = &unk_279A48CC8;
+  v5[4] = self;
+  ps_telemetry_start_reader(0, v5);
 }
 
 void __27__PSPowerbillSession_begin__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 24);
-  if (v4 != 5)
+  if (v4 == 5)
+  {
+    v13 = *(a1 + 32);
+
+    [v13 updateWithMetadata:a2 event:a3];
+  }
+
+  else
   {
     if (v4 == 8)
     {
       v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Dropped %llu global buffers", *(a3 + 8) - *a3 + 1];
-      v20 = *MEMORY[0x277CCA450];
-      v21 = v5;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v18 = *MEMORY[0x277CCA450];
+      v19 = v5;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PSPowerbill" code:-2 userInfo:v6];
       v12 = [*(a1 + 32) delegateQueue];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __27__PSPowerbillSession_begin__block_invoke_3;
-      v16[3] = &unk_279A483F0;
-      v16[4] = *(a1 + 32);
-      v17 = v11;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __27__PSPowerbillSession_begin__block_invoke_3;
+      v14[3] = &unk_279A483F0;
+      v14[4] = *(a1 + 32);
+      v15 = v11;
       v9 = v11;
-      dispatch_async(v12, v16);
+      dispatch_async(v12, v14);
 
-      v10 = v17;
+      v10 = v15;
     }
 
     else
     {
       if (v4 != 7)
       {
-LABEL_7:
-        v13 = *MEMORY[0x277D85DE8];
         return;
       }
 
       v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Dropped %llu events from thread named %s over an interval of %.0f ms", *(a3 + 8), ps_telemetry_get_string(*(a3 + 24), *(a2 + 20)), (*a2 - *a3) / 1000000.0];
-      v22 = *MEMORY[0x277CCA450];
-      v23[0] = v5;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v20 = *MEMORY[0x277CCA450];
+      v21[0] = v5;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PSPowerbill" code:-1 userInfo:v6];
       v8 = [*(a1 + 32) delegateQueue];
       block[0] = MEMORY[0x277D85DD0];
@@ -208,20 +213,13 @@ LABEL_7:
       block[2] = __27__PSPowerbillSession_begin__block_invoke_2;
       block[3] = &unk_279A483F0;
       block[4] = *(a1 + 32);
-      v19 = v7;
+      v17 = v7;
       v9 = v7;
       dispatch_async(v8, block);
 
-      v10 = v19;
+      v10 = v17;
     }
-
-    goto LABEL_7;
   }
-
-  v14 = *(a1 + 32);
-  v15 = *MEMORY[0x277D85DE8];
-
-  [v14 updateWithMetadata:a2 event:a3];
 }
 
 void __27__PSPowerbillSession_begin__block_invoke_2(uint64_t a1)

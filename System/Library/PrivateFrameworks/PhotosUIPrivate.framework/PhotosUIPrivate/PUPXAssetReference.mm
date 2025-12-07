@@ -11,7 +11,7 @@
   identifierCopy = identifier;
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
   }
 
   else

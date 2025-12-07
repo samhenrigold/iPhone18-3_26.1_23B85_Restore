@@ -5,6 +5,7 @@
 - (void)groupSessionDidTerminate:(id)terminate;
 - (void)groupSessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error;
 - (void)session:(id)session didReceiveActiveLightweightParticipants:(id)participants success:(BOOL)success;
+- (void)session:(id)session rejectedKeyRecoveryRequestFromURI:(id)i reason:(unsigned int)reason;
 - (void)sessionDidJoinGroup:(id)group participantUpdate:(id)update error:(id)error;
 - (void)sessionDidLeaveGroup:(id)group error:(id)error;
 - (void)sessiondidReceiveKeyUpdate:(id)update;
@@ -76,6 +77,15 @@
   selfCopy = self;
   errorCopy = error;
   IDSGroupSessionProvider.sessionDidLeaveGroup(_:error:)(groupCopy, error);
+}
+
+- (void)session:(id)session rejectedKeyRecoveryRequestFromURI:(id)i reason:(unsigned int)reason
+{
+  v5 = *&reason;
+  sessionCopy = session;
+  iCopy = i;
+  selfCopy = self;
+  specialized IDSGroupSessionProvider.session(_:rejectedKeyRecoveryRequestFrom:reason:)(iCopy, v5);
 }
 
 - (void)sessiondidReceiveKeyUpdate:(id)update

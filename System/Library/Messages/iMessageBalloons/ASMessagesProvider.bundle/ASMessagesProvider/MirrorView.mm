@@ -72,7 +72,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_15EDAC();
+  sub_15EDAC(selfCopy, v2);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

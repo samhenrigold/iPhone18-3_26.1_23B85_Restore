@@ -16,9 +16,9 @@
 
 - (MPSCNNDropout)initWithDevice:(id)device keepProbability:(float)keepProbability seed:(NSUInteger)seed maskStrideInPixels:(MTLSize *)maskStrideInPixels
 {
-  v28.receiver = self;
-  v28.super_class = MPSCNNDropout;
-  result = [(MPSCNNKernel *)&v28 initWithDevice:?];
+  v32.receiver = self;
+  v32.super_class = MPSCNNDropout;
+  result = [(MPSCNNKernel *)&v32 initWithDevice:?];
   if (result)
   {
     if (keepProbability <= 0.0 || keepProbability > 1.0)
@@ -28,7 +28,7 @@
       {
         v27 = objc_opt_class();
         NSStringFromClass(v27);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNDropout.mm", 0xED, @"[%@ initWithDevice:keepProbability:seed:] Failed: the valid range of keepProbability (%lu) is (0.0f, 1.0f]"), v28, v29, v30, v31;
       }
 
       return 0;
@@ -81,8 +81,8 @@
 
 - (MPSCNNDropout)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v53.receiver = self;
-  v53.super_class = MPSCNNDropout;
+  v57.receiver = self;
+  v57.super_class = MPSCNNDropout;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v13 = v6;
   if (v6)
@@ -112,7 +112,7 @@
       {
         v51 = objc_opt_class();
         NSStringFromClass(v51);
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNDropout.mm", 0x12B, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v52, v53, v54, v55);
       }
 
       return 0;
@@ -211,11 +211,11 @@
   if (states && (*(&self->super.super.super.isa + *MEMORY[0x277CD7378]) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
     v70 = objc_opt_class();
-    v71 = NSStringFromClass(v70);
-    MTLReportFailure();
+    v75 = NSStringFromClass(v70);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNDropout.mm", 0x19E, @"[%@ resultStatesForSourceImage...] sourceStates must be nil for this filter]", v71, v72, v73, v74);
   }
 
-  v14 = objc_msgSend_width(image, a2, image, states, destinationImage, buffer, temporary, v7, v71);
+  v14 = objc_msgSend_width(image, a2, image, states, destinationImage, buffer, temporary, v7, v75);
   v22 = objc_msgSend_height(image, v15, v16, v17, v18, v19, v20, v21);
   v30 = objc_msgSend_featureChannels(image, v23, v24, v25, v26, v27, v28, v29);
   if (!self->_maskStrideInPixels.width)
@@ -254,9 +254,9 @@ LABEL_18:
     }
 
 LABEL_19:
-    v72.receiver = self;
-    v72.super_class = MPSCNNDropout;
-    [(MPSCNNKernel *)&v72 copyToGradientState:v38 sourceImage:image sourceStates:states destinationImage:destinationImage];
+    v76.receiver = self;
+    v76.super_class = MPSCNNDropout;
+    [(MPSCNNKernel *)&v76 copyToGradientState:v38 sourceImage:image sourceStates:states destinationImage:destinationImage];
     v68 = *&self->_maskStrideInPixels.width;
     *(v38 + 38) = self->_maskStrideInPixels.depth;
     *(v38 + 18) = v68;

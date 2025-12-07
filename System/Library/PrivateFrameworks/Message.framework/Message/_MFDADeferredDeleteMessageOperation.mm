@@ -59,24 +59,24 @@
 
 - (BOOL)translateToLocalActionWithConnection:(id)connection
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  LODWORD(lastInsertedDatabaseID) = [(_MFOfflineCacheOperation *)self databaseID:&v26 andMailbox:&v25 forMessageWithRemoteID:self->_messageID connection:connectionCopy];
-  v6 = v26;
-  v7 = v25;
+  LODWORD(lastInsertedDatabaseID) = [(_MFOfflineCacheOperation *)self databaseID:&v25 andMailbox:&v24 forMessageWithRemoteID:self->_messageID connection:connectionCopy];
+  v6 = v25;
+  v7 = v24;
   if (v7)
   {
     if (lastInsertedDatabaseID)
     {
       v8 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO local_message_actions (action_type, mailbox, source_mailbox, destination_mailbox, user_initiated) VALUES (5, ?, ?, NULL, 0)"}];
-      v28[0] = v7;
-      v28[1] = v7;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
-      v24 = 0;
-      v10 = [v8 executeWithIndexedBindings:v9 usingBlock:0 error:&v24];
-      v11 = v24;
+      v27[0] = v7;
+      v27[1] = v7;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+      v23 = 0;
+      v10 = [v8 executeWithIndexedBindings:v9 usingBlock:0 error:&v23];
+      v11 = v23;
 
       if (v10)
       {
@@ -90,13 +90,13 @@
 
         v8 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO action_messages (action, message, remote_id, destination_message, action_phase) VALUES (?, ?, ?, NULL, 4)"}];
         v12 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
-        v27[0] = v12;
-        v27[1] = v6;
-        v27[2] = self->_messageID;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
-        v23 = v11;
-        LOBYTE(lastInsertedDatabaseID) = [v8 executeWithIndexedBindings:v13 usingBlock:0 error:&v23];
-        v14 = v23;
+        v26[0] = v12;
+        v26[1] = v6;
+        v26[2] = self->_messageID;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+        v22 = v11;
+        LOBYTE(lastInsertedDatabaseID) = [v8 executeWithIndexedBindings:v13 usingBlock:0 error:&v22];
+        v14 = v22;
 
         if ((lastInsertedDatabaseID & 1) == 0)
         {
@@ -130,7 +130,6 @@
 
 LABEL_13:
 
-  v21 = *MEMORY[0x1E69E9840];
   return lastInsertedDatabaseID;
 }
 

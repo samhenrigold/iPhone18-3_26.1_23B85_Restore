@@ -57,7 +57,7 @@
 
 void __75__HDHRHealthKitSyncManager_triggerImmediateSyncWithReason_loggingCategory___block_invoke(void *a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = a1[4];
@@ -67,11 +67,11 @@ void __75__HDHRHealthKitSyncManager_triggerImmediateSyncWithReason_loggingCatego
     {
       v7 = a1[5];
       v8 = a1[6];
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v8;
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] NanoSync completed after %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v8;
+      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] NanoSync completed after %{public}@", &v9, 0x16u);
     }
   }
 
@@ -79,13 +79,11 @@ void __75__HDHRHealthKitSyncManager_triggerImmediateSyncWithReason_loggingCatego
   {
     __75__HDHRHealthKitSyncManager_triggerImmediateSyncWithReason_loggingCategory___block_invoke_cold_1(a1, v5, v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HDHRHealthKitSyncManager_triggerImmediateSyncWithReason_loggingCategory___block_invoke_301(void *a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = a1[4];
@@ -96,15 +94,15 @@ void __75__HDHRHealthKitSyncManager_triggerImmediateSyncWithReason_loggingCatego
     {
       v8 = a1[5];
       v9 = a1[6];
-      v16 = 138543618;
-      v17 = v8;
-      v18 = 2114;
-      v19 = v9;
+      v15 = 138543618;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v9;
       v10 = "[%{public}@] Cloud sync request completed after %{public}@";
       v11 = v6;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_DEFAULT, v10, &v16, v12);
+      _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
     }
   }
 
@@ -112,34 +110,31 @@ LABEL_6:
   {
     v13 = a1[5];
     v14 = a1[6];
-    v16 = 138543874;
-    v17 = v13;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 2114;
-    v21 = v5;
+    v15 = 138543874;
+    v16 = v13;
+    v17 = 2114;
+    v18 = v14;
+    v19 = 2114;
+    v20 = v5;
     v10 = "[%{public}@] Cloud sync request failed after %{public}@: %{public}@";
     v11 = v6;
     v12 = 32;
     goto LABEL_6;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HDHRHealthKitSyncManager_triggerImmediateSyncWithReason_loggingCategory___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v6 = 138543874;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  v10 = 2114;
-  v11 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] NanoSync failed after %{public}@: %{public}@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543874;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  v9 = 2114;
+  v10 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] NanoSync failed after %{public}@: %{public}@", &v5, 0x20u);
 }
 
 @end

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interactionCommandAsString:(int)string;
 - (int)StringAsInteractionCommand:(id)command;
 - (int)interactionCommand;
 - (unint64_t)hash;
@@ -91,6 +92,21 @@
   {
     return 0;
   }
+}
+
+- (id)interactionCommandAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8098[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsInteractionCommand:(id)command
@@ -371,7 +387,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_interactionCommand != *(equalCopy + 6))
@@ -383,7 +398,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
@@ -432,17 +447,17 @@ LABEL_19:
   interruptRequest = self->_interruptRequest;
   if (interruptRequest | *(equalCopy + 4))
   {
-    v12 = [(PCPComputeInterruptRequest *)interruptRequest isEqual:?];
+    v11 = [(PCPComputeInterruptRequest *)interruptRequest isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

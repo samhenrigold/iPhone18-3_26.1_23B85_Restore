@@ -17,7 +17,7 @@
   v2 = [(ARImageBasedTechnique *)&v6 init];
   if (v2)
   {
-    v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.humanposepostprocessing");
+    v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.humanposepostprocessing", 0xFFFFFFFFLL);
     processingQueue = v2->_processingQueue;
     v2->_processingQueue = v3;
 
@@ -38,7 +38,7 @@
 
 - (void)prepare:(BOOL)prepare
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   self->_deterministic = prepare;
   if (!self->_postprocess2d)
   {
@@ -57,44 +57,44 @@
         [AR2DSkeletonDetectionPostProcessingTechnique prepare:];
       }
 
-      v8 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v9 = _ARLogGeneral();
-      v10 = v9;
-      if (v8 == 1)
+      v9 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v10 = _ARLogGeneral(v8);
+      v11 = v10;
+      if (v9 == 1)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v11 = objc_opt_class();
-          v12 = NSStringFromClass(v11);
-          v17 = 138543618;
-          v18 = v12;
-          v19 = 2048;
+          v12 = objc_opt_class();
+          v13 = NSStringFromClass(v12);
+          v18 = 138543618;
+          v19 = v13;
+          v20 = 2048;
           selfCopy2 = self;
-          _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Initialization of 2d post-processing algorithm failed", &v17, 0x16u);
+          _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Initialization of 2d post-processing algorithm failed", &v18, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v17 = 138543618;
-        v18 = v14;
-        v19 = 2048;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v18 = 138543618;
+        v19 = v15;
+        v20 = 2048;
         selfCopy2 = self;
-        _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Initialization of 2d post-processing algorithm failed", &v17, 0x16u);
+        _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Initialization of 2d post-processing algorithm failed", &v18, 0x16u);
       }
 
       delegate = [(ARTechnique *)self delegate];
-      v16 = ARErrorWithCodeAndUserInfo(151, 0);
-      [delegate technique:self didFailWithError:v16];
+      v17 = ARErrorWithCodeAndUserInfo(151, 0);
+      [delegate technique:self didFailWithError:v17];
     }
   }
 }
 
 - (double)requiredTimeInterval
 {
-  v2 = ARIsANEVersionEqualOrPriorToH12();
+  v2 = ARIsANEVersionEqualOrPriorToH12(self, a2);
   result = 0.001;
   if (v2)
   {
@@ -144,7 +144,7 @@ void __60__AR2DSkeletonDetectionPostProcessingTechnique_processData___block_invo
 {
   v33 = *MEMORY[0x1E69E9840];
   backgroundCopy = background;
-  v5 = _ARLogGeneral();
+  v5 = _ARLogGeneral(backgroundCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = objc_opt_class();
@@ -159,9 +159,9 @@ void __60__AR2DSkeletonDetectionPostProcessingTechnique_processData___block_invo
   dispatch_assert_queue_V2(self->_processingQueue);
   rotationNeeded = [backgroundCopy rotationNeeded];
   inputImageData = [backgroundCopy inputImageData];
-  [inputImageData timestamp];
+  objc_msgSend_timestamp(inputImageData);
   v11 = v10;
-  [inputImageData timestamp];
+  objc_msgSend_timestamp(inputImageData);
   kdebug_trace();
   inputImageData2 = [backgroundCopy inputImageData];
   Width = CVPixelBufferGetWidth([inputImageData2 pixelBuffer]);
@@ -176,7 +176,7 @@ void __60__AR2DSkeletonDetectionPostProcessingTechnique_processData___block_invo
   v20 = [objc_alloc(MEMORY[0x1E698A938]) initWithType:1 inputResolution:Width outputResolution:{Height, v17, v19}];
   os_unfair_lock_lock(&self->_previous3DSkeletonLock);
   postprocess2d = self->_postprocess2d;
-  [inputImageData timestamp];
+  objc_msgSend_timestamp(inputImageData);
   LODWORD(postprocess2d) = [(ABPK2DDetectionPostprocess *)postprocess2d extract2DSkeletonfromBuffers:backgroundCopy withImagePreProcessingParams:v20 atTimestamp:self->_abpkPrevious3DSkeleton previousSkeleton3D:?];
   os_unfair_lock_unlock(&self->_previous3DSkeletonLock);
   if (postprocess2d == -6661)
@@ -206,7 +206,7 @@ void __60__AR2DSkeletonDetectionPostProcessingTechnique_processData___block_invo
     v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
     [(ARImageBasedTechnique *)self pushResultData:v26 forTimestamp:v11];
 
-    [inputImageData timestamp];
+    objc_msgSend_timestamp(inputImageData);
     kdebug_trace();
   }
 }

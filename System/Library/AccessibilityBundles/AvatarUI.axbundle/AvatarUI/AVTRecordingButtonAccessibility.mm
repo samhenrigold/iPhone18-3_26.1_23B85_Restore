@@ -17,7 +17,7 @@
 
 - (id)accessibilityAttributedLabel
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   if ([(AVTRecordingButtonAccessibility *)self safeIntegerForKey:@"uiState"])
   {
     v2 = 0;
@@ -35,14 +35,12 @@
 
     if (v7)
     {
-      v11 = *MEMORY[0x29EDC7F28];
-      v12[0] = @"ɻɪ.ˈkwɔɻd";
-      v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x29EDC7F28];
+      v11[0] = @"ɻɪ.ˈkwɔɻd";
+      v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
       [v2 setAttributes:v8 range:{0, objc_msgSend(v2, "length")}];
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v2;
 }

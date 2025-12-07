@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D12887BC();
+  sub_1D12887BC(v2);
 }
 
 - (void)logInAgain:(id)again

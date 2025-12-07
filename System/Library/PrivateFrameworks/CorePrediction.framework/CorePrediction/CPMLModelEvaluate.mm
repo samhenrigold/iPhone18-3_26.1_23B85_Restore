@@ -21,12 +21,12 @@
 
 - (CPMLModelEvaluate)initWithModel:(id)model withPropertyList:(id)list
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   listCopy = list;
-  v45.receiver = self;
-  v45.super_class = CPMLModelEvaluate;
-  v8 = [(CPMLModelEvaluate *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = CPMLModelEvaluate;
+  v8 = [(CPMLModelEvaluate *)&v44 init];
   v9 = v8;
   if (v8)
   {
@@ -50,41 +50,41 @@
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v39 = [defaultManager fileExistsAtPath:modelCopy];
+      v38 = [defaultManager fileExistsAtPath:modelCopy];
 
       v17 = [listCopy objectForKey:@"machineLearningAlgorithm"];
       machineLearningAlgo = v9->machineLearningAlgo;
       v9->machineLearningAlgo = v17;
 
-      if ((v39 & 1) != 0 || [(NSString *)v9->machineLearningAlgo isEqualToString:@"NB"]|| [(NSString *)v9->machineLearningAlgo isEqualToString:@"NB_BASE"]|| [(NSString *)v9->machineLearningAlgo isEqualToString:@"KNN"])
+      if ((v38 & 1) != 0 || [(NSString *)v9->machineLearningAlgo isEqualToString:@"NB"]|| [(NSString *)v9->machineLearningAlgo isEqualToString:@"NB_BASE"]|| [(NSString *)v9->machineLearningAlgo isEqualToString:@"KNN"])
       {
         v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
         modelSchema = v9->modelSchema;
         v9->modelSchema = v19;
 
         [listCopy objectForKey:@"schema"];
+        v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v21 = v42 = 0u;
-        v22 = [v21 countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v40 = 0u;
+        v21 = v41 = 0u;
+        v22 = [v21 countByEnumeratingWithState:&v40 objects:v46 count:16];
         if (v22)
         {
-          v23 = *v42;
+          v23 = *v41;
           do
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v42 != v23)
+              if (*v41 != v23)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v25 = [*(*(&v41 + 1) + 8 * i) objectForKey:@"HeaderDef"];
+              v25 = [*(*(&v40 + 1) + 8 * i) objectForKey:@"HeaderDef"];
               [(NSMutableArray *)v9->modelSchema addObject:v25];
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v41 objects:v47 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v40 objects:v46 count:16];
           }
 
           while (v22);
@@ -153,11 +153,11 @@
             NSLog(&cfstr_MmapNotImpleme.isa);
           }
 
-          v40 = 0;
+          v39 = 0;
           if (v9->countRows)
           {
-            (*(v9->trainerCPDeSerializer->var0 + 8))(v9->trainerCPDeSerializer, &v40 + 4, "cptrainRows", 1, 0);
-            (*(v9->trainerCPDeSerializer->var0 + 8))(v9->trainerCPDeSerializer, &v40, "cptrainColumns", 1, 0);
+            (*(v9->trainerCPDeSerializer->var0 + 8))(v9->trainerCPDeSerializer, &v39 + 4, "cptrainRows", 1, 0);
+            (*(v9->trainerCPDeSerializer->var0 + 8))(v9->trainerCPDeSerializer, &v39, "cptrainColumns", 1, 0);
             operator new();
           }
 
@@ -172,22 +172,22 @@
           CPMLsql_createTable(v9->db, "cpMin", "cpMin REAL", 0);
           CPMLsql_createTable(v9->db, "cpMax", "cpMax REAL", 0);
           CPMLsql_createTable(v9->db, "cacheString", "keyValue TEXT, indexValue INTEGER", 0);
-          LODWORD(v40) = [(CPMLSchema *)v9->cpmlSchema getTotalAttributes];
-          sprintf(v46, "%d", v40);
-          CPMLsql_insertIntoTable(v9->db, "cptrainColumns", "cptrainColumns", v46);
-          if (v40 >= 1)
+          LODWORD(v39) = [(CPMLSchema *)v9->cpmlSchema getTotalAttributes];
+          sprintf(v45, "%d", v39);
+          CPMLsql_insertIntoTable(v9->db, "cptrainColumns", "cptrainColumns", v45);
+          if (v39 >= 1)
           {
             v34 = 0;
             v35 = -10;
             do
             {
-              sprintf(v46, "EMPTY,%d", v35);
-              CPMLsql_insertIntoTable(v9->db, "cacheString", "keyValue, indexValue", v46);
+              sprintf(v45, "EMPTY,%d", v35);
+              CPMLsql_insertIntoTable(v9->db, "cacheString", "keyValue, indexValue", v45);
               ++v34;
               --v35;
             }
 
-            while (v34 < v40);
+            while (v34 < v39);
           }
 
           operator new();
@@ -211,7 +211,6 @@
     v36 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -929,15 +928,14 @@ void __33__CPMLModelEvaluate_updateModel___block_invoke_2(void *a1)
   if (algorithmCopy)
   {
     objc_storeStrong(&self->_delegateAlgorithm, algorithm);
-    delegateAlgorithm = self->_delegateAlgorithm;
     if (objc_opt_respondsToSelector())
     {
       storageManager = self->_storageManager;
       if (!storageManager)
       {
-        v7 = objc_alloc_init(CPMLStorageManager);
-        v8 = self->_storageManager;
-        self->_storageManager = v7;
+        v6 = objc_alloc_init(CPMLStorageManager);
+        v7 = self->_storageManager;
+        self->_storageManager = v6;
 
         storageManager = self->_storageManager;
       }

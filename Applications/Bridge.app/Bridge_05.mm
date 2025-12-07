@@ -8555,9 +8555,9 @@ LABEL_15:
 LABEL_3:
       v15 = &a5[8 * v11];
       *v15 = v24;
-      v15[1] = v23;
-      v15[2] = v22;
-      v15[3] = v21;
+      *(v15 + 1) = v23;
+      *(v15 + 2) = v22;
+      *(v15 + 3) = v21;
       if (++v11 == 112)
       {
         return;
@@ -8790,7 +8790,7 @@ void *sub_100179CD4(void *result)
   return result;
 }
 
-uint64_t sub_100179D3C(int32x2_t *a1, uint64_t a2, int a3, int a4, int a5)
+uint64_t sub_100179D3C(int32x2_t *a1, int32x2_t *a2, int a3, int a4, int a5)
 {
   result = 0;
   v354 = 0;
@@ -8820,7 +8820,7 @@ uint64_t sub_100179D3C(int32x2_t *a1, uint64_t a2, int a3, int a4, int a5)
   if (!(a4 | a3))
   {
     v12 = a5;
-    v11 = vneg_s32(vand_s8(vshl_u32(*(a2 + 40), vdup_n_s32(8 - *(a2 + 48))), 0xFF000000FFLL));
+    v11 = vneg_s32(vand_s8(vshl_u32(a2[5], vdup_n_s32(8 - a2[6].i32[0])), 0xFF000000FFLL));
     goto LABEL_12;
   }
 
@@ -8876,9 +8876,9 @@ LABEL_14:
   v327 = v12;
   v14 = 0;
   v15 = 0;
-  v16 = (a2 + 48);
+  v16 = &a2[6];
   v17 = vld1_dup_f32(v16);
-  v349 = vadd_s32(vrev64_s32(vshl_s32(*(a2 + 40), vneg_s32(v17))), v347);
+  v349 = vadd_s32(vrev64_s32(vshl_s32(a2[5], vneg_s32(v17))), v347);
   v18 = v349.i32[1] - 16 + ((((v349.i32[1] - 16) & ~((v349.i32[1] - 16) >> 31)) - v349.i32[1] + 143) & 0xFFFFFF80);
   v19 = v349.i8[0] + 112;
   v20 = (v18 >> 4) & 7;

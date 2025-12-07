@@ -66,7 +66,7 @@
 
 + (id)sharedProfileIdentifierForOwnerProfileIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   type = [identifierCopy type];
   if (type <= 2)
@@ -86,12 +86,12 @@ LABEL_8:
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
-      v11 = v6;
+      v10 = v6;
       [identifierCopy type];
-      v12 = HKStringFromProfileType();
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_fault_impl(&dword_228986000, v11, OS_LOG_TYPE_FAULT, "Owner profile identifier of unexpected type %@", &v13, 0xCu);
+      v11 = HKStringFromProfileType();
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_fault_impl(&dword_228986000, v10, OS_LOG_TYPE_FAULT, "Owner profile identifier of unexpected type %@", &v12, 0xCu);
     }
 
     goto LABEL_10;
@@ -114,8 +114,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -375,10 +373,10 @@ LABEL_10:
 
 id __51__HDCloudSyncRegistryRecord_disabledSyncIdentities__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v2 = [HDSyncIdentity syncIdentityWithCodable:a2 error:&v8];
-  v3 = v8;
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v2 = [HDSyncIdentity syncIdentityWithCodable:a2 error:&v7];
+  v3 = v7;
   if (v2)
   {
     v4 = v2;
@@ -391,12 +389,10 @@ id __51__HDCloudSyncRegistryRecord_disabledSyncIdentities__block_invoke(uint64_t
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v10 = v3;
+      v9 = v3;
       _os_log_fault_impl(&dword_228986000, v5, OS_LOG_TYPE_FAULT, "Failed to decode codableIdentity with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -447,14 +443,14 @@ id __51__HDCloudSyncRegistryRecord_disabledSyncIdentities__block_invoke(uint64_t
 
 id __43__HDCloudSyncRegistryRecord_syncIdentities__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 hasSyncIdentity])
   {
     v3 = [v2 syncIdentity];
-    v9 = 0;
-    v4 = [HDSyncIdentity syncIdentityWithCodable:v3 error:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [HDSyncIdentity syncIdentityWithCodable:v3 error:&v8];
+    v5 = v8;
 
     if (!v4)
     {
@@ -463,7 +459,7 @@ id __43__HDCloudSyncRegistryRecord_syncIdentities__block_invoke(uint64_t a1, voi
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v11 = v5;
+        v10 = v5;
         _os_log_fault_impl(&dword_228986000, v6, OS_LOG_TYPE_FAULT, "Failed to decode codableIdentity with error: %{public}@", buf, 0xCu);
       }
     }
@@ -474,34 +470,32 @@ id __43__HDCloudSyncRegistryRecord_syncIdentities__block_invoke(uint64_t a1, voi
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (NSArray)childHeaderRecordIDs
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v29 = *MEMORY[0x277D85DE8];
+  v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(HDCloudSyncCodableRegistry *)self->_underlyingRegistry stores];
-  v24 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v23)
   {
-    v21 = *v26;
+    v20 = *v25;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v26 != v21)
+        if (*v25 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v25 + 1) + 8 * i);
+        v3 = *(*(&v24 + 1) + 8 * i);
         ownerIdentifier = [v3 ownerIdentifier];
         v5 = objc_alloc(MEMORY[0x277CCAD78]);
         storeIdentifier = [v3 storeIdentifier];
@@ -509,7 +503,7 @@ id __43__HDCloudSyncRegistryRecord_syncIdentities__block_invoke(uint64_t a1, voi
         recordID = [(HDCloudSyncRecord *)self recordID];
         zoneID = [recordID zoneID];
         v10 = [HDCloudSyncStoreRecord recordIDForOwnerIdentifier:ownerIdentifier storeIdentifier:v7 zoneID:zoneID];
-        [v23 addObject:v10];
+        [v22 addObject:v10];
 
         ownerIdentifier2 = [v3 ownerIdentifier];
         v12 = objc_alloc(MEMORY[0x277CCAD78]);
@@ -518,18 +512,16 @@ id __43__HDCloudSyncRegistryRecord_syncIdentities__block_invoke(uint64_t a1, voi
         recordID2 = [(HDCloudSyncRecord *)self recordID];
         zoneID2 = [recordID2 zoneID];
         v17 = [HDCloudSyncSequenceRecord recordIDsForOwnerIdentifier:ownerIdentifier2 storeIdentifier:v14 zoneID:zoneID2];
-        [v23 addObjectsFromArray:v17];
+        [v22 addObjectsFromArray:v17];
       }
 
-      v24 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v23 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (id)storeIdentifiersForOwnerIdentifier:(id)identifier

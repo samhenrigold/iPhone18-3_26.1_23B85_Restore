@@ -33,7 +33,7 @@
   [(VCRateControlBandwidthEstimatorMap *)&v3 dealloc];
 }
 
-uint64_t __VCRateControlBandwidthEstimatorMap_EstimatedBandwidthWithArrivalTime_block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__VCRateControlBandwidthEstimatorMap_EstimatedBandwidthWithArrivalTime_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = *(a1 + 40);
   if (v5 == 0.0 || (result = [a3 lastProbingArrivalTime], v5 - v7 < 30.0))
@@ -51,7 +51,7 @@ uint64_t __VCRateControlBandwidthEstimatorMap_EstimatedBandwidthWithArrivalTime_
   return result;
 }
 
-uint64_t __VCRateControlBandwidthEstimatorMap_EstimatedBandwidthUncappedWithArrivalTime_block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__VCRateControlBandwidthEstimatorMap_EstimatedBandwidthUncappedWithArrivalTime_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = *(a1 + 40);
   if (v5 == 0.0 || (result = [a3 lastProbingArrivalTime], v5 - v7 < 30.0))

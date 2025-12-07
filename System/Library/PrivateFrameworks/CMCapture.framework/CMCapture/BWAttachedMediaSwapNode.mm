@@ -17,7 +17,7 @@
     goto LABEL_13;
   }
 
-  if ([key isEqualToString:format])
+  if (objc_msgSend_isEqualToString_(key, a2, format))
   {
     v21 = MEMORY[0x1E695DF30];
     v22 = *MEMORY[0x1E695D940];
@@ -25,7 +25,7 @@
     goto LABEL_13;
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     v21 = MEMORY[0x1E695DF30];
     v22 = *MEMORY[0x1E695D940];
@@ -33,7 +33,7 @@
     goto LABEL_13;
   }
 
-  if ([format isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(format))
   {
     v21 = MEMORY[0x1E695DF30];
     v22 = *MEMORY[0x1E695D940];
@@ -93,12 +93,12 @@ LABEL_13:
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:{@"PrimaryFormat", input}])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat", input))
   {
     primaryFormatToAttachedMediaKey = self->_primaryFormatToAttachedMediaKey;
   }
 
-  else if ([key isEqualToString:self->_attachedMediaKeyToPrimaryFormat])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     primaryFormatToAttachedMediaKey = @"PrimaryFormat";
   }
@@ -111,7 +111,7 @@ LABEL_13:
   v9 = [(BWNodeOutput *)self->super._output mediaPropertiesForAttachedMediaKey:primaryFormatToAttachedMediaKey];
   if (!v9)
   {
-    if ([(__CFString *)primaryFormatToAttachedMediaKey isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(primaryFormatToAttachedMediaKey))
     {
       v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ output unexpectedly has no mediaProperties for the primary format (provided media key was %@)", self, key];
       objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v10 userInfo:0]);
@@ -127,128 +127,115 @@ LABEL_13:
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
   v6 = [CMGetAttachment(buffer @"AttachedMediaSwapPlaceholderSampleBuffer"];
-  v7 = [CMGetAttachment(buffer @"FileWriterAction"];
-  if (!BWSampleBufferIsMarkerBuffer(buffer) || (v6 & 1) != 0 || (v7 & 1) != 0)
+  v7 = CMGetAttachment(buffer, @"FileWriterAction", 0);
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
+  if (!BWSampleBufferIsMarkerBuffer(buffer) || (v6 & 1) != 0 || (isEqualToString & 1) != 0)
   {
     AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, self->_attachedMediaKeyToPrimaryFormat);
-    if (AttachedMedia && (v10 = CFRetain(AttachedMedia)) != 0)
+    if (AttachedMedia && (v11 = CFRetain(AttachedMedia)) != 0)
     {
-      v8 = v10;
+      v9 = v11;
       BWSampleBufferRemoveAttachedMedia(buffer, self->_attachedMediaKeyToPrimaryFormat);
-      v25 = 0u;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
+      v25 = 0u;
       sampleBufferAttachmentsToTransfer = self->_sampleBufferAttachmentsToTransfer;
-      v12 = [(NSArray *)sampleBufferAttachmentsToTransfer countByEnumeratingWithState:&v23 objects:v22 count:16];
-      if (v12)
+      v13 = [(NSArray *)sampleBufferAttachmentsToTransfer countByEnumeratingWithState:&v24 objects:v23 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v24;
+        v14 = v13;
+        v15 = *v25;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v24 != v14)
+            if (*v25 != v15)
             {
               objc_enumerationMutation(sampleBufferAttachmentsToTransfer);
             }
 
-            v16 = *(*(&v23 + 1) + 8 * i);
+            v17 = *(*(&v24 + 1) + 8 * i);
             LODWORD(attachmentModeOut.duration.value) = 0;
-            v17 = CMGetAttachment(buffer, v16, &attachmentModeOut);
-            if (v17)
+            v18 = CMGetAttachment(buffer, v17, &attachmentModeOut);
+            if (v18)
             {
-              CMSetAttachment(v8, v16, v17, attachmentModeOut.duration.value);
+              CMSetAttachment(v9, v17, v18, attachmentModeOut.duration.value);
             }
           }
 
-          v13 = [(NSArray *)sampleBufferAttachmentsToTransfer countByEnumeratingWithState:&v23 objects:v22 count:16];
+          v14 = [(NSArray *)sampleBufferAttachmentsToTransfer countByEnumeratingWithState:&v24 objects:v23 count:16];
         }
 
-        while (v13);
+        while (v14);
       }
     }
 
     else
     {
-      v18 = *(MEMORY[0x1E6960CF0] + 48);
+      v19 = *(MEMORY[0x1E6960CF0] + 48);
       *&attachmentModeOut.presentationTimeStamp.timescale = *(MEMORY[0x1E6960CF0] + 32);
-      *&attachmentModeOut.decodeTimeStamp.value = v18;
+      *&attachmentModeOut.decodeTimeStamp.value = v19;
       attachmentModeOut.decodeTimeStamp.epoch = *(MEMORY[0x1E6960CF0] + 64);
-      v28 = 0;
-      v19 = *(MEMORY[0x1E6960CF0] + 16);
+      v29 = 0;
+      v20 = *(MEMORY[0x1E6960CF0] + 16);
       *&attachmentModeOut.duration.value = *MEMORY[0x1E6960CF0];
-      *&attachmentModeOut.duration.epoch = v19;
+      *&attachmentModeOut.duration.epoch = v20;
       CMSampleBufferGetPresentationTimeStamp(&attachmentModeOut.presentationTimeStamp, buffer);
-      if (CMSampleBufferCreate(*MEMORY[0x1E695E480], 0, 1u, 0, 0, 0, 0, 1, &attachmentModeOut, 0, 0, &v28))
+      if (CMSampleBufferCreate(*MEMORY[0x1E695E480], 0, 1u, 0, 0, 0, 0, 1, &attachmentModeOut, 0, 0, &v29))
       {
         [BWAttachedMediaSwapNode renderSampleBuffer:forInput:];
       }
 
       else
       {
-        CMSetAttachment(v28, @"AttachedMediaSwapPlaceholderSampleBuffer", *MEMORY[0x1E695E4D0], 1u);
+        CMSetAttachment(v29, @"AttachedMediaSwapPlaceholderSampleBuffer", *MEMORY[0x1E695E4D0], 1u);
       }
 
-      v8 = v28;
-      if (!v28)
+      v9 = v29;
+      if (!v29)
       {
         [BWAttachedMediaSwapNode renderSampleBuffer:forInput:];
         return;
       }
     }
 
-    BWSampleBufferPropagateAttachedMedia(buffer, v8);
+    BWSampleBufferPropagateAttachedMedia(buffer, v9);
     BWSampleBufferRemoveAllAttachedMedia(buffer);
     if ((v6 & 1) == 0)
     {
-      BWSampleBufferSetAttachedMedia(v8, self->_primaryFormatToAttachedMediaKey, buffer);
+      BWSampleBufferSetAttachedMedia(v9, self->_primaryFormatToAttachedMediaKey, buffer);
     }
   }
 
   else
   {
-    v8 = CFRetain(buffer);
+    v9 = CFRetain(buffer);
   }
 
-  if (v8)
+  if (v9)
   {
-    if (self->_generatesDroppedSampleMarkerBuffers && [CMGetAttachment(v8 @"SampleDataToBeDropped"])
+    if (self->_generatesDroppedSampleMarkerBuffers && [CMGetAttachment(v9 @"SampleDataToBeDropped"])
     {
-      if (CMGetAttachment(v8, @"SampleDataToBeDroppedEmitSampleBufferSemaphores", 0))
+      if (CMGetAttachment(v9, @"SampleDataToBeDroppedEmitSampleBufferSemaphores", 0))
       {
-        v20 = [BWNodeInput newSampleDataToBeDroppedMarkerBufferFromSampleBuffer:v8];
-        if (v20)
+        v21 = [BWNodeInput newSampleDataToBeDroppedMarkerBufferFromSampleBuffer:v9];
+        if (v21)
         {
-          v21 = v20;
-          [(BWNodeOutput *)self->super._output emitSampleBuffer:v20];
-          CFRelease(v21);
+          v22 = v21;
+          [(BWNodeOutput *)self->super._output emitSampleBuffer:v21];
+          CFRelease(v22);
         }
       }
     }
 
     else
     {
-      [(BWNodeOutput *)self->super._output emitSampleBuffer:v8];
+      [(BWNodeOutput *)self->super._output emitSampleBuffer:v9];
     }
 
-    CFRelease(v8);
+    CFRelease(v9);
   }
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

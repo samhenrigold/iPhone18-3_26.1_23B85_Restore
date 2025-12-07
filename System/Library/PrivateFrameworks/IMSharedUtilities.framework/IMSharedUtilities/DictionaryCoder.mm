@@ -22,7 +22,7 @@
   v6 = (&self->super.super.isa + OBJC_IVAR____TtC17IMSharedUtilities15DictionaryCoder_key);
   *v6 = 0;
   v6[1] = 0;
-  sub_1A870CCE0(&qword_1EB303B60);
+  sub_1A870CCE0(&qword_1EB303B60, &unk_1A88F5340);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_1A88E14F0;
   v8 = MEMORY[0x1E69E7CC0];
@@ -30,7 +30,7 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC17IMSharedUtilities15DictionaryCoder_dicts) = v7;
   *(&self->super.super.isa + OBJC_IVAR____TtC17IMSharedUtilities15DictionaryCoder_arrays) = v8;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for DictionaryCoder();
+  v10.super_class = type metadata accessor for DictionaryCoder(0);
   return [(DictionaryCoder *)&v10 init];
 }
 
@@ -105,7 +105,7 @@
 
   sub_1A8861908(v13, v10, v12);
 
-  sub_1A85EF638(v13, &qword_1EB3057B0);
+  sub_1A85EF638(v13, &qword_1EB3057B0, &unk_1A88E27B0);
 }
 
 @end

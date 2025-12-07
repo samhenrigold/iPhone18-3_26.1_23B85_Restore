@@ -1325,7 +1325,7 @@ id __97__HUAvailableRelatedTriggerItemModuleController__addAutomationViewControl
   return v6;
 }
 
-uint64_t __97__HUAvailableRelatedTriggerItemModuleController__addAutomationViewControllerWithActionFactories___block_invoke_2(uint64_t a1)
+void *__97__HUAvailableRelatedTriggerItemModuleController__addAutomationViewControllerWithActionFactories___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isFinished];
   if ((result & 1) == 0)

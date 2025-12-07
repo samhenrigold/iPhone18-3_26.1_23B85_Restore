@@ -53,8 +53,8 @@
 - (void)requestPairing
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "vehicle does not support pairing for CarPlay, stopping pairing");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __43__CARWirelessPairingSession_requestPairing__block_invoke(uint64_t a1, void *a2)
@@ -75,7 +75,7 @@ void __43__CARWirelessPairingSession_requestPairing__block_invoke(uint64_t a1, v
 
   else
   {
-    v5 = CarPairingLogging();
+    v5 = CarPairingLogging(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __43__CARWirelessPairingSession_requestPairing__block_invoke_cold_1();
@@ -95,7 +95,7 @@ void __43__CARWirelessPairingSession_requestPairing__block_invoke_22(uint64_t a1
   v19 = a7;
   v20 = a8;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v22 = CarPairingLogging();
+  v22 = CarPairingLogging(WeakRetained);
   v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
   if (a2 || !v15)
   {
@@ -129,7 +129,7 @@ void __43__CARWirelessPairingSession_requestPairing__block_invoke_22(uint64_t a1
   r192Copy = r192;
   c256Copy = c256;
   r256Copy = r256;
-  v14 = CarPairingLogging();
+  v14 = CarPairingLogging(r256Copy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -177,7 +177,7 @@ void __65__CARWirelessPairingSession_setupVehicleDataC192_r192_c256_r256___block
 
   else
   {
-    v8 = CarPairingLogging();
+    v8 = CarPairingLogging(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __65__CARWirelessPairingSession_setupVehicleDataC192_r192_c256_r256___block_invoke_cold_1();
@@ -192,7 +192,7 @@ void __65__CARWirelessPairingSession_setupVehicleDataC192_r192_c256_r256___block
   v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = CarPairingLogging();
+  v7 = CarPairingLogging(WeakRetained);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -223,7 +223,7 @@ void __65__CARWirelessPairingSession_setupVehicleDataC192_r192_c256_r256___block
 - (void)handleVehicleReportedResult:(BOOL)result
 {
   resultCopy = result;
-  v5 = CarPairingLogging();
+  v5 = CarPairingLogging(self);
   v6 = v5;
   if (resultCopy)
   {
@@ -247,7 +247,7 @@ void __65__CARWirelessPairingSession_setupVehicleDataC192_r192_c256_r256___block
 
 - (void)cancelPairing
 {
-  v3 = CarPairingLogging();
+  v3 = CarPairingLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -299,7 +299,7 @@ void __65__CARWirelessPairingSession_setupVehicleDataC192_r192_c256_r256___block
 
 void __45__CARWirelessPairingSession__setupConnection__block_invoke(uint64_t a1)
 {
-  v2 = CarPairingLogging();
+  v2 = CarPairingLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __45__CARWirelessPairingSession__setupConnection__block_invoke_cold_1();
@@ -311,7 +311,7 @@ void __45__CARWirelessPairingSession__setupConnection__block_invoke(uint64_t a1)
 
 void __45__CARWirelessPairingSession__setupConnection__block_invoke_84(uint64_t a1)
 {
-  v2 = CarPairingLogging();
+  v2 = CarPairingLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __45__CARWirelessPairingSession__setupConnection__block_invoke_84_cold_1();
@@ -333,7 +333,7 @@ void __45__CARWirelessPairingSession__setupConnection__block_invoke_85(uint64_t 
 void __45__CARWirelessPairingSession__setupConnection__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
   v4 = a3;
-  v5 = CarPairingLogging();
+  v5 = CarPairingLogging(v4);
   v6 = v5;
   if (a2)
   {
@@ -345,7 +345,7 @@ void __45__CARWirelessPairingSession__setupConnection__block_invoke_2(uint64_t a
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __45__CARWirelessPairingSession__setupConnection__block_invoke_2_cold_1();
+    __45__CARWirelessPairingSession__setupConnection__block_invoke_2_cold_1(v4, v6, v7);
   }
 }
 
@@ -361,10 +361,10 @@ void __45__CARWirelessPairingSession__setupConnection__block_invoke_2(uint64_t a
 void __45__CARWirelessPairingSession__servicePerform___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarPairingLogging();
+  v3 = CarPairingLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __45__CARWirelessPairingSession__servicePerform___block_invoke_cold_1();
+    __45__CARWirelessPairingSession__servicePerform___block_invoke_cold_1(v2, v3, v4);
   }
 }
 
@@ -380,10 +380,10 @@ void __45__CARWirelessPairingSession__servicePerform___block_invoke(uint64_t a1,
 void __57__CARWirelessPairingSession__synchronous_servicePerform___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarPairingLogging();
+  v3 = CarPairingLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __57__CARWirelessPairingSession__synchronous_servicePerform___block_invoke_cold_1();
+    __57__CARWirelessPairingSession__synchronous_servicePerform___block_invoke_cold_1(v2, v3, v4);
   }
 }
 
@@ -468,36 +468,36 @@ uint64_t __65__CARWirelessPairingSession__delegate_handleCompletedWithResult___b
 void __43__CARWirelessPairingSession_requestPairing__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "cannot request pairing, no connection");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __65__CARWirelessPairingSession_setupVehicleDataC192_r192_c256_r256___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "cannot setup pairing data, no connection");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)handleVehicleReportedResult:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "vehicle reported pairing failure, cancelling");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __45__CARWirelessPairingSession__setupConnection__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "CarKit wireless pairing service was interrupted");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __45__CARWirelessPairingSession__setupConnection__block_invoke_84_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "CarKit wireless pairing service was invalidated");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 @end

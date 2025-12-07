@@ -1,11 +1,13 @@
 @interface RPApplicationStateMonitor
 - (RPApplicationStateMonitor)init;
 - (int64_t)observersCount;
+- (void)addObserver:(id)observer processIdentifier:(int)identifier;
 - (void)addSystemObserver:(id)observer;
 - (void)applicationStateDidChange:(id)change;
 - (void)handleApplicationStateChange:(id)change;
 - (void)notifyInAppSessionShouldPauseOrResume:(id)resume;
 - (void)observersCountDidChange;
+- (void)removeObserverWithProcessIdentifier:(int)identifier;
 - (void)removeSystemObserver;
 @end
 
@@ -31,6 +33,76 @@
   }
 
   return v2;
+}
+
+- (void)addObserver:(id)observer processIdentifier:(int)identifier
+{
+  v4 = *&identifier;
+  observerCopy = observer;
+  observers = [(RPApplicationStateMonitor *)self observers];
+  v8 = [NSNumber numberWithInt:v4];
+  [observers setObject:observerCopy forKey:v8];
+
+  applicationStateMonitor = [(RPApplicationStateMonitor *)self applicationStateMonitor];
+  v10 = [applicationStateMonitor applicationInfoForPID:v4];
+
+  v11 = BKSApplicationStateKey;
+  v12 = [v10 objectForKeyedSubscript:BKSApplicationStateKey];
+  previousState = [(RPApplicationStateMonitor *)self previousState];
+  v14 = [NSNumber numberWithInt:v4];
+  [previousState setObject:v12 forKeyedSubscript:v14];
+
+  if (!dword_1000B6840)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      previousState2 = [(RPApplicationStateMonitor *)self previousState];
+      v18 = 136447490;
+      v19 = "[RPApplicationStateMonitor addObserver:processIdentifier:]";
+      v20 = 1024;
+      v21 = 55;
+      v22 = 2080;
+      v23 = "[RPApplicationStateMonitor addObserver:processIdentifier:]";
+      v24 = 1024;
+      v25 = v4;
+      v26 = 2112;
+      v27 = v10;
+      v28 = 2112;
+      v29 = previousState2;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d %s processIdentifier %i userInfo %@ previousState %@", &v18, 0x36u);
+    }
+
+    if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = [v10 objectForKeyedSubscript:v11];
+      previousState3 = [(RPApplicationStateMonitor *)self previousState];
+      v18 = 136447490;
+      v19 = "[RPApplicationStateMonitor addObserver:processIdentifier:]";
+      v20 = 1024;
+      v21 = 56;
+      v22 = 2080;
+      v23 = "[RPApplicationStateMonitor addObserver:processIdentifier:]";
+      v24 = 1024;
+      v25 = v4;
+      v26 = 2112;
+      v27 = v16;
+      v28 = 2112;
+      v29 = previousState3;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d %s processIdentifier %i BKSApplicationStateKey %@ previousState %@", &v18, 0x36u);
+    }
+  }
+
+  [(RPApplicationStateMonitor *)self observersCountDidChange];
+}
+
+- (void)removeObserverWithProcessIdentifier:(int)identifier
+{
+  v3 = *&identifier;
+  observers = [(RPApplicationStateMonitor *)self observers];
+  v6 = [NSNumber numberWithInt:v3];
+  [observers removeObjectForKey:v6];
+
+  [(RPApplicationStateMonitor *)self observersCountDidChange];
 }
 
 - (void)addSystemObserver:(id)observer

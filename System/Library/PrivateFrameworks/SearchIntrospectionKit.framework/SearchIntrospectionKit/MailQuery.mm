@@ -7,13 +7,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC22SearchIntrospectionKit9MailQuery_queryString);
-  v5 = *&self->queryString[OBJC_IVAR____TtC22SearchIntrospectionKit9MailQuery_queryString];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_264E899B4();
-  v8 = sub_264E899B4();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_264E899B4();
+  v6 = sub_264E899B4();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (_TtC22SearchIntrospectionKit9MailQuery)init

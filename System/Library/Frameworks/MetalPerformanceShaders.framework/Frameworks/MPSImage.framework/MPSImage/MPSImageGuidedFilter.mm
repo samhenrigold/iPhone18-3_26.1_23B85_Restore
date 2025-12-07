@@ -20,32 +20,32 @@
 - (void)initFilterInfoWithDevice:(id)device
 {
   v5 = [MPSImageBox alloc];
-  v8 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v5, v6, device, self->_kernelDiameter, self->_kernelDiameter, v7);
-  self->_boxFilter = v8;
-  v14 = objc_msgSend_options(v8, v9, v10, v11, v12, v13);
-  objc_msgSend_setOptions_(v8, v15, v14 | 2, v16, v17, v18);
-  objc_msgSend_setEdgeMode_(self->_boxFilter, v19, 0, v20, v21, v22);
-  v23 = [MPSImageLanczosScale alloc];
-  v28 = objc_msgSend_initWithDevice_(v23, v24, device, v25, v26, v27);
-  self->_lanczosScaler = v28;
-  v34 = objc_msgSend_options(v28, v29, v30, v31, v32, v33);
-  objc_msgSend_setOptions_(v28, v35, v34 | 2, v36, v37, v38);
-  objc_msgSend_setEdgeMode_(self->_lanczosScaler, v39, 1, v40, v41, v42);
-  v43 = [MPSImageBilinearScale alloc];
-  v48 = objc_msgSend_initWithDevice_(v43, v44, device, v45, v46, v47);
-  self->_bilinearScaler = v48;
-  v54 = objc_msgSend_options(v48, v49, v50, v51, v52, v53);
-  objc_msgSend_setOptions_(v48, v55, v54 | 2, v56, v57, v58);
+  v7 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v5, v6, device, self->_kernelDiameter, self->_kernelDiameter);
+  self->_boxFilter = v7;
+  v10 = objc_msgSend_options(v7, v8, v9);
+  objc_msgSend_setOptions_(v7, v11, v10 | 2);
+  objc_msgSend_setEdgeMode_(self->_boxFilter, v12, 0);
+  v13 = [MPSImageLanczosScale alloc];
+  v15 = objc_msgSend_initWithDevice_(v13, v14, device);
+  self->_lanczosScaler = v15;
+  v18 = objc_msgSend_options(v15, v16, v17);
+  objc_msgSend_setOptions_(v15, v19, v18 | 2);
+  objc_msgSend_setEdgeMode_(self->_lanczosScaler, v20, 1);
+  v21 = [MPSImageBilinearScale alloc];
+  v23 = objc_msgSend_initWithDevice_(v21, v22, device);
+  self->_bilinearScaler = v23;
+  v26 = objc_msgSend_options(v23, v24, v25);
+  objc_msgSend_setOptions_(v23, v27, v26 | 2);
   bilinearScaler = self->_bilinearScaler;
 
-  objc_msgSend_setEdgeMode_(bilinearScaler, v59, 1, v60, v61, v62);
+  objc_msgSend_setEdgeMode_(bilinearScaler, v28, 1);
 }
 
 - (MPSImageGuidedFilter)initWithDevice:(id)device kernelDiameter:(NSUInteger)kernelDiameter
 {
-  v12.receiver = self;
-  v12.super_class = MPSImageGuidedFilter;
-  result = [(MPSKernel *)&v12 initWithDevice:?];
+  v9.receiver = self;
+  v9.super_class = MPSImageGuidedFilter;
+  result = [(MPSKernel *)&v9 initWithDevice:?];
   if (result)
   {
     result->_kernelDiameter = kernelDiameter;
@@ -54,9 +54,9 @@
     result->_reconstructOffset = 0.0;
     result->_rescaleCoefficients = 0;
     result->_reconstructionCoefficientsSampleBicubic = 0;
-    v11 = result;
-    objc_msgSend_initFilterInfoWithDevice_(result, v7, device, v8, v9, v10);
-    return v11;
+    v8 = result;
+    objc_msgSend_initFilterInfoWithDevice_(result, v7, device);
+    return v8;
   }
 
   return result;
@@ -64,34 +64,34 @@
 
 - (MPSImageGuidedFilter)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v41.receiver = self;
-  v41.super_class = MPSImageGuidedFilter;
+  v20.receiver = self;
+  v20.super_class = MPSImageGuidedFilter;
   v6 = [MPSKernel initWithCoder:sel_initWithCoder_device_ device:?];
-  v11 = v6;
+  v8 = v6;
   if (!v6)
   {
-    return v11;
+    return v8;
   }
 
   if (*(&v6->super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    v6->_kernelDiameter = objc_msgSend_decodeInt64ForKey_(aDecoder, v7, @"MPSGuidedFilter.kernelDiameter", v8, v9, v10);
-    objc_msgSend_decodeFloatForKey_(aDecoder, v12, @"MPSGuidedFilter.epsilon", v13, v14, v15);
-    v11->_epsilon = v16;
-    objc_msgSend_decodeFloatForKey_(aDecoder, v17, @"MPSGuidedFilter.scale", v18, v19, v20);
-    v11->_reconstructScale = v21;
-    objc_msgSend_decodeFloatForKey_(aDecoder, v22, @"MPSGuidedFilter.offset", v23, v24, v25);
-    v11->_reconstructOffset = v26;
-    v11->_rescaleCoefficients = objc_msgSend_decodeBoolForKey_(aDecoder, v27, @"MPSGuidedFilter.rescale", v28, v29, v30);
-    v11->_reconstructionCoefficientsSampleBicubic = objc_msgSend_decodeBoolForKey_(aDecoder, v31, @"MPSGuidedFilter._reconstructionCoefficientsSampleBicubic", v32, v33, v34);
-    objc_msgSend_initFilterInfoWithDevice_(v11, v35, device, v36, v37, v38);
-    return v11;
+    v6->_kernelDiameter = objc_msgSend_decodeInt64ForKey_(aDecoder, v7, @"MPSGuidedFilter.kernelDiameter");
+    objc_msgSend_decodeFloatForKey_(aDecoder, v9, @"MPSGuidedFilter.epsilon");
+    v8->_epsilon = v10;
+    objc_msgSend_decodeFloatForKey_(aDecoder, v11, @"MPSGuidedFilter.scale");
+    v8->_reconstructScale = v12;
+    objc_msgSend_decodeFloatForKey_(aDecoder, v13, @"MPSGuidedFilter.offset");
+    v8->_reconstructOffset = v14;
+    v8->_rescaleCoefficients = objc_msgSend_decodeBoolForKey_(aDecoder, v15, @"MPSGuidedFilter.rescale");
+    v8->_reconstructionCoefficientsSampleBicubic = objc_msgSend_decodeBoolForKey_(aDecoder, v16, @"MPSGuidedFilter._reconstructionCoefficientsSampleBicubic");
+    objc_msgSend_initFilterInfoWithDevice_(v8, v17, device);
+    return v8;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v40 = objc_opt_class();
-    NSStringFromClass(v40);
+    v19 = objc_opt_class();
+    NSStringFromClass(v19);
     MTLReportFailure();
   }
 
@@ -101,18 +101,18 @@
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v29.receiver = self;
-  v29.super_class = MPSImageGuidedFilter;
-  [(MPSKernel *)&v29 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_kernelDiameter, @"MPSGuidedFilter.kernelDiameter", v6, v7);
-  *&v8 = self->_epsilon;
-  objc_msgSend_encodeFloat_forKey_(coder, v9, @"MPSGuidedFilter.epsilon", v10, v11, v12, v8);
-  *&v13 = self->_reconstructScale;
-  objc_msgSend_encodeFloat_forKey_(coder, v14, @"MPSGuidedFilter.scale", v15, v16, v17, v13);
-  *&v18 = self->_reconstructOffset;
-  objc_msgSend_encodeFloat_forKey_(coder, v19, @"MPSGuidedFilter.offset", v20, v21, v22, v18);
-  objc_msgSend_encodeBool_forKey_(coder, v23, self->_rescaleCoefficients, @"MPSGuidedFilter.rescale", v24, v25);
-  objc_msgSend_encodeBool_forKey_(coder, v26, self->_reconstructionCoefficientsSampleBicubic, @"MPSGuidedFilter._reconstructionCoefficientsSampleBicubic", v27, v28);
+  v14.receiver = self;
+  v14.super_class = MPSImageGuidedFilter;
+  [(MPSKernel *)&v14 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_kernelDiameter, @"MPSGuidedFilter.kernelDiameter");
+  *&v6 = self->_epsilon;
+  objc_msgSend_encodeFloat_forKey_(coder, v7, @"MPSGuidedFilter.epsilon", v6);
+  *&v8 = self->_reconstructScale;
+  objc_msgSend_encodeFloat_forKey_(coder, v9, @"MPSGuidedFilter.scale", v8);
+  *&v10 = self->_reconstructOffset;
+  objc_msgSend_encodeFloat_forKey_(coder, v11, @"MPSGuidedFilter.offset", v10);
+  objc_msgSend_encodeBool_forKey_(coder, v12, self->_rescaleCoefficients, @"MPSGuidedFilter.rescale");
+  objc_msgSend_encodeBool_forKey_(coder, v13, self->_reconstructionCoefficientsSampleBicubic, @"MPSGuidedFilter._reconstructionCoefficientsSampleBicubic");
 }
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
@@ -142,35 +142,30 @@
 
 - (void)encodeRegressionInternalToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceTexture:(id)texture guidanceTexture:(id)guidanceTexture weightsTexture:(id)weightsTexture destinationCoefficientsTexture:(id)coefficientsTexture
 {
-  v14 = objc_msgSend_width(coefficientsTexture, a2, encoder, buffer, texture, guidanceTexture);
-  v20 = objc_msgSend_height(coefficientsTexture, v15, v16, v17, v18, v19);
-  v21 = *(&self->super.super.isa + *MEMORY[0x277CD7378]);
-  v22 = *MEMORY[0x277CD7370];
-  v23 = *(&self->super.super.isa + v22);
+  v14 = objc_msgSend_width(coefficientsTexture, a2, encoder, buffer);
+  v17 = objc_msgSend_height(coefficientsTexture, v15, v16);
   ComputeState = MPSLibrary::GetComputeState();
   if (ComputeState)
   {
-    objc_msgSend_setComputePipelineState_(encoder, v25, ComputeState, v26, v27, v28);
-    v29 = *(&self->super.super.isa + v22);
+    objc_msgSend_setComputePipelineState_(encoder, v19, ComputeState);
     MPSLibrary::ReleaseComputeState();
-    v56[0] = LODWORD(self->_epsilon);
+    v32[0] = LODWORD(self->_epsilon);
     kernelDiameter = self->_kernelDiameter;
-    v56[1] = kernelDiameter >> 1;
-    *&v56[2] = 1.0 / (kernelDiameter * kernelDiameter);
-    objc_msgSend_setTexture_atIndex_(encoder, v31, guidanceTexture, 0, v32, v33);
-    objc_msgSend_setTexture_atIndex_(encoder, v34, texture, 1, v35, v36);
-    objc_msgSend_setTexture_atIndex_(encoder, v37, weightsTexture, 2, v38, v39);
-    objc_msgSend_setTexture_atIndex_(encoder, v40, coefficientsTexture, 3, v41, v42);
-    v43 = *(&self->super.super.isa + *MEMORY[0x277CD7350]);
+    v32[1] = kernelDiameter >> 1;
+    *&v32[2] = 1.0 / (kernelDiameter * kernelDiameter);
+    objc_msgSend_setTexture_atIndex_(encoder, v21, guidanceTexture, 0);
+    objc_msgSend_setTexture_atIndex_(encoder, v22, texture, 1);
+    objc_msgSend_setTexture_atIndex_(encoder, v23, weightsTexture, 2);
+    objc_msgSend_setTexture_atIndex_(encoder, v24, coefficientsTexture, 3);
     Sampler = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(encoder, v45, Sampler, 0, v46, v47);
-    objc_msgSend_setBytes_length_atIndex_(encoder, v48, v56, 12, 0, v49);
-    v55[0] = (((v14 + 1) >> 1) + 7) >> 3;
-    v55[1] = (v20 + 7) >> 3;
-    v55[2] = 1;
-    v53 = xmmword_239988F20;
-    v54 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v50, v55, &v53, v51, v52);
+    objc_msgSend_setSamplerState_atIndex_(encoder, v26, Sampler, 0);
+    objc_msgSend_setBytes_length_atIndex_(encoder, v27, v32, 12, 0);
+    v31[0] = (((v14 + 1) >> 1) + 7) >> 3;
+    v31[1] = (v17 + 7) >> 3;
+    v31[2] = 1;
+    v29 = xmmword_239988F20;
+    v30 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v28, v31, &v29);
   }
 }
 
@@ -181,11 +176,11 @@
   {
     v16 = *MEMORY[0x277CD7350];
     v17 = *(&self->super.super.isa + v16);
-    v18 = objc_msgSend_pixelFormat(texture, a2, encoder, buffer, texture, guidanceTexture);
+    v18 = objc_msgSend_pixelFormat(texture, a2, encoder);
     MPSDevice::GetPixelInfo(v17, v18, MPSImageFeatureChannelFormatNone);
     v19 = *(&self->super.super.isa + v16);
-    v25 = objc_msgSend_pixelFormat(texture, v20, v21, v22, v23, v24);
-    if ((MPSDevice::GetPixelInfo(v19, v25, MPSImageFeatureChannelFormatNone) & 0xF000000) != 0x1000000 && MTLReportFailureTypeEnabled())
+    v22 = objc_msgSend_pixelFormat(texture, v20, v21);
+    if ((MPSDevice::GetPixelInfo(v19, v22, MPSImageFeatureChannelFormatNone) & 0xF000000) != 0x1000000 && MTLReportFailureTypeEnabled())
     {
       weightsTextureCopy = texture;
       MTLReportFailure();
@@ -193,12 +188,12 @@
 
     if (weightsTexture)
     {
-      v30 = *(&self->super.super.isa + v16);
-      v31 = objc_msgSend_pixelFormat(weightsTexture, a2, v26, v27, v28, v29);
-      MPSDevice::GetPixelInfo(v30, v31, MPSImageFeatureChannelFormatNone);
-      v32 = *(&self->super.super.isa + v16);
-      v38 = objc_msgSend_pixelFormat(weightsTexture, v33, v34, v35, v36, v37);
-      if ((MPSDevice::GetPixelInfo(v32, v38, MPSImageFeatureChannelFormatNone) & 0xF000000) != 0x1000000)
+      v24 = *(&self->super.super.isa + v16);
+      v25 = objc_msgSend_pixelFormat(weightsTexture, a2, v23);
+      MPSDevice::GetPixelInfo(v24, v25, MPSImageFeatureChannelFormatNone);
+      v26 = *(&self->super.super.isa + v16);
+      v29 = objc_msgSend_pixelFormat(weightsTexture, v27, v28);
+      if ((MPSDevice::GetPixelInfo(v26, v29, MPSImageFeatureChannelFormatNone) & 0xF000000) != 0x1000000)
       {
         if (MTLReportFailureTypeEnabled())
         {
@@ -217,140 +212,122 @@
 
   else
   {
-    v39 = objc_alloc(MEMORY[0x277CD7210]);
-    v47 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v39, v40, buffer, 0, v41, v42);
+    v30 = objc_alloc(MEMORY[0x277CD7210]);
+    v33 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v30, v31, buffer, 0);
     if ((*(&self->super.super.isa + v15) & 0x18) != 0)
     {
-      v48 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-      if (v48 || (v49 = objc_opt_class(), v50 = NSStringFromClass(v49), objc_msgSend_setLabel_(self, v51, v50, v52, v53, v54), (v48 = v50) != 0))
+      v34 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+      if (v34 || (v35 = objc_opt_class(), v36 = NSStringFromClass(v35), objc_msgSend_setLabel_(self, v37, v36), (v34 = v36) != 0))
       {
-        objc_msgSend_setLabel_(v47, v43, v48, v44, v45, v46, weightsTextureCopy);
+        objc_msgSend_setLabel_(v33, v32, v34, weightsTextureCopy);
       }
     }
 
-    objc_msgSend_encodeRegressionInternalToCommandEncoder_commandBuffer_sourceTexture_guidanceTexture_weightsTexture_destinationCoefficientsTexture_(self, v43, v47, buffer, texture, guidanceTexture, weightsTexture, coefficientsTexture, weightsTextureCopy);
-    objc_msgSend_endEncoding(v47, v55, v56, v57, v58, v59);
+    objc_msgSend_encodeRegressionInternalToCommandEncoder_commandBuffer_sourceTexture_guidanceTexture_weightsTexture_destinationCoefficientsTexture_(self, v32, v33, buffer, texture, guidanceTexture, weightsTexture, coefficientsTexture, weightsTextureCopy);
+    objc_msgSend_endEncoding(v33, v38, v39);
   }
 }
 
 - (void)encodeReconstructionInternalToCommandEncoder:(id)encoder commandBuffer:(id)buffer guidanceTexture:(id)texture coefficientsTexture:(id)coefficientsTexture destinationTexture:(id)destinationTexture
 {
-  MEMORY[0x23EE7BAC0](v209, buffer, destinationTexture);
-  v206 = objc_msgSend_width(coefficientsTexture, v10, v11, v12, v13, v14);
-  v207 = objc_msgSend_height(coefficientsTexture, v15, v16, v17, v18, v19);
-  v208 = 1;
+  MEMORY[0x23EE7BAC0](v116, buffer, destinationTexture);
+  v113 = objc_msgSend_width(coefficientsTexture, v10, v11);
+  v114 = objc_msgSend_height(coefficientsTexture, v12, v13);
+  v115 = 1;
   PixelInfo = 0;
-  v20 = *MEMORY[0x277CD7350];
-  v21 = *(&self->super.super.isa + v20);
-  v27 = objc_msgSend_pixelFormat(coefficientsTexture, v22, v23, v24, v25, v26);
-  PixelInfo = MPSDevice::GetPixelInfo(v21, v27, MPSImageFeatureChannelFormatNone);
+  v14 = *MEMORY[0x277CD7350];
+  v15 = *(&self->super.super.isa + v14);
+  v18 = objc_msgSend_pixelFormat(coefficientsTexture, v16, v17);
+  PixelInfo = MPSDevice::GetPixelInfo(v15, v18, MPSImageFeatureChannelFormatNone);
   CompressedTempTexture = MPSAutoCache::GetCompressedTempTexture();
-  v194 = MPSAutoCache::GetCompressedTempTexture();
-  v34 = BYTE4(PixelInfo) << 32 == 0x1800000000 && ((*(&self->super.super.isa + v20))[1476] & 0x80) == 0;
-  v195.i32[0] = SLODWORD(self->_kernelDiameter) / 2;
-  v35 = objc_msgSend_width(coefficientsTexture, v29, v30, v31, v32, v33);
-  v41 = objc_msgSend_height(coefficientsTexture, v36, v37, v38, v39, v40);
-  v42 = *MEMORY[0x277CD7370];
-  v43 = *(&self->super.super.isa + v42);
+  v101 = MPSAutoCache::GetCompressedTempTexture();
+  v102.i32[0] = SLODWORD(self->_kernelDiameter) / 2;
+  v22 = objc_msgSend_width(coefficientsTexture, v20, v21);
+  v25 = objc_msgSend_height(coefficientsTexture, v23, v24);
   ComputeState = MPSLibrary::GetComputeState();
   if (ComputeState)
   {
-    objc_msgSend_setComputePipelineState_(encoder, v44, ComputeState, v45, v46, v47);
-    v49 = *(&self->super.super.isa + v42);
+    objc_msgSend_setComputePipelineState_(encoder, v26, ComputeState);
     MPSLibrary::ReleaseComputeState();
-    objc_msgSend_setTexture_atIndex_(encoder, v50, coefficientsTexture, 0, v51, v52);
-    objc_msgSend_setTexture_atIndex_(encoder, v53, CompressedTempTexture, 1, v54, v55);
-    objc_msgSend_setBytes_length_atIndex_(encoder, v56, &v195, 4, 0, v57);
-    *&v197 = (v35 + 15) >> 4;
-    *(&v197 + 1) = (v41 + 15) >> 4;
-    v198 = 1;
-    v203 = vdupq_n_s64(0x10uLL);
-    v204 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v58, &v197, &v203, v59, v60);
-    v61 = *(&self->super.super.isa + v42);
-    v66 = MPSLibrary::GetComputeState();
-    if (v66)
+    objc_msgSend_setTexture_atIndex_(encoder, v28, coefficientsTexture, 0);
+    objc_msgSend_setTexture_atIndex_(encoder, v29, CompressedTempTexture, 1);
+    objc_msgSend_setBytes_length_atIndex_(encoder, v30, &v102, 4, 0);
+    *&v104 = (v22 + 15) >> 4;
+    *(&v104 + 1) = (v25 + 15) >> 4;
+    v105 = 1;
+    v110 = vdupq_n_s64(0x10uLL);
+    v111 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v31, &v104, &v110);
+    v33 = MPSLibrary::GetComputeState();
+    if (v33)
     {
-      objc_msgSend_setComputePipelineState_(encoder, v62, v66, v63, v64, v65);
-      v67 = *(&self->super.super.isa + v42);
+      objc_msgSend_setComputePipelineState_(encoder, v32, v33);
       MPSLibrary::ReleaseComputeState();
-      objc_msgSend_setTexture_atIndex_(encoder, v68, CompressedTempTexture, 0, v69, v70);
-      objc_msgSend_setTexture_atIndex_(encoder, v71, v194, 1, v72, v73);
-      objc_msgSend_setBytes_length_atIndex_(encoder, v74, &v195, 4, 0, v75);
-      *&v197 = (v35 + 15) >> 4;
-      *(&v197 + 1) = (v41 + 15) >> 4;
-      v198 = 1;
-      v203 = vdupq_n_s64(0x10uLL);
-      v204 = 1;
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v76, &v197, &v203, v77, v78);
+      objc_msgSend_setTexture_atIndex_(encoder, v34, CompressedTempTexture, 0);
+      objc_msgSend_setTexture_atIndex_(encoder, v35, v101, 1);
+      objc_msgSend_setBytes_length_atIndex_(encoder, v36, &v102, 4, 0);
+      *&v104 = (v22 + 15) >> 4;
+      *(&v104 + 1) = (v25 + 15) >> 4;
+      v105 = 1;
+      v110 = vdupq_n_s64(0x10uLL);
+      v111 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v37, &v104, &v110);
       if (self->_rescaleCoefficients)
       {
-        v84 = objc_msgSend_width(destinationTexture, v79, v80, v81, v82, v83);
-        v90 = objc_msgSend_height(destinationTexture, v85, v86, v87, v88, v89);
-        v206 = v84 >> 1;
-        v207 = v90 >> 1;
-        v208 = 1;
-        v91 = MPSAutoCache::GetCompressedTempTexture();
-        v97 = v91;
-        if (self->_reconstructScale == 1.0)
+        v40 = objc_msgSend_width(destinationTexture, v38, v39);
+        v43 = objc_msgSend_height(destinationTexture, v41, v42);
+        v113 = v40 >> 1;
+        v114 = v43 >> 1;
+        v115 = 1;
+        v44 = MPSAutoCache::GetCompressedTempTexture();
+        v47 = objc_msgSend_width(v44, v45, v46);
+        v50 = objc_msgSend_height(v44, v48, v49);
+        v113 = v47 >> 1;
+        v114 = v50 >> 1;
+        v115 = 1;
+        if (v47 >> 1 <= objc_msgSend_width(v101, v51, v52) || (v55 = v114, v55 <= objc_msgSend_height(v101, v53, v54)))
         {
-          self->_reconstructOffset;
-        }
-
-        v98 = objc_msgSend_width(v91, v92, v93, v94, v95, v96);
-        v104 = objc_msgSend_height(v97, v99, v100, v101, v102, v103);
-        v206 = v98 >> 1;
-        v207 = v104 >> 1;
-        v208 = 1;
-        if (v98 >> 1 <= objc_msgSend_width(v194, v105, v106, v107, v108, v109) || (v115 = v207, v115 <= objc_msgSend_height(v194, v110, v111, v112, v113, v114)))
-        {
-          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_bilinearScaler, v110, buffer, v194, v97, v114);
+          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_bilinearScaler, v53, buffer, v101, v44);
         }
 
         else
         {
-          v116 = MPSAutoCache::GetCompressedTempTexture();
-          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_lanczosScaler, v117, buffer, v194, v116, v118);
-          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_bilinearScaler, v119, buffer, v116, v97, v120);
+          v56 = MPSAutoCache::GetCompressedTempTexture();
+          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_lanczosScaler, v57, buffer, v101, v56);
+          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_bilinearScaler, v58, buffer, v56, v44);
         }
       }
 
       else
       {
-        v97 = 0;
-        if (!v34)
-        {
-          self->_reconstructionCoefficientsSampleBicubic;
-        }
+        v44 = 0;
       }
 
       if (self->_rescaleCoefficients)
       {
-        v121 = v97;
+        v59 = v44;
       }
 
       else
       {
-        v121 = v194;
+        v59 = v101;
       }
 
-      v122 = *(&self->super.super.isa + v20);
-      v123 = objc_msgSend_pixelFormat(v121, v79, v80, v81, v82, v83);
-      v124 = sub_23996E594(*(v122 + 1476), v123);
-      *&v125 = -1;
-      *(&v125 + 1) = -1;
-      v201 = v125;
-      v202 = v125;
-      v199 = -1;
-      v200 = v125;
-      v197 = v125;
-      v198 = v124;
-      v126 = *(&self->super.super.isa + v42);
-      v131 = MPSLibrary::GetComputeState();
-      if (v131)
+      v60 = *(&self->super.super.isa + v14);
+      v61 = objc_msgSend_pixelFormat(v59, v38, v39);
+      v62 = sub_23996E594(*(v60 + 1476), v61);
+      *&v63 = -1;
+      *(&v63 + 1) = -1;
+      v108 = v63;
+      v109 = v63;
+      v106 = -1;
+      v107 = v63;
+      v104 = v63;
+      v105 = v62;
+      v65 = MPSLibrary::GetComputeState();
+      if (v65)
       {
-        objc_msgSend_setComputePipelineState_(encoder, v127, v131, v128, v129, v130);
-        v132 = *(&self->super.super.isa + v42);
+        objc_msgSend_setComputePipelineState_(encoder, v64, v65);
         MPSLibrary::ReleaseComputeState();
         if (self->_rescaleCoefficients)
         {
@@ -359,58 +336,58 @@
 
         else
         {
-          v143 = objc_msgSend_width(v194, v133, v134, v135, v136, v137);
-          v149 = objc_msgSend_height(v194, v144, v145, v146, v147, v148);
-          v155 = objc_msgSend_width(destinationTexture, v150, v151, v152, v153, v154);
-          v161 = objc_msgSend_height(destinationTexture, v156, v157, v158, v159, v160);
-          v162.f32[0] = v143;
-          v162.f32[1] = v149;
-          v163.f32[0] = v155;
-          v163.f32[1] = v161;
-          _D0 = vdiv_f32(v162, v163);
+          v73 = objc_msgSend_width(v101, v66, v67);
+          v76 = objc_msgSend_height(v101, v74, v75);
+          v79 = objc_msgSend_width(destinationTexture, v77, v78);
+          v82 = objc_msgSend_height(destinationTexture, v80, v81);
+          v83.f32[0] = v73;
+          v83.f32[1] = v76;
+          v84.f32[0] = v79;
+          v84.f32[1] = v82;
+          _D0 = vdiv_f32(v83, v84);
         }
 
         reconstructOffset = self->_reconstructOffset;
-        v203.i32[0] = LODWORD(self->_reconstructScale);
-        *&v203.i32[1] = reconstructOffset;
-        v203.u64[1] = _D0;
-        objc_msgSend_setBytes_length_atIndex_(encoder, v133, &v203, 16, 0, v137);
-        objc_msgSend_setTexture_atIndex_(encoder, v165, v121, 0, v166, v167);
-        objc_msgSend_setTexture_atIndex_(encoder, v168, texture, 1, v169, v170);
-        objc_msgSend_setTexture_atIndex_(encoder, v171, destinationTexture, 2, v172, v173);
-        v179 = objc_msgSend_width(destinationTexture, v174, v175, v176, v177, v178);
-        v185 = objc_msgSend_height(destinationTexture, v180, v181, v182, v183, v184);
+        v110.i32[0] = LODWORD(self->_reconstructScale);
+        *&v110.i32[1] = reconstructOffset;
+        v110.u64[1] = _D0;
+        objc_msgSend_setBytes_length_atIndex_(encoder, v66, &v110, 16, 0);
+        objc_msgSend_setTexture_atIndex_(encoder, v86, v59, 0);
+        objc_msgSend_setTexture_atIndex_(encoder, v87, texture, 1);
+        objc_msgSend_setTexture_atIndex_(encoder, v88, destinationTexture, 2);
+        v91 = objc_msgSend_width(destinationTexture, v89, v90);
+        v94 = objc_msgSend_height(destinationTexture, v92, v93);
         if (self->_rescaleCoefficients)
         {
-          v189 = (v179 + 1) >> 1;
+          v96 = (v91 + 1) >> 1;
         }
 
         else
         {
-          v189 = v179;
+          v96 = v91;
         }
 
         if (self->_rescaleCoefficients)
         {
-          v190 = (v185 + 1) >> 1;
+          v97 = (v94 + 1) >> 1;
         }
 
         else
         {
-          v190 = v185;
+          v97 = v94;
         }
 
-        v203.i64[0] = (v189 + 15) >> 4;
-        v203.i64[1] = (v190 + 15) >> 4;
-        v204 = 1;
-        v195 = vdupq_n_s64(0x10uLL);
-        v196 = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v186, &v203, &v195, v187, v188);
+        v110.i64[0] = (v96 + 15) >> 4;
+        v110.i64[1] = (v97 + 15) >> 4;
+        v111 = 1;
+        v102 = vdupq_n_s64(0x10uLL);
+        v103 = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v95, &v110, &v102);
       }
     }
   }
 
-  MPSAutoCache::~MPSAutoCache(v209);
+  MPSAutoCache::~MPSAutoCache(v116);
 }
 
 - (void)encodeReconstructionToCommandEncoder:(id)encoder commandBuffer:(id)buffer guidanceTexture:(id)texture coefficientsTexture:(id)coefficientsTexture destinationTexture:(id)destinationTexture
@@ -418,15 +395,15 @@
   v13 = *MEMORY[0x277CD7378];
   if ((*(&self->super.super.isa + v13) & 1) == 0)
   {
-    v14 = objc_msgSend_width(texture, a2, encoder, buffer, texture, coefficientsTexture);
-    if (v14 == objc_msgSend_width(destinationTexture, v15, v16, v17, v18, v19))
+    v14 = objc_msgSend_width(texture, a2, encoder);
+    if (v14 == objc_msgSend_width(destinationTexture, v15, v16))
     {
-      objc_msgSend_height(texture, v20, v21, v22, v23, v24);
-      objc_msgSend_height(destinationTexture, v25, v26, v27, v28, v29);
+      objc_msgSend_height(texture, v17, v18);
+      objc_msgSend_height(destinationTexture, v19, v20);
     }
 
-    v30 = objc_msgSend_width(texture, v20, v21, v22, v23, v24);
-    if (v30 != objc_msgSend_width(destinationTexture, v31, v32, v33, v34, v35) || (v41 = objc_msgSend_height(texture, v36, v37, v38, v39, v40), v41 != objc_msgSend_height(destinationTexture, v42, v43, v44, v45, v46)))
+    v21 = objc_msgSend_width(texture, v17, v18);
+    if (v21 != objc_msgSend_width(destinationTexture, v22, v23) || (v26 = objc_msgSend_height(texture, v24, v25), v26 != objc_msgSend_height(destinationTexture, v27, v28)))
     {
       if (MTLReportFailureTypeEnabled())
       {
@@ -445,102 +422,94 @@
 
   else
   {
-    v47 = objc_alloc(MEMORY[0x277CD7210]);
-    v55 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v47, v48, buffer, 0, v49, v50);
+    v29 = objc_alloc(MEMORY[0x277CD7210]);
+    v32 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v29, v30, buffer, 0);
     if ((*(&self->super.super.isa + v13) & 0x18) != 0)
     {
-      v56 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-      if (v56 || (v57 = objc_opt_class(), v58 = NSStringFromClass(v57), objc_msgSend_setLabel_(self, v59, v58, v60, v61, v62), (v56 = v58) != 0))
+      v33 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+      if (v33 || (v34 = objc_opt_class(), v35 = NSStringFromClass(v34), objc_msgSend_setLabel_(self, v36, v35), (v33 = v35) != 0))
       {
-        objc_msgSend_setLabel_(v55, v51, v56, v52, v53, v54, destinationTextureCopy, textureCopy, v55, self);
+        objc_msgSend_setLabel_(v32, v31, v33, destinationTextureCopy, textureCopy, v32, self);
       }
     }
 
-    objc_msgSend_encodeReconstructionInternalToCommandEncoder_commandBuffer_guidanceTexture_coefficientsTexture_destinationTexture_(self, v51, v55, buffer, texture, coefficientsTexture, destinationTexture, destinationTextureCopy, textureCopy);
-    objc_msgSend_endEncoding(v55, v63, v64, v65, v66, v67);
+    objc_msgSend_encodeReconstructionInternalToCommandEncoder_commandBuffer_guidanceTexture_coefficientsTexture_destinationTexture_(self, v31, v32, buffer, texture, coefficientsTexture, destinationTexture, destinationTextureCopy, textureCopy);
+    objc_msgSend_endEncoding(v32, v37, v38);
   }
 }
 
 - (void)encodeRegressionInternalToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceTexture:(id)texture guidanceTexture:(id)guidanceTexture weightsTexture:(id)weightsTexture destinationCoefficientsTextureA:(id)a destinationCoefficientsTextureB:(id)b
 {
-  v15 = objc_msgSend_width(a, a2, encoder, buffer, texture, guidanceTexture);
-  v21 = objc_msgSend_height(a, v16, v17, v18, v19, v20);
-  v22 = *(&self->super.super.isa + *MEMORY[0x277CD7378]);
-  v23 = *MEMORY[0x277CD7370];
-  v24 = *(&self->super.super.isa + v23);
+  v15 = objc_msgSend_width(a, a2, encoder, buffer);
+  v18 = objc_msgSend_height(a, v16, v17);
   ComputeState = MPSLibrary::GetComputeState();
   if (ComputeState)
   {
-    objc_msgSend_setComputePipelineState_(encoder, v26, ComputeState, v27, v28, v29);
-    v30 = *(&self->super.super.isa + v23);
+    objc_msgSend_setComputePipelineState_(encoder, v20, ComputeState);
     MPSLibrary::ReleaseComputeState();
-    v60[0] = LODWORD(self->_epsilon);
+    v34[0] = LODWORD(self->_epsilon);
     kernelDiameter = self->_kernelDiameter;
-    v60[1] = kernelDiameter >> 1;
-    *&v60[2] = 1.0 / (kernelDiameter * kernelDiameter);
-    objc_msgSend_setTexture_atIndex_(encoder, v32, guidanceTexture, 0, v33, v34);
-    objc_msgSend_setTexture_atIndex_(encoder, v35, texture, 1, v36, v37);
-    objc_msgSend_setTexture_atIndex_(encoder, v38, weightsTexture, 2, v39, v40);
-    objc_msgSend_setTexture_atIndex_(encoder, v41, a, 3, v42, v43);
-    objc_msgSend_setTexture_atIndex_(encoder, v44, b, 4, v45, v46);
-    v47 = *(&self->super.super.isa + *MEMORY[0x277CD7350]);
+    v34[1] = kernelDiameter >> 1;
+    *&v34[2] = 1.0 / (kernelDiameter * kernelDiameter);
+    objc_msgSend_setTexture_atIndex_(encoder, v22, guidanceTexture, 0);
+    objc_msgSend_setTexture_atIndex_(encoder, v23, texture, 1);
+    objc_msgSend_setTexture_atIndex_(encoder, v24, weightsTexture, 2);
+    objc_msgSend_setTexture_atIndex_(encoder, v25, a, 3);
+    objc_msgSend_setTexture_atIndex_(encoder, v26, b, 4);
     Sampler = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(encoder, v49, Sampler, 0, v50, v51);
-    objc_msgSend_setBytes_length_atIndex_(encoder, v52, v60, 12, 0, v53);
-    v59[0] = (v15 + 7) >> 3;
-    v59[1] = (v21 + 7) >> 3;
-    v59[2] = 1;
-    v57 = xmmword_239988F20;
-    v58 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v54, v59, &v57, v55, v56);
+    objc_msgSend_setSamplerState_atIndex_(encoder, v28, Sampler, 0);
+    objc_msgSend_setBytes_length_atIndex_(encoder, v29, v34, 12, 0);
+    v33[0] = (v15 + 7) >> 3;
+    v33[1] = (v18 + 7) >> 3;
+    v33[2] = 1;
+    v31 = xmmword_239988F20;
+    v32 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v30, v33, &v31);
   }
 }
 
 - (void)encodeRegressionToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceTexture:(id)texture guidanceTexture:(id)guidanceTexture weightsTexture:(id)weightsTexture destinationCoefficientsTextureA:(id)a destinationCoefficientsTextureB:(id)b
 {
-  guidanceTextureCopy = guidanceTexture;
-  textureCopy = texture;
-  bufferCopy = buffer;
   v16 = *MEMORY[0x277CD7378];
   if ((*(&self->super.super.isa + v16) & 1) == 0)
   {
-    objc_msgSend_width(a, a2, encoder, buffer, texture, guidanceTexture);
-    objc_msgSend_width(b, v17, v18, v19, v20, v21);
-    v27 = objc_msgSend_width(a, v22, v23, v24, v25, v26);
-    if (v27 != objc_msgSend_width(b, v28, v29, v30, v31, v32) && MTLReportFailureTypeEnabled())
+    objc_msgSend_width(a, a2, encoder);
+    objc_msgSend_width(b, v17, v18);
+    v21 = objc_msgSend_width(a, v19, v20);
+    if (v21 != objc_msgSend_width(b, v22, v23) && MTLReportFailureTypeEnabled())
     {
-      weightsTextureCopy = objc_msgSend_width(a, v33, v34, v35, v36, v37);
-      v103 = objc_msgSend_width(b, v92, v93, v94, v95, v96);
+      weightsTextureCopy = objc_msgSend_width(a, v24, v25);
+      v59 = objc_msgSend_width(b, v54, v55);
       MTLReportFailure();
     }
 
-    objc_msgSend_height(a, v33, v34, v35, v36, v37, weightsTextureCopy, v103);
-    objc_msgSend_height(b, v38, v39, v40, v41, v42);
-    v48 = objc_msgSend_height(a, v43, v44, v45, v46, v47);
-    if (v48 != objc_msgSend_height(b, v49, v50, v51, v52, v53) && MTLReportFailureTypeEnabled())
+    objc_msgSend_height(a, v24, v25, weightsTextureCopy, v59);
+    objc_msgSend_height(b, v26, v27);
+    v30 = objc_msgSend_height(a, v28, v29);
+    if (v30 != objc_msgSend_height(b, v31, v32) && MTLReportFailureTypeEnabled())
     {
-      weightsTextureCopy = objc_msgSend_height(a, a2, v54, v55, v56, v57);
-      v103 = objc_msgSend_height(b, v97, v98, v99, v100, v101);
+      weightsTextureCopy = objc_msgSend_height(a, a2, v33);
+      v59 = objc_msgSend_height(b, v56, v57);
       MTLReportFailure();
     }
 
     if (weightsTexture)
     {
-      v104 = v16;
-      v58 = bufferCopy;
-      v59 = textureCopy;
-      v60 = guidanceTextureCopy;
-      v61 = *MEMORY[0x277CD7350];
-      v62 = *(&self->super.super.isa + v61);
-      v63 = objc_msgSend_pixelFormat(weightsTexture, a2, v54, v55, v56, v57);
-      MPSDevice::GetPixelInfo(v62, v63, MPSImageFeatureChannelFormatNone);
-      v64 = *(&self->super.super.isa + v61);
-      guidanceTextureCopy = v60;
-      textureCopy = v59;
-      bufferCopy = v58;
-      v16 = v104;
-      v70 = objc_msgSend_pixelFormat(weightsTexture, v65, v66, v67, v68, v69);
-      if ((MPSDevice::GetPixelInfo(v64, v70, MPSImageFeatureChannelFormatNone) & 0xF000000) != 0x1000000)
+      v60 = v16;
+      bufferCopy = buffer;
+      textureCopy = texture;
+      guidanceTextureCopy = guidanceTexture;
+      v37 = *MEMORY[0x277CD7350];
+      v38 = *(&self->super.super.isa + v37);
+      v39 = objc_msgSend_pixelFormat(weightsTexture, a2, v33);
+      MPSDevice::GetPixelInfo(v38, v39, MPSImageFeatureChannelFormatNone);
+      v40 = *(&self->super.super.isa + v37);
+      guidanceTexture = guidanceTextureCopy;
+      texture = textureCopy;
+      buffer = bufferCopy;
+      v16 = v60;
+      v43 = objc_msgSend_pixelFormat(weightsTexture, v41, v42);
+      if ((MPSDevice::GetPixelInfo(v40, v43, MPSImageFeatureChannelFormatNone) & 0xF000000) != 0x1000000)
       {
         if (MTLReportFailureTypeEnabled())
         {
@@ -554,151 +523,138 @@
   if (encoder)
   {
 
-    objc_msgSend_encodeRegressionInternalToCommandEncoder_commandBuffer_sourceTexture_guidanceTexture_weightsTexture_destinationCoefficientsTextureA_destinationCoefficientsTextureB_(self, a2, encoder, bufferCopy, textureCopy, guidanceTextureCopy, weightsTexture, a);
+    objc_msgSend_encodeRegressionInternalToCommandEncoder_commandBuffer_sourceTexture_guidanceTexture_weightsTexture_destinationCoefficientsTextureA_destinationCoefficientsTextureB_(self, a2, encoder, buffer, texture, guidanceTexture, weightsTexture, a);
   }
 
   else
   {
-    v71 = objc_alloc(MEMORY[0x277CD7210]);
-    v79 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v71, v72, bufferCopy, 0, v73, v74);
+    v44 = objc_alloc(MEMORY[0x277CD7210]);
+    v47 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v44, v45, buffer, 0);
     if ((*(&self->super.super.isa + v16) & 0x18) != 0)
     {
-      v80 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-      if (v80 || (v81 = objc_opt_class(), v82 = NSStringFromClass(v81), objc_msgSend_setLabel_(self, v83, v82, v84, v85, v86), (v80 = v82) != 0))
+      v48 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+      if (v48 || (v49 = objc_opt_class(), v50 = NSStringFromClass(v49), objc_msgSend_setLabel_(self, v51, v50), (v48 = v50) != 0))
       {
-        objc_msgSend_setLabel_(v79, v75, v80, v76, v77, v78, weightsTextureCopy, v103);
+        objc_msgSend_setLabel_(v47, v46, v48, weightsTextureCopy, v59);
       }
     }
 
-    objc_msgSend_encodeRegressionInternalToCommandEncoder_commandBuffer_sourceTexture_guidanceTexture_weightsTexture_destinationCoefficientsTextureA_destinationCoefficientsTextureB_(self, v75, v79, bufferCopy, textureCopy, guidanceTextureCopy, weightsTexture, a, b);
-    objc_msgSend_endEncoding(v79, v87, v88, v89, v90, v91);
+    objc_msgSend_encodeRegressionInternalToCommandEncoder_commandBuffer_sourceTexture_guidanceTexture_weightsTexture_destinationCoefficientsTextureA_destinationCoefficientsTextureB_(self, v46, v47, buffer, texture, guidanceTexture, weightsTexture, a, b);
+    objc_msgSend_endEncoding(v47, v52, v53);
   }
 }
 
 - (void)encodeReconstructionInternalToCommandEncoder:(id)encoder commandBuffer:(id)buffer guidanceTexture:(id)texture coefficientsTextureA:(id)a coefficientsTextureB:(id)b destinationTexture:(id)destinationTexture
 {
-  MEMORY[0x23EE7BAC0](v201, buffer, destinationTexture);
-  v198 = objc_msgSend_width(a, v13, v14, v15, v16, v17);
-  v199 = objc_msgSend_height(a, v18, v19, v20, v21, v22);
-  v200 = 1;
+  MEMORY[0x23EE7BAC0](v106, buffer, destinationTexture);
+  v103 = objc_msgSend_width(a, v13, v14);
+  v104 = objc_msgSend_height(a, v15, v16);
+  v105 = 1;
   PixelInfo = 0;
-  v23 = *MEMORY[0x277CD7350];
-  v24 = *(&self->super.super.isa + v23);
-  v30 = objc_msgSend_pixelFormat(a, v25, v26, v27, v28, v29);
-  PixelInfo = MPSDevice::GetPixelInfo(v24, v30, MPSImageFeatureChannelFormatNone);
+  v17 = *MEMORY[0x277CD7350];
+  v18 = *(&self->super.super.isa + v17);
+  v21 = objc_msgSend_pixelFormat(a, v19, v20);
+  PixelInfo = MPSDevice::GetPixelInfo(v18, v21, MPSImageFeatureChannelFormatNone);
   CompressedTempTexture = MPSAutoCache::GetCompressedTempTexture();
-  v31 = MPSAutoCache::GetCompressedTempTexture();
-  v186 = MPSAutoCache::GetCompressedTempTexture();
-  v188 = MPSAutoCache::GetCompressedTempTexture();
-  v189 = v31;
+  v22 = MPSAutoCache::GetCompressedTempTexture();
+  v91 = MPSAutoCache::GetCompressedTempTexture();
+  v93 = MPSAutoCache::GetCompressedTempTexture();
+  v94 = v22;
   destinationTextureCopy = destinationTexture;
-  v37 = BYTE4(PixelInfo) << 32 == 0x1800000000 && ((*(&self->super.super.isa + v23))[1476] & 0x80) == 0;
-  v190.i32[0] = SLODWORD(self->_kernelDiameter) / 2;
-  v38 = objc_msgSend_width(a, v32, v33, v34, v35, v36);
-  v44 = objc_msgSend_height(a, v39, v40, v41, v42, v43);
-  v45 = *MEMORY[0x277CD7370];
-  v46 = *(&self->super.super.isa + v45);
+  v95.i32[0] = SLODWORD(self->_kernelDiameter) / 2;
+  v25 = objc_msgSend_width(a, v23, v24);
+  v28 = objc_msgSend_height(a, v26, v27);
   ComputeState = MPSLibrary::GetComputeState();
   if (ComputeState)
   {
-    objc_msgSend_setComputePipelineState_(encoder, v47, ComputeState, v48, v49, v50);
-    v52 = *(&self->super.super.isa + v45);
+    objc_msgSend_setComputePipelineState_(encoder, v29, ComputeState);
     MPSLibrary::ReleaseComputeState();
-    objc_msgSend_setTexture_atIndex_(encoder, v53, a, 0, v54, v55);
-    objc_msgSend_setTexture_atIndex_(encoder, v56, CompressedTempTexture, 1, v57, v58);
-    objc_msgSend_setBytes_length_atIndex_(encoder, v59, &v190, 4, 0, v60);
-    v61 = (v38 + 15) >> 4;
-    v62 = (v44 + 15) >> 4;
-    v192 = v61;
-    v193 = v62;
-    v194 = 1;
-    v195 = vdupq_n_s64(0x10uLL);
-    v196 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v63, &v192, &v195, v64, v65);
-    objc_msgSend_setTexture_atIndex_(encoder, v66, b, 0, v67, v68);
-    objc_msgSend_setTexture_atIndex_(encoder, v69, v186, 1, v70, v71);
-    objc_msgSend_setBytes_length_atIndex_(encoder, v72, &v190, 4, 0, v73);
-    v192 = v61;
-    v193 = v62;
-    v194 = 1;
-    v195 = vdupq_n_s64(0x10uLL);
-    v196 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v74, &v192, &v195, v75, v76);
-    v77 = *(&self->super.super.isa + v45);
-    v82 = MPSLibrary::GetComputeState();
-    if (v82)
+    objc_msgSend_setTexture_atIndex_(encoder, v31, a, 0);
+    objc_msgSend_setTexture_atIndex_(encoder, v32, CompressedTempTexture, 1);
+    objc_msgSend_setBytes_length_atIndex_(encoder, v33, &v95, 4, 0);
+    v34 = (v25 + 15) >> 4;
+    v35 = (v28 + 15) >> 4;
+    v97 = v34;
+    v98 = v35;
+    v99 = 1;
+    v100 = vdupq_n_s64(0x10uLL);
+    v101 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v36, &v97, &v100);
+    objc_msgSend_setTexture_atIndex_(encoder, v37, b, 0);
+    objc_msgSend_setTexture_atIndex_(encoder, v38, v91, 1);
+    objc_msgSend_setBytes_length_atIndex_(encoder, v39, &v95, 4, 0);
+    v97 = v34;
+    v98 = v35;
+    v99 = 1;
+    v100 = vdupq_n_s64(0x10uLL);
+    v101 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v40, &v97, &v100);
+    v42 = MPSLibrary::GetComputeState();
+    if (v42)
     {
-      objc_msgSend_setComputePipelineState_(encoder, v78, v82, v79, v80, v81);
-      v83 = *(&self->super.super.isa + v45);
+      objc_msgSend_setComputePipelineState_(encoder, v41, v42);
       MPSLibrary::ReleaseComputeState();
-      objc_msgSend_setTexture_atIndex_(encoder, v84, CompressedTempTexture, 0, v85, v86);
-      objc_msgSend_setTexture_atIndex_(encoder, v87, v189, 1, v88, v89);
-      objc_msgSend_setBytes_length_atIndex_(encoder, v90, &v190, 4, 0, v91);
-      v192 = v61;
-      v193 = v62;
-      v194 = 1;
-      v195 = vdupq_n_s64(0x10uLL);
-      v196 = 1;
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v92, &v192, &v195, v93, v94);
-      objc_msgSend_setTexture_atIndex_(encoder, v95, v186, 0, v96, v97);
-      objc_msgSend_setTexture_atIndex_(encoder, v98, v188, 1, v99, v100);
-      objc_msgSend_setBytes_length_atIndex_(encoder, v101, &v190, 4, 0, v102);
-      v192 = v61;
-      v193 = v62;
-      v194 = 1;
-      v195 = vdupq_n_s64(0x10uLL);
-      v196 = 1;
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v103, &v192, &v195, v104, v105);
-      if (!v37)
+      objc_msgSend_setTexture_atIndex_(encoder, v43, CompressedTempTexture, 0);
+      objc_msgSend_setTexture_atIndex_(encoder, v44, v94, 1);
+      objc_msgSend_setBytes_length_atIndex_(encoder, v45, &v95, 4, 0);
+      v97 = v34;
+      v98 = v35;
+      v99 = 1;
+      v100 = vdupq_n_s64(0x10uLL);
+      v101 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v46, &v97, &v100);
+      objc_msgSend_setTexture_atIndex_(encoder, v47, v91, 0);
+      objc_msgSend_setTexture_atIndex_(encoder, v48, v93, 1);
+      objc_msgSend_setBytes_length_atIndex_(encoder, v49, &v95, 4, 0);
+      v97 = v34;
+      v98 = v35;
+      v99 = 1;
+      v100 = vdupq_n_s64(0x10uLL);
+      v101 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v50, &v97, &v100);
+      v51 = *(&self->super.super.isa + v17);
+      v54 = objc_msgSend_pixelFormat(v94, v52, v53);
+      v55 = *(v51 + 1476);
+      v56 = *(&self->super.super.isa + v17);
+      v59 = objc_msgSend_pixelFormat(v93, v57, v58);
+      LODWORD(v54) = sub_23996E594(v55, v54);
+      v99 = v54 & sub_23996E594(*(v56 + 1476), v59);
+      v61 = MPSLibrary::GetComputeState();
+      if (v61)
       {
-        self->_reconstructionCoefficientsSampleBicubic;
-      }
-
-      v111 = *(&self->super.super.isa + v23);
-      v112 = objc_msgSend_pixelFormat(v189, v106, v107, v108, v109, v110);
-      v113 = *(v111 + 1476);
-      v114 = *(&self->super.super.isa + v23);
-      v120 = objc_msgSend_pixelFormat(v188, v115, v116, v117, v118, v119);
-      LODWORD(v112) = sub_23996E594(v113, v112);
-      v194 = v112 & sub_23996E594(*(v114 + 1476), v120);
-      v121 = *(&self->super.super.isa + v45);
-      v126 = MPSLibrary::GetComputeState();
-      if (v126)
-      {
-        objc_msgSend_setComputePipelineState_(encoder, v122, v126, v123, v124, v125);
-        v127 = *(&self->super.super.isa + v45);
+        objc_msgSend_setComputePipelineState_(encoder, v60, v61);
         MPSLibrary::ReleaseComputeState();
-        v133 = objc_msgSend_width(v189, v128, v129, v130, v131, v132);
-        v139 = objc_msgSend_height(v189, v134, v135, v136, v137, v138);
-        v145 = objc_msgSend_width(destinationTextureCopy, v140, v141, v142, v143, v144);
-        v151 = objc_msgSend_height(destinationTextureCopy, v146, v147, v148, v149, v150);
-        v152.f32[0] = v133;
-        v152.f32[1] = v139;
-        v153.f32[0] = v145;
-        v153.f32[1] = v151;
-        v154 = vdiv_f32(v152, v153);
-        v153.i32[0] = LODWORD(self->_reconstructOffset);
-        v195.i32[0] = LODWORD(self->_reconstructScale);
-        v195.i32[1] = v153.i32[0];
-        v195.u64[1] = v154;
-        objc_msgSend_setBytes_length_atIndex_(encoder, v155, &v195, 16, 0, v156);
-        objc_msgSend_setTexture_atIndex_(encoder, v157, v189, 0, v158, v159);
-        objc_msgSend_setTexture_atIndex_(encoder, v160, v188, 1, v161, v162);
-        objc_msgSend_setTexture_atIndex_(encoder, v163, texture, 2, v164, v165);
-        objc_msgSend_setTexture_atIndex_(encoder, v166, destinationTextureCopy, 3, v167, v168);
-        v174 = objc_msgSend_width(destinationTextureCopy, v169, v170, v171, v172, v173);
-        v180 = objc_msgSend_height(destinationTextureCopy, v175, v176, v177, v178, v179);
-        v195.i64[0] = (v174 + 15) >> 4;
-        v195.i64[1] = (v180 + 15) >> 4;
-        v196 = 1;
-        v190 = vdupq_n_s64(0x10uLL);
-        v191 = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v181, &v195, &v190, v182, v183);
+        v64 = objc_msgSend_width(v94, v62, v63);
+        v67 = objc_msgSend_height(v94, v65, v66);
+        v70 = objc_msgSend_width(destinationTextureCopy, v68, v69);
+        v73 = objc_msgSend_height(destinationTextureCopy, v71, v72);
+        v74.f32[0] = v64;
+        v74.f32[1] = v67;
+        v75.f32[0] = v70;
+        v75.f32[1] = v73;
+        v76 = vdiv_f32(v74, v75);
+        v75.i32[0] = LODWORD(self->_reconstructOffset);
+        v100.i32[0] = LODWORD(self->_reconstructScale);
+        v100.i32[1] = v75.i32[0];
+        v100.u64[1] = v76;
+        objc_msgSend_setBytes_length_atIndex_(encoder, v77, &v100, 16, 0);
+        objc_msgSend_setTexture_atIndex_(encoder, v78, v94, 0);
+        objc_msgSend_setTexture_atIndex_(encoder, v79, v93, 1);
+        objc_msgSend_setTexture_atIndex_(encoder, v80, texture, 2);
+        objc_msgSend_setTexture_atIndex_(encoder, v81, destinationTextureCopy, 3);
+        v84 = objc_msgSend_width(destinationTextureCopy, v82, v83);
+        v87 = objc_msgSend_height(destinationTextureCopy, v85, v86);
+        v100.i64[0] = (v84 + 15) >> 4;
+        v100.i64[1] = (v87 + 15) >> 4;
+        v101 = 1;
+        v95 = vdupq_n_s64(0x10uLL);
+        v96 = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v88, &v100, &v95);
       }
     }
   }
 
-  MPSAutoCache::~MPSAutoCache(v201);
+  MPSAutoCache::~MPSAutoCache(v106);
 }
 
 - (void)encodeReconstructionToCommandEncoder:(id)encoder commandBuffer:(id)buffer guidanceTexture:(id)texture coefficientsTextureA:(id)a coefficientsTextureB:(id)b destinationTexture:(id)destinationTexture
@@ -706,15 +662,15 @@
   v15 = *MEMORY[0x277CD7378];
   if ((*(&self->super.super.isa + v15) & 1) == 0)
   {
-    v16 = objc_msgSend_width(texture, a2, encoder, buffer, texture, a);
-    if (v16 == objc_msgSend_width(destinationTexture, v17, v18, v19, v20, v21))
+    v16 = objc_msgSend_width(texture, a2, encoder);
+    if (v16 == objc_msgSend_width(destinationTexture, v17, v18))
     {
-      objc_msgSend_height(texture, v22, v23, v24, v25, v26);
-      objc_msgSend_height(destinationTexture, v27, v28, v29, v30, v31);
+      objc_msgSend_height(texture, v19, v20);
+      objc_msgSend_height(destinationTexture, v21, v22);
     }
 
-    v32 = objc_msgSend_width(texture, v22, v23, v24, v25, v26);
-    if (v32 != objc_msgSend_width(destinationTexture, v33, v34, v35, v36, v37) || (v43 = objc_msgSend_height(texture, v38, v39, v40, v41, v42), v43 != objc_msgSend_height(destinationTexture, v44, v45, v46, v47, v48)))
+    v23 = objc_msgSend_width(texture, v19, v20);
+    if (v23 != objc_msgSend_width(destinationTexture, v24, v25) || (v28 = objc_msgSend_height(texture, v26, v27), v28 != objc_msgSend_height(destinationTexture, v29, v30)))
     {
       if (MTLReportFailureTypeEnabled())
       {
@@ -733,19 +689,19 @@
 
   else
   {
-    v49 = objc_alloc(MEMORY[0x277CD7210]);
-    v57 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v49, v50, buffer, 0, v51, v52);
+    v31 = objc_alloc(MEMORY[0x277CD7210]);
+    v34 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v31, v32, buffer, 0);
     if ((*(&self->super.super.isa + v15) & 0x18) != 0)
     {
-      v58 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-      if (v58 || (v59 = objc_opt_class(), v60 = NSStringFromClass(v59), objc_msgSend_setLabel_(self, v61, v60, v62, v63, v64), (v58 = v60) != 0))
+      v35 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+      if (v35 || (v36 = objc_opt_class(), v37 = NSStringFromClass(v36), objc_msgSend_setLabel_(self, v38, v37), (v35 = v37) != 0))
       {
-        objc_msgSend_setLabel_(v57, v53, v58, v54, v55, v56, destinationTextureCopy, textureCopy, v57, self);
+        objc_msgSend_setLabel_(v34, v33, v35, destinationTextureCopy, textureCopy, v34, self);
       }
     }
 
-    objc_msgSend_encodeReconstructionInternalToCommandEncoder_commandBuffer_guidanceTexture_coefficientsTextureA_coefficientsTextureB_destinationTexture_(self, v53, v57, buffer, texture, a, b, destinationTexture, destinationTextureCopy, textureCopy);
-    objc_msgSend_endEncoding(v57, v65, v66, v67, v68, v69);
+    objc_msgSend_encodeReconstructionInternalToCommandEncoder_commandBuffer_guidanceTexture_coefficientsTextureA_coefficientsTextureB_destinationTexture_(self, v33, v34, buffer, texture, a, b, destinationTexture, destinationTextureCopy, textureCopy);
+    objc_msgSend_endEncoding(v34, v39, v40);
   }
 }
 

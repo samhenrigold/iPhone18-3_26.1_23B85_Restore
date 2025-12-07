@@ -150,7 +150,7 @@
 
     while (v6->_depth)
     {
-      sub_26EF987CC(v6);
+      sub_26EF987CC(&v6->super.isa);
     }
 
     v6->_renderingSuspended = 0;
@@ -225,13 +225,13 @@
 
 - (_TXHtmlParser)initWithData:(id)data encoding:(unint64_t)encoding
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (encoding == 4 || encoding == 1)
   {
     v7 = objc_autoreleasePoolPush();
-    v14[0] = dataCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = dataCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     objectEnumerator = [v8 objectEnumerator];
 
     objc_autoreleasePoolPop(v7);
@@ -244,13 +244,12 @@
     v10 = [(_TXHtmlParser *)self initWithString:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (_TXHtmlParser)initWithString:(id)string
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   if (!string)
   {
     objectEnumerator = 0;
@@ -271,14 +270,14 @@
     v8 = CStringPtr;
     v9 = objc_autoreleasePoolPush();
     v10 = objc_alloc(MEMORY[0x277CBEA90]);
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = sub_26EF9A7E4;
-    v29 = &unk_279DBB808;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = sub_26EF9A7E4;
+    v28 = &unk_279DBB808;
     stringCopy = string;
-    v11 = [v10 initWithBytesNoCopy:v8 length:v5 deallocator:&v26];
-    v35[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v11 = [v10 initWithBytesNoCopy:v8 length:v5 deallocator:&v25];
+    v34[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
     objectEnumerator = [v12 objectEnumerator];
 
     objc_autoreleasePoolPop(v9);
@@ -310,17 +309,17 @@ LABEL_15:
       }
 
       v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
-      v26 = MEMORY[0x277D85DD0];
-      v27 = 3221225472;
-      v28 = sub_26EF9A808;
-      v29 = &unk_279DBB830;
-      v32 = 0;
-      v33 = v20;
-      v34 = v17;
+      v25 = MEMORY[0x277D85DD0];
+      v26 = 3221225472;
+      v27 = sub_26EF9A808;
+      v28 = &unk_279DBB830;
+      v31 = 0;
+      v32 = v20;
+      v33 = v17;
       v22 = v21;
       stringCopy = v22;
-      v31 = v15;
-      [v31 enumerateByteRangesUsingBlock:&v26];
+      v30 = v15;
+      [v30 enumerateByteRangesUsingBlock:&v25];
       objectEnumerator = [v22 objectEnumerator];
     }
 
@@ -337,7 +336,6 @@ LABEL_15:
 LABEL_16:
   v23 = [(_TXHtmlParser *)self initWithUTF8DataEnumerator:objectEnumerator];
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

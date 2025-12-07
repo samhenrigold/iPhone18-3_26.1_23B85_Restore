@@ -40,7 +40,21 @@ void ___HUDMTLOverlayGlobalInstance_block_invoke_3(id a1, int a2)
 {
   HUDMTLOverlayCycleAlignment__alignmentIndex = (HUDMTLOverlayCycleAlignment__alignmentIndex + 1) % 9u;
   v2 = HUDMTLOverlayCycleAlignment__MTLHUDAlignments[HUDMTLOverlayCycleAlignment__alignmentIndex];
-  *(HUDGetGlobalConfig() + 8) = v2;
+  *(HUDGetGlobalConfig(a1, *&a2) + 8) = v2;
+}
+
+void ___HUDMTLOverlayGlobalInstance_block_invoke_4(id a1, int a2)
+{
+  v2 = HUDGetGlobalConfig(a1, *&a2);
+  v3 = *v2 ^ 1;
+  *HUDGetGlobalConfig(v2, v4) = v3;
+}
+
+void ___HUDMTLOverlayGlobalInstance_block_invoke_5(id a1, int a2)
+{
+  v2 = HUDGetGlobalConfig(a1, *&a2);
+  v3 = *(v2 + 1) ^ 1;
+  *(HUDGetGlobalConfig(v2, v4) + 1) = v3;
 }
 
 void ___HUDMTLOverlayGlobalInstance_block_invoke_6(id a1, int a2)

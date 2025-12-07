@@ -17,6 +17,7 @@
 - (void)provisionPeerPaymentPassWithProvisioningController:(id)controller credential:(id)credential completion:(id)completion;
 - (void)resetApplePayManateeViewWithCompletion:(id)completion;
 - (void)setPreferences:(id)preferences completion:(id)completion;
+- (void)setUserHasDisabledPeerPayment:(BOOL)payment;
 - (void)updateAccountWithCompletion:(id)completion;
 @end
 
@@ -27,28 +28,28 @@
   lCopy = l;
   serviceCopy = service;
   completionCopy = completion;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(completionCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Attempting to download peer payment pass following provisioning", buf, 2u);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Attempting to download peer payment pass following provisioning", buf, 2u);
     }
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __113__NPKPeerPaymentWebServiceCompanionTargetDevice_attemptToDownloadPeerPaymentPassAtURL_withWebService_completion___block_invoke;
-  v15[3] = &unk_279947520;
-  v16 = serviceCopy;
-  v17 = completionCopy;
-  v13 = completionCopy;
-  v14 = serviceCopy;
-  [v14 passAtURL:lCopy completion:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __113__NPKPeerPaymentWebServiceCompanionTargetDevice_attemptToDownloadPeerPaymentPassAtURL_withWebService_completion___block_invoke;
+  v16[3] = &unk_279947520;
+  v17 = serviceCopy;
+  v18 = completionCopy;
+  v14 = completionCopy;
+  v15 = serviceCopy;
+  [v15 passAtURL:lCopy completion:v16];
 }
 
 void __113__NPKPeerPaymentWebServiceCompanionTargetDevice_attemptToDownloadPeerPaymentPassAtURL_withWebService_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -98,16 +99,16 @@ void __113__NPKPeerPaymentWebServiceCompanionTargetDevice_attemptToDownloadPeerP
 
 uint64_t __113__NPKPeerPaymentWebServiceCompanionTargetDevice_attemptToDownloadPeerPaymentPassAtURL_withWebService_completion___block_invoke_3(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Added payment pass following provisioning", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Added payment pass following provisioning", v7, 2u);
     }
   }
 
@@ -171,6 +172,18 @@ uint64_t __113__NPKPeerPaymentWebServiceCompanionTargetDevice_attemptToDownloadP
   return v3;
 }
 
+- (void)setUserHasDisabledPeerPayment:(BOOL)payment
+{
+  paymentCopy = payment;
+  v8 = NPKDomainAccessorForDomain(@".GlobalPreferences");
+  v4 = *MEMORY[0x277D38A78];
+  [v8 setBool:paymentCopy forKey:*MEMORY[0x277D38A78]];
+  synchronize = [v8 synchronize];
+  v6 = objc_alloc_init(MEMORY[0x277D2BA60]);
+  v7 = [MEMORY[0x277CBEB98] setWithObject:v4];
+  [v6 synchronizeNanoDomain:@".GlobalPreferences" keys:v7];
+}
+
 - (void)provisionPeerPaymentPassWithProvisioningController:(id)controller credential:(id)credential completion:(id)completion
 {
   completionCopy = completion;
@@ -203,17 +216,16 @@ void __122__NPKPeerPaymentWebServiceCompanionTargetDevice_provisionPeerPaymentPa
 
     if (v8)
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __122__NPKPeerPaymentWebServiceCompanionTargetDevice_provisionPeerPaymentPassWithProvisioningController_credential_completion___block_invoke_2;
-      v22[3] = &unk_279945700;
-      v11 = *(a1 + 40);
-      v24 = *(a1 + 48);
-      v25 = a2;
-      v23 = v6;
-      [v10 attemptToDownloadPeerPaymentPassAtURL:v8 withWebService:v11 completion:v22];
+      v9 = objc_opt_class();
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __122__NPKPeerPaymentWebServiceCompanionTargetDevice_provisionPeerPaymentPassWithProvisioningController_credential_completion___block_invoke_2;
+      v19[3] = &unk_279945700;
+      v10 = *(a1 + 40);
+      v21 = *(a1 + 48);
+      v22 = a2;
+      v20 = v6;
+      [v9 attemptToDownloadPeerPaymentPassAtURL:v8 withWebService:v10 completion:v19];
     }
 
     else
@@ -224,27 +236,25 @@ void __122__NPKPeerPaymentWebServiceCompanionTargetDevice_provisionPeerPaymentPa
 
   else
   {
-    v12 = [v5 domain];
-    v13 = [v12 isEqualToString:@"com.apple.NPKErrorDomain"];
+    v11 = [v5 domain];
+    v12 = [v11 isEqualToString:@"com.apple.NPKErrorDomain"];
 
-    if (v13)
+    if (v12)
     {
-      v14 = *(a1 + 32);
+      v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v14 = [v13 localizedStringForKey:@"GIZMO_UNREACHABLE_ALERT_TITLE" value:&stru_286C934F8 table:@"NanoPassKit"];
       v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v16 = [v15 localizedStringForKey:@"GIZMO_UNREACHABLE_ALERT_TITLE" value:&stru_286C934F8 table:@"NanoPassKit"];
-      v17 = *(a1 + 32);
-      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v19 = [v18 localizedStringForKey:@"GIZMO_UNREACHABLE_ALERT_MESSAGE" value:&stru_286C934F8 table:@"NanoPassKit"];
-      v20 = PKDisplayableErrorCustom();
+      v16 = [v15 localizedStringForKey:@"GIZMO_UNREACHABLE_ALERT_MESSAGE" value:&stru_286C934F8 table:@"NanoPassKit"];
+      v17 = PKDisplayableErrorCustom();
 
-      v6 = v20;
+      v6 = v17;
     }
   }
 
-  v21 = *(a1 + 48);
-  if (v21)
+  v18 = *(a1 + 48);
+  if (v18)
   {
-    (*(v21 + 16))(v21, a2, v6);
+    (*(v18 + 16))(v18, a2, v6);
   }
 }
 
@@ -313,29 +323,27 @@ void __121__NPKPeerPaymentWebServiceCompanionTargetDevice_peerPaymentReRegisterW
 {
   v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11[0] = 67109378;
       v11[1] = a2;
       v12 = 2112;
       v13 = v5;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Calling peerPaymentReRegisterWithURL:pushToken: completion with success %i error %@", v11, 0x12u);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Calling peerPaymentReRegisterWithURL:pushToken: completion with success %i error %@", v11, 0x12u);
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v9 + 16))(v9, a2, v5);
+    (*(v10 + 16))(v10, a2, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAccountChanged:(id)changed
@@ -371,8 +379,8 @@ void __121__NPKPeerPaymentWebServiceCompanionTargetDevice_peerPaymentReRegisterW
 
   else
   {
-    v7 = objc_alloc_init(MEMORY[0x277D381A0]);
-    preferences = [v7 preferences];
+    v8 = objc_alloc_init(MEMORY[0x277D381A0]);
+    preferences = [v8 preferences];
 
     if (preferences)
     {
@@ -380,16 +388,16 @@ void __121__NPKPeerPaymentWebServiceCompanionTargetDevice_peerPaymentReRegisterW
     }
   }
 
-  v8 = pk_Payment_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_Payment_log(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Missing peer payment preferences for paring paired device", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Missing peer payment preferences for paring paired device", v14, 2u);
     }
   }
 
@@ -401,39 +409,39 @@ LABEL_11:
 
 - (void)setPreferences:(id)preferences completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   completionCopy = completion;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(completionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = preferencesCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Requested to set peer payment preferences:%@", buf, 0xCu);
+      v31 = preferencesCopy;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Requested to set peer payment preferences:%@", buf, 0xCu);
     }
   }
 
-  v11 = NPKPairedOrPairingDevice();
-  v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"47B09AC1-3757-485D-9FB4-F124AC8FE430"];
-  v13 = [v11 supportsCapability:v12];
+  v12 = NPKPairedOrPairingDevice();
+  v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"47B09AC1-3757-485D-9FB4-F124AC8FE430"];
+  v14 = [v12 supportsCapability:v13];
 
-  if (v13)
+  if (v14)
   {
-    v14 = +[NPKSharedWebServiceProvider sharedWebServiceProvider];
-    targetDevice = [v14 targetDevice];
+    v15 = +[NPKSharedWebServiceProvider sharedWebServiceProvider];
+    targetDevice = [v15 targetDevice];
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __75__NPKPeerPaymentWebServiceCompanionTargetDevice_setPreferences_completion___block_invoke;
-    v26[3] = &unk_279947598;
-    v27 = completionCopy;
-    [targetDevice setPeerPaymentPreferences:preferencesCopy completion:v26];
-    v16 = v27;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __75__NPKPeerPaymentWebServiceCompanionTargetDevice_setPreferences_completion___block_invoke;
+    v28[3] = &unk_279947598;
+    v29 = completionCopy;
+    [targetDevice setPeerPaymentPreferences:preferencesCopy completion:v28];
+    v17 = v29;
 LABEL_13:
 
     goto LABEL_14;
@@ -441,50 +449,48 @@ LABEL_13:
 
   WeakRetained = objc_loadWeakRetained(&self->_peerPaymentWebService);
 
-  v18 = pk_General_log();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+  v20 = pk_General_log(v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
   if (WeakRetained)
   {
-    if (v19)
+    if (v21)
     {
-      v20 = pk_General_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v23 = pk_General_log(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Falling back to setting preferences via peer payment web service", buf, 2u);
+        _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: Falling back to setting preferences via peer payment web service", buf, 2u);
       }
     }
 
     targetDevice = [objc_alloc(MEMORY[0x277D381A8]) initWithPeerPaymentPreferences:preferencesCopy];
-    v21 = objc_loadWeakRetained(&self->_peerPaymentWebService);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __75__NPKPeerPaymentWebServiceCompanionTargetDevice_setPreferences_completion___block_invoke_96;
-    v24[3] = &unk_2799475C0;
-    v24[4] = self;
-    v25 = completionCopy;
-    [v21 peerPaymentUpdatePreferencesWithRequest:targetDevice completion:v24];
+    v24 = objc_loadWeakRetained(&self->_peerPaymentWebService);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __75__NPKPeerPaymentWebServiceCompanionTargetDevice_setPreferences_completion___block_invoke_96;
+    v26[3] = &unk_2799475C0;
+    v26[4] = self;
+    v27 = completionCopy;
+    [v24 peerPaymentUpdatePreferencesWithRequest:targetDevice completion:v26];
 
-    v16 = v25;
+    v17 = v27;
     goto LABEL_13;
   }
 
-  if (v19)
+  if (v21)
   {
-    v23 = pk_General_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v25 = pk_General_log(v22);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Warning: No peer payment web service; not setting preferences", buf, 2u);
+      _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Warning: No peer payment web service; not setting preferences", buf, 2u);
     }
   }
 
   targetDevice = [(NPKPeerPaymentWebServiceCompanionTargetDevice *)self preferences];
   (*(completionCopy + 2))(completionCopy, targetDevice, 0);
 LABEL_14:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NPKPeerPaymentWebServiceCompanionTargetDevice_setPreferences_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -492,29 +498,27 @@ void __75__NPKPeerPaymentWebServiceCompanionTargetDevice_setPreferences_completi
   v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = pk_Payment_log();
+  v7 = pk_Payment_log(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412546;
       v13 = v5;
       v14 = 2112;
       v15 = v6;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Calling setPreferences:completion: completion with preferences %@ error %@", &v12, 0x16u);
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Calling setPreferences:completion: completion with preferences %@ error %@", &v12, 0x16u);
     }
   }
 
-  v10 = *(a1 + 32);
-  if (v10)
+  v11 = *(a1 + 32);
+  if (v11)
   {
-    (*(v10 + 16))(v10, v5, v6);
+    (*(v11 + 16))(v11, v5, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NPKPeerPaymentWebServiceCompanionTargetDevice_setPreferences_completion___block_invoke_96(uint64_t a1, void *a2, void *a3)

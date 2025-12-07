@@ -74,31 +74,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    score = self->_score;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_answers)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    risk = self->_risk;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -259,7 +257,7 @@ LABEL_17:
       goto LABEL_7;
     }
 
-    [(HDCodableSample *)sample mergeFrom:?];
+    sample = [(HDCodableSample *)sample mergeFrom:?];
   }
 
   else
@@ -269,7 +267,7 @@ LABEL_17:
       goto LABEL_7;
     }
 
-    [(HDCodableScoredAssessment *)self setSample:?];
+    sample = [(HDCodableScoredAssessment *)self setSample:?];
   }
 
   fromCopy = v7;
@@ -282,7 +280,7 @@ LABEL_7:
 
   if (fromCopy[3])
   {
-    [(HDCodableScoredAssessment *)self setAnswers:?];
+    sample = [(HDCodableScoredAssessment *)self setAnswers:?];
     fromCopy = v7;
   }
 
@@ -292,12 +290,12 @@ LABEL_7:
     *&self->_has |= 1u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](sample, fromCopy);
 }
 
 - (BOOL)applyToObject:(id)object
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if ([objectCopy conformsToProtocol:&unk_283D45200] && (-[HDCodableScoredAssessment sample](self, "sample"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "applyToObject:", objectCopy), v5, v6))
   {
@@ -305,9 +303,9 @@ LABEL_7:
     v7 = MEMORY[0x277CCAAC8];
     v8 = objc_opt_class();
     answers = [(HDCodableScoredAssessment *)self answers];
-    v16 = 0;
-    v10 = [v7 unarchivedArrayOfObjectsOfClass:v8 fromData:answers error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [v7 unarchivedArrayOfObjectsOfClass:v8 fromData:answers error:&v15];
+    v11 = v15;
 
     v12 = v10 != 0;
     if (v10)
@@ -323,7 +321,7 @@ LABEL_7:
       if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Error unarchiving answers: %@", buf, 0xCu);
       }
     }
@@ -334,7 +332,6 @@ LABEL_7:
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

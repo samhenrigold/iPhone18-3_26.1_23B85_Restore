@@ -8,9 +8,9 @@
 {
   filterCopy = filter;
   optionsCopy = options;
-  v27.receiver = self;
-  v27.super_class = AULegacyCommand;
-  v10 = [(AULegacyCommand *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = AULegacyCommand;
+  v10 = [(AULegacyCommand *)&v26 init];
   v11 = v10;
   if (v10)
   {
@@ -34,23 +34,22 @@
         [v16 setObject:v18 forKey:@"IOMatchLaunchServiceID"];
       }
 
-      v19 = v11->_eventOptions;
-      v20 = objectFromXpcDictionary();
-      if (v20)
+      v19 = objectFromXpcDictionary();
+      if (v19)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v16 addEntriesFromDictionary:v20];
+          [v16 addEntriesFromDictionary:v19];
         }
       }
 
-      v21 = xpc_dictionary_get_value(v11->_eventOptions, "EAMatchingSerialNumber");
-      v22 = v21;
-      if (v21 && xpc_get_type(v21) == &_xpc_type_string)
+      v20 = xpc_dictionary_get_value(v11->_eventOptions, "EAMatchingSerialNumber");
+      v21 = v20;
+      if (v20 && xpc_get_type(v20) == &_xpc_type_string)
       {
-        v23 = [NSString stringWithUTF8String:xpc_string_get_string_ptr(v22)];
-        [v16 setObject:v23 forKey:@"SerialNumber"];
+        v22 = [NSString stringWithUTF8String:xpc_string_get_string_ptr(v21)];
+        [v16 setObject:v22 forKey:@"SerialNumber"];
       }
 
       if (xpc_dictionary_get_BOOL(v11->_eventOptions, "DeviceIdleLaunch"))
@@ -58,9 +57,9 @@
         [v16 setObject:&__kCFBooleanTrue forKey:@"DeviceIdleLaunch"];
       }
 
-      v24 = [NSDictionary dictionaryWithDictionary:v16];
+      v23 = [NSDictionary dictionaryWithDictionary:v16];
       commandOptions = v11->_commandOptions;
-      v11->_commandOptions = v24;
+      v11->_commandOptions = v23;
     }
   }
 

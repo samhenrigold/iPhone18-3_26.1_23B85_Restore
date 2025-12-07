@@ -20,7 +20,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CNAvatarPosterPairView();
+  v5.super_class = type metadata accessor for CNAvatarPosterPairView(0);
   [(CNAvatarPosterPairView *)&v5 dealloc];
 }
 

@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"countOfUniqueAccounts";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"countOfUniqueAccounts";
   countOfUniqueAccounts = [(ICASFastSyncParticipantData *)self countOfUniqueAccounts];
   if (countOfUniqueAccounts)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = countOfUniqueAccounts2;
-  v12[1] = @"countOfUniqueDevices";
-  v13[0] = countOfUniqueAccounts2;
+  v11[1] = @"countOfUniqueDevices";
+  v12[0] = countOfUniqueAccounts2;
   countOfUniqueDevices = [(ICASFastSyncParticipantData *)self countOfUniqueDevices];
   if (countOfUniqueDevices)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = countOfUniqueDevices2;
-  v13[1] = countOfUniqueDevices2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = countOfUniqueDevices2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

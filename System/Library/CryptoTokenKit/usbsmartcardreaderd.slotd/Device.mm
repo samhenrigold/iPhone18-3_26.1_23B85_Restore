@@ -143,7 +143,7 @@
 
 - (void)terminate
 {
-  v3 = sub_10000D560();
+  v3 = sub_10000D560(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -152,20 +152,20 @@
 
   if (self->_notificationDispatchToken)
   {
-    v4 = sub_10000D560();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = sub_10000D560(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_10001724C();
     }
 
-    notify_cancel(self->_notificationDispatchToken);
+    v4 = notify_cancel(self->_notificationDispatchToken);
     self->_notificationDispatchToken = 0;
   }
 
   if (self->_notificationToken)
   {
-    v5 = sub_10000D560();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_10000D560(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_100017288();
     }
@@ -174,85 +174,86 @@
     self->_notificationToken = 0;
   }
 
+  v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v6 = self->_slots;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
-  if (v7)
+  v7 = self->_slots;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v24;
+    v9 = v8;
+    v10 = *v26;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v26 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        [*(*(&v23 + 1) + 8 * v10) terminate];
-        v10 = v10 + 1;
+        [*(*(&v25 + 1) + 8 * v11) terminate];
+        v11 = v11 + 1;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v11 = sub_10000D560();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = sub_10000D560(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_1000172C4();
   }
 
+  v23 = 0u;
+  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   pipes = [(IOUSBHostInterface *)self->_interface pipes];
-  v13 = [pipes countByEnumeratingWithState:&v19 objects:v28 count:16];
-  if (v13)
+  v15 = [pipes countByEnumeratingWithState:&v21 objects:v30 count:16];
+  if (v15)
   {
-    v14 = v13;
-    v15 = *v20;
+    v16 = v15;
+    v17 = *v22;
     do
     {
-      v16 = 0;
+      v18 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(pipes);
         }
 
-        [*(*(&v19 + 1) + 8 * v16) abortWithOption:1 error:0];
-        v16 = v16 + 1;
+        [*(*(&v21 + 1) + 8 * v18) abortWithOption:1 error:0];
+        v18 = v18 + 1;
       }
 
-      while (v14 != v16);
-      v14 = [pipes countByEnumeratingWithState:&v19 objects:v28 count:16];
+      while (v16 != v18);
+      v16 = [pipes countByEnumeratingWithState:&v21 objects:v30 count:16];
     }
 
-    while (v14);
+    while (v16);
   }
 
-  v17 = +[Device devices];
-  v18 = [NSNumber numberWithUnsignedLongLong:[(Device *)self entryID]];
-  [v17 removeObjectForKey:v18];
+  v19 = +[Device devices];
+  v20 = [NSNumber numberWithUnsignedLongLong:[(Device *)self entryID]];
+  [v19 removeObjectForKey:v20];
 }
 
 - (unint64_t)handleEANotification
 {
-  if (notify_register_check("com.apple.accessories.ea.sessionStatusChanged", &self->_notificationToken))
+  v3 = notify_register_check("com.apple.accessories.ea.sessionStatusChanged", &self->_notificationToken);
+  if (v3)
   {
-    v3 = sub_10000D560();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_10000D560(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100017300();
     }
@@ -263,40 +264,40 @@
   else
   {
     objc_initWeak(&location, self);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10000E780;
-    v12[3] = &unk_100024968;
-    v12[4] = self;
-    v5 = objc_retainBlock(v12);
-    v4 = (v5[2])();
-    if (!v4)
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000E780;
+    v13[3] = &unk_100024968;
+    v13[4] = self;
+    v6 = objc_retainBlock(v13);
+    v5 = (v6[2])();
+    if (!v5)
     {
-      v6 = +[Device synchronize];
-      queue = [v6 queue];
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_10000E820;
-      v9[3] = &unk_100024990;
-      v10 = v5;
-      objc_copyWeak(&v11, &location);
-      notify_register_dispatch("com.apple.accessories.ea.sessionStatusChanged", &self->_notificationDispatchToken, queue, v9);
+      v7 = +[Device synchronize];
+      queue = [v7 queue];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10000E820;
+      v10[3] = &unk_100024990;
+      v11 = v6;
+      objc_copyWeak(&v12, &location);
+      notify_register_dispatch("com.apple.accessories.ea.sessionStatusChanged", &self->_notificationDispatchToken, queue, v10);
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v12);
     }
 
     objc_destroyWeak(&location);
   }
 
-  return v4;
+  return v5;
 }
 
 - (Device)initWithService:(id)service
 {
   serviceCopy = service;
-  v94.receiver = self;
-  v94.super_class = Device;
-  v6 = [(Device *)&v94 init];
+  v97.receiver = self;
+  v97.super_class = Device;
+  v6 = [(Device *)&v97 init];
   val = v6;
   if (v6)
   {
@@ -305,13 +306,13 @@
     interruptionSync = val->_interruptionSync;
     val->_interruptionSync = v7;
 
-    v77 = [[Properties alloc] initWithService:serviceCopy];
-    v76 = [(Properties *)v77 get:@"idProduct"];
-    v75 = [(Properties *)v77 get:@"idVendor"];
-    v9 = sub_10000D560();
+    v80 = [[Properties alloc] initWithService:serviceCopy];
+    v79 = [(Properties *)v80 get:@"idProduct"];
+    v78 = [(Properties *)v80 get:@"idVendor"];
+    v9 = sub_10000D560(v78);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000173A4(v76, v75);
+      sub_1000173A4(v79, v78);
     }
 
     AnalyticsSendEventLazy();
@@ -319,14 +320,14 @@
     objc_initWeak(&location, val);
     v10 = [IOUSBHostInterface alloc];
     holder = [serviceCopy holder];
-    v92 = 0;
-    v90[0] = _NSConcreteStackBlock;
-    v90[1] = 3221225472;
-    v90[2] = sub_10000F39C;
-    v90[3] = &unk_1000249F8;
-    objc_copyWeak(&v91, &location);
-    v12 = [v10 initWithIOService:holder options:0 queue:0 error:&v92 interestHandler:v90];
-    v74 = v92;
+    v95 = 0;
+    v93[0] = _NSConcreteStackBlock;
+    v93[1] = 3221225472;
+    v93[2] = sub_10000F39C;
+    v93[3] = &unk_1000249F8;
+    objc_copyWeak(&v94, &location);
+    v12 = [v10 initWithIOService:holder options:0 queue:0 error:&v95 interestHandler:v93];
+    v77 = v95;
     interface = val->_interface;
     val->_interface = v12;
 
@@ -334,20 +335,20 @@
     {
       [(Device *)val terminate];
 LABEL_6:
-      objc_destroyWeak(&v91);
+      objc_destroyWeak(&v94);
       objc_destroyWeak(&location);
 
       goto LABEL_7;
     }
 
     v15 = val->_interface;
-    v16 = sub_10000D560();
+    v16 = sub_10000D560(0);
     v17 = v16;
     if (!v15)
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_100017520(v74, v17);
+        sub_100017520(v77, v17);
       }
 
       goto LABEL_6;
@@ -366,19 +367,19 @@ LABEL_6:
       productName = [(Device *)val productName];
       interfaceName = [(Device *)val interfaceName];
       *buf = 67110658;
-      v97 = unsignedIntValue;
-      v98 = 1024;
-      v99 = unsignedIntValue2;
-      v100 = 1024;
-      v101 = unsignedIntValue3;
-      v102 = 2048;
-      v103 = entryID;
-      v104 = 2114;
-      v105 = vendorName;
-      v106 = 2114;
-      v107 = productName;
-      v108 = 2114;
-      v109 = interfaceName;
+      v100 = unsignedIntValue;
+      v101 = 1024;
+      v102 = unsignedIntValue2;
+      v103 = 1024;
+      v104 = unsignedIntValue3;
+      v105 = 2048;
+      v106 = entryID;
+      v107 = 2114;
+      v108 = vendorName;
+      v109 = 2114;
+      v110 = productName;
+      v111 = 2114;
+      v112 = interfaceName;
       _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "new device arrival: %04x:%04x %x (entryId=%llx) (%{public}@ %{public}@ %{public}@)", buf, 0x3Cu);
     }
 
@@ -402,104 +403,108 @@ LABEL_6:
       p_isa = &val->super.isa;
       if (!val->_slotSemaphore)
       {
-        v59 = sub_10000D560();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+        v61 = sub_10000D560(v26);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           sub_100017450();
         }
 
-        objc_destroyWeak(&v91);
+        objc_destroyWeak(&v94);
         objc_destroyWeak(&location);
 
         goto LABEL_7;
       }
     }
 
-    v88 = 0u;
+    v91 = 0u;
+    v92 = 0u;
     v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
+    v90 = 0u;
     pipes = [p_isa[2] pipes];
-    v27 = 0;
-    v28 = [pipes countByEnumeratingWithState:&v86 objects:v95 count:16];
-    if (v28)
+    v28 = 0;
+    v29 = [pipes countByEnumeratingWithState:&v89 objects:v98 count:16];
+    if (v29)
     {
-      v83 = 0;
-      v29 = 0;
-      locationId = *v87;
+      v86 = 0;
+      v30 = 0;
+      locationId = *v90;
       do
       {
-        for (i = 0; i != v28; i = i + 1)
+        for (i = 0; i != v29; i = i + 1)
         {
-          if (*v87 != locationId)
+          if (*v90 != locationId)
           {
             objc_enumerationMutation(pipes);
           }
 
-          v31 = *(*(&v86 + 1) + 8 * i);
-          if ([v31 endpointType] == 2 && objc_msgSend(v31, "endpointDirection") == 1)
+          v32 = *(*(&v89 + 1) + 8 * i);
+          if ([v32 endpointType] == 2 && objc_msgSend(v32, "endpointDirection") == 1)
           {
-            v32 = v31;
-            v33 = v29;
-            v29 = v32;
+            v33 = v32;
+            v34 = v30;
+            v30 = v33;
           }
 
-          else if ([v31 endpointType] == 2 && !objc_msgSend(v31, "endpointDirection"))
+          else if ([v32 endpointType] == 2 && !objc_msgSend(v32, "endpointDirection"))
           {
-            v35 = v31;
-            v33 = v83;
-            v83 = v35;
-          }
-
-          else if ([v31 endpointType] == 3 && objc_msgSend(v31, "endpointDirection") == 1)
-          {
-            v34 = v31;
-            v33 = v27;
-            v27 = v34;
+            v37 = v32;
+            v34 = v86;
+            v86 = v37;
           }
 
           else
           {
-            v33 = sub_10000D560();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+            endpointType = [v32 endpointType];
+            if (endpointType == 3 && (endpointType = [v32 endpointDirection], endpointType == 1))
             {
-              sub_100017484(buf, &buf[1], v33);
+              v36 = v32;
+              v34 = v28;
+              v28 = v36;
+            }
+
+            else
+            {
+              v34 = sub_10000D560(endpointType);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+              {
+                sub_100017484(buf, &buf[1], v34);
+              }
             }
           }
         }
 
-        v28 = [pipes countByEnumeratingWithState:&v86 objects:v95 count:16];
+        v29 = [pipes countByEnumeratingWithState:&v89 objects:v98 count:16];
       }
 
-      while (v28);
+      while (v29);
     }
 
     else
     {
-      v83 = 0;
-      v29 = 0;
+      v86 = 0;
+      v30 = 0;
     }
 
-    v36 = 0;
-    v37 = *([(IOUSBHostInterface *)val->_interface interfaceDescriptor]+ 7);
-    if (v29)
+    v38 = 0;
+    v39 = *([(IOUSBHostInterface *)val->_interface interfaceDescriptor]+ 7);
+    if (v30)
     {
-      v38 = v83 == 0;
+      v40 = v86 == 0;
     }
 
     else
     {
-      v38 = 1;
+      v40 = 1;
     }
 
-    v40 = v38 || v37 != 0;
-    LODWORD(productName2) = v40;
+    v42 = v40 || v39 != 0;
+    LODWORD(productName2) = v42;
     while (1)
     {
       cCIDDescriptor2 = [(Device *)val CCIDDescriptor];
-      v42 = v36 > [cCIDDescriptor2 bMaxSlotIndex];
+      v44 = v38 > [cCIDDescriptor2 bMaxSlotIndex];
 
-      if (v42)
+      if (v44)
       {
         break;
       }
@@ -514,28 +519,28 @@ LABEL_6:
         {
           interfaceName3 = [(Device *)val interfaceName];
           unsignedIntValue2 = 0;
-          v46 = 1;
-          v79 = interfaceName3;
+          v48 = 1;
+          v82 = interfaceName3;
         }
 
         else
         {
           interfaceName3 = [(Device *)val productName];
-          v46 = 0;
+          v48 = 0;
           unsignedIntValue2 = 1;
-          v80 = interfaceName3;
+          v83 = interfaceName3;
         }
       }
 
       else
       {
         interfaceName3 = [(Device *)val productName];
-        v46 = 0;
+        v48 = 0;
         unsignedIntValue2 = 0;
-        v78 = interfaceName3;
+        v81 = interfaceName3;
       }
 
-      v47 = [NSMutableString stringWithFormat:@"%@ %@", vendorName2, interfaceName3];
+      v49 = [NSMutableString stringWithFormat:@"%@ %@", vendorName2, interfaceName3];
       if (!interfaceName2)
       {
       }
@@ -544,7 +549,7 @@ LABEL_6:
       {
       }
 
-      if (v46)
+      if (v48)
       {
       }
 
@@ -560,40 +565,40 @@ LABEL_6:
       if (byte_10002C030 == 1)
       {
         locationId2 = [(Device *)val locationId];
-        [v47 appendFormat:@"[%@]", locationId2];
+        [v49 appendFormat:@"[%@]", locationId2];
       }
 
       cCIDDescriptor3 = [(Device *)val CCIDDescriptor];
-      v50 = [cCIDDescriptor3 bMaxSlotIndex] == 0;
+      v52 = [cCIDDescriptor3 bMaxSlotIndex] == 0;
 
-      if (!v50)
+      if (!v52)
       {
-        [v47 appendFormat:@"(%d)", v36 + 1];
+        [v49 appendFormat:@"(%d)", v38 + 1];
       }
 
       if (productName2)
       {
-        v51 = 0;
+        v53 = 0;
       }
 
       else
       {
-        v51 = [[CCIDSlot alloc] initWithDevice:val slotName:v47 slotNumber:v36 pipeIn:v29 pipeOut:v83];
-        if (v51)
+        v53 = [[CCIDSlot alloc] initWithDevice:val slotName:v49 slotNumber:v38 pipeIn:v30 pipeOut:v86];
+        if (v53)
         {
-          [(NSMutableArray *)val->_slots addObject:v51];
+          [(NSMutableArray *)val->_slots addObject:v53];
         }
       }
 
-      ++v36;
+      ++v38;
     }
 
-    v52 = [(NSMutableArray *)val->_slots count];
-    if (v52)
+    v54 = [(NSMutableArray *)val->_slots count];
+    if (v54)
     {
-      if (v27)
+      if (v28)
       {
-        [(Device *)val watchInterruptPipe:v27];
+        [(Device *)val watchInterruptPipe:v28];
       }
 
       vendorName3 = [(Device *)val vendorName];
@@ -605,35 +610,35 @@ LABEL_6:
         if ([unsignedIntValue2 containsString:productName2])
         {
           interfaceName5 = [(Device *)val interfaceName];
-          v56 = 0;
-          v57 = 1;
+          v58 = 0;
+          v59 = 1;
         }
 
         else
         {
           interfaceName5 = [(Device *)val productName];
-          v57 = 0;
-          v56 = 1;
+          v59 = 0;
+          v58 = 1;
         }
       }
 
       else
       {
         interfaceName5 = [(Device *)val productName];
-        v57 = 0;
-        v56 = 0;
+        v59 = 0;
+        v58 = 0;
       }
 
-      v58 = [NSMutableString stringWithFormat:@"%@ %@", vendorName3, interfaceName5];
+      v60 = [NSMutableString stringWithFormat:@"%@ %@", vendorName3, interfaceName5];
       if (!interfaceName4)
       {
       }
 
-      if (v56)
+      if (v58)
       {
       }
 
-      if (v57)
+      if (v59)
       {
       }
 
@@ -641,27 +646,27 @@ LABEL_6:
       {
       }
 
-      v60 = [NSString stringWithFormat:@"com.apple.ccid:%@", v58];
-      v61 = v60;
-      [v60 UTF8String];
-      v62 = os_transaction_create();
+      v62 = [NSString stringWithFormat:@"com.apple.ccid:%@", v60];
+      v63 = v62;
+      [v62 UTF8String];
+      v64 = os_transaction_create();
       transaction = val->_transaction;
-      val->_transaction = v62;
+      val->_transaction = v64;
     }
 
     else
     {
-      v58 = sub_10000D560();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+      v60 = sub_10000D560(0);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
       {
         sub_1000174EC();
       }
     }
 
-    objc_destroyWeak(&v91);
+    objc_destroyWeak(&v94);
     objc_destroyWeak(&location);
 
-    if (!v52)
+    if (!v54)
     {
 LABEL_7:
       v14 = 0;
@@ -669,14 +674,14 @@ LABEL_7:
     }
   }
 
-  v64 = sub_10000D560();
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+  v66 = sub_10000D560(v6);
+  if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
   {
     sub_100017598();
   }
 
-  v65 = sub_10000D560();
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+  v68 = sub_10000D560(v67);
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
   {
     sub_10001760C(val);
   }

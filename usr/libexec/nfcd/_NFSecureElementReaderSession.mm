@@ -2,6 +2,7 @@
 + (id)validateEntitlements:(id)entitlements;
 - (BOOL)suspendWithInfo:(id)info;
 - (NFSystemPowerConsumptionMonitor)powerConsumptionReporter;
+- (id)_disconnectWithCardRemoval:(BOOL)removal;
 - (id)selectApplets:(id)applets;
 - (void)_cleanupVAS;
 - (void)cleanup;
@@ -199,7 +200,7 @@
   if (v5 && self->_readerOn)
   {
     v6 = +[_NFHardwareManager sharedHardwareManager];
-    v7 = sub_10004BF2C();
+    v7 = sub_10004BF2C(NFRoutingConfig);
     v8 = [v6 setRoutingConfig:v7];
 
     if (v8)
@@ -530,26 +531,25 @@ LABEL_36:
 {
   appletsCopy = applets;
   completionCopy = completion;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v9 = appletsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v40 objects:v54 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v39 objects:v53 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v41;
+    v12 = *v40;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v41 != v12)
+        if (*v40 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v40 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -557,70 +557,70 @@ LABEL_36:
           Logger = NFLogGetLogger();
           if (Logger)
           {
-            v17 = Logger;
+            v16 = Logger;
             Class = object_getClass(self);
             isMetaClass = class_isMetaClass(Class);
             ClassName = object_getClassName(self);
             Name = sel_getName(a2);
-            v21 = 45;
+            v20 = 45;
             if (isMetaClass)
             {
-              v21 = 43;
+              v20 = 43;
             }
 
-            v17(3, "%c[%{public}s %{public}s]:%i Invalid applet type", v21, ClassName, Name, 183);
+            v16(3, "%c[%{public}s %{public}s]:%i Invalid applet type", v20, ClassName, Name, 183);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v22 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v21 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v23 = object_getClass(self);
-            if (class_isMetaClass(v23))
+            v22 = object_getClass(self);
+            if (class_isMetaClass(v22))
             {
-              v24 = 43;
+              v23 = 43;
             }
 
             else
             {
-              v24 = 45;
+              v23 = 45;
             }
 
-            v25 = object_getClassName(self);
-            v26 = sel_getName(a2);
+            v24 = object_getClassName(self);
+            v25 = sel_getName(a2);
             *buf = 67109890;
-            v47 = v24;
-            v48 = 2082;
-            v49 = v25;
-            v50 = 2082;
-            v51 = v26;
-            v52 = 1024;
-            v53 = 183;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid applet type", buf, 0x22u);
+            v46 = v23;
+            v47 = 2082;
+            v48 = v24;
+            v49 = 2082;
+            v50 = v25;
+            v51 = 1024;
+            v52 = 183;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid applet type", buf, 0x22u);
           }
 
-          v27 = [NSError alloc];
-          v28 = [NSString stringWithUTF8String:"nfcd"];
-          v44[0] = NSLocalizedDescriptionKey;
-          v29 = [NSString stringWithUTF8String:"Invalid Parameter"];
-          v45[0] = v29;
-          v45[1] = &off_100332490;
-          v44[1] = @"Line";
-          v44[2] = @"Method";
-          v30 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
-          v45[2] = v30;
-          v44[3] = NSDebugDescriptionErrorKey;
-          v31 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 184];
-          v45[3] = v31;
-          v32 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:4];
-          v33 = [v27 initWithDomain:v28 code:10 userInfo:v32];
-          completionCopy[2](completionCopy, v33);
+          v26 = [NSError alloc];
+          v27 = [NSString stringWithUTF8String:"nfcd"];
+          v43[0] = NSLocalizedDescriptionKey;
+          v28 = [NSString stringWithUTF8String:"Invalid Parameter"];
+          v44[0] = v28;
+          v44[1] = &off_100332490;
+          v43[1] = @"Line";
+          v43[2] = @"Method";
+          v29 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v44[2] = v29;
+          v43[3] = NSDebugDescriptionErrorKey;
+          v30 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 184];
+          v44[3] = v30;
+          v31 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:4];
+          v32 = [v26 initWithDomain:v27 code:10 userInfo:v31];
+          completionCopy[2](completionCopy, v32);
 
           goto LABEL_20;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v40 objects:v54 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v39 objects:v53 count:16];
       if (v11)
       {
         continue;
@@ -630,17 +630,17 @@ LABEL_36:
     }
   }
 
-  v39.receiver = self;
-  v39.super_class = _NFSecureElementReaderSession;
-  workQueue = [(_NFSession *)&v39 workQueue];
+  v38.receiver = self;
+  v38.super_class = _NFSecureElementReaderSession;
+  workQueue = [(_NFSession *)&v38 workQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10014F198;
   block[3] = &unk_1003165E8;
   block[4] = self;
-  v38 = a2;
-  v37 = completionCopy;
-  v36 = v9;
+  v37 = a2;
+  v36 = completionCopy;
+  v35 = v9;
   dispatch_async(workQueue, block);
 
 LABEL_20:
@@ -832,6 +832,105 @@ LABEL_20:
   removalCopy = removal;
   v9 = completionCopy;
   dispatch_async(workQueue, v10);
+}
+
+- (id)_disconnectWithCardRemoval:(BOOL)removal
+{
+  currentTag = self->_currentTag;
+  if (!currentTag)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v18 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v22 = 45;
+      if (isMetaClass)
+      {
+        v22 = 43;
+      }
+
+      v18(3, "%c[%{public}s %{public}s]:%i Invalid tag state", v22, ClassName, Name, 548);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v23 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v24 = object_getClass(self);
+      if (class_isMetaClass(v24))
+      {
+        v25 = 43;
+      }
+
+      else
+      {
+        v25 = 45;
+      }
+
+      *buf = 67109890;
+      v35 = v25;
+      v36 = 2082;
+      v37 = object_getClassName(self);
+      v38 = 2082;
+      v39 = sel_getName(a2);
+      v40 = 1024;
+      v41 = 548;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid tag state", buf, 0x22u);
+    }
+
+    v26 = [NSError alloc];
+    v9 = [NSString stringWithUTF8String:"nfcd"];
+    v32 = NSLocalizedDescriptionKey;
+    v12 = [NSString stringWithUTF8String:"Invalid State"];
+    v33 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v14 = v26;
+    v15 = v9;
+    v16 = 12;
+    goto LABEL_17;
+  }
+
+  v6 = sub_10019117C(self->_driverWrapper, currentTag, removal);
+  v7 = self->_currentTag;
+  self->_currentTag = 0;
+
+  if (v6)
+  {
+    v8 = [NSError alloc];
+    v9 = [NSString stringWithUTF8String:"nfcd"];
+    v10 = v6;
+    v30 = NSLocalizedDescriptionKey;
+    if (v6 >= 0x4C)
+    {
+      v11 = 76;
+    }
+
+    else
+    {
+      v11 = v6;
+    }
+
+    v12 = [NSString stringWithUTF8String:off_1003199E8[v11]];
+    v31 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v14 = v8;
+    v15 = v9;
+    v16 = v10;
+LABEL_17:
+    v27 = [v14 initWithDomain:v15 code:v16 userInfo:v13];
+
+    goto LABEL_19;
+  }
+
+  v27 = 0;
+LABEL_19:
+
+  return v27;
 }
 
 - (void)_cleanupVAS

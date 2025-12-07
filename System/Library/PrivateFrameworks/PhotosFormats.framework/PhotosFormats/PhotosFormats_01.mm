@@ -58,7 +58,7 @@ void boost::container::throw_length_error(boost::container *this, const char *a2
   exception[1] = this;
 }
 
-char *boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(char *a1, void *a2, char a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
+char *boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(char *a1, void *a2, uint64_t a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
 {
   if (*a6 == 1)
   {
@@ -81,9 +81,9 @@ char *boost::interprocess::allocator<char,boost::interprocess::segment_manager<c
   }
 
   v18 = v7;
-  v9 = *(v8 + 48);
+  v9 = *(v8 + 6);
   v10 = v9 < a4 || *a5 > v9;
-  if (v10 || (v19 = *a5, result = boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_allocate(v8, a3 | 0x10u, a4, &v19, &v18, 1uLL), *a5 = v19, !result))
+  if (v10 || (v19 = *a5, result = boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_allocate(v8, a3 | 0x10, a4, &v19, &v18, 1uLL), *a5 = v19, !result))
   {
     exception = __cxa_allocate_exception(0x28uLL);
     v17 = boost::interprocess::interprocess_exception::interprocess_exception(exception, "::boost::interprocess::bad_alloc");
@@ -106,7 +106,7 @@ char *boost::interprocess::allocator<char,boost::interprocess::segment_manager<c
   return result;
 }
 
-void *boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_allocate(uint64_t a1, char a2, unint64_t a3, unint64_t *a4, uint64_t *a5, unint64_t a6)
+void *boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_allocate(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t *a4, uint64_t *a5, unint64_t a6)
 {
   v10 = *a4;
   if ((a2 & 8) != 0)
@@ -198,6 +198,7 @@ LABEL_3:
       return result;
     }
 
+    v25 = a2;
     v26 = 8;
     if (v10 <= 8)
     {
@@ -240,7 +241,7 @@ LABEL_3:
     v32 = a2 & 6;
     if ((a2 & 6) == 0 || (v33 = *a5) == 0 || (result = boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_expand_both_sides(a1, a2, a3, a4, v33, 1, a6)) == 0)
     {
-      if ((a2 & 1) == 0)
+      if ((v25 & 1) == 0)
       {
         goto LABEL_35;
       }
@@ -535,7 +536,7 @@ LABEL_35:
           }
 
           *a4 = v10;
-          return boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_expand_both_sides(a1, a2, a3, a4, v34, 0, a6);
+          return boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_expand_both_sides(a1, v25, a3, a4, v34, 0, a6);
         }
 
         *a5 = 0;
@@ -822,7 +823,7 @@ uint64_t boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_fa
   if ((a2 & 2) != 0)
   {
     v74 = *a4;
-    if ((boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_expand(a1, v9, v23, &v74) & 1) == 0)
+    if (!boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_expand(a1, v9, v23, &v74))
     {
       __assert_rtn("priv_expand_both_sides", "rbtree_best_fit.hpp", 849, "0");
     }
@@ -1338,7 +1339,7 @@ uint64_t boost::intrusive::tree_iterator<boost::intrusive::bhtraits<boost::inter
   return result;
 }
 
-uint64_t boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_expand(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t *a4)
+BOOL boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_expand(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t *a4)
 {
   v7 = *a4;
   v8 = a2 - 16;
@@ -1704,13 +1705,13 @@ char *boost::intrusive::bstbase3<boost::intrusive::bhtraits<boost::interprocess:
   }
 
   v7 = v6 + v5;
-  v8 = (&v11 - result);
+  v8 = &v11 - result;
   if (v7 == 1)
   {
     v8 = 0;
   }
 
-  *result = &v8[v7];
+  *result = v8 + v7;
   return result;
 }
 
@@ -2523,23 +2524,23 @@ id PFPosterSettlingEffectGatingStatisticsAnalyticsPayload(unsigned int *a1, uint
   return v4;
 }
 
-void sub_1B35FC0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B35FC0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B35FC400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B35FC400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B35FC524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B35FC524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2685,9 +2686,11 @@ uint64_t __convertTypeToKey_block_invoke()
   v1 = convertTypeToKey_quicktimeAutoLivePhotoKey;
   convertTypeToKey_quicktimeAutoLivePhotoKey = v0;
 
-  convertTypeToKey_quicktimeVitalityScoreKey = [MEMORY[0x1E6987FE0] keyForIdentifier:*MEMORY[0x1E69877E0]];
+  v2 = [MEMORY[0x1E6987FE0] keyForIdentifier:*MEMORY[0x1E69877E0]];
+  v3 = convertTypeToKey_quicktimeVitalityScoreKey;
+  convertTypeToKey_quicktimeVitalityScoreKey = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 void _AuxiliaryImageCVPixelBufferReleaseBytesCallback(CFTypeRef cf)
@@ -2698,9 +2701,9 @@ void _AuxiliaryImageCVPixelBufferReleaseBytesCallback(CFTypeRef cf)
   }
 }
 
-void sub_1B35FE314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B35FE314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2760,29 +2763,29 @@ float64x2_t lhc_to_srgb(float64x2_t *a1, float64x2_t a2, double a3)
   return result;
 }
 
-double __matrix_lms_to_rgb_block_invoke()
+double __matrix_lms_to_rgb_block_invoke(double a1, __n128 a2)
 {
   __invert_d3();
-  xmmword_1EB8485E0 = v3;
-  unk_1EB8485F0 = v4;
-  xmmword_1EB848600 = v5;
-  unk_1EB848610 = v6;
-  result = *&v1;
-  matrix_lms_to_rgb_LMSToRGB = v1;
-  *algn_1EB8485D0 = v2;
+  xmmword_1EB8485E0 = v5;
+  unk_1EB8485F0 = v6;
+  xmmword_1EB848600 = v7;
+  unk_1EB848610 = v8;
+  result = *&v3;
+  matrix_lms_to_rgb_LMSToRGB = v3;
+  *algn_1EB8485D0 = v4;
   return result;
 }
 
-double __matrix_ipt_to_lms_block_invoke()
+double __matrix_ipt_to_lms_block_invoke(double a1, __n128 a2)
 {
   __invert_d3();
-  xmmword_1EB848660 = v3;
-  unk_1EB848670 = v4;
-  xmmword_1EB848680 = v5;
-  unk_1EB848690 = v6;
-  result = *&v1;
-  matrix_ipt_to_lms_IPTToLMS = v1;
-  *algn_1EB848650 = v2;
+  xmmword_1EB848660 = v5;
+  unk_1EB848670 = v6;
+  xmmword_1EB848680 = v7;
+  unk_1EB848690 = v8;
+  result = *&v3;
+  matrix_ipt_to_lms_IPTToLMS = v3;
+  *algn_1EB848650 = v4;
   return result;
 }
 
@@ -2794,7 +2797,7 @@ void _AuxiliaryImageCVPixelBufferReleaseBytesCallback_3598(CFTypeRef cf)
   }
 }
 
-uint64_t ImageIOLibraryCore()
+uint64_t ImageIOLibraryCore(uint64_t a1)
 {
   if (!ImageIOLibraryCore_frameworkLibrary)
   {
@@ -2826,20 +2829,28 @@ uint64_t getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc()
   return v0;
 }
 
-void sub_1B3603CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B3603CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = ImageIOLibraryCore();
+  v5 = 0;
+  v2 = ImageIOLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "kCGImageAuxiliaryDataInfoPixelBuffer");
@@ -2848,16 +2859,16 @@ void *__getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc_block_invoke(uint64_t a
   return result;
 }
 
-uint64_t __ImageIOLibraryCore_block_invoke()
+uint64_t __ImageIOLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ImageIOLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1B3604CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B3604CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3054,12 +3065,13 @@ LABEL_10:
   return v3;
 }
 
-void sub_1B360631C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1B360631C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 216), 8);
-  _Block_object_dispose((v33 - 168), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 216), 8);
+  _Block_object_dispose((v32 - 168), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3078,9 +3090,9 @@ void sub_1B36078D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B3607C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B3607C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3092,9 +3104,9 @@ uint64_t __Block_byref_object_copy_(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1B360A680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B360A680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3106,16 +3118,16 @@ uint64_t __Block_byref_object_copy__4152(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B360A7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B360A7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B360AE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B360AE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3350,9 +3362,9 @@ uint64_t PFPosterIsAdaptiveLayoutEnabled()
   return _os_feature_enabled_impl();
 }
 
-void sub_1B36125D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B36125D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3364,51 +3376,51 @@ uint64_t __Block_byref_object_copy__4621(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B3614B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B3614B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B36151C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B36151C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3615810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B3615810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3616078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B3616078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3616B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B3616B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3616E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B3616E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B361B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B361B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3544,9 +3556,9 @@ id getSBSWallpaperServiceClass()
   return v1;
 }
 
-void sub_1B361C6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B361C6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3627,7 +3639,7 @@ Class __getSBSWallpaperServiceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3638,14 +3650,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SBSWallpaperService");
   }
 
   getSBSWallpaperServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __SpringBoardServicesLibraryCore_block_invoke()
+uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
@@ -3751,30 +3763,30 @@ double PFDeviceLockScreenApproximateTimeRectNormalized_SBS(uint64_t a1)
   return v11;
 }
 
-void sub_1B361CDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B361CDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 double PFDeviceLockScreenApproximateTimeRectNormalized(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2050000000;
+  v33 = *MEMORY[0x1E69E9840];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2050000000;
   v2 = getPRUISPosterLayoutUtilitiesClass_softClass;
-  v27 = getPRUISPosterLayoutUtilitiesClass_softClass;
+  v28 = getPRUISPosterLayoutUtilitiesClass_softClass;
   if (!getPRUISPosterLayoutUtilitiesClass_softClass)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v29 = __getPRUISPosterLayoutUtilitiesClass_block_invoke;
-    v30 = &unk_1E7B65660;
-    v31 = &v24;
+    v30 = __getPRUISPosterLayoutUtilitiesClass_block_invoke;
+    v31 = &unk_1E7B65660;
+    v32 = &v25;
     __getPRUISPosterLayoutUtilitiesClass_block_invoke(&buf);
-    v2 = v25[3];
+    v2 = v26[3];
   }
 
   v3 = *MEMORY[0x1E695F058];
@@ -3782,7 +3794,7 @@ double PFDeviceLockScreenApproximateTimeRectNormalized(uint64_t a1)
   v5 = *(MEMORY[0x1E695F058] + 16);
   v6 = *(MEMORY[0x1E695F058] + 24);
   v7 = v2;
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
   if (v2 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     if (a1 == 2)
@@ -3795,34 +3807,34 @@ double PFDeviceLockScreenApproximateTimeRectNormalized(uint64_t a1)
       v8 = 1;
     }
 
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
     v9 = getPRPosterRoleLockScreenSymbolLoc_ptr;
-    v27 = getPRPosterRoleLockScreenSymbolLoc_ptr;
+    v28 = getPRPosterRoleLockScreenSymbolLoc_ptr;
     if (!getPRPosterRoleLockScreenSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v29 = __getPRPosterRoleLockScreenSymbolLoc_block_invoke;
-      v30 = &unk_1E7B65660;
-      v31 = &v24;
+      v30 = __getPRPosterRoleLockScreenSymbolLoc_block_invoke;
+      v31 = &unk_1E7B65660;
+      v32 = &v25;
       __getPRPosterRoleLockScreenSymbolLoc_block_invoke(&buf);
-      v9 = v25[3];
+      v9 = v26[3];
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v25, 8);
     if (!v9)
     {
-      dlerror();
-      abort_report_np();
+      v22 = dlerror();
+      abort_report_np("%s", v22);
       __break(1u);
     }
 
     v10 = *v9;
-    v23 = 0;
-    v11 = [v2 titleBoundsForLayout:0 orientation:v8 role:v10 error:&v23];
-    v12 = v23;
+    v24 = 0;
+    v11 = [v2 titleBoundsForLayout:0 orientation:v8 role:v10 error:&v24];
+    v12 = v24;
     if (v11)
     {
       [v11 rectValue];
@@ -3840,11 +3852,11 @@ double PFDeviceLockScreenApproximateTimeRectNormalized(uint64_t a1)
     }
   }
 
-  v33.origin.x = v3;
-  v33.origin.y = v4;
-  v33.size.width = v5;
-  v33.size.height = v6;
-  if (CGRectIsEmpty(v33))
+  v34.origin.x = v3;
+  v34.origin.y = v4;
+  v34.size.width = v5;
+  v34.size.height = v6;
+  if (CGRectIsEmpty(v34))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -3860,11 +3872,11 @@ double PFDeviceLockScreenApproximateTimeRectNormalized(uint64_t a1)
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    *v22 = v3;
-    *&v22[1] = v4;
-    *&v22[2] = v5;
-    *&v22[3] = v6;
-    v20 = [MEMORY[0x1E696B098] valueWithBytes:v22 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+    *v23 = v3;
+    *&v23[1] = v4;
+    *&v23[2] = v5;
+    *&v23[3] = v6;
+    v20 = [MEMORY[0x1E696B098] valueWithBytes:v23 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
     LODWORD(buf) = 138412290;
     *(&buf + 4) = v20;
     _os_log_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[PFDeviceLockScreenApproximateTimeRectNormalized] Returning: %@", &buf, 0xCu);
@@ -3873,9 +3885,9 @@ double PFDeviceLockScreenApproximateTimeRectNormalized(uint64_t a1)
   return v3;
 }
 
-void sub_1B361D310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B361D310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3919,7 +3931,7 @@ void *__getPRPosterRoleLockScreenSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3934,14 +3946,14 @@ LABEL_5:
   return result;
 }
 
-uint64_t __PosterKitLibraryCore_block_invoke()
+uint64_t __PosterKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PosterKitLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-uint64_t __PosterBoardUIServicesLibraryCore_block_invoke()
+uint64_t __PosterBoardUIServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PosterBoardUIServicesLibraryCore_frameworkLibrary = result;
@@ -4099,9 +4111,9 @@ LABEL_37:
   return v33;
 }
 
-void sub_1B361DB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B361DB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4125,8 +4137,8 @@ Class __getCSProminentLayoutAdaptiveTimeContextClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return getCSProminentLayoutControllerClass(v3);
+    abort_report_np("Unable to find class %s", "CSProminentLayoutAdaptiveTimeContext");
+    return getCSProminentLayoutControllerClass();
   }
 
   return result;
@@ -4156,9 +4168,9 @@ id getCSProminentLayoutControllerClass()
   return v1;
 }
 
-void sub_1B361DD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B361DD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4235,7 +4247,7 @@ void __getCSProminentLayoutControllerClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CSProminentLayoutController");
     CoverSheetKitLibrary();
   }
 }
@@ -4265,14 +4277,14 @@ void CoverSheetKitLibrary()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __CoverSheetKitLibraryCore_block_invoke()
+uint64_t __CoverSheetKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoverSheetKitLibraryCore_frameworkLibrary = result;
@@ -4283,30 +4295,30 @@ void PFFrameApplyingContentsRectInBounds(double a1, double a2, double a3, double
 {
   if (a9 > 0.0 && a7 != 0.0 && a8 != 0.0 && (a7 != *MEMORY[0x1E69BDDB0] || a8 != *(MEMORY[0x1E69BDDB0] + 8)))
   {
-    v34 = *MEMORY[0x1E69BDDB0];
-    v31 = *(MEMORY[0x1E69BDDB0] + 8);
+    v26 = *MEMORY[0x1E69BDDB0];
+    v23 = *(MEMORY[0x1E69BDDB0] + 8);
     if (!CGRectIsEmpty(*&a1))
     {
-      v25 = a3 * a9;
-      if (a3 * a9 != 0.0 && a4 != 0.0 && (v25 != v34 || a4 != v31))
+      v17 = a3 * a9;
+      if (a3 * a9 != 0.0 && a4 != 0.0 && (v17 != v26 || a4 != v23))
       {
-        v32 = a2 + 0.0 + a4 * 0.5;
-        v35 = a1 * a9 + 0.0 + v25 * 0.5;
+        v24 = a2 + 0.0 + a4 * 0.5;
+        v27 = a1 * a9 + 0.0 + v17 * 0.5;
         PFSizeWithAspectRatioFittingSize();
-        v28 = v27;
-        v30 = v29;
-        v33 = v32 + v29 * -0.5;
-        v36 = v35 + v27 * -0.5;
-        v38.origin.x = a5;
-        v38.origin.y = a6;
-        v38.size.width = a7;
-        v38.size.height = a8;
-        CGRectGetWidth(v38);
-        v39.origin.x = v36;
-        v39.origin.y = v33;
-        v39.size.width = v28;
-        v39.size.height = v30;
-        CGRectGetWidth(v39);
+        v20 = v19;
+        v22 = v21;
+        v25 = v24 + v21 * -0.5;
+        v28 = v27 + v19 * -0.5;
+        v30.origin.x = a5;
+        v30.origin.y = a6;
+        v30.size.width = a7;
+        v30.size.height = a8;
+        CGRectGetWidth(v30);
+        v31.origin.x = v28;
+        v31.origin.y = v25;
+        v31.size.width = v20;
+        v31.size.height = v22;
+        CGRectGetWidth(v31);
       }
     }
   }
@@ -4332,9 +4344,9 @@ void PFStoryRecipeLibraryKindEnumerateSupportedValuesUsingBlock(void *a1)
   _Block_object_dispose(v7, 8);
 }
 
-void sub_1B361E62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B361E62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4356,7 +4368,7 @@ uint64_t __Block_byref_object_copy__5140(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B3620BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_1B3620BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a45, 8);
   _Block_object_dispose(&a49, 8);
@@ -4364,20 +4376,20 @@ void sub_1B3620BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Block_object_dispose(&a57, 8);
   _Block_object_dispose(&a61, 8);
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x220], 8);
   _Block_object_dispose(&STACK[0x250], 8);
-  _Block_object_dispose((v71 - 256), 8);
-  _Block_object_dispose((v71 - 208), 8);
+  _Block_object_dispose((v66 - 256), 8);
+  _Block_object_dispose((v66 - 208), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3621460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B3621460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
-  _Block_object_dispose((v15 - 80), 8);
+  _Block_object_dispose((v22 - 128), 8);
+  _Block_object_dispose((v22 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4426,9 +4438,9 @@ void sub_1B36233B4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B36238EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B36238EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4467,19 +4479,21 @@ id PFMetadataBuilderLog()
 
 uint64_t __PFMetadataBuilderLog_block_invoke()
 {
-  PFMetadataBuilderLog_log = os_log_create("com.apple.photos.PFMetadataBuilder", "Default");
+  v0 = os_log_create("com.apple.photos.PFMetadataBuilder", "Default");
+  v1 = PFMetadataBuilderLog_log;
+  PFMetadataBuilderLog_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-id PFStoryDurationInfoDescription(uint64_t a1)
+id PFStoryDurationInfoDescription(__int128 *a1)
 {
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v8 = *(a1 + 24);
+  v8 = *(a1 + 1);
   v3 = __PFStoryDurationInfoDescription_block_invoke(&v8);
   v8 = *a1;
   v4 = __PFStoryDurationInfoDescription_block_invoke(&v8);
-  v8 = *(a1 + 48);
+  v8 = *(a1 + 2);
   v5 = __PFStoryDurationInfoDescription_block_invoke(&v8);
   v6 = [v2 initWithFormat:@"{ pref: %@, min: %@, max: %@ }", v3, v4, v5];
 
@@ -4495,7 +4509,7 @@ id __PFStoryDurationInfoDescription_block_invoke(CMTime *a1)
   return v3;
 }
 
-__CFString *PFStringFromPFAdjustmentStyleCast(int a1)
+__CFString *PFStringFromPFAdjustmentStyleCast(unsigned int a1)
 {
   if (a1 < 17)
   {
@@ -4517,7 +4531,7 @@ __CFString *PFStringFromPFAdjustmentStyleCast(int a1)
   }
 }
 
-id PFStringFromPFAdjustmentStyleCastShort(int a1)
+id PFStringFromPFAdjustmentStyleCastShort(unsigned int a1)
 {
   if (a1 < 17)
   {
@@ -4581,9 +4595,11 @@ id PFGMTTimeZone()
 
 uint64_t __PFGMTTimeZone_block_invoke()
 {
-  PFGMTTimeZone_gmtTimeZone = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:0];
+  v0 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:0];
+  v1 = PFGMTTimeZone_gmtTimeZone;
+  PFGMTTimeZone_gmtTimeZone = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id PFDateFormatterForTimeZoneAndFormat(void *a1, void *a2)
@@ -4634,9 +4650,11 @@ uint64_t __PFDateFormatterForTimeZoneAndFormat_block_invoke()
   PFDateFormatterForTimeZoneAndFormat_dateFormattersByTimeZone = v0;
 
   v2 = objc_alloc(MEMORY[0x1E695DEE8]);
-  PFDateFormatterForTimeZoneAndFormat_calendar = [v2 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
+  v3 = [v2 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
+  v4 = PFDateFormatterForTimeZoneAndFormat_calendar;
+  PFDateFormatterForTimeZoneAndFormat_calendar = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 id PFLocalDateFromGMTDate(void *a1)
@@ -4737,9 +4755,11 @@ void __PFDateFromStringTimeZoneFormat_block_invoke_10(uint64_t a1)
 
 uint64_t __PFDateFromStringTimeZoneFormat_block_invoke()
 {
-  dateQueue = dispatch_queue_create("DateFormattersPropertyQueue", 0);
+  v0 = dispatch_queue_create("DateFormattersPropertyQueue", 0);
+  v1 = dateQueue;
+  dateQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id PFDateFromString(void *a1)
@@ -4807,9 +4827,11 @@ void __PFStringFromDateTimeZoneFormat_block_invoke_2(uint64_t a1)
 
 uint64_t __PFStringFromDateTimeZoneFormat_block_invoke()
 {
-  dateQueue = dispatch_queue_create("DateFormattersPropertyQueue", 0);
+  v0 = dispatch_queue_create("DateFormattersPropertyQueue", 0);
+  v1 = dateQueue;
+  dateQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getVNObservationClass()
@@ -4836,9 +4858,9 @@ id getVNObservationClass()
   return v1;
 }
 
-void sub_1B36285FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B36285FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4867,9 +4889,9 @@ id getVNEspressoModelImageprintClass()
   return v1;
 }
 
-void sub_1B36286DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B36286DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4885,7 +4907,7 @@ void __getVNEspressoModelImageprintClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "VNEspressoModelImageprint");
     VisionLibrary();
   }
 }
@@ -4915,14 +4937,14 @@ void VisionLibrary()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __VisionLibraryCore_block_invoke()
+uint64_t __VisionLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary = result;
@@ -4940,9 +4962,16 @@ void __getVNObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "VNObservation");
     [(PFCameraMetadataJSONDebugSerialization *)v2 addObject:v3 forKey:v4, v5];
   }
+}
+
+void sub_1B3629638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 Class __getVNFeaturePrintObservationClass_block_invoke(uint64_t a1)
@@ -4957,8 +4986,8 @@ Class __getVNFeaturePrintObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return getVNSceneObservationClass(v3);
+    abort_report_np("Unable to find class %s", "VNFeaturePrintObservation");
+    return getVNSceneObservationClass();
   }
 
   return result;
@@ -4988,9 +5017,9 @@ id getVNSceneObservationClass()
   return v1;
 }
 
-void sub_1B362979C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B362979C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5019,9 +5048,9 @@ id getVNClassificationObservationClass()
   return v1;
 }
 
-void sub_1B362987C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B362987C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5038,8 +5067,8 @@ Class __getVNPixelBufferObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return getVNSaliencyImageObservationClass(v3);
+    abort_report_np("Unable to find class %s", "VNPixelBufferObservation");
+    return getVNSaliencyImageObservationClass();
   }
 
   return result;
@@ -5069,9 +5098,9 @@ id getVNSaliencyImageObservationClass()
   return v1;
 }
 
-void sub_1B36299CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B36299CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5088,7 +5117,7 @@ Class __getVNDetectedObjectObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "VNDetectedObjectObservation");
     return __getVNRectangleObservationClass_block_invoke(v3);
   }
 
@@ -5107,8 +5136,8 @@ Class __getVNRectangleObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return getVNRecognizedObjectObservationClass(v3);
+    abort_report_np("Unable to find class %s", "VNRectangleObservation");
+    return getVNRecognizedObjectObservationClass();
   }
 
   return result;
@@ -5138,9 +5167,9 @@ id getVNRecognizedObjectObservationClass()
   return v1;
 }
 
-void sub_1B3629B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B3629B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5156,7 +5185,7 @@ void __getVNRecognizedObjectObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "VNRecognizedObjectObservation");
     __getVNSaliencyImageObservationClass_block_invoke(v2);
   }
 }
@@ -5172,7 +5201,7 @@ void __getVNSaliencyImageObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "VNSaliencyImageObservation");
     __getVNClassificationObservationClass_block_invoke(v2);
   }
 }
@@ -5188,7 +5217,7 @@ void __getVNClassificationObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "VNClassificationObservation");
     __getVNSceneObservationClass_block_invoke(v2);
   }
 }
@@ -5204,7 +5233,7 @@ void __getVNSceneObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "VNSceneObservation");
     [(_PFCameraMetadataAVMetadataObject *)v2 .cxx_destruct];
   }
 }
@@ -5233,9 +5262,9 @@ id getVNFaceObservationClass()
   return v1;
 }
 
-void sub_1B362A39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B362A39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5251,16 +5280,15 @@ void __getVNFaceObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "VNFaceObservation");
     [(PFCameraMetadata *)v2 encodeWithCoder:v3, v4];
   }
 }
 
-Class __getVNImageAestheticsObservationClass_block_invoke(uint64_t a1)
+void __getVNImageAestheticsObservationClass_block_invoke(uint64_t a1)
 {
   VisionLibrary();
-  result = objc_getClass("VNImageAestheticsObservation");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("VNImageAestheticsObservation");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getVNImageAestheticsObservationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -5268,16 +5296,14 @@ Class __getVNImageAestheticsObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __84__PFCameraMetadataSerialization_deserializedMetadataFromCameraClientMetadata_error___block_invoke(v3);
+    v2 = abort_report_np("Unable to find class %s", "VNImageAestheticsObservation");
+    __84__PFCameraMetadataSerialization_deserializedMetadataFromCameraClientMetadata_error___block_invoke(v2, v3, v4);
   }
-
-  return result;
 }
 
-void sub_1B362BFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B362BFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5294,7 +5320,7 @@ Class __getVNFaceprintClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "VNFaceprint");
     return __getVNFaceTorsoprintClass_block_invoke(v3);
   }
 
@@ -5313,16 +5339,16 @@ Class __getVNFaceTorsoprintClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "VNFaceTorsoprint");
     return [(PFCameraMetadataSerialization *)v3 deserializedMetadataFromPrivateClientMetadata:v4 error:v5, v6];
   }
 
   return result;
 }
 
-void sub_1B3632D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B3632D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5948,9 +5974,9 @@ char *boost::unordered::detail::table<boost::unordered::detail::map<boost::inter
     v4 = &a2[*a2];
   }
 
-  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table(v4 + 240);
-  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table(v4 + 176);
-  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table(v4 + 112);
+  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table((v4 + 240));
+  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table((v4 + 176));
+  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table((v4 + 112));
   boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~basic_string(v4);
   v5 = a2 - &v7;
   if (*a2 == 1)
@@ -6190,15 +6216,15 @@ void boost::interprocess::ipcdetail::placement_destroy<boost::container::basic_s
   }
 }
 
-void sub_1B36402BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B36402BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~basic_string(va1);
   boost::interprocess::basic_managed_heap_memory<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::~basic_managed_heap_memory(va);
 
@@ -6452,7 +6478,7 @@ BOOL PFSceneTaxonomyNodeSceneIdEqual(void *a1, void *a2)
   return result;
 }
 
-uint64_t PFSceneTaxonomyNodeHash(void *a1)
+unint64_t PFSceneTaxonomyNodeHash(void *a1)
 {
   v1 = a1[9];
   if (v1 == 1)
@@ -6511,26 +6537,26 @@ uint64_t PFSceneTaxonomyNodeHash(void *a1)
   return i ^ *a1;
 }
 
-id PFSceneTaxonomyNodeDescription(uint64_t *a1, void *a2)
+id PFSceneTaxonomyNodeDescription(pf::SceneTaxonomyNode *a1, void *a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    v4 = a1[9];
+    v4 = *(a1 + 9);
     v5 = a1 + v4 + 72;
     if (v4 == 1)
     {
       v5 = 0;
     }
 
-    if (*(v5 + 8))
+    if (v5[8])
     {
       v8 = v5 - buf + 9;
     }
 
     else
     {
-      v6 = *(v5 + 24);
+      v6 = *(v5 + 3);
       v7 = v5 + 24 - buf;
       if (v6 == 1)
       {
@@ -6543,7 +6569,7 @@ id PFSceneTaxonomyNodeDescription(uint64_t *a1, void *a2)
     v10 = MEMORY[0x1E696AEC0];
     v11 = *a1;
     v12 = *(a1 + 12);
-    v13 = a1[2];
+    v13 = *(a1 + 2);
     v14 = PFSceneTaxonomyNodeLocalizedLabel(a1, a2);
     v15 = PFSceneTaxonomyNodeLocalizedSynonyms(a1, a2);
     v16 = v15;
@@ -6553,7 +6579,7 @@ id PFSceneTaxonomyNodeDescription(uint64_t *a1, void *a2)
       v17 = 0;
     }
 
-    v9 = [v10 stringWithFormat:@"<PFSceneTaxonomyNodeRef: %p> sceneClassId:%lu name:%s indexed:%d searchThreshold:%f label:%@ synonyms:%@, parents:%lu, children:%lu", a1, v11, v17, v12, v13, v14, v15, a1[14], a1[22]];
+    v9 = [v10 stringWithFormat:@"<PFSceneTaxonomyNodeRef: %p> sceneClassId:%lu name:%s indexed:%d searchThreshold:%f label:%@ synonyms:%@, parents:%lu, children:%lu", a1, v11, v17, v12, v13, v14, v15, *(a1 + 14), *(a1 + 22)];
   }
 
   else
@@ -7470,9 +7496,9 @@ void std::vector<pf::SceneTaxonomyNode const*>::push_back[abi:ne200100](uint64_t
   *(a1 + 8) = v5;
 }
 
-void *std::vector<pf::SceneTaxonomyNode const*>::reserve(void *result, unint64_t a2)
+void std::vector<pf::SceneTaxonomyNode const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
@@ -7481,20 +7507,18 @@ void *std::vector<pf::SceneTaxonomyNode const*>::reserve(void *result, unint64_t
 
     std::vector<pf::SceneTaxonomyNode const*>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t *boost::unordered::unordered_set<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor,boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::begin(char *a1, uint64_t a2)
 {
   result = boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::begin(&v5, a2);
-  v4 = (&v5 - a1);
+  v4 = &v5 - a1;
   if (v5 == 1)
   {
     v4 = 0;
   }
 
-  *a1 = &v4[v5];
+  *a1 = v4 + v5;
   return result;
 }
 
@@ -7572,7 +7596,7 @@ uint64_t PFSceneTaxonomyVisitNode(void *a1, uint64_t a2)
   }
 
   v28 = v13;
-  v17 = v3[2](v3, a2, &v19);
+  v17 = (v3)[2](v3, a2, &v19);
 
   return v17;
 }
@@ -8080,10 +8104,11 @@ void PFSceneTaxonomyEnumerateTopologicallyOrderedNodes(void *a1, void *a2)
   std::deque<void const*>::~deque[abi:ne200100](&v29);
 }
 
-void sub_1B36431C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1B36431C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  std::deque<void const*>::~deque[abi:ne200100](v29 + 48);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  std::deque<void const*>::~deque[abi:ne200100](v28 + 48);
 
   _Unwind_Resume(a1);
 }
@@ -8370,9 +8395,8 @@ LABEL_7:
   return a1;
 }
 
-void *std::deque<void const*>::push_back(void *result, void *a2)
+void std::deque<void const*>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -8389,50 +8413,49 @@ void *std::deque<void const*>::push_back(void *result, void *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<void const*>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<void const*>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<void const*>::__add_back_capacity(void *a1)
+void std::deque<void const*>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[3];
-    v7 = v6 - *a1;
-    if (a1[2] - a1[1] < v7)
+    v5 = a1[3];
+    v6 = v5 - *a1;
+    if (a1[2] - a1[1] < v6)
     {
       operator new();
     }
 
-    v8 = v7 >> 2;
-    if (v6 == *a1)
+    v7 = v6 >> 2;
+    if (v5 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8;
+      v8 = v7;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<void const**>>(v9);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<void const**>>(v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<void const**>::emplace_back<void const**&>(a1, &v10);
+  v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<void const**>::emplace_back<void const**&>(a1, &v9);
 }
 
 void sub_1B3643E0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int128 a11)
@@ -8446,24 +8469,23 @@ void sub_1B3643E0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<void const**>::emplace_back<void const**&>(void *result, void *a2)
+void std::__split_buffer<void const**>::emplace_back<void const**&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<void const**>>(v11);
@@ -8475,18 +8497,17 @@ void *std::__split_buffer<void const**>::emplace_back<void const**&>(void *resul
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<void const**>>(unint64_t a1)
@@ -8537,9 +8558,9 @@ __CFString *PFPosterSpatialPhotoGatingLevelDescription(uint64_t a1)
   }
 }
 
-void sub_1B3646E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B3646E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   __destructor_8_s0_sb8_s16(va);
   _Unwind_Resume(a1);
 }
@@ -8832,7 +8853,7 @@ uint64_t pf::SceneTaxonomyNode::SceneTaxonomyNode(uint64_t a1, uint64_t a2, int 
   return a1;
 }
 
-uint64_t boost::unordered::detail::table<boost::unordered::detail::map<boost::interprocess::allocator<std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneTaxonomyNode,boost::hash<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>,std::equal_to<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>>>::emplace_unique<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneTaxonomyNode&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t *boost::unordered::detail::table<boost::unordered::detail::map<boost::interprocess::allocator<std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneTaxonomyNode,boost::hash<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>,std::equal_to<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>>>::emplace_unique<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneTaxonomyNode&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = boost::unordered::detail::table<boost::unordered::detail::map<boost::interprocess::allocator<std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneTaxonomyNode,boost::hash<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>,std::equal_to<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>>>::hash(a3);
   result = boost::unordered::detail::table<boost::unordered::detail::map<boost::interprocess::allocator<std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneTaxonomyNode,boost::hash<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>,std::equal_to<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>>>::find_node_impl<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,std::equal_to<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>>(&v122, a2, v10, a3);
@@ -9452,12 +9473,12 @@ uint64_t boost::unordered::detail::table<boost::unordered::detail::map<boost::in
   return result;
 }
 
-void sub_1B364A51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B364A51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table(v10 + 176);
-  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table(v10 + 112);
-  boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~basic_string(v10);
+  va_start(va, a17);
+  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table(v17 + 176);
+  boost::unordered::detail::table<boost::unordered::detail::set<boost::interprocess::allocator<boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::interprocess::offset_ptr<pf::SceneTaxonomyNode,long,unsigned long,0ul>,pf::SceneTaxonomyNodeFunctor,pf::SceneTaxonomyNodeFunctor>>::~table(v17 + 112);
+  boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~basic_string(v17);
   boost::unordered::detail::node_constructor<boost::interprocess::allocator<boost::unordered::detail::node<boost::interprocess::allocator<std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~node_constructor(va);
   _Unwind_Resume(a1);
 }
@@ -9554,9 +9575,9 @@ void sub_1B364A54C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   __cxa_rethrow();
 }
 
-void sub_1B364A628(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B364A628(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a9);
+  va_start(va, a17);
   __cxa_end_catch();
   boost::unordered::detail::node_tmp<boost::interprocess::allocator<boost::unordered::detail::node<boost::interprocess::allocator<std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneTaxonomyNode>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~node_tmp(va);
   JUMPOUT(0x1B364A654);

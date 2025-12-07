@@ -54,8 +54,8 @@
   userIndex = [(MTRDoorLockClusterAppleAliroLockUserChangeEvent *)self userIndex];
   [(MTRDoorLockClusterAppleAliroLockUserChangeEvent *)v4 setUserIndex:userIndex];
 
-  fabricIndex = [(MTRDoorLockClusterAppleAliroLockUserChangeEvent *)self fabricIndex];
-  [(MTRDoorLockClusterAppleAliroLockUserChangeEvent *)v4 setFabricIndex:fabricIndex];
+  v9 = objc_msgSend_fabricIndex(self);
+  [(MTRDoorLockClusterAppleAliroLockUserChangeEvent *)v4 setFabricIndex:v9];
 
   sourceNode = [(MTRDoorLockClusterAppleAliroLockUserChangeEvent *)self sourceNode];
   [(MTRDoorLockClusterAppleAliroLockUserChangeEvent *)v4 setSourceNode:sourceNode];

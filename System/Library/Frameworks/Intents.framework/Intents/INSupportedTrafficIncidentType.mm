@@ -14,11 +14,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"type";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"type";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
-  v9[1] = @"localizedDisplayString";
-  v10[0] = v3;
+  v8[1] = @"localizedDisplayString";
+  v9[0] = v3;
   localizedDisplayString = self->_localizedDisplayString;
   null = localizedDisplayString;
   if (!localizedDisplayString)
@@ -26,13 +26,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = null;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = null;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   if (!localizedDisplayString)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

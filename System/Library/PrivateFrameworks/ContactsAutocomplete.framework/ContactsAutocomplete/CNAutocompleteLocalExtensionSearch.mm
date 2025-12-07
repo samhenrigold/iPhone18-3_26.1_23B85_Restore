@@ -33,14 +33,14 @@
 
 - (id)executeRequest:(id)request completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
-  v8 = CNALoggingContextDebug();
+  v8 = CNALoggingContextDebug(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v20 = requestCopy;
+    v19 = requestCopy;
     _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Executing request %p against local extensions", buf, 0xCu);
   }
 
@@ -48,23 +48,21 @@
   [defaultProvider timestamp];
   v11 = v10;
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __71__CNAutocompleteLocalExtensionSearch_executeRequest_completionHandler___block_invoke;
-  v16[3] = &unk_2781C45B8;
-  v18 = v11;
-  v17 = handlerCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __71__CNAutocompleteLocalExtensionSearch_executeRequest_completionHandler___block_invoke;
+  v15[3] = &unk_2781C45B8;
+  v17 = v11;
+  v16 = handlerCopy;
   v12 = handlerCopy;
-  v13 = [(CNAutocompleteLocalExtensionSearch *)self fetchContactsForFetchRequest:requestCopy completionHandler:v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [(CNAutocompleteLocalExtensionSearch *)self fetchContactsForFetchRequest:requestCopy completionHandler:v15];
 
   return v13;
 }
 
 void __71__CNAutocompleteLocalExtensionSearch_executeRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CFBEC8] sharedFormatter];
@@ -72,47 +70,46 @@ void __71__CNAutocompleteLocalExtensionSearch_executeRequest_completionHandler__
   [v8 timestamp];
   v10 = [v7 stringForTimeInterval:v9 - *(a1 + 40)];
 
-  v11 = CNALoggingContextPerformance();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  v12 = CNALoggingContextPerformance(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
   if (v6)
   {
-    if (v12)
+    if (v13)
     {
-      v17 = 138412546;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_INFO, "Fetching from local extensions failed after %@. Error: %@", &v17, 0x16u);
+      v18 = 138412546;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_INFO, "Fetching from local extensions failed after %@. Error: %@", &v18, 0x16u);
     }
   }
 
   else
   {
-    if (v12)
-    {
-      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-      v17 = 138412546;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_INFO, "Time to fetch %@ contacts from local extensions: %@", &v17, 0x16u);
-    }
-
-    v11 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (v13)
     {
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-      v15 = [v5 _cn_take:200];
-      v17 = 138412546;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v15;
-      _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Local Extensions results (first 200 out of %@): %@", &v17, 0x16u);
+      v18 = 138412546;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v10;
+      _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_INFO, "Time to fetch %@ contacts from local extensions: %@", &v18, 0x16u);
+    }
+
+    v12 = CNALoggingContextDebug(v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
+      v17 = [v5 _cn_take:200];
+      v18 = 138412546;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v17;
+      _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "Local Extensions results (first 200 out of %@): %@", &v18, 0x16u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchContactsForFetchRequest:(id)request completionHandler:(id)handler
@@ -179,14 +176,14 @@ void __71__CNAutocompleteLocalExtensionSearch_executeRequest_completionHandler__
 
 void __85__CNAutocompleteLocalExtensionSearch_fetchContactsForFetchRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CNALoggingContextDebug();
+  v4 = CNALoggingContextDebug(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134217984;
-    v14 = [v3 count];
-    _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Count of MAID objects: %lu", &v13, 0xCu);
+    v12 = 134217984;
+    v13 = [v3 count];
+    _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Count of MAID objects: %lu", &v12, 0xCu);
   }
 
   v5 = [*(a1 + 32) priorityDomainForSorting];
@@ -195,33 +192,31 @@ void __85__CNAutocompleteLocalExtensionSearch_fetchContactsForFetchRequest_compl
 
   v8 = -[CNAClassKitResultTransformVisitor initWithFactory:dataStore:searchType:addressableGroupResultStyle:]([CNAClassKitResultTransformVisitor alloc], "initWithFactory:dataStore:searchType:addressableGroupResultStyle:", v7, *(a1 + 40), [*(a1 + 32) searchType], objc_msgSend(*(a1 + 32), "addressableGroupResultStyle"));
   v9 = [(CNAClassKitResultTransformVisitor *)v8 reduceCollection:v3];
-  v10 = CNALoggingContextDebug();
+  v10 = CNALoggingContextDebug(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [v9 count];
-    v13 = 134217984;
-    v14 = v11;
-    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Count of converted MAID results: %lu", &v13, 0xCu);
+    v12 = 134217984;
+    v13 = v11;
+    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Count of converted MAID results: %lu", &v12, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __85__CNAutocompleteLocalExtensionSearch_fetchContactsForFetchRequest_completionHandler___block_invoke_10(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CNALoggingContextDebug();
+  v4 = CNALoggingContextDebug(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "MAID search failure: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "MAID search failure: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

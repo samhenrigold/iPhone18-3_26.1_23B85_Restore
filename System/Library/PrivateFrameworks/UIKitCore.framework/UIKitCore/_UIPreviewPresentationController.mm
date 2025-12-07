@@ -419,7 +419,7 @@
 
     if (layer)
     {
-      [layer sublayerTransform];
+      objc_msgSend_sublayerTransform(layer);
     }
 
     else
@@ -464,7 +464,7 @@
         v21 = presentationLayer;
         if (presentationLayer)
         {
-          [presentationLayer sublayerTransform];
+          objc_msgSend_sublayerTransform(presentationLayer);
         }
 
         else

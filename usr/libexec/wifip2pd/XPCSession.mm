@@ -72,18 +72,17 @@
   v6 = _Block_copy(handler);
   v7 = swift_allocObject();
   *(v7 + 16) = v6;
-  v12[0] = configuration;
-  v12[1] = sub_1000114BC;
-  v12[2] = v7;
-  v12[3] = 0;
-  v12[4] = 0;
-  v13 = 7;
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC12wifip2pdCore10XPCSession_requestHandler);
-  v8 = *&self->requestHandler[OBJC_IVAR____TtC12wifip2pdCore10XPCSession_requestHandler];
+  v11[0] = configuration;
+  v11[1] = sub_1000114BC;
+  v11[2] = v7;
+  v11[3] = 0;
+  v11[4] = 0;
+  v12 = 7;
+  v8 = *(&self->super.isa + OBJC_IVAR____TtC12wifip2pdCore10XPCSession_requestHandler);
   configurationCopy = configuration;
   selfCopy = self;
 
-  v9(v12, selfCopy);
+  v8(v11, selfCopy);
 }
 
 - (void)updateAWDLLTERestrictedChannels:(id)channels completionHandler:(id)handler
@@ -102,15 +101,14 @@
   v4 = _Block_copy(handler);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v9[0] = sub_1000114BC;
-  v9[1] = v5;
-  memset(&v9[2], 0, 24);
-  v10 = 17;
-  v7 = *(&self->super.isa + OBJC_IVAR____TtC12wifip2pdCore10XPCSession_requestHandler);
-  v6 = *&self->requestHandler[OBJC_IVAR____TtC12wifip2pdCore10XPCSession_requestHandler];
+  v8[0] = sub_1000114BC;
+  v8[1] = v5;
+  memset(&v8[2], 0, 24);
+  v9 = 17;
+  v6 = *(&self->super.isa + OBJC_IVAR____TtC12wifip2pdCore10XPCSession_requestHandler);
   selfCopy = self;
 
-  v7(v9, selfCopy);
+  v6(v8, selfCopy);
 }
 
 - (void)dump:(id)dump to:(id)to maximumDepth:(int64_t)depth completionHandler:(id)handler

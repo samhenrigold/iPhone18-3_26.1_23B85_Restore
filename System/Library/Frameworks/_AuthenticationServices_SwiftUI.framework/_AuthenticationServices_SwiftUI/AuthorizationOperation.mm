@@ -86,9 +86,9 @@
 
   v4 = *(&self->super._iop.__prevOp + OBJC_IVAR____TtC31_AuthenticationServices_SwiftUI22AuthorizationOperation_presentationAnchorProvider);
   selfCopy2 = self;
-  v6 = sub_23B6A3F80(v3);
+  v6 = sub_23B6A3F80(v3, v4);
   v7 = v3(v6);
-  sub_23B6A202C(v3);
+  sub_23B6A202C(v3, v4);
   if (!v7)
   {
 LABEL_7:

@@ -25,17 +25,15 @@
 
 - (void)initWithFixedMode:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   v4 = MDModeGetName(v2);
-  v6 = 136315394;
-  v7 = "[MDFixedModeProvider initWithFixedMode:]";
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_26807E000, v3, OS_LOG_TYPE_DEBUG, "%s #modes: Initialized Fixed ModeProvider with mode %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315394;
+  v6 = "[MDFixedModeProvider initWithFixedMode:]";
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_26807E000, v3, OS_LOG_TYPE_DEBUG, "%s #modes: Initialized Fixed ModeProvider with mode %@", &v5, 0x16u);
 }
 
 @end

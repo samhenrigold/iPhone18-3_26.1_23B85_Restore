@@ -79,7 +79,7 @@
 
 void __47__CORapportBrowser_startWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -90,7 +90,7 @@ void __47__CORapportBrowser_startWithCompletionHandler___block_invoke(uint64_t a
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v24 = v3;
+        v23 = v3;
         _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p Browser is already running", buf, 0xCu);
       }
 
@@ -110,42 +110,40 @@ void __47__CORapportBrowser_startWithCompletionHandler___block_invoke(uint64_t a
       [v8 setDispatchQueue:v9];
 
       v10 = v3[4];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_6;
-      v21[3] = &unk_278E158D8;
-      objc_copyWeak(&v22, (a1 + 48));
-      [v10 setDeviceFoundHandler:v21];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_6;
+      v20[3] = &unk_278E158D8;
+      objc_copyWeak(&v21, (a1 + 48));
+      [v10 setDeviceFoundHandler:v20];
       v11 = v3[4];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_2;
-      v19[3] = &unk_278E158D8;
-      objc_copyWeak(&v20, (a1 + 48));
-      [v11 setDeviceLostHandler:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_2;
+      v18[3] = &unk_278E158D8;
+      objc_copyWeak(&v19, (a1 + 48));
+      [v11 setDeviceLostHandler:v18];
       v12 = v3[4];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_3;
-      v17[3] = &unk_278E158D8;
-      objc_copyWeak(&v18, (a1 + 48));
-      [v12 setLocalDeviceUpdatedHandler:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_3;
+      v16[3] = &unk_278E158D8;
+      objc_copyWeak(&v17, (a1 + 48));
+      [v12 setLocalDeviceUpdatedHandler:v16];
       [v3 setStartCallback:*(a1 + 40)];
       v13 = v3[4];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_4;
-      v15[3] = &unk_278E156D8;
-      objc_copyWeak(&v16, (a1 + 48));
-      [v13 activateWithCompletion:v15];
-      objc_destroyWeak(&v16);
-      objc_destroyWeak(&v18);
-      objc_destroyWeak(&v20);
-      objc_destroyWeak(&v22);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __47__CORapportBrowser_startWithCompletionHandler___block_invoke_4;
+      v14[3] = &unk_278E156D8;
+      objc_copyWeak(&v15, (a1 + 48));
+      [v13 activateWithCompletion:v14];
+      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v21);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CORapportBrowser_startWithCompletionHandler___block_invoke_6(uint64_t a1, void *a2)
@@ -194,7 +192,7 @@ void __47__CORapportBrowser_startWithCompletionHandler___block_invoke_4(uint64_t
 
 - (void)stop
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = COCoreLogForCategory(14);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -209,12 +207,11 @@ void __47__CORapportBrowser_startWithCompletionHandler___block_invoke_4(uint64_t
   block[1] = 3221225472;
   block[2] = __24__CORapportBrowser_stop__block_invoke;
   block[3] = &unk_278E15B10;
-  objc_copyWeak(&v7, buf);
+  objc_copyWeak(&v6, buf);
   dispatch_async(workQueue, block);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __24__CORapportBrowser_stop__block_invoke(uint64_t a1)
@@ -378,7 +375,7 @@ uint64_t __35__CORapportBrowser_sourceTransport__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 - (id)_rapportDeviceWithCompanionLinkDevice:(id)device
@@ -441,7 +438,7 @@ id __58__CORapportBrowser__rapportDeviceWithCompanionLinkDevice___block_invoke(u
 
 - (void)_onqueue_handleActivation:(id)activation
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   activationCopy = activation;
   dispatch_assert_queue_V2(self->_workQueue);
   if (!self->_activated)
@@ -489,20 +486,18 @@ id __58__CORapportBrowser__rapportDeviceWithCompanionLinkDevice___block_invoke(u
         v12 = COCoreLogForCategory(14);
         if (os_log_type_enabled(&v12->super, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 138412290;
+          v13 = 138412290;
           selfCopy = self;
-          _os_log_impl(&dword_244378000, &v12->super, OS_LOG_TYPE_DEFAULT, "%@ deferring activation, don't have local device yet", &v14, 0xCu);
+          _os_log_impl(&dword_244378000, &v12->super, OS_LOG_TYPE_DEFAULT, "%@ deferring activation, don't have local device yet", &v13, 0xCu);
         }
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleFoundDevice:(id)device
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_workQueue);
   v5 = COCoreLogForCategory(14);
@@ -510,8 +505,8 @@ id __58__CORapportBrowser__rapportDeviceWithCompanionLinkDevice___block_invoke(u
   {
     *buf = 134218242;
     selfCopy5 = self;
-    v28 = 2112;
-    v29 = deviceCopy;
+    v27 = 2112;
+    v28 = deviceCopy;
     _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p Rapport Browser found device %@", buf, 0x16u);
   }
 
@@ -567,28 +562,28 @@ LABEL_23:
   if (!homeKitIdentifier)
   {
     iDSIdentifier = [v7 IDSIdentifier];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     listener = [(CORapportBrowser *)self listener];
     activeDevices = [listener activeDevices];
 
-    v12 = [activeDevices countByEnumeratingWithState:&v22 objects:v32 count:16];
+    v12 = [activeDevices countByEnumeratingWithState:&v21 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(activeDevices);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * i);
+          v16 = *(*(&v21 + 1) + 8 * i);
           idsDeviceIdentifier = [v16 idsDeviceIdentifier];
           if (idsDeviceIdentifier && ![iDSIdentifier compare:idsDeviceIdentifier options:1])
           {
@@ -599,10 +594,10 @@ LABEL_23:
             {
               *buf = 138412802;
               selfCopy5 = self;
-              v28 = 2112;
-              v29 = homeKitIdentifier2;
-              v30 = 2048;
-              v31 = v7;
+              v27 = 2112;
+              v28 = homeKitIdentifier2;
+              v29 = 2048;
+              v30 = v7;
               _os_log_impl(&dword_244378000, v20, OS_LOG_TYPE_DEFAULT, "%@ used fallback to get HomeKit identifier(%@) for device %p", buf, 0x20u);
             }
 
@@ -610,7 +605,7 @@ LABEL_23:
           }
         }
 
-        v13 = [activeDevices countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v13 = [activeDevices countByEnumeratingWithState:&v21 objects:v31 count:16];
         if (v13)
         {
           continue;
@@ -625,23 +620,21 @@ LABEL_27:
 
   [(CORapportBrowser *)self _onqueue_informObserversOfDiscoveredRecord:v7];
 LABEL_29:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleLostDevice:(id)device
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_workQueue);
   v5 = COCoreLogForCategory(14);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134218242;
+    v9 = 134218242;
     selfCopy4 = self;
-    v12 = 2112;
-    v13 = deviceCopy;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p Rapport Browser lost device %@", &v10, 0x16u);
+    v11 = 2112;
+    v12 = deviceCopy;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p Rapport Browser lost device %@", &v9, 0x16u);
   }
 
   sourceTransport = [(CORapportBrowser *)self sourceTransport];
@@ -653,11 +646,11 @@ LABEL_29:
       goto LABEL_14;
     }
 
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy4 = self;
     v8 = "%p Rapport Browser doesn't have source transport";
 LABEL_13:
-    _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, v8, &v10, 0xCu);
+    _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, v8, &v9, 0xCu);
     goto LABEL_14;
   }
 
@@ -669,7 +662,7 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy4 = self;
     v8 = "%p Rapport Browser is not running";
     goto LABEL_13;
@@ -683,7 +676,7 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy4 = self;
     v8 = "%p Rapport Browser not started completely";
     goto LABEL_13;
@@ -692,8 +685,6 @@ LABEL_13:
   v7 = [(CORapportBrowser *)self _rapportDeviceWithCompanionLinkDevice:deviceCopy];
   [(CORapportBrowser *)self _onqueue_informObserversOfLostRecord:v7];
 LABEL_14:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_informObserversOfDiscoveredRecord:(id)record

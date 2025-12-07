@@ -70,11 +70,10 @@
 
 void __48__BCDiscoverPluginManager_discoverPluginBundles__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = [objc_opt_class() _discoverPluginDirectoryURL];
-  v2 = [BCPluginLoader loadPluginBundlesAtURL:v4];
-  v3 = discoverPluginBundles_discoverPluginBundles;
-  discoverPluginBundles_discoverPluginBundles = v2;
+  v3 = [objc_opt_class() _discoverPluginDirectoryURL];
+  v1 = [BCPluginLoader loadPluginBundlesAtURL:v3];
+  v2 = discoverPluginBundles_discoverPluginBundles;
+  discoverPluginBundles_discoverPluginBundles = v1;
 }
 
 - (id)_buildDiscoverPlugins
@@ -102,11 +101,11 @@ void __48__BCDiscoverPluginManager_discoverPluginBundles__block_invoke(uint64_t 
 
 void __48__BCDiscoverPluginManager__buildDiscoverPlugins__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v15 = 0;
-  v4 = [v3 loadAndReturnError:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [v3 loadAndReturnError:&v14];
+  v5 = v14;
   if ((v4 & 1) == 0)
   {
     v8 = pbb_discover_log();
@@ -116,9 +115,9 @@ void __48__BCDiscoverPluginManager__buildDiscoverPlugins__block_invoke(uint64_t 
     }
 
     *buf = 138543618;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v5;
+    v16 = v3;
+    v17 = 2112;
+    v18 = v5;
     v11 = "Failed to load bundle (%{public}@), error: %@";
     v12 = v8;
     v13 = 22;
@@ -137,7 +136,7 @@ LABEL_10:
     }
 
     *buf = 138543362;
-    v17 = v3;
+    v16 = v3;
     v11 = "Unknown principal class for bundle: %{public}@";
     v12 = v8;
     v13 = 12;
@@ -152,7 +151,7 @@ LABEL_10:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v3;
+      v16 = v3;
       _os_log_impl(&dword_241E55000, v10, OS_LOG_TYPE_DEFAULT, "Failed to create plugin for bundle: %{public}@", buf, 0xCu);
     }
 
@@ -168,8 +167,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sortedPluginsBySectionForInput:(id)input

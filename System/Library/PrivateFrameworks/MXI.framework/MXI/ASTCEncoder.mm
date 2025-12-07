@@ -12,7 +12,7 @@
   v113 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   thresholdCopy = threshold;
-  v17 = _mxi_log();
+  v17 = _mxi_log(deviceCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
@@ -179,7 +179,7 @@ LABEL_27:
   bufferCopy = buffer;
   textureCopy = texture;
   srcTextureCopy = srcTexture;
-  v13 = _mxi_log();
+  v13 = _mxi_log(srcTextureCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
@@ -427,7 +427,7 @@ LABEL_31:
         goto LABEL_35;
       }
 
-      v80 = _mxi_log();
+      v80 = _mxi_log(0);
       if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
         *v99 = 136315138;
@@ -438,7 +438,7 @@ LABEL_31:
 
     else
     {
-      v79 = _mxi_log();
+      v79 = _mxi_log(0);
       if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
       {
         *v99 = 136315138;
@@ -451,7 +451,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v78 = _mxi_log();
+  v78 = _mxi_log(0);
   if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;

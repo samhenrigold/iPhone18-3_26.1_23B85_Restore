@@ -46,7 +46,7 @@
 
 - (id)buildNotificationRequest
 {
-  v75[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   buildSafePayload = [(UNPushNotificationRequestBuilder *)self buildSafePayload];
   if (!buildSafePayload)
   {
@@ -54,8 +54,8 @@
     goto LABEL_54;
   }
 
-  v73 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:self->_bundleIdentifier];
-  bundleURL = [v73 bundleURL];
+  v72 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:self->_bundleIdentifier];
+  bundleURL = [v72 bundleURL];
   if (bundleURL)
   {
     Unique = _CFBundleCreateUnique();
@@ -71,7 +71,7 @@
   v7 = [buildSafePayload un_safeCastObjectForKey:@"aps" class:objc_opt_class()];
   v8 = [v7 objectForKey:@"alert"];
   cf = Unique;
-  v71 = v8;
+  v70 = v8;
   if (v8)
   {
     v9 = v8;
@@ -84,27 +84,27 @@
 
     else
     {
-      v65 = buildSafePayload;
+      v64 = buildSafePayload;
       v12 = v9;
       v13 = [v12 un_safeCastObjectForKey:@"body" class:objc_opt_class()];
-      v69 = [v12 un_safeCastObjectForKey:@"loc-key" class:objc_opt_class()];
-      if (v69 && Unique)
+      v68 = [v12 un_safeCastObjectForKey:@"loc-key" class:objc_opt_class()];
+      if (v68 && Unique)
       {
         v14 = [v12 un_safeCastObjectForKey:@"loc-args" class:objc_opt_class()];
-        v15 = [UNLocalizedStringFactory localizedUserNotificationStringForKey:v69 arguments:v14 cfBundle:Unique defaultValue:v13];
+        v15 = [UNLocalizedStringFactory localizedUserNotificationStringForKey:v68 arguments:v14 cfBundle:Unique defaultValue:v13];
         v16 = v13;
         v13 = v15;
       }
 
       [(UNMutableNotificationContent *)v6 setBody:v13];
       v17 = [v12 un_safeCastObjectForKey:@"subtitle" class:objc_opt_class()];
-      v67 = [v12 un_safeCastObjectForKey:@"subtitle-loc-key" class:objc_opt_class()];
-      v64 = v13;
-      if (v67 && Unique)
+      v66 = [v12 un_safeCastObjectForKey:@"subtitle-loc-key" class:objc_opt_class()];
+      v63 = v13;
+      if (v66 && Unique)
       {
         [v12 un_safeCastObjectForKey:@"subtitle-loc-args" class:objc_opt_class()];
         v19 = v18 = v17;
-        v20 = [UNLocalizedStringFactory localizedUserNotificationStringForKey:v67 arguments:v19 cfBundle:Unique defaultValue:v18];
+        v20 = [UNLocalizedStringFactory localizedUserNotificationStringForKey:v66 arguments:v19 cfBundle:Unique defaultValue:v18];
 
         v17 = v20;
       }
@@ -112,7 +112,7 @@
       [(UNMutableNotificationContent *)v6 setSubtitle:v17];
       v21 = [v12 un_safeCastObjectForKey:@"title" class:objc_opt_class()];
       v22 = [v12 un_safeCastObjectForKey:@"title-loc-key" class:objc_opt_class()];
-      v63 = v17;
+      v62 = v17;
       if (v22 && cf)
       {
         v23 = [v12 un_safeCastObjectForKey:@"title-loc-args" class:objc_opt_class()];
@@ -131,7 +131,7 @@
       v27 = [v12 un_safeCastObjectForKey:@"launch-image" class:objc_opt_class()];
       [(UNMutableNotificationContent *)v6 setLaunchImageName:v27];
 
-      buildSafePayload = v65;
+      buildSafePayload = v64;
     }
   }
 
@@ -148,7 +148,7 @@
   [(UNMutableNotificationContent *)v6 setTargetContentIdentifier:v31];
 
   v32 = [v7 objectForKey:@"interruption-level"];
-  v70 = v32;
+  v69 = v32;
   if (v32)
   {
     v33 = [(UNPushNotificationRequestBuilder *)self _interruptionLevelForString:v32];
@@ -168,7 +168,7 @@
     [(UNMutableNotificationContent *)v6 setRelevanceScore:?];
   }
 
-  v68 = v35;
+  v67 = v35;
   v36 = [v7 un_safeCastObjectForKey:@"filter-criteria" class:objc_opt_class()];
   [(UNMutableNotificationContent *)v6 setFilterCriteria:v36];
 
@@ -186,7 +186,7 @@
 
     else
     {
-      v66 = buildSafePayload;
+      v65 = buildSafePayload;
       v43 = v37;
       v40 = [v43 un_safeCastObjectForKey:@"name" class:objc_opt_class()];
       v44 = [v43 un_safeCastObjectForKey:@"critical" class:objc_opt_class()];
@@ -197,11 +197,11 @@
       if (!v40)
       {
         v46 = v33 == 3;
-        buildSafePayload = v66;
+        buildSafePayload = v65;
         goto LABEL_38;
       }
 
-      buildSafePayload = v66;
+      buildSafePayload = v65;
     }
 
     v45 = [v40 isEqualToString:@"default"];
@@ -232,10 +232,10 @@ LABEL_44:
         goto LABEL_45;
       }
 
-      v62 = [UNNotificationSound criticalSoundNamed:v40];
+      v61 = [UNNotificationSound criticalSoundNamed:v40];
 LABEL_59:
-      v42 = v62;
-      [(UNMutableNotificationContent *)v6 setSound:v62];
+      v42 = v61;
+      [(UNMutableNotificationContent *)v6 setSound:v61];
       goto LABEL_44;
     }
 
@@ -253,7 +253,7 @@ LABEL_38:
       goto LABEL_43;
     }
 
-    v62 = +[UNNotificationSound defaultCriticalSound];
+    v61 = +[UNNotificationSound defaultCriticalSound];
     goto LABEL_59;
   }
 
@@ -265,8 +265,8 @@ LABEL_45:
     v52 = UNSafeCast(v51, v50);
     if (!v52)
     {
-      v75[0] = v50;
-      v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:1];
+      v74[0] = v50;
+      v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:1];
     }
 
     v53 = [(UNPushNotificationRequestBuilder *)self _sanitizeStringArray:v52];
@@ -291,38 +291,37 @@ LABEL_45:
   }
 
 LABEL_54:
-  v60 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)buildSafePayload
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v15 = [(NSDictionary *)self->_payload un_safeCastObjectForKey:@"aps" class:objc_opt_class()];
+  v14 = [(NSDictionary *)self->_payload un_safeCastObjectForKey:@"aps" class:objc_opt_class()];
   v4 = [(UNPushNotificationRequestBuilder *)self _sanitizeAPSDictionary:?];
   [dictionary un_safeSetObject:v4 forKey:@"aps"];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allKeys = [(NSDictionary *)self->_payload allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if (([v10 isEqualToString:@"aps"] & 1) == 0)
         {
           v11 = [(NSDictionary *)self->_payload objectForKey:v10];
@@ -330,15 +329,13 @@ LABEL_54:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   un_nonEmptyCopy = [dictionary un_nonEmptyCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return un_nonEmptyCopy;
 }

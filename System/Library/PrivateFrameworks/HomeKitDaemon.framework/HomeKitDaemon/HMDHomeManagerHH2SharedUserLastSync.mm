@@ -36,7 +36,7 @@
   v17 = [v15 initWithName:@"Created Date" value:creationDate];
   [array addObject:v17];
 
-  v18 = [array copy];
+  v18 = objc_msgSend_copy(array);
 
   return v18;
 }
@@ -50,7 +50,7 @@
 
 - (void)removeArchiveFromLocalDisk
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277CBEBC0]);
   if (self)
   {
@@ -64,9 +64,9 @@
 
   v6 = [v4 initFileURLWithPath:Property];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v16 = 0;
-  [defaultManager removeItemAtURL:v6 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  [defaultManager removeItemAtURL:v6 error:&v15];
+  v8 = v15;
 
   if (v8)
   {
@@ -87,18 +87,16 @@
       }
 
       *buf = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      v21 = 2112;
-      v22 = v8;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error occurred while removing sync data file %@ from disk : %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSData)archive

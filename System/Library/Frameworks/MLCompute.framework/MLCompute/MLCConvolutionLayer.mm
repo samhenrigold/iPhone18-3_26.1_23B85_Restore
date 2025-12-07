@@ -722,30 +722,28 @@ LABEL_8:
 
 - (void)allocateGradientsForParameters
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   biases = [(MLCConvolutionLayer *)self biases];
   weights = [(MLCConvolutionLayer *)self weights];
   v5 = weights;
   if (biases)
   {
-    v13[0] = weights;
+    v12[0] = weights;
     biases2 = [(MLCConvolutionLayer *)self biases];
-    v13[1] = biases2;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[1] = biases2;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   }
 
   else
   {
-    v12 = weights;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v11 = weights;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   }
 
   device = [(MLCLayer *)self device];
   computeEngine = [device computeEngine];
   deviceOps = [(MLCLayer *)self deviceOps];
   [computeEngine allocateParameterGradientsForDeviceOps:deviceOps parameters:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)resultSizeFromSourceSize:(unint64_t)size dimension:(unint64_t)dimension
@@ -976,81 +974,60 @@ LABEL_7:
 
 - (void)initWithWeights:(const char *)a1 biases:descriptor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithWeights:(const char *)a1 biases:descriptor:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithWeights:(const char *)a1 biases:descriptor:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithWeights:(const char *)a1 biases:descriptor:.cold.6(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithWeights:(const char *)a1 biases:descriptor:.cold.7(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(void *)a2 resultTensor:.cold.1(const char *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = [a2 weights];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(void *)a2 resultTensor:.cold.2(const char *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = [a2 biases];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

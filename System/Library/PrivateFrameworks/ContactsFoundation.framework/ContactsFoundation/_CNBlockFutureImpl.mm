@@ -455,7 +455,7 @@ LABEL_5:
 
 - (BOOL)finishWithResult:(id)result error:(id)error
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   if (+[CNObservableContractEnforcement shouldSwizzleNilResults])
@@ -505,8 +505,8 @@ LABEL_6:
     }
 
     v15 = CNObserverProtocolExceptionNullMarker[0];
-    v29[0] = CNObserverProtocolExceptionResultKey[0];
-    v29[1] = CNObserverProtocolExceptionErrorKey[0];
+    v28[0] = CNObserverProtocolExceptionResultKey[0];
+    v28[1] = CNObserverProtocolExceptionErrorKey[0];
     if (v9)
     {
       v16 = resultCopy;
@@ -522,22 +522,22 @@ LABEL_6:
       v15 = errorCopy;
     }
 
-    v30[0] = v16;
-    v30[1] = v15;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v29[0] = v16;
+    v29[1] = v15;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
     CNFutureThrowProtocolExceptionWithReason(@"Either the result or error must be non-nil", v17);
 
     goto LABEL_20;
   }
 
-  v27 = +[CNObservable os_log_protocol];
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v26 = +[CNObservable os_log_protocol];
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     [_CNBlockFutureImpl finishWithResult:error:];
   }
 
-  v28 = +[CNObservable os_log_protocol];
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v27 = +[CNObservable os_log_protocol];
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     [_CNBlockFutureImpl finishWithResult:error:];
   }
@@ -576,7 +576,6 @@ LABEL_21:
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return condition != 1;
 }
 
@@ -633,12 +632,9 @@ LABEL_21:
 
 - (void)finishWithResult:error:.cold.2()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AF00] callStackSymbols];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0(&dword_1859F0000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1859F0000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6);
 }
 
 - (void)finishWithResult:error:.cold.3()
@@ -650,20 +646,16 @@ LABEL_21:
 
 - (void)finishWithResult:error:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishWithResult:error:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

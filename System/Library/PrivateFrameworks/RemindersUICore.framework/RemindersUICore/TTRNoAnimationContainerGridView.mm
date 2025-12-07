@@ -16,7 +16,7 @@
   rowsCopy = rows;
   if (rows)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100, &qword_21DC18230);
     sub_21DBFA5EC();
     *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC15RemindersUICore31TTRNoAnimationContainerGridView_areImplicitAnimationsEnabled) = 0;
     rowsCopy = sub_21DBFA5DC();

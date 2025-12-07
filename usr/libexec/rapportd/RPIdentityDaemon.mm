@@ -13,6 +13,7 @@
 - (id)_identitiesOfType:(int)type error:(id *)error;
 - (id)descriptionWithLevel:(int)level;
 - (id)getIdentitiesWithFlags:(unsigned int)flags;
+- (id)identitiesOfType:(int)type error:(id *)error;
 - (id)identityOfSelfAndReturnError:(id *)error;
 - (id)identityOfTemporarySelfAndReturnError:(id *)error;
 - (id)resolveIdentitiesForBonjourDevice:(id)device typeFlags:(unsigned int)flags;
@@ -22,6 +23,7 @@
 - (id)resolveIdentityForTempAuthTagData:(id)data bluetoothAddressData:(id)addressData;
 - (id)sameAccountDeviceIDs;
 - (unint64_t)featureFlagsForIdentityMatchingIDSDeviceIdentifier:(id)identifier;
+- (unint64_t)resolveIdentityforSignature:(id)signature data:(id)data flags:(unsigned int)flags accountaltDSID:(id)d;
 - (unsigned)_updateSelfIdentityPrivate:(id)private create:(BOOL)create;
 - (unsigned)_updateSelfIdentityPublic:(id)public privateIdentity:(id)identity;
 - (unsigned)resolveIdentityTypesForSignature:(id)signature data:(id)data typeFlags:(unsigned int)flags;
@@ -99,20 +101,18 @@
         {
           if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
           {
-            sub_10011BCC0();
+            sub_10011BCC0(v5);
           }
 
-          v13 = 0;
-          [(RPIdentityDaemon *)self removeIdentity:v5 error:&v13];
-          v10 = v13;
+          v11 = 0;
+          [(RPIdentityDaemon *)self removeIdentity:v5 error:&v11];
+          v10 = v11;
           if (v10 && dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
           {
-            v11 = v5;
-            v12 = v10;
-            LogPrintF();
+            LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _pruneStaleAdHocPairedDeviceIdentities]", 90, "Error removing stale AdHocPaired keychain identity: %@, error: %@\n", v5, v10);
           }
 
-          [(NSMutableArray *)self->_adHocPairedDeviceIdentities removeObject:v5, v11, v12];
+          [(NSMutableArray *)self->_adHocPairedDeviceIdentities removeObject:v5];
           --v4;
         }
       }
@@ -127,249 +127,243 @@
 - (void)_updateSameAccountIdentities
 {
   selfCopy = self;
-  v60 = 0;
-  v3 = [(RPIdentityDaemon *)self _identitiesOfType:2 error:&v60];
-  v4 = v60;
+  v57 = 0;
+  v3 = [(RPIdentityDaemon *)self _identitiesOfType:2 error:&v57];
+  v4 = v57;
   if (v4)
   {
     if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011C050();
+      sub_10011C050(v4);
     }
-
-    goto LABEL_83;
-  }
-
-  v38 = v3;
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v5 = selfCopy->_sameAccountDeviceIdentities;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v56 objects:v64 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v57;
-    do
-    {
-      for (i = 0; i != v7; i = i + 1)
-      {
-        if (*v57 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        [*(*(&v56 + 1) + 8 * i) setPresent:0];
-      }
-
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v56 objects:v64 count:16];
-    }
-
-    while (v7);
-  }
-
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  obj = v38;
-  v43 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
-  if (v43)
-  {
-    v40 = 0;
-    v41 = 0;
-    v42 = *v53;
-    do
-    {
-      for (j = 0; j != v43; j = j + 1)
-      {
-        if (*v53 != v42)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v11 = *(*(&v52 + 1) + 8 * j);
-        v48 = 0u;
-        v49 = 0u;
-        v50 = 0u;
-        v51 = 0u;
-        v12 = selfCopy;
-        v13 = selfCopy->_sameAccountDeviceIdentities;
-        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v48 objects:v62 count:16];
-        if (v14)
-        {
-          v15 = v14;
-          v16 = *v49;
-          while (2)
-          {
-            for (k = 0; k != v15; k = k + 1)
-            {
-              if (*v49 != v16)
-              {
-                objc_enumerationMutation(v13);
-              }
-
-              v18 = *(*(&v48 + 1) + 8 * k);
-              v19 = [v18 compareWithRPIdentity:v11];
-              if ((v19 & 0x220) == 0)
-              {
-                v20 = v19;
-                [v18 setPresent:1];
-                if (v20 && (v40 = (v40 + 1), dword_1001D3F50 <= 30))
-                {
-                  selfCopy = v12;
-                  if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
-                  {
-                    sub_10011C090();
-                  }
-                }
-
-                else
-                {
-                  selfCopy = v12;
-                }
-
-                goto LABEL_38;
-              }
-            }
-
-            v15 = [(NSArray *)v13 countByEnumeratingWithState:&v48 objects:v62 count:16];
-            if (v15)
-            {
-              continue;
-            }
-
-            break;
-          }
-        }
-
-        v41 = (v41 + 1);
-        if (dword_1001D3F50 > 30)
-        {
-          selfCopy = v12;
-        }
-
-        else
-        {
-          selfCopy = v12;
-          if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
-          {
-            sub_10011C0D0();
-          }
-        }
-
-LABEL_38:
-        ;
-      }
-
-      v43 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
-    }
-
-    while (v43);
   }
 
   else
   {
-    v40 = 0;
-    v41 = 0;
-  }
-
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v21 = selfCopy->_sameAccountDeviceIdentities;
-  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v44 objects:v61 count:16];
-  if (v22)
-  {
-    v23 = v22;
-    v24 = 0;
-    v25 = *v45;
-    do
+    v35 = v3;
+    v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v5 = selfCopy->_sameAccountDeviceIdentities;
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v53 objects:v61 count:16];
+    if (v6)
     {
-      v26 = 0;
+      v7 = v6;
+      v8 = *v54;
       do
       {
-        if (*v45 != v25)
+        for (i = 0; i != v7; i = i + 1)
         {
-          objc_enumerationMutation(v21);
-        }
-
-        if (([*(*(&v44 + 1) + 8 * v26) present] & 1) == 0)
-        {
-          v24 = (v24 + 1);
-          if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+          if (*v54 != v8)
           {
-            sub_10011C110();
+            objc_enumerationMutation(v5);
           }
+
+          [*(*(&v53 + 1) + 8 * i) setPresent:0];
         }
 
-        v26 = v26 + 1;
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v53 objects:v61 count:16];
       }
 
-      while (v23 != v26);
-      v27 = [(NSArray *)v21 countByEnumeratingWithState:&v44 objects:v61 count:16];
-      v23 = v27;
+      while (v7);
     }
 
-    while (v27);
-  }
-
-  else
-  {
-    v24 = 0;
-  }
-
-  v30 = v41 > 0 || v40 > 0 || v24 > 0;
-  v3 = v38;
-  if (!selfCopy->_sameAccountDeviceIdentities)
-  {
-    v4 = 0;
-    if (dword_1001D3F50 > 30 || dword_1001D3F50 == -1 && !_LogCategory_Initialize())
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    obj = v35;
+    v40 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
+    if (v40)
     {
-      goto LABEL_81;
+      v37 = 0;
+      v38 = 0;
+      v39 = *v50;
+      do
+      {
+        for (j = 0; j != v40; j = j + 1)
+        {
+          if (*v50 != v39)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v11 = *(*(&v49 + 1) + 8 * j);
+          v45 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v12 = selfCopy;
+          v13 = selfCopy->_sameAccountDeviceIdentities;
+          v14 = [(NSArray *)v13 countByEnumeratingWithState:&v45 objects:v59 count:16];
+          if (v14)
+          {
+            v15 = v14;
+            v16 = *v46;
+            while (2)
+            {
+              for (k = 0; k != v15; k = k + 1)
+              {
+                if (*v46 != v16)
+                {
+                  objc_enumerationMutation(v13);
+                }
+
+                v18 = *(*(&v45 + 1) + 8 * k);
+                v19 = [v18 compareWithRPIdentity:v11];
+                if ((v19 & 0x220) == 0)
+                {
+                  v20 = v19;
+                  [v18 setPresent:1];
+                  if (v20 && (++v37, dword_1001D3F50 <= 30))
+                  {
+                    selfCopy = v12;
+                    if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
+                    {
+                      sub_10011C090(v11);
+                    }
+                  }
+
+                  else
+                  {
+                    selfCopy = v12;
+                  }
+
+                  goto LABEL_38;
+                }
+              }
+
+              v15 = [(NSArray *)v13 countByEnumeratingWithState:&v45 objects:v59 count:16];
+              if (v15)
+              {
+                continue;
+              }
+
+              break;
+            }
+          }
+
+          ++v38;
+          if (dword_1001D3F50 > 30)
+          {
+            selfCopy = v12;
+          }
+
+          else
+          {
+            selfCopy = v12;
+            if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
+            {
+              sub_10011C0D0(v11);
+            }
+          }
+
+LABEL_38:
+          ;
+        }
+
+        v40 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
+      }
+
+      while (v40);
     }
 
-LABEL_73:
-    v36 = v40;
-    v37 = v24;
-    v34 = [obj count];
-    v35 = v41;
-    LogPrintF();
-    goto LABEL_81;
-  }
-
-  v4 = 0;
-  if (!v30)
-  {
-    if (dword_1001D3F50 <= 10 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    else
     {
-      sub_10011C150(obj);
+      v37 = 0;
+      v38 = 0;
     }
 
-    goto LABEL_81;
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v21 = selfCopy->_sameAccountDeviceIdentities;
+    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v41 objects:v58 count:16];
+    if (v22)
+    {
+      v23 = v22;
+      v24 = 0;
+      v25 = *v42;
+      do
+      {
+        v26 = 0;
+        do
+        {
+          if (*v42 != v25)
+          {
+            objc_enumerationMutation(v21);
+          }
+
+          v27 = *(*(&v41 + 1) + 8 * v26);
+          if (([v27 present] & 1) == 0)
+          {
+            ++v24;
+            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+            {
+              sub_10011C110(v27);
+            }
+          }
+
+          v26 = v26 + 1;
+        }
+
+        while (v23 != v26);
+        v28 = [(NSArray *)v21 countByEnumeratingWithState:&v41 objects:v58 count:16];
+        v23 = v28;
+      }
+
+      while (v28);
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    v31 = v38 > 0 || v37 > 0 || v24 > 0;
+    v3 = v35;
+    if (selfCopy->_sameAccountDeviceIdentities)
+    {
+      v4 = 0;
+      if (v31)
+      {
+        if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+        {
+          [obj count];
+          LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _updateSameAccountIdentities]", 30, "Updated same account device identities: %d total, %d added, %d changed, %d removed\n");
+        }
+      }
+
+      else if (dword_1001D3F50 <= 10 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      {
+        sub_10011C150(obj);
+      }
+    }
+
+    else
+    {
+      v4 = 0;
+      if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      {
+        [obj count];
+        LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _updateSameAccountIdentities]", 30, "Loaded same account device identities: %d total, %d added, %d changed, %d removed\n");
+      }
+    }
+
+    v32 = [(RPIdentityDaemon *)selfCopy _dedupeSameAccountDeviceIdentities:obj];
+    sameAccountDeviceIdentities = selfCopy->_sameAccountDeviceIdentities;
+    selfCopy->_sameAccountDeviceIdentities = v32;
+
+    if (v31)
+    {
+      v34 = +[RPDaemon sharedDaemon];
+      [v34 postDaemonInfoChanges:8];
+
+      [(RPIdentityDaemon *)selfCopy _postIdentitiesChangedNotification];
+    }
   }
-
-  if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-  {
-    goto LABEL_73;
-  }
-
-LABEL_81:
-  v31 = [(RPIdentityDaemon *)selfCopy _dedupeSameAccountDeviceIdentities:obj, v34, v35, v36, v37];
-  sameAccountDeviceIdentities = selfCopy->_sameAccountDeviceIdentities;
-  selfCopy->_sameAccountDeviceIdentities = v31;
-
-  if (v30)
-  {
-    v33 = +[RPDaemon sharedDaemon];
-    [v33 postDaemonInfoChanges:8];
-
-    [(RPIdentityDaemon *)selfCopy _postIdentitiesChangedNotification];
-  }
-
-LABEL_83:
 }
 
 - (RPIdentityDaemon)init
@@ -384,9 +378,9 @@ LABEL_83:
     *&v3->_homeViewChangeToken = -1;
     v3->_pairedDevicesNotifier = -1;
     v3->_userIdentitiesChanged = 1;
-    v4 = objc_alloc(off_1001D3FC0[0]());
+    v4 = objc_alloc(off_1001D3FC0());
     dispatchQueue = v3->_dispatchQueue;
-    v6 = off_1001D3FC8();
+    v6 = off_1001D3FC8(v4);
     v17 = v6;
     v18 = &__kCFBooleanTrue;
     v7 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
@@ -410,596 +404,586 @@ LABEL_83:
 
 - (id)descriptionWithLevel:(int)level
 {
-  v180[1] = 0;
-  NSAppendPrintF();
-  v4 = 0;
-  v180[0] = 0;
-  v5 = [(RPIdentityDaemon *)self identityOfSelfAndReturnError:v180];
-  v6 = v180[0];
+  v192 = 0;
+  NSAppendPrintF(&v192, "-- RPIdentityDaemon --\n");
+  v4 = v192;
+  v191 = 0;
+  v5 = [(RPIdentityDaemon *)self identityOfSelfAndReturnError:&v191];
+  v6 = v191;
   v7 = v6;
-  v124 = v5;
+  v114 = v5;
   if (v5)
   {
-    v179[2] = v4;
-    v103 = CUDescriptionWithLevel();
-    NSAppendPrintF();
-    v8 = v4;
+    v190 = v4;
+    v8 = CUDescriptionWithLevel();
+    NSAppendPrintF(&v190, "%@\n", v8);
+    v9 = v190;
 
-    v4 = v103;
+    v4 = v8;
   }
 
   else
   {
-    v179[1] = v4;
-    v103 = v6;
-    NSAppendPrintF();
-    v8 = v4;
+    v189 = v4;
+    NSAppendPrintF(&v189, "No SelfIdentity: %{error}\n", v6);
+    v9 = v189;
   }
 
-  v179[0] = v7;
-  v103 = [(RPIdentityDaemon *)self identityOfTemporarySelfAndReturnError:v179, v103];
-  v10 = v179[0];
+  v188 = v7;
+  v10 = [(RPIdentityDaemon *)self identityOfTemporarySelfAndReturnError:&v188];
+  v11 = v188;
 
-  v123 = v103;
-  if (v103)
+  v113 = v10;
+  if (v10)
   {
-    v178 = v8;
-    v104 = CUDescriptionWithLevel();
-    NSAppendPrintF();
-    v11 = v8;
+    v187 = v9;
+    v12 = CUDescriptionWithLevel();
+    NSAppendPrintF(&v187, "%@\n", v12);
+    v13 = v187;
 
-    v8 = v104;
+    v9 = v12;
   }
 
   else
   {
-    v177 = v8;
-    v104 = v10;
-    NSAppendPrintF();
-    v11 = v8;
+    v186 = v9;
+    NSAppendPrintF(&v186, "No TemporarySelfIdentity: %{error}\n", v11);
+    v13 = v186;
   }
 
-  v175 = 0u;
-  v176 = 0u;
-  v173 = 0u;
-  v174 = 0u;
+  v184 = 0u;
+  v185 = 0u;
+  v182 = 0u;
+  v183 = 0u;
   selfCopy = self;
-  v12 = self->_sameAccountDeviceIdentities;
-  v104 = [(NSArray *)v12 countByEnumeratingWithState:&v173 objects:v190 count:16, v104];
-  if (v104)
+  v14 = self->_sameAccountDeviceIdentities;
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v182 objects:v202 count:16];
+  if (v15)
   {
-    v105 = v104;
-    v15 = *v174;
+    v16 = v15;
+    v17 = *v183;
     do
     {
-      v16 = 0;
-      v17 = v11;
+      v18 = 0;
+      v19 = v13;
       do
       {
-        if (*v174 != v15)
+        if (*v183 != v17)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v173 + 1) + 8 * v16);
-        v172[1] = v17;
-        v105 = CUDescriptionWithLevel();
-        NSAppendPrintF();
-        v11 = v17;
+        v181 = v19;
+        v20 = CUDescriptionWithLevel();
+        NSAppendPrintF(&v181, "%@\n", v20);
+        v13 = v181;
 
-        v16 = v16 + 1;
-        v17 = v11;
+        ++v18;
+        v19 = v13;
       }
 
-      while (v105 != v16);
-      v105 = [(NSArray *)v12 countByEnumeratingWithState:&v173 objects:v190 count:16, v105];
+      while (v16 != v18);
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v182 objects:v202 count:16];
     }
 
-    while (v105);
+    while (v16);
   }
 
-  v172[0] = v10;
-  selfCopy8 = self;
-  v20 = [(RPIdentityDaemon *)self identitiesOfType:3 error:v172];
-  v21 = v172[0];
+  v180 = v11;
+  v21 = selfCopy;
+  v22 = [(RPIdentityDaemon *)selfCopy identitiesOfType:3 error:&v180];
+  v23 = v180;
 
-  v122 = v20;
-  if (v20)
+  v112 = v22;
+  if (v22)
   {
-    v170 = 0u;
+    v178 = 0u;
+    v179 = 0u;
+    v176 = 0u;
+    v177 = 0u;
+    v24 = v22;
+    v25 = [v24 countByEnumeratingWithState:&v176 objects:v201 count:16];
+    if (v25)
+    {
+      v26 = v25;
+      v27 = *v177;
+      do
+      {
+        v28 = 0;
+        v29 = v13;
+        do
+        {
+          if (*v177 != v27)
+          {
+            objc_enumerationMutation(v24);
+          }
+
+          v175 = v29;
+          v30 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v175, "%@\n", v30);
+          v13 = v175;
+
+          ++v28;
+          v29 = v13;
+        }
+
+        while (v26 != v28);
+        v26 = [v24 countByEnumeratingWithState:&v176 objects:v201 count:16];
+      }
+
+      while (v26);
+      v21 = selfCopy;
+    }
+  }
+
+  else
+  {
+    v174 = v13;
+    NSAppendPrintF(&v174, "No family account identities: %{error}\n", v23);
+    v24 = v13;
+    v13 = v174;
+  }
+
+  v173 = v23;
+  v31 = [(RPIdentityDaemon *)v21 identitiesOfType:4 error:&v173];
+  v32 = v173;
+
+  v111 = v31;
+  if (v31)
+  {
     v171 = 0u;
-    v168 = 0u;
+    v172 = 0u;
     v169 = 0u;
-    v22 = v20;
-    v23 = [v22 countByEnumeratingWithState:&v168 objects:v189 count:16];
-    if (v23)
+    v170 = 0u;
+    v33 = v31;
+    v34 = [v33 countByEnumeratingWithState:&v169 objects:v200 count:16];
+    if (v34)
     {
-      v24 = v23;
-      v25 = *v169;
+      v35 = v34;
+      v36 = *v170;
       do
       {
-        v26 = 0;
-        v27 = v11;
+        v37 = 0;
+        v38 = v13;
         do
         {
-          if (*v169 != v25)
+          if (*v170 != v36)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v33);
           }
 
-          v28 = *(*(&v168 + 1) + 8 * v26);
-          v167[2] = v27;
-          v106 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v27;
+          v168 = v38;
+          v39 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v168, "%@\n", v39);
+          v13 = v168;
 
-          v26 = v26 + 1;
-          v27 = v11;
+          ++v37;
+          v38 = v13;
         }
 
-        while (v24 != v26);
-        v24 = [v22 countByEnumeratingWithState:&v168 objects:v189 count:{16, v106}];
+        while (v35 != v37);
+        v35 = [v33 countByEnumeratingWithState:&v169 objects:v200 count:16];
       }
 
-      while (v24);
-      selfCopy8 = self;
+      while (v35);
+      v21 = selfCopy;
     }
   }
 
   else
   {
-    v167[1] = v11;
-    NSAppendPrintF();
-    v22 = v11;
-    v11 = v11;
+    v167 = v13;
+    NSAppendPrintF(&v167, "No family device identities: %{error}\n", v32);
+    v33 = v13;
+    v13 = v167;
   }
 
-  v167[0] = v21;
-  v29 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:4 error:v167];
-  v30 = v167[0];
+  v166 = v32;
+  v40 = [(RPIdentityDaemon *)v21 identitiesOfType:5 error:&v166];
+  v41 = v166;
 
-  v121 = v29;
-  if (v29)
+  v110 = v40;
+  if (v40)
   {
-    v165 = 0u;
-    v166 = 0u;
-    v163 = 0u;
     v164 = 0u;
-    v31 = v29;
-    v32 = [v31 countByEnumeratingWithState:&v163 objects:v188 count:16];
-    if (v32)
+    v165 = 0u;
+    v162 = 0u;
+    v163 = 0u;
+    v42 = v40;
+    v43 = [v42 countByEnumeratingWithState:&v162 objects:v199 count:16];
+    if (v43)
     {
-      v33 = v32;
-      v34 = *v164;
+      v44 = v43;
+      v45 = *v163;
       do
       {
-        v35 = 0;
-        v36 = v11;
+        v46 = 0;
+        v47 = v13;
         do
         {
-          if (*v164 != v34)
+          if (*v163 != v45)
           {
-            objc_enumerationMutation(v31);
+            objc_enumerationMutation(v42);
           }
 
-          v37 = *(*(&v163 + 1) + 8 * v35);
-          v162[2] = v36;
-          v107 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v36;
+          v161 = v47;
+          v48 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v161, "%@\n", v48);
+          v13 = v161;
 
-          v35 = v35 + 1;
-          v36 = v11;
+          ++v46;
+          v47 = v13;
         }
 
-        while (v33 != v35);
-        v33 = [v31 countByEnumeratingWithState:&v163 objects:v188 count:{16, v107}];
+        while (v44 != v46);
+        v44 = [v42 countByEnumeratingWithState:&v162 objects:v199 count:16];
       }
 
-      while (v33);
-      selfCopy8 = self;
+      while (v44);
+      v21 = selfCopy;
     }
   }
 
   else
   {
-    v162[1] = v11;
-    NSAppendPrintF();
-    v31 = v11;
-    v11 = v11;
+    v160 = v13;
+    NSAppendPrintF(&v160, "No friend account identities: %{error}\n", v41);
+    v42 = v13;
+    v13 = v160;
   }
 
-  v162[0] = v30;
-  v38 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:5 error:v162];
-  v39 = v162[0];
+  v159 = v41;
+  v49 = [(RPIdentityDaemon *)v21 identitiesOfType:6 error:&v159];
+  v50 = v159;
 
-  v120 = v38;
-  if (v38)
+  v109 = v49;
+  if (v49)
   {
-    v160 = 0u;
-    v161 = 0u;
+    v157 = 0u;
     v158 = 0u;
-    v159 = 0u;
-    v40 = v38;
-    v41 = [v40 countByEnumeratingWithState:&v158 objects:v187 count:16];
-    if (v41)
-    {
-      v42 = v41;
-      v43 = *v159;
-      do
-      {
-        v44 = 0;
-        v45 = v11;
-        do
-        {
-          if (*v159 != v43)
-          {
-            objc_enumerationMutation(v40);
-          }
-
-          v46 = *(*(&v158 + 1) + 8 * v44);
-          v157[2] = v45;
-          v108 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v45;
-
-          v44 = v44 + 1;
-          v45 = v11;
-        }
-
-        while (v42 != v44);
-        v42 = [v40 countByEnumeratingWithState:&v158 objects:v187 count:{16, v108}];
-      }
-
-      while (v42);
-      selfCopy8 = self;
-    }
-  }
-
-  else
-  {
-    v157[1] = v11;
-    NSAppendPrintF();
-    v40 = v11;
-    v11 = v11;
-  }
-
-  v157[0] = v39;
-  v47 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:6 error:v157];
-  v48 = v157[0];
-
-  v119 = v47;
-  if (v47)
-  {
     v155 = 0u;
     v156 = 0u;
-    v153 = 0u;
-    v154 = 0u;
-    v49 = v47;
-    v50 = [v49 countByEnumeratingWithState:&v153 objects:v186 count:16];
-    if (v50)
+    v51 = v49;
+    v52 = [v51 countByEnumeratingWithState:&v155 objects:v198 count:16];
+    if (v52)
     {
-      v51 = v50;
-      v52 = *v154;
+      v53 = v52;
+      v54 = *v156;
       do
       {
-        v53 = 0;
-        v54 = v11;
+        v55 = 0;
+        v56 = v13;
         do
         {
-          if (*v154 != v52)
+          if (*v156 != v54)
           {
-            objc_enumerationMutation(v49);
+            objc_enumerationMutation(v51);
           }
 
-          v55 = *(*(&v153 + 1) + 8 * v53);
-          v152[2] = v54;
-          v109 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v54;
+          v154 = v56;
+          v57 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v154, "%@\n", v57);
+          v13 = v154;
 
-          v53 = v53 + 1;
-          v54 = v11;
+          ++v55;
+          v56 = v13;
         }
 
-        while (v51 != v53);
-        v51 = [v49 countByEnumeratingWithState:&v153 objects:v186 count:{16, v109}];
+        while (v53 != v55);
+        v53 = [v51 countByEnumeratingWithState:&v155 objects:v198 count:16];
       }
 
-      while (v51);
-      selfCopy8 = self;
+      while (v53);
+      v21 = selfCopy;
     }
   }
 
   else
   {
-    v152[1] = v11;
-    NSAppendPrintF();
-    v49 = v11;
-    v11 = v11;
+    v153 = v13;
+    NSAppendPrintF(&v153, "No friend device identities: %{error}\n", v50);
+    v51 = v13;
+    v13 = v153;
   }
 
-  v152[0] = v48;
-  v56 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:8 error:v152];
-  v57 = v152[0];
+  v152 = v50;
+  v58 = [(RPIdentityDaemon *)v21 identitiesOfType:8 error:&v152];
+  v59 = v152;
 
-  v118 = v56;
-  if (v56)
+  v108 = v58;
+  if (v58)
   {
     v150 = 0u;
     v151 = 0u;
     v148 = 0u;
     v149 = 0u;
-    v58 = v56;
-    v59 = [v58 countByEnumeratingWithState:&v148 objects:v185 count:16];
-    if (v59)
+    v60 = v58;
+    v61 = [v60 countByEnumeratingWithState:&v148 objects:v197 count:16];
+    if (v61)
     {
-      v60 = v59;
-      v61 = *v149;
+      v62 = v61;
+      v63 = *v149;
       do
       {
-        v62 = 0;
-        v63 = v11;
+        v64 = 0;
+        v65 = v13;
         do
         {
-          if (*v149 != v61)
+          if (*v149 != v63)
           {
-            objc_enumerationMutation(v58);
+            objc_enumerationMutation(v60);
           }
 
-          v64 = *(*(&v148 + 1) + 8 * v62);
-          v147[2] = v63;
-          v110 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v63;
+          v147 = v65;
+          v66 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v147, "%@\n", v66);
+          v13 = v147;
 
-          v62 = v62 + 1;
-          v63 = v11;
+          ++v64;
+          v65 = v13;
         }
 
-        while (v60 != v62);
-        v60 = [v58 countByEnumeratingWithState:&v148 objects:v185 count:{16, v110}];
+        while (v62 != v64);
+        v62 = [v60 countByEnumeratingWithState:&v148 objects:v197 count:16];
       }
 
-      while (v60);
-      selfCopy8 = self;
+      while (v62);
+      v21 = selfCopy;
     }
   }
 
   else
   {
-    v147[1] = v11;
-    NSAppendPrintF();
-    v58 = v11;
-    v11 = v11;
+    v146 = v13;
+    NSAppendPrintF(&v146, "No paired device identities: %{error}\n", v59);
+    v60 = v13;
+    v13 = v146;
   }
 
-  v147[0] = v57;
-  v65 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:9 error:v147];
-  v66 = v147[0];
+  v145 = v59;
+  v67 = [(RPIdentityDaemon *)v21 identitiesOfType:9 error:&v145];
+  v68 = v145;
 
-  v117 = v65;
-  if (v65)
+  v107 = v67;
+  if (v67)
   {
-    v145 = 0u;
-    v146 = 0u;
     v143 = 0u;
     v144 = 0u;
-    v67 = v65;
-    v68 = [v67 countByEnumeratingWithState:&v143 objects:v184 count:16];
-    if (v68)
-    {
-      v69 = v68;
-      v70 = *v144;
-      do
-      {
-        v71 = 0;
-        v72 = v11;
-        do
-        {
-          if (*v144 != v70)
-          {
-            objc_enumerationMutation(v67);
-          }
-
-          v73 = *(*(&v143 + 1) + 8 * v71);
-          v142[2] = v72;
-          v111 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v72;
-
-          v71 = v71 + 1;
-          v72 = v11;
-        }
-
-        while (v69 != v71);
-        v69 = [v67 countByEnumeratingWithState:&v143 objects:v184 count:{16, v111}];
-      }
-
-      while (v69);
-      selfCopy8 = self;
-    }
-  }
-
-  else
-  {
-    v142[1] = v11;
-    NSAppendPrintF();
-    v67 = v11;
-    v11 = v11;
-  }
-
-  v142[0] = v66;
-  v74 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:12 error:v142];
-  v75 = v142[0];
-
-  v125 = v74;
-  if (v74)
-  {
-    v140 = 0u;
     v141 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v76 = v74;
-    v77 = [v76 countByEnumeratingWithState:&v138 objects:v183 count:16];
-    if (v77)
+    v142 = 0u;
+    v69 = v67;
+    v70 = [v69 countByEnumeratingWithState:&v141 objects:v196 count:16];
+    if (v70)
     {
-      v78 = v77;
-      v79 = *v139;
+      v71 = v70;
+      v72 = *v142;
       do
       {
-        v80 = 0;
-        v81 = v11;
+        v73 = 0;
+        v74 = v13;
         do
         {
-          if (*v139 != v79)
+          if (*v142 != v72)
           {
-            objc_enumerationMutation(v76);
+            objc_enumerationMutation(v69);
           }
 
-          v82 = *(*(&v138 + 1) + 8 * v80);
-          v137[2] = v81;
-          v112 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v81;
+          v140 = v74;
+          v75 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v140, "%@\n", v75);
+          v13 = v140;
 
-          v80 = v80 + 1;
-          v81 = v11;
+          ++v73;
+          v74 = v13;
         }
 
-        while (v78 != v80);
-        v78 = [v76 countByEnumeratingWithState:&v138 objects:v183 count:{16, v112}];
+        while (v71 != v73);
+        v71 = [v69 countByEnumeratingWithState:&v141 objects:v196 count:16];
       }
 
-      while (v78);
-      v74 = v125;
-      selfCopy8 = selfCopy;
+      while (v71);
+      v21 = selfCopy;
     }
   }
 
   else
   {
-    v137[1] = v11;
-    NSAppendPrintF();
-    v76 = v11;
-    v11 = v11;
+    v139 = v13;
+    NSAppendPrintF(&v139, "No SharedHome device identities: %{error}\n", v68);
+    v69 = v13;
+    v13 = v139;
   }
 
-  v137[0] = v75;
-  v83 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:13 error:v137];
-  v84 = v137[0];
+  v138 = v68;
+  v76 = [(RPIdentityDaemon *)v21 identitiesOfType:12 error:&v138];
+  v77 = v138;
 
-  if (v83)
+  v115 = v76;
+  if (v76)
   {
-    v135 = 0u;
     v136 = 0u;
-    v133 = 0u;
+    v137 = 0u;
     v134 = 0u;
-    v85 = v83;
-    v86 = [v85 countByEnumeratingWithState:&v133 objects:v182 count:16];
-    if (v86)
+    v135 = 0u;
+    v78 = v76;
+    v79 = [v78 countByEnumeratingWithState:&v134 objects:v195 count:16];
+    if (v79)
     {
-      v87 = v86;
-      v115 = v83;
-      v88 = *v134;
+      v80 = v79;
+      v81 = *v135;
       do
       {
-        v89 = 0;
-        v90 = v11;
+        v82 = 0;
+        v83 = v13;
         do
         {
-          if (*v134 != v88)
+          if (*v135 != v81)
           {
-            objc_enumerationMutation(v85);
+            objc_enumerationMutation(v78);
           }
 
-          v91 = *(*(&v133 + 1) + 8 * v89);
-          v132[2] = v90;
-          v113 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v90;
+          v133 = v83;
+          v84 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v133, "%@\n", v84);
+          v13 = v133;
 
-          v89 = v89 + 1;
-          v90 = v11;
+          ++v82;
+          v83 = v13;
         }
 
-        while (v87 != v89);
-        v87 = [v85 countByEnumeratingWithState:&v133 objects:v182 count:{16, v113}];
+        while (v80 != v82);
+        v80 = [v78 countByEnumeratingWithState:&v134 objects:v195 count:16];
       }
 
-      while (v87);
-      v74 = v125;
-      selfCopy8 = selfCopy;
-      v83 = v115;
+      while (v80);
+      v76 = v115;
+      v21 = selfCopy;
     }
   }
 
   else
   {
-    v132[1] = v11;
-    NSAppendPrintF();
-    v85 = v11;
-    v11 = v11;
+    v132 = v13;
+    NSAppendPrintF(&v132, "No Shared TV user device identities: %{error}\n", v77);
+    v78 = v13;
+    v13 = v132;
   }
 
-  v132[0] = v84;
-  v92 = [(RPIdentityDaemon *)selfCopy8 identitiesOfType:15 error:v132];
-  v93 = v132[0];
+  v131 = v77;
+  v85 = [(RPIdentityDaemon *)v21 identitiesOfType:13 error:&v131];
+  v86 = v131;
 
-  if (v92)
+  if (v85)
   {
-    v130 = 0u;
-    v131 = 0u;
-    v128 = 0u;
     v129 = 0u;
-    v94 = v92;
-    v95 = [v94 countByEnumeratingWithState:&v128 objects:v181 count:16];
-    if (v95)
+    v130 = 0u;
+    v127 = 0u;
+    v128 = 0u;
+    v87 = v85;
+    v88 = [v87 countByEnumeratingWithState:&v127 objects:v194 count:16];
+    if (v88)
     {
-      v96 = v95;
-      v127 = v93;
-      v116 = v83;
-      v97 = *v129;
+      v89 = v88;
+      v105 = v85;
+      v90 = *v128;
       do
       {
-        v98 = 0;
-        v99 = v11;
+        v91 = 0;
+        v92 = v13;
         do
         {
-          if (*v129 != v97)
+          if (*v128 != v90)
           {
-            objc_enumerationMutation(v94);
+            objc_enumerationMutation(v87);
           }
 
-          v100 = *(*(&v128 + 1) + 8 * v98);
-          v114 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v11 = v99;
+          v126 = v92;
+          v93 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v126, "%@\n", v93);
+          v13 = v126;
 
-          v98 = v98 + 1;
-          v99 = v11;
+          ++v91;
+          v92 = v13;
         }
 
-        while (v96 != v98);
-        v96 = [v94 countByEnumeratingWithState:&v128 objects:v181 count:{16, v114}];
+        while (v89 != v91);
+        v89 = [v87 countByEnumeratingWithState:&v127 objects:v194 count:16];
       }
 
-      while (v96);
-      v74 = v125;
-      v93 = v127;
-      v83 = v116;
+      while (v89);
+      v76 = v115;
+      v21 = selfCopy;
+      v85 = v105;
     }
   }
 
   else
   {
-    NSAppendPrintF();
-    v94 = v11;
-    v11 = v11;
+    v125 = v13;
+    NSAppendPrintF(&v125, "No session pairing identities: %{error}\n", v86);
+    v87 = v13;
+    v13 = v125;
   }
 
-  v101 = v11;
-  return v11;
+  v124 = v86;
+  v94 = [(RPIdentityDaemon *)v21 identitiesOfType:15 error:&v124];
+  v95 = v124;
+
+  if (v94)
+  {
+    v122 = 0u;
+    v123 = 0u;
+    v120 = 0u;
+    v121 = 0u;
+    v96 = v94;
+    v97 = [v96 countByEnumeratingWithState:&v120 objects:v193 count:16];
+    if (v97)
+    {
+      v98 = v97;
+      v117 = v95;
+      v106 = v85;
+      v99 = *v121;
+      do
+      {
+        v100 = 0;
+        v101 = v13;
+        do
+        {
+          if (*v121 != v99)
+          {
+            objc_enumerationMutation(v96);
+          }
+
+          v119 = v101;
+          v102 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v119, "%@\n", v102);
+          v13 = v119;
+
+          ++v100;
+          v101 = v13;
+        }
+
+        while (v98 != v100);
+        v98 = [v96 countByEnumeratingWithState:&v120 objects:v193 count:16];
+      }
+
+      while (v98);
+      v76 = v115;
+      v95 = v117;
+      v85 = v106;
+    }
+  }
+
+  else
+  {
+    v118 = v13;
+    NSAppendPrintF(&v118, "No ad-hoc paired identities: %{error}\n", v95);
+    v96 = v13;
+    v13 = v118;
+  }
+
+  v103 = v13;
+  return v13;
 }
 
 - (void)activate
@@ -1015,34 +999,38 @@ LABEL_83:
 
 - (void)_activate
 {
-  if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D3F50 <= 30)
   {
-    sub_10011AB64();
+    if (dword_1001D3F50 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10011AB64(self, a2, v2);
+    }
   }
 
-  if (!self->_systemMonitor)
+  if (!selfCopy->_systemMonitor)
   {
-    v3 = objc_alloc_init(CUSystemMonitor);
-    systemMonitor = self->_systemMonitor;
-    self->_systemMonitor = v3;
+    v4 = objc_alloc_init(CUSystemMonitor);
+    systemMonitor = selfCopy->_systemMonitor;
+    selfCopy->_systemMonitor = v4;
 
-    [(CUSystemMonitor *)self->_systemMonitor setDispatchQueue:self->_dispatchQueue];
+    [(CUSystemMonitor *)selfCopy->_systemMonitor setDispatchQueue:selfCopy->_dispatchQueue];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100068214;
+    v8[3] = &unk_1001AA970;
+    v8[4] = selfCopy;
+    [(CUSystemMonitor *)selfCopy->_systemMonitor setFirstUnlockHandler:v8];
+    v6 = selfCopy->_systemMonitor;
     v7[0] = _NSConcreteStackBlock;
     v7[1] = 3221225472;
-    v7[2] = sub_100068214;
+    v7[2] = sub_10006821C;
     v7[3] = &unk_1001AA970;
-    v7[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setFirstUnlockHandler:v7];
-    v5 = self->_systemMonitor;
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10006821C;
-    v6[3] = &unk_1001AA970;
-    v6[4] = self;
-    [(CUSystemMonitor *)v5 activateWithCompletion:v6];
+    v7[4] = selfCopy;
+    [(CUSystemMonitor *)v6 activateWithCompletion:v7];
   }
 
-  [(RPIdentityDaemon *)self prefsChanged];
+  [(RPIdentityDaemon *)selfCopy prefsChanged];
 }
 
 - (void)invalidate
@@ -1060,23 +1048,27 @@ LABEL_83:
 {
   if (!self->_invalidateCalled)
   {
-    v9 = v2;
+    v10 = v3;
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30)
     {
-      sub_10011AB80();
+      if (dword_1001D3F50 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011AB80(self, a2, v2);
+      }
     }
 
-    [(CUSystemMonitor *)self->_systemMonitor invalidate:v3];
-    systemMonitor = self->_systemMonitor;
-    self->_systemMonitor = 0;
+    [(CUSystemMonitor *)selfCopy->_systemMonitor invalidate:v4];
+    systemMonitor = selfCopy->_systemMonitor;
+    selfCopy->_systemMonitor = 0;
 
-    peripheralManager = self->_peripheralManager;
-    self->_peripheralManager = 0;
+    peripheralManager = selfCopy->_peripheralManager;
+    selfCopy->_peripheralManager = 0;
 
-    [(RPIdentityDaemon *)self _ensureStopped];
+    [(RPIdentityDaemon *)selfCopy _ensureStopped];
 
-    [(RPIdentityDaemon *)self _invalidated];
+    [(RPIdentityDaemon *)selfCopy _invalidated];
   }
 }
 
@@ -1086,9 +1078,12 @@ LABEL_83:
   if (self->_invalidateCalled && !self->_invalidateDone)
   {
     self->_invalidateDone = 1;
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30)
     {
-      sub_10011AB9C();
+      if (dword_1001D3F50 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_10011AB9C(v3, v4, v5);
+      }
     }
   }
 }
@@ -1096,19 +1091,23 @@ LABEL_83:
 - (void)daemonInfoChanged:(unint64_t)changed
 {
   changedCopy = changed;
+  selfCopy = self;
   if ((changed & 0x10) != 0)
   {
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30)
     {
-      sub_10011ABB8();
+      if (dword_1001D3F50 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011ABB8(self, a2, changed);
+      }
     }
 
-    [(RPIdentityDaemon *)self _ensureStopped];
+    [(RPIdentityDaemon *)selfCopy _ensureStopped];
     v5 = +[RPDaemon sharedDaemon];
     [v5 postDaemonInfoChanges:8];
 
     notify_post("com.apple.rapport.identitiesChanged");
-    [(RPIdentityDaemon *)self _update];
+    self = [(RPIdentityDaemon *)selfCopy _update];
     if ((changedCopy & 0x40) == 0)
     {
 LABEL_3:
@@ -1118,7 +1117,7 @@ LABEL_3:
       }
 
 LABEL_14:
-      [(RPIdentityDaemon *)self _updateSameAccountIdentities];
+      [(RPIdentityDaemon *)selfCopy _updateSameAccountIdentities];
       if ((changedCopy & 0x20000) == 0)
       {
         return;
@@ -1133,16 +1132,19 @@ LABEL_14:
     goto LABEL_3;
   }
 
-  if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D3F50 <= 30)
   {
-    sub_10011ABD4();
+    if (dword_1001D3F50 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10011ABD4(self, a2, changed);
+    }
   }
 
-  selfIdentityCache = self->_selfIdentityCache;
-  self->_selfIdentityCache = 0;
+  selfIdentityCache = selfCopy->_selfIdentityCache;
+  selfCopy->_selfIdentityCache = 0;
 
-  [(RPIdentityDaemon *)self _loadSelfIdentity:0];
-  [(RPIdentityDaemon *)self _updateSameAccountIdentities];
+  [(RPIdentityDaemon *)selfCopy _loadSelfIdentity:0];
+  [(RPIdentityDaemon *)selfCopy _updateSameAccountIdentities];
   if (changedCopy)
   {
     goto LABEL_14;
@@ -1155,13 +1157,13 @@ LABEL_4:
   }
 
 LABEL_15:
-  idsDeviceID = [(RPIdentity *)self->_selfIdentityCache idsDeviceID];
+  idsDeviceID = [(RPIdentity *)selfCopy->_selfIdentityCache idsDeviceID];
 
   if (idsDeviceID)
   {
-    v8 = self->_selfIdentityCache;
+    v8 = selfCopy->_selfIdentityCache;
 
-    [(RPIdentityDaemon *)self _saveSelfIdentityPublicWithPrivateIdentity:v8 force:0];
+    [(RPIdentityDaemon *)selfCopy _saveSelfIdentityPublicWithPrivateIdentity:v8 force:0];
   }
 }
 
@@ -1170,11 +1172,15 @@ LABEL_15:
   commandCopy = command;
   paramsCopy = params;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if ([commandCopy isEqual:@"KeychainRefetch"])
+  v8 = [commandCopy isEqual:@"KeychainRefetch"];
+  if (v8)
   {
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30)
     {
-      sub_10011ACA0();
+      if (dword_1001D3F50 != -1 || (v8 = _LogCategory_Initialize(), v8))
+      {
+        sub_10011ACA0(v8, v9, v10);
+      }
     }
 
     [(RPIdentityDaemon *)self _triggerKeychainRefetch];
@@ -1185,27 +1191,34 @@ LABEL_15:
   {
     [(RPIdentityDaemon *)self _loadSelfIdentity:0];
 LABEL_29:
-    LOBYTE(v8) = 1;
+    LOBYTE(v14) = 1;
     goto LABEL_30;
   }
 
   if ([commandCopy isEqual:@"SelfIdentitySave"])
   {
-    v8 = self->_selfIdentityCache;
-    if (v8)
+    v11 = self->_selfIdentityCache;
+    v14 = v11;
+    if (v11)
     {
-      if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D3F50 <= 30)
       {
-        sub_10011AC68();
+        if (dword_1001D3F50 != -1 || (v11 = _LogCategory_Initialize(), v11))
+        {
+          sub_10011AC68(v11, v12, v13);
+        }
       }
 
-      [(RPIdentityDaemon *)self _saveSelfIdentityPrivate:v8];
-      [(RPIdentityDaemon *)self _saveSelfIdentityPublicWithPrivateIdentity:v8 force:1];
+      [(RPIdentityDaemon *)self _saveSelfIdentityPrivate:v14];
+      [(RPIdentityDaemon *)self _saveSelfIdentityPublicWithPrivateIdentity:v14 force:1];
     }
 
-    else if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D3F50 <= 30)
     {
-      sub_10011AC84();
+      if (dword_1001D3F50 != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        sub_10011AC84(v11, v12, v13);
+      }
     }
 
     goto LABEL_28;
@@ -1213,44 +1226,49 @@ LABEL_29:
 
   if ([commandCopy isEqual:@"SelfIdentityRemove"])
   {
-    v8 = self->_selfIdentityCache;
-    if (v8)
+    v15 = self->_selfIdentityCache;
+    v14 = v15;
+    if (v15)
     {
-      if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D3F50 <= 30)
       {
-        sub_10011AC4C();
+        if (dword_1001D3F50 != -1 || (v15 = _LogCategory_Initialize(), v15))
+        {
+          sub_10011AC4C(v15, v16, v17);
+        }
       }
 
-      [(RPIdentityDaemon *)self _removeSelfIdentityPublicWithPrivateIdentity:v8];
+      [(RPIdentityDaemon *)self _removeSelfIdentityPublicWithPrivateIdentity:v14];
     }
 
     goto LABEL_28;
   }
 
-  if (![commandCopy isEqual:@"SelfIdentityRotate"])
+  v18 = [commandCopy isEqual:@"SelfIdentityRotate"];
+  if (!v18)
   {
     if ([commandCopy isEqual:@"SameAccountIdentityRemove"])
     {
-      v8 = [paramsCopy objectForKey:@"idsIdentifier"];
+      v14 = [paramsCopy objectForKey:@"idsIdentifier"];
       if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011ABF0();
-        if (!v8)
+        sub_10011ABF0(v14);
+        if (!v14)
         {
           goto LABEL_30;
         }
       }
 
-      else if (!v8)
+      else if (!v14)
       {
         goto LABEL_30;
       }
 
-      v13 = 0;
-      v10 = [(RPIdentityDaemon *)self _removeSameAccountIdentityWithIDSIdentifier:v8 error:&v13];
-      v11 = v13;
-      v12 = v11;
-      if (v10)
+      v25 = 0;
+      v22 = [(RPIdentityDaemon *)self _removeSameAccountIdentityWithIDSIdentifier:v14 error:&v25];
+      v23 = v25;
+      v24 = v23;
+      if (v22)
       {
 
 LABEL_28:
@@ -1259,24 +1277,27 @@ LABEL_28:
 
       if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon diagnosticCommand:params:]", 30, "Diag: Remove SameAccountIdentity failed: %@\n", v14, v24);
       }
     }
 
-    LOBYTE(v8) = 0;
+    LOBYTE(v14) = 0;
     goto LABEL_30;
   }
 
-  if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D3F50 <= 30)
   {
-    sub_10011AC30();
+    if (dword_1001D3F50 != -1 || (v18 = _LogCategory_Initialize(), v18))
+    {
+      sub_10011AC30(v18, v19, v20);
+    }
   }
 
-  LOBYTE(v8) = 1;
+  LOBYTE(v14) = 1;
   [(RPIdentityDaemon *)self _loadSelfIdentity:1];
 LABEL_30:
 
-  return v8;
+  return v14;
 }
 
 - (void)prefsChanged
@@ -1345,7 +1366,7 @@ LABEL_30:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011AE74();
+    sub_10011AE74(identityCopy);
   }
 
   [(RPIdentityDaemon *)self _loadSelfIdentity:1];
@@ -1372,31 +1393,31 @@ LABEL_30:
   updatedCopy = updated;
   selfCopy = self;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v42 = objc_alloc_init(NSMutableArray);
-  v57 = 0u;
+  v43 = objc_alloc_init(NSMutableArray);
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
   v5 = updatedCopy;
-  v6 = [v5 countByEnumeratingWithState:&v57 objects:v63 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v58 objects:v64 count:16];
   obj = v5;
   if (v6)
   {
     v7 = v6;
-    v8 = *v58;
-    v43 = *v58;
+    v8 = *v59;
+    v44 = *v59;
     do
     {
       v9 = 0;
-      v44 = v7;
+      v45 = v7;
       do
       {
-        if (*v58 != v8)
+        if (*v59 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v57 + 1) + 8 * v9);
+        v10 = *(*(&v58 + 1) + 8 * v9);
         uniqueIdentifier = [v10 uniqueIdentifier];
         uUIDString = [uniqueIdentifier UUIDString];
 
@@ -1412,28 +1433,28 @@ LABEL_30:
             currentUser = [home currentUser];
             if (!currentUser || ([home homeAccessControlForUser:currentUser], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isOwner"), v18, (v19 & 1) == 0))
             {
-              v46 = currentUser;
-              v47 = data;
-              v48 = uUIDString;
-              v55 = 0u;
+              v47 = currentUser;
+              v48 = data;
+              v49 = uUIDString;
               v56 = 0u;
-              v53 = 0u;
+              v57 = 0u;
               v54 = 0u;
+              v55 = 0u;
               users = [home users];
-              uniqueIdentifier2 = [users countByEnumeratingWithState:&v53 objects:v62 count:16];
+              uniqueIdentifier2 = [users countByEnumeratingWithState:&v54 objects:v63 count:16];
               if (uniqueIdentifier2)
               {
-                v22 = *v54;
+                v22 = *v55;
 LABEL_12:
                 v23 = 0;
                 while (1)
                 {
-                  if (*v54 != v22)
+                  if (*v55 != v22)
                   {
                     objc_enumerationMutation(users);
                   }
 
-                  v24 = *(*(&v53 + 1) + 8 * v23);
+                  v24 = *(*(&v54 + 1) + 8 * v23);
                   v25 = [home homeAccessControlForUser:v24];
                   isOwner = [v25 isOwner];
 
@@ -1444,15 +1465,15 @@ LABEL_12:
 
                   if (uniqueIdentifier2 == ++v23)
                   {
-                    uniqueIdentifier2 = [users countByEnumeratingWithState:&v53 objects:v62 count:16];
+                    uniqueIdentifier2 = [users countByEnumeratingWithState:&v54 objects:v63 count:16];
                     if (uniqueIdentifier2)
                     {
                       goto LABEL_12;
                     }
 
                     userID = 0;
-                    v8 = v43;
-                    v7 = v44;
+                    v8 = v44;
+                    v7 = v45;
                     goto LABEL_29;
                   }
                 }
@@ -1462,34 +1483,34 @@ LABEL_12:
 
                 if (!userID)
                 {
-                  v8 = v43;
-                  v7 = v44;
+                  v8 = v44;
+                  v7 = v45;
                   goto LABEL_31;
                 }
 
                 users = objc_alloc_init(RPIdentity);
                 [users setAccountID:userID];
-                [users setDeviceIRKData:v47];
+                [users setDeviceIRKData:v48];
                 [users setHomeKitUserIdentifier:uniqueIdentifier2];
-                [users setIdentifier:v48];
-                [users setIdsDeviceID:v48];
+                [users setIdentifier:v49];
+                [users setIdsDeviceID:v49];
                 name = [v10 name];
                 [users setName:name];
 
                 [users setType:9];
                 homePodVariant = [v10 homePodVariant];
                 v30 = @"AudioAccessory1,1";
-                v8 = v43;
-                v7 = v44;
+                v8 = v44;
+                v7 = v45;
                 if (homePodVariant == 1 || (v31 = [v10 homePodVariant], v30 = @"AudioAccessory5,1", v31 == 2) || (v32 = objc_msgSend(v10, "homePodVariant", @"AudioAccessory5,1"), v30 = @"AudioAccessory6,1", v32 == 3))
                 {
                   [users setModel:v30];
                 }
 
-                [v42 addObject:users];
+                [v43 addObject:users];
                 if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
                 {
-                  sub_10011AEB4();
+                  sub_10011AEB4(users);
                 }
               }
 
@@ -1501,9 +1522,9 @@ LABEL_12:
 LABEL_29:
 
 LABEL_31:
-              data = v47;
-              uUIDString = v48;
-              currentUser = v46;
+              data = v48;
+              uUIDString = v49;
+              currentUser = v47;
             }
           }
         }
@@ -1512,58 +1533,59 @@ LABEL_31:
       }
 
       while (v9 != v7);
-      v7 = [obj countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v7 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
     }
 
     while (v7);
   }
 
-  v51 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
+  v51 = 0u;
   p_isa = &selfCopy->super.isa;
   v34 = selfCopy->_sharedHomeExtraDeviceIdentities;
-  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v49 objects:v61 count:16];
+  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v50;
+    v37 = *v51;
     do
     {
       v38 = 0;
       do
       {
-        if (*v50 != v37)
+        if (*v51 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        [v42 addObject:{*(*(&v49 + 1) + 8 * v38), selfCopy}];
+        v39 = *(*(&v50 + 1) + 8 * v38);
+        [v43 addObject:{v39, selfCopy}];
         if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
         {
-          sub_10011AEF4();
+          sub_10011AEF4(v39);
         }
 
         v38 = v38 + 1;
       }
 
       while (v36 != v38);
-      v39 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v49 objects:v61 count:16];
-      v36 = v39;
+      v40 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      v36 = v40;
     }
 
-    while (v39);
+    while (v40);
   }
 
-  objc_storeStrong(p_isa + 11, v42);
+  objc_storeStrong(p_isa + 11, v43);
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011AF34(v42);
+    sub_10011AF34(v43);
   }
 
-  v40 = +[RPDaemon sharedDaemon];
-  [v40 postDaemonInfoChanges:512];
+  v41 = +[RPDaemon sharedDaemon];
+  [v41 postDaemonInfoChanges:512];
 
   [p_isa _postIdentitiesChangedNotification];
 }
@@ -1607,7 +1629,8 @@ LABEL_31:
 {
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) != 0)
+  firstUnlocked = [(CUSystemMonitor *)self->_systemMonitor firstUnlocked];
+  if (firstUnlocked)
   {
     txtDictionary = [deviceCopy txtDictionary];
     CFDictionaryGetHardwareAddress();
@@ -1618,9 +1641,12 @@ LABEL_31:
     }
   }
 
-  else if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D3F50 <= 30)
   {
-    sub_10011AF78();
+    if (dword_1001D3F50 != -1 || (firstUnlocked = _LogCategory_Initialize(), firstUnlocked))
+    {
+      sub_10011AF78(firstUnlocked, v7, v8);
+    }
   }
 
   return 0;
@@ -1628,47 +1654,47 @@ LABEL_31:
 
 - (id)resolveIdentityForSignature:(id)signature data:(id)data typeFlags:(unsigned int)flags error:(id *)error
 {
-  flagsCopy = flags;
+  v7 = *&flags;
   signatureCopy = signature;
   dataCopy = data;
-  if ((flagsCopy & 2) != 0 && self->_prefOwnerResolve)
+  if ((v7 & 2) != 0 && self->_prefOwnerResolve)
   {
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v12 = self->_sameAccountDeviceIdentities;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v70 objects:v80 count:16];
-    if (v13)
+    v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v18 = self->_sameAccountDeviceIdentities;
+    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v76 objects:v86 count:16];
+    if (v19)
     {
-      v14 = v13;
-      v15 = *v71;
+      v20 = v19;
+      v21 = *v77;
       while (2)
       {
-        for (i = 0; i != v14; i = i + 1)
+        for (i = 0; i != v20; i = i + 1)
         {
-          if (*v71 != v15)
+          if (*v77 != v21)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v18);
           }
 
-          v17 = *(*(&v70 + 1) + 8 * i);
-          if ([v17 verifySignature:signatureCopy data:dataCopy error:0])
+          v23 = *(*(&v76 + 1) + 8 * i);
+          if ([v23 verifySignature:signatureCopy data:dataCopy error:0])
           {
             if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
             {
-              sub_10011B370();
+              sub_10011B370(v23);
             }
 
 LABEL_107:
-            v44 = v17;
+            v50 = v23;
 
             goto LABEL_108;
           }
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v70 objects:v80 count:16];
-        if (v14)
+        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v76 objects:v86 count:16];
+        if (v20)
         {
           continue;
         }
@@ -1678,263 +1704,263 @@ LABEL_107:
     }
   }
 
-  if ((flagsCopy & 8) != 0 && self->_prefFamilyResolve)
+  if ((v7 & 8) != 0 && self->_prefFamilyResolve)
   {
+    v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v18 = [(RPIdentityDaemon *)self identitiesOfType:4 error:0];
+    v24 = [(NSArray *)v18 countByEnumeratingWithState:&v72 objects:v85 count:16];
+    if (v24)
+    {
+      v25 = v24;
+      v26 = *v73;
+      while (2)
+      {
+        for (j = 0; j != v25; j = j + 1)
+        {
+          if (*v73 != v26)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v23 = *(*(&v72 + 1) + 8 * j);
+          if ([v23 verifySignature:signatureCopy data:dataCopy error:0])
+          {
+            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+            {
+              sub_10011B3B0(v23);
+            }
+
+            goto LABEL_107;
+          }
+        }
+
+        v25 = [(NSArray *)v18 countByEnumeratingWithState:&v72 objects:v85 count:16];
+        if (v25)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  if ((v7 & 0x20) != 0 && self->_prefFriendResolve)
+  {
+    v70 = 0u;
+    v71 = 0u;
     v68 = 0u;
     v69 = 0u;
+    v18 = [(RPIdentityDaemon *)self identitiesOfType:6 error:0];
+    v28 = [(NSArray *)v18 countByEnumeratingWithState:&v68 objects:v84 count:16];
+    if (v28)
+    {
+      v29 = v28;
+      v30 = *v69;
+      while (2)
+      {
+        for (k = 0; k != v29; k = k + 1)
+        {
+          if (*v69 != v30)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v23 = *(*(&v68 + 1) + 8 * k);
+          if ([v23 verifySignature:signatureCopy data:dataCopy error:0])
+          {
+            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+            {
+              sub_10011B3F0(v23);
+            }
+
+            goto LABEL_107;
+          }
+        }
+
+        v29 = [(NSArray *)v18 countByEnumeratingWithState:&v68 objects:v84 count:16];
+        if (v29)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  if ((v7 & 0x400) != 0)
+  {
     v66 = 0u;
     v67 = 0u;
-    v12 = [(RPIdentityDaemon *)self identitiesOfType:4 error:0];
-    v18 = [(NSArray *)v12 countByEnumeratingWithState:&v66 objects:v79 count:16];
-    if (v18)
-    {
-      v19 = v18;
-      v20 = *v67;
-      while (2)
-      {
-        for (j = 0; j != v19; j = j + 1)
-        {
-          if (*v67 != v20)
-          {
-            objc_enumerationMutation(v12);
-          }
-
-          v17 = *(*(&v66 + 1) + 8 * j);
-          if ([v17 verifySignature:signatureCopy data:dataCopy error:0])
-          {
-            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-            {
-              sub_10011B3B0();
-            }
-
-            goto LABEL_107;
-          }
-        }
-
-        v19 = [(NSArray *)v12 countByEnumeratingWithState:&v66 objects:v79 count:16];
-        if (v19)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-  }
-
-  if ((flagsCopy & 0x20) != 0 && self->_prefFriendResolve)
-  {
     v64 = 0u;
     v65 = 0u;
+    v18 = [(RPIdentityDaemon *)self identitiesOfType:12 error:0];
+    v32 = [(NSArray *)v18 countByEnumeratingWithState:&v64 objects:v83 count:16];
+    if (v32)
+    {
+      v33 = v32;
+      v34 = *v65;
+      while (2)
+      {
+        for (m = 0; m != v33; m = m + 1)
+        {
+          if (*v65 != v34)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v23 = *(*(&v64 + 1) + 8 * m);
+          if ([v23 verifySignature:signatureCopy data:dataCopy error:0])
+          {
+            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+            {
+              sub_10011B430(v23);
+            }
+
+            goto LABEL_107;
+          }
+        }
+
+        v33 = [(NSArray *)v18 countByEnumeratingWithState:&v64 objects:v83 count:16];
+        if (v33)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  if ((v7 & 0x80) != 0 && self->_prefPairedResolve)
+  {
     v62 = 0u;
     v63 = 0u;
-    v12 = [(RPIdentityDaemon *)self identitiesOfType:6 error:0];
-    v22 = [(NSArray *)v12 countByEnumeratingWithState:&v62 objects:v78 count:16];
-    if (v22)
-    {
-      v23 = v22;
-      v24 = *v63;
-      while (2)
-      {
-        for (k = 0; k != v23; k = k + 1)
-        {
-          if (*v63 != v24)
-          {
-            objc_enumerationMutation(v12);
-          }
-
-          v17 = *(*(&v62 + 1) + 8 * k);
-          if ([v17 verifySignature:signatureCopy data:dataCopy error:0])
-          {
-            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-            {
-              sub_10011B3F0();
-            }
-
-            goto LABEL_107;
-          }
-        }
-
-        v23 = [(NSArray *)v12 countByEnumeratingWithState:&v62 objects:v78 count:16];
-        if (v23)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-  }
-
-  if ((flagsCopy & 0x400) != 0)
-  {
     v60 = 0u;
     v61 = 0u;
+    v18 = [(RPIdentityDaemon *)self identitiesOfType:8 error:0];
+    v36 = [(NSArray *)v18 countByEnumeratingWithState:&v60 objects:v82 count:16];
+    if (v36)
+    {
+      v37 = v36;
+      v38 = *v61;
+      while (2)
+      {
+        for (n = 0; n != v37; n = n + 1)
+        {
+          if (*v61 != v38)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v23 = *(*(&v60 + 1) + 8 * n);
+          if ([v23 verifySignature:signatureCopy data:dataCopy error:0])
+          {
+            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+            {
+              sub_10011B470(v23);
+            }
+
+            goto LABEL_107;
+          }
+        }
+
+        v37 = [(NSArray *)v18 countByEnumeratingWithState:&v60 objects:v82 count:16];
+        if (v37)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  if ((v7 & 0x800) != 0)
+  {
     v58 = 0u;
     v59 = 0u;
-    v12 = [(RPIdentityDaemon *)self identitiesOfType:12 error:0];
-    v26 = [(NSArray *)v12 countByEnumeratingWithState:&v58 objects:v77 count:16];
-    if (v26)
-    {
-      v27 = v26;
-      v28 = *v59;
-      while (2)
-      {
-        for (m = 0; m != v27; m = m + 1)
-        {
-          if (*v59 != v28)
-          {
-            objc_enumerationMutation(v12);
-          }
-
-          v17 = *(*(&v58 + 1) + 8 * m);
-          if ([v17 verifySignature:signatureCopy data:dataCopy error:0])
-          {
-            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-            {
-              sub_10011B430();
-            }
-
-            goto LABEL_107;
-          }
-        }
-
-        v27 = [(NSArray *)v12 countByEnumeratingWithState:&v58 objects:v77 count:16];
-        if (v27)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-  }
-
-  if ((flagsCopy & 0x80) != 0 && self->_prefPairedResolve)
-  {
     v56 = 0u;
     v57 = 0u;
+    v18 = [(RPIdentityDaemon *)self identitiesOfType:13 error:0];
+    v40 = [(NSArray *)v18 countByEnumeratingWithState:&v56 objects:v81 count:16];
+    if (v40)
+    {
+      v41 = v40;
+      v42 = *v57;
+      while (2)
+      {
+        for (ii = 0; ii != v41; ii = ii + 1)
+        {
+          if (*v57 != v42)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v23 = *(*(&v56 + 1) + 8 * ii);
+          if ([v23 verifySignature:signatureCopy data:dataCopy error:0])
+          {
+            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+            {
+              sub_10011B4B0(v23);
+            }
+
+            goto LABEL_107;
+          }
+        }
+
+        v41 = [(NSArray *)v18 countByEnumeratingWithState:&v56 objects:v81 count:16];
+        if (v41)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  if ((v7 & 0x4000) != 0)
+  {
     v54 = 0u;
     v55 = 0u;
-    v12 = [(RPIdentityDaemon *)self identitiesOfType:8 error:0];
-    v30 = [(NSArray *)v12 countByEnumeratingWithState:&v54 objects:v76 count:16];
-    if (v30)
-    {
-      v31 = v30;
-      v32 = *v55;
-      while (2)
-      {
-        for (n = 0; n != v31; n = n + 1)
-        {
-          if (*v55 != v32)
-          {
-            objc_enumerationMutation(v12);
-          }
-
-          v17 = *(*(&v54 + 1) + 8 * n);
-          if ([v17 verifySignature:signatureCopy data:dataCopy error:0])
-          {
-            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-            {
-              sub_10011B470();
-            }
-
-            goto LABEL_107;
-          }
-        }
-
-        v31 = [(NSArray *)v12 countByEnumeratingWithState:&v54 objects:v76 count:16];
-        if (v31)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-  }
-
-  if ((flagsCopy & 0x800) != 0)
-  {
     v52 = 0u;
     v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v12 = [(RPIdentityDaemon *)self identitiesOfType:13 error:0];
-    v34 = [(NSArray *)v12 countByEnumeratingWithState:&v50 objects:v75 count:16];
-    if (v34)
+    v44 = [(RPIdentityDaemon *)self identitiesOfType:15 error:0];
+    v45 = [v44 countByEnumeratingWithState:&v52 objects:v80 count:16];
+    if (v45)
     {
-      v35 = v34;
-      v36 = *v51;
+      v46 = v45;
+      v47 = *v53;
       while (2)
       {
-        for (ii = 0; ii != v35; ii = ii + 1)
+        for (jj = 0; jj != v46; jj = jj + 1)
         {
-          if (*v51 != v36)
+          if (*v53 != v47)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v44);
           }
 
-          v17 = *(*(&v50 + 1) + 8 * ii);
-          if ([v17 verifySignature:signatureCopy data:dataCopy error:0])
+          v49 = *(*(&v52 + 1) + 8 * jj);
+          if ([v49 verifySignature:signatureCopy data:dataCopy error:0])
           {
             if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
             {
-              sub_10011B4B0();
+              sub_10011B4F0(v49);
             }
 
-            goto LABEL_107;
-          }
-        }
-
-        v35 = [(NSArray *)v12 countByEnumeratingWithState:&v50 objects:v75 count:16];
-        if (v35)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-  }
-
-  if ((flagsCopy & 0x4000) != 0)
-  {
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v38 = [(RPIdentityDaemon *)self identitiesOfType:15 error:0, 0];
-    v39 = [v38 countByEnumeratingWithState:&v46 objects:v74 count:16];
-    if (v39)
-    {
-      v40 = v39;
-      v41 = *v47;
-      while (2)
-      {
-        for (jj = 0; jj != v40; jj = jj + 1)
-        {
-          if (*v47 != v41)
-          {
-            objc_enumerationMutation(v38);
-          }
-
-          v43 = *(*(&v46 + 1) + 8 * jj);
-          if ([v43 verifySignature:signatureCopy data:dataCopy error:0])
-          {
-            if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-            {
-              sub_10011B4F0();
-            }
-
-            v44 = v43;
+            v50 = v49;
 
             goto LABEL_108;
           }
         }
 
-        v40 = [v38 countByEnumeratingWithState:&v46 objects:v74 count:16];
-        if (v40)
+        v46 = [v44 countByEnumeratingWithState:&v52 objects:v80 count:16];
+        if (v46)
         {
           continue;
         }
@@ -1946,7 +1972,7 @@ LABEL_107:
 
   if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011B530();
+    sub_10011B530(v7);
     if (error)
     {
       goto LABEL_79;
@@ -1956,15 +1982,15 @@ LABEL_107:
   else if (error)
   {
 LABEL_79:
-    RPErrorF();
-    *error = v44 = 0;
+    RPErrorF(4294960569, "Resolved identity not found", v11, v12, v13, v14, v15, v16, v52);
+    *error = v50 = 0;
     goto LABEL_108;
   }
 
-  v44 = 0;
+  v50 = 0;
 LABEL_108:
 
-  return v44;
+  return v50;
 }
 
 - (unsigned)resolveIdentityTypesForSignature:(id)signature data:(id)data typeFlags:(unsigned int)flags
@@ -1975,7 +2001,7 @@ LABEL_108:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if ((flagsCopy & 2) == 0 || !self->_prefOwnerResolve)
   {
-    LODWORD(v11) = 0;
+    v11 = 0;
     if ((flagsCopy & 8) == 0)
     {
       goto LABEL_28;
@@ -1995,7 +2021,7 @@ LABEL_108:
     v12 = *v63;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v11; ++i)
       {
         if (*v63 != v12)
         {
@@ -2004,7 +2030,7 @@ LABEL_108:
 
         if ([*(*(&v62 + 1) + 8 * i) verifySignature:signatureCopy data:dataCopy error:0])
         {
-          LODWORD(v11) = 2;
+          v11 = 2;
           goto LABEL_15;
         }
       }
@@ -2047,7 +2073,7 @@ LABEL_16:
 
             if ([*(*(&v58 + 1) + 8 * j) verifySignature:signatureCopy data:dataCopy error:0])
             {
-              LODWORD(v11) = v11 | 8;
+              v11 = v11 | 8;
               goto LABEL_27;
             }
           }
@@ -2090,7 +2116,7 @@ LABEL_28:
 
           if ([*(*(&v54 + 1) + 8 * k) verifySignature:signatureCopy data:dataCopy error:0])
           {
-            LODWORD(v11) = v11 | 0x20;
+            v11 = v11 | 0x20;
             goto LABEL_40;
           }
         }
@@ -2131,7 +2157,7 @@ LABEL_40:
 
           if ([*(*(&v50 + 1) + 8 * m) verifySignature:signatureCopy data:dataCopy error:0])
           {
-            LODWORD(v11) = v11 | 0x400;
+            v11 = v11 | 0x400;
             goto LABEL_55;
           }
         }
@@ -2186,7 +2212,7 @@ LABEL_43:
 
         if ([*(*(&v46 + 1) + 8 * n) verifySignature:signatureCopy data:dataCopy error:0])
         {
-          LODWORD(v11) = v11 | 0x800;
+          v11 = v11 | 0x800;
           goto LABEL_66;
         }
       }
@@ -2229,7 +2255,7 @@ LABEL_67:
           v41 = 0;
           if ([v39 verifySignature:signatureCopy data:dataCopy error:&v41])
           {
-            LODWORD(v11) = v11 | 0x4000;
+            v11 = v11 | 0x4000;
             goto LABEL_77;
           }
         }
@@ -2250,7 +2276,7 @@ LABEL_77:
 LABEL_78:
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011B578();
+    sub_10011B578(v11);
   }
 
   return v11;
@@ -2304,36 +2330,34 @@ LABEL_11:
 - (id)resolveIdentityForNearFieldMessagePayload:(id)payload
 {
   payloadCopy = payload;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1000029FC;
-  v28 = sub_100003194;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_1000029FC;
-  v22 = sub_100003194;
-  v23 = +[NSMutableArray array];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10006AE6C;
-  v14[3] = &unk_1001ACDF0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1000029FC;
+  v27 = sub_100003194;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1000029FC;
+  v21 = sub_100003194;
+  v22 = +[NSMutableArray array];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10006AE6C;
+  v13[3] = &unk_1001ACDF0;
   v5 = payloadCopy;
-  v15 = v5;
-  v16 = &v24;
-  v17 = &v18;
-  [(RPIdentityDaemon *)self _enumerateIdentitiesWithFlag:19882 usingBlock:v14];
+  v14 = v5;
+  v15 = &v23;
+  v16 = &v17;
+  [(RPIdentityDaemon *)self _enumerateIdentitiesWithFlag:19882 usingBlock:v13];
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    v13 = v25[5];
-    [v19[5] count];
-    LogPrintF();
+    LogPrintF(&dword_1001D3F50, "-[RPIdentityDaemon resolveIdentityForNearFieldMessagePayload:]", 30, "identity resolved:%@ - fallback identities:%ld", v24[5], [v18[5] count]);
   }
 
-  v6 = v25;
-  v7 = v25[5];
+  v6 = v24;
+  v7 = v24[5];
   if (v7)
   {
     v8 = v7;
@@ -2343,66 +2367,199 @@ LABEL_11:
 
   else
   {
-    firstObject = [v19[5] firstObject];
-    v9 = v25[5];
-    v25[5] = firstObject;
+    firstObject = [v18[5] firstObject];
+    v9 = v24[5];
+    v24[5] = firstObject;
   }
 
-  v11 = v25[5];
-  _Block_object_dispose(&v18, 8);
+  v11 = v24[5];
+  _Block_object_dispose(&v17, 8);
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
 
   return v11;
+}
+
+- (unint64_t)resolveIdentityforSignature:(id)signature data:(id)data flags:(unsigned int)flags accountaltDSID:(id)d
+{
+  v7 = *&flags;
+  signatureCopy = signature;
+  dataCopy = data;
+  dCopy = d;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v19 = _NSConcreteStackBlock;
+  v20 = 3221225472;
+  v21 = sub_10006B0AC;
+  v22 = &unk_1001ACE18;
+  v13 = signatureCopy;
+  v23 = v13;
+  v14 = dataCopy;
+  v24 = v14;
+  v15 = dCopy;
+  v25 = v15;
+  v26 = &v27;
+  v16 = objc_retainBlock(&v19);
+  [(RPIdentityDaemon *)self _enumerateIdentitiesWithFlag:v7 usingBlock:v16, v19, v20, v21, v22];
+  v17 = v28[3];
+
+  _Block_object_dispose(&v27, 8);
+  return v17;
 }
 
 - (void)isContactValidForIdentity:(id)identity completionBlock:(id)block
 {
   identityCopy = identity;
   blockCopy = block;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   if (identityCopy && ([identityCopy contactID], (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v9 = objc_msgSend(identityCopy, "type"), v8, v9 == 6))
   {
     contactID = [identityCopy contactID];
-    v11 = objc_alloc_init(off_1001D3FD0[0]());
-    [v11 setContactIdentifier:contactID];
-    v12 = objc_alloc_init(off_1001D3FD8[0]());
-    [v12 setDispatchQueue:self->_dispatchQueue];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10006B3A8;
-    v15[3] = &unk_1001ACE40;
-    v13 = v12;
-    v16 = v13;
-    v17 = identityCopy;
-    v14 = v11;
-    v18 = v14;
+    v11 = objc_alloc_init(off_1001D3FD0());
+    v12 = [v11 setContactIdentifier:contactID];
+    v13 = objc_alloc_init(off_1001D3FD8(v12));
+    [v13 setDispatchQueue:self->_dispatchQueue];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10006B3A8;
+    v16[3] = &unk_1001ACE40;
+    v14 = v13;
+    v17 = v14;
+    v18 = identityCopy;
+    v15 = v11;
+    v19 = v15;
     selfCopy = self;
-    v21 = &v22;
-    v20 = blockCopy;
-    [v13 findContact:v14 completion:v15];
+    v22 = &v23;
+    v21 = blockCopy;
+    [v14 findContact:v15 completion:v16];
   }
 
   else
   {
-    (*(blockCopy + 2))(blockCopy, *(v23 + 24));
+    (*(blockCopy + 2))(blockCopy, *(v24 + 24));
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
+}
+
+- (id)identitiesOfType:(int)type error:(id *)error
+{
+  v5 = *&type;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  DeviceClass = GestaltGetDeviceClass();
+  switch(v5)
+  {
+    case 9:
+      sharedHomeDeviceIdentities = self->_sharedHomeDeviceIdentities;
+      goto LABEL_11;
+    case 8:
+      sharedHomeDeviceIdentities = self->_pairedDeviceIdentities;
+      goto LABEL_11;
+    case 2:
+      p_super = self->_sameAccountDeviceIdentities;
+      if (p_super)
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_5;
+  }
+
+  if (v5 == 12 && DeviceClass == 4)
+  {
+    sharedHomeDeviceIdentities = self->_sharedTVUserDeviceIdentities;
+    goto LABEL_11;
+  }
+
+  if (v5 > 12)
+  {
+    if (v5 == 15)
+    {
+      adHocPairedDeviceIdentities = self->_adHocPairedDeviceIdentities;
+      if (adHocPairedDeviceIdentities)
+      {
+        v17 = adHocPairedDeviceIdentities;
+        v18 = self->_adHocPairedDeviceIdentities;
+        self->_adHocPairedDeviceIdentities = v17;
+      }
+
+      else
+      {
+        v18 = [(RPIdentityDaemon *)self _identitiesOfType:15 error:error];
+        v19 = [v18 mutableCopy];
+        v20 = self->_adHocPairedDeviceIdentities;
+        self->_adHocPairedDeviceIdentities = v19;
+      }
+
+      [(RPIdentityDaemon *)self _pruneStaleAdHocPairedDeviceIdentities];
+      sharedHomeDeviceIdentities = self->_adHocPairedDeviceIdentities;
+LABEL_13:
+      v9 = sharedHomeDeviceIdentities;
+      goto LABEL_14;
+    }
+
+    if (v5 == 13)
+    {
+      sharedHomeDeviceIdentities = self->_sessionPairedDeviceIdentities;
+LABEL_11:
+      if (!sharedHomeDeviceIdentities)
+      {
+        sharedHomeDeviceIdentities = &__NSArray0__struct;
+      }
+
+      goto LABEL_13;
+    }
+
+    goto LABEL_5;
+  }
+
+  if (v5 == 4)
+  {
+    v12 = +[RPPeopleDaemon sharedPeopleDaemon];
+    getFamilyDeviceIdentities = [v12 getFamilyDeviceIdentities];
+    goto LABEL_26;
+  }
+
+  if (v5 != 6)
+  {
+LABEL_5:
+    v9 = [(RPIdentityDaemon *)self _identitiesOfType:v5 error:error];
+LABEL_14:
+    p_super = &v9->super;
+    goto LABEL_15;
+  }
+
+  v12 = +[RPPeopleDaemon sharedPeopleDaemon];
+  getFamilyDeviceIdentities = [v12 getFriendDeviceIdentities];
+LABEL_26:
+  v14 = getFamilyDeviceIdentities;
+  v15 = &__NSArray0__struct;
+  if (getFamilyDeviceIdentities)
+  {
+    v15 = getFamilyDeviceIdentities;
+  }
+
+  p_super = v15;
+
+LABEL_15:
+
+  return p_super;
 }
 
 - (id)_identitiesOfType:(int)type error:(id *)error
 {
-  v6 = type - 1;
-  if ((type - 1) >= 0xF || ((0x48FFu >> v6) & 1) == 0)
+  v10 = type - 1;
+  if ((type - 1) >= 0xF || ((0x48FFu >> v10) & 1) == 0)
   {
-    v11 = RPErrorF();
+    v23 = RPErrorF(4294960540, "Bad identity type (%d)", *&type, error, v4, v5, v6, v7, *&type);
     if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011B81C();
+      sub_10011B81C(v23);
       if (!error)
       {
         goto LABEL_12;
@@ -2416,17 +2573,18 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v12 = v11;
-    *error = v11;
+    v24 = v23;
+    *error = v23;
     goto LABEL_12;
   }
 
-  v8 = off_1001ACFF0[v6];
-  if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) == 0)
+  v12 = off_1001ACFF0[v10];
+  firstUnlocked = [(CUSystemMonitor *)self->_systemMonitor firstUnlocked];
+  if ((firstUnlocked & 1) == 0)
   {
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || (firstUnlocked = _LogCategory_Initialize(), firstUnlocked)))
     {
-      sub_10011B85C();
+      sub_10011B85C(firstUnlocked, v14, v15);
       if (error)
       {
         goto LABEL_21;
@@ -2436,107 +2594,107 @@ LABEL_12:
     else if (error)
     {
 LABEL_21:
-      RPErrorF();
-      *error = v13 = 0;
+      RPErrorF(4294960593, "Identities not accessible before FirstUnlock", v15, v16, v17, v18, v19, v20, v72);
+      *error = v25 = 0;
       goto LABEL_14;
     }
 
 LABEL_13:
-    v13 = 0;
+    v25 = 0;
     goto LABEL_14;
   }
 
   if (type == 12 || type == 2)
   {
-    v9 = +[RPCloudDaemon sharedCloudDaemon];
-    idsDeviceIDSelf = [v9 idsDeviceIDSelf];
+    v21 = +[RPCloudDaemon sharedCloudDaemon];
+    idsDeviceIDSelf = [v21 idsDeviceIDSelf];
 
-    v10 = 3;
+    v22 = 3;
   }
 
   else
   {
     idsDeviceIDSelf = 0;
-    v10 = 1;
+    v22 = 1;
   }
 
-  v15 = objc_alloc_init(CUKeychainItem);
-  [v15 setAccessGroup:@"com.apple.rapport"];
-  [v15 setSyncType:v10];
-  [v15 setType:v8];
-  v16 = objc_alloc_init(CUKeychainManager);
-  v76 = 0;
-  v17 = [v16 copyItemsMatchingItem:v15 flags:1 error:&v76];
-  v18 = v76;
-  v19 = v18;
-  v74 = v17;
-  if (v17 || [v18 code] == -25300)
+  v27 = objc_alloc_init(CUKeychainItem);
+  [v27 setAccessGroup:@"com.apple.rapport"];
+  [v27 setSyncType:v22];
+  [v27 setType:v12];
+  v28 = objc_alloc_init(CUKeychainManager);
+  v85 = 0;
+  v29 = [v28 copyItemsMatchingItem:v27 flags:1 error:&v85];
+  v30 = v85;
+  v31 = v30;
+  v83 = v29;
+  if (v29 || [v30 code] == -25300)
   {
-    v64 = v16;
-    v65 = v15;
-    v67 = objc_alloc_init(NSMutableArray);
-    v20 = [v17 count];
-    if (!v20)
+    v73 = v28;
+    v74 = v27;
+    v76 = objc_alloc_init(NSMutableArray);
+    v32 = [v29 count];
+    if (!v32)
     {
-      v46 = v19;
+      v58 = v31;
       goto LABEL_81;
     }
 
-    v21 = v20;
+    v33 = v32;
     selfCopy = self;
     typeCopy = type;
-    v22 = 0;
-    v73 = kSecAttrViewHintHome;
+    v34 = 0;
+    v82 = kSecAttrViewHintHome;
     while (1)
     {
-      v23 = [v74 objectAtIndexedSubscript:{v22, v60, v61, v62, v63}];
-      v24 = v23;
-      v72 = v23;
+      v35 = [v83 objectAtIndexedSubscript:v34];
+      v36 = v35;
+      v81 = v35;
       if (typeCopy != 2)
       {
         goto LABEL_49;
       }
 
-      viewHint = [v23 viewHint];
-      v26 = [viewHint isEqual:v73];
+      viewHint = [v35 viewHint];
+      v38 = [viewHint isEqual:v82];
 
-      if (v26)
+      if (v38)
       {
         goto LABEL_49;
       }
 
-      v66 = v19;
-      identifier = [v24 identifier];
-      type = [v24 type];
-      metadata = [v24 metadata];
+      v75 = v31;
+      identifier = [v36 identifier];
+      type = [v36 type];
+      metadata = [v36 metadata];
       Int64Ranged = CFDictionaryGetInt64Ranged();
 
-      v30 = 0;
-      while (v22 == v30)
+      v42 = 0;
+      while (v34 == v42)
       {
 LABEL_47:
-        if (v21 == ++v30)
+        if (v33 == ++v42)
         {
 
-          v24 = v72;
-          v19 = v66;
+          v36 = v81;
+          v31 = v75;
           goto LABEL_49;
         }
       }
 
-      v31 = [v74 objectAtIndexedSubscript:v30];
-      viewHint2 = [v31 viewHint];
-      v33 = [viewHint2 isEqual:v73];
+      v43 = [v83 objectAtIndexedSubscript:v42];
+      viewHint2 = [v43 viewHint];
+      v45 = [viewHint2 isEqual:v82];
 
-      if (!v33)
+      if (!v45)
       {
         goto LABEL_46;
       }
 
-      identifier2 = [v31 identifier];
-      v35 = identifier;
-      v36 = v35;
-      if (identifier2 == v35)
+      identifier2 = [v43 identifier];
+      v47 = identifier;
+      v48 = v47;
+      if (identifier2 == v47)
       {
       }
 
@@ -2549,18 +2707,18 @@ LABEL_46:
           goto LABEL_47;
         }
 
-        v37 = [identifier2 isEqual:v35];
+        v49 = [identifier2 isEqual:v47];
 
-        if (!v37)
+        if (!v49)
         {
           goto LABEL_46;
         }
       }
 
-      type2 = [v31 type];
-      v39 = type;
-      v40 = v39;
-      if (type2 == v39)
+      type2 = [v43 type];
+      v51 = type;
+      v52 = v51;
+      if (type2 == v51)
       {
       }
 
@@ -2572,116 +2730,110 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v41 = [type2 isEqual:v39];
+        v53 = [type2 isEqual:v51];
 
-        if (!v41)
+        if (!v53)
         {
           goto LABEL_46;
         }
       }
 
       metadata2 = [0 metadata];
-      v43 = CFDictionaryGetInt64Ranged();
+      v55 = CFDictionaryGetInt64Ranged();
 
-      if (Int64Ranged > v43)
+      if (Int64Ranged > v55)
       {
         [(RPIdentityDaemon *)selfCopy _triggerKeychainRefetch];
         goto LABEL_46;
       }
 
-      v58 = v31;
-      v24 = v72;
+      v70 = v43;
+      v36 = v81;
       if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        v62 = Int64Ranged;
-        v63 = v43;
-        v60 = v72;
-        v61 = v58;
-        LogPrintF();
+        LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _identitiesOfType:error:]", 30, "Skipping non-synced duplicate item: %@ vs %@ (rev %u vs %u)\n", v81, v70, Int64Ranged, v55);
       }
 
-      v19 = v66;
-      if (v58)
+      v31 = v75;
+      if (v70)
       {
-        v46 = v66;
+        v58 = v75;
         goto LABEL_72;
       }
 
 LABEL_49:
-      v44 = objc_alloc_init(RPIdentity);
-      v75 = v19;
-      v45 = [v44 updateWithKeychainItem:v24 error:&v75];
-      v46 = v75;
+      v56 = objc_alloc_init(RPIdentity);
+      v84 = v31;
+      v57 = [v56 updateWithKeychainItem:v36 error:&v84];
+      v58 = v84;
 
-      if ([v44 type] == 2 || objc_msgSend(v44, "type") == 1)
+      if ([v56 type] == 2 || objc_msgSend(v56, "type") == 1)
       {
-        v47 = +[RPCompanionLinkDaemon sharedCompanionLinkDaemon];
-        localDeviceInfo = [v47 localDeviceInfo];
+        v59 = +[RPCompanionLinkDaemon sharedCompanionLinkDaemon];
+        localDeviceInfo = [v59 localDeviceInfo];
         accountID = [localDeviceInfo accountID];
 
         if (accountID)
         {
-          accountID2 = [v44 accountID];
+          accountID2 = [v56 accountID];
 
           if (!accountID2)
           {
-            [v44 setAccountID:accountID];
+            [v56 setAccountID:accountID];
           }
         }
 
-        v24 = v72;
+        v36 = v81;
       }
 
-      if (v45)
+      if (v57)
       {
         if (dword_1001D3F50 <= 60 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
         {
-          v60 = v24;
-          v61 = v46;
-          LogPrintF();
+          LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _identitiesOfType:error:]", 60, "### Update identity from keychain failed: %@, %{error}\n", v36, v58);
         }
       }
 
       else
       {
-        idsDeviceID = [v44 idsDeviceID];
-        v52 = idsDeviceID;
+        idsDeviceID = [v56 idsDeviceID];
+        v64 = idsDeviceID;
         if (!idsDeviceIDSelf || !idsDeviceID || [idsDeviceID caseInsensitiveCompare:idsDeviceIDSelf])
         {
-          v53 = +[RPCloudDaemon sharedCloudDaemon];
-          idsDeviceMap = [v53 idsDeviceMap];
-          v55 = [idsDeviceMap objectForKeyedSubscript:v52];
+          v65 = +[RPCloudDaemon sharedCloudDaemon];
+          idsDeviceMap = [v65 idsDeviceMap];
+          v67 = [idsDeviceMap objectForKeyedSubscript:v64];
 
-          if (v55)
+          if (v67)
           {
-            modelIdentifier = [v55 modelIdentifier];
+            modelIdentifier = [v67 modelIdentifier];
             if (modelIdentifier)
             {
-              [v44 setModel:modelIdentifier];
+              [v56 setModel:modelIdentifier];
             }
 
-            name = [v55 name];
+            name = [v67 name];
             if (name)
             {
-              [v44 setName:name];
+              [v56 setName:name];
             }
           }
 
-          [v67 addObject:v44];
-          v24 = v72;
+          [v76 addObject:v56];
+          v36 = v81;
         }
       }
 
-      v19 = v46;
+      v31 = v58;
 LABEL_72:
 
-      if (++v22 == v21)
+      if (++v34 == v33)
       {
 LABEL_81:
-        v13 = [v67 copy];
+        v25 = [v76 copy];
 
-        v16 = v64;
-        v15 = v65;
+        v28 = v73;
+        v27 = v74;
         goto LABEL_82;
       }
     }
@@ -2689,28 +2841,28 @@ LABEL_81:
 
   if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _identitiesOfType:error:]", 90, "### Get identity keychain items failed: %@, %{error}\n", v12, v31);
   }
 
   if (error)
   {
-    v46 = v19;
-    v59 = v19;
-    v13 = 0;
-    *error = v19;
+    v58 = v31;
+    v71 = v31;
+    v25 = 0;
+    *error = v31;
   }
 
   else
   {
-    v13 = 0;
-    v46 = v19;
+    v25 = 0;
+    v58 = v31;
   }
 
 LABEL_82:
 
 LABEL_14:
 
-  return v13;
+  return v25;
 }
 
 - (id)getIdentitiesWithFlags:(unsigned int)flags
@@ -3007,11 +3159,12 @@ LABEL_56:
     goto LABEL_15;
   }
 
-  if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) == 0)
+  firstUnlocked = [(CUSystemMonitor *)self->_systemMonitor firstUnlocked];
+  if ((firstUnlocked & 1) == 0)
   {
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || (firstUnlocked = _LogCategory_Initialize(), firstUnlocked)))
     {
-      sub_10011B8BC();
+      sub_10011B8BC(firstUnlocked, v7, v8);
       if (error)
       {
         goto LABEL_9;
@@ -3021,7 +3174,7 @@ LABEL_56:
     else if (error)
     {
 LABEL_9:
-      RPErrorF();
+      RPErrorF(4294960593, "SelfIdentity not accessible before FirstUnlock", v8, v9, v10, v11, v12, v13, v23);
       *error = v5 = 0;
       goto LABEL_15;
     }
@@ -3031,16 +3184,16 @@ LABEL_9:
   }
 
   [(RPIdentityDaemon *)self _loadSelfIdentity:0];
-  v6 = self->_selfIdentityCache;
-  v5 = v6;
-  if (v6)
+  v14 = self->_selfIdentityCache;
+  v5 = v14;
+  if (v14)
   {
-    v7 = v6;
+    v21 = v14;
   }
 
   else if (error)
   {
-    *error = RPErrorF();
+    *error = RPErrorF(4294960534, "SelfIdentity load failed", v15, v16, v17, v18, v19, v20, v23);
   }
 
 LABEL_15:
@@ -3052,18 +3205,18 @@ LABEL_15:
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v5 = self->_temporarySelfIdentityCache;
-  v6 = v5;
+  v12 = v5;
   if (v5)
   {
-    v7 = v5;
+    v13 = v5;
   }
 
   else if (error)
   {
-    *error = RPErrorF();
+    *error = RPErrorF(4294960534, "SelfTemporaryIdentity not found", v6, v7, v8, v9, v10, v11, v15);
   }
 
-  return v6;
+  return v12;
 }
 
 - (unint64_t)featureFlagsForIdentityMatchingIDSDeviceIdentifier:(id)identifier
@@ -3162,8 +3315,8 @@ LABEL_11:
 
   else
   {
-    v8 = RPErrorF();
-    completionCopy[2](completionCopy, 0, v8);
+    v14 = RPErrorF(4294960578, "HomeKit manager not initialized", v8, v9, v10, v11, v12, v13, v15);
+    completionCopy[2](completionCopy, 0, v14);
   }
 }
 
@@ -3254,7 +3407,7 @@ LABEL_11:
 
   else if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011B934();
+    sub_10011B934(v8);
   }
 }
 
@@ -3275,14 +3428,14 @@ LABEL_11:
   v9 = [NSString stringWithUTF8String:v8];
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011B974();
+    sub_10011B974(identityCopy);
   }
 
   if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) == 0)
   {
     if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011B9B4();
+      sub_10011B9B4(v9);
       if (error)
       {
         goto LABEL_20;
@@ -3292,60 +3445,60 @@ LABEL_11:
     else if (error)
     {
 LABEL_20:
-      RPErrorF();
-      *error = v17 = 0;
+      RPErrorF(4294960593, "Account identity not removable before FirstUnlock", v10, v11, v12, v13, v14, v15, v28);
+      *error = v23 = 0;
       goto LABEL_34;
     }
 
-    v17 = 0;
+    v23 = 0;
     goto LABEL_34;
   }
 
   type2 = [identityCopy type];
   if (type2 == 2)
   {
-    v11 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v11 = 6;
+    v17 = 6;
   }
 
   if (type2 == 2)
   {
-    v12 = 3;
+    v18 = 3;
   }
 
   else
   {
-    v12 = 1;
+    v18 = 1;
   }
 
-  v13 = objc_alloc_init(CUKeychainItem);
-  [v13 setAccessGroup:@"com.apple.rapport"];
-  [v13 setAccessibleType:v11];
+  v19 = objc_alloc_init(CUKeychainItem);
+  [v19 setAccessGroup:@"com.apple.rapport"];
+  [v19 setAccessibleType:v17];
   identifier = [identityCopy identifier];
-  [v13 setIdentifier:identifier];
+  [v19 setIdentifier:identifier];
 
-  [v13 setSyncType:v12];
-  v15 = [identityCopy type] - 1;
-  if (v15 > 0xE)
+  [v19 setSyncType:v18];
+  v21 = [identityCopy type] - 1;
+  if (v21 > 0xE)
   {
-    v16 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v16 = off_1001AD068[v15];
+    v22 = off_1001AD068[v21];
   }
 
-  [v13 setType:v16];
-  v18 = objc_alloc_init(CUKeychainManager);
-  v22 = 0;
-  v17 = [v18 removeItemMatchingItem:v13 error:&v22];
-  v19 = v22;
-  if (v17)
+  [v19 setType:v22];
+  v24 = objc_alloc_init(CUKeychainManager);
+  v29 = 0;
+  v23 = [v24 removeItemMatchingItem:v19 error:&v29];
+  v25 = v29;
+  if (v23)
   {
     [(RPIdentityDaemon *)self _postIdentitiesChangedNotification];
   }
@@ -3354,18 +3507,18 @@ LABEL_20:
   {
     if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon removeIdentity:error:]", 90, "### RemoveIdentity keychain item failed: %@, %@, %{error}\n", identityCopy, v19, v25);
     }
 
     if (error)
     {
-      v20 = v19;
-      *error = v19;
+      v26 = v25;
+      *error = v25;
     }
   }
 
 LABEL_34:
-  return v17;
+  return v23;
 }
 
 - (BOOL)saveIdentity:(id)identity error:(id *)error
@@ -3385,14 +3538,14 @@ LABEL_34:
   v9 = [NSString stringWithUTF8String:v8];
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011B9F4();
+    sub_10011B9F4(identityCopy);
   }
 
   if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) == 0)
   {
     if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011BA34();
+      sub_10011BA34(v9);
       if (error)
       {
         goto LABEL_19;
@@ -3402,48 +3555,48 @@ LABEL_34:
     else if (error)
     {
 LABEL_19:
-      RPErrorF();
-      *error = LOBYTE(v14) = 0;
+      RPErrorF(4294960593, "Account identity not save-able before FirstUnlock", v10, v11, v12, v13, v14, v15, v23);
+      *error = LOBYTE(v20) = 0;
       goto LABEL_33;
     }
 
-    LOBYTE(v14) = 0;
+    LOBYTE(v20) = 0;
     goto LABEL_33;
   }
 
-  v10 = objc_alloc_init(CUKeychainItem);
-  [v10 setAccessGroup:@"com.apple.rapport"];
-  [v10 setAccessibleType:6];
-  [v10 setInvisible:1];
-  [v10 setSyncType:1];
-  v17 = 0;
-  v11 = [v10 updateWithRPIdentity:identityCopy revisionUpdate:1 error:&v17];
-  v12 = v17;
-  if (v11)
+  v16 = objc_alloc_init(CUKeychainItem);
+  [v16 setAccessGroup:@"com.apple.rapport"];
+  [v16 setAccessibleType:6];
+  [v16 setInvisible:1];
+  [v16 setSyncType:1];
+  v24 = 0;
+  v17 = [v16 updateWithRPIdentity:identityCopy revisionUpdate:1 error:&v24];
+  v18 = v24;
+  if (v17)
   {
     if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon saveIdentity:error:]", 90, "### Convert to keychain item failed: %@, %{error}\n", identityCopy, v18);
     }
 
     if (error)
     {
-      v15 = v12;
-      LOBYTE(v14) = 0;
-      *error = v12;
+      v21 = v18;
+      LOBYTE(v20) = 0;
+      *error = v18;
     }
 
     else
     {
-      LOBYTE(v14) = 0;
+      LOBYTE(v20) = 0;
     }
   }
 
   else
   {
-    v13 = objc_alloc_init(CUKeychainManager);
-    v14 = [v13 addOrUpdateOrReAddItem:v10 logCategory:&dword_1001D3F50 logLabel:v9 error:error];
-    if (v14)
+    v19 = objc_alloc_init(CUKeychainManager);
+    v20 = [v19 addOrUpdateOrReAddItem:v16 logCategory:&dword_1001D3F50 logLabel:v9 error:error];
+    if (v20)
     {
       if ([identityCopy type] == 2)
       {
@@ -3463,7 +3616,7 @@ LABEL_19:
   }
 
 LABEL_33:
-  return v14;
+  return v20;
 }
 
 - (BOOL)saveIdentityWithIDSDeviceID:(id)d message:(id)message error:(id *)error
@@ -3617,7 +3770,7 @@ LABEL_26:
 
   else if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011BB70();
+    sub_10011BB70(identityCopy);
   }
 }
 
@@ -3696,17 +3849,21 @@ LABEL_26:
 
 - (void)_ensureStarted
 {
-  if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) != 0)
+  firstUnlocked = [(CUSystemMonitor *)self->_systemMonitor firstUnlocked];
+  if (firstUnlocked)
   {
     if (self->_homeViewChangeToken == -1)
     {
-      if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D3F50 <= 30)
       {
-        sub_10011BDA0();
+        if (dword_1001D3F50 != -1 || (firstUnlocked = _LogCategory_Initialize(), firstUnlocked))
+        {
+          sub_10011BDA0(firstUnlocked, v4, v5);
+        }
       }
 
-      v3 = [NSString alloc];
-      kSecAttrViewHintHome = [v3 initWithFormat:@"com.apple.security.view-change.%@", kSecAttrViewHintHome];
+      v6 = [NSString alloc];
+      kSecAttrViewHintHome = [v6 initWithFormat:@"com.apple.security.view-change.%@", kSecAttrViewHintHome];
       uTF8String = [kSecAttrViewHintHome UTF8String];
       dispatchQueue = self->_dispatchQueue;
       handler[0] = _NSConcreteStackBlock;
@@ -3720,27 +3877,27 @@ LABEL_26:
 
     if (self->_homeViewReadyToken == -1)
     {
-      v7 = [NSString alloc];
-      kSecAttrViewHintHome2 = [v7 initWithFormat:@"com.apple.security.view-ready.%@", kSecAttrViewHintHome];
+      v10 = [NSString alloc];
+      kSecAttrViewHintHome2 = [v10 initWithFormat:@"com.apple.security.view-ready.%@", kSecAttrViewHintHome];
       uTF8String2 = [kSecAttrViewHintHome2 UTF8String];
-      v10 = self->_dispatchQueue;
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_10006F334;
-      v13[3] = &unk_1001AAFE8;
-      v13[4] = self;
-      notify_register_dispatch(uTF8String2, &self->_homeViewReadyToken, v10, v13);
+      v13 = self->_dispatchQueue;
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10006F334;
+      v16[3] = &unk_1001AAFE8;
+      v16[4] = self;
+      notify_register_dispatch(uTF8String2, &self->_homeViewReadyToken, v13, v16);
     }
 
     if (self->_pairedDevicesNotifier == -1)
     {
-      v11 = self->_dispatchQueue;
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10006F3BC;
-      v12[3] = &unk_1001AAFE8;
-      v12[4] = self;
-      notify_register_dispatch("com.apple.pairing.peerChanged", &self->_pairedDevicesNotifier, v11, v12);
+      v14 = self->_dispatchQueue;
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_10006F3BC;
+      v15[3] = &unk_1001AAFE8;
+      v15[4] = self;
+      notify_register_dispatch("com.apple.pairing.peerChanged", &self->_pairedDevicesNotifier, v14, v15);
       [(RPIdentityDaemon *)self _updatePairedDeviceIdentities];
     }
 
@@ -3755,9 +3912,12 @@ LABEL_26:
     }
   }
 
-  else if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D3F50 <= 30)
   {
-    sub_10011BD84();
+    if (dword_1001D3F50 != -1 || (firstUnlocked = _LogCategory_Initialize(), firstUnlocked))
+    {
+      sub_10011BD84(firstUnlocked, v4, v5);
+    }
   }
 }
 
@@ -3771,12 +3931,12 @@ LABEL_26:
       goto LABEL_6;
     }
 
-    if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
+    if (dword_1001D3F50 != -1 || (homeViewChangeToken = _LogCategory_Initialize(), homeViewChangeToken))
     {
-      sub_10011BE10();
+      sub_10011BE10(homeViewChangeToken, a2, v2);
     }
 
-    homeViewChangeToken = self->_homeViewChangeToken;
+    LODWORD(homeViewChangeToken) = self->_homeViewChangeToken;
     if (homeViewChangeToken != -1)
     {
 LABEL_6:
@@ -3793,12 +3953,12 @@ LABEL_6:
       goto LABEL_12;
     }
 
-    if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
+    if (dword_1001D3F50 != -1 || (homeViewReadyToken = _LogCategory_Initialize(), homeViewReadyToken))
     {
-      sub_10011BE2C();
+      sub_10011BE2C(homeViewReadyToken, a2, v2);
     }
 
-    homeViewReadyToken = self->_homeViewReadyToken;
+    LODWORD(homeViewReadyToken) = self->_homeViewReadyToken;
     if (homeViewReadyToken != -1)
     {
 LABEL_12:
@@ -3845,9 +4005,9 @@ LABEL_12:
   temporarySelfIdentityTimer = self->_temporarySelfIdentityTimer;
   if (temporarySelfIdentityTimer)
   {
-    v17 = temporarySelfIdentityTimer;
-    dispatch_source_cancel(v17);
-    v16 = self->_temporarySelfIdentityTimer;
+    v18 = temporarySelfIdentityTimer;
+    dispatch_source_cancel(v18);
+    v17 = self->_temporarySelfIdentityTimer;
     self->_temporarySelfIdentityTimer = 0;
   }
 }
@@ -3874,65 +4034,76 @@ LABEL_12:
 - (void)_triggerKeychainRefetch
 {
   v3 = mach_absolute_time();
-  keychainRefetchTicks = self->_keychainRefetchTicks;
-  if (UpTicksToSeconds() >> 5 > 0x2A2)
+  v4 = UpTicksToSeconds();
+  if (v4 >> 5 > 0x2A2)
   {
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30)
     {
-      sub_10011BE90();
+      if (dword_1001D3F50 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_10011BE90(v4, v5, v6);
+      }
     }
 
     self->_keychainRefetchTicks = v3;
-    v7 = 0;
-    v5 = [CKKSControl controlObject:&v7];
-    v6 = v7;
-    if (v5)
+    v10 = 0;
+    v8 = [CKKSControl controlObject:&v10];
+    v9 = v10;
+    if (v8)
     {
-      [v5 rpcFetchAndProcessChanges:kSecAttrViewHintHome reply:&stru_1001ACF48];
+      [v8 rpcFetchAndProcessChanges:kSecAttrViewHintHome reply:&stru_1001ACF48];
     }
 
     else if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011BEAC();
+      sub_10011BEAC(v9);
     }
   }
 
-  else if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D3F50 <= 30)
   {
-    sub_10011BEEC();
+    v7 = v4;
+    if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
+    {
+      sub_10011BEEC(v7);
+    }
   }
 }
 
 - (void)_updatePairedDeviceIdentities
 {
-  if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D3F50 <= 30)
   {
-    sub_10011BF74();
+    if (dword_1001D3F50 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10011BF74(self, a2, v2);
+    }
   }
 
-  v3 = objc_alloc_init(CUPairingManager);
-  [v3 setDispatchQueue:self->_dispatchQueue];
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3221225472;
-  v4[2] = sub_10006F954;
-  v4[3] = &unk_1001ACF70;
-  v4[4] = v3;
-  v4[5] = self;
-  [v3 getPairedPeersWithOptions:134 completion:v4];
+  v4 = objc_alloc_init(CUPairingManager);
+  [v4 setDispatchQueue:selfCopy->_dispatchQueue];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_10006F954;
+  v5[3] = &unk_1001ACF70;
+  v5[4] = v4;
+  v5[5] = selfCopy;
+  [v4 getPairedPeersWithOptions:134 completion:v5];
 }
 
 - (BOOL)_removeSameAccountIdentityWithIDSIdentifier:(id)identifier error:(id *)error
 {
   identifierCopy = identifier;
-  v32 = 0;
-  v7 = [(RPIdentityDaemon *)self _identitiesOfType:2 error:&v32];
-  v8 = v32;
+  v39 = 0;
+  v7 = [(RPIdentityDaemon *)self _identitiesOfType:2 error:&v39];
+  v8 = v39;
   if (v8)
   {
     v9 = v8;
     if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011C194();
+      sub_10011C194(v9);
     }
 
     v10 = 0;
@@ -3948,38 +4119,38 @@ LABEL_6:
 
   else
   {
-    v25 = v7;
+    v32 = v7;
     errorCopy = error;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v14 = v7;
-    v15 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v29;
+      v18 = *v36;
       do
       {
         v19 = 0;
         do
         {
-          if (*v29 != v18)
+          if (*v36 != v18)
           {
             objc_enumerationMutation(v14);
           }
 
-          v20 = *(*(&v28 + 1) + 8 * v19);
+          v20 = *(*(&v35 + 1) + 8 * v19);
           idsDeviceID = [v20 idsDeviceID];
           v22 = [idsDeviceID isEqualToString:identifierCopy];
 
           if (v22)
           {
-            v27 = v17;
-            v23 = [(RPIdentityDaemon *)self removeIdentity:v20 error:&v27];
-            v9 = v27;
+            v34 = v17;
+            v23 = [(RPIdentityDaemon *)self removeIdentity:v20 error:&v34];
+            v9 = v34;
 
             if (v23)
             {
@@ -3990,7 +4161,7 @@ LABEL_6:
 
             if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
             {
-              sub_10011C1D4();
+              sub_10011C1D4(v9);
             }
 
             v17 = v9;
@@ -4000,7 +4171,7 @@ LABEL_6:
         }
 
         while (v16 != v19);
-        v24 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v24 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
         v16 = v24;
       }
 
@@ -4017,10 +4188,10 @@ LABEL_6:
       sub_10011C214();
     }
 
-    v9 = RPErrorF();
+    v9 = RPErrorF(4294960569, "Identity not found", v25, v26, v27, v28, v29, v30, v31);
     v10 = 0;
 LABEL_30:
-    v7 = v25;
+    v7 = v32;
     error = errorCopy;
 
     v11 = v10;
@@ -4036,21 +4207,22 @@ LABEL_30:
 - (void)_loadSelfIdentity:(BOOL)identity
 {
   identityCopy = identity;
-  if (!+[RPIdentity _sepBackedIdentityEnabled])
+  _sepLoadSelfPrivateKey = +[RPIdentity _sepBackedIdentityEnabled];
+  if (!_sepLoadSelfPrivateKey)
   {
-    _sepLoadSelfPrivateKey = 0;
+    v9 = 0;
     goto LABEL_11;
   }
 
   sepPrivateKey = [(RPIdentity *)self->_selfIdentityCache sepPrivateKey];
   if (sepPrivateKey)
   {
-    _sepLoadSelfPrivateKey = sepPrivateKey;
-    CFRetain(sepPrivateKey);
+    v9 = sepPrivateKey;
+    _sepLoadSelfPrivateKey = CFRetain(sepPrivateKey);
     if (!identityCopy)
     {
 LABEL_9:
-      if (_sepLoadSelfPrivateKey)
+      if (v9)
       {
         goto LABEL_11;
       }
@@ -4062,85 +4234,90 @@ LABEL_9:
   else
   {
     _sepLoadSelfPrivateKey = [(RPIdentityDaemon *)self _sepLoadSelfPrivateKey];
+    v9 = _sepLoadSelfPrivateKey;
     if (!identityCopy)
     {
       goto LABEL_9;
     }
   }
 
-  if (!_sepLoadSelfPrivateKey)
+  if (!v9)
   {
     goto LABEL_9;
   }
 
-  [(RPIdentityDaemon *)self _sepRemoveSelfPrivateKey:_sepLoadSelfPrivateKey];
-  CFRelease(_sepLoadSelfPrivateKey);
+  [(RPIdentityDaemon *)self _sepRemoveSelfPrivateKey:v9];
+  CFRelease(v9);
 LABEL_10:
   _sepLoadSelfPrivateKey = [(RPIdentityDaemon *)self _sepGenerateSelfPrivateKey];
+  v9 = _sepLoadSelfPrivateKey;
 LABEL_11:
   if (!identityCopy)
   {
-    if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3F50 <= 30)
     {
-      sub_10011C248();
+      if (dword_1001D3F50 != -1 || (_sepLoadSelfPrivateKey = _LogCategory_Initialize(), _sepLoadSelfPrivateKey))
+      {
+        sub_10011C248(_sepLoadSelfPrivateKey, v6, v7);
+      }
     }
 
-    v7 = objc_alloc_init(CUKeychainItem);
-    [v7 setAccessGroup:@"com.apple.rapport"];
-    [v7 setIdentifier:@"SelfIdentity"];
-    [v7 setSyncType:1];
-    [v7 setType:@"RPIdentity-Self"];
-    v8 = objc_alloc_init(CUKeychainManager);
-    v20 = 0;
-    v9 = [v8 copyItemMatchingItem:v7 flags:1 error:&v20];
-    v10 = v20;
-    v11 = v10;
-    if (v9)
+    v10 = objc_alloc_init(CUKeychainItem);
+    [v10 setAccessGroup:@"com.apple.rapport"];
+    [v10 setIdentifier:@"SelfIdentity"];
+    [v10 setSyncType:1];
+    [v10 setType:@"RPIdentity-Self"];
+    v11 = objc_alloc_init(CUKeychainManager);
+    v23 = 0;
+    v12 = [v11 copyItemMatchingItem:v10 flags:1 error:&v23];
+    v13 = v23;
+    v14 = v13;
+    if (v12)
     {
-      v12 = objc_alloc_init(RPIdentity);
-      v19 = v11;
-      [v12 updateWithKeychainItem:v9 error:&v19];
-      v13 = v19;
+      v15 = objc_alloc_init(RPIdentity);
+      v22 = v14;
+      [v15 updateWithKeychainItem:v12 error:&v22];
+      v16 = v22;
 
-      if (v13 && dword_1001D3F50 <= 60 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      if (v16 && dword_1001D3F50 <= 60 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011C264();
+        sub_10011C264(v16);
       }
 
-      v14 = [(RPIdentityDaemon *)self _updateSelfIdentityPrivate:v12 create:0];
-      v15 = [v12 updateWithSEPPrivateKey:_sepLoadSelfPrivateKey];
-      if (v15 & 1 | v14 & 1)
+      v17 = [(RPIdentityDaemon *)self _updateSelfIdentityPrivate:v15 create:0];
+      v18 = [v15 updateWithSEPPrivateKey:v9];
+      if (v18 & 1 | v17 & 1)
       {
 
-        v12 = 0;
+        v15 = 0;
       }
 
-      else if (!(v15 & 0xFBFFFFFF | v14))
+      else if (!(v18 & 0xFBFFFFFF | v17))
       {
         if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
         {
           sub_10011C2A4();
         }
 
-        v16 = 0;
+        v19 = 0;
         goto LABEL_33;
       }
 
-      v16 = 1;
+      v19 = 1;
       goto LABEL_33;
     }
 
-    if ([v10 code] != -25300 && dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    if ([v13 code] != -25300 && dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011C2D8();
+      sub_10011C2D8(v14);
     }
 
-    v12 = 0;
-    v16 = 0;
-    v13 = v11;
+    v15 = 0;
+    v19 = 0;
+    v16 = v14;
 LABEL_33:
 
-    if (v12)
+    if (v15)
     {
       goto LABEL_38;
     }
@@ -4151,27 +4328,27 @@ LABEL_33:
     sub_10011C318();
   }
 
-  v12 = objc_alloc_init(RPIdentity);
-  [v12 setIdentifier:@"SelfIdentity"];
-  v16 = 1;
-  [v12 setType:1];
-  [v12 setSource:1];
-  [(RPIdentityDaemon *)self _updateSelfIdentityPrivate:v12 create:1];
-  [v12 updateWithSEPPrivateKey:_sepLoadSelfPrivateKey];
+  v15 = objc_alloc_init(RPIdentity);
+  [v15 setIdentifier:@"SelfIdentity"];
+  v19 = 1;
+  [v15 setType:1];
+  [v15 setSource:1];
+  [(RPIdentityDaemon *)self _updateSelfIdentityPrivate:v15 create:1];
+  [v15 updateWithSEPPrivateKey:v9];
 LABEL_38:
-  if (_sepLoadSelfPrivateKey)
+  if (v9)
   {
-    CFRelease(_sepLoadSelfPrivateKey);
+    CFRelease(v9);
   }
 
-  if (v16)
+  if (v19)
   {
-    objc_storeStrong(&self->_selfIdentityCache, v12);
-    [(RPIdentityDaemon *)self _saveSelfIdentityPrivate:v12];
-    [(RPIdentityDaemon *)self _saveSelfIdentityPublicWithPrivateIdentity:v12 force:0];
+    objc_storeStrong(&self->_selfIdentityCache, v15);
+    [(RPIdentityDaemon *)self _saveSelfIdentityPrivate:v15];
+    [(RPIdentityDaemon *)self _saveSelfIdentityPublicWithPrivateIdentity:v15 force:0];
 LABEL_43:
-    v18 = +[RPDaemon sharedDaemon];
-    [v18 postDaemonInfoChanges:4];
+    v21 = +[RPDaemon sharedDaemon];
+    [v21 postDaemonInfoChanges:4];
 
     [(RPIdentityDaemon *)self _postIdentitiesChangedNotification];
     [(RPIdentityDaemon *)self _update];
@@ -4179,8 +4356,8 @@ LABEL_43:
   }
 
   selfIdentityCache = self->_selfIdentityCache;
-  objc_storeStrong(&self->_selfIdentityCache, v12);
-  [(RPIdentityDaemon *)self _saveSelfIdentityPublicWithPrivateIdentity:v12 force:0];
+  objc_storeStrong(&self->_selfIdentityCache, v15);
+  [(RPIdentityDaemon *)self _saveSelfIdentityPublicWithPrivateIdentity:v15 force:0];
   if (!selfIdentityCache)
   {
     goto LABEL_43;
@@ -4194,7 +4371,7 @@ LABEL_44:
   privateCopy = private;
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011C34C();
+    sub_10011C34C(privateCopy);
   }
 
   v4 = objc_alloc_init(CUKeychainItem);
@@ -4209,7 +4386,7 @@ LABEL_44:
   {
     if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _saveSelfIdentityPrivate:]", 90, "### SelfIdentity private convert to keychain failed: %@, %{error}\n", privateCopy, v6);
     }
 
     v8 = v6;
@@ -4226,7 +4403,7 @@ LABEL_44:
     {
       if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _saveSelfIdentityPrivate:]", 90, "### SelfIdentity private save failed: %@, %{error}\n", v4, v8);
       }
     }
 
@@ -4242,132 +4419,129 @@ LABEL_44:
   forceCopy = force;
   identityCopy = identity;
   idsDeviceID = [identityCopy idsDeviceID];
+  v9 = idsDeviceID;
   if (idsDeviceID)
   {
-    v7 = objc_alloc_init(CUKeychainItem);
-    [v7 setAccessGroup:@"com.apple.rapport"];
-    [v7 setIdentifier:idsDeviceID];
-    [v7 setSyncType:2];
-    [v7 setType:@"RPIdentity-SameAccountDevice"];
-    v8 = kSecAttrViewHintHome;
-    [v7 setViewHint:kSecAttrViewHintHome];
-    v26 = 0;
-    v21 = objc_alloc_init(CUKeychainManager);
-    v9 = [v21 copyItemMatchingItem:v7 flags:1 error:&v26];
-    v10 = v26;
-    v11 = v10;
-    if (v9)
+    v10 = objc_alloc_init(CUKeychainItem);
+    [v10 setAccessGroup:@"com.apple.rapport"];
+    [v10 setIdentifier:v9];
+    [v10 setSyncType:2];
+    [v10 setType:@"RPIdentity-SameAccountDevice"];
+    v11 = kSecAttrViewHintHome;
+    [v10 setViewHint:kSecAttrViewHintHome];
+    v27 = 0;
+    v22 = objc_alloc_init(CUKeychainManager);
+    v12 = [v22 copyItemMatchingItem:v10 flags:1 error:&v27];
+    v13 = v27;
+    v14 = v13;
+    if (v12)
     {
-      v12 = objc_alloc_init(RPIdentity);
-      v25 = v11;
-      [v12 updateWithKeychainItem:v9 error:&v25];
-      v13 = v25;
+      v15 = objc_alloc_init(RPIdentity);
+      v26 = v14;
+      [v15 updateWithKeychainItem:v12 error:&v26];
+      v16 = v26;
 
-      if (v13 && dword_1001D3F50 <= 60 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      if (v16 && dword_1001D3F50 <= 60 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011C3C0();
+        sub_10011C3C0(v16);
       }
 
-      v14 = [(RPIdentityDaemon *)self _updateSelfIdentityPublic:v12 privateIdentity:identityCopy];
-      if (v14)
+      v17 = [(RPIdentityDaemon *)self _updateSelfIdentityPublic:v15 privateIdentity:identityCopy];
+      if (v17)
       {
 
-        v11 = v13;
+        v14 = v16;
       }
 
       else
       {
-        v11 = v13;
-        if (v12)
+        v14 = v16;
+        if (v15)
         {
-          goto LABEL_24;
-        }
-      }
-    }
-
-    else if ([v10 code] != -25300)
-    {
-      if (dword_1001D3F50 > 90)
-      {
-LABEL_23:
-        v12 = objc_alloc_init(RPIdentity);
-        [v12 setIdentifier:idsDeviceID];
-        [v12 setType:2];
-        [v12 setSource:1];
-        [(RPIdentityDaemon *)self _updateSelfIdentityPublic:v12 privateIdentity:identityCopy];
-        v14 = 2048;
-        v13 = v11;
 LABEL_24:
-        if (forceCopy)
-        {
-          v15 = v14 | 0x1000;
-        }
+          if (forceCopy)
+          {
+            v18 = v17 | 0x1000;
+          }
 
-        else
-        {
-          v15 = v14;
-        }
+          else
+          {
+            v18 = v17;
+          }
 
-        if (!v15)
-        {
-          if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+          if (v18)
+          {
+            v19 = objc_alloc_init(CUKeychainItem);
+            [v19 setAccessGroup:@"com.apple.rapport"];
+            [v19 setAccessibleType:2];
+            [v19 setInvisible:1];
+            [v19 setSyncType:2];
+            [v19 setViewHint:v11];
+            v25 = v16;
+            v20 = [v19 updateWithRPIdentity:v15 revisionUpdate:1 error:&v25];
+            v21 = v25;
+
+            if (v20)
+            {
+              if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+              {
+                LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _saveSelfIdentityPublicWithPrivateIdentity:force:]", 90, "### SelfIdentity public convert to keychain failed: %@, %{error}\n", v15, v21);
+              }
+            }
+
+            else
+            {
+
+              v24 = 0;
+              [v22 addOrUpdateOrReAddItem:v19 logCategory:&dword_1001D3F50 logLabel:@"SelfIdentity public" error:&v24];
+              v21 = v24;
+              if (v21)
+              {
+                if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+                {
+                  LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _saveSelfIdentityPublicWithPrivateIdentity:force:]", 90, "### SelfIdentity public save failed: %@, %{error}\n", v19, v21);
+                }
+              }
+
+              else if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+              {
+                sub_10011C474(v18);
+              }
+
+              [(RPIdentityDaemon *)self _updateSameAccountIdentities];
+            }
+
+            v16 = v21;
+          }
+
+          else if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
           {
             sub_10011C4BC();
           }
 
-          goto LABEL_49;
+          goto LABEL_50;
         }
+      }
+    }
 
-        v16 = objc_alloc_init(CUKeychainItem);
-        [v16 setAccessGroup:@"com.apple.rapport"];
-        [v16 setAccessibleType:2];
-        [v16 setInvisible:1];
-        [v16 setSyncType:2];
-        [v16 setViewHint:v8];
-        v24 = v13;
-        v17 = [v16 updateWithRPIdentity:v12 revisionUpdate:1 error:&v24];
-        v18 = v24;
-
-        if (v17)
-        {
-          if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF();
-          }
-
-          goto LABEL_48;
-        }
-
-        v23 = 0;
-        [v21 addOrUpdateOrReAddItem:v16 logCategory:&dword_1001D3F50 logLabel:@"SelfIdentity public" error:&v23];
-        v18 = v23;
-        if (v18)
-        {
-          if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF();
-            [(RPIdentityDaemon *)self _updateSameAccountIdentities:v16];
-LABEL_48:
-
-            v13 = v18;
-LABEL_49:
-
-            goto LABEL_50;
-          }
-        }
-
-        else if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-        {
-          sub_10011C474();
-        }
-
-        [(RPIdentityDaemon *)self _updateSameAccountIdentities:v19];
-        goto LABEL_48;
+    else if ([v13 code] != -25300)
+    {
+      if (dword_1001D3F50 > 90)
+      {
+LABEL_23:
+        v15 = objc_alloc_init(RPIdentity);
+        [v15 setIdentifier:v9];
+        [v15 setType:2];
+        [v15 setSource:1];
+        [(RPIdentityDaemon *)self _updateSelfIdentityPublic:v15 privateIdentity:identityCopy];
+        v17 = 2048;
+        v16 = v14;
+        goto LABEL_24;
       }
 
       if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
       {
-        sub_10011C400();
+        sub_10011C400(v14);
       }
     }
 
@@ -4379,9 +4553,12 @@ LABEL_49:
     goto LABEL_23;
   }
 
-  if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D3F50 <= 90)
   {
-    sub_10011C4F0();
+    if (dword_1001D3F50 != -1 || (idsDeviceID = _LogCategory_Initialize(), idsDeviceID))
+    {
+      sub_10011C4F0(idsDeviceID, v7, v8);
+    }
   }
 
 LABEL_50:
@@ -4390,62 +4567,70 @@ LABEL_50:
 - (void)_removeSelfIdentityPublicWithPrivateIdentity:(id)identity
 {
   idsDeviceID = [identity idsDeviceID];
+  v7 = idsDeviceID;
   if (idsDeviceID)
   {
-    v5 = objc_alloc_init(CUKeychainItem);
-    [v5 setAccessGroup:@"com.apple.rapport"];
-    [v5 setIdentifier:idsDeviceID];
-    [v5 setSyncType:2];
-    [v5 setType:@"RPIdentity-SameAccountDevice"];
-    [v5 setViewHint:kSecAttrViewHintHome];
-    v6 = objc_alloc_init(CUKeychainManager);
-    v8 = 0;
-    [v6 removeItemMatchingItem:v5 error:&v8];
-    v7 = v8;
-    if ([v7 code] == -25300)
+    v8 = objc_alloc_init(CUKeychainItem);
+    [v8 setAccessGroup:@"com.apple.rapport"];
+    [v8 setIdentifier:v7];
+    [v8 setSyncType:2];
+    [v8 setType:@"RPIdentity-SameAccountDevice"];
+    [v8 setViewHint:kSecAttrViewHintHome];
+    v9 = objc_alloc_init(CUKeychainManager);
+    v12 = 0;
+    v10 = [v9 removeItemMatchingItem:v8 error:&v12];
+    v11 = v12;
+    if ([v11 code] == -25300)
     {
       if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011C54C();
+        sub_10011C54C(v10);
       }
     }
 
     else if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011C50C();
+      sub_10011C50C(v11);
     }
 
     [(RPIdentityDaemon *)self _updateSameAccountIdentities];
   }
 
-  else if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D3F50 <= 90)
   {
-    sub_10011C5A4();
+    if (dword_1001D3F50 != -1 || (idsDeviceID = _LogCategory_Initialize(), idsDeviceID))
+    {
+      sub_10011C5A4(idsDeviceID, v5, v6);
+    }
   }
 }
 
 - (void)_loadTemporarySelfIdentity
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
     if (!self->_temporarySelfIdentityCache)
     {
-      if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D3F50 <= 30)
       {
-        sub_10011C5C0();
+        if (dword_1001D3F50 != -1 || (v3 = _LogCategory_Initialize(), v3))
+        {
+          sub_10011C5C0(v3, v4, v5);
+        }
       }
 
-      v3 = [[RPIdentity alloc] initWithType:14];
+      v6 = [[RPIdentity alloc] initWithType:14];
       temporarySelfIdentityCache = self->_temporarySelfIdentityCache;
-      self->_temporarySelfIdentityCache = v3;
+      self->_temporarySelfIdentityCache = v6;
 
       uUIDString = [(NSUUID *)self->_adHocPairingIdentifier UUIDString];
       [(RPIdentity *)self->_temporarySelfIdentityCache setIdentifier:uUIDString];
     }
 
-    v6 = NSRandomData();
-    [(RPIdentity *)self->_temporarySelfIdentityCache setDeviceIRKData:v6];
+    v9 = NSRandomData();
+    [(RPIdentity *)self->_temporarySelfIdentityCache setDeviceIRKData:v9];
 
     p_adHocPairedDeviceIdentities = &self->_adHocPairedDeviceIdentities;
     if ([(NSMutableArray *)self->_adHocPairedDeviceIdentities count])
@@ -4455,56 +4640,59 @@ LABEL_50:
         sub_10011C5DC(&self->_adHocPairedDeviceIdentities);
       }
 
-      v8 = *p_adHocPairedDeviceIdentities;
+      v11 = *p_adHocPairedDeviceIdentities;
       *p_adHocPairedDeviceIdentities = 0;
 
-      v9 = +[RPDaemon sharedDaemon];
-      [v9 postDaemonInfoChanges:0x4000];
+      v12 = +[RPDaemon sharedDaemon];
+      [v12 postDaemonInfoChanges:0x4000];
     }
 
     temporarySelfIdentityTimer = self->_temporarySelfIdentityTimer;
     if (temporarySelfIdentityTimer)
     {
-      v11 = temporarySelfIdentityTimer;
-      dispatch_source_cancel(v11);
-      v12 = self->_temporarySelfIdentityTimer;
+      v14 = temporarySelfIdentityTimer;
+      dispatch_source_cancel(v14);
+      v15 = self->_temporarySelfIdentityTimer;
       self->_temporarySelfIdentityTimer = 0;
     }
 
-    v13 = +[NSDate date];
-    v14 = +[NSCalendar currentCalendar];
-    v15 = [v14 startOfDayForDate:v13];
+    v16 = +[NSDate date];
+    v17 = +[NSCalendar currentCalendar];
+    v18 = [v17 startOfDayForDate:v16];
 
-    v16 = +[NSCalendar currentCalendar];
-    v17 = [v16 dateByAddingUnit:16 value:1 toDate:v15 options:0];
+    v19 = +[NSCalendar currentCalendar];
+    v20 = [v19 dateByAddingUnit:16 value:1 toDate:v18 options:0];
 
-    if (v17)
+    if (v20)
     {
-      v18 = +[NSCalendar currentCalendar];
-      v19 = [v18 startOfDayForDate:v17];
+      v24 = +[NSCalendar currentCalendar];
+      v25 = [v24 startOfDayForDate:v20];
 
-      [v19 timeIntervalSinceDate:v13];
+      [v25 timeIntervalSinceDate:v16];
     }
 
-    else if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D3F50 <= 90)
     {
-      sub_10011C624();
+      if (dword_1001D3F50 != -1 || (v21 = _LogCategory_Initialize(), v21))
+      {
+        sub_10011C624(v21, v22, v23);
+      }
     }
 
-    v20 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-    v21 = self->_temporarySelfIdentityTimer;
-    self->_temporarySelfIdentityTimer = v20;
-    v22 = v20;
+    v26 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+    v27 = self->_temporarySelfIdentityTimer;
+    self->_temporarySelfIdentityTimer = v26;
+    v28 = v26;
 
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100070D5C;
-    v23[3] = &unk_1001AB488;
-    v23[4] = v22;
-    v23[5] = self;
-    dispatch_source_set_event_handler(v22, v23);
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100070D5C;
+    v29[3] = &unk_1001AB488;
+    v29[4] = v28;
+    v29[5] = self;
+    dispatch_source_set_event_handler(v28, v29);
     CUDispatchTimerSetEx();
-    dispatch_activate(v22);
+    dispatch_activate(v28);
     [(RPIdentityDaemon *)self _postIdentitiesChangedNotification];
   }
 }
@@ -4558,7 +4746,7 @@ LABEL_50:
     if (!accountID2)
     {
       [privateCopy setAccountID:accountID];
-      v11 |= 0x2000u;
+      v11 = v11 | 0x2000;
     }
   }
 
@@ -4577,7 +4765,7 @@ LABEL_16:
       v30 = NSRandomData();
       [privateCopy setDeviceIRKData:v30];
 
-      v11 |= 4u;
+      v11 = v11 | 4;
     }
 
     edPKData = [privateCopy edPKData];
@@ -4607,7 +4795,7 @@ LABEL_16:
       v35 = [[NSData alloc] initWithBytes:v55 length:32];
       [privateCopy setEdSKData:v35];
 
-      v11 |= 0x18u;
+      v11 = v11 | 0x18;
     }
 
 LABEL_25:
@@ -4656,7 +4844,7 @@ LABEL_25:
     if (v46 && v46 != featureFlags)
     {
       [privateCopy setFeatureFlags:?];
-      v11 |= 0x400u;
+      v11 = v11 | 0x400;
     }
 
     if ([(RPIdentityDaemon *)self _stationaryDevice])
@@ -4684,11 +4872,11 @@ LABEL_25:
       v52 = [getNonConnectableIdentity objectForKeyedSubscript:@"kCBMsgArgIdentityAddress"];
       [privateCopy setBtAddress:v52];
 
-      v11 |= 0xC00000u;
+      v11 = v11 | 0xC00000;
 LABEL_60:
       if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011C65C();
+        sub_10011C65C(v11);
       }
 
       goto LABEL_63;
@@ -4736,7 +4924,7 @@ LABEL_15:
     {
 LABEL_13:
       [privateCopy setIdsDeviceID:v24];
-      v11 |= 0x40u;
+      v11 = v11 | 0x40;
       goto LABEL_15;
     }
   }
@@ -4752,7 +4940,7 @@ LABEL_13:
 
   if (dword_1001D3F50 > 60)
   {
-    v11 = 1;
+    LODWORD(v11) = 1;
     accountAltDSID = v21;
     accountID = v54;
     idsDeviceIDSelf = v23;
@@ -4764,10 +4952,10 @@ LABEL_13:
     idsDeviceIDSelf = v23;
     if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon _updateSelfIdentityPrivate:create:]", 60, "SelfIdentity reset on IDSDeviceID change: %@ -> %@\n", v26, v24);
     }
 
-    v11 = 1;
+    LODWORD(v11) = 1;
     accountID = v54;
   }
 
@@ -5096,102 +5284,123 @@ LABEL_77:
 
 - (__SecKey)_sepLoadSelfPrivateKey
 {
-  if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D3F50 <= 30)
   {
-    sub_10011C6A4();
+    if (dword_1001D3F50 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10011C6A4(self, a2, v2);
+    }
   }
 
-  v7[0] = kSecClass;
-  v7[1] = kSecAttrKeyType;
-  v8[0] = kSecClassKey;
-  v8[1] = kSecAttrKeyTypeEd25519;
-  v7[2] = kSecAttrAccessGroup;
-  v7[3] = kSecAttrApplicationTag;
-  v8[2] = @"com.apple.rapport";
-  v8[3] = @"com.apple.rapport.SelfSEPIdentity";
-  v7[4] = kSecReturnRef;
-  v8[4] = &__kCFBooleanTrue;
-  v2 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:5];
-  v6 = 0;
-  v3 = SecItemCopyMatching(v2, &v6);
-  if (!v6 && v3 && dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-  {
-    sub_10011C6C0();
-  }
-
-  v4 = v6;
-
-  return v4;
-}
-
-- (__SecKey)_sepGenerateSelfPrivateKey
-{
-  if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
-  {
-    sub_10011C700();
-  }
-
-  v2 = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly, 0x40000000uLL, 0);
-  v11[0] = kSecAttrKeyType;
-  v11[1] = kSecAttrKeySizeInBits;
-  v12[0] = kSecAttrKeyTypeEd25519;
-  v12[1] = &off_1001B7F60;
-  v12[2] = kSecAttrTokenIDSecureEnclave;
-  v11[2] = kSecAttrTokenID;
-  v11[3] = kSecPrivateKeyAttrs;
-  v9[0] = kSecAttrIsPermanent;
-  v9[1] = kSecAttrAccessControl;
-  v10[0] = &__kCFBooleanTrue;
-  v10[1] = v2;
+  v9[0] = kSecClass;
+  v9[1] = kSecAttrKeyType;
+  v10[0] = kSecClassKey;
+  v10[1] = kSecAttrKeyTypeEd25519;
   v9[2] = kSecAttrAccessGroup;
   v9[3] = kSecAttrApplicationTag;
   v10[2] = @"com.apple.rapport";
   v10[3] = @"com.apple.rapport.SelfSEPIdentity";
-  v3 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:4];
-  v12[3] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:4];
-
+  v9[4] = kSecReturnRef;
+  v10[4] = &__kCFBooleanTrue;
+  v3 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:5];
   v8 = 0;
-  v5 = SecKeyCreateRandomKey(v4, &v8);
-  if (v2)
+  v4 = SecItemCopyMatching(v3, &v8);
+  if (!v8)
   {
-    CFRelease(v2);
-  }
-
-  if (!v5)
-  {
-    v6 = v8;
-    if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    v5 = v4;
+    if (v4)
     {
-      sub_10011C71C();
+      if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+      {
+        sub_10011C6C0(v5);
+      }
     }
   }
 
-  return v5;
+  v6 = v8;
+
+  return v6;
+}
+
+- (__SecKey)_sepGenerateSelfPrivateKey
+{
+  if (dword_1001D3F50 <= 30)
+  {
+    if (dword_1001D3F50 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10011C700(self, a2, v2);
+    }
+  }
+
+  v3 = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly, 0x40000000uLL, 0);
+  v12[0] = kSecAttrKeyType;
+  v12[1] = kSecAttrKeySizeInBits;
+  v13[0] = kSecAttrKeyTypeEd25519;
+  v13[1] = &off_1001B7F60;
+  v13[2] = kSecAttrTokenIDSecureEnclave;
+  v12[2] = kSecAttrTokenID;
+  v12[3] = kSecPrivateKeyAttrs;
+  v10[0] = kSecAttrIsPermanent;
+  v10[1] = kSecAttrAccessControl;
+  v11[0] = &__kCFBooleanTrue;
+  v11[1] = v3;
+  v10[2] = kSecAttrAccessGroup;
+  v10[3] = kSecAttrApplicationTag;
+  v11[2] = @"com.apple.rapport";
+  v11[3] = @"com.apple.rapport.SelfSEPIdentity";
+  v4 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:4];
+  v13[3] = v4;
+  v5 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:4];
+
+  v9 = 0;
+  v6 = SecKeyCreateRandomKey(v5, &v9);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  if (!v6)
+  {
+    v7 = v9;
+    if (dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+    {
+      sub_10011C71C(v7);
+    }
+  }
+
+  return v6;
 }
 
 - (void)_sepRemoveSelfPrivateKey:(__SecKey *)key
 {
   if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011C75C();
+    sub_10011C75C(key);
   }
 
   v4 = kSecValueRef;
-  v7[0] = kSecClass;
-  v7[1] = kSecAttrAccessGroup;
-  v8[0] = kSecClassKey;
-  v8[1] = @"com.apple.rapport";
-  v7[2] = kSecAttrApplicationTag;
-  v7[3] = v4;
-  v8[2] = @"com.apple.rapport.SelfSEPIdentity";
-  v8[3] = key;
+  v9[0] = kSecClass;
+  v9[1] = kSecAttrAccessGroup;
+  v10[0] = kSecClassKey;
+  v10[1] = @"com.apple.rapport";
+  v9[2] = kSecAttrApplicationTag;
+  v9[3] = v4;
+  v10[2] = @"com.apple.rapport.SelfSEPIdentity";
+  v10[3] = key;
   keyCopy = key;
-  v6 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v6 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:4];
 
-  if (SecItemDelete(v6) && dword_1001D3F50 <= 90 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
+  v7 = SecItemDelete(v6);
+  if (v7)
   {
-    sub_10011C79C();
+    if (dword_1001D3F50 <= 90)
+    {
+      v8 = v7;
+      if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
+      {
+        sub_10011C79C(v8);
+      }
+    }
   }
 }
 
@@ -5539,26 +5748,26 @@ LABEL_80:
   v5 = CFDictionaryGetTypedValue();
   if (v5)
   {
-    v45 = 0u;
-    v46 = 0u;
+    v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v6 = self->_sharedHomeExtraDeviceIdentities;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v44;
+      v9 = *v41;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v44 != v9)
+        if (*v41 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v43 + 1) + 8 * v10);
+        v11 = *(*(&v40 + 1) + 8 * v10);
         identifier = [v11 identifier];
         v13 = [identifier isEqual:v5];
 
@@ -5569,7 +5778,7 @@ LABEL_4:
 
         if (v8 == ++v10)
         {
-          v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -5611,28 +5820,28 @@ LABEL_13:
       [(NSMutableArray *)sharedHomeExtraDeviceIdentities addObject:v14];
     }
 
-    v41 = 0u;
-    v42 = 0u;
+    v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     selfCopy = self;
     v18 = self->_sharedHomeDeviceIdentities;
-    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v40;
+      v21 = *v37;
 LABEL_18:
       v22 = messageCopy;
       v23 = 0;
       while (1)
       {
-        if (*v40 != v21)
+        if (*v37 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v39 + 1) + 8 * v23);
+        v24 = *(*(&v36 + 1) + 8 * v23);
         identifier2 = [v24 identifier];
         v26 = [identifier2 isEqual:v5];
 
@@ -5643,7 +5852,7 @@ LABEL_18:
 
         if (v20 == ++v23)
         {
-          v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
           messageCopy = v22;
           if (v20)
           {
@@ -5671,10 +5880,7 @@ LABEL_18:
           v30 = v28;
           if (dword_1001D3F50 != -1 || _LogCategory_Initialize())
           {
-            v36 = v30;
-            v37 = &unk_1001487B7;
-            v35 = v14;
-            LogPrintF();
+            LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon addSharedHomeIdentityWithRPMessage:]", 30, "Updated SharedHome identity extra: %@, %#{flags}\n", v14, v30, &unk_1001487B7);
           }
         }
 
@@ -5701,13 +5907,12 @@ LABEL_30:
       [(NSMutableArray *)sharedHomeDeviceIdentities addObject:v14];
       if (dword_1001D3F50 <= 30 && (dword_1001D3F50 != -1 || _LogCategory_Initialize()))
       {
-        v35 = v14;
-        LogPrintF();
+        LogPrintF(&dword_1001D3F50, "[RPIdentityDaemon addSharedHomeIdentityWithRPMessage:]", 30, "Added SharedHome identity extra: %@\n", v14);
       }
 
       v27 = 0;
 LABEL_37:
-      v34 = [RPDaemon sharedDaemon:v35];
+      v34 = +[RPDaemon sharedDaemon];
       [v34 postDaemonInfoChanges:512];
 
       [(RPIdentityDaemon *)v29 _postIdentitiesChangedNotification];

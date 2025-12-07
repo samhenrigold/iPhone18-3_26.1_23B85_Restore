@@ -39,128 +39,130 @@
 
 - (void)printData
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = __ABPKLogSharedInstance();
+  v37 = *MEMORY[0x277D85DE8];
+  v3 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     width = self->_inputResolution.width;
     height = self->_inputResolution.height;
-    v26 = 134218240;
-    v27 = width;
-    v28 = 2048;
-    v29 = height;
-    _os_log_impl(&dword_23EDDC000, v3, OS_LOG_TYPE_DEBUG, " Input Resolution: (%f,%f) ", &v26, 0x16u);
+    v33 = 134218240;
+    v34 = width;
+    v35 = 2048;
+    v36 = height;
+    _os_log_impl(&dword_23EDDC000, v3, OS_LOG_TYPE_DEBUG, " Input Resolution: (%f,%f) ", &v33, 0x16u);
   }
 
-  v6 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = __ABPKLogSharedInstance(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v7 = self->_outputResolution.width;
-    v8 = self->_outputResolution.height;
-    v26 = 134218240;
-    v27 = v7;
-    v28 = 2048;
-    v29 = v8;
-    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_DEBUG, " Output Resolution: (%f,%f) ", &v26, 0x16u);
+    v8 = self->_outputResolution.width;
+    v9 = self->_outputResolution.height;
+    v33 = 134218240;
+    v34 = v8;
+    v35 = 2048;
+    v36 = v9;
+    _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_DEBUG, " Output Resolution: (%f,%f) ", &v33, 0x16u);
   }
 
   type = self->_type;
-  switch(type)
+  if (!type)
   {
-    case 0:
-      v20 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v26) = 0;
-        v22 = "  ";
-        goto LABEL_26;
-      }
-
-LABEL_28:
-
-      break;
-    case 1:
-      v20 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v26) = 0;
-        v22 = "  ";
-LABEL_26:
-        v23 = v20;
-        v24 = 2;
-LABEL_27:
-        _os_log_impl(&dword_23EDDC000, v23, OS_LOG_TYPE_DEBUG, v22, &v26, v24);
-        goto LABEL_28;
-      }
-
+    v28 = __ABPKLogSharedInstance(v10);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    {
       goto LABEL_28;
-    case 2:
-      v10 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v26) = 0;
-        _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_DEBUG, " Type: ScalingPadding ", &v26, 2u);
-      }
+    }
 
-      v11 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v26) = 0;
-        _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " Padding Parameters: ", &v26, 2u);
-      }
-
-      v12 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-      {
-        [(ABPKPaddingParams *)self->_paddingParams scale];
-        v26 = 134217984;
-        v27 = v13;
-        _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " /t scale:        %f ", &v26, 0xCu);
-      }
-
-      v14 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-      {
-        height = [(ABPKPaddingParams *)self->_paddingParams height];
-        v26 = 67109120;
-        LODWORD(v27) = height;
-        _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_DEBUG, " /t height:       %u ", &v26, 8u);
-      }
-
-      v16 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-      {
-        width = [(ABPKPaddingParams *)self->_paddingParams width];
-        v26 = 67109120;
-        LODWORD(v27) = width;
-        _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_DEBUG, " /t width:        %u ", &v26, 8u);
-      }
-
-      v18 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-      {
-        offsetHeight = [(ABPKPaddingParams *)self->_paddingParams offsetHeight];
-        v26 = 67109120;
-        LODWORD(v27) = offsetHeight;
-        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_DEBUG, " /t offsetHeight: %u ", &v26, 8u);
-      }
-
-      v20 = __ABPKLogSharedInstance();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_28;
-      }
-
-      offsetWidth = [(ABPKPaddingParams *)self->_paddingParams offsetWidth];
-      v26 = 67109120;
-      LODWORD(v27) = offsetWidth;
-      v22 = " /t offsetWidth:  %u ";
-      v23 = v20;
-      v24 = 8;
-      goto LABEL_27;
+    LOWORD(v33) = 0;
+    v30 = "  ";
+    goto LABEL_26;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
+  if (type == 1)
+  {
+    v28 = __ABPKLogSharedInstance(v10);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_28;
+    }
+
+    LOWORD(v33) = 0;
+    v30 = "  ";
+LABEL_26:
+    v31 = v28;
+    v32 = 2;
+    goto LABEL_27;
+  }
+
+  if (type != 2)
+  {
+    return;
+  }
+
+  v12 = __ABPKLogSharedInstance(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    LOWORD(v33) = 0;
+    _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " Type: ScalingPadding ", &v33, 2u);
+  }
+
+  v14 = __ABPKLogSharedInstance(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    LOWORD(v33) = 0;
+    _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_DEBUG, " Padding Parameters: ", &v33, 2u);
+  }
+
+  v16 = __ABPKLogSharedInstance(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    [(ABPKPaddingParams *)self->_paddingParams scale];
+    v33 = 134217984;
+    v34 = v17;
+    _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_DEBUG, " /t scale:        %f ", &v33, 0xCu);
+  }
+
+  v19 = __ABPKLogSharedInstance(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  {
+    height = [(ABPKPaddingParams *)self->_paddingParams height];
+    v33 = 67109120;
+    LODWORD(v34) = height;
+    _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_DEBUG, " /t height:       %u ", &v33, 8u);
+  }
+
+  v22 = __ABPKLogSharedInstance(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  {
+    width = [(ABPKPaddingParams *)self->_paddingParams width];
+    v33 = 67109120;
+    LODWORD(v34) = width;
+    _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_DEBUG, " /t width:        %u ", &v33, 8u);
+  }
+
+  v25 = __ABPKLogSharedInstance(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  {
+    offsetHeight = [(ABPKPaddingParams *)self->_paddingParams offsetHeight];
+    v33 = 67109120;
+    LODWORD(v34) = offsetHeight;
+    _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_DEBUG, " /t offsetHeight: %u ", &v33, 8u);
+  }
+
+  v28 = __ABPKLogSharedInstance(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  {
+    offsetWidth = [(ABPKPaddingParams *)self->_paddingParams offsetWidth];
+    v33 = 67109120;
+    LODWORD(v34) = offsetWidth;
+    v30 = " /t offsetWidth:  %u ";
+    v31 = v28;
+    v32 = 8;
+LABEL_27:
+    _os_log_impl(&dword_23EDDC000, v31, OS_LOG_TYPE_DEBUG, v30, &v33, v32);
+  }
+
+LABEL_28:
 }
 
 + (double)convert2DPoint:(uint64_t)point toInputSpaceWithParams:(void *)params
@@ -170,7 +172,8 @@ LABEL_27:
   {
     if ([paramsCopy type])
     {
-      if ([paramsCopy type] == 1)
+      type = [paramsCopy type];
+      if (type == 1)
       {
         scalingParams = [paramsCopy scalingParams];
 
@@ -178,30 +181,30 @@ LABEL_27:
         {
           scalingParams2 = [paramsCopy scalingParams];
           [scalingParams2 widthScale];
-          v37 = v22;
+          v41 = v25;
 
           scalingParams3 = [paramsCopy scalingParams];
           [scalingParams3 heightScale];
           __asm { FMOV            V2.2D, #1.0 }
 
-          _D9 = vcvt_f32_f64(vmulq_f64(vdivq_f64(_Q2, vcvtq_f64_f32(__PAIR64__(v23, v37))), vcvtq_f64_f32(self)));
+          _D9 = vcvt_f32_f64(vmulq_f64(vdivq_f64(_Q2, vcvtq_f64_f32(__PAIR64__(v26, v41))), vcvtq_f64_f32(self)));
           goto LABEL_12;
         }
 
-        v34 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v38 = __ABPKLogSharedInstance(v23);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_23EDDC000, v34, OS_LOG_TYPE_ERROR, " Scaling Parameters not specified ", buf, 2u);
+          _os_log_impl(&dword_23EDDC000, v38, OS_LOG_TYPE_ERROR, " Scaling Parameters not specified ", buf, 2u);
         }
       }
 
-      v25 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v28 = __ABPKLogSharedInstance(type);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        *v39 = 0;
-        v26 = " Invalid Image Pre-Processing type specified ";
-        v27 = v39;
+        *v43 = 0;
+        v29 = " Invalid Image Pre-Processing type specified ";
+        v30 = v43;
         goto LABEL_20;
       }
     }
@@ -215,23 +218,23 @@ LABEL_27:
         cropParams2 = [paramsCopy cropParams];
         width = [cropParams2 width];
         [paramsCopy outputResolution];
-        *&v31 = width / v31;
-        v38 = *&v31;
+        *&v35 = width / v35;
+        v42 = *&v35;
 
         cropParams3 = [paramsCopy cropParams];
         offsetWidth = [cropParams3 offsetWidth];
 
         scalingParams3 = [paramsCopy cropParams];
-        _D9 = vmla_n_f32(vcvt_f32_u32(__PAIR64__([scalingParams3 offsetHeight], offsetWidth)), self, v38);
+        _D9 = vmla_n_f32(vcvt_f32_u32(__PAIR64__([scalingParams3 offsetHeight], offsetWidth)), self, v42);
         goto LABEL_12;
       }
 
-      v25 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v28 = __ABPKLogSharedInstance(v32);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v41 = 0;
-        v26 = " Crop Parameters not specified ";
-        v27 = &v41;
+        v45 = 0;
+        v29 = " Crop Parameters not specified ";
+        v30 = &v45;
         goto LABEL_20;
       }
     }
@@ -247,14 +250,14 @@ LABEL_21:
 
   if (!paddingParams)
   {
-    v25 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v28 = __ABPKLogSharedInstance(v7);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v42 = 0;
-      v26 = " Padding Parameters not specified ";
-      v27 = &v42;
+      v46 = 0;
+      v29 = " Padding Parameters not specified ";
+      v30 = &v46;
 LABEL_20:
-      _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_ERROR, v26, v27, 2u);
+      _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_ERROR, v29, v30, 2u);
       goto LABEL_21;
     }
 
@@ -265,7 +268,7 @@ LABEL_20:
   offsetWidth2 = [paddingParams2 offsetWidth];
   paddingParams3 = [paramsCopy paddingParams];
   [paddingParams3 scale];
-  v36 = v10;
+  v40 = v11;
 
   scalingParams3 = [paramsCopy paddingParams];
   LODWORD(paddingParams3) = [scalingParams3 offsetHeight];
@@ -273,7 +276,7 @@ LABEL_20:
   [paddingParams4 scale];
   __asm { FMOV            V2.2D, #1.0 }
 
-  _D9 = vcvt_f32_f64(vmulq_f64(vdivq_f64(_Q2, vcvtq_f64_f32(__PAIR64__(v13, v36))), vcvtq_f64_f32(vsub_f32(self, vcvt_f32_u32(__PAIR64__(paddingParams3, offsetWidth2))))));
+  _D9 = vcvt_f32_f64(vmulq_f64(vdivq_f64(_Q2, vcvtq_f64_f32(__PAIR64__(v14, v40))), vcvtq_f64_f32(vsub_f32(self, vcvt_f32_u32(__PAIR64__(paddingParams3, offsetWidth2))))));
 
 LABEL_12:
 LABEL_22:

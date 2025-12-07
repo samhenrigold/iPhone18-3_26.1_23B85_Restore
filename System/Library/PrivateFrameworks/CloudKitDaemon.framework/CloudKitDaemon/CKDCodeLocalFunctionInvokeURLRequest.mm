@@ -90,19 +90,17 @@
 
 - (id)additionalHeaderValues
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   v5 = objc_msgSend_serviceName(self, a2, v2);
   v8 = objc_msgSend_functionName(self, v6, v7);
   v10 = objc_msgSend_stringWithFormat_(v4, v9, @"%@/%@", v5, v8);
 
-  v15[0] = 0x28387C7C0;
-  v15[1] = 0x28387C500;
-  v16[0] = v10;
-  v16[1] = @"application/protobuf";
-  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v16, v15, 2);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[0] = 0x28387C7C0;
+  v14[1] = 0x28387C500;
+  v15[0] = v10;
+  v15[1] = @"application/protobuf";
+  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v15, v14, 2);
 
   return v12;
 }

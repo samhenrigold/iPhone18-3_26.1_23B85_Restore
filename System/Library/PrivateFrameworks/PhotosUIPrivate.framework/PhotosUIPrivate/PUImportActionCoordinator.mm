@@ -86,7 +86,7 @@ void __42__PUImportActionCoordinator__deleteItems___block_invoke(uint64_t a1)
 
 - (void)deleteItemsFromBarButtonItem:(id)item withOneUpHintItems:(id)items
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   itemsCopy = items;
   v8 = _importActionCoordinatorLog();
@@ -94,9 +94,9 @@ void __42__PUImportActionCoordinator__deleteItems___block_invoke(uint64_t a1)
   {
     loggingPrefix = [(PUImportActionCoordinator *)self loggingPrefix];
     *buf = 138543618;
-    v47 = loggingPrefix;
-    v48 = 2048;
-    v49 = [itemsCopy count];
+    v53 = loggingPrefix;
+    v54 = 2048;
+    v55 = [itemsCopy count];
     _os_log_impl(&dword_1B36F3000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Delete bar button tapped. Hint items: %lu", buf, 0x16u);
   }
 
@@ -115,7 +115,7 @@ void __42__PUImportActionCoordinator__deleteItems___block_invoke(uint64_t a1)
       {
         loggingPrefix2 = [(PUImportActionCoordinator *)self loggingPrefix];
         *buf = 138543362;
-        v47 = loggingPrefix2;
+        v53 = loggingPrefix2;
         _os_log_impl(&dword_1B36F3000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: Showing 'Delete All' confirmation", buf, 0xCu);
       }
 
@@ -125,7 +125,7 @@ void __42__PUImportActionCoordinator__deleteItems___block_invoke(uint64_t a1)
       unfilteredDataSource = [dataSourceManager unfilteredDataSource];
 
       allItems = [unfilteredDataSource allItems];
-      v26 = 1;
+      v32 = 1;
       goto LABEL_18;
     }
 
@@ -133,9 +133,9 @@ void __42__PUImportActionCoordinator__deleteItems___block_invoke(uint64_t a1)
     {
       loggingPrefix3 = [(PUImportActionCoordinator *)self loggingPrefix];
       *buf = 138543618;
-      v47 = loggingPrefix3;
-      v48 = 2048;
-      v49 = v13;
+      v53 = loggingPrefix3;
+      v54 = 2048;
+      v55 = v13;
       _os_log_impl(&dword_1B36F3000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: Showing delete confirmation action sheet for %lu items", buf, 0x16u);
     }
 
@@ -151,7 +151,7 @@ void __42__PUImportActionCoordinator__deleteItems___block_invoke(uint64_t a1)
     v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DELETE_BUTTON_TITLE_%@%@", v18, v24];
     v19 = PLServicesLocalizedFrameworkString();
 
-    v41 = v13;
+    v47 = v13;
     v20 = PFLocalizedStringWithValidatedFormat();
     goto LABEL_14;
   }
@@ -161,9 +161,9 @@ void __42__PUImportActionCoordinator__deleteItems___block_invoke(uint64_t a1)
   {
     loggingPrefix4 = [(PUImportActionCoordinator *)self loggingPrefix];
     *buf = 138543618;
-    v47 = loggingPrefix4;
-    v48 = 2048;
-    v49 = v13;
+    v53 = loggingPrefix4;
+    v54 = 2048;
+    v55 = v13;
     _os_log_impl(&dword_1B36F3000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Showing delete confirmation action sheet for %lu hint items", buf, 0x16u);
   }
 
@@ -178,7 +178,7 @@ LABEL_14:
     v13 = v20;
 
 LABEL_17:
-    v26 = 0;
+    v32 = 0;
 LABEL_18:
 
     goto LABEL_19;
@@ -188,43 +188,42 @@ LABEL_18:
   {
     allItems = selectedItems;
     unfilteredDataSource = PULocalizedString(@"DELETE_BUTTON_TITLE_SELECTED_ITEM");
-    v41 = v13;
-    v13 = PUStringWithValidatedFormat();
+    v13 = PUStringWithValidatedFormat(unfilteredDataSource, @"%lu", v26, v27, v28, v29, v30, v31, v13);
     goto LABEL_17;
   }
 
-  v26 = 0;
+  v32 = 0;
   allItems = 0;
 LABEL_19:
-  v27 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:{0, v41}];
-  v28 = MEMORY[0x1E69DC648];
-  v29 = PLLocalizedFrameworkString();
-  v30 = [v28 actionWithTitle:v29 style:1 handler:0];
-  [v27 addAction:v30];
+  v33 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:{0, v47}];
+  v34 = MEMORY[0x1E69DC648];
+  v35 = PLLocalizedFrameworkString();
+  v36 = [v34 actionWithTitle:v35 style:1 handler:0];
+  [v33 addAction:v36];
 
-  v31 = MEMORY[0x1E69DC648];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __77__PUImportActionCoordinator_deleteItemsFromBarButtonItem_withOneUpHintItems___block_invoke;
-  v42[3] = &unk_1E7B777A8;
-  v45 = v26;
-  v42[4] = self;
-  v43 = v13;
-  v44 = allItems;
-  v32 = allItems;
-  v33 = v13;
-  v34 = [v31 actionWithTitle:v33 style:2 handler:v42];
-  [v27 addAction:v34];
+  v37 = MEMORY[0x1E69DC648];
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __77__PUImportActionCoordinator_deleteItemsFromBarButtonItem_withOneUpHintItems___block_invoke;
+  v48[3] = &unk_1E7B777A8;
+  v51 = v32;
+  v48[4] = self;
+  v49 = v13;
+  v50 = allItems;
+  v38 = allItems;
+  v39 = v13;
+  v40 = [v37 actionWithTitle:v39 style:2 handler:v48];
+  [v33 addAction:v40];
 
-  popoverPresentationController = [v27 popoverPresentationController];
-  v36 = popoverPresentationController;
+  popoverPresentationController = [v33 popoverPresentationController];
+  v42 = popoverPresentationController;
   if (popoverPresentationController)
   {
     [popoverPresentationController setBarButtonItem:itemCopy];
   }
 
   viewController = [(PUImportActionCoordinator *)self viewController];
-  [viewController presentViewController:v27 animated:1 completion:0];
+  [viewController presentViewController:v33 animated:1 completion:0];
 }
 
 void __77__PUImportActionCoordinator_deleteItemsFromBarButtonItem_withOneUpHintItems___block_invoke(uint64_t a1, void *a2)
@@ -361,8 +360,8 @@ void __51__PUImportActionCoordinator__commitImportingItems___block_invoke_3(uint
 - (void)_presentInsufficientDiskSpaceAlertForItems:(id)items
 {
   itemsCopy = items;
-  v31 = 0;
-  v5 = [MEMORY[0x1E69C3608] itemsConstrainedByAvailableDiskSpaceFromItems:itemsCopy additionalBytesRequired:&v31];
+  v43 = 0;
+  v5 = [MEMORY[0x1E69C3608] itemsConstrainedByAvailableDiskSpaceFromItems:itemsCopy additionalBytesRequired:&v43];
   mEMORY[0x1E69C3620] = [MEMORY[0x1E69C3620] sharedInstance];
   simulatedDiskSpace = [mEMORY[0x1E69C3620] simulatedDiskSpace];
 
@@ -376,7 +375,7 @@ void __51__PUImportActionCoordinator__commitImportingItems___block_invoke_3(uint
     goto LABEL_5;
   }
 
-  v31 = 0x100000;
+  v43 = 0x100000;
   if ([v5 count])
   {
 LABEL_5:
@@ -388,53 +387,53 @@ LABEL_5:
     }
 
 LABEL_10:
-    v20 = MEMORY[0x1E696AEC0];
+    v26 = MEMORY[0x1E696AEC0];
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
     model = [currentDevice model];
-    v11 = [v20 stringWithFormat:@"NO_SPACE_MESSAGE_%@", model];
+    v11 = [v26 stringWithFormat:@"NO_SPACE_MESSAGE_%@", model];
 
     v12 = PLLocalizedFrameworkString();
     currentDevice2 = [MEMORY[0x1E69DC938] currentDevice];
     localizedModel = [currentDevice2 localizedModel];
-    v13 = PUStringWithValidatedFormat();
+    v19 = PUStringWithValidatedFormat(v12, @"%@", v31, v32, v33, v34, v35, v36, localizedModel);
 
-    v24 = MEMORY[0x1E69DC650];
-    v25 = PLLocalizedFrameworkString();
-    v16 = [v24 alertControllerWithTitle:v25 message:v13 preferredStyle:{1, localizedModel}];
+    v37 = MEMORY[0x1E69DC650];
+    v38 = PLLocalizedFrameworkString();
+    v22 = [v37 alertControllerWithTitle:v38 message:v19 preferredStyle:1];
 
-    v17 = MEMORY[0x1E69DC648];
-    v18 = PLLocalizedFrameworkString();
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __72__PUImportActionCoordinator__presentInsufficientDiskSpaceAlertForItems___block_invoke_2;
-    v29[3] = &unk_1E7B7E148;
-    v29[4] = self;
-    v19 = v29;
+    v23 = MEMORY[0x1E69DC648];
+    v24 = PLLocalizedFrameworkString();
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __72__PUImportActionCoordinator__presentInsufficientDiskSpaceAlertForItems___block_invoke_2;
+    v41[3] = &unk_1E7B7E148;
+    v41[4] = self;
+    v25 = v41;
     goto LABEL_11;
   }
 
 LABEL_9:
-  v11 = [MEMORY[0x1E696AAF0] stringFromByteCount:v31 countStyle:0];
+  v11 = [MEMORY[0x1E696AAF0] stringFromByteCount:v43 countStyle:0];
   v12 = PLLocalizedFrameworkString();
-  v13 = PUStringWithValidatedFormat();
-  v14 = MEMORY[0x1E69DC650];
-  v15 = PLLocalizedFrameworkString();
-  v16 = [v14 alertControllerWithTitle:v15 message:v13 preferredStyle:{1, v11}];
+  v19 = PUStringWithValidatedFormat(v12, @"%@", v13, v14, v15, v16, v17, v18, v11);
+  v20 = MEMORY[0x1E69DC650];
+  v21 = PLLocalizedFrameworkString();
+  v22 = [v20 alertControllerWithTitle:v21 message:v19 preferredStyle:1];
 
-  v17 = MEMORY[0x1E69DC648];
-  v18 = PLLocalizedFrameworkString();
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __72__PUImportActionCoordinator__presentInsufficientDiskSpaceAlertForItems___block_invoke;
-  v30[3] = &unk_1E7B7E148;
-  v30[4] = self;
-  v19 = v30;
+  v23 = MEMORY[0x1E69DC648];
+  v24 = PLLocalizedFrameworkString();
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __72__PUImportActionCoordinator__presentInsufficientDiskSpaceAlertForItems___block_invoke;
+  v42[3] = &unk_1E7B7E148;
+  v42[4] = self;
+  v25 = v42;
 LABEL_11:
-  v26 = [v17 actionWithTitle:v18 style:1 handler:v19];
-  [v16 addAction:v26];
+  v39 = [v23 actionWithTitle:v24 style:1 handler:v25];
+  [v22 addAction:v39];
 
   viewController = [(PUImportActionCoordinator *)self viewController];
-  [viewController presentViewController:v16 animated:1 completion:0];
+  [viewController presentViewController:v22 animated:1 completion:0];
 }
 
 - (void)_handleDiskAvailabilityRequestForItems:(id)items withSuccess:(BOOL)success numBytesPurged:(int64_t)purged additionalBytesRequired:(int64_t)required error:(id)error
@@ -900,12 +899,12 @@ LABEL_8:
 - (void)checkBatteryLevelWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v44 = 0;
-  v43 = 0;
-  [objc_opt_class() retrieveBatteryState:&v44 batteryLevel:&v43];
+  v56 = 0;
+  v55 = 0;
+  [objc_opt_class() retrieveBatteryState:&v56 batteryLevel:&v55];
   v5 = objc_opt_class();
-  LODWORD(v6) = v43;
-  v7 = [v5 importBehaviorForBatteryState:v44 batteryLevel:v6];
+  LODWORD(v6) = v55;
+  v7 = [v5 importBehaviorForBatteryState:v56 batteryLevel:v6];
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   model = [currentDevice model];
 
@@ -916,7 +915,7 @@ LABEL_8:
   }
 
   percentageNumberFormatter = [(PUImportActionCoordinator *)self percentageNumberFormatter];
-  LODWORD(v11) = v43;
+  LODWORD(v11) = v55;
   v12 = [MEMORY[0x1E696AD98] numberWithFloat:v11];
   v13 = [percentageNumberFormatter stringFromNumber:v12];
 
@@ -924,36 +923,36 @@ LABEL_8:
   {
     v14 = [MEMORY[0x1E696AD60] stringWithString:@"IMPORT_BATTERY_LOW_MESSAGE_"];
     [v14 appendString:model];
-    v24 = PLLocalizedFrameworkString();
-    v36 = PUStringWithValidatedFormat();
+    v30 = PLLocalizedFrameworkString();
+    v48 = PUStringWithValidatedFormat(v30, @"%@:", v31, v32, v33, v34, v35, v36, v13);
 
-    v25 = MEMORY[0x1E69DC650];
-    v26 = PLLocalizedFrameworkString();
-    v27 = [v25 alertControllerWithTitle:v26 message:v36 preferredStyle:{1, v13}];
+    v37 = MEMORY[0x1E69DC650];
+    v38 = PLLocalizedFrameworkString();
+    v39 = [v37 alertControllerWithTitle:v38 message:v48 preferredStyle:1];
 
-    v28 = MEMORY[0x1E69DC648];
-    v29 = PLLocalizedFrameworkString();
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __61__PUImportActionCoordinator_checkBatteryLevelWithCompletion___block_invoke_2;
-    v39[3] = &unk_1E7B80980;
-    v30 = completionCopy;
-    v40 = v30;
-    v31 = [v28 actionWithTitle:v29 style:1 handler:v39];
-    [v27 addAction:v31];
+    v40 = MEMORY[0x1E69DC648];
+    v41 = PLLocalizedFrameworkString();
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __61__PUImportActionCoordinator_checkBatteryLevelWithCompletion___block_invoke_2;
+    v51[3] = &unk_1E7B80980;
+    v42 = completionCopy;
+    v52 = v42;
+    v43 = [v40 actionWithTitle:v41 style:1 handler:v51];
+    [v39 addAction:v43];
 
-    v32 = MEMORY[0x1E69DC648];
-    v33 = PLLocalizedFrameworkString();
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __61__PUImportActionCoordinator_checkBatteryLevelWithCompletion___block_invoke_3;
-    v37[3] = &unk_1E7B80980;
-    v38 = v30;
-    v34 = [v32 actionWithTitle:v33 style:0 handler:v37];
-    [v27 addAction:v34];
+    v44 = MEMORY[0x1E69DC648];
+    v45 = PLLocalizedFrameworkString();
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __61__PUImportActionCoordinator_checkBatteryLevelWithCompletion___block_invoke_3;
+    v49[3] = &unk_1E7B80980;
+    v50 = v42;
+    v46 = [v44 actionWithTitle:v45 style:0 handler:v49];
+    [v39 addAction:v46];
 
     viewController = [(PUImportActionCoordinator *)self viewController];
-    [viewController presentViewController:v27 animated:1 completion:0];
+    [viewController presentViewController:v39 animated:1 completion:0];
 
     goto LABEL_7;
   }
@@ -963,24 +962,24 @@ LABEL_8:
     v14 = [MEMORY[0x1E696AD60] stringWithString:@"IMPORT_BATTERY_CRITICAL_MESSAGE_"];
     [v14 appendString:model];
     v15 = PLLocalizedFrameworkString();
-    v16 = PUStringWithValidatedFormat();
+    v22 = PUStringWithValidatedFormat(v15, @"%@", v16, v17, v18, v19, v20, v21, v13);
 
-    v17 = MEMORY[0x1E69DC650];
-    v18 = PLLocalizedFrameworkString();
-    v19 = [v17 alertControllerWithTitle:v18 message:v16 preferredStyle:{1, v13}];
+    v23 = MEMORY[0x1E69DC650];
+    v24 = PLLocalizedFrameworkString();
+    v25 = [v23 alertControllerWithTitle:v24 message:v22 preferredStyle:1];
 
-    v20 = MEMORY[0x1E69DC648];
-    v21 = PLLocalizedFrameworkString();
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __61__PUImportActionCoordinator_checkBatteryLevelWithCompletion___block_invoke;
-    v41[3] = &unk_1E7B80980;
-    v42 = completionCopy;
-    v22 = [v20 actionWithTitle:v21 style:1 handler:v41];
-    [v19 addAction:v22];
+    v26 = MEMORY[0x1E69DC648];
+    v27 = PLLocalizedFrameworkString();
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __61__PUImportActionCoordinator_checkBatteryLevelWithCompletion___block_invoke;
+    v53[3] = &unk_1E7B80980;
+    v54 = completionCopy;
+    v28 = [v26 actionWithTitle:v27 style:1 handler:v53];
+    [v25 addAction:v28];
 
     viewController2 = [(PUImportActionCoordinator *)self viewController];
-    [viewController2 presentViewController:v19 animated:1 completion:0];
+    [viewController2 presentViewController:v25 animated:1 completion:0];
 
 LABEL_7:
     goto LABEL_8;
@@ -1720,33 +1719,33 @@ void __68__PUImportActionCoordinator_configureImportActionsForBarButtonItem___bl
 
 + (id)deleteAllConfirmationMessageForItems:(id)items importSource:(id)source
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   sourceCopy = source;
   v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"IMPORT_CONFIRM_DELETE_ALL_"];
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   v10 = @"PHOTOS_";
   if (v9)
   {
     v11 = v9;
-    v12 = *v24;
+    v12 = *v30;
     v13 = 1;
     v14 = 1;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        importAsset = [*(*(&v23 + 1) + 8 * i) importAsset];
+        importAsset = [*(*(&v29 + 1) + 8 * i) importAsset];
         if ([importAsset isImage])
         {
           v13 = 0;
@@ -1765,7 +1764,7 @@ void __68__PUImportActionCoordinator_configureImportActionsForBarButtonItem___bl
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v11)
       {
         continue;
@@ -1797,17 +1796,17 @@ LABEL_19:
   if (([productKind isEqualToString:@"Camera"] & 1) != 0 || !objc_msgSend(name, "length"))
   {
     [v7 appendString:productKind];
-    v21 = PLLocalizedFrameworkString();
+    v27 = PLLocalizedFrameworkString();
   }
 
   else
   {
     [v7 appendString:@"FORMAT"];
     v20 = PLLocalizedFrameworkString();
-    v21 = PUStringWithValidatedFormat();
+    v27 = PUStringWithValidatedFormat(v20, @"%@", v21, v22, v23, v24, v25, v26, name);
   }
 
-  return v21;
+  return v27;
 }
 
 + (int64_t)importBehaviorForBatteryState:(int64_t)state batteryLevel:(float)level

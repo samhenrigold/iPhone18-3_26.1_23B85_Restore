@@ -182,7 +182,7 @@ LABEL_12:
 
 + (void)moveFilesToSharedContainerInMutableResult:(id)result
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   files = [resultCopy files];
   if (files)
@@ -193,58 +193,58 @@ LABEL_12:
 
     if (v7)
     {
-      v38 = DKTemporaryDirectoryURL();
+      v37 = DKTemporaryDirectoryURL();
       files3 = [resultCopy files];
       v9 = [files3 copy];
 
-      v36 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+      v35 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       files4 = [resultCopy files];
-      v11 = [files4 countByEnumeratingWithState:&v41 objects:v51 count:16];
+      v11 = [files4 countByEnumeratingWithState:&v40 objects:v50 count:16];
       if (v11)
       {
         v12 = v11;
-        v34 = v9;
-        v35 = resultCopy;
+        v33 = v9;
+        v34 = resultCopy;
         v13 = 0;
-        v14 = *v42;
+        v14 = *v41;
         v15 = 0x277CCA000uLL;
         do
         {
           v16 = 0;
-          v37 = v12;
+          v36 = v12;
           do
           {
-            if (*v42 != v14)
+            if (*v41 != v14)
             {
               objc_enumerationMutation(files4);
             }
 
-            v17 = *(*(&v41 + 1) + 8 * v16);
+            v17 = *(*(&v40 + 1) + 8 * v16);
             path = [v17 path];
-            path2 = [v38 path];
+            path2 = [v37 path];
             v20 = [path hasPrefix:path2];
 
             if ((v20 & 1) == 0)
             {
               v21 = files4;
               lastPathComponent = [v17 lastPathComponent];
-              v23 = [v38 URLByAppendingPathComponent:lastPathComponent];
+              v23 = [v37 URLByAppendingPathComponent:lastPathComponent];
               defaultManager = [*(v15 + 2560) defaultManager];
-              v40 = 0;
-              v25 = [defaultManager copyItemAtURL:v17 toURL:v23 error:&v40];
-              v26 = v40;
+              v39 = 0;
+              v25 = [defaultManager copyItemAtURL:v17 toURL:v23 error:&v39];
+              v26 = v39;
 
               if (v25)
               {
 
                 defaultManager2 = [*(v15 + 2560) defaultManager];
-                v39 = 0;
-                v28 = [defaultManager2 removeItemAtURL:v17 error:&v39];
-                v26 = v39;
+                v38 = 0;
+                v28 = [defaultManager2 removeItemAtURL:v17 error:&v38];
+                v26 = v38;
 
                 if ((v28 & 1) == 0)
                 {
@@ -252,9 +252,9 @@ LABEL_12:
                   if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v46 = v17;
-                    v47 = 2112;
-                    v48 = v26;
+                    v45 = v17;
+                    v46 = 2112;
+                    v47 = v26;
                     _os_log_error_impl(&dword_248B9D000, v29, OS_LOG_TYPE_ERROR, "Could not delete file at [%@]: %@", buf, 0x16u);
                   }
                 }
@@ -263,13 +263,13 @@ LABEL_12:
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  v46 = v17;
-                  v47 = 2112;
-                  v48 = v23;
+                  v45 = v17;
+                  v46 = 2112;
+                  v47 = v23;
                   _os_log_impl(&dword_248B9D000, v30, OS_LOG_TYPE_DEFAULT, "Moved file at [%@] to [%@].", buf, 0x16u);
                 }
 
-                [v36 addObject:v23];
+                [v35 addObject:v23];
               }
 
               else
@@ -278,11 +278,11 @@ LABEL_12:
                 if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412802;
-                  v46 = v17;
-                  v47 = 2112;
-                  v48 = v23;
-                  v49 = 2112;
-                  v50 = v26;
+                  v45 = v17;
+                  v46 = 2112;
+                  v47 = v23;
+                  v48 = 2112;
+                  v49 = v26;
                   _os_log_error_impl(&dword_248B9D000, v31, OS_LOG_TYPE_ERROR, "Could not copy file from [%@] to [%@]: %@", buf, 0x20u);
                 }
               }
@@ -290,24 +290,24 @@ LABEL_12:
               v13 = 1;
               files4 = v21;
               v15 = 0x277CCA000;
-              v12 = v37;
+              v12 = v36;
             }
 
             ++v16;
           }
 
           while (v12 != v16);
-          v12 = [files4 countByEnumeratingWithState:&v41 objects:v51 count:16];
+          v12 = [files4 countByEnumeratingWithState:&v40 objects:v50 count:16];
         }
 
         while (v12);
 
-        v9 = v34;
-        resultCopy = v35;
+        v9 = v33;
+        resultCopy = v34;
         if (v13)
         {
-          v32 = [v36 copy];
-          [v35 setFiles:v32];
+          v32 = [v35 copy];
+          [v34 setFiles:v32];
 LABEL_28:
 
           goto LABEL_29;
@@ -330,8 +330,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_fetchItemProviderFromItems:(id)items withError:(id *)error
@@ -398,17 +396,15 @@ LABEL_11:
 
 void __40__DKUtilities__sharedParsingFailedError__block_invoke()
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CCA9B8];
-  v6 = *MEMORY[0x277CCA450];
+  v5 = *MEMORY[0x277CCA450];
   v1 = DKErrorLocalizedDescriptionForCode(-1004);
-  v7[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v3 = [v0 errorWithDomain:@"DKErrorDomain" code:-1004 userInfo:v2];
   v4 = _sharedParsingFailedError_singleton;
   _sharedParsingFailedError_singleton = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

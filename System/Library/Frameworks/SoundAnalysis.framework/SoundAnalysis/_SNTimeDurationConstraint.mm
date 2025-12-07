@@ -14,7 +14,7 @@
 {
   if (durations)
   {
-    sub_1C97C8930();
+    sub_1C97C8930(v3);
     sub_1C9A92798();
   }
 
@@ -91,10 +91,10 @@
   selfCopy = self;
   sub_1C97C6CC4();
 
-  sub_1C97C8930();
-  v3 = sub_1C9A92768();
+  sub_1C97C8930(v3);
+  v4 = sub_1C9A92768();
 
-  return v3;
+  return v4;
 }
 
 @end

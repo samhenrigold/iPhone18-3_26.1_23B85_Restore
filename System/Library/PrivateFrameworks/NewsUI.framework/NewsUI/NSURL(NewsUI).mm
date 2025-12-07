@@ -98,7 +98,7 @@ LABEL_15:
 
 - (uint64_t)nu_handleExternalURLWithPrompt
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   scheme = [self scheme];
   if ([self fc_isStoreURL])
   {
@@ -121,11 +121,11 @@ LABEL_15:
     {
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
       delegate = [mEMORY[0x277D75128] delegate];
-      v20 = *MEMORY[0x277D766D0];
+      v19 = *MEMORY[0x277D766D0];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       bundleIdentifier = [mainBundle bundleIdentifier];
-      v21[0] = bundleIdentifier;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v20[0] = bundleIdentifier;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v4 = [delegate application:mEMORY[0x277D75128] openURL:self options:v11];
     }
 
@@ -152,16 +152,16 @@ LABEL_2:
 
       delegate = [mEMORY[0x277D75128] objectAtIndex:0];
       localizedName = [delegate localizedName];
-      v16 = [localizedName length];
-      v4 = v16 != 0;
+      v15 = [localizedName length];
+      v4 = v15 != 0;
 
-      if (v16)
+      if (v15)
       {
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __47__NSURL_NewsUI__nu_handleExternalURLWithPrompt__block_invoke;
         block[3] = &unk_2799A3440;
-        v18 = delegate;
+        v17 = delegate;
         selfCopy = self;
         dispatch_async(MEMORY[0x277D85CD0], block);
       }
@@ -172,7 +172,6 @@ LABEL_10:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

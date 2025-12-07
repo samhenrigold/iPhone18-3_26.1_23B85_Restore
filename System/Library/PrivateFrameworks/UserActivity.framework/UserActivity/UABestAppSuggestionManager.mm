@@ -104,9 +104,9 @@
 
 - (UABestAppSuggestionManager)init
 {
-  v20.receiver = self;
-  v20.super_class = UABestAppSuggestionManager;
-  v2 = [(UABestAppSuggestionManager *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = UABestAppSuggestionManager;
+  v2 = [(UABestAppSuggestionManager *)&v22 init];
   if (v2)
   {
     objc_initWeak(&location, v2);
@@ -122,32 +122,32 @@
     connection = v2->_connection;
     v2->_connection = v7;
 
-    v9 = _LSGetBestAppSuggestionManagerProtocolInterface();
-    [(NSXPCConnection *)v2->_connection setRemoteObjectInterface:v9];
+    v10 = _LSGetBestAppSuggestionManagerProtocolInterface(v9);
+    [(NSXPCConnection *)v2->_connection setRemoteObjectInterface:v10];
 
     proxyManager = [(UABestAppSuggestionManager *)v2 proxyManager];
     [(NSXPCConnection *)v2->_connection setExportedObject:proxyManager];
 
-    v11 = _LSGetBestAppSuggestionManagerResponseProtocolInterface();
-    [(NSXPCConnection *)v2->_connection setExportedInterface:v11];
+    v13 = _LSGetBestAppSuggestionManagerResponseProtocolInterface(v12);
+    [(NSXPCConnection *)v2->_connection setExportedInterface:v13];
 
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __34__UABestAppSuggestionManager_init__block_invoke;
+    v17[3] = &unk_2785C46D0;
+    objc_copyWeak(&v18, &location);
+    objc_copyWeak(&v19, &to);
+    [(NSXPCConnection *)v2->_connection setInterruptionHandler:v17];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
-    v15[2] = __34__UABestAppSuggestionManager_init__block_invoke;
-    v15[3] = &unk_2785C46D0;
+    v15[2] = __34__UABestAppSuggestionManager_init__block_invoke_15;
+    v15[3] = &unk_2785C4020;
     objc_copyWeak(&v16, &location);
-    objc_copyWeak(&v17, &to);
-    [(NSXPCConnection *)v2->_connection setInterruptionHandler:v15];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __34__UABestAppSuggestionManager_init__block_invoke_15;
-    v13[3] = &unk_2785C4020;
-    objc_copyWeak(&v14, &location);
-    [(NSXPCConnection *)v2->_connection setInvalidationHandler:v13];
+    [(NSXPCConnection *)v2->_connection setInvalidationHandler:v15];
     [(NSXPCConnection *)v2->_connection resume];
-    objc_destroyWeak(&v14);
-    objc_destroyWeak(&v17);
     objc_destroyWeak(&v16);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&to);
     objc_destroyWeak(&location);
   }
@@ -228,7 +228,7 @@ void __34__UABestAppSuggestionManager_init__block_invoke_15(uint64_t a1)
 
 - (void)removeBestAppByUUID:(id)d options:(id)options
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   optionsCopy = options;
   v8 = _uaGetLogForCategory(0);
@@ -237,11 +237,11 @@ void __34__UABestAppSuggestionManager_init__block_invoke_15(uint64_t a1)
     uUIDString = [dCopy UUIDString];
     v10 = [optionsCopy description];
     v11 = stringRemovingNewlines(v10);
-    v15 = 138543618;
-    v16 = uUIDString;
-    v17 = 2114;
-    v18 = v11;
-    _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEBUG, "removeBestAppByUUID:%{public}@ opts=%{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = uUIDString;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEBUG, "removeBestAppByUUID:%{public}@ opts=%{public}@", &v14, 0x16u);
   }
 
   connection = [(UABestAppSuggestionManager *)self connection];
@@ -251,28 +251,24 @@ void __34__UABestAppSuggestionManager_init__block_invoke_15(uint64_t a1)
   {
     [v13 doRemoveBestAppSuggestion:dCopy options:optionsCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __58__UABestAppSuggestionManager_removeBestAppByUUID_options___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeBestApp:(id)app options:(id)options
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   appCopy = app;
   optionsCopy = options;
   v8 = _uaGetLogForCategory(0);
@@ -282,19 +278,17 @@ void __58__UABestAppSuggestionManager_removeBestAppByUUID_options___block_invoke
     uUIDString = [uniqueIdentifier UUIDString];
     v11 = [optionsCopy description];
     v12 = stringRemovingNewlines(v11);
-    v15 = 138543875;
-    v16 = uUIDString;
-    v17 = 2113;
-    v18 = appCopy;
-    v19 = 2114;
-    v20 = v12;
-    _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEBUG, "removeBestApp:%{public}@/%{private}@ opts=%{public}@", &v15, 0x20u);
+    v14 = 138543875;
+    v15 = uUIDString;
+    v16 = 2113;
+    v17 = appCopy;
+    v18 = 2114;
+    v19 = v12;
+    _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEBUG, "removeBestApp:%{public}@/%{private}@ opts=%{public}@", &v14, 0x20u);
   }
 
   uniqueIdentifier2 = [appCopy uniqueIdentifier];
   [(UABestAppSuggestionManager *)self removeBestAppByUUID:uniqueIdentifier2 options:optionsCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -323,32 +317,28 @@ void __58__UABestAppSuggestionManager_removeBestAppByUUID_options___block_invoke
 
 void __65__UABestAppSuggestionManager_startListeningForBestAppSuggestions__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __64__UABestAppSuggestionManager_stopListeningForBestAppSuggestions__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bestAppSuggestion
@@ -447,65 +437,64 @@ void __64__UABestAppSuggestionManager_stopListeningForBestAppSuggestions__block_
 
 void __49__UABestAppSuggestionManager_bestAppSuggestions___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEFAULT, "error from xpc request to server, %{public}@", &v5, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__UABestAppSuggestionManager_bestAppSuggestions___block_invoke_27(uint64_t a1, void *a2, void *a3, double a4)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [v7 firstObject];
   v10 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v34 = [v9 uuid];
-    v30 = [v34 UUIDString];
+    v33 = [v9 uuid];
+    v29 = [v33 UUIDString];
     suggestedActionTypeString([v9 type]);
-    v11 = v35 = v7;
-    v29 = [v9 bundleIdentifier];
+    v11 = v34 = v7;
+    v28 = [v9 bundleIdentifier];
     v12 = [v9 activityType];
-    v32 = [v9 peerDevice];
-    v13 = [v32 name];
     v31 = [v9 peerDevice];
-    v14 = [v31 uniqueID];
+    v13 = [v31 name];
+    v30 = [v9 peerDevice];
+    v14 = [v30 uniqueID];
     [v9 peerDeviceType];
-    v15 = v33 = v9;
+    v15 = v32 = v9;
     *buf = 138545667;
-    v42 = v30;
-    v43 = 2114;
-    v44 = v11;
-    v45 = 2113;
-    v46 = v29;
-    v47 = 2113;
-    v48 = v12;
-    v49 = 2114;
-    v50 = v8;
-    v51 = 2048;
-    v52 = a4;
-    v53 = 2113;
-    v54 = v13;
-    v55 = 2113;
-    v56 = v14;
-    v57 = 2113;
-    v58 = v15;
-    v59 = 2048;
-    v60 = [v35 count] - 1;
+    v41 = v29;
+    v42 = 2114;
+    v43 = v11;
+    v44 = 2113;
+    v45 = v28;
+    v46 = 2113;
+    v47 = v12;
+    v48 = 2114;
+    v49 = v8;
+    v50 = 2048;
+    v51 = a4;
+    v52 = 2113;
+    v53 = v13;
+    v54 = 2113;
+    v55 = v14;
+    v56 = 2113;
+    v57 = v15;
+    v58 = 2048;
+    v59 = [v34 count] - 1;
     _os_log_impl(&dword_226A4E000, v10, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ %{private}@ %{private}@ %{public}@ %g %{private}@ %{private}@ %{private}@ (and %lu more app suggestions)", buf, 0x66u);
 
-    v9 = v33;
-    v7 = v35;
+    v9 = v32;
+    v7 = v34;
   }
 
   v16 = [MEMORY[0x277CBEB18] array];
@@ -513,26 +502,26 @@ void __49__UABestAppSuggestionManager_bestAppSuggestions___block_invoke_27(uint6
   v18 = *(v17 + 40);
   *(v17 + 40) = v16;
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v19 = v7;
-  v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v37;
+    v22 = *v36;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v37 != v22)
+        if (*v36 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v36 + 1) + 8 * i);
+        v24 = *(*(&v35 + 1) + 8 * i);
         v25 = [v24 uuid];
 
         if (v25)
@@ -547,13 +536,11 @@ void __49__UABestAppSuggestionManager_bestAppSuggestions___block_invoke_27(uint6
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v21);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)fetchAllNearbyAppSuggestions
@@ -586,47 +573,44 @@ void __49__UABestAppSuggestionManager_bestAppSuggestions___block_invoke_27(uint6
 
 void __58__UABestAppSuggestionManager_fetchAllNearbyAppSuggestions__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "Error from xpc request to server, %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "Error from xpc request to server, %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __58__UABestAppSuggestionManager_fetchAllNearbyAppSuggestions__block_invoke_35(uint64_t a1, char a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = _uaGetLogForCategory(@"multi-handoff");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:*(*(*(a1 + 32) + 8) + 24)];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEFAULT, "expectResults: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEFAULT, "expectResults: %@", &v6, 0xCu);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queueFetchOfPayloadForBestAppSuggestion:(id)suggestion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   v5 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     uniqueIdentifier = [suggestionCopy uniqueIdentifier];
     uUIDString = [uniqueIdentifier UUIDString];
-    LODWORD(v18) = 138543362;
-    *(&v18 + 4) = uUIDString;
-    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_INFO, "queueFetchOfPayloadForBestAppSuggestion:%{public}@", &v18, 0xCu);
+    LODWORD(v17) = 138543362;
+    *(&v17 + 4) = uUIDString;
+    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_INFO, "queueFetchOfPayloadForBestAppSuggestion:%{public}@", &v17, 0xCu);
   }
 
   connection = [(UABestAppSuggestionManager *)self connection];
@@ -639,13 +623,13 @@ void __58__UABestAppSuggestionManager_fetchAllNearbyAppSuggestions__block_invoke
     if (uniqueIdentifier2)
     {
       v12 = uniqueIdentifier2;
-      v18 = 0uLL;
-      [uniqueIdentifier2 getUUIDBytes:&v18];
+      v17 = 0uLL;
+      [uniqueIdentifier2 getUUIDBytes:&v17];
       v13 = 0;
       v14 = 0;
       do
       {
-        v14 = (*(&v18 + v13 + 1) ^ *(&v18 + v13)) | (v14 << 8);
+        v14 = (*(&v17 + v13 + 1) ^ *(&v17 + v13)) | (v14 << 8);
         v13 += 2;
       }
 
@@ -654,32 +638,28 @@ void __58__UABestAppSuggestionManager_fetchAllNearbyAppSuggestions__block_invoke
       if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
       {
         uniqueIdentifier3 = [suggestionCopy uniqueIdentifier];
-        LODWORD(v18) = 138543362;
-        *(&v18 + 4) = uniqueIdentifier3;
-        _os_signpost_emit_with_name_impl(&dword_226A4E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v14, "fetchUserActivityQueued", "Fetching handoff payload:%{public}@", &v18, 0xCu);
+        LODWORD(v17) = 138543362;
+        *(&v17 + 4) = uniqueIdentifier3;
+        _os_signpost_emit_with_name_impl(&dword_226A4E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v14, "fetchUserActivityQueued", "Fetching handoff payload:%{public}@", &v17, 0xCu);
       }
     }
 
     uniqueIdentifier4 = [suggestionCopy uniqueIdentifier];
     [v9 doQueueFetchOfPayloadForBestAppSuggestion:uniqueIdentifier4 completionHandler:&__block_literal_global_42_0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __70__UABestAppSuggestionManager_queueFetchOfPayloadForBestAppSuggestion___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "Error from xpc request to server, %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_226A4E000, v3, OS_LOG_TYPE_DEFAULT, "Error from xpc request to server, %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bestAppSuggestionWasLaunched:(id)launched withInteractionType:(unint64_t)type
@@ -891,46 +871,46 @@ LABEL_31:
 
 - (void)notifyBestAppsChanged:(id)changed when:(id)when confidence:(double)confidence
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   whenCopy = when;
-  v55 = changedCopy;
+  v54 = changedCopy;
   firstObject = [changedCopy firstObject];
   v8 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [firstObject uuid];
     uUIDString = [uuid UUIDString];
-    v51 = suggestedActionTypeString([firstObject type]);
+    v50 = suggestedActionTypeString([firstObject type]);
     bundleIdentifier = [firstObject bundleIdentifier];
     activityType = [firstObject activityType];
     options = [firstObject options];
     v12 = [options description];
-    v50 = stringRemovingNewlines(v12);
+    v49 = stringRemovingNewlines(v12);
     peerDevice = [firstObject peerDevice];
     name = [peerDevice name];
     peerDevice2 = [firstObject peerDevice];
     uniqueID = [peerDevice2 uniqueID];
     *buf = 138545667;
-    v63 = uUIDString;
-    v64 = 2114;
-    v65 = v51;
-    v66 = 2113;
-    v67 = bundleIdentifier;
-    v68 = 2113;
-    v69 = activityType;
-    v70 = 2114;
-    v71 = v50;
-    v72 = 2114;
-    v73 = whenCopy;
-    v74 = 2048;
+    v62 = uUIDString;
+    v63 = 2114;
+    v64 = v50;
+    v65 = 2113;
+    v66 = bundleIdentifier;
+    v67 = 2113;
+    v68 = activityType;
+    v69 = 2114;
+    v70 = v49;
+    v71 = 2114;
+    v72 = whenCopy;
+    v73 = 2048;
     confidenceCopy = confidence;
-    v76 = 2113;
-    v77 = name;
-    v78 = 2113;
-    v79 = uniqueID;
-    v80 = 2048;
-    v81 = [v55 count] - 1;
+    v75 = 2113;
+    v76 = name;
+    v77 = 2113;
+    v78 = uniqueID;
+    v79 = 2048;
+    v80 = [v54 count] - 1;
     _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEFAULT, "notifyBestAppsChanged:%{public}@ %{public}@ %{private}@/%{private}@ opts=%{public}@ when=%{public}@ confidence=%g from=%{private}@/%{private}@  (and %lu more best app suggestions)", buf, 0x66u);
   }
 
@@ -972,61 +952,61 @@ LABEL_10:
             ++selfCopy->_bestAppNotificationCount;
             if ((v22 & 1) != 0 || ![(UABestAppSuggestionManager *)selfCopy isActivityInfo:firstObject atTime:whenCopy similarToAppSuggestion:selfCopy->_lastBestAppSuggestion])
             {
-              v38 = [(UABestAppSuggestionManager *)selfCopy createAppSuggestionFromActivityInfo:firstObject atTime:whenCopy];
-              objc_storeStrong(&selfCopy->_lastBestAppSuggestion, v38);
+              v37 = [(UABestAppSuggestionManager *)selfCopy createAppSuggestionFromActivityInfo:firstObject atTime:whenCopy];
+              objc_storeStrong(&selfCopy->_lastBestAppSuggestion, v37);
               objc_sync_exit(selfCopy);
 
               if (v22)
               {
-                v39 = [MEMORY[0x277CBEB58] set];
-                v40 = v39;
-                if (v38)
+                v38 = [MEMORY[0x277CBEB58] set];
+                v39 = v38;
+                if (v37)
                 {
-                  [v39 addObject:v38];
+                  [v38 addObject:v37];
                 }
 
-                if ([v55 count] >= 2)
+                if ([v54 count] >= 2)
                 {
-                  v41 = 1;
+                  v40 = 1;
                   do
                   {
-                    v42 = [v55 objectAtIndex:v41];
+                    v41 = [v54 objectAtIndex:v40];
                     date = [MEMORY[0x277CBEAA8] date];
-                    when = [v42 when];
+                    when = [v41 when];
                     [date timeIntervalSinceDate:when];
-                    v46 = v45 > 600.0;
+                    v45 = v44 > 600.0;
 
-                    if (!v46)
+                    if (!v45)
                     {
-                      v47 = [(UABestAppSuggestionManager *)selfCopy createAppSuggestionFromActivityInfo:v42 atTime:whenCopy];
-                      if (v47)
+                      v46 = [(UABestAppSuggestionManager *)selfCopy createAppSuggestionFromActivityInfo:v41 atTime:whenCopy];
+                      if (v46)
                       {
-                        [v40 addObject:v47];
+                        [v39 addObject:v46];
                       }
                     }
 
-                    ++v41;
+                    ++v40;
                   }
 
-                  while (v41 < [v55 count]);
+                  while (v40 < [v54 count]);
                 }
 
-                v48 = objc_loadWeakRetained(&self->_delegate);
-                [v48 bestAppSuggestionChanged:v38 withAdditionalSuggestions:v40];
+                v47 = objc_loadWeakRetained(&self->_delegate);
+                [v47 bestAppSuggestionChanged:v37 withAdditionalSuggestions:v39];
               }
 
               else
               {
-                if (!v38)
+                if (!v37)
                 {
                   goto LABEL_21;
                 }
 
-                v49 = objc_loadWeakRetained(&self->_delegate);
-                [v49 bestAppSuggestionChanged:v38];
+                v48 = objc_loadWeakRetained(&self->_delegate);
+                [v48 bestAppSuggestionChanged:v37];
               }
 
-              selfCopy = v38;
+              selfCopy = v37;
             }
 
             else
@@ -1038,9 +1018,9 @@ LABEL_10:
                 uUIDString2 = [uuid2 UUIDString];
                 bundleIdentifier2 = [firstObject bundleIdentifier];
                 *buf = 138543619;
-                v63 = uUIDString2;
-                v64 = 2113;
-                v65 = bundleIdentifier2;
+                v62 = uUIDString2;
+                v63 = 2113;
+                v64 = bundleIdentifier2;
                 _os_log_impl(&dword_226A4E000, v30, OS_LOG_TYPE_DEBUG, " -- ignoring delivery of %{public}@ %{private}@ because it matches the last bestApp we got told about.", buf, 0x16u);
               }
 
@@ -1063,10 +1043,10 @@ LABEL_10:
       block[1] = 3221225472;
       block[2] = __68__UABestAppSuggestionManager_notifyBestAppsChanged_when_confidence___block_invoke;
       block[3] = &unk_2785C4748;
-      v60 = bestAppNotificationCount;
-      v61 = v22;
+      v59 = bestAppNotificationCount;
+      v60 = v22;
       block[4] = self;
-      v59 = v35;
+      v58 = v35;
       selfCopy = v35;
       dispatch_after(v36, MEMORY[0x277D85CD0], block);
 
@@ -1075,8 +1055,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __68__UABestAppSuggestionManager_notifyBestAppsChanged_when_confidence___block_invoke(uint64_t a1)
@@ -1109,21 +1087,20 @@ void __68__UABestAppSuggestionManager_notifyBestAppsChanged_when_confidence___bl
 
 - (void)launchAppWithBundleIdentifier:(id)identifier taskContinuationIdentifier:(id)continuationIdentifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   continuationIdentifierCopy = continuationIdentifier;
   v8 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138543619;
-    v11 = continuationIdentifierCopy;
-    v12 = 2113;
-    v13 = identifierCopy;
-    _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ %{private}@", &v10, 0x16u);
+    v9 = 138543619;
+    v10 = continuationIdentifierCopy;
+    v11 = 2113;
+    v12 = identifierCopy;
+    _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ %{private}@", &v9, 0x16u);
   }
 
   [(UABestAppSuggestionManager *)self launchAppWithBundleIdentifier:identifierCopy userActivityUniqueIdentifier:continuationIdentifierCopy userActivityTypeIdentifier:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

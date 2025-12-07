@@ -47,14 +47,34 @@
   delegateCopy = delegate;
   if (self->_delegate != delegateCopy)
   {
-    v13 = delegateCopy;
+    v9 = delegateCopy;
     objc_storeStrong(&self->_delegate, delegate);
-    delegate = self->_delegate;
     *&self->_parserFlags = *&self->_parserFlags & 0xFE | objc_opt_respondsToSelector() & 1;
-    v7 = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
-      v8 = 2;
+      v6 = 2;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    *&self->_parserFlags = *&self->_parserFlags & 0xFD | v6;
+    if (objc_opt_respondsToSelector())
+    {
+      v7 = 4;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    *&self->_parserFlags = *&self->_parserFlags & 0xFB | v7;
+    if (objc_opt_respondsToSelector())
+    {
+      v8 = 8;
     }
 
     else
@@ -62,32 +82,8 @@
       v8 = 0;
     }
 
-    *&self->_parserFlags = *&self->_parserFlags & 0xFD | v8;
-    v9 = self->_delegate;
-    if (objc_opt_respondsToSelector())
-    {
-      v10 = 4;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    *&self->_parserFlags = *&self->_parserFlags & 0xFB | v10;
-    v11 = self->_delegate;
-    if (objc_opt_respondsToSelector())
-    {
-      v12 = 8;
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    *&self->_parserFlags = *&self->_parserFlags & 0xF7 | v12;
-    delegateCopy = v13;
+    *&self->_parserFlags = *&self->_parserFlags & 0xF7 | v8;
+    delegateCopy = v9;
   }
 }
 
@@ -113,7 +109,7 @@
 
 - (void)_initializeTopLevelPartWithHeaders:(id)headers
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   v5 = objc_alloc_init(MEMORY[0x1E69AD720]);
   topLevelPart = self->_topLevelPart;
@@ -123,9 +119,7 @@
   v8 = v7;
   if (v7)
   {
-    v9 = [v7 cStringUsingEncoding:4];
-    v10 = self->_topLevelPart;
-    strlen(v9);
+    strlen([v7 cStringUsingEncoding:4]);
     if ((MFMimePartParseContentTypeHeader() & 1) == 0)
     {
       [(MFProgressiveMimeParser *)self _reportError:@"Unable to parse Content-type header in top-level part"];
@@ -137,51 +131,50 @@
     [(MFProgressiveMimeParser *)self _reportError:@"No Content-type header found in top-level part"];
   }
 
-  v11 = [headersCopy objectForKey:*MEMORY[0x1E699B0C8]];
+  v9 = [headersCopy objectForKey:*MEMORY[0x1E699B0C8]];
 
-  if (v11)
+  if (v9)
   {
-    [(MFMimePart *)self->_topLevelPart setContentTransferEncoding:v11];
+    [(MFMimePart *)self->_topLevelPart setContentTransferEncoding:v9];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v12 = self->_preserveHeaders;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v13)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v10 = self->_preserveHeaders;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
   {
-    v14 = *v22;
-    v15 = v11;
+    v12 = *v18;
+    v13 = v9;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v14)
+        if (*v18 != v12)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = [headersCopy objectForKey:{*(*(&v21 + 1) + 8 * i), v21}];
+        v15 = [headersCopy objectForKey:{*(*(&v17 + 1) + 8 * i), v17}];
 
-        v15 = v17;
-        if (v17)
+        v13 = v15;
+        if (v15)
         {
-          v18 = self->_topLevelPart;
           MFMimePartSetValueForPreservedHeader();
         }
       }
 
-      v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v13);
+    while (v11);
   }
 
   else
   {
-    v15 = v11;
+    v13 = v9;
   }
 
   [(MFMimePart *)self->_topLevelPart setRange:0, 0];
@@ -192,8 +185,6 @@
   {
     [self->_delegate progressiveMimeParser:self beganMimePart:self->_topLevelPart];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continueParsingStartOfPart
@@ -250,7 +241,7 @@
 
 - (void)_continueParsingHeaders
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (self->_lastLength - self->_cursor >= 4)
   {
     v3 = [(NSMutableData *)self->_data mf_rangeOfCString:"\r\n\r\n" options:0 range:?];
@@ -262,109 +253,96 @@
     else
     {
       self->_cursor = v3 + v4;
-      v33 = 0xAAAAAAAAAAAAAAAALL;
-      v34 = 0xAAAAAAAAAAAAAAAALL;
+      v20 = 0xAAAAAAAAAAAAAAAALL;
+      v21 = 0xAAAAAAAAAAAAAAAALL;
       bytes = [(NSMutableData *)self->_data bytes];
-      v5 = self->_cursor - [(MFMimePart *)self->_currentPart range];
-      v6 = *MEMORY[0x1E699B0D0];
-      data = self->_data;
+      [(MFMimePart *)self->_currentPart range];
       if (MFMimeDataGetRangeOfHeader())
       {
-        if (*(bytes + v33 + v34 - 1) == 13)
+        if (*(bytes + v20 + v21 - 1) == 13)
         {
-          --v34;
+          --v21;
         }
 
-        currentPart = self->_currentPart;
         MFMimePartParseContentTypeHeader();
       }
 
-      v9 = *MEMORY[0x1E699B0A8];
-      v10 = self->_data;
       if (MFMimeDataGetRangeOfHeader())
       {
-        if (*(bytes + v33 + v34 - 1) == 13)
+        if (*(bytes + v20 + v21 - 1) == 13)
         {
-          --v34;
+          --v21;
         }
 
-        v11 = self->_currentPart;
         MFMimePartParseContentDispositionHeader();
       }
 
-      v12 = *MEMORY[0x1E699B0C8];
-      v13 = self->_data;
       if (MFMimeDataGetRangeOfHeader())
       {
-        if (*(bytes + v33 + v34 - 1) == 13)
+        if (*(bytes + v20 + v21 - 1) == 13)
         {
-          --v34;
+          --v21;
         }
 
-        v14 = MFMimeDataCreateStringFromHeaderBytes();
-        [(MFMimePart *)self->_currentPart setContentTransferEncoding:v14];
+        v5 = MFMimeDataCreateStringFromHeaderBytes();
+        [(MFMimePart *)self->_currentPart setContentTransferEncoding:v5];
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      v15 = self->_preserveHeaders;
-      v16 = 0;
-      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
-      if (v17)
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v6 = self->_preserveHeaders;
+      v7 = 0;
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      if (v8)
       {
-        v18 = *v30;
+        v9 = *v17;
         do
         {
-          v19 = 0;
+          v10 = 0;
           do
           {
-            if (*v30 != v18)
+            if (*v17 != v9)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v6);
             }
 
-            v20 = *(*(&v29 + 1) + 8 * v19);
-            v21 = self->_data;
             if (MFMimeDataGetRangeOfHeader())
             {
-              if (*(bytes + v33 + v34 - 1) == 13)
+              if (*(bytes + v20 + v21 - 1) == 13)
               {
-                --v34;
+                --v21;
               }
 
-              v22 = MFMimeDataCreateStringFromHeaderBytes();
+              v11 = MFMimeDataCreateStringFromHeaderBytes();
 
-              v23 = self->_currentPart;
-              v16 = v22;
+              v7 = v11;
               MFMimePartSetValueForPreservedHeader();
             }
 
-            ++v19;
+            ++v10;
           }
 
-          while (v17 != v19);
-          v17 = [(NSArray *)v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+          while (v8 != v10);
+          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
         }
 
-        while (v17);
+        while (v8);
       }
 
       [(MFMimePart *)self->_currentPart setRange:self->_cursor, 0];
       *&self->_parserFlags = *&self->_parserFlags & 0x8F | 0x30;
       type = [(MFMimePart *)self->_currentPart type];
-      v25 = [type isEqualToString:@"multipart"];
+      v13 = [type isEqualToString:@"multipart"];
 
-      if (v25)
+      if (v13)
       {
         currentBoundary = self->_currentBoundary;
         self->_currentBoundary = 0;
       }
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_currentBoundary

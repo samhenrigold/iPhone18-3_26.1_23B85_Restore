@@ -2,134 +2,133 @@ Swift::Void __swiftcall SPPeriodicTaskScheduler.registerForPeriodicContextLoggin
 {
   aBlock[6] = *MEMORY[0x277D85DE8];
   v0 = sub_2653C1290();
-  v53 = *(v0 - 8);
-  v54 = v0;
-  v1 = *(v53 + 64);
-  v2 = MEMORY[0x28223BE20](v0);
-  v52 = &v51 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = MEMORY[0x28223BE20](v2);
-  v6 = &v51 - v5;
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v51 - v8;
-  MEMORY[0x28223BE20](v7);
-  v11 = &v51 - v10;
-  v12 = objc_opt_self();
-  v13 = [v12 sharedScheduler];
-  v14 = sub_2653C12A0();
+  v51 = *(v0 - 8);
+  v52 = v0;
+  v1 = MEMORY[0x28223BE20](v0);
+  v50 = &v49 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = MEMORY[0x28223BE20](v1);
+  v5 = &v49 - v4;
+  v6 = MEMORY[0x28223BE20](v3);
+  v8 = &v49 - v7;
+  MEMORY[0x28223BE20](v6);
+  v10 = &v49 - v9;
+  v11 = objc_opt_self();
+  v12 = [v11 sharedScheduler];
+  v13 = sub_2653C12A0();
   aBlock[4] = sub_2653C039C;
   aBlock[5] = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_2653C0898;
   aBlock[3] = &block_descriptor;
-  v15 = _Block_copy(aBlock);
-  v16 = [v13 registerForTaskWithIdentifier:v14 usingQueue:0 launchHandler:v15];
-  _Block_release(v15);
+  v14 = _Block_copy(aBlock);
+  v15 = [v12 registerForTaskWithIdentifier:v13 usingQueue:0 launchHandler:v14];
+  _Block_release(v14);
 
-  if (v16)
+  if (v15)
   {
-    v17 = [v12 sharedScheduler];
-    v18 = sub_2653C12A0();
-    v19 = [v17 taskRequestForIdentifier_];
+    v16 = [v11 sharedScheduler];
+    v17 = sub_2653C12A0();
+    v18 = [v16 taskRequestForIdentifier_];
 
-    if (v19)
+    if (v18)
     {
       sub_2653C1280();
-      v20 = v19;
-      v21 = sub_2653C1270();
-      v22 = sub_2653C12E0();
+      v19 = v18;
+      v20 = sub_2653C1270();
+      v21 = sub_2653C12E0();
 
-      if (os_log_type_enabled(v21, v22))
+      if (os_log_type_enabled(v20, v21))
       {
+        v22 = swift_slowAlloc();
         v23 = swift_slowAlloc();
-        v24 = swift_slowAlloc();
-        aBlock[0] = v24;
-        *v23 = 136315138;
-        v25 = [v20 identifier];
-        v26 = sub_2653C12B0();
-        v28 = v27;
+        aBlock[0] = v23;
+        *v22 = 136315138;
+        v24 = [v19 identifier];
+        v25 = sub_2653C12B0();
+        v27 = v26;
 
-        v29 = sub_2653C0A4C(v26, v28, aBlock);
+        v28 = sub_2653C0A4C(v25, v27, aBlock);
 
-        *(v23 + 4) = v29;
-        _os_log_impl(&dword_2653BF000, v21, v22, "On-screen context refresh (%s) was already scheduled with dasd", v23, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v24);
-        MEMORY[0x266758510](v24, -1, -1);
+        *(v22 + 4) = v28;
+        _os_log_impl(&dword_2653BF000, v20, v21, "On-screen context refresh (%s) was already scheduled with dasd", v22, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v23);
         MEMORY[0x266758510](v23, -1, -1);
+        MEMORY[0x266758510](v22, -1, -1);
       }
 
       else
       {
       }
 
-      (*(v53 + 8))(v11, v54);
+      (*(v51 + 8))(v10, v52);
     }
 
     else
     {
-      v33 = [v12 sharedScheduler];
-      v34 = objc_allocWithZone(MEMORY[0x277CF07D8]);
-      v35 = sub_2653C12A0();
-      v36 = [v34 initWithIdentifier_];
+      v32 = [v11 sharedScheduler];
+      v33 = objc_allocWithZone(MEMORY[0x277CF07D8]);
+      v34 = sub_2653C12A0();
+      v35 = [v33 initWithIdentifier_];
 
-      v37 = v36;
-      [v37 setPriority_];
-      [v37 setInterval_];
-      [v37 setMinDurationBetweenInstances_];
-      [v37 setRequiresProtectionClass_];
+      v36 = v35;
+      [v36 setPriority_];
+      [v36 setInterval_];
+      [v36 setMinDurationBetweenInstances_];
+      [v36 setRequiresProtectionClass_];
 
       aBlock[0] = 0;
-      LODWORD(v35) = [v33 submitTaskRequest:v37 error:aBlock];
+      LODWORD(v34) = [v32 submitTaskRequest:v36 error:aBlock];
 
-      if (v35)
+      if (v34)
       {
-        v38 = aBlock[0];
+        v37 = aBlock[0];
         sub_2653C1280();
-        v39 = sub_2653C1270();
-        v40 = sub_2653C12E0();
-        if (os_log_type_enabled(v39, v40))
+        v38 = sub_2653C1270();
+        v39 = sub_2653C12E0();
+        if (os_log_type_enabled(v38, v39))
         {
-          v41 = swift_slowAlloc();
-          *v41 = 0;
-          _os_log_impl(&dword_2653BF000, v39, v40, "Scheduled on-screen context refresh with dasd", v41, 2u);
-          MEMORY[0x266758510](v41, -1, -1);
+          v40 = swift_slowAlloc();
+          *v40 = 0;
+          _os_log_impl(&dword_2653BF000, v38, v39, "Scheduled on-screen context refresh with dasd", v40, 2u);
+          MEMORY[0x266758510](v40, -1, -1);
         }
 
-        (*(v53 + 8))(v9, v54);
+        (*(v51 + 8))(v8, v52);
       }
 
       else
       {
-        v42 = aBlock[0];
-        v43 = sub_2653C1260();
+        v41 = aBlock[0];
+        v42 = sub_2653C1260();
 
         swift_willThrow();
-        v44 = v52;
+        v43 = v50;
         sub_2653C1280();
-        MEMORY[0x2667584A0](v43);
-        v45 = sub_2653C1270();
-        v46 = sub_2653C12D0();
+        MEMORY[0x2667584A0](v42);
+        v44 = sub_2653C1270();
+        v45 = sub_2653C12D0();
 
-        if (os_log_type_enabled(v45, v46))
+        if (os_log_type_enabled(v44, v45))
         {
+          v46 = swift_slowAlloc();
           v47 = swift_slowAlloc();
-          v48 = swift_slowAlloc();
-          *v47 = 138412290;
-          MEMORY[0x2667584A0](v43);
-          v49 = _swift_stdlib_bridgeErrorToNSError();
-          *(v47 + 4) = v49;
-          *v48 = v49;
-          _os_log_impl(&dword_2653BF000, v45, v46, "Failed to register on-screen context refresh with dasd due to error: %@", v47, 0xCu);
-          sub_2653C0FF4(v48);
-          MEMORY[0x266758510](v48, -1, -1);
+          *v46 = 138412290;
+          MEMORY[0x2667584A0](v42);
+          v48 = _swift_stdlib_bridgeErrorToNSError();
+          *(v46 + 4) = v48;
+          *v47 = v48;
+          _os_log_impl(&dword_2653BF000, v44, v45, "Failed to register on-screen context refresh with dasd due to error: %@", v46, 0xCu);
+          sub_2653C0FF4(v47);
           MEMORY[0x266758510](v47, -1, -1);
+          MEMORY[0x266758510](v46, -1, -1);
         }
 
         else
         {
         }
 
-        (*(v53 + 8))(v44, v54);
+        (*(v51 + 8))(v43, v52);
       }
     }
   }
@@ -137,128 +136,122 @@ Swift::Void __swiftcall SPPeriodicTaskScheduler.registerForPeriodicContextLoggin
   else
   {
     sub_2653C1280();
-    v30 = sub_2653C1270();
-    v31 = sub_2653C12D0();
-    if (os_log_type_enabled(v30, v31))
+    v29 = sub_2653C1270();
+    v30 = sub_2653C12D0();
+    if (os_log_type_enabled(v29, v30))
     {
-      v32 = swift_slowAlloc();
-      *v32 = 0;
-      _os_log_impl(&dword_2653BF000, v30, v31, "Could not register on-screen context refresh with dasd", v32, 2u);
-      MEMORY[0x266758510](v32, -1, -1);
+      v31 = swift_slowAlloc();
+      *v31 = 0;
+      _os_log_impl(&dword_2653BF000, v29, v30, "Could not register on-screen context refresh with dasd", v31, 2u);
+      MEMORY[0x266758510](v31, -1, -1);
     }
 
-    (*(v53 + 8))(v6, v54);
+    (*(v51 + 8))(v5, v52);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 id sub_2653C039C(void *a1)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v2 = sub_2653C1290();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = (MEMORY[0x28223BE20])();
-  v7 = &v37[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v37[-v9];
-  MEMORY[0x28223BE20](v8);
-  v12 = &v37[-v11];
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = &v35[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = MEMORY[0x28223BE20](v4);
+  v9 = &v35[-v8];
+  MEMORY[0x28223BE20](v7);
+  v11 = &v35[-v10];
   sub_2653C1280();
-  v13 = sub_2653C1270();
-  v14 = sub_2653C12E0();
-  if (os_log_type_enabled(v13, v14))
+  v12 = sub_2653C1270();
+  v13 = sub_2653C12E0();
+  if (os_log_type_enabled(v12, v13))
   {
-    v15 = swift_slowAlloc();
-    *v15 = 0;
-    _os_log_impl(&dword_2653BF000, v13, v14, "Performing on-screen context refresh", v15, 2u);
-    MEMORY[0x266758510](v15, -1, -1);
+    v14 = swift_slowAlloc();
+    *v14 = 0;
+    _os_log_impl(&dword_2653BF000, v12, v13, "Performing on-screen context refresh", v14, 2u);
+    MEMORY[0x266758510](v14, -1, -1);
   }
 
-  v16 = *(v3 + 8);
-  v16(v12, v2);
-  v17 = [objc_opt_self() clientWithDefaultRequestType_];
-  v18 = [v17 newRequest];
-  [v18 setIncludeStructuredExtractionResults_];
-  [v18 setIncludeRequestInResponse_];
-  [v18 setDebug_];
+  v15 = *(v3 + 8);
+  v15(v11, v2);
+  v16 = [objc_opt_self() clientWithDefaultRequestType_];
+  v17 = [v16 newRequest];
+  [v17 setIncludeStructuredExtractionResults_];
+  [v17 setIncludeRequestInResponse_];
+  [v17 setDebug_];
 
-  v19 = [objc_opt_self() sharedScheduler];
-  v20 = objc_allocWithZone(MEMORY[0x277CF07D8]);
-  v21 = sub_2653C12A0();
-  v22 = [v20 initWithIdentifier_];
+  v18 = [objc_opt_self() sharedScheduler];
+  v19 = objc_allocWithZone(MEMORY[0x277CF07D8]);
+  v20 = sub_2653C12A0();
+  v21 = [v19 initWithIdentifier_];
 
-  v23 = v22;
-  [v23 setPriority_];
-  [v23 setInterval_];
-  [v23 setMinDurationBetweenInstances_];
-  [v23 setRequiresProtectionClass_];
+  v22 = v21;
+  [v22 setPriority_];
+  [v22 setInterval_];
+  [v22 setMinDurationBetweenInstances_];
+  [v22 setRequiresProtectionClass_];
 
-  v38[0] = 0;
-  LODWORD(v21) = [v19 submitTaskRequest:v23 error:v38];
+  v36[0] = 0;
+  LODWORD(v20) = [v18 submitTaskRequest:v22 error:v36];
 
-  if (v21)
+  if (v20)
   {
-    v24 = v38[0];
+    v23 = v36[0];
     sub_2653C1280();
-    v25 = sub_2653C1270();
-    v26 = sub_2653C12E0();
-    if (os_log_type_enabled(v25, v26))
+    v24 = sub_2653C1270();
+    v25 = sub_2653C12E0();
+    if (os_log_type_enabled(v24, v25))
     {
-      v27 = swift_slowAlloc();
-      *v27 = 0;
-      _os_log_impl(&dword_2653BF000, v25, v26, "Scheduled on-screen context refresh with dasd", v27, 2u);
-      MEMORY[0x266758510](v27, -1, -1);
+      v26 = swift_slowAlloc();
+      *v26 = 0;
+      _os_log_impl(&dword_2653BF000, v24, v25, "Scheduled on-screen context refresh with dasd", v26, 2u);
+      MEMORY[0x266758510](v26, -1, -1);
     }
   }
 
   else
   {
-    v28 = v38[0];
-    v29 = sub_2653C1260();
+    v27 = v36[0];
+    v28 = sub_2653C1260();
 
     swift_willThrow();
     sub_2653C1280();
-    MEMORY[0x2667584A0](v29);
-    v30 = sub_2653C1270();
-    v31 = sub_2653C12D0();
+    MEMORY[0x2667584A0](v28);
+    v29 = sub_2653C1270();
+    v30 = sub_2653C12D0();
 
-    if (os_log_type_enabled(v30, v31))
+    if (os_log_type_enabled(v29, v30))
     {
+      v31 = swift_slowAlloc();
       v32 = swift_slowAlloc();
-      v33 = swift_slowAlloc();
-      *v32 = 138412290;
-      MEMORY[0x2667584A0](v29);
-      v34 = _swift_stdlib_bridgeErrorToNSError();
-      *(v32 + 4) = v34;
-      *v33 = v34;
-      _os_log_impl(&dword_2653BF000, v30, v31, "Failed to register on-screen context refresh with dasd due to error: %@", v32, 0xCu);
-      sub_2653C0FF4(v33);
-      MEMORY[0x266758510](v33, -1, -1);
+      *v31 = 138412290;
+      MEMORY[0x2667584A0](v28);
+      v33 = _swift_stdlib_bridgeErrorToNSError();
+      *(v31 + 4) = v33;
+      *v32 = v33;
+      _os_log_impl(&dword_2653BF000, v29, v30, "Failed to register on-screen context refresh with dasd due to error: %@", v31, 0xCu);
+      sub_2653C0FF4(v32);
       MEMORY[0x266758510](v32, -1, -1);
+      MEMORY[0x266758510](v31, -1, -1);
     }
 
     else
     {
     }
 
-    v10 = v7;
+    v9 = v6;
   }
 
-  v16(v10, v2);
-  result = [a1 setTaskCompleted];
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
+  v15(v9, v2);
+  return [a1 setTaskCompleted];
 }
 
 void sub_2653C0898(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -272,24 +265,23 @@ Swift::Void __swiftcall SPPeriodicTaskScheduler.ping()()
 {
   v0 = sub_2653C1290();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20]();
-  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v0);
+  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2653C1280();
-  v5 = sub_2653C1270();
-  v6 = sub_2653C12E0();
-  if (os_log_type_enabled(v5, v6))
+  v4 = sub_2653C1270();
+  v5 = sub_2653C12E0();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&dword_2653BF000, v5, v6, "pong", v7, 2u);
-    MEMORY[0x266758510](v7, -1, -1);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&dword_2653BF000, v4, v5, "pong", v6, 2u);
+    MEMORY[0x266758510](v6, -1, -1);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
 }
 
-uint64_t sub_2653C0A4C(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_2653C0A4C(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_2653C0B18(v11, 0, 0, 1, a1, a2);
@@ -387,16 +379,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_2653C0C24(uint64_t a1, unint64_t a2)
+void *sub_2653C0C24(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_2653C0C70(a1, a2);
+  v3 = sub_2653C0C70(a1, a2);
   sub_2653C0DA0(&unk_2876EE440);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_2653C0C70(uint64_t a1, unint64_t a2)
+void *sub_2653C0C70(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -493,7 +483,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -507,15 +496,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_2653C0F00(result, v12, 1, v3);
+  result = sub_2653C0F00(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -530,15 +519,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -547,12 +536,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -672,7 +661,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -680,15 +668,17 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t getEnumTagSinglePayload for SPPeriodicTaskScheduler(unsigned int *a1, int a2)

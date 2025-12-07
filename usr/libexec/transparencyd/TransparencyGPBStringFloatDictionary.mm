@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndFloatsUsingBlock:(id)block;
+- (void)setFloat:(float)float forKey:(id)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -227,6 +228,23 @@
 
       sub_100192DE8(autocreator, self);
     }
+  }
+}
+
+- (void)setFloat:(float)float forKey:(id)key
+{
+  if (!key)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil key to a Dictionary"];
+  }
+
+  *&v7 = float;
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithFloat:" numberWithFloat:v7], key];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_100192DE8(autocreator, self);
   }
 }
 

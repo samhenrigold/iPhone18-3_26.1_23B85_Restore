@@ -56,11 +56,11 @@
   if (v2)
   {
     v2->_lock._os_unfair_lock_opaque = 0;
-    v4 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:12 options:30.0];
+    v4 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:? options:?];
     watchdogTimer = v3->_watchdogTimer;
     v3->_watchdogTimer = v4;
 
-    [(HMFTimer *)v3->_watchdogTimer setDelegate:v3];
+    [(HMFTimer *)v3->_watchdogTimer setDelegate:?];
     personsModelsByHome = v3->_personsModelsByHome;
     v3->_personsModelsByHome = 0;
 
@@ -95,42 +95,39 @@
 
 uint64_t __40__HMIPersonsModelManager_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(HMIPersonsModelManager);
+  v0 = objc_alloc_init(HMIPersonsModelManager);
+  v1 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)buildEquivalencyMapForPersonsModels:(id)models userDefinedPersonLinks:(id)links error:(id *)error
 {
   linksCopy = links;
   modelsCopy = models;
-  v9 = [[HMIPersonsModelEquivalencyTable alloc] initWithPersonsModels:modelsCopy userDefinedPersonLinks:linksCopy error:error];
+  v8 = [HMIPersonsModelEquivalencyTable initWithPersonsModels:"initWithPersonsModels:userDefinedPersonLinks:error:" userDefinedPersonLinks:? error:?];
 
-  return v9;
+  return v8;
 }
 
 - (id)homePersonsModelForHomeWithUUID:(id)d
 {
   dCopy = d;
   personsModelsByHome = [(HMIPersonsModelManager *)self personsModelsByHome];
-  v6 = [personsModelsByHome objectForKeyedSubscript:dCopy];
+  v6 = [personsModelsByHome objectForKeyedSubscript:?];
 
   if (v6)
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x3032000000;
-    v13 = __Block_byref_object_copy__6;
-    v14 = __Block_byref_object_dispose__6;
-    v15 = 0;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __58__HMIPersonsModelManager_homePersonsModelForHomeWithUUID___block_invoke;
-    v9[3] = &unk_278754BD0;
-    v9[4] = &v10;
-    [v6 enumerateKeysAndObjectsUsingBlock:v9];
-    v7 = v11[5];
-    _Block_object_dispose(&v10, 8);
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x3032000000;
+    v12 = __Block_byref_object_copy__6;
+    v13 = __Block_byref_object_dispose__6;
+    v14 = 0;
+    [v6 enumerateKeysAndObjectsUsingBlock:?];
+    v7 = v10[5];
+    _Block_object_dispose(&v9, 8);
   }
 
   else
@@ -153,20 +150,15 @@ void __58__HMIPersonsModelManager_homePersonsModelForHomeWithUUID___block_invoke
 
 - (id)personsModelWithFaceObservations:(id)observations error:(id *)error
 {
-  v5 = MEMORY[0x277CBEB38];
+  v4 = MEMORY[0x277CBEB38];
   observationsCopy = observations;
-  dictionary = [v5 dictionary];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __65__HMIPersonsModelManager_personsModelWithFaceObservations_error___block_invoke;
-  v11[3] = &unk_278754BF8;
-  v12 = dictionary;
-  v8 = dictionary;
-  [observationsCopy enumerateKeysAndObjectsUsingBlock:v11];
+  dictionary = [v4 dictionary];
+  v6 = dictionary;
+  [observationsCopy enumerateKeysAndObjectsUsingBlock:?];
 
-  v9 = [HMIPersonsModelManager personsModelWithFaceObservationsByID:v8 error:error];
+  v7 = [HMIPersonsModelManager personsModelWithFaceObservationsByID:"personsModelWithFaceObservationsByID:error:" error:?];
 
-  return v9;
+  return v7;
 }
 
 void __65__HMIPersonsModelManager_personsModelWithFaceObservations_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -177,31 +169,26 @@ void __65__HMIPersonsModelManager_personsModelWithFaceObservations_error___block
   v7 = [v5 UUID];
 
   v8 = [v7 UUIDString];
-  [v6 setObject:v9 forKeyedSubscript:v8];
+  [v6 setObject:? forKeyedSubscript:?];
 }
 
 + (id)personsModelWithFaceObservationsByID:(id)d error:(id *)error
 {
   dCopy = d;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__6;
-  v22 = __Block_byref_object_dispose__6;
-  v23 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__6;
+  v20 = __Block_byref_object_dispose__6;
+  v21 = 0;
   v6 = objc_alloc_init(MEMORY[0x277CE2D80]);
-  [v6 setMaximumIdentities:80];
-  [v6 setMaximumTrainingFaceprintsPerIdentity:20];
-  v7 = [objc_alloc(MEMORY[0x277CE2D68]) initWithConfiguration:v6];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___block_invoke;
-  v15[3] = &unk_278754C20;
+  [v6 setMaximumIdentities:?];
+  [v6 setMaximumTrainingFaceprintsPerIdentity:?];
+  v7 = [objc_alloc(MEMORY[0x277CE2D68]) initWithConfiguration:?];
+  v15 = MEMORY[0x277D85DD0];
   v8 = v7;
-  v16 = v8;
-  v17 = &v18;
-  [dCopy enumerateKeysAndObjectsUsingBlock:v15];
-  v9 = v19[5];
+  [dCopy enumerateKeysAndObjectsUsingBlock:{v15, 3221225472, __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___block_invoke, &unk_278754C20}];
+  v9 = v17[5];
   if (v9)
   {
     v10 = v9;
@@ -222,37 +209,36 @@ void __65__HMIPersonsModelManager_personsModelWithFaceObservations_error___block
     v13 = v8;
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v16, 8);
 
   return v13;
 }
 
 void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = a2;
-  v8 = *(a1 + 32);
-  v15 = 0;
-  v9 = [v8 addFaceObservations:a3 toPersonWithUniqueIdentifier:v7 error:&v15];
-  v10 = v15;
-  if ((v9 & 1) == 0)
+  v6 = a2;
+  v7 = *(a1 + 32);
+  v14 = 0;
+  v8 = [v7 addFaceObservations:? toPersonWithUniqueIdentifier:? error:?];
+  v9 = v14;
+  if ((v8 & 1) == 0)
   {
     *a4 = 1;
-    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error adding faceprints to model for personUUID: %@", v7];
-    v12 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1033 description:v11 underlyingError:v10];
-    v13 = *(*(a1 + 40) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:v6];
+    v11 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+    v12 = *(*(a1 + 40) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 }
 
 - (BOOL)buildPersonsModelForHomeUUID:(id)d sourceUUID:(id)iD externalLibrary:(BOOL)library faceObservationsByPerson:(id)person error:(id *)error
 {
-  libraryCopy = library;
-  v132 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   personCopy = person;
-  if (libraryCopy)
+  if (library)
   {
     v13 = 0;
   }
@@ -261,19 +247,14 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     allKeys = [personCopy allKeys];
-    v123[0] = MEMORY[0x277D85DD0];
-    v123[1] = 3221225472;
-    v123[2] = __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_externalLibrary_faceObservationsByPerson_error___block_invoke;
-    v123[3] = &unk_278754158;
-    v124 = iDCopy;
+    v114 = iDCopy;
     v16 = dictionary;
-    v125 = v16;
-    [allKeys na_each:v123];
+    [allKeys na_each:?];
 
     userDefinedPersonLinksByHome = [(HMIPersonsModelManager *)self userDefinedPersonLinksByHome];
-    v18 = [userDefinedPersonLinksByHome objectForKeyedSubscript:dCopy];
+    v18 = [userDefinedPersonLinksByHome objectForKeyedSubscript:?];
 
-    if ([v18 isEqualToDictionary:v16])
+    if ([v18 isEqualToDictionary:?])
     {
       v13 = 0;
     }
@@ -287,9 +268,9 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v127 = v22;
-        v128 = 2112;
-        v129 = dCopy;
+        v116 = v22;
+        v117 = 2112;
+        v118 = dCopy;
         _os_log_impl(&dword_22D12F000, v21, OS_LOG_TYPE_DEBUG, "%{public}@Writing updated userDefinedPersonLinksByHome[%@] to disk", buf, 0x16u);
       }
 
@@ -298,31 +279,28 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
       v24 = [userDefinedPersonLinksByHome2 mutableCopy];
 
       v25 = [v16 copy];
-      [(NSDictionary *)v24 setObject:v25 forKeyedSubscript:dCopy];
+      [NSDictionary setObject:v24 forKeyedSubscript:"setObject:forKeyedSubscript:"];
 
       userDefinedPersonLinksByHome = selfCopy->_userDefinedPersonLinksByHome;
       selfCopy->_userDefinedPersonLinksByHome = v24;
       v27 = v24;
 
-      v122 = 0;
-      [HMIPersonsModelManager persistUserDefinedPersonLinks:v16 forHomeUUID:dCopy error:&v122];
-      v13 = v122;
+      [HMIPersonsModelManager persistUserDefinedPersonLinks:"persistUserDefinedPersonLinks:forHomeUUID:error:" forHomeUUID:? error:?];
+      v13 = 0;
     }
   }
 
-  v121 = v13;
-  v28 = [(HMIPersonsModelManager *)self personsModelWithFaceObservations:personCopy error:&v121];
-  v29 = v121;
+  v28 = [HMIPersonsModelManager personsModelWithFaceObservations:"personsModelWithFaceObservations:error:" error:?];
+  v29 = v13;
 
   if (v28)
   {
-    v111 = [[HMIPersonsModel alloc] initWithPersonsModel:v28 homeUUID:dCopy sourceUUID:iDCopy externalLibrary:libraryCopy];
+    v111 = [HMIPersonsModel initWithPersonsModel:"initWithPersonsModel:homeUUID:sourceUUID:externalLibrary:" homeUUID:? sourceUUID:? externalLibrary:?];
     os_unfair_lock_lock_with_options();
-    v120 = v29;
-    v30 = [(HMIPersonsModelManager *)self loadModelsWithError:&v120];
-    v31 = v120;
+    v30 = [(HMIPersonsModelManager *)self loadModelsWithError:?];
+    v31 = v29;
 
-    if (!v30)
+    if ((v30 & 1) == 0)
     {
       v60 = v31;
       v33 = v60;
@@ -338,9 +316,9 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
       goto LABEL_51;
     }
 
-    v32 = [(HMIPersonsModelManager *)self homePersonsModelForHomeWithUUID:dCopy];
+    v32 = [(HMIPersonsModelManager *)self homePersonsModelForHomeWithUUID:?];
     v33 = v32;
-    if (libraryCopy || !v32 || ([v32 sourceUUID], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "isEqual:", iDCopy), v34, (v35 & 1) != 0))
+    if (library || !v32 || ([v32 sourceUUID], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "isEqual:"), v34, (v35 & 1) != 0))
     {
       v36 = v31;
     }
@@ -355,25 +333,24 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
         v72 = HMFGetLogIdentifier();
         sourceUUID = [v33 sourceUUID];
         *buf = 138543874;
-        v127 = v72;
-        v128 = 2112;
-        v129 = dCopy;
-        v130 = 2112;
-        v131 = sourceUUID;
+        v116 = v72;
+        v117 = 2112;
+        v118 = dCopy;
+        v119 = 2112;
+        v120 = sourceUUID;
         _os_log_impl(&dword_22D12F000, v71, OS_LOG_TYPE_INFO, "%{public}@Stale Home VNPersonsModel with homeUUID: %@ sourceUUID: %@ detected, attempting to remove...", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v70);
-      v119 = 0;
-      v110 = [HMIPersonsModelManager getModelStoragePathForModel:v33 error:&v119];
-      v38 = v119;
+      v110 = [HMIPersonsModelManager getModelStoragePathForModel:"getModelStoragePathForModel:error:" error:?];
+      v38 = 0;
       if (!v110)
       {
         v84 = MEMORY[0x277CCACA8];
         sourceUUID2 = [v33 sourceUUID];
-        v108 = [v84 stringWithFormat:@"Failed to remove stale Home VNPersonsModel with homeUUID: %@ sourceUUID: %@, error getting model storage path", dCopy, sourceUUID2];
+        v108 = [v84 stringWithFormat:dCopy, sourceUUID2];
 
-        v86 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1033 description:v108 underlyingError:v38];
+        v86 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
 
         v87 = v86;
         v43 = v87;
@@ -388,22 +365,21 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v75 = [defaultManager fileExistsAtPath:v110];
+      v75 = [defaultManager fileExistsAtPath:?];
 
       if (v75)
       {
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v118 = v38;
-        v77 = [defaultManager2 removeItemAtPath:v110 error:&v118];
-        v78 = v118;
+        v77 = [defaultManager2 removeItemAtPath:? error:?];
+        v78 = v38;
 
         if ((v77 & 1) == 0)
         {
           v98 = MEMORY[0x277CCACA8];
           sourceUUID3 = [v33 sourceUUID];
-          v108 = [v98 stringWithFormat:@"Failed to remove stale Home VNPersonsModel with homeUUID: %@ sourceUUID: %@", dCopy, sourceUUID3];
+          v108 = [v98 stringWithFormat:dCopy, sourceUUID3];
 
-          v100 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1033 description:v108 underlyingError:v78];
+          v100 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
 
           v101 = v100;
           v43 = v101;
@@ -431,7 +407,7 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
         {
           v92 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v127 = v92;
+          v116 = v92;
           _os_log_impl(&dword_22D12F000, v91, OS_LOG_TYPE_INFO, "%{public}@Stale model path no longer on disk, proceeding with building persons model...", buf, 0xCu);
         }
 
@@ -444,11 +420,10 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
       equivalencyTablesByHome = selfCopy2->_equivalencyTablesByHome;
       selfCopy2->_equivalencyTablesByHome = 0;
 
-      v117 = v31;
-      v95 = [(HMIPersonsModelManager *)selfCopy2 loadModelsWithError:&v117];
-      v36 = v117;
+      v95 = [(HMIPersonsModelManager *)selfCopy2 loadModelsWithError:?];
+      v36 = v31;
 
-      if (!v95)
+      if ((v95 & 1) == 0)
       {
         v96 = v36;
         v29 = v96;
@@ -465,20 +440,18 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
       }
     }
 
-    v116 = 0;
-    v37 = [HMIPersonsModelManager getModelStoragePathForModel:v111 error:&v116];
-    v38 = v116;
+    v37 = [HMIPersonsModelManager getModelStoragePathForModel:"getModelStoragePathForModel:error:" error:?];
+    v38 = 0;
     v110 = v37;
     if (v37)
     {
-      v115 = v38;
-      v39 = [HMIPersonsModelManager persistModel:v28 toPath:v37 error:&v115];
-      v106 = v115;
+      v39 = [HMIPersonsModelManager persistModel:"persistModel:toPath:error:" toPath:? error:?];
+      v106 = v38;
 
       if (v39)
       {
         personsModelsByHome = [(HMIPersonsModelManager *)self personsModelsByHome];
-        v41 = [personsModelsByHome objectForKeyedSubscript:dCopy];
+        v41 = [personsModelsByHome objectForKeyedSubscript:?];
 
         if (v41)
         {
@@ -490,42 +463,41 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
           v42 = MEMORY[0x277CBEC10];
         }
 
-        v43 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v42];
-        [v43 setObject:v111 forKeyedSubscript:iDCopy];
+        v43 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:?];
+        [v43 setObject:? forKeyedSubscript:?];
         v108 = v42;
         v44 = objc_alloc(MEMORY[0x277CBEB38]);
         personsModelsByHome2 = [(HMIPersonsModelManager *)self personsModelsByHome];
-        v105 = [v44 initWithDictionary:personsModelsByHome2];
+        v105 = [v44 initWithDictionary:?];
 
         v46 = [v43 copy];
-        [v105 setObject:v46 forKeyedSubscript:dCopy];
+        [v105 setObject:? forKeyedSubscript:?];
 
         v47 = [v105 copy];
         v48 = self->_personsModelsByHome;
         self->_personsModelsByHome = v47;
 
         personsModelsByHome3 = [(HMIPersonsModelManager *)self personsModelsByHome];
-        v50 = [personsModelsByHome3 objectForKeyedSubscript:dCopy];
+        v50 = [personsModelsByHome3 objectForKeyedSubscript:?];
         userDefinedPersonLinksByHome3 = [(HMIPersonsModelManager *)self userDefinedPersonLinksByHome];
-        v52 = [userDefinedPersonLinksByHome3 objectForKeyedSubscript:dCopy];
-        v114 = v36;
-        v104 = [(HMIPersonsModelManager *)self buildEquivalencyMapForPersonsModels:v50 userDefinedPersonLinks:v52 error:&v114];
-        v53 = v114;
+        v52 = [userDefinedPersonLinksByHome3 objectForKeyedSubscript:?];
+        v104 = [HMIPersonsModelManager buildEquivalencyMapForPersonsModels:"buildEquivalencyMapForPersonsModels:userDefinedPersonLinks:error:" userDefinedPersonLinks:? error:?];
+        v53 = v36;
         v54 = v36;
         v29 = v53;
 
         v55 = objc_alloc(MEMORY[0x277CBEB38]);
         equivalencyTablesByHome = [(HMIPersonsModelManager *)self equivalencyTablesByHome];
-        v57 = [v55 initWithDictionary:equivalencyTablesByHome];
+        v57 = [v55 initWithDictionary:?];
 
         if (v104)
         {
-          [v57 setObject:v104 forKeyedSubscript:dCopy];
+          [v57 setObject:? forKeyedSubscript:?];
         }
 
         else
         {
-          [v57 removeObjectForKey:dCopy];
+          [v57 removeObjectForKey:?];
         }
 
         v79 = [v57 copy];
@@ -539,11 +511,11 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
         {
           v83 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v127 = v83;
-          v128 = 2112;
-          v129 = dCopy;
-          v130 = 2112;
-          v131 = iDCopy;
+          v116 = v83;
+          v117 = 2112;
+          v118 = dCopy;
+          v119 = 2112;
+          v120 = iDCopy;
           _os_log_impl(&dword_22D12F000, v82, OS_LOG_TYPE_INFO, "%{public}@Persisted VNPersonsModel for homeUUID: %@ sourceUUID: %@", buf, 0x20u);
         }
 
@@ -553,8 +525,8 @@ void __69__HMIPersonsModelManager_personsModelWithFaceObservationsByID_error___b
         goto LABEL_49;
       }
 
-      v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to persist VNPersonsModel for homeUUID: %@ sourceUUID: %@, path: %@", dCopy, iDCopy, v37];
-      v67 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1033 description:v66 underlyingError:v106];
+      v66 = [MEMORY[0x277CCACA8] stringWithFormat:dCopy, iDCopy, v37];
+      v67 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
       v108 = v66;
 
       v68 = v67;
@@ -579,8 +551,8 @@ LABEL_51:
       goto LABEL_52;
     }
 
-    iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to persist VNPersonsModel for homeUUID: %@ sourceUUID: %@, error getting model storage path", dCopy, iDCopy];
-    v63 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1033 description:iDCopy underlyingError:v38];
+    iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:dCopy, iDCopy];
+    v63 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
     v108 = iDCopy;
 
     v64 = v63;
@@ -620,48 +592,44 @@ void __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_exter
   {
     v5 = [HMIPersonSourceUUIDPair alloc];
     v6 = [v9 UUID];
-    v7 = [(HMIPersonSourceUUIDPair *)v5 initWithPersonUUID:v6 sourceUUID:*(a1 + 32)];
+    v7 = [HMIPersonSourceUUIDPair initWithPersonUUID:v5 sourceUUID:"initWithPersonUUID:sourceUUID:"];
 
     v8 = [v9 personLinks];
-    [*(a1 + 40) setObject:v8 forKeyedSubscript:v7];
+    [*(a1 + 40) setObject:? forKeyedSubscript:?];
   }
 }
 
 - (BOOL)removePersonsModelForHomeUUID:(id)d sourceUUID:(id)iD error:(id *)error
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   os_unfair_lock_lock_with_options();
-  v80 = 0;
-  v10 = [(HMIPersonsModelManager *)self loadModelsWithError:&v80];
-  v11 = v80;
+  v10 = [(HMIPersonsModelManager *)self loadModelsWithError:?];
+  v11 = 0;
   v12 = v11;
   if (v10)
   {
     personsModelsByHome = [(HMIPersonsModelManager *)self personsModelsByHome];
-    v14 = [personsModelsByHome objectForKeyedSubscript:dCopy];
+    v14 = [personsModelsByHome objectForKeyedSubscript:?];
 
     if (v14)
     {
-      v15 = [v14 objectForKeyedSubscript:iDCopy];
+      v15 = [v14 objectForKeyedSubscript:?];
       if (v15)
       {
-        v79 = 0;
         v70 = v15;
-        v71 = [HMIPersonsModelManager getModelStoragePathForModel:v15 error:&v79];
-        v72 = v79;
+        v71 = [HMIPersonsModelManager getModelStoragePathForModel:"getModelStoragePathForModel:error:" error:?];
+        v72 = 0;
         if (v71)
         {
           if (([v70 isExternalLibrary] & 1) == 0)
           {
-            v78 = 0;
-            v68 = [HMIPersonsModelManager getUserDefinedPersonLinksStoragePathForHomeUUID:dCopy error:&v78];
-            v16 = v78;
+            v68 = [HMIPersonsModelManager getUserDefinedPersonLinksStoragePathForHomeUUID:"getUserDefinedPersonLinksStoragePathForHomeUUID:error:" error:?];
+            v16 = 0;
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-            v77 = v16;
-            v18 = [defaultManager removeItemAtPath:v68 error:&v77];
-            v66 = v77;
+            v18 = [defaultManager removeItemAtPath:? error:?];
+            v66 = v16;
 
             context = objc_autoreleasePoolPush();
             selfCopy = self;
@@ -672,9 +640,9 @@ void __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_exter
               {
                 v21 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v82 = v21;
-                v83 = 2112;
-                v84 = dCopy;
+                v76 = v21;
+                v77 = 2112;
+                v78 = dCopy;
                 _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_INFO, "%{public}@Removed userDefinedPersonLinksByHome for homeUUID: %@", buf, 0x16u);
               }
             }
@@ -686,9 +654,9 @@ void __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_exter
               {
                 v34 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v82 = v34;
-                v83 = 2112;
-                v84 = v66;
+                v76 = v34;
+                v77 = 2112;
+                v78 = v66;
                 _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Error removing user defined person links file: %@", buf, 0x16u);
               }
             }
@@ -697,53 +665,51 @@ void __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_exter
             userDefinedPersonLinksByHome = [(HMIPersonsModelManager *)selfCopy userDefinedPersonLinksByHome];
             v36 = [userDefinedPersonLinksByHome mutableCopy];
 
-            [v36 removeObjectForKey:dCopy];
+            [v36 removeObjectForKey:?];
             v37 = [v36 copy];
             userDefinedPersonLinksByHome = selfCopy->_userDefinedPersonLinksByHome;
             selfCopy->_userDefinedPersonLinksByHome = v37;
           }
 
           defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-          v76 = v72;
-          v40 = [defaultManager2 removeItemAtPath:v71 error:&v76];
-          v67 = v76;
+          v40 = [defaultManager2 removeItemAtPath:? error:?];
+          v67 = v72;
 
           if (v40)
           {
-            v41 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v14];
-            [v41 removeObjectForKey:iDCopy];
+            v41 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:?];
+            [v41 removeObjectForKey:?];
             v69 = v41;
             v42 = objc_alloc(MEMORY[0x277CBEB38]);
             personsModelsByHome2 = [(HMIPersonsModelManager *)self personsModelsByHome];
-            v32 = [v42 initWithDictionary:personsModelsByHome2];
+            v32 = [v42 initWithDictionary:?];
 
             v44 = [v69 copy];
-            [v32 setObject:v44 forKeyedSubscript:dCopy];
+            [v32 setObject:? forKeyedSubscript:?];
 
             v45 = [v32 copy];
             personsModelsByHome = self->_personsModelsByHome;
             self->_personsModelsByHome = v45;
 
             personsModelsByHome3 = [(HMIPersonsModelManager *)self personsModelsByHome];
-            v47 = [personsModelsByHome3 objectForKeyedSubscript:dCopy];
+            v47 = [personsModelsByHome3 objectForKeyedSubscript:?];
             userDefinedPersonLinksByHome2 = [(HMIPersonsModelManager *)self userDefinedPersonLinksByHome];
-            v49 = [userDefinedPersonLinksByHome2 objectForKeyedSubscript:dCopy];
-            v75 = v12;
-            contexta = [(HMIPersonsModelManager *)self buildEquivalencyMapForPersonsModels:v47 userDefinedPersonLinks:v49 error:&v75];
-            v63 = v75;
+            v49 = [userDefinedPersonLinksByHome2 objectForKeyedSubscript:?];
+            contexta = [HMIPersonsModelManager buildEquivalencyMapForPersonsModels:"buildEquivalencyMapForPersonsModels:userDefinedPersonLinks:error:" userDefinedPersonLinks:? error:?];
+            v63 = v12;
 
             v50 = objc_alloc(MEMORY[0x277CBEB38]);
             equivalencyTablesByHome = [(HMIPersonsModelManager *)self equivalencyTablesByHome];
-            v52 = [v50 initWithDictionary:equivalencyTablesByHome];
+            v52 = [v50 initWithDictionary:?];
 
             if (contexta)
             {
-              [v52 setObject:contexta forKeyedSubscript:dCopy];
+              [v52 setObject:? forKeyedSubscript:?];
             }
 
             else
             {
-              [v52 removeObjectForKey:dCopy];
+              [v52 removeObjectForKey:?];
             }
 
             v57 = [v52 copy];
@@ -757,11 +723,11 @@ void __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_exter
             {
               v61 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v82 = v61;
-              v83 = 2112;
-              v84 = dCopy;
-              v85 = 2112;
-              v86 = iDCopy;
+              v76 = v61;
+              v77 = 2112;
+              v78 = dCopy;
+              v79 = 2112;
+              v80 = iDCopy;
               _os_log_impl(&dword_22D12F000, v60, OS_LOG_TYPE_INFO, "%{public}@Removed VNPersonsModel for homeUUID: %@ sourceUUID:%@", buf, 0x20u);
             }
 
@@ -772,8 +738,8 @@ void __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_exter
             goto LABEL_32;
           }
 
-          v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to remove VNPersonsModel for homeUUID: %@ sourceUUID: %@, path: %@", dCopy, iDCopy, v71];
-          v54 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1034 description:v53 underlyingError:v67];
+          v53 = [MEMORY[0x277CCACA8] stringWithFormat:dCopy, iDCopy, v71];
+          v54 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
           v69 = v53;
 
           v55 = v54;
@@ -791,8 +757,8 @@ void __113__HMIPersonsModelManager_buildPersonsModelForHomeUUID_sourceUUID_exter
 
         else
         {
-          iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to remove VNPersonsModel for homeUUID: %@ sourceUUID: %@, error getting model storage path", dCopy, iDCopy];
-          v30 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1034 description:iDCopy underlyingError:v72];
+          iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:dCopy, iDCopy];
+          v30 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
           v69 = iDCopy;
 
           v31 = v30;
@@ -821,11 +787,11 @@ LABEL_32:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v82 = v28;
-      v83 = 2112;
-      v84 = dCopy;
-      v85 = 2112;
-      v86 = iDCopy;
+      v76 = v28;
+      v77 = 2112;
+      v78 = dCopy;
+      v79 = 2112;
+      v80 = iDCopy;
       _os_log_impl(&dword_22D12F000, v27, OS_LOG_TYPE_INFO, "%{public}@Did not remove VNPersonsModel for homeUUID: %@ sourceUUID: %@, no model found", buf, 0x20u);
     }
 
@@ -859,21 +825,19 @@ LABEL_33:
   observationCopy = observation;
   dCopy = d;
   os_unfair_lock_lock_with_options();
-  v40 = 0;
-  LOBYTE(d) = [(HMIPersonsModelManager *)self loadModelsWithError:&v40];
-  v10 = v40;
+  LOBYTE(d) = [(HMIPersonsModelManager *)self loadModelsWithError:?];
+  v10 = 0;
   v11 = v10;
   if (d)
   {
-    v12 = [(HMIPersonsModelManager *)self homePersonsModelForHomeWithUUID:dCopy];
+    v12 = [(HMIPersonsModelManager *)self homePersonsModelForHomeWithUUID:?];
     v13 = v12;
     if (v12)
     {
       visionPersonsModel = [v12 visionPersonsModel];
-      v39 = v11;
-      v15 = [visionPersonsModel predictPersonFromFaceObservation:observationCopy limit:10 canceller:0 error:&v39];
+      v15 = [visionPersonsModel predictPersonFromFaceObservation:? limit:? canceller:? error:?];
       v16 = observationCopy;
-      v17 = v39;
+      v17 = v11;
 
       if (v15)
       {
@@ -881,14 +845,14 @@ LABEL_33:
         firstObject = [v15 firstObject];
         v19 = objc_alloc(MEMORY[0x277CCAD78]);
         predictedPersonUniqueIdentifier = [firstObject predictedPersonUniqueIdentifier];
-        v21 = [v19 initWithUUIDString:predictedPersonUniqueIdentifier];
+        v21 = [v19 initWithUUIDString:?];
 
         v22 = MEMORY[0x277CCABB0];
         [firstObject confidence];
         v23 = [v22 numberWithFloat:?];
         v24 = [HMIPersonsModelPrediction alloc];
         sourceUUID = [v13 sourceUUID];
-        v26 = [(HMIPersonsModelPrediction *)v24 initWithSourceUUID:sourceUUID personUUID:v21 confidence:v23 linkedEntityUUID:0];
+        v26 = [HMIPersonsModelPrediction initWithSourceUUID:v24 personUUID:"initWithSourceUUID:personUUID:confidence:linkedEntityUUID:" confidence:? linkedEntityUUID:?];
 
         v27 = v38;
       }
@@ -896,8 +860,8 @@ LABEL_33:
       else
       {
         v27 = 0;
-        firstObject = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to predict using VNPersonsModel for home persons model"];
-        v34 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1035 description:firstObject underlyingError:v17];
+        firstObject = [MEMORY[0x277CCACA8] stringWithFormat:?];
+        v34 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
 
         v35 = v34;
         v21 = v35;
@@ -915,9 +879,9 @@ LABEL_33:
 
     else
     {
-      dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Home persons model not found for homeUUID: %@", dCopy];
-      v31 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1037 description:dCopy];
-      v27 = dCopy;
+      v30 = [MEMORY[0x277CCACA8] stringWithFormat:dCopy];
+      v31 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+      v27 = v30;
 
       v32 = v31;
       firstObject = v32;
@@ -957,24 +921,23 @@ LABEL_33:
 
 - (id)equivalencyCellForPerson:(id)person homeUUID:(id)d error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   personCopy = person;
   dCopy = d;
   os_unfair_lock_lock_with_options();
-  v35 = 0;
-  v9 = [(HMIPersonsModelManager *)self loadModelsWithError:&v35];
-  v10 = v35;
+  v9 = [(HMIPersonsModelManager *)self loadModelsWithError:?];
+  v10 = 0;
   v11 = v10;
   if (v9)
   {
     equivalencyTablesByHome = [(HMIPersonsModelManager *)self equivalencyTablesByHome];
-    v13 = [equivalencyTablesByHome objectForKeyedSubscript:dCopy];
+    v13 = [equivalencyTablesByHome objectForKeyedSubscript:?];
 
     if (v13)
     {
       v14 = v11;
 LABEL_9:
-      v27 = [v13 equivalencyCellForPerson:personCopy];
+      v27 = [v13 equivalencyCellForPerson:?];
       v18 = [v27 copy];
 
       v16 = v13;
@@ -982,20 +945,19 @@ LABEL_9:
     }
 
     personsModelsByHome = [(HMIPersonsModelManager *)self personsModelsByHome];
-    v20 = [personsModelsByHome objectForKeyedSubscript:dCopy];
+    v20 = [personsModelsByHome objectForKeyedSubscript:?];
     userDefinedPersonLinksByHome = [(HMIPersonsModelManager *)self userDefinedPersonLinksByHome];
-    v22 = [userDefinedPersonLinksByHome objectForKeyedSubscript:dCopy];
-    v34 = v11;
-    v13 = [(HMIPersonsModelManager *)self buildEquivalencyMapForPersonsModels:v20 userDefinedPersonLinks:v22 error:&v34];
-    v14 = v34;
+    v22 = [userDefinedPersonLinksByHome objectForKeyedSubscript:?];
+    v13 = [HMIPersonsModelManager buildEquivalencyMapForPersonsModels:"buildEquivalencyMapForPersonsModels:userDefinedPersonLinks:error:" userDefinedPersonLinks:? error:?];
+    v14 = v11;
 
     v23 = objc_alloc(MEMORY[0x277CBEB38]);
     equivalencyTablesByHome2 = [(HMIPersonsModelManager *)self equivalencyTablesByHome];
-    v16 = [v23 initWithDictionary:equivalencyTablesByHome2];
+    v16 = [v23 initWithDictionary:?];
 
     if (v13)
     {
-      [v16 setObject:v13 forKeyedSubscript:dCopy];
+      [v16 setObject:? forKeyedSubscript:?];
       v25 = [v16 copy];
       equivalencyTablesByHome = self->_equivalencyTablesByHome;
       self->_equivalencyTablesByHome = v25;
@@ -1010,11 +972,11 @@ LABEL_9:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v37 = v32;
+      v35 = v32;
+      v36 = 2112;
+      v37 = dCopy;
       v38 = 2112;
-      v39 = dCopy;
-      v40 = 2112;
-      v41 = v14;
+      v39 = v14;
       _os_log_impl(&dword_22D12F000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to build equivalency map for homeUUID: %@, error: %@", buf, 0x20u);
     }
 
@@ -1046,39 +1008,39 @@ LABEL_10:
 
 - (id)predictPersonFromFaceObservation:(id)observation homeUUID:(id)d error:(id *)error
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   observationCopy = observation;
   dCopy = d;
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x3032000000;
-  v88 = __Block_byref_object_copy__6;
-  v89 = __Block_byref_object_dispose__6;
-  v90 = 0;
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = __Block_byref_object_copy__6;
+  v80 = __Block_byref_object_dispose__6;
   v81 = 0;
-  v82 = &v81;
-  v83 = 0x2020000000;
-  v84 = 1;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = __Block_byref_object_copy__6;
-  v79 = __Block_byref_object_dispose__6;
-  v80 = 0;
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = __Block_byref_object_copy__6;
-  v73 = __Block_byref_object_dispose__6;
-  v74 = 0;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x2020000000;
+  v75 = 1;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = __Block_byref_object_copy__6;
+  v70 = __Block_byref_object_dispose__6;
+  v71 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = __Block_byref_object_copy__6;
+  v64 = __Block_byref_object_dispose__6;
+  v65 = 0;
   os_unfair_lock_lock_with_options();
-  v10 = v86;
-  obj = v86[5];
-  v11 = [(HMIPersonsModelManager *)self loadModelsWithError:&obj];
+  v10 = v77;
+  obj = v77[5];
+  v11 = [(HMIPersonsModelManager *)self loadModelsWithError:?];
   objc_storeStrong(v10 + 5, obj);
-  if (!v11)
+  if ((v11 & 1) == 0)
   {
-    v25 = v86[5];
+    v25 = v77[5];
     v26 = v25;
     if (error)
     {
@@ -1092,7 +1054,7 @@ LABEL_10:
   }
 
   personsModelsByHome = [(HMIPersonsModelManager *)self personsModelsByHome];
-  v13 = [personsModelsByHome objectForKeyedSubscript:dCopy];
+  v13 = [personsModelsByHome objectForKeyedSubscript:?];
 
   if (!v13)
   {
@@ -1104,13 +1066,13 @@ LABEL_10:
       v30 = &stru_284057FB8;
     }
 
-    v31 = [v28 stringWithFormat:@"Unable to get person model for homeUUID: %@ (self.personsModelsByHome is %@ nil)", dCopy, v30];
+    v31 = [v28 stringWithFormat:dCopy, v30];
 
-    v32 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1035 description:v31];
-    v33 = v86[5];
-    v86[5] = v32;
+    v32 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v33 = v77[5];
+    v77[5] = v32;
 
-    v34 = v86[5];
+    v34 = v77[5];
     v35 = v34;
     if (error)
     {
@@ -1128,30 +1090,30 @@ LABEL_17:
   }
 
   equivalencyTablesByHome = [(HMIPersonsModelManager *)self equivalencyTablesByHome];
-  v15 = [equivalencyTablesByHome objectForKeyedSubscript:dCopy];
+  v15 = [equivalencyTablesByHome objectForKeyedSubscript:?];
 
   v16 = 0x277CBE000;
   if (!v15)
   {
     userDefinedPersonLinksByHome = [(HMIPersonsModelManager *)self userDefinedPersonLinksByHome];
-    v18 = [userDefinedPersonLinksByHome objectForKeyedSubscript:dCopy];
+    v18 = [userDefinedPersonLinksByHome objectForKeyedSubscript:?];
 
     if (!v18)
     {
       v18 = MEMORY[0x277CBEC10];
     }
 
-    v19 = v86;
-    v67 = v86[5];
-    v15 = [(HMIPersonsModelManager *)self buildEquivalencyMapForPersonsModels:v13 userDefinedPersonLinks:v18 error:&v67];
-    objc_storeStrong(v19 + 5, v67);
+    v19 = v77;
+    v58 = v77[5];
+    v15 = [HMIPersonsModelManager buildEquivalencyMapForPersonsModels:"buildEquivalencyMapForPersonsModels:userDefinedPersonLinks:error:" userDefinedPersonLinks:? error:?];
+    objc_storeStrong(v19 + 5, v58);
     v20 = objc_alloc(MEMORY[0x277CBEB38]);
     equivalencyTablesByHome2 = [(HMIPersonsModelManager *)self equivalencyTablesByHome];
-    v22 = [v20 initWithDictionary:equivalencyTablesByHome2];
+    v22 = [v20 initWithDictionary:?];
 
     if (v15)
     {
-      [v22 setObject:v15 forKeyedSubscript:dCopy];
+      [v22 setObject:? forKeyedSubscript:?];
       v23 = [v22 copy];
       equivalencyTablesByHome = self->_equivalencyTablesByHome;
       self->_equivalencyTablesByHome = v23;
@@ -1165,14 +1127,14 @@ LABEL_17:
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         v40 = HMFGetLogIdentifier();
-        v41 = v86[5];
+        v41 = v77[5];
         *buf = 138543874;
-        v92 = v40;
-        v93 = 2112;
-        v94 = dCopy;
-        v95 = 2112;
-        v96 = v41;
-        v53 = v40;
+        v83 = v40;
+        v84 = 2112;
+        v85 = dCopy;
+        v86 = 2112;
+        v87 = v41;
+        v51 = v40;
         _os_log_impl(&dword_22D12F000, v39, OS_LOG_TYPE_ERROR, "%{public}@Unable to build equivalency map for homeUUID: %@, error: %@", buf, 0x20u);
       }
 
@@ -1183,169 +1145,152 @@ LABEL_17:
   }
 
   dictionary = [*(v16 + 2872) dictionary];
-  v43 = v76[5];
-  v76[5] = dictionary;
+  v43 = v67[5];
+  v67[5] = dictionary;
 
   v44 = [MEMORY[0x277CBEB58] set];
-  v45 = v70[5];
-  v70[5] = v44;
+  v45 = v61[5];
+  v61[5] = v44;
 
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke;
-  v58[3] = &unk_278754C48;
-  v59 = observationCopy;
-  v60 = dCopy;
-  v63 = &v85;
-  v64 = &v81;
-  v65 = &v69;
-  v46 = v15;
-  v61 = v46;
-  selfCopy2 = self;
-  v66 = &v75;
-  [v13 enumerateKeysAndObjectsUsingBlock:v58];
+  v55 = observationCopy;
+  v56 = dCopy;
+  v57 = v15;
+  [v13 enumerateKeysAndObjectsUsingBlock:?];
 
   os_unfair_lock_unlock(&self->_lock);
-  if ((v82[3] & 1) == 0)
+  if ((v73[3] & 1) == 0)
   {
-    v50 = v86[5];
-    v51 = v50;
+    v48 = v77[5];
+    v49 = v48;
     if (error)
     {
-      v52 = v50;
-      *error = v51;
+      v50 = v48;
+      *error = v49;
     }
 
-    HMIErrorLog(self, v51);
+    HMIErrorLog(self, v49);
 
     goto LABEL_17;
   }
 
-  v47 = [MEMORY[0x277CBEB58] set];
-  v48 = v76[5];
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke_280;
-  v56[3] = &unk_278754C98;
-  v49 = v47;
-  v57 = v49;
-  [v48 enumerateKeysAndObjectsUsingBlock:v56];
-  [v49 unionSet:v70[5]];
-  v37 = [v49 copy];
+  v46 = [MEMORY[0x277CBEB58] set];
+  v47 = v67[5];
+  v54 = v46;
+  [v47 enumerateKeysAndObjectsUsingBlock:?];
+  [v54 unionSet:?];
+  v37 = [v54 copy];
 
 LABEL_18:
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v60, 8);
 
-  _Block_object_dispose(&v75, 8);
-  _Block_object_dispose(&v81, 8);
-  _Block_object_dispose(&v85, 8);
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(&v76, 8);
 
   return v37;
 }
 
 void __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [v8 visionPersonsModel];
-  v10 = *(a1 + 32);
-  v48 = 0;
-  v11 = [v9 predictPersonFromFaceObservation:v10 limit:10 canceller:0 error:&v48];
-  v12 = v48;
+  v10 = [v9 predictPersonFromFaceObservation:? limit:? canceller:? error:?];
+  v11 = 0;
 
-  if (v11)
+  if (v10)
   {
-    v13 = [v11 firstObject];
-    if (v13)
+    v12 = [v10 firstObject];
+    if (v12)
     {
-      v46 = v12;
-      v47 = v8;
-      v14 = objc_alloc(MEMORY[0x277CCAD78]);
-      v15 = [v13 predictedPersonUniqueIdentifier];
-      v16 = [v14 initWithUUIDString:v15];
+      v45 = v11;
+      v46 = v8;
+      v13 = objc_alloc(MEMORY[0x277CCAD78]);
+      v14 = [v12 predictedPersonUniqueIdentifier];
+      v15 = [v13 initWithUUIDString:?];
 
-      v45 = v16;
-      v17 = [[HMIPersonSourceUUIDPair alloc] initWithPersonUUID:v16 sourceUUID:v7];
-      v18 = [*(a1 + 48) equivalencyCellForPerson:v17];
-      if (!v18)
+      v44 = v15;
+      v16 = [HMIPersonSourceUUIDPair initWithPersonUUID:"initWithPersonUUID:sourceUUID:" sourceUUID:?];
+      v17 = [*(a1 + 48) equivalencyCellForPerson:?];
+      if (!v17)
       {
-        v19 = objc_autoreleasePoolPush();
-        v20 = *(a1 + 56);
-        v21 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v18 = objc_autoreleasePoolPush();
+        v19 = *(a1 + 56);
+        v20 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v22 = HMFGetLogIdentifier();
-          v23 = *(a1 + 48);
+          v21 = HMFGetLogIdentifier();
+          v22 = *(a1 + 48);
           *buf = 138543874;
-          v50 = v22;
-          if (v23)
+          v48 = v21;
+          if (v22)
           {
-            v24 = @" not";
+            v23 = @" not";
           }
 
           else
           {
-            v24 = &stru_284057FB8;
+            v23 = &stru_284057FB8;
           }
 
+          v49 = 2112;
+          v50 = v16;
           v51 = 2112;
-          v52 = v17;
-          v53 = 2112;
-          v54 = v24;
-          _os_log_impl(&dword_22D12F000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failure to lookup equivalency cell for %@ (equivalencyCellForHome is%@ nil)", buf, 0x20u);
+          v52 = v23;
+          _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failure to lookup equivalency cell for %@ (equivalencyCellForHome is%@ nil)", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v19);
-        v18 = [MEMORY[0x277CBEB98] setWithObject:v17];
+        objc_autoreleasePoolPop(v18);
+        v17 = [MEMORY[0x277CBEB98] setWithObject:?];
       }
 
-      v44 = v17;
-      v25 = [*(*(*(a1 + 88) + 8) + 40) objectForKeyedSubscript:v18];
-      v26 = v25;
-      if (!v25 || ([v25 confidence], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "floatValue"), v29 = v28, objc_msgSend(v13, "confidence"), v31 = v30, v27, v29 < v31))
+      v43 = v16;
+      v24 = [*(*(*(a1 + 88) + 8) + 40) objectForKeyedSubscript:?];
+      v25 = v24;
+      if (!v24 || ([v24 confidence], v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "floatValue"), v28 = v27, objc_msgSend(v12, "confidence"), v30 = v29, v26, v28 < v30))
       {
-        v32 = objc_alloc(MEMORY[0x277CCAD78]);
-        v33 = [v13 predictedPersonUniqueIdentifier];
-        v34 = [v32 initWithUUIDString:v33];
+        v31 = objc_alloc(MEMORY[0x277CCAD78]);
+        v32 = [v12 predictedPersonUniqueIdentifier];
+        v33 = [v31 initWithUUIDString:?];
 
-        v35 = MEMORY[0x277CCABB0];
-        [v13 confidence];
-        v36 = [v35 numberWithFloat:?];
-        if (v26)
+        v34 = MEMORY[0x277CCABB0];
+        [v12 confidence];
+        v35 = [v34 numberWithFloat:?];
+        if (v25)
         {
-          [v26 linkedEntityUUID];
+          [v25 linkedEntityUUID];
         }
 
         else
         {
-          [HMIPersonsModelManager minimumUUIDInEquivalencyCell:v18];
+          [HMIPersonsModelManager minimumUUIDInEquivalencyCell:?];
         }
-        v42 = ;
-        v43 = [[HMIPersonsModelPrediction alloc] initWithSourceUUID:v7 personUUID:v34 confidence:v36 linkedEntityUUID:v42];
-        [*(*(*(a1 + 88) + 8) + 40) setObject:v43 forKeyedSubscript:v18];
+        v41 = ;
+        v42 = [HMIPersonsModelPrediction initWithSourceUUID:"initWithSourceUUID:personUUID:confidence:linkedEntityUUID:" personUUID:? confidence:? linkedEntityUUID:?];
+        [*(*(*(a1 + 88) + 8) + 40) setObject:? forKeyedSubscript:?];
       }
 
-      v12 = v46;
-      v8 = v47;
-      v41 = v45;
+      v11 = v45;
+      v8 = v46;
+      v40 = v44;
     }
 
     else
     {
-      v40 = *(*(*(a1 + 80) + 8) + 40);
-      v41 = [[HMIPersonsModelPrediction alloc] initWithSourceUUID:v7 personUUID:0 confidence:0 linkedEntityUUID:0];
-      [v40 addObject:v41];
+      v39 = *(*(*(a1 + 80) + 8) + 40);
+      v40 = [HMIPersonsModelPrediction initWithSourceUUID:"initWithSourceUUID:personUUID:confidence:linkedEntityUUID:" personUUID:? confidence:? linkedEntityUUID:?];
+      [v39 addObject:?];
     }
   }
 
   else
   {
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to predict using VNPersonsModel for homeUUID: %@ sourceUUID: %@", *(a1 + 40), v7];
-    v37 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1035 description:v13 underlyingError:v12];
-    v38 = *(*(a1 + 64) + 8);
-    v39 = *(v38 + 40);
-    *(v38 + 40) = v37;
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:*(a1 + 40), v7];
+    v36 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+    v37 = *(*(a1 + 64) + 8);
+    v38 = *(v37 + 40);
+    *(v37 + 40) = v36;
 
     *(*(*(a1 + 72) + 8) + 24) = 0;
     *a4 = 1;
@@ -1355,14 +1300,14 @@ void __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_erro
 void __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke_280(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke_2;
-  v7[3] = &unk_278754C70;
-  v8 = v5;
-  v9 = *(a1 + 32);
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke_2;
+  v10 = &unk_278754C70;
+  v11 = v5;
+  v12 = *(a1 + 32);
   v6 = v5;
-  [a2 enumerateObjectsUsingBlock:v7];
+  [a2 enumerateObjectsUsingBlock:{v7, 3221225472, __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke_2, &unk_278754C70}];
 }
 
 void __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_error___block_invoke_2(uint64_t a1, void *a2)
@@ -1370,7 +1315,7 @@ void __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_erro
   v13 = a2;
   v3 = [v13 personUUID];
   v4 = [*(a1 + 32) personUUID];
-  v5 = [v3 isEqual:v4];
+  v5 = [v3 isEqual:?];
 
   if ((v5 & 1) == 0)
   {
@@ -1380,11 +1325,11 @@ void __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_erro
     v9 = [v13 personUUID];
     v10 = [*(a1 + 32) confidence];
     v11 = [*(a1 + 32) linkedEntityUUID];
-    v12 = [(HMIPersonsModelPrediction *)v7 initWithSourceUUID:v8 personUUID:v9 confidence:v10 linkedEntityUUID:v11];
-    [v6 addObject:v12];
+    v12 = [HMIPersonsModelPrediction initWithSourceUUID:v7 personUUID:"initWithSourceUUID:personUUID:confidence:linkedEntityUUID:" confidence:? linkedEntityUUID:?];
+    [v6 addObject:?];
   }
 
-  [*(a1 + 40) addObject:*(a1 + 32)];
+  [*(a1 + 40) addObject:?];
 }
 
 + (id)faceObservationFromTorsoprint:(id)torsoprint
@@ -1394,267 +1339,251 @@ void __74__HMIPersonsModelManager_predictPersonFromFaceObservation_homeUUID_erro
   v5 = [v3 alloc];
   data = [torsoprintCopy data];
 
-  bytes = [data bytes];
-  LODWORD(v8) = 1.0;
-  v9 = [v5 initWithData:bytes elementCount:128 elementType:1 lengthInBytes:512 confidence:3 requestRevision:v8];
+  [data bytes];
+  v7 = [v5 initWithData:? elementCount:? elementType:? lengthInBytes:? confidence:? requestRevision:?];
 
-  v10 = [MEMORY[0x277CE2CD0] faceObservationWithRequestRevision:3 boundingBox:0.0 andAlignedBoundingBox:{0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0}];
-  [v10 setFaceprint:v9];
+  v8 = [MEMORY[0x277CE2CD0] faceObservationWithRequestRevision:? boundingBox:? andAlignedBoundingBox:?];
+  [v8 setFaceprint:?];
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)updateTorsoModelForHome:(id)home torsoAnnotations:(id)annotations error:(id *)error
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   annotationsCopy = annotations;
   os_unfair_lock_lock_with_options();
-  v90 = 0;
-  LOBYTE(annotations) = [(HMIPersonsModelManager *)self loadModelsWithError:&v90];
-  v9 = v90;
+  v91 = 0;
+  LOBYTE(annotations) = [(HMIPersonsModelManager *)self loadModelsWithError:?];
+  v9 = 0;
   v10 = v9;
   if (annotations)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
     torsoModelsByHome = [(HMIPersonsModelManager *)self torsoModelsByHome];
-    v14 = [torsoModelsByHome objectForKeyedSubscript:homeCopy];
+    v14 = [torsoModelsByHome objectForKeyedSubscript:?];
 
     if (!v14)
     {
-      v71 = dictionary2;
+      v70 = dictionary2;
 LABEL_9:
-      v23 = [dictionary mutableCopy];
-      v24 = [v71 mutableCopy];
-      v83[0] = MEMORY[0x277D85DD0];
-      v83[1] = 3221225472;
-      v83[2] = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_290;
-      v83[3] = &unk_278754D80;
-      v83[4] = self;
-      v25 = v23;
-      v84 = v25;
-      v69 = v24;
-      v85 = v69;
-      [annotationsCopy na_each:v83];
-      v82 = v10;
-      v70 = [HMIPersonsModelManager personsModelWithFaceObservationsByID:v25 error:&v82];
-      v26 = v82;
+      v22 = [dictionary mutableCopy];
+      v23 = [v70 mutableCopy];
+      v77 = MEMORY[0x277D85DD0];
+      v78 = 3221225472;
+      v79 = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_290;
+      v80 = &unk_278754D80;
+      selfCopy = self;
+      v24 = v22;
+      v82 = v24;
+      v68 = v23;
+      v83 = v68;
+      [annotationsCopy na_each:?];
+      v76 = v10;
+      v69 = [HMIPersonsModelManager personsModelWithFaceObservationsByID:"personsModelWithFaceObservationsByID:error:" error:?];
+      v25 = v10;
 
-      if (!v70)
+      if (!v69)
       {
-        v55 = v26;
-        v10 = v55;
+        v54 = v25;
+        v10 = v54;
         if (error)
         {
-          v56 = v55;
+          v55 = v54;
           *error = v10;
         }
 
         HMIErrorLog(self, v10);
 
-        v22 = 0;
-        goto LABEL_35;
+        v21 = 0;
+        goto LABEL_34;
       }
 
-      v78 = 0;
-      v79 = &v78;
-      v80 = 0x2020000000;
-      v81 = 0;
-      allValues = [v25 allValues];
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_2_297;
-      v77[3] = &unk_278754DA8;
-      v77[4] = &v78;
-      [allValues na_each:v77];
+      v72 = 0;
+      v73 = &v72;
+      v74 = 0x2020000000;
+      v75 = 0;
+      allValues = [v24 allValues];
+      [allValues na_each:?];
 
-      v28 = objc_autoreleasePoolPush();
-      selfCopy = self;
-      v30 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v27 = objc_autoreleasePoolPush();
+      selfCopy2 = self;
+      v29 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
-        v31 = HMFGetLogIdentifier();
-        v32 = [v25 count];
-        v33 = *(v79 + 6);
+        v30 = HMFGetLogIdentifier();
+        v31 = [v24 count];
+        v32 = *(v73 + 6);
         *buf = 138544130;
-        v92 = v31;
-        v93 = 2048;
-        v94 = v32;
-        v95 = 1024;
-        v96 = v33;
-        v97 = 2112;
-        v98 = homeCopy;
-        _os_log_impl(&dword_22D12F000, v30, OS_LOG_TYPE_INFO, "%{public}@Created new torso model with %lu persons and %d total torsoprints for home: %@", buf, 0x26u);
+        v93 = v30;
+        v94 = 2048;
+        v95 = v31;
+        v96 = 1024;
+        v97 = v32;
+        v98 = 2112;
+        v99 = homeCopy;
+        _os_log_impl(&dword_22D12F000, v29, OS_LOG_TYPE_INFO, "%{public}@Created new torso model with %lu persons and %d total torsoprints for home: %@", buf, 0x26u);
       }
 
-      objc_autoreleasePoolPop(v28);
-      v76 = v26;
-      v68 = [HMIPersonsModelManager getTorsoModelStoragePathForHomeUUID:homeCopy error:&v76];
-      v34 = v76;
+      objc_autoreleasePoolPop(v27);
+      v67 = [HMIPersonsModelManager getTorsoModelStoragePathForHomeUUID:"getTorsoModelStoragePathForHomeUUID:error:" error:?];
+      v33 = v25;
 
-      v75 = v34;
-      v35 = [HMIPersonsModelManager persistModel:v70 toPath:v68 error:&v75];
-      v36 = v75;
+      v34 = [HMIPersonsModelManager persistModel:"persistModel:toPath:error:" toPath:? error:?];
+      v35 = v33;
 
-      if (v35)
+      if (v34)
       {
-        v74 = v36;
-        v37 = [HMIPersonsModelManager persistTorsoToFaceCrop:v69 forHomeUUID:homeCopy error:&v74];
-        v38 = v74;
+        v36 = [HMIPersonsModelManager persistTorsoToFaceCrop:"persistTorsoToFaceCrop:forHomeUUID:error:" forHomeUUID:? error:?];
+        v37 = v35;
 
-        if (v37)
+        if (v36)
         {
-          v73 = v38;
-          v39 = [HMIPersonsModelManager persistTorsoprinterVersionForHomeUUID:homeCopy error:&v73];
-          v10 = v73;
+          v38 = [HMIPersonsModelManager persistTorsoprinterVersionForHomeUUID:"persistTorsoprinterVersionForHomeUUID:error:" error:?];
+          v10 = v37;
 
-          if (v39)
+          if (v38)
           {
-            v40 = objc_autoreleasePoolPush();
-            v41 = selfCopy;
-            v42 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+            v39 = objc_autoreleasePoolPush();
+            v40 = selfCopy2;
+            v41 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
             {
-              v43 = HMFGetLogIdentifier();
+              v42 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v92 = v43;
-              v93 = 2112;
-              v94 = homeCopy;
-              _os_log_impl(&dword_22D12F000, v42, OS_LOG_TYPE_INFO, "%{public}@Successfully updated torso model and face crop map for home: %@", buf, 0x16u);
+              v93 = v42;
+              v94 = 2112;
+              v95 = homeCopy;
+              _os_log_impl(&dword_22D12F000, v41, OS_LOG_TYPE_INFO, "%{public}@Successfully updated torso model and face crop map for home: %@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v40);
-            v44 = MEMORY[0x277CBEB38];
-            torsoModelsByHome2 = [(HMIPersonsModelManager *)v41 torsoModelsByHome];
-            v46 = [v44 dictionaryWithDictionary:torsoModelsByHome2];
+            objc_autoreleasePoolPop(v39);
+            v43 = MEMORY[0x277CBEB38];
+            torsoModelsByHome2 = [(HMIPersonsModelManager *)v40 torsoModelsByHome];
+            v45 = [v43 dictionaryWithDictionary:?];
 
-            v47 = MEMORY[0x277CBEB38];
-            torsoToFaceCropByHome = [(HMIPersonsModelManager *)v41 torsoToFaceCropByHome];
-            v49 = [v47 dictionaryWithDictionary:torsoToFaceCropByHome];
+            v46 = MEMORY[0x277CBEB38];
+            torsoToFaceCropByHome = [(HMIPersonsModelManager *)v40 torsoToFaceCropByHome];
+            v48 = [v46 dictionaryWithDictionary:?];
 
-            [v46 setObject:v70 forKeyedSubscript:homeCopy];
-            v50 = [v69 copy];
-            [v49 setObject:v50 forKeyedSubscript:homeCopy];
+            [v45 setObject:? forKeyedSubscript:?];
+            v49 = [v68 copy];
+            [v48 setObject:? forKeyedSubscript:?];
 
-            v51 = [v46 copy];
-            torsoModelsByHome = v41->_torsoModelsByHome;
-            v41->_torsoModelsByHome = v51;
+            v50 = [v45 copy];
+            torsoModelsByHome = v40->_torsoModelsByHome;
+            v40->_torsoModelsByHome = v50;
 
-            v53 = [v49 copy];
-            torsoToFaceCropByHome = v41->_torsoToFaceCropByHome;
-            v41->_torsoToFaceCropByHome = v53;
+            v52 = [v48 copy];
+            torsoToFaceCropByHome = v40->_torsoToFaceCropByHome;
+            v40->_torsoToFaceCropByHome = v52;
 
-            v22 = 1;
-            goto LABEL_34;
+            v21 = 1;
+            goto LABEL_33;
           }
 
-          v65 = v10;
-          v46 = v65;
+          v64 = v10;
+          v45 = v64;
           if (error)
           {
-            v66 = v65;
-            *error = v46;
+            v65 = v64;
+            *error = v45;
           }
-
-          HMIErrorLog(selfCopy, v46);
         }
 
         else
         {
-          v63 = v38;
-          v46 = v63;
+          v62 = v37;
+          v45 = v62;
           if (error)
           {
-            v64 = v63;
-            *error = v46;
+            v63 = v62;
+            *error = v45;
           }
-
-          HMIErrorLog(selfCopy, v46);
         }
       }
 
       else
       {
-        v57 = v36;
-        v46 = v57;
+        v56 = v35;
+        v45 = v56;
         if (error)
         {
-          v58 = v57;
-          *error = v46;
+          v57 = v56;
+          *error = v45;
         }
-
-        HMIErrorLog(selfCopy, v46);
       }
 
-      v22 = 0;
-      v10 = v46;
+      HMIErrorLog(selfCopy2, v45);
+      v21 = 0;
+      v10 = v45;
+LABEL_33:
+
+      _Block_object_dispose(&v72, 8);
 LABEL_34:
 
-      _Block_object_dispose(&v78, 8);
-LABEL_35:
-
-      goto LABEL_36;
+      goto LABEL_35;
     }
 
     torsoToFaceCropByHome2 = [(HMIPersonsModelManager *)self torsoToFaceCropByHome];
-    v71 = [torsoToFaceCropByHome2 objectForKeyedSubscript:homeCopy];
+    v70 = [torsoToFaceCropByHome2 objectForKeyedSubscript:?];
 
-    if (v71)
+    if (v70)
     {
       torsoModelsByHome3 = [(HMIPersonsModelManager *)self torsoModelsByHome];
-      v17 = [torsoModelsByHome3 objectForKeyedSubscript:homeCopy];
+      v17 = [torsoModelsByHome3 objectForKeyedSubscript:?];
 
       personUniqueIdentifiers = [v17 personUniqueIdentifiers];
-      v86[0] = MEMORY[0x277D85DD0];
-      v86[1] = 3221225472;
-      v86[2] = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke;
-      v86[3] = &unk_278754CE0;
-      v19 = v17;
-      v87 = v19;
-      selfCopy2 = self;
-      v89 = dictionary;
-      [personUniqueIdentifiers na_each:v86];
+      v84 = MEMORY[0x277D85DD0];
+      v85 = 3221225472;
+      v86 = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke;
+      v87 = &unk_278754CE0;
+      v88 = v17;
+      selfCopy3 = self;
+      v90 = dictionary;
+      [personUniqueIdentifiers na_each:?];
 
       goto LABEL_9;
     }
 
-    v59 = objc_autoreleasePoolPush();
-    selfCopy3 = self;
-    v61 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v58 = objc_autoreleasePoolPush();
+    selfCopy4 = self;
+    v60 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      v62 = HMFGetLogIdentifier();
+      v61 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v92 = v62;
-      v93 = 2112;
-      v94 = homeCopy;
-      _os_log_impl(&dword_22D12F000, v61, OS_LOG_TYPE_ERROR, "%{public}@Found nil torsoToFaceCrop for home %@ with non-nil model!", buf, 0x16u);
+      v93 = v61;
+      v94 = 2112;
+      v95 = homeCopy;
+      _os_log_impl(&dword_22D12F000, v60, OS_LOG_TYPE_ERROR, "%{public}@Found nil torsoToFaceCrop for home %@ with non-nil model!", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v59);
-    v22 = 0;
+    objc_autoreleasePoolPop(v58);
+    v21 = 0;
   }
 
   else
   {
-    v20 = v9;
-    dictionary = v20;
+    v19 = v9;
+    dictionary = v19;
     if (error)
     {
-      v21 = v20;
+      v20 = v19;
       *error = dictionary;
     }
 
     HMIErrorLog(self, dictionary);
-    v22 = 0;
+    v21 = 0;
     v10 = dictionary;
   }
 
-LABEL_36:
+LABEL_35:
 
   os_unfair_lock_unlock(&self->_lock);
-  return v22;
+  return v21;
 }
 
 void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke(uint64_t a1, void *a2)
@@ -1663,11 +1592,11 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
   v3 = a2;
   v4 = *(a1 + 32);
   v20 = 0;
-  v5 = [v4 trainingFaceObservationsForPersonWithUniqueIdentifier:v3 canceller:0 error:&v20];
+  v5 = [v4 trainingFaceObservationsForPersonWithUniqueIdentifier:? canceller:? error:?];
   v6 = v20;
   if (v5)
   {
-    v7 = [v5 sortedArrayUsingComparator:&__block_literal_global_288];
+    v7 = [v5 sortedArrayUsingComparator:?];
 
     v8 = objc_autoreleasePoolPush();
     v9 = *(a1 + 40);
@@ -1686,10 +1615,10 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
     }
 
     objc_autoreleasePoolPop(v8);
-    v13 = [[HMIPersonSourceUUIDPair alloc] initWithUUIDPairString:v3];
+    v13 = [[HMIPersonSourceUUIDPair alloc] initWithUUIDPairString:?];
     v14 = *(a1 + 48);
     v15 = [(HMIPersonSourceUUIDPair *)v13 UUIDPairString];
-    [v14 setObject:v7 forKeyedSubscript:v15];
+    [v14 setObject:? forKeyedSubscript:?];
   }
 
   else
@@ -1734,7 +1663,7 @@ uint64_t __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_e
 
 void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_290(uint64_t a1, void *a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 faceRecognition];
   v43 = [v3 torsoprints];
@@ -1744,45 +1673,39 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v56 = __Block_byref_object_copy__6;
-    v57 = __Block_byref_object_dispose__6;
-    v58 = 0;
+    v58 = __Block_byref_object_copy__6;
+    v59 = __Block_byref_object_dispose__6;
+    v60 = 0;
     v12 = [v4 predictedLinkedEntityUUIDs];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_291;
-    v52[3] = &unk_278754D08;
-    v52[4] = buf;
-    [v12 na_each:v52];
+    v50 = MEMORY[0x277D85DD0];
+    v51 = 3221225472;
+    v52 = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_291;
+    v53 = &unk_278754D08;
+    v54 = buf;
+    [v12 na_each:?];
 
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x3032000000;
-    v49 = __Block_byref_object_copy__6;
-    v50 = __Block_byref_object_dispose__6;
-    v51 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy__6;
+    v48 = __Block_byref_object_dispose__6;
+    v49 = 0;
     v13 = [v4 classifications];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_2;
-    v45[3] = &unk_278754D30;
-    v45[4] = buf;
-    v45[5] = &v46;
-    [v13 enumerateObjectsUsingBlock:v45];
+    [v13 enumerateObjectsUsingBlock:?];
 
-    if (v47[5])
+    if (v45[5])
     {
       v14 = [HMIPersonSourceUUIDPair alloc];
-      v15 = [v47[5] personUUID];
-      v16 = [v47[5] sourceUUID];
-      v17 = [(HMIPersonSourceUUIDPair *)v14 initWithPersonUUID:v15 sourceUUID:v16];
+      v15 = [v45[5] personUUID];
+      v16 = [v45[5] sourceUUID];
+      v17 = [HMIPersonSourceUUIDPair initWithPersonUUID:v14 sourceUUID:"initWithPersonUUID:sourceUUID:"];
 
-      *v53 = 0;
-      *&v53[8] = v53;
-      *&v53[16] = 0x2020000000;
+      *v55 = 0;
+      *&v55[8] = v55;
+      *&v55[16] = 0x2020000000;
       v18 = *(a1 + 40);
       v19 = [(HMIPersonSourceUUIDPair *)v17 UUIDPairString];
-      v20 = [v18 objectForKeyedSubscript:v19];
+      v20 = [v18 objectForKeyedSubscript:?];
       if ([v20 hmf_isEmpty])
       {
         v21 = 0;
@@ -1792,48 +1715,43 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
       {
         v26 = *(a1 + 40);
         v27 = [(HMIPersonSourceUUIDPair *)v17 UUIDPairString];
-        v28 = [v26 objectForKeyedSubscript:v27];
+        v28 = [v26 objectForKeyedSubscript:?];
         v29 = [v28 lastObject];
         v21 = [v29 faceId];
       }
 
-      v54 = v21;
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_294;
-      v44[3] = &unk_278754D58;
-      v44[4] = v53;
-      v30 = [v43 na_map:v44];
+      v56 = v21;
+      v30 = [v43 na_map:?];
       v31 = *(a1 + 40);
       v32 = [(HMIPersonSourceUUIDPair *)v17 UUIDPairString];
-      v33 = [v31 objectForKeyedSubscript:v32];
+      v33 = [v31 objectForKeyedSubscript:?];
 
       v34 = *(a1 + 40);
       v35 = [(HMIPersonSourceUUIDPair *)v17 UUIDPairString];
       if (v33)
       {
-        v36 = [v34 objectForKeyedSubscript:v35];
-        v37 = [v36 arrayByAddingObjectsFromArray:v30];
+        v36 = [v34 objectForKeyedSubscript:?];
+        v37 = [v36 arrayByAddingObjectsFromArray:?];
         v38 = *(a1 + 40);
         v39 = [(HMIPersonSourceUUIDPair *)v17 UUIDPairString];
-        [v38 setObject:v37 forKeyedSubscript:v39];
+        [v38 setObject:? forKeyedSubscript:?];
       }
 
       else
       {
-        [v34 setObject:v30 forKeyedSubscript:v35];
+        [v34 setObject:? forKeyedSubscript:?];
       }
 
-      v40 = [*(a1 + 48) objectForKeyedSubscript:v17];
+      v40 = [*(a1 + 48) objectForKeyedSubscript:?];
       v41 = v40 == 0;
 
       if (v41)
       {
         v42 = [v4 faceCrop];
-        [*(a1 + 48) setObject:v42 forKeyedSubscript:v17];
+        [*(a1 + 48) setObject:? forKeyedSubscript:?];
       }
 
-      _Block_object_dispose(v53, 8);
+      _Block_object_dispose(v55, 8);
     }
 
     else
@@ -1844,17 +1762,17 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        *v53 = 138543618;
-        *&v53[4] = v25;
-        *&v53[12] = 2112;
-        *&v53[14] = v4;
-        _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_ERROR, "%{public}@Received torso annotation with no classification corresponding to the linkedEntityUUID: %@", v53, 0x16u);
+        *v55 = 138543618;
+        *&v55[4] = v25;
+        *&v55[12] = 2112;
+        *&v55[14] = v4;
+        _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_ERROR, "%{public}@Received torso annotation with no classification corresponding to the linkedEntityUUID: %@", v55, 0x16u);
       }
 
       objc_autoreleasePoolPop(v22);
     }
 
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v44, 8);
 
     _Block_object_dispose(buf, 8);
   }
@@ -1888,7 +1806,7 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
   {
     v7 = [v6 UUIDString];
     v8 = [v10 UUIDString];
-    v9 = [v7 compare:v8];
+    v9 = [v7 compare:?];
 
     if (v9 != -1)
     {
@@ -1906,7 +1824,7 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
 {
   v8 = a2;
   v6 = [v8 personUUID];
-  v7 = [v6 isEqual:*(*(*(a1 + 32) + 8) + 40)];
+  v7 = [v6 isEqual:?];
 
   if (v7)
   {
@@ -1917,14 +1835,14 @@ void __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error
 
 id __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_294(uint64_t a1, uint64_t a2)
 {
-  v3 = [HMIPersonsModelManager faceObservationFromTorsoprint:a2];
+  v3 = [HMIPersonsModelManager faceObservationFromTorsoprint:?];
   ++*(*(*(a1 + 32) + 8) + 24);
   [v3 setFaceId:?];
 
   return v3;
 }
 
-uint64_t __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_2_297(uint64_t a1, void *a2)
+void *__73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_error___block_invoke_2_297(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -1937,10 +1855,10 @@ uint64_t __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_e
   iDCopy = iD;
   uIDCopy = uID;
   os_unfair_lock_lock_with_options();
-  v11 = [[HMIPersonSourceUUIDPair alloc] initWithPersonUUID:iDCopy sourceUUID:uIDCopy];
+  v11 = [HMIPersonSourceUUIDPair initWithPersonUUID:"initWithPersonUUID:sourceUUID:" sourceUUID:?];
   torsoToFaceCropByHome = [(HMIPersonsModelManager *)self torsoToFaceCropByHome];
-  v13 = [torsoToFaceCropByHome objectForKeyedSubscript:dCopy];
-  v14 = [v13 objectForKeyedSubscript:v11];
+  v13 = [torsoToFaceCropByHome objectForKeyedSubscript:?];
+  v14 = [v13 objectForKeyedSubscript:?];
 
   os_unfair_lock_unlock(&self->_lock);
 
@@ -1949,10 +1867,10 @@ uint64_t __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_e
 
 - (BOOL)_resetStaleTorsoStateForHome:(id)home torsoToFaceCropMap:(id)map
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   mapCopy = map;
-  if (![(HMIPersonsModelManager *)self _isTorsoFaceCropMapStale:mapCopy]&& ![(HMIPersonsModelManager *)self _hasTorsoprinterVersionChangedForHome:homeCopy])
+  if (![(HMIPersonsModelManager *)self _isTorsoFaceCropMapStale:?]&& ![(HMIPersonsModelManager *)self _hasTorsoprinterVersionChangedForHome:?])
   {
     v26 = 0;
     goto LABEL_13;
@@ -1965,18 +1883,16 @@ uint64_t __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_e
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v31 = v11;
+    v29 = v11;
     _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_INFO, "%{public}@Resetting torso model and wiping data", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
-  v29 = 0;
-  v12 = [HMIPersonsModelManager getTorsoModelStoragePathForHomeUUID:homeCopy error:&v29];
-  v13 = v29;
+  v12 = [HMIPersonsModelManager getTorsoModelStoragePathForHomeUUID:"getTorsoModelStoragePathForHomeUUID:error:" error:?];
+  v13 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v28 = v13;
-  v15 = [defaultManager removeItemAtPath:v12 error:&v28];
-  v16 = v28;
+  v15 = [defaultManager removeItemAtPath:? error:?];
+  v16 = v13;
 
   v17 = objc_autoreleasePoolPush();
   v18 = selfCopy;
@@ -1988,9 +1904,9 @@ uint64_t __73__HMIPersonsModelManager_updateTorsoModelForHome_torsoAnnotations_e
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v21;
-      v32 = 2112;
-      v33 = v12;
+      v29 = v21;
+      v30 = 2112;
+      v31 = v12;
       v22 = "%{public}@Successfully deleted torso data at path: %@";
       v23 = v20;
       v24 = OS_LOG_TYPE_INFO;
@@ -2004,11 +1920,11 @@ LABEL_10:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v31 = v21;
+    v29 = v21;
+    v30 = 2112;
+    v31 = v12;
     v32 = 2112;
-    v33 = v12;
-    v34 = 2112;
-    v35 = v16;
+    v33 = v16;
     v22 = "%{public}@Failed to delete torso directory at path: %@, error: %@";
     v23 = v20;
     v24 = OS_LOG_TYPE_ERROR;
@@ -2025,12 +1941,11 @@ LABEL_13:
 
 - (BOOL)_hasTorsoprinterVersionChangedForHome:(id)home
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   homeCopy = home;
-  v15 = 0;
-  v5 = [HMIPersonsModelManager loadTorsoprinterVersion:homeCopy error:&v15];
-  v6 = v15;
-  if (v5 && (+[HMITorsoprinter currentModelUUID](HMITorsoprinter, "currentModelUUID"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v5 hmf_isEqualToUUID:v7], v7, (v8 & 1) != 0))
+  v5 = [HMIPersonsModelManager loadTorsoprinterVersion:"loadTorsoprinterVersion:error:" error:?];
+  v6 = 0;
+  if (v5 && (+[HMITorsoprinter currentModelUUID](HMITorsoprinter, "currentModelUUID"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v5 hmf_isEqualToUUID:?], v7, (v8 & 1) != 0))
   {
     v9 = 0;
   }
@@ -2044,7 +1959,7 @@ LABEL_13:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v13;
+      v16 = v13;
       _os_log_impl(&dword_22D12F000, v12, OS_LOG_TYPE_INFO, "%{public}@Torso model version on disk doesn't match current version", buf, 0xCu);
     }
 
@@ -2057,7 +1972,7 @@ LABEL_13:
 
 - (BOOL)_isTorsoFaceCropMapStale:(id)stale
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   staleCopy = stale;
   v5 = staleCopy;
   if (staleCopy)
@@ -2066,20 +1981,15 @@ LABEL_13:
     if ([allValues count])
     {
       [MEMORY[0x277CBEAA8] date];
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x3032000000;
-      v20 = __Block_byref_object_copy__6;
-      v7 = v21 = __Block_byref_object_dispose__6;
-      v22 = v7;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __51__HMIPersonsModelManager__isTorsoFaceCropMapStale___block_invoke;
-      v16[3] = &unk_278754DD0;
-      v16[4] = &v17;
-      [allValues na_each:v16];
+      v16[0] = 0;
+      v16[1] = v16;
+      v16[2] = 0x3032000000;
+      v16[3] = __Block_byref_object_copy__6;
+      v7 = v16[4] = __Block_byref_object_dispose__6;
+      v17 = v7;
+      [allValues na_each:?];
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-      v9 = [currentCalendar isDate:v18[5] inSameDayAsDate:v7];
+      v9 = [currentCalendar isDate:? inSameDayAsDate:?];
 
       if ((v9 & 1) == 0)
       {
@@ -2090,14 +2000,14 @@ LABEL_13:
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v24 = v13;
+          v19 = v13;
           _os_log_impl(&dword_22D12F000, v12, OS_LOG_TYPE_INFO, "%{public}@Found stale torso_to_facecrop file", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v10);
       }
 
-      _Block_object_dispose(&v17, 8);
+      _Block_object_dispose(v16, 8);
 
       v14 = v9 ^ 1;
     }
@@ -2119,7 +2029,7 @@ LABEL_13:
 void __51__HMIPersonsModelManager__isTorsoFaceCropMapStale___block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 dateCreated];
-  v3 = [v6 earlierDate:*(*(*(a1 + 32) + 8) + 40)];
+  v3 = [v6 earlierDate:?];
   v4 = *(*(a1 + 32) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -2127,22 +2037,21 @@ void __51__HMIPersonsModelManager__isTorsoFaceCropMapStale___block_invoke(uint64
 
 - (id)predictPersonFromTorsoObservation:(id)observation homeUUID:(id)d error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   observationCopy = observation;
   dCopy = d;
   os_unfair_lock_lock_with_options();
-  v44 = 0;
-  LOBYTE(d) = [(HMIPersonsModelManager *)self loadModelsWithError:&v44];
-  v8 = v44;
+  LOBYTE(d) = [(HMIPersonsModelManager *)self loadModelsWithError:?];
+  v8 = 0;
   v9 = v8;
   if (d)
   {
     torsoModelsByHome = [(HMIPersonsModelManager *)self torsoModelsByHome];
-    v11 = [torsoModelsByHome objectForKeyedSubscript:dCopy];
+    v11 = [torsoModelsByHome objectForKeyedSubscript:?];
 
     if (v11)
     {
-      v38 = [HMIPersonsModelManager faceObservationFromTorsoprint:observationCopy];
+      v38 = [HMIPersonsModelManager faceObservationFromTorsoprint:?];
       v12 = [v11 predictPersonFromFaceObservation:? limit:? canceller:? error:?];
       v39 = v12;
       v40 = 0;
@@ -2158,16 +2067,16 @@ void __51__HMIPersonsModelManager__isTorsoFaceCropMapStale___block_invoke(uint64
           v17 = HMFGetLogIdentifier();
           [firstObject confidence];
           *buf = 138543874;
-          v46 = v17;
-          v47 = 2112;
-          v48 = predictedPersonUniqueIdentifier;
-          v49 = 2048;
-          v50 = v18;
+          v45 = v17;
+          v46 = 2112;
+          v47 = predictedPersonUniqueIdentifier;
+          v48 = 2048;
+          v49 = v18;
           _os_log_impl(&dword_22D12F000, v16, OS_LOG_TYPE_INFO, "%{public}@Torso model predicted person %@ with confidence %f", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v14);
-        v19 = [[HMIPersonSourceUUIDPair alloc] initWithUUIDPairString:predictedPersonUniqueIdentifier];
+        v19 = [[HMIPersonSourceUUIDPair alloc] initWithUUIDPairString:?];
         v20 = [HMIPersonsModelPrediction alloc];
         sourceUUID = [(HMIPersonSourceUUIDPair *)v19 sourceUUID];
         personUUID = [(HMIPersonSourceUUIDPair *)v19 personUUID];
@@ -2175,14 +2084,14 @@ void __51__HMIPersonsModelManager__isTorsoFaceCropMapStale___block_invoke(uint64
         [firstObject confidence];
         v24 = [v23 numberWithFloat:?];
         personUUID2 = [(HMIPersonSourceUUIDPair *)v19 personUUID];
-        v26 = [(HMIPersonsModelPrediction *)v20 initWithSourceUUID:sourceUUID personUUID:personUUID confidence:v24 linkedEntityUUID:personUUID2];
+        v26 = [HMIPersonsModelPrediction initWithSourceUUID:v20 personUUID:"initWithSourceUUID:personUUID:confidence:linkedEntityUUID:" confidence:? linkedEntityUUID:?];
       }
 
       else
       {
-        dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to predict using torso model for homeUUID: %@", dCopy];
-        v34 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1035 description:dCopy underlyingError:v40];
-        firstObject = dCopy;
+        v33 = [MEMORY[0x277CCACA8] stringWithFormat:dCopy];
+        v34 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+        firstObject = v33;
 
         v35 = v34;
         predictedPersonUniqueIdentifier = v35;
@@ -2207,9 +2116,9 @@ void __51__HMIPersonsModelManager__isTorsoFaceCropMapStale___block_invoke(uint64
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v46 = v32;
-        v47 = 2112;
-        v48 = dCopy;
+        v45 = v32;
+        v46 = 2112;
+        v47 = dCopy;
         _os_log_impl(&dword_22D12F000, v31, OS_LOG_TYPE_DEBUG, "%{public}@There is no current torso model for home: %@", buf, 0x16u);
       }
 
@@ -2242,32 +2151,29 @@ void __51__HMIPersonsModelManager__isTorsoFaceCropMapStale___block_invoke(uint64
 {
   predictionCopy = prediction;
   dCopy = d;
-  v10 = [HMIPersonSourceUUIDPair alloc];
+  v9 = [HMIPersonSourceUUIDPair alloc];
   personUUID = [predictionCopy personUUID];
   sourceUUID = [predictionCopy sourceUUID];
-  v13 = [(HMIPersonSourceUUIDPair *)v10 initWithPersonUUID:personUUID sourceUUID:sourceUUID];
+  v12 = [HMIPersonSourceUUIDPair initWithPersonUUID:v9 sourceUUID:"initWithPersonUUID:sourceUUID:"];
 
-  v14 = [(HMIPersonsModelManager *)self equivalencyCellForPerson:v13 homeUUID:dCopy error:error];
+  v13 = [HMIPersonsModelManager equivalencyCellForPerson:"equivalencyCellForPerson:homeUUID:error:" homeUUID:? error:?];
 
-  if (v14)
+  if (v13)
   {
-    v15 = [HMIPersonsModelManager minimumUUIDInEquivalencyCell:v14];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __72__HMIPersonsModelManager_linkedPredictionsForPrediction_homeUUID_error___block_invoke;
-    v19[3] = &unk_278754DF8;
-    v20 = predictionCopy;
-    v21 = v15;
-    v16 = v15;
-    v17 = [v14 na_map:v19];
+    v14 = [HMIPersonsModelManager minimumUUIDInEquivalencyCell:?];
+    v18 = MEMORY[0x277D85DD0];
+    v19 = predictionCopy;
+    v20 = v14;
+    v15 = v14;
+    v16 = [v13 na_map:{v18, 3221225472, __72__HMIPersonsModelManager_linkedPredictionsForPrediction_homeUUID_error___block_invoke, &unk_278754DF8}];
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPrediction_homeUUID_error___block_invoke(uint64_t a1, void *a2)
@@ -2278,7 +2184,7 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
   v6 = [v3 personUUID];
 
   v7 = [*(a1 + 32) confidence];
-  v8 = [(HMIPersonsModelPrediction *)v4 initWithSourceUUID:v5 personUUID:v6 confidence:v7 linkedEntityUUID:*(a1 + 40)];
+  v8 = [HMIPersonsModelPrediction initWithSourceUUID:v4 personUUID:"initWithSourceUUID:personUUID:confidence:linkedEntityUUID:" confidence:? linkedEntityUUID:?];
 
   return v8;
 }
@@ -2292,96 +2198,37 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
   watchdogTimer = [(HMIPersonsModelManager *)self watchdogTimer];
   [watchdogTimer suspend];
 
-  [(HMIPersonsModelManager *)self setTransaction:0];
+  [(HMIPersonsModelManager *)self setTransaction:?];
   os_unfair_lock_unlock(&self->_lock);
   objc_autoreleasePoolPop(v4);
 }
 
 + (id)loadModelAtPath:(id)path error:(id *)error
 {
-  v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:path];
-  v6 = objc_opt_new();
-  v7 = [MEMORY[0x277CE2D78] modelFromURL:v5 options:v6 error:error];
+  v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+  v5 = objc_opt_new();
+  v6 = [MEMORY[0x277CE2D78] modelFromURL:? options:? error:?];
 
-  return v7;
+  return v6;
 }
 
 + (BOOL)persistModel:(id)model toPath:(id)path error:(id *)error
 {
   modelCopy = model;
   pathCopy = path;
-  v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
-  uRLByDeletingLastPathComponent = [v9 URLByDeletingLastPathComponent];
+  v8 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+  uRLByDeletingLastPathComponent = [v8 URLByDeletingLastPathComponent];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [uRLByDeletingLastPathComponent path];
-  v13 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:error];
+  v12 = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
 
-  if (v13)
+  if (v12)
   {
-    v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
-    v15 = objc_alloc_init(MEMORY[0x277CE2D90]);
-    [v15 setReadOnly:0];
-    v16 = [modelCopy writeToURL:v14 options:v15 error:error];
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  return v16;
-}
-
-+ (id)getModelStoragePathForHome:(id)home error:(id *)error
-{
-  v13[2] = *MEMORY[0x277D85DE8];
-  homeCopy = home;
-  v6 = [HMIPersonsModelManager getRootModelStoragePathWithError:error];
-  v7 = v6;
-  if (v6)
-  {
-    v8 = MEMORY[0x277CCACA8];
-    v13[0] = v6;
-    uUIDString = [homeCopy UUIDString];
-    v13[1] = uUIDString;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-    v11 = [v8 pathWithComponents:v10];
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  return v11;
-}
-
-+ (id)getModelStoragePathForModel:(id)model error:(id *)error
-{
-  v17[3] = *MEMORY[0x277D85DE8];
-  modelCopy = model;
-  homeUUID = [modelCopy homeUUID];
-  v7 = [HMIPersonsModelManager getModelStoragePathForHome:homeUUID error:error];
-
-  if (v7)
-  {
-    v8 = MEMORY[0x277CCACA8];
-    v17[0] = v7;
-    isExternalLibrary = [modelCopy isExternalLibrary];
-    v10 = @"home";
-    if (isExternalLibrary)
-    {
-      v10 = @"external";
-    }
-
-    v17[1] = v10;
-    v11 = MEMORY[0x277CCACA8];
-    sourceUUID = [modelCopy sourceUUID];
-    v13 = [v11 stringWithFormat:@"%@.bin", sourceUUID];
-    v17[2] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-    v15 = [v8 pathWithComponents:v14];
+    v13 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+    v14 = objc_alloc_init(MEMORY[0x277CE2D90]);
+    [v14 setReadOnly:?];
+    v15 = [modelCopy writeToURL:? options:? error:?];
   }
 
   else
@@ -2392,6 +2239,51 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
   return v15;
 }
 
++ (id)getModelStoragePathForHome:(id)home error:(id *)error
+{
+  homeCopy = home;
+  v5 = [HMIPersonsModelManager getRootModelStoragePathWithError:?];
+  if (v5)
+  {
+    v6 = MEMORY[0x277CCACA8];
+    uUIDString = [homeCopy UUIDString];
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v8 = [v6 pathWithComponents:?];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
++ (id)getModelStoragePathForModel:(id)model error:(id *)error
+{
+  modelCopy = model;
+  homeUUID = [modelCopy homeUUID];
+  v6 = [HMIPersonsModelManager getModelStoragePathForHome:"getModelStoragePathForHome:error:" error:?];
+
+  if (v6)
+  {
+    v7 = MEMORY[0x277CCACA8];
+    [modelCopy isExternalLibrary];
+    v8 = MEMORY[0x277CCACA8];
+    sourceUUID = [modelCopy sourceUUID];
+    v13 = [v8 stringWithFormat:sourceUUID];
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v11 = [v7 pathWithComponents:?];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 + (id)getRootModelStoragePathWithError:(id *)error
 {
   v3 = HMIURLForCacheDirectory(error);
@@ -2399,10 +2291,10 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
   {
     v4 = +[HMIPreference sharedInstance];
     path = [v3 path];
-    v6 = [v4 stringPreferenceForKey:@"personsModelStoragePath" defaultValue:path];
+    v6 = [v4 stringPreferenceForKey:? defaultValue:?];
 
-    v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:v6];
-    v8 = [v7 URLByAppendingPathComponent:@"personsmodels" isDirectory:1];
+    v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+    v8 = [v7 URLByAppendingPathComponent:? isDirectory:?];
 
     absoluteURL = [v8 absoluteURL];
     path2 = [absoluteURL path];
@@ -2418,334 +2310,85 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
 
 + (id)getUserDefinedPersonLinksStoragePathForHomeUUID:(id)d error:(id *)error
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v4 = [HMIPersonsModelManager getModelStoragePathForHome:d error:error];
-  v5 = v4;
+  v4 = [HMIPersonsModelManager getModelStoragePathForHome:"getModelStoragePathForHome:error:" error:?];
   if (v4)
   {
-    v6 = MEMORY[0x277CCACA8];
-    v10[0] = v4;
-    v10[1] = @"user_defined_person_links.bin";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-    v8 = [v6 pathWithComponents:v7];
+    v5 = MEMORY[0x277CCACA8];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v7 = [v5 pathWithComponents:?];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 + (BOOL)persistUserDefinedPersonLinks:(id)links forHomeUUID:(id)d error:(id *)error
 {
   linksCopy = links;
-  v8 = [HMIPersonsModelManager getUserDefinedPersonLinksStoragePathForHomeUUID:d error:error];
-  if (v8)
+  v6 = [HMIPersonsModelManager getUserDefinedPersonLinksStoragePathForHomeUUID:"getUserDefinedPersonLinksStoragePathForHomeUUID:error:" error:?];
+  if (v6)
   {
-    v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:v8];
-    uRLByDeletingLastPathComponent = [v9 URLByDeletingLastPathComponent];
+    v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+    uRLByDeletingLastPathComponent = [v7 URLByDeletingLastPathComponent];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     path = [uRLByDeletingLastPathComponent path];
-    v13 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:error];
+    v11 = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
 
-    if (v13)
+    if (v11)
     {
-      v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:v8];
-      v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:linksCopy requiringSecureCoding:1 error:error];
-      v16 = v15;
-      if (v15)
+      v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+      v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:? requiringSecureCoding:? error:?];
+      v14 = v13;
+      if (v13)
       {
-        v17 = [v15 writeToURL:v14 atomically:1];
+        v15 = [v13 writeToURL:? atomically:?];
       }
 
       else
       {
-        v17 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v17 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  return v17;
+  return v15;
 }
 
 + (id)loadUserDefinedPersonLinksForHomeUUID:(id)d error:(id *)error
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v5 = [HMIPersonsModelManager getUserDefinedPersonLinksStoragePathForHomeUUID:d error:?];
-  if (v5)
-  {
-    v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-    v7 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:v6 error:error];
-    if (v7)
-    {
-      v8 = MEMORY[0x277CBEB98];
-      v15[0] = objc_opt_class();
-      v15[1] = objc_opt_class();
-      v15[2] = objc_opt_class();
-      v15[3] = objc_opt_class();
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
-      v10 = [v8 setWithArray:v9];
-
-      v11 = MEMORY[0x277CCAAC8];
-      readDataToEndOfFile = [v7 readDataToEndOfFile];
-      v13 = [v11 unarchivedObjectOfClasses:v10 fromData:readDataToEndOfFile error:error];
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  return v13;
-}
-
-+ (id)getTorsoSubdirectoryPathForHomeUUID:(id)d error:(id *)error
-{
-  v10[2] = *MEMORY[0x277D85DE8];
-  v4 = [HMIPersonsModelManager getModelStoragePathForHome:d error:error];
-  v5 = v4;
+  v4 = [HMIPersonsModelManager getUserDefinedPersonLinksStoragePathForHomeUUID:"getUserDefinedPersonLinksStoragePathForHomeUUID:error:" error:?];
   if (v4)
   {
-    v6 = MEMORY[0x277CCACA8];
-    v10[0] = v4;
-    v10[1] = @"torso";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-    v8 = [v6 pathWithComponents:v7];
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-+ (id)getTorsoModelStoragePathForHomeUUID:(id)d error:(id *)error
-{
-  v10[2] = *MEMORY[0x277D85DE8];
-  v4 = [HMIPersonsModelManager getTorsoSubdirectoryPathForHomeUUID:d error:error];
-  v5 = v4;
-  if (v4)
-  {
-    v6 = MEMORY[0x277CCACA8];
-    v10[0] = v4;
-    v10[1] = @"torso.bin";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-    v8 = [v6 pathWithComponents:v7];
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-+ (id)getTorsoToFaceCropStoragePathForHomeUUID:(id)d error:(id *)error
-{
-  v10[2] = *MEMORY[0x277D85DE8];
-  v4 = [HMIPersonsModelManager getTorsoSubdirectoryPathForHomeUUID:d error:error];
-  v5 = v4;
-  if (v4)
-  {
-    v6 = MEMORY[0x277CCACA8];
-    v10[0] = v4;
-    v10[1] = @"torso_to_facecrop.bin";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-    v8 = [v6 pathWithComponents:v7];
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-+ (id)getTorsoprinterVersionStoragePathForHomeUUID:(id)d error:(id *)error
-{
-  v10[2] = *MEMORY[0x277D85DE8];
-  v4 = [HMIPersonsModelManager getTorsoSubdirectoryPathForHomeUUID:d error:error];
-  v5 = v4;
-  if (v4)
-  {
-    v6 = MEMORY[0x277CBEBC0];
-    v10[0] = v4;
-    v10[1] = @"torsoprinter_version.bin";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-    v8 = [v6 fileURLWithPathComponents:v7];
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-+ (BOOL)persistTorsoToFaceCrop:(id)crop forHomeUUID:(id)d error:(id *)error
-{
-  cropCopy = crop;
-  v8 = [HMIPersonsModelManager getTorsoToFaceCropStoragePathForHomeUUID:d error:error];
-  if (v8)
-  {
-    v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:v8];
-    uRLByDeletingLastPathComponent = [v9 URLByDeletingLastPathComponent];
-
-    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    path = [uRLByDeletingLastPathComponent path];
-    v13 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:error];
-
-    if (v13)
-    {
-      v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:v8];
-      v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:cropCopy requiringSecureCoding:1 error:error];
-      v16 = v15;
-      if (v15)
-      {
-        v17 = [v15 writeToURL:v14 atomically:1];
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  return v17;
-}
-
-+ (BOOL)persistTorsoprinterVersionForHomeUUID:(id)d error:(id *)error
-{
-  v5 = [HMIPersonsModelManager getTorsoprinterVersionStoragePathForHomeUUID:d error:?];
-  v6 = v5;
-  if (v5)
-  {
-    uRLByDeletingLastPathComponent = [v5 URLByDeletingLastPathComponent];
-    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    path = [uRLByDeletingLastPathComponent path];
-    v10 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:error];
-
-    if (v10)
-    {
-      v11 = +[HMITorsoprinter currentModelUUID];
-      v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:error];
-      v13 = v12;
-      if (v12)
-      {
-        v14 = [v12 writeToURL:v6 atomically:1];
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  return v14;
-}
-
-+ (id)loadTorsoToFaceCrop:(id)crop error:(id *)error
-{
-  v15[6] = *MEMORY[0x277D85DE8];
-  v5 = [HMIPersonsModelManager getTorsoToFaceCropStoragePathForHomeUUID:crop error:?];
-  if (v5)
-  {
-    v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-    v7 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:v6 error:error];
-    if (v7)
-    {
-      v8 = MEMORY[0x277CBEB98];
-      v15[0] = objc_opt_class();
-      v15[1] = objc_opt_class();
-      v15[2] = objc_opt_class();
-      v15[3] = objc_opt_class();
-      v15[4] = objc_opt_class();
-      v15[5] = objc_opt_class();
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:6];
-      v10 = [v8 setWithArray:v9];
-
-      v11 = MEMORY[0x277CCAAC8];
-      readDataToEndOfFile = [v7 readDataToEndOfFile];
-      v13 = [v11 unarchivedObjectOfClasses:v10 fromData:readDataToEndOfFile error:error];
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  return v13;
-}
-
-+ (id)loadTorsoprinterVersion:(id)version error:(id *)error
-{
-  v14[1] = *MEMORY[0x277D85DE8];
-  v5 = [HMIPersonsModelManager getTorsoprinterVersionStoragePathForHomeUUID:version error:?];
-  if (v5)
-  {
-    v6 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:v5 error:error];
+    v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+    v6 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:? error:?];
     if (v6)
     {
       v7 = MEMORY[0x277CBEB98];
-      v14[0] = objc_opt_class();
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-      v9 = [v7 setWithArray:v8];
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+      v9 = [v7 setWithArray:?];
 
       v10 = MEMORY[0x277CCAAC8];
       readDataToEndOfFile = [v6 readDataToEndOfFile];
-      v12 = [v10 unarchivedObjectOfClasses:v9 fromData:readDataToEndOfFile error:error];
+      v12 = [v10 unarchivedObjectOfClasses:? fromData:? error:?];
     }
 
     else
@@ -2762,41 +2405,259 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
   return v12;
 }
 
++ (id)getTorsoSubdirectoryPathForHomeUUID:(id)d error:(id *)error
+{
+  v4 = [HMIPersonsModelManager getModelStoragePathForHome:"getModelStoragePathForHome:error:" error:?];
+  if (v4)
+  {
+    v5 = MEMORY[0x277CCACA8];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v7 = [v5 pathWithComponents:?];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
++ (id)getTorsoModelStoragePathForHomeUUID:(id)d error:(id *)error
+{
+  v4 = [HMIPersonsModelManager getTorsoSubdirectoryPathForHomeUUID:"getTorsoSubdirectoryPathForHomeUUID:error:" error:?];
+  if (v4)
+  {
+    v5 = MEMORY[0x277CCACA8];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v7 = [v5 pathWithComponents:?];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
++ (id)getTorsoToFaceCropStoragePathForHomeUUID:(id)d error:(id *)error
+{
+  v4 = [HMIPersonsModelManager getTorsoSubdirectoryPathForHomeUUID:"getTorsoSubdirectoryPathForHomeUUID:error:" error:?];
+  if (v4)
+  {
+    v5 = MEMORY[0x277CCACA8];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v7 = [v5 pathWithComponents:?];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
++ (id)getTorsoprinterVersionStoragePathForHomeUUID:(id)d error:(id *)error
+{
+  v4 = [HMIPersonsModelManager getTorsoSubdirectoryPathForHomeUUID:"getTorsoSubdirectoryPathForHomeUUID:error:" error:?];
+  if (v4)
+  {
+    v5 = MEMORY[0x277CBEBC0];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v7 = [v5 fileURLWithPathComponents:?];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
++ (BOOL)persistTorsoToFaceCrop:(id)crop forHomeUUID:(id)d error:(id *)error
+{
+  cropCopy = crop;
+  v6 = [HMIPersonsModelManager getTorsoToFaceCropStoragePathForHomeUUID:"getTorsoToFaceCropStoragePathForHomeUUID:error:" error:?];
+  if (v6)
+  {
+    v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+    uRLByDeletingLastPathComponent = [v7 URLByDeletingLastPathComponent];
+
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    path = [uRLByDeletingLastPathComponent path];
+    v11 = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
+
+    if (v11)
+    {
+      v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+      v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:? requiringSecureCoding:? error:?];
+      v14 = v13;
+      if (v13)
+      {
+        v15 = [v13 writeToURL:? atomically:?];
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
+}
+
++ (BOOL)persistTorsoprinterVersionForHomeUUID:(id)d error:(id *)error
+{
+  v4 = [HMIPersonsModelManager getTorsoprinterVersionStoragePathForHomeUUID:"getTorsoprinterVersionStoragePathForHomeUUID:error:" error:?];
+  v5 = v4;
+  if (v4)
+  {
+    uRLByDeletingLastPathComponent = [v4 URLByDeletingLastPathComponent];
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    path = [uRLByDeletingLastPathComponent path];
+    v9 = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
+
+    if (v9)
+    {
+      v10 = +[HMITorsoprinter currentModelUUID];
+      v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:? requiringSecureCoding:? error:?];
+      v12 = v11;
+      if (v11)
+      {
+        v13 = [v11 writeToURL:? atomically:?];
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
+
++ (id)loadTorsoToFaceCrop:(id)crop error:(id *)error
+{
+  v4 = [HMIPersonsModelManager getTorsoToFaceCropStoragePathForHomeUUID:"getTorsoToFaceCropStoragePathForHomeUUID:error:" error:?];
+  if (v4)
+  {
+    v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+    v6 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:? error:?];
+    if (v6)
+    {
+      v7 = MEMORY[0x277CBEB98];
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+      v9 = [v7 setWithArray:?];
+
+      v10 = MEMORY[0x277CCAAC8];
+      readDataToEndOfFile = [v6 readDataToEndOfFile];
+      v12 = [v10 unarchivedObjectOfClasses:? fromData:? error:?];
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
++ (id)loadTorsoprinterVersion:(id)version error:(id *)error
+{
+  v4 = [HMIPersonsModelManager getTorsoprinterVersionStoragePathForHomeUUID:"getTorsoprinterVersionStoragePathForHomeUUID:error:" error:?];
+  if (v4)
+  {
+    v5 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:? error:?];
+    if (v5)
+    {
+      v6 = MEMORY[0x277CBEB98];
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:objc_opt_class() count:?];
+      v8 = [v6 setWithArray:?];
+
+      v9 = MEMORY[0x277CCAAC8];
+      readDataToEndOfFile = [v5 readDataToEndOfFile];
+      v11 = [v9 unarchivedObjectOfClasses:? fromData:? error:?];
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 - (id)modelURLsFromPath:(id)path error:(id *)error
 {
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v27 = 0;
-  v8 = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v27];
-  v9 = v27;
+  v8 = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
+  v9 = 0;
   if (v8)
   {
-    pathCopy2 = [MEMORY[0x277CBEBC0] URLWithString:pathCopy];
-    v26 = v9;
-    v11 = [defaultManager contentsOfDirectoryAtURL:pathCopy2 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:4 error:&v26];
-    v12 = v26;
+    v10 = [MEMORY[0x277CBEBC0] URLWithString:?];
+    v11 = [defaultManager contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+    v12 = v9;
 
     if (v11)
     {
-      v25 = v12;
-      v13 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\A[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}\\.bin\\Z" options:0 error:&v25];
-      v14 = v25;
+      v13 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+      v14 = v12;
 
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke;
-      v23[3] = &unk_278754E20;
-      v24 = v13;
-      pathCopy = v13;
-      v16 = [v11 na_filter:v23];
-      v17 = v24;
+      v23 = v13;
+      v15 = v13;
+      v16 = [v11 na_filter:?];
+      v17 = v23;
       v12 = v14;
     }
 
     else
     {
-      pathCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to enumerate persons models at path (%@)", pathCopy];
-      v20 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:pathCopy underlyingError:v12];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:pathCopy];
+      v20 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
       v17 = v20;
       if (error)
       {
@@ -2813,8 +2674,8 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
 
   else
   {
-    pathCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Directory to load/store persons models (%@) does not exist", pathCopy];
-    v18 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:pathCopy2 underlyingError:v9];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:pathCopy];
+    v18 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
     v11 = v18;
     if (error)
     {
@@ -2832,14 +2693,16 @@ HMIPersonsModelPrediction *__72__HMIPersonsModelManager_linkedPredictionsForPred
 BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 lastPathComponent];
-  v4 = [*(a1 + 32) numberOfMatchesInString:v3 options:0 range:{0, objc_msgSend(v3, "length")}] == 1;
+  v4 = *(a1 + 32);
+  [v3 length];
+  v5 = [v4 numberOfMatchesInString:? options:? range:?] == 1;
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)loadModelsWithError:(id *)error
 {
-  v160 = *MEMORY[0x277D85DE8];
+  v142 = *MEMORY[0x277D85DE8];
   v5 = +[HMIPreference sharedInstance];
   shouldEnableTorsoRecognition = [v5 shouldEnableTorsoRecognition];
 
@@ -2880,9 +2743,8 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
     dictionary3 = [MEMORY[0x277CBEB38] dictionary];
     dictionary4 = [MEMORY[0x277CBEB38] dictionary];
-    v151 = 0;
-    v15 = [HMIPersonsModelManager getRootModelStoragePathWithError:&v151];
-    v16 = v151;
+    v15 = [HMIPersonsModelManager getRootModelStoragePathWithError:?];
+    v16 = 0;
     v17 = v16;
     if (v15)
     {
@@ -2894,70 +2756,63 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v153 = v21;
-        v154 = 2112;
-        v155 = v15;
+        v137 = v21;
+        v138 = 2112;
+        v139 = v15;
         _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Persons Model Storage Path:%@", buf, 0x16u);
       }
 
       v130 = selfCopy;
       objc_autoreleasePoolPop(v18);
       v117 = v15;
-      v22 = [MEMORY[0x277CBEBC0] URLWithString:v15];
+      v22 = [MEMORY[0x277CBEBC0] URLWithString:?];
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       path = [v22 path];
-      v150 = v17;
-      v25 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v150];
-      v26 = v150;
+      v25 = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
+      v26 = v17;
 
       if (v25)
       {
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v149 = v26;
-        v104 = [defaultManager2 contentsOfDirectoryAtURL:v22 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:4 error:&v149];
-        v29 = v149;
+        v28 = [defaultManager2 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+        v29 = v26;
 
-        if (v104)
+        if (v28)
         {
-          v147 = 0u;
-          v148 = 0u;
-          v145 = 0u;
-          v146 = 0u;
-          v104 = v104;
-          v125 = [v104 countByEnumeratingWithState:&v145 objects:v159 count:16];
+          v28 = v28;
+          v125 = [v28 countByEnumeratingWithState:? objects:? count:?];
           if (v125)
           {
-            v124 = *v146;
+            v124 = MEMORY[0];
             v119 = dictionary3;
             v120 = dictionary2;
             v118 = v22;
-            v121 = v104;
+            v121 = v28;
             while (2)
             {
-              for (i = 0; i != v125; ++i)
+              for (i = 0; i != v125; i = (i + 1))
               {
-                if (*v146 != v124)
+                if (MEMORY[0] != v124)
                 {
-                  objc_enumerationMutation(v104);
+                  objc_enumerationMutation(v28);
                 }
 
-                v31 = *(*(&v145 + 1) + 8 * i);
+                v31 = *(8 * i);
                 v32 = objc_alloc(MEMORY[0x277CCAD78]);
                 lastPathComponent = [v31 lastPathComponent];
-                v34 = [v32 initWithUUIDString:lastPathComponent];
+                v34 = [v32 initWithUUIDString:?];
 
                 v133 = v31;
                 if (v34)
                 {
                   v126 = i;
                   v132 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                  v35 = [v31 URLByAppendingPathComponent:@"external"];
+                  v35 = [v31 URLByAppendingPathComponent:?];
                   path2 = [v35 path];
 
-                  v144 = v29;
                   v127 = path2;
-                  v37 = [(HMIPersonsModelManager *)v130 modelURLsFromPath:path2 error:&v144];
-                  v26 = v144;
+                  v37 = [HMIPersonsModelManager modelURLsFromPath:v130 error:"modelURLsFromPath:error:"];
+                  v26 = v29;
 
                   if (!v37)
                   {
@@ -2972,16 +2827,12 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
                   }
 
                   v135 = v34;
-                  v142 = 0u;
-                  v143 = 0u;
-                  v140 = 0u;
-                  v141 = 0u;
                   obj = v37;
-                  v38 = [obj countByEnumeratingWithState:&v140 objects:v158 count:16];
+                  v38 = [obj countByEnumeratingWithState:? objects:? count:?];
                   if (v38)
                   {
                     v39 = v38;
-                    v40 = *v141;
+                    v40 = MEMORY[0];
                     v41 = v130;
                     do
                     {
@@ -2989,15 +2840,14 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
                       v43 = v26;
                       do
                       {
-                        if (*v141 != v40)
+                        if (MEMORY[0] != v40)
                         {
                           objc_enumerationMutation(obj);
                         }
 
-                        v44 = *(*(&v140 + 1) + 8 * v42);
-                        v139 = v43;
-                        v45 = [(HMIPersonsModelManager *)v41 loadPersonsModelFromURL:v44 externalLibrary:1 homeUUID:v135 error:&v139];
-                        v26 = v139;
+                        v44 = *(8 * v42);
+                        v45 = [HMIPersonsModelManager loadPersonsModelFromURL:v41 externalLibrary:"loadPersonsModelFromURL:externalLibrary:homeUUID:error:" homeUUID:? error:?];
+                        v26 = v43;
 
                         v46 = objc_autoreleasePoolPush();
                         v47 = v41;
@@ -3010,11 +2860,11 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
                             v50 = HMFGetLogIdentifier();
                             sourceUUID = [v45 sourceUUID];
                             *buf = 138543874;
-                            v153 = v50;
-                            v154 = 2112;
-                            v155 = v135;
-                            v156 = 2112;
-                            v157 = sourceUUID;
+                            v137 = v50;
+                            v138 = 2112;
+                            v139 = v135;
+                            v140 = 2112;
+                            v141 = sourceUUID;
                             _os_log_impl(&dword_22D12F000, v49, OS_LOG_TYPE_INFO, "%{public}@Loaded External HMIPersonsModel for homeUUID: %@ sourceUUID: %@", buf, 0x20u);
 
                             v41 = v130;
@@ -3022,7 +2872,7 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
 
                           objc_autoreleasePoolPop(v46);
                           sourceUUID2 = [v45 sourceUUID];
-                          [v132 setObject:v45 forKeyedSubscript:sourceUUID2];
+                          [v132 setObject:? forKeyedSubscript:?];
                         }
 
                         else
@@ -3031,11 +2881,11 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
                           {
                             v53 = HMFGetLogIdentifier();
                             *buf = 138543874;
-                            v153 = v53;
-                            v154 = 2112;
-                            v155 = v44;
-                            v156 = 2112;
-                            v157 = v26;
+                            v137 = v53;
+                            v138 = 2112;
+                            v139 = v44;
+                            v140 = 2112;
+                            v141 = v26;
                             _os_log_impl(&dword_22D12F000, v49, OS_LOG_TYPE_ERROR, "%{public}@Failed to load External HMIPersonsModel at path: %@, error: %@", buf, 0x20u);
 
                             v41 = v130;
@@ -3044,13 +2894,13 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
                           objc_autoreleasePoolPop(v46);
                         }
 
-                        ++v42;
+                        v42 = (v42 + 1);
                         v43 = v26;
                         v54 = v133;
                       }
 
                       while (v39 != v42);
-                      v39 = [obj countByEnumeratingWithState:&v140 objects:v158 count:16];
+                      v39 = [obj countByEnumeratingWithState:? objects:? count:?];
                     }
 
                     while (v39);
@@ -3062,12 +2912,11 @@ BOOL __50__HMIPersonsModelManager_modelURLsFromPath_error___block_invoke(uint64_
                     v54 = v31;
                   }
 
-                  v60 = [v54 URLByAppendingPathComponent:@"home"];
+                  v60 = [v54 URLByAppendingPathComponent:?];
                   path3 = [v60 path];
 
-                  v138 = v26;
-                  v62 = [(HMIPersonsModelManager *)v41 modelURLsFromPath:path3 error:&v138];
-                  v63 = v138;
+                  v62 = [HMIPersonsModelManager modelURLsFromPath:v41 error:"modelURLsFromPath:error:"];
+                  v63 = v26;
 
                   v34 = v135;
                   if (!v62)
@@ -3085,18 +2934,18 @@ LABEL_87:
                     dictionary3 = v119;
                     dictionary2 = v120;
                     v22 = v118;
-                    v104 = v121;
+                    v28 = v121;
 LABEL_88:
 
                     v12 = 0;
-                    watchdogTimer2 = v104;
+                    watchdogTimer2 = v28;
                     goto LABEL_89;
                   }
 
                   if ([v62 count] >= 2)
                   {
-                    v112 = [MEMORY[0x277CCACA8] stringWithFormat:@"Directory to load/store home persons model (%@) contains multiples files: %@ there can only be one", path3, v62];
-                    v113 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:v112 underlyingError:v63];
+                    v112 = [MEMORY[0x277CCACA8] stringWithFormat:path3, v62];
+                    v113 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
                     v114 = v113;
                     if (errorCopy)
                     {
@@ -3114,9 +2963,8 @@ LABEL_88:
                   if ([v62 count])
                   {
                     firstObject = [v62 firstObject];
-                    v137 = v63;
-                    v65 = [(HMIPersonsModelManager *)v41 loadPersonsModelFromURL:firstObject externalLibrary:0 homeUUID:v135 error:&v137];
-                    v66 = v137;
+                    v65 = [HMIPersonsModelManager loadPersonsModelFromURL:v41 externalLibrary:"loadPersonsModelFromURL:externalLibrary:homeUUID:error:" homeUUID:? error:?];
+                    v66 = v63;
 
                     v67 = objc_autoreleasePoolPush();
                     v68 = v41;
@@ -3130,11 +2978,11 @@ LABEL_88:
                         v72 = v71 = v66;
                         sourceUUID3 = [v65 sourceUUID];
                         *buf = 138543874;
-                        v153 = v72;
-                        v154 = 2112;
-                        v155 = v135;
-                        v156 = 2112;
-                        v157 = sourceUUID3;
+                        v137 = v72;
+                        v138 = 2112;
+                        v139 = v135;
+                        v140 = 2112;
+                        v141 = sourceUUID3;
                         _os_log_impl(&dword_22D12F000, v70, OS_LOG_TYPE_INFO, "%{public}@Loaded Home HMIPersonsModel for homeUUID: %@ sourceUUID: %@", buf, 0x20u);
 
                         v41 = v130;
@@ -3143,7 +2991,7 @@ LABEL_88:
 
                       objc_autoreleasePoolPop(v67);
                       sourceUUID4 = [v65 sourceUUID];
-                      [v132 setObject:v65 forKeyedSubscript:sourceUUID4];
+                      [v132 setObject:? forKeyedSubscript:?];
                     }
 
                     else
@@ -3153,11 +3001,11 @@ LABEL_88:
                         HMFGetLogIdentifier();
                         v80 = v79 = v66;
                         *buf = 138543874;
-                        v153 = v80;
-                        v154 = 2112;
-                        v155 = firstObject;
-                        v156 = 2112;
-                        v157 = v79;
+                        v137 = v80;
+                        v138 = 2112;
+                        v139 = firstObject;
+                        v140 = 2112;
+                        v141 = v79;
                         _os_log_impl(&dword_22D12F000, v70, OS_LOG_TYPE_ERROR, "%{public}@Failed to load Home HMIPersonsModel at path: %@, error: %@", buf, 0x20u);
 
                         v66 = v79;
@@ -3178,9 +3026,9 @@ LABEL_88:
                     {
                       v78 = HMFGetLogIdentifier();
                       *buf = 138543618;
-                      v153 = v78;
-                      v154 = 2112;
-                      v155 = v135;
+                      v137 = v78;
+                      v138 = 2112;
+                      v139 = v135;
                       _os_log_impl(&dword_22D12F000, v77, OS_LOG_TYPE_INFO, "%{public}@No home model found for homeUUID: %@", buf, 0x16u);
                     }
 
@@ -3188,11 +3036,10 @@ LABEL_88:
                   }
 
                   v81 = [v132 copy];
-                  [dictionary setObject:v81 forKeyedSubscript:v135];
+                  [dictionary setObject:? forKeyedSubscript:?];
 
-                  v136 = v63;
-                  dictionary5 = [HMIPersonsModelManager loadUserDefinedPersonLinksForHomeUUID:v135 error:&v136];
-                  v29 = v136;
+                  dictionary5 = [HMIPersonsModelManager loadUserDefinedPersonLinksForHomeUUID:"loadUserDefinedPersonLinksForHomeUUID:error:" error:?];
+                  v29 = v63;
 
                   v83 = objc_autoreleasePoolPush();
                   v84 = v41;
@@ -3205,11 +3052,11 @@ LABEL_88:
                       v87 = HMFGetLogIdentifier();
                       v88 = [dictionary5 count];
                       *buf = 138543874;
-                      v153 = v87;
-                      v154 = 2048;
-                      v155 = v88;
-                      v156 = 2112;
-                      v157 = v135;
+                      v137 = v87;
+                      v138 = 2048;
+                      v139 = v88;
+                      v140 = 2112;
+                      v141 = v135;
                       _os_log_impl(&dword_22D12F000, v85, OS_LOG_TYPE_INFO, "%{public}@Loaded %lu user defined equivalencies found for home: %@", buf, 0x20u);
                     }
 
@@ -3224,11 +3071,11 @@ LABEL_88:
                       [v29 shortDescription];
                       v91 = v90 = v29;
                       *buf = 138543874;
-                      v153 = v89;
-                      v154 = 2112;
-                      v155 = v135;
-                      v156 = 2112;
-                      v157 = v91;
+                      v137 = v89;
+                      v138 = 2112;
+                      v139 = v135;
+                      v140 = 2112;
+                      v141 = v91;
                       _os_log_impl(&dword_22D12F000, v85, OS_LOG_TYPE_INFO, "%{public}@No user defined equivalencies found for home: %@ (reason: %@)", buf, 0x20u);
 
                       v29 = v90;
@@ -3239,15 +3086,15 @@ LABEL_88:
                   }
 
                   dictionary2 = v120;
-                  [v120 setObject:dictionary5 forKeyedSubscript:v135];
+                  [v120 setObject:? forKeyedSubscript:?];
                   dictionary3 = v119;
                   if (v122)
                   {
-                    [(HMIPersonsModelManager *)v84 _loadTorsoDataForHomeUUID:v135 intoTorsoModelsByHome:v119 torsoToFaceCropByHome:dictionary4];
+                    [HMIPersonsModelManager _loadTorsoDataForHomeUUID:v84 intoTorsoModelsByHome:"_loadTorsoDataForHomeUUID:intoTorsoModelsByHome:torsoToFaceCropByHome:" torsoToFaceCropByHome:?];
                   }
 
                   v22 = v118;
-                  v104 = v121;
+                  v28 = v121;
                   i = v126;
                 }
 
@@ -3261,20 +3108,20 @@ LABEL_88:
                     HMFGetLogIdentifier();
                     v59 = v58 = v29;
                     *buf = 138543618;
-                    v153 = v59;
-                    v154 = 2112;
-                    v155 = v133;
+                    v137 = v59;
+                    v138 = 2112;
+                    v139 = v133;
                     _os_log_impl(&dword_22D12F000, v57, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse Home UUID from path: %@", buf, 0x16u);
 
                     v29 = v58;
-                    v104 = v121;
+                    v28 = v121;
                   }
 
                   objc_autoreleasePoolPop(v55);
                 }
               }
 
-              v125 = [v104 countByEnumeratingWithState:&v145 objects:v159 count:16];
+              v125 = [v28 countByEnumeratingWithState:? objects:? count:?];
               if (v125)
               {
                 continue;
@@ -3300,8 +3147,8 @@ LABEL_88:
           torsoToFaceCropByHome = v130->_torsoToFaceCropByHome;
           v130->_torsoToFaceCropByHome = v98;
 
-          v100 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"HMIPersonsModelManager"];
-          [(HMIPersonsModelManager *)v130 setTransaction:v100];
+          v100 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:?];
+          [(HMIPersonsModelManager *)v130 setTransaction:?];
 
           watchdogTimer2 = [(HMIPersonsModelManager *)v130 watchdogTimer];
           [watchdogTimer2 resume];
@@ -3310,8 +3157,8 @@ LABEL_88:
 
         else
         {
-          watchdogTimer2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to enumerate homes at path: %@", v22];
-          v107 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:watchdogTimer2 underlyingError:v29];
+          watchdogTimer2 = [MEMORY[0x277CCACA8] stringWithFormat:v22];
+          v107 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
           v108 = v107;
           if (errorCopy)
           {
@@ -3331,9 +3178,9 @@ LABEL_88:
       {
         v103 = MEMORY[0x277CCACA8];
         path4 = [v22 path];
-        v104 = [v103 stringWithFormat:@"Directory to load/store persons models (%@) does not exist", path4];
+        v28 = [v103 stringWithFormat:path4];
 
-        v105 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:v104 underlyingError:v26];
+        v105 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
         watchdogTimer2 = v105;
         if (errorCopy)
         {
@@ -3369,13 +3216,12 @@ LABEL_89:
 
 - (void)_loadTorsoDataForHomeUUID:(id)d intoTorsoModelsByHome:(id)home torsoToFaceCropByHome:(id)byHome
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeCopy = home;
   byHomeCopy = byHome;
-  v40 = 0;
-  v11 = [HMIPersonsModelManager getTorsoModelStoragePathForHomeUUID:dCopy error:&v40];
-  v12 = v40;
+  v11 = [HMIPersonsModelManager getTorsoModelStoragePathForHomeUUID:"getTorsoModelStoragePathForHomeUUID:error:" error:?];
+  v12 = 0;
   if (!v11)
   {
     v24 = objc_autoreleasePoolPush();
@@ -3385,9 +3231,9 @@ LABEL_89:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v27;
-      v43 = 2112;
-      v44 = v12;
+      v39 = v27;
+      v40 = 2112;
+      v41 = v12;
       v28 = "%{public}@Got nil for torso model file path, error: %@";
       v29 = v26;
       v30 = OS_LOG_TYPE_ERROR;
@@ -3403,7 +3249,7 @@ LABEL_14:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v14 = [defaultManager fileExistsAtPath:v11];
+  v14 = [defaultManager fileExistsAtPath:?];
 
   if ((v14 & 1) == 0)
   {
@@ -3414,11 +3260,11 @@ LABEL_14:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v42 = v27;
-      v43 = 2112;
-      v44 = dCopy;
-      v45 = 2112;
-      v46 = v11;
+      v39 = v27;
+      v40 = 2112;
+      v41 = dCopy;
+      v42 = 2112;
+      v43 = v11;
       v28 = "%{public}@No torso model found for home %@ at path: %@";
       v29 = v26;
       v30 = OS_LOG_TYPE_INFO;
@@ -3429,17 +3275,15 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v39 = v12;
-  v15 = [HMIPersonsModelManager loadTorsoToFaceCrop:dCopy error:&v39];
-  v16 = v39;
+  v15 = [HMIPersonsModelManager loadTorsoToFaceCrop:"loadTorsoToFaceCrop:error:" error:?];
+  v16 = v12;
 
   if (v15)
   {
-    if (![(HMIPersonsModelManager *)self _resetStaleTorsoStateForHome:dCopy torsoToFaceCropMap:v15])
+    if (![HMIPersonsModelManager _resetStaleTorsoStateForHome:"_resetStaleTorsoStateForHome:torsoToFaceCropMap:" torsoToFaceCropMap:?])
     {
-      v38 = v16;
-      v17 = [HMIPersonsModelManager loadModelAtPath:v11 error:&v38];
-      v18 = v38;
+      v17 = [HMIPersonsModelManager loadModelAtPath:"loadModelAtPath:error:" error:?];
+      v18 = v16;
 
       v19 = objc_autoreleasePoolPush();
       selfCopy3 = self;
@@ -3452,17 +3296,17 @@ LABEL_14:
           HMFGetLogIdentifier();
           v23 = v36 = v18;
           *buf = 138543618;
-          v42 = v23;
-          v43 = 2112;
-          v44 = dCopy;
+          v39 = v23;
+          v40 = 2112;
+          v41 = dCopy;
           _os_log_impl(&dword_22D12F000, v22, OS_LOG_TYPE_INFO, "%{public}@Successfully loaded torso model and face crop map for home: %@", buf, 0x16u);
 
           v18 = v36;
         }
 
         objc_autoreleasePoolPop(v19);
-        [homeCopy setObject:v17 forKeyedSubscript:dCopy];
-        [byHomeCopy setObject:v15 forKeyedSubscript:dCopy];
+        [homeCopy setObject:? forKeyedSubscript:?];
+        [byHomeCopy setObject:? forKeyedSubscript:?];
       }
 
       else
@@ -3471,11 +3315,11 @@ LABEL_14:
         {
           v37 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v42 = v37;
-          v43 = 2112;
-          v44 = v11;
-          v45 = 2112;
-          v46 = v18;
+          v39 = v37;
+          v40 = 2112;
+          v41 = v11;
+          v42 = 2112;
+          v43 = v18;
           _os_log_impl(&dword_22D12F000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to load torso model at path: %@, error: %@", buf, 0x20u);
         }
 
@@ -3495,9 +3339,9 @@ LABEL_14:
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v35;
-      v43 = 2112;
-      v44 = v16;
+      v39 = v35;
+      v40 = 2112;
+      v41 = v16;
       _os_log_impl(&dword_22D12F000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to load torsoToFaceCrop map, error: %@", buf, 0x16u);
     }
 
@@ -3510,201 +3354,189 @@ LABEL_23:
 
 - (id)loadPersonsModelFromURL:(id)l externalLibrary:(BOOL)library homeUUID:(id)d error:(id *)error
 {
-  libraryCopy = library;
   lCopy = l;
   dCopy = d;
   uRLByDeletingPathExtension = [lCopy URLByDeletingPathExtension];
   lastPathComponent = [uRLByDeletingPathExtension lastPathComponent];
 
-  v14 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:lastPathComponent];
-  if (v14)
+  v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:?];
+  if (v13)
   {
     pathExtension = [lCopy pathExtension];
-    v16 = [pathExtension isEqualToString:@"bin"];
+    v15 = [pathExtension isEqualToString:?];
 
-    if (v16)
+    if (v15)
     {
-      v45 = libraryCopy;
-      v46 = dCopy;
+      v44 = dCopy;
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       path = [lCopy path];
-      v48 = 0;
-      v19 = [defaultManager attributesOfItemAtPath:path error:&v48];
-      v20 = v48;
-      fileSize = [v19 fileSize];
+      v18 = [defaultManager attributesOfItemAtPath:? error:?];
+      v19 = 0;
+      fileSize = [v18 fileSize];
 
       if (fileSize < 0x2800001)
       {
         path2 = [lCopy path];
-        v47 = v20;
-        v25 = [HMIPersonsModelManager loadModelAtPath:path2 error:&v47];
-        v37 = v47;
+        v24 = [HMIPersonsModelManager loadModelAtPath:"loadModelAtPath:error:" error:?];
+        v36 = v19;
 
-        if (v25)
+        if (v24)
         {
-          dCopy = v46;
-          v29 = [[HMIPersonsModel alloc] initWithPersonsModel:v25 homeUUID:v46 sourceUUID:v14 externalLibrary:v45];
-          v20 = v37;
+          dCopy = v44;
+          v28 = [HMIPersonsModel initWithPersonsModel:"initWithPersonsModel:homeUUID:sourceUUID:externalLibrary:" homeUUID:? sourceUUID:? externalLibrary:?];
+          v19 = v36;
 LABEL_16:
 
           goto LABEL_17;
         }
 
-        v38 = MEMORY[0x277CCACA8];
+        v37 = MEMORY[0x277CCACA8];
         path3 = [lCopy path];
-        v40 = [v38 stringWithFormat:@"Failed to load VNPersonsModel at path: %@", path3];
+        v39 = [v37 stringWithFormat:path3];
 
-        v41 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:v40 underlyingError:v37];
-        v42 = v41;
+        v40 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+        v41 = v40;
         if (error)
         {
-          v43 = v41;
-          *error = v42;
+          v42 = v40;
+          *error = v41;
         }
 
-        HMIErrorLog(self, v42);
+        HMIErrorLog(self, v41);
 
-        v29 = 0;
-        v20 = v37;
+        v28 = 0;
+        v19 = v36;
       }
 
       else
       {
-        v22 = MEMORY[0x277CCACA8];
-        v23 = NSLocalizedFileSizeDescription();
+        v21 = MEMORY[0x277CCACA8];
+        v22 = NSLocalizedFileSizeDescription();
         path4 = [lCopy path];
-        v25 = [v22 stringWithFormat:@"Refusing to load %@ VNPersonsModel at path: %@", v23, path4];
+        v24 = [v21 stringWithFormat:v22, path4];
 
-        v26 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:v25 underlyingError:v20];
-        v27 = v26;
+        v25 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+        v26 = v25;
         if (error)
         {
-          v28 = v26;
-          *error = v27;
+          v27 = v25;
+          *error = v26;
         }
 
-        HMIErrorLog(self, v27);
+        HMIErrorLog(self, v26);
 
-        v29 = 0;
+        v28 = 0;
       }
 
-      dCopy = v46;
+      dCopy = v44;
       goto LABEL_16;
     }
   }
 
-  v30 = MEMORY[0x277CCACA8];
+  v29 = MEMORY[0x277CCACA8];
   path5 = [lCopy path];
-  v32 = [v30 stringWithFormat:@"Invalid file path in load model attempt: %@", path5];
+  v31 = [v29 stringWithFormat:path5];
 
-  v33 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1032 description:v32];
-  v34 = v33;
+  v32 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+  v33 = v32;
   if (error)
   {
-    v35 = v33;
-    *error = v34;
+    v34 = v32;
+    *error = v33;
   }
 
-  HMIErrorLog(self, v34);
+  HMIErrorLog(self, v33);
 
-  v29 = 0;
+  v28 = 0;
 LABEL_17:
 
-  return v29;
+  return v28;
 }
 
 - (id)summaryForHomeUUID:(id)d error:(id *)error
 {
   dCopy = d;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
-  v47 = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v40[3] = 0;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v39[3] = 0;
   os_unfair_lock_lock_with_options();
-  v43 = 0;
-  v7 = [(HMIPersonsModelManager *)self loadModelsWithError:&v43];
-  v8 = v43;
+  v38 = 0;
+  v7 = [(HMIPersonsModelManager *)self loadModelsWithError:?];
+  v8 = 0;
   v9 = v8;
   if (v7)
   {
     personsModelsByHome = [(HMIPersonsModelManager *)self personsModelsByHome];
-    v11 = [personsModelsByHome objectForKeyedSubscript:dCopy];
+    v11 = [personsModelsByHome objectForKeyedSubscript:?];
 
     if (v11)
     {
-      v12 = [v11 na_map:&__block_literal_global_357];
+      v12 = [v11 na_map:?];
       equivalencyTablesByHome = [(HMIPersonsModelManager *)self equivalencyTablesByHome];
-      v14 = [equivalencyTablesByHome objectForKeyedSubscript:dCopy];
+      v14 = [equivalencyTablesByHome objectForKeyedSubscript:?];
 
       if (v14)
       {
 LABEL_6:
-        v17 = [(HMIPersonsModelManager *)self homePersonsModelForHomeWithUUID:dCopy, v32];
-        v40[0] = 0;
-        v40[1] = v40;
-        v40[2] = 0x3032000000;
-        v40[3] = __Block_byref_object_copy__6;
-        v40[4] = __Block_byref_object_dispose__6;
-        v41 = [MEMORY[0x277CBEB58] set];
+        v17 = [(HMIPersonsModelManager *)self homePersonsModelForHomeWithUUID:v31];
+        v35[0] = 0;
+        v35[1] = v35;
+        v35[2] = 0x3032000000;
+        v35[3] = __Block_byref_object_copy__6;
+        v35[4] = __Block_byref_object_dispose__6;
+        v36 = [MEMORY[0x277CBEB58] set];
         personToEquivalencyCell = [v14 personToEquivalencyCell];
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __51__HMIPersonsModelManager_summaryForHomeUUID_error___block_invoke_2;
-        v35[3] = &unk_278754E90;
-        v19 = v17;
-        v36 = v19;
-        v37 = &v48;
-        v38 = &v44;
-        v39 = v40;
-        [personToEquivalencyCell enumerateKeysAndObjectsUsingBlock:v35];
+        v34 = v17;
+        [personToEquivalencyCell enumerateKeysAndObjectsUsingBlock:?];
 
-        _Block_object_dispose(v40, 8);
-        v20 = 1;
+        _Block_object_dispose(v35, 8);
+        v19 = 1;
         goto LABEL_14;
       }
 
       personsModelsByHome2 = [(HMIPersonsModelManager *)self personsModelsByHome];
-      v33 = [personsModelsByHome2 objectForKeyedSubscript:dCopy];
+      v32 = [personsModelsByHome2 objectForKeyedSubscript:?];
       userDefinedPersonLinksByHome = [(HMIPersonsModelManager *)self userDefinedPersonLinksByHome];
-      v16 = [userDefinedPersonLinksByHome objectForKeyedSubscript:dCopy];
-      v42 = v9;
-      v14 = [(HMIPersonsModelManager *)self buildEquivalencyMapForPersonsModels:v33 userDefinedPersonLinks:v16 error:&v42];
-      v32 = v42;
+      v16 = [userDefinedPersonLinksByHome objectForKeyedSubscript:?];
+      v37 = v9;
+      v14 = [HMIPersonsModelManager buildEquivalencyMapForPersonsModels:"buildEquivalencyMapForPersonsModels:userDefinedPersonLinks:error:" userDefinedPersonLinks:? error:?];
+      v31 = v9;
 
       if (v14)
       {
-        v9 = v32;
+        v9 = v31;
         goto LABEL_6;
       }
 
-      v30 = v32;
-      v14 = v30;
+      v29 = v31;
+      v14 = v29;
       if (error)
       {
-        v31 = v30;
+        v30 = v29;
         *error = v14;
       }
 
       HMIErrorLog(self, v14);
-      v20 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v25 = v9;
-      v14 = v25;
+      v24 = v9;
+      v14 = v24;
       if (error)
       {
-        v26 = v25;
+        v25 = v24;
         *error = v14;
       }
 
       HMIErrorLog(self, v14);
-      v20 = 0;
+      v19 = 0;
       v12 = MEMORY[0x277CBEBF8];
     }
 
@@ -3712,39 +3544,39 @@ LABEL_6:
 LABEL_14:
 
     os_unfair_lock_unlock(&self->_lock);
-    if (v20)
+    if (v19)
     {
-      v27 = [HMIPersonsModelsSummary alloc];
-      v28 = [MEMORY[0x277CBEB98] setWithArray:v12];
-      v24 = [(HMIPersonsModelsSummary *)v27 initWithModelSummaries:v28 homeToExternalEquivalencies:v49[3] externalToExternalEquivalencies:v45[3]];
+      v26 = [HMIPersonsModelsSummary alloc];
+      v27 = [MEMORY[0x277CBEB98] setWithArray:?];
+      v23 = [HMIPersonsModelsSummary initWithModelSummaries:v26 homeToExternalEquivalencies:"initWithModelSummaries:homeToExternalEquivalencies:externalToExternalEquivalencies:" externalToExternalEquivalencies:?];
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
     goto LABEL_17;
   }
 
-  v21 = v8;
-  v22 = v21;
+  v20 = v8;
+  v21 = v20;
   if (error)
   {
-    v23 = v21;
-    *error = v22;
+    v22 = v20;
+    *error = v21;
   }
 
-  HMIErrorLog(self, v22);
+  HMIErrorLog(self, v21);
 
   os_unfair_lock_unlock(&self->_lock);
-  v24 = 0;
+  v23 = 0;
   v12 = MEMORY[0x277CBEBF8];
 LABEL_17:
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(v40, 8);
 
-  return v24;
+  return v23;
 }
 
 void __51__HMIPersonsModelManager_summaryForHomeUUID_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -3755,7 +3587,7 @@ void __51__HMIPersonsModelManager_summaryForHomeUUID_error___block_invoke_2(uint
   {
     v7 = [v5 sourceUUID];
     v8 = [*(a1 + 32) sourceUUID];
-    v9 = [v7 isEqual:v8];
+    v9 = [v7 isEqual:?];
 
     if (v9)
     {
@@ -3766,33 +3598,27 @@ void __51__HMIPersonsModelManager_summaryForHomeUUID_error___block_invoke_2(uint
 
     else
     {
-      v22 = 0;
-      v23 = &v22;
-      v24 = 0x2020000000;
-      v25 = 0;
-      v16 = 0;
-      v17 = &v16;
-      v18 = 0x3032000000;
-      v19 = __Block_byref_object_copy__6;
-      v20 = __Block_byref_object_dispose__6;
-      v21 = 0;
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __51__HMIPersonsModelManager_summaryForHomeUUID_error___block_invoke_3;
-      v12[3] = &unk_278754E68;
-      v14 = &v22;
-      v13 = *(a1 + 32);
-      v15 = &v16;
-      [v6 enumerateObjectsUsingBlock:v12];
-      if ((v23[3] & 1) == 0 && ([*(*(*(a1 + 56) + 8) + 40) containsObject:v17[5]] & 1) == 0)
+      v15 = 0;
+      v16 = &v15;
+      v17 = 0x2020000000;
+      v18 = 0;
+      v13[0] = 0;
+      v13[1] = v13;
+      v13[2] = 0x3032000000;
+      v13[3] = __Block_byref_object_copy__6;
+      v13[4] = __Block_byref_object_dispose__6;
+      v14 = 0;
+      v12 = *(a1 + 32);
+      [v6 enumerateObjectsUsingBlock:?];
+      if ((v16[3] & 1) == 0 && ([*(*(*(a1 + 56) + 8) + 40) containsObject:?] & 1) == 0)
       {
-        [*(*(*(a1 + 56) + 8) + 40) addObject:v17[5]];
+        [*(*(*(a1 + 56) + 8) + 40) addObject:?];
         v11 = [v6 count];
         *(*(*(a1 + 48) + 8) + 24) += (([v6 count] - 1) * v11) >> 1;
       }
 
-      _Block_object_dispose(&v16, 8);
-      _Block_object_dispose(&v22, 8);
+      _Block_object_dispose(v13, 8);
+      _Block_object_dispose(&v15, 8);
     }
   }
 }
@@ -3802,7 +3628,7 @@ void __51__HMIPersonsModelManager_summaryForHomeUUID_error___block_invoke_3(uint
   v3 = a2;
   v4 = [v3 sourceUUID];
   v5 = [*(a1 + 32) sourceUUID];
-  *(*(*(a1 + 40) + 8) + 24) = [v4 isEqual:v5];
+  *(*(*(a1 + 40) + 8) + 24) = [v4 isEqual:?];
 
   obj = [v3 personUUID];
 
@@ -3812,7 +3638,7 @@ void __51__HMIPersonsModelManager_summaryForHomeUUID_error___block_invoke_3(uint
   {
     v8 = [v7 UUIDString];
     v9 = [obj UUIDString];
-    v10 = [v8 compare:v9];
+    v10 = [v8 compare:?];
 
     if (v10 != -1)
     {
@@ -3835,20 +3661,15 @@ LABEL_6:
 + (id)minimumUUIDInEquivalencyCell:(id)cell
 {
   cellCopy = cell;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__6;
-  v11 = __Block_byref_object_dispose__6;
-  v12 = 0;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __55__HMIPersonsModelManager_minimumUUIDInEquivalencyCell___block_invoke;
-  v6[3] = &unk_278754EB8;
-  v6[4] = &v7;
-  [cellCopy enumerateObjectsUsingBlock:v6];
-  v4 = v8[5];
-  _Block_object_dispose(&v7, 8);
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__6;
+  v10 = __Block_byref_object_dispose__6;
+  v11 = 0;
+  [cellCopy enumerateObjectsUsingBlock:?];
+  v4 = v7[5];
+  _Block_object_dispose(&v6, 8);
 
   return v4;
 }
@@ -3863,7 +3684,7 @@ void __55__HMIPersonsModelManager_minimumUUIDInEquivalencyCell___block_invoke(ui
   {
     v6 = [v5 UUIDString];
     v7 = [obj UUIDString];
-    v8 = [v6 compare:v7];
+    v8 = [v6 compare:?];
 
     if (v8 != -1)
     {

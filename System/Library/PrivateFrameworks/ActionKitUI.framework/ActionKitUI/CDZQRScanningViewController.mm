@@ -13,8 +13,10 @@
 - (void)toggleTorch:(id)torch;
 - (void)turnTorchOff;
 - (void)turnTorchOn;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CDZQRScanningViewController
@@ -181,26 +183,26 @@ void __53__CDZQRScanningViewController_sessionWasInterrupted___block_invoke(uint
 
 - (void)captureOutput:(id)output didOutputMetadataObjects:(id)objects fromConnection:(id)connection
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   objectsCopy = objects;
-  v7 = [objectsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [objectsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
-    v8 = *v22;
+    v8 = *v21;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v22 != v8)
+      if (*v21 != v8)
       {
         objc_enumerationMutation(objectsCopy);
       }
 
-      v10 = *(*(&v21 + 1) + 8 * v9);
+      v10 = *(*(&v20 + 1) + 8 * v9);
       metadataObjectTypes = [(CDZQRScanningViewController *)self metadataObjectTypes];
       type = [v10 type];
       v13 = [metadataObjectTypes containsObject:type];
@@ -212,7 +214,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [objectsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [objectsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -255,8 +257,6 @@ LABEL_9:
     resultBlock2 = objectsCopy;
 LABEL_14:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)turnTorchOff
@@ -453,6 +453,169 @@ LABEL_8:
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CDZQRScanningViewController;
+  [(CDZQRScanningViewController *)&v6 viewDidDisappear:disappear];
+  previewLayer = [(CDZQRScanningViewController *)self previewLayer];
+  [previewLayer removeFromSuperlayer];
+
+  [(CDZQRScanningViewController *)self setPreviewLayer:0];
+  avSession = [(CDZQRScanningViewController *)self avSession];
+  [avSession stopRunning];
+
+  [(CDZQRScanningViewController *)self setAvSession:0];
+  [(CDZQRScanningViewController *)self setCaptureDevice:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v43.receiver = self;
+  v43.super_class = CDZQRScanningViewController;
+  [(CDZQRScanningViewController *)&v43 viewWillAppear:appear];
+  cancelBlock = [(CDZQRScanningViewController *)self cancelBlock];
+
+  if (cancelBlock)
+  {
+    navigationItem2 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_cancelItemSelected_];
+    navigationItem = [(CDZQRScanningViewController *)self navigationItem];
+    [navigationItem setLeftBarButtonItem:navigationItem2];
+  }
+
+  else
+  {
+    navigationItem2 = [(CDZQRScanningViewController *)self navigationItem];
+    [navigationItem2 setLeftBarButtonItem:0];
+  }
+
+  [(CDZQRScanningViewController *)self setLastCapturedString:0];
+  cancelBlock2 = [(CDZQRScanningViewController *)self cancelBlock];
+  if (cancelBlock2)
+  {
+    v8 = cancelBlock2;
+    errorBlock = [(CDZQRScanningViewController *)self errorBlock];
+
+    if (!errorBlock)
+    {
+      objc_initWeak(&location, self);
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __46__CDZQRScanningViewController_viewWillAppear___block_invoke;
+      v41[3] = &unk_278C37510;
+      objc_copyWeak(&v42, &location);
+      [(CDZQRScanningViewController *)self setErrorBlock:v41];
+      objc_destroyWeak(&v42);
+      objc_destroyWeak(&location);
+    }
+  }
+
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2050000000;
+  v10 = getAVCaptureSessionClass_softClass_5505;
+  v52 = getAVCaptureSessionClass_softClass_5505;
+  if (!getAVCaptureSessionClass_softClass_5505)
+  {
+    location = MEMORY[0x277D85DD0];
+    v45 = 3221225472;
+    v46 = __getAVCaptureSessionClass_block_invoke_5506;
+    v47 = &unk_278C37610;
+    v48 = &v49;
+    __getAVCaptureSessionClass_block_invoke_5506(&location);
+    v10 = v50[3];
+  }
+
+  v11 = v10;
+  _Block_object_dispose(&v49, 8);
+  v12 = objc_alloc_init(v10);
+  [(CDZQRScanningViewController *)self setAvSession:v12];
+
+  v13 = dispatch_get_global_queue(-32768, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __46__CDZQRScanningViewController_viewWillAppear___block_invoke_2;
+  block[3] = &unk_278C37538;
+  block[4] = self;
+  dispatch_async(v13, block);
+
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2050000000;
+  v14 = getAVCaptureVideoPreviewLayerClass_softClass;
+  v52 = getAVCaptureVideoPreviewLayerClass_softClass;
+  if (!getAVCaptureVideoPreviewLayerClass_softClass)
+  {
+    location = MEMORY[0x277D85DD0];
+    v45 = 3221225472;
+    v46 = __getAVCaptureVideoPreviewLayerClass_block_invoke;
+    v47 = &unk_278C37610;
+    v48 = &v49;
+    __getAVCaptureVideoPreviewLayerClass_block_invoke(&location);
+    v14 = v50[3];
+  }
+
+  v15 = v14;
+  _Block_object_dispose(&v49, 8);
+  avSession = [(CDZQRScanningViewController *)self avSession];
+  v17 = [v14 layerWithSession:avSession];
+  [(CDZQRScanningViewController *)self setPreviewLayer:v17];
+
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v18 = getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr;
+  v52 = getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr;
+  if (!getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr)
+  {
+    location = MEMORY[0x277D85DD0];
+    v45 = 3221225472;
+    v46 = __getAVLayerVideoGravityResizeAspectFillSymbolLoc_block_invoke;
+    v47 = &unk_278C37610;
+    v48 = &v49;
+    v19 = AVFoundationLibrary_5485();
+    v20 = dlsym(v19, "AVLayerVideoGravityResizeAspectFill");
+    *(v48[1] + 24) = v20;
+    getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr = *(v48[1] + 24);
+    v18 = v50[3];
+  }
+
+  _Block_object_dispose(&v49, 8);
+  if (v18)
+  {
+    v21 = *v18;
+    previewLayer = [(CDZQRScanningViewController *)self previewLayer];
+    [previewLayer setVideoGravity:v21];
+
+    view = [(CDZQRScanningViewController *)self view];
+    [view bounds];
+    v25 = v24;
+    v27 = v26;
+    v29 = v28;
+    v31 = v30;
+    previewLayer2 = [(CDZQRScanningViewController *)self previewLayer];
+    [previewLayer2 setFrame:{v25, v27, v29, v31}];
+
+    view2 = [(CDZQRScanningViewController *)self view];
+    layer = [view2 layer];
+    previewLayer3 = [(CDZQRScanningViewController *)self previewLayer];
+    [layer insertSublayer:previewLayer3 atIndex:0];
+
+    v36 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel_handleFocusTap_];
+    view3 = [(CDZQRScanningViewController *)self view];
+    [view3 addGestureRecognizer:v36];
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVLayerVideoGravity getAVLayerVideoGravityResizeAspectFill(void)"];
+    [currentHandler handleFailureInFunction:v39 file:@"CDZQRScanningViewController.m" lineNumber:37 description:{@"%s", dlerror()}];
+
+    __break(1u);
+  }
+}
+
 void __46__CDZQRScanningViewController_viewWillAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -470,50 +633,50 @@ void __46__CDZQRScanningViewController_viewWillAppear___block_invoke(uint64_t a1
 
 void __46__CDZQRScanningViewController_viewWillAppear___block_invoke_2(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2050000000;
+  v60 = *MEMORY[0x277D85DE8];
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2050000000;
   v2 = getAVCaptureDeviceClass_softClass;
-  v59 = getAVCaptureDeviceClass_softClass;
+  v58 = getAVCaptureDeviceClass_softClass;
   if (!getAVCaptureDeviceClass_softClass)
   {
-    v51 = MEMORY[0x277D85DD0];
-    v52 = 3221225472;
-    v53 = __getAVCaptureDeviceClass_block_invoke;
-    v54 = &unk_278C37610;
-    v55 = &v56;
-    __getAVCaptureDeviceClass_block_invoke(&v51);
-    v2 = v57[3];
+    v50 = MEMORY[0x277D85DD0];
+    v51 = 3221225472;
+    v52 = __getAVCaptureDeviceClass_block_invoke;
+    v53 = &unk_278C37610;
+    v54 = &v55;
+    __getAVCaptureDeviceClass_block_invoke(&v50);
+    v2 = v56[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v56, 8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  _Block_object_dispose(&v55, 8);
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
   v4 = getAVMediaTypeVideoSymbolLoc_ptr_5512;
-  v59 = getAVMediaTypeVideoSymbolLoc_ptr_5512;
+  v58 = getAVMediaTypeVideoSymbolLoc_ptr_5512;
   if (!getAVMediaTypeVideoSymbolLoc_ptr_5512)
   {
-    v51 = MEMORY[0x277D85DD0];
-    v52 = 3221225472;
-    v53 = __getAVMediaTypeVideoSymbolLoc_block_invoke_5513;
-    v54 = &unk_278C37610;
-    v55 = &v56;
+    v50 = MEMORY[0x277D85DD0];
+    v51 = 3221225472;
+    v52 = __getAVMediaTypeVideoSymbolLoc_block_invoke_5513;
+    v53 = &unk_278C37610;
+    v54 = &v55;
     v5 = AVFoundationLibrary_5485();
     v6 = dlsym(v5, "AVMediaTypeVideo");
-    *(v55[1] + 24) = v6;
-    getAVMediaTypeVideoSymbolLoc_ptr_5512 = *(v55[1] + 24);
-    v4 = v57[3];
+    *(v54[1] + 24) = v6;
+    getAVMediaTypeVideoSymbolLoc_ptr_5512 = *(v54[1] + 24);
+    v4 = v56[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v55, 8);
   if (!v4)
   {
-    v39 = [MEMORY[0x277CCA890] currentHandler];
-    v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVMediaType getAVMediaTypeVideo(void)"];
-    [v39 handleFailureInFunction:v40 file:@"CDZQRScanningViewController.m" lineNumber:36 description:{@"%s", dlerror()}];
+    v38 = [MEMORY[0x277CCA890] currentHandler];
+    v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVMediaType getAVMediaTypeVideo(void)"];
+    [v38 handleFailureInFunction:v39 file:@"CDZQRScanningViewController.m" lineNumber:36 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
@@ -544,75 +707,75 @@ LABEL_10:
   v13 = [*(a1 + 32) avSession];
   [v13 beginConfiguration];
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2050000000;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2050000000;
   v14 = getAVCaptureDeviceInputClass_softClass_5516;
-  v59 = getAVCaptureDeviceInputClass_softClass_5516;
+  v58 = getAVCaptureDeviceInputClass_softClass_5516;
   if (!getAVCaptureDeviceInputClass_softClass_5516)
   {
-    v51 = MEMORY[0x277D85DD0];
-    v52 = 3221225472;
-    v53 = __getAVCaptureDeviceInputClass_block_invoke_5517;
-    v54 = &unk_278C37610;
-    v55 = &v56;
-    __getAVCaptureDeviceInputClass_block_invoke_5517(&v51);
-    v14 = v57[3];
+    v50 = MEMORY[0x277D85DD0];
+    v51 = 3221225472;
+    v52 = __getAVCaptureDeviceInputClass_block_invoke_5517;
+    v53 = &unk_278C37610;
+    v54 = &v55;
+    __getAVCaptureDeviceInputClass_block_invoke_5517(&v50);
+    v14 = v56[3];
   }
 
   v15 = v14;
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v55, 8);
   v16 = [*(a1 + 32) captureDevice];
-  v50 = 0;
-  v17 = [v14 deviceInputWithDevice:v16 error:&v50];
-  v41 = v50;
+  v49 = 0;
+  v17 = [v14 deviceInputWithDevice:v16 error:&v49];
+  v40 = v49;
 
   if (v17)
   {
     v18 = [*(a1 + 32) avSession];
     [v18 addInput:v17];
 
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x2050000000;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x2050000000;
     v19 = getAVCaptureMetadataOutputClass_softClass;
-    v59 = getAVCaptureMetadataOutputClass_softClass;
+    v58 = getAVCaptureMetadataOutputClass_softClass;
     if (!getAVCaptureMetadataOutputClass_softClass)
     {
-      v51 = MEMORY[0x277D85DD0];
-      v52 = 3221225472;
-      v53 = __getAVCaptureMetadataOutputClass_block_invoke;
-      v54 = &unk_278C37610;
-      v55 = &v56;
-      __getAVCaptureMetadataOutputClass_block_invoke(&v51);
-      v19 = v57[3];
+      v50 = MEMORY[0x277D85DD0];
+      v51 = 3221225472;
+      v52 = __getAVCaptureMetadataOutputClass_block_invoke;
+      v53 = &unk_278C37610;
+      v54 = &v55;
+      __getAVCaptureMetadataOutputClass_block_invoke(&v50);
+      v19 = v56[3];
     }
 
     v20 = v19;
-    _Block_object_dispose(&v56, 8);
+    _Block_object_dispose(&v55, 8);
     v21 = objc_alloc_init(v19);
     v22 = [*(a1 + 32) avSession];
     [v22 addOutput:v21];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v23 = [*(a1 + 32) metadataObjectTypes];
-    v24 = [v23 countByEnumeratingWithState:&v44 objects:v60 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v43 objects:v59 count:16];
     if (v24)
     {
-      v25 = *v45;
+      v25 = *v44;
       while (2)
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v45 != v25)
+          if (*v44 != v25)
           {
             objc_enumerationMutation(v23);
           }
 
-          v27 = *(*(&v44 + 1) + 8 * i);
+          v27 = *(*(&v43 + 1) + 8 * i);
           v28 = [v21 availableMetadataObjectTypes];
           v29 = [v28 containsObject:v27];
 
@@ -622,20 +785,20 @@ LABEL_10:
 
             if (v35)
             {
-              v43[0] = MEMORY[0x277D85DD0];
-              v43[1] = 3221225472;
-              v43[2] = __46__CDZQRScanningViewController_viewWillAppear___block_invoke_4;
-              v43[3] = &unk_278C375A0;
-              v43[4] = *(a1 + 32);
-              v43[5] = v27;
-              dispatch_async(MEMORY[0x277D85CD0], v43);
+              v42[0] = MEMORY[0x277D85DD0];
+              v42[1] = 3221225472;
+              v42[2] = __46__CDZQRScanningViewController_viewWillAppear___block_invoke_4;
+              v42[3] = &unk_278C375A0;
+              v42[4] = *(a1 + 32);
+              v42[5] = v27;
+              dispatch_async(MEMORY[0x277D85CD0], v42);
             }
 
             goto LABEL_27;
           }
         }
 
-        v24 = [v23 countByEnumeratingWithState:&v44 objects:v60 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v43 objects:v59 count:16];
         if (v24)
         {
           continue;
@@ -667,7 +830,7 @@ LABEL_27:
 
   else
   {
-    NSLog(&cfstr_Qrscanningview.isa, v41);
+    NSLog(&cfstr_Qrscanningview.isa, v40);
     v36 = [*(a1 + 32) avSession];
     [v36 commitConfiguration];
 
@@ -675,17 +838,15 @@ LABEL_27:
 
     if (v37)
     {
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __46__CDZQRScanningViewController_viewWillAppear___block_invoke_3;
-      v48[3] = &unk_278C375A0;
-      v48[4] = *(a1 + 32);
-      v49 = v41;
-      dispatch_async(MEMORY[0x277D85CD0], v48);
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __46__CDZQRScanningViewController_viewWillAppear___block_invoke_3;
+      v47[3] = &unk_278C375A0;
+      v47[4] = *(a1 + 32);
+      v48 = v40;
+      dispatch_async(MEMORY[0x277D85CD0], v47);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CDZQRScanningViewController_viewWillAppear___block_invoke_3(uint64_t a1)
@@ -699,20 +860,17 @@ void __46__CDZQRScanningViewController_viewWillAppear___block_invoke_3(uint64_t 
 
 void __46__CDZQRScanningViewController_viewWillAppear___block_invoke_4(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) avSession];
   [v2 stopRunning];
 
   v3 = [*(a1 + 32) errorBlock];
   v4 = MEMORY[0x277CCA9B8];
-  v5 = *(a1 + 40);
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to scan object of type %@", v5, *MEMORY[0x277CCA450]];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  v8 = [v4 errorWithDomain:@"com.cdzombak.qrscanningviewcontroller" code:1 userInfo:v7];
-  (v3)[2](v3, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to scan object of type %@", *(a1 + 40), *MEMORY[0x277CCA450]];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = [v4 errorWithDomain:@"com.cdzombak.qrscanningviewcontroller" code:1 userInfo:v6];
+  (v3)[2](v3, v7);
 }
 
 void __46__CDZQRScanningViewController_viewWillAppear___block_invoke_5(uint64_t a1)
@@ -755,37 +913,36 @@ void __46__CDZQRScanningViewController_viewWillAppear___block_invoke_5(uint64_t 
 
 - (CDZQRScanningViewController)init
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v16[1] = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v3 = getAVMetadataObjectTypeQRCodeSymbolLoc_ptr_5525;
-  v16 = getAVMetadataObjectTypeQRCodeSymbolLoc_ptr_5525;
+  v15 = getAVMetadataObjectTypeQRCodeSymbolLoc_ptr_5525;
   if (!getAVMetadataObjectTypeQRCodeSymbolLoc_ptr_5525)
   {
     v4 = AVFoundationLibrary_5485();
-    v14[3] = dlsym(v4, "AVMetadataObjectTypeQRCode");
-    getAVMetadataObjectTypeQRCodeSymbolLoc_ptr_5525 = v14[3];
-    v3 = v14[3];
+    v13[3] = dlsym(v4, "AVMetadataObjectTypeQRCode");
+    getAVMetadataObjectTypeQRCodeSymbolLoc_ptr_5525 = v13[3];
+    v3 = v13[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
   if (!v3)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVMetadataObjectType getAVMetadataObjectTypeQRCode(void)"];
-    [currentHandler handleFailureInFunction:v12 file:@"CDZQRScanningViewController.m" lineNumber:35 description:{@"%s", dlerror()}];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVMetadataObjectType getAVMetadataObjectTypeQRCode(void)"];
+    [currentHandler handleFailureInFunction:v11 file:@"CDZQRScanningViewController.m" lineNumber:35 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 
-  v17[0] = *v3;
+  v16[0] = *v3;
   v5 = MEMORY[0x277CBEA60];
-  v6 = v17[0];
-  v7 = [v5 arrayWithObjects:v17 count:1];
+  v6 = v16[0];
+  v7 = [v5 arrayWithObjects:v16 count:1];
 
   v8 = [(CDZQRScanningViewController *)self initWithMetadataObjectTypes:v7];
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

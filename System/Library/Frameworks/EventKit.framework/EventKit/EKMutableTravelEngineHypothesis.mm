@@ -15,7 +15,7 @@
   conservativeDepartureDate = self->super._conservativeDepartureDate;
   self->super._conservativeDepartureDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, conservativeDepartureDate);
 }
 
 - (void)setSuggestedDepartureDate:(id)date
@@ -24,7 +24,7 @@
   suggestedDepartureDate = self->super._suggestedDepartureDate;
   self->super._suggestedDepartureDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, suggestedDepartureDate);
 }
 
 - (void)setAggressiveDepartureDate:(id)date
@@ -33,7 +33,7 @@
   aggressiveDepartureDate = self->super._aggressiveDepartureDate;
   self->super._aggressiveDepartureDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, aggressiveDepartureDate);
 }
 
 - (void)setRouteName:(id)name
@@ -42,7 +42,7 @@
   routeName = self->super._routeName;
   self->super._routeName = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, routeName);
 }
 
 - (void)setTrafficDensityDescription:(id)description
@@ -51,7 +51,7 @@
   trafficDensityDescription = self->super._trafficDensityDescription;
   self->super._trafficDensityDescription = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, trafficDensityDescription);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

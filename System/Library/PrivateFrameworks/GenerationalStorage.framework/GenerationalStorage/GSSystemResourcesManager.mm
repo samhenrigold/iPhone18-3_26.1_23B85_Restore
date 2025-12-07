@@ -12,6 +12,7 @@
 - (void)_processLowDiskNotification:(BOOL)notification;
 - (void)_resetLowDiskManager;
 - (void)_resetPowerManager;
+- (void)_setPowerLevel:(BOOL)level;
 - (void)_setPowerLevelWithCoalescing:(BOOL)coalescing;
 - (void)addLowDiskObserver:(id)observer forDevice:(int)device;
 - (void)addLowMemoryObserver:(id)observer;
@@ -52,8 +53,7 @@
 
     [(GSSystemResourcesManager *)v2 _initPowerManager];
     [(GSSystemResourcesManager *)v2 _initLowDiskManager];
-    [(GSSystemResourcesManager *)v2 _initLowMemory];
-    v6 = sub_100003164();
+    v6 = sub_100003164([(GSSystemResourcesManager *)v2 _initLowMemory]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = objc_opt_class();
@@ -92,8 +92,7 @@
 - (void)reset
 {
   [(GSSystemResourcesManager *)self _resetPowerManager];
-  [(GSSystemResourcesManager *)self _resetLowDiskManager];
-  v3 = sub_100003164();
+  v3 = sub_100003164([(GSSystemResourcesManager *)self _resetLowDiskManager]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -211,6 +210,64 @@
     {
       [(GSSystemResourcesManager *)self _setPowerLevel:0];
     }
+  }
+}
+
+- (void)_setPowerLevel:(BOOL)level
+{
+  levelCopy = level;
+  powerLevelOKTimer = self->_powerLevelOKTimer;
+  if (powerLevelOKTimer)
+  {
+    dispatch_source_cancel(powerLevelOKTimer);
+    v6 = self->_powerLevelOKTimer;
+    self->_powerLevelOKTimer = 0;
+  }
+
+  self->_powerLevelOK = levelCopy;
+  v7 = sub_100003164(powerLevelOKTimer);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = "bad";
+    if (levelCopy)
+    {
+      v8 = "good";
+    }
+
+    *buf = 136315138;
+    v20 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[NOTICE] Power level really becomes %s", buf, 0xCu);
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v9 = self->_powerObservers;
+  v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v15;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v15 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [*(*(&v14 + 1) + 8 * v13) powerLevelChanged:{levelCopy, v14}];
+        v13 = v13 + 1;
+      }
+
+      while (v11 != v13);
+      v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v11);
   }
 }
 

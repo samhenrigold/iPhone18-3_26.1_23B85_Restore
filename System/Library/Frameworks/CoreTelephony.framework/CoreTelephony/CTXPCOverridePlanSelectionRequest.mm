@@ -9,27 +9,26 @@
 
 - (CTXPCOverridePlanSelectionRequest)initWithIccid:(id)iccid
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   iccidCopy = iccid;
   v5 = iccidCopy;
   if (iccidCopy)
   {
-    v12 = @"iccid";
-    v13[0] = iccidCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    v10.receiver = self;
-    v10.super_class = CTXPCOverridePlanSelectionRequest;
-    v7 = [(CTXPCMessage *)&v10 initWithNamedArguments:v6];
+    v11 = @"iccid";
+    v12[0] = iccidCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v9.receiver = self;
+    v9.super_class = CTXPCOverridePlanSelectionRequest;
+    v7 = [(CTXPCMessage *)&v9 initWithNamedArguments:v6];
   }
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = CTXPCOverridePlanSelectionRequest;
-    v7 = [(CTXPCRequestMessage *)&v11 init];
+    v10.receiver = self;
+    v10.super_class = CTXPCOverridePlanSelectionRequest;
+    v7 = [(CTXPCRequestMessage *)&v10 init];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

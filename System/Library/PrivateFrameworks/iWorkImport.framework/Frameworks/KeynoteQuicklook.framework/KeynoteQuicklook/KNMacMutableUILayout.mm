@@ -10,7 +10,7 @@
   self->super._showingActivityStream = stream;
   if (!self->super._showingLightTable)
   {
-    if (objc_msgSend_sidebarViewMode(self, a2, stream) == 1)
+    if ([(KNMacUILayout *)self sidebarViewMode]== 1)
     {
       return;
     }
@@ -21,7 +21,7 @@
   if (self->super._showingTemplateSlides || !self->super._showingNavigatorViewInSidebar)
   {
 LABEL_6:
-    if (objc_msgSend_currentViewModeSupportsActivityStream(self, a2, stream))
+    if ([(KNMacUILayout *)self currentViewModeSupportsActivityStream])
     {
       self->super._activityStreamWasShown = stream;
     }

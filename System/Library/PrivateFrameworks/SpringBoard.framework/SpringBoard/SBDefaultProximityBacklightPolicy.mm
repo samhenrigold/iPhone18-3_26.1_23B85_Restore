@@ -37,11 +37,11 @@
 
   if (self->_scheduled)
   {
-    v4 = SBLogProximitySensor();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogProximitySensor(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Cancelling scheduled backlight change.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Cancelling scheduled backlight change.", v6, 2u);
     }
 
     [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__turnBacklightOff object:0];
@@ -56,7 +56,7 @@
 
   [(SBDefaultProximityBacklightPolicy *)self _cancelScheduledBacklightFactorToZero];
   lastBacklightChangeSource = [(SBBacklightController *)self->_backlightController lastBacklightChangeSource];
-  v5 = SBLogProximitySensor();
+  v5 = SBLogProximitySensor(lastBacklightChangeSource);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (lastBacklightChangeSource == 13)
   {
@@ -124,8 +124,7 @@
 - (void)_scheduleBacklightFactorToZeroAfterDebounceDuration:(double)duration
 {
   v10 = *MEMORY[0x277D85DE8];
-  [(SBDefaultProximityBacklightPolicy *)self _cancelScheduledBacklightFactorToZero];
-  v5 = SBLogProximitySensor();
+  v5 = SBLogProximitySensor([(SBDefaultProximityBacklightPolicy *)self _cancelScheduledBacklightFactorToZero]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x277CCABB0] numberWithDouble:duration];
@@ -147,11 +146,11 @@
 
   if (self->_scheduled)
   {
-    v5 = SBLogProximitySensor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogProximitySensor(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Backlight will undim outside of our control - cancelling any scheduled changes.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Backlight will undim outside of our control - cancelling any scheduled changes.", v7, 2u);
     }
 
     [(SBDefaultProximityBacklightPolicy *)self _cancelScheduledBacklightFactorToZero];

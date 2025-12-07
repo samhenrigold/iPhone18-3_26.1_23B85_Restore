@@ -96,14 +96,14 @@ void __47__HMDBTLEAdvertiser_isAdvertisingForAccessory___block_invoke(uint64_t a
 
 - (void)timerDidFire:(id)fire
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v14[0] = 0;
-  v14[1] = v14;
-  v14[2] = 0x3032000000;
-  v14[3] = __Block_byref_object_copy__42241;
-  v14[4] = __Block_byref_object_dispose__42242;
+  v21 = *MEMORY[0x277D85DE8];
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x3032000000;
+  v13[3] = __Block_byref_object_copy__42241;
+  v13[4] = __Block_byref_object_dispose__42242;
   fireCopy = fire;
-  v15 = fireCopy;
+  v14 = fireCopy;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -113,31 +113,30 @@ void __47__HMDBTLEAdvertiser_isAdvertisingForAccessory___block_invoke(uint64_t a
     accessory = [(HMDBTLEAdvertiser *)selfCopy accessory];
     identifier = [accessory identifier];
     *buf = 138543874;
-    v17 = v8;
-    v18 = 2112;
-    v19 = fireCopy;
-    v20 = 2112;
-    v21 = identifier;
+    v16 = v8;
+    v17 = 2112;
+    v18 = fireCopy;
+    v19 = 2112;
+    v20 = identifier;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Wireless Timer: %@ did fire for %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
   workQueue = [(HMDBTLEAdvertiser *)selfCopy workQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __34__HMDBTLEAdvertiser_timerDidFire___block_invoke;
-  v13[3] = &unk_279734898;
-  v13[4] = selfCopy;
-  v13[5] = v14;
-  dispatch_async(workQueue, v13);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __34__HMDBTLEAdvertiser_timerDidFire___block_invoke;
+  v12[3] = &unk_279734898;
+  v12[4] = selfCopy;
+  v12[5] = v13;
+  dispatch_async(workQueue, v12);
 
-  _Block_object_dispose(v14, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v13, 8);
 }
 
 void __34__HMDBTLEAdvertiser_timerDidFire___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(*(*(a1 + 40) + 8) + 40);
   v3 = [*(a1 + 32) advertisementTimer];
 
@@ -151,11 +150,11 @@ void __34__HMDBTLEAdvertiser_timerDidFire___block_invoke(uint64_t a1)
       v9 = HMFGetLogIdentifier();
       v10 = [*(a1 + 32) accessory];
       v11 = [v10 identifier];
-      v19 = 138543618;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v11;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Wireless BTLE Advertisement timeout for %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Wireless BTLE Advertisement timeout for %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -183,23 +182,21 @@ void __34__HMDBTLEAdvertiser_timerDidFire___block_invoke(uint64_t a1)
         v15 = HMFGetLogIdentifier();
         v16 = [*(a1 + 32) accessory];
         v17 = [v16 identifier];
-        v19 = 138543618;
-        v20 = v15;
-        v21 = 2112;
-        v22 = v17;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unexpected BTLE Advertisement timer for %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v15;
+        v20 = 2112;
+        v21 = v17;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unexpected BTLE Advertisement timer for %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_advertisementTimeout
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   leAdvertiser = [(HMDBTLEAdvertiser *)self leAdvertiser];
 
   if (leAdvertiser)
@@ -218,11 +215,11 @@ void __34__HMDBTLEAdvertiser_timerDidFire___block_invoke(uint64_t a1)
     {
       v9 = HMFGetLogIdentifier();
       identifier = [accessory identifier];
-      v19 = 138543618;
-      v20 = v9;
-      v21 = 2112;
-      v22 = identifier;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Wireless - Starting reachable timer for accessory: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v9;
+      v20 = 2112;
+      v21 = identifier;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Wireless - Starting reachable timer for accessory: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -253,17 +250,15 @@ void __34__HMDBTLEAdvertiser_timerDidFire___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Wireless LE Timeout - no gleAdvertiser", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Wireless LE Timeout - no gleAdvertiser", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     accessory = [(HMDBTLEAdvertiser *)selfCopy2 accessory];
     [(HMDBTLEAdvertiser *)selfCopy2 _completePendingPowerOnRequest:accessory];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)powerOn:(id)on
@@ -282,55 +277,51 @@ void __34__HMDBTLEAdvertiser_timerDidFire___block_invoke(uint64_t a1)
 
 void __29__HMDBTLEAdvertiser_powerOn___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) centralManager];
   v3 = [v2 state];
 
   if (v3 > 5 || ((1 << v3) & 0x29) == 0)
   {
-    v9 = objc_autoreleasePoolPush();
-    v10 = *(a1 + 32);
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v8 = objc_autoreleasePoolPush();
+    v9 = *(a1 + 32);
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier();
-      v13 = [*(a1 + 40) identifier];
+      v11 = HMFGetLogIdentifier();
+      v12 = [*(a1 + 40) identifier];
       *buf = 138543618;
+      v16 = v11;
+      v17 = 2112;
       v18 = v12;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Wireless - Ignoring power on request -- Bluetooth not in a state to turn on accessory: %@", buf, 0x16u);
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Wireless - Ignoring power on request -- Bluetooth not in a state to turn on accessory: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v9);
-    v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:54 userInfo:0];
-    [*(a1 + 40) powerOnComplete:v14];
-
-    goto LABEL_12;
+    objc_autoreleasePoolPop(v8);
+    v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:54 userInfo:0];
+    [*(a1 + 40) powerOnComplete:v13];
   }
 
-  v5 = [*(a1 + 32) accessory];
-  v6 = *(a1 + 40);
-
-  if (v5 == v6)
+  else
   {
-LABEL_12:
-    v15 = *MEMORY[0x277D85DE8];
-    return;
+    v5 = [*(a1 + 32) accessory];
+    v6 = *(a1 + 40);
+
+    if (v5 != v6)
+    {
+      v7 = [*(a1 + 32) powerOnQueues];
+      [v7 addAccessory:*(a1 + 40) toQueue:@"AdvertisementQueue" context:0];
+
+      [*(a1 + 32) _startAdvertising];
+      v14 = [MEMORY[0x277CCAB98] defaultCenter];
+      [v14 postNotificationName:@"kHMDAccessoryWakeNotificationStarted" object:*(a1 + 40)];
+    }
   }
-
-  v7 = [*(a1 + 32) powerOnQueues];
-  [v7 addAccessory:*(a1 + 40) toQueue:@"AdvertisementQueue" context:0];
-
-  [*(a1 + 32) _startAdvertising];
-  v16 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v16 postNotificationName:@"kHMDAccessoryWakeNotificationStarted" object:*(a1 + 40)];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startAdvertising
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   leAdvertiser = [(HMDBTLEAdvertiser *)self leAdvertiser];
 
   if (!leAdvertiser)
@@ -364,11 +355,11 @@ LABEL_12:
         v18 = HMFGetLogIdentifier();
         accessory2 = [(HMDBTLEAdvertiser *)selfCopy accessory];
         identifier = [accessory2 identifier];
-        v27 = 138543618;
-        v28 = v18;
-        v29 = 2112;
-        v30 = identifier;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Wireless - Starting BT LE Advertisement for %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v18;
+        v28 = 2112;
+        v29 = identifier;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Wireless - Starting BT LE Advertisement for %@", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -387,8 +378,6 @@ LABEL_12:
       [advertisementTimer2 resume];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelOn:(id)on
@@ -407,7 +396,7 @@ LABEL_12:
 
 - (void)_cancelOn:(id)on
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   onCopy = on;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -416,11 +405,11 @@ LABEL_12:
   {
     v8 = HMFGetLogIdentifier();
     identifier = [onCopy identifier];
-    v17 = 138543618;
-    v18 = v8;
-    v19 = 2112;
-    v20 = identifier;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Wireless - Cancelling advertisement timer for %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v8;
+    v18 = 2112;
+    v19 = identifier;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Wireless - Cancelling advertisement timer for %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -434,9 +423,9 @@ LABEL_12:
 
       [(HMDBTLEAdvertiser *)selfCopy setAdvertisementTimer:0];
       powerOnQueues = [(HMDBTLEAdvertiser *)selfCopy powerOnQueues];
-      v16 = [powerOnQueues getContextForAccessory:onCopy];
+      v15 = [powerOnQueues getContextForAccessory:onCopy];
 
-      [v16 suspend];
+      [v15 suspend];
       [(HMDBTLEAdvertiser *)selfCopy _clearAdvertiser];
       [(HMDBTLEAdvertiser *)selfCopy _completePendingPowerOnRequest:onCopy];
       [(HMDBTLEAdvertiser *)selfCopy _startAdvertising];
@@ -447,8 +436,6 @@ LABEL_12:
       [(HMDBTLEAdvertiser *)selfCopy _completePendingPowerOnRequest:onCopy];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completePendingPowerOnRequest:(id)request
@@ -532,16 +519,16 @@ LABEL_12:
   dispatch_async(workQueue, v6);
 }
 
-uint64_t __40__HMDBTLEAdvertiser_didUpdateBTLEState___block_invoke(uint64_t result)
+void *__40__HMDBTLEAdvertiser_didUpdateBTLEState___block_invoke(void *result)
 {
-  if (*(result + 40) != 5)
+  if (result[5] != 5)
   {
     v2 = result;
-    v3 = *(result + 32);
+    v3 = result[4];
     v4 = [v3 accessory];
     [v3 stopAdvertisement:v4];
 
-    v5 = *(v2 + 32);
+    v5 = v2[4];
 
     return [v5 _flushQueues];
   }

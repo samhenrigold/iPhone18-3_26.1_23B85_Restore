@@ -8,11 +8,11 @@
 
 - (_MLCCPUPooling)initWithDevice:(id)device descriptor:(id)descriptor
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   deviceCopy = device;
   v8 = [MEMORY[0x277CBEBF8] mutableCopy];
-  bzero(v24, 0x2A8uLL);
+  bzero(v23, 0x2A8uLL);
   poolingType = [descriptorCopy poolingType];
   switch(poolingType)
   {
@@ -38,7 +38,7 @@
       goto LABEL_10;
   }
 
-  v25 = v10;
+  v24 = v10;
 LABEL_10:
   kernelWidth = [descriptorCopy kernelWidth];
   kernelHeight = [descriptorCopy kernelHeight];
@@ -52,15 +52,15 @@ LABEL_10:
     paddingSizeInY = [descriptorCopy paddingSizeInY];
   }
 
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:680];
-  memset(v23, 0, sizeof(v23));
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:680];
   memset(v22, 0, sizeof(v22));
-  v12 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:176];
-  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:176];
-  v35[0] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
-  v34 = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+  memset(v21, 0, sizeof(v21));
+  v12 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:176];
+  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:176];
+  v34[0] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+  v33 = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
   v16 = [MLCCPUDeviceOps deviceOpsWithType:15 params:v11 inDeltaData:v14 outDeltaData:v15 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v16)
@@ -70,11 +70,10 @@ LABEL_10:
   }
 
   v17 = [v8 copy];
-  v21.receiver = self;
-  v21.super_class = _MLCCPUPooling;
-  v18 = [(_MLCCPULayer *)&v21 initWithDevice:deviceCopy deviceOps:v17];
+  v20.receiver = self;
+  v20.super_class = _MLCCPUPooling;
+  v18 = [(_MLCCPULayer *)&v20 initWithDevice:deviceCopy deviceOps:v17];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

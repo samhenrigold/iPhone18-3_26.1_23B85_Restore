@@ -117,7 +117,6 @@ LABEL_7:
 
 - (void)_debug_setActiveExperimentBranchDictionaryRepresentation:(id)representation
 {
-  v4 = GeoServicesConfig_DebugActiveExperimentBranch[1];
   GEOConfigSetDictionary();
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   experimentsInfo = [(GEOExperimentServerLocalProxy *)self experimentsInfo];
@@ -468,7 +467,6 @@ LABEL_24:
 {
   if (type)
   {
-    v6 = GeoServicesConfig_Experiment[1];
     _GEOSetQueryForExperimentType();
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     experimentsInfo = [(GEOExperimentServerLocalProxy *)self experimentsInfo];
@@ -489,7 +487,7 @@ LABEL_24:
 
 - (void)_submitNonRepeatingRetryTask:(double)task
 {
-  if (sub_10001FD1C())
+  if (sub_10001FD1C(0))
   {
     v4 = [objc_alloc(sub_100020080()) initWithIdentifier:GEOExperimentServerLocalProxyBackgroundTaskRetryIdentifier];
     [v4 setTrySchedulingBefore:task];
@@ -519,57 +517,54 @@ LABEL_24:
 
 - (void)_setupRefreshTask
 {
-  if (sub_10001FD1C())
+  if (sub_10001FD1C(0))
   {
     os_unfair_lock_lock_with_options();
     experimentsInfo = self->_experimentsInfo;
     if (experimentsInfo && ([(GEOABAssignmentResponse *)experimentsInfo hasRefreshIntervalSeconds]& 1) != 0)
     {
-      v38 = self->_taskIsolater;
+      v35 = self->_taskIsolater;
       _geo_isolate_lock_data();
       Current = CFAbsoluteTimeGetCurrent();
       refreshIntervalSeconds = [(GEOABAssignmentResponse *)self->_experimentsInfo refreshIntervalSeconds];
       [(GEOABAssignmentResponse *)self->_experimentsInfo timestamp];
       v7 = v6;
       os_unfair_lock_unlock(&self->_experimentsInfoLock);
-      v8 = GeoServicesConfig_ExperimentMaxRefreshInterval[1];
-      GEOConfigGetDouble();
-      v9 = GeoServicesConfig_ExperimentMinRefreshInterval[1];
       GEOConfigGetDouble();
       GEOConfigGetDouble();
-      v10 = refreshIntervalSeconds;
-      if (v11 < refreshIntervalSeconds)
+      GEOConfigGetDouble();
+      v8 = refreshIntervalSeconds;
+      if (v9 < refreshIntervalSeconds)
       {
-        v12 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v10 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           GEOConfigGetDouble();
           GEOConfigGetDouble();
           GEOConfigGetDouble();
           *buf = 134218240;
-          v40 = v10;
-          v41 = 2048;
-          v42 = v13;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Experiment response has refresh interval of %f. Capping at %f.", buf, 0x16u);
+          v37 = v8;
+          v38 = 2048;
+          v39 = v11;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Experiment response has refresh interval of %f. Capping at %f.", buf, 0x16u);
         }
 
         GEOConfigGetDouble();
         GEOConfigGetDouble();
         GEOConfigGetDouble();
-        v10 = v14;
+        v8 = v12;
       }
 
-      v15 = GeoServicesConfig_ExperimentRunImmediatelyInterval[1];
       GEOConfigGetDouble();
-      if (v7 + v10 - Current < v16)
+      if (v7 + v8 - Current < v13)
       {
-        v17 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v14 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           GEOConfigGetDouble();
           *buf = 134217984;
-          v40 = v18;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Experiment should have refreshed already or will refresh in the next %f seconds, going to run it now", buf, 0xCu);
+          v37 = v15;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Experiment should have refreshed already or will refresh in the next %f seconds, going to run it now", buf, 0xCu);
         }
 
         [(GEOExperimentServerLocalProxy *)self forceUpdate];
@@ -577,86 +572,86 @@ LABEL_24:
       }
 
       repeatingTask = self->_repeatingTask;
-      if (!repeatingTask || ([(BGRepeatingSystemTaskRequest *)repeatingTask interval], v20 == v10))
+      if (!repeatingTask || ([(BGRepeatingSystemTaskRequest *)repeatingTask interval], v17 == v8))
       {
-        v28 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v25 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          v40 = v10;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "Setting experiment refresh interval to %f", buf, 0xCu);
+          v37 = v8;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "Setting experiment refresh interval to %f", buf, 0xCu);
         }
 
-        v29 = [objc_alloc(sub_1000201D0()) initWithIdentifier:GEOExperimentServerLocalProxyBackgroundTaskIdentifier];
-        v30 = self->_repeatingTask;
-        self->_repeatingTask = v29;
+        v26 = [objc_alloc(sub_1000201D0()) initWithIdentifier:GEOExperimentServerLocalProxyBackgroundTaskIdentifier];
+        v27 = self->_repeatingTask;
+        self->_repeatingTask = v26;
 
         [(BGRepeatingSystemTaskRequest *)self->_repeatingTask setPriority:2];
-        [(BGRepeatingSystemTaskRequest *)self->_repeatingTask setInterval:v10];
+        [(BGRepeatingSystemTaskRequest *)self->_repeatingTask setInterval:v8];
         [(BGRepeatingSystemTaskRequest *)self->_repeatingTask setRequiresNetworkConnectivity:1];
         [(BGRepeatingSystemTaskRequest *)self->_repeatingTask setPreventsDeviceSleep:1];
         sharedScheduler = [sub_10001FF30() sharedScheduler];
-        v32 = self->_repeatingTask;
-        v36 = 0;
-        v33 = [sharedScheduler submitTaskRequest:v32 error:&v36];
-        v25 = v36;
+        v29 = self->_repeatingTask;
+        v33 = 0;
+        v30 = [sharedScheduler submitTaskRequest:v29 error:&v33];
+        v22 = v33;
 
-        if (v33)
+        if (v30)
         {
           goto LABEL_33;
         }
 
-        v34 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v31 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          *&v35 = COERCE_DOUBLE(@"Unknown");
-          if (v25)
+          *&v32 = COERCE_DOUBLE(@"Unknown");
+          if (v22)
           {
-            v35 = v25;
+            v32 = v22;
           }
 
           *buf = 138412290;
-          v40 = *&v35;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Failed to submit task with error: %@", buf, 0xCu);
+          v37 = *&v32;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Failed to submit task with error: %@", buf, 0xCu);
         }
 
-        v26 = self->_repeatingTask;
+        v23 = self->_repeatingTask;
         self->_repeatingTask = 0;
       }
 
       else
       {
-        v21 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v18 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          v40 = v10;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Updating experiment refresh interval to %f", buf, 0xCu);
+          v37 = v8;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Updating experiment refresh interval to %f", buf, 0xCu);
         }
 
         sharedScheduler2 = [sub_10001FF30() sharedScheduler];
-        v23 = self->_repeatingTask;
-        v37 = 0;
-        v24 = [sharedScheduler2 updateTaskRequest:v23 error:&v37];
-        v25 = v37;
+        v20 = self->_repeatingTask;
+        v34 = 0;
+        v21 = [sharedScheduler2 updateTaskRequest:v20 error:&v34];
+        v22 = v34;
 
-        if (v24)
+        if (v21)
         {
           goto LABEL_33;
         }
 
-        v26 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v23 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          *&v27 = COERCE_DOUBLE(@"Unknown");
-          if (v25)
+          *&v24 = COERCE_DOUBLE(@"Unknown");
+          if (v22)
           {
-            v27 = v25;
+            v24 = v22;
           }
 
           *buf = 138412290;
-          v40 = *&v27;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to update task with error: %@", buf, 0xCu);
+          v37 = *&v24;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to update task with error: %@", buf, 0xCu);
         }
       }
 
@@ -703,11 +698,10 @@ LABEL_34:
   if (handler)
   {
     handlerCopy = handler;
-    v6 = sub_1000076C4();
-    v4 = GeoServicesConfig_ExperimentsBucketGUIDTimestamp[1];
+    v5 = sub_1000076C4();
     GEOConfigGetDouble();
-    v5 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-    handlerCopy[2](handlerCopy, v6, v5, 0);
+    v4 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+    handlerCopy[2](handlerCopy, v5, v4, 0);
   }
 }
 
@@ -870,7 +864,7 @@ LABEL_34:
 
 - (void)cancelRefreshTask
 {
-  if (sub_10001FD1C())
+  if (sub_10001FD1C(0))
   {
     sharedScheduler = [sub_10001FF30() sharedScheduler];
     v3 = GEOExperimentServerLocalProxyBackgroundTaskIdentifier;

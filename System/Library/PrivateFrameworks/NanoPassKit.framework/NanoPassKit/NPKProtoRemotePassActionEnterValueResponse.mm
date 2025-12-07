@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)resultAsString:(int)string;
 - (int)StringAsResult:(id)result;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -11,6 +12,21 @@
 @end
 
 @implementation NPKProtoRemotePassActionEnterValueResponse
+
+- (id)resultAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279949230[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsResult:(id)result
 {
@@ -106,9 +122,8 @@
     [NPKProtoRemotePassActionEnterValueResponse writeTo:];
   }
 
-  v7 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  result = self->_result;
   PBDataWriterWriteInt32Field();
   if (self->_incrementCurrency)
   {
@@ -117,7 +132,6 @@
 
   if (*&self->_has)
   {
-    incrementAmount = self->_incrementAmount;
     PBDataWriterWriteSint64Field();
   }
 }

@@ -39,9 +39,11 @@
 
 uint64_t __64__CNContactViewExtensionContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol___interface = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0D69688];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0D69688];
+  v1 = _extensionAuxiliaryHostProtocol___interface;
+  _extensionAuxiliaryHostProtocol___interface = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -342,7 +344,7 @@ void __61__CNContactViewExtensionContext_setupWithOptions_readyBlock___block_inv
   v3 = v2;
   if (v2)
   {
-    [v2 auditToken];
+    objc_msgSend_auditToken(v2);
   }
 
   else

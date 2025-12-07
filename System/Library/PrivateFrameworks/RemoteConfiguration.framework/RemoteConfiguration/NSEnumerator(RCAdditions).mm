@@ -26,19 +26,17 @@
 
 - (void)rc_firstObjectPassingTest:()RCAdditions .cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "testBlock"];
   *buf = 136315906;
-  v3 = "[NSEnumerator(RCAdditions) rc_firstObjectPassingTest:]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Categories/NSEnumerator+RCAdditions.m";
-  v6 = 1024;
-  v7 = 16;
-  v8 = 2114;
-  v9 = v0;
+  v2 = "[NSEnumerator(RCAdditions) rc_firstObjectPassingTest:]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Categories/NSEnumerator+RCAdditions.m";
+  v5 = 1024;
+  v6 = 16;
+  v7 = 2114;
+  v8 = v0;
   _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

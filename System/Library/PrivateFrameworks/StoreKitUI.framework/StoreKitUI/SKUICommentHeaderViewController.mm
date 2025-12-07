@@ -79,4 +79,10 @@
   [(UILabel *)self->_titleLabel setFrame:10.0, floorf(*&v12), v13, v14];
 }
 
+- (void)initWithTitle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICommentHeaderViewController initWithTitle:]";
+}
+
 @end

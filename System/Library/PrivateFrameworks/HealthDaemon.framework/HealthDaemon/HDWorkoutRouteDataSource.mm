@@ -48,10 +48,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -68,7 +67,7 @@
 
 - (void)remote_setupWithSessionIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
@@ -78,23 +77,21 @@
     uUIDString = [identifierCopy UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = uUIDString;
+    v15 = 2114;
+    v16 = uUIDString;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[routes] Will setup route data source: %{public}@, session: %{public}@", buf, 0x16u);
   }
 
   profile = [(HDStandardTaskServer *)self profile];
   workoutManager = [profile workoutManager];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__HDWorkoutRouteDataSource_remote_setupWithSessionIdentifier___block_invoke;
-  v12[3] = &unk_278613858;
-  v12[4] = self;
-  v13 = identifierCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__HDWorkoutRouteDataSource_remote_setupWithSessionIdentifier___block_invoke;
+  v11[3] = &unk_278613858;
+  v11[4] = self;
+  v12 = identifierCopy;
   v10 = identifierCopy;
-  [workoutManager sessionServerFromSessionIdentifier:v10 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [workoutManager sessionServerFromSessionIdentifier:v10 completion:v11];
 }
 
 void __62__HDWorkoutRouteDataSource_remote_setupWithSessionIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -116,7 +113,7 @@ void __62__HDWorkoutRouteDataSource_remote_setupWithSessionIdentifier___block_in
 
 void __62__HDWorkoutRouteDataSource_remote_setupWithSessionIdentifier___block_invoke_2(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
@@ -125,7 +122,6 @@ void __62__HDWorkoutRouteDataSource_remote_setupWithSessionIdentifier___block_in
     [WeakRetained addObserver:a1[6] queue:*(a1[6] + 104)];
 
     v4 = a1[6];
-    v5 = *MEMORY[0x277D85DE8];
 
     [v4 _queue_setupLocationDataCollector];
   }
@@ -133,18 +129,16 @@ void __62__HDWorkoutRouteDataSource_remote_setupWithSessionIdentifier___block_in
   else
   {
     _HKInitializeLogging();
-    v6 = *MEMORY[0x277CCC330];
+    v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[5];
-      v9 = v6;
-      v10 = [v8 UUIDString];
-      v11 = 138543362;
-      v12 = v10;
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Couldn't link workout route data source to session %{public}@", &v11, 0xCu);
+      v6 = a1[5];
+      v7 = v5;
+      v8 = [v6 UUIDString];
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Couldn't link workout route data source to session %{public}@", &v9, 0xCu);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -224,7 +218,7 @@ LABEL_21:
 
 void __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCD7E8] quantityWithUnit:*(*(a1 + 32) + 64) doubleValue:*(a1 + 40)];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
@@ -232,9 +226,9 @@ void __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke(uint64_t a1)
   {
     v4 = *(*(a1 + 32) + 72);
     *buf = 138412546;
-    v34 = v2;
-    v35 = 2112;
-    v36 = v4;
+    v33 = v2;
+    v34 = 2112;
+    v35 = v4;
     _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] Add elevation: %@ to elevation: %@", buf, 0x16u);
   }
 
@@ -255,52 +249,51 @@ void __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke(uint64_t a1)
     *(v5 + 72) = v10;
   }
 
-  v31 = *MEMORY[0x277CCC488];
-  v32 = *(*(a1 + 32) + 72);
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+  v30 = *MEMORY[0x277CCC488];
+  v31 = *(*(a1 + 32) + 72);
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
   v12 = [*(*(a1 + 32) + 96) UUID];
   v13 = v12;
   v14 = *(*(a1 + 32) + 56);
   if (v12)
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_2;
-    v25[3] = &unk_2786138A8;
-    v15 = &v26;
-    v26 = v12;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_2;
+    v24[3] = &unk_2786138A8;
+    v15 = &v25;
+    v25 = v12;
     v16 = v11;
     v17 = *(a1 + 32);
-    v27 = v16;
-    v28 = v17;
-    [v14 sendToDestinationProcessors:v25];
+    v26 = v16;
+    v27 = v17;
+    [v14 sendToDestinationProcessors:v24];
   }
 
   else
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_421;
-    v29[3] = &unk_278613880;
-    v15 = v30;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_421;
+    v28[3] = &unk_278613880;
+    v15 = v29;
     v18 = v11;
     v19 = *(a1 + 32);
-    v30[0] = v18;
-    v30[1] = v19;
-    [v14 sendToDestinationProcessors:v29];
+    v29[0] = v18;
+    v29[1] = v19;
+    [v14 sendToDestinationProcessors:v28];
   }
 
   v20 = [*(a1 + 32) client];
   v21 = [v20 connection];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_3;
-  v24[3] = &unk_2786138D0;
-  v24[4] = *(a1 + 32);
-  v22 = [v21 remoteObjectProxyWithErrorHandler:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_3;
+  v23[3] = &unk_2786138D0;
+  v23[4] = *(a1 + 32);
+  v22 = [v21 remoteObjectProxyWithErrorHandler:v23];
 
   [v22 clientRemote_didUpdateElevation:*(*(a1 + 32) + 72)];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_2(void *a1, void *a2)
@@ -314,21 +307,19 @@ void __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_2(void *a1, 
 
 void __45__HDWorkoutRouteDataSource_elevationUpdated___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of elevation update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of elevation update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutRouteUpdated:(id)updated
@@ -371,33 +362,29 @@ void __48__HDWorkoutRouteDataSource_workoutRouteUpdated___block_invoke(uint64_t 
 
 void __48__HDWorkoutRouteDataSource_workoutRouteUpdated___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
+  v7 = *MEMORY[0x277D85DE8];
+  v6 = *(a1 + 32);
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v7 count:1];
-  [v4 addOtherSamples:v5 dataSource:{*(a1 + 40), v7, v8}];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 arrayWithObjects:&v6 count:1];
+  [v4 addOtherSamples:v5 dataSource:{*(a1 + 40), v6, v7}];
 }
 
 void __48__HDWorkoutRouteDataSource_workoutRouteUpdated___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of route update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of route update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)altitudeUpdated:(double)updated
@@ -492,21 +479,19 @@ LABEL_16:
 
 void __44__HDWorkoutRouteDataSource_altitudeUpdated___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of altitude update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of altitude update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_workoutBuilderServer
@@ -527,21 +512,19 @@ void __44__HDWorkoutRouteDataSource_altitudeUpdated___block_invoke_2(uint64_t a1
 
 void __58__HDWorkoutRouteDataSource__queue_recoverCurrentElevation__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of elevation update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of elevation update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__HDWorkoutRouteDataSource__workoutBuilderServer__block_invoke(uint64_t a1, void *a2)
@@ -555,7 +538,7 @@ uint64_t __49__HDWorkoutRouteDataSource__workoutBuilderServer__block_invoke(uint
 
 - (void)_queue_setupLocationDataCollector
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_locationDataCollector)
   {
@@ -599,11 +582,11 @@ uint64_t __49__HDWorkoutRouteDataSource__workoutBuilderServer__block_invoke(uint
         v24 = v23;
         v25 = objc_loadWeakRetained(&self->_sessionServer);
         identifier = [v25 identifier];
-        *v30 = 138543618;
-        *&v30[4] = identifier;
-        *&v30[12] = 2112;
-        *&v30[14] = workoutConfiguration2;
-        _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "[routes] Workout route will not be tracked because activity is not routeable for session %{public}@, workout configuration %@", v30, 0x16u);
+        *v29 = 138543618;
+        *&v29[4] = identifier;
+        *&v29[12] = 2112;
+        *&v29[14] = workoutConfiguration2;
+        _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "[routes] Workout route will not be tracked because activity is not routeable for session %{public}@, workout configuration %@", v29, 0x16u);
       }
 
       goto LABEL_17;
@@ -623,12 +606,12 @@ uint64_t __49__HDWorkoutRouteDataSource__workoutBuilderServer__block_invoke(uint
       {
         client = [(HDStandardTaskServer *)self client];
         connection = [client connection];
-        *v30 = MEMORY[0x277D85DD0];
-        *&v30[8] = 3221225472;
-        *&v30[16] = __58__HDWorkoutRouteDataSource__queue_recoverCurrentElevation__block_invoke;
-        v31 = &unk_2786138D0;
+        *v29 = MEMORY[0x277D85DD0];
+        *&v29[8] = 3221225472;
+        *&v29[16] = __58__HDWorkoutRouteDataSource__queue_recoverCurrentElevation__block_invoke;
+        v30 = &unk_2786138D0;
         selfCopy = self;
-        v18 = [connection remoteObjectProxyWithErrorHandler:v30];
+        v18 = [connection remoteObjectProxyWithErrorHandler:v29];
 
         [v18 clientRemote_didUpdateElevation:self->_currentElevation];
       }
@@ -655,16 +638,13 @@ uint64_t __49__HDWorkoutRouteDataSource__workoutBuilderServer__block_invoke(uint
 LABEL_17:
 
 LABEL_18:
-        goto LABEL_19;
+        return;
       }
     }
 
     [(HDLocationDataCollector *)self->_locationDataCollector startUpdates];
     goto LABEL_17;
   }
-
-LABEL_19:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_createLocationDataCollectorWithConfiguration:(id)configuration workoutUUID:(id)d
@@ -716,7 +696,7 @@ void __49__HDWorkoutRouteDataSource_connectionInvalidated__block_invoke(uint64_t
 
 void __71__HDWorkoutRouteDataSource_workoutDataDestination_requestsDataFrom_to___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC330];
   v3 = *MEMORY[0x277CCC330];
@@ -724,14 +704,13 @@ void __71__HDWorkoutRouteDataSource_workoutDataDestination_requestsDataFrom_to__
   {
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] Data destination requests data from route data source: %{public}@, data destination: %{public}@", &v10, 0x16u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] Data destination requests data from route data source: %{public}@, data destination: %{public}@", &v8, 0x16u);
   }
 
-  v6 = *(a1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -741,17 +720,15 @@ void __71__HDWorkoutRouteDataSource_workoutDataDestination_requestsDataFrom_to__
   else
   {
     _HKInitializeLogging();
-    v7 = *v2;
+    v6 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v9;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@, Expected HDWorkoutBuilderServer as a direct data destination", &v10, 0xCu);
+      v7 = *(a1 + 32);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@, Expected HDWorkoutBuilderServer as a direct data destination", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutDataDestination:(id)destination requestsFinalDataFrom:(id)from to:(id)to completion:(id)completion
@@ -811,7 +788,7 @@ void __71__HDWorkoutRouteDataSource_workoutDataDestination_requestsDataFrom_to__
 {
   currentActivity = self->_currentActivity;
   self->_currentActivity = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, currentActivity);
 }
 
 - (id)_unitTest_locationDataCollector

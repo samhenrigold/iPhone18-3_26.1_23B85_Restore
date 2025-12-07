@@ -7,6 +7,7 @@
 - (void)loadView;
 - (void)save;
 - (void)setupViews;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation RCShareViewController
@@ -18,6 +19,14 @@
   [(RCShareViewController *)&v3 loadView];
   [(RCShareViewController *)self setupViews];
   [(RCShareViewController *)self loadFileRepresentation];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = RCShareViewController;
+  [(RCShareViewController *)&v4 viewDidDisappear:disappear];
+  [(RCShareViewController *)self _removeTemporaryAudioFileIfNeeded];
 }
 
 - (void)_loadFirstConformingAttachment:(id)attachment

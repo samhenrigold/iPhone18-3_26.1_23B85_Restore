@@ -5,6 +5,7 @@
 - (id)_moRepresentation:(id)representation;
 - (id)debugDescription;
 - (id)jsonCompatibleDictRepresentation;
+- (void)setAllEnforcement:(BOOL)enforcement;
 @end
 
 @implementation DRSDampeningEnforcementSettings
@@ -25,33 +26,44 @@
 
 - (id)jsonCompatibleDictRepresentation
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"EnforceResourceHysteresis";
+  v13[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"EnforceResourceHysteresis";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSDampeningEnforcementSettings enforcesResourceHysteresis](self, "enforcesResourceHysteresis")}];
-  v14[0] = v3;
-  v13[1] = @"EnforceResourceCap";
+  v13[0] = v3;
+  v12[1] = @"EnforceResourceCap";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSDampeningEnforcementSettings enforcesResourceCap](self, "enforcesResourceCap")}];
-  v14[1] = v4;
-  v13[2] = @"EnforceResourceDownsampling";
+  v13[1] = v4;
+  v12[2] = @"EnforceResourceDownsampling";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSDampeningEnforcementSettings enforcesResourceDownsampling](self, "enforcesResourceDownsampling")}];
-  v14[2] = v5;
-  v13[3] = @"EnforceSignatureHysteresis";
+  v13[2] = v5;
+  v12[3] = @"EnforceSignatureHysteresis";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSDampeningEnforcementSettings enforcesSignatureHysteresis](self, "enforcesSignatureHysteresis")}];
-  v14[3] = v6;
-  v13[4] = @"EnforceSignatureCap";
+  v13[3] = v6;
+  v12[4] = @"EnforceSignatureCap";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSDampeningEnforcementSettings enforcesSignatureCap](self, "enforcesSignatureCap")}];
-  v14[4] = v7;
-  v13[5] = @"EnforceSignatureDownsampling";
+  v13[4] = v7;
+  v12[5] = @"EnforceSignatureDownsampling";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSDampeningEnforcementSettings enforcesSignatureDownsampling](self, "enforcesSignatureDownsampling")}];
-  v14[5] = v8;
-  v13[6] = @"EnforceTotalCap";
+  v13[5] = v8;
+  v12[6] = @"EnforceTotalCap";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSDampeningEnforcementSettings enforcesTotalCap](self, "enforcesTotalCap")}];
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
   return v10;
+}
+
+- (void)setAllEnforcement:(BOOL)enforcement
+{
+  enforcementCopy = enforcement;
+  [(DRSDampeningEnforcementSettings *)self setEnforcesResourceHysteresis:?];
+  [(DRSDampeningEnforcementSettings *)self setEnforcesResourceCap:enforcementCopy];
+  [(DRSDampeningEnforcementSettings *)self setEnforcesResourceDownsampling:enforcementCopy];
+  [(DRSDampeningEnforcementSettings *)self setEnforcesSignatureHysteresis:enforcementCopy];
+  [(DRSDampeningEnforcementSettings *)self setEnforcesSignatureCap:enforcementCopy];
+  [(DRSDampeningEnforcementSettings *)self setEnforcesSignatureDownsampling:enforcementCopy];
+
+  [(DRSDampeningEnforcementSettings *)self setEnforcesTotalCap:enforcementCopy];
 }
 
 - (id)debugDescription

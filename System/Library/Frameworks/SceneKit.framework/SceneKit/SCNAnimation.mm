@@ -105,9 +105,9 @@
 
 - (SCNAnimation)initWithCAAnimation:(id)animation
 {
-  v27.receiver = self;
-  v27.super_class = SCNAnimation;
-  v4 = [(SCNAnimation *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = SCNAnimation;
+  v4 = [(SCNAnimation *)&v28 init];
   v5 = v4;
   if (v4)
   {
@@ -150,24 +150,25 @@
     }
 
     v5->_fillForward = v15;
-    if ([animation fillMode] == v13)
+    fillMode3 = [animation fillMode];
+    if (fillMode3 == v13)
     {
-      v17 = 1;
+      v18 = 1;
     }
 
     else
     {
       fillMode3 = [animation fillMode];
-      v17 = fillMode3 == *MEMORY[0x277CDA228];
+      v18 = fillMode3 == *MEMORY[0x277CDA228];
     }
 
-    v5->_fillBackward = v17;
+    v5->_fillBackward = v18;
     if (v5->_animationEvents)
     {
-      v18 = scn_default_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v19 = scn_default_log(fillMode3, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        [(SCNAnimation *)v18 initWithCAAnimation:v19, v20, v21, v22, v23, v24, v25];
+        [(SCNAnimation *)v19 initWithCAAnimation:v20, v21, v22, v23, v24, v25, v26];
       }
     }
 
@@ -219,50 +220,50 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_alloc_init(objc_opt_class());
-  v4[30] = 0;
+  v5 = objc_alloc_init(objc_opt_class());
+  v5[30] = 0;
   animationRef = self->_animationRef;
   if (animationRef)
   {
-    Copy = C3DAnimationCreateCopy(animationRef);
-    [v4 _setAnimationRef:Copy];
+    Copy = C3DAnimationCreateCopy(animationRef, v4);
+    [v5 _setAnimationRef:Copy];
     if (Copy)
     {
       CFRelease(Copy);
     }
   }
 
-  *(v4 + 8) = self->_timingFunction;
-  *(v4 + 9) = self->_animationEvents;
+  *(v5 + 8) = self->_timingFunction;
+  *(v5 + 9) = self->_animationEvents;
   animationDidStart = self->_animationDidStart;
   if (animationDidStart)
   {
-    *(v4 + 12) = _Block_copy(animationDidStart);
+    *(v5 + 12) = _Block_copy(animationDidStart);
   }
 
   animationDidStop = self->_animationDidStop;
   if (animationDidStop)
   {
-    *(v4 + 13) = _Block_copy(animationDidStop);
+    *(v5 + 13) = _Block_copy(animationDidStop);
   }
 
-  *(v4 + 3) = *&self->_duration;
-  *(v4 + 4) = *&self->_repeatCount;
-  *(v4 + 5) = *&self->_timeOffset;
-  *(v4 + 6) = *&self->_beginTime;
-  *(v4 + 56) = self->_autoreverses;
-  *(v4 + 57) = self->_removedOnCompletion;
-  *(v4 + 58) = self->_applyOnCompletion;
-  *(v4 + 59) = self->_additive;
-  *(v4 + 60) = self->_cumulative;
-  *(v4 + 62) = self->_fillForward;
-  *(v4 + 63) = self->_fillBackward;
-  *(v4 + 10) = *&self->_fadeInDuration;
-  *(v4 + 11) = *&self->_fadeOutDuration;
-  *(v4 + 61) = self->_usesSceneTimeBase;
-  *(v4 + 17) = [self->_userAnimation copy];
-  *(v4 + 144) = self->_didMutate;
-  return v4;
+  *(v5 + 3) = *&self->_duration;
+  *(v5 + 4) = *&self->_repeatCount;
+  *(v5 + 5) = *&self->_timeOffset;
+  *(v5 + 6) = *&self->_beginTime;
+  *(v5 + 56) = self->_autoreverses;
+  *(v5 + 57) = self->_removedOnCompletion;
+  *(v5 + 58) = self->_applyOnCompletion;
+  *(v5 + 59) = self->_additive;
+  *(v5 + 60) = self->_cumulative;
+  *(v5 + 62) = self->_fillForward;
+  *(v5 + 63) = self->_fillBackward;
+  *(v5 + 10) = *&self->_fadeInDuration;
+  *(v5 + 11) = *&self->_fadeOutDuration;
+  *(v5 + 61) = self->_usesSceneTimeBase;
+  *(v5 + 17) = [self->_userAnimation copy];
+  *(v5 + 144) = self->_didMutate;
+  return v5;
 }
 
 - (void)_syncObjCModel
@@ -270,39 +271,39 @@
   v3 = [C3DAnimationGetKeyPath(self->_animationRef) componentsJoinedByString:@"."];
 
   self->_keyPath = v3;
-  self->_duration = C3DAnimationGetDuration(self->_animationRef);
-  self->_repeatCount = C3DAnimationGetRepeatCount(self->_animationRef);
-  self->_autoreverses = C3DAnimationGetAutoreverses(self->_animationRef);
-  self->_beginTime = C3DAnimationNodeGetPauseTime(self->_animationRef);
-  self->_timeOffset = C3DAnimationGetTimeOffset(self->_animationRef);
-  self->_fadeInDuration = C3DAnimationGetFadeInDuration(self->_animationRef);
-  self->_fadeOutDuration = C3DAnimationGetFadeOutDuration(self->_animationRef);
-  self->_removedOnCompletion = C3DAnimationGetRemoveOnCompletion(self->_animationRef);
-  self->_usesSceneTimeBase = C3DAnimationGetIsSceneTimeBased(self->_animationRef);
-  FillModeMask = C3DAnimationGetFillModeMask(self->_animationRef);
+  self->_duration = C3DAnimationGetDuration(self->_animationRef, v4);
+  self->_repeatCount = C3DAnimationGetRepeatCount(self->_animationRef, v5);
+  self->_autoreverses = C3DAnimationGetAutoreverses(self->_animationRef, v6);
+  self->_beginTime = C3DAnimationNodeGetPauseTime(self->_animationRef, v7);
+  self->_timeOffset = C3DAnimationGetTimeOffset(self->_animationRef, v8);
+  self->_fadeInDuration = C3DAnimationGetFadeInDuration(self->_animationRef, v9);
+  self->_fadeOutDuration = C3DAnimationGetFadeOutDuration(self->_animationRef, v10);
+  self->_removedOnCompletion = C3DAnimationGetRemoveOnCompletion(self->_animationRef, v11);
+  self->_usesSceneTimeBase = C3DAnimationGetIsSceneTimeBased(self->_animationRef, v12);
+  FillModeMask = C3DAnimationGetFillModeMask(self->_animationRef, v13);
   self->_fillForward = FillModeMask & 1;
   self->_fillBackward = (FillModeMask & 2) != 0;
-  AnimationEvents = C3DAnimationGetAnimationEvents(self->_animationRef);
-  v6 = _C3DToCAAnimationEvents(AnimationEvents);
-  v7 = self->_animationEvents;
-  if (v7 != v6)
+  AnimationEvents = C3DAnimationGetAnimationEvents(self->_animationRef, v15);
+  v18 = _C3DToCAAnimationEvents(AnimationEvents, v17);
+  v20 = self->_animationEvents;
+  if (v20 != v18)
   {
-    v8 = v6;
+    v21 = v18;
 
-    self->_animationEvents = v8;
+    self->_animationEvents = v21;
   }
 
-  TimingFunction = C3DAnimationGetTimingFunction(self->_animationRef);
+  TimingFunction = C3DAnimationGetTimingFunction(self->_animationRef, v19);
   if (TimingFunction)
   {
-    v10 = TimingFunction;
+    v24 = TimingFunction;
 
-    self->_timingFunction = [[SCNTimingFunction alloc] initWithTimingFunctionRef:v10];
+    self->_timingFunction = [[SCNTimingFunction alloc] initWithTimingFunctionRef:v24];
   }
 
-  self->_applyOnCompletion = C3DAnimationGetCommitWhenDone(self->_animationRef);
-  self->_additive = C3DAnimationGetAdditive(self->_animationRef);
-  self->_cumulative = C3DAnimationGetCumulative(self->_animationRef);
+  self->_applyOnCompletion = C3DAnimationGetCommitWhenDone(self->_animationRef, v23);
+  self->_additive = C3DAnimationGetAdditive(self->_animationRef, v25);
+  self->_cumulative = C3DAnimationGetCumulative(self->_animationRef, v26);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -311,43 +312,48 @@
   if (animationRef)
   {
     v6 = CFGetTypeID(animationRef);
-    if (v6 == C3DSimpleAnimationGetTypeID())
+    TypeID = C3DSimpleAnimationGetTypeID(v6, v7);
+    if (v6 == TypeID)
     {
-      v7 = @"basic";
-    }
-
-    else if (v6 == C3DKeyframedAnimationGetTypeID())
-    {
-      v7 = @"keyframe";
-    }
-
-    else if (v6 == C3DAnimationGroupGetTypeID())
-    {
-      v7 = @"group";
+      v10 = @"basic";
     }
 
     else
     {
-      v9 = CFCopyTypeIDDescription(v6);
-      v10 = scn_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = C3DKeyframedAnimationGetTypeID(TypeID, v9);
+      if (v6 == v12)
       {
-        [SCNAnimation encodeWithCoder:];
+        v10 = @"keyframe";
       }
 
-      CFRelease(v9);
-      v7 = 0;
+      else if (v6 == C3DAnimationGroupGetTypeID(v12, v13))
+      {
+        v10 = @"group";
+      }
+
+      else
+      {
+        v14 = CFCopyTypeIDDescription(v6);
+        v16 = scn_default_log(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          [SCNAnimation encodeWithCoder:];
+        }
+
+        CFRelease(v14);
+        v10 = 0;
+      }
     }
 
-    v11 = C3DCopyPropertyList(self->_animationRef, 0, 0, 0);
-    [coder encodeObject:v11 forKey:@"c3dAnimation"];
-    [coder encodeObject:v7 forKey:@"c3dAnimationType"];
+    v17 = C3DCopyPropertyList(self->_animationRef, 0, 0, 0);
+    [coder encodeObject:v17 forKey:@"c3dAnimation"];
+    [coder encodeObject:v10 forKey:@"c3dAnimationType"];
   }
 
   else
   {
-    v8 = scn_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SCNAnimation encodeWithCoder:];
     }
@@ -385,87 +391,89 @@
 
 - (SCNAnimation)initWithCoder:(id)coder
 {
-  v13.receiver = self;
-  v13.super_class = SCNAnimation;
-  v4 = [(SCNAnimation *)&v13 init];
-  v5 = v4;
+  v20.receiver = self;
+  v20.super_class = SCNAnimation;
+  v4 = [(SCNAnimation *)&v20 init];
+  v6 = v4;
   if (!v4)
   {
-    return v5;
+    return v6;
   }
 
   v4->_userInfoLock._os_unfair_lock_opaque = 0;
-  v6 = [coder decodeObjectOfClasses:SCNPlistClasses() forKey:@"c3dAnimation"];
-  v7 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"c3dAnimationType"];
-  if ([v7 isEqualToString:@"basic"])
+  v7 = [coder decodeObjectOfClasses:SCNPlistClasses(v4 forKey:{v5), @"c3dAnimation"}];
+  v8 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"c3dAnimationType"];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
+  if (isEqualToString)
   {
-    v8 = C3DSimpleAnimationCreate();
+    v11 = C3DSimpleAnimationCreate();
   }
 
-  else if (v7 && ![v7 isEqualToString:@"keyframe"])
+  else if (v8 && (isEqualToString = objc_msgSend_isEqualToString_(v8), !isEqualToString))
   {
-    if (![v7 isEqualToString:@"group"])
+    v17 = objc_msgSend_isEqualToString_(v8);
+    if (!v17)
     {
-      v12 = scn_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v19 = scn_default_log(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [SCNAnimation encodeWithCoder:];
       }
 
-      v9 = 0;
+      v12 = 0;
       goto LABEL_8;
     }
 
-    v8 = C3DAnimationGroupCreate();
+    v11 = C3DAnimationGroupCreate(v17, v18);
   }
 
   else
   {
-    v8 = C3DKeyframedAnimationCreate();
+    v11 = C3DKeyframedAnimationCreate(isEqualToString, v10);
   }
 
-  v9 = v8;
+  v12 = v11;
 LABEL_8:
-  if (C3DInitWithPropertyList(v9, v6, 0, 0))
+  if (C3DInitWithPropertyList(v12, v7, 0, 0))
   {
-    [(SCNAnimation *)v5 _setAnimationRef:v9];
+    [(SCNAnimation *)v6 _setAnimationRef:v12];
   }
 
-  CFRelease(v9);
+  CFRelease(v12);
   +[SCNTransaction begin];
   [SCNTransaction setImmediateMode:1];
-  -[SCNAnimation setKeyPath:](v5, "setKeyPath:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"keyPath"]);
+  -[SCNAnimation setKeyPath:](v6, "setKeyPath:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"keyPath"]);
   [coder decodeDoubleForKey:@"duration"];
-  [(SCNAnimation *)v5 setDuration:?];
+  [(SCNAnimation *)v6 setDuration:?];
   [coder decodeDoubleForKey:@"repeatCount"];
-  [(SCNAnimation *)v5 setRepeatCount:?];
+  [(SCNAnimation *)v6 setRepeatCount:?];
   [coder decodeDoubleForKey:@"timeOffset"];
-  [(SCNAnimation *)v5 setTimeOffset:?];
+  [(SCNAnimation *)v6 setTimeOffset:?];
   [coder decodeDoubleForKey:@"beginTime"];
-  [(SCNAnimation *)v5 setStartDelay:?];
-  -[SCNAnimation setAutoreverses:](v5, "setAutoreverses:", [coder decodeBoolForKey:@"autoreverses"]);
-  -[SCNAnimation setAppliedOnCompletion:](v5, "setAppliedOnCompletion:", [coder decodeBoolForKey:@"appliedOnCompletion"]);
-  -[SCNAnimation setRemovedOnCompletion:](v5, "setRemovedOnCompletion:", [coder decodeBoolForKey:@"removedOnCompletion"]);
-  -[SCNAnimation setAdditive:](v5, "setAdditive:", [coder decodeBoolForKey:@"additive"]);
-  -[SCNAnimation setCumulative:](v5, "setCumulative:", [coder decodeBoolForKey:@"cumulative"]);
-  -[SCNAnimation setUsesSceneTimeBase:](v5, "setUsesSceneTimeBase:", [coder decodeBoolForKey:@"usesSceneTimeBase"]);
-  -[SCNAnimation setFillsForward:](v5, "setFillsForward:", [coder decodeBoolForKey:@"fillForward"]);
-  -[SCNAnimation setFillsBackward:](v5, "setFillsBackward:", [coder decodeBoolForKey:@"fillBackward"]);
-  -[SCNAnimation setTimingFunction:](v5, "setTimingFunction:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"timingFunction"]);
+  [(SCNAnimation *)v6 setStartDelay:?];
+  -[SCNAnimation setAutoreverses:](v6, "setAutoreverses:", [coder decodeBoolForKey:@"autoreverses"]);
+  -[SCNAnimation setAppliedOnCompletion:](v6, "setAppliedOnCompletion:", [coder decodeBoolForKey:@"appliedOnCompletion"]);
+  -[SCNAnimation setRemovedOnCompletion:](v6, "setRemovedOnCompletion:", [coder decodeBoolForKey:@"removedOnCompletion"]);
+  -[SCNAnimation setAdditive:](v6, "setAdditive:", [coder decodeBoolForKey:@"additive"]);
+  -[SCNAnimation setCumulative:](v6, "setCumulative:", [coder decodeBoolForKey:@"cumulative"]);
+  -[SCNAnimation setUsesSceneTimeBase:](v6, "setUsesSceneTimeBase:", [coder decodeBoolForKey:@"usesSceneTimeBase"]);
+  -[SCNAnimation setFillsForward:](v6, "setFillsForward:", [coder decodeBoolForKey:@"fillForward"]);
+  -[SCNAnimation setFillsBackward:](v6, "setFillsBackward:", [coder decodeBoolForKey:@"fillBackward"]);
+  -[SCNAnimation setTimingFunction:](v6, "setTimingFunction:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"timingFunction"]);
   [coder decodeDoubleForKey:@"fadeInDuration"];
-  [(SCNAnimation *)v5 setFadeInDuration:?];
+  [(SCNAnimation *)v6 setFadeInDuration:?];
   [coder decodeDoubleForKey:@"fadeOutDuration"];
-  [(SCNAnimation *)v5 setFadeOutDuration:?];
-  +[SCNTransaction commit];
-  v10 = [coder decodeObjectOfClasses:SCNUserInfoClasses() forKey:@"userInfo"];
+  [(SCNAnimation *)v6 setFadeOutDuration:?];
+  v13 = +[SCNTransaction commit];
+  v15 = [coder decodeObjectOfClasses:SCNUserInfoClasses(v13 forKey:{v14), @"userInfo"}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5->_userInfo = [v10 mutableCopy];
+    v6->_userInfo = [v15 mutableCopy];
   }
 
-  v5->_didMutate = 0;
-  return v5;
+  v6->_didMutate = 0;
+  return v6;
 }
 
 + (SCNAnimation)animationNamed:(NSString *)animationName
@@ -535,7 +543,7 @@ LABEL_8:
   return v7;
 }
 
-uint64_t __35__SCNAnimation_animationFromScene___block_invoke(uint64_t a1, void *a2)
+void *__35__SCNAnimation_animationFromScene___block_invoke(uint64_t a1, void *a2)
 {
   v17 = *MEMORY[0x277D85DE8];
   v12 = 0u;
@@ -568,7 +576,7 @@ uint64_t __35__SCNAnimation_animationFromScene___block_invoke(uint64_t a1, void 
 
         *(*(*(a1 + 40) + 8) + 24) = v11;
         [*(a1 + 32) addObject:v9];
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -584,42 +592,43 @@ uint64_t __35__SCNAnimation_animationFromScene___block_invoke(uint64_t a1, void 
 
 + (SCNAnimation)animationWithContentsOfURL:(NSURL *)animationUrl
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:?];
-  v12 = 0;
+  v14 = 0;
   v6 = MEMORY[0x277CCAAC8];
   v7 = MEMORY[0x277CBEB98];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v8 = [v6 unarchivedObjectOfClasses:objc_msgSend(v7 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v13, 3)), v5, &v12}];
-  if (v12 && (v9 = scn_default_log(), os_log_type_enabled(v9, OS_LOG_TYPE_ERROR)))
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v15[2] = objc_opt_class();
+  v8 = [v6 unarchivedObjectOfClasses:objc_msgSend(v7 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v15, 3)), v5, &v14}];
+  v10 = v8;
+  if (v14 && (v11 = scn_default_log(v8, v9), os_log_type_enabled(v11, OS_LOG_TYPE_ERROR)))
   {
     [(SCNAnimation *)animationUrl animationWithContentsOfURL:?];
-    if (!v8)
+    if (!v10)
     {
-      return v8;
+      return v10;
     }
   }
 
-  else if (!v8)
+  else if (!v10)
   {
-    return v8;
+    return v10;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    return [self animationFromScene:v8];
+    return [self animationFromScene:v10];
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    return [SCNAnimation animationWithCAAnimation:v8];
+    return [SCNAnimation animationWithCAAnimation:v10];
   }
 
-  return v8;
+  return v10;
 }
 
 + (SCNAnimation)animationWithCAAnimation:(CAAnimation *)caAnimation
@@ -631,20 +640,20 @@ uint64_t __35__SCNAnimation_animationFromScene___block_invoke(uint64_t a1, void 
 
 - (void)prepareWithTarget:(id)target implicitDuration:(double)duration
 {
-  if (self->_animationRef || (v9 = [(SCNAnimation *)self caAnimation]) == 0)
+  if (self->_animationRef || (v11 = [(SCNAnimation *)self caAnimation]) == 0)
   {
 LABEL_2:
-    [(SCNAnimation *)self duration];
-    if (v6 == 0.0)
+    duration = [(SCNAnimation *)self duration];
+    if (v8 == 0.0)
     {
       if (duration == 0.0)
       {
-        v7 = scn_default_log();
+        v9 = scn_default_log(duration, v7);
         duration = 0.25;
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          *v12 = 0;
-          _os_log_impl(&dword_21BEF7000, v7, OS_LOG_TYPE_DEFAULT, "Warning: default duration is zero - using default transaction duration", v12, 2u);
+          *v15 = 0;
+          _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_DEFAULT, "Warning: default duration is zero - using default transaction duration", v15, 2u);
         }
       }
 
@@ -654,16 +663,16 @@ LABEL_2:
     return;
   }
 
-  v10 = CAAnimationToC3DAnimation(v9, target);
-  if (v10)
+  v12 = CAAnimationToC3DAnimation(v11, target);
+  if (v12)
   {
-    [(SCNAnimation *)self _setAnimationRef:v10];
+    [(SCNAnimation *)self _setAnimationRef:v12];
     [(SCNAnimation *)self _syncObjCModel];
     goto LABEL_2;
   }
 
-  v11 = scn_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v14 = scn_default_log(0, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [SCNAnimation prepareWithTarget:implicitDuration:];
   }
@@ -703,15 +712,15 @@ LABEL_18:
         return userAnimation;
       }
 
-      v7 = self->_userAnimation;
-      if (v7)
+      v8 = self->_userAnimation;
+      if (v8)
       {
-        userAnimation = [v7 copy];
+        userAnimation = [v8 copy];
         [(SCNAnimation *)self duration];
         [userAnimation setDuration:?];
         [(SCNAnimation *)self repeatCount];
-        *&v8 = v8;
-        [userAnimation setRepeatCount:v8];
+        *&v9 = v9;
+        [userAnimation setRepeatCount:v9];
         [userAnimation setAutoreverses:{-[SCNAnimation autoreverses](self, "autoreverses")}];
         [(SCNAnimation *)self startDelay];
         [userAnimation setBeginTime:?];
@@ -726,30 +735,30 @@ LABEL_18:
         [userAnimation setUsesSceneTimeBase:{-[SCNAnimation usesSceneTimeBase](self, "usesSceneTimeBase")}];
         fillsForward = [(SCNAnimation *)self fillsForward];
         fillsBackward = [(SCNAnimation *)self fillsBackward];
-        v11 = MEMORY[0x277CDA230];
+        v12 = MEMORY[0x277CDA230];
         if (!fillsForward)
         {
-          v11 = MEMORY[0x277CDA228];
+          v12 = MEMORY[0x277CDA228];
         }
 
-        v12 = MEMORY[0x277CDA238];
+        v13 = MEMORY[0x277CDA238];
         if (!fillsForward)
         {
-          v12 = MEMORY[0x277CDA240];
+          v13 = MEMORY[0x277CDA240];
         }
 
         if (!fillsBackward)
         {
-          v11 = v12;
+          v12 = v13;
         }
 
-        [userAnimation setFillMode:*v11];
+        [userAnimation setFillMode:*v12];
         [userAnimation setAnimationEvents:{-[SCNAnimation animationEvents](self, "animationEvents")}];
         goto LABEL_18;
       }
 
-      v14 = scn_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = scn_default_log(0, v6);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SCNAnimation caAnimation];
       }
@@ -806,10 +815,10 @@ void __27__SCNAnimation_setKeyPath___block_invoke(uint64_t a1)
   }
 }
 
-float __28__SCNAnimation_setDuration___block_invoke(uint64_t a1)
+float __28__SCNAnimation_setDuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DAnimationSetDuration(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DAnimationSetDuration(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -832,10 +841,10 @@ float __28__SCNAnimation_setDuration___block_invoke(uint64_t a1)
   }
 }
 
-float __31__SCNAnimation_setRepeatCount___block_invoke(uint64_t a1)
+float __31__SCNAnimation_setRepeatCount___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DAnimationSetRepeatCount(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DAnimationSetRepeatCount(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -972,13 +981,13 @@ float __31__SCNAnimation_setRepeatCount___block_invoke(uint64_t a1)
   }
 }
 
-void __32__SCNAnimation_setFillsForward___block_invoke(uint64_t a1)
+void __32__SCNAnimation_setFillsForward___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DAnimationGetFillModeMask(*(*(a1 + 32) + 8)) & 0xFE;
-  v3 = *(*(a1 + 32) + 8);
-  v4 = v2 | *(a1 + 40);
+  v3 = C3DAnimationGetFillModeMask(*(*(a1 + 32) + 8), a2) & 0xFFFFFFFE;
+  v4 = *(*(a1 + 32) + 8);
+  v5 = v3 | *(a1 + 40);
 
-  C3DAnimationSetFillModeMask(v3, v4);
+  C3DAnimationSetFillModeMask(v4, v5);
 }
 
 - (void)setFillsBackward:(BOOL)fillsBackward
@@ -1002,22 +1011,22 @@ void __32__SCNAnimation_setFillsForward___block_invoke(uint64_t a1)
   }
 }
 
-void __33__SCNAnimation_setFillsBackward___block_invoke(uint64_t a1)
+void __33__SCNAnimation_setFillsBackward___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = C3DAnimationGetFillModeMask(*(*(a1 + 32) + 8)) & 0xFFFFFFFD;
+  v3 = C3DAnimationGetFillModeMask(*(*(a1 + 32) + 8), a2) & 0xFFFFFFFD;
   if (*(a1 + 40))
   {
-    v3 = 2;
+    v4 = 2;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = *(*(a1 + 32) + 8);
+  v5 = *(*(a1 + 32) + 8);
 
-  C3DAnimationSetFillModeMask(v4, v3 | v2);
+  C3DAnimationSetFillModeMask(v5, v4 | v3);
 }
 
 - (void)setTimingFunction:(SCNTimingFunction *)timingFunction
@@ -1118,9 +1127,9 @@ CFTypeRef __34__SCNAnimation_setTimingFunction___block_invoke(uint64_t a1)
   }
 }
 
-void *__37__SCNAnimation_setAnimationDidStart___block_invoke(uint64_t a1)
+void *__37__SCNAnimation_setAnimationDidStart___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = C3DAnimationGetAnimationCallbacks(*(*(a1 + 32) + 8));
+  result = C3DAnimationGetAnimationCallbacks(*(*(a1 + 32) + 8), a2);
   *result = SCNAnimationDidStart;
   return result;
 }
@@ -1150,9 +1159,9 @@ void *__37__SCNAnimation_setAnimationDidStart___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __36__SCNAnimation_setAnimationDidStop___block_invoke(uint64_t a1)
+uint64_t __36__SCNAnimation_setAnimationDidStop___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = C3DAnimationGetAnimationCallbacks(*(*(a1 + 32) + 8));
+  result = C3DAnimationGetAnimationCallbacks(*(*(a1 + 32) + 8), a2);
   *(result + 8) = SCNAnimationDidStop;
   return result;
 }
@@ -1207,10 +1216,10 @@ CFTypeRef __35__SCNAnimation_setAnimationEvents___block_invoke(uint64_t a1)
   }
 }
 
-float __35__SCNAnimation_setBlendInDuration___block_invoke(uint64_t a1)
+float __35__SCNAnimation_setBlendInDuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DAnimationSetFadeInDuration(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DAnimationSetFadeInDuration(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -1233,10 +1242,10 @@ float __35__SCNAnimation_setBlendInDuration___block_invoke(uint64_t a1)
   }
 }
 
-float __36__SCNAnimation_setBlendOutDuration___block_invoke(uint64_t a1)
+float __36__SCNAnimation_setBlendOutDuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DAnimationSetFadeOutDuration(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DAnimationSetFadeOutDuration(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -1261,13 +1270,14 @@ float __36__SCNAnimation_setBlendOutDuration___block_invoke(uint64_t a1)
   }
 }
 
-void __28__SCNAnimation_setAdditive___block_invoke(uint64_t a1)
+void __28__SCNAnimation_setAdditive___block_invoke(uint64_t a1, uint64_t a2)
 {
-  TypeID = C3DAnimationClusterGetTypeID();
-  if (TypeID == CFGetTypeID(*(*(a1 + 32) + 8)))
+  TypeID = C3DAnimationClusterGetTypeID(a1, a2);
+  v4 = CFGetTypeID(*(*(a1 + 32) + 8));
+  if (TypeID == v4)
   {
-    v3 = scn_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v6 = scn_default_log(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __28__SCNAnimation_setAdditive___block_invoke_cold_1();
     }
@@ -1297,13 +1307,14 @@ void __28__SCNAnimation_setAdditive___block_invoke(uint64_t a1)
   }
 }
 
-void __30__SCNAnimation_setCumulative___block_invoke(uint64_t a1)
+void __30__SCNAnimation_setCumulative___block_invoke(uint64_t a1, uint64_t a2)
 {
-  TypeID = C3DAnimationClusterGetTypeID();
-  if (TypeID == CFGetTypeID(*(*(a1 + 32) + 8)))
+  TypeID = C3DAnimationClusterGetTypeID(a1, a2);
+  v4 = CFGetTypeID(*(*(a1 + 32) + 8));
+  if (TypeID == v4)
   {
-    v3 = scn_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v6 = scn_default_log(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __30__SCNAnimation_setCumulative___block_invoke_cold_1();
     }
@@ -1369,11 +1380,11 @@ LABEL_6:
 
   else
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = scn_default_log(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21BEF7000, v5, OS_LOG_TYPE_DEFAULT, "Warning: failed to optimize keyframes", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21BEF7000, v6, OS_LOG_TYPE_DEFAULT, "Warning: failed to optimize keyframes", v7, 2u);
     }
   }
 }
@@ -1387,42 +1398,50 @@ LABEL_6:
   }
 
   v4 = CFGetTypeID(animationRef);
-  if (v4 == C3DAnimationGroupGetTypeID())
+  TypeID = C3DAnimationGroupGetTypeID(v4, v5);
+  if (v4 == TypeID)
   {
-    v5 = CFRetain(self->_animationRef);
+    v8 = CFRetain(self->_animationRef);
   }
 
   else
   {
-    if (v4 != C3DAnimationClusterGetTypeID())
+    if (v4 != C3DAnimationClusterGetTypeID(TypeID, v7))
     {
       return 0;
     }
 
-    v5 = C3DAnimationGroupCreateWithAnimationCluster(self->_animationRef);
+    v8 = C3DAnimationGroupCreateWithAnimationCluster(self->_animationRef, v10);
   }
 
-  v6 = v5;
-  if (!v5)
+  v11 = v8;
+  if (!v8)
   {
     return 0;
   }
 
-  AnimationCount = C3DAnimationGroupGetAnimationCount(v5);
-  v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:AnimationCount];
+  AnimationCount = C3DAnimationGroupGetAnimationCount(v8, v9);
+  v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:AnimationCount];
   if (AnimationCount >= 1)
   {
     for (i = 0; i != AnimationCount; ++i)
     {
-      AnimationAtIndex = C3DAnimationGroupGetAnimationAtIndex(v6, i);
-      Copy = C3DAnimationCreateCopy(AnimationAtIndex);
-      [v8 addObject:{+[SCNAnimation animationWithC3DAnimation:](SCNAnimation, "animationWithC3DAnimation:", Copy)}];
+      AnimationAtIndex = C3DAnimationGroupGetAnimationAtIndex(v11, i);
+      Copy = C3DAnimationCreateCopy(AnimationAtIndex, v16);
+      [v13 addObject:{+[SCNAnimation animationWithC3DAnimation:](SCNAnimation, "animationWithC3DAnimation:", Copy)}];
       CFRelease(Copy);
     }
   }
 
-  CFRelease(v6);
-  return v8;
+  CFRelease(v11);
+  return v13;
+}
+
+- (void)initWithCAAnimation:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_animationEvents == NULL";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. _animationEvents should be nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)encodeWithCoder:.cold.1()

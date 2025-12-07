@@ -107,53 +107,71 @@
   {
     floatingProxyAgentList = [(AgentController *)self floatingProxyAgentList];
 
-    if (floatingProxyAgentList || (+[NSMutableDictionary dictionary], v7 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setFloatingProxyAgentList:v7], v7, [(AgentController *)self floatingProxyAgentList], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+    if ((floatingProxyAgentList || (+[NSMutableDictionary dictionary](NSMutableDictionary, "dictionary"), v7 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setFloatingProxyAgentList:v7], v7, [(AgentController *)self floatingProxyAgentList], v8 = objc_claimAutoreleasedReturnValue(), v8, v8)) && (([(AgentController *)self floatingProxyAgentList_TCPConverter], v9 = objc_claimAutoreleasedReturnValue(), v9, v9) || (+[NSMutableDictionary dictionary](NSMutableDictionary, "dictionary"), v10 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setFloatingProxyAgentList_TCPConverter:v10], v10, [(AgentController *)self floatingProxyAgentList_TCPConverter], v11 = objc_claimAutoreleasedReturnValue(), v11, v11)) && (([(AgentController *)self floatingDNSAgentList], v12 = objc_claimAutoreleasedReturnValue(), v12, v12) || (+[NSMutableDictionary dictionary](NSMutableDictionary, "dictionary"), v13 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setFloatingDNSAgentList:v13], v13, [(AgentController *)self floatingDNSAgentList], v14 = objc_claimAutoreleasedReturnValue(), v14, v14)) && (([(AgentController *)self policyDB], v15 = objc_claimAutoreleasedReturnValue(), v15, v15) || (+[NSMutableDictionary dictionary], v16 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setPolicyDB:v16], v16, [(AgentController *)self policyDB], v17 = objc_claimAutoreleasedReturnValue(), v17, v17)))
     {
-      floatingProxyAgentList_TCPConverter = [(AgentController *)self floatingProxyAgentList_TCPConverter];
+      controllerQueue = [(AgentController *)self controllerQueue];
 
-      if (floatingProxyAgentList_TCPConverter || (+[NSMutableDictionary dictionary], v10 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setFloatingProxyAgentList_TCPConverter:v10], v10, [(AgentController *)self floatingProxyAgentList_TCPConverter], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
+      if (controllerQueue)
       {
-        floatingDNSAgentList = [(AgentController *)self floatingDNSAgentList];
-
-        if (floatingDNSAgentList || (+[NSMutableDictionary dictionary], v13 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setFloatingDNSAgentList:v13], v13, [(AgentController *)self floatingDNSAgentList], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
-        {
-          policyDB = [(AgentController *)self policyDB];
-
-          if (policyDB || (+[NSMutableDictionary dictionary], v16 = objc_claimAutoreleasedReturnValue(), [(AgentController *)self setPolicyDB:v16], v16, [(AgentController *)self policyDB], v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
-          {
-            controllerQueue = [(AgentController *)self controllerQueue];
-
-            if (controllerQueue)
-            {
-              return 1;
-            }
-
-            v19 = dispatch_queue_create("IPMonitorAgentControllerQueue", 0);
-            [(AgentController *)self setControllerQueue:v19];
-
-            controllerQueue2 = [(AgentController *)self controllerQueue];
-
-            if (controllerQueue2)
-            {
-              return 1;
-            }
-          }
-        }
+        return 1;
       }
+
+      v19 = dispatch_queue_create("IPMonitorAgentControllerQueue", 0);
+      [(AgentController *)self setControllerQueue:v19];
+
+      controllerQueue2 = [(AgentController *)self controllerQueue];
+
+      if (controllerQueue2)
+      {
+        return 1;
+      }
+
+      v22 = "Failed to create a queue";
+    }
+
+    else
+    {
+      v22 = "Failed to create a dictionary";
     }
   }
 
-  v22 = sub_1000035EC();
-  v23 = _SC_syslog_os_log_mapping();
+  else
+  {
+    v22 = "Failed to create a policy session";
+  }
+
+  v23 = sub_1000035EC();
+  v24 = _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    memset(v25, 0, sizeof(v25));
-    os_log_type_enabled(v22, v23);
-    v24 = _os_log_send_and_compose_impl();
-    __SC_log_send2();
-    if (v24 != v25)
+    memset(v30, 0, sizeof(v30));
+    if (_sc_log <= 0)
     {
-      free(v24);
+      v25 = 2;
+    }
+
+    else
+    {
+      v25 = 3;
+    }
+
+    if (os_log_type_enabled(v23, v24))
+    {
+      v26 = v25;
+    }
+
+    else
+    {
+      v26 = 2;
+    }
+
+    v28 = 136315138;
+    v29 = v22;
+    v27 = _os_log_send_and_compose_impl(v26, 0, v30, 256, &_mh_execute_header, v23, v24, "Error occured while initializing AgentController: %s", &v28);
+    __SC_log_send2();
+    if (v27 != v30)
+    {
+      free(v27);
     }
   }
 
@@ -244,13 +262,15 @@
     v6 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v9, 0, sizeof(v9));
-      os_log_type_enabled(v5, v6);
-      v7 = _os_log_send_and_compose_impl();
+      memset(v12, 0, sizeof(v12));
+      v7 = _sc_log <= 0 ? 2 : 3;
+      v8 = os_log_type_enabled(v5, v6) ? v7 : 2;
+      v11[0] = 0;
+      v9 = _os_log_send_and_compose_impl(v8, 0, v12, 256, &_mh_execute_header, v5, v6, "Invalid domain proxy dict", v11, 2);
       __SC_log_send2();
-      if (v7 != v9)
+      if (v9 != v12)
       {
-        free(v7);
+        free(v9);
       }
     }
 
@@ -270,25 +290,27 @@
     v17 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v21, 0, sizeof(v21));
-      os_log_type_enabled(v16, v17);
-      v18 = _os_log_send_and_compose_impl();
+      memset(v24, 0, sizeof(v24));
+      v18 = _sc_log <= 0 ? 2 : 3;
+      v19 = os_log_type_enabled(v16, v17) ? v18 : 2;
+      v23[0] = 0;
+      v20 = _os_log_send_and_compose_impl(v19, 0, v24, 256, &_mh_execute_header, v16, v17, "Invalid proxies/domain", v23, 2);
       __SC_log_send2();
-      if (v18 != v21)
+      if (v20 != v24)
       {
-        free(v18);
+        free(v20);
       }
     }
 
-    goto LABEL_14;
+    goto LABEL_20;
   }
 
   Value = CFDictionaryGetValue(config, kSCPropNetProxiesSupplemental);
   if (!Value || (v9 = Value, Count = CFArrayGetCount(Value), Count < 1))
   {
-LABEL_14:
-    v19 = 0;
-    goto LABEL_15;
+LABEL_20:
+    v21 = 0;
+    goto LABEL_21;
   }
 
   v11 = Count;
@@ -308,36 +330,36 @@ LABEL_14:
 
     if (v11 == ++v12)
     {
-      goto LABEL_14;
+      goto LABEL_20;
     }
   }
 
-  v19 = [(AgentController *)self dataForProxyDictionary:ValueAtIndex];
-LABEL_15:
+  v21 = [(AgentController *)self dataForProxyDictionary:ValueAtIndex];
+LABEL_21:
 
-  return v19;
+  return v21;
 }
 
 - (int)countProxyEntriesEnabled:(__CFDictionary *)enabled
 {
-  v13[0] = kSCPropNetProxiesHTTPEnable;
-  v13[1] = kSCPropNetProxiesHTTPSEnable;
-  v13[2] = kSCPropNetProxiesProxyAutoConfigEnable;
-  v13[3] = kSCPropNetProxiesFTPEnable;
-  v13[4] = kSCPropNetProxiesGopherEnable;
-  v13[5] = kSCPropNetProxiesRTSPEnable;
-  v13[6] = kSCPropNetProxiesSOCKSEnable;
-  v13[7] = kSCPropNetProxiesTransportConverterEnable;
-  v13[8] = kSCPropNetProxiesProxyAutoDiscoveryEnable;
+  v16[0] = kSCPropNetProxiesHTTPEnable;
+  v16[1] = kSCPropNetProxiesHTTPSEnable;
+  v16[2] = kSCPropNetProxiesProxyAutoConfigEnable;
+  v16[3] = kSCPropNetProxiesFTPEnable;
+  v16[4] = kSCPropNetProxiesGopherEnable;
+  v16[5] = kSCPropNetProxiesRTSPEnable;
+  v16[6] = kSCPropNetProxiesSOCKSEnable;
+  v16[7] = kSCPropNetProxiesTransportConverterEnable;
+  v16[8] = kSCPropNetProxiesProxyAutoDiscoveryEnable;
   if (enabled)
   {
     v5 = 0;
     while (1)
     {
-      LODWORD(v12[0]) = 0;
-      v6 = [(AgentController *)self getIntValue:CFDictionaryGetValue(enabled valuePtr:v13[v5]), v12];
-      result = v12[0];
-      if (v6 && SLODWORD(v12[0]) >= 1)
+      LODWORD(v15[0]) = 0;
+      v6 = [(AgentController *)self getIntValue:CFDictionaryGetValue(enabled valuePtr:v16[v5]), v15];
+      result = v15[0];
+      if (v6 && SLODWORD(v15[0]) >= 1)
       {
         break;
       }
@@ -355,13 +377,15 @@ LABEL_15:
     v10 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v12, 0, sizeof(v12));
-      os_log_type_enabled(v9, v10);
-      v11 = _os_log_send_and_compose_impl();
+      memset(v15, 0, sizeof(v15));
+      v11 = _sc_log <= 0 ? 2 : 3;
+      v12 = os_log_type_enabled(v9, v10) ? v11 : 2;
+      v14[0] = 0;
+      v13 = _os_log_send_and_compose_impl(v12, 0, v15, 256, &_mh_execute_header, v9, v10, "No proxies", v14, 2);
       __SC_log_send2();
-      if (v11 != v12)
+      if (v13 != v15)
       {
-        free(v11);
+        free(v13);
       }
     }
 
@@ -378,9 +402,9 @@ LABEL_15:
     floatingProxyAgentList = [(AgentController *)self floatingProxyAgentList];
     v6 = [(AgentController *)self getAgentList:floatingProxyAgentList agentType:1 agentSubType:3];
 
-    v88 = [[NSCountedSet alloc] initWithCapacity:0];
-    v93 = +[NSMutableArray array];
-    v91 = +[NSMutableArray array];
+    v95 = [[NSCountedSet alloc] initWithCapacity:0];
+    v100 = +[NSMutableArray array];
+    v98 = +[NSMutableArray array];
     type = changes;
     Value = CFDictionaryGetValue(changes, kSCPropNetProxiesSupplemental);
     theArray = Value;
@@ -394,381 +418,400 @@ LABEL_15:
       Count = 0;
     }
 
-    v94 = +[NSMutableArray array];
-    v90 = Count;
+    v101 = +[NSMutableArray array];
+    v97 = Count;
     if (Count >= 1)
     {
-      v17 = 0;
-      v18 = kSCPropNetProxiesSupplementalMatchDomain;
+      v19 = 0;
+      v20 = kSCPropNetProxiesSupplementalMatchDomain;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(theArray, v17);
-        v20 = CFDictionaryGetValue(ValueAtIndex, v18);
-        if (v20)
+        ValueAtIndex = CFArrayGetValueAtIndex(theArray, v19);
+        v22 = CFDictionaryGetValue(ValueAtIndex, v20);
+        if (v22)
         {
-          v21 = v20;
+          v23 = v22;
           if ([(AgentController *)self countProxyEntriesEnabled:ValueAtIndex])
           {
-            [v93 addObject:v21];
+            [v100 addObject:v23];
           }
 
           else
           {
-            v22 = sub_1000035EC();
-            v23 = _SC_syslog_os_log_mapping();
+            v24 = sub_1000035EC();
+            v25 = _SC_syslog_os_log_mapping();
             if (__SC_log_enabled())
             {
+              v143 = 0u;
+              v142 = 0u;
+              v141 = 0u;
+              v140 = 0u;
+              v139 = 0u;
+              v138 = 0u;
+              v137 = 0u;
               v136 = 0u;
               v135 = 0u;
-              v134 = 0u;
               v133 = 0u;
-              v132 = 0u;
+              v134 = 0u;
               v131 = 0u;
+              v132 = 0u;
               v130 = 0u;
-              v129 = 0u;
-              v128 = 0u;
-              v126 = 0u;
-              v127 = 0u;
-              v124 = 0u;
-              v125 = 0u;
-              v123 = 0u;
-              v121 = 0uLL;
-              v122 = 0uLL;
-              os_log_type_enabled(v22, v23);
-              v119 = 138412290;
-              v120 = v21;
-              LODWORD(v84) = 12;
-              v82 = &v119;
-              v24 = _os_log_send_and_compose_impl();
+              v26 = _sc_log <= 0 ? 2 : 3;
+              v128 = 0uLL;
+              v129 = 0uLL;
+              v27 = os_log_type_enabled(v24, v25) ? v26 : 2;
+              v126 = 138412290;
+              v127 = v23;
+              LODWORD(v91) = 12;
+              v28 = _os_log_send_and_compose_impl(v27, 0, &v128, 256, &_mh_execute_header, v24, v25, "Proxy settings on %@ are generic. Not recognizing as new domain", &v126, v91);
               __SC_log_send2();
-              if (v24 != &v121)
+              if (v28 != &v128)
               {
-                free(v24);
+                free(v28);
               }
             }
           }
         }
 
-        ++v17;
+        ++v19;
       }
 
-      while (v90 != v17);
+      while (v97 != v19);
     }
 
-    v25 = [(AgentController *)self floatingProxyAgentList:v82];
-    [(AgentController *)self cleanConflictingAgentsFromList:v6 new_list:v93 agentDictionary:v25];
+    floatingProxyAgentList2 = [(AgentController *)self floatingProxyAgentList];
+    [(AgentController *)self cleanConflictingAgentsFromList:v6 new_list:v100 agentDictionary:floatingProxyAgentList2];
 
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    v26 = v6;
-    v27 = [v26 countByEnumeratingWithState:&v115 objects:v114 count:16];
-    if (v27)
+    v124 = 0u;
+    v125 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    v30 = v6;
+    v31 = [v30 countByEnumeratingWithState:&v122 objects:v121 count:16];
+    if (v31)
     {
-      v28 = v27;
-      v29 = *v116;
+      v32 = v31;
+      v33 = *v123;
       do
       {
-        for (i = 0; i != v28; i = i + 1)
+        for (i = 0; i != v32; i = i + 1)
         {
-          if (*v116 != v29)
+          if (*v123 != v33)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v30);
           }
 
-          v31 = *(*(&v115 + 1) + 8 * i);
-          if (([v93 containsObject:v31] & 1) == 0)
+          v35 = *(*(&v122 + 1) + 8 * i);
+          if (([v100 containsObject:v35] & 1) == 0)
           {
-            floatingProxyAgentList2 = [(AgentController *)self floatingProxyAgentList];
-            v33 = [floatingProxyAgentList2 objectForKey:v31];
+            floatingProxyAgentList3 = [(AgentController *)self floatingProxyAgentList];
+            v37 = [floatingProxyAgentList3 objectForKey:v35];
 
-            [(AgentController *)self destroyFloatingAgent:v33];
+            [(AgentController *)self destroyFloatingAgent:v37];
           }
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v115 objects:v114 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v122 objects:v121 count:16];
       }
 
-      while (v28);
+      while (v32);
     }
 
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
-    v111 = 0u;
-    obj = v26;
-    v34 = [obj countByEnumeratingWithState:&v110 objects:v109 count:16];
-    if (v34)
+    v119 = 0u;
+    v120 = 0u;
+    v117 = 0u;
+    v118 = 0u;
+    obj = v30;
+    v38 = [obj countByEnumeratingWithState:&v117 objects:v116 count:16];
+    if (v38)
     {
-      v35 = v34;
-      v36 = *v111;
+      v39 = v38;
+      v40 = *v118;
       do
       {
-        for (j = 0; j != v35; j = j + 1)
+        for (j = 0; j != v39; j = j + 1)
         {
-          if (*v111 != v36)
+          if (*v118 != v40)
           {
             objc_enumerationMutation(obj);
           }
 
-          v38 = *(*(&v110 + 1) + 8 * j);
-          floatingProxyAgentList3 = [(AgentController *)self floatingProxyAgentList];
-          v40 = [floatingProxyAgentList3 objectForKey:v38];
+          v42 = *(*(&v117 + 1) + 8 * j);
+          floatingProxyAgentList4 = [(AgentController *)self floatingProxyAgentList];
+          v44 = [floatingProxyAgentList4 objectForKey:v42];
 
-          if (v40)
+          if (v44)
           {
-            getAgentMapping = [v40 getAgentMapping];
-            v42 = getAgentMapping;
+            getAgentMapping = [v44 getAgentMapping];
+            v46 = getAgentMapping;
             if (getAgentMapping)
             {
               getAssociatedEntity = [getAgentMapping getAssociatedEntity];
-              v44 = [(AgentController *)self getProxyDataFromCurrentConfig:type domain:getAssociatedEntity];
+              v48 = [(AgentController *)self getProxyDataFromCurrentConfig:type domain:getAssociatedEntity];
 
-              if (!v44 || ([v40 getAgentData], v45 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend(v45, "isEqual:", v44), v45, (v46 & 1) == 0))
+              if (!v48 || ([v44 getAgentData], v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v49, "isEqual:", v48), v49, (v50 & 1) == 0))
               {
-                [v94 addObject:v40];
+                [v101 addObject:v44];
 
-LABEL_41:
-                goto LABEL_42;
+LABEL_53:
+                goto LABEL_54;
               }
             }
 
             else
             {
-              getAssociatedEntity2 = [v40 getAssociatedEntity];
-              v44 = [(AgentController *)self getProxyDataFromCurrentConfig:type domain:getAssociatedEntity2];
+              getAssociatedEntity2 = [v44 getAssociatedEntity];
+              v48 = [(AgentController *)self getProxyDataFromCurrentConfig:type domain:getAssociatedEntity2];
 
-              getAgentData = [v40 getAgentData];
-              v49 = [getAgentData isEqual:v44];
+              getAgentData = [v44 getAgentData];
+              v53 = [getAgentData isEqual:v48];
 
-              if ((v49 & 1) == 0)
+              if ((v53 & 1) == 0)
               {
-                [v40 updateAgentData:v44];
-                [v91 addObject:v40];
+                [v44 updateAgentData:v48];
+                [v98 addObject:v44];
               }
             }
 
-            [v93 removeObject:v38];
-            goto LABEL_41;
+            [v100 removeObject:v42];
+            goto LABEL_53;
           }
 
-LABEL_42:
+LABEL_54:
         }
 
-        v35 = [obj countByEnumeratingWithState:&v110 objects:v109 count:16];
+        v39 = [obj countByEnumeratingWithState:&v117 objects:v116 count:16];
       }
 
-      while (v35);
+      while (v39);
     }
 
-    v107 = 0u;
-    v108 = 0u;
-    v105 = 0u;
-    v106 = 0u;
-    v16 = v94;
-    v50 = [v16 countByEnumeratingWithState:&v105 objects:v104 count:16];
-    v95 = v16;
-    if (v50)
+    v114 = 0u;
+    v115 = 0u;
+    v112 = 0u;
+    v113 = 0u;
+    v18 = v101;
+    v54 = [v18 countByEnumeratingWithState:&v112 objects:v111 count:16];
+    v102 = v18;
+    if (v54)
     {
-      v51 = v50;
-      v52 = *v106;
+      v55 = v54;
+      v56 = *v113;
       do
       {
-        for (k = 0; k != v51; k = k + 1)
+        for (k = 0; k != v55; k = k + 1)
         {
-          if (*v106 != v52)
+          if (*v113 != v56)
           {
-            objc_enumerationMutation(v95);
+            objc_enumerationMutation(v102);
           }
 
-          v54 = *(*(&v105 + 1) + 8 * k);
-          v55 = sub_1000035EC();
-          v56 = _SC_syslog_os_log_mapping();
+          v58 = *(*(&v112 + 1) + 8 * k);
+          v59 = sub_1000035EC();
+          v60 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
+            v143 = 0u;
+            v142 = 0u;
+            v141 = 0u;
+            v140 = 0u;
+            v139 = 0u;
+            v138 = 0u;
+            v137 = 0u;
             v136 = 0u;
             v135 = 0u;
-            v134 = 0u;
             v133 = 0u;
-            v132 = 0u;
+            v134 = 0u;
             v131 = 0u;
+            v132 = 0u;
             v130 = 0u;
-            v129 = 0u;
-            v128 = 0u;
-            v126 = 0u;
-            v127 = 0u;
-            v124 = 0u;
-            v125 = 0u;
-            v123 = 0u;
-            v121 = 0uLL;
-            v122 = 0uLL;
-            os_log_type_enabled(v55, v56);
-            v57 = v55;
-            getAgentName = [v54 getAgentName];
-            v119 = 138412290;
-            v120 = getAgentName;
-            LODWORD(v85) = 12;
-            v83 = &v119;
-            v59 = _os_log_send_and_compose_impl();
+            v61 = _sc_log <= 0 ? 2 : 3;
+            v128 = 0uLL;
+            v129 = 0uLL;
+            v62 = os_log_type_enabled(v59, v60) ? v61 : 2;
+            v63 = v59;
+            getAgentName = [v58 getAgentName];
+            v126 = 138412290;
+            v127 = getAgentName;
+            LODWORD(v91) = 12;
+            v65 = _os_log_send_and_compose_impl(v62, 0, &v128, 256, &_mh_execute_header, v63, v60, "Destroying agent %@ because something changed!", &v126, v91);
 
             __SC_log_send2();
-            if (v59 != &v121)
+            if (v65 != &v128)
             {
-              free(v59);
+              free(v65);
             }
           }
 
-          [(AgentController *)self destroyFloatingAgent:v54];
+          [(AgentController *)self destroyFloatingAgent:v58];
         }
 
-        v16 = v95;
-        v51 = [v95 countByEnumeratingWithState:&v105 objects:v104 count:16];
+        v18 = v102;
+        v55 = [v102 countByEnumeratingWithState:&v112 objects:v111 count:16];
       }
 
-      while (v51);
+      while (v55);
     }
 
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
-    v101 = 0u;
-    v12 = v91;
-    v60 = [v12 countByEnumeratingWithState:&v100 objects:v99 count:16];
-    v14 = v93;
-    if (v60)
+    v109 = 0u;
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
+    v14 = v98;
+    v66 = [v14 countByEnumeratingWithState:&v107 objects:v106 count:16];
+    v16 = v100;
+    if (v66)
     {
-      v61 = v60;
-      v62 = *v101;
+      v67 = v66;
+      v68 = *v108;
       do
       {
-        for (m = 0; m != v61; m = m + 1)
+        for (m = 0; m != v67; m = m + 1)
         {
-          if (*v101 != v62)
+          if (*v108 != v68)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v14);
           }
 
-          [(AgentController *)self publishToAgent:*(*(&v100 + 1) + 8 * m), v83, v85];
+          [(AgentController *)self publishToAgent:*(*(&v107 + 1) + 8 * m)];
         }
 
-        v61 = [v12 countByEnumeratingWithState:&v100 objects:v99 count:16];
+        v67 = [v14 countByEnumeratingWithState:&v107 objects:v106 count:16];
       }
 
-      while (v61);
+      while (v67);
     }
 
-    if (v90 < 1)
+    if (v97 < 1)
     {
-      v15 = v88;
-      v13 = obj;
+      v17 = v95;
+      v15 = obj;
     }
 
     else
     {
-      v64 = 0;
-      v65 = kSCPropNetProxiesSupplementalMatchDomain;
-      v15 = v88;
-      v92 = kSCPropNetProxiesSupplementalMatchDomain;
+      v70 = 0;
+      v71 = kSCPropNetProxiesSupplementalMatchDomain;
+      v17 = v95;
+      v99 = kSCPropNetProxiesSupplementalMatchDomain;
       do
       {
-        v66 = CFArrayGetValueAtIndex(theArray, v64);
-        v67 = CFDictionaryGetValue(v66, v65);
-        if (v67)
+        v72 = CFArrayGetValueAtIndex(theArray, v70);
+        v73 = CFDictionaryGetValue(v72, v71);
+        if (v73)
         {
-          v68 = v67;
-          v69 = [v14 indexOfObject:v67];
-          if (v69 != 0x7FFFFFFFFFFFFFFFLL)
+          v74 = v73;
+          v75 = [v16 indexOfObject:v73];
+          if (v75 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v70 = v69;
-            v71 = [v15 countForObject:v68];
-            if (v71)
+            v76 = v75;
+            v77 = [v17 countForObject:v74];
+            if (v77)
             {
-              v72 = [NSString stringWithFormat:@"%@ #%lu", v68, v71 + 1];
-              v73 = [(AgentController *)self dataForProxyDictionary:v66];
-              if ([(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v72 agentSubType:3 addPolicyOfType:6 publishData:v73])
+              v78 = [NSString stringWithFormat:@"%@ #%lu", v74, v77 + 1];
+              v79 = [(AgentController *)self dataForProxyDictionary:v72];
+              if ([(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v78 agentSubType:3 addPolicyOfType:6 publishData:v79])
               {
-                floatingProxyAgentList4 = [(AgentController *)self floatingProxyAgentList];
-                v87 = v72;
-                v75 = [floatingProxyAgentList4 objectForKey:v72];
+                floatingProxyAgentList5 = [(AgentController *)self floatingProxyAgentList];
+                v94 = v78;
+                v81 = [floatingProxyAgentList5 objectForKey:v78];
 
-                v76 = sub_1000035EC();
+                v82 = sub_1000035EC();
                 typea = _SC_syslog_os_log_mapping();
                 if (__SC_log_enabled())
                 {
+                  v143 = 0u;
+                  v142 = 0u;
+                  v141 = 0u;
+                  v140 = 0u;
+                  v139 = 0u;
+                  v138 = 0u;
+                  v137 = 0u;
                   v136 = 0u;
                   v135 = 0u;
-                  v134 = 0u;
                   v133 = 0u;
-                  v132 = 0u;
+                  v134 = 0u;
                   v131 = 0u;
+                  v132 = 0u;
                   v130 = 0u;
-                  v129 = 0u;
-                  v128 = 0u;
-                  v126 = 0u;
-                  v127 = 0u;
-                  v124 = 0u;
-                  v125 = 0u;
-                  v123 = 0u;
-                  v121 = 0uLL;
-                  v122 = 0uLL;
-                  os_log_type_enabled(v76, typea);
-                  v86 = v76;
-                  v77 = v76;
-                  getAgentName2 = [v75 getAgentName];
-                  v119 = 138412290;
-                  v120 = getAgentName2;
-                  LODWORD(v85) = 12;
-                  v83 = &v119;
-                  v79 = _os_log_send_and_compose_impl();
-
-                  __SC_log_send2();
-                  if (v79 != &v121)
+                  v83 = v82;
+                  if (_sc_log <= 0)
                   {
-                    free(v79);
+                    v84 = 2;
                   }
 
-                  v65 = v92;
-                  v14 = v93;
-                  v76 = v86;
+                  else
+                  {
+                    v84 = 3;
+                  }
+
+                  v128 = 0uLL;
+                  v129 = 0uLL;
+                  if (os_log_type_enabled(v83, typea))
+                  {
+                    v85 = v84;
+                  }
+
+                  else
+                  {
+                    v85 = 2;
+                  }
+
+                  v93 = v83;
+                  v86 = v83;
+                  getAgentName2 = [v81 getAgentName];
+                  v126 = 138412290;
+                  v127 = getAgentName2;
+                  LODWORD(v92) = 12;
+                  v88 = _os_log_send_and_compose_impl(v85, 0, &v128, 256, &_mh_execute_header, v86, typea, "Duplicate Proxy agent %@", &v126, v92);
+
+                  __SC_log_send2();
+                  if (v88 != &v128)
+                  {
+                    free(v88);
+                  }
+
+                  v71 = v99;
+                  v16 = v100;
+                  v82 = v93;
                 }
 
-                v72 = v87;
-                v15 = v88;
+                v78 = v94;
+                v17 = v95;
               }
             }
 
             else
             {
-              v73 = [(AgentController *)self dataForProxyDictionary:v66];
-              floatingProxyAgentList5 = [(AgentController *)self floatingProxyAgentList];
-              v81 = [(AgentController *)self getAgentWithSameDataAndSubType:floatingProxyAgentList5 data:v73 subType:3];
+              v79 = [(AgentController *)self dataForProxyDictionary:v72];
+              floatingProxyAgentList6 = [(AgentController *)self floatingProxyAgentList];
+              v90 = [(AgentController *)self getAgentWithSameDataAndSubType:floatingProxyAgentList6 data:v79 subType:3];
 
-              if (v81)
+              if (v90)
               {
-                [(AgentController *)self spawnMappedFloatingAgent:v81 entity:v68 agentSubType:3 addPolicyOfType:6 updateData:v73];
+                [(AgentController *)self spawnMappedFloatingAgent:v90 entity:v74 agentSubType:3 addPolicyOfType:6 updateData:v79];
               }
 
               else
               {
-                [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v68 agentSubType:3 addPolicyOfType:6 publishData:v73];
+                [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v74 agentSubType:3 addPolicyOfType:6 publishData:v79];
               }
 
-              v15 = v88;
-              v65 = v92;
+              v17 = v95;
+              v71 = v99;
             }
 
-            [v14 removeObjectAtIndex:{v70, v83, v85}];
-            [v15 addObject:v68];
+            [v16 removeObjectAtIndex:v76];
+            [v17 addObject:v74];
           }
         }
 
-        ++v64;
+        ++v70;
       }
 
-      while (v90 != v64);
-      v16 = v95;
-      v13 = obj;
+      while (v97 != v70);
+      v18 = v102;
+      v15 = obj;
     }
   }
 
@@ -778,44 +821,45 @@ LABEL_42:
     v10 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v143 = 0u;
+      v142 = 0u;
+      v141 = 0u;
+      v140 = 0u;
+      v139 = 0u;
+      v138 = 0u;
+      v137 = 0u;
       v136 = 0u;
       v135 = 0u;
-      v134 = 0u;
       v133 = 0u;
-      v132 = 0u;
+      v134 = 0u;
       v131 = 0u;
-      v130 = 0u;
+      v132 = 0u;
       v129 = 0u;
+      v130 = 0u;
       v128 = 0u;
-      v126 = 0u;
-      v127 = 0u;
-      v124 = 0u;
-      v125 = 0u;
-      v122 = 0u;
-      v123 = 0u;
-      v121 = 0u;
-      os_log_type_enabled(v9, v10);
-      LOWORD(v119) = 0;
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _sc_log <= 0 ? 2 : 3;
+      v12 = os_log_type_enabled(v9, v10) ? v11 : 2;
+      LOWORD(v126) = 0;
+      v13 = _os_log_send_and_compose_impl(v12, 0, &v128, 256, &_mh_execute_header, v9, v10, "No proxy config to process", &v126, 2);
       __SC_log_send2();
-      if (v11 != &v121)
+      if (v13 != &v128)
       {
-        free(v11);
+        free(v13);
       }
     }
 
-    v12 = 0;
-    v13 = 0;
     v14 = 0;
     v15 = 0;
     v16 = 0;
+    v17 = 0;
+    v18 = 0;
   }
 }
 
 - (void)processScopedProxyChanges:(__CFDictionary *)changes
 {
   floatingProxyAgentList = [(AgentController *)self floatingProxyAgentList];
-  v27 = [(AgentController *)self getAgentList:floatingProxyAgentList agentType:1 agentSubType:1];
+  v28 = [(AgentController *)self getAgentList:floatingProxyAgentList agentType:1 agentSubType:1];
 
   Value = CFDictionaryGetValue(changes, kSCPropNetProxiesScoped);
   if (Value)
@@ -828,14 +872,14 @@ LABEL_42:
       v10 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
       CFDictionaryGetKeysAndValues(v7, v10, 0);
       v11 = 0;
-      v26 = v7;
+      v27 = v7;
       do
       {
         v12 = v10[v11];
         v13 = [NSString stringWithFormat:@"%s%@", "@", v12];
         if ([(AgentController *)self countProxyEntriesEnabled:CFDictionaryGetValue(v7, v12)])
         {
-          v14 = [v27 indexOfObject:v13];
+          v14 = [v28 indexOfObject:v13];
           v15 = SCNetworkProxiesCopyMatching();
           if (v15)
           {
@@ -852,21 +896,21 @@ LABEL_42:
           if (v14 == 0x7FFFFFFFFFFFFFFFLL)
           {
             [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v13 agentSubType:1 addPolicyOfType:8 publishData:v17];
-            v21 = 0;
+            v23 = 0;
           }
 
           else
           {
-            [v27 removeObjectAtIndex:v14];
+            [v28 removeObjectAtIndex:v14];
             floatingProxyAgentList2 = [(AgentController *)self floatingProxyAgentList];
-            v21 = [floatingProxyAgentList2 objectForKey:v13];
+            v23 = [floatingProxyAgentList2 objectForKey:v13];
 
-            if (v21)
+            if (v23)
             {
-              [v21 updateAgentData:v17];
-              if ([v21 shouldUpdateAgent])
+              [v23 updateAgentData:v17];
+              if ([v23 shouldUpdateAgent])
               {
-                [(AgentController *)self publishToAgent:v21];
+                [(AgentController *)self publishToAgent:v23];
               }
             }
           }
@@ -878,23 +922,42 @@ LABEL_42:
           v19 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            memset(v30, 0, sizeof(v30));
-            os_log_type_enabled(v18, v19);
-            v28 = 138412290;
-            v29 = v12;
-            LODWORD(v25) = 12;
-            v24 = &v28;
-            v20 = _os_log_send_and_compose_impl();
-            __SC_log_send2();
-            if (v20 != v30)
+            memset(&v31[2], 0, 224);
+            if (_sc_log <= 0)
             {
-              free(v20);
+              v20 = 2;
             }
 
-            v7 = v26;
+            else
+            {
+              v20 = 3;
+            }
+
+            memset(v31, 0, 32);
+            if (os_log_type_enabled(v18, v19))
+            {
+              v21 = v20;
+            }
+
+            else
+            {
+              v21 = 2;
+            }
+
+            v29 = 138412290;
+            v30 = v12;
+            LODWORD(v26) = 12;
+            v22 = _os_log_send_and_compose_impl(v21, 0, v31, 256, &_mh_execute_header, v18, v19, "Proxy settings on %@ are generic. Skipping", &v29, v26);
+            __SC_log_send2();
+            if (v22 != v31)
+            {
+              free(v22);
+            }
+
+            v7 = v27;
           }
 
-          v21 = 0;
+          v23 = 0;
           v17 = 0;
         }
 
@@ -906,8 +969,8 @@ LABEL_42:
     }
   }
 
-  v23 = [(AgentController *)self floatingProxyAgentList:v24];
-  [(AgentController *)self deleteAgentList:v23 list:v27];
+  floatingProxyAgentList3 = [(AgentController *)self floatingProxyAgentList];
+  [(AgentController *)self deleteAgentList:floatingProxyAgentList3 list:v28];
 }
 
 - (void)processServiceSpecificProxyChanges:(__CFDictionary *)changes
@@ -926,8 +989,8 @@ LABEL_42:
       v11 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
       CFDictionaryGetKeysAndValues(v8, v11, 0);
       v12 = 0;
-      v26 = v10;
-      v27 = v6;
+      v27 = v10;
+      v28 = v6;
       do
       {
         v13 = v11[v12];
@@ -937,8 +1000,8 @@ LABEL_42:
           v15 = CFDictionaryGetValue(v8, v13);
           if (v15)
           {
-            v28 = v15;
-            v16 = [(AgentController *)self dataForProxyArray:[NSArray arrayWithObjects:&v28 count:1]];
+            v29 = v15;
+            v16 = [(AgentController *)self dataForProxyArray:[NSArray arrayWithObjects:&v29 count:1]];
           }
 
           else
@@ -946,29 +1009,29 @@ LABEL_42:
             v16 = 0;
           }
 
-          v21 = [v6 indexOfObject:v14];
-          if (v21 == 0x7FFFFFFFFFFFFFFFLL)
+          v23 = [v6 indexOfObject:v14];
+          if (v23 == 0x7FFFFFFFFFFFFFFFLL)
           {
             [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v14 agentSubType:9 addPolicyOfType:-1 publishData:v16];
-            v20 = 0;
+            v22 = 0;
           }
 
           else
           {
-            [v6 removeObjectAtIndex:v21];
+            [v6 removeObjectAtIndex:v23];
             floatingProxyAgentList2 = [(AgentController *)self floatingProxyAgentList];
-            v20 = [floatingProxyAgentList2 objectForKey:v14];
+            v22 = [floatingProxyAgentList2 objectForKey:v14];
 
-            if (v20)
+            if (v22)
             {
-              [v20 updateAgentData:v16];
-              if ([v20 shouldUpdateAgent])
+              [v22 updateAgentData:v16];
+              if ([v22 shouldUpdateAgent])
               {
-                [(AgentController *)self publishToAgent:v20];
+                [(AgentController *)self publishToAgent:v22];
               }
             }
 
-            v6 = v27;
+            v6 = v28;
           }
         }
 
@@ -978,24 +1041,43 @@ LABEL_42:
           v18 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            memset(v31, 0, sizeof(v31));
-            os_log_type_enabled(v17, v18);
-            v29 = 138412290;
-            v30 = v13;
-            LODWORD(v25) = 12;
-            v24 = &v29;
-            v19 = _os_log_send_and_compose_impl();
-            __SC_log_send2();
-            if (v19 != v31)
+            memset(&v32[2], 0, 224);
+            if (_sc_log <= 0)
             {
-              free(v19);
+              v19 = 2;
             }
 
-            v10 = v26;
-            v6 = v27;
+            else
+            {
+              v19 = 3;
+            }
+
+            memset(v32, 0, 32);
+            if (os_log_type_enabled(v17, v18))
+            {
+              v20 = v19;
+            }
+
+            else
+            {
+              v20 = 2;
+            }
+
+            v30 = 138412290;
+            v31 = v13;
+            LODWORD(v26) = 12;
+            v21 = _os_log_send_and_compose_impl(v20, 0, v32, 256, &_mh_execute_header, v17, v18, "Proxy settings on %@ are generic. Skipping", &v30, v26);
+            __SC_log_send2();
+            if (v21 != v32)
+            {
+              free(v21);
+            }
+
+            v10 = v27;
+            v6 = v28;
           }
 
-          v20 = 0;
+          v22 = 0;
           v16 = 0;
         }
 
@@ -1007,8 +1089,8 @@ LABEL_42:
     }
   }
 
-  v23 = [(AgentController *)self floatingProxyAgentList:v24];
-  [(AgentController *)self deleteAgentList:v23 list:v6];
+  floatingProxyAgentList3 = [(AgentController *)self floatingProxyAgentList];
+  [(AgentController *)self deleteAgentList:floatingProxyAgentList3 list:v6];
 }
 
 - (BOOL)isTCPConverterProxyEnabled:(__CFDictionary *)enabled
@@ -1055,7 +1137,7 @@ LABEL_42:
 
         if (v9)
         {
-          goto LABEL_23;
+          goto LABEL_35;
         }
 
         [(AgentController *)self destroyFloatingAgent:v7];
@@ -1068,112 +1150,114 @@ LABEL_42:
         v12 = _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
+          v45 = 0u;
+          v46 = 0u;
+          v43 = 0u;
+          v44 = 0u;
           v41 = 0u;
           v42 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
-          v35 = 0u;
           v36 = 0u;
+          v37 = 0u;
           v34 = 0u;
+          v35 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v30 = 0u;
           v31 = 0u;
-          v28 = 0u;
-          v29 = 0u;
-          v27 = 0u;
-          os_log_type_enabled(v11, v12);
-          v26 = 0;
-          v13 = _os_log_send_and_compose_impl();
+          v13 = _sc_log <= 0 ? 2 : 3;
+          v14 = os_log_type_enabled(v11, v12) ? v13 : 2;
+          v30[0] = 0;
+          v15 = _os_log_send_and_compose_impl(v14, 0, &v31, 256, &_mh_execute_header, v11, v12, "Global proxy detected...", v30, 2);
           __SC_log_send2();
-          if (v13 != &v27)
+          if (v15 != &v31)
           {
-            free(v13);
+            free(v15);
           }
         }
 
-        v14 = 7;
-        v15 = 10;
+        v16 = 7;
+        v17 = 10;
       }
 
       else
       {
-        v14 = 0;
-        v15 = 5;
+        v16 = 0;
+        v17 = 5;
       }
 
-      if ((v10 & [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:@"_defaultProxy" agentSubType:v15 addPolicyOfType:v14 publishData:v5]) == 1 && [(AgentController *)self isTCPConverterProxyEnabled:values])
+      if ((v10 & [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:@"_defaultProxy" agentSubType:v17 addPolicyOfType:v16 publishData:v5]) == 1 && [(AgentController *)self isTCPConverterProxyEnabled:values])
       {
         floatingProxyAgentList2 = [(AgentController *)self floatingProxyAgentList];
-        v20 = [floatingProxyAgentList2 objectForKey:@"_defaultProxy"];
+        v24 = [floatingProxyAgentList2 objectForKey:@"_defaultProxy"];
 
-        if (v20)
+        if (v24)
         {
-          getAgentData2 = [v20 getAgentData];
-          v23 = [v5 isEqual:getAgentData2];
+          getAgentData2 = [v24 getAgentData];
+          v27 = [v5 isEqual:getAgentData2];
 
-          if (v23)
+          if (v27)
           {
             floatingProxyAgentList_TCPConverter = [(AgentController *)self floatingProxyAgentList_TCPConverter];
-            [floatingProxyAgentList_TCPConverter setObject:v20 forKey:@"_defaultProxy"];
+            [floatingProxyAgentList_TCPConverter setObject:v24 forKey:@"_defaultProxy"];
 
             sub_10004EA44(1);
           }
         }
 
-        goto LABEL_24;
+        goto LABEL_36;
       }
 
-LABEL_23:
-      v20 = v7;
-LABEL_24:
+LABEL_35:
+      v24 = v7;
+LABEL_36:
 
-      goto LABEL_25;
+      goto LABEL_37;
     }
 
-    v16 = sub_1000035EC();
-    v17 = _SC_syslog_os_log_mapping();
+    v18 = sub_1000035EC();
+    v19 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
       v41 = 0u;
       v42 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
       v34 = 0u;
+      v35 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v27 = 0u;
-      os_log_type_enabled(v16, v17);
-      v26 = 0;
-      v18 = _os_log_send_and_compose_impl();
+      v20 = _sc_log <= 0 ? 2 : 3;
+      v21 = os_log_type_enabled(v18, v19) ? v20 : 2;
+      v30[0] = 0;
+      v22 = _os_log_send_and_compose_impl(v21, 0, &v31, 256, &_mh_execute_header, v18, v19, "Proxy settings on defaultProxy are generic. Skipping", v30, 2);
       __SC_log_send2();
-      if (v18 != &v27)
+      if (v22 != &v31)
       {
-        free(v18);
+        free(v22);
       }
     }
   }
 
   CFRelease(values);
   floatingProxyAgentList3 = [(AgentController *)self floatingProxyAgentList];
-  v20 = [floatingProxyAgentList3 objectForKey:@"_defaultProxy"];
+  v24 = [floatingProxyAgentList3 objectForKey:@"_defaultProxy"];
 
-  if (v20)
+  if (v24)
   {
-    [(AgentController *)self destroyFloatingAgent:v20];
+    [(AgentController *)self destroyFloatingAgent:v24];
   }
 
-LABEL_25:
+LABEL_37:
 
   CFRelease(v4);
 }
@@ -1193,72 +1277,91 @@ LABEL_25:
       v8 = _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v34 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         v35 = 0u;
-        v32 = 0u;
+        v36 = 0u;
         v33 = 0u;
-        v30 = 0u;
+        v34 = 0u;
         v31 = 0u;
-        v28 = 0u;
+        v32 = 0u;
         v29 = 0u;
-        v26 = 0u;
+        v30 = 0u;
         v27 = 0u;
-        v24 = 0u;
+        v28 = 0u;
         v25 = 0u;
-        v22 = 0u;
+        v26 = 0u;
         v23 = 0u;
-        v20 = 0u;
-        v21 = 0u;
-        os_log_type_enabled(v7, v8);
-        v19 = 0;
-        LODWORD(v18) = 2;
-        v17 = &v19;
-        v9 = _os_log_send_and_compose_impl();
+        v24 = 0u;
+        v9 = _sc_log <= 0 ? 2 : 3;
+        v10 = os_log_type_enabled(v7, v8) ? v9 : 2;
+        v22[0] = 0;
+        v11 = _os_log_send_and_compose_impl(v10, 0, &v23, 256, &_mh_execute_header, v7, v8, "Failed to apply control policies", v22, 2);
         __SC_log_send2();
-        if (v9 != &v20)
+        if (v11 != &v23)
         {
-          free(v9);
+          free(v11);
         }
       }
     }
   }
 
-  v10 = [(AgentController *)self policySession:v17];
-  if (v10)
+  policySession = [(AgentController *)self policySession];
+  if (policySession)
   {
-    v11 = v10;
-    policySession = [(AgentController *)self policySession];
-    apply2 = [policySession apply];
+    v13 = policySession;
+    policySession2 = [(AgentController *)self policySession];
+    apply2 = [policySession2 apply];
 
     if ((apply2 & 1) == 0)
     {
-      v14 = sub_1000035EC();
-      v15 = _SC_syslog_os_log_mapping();
+      v16 = sub_1000035EC();
+      v17 = _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v34 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         v35 = 0u;
-        v32 = 0u;
+        v36 = 0u;
         v33 = 0u;
-        v30 = 0u;
+        v34 = 0u;
         v31 = 0u;
-        v28 = 0u;
+        v32 = 0u;
         v29 = 0u;
-        v26 = 0u;
+        v30 = 0u;
         v27 = 0u;
-        v24 = 0u;
+        v28 = 0u;
         v25 = 0u;
-        v22 = 0u;
+        v26 = 0u;
         v23 = 0u;
-        v20 = 0u;
-        v21 = 0u;
-        os_log_type_enabled(v14, v15);
-        v19 = 0;
-        v16 = _os_log_send_and_compose_impl();
-        __SC_log_send2();
-        if (v16 != &v20)
+        v24 = 0u;
+        if (_sc_log <= 0)
         {
-          free(v16);
+          v18 = 2;
+        }
+
+        else
+        {
+          v18 = 3;
+        }
+
+        if (os_log_type_enabled(v16, v17))
+        {
+          v19 = v18;
+        }
+
+        else
+        {
+          v19 = 2;
+        }
+
+        v22[0] = 0;
+        LODWORD(v21) = 2;
+        v20 = _os_log_send_and_compose_impl(v19, 0, &v23, 256, &_mh_execute_header, v16, v17, "Failed to apply policies", v22, v21);
+        __SC_log_send2();
+        if (v20 != &v23)
+        {
+          free(v20);
         }
       }
     }
@@ -1287,48 +1390,47 @@ LABEL_25:
     if (__SC_log_enabled())
     {
       memset(v24, 0, sizeof(v24));
-      os_log_type_enabled(v5, v6);
-      v18 = 0;
-      LODWORD(v17) = 2;
-      v16 = &v18;
-      v7 = _os_log_send_and_compose_impl();
+      v7 = _sc_log <= 0 ? 2 : 3;
+      v8 = os_log_type_enabled(v5, v6) ? v7 : 2;
+      v18[0] = 0;
+      v9 = _os_log_send_and_compose_impl(v8, 0, v24, 256, &_mh_execute_header, v5, v6, "No proxy information", v18, 2);
       __SC_log_send2();
-      if (v7 != v24)
+      if (v9 != v24)
       {
-        free(v7);
+        free(v9);
       }
     }
 
     floatingProxyAgentList = [(AgentController *)self floatingProxyAgentList];
-    v9 = [floatingProxyAgentList copy];
+    v11 = [floatingProxyAgentList copy];
 
     v22 = 0u;
     v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v19 count:16];
-    if (v11)
+    v12 = v11;
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v19 count:16];
+    if (v13)
     {
-      v12 = v11;
-      v13 = *v21;
+      v14 = v13;
+      v15 = *v21;
       do
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v21 != v13)
+          if (*v21 != v15)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v12);
           }
 
-          v15 = [v10 objectForKey:{*(*(&v20 + 1) + 8 * i), v16, v17}];
-          [(AgentController *)self destroyFloatingAgent:v15];
+          v17 = [v12 objectForKey:*(*(&v20 + 1) + 8 * i)];
+          [(AgentController *)self destroyFloatingAgent:v17];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v19 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v19 count:16];
       }
 
-      while (v12);
+      while (v14);
 
       [(AgentController *)self applyPolicies];
     }
@@ -1395,83 +1497,79 @@ LABEL_25:
   v12 = _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    memset(v35, 0, sizeof(v35));
-    os_log_type_enabled(v11, v12);
-    var1 = v5->var1;
+    memset(v34, 0, sizeof(v34));
+    v13 = _sc_log <= 0 ? 2 : 3;
+    v14 = os_log_type_enabled(v11, v12) ? v13 : 2;
     var3 = v5->var3;
     var5 = v5->var5;
-    v30[0] = 67109632;
-    v30[1] = var1;
-    v31 = 1024;
-    v32 = var3;
-    v33 = 1024;
-    v34 = var5;
-    LODWORD(v29) = 20;
-    v28 = v30;
-    v16 = _os_log_send_and_compose_impl();
+    v30 = 1024;
+    v31 = var3;
+    v32 = 1024;
+    v33 = var5;
+    v17 = _os_log_send_and_compose_impl(v14, 0, v34, 256, &_mh_execute_header, v11, v12, "Resolvers: %u default, %u multicast, %u private", &v29, 20, 67109632);
     __SC_log_send2();
-    if (v16 != v35)
+    if (v17 != v34)
     {
-      free(v16);
+      free(v17);
     }
   }
 
-  v17 = v5->var1;
-  if (v17)
+  var1 = v5->var1;
+  if (var1)
   {
-    v5->var0 = malloc_type_calloc(v17, 8uLL, 0x2004093837F09uLL);
+    v5->var0 = malloc_type_calloc(var1, 8uLL, 0x2004093837F09uLL);
   }
 
-  v18 = v5->var3;
-  if (v18)
-  {
-    v5->var2 = malloc_type_calloc(v18, 8uLL, 0x2004093837F09uLL);
-  }
-
-  v19 = v5->var5;
+  v19 = v5->var3;
   if (v19)
   {
-    v5->var4 = malloc_type_calloc(v19, 8uLL, 0x2004093837F09uLL);
+    v5->var2 = malloc_type_calloc(v19, 8uLL, 0x2004093837F09uLL);
+  }
+
+  v20 = v5->var5;
+  if (v20)
+  {
+    v5->var4 = malloc_type_calloc(v20, 8uLL, 0x2004093837F09uLL);
   }
 
   if (list->var0 >= 1)
   {
-    v20 = 0;
     v21 = 0;
     v22 = 0;
     v23 = 0;
+    v24 = 0;
     do
     {
-      v24 = *(*(&list->var0 + 1) + 8 * v20);
-      if ([(AgentController *)self isResolverMulticast:v24, v28, v29]&& v21 < v5->var3)
+      v25 = *(*(&list->var0 + 1) + 8 * v21);
+      if ([(AgentController *)self isResolverMulticast:v25]&& v22 < v5->var3)
       {
-        v25 = v21++;
+        v26 = v22++;
         p_var2 = &v5->var2;
       }
 
-      else if ([(AgentController *)self isResolverPrivate:v24]&& v22 < v5->var5)
+      else if ([(AgentController *)self isResolverPrivate:v25]&& v23 < v5->var5)
       {
-        v25 = v22++;
+        v26 = v23++;
         p_var2 = &v5->var4;
       }
 
       else
       {
-        if (*v24 || *(v24 + 8) < 1 || v23 >= v5->var1)
+        if (*v25 || *(v25 + 8) < 1 || v24 >= v5->var1)
         {
-          goto LABEL_36;
+          goto LABEL_42;
         }
 
-        v25 = v23++;
+        v26 = v24++;
         p_var2 = v5;
       }
 
-      p_var2->var0[v25] = v24;
-LABEL_36:
-      ++v20;
+      p_var2->var0[v26] = v25;
+LABEL_42:
+      ++v21;
     }
 
-    while (v20 < list->var0);
+    while (v21 < list->var0);
   }
 
   return v5;
@@ -1489,7 +1587,6 @@ LABEL_36:
       v5 = 0;
       do
       {
-        v6 = *(*&resolver->var4 + 8 * v5);
         nw_resolver_config_add_search_domain();
         ++v5;
       }
@@ -1499,34 +1596,35 @@ LABEL_36:
 
     if (resolver->var1 >= 1)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
+        v21 = 0u;
+        v22 = 0u;
         v19 = 0u;
         v20 = 0u;
         v17 = 0u;
         v18 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v13 = 0u;
-        v14 = 0u;
-        v8 = *(*(&resolver->var1 + 1) + 8 * v7);
         _SC_sockaddr_to_string();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < resolver->var1);
+      while (v6 < resolver->var1);
     }
 
-    v9 = nw_resolver_config_copy_plist_data_ref();
+    v7 = nw_resolver_config_copy_plist_data_ref();
   }
 
   else
   {
     v4 = sub_1000035EC();
-    v10 = _SC_syslog_os_log_mapping();
+    v8 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v29 = 0u;
+      v30 = 0u;
       v27 = 0u;
       v28 = 0u;
       v25 = 0u;
@@ -1541,65 +1639,66 @@ LABEL_36:
       v18 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      os_log_type_enabled(v4, v10);
-      v11 = _os_log_send_and_compose_impl();
+      v9 = _sc_log <= 0 ? 2 : 3;
+      v10 = os_log_type_enabled(v4, v8) ? v9 : 2;
+      v14[0] = 0;
+      v13 = 2;
+      v11 = _os_log_send_and_compose_impl(v10, 0, &v15, 256, &_mh_execute_header, v4, v8, "Invalid dns resolver", v14, v13);
       __SC_log_send2();
-      if (v11 != &v13)
+      if (v11 != &v15)
       {
         free(v11);
       }
     }
 
-    v9 = 0;
+    v7 = 0;
   }
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)extractDNRSvcParameterValues:(const char *)values buffer_size:(unint64_t)buffer_size resolverConfig:(id)config
 {
   configCopy = config;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_10004FECC;
+  v47[3] = &unk_10007B0C8;
+  v47[4] = &v48;
+  v8 = objc_retainBlock(v47);
   v43 = 0;
   v44 = &v43;
   v45 = 0x2020000000;
   v46 = 0;
   v42[0] = _NSConcreteStackBlock;
   v42[1] = 3221225472;
-  v42[2] = sub_10004FECC;
+  v42[2] = sub_1000502A0;
   v42[3] = &unk_10007B0C8;
   v42[4] = &v43;
-  v8 = objc_retainBlock(v42);
+  v36 = objc_retainBlock(v42);
   v38 = 0;
   v39 = &v38;
   v40 = 0x2020000000;
   v41 = 0;
   v37[0] = _NSConcreteStackBlock;
   v37[1] = 3221225472;
-  v37[2] = sub_1000502A0;
+  v37[2] = sub_100050310;
   v37[3] = &unk_10007B0C8;
   v37[4] = &v38;
-  v31 = objc_retainBlock(v37);
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_100050310;
-  v32[3] = &unk_10007B0C8;
-  v32[4] = &v33;
-  v30 = objc_retainBlock(v32);
+  v35 = objc_retainBlock(v37);
   if (buffer_size < 2)
   {
-    goto LABEL_37;
+    goto LABEL_55;
   }
 
-  v29 = configCopy;
+  v34 = configCopy;
   if (buffer_size < 4 || !values)
   {
-    goto LABEL_23;
+    goto LABEL_35;
   }
 
   while (1)
@@ -1619,161 +1718,219 @@ LABEL_36:
     {
       if (v12 == 7)
       {
-        v13 = v30;
+        v13 = v35;
       }
 
       else
       {
-        v13 = v31;
+        v13 = v36;
         if (v12 != 3)
         {
           v14 = sub_1000035EC();
           v15 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v62 = 0u;
+            v67 = 0u;
+            v68 = 0u;
+            v65 = 0u;
+            v66 = 0u;
             v63 = 0u;
-            v60 = 0u;
+            v64 = 0u;
             v61 = 0u;
-            v58 = 0u;
+            v62 = 0u;
             v59 = 0u;
-            v56 = 0u;
+            v60 = 0u;
             v57 = 0u;
-            v54 = 0u;
+            v58 = 0u;
             v55 = 0u;
-            v52 = 0u;
-            v53 = 0u;
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0uLL;
-            v49 = 0uLL;
-            os_log_type_enabled(v14, v15);
-            v47 = 0;
-            v16 = _os_log_send_and_compose_impl();
-            __SC_log_send2();
-            if (v16 != &v48)
+            v56 = 0u;
+            if (_sc_log <= 0)
             {
-              free(v16);
+              v16 = 2;
             }
 
-            configCopy = v29;
+            else
+            {
+              v16 = 3;
+            }
+
+            v53 = 0uLL;
+            v54 = 0uLL;
+            if (os_log_type_enabled(v14, v15))
+            {
+              v17 = v16;
+            }
+
+            else
+            {
+              v17 = 2;
+            }
+
+            v52[0] = 0;
+            LODWORD(v33) = 2;
+            v18 = _os_log_send_and_compose_impl(v17, 0, &v53, 256, &_mh_execute_header, v14, v15, "Unrecognized DNR SvcParameter key. Skipping.", v52, v33);
+            __SC_log_send2();
+            if (v18 != &v53)
+            {
+              free(v18);
+            }
+
+            configCopy = v34;
           }
 
-          goto LABEL_16;
+          goto LABEL_22;
         }
       }
     }
 
     (v13[2])(v13, values + 4, v9);
-LABEL_16:
+LABEL_22:
     values = &v11[v9];
     if (buffer_size <= 3)
     {
-      goto LABEL_23;
+      goto LABEL_35;
     }
   }
 
-  v17 = sub_1000035EC();
-  v18 = _SC_syslog_os_log_mapping();
+  v19 = sub_1000035EC();
+  v20 = _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v62 = 0u;
+    v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v60 = 0u;
+    v64 = 0u;
     v61 = 0u;
-    v58 = 0u;
+    v62 = 0u;
     v59 = 0u;
-    v56 = 0u;
+    v60 = 0u;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0uLL;
-    v49 = 0uLL;
-    os_log_type_enabled(v17, v18);
-    v47 = 0;
-    v20 = _os_log_send_and_compose_impl();
-    __SC_log_send2();
-    if (v20 != &v48)
+    v56 = 0u;
+    if (_sc_log <= 0)
     {
-      free(v20);
+      v22 = 2;
     }
 
-    configCopy = v29;
+    else
+    {
+      v22 = 3;
+    }
+
+    v53 = 0uLL;
+    v54 = 0uLL;
+    if (os_log_type_enabled(v19, v20))
+    {
+      v23 = v22;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
+    v52[0] = 0;
+    LODWORD(v33) = 2;
+    v24 = _os_log_send_and_compose_impl(v23, 0, &v53, 256, &_mh_execute_header, v19, v20, "DNR SvcParameter option length value greater than actual SvcParameter bytes. Skipping.", v52, v33);
+    __SC_log_send2();
+    if (v24 != &v53)
+    {
+      free(v24);
+    }
+
+    configCopy = v34;
   }
 
-LABEL_23:
-  if (!*(v44 + 6))
+LABEL_35:
+  if (!*(v49 + 6))
   {
 
     configCopy = 0;
-LABEL_37:
-    v27 = 0;
-    goto LABEL_38;
+LABEL_55:
+    v31 = 0;
+    goto LABEL_56;
   }
 
   nw_resolver_config_set_protocol();
-  if (*(v39 + 12))
+  if (*(v44 + 12))
   {
-    v21 = sub_1000035EC();
-    v22 = _SC_syslog_os_log_mapping();
+    v25 = sub_1000035EC();
+    v26 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v62 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v60 = 0u;
+      v64 = 0u;
       v61 = 0u;
-      v58 = 0u;
+      v62 = 0u;
       v59 = 0u;
-      v56 = 0u;
+      v60 = 0u;
       v57 = 0u;
-      v54 = 0u;
+      v58 = 0u;
       v55 = 0u;
-      v52 = 0u;
+      v56 = 0u;
       v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      os_log_type_enabled(v21, v22);
-      v47 = 0;
-      v23 = _os_log_send_and_compose_impl();
-      __SC_log_send2();
-      if (v23 != &v48)
+      v54 = 0u;
+      if (_sc_log <= 0)
       {
-        free(v23);
+        v27 = 2;
       }
 
-      configCopy = v29;
+      else
+      {
+        v27 = 3;
+      }
+
+      if (os_log_type_enabled(v25, v26))
+      {
+        v28 = v27;
+      }
+
+      else
+      {
+        v28 = 2;
+      }
+
+      v52[0] = 0;
+      LODWORD(v33) = 2;
+      v29 = _os_log_send_and_compose_impl(v28, 0, &v53, 256, &_mh_execute_header, v25, v26, "Custom port found in DNR SvcParameters", v52, v33);
+      __SC_log_send2();
+      if (v29 != &v53)
+      {
+        free(v29);
+      }
+
+      configCopy = v34;
     }
 
-    v24 = *(v39 + 12);
     nw_resolver_config_set_port();
   }
 
-  if (*(v44 + 6) == 2 && v34[3])
+  if (*(v49 + 6) == 2 && v39[3])
   {
-    v25 = strchr(v34[3], 123);
-    if (v25)
+    v30 = strchr(v39[3], 123);
+    if (v30)
     {
-      *v25 = 0;
-      v26 = v34[3];
+      *v30 = 0;
     }
 
     nw_resolver_config_set_provider_path();
   }
 
-  v27 = 1;
-LABEL_38:
+  v31 = 1;
+LABEL_56:
 
-  _Block_object_dispose(&v33, 8);
   _Block_object_dispose(&v38, 8);
-
   _Block_object_dispose(&v43, 8);
-  return v27;
+
+  _Block_object_dispose(&v48, 8);
+  return v31;
 }
 
 - (id)dataForEncryptedResolver:(id)resolver
@@ -1788,30 +1945,30 @@ LABEL_38:
     v9 = [v5 objectForKeyedSubscript:kSCPropNetDNSEncryptedServerServiceParameters];
     v10 = nw_resolver_config_create();
     nw_resolver_config_set_class();
-    v23 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
+    v25 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v20 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v22 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v21 + 1) + 8 * i) UTF8String];
+          [*(*(&v24 + 1) + 8 * i) UTF8String];
           nw_resolver_config_add_name_server();
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v20 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v23 count:16];
       }
 
       while (v13);
@@ -1829,13 +1986,15 @@ LABEL_38:
     v17 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v25, 0, sizeof(v25));
-      os_log_type_enabled(v7, v17);
-      v18 = _os_log_send_and_compose_impl();
+      memset(v28, 0, sizeof(v28));
+      v18 = _sc_log <= 0 ? 2 : 3;
+      v19 = os_log_type_enabled(v7, v17) ? v18 : 2;
+      v22[0] = 0;
+      v20 = _os_log_send_and_compose_impl(v19, 0, v28, 256, &_mh_execute_header, v7, v17, "Invalid encrypted dns resolver", v22, 2);
       __SC_log_send2();
-      if (v18 != v25)
+      if (v20 != v28)
       {
-        free(v18);
+        free(v20);
       }
     }
 
@@ -1857,24 +2016,26 @@ LABEL_38:
     v12 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v16, 0, sizeof(v16));
-      os_log_type_enabled(v11, v12);
-      v13 = _os_log_send_and_compose_impl();
+      memset(v19, 0, sizeof(v19));
+      v13 = _sc_log <= 0 ? 2 : 3;
+      v14 = os_log_type_enabled(v11, v12) ? v13 : 2;
+      v18[0] = 0;
+      v15 = _os_log_send_and_compose_impl(v14, 0, v19, 256, &_mh_execute_header, v11, v12, "Invalid dns_config/domain", v18, 2);
       __SC_log_send2();
-      if (v13 != v16)
+      if (v15 != v19)
       {
-        free(v13);
+        free(v15);
       }
     }
 
-    goto LABEL_16;
+    goto LABEL_22;
   }
 
   if (config->var0 < 1 || !*(&config->var0 + 1))
   {
-LABEL_16:
-    v14 = 0;
-    goto LABEL_17;
+LABEL_22:
+    v16 = 0;
+    goto LABEL_23;
   }
 
   v8 = 0;
@@ -1895,15 +2056,15 @@ LABEL_16:
 LABEL_10:
     if (++v8 >= config->var0)
     {
-      goto LABEL_16;
+      goto LABEL_22;
     }
   }
 
-  v14 = [(AgentController *)self dataForResolver:v9];
+  v16 = [(AgentController *)self dataForResolver:v9];
 
-LABEL_17:
+LABEL_23:
 
-  return v14;
+  return v16;
 }
 
 - (BOOL)isResolverMulticast:(id *)multicast
@@ -1931,9 +2092,9 @@ LABEL_17:
 - (void)processSupplementalDNSResolvers:(id *)resolvers
 {
   type = +[NSMutableArray array];
-  v74 = [[NSCountedSet alloc] initWithCapacity:0];
+  v78 = [[NSCountedSet alloc] initWithCapacity:0];
   v5 = +[NSMutableArray array];
-  v75 = +[NSMutableArray array];
+  v79 = +[NSMutableArray array];
   floatingDNSAgentList = [(AgentController *)self floatingDNSAgentList];
   v7 = [(AgentController *)self getAgentList:floatingDNSAgentList agentType:2 agentSubType:3];
 
@@ -1966,26 +2127,26 @@ LABEL_17:
   floatingDNSAgentList2 = [(AgentController *)self floatingDNSAgentList];
   [(AgentController *)self cleanConflictingAgentsFromList:v7 new_list:v5 agentDictionary:floatingDNSAgentList2];
 
-  v118 = 0u;
-  v119 = 0u;
-  v116 = 0u;
-  v117 = 0u;
+  v122 = 0u;
+  v123 = 0u;
+  v120 = 0u;
+  v121 = 0u;
   v12 = v7;
-  v13 = [v12 countByEnumeratingWithState:&v116 objects:v115 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v120 objects:v119 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v117;
+    v15 = *v121;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v117 != v15)
+        if (*v121 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v116 + 1) + 8 * i);
+        v17 = *(*(&v120 + 1) + 8 * i);
         if (([v5 containsObject:v17] & 1) == 0)
         {
           floatingDNSAgentList3 = [(AgentController *)self floatingDNSAgentList];
@@ -1995,35 +2156,35 @@ LABEL_17:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v116 objects:v115 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v120 objects:v119 count:16];
     }
 
     while (v14);
   }
 
-  v76 = v5;
+  v80 = v5;
   resolversCopy = resolvers;
 
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
-  v112 = 0u;
+  v117 = 0u;
+  v118 = 0u;
+  v115 = 0u;
+  v116 = 0u;
   obj = v12;
-  v20 = [obj countByEnumeratingWithState:&v111 objects:v110 count:16];
+  v20 = [obj countByEnumeratingWithState:&v115 objects:v114 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v112;
+    v22 = *v116;
     do
     {
       for (j = 0; j != v21; j = j + 1)
       {
-        if (*v112 != v22)
+        if (*v116 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v111 + 1) + 8 * j);
+        v24 = *(*(&v115 + 1) + 8 * j);
         floatingDNSAgentList4 = [(AgentController *)self floatingDNSAgentList];
         v26 = [floatingDNSAgentList4 objectForKey:v24];
 
@@ -2056,47 +2217,51 @@ LABEL_33:
             if ((v35 & 1) == 0)
             {
               [v26 updateAgentData:v30];
-              [v75 addObject:v26];
+              [v79 addObject:v26];
             }
           }
 
-          [v76 removeObject:v24];
+          [v80 removeObject:v24];
           goto LABEL_33;
         }
 
 LABEL_34:
       }
 
-      v21 = [obj countByEnumeratingWithState:&v111 objects:v110 count:16];
+      v21 = [obj countByEnumeratingWithState:&v115 objects:v114 count:16];
     }
 
     while (v21);
   }
 
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
-  v107 = 0u;
-  v77 = type;
-  v36 = [v77 countByEnumeratingWithState:&v106 objects:v105 count:16];
+  v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  v81 = type;
+  v36 = [v81 countByEnumeratingWithState:&v110 objects:v109 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v107;
+    v38 = *v111;
     do
     {
       for (k = 0; k != v37; k = k + 1)
       {
-        if (*v107 != v38)
+        if (*v111 != v38)
         {
-          objc_enumerationMutation(v77);
+          objc_enumerationMutation(v81);
         }
 
-        v40 = *(*(&v106 + 1) + 8 * k);
+        v40 = *(*(&v110 + 1) + 8 * k);
         v41 = sub_1000035EC();
         v42 = _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
+          v107 = 0u;
+          v108 = 0u;
+          v105 = 0u;
+          v106 = 0u;
           v103 = 0u;
           v104 = 0u;
           v101 = 0u;
@@ -2107,96 +2272,96 @@ LABEL_34:
           v98 = 0u;
           v95 = 0u;
           v96 = 0u;
-          v93 = 0u;
-          v94 = 0u;
-          v91 = 0u;
-          v92 = 0u;
-          v89 = 0uLL;
-          v90 = 0uLL;
-          os_log_type_enabled(v41, v42);
-          v43 = v41;
+          LODWORD(v43) = _sc_log <= 0 ? 2 : 3;
+          v93 = 0uLL;
+          v94 = 0uLL;
+          v43 = os_log_type_enabled(v41, v42) ? v43 : 2;
+          v44 = v41;
           getAgentName = [v40 getAgentName];
-          v87 = 138412290;
-          v88 = getAgentName;
-          LODWORD(v71) = 12;
-          v70 = &v87;
-          v45 = _os_log_send_and_compose_impl();
+          v91 = 138412290;
+          v92 = getAgentName;
+          LODWORD(v73) = 12;
+          v46 = _os_log_send_and_compose_impl(v43, 0, &v93, 256, &_mh_execute_header, v44, v42, "Destroying agent %@ because something changed!", &v91, v73);
 
           __SC_log_send2();
-          if (v45 != &v89)
+          if (v46 != &v93)
           {
-            free(v45);
+            free(v46);
           }
         }
 
         [(AgentController *)self destroyFloatingAgent:v40];
       }
 
-      v37 = [v77 countByEnumeratingWithState:&v106 objects:v105 count:16];
+      v37 = [v81 countByEnumeratingWithState:&v110 objects:v109 count:16];
     }
 
     while (v37);
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
-  v84 = 0u;
-  v46 = v75;
-  v47 = [v46 countByEnumeratingWithState:&v83 objects:v82 count:16];
-  v48 = resolversCopy;
-  v49 = v76;
-  if (v47)
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v47 = v79;
+  v48 = [v47 countByEnumeratingWithState:&v87 objects:v86 count:16];
+  v49 = resolversCopy;
+  v50 = v80;
+  if (v48)
   {
-    v50 = v47;
-    v51 = *v84;
+    v51 = v48;
+    v52 = *v88;
     do
     {
-      for (m = 0; m != v50; m = m + 1)
+      for (m = 0; m != v51; m = m + 1)
       {
-        if (*v84 != v51)
+        if (*v88 != v52)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v47);
         }
 
-        [(AgentController *)self publishToAgent:*(*(&v83 + 1) + 8 * m), v70, v71];
+        [(AgentController *)self publishToAgent:*(*(&v87 + 1) + 8 * m)];
       }
 
-      v50 = [v46 countByEnumeratingWithState:&v83 objects:v82 count:16];
+      v51 = [v47 countByEnumeratingWithState:&v87 objects:v86 count:16];
     }
 
-    while (v50);
+    while (v51);
   }
 
-  v53 = v74;
+  v54 = v78;
   if (resolversCopy->var0 >= 1)
   {
-    v54 = 0;
+    v55 = 0;
     do
     {
-      v55 = *(*(&v48->var0 + 1) + 8 * v54);
-      if (*v55 && ![(AgentController *)self isResolverPrivate:*(*(&v48->var0 + 1) + 8 * v54)]&& ![(AgentController *)self isResolverMulticast:v55])
+      v56 = *(*(&v49->var0 + 1) + 8 * v55);
+      if (*v56 && ![(AgentController *)self isResolverPrivate:*(*(&v49->var0 + 1) + 8 * v55)]&& ![(AgentController *)self isResolverMulticast:v56])
       {
-        v56 = [NSString stringWithUTF8String:*v55];
-        v57 = [v49 indexOfObject:v56];
-        if (v57 != 0x7FFFFFFFFFFFFFFFLL)
+        v57 = [NSString stringWithUTF8String:*v56];
+        v58 = [v50 indexOfObject:v57];
+        if (v58 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v58 = v57;
-          v59 = [v53 countForObject:v56];
-          if (v59)
+          v59 = v58;
+          v60 = [v54 countForObject:v57];
+          if (v60)
           {
-            v60 = v59 + 1;
-            v61 = [(AgentController *)self dataForResolver:v55];
-            v62 = [NSString stringWithFormat:@"%@ #%lu", v56, v60];
-            if ([(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v62 agentSubType:3 addPolicyOfType:6 publishData:v61])
+            v61 = v60 + 1;
+            v62 = [(AgentController *)self dataForResolver:v56];
+            v63 = [NSString stringWithFormat:@"%@ #%lu", v57, v61];
+            if ([(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v63 agentSubType:3 addPolicyOfType:6 publishData:v62])
             {
               floatingDNSAgentList5 = [(AgentController *)self floatingDNSAgentList];
-              v64 = [floatingDNSAgentList5 objectForKey:v62];
+              v65 = [floatingDNSAgentList5 objectForKey:v63];
 
-              v65 = sub_1000035EC();
+              v66 = sub_1000035EC();
               typea = _SC_syslog_os_log_mapping();
               if (__SC_log_enabled())
               {
+                v107 = 0u;
+                v108 = 0u;
+                v105 = 0u;
+                v106 = 0u;
                 v103 = 0u;
                 v104 = 0u;
                 v101 = 0u;
@@ -2207,65 +2372,80 @@ LABEL_34:
                 v98 = 0u;
                 v95 = 0u;
                 v96 = 0u;
-                v93 = 0u;
-                v94 = 0u;
-                v91 = 0u;
-                v92 = 0u;
-                v89 = 0uLL;
-                v90 = 0uLL;
-                os_log_type_enabled(v65, typea);
-                v73 = v65;
-                v66 = v65;
-                getAgentName2 = [v64 getAgentName];
-                v87 = 138412290;
-                v88 = getAgentName2;
-                LODWORD(v71) = 12;
-                v70 = &v87;
-                v67 = _os_log_send_and_compose_impl();
-
-                __SC_log_send2();
-                if (v67 != &v89)
+                if (_sc_log <= 0)
                 {
-                  free(v67);
+                  v67 = 2;
                 }
 
-                v53 = v74;
-                v65 = v73;
+                else
+                {
+                  v67 = 3;
+                }
+
+                v93 = 0uLL;
+                v94 = 0uLL;
+                if (os_log_type_enabled(v66, typea))
+                {
+                  v68 = v67;
+                }
+
+                else
+                {
+                  v68 = 2;
+                }
+
+                v75 = v68;
+                v77 = v66;
+                v69 = v66;
+                getAgentName2 = [v65 getAgentName];
+                v91 = 138412290;
+                v92 = getAgentName2;
+                LODWORD(v74) = 12;
+                v70 = _os_log_send_and_compose_impl(v75, 0, &v93, 256, &_mh_execute_header, v69, typea, "Duplicate DNS agent %@", &v91, v74);
+
+                __SC_log_send2();
+                if (v70 != &v93)
+                {
+                  free(v70);
+                }
+
+                v54 = v78;
+                v66 = v77;
               }
             }
           }
 
           else
           {
-            v61 = [(AgentController *)self dataForResolver:v55];
+            v62 = [(AgentController *)self dataForResolver:v56];
             floatingDNSAgentList6 = [(AgentController *)self floatingDNSAgentList];
-            v69 = [(AgentController *)self getAgentWithSameDataAndSubType:floatingDNSAgentList6 data:v61 subType:3];
+            v72 = [(AgentController *)self getAgentWithSameDataAndSubType:floatingDNSAgentList6 data:v62 subType:3];
 
-            if (v69)
+            if (v72)
             {
-              [(AgentController *)self spawnMappedFloatingAgent:v69 entity:v56 agentSubType:3 addPolicyOfType:6 updateData:v61];
+              [(AgentController *)self spawnMappedFloatingAgent:v72 entity:v57 agentSubType:3 addPolicyOfType:6 updateData:v62];
             }
 
             else
             {
-              [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v56 agentSubType:3 addPolicyOfType:6 publishData:v61];
+              [(AgentController *)self spawnFloatingAgent:objc_opt_class() entity:v57 agentSubType:3 addPolicyOfType:6 publishData:v62];
             }
           }
 
-          [v76 removeObjectAtIndex:{v58, v70, v71}];
-          [v53 addObject:v56];
+          [v80 removeObjectAtIndex:v59];
+          [v54 addObject:v57];
 
-          v56 = v61;
-          v48 = resolversCopy;
+          v57 = v62;
+          v49 = resolversCopy;
         }
 
-        v49 = v76;
+        v50 = v80;
       }
 
-      ++v54;
+      ++v55;
     }
 
-    while (v54 < v48->var0);
+    while (v55 < v49->var0);
   }
 }
 
@@ -2562,194 +2742,194 @@ LABEL_32:
 
   if (SHIDWORD(resolvers->var1.var1) >= 1 && *&resolvers->var2)
   {
-    v9 = 0;
-    v39 = kSCPropNetDNSEncryptedServers;
-    v52 = selfCopy;
+    v15 = 0;
+    v45 = kSCPropNetDNSEncryptedServers;
+    v58 = selfCopy;
     resolversCopy = resolvers;
-    v41 = v6;
+    v47 = v6;
     do
     {
-      v10 = *(*&resolvers->var2 + 8 * v9);
-      v11 = sub_100038A68(*(v10 + 64), v58);
-      if (v11)
+      v16 = *(*&resolvers->var2 + 8 * v15);
+      v17 = sub_100038A68(*(v16 + 64), v64, v9, v10, v11, v12, v13, v14);
+      if (v17)
       {
-        v12 = [NSString stringWithUTF8String:v11];
-        v13 = [NSString stringWithFormat:@"%s%@", "@", v12];
-        if (*(v10 + 80))
+        v18 = [NSString stringWithUTF8String:v17];
+        v19 = [NSString stringWithFormat:@"%s%@", "@", v18];
+        if (*(v16 + 80))
         {
-          v14 = [NSString stringWithUTF8String:?];
-          v15 = [v14 componentsSeparatedByString:@" "];
-          v49 = v12;
-          if ([v15 count] == 3)
+          v20 = [NSString stringWithUTF8String:?];
+          v21 = [v20 componentsSeparatedByString:@" "];
+          v55 = v18;
+          if ([v21 count] == 3)
           {
-            v16 = [v15 objectAtIndexedSubscript:1];
-            if (v16)
+            v22 = [v21 objectAtIndexedSubscript:1];
+            if (v22)
             {
-              v47 = v16;
-              NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainState, v16, kSCEntNetDNS);
-              v46 = SCDynamicStoreCopyValue(0, NetworkServiceEntity);
-              v16 = [v46 objectForKeyedSubscript:v39];
+              v53 = v22;
+              NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainState, v22, kSCEntNetDNS);
+              v52 = SCDynamicStoreCopyValue(0, NetworkServiceEntity);
+              v22 = [v52 objectForKeyedSubscript:v45];
             }
 
             else
             {
-              v47 = 0;
+              v53 = 0;
               NetworkServiceEntity = 0;
-              v46 = 0;
+              v52 = 0;
             }
           }
 
           else
           {
-            v47 = 0;
+            v53 = 0;
             NetworkServiceEntity = 0;
-            v46 = 0;
-            v16 = 0;
+            v52 = 0;
+            v22 = 0;
           }
 
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
-          v55 = 0u;
-          obj = v16;
-          v21 = [(__CFString *)obj countByEnumeratingWithState:&v54 objects:v53 count:16];
-          if (v21)
+          v62 = 0u;
+          v63 = 0u;
+          v60 = 0u;
+          v61 = 0u;
+          obj = v22;
+          v27 = [(__CFString *)obj countByEnumeratingWithState:&v60 objects:v59 count:16];
+          if (v27)
           {
-            v22 = v21;
-            v42 = v15;
-            v43 = v14;
-            v44 = v10;
-            v45 = v9;
-            v23 = v13;
-            v51 = 0;
-            v24 = 0;
-            v25 = *v55;
-            v26 = &xpc_array_set_string_ptr;
+            v28 = v27;
+            v48 = v21;
+            v49 = v20;
+            v50 = v16;
+            v51 = v15;
+            v29 = v19;
+            v57 = 0;
+            v30 = 0;
+            v31 = *v61;
+            v32 = &xpc_array_set_string_ptr;
             while (1)
             {
-              for (i = 0; i != v22; i = i + 1)
+              for (i = 0; i != v28; i = i + 1)
               {
-                v28 = v24;
-                if (*v55 != v25)
+                v34 = v30;
+                if (*v61 != v31)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v24 = *(*(&v54 + 1) + 8 * i);
+                v30 = *(*(&v60 + 1) + 8 * i);
 
-                v29 = [v26[103] stringWithFormat:@"Encrypted-%@", v23];
-                selfCopy = v52;
-                v30 = [(AgentController *)v52 dataForEncryptedResolver:v24];
-                v31 = [v8 indexOfObject:v29];
-                if (v31 == 0x7FFFFFFFFFFFFFFFLL)
+                v35 = [v32[103] stringWithFormat:@"Encrypted-%@", v29];
+                selfCopy = v58;
+                v36 = [(AgentController *)v58 dataForEncryptedResolver:v30];
+                v37 = [v8 indexOfObject:v35];
+                if (v37 == 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  [(AgentController *)v52 spawnFloatingAgent:objc_opt_class() entity:v29 agentSubType:2 addPolicyOfType:8 publishData:v30];
+                  [(AgentController *)v58 spawnFloatingAgent:objc_opt_class() entity:v35 agentSubType:2 addPolicyOfType:8 publishData:v36];
                   goto LABEL_26;
                 }
 
-                v32 = v8;
-                [v8 removeObjectAtIndex:v31];
-                floatingDNSAgentList3 = [(AgentController *)v52 floatingDNSAgentList];
-                v34 = [floatingDNSAgentList3 objectForKey:v29];
+                v38 = v8;
+                [v8 removeObjectAtIndex:v37];
+                floatingDNSAgentList3 = [(AgentController *)v58 floatingDNSAgentList];
+                v40 = [floatingDNSAgentList3 objectForKey:v35];
 
-                if (v34)
+                if (v40)
                 {
-                  [v34 updateAgentData:v30];
-                  if ([v34 shouldUpdateAgent])
+                  [v40 updateAgentData:v36];
+                  if ([v40 shouldUpdateAgent])
                   {
-                    selfCopy = v52;
-                    [(AgentController *)v52 publishToAgent:v34];
-                    v51 = v34;
-                    v8 = v32;
-                    v26 = &xpc_array_set_string_ptr;
+                    selfCopy = v58;
+                    [(AgentController *)v58 publishToAgent:v40];
+                    v57 = v40;
+                    v8 = v38;
+                    v32 = &xpc_array_set_string_ptr;
                     goto LABEL_26;
                   }
 
-                  v51 = v34;
+                  v57 = v40;
                 }
 
                 else
                 {
-                  v51 = 0;
+                  v57 = 0;
                 }
 
-                v8 = v32;
-                v26 = &xpc_array_set_string_ptr;
-                selfCopy = v52;
+                v8 = v38;
+                v32 = &xpc_array_set_string_ptr;
+                selfCopy = v58;
 LABEL_26:
               }
 
-              v22 = [(__CFString *)obj countByEnumeratingWithState:&v54 objects:v53 count:16];
-              if (!v22)
+              v28 = [(__CFString *)obj countByEnumeratingWithState:&v60 objects:v59 count:16];
+              if (!v28)
               {
 
                 resolvers = resolversCopy;
-                v6 = v41;
-                v13 = v23;
-                v10 = v44;
-                v9 = v45;
-                v15 = v42;
-                v14 = v43;
+                v6 = v47;
+                v19 = v29;
+                v16 = v50;
+                v15 = v51;
+                v21 = v48;
+                v20 = v49;
                 goto LABEL_30;
               }
             }
           }
 
-          v51 = 0;
+          v57 = 0;
 LABEL_30:
 
-          v12 = v49;
+          v18 = v55;
         }
 
         else
         {
-          v51 = 0;
+          v57 = 0;
         }
 
-        v17 = [(AgentController *)selfCopy dataForResolver:v10];
-        v35 = [v6 indexOfObject:v13];
-        if (v35 == 0x7FFFFFFFFFFFFFFFLL)
+        v23 = [(AgentController *)selfCopy dataForResolver:v16];
+        v41 = [v6 indexOfObject:v19];
+        if (v41 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          [(AgentController *)selfCopy spawnFloatingAgent:objc_opt_class() entity:v13 agentSubType:1 addPolicyOfType:8 publishData:v17];
-          v20 = v13;
-          v18 = 0;
+          [(AgentController *)selfCopy spawnFloatingAgent:objc_opt_class() entity:v19 agentSubType:1 addPolicyOfType:8 publishData:v23];
+          v26 = v19;
+          v24 = 0;
         }
 
         else
         {
-          [v6 removeObjectAtIndex:v35];
+          [v6 removeObjectAtIndex:v41];
           floatingDNSAgentList4 = [(AgentController *)selfCopy floatingDNSAgentList];
-          v20 = v13;
-          v18 = [floatingDNSAgentList4 objectForKey:v13];
+          v26 = v19;
+          v24 = [floatingDNSAgentList4 objectForKey:v19];
 
-          if (v18 && ([v18 updateAgentData:v17], objc_msgSend(v18, "shouldUpdateAgent")))
+          if (v24 && ([v24 updateAgentData:v23], objc_msgSend(v24, "shouldUpdateAgent")))
           {
-            selfCopy = v52;
-            [(AgentController *)v52 publishToAgent:v18];
+            selfCopy = v58;
+            [(AgentController *)v58 publishToAgent:v24];
           }
 
           else
           {
-            selfCopy = v52;
+            selfCopy = v58;
           }
         }
 
-        v19 = v51;
+        v25 = v57;
       }
 
       else
       {
-        v17 = 0;
+        v23 = 0;
+        v24 = 0;
+        v25 = 0;
         v18 = 0;
-        v19 = 0;
-        v12 = 0;
-        v20 = 0;
+        v26 = 0;
       }
 
-      ++v9;
+      ++v15;
     }
 
-    while (v9 < SHIDWORD(resolvers->var1.var1));
+    while (v15 < SHIDWORD(resolvers->var1.var1));
   }
 
   floatingDNSAgentList5 = [(AgentController *)selfCopy floatingDNSAgentList];
@@ -2827,7 +3007,7 @@ LABEL_30:
 {
   if (!resolver)
   {
-    goto LABEL_11;
+    goto LABEL_17;
   }
 
   if (resolver->var0 < 1)
@@ -2841,13 +3021,13 @@ LABEL_6:
     v6 = [NEPolicy alloc];
     v7 = +[NEPolicyResult drop];
     v8 = [NEPolicyCondition domain:@"onion"];
-    v37 = v8;
-    v9 = [NSArray arrayWithObjects:&v37 count:1];
+    v48 = v8;
+    v9 = [NSArray arrayWithObjects:&v48 count:1];
     v10 = [v6 initWithOrder:500 result:v7 conditions:v9];
 
     if (!v10)
     {
-      goto LABEL_22;
+      goto LABEL_48;
     }
 
     policySession = [(AgentController *)self policySession];
@@ -2862,29 +3042,49 @@ LABEL_6:
       v14 = _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-LABEL_19:
-        v35 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v36 = 0u;
-        v33 = 0u;
+        v37 = 0u;
         v34 = 0u;
-        v31 = 0u;
+        v35 = 0u;
         v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
-        v22 = 0u;
-        os_log_type_enabled(v13, v14);
-        v20 = _os_log_send_and_compose_impl();
-        __SC_log_send2();
-        if (v20 != &v21)
+        v33 = 0u;
+        if (_sc_log <= 0)
         {
-          free(v20);
+          v15 = 2;
+        }
+
+        else
+        {
+          v15 = 3;
+        }
+
+        if (os_log_type_enabled(v13, v14))
+        {
+          v16 = v15;
+        }
+
+        else
+        {
+          v16 = 2;
+        }
+
+        v31[0] = 0;
+        v17 = _os_log_send_and_compose_impl(v16, 0, &v32, 256, &_mh_execute_header, v13, v14, "Added a [.onion] drop policy", v31, 2);
+LABEL_45:
+        __SC_log_send2();
+        if (v17 != &v32)
+        {
+          free(v17);
         }
       }
     }
@@ -2893,14 +3093,52 @@ LABEL_19:
     {
       qword_100081BC8 = 0;
       v13 = sub_1000035EC();
-      v14 = _SC_syslog_os_log_mapping();
+      v28 = _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        goto LABEL_19;
+        v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
+        if (_sc_log <= 0)
+        {
+          v29 = 2;
+        }
+
+        else
+        {
+          v29 = 3;
+        }
+
+        if (os_log_type_enabled(v13, v28))
+        {
+          v30 = v29;
+        }
+
+        else
+        {
+          v30 = 2;
+        }
+
+        v31[0] = 0;
+        v17 = _os_log_send_and_compose_impl(v30, 0, &v32, 256, &_mh_execute_header, v13, v28, "Could not add a [.onion] drop policy", v31, 2);
+        goto LABEL_45;
       }
     }
 
-    goto LABEL_22;
+    goto LABEL_48;
   }
 
   v5 = 0;
@@ -2912,7 +3150,7 @@ LABEL_19:
     }
   }
 
-LABEL_11:
+LABEL_17:
   if (!qword_100081BC8)
   {
     return;
@@ -2928,47 +3166,105 @@ LABEL_11:
   {
     qword_100081BC8 = 0;
     v10 = sub_1000035EC();
-    v18 = _SC_syslog_os_log_mapping();
+    v21 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-LABEL_16:
-      v35 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
-      v31 = 0u;
+      v35 = 0u;
       v32 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      os_log_type_enabled(v10, v18);
-      v19 = _os_log_send_and_compose_impl();
-      __SC_log_send2();
-      if (v19 != &v21)
+      v33 = 0u;
+      if (_sc_log <= 0)
       {
-        free(v19);
+        v22 = 2;
       }
+
+      else
+      {
+        v22 = 3;
+      }
+
+      if (os_log_type_enabled(v10, v21))
+      {
+        v23 = v22;
+      }
+
+      else
+      {
+        v23 = 2;
+      }
+
+      v31[0] = 0;
+      v24 = _os_log_send_and_compose_impl(v23, 0, &v32, 256, &_mh_execute_header, v10, v21, "Removed the [.onion] drop policy", v31, 2);
+      goto LABEL_35;
     }
   }
 
   else
   {
     v10 = sub_1000035EC();
-    v18 = _SC_syslog_os_log_mapping();
+    v25 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      goto LABEL_16;
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      if (_sc_log <= 0)
+      {
+        v26 = 2;
+      }
+
+      else
+      {
+        v26 = 3;
+      }
+
+      if (os_log_type_enabled(v10, v25))
+      {
+        v27 = v26;
+      }
+
+      else
+      {
+        v27 = 2;
+      }
+
+      v31[0] = 0;
+      v24 = _os_log_send_and_compose_impl(v27, 0, &v32, 256, &_mh_execute_header, v10, v25, "Could not remove the [.onion] drop policy", v31, 2);
+LABEL_35:
+      __SC_log_send2();
+      if (v24 != &v32)
+      {
+        free(v24);
+      }
     }
   }
 
-LABEL_22:
+LABEL_48:
 }
 
 - (void)processDNSChanges
@@ -2989,52 +3285,51 @@ LABEL_22:
     if (__SC_log_enabled())
     {
       memset(v23, 0, sizeof(v23));
-      os_log_type_enabled(v4, v5);
-      v17 = 0;
-      LODWORD(v16) = 2;
-      v15 = &v17;
-      v6 = _os_log_send_and_compose_impl();
+      v6 = _sc_log <= 0 ? 2 : 3;
+      v7 = os_log_type_enabled(v4, v5) ? v6 : 2;
+      v17[0] = 0;
+      v8 = _os_log_send_and_compose_impl(v7, 0, v23, 256, &_mh_execute_header, v4, v5, "No DNS configuration", v17, 2);
       __SC_log_send2();
-      if (v6 != v23)
+      if (v8 != v23)
       {
-        free(v6);
+        free(v8);
       }
     }
 
     floatingDNSAgentList = [(AgentController *)self floatingDNSAgentList];
-    v8 = [floatingDNSAgentList copy];
+    v10 = [floatingDNSAgentList copy];
 
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v18 count:16];
-    if (v10)
+    v11 = v10;
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v18 count:16];
+    if (v12)
     {
-      v11 = v10;
-      v12 = *v20;
+      v13 = v12;
+      v14 = *v20;
       do
       {
-        for (i = 0; i != v11; i = i + 1)
+        for (i = 0; i != v13; i = i + 1)
         {
-          if (*v20 != v12)
+          if (*v20 != v14)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v11);
           }
 
-          v14 = [v9 objectForKey:{*(*(&v19 + 1) + 8 * i), v15, v16}];
-          [(AgentController *)self destroyFloatingAgent:v14];
+          v16 = [v11 objectForKey:*(*(&v19 + 1) + 8 * i)];
+          [(AgentController *)self destroyFloatingAgent:v16];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v18 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v18 count:16];
       }
 
-      while (v11);
+      while (v13);
     }
   }
 
-  [(AgentController *)self processOnionResolver:v3, v15, v16];
+  [(AgentController *)self processOnionResolver:v3];
   [(AgentController *)self applyPolicies];
   if (v3)
   {
@@ -3049,16 +3344,22 @@ LABEL_22:
   if (!length)
   {
     v20 = sub_1000035EC();
-    v22 = _SC_syslog_os_log_mapping();
+    v25 = _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-LABEL_20:
+LABEL_32:
 
       getAgentData = 0;
       v14 = 0;
-      goto LABEL_21;
+      goto LABEL_33;
     }
 
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
     v43 = 0u;
@@ -3067,34 +3368,47 @@ LABEL_20:
     v42 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
     *uu1 = 0u;
-    v32 = 0u;
-    os_log_type_enabled(v20, v22);
-    *out = 0;
-LABEL_18:
-    v23 = _os_log_send_and_compose_impl();
-    __SC_log_send2();
-    if (v23 != uu1)
+    v38 = 0u;
+    if (_sc_log <= 0)
     {
-      free(v23);
+      v26 = 2;
     }
 
-    goto LABEL_20;
+    else
+    {
+      v26 = 3;
+    }
+
+    if (os_log_type_enabled(v20, v25))
+    {
+      v27 = v26;
+    }
+
+    else
+    {
+      v27 = 2;
+    }
+
+    v24 = _os_log_send_and_compose_impl(v27, 0, uu1, 256, &_mh_execute_header, v20, v25, "Invalid parameters for copying agent data");
+LABEL_30:
+    v28 = v24;
+    __SC_log_send2();
+    if (v28 != uu1)
+    {
+      free(v28);
+    }
+
+    goto LABEL_32;
   }
 
   *length = 0;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v9 = dataCopy;
-  v10 = [v9 countByEnumeratingWithState:&v27 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v33 objects:v32 count:16];
   if (!v10)
   {
 LABEL_10:
@@ -3106,9 +3420,15 @@ LABEL_14:
     v21 = _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_20;
+      goto LABEL_32;
     }
 
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
     v43 = 0u;
@@ -3117,30 +3437,44 @@ LABEL_14:
     v42 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
     *uu1 = 0u;
-    v32 = 0u;
-    os_log_type_enabled(v20, v21);
-    goto LABEL_18;
+    v38 = 0u;
+    if (_sc_log <= 0)
+    {
+      v22 = 2;
+    }
+
+    else
+    {
+      v22 = 3;
+    }
+
+    if (os_log_type_enabled(v20, v21))
+    {
+      v23 = v22;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
+    v24 = _os_log_send_and_compose_impl(v23, 0, uu1, 256, &_mh_execute_header, v20, v21, "Invalid config agent uuid %s specified", &v30);
+    goto LABEL_30;
   }
 
   v11 = v10;
-  v12 = *v28;
+  v12 = *v34;
 LABEL_4:
   v13 = 0;
   while (1)
   {
-    if (*v28 != v12)
+    if (*v34 != v12)
     {
       objc_enumerationMutation(v9);
     }
 
-    v14 = [v9 objectForKey:*(*(&v27 + 1) + 8 * v13)];
+    v14 = [v9 objectForKey:*(*(&v33 + 1) + 8 * v13)];
     memset(uu1, 0, sizeof(uu1));
     getAgentUUID = [v14 getAgentUUID];
     [getAgentUUID getUUIDBytes:uu1];
@@ -3152,7 +3486,7 @@ LABEL_4:
 
     if (v11 == ++v13)
     {
-      v11 = [v9 countByEnumeratingWithState:&v27 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v33 objects:v32 count:16];
       if (v11)
       {
         goto LABEL_4;
@@ -3175,12 +3509,12 @@ LABEL_4:
     *length = v17;
     v19 = malloc_type_malloc(v17, 0x9EFCCC3AuLL);
     memcpy(v19, [getAgentData bytes], v18);
-    goto LABEL_22;
+    goto LABEL_34;
   }
 
-LABEL_21:
+LABEL_33:
   v19 = 0;
-LABEL_22:
+LABEL_34:
 
   return v19;
 }
@@ -3287,27 +3621,27 @@ LABEL_22:
   new_listCopy = new_list;
   obj = listCopy;
   dictionaryCopy = dictionary;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v9 = [listCopy countByEnumeratingWithState:&v64 objects:v63 count:16];
+  v68 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v9 = [listCopy countByEnumeratingWithState:&v68 objects:v67 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v65;
+    v11 = *v69;
     selfCopy = self;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v65 != v11)
+        if (*v69 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v64 + 1) + 8 * i);
-        v14 = [(AgentController *)self sanitizeEntity:v13, v30, v31];
+        v13 = *(*(&v68 + 1) + 8 * i);
+        v14 = [(AgentController *)self sanitizeEntity:v13];
         if (([v14 isEqualToString:v13] & 1) == 0)
         {
           v15 = [dictionaryCopy objectForKey:v14];
@@ -3319,6 +3653,10 @@ LABEL_22:
           v18 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
+            v65 = 0u;
+            v66 = 0u;
+            v63 = 0u;
+            v64 = 0u;
             v61 = 0u;
             v62 = 0u;
             v59 = 0u;
@@ -3329,24 +3667,39 @@ LABEL_22:
             v56 = 0u;
             v53 = 0u;
             v54 = 0u;
-            v51 = 0u;
-            v52 = 0u;
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0uLL;
-            v48 = 0uLL;
-            os_log_type_enabled(v17, v18);
-            v43 = 138412546;
-            v44 = v14;
-            v45 = 2112;
-            v46 = v13;
-            LODWORD(v31) = 22;
-            v30 = &v43;
-            v19 = _os_log_send_and_compose_impl();
-            __SC_log_send2();
-            if (v19 != &v47)
+            if (_sc_log <= 0)
             {
-              free(v19);
+              v19 = 2;
+            }
+
+            else
+            {
+              v19 = 3;
+            }
+
+            v51 = 0uLL;
+            v52 = 0uLL;
+            v20 = os_log_type_enabled(v17, v18);
+            v47 = 138412546;
+            if (v20)
+            {
+              v21 = v19;
+            }
+
+            else
+            {
+              v21 = 2;
+            }
+
+            v48 = v14;
+            v49 = 2112;
+            v50 = v13;
+            LODWORD(v35) = 22;
+            v22 = _os_log_send_and_compose_impl(v21, 0, &v51, 256, &_mh_execute_header, v17, v18, "Removing conflicting domain: %@, %@", &v47, v35);
+            __SC_log_send2();
+            if (v22 != &v51)
+            {
+              free(v22);
             }
 
             self = selfCopy;
@@ -3354,43 +3707,47 @@ LABEL_22:
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v64 objects:v63 count:16];
+      v10 = [obj countByEnumeratingWithState:&v68 objects:v67 count:16];
     }
 
     while (v10);
   }
 
-  v20 = [[NSCountedSet alloc] initWithArray:new_listCopy];
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  v23 = [[NSCountedSet alloc] initWithArray:new_listCopy];
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obja = obj;
-  v21 = [obja countByEnumeratingWithState:&v39 objects:v38 count:16];
-  if (v21)
+  v24 = [obja countByEnumeratingWithState:&v43 objects:v42 count:16];
+  if (v24)
   {
-    v22 = v21;
-    v23 = *v40;
+    v25 = v24;
+    v26 = *v44;
     do
     {
-      v24 = 0;
-      v34 = v22;
+      v27 = 0;
+      v38 = v25;
       do
       {
-        if (*v40 != v23)
+        if (*v44 != v26)
         {
           objc_enumerationMutation(obja);
         }
 
-        v25 = *(*(&v39 + 1) + 8 * v24);
-        if ([v20 countForObject:{v25, v30, v31}] >= 2)
+        v28 = *(*(&v43 + 1) + 8 * v27);
+        if ([v23 countForObject:v28] >= 2)
         {
-          v26 = [dictionaryCopy objectForKey:v25];
-          [(AgentController *)self destroyFloatingAgent:v26];
-          v27 = sub_1000035EC();
-          v28 = _SC_syslog_os_log_mapping();
+          v29 = [dictionaryCopy objectForKey:v28];
+          [(AgentController *)self destroyFloatingAgent:v29];
+          v30 = sub_1000035EC();
+          v31 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
+            v65 = 0u;
+            v66 = 0u;
+            v63 = 0u;
+            v64 = 0u;
             v61 = 0u;
             v62 = 0u;
             v59 = 0u;
@@ -3401,36 +3758,50 @@ LABEL_22:
             v56 = 0u;
             v53 = 0u;
             v54 = 0u;
-            v51 = 0u;
-            v52 = 0u;
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0uLL;
-            v48 = 0uLL;
-            os_log_type_enabled(v27, v28);
-            v43 = 138412290;
-            v44 = v25;
-            LODWORD(v31) = 12;
-            v30 = &v43;
-            v29 = _os_log_send_and_compose_impl();
-            __SC_log_send2();
-            if (v29 != &v47)
+            if (_sc_log <= 0)
             {
-              free(v29);
+              v32 = 2;
             }
 
-            v22 = v34;
+            else
+            {
+              v32 = 3;
+            }
+
+            v51 = 0uLL;
+            v52 = 0uLL;
+            if (os_log_type_enabled(v30, v31))
+            {
+              v33 = v32;
+            }
+
+            else
+            {
+              v33 = 2;
+            }
+
+            v47 = 138412290;
+            v48 = v28;
+            LODWORD(v35) = 12;
+            v34 = _os_log_send_and_compose_impl(v33, 0, &v51, 256, &_mh_execute_header, v30, v31, "Removing domain %@ as it has duplicates in the current config", &v47, v35);
+            __SC_log_send2();
+            if (v34 != &v51)
+            {
+              free(v34);
+            }
+
+            v25 = v38;
           }
         }
 
-        v24 = v24 + 1;
+        v27 = v27 + 1;
       }
 
-      while (v22 != v24);
-      v22 = [obja countByEnumeratingWithState:&v39 objects:v38 count:16];
+      while (v25 != v27);
+      v25 = [obja countByEnumeratingWithState:&v43 objects:v42 count:16];
     }
 
-    while (v22);
+    while (v25);
   }
 }
 
@@ -3602,8 +3973,8 @@ LABEL_11:
     v19 = 0;
   }
 
-  v98 = [(AgentController *)self entityInstanceNumber:domainCopy];
-  v100 = [(AgentController *)self sanitizeEntity:domainCopy];
+  v113 = [(AgentController *)self entityInstanceNumber:domainCopy];
+  v116 = [(AgentController *)self sanitizeEntity:domainCopy];
 
   if (type > 6)
   {
@@ -3614,27 +3985,27 @@ LABEL_11:
         goto LABEL_14;
       }
 
-      v96 = v18 | 0x64;
-      v22 = [(AgentController *)self sanitizeInterfaceName:v100];
+      v111 = v18 | 0x64;
+      v22 = [(AgentController *)self sanitizeInterfaceName:v116];
 
       v20 = [NEPolicyCondition scopedInterface:v22];
       v21 = 250;
-      v100 = v22;
-LABEL_20:
-      v97 = useCopy;
-      v27 = [NEPolicyResult netAgentUUID:useCopy];
-      v28 = [NEPolicy alloc];
-      v29 = v28;
-      v99 = v20;
+      v116 = v22;
+LABEL_26:
+      v112 = useCopy;
+      v30 = [NEPolicyResult netAgentUUID:useCopy];
+      v31 = [NEPolicy alloc];
+      v32 = v31;
+      v115 = v20;
       if (v20)
       {
-        v105 = v20;
-        v30 = [NSArray arrayWithObjects:&v105 count:1];
-        v31 = [v29 initWithOrder:v96 + v98 result:v27 conditions:v30];
+        v121 = v20;
+        v33 = [NSArray arrayWithObjects:&v121 count:1];
+        v34 = [v32 initWithOrder:v111 + v113 result:v30 conditions:v33];
 
-        if (v31)
+        if (v34)
         {
-LABEL_22:
+LABEL_28:
           if (sessionCopy)
           {
             controlPolicySession = [(AgentController *)self controlPolicySession];
@@ -3648,42 +4019,44 @@ LABEL_22:
 
               if (!controlPolicySession2)
               {
-                v75 = sub_1000035EC();
-                v76 = _SC_syslog_os_log_mapping();
-                v26 = v15;
+                v84 = sub_1000035EC();
+                v85 = _SC_syslog_os_log_mapping();
+                v29 = v15;
                 if (__SC_log_enabled())
                 {
-                  v120 = 0u;
-                  v121 = 0u;
-                  v118 = 0u;
-                  v119 = 0u;
-                  v116 = 0u;
-                  v117 = 0u;
-                  v114 = 0u;
-                  v115 = 0u;
-                  v112 = 0u;
-                  v113 = 0u;
-                  v110 = 0u;
-                  v111 = 0u;
-                  v108 = 0u;
-                  v109 = 0u;
-                  v106 = 0u;
-                  v107 = 0u;
-                  os_log_type_enabled(v75, v76);
-                  v77 = v75;
-                  [v15 getAgentName];
-                  v104 = v103 = 138412290;
-                  v78 = _os_log_send_and_compose_impl();
+                  v136 = 0u;
+                  v137 = 0u;
+                  v134 = 0u;
+                  v135 = 0u;
+                  v132 = 0u;
+                  v133 = 0u;
+                  v130 = 0u;
+                  v131 = 0u;
+                  v128 = 0u;
+                  v129 = 0u;
+                  v126 = 0u;
+                  v127 = 0u;
+                  v124 = 0u;
+                  v125 = 0u;
+                  v122 = 0u;
+                  v123 = 0u;
+                  LODWORD(v86) = _sc_log <= 0 ? 2 : 3;
+                  v86 = os_log_type_enabled(v84, v85) ? v86 : 2;
+                  v87 = v84;
+                  getAgentName = [v15 getAgentName];
+                  v119 = 138412290;
+                  v120 = getAgentName;
+                  v89 = _os_log_send_and_compose_impl(v86, 0, &v122, 256, &_mh_execute_header, v87, v85, "Could not create a control policy session for agent %@", &v119, 12);
 
                   __SC_log_send2();
-                  if (v78 != &v106)
+                  if (v89 != &v122)
                   {
-                    free(v78);
+                    free(v89);
                   }
                 }
 
-                v55 = 0;
-                goto LABEL_74;
+                v62 = 0;
+                goto LABEL_110;
               }
 
               controlPolicySession3 = [(AgentController *)self controlPolicySession];
@@ -3698,364 +4071,506 @@ LABEL_22:
             controlPolicySession4 = [(AgentController *)self policySession];
           }
 
-          v41 = controlPolicySession4;
+          v46 = controlPolicySession4;
           [v15 setPreferredPolicySession:controlPolicySession4];
 
           preferredPolicySession = [v15 preferredPolicySession];
-          v42 = [preferredPolicySession addPolicy:v31];
-          if (v42)
+          v47 = [preferredPolicySession addPolicy:v34];
+          if (v47)
           {
-            v43 = v42;
-            v44 = [NEPolicyResult skipWithOrder:v19];
+            v48 = v47;
+            v49 = [NEPolicyResult skipWithOrder:v19];
 
-            v45 = [NEPolicy alloc];
-            v46 = v45;
-            v94 = v44;
-            if (v99)
+            v50 = [NEPolicy alloc];
+            v51 = v50;
+            v109 = v49;
+            if (v115)
             {
-              v102 = v99;
-              v47 = [NSArray arrayWithObjects:&v102 count:1];
-              v48 = v44;
-              v49 = v47;
-              v50 = [v46 initWithOrder:(v18 + v21) result:v48 conditions:v47];
+              v118 = v115;
+              v52 = [NSArray arrayWithObjects:&v118 count:1];
+              v53 = v49;
+              v54 = v52;
+              v55 = [v51 initWithOrder:(v18 + v21) result:v53 conditions:v52];
 
-              v31 = v49;
+              v34 = v54;
             }
 
             else
             {
-              v50 = [v45 initWithOrder:(v18 + v21) result:v44 conditions:0];
+              v55 = [v50 initWithOrder:(v18 + v21) result:v49 conditions:0];
             }
 
-            v26 = v15;
-            if (!v50)
+            v29 = v15;
+            if (!v55)
             {
-              v64 = sub_1000035EC();
-              v65 = _SC_syslog_os_log_mapping();
-              useCopy = v97;
-              v23 = v99;
+              v71 = sub_1000035EC();
+              v72 = _SC_syslog_os_log_mapping();
+              useCopy = v112;
+              v23 = v115;
               if (__SC_log_enabled())
               {
-                v120 = 0u;
-                v121 = 0u;
-                v118 = 0u;
-                v119 = 0u;
-                v116 = 0u;
-                v117 = 0u;
-                v114 = 0u;
-                v115 = 0u;
-                v112 = 0u;
-                v113 = 0u;
-                v110 = 0u;
-                v111 = 0u;
-                v108 = 0u;
-                v109 = 0u;
-                v106 = 0u;
-                v107 = 0u;
-                os_log_type_enabled(v64, v65);
-                v66 = v64;
-                getAgentName = [v15 getAgentName];
-                v103 = 138412290;
-                v104 = getAgentName;
-                v68 = _os_log_send_and_compose_impl();
-
-                __SC_log_send2();
-                if (v68 != &v106)
+                v136 = 0u;
+                v137 = 0u;
+                v134 = 0u;
+                v135 = 0u;
+                v132 = 0u;
+                v133 = 0u;
+                v130 = 0u;
+                v131 = 0u;
+                v128 = 0u;
+                v129 = 0u;
+                v126 = 0u;
+                v127 = 0u;
+                v124 = 0u;
+                v125 = 0u;
+                v122 = 0u;
+                v123 = 0u;
+                if (_sc_log <= 0)
                 {
-                  free(v68);
+                  LODWORD(v73) = 2;
                 }
 
-                v23 = v99;
-              }
+                else
+                {
+                  LODWORD(v73) = 3;
+                }
 
-              goto LABEL_83;
-            }
+                if (os_log_type_enabled(v71, v72))
+                {
+                  v73 = v73;
+                }
 
-            v56 = [preferredPolicySession addPolicy:v50];
-            useCopy = v97;
-            v23 = v99;
-            if (!v56)
-            {
-              v69 = sub_1000035EC();
-              v70 = _SC_syslog_os_log_mapping();
-              if (__SC_log_enabled())
-              {
-                v120 = 0u;
-                v121 = 0u;
-                v118 = 0u;
-                v119 = 0u;
-                v116 = 0u;
-                v117 = 0u;
-                v114 = 0u;
-                v115 = 0u;
-                v112 = 0u;
-                v113 = 0u;
-                v110 = 0u;
-                v111 = 0u;
-                v108 = 0u;
-                v109 = 0u;
-                v106 = 0u;
-                v107 = 0u;
-                os_log_type_enabled(v69, v70);
-                v71 = v69;
+                else
+                {
+                  v73 = 2;
+                }
+
+                v74 = v71;
                 getAgentName2 = [v15 getAgentName];
-                v103 = 138412290;
-                v104 = getAgentName2;
-                v73 = _os_log_send_and_compose_impl();
+                v119 = 138412290;
+                v120 = getAgentName2;
+                v76 = _os_log_send_and_compose_impl(v73, 0, &v122, 256, &_mh_execute_header, v74, v72, "Could not create a policy for agent %@", &v119, 12);
 
                 __SC_log_send2();
-                if (v73 != &v106)
+                if (v76 != &v122)
                 {
-                  free(v73);
+                  free(v76);
                 }
 
-                useCopy = v97;
-                v23 = v99;
+                v23 = v115;
               }
 
-              goto LABEL_83;
+              goto LABEL_132;
             }
 
-            v57 = v56;
+            v63 = [preferredPolicySession addPolicy:v55];
+            useCopy = v112;
+            v23 = v115;
+            if (!v63)
+            {
+              v77 = sub_1000035EC();
+              v78 = _SC_syslog_os_log_mapping();
+              if (__SC_log_enabled())
+              {
+                v136 = 0u;
+                v137 = 0u;
+                v134 = 0u;
+                v135 = 0u;
+                v132 = 0u;
+                v133 = 0u;
+                v130 = 0u;
+                v131 = 0u;
+                v128 = 0u;
+                v129 = 0u;
+                v126 = 0u;
+                v127 = 0u;
+                v124 = 0u;
+                v125 = 0u;
+                v122 = 0u;
+                v123 = 0u;
+                if (_sc_log <= 0)
+                {
+                  LODWORD(v79) = 2;
+                }
+
+                else
+                {
+                  LODWORD(v79) = 3;
+                }
+
+                if (os_log_type_enabled(v77, v78))
+                {
+                  v79 = v79;
+                }
+
+                else
+                {
+                  v79 = 2;
+                }
+
+                v80 = v77;
+                getAgentName3 = [v15 getAgentName];
+                v119 = 138412290;
+                v120 = getAgentName3;
+                v82 = _os_log_send_and_compose_impl(v79, 0, &v122, 256, &_mh_execute_header, v80, v78, "Could not add a skip policy for agent %@", &v119, 12);
+
+                __SC_log_send2();
+                if (v82 != &v122)
+                {
+                  free(v82);
+                }
+
+                useCopy = v112;
+                v23 = v115;
+              }
+
+              goto LABEL_132;
+            }
+
+            v64 = v63;
             if (v17 != 1)
             {
-              v74 = 0;
-LABEL_69:
+              v83 = 0;
+LABEL_105:
               policyDB = [(AgentController *)self policyDB];
-              getAgentName3 = [v26 getAgentName];
-              v82 = [policyDB objectForKey:getAgentName3];
+              getAgentName4 = [v29 getAgentName];
+              v93 = [policyDB objectForKey:getAgentName4];
 
-              if (!v82)
+              if (!v93)
               {
-                v82 = +[NSMutableArray array];
+                v93 = +[NSMutableArray array];
               }
 
-              v83 = [NSNumber numberWithUnsignedInteger:v43];
-              [v82 addObject:v83];
+              v94 = [NSNumber numberWithUnsignedInteger:v48];
+              [v93 addObject:v94];
 
-              v84 = [NSNumber numberWithUnsignedInteger:v57];
-              [v82 addObject:v84];
+              v95 = [NSNumber numberWithUnsignedInteger:v64];
+              [v93 addObject:v95];
 
-              if (v74)
+              if (v83)
               {
-                v85 = [NSNumber numberWithUnsignedInteger:v74];
-                [v82 addObject:v85];
+                v96 = [NSNumber numberWithUnsignedInteger:v83];
+                [v93 addObject:v96];
               }
 
               policyDB2 = [(AgentController *)self policyDB];
-              getAgentName4 = [v26 getAgentName];
-              [policyDB2 setObject:v82 forKey:getAgentName4];
+              getAgentName5 = [v29 getAgentName];
+              [policyDB2 setObject:v93 forKey:getAgentName5];
 
-              v55 = 1;
-LABEL_74:
-              useCopy = v97;
-              v23 = v99;
-              goto LABEL_85;
+              v62 = 1;
+LABEL_110:
+              useCopy = v112;
+              v23 = v115;
+              goto LABEL_134;
             }
 
-            v58 = [NSString stringWithUTF8String:nw_proxy_config_get_agent_domain()];
-            v93 = [NSString stringWithUTF8String:nw_proxy_config_get_system_privacy_proxy_agent_type()];
-            v59 = [NEPolicyResult removeNetworkAgentDomain:v58 agentType:?];
-            v60 = [NEPolicy alloc];
-            v61 = v60;
-            if (v99)
+            v65 = [NSString stringWithUTF8String:nw_proxy_config_get_agent_domain()];
+            v108 = [NSString stringWithUTF8String:nw_proxy_config_get_system_privacy_proxy_agent_type()];
+            v66 = [NEPolicyResult removeNetworkAgentDomain:v65 agentType:?];
+            v67 = [NEPolicy alloc];
+            v68 = v67;
+            if (v115)
             {
-              v101 = v99;
-              v62 = [NSArray arrayWithObjects:&v101 count:1];
-              v63 = [v61 initWithOrder:v96 + v98 result:v59 conditions:v62];
+              v117 = v115;
+              v69 = [NSArray arrayWithObjects:&v117 count:1];
+              v70 = [v68 initWithOrder:v111 + v113 result:v66 conditions:v69];
 
-              v50 = v62;
-            }
-
-            else
-            {
-              v63 = [v60 initWithOrder:v96 + v98 result:v59 conditions:0];
-            }
-
-            if (v63)
-            {
-              v79 = [preferredPolicySession addPolicy:v63];
-              if (v79)
-              {
-                v74 = v79;
-
-                v50 = v63;
-                goto LABEL_69;
-              }
-
-              v88 = sub_1000035EC();
-              v89 = _SC_syslog_os_log_mapping();
-              if (__SC_log_enabled())
-              {
-                goto LABEL_78;
-              }
+              v55 = v69;
             }
 
             else
             {
-              v88 = sub_1000035EC();
-              v89 = _SC_syslog_os_log_mapping();
+              v70 = [v67 initWithOrder:v111 + v113 result:v66 conditions:0];
+            }
+
+            if (v70)
+            {
+              v90 = [preferredPolicySession addPolicy:v70];
+              if (v90)
+              {
+                v83 = v90;
+
+                v55 = v70;
+                goto LABEL_105;
+              }
+
+              v99 = sub_1000035EC();
+              v104 = _SC_syslog_os_log_mapping();
               if (__SC_log_enabled())
               {
-LABEL_78:
-                v120 = 0u;
-                v121 = 0u;
-                v118 = 0u;
-                v119 = 0u;
-                v116 = 0u;
-                v117 = 0u;
-                v114 = 0u;
-                v115 = 0u;
-                v112 = 0u;
-                v113 = 0u;
-                v110 = 0u;
-                v111 = 0u;
-                v108 = 0u;
-                v109 = 0u;
-                v106 = 0u;
-                v107 = 0u;
-                os_log_type_enabled(v88, v89);
-                v88 = v88;
-                getAgentName5 = [v26 getAgentName];
-                v103 = 138412290;
-                v104 = getAgentName5;
-                v91 = _os_log_send_and_compose_impl();
-
-                __SC_log_send2();
-                useCopy = v97;
-                if (v91 != &v106)
+                v114 = v65;
+                v136 = 0u;
+                v137 = 0u;
+                v134 = 0u;
+                v135 = 0u;
+                v132 = 0u;
+                v133 = 0u;
+                v130 = 0u;
+                v131 = 0u;
+                v128 = 0u;
+                v129 = 0u;
+                v126 = 0u;
+                v127 = 0u;
+                v124 = 0u;
+                v125 = 0u;
+                v122 = 0u;
+                v123 = 0u;
+                if (_sc_log <= 0)
                 {
-                  free(v91);
+                  LODWORD(v105) = 2;
                 }
 
-                v23 = v99;
-                goto LABEL_82;
+                else
+                {
+                  LODWORD(v105) = 3;
+                }
+
+                if (os_log_type_enabled(v99, v104))
+                {
+                  v105 = v105;
+                }
+
+                else
+                {
+                  v105 = 2;
+                }
+
+                v99 = v99;
+                getAgentName6 = [v29 getAgentName];
+                v119 = 138412290;
+                v120 = getAgentName6;
+                v103 = _os_log_send_and_compose_impl(v105, 0, &v122, 256, &_mh_execute_header, v99, v104, "Could not add a privacy proxy removal policy for agent %@", &v119, 12);
+LABEL_127:
+                v106 = v103;
+
+                __SC_log_send2();
+                useCopy = v112;
+                if (v106 != &v122)
+                {
+                  free(v106);
+                }
+
+                v65 = v114;
+                v23 = v115;
+                goto LABEL_131;
               }
             }
 
-            useCopy = v97;
-            v23 = v99;
-LABEL_82:
-
-LABEL_83:
-LABEL_84:
-            v55 = 0;
-            goto LABEL_85;
-          }
-
-          v51 = sub_1000035EC();
-          v52 = _SC_syslog_os_log_mapping();
-          v26 = v15;
-          v23 = v99;
-          if (__SC_log_enabled())
-          {
-            v120 = 0u;
-            v121 = 0u;
-            v118 = 0u;
-            v119 = 0u;
-            v116 = 0u;
-            v117 = 0u;
-            v114 = 0u;
-            v115 = 0u;
-            v112 = 0u;
-            v113 = 0u;
-            v110 = 0u;
-            v111 = 0u;
-            v108 = 0u;
-            v109 = 0u;
-            v106 = 0u;
-            v107 = 0u;
-            os_log_type_enabled(v51, v52);
-            v53 = v51;
-            [v15 getAgentName];
-            v104 = v103 = 138412290;
-            v54 = _os_log_send_and_compose_impl();
-
-            __SC_log_send2();
-            if (v54 != &v106)
+            else
             {
-              free(v54);
+              v99 = sub_1000035EC();
+              v100 = _SC_syslog_os_log_mapping();
+              if (__SC_log_enabled())
+              {
+                v114 = v65;
+                v136 = 0u;
+                v137 = 0u;
+                v134 = 0u;
+                v135 = 0u;
+                v132 = 0u;
+                v133 = 0u;
+                v130 = 0u;
+                v131 = 0u;
+                v128 = 0u;
+                v129 = 0u;
+                v126 = 0u;
+                v127 = 0u;
+                v124 = 0u;
+                v125 = 0u;
+                v122 = 0u;
+                v123 = 0u;
+                if (_sc_log <= 0)
+                {
+                  LODWORD(v101) = 2;
+                }
+
+                else
+                {
+                  LODWORD(v101) = 3;
+                }
+
+                if (os_log_type_enabled(v99, v100))
+                {
+                  v101 = v101;
+                }
+
+                else
+                {
+                  v101 = 2;
+                }
+
+                v99 = v99;
+                getAgentName6 = [v29 getAgentName];
+                v119 = 138412290;
+                v120 = getAgentName6;
+                v103 = _os_log_send_and_compose_impl(v101, 0, &v122, 256, &_mh_execute_header, v99, v100, "Could not create a policy for agent %@", &v119, 12);
+                goto LABEL_127;
+              }
             }
 
-            v23 = v99;
+            useCopy = v112;
+            v23 = v115;
+LABEL_131:
+
+LABEL_132:
+LABEL_133:
+            v62 = 0;
+            goto LABEL_134;
           }
 
-          goto LABEL_42;
+          v56 = sub_1000035EC();
+          v57 = _SC_syslog_os_log_mapping();
+          v29 = v15;
+          v23 = v115;
+          if (__SC_log_enabled())
+          {
+            v136 = 0u;
+            v137 = 0u;
+            v134 = 0u;
+            v135 = 0u;
+            v132 = 0u;
+            v133 = 0u;
+            v130 = 0u;
+            v131 = 0u;
+            v128 = 0u;
+            v129 = 0u;
+            v126 = 0u;
+            v127 = 0u;
+            v124 = 0u;
+            v125 = 0u;
+            v122 = 0u;
+            v123 = 0u;
+            if (_sc_log <= 0)
+            {
+              LODWORD(v58) = 2;
+            }
+
+            else
+            {
+              LODWORD(v58) = 3;
+            }
+
+            if (os_log_type_enabled(v56, v57))
+            {
+              v58 = v58;
+            }
+
+            else
+            {
+              v58 = 2;
+            }
+
+            v59 = v56;
+            getAgentName7 = [v15 getAgentName];
+            v119 = 138412290;
+            v120 = getAgentName7;
+            v61 = _os_log_send_and_compose_impl(v58, 0, &v122, 256, &_mh_execute_header, v59, v57, "Could not add a netagent policy for agent %@", &v119, 12);
+
+            __SC_log_send2();
+            if (v61 != &v122)
+            {
+              free(v61);
+            }
+
+            v23 = v115;
+          }
+
+          goto LABEL_60;
         }
       }
 
       else
       {
-        v31 = [v28 initWithOrder:v96 + v98 result:v27 conditions:0];
-        if (v31)
+        v34 = [v31 initWithOrder:v111 + v113 result:v30 conditions:0];
+        if (v34)
         {
-          goto LABEL_22;
+          goto LABEL_28;
         }
       }
 
-      v37 = sub_1000035EC();
-      v38 = _SC_syslog_os_log_mapping();
-      v26 = v15;
-      v23 = v99;
+      v40 = sub_1000035EC();
+      v41 = _SC_syslog_os_log_mapping();
+      v29 = v15;
+      v23 = v115;
       if (__SC_log_enabled())
       {
-        v120 = 0u;
-        v121 = 0u;
-        v118 = 0u;
-        v119 = 0u;
-        v116 = 0u;
-        v117 = 0u;
-        v114 = 0u;
-        v115 = 0u;
-        v112 = 0u;
-        v113 = 0u;
-        v110 = 0u;
-        v111 = 0u;
-        v108 = 0u;
-        v109 = 0u;
-        v106 = 0u;
-        v107 = 0u;
-        os_log_type_enabled(v37, v38);
-        v39 = v37;
-        [v15 getAgentName];
-        v104 = v103 = 138412290;
-        v40 = _os_log_send_and_compose_impl();
-
-        __SC_log_send2();
-        if (v40 != &v106)
+        v136 = 0u;
+        v137 = 0u;
+        v134 = 0u;
+        v135 = 0u;
+        v132 = 0u;
+        v133 = 0u;
+        v130 = 0u;
+        v131 = 0u;
+        v128 = 0u;
+        v129 = 0u;
+        v126 = 0u;
+        v127 = 0u;
+        v124 = 0u;
+        v125 = 0u;
+        v122 = 0u;
+        v123 = 0u;
+        if (_sc_log <= 0)
         {
-          free(v40);
+          LODWORD(v42) = 2;
         }
 
-        v23 = v99;
+        else
+        {
+          LODWORD(v42) = 3;
+        }
+
+        if (os_log_type_enabled(v40, v41))
+        {
+          v42 = v42;
+        }
+
+        else
+        {
+          v42 = 2;
+        }
+
+        v43 = v40;
+        getAgentName8 = [v15 getAgentName];
+        v119 = 138412290;
+        v120 = getAgentName8;
+        v45 = _os_log_send_and_compose_impl(v42, 0, &v122, 256, &_mh_execute_header, v43, v41, "Could not create a policy for agent %@", &v119, 12);
+
+        __SC_log_send2();
+        if (v45 != &v122)
+        {
+          free(v45);
+        }
+
+        v23 = v115;
       }
 
-LABEL_42:
-      v55 = 0;
-      useCopy = v97;
-      goto LABEL_85;
+LABEL_60:
+      v62 = 0;
+      useCopy = v112;
+      goto LABEL_134;
     }
 
-    v96 = v18 + 1000;
+    v111 = v18 + 1000;
     v20 = +[NEPolicyCondition allInterfaces];
-LABEL_19:
+LABEL_25:
     v21 = 1250;
-    goto LABEL_20;
+    goto LABEL_26;
   }
 
   if (!type)
   {
     v20 = 0;
-    v96 = v18 + 1000;
-    goto LABEL_19;
+    v111 = v18 + 1000;
+    goto LABEL_25;
   }
 
   if (type == 6)
   {
-    v96 = v18 + 500;
-    v20 = [NEPolicyCondition domain:v100];
+    v111 = v18 + 500;
+    v20 = [NEPolicyCondition domain:v116];
     v21 = 750;
-    goto LABEL_20;
+    goto LABEL_26;
   }
 
 LABEL_14:
@@ -4063,40 +4578,61 @@ LABEL_14:
   v24 = _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v120 = 0u;
-    v121 = 0u;
-    v118 = 0u;
-    v119 = 0u;
-    v116 = 0u;
-    v117 = 0u;
-    v114 = 0u;
-    v115 = 0u;
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    os_log_type_enabled(v23, v24);
-    LOWORD(v103) = 0;
-    v25 = _os_log_send_and_compose_impl();
-    __SC_log_send2();
-    v26 = v15;
-    if (v25 != &v106)
+    v136 = 0u;
+    v137 = 0u;
+    v134 = 0u;
+    v135 = 0u;
+    v132 = 0u;
+    v133 = 0u;
+    v130 = 0u;
+    v131 = 0u;
+    v128 = 0u;
+    v129 = 0u;
+    v126 = 0u;
+    v127 = 0u;
+    v124 = 0u;
+    v125 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    v25 = v23;
+    if (_sc_log <= 0)
     {
-      free(v25);
+      v26 = 2;
     }
 
-    goto LABEL_84;
+    else
+    {
+      v26 = 3;
+    }
+
+    if (os_log_type_enabled(v25, v24))
+    {
+      v27 = v26;
+    }
+
+    else
+    {
+      v27 = 2;
+    }
+
+    v23 = v25;
+    LOWORD(v119) = 0;
+    v28 = _os_log_send_and_compose_impl(v27, 0, &v122, 256, &_mh_execute_header, v25, v24, "Invalid policy condition specified", &v119, 2);
+    __SC_log_send2();
+    v29 = v15;
+    if (v28 != &v122)
+    {
+      free(v28);
+    }
+
+    goto LABEL_133;
   }
 
-  v55 = 0;
-  v26 = v15;
-LABEL_85:
+  v62 = 0;
+  v29 = v15;
+LABEL_134:
 
-  return v55;
+  return v62;
 }
 
 - (BOOL)spawnFloatingAgent:(Class)agent entity:(id)entity agentSubType:(unint64_t)type addPolicyOfType:(int64_t)ofType publishData:(id)data
@@ -4111,7 +4647,7 @@ LABEL_85:
   v16 = [[agent alloc] initWithParameters:v14];
   if (![(AgentController *)self registerAgent:v16])
   {
-    goto LABEL_14;
+    goto LABEL_20;
   }
 
   if (dataCopy)
@@ -4128,9 +4664,9 @@ LABEL_85:
     if ((v18 & 1) == 0)
     {
       [(AgentController *)self unregisterAgent:v16];
-LABEL_14:
-      v23 = 0;
-      goto LABEL_15;
+LABEL_20:
+      v25 = 0;
+      goto LABEL_21;
     }
   }
 
@@ -4139,16 +4675,15 @@ LABEL_14:
   if (__SC_log_enabled())
   {
     memset(v29, 0, sizeof(v29));
-    os_log_type_enabled(v19, v20);
+    v21 = _sc_log <= 0 ? 2 : 3;
+    v22 = os_log_type_enabled(v19, v20) ? v21 : 2;
     v27 = 138412290;
     v28 = entityCopy;
-    LODWORD(v26) = 12;
-    v25 = &v27;
-    v21 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(v22, 0, v29, 256, &_mh_execute_header, v19, v20, "Spawning floating agent for %@", &v27, 12);
     __SC_log_send2();
-    if (v21 != v29)
+    if (v23 != v29)
     {
-      free(v21);
+      free(v23);
     }
   }
 
@@ -4161,13 +4696,13 @@ LABEL_14:
   {
     [(AgentController *)self floatingDNSAgentList];
   }
-  v22 = ;
-  [v22 setObject:v16 forKey:{entityCopy, v25, v26}];
+  v24 = ;
+  [v24 setObject:v16 forKey:entityCopy];
 
-  v23 = 1;
-LABEL_15:
+  v25 = 1;
+LABEL_21:
 
-  return v23;
+  return v25;
 }
 
 - (BOOL)spawnMappedFloatingAgent:(id)agent entity:(id)entity agentSubType:(unint64_t)type addPolicyOfType:(int64_t)ofType updateData:(id)data
@@ -4209,21 +4744,46 @@ LABEL_15:
     v23 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v28 = dataCopy;
-      memset(v30, 0, sizeof(v30));
-      os_log_type_enabled(v22, v23);
-      v24 = v22;
-      getAgentName = [v18 getAgentName];
-      getAgentName2 = [agentCopy getAgentName];
-      v26 = _os_log_send_and_compose_impl();
-
-      __SC_log_send2();
-      if (v26 != v30)
+      v31 = v20;
+      v32 = dataCopy;
+      memset(v37, 0, sizeof(v37));
+      if (_sc_log <= 0)
       {
-        free(v26);
+        v24 = 2;
       }
 
-      dataCopy = v28;
+      else
+      {
+        v24 = 3;
+      }
+
+      if (os_log_type_enabled(v22, v23))
+      {
+        v25 = v24;
+      }
+
+      else
+      {
+        v25 = 2;
+      }
+
+      v26 = v22;
+      getAgentName = [v18 getAgentName];
+      getAgentName2 = [agentCopy getAgentName];
+      v33 = 138412546;
+      v34 = getAgentName;
+      v35 = 2112;
+      v36 = getAgentName2;
+      v29 = _os_log_send_and_compose_impl(v25, 0, v37, 256, &_mh_execute_header, v26, v23, "Mapped floating agent %@ to %@", &v33, 22);
+
+      __SC_log_send2();
+      if (v29 != v37)
+      {
+        free(v29);
+      }
+
+      dataCopy = v32;
+      LOBYTE(v20) = v31;
     }
   }
 
@@ -4244,6 +4804,12 @@ LABEL_15:
     v9 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v46 = 0u;
       v47 = 0u;
       v44 = 0u;
@@ -4254,27 +4820,20 @@ LABEL_15:
       v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      os_log_type_enabled(v8, v9);
-      v10 = v8;
+      LODWORD(v10) = _sc_log <= 0 ? 2 : 3;
+      v10 = os_log_type_enabled(v8, v9) ? v10 : 2;
+      v11 = v8;
       getAgentName = [agentCopy getAgentName];
-      *v29 = 138412546;
-      *&v29[4] = getAgentName;
-      v30 = 2048;
-      v31 = [v7 length];
-      LODWORD(v27) = 22;
-      v25 = v29;
-      v12 = _os_log_send_and_compose_impl();
+      *v35 = 138412546;
+      *&v35[4] = getAgentName;
+      v36 = 2048;
+      v37 = [v7 length];
+      v13 = _os_log_send_and_compose_impl(v10, 0, &v38, 256, &_mh_execute_header, v11, v9, "Data too large for %@ (%lu bytes)!", v35, 22);
 
       __SC_log_send2();
-      if (v12 != &v32)
+      if (v13 != &v38)
       {
-        free(v12);
+        free(v13);
       }
     }
   }
@@ -4284,22 +4843,23 @@ LABEL_15:
     v7 = 0;
   }
 
-  v13 = [agentCopy valueForKey:{@"registrationObject", v25, v27}];
-  v14 = sub_1000035EC();
-  v15 = _SC_syslog_os_log_mapping();
-  v16 = __SC_log_enabled();
-  if (!v13)
+  v14 = [agentCopy valueForKey:@"registrationObject"];
+  v15 = sub_1000035EC();
+  v16 = _SC_syslog_os_log_mapping();
+  v17 = __SC_log_enabled();
+  if (!v14)
   {
-    if (!v16)
+    if (!v17)
     {
-      goto LABEL_19;
+      goto LABEL_44;
     }
 
-    goto LABEL_17;
-  }
-
-  if (v16)
-  {
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
     v44 = 0u;
@@ -4310,48 +4870,91 @@ LABEL_15:
     v41 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    os_log_type_enabled(v14, v15);
-    v17 = v14;
+    if (_sc_log <= 0)
+    {
+      v26 = 2;
+    }
+
+    else
+    {
+      v26 = 3;
+    }
+
+    if (os_log_type_enabled(v15, v16))
+    {
+      v27 = v26;
+    }
+
+    else
+    {
+      v27 = 2;
+    }
+
+    *v35 = 0;
+    LODWORD(v34) = 2;
+    v28 = _os_log_send_and_compose_impl(v27, 0, &v38, 256, &_mh_execute_header, v15, v16, "Config Agent not registered. Cannot Update", v35, v34, *v35);
+    goto LABEL_42;
+  }
+
+  if (v17)
+  {
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v18 = _sc_log <= 0 ? 2 : 3;
+    v19 = os_log_type_enabled(v15, v16) ? v18 : 2;
+    v20 = v15;
     getAgentName2 = [agentCopy getAgentName];
     getAgentData2 = [agentCopy getAgentData];
-    v20 = [getAgentData2 length];
-    *v29 = 138412546;
-    *&v29[4] = getAgentName2;
-    v30 = 2048;
-    v31 = v20;
-    LODWORD(v28) = 22;
-    v26 = v29;
-    v21 = _os_log_send_and_compose_impl();
+    v23 = [getAgentData2 length];
+    *v35 = 138412546;
+    *&v35[4] = getAgentName2;
+    v36 = 2048;
+    v37 = v23;
+    LODWORD(v34) = 22;
+    v24 = _os_log_send_and_compose_impl(v19, 0, &v38, 256, &_mh_execute_header, v20, v16, "Publishing data to agent %@ (%lu bytes)", v35, v34);
 
     __SC_log_send2();
-    if (v21 != &v32)
+    if (v24 != &v38)
     {
-      free(v21);
+      free(v24);
     }
   }
 
-  if ([v13 updateNetworkAgent:agentCopy])
+  if ([v14 updateNetworkAgent:agentCopy])
   {
-    v22 = 1;
+    v25 = 1;
     if (!v7)
     {
-      goto LABEL_21;
+      goto LABEL_46;
     }
 
-    goto LABEL_20;
+    goto LABEL_45;
   }
 
-  v14 = sub_1000035EC();
-  v15 = _SC_syslog_os_log_mapping();
+  v15 = sub_1000035EC();
+  v29 = _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-LABEL_17:
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
     v44 = 0u;
@@ -4362,36 +4965,50 @@ LABEL_17:
     v41 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    os_log_type_enabled(v14, v15);
-    *v29 = 0;
-    LODWORD(v28) = 2;
-    v26 = v29;
-    v23 = _os_log_send_and_compose_impl();
-    __SC_log_send2();
-    if (v23 != &v32)
+    if (_sc_log <= 0)
     {
-      free(v23);
+      v30 = 2;
+    }
+
+    else
+    {
+      v30 = 3;
+    }
+
+    if (os_log_type_enabled(v15, v29))
+    {
+      v31 = v30;
+    }
+
+    else
+    {
+      v31 = 2;
+    }
+
+    *v35 = 0;
+    LODWORD(v34) = 2;
+    v28 = _os_log_send_and_compose_impl(v31, 0, &v38, 256, &_mh_execute_header, v15, v29, "Could not update config agent", v35, v34, *v35);
+LABEL_42:
+    v32 = v28;
+    __SC_log_send2();
+    if (v32 != &v38)
+    {
+      free(v32);
     }
   }
 
-LABEL_19:
+LABEL_44:
 
-  v22 = 0;
+  v25 = 0;
   if (v7)
   {
-LABEL_20:
-    [agentCopy updateAgentData:{v7, v26, v28, *v29}];
+LABEL_45:
+    [agentCopy updateAgentData:v7];
   }
 
-LABEL_21:
+LABEL_46:
 
-  return v22;
+  return v25;
 }
 
 - (BOOL)destroyFloatingAgent:(id)agent
@@ -4408,78 +5025,96 @@ LABEL_21:
     if (v9)
     {
       selfCopy = self;
-      v59 = getAssociatedEntity;
+      v64 = getAssociatedEntity;
       preferredPolicySession = [v5 preferredPolicySession];
-      v86 = 0u;
-      v87 = 0u;
-      v88 = 0u;
-      v89 = 0u;
-      v58 = v9;
+      v91 = 0u;
+      v92 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v63 = v9;
       obj = v9;
-      v11 = [obj countByEnumeratingWithState:&v86 objects:v85 count:16];
+      v11 = [obj countByEnumeratingWithState:&v91 objects:v90 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v87;
-        v61 = *v87;
+        v13 = *v92;
+        v66 = *v92;
         do
         {
           v14 = 0;
-          v62 = v12;
+          v67 = v12;
           do
           {
-            if (*v87 != v13)
+            if (*v92 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            unsignedIntegerValue = [*(*(&v86 + 1) + 8 * v14) unsignedIntegerValue];
+            unsignedIntegerValue = [*(*(&v91 + 1) + 8 * v14) unsignedIntegerValue];
             if (([preferredPolicySession removePolicyWithID:unsignedIntegerValue] & 1) == 0)
             {
               v16 = sub_1000035EC();
               v17 = _SC_syslog_os_log_mapping();
               if (__SC_log_enabled())
               {
-                v83 = 0u;
+                v88 = 0u;
+                v89 = 0u;
+                v86 = 0u;
+                v87 = 0u;
                 v84 = 0u;
-                v81 = 0u;
+                v85 = 0u;
                 v82 = 0u;
-                v79 = 0u;
+                v83 = 0u;
                 v80 = 0u;
-                v77 = 0u;
+                v81 = 0u;
                 v78 = 0u;
-                v75 = 0u;
+                v79 = 0u;
                 v76 = 0u;
-                v73 = 0u;
-                v74 = 0u;
-                v71 = 0u;
-                v72 = 0u;
-                v69 = 0uLL;
-                v70 = 0uLL;
-                os_log_type_enabled(v16, v17);
-                v18 = v16;
-                v19 = preferredPolicySession;
-                v20 = [preferredPolicySession policyWithID:unsignedIntegerValue];
-                v21 = v5;
-                getAgentName2 = [v5 getAgentName];
-                v65 = 138412546;
-                v66 = v20;
-                v67 = 2112;
-                v68 = getAgentName2;
-                LODWORD(v55) = 22;
-                v53 = &v65;
-                v23 = _os_log_send_and_compose_impl();
-
-                __SC_log_send2();
-                if (v23 != &v69)
+                v77 = 0u;
+                if (_sc_log <= 0)
                 {
-                  free(v23);
+                  v18 = 2;
                 }
 
-                v5 = v21;
-                preferredPolicySession = v19;
-                v13 = v61;
-                v12 = v62;
+                else
+                {
+                  v18 = 3;
+                }
+
+                v74 = 0uLL;
+                v75 = 0uLL;
+                if (os_log_type_enabled(v16, v17))
+                {
+                  v19 = v18;
+                }
+
+                else
+                {
+                  v19 = 2;
+                }
+
+                v20 = v16;
+                v21 = preferredPolicySession;
+                v22 = [preferredPolicySession policyWithID:unsignedIntegerValue];
+                v23 = v5;
+                getAgentName2 = [v5 getAgentName];
+                v70 = 138412546;
+                v71 = v22;
+                v72 = 2112;
+                v73 = getAgentName2;
+                LODWORD(v61) = 22;
+                v25 = _os_log_send_and_compose_impl(v19, 0, &v74, 256, &_mh_execute_header, v20, v17, "Could not remove policy %@ for agent %@", &v70, v61);
+
+                __SC_log_send2();
+                if (v25 != &v74)
+                {
+                  free(v25);
+                }
+
+                v5 = v23;
+                preferredPolicySession = v21;
+                v13 = v66;
+                v12 = v67;
               }
             }
 
@@ -4487,7 +5122,7 @@ LABEL_21:
           }
 
           while (v12 != v14);
-          v12 = [obj countByEnumeratingWithState:&v86 objects:v85 count:16];
+          v12 = [obj countByEnumeratingWithState:&v91 objects:v90 count:16];
         }
 
         while (v12);
@@ -4498,40 +5133,40 @@ LABEL_21:
       getAgentName3 = [v5 getAgentName];
       [policyDB2 removeObjectForKey:getAgentName3];
 
-      v9 = v58;
-      getAssociatedEntity = v59;
+      v9 = v63;
+      getAssociatedEntity = v64;
     }
 
-    v26 = sub_1000035EC();
-    v27 = _SC_syslog_os_log_mapping();
+    v28 = sub_1000035EC();
+    v29 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v83 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
       v84 = 0u;
-      v81 = 0u;
+      v85 = 0u;
       v82 = 0u;
-      v79 = 0u;
+      v83 = 0u;
       v80 = 0u;
-      v77 = 0u;
+      v81 = 0u;
       v78 = 0u;
-      v75 = 0u;
+      v79 = 0u;
       v76 = 0u;
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v69 = 0uLL;
-      v70 = 0uLL;
-      os_log_type_enabled(v26, v27);
-      v65 = 138412290;
-      v66 = getAssociatedEntity;
-      LODWORD(v55) = 12;
-      v53 = &v65;
-      v28 = _os_log_send_and_compose_impl();
+      v77 = 0u;
+      v30 = _sc_log <= 0 ? 2 : 3;
+      v74 = 0uLL;
+      v75 = 0uLL;
+      v31 = os_log_type_enabled(v28, v29) ? v30 : 2;
+      v70 = 138412290;
+      v71 = getAssociatedEntity;
+      LODWORD(v61) = 12;
+      v32 = _os_log_send_and_compose_impl(v31, 0, &v74, 256, &_mh_execute_header, v28, v29, "Destroying floating agent for %@", &v70, v61);
       __SC_log_send2();
-      if (v28 != &v69)
+      if (v32 != &v74)
       {
-        free(v28);
+        free(v32);
       }
     }
 
@@ -4544,9 +5179,9 @@ LABEL_21:
       [floatingProxyAgentList_TCPConverter removeObjectForKey:getAssociatedEntity];
 
       floatingProxyAgentList_TCPConverter2 = [(AgentController *)self floatingProxyAgentList_TCPConverter];
-      v32 = [floatingProxyAgentList_TCPConverter2 count];
+      v36 = [floatingProxyAgentList_TCPConverter2 count];
 
-      if (!v32)
+      if (!v36)
       {
         sub_10004EA44(0);
       }
@@ -4571,90 +5206,128 @@ LABEL_21:
     if (controlPolicySession)
     {
       floatingProxyAgentList2 = [(AgentController *)self floatingProxyAgentList];
-      v38 = [(AgentController *)self getAgentList:floatingProxyAgentList2 agentType:1 agentSubType:10];
+      v42 = [(AgentController *)self getAgentList:floatingProxyAgentList2 agentType:1 agentSubType:10];
 
       floatingDNSAgentList2 = [(AgentController *)self floatingDNSAgentList];
       selfCopy2 = self;
-      v41 = [(AgentController *)self getAgentList:floatingDNSAgentList2 agentType:2 agentSubType:10];
+      v45 = [(AgentController *)self getAgentList:floatingDNSAgentList2 agentType:2 agentSubType:10];
 
-      if (![v38 count] && !objc_msgSend(v41, "count"))
+      if (![v42 count] && !objc_msgSend(v45, "count"))
       {
         controlPolicySession2 = [(AgentController *)selfCopy2 controlPolicySession];
         removeAllPolicies = [controlPolicySession2 removeAllPolicies];
 
         if ((removeAllPolicies & 1) == 0)
         {
-          v60 = getAssociatedEntity;
-          v44 = sub_1000035EC();
-          v45 = _SC_syslog_os_log_mapping();
+          v65 = getAssociatedEntity;
+          v48 = sub_1000035EC();
+          v49 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v83 = 0u;
+            v88 = 0u;
+            v89 = 0u;
+            v86 = 0u;
+            v87 = 0u;
             v84 = 0u;
-            v81 = 0u;
+            v85 = 0u;
             v82 = 0u;
-            v79 = 0u;
+            v83 = 0u;
             v80 = 0u;
-            v77 = 0u;
+            v81 = 0u;
             v78 = 0u;
-            v75 = 0u;
+            v79 = 0u;
             v76 = 0u;
-            v73 = 0u;
-            v74 = 0u;
-            v71 = 0u;
-            v72 = 0u;
-            v69 = 0uLL;
-            v70 = 0uLL;
-            os_log_type_enabled(v44, v45);
-            v46 = v44;
+            v77 = 0u;
+            if (_sc_log <= 0)
+            {
+              v50 = 2;
+            }
+
+            else
+            {
+              v50 = 3;
+            }
+
+            v74 = 0uLL;
+            v75 = 0uLL;
+            if (os_log_type_enabled(v48, v49))
+            {
+              v51 = v50;
+            }
+
+            else
+            {
+              v51 = 2;
+            }
+
+            v52 = v48;
             obja = v5;
             getAgentName4 = [v5 getAgentName];
-            v65 = 138412290;
-            v66 = getAgentName4;
-            LODWORD(v56) = 12;
-            v54 = &v65;
-            v48 = _os_log_send_and_compose_impl();
+            v70 = 138412290;
+            v71 = getAgentName4;
+            LODWORD(v61) = 12;
+            v54 = _os_log_send_and_compose_impl(v51, 0, &v74, 256, &_mh_execute_header, v52, v49, "Could not remove policies for agent %@", &v70, v61);
 
             __SC_log_send2();
-            if (v48 != &v69)
+            if (v54 != &v74)
             {
-              free(v48);
+              free(v54);
             }
 
             v5 = obja;
           }
 
-          getAssociatedEntity = v60;
+          getAssociatedEntity = v65;
         }
 
-        [(AgentController *)selfCopy2 setControlPolicySession:0, v54, v56];
-        v49 = sub_1000035EC();
-        v50 = _SC_syslog_os_log_mapping();
+        [(AgentController *)selfCopy2 setControlPolicySession:0];
+        v55 = sub_1000035EC();
+        v56 = _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v83 = 0u;
+          v88 = 0u;
+          v89 = 0u;
+          v86 = 0u;
+          v87 = 0u;
           v84 = 0u;
-          v81 = 0u;
+          v85 = 0u;
           v82 = 0u;
-          v79 = 0u;
+          v83 = 0u;
           v80 = 0u;
-          v77 = 0u;
+          v81 = 0u;
           v78 = 0u;
-          v75 = 0u;
+          v79 = 0u;
           v76 = 0u;
-          v73 = 0u;
-          v74 = 0u;
-          v71 = 0u;
-          v72 = 0u;
-          v69 = 0uLL;
-          v70 = 0uLL;
-          os_log_type_enabled(v49, v50);
-          LOWORD(v65) = 0;
-          v51 = _os_log_send_and_compose_impl();
-          __SC_log_send2();
-          if (v51 != &v69)
+          v77 = 0u;
+          if (_sc_log <= 0)
           {
-            free(v51);
+            v57 = 2;
+          }
+
+          else
+          {
+            v57 = 3;
+          }
+
+          v74 = 0uLL;
+          v75 = 0uLL;
+          if (os_log_type_enabled(v55, v56))
+          {
+            v58 = v57;
+          }
+
+          else
+          {
+            v58 = 2;
+          }
+
+          LOWORD(v70) = 0;
+          LODWORD(v61) = 2;
+          v59 = _os_log_send_and_compose_impl(v58, 0, &v74, 256, &_mh_execute_header, v55, v56, "Closed control policy session", &v70, v61);
+          __SC_log_send2();
+          if (v59 != &v74)
+          {
+            free(v59);
           }
         }
       }
@@ -4680,13 +5353,33 @@ LABEL_21:
     v7 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v10, 0, sizeof(v10));
-      os_log_type_enabled(v6, v7);
-      v8 = _os_log_send_and_compose_impl();
-      __SC_log_send2();
-      if (v8 != v10)
+      memset(v13, 0, sizeof(v13));
+      if (_sc_log <= 0)
       {
-        free(v8);
+        v8 = 2;
+      }
+
+      else
+      {
+        v8 = 3;
+      }
+
+      if (os_log_type_enabled(v6, v7))
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v12[0] = 0;
+      v10 = _os_log_send_and_compose_impl(v9, 0, v13, 256, &_mh_execute_header, v6, v7, "Could not register config agent", v12, 2);
+      __SC_log_send2();
+      if (v10 != v13)
+      {
+        free(v10);
       }
     }
   }
@@ -4704,37 +5397,113 @@ LABEL_21:
     v7 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-LABEL_7:
-      memset(v10, 0, sizeof(v10));
-      os_log_type_enabled(v6, v7);
-      v8 = _os_log_send_and_compose_impl();
-      __SC_log_send2();
-      if (v8 != v10)
+      v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      if (_sc_log <= 0)
       {
-        free(v8);
+        v8 = 2;
       }
+
+      else
+      {
+        v8 = 3;
+      }
+
+      if (os_log_type_enabled(v6, v7))
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      LOWORD(v16[0]) = 0;
+      v10 = _os_log_send_and_compose_impl(v9, 0, &v17, 256, &_mh_execute_header, v6, v7, "Config Agent not registered. Cannot unregister", v16, 2, v16[0]);
+      goto LABEL_20;
     }
 
-LABEL_9:
+LABEL_22:
 
     v5 = 0;
-    goto LABEL_10;
+    goto LABEL_23;
   }
 
   if (([v3 unregisterNetworkAgent] & 1) == 0)
   {
     v6 = sub_1000035EC();
-    v7 = _SC_syslog_os_log_mapping();
+    v11 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      goto LABEL_7;
+      v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      if (_sc_log <= 0)
+      {
+        v12 = 2;
+      }
+
+      else
+      {
+        v12 = 3;
+      }
+
+      if (os_log_type_enabled(v6, v11))
+      {
+        v13 = v12;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      LOWORD(v16[0]) = 0;
+      v10 = _os_log_send_and_compose_impl(v13, 0, &v17, 256, &_mh_execute_header, v6, v11, "Could not unregister config agent", v16, 2, v16[0]);
+LABEL_20:
+      v14 = v10;
+      __SC_log_send2();
+      if (v14 != &v17)
+      {
+        free(v14);
+      }
+
+      goto LABEL_22;
     }
 
-    goto LABEL_9;
+    goto LABEL_22;
   }
 
   v5 = 1;
-LABEL_10:
+LABEL_23:
 
   return v5;
 }

@@ -1386,7 +1386,7 @@ void __137__PLAssetsdResourceClient_imageDataForAsset_format_allowPlaceholder_wa
   [(PLImageDataInfo *)v23 setUTI:v19];
 
   [(PLImageDataInfo *)v23 setEXIFOrientation:a9];
-  if (*(a1 + 40) == 1 && *(a1 + 41) == 1)
+  if (__PAIR64__(*(a1 + 41), *(a1 + 40)) == 0x100000001)
   {
     v27 = v34;
     v26 = v35;

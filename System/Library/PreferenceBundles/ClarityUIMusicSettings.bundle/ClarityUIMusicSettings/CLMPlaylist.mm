@@ -7,12 +7,10 @@
 
 - (NSString)musicItemID
 {
-  v2 = *(self + OBJC_IVAR____TtC22ClarityUIMusicSettings11CLMPlaylist_musicItemID);
-  v3 = *(self + OBJC_IVAR____TtC22ClarityUIMusicSettings11CLMPlaylist_musicItemID + 8);
 
-  v4 = sub_941C();
+  v2 = sub_941C();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC22ClarityUIMusicSettings11CLMPlaylist)init

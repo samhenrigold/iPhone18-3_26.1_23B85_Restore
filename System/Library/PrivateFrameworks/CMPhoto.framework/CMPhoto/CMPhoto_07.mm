@@ -1,29 +1,3 @@
-void vega::dicom::DataSet::element<vega::dictionary::WindowWidth>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
-{
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::WindowWidth::tag_mask, &v3);
-  if (v3)
-  {
-    std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::WindowWidth>,std::allocator<vega::dicom::Element<vega::dictionary::WindowWidth>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
-  }
-
-  *a2 = 0;
-  a2[1] = 0;
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-}
-
-void sub_1A597E384(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
-{
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 void *std::__shared_ptr_emplace<vega::dicom::Element<vega::dictionary::WindowWidth>>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dicom::DataElement> &,std::allocator<vega::dicom::Element<vega::dictionary::WindowWidth>>,0>(void *a1, uint64_t a2)
 {
   a1[1] = 0;
@@ -112,7 +86,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::VOILUTFunction>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::VOILUTFunction::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::VOILUTFunction::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::VOILUTFunction>,std::allocator<vega::dicom::Element<vega::dictionary::VOILUTFunction>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -285,10 +259,10 @@ void sub_1A597EB28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void _getLookupTableDescriptorValues<std::shared_ptr<vega::manipulators::SignedShortManipulator>>(uint64_t *a1, uint64_t a2)
+void _getLookupTableDescriptorValues<std::shared_ptr<vega::manipulators::SignedShortManipulator>>(uint64_t *result, uint64_t a2)
 {
-  v4 = *a1;
-  if (*a1)
+  v4 = *result;
+  if (*result)
   {
     v6 = v4 + 8;
     v5 = *(v4 + 8);
@@ -306,10 +280,10 @@ void _getLookupTableDescriptorValues<std::shared_ptr<vega::manipulators::SignedS
   }
 }
 
-void _getLookupTableDescriptorValues<std::shared_ptr<vega::manipulators::UnsignedShortManipulator>>(uint64_t *a1, uint64_t a2)
+void _getLookupTableDescriptorValues<std::shared_ptr<vega::manipulators::UnsignedShortManipulator>>(uint64_t *result, uint64_t a2)
 {
-  v4 = *a1;
-  if (*a1)
+  v4 = *result;
+  if (*result)
   {
     v6 = v4 + 8;
     v5 = *(v4 + 8);
@@ -373,7 +347,7 @@ void **std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::p
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -406,7 +380,7 @@ void **std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::p
 
 void vega::dicom::DataSet::element<vega::dictionary::RedPaletteColorLookupTableDescriptor_SS>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::RedPaletteColorLookupTableDescriptor_SS::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::RedPaletteColorLookupTableDescriptor_SS::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::RedPaletteColorLookupTableDescriptor_SS>,std::allocator<vega::dicom::Element<vega::dictionary::RedPaletteColorLookupTableDescriptor_SS>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -591,7 +565,7 @@ void std::allocator<std::array<int,3ul>>::allocate_at_least[abi:ne200100](uint64
 
 void vega::dicom::DataSet::element<vega::dictionary::BluePaletteColorLookupTableDescriptor_SS>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::BluePaletteColorLookupTableDescriptor_SS::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::BluePaletteColorLookupTableDescriptor_SS::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::BluePaletteColorLookupTableDescriptor_SS>,std::allocator<vega::dicom::Element<vega::dictionary::BluePaletteColorLookupTableDescriptor_SS>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -703,7 +677,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::GreenPaletteColorLookupTableDescriptor_SS>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::GreenPaletteColorLookupTableDescriptor_SS::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::GreenPaletteColorLookupTableDescriptor_SS::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::GreenPaletteColorLookupTableDescriptor_SS>,std::allocator<vega::dicom::Element<vega::dictionary::GreenPaletteColorLookupTableDescriptor_SS>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -815,7 +789,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::RedPaletteColorLookupTableDescriptor_US>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::RedPaletteColorLookupTableDescriptor_US::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::RedPaletteColorLookupTableDescriptor_US::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::RedPaletteColorLookupTableDescriptor_US>,std::allocator<vega::dicom::Element<vega::dictionary::RedPaletteColorLookupTableDescriptor_US>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -927,7 +901,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::BluePaletteColorLookupTableDescriptor_US>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::BluePaletteColorLookupTableDescriptor_US::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::BluePaletteColorLookupTableDescriptor_US::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::BluePaletteColorLookupTableDescriptor_US>,std::allocator<vega::dicom::Element<vega::dictionary::BluePaletteColorLookupTableDescriptor_US>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -1039,7 +1013,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::GreenPaletteColorLookupTableDescriptor_US>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::GreenPaletteColorLookupTableDescriptor_US::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::GreenPaletteColorLookupTableDescriptor_US::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::GreenPaletteColorLookupTableDescriptor_US>,std::allocator<vega::dicom::Element<vega::dictionary::GreenPaletteColorLookupTableDescriptor_US>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -1151,7 +1125,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::RedPaletteColorLookupTableData>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::RedPaletteColorLookupTableData::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::RedPaletteColorLookupTableData::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::RedPaletteColorLookupTableData>,std::allocator<vega::dicom::Element<vega::dictionary::RedPaletteColorLookupTableData>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -1261,33 +1235,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::OtherWordManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::OtherWordManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::OtherWordManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::OtherWordManipulator,std::allocator<vega::manipulators::OtherWordManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A5980970(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1351,7 +1324,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::OtherW
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -1474,7 +1447,7 @@ void vega::manipulators::OtherWordManipulator::~OtherWordManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -1485,7 +1458,7 @@ void vega::manipulators::OtherWordManipulator::~OtherWordManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -1493,25 +1466,13 @@ void vega::manipulators::OtherWordManipulator::~OtherWordManipulator(vega::manip
 BOOL vega::manipulators::OtherWordManipulator::is_valid_for (vega::manipulators::OtherWordManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA610, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA610, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::OtherWordManipulator::is_valid_for ();
     v3 = a2;
   }
 
   return vega::Word::operator==(v3, &word_1ED6FA5BC);
-}
-
-uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Word>::~FixedSizeElementManipulator(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
 }
 
 void vega::manipulators::FixedSizeElementManipulator<vega::Word>::~FixedSizeElementManipulator(uint64_t a1)
@@ -1523,12 +1484,23 @@ void vega::manipulators::FixedSizeElementManipulator<vega::Word>::~FixedSizeElem
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+}
+
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::Word>,(vega::manipulators::FixedSizeElementManipulator<vega::Word>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::Word>,(vega::manipulators::FixedSizeElementManipulator<vega::Word>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -1537,14 +1509,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::W
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<vega::Word>(a1, v4);
+    vega::Json::value_to_json<vega::Word>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -1557,12 +1529,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::W
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<vega::Word>(a1, &v4[v9]);
+        vega::Json::value_to_json<vega::Word>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 1;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -1576,9 +1548,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::W
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -1587,7 +1559,7 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::W
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -1836,8 +1808,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::OtherWordManipulator>::__sha
 void *std::construct_at[abi:ne200100]<vega::manipulators::OtherWordManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::OtherWordManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::FixedSizeElementManipulator<vega::Word>::FixedSizeElementManipulator(a1, &v4);
   *a1 = &unk_1F1918878;
   if (*(&v4 + 1))
@@ -1893,7 +1864,7 @@ LABEL_6:
         operator delete(v19);
       }
 
-      CMPhotoGetEncodeAccelerationModeOverride(v14);
+      CMPhotoGetEncodeAccelerationModeOverride();
       _Unwind_Resume(a1);
     }
   }
@@ -2027,7 +1998,7 @@ void std::__split_buffer<std::shared_ptr<vega::manipulators::OtherWordManipulato
 
 void vega::dicom::DataSet::element<vega::dictionary::GreenPaletteColorLookupTableData>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::GreenPaletteColorLookupTableData::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::GreenPaletteColorLookupTableData::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::GreenPaletteColorLookupTableData>,std::allocator<vega::dicom::Element<vega::dictionary::GreenPaletteColorLookupTableData>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -2139,7 +2110,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::BluePaletteColorLookupTableData>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::BluePaletteColorLookupTableData::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::BluePaletteColorLookupTableData::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::BluePaletteColorLookupTableData>,std::allocator<vega::dicom::Element<vega::dictionary::BluePaletteColorLookupTableData>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -2249,7 +2220,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t std::vector<std::shared_ptr<vega::dicom::DataSet>>::__init_with_size[abi:ne200100]<std::shared_ptr<vega::dicom::DataSet>*,std::shared_ptr<vega::dicom::DataSet>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<vega::dicom::DataSet>>::__init_with_size[abi:ne200100]<std::shared_ptr<vega::dicom::DataSet>*,std::shared_ptr<vega::dicom::DataSet>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2259,14 +2230,14 @@ uint64_t std::vector<std::shared_ptr<vega::dicom::DataSet>>::__init_with_size[ab
   return result;
 }
 
-void sub_1A598201C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1A598201C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::shared_ptr<vega::dicom::DataSet>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<vega::dicom::DataSet>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<vega::dicom::DataSet>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2475,7 +2446,7 @@ uint64_t _validateMainAndAuxTags(uint64_t a1)
 
 void vega::dicom::DataSet::element<vega::dictionary::TransferSyntaxUID>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::TransferSyntaxUID::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::TransferSyntaxUID::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::TransferSyntaxUID>,std::allocator<vega::dicom::Element<vega::dictionary::TransferSyntaxUID>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -2585,7 +2556,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-const char **std::ranges::__find::__find_unwrap[abi:ne200100]<char const* const*,char const* const*,std::string,std::reference_wrapper<std::identity>>(const char **a1, const char **a2, const void **a3)
+const char **std::ranges::__find::__find_unwrap[abi:ne200100]<char const* const*,char const* const*,std::string,std::reference_wrapper<std::identity>>(const char **a1, const char **a2, const void ***a3)
 {
   v3 = a1;
   if (a1 != a2)
@@ -2747,13 +2718,13 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t _getPaletteSize(uint64_t **a1)
+uint64_t _getPaletteSize(uint64_t *a1)
 {
   v1 = *a1;
   v6 = 0;
   v7 = 0;
   v5 = 0;
-  std::vector<std::array<int,3ul>>::__init_with_size[abi:ne200100]<std::array<int,3ul>*,std::array<int,3ul>*>(&v5, *v1, v1[1], 0xAAAAAAAAAAAAAAABLL * ((v1[1] - *v1) >> 2));
+  std::vector<std::array<int,3ul>>::__init_with_size[abi:ne200100]<std::array<int,3ul>*,std::array<int,3ul>*>(&v5, *v1, *(v1 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(v1 + 8) - *v1) >> 2));
   if (v6 != v5)
   {
     if (*v5)
@@ -2782,7 +2753,7 @@ LABEL_6:
   return v3;
 }
 
-uint64_t std::vector<std::array<int,3ul>>::__init_with_size[abi:ne200100]<std::array<int,3ul>*,std::array<int,3ul>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::array<int,3ul>>::__init_with_size[abi:ne200100]<std::array<int,3ul>*,std::array<int,3ul>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2804,7 +2775,7 @@ void sub_1A5982B84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::array<int,3ul>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::array<int,3ul>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -2821,7 +2792,7 @@ void std::__throw_bad_optional_access[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x1E69E5418], MEMORY[0x1E69E52A0]);
 }
 
-uint64_t std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4563,17 +4534,17 @@ void sub_1A598444C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<vega::Byte>::__vallocate[abi:ne200100](result, a2);
+    std::vector<vega::Byte>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1A59844BC(_Unwind_Exception *exception_object)
@@ -4811,7 +4782,7 @@ void std::__shared_ptr_emplace<DicomImageRenderingDetails>::__on_zero_shared(uin
 uint64_t CMPhotoParavirtualizedHostJPEGHardwareCopyCapabilities(CFAllocatorRef allocator, CFDictionaryRef *a2)
 {
   block[0] = MEMORY[0x1E69E9820];
-  block[1] = *"";
+  block[1] = 0x40000000;
   block[2] = __CMPhotoParavirtualizedHostJPEGHardwareCopyCapabilities_block_invoke;
   block[3] = &__block_descriptor_tmp_1;
   block[4] = allocator;
@@ -4851,7 +4822,7 @@ uint64_t CMPhotoGetImageType(const void *a1)
 
 CFTypeID _once_CMPhotoGetImageType()
 {
-  sTypes = 0;
+  sTypes[0] = 0;
   qword_1ED6FAB00 = IOSurfaceGetTypeID();
   qword_1ED6FAB08 = CVPixelBufferGetTypeID();
   qword_1ED6FAB10 = CMSampleBufferGetTypeID();
@@ -4860,27 +4831,27 @@ CFTypeID _once_CMPhotoGetImageType()
   return result;
 }
 
-uint64_t CMPhotoGetSourceDimensions(opaqueCMSampleBuffer *a1, CFDictionaryRef theDict, unint64_t *a3)
+uint64_t CMPhotoGetSourceDimensions(unint64_t a1, CFDictionaryRef theDict, unint64_t *a3)
 {
   if (!(a1 | theDict))
   {
-    CMPhotoGetSourceDimensions_cold_3(&v16);
-    return v16;
+    CMPhotoGetSourceDimensions_cold_3(v25);
+    return v25[0];
   }
 
   ImageBuffer = a1;
   if (!a1)
   {
     Value = CFDictionaryGetValue(theDict, @"DryRun");
-    if (!Value || (v9 = Value, v10 = CFGetTypeID(Value), v10 != CMFormatDescriptionGetTypeID()))
+    if (!Value || (v17 = Value, v18 = CFGetTypeID(Value), Value = CMFormatDescriptionGetTypeID(), v18 != Value))
     {
-      CMPhotoGetSourceDimensions_cold_2();
+      CMPhotoGetSourceDimensions_cold_2(Value, v10, v11, v12, v13, v14, v15, v16, v23, v24, v25[0], v25[1]);
       return 0;
     }
 
-    Dimensions = CMVideoFormatDescriptionGetDimensions(v9);
-    v12 = Dimensions;
-    v13 = Dimensions >> 32;
+    Dimensions = CMVideoFormatDescriptionGetDimensions(v17);
+    v20 = Dimensions;
+    v21 = Dimensions >> 32;
     goto LABEL_13;
   }
 
@@ -4891,8 +4862,8 @@ uint64_t CMPhotoGetSourceDimensions(opaqueCMSampleBuffer *a1, CFDictionaryRef th
       ImageBuffer = CMSampleBufferGetImageBuffer(ImageBuffer);
       if (!ImageBuffer)
       {
-        CMPhotoGetSourceDimensions_cold_1(&v15);
-        return v15;
+        CMPhotoGetSourceDimensions_cold_1(&v24);
+        return v24;
       }
 
       goto LABEL_11;
@@ -4903,23 +4874,23 @@ LABEL_11:
     case 1:
       PixelBufferSize = CMPhotoGetSurfaceSize(ImageBuffer);
 LABEL_12:
-      v12 = vcvtad_u64_f64(PixelBufferSize);
-      v13 = vcvtad_u64_f64(v7);
+      v20 = vcvtad_u64_f64(PixelBufferSize);
+      v21 = vcvtad_u64_f64(v8);
 LABEL_13:
       result = 0;
-      *a3 = v12;
-      a3[1] = v13;
+      *a3 = v20;
+      a3[1] = v21;
       return result;
   }
 
   if (FigCFDictionaryGetValue())
   {
-    v13 = 0;
-    v12 = 0;
+    v21 = 0;
+    v20 = 0;
     goto LABEL_13;
   }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294950300, "(Fig)", 166, v3);
 }
 
 uint64_t CMPhotoGetCMPhotoAuxiliaryImageTypeAndFinalURNFromURN(uint64_t result, __CFString **a2)
@@ -5387,7 +5358,7 @@ uint64_t CMPhotoGetTripletsForColorSpaceUsingColorSync(uint64_t a1, uint64_t a2,
   CMPhotoPixelFormatContainsRGB(v8);
   CGColorSpaceGetCICPInfo();
   fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, v11, v12);
   if (a3)
   {
     *a3 = 0;
@@ -5406,20 +5377,20 @@ uint64_t CMPhotoGetTripletsForColorSpaceUsingColorSync(uint64_t a1, uint64_t a2,
   return result;
 }
 
-__CFString *CMPhotoGetCGImageAuxiliaryDataTypeFromCMPhotoAuxiliaryImageType(int a1)
+__CFString *CMPhotoGetCGImageAuxiliaryDataTypeFromCMPhotoAuxiliaryImageType(int a1, uint64_t a2)
 {
   if (a1 <= 2)
   {
     if (a1 == 1)
     {
-      v1 = MEMORY[0x1E696D260];
-      return *v1;
+      v2 = MEMORY[0x1E696D260];
+      return *v2;
     }
 
     if (a1 == 2)
     {
-      v1 = MEMORY[0x1E696D258];
-      return *v1;
+      v2 = MEMORY[0x1E696D258];
+      return *v2;
     }
 
     goto LABEL_14;
@@ -5427,52 +5398,52 @@ __CFString *CMPhotoGetCGImageAuxiliaryDataTypeFromCMPhotoAuxiliaryImageType(int 
 
   if (a1 == 3)
   {
-    v1 = MEMORY[0x1E696D250];
-    return *v1;
+    v2 = MEMORY[0x1E696D250];
+    return *v2;
   }
 
   if (a1 != 4)
   {
     if (a1 == 5)
     {
-      v1 = MEMORY[0x1E696D288];
-      return *v1;
+      v2 = MEMORY[0x1E696D288];
+      return *v2;
     }
 
 LABEL_14:
     fig_log_get_emitter();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, vars0);
     return 0;
   }
 
   if (FigCFEqual())
   {
-    v2 = MEMORY[0x1E696D288];
+    v3 = MEMORY[0x1E696D288];
   }
 
   else if (FigCFEqual())
   {
-    v2 = MEMORY[0x1E696D2A0];
+    v3 = MEMORY[0x1E696D2A0];
   }
 
   else if (FigCFEqual())
   {
-    v2 = MEMORY[0x1E696D298];
+    v3 = MEMORY[0x1E696D298];
   }
 
   else if (FigCFEqual())
   {
-    v2 = MEMORY[0x1E696D2B0];
+    v3 = MEMORY[0x1E696D2B0];
   }
 
   else if (FigCFEqual())
   {
-    v2 = MEMORY[0x1E696D2A8];
+    v3 = MEMORY[0x1E696D2A8];
   }
 
   else if (FigCFEqual())
   {
-    v2 = MEMORY[0x1E696D290];
+    v3 = MEMORY[0x1E696D290];
   }
 
   else
@@ -5504,11 +5475,11 @@ LABEL_38:
       return 0;
     }
 
-    v2 = MEMORY[0x1E696D270];
+    v3 = MEMORY[0x1E696D270];
   }
 
-  result = *v2;
-  if (!*v2)
+  result = *v3;
+  if (!*v3)
   {
     goto LABEL_38;
   }
@@ -5858,12 +5829,12 @@ uint64_t _makeEvenCropRect(unint64_t *a1, unint64_t a2, unint64_t a3, int a4, in
   return v10;
 }
 
-void JPEGDecompressionPluginClass_dispose(uint64_t a1)
+void JPEGDecompressionPluginClass_dispose(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    PluginInstance_Dispose(*(a1 + 64));
-    *(a1 + 64) = 0;
+    PluginInstance_Dispose(*(result + 64));
+    *(result + 64) = 0;
   }
 }
 
@@ -5895,15 +5866,15 @@ void PluginInstance_Dispose(const void **a1)
   }
 }
 
-void Pool_DropBuffers(uint64_t a1, int a2)
+void Pool_DropBuffers(uint64_t *a1, int a2)
 {
   v2 = *a1;
   if (*a1)
   {
-    v5 = (a1 + 8);
+    v5 = a1 + 1;
     while (1)
     {
-      v6 = v2[7];
+      v6 = *(v2 + 56);
       v7 = v6;
       if (!a2)
       {
@@ -5923,10 +5894,10 @@ LABEL_16:
       }
     }
 
-    v7 = v2[7];
+    v7 = *(v2 + 56);
 LABEL_6:
-    v8 = v2[8];
-    v9 = v7 + 8;
+    v8 = *(v2 + 64);
+    v9 = (v7 + 64);
     if (!v7)
     {
       v9 = v5;
@@ -5934,7 +5905,7 @@ LABEL_6:
 
     *v9 = v8;
     *v8 = v7;
-    v10 = v2[5];
+    v10 = *(v2 + 40);
     if (v10)
     {
       v11 = (v10 + 48);
@@ -5942,28 +5913,28 @@ LABEL_6:
 
     else
     {
-      v11 = (v2[4] + 8);
+      v11 = (*(v2 + 32) + 8);
     }
 
-    v12 = v2[6];
+    v12 = *(v2 + 48);
     *v11 = v12;
     *v12 = v10;
-    CMPhotoGetEncodeAccelerationModeOverride(*v2);
+    CMPhotoGetEncodeAccelerationModeOverride();
     if (*v2)
     {
       CFRelease(*v2);
     }
 
-    v13 = v2[2];
+    v13 = *(v2 + 16);
     if (v13)
     {
       CFRelease(v13);
     }
 
-    v14 = *(a1 + 120);
-    *(a1 + 112) -= v2[1];
-    *(a1 + 120) = v14 - 1;
-    v15 = v2[4];
+    v14 = a1[15];
+    a1[14] -= *(v2 + 8);
+    a1[15] = v14 - 1;
+    v15 = *(v2 + 32);
     --*(v15 + 24);
     ++*(v15 + 48);
     free(v2);
@@ -6009,8 +5980,8 @@ void Pool_TallySubPoolStats(uint64_t a1, int64x2_t *context)
 void *SurfacePool_PerformFullClean(uint64_t a1)
 {
   ++*(a1 + 408);
-  Pool_DropBuffers(a1 + 24, 0);
-  Pool_DropBuffers(a1 + 168, 0);
+  Pool_DropBuffers((a1 + 24), 0);
+  Pool_DropBuffers((a1 + 168), 0);
   if (!*(a1 + 320) && !*(a1 + 16))
   {
     dispatch_suspend(*(a1 + 328));
@@ -6248,7 +6219,7 @@ int64x2_t _tallyStatsApplier(uint64_t a1, uint64_t a2, int64x2_t *a3)
   return result;
 }
 
-void _computeSSIMForPlane(__CVBuffer *a1, __CVBuffer *a2, __CVBuffer *a3, unsigned int a4, void *a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13)
+void _computeSSIMForPlane(__CVBuffer *a1, __CVBuffer *a2, __CVBuffer *a3, unsigned int a4, void *a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, CGFloat a13)
 {
   v173 = *MEMORY[0x1E69E9840];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
@@ -6808,36 +6779,36 @@ uint64_t _getPixelBufferFromCMPhotoImageType(void *a1, CVBufferRef *a2)
 
       else if (ImageType == 2)
       {
-        v5 = CFRetain(a1);
+        v6 = CFRetain(a1);
         result = 0;
-        *a2 = v5;
+        *a2 = v6;
       }
 
       else
       {
-        fig_log_get_emitter();
+        emitter = fig_log_get_emitter();
 
-        return FigSignalErrorAtGM();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950300, "(Fig)", 2143, v2);
       }
     }
 
     else
     {
-      _getPixelBufferFromCMPhotoImageType_cold_1(&v7);
-      return v7;
+      _getPixelBufferFromCMPhotoImageType_cold_1(&v9);
+      return v9;
     }
   }
 
   else
   {
-    _getPixelBufferFromCMPhotoImageType_cold_2(&v8);
-    return v8;
+    _getPixelBufferFromCMPhotoImageType_cold_2(&v10);
+    return v10;
   }
 
   return result;
 }
 
-uint64_t _copyAndNormalizeArrayToPixelBuffer(CVPixelBufferRef *a1, uint64_t a2, int a3, int a4, uint64_t a5, size_t a6, size_t a7, unint64_t a8, unint64_t a9, unint64_t a10, double *a11, double *a12)
+uint64_t _copyAndNormalizeArrayToPixelBuffer(CVPixelBufferRef *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, size_t a6, size_t a7, unint64_t a8, unint64_t a9, unint64_t a10, double *a11, double *a12)
 {
   if (!a1)
   {
@@ -6845,19 +6816,20 @@ uint64_t _copyAndNormalizeArrayToPixelBuffer(CVPixelBufferRef *a1, uint64_t a2, 
     return v49;
   }
 
+  v17 = a3;
   CMPhotoGetBitDepthForPixelFormat(a5);
-  if ((a3 - 1) > 6)
+  if ((v17 - 1) > 6)
   {
     v20 = 2.22507386e-308;
   }
 
   else
   {
-    v20 = dbl_1A5AB0898[a3 - 1];
+    v20 = dbl_1A5AB0898[v17 - 1];
   }
 
   BitDepthForPixelFormat = CMPhotoGetBitDepthForPixelFormat(a5);
-  MaxSNRThatMakesSense = _findMaxSNRThatMakesSense(a3, BitDepthForPixelFormat);
+  MaxSNRThatMakesSense = _findMaxSNRThatMakesSense(v17, BitDepthForPixelFormat);
   if (CMPhotoSurfacePoolCreatePixelBuffer(@"SurfacePoolOneShot", 1919365990, a6, a7, 1, 0, 0, 1, 64, 0, a1))
   {
     _copyAndNormalizeArrayToPixelBuffer_cold_1(&v48);
@@ -6917,7 +6889,7 @@ uint64_t _copyAndNormalizeArrayToPixelBuffer(CVPixelBufferRef *a1, uint64_t a2, 
   if (a4)
   {
     v20 = *a11;
-    switch(a3)
+    switch(v17)
     {
       case 7:
         v30 = 4.0;
@@ -6930,7 +6902,7 @@ uint64_t _copyAndNormalizeArrayToPixelBuffer(CVPixelBufferRef *a1, uint64_t a2, 
         break;
       default:
 LABEL_28:
-        MaxSNRThatMakesSense = _limitMaxSNR(a3, *a12);
+        MaxSNRThatMakesSense = _limitMaxSNR(v17, *a12);
         goto LABEL_29;
     }
 
@@ -7019,7 +6991,7 @@ CFStringRef CMPhotoCompareMethodToStringCopy(unsigned int a1)
   return CFStringCreateWithCString(*MEMORY[0x1E695E480], v1, 0x8000100u);
 }
 
-uint64x2_t _computeCropRectForPixelBuffer@<Q0>(__CVBuffer *a1@<X0>, uint64x2_t *a2@<X8>, double a3@<D0>, double a4@<D1>, double a5@<D2>, double a6@<D3>)
+uint64x2_t _computeCropRectForPixelBuffer@<Q0>(__CVBuffer *a1@<X0>, uint64x2_t *a2@<X8>, CGFloat a3@<D0>, CGFloat a4@<D1>, CGFloat a5@<D2>, CGFloat a6@<D3>)
 {
   PixelBufferCLAPAsRect = CMPhotoGetPixelBufferCLAPAsRect(a1);
   v24 = v12;
@@ -7142,7 +7114,7 @@ LABEL_11:
   }
 }
 
-uint64_t _createMonochromeBufferFromRGB(__CVBuffer *a1, __CVBuffer *a2, CVPixelBufferRef *a3, CVPixelBufferRef *a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
+uint64_t _createMonochromeBufferFromRGB(__CVBuffer *a1, __CVBuffer *a2, CVPixelBufferRef *a3, CVPixelBufferRef *a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12)
 {
   v45 = 0u;
   v46 = 0u;
@@ -7648,8 +7620,11 @@ double _limitMaxSNR(int a1, double result)
   return result;
 }
 
-uint64_t CMPhotoVTPixelTransferWorkaround(__CVBuffer *a1, uint64_t a2, unint64_t a3, int a4, int a5, uint64_t a6, int a7, int a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, double a13, double a14, CFTypeRef *a15)
+uint64_t CMPhotoVTPixelTransferWorkaround(__CVBuffer *a1, uint64_t a2, unint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, double a13, double a14, CFTypeRef *a15)
 {
+  v15 = a8;
+  v16 = a7;
+  v18 = a5;
   v621 = *MEMORY[0x1E69E9840];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
   v613 = 0;
@@ -7684,7 +7659,7 @@ LABEL_671:
   v31 = *a15;
   if (!*a15)
   {
-    PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, a2, v611, v612, a3, &cf);
+    PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, a2, v611, v612, a3, &cf);
     if (PixelBufferHelper)
     {
       goto LABEL_398;
@@ -7720,7 +7695,7 @@ LABEL_665:
                 if (a2 == 1815491698)
                 {
 LABEL_292:
-                  v600 = a7;
+                  v600 = v16;
                   if (PixelFormatType == 1885745712)
                   {
                     v179 = 2019963440;
@@ -7731,7 +7706,7 @@ LABEL_292:
                     v179 = 2016686640;
                   }
 
-                  PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, v179, v611, v612, a3, &v613);
+                  PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, v179, v611, v612, a3, &v613);
                   if (PixelBufferHelper)
                   {
                     goto LABEL_398;
@@ -7972,7 +7947,7 @@ LABEL_282:
             }
 
 LABEL_610:
-            PixelBufferHelper = _convert8bitsRAWTo8BitsReadableFormat(a6, a7, a8, a1, cf, a5);
+            PixelBufferHelper = _convert8bitsRAWTo8BitsReadableFormat(a6, v16, v15, a1, cf, v18);
             if (PixelBufferHelper)
             {
               goto LABEL_398;
@@ -8001,8 +7976,8 @@ LABEL_250:
             goto LABEL_250;
           }
 
-          v598 = a7;
-          v592 = a8;
+          v598 = v16;
+          v592 = v15;
           v137 = CVPixelBufferGetBytesPerRowOfPlane(a1, 0);
           v138 = a1;
           v139 = v137 / CMPhotoGetBytesPerPixelForPixelFormat(PixelFormatType);
@@ -8032,7 +8007,7 @@ LABEL_250:
 
           if (CMPhotoPixelBufferContainsYCbCr(cf))
           {
-            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1815491698, v611, v612, a3, &v613);
+            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1815491698, v611, v612, a3, &v613);
             if (PixelBufferHelper)
             {
               goto LABEL_398;
@@ -8245,7 +8220,7 @@ LABEL_250:
             v189 = v598;
             v190 = v592;
 LABEL_298:
-            PixelBufferHelper = _vtTransferHelperForWorkaround(v188, v189, v190, a5, v186, v187);
+            PixelBufferHelper = _vtTransferHelperForWorkaround(v188, v189, v190, v18, v186, v187);
             v34 = a15;
             if (PixelBufferHelper)
             {
@@ -8422,14 +8397,14 @@ LABEL_646:
             goto LABEL_671;
           }
 
-          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1815491698, v611, v612, a3, &v613);
+          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1815491698, v611, v612, a3, &v613);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
           }
 
           v195 = a15;
-          PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, a1, v613);
+          PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, a1, v613);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
@@ -9058,7 +9033,7 @@ LABEL_303:
           v191 = v611;
           v192 = v612;
           v193 = 1278226536;
-          v194 = a5;
+          v194 = v18;
 LABEL_393:
           PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v194, v193, v191, v192, a3, &v613);
           if (PixelBufferHelper)
@@ -9115,7 +9090,7 @@ LABEL_607:
               goto LABEL_671;
             }
 
-            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226736, v611, v612, a3, &v613);
+            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226736, v611, v612, a3, &v613);
             if (PixelBufferHelper)
             {
               goto LABEL_398;
@@ -9260,7 +9235,7 @@ LABEL_663:
 LABEL_392:
         v191 = v611;
         v192 = v612;
-        v194 = a5;
+        v194 = v18;
         v193 = 1278226742;
         goto LABEL_393;
       }
@@ -9312,13 +9287,13 @@ LABEL_193:
 
         if (a2 == 2019963440)
         {
-          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226736, v611, v612, a3, &v613);
+          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226736, v611, v612, a3, &v613);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
           }
 
-          PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 1278226534, 0xAu, 1, 0, 0, 0, &v613, 0);
+          PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 0x4C303066u, 0xAu, 1, 0, 0, 0, &v613, 0);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
@@ -9326,12 +9301,12 @@ LABEL_193:
 
           if (v31)
           {
-            v189 = a7;
+            v189 = v16;
             v186 = v613;
             v187 = cf;
             v188 = a6;
 LABEL_297:
-            v190 = a8;
+            v190 = v15;
             goto LABEL_298;
           }
 
@@ -9344,18 +9319,18 @@ LABEL_297:
           goto LABEL_449;
         }
 
-        v214 = a8;
+        v214 = v15;
         v215 = a15;
         if (a2 == 1815491698)
         {
-          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226742, v611, v612, a3, &v613);
+          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226742, v611, v612, a3, &v613);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
           }
 
           BitDepthForPixelFormat = CMPhotoGetBitDepthForPixelFormat(1278226742);
-          PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 1278226534, BitDepthForPixelFormat, 1, 0, 0, 0, &v613, 0);
+          PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 0x4C303066u, BitDepthForPixelFormat, 1, 0, 0, 0, &v613, 0);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
@@ -9364,9 +9339,9 @@ LABEL_297:
           v217 = v613;
           v218 = cf;
           v219 = a6;
-          v220 = a7;
+          v220 = v16;
 LABEL_459:
-          PixelBufferHelper = _vtTransferHelperForWorkaround(v219, v220, v214, a5, v217, v218);
+          PixelBufferHelper = _vtTransferHelperForWorkaround(v219, v220, v214, v18, v217, v218);
           v34 = v215;
           if (PixelBufferHelper)
           {
@@ -9382,16 +9357,16 @@ LABEL_459:
       v34 = a15;
       if (a2 == 875704422)
       {
-        v214 = a8;
+        v214 = v15;
         v215 = a15;
-        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226488, v611, v612, a3, &v613);
+        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226488, v611, v612, a3, &v613);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
         }
 
         v367 = CMPhotoGetBitDepthForPixelFormat(1278226488);
-        PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 1278226534, v367, 1, 0, 0, 0, &v613, 0);
+        PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 0x4C303066u, v367, 1, 0, 0, 0, &v613, 0);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
@@ -9400,7 +9375,7 @@ LABEL_459:
         v217 = v613;
         v218 = cf;
         v219 = a6;
-        v220 = a7;
+        v220 = v16;
         goto LABEL_459;
       }
 
@@ -9408,7 +9383,7 @@ LABEL_459:
       {
 LABEL_203:
         v107 = CMPhotoGetBitDepthForPixelFormat(a2);
-        PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 1278226534, v107, 1, 0, 0, 0, &cf, 0);
+        PixelBufferHelper = CMPhotoCreateIntegerPixelBufferFromFullPrecisionSource(a1, 0, 0x4C303066u, v107, 1, 0, 0, 0, &cf, 0);
         if (!PixelBufferHelper)
         {
           goto LABEL_635;
@@ -9424,7 +9399,7 @@ LABEL_655:
         goto LABEL_671;
       }
 
-      PixelBufferHelper = CMPhotoCreateHalfPrecisionPixelBufferFromFullPrecisionSource(a1, 0, a5, 0, 0, 0, &cf);
+      PixelBufferHelper = CMPhotoCreateHalfPrecisionPixelBufferFromFullPrecisionSource(a1, 0, v18, 0, 0, 0, &cf);
       if (!PixelBufferHelper)
       {
         goto LABEL_635;
@@ -9450,13 +9425,13 @@ LABEL_398:
               goto LABEL_671;
             }
 
-            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226536, v611, v612, a3, &v613);
+            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226536, v611, v612, a3, &v613);
             if (PixelBufferHelper)
             {
               goto LABEL_398;
             }
 
-            PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, a1, v613);
+            PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, a1, v613);
             if (PixelBufferHelper)
             {
               goto LABEL_398;
@@ -9509,14 +9484,14 @@ LABEL_398:
             {
               if (a2 == 1919365990)
               {
-                PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1111970369, v611, v612, a3, &v613);
+                PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1111970369, v611, v612, a3, &v613);
                 if (PixelBufferHelper)
                 {
                   goto LABEL_398;
                 }
 
                 v195 = a15;
-                PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, a1, v613);
+                PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, a1, v613);
                 if (PixelBufferHelper)
                 {
                   goto LABEL_398;
@@ -9648,13 +9623,13 @@ LABEL_398:
             {
               if (a2 == 1278226738)
               {
-                PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226742, v611, v612, a3, &v613);
+                PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226742, v611, v612, a3, &v613);
                 if (PixelBufferHelper)
                 {
                   goto LABEL_398;
                 }
 
-                PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, a1, v613);
+                PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, a1, v613);
                 if (PixelBufferHelper)
                 {
                   goto LABEL_398;
@@ -9704,13 +9679,13 @@ LABEL_398:
 
               if (a2 == 1278555701)
               {
-                PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1111970369, v611, v612, a3, &v613);
+                PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1111970369, v611, v612, a3, &v613);
                 if (PixelBufferHelper)
                 {
                   goto LABEL_398;
                 }
 
-                PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, a1, v613);
+                PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, a1, v613);
                 if (PixelBufferHelper)
                 {
                   goto LABEL_398;
@@ -9756,7 +9731,7 @@ LABEL_647:
           goto LABEL_647;
         }
 
-        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226488, v611, v612, a3, &v613);
+        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226488, v611, v612, a3, &v613);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
@@ -9768,7 +9743,7 @@ LABEL_647:
           goto LABEL_398;
         }
 
-        PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, v613, cf);
+        PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, v613, cf);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
@@ -9854,20 +9829,20 @@ LABEL_150:
         }
 
 LABEL_171:
-        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 875704422, v611, v612, a3, &v613);
+        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 875704422, v611, v612, a3, &v613);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
         }
 
-        PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, a1, v613);
+        PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, a1, v613);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
         }
 
 LABEL_397:
-        PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, v613, cf);
+        PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, v613, cf);
         if (!PixelBufferHelper)
         {
           goto LABEL_635;
@@ -10042,7 +10017,7 @@ LABEL_166:
             goto LABEL_234;
           }
 
-          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226742, v611, v612, a3, &v613);
+          PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226742, v611, v612, a3, &v613);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
@@ -10054,7 +10029,7 @@ LABEL_166:
             goto LABEL_398;
           }
 
-          PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, v613, cf);
+          PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, v613, cf);
           if (PixelBufferHelper)
           {
             goto LABEL_398;
@@ -10215,7 +10190,7 @@ LABEL_632:
           goto LABEL_592;
         }
 
-        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1111970369, v611, v612, a3, &v613);
+        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1111970369, v611, v612, a3, &v613);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
@@ -10268,7 +10243,7 @@ LABEL_596:
               goto LABEL_596;
             }
 
-            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226742, v611, v612, a3, &v613);
+            PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226742, v611, v612, a3, &v613);
             if (PixelBufferHelper)
             {
               goto LABEL_398;
@@ -10578,7 +10553,7 @@ LABEL_667:
           goto LABEL_671;
         }
 
-        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1815491698, v611, v612, a3, &v613);
+        PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1815491698, v611, v612, a3, &v613);
         if (PixelBufferHelper)
         {
           goto LABEL_398;
@@ -10683,13 +10658,13 @@ LABEL_643:
         goto LABEL_643;
       }
 
-      PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226742, v611, v612, a3, &v613);
+      PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226742, v611, v612, a3, &v613);
       if (PixelBufferHelper)
       {
         goto LABEL_398;
       }
 
-      PixelBufferHelper = _vtTransferHelperForWorkaround(a6, a7, a8, a5, a1, v613);
+      PixelBufferHelper = _vtTransferHelperForWorkaround(a6, v16, v15, v18, a1, v613);
       if (PixelBufferHelper)
       {
         goto LABEL_398;
@@ -10759,7 +10734,7 @@ LABEL_659:
       goto LABEL_659;
     }
 
-    PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(a5, 1278226742, v611, v612, a3, &v613);
+    PixelBufferHelper = _vtWorkaroundCreatePixelBufferHelper(v18, 1278226742, v611, v612, a3, &v613);
     if (PixelBufferHelper)
     {
       goto LABEL_398;

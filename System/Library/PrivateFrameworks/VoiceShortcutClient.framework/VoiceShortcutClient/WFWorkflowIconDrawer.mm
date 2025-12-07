@@ -1,5 +1,7 @@
 @interface WFWorkflowIconDrawer
 + (id)glyphImageWithIcon:(id)icon size:(CGSize)size;
++ (id)imageWithIcon:(id)icon size:(CGSize)size background:(BOOL)background;
++ (id)imageWithIcon:(id)icon size:(CGSize)size scale:(double)scale padding:(CGSize)padding glyphColor:(id)color background:(BOOL)background;
 + (id)pngDataForImageWithIcon:(id)icon size:(CGSize)size;
 - (CGSize)calculatedSizeForSize:(CGSize)size scale:(double)scale;
 - (CGSize)glyphSize;
@@ -58,7 +60,7 @@
 {
   height = size.height;
   width = size.width;
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   if (size.width == 0.0 || size.height == 0.0)
   {
     customImageData = [(WFWorkflowIconDrawer *)self customImageData];
@@ -141,31 +143,31 @@
           *aBlock = MEMORY[0x1E69E9820];
           *&aBlock[8] = 3221225472;
           *&aBlock[16] = __WFWorkflowIconDrawerScaledSizeForIconCharacter_block_invoke;
-          v80 = &__block_descriptor_40_e5_v8__0l;
-          v81 = v34;
+          v79 = &__block_descriptor_40_e5_v8__0l;
+          v80 = v34;
           v27 = _Block_copy(aBlock);
           if (CFCharacterSetIsCharacterMember(v35, theChar))
           {
             v36 = [MEMORY[0x1E696AEC0] stringWithCharacters:&theChar length:1];
-            v70 = [v36 length];
+            v69 = [v36 length];
             v37 = objc_alloc(MEMORY[0x1E696AAB0]);
             getkCTFontAttributeName();
-            v77 = v38;
-            v78 = glyphTestFont;
-            v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+            v76 = v38;
+            v77 = glyphTestFont;
+            v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
             v40 = [v37 initWithString:v36 attributes:v39];
 
             WFCTFramesetterCreateWithAttributedString(v40);
             v42 = v41;
             if (v41)
             {
-              v73[0] = MEMORY[0x1E69E9820];
-              v73[1] = 3221225472;
-              v73[2] = __WFWorkflowIconDrawerScaledSizeForIconCharacter_block_invoke_2;
-              v73[3] = &__block_descriptor_40_e5_v8__0l;
-              v73[4] = v41;
-              v43 = _Block_copy(v73);
-              WFCTFramesetterSuggestFrameSizeWithConstraints(v42, 0, v70);
+              v72[0] = MEMORY[0x1E69E9820];
+              v72[1] = 3221225472;
+              v72[2] = __WFWorkflowIconDrawerScaledSizeForIconCharacter_block_invoke_2;
+              v72[3] = &__block_descriptor_40_e5_v8__0l;
+              v72[4] = v41;
+              v43 = _Block_copy(v72);
+              WFCTFramesetterSuggestFrameSizeWithConstraints(v42, 0, v69);
               if (v44 != v8 || v45 != v9)
               {
                 v46 = 1.0 / v24;
@@ -199,30 +201,30 @@
                 v53 = v52;
                 if (v52)
                 {
-                  v72[0] = MEMORY[0x1E69E9820];
-                  v72[1] = 3221225472;
-                  v72[2] = __WFWorkflowIconDrawerScaledSizeForIconCharacter_block_invoke_3;
-                  v72[3] = &__block_descriptor_40_e5_v8__0l;
-                  v72[4] = v52;
-                  v68 = _Block_copy(v72);
+                  v71[0] = MEMORY[0x1E69E9820];
+                  v71[1] = 3221225472;
+                  v71[2] = __WFWorkflowIconDrawerScaledSizeForIconCharacter_block_invoke_3;
+                  v71[3] = &__block_descriptor_40_e5_v8__0l;
+                  v71[4] = v52;
+                  v67 = _Block_copy(v71);
                   v54 = objc_alloc(MEMORY[0x1E696AAB0]);
                   getkCTFontAttributeName();
-                  v75 = v55;
-                  v76 = v53;
-                  v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-                  v69 = [v54 initWithString:v36 attributes:v56];
+                  v74 = v55;
+                  v75 = v53;
+                  v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+                  v68 = [v54 initWithString:v36 attributes:v56];
 
-                  WFCTFramesetterCreateWithAttributedString(v69);
+                  WFCTFramesetterCreateWithAttributedString(v68);
                   v58 = v57;
                   if (v57)
                   {
-                    v71[0] = MEMORY[0x1E69E9820];
-                    v71[1] = 3221225472;
-                    v71[2] = __WFWorkflowIconDrawerScaledSizeForIconCharacter_block_invoke_4;
-                    v71[3] = &__block_descriptor_40_e5_v8__0l;
-                    v71[4] = v57;
-                    v59 = _Block_copy(v71);
-                    WFCTFramesetterSuggestFrameSizeWithConstraints(v58, 0, v70);
+                    v70[0] = MEMORY[0x1E69E9820];
+                    v70[1] = 3221225472;
+                    v70[2] = __WFWorkflowIconDrawerScaledSizeForIconCharacter_block_invoke_4;
+                    v70[3] = &__block_descriptor_40_e5_v8__0l;
+                    v70[4] = v57;
+                    v59 = _Block_copy(v70);
+                    WFCTFramesetterSuggestFrameSizeWithConstraints(v58, 0, v69);
                     v61 = v60;
                     v63 = v62;
                     v59[2](v59);
@@ -230,7 +232,7 @@
                     v9 = v64;
                   }
 
-                  v68[2](v68);
+                  v67[2](v67);
                 }
               }
 
@@ -250,11 +252,10 @@
     v9 = size.height;
   }
 
-  v65 = *MEMORY[0x1E69E9840];
-  v66 = v8;
-  v67 = v9;
-  result.height = v67;
-  result.width = v66;
+  v65 = v8;
+  v66 = v9;
+  result.height = v66;
+  result.width = v65;
   return result;
 }
 
@@ -264,7 +265,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v200[1] = *MEMORY[0x1E69E9840];
+  v199[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   cGContext = [contextCopy CGContext];
   CGContextSaveGState(cGContext);
@@ -275,11 +276,11 @@
     v13 = v12;
     if (v12 == 0.0)
     {
-      v208.origin.x = x;
-      v208.origin.y = y;
-      v208.size.width = width;
-      v208.size.height = height;
-      v13 = CGRectGetWidth(v208) * 0.25999999;
+      v207.origin.x = x;
+      v207.origin.y = y;
+      v207.size.width = width;
+      v207.size.height = height;
+      v13 = CGRectGetWidth(v207) * 0.25999999;
     }
 
     v14 = NSClassFromString(@"UIBezierPath");
@@ -295,13 +296,13 @@
         v17 = 0.0;
       }
 
-      if (v17 == 0.0 || (v209.origin.x = x, v209.origin.y = y, v209.size.width = width, v209.size.height = height, CGRectIsEmpty(v209)))
+      if (v17 == 0.0 || (v208.origin.x = x, v208.origin.y = y, v208.size.width = width, v208.size.height = height, CGRectIsEmpty(v208)))
       {
-        v210.origin.x = x;
-        v210.origin.y = y;
-        v210.size.width = width;
-        v210.size.height = height;
-        Mutable = CGPathCreateWithRect(v210, 0);
+        v209.origin.x = x;
+        v209.origin.y = y;
+        v209.size.width = width;
+        v209.size.height = height;
+        Mutable = CGPathCreateWithRect(v209, 0);
       }
 
       else
@@ -318,19 +319,19 @@
         CGPathAddCurveToPoint(Mutable, 0, v49 - v17 * 0.372824, y + v17 * 0.16906, v49 - v17 * 0.16906, y + v17 * 0.372824, v49 - v17 * 0.0749114, y + v17 * 0.631494);
         CGPathAddCurveToPoint(Mutable, 0, x + width, y + v17 * 0.868407, x + width, y + v17 * 1.08849, x + width, y + v17 * 1.52866);
         CGPathAddLineToPoint(Mutable, 0, x + width, y + height - v17 * 1.528665);
-        v165 = y + height - v17 * 1.08849;
-        v168 = y + height - v17 * 0.868407;
-        v170 = y + height - v17 * 0.631494;
-        CGPathAddCurveToPoint(Mutable, 0, x + width, v165, x + width, v168, x + width - v17 * 0.0749114, v170);
-        v172 = y + height - v17 * 0.16906;
-        v174 = y + height - v17 * 0.372824;
+        v164 = y + height - v17 * 1.08849;
+        v167 = y + height - v17 * 0.868407;
+        v169 = y + height - v17 * 0.631494;
+        CGPathAddCurveToPoint(Mutable, 0, x + width, v164, x + width, v167, x + width - v17 * 0.0749114, v169);
+        v171 = y + height - v17 * 0.16906;
+        v173 = y + height - v17 * 0.372824;
         v50 = y + height - v17 * 0.0749114;
-        CGPathAddCurveToPoint(Mutable, 0, x + width - v17 * 0.16906, v174, x + width - v17 * 0.372824, v172, x + width - v17 * 0.631494, v50);
+        CGPathAddCurveToPoint(Mutable, 0, x + width - v17 * 0.16906, v173, x + width - v17 * 0.372824, v171, x + width - v17 * 0.631494, v50);
         CGPathAddCurveToPoint(Mutable, 0, x + width - v17 * 0.868407, y + height, cp2xc, y + height, x + width - v17 * 1.52866, y + height);
         CGPathAddLineToPoint(Mutable, 0, x + v17 * 1.528665, y + height);
         CGPathAddCurveToPoint(Mutable, 0, x + v17 * 1.08849, y + height, x + v17 * 0.868407, y + height, x + v17 * 0.631494, v50);
-        CGPathAddCurveToPoint(Mutable, 0, x + v17 * 0.372824, v172, x + v17 * 0.16906, v174, x + v17 * 0.0749114, v170);
-        CGPathAddCurveToPoint(Mutable, 0, x, v168, x, v165, x, y + height - v17 * 1.52866);
+        CGPathAddCurveToPoint(Mutable, 0, x + v17 * 0.372824, v171, x + v17 * 0.16906, v173, x + v17 * 0.0749114, v169);
+        CGPathAddCurveToPoint(Mutable, 0, x, v167, x, v164, x, y + height - v17 * 1.52866);
         CGPathCloseSubpath(Mutable);
       }
     }
@@ -351,47 +352,47 @@
 
       v22 = [gradient baseColorForDarkMode:-[WFWorkflowIconDrawer dark](self highContrast:{"dark"), -[WFWorkflowIconDrawer highContrast](self, "highContrast")}];
       CGContextSetFillColorWithColor(cGContext, [v22 CGColor]);
+      v210.origin.x = x;
+      v210.origin.y = y;
+      v210.size.width = width;
+      v210.size.height = height;
+      CGContextFillRect(cGContext, v210);
+      cGGradient = [gradient CGGradient];
       v211.origin.x = x;
       v211.origin.y = y;
       v211.size.width = width;
       v211.size.height = height;
-      CGContextFillRect(cGContext, v211);
-      cGGradient = [gradient CGGradient];
+      MidX = CGRectGetMidX(v211);
       v212.origin.x = x;
       v212.origin.y = y;
       v212.size.width = width;
       v212.size.height = height;
-      MidX = CGRectGetMidX(v212);
+      MinY = CGRectGetMinY(v212);
       v213.origin.x = x;
       v213.origin.y = y;
       v213.size.width = width;
       v213.size.height = height;
-      MinY = CGRectGetMinY(v213);
+      v26 = CGRectGetMidX(v213);
       v214.origin.x = x;
       v214.origin.y = y;
       v214.size.width = width;
       v214.size.height = height;
-      v26 = CGRectGetMidX(v214);
-      v215.origin.x = x;
-      v215.origin.y = y;
-      v215.size.width = width;
-      v215.size.height = height;
-      v207.y = CGRectGetMaxY(v215);
-      v205.x = MidX;
-      v205.y = MinY;
-      v207.x = v26;
-      CGContextDrawLinearGradient(cGContext, cGGradient, v205, v207, 2u);
+      v206.y = CGRectGetMaxY(v214);
+      v204.x = MidX;
+      v204.y = MinY;
+      v206.x = v26;
+      CGContextDrawLinearGradient(cGContext, cGGradient, v204, v206, 2u);
     }
 
     else
     {
       CGContextSetFillColorWithColor(cGContext, [backgroundColor CGColor]);
 
-      v216.origin.x = x;
-      v216.origin.y = y;
-      v216.size.width = width;
-      v216.size.height = height;
-      CGContextFillRect(cGContext, v216);
+      v215.origin.x = x;
+      v215.origin.y = y;
+      v215.size.width = width;
+      v215.size.height = height;
+      CGContextFillRect(cGContext, v215);
     }
   }
 
@@ -402,9 +403,9 @@
     v28 = [v27 colorWithAlphaComponent:0.3];
 
     cGColor = [v28 CGColor];
-    v206.width = 0.0;
-    v206.height = 2.0;
-    CGContextSetShadowWithColor(cGContext, v206, 2.0, cGColor);
+    v205.width = 0.0;
+    v205.height = 2.0;
+    CGContextSetShadowWithColor(cGContext, v205, 2.0, cGColor);
   }
 
   customImageData = [(WFWorkflowIconDrawer *)self customImageData];
@@ -424,22 +425,22 @@
       v41 = 0.0;
       if (drawBackground)
       {
-        v217.origin.x = x;
-        v217.origin.y = y;
-        v217.size.width = width;
-        v217.size.height = height;
-        v41 = CGRectGetWidth(v217) / 6.0;
+        v216.origin.x = x;
+        v216.origin.y = y;
+        v216.size.width = width;
+        v216.size.height = height;
+        v41 = CGRectGetWidth(v216) / 6.0;
       }
 
-      v218.origin.x = x;
-      v218.origin.y = y;
-      v218.size.width = width;
-      v218.size.height = height;
-      v219 = CGRectInset(v218, v41, v41);
-      v39 = v219.origin.x;
-      v40 = v219.origin.y;
-      v37 = v219.size.width;
-      v38 = v219.size.height;
+      v217.origin.x = x;
+      v217.origin.y = y;
+      v217.size.width = width;
+      v217.size.height = height;
+      v218 = CGRectInset(v217, v41, v41);
+      v39 = v218.origin.x;
+      v40 = v218.origin.y;
+      v37 = v218.size.width;
+      v38 = v218.size.height;
     }
 
     else
@@ -464,15 +465,15 @@
       glyphCharacter = [(WFWorkflowIconDrawer *)self glyphCharacter];
       glyphColor2 = [(WFWorkflowIconDrawer *)self glyphColor];
       outline = [(WFWorkflowIconDrawer *)self outline];
-      v176 = drawerContext;
-      v173 = contextCopy;
+      v175 = drawerContext;
+      v172 = contextCopy;
       theChar = glyphCharacter;
-      v175 = glyphColor2;
-      v220.origin.x = v39;
-      v220.origin.y = v40;
-      v220.size.width = v37;
-      v220.size.height = v38;
-      if (!CGRectIsEmpty(v220))
+      v174 = glyphColor2;
+      v219.origin.x = v39;
+      v219.origin.y = v40;
+      v219.size.width = v37;
+      v219.size.height = v38;
+      if (!CGRectIsEmpty(v219))
       {
         if (outline)
         {
@@ -486,13 +487,13 @@
         v48 = ;
         if (v48)
         {
-          WFDrawGlyphForVectorIdentifier(v176, v173, v48, v175, v39, v40, v37, v38);
+          WFDrawGlyphForVectorIdentifier(v175, v172, v48, v174, v39, v40, v37, v38);
         }
 
         else
         {
           theChar = WFReplacementGlyphCharacterForCharacter(glyphCharacter);
-          glyphTestFont = [v176 glyphTestFont];
+          glyphTestFont = [v175 glyphTestFont];
           WFCTFontCopyCharacterSet(glyphTestFont);
           v53 = v52;
           aBlock[0] = MEMORY[0x1E69E9820];
@@ -503,34 +504,34 @@
           v54 = _Block_copy(aBlock);
           if (CFCharacterSetIsCharacterMember(v53, theChar))
           {
-            v171 = [MEMORY[0x1E696AEC0] stringWithCharacters:&theChar length:1];
-            v166 = [v171 length];
+            v170 = [MEMORY[0x1E696AEC0] stringWithCharacters:&theChar length:1];
+            v165 = [v170 length];
             v55 = objc_alloc(MEMORY[0x1E696AAB0]);
             getkCTFontAttributeName();
-            v199 = v56;
-            v200[0] = glyphTestFont;
-            v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v200 forKeys:&v199 count:1];
-            v169 = [v55 initWithString:v171 attributes:v57];
+            v198 = v56;
+            v199[0] = glyphTestFont;
+            v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v199 forKeys:&v198 count:1];
+            v168 = [v55 initWithString:v170 attributes:v57];
 
-            WFCTFramesetterCreateWithAttributedString(v169);
+            WFCTFramesetterCreateWithAttributedString(v168);
             v59 = v58;
             if (v58)
             {
-              v185[0] = MEMORY[0x1E69E9820];
-              v185[1] = 3221225472;
-              v185[2] = __WFDrawGlyphForIconCharacter_block_invoke_2;
-              v185[3] = &__block_descriptor_40_e5_v8__0l;
-              v185[4] = v58;
-              v160 = _Block_copy(v185);
-              WFCTFramesetterSuggestFrameSizeWithConstraints(v59, 0, v166);
+              v184[0] = MEMORY[0x1E69E9820];
+              v184[1] = 3221225472;
+              v184[2] = __WFDrawGlyphForIconCharacter_block_invoke_2;
+              v184[3] = &__block_descriptor_40_e5_v8__0l;
+              v184[4] = v58;
+              v159 = _Block_copy(v184);
+              WFCTFramesetterSuggestFrameSizeWithConstraints(v59, 0, v165);
               v62 = v61;
               if (v61 != v35 || v60 != v34)
               {
-                v161 = v60;
-                memset(&v184, 0, sizeof(v184));
-                v63 = v173;
-                CGContextGetCTM(&v184, [v173 CGContext]);
-                v64 = vsqrtq_f64(vmlaq_f64(vmulq_f64(*&v184.c, *&v184.c), *&v184.a, *&v184.a));
+                v160 = v60;
+                memset(&v183, 0, sizeof(v183));
+                v63 = v172;
+                CGContextGetCTM(&v183, [v172 CGContext]);
+                v64 = vsqrtq_f64(vmlaq_f64(vmulq_f64(*&v183.c, *&v183.c), *&v183.a, *&v183.a));
                 cp1x = v64.f64[0];
                 if ((vmovn_s64(vmvnq_s8(vceqq_f64(v64, vdupq_laneq_s64(v64, 1)))).u8[0] & 1) == 0 && floor(v64.f64[0]) == v64.f64[0])
                 {
@@ -544,50 +545,50 @@
                   cp2x = 1;
                 }
 
+                v220.origin.x = v39;
+                v220.origin.y = v40;
+                v220.size.width = v37;
+                v220.size.height = v38;
+                v66 = CGRectGetWidth(v220);
                 v221.origin.x = v39;
                 v221.origin.y = v40;
                 v221.size.width = v37;
                 v221.size.height = v38;
-                v66 = CGRectGetWidth(v221);
-                v222.origin.x = v39;
-                v222.origin.y = v40;
-                v222.size.width = v37;
-                v222.size.height = v38;
-                v67 = CGRectGetHeight(v222);
+                v67 = CGRectGetHeight(v221);
                 +[WFWorkflowIconDrawerContext glyphTestFontSize];
                 v69 = (v66 - v65) / v62;
-                if (v69 >= (v67 - v65) / v161)
+                if (v69 >= (v67 - v65) / v160)
                 {
-                  v69 = (v67 - v65) / v161;
+                  v69 = (v67 - v65) / v160;
                 }
 
-                v70 = [v176 newGlyphFontForSize:v69 * v68];
+                v70 = [v175 newGlyphFontForSize:v69 * v68];
                 v71 = v70;
                 if (v70)
                 {
-                  v183[0] = MEMORY[0x1E69E9820];
-                  v183[1] = 3221225472;
-                  v183[2] = __WFDrawGlyphForIconCharacter_block_invoke_3;
-                  v183[3] = &__block_descriptor_40_e5_v8__0l;
-                  v183[4] = v70;
-                  v146 = _Block_copy(v183);
-                  v151 = v54;
+                  v182[0] = MEMORY[0x1E69E9820];
+                  v182[1] = 3221225472;
+                  v182[2] = __WFDrawGlyphForIconCharacter_block_invoke_3;
+                  v182[3] = &__block_descriptor_40_e5_v8__0l;
+                  v182[4] = v70;
+                  v145 = _Block_copy(v182);
+                  v150 = v54;
                   v72 = objc_alloc(MEMORY[0x1E696AAB0]);
                   getkCTFontAttributeName();
-                  v152 = customImageData;
-                  v197[0] = v73;
-                  v198[0] = v71;
+                  v151 = customImageData;
+                  v196[0] = v73;
+                  v197[0] = v71;
                   *&buf = 0;
                   *(&buf + 1) = &buf;
-                  v194 = 0x2020000000;
+                  v193 = 0x2020000000;
                   v74 = getkCTForegroundColorAttributeNameSymbolLoc_ptr;
-                  v195 = getkCTForegroundColorAttributeNameSymbolLoc_ptr;
+                  v194 = getkCTForegroundColorAttributeNameSymbolLoc_ptr;
                   if (!getkCTForegroundColorAttributeNameSymbolLoc_ptr)
                   {
-                    v188 = MEMORY[0x1E69E9820];
-                    v189 = 3221225472;
-                    v190 = __getkCTForegroundColorAttributeNameSymbolLoc_block_invoke;
-                    v191 = &unk_1E7B02C60;
+                    v187 = MEMORY[0x1E69E9820];
+                    v188 = 3221225472;
+                    v189 = __getkCTForegroundColorAttributeNameSymbolLoc_block_invoke;
+                    v190 = &unk_1E7B02C60;
                     p_buf = &buf;
                     v75 = CoreTextLibrary();
                     v76 = dlsym(v75, "kCTForegroundColorAttributeName");
@@ -600,32 +601,32 @@
                   if (!v74)
                   {
                     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-                    v142 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef getkCTForegroundColorAttributeName(void)"];
-                    [currentHandler handleFailureInFunction:v142 file:@"WFWorkflowIconDrawer.m" lineNumber:36 description:{@"%s", dlerror()}];
+                    v141 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef getkCTForegroundColorAttributeName(void)"];
+                    [currentHandler handleFailureInFunction:v141 file:@"WFWorkflowIconDrawer.m" lineNumber:36 description:{@"%s", dlerror()}];
 
                     __break(1u);
                   }
 
-                  v197[1] = *v74;
-                  v77 = v175;
-                  v54 = v151;
-                  v198[1] = [v175 CGColor];
-                  v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v198 forKeys:v197 count:2];
-                  v157 = [v72 initWithString:v171 attributes:v78];
+                  v196[1] = *v74;
+                  v77 = v174;
+                  v54 = v150;
+                  v197[1] = [v174 CGColor];
+                  v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v197 forKeys:v196 count:2];
+                  v156 = [v72 initWithString:v170 attributes:v78];
 
-                  WFCTFramesetterCreateWithAttributedString(v157);
+                  WFCTFramesetterCreateWithAttributedString(v156);
                   v80 = v79;
                   if (v79)
                   {
-                    v188 = MEMORY[0x1E69E9820];
-                    v189 = 3221225472;
-                    v190 = __WFDrawGlyphForIconCharacter_block_invoke_4;
-                    v191 = &__block_descriptor_40_e5_v8__0l;
+                    v187 = MEMORY[0x1E69E9820];
+                    v188 = 3221225472;
+                    v189 = __WFDrawGlyphForIconCharacter_block_invoke_4;
+                    v190 = &__block_descriptor_40_e5_v8__0l;
                     p_buf = v79;
-                    v144 = _Block_copy(&v188);
-                    WFCTFramesetterSuggestFrameSizeWithConstraints(v80, 0, v166);
-                    v153 = v81;
-                    v155 = v82;
+                    v143 = _Block_copy(&v187);
+                    WFCTFramesetterSuggestFrameSizeWithConstraints(v80, 0, v165);
+                    v152 = v81;
+                    v154 = v82;
                     if (cp2x)
                     {
                       v83 = getWFVoiceShortcutClientLogObject();
@@ -636,67 +637,67 @@
                         _os_log_impl(&dword_1B1DE3000, v83, OS_LOG_TYPE_ERROR, "%s Warning: Drawing at a non-integral scale or stretching the glyph will not result in a perfectly positioned result", &buf, 0xCu);
                       }
 
-                      v223.origin.x = v39;
-                      v223.origin.y = v40;
-                      v223.size.width = v37;
-                      v223.size.height = v38;
-                      v162 = CGRectGetWidth(v223);
-                      v224.origin.x = 0.0;
-                      v224.origin.y = 0.0;
-                      v224.size.width = v153;
-                      v224.size.height = v155;
-                      v84 = CGRectGetWidth(v224);
-                      v225.origin.x = v39;
-                      v225.origin.y = v40;
-                      v225.size.width = v37;
-                      v225.size.height = v38;
-                      MinX = CGRectGetMinX(v225);
-                      v226.origin.x = 0.0;
-                      v226.origin.y = 0.0;
-                      v226.size.width = v153;
-                      v226.size.height = v155;
-                      v86 = CGRectGetMinX(v226);
-                      v227.origin.x = v39;
-                      v227.origin.y = v40;
-                      v227.size.width = v37;
-                      v227.size.height = v38;
-                      v87 = CGRectGetHeight(v227);
-                      v88 = (v162 - v84) * 0.5 + MinX - v86;
-                      v228.origin.y = 0.0;
-                      v228.origin.x = v88;
-                      v228.size.width = v153;
-                      v228.size.height = v155;
-                      v89 = CGRectGetHeight(v228);
-                      v229.origin.x = v39;
-                      v229.origin.y = v40;
-                      v229.size.width = v37;
-                      v229.size.height = v38;
-                      v90 = CGRectGetMinY(v229);
-                      v230.origin.y = 0.0;
+                      v222.origin.x = v39;
+                      v222.origin.y = v40;
+                      v222.size.width = v37;
+                      v222.size.height = v38;
+                      v161 = CGRectGetWidth(v222);
+                      v223.origin.x = 0.0;
+                      v223.origin.y = 0.0;
+                      v223.size.width = v152;
+                      v223.size.height = v154;
+                      v84 = CGRectGetWidth(v223);
+                      v224.origin.x = v39;
+                      v224.origin.y = v40;
+                      v224.size.width = v37;
+                      v224.size.height = v38;
+                      MinX = CGRectGetMinX(v224);
+                      v225.origin.x = 0.0;
+                      v225.origin.y = 0.0;
+                      v225.size.width = v152;
+                      v225.size.height = v154;
+                      v86 = CGRectGetMinX(v225);
+                      v226.origin.x = v39;
+                      v226.origin.y = v40;
+                      v226.size.width = v37;
+                      v226.size.height = v38;
+                      v87 = CGRectGetHeight(v226);
+                      v88 = (v161 - v84) * 0.5 + MinX - v86;
+                      v227.origin.y = 0.0;
+                      v227.origin.x = v88;
+                      v227.size.width = v152;
+                      v227.size.height = v154;
+                      v89 = CGRectGetHeight(v227);
+                      v228.origin.x = v39;
+                      v228.origin.y = v40;
+                      v228.size.width = v37;
+                      v228.size.height = v38;
+                      v90 = CGRectGetMinY(v228);
+                      v229.origin.y = 0.0;
+                      v229.origin.x = v88;
+                      v229.size.width = v152;
+                      v229.size.height = v154;
+                      v230.origin.y = (v87 - v89) * 0.5 + v90 - CGRectGetMinY(v229);
                       v230.origin.x = v88;
-                      v230.size.width = v153;
-                      v230.size.height = v155;
-                      v231.origin.y = (v87 - v89) * 0.5 + v90 - CGRectGetMinY(v230);
-                      v231.origin.x = v88;
-                      v231.size.width = v153;
-                      v231.size.height = v155;
-                      v91 = CGPathCreateWithRect(v231, 0);
+                      v230.size.width = v152;
+                      v230.size.height = v154;
+                      v91 = CGPathCreateWithRect(v230, 0);
                       *&buf = MEMORY[0x1E69E9820];
                       *(&buf + 1) = 3221225472;
-                      v194 = __WFDrawGlyphForIconCharacter_block_invoke_120;
-                      v195 = &__block_descriptor_40_e5_v8__0l;
-                      v196 = v91;
+                      v193 = __WFDrawGlyphForIconCharacter_block_invoke_120;
+                      v194 = &__block_descriptor_40_e5_v8__0l;
+                      v195 = v91;
                       v92 = _Block_copy(&buf);
-                      WFCTFramesetterCreateFrame(v80, 0, v166, v91);
+                      WFCTFramesetterCreateFrame(v80, 0, v165, v91);
                       v94 = v93;
-                      v178 = MEMORY[0x1E69E9820];
-                      v179 = 3221225472;
-                      v180 = __WFDrawGlyphForIconCharacter_block_invoke_2_121;
-                      v181 = &__block_descriptor_40_e5_v8__0l;
-                      v182 = v93;
-                      v95 = _Block_copy(&v178);
-                      v96 = v173;
-                      WFCTFrameDraw(v94, [v173 CGContext]);
+                      v177 = MEMORY[0x1E69E9820];
+                      v178 = 3221225472;
+                      v179 = __WFDrawGlyphForIconCharacter_block_invoke_2_121;
+                      v180 = &__block_descriptor_40_e5_v8__0l;
+                      v181 = v93;
+                      v95 = _Block_copy(&v177);
+                      v96 = v172;
+                      WFCTFrameDraw(v94, [v172 CGContext]);
                       v95[2](v95);
 
                       v92[2](v92);
@@ -709,62 +710,62 @@
                       v99 = (2 * v97);
                       v100 = v98 * (ceil(v37) + v99);
                       v101 = v98 * (ceil(v38) + v99);
-                      v163 = 4 * v100;
+                      v162 = 4 * v100;
                       size = 4 * v100 * v101;
                       v102 = malloc_type_calloc(size, 1uLL, 0xFA74BF8FuLL);
                       DeviceRGB = CGColorSpaceCreateDeviceRGB();
                       cp2xa = v102;
                       v104 = CGBitmapContextCreate(v102, v100, v101, 8uLL, 4 * v100, DeviceRGB, 1u);
                       CGContextScaleCTM(v104, v98, v98);
-                      v232.origin.x = v97;
-                      v232.origin.y = v97;
-                      v232.size.width = v37;
-                      v232.size.height = v38;
-                      v105 = CGRectGetWidth(v232);
-                      v233.origin.x = 0.0;
-                      v233.origin.y = 0.0;
-                      v233.size.width = v153;
-                      v233.size.height = v155;
-                      v106 = CGRectGetWidth(v233);
-                      v234.origin.x = v97;
+                      v231.origin.x = v97;
+                      v231.origin.y = v97;
+                      v231.size.width = v37;
+                      v231.size.height = v38;
+                      v105 = CGRectGetWidth(v231);
+                      v232.origin.x = 0.0;
+                      v232.origin.y = 0.0;
+                      v232.size.width = v152;
+                      v232.size.height = v154;
+                      v106 = CGRectGetWidth(v232);
+                      v233.origin.x = v97;
+                      v233.origin.y = v97;
+                      v233.size.width = v37;
+                      v233.size.height = v38;
+                      v107 = (v105 - v106) * 0.5 + CGRectGetMinX(v233);
+                      v234.origin.x = v107;
                       v234.origin.y = v97;
                       v234.size.width = v37;
                       v234.size.height = v38;
-                      v107 = (v105 - v106) * 0.5 + CGRectGetMinX(v234);
-                      v235.origin.x = v107;
-                      v235.origin.y = v97;
-                      v235.size.width = v37;
-                      v235.size.height = v38;
-                      v108 = CGRectGetWidth(v235);
-                      v236.origin.x = 0.0;
-                      v236.origin.y = 0.0;
-                      v236.size.width = v153;
-                      v236.size.height = v155;
-                      v109 = CGRectGetHeight(v236);
+                      v108 = CGRectGetWidth(v234);
+                      v235.origin.x = 0.0;
+                      v235.origin.y = 0.0;
+                      v235.size.width = v152;
+                      v235.size.height = v154;
+                      v109 = CGRectGetHeight(v235);
+                      v236.origin.x = v107;
+                      v236.origin.y = v97;
+                      v236.size.width = v37;
+                      v236.size.height = v38;
+                      v237.origin.y = (v108 - v109) * 0.5 + CGRectGetMinY(v236);
                       v237.origin.x = v107;
-                      v237.origin.y = v97;
                       v237.size.width = v37;
                       v237.size.height = v38;
-                      v238.origin.y = (v108 - v109) * 0.5 + CGRectGetMinY(v237);
-                      v238.origin.x = v107;
-                      v238.size.width = v37;
-                      v238.size.height = v38;
-                      v110 = CGPathCreateWithRect(v238, 0);
+                      v110 = CGPathCreateWithRect(v237, 0);
                       *&buf = MEMORY[0x1E69E9820];
                       *(&buf + 1) = 3221225472;
-                      v194 = __WFDrawGlyphForIconCharacter_block_invoke_3_122;
-                      v195 = &__block_descriptor_40_e5_v8__0l;
-                      v196 = v110;
+                      v193 = __WFDrawGlyphForIconCharacter_block_invoke_3_122;
+                      v194 = &__block_descriptor_40_e5_v8__0l;
+                      v195 = v110;
                       v111 = v98;
-                      v154 = _Block_copy(&buf);
-                      WFCTFramesetterCreateFrame(v80, 0, v166, v110);
+                      v153 = _Block_copy(&buf);
+                      WFCTFramesetterCreateFrame(v80, 0, v165, v110);
                       v113 = v112;
-                      v178 = MEMORY[0x1E69E9820];
-                      v179 = 3221225472;
-                      v180 = __WFDrawGlyphForIconCharacter_block_invoke_4_123;
-                      v181 = &__block_descriptor_40_e5_v8__0l;
-                      v182 = v112;
-                      v156 = _Block_copy(&v178);
+                      v177 = MEMORY[0x1E69E9820];
+                      v178 = 3221225472;
+                      v179 = __WFDrawGlyphForIconCharacter_block_invoke_4_123;
+                      v180 = &__block_descriptor_40_e5_v8__0l;
+                      v181 = v112;
+                      v155 = _Block_copy(&v177);
                       WFCTFrameDraw(v113, v104);
                       CGContextRelease(v104);
                       v114 = *MEMORY[0x1E695E480];
@@ -775,7 +776,7 @@
                       v116 = CFBitVectorCreateMutable(v114, v100);
                       CFBitVectorSetCount(v116, v100);
                       CFBitVectorSetAllBits(v116, 0);
-                      v167 = v101;
+                      v166 = v101;
                       if (v101)
                       {
                         v117 = 0;
@@ -803,34 +804,34 @@
                           }
 
                           ++v117;
-                          v118 += v163;
+                          v118 += v162;
                         }
 
-                        while (v117 != v167);
+                        while (v117 != v166);
                       }
 
                       v122 = CGDataProviderCreateWithData(0, cp2xa, size, WFDrawGlyphFreeCallback);
-                      v164 = CGImageCreate(v100, v167, 8uLL, 0x20uLL, v163, space, 1u, v122, 0, 0, kCGRenderingIntentDefault);
-                      customImageData = v152;
+                      v163 = CGImageCreate(v100, v166, 8uLL, 0x20uLL, v162, space, 1u, v122, 0, 0, kCGRenderingIntentDefault);
+                      customImageData = v151;
                       CGDataProviderRelease(v122);
                       CGColorSpaceRelease(space);
+                      v200.location = 0;
+                      v200.length = v166;
+                      FirstIndexOfBit = CFBitVectorGetFirstIndexOfBit(v115, v200, 1u);
                       v201.location = 0;
-                      v201.length = v167;
-                      FirstIndexOfBit = CFBitVectorGetFirstIndexOfBit(v115, v201, 1u);
+                      v201.length = v166;
+                      v54 = v150;
+                      spacea = CFBitVectorGetLastIndexOfBit(v115, v201, 1u);
                       v202.location = 0;
-                      v202.length = v167;
-                      v54 = v151;
-                      spacea = CFBitVectorGetLastIndexOfBit(v115, v202, 1u);
+                      v202.length = v100;
+                      cp2xb = CFBitVectorGetFirstIndexOfBit(v116, v202, 1u);
                       v203.location = 0;
                       v203.length = v100;
-                      cp2xb = CFBitVectorGetFirstIndexOfBit(v116, v203, 1u);
-                      v204.location = 0;
-                      v204.length = v100;
-                      LastIndexOfBit = CFBitVectorGetLastIndexOfBit(v116, v204, 1u);
+                      LastIndexOfBit = CFBitVectorGetLastIndexOfBit(v116, v203, 1u);
                       CFRelease(v115);
                       CFRelease(v116);
                       v125 = v100;
-                      v126 = v167;
+                      v126 = v166;
                       if (FirstIndexOfBit == -1)
                       {
                         v127 = 0;
@@ -861,41 +862,41 @@
                         v132 = 0.0;
                       }
 
-                      v239.origin.x = *MEMORY[0x1E695EFF8] + v130;
-                      v239.origin.y = *(MEMORY[0x1E695EFF8] + 8) + v128;
-                      v239.size.width = v125 - (v132 + v130);
-                      v239.size.height = v126 - (v131 + v128);
-                      v133 = CGImageCreateWithImageInRect(v164, v239);
-                      CGImageRelease(v164);
-                      v92 = v154;
+                      v238.origin.x = *MEMORY[0x1E695EFF8] + v130;
+                      v238.origin.y = *(MEMORY[0x1E695EFF8] + 8) + v128;
+                      v238.size.width = v125 - (v132 + v130);
+                      v238.size.height = v126 - (v131 + v128);
+                      v133 = CGImageCreateWithImageInRect(v163, v238);
+                      CGImageRelease(v163);
+                      v92 = v153;
                       v134 = [[WFImage alloc] initWithCGImage:v133 scale:1 orientation:v111];
                       [(WFImage *)v134 sizeInPoints];
                       v136 = v135;
                       v138 = v137;
                       CGImageRelease(v133);
+                      v239.origin.x = v39;
+                      v239.origin.y = v40;
+                      v239.size.width = v37;
+                      v239.size.height = v38;
+                      v139 = CGRectGetMinX(v239);
                       v240.origin.x = v39;
                       v240.origin.y = v40;
                       v240.size.width = v37;
                       v240.size.height = v38;
-                      v139 = CGRectGetMinX(v240);
-                      v241.origin.x = v39;
-                      v241.origin.y = v40;
-                      v241.size.width = v37;
-                      v241.size.height = v38;
-                      [(WFImage *)v134 drawInContext:v173 inRect:round(((v37 - v136) * 0.5 + v139) * v111) / v111, round(((v38 - v138) * 0.5 + CGRectGetMinY(v241)) * v111) / v111, round(v136 * v111) / v111, round(v138 * v111) / v111];
+                      [(WFImage *)v134 drawInContext:v172 inRect:round(((v37 - v136) * 0.5 + v139) * v111) / v111, round(((v38 - v138) * 0.5 + CGRectGetMinY(v240)) * v111) / v111, round(v136 * v111) / v111, round(v138 * v111) / v111];
 
-                      v156[2](v156);
+                      v155[2](v155);
                       v92[2](v92);
                     }
 
-                    v144[2](v144);
+                    v143[2](v143);
                   }
 
-                  v146[2](v146);
+                  v145[2](v145);
                 }
               }
 
-              v160[2](v160);
+              v159[2](v159);
             }
           }
 
@@ -915,8 +916,6 @@
   }
 
   CGContextRestoreGState(cGContext);
-
-  v140 = *MEMORY[0x1E69E9840];
 }
 
 - (WFColor)glyphColor
@@ -1000,6 +999,36 @@
   platformImage = [v4 platformImage];
 
   return platformImage;
+}
+
++ (id)imageWithIcon:(id)icon size:(CGSize)size scale:(double)scale padding:(CGSize)padding glyphColor:(id)color background:(BOOL)background
+{
+  backgroundCopy = background;
+  height = padding.height;
+  width = padding.width;
+  v12 = size.height;
+  v13 = size.width;
+  colorCopy = color;
+  iconCopy = icon;
+  v18 = [[self alloc] initWithIcon:iconCopy];
+
+  [v18 setGlyphColor:colorCopy];
+  [v18 setDrawBackground:backgroundCopy];
+  v19 = [v18 imageWithSize:v13 scale:v12 padding:{scale, width, height}];
+
+  return v19;
+}
+
++ (id)imageWithIcon:(id)icon size:(CGSize)size background:(BOOL)background
+{
+  backgroundCopy = background;
+  height = size.height;
+  width = size.width;
+  iconCopy = icon;
+  v10 = +[WFColor whiteColor];
+  v11 = [self imageWithIcon:iconCopy size:v10 scale:backgroundCopy padding:width glyphColor:height background:{0.0, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
+
+  return v11;
 }
 
 @end

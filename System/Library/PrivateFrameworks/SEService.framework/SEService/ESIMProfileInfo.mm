@@ -18,17 +18,15 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC9SEService15ESIMProfileInfo_iccid);
-  v5 = *&self->iccid[OBJC_IVAR____TtC9SEService15ESIMProfileInfo_iccid];
   coderCopy = coder;
   selfCopy = self;
-  v8 = sub_1C7C7D2E4();
-  v9 = sub_1C7C7D2E4();
-  [coderCopy encodeObject:v8 forKey:v9];
+  v6 = sub_1C7C7D2E4();
+  v7 = sub_1C7C7D2E4();
+  [coderCopy encodeObject:v6 forKey:v7];
 
-  v10 = *(&selfCopy->super.isa + OBJC_IVAR____TtC9SEService15ESIMProfileInfo_exactSize);
-  v11 = sub_1C7C7D2E4();
-  [coderCopy encodeInteger:v10 forKey:v11];
+  v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtC9SEService15ESIMProfileInfo_exactSize);
+  v9 = sub_1C7C7D2E4();
+  [coderCopy encodeInteger:v8 forKey:v9];
 }
 
 - (_TtC9SEService15ESIMProfileInfo)init

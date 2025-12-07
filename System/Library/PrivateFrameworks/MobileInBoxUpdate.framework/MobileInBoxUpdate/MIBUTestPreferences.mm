@@ -690,8 +690,8 @@ uint64_t __37__MIBUTestPreferences_sharedInstance__block_invoke()
 - (id)getValueFromTestPreferencesForKey:(id)key
 {
   keyCopy = key;
-  v4 = *MEMORY[0x277CBF020];
-  v5 = *MEMORY[0x277CBF030];
+  v5 = *MEMORY[0x277CBF020];
+  v6 = *MEMORY[0x277CBF030];
   if (!CFPreferencesSynchronize(@"com.apple.MobileInBoxUpdater.test", *MEMORY[0x277CBF020], *MEMORY[0x277CBF030]))
   {
     if (MIBUOnceToken != -1)
@@ -699,16 +699,16 @@ uint64_t __37__MIBUTestPreferences_sharedInstance__block_invoke()
       [MIBUTestPreferences getValueFromTestPreferencesForKey:];
     }
 
-    v6 = MIBUConnObj;
+    v7 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      [MIBUTestPreferences getValueFromTestPreferencesForKey:v6];
+      [(MIBUTestPreferences *)v7 getValueFromTestPreferencesForKey:?];
     }
   }
 
-  v7 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileInBoxUpdater.test", v4, v5);
+  v8 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileInBoxUpdater.test", v5, v6);
 
-  return v7;
+  return v8;
 }
 
 void __57__MIBUTestPreferences_getValueFromTestPreferencesForKey___block_invoke()
@@ -723,16 +723,14 @@ void __57__MIBUTestPreferences_getValueFromTestPreferencesForKey___block_invoke(
   }
 }
 
-- (void)getValueFromTestPreferencesForKey:(void *)a1 .cold.2(void *a1)
+- (void)getValueFromTestPreferencesForKey:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v2 = a1;
   v4 = 138543362;
   v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_error_impl(&dword_259ABF000, v1, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to synchronize with CFPreferences.", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = v5;
+  _os_log_error_impl(&dword_259ABF000, v2, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to synchronize with CFPreferences.", &v4, 0xCu);
 }
 
 @end

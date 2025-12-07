@@ -9852,7 +9852,7 @@ void ecMIMO::ec_state_reset(ecMIMO *this)
           {
             std::vector<BOOL>::operator=(v26, v23);
             v23 += 24;
-            v26 += 24;
+            v26 += 3;
           }
 
           while (v23 != v22);
@@ -9882,12 +9882,12 @@ void ecMIMO::ec_state_reset(ecMIMO *this)
 
         else
         {
-          v32 = &v31[*__u];
+          v32 = *__u + v31;
           do
           {
             std::vector<BOOL>::operator=(v26, v23);
             v23 += 24;
-            v26 += 24;
+            v26 += 3;
             v31 -= 24;
           }
 

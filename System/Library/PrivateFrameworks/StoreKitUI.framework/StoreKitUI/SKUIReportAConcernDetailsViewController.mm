@@ -232,84 +232,83 @@ void __57__SKUIReportAConcernDetailsViewController_submitPressed___block_invoke_
 
 void __57__SKUIReportAConcernDetailsViewController_submitPressed___block_invoke_3(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) responseDictionary];
   if (([*(a1 + 32) success] & 1) == 0 && v2)
   {
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v28 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:v2];
-    v3 = [v28 actions];
-    v4 = [v3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v27 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:v2];
+    v3 = [v27 actions];
+    v4 = [v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v34;
-      v7 = *MEMORY[0x277D6A570];
+      v6 = *v33;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v34 != v6)
+          if (*v33 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v33 + 1) + 8 * i);
-          v10 = [v9 actionType];
-          v11 = [v10 isEqualToString:v7];
+          v8 = *(*(&v32 + 1) + 8 * i);
+          v9 = [v8 actionType];
+          isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-          if (v11)
+          if (isEqualToString)
           {
-            v16 = [v9 dialog];
-            v17 = [MEMORY[0x277D75118] _alertViewForWindow:*(a1 + 40)];
-            v18 = [v16 message];
-            [v17 setMessage:v18];
+            v15 = [v8 dialog];
+            v16 = [MEMORY[0x277D75118] _alertViewForWindow:*(a1 + 40)];
+            v17 = [v15 message];
+            [v16 setMessage:v17];
 
-            v19 = [v16 title];
-            [v17 setTitle:v19];
+            v18 = [v15 title];
+            [v16 setTitle:v18];
 
             WeakRetained = objc_loadWeakRetained((a1 + 56));
-            [v17 setDelegate:WeakRetained];
+            [v16 setDelegate:WeakRetained];
 
-            v21 = [v16 buttons];
+            v20 = [v15 buttons];
+            v28 = 0u;
             v29 = 0u;
             v30 = 0u;
             v31 = 0u;
-            v32 = 0u;
-            v22 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
-            if (v22)
+            v21 = [v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
+            if (v21)
             {
-              v23 = v22;
-              v24 = *v30;
+              v22 = v21;
+              v23 = *v29;
               do
               {
-                for (j = 0; j != v23; ++j)
+                for (j = 0; j != v22; ++j)
                 {
-                  if (*v30 != v24)
+                  if (*v29 != v23)
                   {
-                    objc_enumerationMutation(v21);
+                    objc_enumerationMutation(v20);
                   }
 
-                  v26 = [*(*(&v29 + 1) + 8 * j) buttonTitle];
-                  [v17 addButtonWithTitle:v26];
+                  v25 = [*(*(&v28 + 1) + 8 * j) buttonTitle];
+                  [v16 addButtonWithTitle:v25];
                 }
 
-                v23 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
               }
 
-              while (v23);
+              while (v22);
             }
 
-            [v17 show];
+            [v16 show];
 
             goto LABEL_22;
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v5)
         {
           continue;
@@ -320,14 +319,14 @@ void __57__SKUIReportAConcernDetailsViewController_submitPressed___block_invoke_
     }
   }
 
-  v12 = objc_loadWeakRetained((a1 + 56));
-  v13 = [v12 completion];
+  v11 = objc_loadWeakRetained((a1 + 56));
+  v12 = [v11 completion];
 
-  if (v13)
+  if (v12)
   {
-    v14 = objc_loadWeakRetained((a1 + 56));
-    v15 = [v14 completion];
-    v15[2](v15, 1);
+    v13 = objc_loadWeakRetained((a1 + 56));
+    v14 = [v13 completion];
+    v14[2](v14, 1);
   }
 
   else
@@ -338,8 +337,8 @@ LABEL_22:
 
   if (*(a1 + 64) != *MEMORY[0x277D767B0])
   {
-    v27 = [MEMORY[0x277D75128] sharedApplication];
-    [v27 endBackgroundTask:*(a1 + 64)];
+    v26 = [MEMORY[0x277D75128] sharedApplication];
+    [v26 endBackgroundTask:*(a1 + 64)];
   }
 }
 
@@ -479,6 +478,24 @@ void __61__SKUIReportAConcernDetailsViewController__keyboardWillHide___block_inv
 
   v10 = [*(a1 + 32) tableView];
   [v10 endUpdates];
+}
+
+- (void)initWithNibName:(uint64_t)a3 bundle:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIReportAConcernDetailsViewController initWithNibName:bundle:]";
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIReportAConcernDetailsViewController initWithCoder:]";
+}
+
+- (void)initWithConfiguration:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIReportAConcernDetailsViewController initWithConfiguration:]";
 }
 
 @end

@@ -137,164 +137,167 @@ void __75__ATXDefaultHomeScreenItemManager_writeHomeScreenUpdate_completionHandl
 
 void __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke(id *a1, void *a2, void *a3)
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v67[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_home_screen(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_cold_1();
     }
   }
 
-  if ([v5 isEqual:a1[4]])
+  v9 = [v5 isEqual:a1[4]];
+  if (v9)
   {
-    v8 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_home_screen(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v51 = "[ATXDefaultHomeScreenItemManager _writeUpdate:atPath:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "%s: Defaults are the same as cached, not updating", buf, 0xCu);
+      v55 = "[ATXDefaultHomeScreenItemManager _writeUpdate:atPath:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "%s: Defaults are the same as cached, not updating", buf, 0xCu);
     }
 
-    v9 = dispatch_get_global_queue(25, 0);
+    v11 = dispatch_get_global_queue(25, 0);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_25;
     block[3] = &unk_1E80C3698;
-    v49 = a1[6];
-    dispatch_async(v9, block);
+    v53 = a1[6];
+    dispatch_async(v11, block);
 
-    v10 = v49;
+    v12 = v53;
   }
 
   else
   {
-    v10 = [a1[4] dictionaryRepresentation];
-    v11 = objc_autoreleasePoolPush();
-    v47 = 0;
-    v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v47];
-    v13 = v47;
-    objc_autoreleasePoolPop(v11);
-    if (v12)
+    v12 = [a1[4] dictionaryRepresentation];
+    v13 = objc_autoreleasePoolPush();
+    v51 = 0;
+    v14 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v51];
+    v15 = v51;
+    objc_autoreleasePoolPop(v13);
+    if (v14)
     {
-      v14 = open([a1[5] fileSystemRepresentation], 514, 384);
-      if (v14 == -1)
+      v17 = open([a1[5] fileSystemRepresentation], 514, 384);
+      if (v17 == -1)
       {
-        v26 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v30 = __atxlog_handle_home_screen(v17);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_cold_2();
         }
 
-        v27 = MEMORY[0x1E696ABC0];
-        v62 = *MEMORY[0x1E696A278];
-        v63[0] = @"Unable to create file";
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
-        v29 = [v27 errorWithDomain:@"ATXDefaultWidgetManager" code:0 userInfo:v28];
+        v31 = MEMORY[0x1E696ABC0];
+        v66 = *MEMORY[0x1E696A278];
+        v67[0] = @"Unable to create file";
+        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:1];
+        v33 = [v31 errorWithDomain:@"ATXDefaultWidgetManager" code:0 userInfo:v32];
 
-        v30 = dispatch_get_global_queue(25, 0);
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_34;
-        v41[3] = &unk_1E80C2008;
-        v23 = &v43;
-        v43 = a1[6];
-        v13 = v29;
-        v42 = v13;
-        dispatch_async(v30, v41);
+        v34 = dispatch_get_global_queue(25, 0);
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_34;
+        v45[3] = &unk_1E80C2008;
+        v27 = &v47;
+        v47 = a1[6];
+        v15 = v33;
+        v46 = v15;
+        dispatch_async(v34, v45);
 
-        v22 = v42;
+        v26 = v46;
       }
 
       else
       {
-        v15 = v14;
-        v16 = ATXCacheFileWrite();
-        if ((v15 & 0x80000000) == 0)
+        v18 = v17;
+        v19 = ATXCacheFileWrite();
+        v20 = v19;
+        if ((v18 & 0x80000000) == 0)
         {
-          close(v15);
+          v19 = close(v18);
         }
 
-        if (v16)
+        if (v20)
         {
-          v17 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v21 = __atxlog_handle_home_screen(v19);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            v35 = [a1[4] stack];
-            v18 = [a1[4] smallWidgets];
-            v19 = [a1[4] mediumWidgets];
-            v20 = [a1[4] largeWidgets];
+            v39 = [a1[4] stack];
+            v22 = [a1[4] smallWidgets];
+            v23 = [a1[4] mediumWidgets];
+            v24 = [a1[4] largeWidgets];
             *buf = 136316162;
-            v51 = "[ATXDefaultHomeScreenItemManager _writeUpdate:atPath:completionHandler:]_block_invoke_3";
-            v52 = 2112;
-            v53 = v35;
-            v54 = 2112;
-            v55 = v18;
+            v55 = "[ATXDefaultHomeScreenItemManager _writeUpdate:atPath:completionHandler:]_block_invoke_3";
             v56 = 2112;
-            v57 = v19;
+            v57 = v39;
             v58 = 2112;
-            v59 = v20;
-            v21 = v20;
-            _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "%s: New add widget defaults sucessfully written to cache: default stack: %@, default widgets small: %@, default widgets medium: %@ default widgets large: %@", buf, 0x34u);
+            v59 = v22;
+            v60 = 2112;
+            v61 = v23;
+            v62 = 2112;
+            v63 = v24;
+            v25 = v24;
+            _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "%s: New add widget defaults sucessfully written to cache: default stack: %@, default widgets small: %@, default widgets medium: %@ default widgets large: %@", buf, 0x34u);
           }
 
-          v22 = dispatch_get_global_queue(25, 0);
-          v36[0] = MEMORY[0x1E69E9820];
-          v36[1] = 3221225472;
-          v36[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_39;
-          v36[3] = &unk_1E80C3698;
-          v23 = &v37;
-          v37 = a1[6];
-          dispatch_async(v22, v36);
+          v26 = dispatch_get_global_queue(25, 0);
+          v40[0] = MEMORY[0x1E69E9820];
+          v40[1] = 3221225472;
+          v40[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_39;
+          v40[3] = &unk_1E80C3698;
+          v27 = &v41;
+          v41 = a1[6];
+          dispatch_async(v26, v40);
         }
 
         else
         {
-          v31 = MEMORY[0x1E696ABC0];
-          v60 = *MEMORY[0x1E696A278];
-          v61 = @"Unable to write data to file";
-          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-          v33 = [v31 errorWithDomain:@"ATXDefaultWidgetManager" code:1 userInfo:v32];
+          v35 = MEMORY[0x1E696ABC0];
+          v64 = *MEMORY[0x1E696A278];
+          v65 = @"Unable to write data to file";
+          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+          v37 = [v35 errorWithDomain:@"ATXDefaultWidgetManager" code:1 userInfo:v36];
 
-          v34 = dispatch_get_global_queue(25, 0);
-          v38[0] = MEMORY[0x1E69E9820];
-          v38[1] = 3221225472;
-          v38[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_2;
-          v38[3] = &unk_1E80C2008;
-          v23 = &v40;
-          v40 = a1[6];
-          v13 = v33;
-          v39 = v13;
-          dispatch_async(v34, v38);
+          v38 = dispatch_get_global_queue(25, 0);
+          v42[0] = MEMORY[0x1E69E9820];
+          v42[1] = 3221225472;
+          v42[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_2;
+          v42[3] = &unk_1E80C2008;
+          v27 = &v44;
+          v44 = a1[6];
+          v15 = v37;
+          v43 = v15;
+          dispatch_async(v38, v42);
 
-          v22 = v39;
+          v26 = v43;
         }
       }
     }
 
     else
     {
-      v24 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = __atxlog_handle_home_screen(v16);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_cold_3();
       }
 
-      v25 = dispatch_get_global_queue(25, 0);
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_28;
-      v44[3] = &unk_1E80C2008;
-      v23 = &v46;
-      v46 = a1[6];
-      v13 = v13;
-      v45 = v13;
-      dispatch_async(v25, v44);
+      v29 = dispatch_get_global_queue(25, 0);
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v48[2] = __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_28;
+      v48[3] = &unk_1E80C2008;
+      v27 = &v50;
+      v50 = a1[6];
+      v15 = v15;
+      v49 = v15;
+      dispatch_async(v29, v48);
 
-      v22 = v45;
+      v26 = v49;
     }
   }
 }
@@ -468,7 +471,7 @@ LABEL_13:
   }
 
   v15 = +[ATXDemoStackAndWidgetProvider demoStackAndWidgets];
-  v16 = __atxlog_handle_home_screen();
+  v16 = __atxlog_handle_home_screen(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -490,7 +493,7 @@ void __126__ATXDefaultHomeScreenItemManager_fetchGalleryItemsForVariant_gridSize
   v7 = v6;
   if (!v5 || v6)
   {
-    v8 = __atxlog_handle_home_screen();
+    v8 = __atxlog_handle_home_screen(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __126__ATXDefaultHomeScreenItemManager_fetchGalleryItemsForVariant_gridSize_supportedFamilies_personaIdentifier_completionHandler___block_invoke_cold_1();
@@ -503,7 +506,7 @@ void __126__ATXDefaultHomeScreenItemManager_fetchGalleryItemsForVariant_gridSize
     if (v11)
     {
       v12 = v11;
-      v13 = __atxlog_handle_home_screen();
+      v13 = __atxlog_handle_home_screen(v11);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __126__ATXDefaultHomeScreenItemManager_fetchGalleryItemsForVariant_gridSize_supportedFamilies_personaIdentifier_completionHandler___block_invoke_cold_2();
@@ -584,7 +587,7 @@ void __126__ATXDefaultHomeScreenItemManager_fetchGalleryItemsForVariant_gridSize
   v17 = v48;
   v42 = [(ATXDefaultHomeScreenItemTilerWrapper *)v40 initWithDefaultStack:v41 defaultWidgetsSmall:v48 defaultWidgetsMedium:v35 defaultWidgetsLarge:v37 defaultWidgetsExtraLarge:v39 widgetFamilyMask:*(a1 + 56) gridSize:*(a1 + 64) galleryRequest:0];
   v43 = [(ATXDefaultHomeScreenItemTilerWrapper *)v42 tiledHomeScreenItems];
-  v44 = __atxlog_handle_home_screen();
+  v44 = __atxlog_handle_home_screen(v43);
   if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -614,7 +617,7 @@ LABEL_19:
 
 - (id)generateItemsForWidgetGalleryWithRequest:(id)request error:(id *)error
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   clientIdentity = [requestCopy clientIdentity];
   widgetClient = [clientIdentity widgetClient];
@@ -622,91 +625,92 @@ LABEL_19:
   clientIdentity2 = [requestCopy clientIdentity];
   clientSessionIdentifier = [clientIdentity2 clientSessionIdentifier];
 
-  v10 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_home_screen(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     clientIdentity3 = [requestCopy clientIdentity];
     *buf = 136315394;
-    v65 = "[ATXDefaultHomeScreenItemManager generateItemsForWidgetGalleryWithRequest:error:]";
-    v66 = 2112;
-    v67 = clientIdentity3;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "%s: Fetching Widget gallery items for Client: %@", buf, 0x16u);
+    v67 = "[ATXDefaultHomeScreenItemManager generateItemsForWidgetGalleryWithRequest:error:]";
+    v68 = 2112;
+    v69 = clientIdentity3;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%s: Fetching Widget gallery items for Client: %@", buf, 0x16u);
   }
 
-  v12 = +[ATXWidgetDescriptorCache sharedInstance];
-  v61 = 0;
-  v13 = [v12 fetchHomeScreenWidgetDescriptorMetadataWithError:&v61];
-  v14 = v61;
-  if (!v14)
+  v13 = +[ATXWidgetDescriptorCache sharedInstance];
+  v63 = 0;
+  v14 = [v13 fetchHomeScreenWidgetDescriptorMetadataWithError:&v63];
+  v15 = v63;
+  v16 = v15;
+  if (!v15)
   {
-    v58 = widgetClient;
-    v59 = v13;
-    v18 = objc_opt_new();
-    rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v18 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v60 = widgetClient;
+    v61 = v14;
+    v20 = objc_opt_new();
+    rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v20 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
-    v20 = MEMORY[0x1E695DFD8];
-    v21 = CFPreferencesCopyAppValue(@"SBSearchDisabledShortcuts", @"com.apple.spotlightui");
-    v22 = v21;
-    if (v21)
+    v22 = MEMORY[0x1E695DFD8];
+    v23 = CFPreferencesCopyAppValue(@"SBSearchDisabledShortcuts", @"com.apple.spotlightui");
+    v24 = v23;
+    if (v23)
     {
-      v23 = v21;
+      v25 = v23;
     }
 
     else
     {
-      v23 = objc_opt_new();
+      v25 = objc_opt_new();
     }
 
-    v24 = v23;
+    v26 = v25;
 
-    v60 = [v20 setWithArray:v24];
+    v62 = [v22 setWithArray:v26];
 
     denyListOfExtensions = [requestCopy denyListOfExtensions];
-    v26 = denyListOfExtensions;
-    v27 = MEMORY[0x1E695E0F0];
+    v28 = denyListOfExtensions;
+    v29 = MEMORY[0x1E695E0F0];
     if (denyListOfExtensions)
     {
-      v27 = denyListOfExtensions;
+      v29 = denyListOfExtensions;
     }
 
-    v28 = v27;
+    v30 = v29;
 
-    v29 = [MEMORY[0x1E695DFD8] setWithArray:v28];
+    v31 = [MEMORY[0x1E695DFD8] setWithArray:v30];
 
-    v30 = +[ATXDefaultHomeScreenItemManager _widgetIdentifiersNotAllowed];
-    v31 = v30;
-    if (v30)
+    v32 = +[ATXDefaultHomeScreenItemManager _widgetIdentifiersNotAllowed];
+    v33 = v32;
+    if (v32)
     {
-      v32 = v30;
+      v34 = v32;
     }
 
     else
     {
-      v32 = [MEMORY[0x1E695DFD8] set];
+      v34 = [MEMORY[0x1E695DFD8] set];
     }
 
-    v33 = v32;
+    v35 = v34;
 
-    v56 = v33;
-    v34 = [v29 setByAddingObjectsFromSet:v33];
+    v58 = v35;
+    v36 = [v31 setByAddingObjectsFromSet:v35];
 
-    homeScreenDescriptors = [v12 homeScreenDescriptors];
-    v55 = v34;
-    v36 = [ATXDefaultHomeScreenItemManager _descriptorsByFilteringDescriptors:homeScreenDescriptors disabledApps:v60 excludedWidgetsWithIdentifiers:v34 client:v58 personaIdentifier:clientSessionIdentifier];
+    homeScreenDescriptors = [v13 homeScreenDescriptors];
+    v57 = v36;
+    v38 = [ATXDefaultHomeScreenItemManager _descriptorsByFilteringDescriptors:homeScreenDescriptors disabledApps:v62 excludedWidgetsWithIdentifiers:v36 client:v60 personaIdentifier:clientSessionIdentifier];
 
-    v37 = [ATXDefaultHomeScreenItemProducer alloc];
-    v54 = v36;
-    v13 = v59;
-    v38 = [(ATXDefaultHomeScreenItemProducer *)v37 initWithDescriptors:v36 descriptorInstallDates:v59 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:(v58 & 0xFFFFFFFFFFFFFFFELL) != 2 isiPad:0 spotlightAppLaunchHistogram:0 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
-    [(ATXDefaultHomeScreenItemProducer *)v38 setGalleryRequest:requestCopy];
-    v53 = v38;
-    update = [(ATXDefaultHomeScreenItemProducer *)v38 update];
-    v57 = rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps;
+    v39 = [ATXDefaultHomeScreenItemProducer alloc];
+    v56 = v38;
+    v14 = v61;
+    v40 = [(ATXDefaultHomeScreenItemProducer *)v39 initWithDescriptors:v38 descriptorInstallDates:v61 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:(v60 & 0xFFFFFFFFFFFFFFFELL) != 2 isiPad:0 spotlightAppLaunchHistogram:0 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    [(ATXDefaultHomeScreenItemProducer *)v40 setGalleryRequest:requestCopy];
+    v55 = v40;
+    update = [(ATXDefaultHomeScreenItemProducer *)v40 update];
+    v59 = rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps;
     if (update)
     {
-      v52 = clientSessionIdentifier;
-      v51 = [ATXDefaultHomeScreenItemTilerWrapper alloc];
-      if (v58 == 2)
+      v54 = clientSessionIdentifier;
+      v53 = [ATXDefaultHomeScreenItemTilerWrapper alloc];
+      if (v60 == 2)
       {
         smallWidgets = [update smallWidgets];
         largeWidgets = 0;
@@ -724,8 +728,8 @@ LABEL_19:
         extraLargeWidgets = [update extraLargeWidgets];
       }
 
-      v47 = -[ATXDefaultHomeScreenItemTilerWrapper initWithDefaultStack:defaultWidgetsSmall:defaultWidgetsMedium:defaultWidgetsLarge:defaultWidgetsExtraLarge:widgetFamilyMask:gridSize:galleryRequest:](v51, "initWithDefaultStack:defaultWidgetsSmall:defaultWidgetsMedium:defaultWidgetsLarge:defaultWidgetsExtraLarge:widgetFamilyMask:gridSize:galleryRequest:", stack, smallWidgets, mediumWidgets, largeWidgets, extraLargeWidgets, [requestCopy widgetFamilyMask], objc_msgSend(requestCopy, "widgetGridSize"), requestCopy);
-      if (v58 == 2)
+      v49 = -[ATXDefaultHomeScreenItemTilerWrapper initWithDefaultStack:defaultWidgetsSmall:defaultWidgetsMedium:defaultWidgetsLarge:defaultWidgetsExtraLarge:widgetFamilyMask:gridSize:galleryRequest:](v53, "initWithDefaultStack:defaultWidgetsSmall:defaultWidgetsMedium:defaultWidgetsLarge:defaultWidgetsExtraLarge:widgetFamilyMask:gridSize:galleryRequest:", stack, smallWidgets, mediumWidgets, largeWidgets, extraLargeWidgets, [requestCopy widgetFamilyMask], objc_msgSend(requestCopy, "widgetGridSize"), requestCopy);
+      if (v60 == 2)
       {
         stack = smallWidgets;
       }
@@ -734,26 +738,26 @@ LABEL_19:
       {
       }
 
-      clientSessionIdentifier = v52;
-      v13 = v59;
+      clientSessionIdentifier = v54;
+      v14 = v61;
 
-      tiledHomeScreenItems = [(ATXDefaultHomeScreenItemTilerWrapper *)v47 tiledHomeScreenItems];
-      v48 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      tiledHomeScreenItems = [(ATXDefaultHomeScreenItemTilerWrapper *)v49 tiledHomeScreenItems];
+      v50 = __atxlog_handle_home_screen(tiledHomeScreenItems);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
-        v49 = [tiledHomeScreenItems count];
+        v51 = [tiledHomeScreenItems count];
         *buf = 134218242;
-        v65 = v49;
-        v66 = 2112;
-        v67 = tiledHomeScreenItems;
-        _os_log_impl(&dword_1BF549000, v48, OS_LOG_TYPE_DEFAULT, "Number of items returned for widget gallery suggestions is %lu; Widgets: %@", buf, 0x16u);
+        v67 = v51;
+        v68 = 2112;
+        v69 = tiledHomeScreenItems;
+        _os_log_impl(&dword_1BF549000, v50, OS_LOG_TYPE_DEFAULT, "Number of items returned for widget gallery suggestions is %lu; Widgets: %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v45 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v47 = __atxlog_handle_home_screen(0);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         [ATXDefaultHomeScreenItemManager generateItemsForWidgetGalleryWithRequest:error:];
       }
@@ -764,11 +768,11 @@ LABEL_19:
         goto LABEL_32;
       }
 
-      v46 = MEMORY[0x1E696ABC0];
-      v62 = *MEMORY[0x1E696A578];
-      v63 = @"Failed to produce home screen item update for widget gallery.";
-      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-      [v46 errorWithDomain:@"ATXDefaultWidgetManager" code:3 userInfo:v47];
+      v48 = MEMORY[0x1E696ABC0];
+      v64 = *MEMORY[0x1E696A578];
+      v65 = @"Failed to produce home screen item update for widget gallery.";
+      v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      [v48 errorWithDomain:@"ATXDefaultWidgetManager" code:3 userInfo:v49];
       *error = tiledHomeScreenItems = 0;
     }
 
@@ -776,17 +780,17 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v15 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = __atxlog_handle_home_screen(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [ATXDefaultHomeScreenItemManager generateItemsForWidgetGalleryWithRequest:error:];
   }
 
   if (error)
   {
-    v16 = v14;
+    v18 = v16;
     tiledHomeScreenItems = 0;
-    *error = v14;
+    *error = v16;
   }
 
   else
@@ -823,7 +827,7 @@ LABEL_33:
     {
       v35 = v10;
       v36 = v9;
-      v14 = __atxlog_handle_home_screen();
+      v14 = __atxlog_handle_home_screen(v13);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         clientIdentity2 = [requestCopy clientIdentity];
@@ -860,7 +864,7 @@ LABEL_33:
 
             smallDefaultStack = [*(*(&v45 + 1) + 8 * i) smallDefaultStack];
             v24 = [smallDefaultStack _pas_mappedArrayWithTransform:&__block_literal_global_69];
-            v25 = __atxlog_handle_home_screen();
+            v25 = __atxlog_handle_home_screen(v24);
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218242;
@@ -973,7 +977,7 @@ void __86__ATXDefaultHomeScreenItemManager_fetchWidgetSmartStackWithRequest_comp
 {
   v28 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v9 = __atxlog_handle_home_screen();
+  v9 = __atxlog_handle_home_screen(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1058,7 +1062,7 @@ void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserv
 {
   v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _generateOnboardingStacksForVariant:*(a1 + 48)];
-  v3 = __atxlog_handle_home_screen();
+  v3 = __atxlog_handle_home_screen(v2);
   v4 = v3;
   if (v2)
   {
@@ -1099,194 +1103,195 @@ void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserv
 
 void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76(uint64_t a1, void *a2, void *a3)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v6)
   {
-    if ([v6 code] == 2)
+    v8 = [v6 code];
+    if (v8 == 2)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      LODWORD(v76) = 0;
-      v8 = [@"com.apple.duetexpertd.widgetOnboardingUpdate" UTF8String];
-      v9 = *&buf[8];
-      v10 = *(a1 + 32);
-      v11 = *(v10 + 8);
+      LODWORD(v79) = 0;
+      v9 = [@"com.apple.duetexpertd.widgetOnboardingUpdate" UTF8String];
+      v10 = *&buf[8];
+      v11 = *(a1 + 32);
+      v12 = *(v11 + 8);
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_2_88;
       handler[3] = &unk_1E80C5778;
-      v13 = *(a1 + 40);
-      v12 = *(a1 + 48);
-      v54 = buf;
-      v55 = v12;
-      handler[4] = v10;
-      v53 = v13;
-      notify_register_dispatch(v8, (v9 + 24), v11, handler);
+      v14 = *(a1 + 40);
+      v13 = *(a1 + 48);
+      v57 = buf;
+      v58 = v13;
+      handler[4] = v11;
+      v56 = v14;
+      notify_register_dispatch(v9, (v10 + 24), v12, handler);
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      v24 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = __atxlog_handle_home_screen(v8);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_1();
       }
 
-      v25 = dispatch_get_global_queue(25, 0);
-      v49[0] = MEMORY[0x1E69E9820];
-      v49[1] = 3221225472;
-      v49[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_90;
-      v49[3] = &unk_1E80C2008;
-      v51 = *(a1 + 40);
-      v50 = v7;
-      dispatch_async(v25, v49);
+      v27 = dispatch_get_global_queue(25, 0);
+      v52[0] = MEMORY[0x1E69E9820];
+      v52[1] = 3221225472;
+      v52[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_90;
+      v52[3] = &unk_1E80C2008;
+      v54 = *(a1 + 40);
+      v53 = v7;
+      dispatch_async(v27, v52);
     }
   }
 
   else
   {
-    v15 = (a1 + 48);
-    v14 = *(a1 + 48);
-    if (v14 == 1)
+    v16 = (a1 + 48);
+    v15 = *(a1 + 48);
+    if (v15 == 1)
     {
-      v26 = [v5 todayStack];
+      v28 = [v5 todayStack];
 
-      v27 = v26 == 0;
-      v28 = __atxlog_handle_home_screen();
-      v29 = v28;
-      if (v27)
+      v29 = v28 == 0;
+      v31 = __atxlog_handle_home_screen(v30);
+      v32 = v31;
+      if (v29)
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
         {
-          __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_2(v29);
+          __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_2(v32);
         }
 
-        v43 = MEMORY[0x1E696ABC0];
-        v71 = *MEMORY[0x1E696A278];
-        v72 = @"Missing today stack";
-        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-        v45 = [v43 errorWithDomain:@"ATXDefaultWidgetManager" code:0 userInfo:v44];
+        v46 = MEMORY[0x1E696ABC0];
+        v74 = *MEMORY[0x1E696A278];
+        v75 = @"Missing today stack";
+        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+        v48 = [v46 errorWithDomain:@"ATXDefaultWidgetManager" code:0 userInfo:v47];
 
-        v46 = dispatch_get_global_queue(25, 0);
-        v59[0] = MEMORY[0x1E69E9820];
-        v59[1] = 3221225472;
-        v59[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_86;
-        v59[3] = &unk_1E80C2008;
-        v47 = *(a1 + 40);
-        v60 = v45;
-        v61 = v47;
-        v48 = v45;
-        dispatch_async(v46, v59);
+        v49 = dispatch_get_global_queue(25, 0);
+        v62[0] = MEMORY[0x1E69E9820];
+        v62[1] = 3221225472;
+        v62[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_86;
+        v62[3] = &unk_1E80C2008;
+        v50 = *(a1 + 40);
+        v63 = v48;
+        v64 = v50;
+        v51 = v48;
+        dispatch_async(v49, v62);
       }
 
       else
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = *v15;
-          v31 = [v5 todayStack];
-          v32 = [v31 compactDescription];
+          v33 = *v16;
+          v34 = [v5 todayStack];
+          v35 = [v34 compactDescription];
           *buf = 136315650;
           *&buf[4] = "[ATXDefaultHomeScreenItemManager _fetchSmartStackOfVariant:localObserver:completionHandler:]_block_invoke_2";
           *&buf[12] = 2048;
-          *&buf[14] = v30;
+          *&buf[14] = v33;
           *&buf[22] = 2112;
-          v76 = v32;
-          _os_log_impl(&dword_1BF549000, v29, OS_LOG_TYPE_DEFAULT, "%s: fetched smart stack of variant %lu: %@", buf, 0x20u);
+          v79 = v35;
+          _os_log_impl(&dword_1BF549000, v32, OS_LOG_TYPE_DEFAULT, "%s: fetched smart stack of variant %lu: %@", buf, 0x20u);
         }
 
-        v33 = dispatch_get_global_queue(25, 0);
-        v62[0] = MEMORY[0x1E69E9820];
-        v62[1] = 3221225472;
-        v62[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_82;
-        v62[3] = &unk_1E80C2008;
-        v64 = *(a1 + 40);
-        v63 = v5;
-        dispatch_async(v33, v62);
+        v36 = dispatch_get_global_queue(25, 0);
+        v65[0] = MEMORY[0x1E69E9820];
+        v65[1] = 3221225472;
+        v65[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_82;
+        v65[3] = &unk_1E80C2008;
+        v67 = *(a1 + 40);
+        v66 = v5;
+        dispatch_async(v36, v65);
       }
     }
 
-    else if (v14)
+    else if (v15)
     {
-      v34 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v37 = __atxlog_handle_home_screen(0);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_4();
       }
 
-      v35 = dispatch_get_global_queue(25, 0);
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_87;
-      v56[3] = &unk_1E80C2008;
-      v36 = *(a1 + 40);
-      v57 = 0;
-      v58 = v36;
-      dispatch_async(v35, v56);
+      v38 = dispatch_get_global_queue(25, 0);
+      v59[0] = MEMORY[0x1E69E9820];
+      v59[1] = 3221225472;
+      v59[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_87;
+      v59[3] = &unk_1E80C2008;
+      v39 = *(a1 + 40);
+      v60 = 0;
+      v61 = v39;
+      dispatch_async(v38, v59);
     }
 
     else
     {
-      v16 = [v5 stack];
+      v17 = [v5 stack];
 
-      v17 = v16 == 0;
-      v18 = __atxlog_handle_home_screen();
-      v19 = v18;
-      if (v17)
+      v18 = v17 == 0;
+      v20 = __atxlog_handle_home_screen(v19);
+      v21 = v20;
+      if (v18)
       {
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
         {
-          __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_3(v19);
+          __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_3(v21);
         }
 
-        v37 = MEMORY[0x1E696ABC0];
-        v73 = *MEMORY[0x1E696A278];
-        v74 = @"Missing stack";
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        v39 = [v37 errorWithDomain:@"ATXDefaultWidgetManager" code:0 userInfo:v38];
+        v40 = MEMORY[0x1E696ABC0];
+        v76 = *MEMORY[0x1E696A278];
+        v77 = @"Missing stack";
+        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+        v42 = [v40 errorWithDomain:@"ATXDefaultWidgetManager" code:0 userInfo:v41];
 
-        v40 = dispatch_get_global_queue(25, 0);
-        v65[0] = MEMORY[0x1E69E9820];
-        v65[1] = 3221225472;
-        v65[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_81;
-        v65[3] = &unk_1E80C2008;
-        v41 = *(a1 + 40);
-        v66 = v39;
-        v67 = v41;
-        v42 = v39;
-        dispatch_async(v40, v65);
+        v43 = dispatch_get_global_queue(25, 0);
+        v68[0] = MEMORY[0x1E69E9820];
+        v68[1] = 3221225472;
+        v68[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_81;
+        v68[3] = &unk_1E80C2008;
+        v44 = *(a1 + 40);
+        v69 = v42;
+        v70 = v44;
+        v45 = v42;
+        dispatch_async(v43, v68);
       }
 
       else
       {
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = *v15;
-          v21 = [v5 stack];
-          v22 = [v21 compactDescription];
+          v22 = *v16;
+          v23 = [v5 stack];
+          v24 = [v23 compactDescription];
           *buf = 136315650;
           *&buf[4] = "[ATXDefaultHomeScreenItemManager _fetchSmartStackOfVariant:localObserver:completionHandler:]_block_invoke";
           *&buf[12] = 2048;
-          *&buf[14] = v20;
+          *&buf[14] = v22;
           *&buf[22] = 2112;
-          v76 = v22;
-          _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "%s: fetched smart stack of variant %lu: %@", buf, 0x20u);
+          v79 = v24;
+          _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "%s: fetched smart stack of variant %lu: %@", buf, 0x20u);
         }
 
-        v23 = dispatch_get_global_queue(25, 0);
+        v25 = dispatch_get_global_queue(25, 0);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_77;
         block[3] = &unk_1E80C2008;
-        v70 = *(a1 + 40);
-        v69 = v5;
-        dispatch_async(v23, block);
+        v73 = *(a1 + 40);
+        v72 = v5;
+        dispatch_async(v25, block);
       }
     }
   }
@@ -1337,7 +1342,7 @@ void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserv
 
     else
     {
-      stack12 = __atxlog_handle_home_screen();
+      stack12 = __atxlog_handle_home_screen(0);
       if (os_log_type_enabled(stack12, OS_LOG_TYPE_ERROR))
       {
         [ATXDefaultHomeScreenItemManager fetchWidgetDiscoverabilityStacksForVariant:];
@@ -1349,7 +1354,7 @@ void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserv
 
   else
   {
-    v6 = __atxlog_handle_home_screen();
+    v6 = __atxlog_handle_home_screen(isiPad);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
@@ -1367,7 +1372,7 @@ void __62__ATXDefaultHomeScreenItemManager__logFetchedOnboardingStack___block_in
 {
   v12 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v5 = __atxlog_handle_home_screen();
+  v5 = __atxlog_handle_home_screen(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = a3 + 1;
@@ -1384,7 +1389,7 @@ void __62__ATXDefaultHomeScreenItemManager__logFetchedOnboardingStack___block_in
 {
   v19 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(requestCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     clientIdentity = [requestCopy clientIdentity];
@@ -1404,7 +1409,7 @@ void __62__ATXDefaultHomeScreenItemManager__logFetchedOnboardingStack___block_in
 
   else
   {
-    v12 = __atxlog_handle_home_screen();
+    v12 = __atxlog_handle_home_screen(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       clientIdentity2 = [requestCopy clientIdentity];
@@ -1423,7 +1428,7 @@ void __62__ATXDefaultHomeScreenItemManager__logFetchedOnboardingStack___block_in
 
 - (id)_generateSmartStackWithDescriptorCacheFromRequest:(id)request error:(id *)error
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   clientIdentity = [requestCopy clientIdentity];
   widgetClient = [clientIdentity widgetClient];
@@ -1450,7 +1455,7 @@ void __62__ATXDefaultHomeScreenItemManager__logFetchedOnboardingStack___block_in
 
   v14 = v13;
 
-  v40 = [v10 initWithArray:v14];
+  v41 = [v10 initWithArray:v14];
   denyListOfExtensions = [requestCopy denyListOfExtensions];
   if (denyListOfExtensions)
   {
@@ -1481,63 +1486,64 @@ void __62__ATXDefaultHomeScreenItemManager__logFetchedOnboardingStack___block_in
 
   homeScreenDescriptors = [v9 homeScreenDescriptors];
   v24 = clientSessionIdentifier;
-  v25 = [ATXDefaultHomeScreenItemManager _descriptorsByFilteringDescriptors:homeScreenDescriptors disabledApps:v40 excludedWidgetsWithIdentifiers:v22 client:widgetClient personaIdentifier:clientSessionIdentifier];
+  v25 = [ATXDefaultHomeScreenItemManager _descriptorsByFilteringDescriptors:homeScreenDescriptors disabledApps:v41 excludedWidgetsWithIdentifiers:v22 client:widgetClient personaIdentifier:clientSessionIdentifier];
 
-  v41 = 0;
-  v26 = [v9 fetchHomeScreenWidgetDescriptorMetadataWithError:&v41];
-  v27 = v41;
-  if (!v27 && [v26 count] && objc_msgSend(v25, "count"))
+  v42 = 0;
+  v26 = [v9 fetchHomeScreenWidgetDescriptorMetadataWithError:&v42];
+  v27 = v42;
+  v28 = v27;
+  if (!v27 && (v27 = [v26 count]) != 0 && (v27 = objc_msgSend(v25, "count")) != 0)
   {
-    v31 = [ATXDefaultHomeScreenItemProducer alloc];
-    v32 = [(ATXDefaultHomeScreenItemProducer *)v31 initWithDescriptors:v25 descriptorInstallDates:v26 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:(widgetClient & 0xFFFFFFFFFFFFFFFELL) != 2 isiPad:0 spotlightAppLaunchHistogram:0 adblDrainClassification:1 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
-    v30 = [(ATXDefaultHomeScreenItemProducer *)v32 generatedStacksWithRequest:requestCopy];
+    v32 = [ATXDefaultHomeScreenItemProducer alloc];
+    v33 = [(ATXDefaultHomeScreenItemProducer *)v32 initWithDescriptors:v25 descriptorInstallDates:v26 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:(widgetClient & 0xFFFFFFFFFFFFFFFELL) != 2 isiPad:0 spotlightAppLaunchHistogram:0 adblDrainClassification:1 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v31 = [(ATXDefaultHomeScreenItemProducer *)v33 generatedStacksWithRequest:requestCopy];
 
     v24 = clientSessionIdentifier;
   }
 
   else
   {
-    v28 = __atxlog_handle_carPlay_widgets();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = __atxlog_handle_carPlay_widgets(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [ATXDefaultHomeScreenItemManager _generateSmartStackWithDescriptorCacheFromRequest:error:];
     }
 
     if (error)
     {
-      if (v27)
+      if (v28)
       {
-        v29 = v27;
-        v30 = 0;
-        *error = v27;
+        v30 = v28;
+        v31 = 0;
+        *error = v28;
         goto LABEL_21;
       }
 
-      v36 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A578];
-      v43[0] = @"Failed to load widget descriptors or metadata.";
-      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
-      v34 = [v36 errorWithDomain:@"ATXDefaultWidgetManager" code:1 userInfo:v33];
-      *error = v34;
+      v37 = MEMORY[0x1E696ABC0];
+      v43 = *MEMORY[0x1E696A578];
+      v44[0] = @"Failed to load widget descriptors or metadata.";
+      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v35 = [v37 errorWithDomain:@"ATXDefaultWidgetManager" code:1 userInfo:v34];
+      *error = v35;
     }
 
-    v30 = 0;
+    v31 = 0;
   }
 
 LABEL_21:
 
-  return v30;
+  return v31;
 }
 
 - (id)_generateOnboardingStacksForVariant:(unint64_t)variant
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E6997228] log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v71 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
-    v72 = 2050;
+    v76 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
+    v77 = 2050;
     variantCopy = variant;
     _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "%s: %{public}lu", buf, 0x16u);
   }
@@ -1551,7 +1557,7 @@ LABEL_21:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v71 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
+      v76 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
       _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "%s: generating ambient onboarding stacks", buf, 0xCu);
     }
 
@@ -1561,7 +1567,7 @@ LABEL_21:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v71 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
+        v76 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
         _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "%s: device is day zero, returning nil", buf, 0xCu);
       }
 
@@ -1571,15 +1577,15 @@ LABEL_21:
 
     v8 = +[ATXWidgetDescriptorCache sharedInstance];
     homeScreenDescriptors = [v8 homeScreenDescriptors];
-    v26 = [homeScreenDescriptors _pas_filteredSetWithTest:&__block_literal_global_101_0];
+    v29 = [homeScreenDescriptors _pas_filteredSetWithTest:&__block_literal_global_101_0];
 
-    v69 = 0;
-    v27 = [v8 fetchHomeScreenWidgetDescriptorMetadataWithError:&v69];
-    v28 = v69;
-    if (v28 || ![v27 count] || !objc_msgSend(v26, "count"))
+    v74 = 0;
+    v30 = [v8 fetchHomeScreenWidgetDescriptorMetadataWithError:&v74];
+    v31 = v74;
+    if (v31 || ![v30 count] || !objc_msgSend(v29, "count"))
     {
-      v29 = [MEMORY[0x1E6997228] log];
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v32 = [MEMORY[0x1E6997228] log];
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:];
       }
@@ -1588,30 +1594,30 @@ LABEL_21:
       goto LABEL_29;
     }
 
-    v37 = [ATXDefaultHomeScreenItemProducer alloc];
+    v40 = [ATXDefaultHomeScreenItemProducer alloc];
     isiPad = [MEMORY[0x1E69C5CF8] isiPad];
-    v29 = [(ATXDefaultHomeScreenItemProducer *)v37 initWithDescriptors:v26 descriptorInstallDates:v27 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:0 isiPad:isiPad spotlightAppLaunchHistogram:0 adblDrainClassification:1 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
-    ambientOnboardingStacks = [v29 ambientOnboardingStacks];
+    v32 = [(ATXDefaultHomeScreenItemProducer *)v40 initWithDescriptors:v29 descriptorInstallDates:v30 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:0 isiPad:isiPad spotlightAppLaunchHistogram:0 adblDrainClassification:1 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    ambientOnboardingStacks = [v32 ambientOnboardingStacks];
     stack1 = [ambientOnboardingStacks stack1];
     smallDefaultStack = [stack1 smallDefaultStack];
-    v41 = [smallDefaultStack count];
+    v44 = [smallDefaultStack count];
 
-    if (v41 > 3)
+    if (v44 > 3)
     {
       stack2 = [ambientOnboardingStacks stack2];
       smallDefaultStack2 = [stack2 smallDefaultStack];
-      v53 = [smallDefaultStack2 count];
+      v58 = [smallDefaultStack2 count];
 
-      if (v53 > 3)
+      if (v58 > 3)
       {
-        v43 = ambientOnboardingStacks;
+        v46 = ambientOnboardingStacks;
         v9 = ambientOnboardingStacks;
         goto LABEL_66;
       }
 
-      v42 = [MEMORY[0x1E6997228] log];
-      v43 = ambientOnboardingStacks;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v45 = [MEMORY[0x1E6997228] log];
+      v46 = ambientOnboardingStacks;
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         [ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:ambientOnboardingStacks];
       }
@@ -1619,9 +1625,9 @@ LABEL_21:
 
     else
     {
-      v42 = [MEMORY[0x1E6997228] log];
-      v43 = ambientOnboardingStacks;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v45 = [MEMORY[0x1E6997228] log];
+      v46 = ambientOnboardingStacks;
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         [ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:ambientOnboardingStacks];
       }
@@ -1644,13 +1650,14 @@ LABEL_29:
   fetchADBLDrainClassification = [v10 fetchADBLDrainClassification];
 
   v8 = objc_opt_new();
-  v68 = 0;
-  v12 = [v8 fetchOnboardingStackWidgetCacheWithError:&v68];
-  v13 = v68;
+  v73 = 0;
+  v12 = [v8 fetchOnboardingStackWidgetCacheWithError:&v73];
+  v13 = v73;
+  v14 = v13;
   if (v13)
   {
-    v14 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_home_screen(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:];
     }
@@ -1658,34 +1665,34 @@ LABEL_29:
 
   if (v12)
   {
-    v15 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = __atxlog_handle_home_screen(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v71 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
-      _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "%s: fetching onboarding stacks with cached widget data", buf, 0xCu);
+      v76 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
+      _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "%s: fetching onboarding stacks with cached widget data", buf, 0xCu);
     }
 
-    v16 = __atxlog_handle_home_screen();
-    v17 = os_signpost_id_generate(v16);
+    v18 = __atxlog_handle_home_screen(v17);
+    v19 = os_signpost_id_generate(v18);
 
-    v18 = __atxlog_handle_home_screen();
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v21 = __atxlog_handle_home_screen(v20);
+    v22 = v21;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BF549000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "widgetDiscoverabilityUsingCachedData", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BF549000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "widgetDiscoverabilityUsingCachedData", " enableTelemetry=YES ", buf, 2u);
     }
 
-    v20 = [ATXDefaultHomeScreenItemOnboardingStacksProducer alloc];
-    v21 = -[ATXDefaultHomeScreenItemOnboardingStacksProducer initWithOnboardingStackWidgetCache:adblDrainClassification:isiPad:shouldIncludeContactsWidget:appLaunchCounts:](v20, "initWithOnboardingStackWidgetCache:adblDrainClassification:isiPad:shouldIncludeContactsWidget:appLaunchCounts:", v12, fetchADBLDrainClassification, [MEMORY[0x1E69C5CF8] isiPad], 1, rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps);
-    onboardingStacks = [(ATXDefaultHomeScreenItemOnboardingStacksProducer *)v21 onboardingStacks];
-    v23 = __atxlog_handle_home_screen();
-    v24 = v23;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v23 = [ATXDefaultHomeScreenItemOnboardingStacksProducer alloc];
+    v24 = -[ATXDefaultHomeScreenItemOnboardingStacksProducer initWithOnboardingStackWidgetCache:adblDrainClassification:isiPad:shouldIncludeContactsWidget:appLaunchCounts:](v23, "initWithOnboardingStackWidgetCache:adblDrainClassification:isiPad:shouldIncludeContactsWidget:appLaunchCounts:", v12, fetchADBLDrainClassification, [MEMORY[0x1E69C5CF8] isiPad], 1, rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps);
+    onboardingStacks = [(ATXDefaultHomeScreenItemOnboardingStacksProducer *)v24 onboardingStacks];
+    v26 = __atxlog_handle_home_screen(onboardingStacks);
+    v27 = v26;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BF549000, v24, OS_SIGNPOST_INTERVAL_END, v17, "widgetDiscoverabilityUsingCachedData", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BF549000, v27, OS_SIGNPOST_INTERVAL_END, v19, "widgetDiscoverabilityUsingCachedData", "", buf, 2u);
     }
 
     v9 = [ATXDefaultHomeScreenItemManager _onboardingStacksByFilteringDescriptorsInOnboardingStacks:onboardingStacks variant:0];
@@ -1693,60 +1700,60 @@ LABEL_29:
 
   else
   {
-    v21 = objc_opt_new();
-    onboardingStacks = [(ATXDefaultHomeScreenItemOnboardingStacksProducer *)v21 fetchOnboardingStackResultCache];
-    v30 = __atxlog_handle_home_screen();
-    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
-    v65 = v13;
+    v24 = objc_opt_new();
+    onboardingStacks = [(ATXDefaultHomeScreenItemOnboardingStacksProducer *)v24 fetchOnboardingStackResultCache];
+    v33 = __atxlog_handle_home_screen(onboardingStacks);
+    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+    v70 = v14;
     if (onboardingStacks)
     {
-      if (v31)
+      if (v34)
       {
         *buf = 136315138;
-        v71 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
-        _os_log_impl(&dword_1BF549000, v30, OS_LOG_TYPE_DEFAULT, "%s: using result cache", buf, 0xCu);
+        v76 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
+        _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "%s: using result cache", buf, 0xCu);
       }
 
-      v32 = [onboardingStacks resultForClassification:fetchADBLDrainClassification];
-      v33 = [ATXDefaultHomeScreenItemOnboardingStacks alloc];
-      stack12 = [v32 stack1];
-      stack22 = [v32 stack2];
-      v36 = [(ATXDefaultHomeScreenItemOnboardingStacks *)v33 initWithOnboardingStack1:stack12 stack2:stack22 sortedThirdPartyWidgets:MEMORY[0x1E695E0F0]];
+      v35 = [onboardingStacks resultForClassification:fetchADBLDrainClassification];
+      v36 = [ATXDefaultHomeScreenItemOnboardingStacks alloc];
+      stack12 = [v35 stack1];
+      stack22 = [v35 stack2];
+      v39 = [(ATXDefaultHomeScreenItemOnboardingStacks *)v36 initWithOnboardingStack1:stack12 stack2:stack22 sortedThirdPartyWidgets:MEMORY[0x1E695E0F0]];
 
-      v9 = [ATXDefaultHomeScreenItemManager _onboardingStacksByFilteringDescriptorsInOnboardingStacks:v36 variant:0];
+      v9 = [ATXDefaultHomeScreenItemManager _onboardingStacksByFilteringDescriptorsInOnboardingStacks:v39 variant:0];
     }
 
     else
     {
-      if (v31)
+      if (v34)
       {
         *buf = 136315138;
-        v71 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
-        _os_log_impl(&dword_1BF549000, v30, OS_LOG_TYPE_DEFAULT, "%s: no cached widget data, fetching onboarding stacks with descriptors and reading through biome stream", buf, 0xCu);
+        v76 = "[ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:]";
+        _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "%s: no cached widget data, fetching onboarding stacks with descriptors and reading through biome stream", buf, 0xCu);
       }
 
-      v44 = __atxlog_handle_home_screen();
-      v45 = os_signpost_id_generate(v44);
+      v48 = __atxlog_handle_home_screen(v47);
+      v49 = os_signpost_id_generate(v48);
 
-      v46 = __atxlog_handle_home_screen();
-      v47 = v46;
-      v63 = v45 - 1;
-      if (v45 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
+      v51 = __atxlog_handle_home_screen(v50);
+      v52 = v51;
+      v68 = v49 - 1;
+      if (v49 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1BF549000, v47, OS_SIGNPOST_INTERVAL_BEGIN, v45, "widgetDiscoverabilityWithoutCachedData", " enableTelemetry=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1BF549000, v52, OS_SIGNPOST_INTERVAL_BEGIN, v49, "widgetDiscoverabilityWithoutCachedData", " enableTelemetry=YES ", buf, 2u);
       }
 
-      v32 = +[ATXWidgetDescriptorCache sharedInstance];
-      v67 = 0;
-      v64 = [v32 fetchHomeScreenWidgetDescriptorMetadataWithError:&v67];
-      v36 = v67;
-      homeScreenDescriptors2 = [v32 homeScreenDescriptors];
-      v49 = homeScreenDescriptors2;
-      if (v36 || ![homeScreenDescriptors2 count])
+      v35 = +[ATXWidgetDescriptorCache sharedInstance];
+      v72 = 0;
+      v69 = [v35 fetchHomeScreenWidgetDescriptorMetadataWithError:&v72];
+      v39 = v72;
+      homeScreenDescriptors2 = [v35 homeScreenDescriptors];
+      v54 = homeScreenDescriptors2;
+      if (v39 || (homeScreenDescriptors2 = [homeScreenDescriptors2 count]) == 0)
       {
-        v50 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        v55 = __atxlog_handle_home_screen(homeScreenDescriptors2);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
           [ATXDefaultHomeScreenItemManager _generateOnboardingStacksForVariant:];
         }
@@ -1756,28 +1763,28 @@ LABEL_29:
 
       else
       {
-        spid = v45;
-        v61 = [ATXDayZeroDeterminer isDayZeroByFirstAppLaunchDateWithThresholdDateFromDaysAgo:20];
-        v54 = [ATXDefaultHomeScreenItemProducer alloc];
+        spid = v49;
+        v66 = [ATXDayZeroDeterminer isDayZeroByFirstAppLaunchDateWithThresholdDateFromDaysAgo:20];
+        v59 = [ATXDefaultHomeScreenItemProducer alloc];
         isiPad2 = [MEMORY[0x1E69C5CF8] isiPad];
-        v62 = v49;
-        v50 = [(ATXDefaultHomeScreenItemProducer *)v54 initWithDescriptors:v49 descriptorInstallDates:v64 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:v61 isiPad:isiPad2 spotlightAppLaunchHistogram:0 adblDrainClassification:fetchADBLDrainClassification appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
-        onboardingStacks2 = [v50 onboardingStacks];
-        v57 = __atxlog_handle_home_screen();
-        v58 = v57;
-        if (v63 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
+        v67 = v54;
+        v55 = [(ATXDefaultHomeScreenItemProducer *)v59 initWithDescriptors:v54 descriptorInstallDates:v69 homeScreenConfig:MEMORY[0x1E695E0F0] isDayZeroExperience:v66 isiPad:isiPad2 spotlightAppLaunchHistogram:0 adblDrainClassification:fetchADBLDrainClassification appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+        onboardingStacks2 = [v55 onboardingStacks];
+        v62 = __atxlog_handle_home_screen(onboardingStacks2);
+        v63 = v62;
+        if (v68 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v62))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1BF549000, v58, OS_SIGNPOST_INTERVAL_END, spid, "widgetDiscoverabilityWithoutCachedData", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1BF549000, v63, OS_SIGNPOST_INTERVAL_END, spid, "widgetDiscoverabilityWithoutCachedData", "", buf, 2u);
         }
 
         v9 = [ATXDefaultHomeScreenItemManager _onboardingStacksByFilteringDescriptorsInOnboardingStacks:onboardingStacks2 variant:0];
 
-        v49 = v62;
+        v54 = v67;
       }
     }
 
-    v13 = v65;
+    v14 = v70;
   }
 
 LABEL_61:
@@ -1930,46 +1937,47 @@ void __79__ATXDefaultHomeScreenItemManager_fetchDefaultStacksJSONWithCompletionH
 
 void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionHandler___block_invoke(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v2 = open([*(a1 + 32) fileSystemRepresentation], 0);
   if (v2 == -1)
   {
-    v4 = *__error();
-    v5 = __atxlog_handle_home_screen();
-    v6 = v5;
-    if (v4 == 2)
+    v5 = __error();
+    v6 = *v5;
+    v7 = __atxlog_handle_home_screen(v5);
+    v8 = v7;
+    if (v6 == 2)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf[0]) = 136315138;
         *(buf + 4) = "[ATXDefaultHomeScreenItemManager _readUpdateFromFileAtPath:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "%s: No suggestions file found.", buf, 0xCu);
+        _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "%s: No suggestions file found.", buf, 0xCu);
       }
 
-      v7 = MEMORY[0x1E696ABC0];
-      v19 = *MEMORY[0x1E696A278];
-      v20 = @"No suggestions file found";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-      v9 = v7;
-      v10 = 2;
+      v9 = MEMORY[0x1E696ABC0];
+      v21 = *MEMORY[0x1E696A278];
+      v22 = @"No suggestions file found";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v11 = v9;
+      v12 = 2;
     }
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionHandler___block_invoke_cold_3();
       }
 
-      v15 = MEMORY[0x1E696ABC0];
-      v22 = *MEMORY[0x1E696A278];
-      v23[0] = @"Unable to open file";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-      v9 = v15;
-      v10 = 0;
+      v17 = MEMORY[0x1E696ABC0];
+      v24 = *MEMORY[0x1E696A278];
+      v25[0] = @"Unable to open file";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v11 = v17;
+      v12 = 0;
     }
 
-    v16 = [v9 errorWithDomain:@"ATXDefaultWidgetManager" code:v10 userInfo:v8];
+    v18 = [v11 errorWithDomain:@"ATXDefaultWidgetManager" code:v12 userInfo:v10];
 
     (*(*(a1 + 40) + 16))();
   }
@@ -1978,23 +1986,23 @@ void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionH
   {
     v3 = v2;
     buf[0] = 0;
-    ATXCacheFileRead();
+    v4 = ATXCacheFileRead();
     if ((v3 & 0x80000000) == 0)
     {
-      close(v3);
+      v4 = close(v3);
     }
 
-    v11 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_home_screen(v4);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionHandler___block_invoke_cold_2();
     }
 
-    v12 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A278];
-    v18 = @"No data in file";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-    v14 = [v12 errorWithDomain:@"ATXDefaultWidgetManager" code:1 userInfo:v13];
+    v14 = MEMORY[0x1E696ABC0];
+    v19 = *MEMORY[0x1E696A278];
+    v20 = @"No data in file";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v16 = [v14 errorWithDomain:@"ATXDefaultWidgetManager" code:1 userInfo:v15];
 
     (*(*(a1 + 40) + 16))();
   }
@@ -2096,7 +2104,7 @@ void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionH
 
 + (BOOL)shouldFilterOutWidgetDescriptorDueToDenyList:(id)list fromExcludedWidgetsWithIdentifiers:(id)identifiers
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   listCopy = list;
   identifiersCopy = identifiers;
   appBundleId = [listCopy appBundleId];
@@ -2104,24 +2112,24 @@ void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionH
   if (appBundleId)
   {
     appBundleId2 = [listCopy appBundleId];
-    v9 = [identifiersCopy containsObject:appBundleId2];
+    v10 = objc_msgSend_containsObject_(identifiersCopy);
 
-    if (v9)
+    if (v10)
     {
-      extensionBundleIdentifier = __atxlog_handle_home_screen();
+      extensionBundleIdentifier = __atxlog_handle_home_screen(v11);
       if (os_log_type_enabled(extensionBundleIdentifier, OS_LOG_TYPE_DEFAULT))
       {
         appBundleId3 = [listCopy appBundleId];
         *buf = 136315650;
-        v27 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
-        v28 = 2112;
-        v29 = listCopy;
-        v30 = 2112;
-        v31 = appBundleId3;
+        v32 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
+        v33 = 2112;
+        v34 = listCopy;
+        v35 = 2112;
+        v36 = appBundleId3;
         _os_log_impl(&dword_1BF549000, extensionBundleIdentifier, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Widget's parent bundleId in deny list %@", buf, 0x20u);
       }
 
-      LOBYTE(v12) = 1;
+      v14 = 1;
     }
 
     else
@@ -2133,66 +2141,69 @@ void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionH
       avocadoDescriptor2 = [listCopy avocadoDescriptor];
       kind = [avocadoDescriptor2 kind];
 
-      v17 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v19 = objc_alloc(MEMORY[0x1E696AEC0]);
       appBundleId4 = [listCopy appBundleId];
-      v19 = [v17 initWithFormat:@"%@:%@", appBundleId4, extensionBundleIdentifier];
+      v21 = [v19 initWithFormat:@"%@:%@", appBundleId4, extensionBundleIdentifier];
 
-      if ([identifiersCopy containsObject:v19])
+      v22 = objc_msgSend_containsObject_(identifiersCopy);
+      if (v22)
       {
-        v20 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v23 = __atxlog_handle_home_screen(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v27 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
-          v28 = 2112;
-          v29 = listCopy;
-          v30 = 2112;
-          v31 = v19;
-          _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Widget's bundle identifier and extension identifier in deny list %@", buf, 0x20u);
+          v32 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
+          v33 = 2112;
+          v34 = listCopy;
+          v35 = 2112;
+          v36 = v21;
+          _os_log_impl(&dword_1BF549000, v23, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Widget's bundle identifier and extension identifier in deny list %@", buf, 0x20u);
         }
 
-        LOBYTE(v12) = 1;
+        v14 = 1;
       }
 
       else
       {
-        v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@:%@", extensionBundleIdentifier, kind];
-        if ([identifiersCopy containsObject:v20])
+        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@:%@", extensionBundleIdentifier, kind];
+        v24 = objc_msgSend_containsObject_(identifiersCopy);
+        if (v24)
         {
-          v21 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v25 = __atxlog_handle_home_screen(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v27 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
-            v28 = 2112;
-            v29 = listCopy;
-            v30 = 2112;
-            v31 = v20;
-            _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Widget's extension identifier and kind identifier in deny list %@", buf, 0x20u);
+            v32 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
+            v33 = 2112;
+            v34 = listCopy;
+            v35 = 2112;
+            v36 = v23;
+            _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Widget's extension identifier and kind identifier in deny list %@", buf, 0x20u);
           }
 
-          LOBYTE(v12) = 1;
+          v14 = 1;
         }
 
         else
         {
-          v22 = objc_alloc(MEMORY[0x1E696AEC0]);
+          v26 = objc_alloc(MEMORY[0x1E696AEC0]);
           appBundleId5 = [listCopy appBundleId];
-          v21 = [v22 initWithFormat:@"%@:%@", appBundleId5, v20];
+          v25 = [v26 initWithFormat:@"%@:%@", appBundleId5, v23];
 
-          v12 = [identifiersCopy containsObject:v21];
-          if (v12)
+          v28 = objc_msgSend_containsObject_(identifiersCopy);
+          v14 = v28;
+          if (v28)
           {
-            v24 = __atxlog_handle_home_screen();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v29 = __atxlog_handle_home_screen(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v27 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
-              v28 = 2112;
-              v29 = listCopy;
-              v30 = 2112;
-              v31 = v21;
-              _os_log_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Widget's full descriptor found in deny list %@", buf, 0x20u);
+              v32 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
+              v33 = 2112;
+              v34 = listCopy;
+              v35 = 2112;
+              v36 = v25;
+              _os_log_impl(&dword_1BF549000, v29, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Widget's full descriptor found in deny list %@", buf, 0x20u);
             }
           }
         }
@@ -2202,20 +2213,20 @@ void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionH
 
   else
   {
-    extensionBundleIdentifier = __atxlog_handle_home_screen();
+    extensionBundleIdentifier = __atxlog_handle_home_screen(v8);
     if (os_log_type_enabled(extensionBundleIdentifier, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v27 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
-      v28 = 2112;
-      v29 = listCopy;
+      v32 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToDenyList:fromExcludedWidgetsWithIdentifiers:]";
+      v33 = 2112;
+      v34 = listCopy;
       _os_log_impl(&dword_1BF549000, extensionBundleIdentifier, OS_LOG_TYPE_DEFAULT, "%s: No parent bundleId for Widget descriptor: %@", buf, 0x16u);
     }
 
-    LOBYTE(v12) = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 + (id)_descriptorsByFilteringDescriptors:(id)descriptors variant:(unint64_t)variant fromAppsDisabledOnHomeScreen:(id)screen fromExcludedWidgetsWithIdentifiers:(id)identifiers personaIdentifier:(id)identifier
@@ -2255,15 +2266,15 @@ uint64_t __160__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescripto
     {
       if (([*(a1 + 64) shouldFilterOutWidgetDescriptorDueToAppProtection:v4 fromDisabledApps:*(a1 + 40)] & 1) == 0 && (objc_msgSend(*(a1 + 64), "isDescriptorSpecial:", v4) & 1) == 0)
       {
-        v22 = [v4 avocadoDescriptor];
-        [v22 disfavoredFamiliesForLocation:2];
+        v23 = [v4 avocadoDescriptor];
+        [v23 disfavoredFamiliesForLocation:2];
         CHSWidgetFamilyFromATXStackLayoutSize([v4 suggestedSize]);
-        v23 = CHSWidgetFamilyMaskContainsFamily();
+        v24 = CHSWidgetFamilyMaskContainsFamily();
 
-        if ((v23 & 1) == 0)
+        if ((v24 & 1) == 0)
         {
-          v24 = [v4 avocadoDescriptor];
-          LOBYTE(v2) = [v24 isLinkedOnOrAfter:0];
+          v25 = [v4 avocadoDescriptor];
+          LOBYTE(v2) = [v25 isLinkedOnOrAfter:0];
 
           goto LABEL_3;
         }
@@ -2317,10 +2328,10 @@ uint64_t __160__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescripto
 
         if ((v17 & 1) == 0)
         {
-          v21 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v22 = __atxlog_handle_home_screen(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            __160__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_variant_fromAppsDisabledOnHomeScreen_fromExcludedWidgetsWithIdentifiers_personaIdentifier___block_invoke_cold_1(v9, v4, v21);
+            __160__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_variant_fromAppsDisabledOnHomeScreen_fromExcludedWidgetsWithIdentifiers_personaIdentifier___block_invoke_cold_1(v9, v4, v22);
           }
 
           goto LABEL_2;
@@ -2335,16 +2346,16 @@ uint64_t __160__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescripto
     if (!*v9)
     {
 LABEL_27:
-      v28 = [v4 avocadoDescriptor];
-      v29 = [v28 extensionIdentity];
-      v30 = [v29 isRemote];
+      v29 = [v4 avocadoDescriptor];
+      v30 = [v29 extensionIdentity];
+      v31 = [v30 isRemote];
 
-      if (v30)
+      if (v31)
       {
-        v31 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v33 = __atxlog_handle_home_screen(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
-          __160__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_variant_fromAppsDisabledOnHomeScreen_fromExcludedWidgetsWithIdentifiers_personaIdentifier___block_invoke_cold_2(v31);
+          __160__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_variant_fromAppsDisabledOnHomeScreen_fromExcludedWidgetsWithIdentifiers_personaIdentifier___block_invoke_cold_2(v33);
         }
 
         goto LABEL_2;
@@ -2355,15 +2366,15 @@ LABEL_27:
     goto LABEL_3;
   }
 
-  if ([*(a1 + 64) shouldFilterOutWidgetDescriptorDueToAppProtection:v4 fromDisabledApps:*(a1 + 40)] & 1) != 0 || (objc_msgSend(*(a1 + 64), "isDescriptorSpecial:", v4) & 1) != 0 || (objc_msgSend(v4, "avocadoDescriptor"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "disfavoredFamiliesForLocation:", 6), CHSWidgetFamilyFromATXStackLayoutSize(objc_msgSend(v4, "suggestedSize")), v26 = CHSWidgetFamilyMaskContainsFamily(), v25, (v26))
+  if ([*(a1 + 64) shouldFilterOutWidgetDescriptorDueToAppProtection:v4 fromDisabledApps:*(a1 + 40)] & 1) != 0 || (objc_msgSend(*(a1 + 64), "isDescriptorSpecial:", v4) & 1) != 0 || (objc_msgSend(v4, "avocadoDescriptor"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "disfavoredFamiliesForLocation:", 6), CHSWidgetFamilyFromATXStackLayoutSize(objc_msgSend(v4, "suggestedSize")), v27 = CHSWidgetFamilyMaskContainsFamily(), v26, (v27))
   {
 LABEL_2:
     LOBYTE(v2) = 0;
     goto LABEL_3;
   }
 
-  v27 = [v4 avocadoDescriptor];
-  v2 = [v27 isLinkedOnOrAfter:1];
+  v28 = [v4 avocadoDescriptor];
+  v2 = [v28 isLinkedOnOrAfter:1];
 
   if (v2)
   {
@@ -2473,7 +2484,7 @@ LABEL_3:
 
 uint64_t __139__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_disabledApps_excludedWidgetsWithIdentifiers_client_personaIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 64);
   v5 = [v3 extensionIdentity];
@@ -2482,30 +2493,31 @@ uint64_t __139__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescripto
 
   if (!v4)
   {
-    if ([ATXDefaultHomeScreenItemManager shouldFilterOutChronoWidgetDescriptorDueToDenyList:v3 fromExcludedWidgetsWithIdentifiers:*(a1 + 40)])
+    v11 = [ATXDefaultHomeScreenItemManager shouldFilterOutChronoWidgetDescriptorDueToDenyList:v3 fromExcludedWidgetsWithIdentifiers:*(a1 + 40)];
+    if (v11)
     {
-      v7 = __atxlog_handle_home_screen();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = __atxlog_handle_home_screen(v11);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_9;
       }
 
-      v8 = [v3 extensionBundleIdentifier];
+      v9 = [v3 extensionBundleIdentifier];
       *buf = 138412290;
-      v31 = v8;
-      v10 = "Filtered due to deny list: %@";
+      v39 = v9;
+      v12 = "Filtered due to deny list: %@";
 LABEL_7:
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
       goto LABEL_8;
     }
 
-    v13 = *(a1 + 72);
-    if (v13 != 3)
+    v15 = *(a1 + 72);
+    if (v15 != 3)
     {
-      if (v13 != 2)
+      if (v15 != 2)
       {
-        v7 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = __atxlog_handle_home_screen(v11);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           __139__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_disabledApps_excludedWidgetsWithIdentifiers_client_personaIdentifier___block_invoke_cold_3();
         }
@@ -2516,104 +2528,107 @@ LABEL_7:
       [v3 supportedFamilies];
       if (!CHSWidgetFamilyMaskContainsFamily())
       {
-        v11 = 0;
+        v13 = 0;
         goto LABEL_11;
       }
 
       [v3 disfavoredFamiliesForLocation:6];
-      if (CHSWidgetFamilyMaskContainsFamily())
+      v16 = CHSWidgetFamilyMaskContainsFamily();
+      if (v16)
       {
-        v7 = __atxlog_handle_carPlay_widgets();
-        if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = __atxlog_handle_carPlay_widgets(v16);
+        if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_9;
         }
 
-        v8 = [v3 extensionBundleIdentifier];
+        v9 = [v3 extensionBundleIdentifier];
         *buf = 138412290;
-        v31 = v8;
-        v10 = "Disfavored for CarPlay: %@";
+        v39 = v9;
+        v12 = "Disfavored for CarPlay: %@";
       }
 
       else
       {
-        v25 = [v3 kind];
-        if (v25 && (v26 = v25, v27 = *(a1 + 64), [v3 kind], v28 = objc_claimAutoreleasedReturnValue(), LODWORD(v27) = objc_msgSend(v27, "isDescriptorWithWidgetKindSpecial:", v28), v28, v26, v27))
+        v31 = [v3 kind];
+        if (v31 && (v32 = v31, v33 = *(a1 + 64), [v3 kind], v34 = objc_claimAutoreleasedReturnValue(), LODWORD(v33) = objc_msgSend(v33, "isDescriptorWithWidgetKindSpecial:", v34), v34, v32, v33))
         {
-          v7 = __atxlog_handle_carPlay_widgets();
-          if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v8 = __atxlog_handle_carPlay_widgets(v35);
+          if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_9;
           }
 
-          v8 = [v3 kind];
+          v9 = [v3 kind];
           *buf = 138412290;
-          v31 = v8;
-          v10 = "Special kind not allowed in CarPlay: %@";
+          v39 = v9;
+          v12 = "Special kind not allowed in CarPlay: %@";
         }
 
         else
         {
-          v11 = 1;
-          if ([v3 isLinkedOnOrAfter:1])
+          v13 = 1;
+          v36 = [v3 isLinkedOnOrAfter:1];
+          if (v36)
           {
             goto LABEL_11;
           }
 
-          v7 = __atxlog_handle_carPlay_widgets();
-          if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v8 = __atxlog_handle_carPlay_widgets(v36);
+          if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_9;
           }
 
-          v8 = [v3 extensionBundleIdentifier];
+          v9 = [v3 extensionBundleIdentifier];
           *buf = 138412290;
-          v31 = v8;
-          v10 = "Linked before Crystal: %@";
+          v39 = v9;
+          v12 = "Linked before Crystal: %@";
         }
       }
 
       goto LABEL_7;
     }
 
-    v14 = [v3 extensionIdentity];
-    v7 = [v14 deviceIdentifier];
+    v17 = [v3 extensionIdentity];
+    v8 = [v17 deviceIdentifier];
 
-    v15 = *(a1 + 48);
-    if (v15 && v7)
+    v18 = *(a1 + 48);
+    if (v18 && v8)
     {
-      if (([v15 isEqualToString:v7] & 1) == 0)
+      v19 = [v18 isEqualToString:v8];
+      if ((v19 & 1) == 0)
       {
-        v20 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v25 = __atxlog_handle_home_screen(v19);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          v29 = *(a1 + 48);
+          v37 = *(a1 + 48);
           *buf = 136315906;
-          v31 = "+[ATXDefaultHomeScreenItemManager _descriptorsByFilteringDescriptors:disabledApps:excludedWidgetsWithIdentifiers:client:personaIdentifier:]_block_invoke";
-          v32 = 2112;
-          v33 = v29;
-          v34 = 2112;
-          v35 = v7;
-          v36 = 2112;
-          v37 = v3;
-          _os_log_debug_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEBUG, "%s: Client provided identifier %@ NOT equal to widget device identifier %@. Skipping descriptor: %@", buf, 0x2Au);
+          v39 = "+[ATXDefaultHomeScreenItemManager _descriptorsByFilteringDescriptors:disabledApps:excludedWidgetsWithIdentifiers:client:personaIdentifier:]_block_invoke";
+          v40 = 2112;
+          v41 = v37;
+          v42 = 2112;
+          v43 = v8;
+          v44 = 2112;
+          v45 = v3;
+          _os_log_debug_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEBUG, "%s: Client provided identifier %@ NOT equal to widget device identifier %@. Skipping descriptor: %@", buf, 0x2Au);
         }
 
         goto LABEL_42;
       }
 
-      v15 = *(a1 + 48);
+      v18 = *(a1 + 48);
     }
 
-    if (!v15)
+    if (!v18)
     {
-      v16 = [v3 extensionIdentity];
-      v17 = [v16 isRemote];
+      v20 = [v3 extensionIdentity];
+      v21 = [v20 isRemote];
 
-      if (v17)
+      if (v21)
       {
-        v8 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = __atxlog_handle_home_screen(v22);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           __139__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_disabledApps_excludedWidgetsWithIdentifiers_client_personaIdentifier___block_invoke_cold_2();
         }
@@ -2622,21 +2637,22 @@ LABEL_7:
       }
     }
 
-    v18 = [v3 extensionIdentity];
-    v19 = [v18 isRemote];
+    v23 = [v3 extensionIdentity];
+    v24 = [v23 isRemote];
 
-    if (v19)
+    if (v24)
     {
-      v20 = [v3 kind];
-      v21 = [v3 effectiveContainerBundleIdentifier];
-      v22 = v21;
-      if (v20 && v21)
+      v25 = [v3 kind];
+      v26 = [v3 effectiveContainerBundleIdentifier];
+      v27 = v26;
+      if (v25 && v26)
       {
-        v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", v21, v20];
-        if ([*(a1 + 56) containsObject:v23])
+        v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", v26, v25];
+        v29 = objc_msgSend_containsObject_(*(a1 + 56));
+        if (v29)
         {
-          v24 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          v30 = __atxlog_handle_home_screen(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             __139__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_disabledApps_excludedWidgetsWithIdentifiers_client_personaIdentifier___block_invoke_cold_1();
           }
@@ -2647,28 +2663,28 @@ LABEL_42:
       }
     }
 
-    v11 = 1;
+    v13 = 1;
     goto LABEL_10;
   }
 
-  v7 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = __atxlog_handle_home_screen(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [v3 extensionIdentity];
-    v9 = [v8 containerBundleIdentifier];
+    v9 = [v3 extensionIdentity];
+    v10 = [v9 containerBundleIdentifier];
     *buf = 138412290;
-    v31 = v9;
-    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "Filtered due to app protection: %@", buf, 0xCu);
+    v39 = v10;
+    _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "Filtered due to app protection: %@", buf, 0xCu);
 
 LABEL_8:
   }
 
 LABEL_9:
-  v11 = 0;
+  v13 = 0;
 LABEL_10:
 
 LABEL_11:
-  return v11;
+  return v13;
 }
 
 + (BOOL)isDescriptorSpecial:(id)special
@@ -2701,7 +2717,7 @@ LABEL_11:
 
 + (BOOL)shouldFilterOutWidgetDescriptorDueToAppProtection:(id)protection fromDisabledApps:(id)apps
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   protectionCopy = protection;
   appsCopy = apps;
   appBundleId = [protectionCopy appBundleId];
@@ -2709,72 +2725,73 @@ LABEL_11:
   if (appBundleId)
   {
     appBundleId2 = [protectionCopy appBundleId];
-    v10 = [self shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:appBundleId2 fromDisabledApps:appsCopy];
+    v11 = [self shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:appBundleId2 fromDisabledApps:appsCopy];
   }
 
   else
   {
-    v11 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_home_screen(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315394;
-      v14 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToAppProtection:fromDisabledApps:]";
-      v15 = 2112;
-      v16 = protectionCopy;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%s: No parent bundleId for Widget descriptor: %@", &v13, 0x16u);
+      v14 = 136315394;
+      v15 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorDueToAppProtection:fromDisabledApps:]";
+      v16 = 2112;
+      v17 = protectionCopy;
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "%s: No parent bundleId for Widget descriptor: %@", &v14, 0x16u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 + (BOOL)shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:(id)protection fromDisabledApps:(id)apps
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   protectionCopy = protection;
   appsCopy = apps;
   v7 = appsCopy;
   v8 = protectionCopy != 0;
   if (protectionCopy)
   {
-    if ([appsCopy containsObject:protectionCopy])
+    v9 = objc_msgSend_containsObject_(appsCopy);
+    if (v9)
     {
-      v9 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_home_screen(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315394;
-        v17 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:fromDisabledApps:]";
-        v18 = 2112;
-        v19 = protectionCopy;
-        v10 = "%s: filtering out widget descriptor. Reason: Show on Homescreen is disabled for widget with bundleId %@";
+        v18 = 136315394;
+        v19 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:fromDisabledApps:]";
+        v20 = 2112;
+        v21 = protectionCopy;
+        v11 = "%s: filtering out widget descriptor. Reason: Show on Homescreen is disabled for widget with bundleId %@";
 LABEL_10:
-        v11 = v9;
-        v12 = 22;
+        v12 = v10;
+        v13 = 22;
         goto LABEL_11;
       }
     }
 
     else
     {
-      v13 = objc_opt_new();
-      v14 = [v13 bundleIdIsLockedOrHiddenByUserPreference:protectionCopy];
+      v14 = objc_opt_new();
+      v15 = [v14 bundleIdIsLockedOrHiddenByUserPreference:protectionCopy];
 
-      if (!v14)
+      if (!v15)
       {
         v8 = 0;
         goto LABEL_13;
       }
 
-      v9 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_home_screen(v16);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315394;
-        v17 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:fromDisabledApps:]";
-        v18 = 2112;
-        v19 = protectionCopy;
-        v10 = "%s: filtering out widget descriptor. Reason: The parent bundleId %@ is locked or hidden by user preference";
+        v18 = 136315394;
+        v19 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:fromDisabledApps:]";
+        v20 = 2112;
+        v21 = protectionCopy;
+        v11 = "%s: filtering out widget descriptor. Reason: The parent bundleId %@ is locked or hidden by user preference";
         goto LABEL_10;
       }
     }
@@ -2782,21 +2799,28 @@ LABEL_10:
 
   else
   {
-    v9 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_home_screen(appsCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315138;
-      v17 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:fromDisabledApps:]";
-      v10 = "%s: No bundleId provided for Widget descriptor";
-      v11 = v9;
-      v12 = 12;
+      v18 = 136315138;
+      v19 = "+[ATXDefaultHomeScreenItemManager shouldFilterOutWidgetDescriptorWithBundleIdDueToAppProtection:fromDisabledApps:]";
+      v11 = "%s: No bundleId provided for Widget descriptor";
+      v12 = v10;
+      v13 = 12;
 LABEL_11:
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, v10, &v16, v12);
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, v11, &v18, v13);
     }
   }
 
 LABEL_13:
   return v8;
+}
+
+void __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error reading from cache: %@", v2, v3, v4, v5, v6);
 }
 
 void __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_cold_2()
@@ -2809,6 +2833,34 @@ void __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
+void __73__ATXDefaultHomeScreenItemManager__writeUpdate_atPath_completionHandler___block_invoke_cold_3()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error archiving default widget stacks: %@", v2, v3, v4, v5, v6);
+}
+
+void __126__ATXDefaultHomeScreenItemManager_fetchGalleryItemsForVariant_gridSize_supportedFamilies_personaIdentifier_completionHandler___block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error fetching add widget defaults: %@, fetching results on the fly", v2, v3, v4, v5, v6);
+}
+
+void __126__ATXDefaultHomeScreenItemManager_fetchGalleryItemsForVariant_gridSize_supportedFamilies_personaIdentifier_completionHandler___block_invoke_cold_2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2_5();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error when attempting to fetch widget descriptors with additional data - %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)generateItemsForWidgetGalleryWithRequest:error:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2_5();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error fetching widget descriptors - %{public}@", v2, v3, v4, v5, v6);
+}
+
 void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_1()
 {
   v5 = *MEMORY[0x1E69E9840];
@@ -2817,6 +2869,34 @@ void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserv
   v3 = 2112;
   v4 = v0;
   _os_log_error_impl(&dword_1BF549000, v1, OS_LOG_TYPE_ERROR, "%s: Error fetching smart stack of variant %lu: %@", v2, 0x20u);
+}
+
+void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserver_completionHandler___block_invoke_76_cold_4()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_5_8();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error fetching smart stack due to unknown variant: %lu", v2, v3, v4, v5, v6);
+}
+
+- (void)_generateSmartStackWithDescriptorCacheFromRequest:error:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2_5();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error when attempting to fetch widget descriptors or list was empty - %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)_generateOnboardingStacksForVariant:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2_5();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error when attempting to fetch onboarding stack cached data - %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)_generateOnboardingStacksForVariant:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2_5();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error when attempting to fetch widget descriptors with additional data, or list of descriptors were empty - %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_generateOnboardingStacksForVariant:(void *)a1 .cold.3(void *a1)
@@ -2833,6 +2913,13 @@ void __93__ATXDefaultHomeScreenItemManager__fetchSmartStackOfVariant_localObserv
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+}
+
+void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionHandler___block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Error unarchiving object: %@", v2, v3, v4, v5, v6);
 }
 
 void __79__ATXDefaultHomeScreenItemManager__readUpdateFromFileAtPath_completionHandler___block_invoke_cold_3()
@@ -2887,6 +2974,13 @@ void __139__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_d
   v1[0] = 136315394;
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEBUG, "%s: personaIdentifier is nil. Skipping remote widget: %@", v1, 0x16u);
+}
+
+void __139__ATXDefaultHomeScreenItemManager__descriptorsByFilteringDescriptors_disabledApps_excludedWidgetsWithIdentifiers_client_personaIdentifier___block_invoke_cold_3()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_5_8();
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "%s: Unexpected widget client value: %ld", v2, v3, v4, v5, v6);
 }
 
 @end

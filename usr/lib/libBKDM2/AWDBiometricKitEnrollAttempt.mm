@@ -1524,7 +1524,6 @@ LABEL_56:
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x20000000000000) == 0)
@@ -1544,7 +1543,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  overallResult = self->_overallResult;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1559,7 +1557,6 @@ LABEL_4:
   }
 
 LABEL_61:
-  overallTime = self->_overallTime;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1574,7 +1571,6 @@ LABEL_5:
   }
 
 LABEL_62:
-  doubleErrorCountsOK = self->_doubleErrorCountsOK;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1589,7 +1585,6 @@ LABEL_6:
   }
 
 LABEL_63:
-  doubleErrorCountsMoreFrames = self->_doubleErrorCountsMoreFrames;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1604,7 +1599,6 @@ LABEL_7:
   }
 
 LABEL_64:
-  doubleErrorCountsNoFace = self->_doubleErrorCountsNoFace;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1619,7 +1613,6 @@ LABEL_8:
   }
 
 LABEL_65:
-  doubleErrorCountsFaceOutOfFOV = self->_doubleErrorCountsFaceOutOfFOV;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1634,7 +1627,6 @@ LABEL_9:
   }
 
 LABEL_66:
-  doubleErrorCountsMultipleFaces = self->_doubleErrorCountsMultipleFaces;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1649,7 +1641,6 @@ LABEL_10:
   }
 
 LABEL_67:
-  doubleErrorCountsFaceTooClose = self->_doubleErrorCountsFaceTooClose;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1664,7 +1655,6 @@ LABEL_11:
   }
 
 LABEL_68:
-  doubleErrorCountsFaceTooFar = self->_doubleErrorCountsFaceTooFar;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1679,7 +1669,6 @@ LABEL_12:
   }
 
 LABEL_69:
-  doubleErrorCountsPoseOutRange = self->_doubleErrorCountsPoseOutRange;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1694,7 +1683,6 @@ LABEL_13:
   }
 
 LABEL_70:
-  doubleErrorCountsBinCovered = self->_doubleErrorCountsBinCovered;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1709,7 +1697,6 @@ LABEL_14:
   }
 
 LABEL_71:
-  doubleErrorCountsOccluded = self->_doubleErrorCountsOccluded;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000000000) == 0)
@@ -1724,7 +1711,6 @@ LABEL_15:
   }
 
 LABEL_72:
-  frameErrorCountsOK = self->_frameErrorCountsOK;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000000000) == 0)
@@ -1739,7 +1725,6 @@ LABEL_16:
   }
 
 LABEL_73:
-  frameErrorCountsMoreFrames = self->_frameErrorCountsMoreFrames;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000000000) == 0)
@@ -1754,7 +1739,6 @@ LABEL_17:
   }
 
 LABEL_74:
-  frameErrorCountsNoFace = self->_frameErrorCountsNoFace;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000000) == 0)
@@ -1769,7 +1753,6 @@ LABEL_18:
   }
 
 LABEL_75:
-  frameErrorCountsFaceOutOfFOV = self->_frameErrorCountsFaceOutOfFOV;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000000000) == 0)
@@ -1784,7 +1767,6 @@ LABEL_19:
   }
 
 LABEL_76:
-  frameErrorCountsMultipleFaces = self->_frameErrorCountsMultipleFaces;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000000) == 0)
@@ -1799,7 +1781,6 @@ LABEL_20:
   }
 
 LABEL_77:
-  frameErrorCountsFaceTooClose = self->_frameErrorCountsFaceTooClose;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000000) == 0)
@@ -1814,7 +1795,6 @@ LABEL_21:
   }
 
 LABEL_78:
-  frameErrorCountsFaceTooFar = self->_frameErrorCountsFaceTooFar;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000000000) == 0)
@@ -1829,7 +1809,6 @@ LABEL_22:
   }
 
 LABEL_79:
-  frameErrorCountsPoseOutRange = self->_frameErrorCountsPoseOutRange;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -1844,7 +1823,6 @@ LABEL_23:
   }
 
 LABEL_80:
-  frameErrorCountsBinCovered = self->_frameErrorCountsBinCovered;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000000000) == 0)
@@ -1859,7 +1837,6 @@ LABEL_24:
   }
 
 LABEL_81:
-  frameErrorCountsOccluded = self->_frameErrorCountsOccluded;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1874,7 +1851,6 @@ LABEL_25:
   }
 
 LABEL_82:
-  frameCountBin00 = self->_frameCountBin00;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1889,7 +1865,6 @@ LABEL_26:
   }
 
 LABEL_83:
-  frameCountBin01 = self->_frameCountBin01;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1904,7 +1879,6 @@ LABEL_27:
   }
 
 LABEL_84:
-  frameCountBin02 = self->_frameCountBin02;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1919,7 +1893,6 @@ LABEL_28:
   }
 
 LABEL_85:
-  frameCountBin10 = self->_frameCountBin10;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1934,7 +1907,6 @@ LABEL_29:
   }
 
 LABEL_86:
-  frameCountBin11 = self->_frameCountBin11;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1949,7 +1921,6 @@ LABEL_30:
   }
 
 LABEL_87:
-  frameCountBin12 = self->_frameCountBin12;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -1964,7 +1935,6 @@ LABEL_31:
   }
 
 LABEL_88:
-  frameCountBin20 = self->_frameCountBin20;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
@@ -1979,7 +1949,6 @@ LABEL_32:
   }
 
 LABEL_89:
-  frameCountBin21 = self->_frameCountBin21;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
@@ -1994,7 +1963,6 @@ LABEL_33:
   }
 
 LABEL_90:
-  frameCountBin22 = self->_frameCountBin22;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -2009,7 +1977,6 @@ LABEL_34:
   }
 
 LABEL_91:
-  bioCaptureSequenceCount = self->_bioCaptureSequenceCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -2024,7 +1991,6 @@ LABEL_35:
   }
 
 LABEL_92:
-  ambientLux = self->_ambientLux;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -2039,7 +2005,6 @@ LABEL_36:
   }
 
 LABEL_93:
-  featureGenerationError = self->_featureGenerationError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -2054,7 +2019,6 @@ LABEL_37:
   }
 
 LABEL_94:
-  enrollFeatureVectorError = self->_enrollFeatureVectorError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -2069,7 +2033,6 @@ LABEL_38:
   }
 
 LABEL_95:
-  cameraErr = self->_cameraErr;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -2084,7 +2047,6 @@ LABEL_39:
   }
 
 LABEL_96:
-  enrollResult = self->_enrollResult;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -2099,7 +2061,6 @@ LABEL_40:
   }
 
 LABEL_97:
-  faceDistance = self->_faceDistance;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000000000) == 0)
@@ -2114,7 +2075,6 @@ LABEL_41:
   }
 
 LABEL_98:
-  sensorTemperature = self->_sensorTemperature;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -2129,7 +2089,6 @@ LABEL_42:
   }
 
 LABEL_99:
-  rfcSetIndex = self->_rfcSetIndex;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -2144,7 +2103,6 @@ LABEL_43:
   }
 
 LABEL_100:
-  rfcFrameIndex = self->_rfcFrameIndex;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x8000000000000) == 0)
@@ -2159,7 +2117,6 @@ LABEL_44:
   }
 
 LABEL_101:
-  failedNoFace = self->_failedNoFace;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -2174,7 +2131,6 @@ LABEL_45:
   }
 
 LABEL_102:
-  deviceOrientation = self->_deviceOrientation;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -2189,7 +2145,6 @@ LABEL_46:
   }
 
 LABEL_103:
-  enrolledIdentityCount = self->_enrolledIdentityCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000000000) == 0)
@@ -2204,7 +2159,6 @@ LABEL_47:
   }
 
 LABEL_104:
-  noseAndMouthOccluded = self->_noseAndMouthOccluded;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -2219,7 +2173,6 @@ LABEL_48:
   }
 
 LABEL_105:
-  doubleErrorCountsUpperFaceOccluded = self->_doubleErrorCountsUpperFaceOccluded;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -2234,7 +2187,6 @@ LABEL_49:
   }
 
 LABEL_106:
-  doubleErrorCountsLowerFaceOccluded = self->_doubleErrorCountsLowerFaceOccluded;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000000000) == 0)
@@ -2249,7 +2201,6 @@ LABEL_50:
   }
 
 LABEL_107:
-  frameErrorCountsUpperFaceOccluded = self->_frameErrorCountsUpperFaceOccluded;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000000) == 0)
@@ -2264,7 +2215,6 @@ LABEL_51:
   }
 
 LABEL_108:
-  frameErrorCountsLowerFaceOccluded = self->_frameErrorCountsLowerFaceOccluded;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -2279,7 +2229,6 @@ LABEL_52:
   }
 
 LABEL_109:
-  enrollType = self->_enrollType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -2294,7 +2243,6 @@ LABEL_53:
   }
 
 LABEL_110:
-  enrolledTemplateCountType0 = self->_enrolledTemplateCountType0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -2309,12 +2257,10 @@ LABEL_54:
   }
 
 LABEL_111:
-  enrolledTemplateCountType1 = self->_enrolledTemplateCountType1;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x1000000) != 0)
   {
 LABEL_55:
-    enrolledTemplateCountTotal = self->_enrolledTemplateCountTotal;
     PBDataWriterWriteUint32Field();
   }
 
@@ -3960,7 +3906,6 @@ LABEL_56:
       goto LABEL_281;
     }
 
-    v7 = *(equalCopy + 230);
     if (self->_overallResult)
     {
       if ((*(equalCopy + 230) & 1) == 0)
@@ -4507,7 +4452,6 @@ LABEL_56:
       goto LABEL_281;
     }
 
-    v8 = *(equalCopy + 228);
     if (self->_failedNoFace)
     {
       if ((*(equalCopy + 228) & 1) == 0)
@@ -4557,7 +4501,6 @@ LABEL_56:
   {
     if ((v6 & 0x10000000000000) != 0)
     {
-      v9 = *(equalCopy + 229);
       if (self->_noseAndMouthOccluded)
       {
         if ((*(equalCopy + 229) & 1) == 0)
@@ -4575,7 +4518,7 @@ LABEL_56:
     }
 
 LABEL_281:
-    v11 = 0;
+    v8 = 0;
     goto LABEL_282;
   }
 
@@ -4624,77 +4567,77 @@ LABEL_241:
     goto LABEL_281;
   }
 
-  v10 = *(equalCopy + 29);
+  v7 = *(equalCopy + 29);
   if ((*&has & 0x40000000000) != 0)
   {
-    if ((v10 & 0x40000000000) == 0 || self->_frameErrorCountsLowerFaceOccluded != *(equalCopy + 48))
+    if ((v7 & 0x40000000000) == 0 || self->_frameErrorCountsLowerFaceOccluded != *(equalCopy + 48))
     {
       goto LABEL_281;
     }
   }
 
-  else if ((v10 & 0x40000000000) != 0)
+  else if ((v7 & 0x40000000000) != 0)
   {
     goto LABEL_281;
   }
 
   if ((*&has & 0x400000) != 0)
   {
-    if ((v10 & 0x400000) == 0 || self->_enrollType != *(equalCopy + 28))
+    if ((v7 & 0x400000) == 0 || self->_enrollType != *(equalCopy + 28))
     {
       goto LABEL_281;
     }
   }
 
-  else if ((v10 & 0x400000) != 0)
+  else if ((v7 & 0x400000) != 0)
   {
     goto LABEL_281;
   }
 
   if ((*&has & 0x2000000) != 0)
   {
-    if ((v10 & 0x2000000) == 0 || self->_enrolledTemplateCountType0 != *(equalCopy + 31))
+    if ((v7 & 0x2000000) == 0 || self->_enrolledTemplateCountType0 != *(equalCopy + 31))
     {
       goto LABEL_281;
     }
   }
 
-  else if ((v10 & 0x2000000) != 0)
+  else if ((v7 & 0x2000000) != 0)
   {
     goto LABEL_281;
   }
 
   if ((*&has & 0x4000000) != 0)
   {
-    if ((v10 & 0x4000000) == 0 || self->_enrolledTemplateCountType1 != *(equalCopy + 32))
+    if ((v7 & 0x4000000) == 0 || self->_enrolledTemplateCountType1 != *(equalCopy + 32))
     {
       goto LABEL_281;
     }
   }
 
-  else if ((v10 & 0x4000000) != 0)
+  else if ((v7 & 0x4000000) != 0)
   {
     goto LABEL_281;
   }
 
   if ((*&has & 0x1000000) != 0)
   {
-    if ((v10 & 0x1000000) == 0 || self->_enrolledTemplateCountTotal != *(equalCopy + 30))
+    if ((v7 & 0x1000000) == 0 || self->_enrolledTemplateCountTotal != *(equalCopy + 30))
     {
       goto LABEL_281;
     }
 
-    v11 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v11 = (*(equalCopy + 29) & 0x1000000) == 0;
+    v8 = (*(equalCopy + 29) & 0x1000000) == 0;
   }
 
 LABEL_282:
 
-  return v11;
+  return v8;
 }
 
 - (unint64_t)hash

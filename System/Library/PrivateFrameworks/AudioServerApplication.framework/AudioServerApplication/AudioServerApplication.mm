@@ -1,31 +1,30 @@
-uint64_t InputOutputProc(int a1, const void *a2, unsigned int *a3, const void *a4, unsigned int *a5, const void *a6, _DWORD *a7)
+uint64_t InputOutputProc(uint64_t a1, const void *a2, unsigned int *a3, const void *a4, unsigned int *a5, const void *a6, _DWORD *a7)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v13 = a1;
+  v54 = *MEMORY[0x277D85DE8];
   if (!a2 || !a3 || !a4 || !a5 || !a6 || !a7)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67110656;
-      v42 = a1;
-      v43 = 2048;
-      v44 = a2;
-      v45 = 2048;
-      v46 = a3;
-      v47 = 2048;
-      v48 = a4;
-      v49 = 2048;
-      v50 = a5;
-      v51 = 2048;
-      v52 = a6;
-      v53 = 2048;
-      v54 = a7;
+      v41 = v13;
+      v42 = 2048;
+      v43 = a2;
+      v44 = 2048;
+      v45 = a3;
+      v46 = 2048;
+      v47 = a4;
+      v48 = 2048;
+      v49 = a5;
+      v50 = 2048;
+      v51 = a6;
+      v52 = 2048;
+      v53 = a7;
       _os_log_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASAPlaythrough IO Proc NULL argument %u %p %p %p %p %p %p", buf, 0x44u);
     }
 
-    printf("ASAPlaythrough IO Proc NULL argument %u %p %p %p %p %p %p", a1, a2, a3, a4, a5, a6, a7);
-LABEL_21:
-    v22 = 0;
-    goto LABEL_22;
+    printf("ASAPlaythrough IO Proc NULL argument %u %p %p %p %p %p %p", v13, a2, a3, a4, a5, a6, a7);
+    return 0;
   }
 
   v14 = a7[1];
@@ -76,132 +75,129 @@ LABEL_21:
     v14 = 0;
   }
 
-  v25 = a7[2];
-  if (v25)
+  v24 = a7[2];
+  if (v24)
   {
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
-    v28 = *(a7 + 6);
+    v27 = *(a7 + 6);
     do
     {
-      v29 = *(v28 + 8 * v26);
-      if (*v29)
+      v28 = *(v27 + 8 * v25);
+      if (*v28)
       {
+        v29 = 0;
         v30 = 0;
-        v31 = 0;
         do
         {
-          v32 = &v29[v30];
-          if (v27 >= *a5)
+          v31 = &v28[v29];
+          if (v26 >= *a5)
           {
-            v32[2] = 0;
-            *(v32 + 2) = 0;
+            v31[2] = 0;
+            *(v31 + 2) = 0;
           }
 
           else
           {
-            *(v32 + 2) = *&a5[4 * v27++ + 2];
-            v28 = *(a7 + 6);
+            *(v31 + 2) = *&a5[4 * v26++ + 2];
+            v27 = *(a7 + 6);
           }
 
-          ++v31;
-          v29 = *(v28 + 8 * v26);
-          v30 += 4;
+          ++v30;
+          v28 = *(v27 + 8 * v25);
+          v29 += 4;
         }
 
-        while (v31 < *v29);
-        v25 = a7[2];
+        while (v30 < *v28);
+        v24 = a7[2];
       }
 
-      ++v26;
+      ++v25;
     }
 
-    while (v26 < v25);
+    while (v25 < v24);
     v14 = a7[1];
   }
 
   if (v14)
   {
-    v33 = 0;
+    v32 = 0;
     do
     {
-      v34 = *(*(a7 + 5) + 8 * v33);
+      v33 = *(*(a7 + 5) + 8 * v32);
+      if (CheckAudioBufferList(&v33->mNumberBuffers))
+      {
+        v22 = 2003329396;
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          InputOutputProc_cold_1(v32, a4);
+        }
+
+        return v22;
+      }
+
+      v34 = *(*(a7 + 7) + 8 * v32);
       if (CheckAudioBufferList(&v34->mNumberBuffers))
       {
         v22 = 2003329396;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          InputOutputProc_cold_1(v33, a4);
+          InputOutputProc_cold_2(v32, a4);
         }
 
-        goto LABEL_22;
+        return v22;
       }
 
-      v35 = *(*(a7 + 7) + 8 * v33);
-      if (CheckAudioBufferList(&v35->mNumberBuffers))
-      {
-        v22 = 2003329396;
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          InputOutputProc_cold_2(v33, a4);
-        }
-
-        goto LABEL_22;
-      }
-
-      v36 = AudioConverterConvertComplexBuffer(*(*(a7 + 3) + 8 * v33++), *a7, v34, v35);
+      v35 = AudioConverterConvertComplexBuffer(*(*(a7 + 3) + 8 * v32++), *a7, v33, v34);
     }
 
-    while (v33 < a7[1]);
-    v22 = v36;
-    if (v36)
+    while (v32 < a7[1]);
+    v22 = v35;
+    if (v35)
     {
-      goto LABEL_22;
+      return v22;
     }
   }
 
   if (!a7[2])
   {
-    goto LABEL_21;
+    return 0;
   }
 
-  v37 = 0;
+  v36 = 0;
   while (1)
   {
-    v38 = *(a7 + 8);
-    if (CheckAudioBufferList(&v38->mNumberBuffers))
+    v37 = *(a7 + 8);
+    if (CheckAudioBufferList(&v37->mNumberBuffers))
     {
       break;
     }
 
-    v39 = *(*(a7 + 6) + 8 * v37);
-    if (CheckAudioBufferList(&v39->mNumberBuffers))
+    v38 = *(*(a7 + 6) + 8 * v36);
+    if (CheckAudioBufferList(&v38->mNumberBuffers))
     {
       v22 = 2003329396;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        InputOutputProc_cold_4(v37, a6);
+        InputOutputProc_cold_4(v36, a6);
       }
 
-      goto LABEL_22;
+      return v22;
     }
 
-    v40 = AudioConverterConvertComplexBuffer(*(*(a7 + 4) + 8 * v37++), *a7, v38, v39);
-    if (v37 >= a7[2])
+    v39 = AudioConverterConvertComplexBuffer(*(*(a7 + 4) + 8 * v36++), *a7, v37, v38);
+    if (v36 >= a7[2])
     {
-      v22 = v40;
-      goto LABEL_22;
+      return v39;
     }
   }
 
   v22 = 2003329396;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    InputOutputProc_cold_3(v37, a6);
+    InputOutputProc_cold_3(v36, a6);
   }
 
-LABEL_22:
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -242,10 +238,11 @@ uint64_t CheckAudioBufferList(unsigned int *a1)
   return v7 | v2 & 0xFFFFFFFE;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void InputOutputProc_cold_1(uint64_t a1, uint64_t a2)
@@ -254,7 +251,6 @@ void InputOutputProc_cold_1(uint64_t a1, uint64_t a2)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void InputOutputProc_cold_2(uint64_t a1, uint64_t a2)
@@ -263,7 +259,6 @@ void InputOutputProc_cold_2(uint64_t a1, uint64_t a2)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void InputOutputProc_cold_3(uint64_t a1, uint64_t a2)
@@ -272,7 +267,6 @@ void InputOutputProc_cold_3(uint64_t a1, uint64_t a2)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void InputOutputProc_cold_4(uint64_t a1, uint64_t a2)
@@ -281,5 +275,4 @@ void InputOutputProc_cold_4(uint64_t a1, uint64_t a2)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
 }

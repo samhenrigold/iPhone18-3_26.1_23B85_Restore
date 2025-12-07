@@ -24,37 +24,43 @@
 
 - (MPSCNNDilatedPoolingMaxNode)initWithSource:(MPSNNImageNode *)sourceNode kernelWidth:(NSUInteger)kernelWidth kernelHeight:(NSUInteger)kernelHeight strideInPixelsX:(NSUInteger)strideInPixelsX strideInPixelsY:(NSUInteger)strideInPixelsY dilationRateX:(NSUInteger)dilationRateX dilationRateY:(NSUInteger)dilationRateY
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   if (!kernelWidth)
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_9;
+      v17 = objc_opt_class();
+      NSStringFromClass(v17);
+      v22 = @"[%@ initWithSource:kernelWidth:kernelHeight:strideInPixelsX:strideInPixelsY:dilationRateX:dilationRateY]: kernelWidth may not be 0";
+      v23 = 229;
+LABEL_10:
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNPoolingNodes.mm", v23, v22, v18, v19, v20, v21);
     }
 
-    goto LABEL_10;
+LABEL_11:
+
+    return 0;
   }
 
   if (!kernelHeight)
   {
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_9:
-      v17 = objc_opt_class();
-      NSStringFromClass(v17);
-      MTLReportFailure();
+      v24 = objc_opt_class();
+      NSStringFromClass(v24);
+      v22 = @"[%@ initWithSource:kernelWidth:kernelHeight:strideInPixelsX:strideInPixelsY:dilationRateX:dilationRateY]: kernelHeight may not be 0";
+      v23 = 230;
+      goto LABEL_10;
     }
 
-LABEL_10:
-
-    return 0;
+    goto LABEL_11;
   }
 
-  v19[0] = sourceNode;
-  v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v19, 1, kernelHeight, strideInPixelsX, strideInPixelsY, dilationRateX);
-  v18.receiver = self;
-  v18.super_class = MPSCNNDilatedPoolingMaxNode;
-  result = [(MPSNNFilterNode *)&v18 initWithSourceImages:v15 sourceStates:0 paddingPolicy:0];
+  v26[0] = sourceNode;
+  v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v26, 1, kernelHeight, strideInPixelsX, strideInPixelsY, dilationRateX);
+  v25.receiver = self;
+  v25.super_class = MPSCNNDilatedPoolingMaxNode;
+  result = [(MPSNNFilterNode *)&v25 initWithSourceImages:v15 sourceStates:0 paddingPolicy:0];
   if (result)
   {
     result->_kernelWidth = kernelWidth;

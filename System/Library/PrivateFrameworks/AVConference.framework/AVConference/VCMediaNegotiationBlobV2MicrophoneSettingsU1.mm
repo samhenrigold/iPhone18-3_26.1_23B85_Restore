@@ -551,7 +551,7 @@ LABEL_13:
 
 - (void)printWithLogFile:(void *)file prefix:(id)prefix
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(-[VCMediaNegotiationBlobV2MicrophoneSettingsU1 data](self, "data"), "length"), prefix];
   [prefix appendFormat:@"Mic settings (U+1): "];
   if ((*&self->_has & 4) != 0)
@@ -646,23 +646,22 @@ LABEL_24:
 
   [prefix appendString:@"] "];
   [VCMediaNegotiationBlobV2SettingsU1 appendCipherSuiteFlags:[(VCMediaNegotiationBlobV2MicrophoneSettingsU1 *)self cipherSuites] toDescription:prefix];
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v14, v15, v16, v17, v18, v19, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() > 5)
   {
-    v20 = VRTraceErrorLogLevelToCSTR();
-    v21 = *MEMORY[0x1E6986650];
+    v13 = VRTraceErrorLogLevelToCSTR();
+    v14 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v23 = v20;
-      v24 = 2080;
-      v25 = "[VCMediaNegotiationBlobV2MicrophoneSettingsU1(Utils) printWithLogFile:prefix:]";
-      v26 = 1024;
-      v27 = 85;
-      v28 = 2112;
-      v29 = prefix;
-      _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v16 = v13;
+      v17 = 2080;
+      v18 = "[VCMediaNegotiationBlobV2MicrophoneSettingsU1(Utils) printWithLogFile:prefix:]";
+      v19 = 1024;
+      v20 = 85;
+      v21 = 2112;
+      v22 = prefix;
+      _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 }

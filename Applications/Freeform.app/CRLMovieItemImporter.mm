@@ -613,7 +613,7 @@ LABEL_5:
   }
 
   memset(&v24[1], 0, sizeof(CMTime));
-  if (!assetCopy || ([assetCopy duration], (v24[1].flags & 1) == 0))
+  if (!assetCopy || (objc_msgSend_duration(assetCopy), (v24[1].flags & 1) == 0))
   {
     +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
@@ -884,13 +884,14 @@ LABEL_5:
     if (delegate)
     {
       v5 = delegate;
-      if (objc_opt_respondsToSelector())
+      delegate = objc_opt_respondsToSelector();
+      if (delegate)
       {
-        [v5 boardItemImporterWillIgnoreMediaCompatibilityOnAllDevicesRequirement:self];
+        delegate = [v5 boardItemImporterWillIgnoreMediaCompatibilityOnAllDevicesRequirement:self];
       }
     }
 
-    _objc_release_x2();
+    _objc_release_x2(delegate);
   }
 }
 

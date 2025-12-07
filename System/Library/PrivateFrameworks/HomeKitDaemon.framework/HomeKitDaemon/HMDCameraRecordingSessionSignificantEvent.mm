@@ -86,7 +86,7 @@
     [array addObject:v38];
   }
 
-  v39 = [array copy];
+  v39 = objc_msgSend_copy(array);
 
   return v39;
 }
@@ -150,22 +150,7 @@
     {
       dateOfOccurrence = [(HMDCameraRecordingSessionSignificantEvent *)self dateOfOccurrence];
       dateOfOccurrence2 = [v6 dateOfOccurrence];
-      if (![dateOfOccurrence isEqualToDate:dateOfOccurrence2])
-      {
-        goto LABEL_16;
-      }
-
-      confidenceLevel = [(HMDCameraRecordingSessionSignificantEvent *)self confidenceLevel];
-      if (confidenceLevel != [v6 confidenceLevel])
-      {
-        goto LABEL_16;
-      }
-
-      sessionEntityUUID = [(HMDCameraRecordingSessionSignificantEvent *)self sessionEntityUUID];
-      sessionEntityUUID2 = [v6 sessionEntityUUID];
-      v15 = HMFEqualObjects();
-
-      if (v15)
+      if ([dateOfOccurrence isEqualToDate:dateOfOccurrence2] && (v12 = -[HMDCameraRecordingSessionSignificantEvent confidenceLevel](self, "confidenceLevel"), v12 == objc_msgSend(v6, "confidenceLevel")) && (-[HMDCameraRecordingSessionSignificantEvent sessionEntityUUID](self, "sessionEntityUUID"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "sessionEntityUUID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15))
       {
         faceClassifications = [(HMDCameraRecordingSessionSignificantEvent *)self faceClassifications];
         faceClassifications2 = [v6 faceClassifications];
@@ -202,7 +187,6 @@
 
       else
       {
-LABEL_16:
         v27 = 0;
       }
     }

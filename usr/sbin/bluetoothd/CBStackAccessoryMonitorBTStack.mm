@@ -63,14 +63,14 @@
 {
   if (!self->_audioAccessoryEventHandler)
   {
-    sub_10080F53C();
+    sub_10080F53C(self, a2);
     goto LABEL_15;
   }
 
   if (!self->_audioAccessoryInfoChangedHandler)
   {
 LABEL_15:
-    sub_10080F524();
+    dispatchQueue = sub_10080F524(self, a2);
     goto LABEL_16;
   }
 
@@ -78,7 +78,7 @@ LABEL_15:
   if (!dispatchQueue)
   {
 LABEL_16:
-    sub_10080F50C();
+    v4 = sub_10080F50C(dispatchQueue, a2);
     goto LABEL_17;
   }
 
@@ -86,14 +86,17 @@ LABEL_16:
   if (self->_invalidateCalled)
   {
 LABEL_17:
-    v4 = sub_10080F4F4();
-    sub_1001626D4(v4, v5);
+    v7 = sub_10080F4F4(v4, v5);
+    sub_1001626D4(v7, v8);
     return;
   }
 
-  if (dword_100B51310 <= 30 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
+  if (dword_100B51310 <= 30)
   {
-    sub_10080F4D8();
+    if (dword_100B51310 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_10080F4D8(v4, v5, v6);
+    }
   }
 
   if (!self->_addedMonitor)
@@ -116,9 +119,12 @@ LABEL_17:
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (dword_100B51310 <= 30 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
+    if (dword_100B51310 <= 30)
     {
-      sub_10080F590();
+      if (dword_100B51310 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_10080F590(v3, v4, v5);
+      }
     }
 
     if (self->_addedMonitor)
@@ -159,7 +165,7 @@ LABEL_17:
     self->_invalidateDone = 1;
     if (dword_100B51310 <= 30 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B51310, "[CBStackAccessoryMonitorBTStack _invalidated]", 30, "Invalidated");
     }
   }
 }
@@ -183,13 +189,15 @@ LABEL_17:
       goto LABEL_12;
     }
 
-    goto LABEL_15;
+    v4 = "Connection status changed";
+    goto LABEL_16;
   }
 
   if (dword_100B51310 <= 30 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
   {
-LABEL_15:
-    sub_10080F5AC();
+    v4 = "Pairing status changed";
+LABEL_16:
+    sub_10080F5AC(v4, a2, *&event);
   }
 
 LABEL_12:
@@ -321,7 +329,7 @@ LABEL_12:
           }
 
           v9 = *(*(&v13 + 1) + 8 * i);
-          v10 = [(NSMutableDictionary *)selfCopy->_accessoryDeviceInfoMap objectForKeyedSubscript:v9, identifier];
+          v10 = [(NSMutableDictionary *)selfCopy->_accessoryDeviceInfoMap objectForKeyedSubscript:v9];
           if (([v10 discoveryFlags] & 0xA00000) == 0)
           {
             v11 = v3;
@@ -332,7 +340,7 @@ LABEL_12:
             if (dword_100B51310 <= 30 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
             {
               identifier = [v10 identifier];
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_100B51310, "[CBStackAccessoryMonitorBTStack updateAccessoryInfo]", 30, "Removed Audio Accessory Device: %@", identifier);
             }
           }
         }
@@ -361,28 +369,28 @@ LABEL_12:
 
     if (sub_10009E064(off_100B50898, &v6) && dword_100B51310 <= 90 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
     {
-      v5 = CUPrintErrorCode();
-      LogPrintF_safe();
+      v3 = CUPrintErrorCode();
+      LogPrintF_safe(&dword_100B51310, "[CBStackAccessoryMonitorBTStack _updatePairedAudioAccessories]", 90, "### GetPairedDevices failed: %@", v3);
     }
 
-    v3 = v6;
-    v4 = v7;
+    v4 = v6;
+    v5 = v7;
     if (v6 != v7)
     {
       do
       {
-        [(CBStackAccessoryMonitorBTStack *)self _updateAudioAccessoryDeviceInfo:*v3 flags:0x800000, v5];
-        v3 += 8;
+        [(CBStackAccessoryMonitorBTStack *)self _updateAudioAccessoryDeviceInfo:*v4 flags:0x800000];
+        v4 += 8;
       }
 
-      while (v3 != v4);
-      v3 = v6;
+      while (v4 != v5);
+      v4 = v6;
     }
 
-    if (v3)
+    if (v4)
     {
-      v7 = v3;
-      operator delete(v3);
+      v7 = v4;
+      operator delete(v4);
     }
   }
 }
@@ -399,27 +407,27 @@ LABEL_12:
 
   if (sub_1000AD9D8(off_100B50898, &v6) && dword_100B51310 <= 90 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
   {
-    v5 = CUPrintErrorCode();
-    LogPrintF_safe();
+    v3 = CUPrintErrorCode();
+    LogPrintF_safe(&dword_100B51310, "[CBStackAccessoryMonitorBTStack _updateConnectedAudioAccessories]", 90, "### GetConnectedDevices failed: %@", v3);
   }
 
-  v3 = v6;
-  v4 = v7;
+  v4 = v6;
+  v5 = v7;
   if (v6 != v7)
   {
     do
     {
-      [(CBStackAccessoryMonitorBTStack *)self _updateAudioAccessoryDeviceInfo:*v3++ flags:0x200000, v5];
+      [(CBStackAccessoryMonitorBTStack *)self _updateAudioAccessoryDeviceInfo:*v4++ flags:0x200000];
     }
 
-    while (v3 != v4);
-    v3 = v6;
+    while (v4 != v5);
+    v4 = v6;
   }
 
-  if (v3)
+  if (v4)
   {
-    v7 = v3;
-    operator delete(v3);
+    v7 = v4;
+    operator delete(v4);
   }
 }
 
@@ -468,7 +476,7 @@ LABEL_12:
       }
 
       identifier = CUPrintNSError();
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B51310, "[CBStackAccessoryMonitorBTStack _updateAudioAccessoryDeviceInfo:flags:]", 90, "### AudioAccessoryDeviceInfo init device failed: %@", identifier);
     }
 
 LABEL_11:

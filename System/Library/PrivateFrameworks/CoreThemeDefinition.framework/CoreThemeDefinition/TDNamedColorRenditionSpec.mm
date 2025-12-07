@@ -1,4 +1,5 @@
 @interface TDNamedColorRenditionSpec
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document;
 - (void)setColorPropertiesFromCGColor:(CGColor *)color;
 @end
 
@@ -75,6 +76,52 @@ LABEL_14:
   [(TDNamedColorRenditionSpec *)self didChangeValueForKey:@"alpha"];
 
   CGColorRelease(CopyByMatchingToColorSpace);
+}
+
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document
+{
+  v22[2] = *MEMORY[0x277D85DE8];
+  production = [objc_msgSend(-[TDNamedColorRenditionSpec production](self production];
+  if (([(TDNamedColorRenditionSpec *)self colorSpaceID]| 4) == 6)
+  {
+    v8 = MEMORY[0x277CCABB0];
+    [(TDNamedColorRenditionSpec *)self red];
+    v22[0] = [v8 numberWithDouble:?];
+    v9 = MEMORY[0x277CCABB0];
+    [(TDNamedColorRenditionSpec *)self alpha];
+    v22[1] = [v9 numberWithDouble:?];
+    v10 = MEMORY[0x277CBEA60];
+    v11 = v22;
+    v12 = 2;
+  }
+
+  else
+  {
+    v13 = MEMORY[0x277CCABB0];
+    [(TDNamedColorRenditionSpec *)self red];
+    v21[0] = [v13 numberWithDouble:?];
+    v14 = MEMORY[0x277CCABB0];
+    [(TDNamedColorRenditionSpec *)self green];
+    v21[1] = [v14 numberWithDouble:?];
+    v15 = MEMORY[0x277CCABB0];
+    [(TDNamedColorRenditionSpec *)self blue];
+    v21[2] = [v15 numberWithDouble:?];
+    v16 = MEMORY[0x277CCABB0];
+    [(TDNamedColorRenditionSpec *)self alpha];
+    v21[3] = [v16 numberWithDouble:?];
+    v10 = MEMORY[0x277CBEA60];
+    v11 = v21;
+    v12 = 4;
+  }
+
+  v17 = [v10 arrayWithObjects:v11 count:v12];
+  v18 = [objc_alloc(MEMORY[0x277D02668]) initWithColorNamed:production colorSpaceID:-[TDNamedColorRenditionSpec colorSpaceID](self components:"colorSpaceID") linkedToSystemColorWithName:{v17, -[TDNamedColorRenditionSpec systemColorName](self, "systemColorName")}];
+  [v18 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
+  [v18 setRenditionProperties:{-[TDRenditionSpec propertiesAsDictionary](self, "propertiesAsDictionary")}];
+  [v18 setPreserveForArchiveOnly:{-[TDNamedColorRenditionSpec preserveForArchiveOnly](self, "preserveForArchiveOnly")}];
+  v19 = [v18 CSIRepresentationWithCompression:0];
+
+  return v19;
 }
 
 @end

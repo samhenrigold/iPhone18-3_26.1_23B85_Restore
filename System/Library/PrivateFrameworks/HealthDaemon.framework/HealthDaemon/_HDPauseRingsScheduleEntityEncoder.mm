@@ -9,17 +9,15 @@
 
 - (id)orderedProperties
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"start_date_index";
-  v10[1] = @"end_date_index";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-  v9.receiver = self;
-  v9.super_class = _HDPauseRingsScheduleEntityEncoder;
-  superclassEncoder = [(HDEntityEncoder *)&v9 superclassEncoder];
+  v9[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"start_date_index";
+  v9[1] = @"end_date_index";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8.receiver = self;
+  v8.super_class = _HDPauseRingsScheduleEntityEncoder;
+  superclassEncoder = [(HDEntityEncoder *)&v8 superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

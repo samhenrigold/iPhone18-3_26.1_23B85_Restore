@@ -395,43 +395,43 @@ void __93__WBSFrequentlyVisitedSitesController__recomputeFrequentlyVisitedSitesW
   {
     v4 = [visitedCopy safari_mapObjectsUsingBlock:&__block_literal_global_0];
     v5 = [WBSFrequentlyVisitedSitesController lowerBoundForExcludingOutliersFromSortedCandidateScores:v4];
-    v6 = v5;
-    if (v5 && ([v5 doubleValue], v7 > 0.0))
+    v7 = v5;
+    if (v5 && (v5 = [v5 doubleValue], v8 > 0.0))
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __88__WBSFrequentlyVisitedSitesController__excludeOutliersBasedOnScoreForFrequentlyVisited___block_invoke_89;
-      v13[3] = &unk_1E8282F90;
-      v14 = v6;
-      v8 = [visitedCopy safari_filterObjectsUsingBlock:v13];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __88__WBSFrequentlyVisitedSitesController__excludeOutliersBasedOnScoreForFrequentlyVisited___block_invoke_89;
+      v14[3] = &unk_1E8282F90;
+      v15 = v7;
+      v9 = [visitedCopy safari_filterObjectsUsingBlock:v14];
 
-      v9 = visitedCopy;
-      visitedCopy = v8;
+      v10 = visitedCopy;
+      visitedCopy = v9;
     }
 
     else
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXFrequentlyVisited();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXFrequentlyVisited(v5, v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C6968000, v10, OS_LOG_TYPE_INFO, "Excluding a negative outlier from frequently visited sites", buf, 2u);
+        _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Excluding a negative outlier from frequently visited sites", buf, 2u);
       }
 
-      v9 = 0;
+      v10 = 0;
     }
 
-    v11 = visitedCopy;
+    v12 = visitedCopy;
 
-    visitedCopy = v9;
+    visitedCopy = v10;
   }
 
   else
   {
-    v11 = MEMORY[0x1E695E0F0];
+    v12 = MEMORY[0x1E695E0F0];
   }
 
-  return v11;
+  return v12;
 }
 
 id __88__WBSFrequentlyVisitedSitesController__excludeOutliersBasedOnScoreForFrequentlyVisited___block_invoke(uint64_t a1, void *a2)

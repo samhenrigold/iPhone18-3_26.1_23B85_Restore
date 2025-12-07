@@ -11,11 +11,11 @@
 
 - (MSSetupViewController)initWithServiceAccount:(id)account testFlags:(unint64_t)flags
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   accountCopy = account;
-  v20.receiver = self;
-  v20.super_class = MSSetupViewController;
-  v8 = [(MSSetupViewController *)&v20 initWithNibName:0 bundle:0];
+  v19.receiver = self;
+  v19.super_class = MSSetupViewController;
+  v8 = [(MSSetupViewController *)&v19 initWithNibName:0 bundle:0];
   if (v8)
   {
     NSLog(&cfstr_CreatingMsview.isa);
@@ -32,23 +32,22 @@
     {
       objc_initWeak(&location, v8);
       v12 = v8->_extension;
-      v21[0] = v11;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __58__MSSetupViewController_initWithServiceAccount_testFlags___block_invoke;
-      v17[3] = &unk_278AA2F90;
-      objc_copyWeak(&v18, &location);
-      [(NSExtension *)v12 instantiateViewControllerWithInputItems:v13 connectionHandler:v17];
+      v20[0] = v11;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __58__MSSetupViewController_initWithServiceAccount_testFlags___block_invoke;
+      v16[3] = &unk_278AA2F90;
+      objc_copyWeak(&v17, &location);
+      [(NSExtension *)v12 instantiateViewControllerWithInputItems:v13 connectionHandler:v16];
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(&location);
     }
 
     v14 = v8;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -149,10 +148,10 @@ void __40__MSSetupViewController_createExtension__block_invoke_4(uint64_t a1)
 
 - (id)createExtensionItemWithServiceAccount:(id)account
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:account requiringSecureCoding:1 error:&v16];
-  v5 = v16;
+  v17[3] = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:account requiringSecureCoding:1 error:&v15];
+  v5 = v15;
   v6 = v5;
   if (v4)
   {
@@ -171,20 +170,20 @@ void __40__MSSetupViewController_createExtension__block_invoke_4(uint64_t a1)
     bundleIdentifier = [mainBundle bundleIdentifier];
 
     NSLog(&cfstr_CreateExtensio.isa, self->_testFlags);
-    v17[0] = @"bundleID";
-    v17[1] = @"mediaService";
+    v16[0] = @"bundleID";
+    v16[1] = @"mediaService";
     v11 = &stru_284C4B358;
     if (bundleIdentifier)
     {
       v11 = bundleIdentifier;
     }
 
-    v18[0] = v11;
-    v18[1] = v4;
-    v17[2] = @"testUIFlags";
+    v17[0] = v11;
+    v17[1] = v4;
+    v16[2] = @"testUIFlags";
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:self->_testFlags];
-    v18[2] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v17[2] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
     [v8 setUserInfo:v13];
   }
 
@@ -194,14 +193,12 @@ void __40__MSSetupViewController_createExtension__block_invoke_4(uint64_t a1)
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)_setChildViewController:(id)controller
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   view = [(_MSRemoteViewController *)self->_childViewController view];
   [view removeFromSuperview];
@@ -224,30 +221,28 @@ void __40__MSSetupViewController_createExtension__block_invoke_4(uint64_t a1)
     widthAnchor = [view2 widthAnchor];
     view5 = [(MSSetupViewController *)self view];
     widthAnchor2 = [view5 widthAnchor];
-    v25 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v29[0] = v25;
+    v24 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+    v28[0] = v24;
     heightAnchor = [view2 heightAnchor];
     view6 = [(MSSetupViewController *)self view];
     heightAnchor2 = [view6 heightAnchor];
-    v21 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-    v29[1] = v21;
+    v20 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+    v28[1] = v20;
     centerXAnchor = [view2 centerXAnchor];
     view7 = [(MSSetupViewController *)self view];
     centerXAnchor2 = [view7 centerXAnchor];
     v12 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v29[2] = v12;
+    v28[2] = v12;
     centerYAnchor = [view2 centerYAnchor];
     view8 = [(MSSetupViewController *)self view];
     centerYAnchor2 = [view8 centerYAnchor];
     v16 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v29[3] = v16;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+    v28[3] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
 
-    [MEMORY[0x277CCAAD0] activateConstraints:v18];
+    [MEMORY[0x277CCAAD0] activateConstraints:v17];
     [(_UIRemoteViewController *)self->_childViewController didMoveToParentViewController:self];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

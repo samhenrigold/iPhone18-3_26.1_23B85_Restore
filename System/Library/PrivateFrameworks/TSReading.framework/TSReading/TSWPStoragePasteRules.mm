@@ -115,8 +115,8 @@
   self->_srcTrailRange.length = v12;
   v13 = [destStorage textRangeForParagraphAtCharIndex:location];
   v15 = v14;
-  v43 = location + length;
-  v42 = [destStorage textRangeForParagraphAtCharIndex:?];
+  v49 = location + length;
+  v48 = [destStorage textRangeForParagraphAtCharIndex:?];
   v17 = v16;
   self->_sourceColumnStyleCount = [storage columnStyleCount];
   self->_sourceSectionCount = [storage sectionCount];
@@ -127,7 +127,8 @@
 
   else if (v15 == 1)
   {
-    if (IsParagraphBreakingCharacter([destStorage characterAtIndex:v13]))
+    v19 = [destStorage characterAtIndex:v13];
+    if (IsParagraphBreakingCharacter(v19, v20))
     {
       v18 = 8;
     }
@@ -147,76 +148,54 @@
   self->_flags = flags;
   if (v10 == 1)
   {
-    v20 = 16 * ([storage attachmentOrFootnoteAtCharIndex:0] != 0);
+    v22 = 16 * ([storage attachmentOrFootnoteAtCharIndex:0] != 0);
     flags = self->_flags;
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
   if (location == v13)
   {
-    ++v20;
+    ++v22;
   }
 
-  v21 = v20 | flags;
+  v23 = v22 | flags;
   if (self->_srcLeadRange.length == self->_srcTrailRange.length && self->_srcLeadRange.location == self->_srcTrailRange.location)
-  {
-    v23 = 0;
-  }
-
-  else
-  {
-    v23 = 64;
-  }
-
-  if (v15 == v17 && v13 == v42)
   {
     v25 = 0;
   }
 
   else
   {
-    v25 = 4;
+    v25 = 64;
   }
 
-  v26 = v25 | v21 | v23;
-  self->_flags = v26;
-  if (v10)
-  {
-    if (IsParagraphBreakingCharacter([storage characterAtIndex:v10 - 1]))
-    {
-      v27 = 32;
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-
-    v26 = self->_flags;
-  }
-
-  else
+  if (v15 == v17 && v13 == v48)
   {
     v27 = 0;
   }
 
-  v28 = v26 | v27;
-  self->_flags = v28;
-  if (length)
+  else
   {
-    v29 = location + length;
-    if (IsParagraphBreakingCharacter([destStorage characterAtIndex:v43 - 1]))
+    v27 = 4;
+  }
+
+  v28 = v27 | v23 | v25;
+  self->_flags = v28;
+  if (v10)
+  {
+    v29 = [storage characterAtIndex:v10 - 1];
+    if (IsParagraphBreakingCharacter(v29, v30))
     {
-      v30 = 2;
+      v31 = 32;
     }
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
 
     v28 = self->_flags;
@@ -224,119 +203,143 @@
 
   else
   {
-    v30 = 0;
-    v29 = location + length;
+    v31 = 0;
   }
 
-  v31 = v28 | v30;
-  self->_flags = v31;
-  if ((v28 & 1) == 0)
+  v32 = v28 | v31;
+  self->_flags = v32;
+  if (length)
   {
-    v32 = location;
-    while (v32 > v13)
+    v33 = location + length;
+    v34 = [destStorage characterAtIndex:v49 - 1];
+    if (IsParagraphBreakingCharacter(v34, v35))
     {
-      if (([objc_msgSend(destStorage attachmentOrFootnoteAtCharIndex:{--v32), "isAnchored"}] & 1) == 0)
+      v36 = 2;
+    }
+
+    else
+    {
+      v36 = 0;
+    }
+
+    v32 = self->_flags;
+  }
+
+  else
+  {
+    v36 = 0;
+    v33 = location + length;
+  }
+
+  v37 = v32 | v36;
+  self->_flags = v37;
+  if ((v32 & 1) == 0)
+  {
+    v38 = location;
+    while (v38 > v13)
+    {
+      if (([objc_msgSend(destStorage attachmentOrFootnoteAtCharIndex:{--v38), "isAnchored"}] & 1) == 0)
       {
-        v31 = self->_flags;
+        v37 = self->_flags;
         goto LABEL_44;
       }
     }
 
-    v31 = self->_flags | 1;
-    self->_flags = v31;
+    v37 = self->_flags | 1;
+    self->_flags = v37;
   }
 
 LABEL_44:
-  v33 = (~v31 & 0x22) != 0 && (v31 & 0x44) != 0;
-  self->_mapDestTrailCS = v33;
+  v39 = (~v37 & 0x22) != 0 && (v37 & 0x44) != 0;
+  self->_mapDestTrailCS = v39;
   self->_paragraphs[0].parStyle = [storage paragraphStyleAtCharIndex:0 effectiveRange:0];
   self->_paragraphs[0].columnStyle = [storage columnStyleAtCharIndex:0 effectiveRange:0];
   self->_paragraphs[0].section = [storage sectionAtCharIndex:0 effectiveRange:0];
   self->_paragraphs[0].listStyle = [storage listStyleAtCharIndex:0 effectiveRange:0];
-  v34 = [storage paragraphLevelAtCharIndex:0];
-  if (v34 >= 0x10000)
-  {
-    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
-    LOWORD(v34) = -1;
-  }
-
-  self->_paragraphs[0].parData.var0.var1.level = v34;
-  self->_paragraphs[0].parData.var0.var1.flags = [storage paragraphFlagsAtCharIndex:0];
-  v35 = [storage listStartAtCharIndex:0];
-  if (HIDWORD(v35))
-  {
-    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
-    LODWORD(v35) = -1;
-  }
-
-  self->_paragraphs[0].parStartData.var0.var0.listStart = v35;
-  self->_paragraphs[0].parBidiData.var0.var0.listStart = [storage writingDirectionForParagraphAtCharIndex:0];
-  self->_paragraphs[1].parStyle = [storage paragraphStyleAtCharIndex:v10 effectiveRange:0];
-  self->_paragraphs[1].columnStyle = [storage columnStyleAtCharIndex:v10 effectiveRange:0];
-  self->_paragraphs[1].section = [storage sectionAtCharIndex:v10 effectiveRange:0];
-  self->_paragraphs[1].listStyle = [storage listStyleAtCharIndex:v10 effectiveRange:0];
-  v36 = [storage paragraphLevelAtCharIndex:v10];
-  if (v36 >= 0x10000)
-  {
-    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
-    LOWORD(v36) = -1;
-  }
-
-  self->_paragraphs[1].parData.var0.var1.level = v36;
-  self->_paragraphs[1].parData.var0.var1.flags = [storage paragraphFlagsAtCharIndex:v10];
-  v37 = [storage listStartAtCharIndex:v10];
-  if (HIDWORD(v37))
-  {
-    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
-    LODWORD(v37) = -1;
-  }
-
-  self->_paragraphs[1].parStartData.var0.var0.listStart = v37;
-  self->_paragraphs[1].parBidiData.var0.var0.listStart = [storage writingDirectionForParagraphAtCharIndex:v10];
-  self->_paragraphs[2].parStyle = [destStorage paragraphStyleAtCharIndex:location effectiveRange:0];
-  self->_paragraphs[2].columnStyle = [destStorage columnStyleAtCharIndex:location effectiveRange:0];
-  self->_paragraphs[2].section = [destStorage sectionAtCharIndex:location effectiveRange:0];
-  self->_paragraphs[2].listStyle = [destStorage listStyleAtCharIndex:location effectiveRange:0];
-  v38 = [destStorage paragraphLevelAtCharIndex:location];
-  if (v38 >= 0x10000)
-  {
-    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
-    LOWORD(v38) = -1;
-  }
-
-  self->_paragraphs[2].parData.var0.var1.level = v38;
-  self->_paragraphs[2].parData.var0.var1.flags = [destStorage paragraphFlagsAtCharIndex:location];
-  v39 = [destStorage listStartAtCharIndex:location];
-  if (HIDWORD(v39))
-  {
-    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
-    LODWORD(v39) = -1;
-  }
-
-  self->_paragraphs[2].parStartData.var0.var0.listStart = v39;
-  self->_paragraphs[2].parBidiData.var0.var0.listStart = [destStorage writingDirectionForParagraphAtCharIndex:location];
-  self->_paragraphs[3].parStyle = [destStorage paragraphStyleAtCharIndex:v29 effectiveRange:0];
-  self->_paragraphs[3].columnStyle = [destStorage columnStyleAtCharIndex:v29 effectiveRange:0];
-  self->_paragraphs[3].section = [destStorage sectionAtCharIndex:v29 effectiveRange:0];
-  self->_paragraphs[3].listStyle = [destStorage listStyleAtCharIndex:v29 effectiveRange:0];
-  v40 = [destStorage paragraphLevelAtCharIndex:v29];
+  v40 = [storage paragraphLevelAtCharIndex:0];
   if (v40 >= 0x10000)
   {
     [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
     LOWORD(v40) = -1;
   }
 
-  self->_paragraphs[3].parData.var0.var1.level = v40;
-  self->_paragraphs[3].parData.var0.var1.flags = [destStorage paragraphFlagsAtCharIndex:v29];
-  v41 = [destStorage listStartAtCharIndex:v29];
+  self->_paragraphs[0].parData.var0.var1.level = v40;
+  self->_paragraphs[0].parData.var0.var1.flags = [storage paragraphFlagsAtCharIndex:0];
+  v41 = [storage listStartAtCharIndex:0];
   if (HIDWORD(v41))
   {
     [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
     LODWORD(v41) = -1;
   }
 
-  self->_paragraphs[3].parStartData.var0.var0.listStart = v41;
-  self->_paragraphs[3].parBidiData.var0.var0.listStart = [destStorage writingDirectionForParagraphAtCharIndex:v29];
+  self->_paragraphs[0].parStartData.var0.var0.listStart = v41;
+  self->_paragraphs[0].parBidiData.var0.var0.listStart = [storage writingDirectionForParagraphAtCharIndex:0];
+  self->_paragraphs[1].parStyle = [storage paragraphStyleAtCharIndex:v10 effectiveRange:0];
+  self->_paragraphs[1].columnStyle = [storage columnStyleAtCharIndex:v10 effectiveRange:0];
+  self->_paragraphs[1].section = [storage sectionAtCharIndex:v10 effectiveRange:0];
+  self->_paragraphs[1].listStyle = [storage listStyleAtCharIndex:v10 effectiveRange:0];
+  v42 = [storage paragraphLevelAtCharIndex:v10];
+  if (v42 >= 0x10000)
+  {
+    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
+    LOWORD(v42) = -1;
+  }
+
+  self->_paragraphs[1].parData.var0.var1.level = v42;
+  self->_paragraphs[1].parData.var0.var1.flags = [storage paragraphFlagsAtCharIndex:v10];
+  v43 = [storage listStartAtCharIndex:v10];
+  if (HIDWORD(v43))
+  {
+    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
+    LODWORD(v43) = -1;
+  }
+
+  self->_paragraphs[1].parStartData.var0.var0.listStart = v43;
+  self->_paragraphs[1].parBidiData.var0.var0.listStart = [storage writingDirectionForParagraphAtCharIndex:v10];
+  self->_paragraphs[2].parStyle = [destStorage paragraphStyleAtCharIndex:location effectiveRange:0];
+  self->_paragraphs[2].columnStyle = [destStorage columnStyleAtCharIndex:location effectiveRange:0];
+  self->_paragraphs[2].section = [destStorage sectionAtCharIndex:location effectiveRange:0];
+  self->_paragraphs[2].listStyle = [destStorage listStyleAtCharIndex:location effectiveRange:0];
+  v44 = [destStorage paragraphLevelAtCharIndex:location];
+  if (v44 >= 0x10000)
+  {
+    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
+    LOWORD(v44) = -1;
+  }
+
+  self->_paragraphs[2].parData.var0.var1.level = v44;
+  self->_paragraphs[2].parData.var0.var1.flags = [destStorage paragraphFlagsAtCharIndex:location];
+  v45 = [destStorage listStartAtCharIndex:location];
+  if (HIDWORD(v45))
+  {
+    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
+    LODWORD(v45) = -1;
+  }
+
+  self->_paragraphs[2].parStartData.var0.var0.listStart = v45;
+  self->_paragraphs[2].parBidiData.var0.var0.listStart = [destStorage writingDirectionForParagraphAtCharIndex:location];
+  self->_paragraphs[3].parStyle = [destStorage paragraphStyleAtCharIndex:v33 effectiveRange:0];
+  self->_paragraphs[3].columnStyle = [destStorage columnStyleAtCharIndex:v33 effectiveRange:0];
+  self->_paragraphs[3].section = [destStorage sectionAtCharIndex:v33 effectiveRange:0];
+  self->_paragraphs[3].listStyle = [destStorage listStyleAtCharIndex:v33 effectiveRange:0];
+  v46 = [destStorage paragraphLevelAtCharIndex:v33];
+  if (v46 >= 0x10000)
+  {
+    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
+    LOWORD(v46) = -1;
+  }
+
+  self->_paragraphs[3].parData.var0.var1.level = v46;
+  self->_paragraphs[3].parData.var0.var1.flags = [destStorage paragraphFlagsAtCharIndex:v33];
+  v47 = [destStorage listStartAtCharIndex:v33];
+  if (HIDWORD(v47))
+  {
+    [TSWPStoragePasteRules setupFlagsForPastingSrcStorage:intoDestStorage:atDestRange:];
+    LODWORD(v47) = -1;
+  }
+
+  self->_paragraphs[3].parStartData.var0.var0.listStart = v47;
+  self->_paragraphs[3].parBidiData.var0.var0.listStart = [destStorage writingDirectionForParagraphAtCharIndex:v33];
 }
 
 - (void)willPasteStorage:(id)storage intoDestStorage:(id)destStorage atDestRange:(_NSRange)range

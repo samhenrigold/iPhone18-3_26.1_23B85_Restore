@@ -10,10 +10,10 @@
 - (id)mutableCopy;
 - (id)subdataWithRange:(_NSRange)range;
 - (uint64_t)_attemptToMapData:(unint64_t *)data;
-- (uint64_t)_exceptionForReadError:(uint64_t)result;
-- (unint64_t)_retrieveExternalData;
 - (void)_deleteExternalReferenceFromPermanentLocation;
+- (void)_exceptionForReadError:(void *)result;
 - (void)_moveExternalReferenceToPermanentLocation;
+- (void)_retrieveExternalData;
 - (void)_writeExternalReferenceToInterimLocation;
 - (void)dealloc;
 - (void)getBytes:(void *)bytes range:(_NSRange)range;
@@ -72,7 +72,7 @@ LABEL_8:
   [(_PFExternalReferenceData *)&v10 dealloc];
 }
 
-- (unint64_t)_retrieveExternalData
+- (void)_retrieveExternalData
 {
   if (!self)
   {
@@ -147,7 +147,7 @@ LABEL_8:
       atomic_store(1u, v11 + 68);
       if (safeguardLocation)
       {
-        safeguardLocation = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%p", safeguardLocation, v11];
+        safeguardLocation = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], safeguardLocation, v11);
       }
     }
 
@@ -280,9 +280,9 @@ LABEL_8:
   return 1;
 }
 
-- (uint64_t)_exceptionForReadError:(uint64_t)result
+- (void)_exceptionForReadError:(void *)result
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -291,10 +291,10 @@ LABEL_8:
     {
       v15 = MEMORY[0x1E695DF30];
       v16 = *MEMORY[0x1E695D930];
-      v17 = *(v3 + 48);
-      v22 = @"File URL";
-      v23 = v17;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v17 = v3[6];
+      v21 = @"File URL";
+      v22 = v17;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       v12 = @"External data reference; unknown problem.";
     }
 
@@ -303,42 +303,38 @@ LABEL_8:
       if (code == 120)
       {
         v5 = *MEMORY[0x1E696A250];
-        v26 = *MEMORY[0x1E696AA08];
-        v6 = v26;
-        v27[0] = a2;
-        v7 = [MEMORY[0x1E696ABC0] errorWithDomain:v5 code:134185 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v27, &v26, 1)}];
+        v25 = *MEMORY[0x1E696AA08];
+        v6 = v25;
+        v26[0] = a2;
+        v7 = [MEMORY[0x1E696ABC0] errorWithDomain:v5 code:134185 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v26, &v25, 1)}];
         v8 = MEMORY[0x1E695DF30];
-        v9 = *(v3 + 48);
+        v9 = v3[6];
         v10 = *MEMORY[0x1E695D930];
-        v24[0] = @"File URL";
-        v24[1] = v6;
-        v25[0] = v9;
-        v25[1] = v7;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+        v23[0] = @"File URL";
+        v23[1] = v6;
+        v24[0] = v9;
+        v24[1] = v7;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
         v12 = @"External data reference can't find underlying file.";
         v13 = v8;
         v14 = v10;
-LABEL_8:
-        result = [v13 exceptionWithName:v14 reason:v12 userInfo:v11];
-        goto LABEL_9;
+        return [v13 exceptionWithName:v14 reason:v12 userInfo:v11];
       }
 
       v15 = MEMORY[0x1E695DF30];
       v16 = *MEMORY[0x1E695D930];
-      v18 = *(v3 + 48);
-      v20 = @"File URL";
-      v21 = v18;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v18 = v3[6];
+      v19 = @"File URL";
+      v20 = v18;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       v12 = @"External data reference can't load ubiquitous file.";
     }
 
     v13 = v15;
     v14 = v16;
-    goto LABEL_8;
+    return [v13 exceptionWithName:v14 reason:v12 userInfo:v11];
   }
 
-LABEL_9:
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -385,20 +381,19 @@ LABEL_9:
   v4 = atomic_load(&self->_isStoredExternally);
   if (v4)
   {
-    bytesPtrForStore = self->_bytesPtrForStore;
-    v6 = [MEMORY[0x1E696AD60] stringWithFormat:@"External Data Reference: <self = %p ; path = %s ; length = %qu>", self, bytesPtrForStore, self->_bytesLengthForExternalReference];
+    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AD60], self, self->_bytesPtrForStore, self->_bytesLengthForExternalReference);
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD60] stringWithFormat:@"External Data Reference: <self = %p ; path = nil ; length = %qu>", self, self->_bytesLengthForExternalReference, v10];
+    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AD60], self, self->_bytesLengthForExternalReference);
   }
 
-  v7 = v6;
-  v8 = v6;
+  v6 = v5;
+  v7 = v5;
   objc_autoreleasePoolPop(v3);
 
-  return v7;
+  return v6;
 }
 
 - (id)_safeguardLocationString
@@ -422,18 +417,19 @@ LABEL_9:
   bytesLengthForExternalReference = self->_bytesLengthForExternalReference;
   if (range.location + range.length > bytesLengthForExternalReference)
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"range {%lu, %lu} exceeds data length %lu", range.length, range.location, bytesLengthForExternalReference), 0}]);
+    v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{a2, @"range {%lu, %lu} exceeds data length %lu", range.length, range.location, bytesLengthForExternalReference), 0}];
+    objc_exception_throw(v13);
   }
 
   v9 = atomic_load(&self->_isStoredExternally);
   if (v9)
   {
     objc_sync_enter(self);
-    v14 = 0;
+    v15 = 0;
     if (([(_PFExternalReferenceData *)self _attemptToMapData:?]& 1) == 0)
     {
-      v13 = [(_PFExternalReferenceData *)self _exceptionForReadError:v14];
-      objc_exception_throw(v13);
+      v14 = [(_PFExternalReferenceData *)self _exceptionForReadError:v15];
+      objc_exception_throw(v14);
     }
 
     if (atomic_load(&self->_originalData))
@@ -465,7 +461,8 @@ LABEL_9:
   bytesLengthForExternalReference = self->_bytesLengthForExternalReference;
   if (range.location + range.length > bytesLengthForExternalReference)
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"range {%lu, %lu} exceeds data length %lu", range.length, range.location, bytesLengthForExternalReference), 0}]);
+    v10 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{a2, @"range {%lu, %lu} exceeds data length %lu", range.length, range.location, bytesLengthForExternalReference), 0}];
+    objc_exception_throw(v10);
   }
 
   v7 = malloc_type_malloc(range.length, 0x100004077774924uLL);

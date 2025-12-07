@@ -148,18 +148,16 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(invocation "methodSignature")];
   if (v4)
   {
     v5 = v4;
-    v6 = v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
     memset(v6, 170, v4);
     bzero(v6, v5);
     [invocation setReturnValue:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

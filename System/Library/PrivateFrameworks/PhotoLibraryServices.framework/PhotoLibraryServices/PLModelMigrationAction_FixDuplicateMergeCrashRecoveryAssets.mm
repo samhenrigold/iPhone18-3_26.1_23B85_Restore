@@ -9,32 +9,32 @@
 
 - (void)_repairAsset:(id)asset
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   duplicateAlbum = [assetCopy duplicateAlbum];
-  v48 = 0u;
-  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   assets = [duplicateAlbum assets];
-  v7 = [assets countByEnumeratingWithState:&v48 objects:v90 count:16];
+  v7 = [assets countByEnumeratingWithState:&v50 objects:v92 count:16];
   if (!v7)
   {
-    goto LABEL_34;
+    goto LABEL_40;
   }
 
   v8 = v7;
-  v9 = *v49;
+  v9 = *v51;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v49 != v9)
+      if (*v51 != v9)
       {
         objc_enumerationMutation(assets);
       }
 
-      v11 = *(*(&v48 + 1) + 8 * i);
+      v11 = *(*(&v50 + 1) + 8 * i);
       if (([v11 isEqual:assetCopy] & 1) == 0)
       {
         master = [v11 master];
@@ -48,19 +48,19 @@
             v14 = [[PLDuplicateAsset alloc] initWithAsset:assetCopy];
             photoLibrary = [assetCopy photoLibrary];
             v16 = photoLibrary;
-            v46 = v13;
+            v48 = v13;
             if (v13 && v14 && photoLibrary)
             {
               v17 = [PLDuplicateMerge alloc];
-              v89 = v13;
-              v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v89 count:1];
-              v42 = v14;
-              v43 = v16;
+              v91 = v13;
+              v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v91 count:1];
+              v44 = v14;
+              v45 = v16;
               v19 = [(PLDuplicateMerge *)v17 initWithSourceAssets:v18 targetAsset:v14 photolibrary:v16];
 
-              v47 = 0;
-              LOBYTE(v18) = [(PLDuplicateMerge *)v19 mergeResourcesFromSource:v46 error:&v47];
-              v20 = v47;
+              v49 = 0;
+              LOBYTE(v18) = [(PLDuplicateMerge *)v19 mergeResourcesFromSource:v48 error:&v49];
+              v20 = v49;
               if ((v18 & 1) == 0)
               {
                 v21 = PLMigrationGetLog();
@@ -72,6 +72,8 @@
 
                   if (logger)
                   {
+                    v89 = 0u;
+                    v90 = 0u;
                     v87 = 0u;
                     v88 = 0u;
                     v85 = 0u;
@@ -100,33 +102,40 @@
                     v64 = 0u;
                     v61 = 0u;
                     v62 = 0u;
-                    v59 = 0u;
-                    v60 = 0u;
                     memset(buf, 0, sizeof(buf));
                     v24 = PLMigrationGetLog();
-                    os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+                    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                    {
+                      v25 = 3;
+                    }
+
+                    else
+                    {
+                      v25 = 2;
+                    }
+
+                    v43 = v25;
                     uuid = [assetCopy uuid];
                     uuid2 = [v11 uuid];
-                    v52 = 138543618;
-                    v53 = uuid;
-                    v54 = 2114;
-                    *v55 = uuid2;
-                    LODWORD(v41) = 22;
-                    v27 = _os_log_send_and_compose_impl();
+                    v54 = 138543618;
+                    v55 = uuid;
+                    v56 = 2114;
+                    *v57 = uuid2;
+                    v28 = _os_log_send_and_compose_impl(v43, 0, buf, 512, &dword_19BF1F000, v24, 16, "Failed to repair merge asset %{public}@ using source %{public}@", &v54, 22);
 
-                    v28 = [(PLModelMigrationActionBackground *)selfCopy logger:&v52];
-                    [v28 logWithMessage:v27 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{806, 16}];
+                    logger2 = [(PLModelMigrationActionBackground *)selfCopy logger];
+                    [logger2 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{806, 16}];
 
-                    if (v27 != buf)
+                    if (v28 != buf)
                     {
-                      free(v27);
+                      free(v28);
                     }
                   }
 
                   else
                   {
-                    v38 = PLMigrationGetLog();
-                    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                    v40 = PLMigrationGetLog();
+                    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
                     {
                       uuid3 = [assetCopy uuid];
                       uuid4 = [v11 uuid];
@@ -134,28 +143,30 @@
                       *&buf[4] = uuid3;
                       *&buf[12] = 2114;
                       *&buf[14] = uuid4;
-                      _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_ERROR, "Failed to repair merge asset %{public}@ using source %{public}@", buf, 0x16u);
+                      _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_ERROR, "Failed to repair merge asset %{public}@ using source %{public}@", buf, 0x16u);
                     }
                   }
                 }
               }
 
-              v14 = v42;
-              v16 = v43;
+              v14 = v44;
+              v16 = v45;
             }
 
             else
             {
-              v29 = PLMigrationGetLog();
-              v30 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+              v30 = PLMigrationGetLog();
+              v31 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
 
-              if (v30)
+              if (v31)
               {
-                logger2 = [(PLModelMigrationActionBackground *)selfCopy logger];
+                logger3 = [(PLModelMigrationActionBackground *)selfCopy logger];
 
-                if (logger2)
+                if (logger3)
                 {
-                  v44 = v16;
+                  v46 = v16;
+                  v89 = 0u;
+                  v90 = 0u;
                   v87 = 0u;
                   v88 = 0u;
                   v85 = 0u;
@@ -184,64 +195,70 @@
                   v64 = 0u;
                   v61 = 0u;
                   v62 = 0u;
-                  v59 = 0u;
-                  v60 = 0u;
                   memset(buf, 0, sizeof(buf));
-                  v32 = PLMigrationGetLog();
-                  os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
-                  uuid5 = [assetCopy uuid];
-                  v52 = 138544130;
-                  v53 = uuid5;
-                  v54 = 1024;
-                  *v55 = v46 != 0;
-                  *&v55[4] = 1024;
-                  *&v55[6] = v14 != 0;
-                  v56 = 1024;
-                  v57 = v16 != 0;
-                  LODWORD(v41) = 30;
-                  v34 = _os_log_send_and_compose_impl();
-
-                  v35 = [(PLModelMigrationActionBackground *)selfCopy logger:&v52];
-                  [v35 logWithMessage:v34 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{809, 16}];
-
-                  if (v34 != buf)
+                  v33 = PLMigrationGetLog();
+                  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                   {
-                    free(v34);
+                    v34 = 3;
+                  }
+
+                  else
+                  {
+                    v34 = 2;
+                  }
+
+                  uuid5 = [assetCopy uuid];
+                  v54 = 138544130;
+                  v55 = uuid5;
+                  v56 = 1024;
+                  *v57 = v48 != 0;
+                  *&v57[4] = 1024;
+                  *&v57[6] = v14 != 0;
+                  v58 = 1024;
+                  v59 = v16 != 0;
+                  v36 = _os_log_send_and_compose_impl(v34, 0, buf, 512, &dword_19BF1F000, v33, 16, "Failed to repair merge asset %{public}@. Missing merge parameters: [%d:%d:%d]", &v54, 30);
+
+                  logger4 = [(PLModelMigrationActionBackground *)selfCopy logger];
+                  [logger4 logWithMessage:v36 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{809, 16}];
+
+                  if (v36 != buf)
+                  {
+                    free(v36);
                   }
 
                   v20 = 0;
-                  v16 = v44;
-                  goto LABEL_33;
+                  v16 = v46;
+                  goto LABEL_39;
                 }
 
-                v36 = PLMigrationGetLog();
-                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                v38 = PLMigrationGetLog();
+                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                 {
                   uuid6 = [assetCopy uuid];
                   *buf = 138544130;
                   *&buf[4] = uuid6;
                   *&buf[12] = 1024;
-                  *&buf[14] = v46 != 0;
+                  *&buf[14] = v48 != 0;
                   *&buf[18] = 1024;
                   *&buf[20] = v14 != 0;
                   *&buf[24] = 1024;
                   *&buf[26] = v16 != 0;
-                  _os_log_impl(&dword_19BF1F000, v36, OS_LOG_TYPE_ERROR, "Failed to repair merge asset %{public}@. Missing merge parameters: [%d:%d:%d]", buf, 0x1Eu);
+                  _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_ERROR, "Failed to repair merge asset %{public}@. Missing merge parameters: [%d:%d:%d]", buf, 0x1Eu);
                 }
               }
 
               v20 = 0;
             }
 
-LABEL_33:
+LABEL_39:
 
-            goto LABEL_34;
+            goto LABEL_40;
           }
         }
       }
     }
 
-    v8 = [assets countByEnumeratingWithState:&v48 objects:v90 count:16];
+    v8 = [assets countByEnumeratingWithState:&v50 objects:v92 count:16];
     if (v8)
     {
       continue;
@@ -250,7 +267,7 @@ LABEL_33:
     break;
   }
 
-LABEL_34:
+LABEL_40:
 }
 
 - (void)_processForRepairWithAsset:(id)asset repairCount:(int64_t *)count
@@ -315,43 +332,51 @@ LABEL_34:
         v34 = 0u;
         memset(buf, 0, sizeof(buf));
         v14 = PLMigrationGetLog();
-        os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          v15 = 3;
+        }
+
+        else
+        {
+          v15 = 2;
+        }
+
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
         uuid = [assetCopy uuid];
         v26 = 138543874;
-        v27 = v16;
+        v27 = v17;
         v28 = 2114;
         v29 = uuid;
         v30 = 2112;
         v31 = v10;
-        LODWORD(v24) = 32;
-        v18 = _os_log_send_and_compose_impl();
+        v19 = _os_log_send_and_compose_impl(v15, 0, buf, 512, &dword_19BF1F000, v14, 16, "Resource check failed in %{public}@ for %{public}@. Error: %@", &v26, 32);
 
-        v19 = [(PLModelMigrationActionBackground *)self logger:&v26];
-        [v19 logWithMessage:v18 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{780, 16}];
+        logger2 = [(PLModelMigrationActionBackground *)self logger];
+        [logger2 logWithMessage:v19 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{780, 16}];
 
-        if (v18 != buf)
+        if (v19 != buf)
         {
-          free(v18);
+          free(v19);
         }
       }
 
       else
       {
-        v20 = PLMigrationGetLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = PLMigrationGetLog();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          v21 = objc_opt_class();
-          v22 = NSStringFromClass(v21);
+          v22 = objc_opt_class();
+          v23 = NSStringFromClass(v22);
           uuid2 = [assetCopy uuid];
           *buf = 138543874;
-          *&buf[4] = v22;
+          *&buf[4] = v23;
           *&buf[12] = 2114;
           *&buf[14] = uuid2;
           *&buf[22] = 2112;
           *&buf[24] = v10;
-          _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_ERROR, "Resource check failed in %{public}@ for %{public}@. Error: %@", buf, 0x20u);
+          _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_ERROR, "Resource check failed in %{public}@ for %{public}@. Error: %@", buf, 0x20u);
         }
       }
     }
@@ -409,7 +434,7 @@ LABEL_6:
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v132 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
@@ -421,235 +446,238 @@ LABEL_6:
 
     v11 = MEMORY[0x1E696AB28];
     v12 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K != %d", @"duplicateAssetVisibilityState", 0];
-    v97[0] = v12;
+    v100[0] = v12;
     v13 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %d", @"activeLibraryScopeParticipationState", 1];
-    v97[1] = v13;
+    v100[1] = v13;
     v14 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"master"];
-    v97[2] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:3];
+    v100[2] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:3];
     v16 = [v11 andPredicateWithSubpredicates:v15];
     [v10 setPredicate:v16];
 
     [v10 setFetchBatchSize:100];
-    v96[0] = @"modernResources";
-    v96[1] = @"albums";
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v96 count:2];
+    v99[0] = @"modernResources";
+    v99[1] = @"albums";
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v99 count:2];
     [v10 setRelationshipKeyPathsForPrefetching:v17];
 
-    *&v91 = 0;
-    *(&v91 + 1) = &v91;
-    v92 = 0x3032000000;
-    v93 = __Block_byref_object_copy__1060;
-    v94 = __Block_byref_object_dispose__1061;
-    v95 = 0;
-    v81 = 0;
-    v82 = &v81;
-    v83 = 0x2020000000;
-    v84 = 1;
+    *&v94 = 0;
+    *(&v94 + 1) = &v94;
+    v95 = 0x3032000000;
+    v96 = __Block_byref_object_copy__1060;
+    v97 = __Block_byref_object_dispose__1061;
+    v98 = 0;
+    v84 = 0;
+    v85 = &v84;
+    v86 = 0x2020000000;
+    v87 = 1;
     obj = 0;
     v18 = [contextCopy executeFetchRequest:v10 error:&obj];
-    objc_storeStrong(&v95, obj);
+    objc_storeStrong(&v98, obj);
     if (!v18)
     {
-      v82[3] = 3;
-      v38 = PLMigrationGetLog();
-      v39 = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
+      v85[3] = 3;
+      v40 = PLMigrationGetLog();
+      v41 = os_log_type_enabled(v40, OS_LOG_TYPE_ERROR);
 
-      if (v39)
+      if (v41)
       {
         logger = [(PLModelMigrationActionBackground *)self logger];
-        v41 = logger == 0;
+        v43 = logger == 0;
 
-        if (v41)
+        if (v43)
         {
-          v62 = PLMigrationGetLog();
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          v66 = PLMigrationGetLog();
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
           {
-            v63 = objc_opt_class();
-            v64 = NSStringFromClass(v63);
-            v65 = *(*(&v91 + 1) + 40);
+            v67 = objc_opt_class();
+            v68 = NSStringFromClass(v67);
+            v69 = *(*(&v94 + 1) + 40);
             *buf = 138543618;
-            *&buf[4] = v64;
+            *&buf[4] = v68;
             *&buf[12] = 2112;
-            *&buf[14] = v65;
-            _os_log_impl(&dword_19BF1F000, v62, OS_LOG_TYPE_ERROR, "Failed to execute fetch request for %{public}@. Error: %@", buf, 0x16u);
+            *&buf[14] = v69;
+            _os_log_impl(&dword_19BF1F000, v66, OS_LOG_TYPE_ERROR, "Failed to execute fetch request for %{public}@. Error: %@", buf, 0x16u);
           }
         }
 
         else
         {
-          v127 = 0u;
+          v130 = 0u;
+          v131 = 0u;
           v128 = 0u;
-          v125 = 0u;
+          v129 = 0u;
           v126 = 0u;
-          v123 = 0u;
+          v127 = 0u;
           v124 = 0u;
-          v121 = 0u;
+          v125 = 0u;
           v122 = 0u;
-          v119 = 0u;
+          v123 = 0u;
           v120 = 0u;
-          v117 = 0u;
+          v121 = 0u;
           v118 = 0u;
-          v115 = 0u;
+          v119 = 0u;
           v116 = 0u;
-          v113 = 0u;
+          v117 = 0u;
           v114 = 0u;
-          v111 = 0u;
+          v115 = 0u;
           v112 = 0u;
-          v109 = 0u;
+          v113 = 0u;
           v110 = 0u;
-          v107 = 0u;
+          v111 = 0u;
           v108 = 0u;
-          v105 = 0u;
+          v109 = 0u;
           v106 = 0u;
-          v103 = 0u;
+          v107 = 0u;
           v104 = 0u;
-          v101 = 0u;
+          v105 = 0u;
           v102 = 0u;
-          v99 = 0u;
-          v100 = 0u;
+          v103 = 0u;
           memset(buf, 0, sizeof(buf));
-          v42 = PLMigrationGetLog();
-          os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
-          v43 = objc_opt_class();
-          v44 = NSStringFromClass(v43);
-          v45 = *(*(&v91 + 1) + 40);
-          *v89 = 138543618;
-          *&v89[4] = v44;
-          *&v89[12] = 2112;
-          *&v89[14] = v45;
-          LODWORD(v73) = 22;
-          v46 = _os_log_send_and_compose_impl();
-
-          v47 = [(PLModelMigrationActionBackground *)self logger:v89];
-          [v47 logWithMessage:v46 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{740, 16}];
-
-          if (v46 != buf)
+          v44 = PLMigrationGetLog();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            free(v46);
+            v45 = 3;
+          }
+
+          else
+          {
+            v45 = 2;
+          }
+
+          v46 = objc_opt_class();
+          v47 = NSStringFromClass(v46);
+          v48 = *(*(&v94 + 1) + 40);
+          *v92 = 138543618;
+          *&v92[4] = v47;
+          *&v92[12] = 2112;
+          *&v92[14] = v48;
+          LODWORD(v76) = 22;
+          v49 = _os_log_send_and_compose_impl(v45, 0, buf, 512, &dword_19BF1F000, v44, 16, "Failed to execute fetch request for %{public}@. Error: %@", v92, v76);
+
+          logger2 = [(PLModelMigrationActionBackground *)self logger];
+          [logger2 logWithMessage:v49 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{740, 16}];
+
+          if (v49 != buf)
+          {
+            free(v49);
           }
         }
       }
 
-      goto LABEL_36;
+      goto LABEL_48;
     }
 
-    v19 = -[PLModelMigrationActionBackground cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:](self, "cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:", [v18 count], 0);
-    *v89 = 0;
-    *&v89[8] = v89;
-    *&v89[16] = 0x2020000000;
-    v90 = 0;
-    v75[0] = MEMORY[0x1E69E9820];
-    v75[1] = 3221225472;
-    v75[2] = __107__PLModelMigrationAction_FixDuplicateMergeCrashRecoveryAssets_performActionWithManagedObjectContext_error___block_invoke;
-    v75[3] = &unk_1E75726E8;
-    v75[4] = self;
-    v77 = v89;
-    v78 = &v81;
-    v79 = &v91;
+    v19 = [(PLModelMigrationActionBackground *)self cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(v18) pendingParentUnitCount:0];
+    *v92 = 0;
+    *&v92[8] = v92;
+    *&v92[16] = 0x2020000000;
+    v93 = 0;
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __107__PLModelMigrationAction_FixDuplicateMergeCrashRecoveryAssets_performActionWithManagedObjectContext_error___block_invoke;
+    v78[3] = &unk_1E75726E8;
+    v78[4] = self;
+    v80 = v92;
+    v81 = &v84;
+    v82 = &v94;
     v20 = v19;
-    v76 = v20;
-    v21 = [contextCopy enumerateWithIncrementalSaveUsingObjects:v18 withBlock:v75];
-    if (v21 && (v22 = (*(&v91 + 1) + 40), !*(*(&v91 + 1) + 40)))
+    v79 = v20;
+    v21 = [contextCopy enumerateWithIncrementalSaveUsingObjects:v18 withBlock:v78];
+    if (v21 && (v22 = (*(&v94 + 1) + 40), !*(*(&v94 + 1) + 40)))
     {
-      v82[3] = 3;
+      v85[3] = 3;
       objc_storeStrong(v22, v21);
-      v50 = PLMigrationGetLog();
-      v51 = os_log_type_enabled(v50, OS_LOG_TYPE_ERROR);
+      v53 = PLMigrationGetLog();
+      v54 = os_log_type_enabled(v53, OS_LOG_TYPE_ERROR);
 
-      if (!v51)
+      if (v54)
       {
-        goto LABEL_35;
-      }
+        logger3 = [(PLModelMigrationActionBackground *)self logger];
+        v56 = logger3 == 0;
 
-      logger2 = [(PLModelMigrationActionBackground *)self logger];
-      v53 = logger2 == 0;
-
-      if (!v53)
-      {
-        v127 = 0u;
-        v128 = 0u;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v121 = 0u;
-        v122 = 0u;
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
-        v118 = 0u;
-        v115 = 0u;
-        v116 = 0u;
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
-        v110 = 0u;
-        v107 = 0u;
-        v108 = 0u;
-        v105 = 0u;
-        v106 = 0u;
-        v103 = 0u;
-        v104 = 0u;
-        v101 = 0u;
-        v102 = 0u;
-        v99 = 0u;
-        v100 = 0u;
-        memset(buf, 0, sizeof(buf));
-        v54 = PLMigrationGetLog();
-        os_log_type_enabled(v54, OS_LOG_TYPE_ERROR);
-        v55 = objc_opt_class();
-        v56 = NSStringFromClass(v55);
-        v57 = *(*(&v91 + 1) + 40);
-        v85 = 138543618;
-        v86 = v56;
-        v87 = 2112;
-        v88 = v57;
-        LODWORD(v73) = 22;
-        v58 = _os_log_send_and_compose_impl();
-
-        v59 = [(PLModelMigrationActionBackground *)self logger:&v85];
-        [v59 logWithMessage:v58 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{734, 16}];
-
-        if (v58 != buf)
+        if (!v56)
         {
-          v31 = v58;
-          goto LABEL_25;
+          v130 = 0u;
+          v131 = 0u;
+          v128 = 0u;
+          v129 = 0u;
+          v126 = 0u;
+          v127 = 0u;
+          v124 = 0u;
+          v125 = 0u;
+          v122 = 0u;
+          v123 = 0u;
+          v120 = 0u;
+          v121 = 0u;
+          v118 = 0u;
+          v119 = 0u;
+          v116 = 0u;
+          v117 = 0u;
+          v114 = 0u;
+          v115 = 0u;
+          v112 = 0u;
+          v113 = 0u;
+          v110 = 0u;
+          v111 = 0u;
+          v108 = 0u;
+          v109 = 0u;
+          v106 = 0u;
+          v107 = 0u;
+          v104 = 0u;
+          v105 = 0u;
+          v102 = 0u;
+          v103 = 0u;
+          memset(buf, 0, sizeof(buf));
+          v57 = PLMigrationGetLog();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          {
+            v58 = 3;
+          }
+
+          else
+          {
+            v58 = 2;
+          }
+
+          v59 = objc_opt_class();
+          v60 = NSStringFromClass(v59);
+          v61 = *(*(&v94 + 1) + 40);
+          v88 = 138543618;
+          v89 = v60;
+          v90 = 2112;
+          v91 = v61;
+          LODWORD(v76) = 22;
+          v62 = _os_log_send_and_compose_impl(v58, 0, buf, 512, &dword_19BF1F000, v57, 16, "Asset could not be saved for %{public}@. Error: %@", &v88, v76);
+
+          logger4 = [(PLModelMigrationActionBackground *)self logger];
+          [logger4 logWithMessage:v62 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{734, 16}];
+
+          if (v62 == buf)
+          {
+            goto LABEL_47;
+          }
+
+          v32 = v62;
+LABEL_37:
+          free(v32);
+          goto LABEL_47;
         }
 
-LABEL_35:
-
-        _Block_object_dispose(v89, 8);
-LABEL_36:
-        [(PLModelMigrationActionBackground *)self finalizeProgress];
-        v69 = v82[3];
-        v70 = *(*(&v91 + 1) + 40);
-        if (v69 != 1 && error)
+        v64 = PLMigrationGetLog();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
-          v70 = v70;
-          *error = v70;
+          v70 = objc_opt_class();
+          v71 = NSStringFromClass(v70);
+          v72 = *(*(&v94 + 1) + 40);
+          *buf = 138543618;
+          *&buf[4] = v71;
+          *&buf[12] = 2112;
+          *&buf[14] = v72;
+          _os_log_impl(&dword_19BF1F000, v64, OS_LOG_TYPE_ERROR, "Asset could not be saved for %{public}@. Error: %@", buf, 0x16u);
         }
 
-        v49 = v82[3];
-        _Block_object_dispose(&v81, 8);
-        _Block_object_dispose(&v91, 8);
-
-        goto LABEL_40;
-      }
-
-      v60 = PLMigrationGetLog();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
-      {
-        v66 = objc_opt_class();
-        v67 = NSStringFromClass(v66);
-        v68 = *(*(&v91 + 1) + 40);
-        *buf = 138543618;
-        *&buf[4] = v67;
-        *&buf[12] = 2112;
-        *&buf[14] = v68;
-        _os_log_impl(&dword_19BF1F000, v60, OS_LOG_TYPE_ERROR, "Asset could not be saved for %{public}@. Error: %@", buf, 0x16u);
+LABEL_46:
       }
     }
 
@@ -658,154 +686,185 @@ LABEL_36:
       v23 = PLMigrationGetLog();
       v24 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
 
-      if (!v24)
+      if (v24)
       {
-        goto LABEL_35;
-      }
+        logger5 = [(PLModelMigrationActionBackground *)self logger];
+        v26 = logger5 == 0;
 
-      logger3 = [(PLModelMigrationActionBackground *)self logger];
-      v26 = logger3 == 0;
-
-      if (!v26)
-      {
-        v127 = 0u;
-        v128 = 0u;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v121 = 0u;
-        v122 = 0u;
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
-        v118 = 0u;
-        v115 = 0u;
-        v116 = 0u;
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
-        v110 = 0u;
-        v107 = 0u;
-        v108 = 0u;
-        v105 = 0u;
-        v106 = 0u;
-        v103 = 0u;
-        v104 = 0u;
-        v101 = 0u;
-        v102 = 0u;
-        v99 = 0u;
-        v100 = 0u;
-        memset(buf, 0, sizeof(buf));
-        v27 = PLMigrationGetLog();
-        os_log_type_enabled(v27, OS_LOG_TYPE_INFO);
-        v28 = *(*&v89[8] + 24);
-        v85 = 134217984;
-        v86 = v28;
-        LODWORD(v73) = 12;
-        v29 = _os_log_send_and_compose_impl();
-
-        v30 = [(PLModelMigrationActionBackground *)self logger:&v85];
-        [v30 logWithMessage:v29 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{736, 1}];
-
-        if (v29 != buf)
+        if (!v26)
         {
-          v31 = v29;
-LABEL_25:
-          free(v31);
-          goto LABEL_35;
+          v130 = 0u;
+          v131 = 0u;
+          v128 = 0u;
+          v129 = 0u;
+          v126 = 0u;
+          v127 = 0u;
+          v124 = 0u;
+          v125 = 0u;
+          v122 = 0u;
+          v123 = 0u;
+          v120 = 0u;
+          v121 = 0u;
+          v118 = 0u;
+          v119 = 0u;
+          v116 = 0u;
+          v117 = 0u;
+          v114 = 0u;
+          v115 = 0u;
+          v112 = 0u;
+          v113 = 0u;
+          v110 = 0u;
+          v111 = 0u;
+          v108 = 0u;
+          v109 = 0u;
+          v106 = 0u;
+          v107 = 0u;
+          v104 = 0u;
+          v105 = 0u;
+          v102 = 0u;
+          v103 = 0u;
+          memset(buf, 0, sizeof(buf));
+          v27 = PLMigrationGetLog();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          {
+            v28 = 3;
+          }
+
+          else
+          {
+            v28 = 2;
+          }
+
+          v29 = *(*&v92[8] + 24);
+          v88 = 134217984;
+          v89 = v29;
+          v30 = _os_log_send_and_compose_impl(v28, 0, buf, 512, &dword_19BF1F000, v27, 1, "Completed repair on %td assets", &v88);
+
+          logger6 = [(PLModelMigrationActionBackground *)self logger];
+          [logger6 logWithMessage:v30 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{736, 1}];
+
+          if (v30 == buf)
+          {
+            goto LABEL_47;
+          }
+
+          v32 = v30;
+          goto LABEL_37;
         }
 
-        goto LABEL_35;
-      }
+        v64 = PLMigrationGetLog();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+        {
+          v65 = *(*&v92[8] + 24);
+          *buf = 134217984;
+          *&buf[4] = v65;
+          _os_log_impl(&dword_19BF1F000, v64, OS_LOG_TYPE_INFO, "Completed repair on %td assets", buf, 0xCu);
+        }
 
-      v60 = PLMigrationGetLog();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
-      {
-        v61 = *(*&v89[8] + 24);
-        *buf = 134217984;
-        *&buf[4] = v61;
-        _os_log_impl(&dword_19BF1F000, v60, OS_LOG_TYPE_INFO, "Completed repair on %td assets", buf, 0xCu);
+        goto LABEL_46;
       }
     }
 
-    goto LABEL_35;
+LABEL_47:
+
+    _Block_object_dispose(v92, 8);
+LABEL_48:
+    [(PLModelMigrationActionBackground *)self finalizeProgress];
+    v73 = v85[3];
+    v74 = *(*(&v94 + 1) + 40);
+    if (v73 != 1 && error)
+    {
+      v74 = v74;
+      *error = v74;
+    }
+
+    v52 = v85[3];
+    _Block_object_dispose(&v84, 8);
+    _Block_object_dispose(&v94, 8);
+
+    goto LABEL_52;
   }
 
-  v32 = PLMigrationGetLog();
-  v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+  v33 = PLMigrationGetLog();
+  v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
 
-  if (v33)
+  if (v34)
   {
-    logger4 = [(PLModelMigrationActionBackground *)self logger];
+    logger7 = [(PLModelMigrationActionBackground *)self logger];
 
-    if (logger4)
+    if (logger7)
     {
-      v127 = 0u;
+      v130 = 0u;
+      v131 = 0u;
       v128 = 0u;
-      v125 = 0u;
+      v129 = 0u;
       v126 = 0u;
-      v123 = 0u;
+      v127 = 0u;
       v124 = 0u;
-      v121 = 0u;
+      v125 = 0u;
       v122 = 0u;
-      v119 = 0u;
+      v123 = 0u;
       v120 = 0u;
-      v117 = 0u;
+      v121 = 0u;
       v118 = 0u;
-      v115 = 0u;
+      v119 = 0u;
       v116 = 0u;
-      v113 = 0u;
+      v117 = 0u;
       v114 = 0u;
-      v111 = 0u;
+      v115 = 0u;
       v112 = 0u;
-      v109 = 0u;
+      v113 = 0u;
       v110 = 0u;
-      v107 = 0u;
+      v111 = 0u;
       v108 = 0u;
-      v105 = 0u;
+      v109 = 0u;
       v106 = 0u;
-      v103 = 0u;
+      v107 = 0u;
       v104 = 0u;
-      v101 = 0u;
+      v105 = 0u;
       v102 = 0u;
-      v99 = 0u;
-      v100 = 0u;
+      v103 = 0u;
       memset(buf, 0, sizeof(buf));
-      v35 = PLMigrationGetLog();
-      os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-      LODWORD(v91) = 138543362;
-      *(&v91 + 4) = v7;
-      LODWORD(v72) = 12;
-      v36 = _os_log_send_and_compose_impl();
-
-      v37 = [(PLModelMigrationActionBackground *)self logger:&v91];
-      [v37 logWithMessage:v36 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{693, 0}];
-
-      if (v36 != buf)
+      v36 = PLMigrationGetLog();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        free(v36);
+        v37 = 3;
+      }
+
+      else
+      {
+        v37 = 2;
+      }
+
+      LODWORD(v94) = 138543362;
+      *(&v94 + 4) = v7;
+      v38 = _os_log_send_and_compose_impl(v37, 0, buf, 512, &dword_19BF1F000, v36, 0, "%{public}@ was skipped. Library is not in a valid state for repair", &v94, 12);
+
+      logger8 = [(PLModelMigrationActionBackground *)self logger];
+      [logger8 logWithMessage:v38 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{693, 0}];
+
+      if (v38 != buf)
+      {
+        free(v38);
       }
     }
 
     else
     {
-      v48 = PLMigrationGetLog();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      v51 = PLMigrationGetLog();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         *&buf[4] = v7;
-        _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_DEFAULT, "%{public}@ was skipped. Library is not in a valid state for repair", buf, 0xCu);
+        _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@ was skipped. Library is not in a valid state for repair", buf, 0xCu);
       }
     }
   }
 
-  v49 = 1;
-LABEL_40:
+  v52 = 1;
+LABEL_52:
 
-  return v49;
+  return v52;
 }
 
 @end

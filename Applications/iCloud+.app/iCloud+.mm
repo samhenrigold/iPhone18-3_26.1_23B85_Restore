@@ -264,16 +264,18 @@ LABEL_6:
   }
 }
 
-void sub_100002C78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002C78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100002C94(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002C94(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t start(int a1, char **a2)
@@ -304,7 +306,44 @@ void sub_100003110(uint64_t a1, NSObject *a2)
 void sub_100003188(void *a1)
 {
   v1 = [a1 localizedDescription];
-  sub_100002C94(&_mh_execute_header, v2, v3, "Unable to retrieve default offer for universal link due to error %@. Falling back to KB article.", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_100002C94(&_mh_execute_header, v2, v3, "Unable to retrieve default offer for universal link due to error %@. Falling back to KB article.", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
+void sub_100003254(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100002C78(&_mh_execute_header, a2, a3, "Unable to perform any action for context %@. Falling back to KB article.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000032C4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICQLinkAppDelegate launchFlowWithContext:]";
+  sub_100002C78(&_mh_execute_header, a1, a3, "Subclass must override %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000333C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICQLinkAppDelegate launchSettingsDeeplink]";
+  sub_100002C78(&_mh_execute_header, a1, a3, "Subclass must override %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000033B4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICQLinkAppDelegate launchURL:]";
+  sub_100002C78(&_mh_execute_header, a1, a3, "Subclass must override %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000342C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICQLinkAppDelegate handleSkipCFUWithURL:]";
+  sub_100002C78(&_mh_execute_header, a1, a3, "Subclass must override %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000034A4(uint64_t a1, uint64_t a2, os_log_t log)
@@ -320,7 +359,9 @@ void sub_1000034A4(uint64_t a1, uint64_t a2, os_log_t log)
 void sub_100003530(uint64_t a1)
 {
   v1 = [*(a1 + 32) absoluteString];
-  sub_100002C94(&_mh_execute_header, v2, v3, "Could not resolve url %@, falling back to the browser", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_100002C94(&_mh_execute_header, v2, v3, "Could not resolve url %@, falling back to the browser", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_10000368C()

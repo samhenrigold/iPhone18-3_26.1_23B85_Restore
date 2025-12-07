@@ -8,9 +8,6 @@
 - (id)scanResultToDict:(id)dict;
 - (int)_handleBasicConfigRequest:(id)request;
 - (int)hdsSUStateForSUState;
-- (uint64_t)_handleFinishDone2Ready;
-- (uint64_t)_setSiriInfo;
-- (uint64_t)setTime;
 - (unint64_t)signpostID;
 - (void)_activate;
 - (void)_boostiTunesCloudDaemon;
@@ -24,10 +21,13 @@
 - (void)_handleCheckHomePodForJS:(id)s responseHandler:(id)handler;
 - (void)_handleDeviceActivationRequest:(id)request responseHandler:(id)handler;
 - (void)_handleFinishApply:(id)apply responseHandler:(id)handler;
+- (void)_handleFinishDone2:(unsigned int)done2 responseHandler:(id)handler;
+- (void)_handleFinishDone:(unsigned int)done responseHandler:(id)handler;
 - (void)_handleFinishRequest:(id)request responseHandler:(id)handler;
 - (void)_handleHomeScanRequest:(id)request responseHandler:(id)handler;
 - (void)_handlePreAuthRequest:(id)request responseHandler:(id)handler;
 - (void)_handlePurgeSUNoSetup:(id)setup responseHandler:(id)handler;
+- (void)_handleRawRequest:(id)request flags:(unsigned int)flags responseHandler:(id)handler;
 - (void)_handleSUNoSetupScanRequest:(id)request responseHandler:(id)handler;
 - (void)_handleSessionEnded:(id)ended;
 - (void)_handleSessionStarted:(id)started;
@@ -152,7 +152,7 @@ void __30__HDSSetupService_signpostLog__block_invoke(uint64_t a1)
 {
   progressHandler = self->_progressHandler;
   self->_progressHandler = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, progressHandler);
 }
 
 - (void)activate
@@ -213,10 +213,10 @@ uint64_t __42__HDSSetupService_activateWithCompletion___block_invoke_2(uint64_t 
 
 - (void)_activate
 {
-  v26 = 0;
+  v25 = 0;
   self->_advertiseFast = CFPrefs_GetInt64() != 0;
   Int64 = CFPrefs_GetInt64();
-  if (v26)
+  if (v25)
   {
     v4 = 0;
   }
@@ -229,7 +229,7 @@ uint64_t __42__HDSSetupService_activateWithCompletion___block_invoke_2(uint64_t 
   v5 = !v4;
   self->_prefCDPEnabled = v5;
   v6 = CFPrefs_GetInt64();
-  if (v26)
+  if (v25)
   {
     v7 = 1;
   }
@@ -242,7 +242,7 @@ uint64_t __42__HDSSetupService_activateWithCompletion___block_invoke_2(uint64_t 
   v8 = !v7;
   self->_wifiSetupEnabled = v8;
   v9 = CFPrefs_GetInt64();
-  if (v26)
+  if (v25)
   {
     v10 = 1;
   }
@@ -254,15 +254,15 @@ uint64_t __42__HDSSetupService_activateWithCompletion___block_invoke_2(uint64_t 
 
   v11 = !v10;
   self->_identifyB238AsB520 = v11;
-  v12 = CFPrefs_GetInt64();
-  if (v26)
+  _activate = CFPrefs_GetInt64();
+  if (v25)
   {
     v13 = 1;
   }
 
   else
   {
-    v13 = v12 == 0;
+    v13 = _activate == 0;
   }
 
   v14 = !v13;
@@ -276,50 +276,53 @@ uint64_t __42__HDSSetupService_activateWithCompletion___block_invoke_2(uint64_t 
     [(SFClient *)self->_sfClient activateAssertionWithIdentifier:@"com.apple.sharing.PreventRepair"];
     [(SFClient *)self->_sfClient preventExitForLocaleReason:@"HomePod Setup"];
     objc_initWeak(&location, self->_sfClient);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __28__HDSSetupService__activate__block_invoke;
-    v23[3] = &unk_279714798;
-    objc_copyWeak(&v24, &location);
-    [(SFClient *)self->_sfClient setInterruptionHandler:v23];
-    objc_destroyWeak(&v24);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __28__HDSSetupService__activate__block_invoke;
+    v22[3] = &unk_279714798;
+    objc_copyWeak(&v23, &location);
+    [(SFClient *)self->_sfClient setInterruptionHandler:v22];
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
   if (self->_wifiSetupEnabled)
   {
-    v17 = WiFiManagerClientCreate();
-    self->_wifiManager = v17;
-    if (v17)
+    _activate = WiFiManagerClientCreate();
+    self->_wifiManager = _activate;
+    if (_activate)
     {
-      WiFiManagerClientDisable();
+      _activate = WiFiManagerClientDisable();
     }
 
-    else if (gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_HDSSetupService <= 60)
     {
-      [HDSSetupService _activate];
+      if (gLogCategory_HDSSetupService != -1 || (_activate = _LogCategory_Initialize(), _activate))
+      {
+        _activate = [HDSSetupService _activate];
+      }
     }
   }
 
   if (!self->_siriClient)
   {
-    v18 = objc_alloc_init(MEMORY[0x277D54CF0]);
+    v17 = objc_alloc_init(MEMORY[0x277D54CF0]);
     siriClient = self->_siriClient;
-    self->_siriClient = v18;
+    self->_siriClient = v17;
 
     [(SFSiriClient *)self->_siriClient setDispatchQueue:self->_dispatchQueue];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __28__HDSSetupService__activate__block_invoke_2;
-    v22[3] = &unk_2797147C0;
-    v22[4] = self;
-    [(SFSiriClient *)self->_siriClient setSiriDialogHandler:v22];
-    [(SFSiriClient *)self->_siriClient activate];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __28__HDSSetupService__activate__block_invoke_2;
+    v21[3] = &unk_2797147C0;
+    v21[4] = self;
+    [(SFSiriClient *)self->_siriClient setSiriDialogHandler:v21];
+    _activate = [(SFSiriClient *)self->_siriClient activate];
   }
 
-  v20 = [objc_alloc(getHMHomeManagerClass_0()) initWithOptions:0];
+  v19 = [objc_alloc(getHMHomeManagerClass_0(_activate)) initWithOptions:0];
   homeManager = self->_homeManager;
-  self->_homeManager = v20;
+  self->_homeManager = v19;
 
   [(HDSSetupService *)self _sfServiceStart];
 }
@@ -415,10 +418,10 @@ void __28__HDSSetupService__activate__block_invoke(uint64_t a1)
 {
   if (!self->_sfService)
   {
-    v22 = v5;
-    v23 = v4;
-    v24 = v2;
-    v25 = v3;
+    v20 = v5;
+    v21 = v4;
+    v22 = v2;
+    v23 = v3;
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
       [HDSSetupService _sfServiceStart];
@@ -431,8 +434,8 @@ void __28__HDSSetupService__activate__block_invoke(uint64_t a1)
       v9 = signpostID;
       if (os_signpost_enabled(signpostLog))
       {
-        *v21 = 0;
-        _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SFServiceStart", "", v21, 2u);
+        *v19 = 0;
+        _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SFServiceStart", "", v19, 2u);
       }
     }
 
@@ -459,19 +462,17 @@ void __28__HDSSetupService__activate__block_invoke(uint64_t a1)
       [(SFService *)self->_sfService setNeedsSetup:0];
     }
 
-    v12 = SFDeviceModelCodeGet();
-    v13 = self->_sfService;
-    if (v12)
+    if (SFDeviceModelCodeGet())
     {
-      v14 = 33;
+      v12 = 33;
     }
 
     else
     {
-      v14 = 11;
+      v12 = 11;
     }
 
-    [(SFService *)self->_sfService setDeviceActionType:v14];
+    [(SFService *)self->_sfService setDeviceActionType:v12];
     if (self->_identifyB238AsB520)
     {
       [(SFService *)self->_sfService setDeviceActionType:33];
@@ -480,76 +481,74 @@ void __28__HDSSetupService__activate__block_invoke(uint64_t a1)
     [(SFService *)self->_sfService setPairSetupACL:&unk_2864E7D48];
     [(SFService *)self->_sfService setSessionFlags:1];
     [(SFService *)self->_sfService setTouchRemoteEnabled:1];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __34__HDSSetupService__sfServiceStart__block_invoke;
-    v20[3] = &unk_2797147E8;
-    v20[4] = self;
-    [(SFService *)self->_sfService setSessionStartedHandler:v20];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __34__HDSSetupService__sfServiceStart__block_invoke_343;
-    v19[3] = &unk_279714810;
-    v19[4] = self;
-    [(SFService *)self->_sfService setSessionEndedHandler:v19];
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
-    v18[2] = __34__HDSSetupService__sfServiceStart__block_invoke_345;
+    v18[2] = __34__HDSSetupService__sfServiceStart__block_invoke;
     v18[3] = &unk_2797147E8;
     v18[4] = self;
-    [(SFService *)self->_sfService setSessionSecuredHandler:v18];
+    [(SFService *)self->_sfService setSessionStartedHandler:v18];
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __34__HDSSetupService__sfServiceStart__block_invoke_2;
-    v17[3] = &unk_279714838;
+    v17[2] = __34__HDSSetupService__sfServiceStart__block_invoke_343;
+    v17[3] = &unk_279714810;
     v17[4] = self;
-    [(SFService *)self->_sfService setReceivedRequestHandler:v17];
-    v15 = self->_sfService;
+    [(SFService *)self->_sfService setSessionEndedHandler:v17];
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
-    v16[2] = __34__HDSSetupService__sfServiceStart__block_invoke_3;
-    v16[3] = &unk_279714198;
+    v16[2] = __34__HDSSetupService__sfServiceStart__block_invoke_345;
+    v16[3] = &unk_2797147E8;
     v16[4] = self;
-    [(SFService *)v15 activateWithCompletion:v16];
+    [(SFService *)self->_sfService setSessionSecuredHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __34__HDSSetupService__sfServiceStart__block_invoke_2;
+    v15[3] = &unk_279714838;
+    v15[4] = self;
+    [(SFService *)self->_sfService setReceivedRequestHandler:v15];
+    v13 = self->_sfService;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __34__HDSSetupService__sfServiceStart__block_invoke_3;
+    v14[3] = &unk_279714198;
+    v14[4] = self;
+    [(SFService *)v13 activateWithCompletion:v14];
   }
 }
 
 void __34__HDSSetupService__sfServiceStart__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() signpostLog];
-  v6 = [*(a1 + 32) signpostID];
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = a2;
+  v4 = [objc_opt_class() signpostLog];
+  v5 = [*(a1 + 32) signpostID];
+  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v5))
+    v6 = v5;
+    if (os_signpost_enabled(v4))
     {
-      *v8 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SetupSession", "", v8, 2u);
+      *v7 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SetupSession", "", v7, 2u);
     }
   }
 
-  [*(a1 + 32) _handleSessionStarted:v4];
+  [*(a1 + 32) _handleSessionStarted:v3];
 }
 
 void __34__HDSSetupService__sfServiceStart__block_invoke_343(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() signpostLog];
-  v6 = [*(a1 + 32) signpostID];
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = a2;
+  v4 = [objc_opt_class() signpostLog];
+  v5 = [*(a1 + 32) signpostID];
+  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v5))
+    v6 = v5;
+    if (os_signpost_enabled(v4))
     {
-      *v8 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v5, OS_SIGNPOST_INTERVAL_END, v7, "SetupSession", "", v8, 2u);
+      *v7 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v4, OS_SIGNPOST_INTERVAL_END, v6, "SetupSession", "", v7, 2u);
     }
   }
 
-  [*(a1 + 32) _handleSessionEnded:v4];
+  [*(a1 + 32) _handleSessionEnded:v3];
 }
 
 void __34__HDSSetupService__sfServiceStart__block_invoke_345(uint64_t a1, void *a2)
@@ -574,58 +573,55 @@ void __34__HDSSetupService__sfServiceStart__block_invoke_345(uint64_t a1, void *
 
 void __34__HDSSetupService__sfServiceStart__block_invoke_3(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() signpostLog];
-  v6 = [*(a1 + 32) signpostID];
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v4 = [objc_opt_class() signpostLog];
+  v5 = [*(a1 + 32) signpostID];
+  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v5))
+    v6 = v5;
+    if (os_signpost_enabled(v4))
     {
-      *v15 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v5, OS_SIGNPOST_INTERVAL_END, v7, "SFServiceStart", "", v15, 2u);
+      *v13 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v4, OS_SIGNPOST_INTERVAL_END, v6, "SFServiceStart", "", v13, 2u);
     }
   }
 
-  v8 = v3;
-  v9 = *(a1 + 32);
-  if (v8)
+  v7 = v3;
+  v8 = *(a1 + 32);
+  if (v7)
   {
-    v10 = *(v9 + 456);
-    if (v10)
+    v9 = *(v8 + 456);
+    if (v9)
     {
-      v16 = @"eo";
-      v17 = v8;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-      (*(v10 + 16))(v10, 30, v11);
+      v14 = @"eo";
+      v15 = v7;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      (*(v9 + 16))(v9, 30, v10);
 LABEL_11:
     }
   }
 
   else
   {
-    if (*(v9 + 208) == 1)
+    if (*(v8 + 208) == 1)
     {
-      [v9 _playReadyToSetupSound];
-      v9 = *(a1 + 32);
+      [v8 _playReadyToSetupSound];
+      v8 = *(a1 + 32);
     }
 
-    v12 = *(v9 + 456);
-    if (v12)
+    v11 = *(v8 + 456);
+    if (v11)
     {
-      v18 = @"PlayBootTone";
-      v11 = [MEMORY[0x277CCABB0] numberWithInt:*(v9 + 208) ^ 1u];
-      v19[0] = v11;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-      (*(v12 + 16))(v12, 10, v13);
+      v16 = @"PlayBootTone";
+      v10 = [MEMORY[0x277CCABB0] numberWithInt:*(v8 + 208) ^ 1u];
+      v17[0] = v10;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      (*(v11 + 16))(v11, 10, v12);
 
       goto LABEL_11;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSessionStarted:(id)started
@@ -893,7 +889,7 @@ void __41__HDSSetupService__handleSessionStarted___block_invoke_13(uint64_t a1, 
     [HDSSetupService _runHomeKitSetupMode:responseHandler:];
   }
 
-  v6 = NSErrorWithOSStatusF();
+  v6 = NSErrorWithOSStatusF(4294960582, "not implemented");
   (*(handlerCopy + 2))(handlerCopy, v6, 0, 0);
 }
 
@@ -927,7 +923,7 @@ void __41__HDSSetupService__handleSessionStarted___block_invoke_13(uint64_t a1, 
       [HDSSetupService _handlePurgeSUNoSetup:responseHandler:];
     }
 
-    v10 = NSErrorWithOSStatusF();
+    v10 = NSErrorWithOSStatusF(4294896157, "SUController was nil");
     (*(handlerCopy + 2))(handlerCopy, v10, 0, 0);
   }
 }
@@ -1179,7 +1175,7 @@ uint64_t __39__HDSSetupService__handleSessionEnded___block_invoke(uint64_t a1)
   Int64Ranged = CFDictionaryGetInt64Ranged();
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [HDSSetupService _handleAuthActionRequest:Int64Ranged responseHandler:?];
+    [HDSSetupService _handleAuthActionRequest:responseHandler:];
   }
 
   if (Int64Ranged > 3)
@@ -1266,7 +1262,7 @@ uint64_t __60__HDSSetupService__handleAuthActionRequest_responseHandler___block_
 
 - (void)_handleAuthActionAudioPasscodeInit:(id)init response:(id)response
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   initCopy = init;
   responseCopy = response;
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
@@ -1297,7 +1293,7 @@ uint64_t __60__HDSSetupService__handleAuthActionRequest_responseHandler___block_
       v19 = 0;
       v20 = 0;
       v25 = 0;
-      v29 = 4294960591;
+      v28 = 4294960591;
       goto LABEL_49;
     }
   }
@@ -1305,15 +1301,15 @@ uint64_t __60__HDSSetupService__handleAuthActionRequest_responseHandler___block_
   apcPlayer = self->_apcPlayer;
   if (apcPlayer)
   {
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __63__HDSSetupService__handleAuthActionAudioPasscodeInit_response___block_invoke;
-    v34[3] = &unk_279713FF0;
-    v34[4] = self;
-    [(APCPlayer *)apcPlayer stopSend:1 withCompletion:v34];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __63__HDSSetupService__handleAuthActionAudioPasscodeInit_response___block_invoke;
+    v33[3] = &unk_279713FF0;
+    v33[4] = self;
+    apcPlayer = [(APCPlayer *)apcPlayer stopSend:1 withCompletion:v33];
   }
 
-  v11 = [objc_alloc(getAPCPlayerClass()) initWithListenerCapabilityData:v9 payloadLength:3];
+  v11 = [objc_alloc(getAPCPlayerClass(apcPlayer)) initWithListenerCapabilityData:v9 payloadLength:3];
   v12 = self->_apcPlayer;
   self->_apcPlayer = v11;
 
@@ -1329,7 +1325,7 @@ uint64_t __60__HDSSetupService__handleAuthActionRequest_responseHandler___block_
     v19 = 0;
     v20 = 0;
     v25 = 0;
-    v29 = 4294960564;
+    v28 = 4294960564;
     goto LABEL_49;
   }
 
@@ -1347,26 +1343,26 @@ uint64_t __60__HDSSetupService__handleAuthActionRequest_responseHandler___block_
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [HDSSetupService _handleAuthActionAudioPasscodeInit:response:];
+    [HDSSetupService _handleAuthActionAudioPasscodeInit:? response:?];
   }
 
   v17 = strtoul(__str, 0, 10);
-  v32 = v17;
-  v33 = BYTE2(v17);
-  v18 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v32 length:3];
+  v31 = v17;
+  v32 = BYTE2(v17);
+  v18 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v31 length:3];
   v19 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.HomeDeviceSetup"];
   v20 = [v19 URLForResource:@"HomePodPasscode-b238.m4a" withExtension:0];
   if (v20)
   {
     v21 = self->_apcPlayer;
-    v31 = 0;
-    [(APCPlayer *)v21 preparePayload:v18 usingCarrierAtURL:v20 error:&v31];
-    v22 = v31;
+    v30 = 0;
+    [(APCPlayer *)v21 preparePayload:v18 usingCarrierAtURL:v20 error:&v30];
+    v22 = v30;
   }
 
   else
   {
-    v22 = NSErrorWithOSStatusF();
+    v22 = NSErrorWithOSStatusF(4294960596, "No passcode URL");
   }
 
   v23 = v22;
@@ -1378,9 +1374,9 @@ uint64_t __60__HDSSetupService__handleAuthActionRequest_responseHandler___block_
     }
 
     v24 = self->_apcPlayer;
-    v30 = v23;
-    [(APCPlayer *)v24 preparePayload:v18 usingCarrierAsset:3 error:&v30];
-    v25 = v30;
+    v29 = v23;
+    [(APCPlayer *)v24 preparePayload:v18 usingCarrierAsset:3 error:&v29];
+    v25 = v29;
 
     if (v25)
     {
@@ -1403,9 +1399,9 @@ uint64_t __60__HDSSetupService__handleAuthActionRequest_responseHandler___block_
 
     v25 = 0;
 LABEL_48:
-    v29 = 4294960596;
+    v28 = 4294960596;
 LABEL_49:
-    v27 = [MEMORY[0x277CCABB0] numberWithInt:v29];
+    v27 = [MEMORY[0x277CCABB0] numberWithInt:v28];
     [responseCopy setObject:v27 forKeyedSubscript:@"er"];
     goto LABEL_29;
   }
@@ -1414,8 +1410,6 @@ LABEL_49:
   [responseCopy setObject:configurationData forKeyedSubscript:@"apcPC"];
   v25 = 0;
 LABEL_29:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__HDSSetupService__handleAuthActionAudioPasscodeInit_response___block_invoke(uint64_t a1)
@@ -1452,69 +1446,70 @@ LABEL_19:
   }
 
   v6 = self->_apcCapData;
+  v7 = v6;
   if (v6)
   {
-    v7 = [objc_alloc(getAPCPlayerClass()) initWithListenerCapabilityData:v6 payloadLength:3];
-    v8 = self->_apcPlayer;
-    self->_apcPlayer = v7;
-
+    v8 = [objc_alloc(getAPCPlayerClass(v6)) initWithListenerCapabilityData:v6 payloadLength:3];
     v9 = self->_apcPlayer;
-    if (v9)
+    self->_apcPlayer = v8;
+
+    v10 = self->_apcPlayer;
+    if (v10)
     {
-      [(APCPlayer *)v9 setDispatchQueue:self->_dispatchQueue];
+      [(APCPlayer *)v10 setDispatchQueue:self->_dispatchQueue];
       fixedPIN = [(SFService *)self->_sfService fixedPIN];
       uTF8String = [fixedPIN UTF8String];
 
       if (uTF8String)
       {
-        v12 = strtoul(uTF8String, 0, 10);
-        v26 = v12;
-        v27 = BYTE2(v12);
-        v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v26 length:3];
-        v14 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.HomeDeviceSetup"];
-        v15 = [v14 URLForResource:@"HomePodPasscode-b238.m4a" withExtension:0];
-        if (v15)
+        v13 = strtoul(uTF8String, 0, 10);
+        v27 = v13;
+        v28 = BYTE2(v13);
+        v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v27 length:3];
+        v15 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.HomeDeviceSetup"];
+        v16 = [v15 URLForResource:@"HomePodPasscode-b238.m4a" withExtension:0];
+        if (v16)
         {
-          v16 = self->_apcPlayer;
-          v25 = 0;
-          [(APCPlayer *)v16 preparePayload:v13 usingCarrierAtURL:v15 error:&v25];
-          v17 = v25;
+          v17 = self->_apcPlayer;
+          v26 = 0;
+          [(APCPlayer *)v17 preparePayload:v14 usingCarrierAtURL:v16 error:&v26];
+          v18 = v26;
         }
 
         else
         {
-          v17 = NSErrorWithOSStatusF();
+          v18 = NSErrorWithOSStatusF(4294960596, "No passcode URL");
         }
 
-        v18 = v17;
-        if (v17)
+        v19 = v18;
+        if (v18)
         {
-          v19 = self->_apcPlayer;
-          v24 = v18;
-          [(APCPlayer *)v19 preparePayload:v13 usingCarrierAsset:3 error:&v24];
-          v20 = v24;
+          v20 = self->_apcPlayer;
+          v25 = v19;
+          [(APCPlayer *)v20 preparePayload:v14 usingCarrierAsset:3 error:&v25];
+          v21 = v25;
 
-          if (v20)
+          if (v21)
           {
             if (gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
             {
               [HDSSetupService _handleAuthActionAudioPasscodeStartWithResponse:];
             }
 
-            v21 = 0;
-            v18 = 4294960596;
+            v22 = 0;
+            v19 = 4294960596;
             goto LABEL_16;
           }
 
-          v18 = 0;
+          v19 = 0;
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
 
-        v21 = 1;
+        v22 = 1;
 LABEL_16:
 
         goto LABEL_17;
@@ -1525,10 +1520,10 @@ LABEL_16:
         [HDSSetupService _handleAuthActionAudioPasscodeStartWithResponse:];
       }
 
-      v20 = 0;
-      v13 = 0;
       v21 = 0;
-      v18 = 4294960551;
+      v14 = 0;
+      v22 = 0;
+      v19 = 4294960551;
     }
 
     else
@@ -1538,10 +1533,10 @@ LABEL_16:
         [HDSSetupService _handleAuthActionAudioPasscodeStartWithResponse:];
       }
 
-      v20 = 0;
-      v13 = 0;
       v21 = 0;
-      v18 = 4294960564;
+      v14 = 0;
+      v22 = 0;
+      v19 = 4294960564;
     }
   }
 
@@ -1552,24 +1547,24 @@ LABEL_16:
       [HDSSetupService _handleAuthActionAudioPasscodeStartWithResponse:];
     }
 
-    v20 = 0;
-    v13 = 0;
     v21 = 0;
-    v18 = 4294960591;
+    v14 = 0;
+    v22 = 0;
+    v19 = 4294960591;
   }
 
 LABEL_17:
 
-  if (v21)
+  if (v22)
   {
     apcPlayer = self->_apcPlayer;
     goto LABEL_19;
   }
 
-  if (v18)
+  if (v19)
   {
-    v23 = [MEMORY[0x277CCABB0] numberWithInt:v18];
-    [responseCopy setObject:v23 forKeyedSubscript:@"er"];
+    v24 = [MEMORY[0x277CCABB0] numberWithInt:v19];
+    [responseCopy setObject:v24 forKeyedSubscript:@"er"];
   }
 
 LABEL_21:
@@ -1699,16 +1694,15 @@ uint64_t __71__HDSSetupService__handleAuthActionSiriStart_response_responseHandl
     [*(a1 + 32) setObject:v3 forKeyedSubscript:@"er"];
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (int)_handleBasicConfigRequest:(id)request
 {
   requestCopy = request;
-  v97 = 0;
+  v95 = 0;
   signpostLog = [objc_opt_class() signpostLog];
   signpostID = [(HDSSetupService *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -1722,272 +1716,271 @@ uint64_t __71__HDSSetupService__handleAuthActionSiriStart_response_responseHandl
   }
 
   apcPlayer = self->_apcPlayer;
-  v95[0] = MEMORY[0x277D85DD0];
-  v95[1] = 3221225472;
-  v95[2] = __45__HDSSetupService__handleBasicConfigRequest___block_invoke;
-  v95[3] = &unk_279713FF0;
-  v95[4] = self;
-  [(APCPlayer *)apcPlayer stopSend:0 withCompletion:v95];
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = __45__HDSSetupService__handleBasicConfigRequest___block_invoke;
+  v93[3] = &unk_279713FF0;
+  v93[4] = self;
+  [(APCPlayer *)apcPlayer stopSend:0 withCompletion:v93];
   v9 = self->_apcPlayer;
   self->_apcPlayer = 0;
 
   Int64 = CFDictionaryGetInt64();
-  v11 = Int64;
-  if (!v97)
+  if (!v95)
   {
     softLink_AXSVoiceOverTouchSetEnabled(Int64 != 0);
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)v11 != 0 _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
-  CFDictionaryGetDouble();
+  Double = CFDictionaryGetDouble();
   v13 = *&v12;
-  if (!v97)
+  if (!v95)
   {
     v14 = v12;
-    softLink_AXSVoiceOverTouchSetSpeakingRate(v14);
+    Double = softLink_AXSVoiceOverTouchSetSpeakingRate(v14);
   }
 
-  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_HDSSetupService <= 30)
   {
-    v91 = v97;
-    TMSourceProxBuddy = v13;
-    v89 = @"vosr";
-    LogPrintF();
+    if (gLogCategory_HDSSetupService != -1 || (Double = _LogCategory_Initialize(), Double))
+    {
+      v89 = v95;
+      TMSourceProxBuddy = v13;
+      v87 = @"vosr";
+      Double = LogPrintF();
+    }
   }
 
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
+  sharedInstance = [getAXSettingsClass(Double) sharedInstance];
   v16 = CFDictionaryGetInt64();
-  v17 = v16;
-  if (!v97)
+  if (!v95)
   {
-    [sharedInstance setTouchAccommodationsEnabled:{v16 != 0, v89, TMSourceProxBuddy, v91}];
+    [sharedInstance setTouchAccommodationsEnabled:{v16 != 0, v87, TMSourceProxBuddy, v89}];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)v17 != 0 _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
-  v18 = CFDictionaryGetInt64();
-  v19 = v18;
-  if (!v97)
+  v17 = CFDictionaryGetInt64();
+  if (!v95)
   {
-    [sharedInstance setTouchAccommodationsHoldDurationEnabled:v18 != 0];
+    [sharedInstance setTouchAccommodationsHoldDurationEnabled:v17 != 0];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)v19 != 0 _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
   CFDictionaryGetDouble();
-  v21 = *&v20;
-  if (!v97)
+  v19 = *&v18;
+  if (!v95)
   {
-    [sharedInstance setTouchAccommodationsHoldDuration:v20];
+    [sharedInstance setTouchAccommodationsHoldDuration:v18];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v91 = v97;
-    TMSourceProxBuddy = v21;
-    v89 = @"taHD";
+    v89 = v95;
+    TMSourceProxBuddy = v19;
+    v87 = @"taHD";
     LogPrintF();
   }
 
-  v22 = CFDictionaryGetInt64();
-  v23 = v22;
-  if (!v97)
+  v20 = CFDictionaryGetInt64();
+  if (!v95)
   {
-    [sharedInstance setTouchAccommodationsIgnoreRepeatEnabled:{v22 != 0, v89, TMSourceProxBuddy, v91}];
+    [sharedInstance setTouchAccommodationsIgnoreRepeatEnabled:{v20 != 0, v87, TMSourceProxBuddy, v89}];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)v23 != 0 _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
   CFDictionaryGetDouble();
-  v25 = *&v24;
-  if (!v97)
+  v22 = *&v21;
+  if (!v95)
   {
-    [sharedInstance setTouchAccommodationsIgnoreRepeatDuration:v24];
+    [sharedInstance setTouchAccommodationsIgnoreRepeatDuration:v21];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v91 = v97;
-    TMSourceProxBuddy = v25;
-    v89 = @"taIRD";
+    v89 = v95;
+    TMSourceProxBuddy = v22;
+    v87 = @"taIRD";
     LogPrintF();
   }
 
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v27 = Int64Ranged;
-  if (!v97)
+  v24 = Int64Ranged;
+  if (!v95)
   {
     [sharedInstance setTouchAccommodationsTapActivationMethod:Int64Ranged];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    TMSourceProxBuddy = v27;
-    v91 = v97;
-    v89 = @"taTAM";
+    TMSourceProxBuddy = v24;
+    v89 = v95;
+    v87 = @"taTAM";
     LogPrintF();
   }
 
   CFDictionaryGetDouble();
-  v29 = *&v28;
-  if (!v97)
+  v26 = *&v25;
+  if (!v95)
   {
-    [sharedInstance setTouchAccommodationsTapActivationTimeout:v28];
+    [sharedInstance setTouchAccommodationsTapActivationTimeout:v25];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v91 = v97;
-    TMSourceProxBuddy = v29;
-    v89 = @"taTAT";
+    v89 = v95;
+    TMSourceProxBuddy = v26;
+    v87 = @"taTAT";
     LogPrintF();
   }
 
   CFDictionaryGetDouble();
-  v31 = *&v30;
-  if (!v97)
+  v28 = *&v27;
+  if (!v95)
   {
-    [sharedInstance setVoiceOverDoubleTapInterval:v30];
+    [sharedInstance setVoiceOverDoubleTapInterval:v27];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v91 = v97;
-    TMSourceProxBuddy = v31;
-    v89 = @"vodti";
+    v89 = v95;
+    TMSourceProxBuddy = v28;
+    v87 = @"vodti";
+    LogPrintF();
+  }
+
+  v29 = CFDictionaryGetInt64();
+  v30 = MEMORY[0x277CBF008];
+  if (v29)
+  {
+    CFPrefs_SetValue();
+    CFPrefs_SetInt64();
+    CFPreferencesSetValue(@"AcceptProfileServicePayloadOnHomePod", *MEMORY[0x277CBED28], *v30, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  }
+
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleBasicConfigRequest:];
+  }
+
+  v31 = CFDictionaryGetInt64Ranged();
+  if (v31)
+  {
+    CFPrefs_SetInt64();
+  }
+
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    v87 = v31;
+    TMSourceProxBuddy = v95;
     LogPrintF();
   }
 
   v32 = CFDictionaryGetInt64();
-  v33 = MEMORY[0x277CBF008];
-  if (v32)
+  if (!v95)
   {
-    CFPrefs_SetValue();
-    CFPrefs_SetInt64();
-    CFPreferencesSetValue(@"AcceptProfileServicePayloadOnHomePod", *MEMORY[0x277CBED28], *v33, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+    [(objc_class *)getCLLocationManagerClass() setLocationServicesEnabled:v32 != 0];
   }
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)v32 == 0 _handleBasicConfigRequest:?];
-  }
-
-  v34 = CFDictionaryGetInt64Ranged();
-  if (v34)
-  {
-    CFPrefs_SetInt64();
-  }
-
-  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
-  {
-    v89 = v34;
-    TMSourceProxBuddy = v97;
-    LogPrintF();
-  }
-
-  v35 = CFDictionaryGetInt64();
-  if (!v97)
-  {
-    [(objc_class *)getCLLocationManagerClass() setLocationServicesEnabled:v35 != 0];
-  }
-
-  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
-  {
-    [(HDSSetupService *)v35 != 0 _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
   CFStringGetTypeID();
-  v36 = CFDictionaryGetTypedValue();
+  v33 = CFDictionaryGetTypedValue();
   p_languageCode = &self->_languageCode;
   languageCode = self->_languageCode;
-  self->_languageCode = v36;
+  self->_languageCode = v33;
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)&self->_languageCode _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
-  if (v97)
+  if (v95)
   {
     CFStringGetTypeID();
-    v39 = CFDictionaryGetTypedValue();
-    v40 = *p_languageCode;
-    *p_languageCode = v39;
+    v36 = CFDictionaryGetTypedValue();
+    v37 = *p_languageCode;
+    *p_languageCode = v36;
 
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      [(HDSSetupService *)&self->_languageCode _handleBasicConfigRequest:?];
+      [HDSSetupService _handleBasicConfigRequest:];
     }
   }
 
-  v41 = *p_languageCode;
+  v38 = *p_languageCode;
+  if (v38)
+  {
+    CFPreferencesSetAppValue(@"AppleLanguageCodeSetup", v38, *v30);
+  }
+
+  CFStringGetTypeID();
+  v39 = CFDictionaryGetTypedValue();
+  localeIdentifier = self->_localeIdentifier;
+  self->_localeIdentifier = v39;
+
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleBasicConfigRequest:];
+  }
+
+  v41 = self->_localeIdentifier;
   if (v41)
   {
-    CFPreferencesSetAppValue(@"AppleLanguageCodeSetup", v41, *v33);
+    CFPreferencesSetAppValue(@"AppleLocaleSetup", v41, *v30);
   }
 
   CFStringGetTypeID();
   v42 = CFDictionaryGetTypedValue();
-  localeIdentifier = self->_localeIdentifier;
-  self->_localeIdentifier = v42;
-
-  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
-  {
-    [(HDSSetupService *)&self->_localeIdentifier _handleBasicConfigRequest:?];
-  }
-
-  v44 = self->_localeIdentifier;
-  if (v44)
-  {
-    CFPreferencesSetAppValue(@"AppleLocaleSetup", v44, *v33);
-  }
-
-  CFStringGetTypeID();
-  v45 = CFDictionaryGetTypedValue();
   temperatureUnit = self->_temperatureUnit;
-  self->_temperatureUnit = v45;
+  self->_temperatureUnit = v42;
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)&self->_temperatureUnit _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
-  CFPreferencesAppSynchronize(*v33);
+  CFPreferencesAppSynchronize(*v30);
   if ([(SFSession *)self->_sfSession sharingSourceVersion]- 16300101 > 0x13D5BA)
   {
     self->_siriDataSharingDeviceIsValid = 1;
-    v47 = CFDictionaryGetInt64();
-    if (!v97)
+    v44 = CFDictionaryGetInt64();
+    if (!v95)
     {
-      if (v47)
+      if (v44)
       {
-        v48 = 6;
+        v45 = 6;
       }
 
       else
       {
-        v48 = 5;
+        v45 = 5;
       }
 
-      self->_siriDataSharingState = v48;
+      self->_siriDataSharingState = v45;
     }
 
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      [(HDSSetupService *)self _handleBasicConfigRequest:?];
+      [HDSSetupService _handleBasicConfigRequest:];
     }
   }
 
@@ -2018,28 +2011,28 @@ uint64_t __71__HDSSetupService__handleAuthActionSiriStart_response_responseHandl
 
     if (siriDisabled)
     {
-      v50 = "yes";
+      v47 = "yes";
     }
 
     else
     {
-      v50 = "no";
+      v47 = "no";
     }
 
-    v89 = v50;
-    TMSourceProxBuddy = v97;
+    v87 = v47;
+    TMSourceProxBuddy = v95;
     LogPrintF();
   }
 
 LABEL_113:
   CFStringGetTypeID();
-  v51 = CFDictionaryGetTypedValue();
+  v48 = CFDictionaryGetTypedValue();
   siriListenLanguage = self->_siriListenLanguage;
-  self->_siriListenLanguage = v51;
+  self->_siriListenLanguage = v48;
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)&self->_siriListenLanguage _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
   siriVoiceGender = CFDictionaryGetInt64Ranged();
@@ -2056,71 +2049,75 @@ LABEL_113:
       siriVoiceGender = self->_siriVoiceGender;
     }
 
-    v89 = siriVoiceGender;
-    TMSourceProxBuddy = v97;
+    v87 = siriVoiceGender;
+    TMSourceProxBuddy = v95;
     LogPrintF();
   }
 
 LABEL_120:
   CFStringGetTypeID();
-  v54 = CFDictionaryGetTypedValue();
+  v51 = CFDictionaryGetTypedValue();
   siriVoiceLanguage = self->_siriVoiceLanguage;
-  self->_siriVoiceLanguage = v54;
+  self->_siriVoiceLanguage = v51;
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)&self->_siriVoiceLanguage _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
   CFStringGetTypeID();
-  v56 = CFDictionaryGetTypedValue();
+  v53 = CFDictionaryGetTypedValue();
   siriVoiceName = self->_siriVoiceName;
-  self->_siriVoiceName = v56;
+  self->_siriVoiceName = v53;
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)&self->_siriVoiceName _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
   CFDateGetTypeID();
-  v58 = CFDictionaryGetTypedValue();
+  v55 = CFDictionaryGetTypedValue();
   timeObj = self->_timeObj;
-  self->_timeObj = v58;
+  self->_timeObj = v55;
 
-  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_HDSSetupService <= 30)
   {
-    [(HDSSetupService *)&self->_timeObj _handleBasicConfigRequest:?];
+    if (gLogCategory_HDSSetupService != -1 || (v57 = _LogCategory_Initialize(), v57))
+    {
+      v57 = [HDSSetupService _handleBasicConfigRequest:];
+    }
   }
 
-  v60 = self->_timeObj;
-  if (v60)
+  v58 = self->_timeObj;
+  if (v58)
   {
     if (gLogCategory_HDSSetupService <= 30)
     {
       if (gLogCategory_HDSSetupService == -1)
       {
-        if (!_LogCategory_Initialize())
+        v57 = _LogCategory_Initialize();
+        if (!v57)
         {
           goto LABEL_134;
         }
 
-        v60 = self->_timeObj;
+        v58 = self->_timeObj;
       }
 
-      v89 = v60;
-      TMSourceProxBuddy = getTMSourceProxBuddy();
-      LogPrintF();
+      v87 = v58;
+      TMSourceProxBuddy = getTMSourceProxBuddy(v57);
+      v57 = LogPrintF();
     }
 
 LABEL_134:
-    v61 = getTMSourceProxBuddy();
+    v59 = getTMSourceProxBuddy(v57);
     [(NSDate *)self->_timeObj timeIntervalSinceReferenceDate];
-    softLinkTMSetSourceTime(v61, v62, 10.0);
+    softLinkTMSetSourceTime(v59);
   }
 
   LODWORD(timeAuto) = CFDictionaryGetInt64() != 0;
-  v64 = v97;
-  if (v97)
+  v61 = v95;
+  if (v95)
   {
     timeAuto = 0xFFFFFFFFLL;
   }
@@ -2136,8 +2133,8 @@ LABEL_134:
     if (gLogCategory_HDSSetupService != -1)
     {
 LABEL_140:
-      v89 = timeAuto;
-      TMSourceProxBuddy = v64;
+      v87 = timeAuto;
+      TMSourceProxBuddy = v61;
       LogPrintF();
       goto LABEL_142;
     }
@@ -2145,7 +2142,7 @@ LABEL_140:
     if (_LogCategory_Initialize())
     {
       timeAuto = self->_timeAuto;
-      v64 = v97;
+      v61 = v95;
       goto LABEL_140;
     }
   }
@@ -2165,32 +2162,32 @@ LABEL_142:
       timeCycle = self->_timeCycle;
     }
 
-    v89 = timeCycle;
-    TMSourceProxBuddy = v97;
+    v87 = timeCycle;
+    TMSourceProxBuddy = v95;
     LogPrintF();
   }
 
 LABEL_146:
   CFStringGetTypeID();
-  v66 = CFDictionaryGetTypedValue();
+  v63 = CFDictionaryGetTypedValue();
   timeZone = self->_timeZone;
-  self->_timeZone = v66;
+  self->_timeZone = v63;
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)&self->_timeZone _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
-  v68 = CFDictionaryGetInt64() != 0;
-  v69 = v97;
-  if (v97)
+  v65 = CFDictionaryGetInt64() != 0;
+  v66 = v95;
+  if (v95)
   {
     timeZoneAuto = 0xFFFFFFFFLL;
   }
 
   else
   {
-    timeZoneAuto = v68;
+    timeZoneAuto = v65;
   }
 
   self->_timeZoneAuto = timeZoneAuto;
@@ -2204,92 +2201,92 @@ LABEL_146:
       }
 
       timeZoneAuto = self->_timeZoneAuto;
-      v69 = v97;
+      v66 = v95;
     }
 
-    v89 = timeZoneAuto;
-    TMSourceProxBuddy = v69;
+    v87 = timeZoneAuto;
+    TMSourceProxBuddy = v66;
     LogPrintF();
   }
 
 LABEL_156:
-  [(HDSSetupService *)self setTime:v89];
-  v71 = objc_alloc_init(getHMDeviceSetupOperationHandlerClass());
+  v68 = [(HDSSetupService *)self setTime:v87];
+  v69 = objc_alloc_init(getHMDeviceSetupOperationHandlerClass(v68));
   homeKitSetupHandler = self->_homeKitSetupHandler;
-  self->_homeKitSetupHandler = v71;
+  self->_homeKitSetupHandler = v69;
 
-  v73 = self->_homeKitSetupHandler;
+  v71 = self->_homeKitSetupHandler;
   trSession = [(SFSession *)self->_sfSession trSession];
-  [(HMDeviceSetupOperationHandler *)v73 registerMessageHandlersForSession:trSession];
+  [(HMDeviceSetupOperationHandler *)v71 registerMessageHandlersForSession:trSession];
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [HDSSetupService _handleBasicConfigRequest:?];
+    [HDSSetupService _handleBasicConfigRequest:];
   }
 
-  v75 = CFDictionaryGetInt64();
+  v73 = CFDictionaryGetInt64();
   if (*p_languageCode)
   {
-    v76 = v75;
+    v74 = v73;
     sharedPreferences = [(objc_class *)getVTPreferencesClass() sharedPreferences];
-    v78 = [sharedPreferences isCompactVoiceTriggerAvailableForLanguageCode:*p_languageCode];
+    v76 = [sharedPreferences isCompactVoiceTriggerAvailableForLanguageCode:*p_languageCode];
 
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
       [HDSSetupService _handleBasicConfigRequest:];
-      if (!v78)
+      if (!v76)
       {
         goto LABEL_172;
       }
     }
 
-    else if (!v78)
+    else if (!v76)
     {
       goto LABEL_172;
     }
 
-    v79 = v76 != 0;
+    v77 = v74 != 0;
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
       [HDSSetupService _handleBasicConfigRequest:];
     }
 
     sharedPreferences2 = [(objc_class *)getVTPreferencesClass() sharedPreferences];
-    v81 = [sharedPreferences2 setUserPreferredVoiceTriggerPhraseType:v79 sender:self deviceType:0 endpointId:0];
+    v79 = [sharedPreferences2 setUserPreferredVoiceTriggerPhraseType:v77 sender:self deviceType:0 endpointId:0];
 
-    if (v81 && gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+    if (v79 && gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
       [HDSSetupService _handleBasicConfigRequest:];
     }
   }
 
 LABEL_172:
-  v82 = dispatch_get_global_queue(0, 0);
+  v80 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2;
   block[3] = &unk_2797142A8;
-  v83 = requestCopy;
-  v93 = v83;
-  v94 = v68;
-  dispatch_async(v82, block);
+  v81 = requestCopy;
+  v91 = v81;
+  v92 = v65;
+  dispatch_async(v80, block);
 
   signpostLog2 = [objc_opt_class() signpostLog];
   signpostID2 = [(HDSSetupService *)self signpostID];
   if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v86 = signpostID2;
+    v84 = signpostID2;
     if (os_signpost_enabled(signpostLog2))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog2, OS_SIGNPOST_INTERVAL_END, v86, "BasicConfig", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog2, OS_SIGNPOST_INTERVAL_END, v84, "BasicConfig", "", buf, 2u);
     }
   }
 
   progressHandler = self->_progressHandler;
   if (progressHandler)
   {
-    progressHandler[2](progressHandler, 80, v83);
+    progressHandler[2](progressHandler, 80, v81);
   }
 
   return 0;
@@ -2308,46 +2305,31 @@ uint64_t __45__HDSSetupService__handleBasicConfigRequest___block_invoke(uint64_t
 
 void __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2(uint64_t a1)
 {
-  v16 = 0;
-  v2 = *(a1 + 32);
-  Int64 = CFDictionaryGetInt64();
-  v4 = Int64;
-  v5 = Int64 != 0;
-  v6 = [MEMORY[0x277D262A0] sharedConnection];
-  [v6 setBoolValue:v5 forSetting:*MEMORY[0x277D25E90]];
+  v2 = CFDictionaryGetInt64() != 0;
+  v3 = [MEMORY[0x277D262A0] sharedConnection];
+  [v3 setBoolValue:v2 forSetting:*MEMORY[0x277D25E90]];
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2_cold_1(v4 != 0, &v16);
+    __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2_cold_1();
   }
 
-  v7 = *(a1 + 32);
-  v8 = CFDictionaryGetInt64();
-  if (!v16)
-  {
-    v9 = v8;
-    v10 = v8 != 0;
-    v11 = [MEMORY[0x277D262A0] sharedConnection];
-    [v11 setBoolValue:v10 forSetting:*MEMORY[0x277D25E58]];
+  v4 = CFDictionaryGetInt64() != 0;
+  v5 = [MEMORY[0x277D262A0] sharedConnection];
+  [v5 setBoolValue:v4 forSetting:*MEMORY[0x277D25E58]];
 
-    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
-    {
-      __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2_cold_2(v9 != 0, &v16);
-    }
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2_cold_2();
   }
 
-  v12 = *(a1 + 32);
-  v13 = CFDictionaryGetInt64();
-  if (!v16)
-  {
-    v14 = v13;
-    v15 = [MEMORY[0x277D262A0] sharedConnection];
-    [v15 setBoolValue:*(a1 + 40) forSetting:*MEMORY[0x277D25FB8]];
+  CFDictionaryGetInt64();
+  v6 = [MEMORY[0x277D262A0] sharedConnection];
+  [v6 setBoolValue:*(a1 + 40) forSetting:*MEMORY[0x277D25FB8]];
 
-    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
-    {
-      __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2_cold_3(v14 == 0, &v16);
-    }
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2_cold_3();
   }
 }
 
@@ -2361,7 +2343,7 @@ void __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2(uint64_t a
     {
       if (gLogCategory_HDSSetupService != -1 || (v5 = _LogCategory_Initialize(), timeZone = self->_timeZone, v5))
       {
-        v11 = timeZone;
+        v10 = timeZone;
         LogPrintF();
         timeZone = self->_timeZone;
       }
@@ -2370,7 +2352,6 @@ void __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2(uint64_t a
     [(NSString *)timeZone UTF8String];
     if (tzlink() && gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      v12 = self->_timeZone;
       LogPrintF();
     }
 
@@ -2382,24 +2363,33 @@ void __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2(uint64_t a
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)self setTime];
+    [HDSSetupService setTime];
   }
 
   softLinkTMSetAutomaticTimeZoneEnabled(1);
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)self setTime];
+    [HDSSetupService setTime];
   }
 
   softLinkTMSetAutomaticTimeEnabled(1);
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)self setTime];
+    [HDSSetupService setTime];
   }
 
   timeCycle = self->_timeCycle;
-  v7 = *v4;
   if (timeCycle == 12)
+  {
+    v7 = *v4;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (timeCycle == 24)
   {
     v8 = *v4;
   }
@@ -2409,20 +2399,10 @@ void __45__HDSSetupService__handleBasicConfigRequest___block_invoke_2(uint64_t a
     v8 = 0;
   }
 
-  if (timeCycle == 24)
-  {
-    v9 = *v4;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x277CBF008];
-  CFPreferencesSetAppValue(@"AppleICUForce12HourTime", v8, *MEMORY[0x277CBF008]);
-  CFPreferencesSetAppValue(@"AppleICUForce24HourTime", v9, v10);
-  CFPreferencesAppSynchronize(v10);
+  v9 = *MEMORY[0x277CBF008];
+  CFPreferencesSetAppValue(@"AppleICUForce12HourTime", v7, *MEMORY[0x277CBF008]);
+  CFPreferencesSetAppValue(@"AppleICUForce24HourTime", v8, v9);
+  CFPreferencesAppSynchronize(v9);
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
     [HDSSetupService setTime];
@@ -2494,7 +2474,7 @@ void __26__HDSSetupService_setTime__block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)_handleFinishApply:(id)apply responseHandler:(id)handler
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   applyCopy = apply;
   handlerCopy = handler;
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
@@ -2523,7 +2503,7 @@ void __26__HDSSetupService_setTime__block_invoke(uint64_t a1, uint64_t a2)
       {
         if (gLogCategory_HDSSetupService != -1 || (v12 = _LogCategory_Initialize(), timeZone = self->_timeZone, v12))
         {
-          v49 = timeZone;
+          v40 = timeZone;
           LogPrintF();
           timeZone = self->_timeZone;
         }
@@ -2538,8 +2518,8 @@ void __26__HDSSetupService_setTime__block_invoke(uint64_t a1, uint64_t a2)
           v14 = v13;
           if (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize())
           {
-            v49 = self->_timeZone;
-            v50 = v14;
+            v40 = self->_timeZone;
+            v41 = v14;
             LogPrintF();
           }
         }
@@ -2553,24 +2533,33 @@ void __26__HDSSetupService_setTime__block_invoke(uint64_t a1, uint64_t a2)
 
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      [HDSSetupService _handleFinishApply:? responseHandler:?];
+      [HDSSetupService _handleFinishApply:responseHandler:];
     }
 
     softLinkTMSetAutomaticTimeZoneEnabled(1);
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      [HDSSetupService _handleFinishApply:? responseHandler:?];
+      [HDSSetupService _handleFinishApply:responseHandler:];
     }
 
     softLinkTMSetAutomaticTimeEnabled(1);
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      [HDSSetupService _handleFinishApply:? responseHandler:?];
+      [HDSSetupService _handleFinishApply:responseHandler:];
     }
 
     timeCycle = self->_timeCycle;
-    v16 = *v11;
     if (timeCycle == 12)
+    {
+      v16 = *v11;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    if (timeCycle == 24)
     {
       v17 = *v11;
     }
@@ -2580,20 +2569,10 @@ void __26__HDSSetupService_setTime__block_invoke(uint64_t a1, uint64_t a2)
       v17 = 0;
     }
 
-    if (timeCycle == 24)
-    {
-      v18 = *v11;
-    }
-
-    else
-    {
-      v18 = 0;
-    }
-
-    v19 = *v9;
-    CFPreferencesSetAppValue(@"AppleICUForce12HourTime", v17, *v9);
-    CFPreferencesSetAppValue(@"AppleICUForce24HourTime", v18, v19);
-    CFPreferencesAppSynchronize(v19);
+    v18 = *v9;
+    CFPreferencesSetAppValue(@"AppleICUForce12HourTime", v16, *v9);
+    CFPreferencesSetAppValue(@"AppleICUForce24HourTime", v17, v18);
+    CFPreferencesAppSynchronize(v18);
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
       [HDSSetupService _handleFinishApply:responseHandler:];
@@ -2605,61 +2584,61 @@ void __26__HDSSetupService_setTime__block_invoke(uint64_t a1, uint64_t a2)
   languageCode = self->_languageCode;
   if (languageCode)
   {
-    v21 = self->_languageCode;
+    v20 = self->_languageCode;
     if (gLogCategory_HDSSetupService <= 30)
     {
-      v21 = self->_languageCode;
-      if (gLogCategory_HDSSetupService != -1 || (v22 = _LogCategory_Initialize(), v21 = self->_languageCode, v22))
+      v20 = self->_languageCode;
+      if (gLogCategory_HDSSetupService != -1 || (v21 = _LogCategory_Initialize(), v20 = self->_languageCode, v21))
       {
-        v49 = v21;
+        v40 = v20;
         LogPrintF();
-        v21 = self->_languageCode;
+        v20 = self->_languageCode;
       }
     }
 
-    v23 = MEMORY[0x277CBEAF8];
-    v55[0] = v21;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:{1, v49, v50, handlerCopy}];
-    [v23 setPreferredLanguages:v24];
+    v22 = MEMORY[0x277CBEAF8];
+    v46[0] = v20;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:{1, v40, v41, handlerCopy}];
+    [v22 setPreferredLanguages:v23];
   }
 
-  v25 = *v9;
+  v24 = *v9;
   CFPreferencesSetAppValue(@"AppleLanguageCodeSetup", 0, *v9);
   localeIdentifier = self->_localeIdentifier;
-  v27 = localeIdentifier != 0;
+  v26 = localeIdentifier != 0;
   if (localeIdentifier)
   {
-    v28 = self->_localeIdentifier;
+    v27 = self->_localeIdentifier;
     if (gLogCategory_HDSSetupService <= 30)
     {
-      if (gLogCategory_HDSSetupService != -1 || (v29 = _LogCategory_Initialize(), v28 = self->_localeIdentifier, v29))
+      if (gLogCategory_HDSSetupService != -1 || (v28 = _LogCategory_Initialize(), v27 = self->_localeIdentifier, v28))
       {
-        v49 = v28;
+        v40 = v27;
         LogPrintF();
-        v28 = self->_localeIdentifier;
+        v27 = self->_localeIdentifier;
       }
     }
 
-    CFPreferencesSetAppValue(@"AppleLocale", v28, v25);
-    CFPreferencesAppSynchronize(v25);
+    CFPreferencesSetAppValue(@"AppleLocale", v27, v24);
+    CFPreferencesAppSynchronize(v24);
   }
 
-  CFPreferencesSetAppValue(@"AppleLocaleSetup", 0, v25);
+  CFPreferencesSetAppValue(@"AppleLocaleSetup", 0, v24);
   temperatureUnit = self->_temperatureUnit;
   if (temperatureUnit)
   {
     if (gLogCategory_HDSSetupService <= 30)
     {
-      if (gLogCategory_HDSSetupService != -1 || (v31 = _LogCategory_Initialize(), temperatureUnit = self->_temperatureUnit, v31))
+      if (gLogCategory_HDSSetupService != -1 || (v30 = _LogCategory_Initialize(), temperatureUnit = self->_temperatureUnit, v30))
       {
-        v49 = temperatureUnit;
+        v40 = temperatureUnit;
         LogPrintF();
         temperatureUnit = self->_temperatureUnit;
       }
     }
 
-    [MEMORY[0x277CBEAF8] _setPreferredTemperatureUnit:{temperatureUnit, v49}];
-    v27 = 1;
+    [MEMORY[0x277CBEAF8] _setPreferredTemperatureUnit:{temperatureUnit, v40}];
+    v26 = 1;
   }
 
   else if (!(languageCode | localeIdentifier))
@@ -2674,20 +2653,13 @@ void __26__HDSSetupService_setTime__block_invoke(uint64_t a1, uint64_t a2)
 
   if (lockdown_connect())
   {
-    v32 = MEMORY[0x277D82A18];
     if (languageCode)
     {
-      v33 = *MEMORY[0x277D82A18];
-      v34 = *MEMORY[0x277D82A20];
-      v35 = *MEMORY[0x277CBED28];
       lockdown_set_value();
     }
 
-    if (v27)
+    if (v26)
     {
-      v36 = *v32;
-      v37 = *MEMORY[0x277D82A28];
-      v38 = *MEMORY[0x277CBED28];
       lockdown_set_value();
     }
 
@@ -2724,33 +2696,31 @@ LABEL_72:
     [HDSSetupService _handleFinishApply:responseHandler:];
   }
 
-  v41 = self->_finishApplyTimer;
-  v42 = v41;
-  if (v41)
+  v33 = self->_finishApplyTimer;
+  v34 = v33;
+  if (v33)
   {
-    dispatch_source_cancel(v41);
+    dispatch_source_cancel(v33);
     finishApplyTimer = self->_finishApplyTimer;
     self->_finishApplyTimer = 0;
   }
 
-  v44 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_dispatchQueue);
-  v45 = self->_finishApplyTimer;
-  self->_finishApplyTimer = v44;
+  v36 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_dispatchQueue);
+  v37 = self->_finishApplyTimer;
+  self->_finishApplyTimer = v36;
 
-  v46 = self->_finishApplyTimer;
+  v38 = self->_finishApplyTimer;
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __54__HDSSetupService__handleFinishApply_responseHandler___block_invoke_2;
   handler[3] = &unk_2797148F8;
   handler[4] = self;
-  v54 = Int64Ranged;
-  v47 = handlerCopy;
-  v53 = v47;
-  dispatch_source_set_event_handler(v46, handler);
+  v45 = Int64Ranged;
+  v39 = handlerCopy;
+  v44 = v39;
+  dispatch_source_set_event_handler(v38, handler);
   HDSDispatchTimerSet(self->_finishApplyTimer, 4.0, -1.0, -4.0);
   dispatch_resume(self->_finishApplyTimer);
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDSSetupService__handleFinishApply_responseHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -2788,7 +2758,153 @@ uint64_t __54__HDSSetupService__handleFinishApply_responseHandler___block_invoke
   return [v7 _handleFinishDone:v6 responseHandler:v8];
 }
 
-uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke(uint64_t result)
+- (void)_handleFinishDone:(unsigned int)done responseHandler:(id)handler
+{
+  v4 = *&done;
+  handlerCopy = handler;
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleFinishDone:responseHandler:];
+  }
+
+  [(SFService *)self->_sfService setNeedsSetup:0];
+  v7 = [(SFService *)self->_sfService setDeviceActionType:0];
+  v8 = [objc_alloc(getFLFollowUpControllerClass(v7)) initWithClientIdentifier:0];
+  [v8 clearPendingFollowUpItems:0];
+  [(HDSSetupService *)self _boostiTunesCloudDaemon];
+  if (!self->_finishedEventSent)
+  {
+    self->_finishedEventSent = 1;
+    progressHandler = self->_progressHandler;
+    if (progressHandler)
+    {
+      progressHandler[2](progressHandler, 96, 0);
+    }
+  }
+
+  v10 = mach_absolute_time();
+  iTunesCloudCompleteToken = self->_iTunesCloudCompleteToken;
+  if (iTunesCloudCompleteToken != -1)
+  {
+    notify_cancel(iTunesCloudCompleteToken);
+    self->_iTunesCloudCompleteToken = -1;
+  }
+
+  dispatchQueue = self->_dispatchQueue;
+  handler[0] = MEMORY[0x277D85DD0];
+  handler[1] = 3221225472;
+  handler[2] = __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke;
+  handler[3] = &unk_279714920;
+  handler[4] = self;
+  v39 = v10;
+  v40 = v4;
+  v13 = handlerCopy;
+  v38 = v13;
+  notify_register_dispatch("com.apple.itunescloud.setupcompleted", &self->_iTunesCloudCompleteToken, dispatchQueue, handler);
+  state64 = 0;
+  notify_get_state(self->_iTunesCloudCompleteToken, &state64);
+  if (state64)
+  {
+    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+    {
+      [HDSSetupService _handleFinishDone:responseHandler:];
+    }
+
+    self->_iTunesCloudCompleted = 1;
+    if (self->_iTunesCloudWaitSeconds == 0.0)
+    {
+      mach_absolute_time();
+      UpTicksToSecondsF();
+      self->_iTunesCloudWaitSeconds = v14;
+    }
+
+    if ([(HDSSetupService *)self _handleFinishDone2Ready])
+    {
+      goto LABEL_21;
+    }
+  }
+
+  if (gLogCategory_HDSSetupService > 30 || gLogCategory_HDSSetupService == -1 && !_LogCategory_Initialize())
+  {
+    if ((v4 & 2) == 0)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_24:
+    v15 = mach_absolute_time();
+    [(RPCompanionLinkClient *)self->_companionLinkClient invalidate];
+    v16 = objc_alloc_init(MEMORY[0x277D44160]);
+    companionLinkClient = self->_companionLinkClient;
+    self->_companionLinkClient = v16;
+
+    [(RPCompanionLinkClient *)self->_companionLinkClient setDispatchQueue:self->_dispatchQueue];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_2;
+    v32[3] = &unk_279714948;
+    v32[4] = self;
+    v34 = v15;
+    v35 = v4;
+    v18 = v13;
+    v33 = v18;
+    [(RPCompanionLinkClient *)self->_companionLinkClient setLocalDeviceUpdatedHandler:v32];
+    v19 = self->_companionLinkClient;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_3;
+    v28[3] = &unk_279714970;
+    v28[4] = self;
+    v30 = v15;
+    v31 = v4;
+    v29 = v18;
+    [(RPCompanionLinkClient *)v19 activateWithCompletion:v28];
+    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+    {
+      [HDSSetupService _handleFinishDone:responseHandler:];
+    }
+
+    goto LABEL_28;
+  }
+
+  [HDSSetupService _handleFinishDone:responseHandler:];
+  if ((v4 & 2) != 0)
+  {
+    goto LABEL_24;
+  }
+
+LABEL_20:
+  self->_mediaSystemReady = 1;
+  if (![(HDSSetupService *)self _handleFinishDone2Ready])
+  {
+LABEL_28:
+    v20 = mach_absolute_time();
+    v21 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_dispatchQueue);
+    finishTimeoutTimer = self->_finishTimeoutTimer;
+    self->_finishTimeoutTimer = v21;
+
+    v23 = self->_finishTimeoutTimer;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_4;
+    v24[3] = &unk_279714998;
+    v24[4] = self;
+    v26 = v20;
+    v27 = v4;
+    v25 = v13;
+    dispatch_source_set_event_handler(v23, v24);
+    HDSDispatchTimerSet(self->_finishTimeoutTimer, 300.0, -1.0, -4.0);
+    dispatch_resume(self->_finishTimeoutTimer);
+
+    goto LABEL_29;
+  }
+
+LABEL_21:
+  [(HDSSetupService *)self _handleFinishDone2:v4 responseHandler:v13];
+LABEL_29:
+}
+
+unsigned int *__53__HDSSetupService__handleFinishDone_responseHandler___block_invoke(unsigned int *result)
 {
   v1 = result;
   if (gLogCategory_HDSSetupService <= 30)
@@ -2799,28 +2915,27 @@ uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke(
     }
   }
 
-  v2 = *(v1 + 32);
+  v2 = *(v1 + 4);
   if (*(v2 + 64) != -1)
   {
     *(v2 + 62) = 1;
-    v3 = *(v1 + 32);
+    v3 = *(v1 + 4);
     if (v3[9] == 0.0)
     {
       mach_absolute_time();
-      v4 = *(v1 + 48);
       UpTicksToSecondsF();
-      *(*(v1 + 32) + 72) = v5;
-      v3 = *(v1 + 32);
+      *(*(v1 + 4) + 72) = v4;
+      v3 = *(v1 + 4);
     }
 
     result = [v3 _handleFinishDone2Ready];
     if (result)
     {
-      v6 = *(v1 + 56);
-      v7 = *(v1 + 32);
-      v8 = *(v1 + 40);
+      v5 = v1[14];
+      v6 = *(v1 + 4);
+      v7 = *(v1 + 5);
 
-      return [v7 _handleFinishDone2:v6 responseHandler:v8];
+      return [v6 _handleFinishDone2:v5 responseHandler:v7];
     }
   }
 
@@ -2833,7 +2948,7 @@ uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_
   v4 = v3;
   if (*(*(a1 + 32) + 32))
   {
-    v10 = v3;
+    v9 = v3;
     v3 = [v3 mediaSystemState];
     v5 = v3;
     if (gLogCategory_HDSSetupService <= 30)
@@ -2844,7 +2959,7 @@ uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_
       }
     }
 
-    v4 = v10;
+    v4 = v9;
     if (v5 == 4 || v5 == 1)
     {
       *(*(a1 + 32) + 80) = 1;
@@ -2852,18 +2967,17 @@ uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_
       if (v6[11] == 0.0)
       {
         mach_absolute_time();
-        v7 = *(a1 + 48);
         UpTicksToSecondsF();
-        *(*(a1 + 32) + 88) = v8;
+        *(*(a1 + 32) + 88) = v7;
         v6 = *(a1 + 32);
       }
 
       v3 = [v6 _handleFinishDone2Ready];
-      v4 = v10;
+      v4 = v9;
       if (v3)
       {
         v3 = [*(a1 + 32) _handleFinishDone2:*(a1 + 56) responseHandler:*(a1 + 40)];
-        v4 = v10;
+        v4 = v9;
       }
     }
   }
@@ -2877,12 +2991,12 @@ uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_
   v4 = v3;
   if (*(*(a1 + 32) + 32))
   {
-    v9 = v3;
-    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || (v3 = _LogCategory_Initialize(), v4 = v9, v3)))
+    v8 = v3;
+    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || (v3 = _LogCategory_Initialize(), v4 = v8, v3)))
     {
       v3 = __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_3_cold_1();
-      v4 = v9;
-      if (!v9)
+      v4 = v8;
+      if (!v8)
       {
         goto LABEL_10;
       }
@@ -2898,18 +3012,17 @@ uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_
     if (v5[11] == 0.0)
     {
       mach_absolute_time();
-      v6 = *(a1 + 48);
       UpTicksToSecondsF();
-      *(*(a1 + 32) + 88) = v7;
+      *(*(a1 + 32) + 88) = v6;
       v5 = *(a1 + 32);
     }
 
     v3 = [v5 _handleFinishDone2Ready];
-    v4 = v9;
+    v4 = v8;
     if (v3)
     {
       v3 = [*(a1 + 32) _handleFinishDone2:*(a1 + 56) responseHandler:*(a1 + 40)];
-      v4 = v9;
+      v4 = v8;
     }
   }
 
@@ -2929,16 +3042,97 @@ uint64_t __53__HDSSetupService__handleFinishDone_responseHandler___block_invoke_
   if (v2[11] == 0.0)
   {
     mach_absolute_time();
-    v3 = *(a1 + 48);
     UpTicksToSecondsF();
-    *(*(a1 + 32) + 88) = v4;
+    *(*(a1 + 32) + 88) = v3;
     v2 = *(a1 + 32);
   }
 
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 56) | 4u;
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 56) | 4u;
 
-  return [v2 _handleFinishDone2:v6 responseHandler:v5];
+  return [v2 _handleFinishDone2:v5 responseHandler:v4];
+}
+
+- (void)_handleFinishDone2:(unsigned int)done2 responseHandler:(id)handler
+{
+  v4 = *&done2;
+  v24[3] = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleFinishDone2:responseHandler:];
+  }
+
+  [(RPCompanionLinkClient *)self->_companionLinkClient invalidate];
+  companionLinkClient = self->_companionLinkClient;
+  self->_companionLinkClient = 0;
+
+  [(HDSSetupService *)self removeSysDropProfile];
+  iTunesCloudCompleteToken = self->_iTunesCloudCompleteToken;
+  if (iTunesCloudCompleteToken != -1)
+  {
+    notify_cancel(iTunesCloudCompleteToken);
+    self->_iTunesCloudCompleteToken = -1;
+  }
+
+  finishTimeoutTimer = self->_finishTimeoutTimer;
+  if (finishTimeoutTimer)
+  {
+    v10 = finishTimeoutTimer;
+    dispatch_source_cancel(v10);
+    v11 = self->_finishTimeoutTimer;
+    self->_finishTimeoutTimer = 0;
+  }
+
+  progressHandler = self->_progressHandler;
+  if (progressHandler)
+  {
+    progressHandler[2](progressHandler, 700, 0);
+  }
+
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleFinishDone2:responseHandler:];
+  }
+
+  siriClient = self->_siriClient;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __54__HDSSetupService__handleFinishDone2_responseHandler___block_invoke;
+  v22[3] = &unk_279714198;
+  v22[4] = self;
+  [(SFSiriClient *)siriClient deviceSetupPlayGreetingID:5 completion:v22];
+  signpostLog = [objc_opt_class() signpostLog];
+  signpostID = [(HDSSetupService *)self signpostID];
+  if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v16 = signpostID;
+    if (os_signpost_enabled(signpostLog))
+    {
+      *v21 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog, OS_SIGNPOST_INTERVAL_END, v16, "Finish", "", v21, 2u);
+    }
+  }
+
+  v23[0] = @"finF";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  v24[0] = v17;
+  v23[1] = @"itWS";
+  v18 = [MEMORY[0x277CCABB0] numberWithDouble:self->_iTunesCloudWaitSeconds];
+  v24[1] = v18;
+  v23[2] = @"msWS";
+  v19 = [MEMORY[0x277CCABB0] numberWithDouble:self->_mediaSystemWaitSeconds];
+  v24[2] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  handlerCopy[2](handlerCopy, 1, 0, v20);
+
+  [(SFSession *)self->_sfSession sendWithFlags:1 object:&unk_2864E7DC0];
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleFinishDone2:responseHandler:];
+  }
+
+  self->_finishedFinal = 1;
 }
 
 uint64_t __54__HDSSetupService__handleFinishDone2_responseHandler___block_invoke(uint64_t a1, void *a2)
@@ -2975,7 +3169,7 @@ uint64_t __54__HDSSetupService__handleFinishDone2_responseHandler___block_invoke
 {
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)self _handleFinishDone2Ready];
+    [HDSSetupService _handleFinishDone2Ready];
   }
 
   return self->_iTunesCloudCompleted && self->_mediaSystemReady;
@@ -3025,16 +3219,15 @@ uint64_t __54__HDSSetupService__handleFinishDone2_responseHandler___block_invoke
 
 void __62__HDSSetupService__handleVoicePreviewRequest_responseHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"siriVPSuccess";
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"siriVPSuccess";
   v5 = MEMORY[0x277CCABB0];
   v6 = a3;
   v7 = [v5 numberWithBool:a2];
-  v11[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCheckHomePodForJS:(id)s responseHandler:(id)handler
@@ -3238,7 +3431,7 @@ LABEL_10:
   {
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      [HDSSetupService _handleSUNoSetupScanRequest:? responseHandler:?];
+      [HDSSetupService _handleSUNoSetupScanRequest:responseHandler:];
     }
 
     [(HDSSetupService *)self wipeWifiConfig];
@@ -3249,7 +3442,6 @@ LABEL_10:
     [HDSSetupService _handleSUNoSetupScanRequest:responseHandler:];
   }
 
-  self->_errorForScanSUNoSetup;
   handlerCopy[2]();
 }
 
@@ -3293,7 +3485,7 @@ void __66__HDSSetupService__handleDeviceActivationRequest_responseHandler___bloc
     [HDSSetupService _handlePreAuthRequest:responseHandler:];
   }
 
-  v74[0] = 0;
+  v75 = 0;
   signpostLog = [objc_opt_class() signpostLog];
   signpostID = [(HDSSetupService *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -3402,8 +3594,8 @@ void __66__HDSSetupService__handleDeviceActivationRequest_responseHandler___bloc
   v18 = CFDictionaryGetTypedValue();
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v55 = v18;
-    v58 = v74[0];
+    v56 = v18;
+    v59 = v75;
     LogPrintF();
   }
 
@@ -3412,7 +3604,7 @@ void __66__HDSSetupService__handleDeviceActivationRequest_responseHandler___bloc
     softLinkAFPreferencesSetHorsemanSupplementalLanguageDictionary(v18);
   }
 
-  v63 = v18;
+  v64 = v18;
   v19 = GestaltCopyAnswer();
 
   objc_opt_class();
@@ -3429,32 +3621,32 @@ void __66__HDSSetupService__handleDeviceActivationRequest_responseHandler___bloc
   CFStringGetTypeID();
   v20 = CFDictionaryGetTypedValue();
 
-  v65 = v20;
+  v66 = v20;
   if (v20)
   {
-    v72 = 0;
-    v21 = [(objc_class *)getAFConnectionClass() assistantIsSupportedForLanguageCode:v20 error:&v72];
-    v22 = v72;
+    v73 = 0;
+    v21 = [(objc_class *)getAFConnectionClass() assistantIsSupportedForLanguageCode:v20 error:&v73];
+    v22 = v73;
     v23 = v22;
     if ((v21 & 1) == 0)
     {
-      v62 = v22;
+      v63 = v22;
       if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
       {
-        v56 = v20;
-        v59 = v62;
+        v57 = v20;
+        v60 = v63;
         LogPrintF();
       }
 
 LABEL_70:
-      [v10 setObject:&unk_2864E80C0 forKeyedSubscript:{@"siriFl", v56, v59, v61}];
-      v32 = softLinkAFPreferencesSupportedLanguages();
-      v25 = [v32 mutableCopy];
+      v32 = [v10 setObject:&unk_2864E80C0 forKeyedSubscript:{@"siriFl", v57, v60, v62}];
+      v33 = softLinkAFPreferencesSupportedLanguages(v32);
+      v25 = [v33 mutableCopy];
 
       sharedPreferences = [(objc_class *)getAFPreferencesClass() sharedPreferences];
       v31 = [sharedPreferences bestSupportedLanguageCodeForLanguageCode:v20];
-      v33 = [v25 indexOfObject:v31];
-      if (!v31 || v33 == 0x7FFFFFFFFFFFFFFFLL)
+      v34 = [v25 indexOfObject:v31];
+      if (!v31 || v34 == 0x7FFFFFFFFFFFFFFFLL)
       {
 
         if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
@@ -3467,15 +3659,15 @@ LABEL_70:
 
       else if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
       {
-        v57 = v20;
-        v60 = v31;
+        v58 = v20;
+        v61 = v31;
         LogPrintF();
       }
 
-      v34 = [v25 indexOfObject:{v31, v57, v60}];
-      if (v34 != 0x7FFFFFFFFFFFFFFFLL)
+      v35 = [v25 indexOfObject:{v31, v58, v61}];
+      if (v35 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        [v25 removeObjectAtIndex:v34];
+        [v25 removeObjectAtIndex:v35];
         [v25 insertObject:v31 atIndex:0];
       }
 
@@ -3501,7 +3693,7 @@ LABEL_70:
   }
 
   v25 = v24;
-  v62 = v23;
+  v63 = v23;
   Int64Ranged = CFDictionaryGetInt64Ranged();
   CFStringGetTypeID();
   sharedPreferences = CFDictionaryGetTypedValue();
@@ -3512,7 +3704,7 @@ LABEL_70:
     firstObject = [v29 firstObject];
 
     sharedPreferences = firstObject;
-    v20 = v65;
+    v20 = v66;
   }
 
   v31 = [objc_alloc(getAFVoiceInfoClass()) initWithLanguageCode:v25 gender:Int64Ranged isCustom:0 name:sharedPreferences footprint:2 contentVersion:0 masteredVersion:0];
@@ -3520,9 +3712,9 @@ LABEL_70:
   {
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      v59 = v20;
-      v61 = v23;
-      v56 = v25;
+      v60 = v20;
+      v62 = v23;
+      v57 = v25;
       LogPrintF();
     }
 
@@ -3531,47 +3723,47 @@ LABEL_70:
 
 LABEL_83:
 
-  v23 = v62;
+  v23 = v63;
 LABEL_84:
   if (_os_feature_enabled_impl())
   {
-    v35 = 4495;
+    v36 = 4495;
   }
 
   else
   {
-    v35 = 399;
+    v36 = 399;
   }
 
-  v36 = SFDeviceSupportsTVAudio();
-  v37 = v35 | 0x400;
-  if (!v36)
+  v37 = SFDeviceSupportsTVAudio();
+  v38 = v36 | 0x400;
+  if (!v37)
   {
-    v37 = v35;
+    v38 = v36;
   }
 
-  v38 = 10240;
+  v39 = 10240;
   if (self->_prefCDPEnabled)
   {
-    v38 = 10256;
+    v39 = 10256;
   }
 
-  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v38 | v37];
-  [v10 setObject:v39 forKeyedSubscript:@"ff"];
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v39 | v38];
+  [v10 setObject:v40 forKeyedSubscript:@"ff"];
 
-  v40 = MGCopyAnswer();
-  [v10 setObject:v40 forKeyedSubscript:@"hpBuildVersion"];
-  v41 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMHomeManager needsOSUpdateToRunHH2](self->_homeManager, "needsOSUpdateToRunHH2")}];
-  [v10 setObject:v41 forKeyedSubscript:@"hh2SU"];
+  v41 = MGCopyAnswer();
+  [v10 setObject:v41 forKeyedSubscript:@"hpBuildVersion"];
+  v42 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMHomeManager needsOSUpdateToRunHH2](self->_homeManager, "needsOSUpdateToRunHH2")}];
+  [v10 setObject:v42 forKeyedSubscript:@"hh2SU"];
 
-  v42 = MGCopyAnswer();
-  [v10 setObject:v42 forKeyedSubscript:@"hp_bv"];
+  v43 = MGCopyAnswer();
+  [v10 setObject:v43 forKeyedSubscript:@"hp_bv"];
 
-  v43 = MEMORY[0x277CBEC38];
+  v44 = MEMORY[0x277CBEC38];
   [v10 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"sd_capa"];
-  [v10 setObject:v43 forKeyedSubscript:@"sd_capa_v2"];
-  [v10 setObject:v43 forKeyedSubscript:@"hds_tc_v2_"];
-  [v10 setObject:v43 forKeyedSubscript:@"wr_v2"];
+  [v10 setObject:v44 forKeyedSubscript:@"sd_capa_v2"];
+  [v10 setObject:v44 forKeyedSubscript:@"hds_tc_v2_"];
+  [v10 setObject:v44 forKeyedSubscript:@"wr_v2"];
   canCompanionShowHomePodSU = CFDictionaryGetInt64() != 0;
   self->_canCompanionShowHomePodSU = canCompanionShowHomePodSU;
   if (gLogCategory_HDSSetupService <= 30)
@@ -3588,25 +3780,25 @@ LABEL_84:
 
     if (canCompanionShowHomePodSU)
     {
-      v45 = "yes";
+      v46 = "yes";
     }
 
     else
     {
-      v45 = "no";
+      v46 = "no";
     }
 
-    v56 = v45;
-    v59 = v74[0];
+    v57 = v46;
+    v60 = v75;
     LogPrintF();
   }
 
 LABEL_98:
-  [v10 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:{@"hds_n_h2", v56, v59}];
-  v46 = CFDictionaryGetInt64();
+  [v10 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:{@"hds_n_h2", v57, v60}];
+  v47 = CFDictionaryGetInt64();
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [HDSSetupService _handlePreAuthRequest:v74 responseHandler:?];
+    [HDSSetupService _handlePreAuthRequest:responseHandler:];
   }
 
   if (!self->_scanResults)
@@ -3616,8 +3808,8 @@ LABEL_98:
       [HDSSetupService _handlePreAuthRequest:responseHandler:];
     }
 
-    v49 = objc_opt_new();
-    if (v46)
+    v50 = objc_opt_new();
+    if (v47)
     {
       goto LABEL_106;
     }
@@ -3632,41 +3824,41 @@ LABEL_111:
     [HDSSetupService _handlePreAuthRequest:responseHandler:];
   }
 
-  v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_scanResults, "count")}];
+  v48 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_scanResults, "count")}];
   scanResults = self->_scanResults;
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke;
-  v70[3] = &unk_279714A60;
-  v70[4] = self;
-  v49 = v47;
-  v71 = v49;
-  [(NSArray *)scanResults enumerateObjectsUsingBlock:v70];
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke;
+  v71[3] = &unk_279714A60;
+  v71[4] = self;
+  v50 = v48;
+  v72 = v50;
+  [(NSArray *)scanResults enumerateObjectsUsingBlock:v71];
 
-  if (!v46)
+  if (!v47)
   {
     goto LABEL_111;
   }
 
 LABEL_106:
-  v50 = [v49 copy];
-  [v10 setObject:v50 forKeyedSubscript:@"hds_hp_scn_res"];
+  v51 = [v50 copy];
+  [v10 setObject:v51 forKeyedSubscript:@"hds_hp_scn_res"];
 
 LABEL_112:
   [v10 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"wr_w_p_c"];
   suControllerManager = [(HDSSetupService *)self suControllerManager];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke_2;
-  v66[3] = &unk_279714A88;
-  v66[4] = self;
-  v52 = v10;
-  v67 = v52;
-  v53 = v23;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke_2;
+  v67[3] = &unk_279714A88;
+  v67[4] = self;
+  v53 = v10;
   v68 = v53;
-  v54 = handlerCopy;
+  v54 = v23;
   v69 = v54;
-  [suControllerManager managerStatus:v66];
+  v55 = handlerCopy;
+  v70 = v55;
+  [suControllerManager managerStatus:v67];
 }
 
 void __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -3737,7 +3929,7 @@ LABEL_15:
         __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke_2_cold_7();
       }
 
-      v13 = NSErrorWithOSStatusF();
+      v13 = NSErrorWithOSStatusF(4294896155, "Setup Blocked, HomePod SU");
       goto LABEL_15;
     }
 
@@ -3762,34 +3954,129 @@ LABEL_29:
   {
     if (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize())
     {
-      __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke_2_cold_9((a1 + 40));
+      __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke_2_cold_9();
     }
 
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke_2_cold_10(a1);
+      __57__HDSSetupService__handlePreAuthRequest_responseHandler___block_invoke_2_cold_10();
     }
   }
 
-  v16 = *(a1 + 32);
-  v17 = [objc_opt_class() signpostLog];
-  v18 = [*(a1 + 32) signpostID];
-  if ((v18 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v16 = [objc_opt_class() signpostLog];
+  v17 = [*(a1 + 32) signpostID];
+  if ((v17 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v19 = v18;
-    if (os_signpost_enabled(v17))
+    v18 = v17;
+    if (os_signpost_enabled(v16))
     {
-      *v21 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v17, OS_SIGNPOST_INTERVAL_END, v19, "PreAuth", "", v21, 2u);
+      *v19 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v16, OS_SIGNPOST_INTERVAL_END, v18, "PreAuth", "", v19, 2u);
     }
-  }
-
-  if (!v14)
-  {
-    v20 = *(a1 + 40);
   }
 
   (*(*(a1 + 56) + 16))();
+}
+
+- (void)_handleRawRequest:(id)request flags:(unsigned int)flags responseHandler:(id)handler
+{
+  v6 = *&flags;
+  v22[1] = *MEMORY[0x277D85DE8];
+  requestCopy = request;
+  handlerCopy = handler;
+  Int64Ranged = CFDictionaryGetInt64Ranged();
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleRawRequest:flags:responseHandler:];
+  }
+
+  if (Int64Ranged == 9)
+  {
+    if (v6)
+    {
+      [(HDSSetupService *)self _handleFinishRequest:requestCopy responseHandler:handlerCopy];
+      goto LABEL_20;
+    }
+
+    v11 = -6768;
+    if (gLogCategory_HDSSetupService > 60)
+    {
+      goto LABEL_17;
+    }
+
+    if (gLogCategory_HDSSetupService == -1 && !_LogCategory_Initialize())
+    {
+      goto LABEL_30;
+    }
+
+    goto LABEL_31;
+  }
+
+  if (Int64Ranged != 8)
+  {
+    if (gLogCategory_HDSSetupService <= 50)
+    {
+      [HDSSetupService _handleRawRequest:? flags:? responseHandler:?];
+    }
+
+    v11 = -6732;
+    goto LABEL_17;
+  }
+
+  if ((v6 & 1) == 0)
+  {
+    v11 = -6768;
+    if (gLogCategory_HDSSetupService > 60)
+    {
+      goto LABEL_17;
+    }
+
+    if (gLogCategory_HDSSetupService == -1 && !_LogCategory_Initialize())
+    {
+LABEL_30:
+      v11 = -6768;
+      goto LABEL_17;
+    }
+
+LABEL_31:
+    [HDSSetupService _handleRawRequest:flags:responseHandler:];
+    goto LABEL_30;
+  }
+
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
+  {
+    [HDSSetupService _handleRawRequest:flags:responseHandler:];
+  }
+
+  v11 = [(HDSSetupService *)self _handleBasicConfigRequest:requestCopy];
+  if (!v11)
+  {
+    v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(HDSSetupService *)self _handleBasicConfigResponse:v12];
+    handlerCopy[2](handlerCopy, v6, 0, v12);
+
+    goto LABEL_20;
+  }
+
+LABEL_17:
+  v13 = MEMORY[0x277CCA9B8];
+  v14 = *MEMORY[0x277CCA590];
+  v15 = v11;
+  v21 = *MEMORY[0x277CCA450];
+  v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+  v17 = v16;
+  v18 = @"?";
+  if (v16)
+  {
+    v18 = v16;
+  }
+
+  v22[0] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v20 = [v13 errorWithDomain:v14 code:v15 userInfo:v19];
+  (handlerCopy)[2](handlerCopy, v6, v20, 0);
+
+LABEL_20:
 }
 
 - (void)_handleHomeScanRequest:(id)request responseHandler:(id)handler
@@ -3833,23 +4120,22 @@ void __58__HDSSetupService__handleHomeScanRequest_responseHandler___block_invoke
   v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(*(a1 + 32) + 424), "count")}];
   v3 = *(a1 + 32);
   v4 = *(v3 + 424);
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __58__HDSSetupService__handleHomeScanRequest_responseHandler___block_invoke_3;
-  v11 = &unk_279714A60;
-  v12 = v3;
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __58__HDSSetupService__handleHomeScanRequest_responseHandler___block_invoke_3;
+  v10 = &unk_279714A60;
+  v11 = v3;
   v5 = v2;
-  v13 = v5;
-  [v4 enumerateObjectsUsingBlock:&v8];
+  v12 = v5;
+  [v4 enumerateObjectsUsingBlock:&v7];
   v6 = [v5 copy];
   [*(a1 + 40) setObject:v6 forKeyedSubscript:@"wp_hp_s_r"];
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    __58__HDSSetupService__handleHomeScanRequest_responseHandler___block_invoke_2_cold_1((a1 + 40));
+    __58__HDSSetupService__handleHomeScanRequest_responseHandler___block_invoke_2_cold_1();
   }
 
-  v7 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -3944,14 +4230,14 @@ uint64_t __41__HDSSetupService__playReadyToSetupSound__block_invoke(uint64_t a1,
 {
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)self _setSiriInfo];
+    [HDSSetupService _setSiriInfo];
   }
 
   sharedPreferences = [(objc_class *)getAFPreferencesClass() sharedPreferences];
   [sharedPreferences setAssistantIsEnabled:!self->_siriDisabled];
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [(HDSSetupService *)&self->_siriDisabled _setSiriInfo];
+    [HDSSetupService _setSiriInfo];
   }
 
   if ((self->_siriDataSharingState - 5) <= 1)
@@ -3984,7 +4270,7 @@ uint64_t __41__HDSSetupService__playReadyToSetupSound__block_invoke(uint64_t a1,
     [sharedPreferences setLanguageCode:self->_siriListenLanguage];
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      [(HDSSetupService *)&self->_siriListenLanguage _setSiriInfo];
+      [HDSSetupService _setSiriInfo];
     }
   }
 
@@ -4036,20 +4322,19 @@ uint64_t __41__HDSSetupService__playReadyToSetupSound__block_invoke(uint64_t a1,
 
 uint64_t __31__HDSSetupService__setSiriInfo__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = v3;
+  v2 = a2;
+  v3 = v2;
   if (gLogCategory_HDSSetupService <= 30)
   {
-    v7 = v3;
-    if (gLogCategory_HDSSetupService != -1 || (v3 = _LogCategory_Initialize(), v4 = v7, v3))
+    v5 = v2;
+    if (gLogCategory_HDSSetupService != -1 || (v2 = _LogCategory_Initialize(), v3 = v5, v2))
     {
-      v6 = *(a1 + 40);
-      v3 = LogPrintF();
-      v4 = v7;
+      v2 = LogPrintF();
+      v3 = v5;
     }
   }
 
-  return MEMORY[0x2821F96F8](v3, v4);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 intptr_t __31__HDSSetupService__setSiriInfo__block_invoke_2(uint64_t a1)
@@ -4199,74 +4484,68 @@ LABEL_13:
 
 void __55__HDSSetupService_configureSUControllerManagerToFinish__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
-  v5 = a3;
+  v5 = a2;
+  v4 = a3;
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v6 = *(a1 + 32);
     LogPrintF();
   }
 }
 
 - (void)sendSUNoSetupSUInstallDonePeerEvent
 {
-  v10[5] = *MEMORY[0x277D85DE8];
-  sfSession = self->_sfSession;
-  v10[0] = &unk_2864E80D8;
-  v9[0] = @"spe";
-  v9[1] = @"hp_su_est_time";
-  v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_estTimeRemainingSUNoSetup];
-  v5 = MEMORY[0x277CBEC38];
-  v10[1] = v4;
-  v10[2] = MEMORY[0x277CBEC38];
-  v9[2] = @"unsetup_hp_su_start";
-  v9[3] = @"unsetup_hp_su_phase";
-  v6 = [MEMORY[0x277CCABB0] numberWithInt:self->_homePodSUNoSetupState];
-  v9[4] = @"unsetup_hp_su_install_done";
-  v10[3] = v6;
-  v10[4] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
-  [(SFSession *)sfSession sendWithFlags:0 object:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendSUNoSetupSUStatusPeerEvent
-{
-  v9[4] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   sfSession = self->_sfSession;
   v9[0] = &unk_2864E80D8;
   v8[0] = @"spe";
   v8[1] = @"hp_su_est_time";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_estTimeRemainingSUNoSetup];
+  v5 = MEMORY[0x277CBEC38];
   v9[1] = v4;
   v9[2] = MEMORY[0x277CBEC38];
   v8[2] = @"unsetup_hp_su_start";
   v8[3] = @"unsetup_hp_su_phase";
-  v5 = [MEMORY[0x277CCABB0] numberWithInt:self->_homePodSUNoSetupState];
-  v9[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
-  [(SFSession *)sfSession sendWithFlags:0 object:v6];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:self->_homePodSUNoSetupState];
+  v8[4] = @"unsetup_hp_su_install_done";
+  v9[3] = v6;
+  v9[4] = v5;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  [(SFSession *)sfSession sendWithFlags:0 object:v7];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)sendSUNoSetupSUStatusPeerEvent
+{
+  v8[4] = *MEMORY[0x277D85DE8];
+  sfSession = self->_sfSession;
+  v8[0] = &unk_2864E80D8;
+  v7[0] = @"spe";
+  v7[1] = @"hp_su_est_time";
+  v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_estTimeRemainingSUNoSetup];
+  v8[1] = v4;
+  v8[2] = MEMORY[0x277CBEC38];
+  v7[2] = @"unsetup_hp_su_start";
+  v7[3] = @"unsetup_hp_su_phase";
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:self->_homePodSUNoSetupState];
+  v8[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  [(SFSession *)sfSession sendWithFlags:0 object:v6];
 }
 
 - (void)sendSUNoSetupErrorPeerEvent:(int64_t)event
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   sfSession = self->_sfSession;
-  v9[0] = &unk_2864E80D8;
-  v8[0] = @"spe";
-  v8[1] = @"unsetup_hp_sunosetup_error";
+  v8[0] = &unk_2864E80D8;
+  v7[0] = @"spe";
+  v7[1] = @"unsetup_hp_sunosetup_error";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:event];
-  v8[2] = @"unsetup_hp_su_start";
-  v9[1] = v5;
-  v9[2] = MEMORY[0x277CBEC28];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v7[2] = @"unsetup_hp_su_start";
+  v8[1] = v5;
+  v8[2] = MEMORY[0x277CBEC28];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
   [(SFSession *)sfSession sendWithFlags:0 object:v6];
 
   self->_canCompanionShowHomePodSU = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wipeWifiConfig
@@ -4308,7 +4587,7 @@ void __55__HDSSetupService_configureSUControllerManagerToFinish__block_invoke(ui
 
 - (void)removeSysDropProfile
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
     [HDSSetupService removeSysDropProfile];
@@ -4322,27 +4601,27 @@ void __55__HDSSetupService_configureSUControllerManagerToFinish__block_invoke(ui
     [HDSSetupService removeSysDropProfile];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:@"com.apple.defaults.managed.homedevicesetup.logging"];
 
@@ -4362,19 +4641,17 @@ void __55__HDSSetupService_configureSUControllerManagerToFinish__block_invoke(ui
       }
 
       while (v6 != v8);
-      v14 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v14 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v6 = v14;
     }
 
     while (v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createScanParameters
 {
-  getCWFScanParametersClass();
+  getCWFScanParametersClass(self, a2);
   v2 = objc_opt_new();
   [v2 setMergeScanResults:1];
   [v2 setAcceptableCacheAge:1000];
@@ -4392,7 +4669,7 @@ void __55__HDSSetupService_configureSUControllerManagerToFinish__block_invoke(ui
   }
 }
 
-void __34__HDSSetupService_fetchScanResult__block_invoke()
+void __34__HDSSetupService_fetchScanResult__block_invoke(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
@@ -4431,28 +4708,27 @@ void __35__HDSSetupService_fetchScanResult___block_invoke(uint64_t a1, void *a2,
   v5 = a2;
   v6 = a3;
   mach_absolute_time();
-  v7 = *(a1 + 56);
   UpTicksToSecondsF();
   if (gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
     __35__HDSSetupService_fetchScanResult___block_invoke_cold_1(v6);
   }
 
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = *(v9 + 448);
+  v8 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v9 = *(v8 + 448);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __35__HDSSetupService_fetchScanResult___block_invoke_2;
   block[3] = &unk_279714B28;
-  block[4] = v9;
-  v14 = v5;
-  v15 = v6;
-  v16 = v8;
-  v17 = *(a1 + 48);
-  v11 = v6;
-  v12 = v5;
-  dispatch_async(v10, block);
+  block[4] = v8;
+  v13 = v5;
+  v14 = v6;
+  v15 = v7;
+  v16 = *(a1 + 48);
+  v10 = v6;
+  v11 = v5;
+  dispatch_async(v9, block);
 }
 
 uint64_t __35__HDSSetupService_fetchScanResult___block_invoke_2(uint64_t a1)
@@ -4460,20 +4736,8 @@ uint64_t __35__HDSSetupService_fetchScanResult___block_invoke_2(uint64_t a1)
   *(*(a1 + 32) + 440) = 0;
   if (*(a1 + 40))
   {
-    if (gLogCategory_HDSSetupService > 60)
+    if (gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_10;
-    }
-
-    if (gLogCategory_HDSSetupService != -1)
-    {
-      goto LABEL_4;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v5 = *(a1 + 40);
-LABEL_4:
       LogPrintF();
     }
   }
@@ -4482,13 +4746,12 @@ LABEL_4:
   {
     if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      __35__HDSSetupService_fetchScanResult___block_invoke_2_cold_1(a1);
+      __35__HDSSetupService_fetchScanResult___block_invoke_2_cold_1();
     }
 
     objc_storeStrong((*(a1 + 32) + 424), *(a1 + 48));
   }
 
-LABEL_10:
   v2 = *(a1 + 56);
   if (v2)
   {
@@ -4537,8 +4800,8 @@ LABEL_10:
   errorCopy = error;
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v14 = updateCopy;
-    v15 = errorCopy;
+    v12 = updateCopy;
+    v13 = errorCopy;
     LogPrintF();
   }
 
@@ -4555,26 +4818,12 @@ LABEL_10:
   }
 
   self->_suUpdateState = v10;
-  self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState:v14];
-  if (gLogCategory_HDSSetupService <= 30)
+  self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState:v12];
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_HDSSetupService != -1)
-    {
-LABEL_10:
-      suUpdateState = self->_suUpdateState;
-      self->_scanFoundSUForSUNoSetup;
-      LogPrintF();
-      goto LABEL_12;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      homePodSUNoSetupState = self->_homePodSUNoSetupState;
-      goto LABEL_10;
-    }
+    LogPrintF();
   }
 
-LABEL_12:
   semaForScanFoundSU = self->_semaForScanFoundSU;
   if (semaForScanFoundSU)
   {
@@ -4594,31 +4843,17 @@ LABEL_12:
   errorCopy = error;
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v11 = postponedCopy;
-    v13 = errorCopy;
+    v10 = postponedCopy;
+    v11 = errorCopy;
     LogPrintF();
   }
 
   self->_suUpdateState = 2;
-  self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState:v11];
-  if (gLogCategory_HDSSetupService <= 30)
+  self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState:v10];
+  if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_HDSSetupService != -1)
-    {
-LABEL_7:
-      suUpdateState = self->_suUpdateState;
-      LogPrintF();
-      goto LABEL_9;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      homePodSUNoSetupState = self->_homePodSUNoSetupState;
-      goto LABEL_7;
-    }
+    LogPrintF();
   }
-
-LABEL_9:
 }
 
 - (void)manager:(id)manager didChangeProgressOnDownload:(id)download
@@ -4728,44 +4963,32 @@ LABEL_35:
   errorCopy = error;
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v11 = downloadCopy;
-    v13 = errorCopy;
+    v10 = downloadCopy;
+    v11 = errorCopy;
     LogPrintF();
   }
 
-  if (!errorCopy)
+  if (errorCopy)
+  {
+    self->_suUpdateState = 1;
+    self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState];
+    if ([(HDSSetupService *)self canSendPeerUpdates])
+    {
+      -[HDSSetupService sendSUNoSetupErrorPeerEvent:](self, "sendSUNoSetupErrorPeerEvent:", [errorCopy code]);
+    }
+
+    [(HDSSetupService *)self wipeWifiConfig:v10];
+  }
+
+  else
   {
     self->_suUpdateState = 4;
     self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState];
-    if (gLogCategory_HDSSetupService > 30)
+    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_13;
+      LogPrintF();
     }
-
-    if (gLogCategory_HDSSetupService == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_13;
-      }
-
-      homePodSUNoSetupState = self->_homePodSUNoSetupState;
-    }
-
-    suUpdateState = self->_suUpdateState;
-    LogPrintF();
-    goto LABEL_13;
   }
-
-  self->_suUpdateState = 1;
-  self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState];
-  if ([(HDSSetupService *)self canSendPeerUpdates])
-  {
-    -[HDSSetupService sendSUNoSetupErrorPeerEvent:](self, "sendSUNoSetupErrorPeerEvent:", [errorCopy code]);
-  }
-
-  [(HDSSetupService *)self wipeWifiConfig:v11];
-LABEL_13:
 }
 
 - (void)manager:(id)manager didFinishDownload:(id)download
@@ -4922,8 +5145,8 @@ LABEL_9:
   errorCopy = error;
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    v13 = installationCopy;
-    v15 = errorCopy;
+    v12 = installationCopy;
+    v13 = errorCopy;
     LogPrintF();
   }
 
@@ -4937,36 +5160,23 @@ LABEL_9:
     }
 
     suControllerManager = self->_suControllerManager;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __57__HDSSetupService_manager_didFailInstallation_withError___block_invoke;
-    v16[3] = &unk_279714198;
-    v16[4] = self;
-    [(SUControllerManager *)suControllerManager purgeUpdate:installationCopy completion:v16, v13, v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __57__HDSSetupService_manager_didFailInstallation_withError___block_invoke;
+    v14[3] = &unk_279714198;
+    v14[4] = self;
+    [(SUControllerManager *)suControllerManager purgeUpdate:installationCopy completion:v14, v12, v13];
   }
 
   else
   {
     self->_suUpdateState = 9;
     self->_homePodSUNoSetupState = [(HDSSetupService *)self hdsSUStateForSUState];
-    if (gLogCategory_HDSSetupService <= 30)
+    if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
     {
-      if (gLogCategory_HDSSetupService == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_13;
-        }
-
-        homePodSUNoSetupState = self->_homePodSUNoSetupState;
-      }
-
-      suUpdateState = self->_suUpdateState;
       LogPrintF();
     }
   }
-
-LABEL_13:
 }
 
 uint64_t __57__HDSSetupService_manager_didFailInstallation_withError___block_invoke(uint64_t a1, void *a2)
@@ -5086,7 +5296,7 @@ LABEL_8:
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [HDSSetupService manager:? didFinishDownload:? willProceedWithInstallation:? waitingForAdmissionControl:?];
+    [HDSSetupService manager:didFinishDownload:willProceedWithInstallation:waitingForAdmissionControl:];
   }
 
   [(HDSSetupService *)self configureSUControllerManagerToFinish];
@@ -5171,7 +5381,7 @@ void __100__HDSSetupService_manager_didFinishDownload_willProceedWithInstallatio
 
   if (gLogCategory_HDSSetupService <= 30 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
   {
-    [HDSSetupService manager:? didFinishDownload:? willProceedWithInstallation:? waitingForAdmissionControl:? denialReasons:?];
+    [HDSSetupService manager:didFinishDownload:willProceedWithInstallation:waitingForAdmissionControl:denialReasons:];
   }
 
   [(HDSSetupService *)self configureSUControllerManagerToFinish];
@@ -5248,16 +5458,6 @@ void __34__HDSSetupService__sfServiceStart__block_invoke_345_cold_1(void *a1)
   LogPrintF();
 }
 
-- (uint64_t)_handleAuthActionRequest:(unsigned int)a1 responseHandler:(char)a2 .cold.2(unsigned int a1, char a2)
-{
-  if (a1 <= 6)
-  {
-    v2 = off_279714B98[a2 & 7];
-  }
-
-  return LogPrintF();
-}
-
 - (uint64_t)_handleAuthActionSiriStart:(void *)a1 response:(uint64_t)a2 responseHandler:(uint64_t)a3 .cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_HDSSetupService <= 60 && (gLogCategory_HDSSetupService != -1 || _LogCategory_Initialize()))
@@ -5274,90 +5474,26 @@ void __34__HDSSetupService__sfServiceStart__block_invoke_345_cold_1(void *a1)
   return v7(a2, 0, 0, a1);
 }
 
-- (uint64_t)_handleBasicConfigRequest:(uint64_t)a1 .cold.11(uint64_t a1, unsigned int *a2)
+- (uint64_t)_handleRawRequest:(int)a1 flags:responseHandler:.cold.4(int a1)
 {
-  v2 = *(a1 + 240);
-  if (v2 <= 7)
+  if (a1 != -1)
   {
-    v3 = off_279714BD0[v2];
+    return LogPrintF();
   }
 
-  v5 = *a2;
-  return LogPrintF();
-}
-
-- (uint64_t)setTime
-{
-  v1 = *(self + 288);
-  OUTLINED_FUNCTION_6();
-  return LogPrintF();
-}
-
-- (uint64_t)_handleFinishApply:(uint64_t)a1 responseHandler:.cold.2(uint64_t a1)
-{
-  v1 = *(a1 + 312);
-  OUTLINED_FUNCTION_6();
-  return LogPrintF();
-}
-
-- (uint64_t)_handleFinishApply:(uint64_t)a1 responseHandler:.cold.3(uint64_t a1)
-{
-  v1 = *(a1 + 288);
-  OUTLINED_FUNCTION_6();
-  return LogPrintF();
-}
-
-- (uint64_t)_handleFinishDone2Ready
-{
-  *(self + 62);
-  *(self + 80);
-  return LogPrintF();
-}
-
-- (uint64_t)_handleRawRequest:(int)a1 flags:(unsigned int *)a2 responseHandler:.cold.4(int a1, unsigned int *a2)
-{
-  if (a1 != -1 || (result = _LogCategory_Initialize(), result))
+  result = _LogCategory_Initialize();
+  if (result)
   {
-    v4 = *a2;
     return LogPrintF();
   }
 
   return result;
 }
 
-- (uint64_t)_setSiriInfo
-{
-  *(self + 245);
-  v1 = *(self + 240);
-  if (v1 <= 7)
-  {
-    v2 = off_279714BD0[v1];
-  }
-
-  v5 = *(self + 264);
-  v4 = *(self + 248);
-  return LogPrintF();
-}
-
 - (void)isHomePodSUNoSetup
 {
-  v1 = *(self + 368);
-  v2 = SUControllerStringForManagerState();
+  v1 = SUControllerStringForManagerState();
   LogPrintF();
-}
-
-- (uint64_t)manager:(uint64_t)a1 didFinishDownload:willProceedWithInstallation:waitingForAdmissionControl:.cold.1(uint64_t a1)
-{
-  v2 = *(a1 + 368);
-  v3 = *(a1 + 364);
-  return LogPrintF();
-}
-
-- (uint64_t)manager:(uint64_t)a1 didFinishDownload:willProceedWithInstallation:waitingForAdmissionControl:denialReasons:.cold.1(uint64_t a1)
-{
-  v2 = *(a1 + 368);
-  v3 = *(a1 + 364);
-  return LogPrintF();
 }
 
 @end

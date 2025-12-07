@@ -58,15 +58,13 @@
 
 - (id)errorWithMessage:(id)message code:(int64_t)code
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A578];
-  v11[0] = messageCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A578];
+  v10[0] = messageCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"MFAttachmentDataProviderErrorDomain" code:0 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -104,7 +102,7 @@
 
 - (BOOL)save:(id)save
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   saveCopy = save;
   _path = [(MFAttachmentDataProvider *)self _path];
   v6 = [_path copy];
@@ -113,9 +111,9 @@
   if (stringByDeletingLastPathComponent)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v20 = 0;
-    v9 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v20];
-    v10 = v20;
+    v19 = 0;
+    v9 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v19];
+    v10 = v19;
     if (v9)
     {
       v11 = MEMORY[0x1E695DF90];
@@ -137,9 +135,9 @@
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v22 = v6;
-          v23 = 2112;
-          v24 = v10;
+          v21 = v6;
+          v22 = 2112;
+          v23 = v10;
           _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_INFO, "#Attachments Failed to create file for attachment %@: %@", buf, 0x16u);
         }
       }
@@ -151,15 +149,14 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v22 = stringByDeletingLastPathComponent;
-        v23 = 2112;
-        v24 = v10;
+        v21 = stringByDeletingLastPathComponent;
+        v22 = 2112;
+        v23 = v10;
         _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_INFO, "#Attachments Failed to create directory for attachment %@: %@", buf, 0x16u);
       }
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

@@ -1,4 +1,4 @@
-uint64_t llvm::StringMap<anonymous namespace::AsmParser::DirectiveKind,llvm::MallocAllocator>::operator[](llvm::StringMapImpl *a1, uint64_t *a2, unint64_t a3)
+uint64_t llvm::StringMap<anonymous namespace::AsmParser::DirectiveKind,llvm::MallocAllocator>::operator[](llvm::StringMapImpl *a1, uint64_t *a2, size_t a3)
 {
   v6 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   v7 = *a1;
@@ -15,19 +15,19 @@ uint64_t llvm::StringMap<anonymous namespace::AsmParser::DirectiveKind,llvm::Mal
   }
 
   v10 = operator new(a3 + 17, 8uLL);
-  v11 = v10;
-  v12 = v10 + 16;
+  v12 = v10;
+  v13 = v10 + 16;
   if (a3)
   {
     memcpy(v10 + 16, a2, a3);
   }
 
-  v12[a3] = 0;
-  *v11 = a3;
-  *(v11 + 2) = 0;
-  *(v7 + 8 * v8) = v11;
+  v13[a3] = 0;
+  *v12 = a3;
+  *(v12 + 2) = 0;
+  *(v7 + 8 * v8) = v12;
   ++*(a1 + 3);
-  for (i = (*a1 + 8 * llvm::StringMapImpl::RehashTable(a1, v8)); ; ++i)
+  for (i = (*a1 + 8 * llvm::StringMapImpl::RehashTable(a1, v8, v11)); ; ++i)
   {
     v9 = *i;
     if (*i && v9 != -8)
@@ -190,7 +190,7 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveIfb(uint64_t *a1, char a2
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveIfc(_BYTE *a1, char a2)
 {
-  std::vector<llvm::AsmCond>::push_back[abi:nn200100]((a1 + 296), a1 + 284);
+  std::vector<llvm::AsmCond>::push_back[abi:nn200100]((a1 + 296), (a1 + 284));
   *(a1 + 71) = 1;
   if (a1[289] == 1)
   {
@@ -475,7 +475,7 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveElseIf(uint64_t a1, uint6
     if (*(a1 + 296) != v3 && (*(v3 - 3) & 1) != 0 || *(a1 + 288) == 1)
     {
       *(a1 + 289) = 1;
-      (*(*a1 + 224))(a1);
+      (*(*a1 + 224))(a1, a2);
       return 0;
     }
 
@@ -561,15 +561,15 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveEndIf(uint64_t a1, uint64
   return result;
 }
 
-uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,llvm::StringRef &>(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
+uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,llvm::StringRef &>(uint64_t result, int a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
 {
-  v6 = *(a1 + 8);
-  if (v6 >= *(a1 + 12))
+  v6 = *(result + 8);
+  if (v6 >= *(result + 12))
   {
-    return llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,llvm::StringRef &>(a1, a2, a3, a4, a5, a6);
+    return llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,llvm::StringRef &>(result, a2, a3, a4, a5, a6);
   }
 
-  v7 = *a1 + (v6 << 7);
+  v7 = *result + (v6 << 7);
   *v7 = a2;
   *(v7 + 8) = a3;
   *(v7 + 16) = a4;
@@ -586,8 +586,8 @@ uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteK
   *(v7 + 32) = a5;
   *(v7 + 40) = 0;
   *(v7 + 40) = a6;
-  ++*(a1 + 8);
-  return a1;
+  ++*(result + 8);
+  return result;
 }
 
 uint64_t llvm::MCAsmLexer::Lex(llvm::MCAsmLexer *this)
@@ -596,7 +596,7 @@ uint64_t llvm::MCAsmLexer::Lex(llvm::MCAsmLexer *this)
   v2 = *(this + 1);
   *(this + 107) = *v2 == 9;
   llvm::SmallVectorImpl<llvm::AsmToken>::erase(this + 8, v2);
-  if (!v3[2])
+  if (!*(v3 + 2))
   {
     (**this)(v5, this);
     llvm::SmallVectorImpl<llvm::AsmToken>::insert_one_impl<llvm::AsmToken const&>(v3, *(this + 1), v5);
@@ -614,7 +614,7 @@ uint64_t llvm::MCAsmLexer::Lex(llvm::MCAsmLexer *this)
 
 uint64_t anonymous namespace::AsmParser::enabledGenDwarfForAssembly(_anonymous_namespace_::AsmParser *this)
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   v2 = *((*(*this + 48))(this) + 1601);
   if (v2 == 1 && !*((*(*this + 48))(this) + 1604))
   {
@@ -626,17 +626,17 @@ uint64_t anonymous namespace::AsmParser::enabledGenDwarfForAssembly(_anonymous_n
       v6 = *(v4 + 1368);
       v7 = *(this + 58);
       v8 = *(this + 59);
-      LOBYTE(v24) = 0;
-      v25 = 0;
-      LOBYTE(v22) = 0;
       LOBYTE(v23) = 0;
-      llvm::MCContext::setMCLineTableRootFile(v3, 0, v5, v6, v7, v8, &v24, &v22);
+      v24 = 0;
+      LOBYTE(v21) = 0;
+      LOBYTE(v22) = 0;
+      llvm::MCContext::setMCLineTableRootFile(v3, 0, v5, v6, v7, v8, &v23, &v21);
     }
 
     v9 = (*(*this + 48))(this);
-    LODWORD(v24) = 0;
-    *&v22 = &v24;
-    v10 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v9 + 1560, &v24);
+    LODWORD(v23) = 0;
+    *&v21 = &v23;
+    v10 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v9 + 1560), &v23, &std::piecewise_construct, &v21);
     v11 = (*(*this + 48))(this);
     v12 = (*(*this + 56))(this);
     v13 = (*(*this + 48))(this);
@@ -662,17 +662,16 @@ uint64_t anonymous namespace::AsmParser::enabledGenDwarfForAssembly(_anonymous_n
     }
 
     v17 = *(v10 + 444);
-    v25 = *(v10 + 460);
+    v24 = *(v10 + 460);
     v18 = *(v13 + 1360);
     v19 = *(v13 + 1368);
-    v24 = v17;
-    v22 = *(v10 + 29);
-    v23 = v10[60];
-    (*(*v12 + 680))(v26, v12, 0, v18, v19, v15, v16, &v24, &v22, 0);
-    *(v11 + 1604) = v26[0];
+    v23 = v17;
+    v21 = *(v10 + 29);
+    v22 = v10[60];
+    (*(*v12 + 680))(v25, v12, 0, v18, v19, v15, v16, &v23, &v21, 0);
+    *(v11 + 1604) = v25[0];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -715,12 +714,12 @@ uint64_t anonymous namespace::AsmParser::parseAssignment(llvm::MCAsmParser *a1, 
     v37 = 261;
     v34 = a2;
     v35 = a3;
-    Symbol = llvm::MCContext::getOrCreateSymbol(v26, &v34);
-    v19 = *(Symbol + 8);
+    v16 = llvm::MCContext::getOrCreateSymbol(v26, &v34);
+    v19 = *(v16 + 8);
     goto LABEL_24;
   }
 
-  Symbol = v14;
+  v16 = v14;
   if (llvm::MCParserUtils::isSymbolUsedInExpression(v14, v27, v15))
   {
     v33 = 1283;
@@ -733,18 +732,18 @@ uint64_t anonymous namespace::AsmParser::parseAssignment(llvm::MCAsmParser *a1, 
     goto LABEL_33;
   }
 
-  Fragment = llvm::MCSymbol::getFragment(Symbol, 0);
-  v19 = *(Symbol + 8);
+  Fragment = llvm::MCSymbol::getFragment(v16, 0);
+  v19 = *(v16 + 8);
   v20 = v19 & 0x3800;
   if (!Fragment && (v19 & 4) == 0 && v20 != 4096 || (v20 == 4096 ? (v21 = v12 == 0) : (v21 = 0), v21 ? (v22 = (v19 & 4) == 0) : (v22 = 0), v22))
   {
 LABEL_24:
-    *(Symbol + 8) = v19 & 0xFFFFFFFFFFFFFFFDLL | (2 * (v12 == 0));
+    *(v16 + 8) = v19 & 0xFFFFFFFFFFFFFFFDLL | (2 * (v12 == 0));
     goto LABEL_34;
   }
 
-  v23 = llvm::MCSymbol::getFragment(Symbol, 1u);
-  v24 = *(Symbol + 8) & 0x3800;
+  v23 = llvm::MCSymbol::getFragment(v16, 1u);
+  v24 = *(v16 + 8) & 0x3800;
   if (!v23)
   {
     if (v24 != 4096)
@@ -755,9 +754,9 @@ LABEL_24:
     }
 
 LABEL_29:
-    v19 = *(Symbol + 8) | 4;
-    *(Symbol + 8) = v19;
-    if (**(Symbol + 24) != 1)
+    v19 = *(v16 + 8) | 4;
+    *(v16 + 8) = v19;
+    if (**(v16 + 24) != 1)
     {
       v33 = 1283;
       v25 = "invalid reassignment of non-absolute variable '";
@@ -795,20 +794,20 @@ LABEL_34:
 
   if (a4 < 2)
   {
-    (*(**(a1 + 28) + 272))(*(a1 + 28), Symbol, v27);
+    (*(**(a1 + 28) + 272))(*(a1 + 28), v16, v27);
     (*(**(a1 + 28) + 296))();
     return 0;
   }
 
   if (a4 != 3)
   {
-    (*(**(a1 + 28) + 272))(*(a1 + 28), Symbol, v27);
+    (*(**(a1 + 28) + 272))(*(a1 + 28), v16, v27);
     return 0;
   }
 
   if (*v27 == 2)
   {
-    (*(**(a1 + 28) + 280))(*(a1 + 28), Symbol);
+    (*(**(a1 + 28) + 280))(*(a1 + 28), v16);
     return 0;
   }
 
@@ -817,22 +816,22 @@ LABEL_34:
   return llvm::MCAsmParser::Error(a1, v8, &v34, 0, 0);
 }
 
-uint64_t anonymous namespace::AsmParser::handleMacroEntry(void *a1, uint64_t *a2)
+uint64_t anonymous namespace::AsmParser::handleMacroEntry(void *a1, uint64_t *a2, uint64_t a3)
 {
   v43[3] = *MEMORY[0x277D85DE8];
-  v3 = dword_2815AC070;
+  v4 = dword_2815AC070;
   if (dword_2815AC070 == (a1[44] - a1[43]) >> 3)
   {
     std::ostringstream::basic_ostringstream[abi:nn200100](&v37);
-    v4 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v37, "macros cannot be nested more than ", 34);
-    v5 = MEMORY[0x277C69BA0](v4, v3);
-    v6 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, " levels deep.", 13);
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v6, " Use -asm-macro-max-nesting-depth to increase this limit.", 57);
+    v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v37, "macros cannot be nested more than ", 34);
+    v6 = MEMORY[0x277C69BA0](v5, v4);
+    v7 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v6, " levels deep.", 13);
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, " Use -asm-macro-max-nesting-depth to increase this limit.", 57);
     std::stringbuf::str();
     LOWORD(v29) = 260;
     p_p = &__p;
-    v7 = (*(*a1 + 40))(a1);
-    llvm::MCAsmParser::Error(a1, *(v7 + 96), &p_p, 0, 0);
+    v8 = (*(*a1 + 40))(a1);
+    llvm::MCAsmParser::Error(a1, *(v8 + 96), &p_p, 0, 0);
     if (v23 < 0)
     {
       operator delete(__p);
@@ -850,7 +849,7 @@ uint64_t anonymous namespace::AsmParser::handleMacroEntry(void *a1, uint64_t *a2
     std::locale::~locale(&v38 + 1);
     std::ostream::~ostream();
     MEMORY[0x277C69DA0](&v42);
-    v8 = 1;
+    return 1;
   }
 
   else
@@ -858,12 +857,12 @@ uint64_t anonymous namespace::AsmParser::handleMacroEntry(void *a1, uint64_t *a2
     v34 = 0;
     v35 = 0;
     v36 = 0;
-    v8 = 1;
+    v9 = 1;
     {
       v37 = v39;
       v38 = xmmword_2750C12F0;
-      v10 = a2[2];
-      v11 = a2[3];
+      v11 = a2[2];
+      v12 = a2[3];
       v26 = 0;
       v30 = 0;
       v31 = 0;
@@ -874,18 +873,18 @@ uint64_t anonymous namespace::AsmParser::handleMacroEntry(void *a1, uint64_t *a2
       p_p = &unk_2883EB968;
       v33 = &v37;
       llvm::raw_ostream::SetUnbuffered(&p_p);
-      v12 = a2[4];
-      v13 = 0xAAAAAAAAAAAAAAABLL * ((a2[5] - v12) >> 4);
-      v14 = v34;
-      v15 = 0xAAAAAAAAAAAAAAABLL * ((v35 - v34) >> 3);
-      v16 = (*(*a1 + 40))(a1);
-      if ((v8 & 1) == 0)
+      v13 = a2[4];
+      v14 = 0xAAAAAAAAAAAAAAABLL * ((a2[5] - v13) >> 4);
+      v15 = v34;
+      v16 = 0xAAAAAAAAAAAAAAABLL * ((v35 - v34) >> 3);
+      v17 = (*(*a1 + 40))(a1);
+      if ((v9 & 1) == 0)
       {
-        v17 = v29;
+        v18 = v29;
         if ((v28 - v29) > 9)
         {
           *(v29 + 8) = 2671;
-          *v17 = *".endmacro\n";
+          *v18 = *".endmacro\n";
           v29 += 10;
         }
 
@@ -894,11 +893,11 @@ uint64_t anonymous namespace::AsmParser::handleMacroEntry(void *a1, uint64_t *a2
           llvm::raw_ostream::write(&p_p, ".endmacro\n", 0xAuLL);
         }
 
-        v18 = *v33;
-        v19 = v33[1];
+        v19 = *v33;
+        v20 = v33[1];
         __p = "<instantiation>";
         v24 = 259;
-        getMemBufferCopyImpl(v18, v19, &__p, v43);
+        getMemBufferCopyImpl(v19, v20, &__p, v43);
         operator new();
       }
 
@@ -913,11 +912,10 @@ uint64_t anonymous namespace::AsmParser::handleMacroEntry(void *a1, uint64_t *a2
     std::vector<std::vector<llvm::AsmToken>>::__destroy_vector::operator()[abi:nn200100](&v37);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
-uint64_t llvm::StringMap<std::pair<llvm::MCAsmParserExtension *,BOOL (*)(llvm::MCAsmParserExtension *,llvm::StringRef,llvm::SMLoc)>,llvm::MallocAllocator>::lookup(uint64_t a1, uint64_t *a2, unint64_t a3)
+uint64_t llvm::StringMap<std::pair<llvm::MCAsmParserExtension *,BOOL (*)(llvm::MCAsmParserExtension *,llvm::StringRef,llvm::SMLoc)>,llvm::MallocAllocator>::lookup(uint64_t a1, uint64_t *a2, size_t a3)
 {
   Key = llvm::StringMapImpl::FindKey(a1, a2, a3);
   if (Key == -1 || Key == *(a1 + 8))
@@ -925,10 +923,10 @@ uint64_t llvm::StringMap<std::pair<llvm::MCAsmParserExtension *,BOOL (*)(llvm::M
     return 0;
   }
 
-  v6 = *(*a1 + 8 * Key);
-  result = *(v6 + 8);
-  v7 = *(v6 + 16);
-  return result;
+  else
+  {
+    return *(*(*a1 + 8 * Key) + 8);
+  }
 }
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveSet(llvm::MCAsmParser *a1, unsigned int a2)
@@ -1691,64 +1689,61 @@ LABEL_25:
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveRept(llvm::MCAsmParser *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v32 = 0;
+  v36 = *MEMORY[0x277D85DE8];
+  v31 = 0;
   v8 = *(*((*(*a1 + 40))(a1) + 8) + 8);
-  v33 = 0;
-  if ((*(*a1 + 232))(a1, &v32, &v33))
+  v32 = 0;
+  if ((*(*a1 + 232))(a1, &v31, &v32))
   {
-    goto LABEL_2;
+    return 1;
   }
 
-  v31 = 0;
-  v10 = v32;
+  v30 = 0;
+  v10 = v31;
   v11 = (*(*a1 + 56))(a1);
   v12 = (*(*v11 + 72))(v11);
-  if (!llvm::MCExpr::evaluateAsAbsolute(v10, &v31, v12, 0, 0, 0))
+  if (!llvm::MCExpr::evaluateAsAbsolute(v10, &v30, v12, 0, 0, 0))
   {
-    LOWORD(v26) = 1283;
-    v22 = "unexpected token in '";
-    v24 = a3;
-    v25 = a4;
-    v33 = &v22;
-    *(&v34 + 1) = "' directive";
-    v36 = 770;
-    v9 = llvm::MCAsmParser::Error(a1, v8, &v33, 0, 0);
-    goto LABEL_12;
+    LOWORD(v25) = 1283;
+    v21 = "unexpected token in '";
+    v23 = a3;
+    v24 = a4;
+    v32 = &v21;
+    *(&v33 + 1) = "' directive";
+    v35 = 770;
+    return llvm::MCAsmParser::Error(a1, v8, &v32, 0, 0);
   }
 
-  v13 = v31;
-  v33 = "Count is negative";
-  v36 = 259;
-  if (v31 < 0)
+  v13 = v30;
+  v32 = "Count is negative";
+  v35 = 259;
+  if (v30 < 0)
   {
-    llvm::MCAsmParser::Error(a1, v8, &v33, 0, 0);
-    goto LABEL_2;
+    llvm::MCAsmParser::Error(a1, v8, &v32, 0, 0);
+    return 1;
   }
 
   if (llvm::MCAsmParser::parseEOL(a1))
   {
-LABEL_2:
-    v9 = 1;
-    goto LABEL_12;
+    return 1;
   }
 
   v9 = 1;
   if (v14)
   {
     v15 = v14;
-    v33 = &v35;
-    v34 = xmmword_2750C12F0;
-    v23 = 0;
-    v27 = 0;
-    v28 = 0;
-    v29 = 1;
-    v25 = 0;
+    v32 = &v34;
+    v33 = xmmword_2750C12F0;
+    v22 = 0;
     v26 = 0;
+    v27 = 0;
+    v28 = 1;
     v24 = 0;
-    v22 = &unk_2883EB968;
-    v30 = &v33;
-    llvm::raw_ostream::SetUnbuffered(&v22);
+    v25 = 0;
+    v23 = 0;
+    v21 = &unk_2883EB968;
+    v29 = &v32;
+    llvm::raw_ostream::SetUnbuffered(&v21);
     v16 = v13 + 1;
     do
     {
@@ -1762,132 +1757,128 @@ LABEL_2:
       v19 = (*(*a1 + 40))(a1);
     }
 
-    llvm::raw_ostream::~raw_ostream(&v22);
-    if (v33 != &v35)
+    llvm::raw_ostream::~raw_ostream(&v21);
+    if (v32 != &v34)
     {
-      free(v33);
+      free(v32);
     }
   }
 
-LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveIrp(llvm::MCAsmParser *a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v28 = 0u;
-  memset(v29, 0, 26);
+  v32 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
+  memset(v28, 0, 26);
+  v24 = 0;
   v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v4 = (*(*a1 + 192))(a1, &v28);
+  v4 = (*(*a1 + 192))(a1, &v27);
   v5 = v4;
-  v16 = "expected identifier in '.irp' directive";
-  LOWORD(v20) = 259;
-  llvm::MCAsmParser::check(a1, v4, &v16);
+  v15 = "expected identifier in '.irp' directive";
+  LOWORD(v19) = 259;
+  llvm::MCAsmParser::check(a1, v4, &v15);
   if ((v5 & 1) == 0)
   {
-    v30 = "expected comma";
-    v32[4] = 259;
+    v29 = "expected comma";
+    v31[4] = 259;
     {
-      if (v8)
+      if (v7)
       {
-        v9 = v8;
-        v30 = v32;
-        v31 = xmmword_2750C12F0;
-        v17 = 0;
-        v21 = 0;
-        v22 = 0;
-        v23 = 1;
-        v19 = 0;
+        v8 = v7;
+        v29 = v31;
+        v30 = xmmword_2750C12F0;
+        v16 = 0;
         v20 = 0;
+        v21 = 0;
+        v22 = 1;
         v18 = 0;
-        v16 = &unk_2883EB968;
-        v24 = &v30;
-        llvm::raw_ostream::SetUnbuffered(&v16);
+        v19 = 0;
+        v17 = 0;
+        v15 = &unk_2883EB968;
+        v23 = &v29;
+        llvm::raw_ostream::SetUnbuffered(&v15);
+        v9 = v24;
         v10 = v25;
-        v11 = v26;
-        if (v25 == v26)
+        if (v24 == v25)
         {
 LABEL_11:
         }
 
-        v12 = v25;
+        v11 = v24;
         while (1)
         {
-          v13 = *(v9 + 16);
-          v14 = *(v9 + 24);
-          v15 = (*(*a1 + 40))(a1);
+          v12 = *(v8 + 16);
+          v13 = *(v8 + 24);
+          v14 = (*(*a1 + 40))(a1);
           {
             break;
           }
 
-          v12 += 24;
-          v10 += 24;
-          if (v12 == v11)
+          v11 += 24;
+          v9 += 24;
+          if (v11 == v10)
           {
             goto LABEL_11;
           }
         }
 
-        llvm::raw_ostream::~raw_ostream(&v16);
-        if (v30 != v32)
+        llvm::raw_ostream::~raw_ostream(&v15);
+        if (v29 != v31)
         {
-          free(v30);
+          free(v29);
         }
       }
     }
   }
 
-  v30 = &v25;
-  std::vector<std::vector<llvm::AsmToken>>::__destroy_vector::operator()[abi:nn200100](&v30);
-  v30 = v29;
-  std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v30);
-  v6 = *MEMORY[0x277D85DE8];
+  v29 = &v24;
+  std::vector<std::vector<llvm::AsmToken>>::__destroy_vector::operator()[abi:nn200100](&v29);
+  v29 = v28;
+  std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v29);
   return 1;
 }
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveIrpc(llvm::MCAsmParser *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  memset(v25, 0, 26);
-  v24 = 0u;
+  v29 = *MEMORY[0x277D85DE8];
+  memset(v23, 0, 26);
+  v22 = 0u;
+  v19 = 0;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  v23 = 0;
-  v4 = (*(*a1 + 192))(a1, &v24);
+  v4 = (*(*a1 + 192))(a1, &v22);
   v5 = v4;
-  v12 = "expected identifier in '.irpc' directive";
-  LOWORD(v16) = 259;
-  llvm::MCAsmParser::check(a1, v4, &v12);
+  v10 = "expected identifier in '.irpc' directive";
+  LOWORD(v14) = 259;
+  llvm::MCAsmParser::check(a1, v4, &v10);
   if ((v5 & 1) == 0)
   {
-    v27 = "expected comma";
-    v30 = 259;
+    v25 = "expected comma";
+    v28 = 259;
     {
-      v6 = v21;
-      if (v22 - v21 == 24 && v21[1] - *v21 == 40)
+      v6 = v19;
+      if (v20 - v19 == 24 && *(v19 + 1) - *v19 == 40)
       {
         {
-          v27 = &v29;
-          v28 = xmmword_2750C12F0;
-          v13 = 0;
-          v17 = 0;
-          v18 = 0;
-          v19 = 1;
+          v25 = &v27;
+          v26 = xmmword_2750C12F0;
+          v11 = 0;
           v15 = 0;
           v16 = 0;
+          v17 = 1;
+          v13 = 0;
           v14 = 0;
-          v12 = &unk_2883EB968;
-          v20 = &v27;
-          llvm::raw_ostream::SetUnbuffered(&v12);
-          v10 = *(*v6 + 8);
+          v12 = 0;
+          v10 = &unk_2883EB968;
+          v18 = &v25;
+          llvm::raw_ostream::SetUnbuffered(&v10);
           if (*(*v6 + 16))
           {
-            memset(v11, 0, sizeof(v11));
-            v26 = v11;
+            memset(v9, 0, sizeof(v9));
+            v24 = v9;
             std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::AsmToken>>(1uLL);
           }
         }
@@ -1895,19 +1886,18 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveIrpc(llvm::MCAsmParser *a
 
       else
       {
-        v27 = "unexpected token in '.irpc' directive";
-        v30 = 259;
+        v25 = "unexpected token in '.irpc' directive";
+        v28 = 259;
         v7 = (*(*a1 + 40))(a1);
-        llvm::MCAsmParser::Error(a1, *(v7 + 96), &v27, 0, 0);
+        llvm::MCAsmParser::Error(a1, *(v7 + 96), &v25, 0, 0);
       }
     }
   }
 
-  v27 = &v21;
-  std::vector<std::vector<llvm::AsmToken>>::__destroy_vector::operator()[abi:nn200100](&v27);
-  v27 = v25;
-  std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v27);
-  v8 = *MEMORY[0x277D85DE8];
+  v25 = &v19;
+  std::vector<std::vector<llvm::AsmToken>>::__destroy_vector::operator()[abi:nn200100](&v25);
+  v25 = v23;
+  std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v25);
   return 1;
 }
 
@@ -2021,7 +2011,7 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveBundleUnlock(_anonymous_n
   return 0;
 }
 
-uint64_t anonymous namespace::AsmParser::parseDirectiveLEB128(_anonymous_namespace_::AsmParser *this, char a2)
+BOOL anonymous namespace::AsmParser::parseDirectiveLEB128(_anonymous_namespace_::AsmParser *this, char a2)
 {
   v5 = a2;
   if ((*(*this + 264))(this))
@@ -2066,7 +2056,7 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveSpace(llvm::MCAsmParser *
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveFile(uint64_t a1, uint64_t a2)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   if (**((*(*a1 + 40))(a1) + 8) == 4)
   {
     v5 = *((*(*a1 + 40))(a1) + 8);
@@ -2082,12 +2072,11 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveFile(uint64_t a1, uint64_
     (*(*a1 + 184))(a1);
     if (v9 < 0)
     {
-      v75 = "negative file number";
-      v79 = 259;
+      v74 = "negative file number";
+      v78 = 259;
       v10 = (*(*a1 + 40))(a1);
-      llvm::MCAsmParser::Error(a1, *(v10 + 96), &v75, 0, 0);
-      v11 = 1;
-      goto LABEL_116;
+      llvm::MCAsmParser::Error(a1, *(v10 + 96), &v74, 0, 0);
+      return 1;
     }
   }
 
@@ -2096,127 +2085,127 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveFile(uint64_t a1, uint64_
     v9 = -1;
   }
 
+  v66 = 0;
   v67 = 0;
   v68 = 0;
-  v69 = 0;
-  if (((*(*a1 + 208))(a1, &v67) & 1) == 0)
+  if (((*(*a1 + 208))(a1, &v66) & 1) == 0)
   {
+    v63 = 0;
     v64 = 0;
     v65 = 0;
-    v66 = 0;
     if (**((*(*a1 + 40))(a1) + 8) == 3)
     {
-      v75 = "explicit path specified, but no file number";
-      v79 = 259;
-      llvm::MCAsmParser::check(a1, v9 == -1, &v75);
-      if (v9 == -1 || (v12 = &v64, ((*(*a1 + 208))(a1, &v64) & 1) != 0))
+      v74 = "explicit path specified, but no file number";
+      v78 = 259;
+      llvm::MCAsmParser::check(a1, v9 == -1, &v74);
+      if (v9 == -1 || (v12 = &v63, ((*(*a1 + 208))(a1, &v63) & 1) != 0))
       {
         v11 = 1;
 LABEL_112:
-        if (SHIBYTE(v66) < 0)
+        if (SHIBYTE(v65) < 0)
         {
-          operator delete(v64);
+          operator delete(v63);
         }
 
         goto LABEL_114;
       }
 
-      if (v66 < 0)
+      if (v65 < 0)
       {
-        v12 = v64;
+        v12 = v63;
       }
 
-      if (v66 >= 0)
+      if (v65 >= 0)
       {
-        v14 = SHIBYTE(v66);
-      }
-
-      else
-      {
-        v14 = v65;
-      }
-
-      if (v69 >= 0)
-      {
-        v13 = &v67;
+        v14 = SHIBYTE(v65);
       }
 
       else
       {
-        v13 = v67;
+        v14 = v64;
+      }
+
+      if (v68 >= 0)
+      {
+        v13 = &v66;
+      }
+
+      else
+      {
+        v13 = v66;
       }
     }
 
     else
     {
       v13 = 0;
-      if (v69 >= 0)
+      if (v68 >= 0)
       {
-        v12 = &v67;
+        v12 = &v66;
       }
 
       else
       {
-        v12 = v67;
+        v12 = v66;
       }
 
-      if (v69 >= 0)
+      if (v68 >= 0)
       {
-        v14 = SHIBYTE(v69);
+        v14 = SHIBYTE(v68);
       }
 
       else
       {
-        v14 = v68;
+        v14 = v67;
       }
     }
 
+    v61 = 0;
     v62 = 0;
-    v63 = 0;
     __p = 0;
+    v58 = 0;
     v59 = 0;
-    v60 = 0;
     if (!llvm::MCAsmParser::parseOptionalToken(a1, 9))
     {
       v16 = 0;
       v17 = 0;
       while (1)
       {
+        v72 = 0;
         v73 = 0;
-        v74 = 0;
         v13 = **((*(*a1 + 40))(a1) + 8);
-        v75 = "unexpected token in '.file' directive";
-        v79 = 259;
-        llvm::MCAsmParser::check(a1, v13 != 2, &v75);
-        if (v13 != 2 || ((*(*a1 + 192))(a1, &v73) & 1) != 0)
+        v74 = "unexpected token in '.file' directive";
+        v78 = 259;
+        llvm::MCAsmParser::check(a1, v13 != 2, &v74);
+        if (v13 != 2 || ((*(*a1 + 192))(a1, &v72) & 1) != 0)
         {
           break;
         }
 
-        if (v74 == 6)
+        if (v73 == 6)
         {
-          if (*v73 != 1920298867 || *(v73 + 4) != 25955)
+          if (*v72 != 1920298867 || *(v72 + 4) != 25955)
           {
 LABEL_72:
-            v75 = "unexpected token in '.file' directive";
-            v79 = 259;
+            v74 = "unexpected token in '.file' directive";
+            v78 = 259;
             v34 = (*(*a1 + 40))(a1);
-            llvm::MCAsmParser::Error(a1, *(v34 + 96), &v75, 0, 0);
+            llvm::MCAsmParser::Error(a1, *(v34 + 96), &v74, 0, 0);
             break;
           }
 
-          v75 = "source specified, but no file number";
-          v79 = 259;
-          llvm::MCAsmParser::check(a1, v9 == -1, &v75);
+          v74 = "source specified, but no file number";
+          v78 = 259;
+          llvm::MCAsmParser::check(a1, v9 == -1, &v74);
           if (v9 == -1)
           {
             break;
           }
 
           v13 = **((*(*a1 + 40))(a1) + 8);
-          v71.__r_.__value_.__r.__words[0] = "unexpected token in '.file' directive";
-          v72 = 259;
-          llvm::MCAsmParser::check(a1, v13 != 3, &v71);
+          v70.__r_.__value_.__r.__words[0] = "unexpected token in '.file' directive";
+          v71 = 259;
+          llvm::MCAsmParser::check(a1, v13 != 3, &v70);
           if (v13 != 3 || ((*(*a1 + 208))(a1, &__p) & 1) != 0)
           {
             break;
@@ -2227,20 +2216,20 @@ LABEL_72:
 
         else
         {
-          if (v74 != 3)
+          if (v73 != 3)
           {
             goto LABEL_72;
           }
 
-          if (*v73 != 25709 || *(v73 + 2) != 53)
+          if (*v72 != 25709 || *(v72 + 2) != 53)
           {
             goto LABEL_72;
           }
 
-          v75 = "MD5 checksum specified, but no file number";
-          v79 = 259;
-          llvm::MCAsmParser::check(a1, v9 == -1, &v75);
-          if (v9 == -1 || (parseHexOcta(a1, &v63, &v62) & 1) != 0)
+          v74 = "MD5 checksum specified, but no file number";
+          v78 = 259;
+          llvm::MCAsmParser::check(a1, v9 == -1, &v74);
+          if (v9 == -1 || (parseHexOcta(a1, &v62, &v61) & 1) != 0)
           {
             break;
           }
@@ -2275,9 +2264,9 @@ LABEL_30:
     v18 = *(a1 + 216);
     if (*(v18 + 1601) == 1)
     {
-      LODWORD(v71.__r_.__value_.__l.__data_) = 0;
-      v75 = &v71;
-      v19 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v18 + 1560, &v71);
+      LODWORD(v70.__r_.__value_.__l.__data_) = 0;
+      v74 = &v70;
+      v19 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v18 + 1560), &v70, &std::piecewise_construct, &v74);
       llvm::MCDwarfLineTableHeader::resetFileTable((v19 + 5));
       v18 = *(a1 + 216);
       *(v18 + 1601) = 0;
@@ -2285,13 +2274,13 @@ LABEL_30:
 
     if (v16)
     {
-      v20 = vdupq_lane_s64(v63, 0);
-      v21 = vdupq_lane_s64(v62, 0);
+      v20 = vdupq_lane_s64(v62, 0);
+      v21 = vdupq_lane_s64(v61, 0);
       *v20.i8 = vmovn_s16(vuzp1q_s16(vuzp1q_s32(vshlq_u64(v20, xmmword_2750C8170), vshlq_u64(v20, xmmword_2750C8160)), vuzp1q_s32(vshlq_u64(v20, xmmword_2750C8190), vshlq_u64(v20, xmmword_2750C8180))));
       v22 = vuzp1q_s16(vuzp1q_s32(vshlq_u64(v21, xmmword_2750C8170), vshlq_u64(v21, xmmword_2750C8160)), vuzp1q_s32(vshlq_u64(v21, xmmword_2750C8190), vshlq_u64(v21, xmmword_2750C8180)));
       v2 = vmovn_s16(v22);
       v23 = v20.i8[0];
-      v57 = vext_s8(*v20.i8, *v22.i8, 1uLL);
+      v56 = vext_s8(*v20.i8, *v22.i8, 1uLL);
       v24 = 1;
       if ((v17 & 1) == 0)
       {
@@ -2306,22 +2295,22 @@ LABEL_34:
     {
       v24 = 0;
       v23 = 0;
-      v57 = v15;
+      v56 = v15;
       if ((v17 & 1) == 0)
       {
         goto LABEL_34;
       }
     }
 
-    v29 = HIBYTE(v60);
-    if (v60 < 0)
+    v29 = HIBYTE(v59);
+    if (v59 < 0)
     {
-      v29 = v59;
+      v29 = v58;
     }
 
-    v30 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v18 + 184, v29, 3);
+    v30 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v18 + 184), v29, 3);
     v26 = v30;
-    if (v60 >= 0)
+    if (v59 >= 0)
     {
       p_p = &__p;
     }
@@ -2331,62 +2320,62 @@ LABEL_34:
       p_p = __p;
     }
 
-    if (v60 >= 0)
+    if (v59 >= 0)
     {
-      v32 = HIBYTE(v60);
+      v32 = HIBYTE(v59);
     }
 
     else
     {
-      v32 = v59;
+      v32 = v58;
     }
 
     memcpy(v30, p_p, v32);
-    v13 = SHIBYTE(v60);
+    v13 = SHIBYTE(v59);
     v25 = 1;
-    if ((SHIBYTE(v60) & 0x8000000000000000) != 0)
+    if ((SHIBYTE(v59) & 0x8000000000000000) != 0)
     {
-      v13 = v59;
+      v13 = v58;
     }
 
 LABEL_75:
     if (v9)
     {
       v35 = (*(*a1 + 56))(a1);
-      v71.__r_.__value_.__s.__data_[0] = v23;
-      v71.__r_.__value_.__s.__data_[7] = v57.i8[6];
-      *(v71.__r_.__value_.__r.__words + 5) = v57.i16[2];
-      *(&v71.__r_.__value_.__l.__data_ + 1) = v57.i32[0];
-      v71.__r_.__value_.__l.__size_ = v2;
-      v71.__r_.__value_.__s.__data_[16] = v24;
-      v75 = v26;
-      v76 = v13;
-      v77 = v25;
-      *v78 = *v61;
-      *&v78[3] = *&v61[3];
-      (*(*v35 + 680))(&v73);
-      if (v74)
+      v70.__r_.__value_.__s.__data_[0] = v23;
+      v70.__r_.__value_.__s.__data_[7] = v56.i8[6];
+      *(v70.__r_.__value_.__r.__words + 5) = v56.i16[2];
+      *(&v70.__r_.__value_.__l.__data_ + 1) = v56.i32[0];
+      v70.__r_.__value_.__l.__size_ = v2;
+      v70.__r_.__value_.__s.__data_[16] = v24;
+      v74 = v26;
+      v75 = v13;
+      v76 = v25;
+      *v77 = *v60;
+      *&v77[3] = *&v60[3];
+      (*(*v35 + 680))(&v72);
+      if (v73)
       {
-        v36 = v73;
-        v73 = 0;
-        v75 = &v77;
-        v76 = 0x200000000;
-        v70 = v36;
-        v71.__r_.__value_.__r.__words[0] = &v75;
-        llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v70, &v71);
-        if (v70)
+        v36 = v72;
+        v72 = 0;
+        v74 = &v76;
+        v75 = 0x200000000;
+        v69 = v36;
+        v70.__r_.__value_.__r.__words[0] = &v74;
+        llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v69, &v70);
+        if (v69)
         {
-          (*(*v70 + 8))(v70);
+          (*(*v69 + 8))(v69);
         }
 
-        v37 = v75;
-        v38 = v76;
-        memset(&v71, 0, sizeof(v71));
-        if (v76)
+        v37 = v74;
+        v38 = v75;
+        memset(&v70, 0, sizeof(v70));
+        if (v75)
         {
-          v39 = 24 * v76;
-          v40 = v76 - 1;
-          v41 = &v75->__r_.__value_.__r.__words[2] + 7;
+          v39 = 24 * v75;
+          v40 = v75 - 1;
+          v41 = &v74->__r_.__value_.__r.__words[2] + 7;
           v42 = v39;
           do
           {
@@ -2402,7 +2391,7 @@ LABEL_75:
           }
 
           while (v42);
-          std::string::reserve(&v71, v40);
+          std::string::reserve(&v70, v40);
           v44 = SHIBYTE(v37->__r_.__value_.__r.__words[2]);
           if (v44 >= 0)
           {
@@ -2424,14 +2413,14 @@ LABEL_75:
             size = v37->__r_.__value_.__l.__size_;
           }
 
-          std::string::append(&v71, v45, size);
+          std::string::append(&v70, v45, size);
           if (v38 != 1)
           {
             v47 = v37 + 1;
             v48 = v39 - 24;
             do
             {
-              std::string::append(&v71, "\n", 1uLL);
+              std::string::append(&v70, "\n", 1uLL);
               v49 = SHIBYTE(v47->__r_.__value_.__r.__words[2]);
               if (v49 >= 0)
               {
@@ -2453,7 +2442,7 @@ LABEL_75:
                 v51 = v47->__r_.__value_.__l.__size_;
               }
 
-              std::string::append(&v71, v50, v51);
+              std::string::append(&v70, v50, v51);
               ++v47;
               v48 -= 24;
             }
@@ -2462,19 +2451,19 @@ LABEL_75:
           }
         }
 
-        llvm::SmallVector<std::string,2u>::~SmallVector(&v75);
-        v79 = 260;
-        v75 = &v71;
-        v11 = llvm::MCAsmParser::Error(a1, a2, &v75, 0, 0);
-        if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+        llvm::SmallVector<std::string,2u>::~SmallVector(&v74);
+        v78 = 260;
+        v74 = &v70;
+        v11 = llvm::MCAsmParser::Error(a1, a2, &v74, 0, 0);
+        if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v71.__r_.__value_.__l.__data_);
+          operator delete(v70.__r_.__value_.__l.__data_);
         }
 
-        if (v74)
+        if (v73)
         {
-          v52 = v73;
-          v73 = 0;
+          v52 = v72;
+          v72 = 0;
           if (v52)
           {
             (*(*v52 + 8))(v52);
@@ -2494,28 +2483,28 @@ LABEL_75:
       }
 
       v54 = (*(*a1 + 56))(a1);
-      v71.__r_.__value_.__s.__data_[0] = v23;
-      v71.__r_.__value_.__s.__data_[7] = v57.i8[6];
-      *(v71.__r_.__value_.__r.__words + 5) = v57.i16[2];
-      *(&v71.__r_.__value_.__l.__data_ + 1) = v57.i32[0];
-      v71.__r_.__value_.__l.__size_ = v2;
-      v71.__r_.__value_.__s.__data_[16] = v24;
-      v75 = v26;
-      v76 = v13;
-      v77 = v25;
-      *v78 = *v61;
-      *&v78[3] = *&v61[3];
+      v70.__r_.__value_.__s.__data_[0] = v23;
+      v70.__r_.__value_.__s.__data_[7] = v56.i8[6];
+      *(v70.__r_.__value_.__r.__words + 5) = v56.i16[2];
+      *(&v70.__r_.__value_.__l.__data_ + 1) = v56.i32[0];
+      v70.__r_.__value_.__l.__size_ = v2;
+      v70.__r_.__value_.__s.__data_[16] = v24;
+      v74 = v26;
+      v75 = v13;
+      v76 = v25;
+      *v77 = *v60;
+      *&v77[3] = *&v60[3];
       (*(*v54 + 688))();
     }
 
     if ((*(a1 + 798) & 1) == 0 && !llvm::MCContext::isDwarfMD5UsageConsistent(*(a1 + 216)))
     {
       *(a1 + 798) = 1;
-      v75 = "inconsistent use of MD5 checksums";
-      v79 = 259;
-      v11 = (*(*a1 + 168))(a1, a2, &v75, 0, 0);
+      v74 = "inconsistent use of MD5 checksums";
+      v78 = 259;
+      v11 = (*(*a1 + 168))(a1, a2, &v74, 0, 0);
 LABEL_110:
-      if (SHIBYTE(v60) < 0)
+      if (SHIBYTE(v59) < 0)
       {
         operator delete(__p);
       }
@@ -2530,13 +2519,11 @@ LABEL_109:
 
   v11 = 1;
 LABEL_114:
-  if (SHIBYTE(v69) < 0)
+  if (SHIBYTE(v68) < 0)
   {
-    operator delete(v67);
+    operator delete(v66);
   }
 
-LABEL_116:
-  v55 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2553,7 +2540,7 @@ BOOL anonymous namespace::AsmParser::parseDirectiveLine(_anonymous_namespace_::A
   }
 }
 
-uint64_t anonymous namespace::AsmParser::parseDirectiveLoc(_anonymous_namespace_::AsmParser *this)
+BOOL anonymous namespace::AsmParser::parseDirectiveLoc(_anonymous_namespace_::AsmParser *this)
 {
   v31 = 0;
   v2 = *(*((*(*this + 40))(this) + 8) + 8);
@@ -2655,7 +2642,7 @@ LABEL_23:
   v29[1] = v25;
   v29[2] = &v24;
   v29[3] = v27;
-  if ((v14 & 1) == 0)
+  if (!v14)
   {
     v22 = (*(*this + 56))(this);
     (*(*v22 + 712))(v22, v3, v11, v20, v25[0], v24, v27[0]);
@@ -2819,7 +2806,7 @@ LABEL_31:
     v19 = v31.__r_.__value_.__r.__words[1];
   }
 
-  v20 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(*(this + 27) + 184, v19, 0);
+  v20 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((*(this + 27) + 184), v19, 0);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v21 = &__p;
@@ -3061,39 +3048,39 @@ LABEL_36:
   return llvm::MCAsmParser::Error(this, v2, v26, 0, 0);
 }
 
-uint64_t anonymous namespace::AsmParser::parseDirectiveCVLoc(_anonymous_namespace_::AsmParser *this)
+BOOL anonymous namespace::AsmParser::parseDirectiveCVLoc(_anonymous_namespace_::AsmParser *this)
 {
-  v2 = *(*((*(*this + 40))(this) + 8) + 8);
-  v23 = 0;
+  (*(*this + 40))(this);
+  v22 = 0;
   {
     return 1;
   }
 
-  v22 = 0;
+  v21 = 0;
   {
     return 1;
   }
 
   if (**((*(*this + 40))(this) + 8) == 4)
   {
-    v3 = *((*(*this + 40))(this) + 8);
-    v6 = *(v3 + 24);
-    v4 = (v3 + 24);
-    v5 = v6;
-    if (*(v4 + 2) >= 0x41u)
+    v2 = *((*(*this + 40))(this) + 8);
+    v5 = *(v2 + 24);
+    v3 = (v2 + 24);
+    v4 = v5;
+    if (*(v3 + 2) >= 0x41u)
     {
-      v4 = v5;
+      v3 = v4;
     }
 
-    v7 = *v4;
-    if (*v4 < 0)
+    v6 = *v3;
+    if (*v3 < 0)
     {
-      v15 = "line number less than zero in '.cv_loc' directive";
+      v14 = "line number less than zero in '.cv_loc' directive";
 LABEL_19:
-      v20[0] = v15;
-      v21 = 259;
-      v16 = (*(*this + 40))(this);
-      llvm::MCAsmParser::Error(this, *(v16 + 96), v20, 0, 0);
+      v19[0] = v14;
+      v20 = 259;
+      v15 = (*(*this + 40))(this);
+      llvm::MCAsmParser::Error(this, *(v15 + 96), v19, 0, 0);
       return 1;
     }
 
@@ -3102,45 +3089,45 @@ LABEL_19:
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   if (**((*(*this + 40))(this) + 8) == 4)
   {
-    v8 = *((*(*this + 40))(this) + 8);
-    v11 = *(v8 + 24);
-    v9 = (v8 + 24);
-    v10 = v11;
-    if (*(v9 + 2) >= 0x41u)
+    v7 = *((*(*this + 40))(this) + 8);
+    v10 = *(v7 + 24);
+    v8 = (v7 + 24);
+    v9 = v10;
+    if (*(v8 + 2) >= 0x41u)
     {
-      v9 = v10;
+      v8 = v9;
     }
 
-    v12 = *v9;
-    if ((*v9 & 0x8000000000000000) == 0)
+    v11 = *v8;
+    if ((*v8 & 0x8000000000000000) == 0)
     {
       (*(*this + 184))(this);
       goto LABEL_15;
     }
 
-    v15 = "column position less than zero in '.cv_loc' directive";
+    v14 = "column position less than zero in '.cv_loc' directive";
     goto LABEL_19;
   }
 
-  v12 = 0;
+  v11 = 0;
 LABEL_15:
-  v19 = 0;
   v18 = 0;
-  v20[0] = this;
-  v20[1] = &v19;
-  v20[2] = &v18;
-  if ((v13 & 1) == 0)
+  v17 = 0;
+  v19[0] = this;
+  v19[1] = &v18;
+  v19[2] = &v17;
+  if (!v12)
   {
-    v14 = (*(*this + 56))(this);
-    (*(*v14 + 744))(v14, v23, v22, v7, v12, v19, v18 != 0);
+    v13 = (*(*this + 56))(this);
+    (*(*v13 + 744))(v13, v22, v21, v6, v11, v18, v17 != 0);
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveCVLinetable(_anonymous_namespace_::AsmParser *this)
@@ -3481,7 +3468,7 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveCVString(llvm::MCContext 
       v5 = v10;
     }
 
-    llvm::CodeViewContext::addToStringTable(CVContext, p_p, v5, &v8);
+    llvm::CodeViewContext::addToStringTable(CVContext, &v8, p_p, v5);
     v6 = *(*(*this + 7))(this);
     (*(v6 + 512))();
     v2 = 0;
@@ -3512,15 +3499,15 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveCVFileChecksumOffset(_ano
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveCVFPOData(_anonymous_namespace_::AsmParser *this)
 {
-  v2 = *((*(*this + 40))(this) + 96);
+  (*(*this + 40))(this);
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  if ((*(*this + 192))(this, &v9))
+  if ((*(*this + 192))(this, &v8))
   {
-    v7[0] = "expected symbol name";
-    v8 = 259;
-    v3 = (*(*this + 40))(this);
-    llvm::MCAsmParser::Error(this, *(v3 + 96), v7, 0, 0);
+    v6[0] = "expected symbol name";
+    v7 = 259;
+    v2 = (*(*this + 40))(this);
+    llvm::MCAsmParser::Error(this, *(v2 + 96), v6, 0, 0);
     return 1;
   }
 
@@ -3529,13 +3516,13 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveCVFPOData(_anonymous_name
     return 1;
   }
 
-  v5 = (*(*this + 48))(this);
-  v8 = 261;
-  v7[0] = v9;
-  v7[1] = v10;
-  llvm::MCContext::getOrCreateSymbol(v5, v7);
-  v6 = *(*(*this + 56))(this);
-  (*(v6 + 832))();
+  v4 = (*(*this + 48))(this);
+  v7 = 261;
+  v6[0] = v8;
+  v6[1] = v9;
+  llvm::MCContext::getOrCreateSymbol(v4, v6);
+  v5 = *(*(*this + 56))(this);
+  (*(v5 + 832))();
   return 0;
 }
 
@@ -3592,32 +3579,32 @@ LABEL_2:
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveCFIStartProc(_anonymous_namespace_::AsmParser *this)
 {
-  v8 = 0;
-  v9 = 0;
+  v11 = 0;
+  v12 = 0;
   if (llvm::MCAsmParser::parseOptionalToken(this, 9))
   {
     goto LABEL_2;
   }
 
-  if (((*(*this + 192))(this, &v8) & 1) != 0 || v9 != 6)
+  if (((*(*this + 192))(this, &v11) & 1) != 0 || v12 != 6)
   {
-    v6[0] = "unexpected token";
-    v7 = 259;
-    v5 = (*(*this + 40))(this);
-    llvm::MCAsmParser::Error(this, *(*(v5 + 8) + 8), v6, 0, 0);
+    v9[0] = "unexpected token";
+    v10 = 259;
+    v8 = (*(*this + 40))(this);
+    llvm::MCAsmParser::Error(this, *(*(v8 + 8) + 8), v9, 0, 0);
   }
 
   else
   {
-    v4 = *v8 ^ 0x706D6973 | *(v8 + 4) ^ 0x656C;
-    v6[0] = "unexpected token";
-    v7 = 259;
-    llvm::MCAsmParser::check(this, v4 != 0, v6);
-    if (!v4 && !llvm::MCAsmParser::parseEOL(this))
+    v7 = *v11 ^ 0x706D6973 | *(v11 + 4) ^ 0x656C;
+    v9[0] = "unexpected token";
+    v10 = 259;
+    llvm::MCAsmParser::check(this, v7 != 0, v9);
+    if (!v7 && !llvm::MCAsmParser::parseEOL(this))
     {
 LABEL_2:
       v2 = (*(*this + 56))(this);
-      llvm::MCStreamer::emitCFIStartProc(v2, v9 != 0, *(this + 17));
+      llvm::MCStreamer::emitCFIStartProc(v2, v12 != 0, *(this + 17), v3, v4, v5);
       return 0;
     }
   }
@@ -3631,7 +3618,7 @@ BOOL anonymous namespace::AsmParser::parseDirectiveCFIEndProc(_anonymous_namespa
   if (!v2)
   {
     v3 = (*(*this + 56))(this);
-    llvm::MCStreamer::emitCFIEndProc(v3);
+    llvm::MCStreamer::emitCFIEndProc(v3, v4, v5, v6, v7, v8);
   }
 
   return v2;
@@ -4022,13 +4009,13 @@ BOOL anonymous namespace::AsmParser::parseDirectiveMacrosOnOff(llvm::MCAsmParser
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveMacro(uint64_t a1, uint64_t a2)
 {
-  v109 = 0uLL;
-  if ((*(*a1 + 192))(a1, &v109))
+  v108 = 0uLL;
+  if ((*(*a1 + 192))(a1, &v108))
   {
-    *&v82 = "expected identifier in '.macro' directive";
-    *&v83[16] = 259;
+    *&v81 = "expected identifier in '.macro' directive";
+    *&v82[16] = 259;
     v4 = (*(*a1 + 40))(a1);
-    llvm::MCAsmParser::Error(a1, *(v4 + 96), &v82, 0, 0);
+    llvm::MCAsmParser::Error(a1, *(v4 + 96), &v81, 0, 0);
     return 1;
   }
 
@@ -4037,9 +4024,9 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveMacro(uint64_t a1, uint64
     (*(*a1 + 184))(a1);
   }
 
+  v105 = 0;
   v106 = 0;
   v107 = 0;
-  v108 = 0;
   v6 = 0;
   if (**((*(*a1 + 40))(a1) + 8) != 9)
   {
@@ -4051,24 +4038,24 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveMacro(uint64_t a1, uint64
       if (v8 != v6 && *(v6 - 7) == 1)
       {
         v67 = *(a1 + 136);
-        LOWORD(v105) = 1283;
-        *&v102 = "vararg parameter '";
-        v103 = *(v6 - 6);
-        v104 = *(v6 - 5);
-        *&v82 = &v102;
-        *v83 = "' should be the last parameter";
-        *&v83[16] = 770;
-        v5 = llvm::MCAsmParser::Error(a1, v67, &v82, 0, 0);
+        LOWORD(v104) = 1283;
+        *&v101 = "vararg parameter '";
+        v102 = *(v6 - 6);
+        v103 = *(v6 - 5);
+        *&v81 = &v101;
+        *v82 = "' should be the last parameter";
+        *&v82[16] = 770;
+        v5 = llvm::MCAsmParser::Error(a1, v67, &v81, 0, 0);
         goto LABEL_122;
       }
 
-      v82 = 0u;
-      memset(v83, 0, 26);
-      if ((*(*a1 + 192))(a1, &v82))
+      v81 = 0u;
+      memset(v82, 0, 26);
+      if ((*(*a1 + 192))(a1, &v81))
       {
-        *&v102 = "expected identifier in '.macro' directive";
-        LOWORD(v105) = 259;
-        v64 = llvm::MCAsmParser::TokError(a1, &v102, 0, 0);
+        *&v101 = "expected identifier in '.macro' directive";
+        LOWORD(v104) = 259;
+        v64 = llvm::MCAsmParser::TokError(a1, &v101, 0, 0);
         goto LABEL_143;
       }
 
@@ -4081,73 +4068,73 @@ LABEL_18:
       if (**(a1 + 48) == 10)
       {
         (*(*a1 + 184))(a1);
+        v90 = 0;
         v91 = 0;
-        v92 = 0;
         v12 = *(a1 + 136);
-        if ((*(*a1 + 192))(a1, &v91))
+        if ((*(*a1 + 192))(a1, &v90))
         {
-          v95 = 1283;
-          v93[0] = "missing parameter qualifier for '";
-          v94 = v82;
-          v96[0] = v93;
-          v97 = "' in macro '";
-          v98 = 770;
-          v99[0] = v96;
-          v100 = v109;
-          v101 = 1282;
-          *&v102 = v99;
-          v103 = v9;
-          LOWORD(v105) = 770;
+          v94 = 1283;
+          v92[0] = "missing parameter qualifier for '";
+          v93 = v81;
+          v95[0] = v92;
+          v96 = "' in macro '";
+          v97 = 770;
+          v98[0] = v95;
+          v99 = v108;
+          v100 = 1282;
+          *&v101 = v98;
+          v102 = v9;
+          LOWORD(v104) = 770;
 LABEL_142:
-          v64 = llvm::MCAsmParser::Error(a1, v12, &v102, 0, 0);
+          v64 = llvm::MCAsmParser::Error(a1, v12, &v101, 0, 0);
 LABEL_143:
           v5 = v64;
 LABEL_63:
-          *&v102 = v83;
-          std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v102);
+          *&v101 = v82;
+          std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v101);
           goto LABEL_122;
         }
 
-        if (v92 == 6)
+        if (v91 == 6)
         {
-          if (*v91 != 1634886006 || *(v91 + 4) != 26482)
+          if (*v90 != 1634886006 || *(v90 + 4) != 26482)
           {
 LABEL_140:
-            v90 = 773;
-            v89[0] = v91;
-            v89[1] = v92;
-            v89[2] = " is not a valid parameter qualifier for '";
-            v93[0] = v89;
-            v94 = v82;
-            v95 = 1282;
-            v96[0] = v93;
-            v97 = "' in macro '";
-            v98 = 770;
-            v99[0] = v96;
-            v100 = v109;
-            v101 = 1282;
-            *&v102 = v99;
-            v103 = v9;
-            LOWORD(v105) = 770;
+            v89 = 773;
+            v88[0] = v90;
+            v88[1] = v91;
+            v88[2] = " is not a valid parameter qualifier for '";
+            v92[0] = v88;
+            v93 = v81;
+            v94 = 1282;
+            v95[0] = v92;
+            v96 = "' in macro '";
+            v97 = 770;
+            v98[0] = v95;
+            v99 = v108;
+            v100 = 1282;
+            *&v101 = v98;
+            v102 = v9;
+            LOWORD(v104) = 770;
             goto LABEL_142;
           }
 
-          v83[25] = 1;
+          v82[25] = 1;
         }
 
         else
         {
-          if (v92 != 3)
+          if (v91 != 3)
           {
             goto LABEL_140;
           }
 
-          if (*v91 != 25970 || *(v91 + 2) != 113)
+          if (*v90 != 25970 || *(v90 + 2) != 113)
           {
             goto LABEL_140;
           }
 
-          v83[24] = 1;
+          v82[24] = 1;
         }
       }
 
@@ -4159,25 +4146,25 @@ LABEL_140:
           goto LABEL_62;
         }
 
-        if (v83[24] == 1)
+        if (v82[24] == 1)
         {
-          v95 = 1283;
-          v93[0] = "pointless default value for required parameter '";
-          v94 = v82;
-          v96[0] = v93;
-          v97 = "' in macro '";
-          v98 = 770;
-          v99[0] = v96;
-          v100 = v109;
-          v101 = 1282;
-          *&v102 = v99;
-          v103 = v9;
-          LOWORD(v105) = 770;
-          (*(*a1 + 168))(a1, v15, &v102, 0, 0);
+          v94 = 1283;
+          v92[0] = "pointless default value for required parameter '";
+          v93 = v81;
+          v95[0] = v92;
+          v96 = "' in macro '";
+          v97 = 770;
+          v98[0] = v95;
+          v99 = v108;
+          v100 = 1282;
+          *&v101 = v98;
+          v102 = v9;
+          LOWORD(v104) = 770;
+          (*(*a1 + 168))(a1, v15, &v101, 0, 0);
         }
       }
 
-      if (v6 >= v108)
+      if (v6 >= v107)
       {
         v16 = v9;
         v17 = 0xAAAAAAAAAAAAAAABLL * (v6 - v8) + 1;
@@ -4186,12 +4173,12 @@ LABEL_140:
           std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
         }
 
-        if (0x5555555555555556 * ((v108 - v8) >> 4) > v17)
+        if (0x5555555555555556 * ((v107 - v8) >> 4) > v17)
         {
-          v17 = 0x5555555555555556 * ((v108 - v8) >> 4);
+          v17 = 0x5555555555555556 * ((v107 - v8) >> 4);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v108 - v8) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+        if (0xAAAAAAAAAAAAAAABLL * ((v107 - v8) >> 4) >= 0x2AAAAAAAAAAAAAALL)
         {
           v18 = 0x555555555555555;
         }
@@ -4212,12 +4199,12 @@ LABEL_140:
         }
 
         v19 = 16 * (v6 - v8);
-        v20 = *v83;
-        *v19 = v82;
+        v20 = *v82;
+        *v19 = v81;
         *(v19 + 16) = v20;
-        *(v19 + 32) = *&v83[16];
-        memset(v83, 0, 24);
-        *(v19 + 40) = *&v83[24];
+        *(v19 + 32) = *&v82[16];
+        memset(v82, 0, 24);
+        *(v19 + 40) = *&v82[24];
         v21 = v19 - (v6 - v8);
         if (v8 != v6)
         {
@@ -4242,19 +4229,19 @@ LABEL_140:
           while (v22 != v6);
           do
           {
-            *&v102 = v8 + 1;
-            std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v102);
+            *&v101 = v8 + 1;
+            std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v101);
             v8 += 3;
           }
 
           while (v8 != v6);
-          v8 = v106;
+          v8 = v105;
         }
 
         v6 = (v19 + 48);
-        v106 = v21;
-        v107 = v19 + 48;
-        v108 = 0;
+        v105 = v21;
+        v106 = v19 + 48;
+        v107 = 0;
         if (v8)
         {
           operator delete(v8);
@@ -4266,32 +4253,32 @@ LABEL_140:
 
       else
       {
-        *v6 = v82;
+        *v6 = v81;
         *(v6 + 3) = 0;
         *(v6 + 4) = 0;
         *(v6 + 2) = 0;
-        v6[1] = *v83;
-        *(v6 + 4) = *&v83[16];
-        memset(v83, 0, 24);
-        *(v6 + 20) = *&v83[24];
+        v6[1] = *v82;
+        *(v6 + 4) = *&v82[16];
+        memset(v82, 0, 24);
+        *(v6 + 20) = *&v82[24];
         v6 += 3;
       }
 
-      v107 = v6;
+      v106 = v6;
       if (**((*(*a1 + 40))(a1) + 8) == 25)
       {
         (*(*a1 + 184))(a1);
       }
 
-      *&v102 = v83;
-      std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v102);
+      *&v101 = v82;
+      std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v101);
       if (**((*(*a1 + 40))(a1) + 8) == 9)
       {
         goto LABEL_6;
       }
     }
 
-    v10 = v82;
+    v10 = v81;
     v11 = v8;
     while (*(v11 + 1) != *(&v10 + 1) || *(&v10 + 1) && memcmp(*v11, v10, *(&v10 + 1)))
     {
@@ -4302,20 +4289,20 @@ LABEL_140:
       }
     }
 
-    v95 = 1283;
-    v93[0] = "macro '";
-    v94 = v109;
-    v96[0] = v93;
-    v97 = "' has multiple parameters named '";
-    v98 = 770;
-    v99[0] = v96;
-    v100 = v10;
-    v101 = 1282;
-    *&v102 = v99;
-    v103 = v9;
-    LOWORD(v105) = 770;
+    v94 = 1283;
+    v92[0] = "macro '";
+    v93 = v108;
+    v95[0] = v92;
+    v96 = "' has multiple parameters named '";
+    v97 = 770;
+    v98[0] = v95;
+    v99 = v10;
+    v100 = 1282;
+    *&v101 = v98;
+    v102 = v9;
+    LOWORD(v104) = 770;
     v24 = (*(*a1 + 40))(a1);
-    llvm::MCAsmParser::Error(a1, *(v24 + 96), &v102, 0, 0);
+    llvm::MCAsmParser::Error(a1, *(v24 + 96), &v101, 0, 0);
 LABEL_62:
     v5 = 1;
     goto LABEL_63;
@@ -4323,10 +4310,10 @@ LABEL_62:
 
 LABEL_6:
   llvm::MCAsmLexer::Lex((a1 + 40));
-  *(&v102 + 1) = 0;
+  *(&v101 + 1) = 0;
+  v102 = 0;
+  v104 = 1;
   v103 = 0;
-  v105 = 1;
-  v104 = 0;
   v7 = *((*(*a1 + 40))(a1) + 8);
   v71 = *(v7 + 8);
   if (*(v7 + 32) > 0x40u)
@@ -4334,7 +4321,6 @@ LABEL_6:
     operator new[]();
   }
 
-  v72 = *(v7 + 24);
   v25 = 0;
   while (1)
   {
@@ -4345,8 +4331,8 @@ LABEL_6:
 
     if (!**((*(*a1 + 40))(a1) + 8))
     {
-      *&v82 = "no matching '.endmacro' in definition";
-      *&v83[16] = 259;
+      *&v81 = "no matching '.endmacro' in definition";
+      *&v82[16] = 259;
       goto LABEL_118;
     }
 
@@ -4485,78 +4471,78 @@ LABEL_116:
 
   v56 = *((*(*a1 + 40))(a1) + 8);
   v57 = *(v56 + 2);
-  v102 = *v56;
-  v103 = v57;
-  llvm::APInt::operator=(&v104, (v56 + 24));
+  v101 = *v56;
+  v102 = v57;
+  llvm::APInt::operator=(&v103, (v56 + 24));
   llvm::MCAsmLexer::Lex((a1 + 40));
   if (**((*(*a1 + 40))(a1) + 8) == 9)
   {
     v58 = (*(*a1 + 48))(a1);
-    Key = llvm::StringMapImpl::FindKey((v58 + 2064), v109, *(&v109 + 1));
+    Key = llvm::StringMapImpl::FindKey((v58 + 2064), v108, *(&v108 + 1));
     if (Key == -1 || Key == *(v58 + 2072))
     {
-      v60 = *(&v102 + 1) - v71;
-      v61 = v106;
-      v62 = v108;
+      v60 = *(&v101 + 1) - v71;
+      v61 = v105;
+      v62 = v107;
+      v105 = 0;
       v106 = 0;
       v107 = 0;
-      v108 = 0;
-      v82 = v109;
-      *v83 = v71;
-      *&v83[8] = v60;
-      memset(v81, 0, sizeof(v81));
-      v88 = 0;
-      v99[0] = v81;
-      std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](v99);
+      v81 = v108;
+      *v82 = v71;
+      *&v82[8] = v60;
+      memset(v80, 0, sizeof(v80));
+      v87 = 0;
+      v98[0] = v80;
+      std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](v98);
       v63 = (*(*a1 + 48))(a1);
-      v73[0] = v82;
-      v73[1] = *v83;
-      v74 = v61;
-      v75 = v6;
-      *&v83[16] = 0;
-      *&v83[24] = 0;
-      v76 = v62;
+      v72[0] = v81;
+      v72[1] = *v82;
+      v73 = v61;
+      v74 = v6;
+      *&v82[16] = 0;
+      *&v82[24] = 0;
+      v75 = v62;
+      v76 = 0;
       v77 = 0;
       v78 = 0;
-      v79 = 0;
+      v83 = 0;
       v84 = 0;
       v85 = 0;
       v86 = 0;
-      v87 = 0;
-      v80 = 0;
-      llvm::MCContext::defineMacro(v63, v109, *(&v109 + 1), v73);
-      llvm::MCAsmMacro::~MCAsmMacro(v73);
-      llvm::MCAsmMacro::~MCAsmMacro(&v82);
+      v79 = 0;
+      llvm::MCContext::defineMacro(v63, v108, *(&v108 + 1), v72);
+      llvm::MCAsmMacro::~MCAsmMacro(v72);
+      llvm::MCAsmMacro::~MCAsmMacro(&v81);
       v5 = 0;
       goto LABEL_119;
     }
 
-    v101 = 1283;
-    v99[0] = "macro '";
-    v100 = v109;
-    v96[0] = "' is already defined";
-    v98 = 259;
-    llvm::operator+(v99, v96, &v82);
+    v100 = 1283;
+    v98[0] = "macro '";
+    v99 = v108;
+    v95[0] = "' is already defined";
+    v97 = 259;
+    llvm::operator+(v98, v95, &v81);
 LABEL_118:
-    v5 = llvm::MCAsmParser::Error(a1, a2, &v82, 0, 0);
+    v5 = llvm::MCAsmParser::Error(a1, a2, &v81, 0, 0);
     goto LABEL_119;
   }
 
-  if (v102 == 2)
+  if (v101 == 2)
   {
-    v65 = *(&v102 + 1);
-    v66 = v103;
+    v65 = *(&v101 + 1);
+    v66 = v102;
   }
 
   else
   {
-    v65 = *(&v102 + 1);
-    v68 = v103;
-    v69 = (v103 - 1);
-    v70 = v103 != 0;
-    if (v103)
+    v65 = *(&v101 + 1);
+    v68 = v102;
+    v69 = (v102 - 1);
+    v70 = v102 != 0;
+    if (v102)
     {
-      v65 = *(&v102 + 1) + 1;
+      v65 = *(&v101 + 1) + 1;
     }
 
     if (v69 < v70)
@@ -4564,7 +4550,7 @@ LABEL_118:
       v69 = 1;
     }
 
-    if (v69 < v103)
+    if (v69 < v102)
     {
       v68 = v69;
     }
@@ -4572,23 +4558,23 @@ LABEL_118:
     v66 = (v68 - v70);
   }
 
-  v101 = 1283;
-  v99[0] = "unexpected token in '";
-  *&v100 = v65;
-  *(&v100 + 1) = v66;
-  *&v82 = v99;
-  *v83 = "' directive";
-  *&v83[16] = 770;
-  v5 = llvm::MCAsmParser::TokError(a1, &v82, 0, 0);
+  v100 = 1283;
+  v98[0] = "unexpected token in '";
+  *&v99 = v65;
+  *(&v99 + 1) = v66;
+  *&v81 = v98;
+  *v82 = "' directive";
+  *&v82[16] = 770;
+  v5 = llvm::MCAsmParser::TokError(a1, &v81, 0, 0);
 LABEL_119:
-  if (v105 >= 0x41 && v104)
+  if (v104 >= 0x41 && v103)
   {
-    MEMORY[0x277C69E10](v104, 0x1000C8000313F17);
+    MEMORY[0x277C69E10](v103, 0x1000C8000313F17);
   }
 
 LABEL_122:
-  *&v82 = &v106;
-  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](&v82);
+  *&v81 = &v105;
+  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](&v81);
   return v5;
 }
 
@@ -4744,12 +4730,12 @@ BOOL anonymous namespace::AsmParser::parseDirectiveEnd(_DWORD **a1)
   return v2;
 }
 
-uint64_t anonymous namespace::AsmParser::parseDirectiveError(uint64_t a1, uint64_t a2, char a3)
+uint64_t anonymous namespace::AsmParser::parseDirectiveError(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a1 + 304);
   if (*(a1 + 296) != v5 && *(v5 - 3) == 1)
   {
-    (*(*a1 + 224))(a1);
+    (*(*a1 + 224))(a1, a2, a3);
     return 0;
   }
 
@@ -4895,53 +4881,50 @@ LABEL_6:
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveReloc(llvm::MCAsmParser *a1)
 {
-  v16 = 0;
-  v17 = 0;
+  v13 = 0;
+  v14 = 0;
   v2 = *(*(a1 + 6) + 8);
-  v18 = 0;
-  if ((*(*a1 + 232))(a1, &v17, &v18))
+  v15 = 0;
+  if ((*(*a1 + 232))(a1, &v14, &v15))
   {
     return 1;
   }
 
-  v18 = "expected comma";
-  v21 = 259;
-  if (llvm::MCAsmParser::parseToken(a1, 25, &v18))
+  v15 = "expected comma";
+  v18 = 259;
+  if (llvm::MCAsmParser::parseToken(a1, 25, &v15))
   {
     return 1;
   }
 
   v3 = **((*(*a1 + 40))(a1) + 8);
-  v18 = "expected relocation name";
-  v21 = 259;
-  llvm::MCAsmParser::check(a1, v3 != 2, &v18);
+  v15 = "expected relocation name";
+  v18 = 259;
+  llvm::MCAsmParser::check(a1, v3 != 2, &v15);
   if (v3 != 2)
   {
     return 1;
   }
 
-  v4 = *(a1 + 6);
-  v5 = *v4;
-  v6 = *(v4 + 1);
-  *(v4 + 2);
+  v4 = *(*(a1 + 6) + 8);
   (*(*a1 + 184))(a1);
   if (**(a1 + 6) == 25)
   {
     (*(*a1 + 184))(a1);
-    v7 = *(a1 + 17);
-    v18 = 0;
-    if ((*(*a1 + 232))(a1, &v16, &v18))
+    v5 = *(a1 + 17);
+    v15 = 0;
+    if ((*(*a1 + 232))(a1, &v13, &v15))
     {
       return 1;
     }
 
-    memset(v13, 0, sizeof(v13));
-    v14 = 0;
-    if (!llvm::MCExpr::evaluateAsRelocatableImpl(v16, v13, 0, 0, 0, 0, 0))
+    memset(v10, 0, sizeof(v10));
+    v11 = 0;
+    if (!llvm::MCExpr::evaluateAsRelocatableImpl(v13, v10, 0, 0, 0, 0, 0))
     {
-      v18 = "expression must be relocatable";
-      v21 = 259;
-      return llvm::MCAsmParser::Error(a1, v7, &v18, 0, 0);
+      v15 = "expression must be relocatable";
+      v18 = 259;
+      return llvm::MCAsmParser::Error(a1, v5, &v15, 0, 0);
     }
   }
 
@@ -4950,33 +4933,32 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveReloc(llvm::MCAsmParser *
     return 1;
   }
 
-  v10 = *(*(a1 + 1) + 288);
-  v11 = *(*(*a1 + 56))(a1);
-  (*(v11 + 1168))(&v18);
-  if (v21 != 1)
+  v8 = *(*(*a1 + 56))(a1);
+  (*(v8 + 1168))(&v15);
+  if (v18 != 1)
   {
     return 0;
   }
 
-  if (v18)
+  if (v15)
   {
-    v12 = v6;
+    v9 = v4;
   }
 
   else
   {
-    v12 = v2;
+    v9 = v2;
   }
 
-  v15 = 260;
-  v13[0] = &__p;
-  v8 = llvm::MCAsmParser::Error(a1, v12, v13, 0, 0);
-  if ((v21 & 1) != 0 && v20 < 0)
+  v12 = 260;
+  v10[0] = &__p;
+  v6 = llvm::MCAsmParser::Error(a1, v9, v10, 0, 0);
+  if ((v18 & 1) != 0 && v17 < 0)
   {
     operator delete(__p);
   }
 
-  return v8;
+  return v6;
 }
 
 uint64_t anonymous namespace::AsmParser::parseDirectiveDCB(llvm::MCAsmParser *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5157,66 +5139,65 @@ uint64_t anonymous namespace::AsmParser::parseDirectivePrint(llvm::MCAsmParser *
     operator new[]();
   }
 
-  v8 = *(v4 + 3);
   (*(*a1 + 184))(a1);
   if (v5 == 3 && *v7 == 34)
   {
-    v9 = llvm::MCAsmParser::parseEOL(a1);
-    if (v9)
+    v8 = llvm::MCAsmParser::parseEOL(a1);
+    if (v8)
     {
       return 1;
     }
 
     else
     {
-      v12 = llvm::outs(v9);
-      v13 = v6 - 1;
-      v14 = v6 != 0;
+      v11 = llvm::outs(v8);
+      v12 = v6 - 1;
+      v13 = v6 != 0;
       if (v6)
       {
-        v15 = v7 + 1;
+        v14 = v7 + 1;
       }
 
       else
       {
-        v15 = v7;
+        v14 = v7;
       }
 
-      if (v13 < v14)
+      if (v12 < v13)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
-      if (v13 >= v6)
+      if (v12 >= v6)
       {
-        v13 = v6;
+        v12 = v6;
       }
 
-      v16 = llvm::raw_ostream::operator<<(v12, v15, v13 - v14);
-      v17 = *(v16 + 4);
-      if (v17 >= *(v16 + 3))
+      v15 = llvm::raw_ostream::operator<<(v11, v14, v12 - v13);
+      v16 = *(v15 + 4);
+      if (v16 >= *(v15 + 3))
       {
-        llvm::raw_ostream::write(v16, 10);
+        llvm::raw_ostream::write(v15, 10);
         return 0;
       }
 
       else
       {
-        v10 = 0;
-        *(v16 + 4) = v17 + 1;
-        *v17 = 10;
+        v9 = 0;
+        *(v15 + 4) = v16 + 1;
+        *v16 = 10;
       }
     }
   }
 
   else
   {
-    v18 = "expected double quoted string after .print";
-    v19 = 259;
-    return llvm::MCAsmParser::Error(a1, a2, &v18, 0, 0);
+    v17 = "expected double quoted string after .print";
+    v18 = 259;
+    return llvm::MCAsmParser::Error(a1, a2, &v17, 0, 0);
   }
 
-  return v10;
+  return v9;
 }
 
 BOOL anonymous namespace::AsmParser::parseDirectiveAddrsig(_anonymous_namespace_::AsmParser *this)
@@ -5257,41 +5238,64 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveAddrsigSym(_anonymous_nam
 
 uint64_t anonymous namespace::AsmParser::parseDirectivePseudoProbe(_anonymous_namespace_::AsmParser *this)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  v23 = 0;
-  v20 = 0;
+  v27 = *MEMORY[0x277D85DE8];
   v21 = 0;
+  v22 = 0;
+  v19 = 0;
+  v20 = 0;
   if (**((*(*this + 40))(this) + 8) == 4)
   {
-    v24 = "unexpected token in '.pseudoprobe' directive";
-    v27 = 259;
-    if (llvm::MCAsmParser::parseIntToken(this, &v23, &v24))
+    v23 = "unexpected token in '.pseudoprobe' directive";
+    v26 = 259;
+    if (llvm::MCAsmParser::parseIntToken(this, &v22, &v23))
     {
-      goto LABEL_9;
+      return 1;
     }
   }
 
-  if (**((*(*this + 40))(this) + 8) == 4 && (v24 = "unexpected token in '.pseudoprobe' directive", v27 = 259, llvm::MCAsmParser::parseIntToken(this, &v22, &v24)) || **((*(*this + 40))(this) + 8) == 4 && (v24 = "unexpected token in '.pseudoprobe' directive", v27 = 259, llvm::MCAsmParser::parseIntToken(this, &v21, &v24)) || **((*(*this + 40))(this) + 8) == 4 && (v24 = "unexpected token in '.pseudoprobe' directive", v27 = 259, llvm::MCAsmParser::parseIntToken(this, &v20, &v24)))
+  if (**((*(*this + 40))(this) + 8) == 4)
   {
-LABEL_9:
-    v2 = 1;
-    goto LABEL_28;
+    v23 = "unexpected token in '.pseudoprobe' directive";
+    v26 = 259;
+    if (llvm::MCAsmParser::parseIntToken(this, &v21, &v23))
+    {
+      return 1;
+    }
   }
 
-  v24 = v26;
-  v25 = 0x800000000;
+  if (**((*(*this + 40))(this) + 8) == 4)
+  {
+    v23 = "unexpected token in '.pseudoprobe' directive";
+    v26 = 259;
+    if (llvm::MCAsmParser::parseIntToken(this, &v20, &v23))
+    {
+      return 1;
+    }
+  }
+
+  if (**((*(*this + 40))(this) + 8) == 4)
+  {
+    v23 = "unexpected token in '.pseudoprobe' directive";
+    v26 = 259;
+    if (llvm::MCAsmParser::parseIntToken(this, &v19, &v23))
+    {
+      return 1;
+    }
+  }
+
+  v23 = v25;
+  v24 = 0x800000000;
   if (**((*(*this + 40))(this) + 8) == 45)
   {
     while (1)
     {
       (*(*this + 184))(this);
-      v15 = 0;
+      v14 = 0;
       if (**((*(*this + 40))(this) + 8) == 4)
       {
-        v18[0] = "unexpected token in '.pseudoprobe' directive";
-        v19 = 259;
-        if (llvm::MCAsmParser::parseIntToken(this, &v15, v18))
+        v17[0] = "unexpected token in '.pseudoprobe' directive";
+        v18 = 259;
+        if (llvm::MCAsmParser::parseIntToken(this, &v14, v17))
         {
           break;
         }
@@ -5302,32 +5306,32 @@ LABEL_9:
         (*(*this + 184))(this);
       }
 
-      v17 = 0;
+      v16 = 0;
       v3 = 0;
       if (**((*(*this + 40))(this) + 8) == 4)
       {
-        v18[0] = "unexpected token in '.pseudoprobe' directive";
-        v19 = 259;
-        if (llvm::MCAsmParser::parseIntToken(this, &v17, v18))
+        v17[0] = "unexpected token in '.pseudoprobe' directive";
+        v18 = 259;
+        if (llvm::MCAsmParser::parseIntToken(this, &v16, v17))
         {
           break;
         }
 
-        v3 = v17;
+        v3 = v16;
       }
 
-      v4 = v15;
-      v5 = v25;
-      if (v25 >= HIDWORD(v25))
+      v4 = v14;
+      v5 = v24;
+      if (v24 >= HIDWORD(v24))
       {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(&v24, v26, v25 + 1, 16);
-        v5 = v25;
+        llvm::SmallVectorBase<unsigned int>::grow_pod(&v23, v25, v24 + 1, 16);
+        v5 = v24;
       }
 
-      v6 = (v24 + 16 * v5);
+      v6 = (v23 + 16 * v5);
       *v6 = v4;
       v6[1] = v3;
-      LODWORD(v25) = v25 + 1;
+      LODWORD(v24) = v24 + 1;
       if (**((*(*this + 40))(this) + 8) != 45)
       {
         goto LABEL_21;
@@ -5340,44 +5344,42 @@ LABEL_24:
   }
 
 LABEL_21:
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
-  v7 = (*(*this + 192))(this, &v15);
+  v7 = (*(*this + 192))(this, &v14);
   v8 = *this;
   if (v7)
   {
     v9 = *((*(v8 + 40))(this) + 96);
-    v18[0] = "unexpected token in '.pseudoprobe' directive";
-    v19 = 259;
-    v2 = llvm::MCAsmParser::Error(this, v9, v18, 0, 0);
+    v17[0] = "unexpected token in '.pseudoprobe' directive";
+    v18 = 259;
+    v2 = llvm::MCAsmParser::Error(this, v9, v17, 0, 0);
     goto LABEL_26;
   }
 
   v10 = (*(v8 + 48))(this);
-  v19 = 261;
-  v18[0] = v15;
-  v18[1] = v16;
-  v11 = llvm::MCContext::lookupSymbol(v10, v18);
+  v18 = 261;
+  v17[0] = v14;
+  v17[1] = v15;
+  v11 = llvm::MCContext::lookupSymbol(v10, v17);
   if (llvm::MCAsmParser::parseEOL(this))
   {
     goto LABEL_24;
   }
 
   v12 = (*(*this + 56))(this);
-  (*(*v12 + 1200))(v12, v23, v22, v21, v20, &v24, v11);
+  (*(*v12 + 1200))(v12, v22, v21, v20, v19, &v23, v11);
   v2 = 0;
 LABEL_26:
-  if (v24 != v26)
+  if (v23 != v25)
   {
-    free(v24);
+    free(v23);
   }
 
-LABEL_28:
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-uint64_t anonymous namespace::AsmParser::parseDirectiveLTODiscard(_anonymous_namespace_::AsmParser *this)
+BOOL anonymous namespace::AsmParser::parseDirectiveLTODiscard(_anonymous_namespace_::AsmParser *this)
 {
   v4 = this;
   *(this + 182) = 0;
@@ -5387,8 +5389,9 @@ uint64_t anonymous namespace::AsmParser::parseDirectiveLTODiscard(_anonymous_nam
   *v2 = 0u;
 }
 
-uint64_t anonymous namespace::AsmParser::parseDirectiveMSEmit(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t anonymous namespace::AsmParser::parseDirectiveMSEmit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v16 = 0;
   v8 = *((*(*a1 + 40))(a1) + 96);
   v14[0] = 0;
@@ -5416,7 +5419,7 @@ LABEL_9:
   v11 = *(v10 + 8);
   if (v11 >= *(v10 + 12))
   {
-    llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long &>(*(a3 + 88), 2, a2, a4);
+    llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long &>(*(a3 + 88), 2, a2, v4);
     return 0;
   }
 
@@ -5426,7 +5429,7 @@ LABEL_9:
     v12 = *v10 + (v11 << 7);
     *v12 = 2;
     *(v12 + 8) = a2;
-    *(v12 + 16) = a4;
+    *(v12 + 16) = v4;
     *(v12 + 20) = 0;
     *(v12 + 56) = 0u;
     *(v12 + 72) = 0u;
@@ -5503,15 +5506,15 @@ LABEL_9:
   return result;
 }
 
-uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteKind,llvm::SMLoc &,int>(uint64_t a1, int a2, uint64_t a3, int a4)
+uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteKind,llvm::SMLoc &,int>(uint64_t result, int a2, uint64_t a3, int a4)
 {
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 12))
+  v4 = *(result + 8);
+  if (v4 >= *(result + 12))
   {
-    return llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,int>(a1, a2, a3, a4);
+    return llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,int>(result, a2, a3, a4);
   }
 
-  v5 = *a1 + (v4 << 7);
+  v5 = *result + (v4 << 7);
   *v5 = a2;
   *(v5 + 8) = a3;
   *(v5 + 16) = a4;
@@ -5526,27 +5529,27 @@ uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteK
   *(v5 + 48) = 0;
   *(v5 + 112) = 1;
   *(v5 + 120) = 0;
-  ++*(a1 + 8);
-  return a1;
+  ++*(result + 8);
+  return result;
 }
 
 uint64_t anonymous namespace::AsmParser::parseAndMatchAndEmitTargetInstruction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5, char *a6)
 {
-  v63[32] = *MEMORY[0x277D85DE8];
-  v48[0] = a3;
-  v48[1] = a4;
+  v60[32] = *MEMORY[0x277D85DE8];
+  v45[0] = a3;
+  v45[1] = a4;
   v10 = __p;
-  llvm::StringRef::lower(v48, __p);
-  v45 = *(a2 + 88);
-  if (v47 < 0)
+  llvm::StringRef::lower(__p, v45);
+  v42 = *(a2 + 88);
+  if (v44 < 0)
   {
     v10 = __p[0];
   }
 
   v11 = *(a1 + 8);
-  if (v47 >= 0)
+  if (v44 >= 0)
   {
-    v12 = v47;
+    v12 = v44;
   }
 
   else
@@ -5554,47 +5557,47 @@ uint64_t anonymous namespace::AsmParser::parseAndMatchAndEmitTargetInstruction(u
     v12 = __p[1];
   }
 
-  v41 = *a5;
-  v42 = *(a5 + 2);
-  v44 = *(a5 + 8);
-  if (v44 > 0x40)
+  v38 = *a5;
+  v39 = *(a5 + 2);
+  v41 = *(a5 + 8);
+  if (v41 > 0x40)
   {
     operator new[]();
   }
 
-  v43 = *(a5 + 3);
-  v13 = (*(*v11 + 56))(v11, &v45, v10, v12, &v41, a2);
-  if (v44 >= 0x41 && v43)
+  v40 = *(a5 + 3);
+  v13 = (*(*v11 + 56))(v11, &v42, v10, v12, &v38, a2);
+  if (v41 >= 0x41 && v40)
   {
-    MEMORY[0x277C69E10](v43, 0x1000C8000313F17);
+    MEMORY[0x277C69E10](v40, 0x1000C8000313F17);
   }
 
   *(a2 + 84) = v13;
   if (*(a1 + 33) == 1)
   {
-    v60 = &v61;
-    v61 = v63;
-    v62 = xmmword_2750C12F0;
-    v53 = 0;
-    v57 = 0;
-    v58 = 0;
-    v59 = 1;
-    v55 = 0;
-    v56 = 0;
+    v57 = &v58;
+    v58 = v60;
+    v59 = xmmword_2750C12F0;
+    v50 = 0;
     v54 = 0;
-    v52 = &unk_2883EB968;
-    v14 = llvm::raw_ostream::SetUnbuffered(&v52);
-    v15 = v56;
-    if ((v55 - v56) > 0x14)
+    v55 = 0;
+    v56 = 1;
+    v52 = 0;
+    v53 = 0;
+    v51 = 0;
+    v49 = &unk_2883EB968;
+    v14 = llvm::raw_ostream::SetUnbuffered(&v49);
+    v15 = v53;
+    if ((v52 - v53) > 0x14)
     {
-      *v56 = *"parsed instruction: [";
+      *v53 = *"parsed instruction: [";
       *(v15 + 13) = *"ction: [";
-      v56 += 21;
+      v53 += 21;
     }
 
     else
     {
-      v14 = llvm::raw_ostream::write(&v52, "parsed instruction: [", 0x15uLL);
+      v14 = llvm::raw_ostream::write(&v49, "parsed instruction: [", 0x15uLL);
     }
 
     if (*(a2 + 8))
@@ -5605,19 +5608,19 @@ uint64_t anonymous namespace::AsmParser::parseAndMatchAndEmitTargetInstruction(u
       {
         if (v17)
         {
-          if ((v55 - v56) > 1)
+          if ((v52 - v53) > 1)
           {
-            *v56 = 8236;
-            v56 += 2;
+            *v53 = 8236;
+            v53 += 2;
           }
 
           else
           {
-            llvm::raw_ostream::write(&v52, ", ", 2uLL);
+            llvm::raw_ostream::write(&v49, ", ", 2uLL);
           }
         }
 
-        v14 = (*(**(*a2 + 8 * v16) + 120))(*(*a2 + 8 * v16), &v52);
+        v14 = (*(**(*a2 + 8 * v16) + 120))(*(*a2 + 8 * v16), &v49);
         v16 = (v17 + 1);
         v17 = v16;
       }
@@ -5625,30 +5628,30 @@ uint64_t anonymous namespace::AsmParser::parseAndMatchAndEmitTargetInstruction(u
       while (v16 != *(a2 + 8));
     }
 
-    if (v55 == v56)
+    if (v52 == v53)
     {
-      v14 = llvm::raw_ostream::write(&v52, "]", 1uLL);
+      v14 = llvm::raw_ostream::write(&v49, "]", 1uLL);
     }
 
     else
     {
-      *v56++ = 93;
+      *v53++ = 93;
     }
 
-    v19 = *v60;
-    v18 = v60[1];
-    v51 = 261;
-    v50[0] = v19;
-    v50[1] = v18;
-    v49[0] = 0;
-    v49[1] = 0;
+    v19 = *v57;
+    v18 = v57[1];
+    v48 = 261;
+    v47[0] = v19;
+    v47[1] = v18;
+    v46[0] = 0;
+    v46[1] = 0;
     v20 = *(a1 + 240);
     v21 = llvm::errs(v14);
-    llvm::SourceMgr::PrintMessage(v20, v21, a6, 3, v50, v49, 1, v22, 0, 0, 1u);
-    llvm::raw_ostream::~raw_ostream(&v52);
-    if (v61 != v63)
+    llvm::SourceMgr::PrintMessage(v20, v21, a6, 3, v47, v46, 1, v22, 0, 0, 1);
+    llvm::raw_ostream::~raw_ostream(&v49);
+    if (v58 != v60)
     {
-      free(v61);
+      free(v58);
     }
   }
 
@@ -5664,9 +5667,9 @@ uint64_t anonymous namespace::AsmParser::parseAndMatchAndEmitTargetInstruction(u
       v25 = (*(*a1 + 56))(a1);
       v26 = *(v25 + 152);
       v27 = v26 ? *(*(v25 + 144) + 32 * v26 - 32) : 0;
-      v61 = v27;
-      v52 = 0;
-      if (llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v24 + 1608), &v61, &v52))
+      v58 = v27;
+      v49 = 0;
+      if (llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v24 + 1608), &v58, &v49))
       {
         v28 = *(a1 + 344);
         if (v28 == *(a1 + 352))
@@ -5686,38 +5689,35 @@ uint64_t anonymous namespace::AsmParser::parseAndMatchAndEmitTargetInstruction(u
         if (*(a1 + 432))
         {
           v33 = (*(*a1 + 56))(a1);
-          v34 = *(a1 + 424);
-          v35 = *(a1 + 432);
-          LOBYTE(v52) = 0;
-          LOBYTE(v54) = 0;
-          LOBYTE(v61) = 0;
-          BYTE8(v62) = 0;
-          (*(*v33 + 680))(v50);
-          v36 = v50[0];
-          *((*(*a1 + 48))(a1) + 1604) = v36;
+          LOBYTE(v49) = 0;
+          LOBYTE(v51) = 0;
+          LOBYTE(v58) = 0;
+          BYTE8(v59) = 0;
+          (*(*v33 + 680))(v47);
+          v34 = v47[0];
+          *((*(*a1 + 48))(a1) + 1604) = v34;
           LineAndColumn = ~llvm::SourceMgr::getLineAndColumn(*(a1 + 240), *(a1 + 448), *(a1 + 456)) + *(a1 + 440) + LineAndColumn;
         }
 
-        v37 = (*(*a1 + 56))(a1);
-        v38 = *((*(*a1 + 48))(a1) + 1604);
-        (*(*v37 + 712))(v37, v38, LineAndColumn, 0, 1, 0, 0);
+        v35 = (*(*a1 + 56))(a1);
+        v36 = *((*(*a1 + 48))(a1) + 1604);
+        (*(*v35 + 712))(v35, v36, LineAndColumn, 0, 1, 0, 0);
       }
     }
 
-    v61 = 0;
-    v23 = (*(**(a1 + 8) + 72))(*(a1 + 8), a6, a2 + 80, a2, *(a1 + 224), &v61, *(*(a1 + 8) + 112));
+    v58 = 0;
+    v23 = (*(**(a1 + 8) + 72))(*(a1 + 8), a6, a2 + 80, a2, *(a1 + 224), &v58, *(*(a1 + 8) + 112));
   }
 
-  if (v47 < 0)
+  if (v44 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
-void std::vector<llvm::AsmCond>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<llvm::AsmCond>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -5848,7 +5848,7 @@ uint64_t llvm::SmallVectorImpl<llvm::AsmToken>::erase(uint64_t a1, uint64_t a2)
     {
       *v5 = *(v5 + 40);
       *(v5 + 16) = *(v5 + 56);
-      llvm::APInt::operator=((v5 + 24), (v5 + 64));
+      llvm::APInt::operator=(v5 + 24, v5 + 64);
       v6 = v5 + 80;
       v5 += 40;
     }
@@ -5877,18 +5877,17 @@ uint64_t llvm::SmallVectorTemplateBase<llvm::AsmToken,false>::pop_back(uint64_t 
   return result;
 }
 
-void llvm::MCContext::setMCLineTableRootFile(uint64_t a1, int a2, void *a3, size_t a4, void *a5, size_t a6, uint64_t a7, __int128 *a8)
+void llvm::MCContext::setMCLineTableRootFile(uint64_t a1, int a2, void *a3, size_t a4, void *a5, size_t a6, __int128 *a7, __int128 *a8)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  LODWORD(v18) = a2;
-  *&v16 = &v18;
-  v14 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 1560, &v18);
-  v18 = *a7;
-  v19 = *(a7 + 16);
-  v16 = *a8;
-  v17 = *(a8 + 2);
-  llvm::MCDwarfLineTable::setRootFile((v14 + 5), a3, a4, a5, a6, &v18, &v16);
-  v15 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  LODWORD(v17) = a2;
+  *&v15 = &v17;
+  v14 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 1560), &v17, &std::piecewise_construct, &v15);
+  v17 = *a7;
+  v18 = *(a7 + 16);
+  v15 = *a8;
+  v16 = *(a8 + 2);
+  llvm::MCDwarfLineTable::setRootFile((v14 + 5), a3, a4, a5, a6, &v17, &v15);
 }
 
 void llvm::MCDwarfLineTable::setRootFile(uint64_t a1, void *__src, size_t __len, void *a4, size_t a5, __int128 *a6, uint64_t a7)
@@ -5962,51 +5961,51 @@ LABEL_20:
   *(a1 + 448) = *(a7 + 16);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t **std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t **a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 8);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t anonymous namespace::AsmParser::parseMacroArguments(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t anonymous namespace::AsmParser::parseMacroArguments(uint64_t a1, uint64_t *a2, char **a3)
 {
   v3 = a3;
-  v83[4] = *MEMORY[0x277D85DE8];
+  v82[4] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v6 = -1431655765 * ((a2[5] - a2[4]) >> 4);
@@ -6017,12 +6016,12 @@ uint64_t anonymous namespace::AsmParser::parseMacroArguments(uint64_t a1, uint64
     v6 = 0;
   }
 
-  v81 = v83;
-  v82 = 0x400000000;
+  v80 = v82;
+  v81 = 0x400000000;
   v7 = v6;
   std::vector<std::vector<llvm::AsmToken>>::resize(a3, v6);
-  llvm::SmallVectorImpl<llvm::AttributeSet>::resizeImpl<false>(&v81, v6);
-  v62 = a2;
+  llvm::SmallVectorImpl<llvm::AttributeSet>::resizeImpl<false>(&v80, v6);
+  v61 = a2;
   if (v6)
   {
     v8 = *(a2[5] - 7);
@@ -6039,29 +6038,29 @@ uint64_t anonymous namespace::AsmParser::parseMacroArguments(uint64_t a1, uint64
   v12 = 0uLL;
   while (1)
   {
-    v61 = *(a1 + 136);
-    *&v80[10] = v12;
-    v79 = v12;
-    *v80 = v12;
+    v60 = *(a1 + 136);
+    *&v79[10] = v12;
+    v78 = v12;
+    *v79 = v12;
     if (**(a1 + 48) != 2)
     {
       goto LABEL_16;
     }
 
-    *(&v75 + 1) = 0;
+    *(&v74 + 1) = 0;
+    v75 = 0;
+    v77 = 1;
     v76 = 0;
-    v78 = 1;
-    v77 = 0;
-    (*(*(a1 + 40) + 32))(a1 + 40, &v75, 1, 1);
-    v13 = v75;
-    if (v78 >= 0x41 && v77)
+    (*(*(a1 + 40) + 32))(a1 + 40, &v74, 1, 1);
+    v13 = v74;
+    if (v77 >= 0x41 && v76)
     {
-      MEMORY[0x277C69E10](v77, 0x1000C8000313F17);
+      MEMORY[0x277C69E10](v76, 0x1000C8000313F17);
     }
 
     if (v13 == 27)
     {
-      if ((*(*a1 + 192))(a1, &v79))
+      if ((*(*a1 + 192))(a1, &v78))
       {
         v37 = "invalid argument identifier for formal argument";
         goto LABEL_86;
@@ -6069,9 +6068,9 @@ uint64_t anonymous namespace::AsmParser::parseMacroArguments(uint64_t a1, uint64
 
       if (**(a1 + 48) != 27)
       {
-        *&v75 = "expected '=' after formal parameter identifier";
-        LOWORD(v78) = 259;
-        v60 = llvm::MCAsmParser::TokError(a1, &v75, 0, 0);
+        *&v74 = "expected '=' after formal parameter identifier";
+        LOWORD(v77) = 259;
+        v59 = llvm::MCAsmParser::TokError(a1, &v74, 0, 0);
         goto LABEL_88;
       }
 
@@ -6090,21 +6089,21 @@ LABEL_16:
       }
     }
 
-    if (!*(&v79 + 1))
+    if (!*(&v78 + 1))
     {
       v37 = "cannot mix positional and keyword arguments";
 LABEL_86:
-      *&v75 = v37;
-      LOWORD(v78) = 259;
-      v58 = a1;
-      v59 = v61;
+      *&v74 = v37;
+      LOWORD(v77) = 259;
+      v57 = a1;
+      v58 = v60;
       goto LABEL_87;
     }
 
     v9 = 1;
 LABEL_20:
     v15 = *(a1 + 136);
-    v74 = 0;
+    v73 = 0;
     if (*(a1 + 799) != 1)
     {
       goto LABEL_37;
@@ -6113,43 +6112,43 @@ LABEL_20:
     v16 = **(a1 + 48);
     if (v16 == 36)
     {
-      v70[0] = 0;
-      v67[0] = 0;
+      v69[0] = 0;
+      v66[0] = 0;
       (*(*a1 + 184))(a1);
-      if ((*(*a1 + 232))(a1, v70, &v74))
+      if ((*(*a1 + 232))(a1, v69, &v73))
       {
-        v43 = 0;
+        v42 = 0;
       }
 
       else
       {
         v30 = v3;
-        v31 = v70[0];
+        v31 = v69[0];
         v32 = (*(*a1 + 56))(a1);
         v33 = (*(*v32 + 72))(v32);
-        if (llvm::MCExpr::evaluateAsAbsolute(v31, v67, v33, 0, 0, 0))
+        if (llvm::MCExpr::evaluateAsAbsolute(v31, v66, v33, 0, 0, 0))
         {
-          LODWORD(v75) = 4;
-          *(&v75 + 1) = v15;
-          v76 = (v74 - v15);
-          v78 = 64;
-          v77 = v67[0];
-          std::vector<llvm::AsmToken>::push_back[abi:nn200100](v80, &v75);
+          LODWORD(v74) = 4;
+          *(&v74 + 1) = v15;
+          v75 = (v73 - v15);
+          v77 = 64;
+          v76 = v66[0];
+          std::vector<llvm::AsmToken>::push_back[abi:nn200100](v79, &v74);
           v3 = v30;
           goto LABEL_38;
         }
 
-        *&v75 = "expected absolute expression";
-        LOWORD(v78) = 259;
-        v58 = a1;
-        v59 = v15;
+        *&v74 = "expected absolute expression";
+        LOWORD(v77) = 259;
+        v57 = a1;
+        v58 = v15;
 LABEL_87:
-        v60 = llvm::MCAsmParser::Error(v58, v59, &v75, 0, 0);
+        v59 = llvm::MCAsmParser::Error(v57, v58, &v74, 0, 0);
 LABEL_88:
-        v43 = v60;
+        v42 = v59;
       }
 
-      *&v75 = v80;
+      *&v74 = v79;
       goto LABEL_69;
     }
 
@@ -6161,7 +6160,7 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      v43 = 1;
+      v42 = 1;
       goto LABEL_68;
     }
 
@@ -6205,26 +6204,26 @@ LABEL_36:
 
     v34 = v3;
     v35 = v17 + 1;
-    v74 = v17 + 1;
+    v73 = v17 + 1;
     (*(*a1 + 184))(a1);
     v36 = (v35 - v15);
     v3 = v34;
-    LODWORD(v75) = 3;
-    *(&v75 + 1) = v15;
-    v76 = v36;
-    v78 = 64;
-    v77 = 0;
-    std::vector<llvm::AsmToken>::push_back[abi:nn200100](v80, &v75);
+    LODWORD(v74) = 3;
+    *(&v74 + 1) = v15;
+    v75 = v36;
+    v77 = 64;
+    v76 = 0;
+    std::vector<llvm::AsmToken>::push_back[abi:nn200100](v79, &v74);
 LABEL_38:
-    v21 = *(&v79 + 1);
+    v21 = *(&v78 + 1);
     LODWORD(v22) = v10;
-    if (*(&v79 + 1))
+    if (*(&v78 + 1))
     {
       break;
     }
 
 LABEL_46:
-    if (*v80 != *&v80[8])
+    if (*v79 != *&v79[8])
     {
       v27 = *v3;
       if (0xAAAAAAAAAAAAAAABLL * ((v3[1] - *v3) >> 3) <= v22)
@@ -6233,18 +6232,18 @@ LABEL_46:
         v27 = *v3;
       }
 
-      v28 = (v27 + 24 * v22);
-      if (v28 != v80)
+      v28 = &v27[24 * v22];
+      if (v28 != v79)
       {
-        std::vector<llvm::AsmToken>::__assign_with_size[abi:nn200100]<llvm::AsmToken*,llvm::AsmToken*>(v28, *v80, *&v80[8], 0xCCCCCCCCCCCCCCCDLL * ((*&v80[8] - *v80) >> 3));
+        std::vector<llvm::AsmToken>::__assign_with_size[abi:nn200100]<llvm::AsmToken*,llvm::AsmToken*>(v28, *v79, *&v79[8], 0xCCCCCCCCCCCCCCCDLL * ((*&v79[8] - *v79) >> 3));
       }
 
-      if (v82 <= v22)
+      if (v81 <= v22)
       {
-        llvm::SmallVectorImpl<llvm::AttributeSet>::resizeImpl<false>(&v81, (v22 + 1));
+        llvm::SmallVectorImpl<llvm::AttributeSet>::resizeImpl<false>(&v80, (v22 + 1));
       }
 
-      v81[v22] = *(a1 + 136);
+      v80[v22] = *(a1 + 136);
     }
 
     v29 = **(a1 + 48);
@@ -6258,87 +6257,87 @@ LABEL_46:
     {
       if (v7)
       {
+        v43 = 0;
         v44 = 0;
         v45 = 0;
-        v46 = 0;
-        v43 = 0;
-        v47 = 48 * v7;
+        v42 = 0;
+        v46 = 48 * v7;
         do
         {
-          if (*(*v3 + v45) == *(*v3 + v45 + 8))
+          if (*&(*v3)[v44] == *&(*v3)[v44 + 8])
           {
-            v48 = v62[4];
-            if (*(v48 + v46 + 40) == 1)
+            v47 = v61[4];
+            if (*(v47 + v45 + 40) == 1)
             {
-              v49 = v81[v44];
-              if (!v49)
+              v48 = v80[v43];
+              if (!v48)
               {
-                v49 = *(a1 + 136);
+                v48 = *(a1 + 136);
               }
 
-              v50 = (v48 + v46);
-              v66 = 1283;
-              v63[0] = "missing value for required parameter '";
-              v64 = *v50;
-              v65 = v50[1];
-              v67[0] = v63;
-              v68 = "' in macro '";
-              v69 = 770;
-              v52 = *v62;
-              v51 = v62[1];
-              v70[0] = v67;
-              v71 = v52;
-              v72 = v51;
-              v73 = 1282;
-              *&v75 = v70;
-              v76 = "'";
-              LOWORD(v78) = 770;
-              llvm::MCAsmParser::Error(a1, v49, &v75, 0, 0);
-              v48 = v62[4];
-              v43 = 1;
+              v49 = (v47 + v45);
+              v65 = 1283;
+              v62[0] = "missing value for required parameter '";
+              v63 = *v49;
+              v64 = v49[1];
+              v66[0] = v62;
+              v67 = "' in macro '";
+              v68 = 770;
+              v51 = *v61;
+              v50 = v61[1];
+              v69[0] = v66;
+              v70 = v51;
+              v71 = v50;
+              v72 = 1282;
+              *&v74 = v69;
+              v75 = "'";
+              LOWORD(v77) = 770;
+              llvm::MCAsmParser::Error(a1, v48, &v74, 0, 0);
+              v47 = v61[4];
+              v42 = 1;
             }
 
-            v53 = v48 + v46;
-            v54 = *(v53 + 16);
-            v55 = *(v53 + 24);
-            v56 = (v53 + 16);
-            if (v54 != v55)
+            v52 = v47 + v45;
+            v53 = *(v52 + 16);
+            v54 = *(v52 + 24);
+            v55 = (v52 + 16);
+            if (v53 != v54)
             {
-              v57 = (*v3 + v45);
-              if (v56 != v57)
+              v56 = &(*v3)[v44];
+              if (v55 != v56)
               {
-                std::vector<llvm::AsmToken>::__assign_with_size[abi:nn200100]<llvm::AsmToken*,llvm::AsmToken*>(v57, v54, v55, 0xCCCCCCCCCCCCCCCDLL * ((v55 - v54) >> 3));
+                std::vector<llvm::AsmToken>::__assign_with_size[abi:nn200100]<llvm::AsmToken*,llvm::AsmToken*>(v56, v53, v54, 0xCCCCCCCCCCCCCCCDLL * ((v54 - v53) >> 3));
               }
             }
           }
 
-          v46 += 48;
-          v45 += 24;
-          ++v44;
+          v45 += 48;
+          v44 += 24;
+          ++v43;
         }
 
-        while (v47 != v46);
+        while (v46 != v45);
       }
 
       else
       {
-        v43 = 0;
+        v42 = 0;
       }
 
       goto LABEL_68;
     }
 
-    *&v75 = v80;
-    std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v75);
+    *&v74 = v79;
+    std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v74);
     ++v10;
     v12 = 0uLL;
     if (v7 - 1 < v10)
     {
-      *&v79 = "too many positional arguments";
-      *&v80[16] = 259;
-      v42 = (*(*a1 + 40))(a1, 0);
-      llvm::MCAsmParser::Error(a1, *(v42 + 96), &v79, 0, 0);
-      v43 = 1;
+      *&v78 = "too many positional arguments";
+      *&v79[16] = 259;
+      v41 = (*(*a1 + 40))(a1, 0);
+      llvm::MCAsmParser::Error(a1, *(v41 + 96), &v78, 0, 0);
+      v42 = 1;
       goto LABEL_70;
     }
   }
@@ -6348,8 +6347,8 @@ LABEL_46:
     v23 = v8;
     v24 = v3;
     v22 = 0;
-    v25 = v79;
-    v26 = (v62[4] + 8);
+    v25 = v78;
+    v26 = (v61[4] + 8);
     while (*v26 != v21 || memcmp(*(v26 - 1), v25, v21))
     {
       ++v22;
@@ -6365,37 +6364,36 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v25 = v79;
+  v25 = v78;
 LABEL_67:
-  v66 = 1283;
-  v63[0] = "parameter named '";
-  v64 = v25;
-  v65 = v21;
-  v67[0] = v63;
-  v68 = "' does not exist for macro '";
-  v69 = 770;
-  v39 = *v62;
-  v38 = v62[1];
-  v70[0] = v67;
-  v71 = v39;
-  v72 = v38;
-  v73 = 1282;
-  *&v75 = v70;
-  v76 = "'";
-  LOWORD(v78) = 770;
-  v43 = llvm::MCAsmParser::Error(a1, v61, &v75, 0, 0);
+  v65 = 1283;
+  v62[0] = "parameter named '";
+  v63 = v25;
+  v64 = v21;
+  v66[0] = v62;
+  v67 = "' does not exist for macro '";
+  v68 = 770;
+  v39 = *v61;
+  v38 = v61[1];
+  v69[0] = v66;
+  v70 = v39;
+  v71 = v38;
+  v72 = 1282;
+  *&v74 = v69;
+  v75 = "'";
+  LOWORD(v77) = 770;
+  v42 = llvm::MCAsmParser::Error(a1, v60, &v74, 0, 0);
 LABEL_68:
-  *&v75 = v80;
+  *&v74 = v79;
 LABEL_69:
-  std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v75);
+  std::vector<llvm::AsmToken>::__destroy_vector::operator()[abi:nn200100](&v74);
 LABEL_70:
-  if (v81 != v83)
+  if (v80 != v82)
   {
-    free(v81);
+    free(v80);
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v43 & 1;
+  return v42 & 1;
 }
 
 uint64_t anonymous namespace::AsmParser::expandMacro(uint64_t a1, llvm::raw_ostream *this, unsigned __int8 *a3, size_t __n, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, char a9, uint64_t a10)
@@ -6779,7 +6777,7 @@ LABEL_108:
   return result;
 }
 
-void std::vector<std::vector<llvm::AsmToken>>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<std::vector<llvm::AsmToken>>::resize(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -6808,7 +6806,7 @@ void std::vector<std::vector<llvm::AsmToken>>::resize(uint64_t *a1, unint64_t a2
     {
       if (a2 <= 0xAAAAAAAAAAAAAAALL)
       {
-        v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v3) >> 3);
+        v8 = 0xAAAAAAAAAAAAAAABLL * (&v7[-v3] >> 3);
         v9 = 2 * v8;
         if (2 * v8 <= a2)
         {
@@ -6841,7 +6839,7 @@ void std::vector<std::vector<llvm::AsmToken>>::resize(uint64_t *a1, unint64_t a2
   }
 }
 
-uint64_t *std::vector<llvm::AsmToken>::push_back[abi:nn200100](uint64_t *result, __int128 *a2)
+unint64_t *std::vector<llvm::AsmToken>::push_back[abi:nn200100](unint64_t *result, __int128 *a2)
 {
   v2 = result;
   v4 = result[1];
@@ -6957,7 +6955,7 @@ uint64_t anonymous namespace::AsmParser::jumpToLoc(uint64_t result, unint64_t a2
   return result;
 }
 
-uint64_t anonymous namespace::AsmParser::parseMacroArgument(uint64_t a1, uint64_t *a2, int a3)
+uint64_t anonymous namespace::AsmParser::parseMacroArgument(uint64_t a1, unint64_t *a2, int a3)
 {
   if (a3)
   {
@@ -7231,7 +7229,7 @@ uint64_t std::__split_buffer<llvm::AsmToken>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<llvm::AsmToken>::__assign_with_size[abi:nn200100]<llvm::AsmToken*,llvm::AsmToken*>(uint64_t *a1, __int128 *a2, uint64_t a3, unint64_t a4)
+uint64_t std::vector<llvm::AsmToken>::__assign_with_size[abi:nn200100]<llvm::AsmToken*,llvm::AsmToken*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = a1[2];
@@ -7294,7 +7292,7 @@ uint64_t std::vector<llvm::AsmToken>::__assign_with_size[abi:nn200100]<llvm::Asm
 
   else
   {
-    v14 = a2 + v13 - v9;
+    v14 = (a2 + v13 - v9);
     if (v13 != v9)
     {
       do
@@ -7374,7 +7372,7 @@ void angleBracketString(std::string *this, uint64_t a2, unint64_t a3)
   }
 }
 
-void std::vector<std::vector<llvm::AsmToken>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+void std::vector<std::vector<llvm::AsmToken>>::__destroy_vector::operator()[abi:nn200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7462,7 +7460,7 @@ LABEL_15:
   return v3;
 }
 
-uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveValue(llvm::StringRef,unsigned int)::$_0>(uint64_t a1)
+uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveValue(llvm::StringRef,unsigned int)::$_0>(uint64_t *a1)
 {
   v2 = *a1;
   v14 = 0;
@@ -7481,8 +7479,8 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
   if (*v14 == 1)
   {
     v5 = *(v14 + 16);
-    v6 = 8 * **(a1 + 8);
-    if (v6 <= 0x3F && 0xFFFFFFFFFFFFFFFFLL >> (-8 * **(a1 + 8)) < v5)
+    v6 = 8 * *a1[1];
+    if (v6 <= 0x3F && 0xFFFFFFFFFFFFFFFFLL >> (-8 * *a1[1]) < v5)
     {
       v8 = -1 << (v6 - 1);
       if (v8 > v5 || v5 > ~v8)
@@ -7494,13 +7492,13 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
     }
 
     v11 = (*(*v2 + 56))(v2);
-    (*(*v11 + 512))(v11, v5, **(a1 + 8));
+    (*(*v11 + 512))(v11, v5, *a1[1]);
   }
 
   else
   {
     v10 = (*(*v2 + 56))(v2);
-    (*(*v10 + 504))(v10, v14, **(a1 + 8), v3);
+    (*(*v10 + 504))(v10, v14, *a1[1], v3);
   }
 
   return 0;
@@ -7514,52 +7512,51 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
     return 1;
   }
 
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
-  v2 = parseHexOcta(v1, &v8, &v7);
+  v2 = parseHexOcta(v1, &v7, &v6);
   if ((v2 & 1) == 0)
   {
-    v3 = *(*(v1 + 29) + 16);
-    v4 = *(*(*(*v1 + 56))(v1) + 512);
-    v4();
-    v5 = (*(*v1 + 56))(v1);
-    (*(*v5 + 512))();
+    v3 = *(*(*(*v1 + 56))(v1) + 512);
+    v3();
+    v4 = (*(*v1 + 56))(v1);
+    (*(*v4 + 512))();
   }
 
   return v2;
 }
 
-uint64_t parseHexOcta(_anonymous_namespace_::AsmParser *a1, unint64_t *a2, unint64_t *a3)
+uint64_t parseHexOcta(_anonymous_namespace_::AsmParser *a1, unint64_t *a2, const char **a3)
 {
   if (**((*(*a1 + 40))(a1) + 8) == 4 || **((*(*a1 + 40))(a1) + 8) == 5)
   {
-    v6 = *(*((*(*a1 + 40))(a1) + 8) + 8);
-    v7 = *((*(*a1 + 40))(a1) + 8);
-    v13 = *(v7 + 32);
-    if (v13 > 0x40)
+    (*(*a1 + 40))(a1);
+    v6 = *((*(*a1 + 40))(a1) + 8);
+    v12 = *(v6 + 32);
+    if (v12 > 0x40)
     {
       operator new[]();
     }
 
-    v12 = *(v7 + 24);
-    v8 = v12;
+    v11 = *(v6 + 24);
+    v7 = v11;
     (*(*a1 + 184))(a1);
     *a2 = 0;
-    *a3 = v8;
+    *a3 = v7;
     return 0;
   }
 
   else
   {
-    v14 = "unknown token in expression";
-    v15 = 259;
-    v10 = (*(*a1 + 40))(a1);
-    llvm::MCAsmParser::Error(a1, *(v10 + 96), &v14, 0, 0);
+    v13 = "unknown token in expression";
+    v14 = 259;
+    v9 = (*(*a1 + 40))(a1);
+    llvm::MCAsmParser::Error(a1, *(v9 + 96), &v13, 0, 0);
     return 1;
   }
 }
 
-uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveRealValue(llvm::StringRef,llvm::fltSemantics const&)::$_0>(uint64_t a1)
+uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveRealValue(llvm::StringRef,llvm::fltSemantics const&)::$_0>(uint64_t *a1)
 {
   v2 = *a1;
   v3 = 1;
@@ -7582,7 +7579,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
 
 uint64_t anonymous namespace::AsmParser::parseRealValue(_DWORD **a1, void *a2, uint64_t a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = **((*(*a1 + 5))(a1) + 8);
   if (v6 == 13 || **((*(*a1 + 5))(a1) + 8) == 12)
   {
@@ -7602,64 +7599,63 @@ uint64_t anonymous namespace::AsmParser::parseRealValue(_DWORD **a1, void *a2, u
   {
     if (v7 == 1)
     {
-      v29 = 260;
+      v28 = 260;
       v8 = *a1;
-      v27 = (a1 + 14);
+      v26 = (a1 + 14);
       goto LABEL_49;
     }
 
     if (v7 != 2)
     {
 LABEL_7:
-      v27 = "unexpected token in directive";
-      v29 = 259;
+      v26 = "unexpected token in directive";
+      v28 = 259;
       v8 = *a1;
 LABEL_49:
       v21 = v8[5](a1);
-      llvm::MCAsmParser::Error(a1, *(v21 + 96), &v27, 0, 0);
-      v20 = 1;
-      goto LABEL_50;
+      llvm::MCAsmParser::Error(a1, *(v21 + 96), &v26, 0, 0);
+      return 1;
     }
   }
 
-  llvm::APFloat::Storage::Storage<>(v26, a2);
+  llvm::APFloat::Storage::Storage<>(v25, a2);
   v10 = *((*(*a1 + 5))(a1) + 8);
   v12 = *(v10 + 8);
   v11 = *(v10 + 16);
   if (**((*(*a1 + 5))(a1) + 8) != 2)
   {
-    llvm::APFloat::convertFromString(v25, v12, v11, 1, &v27);
-    if ((v28[0] & 1) != 0 && v27)
+    llvm::APFloat::convertFromString(v24, v12, v11, 1, &v26);
+    if ((v27[0] & 1) != 0 && v26)
     {
-      v24 = v27;
-      llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v24);
-      if (v24)
+      v23 = v26;
+      llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v23);
+      if (v23)
       {
-        (*(*v24 + 8))(v24);
+        (*(*v23 + 8))(v23);
       }
 
       v18 = *a1;
-      v27 = "invalid floating point literal";
-      v29 = 259;
+      v26 = "invalid floating point literal";
+      v28 = 259;
       goto LABEL_38;
     }
 
 LABEL_41:
     if (v6 == 13)
     {
-      llvm::APFloat::changeSign(v25);
+      llvm::APFloat::changeSign(v24);
     }
 
     (*(*a1 + 23))(a1);
-    llvm::APFloat::bitcastToAPInt(&v27, v25);
+    llvm::APFloat::bitcastToAPInt(&v26, v24);
     if (*(a3 + 8) >= 0x41u && *a3)
     {
       MEMORY[0x277C69E10](*a3, 0x1000C8000313F17);
     }
 
     v20 = 0;
-    *a3 = v27;
-    *(a3 + 8) = v28[0];
+    *a3 = v26;
+    *(a3 + 8) = v27[0];
     goto LABEL_47;
   }
 
@@ -7685,12 +7681,12 @@ LABEL_41:
 
   if (v14 || (v11 >= 3 ? (v15 = 3) : (v15 = v11), !ascii_strncasecmp(v12, "inf", v15) ? (v16 = v11 == 3) : (v16 = 0), v16))
   {
-    LODWORD(v24) = 0;
-    llvm::APFloat::Storage::Storage<>(v28, a2);
-    llvm::APFloat::makeInf(&v27, 0);
+    LODWORD(v23) = 0;
+    llvm::APFloat::Storage::Storage<>(v27, a2);
+    llvm::APFloat::makeInf(&v26, 0);
 LABEL_40:
-    llvm::APFloat::Storage::operator=(v26, v28);
-    llvm::APFloat::Storage::~Storage(v28);
+    llvm::APFloat::Storage::operator=(v25, v27);
+    llvm::APFloat::Storage::~Storage(v27);
     goto LABEL_41;
   }
 
@@ -7706,21 +7702,19 @@ LABEL_40:
 
   if (v17)
   {
-    llvm::APFloat::getNaN(a2, 0, -1, &v27);
+    llvm::APFloat::getNaN(a2, 0, -1, &v26);
     goto LABEL_40;
   }
 
-  v27 = "invalid floating point literal";
-  v29 = 259;
+  v26 = "invalid floating point literal";
+  v28 = 259;
   v18 = *a1;
 LABEL_38:
   v19 = v18[5](a1);
-  llvm::MCAsmParser::Error(a1, *(v19 + 96), &v27, 0, 0);
+  llvm::MCAsmParser::Error(a1, *(v19 + 96), &v26, 0, 0);
   v20 = 1;
 LABEL_47:
-  llvm::APFloat::Storage::~Storage(v26);
-LABEL_50:
-  v22 = *MEMORY[0x277D85DE8];
+  llvm::APFloat::Storage::~Storage(v25);
   return v20;
 }
 
@@ -7749,7 +7743,7 @@ void llvm::APFloat::getNaN(void *a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64
   }
 }
 
-uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveSymbolAttribute(llvm::MCSymbolAttr)::$_0>(uint64_t a1)
+uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveSymbolAttribute(llvm::MCSymbolAttr)::$_0>(uint64_t *a1)
 {
   v2 = *a1;
   v11 = 0;
@@ -7771,14 +7765,14 @@ LABEL_3:
     v9[0] = v11;
     v9[1] = v12;
     Symbol = llvm::MCContext::getOrCreateSymbol(v6, v9);
-    if ((*(Symbol + 8) & 1) != 0 && **(a1 + 8) != 28)
+    if ((*(Symbol + 8) & 1) != 0 && *a1[1] != 28)
     {
       v4 = "non-local symbol required";
       goto LABEL_3;
     }
 
     v8 = (*(*v2 + 56))(v2);
-    if (((*(*v8 + 296))(v8, Symbol, **(a1 + 8)) & 1) == 0)
+    if (((*(*v8 + 296))(v8, Symbol, *a1[1]) & 1) == 0)
     {
       v4 = "unable to emit symbol attribute";
       goto LABEL_3;
@@ -7790,27 +7784,26 @@ LABEL_3:
 
 unint64_t anonymous namespace::AsmParser::parseMacroLikeBody(uint64_t a1, uint64_t a2)
 {
-  *(&v72 + 1) = 0;
-  v73 = 0;
-  v75 = 1;
-  v74 = 0;
+  *(&v70 + 1) = 0;
+  v71 = 0;
+  v73 = 1;
+  v72 = 0;
   v4 = *((*(*a1 + 40))(a1) + 8);
-  v66 = *(v4 + 8);
+  v65 = *(v4 + 8);
   if (*(v4 + 32) > 0x40u)
   {
     operator new[]();
   }
 
-  v67 = *(v4 + 24);
   if (!**((*(*a1 + 40))(a1) + 8))
   {
+LABEL_77:
+    v68[0] = "no matching '.endr' in definition";
+    v69 = 259;
+    (*(*a1 + 176))(a1, a2, v68, 0, 0);
 LABEL_78:
-    v70[0] = "no matching '.endr' in definition";
-    v71 = 259;
-    (*(*a1 + 176))(a1, a2, v70, 0, 0);
-LABEL_79:
     v45 = 0;
-    goto LABEL_80;
+    goto LABEL_79;
   }
 
   v5 = 0;
@@ -7851,7 +7844,7 @@ LABEL_79:
 
       if (v8 == 4 && *v7 == 1885696558)
       {
-        goto LABEL_58;
+        goto LABEL_57;
       }
 
       v12 = *((*(*a1 + 40))(a1) + 8);
@@ -7891,7 +7884,7 @@ LABEL_79:
         v19 = *(v13 + 4);
         if (v18 == 1885696558 && v19 == 116)
         {
-          goto LABEL_58;
+          goto LABEL_57;
         }
       }
 
@@ -7928,7 +7921,7 @@ LABEL_79:
 
       if (v23 == 4 && *v22 == 1886546222)
       {
-        goto LABEL_58;
+        goto LABEL_57;
       }
 
       v27 = *((*(*a1 + 40))(a1) + 8);
@@ -7968,7 +7961,7 @@ LABEL_79:
         v34 = *(v28 + 4);
         if (v33 == 1886546222 && v34 == 99)
         {
-LABEL_58:
+LABEL_57:
           ++v5;
         }
       }
@@ -7976,7 +7969,7 @@ LABEL_58:
 
     if (**(a1 + 48) != 2)
     {
-      goto LABEL_77;
+      goto LABEL_76;
     }
 
     v36 = *((*(*a1 + 40))(a1) + 8);
@@ -8012,14 +8005,14 @@ LABEL_58:
 
     if (v38 != 5)
     {
-      goto LABEL_77;
+      goto LABEL_76;
     }
 
     v42 = *v37;
     v43 = *(v37 + 4);
     if (v42 != 1684956462 || v43 != 114)
     {
-      goto LABEL_77;
+      goto LABEL_76;
     }
 
     if (!v5)
@@ -8028,121 +8021,120 @@ LABEL_58:
     }
 
     --v5;
-LABEL_77:
+LABEL_76:
     (*(*a1 + 224))(a1);
     if (!**((*(*a1 + 40))(a1) + 8))
     {
-      goto LABEL_78;
+      goto LABEL_77;
     }
   }
 
   v47 = *((*(*a1 + 40))(a1) + 8);
   v48 = *(v47 + 2);
-  v72 = *v47;
-  v73 = v48;
-  llvm::APInt::operator=(&v74, (v47 + 24));
+  v70 = *v47;
+  v71 = v48;
+  llvm::APInt::operator=(&v72, (v47 + 24));
   (*(*a1 + 184))(a1);
   if (**(a1 + 48) != 9)
   {
-    v57 = *(*((*(*a1 + 40))(a1) + 8) + 8);
-    v70[0] = "unexpected token in '.endr' directive";
-    v71 = 259;
-    (*(*a1 + 176))(a1, v57, v70, 0, 0);
-    goto LABEL_79;
+    v56 = *(*((*(*a1 + 40))(a1) + 8) + 8);
+    v68[0] = "unexpected token in '.endr' directive";
+    v69 = 259;
+    (*(*a1 + 176))(a1, v56, v68, 0, 0);
+    goto LABEL_78;
   }
 
-  v49 = *(a1 + 376);
-  v50 = *(a1 + 384);
-  v51 = *(a1 + 376);
-  if (v50 == v51)
+  v49 = *(a1 + 384);
+  v50 = *(a1 + 376);
+  if (v49 == v50)
   {
-    v52 = 0;
+    v51 = 0;
   }
 
   else
   {
-    v52 = 46 * (v50 - v51) - 1;
+    v51 = 46 * (v49 - v50) - 1;
   }
 
-  v53 = (*(&v72 + 1) - v66);
-  v54 = 0uLL;
-  v68 = 0u;
-  v69 = 0;
-  v55 = *(a1 + 400);
-  v56 = *(a1 + 408) + v55;
-  if (v52 == v56)
+  v52 = (*(&v70 + 1) - v65);
+  v53 = 0uLL;
+  v66 = 0u;
+  v67 = 0;
+  v54 = *(a1 + 400);
+  v55 = *(a1 + 408) + v54;
+  if (v51 == v55)
   {
-    v65 = (*(&v72 + 1) - v66);
-    if (v55 < 0x2E)
+    v64 = (*(&v70 + 1) - v65);
+    if (v54 < 0x2E)
     {
-      v58 = *(a1 + 392);
-      v59 = *(a1 + 368);
-      if (v50 - v51 < (v58 - v59))
+      v57 = *(a1 + 392);
+      v58 = *(a1 + 368);
+      if (v49 - v50 < (v57 - v58))
       {
         operator new();
       }
 
-      if (v58 == v59)
+      if (v57 == v58)
       {
-        v60 = 1;
+        v59 = 1;
       }
 
       else
       {
-        v60 = (v58 - v59) >> 2;
+        v59 = (v57 - v58) >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::IntrusiveRefCntPtr<llvm::orc::JITDylib>>>(v60);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::IntrusiveRefCntPtr<llvm::orc::JITDylib>>>(v59);
     }
 
-    *(a1 + 400) = v55 - 46;
-    v70[0] = *v51;
-    *(a1 + 376) = v51 + 1;
-    std::__split_buffer<llvm::orc::LookupState *>::emplace_back<llvm::orc::LookupState *&>((a1 + 368), v70);
-    v51 = *(a1 + 376);
-    v56 = *(a1 + 408) + *(a1 + 400);
-    v54 = v68;
-    v61 = v69;
-    v53 = v65;
+    *(a1 + 400) = v54 - 46;
+    v68[0] = *v50;
+    *(a1 + 376) = v50 + 1;
+    std::__split_buffer<llvm::orc::LookupState *>::emplace_back<llvm::orc::LookupState *&>((a1 + 368), v68);
+    v50 = *(a1 + 376);
+    v55 = *(a1 + 408) + *(a1 + 400);
+    v53 = v66;
+    v60 = v67;
+    v52 = v64;
   }
 
   else
   {
-    v61 = 0;
+    v60 = 0;
   }
 
-  v62 = v51[v56 / 0x2E];
-  v69 = 0;
-  v68 = 0uLL;
-  v63 = &v62[11 * (v56 % 0x2E)];
-  *v63 = 0;
-  v63[1] = 0;
-  v63[2] = v66;
-  v63[3] = v53;
-  *(v63 + 2) = v54;
-  v63[6] = v61;
-  memset(v70, 0, 24);
-  *(v63 + 80) = 0;
-  v63[7] = 0;
-  v63[8] = 0;
-  v63[9] = 0;
-  v76 = v70;
-  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](&v76);
+  v61 = v50[v55 / 0x2E];
+  v67 = 0;
+  v66 = 0uLL;
+  v62 = &v61[11 * (v55 % 0x2E)];
+  *v62 = 0;
+  v62[1] = 0;
+  v62[2] = v65;
+  v62[3] = v52;
+  *(v62 + 2) = v53;
+  v62[6] = v60;
+  memset(v68, 0, 24);
+  *(v62 + 80) = 0;
+  v62[7] = 0;
+  v62[8] = 0;
+  v62[9] = 0;
+  v74 = v68;
+  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](&v74);
   ++*(a1 + 408);
-  v70[0] = &v68;
-  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](v70);
-  v64 = *(a1 + 408) + *(a1 + 400) - 1;
-  v45 = *(*(a1 + 376) + 8 * (v64 / 0x2E)) + 88 * (v64 % 0x2E);
-LABEL_80:
-  if (v75 >= 0x41 && v74)
+  v68[0] = &v66;
+  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](v68);
+  v63 = *(a1 + 408) + *(a1 + 400) - 1;
+  v45 = *(*(a1 + 376) + 8 * (v63 / 0x2E)) + 88 * (v63 % 0x2E);
+LABEL_79:
+  if (v73 >= 0x41 && v72)
   {
-    MEMORY[0x277C69E10](v74, 0x1000C8000313F17);
+    MEMORY[0x277C69E10](v72, 0x1000C8000313F17);
   }
 
   return v45;
 }
 
-void anonymous namespace::AsmParser::instantiateMacroLikeBody(int a1, int a2, llvm::raw_ostream *this)
+void anonymous namespace::AsmParser::instantiateMacroLikeBody(uint64_t a1, uint64_t a2, llvm::raw_ostream *this)
 {
   v10[3] = *MEMORY[0x277D85DE8];
   v4 = *(this + 4);
@@ -8269,7 +8261,7 @@ void llvm::MCDwarfLineTableHeader::resetFileTable(llvm::MCDwarfLineTableHeader *
   *(this + 224) = 256;
 }
 
-uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveLoc(void)::$_0>(uint64_t a1)
+uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveLoc(void)::$_0>(uint64_t *a1)
 {
   v2 = *a1;
   v20 = 0;
@@ -8293,7 +8285,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
         goto LABEL_54;
       }
 
-      v7 = *(a1 + 8);
+      v7 = a1[1];
       v8 = *v7 | 4;
       goto LABEL_38;
     }
@@ -8310,7 +8302,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
         goto LABEL_54;
       }
 
-      v7 = *(a1 + 8);
+      v7 = a1[1];
       v8 = *v7 | 8;
       goto LABEL_38;
     }
@@ -8320,7 +8312,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
       goto LABEL_54;
     }
 
-    return ((*(*v2 + 256))(v2, *(a1 + 24)) & 1) != 0;
+    return ((*(*v2 + 256))(v2, a1[3]) & 1) != 0;
   }
 
   if (v21 == 3)
@@ -8351,7 +8343,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
       goto LABEL_55;
     }
 
-    **(a1 + 16) = v11;
+    *a1[2] = v11;
     return 0;
   }
 
@@ -8379,7 +8371,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
     v14 = *(v17 + 16);
     if (v14 == 1)
     {
-      v7 = *(a1 + 8);
+      v7 = a1[1];
       v8 = *v7 | 1;
     }
 
@@ -8391,7 +8383,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
         goto LABEL_55;
       }
 
-      v7 = *(a1 + 8);
+      v7 = a1[1];
       v8 = *v7 & 0xFFFFFFFE;
     }
 
@@ -8400,7 +8392,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
 
   if (v21 == 11 && *v20 == 0x6C625F6369736162 && *(v20 + 3) == 0x6B636F6C625F6369)
   {
-    v7 = *(a1 + 8);
+    v7 = a1[1];
     v8 = *v7 | 2;
 LABEL_38:
     *v7 = v8;
@@ -8471,14 +8463,14 @@ uint64_t anonymous namespace::AsmParser::parseCVFileId(llvm::MCContext **a1, uin
     {
       CVContext = llvm::MCContext::getCVContext(a1[27]);
       v11 = (*a2 - 1);
-      if (*(CVContext + 48) <= v11)
+      if (*(CVContext + 12) <= v11)
       {
         v12 = 1;
       }
 
       else
       {
-        v12 = *(*(CVContext + 40) + 32 * v11 + 4) ^ 1;
+        v12 = *(*(CVContext + 5) + 32 * v11 + 4) ^ 1;
       }
 
       v16 = 1283;
@@ -8502,7 +8494,7 @@ uint64_t anonymous namespace::AsmParser::parseCVFileId(llvm::MCContext **a1, uin
   return 1;
 }
 
-uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveCVLoc(void)::$_0>(uint64_t a1)
+uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveCVLoc(void)::$_0>(uint64_t *a1)
 {
   v2 = *a1;
   v14 = 0;
@@ -8522,7 +8514,7 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
     if (v15 == 12 && *v14 == 0x6575676F6C6F7270 && *(v14 + 8) == 1684956511)
     {
       result = 0;
-      **(a1 + 8) = 1;
+      *a1[1] = 1;
       return result;
     }
 
@@ -8544,7 +8536,7 @@ LABEL_16:
     return 1;
   }
 
-  v9 = *(a1 + 16);
+  v9 = a1[2];
   *v9 = -1;
   if (*v11 == 1)
   {
@@ -8731,28 +8723,25 @@ LABEL_44:
   return result;
 }
 
-void llvm::MCContext::defineMacro(_DWORD *a1, uint64_t *a2, unint64_t a3, __int128 *a4)
+void llvm::MCContext::defineMacro(_DWORD *a1, uint64_t *a2, size_t a3, __int128 *a4)
 {
-  v23 = *a4;
-  v24 = a4[1];
+  v24 = *a4;
+  v25 = a4[1];
   v7 = a4[2];
-  *(a4 + 4) = 0;
-  *(a4 + 5) = 0;
+  a4[2] = 0uLL;
   v9 = *(a4 + 6);
   v8 = *(a4 + 7);
   *&v10 = v9;
   *(&v10 + 1) = v8;
-  v21 = a4[4];
-  v22 = v7;
-  v27 = v21;
-  v25 = v7;
-  v26 = v10;
-  *(a4 + 6) = 0;
-  *(a4 + 7) = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 9) = 0;
+  v22 = a4[4];
+  v23 = v7;
+  v28 = v22;
+  v26 = v7;
+  v27 = v10;
+  a4[3] = 0uLL;
+  a4[4] = 0uLL;
   v11 = *(a4 + 80);
-  v28 = v11;
+  v29 = v11;
   v12 = llvm::StringMapImpl::LookupBucketFor((a1 + 516), a2, a3);
   v13 = *(a1 + 258);
   v14 = *(v13 + 8 * v12);
@@ -8766,38 +8755,38 @@ void llvm::MCContext::defineMacro(_DWORD *a1, uint64_t *a2, unint64_t a3, __int1
     --a1[520];
   }
 
-  v19 = v12;
-  v20 = v8;
+  v20 = v12;
+  v21 = v8;
   v15 = operator new(a3 + 97, 8uLL);
-  v16 = v15;
-  v17 = v15 + 96;
+  v17 = v15;
+  v18 = v15 + 96;
   if (a3)
   {
     memcpy(v15 + 96, a2, a3);
   }
 
-  v17[a3] = 0;
-  *(v16 + 8) = v23;
-  *v16 = a3;
-  *(v16 + 24) = v24;
-  *&v26 = 0;
-  v25 = 0uLL;
-  *&v18 = v9;
-  *(&v18 + 1) = v20;
-  *(v16 + 40) = v22;
-  *(v16 + 56) = v18;
-  *(v16 + 72) = v21;
-  v27 = 0uLL;
-  *(&v26 + 1) = 0;
-  v16[88] = v11;
-  *(v13 + 8 * v19) = v16;
+  v18[a3] = 0;
+  *(v17 + 8) = v24;
+  *v17 = a3;
+  *(v17 + 24) = v25;
+  *&v27 = 0;
+  v26 = 0uLL;
+  *&v19 = v9;
+  *(&v19 + 1) = v21;
+  *(v17 + 40) = v23;
+  *(v17 + 56) = v19;
+  *(v17 + 72) = v22;
+  v28 = 0uLL;
+  *(&v27 + 1) = 0;
+  v17[88] = v11;
+  *(v13 + 8 * v20) = v17;
   ++a1[519];
-  llvm::StringMapImpl::RehashTable((a1 + 516), v19);
+  llvm::StringMapImpl::RehashTable((a1 + 516), v20, v16);
 LABEL_7:
-  v29[0] = &v26 + 1;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v29);
-  v29[0] = &v25;
-  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](v29);
+  v30[0] = &v27 + 1;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v30);
+  v30[0] = &v26;
+  std::vector<llvm::MCAsmMacroParameter>::__destroy_vector::operator()[abi:nn200100](v30);
 }
 
 uint64_t llvm::StringMapEntry<llvm::MCAsmMacro>::Destroy<llvm::MallocAllocator>(uint64_t a1)
@@ -8812,21 +8801,21 @@ uint64_t llvm::StringMapEntry<llvm::MCAsmMacro>::Destroy<llvm::MallocAllocator>(
 uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::AsmParser::parseDirectiveLTODiscard(void)::$_0>(uint64_t *a1)
 {
   v1 = *a1;
-  v10 = 0uLL;
+  v11 = 0uLL;
   v2 = *(*((*(*v1 + 40))(v1) + 8) + 8);
-  if ((*(*v1 + 192))(v1, &v10))
+  if ((*(*v1 + 192))(v1, &v11))
   {
-    v8 = "expected identifier";
-    v9 = 259;
-    return llvm::MCAsmParser::Error(v1, v2, &v8, 0, 0);
+    v9 = "expected identifier";
+    v10 = 259;
+    return llvm::MCAsmParser::Error(v1, v2, &v9, 0, 0);
   }
 
   if (!*(v1 + 784))
   {
     v4 = *(v1 + 720);
     v5 = *(v1 + 728);
-    v6 = v10;
-    if (llvm::SmallSet<llvm::StringRef,2u,std::less<llvm::StringRef>>::vfind(v4, *(v1 + 728), v10, *(&v10 + 1)) != v4 + 16 * v5)
+    v6 = v11;
+    if (llvm::SmallSet<llvm::StringRef,2u,std::less<llvm::StringRef>>::vfind(v4, *(v1 + 728), v11, *(&v11 + 1)) != v4 + 16 * v5)
     {
       return 0;
     }
@@ -8839,16 +8828,17 @@ uint64_t llvm::function_ref<BOOL ()(void)>::callback_fn<anonymous namespace::Asm
 
     do
     {
-      std::__tree<llvm::StringRef>::__emplace_unique_key_args<llvm::StringRef,llvm::StringRef const&>(v1 + 768, (*(v1 + 720) + 16 * v5 - 16));
-      v7 = *(v1 + 728);
-      LODWORD(v5) = v7 - 1;
-      *(v1 + 728) = v7 - 1;
+      v7 = (*(v1 + 720) + 16 * v5 - 16);
+      std::__tree<llvm::StringRef>::__emplace_unique_key_args<llvm::StringRef,llvm::StringRef const&>((v1 + 768), v7, v7);
+      v8 = *(v1 + 728);
+      LODWORD(v5) = v8 - 1;
+      *(v1 + 728) = v8 - 1;
     }
 
-    while (v7 != 1);
+    while (v8 != 1);
   }
 
-  std::__tree<llvm::StringRef>::__emplace_unique_key_args<llvm::StringRef,llvm::StringRef const&>(v1 + 768, &v10);
+  std::__tree<llvm::StringRef>::__emplace_unique_key_args<llvm::StringRef,llvm::StringRef const&>((v1 + 768), &v11, &v11);
   return 0;
 }
 
@@ -8986,7 +8976,7 @@ uint64_t llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBac
 
 void llvm::MCAsmParser::printPendingErrors(llvm::MCAsmParser *this)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(this + 6);
   if (v2)
   {
@@ -8997,31 +8987,31 @@ void llvm::MCAsmParser::printPendingErrors(llvm::MCAsmParser *this)
     {
       v7 = v5 - 8;
       v6 = *(v5 - 8);
-      v16 = v6;
-      v17 = v19;
-      v18 = xmmword_2750C1860;
+      v15 = v6;
+      v16 = v18;
+      v17 = xmmword_2750C1860;
       v8 = *(v5 + 8);
       if (v8)
       {
-        llvm::SmallVectorImpl<char>::operator=(&v17, v5);
-        v6 = v16;
-        v9 = v17;
-        v8 = v18;
+        llvm::SmallVectorImpl<char>::operator=(&v16, v5);
+        v6 = v15;
+        v9 = v16;
+        v8 = v17;
       }
 
       else
       {
-        v9 = v19;
+        v9 = v18;
       }
 
-      v20 = *(v5 + 88);
-      v15 = 261;
-      v14[0] = v9;
-      v14[1] = v8;
-      (*(*this + 176))(this, v6, v14, v20, *(&v20 + 1));
-      if (v17 != v19)
+      v19 = *(v5 + 88);
+      v14 = 261;
+      v13[0] = v9;
+      v13[1] = v8;
+      (*(*this + 176))(this, v6, v13, v19, *(&v19 + 1));
+      if (v16 != v18)
       {
-        free(v17);
+        free(v16);
       }
 
       v5 += 112;
@@ -9049,7 +9039,6 @@ void llvm::MCAsmParser::printPendingErrors(llvm::MCAsmParser *this)
   }
 
   *(this + 6) = 0;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t llvm::SetVector<llvm::MCSection *,std::vector<llvm::MCSection *>,llvm::DenseSet<llvm::MCSection *,llvm::DenseMapInfo<llvm::MCSection *,void>>>::insert(void *a1, void *a2)
@@ -9120,27 +9109,27 @@ uint64_t llvm::SetVector<llvm::MCSection *,std::vector<llvm::MCSection *>,llvm::
   return v4;
 }
 
-char **llvm::SmallVector<std::unique_ptr<llvm::MCParsedAsmOperand>,8u>::~SmallVector(char **a1)
+char ***llvm::SmallVector<std::unique_ptr<llvm::MCParsedAsmOperand>,8u>::~SmallVector(char ***a1)
 {
   v2 = *a1;
   v3 = *(a1 + 2);
   if (v3)
   {
-    v4 = 8 * v3;
-    v5 = v2 - 8;
+    v4 = v3;
+    v5 = v2 - 1;
     do
     {
-      v6 = *&v5[v4];
-      *&v5[v4] = 0;
+      v6 = v5[v4];
+      v5[v4] = 0;
       if (v6)
       {
         (*(*v6 + 8))(v6);
       }
 
-      v4 -= 8;
+      --v4;
     }
 
-    while (v4);
+    while (v4 * 8);
     v2 = *a1;
   }
 
@@ -9152,15 +9141,15 @@ char **llvm::SmallVector<std::unique_ptr<llvm::MCParsedAsmOperand>,8u>::~SmallVe
   return a1;
 }
 
-uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,int,BOOL &>(uint64_t a1, int a2, uint64_t a3, int a4, int a5, char a6)
+uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,int,BOOL &>(uint64_t result, int a2, uint64_t a3, int a4, int a5, char a6)
 {
-  v6 = *(a1 + 8);
-  if (v6 >= *(a1 + 12))
+  v6 = *(result + 8);
+  if (v6 >= *(result + 12))
   {
-    return llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,int,BOOL &>(a1, a2, a3, a4, a5, a6);
+    return llvm::SmallVectorTemplateBase<llvm::AsmRewrite,true>::growAndEmplaceBack<llvm::AsmRewriteKind,llvm::SMLoc &,unsigned long,int,BOOL &>(result, a2, a3, a4, a5, a6);
   }
 
-  v7 = *a1 + (v6 << 7);
+  v7 = *result + (v6 << 7);
   *v7 = a2;
   *(v7 + 8) = a3;
   *(v7 + 16) = a4;
@@ -9175,8 +9164,8 @@ uint64_t llvm::SmallVectorImpl<llvm::AsmRewrite>::emplace_back<llvm::AsmRewriteK
   *(v7 + 48) = 0;
   *(v7 + 112) = 1;
   *(v7 + 120) = a6;
-  ++*(a1 + 8);
-  return a1;
+  ++*(result + 8);
+  return result;
 }
 
 uint64_t rewritesSort(unsigned int *a1, unsigned int *a2)
@@ -9266,7 +9255,7 @@ void anonymous namespace::AsmParser::printMacroInstantiations(_anonymous_namespa
     v11[1] = 0;
     v6 = *(this + 30);
     v7 = llvm::errs(this);
-    llvm::SourceMgr::PrintMessage(v6, v7, v5, 3, &v9, v11, 1, v8, 0, 0, 1u);
+    llvm::SourceMgr::PrintMessage(v6, v7, v5, 3, &v9, v11, 1, v8, 0, 0, 1);
   }
 }
 
@@ -9292,7 +9281,7 @@ uint64_t anonymous namespace::AsmParser::parseBinOpRHS(uint64_t a1, unsigned int
     v12 = *a3;
     v13 = v18;
     v14 = (*(*a1 + 48))(a1);
-    v15 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v14 + 184, 32, 3);
+    v15 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v14 + 184), 32, 3);
     *v15 = 0;
     *(v15 + 1) = v11 & 0xFFFFFF | (*(v15 + 4) << 24);
     *(v15 + 8) = v8;
@@ -9309,7 +9298,7 @@ uint64_t anonymous namespace::AsmParser::parseBinOpRHS(uint64_t a1, unsigned int
   return 1;
 }
 
-unint64_t anonymous namespace::AsmParser::applyModifierToExpr(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+unsigned __int8 *anonymous namespace::AsmParser::applyModifierToExpr(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   result = (*(**(a1 + 8) + 152))(*(a1 + 8), a2, a3, *(a1 + 216));
   if (!result)
@@ -9334,12 +9323,12 @@ unint64_t anonymous namespace::AsmParser::applyModifierToExpr(uint64_t a1, unsig
 
           v14 = *(a2 + 1);
           v15 = (*(*a1 + 48))(a1);
-          result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v15 + 184, 32, 3);
+          result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v15 + 184), 32, 3);
           *result = 0;
-          *(result + 1) = v14 & 0xFFFFFF | (*(result + 4) << 24);
-          *(result + 8) = 0;
-          *(result + 16) = v11;
-          *(result + 24) = v13;
+          *(result + 1) = v14 & 0xFFFFFF | (result[4] << 24);
+          *(result + 1) = 0;
+          *(result + 2) = v11;
+          *(result + 3) = v13;
         }
 
         else
@@ -9358,11 +9347,11 @@ unint64_t anonymous namespace::AsmParser::applyModifierToExpr(uint64_t a1, unsig
           v8 = result;
           v9 = *(a2 + 1);
           v10 = (*(*a1 + 48))(a1);
-          result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v10 + 184, 24, 3);
+          result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v10 + 184), 24, 3);
           *result = 3;
-          *(result + 1) = v9 & 0xFFFFFF | (*(result + 4) << 24);
-          *(result + 8) = 0;
-          *(result + 16) = v8;
+          *(result + 1) = v9 & 0xFFFFFF | (result[4] << 24);
+          *(result + 1) = 0;
+          *(result + 2) = v8;
         }
       }
 
@@ -9415,7 +9404,7 @@ unint64_t anonymous namespace::AsmParser::applyModifierToExpr(uint64_t a1, unsig
       {
         v19 = *(a2 + 2);
         v20 = (*(*a1 + 48))(a1);
-        result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v20 + 184, 24, 3);
+        result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v20 + 184), 24, 3);
         if (*(*(v20 + 144) + 18))
         {
           v21 = 0x10000;
@@ -9427,9 +9416,9 @@ unint64_t anonymous namespace::AsmParser::applyModifierToExpr(uint64_t a1, unsig
         }
 
         *result = 2;
-        *(result + 1) = v21 | a3 | (*(result + 4) << 24);
-        *(result + 8) = 0;
-        *(result + 16) = v19;
+        *(result + 1) = v21 | a3 | (result[4] << 24);
+        *(result + 1) = 0;
+        *(result + 2) = v19;
       }
     }
   }
@@ -9714,7 +9703,7 @@ uint64_t anonymous namespace::COFFAsmParser::Initialize(_anonymous_namespace_::C
   return v3();
 }
 
-BOOL anonymous namespace::COFFAsmParser::ParseSectionSwitch(uint64_t a1, const void *a2, size_t a3, int a4, int a5, std::string::size_type a6, std::string::size_type a7, unsigned int a8)
+BOOL anonymous namespace::COFFAsmParser::ParseSectionSwitch(uint64_t a1, const void *a2, std::string::size_type a3, int a4, unsigned int a5, std::string::size_type a6, std::string::size_type a7, unsigned int a8)
 {
   v16 = **((*(**(a1 + 8) + 40))(*(a1 + 8)) + 8);
   if (v16 == 9)

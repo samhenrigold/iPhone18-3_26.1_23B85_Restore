@@ -13,17 +13,15 @@
 
 - (id)keyWithMediaItemTypeName:(id)name bundleId:(id)id
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v12[0] = id;
-  v12[1] = name;
+  v11[2] = *MEMORY[0x1E69E9840];
+  v11[0] = id;
+  v11[1] = name;
   v5 = MEMORY[0x1E695DEC8];
   idCopy = id;
   nameCopy = name;
-  v8 = [v5 arrayWithObjects:v12 count:2];
+  v8 = [v5 arrayWithObjects:v11 count:2];
 
   v9 = [v8 componentsJoinedByString:@"-"];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -51,7 +49,7 @@
 
 - (void)setPredictionMode:(INUpcomingMediaPredictionMode)mode forType:(INMediaItemType)type
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = _INVCVoiceShortcutClient();
   if (v6)
   {
@@ -74,38 +72,34 @@
     v8 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[INUpcomingMediaManager setPredictionMode:forType:]";
-      _os_log_error_impl(&dword_18E991000, v8, OS_LOG_TYPE_ERROR, "%s Failed to set prediction mode: VoiceShortcutClient framework not found", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[INUpcomingMediaManager setPredictionMode:forType:]";
+      _os_log_error_impl(&dword_18E991000, v8, OS_LOG_TYPE_ERROR, "%s Failed to set prediction mode: VoiceShortcutClient framework not found", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __52__INUpcomingMediaManager_setPredictionMode_forType___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[INUpcomingMediaManager setPredictionMode:forType:]_block_invoke";
-      v9 = 2114;
-      v10 = v4;
-      _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s Failed to set prediction mode: %{public}@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[INUpcomingMediaManager setPredictionMode:forType:]_block_invoke";
+      v8 = 2114;
+      v9 = v4;
+      _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s Failed to set prediction mode: %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_replaceMediaIntents:(id)intents forBundleIdentifier:(id)identifier
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   intentsCopy = intents;
   v8 = +[INUpcomingMediaManager mediaQueue];
@@ -116,43 +110,42 @@ void __52__INUpcomingMediaManager_setPredictionMode_forType___block_invoke(uint6
   [strongObjectsPointerArray setCount:v9];
   v11 = objc_opt_new();
   v12 = dispatch_group_create();
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke;
-  v29[3] = &unk_1E7281AD0;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke;
+  v28[3] = &unk_1E7281AD0;
   v13 = v12;
-  v30 = v13;
+  v29 = v13;
   selfCopy = self;
-  v34 = v9;
-  v32 = v11;
+  v33 = v9;
+  v31 = v11;
   v14 = strongObjectsPointerArray;
-  v33 = v14;
+  v32 = v14;
   v15 = v11;
-  [intentsCopy enumerateObjectsUsingBlock:v29];
+  [intentsCopy enumerateObjectsUsingBlock:v28];
 
   dispatch_group_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
   [v14 compact];
   index = [(INUpcomingMediaManager *)self index];
   dispatch_group_enter(v13);
-  v35[0] = @"com.apple.siri.upcomingmedia";
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+  v34[0] = @"com.apple.siri.upcomingmedia";
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
   v18 = *MEMORY[0x1E696A388];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke_16;
-  v24[3] = &unk_1E7281B20;
-  v25 = v14;
-  v26 = v13;
-  v27 = index;
-  v28 = identifierCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke_16;
+  v23[3] = &unk_1E7281B20;
+  v24 = v14;
+  v25 = v13;
+  v26 = index;
+  v27 = identifierCopy;
   v19 = identifierCopy;
   v20 = index;
   v21 = v13;
   v22 = v14;
-  [v20 deleteSearchableItemsWithDomainIdentifiers:v17 protectionClass:v18 forBundleID:v19 options:0 completionHandler:v24];
+  [v20 deleteSearchableItemsWithDomainIdentifiers:v17 protectionClass:v18 forBundleID:v19 options:0 completionHandler:v23];
 
   dispatch_group_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -182,7 +175,7 @@ void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___blo
 
 void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke_16(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -190,9 +183,9 @@ void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___blo
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[INUpcomingMediaManager _replaceMediaIntents:forBundleIdentifier:]_block_invoke";
-      v14 = 2114;
-      v15 = v3;
+      v12 = "[INUpcomingMediaManager _replaceMediaIntents:forBundleIdentifier:]_block_invoke";
+      v13 = 2114;
+      v14 = v3;
       _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error when trying to delete existing upcoming media items: %{public}@", buf, 0x16u);
     }
   }
@@ -203,59 +196,55 @@ void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___blo
     v6 = [*(a1 + 32) allObjects];
     v7 = *MEMORY[0x1E696A388];
     v8 = *(a1 + 56);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke_17;
-    v10[3] = &unk_1E7281AF8;
-    v11 = *(a1 + 40);
-    [v5 indexSearchableItems:v6 deleteSearchableItemsWithIdentifiers:MEMORY[0x1E695E0F0] clientState:0 protectionClass:v7 forBundleID:v8 options:0 completionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke_17;
+    v9[3] = &unk_1E7281AF8;
+    v10 = *(a1 + 40);
+    [v5 indexSearchableItems:v6 deleteSearchableItemsWithIdentifiers:MEMORY[0x1E695E0F0] clientState:0 protectionClass:v7 forBundleID:v8 options:0 completionHandler:v9];
   }
 
   else
   {
     dispatch_group_leave(*(a1 + 40));
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke_17(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[INUpcomingMediaManager _replaceMediaIntents:forBundleIdentifier:]_block_invoke";
-      v8 = 2114;
-      v9 = v3;
-      _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error when trying to index new upcoming media items: %{public}@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[INUpcomingMediaManager _replaceMediaIntents:forBundleIdentifier:]_block_invoke";
+      v7 = 2114;
+      v8 = v3;
+      _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error when trying to index new upcoming media items: %{public}@", &v5, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6 && (v7 = INSiriLogContextIntents, os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR)))
   {
-    v14 = *(a1 + 32);
-    v15 = 136315650;
-    v16 = "[INUpcomingMediaManager _replaceMediaIntents:forBundleIdentifier:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v14;
-    v19 = 2114;
-    v20 = v6;
-    _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Error injecting image proxies into %{publc}@: %{public}@", &v15, 0x20u);
+    v13 = *(a1 + 32);
+    v14 = 136315650;
+    v15 = "[INUpcomingMediaManager _replaceMediaIntents:forBundleIdentifier:]_block_invoke_2";
+    v16 = 2112;
+    v17 = v13;
+    v18 = 2114;
+    v19 = v6;
+    _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Error injecting image proxies into %{publc}@: %{public}@", &v14, 0x20u);
     if (!v5)
     {
       goto LABEL_7;
@@ -284,47 +273,45 @@ void __67__INUpcomingMediaManager__replaceMediaIntents_forBundleIdentifier___blo
 
 LABEL_7:
   dispatch_group_leave(*(a1 + 56));
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setSuggestedMediaIntents:(id)intents forBundleIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   intentsCopy = intents;
   identifierCopy = identifier;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = intentsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        if (([*(*(&v25 + 1) + 8 * i) isMemberOfClass:objc_opt_class()] & 1) == 0)
+        if (([*(*(&v24 + 1) + 8 * i) isMemberOfClass:objc_opt_class()] & 1) == 0)
         {
-          v17 = MEMORY[0x1E696AEC0];
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
-          v20 = [v17 stringWithFormat:@"Expecting INPlayMediaIntent, not %@", v19];
+          v16 = MEMORY[0x1E696AEC0];
+          v17 = objc_opt_class();
+          v18 = NSStringFromClass(v17);
+          v19 = [v16 stringWithFormat:@"Expecting INPlayMediaIntent, not %@", v18];
 
-          v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
-          objc_exception_throw(v21);
+          v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
+          objc_exception_throw(v20);
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
@@ -336,13 +323,11 @@ LABEL_7:
   block[2] = __72__INUpcomingMediaManager__setSuggestedMediaIntents_forBundleIdentifier___block_invoke;
   block[3] = &unk_1E7281A78;
   block[4] = self;
-  v23 = v8;
-  v24 = identifierCopy;
+  v22 = v8;
+  v23 = identifierCopy;
   v14 = identifierCopy;
   v15 = v8;
   dispatch_async(v13, block);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (INUpcomingMediaManager)initWithSearchableIndex:(id)index

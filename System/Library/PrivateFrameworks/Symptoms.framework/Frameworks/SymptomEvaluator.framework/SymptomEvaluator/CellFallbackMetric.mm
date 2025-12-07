@@ -3,28 +3,28 @@
 - (id)description;
 - (id)initCellFallbackMetricWithLevel:(int64_t)level policy:(unint64_t)policy state:(id)state;
 - (unsigned)_interestingTrigger;
+- (void)addCellIngressTriggers:(unsigned int)triggers;
+- (void)addWifiIngressTriggers:(unsigned int)triggers;
 @end
 
 @implementation CellFallbackMetric
 
 - (id)description
 {
-  v6 = objc_alloc(MEMORY[0x277CCACA8]);
-  state = self->_state;
-  v4 = [v6 initWithFormat:@"state %@ advice %ld durationInState %.2f policy %lu motionState (%d/%d) previousState %d trigger (%u/%u) triggerInterfaceType (%d/%d) wifiIngressTriggers %@ interestingTrigger %u", state, self->_advice, *&self->_adviceHeldForSecs, self->_policy, self->_ingressMotionState, self->_egressMotionState, self->_comingFromState, self->_ingressTrigger, self->_egressTrigger, self->_ingressTriggerInterfaceType, self->_egressTriggerInterfaceType, self->_wifiIngressTriggers, -[CellFallbackMetric _interestingTrigger](self, "_interestingTrigger")];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"state %@ advice %ld durationInState %.2f policy %lu motionState (%d/%d) previousState %d trigger (%u/%u) triggerInterfaceType (%d/%d) wifiIngressTriggers %@ interestingTrigger %u", self->_state, self->_advice, *&self->_adviceHeldForSecs, self->_policy, self->_ingressMotionState, self->_egressMotionState, self->_comingFromState, self->_ingressTrigger, self->_egressTrigger, self->_ingressTriggerInterfaceType, self->_egressTriggerInterfaceType, self->_wifiIngressTriggers, -[CellFallbackMetric _interestingTrigger](self, "_interestingTrigger")];
 
-  return v4;
+  return v2;
 }
 
 - (unsigned)_interestingTrigger
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allObjects = [(NSMutableSet *)self->_wifiIngressTriggers allObjects];
-  v4 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v4)
   {
     v6 = 0;
@@ -34,18 +34,18 @@
   v5 = v4;
   v6 = 0;
   v7 = 1000;
-  v8 = *v20;
+  v8 = *v19;
   do
   {
     v9 = 0;
     do
     {
-      if (*v20 != v8)
+      if (*v19 != v8)
       {
         objc_enumerationMutation(allObjects);
       }
 
-      unsignedIntValue = [*(*(&v19 + 1) + 8 * v9) unsignedIntValue];
+      unsignedIntValue = [*(*(&v18 + 1) + 8 * v9) unsignedIntValue];
       comingFromState = self->_comingFromState;
       advice = self->_advice;
       if (advice == 3)
@@ -170,14 +170,13 @@ LABEL_40:
     }
 
     while (v5 != v9);
-    v16 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v16 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
     v5 = v16;
   }
 
   while (v16);
 LABEL_49:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -209,7 +208,7 @@ LABEL_49:
 
 - (BOOL)postMetric
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -218,55 +217,65 @@ LABEL_49:
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "CFSM Metric: About to post %{private}@ to CA", buf, 0xCu);
   }
 
-  result = AnalyticsSendEventLazy();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return AnalyticsSendEventLazy();
 }
 
 id __32__CellFallbackMetric_postMetric__block_invoke(uint64_t a1)
 {
-  v18[12] = *MEMORY[0x277D85DE8];
+  v17[12] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v18[0] = *(v2 + 8);
-  v17[0] = @"state";
-  v17[1] = @"advice";
-  v16 = [MEMORY[0x277CCABB0] numberWithInteger:*(v2 + 32)];
-  v18[1] = v16;
-  v17[2] = @"policy";
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(*(a1 + 32) + 40)];
-  v18[2] = v15;
-  v17[3] = @"comingFromState";
+  v17[0] = *(v2 + 8);
+  v16[0] = @"state";
+  v16[1] = @"advice";
+  v15 = [MEMORY[0x277CCABB0] numberWithInteger:*(v2 + 32)];
+  v17[1] = v15;
+  v16[2] = @"policy";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(*(a1 + 32) + 40)];
+  v17[2] = v14;
+  v16[3] = @"comingFromState";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(a1 + 32) + 60)];
-  v18[3] = v3;
-  v17[4] = @"durationInState";
+  v17[3] = v3;
+  v16[4] = @"durationInState";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(*(a1 + 32) + 72)];
-  v18[4] = v4;
-  v17[5] = @"ingressMotionState";
+  v17[4] = v4;
+  v16[5] = @"ingressMotionState";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(a1 + 32) + 52)];
-  v18[5] = v5;
-  v17[6] = @"egressMotionState";
+  v17[5] = v5;
+  v16[6] = @"egressMotionState";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(a1 + 32) + 56)];
-  v18[6] = v6;
-  v17[7] = @"ingressTrigger";
+  v17[6] = v6;
+  v16[7] = @"ingressTrigger";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(a1 + 32) + 64)];
-  v18[7] = v7;
-  v17[8] = @"egressTrigger";
+  v17[7] = v7;
+  v16[8] = @"egressTrigger";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(a1 + 32) + 68)];
-  v18[8] = v8;
-  v17[9] = @"interestingIngressTrigger";
+  v17[8] = v8;
+  v16[9] = @"interestingIngressTrigger";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(a1 + 32), "_interestingTrigger")}];
-  v18[9] = v9;
-  v17[10] = @"ingressTriggerInterfaceType";
+  v17[9] = v9;
+  v16[10] = @"ingressTriggerInterfaceType";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(*(a1 + 32) + 48)];
-  v18[10] = v10;
-  v17[11] = @"egressTriggerInterfaceType";
+  v17[10] = v10;
+  v16[11] = @"egressTriggerInterfaceType";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(*(a1 + 32) + 49)];
-  v18[11] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:12];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v17[11] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:12];
 
   return v12;
+}
+
+- (void)addWifiIngressTriggers:(unsigned int)triggers
+{
+  wifiIngressTriggers = self->_wifiIngressTriggers;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&triggers];
+  [(NSMutableSet *)wifiIngressTriggers addObject:v4];
+}
+
+- (void)addCellIngressTriggers:(unsigned int)triggers
+{
+  cellIngressTriggers = self->_cellIngressTriggers;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&triggers];
+  [(NSMutableSet *)cellIngressTriggers addObject:v4];
 }
 
 @end

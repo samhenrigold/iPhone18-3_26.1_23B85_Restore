@@ -85,45 +85,45 @@ LABEL_7:
 
 - (void)accept
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3)
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3)
   {
-    v5 = v3;
-    if (os_log_type_enabled(v5, v4))
+    v7 = v3;
+    if (os_log_type_enabled(v7, v5))
     {
       certificateChain = [(WFCertificateContext *)self certificateChain];
-      v9 = 138412290;
-      v10 = certificateChain;
-      _os_log_impl(&dword_273ECD000, v5, v4, "User trusted provided certificate chain %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = certificateChain;
+      _os_log_impl(&dword_273ECD000, v7, v5, "User trusted provided certificate chain %@", &v10, 0xCu);
     }
   }
 
   completionHandler = [(WFCertificateContext *)self completionHandler];
   completionHandler[2](completionHandler, 1);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)launchSettings
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3)
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3)
   {
-    v5 = v3;
-    if (os_log_type_enabled(v5, v4))
+    v7 = v3;
+    if (os_log_type_enabled(v7, v5))
     {
       network = [(WFCertificateContext *)self network];
-      v9 = 136315650;
-      v10 = "[WFCertificateContext launchSettings]";
-      v11 = 2112;
-      v12 = network;
-      v13 = 2112;
+      v10 = 136315650;
+      v11 = "[WFCertificateContext launchSettings]";
+      v12 = 2112;
+      v13 = network;
+      v14 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_273ECD000, v5, v4, "%s: opening settings for %@ (context: %@)", &v9, 0x20u);
+      _os_log_impl(&dword_273ECD000, v7, v5, "%s: opening settings for %@ (context: %@)", &v10, 0x20u);
     }
   }
 
@@ -132,7 +132,6 @@ LABEL_7:
 
   WFOpenSettingsURLWithType(1uLL);
   [(WFCertificateContext *)self cancel];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (WFNetworkView)provider
@@ -146,11 +145,11 @@ LABEL_7:
 {
   WFLogForCategory(0);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_3();
-  if (WFCurrentLogLevel() && v1 && OUTLINED_FUNCTION_4())
+  v3 = OUTLINED_FUNCTION_3();
+  if (WFCurrentLogLevel(v3, v4) && v1 && OUTLINED_FUNCTION_4())
   {
     OUTLINED_FUNCTION_2_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 2u);
+    _os_log_impl(v5, v6, v7, v8, v9, 2u);
   }
 
   *a1 = v1;
@@ -160,11 +159,11 @@ LABEL_7:
 {
   WFLogForCategory(0);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_3();
-  if (WFCurrentLogLevel() && v1 && OUTLINED_FUNCTION_4())
+  v3 = OUTLINED_FUNCTION_3();
+  if (WFCurrentLogLevel(v3, v4) && v1 && OUTLINED_FUNCTION_4())
   {
     OUTLINED_FUNCTION_2_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 2u);
+    _os_log_impl(v5, v6, v7, v8, v9, 2u);
   }
 
   *a1 = v1;
@@ -172,34 +171,30 @@ LABEL_7:
 
 - (void)initWithNetwork:(void *)a1 profile:certificateChain:.cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   WFLogForCategory(0);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_3();
-  if (WFCurrentLogLevel() && v1 && OUTLINED_FUNCTION_4())
+  v3 = OUTLINED_FUNCTION_3();
+  if (WFCurrentLogLevel(v3, v4) && v1 && OUTLINED_FUNCTION_4())
   {
     OUTLINED_FUNCTION_2_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
   }
 
   *a1 = v1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithNetwork:(void *)a1 profile:certificateChain:.cold.4(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   WFLogForCategory(0);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_3();
-  if (WFCurrentLogLevel() && v1 && OUTLINED_FUNCTION_4())
+  v3 = OUTLINED_FUNCTION_3();
+  if (WFCurrentLogLevel(v3, v4) && v1 && OUTLINED_FUNCTION_4())
   {
     OUTLINED_FUNCTION_2_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
   }
 
   *a1 = v1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

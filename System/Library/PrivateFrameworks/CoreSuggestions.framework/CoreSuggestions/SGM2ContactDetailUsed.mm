@@ -1,9 +1,11 @@
 @interface SGM2ContactDetailUsed
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsApp:(id)app;
 - (int)StringAsType:(id)type;
 - (int)app;
@@ -169,27 +171,25 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -289,6 +289,21 @@ LABEL_14:
   return v4;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC6E0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasType:(BOOL)type
 {
   if (type)
@@ -383,6 +398,21 @@ LABEL_14:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC680[string];
   }
 
   return v4;

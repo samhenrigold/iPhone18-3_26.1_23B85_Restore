@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneSearchConstantScoreScorer
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)nextDoc;
 - (int64_t)cost;
@@ -27,6 +28,17 @@
   }
 
   return [(OrgApacheLuceneSearchDocIdSetIterator *)disi nextDoc];
+}
+
+- (int)advanceWithInt:(int)int
+{
+  disi = self->disi_;
+  if (!disi)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneSearchDocIdSetIterator *)disi advanceWithInt:*&int];
 }
 
 - (int64_t)cost

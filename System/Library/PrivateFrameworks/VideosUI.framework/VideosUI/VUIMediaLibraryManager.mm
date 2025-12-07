@@ -18,32 +18,32 @@
 
 @implementation VUIMediaLibraryManager
 
-void __40__VUIMediaLibraryManager_defaultManager__block_invoke()
+void __40__VUIMediaLibraryManager_defaultManager__block_invoke(uint64_t a1)
 {
-  v0 = VUISignpostLogObject();
-  if (os_signpost_enabled(v0))
+  v1 = VUISignpostLogObject(a1);
+  if (os_signpost_enabled(v1))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MediaLibraryManager.Init", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MediaLibraryManager.Init", "", buf, 2u);
   }
 
-  v1 = objc_alloc_init(VUIMediaLibraryManager);
-  v2 = defaultManager___defaultManager;
-  defaultManager___defaultManager = v1;
+  v2 = objc_alloc_init(VUIMediaLibraryManager);
+  v3 = defaultManager___defaultManager;
+  defaultManager___defaultManager = v2;
 
-  v3 = VUISignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v5 = VUISignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MediaLibraryManager.Init", "", v4, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MediaLibraryManager.Init", "", v6, 2u);
   }
 }
 
 - (VUIMediaLibraryManager)init
 {
-  v24.receiver = self;
-  v24.super_class = VUIMediaLibraryManager;
-  v2 = [(VUIMediaLibraryManager *)&v24 init];
+  v32.receiver = self;
+  v32.super_class = VUIMediaLibraryManager;
+  v2 = [(VUIMediaLibraryManager *)&v32 init];
   v3 = v2;
   if (v2)
   {
@@ -52,76 +52,76 @@ void __40__VUIMediaLibraryManager_defaultManager__block_invoke()
     serialProcessingDispatchQueue = v3->_serialProcessingDispatchQueue;
     v3->_serialProcessingDispatchQueue = v4;
 
-    v6 = VUISignpostLogObject();
-    if (os_signpost_enabled(v6))
+    v7 = VUISignpostLogObject(v6);
+    if (os_signpost_enabled(v7))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SidebandMediaLibrary.Init", "", v23, 2u);
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SidebandMediaLibrary.Init", "", v31, 2u);
     }
 
-    v7 = [[VUISidebandMediaLibrary alloc] initWithManager:v3];
+    v8 = [[VUISidebandMediaLibrary alloc] initWithManager:v3];
     sidebandMediaLibrary = v3->_sidebandMediaLibrary;
-    v3->_sidebandMediaLibrary = v7;
+    v3->_sidebandMediaLibrary = v8;
 
-    v9 = VUISignpostLogObject();
-    if (os_signpost_enabled(v9))
+    v11 = VUISignpostLogObject(v10);
+    if (os_signpost_enabled(v11))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SidebandMediaLibrary.Init", "", v23, 2u);
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SidebandMediaLibrary.Init", "", v31, 2u);
     }
 
-    v10 = VUISignpostLogObject();
-    if (os_signpost_enabled(v10))
+    v13 = VUISignpostLogObject(v12);
+    if (os_signpost_enabled(v13))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "DeviceMediaLibrary.Init", "", v23, 2u);
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "DeviceMediaLibrary.Init", "", v31, 2u);
     }
 
     _deviceMediaLibrary = [(VUIMediaLibraryManager *)v3 _deviceMediaLibrary];
     deviceMediaLibrary = v3->_deviceMediaLibrary;
     v3->_deviceMediaLibrary = _deviceMediaLibrary;
 
-    v13 = VUISignpostLogObject();
-    if (os_signpost_enabled(v13))
-    {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DeviceMediaLibrary.Init", "", v23, 2u);
-    }
-
-    v14 = VUISignpostLogObject();
-    if (os_signpost_enabled(v14))
-    {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v14, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AggregateMediaLibrary.Init", "", v23, 2u);
-    }
-
-    v15 = [[VUIAggregateMediaLibrary alloc] initWithManager:v3 deviceMediaLibrary:v3->_deviceMediaLibrary sidebandMediaLibrary:v3->_sidebandMediaLibrary];
-    aggregateMediaLibrary = v3->_aggregateMediaLibrary;
-    v3->_aggregateMediaLibrary = v15;
-
-    v17 = VUISignpostLogObject();
+    v17 = VUISignpostLogObject(v16);
     if (os_signpost_enabled(v17))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AggregateMediaLibrary.Init", "", v23, 2u);
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DeviceMediaLibrary.Init", "", v31, 2u);
     }
 
-    v18 = VUISignpostLogObject();
-    if (os_signpost_enabled(v18))
+    v19 = VUISignpostLogObject(v18);
+    if (os_signpost_enabled(v19))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "HomeShareManager.Init", "", v23, 2u);
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AggregateMediaLibrary.Init", "", v31, 2u);
+    }
+
+    v20 = [[VUIAggregateMediaLibrary alloc] initWithManager:v3 deviceMediaLibrary:v3->_deviceMediaLibrary sidebandMediaLibrary:v3->_sidebandMediaLibrary];
+    aggregateMediaLibrary = v3->_aggregateMediaLibrary;
+    v3->_aggregateMediaLibrary = v20;
+
+    v23 = VUISignpostLogObject(v22);
+    if (os_signpost_enabled(v23))
+    {
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AggregateMediaLibrary.Init", "", v31, 2u);
+    }
+
+    v25 = VUISignpostLogObject(v24);
+    if (os_signpost_enabled(v25))
+    {
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v25, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "HomeShareManager.Init", "", v31, 2u);
     }
 
     _homeShareMediaLibraryManager = [(VUIMediaLibraryManager *)v3 _homeShareMediaLibraryManager];
     homeShareManager = v3->_homeShareManager;
     v3->_homeShareManager = _homeShareMediaLibraryManager;
 
-    v21 = VUISignpostLogObject();
-    if (os_signpost_enabled(v21))
+    v29 = VUISignpostLogObject(v28);
+    if (os_signpost_enabled(v29))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v21, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "HomeShareManager.Init", "", v23, 2u);
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v29, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "HomeShareManager.Init", "", v31, 2u);
     }
 
     [(VUIHomeShareMediaLibraryManager *)v3->_homeShareManager setDelegate:v3];

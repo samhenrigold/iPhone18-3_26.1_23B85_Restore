@@ -1,7 +1,6 @@
 @interface OrgApacheLuceneStoreFSDirectory
 + (id)openWithOrgLukhnosPortmobileFilePath:(id)path;
 - (id)createOutputWithNSString:(id)string withOrgApacheLuceneStoreIOContext:(id)context;
-- (id)description;
 - (id)listAll;
 - (int64_t)fileLengthWithNSString:(id)string;
 - (void)close;
@@ -136,7 +135,7 @@
   v10 = OrgLukhnosPortmobileFileStandardCopyOption_ATOMIC_MOVE_;
   [IOSObjectArray arrayWithObjects:&v10 count:1 type:OrgLukhnosPortmobileFileStandardCopyOption_class_()];
   OrgLukhnosPortmobileFileFiles_moveWithOrgLukhnosPortmobileFilePath_withOrgLukhnosPortmobileFilePath_withOrgLukhnosPortmobileFileStandardCopyOptionArray_(v8, v9);
-  OrgApacheLuceneUtilIOUtils_fsyncWithOrgLukhnosPortmobileFilePath_withBoolean_(self->directory_, 1);
+  OrgApacheLuceneUtilIOUtils_fsyncWithOrgLukhnosPortmobileFilePath_withBoolean_(&self->directory_->super.isa, 1);
 }
 
 - (void)close
@@ -145,14 +144,6 @@
   atomic_store(0, &self->super.isOpen_);
 
   objc_sync_exit(self);
-}
-
-- (id)description
-{
-  v3 = [-[OrgApacheLuceneStoreFSDirectory getClass](self "getClass")];
-  lockFactory = self->super.lockFactory_;
-  directory = self->directory_;
-  return JreStrcat("$C@$@", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)fsyncWithNSString:(id)string

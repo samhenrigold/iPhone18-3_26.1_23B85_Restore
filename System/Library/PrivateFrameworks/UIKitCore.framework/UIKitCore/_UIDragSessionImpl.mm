@@ -757,9 +757,9 @@ LABEL_12:
     createSnapshotView = [droppedItemCopy createSnapshotView];
     [droppedItemCopy center];
     [createSnapshotView setCenter:?];
-    preview = [droppedItemCopy preview];
+    v13 = objc_msgSend_preview(droppedItemCopy);
     containerView = [animationCopy containerView];
-    v15 = [v11 _session:self targetedPreviewForCancellingItem:itemCopy duiPreview:preview snapshotView:createSnapshotView container:containerView];
+    v15 = [v11 _session:self targetedPreviewForCancellingItem:itemCopy duiPreview:v13 snapshotView:createSnapshotView container:containerView];
 
     goto LABEL_20;
   }

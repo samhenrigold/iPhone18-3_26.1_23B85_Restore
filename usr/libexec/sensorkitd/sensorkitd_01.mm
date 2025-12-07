@@ -1,246 +1,3 @@
-void sub_100016A00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, os_activity_scope_state_s state)
-{
-  objc_sync_exit(v31);
-  os_activity_scope_leave(&state);
-  _Unwind_Resume(a1);
-}
-
-id sub_100016CAC(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  if (!a3)
-  {
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    result = [a4 countByEnumeratingWithState:&v64 objects:v76 count:16];
-    if (!result)
-    {
-      return result;
-    }
-
-    v35 = result;
-    v36 = *v65;
-LABEL_52:
-    v37 = 0;
-    while (1)
-    {
-      if (*v65 == v36)
-      {
-        v38 = *(*(&v64 + 1) + 8 * v37);
-        if (objc_opt_respondsToSelector())
-        {
-          goto LABEL_58;
-        }
-      }
-
-      else
-      {
-        objc_enumerationMutation(a4);
-        v38 = *(*(&v64 + 1) + 8 * v37);
-        if (objc_opt_respondsToSelector())
-        {
-LABEL_58:
-          [v38 authorizationStore:a1 didDetermineInitialAuthorizationValues:a2];
-        }
-      }
-
-      if (v35 == ++v37)
-      {
-        result = [a4 countByEnumeratingWithState:&v64 objects:v76 count:16];
-        v35 = result;
-        if (!result)
-        {
-          return result;
-        }
-
-        goto LABEL_52;
-      }
-    }
-  }
-
-  v6 = a3;
-  v7 = +[NSMutableSet setWithArray:](NSMutableSet, "setWithArray:", [a3 allKeys]);
-  -[NSMutableSet unionSet:](v7, "unionSet:", +[NSSet setWithArray:](NSSet, "setWithArray:", [a2 allKeys]));
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  obj = v7;
-  result = [(NSMutableSet *)v7 countByEnumeratingWithState:&v60 objects:v75 count:16];
-  v45 = result;
-  if (result)
-  {
-    v41 = *v61;
-    *&v9 = 138543618;
-    v39 = v9;
-    v43 = a2;
-    v44 = a4;
-    v42 = v6;
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (*v61 != v41)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v47 = v10;
-        v11 = *(*(&v60 + 1) + 8 * v10);
-        v12 = [v6 objectForKeyedSubscript:{v11, v39}];
-        v13 = [a2 objectForKeyedSubscript:v11];
-        v14 = objc_alloc_init(NSMutableSet);
-        v56 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v15 = [v13 countByEnumeratingWithState:&v56 objects:v74 count:16];
-        if (v15)
-        {
-          v16 = v15;
-          v17 = *v57;
-          do
-          {
-            for (i = 0; i != v16; i = i + 1)
-            {
-              if (*v57 != v17)
-              {
-                objc_enumerationMutation(v13);
-              }
-
-              v19 = *(*(&v56 + 1) + 8 * i);
-              v20 = [v13 objectForKeyedSubscript:v19];
-              v21 = [v12 objectForKeyedSubscript:v19];
-              if ([v20 BOOLValue] && !objc_msgSend(v21, "BOOLValue") || v20 && (objc_msgSend(v20, "BOOLValue") & 1) == 0 && !v21)
-              {
-                [v14 addObject:v19];
-              }
-            }
-
-            v16 = [v13 countByEnumeratingWithState:&v56 objects:v74 count:16];
-          }
-
-          while (v16);
-        }
-
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
-        v53 = 0u;
-        v22 = [v12 countByEnumeratingWithState:&v52 objects:v73 count:16];
-        if (v22)
-        {
-          v23 = v22;
-          v24 = *v53;
-          do
-          {
-            for (j = 0; j != v23; j = j + 1)
-            {
-              if (*v53 != v24)
-              {
-                objc_enumerationMutation(v12);
-              }
-
-              v26 = *(*(&v52 + 1) + 8 * j);
-              v27 = [v13 objectForKeyedSubscript:v26];
-              if (v27)
-              {
-                v28 = v27;
-                if (([objc_msgSend(v12 objectForKeyedSubscript:{v26), "BOOLValue"}] & 1) == 0)
-                {
-                  if ([v12 objectForKeyedSubscript:v26])
-                  {
-                    continue;
-                  }
-                }
-
-                if ([v28 BOOLValue])
-                {
-                  continue;
-                }
-              }
-
-              [v14 addObject:v26];
-            }
-
-            v23 = [v12 countByEnumeratingWithState:&v52 objects:v73 count:16];
-          }
-
-          while (v23);
-        }
-
-        a2 = v43;
-        if ([v14 count])
-        {
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
-          v49 = 0u;
-          v29 = [v44 countByEnumeratingWithState:&v48 objects:v72 count:16];
-          if (v29)
-          {
-            v30 = v29;
-            v31 = *v49;
-            do
-            {
-              for (k = 0; k != v30; k = k + 1)
-              {
-                if (*v49 == v31)
-                {
-                  v33 = *(*(&v48 + 1) + 8 * k);
-                  if ((objc_opt_respondsToSelector() & 1) == 0)
-                  {
-                    continue;
-                  }
-                }
-
-                else
-                {
-                  objc_enumerationMutation(v44);
-                  v33 = *(*(&v48 + 1) + 8 * k);
-                  if ((objc_opt_respondsToSelector() & 1) == 0)
-                  {
-                    continue;
-                  }
-                }
-
-                [v33 authorizationStore:a1 didUpdateAuthorizationsForBundleId:v11 sensors:v14];
-              }
-
-              v30 = [v44 countByEnumeratingWithState:&v48 objects:v72 count:16];
-            }
-
-            while (v30);
-          }
-
-          v34 = qword_1000719E8;
-          if (os_log_type_enabled(qword_1000719E8, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = v39;
-            v69 = v11;
-            v70 = 2114;
-            v71 = v14;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Authorization Changed for bundle id %{public}@ for sensors %{public}@", buf, 0x16u);
-          }
-        }
-
-        v10 = v47 + 1;
-        v6 = v42;
-      }
-
-      while ((v47 + 1) != v45);
-      result = [(NSMutableSet *)obj countByEnumeratingWithState:&v60 objects:v75 count:16];
-      v45 = result;
-    }
-
-    while (result);
-  }
-
-  return result;
-}
-
 uint64_t sub_1000175E4(void *a1, uint64_t a2, int a3, uint64_t a4)
 {
   result = 0;
@@ -678,7 +435,7 @@ SRSensorDescription *sub_100018F58(uint64_t a1, void *a2)
   return [SRSensorDescription sensorDescriptionForDeletionRecordFromDescription:?];
 }
 
-uint64_t sub_100019058()
+uint64_t sub_100019058(uint64_t a1)
 {
   objc_opt_self();
   result = qword_100071A18;
@@ -1244,30 +1001,30 @@ NSURL *sub_10001AC44(NSURL *result, uint64_t a2, void *a3, char a4)
   return result;
 }
 
-NSURL *sub_10001AD14()
+NSURL *sub_10001AD14(uint64_t a1)
 {
   objc_opt_self();
   objc_opt_self();
-  v0 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
-  if ([(NSArray *)v0 count])
+  v1 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
+  if ([(NSArray *)v1 count])
   {
-    v1 = [NSURL fileURLWithPath:[(NSArray *)v0 firstObject] isDirectory:1];
+    v2 = [NSURL fileURLWithPath:[(NSArray *)v1 firstObject] isDirectory:1];
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return [NSURL fileURLWithPath:@"com.apple.SensorKitDataExport" isDirectory:1 relativeToURL:v1];
+  return [NSURL fileURLWithPath:@"com.apple.SensorKitDataExport" isDirectory:1 relativeToURL:v2];
 }
 
-NSURL *sub_10001ADB4(double a1)
+NSURL *sub_10001ADB4(uint64_t a1, double a2)
 {
   objc_opt_self();
-  v2 = [NSString stringWithFormat:@"%.8f", *&a1];
+  v3 = [NSString stringWithFormat:@"%.8f", *&a2];
 
-  return [NSURL URLWithString:v2];
+  return [NSURL URLWithString:v3];
 }
 
 uint64_t sub_10001AE14(uint64_t a1, void *a2)
@@ -1477,33 +1234,33 @@ NSURL *sub_10001B44C(NSURL *result)
   return result;
 }
 
-NSURL *sub_10001B58C(NSURL *result)
+NSURL *sub_10001B58C(NSURL *result, const char *a2)
 {
   if (result)
   {
-    v4 = 0u;
     v5 = 0u;
-    [(NSURL *)result auditToken];
-    *buf = v4;
-    v7 = v5;
+    v6 = 0u;
+    objc_msgSend_auditToken(result, a2);
+    *buf = v5;
+    v8 = v6;
     result = [sub_10002E77C(NSBundle bundleIdentifier];
     if (!result)
     {
-      *buf = v4;
-      v7 = v5;
+      *buf = v5;
+      v8 = v6;
       result = sub_10001C624(NSURL, buf);
       if (result)
       {
-        v1 = result;
-        v2 = CFBundleCopyInfoDictionaryForURL(result);
-        if (v2)
+        v2 = result;
+        v3 = CFBundleCopyInfoDictionaryForURL(result);
+        if (v3)
         {
-          return [(__CFDictionary *)v2 objectForKeyedSubscript:@"CFBundleIdentifier"];
+          return [(__CFDictionary *)v3 objectForKeyedSubscript:@"CFBundleIdentifier"];
         }
 
         if (qword_100071A48 == -1)
         {
-          v3 = qword_100071A40;
+          v4 = qword_100071A40;
           if (!os_log_type_enabled(qword_100071A40, OS_LOG_TYPE_ERROR))
           {
             return 0;
@@ -1513,7 +1270,7 @@ NSURL *sub_10001B58C(NSURL *result)
         else
         {
           dispatch_once(&qword_100071A48, &stru_100060F80);
-          v3 = qword_100071A40;
+          v4 = qword_100071A40;
           if (!os_log_type_enabled(qword_100071A40, OS_LOG_TYPE_ERROR))
           {
             return 0;
@@ -1521,8 +1278,8 @@ NSURL *sub_10001B58C(NSURL *result)
         }
 
         *buf = 138543362;
-        *&buf[4] = v1;
-        _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Could not get embedded info plist for executable %{public}@", buf, 0xCu);
+        *&buf[4] = v2;
+        _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Could not get embedded info plist for executable %{public}@", buf, 0xCu);
         return 0;
       }
     }
@@ -1895,7 +1652,7 @@ LABEL_12:
   return 0;
 }
 
-NSURL *sub_10001C808()
+NSURL *sub_10001C808(uint64_t a1)
 {
   objc_opt_self();
 
@@ -1951,7 +1708,7 @@ NSArray *sub_10001C92C(uint64_t a1, id *a2, double a3, double a4)
 
     else
     {
-      v12 = [(NSURL *)sub_10001ADB4(v10) lastPathComponent];
+      v12 = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
       v11 = sub_10000B6C0(v7, v12, &v36);
     }
 
@@ -2041,58 +1798,58 @@ NSArray *sub_10001C92C(uint64_t a1, id *a2, double a3, double a4)
   return v32;
 }
 
-void sub_10001CC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2100,7 +1857,7 @@ void sub_10001CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 Class sub_10001CCF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
   *(*(*(a1 + 48) + 8) + 24) = a5;
-  v11 = sub_100019058();
+  v11 = sub_100019058(SRSensorsCache);
   v12 = *(*(a1 + 32) + 8);
   if (v12)
   {
@@ -2222,14 +1979,14 @@ void start()
   dispatch_main();
 }
 
-void sub_10001D048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001D048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10001D07C(uint64_t a1)
+char *sub_10001D07C(uint64_t a1)
 {
   result = sub_10002EA68([RDDaemon alloc], *(a1 + 32));
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -2287,7 +2044,7 @@ NSDictionary *__cdecl sub_10001DAE8(id a1)
   return sub_10002DADC([NSDictionary dictionaryWithObjects:&v3 forKeys:&v2 count:1]);
 }
 
-void sub_10001DB60()
+void sub_10001DB60(uint64_t a1)
 {
   objc_opt_self();
 
@@ -2429,7 +2186,7 @@ LABEL_7:
   v49 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v20 = sub_100019058();
+  v20 = sub_100019058(SRSensorsCache);
   v21 = sub_1000193F0(v20);
   v22 = [(SRSensorDescriptionEnumerator *)v21 countByEnumeratingWithState:&v46 objects:v59 count:16];
   v23 = v40;
@@ -2497,7 +2254,7 @@ LABEL_27:
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v32 = sub_100019058();
+    v32 = sub_100019058(SRSensorsCache);
     v33 = sub_1000193F0(v32);
     v34 = [(SRSensorDescriptionEnumerator *)v33 countByEnumeratingWithState:&v42 objects:v58 count:16];
     if (v34)
@@ -2549,9 +2306,9 @@ LABEL_40:
   return result;
 }
 
-void sub_10001E15C(void *a1)
+void sub_10001E15C(void *result)
 {
-  if (a1)
+  if (result)
   {
     v2 = mach_continuous_time();
     if (qword_100071B60 != -1)
@@ -2568,7 +2325,7 @@ void sub_10001E15C(void *a1)
       v6 = -v6;
     }
 
-    v7 = sub_10001DCD4(a1, v5 + v4 + v6);
+    v7 = sub_10001DCD4(result, v5 + v4 + v6);
     if (v7)
     {
       v8 = [NSString stringWithFormat:[[NSBundle bundleWithPath:?]value:"localizedStringForKey:value:table:" table:@"REMINDER_ALERT_STUDIES", &stru_100062328, 0], v7];
@@ -2579,7 +2336,7 @@ void sub_10001E15C(void *a1)
       v8 = 0;
     }
 
-    sub_10001E664(a1, 0, v8);
+    sub_10001E664(result, 0, v8);
     v9 = mach_continuous_time();
     if (qword_100071B60 != -1)
     {
@@ -2590,7 +2347,7 @@ void sub_10001E15C(void *a1)
     v11 = *&qword_100071B70;
     v12 = *&qword_100071B78;
     TMConvertTicksToSeconds();
-    v14 = a1[3];
+    v14 = result[3];
     if (v14)
     {
       if (v10 >= v9)
@@ -2704,7 +2461,7 @@ id sub_10001E664(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   [v7 setBody:a3];
-  [v7 setDefaultActionURL:sub_10001C808()];
+  [v7 setDefaultActionURL:sub_10001C808(NSURL)];
   [v7 setIcon:{+[UNNotificationIcon iconNamed:](UNNotificationIcon, "iconNamed:", @"SensorKit"}];
   v8 = [UNNotificationRequest requestWithIdentifier:@"Reminder" content:v7 trigger:0 destinations:5];
 
@@ -2745,7 +2502,7 @@ void sub_10001E850(uint64_t a1, uint64_t a2)
   }
 }
 
-void **sub_10001EA7C(void **result)
+void *sub_10001EA7C(void *result)
 {
   if (result)
   {
@@ -2792,16 +2549,16 @@ uint64_t sub_10001FF30(uint64_t a1, const char *a2, void *a3)
   return 1;
 }
 
-void sub_10001FF84(uint64_t a1, uint64_t a2)
+void sub_10001FF84(id *result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    if ([*(a1 + 96) containsObject:a2])
+    if ([result[12] containsObject:a2])
     {
-      [*(a1 + 96) removeObject:a2];
-      if (![*(a1 + 96) count])
+      [result[12] removeObject:a2];
+      if (![result[12] count])
       {
-        v4 = *(a1 + 72);
+        v4 = result[9];
         v7[0] = @"RDGizmoSyncMessageTypeKey";
         v7[1] = @"RDGizmoSyncArchiveTransferStatusKey";
         v8[0] = &off_1000652B0;
@@ -2809,10 +2566,10 @@ void sub_10001FF84(uint64_t a1, uint64_t a2)
         v5 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
         if (v4)
         {
-          sub_100023F18(v4, v5, *(v4 + 24), 0);
+          sub_100023F18(v4, v5, v4[3], 0);
         }
 
-        v6 = *(a1 + 88);
+        v6 = result[11];
         if (v6)
         {
           v6[7].super.isa = 0;
@@ -2862,6 +2619,69 @@ NSDictionary *sub_100020564(NSDictionary *result, char *a2, void *a3, void *a4)
   }
 
   return result;
+}
+
+void sub_1000210B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1000210C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1000210E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1000210F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100021110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10002112C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100021144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10002115C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100021174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000211A8(uint64_t a1, void *a2)
@@ -2923,9 +2743,9 @@ void sub_1000211A8(uint64_t a1, void *a2)
   }
 }
 
-BOOL sub_100021350(uint64_t a1, void *a2, void *a3, void *a4)
+BOOL sub_100021350(NSDictionary *a1, void *a2, void *a3, void *a4)
 {
-  v8 = sub_10003A334(a3, a4, *(a1 + 64), *(a1 + 80));
+  v8 = sub_10003A334(a3, a4, a1[8].super.isa, a1[10].super.isa);
   v9 = sub_100011CFC([RDEncryptingDatastore alloc], v8);
   v10 = sub_100012994(v9, a2);
 
@@ -2945,10 +2765,10 @@ BOOL sub_100021350(uint64_t a1, void *a2, void *a3, void *a4)
     v14 = sub_100020564(a1, [(NSURL *)v12 lastPathComponent], a3, a4);
     if ([(NSDictionary *)v14 count])
     {
-      v15 = *(a1 + 72);
-      if (v15)
+      isa = a1[9].super.isa;
+      if (isa)
       {
-        sub_100023F18(v15, v14, *(v15 + 32), 0);
+        sub_100023F18(isa, v14, *(isa + 4), 0);
       }
     }
 
@@ -2966,7 +2786,7 @@ BOOL sub_100021350(uint64_t a1, void *a2, void *a3, void *a4)
 
   else
   {
-    [objc_msgSend(a1 "analyticsDelegate")];
+    [-[NSDictionary analyticsDelegate](a1 "analyticsDelegate")];
     v16 = qword_100071AA0;
     if (os_log_type_enabled(qword_100071AA0, OS_LOG_TYPE_DEFAULT))
     {
@@ -2979,18 +2799,18 @@ BOOL sub_100021350(uint64_t a1, void *a2, void *a3, void *a4)
   return v10 != 0;
 }
 
-void sub_100021ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100021ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3011,7 +2831,7 @@ uint64_t sub_100021AFC(uint64_t a1, void *a2, void *a3)
   return 1;
 }
 
-void sub_100021BC0(uint64_t a1)
+void sub_100021BC0(void *a1)
 {
   if (a1)
   {
@@ -3025,7 +2845,7 @@ void sub_100021BC0(uint64_t a1)
     v4 = *&qword_100071B70;
     v5 = *&qword_100071B78;
     TMConvertTicksToSeconds();
-    v7 = *(a1 + 88);
+    v7 = a1[11];
     if (v7)
     {
       v8 = *(v7 + 56);
@@ -3054,8 +2874,8 @@ void sub_100021BC0(uint64_t a1)
       v12 = *&qword_100071B78;
       TMConvertTicksToSeconds();
       v14 = v13;
-      v15 = sub_10002B4B8(*(a1 + 80));
-      v16 = *(a1 + 88);
+      v15 = sub_10002B4B8(a1[10]);
+      v16 = a1[11];
       if (v16)
       {
         v17 = -v14;
@@ -3068,7 +2888,7 @@ void sub_100021BC0(uint64_t a1)
         sub_100027584(v16);
       }
 
-      v18 = *(a1 + 72);
+      v18 = a1[9];
       v20[0] = @"RDGizmoSyncMessageTypeKey";
       v20[1] = @"RDGizmoSyncArchiveTransferStatusKey";
       v21[0] = &off_1000652B0;
@@ -3121,177 +2941,177 @@ RDXPCActivity *sub_100022414(uint64_t a1, id *a2)
   return v9;
 }
 
-RDXPCActivity *sub_100022578()
+RDXPCActivity *sub_100022578(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_GROUP_NAME, "com.apple.sensorkitd.startup.group");
-  xpc_dictionary_set_uint64(v0, XPC_ACTIVITY_GROUP_CONCURRENCY_LIMIT, 1uLL);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_GROUP_NAME, "com.apple.sensorkitd.startup.group");
+  xpc_dictionary_set_uint64(v1, XPC_ACTIVITY_GROUP_CONCURRENCY_LIMIT, 1uLL);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.removeOldData" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.removeOldData" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022654()
+RDXPCActivity *sub_100022654(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_GROUP_NAME, "com.apple.sensorkitd.startup.group");
-  xpc_dictionary_set_uint64(v0, XPC_ACTIVITY_GROUP_CONCURRENCY_LIMIT, 1uLL);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_GROUP_NAME, "com.apple.sensorkitd.startup.group");
+  xpc_dictionary_set_uint64(v1, XPC_ACTIVITY_GROUP_CONCURRENCY_LIMIT, 1uLL);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.gcKeys" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.gcKeys" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022760()
+RDXPCActivity *sub_100022760(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_GROUP_NAME, "com.apple.sensorkitd.startup.group");
-  xpc_dictionary_set_uint64(v0, XPC_ACTIVITY_GROUP_CONCURRENCY_LIMIT, 1uLL);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_GROUP_NAME, "com.apple.sensorkitd.startup.group");
+  xpc_dictionary_set_uint64(v1, XPC_ACTIVITY_GROUP_CONCURRENCY_LIMIT, 1uLL);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.postMetric" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.postMetric" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_10002283C()
+RDXPCActivity *sub_10002283C(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_15_MIN);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_REPEATING, 1);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_15_MIN);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_REPEATING, 1);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchAlsRecorder" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchAlsRecorder" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_10002292C()
+RDXPCActivity *sub_10002292C(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_ALLOW_BATTERY, 1);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchUsageCollector" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchUsageCollector" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_1000229EC()
+RDXPCActivity *sub_1000229EC(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.fetchStrideCalibration" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.fetchStrideCalibration" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022AAC()
+RDXPCActivity *sub_100022AAC(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.fetchVisits" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.fetchVisits" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022B84()
+RDXPCActivity *sub_100022B84(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchMediaEventsRecorder" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchMediaEventsRecorder" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022C2C()
+RDXPCActivity *sub_100022C2C(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchAcousticSettingsCollector" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchAcousticSettingsCollector" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022CD4()
+RDXPCActivity *sub_100022CD4(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchSleepSessionsCollector" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchSleepSessionsCollector" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022D7C()
+RDXPCActivity *sub_100022D7C(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchPhoneUsageCollector" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchPhoneUsageCollector" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022E24()
+RDXPCActivity *sub_100022E24(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchMessagesUsageCollector" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.launchMessagesUsageCollector" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
-RDXPCActivity *sub_100022ECC()
+RDXPCActivity *sub_100022ECC(uint64_t a1)
 {
   objc_opt_self();
-  v0 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-  xpc_dictionary_set_string(v0, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
-  xpc_dictionary_set_int64(v0, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_8_HOURS);
-  xpc_dictionary_set_BOOL(v0, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
+  v1 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+  xpc_dictionary_set_string(v1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  xpc_dictionary_set_int64(v1, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_8_HOURS);
+  xpc_dictionary_set_BOOL(v1, XPC_ACTIVITY_REQUIRES_CLASS_A, 1);
   objc_opt_self();
-  v1 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.decryptArchives" criteria:v0];
-  xpc_release(v0);
-  return v1;
+  v2 = [[RDXPCActivity alloc] initWithName:@"com.apple.sensorkit.decryptArchives" criteria:v1];
+  xpc_release(v1);
+  return v2;
 }
 
 RDXPCActivity *sub_100022FA4(uint64_t a1, uint64_t a2)
@@ -3544,9 +3364,9 @@ NSDictionary *sub_100023D50(NSDictionary *result)
 {
   if (result)
   {
-    p_isa = &result->super.isa;
+    v1 = result;
     v2 = sub_100023DB4(result);
-    v3 = sub_100023C20(p_isa, v2, [p_isa[3] devices]);
+    v3 = sub_100023C20(v1, v2, [(objc_class *)v1[3].super.isa devices]);
 
     return sub_100027DC8(RDDeviceInfo, v3);
   }
@@ -3921,55 +3741,55 @@ RDXPCActivity *sub_100025B80(uint64_t a1, void *a2)
   if ([a2 isEqualToString:@"com.apple.sensorkit.removeOldData"])
   {
 
-    return sub_100022578();
+    return sub_100022578(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.postMetric"])
   {
 
-    return sub_100022760();
+    return sub_100022760(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.launchAlsRecorder"])
   {
 
-    return sub_10002283C();
+    return sub_10002283C(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.launchUsageCollector"])
   {
 
-    return sub_10002292C();
+    return sub_10002292C(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.launchPhoneUsageCollector"])
   {
 
-    return sub_100022D7C();
+    return sub_100022D7C(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.launchMessagesUsageCollector"])
   {
 
-    return sub_100022E24();
+    return sub_100022E24(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.fetchStrideCalibration"])
   {
 
-    return sub_1000229EC();
+    return sub_1000229EC(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.fetchVisits"])
   {
 
-    return sub_100022AAC();
+    return sub_100022AAC(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.decryptArchives"])
   {
 
-    return sub_100022ECC();
+    return sub_100022ECC(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.syncCompanionStateToGizmo"])
@@ -3996,19 +3816,19 @@ RDXPCActivity *sub_100025B80(uint64_t a1, void *a2)
   if ([a2 isEqualToString:@"com.apple.sensorkit.gcKeys"])
   {
 
-    return sub_100022654();
+    return sub_100022654(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.launchMediaEventsRecorder"])
   {
 
-    return sub_100022B84();
+    return sub_100022B84(RDXPCActivity);
   }
 
   if ([a2 isEqualToString:@"com.apple.sensorkit.launchAcousticSettingsCollector"])
   {
 
-    return sub_100022C2C();
+    return sub_100022C2C(RDXPCActivity);
   }
 
   if (![a2 isEqualToString:@"com.apple.sensorkit.launchSleepSessionsCollector"])
@@ -4016,7 +3836,7 @@ RDXPCActivity *sub_100025B80(uint64_t a1, void *a2)
     return 0;
   }
 
-  return sub_100022CD4();
+  return sub_100022CD4(RDXPCActivity);
 }
 
 void sub_100025F74(uint64_t a1)
@@ -4632,13 +4452,13 @@ LABEL_19:
   return result;
 }
 
-id sub_10002747C(id result)
+void *sub_10002747C(void *result)
 {
   if (result)
   {
-    if (*(result + 12))
+    if (result[12])
     {
-      v2 = *(result + 12);
+      v2 = result[12];
     }
 
     else
@@ -6604,7 +6424,7 @@ id *sub_10002B7DC(id *result)
   return result;
 }
 
-uint64_t sub_10002B8BC(uint64_t result, void *a2, id *a3, void *a4, void *a5)
+BOOL sub_10002B8BC(_BOOL8 result, void *a2, id *a3, void *a4, void *a5)
 {
   if (!result)
   {
@@ -6908,7 +6728,7 @@ BOOL sub_10002C674(uint64_t a1, id *a2, double a3, double a4)
 
     else
     {
-      v11 = [(NSURL *)sub_10001ADB4(v9) lastPathComponent];
+      v11 = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
       v10 = sub_10000CFB0(v7, v11, &v39);
     }
 
@@ -7004,58 +6824,58 @@ LABEL_19:
   return a1 != 0;
 }
 
-void sub_10002C958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002C958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002C970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002C970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002C988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002C988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002C9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002C9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002C9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002C9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002C9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002C9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002C9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002C9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7425,23 +7245,23 @@ NSDictionary *sub_10002D5A8(uint64_t a1, __darwin_ino64_t a2, void *a3, uint64_t
   return v15;
 }
 
-void sub_10002D918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002D918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002D930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002D930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002D948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002D948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7607,7 +7427,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10002EA68(uint64_t a1, dispatch_queue_t queue)
+char *sub_10002EA68(char *a1, dispatch_queue_t queue)
 {
   v2 = a1;
   if (!a1)
@@ -7644,8 +7464,8 @@ uint64_t sub_10002EA68(uint64_t a1, dispatch_queue_t queue)
   }
 
   v11 = objc_alloc_init(RDFileURLs);
-  v114 = +[SRAuthorizationStore allSensorsStore];
-  v12 = sub_100026A40([RDStateCache alloc], v11, v114);
+  v113 = +[SRAuthorizationStore allSensorsStore];
+  v12 = sub_100026A40([RDStateCache alloc], v11, v113);
   v13 = v12;
   if (v12)
   {
@@ -7699,39 +7519,39 @@ LABEL_15:
   [(NSXPCInterface *)v22 setClasses:[NSSet setWithObject:?]ofReply:"fetchAllDevices:reply:", 0, 0];
   [(NSXPCInterface *)v22 setClasses:[NSSet setWithObject:?]ofReply:"fetchReaderMetadata:reply:", 0, 0];
   v23 = sub_100007A70([RDListener alloc], @"com.apple.SensorKit.reader", [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceClientReading], v22, v2, 0xFFFFFFFFFFFFFFFFLL, newValue, v13);
-  v112 = sub_100007A70([RDListener alloc], @"com.apple.SensorKit.writer", [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceClientWriting], [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceServerWriting], v2, 1, newValue, v13);
-  v113 = sub_100007A70([RDListener alloc], @"com.apple.SensorKit.pruner", [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceClientPruning], [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceServerPruning], v2, 1, newValue, v13);
+  v111 = sub_100007A70([RDListener alloc], @"com.apple.SensorKit.writer", [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceClientWriting], [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceServerWriting], v2, 1, newValue, v13);
+  v112 = sub_100007A70([RDListener alloc], @"com.apple.SensorKit.pruner", [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceClientPruning], [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceServerPruning], v2, 1, newValue, v13);
   v24 = sub_100007A70([RDListener alloc], @"com.apple.SensorKit.debugging", [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceClientDebugging], [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRSensorKitServiceServerDebugging], v2, 1, newValue, v13);
-  v111 = sub_10003A4EC([RDAuthorizationBroadcaster alloc], newValue, v21, v13, v114);
-  v115 = sub_100001A94([RDClientInterestCache alloc], v11);
-  v109 = sub_100025A68([RDLaunchEvents alloc], newValue, v11, v21);
+  v110 = sub_10003A4EC([RDAuthorizationBroadcaster alloc], newValue, v21, v13, v113);
+  v114 = sub_100001A94([RDClientInterestCache alloc], v11);
+  v108 = sub_100025A68([RDLaunchEvents alloc], newValue, v11, v21);
   if (sub_10002B1E8(v21) && (v25 = sub_10003E8EC([RDAnalyticsEventListener alloc], v13)) != 0)
   {
-    v110 = v25;
+    v109 = v25;
     objc_storeWeak(v25 + 2, v2);
   }
 
   else
   {
-    v110 = 0;
+    v109 = 0;
   }
 
-  v27 = v112;
-  v26 = v113;
-  v108 = sub_10002D310([RDCacheDelete alloc], v11, newValue);
-  v107 = sub_10001DB9C([RDNotifier alloc], v21, v13, v115, v114, newValue);
+  v27 = v111;
+  v26 = v112;
+  v107 = sub_10002D310([RDCacheDelete alloc], v11, newValue);
+  v106 = sub_10001DB9C([RDNotifier alloc], v21, v13, v114, v113, newValue);
   dispatch_assert_queue_V2(newValue);
-  v117.receiver = v2;
-  v117.super_class = RDDaemon;
-  v28 = objc_msgSendSuper2(&v117, "init");
+  v116.receiver = v2;
+  v116.super_class = RDDaemon;
+  v28 = objc_msgSendSuper2(&v116, "init");
   v2 = v28;
   if (v28)
   {
     objc_setProperty_nonatomic(v28, v29, v21, 56);
     objc_setProperty_nonatomic(v2, v30, v13, 104);
     objc_setProperty_nonatomic(v2, v31, v11, 64);
-    v32 = *(v2 + 104);
-    v105 = v24;
+    v32 = *(v2 + 13);
+    v104 = v24;
     if (v32)
     {
       v33 = *(v32 + 72);
@@ -7740,10 +7560,10 @@ LABEL_15:
       if (qword_100071B88 == v33)
       {
 LABEL_23:
-        v35 = *(v2 + 104);
-        v103 = v13;
-        v104 = v11;
-        v102 = v21;
+        v35 = *(v2 + 13);
+        v102 = v13;
+        v103 = v11;
+        v101 = v21;
         v36 = &off_100071000;
         if (v35 && *(v35 + 24) == 140000)
         {
@@ -7757,39 +7577,39 @@ LABEL_23:
           _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Migrating legacy defaults", buf, 2u);
         }
 
-        v38 = *(v2 + 56);
+        v38 = *(v2 + 7);
         if (v38)
         {
-          v101 = v23;
+          v100 = v23;
           [*(v38 + 24) doubleForKey:@"LastTimeReminderAlertShown"];
-          v40 = *(v2 + 104);
+          v40 = *(v2 + 13);
           if (!v40)
           {
 LABEL_30:
             v41 = +[NSMutableDictionary dictionary];
+            v117 = 0u;
             v118 = 0u;
             v119 = 0u;
             v120 = 0u;
-            v121 = 0u;
-            obj = [*(v2 + 112) readerAuthorizationGroups];
-            v42 = [obj countByEnumeratingWithState:&v118 objects:buf count:16];
+            obj = [*(v2 + 14) readerAuthorizationGroups];
+            v42 = [obj countByEnumeratingWithState:&v117 objects:buf count:16];
             if (v42)
             {
               v43 = v42;
-              v44 = *v119;
+              v44 = *v118;
               do
               {
                 for (i = 0; i != v43; i = i + 1)
                 {
-                  if (*v119 != v44)
+                  if (*v118 != v44)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v46 = *(*(&v118 + 1) + 8 * i);
+                  v46 = *(*(&v117 + 1) + 8 * i);
                   v47 = objc_autoreleasePoolPush();
                   v48 = [NSString stringWithFormat:@"%@.ServiceStartTime", v46];
-                  v49 = *(v2 + 56);
+                  v49 = *(v2 + 7);
                   if (v49)
                   {
                     v50 = [*(v49 + 24) objectForKey:v48];
@@ -7810,7 +7630,7 @@ LABEL_38:
                   }
 
 LABEL_39:
-                  v51 = *(v2 + 56);
+                  v51 = *(v2 + 7);
                   if (v51)
                   {
                     v52 = *(v51 + 24);
@@ -7825,14 +7645,14 @@ LABEL_39:
                   objc_autoreleasePoolPop(v47);
                 }
 
-                v43 = [obj countByEnumeratingWithState:&v118 objects:buf count:16];
+                v43 = [obj countByEnumeratingWithState:&v117 objects:buf count:16];
               }
 
               while (v43);
             }
 
-            v53 = *(v2 + 104);
-            v27 = v112;
+            v53 = *(v2 + 13);
+            v27 = v111;
             v36 = &off_100071000;
             if (v53)
             {
@@ -7843,7 +7663,7 @@ LABEL_39:
               }
 
               sub_100027584(v53);
-              v55 = *(v2 + 104);
+              v55 = *(v2 + 13);
               if (v55)
               {
                 v55[3].super.isa = 140000;
@@ -7851,8 +7671,8 @@ LABEL_39:
               }
             }
 
-            sub_100029410(*(v2 + 56));
-            v23 = v101;
+            sub_100029410(*(v2 + 7));
+            v23 = v100;
 LABEL_52:
             v56 = mach_continuous_time();
             if (qword_100071B60 != -1)
@@ -7864,7 +7684,7 @@ LABEL_52:
             v58 = *(v36 + 366);
             v59 = *&qword_100071B78;
             TMConvertTicksToSeconds();
-            v61 = *(v2 + 104);
+            v61 = *(v2 + 13);
             if (v61)
             {
               if (v57 >= v56)
@@ -7879,44 +7699,44 @@ LABEL_52:
             v62 = qword_100071B30;
             if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_DEFAULT))
             {
-              v64 = *(v2 + 104);
+              v64 = *(v2 + 13);
               *buf = 138543362;
               *&buf[4] = v64;
               _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Cached State: %{public}@", buf, 0xCu);
             }
 
             objc_setProperty_nonatomic(v2, v63, newValue, 48);
-            *(v2 + 128) = v23;
-            *(v2 + 136) = v27;
-            *(v2 + 144) = v113;
-            objc_setProperty_nonatomic(v2, v65, v107, 96);
-            *(v2 + 152) = v105;
-            objc_setProperty_nonatomic(v2, v66, v111, 24);
-            v68 = *(v2 + 24);
+            *(v2 + 16) = v23;
+            *(v2 + 17) = v27;
+            *(v2 + 18) = v112;
+            objc_setProperty_nonatomic(v2, v65, v106, 96);
+            *(v2 + 19) = v104;
+            objc_setProperty_nonatomic(v2, v66, v110, 24);
+            v68 = *(v2 + 3);
             if (v68)
             {
               objc_storeWeak((v68 + 24), v2);
             }
 
-            objc_setProperty_nonatomic(v2, v67, v114, 112);
-            [*(v2 + 112) addReaderAuthorizationDelegate:v2];
-            objc_setProperty_nonatomic(v2, v69, v115, 32);
+            objc_setProperty_nonatomic(v2, v67, v113, 112);
+            [*(v2 + 14) addReaderAuthorizationDelegate:v2];
+            objc_setProperty_nonatomic(v2, v69, v114, 32);
             objc_setProperty_nonatomic(v2, v70, 0, 16);
             objc_setProperty_nonatomic(v2, v71, 0, 88);
-            objc_setProperty_nonatomic(v2, v72, v109, 40);
-            v74 = *(v2 + 40);
+            objc_setProperty_nonatomic(v2, v72, v108, 40);
+            v74 = *(v2 + 5);
             if (v74)
             {
               objc_storeWeak((v74 + 8), v2);
             }
 
-            objc_setProperty_nonatomic(v2, v73, v110, 80);
-            objc_setProperty_nonatomic(v2, v75, v108, 120);
-            v76 = *(v2 + 120);
+            objc_setProperty_nonatomic(v2, v73, v109, 80);
+            objc_setProperty_nonatomic(v2, v75, v107, 120);
+            v76 = *(v2 + 15);
             if (v76)
             {
               objc_storeWeak((v76 + 8), v2);
-              v77 = *(v2 + 120);
+              v77 = *(v2 + 15);
               v78 = (v2 + 80);
               if (v77)
               {
@@ -7942,7 +7762,7 @@ LABEL_68:
               }
             }
 
-            if (sub_10002747C(*(v2 + 104)))
+            if (sub_10002747C(*(v2 + 13)))
             {
               v80 = qword_100071B30;
               if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_ERROR))
@@ -7952,22 +7772,22 @@ LABEL_68:
               }
 
               sub_10003606C(v2, 4, 4096);
-              sub_10001DB60();
+              sub_10001DB60(RDNotifier);
             }
 
             v81 = v23;
-            dispatch_assert_queue_V2(*(v2 + 48));
-            v82 = sub_10003A2C0(*(v2 + 64), *(v2 + 56));
+            dispatch_assert_queue_V2(*(v2 + 6));
+            v82 = sub_10003A2C0(*(v2 + 8), *(v2 + 7));
             v83 = sub_10000DB60([RDTopLevelInformingDatastore alloc], v82);
             v84 = v83;
+            v117 = 0u;
             v118 = 0u;
             v119 = 0u;
             v120 = 0u;
-            v121 = 0u;
             if (v83)
             {
               v85 = sub_10000DC14(v83, 0);
-              v86 = [v85 countByEnumeratingWithState:&v118 objects:buf count:16];
+              v86 = [v85 countByEnumeratingWithState:&v117 objects:buf count:16];
               if (v86)
               {
                 goto LABEL_75;
@@ -7977,24 +7797,24 @@ LABEL_68:
             else
             {
               v85 = 0;
-              v86 = [0 countByEnumeratingWithState:&v118 objects:buf count:16];
+              v86 = [0 countByEnumeratingWithState:&v117 objects:buf count:16];
               if (v86)
               {
 LABEL_75:
                 v87 = v86;
-                v88 = *v119;
+                v88 = *v118;
                 do
                 {
                   for (j = 0; j != v87; j = j + 1)
                   {
-                    if (*v119 != v88)
+                    if (*v118 != v88)
                     {
                       objc_enumerationMutation(v85);
                     }
 
-                    v90 = *(*(&v118 + 1) + 8 * j);
+                    v90 = *(*(&v117 + 1) + 8 * j);
                     v91 = [objc_msgSend(v2 authorizedAndInterestedClientsForSensor:{v90), "count"}];
-                    if ([sub_100008650(*(v2 + 136) v90)])
+                    if ([sub_100008650(*(v2 + 17) v90)])
                     {
                       v92 = 1;
                     }
@@ -8010,19 +7830,19 @@ LABEL_75:
                     }
                   }
 
-                  v87 = [v85 countByEnumeratingWithState:&v118 objects:buf count:16];
+                  v87 = [v85 countByEnumeratingWithState:&v117 objects:buf count:16];
                 }
 
                 while (v87);
               }
             }
 
-            if (!*(v2 + 88))
+            if (!*(v2 + 11))
             {
-              *(v2 + 88) = sub_1000237EC([RDGizmoSyncService alloc], *(v2 + 64), *(v2 + 56), *(v2 + 48), 1);
-              if (sub_10002B1E8(*(v2 + 56)))
+              *(v2 + 11) = sub_1000237EC([RDGizmoSyncService alloc], *(v2 + 8), *(v2 + 7), *(v2 + 6), 1);
+              if (sub_10002B1E8(*(v2 + 7)))
               {
-                v93 = *(v2 + 88);
+                v93 = *(v2 + 11);
                 if (v93)
                 {
                   [*(v93 + 56) addObject:*v78];
@@ -8030,50 +7850,49 @@ LABEL_75:
               }
             }
 
-            v94 = *(v2 + 16);
-            v13 = v103;
-            v11 = v104;
-            v21 = v102;
+            v94 = *(v2 + 2);
+            v13 = v102;
+            v11 = v103;
+            v21 = v101;
             v23 = v81;
-            v27 = v112;
-            v24 = v105;
+            v27 = v111;
+            v24 = v104;
             if (!v94)
             {
-              v95 = *(v2 + 112);
-              v96 = sub_10001BCD0(*(v2 + 88), *(v2 + 48), *(v2 + 64), *(v2 + 56), *(v2 + 104));
-              *(v2 + 16) = v96;
-              [v96 setDelegate:v2];
-              v97 = sub_1000021B0([RDIDSMessageEventListener alloc], *(v2 + 64), *(v2 + 56));
-              *(v2 + 72) = v97;
-              v98 = *(v2 + 88);
-              if (v98)
+              v95 = sub_10001BCD0(*(v2 + 11), *(v2 + 6), *(v2 + 8), *(v2 + 7), *(v2 + 13));
+              *(v2 + 2) = v95;
+              [v95 setDelegate:v2];
+              v96 = sub_1000021B0([RDIDSMessageEventListener alloc], *(v2 + 8), *(v2 + 7));
+              *(v2 + 9) = v96;
+              v97 = *(v2 + 11);
+              if (v97)
               {
-                [*(v98 + 56) addObject:v97];
+                [*(v97 + 56) addObject:v96];
               }
 
-              v94 = *(v2 + 16);
+              v94 = *(v2 + 2);
             }
 
             [v94 validatePreferWifiAssertion];
             *buf = @"com.apple.sensorkit.removeOldData";
             *&buf[8] = @"com.apple.sensorkit.gcKeys";
             *&buf[16] = @"com.apple.sensorkit.postMetric";
-            v123 = @"com.apple.sensorkit.syncCompanionStateToGizmo";
-            v124 = @"com.apple.sensorkit.syncCompanionStateToGizmoLocked";
-            v99 = [NSArray arrayWithObjects:buf count:5];
-            sub_10002D400(*(v2 + 120));
-            [*(v2 + 40) registerForXPCEvent:@"com.apple.notifyd.matching"];
-            [*(v2 + 40) registerForXPCActivities:v99];
-            v26 = v113;
+            v122 = @"com.apple.sensorkit.syncCompanionStateToGizmo";
+            v123 = @"com.apple.sensorkit.syncCompanionStateToGizmoLocked";
+            v98 = [NSArray arrayWithObjects:buf count:5];
+            sub_10002D400(*(v2 + 15));
+            [*(v2 + 5) registerForXPCEvent:@"com.apple.notifyd.matching"];
+            [*(v2 + 5) registerForXPCActivities:v98];
+            v26 = v112;
             goto LABEL_102;
           }
         }
 
         else
         {
-          v101 = v23;
+          v100 = v23;
           [0 doubleForKey:@"LastTimeReminderAlertShown"];
-          v40 = *(v2 + 104);
+          v40 = *(v2 + 13);
           if (!v40)
           {
             goto LABEL_30;
@@ -8457,15 +8276,15 @@ void sub_10003036C(uint64_t a1, void *a2, const char *a3, uint64_t a4)
   }
 }
 
-void sub_1000306A0(uint64_t a1, void *a2, const char *a3, uint64_t a4)
+void sub_1000306A0(uint64_t *a1, void *a2, const char *a3, uint64_t a4)
 {
   if (a1)
   {
     v6 = a1;
-    v7 = *(a1 + 88);
+    v7 = a1[11];
     if (!v7 || !*(v7 + 16))
     {
-      v54 = *(a1 + 104);
+      v54 = a1[13];
       if (!v54 || *(v54 + 32) == 0.0)
       {
         v55 = qword_100071B30;
@@ -8481,7 +8300,7 @@ LABEL_84:
       }
     }
 
-    v75 = sub_10003A2C0(*(a1 + 64), *(a1 + 56));
+    v75 = sub_10003A2C0(a1[8], a1[7]);
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
@@ -9302,7 +9121,7 @@ LABEL_5:
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v9 = sub_100019058();
+  v9 = sub_100019058(SRSensorsCache);
   v10 = sub_1000193F0(v9);
   v11 = [(SRSensorDescriptionEnumerator *)v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v11)
@@ -9359,15 +9178,15 @@ LABEL_5:
   return self;
 }
 
-id *sub_100032104(uint64_t a1, id *a2)
+id *sub_100032104(void *a1, id *a2)
 {
-  v2 = *(a1 + 88);
+  v2 = a1[11];
   if (!v2)
   {
     return 0;
   }
 
-  v5 = sub_100023DB4(*(a1 + 88));
+  v5 = sub_100023DB4(a1[11]);
   v6 = sub_100023C20(v2, v5, [v2[3] devices]);
   if (!v6)
   {
@@ -9375,7 +9194,7 @@ id *sub_100032104(uint64_t a1, id *a2)
   }
 
   v7 = v6;
-  v8 = sub_10003A2C0(*(a1 + 64), *(a1 + 56));
+  v8 = sub_10003A2C0(a1[8], a1[7]);
   v9 = sub_100013A44([RDGizmoStateDatastore alloc], v8);
   v10 = sub_1000140D4(v9, v7);
 
@@ -9562,7 +9381,7 @@ uint64_t sub_1000332B8(uint64_t result, int a2, void *a3, uint64_t a4, uint64_t 
       }
     }
 
-    else if ((v10 & 1) == 0)
+    else if (!v10)
     {
       v17 = qword_100071B30;
       if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_DEFAULT))
@@ -9685,5 +9504,192 @@ void sub_100033DA0(uint64_t a1, uint64_t a2)
     v8 = 2114;
     v9 = a2;
     _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Error trying to start monitoring for %{public}@. %{public}@", &v6, 0x16u);
+  }
+}
+
+void sub_100034628(uint64_t a1, const char *a2)
+{
+  if (a1)
+  {
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v3 = *(a1 + 136);
+    if (v3)
+    {
+      Property = objc_getProperty(v3, a2, 72, 1);
+      v5 = [Property countByEnumeratingWithState:&v17 objects:v22 count:16];
+      if (v5)
+      {
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      Property = 0;
+      v5 = [0 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      if (v5)
+      {
+LABEL_4:
+        v7 = v5;
+        v8 = *v18;
+        *&v6 = 138543362;
+        v16 = v6;
+        do
+        {
+          for (i = 0; i != v7; i = i + 1)
+          {
+            if (*v18 != v8)
+            {
+              objc_enumerationMutation(Property);
+            }
+
+            v10 = *(a1 + 136);
+            if (v10)
+            {
+              v11 = *(*(&v17 + 1) + 8 * i);
+              v12 = [*(v10 + 72) objectForKey:v11];
+              if (v12)
+              {
+                v14 = objc_getProperty(v12, v13, 24, 1);
+                v15 = qword_100071B30;
+                if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
+                {
+                  *buf = v16;
+                  v24 = v14;
+                  _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Resetting datastore for %{public}@", buf, 0xCu);
+                }
+
+                v21[0] = _NSConcreteStackBlock;
+                v21[1] = 3221225472;
+                v21[2] = sub_100034868;
+                v21[3] = &unk_1000611D0;
+                v21[4] = v14;
+                [objc_msgSend(v11 remoteObjectProxyWithErrorHandler:{v21, v16, v17), "resetDatastoreFiles:", &__NSDictionary0__struct}];
+              }
+            }
+          }
+
+          v7 = [Property countByEnumeratingWithState:&v17 objects:v22 count:16];
+        }
+
+        while (v7);
+      }
+    }
+
+    if (*(a1 + 8) == 1)
+    {
+      sub_10001D9A8(RDNotifier, @"com.apple.SensorKit.resetDatastore");
+    }
+  }
+}
+
+void sub_100034868(uint64_t a1, uint64_t a2)
+{
+  v4 = qword_100071B30;
+  if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_ERROR))
+  {
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = a2;
+    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Error trying to reset datastore for %{public}@. %{public}@", &v6, 0x16u);
+  }
+}
+
+void sub_100034B50(void *a1, void *a2, void *a3, uint64_t a4)
+{
+  if (a1)
+  {
+    v8 = [SRSensorDescription sensorDescriptionForSensor:?];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = objc_autoreleasePoolPush();
+      v23 = 0;
+      v11 = [LSBundleRecord sr_bundleRecordWithIdentifier:a2 error:&v23];
+      if (v11)
+      {
+        v12 = [a1 validateBundleRecord:v11 withFilters:{objc_msgSend(v9, "filters")}];
+        v13 = qword_100071B30;
+        if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138543874;
+          v25 = a3;
+          v26 = 2114;
+          v27 = a2;
+          v28 = 1026;
+          v29 = v12;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[%{public}@] %{public}@ eligibility status: %{public, BOOL}d", buf, 0x1Cu);
+        }
+
+        v14 = *(a4 + 16);
+        v15 = a4;
+        v16 = v12;
+      }
+
+      else
+      {
+        v18 = qword_100071B30;
+        if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138543618;
+          v25 = a2;
+          v26 = 2114;
+          v27 = v23;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Failed to find application record for %{public}@ because %{public}@", buf, 0x16u);
+        }
+
+        v19 = [objc_msgSend(v9 "eligibleDaemons")];
+        v20 = qword_100071B30;
+        if (!v19)
+        {
+          if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_ERROR))
+          {
+            v22 = [v9 name];
+            *buf = 138543618;
+            v25 = a2;
+            v26 = 2114;
+            v27 = v22;
+            _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@ not eligible for %{public}@ because an app nor daemon record couldn't be found", buf, 0x16u);
+          }
+
+          (*(a4 + 16))(a4, 0, [SRError errorWithCode:20480]);
+          goto LABEL_17;
+        }
+
+        if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
+        {
+          v21 = [v9 name];
+          *buf = 138543618;
+          v25 = a2;
+          v26 = 2114;
+          v27 = v21;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%{public}@ is an eligible daemon for writing to %{public}@", buf, 0x16u);
+        }
+
+        v14 = *(a4 + 16);
+        v15 = a4;
+        v16 = 1;
+      }
+
+      v14(v15, v16, 0);
+LABEL_17:
+      objc_autoreleasePoolPop(v10);
+      return;
+    }
+
+    v17 = qword_100071B30;
+    if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      v25 = a3;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to find a sensor description for %{public}@", buf, 0xCu);
+    }
+
+    (*(a4 + 16))(a4, 0, [SRError errorWithCode:8194]);
   }
 }

@@ -11,19 +11,17 @@
 
 - (double)height
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator_config);
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
 
   static Published.subscript.getter();
 
-  return v6;
+  return v5;
 }
 
 - (void)setHeight:(double)height
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator_config);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -32,22 +30,20 @@
 
 - (NSArray)histogram
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator_config);
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
 
   static Published.subscript.getter();
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 - (void)setHistogram:(id)histogram
 {
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator_config);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -57,25 +53,23 @@
 - (_TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator)init
 {
   v3 = OBJC_IVAR____TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator_config;
-  v4 = type metadata accessor for AudioHistogramConfig();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
-  v7 = swift_allocObject();
+  type metadata accessor for AudioHistogramConfig(0);
+  v4 = swift_allocObject();
   sub_100042454();
-  *(&self->super.isa + v3) = v7;
+  *(&self->super.isa + v3) = v4;
 
-  sub_100044C40(v13);
-  v8 = (self + OBJC_IVAR____TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator_audioHistogramView);
-  v9 = v13[3];
-  v8[2] = v13[2];
-  v8[3] = v9;
-  v8[4] = v13[4];
-  v10 = v13[1];
-  *v8 = v13[0];
-  v8[1] = v10;
-  v12.receiver = self;
-  v12.super_class = type metadata accessor for AXLTAudioHistogramViewGenerator();
-  return [(AXLTAudioHistogramViewGenerator *)&v12 init];
+  sub_100044C40(v10);
+  v5 = (self + OBJC_IVAR____TtC19LiveTranscriptionUI31AXLTAudioHistogramViewGenerator_audioHistogramView);
+  v6 = v10[3];
+  v5[2] = v10[2];
+  v5[3] = v6;
+  v5[4] = v10[4];
+  v7 = v10[1];
+  *v5 = v10[0];
+  v5[1] = v7;
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for AXLTAudioHistogramViewGenerator();
+  return [(AXLTAudioHistogramViewGenerator *)&v9 init];
 }
 
 - (id)viewController

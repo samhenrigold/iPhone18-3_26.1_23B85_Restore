@@ -10,21 +10,21 @@
   coderCopy = coder;
   v6 = +[NSNull null];
   v7 = +[NSNull objectType];
-  v12 = 0;
-  [coderCopy encodeObject:v6 forKey:v7 error:&v12];
+  v13 = 0;
+  [coderCopy encodeObject:v6 forKey:v7 error:&v13];
 
-  v8 = v12;
+  v8 = v13;
   if (v8)
   {
-    v9 = sub_10017DAFC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_10017DAFC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100227DB4(v8, v9);
+      sub_100227DB4(v8, v10);
     }
 
     if (error)
     {
-      v10 = v8;
+      v11 = v8;
       *error = v8;
     }
   }
@@ -37,10 +37,10 @@
   coderCopy = coder;
   v7 = objc_opt_class();
   v8 = +[NSNull objectType];
-  v16 = 0;
-  v9 = [coderCopy decodeObjectOfClass:v7 forKey:v8 error:&v16];
+  v17 = 0;
+  v9 = [coderCopy decodeObjectOfClass:v7 forKey:v8 error:&v17];
 
-  v10 = v16;
+  v10 = v17;
   if (!v10)
   {
     if (v9)
@@ -55,10 +55,10 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v11 = sub_10017DAFC();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = sub_10017DAFC(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    sub_100227E2C(v9, v11);
+    sub_100227E2C(v9, v12);
   }
 
   if (!error)
@@ -66,13 +66,13 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v12 = v10;
+  v13 = v10;
   selfCopy = 0;
   *error = v10;
 LABEL_9:
-  v14 = selfCopy;
+  v15 = selfCopy;
 
-  return v14;
+  return v15;
 }
 
 @end

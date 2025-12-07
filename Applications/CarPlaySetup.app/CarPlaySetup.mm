@@ -1,162 +1,170 @@
-uint64_t sub_100001D04(uint64_t a1, int a2)
+uint64_t sub_100001D04(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Bluetooth confirmation prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Bluetooth confirmation prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_100001EA0(uint64_t a1, int a2)
+uint64_t sub_100001EA0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Bluetooth contacts sync prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Bluetooth contacts sync prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_100002054(uint64_t a1)
+uint64_t sub_100002054(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Bluetooth failed prompt answered", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Bluetooth failed prompt answered", v6, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_1000021F4(uint64_t a1, int a2)
+uint64_t sub_1000021F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "allow while locked prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "allow while locked prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_1000023A8(uint64_t a1, int a2)
+uint64_t sub_1000023A8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "connect prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "connect prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_10000255C(uint64_t a1, int a2)
+uint64_t sub_10000255C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "use wireless prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "use wireless prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_10000275C(uint64_t a1, int a2)
+uint64_t sub_10000275C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "enhanced integration prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "enhanced integration prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_100002910(uint64_t a1, int a2)
+uint64_t sub_100002910(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "connect prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "connect prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_100002AC4(uint64_t a1, int a2)
+uint64_t sub_100002AC4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = a2;
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"declined";
-    if (a2)
+    v6 = @"declined";
+    if (v3)
     {
-      v5 = @"accepted";
+      v6 = @"accepted";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "use wireless prompt answered: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "use wireless prompt answered: %{public}@", &v8, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -175,20 +183,20 @@ id sub_100002C80(uint64_t a1, char a2)
   return result;
 }
 
-uint64_t sub_100002DB4(uint64_t a1, uint64_t a2)
+uint64_t sub_100002DB4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"NO";
+    v6 = @"NO";
     if (a2)
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "asset unavailable prompt response: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "asset unavailable prompt response: %{public}@", &v8, 0xCu);
   }
 
   result = *(a1 + 32);
@@ -200,25 +208,25 @@ uint64_t sub_100002DB4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100003044(uint64_t a1)
+uint64_t sub_100003044(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "asset ready prompt confirmed", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "asset ready prompt confirmed", v6, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_100003188(uint64_t a1)
+uint64_t sub_100003188(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "asset ready soon prompt confirmed", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "asset ready soon prompt confirmed", v6, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -238,22 +246,22 @@ void sub_1000032FC(uint64_t a1, void *a2)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-id sub_1000033B0(void *a1)
+id sub_1000033B0(void *a1, uint64_t a2)
 {
   if (a1[4])
   {
-    v2 = a1[5];
+    v3 = a1[5];
 
-    return [v2 _presentPromptViewController:?];
+    return [v3 _presentPromptViewController:?];
   }
 
   else
   {
-    v4 = CARSetupLogForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CARSetupLogForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PassKit didn't want to present car key setup", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PassKit didn't want to present car key setup", v6, 2u);
     }
 
     return (*(a1[6] + 16))();
@@ -271,29 +279,29 @@ uint64_t start(int a1, char **a2)
   return v7;
 }
 
-void sub_100003CAC(uint64_t a1)
+void sub_100003CAC(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present Bluetooth confirmation prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present Bluetooth confirmation prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100003DF0;
-    v8[3] = &unk_100010378;
-    v9 = *(a1 + 56);
-    [v4 promptDirector:v5 wantsToPresentBluetoothConfirmationPromptForVehicleName:v6 numericCode:v7 responseHandler:v8];
+    v6 = [*(a1 + 32) director];
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100003DF0;
+    v9[3] = &unk_100010378;
+    v10 = *(a1 + 56);
+    [v5 promptDirector:v6 wantsToPresentBluetoothConfirmationPromptForVehicleName:v7 numericCode:v8 responseHandler:v9];
   }
 }
 
@@ -322,27 +330,27 @@ uint64_t sub_100003DF0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100003F6C(uint64_t a1)
+void sub_100003F6C(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present Bluetooth contacts sync prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present Bluetooth contacts sync prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10000409C;
-    v6[3] = &unk_100010378;
-    v7 = *(a1 + 40);
-    [v4 promptDirector:v5 wantsToPresentBluetoothContactsSyncPromptWithResponseHandler:v6];
+    v6 = [*(a1 + 32) director];
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10000409C;
+    v7[3] = &unk_100010378;
+    v8 = *(a1 + 40);
+    [v5 promptDirector:v6 wantsToPresentBluetoothContactsSyncPromptWithResponseHandler:v7];
   }
 }
 
@@ -371,39 +379,39 @@ uint64_t sub_10000409C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10000424C(uint64_t a1)
+void sub_10000424C(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present Bluetooth failed prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present Bluetooth failed prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6 = *(a1 + 56);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100004390;
-    v8[3] = &unk_1000103A0;
-    v7 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    [v4 promptDirector:v5 wantsToPresentBluetoothFailedPromptForVehicleName:v7 isTimeout:v6 responseHandler:v8];
+    v6 = [*(a1 + 32) director];
+    v7 = *(a1 + 56);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100004390;
+    v9[3] = &unk_1000103A0;
+    v8 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    [v5 promptDirector:v6 wantsToPresentBluetoothFailedPromptForVehicleName:v8 isTimeout:v7 responseHandler:v9];
   }
 }
 
-uint64_t sub_100004390(uint64_t a1)
+uint64_t sub_100004390(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Bluetooth failed prompt received response", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Bluetooth failed prompt received response", v5, 2u);
   }
 
   result = *(a1 + 32);
@@ -415,47 +423,47 @@ uint64_t sub_100004390(uint64_t a1)
   return result;
 }
 
-void sub_100004488(uint64_t a1)
+void sub_100004488(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present waiting on messaging prompt", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present waiting on messaging prompt", v7, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    [v4 promptDirectorWantsToPresentWaitingOnMessaging:v5];
+    v6 = [*(a1 + 32) director];
+    [v5 promptDirectorWantsToPresentWaitingOnMessaging:v6];
   }
 }
 
-void sub_100004620(uint64_t a1)
+void sub_100004620(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present allow while locked prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present allow while locked prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100004754;
-    v7[3] = &unk_100010378;
-    v6 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    [v4 promptDirector:v5 wantsToPresentAllowWhileLockedPromptForVehicleName:v6 responseHandler:v7];
+    v6 = [*(a1 + 32) director];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100004754;
+    v8[3] = &unk_100010378;
+    v7 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    [v5 promptDirector:v6 wantsToPresentAllowWhileLockedPromptForVehicleName:v7 responseHandler:v8];
   }
 }
 
@@ -484,29 +492,29 @@ uint64_t sub_100004754(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1000048E8(uint64_t a1)
+void sub_1000048E8(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present connect prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present connect prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6 = *(a1 + 56);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100004A2C;
-    v8[3] = &unk_100010378;
-    v7 = *(a1 + 48);
-    v9 = *(a1 + 40);
-    [v4 promptDirector:v5 wantsToPresentConnectPromptWithBluetoothOnlyOption:v6 wirelessEnablement:v7 responseHandler:v8];
+    v6 = [*(a1 + 32) director];
+    v7 = *(a1 + 56);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100004A2C;
+    v9[3] = &unk_100010378;
+    v8 = *(a1 + 48);
+    v10 = *(a1 + 40);
+    [v5 promptDirector:v6 wantsToPresentConnectPromptWithBluetoothOnlyOption:v7 wirelessEnablement:v8 responseHandler:v9];
   }
 }
 
@@ -535,29 +543,29 @@ uint64_t sub_100004A2C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100004BBC(uint64_t a1)
+void sub_100004BBC(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present use wireless prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present use wireless prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100004D00;
-    v8[3] = &unk_100010378;
-    v9 = *(a1 + 40);
-    [v4 promptDirector:v5 wantsToPresentUseWirelessPromptWithWirelessEnablement:v6 declineVariant:v7 responseHandler:v8];
+    v6 = [*(a1 + 32) director];
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 56);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100004D00;
+    v9[3] = &unk_100010378;
+    v10 = *(a1 + 40);
+    [v5 promptDirector:v6 wantsToPresentUseWirelessPromptWithWirelessEnablement:v7 declineVariant:v8 responseHandler:v9];
   }
 }
 
@@ -586,49 +594,49 @@ uint64_t sub_100004D00(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100004E58(uint64_t a1)
+void sub_100004E58(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present waiting on start session prompt", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present waiting on start session prompt", v7, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
-
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
-  {
-    v5 = [*(a1 + 32) director];
-    [v4 promptDirectorWantsToPresentWaitingOnStartSession:v5];
-  }
-}
-
-void sub_100004FF0(uint64_t a1)
-{
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    *buf = 138412290;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present enhanced integration prompt for vehicle name: %@", buf, 0xCu);
-  }
-
-  v4 = [*(a1 + 40) director];
+  v4 = [*(a1 + 32) director];
   v5 = [v4 presenter];
 
   if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v6 = [*(a1 + 40) director];
-    v7 = *(a1 + 32);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100005164;
-    v8[3] = &unk_100010378;
-    v9 = *(a1 + 48);
-    [v5 promptDirector:v6 wantsToPresentEnhancedIntegrationPromptForVehicleName:v7 responseHandler:v8];
+    v6 = [*(a1 + 32) director];
+    [v5 promptDirectorWantsToPresentWaitingOnStartSession:v6];
+  }
+}
+
+void sub_100004FF0(uint64_t a1, uint64_t a2)
+{
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = *(a1 + 32);
+    *buf = 138412290;
+    v12 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present enhanced integration prompt for vehicle name: %@", buf, 0xCu);
+  }
+
+  v5 = [*(a1 + 40) director];
+  v6 = [v5 presenter];
+
+  if (v6 && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    v7 = [*(a1 + 40) director];
+    v8 = *(a1 + 32);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100005164;
+    v9[3] = &unk_100010378;
+    v10 = *(a1 + 48);
+    [v6 promptDirector:v7 wantsToPresentEnhancedIntegrationPromptForVehicleName:v8 responseHandler:v9];
   }
 }
 
@@ -657,29 +665,29 @@ uint64_t sub_100005164(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1000052F8(uint64_t a1)
+void sub_1000052F8(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present connect prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present connect prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6 = *(a1 + 56);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10000543C;
-    v8[3] = &unk_100010378;
-    v7 = *(a1 + 48);
-    v9 = *(a1 + 40);
-    [v4 promptDirector:v5 wantsToPresentAssetSupportingConnectPromptWithBluetoothOnlyOption:v6 wirelessEnablement:v7 responseHandler:v8];
+    v6 = [*(a1 + 32) director];
+    v7 = *(a1 + 56);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10000543C;
+    v9[3] = &unk_100010378;
+    v8 = *(a1 + 48);
+    v10 = *(a1 + 40);
+    [v5 promptDirector:v6 wantsToPresentAssetSupportingConnectPromptWithBluetoothOnlyOption:v7 wirelessEnablement:v8 responseHandler:v9];
   }
 }
 
@@ -708,29 +716,29 @@ uint64_t sub_10000543C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1000055CC(uint64_t a1)
+void sub_1000055CC(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present use wireless prompt", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present use wireless prompt", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100005710;
-    v8[3] = &unk_100010378;
-    v9 = *(a1 + 40);
-    [v4 promptDirector:v5 wantsToPresentAssetSupportingUseWirelessPromptWithWirelessEnablement:v6 declineVariant:v7 responseHandler:v8];
+    v6 = [*(a1 + 32) director];
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 56);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100005710;
+    v9[3] = &unk_100010378;
+    v10 = *(a1 + 40);
+    [v5 promptDirector:v6 wantsToPresentAssetSupportingUseWirelessPromptWithWirelessEnablement:v7 declineVariant:v8 responseHandler:v9];
   }
 }
 
@@ -759,35 +767,35 @@ uint64_t sub_100005710(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1000058B8(uint64_t a1)
+void sub_1000058B8(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v14 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present asset progress prompt for vehicle name: %@", buf, 0xCu);
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present asset progress prompt for vehicle name: %@", buf, 0xCu);
   }
 
-  v4 = [*(a1 + 40) director];
-  v5 = [v4 _remoteAssetProgress];
+  v5 = [*(a1 + 40) director];
+  v6 = [v5 _remoteAssetProgress];
 
-  [*(a1 + 40) setProgress:v5];
-  v6 = [*(a1 + 40) director];
-  v7 = [v6 presenter];
+  [*(a1 + 40) setProgress:v6];
+  v7 = [*(a1 + 40) director];
+  v8 = [v7 presenter];
 
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v8 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v8 = [*(a1 + 40) director];
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100005A68;
-    v11[3] = &unk_100010378;
-    v12 = *(a1 + 48);
-    [v7 promptDirector:v8 wantsToPresentAssetProgressPromptForVehicleName:v9 progressReporter:v10 cancelHandler:v11];
+    v9 = [*(a1 + 40) director];
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100005A68;
+    v12[3] = &unk_100010378;
+    v13 = *(a1 + 48);
+    [v8 promptDirector:v9 wantsToPresentAssetProgressPromptForVehicleName:v10 progressReporter:v11 cancelHandler:v12];
   }
 }
 
@@ -809,30 +817,30 @@ uint64_t sub_100005A68(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100005BC0(uint64_t a1)
+void sub_100005BC0(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present asset unavailable prompt, description: %@", buf, 0xCu);
+    v12 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present asset unavailable prompt, description: %@", buf, 0xCu);
   }
 
-  v4 = [*(a1 + 40) director];
-  v5 = [v4 presenter];
+  v5 = [*(a1 + 40) director];
+  v6 = [v5 presenter];
 
-  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v6 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v6 = [*(a1 + 40) director];
-    v7 = *(a1 + 32);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100005D34;
-    v8[3] = &unk_100010378;
-    v9 = *(a1 + 48);
-    [v5 promptDirector:v6 wantsToPresentAssetUnavailablePromptWithDescription:v7 responseHandler:v8];
+    v7 = [*(a1 + 40) director];
+    v8 = *(a1 + 32);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100005D34;
+    v9[3] = &unk_100010378;
+    v10 = *(a1 + 48);
+    [v6 promptDirector:v7 wantsToPresentAssetUnavailablePromptWithDescription:v8 responseHandler:v9];
   }
 }
 
@@ -861,43 +869,43 @@ uint64_t sub_100005D34(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100005EFC(uint64_t a1)
+void sub_100005EFC(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present asset ready prompt for vehicle name: %@", buf, 0xCu);
+    v13 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present asset ready prompt for vehicle name: %@", buf, 0xCu);
   }
 
-  v4 = [*(a1 + 40) director];
-  v5 = [v4 presenter];
+  v5 = [*(a1 + 40) director];
+  v6 = [v5 presenter];
 
-  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v6 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v6 = [*(a1 + 40) director];
-    v7 = *(a1 + 32);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100006088;
-    v9[3] = &unk_1000103A0;
-    v8 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    [v5 promptDirector:v6 wantsToPresentAssetReadyPromptForVehicleName:v7 appClipIDs:v8 confirmationHandler:v9];
+    v7 = [*(a1 + 40) director];
+    v8 = *(a1 + 32);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100006088;
+    v10[3] = &unk_1000103A0;
+    v9 = *(a1 + 48);
+    v11 = *(a1 + 56);
+    [v6 promptDirector:v7 wantsToPresentAssetReadyPromptForVehicleName:v8 appClipIDs:v9 confirmationHandler:v10];
   }
 
   [*(a1 + 40) setProgress:0];
 }
 
-uint64_t sub_100006088(uint64_t a1)
+uint64_t sub_100006088(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "asset ready prompt was confirmed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "asset ready prompt was confirmed", v5, 2u);
   }
 
   result = *(a1 + 32);
@@ -909,86 +917,40 @@ uint64_t sub_100006088(uint64_t a1)
   return result;
 }
 
-void sub_1000061D0(uint64_t a1)
+void sub_1000061D0(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present asset ready soon prompt for vehicle name: %@", buf, 0xCu);
+    v12 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present asset ready soon prompt for vehicle name: %@", buf, 0xCu);
   }
 
-  v4 = [*(a1 + 40) director];
-  v5 = [v4 presenter];
+  v5 = [*(a1 + 40) director];
+  v6 = [v5 presenter];
 
-  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v6 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v6 = [*(a1 + 40) director];
-    v7 = *(a1 + 32);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100006344;
-    v8[3] = &unk_1000103A0;
-    v9 = *(a1 + 48);
-    [v5 promptDirector:v6 wantsToPresentAssetReadySoonPromptForVehicleName:v7 confirmationHandler:v8];
-  }
-}
-
-uint64_t sub_100006344(uint64_t a1)
-{
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "asset ready soon prompt was confirmed", v4, 2u);
-  }
-
-  result = *(a1 + 32);
-  if (result)
-  {
-    return (*(result + 16))();
-  }
-
-  return result;
-}
-
-void sub_1000064AC(uint64_t a1)
-{
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    *buf = 138412290;
-    v12 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present setup car keys prompt for vehicle name: %@", buf, 0xCu);
-  }
-
-  v4 = [*(a1 + 40) director];
-  v5 = [v4 presenter];
-
-  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
-  {
-    v6 = [*(a1 + 40) director];
-    v7 = *(a1 + 32);
+    v7 = [*(a1 + 40) director];
+    v8 = *(a1 + 32);
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 3221225472;
-    v9[2] = sub_10000662C;
+    v9[2] = sub_100006344;
     v9[3] = &unk_1000103A0;
-    v8 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    [v5 promptDirector:v6 wantsToPresentSetupCarKeysPromptForVehicleName:v7 carKeyInfo:v8 cancelHandler:v9];
+    v10 = *(a1 + 48);
+    [v6 promptDirector:v7 wantsToPresentAssetReadySoonPromptForVehicleName:v8 confirmationHandler:v9];
   }
 }
 
-uint64_t sub_10000662C(uint64_t a1)
+uint64_t sub_100006344(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "setup car keys prompt was canceled", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "asset ready soon prompt was confirmed", v5, 2u);
   }
 
   result = *(a1 + 32);
@@ -1000,37 +962,83 @@ uint64_t sub_10000662C(uint64_t a1)
   return result;
 }
 
-void sub_100006748(uint64_t a1)
+void sub_1000064AC(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "present check for software updates", buf, 2u);
+    v4 = *(a1 + 32);
+    *buf = 138412290;
+    v13 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present setup car keys prompt for vehicle name: %@", buf, 0xCu);
   }
 
-  v3 = [*(a1 + 32) director];
-  v4 = [v3 presenter];
+  v5 = [*(a1 + 40) director];
+  v6 = [v5 presenter];
 
-  if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v6 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = [*(a1 + 32) director];
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_100006878;
-    v6[3] = &unk_1000103A0;
-    v7 = *(a1 + 40);
-    [v4 promptDirector:v5 wantsToCheckForSoftwareUpdatesWithCompletionHandler:v6];
+    v7 = [*(a1 + 40) director];
+    v8 = *(a1 + 32);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10000662C;
+    v10[3] = &unk_1000103A0;
+    v9 = *(a1 + 48);
+    v11 = *(a1 + 56);
+    [v6 promptDirector:v7 wantsToPresentSetupCarKeysPromptForVehicleName:v8 carKeyInfo:v9 cancelHandler:v10];
   }
 }
 
-uint64_t sub_100006878(uint64_t a1)
+uint64_t sub_10000662C(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "check for software updates completed presentation", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "setup car keys prompt was canceled", v5, 2u);
+  }
+
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))();
+  }
+
+  return result;
+}
+
+void sub_100006748(uint64_t a1, uint64_t a2)
+{
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "present check for software updates", buf, 2u);
+  }
+
+  v4 = [*(a1 + 32) director];
+  v5 = [v4 presenter];
+
+  if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    v6 = [*(a1 + 32) director];
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100006878;
+    v7[3] = &unk_1000103A0;
+    v8 = *(a1 + 40);
+    [v5 promptDirector:v6 wantsToCheckForSoftwareUpdatesWithCompletionHandler:v7];
+  }
+}
+
+uint64_t sub_100006878(uint64_t a1, uint64_t a2)
+{
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "check for software updates completed presentation", v5, 2u);
   }
 
   result = *(a1 + 32);
@@ -1082,9 +1090,9 @@ void sub_100006C34(id a1, BOOL a2, NSError *a3)
   }
 }
 
-void sub_100006E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1098,10 +1106,7 @@ uint64_t sub_100006E98(uint64_t result, uint64_t a2)
 
 uint64_t sub_100006EB0(uint64_t a1, void *a2)
 {
-  v3 = [a2 presenterRequestsAssetProgressWithCompletion:&stru_100010628];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 presenterRequestsAssetProgressWithCompletion:&stru_100010628];
 
   return _objc_release_x1();
 }
@@ -1135,10 +1140,10 @@ void sub_1000071AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000071DC(uint64_t a1)
+void sub_1000071DC(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100008214();
   }
@@ -1147,9 +1152,9 @@ void sub_1000071DC(uint64_t a1)
   block[1] = 3221225472;
   block[2] = sub_100007298;
   block[3] = &unk_100010678;
-  objc_copyWeak(&v4, (a1 + 32));
+  objc_copyWeak(&v5, (a1 + 32));
   dispatch_async(&_dispatch_main_q, block);
-  objc_destroyWeak(&v4);
+  objc_destroyWeak(&v5);
 }
 
 void sub_100007298(uint64_t a1)
@@ -1158,10 +1163,10 @@ void sub_100007298(uint64_t a1)
   [WeakRetained _handleConnectionReset];
 }
 
-void sub_1000072D8(uint64_t a1)
+void sub_1000072D8(uint64_t a1, uint64_t a2)
 {
-  v2 = CARSetupLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100008250();
   }
@@ -1170,9 +1175,9 @@ void sub_1000072D8(uint64_t a1)
   block[1] = 3221225472;
   block[2] = sub_100007394;
   block[3] = &unk_100010678;
-  objc_copyWeak(&v4, (a1 + 32));
+  objc_copyWeak(&v5, (a1 + 32));
   dispatch_async(&_dispatch_main_q, block);
-  objc_destroyWeak(&v4);
+  objc_destroyWeak(&v5);
 }
 
 void sub_100007394(uint64_t a1)

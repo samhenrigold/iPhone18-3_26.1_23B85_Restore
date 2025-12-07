@@ -77,40 +77,38 @@ uint64_t __48__ACCFeaturePluginHIDProvider_sharedHIDProvider__block_invoke()
 
 uint64_t __46__ACCFeaturePluginHIDProvider_stopHIDProvider__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) descriptorUUIDs];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) removeDescriptor];
+        [*(*(&v8 + 1) + 8 * v6++) removeDescriptor];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 32) setDescriptorUUIDs:0];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setDescriptorUUIDs:0];
 }
 
 - (id)createHIDDescriptor:(id)descriptor
@@ -240,27 +238,27 @@ void __51__ACCFeaturePluginHIDProvider_createHIDDescriptor___block_invoke_4(uint
 
 void __51__ACCFeaturePluginHIDProvider_deleteHIDDescriptor___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) descriptorUUIDs];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v14 != v5)
+      if (*v13 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v13 + 1) + 8 * v6);
+      v7 = *(*(&v12 + 1) + 8 * v6);
       v8 = [v7 hidDeviceUUIDStr];
       v9 = *(a1 + 40);
 
@@ -271,7 +269,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -285,7 +283,7 @@ LABEL_3:
 
     if (!v10)
     {
-      goto LABEL_13;
+      return;
     }
 
     [v10 removeDescriptor];
@@ -297,9 +295,6 @@ LABEL_3:
   }
 
 LABEL_12:
-
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processInReport:(id)report forUUID:(id)d
@@ -335,27 +330,27 @@ LABEL_13:
 
 void __55__ACCFeaturePluginHIDProvider_processInReport_forUUID___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) descriptorUUIDs];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 hidDeviceUUIDStr];
         v9 = *(a1 + 40);
 
@@ -365,13 +360,11 @@ void __55__ACCFeaturePluginHIDProvider_processInReport_forUUID___block_invoke(ui
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processGetReportResponse:(id)response reportType:(unsigned __int8)type reportID:(unsigned __int8)d forUUID:(id)iD
@@ -409,27 +402,27 @@ void __55__ACCFeaturePluginHIDProvider_processInReport_forUUID___block_invoke(ui
 
 void __84__ACCFeaturePluginHIDProvider_processGetReportResponse_reportType_reportID_forUUID___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) descriptorUUIDs];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 hidDeviceUUIDStr];
         v9 = *(a1 + 40);
 
@@ -439,13 +432,11 @@ void __84__ACCFeaturePluginHIDProvider_processGetReportResponse_reportType_repor
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDescriptor:(id)descriptor
@@ -485,27 +476,27 @@ void __84__ACCFeaturePluginHIDProvider_processGetReportResponse_reportType_repor
 
 void __45__ACCFeaturePluginHIDProvider_getDescriptor___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) descriptorUUIDs];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 hidDeviceUUIDStr];
         v9 = *(a1 + 40);
 
@@ -516,7 +507,7 @@ void __45__ACCFeaturePluginHIDProvider_getDescriptor___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -527,8 +518,6 @@ void __45__ACCFeaturePluginHIDProvider_getDescriptor___block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

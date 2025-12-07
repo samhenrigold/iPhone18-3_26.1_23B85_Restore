@@ -254,7 +254,7 @@
     v15 = 0uLL;
     if (self)
     {
-      [(CRLTransformGradientFill *)self transformForSize:width, height, 0.0];
+      objc_msgSend_transformForSize_(self, width, height, 0.0);
       v12 = 0uLL;
       v14 = *&v54.a;
       v15 = *&v54.c;
@@ -267,7 +267,7 @@
     if (self)
     {
       v48 = v16;
-      [(CRLTransformGradientFill *)self transformForSize:width, height];
+      objc_msgSend_transformForSize_(self, width, height);
       v16 = v48;
       v17 = *&v54.a;
       v18 = *&v54.c;
@@ -285,7 +285,7 @@
     memset(&v54, 0, sizeof(v54));
     if (self)
     {
-      [(CRLTransformGradientFill *)self transformForSize:width, height];
+      objc_msgSend_transformForSize_(self, width, height);
       v22 = 0uLL;
     }
 
@@ -360,7 +360,7 @@
   {
     if (self)
     {
-      [(CRLGradientFill *)self centeredRadialTransformInRect:x, y, width, height];
+      objc_msgSend_centeredRadialTransformInRect_(self, x, y, width, height);
     }
 
     else
@@ -487,12 +487,12 @@
 - (void)p_setDefaultValues
 {
   p_mStart = &self->mStart;
-  v4 = sub_100122154(50.0, 50.0);
+  v4 = sub_100122154(self, 50.0, 50.0);
   p_mStart->x = v4;
   p_mStart->y = v5;
   v6 = sub_10011F334(v4, v5, 0.0);
-  self->mEnd.x = sub_100122154(v6, v7);
-  self->mEnd.y = v8;
+  self->mEnd.x = sub_100122154(v7, v6, v8);
+  self->mEnd.y = v9;
   self->mBaseNaturalSize = vdupq_n_s64(0x4059000000000000uLL);
 }
 
@@ -522,7 +522,7 @@
   v10 = start.x;
   if (self)
   {
-    [(CRLTransformGradientFill *)self transformForSize:size.width, size.height, naturalSize.width, naturalSize.height];
+    objc_msgSend_transformForSize_(self, a2, size.width, size.height, naturalSize.width, naturalSize.height);
   }
 
   else

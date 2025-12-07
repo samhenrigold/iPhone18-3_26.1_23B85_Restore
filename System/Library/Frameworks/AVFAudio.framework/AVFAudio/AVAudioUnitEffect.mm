@@ -44,7 +44,7 @@
 
 - (AVAudioUnitEffect)initWithAudioComponentDescription:(AudioComponentDescription *)audioComponentDescription
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   componentType = audioComponentDescription->componentType;
   if (audioComponentDescription->componentType <= 1635086445)
   {
@@ -66,7 +66,7 @@
       dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
     }
 
-    v12 = *AVAudioEngineLogCategory(void)::category;
+    v11 = *AVAudioEngineLogCategory(void)::category;
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
@@ -74,14 +74,14 @@
       *&buf[12] = 1024;
       *&buf[14] = 71;
       *&buf[18] = 2080;
-      v15 = "AVAudioUnitEffect.mm";
-      v16 = 1024;
-      v17 = 26;
-      v18 = 2080;
-      v19 = "[AVAudioUnitEffect initWithAudioComponentDescription:]";
-      v20 = 2080;
-      v21 = "(audioComponentDescription.componentType == kAudioUnitType_Effect) || (audioComponentDescription.componentType == kAudioUnitType_MusicEffect) || (audioComponentDescription.componentType == kAudioUnitType_Panner) || (audioComponentDescription.componentType == kAudioUnitType_RemoteEffect) || (audioComponentDescription.componentType == kAudioUnitType_RemoteMusicEffect)";
-      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
+      v14 = "AVAudioUnitEffect.mm";
+      v15 = 1024;
+      v16 = 26;
+      v17 = 2080;
+      v18 = "[AVAudioUnitEffect initWithAudioComponentDescription:]";
+      v19 = 2080;
+      v20 = "(audioComponentDescription.componentType == kAudioUnitType_Effect) || (audioComponentDescription.componentType == kAudioUnitType_MusicEffect) || (audioComponentDescription.componentType == kAudioUnitType_Panner) || (audioComponentDescription.componentType == kAudioUnitType_RemoteEffect) || (audioComponentDescription.componentType == kAudioUnitType_RemoteMusicEffect)";
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "(audioComponentDescription.componentType == kAudioUnitType_Effect) || (audioComponentDescription.componentType == kAudioUnitType_MusicEffect) || (audioComponentDescription.componentType == kAudioUnitType_Panner) || (audioComponentDescription.componentType == kAudioUnitType_RemoteEffect) || (audioComponentDescription.componentType == kAudioUnitType_RemoteMusicEffect)"}];
@@ -89,11 +89,9 @@
 
   *buf = *&audioComponentDescription->componentType;
   *&buf[16] = audioComponentDescription->componentFlagsMask;
-  v13.receiver = self;
-  v13.super_class = AVAudioUnitEffect;
-  result = [(AVAudioUnit *)&v13 initWithAudioComponentDescription:buf];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v12.receiver = self;
+  v12.super_class = AVAudioUnitEffect;
+  return [(AVAudioUnit *)&v12 initWithAudioComponentDescription:buf];
 }
 
 @end

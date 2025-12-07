@@ -74,7 +74,7 @@
     v8 = geometry2;
     if (geometry2)
     {
-      [geometry2 transform];
+      objc_msgSend_transform(geometry2);
     }
 
     else
@@ -114,7 +114,7 @@
       v8 = geometry;
       if (geometry)
       {
-        [geometry transform];
+        objc_msgSend_transform(geometry);
       }
 
       else
@@ -152,7 +152,7 @@
   if (geometry)
   {
     v6 = geometry;
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     geometry = v6;
   }
 
@@ -175,7 +175,7 @@
   v6 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -193,7 +193,7 @@
     v11 = geometry2;
     if (geometry2)
     {
-      [geometry2 transform];
+      objc_msgSend_transform(geometry2);
     }
 
     else
@@ -224,7 +224,7 @@
   v6 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -244,24 +244,19 @@
       v10 = geometry2;
       if (geometry2)
       {
-        v11 = *&retstr->c;
-        v14[0] = *&retstr->a;
-        v14[1] = v11;
-        v14[2] = *&retstr->tx;
-        [geometry2 transformByConcatenatingTransformTo:v14];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry2, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
+        v13 = 0u;
+        v14 = 0u;
+        v12 = 0u;
       }
 
-      v12 = v16;
-      *&retstr->a = v15;
-      *&retstr->c = v12;
-      *&retstr->tx = v17;
+      *&retstr->a = v12;
+      *&retstr->c = v13;
+      *&retstr->tx = v14;
 
       parent = [(CGAffineTransform *)v8 parent];
 
@@ -342,7 +337,7 @@
   width = parent.size.width;
   y = parent.origin.y;
   x = parent.origin.x;
-  [(CRLCanvasAbstractLayout *)self transformInParent];
+  objc_msgSend_transformInParent(self, a2);
   v8.origin.x = x;
   v8.origin.y = y;
   v8.size.width = width;
@@ -356,7 +351,7 @@
   width = root.size.width;
   y = root.origin.y;
   x = root.origin.x;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self, a2);
   v8.origin.x = x;
   v8.origin.y = y;
   v8.size.width = width;
@@ -423,7 +418,7 @@
         v17 = geometry;
         if (geometry)
         {
-          [geometry transform];
+          objc_msgSend_transform(geometry);
         }
 
         else
@@ -845,7 +840,7 @@
       v21 = geometry;
       if (geometry)
       {
-        [geometry transform];
+        objc_msgSend_transform(geometry);
       }
 
       else
@@ -907,7 +902,7 @@
   v12 = parent;
   if (parent)
   {
-    [parent transformInRoot];
+    objc_msgSend_transformInRoot(parent);
     v18.origin.x = x;
     v18.origin.y = y;
     v18.size.width = width;
@@ -985,7 +980,7 @@
     v13 = parent2;
     if (parent2)
     {
-      [parent2 transformInRoot];
+      objc_msgSend_transformInRoot(parent2);
     }
 
     else
@@ -1017,7 +1012,7 @@
 
 - (BOOL)shouldSnapWhileResizing
 {
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self, a2);
   geometry = [(CRLCanvasAbstractLayout *)self geometry];
   [geometry size];
   v6 = sub_100139A98(&v8, v4, v5);

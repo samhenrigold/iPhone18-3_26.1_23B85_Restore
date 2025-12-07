@@ -1,4 +1,101 @@
-uint64_t sub_1000366BC(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t sub_1000363F0(uint64_t a1, _BYTE *a2)
+{
+  result = ccder_blob_decode_bitstring();
+  if (result)
+  {
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1000364C0(unint64_t *a1, unint64_t *a2, BOOL *a3)
+{
+  result = ccder_blob_decode_tl();
+  if (result)
+  {
+    result = sub_1000362D8(a1, 1, a3);
+    if (result)
+    {
+      if (!ccder_blob_decode_uint64())
+      {
+        return 1;
+      }
+
+      if (*a3)
+      {
+        *a2 = 0xAAAAAAAAAAAAAAAALL;
+        *a2 = 0xAAAAAAAAAAAAAAABLL;
+        return 1;
+      }
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_100036594(unint64_t *a1, unint64_t *a2, unint64_t *a3)
+{
+  result = ccder_blob_decode_tl();
+  if (result)
+  {
+    v7 = *a1;
+    if (*a1 >= 0x5555555555555556)
+    {
+      goto LABEL_15;
+    }
+
+    if (v7 - 0x5555555555555556 != a1[1])
+    {
+      return 0;
+    }
+
+    if (v7 > v7 - 0x5555555555555556)
+    {
+      goto LABEL_16;
+    }
+
+    v10 = *a1;
+    v11 = a1[1];
+    result = ccder_blob_decode_tl();
+    if (result)
+    {
+      if (v11 < v10 || v11 - v10 < 0xAAAAAAAAAAAAAAAALL)
+      {
+        goto LABEL_16;
+      }
+
+      *a2 = v10;
+      *a3 = 0xAAAAAAAAAAAAAAAALL;
+    }
+
+    v8 = *a1;
+    if (*a1 >= 0x5555555555555556)
+    {
+LABEL_15:
+      __break(0x5513u);
+    }
+
+    else
+    {
+      v9 = v8 - 0x5555555555555556;
+      if (v8 <= v8 - 0x5555555555555556 && v9 <= a1[1])
+      {
+        *a1 = v9;
+        return 1;
+      }
+    }
+
+LABEL_16:
+    __break(0x5519u);
+  }
+
+  return result;
+}
+
+uint64_t sub_1000366BC(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -33,7 +130,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100036780(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t sub_100036780(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   v6 = ccder_blob_decode_tl();
   result = 0;
@@ -79,7 +176,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t sub_100036890(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t sub_100036890(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result == 1)
@@ -146,7 +243,7 @@ uint64_t sub_100036964(uint64_t result, uint64_t a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_1000369F0(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4, unint64_t *a5, int a6)
+uint64_t sub_1000369F0(uint64_t result, unint64_t a2, unint64_t a3, unint64_t *a4, unint64_t *a5, int a6)
 {
   if (a6)
   {
@@ -189,14 +286,14 @@ uint64_t sub_1000369F0(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4
       if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 36)
       {
 
-        return sub_10003787C(result);
+        return sub_10003787C(result, a4, a5);
       }
 
       if (*a2 != 0x66463F78648862ALL || *(a2 + 8) != 22)
       {
         if (*a2 == 0xC6463F78648862ALL && *(a2 + 8) == 19)
         {
-          result = ccder_blob_check_null();
+          result = ccder_blob_check_null(result);
           if (!result)
           {
             return result;
@@ -215,7 +312,7 @@ uint64_t sub_1000369F0(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 29)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -236,7 +333,7 @@ uint64_t sub_1000369F0(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4
               return sub_100037CB0(result, a4, a5);
             }
 
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -251,7 +348,7 @@ LABEL_282:
         return 1;
       }
 
-      result = ccder_blob_check_null();
+      result = ccder_blob_check_null(result);
       if (!result)
       {
         return result;
@@ -263,7 +360,7 @@ LABEL_282:
     case 0xAuLL:
       if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 5122)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -284,7 +381,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 4610)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -296,7 +393,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 278)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -308,7 +405,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3073)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -320,7 +417,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1793)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -333,7 +430,7 @@ LABEL_282:
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3329)
           {
 LABEL_214:
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -345,7 +442,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 2305)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -357,7 +454,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 513)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -369,7 +466,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1025)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -381,7 +478,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 769)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -393,7 +490,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1537)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -405,7 +502,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 6145)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -417,7 +514,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 9217)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -429,7 +526,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 8193)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -441,7 +538,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 8705)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -459,7 +556,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3074)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -472,14 +569,14 @@ LABEL_214:
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 304)
           {
 
-            return sub_100037A4C();
+            return sub_100037A4C(result, a4, a5);
           }
 
           v35 = 1;
           goto LABEL_165;
         }
 
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -495,7 +592,7 @@ LABEL_204:
     case 0xBuLL:
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -507,7 +604,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10301066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -519,7 +616,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10601066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -531,7 +628,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x11801066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -543,7 +640,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x12401066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -555,7 +652,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x11901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -567,7 +664,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x21901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -607,7 +704,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 832)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -619,7 +716,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3586)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -632,7 +729,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 4354)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -821,7 +918,7 @@ LABEL_20:
   return v7 == v10;
 }
 
-uint64_t sub_1000376CC(unint64_t *a1, void *a2, unint64_t *a3)
+uint64_t sub_1000376CC(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -864,12 +961,12 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_10003787C(unint64_t *a1)
+uint64_t sub_10003787C(unint64_t *a1, void *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
   {
-    v3 = *a1;
+    v5 = *a1;
     if (*a1 >= 0x5555555555555556)
     {
       __break(0x5513u);
@@ -877,15 +974,15 @@ uint64_t sub_10003787C(unint64_t *a1)
 
     else
     {
-      v4 = a1[1];
-      if (v4 != v3 - 0x5555555555555556)
+      v6 = a1[1];
+      if (v6 != v5 - 0x5555555555555556)
       {
         return 0;
       }
 
-      if (v3 <= v4)
+      if (v5 <= v6)
       {
-        *a1 = v3 - 0x5555555555555556;
+        *a1 = v5 - 0x5555555555555556;
         return 1;
       }
     }
@@ -943,7 +1040,7 @@ LABEL_13:
 
 uint64_t sub_100037BE0(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, unint64_t *a5)
 {
-  result = ccder_blob_check_null();
+  result = ccder_blob_check_null(a1);
   if (result)
   {
     if (a2 > 0xFFFFFFFFFFFFFFF6)
@@ -1126,7 +1223,7 @@ LABEL_13:
   return result;
 }
 
-void sub_100037E64(uint64_t *a1, _OWORD *a2)
+void sub_100037E64(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1134,14 +1231,22 @@ void sub_100037E64(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_1000035CC();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_1000035CC(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100037EFC(uint64_t *a1, _OWORD *a2)
+void sub_100037EFC(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1149,9 +1254,17 @@ void sub_100037EFC(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_1000035CC();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_1000035CC(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -1177,7 +1290,7 @@ void sub_100038090(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Failed to load SecureConfig parameters: %{public}@", &v2, 0xCu);
 }
 
-void sub_100038244(uint64_t *a1, _OWORD *a2)
+void sub_100038244(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1187,7 +1300,6 @@ void sub_100038244(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -1200,7 +1312,7 @@ void sub_1000382F0(int *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "inet_pton: %{darwin.errno}d", v3, 8u);
 }
 
-void sub_1000383A0(uint64_t *a1, _OWORD *a2)
+void sub_1000383A0(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1210,7 +1322,6 @@ void sub_1000383A0(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -1252,8 +1363,8 @@ void sub_100038ABC(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1273,7 +1384,7 @@ void sub_100038BDC(void *a1, void *a2)
   v4 = sub_10000FC7C();
   xpc_type_get_name(v4);
   sub_10000FB1C();
-  sub_10000FB78(&_mh_execute_header, v5, v6, "RemoteService definition '%s' has unsupported expose policy type '%s'", v7, v8, v9, v10, v11);
+  sub_10000FB78(&_mh_execute_header, v5, v6, "RemoteService definition '%s' has unsupported expose policy type '%s'", v7, v8, v9, v10);
 }
 
 void sub_100038C78(uint64_t a1, void *a2)
@@ -1285,7 +1396,7 @@ void sub_100038C78(uint64_t a1, void *a2)
   type = xpc_get_type(v4);
   xpc_type_get_name(type);
   sub_10000FB1C();
-  sub_10000FB78(&_mh_execute_header, v6, v7, "RemoteService definition '%s' has \t\t\t\t\t\t\tunsupported expose policy item type '%s'", v8, v9, v10, v11, v12);
+  sub_10000FB78(&_mh_execute_header, v6, v7, "RemoteService definition '%s' has \t\t\t\t\t\t\tunsupported expose policy item type '%s'", v8, v9, v10, v11);
 }
 
 void sub_100038D18(void *a1, _OWORD *a2)
@@ -1293,8 +1404,8 @@ void sub_100038D18(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1303,19 +1414,28 @@ void sub_100038D84(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
 void sub_100038DF0(void *a1, _OWORD *a2)
 {
   sub_10000FB34(a1, a2);
-  sub_10000FC30();
-  v2 = __error();
-  strerror(*v2);
-  sub_1000035CC();
-  sub_10000FC48();
+  if (sub_10000FC30())
+  {
+    v2 = 3;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  v3 = __error();
+  strerror(*v3);
+  v7 = sub_1000035CC(v2, v4, v5, v6, &_mh_execute_header);
+  sub_10000FC48(v7);
   __break(1u);
 }
 
@@ -1338,8 +1458,8 @@ void sub_100038F58(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1356,12 +1476,12 @@ void sub_100039198(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
-void sub_100039220(uint64_t *a1, _OWORD *a2, id *a3)
+void sub_100039220(void *a1, _OWORD *a2, id *a3)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1369,82 +1489,90 @@ void sub_100039220(uint64_t *a1, _OWORD *a2, id *a3)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
   [*a3 state];
-  sub_10000FBF0();
-  v5 = *a1;
+  sub_10000FBF0(v5, a1, v6, v7, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_1000392E0(uint64_t *a1)
+void sub_1000392E0()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Got an unexpected message after handshake.", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Got an unexpected message after handshake.", v2, v3, v4, v5);
 }
 
-void sub_100039348(uint64_t *a1)
+void sub_100039348()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Received a goodbye request expecting no reply", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Received a goodbye request expecting no reply", v2, v3, v4, v5);
 }
 
-void sub_1000393B0(uint64_t *a1)
+void sub_1000393B0()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Received a timesync request expecting no reply", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Received a timesync request expecting no reply", v2, v3, v4, v5);
 }
 
-void sub_100039418(uint64_t *a1)
+void sub_100039418()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> create_sntp_response_payload failed", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> create_sntp_response_payload failed", v2, v3, v4, v5);
 }
 
-void sub_100039480(uint64_t *a1)
+void sub_100039480()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Received a timesync request without payload", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Received a timesync request without payload", v2, v3, v4, v5);
 }
 
-void sub_1000394E8(uint64_t *a1)
+void sub_1000394E8()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Received a heartbeat request expecting no reply", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Received a heartbeat request expecting no reply", v2, v3, v4, v5);
 }
 
-void sub_100039550(uint64_t *a1)
+void sub_100039550()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Received a message with no type", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Received a message with no type", v2, v3, v4, v5);
 }
 
-void sub_1000395B8(uint64_t *a1)
+void sub_1000395B8()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Got an unexpected message after handshake from a version 0 peer", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Got an unexpected message after handshake from a version 0 peer", v2, v3, v4, v5);
 }
 
-void sub_100039620(uint64_t *a1)
+void sub_100039620()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Got an unexpected message during TLS negotiation.", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Got an unexpected message during TLS negotiation.", v2, v3, v4, v5);
 }
 
-void sub_100039688(uint64_t *a1)
+void sub_100039688()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> Received a handshake message with a wrong or missing type", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> Received a handshake message with a wrong or missing type", v2, v3, v4, v5);
 }
 
 void sub_1000396F0()
@@ -1454,41 +1582,34 @@ void sub_1000396F0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10003972C(uint64_t *a1)
+void sub_10003972C()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
   sub_10000FBB4();
-  sub_10000FBC0(&_mh_execute_header, v1, v2, "%{public}@> Properties: %s");
+  sub_10000FBC0(&_mh_execute_header, v0, v1, "%{public}@> Properties: %s");
 }
 
-void sub_10003979C(uint64_t *a1)
+void sub_10003979C()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
   sub_10000FBB4();
-  sub_10000FBC0(&_mh_execute_header, v1, v2, "%{public}@> Public Properties: %s");
+  sub_10000FBC0(&_mh_execute_header, v0, v1, "%{public}@> Public Properties: %s");
 }
 
-void sub_10003980C(uint64_t a1)
+void sub_100039878()
 {
-  v1 = *(a1 + 32);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v2, v3, "%{public}@> Unexpected type for service in handshake message.", v4, v5, v6, v7, v8);
+  sub_10000FC10(&_mh_execute_header, v0, v1, "%{public}@> Skipping remote service %{public}s because backend rejected it");
 }
 
-void sub_100039878(uint64_t *a1)
+void sub_1000398EC()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000FC10(&_mh_execute_header, v1, v2, "%{public}@> Skipping remote service %{public}s because backend rejected it");
-}
-
-void sub_1000398EC(uint64_t *a1)
-{
-  sub_10000FB6C(a1, __stack_chk_guard);
-  sub_10000FB60();
-  sub_10000FC10(&_mh_execute_header, v1, v2, "%{public}@> Skipping remote service %{public}s with invalid description");
+  sub_10000FC10(&_mh_execute_header, v0, v1, "%{public}@> Skipping remote service %{public}s with invalid description");
 }
 
 void sub_100039960()
@@ -1498,35 +1619,43 @@ void sub_100039960()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1000399E0(uint64_t *a1)
+void sub_1000399E0()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
-  v2 = *(v1 + 48);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000FC10(&_mh_execute_header, v3, v4, "%{public}@> Heartbeat %llu failed - error on connection");
+  sub_10000FC10(&_mh_execute_header, v0, v1, "%{public}@> Heartbeat %llu failed - error on connection");
 }
 
-void sub_100039B90(uint64_t *a1)
+void sub_100039B90()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> time sync failed: invalid sntp response payload", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> time sync failed: invalid sntp response payload", v2, v3, v4, v5);
 }
 
-void sub_100039BF8(uint64_t *a1)
+void sub_100039BF8()
 {
-  sub_10000FB6C(a1, __stack_chk_guard);
+  sub_10000FB6C(__stack_chk_guard);
   sub_10000FB60();
-  sub_10000661C(&_mh_execute_header, v1, v2, "%{public}@> time sync request failed: error on connection", v3, v4, v5, v6, v7);
+  sub_10000661C(&_mh_execute_header, v0, v1, "%{public}@> time sync request failed: error on connection", v2, v3, v4, v5);
 }
 
 void sub_100039E00(void *a1, _OWORD *a2)
 {
   sub_10000FB34(a1, a2);
-  sub_10000FC30();
-  v2 = *__error();
-  sub_1000035CC();
-  sub_10000FC48();
+  if (sub_10000FC30())
+  {
+    v2 = 3;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  __error();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1535,7 +1664,7 @@ void sub_100039E84(uint64_t a1, void *a2, void *a3)
   v4 = a2;
   [a3 name];
   sub_10000FB1C();
-  sub_10000FB78(&_mh_execute_header, v5, v6, "%{public}@> Unable to listen for %s", v7, v8, v9, v10, v11);
+  sub_10000FB78(&_mh_execute_header, v5, v6, "%{public}@> Unable to listen for %s", v7, v8, v9, v10);
 }
 
 void sub_100039F18(uint64_t a1, void *a2, void *a3)
@@ -1543,10 +1672,10 @@ void sub_100039F18(uint64_t a1, void *a2, void *a3)
   v4 = a2;
   [a3 name];
   sub_10000FB1C();
-  sub_10000FB78(&_mh_execute_header, v5, v6, "%{public}@> Unable to create listener for %s", v7, v8, v9, v10, v11);
+  sub_10000FB78(&_mh_execute_header, v5, v6, "%{public}@> Unable to create listener for %s", v7, v8, v9, v10);
 }
 
-void sub_100039FAC(uint64_t *a1, _OWORD *a2)
+void sub_100039FAC(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1555,15 +1684,14 @@ void sub_100039FAC(uint64_t *a1, _OWORD *a2)
   a2[2] = 0u;
   *a2 = 0u;
   sub_10000FC30();
-  v3 = __error();
-  strerror(*v3);
+  v2 = __error();
+  strerror(*v2);
   _os_log_send_and_compose_impl();
-  v4 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003A154(const char *a1, uint64_t *a2, _OWORD *a3)
+void sub_10003A154(const char *a1, void *a2, _OWORD *a3)
 {
   strlen(a1);
   *a2 = 0;
@@ -1572,11 +1700,19 @@ void sub_10003A154(const char *a1, uint64_t *a2, _OWORD *a3)
   a3[2] = 0u;
   a3[3] = 0u;
   a3[4] = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  v5 = __error();
-  strerror(*v5);
-  sub_10000FBF0();
-  v6 = *a2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v6 = __error();
+  strerror(*v6);
+  sub_10000FBF0(v5, a2, v7, v8, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -1600,8 +1736,8 @@ void sub_10003A374(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1610,8 +1746,8 @@ void sub_10003A3E0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1620,8 +1756,8 @@ void sub_10003A44C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1630,8 +1766,8 @@ void sub_10003A4B8(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1640,35 +1776,30 @@ void sub_10003A524(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
 void sub_10003A590(uint64_t a1, void *a2, const void *a3)
 {
-  v4 = a2;
-  CFGetTypeID(a3);
-  sub_10000FB78(&_mh_execute_header, v5, v6, "Cannot convert key %s, unsupported type: %lu", v7, v8, v9, v10, 2u);
+  v5 = a2;
+  *v12 = 136315394;
+  *&v12[4] = a1;
+  *&v12[12] = 2048;
+  *&v12[14] = CFGetTypeID(a3);
+  sub_10000FB78(&_mh_execute_header, v6, v7, "Cannot convert key %s, unsupported type: %lu", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 void sub_10003A634(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = sub_10000FC7C();
-  type = xpc_get_type(v5);
+  v3 = a2;
+  v4 = sub_10000FC7C();
+  type = xpc_get_type(v4);
   xpc_type_get_name(type);
   sub_10000FBB4();
   sub_10000FBE0();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x16u);
-}
-
-void sub_10003A6DC(int *a1)
-{
-  v6 = *a1;
-  sub_10000FB54();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void sub_10003A754()
@@ -1701,17 +1832,311 @@ void sub_10003A7CC(void *a1)
   }
 }
 
+void sub_10003A884(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "BoardId";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003A8FC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "BoardRevision";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003A974(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CPUArchitecture";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003A9EC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CertificateProductionStatus";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AA64(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CertificateSecurityMode";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AADC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ChipID";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AB54(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "DeviceClass";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003ABCC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "DeviceColor";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AC44(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "DeviceEnclosureColor";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003ACBC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "DeviceSupportsLockdown";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AD34(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "EffectiveProductionStatusAp";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003ADAC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "EffectiveProductionStatusSEP";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AE24(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "EffectiveSecurityModeAp";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AE9C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "EffectiveSecurityModeSEP";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AF14(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "EthernetMacAddress";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003AF8C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ExtendedSecurityDomain";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B004(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "HWModelStr";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B07C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "HardwarePlatform";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B0F4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "HasSEP";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B16C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "HumanReadableProductVersionString";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B1E4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Image4CryptoHashMethod";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B25C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Image4Supported";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B2D4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "IsUIBuild";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B34C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "IsVirtualDevice";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B3C4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "MobileDeviceMinimumVersion";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B43C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ModelNumber";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B4B4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "OceanComputeCarrierID";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B52C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "OceanComputeCarrierSlot";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B5A4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ProductName";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B61C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ProductType";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B694(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ProductVersionExtra";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B70C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "RegionCode";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B784(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "RegionInfo";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B7FC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ReleaseType";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B874(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SecurityDomain";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B8EC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SerialNumber";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B964(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SigningFuse";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B9DC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "StoreDemoMode";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003BA54(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SupplementalBuildVersion";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003BACC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ThinningProductType";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003BB44(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "UniqueChipID";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003BBBC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "UniqueDeviceID";
+  sub_10000661C(&_mh_execute_header, a1, a3, "Unable to fetch MG property: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10003BC34(void *a1, _OWORD *a2)
 {
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
-void sub_10003BCCC(uint64_t *a1, _OWORD *a2)
+void sub_10003BCCC(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1721,12 +2146,11 @@ void sub_10003BCCC(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003BD80(uint64_t *a1, _OWORD *a2)
+void sub_10003BD80(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1734,9 +2158,17 @@ void sub_10003BD80(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_1000035CC();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_1000035CC(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -1749,46 +2181,42 @@ void sub_10003BF80(NSObject *a1)
   _os_log_error_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "clock_settime: %{errno}d", v3, 8u);
 }
 
-void sub_10003C010(uint64_t *a1, _OWORD *a2)
+void sub_10003C010(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003C0A0(uint64_t *a1, _OWORD *a2)
+void sub_10003C0A0(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003C130(uint64_t *a1, _OWORD *a2)
+void sub_10003C130(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003C1C0(uint64_t *a1, _OWORD *a2)
+void sub_10003C1C0(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -1814,33 +2242,48 @@ void sub_10003C2B8(_BYTE *a1, _BYTE *a2)
   _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
-void sub_10003C324(uint64_t *a1, _OWORD *a2)
+void sub_10003C324(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003C3CC(uint64_t *a1, _OWORD *a2)
+void sub_10003C3CC(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003C4A0(uint64_t *a1, _OWORD *a2)
+void sub_10003C4A0(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -1858,8 +2301,8 @@ void sub_10003C5B0(void *a1, _OWORD *a2)
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1868,8 +2311,8 @@ void sub_10003C624(void *a1, _OWORD *a2)
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1878,24 +2321,25 @@ void sub_10003C6DC(void *a1, _OWORD *a2)
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
-void sub_10003C7D4(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_1000128B8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-}
-
-void sub_10003C85C(uint64_t *a1, _OWORD *a2)
+void sub_10003C85C(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -1905,8 +2349,8 @@ void sub_10003C8F0(void *a1, _OWORD *a2)
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1971,8 +2415,8 @@ void sub_10003CB58(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1981,8 +2425,8 @@ void sub_10003CBC4(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -1991,8 +2435,8 @@ void sub_10003CC30(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2011,7 +2455,7 @@ void sub_10003CD14(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "calling apply_io_iterator iterator: %d", v3, 8u);
 }
 
-void sub_10003CD94(uint64_t *a1, _OWORD *a2)
+void sub_10003CD94(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2021,113 +2465,99 @@ void sub_10003CD94(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003CF2C(uint64_t *a1, _OWORD *a2)
+void sub_10003CF2C(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003CFB8(uint64_t *a1, _OWORD *a2)
+void sub_10003CFB8(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003D044(uint64_t *a1, _OWORD *a2)
+void sub_10003D044(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003D0D0(uint64_t *a1, _OWORD *a2)
+void sub_10003D0D0(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003D15C(uint64_t *a1, _OWORD *a2)
+void sub_10003D15C(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003D204(uint64_t *a1, _OWORD *a2)
+void sub_10003D204(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003D290(uint64_t *a1, _OWORD *a2)
-{
-  sub_1000128A0(a1, a2);
-  sub_10000FC30();
-  sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
-  _os_crash_msg();
-  __break(1u);
-}
-
-void sub_10003D30C(uint64_t *a1, _OWORD *a2)
+void sub_10003D290(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10003D388(uint64_t a1)
+void sub_10003D30C(void *a1, _OWORD *a2)
 {
-  v6 = *(a1 + 32);
-  sub_1000153F4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  sub_1000128A0(a1, a2);
+  sub_10000FC30();
+  sub_10000FB98();
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  _os_crash_msg();
+  __break(1u);
 }
 
-void sub_10003D40C(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_1000153F4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
-void sub_10003D568(uint64_t *a1, _OWORD *a2)
+void sub_10003D568(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2137,7 +2567,6 @@ void sub_10003D568(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -2161,8 +2590,8 @@ void sub_10003D6F4(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2171,8 +2600,8 @@ void sub_10003D760(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2181,7 +2610,7 @@ void sub_10003D7CC(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 localizedDescription];
   sub_100006610();
-  sub_100017B98(&_mh_execute_header, v5, v6, "failed to create RSDNetworkInterface: %{public}@", v7, v8, v9, v10, v11);
+  sub_100017B98(&_mh_execute_header, v5, v6, "failed to create RSDNetworkInterface: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10003D860()
@@ -2196,8 +2625,8 @@ void sub_10003D8D0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2206,8 +2635,8 @@ void sub_10003D9B0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2218,7 +2647,7 @@ void sub_10003DA1C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10003DA8C(const char *a1, uint64_t *a2, _OWORD *a3)
+void sub_10003DA8C(const char *a1, void *a2, _OWORD *a3)
 {
   strlen(a1);
   *a2 = 0;
@@ -2231,17 +2660,9 @@ void sub_10003DA8C(const char *a1, uint64_t *a2, _OWORD *a3)
   v5 = __error();
   strerror(*v5);
   sub_100017B68();
-  sub_100017B40();
-  v6 = *a2;
+  sub_100017B40(v6, v7, v8, v9, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
-}
-
-void sub_10003DB3C(int *a1)
-{
-  v6 = *a1;
-  sub_10000FB54();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_10003DBB4(void *a1, _OWORD *a2)
@@ -2249,8 +2670,8 @@ void sub_10003DBB4(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2261,34 +2682,13 @@ void sub_10003DC20()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10003DC90(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100017B28();
-  sub_100006638(&_mh_execute_header, v2, v3, "%{public}@> can't create bonjour parameters: %{darwin.errno}d");
-}
-
-void sub_10003DCFC(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100017B28();
-  sub_100006638(&_mh_execute_header, v2, v3, "%{public}@> network_connect_in6: %{errno}d");
-}
-
-void sub_10003DD68(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100017B28();
-  sub_100006638(&_mh_execute_header, v2, v3, "%{public}@> ncm failed to connect with %{errno}d");
-}
-
 void sub_10003DE48(void *a1, _OWORD *a2)
 {
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2297,8 +2697,8 @@ void sub_10003DF3C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2307,8 +2707,8 @@ void sub_10003DFA8(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2337,8 +2737,8 @@ void sub_10003E28C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2347,8 +2747,8 @@ void sub_10003E370(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2357,8 +2757,8 @@ void sub_10003E4C0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2383,8 +2783,8 @@ void sub_10003E770(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2414,13 +2814,6 @@ void sub_10003EAA4()
   sub_100006610();
   sub_10000FB54();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10003EB14(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000FB54();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10003EB8C()
@@ -2500,9 +2893,17 @@ void sub_10003EEC0()
 void sub_10003EF30(void *a1, _OWORD *a2)
 {
   sub_100023514(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *v2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2519,8 +2920,8 @@ void sub_10003F068(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2529,8 +2930,8 @@ void sub_10003F114(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2572,9 +2973,17 @@ void sub_10003F2A4()
 void sub_10003F2E0(void *a1, _OWORD *a2)
 {
   sub_100023514(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *v2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2591,8 +3000,8 @@ void sub_10003F478(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2634,8 +3043,8 @@ void sub_10003FAA4(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2644,8 +3053,8 @@ void sub_10003FED0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2654,8 +3063,8 @@ void sub_10003FF78(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2664,8 +3073,8 @@ void sub_10003FFE4(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2676,13 +3085,12 @@ void sub_100040050()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004008C(uint64_t *a1, _OWORD *a2)
+void sub_10004008C(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2694,13 +3102,12 @@ void sub_100040118()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100040154(uint64_t *a1, _OWORD *a2)
+void sub_100040154(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2710,8 +3117,8 @@ void sub_100040248(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2777,8 +3184,8 @@ void sub_10004058C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2794,8 +3201,8 @@ void sub_100040634(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2827,13 +3234,12 @@ void sub_100040820()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004085C(uint64_t *a1, _OWORD *a2)
+void sub_10004085C(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2880,8 +3286,8 @@ void sub_100040B14(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2896,8 +3302,8 @@ void sub_100040BCC(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -2932,9 +3338,17 @@ void sub_100040E58()
 void sub_100040F50(void *a1, _OWORD *a2)
 {
   sub_100023514(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *v2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2944,8 +3358,7 @@ void sub_100041018(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *v2;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2955,8 +3368,7 @@ void sub_100041094(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *v2;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2966,13 +3378,12 @@ void sub_100041110(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *v2;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041274(const char *a1, uint64_t *a2, _OWORD *a3)
+void sub_100041274(const char *a1, void *a2, _OWORD *a3)
 {
   strlen(a1);
   *a2 = 0;
@@ -2985,12 +3396,11 @@ void sub_100041274(const char *a1, uint64_t *a2, _OWORD *a3)
   v5 = __error();
   strerror(*v5);
   _os_log_send_and_compose_impl();
-  v6 = *a2;
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_10004135C(uint64_t *a1, _OWORD *a2)
+void sub_10004135C(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2999,108 +3409,107 @@ void sub_10004135C(uint64_t *a1, _OWORD *a2)
   a2[2] = 0u;
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  v3 = __error();
-  strerror(*v3);
+  v2 = __error();
+  strerror(*v2);
   _os_log_send_and_compose_impl();
-  v4 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041440(uint64_t *a1, _OWORD *a2)
+void sub_100041440(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_1000414CC(uint64_t *a1, _OWORD *a2)
+void sub_1000414CC(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041558(uint64_t *a1, _OWORD *a2)
+void sub_100041558(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_1000415E4(uint64_t *a1, _OWORD *a2)
+void sub_1000415E4(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041670(uint64_t *a1, _OWORD *a2)
+void sub_100041670(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_1000416FC(uint64_t *a1, _OWORD *a2)
+void sub_1000416FC(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041788(uint64_t *a1, _OWORD *a2)
+void sub_100041788(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041830(uint64_t *a1, _OWORD *a2)
+void sub_100041830(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_1000418BC(uint64_t *a1, _OWORD *a2)
+void sub_1000418BC(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -3114,57 +3523,52 @@ void sub_100041938(uint64_t a1, int a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%{public}@> Unable to start remoted listener: %{errno}d", &v3, 0x12u);
 }
 
-void sub_100041A04(uint64_t *a1, _OWORD *a2)
+void sub_100041A04(void *a1, _OWORD *a2)
 {
   sub_1000128A0(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041A80(uint64_t *a1, _OWORD *a2)
+void sub_100041A80(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041B0C(uint64_t *a1, _OWORD *a2)
+void sub_100041B0C(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041B98(uint64_t *a1, _OWORD *a2)
+void sub_100041B98(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041C24(uint64_t *a1, _OWORD *a2)
+void sub_100041C24(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -3176,7 +3580,7 @@ void sub_100041CB0(uint8_t *buf, _BYTE *a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "NCM device is display", buf, 2u);
 }
 
-void sub_100041CF0(uint64_t *a1, _OWORD *a2)
+void sub_100041CF0(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3184,25 +3588,32 @@ void sub_100041CF0(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041DA0(uint64_t *a1, _OWORD *a2)
+void sub_100041DA0(void *a1, _OWORD *a2)
 {
   sub_1000153D8(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  v3 = *a1;
+  sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100041E2C(uint64_t *a1, _OWORD *a2)
+void sub_100041E2C(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3210,9 +3621,17 @@ void sub_100041E2C(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -3245,8 +3664,8 @@ void sub_100042214(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3255,8 +3674,8 @@ void sub_100042280(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3265,8 +3684,8 @@ void sub_1000422EC(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3275,8 +3694,8 @@ void sub_100042358(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3285,8 +3704,8 @@ void sub_1000423C4(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3295,8 +3714,8 @@ void sub_100042464(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3305,8 +3724,8 @@ void sub_1000424D0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3322,8 +3741,8 @@ void sub_10004258C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3340,8 +3759,8 @@ void sub_100042784(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3350,8 +3769,8 @@ void sub_1000427F0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3374,8 +3793,8 @@ void sub_100042908(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3403,9 +3822,17 @@ void sub_100042A20()
 void sub_100042A5C(void *a1, _OWORD *a2)
 {
   sub_100023514(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_10001287C();
-  v3 = *v2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_10001287C(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -3415,8 +3842,8 @@ void sub_100042AE4(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3425,8 +3852,8 @@ void sub_100042B50(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3442,8 +3869,8 @@ void sub_100042C3C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3466,8 +3893,8 @@ void sub_100042D9C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3476,8 +3903,8 @@ void sub_100042E08(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3486,8 +3913,8 @@ void sub_100042E74(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3552,8 +3979,8 @@ void sub_1000430C0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3562,8 +3989,8 @@ void sub_10004312C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3572,8 +3999,8 @@ void sub_100043198(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3582,8 +4009,8 @@ void sub_100043204(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3599,8 +4026,8 @@ void sub_1000432E0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3609,8 +4036,8 @@ void sub_10004334C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3619,8 +4046,8 @@ void sub_1000433B8(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3636,8 +4063,8 @@ void sub_100043520(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3662,8 +4089,8 @@ void sub_100043688(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3686,8 +4113,8 @@ void sub_100043850(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3710,8 +4137,8 @@ void sub_100043B58(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3720,8 +4147,8 @@ void sub_100043C2C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3733,9 +4160,18 @@ void sub_100043CD0(uint64_t a1, void *a2, _OWORD *a3)
   a3[1] = 0u;
   a3[2] = 0u;
   *a3 = 0u;
-  sub_10000FC30();
-  sub_1000035CC();
-  sub_10000FC48();
+  if (sub_10000FC30())
+  {
+    v6 = 3;
+  }
+
+  else
+  {
+    v6 = 2;
+  }
+
+  v7 = sub_1000035CC(v6, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v7);
   __break(1u);
 }
 
@@ -3747,9 +4183,18 @@ void sub_100043D60(uint64_t a1, void *a2, _OWORD *a3)
   a3[1] = 0u;
   a3[2] = 0u;
   *a3 = 0u;
-  sub_10000FC30();
-  sub_1000035CC();
-  sub_10000FC48();
+  if (sub_10000FC30())
+  {
+    v6 = 3;
+  }
+
+  else
+  {
+    v6 = 2;
+  }
+
+  v7 = sub_1000035CC(v6, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v7);
   __break(1u);
 }
 
@@ -3758,8 +4203,8 @@ void sub_100043DF0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3768,8 +4213,8 @@ void sub_100043ED0(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3778,8 +4223,8 @@ void sub_100043F3C(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3788,8 +4233,8 @@ void sub_100043FA8(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3798,49 +4243,49 @@ void sub_100044014(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
 void sub_100044080(void *a1)
 {
   v1 = a1;
-  v2 = *__error();
+  __error();
   sub_100034508();
-  sub_100034520(&_mh_execute_header, v3, v4, "%{public}@> getsockname(2): %{errno}d", v5, v6, v7, v8, v9);
+  sub_100034520(&_mh_execute_header, v2, v3, "%{public}@> getsockname(2): %{errno}d", v4, v5, v6, v7);
 }
 
 void sub_10004410C(void *a1)
 {
   v1 = a1;
-  v2 = *__error();
+  __error();
   sub_100034508();
-  sub_100034520(&_mh_execute_header, v3, v4, "%{public}@> listen(2): %{errno}d", v5, v6, v7, v8, v9);
+  sub_100034520(&_mh_execute_header, v2, v3, "%{public}@> listen(2): %{errno}d", v4, v5, v6, v7);
 }
 
 void sub_100044198(void *a1)
 {
   v1 = a1;
-  v2 = *__error();
+  __error();
   sub_100034508();
-  sub_100034520(&_mh_execute_header, v3, v4, "%{public}@> bind(2): %{errno}d", v5, v6, v7, v8, v9);
+  sub_100034520(&_mh_execute_header, v2, v3, "%{public}@> bind(2): %{errno}d", v4, v5, v6, v7);
 }
 
 void sub_100044224(void *a1)
 {
   v1 = a1;
-  v2 = *__error();
+  __error();
   sub_100034508();
-  sub_100034520(&_mh_execute_header, v3, v4, "%{public}@> socket(2): %{errno}d", v5, v6, v7, v8, v9);
+  sub_100034520(&_mh_execute_header, v2, v3, "%{public}@> socket(2): %{errno}d", v4, v5, v6, v7);
 }
 
 void sub_1000442B0(void *a1)
 {
   v1 = a1;
-  v2 = *__error();
+  __error();
   sub_100034508();
-  sub_100034520(&_mh_execute_header, v3, v4, "%{public}@> connectx(2): %{errno}d", v5, v6, v7, v8, v9);
+  sub_100034520(&_mh_execute_header, v2, v3, "%{public}@> connectx(2): %{errno}d", v4, v5, v6, v7);
 }
 
 void sub_10004433C(uint64_t a1, NSObject *a2)
@@ -3855,9 +4300,9 @@ void sub_10004433C(uint64_t a1, NSObject *a2)
 void sub_1000443C8(void *a1)
 {
   v1 = a1;
-  v2 = *__error();
+  __error();
   sub_100034508();
-  sub_100034520(&_mh_execute_header, v3, v4, "%{public}@> fcntl(2): Failed to set O_NONBLOCK: %{errno}d", v5, v6, v7, v8, v9);
+  sub_100034520(&_mh_execute_header, v2, v3, "%{public}@> fcntl(2): Failed to set O_NONBLOCK: %{errno}d", v4, v5, v6, v7);
 }
 
 void sub_100044454(os_log_t log)
@@ -3872,8 +4317,8 @@ void sub_1000444D8(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3882,8 +4327,8 @@ void sub_100044544(void *a1, _OWORD *a2)
   sub_10000FB34(a1, a2);
   sub_10000FC30();
   sub_10000FB98();
-  sub_1000035CC();
-  sub_10000FC48();
+  v6 = sub_1000035CC(v2, v3, v4, v5, &_mh_execute_header);
+  sub_10000FC48(v6);
   __break(1u);
 }
 
@@ -3897,57 +4342,57 @@ void sub_1000445B0(os_log_t log)
 void sub_100044634(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = *__error();
+  __error();
   sub_1000349A0();
-  sub_1000349B8(&_mh_execute_header, v4, v5, "%{public}@> getsockname(2): %{errno}d", v6, v7, v8, v9, v10);
+  sub_1000349B8(&_mh_execute_header, v3, v4, "%{public}@> getsockname(2): %{errno}d", v5, v6, v7, v8);
 }
 
 void sub_1000446BC(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = *__error();
+  __error();
   sub_1000349A0();
-  sub_1000349B8(&_mh_execute_header, v4, v5, "%{public}@> listen(2): %{errno}d", v6, v7, v8, v9, v10);
+  sub_1000349B8(&_mh_execute_header, v3, v4, "%{public}@> listen(2): %{errno}d", v5, v6, v7, v8);
 }
 
 void sub_100044744(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = *__error();
+  __error();
   sub_1000349A0();
-  sub_1000349B8(&_mh_execute_header, v4, v5, "%{public}@> bind(2): %{errno}d", v6, v7, v8, v9, v10);
+  sub_1000349B8(&_mh_execute_header, v3, v4, "%{public}@> bind(2): %{errno}d", v5, v6, v7, v8);
 }
 
 void sub_1000447CC(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = *__error();
+  __error();
   sub_1000349A0();
-  sub_1000349B8(&_mh_execute_header, v4, v5, "%{public}@> socket(2): %{errno}d", v6, v7, v8, v9, v10);
+  sub_1000349B8(&_mh_execute_header, v3, v4, "%{public}@> socket(2): %{errno}d", v5, v6, v7, v8);
 }
 
 void sub_100044854(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = *__error();
+  __error();
   sub_1000349A0();
-  sub_1000349B8(&_mh_execute_header, v4, v5, "%{public}@> connect() failed: %{errno}d", v6, v7, v8, v9, v10);
+  sub_1000349B8(&_mh_execute_header, v3, v4, "%{public}@> connect() failed: %{errno}d", v5, v6, v7, v8);
 }
 
 void sub_1000448DC(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = *__error();
+  __error();
   sub_1000349A0();
-  sub_1000349B8(&_mh_execute_header, v4, v5, "%{public}@> fcntl() failed: %{errno}d", v6, v7, v8, v9, v10);
+  sub_1000349B8(&_mh_execute_header, v3, v4, "%{public}@> fcntl() failed: %{errno}d", v5, v6, v7, v8);
 }
 
 void sub_100044964(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = *__error();
+  __error();
   sub_1000349A0();
-  sub_1000349B8(&_mh_execute_header, v4, v5, "%{public}@> socket() failed: %{errno}d", v6, v7, v8, v9, v10);
+  sub_1000349B8(&_mh_execute_header, v3, v4, "%{public}@> socket() failed: %{errno}d", v5, v6, v7, v8);
 }
 
 void sub_1000449EC(uint64_t a1, NSObject *a2)

@@ -45,26 +45,26 @@
 - (void)executionDidBegin
 {
   connection = [(VSDeveloperSettingsFetchOperation *)self connection];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke;
-  v8[3] = &unk_278B732E0;
-  v8[4] = self;
-  v4 = [connection serviceWithErrorHandler:v8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke;
+  v9[3] = &unk_278B732E0;
+  v9[4] = self;
+  v4 = [connection serviceWithErrorHandler:v9];
 
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Will fetch developer settings.", buf, 2u);
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will fetch developer settings.", buf, 2u);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke_5;
-  v6[3] = &unk_278B73308;
-  v6[4] = self;
-  [v4 fetchDeveloperSettingsWithCompletionHandler:v6];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke_5;
+  v7[3] = &unk_278B73308;
+  v7[4] = self;
+  [v4 fetchDeveloperSettingsWithCompletionHandler:v7];
 }
 
 uint64_t __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke(uint64_t a1, uint64_t a2)
@@ -96,7 +96,7 @@ void __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke_2(u
 {
   v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -108,7 +108,7 @@ void __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke_2(u
 void __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke_7(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__VSDeveloperSettingsFetchOperation_executionDidBegin__block_invoke_7_cold_1(v2, v3);

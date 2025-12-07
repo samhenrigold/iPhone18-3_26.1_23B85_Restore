@@ -18,19 +18,21 @@
 
   if (byte_1ED48E910 == 1)
   {
-    v5 = objc_allocWithZone(type metadata accessor for SheetLayoutGraph());
-    v6 = sub_1891BA2F4(metricsCopy);
+    type metadata accessor for SheetLayoutGraph();
+    v6 = objc_allocWithZone(v5);
+    v7 = sub_1891BA2F4(metricsCopy);
   }
 
   else
   {
-    v7 = objc_allocWithZone(type metadata accessor for SheetLayoutInfo());
-    v6 = sub_18910EB9C(metricsCopy);
+    type metadata accessor for SheetLayoutInfo();
+    v9 = objc_allocWithZone(v8);
+    v7 = sub_18910EB9C(metricsCopy);
   }
 
-  v8 = v6;
+  v10 = v7;
 
-  return v8;
+  return v10;
 }
 
 + (double)minimumTopInsetForContainerView:(id)view
@@ -53,7 +55,7 @@
   v17 = level.origin.x;
   frameCopy = frame;
   v21 = a10;
-  sub_1891B9F04(v21, frame, metrics, v27, v17, v16, v15, v14, x, y, width, height, *&depthLevel, peeks);
+  sub_1891B9F04(v27, v21, frame, metrics, v17, v16, v15, v14, x, y, width, height, *&depthLevel, peeks);
 
   v23 = v27[1];
   v24 = v27[2];

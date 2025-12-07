@@ -12,7 +12,7 @@
   selfCopy = self;
   sub_24AA695C4();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for AudioPowerSpectrumViewModel();
+  v3.super_class = type metadata accessor for AudioPowerSpectrumViewModel(0);
   [(AudioPowerSpectrumViewModel *)&v3 dealloc];
 }
 

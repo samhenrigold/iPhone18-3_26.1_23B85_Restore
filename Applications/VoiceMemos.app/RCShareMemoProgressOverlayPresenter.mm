@@ -52,7 +52,7 @@
 
   selfCopy = self;
   sub_1000FEA2C(v7, v6);
-  sub_1000338B4(v7);
+  sub_1000338B4(v7, v6);
 }
 
 @end

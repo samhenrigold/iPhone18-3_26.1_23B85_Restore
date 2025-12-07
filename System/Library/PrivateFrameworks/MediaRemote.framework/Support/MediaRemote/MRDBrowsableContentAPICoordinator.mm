@@ -2,6 +2,7 @@
 - (MRDBrowsableContentAPICoordinator)init;
 - (id)applicationsSupportingAPIs:(unsigned int)is;
 - (unsigned)supportedAPIsForApplication:(id)application;
+- (void)setSupportedAPIs:(unsigned int)is forApplication:(id)application;
 @end
 
 @implementation MRDBrowsableContentAPICoordinator
@@ -52,6 +53,21 @@
   }
 
   return unsignedIntValue;
+}
+
+- (void)setSupportedAPIs:(unsigned int)is forApplication:(id)application
+{
+  if (application)
+  {
+    v4 = *&is;
+    persistenceDictionary = self->_persistenceDictionary;
+    applicationCopy = application;
+    v8 = [NSNumber numberWithUnsignedInt:v4];
+    [(NSMutableDictionary *)persistenceDictionary setObject:v8 forKey:applicationCopy];
+
+    v9 = +[NSUserDefaults standardUserDefaults];
+    [v9 setObject:self->_persistenceDictionary forKey:@"MRDBrowsableContentAPICoordinatorPersistence"];
+  }
 }
 
 - (id)applicationsSupportingAPIs:(unsigned int)is

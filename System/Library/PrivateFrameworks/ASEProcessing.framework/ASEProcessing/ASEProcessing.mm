@@ -1,4 +1,4 @@
-_OWORD *createCacheNode(int *a1, uint64_t a2, int a3)
+_OWORD *createCacheNode(int *a1, uint64_t a2, unsigned int a3)
 {
   v3 = 0;
   if (a1 && a2 && a3)
@@ -370,10 +370,11 @@ LABEL_14:
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 uint64_t getFourCCforType(uint64_t a1)
@@ -934,33 +935,32 @@ LABEL_143:
   return a1;
 }
 
-BOOL getInputType(_BOOL8 a1)
+uint64_t getInputType(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (overrideInputType != -1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315650;
-      v5 = "_Bool getInputType(_Bool)";
-      v6 = 1024;
-      v7 = a1;
-      v8 = 1024;
-      v9 = overrideInputType;
-      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s : INFO: override input type: %d -> %d!\n", &v4, 0x18u);
+      v3 = 136315650;
+      v4 = "_Bool getInputType(_Bool)";
+      v5 = 1024;
+      v6 = a1;
+      v7 = 1024;
+      v8 = overrideInputType;
+      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s : INFO: override input type: %d -> %d!\n", &v3, 0x18u);
     }
 
-    a1 = overrideInputType != 0;
+    return overrideInputType != 0;
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 uint64_t getTransferFunction(IOSurfaceRef buffer)
 {
   v1 = buffer;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!buffer)
   {
     goto LABEL_59;
@@ -972,15 +972,15 @@ uint64_t getTransferFunction(IOSurfaceRef buffer)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v12 = "uint32_t getTransferFunction(IOSurfaceRef _Nonnull)";
-    v13 = 1024;
-    v14 = HIBYTE(FourCCforType);
-    v15 = 1024;
-    v16 = BYTE2(FourCCforType);
-    v17 = 1024;
-    v18 = BYTE1(FourCCforType);
-    v19 = 1024;
-    v20 = FourCCforType;
+    v11 = "uint32_t getTransferFunction(IOSurfaceRef _Nonnull)";
+    v12 = 1024;
+    v13 = HIBYTE(FourCCforType);
+    v14 = 1024;
+    v15 = BYTE2(FourCCforType);
+    v16 = 1024;
+    v17 = BYTE1(FourCCforType);
+    v18 = 1024;
+    v19 = FourCCforType;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s : Warning: Unspecified transfer function, deriving from surface format %c%c%c%c!\n", buf, 0x24u);
   }
 
@@ -1182,15 +1182,15 @@ LABEL_64:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v12 = "uint32_t getTransferFunction(IOSurfaceRef _Nonnull)";
-    v13 = 1024;
-    v14 = HIBYTE(FourCCforType);
-    v15 = 1024;
-    v16 = BYTE2(FourCCforType);
-    v17 = 1024;
-    v18 = BYTE1(FourCCforType);
-    v19 = 1024;
-    v20 = FourCCforType;
+    v11 = "uint32_t getTransferFunction(IOSurfaceRef _Nonnull)";
+    v12 = 1024;
+    v13 = HIBYTE(FourCCforType);
+    v14 = 1024;
+    v15 = BYTE2(FourCCforType);
+    v16 = 1024;
+    v17 = BYTE1(FourCCforType);
+    v18 = 1024;
+    v19 = FourCCforType;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s : Warning: Unexpected format %c%c%c%c, will output sRGB Gamma\n", buf, 0x24u);
   }
 
@@ -1200,18 +1200,17 @@ LABEL_59:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v12 = "uint32_t getTransferFunction(IOSurfaceRef _Nonnull)";
-      v13 = 1024;
-      v14 = v1;
-      v15 = 1024;
-      v16 = overrideInputTransferFunction;
+      v11 = "uint32_t getTransferFunction(IOSurfaceRef _Nonnull)";
+      v12 = 1024;
+      v13 = v1;
+      v14 = 1024;
+      v15 = overrideInputTransferFunction;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s : INFO: override transfer function: %d -> %d!\n", buf, 0x18u);
     }
 
-    v1 = overrideInputTransferFunction;
+    return overrideInputTransferFunction;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -1247,7 +1246,7 @@ const char *getTransferFunctionString(int a1)
   }
 }
 
-uint64_t getMSRBaseAddr(unsigned int a1)
+uint64_t getMSRBaseAddr(uint64_t a1, uint64_t a2)
 {
   if (a1 > 0x19)
   {
@@ -1461,7 +1460,7 @@ float interpolate(float a1, float a2, float a3, float a4, float a5)
   }
 }
 
-float *copyPieceWiseCurve(uint64_t a1, uint64_t a2, unsigned int a3, _BYTE *a4)
+float *copyPieceWiseCurve(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
 {
   if (a4)
   {
@@ -1602,7 +1601,7 @@ void copyArray(int *a1, uint64_t a2, unsigned int a3, _BYTE *a4)
   }
 }
 
-float *interpolateTwoPieceWiseCurves(uint64_t a1, float *a2, float *a3, unsigned int a4, _BYTE *a5, float a6)
+float *interpolateTwoPieceWiseCurves(uint64_t a1, float *a2, float *a3, int a4, _BYTE *a5, float a6)
 {
   if (a5)
   {
@@ -1962,25 +1961,25 @@ LABEL_15:
 
 void populateScalingConfig(int8x8_t *a1, _DWORD *a2, int8x8_t a3, float a4, int32x2_t a5)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   a5.i32[0] = overrideASEScalingFactor;
   *&a3.i32[1] = a4;
   v7 = vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(*&overrideASEScalingFactor != 0.0), 0x1FuLL)), vdup_lane_s32(a5, 0), a3);
   if (logLevel >= 3)
   {
-    v28 = v7;
+    v26 = v7;
     v8 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-    v7 = v28;
+    v7 = v26;
     if (v8)
     {
       *buf = 136315650;
-      v31 = "void populateScalingConfig(scalingConfigV3Hcu *, float, float, uint32_t *)";
+      v29 = "void populateScalingConfig(scalingConfigV3Hcu *, float, float, uint32_t *)";
+      v30 = 2048;
+      v31 = v26.f32[0];
       v32 = 2048;
-      v33 = v28.f32[0];
-      v34 = 2048;
-      v35 = v28.f32[1];
+      v33 = v26.f32[1];
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : xScaler = %f, yScaler = %f\n", buf, 0x20u);
-      v7 = v28;
+      v7 = v26;
     }
   }
 
@@ -1996,24 +1995,19 @@ void populateScalingConfig(int8x8_t *a1, _DWORD *a2, int8x8_t a3, float a4, int3
   __asm { FMOV            V3.2D, #0.5 }
 
   *&v18.f64[0] = vmovn_s64(vcvtq_u64_f64(vaddq_f64(v18, _Q3)));
-  v29 = v16.f64[0];
+  v27 = v16.f64[0];
   *&_Q3.f64[0] = vcltz_f32(*&v16.f64[0]);
   *a1 = vorr_s8(vand_s8((*&vand_s8(vneg_s32(*&v18.f64[0]), 0x7F0000007FLL) | 0x80000000800000), *&_Q3.f64[0]), vand_s8(vbic_s8(*&v18.f64[0], *&_Q3.f64[0]), 0x7F0000007FLL));
   a1[1] = *&v17.f64[0];
   if (disableSampleShift)
   {
-    if (logLevel >= 3)
+    if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315394;
-        v31 = "populateScalingConfig";
-        v32 = 1024;
-        LODWORD(v33) = disableSampleShift;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : disableSampleShift = %d\n", buf, 0x12u);
-      }
-
-      v20 = a1[1];
+      *buf = 136315394;
+      v29 = "populateScalingConfig";
+      v30 = 1024;
+      LODWORD(v31) = disableSampleShift;
+      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : disableSampleShift = %d\n", buf, 0x12u);
     }
 
     *a1 = 0;
@@ -2023,18 +2017,20 @@ void populateScalingConfig(int8x8_t *a1, _DWORD *a2, int8x8_t a3, float a4, int3
   a1[2].i32[1] = 0;
   if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v21 = a1->i32[0];
-    v22 = a1->i32[1];
-    v23 = a1[1].i32[0];
-    v24 = a1[1].i32[1];
-    v25 = a1[2].i32[0];
-    v26 = a1[2].i32[1];
+    v20 = a1->i32[0];
+    v21 = a1->i32[1];
+    v22 = a1[1].i32[0];
+    v23 = a1[1].i32[1];
+    v24 = a1[2].i32[0];
+    v25 = a1[2].i32[1];
     *buf = 136317186;
-    v31 = "populateScalingConfig";
+    v29 = "populateScalingConfig";
+    v30 = 2048;
+    v31 = *&v27;
     v32 = 2048;
-    v33 = *&v29;
-    v34 = 2048;
-    v35 = *(&v29 + 1);
+    v33 = *(&v27 + 1);
+    v34 = 1024;
+    v35 = v20;
     v36 = 1024;
     v37 = v21;
     v38 = 1024;
@@ -2045,18 +2041,15 @@ void populateScalingConfig(int8x8_t *a1, _DWORD *a2, int8x8_t a3, float a4, int3
     v43 = v24;
     v44 = 1024;
     v45 = v25;
-    v46 = 1024;
-    v47 = v26;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : initX = %f, initY = %f, DDAInitX = 0x%x, DDAInitY = 0x%x, DDAStepX = 0x%x, DDAStepY = 0x%x, DDAInvStepX = 0x%x, DDAInvStepY = 0x%x\n", buf, 0x44u);
   }
 
   *a2 |= 2u;
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void *populateScalingCoeff(void *__dst, int a2, _DWORD *a3, float a4, double a5, float a6)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (*&overrideASEScalingFactor == 0.0)
   {
     v10 = a4;
@@ -2075,13 +2068,13 @@ void *populateScalingCoeff(void *__dst, int a2, _DWORD *a3, float a4, double a5,
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 136315650;
-        v21 = "void populateScalingCoeff(scalingCoeffV3Hcu *, float, float, float, int, uint32_t *)";
-        v22 = 2048;
-        v23 = a6;
-        v24 = 2048;
-        v25 = *&overrideEnhancement;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : enhancement: %f -> %f\n", &v20, 0x20u);
+        v19 = 136315650;
+        v20 = "void populateScalingCoeff(scalingCoeffV3Hcu *, float, float, float, int, uint32_t *)";
+        v21 = 2048;
+        v22 = a6;
+        v23 = 2048;
+        v24 = *&overrideEnhancement;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : enhancement: %f -> %f\n", &v19, 0x20u);
       }
 
       v11 = *&overrideEnhancement;
@@ -2099,20 +2092,20 @@ void *populateScalingCoeff(void *__dst, int a2, _DWORD *a3, float a4, double a5,
   if (v12 >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v16 = "Default";
-    v20 = 136315906;
-    v21 = "void populateScalingCoeff(scalingCoeffV3Hcu *, float, float, float, int, uint32_t *)";
+    v19 = 136315906;
+    v20 = "void populateScalingCoeff(scalingCoeffV3Hcu *, float, float, float, int, uint32_t *)";
     if (v15)
     {
       v16 = "NEW";
     }
 
-    v22 = 2080;
-    v23 = *&v16;
-    v24 = 2048;
-    v25 = v11;
-    v26 = 2048;
-    v27 = v10;
-    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : Use %s polyphase scaling filters: enhancement_strength = %f, scaler = %f\n", &v20, 0x2Au);
+    v21 = 2080;
+    v22 = *&v16;
+    v23 = 2048;
+    v24 = v11;
+    v25 = 2048;
+    v26 = v10;
+    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s : Use %s polyphase scaling filters: enhancement_strength = %f, scaler = %f\n", &v19, 0x2Au);
   }
 
   if (v15)
@@ -2127,7 +2120,6 @@ void *populateScalingCoeff(void *__dst, int a2, _DWORD *a3, float a4, double a5,
 
   result = memmove(__dst, v17, 0x200uLL);
   *a3 |= 4u;
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2299,7 +2291,7 @@ void *populateAngleDetectConfig(void *result, void *a2, _DWORD *a3)
 
 void populateNoiseConfig(int *a1, int a2, int a3, int a4, _DWORD *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *a1 = a2 - 22;
   a1[1] = a3 - 22;
   a1[2] = a4;
@@ -2312,40 +2304,38 @@ void populateNoiseConfig(int *a1, int a2, int a3, int a4, _DWORD *a5)
     v8 = a1[2];
     v9 = a1[3];
     v10 = a1[4];
-    v12[0] = 67110144;
-    v12[1] = v6;
-    v13 = 1024;
-    v14 = v7;
-    v15 = 1024;
-    v16 = v8;
-    v17 = 1024;
-    v18 = v9;
-    v19 = 1024;
-    v20 = v10;
-    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] noiseMeter = config.{ sizeX=%d, sizeY=%d }, gainControl.{ lut0Gain= %d, lut1Gain= %d, lut2Gain= %d }\n", v12, 0x20u);
+    v11[0] = 67110144;
+    v11[1] = v6;
+    v12 = 1024;
+    v13 = v7;
+    v14 = 1024;
+    v15 = v8;
+    v16 = 1024;
+    v17 = v9;
+    v18 = 1024;
+    v19 = v10;
+    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] noiseMeter = config.{ sizeX=%d, sizeY=%d }, gainControl.{ lut0Gain= %d, lut1Gain= %d, lut2Gain= %d }\n", v11, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9, unsigned int *a10, unsigned int *a11, int *a12, int a13, unsigned int a14, unsigned int a15, unsigned __int8 a16, int a17, uint64_t a18, _DWORD *a19)
+void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9, unsigned int *a10, unsigned int *a11, unsigned int *a12, int a13, unsigned int a14, unsigned int a15, unsigned __int8 a16, int a17, uint64_t a18, _DWORD *a19)
 {
-  v19 = MEMORY[0x28223BE20]();
+  v19 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
   v21 = v20;
   v23 = v22;
   v25 = v24;
   v27 = v26;
   v29 = v28;
-  v190 = v30;
+  v189 = v30;
   v32 = v31;
   v34 = v33;
   v35 = v19;
-  v204 = *MEMORY[0x277D85DE8];
-  v181 = *v24;
-  v182 = *v22;
-  v180 = *v20;
-  v183 = *a9;
-  if ((isT1OrNewer(a13) & 1) == 0)
+  v203 = *MEMORY[0x277D85DE8];
+  v180 = *v24;
+  v181 = *v22;
+  v179 = *v20;
+  v182 = *a9;
+  if (!isT1OrNewer(a13))
   {
     v38 = MEMORY[0x277D86220];
     v39 = MEMORY[0x277D86220];
@@ -2355,18 +2345,18 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Assertion: isT1OrNewer(productType) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASECalculateControlSettingV3.m at line 575\n", buf, 2u);
     }
 
-    if ((isT1OrNewer(a13) & 1) == 0)
+    if (!isT1OrNewer(a13))
     {
       calculate_control_setting_V3_cold_1();
     }
   }
 
-  v184 = v25;
+  v183 = v25;
   v40 = 0;
   v41 = a19;
   *a19 = 0;
   *v37.i32 = a15;
-  v42 = a14 / v190;
+  v42 = a14 / v189;
   v43 = a15 / v29;
   if (v42 >= v43)
   {
@@ -2375,7 +2365,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
   else
   {
-    v44 = a14 / v190;
+    v44 = a14 / v189;
   }
 
   if (v44 <= 2.0)
@@ -2383,10 +2373,10 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     v40 = shouldApplyGraphicSettings(a16, a17);
   }
 
-  v186 = v40;
-  v185 = v23;
-  v187 = v21;
-  *v36.i32 = a14 / v190;
+  v185 = v40;
+  v184 = v23;
+  v186 = v21;
+  *v36.i32 = a14 / v189;
   populateScalingConfig(v34 + 2, a19, v36, v43, v37);
   memset(__src, 0, 512);
   memset(buf, 0, 512);
@@ -2400,7 +2390,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
   v47 = v45 / v46;
   memset(__dst, 0, 352);
-  v188 = v45 / v46;
+  v187 = v45 / v46;
   v48 = a9;
   if (v27)
   {
@@ -2480,26 +2470,26 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       v68 = *a10;
       v69 = v35[32] + v35[31];
       v70 = *a11;
-      *v194 = 67110656;
-      *v195 = v62;
-      *&v195[4] = 1024;
-      *&v195[6] = v188;
-      LOWORD(v196) = 1024;
-      *(&v196 + 2) = v66;
-      HIWORD(v196) = 1024;
-      v197 = v67;
-      v198 = 1024;
-      v199 = v68;
-      v200 = 1024;
-      v201 = v69;
-      v202 = 1024;
-      v203 = v70;
-      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] scene_change_detected = %d, ratio_2D_1D is :%d vs %d; H1 is : %d vs %d,  V1 is: %d vs %d;\n", v194, 0x2Cu);
+      *v193 = 67110656;
+      *v194 = v62;
+      *&v194[4] = 1024;
+      *&v194[6] = v187;
+      LOWORD(v195) = 1024;
+      *(&v195 + 2) = v66;
+      HIWORD(v195) = 1024;
+      v196 = v67;
+      v197 = 1024;
+      v198 = v68;
+      v199 = 1024;
+      v200 = v69;
+      v201 = 1024;
+      v202 = v70;
+      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] scene_change_detected = %d, ratio_2D_1D is :%d vs %d; H1 is : %d vs %d,  V1 is: %d vs %d;\n", v193, 0x2Cu);
     }
   }
 
-  v189 = v34;
-  if (v27 && (100 * v63 / (v190 - 22) * (v29 - 22)) >= 20 && (v27 == 1 || !v62))
+  v188 = v34;
+  if (v27 && (100 * v63 / (v189 - 22) * (v29 - 22)) >= 20 && (v27 == 1 || !v62))
   {
     v81 = 0;
     v82 = 0;
@@ -2513,7 +2503,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       v82 += v35[i + 8];
     }
 
-    v179 = v29;
+    v178 = v29;
     v86 = 0;
     for (j = 79; j != 94; ++j)
     {
@@ -2538,9 +2528,9 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
         v91 = v93 + v92;
       }
 
-      v72 = v179;
-      v98 = v181;
-      v99 = v182;
+      v72 = v178;
+      v98 = v180;
+      v99 = v181;
       v96 = a18;
     }
 
@@ -2550,17 +2540,17 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       v95 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
       {
-        *v194 = 67110144;
-        *v195 = v27;
-        *&v195[4] = 1024;
-        *&v195[6] = v88;
-        LOWORD(v196) = 1024;
-        *(&v196 + 2) = v89;
-        HIWORD(v196) = 1024;
-        v197 = v90;
-        v198 = 1024;
-        v199 = v91;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 06092025: Frame %d:  Ratio_HA_LA_H_2 = %d, Ratio_HA_LA_V_2 = %d, Ratio_HA_LA_HV22  = %d, No_Bad_coded_FilmGrain_score = %d \n", v194, 0x20u);
+        *v193 = 67110144;
+        *v194 = v27;
+        *&v194[4] = 1024;
+        *&v194[6] = v88;
+        LOWORD(v195) = 1024;
+        *(&v195 + 2) = v89;
+        HIWORD(v195) = 1024;
+        v196 = v90;
+        v197 = 1024;
+        v198 = v91;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 06092025: Frame %d:  Ratio_HA_LA_H_2 = %d, Ratio_HA_LA_V_2 = %d, Ratio_HA_LA_HV22  = %d, No_Bad_coded_FilmGrain_score = %d \n", v193, 0x20u);
       }
 
       if (v91 >= (v93 + v92))
@@ -2568,26 +2558,26 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
         v91 = v93 + v92;
       }
 
-      v72 = v179;
+      v72 = v178;
       v96 = a18;
       if (logLevel < 3)
       {
-        v98 = v181;
-        v99 = v182;
+        v98 = v180;
+        v99 = v181;
       }
 
       else
       {
         v97 = v94;
-        v98 = v181;
+        v98 = v180;
         if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
         {
-          *v194 = 67109120;
-          *v195 = v91;
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 07302025: after Band1 adjustment:  No_Bad_coded_FilmGrain_score = %d \n", v194, 8u);
+          *v193 = 67109120;
+          *v194 = v91;
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 07302025: after Band1 adjustment:  No_Bad_coded_FilmGrain_score = %d \n", v193, 8u);
         }
 
-        v99 = v182;
+        v99 = v181;
       }
     }
 
@@ -2627,11 +2617,11 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       v105 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
       {
-        *v194 = 67109376;
-        *v195 = v27;
-        *&v195[4] = 1024;
-        *&v195[6] = v98;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 07302025: Frame %d:  local_step_size = %d\n", v194, 0xEu);
+        *v193 = 67109376;
+        *v194 = v27;
+        *&v194[4] = 1024;
+        *&v194[6] = v98;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 07302025: Frame %d:  local_step_size = %d\n", v193, 0xEu);
       }
     }
 
@@ -2696,19 +2686,19 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       v109 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
       {
-        *v194 = 67110400;
-        *v195 = v27;
-        *&v195[4] = 1024;
-        *&v195[6] = v106;
-        LOWORD(v196) = 1024;
-        *(&v196 + 2) = v107;
-        HIWORD(v196) = 1024;
-        v197 = v91;
-        v198 = 1024;
-        v199 = a16;
-        v200 = 1024;
-        v201 = a17;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Frame %d:  Curr_FG_level = %d, Curr_badly_coded_FG_level = %d, No_Bad_coded_FilmGrain_score = %d; inputIsHDR = %d, inputTransferFunction = %d\n", v194, 0x26u);
+        *v193 = 67110400;
+        *v194 = v27;
+        *&v194[4] = 1024;
+        *&v194[6] = v106;
+        LOWORD(v195) = 1024;
+        *(&v195 + 2) = v107;
+        HIWORD(v195) = 1024;
+        v196 = v91;
+        v197 = 1024;
+        v198 = a16;
+        v199 = 1024;
+        v200 = a17;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Frame %d:  Curr_FG_level = %d, Curr_badly_coded_FG_level = %d, No_Bad_coded_FilmGrain_score = %d; inputIsHDR = %d, inputTransferFunction = %d\n", v193, 0x26u);
       }
     }
 
@@ -2745,11 +2735,11 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       v113 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
       {
-        *v194 = 67109376;
-        *v195 = v27;
-        *&v195[4] = 1024;
-        *&v195[6] = v111;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08042025 Frame %d:  Curr_GFX_level = %d \n", v194, 0xEu);
+        *v193 = 67109376;
+        *v194 = v27;
+        *&v194[4] = 1024;
+        *&v194[6] = v111;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08042025 Frame %d:  Curr_GFX_level = %d \n", v193, 0xEu);
       }
     }
 
@@ -2780,7 +2770,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
     if (v115 >= 15)
     {
-      v117 = v180;
+      v117 = v179;
       if (v115 >= 0x1E)
       {
         if (v115 >= 0x28)
@@ -2843,7 +2833,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     else
     {
       v116 = 0;
-      v117 = v180;
+      v117 = v179;
     }
 
     if (logLevel <= 2)
@@ -2866,11 +2856,11 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       v119 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
       {
-        *v194 = 67109376;
-        *v195 = v116;
-        *&v195[4] = 1024;
-        *&v195[6] = v117;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08282025: Curr_FG_count =%d,  local_FG_count = %d\n", v194, 0xEu);
+        *v193 = 67109376;
+        *v194 = v116;
+        *&v194[4] = 1024;
+        *&v194[6] = v117;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08282025: Curr_FG_count =%d,  local_FG_count = %d\n", v193, 0xEu);
       }
 
       v120 = (__PAIR64__(v117, v116) - v117) >> 32;
@@ -2889,9 +2879,9 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
         v122 = v118;
         if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
         {
-          *v194 = 67109120;
-          *v195 = v121;
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08282025: final local_FG_count = %d\n", v194, 8u);
+          *v193 = 67109120;
+          *v194 = v121;
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08282025: final local_FG_count = %d\n", v193, 8u);
         }
       }
     }
@@ -2908,8 +2898,8 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
         v126 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
         {
-          *v194 = 0;
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Apply iPhone control setting V3\n", v194, 2u);
+          *v193 = 0;
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Apply iPhone control setting V3\n", v193, 2u);
         }
 
         v124 = logLevel;
@@ -2921,9 +2911,9 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
         v128 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
         {
-          *v194 = 67109120;
-          *v195 = v115;
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08272025: inside if (isPhone), Curr_comb_FG = %d\n", v194, 8u);
+          *v193 = 67109120;
+          *v194 = v115;
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08272025: inside if (isPhone), Curr_comb_FG = %d\n", v193, 8u);
         }
       }
 
@@ -2951,7 +2941,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
               v166 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v165, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 2\n";
                 goto LABEL_291;
@@ -2979,7 +2969,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
               v160 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 3\n";
                 goto LABEL_291;
@@ -3005,7 +2995,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
               v148 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 1\n";
                 goto LABEL_291;
@@ -3029,7 +3019,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
             v164 = MEMORY[0x277D86220];
             if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
             {
-              *v194 = 0;
+              *v193 = 0;
               v132 = MEMORY[0x277D86220];
               v133 = " [1.50.3] Film grain level 0\n";
               goto LABEL_291;
@@ -3063,7 +3053,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
               v170 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 4\n";
                 goto LABEL_291;
@@ -3091,7 +3081,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
               v162 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 5\n";
                 goto LABEL_291;
@@ -3123,7 +3113,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
                 v168 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v194 = 0;
+                  *v193 = 0;
                   v132 = MEMORY[0x277D86220];
                   v133 = " [1.50.3] Film grain level 6\n";
                   goto LABEL_291;
@@ -3150,7 +3140,7 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
                 v172 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v194 = 0;
+                  *v193 = 0;
                   v132 = MEMORY[0x277D86220];
                   v133 = " [1.50.3] Film grain level 7\n";
                   goto LABEL_291;
@@ -3168,11 +3158,11 @@ void calculate_control_setting_V3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
                 v131 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v194 = 0;
+                  *v193 = 0;
                   v132 = MEMORY[0x277D86220];
                   v133 = " [1.50.3] Film grain level 8\n";
 LABEL_291:
-                  _os_log_impl(&dword_23D3F2000, v132, OS_LOG_TYPE_DEFAULT, v133, v194, 2u);
+                  _os_log_impl(&dword_23D3F2000, v132, OS_LOG_TYPE_DEFAULT, v133, v193, 2u);
                   goto LABEL_292;
                 }
 
@@ -3194,8 +3184,8 @@ LABEL_291:
         v136 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
         {
-          *v194 = 0;
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Apply iPad control setting V3\n", v194, 2u);
+          *v193 = 0;
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Apply iPad control setting V3\n", v193, 2u);
         }
 
         v134 = logLevel;
@@ -3207,9 +3197,9 @@ LABEL_291:
         v138 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
         {
-          *v194 = 67109120;
-          *v195 = v115;
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08182025: inside else  from if (isPhone), Curr_comb_FG = %d\n", v194, 8u);
+          *v193 = 67109120;
+          *v194 = v115;
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08182025: inside else  from if (isPhone), Curr_comb_FG = %d\n", v193, 8u);
         }
       }
 
@@ -3237,7 +3227,7 @@ LABEL_291:
               v152 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 2\n";
                 goto LABEL_291;
@@ -3265,7 +3255,7 @@ LABEL_291:
               v144 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 3\n";
                 goto LABEL_291;
@@ -3291,7 +3281,7 @@ LABEL_291:
               v142 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 1\n";
                 goto LABEL_291;
@@ -3315,7 +3305,7 @@ LABEL_291:
             v150 = MEMORY[0x277D86220];
             if (os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT))
             {
-              *v194 = 0;
+              *v193 = 0;
               v132 = MEMORY[0x277D86220];
               v133 = " [1.50.3] Film grain level 0\n";
               goto LABEL_291;
@@ -3349,7 +3339,7 @@ LABEL_291:
               v156 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 4\n";
                 goto LABEL_291;
@@ -3377,7 +3367,7 @@ LABEL_291:
               v146 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
               {
-                *v194 = 0;
+                *v193 = 0;
                 v132 = MEMORY[0x277D86220];
                 v133 = " [1.50.3] Film grain level 5\n";
                 goto LABEL_291;
@@ -3409,7 +3399,7 @@ LABEL_291:
                 v154 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v194 = 0;
+                  *v193 = 0;
                   v132 = MEMORY[0x277D86220];
                   v133 = " [1.50.3] Film grain level 6\n";
                   goto LABEL_291;
@@ -3436,7 +3426,7 @@ LABEL_291:
                 v158 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v194 = 0;
+                  *v193 = 0;
                   v132 = MEMORY[0x277D86220];
                   v133 = " [1.50.3] Film grain level 7\n";
                   goto LABEL_291;
@@ -3454,7 +3444,7 @@ LABEL_291:
                 v140 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v194 = 0;
+                  *v193 = 0;
                   v132 = MEMORY[0x277D86220];
                   v133 = " [1.50.3] Film grain level 8\n";
                   goto LABEL_291;
@@ -3475,9 +3465,9 @@ LABEL_292:
       populateBlendConfig(__dst, &blendConfig_SettingVideo_Heavy_FG_V3, &defaultWeightedBlendConfig_noEnh, a18, v41, v44);
       if (logLevel < 3)
       {
-        memcpy(&v189[71], __src, 0x504uLL);
-        memcpy(&v189[232] + 4, buf, 0x83CuLL);
-        memcpy(&v189[497], __dst, 0x610uLL);
+        memcpy(&v188[71], __src, 0x504uLL);
+        memcpy(&v188[232] + 4, buf, 0x83CuLL);
+        memcpy(&v188[497], __dst, 0x610uLL);
         goto LABEL_303;
       }
 
@@ -3485,15 +3475,15 @@ LABEL_292:
       v174 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT))
       {
-        *v194 = 0;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]  08062025 artificial ramp  no enhancement\n", v194, 2u);
+        *v193 = 0;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]  08062025 artificial ramp  no enhancement\n", v193, 2u);
       }
     }
 
     v175 = logLevel;
-    memcpy(&v189[71], __src, 0x504uLL);
-    memcpy(&v189[232] + 4, buf, 0x83CuLL);
-    memcpy(&v189[497], __dst, 0x610uLL);
+    memcpy(&v188[71], __src, 0x504uLL);
+    memcpy(&v188[232] + 4, buf, 0x83CuLL);
+    memcpy(&v188[497], __dst, 0x610uLL);
     if (v175 >= 3)
     {
       v77 = v99;
@@ -3501,25 +3491,25 @@ LABEL_292:
       v177 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v176, OS_LOG_TYPE_DEFAULT))
       {
-        *v194 = 134218242;
-        *v195 = __src;
-        *&v195[8] = 2080;
-        v196 = "peakingConfig_FG";
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", v194, 0x16u);
+        *v193 = 134218242;
+        *v194 = __src;
+        *&v194[8] = 2080;
+        v195 = "peakingConfig_FG";
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", v193, 0x16u);
       }
 
-      v80 = v186;
-      v76 = v183;
+      v80 = v185;
+      v76 = v182;
       goto LABEL_304;
     }
 
 LABEL_303:
-    v80 = v186;
-    v76 = v183;
+    v80 = v185;
+    v76 = v182;
     v77 = v99;
 LABEL_304:
     v48 = a9;
-    v75 = v187;
+    v75 = v186;
     v78 = v121;
     goto LABEL_305;
   }
@@ -3544,26 +3534,26 @@ LABEL_304:
     v76 = 0;
     v78 = 4;
     v79 = 4;
-    v75 = v187;
+    v75 = v186;
     v77 = 1;
   }
 
   else
   {
-    v75 = v187;
+    v75 = v186;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v194 = 134218242;
-      *v195 = &peakingConfig_InitialSettingVideo_V3;
-      *&v195[8] = 2080;
-      v196 = "peakingConfig_InitialSettingVideo_V3";
-      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", v194, 0x16u);
+      *v193 = 134218242;
+      *v194 = &peakingConfig_InitialSettingVideo_V3;
+      *&v194[8] = 2080;
+      v195 = "peakingConfig_InitialSettingVideo_V3";
+      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", v193, 0x16u);
     }
 
     if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v194 = 0;
-      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08282025: scene change detected\n", v194, 2u);
+      *v193 = 0;
+      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 08282025: scene change detected\n", v193, 2u);
     }
 
     v76 = 0;
@@ -3572,21 +3562,20 @@ LABEL_304:
     v79 = 4;
   }
 
-  v80 = v186;
+  v80 = v185;
 LABEL_305:
   *v41 |= 0x38u;
-  populateScalingCoeff(&v189[6], v80, v41, v42, v74, v32);
-  v189[692] = 0x2D0000000005;
+  populateScalingCoeff(&v188[6], v80, v41, v42, v74, v32);
+  v188[692] = 0x2D0000000005;
   *v41 |= 0x40u;
-  *v184 = v79;
-  *v185 = v77;
+  *v183 = v79;
+  *v184 = v77;
   *v75 = v78;
   *v48 = v76;
   *a10 = v35[16] + v35[15];
   *a11 = v35[32] + v35[31];
-  *a12 = v188;
-  populateNoiseConfig(&v189[694], v190, v72, v79, v41);
-  v178 = *MEMORY[0x277D85DE8];
+  *a12 = v187;
+  populateNoiseConfig(&v188[694], v189, v72, v79, v41);
 }
 
 uint64_t calculate_graphics_control_setting_V3(int8x8_t *a1, unsigned int a2, unsigned int a3, double a4, double a5, double a6, uint64_t a7, uint64_t a8, unsigned int a9, unsigned int a10, uint64_t a11, uint64_t a12, uint64_t a13, _DWORD *a14)
@@ -3616,7 +3605,7 @@ uint64_t calculate_graphics_control_setting_V3(int8x8_t *a1, unsigned int a2, un
 
 uint64_t getCurrentProductType()
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v0 = MGCopyAnswer();
   if (v0)
   {
@@ -3687,24 +3676,24 @@ uint64_t getCurrentProductType()
             {
 LABEL_65:
               CFRelease(v1);
-              goto LABEL_66;
+              return v3;
             }
 
-            v10 = 136316162;
-            v11 = "ASEproductType getCurrentProductType(void)";
-            v12 = 2048;
-            *v13 = v1;
-            *&v13[8] = 2112;
-            *&v13[10] = v1;
-            *&v13[18] = 2048;
-            *&v13[20] = v2;
-            v14 = 1024;
-            v15 = 9;
+            v9 = 136316162;
+            v10 = "ASEproductType getCurrentProductType(void)";
+            v11 = 2048;
+            *v12 = v1;
+            *&v12[8] = 2112;
+            *&v12[10] = v1;
+            *&v12[18] = 2048;
+            *&v12[20] = v2;
+            v13 = 1024;
+            v14 = 9;
             v4 = MEMORY[0x277D86220];
             v5 = " [1.50.3] %s : Unknown device! deviceNameRef: %p, %@, chipID = 0x%llx, productType=%u\n";
             v6 = 48;
 LABEL_64:
-            _os_log_impl(&dword_23D3F2000, v4, OS_LOG_TYPE_DEFAULT, v5, &v10, v6);
+            _os_log_impl(&dword_23D3F2000, v4, OS_LOG_TYPE_DEFAULT, v5, &v9, v6);
             goto LABEL_65;
           }
 
@@ -3811,14 +3800,14 @@ LABEL_61:
       goto LABEL_65;
     }
 
-    v10 = 136315906;
-    v11 = "getCurrentProductType";
-    v12 = 1024;
-    *v13 = v3;
-    *&v13[4] = 2112;
-    *&v13[6] = v1;
-    *&v13[14] = 2048;
-    *&v13[16] = v2;
+    v9 = 136315906;
+    v10 = "getCurrentProductType";
+    v11 = 1024;
+    *v12 = v3;
+    *&v12[4] = 2112;
+    *&v12[6] = v1;
+    *&v12[14] = 2048;
+    *&v12[16] = v2;
     v4 = MEMORY[0x277D86220];
     v5 = " [1.50.3] %s: productType=%d, deviceName = %@, chipID = 0x%llx\n";
     v6 = 38;
@@ -3827,51 +3816,46 @@ LABEL_61:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "getCurrentProductType";
-    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s: Failed to query kMGQDeviceName\n", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "getCurrentProductType";
+    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s: Failed to query kMGQDeviceName\n", &v9, 0xCu);
   }
 
-  v3 = 9;
-LABEL_66:
-  v8 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 9;
 }
 
 BOOL shouldApplyGraphicSettings(int a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a2 == 16 && logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "shouldApplyGraphicSettings";
-    v8 = 2080;
+    v5 = 136315650;
+    v6 = "shouldApplyGraphicSettings";
+    v7 = 2080;
     InputTypeString = getInputTypeString(a1);
-    v10 = 2080;
+    v9 = 2080;
     TransferFunctionString = getTransferFunctionString(16);
-    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s: Enable graphics settings! isHDR = %s, transferFunction = %s\n", &v6, 0x20u);
+    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s: Enable graphics settings! isHDR = %s, transferFunction = %s\n", &v5, 0x20u);
   }
 
-  result = a2 == 16;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return a2 == 16;
 }
 
 void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5, int *a6, int *a7, _DWORD *a8, unsigned int *a9, unsigned int *a10, unsigned int *a11, unsigned int *a12, unsigned int a13, int a14, int a15, unsigned __int8 a16, int a17)
 {
   v17 = a2;
-  v203 = *MEMORY[0x277D85DE8];
+  v202 = *MEMORY[0x277D85DE8];
   v19 = *a6;
-  v165 = *a7;
-  v162 = *a9;
-  v163 = *a8;
+  v164 = *a7;
+  v161 = *a9;
+  v162 = *a8;
   memset(__src, 0, 512);
-  v189 = 0uLL;
-  v190 = 0;
-  v187 = 0uLL;
-  v188 = 0;
-  memset(v186, 0, sizeof(v186));
-  memset(&v185[8], 0, 160);
+  v188 = 0uLL;
+  v189 = 0;
+  v186 = 0uLL;
+  v187 = 0;
+  memset(v185, 0, sizeof(v185));
+  memset(&v184[8], 0, 160);
   v20 = 100 * a1[94];
   v21 = a1[30];
   if (v21 <= a1[46])
@@ -3879,12 +3863,12 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
     v21 = a1[46];
   }
 
-  memset(v185, 0, 128);
+  memset(v184, 0, 128);
   v22 = v20 / v21;
   v24 = a3 > 0x383 && a4 > 0x1F3;
-  v167 = v24;
-  v169 = v22;
-  v171 = v19;
+  v166 = v24;
+  v168 = v22;
+  v170 = v19;
   if (a5)
   {
     v25 = a1[16] + a1[15];
@@ -3953,7 +3937,7 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
 
   v39 = *a1;
   v40 = a3 - 22;
-  v170 = a4 - 22;
+  v169 = a4 - 22;
   memset(__dst, 0, 512);
   if (logLevel >= 3)
   {
@@ -3972,19 +3956,19 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
       v52 = a1[32] + a1[31];
       v53 = *a11;
       *buf = 67110656;
-      *v194 = v38;
-      *&v194[4] = 1024;
-      *&v194[6] = v169;
-      LOWORD(v195) = 1024;
-      *(&v195 + 2) = v49;
-      HIWORD(v195) = 1024;
-      v196 = v50;
-      v197 = 1024;
-      v198 = v51;
-      v199 = 1024;
-      v200 = v52;
-      v201 = 1024;
-      v202 = v53;
+      *v193 = v38;
+      *&v193[4] = 1024;
+      *&v193[6] = v168;
+      LOWORD(v194) = 1024;
+      *(&v194 + 2) = v49;
+      HIWORD(v194) = 1024;
+      v195 = v50;
+      v196 = 1024;
+      v197 = v51;
+      v198 = 1024;
+      v199 = v52;
+      v200 = 1024;
+      v201 = v53;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] scene_change_detected = %d, ratio_2D_1D is :%d vs %d; H1 is : %d vs %d,  V1 is: %d vs %d;\n", buf, 0x2Cu);
     }
 
@@ -3996,7 +3980,7 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
     v17 = a2;
   }
 
-  if (a5 && (100 * v39 / v40 * v170) >= 20 && (a5 == 1 || !v38))
+  if (a5 && (100 * v39 / v40 * v169) >= 20 && (a5 == 1 || !v38))
   {
     v72 = 0;
     v73 = 0;
@@ -4011,7 +3995,7 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
     while (v72 != 7);
     v75 = 0;
     v76 = 79;
-    v77 = v171;
+    v77 = v170;
     do
     {
       v75 += a1[v76++];
@@ -4038,26 +4022,26 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
     {
       if (v83 > 8.0)
       {
-        if (v171 - 1 <= 4)
+        if (v170 - 1 <= 4)
         {
           v77 = 4;
         }
 
         else
         {
-          v77 = v171 - 1;
+          v77 = v170 - 1;
         }
       }
     }
 
     else
     {
-      v77 = v171 + 1;
+      v77 = v170 + 1;
     }
 
-    v158 = a5;
-    v160 = v40;
-    v161 = a3;
+    v157 = a5;
+    v159 = v40;
+    v160 = a3;
     v66 = a7;
     v84 = a8;
     if (v77 <= 0xE)
@@ -4086,7 +4070,7 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
       v85 = 100;
     }
 
-    v172 = v77;
+    v171 = v77;
     if (v78 <= 30)
     {
       if (v78 < 24)
@@ -4121,17 +4105,17 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
       if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67110400;
-        *v194 = v158;
-        *&v194[4] = 1024;
-        *&v194[6] = v85;
-        LOWORD(v195) = 1024;
-        *(&v195 + 2) = v86;
-        HIWORD(v195) = 1024;
-        v196 = v78;
-        v197 = 1024;
-        v198 = a16;
-        v199 = 1024;
-        v200 = a17;
+        *v193 = v157;
+        *&v193[4] = 1024;
+        *&v193[6] = v85;
+        LOWORD(v194) = 1024;
+        *(&v194 + 2) = v86;
+        HIWORD(v194) = 1024;
+        v195 = v78;
+        v196 = 1024;
+        v197 = a16;
+        v198 = 1024;
+        v199 = a17;
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Frame %d:  Curr_FG_level = %d, Curr_badly_coded_FG_level = %d, No_Bad_coded_FilmGrain_score = %d; inputIsHDR = %d, inputTransferFunction = %d\n", buf, 0x26u);
       }
     }
@@ -4170,13 +4154,13 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
       if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109888;
-        *v194 = v158;
-        *&v194[4] = 1024;
-        *&v194[6] = v91;
-        LOWORD(v195) = 1024;
-        *(&v195 + 2) = v172;
-        HIWORD(v195) = 1024;
-        v196 = v86;
+        *v193 = v157;
+        *&v193[4] = 1024;
+        *&v193[6] = v91;
+        LOWORD(v194) = 1024;
+        *(&v194 + 2) = v171;
+        HIWORD(v194) = 1024;
+        v195 = v86;
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 06162025 Frame %d:  Curr_GFX_level = %d,  local_step_size = %d, Curr_badly_coded_FG_level =%d\n", buf, 0x1Au);
       }
     }
@@ -4206,17 +4190,17 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
       v95 = overrideFGLevel;
     }
 
-    v176 = lumaBlend_default;
-    v177 = unk_27E2DA418;
-    v178 = xmmword_27E2DA428;
-    v173 = lumaBlend_default;
-    v174 = unk_27E2DA418;
-    v175 = xmmword_27E2DA428;
-    v159 = a13 - 2;
+    v175 = lumaBlend_default;
+    v176 = unk_27E2DA418;
+    v177 = xmmword_27E2DA428;
+    v172 = lumaBlend_default;
+    v173 = unk_27E2DA418;
+    v174 = xmmword_27E2DA428;
+    v158 = a13 - 2;
     if (a13 - 2 > 6)
     {
       v65 = v84;
-      v67 = v161;
+      v67 = v160;
       if (logLevel >= 4)
       {
         v100 = MEMORY[0x277D86220];
@@ -4230,7 +4214,7 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
         v87 = a17;
       }
 
-      if (v167)
+      if (v166)
       {
         if (v95 > 29)
         {
@@ -4241,33 +4225,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
               if (v95 > 0x5E)
               {
                 memcpy(__dst, &SettingVideo_Heavy_FG_V2, 0x22CuLL);
-                v189 = downSample_SettingVideo_Heavy_FG_V2;
-                v190 = dword_27E2D0654;
-                memcpy(v186, &blendLogic_SettingVideo_Heavy_FG_V2, sizeof(v186));
-                v182 = objectProtection_SettingVideo_Heavy_FG_V2;
-                v183 = unk_27E2D0788;
-                *v184 = xmmword_27E2D0798;
-                *&v184[12] = *(&xmmword_27E2D0798 + 12);
+                v188 = downSample_SettingVideo_Heavy_FG_V2;
+                v189 = dword_27E2D0654;
+                memcpy(v185, &blendLogic_SettingVideo_Heavy_FG_V2, sizeof(v185));
+                v181 = objectProtection_SettingVideo_Heavy_FG_V2;
+                v182 = unk_27E2D0788;
+                *v183 = xmmword_27E2D0798;
+                *&v183[12] = *(&xmmword_27E2D0798 + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v176 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                  v177 = unk_27E2DA2F8;
-                  v178 = xmmword_27E2DA308;
+                  v175 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                  v176 = unk_27E2DA2F8;
+                  v177 = xmmword_27E2DA308;
                 }
 
                 memcpy(__src, &SettingVideo_Heavy_FG_mix_V2, 0x22CuLL);
-                v187 = downSample_SettingVideo_Heavy_FG_mix_V2;
-                v188 = dword_27E2D1860;
-                memcpy(v185, &blendLogic_SettingVideo_Heavy_FG_mix_V2, sizeof(v185));
-                v179 = objectProtection_SettingVideo_Heavy_FG_mix_V2;
-                v180 = unk_27E2D1994;
-                *v181 = xmmword_27E2D19A4;
-                *&v181[12] = *(&xmmword_27E2D19A4 + 12);
+                v186 = downSample_SettingVideo_Heavy_FG_mix_V2;
+                v187 = dword_27E2D1860;
+                memcpy(v184, &blendLogic_SettingVideo_Heavy_FG_mix_V2, sizeof(v184));
+                v178 = objectProtection_SettingVideo_Heavy_FG_mix_V2;
+                v179 = unk_27E2D1994;
+                *v180 = xmmword_27E2D19A4;
+                *&v180[12] = *(&xmmword_27E2D19A4 + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v173 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                  v174 = unk_27E2DA2F8;
-                  v175 = xmmword_27E2DA308;
+                  v172 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                  v173 = unk_27E2DA2F8;
+                  v174 = xmmword_27E2DA308;
                 }
 
                 if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4282,33 +4266,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
               else
               {
                 memcpy(__dst, &SettingVideo_level3_FG_V2, 0x22CuLL);
-                v189 = downSample_SettingVideo_level3_FG_V2;
-                v190 = dword_27E2D14C4;
-                memcpy(v186, &blendLogic_SettingVideo_level3_FG_V2, sizeof(v186));
-                v182 = objectProtection_SettingVideo_level3_FG_V2;
-                v183 = unk_27E2D15F8;
-                *v184 = xmmword_27E2D1608;
-                *&v184[12] = *(&xmmword_27E2D1608 + 12);
+                v188 = downSample_SettingVideo_level3_FG_V2;
+                v189 = dword_27E2D14C4;
+                memcpy(v185, &blendLogic_SettingVideo_level3_FG_V2, sizeof(v185));
+                v181 = objectProtection_SettingVideo_level3_FG_V2;
+                v182 = unk_27E2D15F8;
+                *v183 = xmmword_27E2D1608;
+                *&v183[12] = *(&xmmword_27E2D1608 + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v176 = lumaBlend_SettingVideo_level3_FG_V2;
-                  v177 = unk_27E2DA3B8;
-                  v178 = xmmword_27E2DA3C8;
+                  v175 = lumaBlend_SettingVideo_level3_FG_V2;
+                  v176 = unk_27E2DA3B8;
+                  v177 = xmmword_27E2DA3C8;
                 }
 
                 memcpy(__src, &SettingVideo_level3_FG_mix_V2, 0x22CuLL);
-                v187 = downSample_SettingVideo_level3_FG_mix_V2;
-                v188 = dword_27E2D26D0;
-                memcpy(v185, &blendLogic_SettingVideo_level3_FG_mix_V2, sizeof(v185));
-                v179 = objectProtection_SettingVideo_level3_FG_mix_V2;
-                v180 = unk_27E2D2804;
-                *v181 = xmmword_27E2D2814;
-                *&v181[12] = *(&xmmword_27E2D2814 + 12);
+                v186 = downSample_SettingVideo_level3_FG_mix_V2;
+                v187 = dword_27E2D26D0;
+                memcpy(v184, &blendLogic_SettingVideo_level3_FG_mix_V2, sizeof(v184));
+                v178 = objectProtection_SettingVideo_level3_FG_mix_V2;
+                v179 = unk_27E2D2804;
+                *v180 = xmmword_27E2D2814;
+                *&v180[12] = *(&xmmword_27E2D2814 + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v173 = lumaBlend_SettingVideo_level3_FG_V2;
-                  v174 = unk_27E2DA3B8;
-                  v175 = xmmword_27E2DA3C8;
+                  v172 = lumaBlend_SettingVideo_level3_FG_V2;
+                  v173 = unk_27E2DA3B8;
+                  v174 = xmmword_27E2DA3C8;
                 }
 
                 if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4324,33 +4308,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
             else
             {
               memcpy(__dst, &SettingVideo_level2_FG_V2, 0x22CuLL);
-              v189 = downSample_SettingVideo_level2_FG_V2;
-              v190 = dword_27E2D1128;
-              memcpy(v186, &blendLogic_SettingVideo_level2_FG_V2, sizeof(v186));
-              v182 = objectProtection_SettingVideo_level2_FG_V2;
-              v183 = unk_27E2D125C;
-              *v184 = xmmword_27E2D126C;
-              *&v184[12] = *(&xmmword_27E2D126C + 12);
+              v188 = downSample_SettingVideo_level2_FG_V2;
+              v189 = dword_27E2D1128;
+              memcpy(v185, &blendLogic_SettingVideo_level2_FG_V2, sizeof(v185));
+              v181 = objectProtection_SettingVideo_level2_FG_V2;
+              v182 = unk_27E2D125C;
+              *v183 = xmmword_27E2D126C;
+              *&v183[12] = *(&xmmword_27E2D126C + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v176 = lumaBlend_SettingVideo_level2_FG_V2;
-                v177 = unk_27E2DA388;
-                v178 = xmmword_27E2DA398;
+                v175 = lumaBlend_SettingVideo_level2_FG_V2;
+                v176 = unk_27E2DA388;
+                v177 = xmmword_27E2DA398;
               }
 
               memcpy(__src, &SettingVideo_level2_FG_mix_V2, 0x22CuLL);
-              v187 = downSample_SettingVideo_level2_FG_mix_V2;
-              v188 = dword_27E2D2334;
-              memcpy(v185, &blendLogic_SettingVideo_level2_FG_mix_V2, sizeof(v185));
-              v179 = objectProtection_SettingVideo_level2_FG_mix_V2;
-              v180 = unk_27E2D2468;
-              *v181 = xmmword_27E2D2478;
-              *&v181[12] = *(&xmmword_27E2D2478 + 12);
+              v186 = downSample_SettingVideo_level2_FG_mix_V2;
+              v187 = dword_27E2D2334;
+              memcpy(v184, &blendLogic_SettingVideo_level2_FG_mix_V2, sizeof(v184));
+              v178 = objectProtection_SettingVideo_level2_FG_mix_V2;
+              v179 = unk_27E2D2468;
+              *v180 = xmmword_27E2D2478;
+              *&v180[12] = *(&xmmword_27E2D2478 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v173 = lumaBlend_SettingVideo_level2_FG_V2;
-                v174 = unk_27E2DA388;
-                v175 = xmmword_27E2DA398;
+                v172 = lumaBlend_SettingVideo_level2_FG_V2;
+                v173 = unk_27E2DA388;
+                v174 = xmmword_27E2DA398;
               }
 
               if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4366,33 +4350,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
           else
           {
             memcpy(__dst, &SettingVideo_level1_FG_V2, 0x22CuLL);
-            v189 = downSample_SettingVideo_level1_FG_V2;
-            v190 = dword_27E2D0D8C;
-            memcpy(v186, &blendLogic_SettingVideo_level1_FG_V2, sizeof(v186));
-            v182 = objectProtection_SettingVideo_level1_FG_V2;
-            v183 = unk_27E2D0EC0;
-            *v184 = xmmword_27E2D0ED0;
-            *&v184[12] = *(&xmmword_27E2D0ED0 + 12);
+            v188 = downSample_SettingVideo_level1_FG_V2;
+            v189 = dword_27E2D0D8C;
+            memcpy(v185, &blendLogic_SettingVideo_level1_FG_V2, sizeof(v185));
+            v181 = objectProtection_SettingVideo_level1_FG_V2;
+            v182 = unk_27E2D0EC0;
+            *v183 = xmmword_27E2D0ED0;
+            *&v183[12] = *(&xmmword_27E2D0ED0 + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v176 = lumaBlend_SettingVideo_level1_FG_V2;
-              v177 = unk_27E2DA358;
-              v178 = xmmword_27E2DA368;
+              v175 = lumaBlend_SettingVideo_level1_FG_V2;
+              v176 = unk_27E2DA358;
+              v177 = xmmword_27E2DA368;
             }
 
             memcpy(__src, &SettingVideo_level1_FG_mix_V2, 0x22CuLL);
-            v187 = downSample_SettingVideo_level1_FG_mix_V2;
-            v188 = dword_27E2D1F98;
-            memcpy(v185, &blendLogic_SettingVideo_level1_FG_mix_V2, sizeof(v185));
-            v179 = objectProtection_SettingVideo_level1_FG_mix_V2;
-            v180 = unk_27E2D20CC;
-            *v181 = xmmword_27E2D20DC;
-            *&v181[12] = *(&xmmword_27E2D20DC + 12);
+            v186 = downSample_SettingVideo_level1_FG_mix_V2;
+            v187 = dword_27E2D1F98;
+            memcpy(v184, &blendLogic_SettingVideo_level1_FG_mix_V2, sizeof(v184));
+            v178 = objectProtection_SettingVideo_level1_FG_mix_V2;
+            v179 = unk_27E2D20CC;
+            *v180 = xmmword_27E2D20DC;
+            *&v180[12] = *(&xmmword_27E2D20DC + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v173 = lumaBlend_SettingVideo_level1_FG_V2;
-              v174 = unk_27E2DA358;
-              v175 = xmmword_27E2DA368;
+              v172 = lumaBlend_SettingVideo_level1_FG_V2;
+              v173 = unk_27E2DA358;
+              v174 = xmmword_27E2DA368;
             }
 
             if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4408,33 +4392,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
         else
         {
           memcpy(__dst, &SettingVideo_light_FG_V2, 0x22CuLL);
-          v189 = downSample_SettingVideo_light_FG_V2;
-          v190 = dword_27E2D09F0;
-          memcpy(v186, &blendLogic_SettingVideo_light_FG_V2, sizeof(v186));
-          v182 = objectProtection_SettingVideo_light_FG_V2;
-          v183 = unk_27E2D0B24;
-          *v184 = xmmword_27E2D0B34;
-          *&v184[12] = *(&xmmword_27E2D0B34 + 12);
+          v188 = downSample_SettingVideo_light_FG_V2;
+          v189 = dword_27E2D09F0;
+          memcpy(v185, &blendLogic_SettingVideo_light_FG_V2, sizeof(v185));
+          v181 = objectProtection_SettingVideo_light_FG_V2;
+          v182 = unk_27E2D0B24;
+          *v183 = xmmword_27E2D0B34;
+          *&v183[12] = *(&xmmword_27E2D0B34 + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v176 = lumaBlend_SettingVideo_light_FG_V2;
-            v177 = unk_27E2DA328;
-            v178 = xmmword_27E2DA338;
+            v175 = lumaBlend_SettingVideo_light_FG_V2;
+            v176 = unk_27E2DA328;
+            v177 = xmmword_27E2DA338;
           }
 
           memcpy(__src, &SettingVideo_light_FG_mix_V2, 0x22CuLL);
-          v187 = downSample_SettingVideo_light_FG_mix_V2;
-          v188 = dword_27E2D1BFC;
-          memcpy(v185, &blendLogic_SettingVideo_light_FG_mix_V2, sizeof(v185));
-          v179 = objectProtection_SettingVideo_light_FG_mix_V2;
-          v180 = unk_27E2D1D30;
-          *v181 = xmmword_27E2D1D40;
-          *&v181[12] = *(&xmmword_27E2D1D40 + 12);
+          v186 = downSample_SettingVideo_light_FG_mix_V2;
+          v187 = dword_27E2D1BFC;
+          memcpy(v184, &blendLogic_SettingVideo_light_FG_mix_V2, sizeof(v184));
+          v178 = objectProtection_SettingVideo_light_FG_mix_V2;
+          v179 = unk_27E2D1D30;
+          *v180 = xmmword_27E2D1D40;
+          *&v180[12] = *(&xmmword_27E2D1D40 + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v173 = lumaBlend_SettingVideo_light_FG_V2;
-            v174 = unk_27E2DA328;
-            v175 = xmmword_27E2DA338;
+            v172 = lumaBlend_SettingVideo_light_FG_V2;
+            v173 = unk_27E2DA328;
+            v174 = xmmword_27E2DA338;
           }
 
           if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4456,33 +4440,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
             if (v95 > 0x5E)
             {
               memcpy(__dst, &SettingVideo_Heavy_FG_LargeRatio_V2, 0x22CuLL);
-              v189 = downSample_SettingVideo_Heavy_FG_LargeRatio_V2;
-              v190 = dword_27E2D2E08;
-              memcpy(v186, &blendLogic_SettingVideo_Heavy_FG_LargeRatio_V2, sizeof(v186));
-              v182 = objectProtection_SettingVideo_Heavy_FG_LargeRatio_V2;
-              v183 = unk_27E2D2F3C;
-              *v184 = xmmword_27E2D2F4C;
-              *&v184[12] = *(&xmmword_27E2D2F4C + 12);
+              v188 = downSample_SettingVideo_Heavy_FG_LargeRatio_V2;
+              v189 = dword_27E2D2E08;
+              memcpy(v185, &blendLogic_SettingVideo_Heavy_FG_LargeRatio_V2, sizeof(v185));
+              v181 = objectProtection_SettingVideo_Heavy_FG_LargeRatio_V2;
+              v182 = unk_27E2D2F3C;
+              *v183 = xmmword_27E2D2F4C;
+              *&v183[12] = *(&xmmword_27E2D2F4C + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v176 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                v177 = unk_27E2DA2F8;
-                v178 = xmmword_27E2DA308;
+                v175 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                v176 = unk_27E2DA2F8;
+                v177 = xmmword_27E2DA308;
               }
 
               memcpy(__src, &SettingVideo_Heavy_FG_mix_LargeRatio_V2, 0x22CuLL);
-              v187 = downSample_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
-              v188 = dword_27E2D4014;
-              memcpy(v185, &blendLogic_SettingVideo_Heavy_FG_mix_LargeRatio_V2, sizeof(v185));
-              v179 = objectProtection_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
-              v180 = unk_27E2D4148;
-              *v181 = xmmword_27E2D4158;
-              *&v181[12] = *(&xmmword_27E2D4158 + 12);
+              v186 = downSample_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
+              v187 = dword_27E2D4014;
+              memcpy(v184, &blendLogic_SettingVideo_Heavy_FG_mix_LargeRatio_V2, sizeof(v184));
+              v178 = objectProtection_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
+              v179 = unk_27E2D4148;
+              *v180 = xmmword_27E2D4158;
+              *&v180[12] = *(&xmmword_27E2D4158 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v173 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                v174 = unk_27E2DA2F8;
-                v175 = xmmword_27E2DA308;
+                v172 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                v173 = unk_27E2DA2F8;
+                v174 = xmmword_27E2DA308;
               }
 
               if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4497,33 +4481,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
             else
             {
               memcpy(__dst, &SettingVideo_level3_FG_LargeRatio_V2, 0x22CuLL);
-              v189 = downSample_SettingVideo_level3_FG_LargeRatio_V2;
-              v190 = dword_27E2D3C78;
-              memcpy(v186, &blendLogic_SettingVideo_level3_FG_LargeRatio_V2, sizeof(v186));
-              v182 = objectProtection_SettingVideo_level3_FG_LargeRatio_V2;
-              v183 = unk_27E2D3DAC;
-              *v184 = xmmword_27E2D3DBC;
-              *&v184[12] = *(&xmmword_27E2D3DBC + 12);
+              v188 = downSample_SettingVideo_level3_FG_LargeRatio_V2;
+              v189 = dword_27E2D3C78;
+              memcpy(v185, &blendLogic_SettingVideo_level3_FG_LargeRatio_V2, sizeof(v185));
+              v181 = objectProtection_SettingVideo_level3_FG_LargeRatio_V2;
+              v182 = unk_27E2D3DAC;
+              *v183 = xmmword_27E2D3DBC;
+              *&v183[12] = *(&xmmword_27E2D3DBC + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v176 = lumaBlend_SettingVideo_level3_FG_V2;
-                v177 = unk_27E2DA3B8;
-                v178 = xmmword_27E2DA3C8;
+                v175 = lumaBlend_SettingVideo_level3_FG_V2;
+                v176 = unk_27E2DA3B8;
+                v177 = xmmword_27E2DA3C8;
               }
 
               memcpy(__src, &SettingVideo_level3_FG_mix_LargeRatio_V2, 0x22CuLL);
-              v187 = downSample_SettingVideo_level3_FG_mix_LargeRatio_V2;
-              v188 = dword_27E2D4E84;
-              memcpy(v185, &blendLogic_SettingVideo_level3_FG_mix_LargeRatio_V2, sizeof(v185));
-              v179 = objectProtection_SettingVideo_level3_FG_mix_LargeRatio_V2;
-              v180 = unk_27E2D4FB8;
-              *v181 = xmmword_27E2D4FC8;
-              *&v181[12] = *(&xmmword_27E2D4FC8 + 12);
+              v186 = downSample_SettingVideo_level3_FG_mix_LargeRatio_V2;
+              v187 = dword_27E2D4E84;
+              memcpy(v184, &blendLogic_SettingVideo_level3_FG_mix_LargeRatio_V2, sizeof(v184));
+              v178 = objectProtection_SettingVideo_level3_FG_mix_LargeRatio_V2;
+              v179 = unk_27E2D4FB8;
+              *v180 = xmmword_27E2D4FC8;
+              *&v180[12] = *(&xmmword_27E2D4FC8 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v173 = lumaBlend_SettingVideo_level3_FG_V2;
-                v174 = unk_27E2DA3B8;
-                v175 = xmmword_27E2DA3C8;
+                v172 = lumaBlend_SettingVideo_level3_FG_V2;
+                v173 = unk_27E2DA3B8;
+                v174 = xmmword_27E2DA3C8;
               }
 
               if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4539,33 +4523,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
           else
           {
             memcpy(__dst, &SettingVideo_level2_FG_LargeRatio_V2, 0x22CuLL);
-            v189 = downSample_SettingVideo_level2_FG_LargeRatio_V2;
-            v190 = dword_27E2D38DC;
-            memcpy(v186, &blendLogic_SettingVideo_level2_FG_LargeRatio_V2, sizeof(v186));
-            v182 = objectProtection_SettingVideo_level2_FG_LargeRatio_V2;
-            v183 = unk_27E2D3A10;
-            *v184 = xmmword_27E2D3A20;
-            *&v184[12] = *(&xmmword_27E2D3A20 + 12);
+            v188 = downSample_SettingVideo_level2_FG_LargeRatio_V2;
+            v189 = dword_27E2D38DC;
+            memcpy(v185, &blendLogic_SettingVideo_level2_FG_LargeRatio_V2, sizeof(v185));
+            v181 = objectProtection_SettingVideo_level2_FG_LargeRatio_V2;
+            v182 = unk_27E2D3A10;
+            *v183 = xmmword_27E2D3A20;
+            *&v183[12] = *(&xmmword_27E2D3A20 + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v176 = lumaBlend_SettingVideo_level2_FG_V2;
-              v177 = unk_27E2DA388;
-              v178 = xmmword_27E2DA398;
+              v175 = lumaBlend_SettingVideo_level2_FG_V2;
+              v176 = unk_27E2DA388;
+              v177 = xmmword_27E2DA398;
             }
 
             memcpy(__src, &SettingVideo_level2_FG_mix_LargeRatio_V2, 0x22CuLL);
-            v187 = downSample_SettingVideo_level2_FG_mix_LargeRatio_V2;
-            v188 = dword_27E2D4AE8;
-            memcpy(v185, &blendLogic_SettingVideo_level2_FG_mix_LargeRatio_V2, sizeof(v185));
-            v179 = objectProtection_SettingVideo_level2_FG_mix_LargeRatio_V2;
-            v180 = unk_27E2D4C1C;
-            *v181 = xmmword_27E2D4C2C;
-            *&v181[12] = *(&xmmword_27E2D4C2C + 12);
+            v186 = downSample_SettingVideo_level2_FG_mix_LargeRatio_V2;
+            v187 = dword_27E2D4AE8;
+            memcpy(v184, &blendLogic_SettingVideo_level2_FG_mix_LargeRatio_V2, sizeof(v184));
+            v178 = objectProtection_SettingVideo_level2_FG_mix_LargeRatio_V2;
+            v179 = unk_27E2D4C1C;
+            *v180 = xmmword_27E2D4C2C;
+            *&v180[12] = *(&xmmword_27E2D4C2C + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v173 = lumaBlend_SettingVideo_level2_FG_V2;
-              v174 = unk_27E2DA388;
-              v175 = xmmword_27E2DA398;
+              v172 = lumaBlend_SettingVideo_level2_FG_V2;
+              v173 = unk_27E2DA388;
+              v174 = xmmword_27E2DA398;
             }
 
             if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4581,33 +4565,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
         else
         {
           memcpy(__dst, &SettingVideo_level1_FG_LargeRatio_V2, 0x22CuLL);
-          v189 = downSample_SettingVideo_level1_FG_LargeRatio_V2;
-          v190 = dword_27E2D3540;
-          memcpy(v186, &blendLogic_SettingVideo_level1_FG_LargeRatio_V2, sizeof(v186));
-          v182 = objectProtection_SettingVideo_level1_FG_LargeRatio_V2;
-          v183 = unk_27E2D3674;
-          *v184 = xmmword_27E2D3684;
-          *&v184[12] = *(&xmmword_27E2D3684 + 12);
+          v188 = downSample_SettingVideo_level1_FG_LargeRatio_V2;
+          v189 = dword_27E2D3540;
+          memcpy(v185, &blendLogic_SettingVideo_level1_FG_LargeRatio_V2, sizeof(v185));
+          v181 = objectProtection_SettingVideo_level1_FG_LargeRatio_V2;
+          v182 = unk_27E2D3674;
+          *v183 = xmmword_27E2D3684;
+          *&v183[12] = *(&xmmword_27E2D3684 + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v176 = lumaBlend_SettingVideo_level1_FG_V2;
-            v177 = unk_27E2DA358;
-            v178 = xmmword_27E2DA368;
+            v175 = lumaBlend_SettingVideo_level1_FG_V2;
+            v176 = unk_27E2DA358;
+            v177 = xmmword_27E2DA368;
           }
 
           memcpy(__src, &SettingVideo_level1_FG_mix_LargeRatio_V2, 0x22CuLL);
-          v187 = downSample_SettingVideo_level1_FG_mix_LargeRatio_V2;
-          v188 = dword_27E2D474C;
-          memcpy(v185, &blendLogic_SettingVideo_level1_FG_mix_LargeRatio_V2, sizeof(v185));
-          v179 = objectProtection_SettingVideo_level1_FG_mix_LargeRatio_V2;
-          v180 = unk_27E2D4880;
-          *v181 = xmmword_27E2D4890;
-          *&v181[12] = *(&xmmword_27E2D4890 + 12);
+          v186 = downSample_SettingVideo_level1_FG_mix_LargeRatio_V2;
+          v187 = dword_27E2D474C;
+          memcpy(v184, &blendLogic_SettingVideo_level1_FG_mix_LargeRatio_V2, sizeof(v184));
+          v178 = objectProtection_SettingVideo_level1_FG_mix_LargeRatio_V2;
+          v179 = unk_27E2D4880;
+          *v180 = xmmword_27E2D4890;
+          *&v180[12] = *(&xmmword_27E2D4890 + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v173 = lumaBlend_SettingVideo_level1_FG_V2;
-            v174 = unk_27E2DA358;
-            v175 = xmmword_27E2DA368;
+            v172 = lumaBlend_SettingVideo_level1_FG_V2;
+            v173 = unk_27E2DA358;
+            v174 = xmmword_27E2DA368;
           }
 
           if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4623,33 +4607,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
       else
       {
         memcpy(__dst, &SettingVideo_light_FG_LargeRatio_V2, 0x22CuLL);
-        v189 = downSample_SettingVideo_light_FG_LargeRatio_V2;
-        v190 = dword_27E2D31A4;
-        memcpy(v186, &blendLogic_SettingVideo_light_FG_LargeRatio_V2, sizeof(v186));
-        v182 = objectProtection_SettingVideo_light_FG_LargeRatio_V2;
-        v183 = unk_27E2D32D8;
-        *v184 = xmmword_27E2D32E8;
-        *&v184[12] = *(&xmmword_27E2D32E8 + 12);
+        v188 = downSample_SettingVideo_light_FG_LargeRatio_V2;
+        v189 = dword_27E2D31A4;
+        memcpy(v185, &blendLogic_SettingVideo_light_FG_LargeRatio_V2, sizeof(v185));
+        v181 = objectProtection_SettingVideo_light_FG_LargeRatio_V2;
+        v182 = unk_27E2D32D8;
+        *v183 = xmmword_27E2D32E8;
+        *&v183[12] = *(&xmmword_27E2D32E8 + 12);
         if (shouldApplyGraphicSettings(a16, v87))
         {
-          v176 = lumaBlend_SettingVideo_light_FG_V2;
-          v177 = unk_27E2DA328;
-          v178 = xmmword_27E2DA338;
+          v175 = lumaBlend_SettingVideo_light_FG_V2;
+          v176 = unk_27E2DA328;
+          v177 = xmmword_27E2DA338;
         }
 
         memcpy(__src, &SettingVideo_light_FG_mix_LargeRatio_V2, 0x22CuLL);
-        v187 = downSample_SettingVideo_light_FG_mix_LargeRatio_V2;
-        v188 = dword_27E2D43B0;
-        memcpy(v185, &blendLogic_SettingVideo_light_FG_mix_LargeRatio_V2, sizeof(v185));
-        v179 = objectProtection_SettingVideo_light_FG_mix_LargeRatio_V2;
-        v180 = unk_27E2D44E4;
-        *v181 = xmmword_27E2D44F4;
-        *&v181[12] = *(&xmmword_27E2D44F4 + 12);
+        v186 = downSample_SettingVideo_light_FG_mix_LargeRatio_V2;
+        v187 = dword_27E2D43B0;
+        memcpy(v184, &blendLogic_SettingVideo_light_FG_mix_LargeRatio_V2, sizeof(v184));
+        v178 = objectProtection_SettingVideo_light_FG_mix_LargeRatio_V2;
+        v179 = unk_27E2D44E4;
+        *v180 = xmmword_27E2D44F4;
+        *&v180[12] = *(&xmmword_27E2D44F4 + 12);
         if (shouldApplyGraphicSettings(a16, v87))
         {
-          v173 = lumaBlend_SettingVideo_light_FG_V2;
-          v174 = unk_27E2DA328;
-          v175 = xmmword_27E2DA338;
+          v172 = lumaBlend_SettingVideo_light_FG_V2;
+          v173 = unk_27E2DA328;
+          v174 = xmmword_27E2DA338;
         }
 
         if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4665,7 +4649,7 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
     else
     {
       v65 = v84;
-      v67 = v161;
+      v67 = v160;
       if (logLevel >= 4)
       {
         v96 = MEMORY[0x277D86220];
@@ -4679,7 +4663,7 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
         v87 = a17;
       }
 
-      if (v167)
+      if (v166)
       {
         if (v95 > 29)
         {
@@ -4690,33 +4674,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
               if (v95 > 0x5E)
               {
                 memcpy(__dst, &iPhone_SettingVideo_Heavy_FG_V2, 0x22CuLL);
-                v189 = downSample_iPhone_SettingVideo_Heavy_FG_V2;
-                v190 = dword_27E2D55BC;
-                memcpy(v186, &blendLogic_iPhone_SettingVideo_Heavy_FG_V2, sizeof(v186));
-                v182 = objectProtection_iPhone_SettingVideo_Heavy_FG_V2;
-                v183 = unk_27E2D56F0;
-                *v184 = xmmword_27E2D5700;
-                *&v184[12] = *(&xmmword_27E2D5700 + 12);
+                v188 = downSample_iPhone_SettingVideo_Heavy_FG_V2;
+                v189 = dword_27E2D55BC;
+                memcpy(v185, &blendLogic_iPhone_SettingVideo_Heavy_FG_V2, sizeof(v185));
+                v181 = objectProtection_iPhone_SettingVideo_Heavy_FG_V2;
+                v182 = unk_27E2D56F0;
+                *v183 = xmmword_27E2D5700;
+                *&v183[12] = *(&xmmword_27E2D5700 + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v176 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                  v177 = unk_27E2DA2F8;
-                  v178 = xmmword_27E2DA308;
+                  v175 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                  v176 = unk_27E2DA2F8;
+                  v177 = xmmword_27E2DA308;
                 }
 
                 memcpy(__src, &iPhone_SettingVideo_Heavy_FG_mix_V2, 0x22CuLL);
-                v187 = downSample_iPhone_SettingVideo_Heavy_FG_mix_V2;
-                v188 = dword_27E2D67C8;
-                memcpy(v185, &blendLogic_iPhone_SettingVideo_Heavy_FG_mix_V2, sizeof(v185));
-                v179 = objectProtection_iPhone_SettingVideo_Heavy_FG_mix_V2;
-                v180 = unk_27E2D68FC;
-                *v181 = xmmword_27E2D690C;
-                *&v181[12] = *(&xmmword_27E2D690C + 12);
+                v186 = downSample_iPhone_SettingVideo_Heavy_FG_mix_V2;
+                v187 = dword_27E2D67C8;
+                memcpy(v184, &blendLogic_iPhone_SettingVideo_Heavy_FG_mix_V2, sizeof(v184));
+                v178 = objectProtection_iPhone_SettingVideo_Heavy_FG_mix_V2;
+                v179 = unk_27E2D68FC;
+                *v180 = xmmword_27E2D690C;
+                *&v180[12] = *(&xmmword_27E2D690C + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v173 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                  v174 = unk_27E2DA2F8;
-                  v175 = xmmword_27E2DA308;
+                  v172 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                  v173 = unk_27E2DA2F8;
+                  v174 = xmmword_27E2DA308;
                 }
 
                 if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4731,33 +4715,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
               else
               {
                 memcpy(__dst, &iPhone_SettingVideo_level3_FG_V2, 0x22CuLL);
-                v189 = downSample_iPhone_SettingVideo_level3_FG_V2;
-                v190 = dword_27E2D642C;
-                memcpy(v186, &blendLogic_iPhone_SettingVideo_level3_FG_V2, sizeof(v186));
-                v182 = objectProtection_iPhone_SettingVideo_level3_FG_V2;
-                v183 = unk_27E2D6560;
-                *v184 = xmmword_27E2D6570;
-                *&v184[12] = *(&xmmword_27E2D6570 + 12);
+                v188 = downSample_iPhone_SettingVideo_level3_FG_V2;
+                v189 = dword_27E2D642C;
+                memcpy(v185, &blendLogic_iPhone_SettingVideo_level3_FG_V2, sizeof(v185));
+                v181 = objectProtection_iPhone_SettingVideo_level3_FG_V2;
+                v182 = unk_27E2D6560;
+                *v183 = xmmword_27E2D6570;
+                *&v183[12] = *(&xmmword_27E2D6570 + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v176 = lumaBlend_SettingVideo_level3_FG_V2;
-                  v177 = unk_27E2DA3B8;
-                  v178 = xmmword_27E2DA3C8;
+                  v175 = lumaBlend_SettingVideo_level3_FG_V2;
+                  v176 = unk_27E2DA3B8;
+                  v177 = xmmword_27E2DA3C8;
                 }
 
                 memcpy(__src, &iPhone_SettingVideo_level3_FG_mix_V2, 0x22CuLL);
-                v187 = downSample_iPhone_SettingVideo_level3_FG_mix_V2;
-                v188 = dword_27E2D7638;
-                memcpy(v185, &blendLogic_iPhone_SettingVideo_level3_FG_mix_V2, sizeof(v185));
-                v179 = objectProtection_iPhone_SettingVideo_level3_FG_mix_V2;
-                v180 = unk_27E2D776C;
-                *v181 = xmmword_27E2D777C;
-                *&v181[12] = *(&xmmword_27E2D777C + 12);
+                v186 = downSample_iPhone_SettingVideo_level3_FG_mix_V2;
+                v187 = dword_27E2D7638;
+                memcpy(v184, &blendLogic_iPhone_SettingVideo_level3_FG_mix_V2, sizeof(v184));
+                v178 = objectProtection_iPhone_SettingVideo_level3_FG_mix_V2;
+                v179 = unk_27E2D776C;
+                *v180 = xmmword_27E2D777C;
+                *&v180[12] = *(&xmmword_27E2D777C + 12);
                 if (shouldApplyGraphicSettings(a16, v87))
                 {
-                  v173 = lumaBlend_SettingVideo_level3_FG_V2;
-                  v174 = unk_27E2DA3B8;
-                  v175 = xmmword_27E2DA3C8;
+                  v172 = lumaBlend_SettingVideo_level3_FG_V2;
+                  v173 = unk_27E2DA3B8;
+                  v174 = xmmword_27E2DA3C8;
                 }
 
                 if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4773,33 +4757,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
             else
             {
               memcpy(__dst, &iPhone_SettingVideo_level2_FG_V2, 0x22CuLL);
-              v189 = downSample_iPhone_SettingVideo_level2_FG_V2;
-              v190 = dword_27E2D6090;
-              memcpy(v186, &blendLogic_iPhone_SettingVideo_level2_FG_V2, sizeof(v186));
-              v182 = objectProtection_iPhone_SettingVideo_level2_FG_V2;
-              v183 = unk_27E2D61C4;
-              *v184 = xmmword_27E2D61D4;
-              *&v184[12] = *(&xmmword_27E2D61D4 + 12);
+              v188 = downSample_iPhone_SettingVideo_level2_FG_V2;
+              v189 = dword_27E2D6090;
+              memcpy(v185, &blendLogic_iPhone_SettingVideo_level2_FG_V2, sizeof(v185));
+              v181 = objectProtection_iPhone_SettingVideo_level2_FG_V2;
+              v182 = unk_27E2D61C4;
+              *v183 = xmmword_27E2D61D4;
+              *&v183[12] = *(&xmmword_27E2D61D4 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v176 = lumaBlend_SettingVideo_level2_FG_V2;
-                v177 = unk_27E2DA388;
-                v178 = xmmword_27E2DA398;
+                v175 = lumaBlend_SettingVideo_level2_FG_V2;
+                v176 = unk_27E2DA388;
+                v177 = xmmword_27E2DA398;
               }
 
               memcpy(__src, &iPhone_SettingVideo_level2_FG_mix_V2, 0x22CuLL);
-              v187 = downSample_iPhone_SettingVideo_level2_FG_mix_V2;
-              v188 = dword_27E2D729C;
-              memcpy(v185, &blendLogic_iPhone_SettingVideo_level2_FG_mix_V2, sizeof(v185));
-              v179 = objectProtection_iPhone_SettingVideo_level2_FG_mix_V2;
-              v180 = unk_27E2D73D0;
-              *v181 = xmmword_27E2D73E0;
-              *&v181[12] = *(&xmmword_27E2D73E0 + 12);
+              v186 = downSample_iPhone_SettingVideo_level2_FG_mix_V2;
+              v187 = dword_27E2D729C;
+              memcpy(v184, &blendLogic_iPhone_SettingVideo_level2_FG_mix_V2, sizeof(v184));
+              v178 = objectProtection_iPhone_SettingVideo_level2_FG_mix_V2;
+              v179 = unk_27E2D73D0;
+              *v180 = xmmword_27E2D73E0;
+              *&v180[12] = *(&xmmword_27E2D73E0 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v173 = lumaBlend_SettingVideo_level2_FG_V2;
-                v174 = unk_27E2DA388;
-                v175 = xmmword_27E2DA398;
+                v172 = lumaBlend_SettingVideo_level2_FG_V2;
+                v173 = unk_27E2DA388;
+                v174 = xmmword_27E2DA398;
               }
 
               if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4815,33 +4799,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
           else
           {
             memcpy(__dst, &iPhone_SettingVideo_level1_FG_V2, 0x22CuLL);
-            v189 = downSample_iPhone_SettingVideo_level1_FG_V2;
-            v190 = dword_27E2D5CF4;
-            memcpy(v186, &blendLogic_iPhone_SettingVideo_level1_FG_V2, sizeof(v186));
-            v182 = objectProtection_iPhone_SettingVideo_level1_FG_V2;
-            v183 = unk_27E2D5E28;
-            *v184 = xmmword_27E2D5E38;
-            *&v184[12] = *(&xmmword_27E2D5E38 + 12);
+            v188 = downSample_iPhone_SettingVideo_level1_FG_V2;
+            v189 = dword_27E2D5CF4;
+            memcpy(v185, &blendLogic_iPhone_SettingVideo_level1_FG_V2, sizeof(v185));
+            v181 = objectProtection_iPhone_SettingVideo_level1_FG_V2;
+            v182 = unk_27E2D5E28;
+            *v183 = xmmword_27E2D5E38;
+            *&v183[12] = *(&xmmword_27E2D5E38 + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v176 = lumaBlend_SettingVideo_level1_FG_V2;
-              v177 = unk_27E2DA358;
-              v178 = xmmword_27E2DA368;
+              v175 = lumaBlend_SettingVideo_level1_FG_V2;
+              v176 = unk_27E2DA358;
+              v177 = xmmword_27E2DA368;
             }
 
             memcpy(__src, &iPhone_SettingVideo_level1_FG_mix_V2, 0x22CuLL);
-            v187 = downSample_iPhone_SettingVideo_level1_FG_mix_V2;
-            v188 = dword_27E2D6F00;
-            memcpy(v185, &blendLogic_iPhone_SettingVideo_level1_FG_mix_V2, sizeof(v185));
-            v179 = objectProtection_iPhone_SettingVideo_level1_FG_mix_V2;
-            v180 = unk_27E2D7034;
-            *v181 = xmmword_27E2D7044;
-            *&v181[12] = *(&xmmword_27E2D7044 + 12);
+            v186 = downSample_iPhone_SettingVideo_level1_FG_mix_V2;
+            v187 = dword_27E2D6F00;
+            memcpy(v184, &blendLogic_iPhone_SettingVideo_level1_FG_mix_V2, sizeof(v184));
+            v178 = objectProtection_iPhone_SettingVideo_level1_FG_mix_V2;
+            v179 = unk_27E2D7034;
+            *v180 = xmmword_27E2D7044;
+            *&v180[12] = *(&xmmword_27E2D7044 + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v173 = lumaBlend_SettingVideo_level1_FG_V2;
-              v174 = unk_27E2DA358;
-              v175 = xmmword_27E2DA368;
+              v172 = lumaBlend_SettingVideo_level1_FG_V2;
+              v173 = unk_27E2DA358;
+              v174 = xmmword_27E2DA368;
             }
 
             if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4857,33 +4841,33 @@ void calculate_control_setting_V2(int *a1, uint64_t a2, unsigned int a3, unsigne
         else
         {
           memcpy(__dst, &iPhone_SettingVideo_light_FG_V2, 0x22CuLL);
-          v189 = downSample_iPhone_SettingVideo_light_FG_V2;
-          v190 = dword_27E2D5958;
-          memcpy(v186, &blendLogic_iPhone_SettingVideo_light_FG_V2, sizeof(v186));
-          v182 = objectProtection_iPhone_SettingVideo_light_FG_V2;
-          v183 = unk_27E2D5A8C;
-          *v184 = xmmword_27E2D5A9C;
-          *&v184[12] = *(&xmmword_27E2D5A9C + 12);
+          v188 = downSample_iPhone_SettingVideo_light_FG_V2;
+          v189 = dword_27E2D5958;
+          memcpy(v185, &blendLogic_iPhone_SettingVideo_light_FG_V2, sizeof(v185));
+          v181 = objectProtection_iPhone_SettingVideo_light_FG_V2;
+          v182 = unk_27E2D5A8C;
+          *v183 = xmmword_27E2D5A9C;
+          *&v183[12] = *(&xmmword_27E2D5A9C + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v176 = lumaBlend_SettingVideo_light_FG_V2;
-            v177 = unk_27E2DA328;
-            v178 = xmmword_27E2DA338;
+            v175 = lumaBlend_SettingVideo_light_FG_V2;
+            v176 = unk_27E2DA328;
+            v177 = xmmword_27E2DA338;
           }
 
           memcpy(__src, &iPhone_SettingVideo_light_FG_mix_V2, 0x22CuLL);
-          v187 = downSample_iPhone_SettingVideo_light_FG_mix_V2;
-          v188 = dword_27E2D6B64;
-          memcpy(v185, &blendLogic_iPhone_SettingVideo_light_FG_mix_V2, sizeof(v185));
-          v179 = objectProtection_iPhone_SettingVideo_light_FG_mix_V2;
-          v180 = unk_27E2D6C98;
-          *v181 = xmmword_27E2D6CA8;
-          *&v181[12] = *(&xmmword_27E2D6CA8 + 12);
+          v186 = downSample_iPhone_SettingVideo_light_FG_mix_V2;
+          v187 = dword_27E2D6B64;
+          memcpy(v184, &blendLogic_iPhone_SettingVideo_light_FG_mix_V2, sizeof(v184));
+          v178 = objectProtection_iPhone_SettingVideo_light_FG_mix_V2;
+          v179 = unk_27E2D6C98;
+          *v180 = xmmword_27E2D6CA8;
+          *&v180[12] = *(&xmmword_27E2D6CA8 + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v173 = lumaBlend_SettingVideo_light_FG_V2;
-            v174 = unk_27E2DA328;
-            v175 = xmmword_27E2DA338;
+            v172 = lumaBlend_SettingVideo_light_FG_V2;
+            v173 = unk_27E2DA328;
+            v174 = xmmword_27E2DA338;
           }
 
           if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4906,33 +4890,33 @@ LABEL_267:
             if (v95 > 0x5E)
             {
               memcpy(__dst, &iPhone_SettingVideo_Heavy_FG_LargeRatio_V2, 0x22CuLL);
-              v189 = downSample_iPhone_SettingVideo_Heavy_FG_LargeRatio_V2;
-              v190 = dword_27E2D7D70;
-              memcpy(v186, &blendLogic_iPhone_SettingVideo_Heavy_FG_LargeRatio_V2, sizeof(v186));
-              v182 = objectProtection_iPhone_SettingVideo_Heavy_FG_LargeRatio_V2;
-              v183 = unk_27E2D7EA4;
-              *v184 = xmmword_27E2D7EB4;
-              *&v184[12] = *(&xmmword_27E2D7EB4 + 12);
+              v188 = downSample_iPhone_SettingVideo_Heavy_FG_LargeRatio_V2;
+              v189 = dword_27E2D7D70;
+              memcpy(v185, &blendLogic_iPhone_SettingVideo_Heavy_FG_LargeRatio_V2, sizeof(v185));
+              v181 = objectProtection_iPhone_SettingVideo_Heavy_FG_LargeRatio_V2;
+              v182 = unk_27E2D7EA4;
+              *v183 = xmmword_27E2D7EB4;
+              *&v183[12] = *(&xmmword_27E2D7EB4 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v176 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                v177 = unk_27E2DA2F8;
-                v178 = xmmword_27E2DA308;
+                v175 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                v176 = unk_27E2DA2F8;
+                v177 = xmmword_27E2DA308;
               }
 
               memcpy(__src, &iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V2, 0x22CuLL);
-              v187 = downSample_iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
-              v188 = dword_27E2D8F7C;
-              memcpy(v185, &blendLogic_iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V2, sizeof(v185));
-              v179 = objectProtection_iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
-              v180 = unk_27E2D90B0;
-              *v181 = xmmword_27E2D90C0;
-              *&v181[12] = *(&xmmword_27E2D90C0 + 12);
+              v186 = downSample_iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
+              v187 = dword_27E2D8F7C;
+              memcpy(v184, &blendLogic_iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V2, sizeof(v184));
+              v178 = objectProtection_iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V2;
+              v179 = unk_27E2D90B0;
+              *v180 = xmmword_27E2D90C0;
+              *&v180[12] = *(&xmmword_27E2D90C0 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v173 = lumaBlend_SettingVideo_Heavy_FG_V2;
-                v174 = unk_27E2DA2F8;
-                v175 = xmmword_27E2DA308;
+                v172 = lumaBlend_SettingVideo_Heavy_FG_V2;
+                v173 = unk_27E2DA2F8;
+                v174 = xmmword_27E2DA308;
               }
 
               if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4947,33 +4931,33 @@ LABEL_267:
             else
             {
               memcpy(__dst, &iPhone_SettingVideo_level3_FG_LargeRatio_V2, 0x22CuLL);
-              v189 = downSample_iPhone_SettingVideo_level3_FG_LargeRatio_V2;
-              v190 = dword_27E2D8BE0;
-              memcpy(v186, &blendLogic_iPhone_SettingVideo_level3_FG_LargeRatio_V2, sizeof(v186));
-              v182 = objectProtection_iPhone_SettingVideo_level3_FG_LargeRatio_V2;
-              v183 = unk_27E2D8D14;
-              *v184 = xmmword_27E2D8D24;
-              *&v184[12] = *(&xmmword_27E2D8D24 + 12);
+              v188 = downSample_iPhone_SettingVideo_level3_FG_LargeRatio_V2;
+              v189 = dword_27E2D8BE0;
+              memcpy(v185, &blendLogic_iPhone_SettingVideo_level3_FG_LargeRatio_V2, sizeof(v185));
+              v181 = objectProtection_iPhone_SettingVideo_level3_FG_LargeRatio_V2;
+              v182 = unk_27E2D8D14;
+              *v183 = xmmword_27E2D8D24;
+              *&v183[12] = *(&xmmword_27E2D8D24 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v176 = lumaBlend_SettingVideo_level3_FG_V2;
-                v177 = unk_27E2DA3B8;
-                v178 = xmmword_27E2DA3C8;
+                v175 = lumaBlend_SettingVideo_level3_FG_V2;
+                v176 = unk_27E2DA3B8;
+                v177 = xmmword_27E2DA3C8;
               }
 
               memcpy(__src, &iPhone_SettingVideo_level3_FG_mix_LargeRatio_V2, 0x22CuLL);
-              v187 = downSample_iPhone_SettingVideo_level3_FG_mix_LargeRatio_V2;
-              v188 = dword_27E2D9DEC;
-              memcpy(v185, &blendLogic_iPhone_SettingVideo_level3_FG_mix_LargeRatio_V2, sizeof(v185));
-              v179 = objectProtection_iPhone_SettingVideo_level3_FG_mix_LargeRatio_V2;
-              v180 = unk_27E2D9F20;
-              *v181 = xmmword_27E2D9F30;
-              *&v181[12] = *(&xmmword_27E2D9F30 + 12);
+              v186 = downSample_iPhone_SettingVideo_level3_FG_mix_LargeRatio_V2;
+              v187 = dword_27E2D9DEC;
+              memcpy(v184, &blendLogic_iPhone_SettingVideo_level3_FG_mix_LargeRatio_V2, sizeof(v184));
+              v178 = objectProtection_iPhone_SettingVideo_level3_FG_mix_LargeRatio_V2;
+              v179 = unk_27E2D9F20;
+              *v180 = xmmword_27E2D9F30;
+              *&v180[12] = *(&xmmword_27E2D9F30 + 12);
               if (shouldApplyGraphicSettings(a16, v87))
               {
-                v173 = lumaBlend_SettingVideo_level3_FG_V2;
-                v174 = unk_27E2DA3B8;
-                v175 = xmmword_27E2DA3C8;
+                v172 = lumaBlend_SettingVideo_level3_FG_V2;
+                v173 = unk_27E2DA3B8;
+                v174 = xmmword_27E2DA3C8;
               }
 
               if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4989,33 +4973,33 @@ LABEL_267:
           else
           {
             memcpy(__dst, &iPhone_SettingVideo_level2_FG_LargeRatio_V2, 0x22CuLL);
-            v189 = downSample_iPhone_SettingVideo_level2_FG_LargeRatio_V2;
-            v190 = dword_27E2D8844;
-            memcpy(v186, &blendLogic_iPhone_SettingVideo_level2_FG_LargeRatio_V2, sizeof(v186));
-            v182 = objectProtection_iPhone_SettingVideo_level2_FG_LargeRatio_V2;
-            v183 = unk_27E2D8978;
-            *v184 = xmmword_27E2D8988;
-            *&v184[12] = *(&xmmword_27E2D8988 + 12);
+            v188 = downSample_iPhone_SettingVideo_level2_FG_LargeRatio_V2;
+            v189 = dword_27E2D8844;
+            memcpy(v185, &blendLogic_iPhone_SettingVideo_level2_FG_LargeRatio_V2, sizeof(v185));
+            v181 = objectProtection_iPhone_SettingVideo_level2_FG_LargeRatio_V2;
+            v182 = unk_27E2D8978;
+            *v183 = xmmword_27E2D8988;
+            *&v183[12] = *(&xmmword_27E2D8988 + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v176 = lumaBlend_SettingVideo_level2_FG_V2;
-              v177 = unk_27E2DA388;
-              v178 = xmmword_27E2DA398;
+              v175 = lumaBlend_SettingVideo_level2_FG_V2;
+              v176 = unk_27E2DA388;
+              v177 = xmmword_27E2DA398;
             }
 
             memcpy(__src, &iPhone_SettingVideo_level2_FG_mix_LargeRatio_V2, 0x22CuLL);
-            v187 = downSample_iPhone_SettingVideo_level2_FG_mix_LargeRatio_V2;
-            v188 = dword_27E2D9A50;
-            memcpy(v185, &blendLogic_iPhone_SettingVideo_level2_FG_mix_LargeRatio_V2, sizeof(v185));
-            v179 = objectProtection_iPhone_SettingVideo_level2_FG_mix_LargeRatio_V2;
-            v180 = unk_27E2D9B84;
-            *v181 = xmmword_27E2D9B94;
-            *&v181[12] = *(&xmmword_27E2D9B94 + 12);
+            v186 = downSample_iPhone_SettingVideo_level2_FG_mix_LargeRatio_V2;
+            v187 = dword_27E2D9A50;
+            memcpy(v184, &blendLogic_iPhone_SettingVideo_level2_FG_mix_LargeRatio_V2, sizeof(v184));
+            v178 = objectProtection_iPhone_SettingVideo_level2_FG_mix_LargeRatio_V2;
+            v179 = unk_27E2D9B84;
+            *v180 = xmmword_27E2D9B94;
+            *&v180[12] = *(&xmmword_27E2D9B94 + 12);
             if (shouldApplyGraphicSettings(a16, v87))
             {
-              v173 = lumaBlend_SettingVideo_level2_FG_V2;
-              v174 = unk_27E2DA388;
-              v175 = xmmword_27E2DA398;
+              v172 = lumaBlend_SettingVideo_level2_FG_V2;
+              v173 = unk_27E2DA388;
+              v174 = xmmword_27E2DA398;
             }
 
             if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -5031,33 +5015,33 @@ LABEL_267:
         else
         {
           memcpy(__dst, &iPhone_SettingVideo_level1_FG_LargeRatio_V2, 0x22CuLL);
-          v189 = downSample_iPhone_SettingVideo_level1_FG_LargeRatio_V2;
-          v190 = dword_27E2D84A8;
-          memcpy(v186, &blendLogic_iPhone_SettingVideo_level1_FG_LargeRatio_V2, sizeof(v186));
-          v182 = objectProtection_iPhone_SettingVideo_level1_FG_LargeRatio_V2;
-          v183 = unk_27E2D85DC;
-          *v184 = xmmword_27E2D85EC;
-          *&v184[12] = *(&xmmword_27E2D85EC + 12);
+          v188 = downSample_iPhone_SettingVideo_level1_FG_LargeRatio_V2;
+          v189 = dword_27E2D84A8;
+          memcpy(v185, &blendLogic_iPhone_SettingVideo_level1_FG_LargeRatio_V2, sizeof(v185));
+          v181 = objectProtection_iPhone_SettingVideo_level1_FG_LargeRatio_V2;
+          v182 = unk_27E2D85DC;
+          *v183 = xmmword_27E2D85EC;
+          *&v183[12] = *(&xmmword_27E2D85EC + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v176 = lumaBlend_SettingVideo_level1_FG_V2;
-            v177 = unk_27E2DA358;
-            v178 = xmmword_27E2DA368;
+            v175 = lumaBlend_SettingVideo_level1_FG_V2;
+            v176 = unk_27E2DA358;
+            v177 = xmmword_27E2DA368;
           }
 
           memcpy(__src, &iPhone_SettingVideo_level1_FG_mix_LargeRatio_V2, 0x22CuLL);
-          v187 = downSample_iPhone_SettingVideo_level1_FG_mix_LargeRatio_V2;
-          v188 = dword_27E2D96B4;
-          memcpy(v185, &blendLogic_iPhone_SettingVideo_level1_FG_mix_LargeRatio_V2, sizeof(v185));
-          v179 = objectProtection_iPhone_SettingVideo_level1_FG_mix_LargeRatio_V2;
-          v180 = unk_27E2D97E8;
-          *v181 = xmmword_27E2D97F8;
-          *&v181[12] = *(&xmmword_27E2D97F8 + 12);
+          v186 = downSample_iPhone_SettingVideo_level1_FG_mix_LargeRatio_V2;
+          v187 = dword_27E2D96B4;
+          memcpy(v184, &blendLogic_iPhone_SettingVideo_level1_FG_mix_LargeRatio_V2, sizeof(v184));
+          v178 = objectProtection_iPhone_SettingVideo_level1_FG_mix_LargeRatio_V2;
+          v179 = unk_27E2D97E8;
+          *v180 = xmmword_27E2D97F8;
+          *&v180[12] = *(&xmmword_27E2D97F8 + 12);
           if (shouldApplyGraphicSettings(a16, v87))
           {
-            v173 = lumaBlend_SettingVideo_level1_FG_V2;
-            v174 = unk_27E2DA358;
-            v175 = xmmword_27E2DA368;
+            v172 = lumaBlend_SettingVideo_level1_FG_V2;
+            v173 = unk_27E2DA358;
+            v174 = xmmword_27E2DA368;
           }
 
           if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -5073,33 +5057,33 @@ LABEL_267:
       else
       {
         memcpy(__dst, &iPhone_SettingVideo_light_FG_LargeRatio_V2, 0x22CuLL);
-        v189 = downSample_iPhone_SettingVideo_light_FG_LargeRatio_V2;
-        v190 = dword_27E2D810C;
-        memcpy(v186, &blendLogic_iPhone_SettingVideo_light_FG_LargeRatio_V2, sizeof(v186));
-        v182 = objectProtection_iPhone_SettingVideo_light_FG_LargeRatio_V2;
-        v183 = unk_27E2D8240;
-        *v184 = xmmword_27E2D8250;
-        *&v184[12] = *(&xmmword_27E2D8250 + 12);
+        v188 = downSample_iPhone_SettingVideo_light_FG_LargeRatio_V2;
+        v189 = dword_27E2D810C;
+        memcpy(v185, &blendLogic_iPhone_SettingVideo_light_FG_LargeRatio_V2, sizeof(v185));
+        v181 = objectProtection_iPhone_SettingVideo_light_FG_LargeRatio_V2;
+        v182 = unk_27E2D8240;
+        *v183 = xmmword_27E2D8250;
+        *&v183[12] = *(&xmmword_27E2D8250 + 12);
         if (shouldApplyGraphicSettings(a16, v87))
         {
-          v176 = lumaBlend_SettingVideo_light_FG_V2;
-          v177 = unk_27E2DA328;
-          v178 = xmmword_27E2DA338;
+          v175 = lumaBlend_SettingVideo_light_FG_V2;
+          v176 = unk_27E2DA328;
+          v177 = xmmword_27E2DA338;
         }
 
         memcpy(__src, &iPhone_SettingVideo_light_FG_mix_LargeRatio_V2, 0x22CuLL);
-        v187 = downSample_iPhone_SettingVideo_light_FG_mix_LargeRatio_V2;
-        v188 = dword_27E2D9318;
-        memcpy(v185, &blendLogic_iPhone_SettingVideo_light_FG_mix_LargeRatio_V2, sizeof(v185));
-        v179 = objectProtection_iPhone_SettingVideo_light_FG_mix_LargeRatio_V2;
-        v180 = unk_27E2D944C;
-        *v181 = xmmword_27E2D945C;
-        *&v181[12] = *(&xmmword_27E2D945C + 12);
+        v186 = downSample_iPhone_SettingVideo_light_FG_mix_LargeRatio_V2;
+        v187 = dword_27E2D9318;
+        memcpy(v184, &blendLogic_iPhone_SettingVideo_light_FG_mix_LargeRatio_V2, sizeof(v184));
+        v178 = objectProtection_iPhone_SettingVideo_light_FG_mix_LargeRatio_V2;
+        v179 = unk_27E2D944C;
+        *v180 = xmmword_27E2D945C;
+        *&v180[12] = *(&xmmword_27E2D945C + 12);
         if (shouldApplyGraphicSettings(a16, v87))
         {
-          v173 = lumaBlend_SettingVideo_light_FG_V2;
-          v174 = unk_27E2DA328;
-          v175 = xmmword_27E2DA338;
+          v172 = lumaBlend_SettingVideo_light_FG_V2;
+          v173 = unk_27E2DA328;
+          v174 = xmmword_27E2DA338;
         }
 
         if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -5115,7 +5099,7 @@ LABEL_267:
     v102 = v95 <= 20;
     if (v95 <= 20)
     {
-      v68 = v162 + 1;
+      v68 = v161 + 1;
     }
 
     else
@@ -5130,12 +5114,12 @@ LABEL_267:
 
     else
     {
-      v103 = v163 + 1;
+      v103 = v162 + 1;
     }
 
-    if (v165)
+    if (v164)
     {
-      if (v165 == 2)
+      if (v164 == 2)
       {
         if (v103 >= 0x18)
         {
@@ -5158,16 +5142,16 @@ LABEL_285:
 LABEL_308:
         memcpy((v17 + 28), __dst, 0x22CuLL);
         *(v17 + 592) = 0;
-        *(v17 + 604) = v189;
-        *(v17 + 620) = v190;
-        memcpy((v17 + 632), v186, 0x120uLL);
-        *(v17 + 928) = v182;
-        *(v17 + 944) = v183;
-        *(v17 + 960) = *v184;
-        *(v17 + 972) = *&v184[12];
-        *(v17 + 996) = v176;
-        *(v17 + 1012) = v177;
-        *(v17 + 1028) = v178;
+        *(v17 + 604) = v188;
+        *(v17 + 620) = v189;
+        memcpy((v17 + 632), v185, 0x120uLL);
+        *(v17 + 928) = v181;
+        *(v17 + 944) = v182;
+        *(v17 + 960) = *v183;
+        *(v17 + 972) = *&v183[12];
+        *(v17 + 996) = v175;
+        *(v17 + 1012) = v176;
+        *(v17 + 1028) = v177;
         if (logLevel >= 3)
         {
           v119 = v65;
@@ -5176,15 +5160,15 @@ LABEL_308:
           if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            *v194 = __dst;
-            *&v194[8] = 2080;
-            v195 = "FG_dyn_setting";
+            *v193 = __dst;
+            *&v193[8] = 2080;
+            v194 = "FG_dyn_setting";
             _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
           }
 
           v63 = 2;
           v65 = v119;
-          v67 = v161;
+          v67 = v160;
           goto LABEL_330;
         }
 
@@ -5206,7 +5190,7 @@ LABEL_308:
       {
         if (v103 <= 0x18)
         {
-          v63 = v165;
+          v63 = v164;
         }
 
         else
@@ -5217,20 +5201,20 @@ LABEL_308:
         if (v63 != 2)
         {
           v62 = v109;
-          v67 = v161;
+          v67 = v160;
 LABEL_286:
           memcpy((v17 + 28), __src, 0x22CuLL);
           *(v17 + 592) = 0;
-          *(v17 + 604) = v187;
-          *(v17 + 620) = v188;
-          memcpy((v17 + 632), v185, 0x120uLL);
-          *(v17 + 928) = v179;
-          *(v17 + 944) = v180;
-          *(v17 + 960) = *v181;
-          *(v17 + 972) = *&v181[12];
-          *(v17 + 996) = v173;
-          *(v17 + 1012) = v174;
-          *(v17 + 1028) = v175;
+          *(v17 + 604) = v186;
+          *(v17 + 620) = v187;
+          memcpy((v17 + 632), v184, 0x120uLL);
+          *(v17 + 928) = v178;
+          *(v17 + 944) = v179;
+          *(v17 + 960) = *v180;
+          *(v17 + 972) = *&v180[12];
+          *(v17 + 996) = v172;
+          *(v17 + 1012) = v173;
+          *(v17 + 1028) = v174;
           if (logLevel >= 3)
           {
             v104 = v66;
@@ -5241,9 +5225,9 @@ LABEL_286:
             if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218242;
-              *v194 = __src;
-              *&v194[8] = 2080;
-              v195 = "Mix_dyn_setting";
+              *v193 = __src;
+              *&v193[8] = 2080;
+              v194 = "Mix_dyn_setting";
               _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
             }
 
@@ -5254,18 +5238,18 @@ LABEL_286:
           }
 
 LABEL_313:
-          v64 = v160;
+          v64 = v159;
           v54 = a13;
           goto LABEL_43;
         }
 
         v62 = v109;
-        v67 = v161;
+        v67 = v160;
         goto LABEL_308;
       }
 
-      v164 = v65;
-      v166 = 0;
+      v163 = v65;
+      v165 = 0;
     }
 
     else
@@ -5281,17 +5265,17 @@ LABEL_313:
         goto LABEL_285;
       }
 
-      v166 = v68;
-      v164 = v65;
+      v165 = v68;
+      v163 = v65;
       v109 = v103;
     }
 
     v110 = (v17 + 604);
     v111 = (v17 + 928);
     v112 = (v17 + 996);
-    if (v167)
+    if (v166)
     {
-      if (v159 <= 6)
+      if (v158 <= 6)
       {
         memcpy((v17 + 28), &iPhone_SettingVideo_NFG_V2, 0x22CuLL);
         *(v17 + 592) = 0;
@@ -5320,9 +5304,9 @@ LABEL_313:
         }
 
         *(v17 + 1028) = v115;
-        v68 = v166;
+        v68 = v165;
         v62 = v109;
-        v67 = v161;
+        v67 = v160;
         if (logLevel < 3)
         {
           goto LABEL_329;
@@ -5336,17 +5320,17 @@ LABEL_328:
 
 LABEL_329:
           v63 = 0;
-          v65 = v164;
+          v65 = v163;
 LABEL_330:
           v54 = a13;
-          v64 = v160;
+          v64 = v159;
           goto LABEL_43;
         }
 
         *buf = 134218242;
-        *v194 = &iPhone_SettingVideo_NFG_V2;
-        *&v194[8] = 2080;
-        v195 = "iPhone_SettingVideo_NFG_V2";
+        *v193 = &iPhone_SettingVideo_NFG_V2;
+        *&v193[8] = 2080;
+        v194 = "iPhone_SettingVideo_NFG_V2";
         v131 = MEMORY[0x277D86220];
 LABEL_327:
         _os_log_impl(&dword_23D3F2000, v131, OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
@@ -5380,9 +5364,9 @@ LABEL_327:
       }
 
       *(v17 + 1028) = v124;
-      v68 = v166;
+      v68 = v165;
       v62 = v109;
-      v67 = v161;
+      v67 = v160;
       if (logLevel >= 3)
       {
         v136 = MEMORY[0x277D86220];
@@ -5390,9 +5374,9 @@ LABEL_327:
         if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          *v194 = &SettingVideo_NFG_V2;
-          *&v194[8] = 2080;
-          v195 = "SettingVideo_NFG_V2";
+          *v193 = &SettingVideo_NFG_V2;
+          *&v193[8] = 2080;
+          v194 = "SettingVideo_NFG_V2";
           v138 = MEMORY[0x277D86220];
 LABEL_339:
           _os_log_impl(&dword_23D3F2000, v138, OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
@@ -5405,7 +5389,7 @@ LABEL_339:
 
     else
     {
-      if (v159 <= 6)
+      if (v158 <= 6)
       {
         memcpy((v17 + 28), &iPhone_SettingVideo_NFG_LargeRatio_V2, 0x22CuLL);
         *(v17 + 592) = 0;
@@ -5434,9 +5418,9 @@ LABEL_339:
         }
 
         *(v17 + 1028) = v118;
-        v68 = v166;
+        v68 = v165;
         v62 = v109;
-        v67 = v161;
+        v67 = v160;
         if (logLevel < 3)
         {
           goto LABEL_329;
@@ -5450,9 +5434,9 @@ LABEL_339:
         }
 
         *buf = 134218242;
-        *v194 = &iPhone_SettingVideo_NFG_LargeRatio_V2;
-        *&v194[8] = 2080;
-        v195 = "iPhone_SettingVideo_NFG_LargeRatio_V2";
+        *v193 = &iPhone_SettingVideo_NFG_LargeRatio_V2;
+        *&v193[8] = 2080;
+        v194 = "iPhone_SettingVideo_NFG_LargeRatio_V2";
         v131 = MEMORY[0x277D86220];
         goto LABEL_327;
       }
@@ -5484,9 +5468,9 @@ LABEL_339:
       }
 
       *(v17 + 1028) = v127;
-      v68 = v166;
+      v68 = v165;
       v62 = v109;
-      v67 = v161;
+      v67 = v160;
       if (logLevel >= 3)
       {
         v140 = MEMORY[0x277D86220];
@@ -5494,9 +5478,9 @@ LABEL_339:
         if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          *v194 = &SettingVideo_NFG_LargeRatio_V2;
-          *&v194[8] = 2080;
-          v195 = "SettingVideo_NFG_LargeRatio_V2";
+          *v193 = &SettingVideo_NFG_LargeRatio_V2;
+          *&v193[8] = 2080;
+          v194 = "SettingVideo_NFG_LargeRatio_V2";
           v138 = MEMORY[0x277D86220];
           goto LABEL_339;
         }
@@ -5506,9 +5490,9 @@ LABEL_340:
     }
 
     v63 = 0;
-    v65 = v164;
+    v65 = v163;
     v54 = a13;
-    v64 = v160;
+    v64 = v159;
     goto LABEL_342;
   }
 
@@ -5544,14 +5528,14 @@ LABEL_340:
   if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    *v194 = &InitialSettingVideo_V2;
-    *&v194[8] = 2080;
-    v195 = "InitialSettingVideo_V2";
+    *v193 = &InitialSettingVideo_V2;
+    *&v193[8] = 2080;
+    v194 = "InitialSettingVideo_V2";
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
   }
 
   v62 = 0;
-  v172 = 4;
+  v171 = 4;
   v63 = 1;
   v64 = v58;
   v65 = v57;
@@ -5631,16 +5615,16 @@ LABEL_345:
 
 LABEL_349:
   *(v17 + 32) = 204800;
-  *a6 = v172;
+  *a6 = v171;
   *v66 = v63;
   *v65 = v62;
   *a9 = v68;
   *a10 = a1[16] + a1[15];
   *a11 = a1[32] + a1[31];
-  *a12 = v169;
+  *a12 = v168;
   *(v17 + 564) = v64;
-  *(v17 + 568) = v170;
-  *(v17 + 572) = v172;
+  *(v17 + 568) = v169;
+  *(v17 + 572) = v171;
   *(v17 + 576) = 0x400000007;
   if (logLevel >= 3)
   {
@@ -5654,15 +5638,15 @@ LABEL_349:
       v150 = *(v17 + 576);
       v151 = *(v17 + 580);
       *buf = 67110144;
-      *v194 = v147;
-      *&v194[4] = 1024;
-      *&v194[6] = v148;
-      LOWORD(v195) = 1024;
-      *(&v195 + 2) = v149;
-      HIWORD(v195) = 1024;
-      v196 = v150;
-      v197 = 1024;
-      v198 = v151;
+      *v193 = v147;
+      *&v193[4] = 1024;
+      *&v193[6] = v148;
+      LOWORD(v194) = 1024;
+      *(&v194 + 2) = v149;
+      HIWORD(v194) = 1024;
+      v195 = v150;
+      v196 = 1024;
+      v197 = v151;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] aseControlUnit->noiseMeter = config.{ sizeX=%d, sizeY=%d }, gainControl.{ lut0Gain= %d, lut1Gain= %d, lut2Gain= %d }\n", buf, 0x20u);
     }
 
@@ -5676,29 +5660,27 @@ LABEL_349:
         v154 = *(v17 + 40);
         v156 = *(v17 + 44);
         *buf = 67109888;
-        *v194 = v153;
-        *&v194[4] = 1024;
-        *&v194[6] = v154;
-        LOWORD(v195) = 1024;
-        *(&v195 + 2) = v155;
-        HIWORD(v195) = 1024;
-        v196 = v156;
+        *v193 = v153;
+        *&v193[4] = 1024;
+        *&v193[6] = v154;
+        LOWORD(v194) = 1024;
+        *(&v194 + 2) = v155;
+        HIWORD(v194) = 1024;
+        v195 = v156;
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] aseControlUnit->asePixelControl.dsEnable=%d, enhancementConfig.{ebeEnable=%d, peakingEnable=%d, chromaEnhanceEnable=%d}\n", buf, 0x1Au);
       }
     }
   }
-
-  v157 = *MEMORY[0x277D85DE8];
 }
 
 void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5, int *a6, int *a7, int *a8, unsigned int *a9, unsigned int *a10, unsigned int *a11, unsigned int *a12, int a13, int a14, int a15, unsigned __int8 a16, int a17)
 {
   v18 = a3;
-  v167 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   v21 = *a6;
-  v145 = *a8;
-  v146 = *a7;
-  v144 = *a9;
+  v144 = *a8;
+  v145 = *a7;
+  v143 = *a9;
   memset(__src, 0, 512);
   memset(&__dst[22], 0, 160);
   v22 = 100 * a1[94];
@@ -5711,7 +5693,7 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
   memset(&__dst[2], 0, 320);
   v24 = v22 / v23;
   v26 = a3 > 0x383 && a4 > 0x1F3;
-  v143 = v26;
+  v142 = v26;
   memset(__dst, 0, 32);
   if (a5)
   {
@@ -5782,7 +5764,7 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
   v41 = *a1;
   if (logLevel >= 3)
   {
-    v147 = a5;
+    v146 = a5;
     v43 = v21;
     v44 = MEMORY[0x277D86220];
     v45 = MEMORY[0x277D86220];
@@ -5794,29 +5776,29 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
       v49 = a1[32] + a1[31];
       v50 = *a11;
       *buf = 67110656;
-      *v158 = v40;
-      *&v158[4] = 1024;
-      *&v158[6] = v24;
-      LOWORD(v159) = 1024;
-      *(&v159 + 2) = v46;
-      HIWORD(v159) = 1024;
-      v160 = v47;
-      v161 = 1024;
-      v162 = v48;
-      v163 = 1024;
-      v164 = v49;
-      v165 = 1024;
-      v166 = v50;
+      *v157 = v40;
+      *&v157[4] = 1024;
+      *&v157[6] = v24;
+      LOWORD(v158) = 1024;
+      *(&v158 + 2) = v46;
+      HIWORD(v158) = 1024;
+      v159 = v47;
+      v160 = 1024;
+      v161 = v48;
+      v162 = 1024;
+      v163 = v49;
+      v164 = 1024;
+      v165 = v50;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] scene_change_detected = %d, ratio_2D_1D is :%d vs %d; H1 is : %d vs %d,  V1 is: %d vs %d;\n", buf, 0x2Cu);
     }
 
     v21 = v43;
     v18 = a3;
-    a5 = v147;
+    a5 = v146;
   }
 
-  v149 = a4 - 22;
-  v150 = v18 - 22;
+  v148 = a4 - 22;
+  v149 = v18 - 22;
   if (!a5 || (100 * v41 / (v18 - 22) * (a4 - 22)) < 20 || a5 != 1 && v40)
   {
     memcpy((a2 + 28), &InitialSettingVideo_V1, 0x22CuLL);
@@ -5824,7 +5806,7 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
     {
       v52 = 0;
       v53 = 0;
-      v151 = 4;
+      v150 = 4;
       v54 = 1;
       v51 = a12;
     }
@@ -5835,57 +5817,57 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        *v158 = &InitialSettingVideo_V1;
-        *&v158[8] = 2080;
-        v159 = "InitialSettingVideo";
+        *v157 = &InitialSettingVideo_V1;
+        *&v157[8] = 2080;
+        v158 = "InitialSettingVideo";
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
       }
 
       v52 = 0;
       v53 = 0;
-      v151 = 4;
+      v150 = 4;
       v54 = 1;
     }
 
     goto LABEL_41;
   }
 
+  v81 = 0;
   v82 = 0;
   v83 = 0;
-  v84 = 0;
   do
   {
-    v83 += a1[v82 + 23];
-    v84 += a1[v82 + 39];
-    ++v82;
+    v82 += a1[v81 + 23];
+    v83 += a1[v81 + 39];
+    ++v81;
   }
 
-  while (v82 != 7);
-  v85 = 0;
+  while (v81 != 7);
+  v84 = 0;
   for (i = 79; i != 94; ++i)
   {
-    v85 += a1[i];
+    v84 += a1[i];
   }
 
-  v87 = 10 * a1[46] / v84 + 10 * a1[30] / v83;
-  v88 = 10 * a1[94] / v85;
-  if (v88 <= 349)
+  v86 = 10 * a1[46] / v83 + 10 * a1[30] / v82;
+  v87 = 10 * a1[94] / v84;
+  if (v87 <= 349)
   {
-    v87 = 350 * v87 / v88;
+    v86 = 350 * v86 / v87;
   }
 
-  v89 = 0;
+  v88 = 0;
   for (j = 47; j != 62; ++j)
   {
-    v89 += a1[j];
+    v88 += a1[j];
   }
 
-  HIDWORD(v91) = 1079574528;
-  LODWORD(v91) = *a1;
-  v92 = v89 * 100.0 / v91;
-  if (v92 >= 7.0)
+  HIDWORD(v90) = 1079574528;
+  LODWORD(v90) = *a1;
+  v91 = v88 * 100.0 / v90;
+  if (v91 >= 7.0)
   {
-    if (v92 > 8.0)
+    if (v91 > 8.0)
     {
       if (v21 - 1 <= 4)
       {
@@ -5904,172 +5886,172 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
     ++v21;
   }
 
-  v151 = v21;
-  v148 = a5;
+  v150 = v21;
+  v147 = a5;
   if (v21 <= 0xE)
   {
     if (v21 < 0xA)
     {
       if (v21 < 6)
       {
-        v93 = 0;
+        v92 = 0;
       }
 
       else
       {
-        v93 = (50 * v21 - 300) >> 2;
+        v92 = (50 * v21 - 300) >> 2;
       }
     }
 
     else
     {
-      v93 = ((50 * v21 + 12) & 0xFEu) / 5 + 50;
+      v92 = ((50 * v21 + 12) & 0xFEu) / 5 + 50;
     }
   }
 
   else
   {
-    v93 = 100;
+    v92 = 100;
   }
 
-  if (v87 <= 30)
+  if (v86 <= 30)
   {
-    if (v87 < 24)
+    if (v86 < 24)
     {
-      if (v87 < 12)
+      if (v86 < 12)
       {
-        v94 = 100;
+        v93 = 100;
       }
 
       else
       {
-        v94 = ((5462 * (50 * (24 - v87))) >> 16) + 50;
+        v93 = ((5462 * (50 * (24 - v86))) >> 16) + 50;
       }
     }
 
     else
     {
-      v94 = (10923 * (50 * (30 - v87))) >> 16;
+      v93 = (10923 * (50 * (30 - v86))) >> 16;
     }
   }
 
   else
   {
-    v94 = 0;
+    v93 = 0;
   }
 
   if (logLevel >= 3)
   {
+    v94 = MEMORY[0x277D86220];
     v95 = MEMORY[0x277D86220];
-    v96 = MEMORY[0x277D86220];
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67110400;
-      *v158 = v148;
-      *&v158[4] = 1024;
-      *&v158[6] = v93;
-      LOWORD(v159) = 1024;
-      *(&v159 + 2) = v94;
-      HIWORD(v159) = 1024;
-      v160 = v87;
-      v161 = 1024;
-      v162 = a16;
-      v163 = 1024;
-      v164 = a17;
+      *v157 = v147;
+      *&v157[4] = 1024;
+      *&v157[6] = v92;
+      LOWORD(v158) = 1024;
+      *(&v158 + 2) = v93;
+      HIWORD(v158) = 1024;
+      v159 = v86;
+      v160 = 1024;
+      v161 = a16;
+      v162 = 1024;
+      v163 = a17;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Frame %d:  Curr_FG_level = %d, Curr_badly_coded_FG_level = %d, No_Bad_coded_FilmGrain_score = %d; inputIsHDR = %d, inputTransferFunction = %d\n", buf, 0x26u);
     }
   }
 
-  v97 = 10 * a1[1] / a1[2];
-  if (v97 <= 24)
+  v96 = 10 * a1[1] / a1[2];
+  if (v96 <= 24)
   {
-    if (v97 < 18)
+    if (v96 < 18)
     {
-      if (v97 < 12)
+      if (v96 < 12)
       {
-        v98 = 0;
+        v97 = 0;
       }
 
       else
       {
-        v98 = ((50 * v97 - 88) & 0xFEu) / 6;
+        v97 = ((50 * v96 - 88) & 0xFEu) / 6;
       }
     }
 
     else
     {
-      v98 = ((((50 * v97 - 900 - ((9363 * ((50 * v97 - 900) & 0xFFFEu)) >> 16)) >> 1) + ((9363 * ((50 * v97 - 900) & 0xFFFEu)) >> 16)) >> 2) + 50;
+      v97 = ((((50 * v96 - 900 - ((9363 * ((50 * v96 - 900) & 0xFFFEu)) >> 16)) >> 1) + ((9363 * ((50 * v96 - 900) & 0xFFFEu)) >> 16)) >> 2) + 50;
     }
   }
 
   else
   {
-    v98 = 100;
+    v97 = 100;
   }
 
   if (logLevel >= 3)
   {
+    v98 = MEMORY[0x277D86220];
     v99 = MEMORY[0x277D86220];
-    v100 = MEMORY[0x277D86220];
-    if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v158 = v148;
-      *&v158[4] = 1024;
-      *&v158[6] = v98;
+      *v157 = v147;
+      *&v157[4] = 1024;
+      *&v157[6] = v97;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] 06122025 Frame %d:  Curr_GFX_level = %d \n", buf, 0xEu);
     }
   }
 
-  if (v93 <= v94)
+  if (v92 <= v93)
   {
-    v101 = v94;
+    v100 = v93;
   }
 
   else
   {
-    v101 = v93;
+    v100 = v92;
   }
 
-  if (v101 <= v98)
+  if (v100 <= v97)
   {
-    v101 = v98;
+    v100 = v97;
   }
 
   if (overrideFGLevel == -1)
   {
-    v102 = v101;
+    v101 = v100;
   }
 
   else
   {
-    v102 = overrideFGLevel;
+    v101 = overrideFGLevel;
   }
 
   if (a13 == 1)
   {
     v51 = a12;
-    v103 = v143;
+    v102 = v142;
     if (logLevel >= 4)
     {
+      v103 = MEMORY[0x277D86220];
       v104 = MEMORY[0x277D86220];
-      v105 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Apply iPhone control setting V1\n", buf, 2u);
       }
     }
 
-    if (v143)
+    if (v142)
     {
-      if (v102 > 29)
+      if (v101 > 29)
       {
-        if (v102 > 0x31)
+        if (v101 > 0x31)
         {
-          if (v102 > 0x45)
+          if (v101 > 0x45)
           {
-            if (v102 > 0x5E)
+            if (v101 > 0x5E)
             {
               memcpy(__dst, &iPhone_SettingVideo_Heavy_FG_V1, 0x22CuLL);
               memcpy(__src, &iPhone_SettingVideo_Heavy_FG_mix_V1, 0x22CuLL);
@@ -6078,16 +6060,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
                 goto LABEL_208;
               }
 
+              v125 = MEMORY[0x277D86220];
               v126 = MEMORY[0x277D86220];
-              v127 = MEMORY[0x277D86220];
-              if (!os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+              if (!os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_203;
               }
 
               *buf = 0;
-              v108 = MEMORY[0x277D86220];
-              v109 = " [1.50.3] Film grain level heavy\n";
+              v107 = MEMORY[0x277D86220];
+              v108 = " [1.50.3] Film grain level heavy\n";
             }
 
             else
@@ -6099,16 +6081,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
                 goto LABEL_208;
               }
 
+              v121 = MEMORY[0x277D86220];
               v122 = MEMORY[0x277D86220];
-              v123 = MEMORY[0x277D86220];
-              if (!os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+              if (!os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_203;
               }
 
               *buf = 0;
-              v108 = MEMORY[0x277D86220];
-              v109 = " [1.50.3] Film grain level 3\n";
+              v107 = MEMORY[0x277D86220];
+              v108 = " [1.50.3] Film grain level 3\n";
             }
           }
 
@@ -6121,16 +6103,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
               goto LABEL_208;
             }
 
+            v117 = MEMORY[0x277D86220];
             v118 = MEMORY[0x277D86220];
-            v119 = MEMORY[0x277D86220];
-            if (!os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
+            if (!os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_203;
             }
 
             *buf = 0;
-            v108 = MEMORY[0x277D86220];
-            v109 = " [1.50.3] Film grain level 2\n";
+            v107 = MEMORY[0x277D86220];
+            v108 = " [1.50.3] Film grain level 2\n";
           }
         }
 
@@ -6143,16 +6125,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
             goto LABEL_208;
           }
 
+          v113 = MEMORY[0x277D86220];
           v114 = MEMORY[0x277D86220];
-          v115 = MEMORY[0x277D86220];
-          if (!os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+          if (!os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_203;
           }
 
           *buf = 0;
-          v108 = MEMORY[0x277D86220];
-          v109 = " [1.50.3] Film grain level 1\n";
+          v107 = MEMORY[0x277D86220];
+          v108 = " [1.50.3] Film grain level 1\n";
         }
       }
 
@@ -6165,26 +6147,26 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
           goto LABEL_208;
         }
 
+        v105 = MEMORY[0x277D86220];
         v106 = MEMORY[0x277D86220];
-        v107 = MEMORY[0x277D86220];
-        if (!os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_203;
         }
 
         *buf = 0;
-        v108 = MEMORY[0x277D86220];
-        v109 = " [1.50.3] Film grain level light\n";
+        v107 = MEMORY[0x277D86220];
+        v108 = " [1.50.3] Film grain level light\n";
       }
     }
 
-    else if (v102 > 29)
+    else if (v101 > 29)
     {
-      if (v102 > 0x31)
+      if (v101 > 0x31)
       {
-        if (v102 > 0x45)
+        if (v101 > 0x45)
         {
-          if (v102 > 0x5E)
+          if (v101 > 0x5E)
           {
             memcpy(__dst, &iPhone_SettingVideo_Heavy_FG_LargeRatio_V1, 0x22CuLL);
             memcpy(__src, &iPhone_SettingVideo_Heavy_FG_mix_LargeRatio_V1, 0x22CuLL);
@@ -6193,16 +6175,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
               goto LABEL_208;
             }
 
+            v127 = MEMORY[0x277D86220];
             v128 = MEMORY[0x277D86220];
-            v129 = MEMORY[0x277D86220];
-            if (!os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+            if (!os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_203;
             }
 
             *buf = 0;
-            v108 = MEMORY[0x277D86220];
-            v109 = " [1.50.3] Film grain level heavy LargeRatio\n";
+            v107 = MEMORY[0x277D86220];
+            v108 = " [1.50.3] Film grain level heavy LargeRatio\n";
           }
 
           else
@@ -6214,16 +6196,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
               goto LABEL_208;
             }
 
+            v123 = MEMORY[0x277D86220];
             v124 = MEMORY[0x277D86220];
-            v125 = MEMORY[0x277D86220];
-            if (!os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+            if (!os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_203;
             }
 
             *buf = 0;
-            v108 = MEMORY[0x277D86220];
-            v109 = " [1.50.3] Film grain level 3 LargeRatio\n";
+            v107 = MEMORY[0x277D86220];
+            v108 = " [1.50.3] Film grain level 3 LargeRatio\n";
           }
         }
 
@@ -6236,16 +6218,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
             goto LABEL_208;
           }
 
+          v119 = MEMORY[0x277D86220];
           v120 = MEMORY[0x277D86220];
-          v121 = MEMORY[0x277D86220];
-          if (!os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+          if (!os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_203;
           }
 
           *buf = 0;
-          v108 = MEMORY[0x277D86220];
-          v109 = " [1.50.3] Film grain level 2 LargeRatio\n";
+          v107 = MEMORY[0x277D86220];
+          v108 = " [1.50.3] Film grain level 2 LargeRatio\n";
         }
       }
 
@@ -6258,16 +6240,16 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
           goto LABEL_208;
         }
 
+        v115 = MEMORY[0x277D86220];
         v116 = MEMORY[0x277D86220];
-        v117 = MEMORY[0x277D86220];
-        if (!os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_203;
         }
 
         *buf = 0;
-        v108 = MEMORY[0x277D86220];
-        v109 = " [1.50.3] Film grain level 1 LargeRatio\n";
+        v107 = MEMORY[0x277D86220];
+        v108 = " [1.50.3] Film grain level 1 LargeRatio\n";
       }
     }
 
@@ -6280,35 +6262,35 @@ void calculate_control_setting_V1(int *a1, uint64_t a2, unsigned int a3, unsigne
         goto LABEL_208;
       }
 
+      v111 = MEMORY[0x277D86220];
       v112 = MEMORY[0x277D86220];
-      v113 = MEMORY[0x277D86220];
-      if (!os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_203;
       }
 
       *buf = 0;
-      v108 = MEMORY[0x277D86220];
-      v109 = " [1.50.3] Film grain level light LargeRatio\n";
+      v107 = MEMORY[0x277D86220];
+      v108 = " [1.50.3] Film grain level light LargeRatio\n";
     }
 
-    _os_log_impl(&dword_23D3F2000, v108, OS_LOG_TYPE_DEFAULT, v109, buf, 2u);
+    _os_log_impl(&dword_23D3F2000, v107, OS_LOG_TYPE_DEFAULT, v108, buf, 2u);
 LABEL_203:
 
     goto LABEL_208;
   }
 
   v51 = a12;
-  v103 = v143;
-  if (v143)
+  v102 = v142;
+  if (v142)
   {
-    if (v102 > 29)
+    if (v101 > 29)
     {
-      if (v102 > 0x31)
+      if (v101 > 0x31)
       {
-        if (v102 > 0x45)
+        if (v101 > 0x45)
         {
-          if (v102 > 0x5E)
+          if (v101 > 0x5E)
           {
             memcpy(__dst, &SettingVideo_Heavy_FG_V1, 0x22CuLL);
             memcpy(__src, &SettingVideo_Heavy_FG_mix_V1, 0x22CuLL);
@@ -6318,8 +6300,8 @@ LABEL_203:
             }
 
             *buf = 0;
-            v110 = MEMORY[0x277D86220];
-            v111 = " [1.50.3] Film grain level heavy\n";
+            v109 = MEMORY[0x277D86220];
+            v110 = " [1.50.3] Film grain level heavy\n";
           }
 
           else
@@ -6332,8 +6314,8 @@ LABEL_203:
             }
 
             *buf = 0;
-            v110 = MEMORY[0x277D86220];
-            v111 = " [1.50.3] Film grain level 3\n";
+            v109 = MEMORY[0x277D86220];
+            v110 = " [1.50.3] Film grain level 3\n";
           }
         }
 
@@ -6347,8 +6329,8 @@ LABEL_203:
           }
 
           *buf = 0;
-          v110 = MEMORY[0x277D86220];
-          v111 = " [1.50.3] Film grain level 2\n";
+          v109 = MEMORY[0x277D86220];
+          v110 = " [1.50.3] Film grain level 2\n";
         }
       }
 
@@ -6362,8 +6344,8 @@ LABEL_203:
         }
 
         *buf = 0;
-        v110 = MEMORY[0x277D86220];
-        v111 = " [1.50.3] Film grain level 1\n";
+        v109 = MEMORY[0x277D86220];
+        v110 = " [1.50.3] Film grain level 1\n";
       }
     }
 
@@ -6377,18 +6359,18 @@ LABEL_203:
       }
 
       *buf = 0;
-      v110 = MEMORY[0x277D86220];
-      v111 = " [1.50.3] Film grain level light\n";
+      v109 = MEMORY[0x277D86220];
+      v110 = " [1.50.3] Film grain level light\n";
     }
   }
 
-  else if (v102 > 29)
+  else if (v101 > 29)
   {
-    if (v102 > 0x31)
+    if (v101 > 0x31)
     {
-      if (v102 > 0x45)
+      if (v101 > 0x45)
       {
-        if (v102 > 0x5E)
+        if (v101 > 0x5E)
         {
           memcpy(__dst, &SettingVideo_Heavy_FG_LargeRatio_V1, 0x22CuLL);
           memcpy(__src, &SettingVideo_Heavy_FG_mix_LargeRatio_V1, 0x22CuLL);
@@ -6398,8 +6380,8 @@ LABEL_203:
           }
 
           *buf = 0;
-          v110 = MEMORY[0x277D86220];
-          v111 = " [1.50.3] Film grain level heavy LargeRatio\n";
+          v109 = MEMORY[0x277D86220];
+          v110 = " [1.50.3] Film grain level heavy LargeRatio\n";
         }
 
         else
@@ -6412,8 +6394,8 @@ LABEL_203:
           }
 
           *buf = 0;
-          v110 = MEMORY[0x277D86220];
-          v111 = " [1.50.3] Film grain level 3 LargeRatio\n";
+          v109 = MEMORY[0x277D86220];
+          v110 = " [1.50.3] Film grain level 3 LargeRatio\n";
         }
       }
 
@@ -6427,8 +6409,8 @@ LABEL_203:
         }
 
         *buf = 0;
-        v110 = MEMORY[0x277D86220];
-        v111 = " [1.50.3] Film grain level 2 LargeRatio\n";
+        v109 = MEMORY[0x277D86220];
+        v110 = " [1.50.3] Film grain level 2 LargeRatio\n";
       }
     }
 
@@ -6442,8 +6424,8 @@ LABEL_203:
       }
 
       *buf = 0;
-      v110 = MEMORY[0x277D86220];
-      v111 = " [1.50.3] Film grain level 1 LargeRatio\n";
+      v109 = MEMORY[0x277D86220];
+      v110 = " [1.50.3] Film grain level 1 LargeRatio\n";
     }
   }
 
@@ -6457,16 +6439,16 @@ LABEL_203:
     }
 
     *buf = 0;
-    v110 = MEMORY[0x277D86220];
-    v111 = " [1.50.3] Film grain level light LargeRatio\n";
+    v109 = MEMORY[0x277D86220];
+    v110 = " [1.50.3] Film grain level light LargeRatio\n";
   }
 
-  _os_log_impl(&dword_23D3F2000, v110, OS_LOG_TYPE_DEFAULT, v111, buf, 2u);
+  _os_log_impl(&dword_23D3F2000, v109, OS_LOG_TYPE_DEFAULT, v110, buf, 2u);
 LABEL_208:
-  v130 = v102 <= 20;
-  if (v102 <= 20)
+  v129 = v101 <= 20;
+  if (v101 <= 20)
   {
-    v52 = v144 + 1;
+    v52 = v143 + 1;
   }
 
   else
@@ -6474,31 +6456,31 @@ LABEL_208:
     v52 = 0;
   }
 
-  if (v130)
+  if (v129)
   {
-    v131 = 0;
+    v130 = 0;
   }
 
   else
   {
-    v131 = v145 + 1;
+    v130 = v144 + 1;
   }
 
-  if (!v146)
+  if (!v145)
   {
     if (v52 >= 0x30)
     {
       v52 = 48;
     }
 
-    if (v131 > 0x18)
+    if (v130 > 0x18)
     {
       v53 = 0;
       goto LABEL_225;
     }
 
-    v53 = v131;
-    if (!v103)
+    v53 = v130;
+    if (!v102)
     {
       goto LABEL_235;
     }
@@ -6506,11 +6488,11 @@ LABEL_208:
     goto LABEL_238;
   }
 
-  if (v146 != 2)
+  if (v145 != 2)
   {
-    if (v131 <= 0x18)
+    if (v130 <= 0x18)
     {
-      v53 = v131;
+      v53 = v130;
     }
 
     else
@@ -6520,9 +6502,9 @@ LABEL_208:
 
     if (v52 <= 0x30)
     {
-      if (v131 <= 0x18)
+      if (v130 <= 0x18)
       {
-        v54 = v146;
+        v54 = v145;
       }
 
       else
@@ -6536,14 +6518,14 @@ LABEL_226:
         memcpy((a2 + 28), __src, 0x22CuLL);
         if (logLevel >= 3)
         {
+          v131 = MEMORY[0x277D86220];
           v132 = MEMORY[0x277D86220];
-          v133 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            *v158 = __src;
-            *&v158[8] = 2080;
-            v159 = "Mix_dyn_setting";
+            *v157 = __src;
+            *&v157[8] = 2080;
+            v158 = "Mix_dyn_setting";
             _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
           }
         }
@@ -6555,33 +6537,33 @@ LABEL_226:
     }
 
     v52 = 0;
-    if (!v103)
+    if (!v102)
     {
 LABEL_235:
       if (a13 == 1)
       {
-        v134 = &iPhone_SettingVideo_NFG_LargeRatio_V1;
+        v133 = &iPhone_SettingVideo_NFG_LargeRatio_V1;
       }
 
       else
       {
-        v134 = &SettingVideo_NFG_LargeRatio_V1;
+        v133 = &SettingVideo_NFG_LargeRatio_V1;
       }
 
-      memcpy((a2 + 28), v134, 0x22CuLL);
+      memcpy((a2 + 28), v133, 0x22CuLL);
       if (logLevel >= 3)
       {
+        v137 = MEMORY[0x277D86220];
         v138 = MEMORY[0x277D86220];
-        v139 = MEMORY[0x277D86220];
-        if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          *v158 = &SettingVideo_NFG_LargeRatio_V1;
-          *&v158[8] = 2080;
-          v159 = "SettingVideo_NFG LargeRatio";
-          v140 = MEMORY[0x277D86220];
+          *v157 = &SettingVideo_NFG_LargeRatio_V1;
+          *&v157[8] = 2080;
+          v158 = "SettingVideo_NFG LargeRatio";
+          v139 = MEMORY[0x277D86220];
 LABEL_257:
-          _os_log_impl(&dword_23D3F2000, v140, OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
+          _os_log_impl(&dword_23D3F2000, v139, OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
           goto LABEL_258;
         }
 
@@ -6594,26 +6576,26 @@ LABEL_257:
 LABEL_238:
     if (a13 == 1)
     {
-      v135 = &iPhone_SettingVideo_NFG_V1;
+      v134 = &iPhone_SettingVideo_NFG_V1;
     }
 
     else
     {
-      v135 = &SettingVideo_NFG_V1;
+      v134 = &SettingVideo_NFG_V1;
     }
 
-    memcpy((a2 + 28), v135, 0x22CuLL);
+    memcpy((a2 + 28), v134, 0x22CuLL);
     if (logLevel >= 3)
     {
+      v140 = MEMORY[0x277D86220];
       v141 = MEMORY[0x277D86220];
-      v142 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        *v158 = &SettingVideo_NFG_V1;
-        *&v158[8] = 2080;
-        v159 = "SettingVideo_NFG";
-        v140 = MEMORY[0x277D86220];
+        *v157 = &SettingVideo_NFG_V1;
+        *&v157[8] = 2080;
+        v158 = "SettingVideo_NFG";
+        v139 = MEMORY[0x277D86220];
         goto LABEL_257;
       }
 
@@ -6628,14 +6610,14 @@ LABEL_259:
     goto LABEL_41;
   }
 
-  if (v131 >= 0x18)
+  if (v130 >= 0x18)
   {
     v53 = 24;
   }
 
   else
   {
-    v53 = v131;
+    v53 = v130;
   }
 
   if (v52 > 0x30)
@@ -6655,14 +6637,14 @@ LABEL_244:
 
   else
   {
+    v135 = MEMORY[0x277D86220];
     v136 = MEMORY[0x277D86220];
-    v137 = MEMORY[0x277D86220];
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      *v158 = __dst;
-      *&v158[8] = 2080;
-      v159 = "FG_dyn_setting";
+      *v157 = __dst;
+      *&v157[8] = 2080;
+      v158 = "FG_dyn_setting";
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl[%p]=%s\n", buf, 0x16u);
     }
 
@@ -6722,7 +6704,7 @@ LABEL_41:
     {
       v60 = *(a2 + 452);
       *buf = 134217984;
-      *v158 = v60;
+      *v157 = v60;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl->blendLogicCurve.point0.x_position=%f\n", buf, 0xCu);
     }
 
@@ -6734,7 +6716,7 @@ LABEL_41:
       {
         v63 = *(a2 + 456);
         *buf = 134217984;
-        *v158 = v63;
+        *v157 = v63;
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl->blendLogicCurve.point0.y_position=%f\n", buf, 0xCu);
       }
 
@@ -6746,7 +6728,7 @@ LABEL_41:
         {
           v66 = *(a2 + 460);
           *buf = 134217984;
-          *v158 = v66;
+          *v157 = v66;
           _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl->blendLogicCurve.point0.slope=%f\n", buf, 0xCu);
         }
       }
@@ -6812,16 +6794,16 @@ LABEL_60:
   *(a2 + 516) = vmul_f32(*(a2 + 516), 0x3F0000003F000000);
   *(a2 + 528) = vmul_f32(*(a2 + 528), 0x3F0000003F000000);
   *(a2 + 540) = vmul_f32(*(a2 + 540), 0x3F0000003F000000);
-  *a6 = v151;
+  *a6 = v150;
   *a7 = v54;
   *a8 = v53;
   *a9 = v52;
   *a10 = a1[16] + a1[15];
   *a11 = a1[32] + a1[31];
   *v51 = v24;
-  *(a2 + 564) = v150;
-  *(a2 + 568) = v149;
-  *(a2 + 572) = v151;
+  *(a2 + 564) = v149;
+  *(a2 + 568) = v148;
+  *(a2 + 572) = v150;
   *(a2 + 576) = 0x400000007;
   if (logLevel >= 3)
   {
@@ -6835,20 +6817,18 @@ LABEL_60:
       v79 = *(a2 + 576);
       v80 = *(a2 + 580);
       *buf = 67110144;
-      *v158 = v76;
-      *&v158[4] = 1024;
-      *&v158[6] = v77;
-      LOWORD(v159) = 1024;
-      *(&v159 + 2) = v78;
-      HIWORD(v159) = 1024;
-      v160 = v79;
-      v161 = 1024;
-      v162 = v80;
+      *v157 = v76;
+      *&v157[4] = 1024;
+      *&v157[6] = v77;
+      LOWORD(v158) = 1024;
+      *(&v158 + 2) = v78;
+      HIWORD(v158) = 1024;
+      v159 = v79;
+      v160 = 1024;
+      v161 = v80;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] pixelControl->noiseMeter = config.{ sizeX=%d, sizeY=%d }, gainControl.{ lut0Gain= %d, lut1Gain= %d, lut2Gain= %d }\n", buf, 0x20u);
     }
   }
-
-  v81 = *MEMORY[0x277D85DE8];
 }
 
 CFIndex updateConfigsPerFrame()
@@ -7006,7 +6986,8 @@ void createCacheNode_cold_1()
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: size == sizeof(ASEHcuCacheNodeValueBlend) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 40\n", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: size == sizeof(ASEHcuCacheNodeValueBlend) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 40\n", v1, v2, v3, v4, v5);
   }
 
   __assert_rtn("createCacheNode", "ASEProcessingCache.m", 40, "size == sizeof(ASEHcuCacheNodeValueBlend)");
@@ -7016,7 +6997,8 @@ void createCacheNode_cold_2()
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: size == sizeof(ASEHcuCacheNodeValueEbe) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 36\n", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: size == sizeof(ASEHcuCacheNodeValueEbe) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 36\n", v1, v2, v3, v4, v5);
   }
 
   __assert_rtn("createCacheNode", "ASEProcessingCache.m", 36, "size == sizeof(ASEHcuCacheNodeValueEbe)");
@@ -7026,7 +7008,8 @@ void createCacheNode_cold_3()
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: size == sizeof(ASEHcuCacheNodeValuePeaking) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 32\n", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: size == sizeof(ASEHcuCacheNodeValuePeaking) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 32\n", v1, v2, v3, v4, v5);
   }
 
   __assert_rtn("createCacheNode", "ASEProcessingCache.m", 32, "size == sizeof(ASEHcuCacheNodeValuePeaking)");
@@ -7036,7 +7019,8 @@ void createCacheNode_cold_4()
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 44\n", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingCache.m at line 44\n", v1, v2, v3, v4, v5);
   }
 
   __assert_rtn("createCacheNode", "ASEProcessingCache.m", 44, "0");
@@ -7046,7 +7030,8 @@ void getMSRBaseAddr_cold_1()
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 146\n", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 146\n", v1, v2, v3, v4, v5);
   }
 
   __assert_rtn("getMSRBaseAddr", "ASEProcessingT1.m", 146, "0");

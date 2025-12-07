@@ -66,21 +66,20 @@
 
 - (BOOL)bloodOxygenFeatureEnabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   isBloodOxygenSaturationEnabled = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource isBloodOxygenSaturationEnabled];
   _HKInitializeLogging();
   v3 = HKLogRespiratoryCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 1024;
-    v10 = isBloodOxygenSaturationEnabled;
-    v4 = v8;
-    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Feature is enabled: %d", &v7, 0x12u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 1024;
+    v9 = isBloodOxygenSaturationEnabled;
+    v4 = v7;
+    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Feature is enabled: %d", &v6, 0x12u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return isBloodOxygenSaturationEnabled;
 }
 
@@ -96,7 +95,7 @@
 
 - (BOOL)_currentDeviceHasCapability
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource skipHardwareCheck])
   {
     _HKInitializeLogging();
@@ -104,8 +103,8 @@
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = objc_opt_class();
-      v4 = v16;
+      v15 = objc_opt_class();
+      v4 = v15;
       _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Device check override is in place", buf, 0xCu);
     }
 
@@ -115,9 +114,9 @@
   else
   {
     featureAvailabilityProvider = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource featureAvailabilityProvider];
-    v14 = 0;
-    v7 = [featureAvailabilityProvider isFeatureCapabilitySupportedOnActivePairedDeviceWithError:&v14];
-    v3 = v14;
+    v13 = 0;
+    v7 = [featureAvailabilityProvider isFeatureCapabilitySupportedOnActivePairedDeviceWithError:&v13];
+    v3 = v13;
 
     _HKInitializeLogging();
     v8 = HKLogRespiratoryCategory();
@@ -128,9 +127,9 @@
       {
         v10 = objc_opt_class();
         *buf = 138543618;
-        v16 = v10;
-        v17 = 2114;
-        v18 = v7;
+        v15 = v10;
+        v16 = 2114;
+        v17 = v7;
         v11 = v10;
         _os_log_impl(&dword_262078000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Device check result: %{public}@", buf, 0x16u);
       }
@@ -149,13 +148,12 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)_isAlternateDevice
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   device = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource device];
   v3 = device;
   if (device)
@@ -167,12 +165,12 @@
     v6 = HKLogRespiratoryCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 1024;
-      v14 = bOOLValue;
-      v7 = v12;
-      _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Alternate device check: alternate device flag: %d", &v11, 0x12u);
+      v10 = 138543618;
+      v11 = objc_opt_class();
+      v12 = 1024;
+      v13 = bOOLValue;
+      v7 = v11;
+      _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Alternate device check: alternate device flag: %d", &v10, 0x12u);
     }
   }
 
@@ -182,22 +180,21 @@
     v6 = HKLogRespiratoryCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      v8 = v12;
-      _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Alternate device check: active device is nil", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v8 = v11;
+      _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Alternate device check: active device is nil", &v10, 0xCu);
     }
 
     LOBYTE(bOOLValue) = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)ageIsAppropriate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   isAgeGated = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource isAgeGated];
   _HKInitializeLogging();
   v3 = HKLogRespiratoryCategory();
@@ -207,20 +204,19 @@
     v5 = MEMORY[0x277CCABB0];
     v6 = v4;
     v7 = [v5 numberWithBool:isAgeGated ^ 1u];
-    v10 = 138543618;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Age is appropriate for oxygen saturation: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v7;
+    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Age is appropriate for oxygen saturation: %{public}@", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return isAgeGated ^ 1;
 }
 
 - (BOOL)shouldAdvertise
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   shouldAdvertise = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource shouldAdvertise];
   _HKInitializeLogging();
   v3 = HKLogRespiratoryCategory();
@@ -230,14 +226,13 @@
     v5 = MEMORY[0x277CCABB0];
     v6 = v4;
     v7 = [v5 numberWithBool:shouldAdvertise];
-    v10 = 138543618;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Should advertise onboarding of feature: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v7;
+    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Should advertise onboarding of feature: %{public}@", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return shouldAdvertise;
 }
 
@@ -264,11 +259,11 @@
 
 - (BOOL)onboardingComplete
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   featureAvailabilityProvider = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource featureAvailabilityProvider];
-  v14 = 0;
-  v3 = [featureAvailabilityProvider onboardedCountryCodeSupportedStateWithError:&v14];
-  v4 = v14;
+  v13 = 0;
+  v3 = [featureAvailabilityProvider onboardedCountryCodeSupportedStateWithError:&v13];
+  v4 = v13;
 
   if (v3)
   {
@@ -281,9 +276,9 @@
       v8 = v7;
       v9 = NSStringFromHKFeatureAvailabilityOnboardedCountrySupportedState();
       *buf = 138543618;
-      v16 = v7;
-      v17 = 2114;
-      v18 = v9;
+      v15 = v7;
+      v16 = 2114;
+      v17 = v9;
       _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding completed state: %{public}@", buf, 0x16u);
     }
 
@@ -310,17 +305,16 @@
     v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
 - (BOOL)bloodOxygenRemoteDisabled
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   featureAvailabilityProvider = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource featureAvailabilityProvider];
-  v20 = 0;
-  v4 = [featureAvailabilityProvider onboardedCountryCodeSupportedStateWithError:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [featureAvailabilityProvider onboardedCountryCodeSupportedStateWithError:&v19];
+  v5 = v19;
 
   if (!v4)
   {
@@ -343,9 +337,9 @@
     v9 = v8;
     v10 = NSStringFromHKFeatureAvailabilityOnboardedCountrySupportedState();
     *buf = 138543618;
-    v22 = v8;
-    v23 = 2114;
-    v24 = v10;
+    v21 = v8;
+    v22 = 2114;
+    v23 = v10;
     _os_log_impl(&dword_262078000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding completed state: %{public}@", buf, 0x16u);
   }
 
@@ -360,9 +354,9 @@ LABEL_14:
   {
 
     featureAvailabilityProvider2 = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource featureAvailabilityProvider];
-    v19 = 0;
-    v13 = [featureAvailabilityProvider2 onboardingEligibilityForCountryCode:0 error:&v19];
-    v5 = v19;
+    v18 = 0;
+    v13 = [featureAvailabilityProvider2 onboardingEligibilityForCountryCode:0 error:&v18];
+    v5 = v18;
 
     if (v13)
     {
@@ -372,8 +366,8 @@ LABEL_14:
     else
     {
       _HKInitializeLogging();
-      v18 = HKLogRespiratoryCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = HKLogRespiratoryCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [HKRPOxygenSaturationOnboardingManager bloodOxygenRemoteDisabled];
       }
@@ -389,13 +383,12 @@ LABEL_14:
 
 LABEL_15:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)onboardWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_opt_class();
   _HKInitializeLogging();
@@ -403,32 +396,30 @@ LABEL_15:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = v5;
+    v13 = v5;
     _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Attempting to onboard feature, checking country code...", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   mobileCountryCodeManager = [(HKRPOxygenSaturationOnboardingManagerDataSource *)self->_dataSource mobileCountryCodeManager];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke;
-  v10[3] = &unk_279B0D568;
-  v12[1] = v5;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke;
+  v9[3] = &unk_279B0D568;
+  v11[1] = v5;
   v8 = completionCopy;
-  v10[4] = self;
-  v11 = v8;
-  objc_copyWeak(v12, buf);
-  [mobileCountryCodeManager fetchMobileCountryCodeFromCellularWithCompletion:v10];
+  v9[4] = self;
+  v10 = v8;
+  objc_copyWeak(v11, buf);
+  [mobileCountryCodeManager fetchMobileCountryCodeFromCellularWithCompletion:v9];
 
-  objc_destroyWeak(v12);
+  objc_destroyWeak(v11);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
@@ -441,17 +432,17 @@ void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_i
       v9 = *(a1 + 56);
       v10 = [v5 ISOCode];
       *buf = 138543618;
-      v35 = v9;
-      v36 = 2114;
-      v37 = v10;
+      v34 = v9;
+      v35 = 2114;
+      v36 = v10;
       _os_log_impl(&dword_262078000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Setting current onboarding version completed for %{public}@...", buf, 0x16u);
     }
 
     v11 = [*(*(a1 + 32) + 8) featureAvailabilityProvider];
     v12 = [v5 ISOCode];
-    v30 = 0;
-    v13 = [v11 canCompleteOnboardingForCountryCode:v12 error:&v30];
-    v14 = v30;
+    v29 = 0;
+    v13 = [v11 canCompleteOnboardingForCountryCode:v12 error:&v29];
+    v14 = v29;
 
     if (v13)
     {
@@ -460,31 +451,31 @@ void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_i
         v15 = [*(*(a1 + 32) + 8) featureAvailabilityProvider];
         v16 = [v5 ISOCode];
         v17 = [v5 provenance];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_3;
-        v22[3] = &unk_279B0D540;
-        v25[1] = *(a1 + 56);
-        v23 = v5;
-        objc_copyWeak(v25, (a1 + 48));
-        v24 = *(a1 + 40);
-        [v15 setCurrentOnboardingVersionCompletedForCountryCode:v16 countryCodeProvenance:v17 date:0 settings:0 completion:v22];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_3;
+        v21[3] = &unk_279B0D540;
+        v24[1] = *(a1 + 56);
+        v22 = v5;
+        objc_copyWeak(v24, (a1 + 48));
+        v23 = *(a1 + 40);
+        [v15 setCurrentOnboardingVersionCompletedForCountryCode:v16 countryCodeProvenance:v17 date:0 settings:0 completion:v21];
 
-        objc_destroyWeak(v25);
-        v18 = &v23;
+        objc_destroyWeak(v24);
+        v18 = &v22;
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      v20 = v26;
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_2;
-      v26[3] = &unk_279B0D4F0;
-      v26[4] = v5;
-      v27 = *(a1 + 40);
-      dispatch_async(MEMORY[0x277D85CD0], v26);
+      v20 = v25;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_2;
+      v25[3] = &unk_279B0D4F0;
+      v25[4] = v5;
+      v26 = *(a1 + 40);
+      dispatch_async(MEMORY[0x277D85CD0], v25);
     }
 
     else
@@ -496,14 +487,14 @@ LABEL_15:
         __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_cold_1(a1, v5);
       }
 
-      v20 = v28;
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_300;
-      v28[3] = &unk_279B0D4F0;
-      v28[4] = v5;
-      v29 = *(a1 + 40);
-      dispatch_async(MEMORY[0x277D85CD0], v28);
+      v20 = v27;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_300;
+      v27[3] = &unk_279B0D4F0;
+      v27[4] = v5;
+      v28 = *(a1 + 40);
+      dispatch_async(MEMORY[0x277D85CD0], v27);
     }
 
     v18 = (v20 + 4);
@@ -519,14 +510,12 @@ LABEL_15:
   block[1] = 3221225472;
   block[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_294;
   block[3] = &unk_279B0D4F0;
-  v32 = v6;
-  v33 = *(a1 + 40);
+  v31 = v6;
+  v32 = *(a1 + 40);
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  v14 = v32;
+  v14 = v31;
 LABEL_16:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_294(uint64_t a1)
@@ -557,7 +546,7 @@ void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_i
 
 void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_3(uint64_t a1, char a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if ((a2 & 1) == 0)
@@ -576,7 +565,7 @@ void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_i
         {
           v12 = *(a1 + 56);
           *buf = 138543362;
-          v26 = v12;
+          v25 = v12;
           _os_log_impl(&dword_262078000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] The user has previously onboarded this feature, ignoring feature availability store error", buf, 0xCu);
         }
 
@@ -633,20 +622,19 @@ LABEL_18:
 
   v7 = 1;
 LABEL_19:
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_311;
-  v20[3] = &unk_279B0D518;
-  objc_copyWeak(&v23, (a1 + 48));
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_311;
+  v19[3] = &unk_279B0D518;
+  objc_copyWeak(&v22, (a1 + 48));
   v17 = *(a1 + 40);
-  v24 = v7;
-  v21 = v6;
-  v22 = v17;
+  v23 = v7;
+  v20 = v6;
+  v21 = v17;
   v18 = v6;
-  dispatch_async(MEMORY[0x277D85CD0], v20);
+  dispatch_async(MEMORY[0x277D85CD0], v19);
 
-  objc_destroyWeak(&v23);
-  v19 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v22);
 }
 
 uint64_t __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_311(uint64_t a1)
@@ -654,108 +642,81 @@ uint64_t __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___blo
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained cacheCompletedOnboardingStateIfNeeded];
 
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 32);
-  v5 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)cacheCompletedOnboardingStateIfNeeded
 {
   OUTLINED_FUNCTION_3_0();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1_0(v0);
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_currentDeviceHasCapability
 {
   OUTLINED_FUNCTION_3_0();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1_0(v0);
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onboardingComplete
 {
   OUTLINED_FUNCTION_3_0();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1_0(v0);
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bloodOxygenRemoteDisabled
 {
   OUTLINED_FUNCTION_3_0();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1_0(v0);
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 56);
-  v3 = [a2 ISOCode];
+  v2 = [a2 ISOCode];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 56);
-  v5 = 138543618;
-  v6 = v1;
+  v4 = 138543618;
+  v5 = v1;
   OUTLINED_FUNCTION_2_0();
-  v7 = v2;
-  _os_log_error_impl(&dword_262078000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to onboard feature: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = v2;
+  _os_log_error_impl(&dword_262078000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to onboard feature: %{public}@", &v4, 0x16u);
 }
 
 void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_3_0();
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(v0 + 56);
-  v2 = [*(v0 + 32) ISOCode];
+  v1 = [*(v0 + 32) ISOCode];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __63__HKRPOxygenSaturationOnboardingManager_onboardWithCompletion___block_invoke_3_cold_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
-  v2 = [*(a1 + 32) ISOCode];
+  v1 = [*(a1 + 32) ISOCode];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 @end

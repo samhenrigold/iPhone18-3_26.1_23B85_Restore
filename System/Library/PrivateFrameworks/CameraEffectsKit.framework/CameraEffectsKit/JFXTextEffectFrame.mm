@@ -62,7 +62,7 @@
   v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  [(JFXTextEffectFrame *)self transform];
+  objc_msgSend_transform(self);
   v34 = 0;
   v35 = &v34;
   v36 = 0x6010000000;
@@ -127,7 +127,7 @@
 
 - (CGPoint)center
 {
-  [(JFXTextEffectFrame *)self cornerPoints];
+  objc_msgSend_cornerPoints(self, a2);
   pv_CGPoint_get_quad_center(&v4);
   result.y = v3;
   result.x = v2;
@@ -154,7 +154,7 @@
   v22.receiver = self;
   v22.super_class = JFXTextEffectFrame;
   v18 = [(JFXTextEffectFrame *)&v22 description];
-  [(JFXTextEffectFrame *)self time];
+  objc_msgSend_time(self);
   v17 = CMTimeCopyDescription(0, &time);
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{-[JFXTextEffectFrame forcePosterFrame](self, "forcePosterFrame")}];
   v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{PVCoordinateSystemOriginNames[-[JFXTextEffectFrame effectOrigin](self, "effectOrigin")]}];
@@ -165,12 +165,12 @@
   v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:{PVCoordinateSystemOriginNames[-[JFXTextEffectFrame origin](self, "origin")]}];
   [(JFXTextEffectFrame *)self relativeToSize];
   v12 = NSStringFromCGSize(v26);
-  [(JFXTextEffectFrame *)self cornerPoints];
+  objc_msgSend_cornerPoints(self);
   v4 = NSStringFromPVCGPointQuad();
   [(JFXTextEffectFrame *)self objectBounds];
   v11 = NSStringFromCGRect(v27);
   hitAreaPoints = [(JFXTextEffectFrame *)self hitAreaPoints];
-  [(JFXTextEffectFrame *)self transform];
+  objc_msgSend_transform(self);
   v6 = NSStringFromSIMDDouble4x4();
   v7 = MEMORY[0x277CCABB0];
   textFrames = [(JFXTextEffectFrame *)self textFrames];

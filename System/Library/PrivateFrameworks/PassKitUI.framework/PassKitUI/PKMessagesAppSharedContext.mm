@@ -213,47 +213,47 @@ void __57__PKMessagesAppSharedContext__registerAppViewController___block_invoke(
   }
 }
 
-void __59__PKMessagesAppSharedContext__unregisterAppViewController___block_invoke(uint64_t a1)
+void __59__PKMessagesAppSharedContext__unregisterAppViewController___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) count];
+    v4 = [*(a1 + 32) count];
     *buf = 134217984;
-    v15 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKMessagesAppSharedContext: Processing %lu Primary App Controller Handlers after unregister.", buf, 0xCu);
+    v16 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKMessagesAppSharedContext: Processing %lu Primary App Controller Handlers after unregister.", buf, 0xCu);
   }
 
-  v11 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v5)
+  v11 = 0u;
+  v5 = *(a1 + 32);
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v10;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v10 != v7)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
-        ++v8;
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
+        ++v9;
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 }
 

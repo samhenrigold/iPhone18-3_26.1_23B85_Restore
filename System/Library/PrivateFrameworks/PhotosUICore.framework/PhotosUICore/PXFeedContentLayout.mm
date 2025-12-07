@@ -459,7 +459,7 @@ void __63__PXFeedContentLayout_itemPlacementControllerForItemReference___block_i
 
     if (dataSource)
     {
-      [dataSource indexPathForObjectReference:v10];
+      objc_msgSend_indexPathForObjectReference_(dataSource);
     }
 
     if (*off_1E7721F68)

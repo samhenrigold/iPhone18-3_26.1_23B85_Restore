@@ -22,13 +22,13 @@
 
 - (BOOL)isApplicationConnectedToAnyPeripherals:(id)peripherals
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   querying = self->_querying;
   peripheralsCopy = peripherals;
   v4 = MEMORY[0x277CBEA60];
   peripheralsCopy2 = peripherals;
   v6 = [v4 arrayWithObjects:&peripheralsCopy count:1];
-  v7 = [(CHCBluetoothConnectionQuerying *)querying isApplicationConnectedToAnyPeripherals:v6, peripheralsCopy, v14];
+  v7 = [(CHCBluetoothConnectionQuerying *)querying isApplicationConnectedToAnyPeripherals:v6, peripheralsCopy, v13];
 
   v8 = [v7 objectForKeyedSubscript:peripheralsCopy2];
   v9 = objc_opt_respondsToSelector();
@@ -43,7 +43,6 @@
     bOOLValue = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 

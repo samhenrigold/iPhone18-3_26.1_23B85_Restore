@@ -1,4 +1,5 @@
 @interface TRIExperimentHistoryRecord
++ (id)recordWithEventDate:(id)date eventType:(unsigned __int8)type deploymentEnvironment:(int)environment experimentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId errorOrDeactivationReason:(id)reason namespaces:(id)self0;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRecord:(id)record;
 - (TRIExperimentHistoryRecord)initWithCoder:(id)coder;
@@ -79,6 +80,21 @@ LABEL_4:
   return v19;
 }
 
++ (id)recordWithEventDate:(id)date eventType:(unsigned __int8)type deploymentEnvironment:(int)environment experimentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId errorOrDeactivationReason:(id)reason namespaces:(id)self0
+{
+  v11 = *&deploymentId;
+  v13 = *&environment;
+  typeCopy = type;
+  namespacesCopy = namespaces;
+  reasonCopy = reason;
+  treatmentIdCopy = treatmentId;
+  idCopy = id;
+  dateCopy = date;
+  v22 = [[self alloc] initWithEventDate:dateCopy eventType:typeCopy deploymentEnvironment:v13 experimentId:idCopy deploymentId:v11 treatmentId:treatmentIdCopy errorOrDeactivationReason:reasonCopy namespaces:namespacesCopy];
+
+  return v22;
+}
+
 - (id)copyWithReplacementEventDate:(id)date
 {
   dateCopy = date;
@@ -90,11 +106,9 @@ LABEL_4:
 - (id)copyWithReplacementExperimentId:(id)id
 {
   idCopy = id;
-  v5 = objc_alloc(objc_opt_class());
-  errorOrDeactivationReason = self->_errorOrDeactivationReason;
-  v7 = [v5 initWithEventDate:self->_eventDate eventType:self->_eventType deploymentEnvironment:self->_deploymentEnvironment experimentId:idCopy deploymentId:self->_deploymentId treatmentId:self->_treatmentId errorOrDeactivationReason:errorOrDeactivationReason namespaces:self->_namespaces];
+  v5 = [objc_alloc(objc_opt_class()) initWithEventDate:self->_eventDate eventType:self->_eventType deploymentEnvironment:self->_deploymentEnvironment experimentId:idCopy deploymentId:self->_deploymentId treatmentId:self->_treatmentId errorOrDeactivationReason:self->_errorOrDeactivationReason namespaces:self->_namespaces];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementTreatmentId:(id)id
@@ -125,120 +139,8 @@ LABEL_4:
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (v6 = self->_eventDate == 0, [recordCopy eventDate], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (eventDate = self->_eventDate) != 0 && (objc_msgSend(v5, "eventDate"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSDate isEqual:](eventDate, "isEqual:", v10), v10, !v11) || (eventType = self->_eventType, eventType != objc_msgSend(v5, "eventType")) || (deploymentEnvironment = self->_deploymentEnvironment, deploymentEnvironment != objc_msgSend(v5, "deploymentEnvironment")) || (v14 = self->_experimentId == 0, objc_msgSend(v5, "experimentId"), v15 = objc_claimAutoreleasedReturnValue(), v16 = v15 != 0, v15, v14 == v16) || (experimentId = self->_experimentId) != 0 && (objc_msgSend(v5, "experimentId"), v18 = objc_claimAutoreleasedReturnValue(), v19 = -[NSString isEqual:](experimentId, "isEqual:", v18), v18, !v19) || (deploymentId = self->_deploymentId, deploymentId != objc_msgSend(v5, "deploymentId")) || (v21 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v22 = objc_claimAutoreleasedReturnValue(), v23 = v22 != 0, v22, v21 == v23) || (treatmentId = self->_treatmentId) != 0 && (objc_msgSend(v5, "treatmentId"), v25 = objc_claimAutoreleasedReturnValue(), v26 = -[NSString isEqual:](treatmentId, "isEqual:", v25), v25, !v26) || (v27 = self->_errorOrDeactivationReason == 0, objc_msgSend(v5, "errorOrDeactivationReason"), v28 = objc_claimAutoreleasedReturnValue(), v29 = v28 != 0, v28, v27 == v29) || (errorOrDeactivationReason = self->_errorOrDeactivationReason) != 0 && (objc_msgSend(v5, "errorOrDeactivationReason"), v31 = objc_claimAutoreleasedReturnValue(), v32 = -[NSString isEqual:](errorOrDeactivationReason, "isEqual:", v31), v31, !v32) || (v33 = self->_namespaces == 0, objc_msgSend(v5, "namespaces"), v34 = objc_claimAutoreleasedReturnValue(), v35 = v34 != 0, v34, v33 == v35))
   {
-    goto LABEL_20;
-  }
-
-  v6 = self->_eventDate == 0;
-  eventDate = [recordCopy eventDate];
-  v8 = eventDate != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_20;
-  }
-
-  eventDate = self->_eventDate;
-  if (eventDate)
-  {
-    eventDate2 = [v5 eventDate];
-    v11 = [(NSDate *)eventDate isEqual:eventDate2];
-
-    if (!v11)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  eventType = self->_eventType;
-  if (eventType != [v5 eventType])
-  {
-    goto LABEL_20;
-  }
-
-  deploymentEnvironment = self->_deploymentEnvironment;
-  if (deploymentEnvironment != [v5 deploymentEnvironment])
-  {
-    goto LABEL_20;
-  }
-
-  v14 = self->_experimentId == 0;
-  experimentId = [v5 experimentId];
-  v16 = experimentId != 0;
-
-  if (v14 == v16)
-  {
-    goto LABEL_20;
-  }
-
-  experimentId = self->_experimentId;
-  if (experimentId)
-  {
-    experimentId2 = [v5 experimentId];
-    v19 = [(NSString *)experimentId isEqual:experimentId2];
-
-    if (!v19)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  deploymentId = self->_deploymentId;
-  if (deploymentId != [v5 deploymentId])
-  {
-    goto LABEL_20;
-  }
-
-  v21 = self->_treatmentId == 0;
-  treatmentId = [v5 treatmentId];
-  v23 = treatmentId != 0;
-
-  if (v21 == v23)
-  {
-    goto LABEL_20;
-  }
-
-  treatmentId = self->_treatmentId;
-  if (treatmentId)
-  {
-    treatmentId2 = [v5 treatmentId];
-    v26 = [(NSString *)treatmentId isEqual:treatmentId2];
-
-    if (!v26)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v27 = self->_errorOrDeactivationReason == 0;
-  errorOrDeactivationReason = [v5 errorOrDeactivationReason];
-  v29 = errorOrDeactivationReason != 0;
-
-  if (v27 == v29)
-  {
-    goto LABEL_20;
-  }
-
-  errorOrDeactivationReason = self->_errorOrDeactivationReason;
-  if (errorOrDeactivationReason)
-  {
-    errorOrDeactivationReason2 = [v5 errorOrDeactivationReason];
-    v32 = [(NSString *)errorOrDeactivationReason isEqual:errorOrDeactivationReason2];
-
-    if (!v32)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v33 = self->_namespaces == 0;
-  namespaces = [v5 namespaces];
-  v35 = namespaces != 0;
-
-  if (v33 == v35)
-  {
-LABEL_20:
     v38 = 0;
   }
 
@@ -247,8 +149,8 @@ LABEL_20:
     namespaces = self->_namespaces;
     if (namespaces)
     {
-      namespaces2 = [v5 namespaces];
-      v38 = [(NSArray *)namespaces isEqual:namespaces2];
+      namespaces = [v5 namespaces];
+      v38 = [(NSArray *)namespaces isEqual:namespaces];
     }
 
     else
@@ -291,7 +193,7 @@ LABEL_20:
 
 - (TRIExperimentHistoryRecord)initWithCoder:(id)coder
 {
-  v70[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eventDate"];
   if (v5)
@@ -304,9 +206,9 @@ LABEL_20:
       v22 = objc_opt_class();
       v10 = NSStringFromClass(v22);
       v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIExperimentHistoryRecord key eventDate (expected %@, decoded %@)", v8, v10, 0];
-      v67 = *MEMORY[0x277CCA450];
-      v68 = v23;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+      v66 = *MEMORY[0x277CCA450];
+      v67 = v23;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
       v25 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIExperimentHistoryRecordOCNTErrorDomain" code:3 userInfo:v24];
       [coderCopy failWithError:v25];
 
@@ -325,11 +227,11 @@ LABEL_20:
 
       if (([coderCopy containsValueForKey:@"eventType"] & 1) == 0)
       {
-        v65 = *MEMORY[0x277CCA450];
-        v66 = @"Missing serialized value for TRIExperimentHistoryRecord.eventType";
+        v64 = *MEMORY[0x277CCA450];
+        v65 = @"Missing serialized value for TRIExperimentHistoryRecord.eventType";
         v27 = MEMORY[0x277CBEAC0];
-        v28 = &v66;
-        v29 = &v65;
+        v28 = &v65;
+        v29 = &v64;
 LABEL_25:
         v8 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:1];
         v19 = objc_alloc(MEMORY[0x277CCA9B8]);
@@ -370,11 +272,11 @@ LABEL_7:
                   v12 = objc_opt_class();
                   v13 = NSStringFromClass(v12);
                   v14 = objc_opt_class();
-                  v51 = NSStringFromClass(v14);
-                  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIExperimentHistoryRecord key errorOrDeactivationReason (expected %@, decoded %@)", v13, v51, 0];
-                  v55 = *MEMORY[0x277CCA450];
-                  v56 = v15;
-                  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+                  v50 = NSStringFromClass(v14);
+                  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIExperimentHistoryRecord key errorOrDeactivationReason (expected %@, decoded %@)", v13, v50, 0];
+                  v54 = *MEMORY[0x277CCA450];
+                  v55 = v15;
+                  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
                   v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIExperimentHistoryRecordOCNTErrorDomain" code:3 userInfo:v16];
                   [coderCopy failWithError:v17];
 
@@ -386,31 +288,31 @@ LABEL_49:
                 }
 
 LABEL_36:
-                v52 = v11;
-                v40 = objc_alloc(MEMORY[0x277CBEB98]);
-                v41 = objc_opt_class();
-                v42 = [v40 initWithObjects:{v41, objc_opt_class(), 0}];
-                v13 = [coderCopy decodeObjectOfClasses:v42 forKey:@"namespaces"];
+                v51 = v11;
+                v39 = objc_alloc(MEMORY[0x277CBEB98]);
+                v40 = objc_opt_class();
+                v41 = [v39 initWithObjects:{v40, objc_opt_class(), 0}];
+                v13 = [coderCopy decodeObjectOfClasses:v41 forKey:@"namespaces"];
 
                 if (v13)
                 {
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
+                    v42 = objc_opt_class();
+                    v49 = NSStringFromClass(v42);
                     v43 = objc_opt_class();
-                    v50 = NSStringFromClass(v43);
-                    v44 = objc_opt_class();
-                    v45 = NSStringFromClass(v44);
-                    v46 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIExperimentHistoryRecord key namespaces (expected %@, decoded %@)", v50, v45, 0];
-                    v53 = *MEMORY[0x277CCA450];
-                    v54 = v46;
-                    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-                    v48 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIExperimentHistoryRecordOCNTErrorDomain" code:3 userInfo:v47];
-                    [coderCopy failWithError:v48];
+                    v44 = NSStringFromClass(v43);
+                    v45 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIExperimentHistoryRecord key namespaces (expected %@, decoded %@)", v49, v44, 0];
+                    v52 = *MEMORY[0x277CCA450];
+                    v53 = v45;
+                    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+                    v47 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIExperimentHistoryRecordOCNTErrorDomain" code:3 userInfo:v46];
+                    [coderCopy failWithError:v47];
 
 LABEL_47:
                     selfCopy = 0;
-                    v11 = v52;
+                    v11 = v51;
                     goto LABEL_49;
                   }
                 }
@@ -426,8 +328,8 @@ LABEL_47:
                   }
                 }
 
-                v11 = v52;
-                self = [(TRIExperimentHistoryRecord *)self initWithEventDate:v5 eventType:v6 deploymentEnvironment:v7 experimentId:v8 deploymentId:v9 treatmentId:v10 errorOrDeactivationReason:v52 namespaces:v13];
+                v11 = v51;
+                self = [(TRIExperimentHistoryRecord *)self initWithEventDate:v5 eventType:v6 deploymentEnvironment:v7 experimentId:v8 deploymentId:v9 treatmentId:v10 errorOrDeactivationReason:v51 namespaces:v13];
                 selfCopy = self;
                 goto LABEL_49;
               }
@@ -451,9 +353,9 @@ LABEL_50:
 
             if (!error5)
             {
-              v57 = *MEMORY[0x277CCA450];
-              v58 = @"Retrieved nil serialized value for nonnull TRIExperimentHistoryRecord.treatmentId";
-              v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+              v56 = *MEMORY[0x277CCA450];
+              v57 = @"Retrieved nil serialized value for nonnull TRIExperimentHistoryRecord.treatmentId";
+              v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
               v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIExperimentHistoryRecordOCNTErrorDomain" code:2 userInfo:v11];
               [coderCopy failWithError:v13];
               goto LABEL_44;
@@ -483,11 +385,11 @@ LABEL_29:
             goto LABEL_7;
           }
 
-          v59 = *MEMORY[0x277CCA450];
-          v60 = @"Missing serialized value for TRIExperimentHistoryRecord.deploymentId";
-          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-          v37 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v38 = 1;
+          v58 = *MEMORY[0x277CCA450];
+          v59 = @"Missing serialized value for TRIExperimentHistoryRecord.deploymentId";
+          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v36 = objc_alloc(MEMORY[0x277CCA9B8]);
+          v37 = 1;
         }
 
         else
@@ -500,23 +402,23 @@ LABEL_29:
             goto LABEL_22;
           }
 
-          v61 = *MEMORY[0x277CCA450];
-          v62 = @"Retrieved nil serialized value for nonnull TRIExperimentHistoryRecord.experimentId";
-          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-          v37 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v38 = 2;
+          v60 = *MEMORY[0x277CCA450];
+          v61 = @"Retrieved nil serialized value for nonnull TRIExperimentHistoryRecord.experimentId";
+          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+          v36 = objc_alloc(MEMORY[0x277CCA9B8]);
+          v37 = 2;
         }
 
-        v11 = [v37 initWithDomain:@"TRIExperimentHistoryRecordOCNTErrorDomain" code:v38 userInfo:v10];
+        v11 = [v36 initWithDomain:@"TRIExperimentHistoryRecordOCNTErrorDomain" code:v37 userInfo:v10];
         [coderCopy failWithError:v11];
         goto LABEL_42;
       }
 
-      v63 = *MEMORY[0x277CCA450];
-      v64 = @"Missing serialized value for TRIExperimentHistoryRecord.deploymentEnvironment";
+      v62 = *MEMORY[0x277CCA450];
+      v63 = @"Missing serialized value for TRIExperimentHistoryRecord.deploymentEnvironment";
       v27 = MEMORY[0x277CBEAC0];
-      v28 = &v64;
-      v29 = &v63;
+      v28 = &v63;
+      v29 = &v62;
       goto LABEL_25;
     }
   }
@@ -527,9 +429,9 @@ LABEL_29:
 
     if (!error8)
     {
-      v69 = *MEMORY[0x277CCA450];
-      v70[0] = @"Retrieved nil serialized value for nonnull TRIExperimentHistoryRecord.eventDate";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
+      v68 = *MEMORY[0x277CCA450];
+      v69[0] = @"Retrieved nil serialized value for nonnull TRIExperimentHistoryRecord.eventDate";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
       v19 = objc_alloc(MEMORY[0x277CCA9B8]);
       v20 = 2;
 LABEL_26:
@@ -543,7 +445,6 @@ LABEL_18:
   selfCopy = 0;
 LABEL_30:
 
-  v34 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

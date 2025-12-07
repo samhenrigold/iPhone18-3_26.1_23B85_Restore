@@ -197,7 +197,7 @@
         goto LABEL_56;
       }
 
-      vision::mod::ImageDescriptorBufferFloat32::computeDistancesFrom(v86, (*(&v71 + 1) + 48), &unsignedIntegerValue);
+      vision::mod::ImageDescriptorBufferFloat32::computeDistancesFrom(&unsignedIntegerValue, v86, (*(&v71 + 1) + 48));
       v21 = unsignedIntegerValue;
       *v79 = unsignedIntegerValue;
       v56 = v59;
@@ -250,7 +250,7 @@
 
     else
     {
-      vision::mod::ImageDescriptorBufferFloat32::computeSelfDistances(v86, &v71);
+      vision::mod::ImageDescriptorBufferFloat32::computeSelfDistances(&v71, v86);
       *v79 = v71;
       *&v79[16] = v72;
       v20 = 0;
@@ -429,7 +429,7 @@ uint64_t __52__VNGreedyClusteringReadOnly_getDistances_to_error___block_invoke_2
             goto LABEL_25;
           }
 
-          std::vector<std::vector<long long>>::push_back[abi:ne200100](v44 + 6, v31 + 6);
+          std::vector<std::vector<long long>>::push_back[abi:ne200100](v44 + 6, (v31 + 6));
           _Block_object_dispose(&v30, 8);
           if (__p)
           {
@@ -622,7 +622,7 @@ uint64_t __69__VNGreedyClusteringReadOnly_getDistanceBetweenLevel1Clusters_error
   v32 = __Block_byref_object_dispose__225;
   v15 = v33 = "";
   v20 = 0;
-  std::vector<long long>::vector[abi:ne200100](v34, [v15 count]);
+  std::vector<long long>::vector[abi:ne200100](v34, [v15 count], &v20);
   *v29[6] = 0;
   v27[0] = MEMORY[0x1E69E9820];
   v27[1] = 3221225472;
@@ -1880,21 +1880,21 @@ LABEL_20:
 - (VNGreedyClusteringReadOnly)initWithOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v25.receiver = self;
-  v25.super_class = VNGreedyClusteringReadOnly;
-  v7 = [(VNGreedyClusteringReadOnly *)&v25 init];
+  v27.receiver = self;
+  v27.super_class = VNGreedyClusteringReadOnly;
+  v7 = [(VNGreedyClusteringReadOnly *)&v27 init];
   v8 = v7;
   if (!v7)
   {
     if (error)
     {
       +[VNError errorForMemoryAllocationFailure];
-      *error = v15 = 0;
+      *error = v17 = 0;
       goto LABEL_28;
     }
 
 LABEL_10:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_28;
   }
 
@@ -1905,14 +1905,15 @@ LABEL_10:
 
   faceprintRevision = v8->_faceprintRevision;
   torsoprintRevision = v8->_torsoprintRevision;
-  strlen([(NSString *)v8->_algorithmType UTF8String]);
-  apple::vision::GreedyClusteringParamsWrapper::createClusteringHacksWrapper(&v23, faceprintRevision, torsoprintRevision);
-  if (!v23)
+  uTF8String = [(NSString *)v8->_algorithmType UTF8String];
+  v12 = strlen(uTF8String);
+  apple::vision::GreedyClusteringParamsWrapper::createClusteringHacksWrapper(&v25, faceprintRevision, torsoprintRevision, uTF8String, v12);
+  if (!v25)
   {
     if (error)
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Creating clustering parameters object failed for following face and torsoprint revisions: %lu and %lu and algorith type: %@", v8->_faceprintRevision, v8->_torsoprintRevision, v8->_algorithmType];
-      *error = [VNError errorForInternalErrorWithLocalizedDescription:v16];
+      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Creating clustering parameters object failed for following face and torsoprint revisions: %lu and %lu and algorith type: %@", v8->_faceprintRevision, v8->_torsoprintRevision, v8->_algorithmType];
+      *error = [VNError errorForInternalErrorWithLocalizedDescription:v18];
     }
 
     goto LABEL_25;
@@ -1920,22 +1921,22 @@ LABEL_10:
 
   if ([(NSString *)v8->_algorithmType isEqualToString:@"VNClusteringAlgorithm_Greedy"])
   {
-    uTF8String = [(NSString *)v8->_cacheFolderPath UTF8String];
+    uTF8String2 = [(NSString *)v8->_cacheFolderPath UTF8String];
     vectorMapReadOnlyFlag = v8->_vectorMapReadOnlyFlag;
     bytes = [(NSData *)v8->_state bytes];
-    v14 = [(NSData *)v8->_state length];
-    v29 = uTF8String;
-    v28 = vectorMapReadOnlyFlag;
-    if (uTF8String)
+    v16 = [(NSData *)v8->_state length];
+    v32 = uTF8String2;
+    v31 = vectorMapReadOnlyFlag;
+    if (uTF8String2)
     {
-      if (v14)
+      if (v16)
       {
-        v27 = bytes;
-        *&v26 = bytes + v14;
-        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>();
+        v30 = bytes;
+        *&v28 = &bytes[v16];
+        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>(&v29, &v30, &v28);
       }
 
-      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFaces,std::allocator<vision::mod::GreedyClustererFaces>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>();
+      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFaces,std::allocator<vision::mod::GreedyClustererFaces>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>(&v29, &v32, &v25);
     }
   }
 
@@ -1946,22 +1947,22 @@ LABEL_10:
       goto LABEL_21;
     }
 
-    uTF8String2 = [(NSString *)v8->_cacheFolderPath UTF8String];
-    v18 = v8->_vectorMapReadOnlyFlag;
+    uTF8String3 = [(NSString *)v8->_cacheFolderPath UTF8String];
+    v20 = v8->_vectorMapReadOnlyFlag;
     bytes2 = [(NSData *)v8->_state bytes];
-    v20 = [(NSData *)v8->_state length];
-    v29 = uTF8String2;
-    v28 = v18;
-    if (uTF8String2)
+    v22 = [(NSData *)v8->_state length];
+    v32 = uTF8String3;
+    v31 = v20;
+    if (uTF8String3)
     {
-      if (v20)
+      if (v22)
       {
-        v27 = bytes2;
-        *&v26 = bytes2 + v20;
-        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>();
+        v30 = bytes2;
+        *&v28 = &bytes2[v22];
+        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>(&v29, &v30, &v28);
       }
 
-      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFacesWithTorso,std::allocator<vision::mod::GreedyClustererFacesWithTorso>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>();
+      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFacesWithTorso,std::allocator<vision::mod::GreedyClustererFacesWithTorso>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>(&v29, &v32, &v25);
     }
   }
 
@@ -1976,28 +1977,28 @@ LABEL_21:
   if (v8->m_ClusteringImpl_const.__ptr_)
   {
     [(VNGreedyClusteringReadOnly *)v8 initializeLogging];
-    v15 = v8;
+    v17 = v8;
     goto LABEL_26;
   }
 
   if (error)
   {
     [VNError errorForInternalErrorWithLocalizedDescription:@"Error initializing cluster state"];
-    *error = v15 = 0;
+    *error = v17 = 0;
     goto LABEL_26;
   }
 
 LABEL_25:
-  v15 = 0;
+  v17 = 0;
 LABEL_26:
-  if (v24)
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
 LABEL_28:
 
-  return v15;
+  return v17;
 }
 
 - (void)initializeLogging
@@ -2235,9 +2236,9 @@ LABEL_12:
     v12 = [stateCopy length];
     if (bytes && v12)
     {
-      v42 = bytes;
-      v41 = bytes + v12;
-      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>();
+      v43 = bytes;
+      v41 = &bytes[v12];
+      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>(&v42, &v43, &v41);
     }
 
     VNValidatedLog(4, @"Invalid parameter passed to extract Clusterer model file names\n", v13, v14, v15, v16, v17, v18, v30);
@@ -2251,9 +2252,9 @@ LABEL_12:
     v23 = [stateCopy length];
     if (bytes2 && v23)
     {
-      v42 = bytes2;
-      v41 = bytes2 + v23;
-      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>();
+      v43 = bytes2;
+      v41 = &bytes2[v23];
+      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>(&v42, &v43, &v41);
     }
 
     VNValidatedLog(4, @"Invalid parameter passed to extract Clusterer model file names\n", v24, v25, v26, v27, v28, v29, v31);

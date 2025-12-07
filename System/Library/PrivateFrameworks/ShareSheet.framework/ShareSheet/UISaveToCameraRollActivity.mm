@@ -203,7 +203,7 @@ void __44__UISaveToCameraRollActivity__activityImage__block_invoke_2()
 - (BOOL)_canSaveImages
 {
   v2 = 1;
-  v3 = [(objc_class *)getPHPhotoLibraryClass() authorizationStatusForAccessLevel:1];
+  v3 = [getPHPhotoLibraryClass(self a2)];
   if ((v3 - 1) < 2)
   {
     return 0;

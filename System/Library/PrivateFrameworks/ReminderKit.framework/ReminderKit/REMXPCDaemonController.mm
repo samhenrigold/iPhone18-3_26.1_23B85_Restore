@@ -198,11 +198,11 @@ void __63__REMXPCDaemonController__xpcConnectionReconnectingIfNecessary__block_i
 - (REMXPCDaemonController)initWithStoreContainerToken:(id)token userInteractive:(BOOL)interactive
 {
   interactiveCopy = interactive;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
-  v19.receiver = self;
-  v19.super_class = REMXPCDaemonController;
-  v8 = [(REMXPCDaemonController *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = REMXPCDaemonController;
+  v8 = [(REMXPCDaemonController *)&v18 init];
   v9 = v8;
   if (v8)
   {
@@ -228,11 +228,10 @@ void __63__REMXPCDaemonController__xpcConnectionReconnectingIfNecessary__block_i
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = v9;
+    v20 = v9;
     _os_log_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_DEFAULT, "Created new REMXPCDaemonController {self: %{public}@}", buf, 0xCu);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -410,27 +409,27 @@ void __64__REMXPCDaemonController_setAutoCategorizationActivityObserver___block_
   return v15;
 }
 
-void __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke(uint64_t a1, void *a2)
+void __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke(int8x16_t *a1, void *a2)
 {
   v3 = a2;
   v4 = +[REMLog xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_cold_1(a1);
+    __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_cold_1();
   }
 
-  os_unfair_lock_lock((*(a1 + 40) + 8));
+  os_unfair_lock_lock((a1[2].i64[1] + 8));
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_14;
   v7[3] = &unk_1E7508448;
-  v6 = *(a1 + 32);
+  v6 = a1[2];
   v5 = v6.i64[0];
   v8 = vextq_s8(v6, v6, 8uLL);
   __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_14(v7);
-  os_unfair_lock_unlock((*(a1 + 40) + 8));
+  os_unfair_lock_unlock((a1[2].i64[1] + 8));
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[3].i64[0] + 16))();
 }
 
 void __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_14(uint64_t a1)
@@ -485,27 +484,27 @@ void __86__REMXPCDaemonController__asyncPerformerWithResolver_reason_loadHandler
   }
 }
 
-void __86__REMXPCDaemonController__asyncPerformerWithResolver_reason_loadHandler_errorHandler___block_invoke_2(uint64_t a1, void *a2)
+void __86__REMXPCDaemonController__asyncPerformerWithResolver_reason_loadHandler_errorHandler___block_invoke_2(int8x16_t *a1, void *a2)
 {
   v3 = a2;
   v4 = +[REMLog xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_cold_1(a1);
+    __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_cold_1();
   }
 
-  os_unfair_lock_lock((*(a1 + 40) + 8));
+  os_unfair_lock_lock((a1[2].i64[1] + 8));
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __86__REMXPCDaemonController__asyncPerformerWithResolver_reason_loadHandler_errorHandler___block_invoke_16;
   v7[3] = &unk_1E7508448;
-  v6 = *(a1 + 32);
+  v6 = a1[2];
   v5 = v6.i64[0];
   v8 = vextq_s8(v6, v6, 8uLL);
   __86__REMXPCDaemonController__asyncPerformerWithResolver_reason_loadHandler_errorHandler___block_invoke_16(v7);
-  os_unfair_lock_unlock((*(a1 + 40) + 8));
+  os_unfair_lock_unlock((a1[2].i64[1] + 8));
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[3].i64[0] + 16))();
 }
 
 void __86__REMXPCDaemonController__asyncPerformerWithResolver_reason_loadHandler_errorHandler___block_invoke_16(uint64_t a1)
@@ -590,27 +589,27 @@ void __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_e
   *(v3 + 40) = v2;
 }
 
-void __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_18(uint64_t a1, void *a2)
+void __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_18(int8x16_t *a1, void *a2)
 {
   v3 = a2;
   v4 = +[REMLog xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_18_cold_1(a1);
+    __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_18_cold_1();
   }
 
-  os_unfair_lock_lock((*(a1 + 40) + 8));
+  os_unfair_lock_lock((a1[2].i64[1] + 8));
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_19;
   v7[3] = &unk_1E7508448;
-  v6 = *(a1 + 32);
+  v6 = a1[2];
   v5 = v6.i64[0];
   v8 = vextq_s8(v6, v6, 8uLL);
   __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_19(v7);
-  os_unfair_lock_unlock((*(a1 + 40) + 8));
+  os_unfair_lock_unlock((a1[2].i64[1] + 8));
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[3].i64[0] + 16))();
 }
 
 void __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_19(uint64_t a1)
@@ -628,62 +627,60 @@ void __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_e
 
 - (void)_asyncResolveAndCachePerformerWithResolver:(id)resolver reason:(id)reason completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   resolverCopy = resolver;
   reasonCopy = reason;
   completionCopy = completion;
   name = [resolverCopy name];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__8;
-  v26 = __Block_byref_object_dispose__8;
-  v27 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__8;
+  v25 = __Block_byref_object_dispose__8;
+  v26 = 0;
   os_unfair_lock_lock(&self->_ivarLock);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_reason_completion___block_invoke;
-  v19[3] = &unk_1E7509178;
-  v21 = &v22;
-  v19[4] = self;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_reason_completion___block_invoke;
+  v18[3] = &unk_1E7509178;
+  v20 = &v21;
+  v18[4] = self;
   v12 = name;
-  v20 = v12;
-  __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_reason_completion___block_invoke(v19);
+  v19 = v12;
+  __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_reason_completion___block_invoke(v18);
   os_unfair_lock_unlock(&self->_ivarLock);
 
-  if (v23[5])
+  if (v22[5])
   {
     v13 = +[REMLog xpc];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v15 = v23[5];
+      v14 = v22[5];
       *buf = 138543874;
-      v29 = v12;
-      v30 = 2114;
-      v31 = reasonCopy;
-      v32 = 2112;
-      v33 = v15;
+      v28 = v12;
+      v29 = 2114;
+      v30 = reasonCopy;
+      v31 = 2112;
+      v32 = v14;
       _os_log_debug_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_DEBUG, "Returning existing performer {name: %{public}@, reason: %{public}@, performer: %@}", buf, 0x20u);
     }
 
-    completionCopy[2](completionCopy, v23[5], 0);
+    completionCopy[2](completionCopy, v22[5], 0);
   }
 
   else
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_reason_completion___block_invoke_20;
-    v16[3] = &unk_1E75091C8;
-    v16[4] = self;
-    v17 = v12;
-    v18 = completionCopy;
-    [(REMXPCDaemonController *)self _asyncResolvePerformerWithResolver:resolverCopy reason:reasonCopy completion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_reason_completion___block_invoke_20;
+    v15[3] = &unk_1E75091C8;
+    v15[4] = self;
+    v16 = v12;
+    v17 = completionCopy;
+    [(REMXPCDaemonController *)self _asyncResolvePerformerWithResolver:resolverCopy reason:reasonCopy completion:v15];
   }
 
-  _Block_object_dispose(&v22, 8);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v21, 8);
 }
 
 void __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_reason_completion___block_invoke(uint64_t a1)
@@ -745,7 +742,7 @@ void __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_rea
 
 - (void)_asyncResolvePerformerWithResolver:(id)resolver reason:(id)reason completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   completionCopy = completion;
   resolverCopy = resolver;
@@ -754,34 +751,32 @@ void __87__REMXPCDaemonController__asyncResolveAndCachePerformerWithResolver_rea
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v27 = name;
-    v28 = 2114;
-    v29 = reasonCopy;
+    v26 = name;
+    v27 = 2114;
+    v28 = reasonCopy;
     _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_DEFAULT, "Cache-miss getting performer. Resolving async {name: %{public}@, reason: %{public}@}", buf, 0x16u);
   }
 
   _xpcConnectionReconnectingIfNecessary = [(REMXPCDaemonController *)self _xpcConnectionReconnectingIfNecessary];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke;
-  v23[3] = &unk_1E7507D30;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke;
+  v22[3] = &unk_1E7507D30;
   v14 = name;
-  v24 = v14;
+  v23 = v14;
   v15 = completionCopy;
-  v25 = v15;
-  v16 = [_xpcConnectionReconnectingIfNecessary remoteObjectProxyWithErrorHandler:v23];
+  v24 = v15;
+  v16 = [_xpcConnectionReconnectingIfNecessary remoteObjectProxyWithErrorHandler:v22];
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21;
-  v20[3] = &unk_1E75091F0;
-  v21 = v14;
-  v22 = v15;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21;
+  v19[3] = &unk_1E75091F0;
+  v20 = v14;
+  v21 = v15;
   v17 = v15;
   v18 = v14;
-  [resolverCopy resolveWithDaemon:v16 reason:reasonCopy completion:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [resolverCopy resolveWithDaemon:v16 reason:reasonCopy completion:v19];
 }
 
 void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke(uint64_t a1, void *a2)
@@ -790,7 +785,7 @@ void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_comp
   v4 = +[REMLog xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_cold_1(a1);
+    __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -798,7 +793,7 @@ void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_comp
 
 void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLog xpc];
@@ -807,7 +802,7 @@ void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_comp
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21_cold_1(a1);
+      __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21_cold_1();
     }
 
     v9 = *(*(a1 + 40) + 16);
@@ -818,24 +813,22 @@ void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_comp
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "Resolve performer {name: %{public}@, performer: %@}", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "Resolve performer {name: %{public}@, performer: %@}", &v11, 0x16u);
     }
 
     v9 = *(*(a1 + 40) + 16);
   }
 
   v9();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_resolvePerformerWithResolver:(id)resolver reason:(id)reason errorHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   resolverCopy = resolver;
   reasonCopy = reason;
   handlerCopy = handler;
@@ -851,36 +844,35 @@ void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_comp
   }
 
   _xpcConnectionReconnectingIfNecessary = [(REMXPCDaemonController *)self _xpcConnectionReconnectingIfNecessary];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHandler___block_invoke;
-  v26[3] = &unk_1E7507D30;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHandler___block_invoke;
+  v25[3] = &unk_1E7507D30;
   v14 = name;
-  v27 = v14;
+  v26 = v14;
   v15 = handlerCopy;
-  v28 = v15;
-  v16 = [_xpcConnectionReconnectingIfNecessary synchronousRemoteObjectProxyWithErrorHandler:v26];
+  v27 = v15;
+  v16 = [_xpcConnectionReconnectingIfNecessary synchronousRemoteObjectProxyWithErrorHandler:v25];
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v30 = __Block_byref_object_copy__8;
-  v31 = __Block_byref_object_dispose__8;
-  v32 = 0;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHandler___block_invoke_22;
-  v22[3] = &unk_1E7509218;
+  v29 = __Block_byref_object_copy__8;
+  v30 = __Block_byref_object_dispose__8;
+  v31 = 0;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHandler___block_invoke_22;
+  v21[3] = &unk_1E7509218;
   v17 = v14;
-  v23 = v17;
-  v25 = buf;
+  v22 = v17;
+  v24 = buf;
   v18 = v15;
-  v24 = v18;
-  [resolverCopy resolveWithDaemon:v16 reason:reasonCopy completion:v22];
+  v23 = v18;
+  [resolverCopy resolveWithDaemon:v16 reason:reasonCopy completion:v21];
   v19 = *(*&buf[8] + 40);
 
   _Block_object_dispose(buf, 8);
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -891,7 +883,7 @@ void __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHand
   v4 = +[REMLog xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_cold_1(a1);
+    __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -899,7 +891,7 @@ void __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHand
 
 void __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHandler___block_invoke_22(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = +[REMLog xpc];
@@ -908,7 +900,7 @@ void __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHand
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21_cold_1(a1);
+      __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21_cold_1();
     }
 
     (*(a1[5] + 16))();
@@ -919,17 +911,15 @@ void __76__REMXPCDaemonController__resolvePerformerWithResolver_reason_errorHand
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = a1[4];
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_DEFAULT, "Resolved performer {name: %{public}@, performer: %@}", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_DEFAULT, "Resolved performer {name: %{public}@, performer: %@}", &v11, 0x16u);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __63__REMXPCDaemonController__xpcConnectionReconnectingIfNecessary__block_invoke_2(uint64_t a1)
@@ -971,10 +961,7 @@ uint64_t __63__REMXPCDaemonController__xpcConnectionReconnectingIfNecessary__blo
 
 uint64_t __63__REMXPCDaemonController__xpcConnectionReconnectingIfNecessary__block_invoke_2_30(uint64_t a1)
 {
-  v2 = [*(a1 + 32) xpcConnection];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) xpcConnection];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -996,48 +983,43 @@ uint64_t __63__REMXPCDaemonController__xpcConnectionReconnectingIfNecessary__blo
   return WeakRetained;
 }
 
-void __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_cold_1(uint64_t a1)
+void __73__REMXPCDaemonController__syncPerformerWithResolver_reason_errorHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v1, v2, "Clearing cached performer due to proxy xpc error {name: %{public}@, error: %{public}@}");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v0, v1, "Clearing cached performer due to proxy xpc error {name: %{public}@, error: %{public}@}");
 }
 
 - (void)_resolveAndCachePerformerWithResolver:(uint64_t)a1 reason:(uint64_t)a2 errorHandler:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(*a2 + 40);
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_19A0DB000, log, OS_LOG_TYPE_DEBUG, "Returning existing performer {name: %{public}@, performer: %@}", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_19A0DB000, log, OS_LOG_TYPE_DEBUG, "Returning existing performer {name: %{public}@, performer: %@}", &v4, 0x16u);
 }
 
-void __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_18_cold_1(uint64_t a1)
+void __84__REMXPCDaemonController__resolveAndCachePerformerWithResolver_reason_errorHandler___block_invoke_18_cold_1()
 {
-  OUTLINED_FUNCTION_2_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v1, v2, "Clearing cached performer due to resolve xpc error {name: %{public}@, error: %{public}@}");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v0, v1, "Clearing cached performer due to resolve xpc error {name: %{public}@, error: %{public}@}");
 }
 
-void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_cold_1(uint64_t a1)
+void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v1, v2, "xpc connection error getting resolver {name: %{public}@, error: %{public}@}");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v0, v1, "xpc connection error getting resolver {name: %{public}@, error: %{public}@}");
 }
 
-void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21_cold_1(uint64_t a1)
+void __79__REMXPCDaemonController__asyncResolvePerformerWithResolver_reason_completion___block_invoke_21_cold_1()
 {
-  OUTLINED_FUNCTION_2_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v1, v2, "Error resolving performer {name: %{public}@, error: %{public}@}");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v0, v1, "Error resolving performer {name: %{public}@, error: %{public}@}");
 }
 
 @end

@@ -27,12 +27,12 @@
 {
   ruleCopy = rule;
   v4 = [TSTConditionalStyleRule alloc];
-  v9 = objc_msgSend_predicate(ruleCopy, v5, v6, v7, v8);
-  v14 = objc_msgSend_cellStyle(ruleCopy, v10, v11, v12, v13);
-  v19 = objc_msgSend_textStyle(ruleCopy, v15, v16, v17, v18);
-  v21 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v4, v20, v9, v14, v19);
+  v8 = objc_msgSend_predicate(ruleCopy, v5, v6, v7);
+  v12 = objc_msgSend_cellStyle(ruleCopy, v9, v10, v11);
+  v16 = objc_msgSend_textStyle(ruleCopy, v13, v14, v15);
+  v18 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v4, v17, v8, v12, v16);
 
-  return v21;
+  return v18;
 }
 
 - (TSTConditionalStyleRule)initWithPredicate:(id)predicate cellStyle:(id)style textStyle:(id)textStyle
@@ -59,47 +59,47 @@
   predicate = self->_predicate;
   if (!predicate)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConditionalStyleRule predicateType]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConditionalStyleRule.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 49, 0, "invalid nil value for '%{public}s'", "_predicate");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTConditionalStyleRule predicateType]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConditionalStyleRule.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 49, 0, "invalid nil value for '%{public}s'", "_predicate");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
     predicate = self->_predicate;
   }
 
-  return objc_msgSend_predicateType(predicate, a2, v2, v3, v4);
+  return objc_msgSend_predicateType(predicate, a2, v2, v3);
 }
 
 - (id)copyWithContext:(id)context
 {
   contextCopy = context;
   v5 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend_copy(self->_predicate, v6, v7, v8, v9);
-  v14 = objc_msgSend_copyWithContext_(self->_cellStyle, v11, contextCopy, v12, v13);
-  v18 = objc_msgSend_copyWithContext_(self->_textStyle, v15, contextCopy, v16, v17);
-  v20 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v5, v19, v10, v14, v18);
+  v9 = objc_msgSend_copy(self->_predicate, v6, v7, v8);
+  v12 = objc_msgSend_copyWithContext_(self->_cellStyle, v10, contextCopy, v11);
+  v15 = objc_msgSend_copyWithContext_(self->_textStyle, v13, contextCopy, v14);
+  v17 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v5, v16, v9, v12, v15);
 
-  return v20;
+  return v17;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_copy(self->_predicate, v5, v6, v7, v8);
-  v14 = objc_msgSend_copy(self->_cellStyle, v10, v11, v12, v13);
-  v19 = objc_msgSend_copy(self->_textStyle, v15, v16, v17, v18);
-  v21 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v4, v20, v9, v14, v19);
+  v8 = objc_msgSend_copy(self->_predicate, v5, v6, v7);
+  v12 = objc_msgSend_copy(self->_cellStyle, v9, v10, v11);
+  v16 = objc_msgSend_copy(self->_textStyle, v13, v14, v15);
+  v18 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v4, v17, v8, v12, v16);
 
-  return v21;
+  return v18;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if ((objc_msgSend_isEqual_(self->_predicate, v5, equalCopy[1], v6, v7) & 1) != 0 && objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_cellStyle, v8, equalCopy[3], 1, v9))
+  if ((objc_msgSend_isEqual_(self->_predicate, v5, equalCopy[1], v6) & 1) != 0 && objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_cellStyle, v7, equalCopy[3], 1))
   {
-    isEqualToStyle_ignoreObjectUUID = objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_textStyle, v10, equalCopy[2], 1, v11);
+    isEqualToStyle_ignoreObjectUUID = objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_textStyle, v8, equalCopy[2], 1);
   }
 
   else
@@ -113,9 +113,9 @@
 - (BOOL)isEqualForInspector:(id)inspector
 {
   inspectorCopy = inspector;
-  if ((objc_msgSend_isEqualForInspector_atHostCoordinate_(self->_predicate, v5, inspectorCopy[1], 0, v6) & 1) != 0 && objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_cellStyle, v7, inspectorCopy[3], 1, v8))
+  if ((objc_msgSend_isEqualForInspector_atHostCoordinate_(self->_predicate, v5, inspectorCopy[1], 0) & 1) != 0 && objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_cellStyle, v6, inspectorCopy[3], 1))
   {
-    isEqualToStyle_ignoreObjectUUID = objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_textStyle, v9, inspectorCopy[2], 1, v10);
+    isEqualToStyle_ignoreObjectUUID = objc_msgSend_isEqualToStyle_ignoreObjectUUID_(self->_textStyle, v7, inspectorCopy[2], 1);
   }
 
   else
@@ -128,16 +128,16 @@
 
 - (TSTCellStyle)cellStyle
 {
-  v5 = objc_msgSend_copy(self->_cellStyle, a2, v2, v3, v4);
+  v4 = objc_msgSend_copy(self->_cellStyle, a2, v2, v3);
 
-  return v5;
+  return v4;
 }
 
 - (TSWPParagraphStyle)textStyle
 {
-  v5 = objc_msgSend_copy(self->_textStyle, a2, v2, v3, v4);
+  v4 = objc_msgSend_copy(self->_textStyle, a2, v2, v3);
 
-  return v5;
+  return v4;
 }
 
 - (void)setCellStyle:(id)style textStyle:(id)textStyle
@@ -146,17 +146,17 @@
   textStyleCopy = textStyle;
   if (*&self->_textStyle != 0)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTConditionalStyleRule setCellStyle:textStyle:]", v8, v9);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConditionalStyleRule.mm", v14, v15);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v17, v12, v16, 116, 0, "Can't replace styles!");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTConditionalStyleRule setCellStyle:textStyle:]", v8);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConditionalStyleRule.mm", v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 116, 0, "Can't replace styles!");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20, v21);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
   }
 
   cellStyle = self->_cellStyle;
   self->_cellStyle = styleCopy;
-  v24 = styleCopy;
+  v21 = styleCopy;
 
   textStyle = self->_textStyle;
   self->_textStyle = textStyleCopy;
@@ -164,9 +164,9 @@
 
 - (TSTFormulaPredicate)predicate
 {
-  v5 = objc_msgSend_copy(self->_predicate, a2, v2, v3, v4);
+  v4 = objc_msgSend_copy(self->_predicate, a2, v2, v3);
 
-  return v5;
+  return v4;
 }
 
 - (id)copyByRemappingOwnerUIDsWithMap:(const void *)map rewriteContext:(TSCEFormulaRewriteContext *)context error:(BOOL *)error
@@ -204,9 +204,9 @@
 {
   specCopy = spec;
   ownerCopy = owner;
-  v11 = objc_msgSend_copyByConvertingBaseToChrome_inOwner_inCellCoordinate_(self->_predicate, v10, specCopy, ownerCopy, *&coordinate);
-  v13 = objc_msgSend_copyByRewritingWithSpec_inOwner_inCellCoordinate_(v11, v12, specCopy, ownerCopy, *&coordinate);
-  v15 = objc_msgSend_copyByConvertingChromeToBase_inOwner_inCellCoordinate_(v13, v14, specCopy, ownerCopy, *&coordinate);
+  v11 = objc_msgSend_copyByConvertingBaseToChrome_inOwner_inCellCoordinate_(self->_predicate, v10, specCopy, ownerCopy, coordinate);
+  v13 = objc_msgSend_copyByRewritingWithSpec_inOwner_inCellCoordinate_(v11, v12, specCopy, ownerCopy, coordinate);
+  v15 = objc_msgSend_copyByConvertingChromeToBase_inOwner_inCellCoordinate_(v13, v14, specCopy, ownerCopy, coordinate);
   v16 = objc_alloc(objc_opt_class());
   v18 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v16, v17, v15, self->_cellStyle, self->_textStyle);
 
@@ -215,33 +215,33 @@
 
 - (id)copyByOffsettingRelativeReferencesWithOffset:(TSUColumnRowOffset)offset
 {
-  v6 = objc_msgSend_copyByOffsettingRelativeReferencesWithOffset_(self->_predicate, a2, *&offset, v3, v4);
-  v7 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v7, v8, v6, self->_cellStyle, self->_textStyle);
+  v5 = objc_msgSend_copyByOffsettingRelativeReferencesWithOffset_(self->_predicate, a2, *&offset, v3);
+  v6 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v6, v7, v5, self->_cellStyle, self->_textStyle);
 
-  return v9;
+  return v8;
 }
 
 - (id)copyByUpgradingToLinkedRefAtHostCellRef:(const TSCECellRef *)ref
 {
   predicate = self->_predicate;
   tableUID = ref->_tableUID;
-  v6 = objc_msgSend_copyByUpgradingToLinkedRefForTable_hostCell_(predicate, a2, &tableUID, *&ref->coordinate, v3);
-  v7 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v7, v8, v6, self->_cellStyle, self->_textStyle);
+  v5 = objc_msgSend_copyByUpgradingToLinkedRefForTable_hostCell_(predicate, a2, &tableUID, *&ref->coordinate);
+  v6 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v6, v7, v5, self->_cellStyle, self->_textStyle);
 
-  return v9;
+  return v8;
 }
 
 - (id)copyByUpdatingHostCellRef:(const TSCECellRef *)ref
 {
   predicate = self->_predicate;
   tableUID = ref->_tableUID;
-  v6 = objc_msgSend_copyByUpdatingLinkedTable_hostCell_(predicate, a2, &tableUID, *&ref->coordinate, v3);
-  v7 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v7, v8, v6, self->_cellStyle, self->_textStyle);
+  v5 = objc_msgSend_copyByUpdatingLinkedTable_hostCell_(predicate, a2, &tableUID, *&ref->coordinate);
+  v6 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v6, v7, v5, self->_cellStyle, self->_textStyle);
 
-  return v9;
+  return v8;
 }
 
 - (id)copyToUidFormForTableInfo:(id)info inCellCoordinate:(TSUCellCoord)coordinate preserveHostCell:(BOOL)cell
@@ -255,30 +255,30 @@
 
 - (id)copyByRewritingWithContext:(TSCEFormulaRewriteContext *)context rewriteBlock:(id)block
 {
-  v6 = objc_msgSend_copyByRewritingWithContext_rewriteBlock_(self->_predicate, a2, context, block, v4);
-  if (v6 == self->_predicate)
+  v5 = objc_msgSend_copyByRewritingWithContext_rewriteBlock_(self->_predicate, a2, context, block);
+  if (v5 == self->_predicate)
   {
     selfCopy = self;
   }
 
   else
   {
-    v7 = objc_alloc(objc_opt_class());
-    selfCopy = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v7, v8, v6, self->_cellStyle, self->_textStyle);
+    v6 = objc_alloc(objc_opt_class());
+    selfCopy = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v6, v7, v5, self->_cellStyle, self->_textStyle);
   }
 
-  v10 = selfCopy;
+  v9 = selfCopy;
 
-  return v10;
+  return v9;
 }
 
 - (id)copyByClearingUids:(id)uids containingTableUID:(const TSKUIDStruct *)d
 {
-  v6 = objc_msgSend_copyByClearingUids_containingTableUID_(self->_predicate, a2, uids, d, v4);
-  v7 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v7, v8, v6, self->_cellStyle, self->_textStyle);
+  v5 = objc_msgSend_copyByClearingUids_containingTableUID_(self->_predicate, a2, uids, d);
+  v6 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_initWithPredicate_cellStyle_textStyle_(v6, v7, v5, self->_cellStyle, self->_textStyle);
 
-  return v9;
+  return v8;
 }
 
 @end

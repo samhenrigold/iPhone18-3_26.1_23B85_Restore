@@ -5,8 +5,8 @@
 - (uint64_t)compare:()ICLegacyAccount;
 - (uint64_t)hasAnyCustomFolders;
 - (uint64_t)isManaged;
-- (uint64_t)legacyAccountType;
 - (void)emailAddress;
+- (void)legacyAccountType;
 @end
 
 @implementation NoteAccountObject(ICLegacyAccount)
@@ -27,12 +27,12 @@
   return v2;
 }
 
-- (uint64_t)legacyAccountType
+- (void)legacyAccountType
 {
   result = [self accountType];
   if (result != 2)
   {
-    return result == 1;
+    return (result == 1);
   }
 
   return result;

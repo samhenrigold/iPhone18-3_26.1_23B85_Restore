@@ -3,6 +3,8 @@
 - (void)_applyPausedUpdate;
 - (void)_handleTemplate:(id)template reason:(int64_t)reason;
 - (void)_updateInnerLabel;
+- (void)setEditing:(BOOL)editing;
+- (void)setTimeTravelDate:(id)date animated:(BOOL)animated;
 - (void)transitionToMonochromeWithFraction:(double)fraction;
 - (void)updateMonochromeColor;
 @end
@@ -43,6 +45,27 @@
   [(NTKAstronomyRichComplicationContentView *)astronomyContentView handleTemplateMetadata:metadata reason:reason];
 
   [(NTKAstronomyRichComplicationCornerView *)self _updateInnerLabel];
+}
+
+- (void)setTimeTravelDate:(id)date animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7.receiver = self;
+  v7.super_class = NTKAstronomyRichComplicationCornerView;
+  dateCopy = date;
+  [(NTKAstronomyRichComplicationCornerView *)&v7 setTimeTravelDate:dateCopy animated:animatedCopy];
+  [(NTKAstronomyRichComplicationContentView *)self->_astronomyContentView setTimeTravelDate:dateCopy animated:animatedCopy, v7.receiver, v7.super_class];
+
+  [(NTKAstronomyRichComplicationCornerView *)self _updateInnerLabel];
+}
+
+- (void)setEditing:(BOOL)editing
+{
+  editingCopy = editing;
+  v5.receiver = self;
+  v5.super_class = NTKAstronomyRichComplicationCornerView;
+  [(NTKAstronomyRichComplicationCornerView *)&v5 setEditing:?];
+  [(NTKAstronomyRichComplicationContentView *)self->_astronomyContentView setEditing:editingCopy];
 }
 
 - (void)transitionToMonochromeWithFraction:(double)fraction

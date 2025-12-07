@@ -1,169 +1,164 @@
-uint64_t flattenGrammar(grammar:vocabularyManager:)(void *a1, void *a2)
+void (**flattenGrammar(grammar:vocabularyManager:)(void *a1, void *a2))(char *, char *, uint64_t)
 {
-  v547 = a2;
+  v538 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetSgMd, &_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  v5 = MEMORY[0x1EEE9AC00](v3 - 8);
-  v7 = &v488 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v504 = &v488 - v8;
-  v537 = type metadata accessor for VocabularyManager.PrefixLookup(0);
-  v9 = *(*(v537 - 8) + 64);
-  v10 = MEMORY[0x1EEE9AC00](v537);
-  v534 = (&v488 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v10);
-  v512 = (&v488 - v12);
-  v13 = type metadata accessor for CharacterSet();
-  v529 = *(v13 - 8);
-  v14 = *(v529 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v535 = &v488 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v536 = &v488 - v18;
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v509 = &v488 - v20;
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v479 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v495 = &v479 - v7;
+  v528 = type metadata accessor for VocabularyManager.PrefixLookup(0);
+  MEMORY[0x1EEE9AC00](v528);
+  v525 = (&v479 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v9);
+  v503 = (&v479 - v10);
+  v11 = type metadata accessor for CharacterSet();
+  v520 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v526 = &v479 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v527 = &v479 - v14;
+  MEMORY[0x1EEE9AC00](v15);
+  v500 = &v479 - v16;
+  MEMORY[0x1EEE9AC00](v17);
+  v501 = &v479 - v18;
+  v19 = type metadata accessor for TerminalSymbol(0);
+  v536 = *(v19 - 8);
+  v537 = v19;
   MEMORY[0x1EEE9AC00](v19);
-  v510 = &v488 - v21;
-  v22 = type metadata accessor for TerminalSymbol(0);
-  v545 = *(v22 - 8);
-  v546 = v22;
-  v23 = *(v545 + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22);
-  v513 = &v488 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = MEMORY[0x1EEE9AC00](v24);
-  v503 = (&v488 - v27);
-  v28 = MEMORY[0x1EEE9AC00](v26);
-  v502 = &v488 - v29;
-  v30 = MEMORY[0x1EEE9AC00](v28);
-  v491 = &v488 - v31;
-  v32 = MEMORY[0x1EEE9AC00](v30);
-  v541 = &v488 - v33;
-  v34 = MEMORY[0x1EEE9AC00](v32);
-  v532 = &v488 - v35;
-  v36 = MEMORY[0x1EEE9AC00](v34);
-  v528 = &v488 - v37;
-  v38 = MEMORY[0x1EEE9AC00](v36);
-  v531 = &v488 - v39;
-  v40 = MEMORY[0x1EEE9AC00](v38);
-  v549 = &v488 - v41;
-  v42 = MEMORY[0x1EEE9AC00](v40);
-  v538 = (&v488 - v43);
-  v44 = MEMORY[0x1EEE9AC00](v42);
-  v46 = &v488 - v45;
-  v47 = MEMORY[0x1EEE9AC00](v44);
-  v516 = &v488 - v48;
-  v49 = MEMORY[0x1EEE9AC00](v47);
-  v515 = &v488 - v50;
-  v51 = MEMORY[0x1EEE9AC00](v49);
-  v511 = &v488 - v52;
-  MEMORY[0x1EEE9AC00](v51);
-  v524 = &v488 - v53;
-  v518 = type metadata accessor for Symbol(0);
-  v495 = *(v518 - 8);
-  v54 = *(v495 + 64);
-  MEMORY[0x1EEE9AC00](v518);
-  v517 = (&v488 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v56 = a1[2];
-  v493 = a1[1];
-  v492 = v56;
-  v57 = a1[4];
-  v58 = MEMORY[0x1E69E7CC0];
-  v555 = MEMORY[0x1E69E7CC0];
-  v59 = *(v57 + 16);
-  v533 = v13;
-  v550 = v46;
-  v494 = v57;
-  if (v59)
+  v504 = &v479 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v494 = (&v479 - v22);
+  MEMORY[0x1EEE9AC00](v23);
+  v493 = &v479 - v24;
+  MEMORY[0x1EEE9AC00](v25);
+  v482 = &v479 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v532 = &v479 - v28;
+  MEMORY[0x1EEE9AC00](v29);
+  v523 = &v479 - v30;
+  MEMORY[0x1EEE9AC00](v31);
+  v519 = &v479 - v32;
+  MEMORY[0x1EEE9AC00](v33);
+  v522 = &v479 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v540 = &v479 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v529 = (&v479 - v38);
+  MEMORY[0x1EEE9AC00](v39);
+  v41 = &v479 - v40;
+  MEMORY[0x1EEE9AC00](v42);
+  v507 = &v479 - v43;
+  MEMORY[0x1EEE9AC00](v44);
+  v506 = &v479 - v45;
+  MEMORY[0x1EEE9AC00](v46);
+  v502 = &v479 - v47;
+  MEMORY[0x1EEE9AC00](v48);
+  v515 = &v479 - v49;
+  v509 = type metadata accessor for Symbol(0);
+  v486 = *(v509 - 8);
+  MEMORY[0x1EEE9AC00](v509);
+  v508 = (&v479 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v51 = a1[2];
+  v484 = a1[1];
+  v483 = v51;
+  v52 = a1[4];
+  v53 = MEMORY[0x1E69E7CC0];
+  v546 = MEMORY[0x1E69E7CC0];
+  v54 = *(v52 + 16);
+  v524 = v11;
+  v541 = v41;
+  v485 = v52;
+  if (v54)
   {
-    v553[0] = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v59, 0);
-    v58 = v553[0];
-    v60 = (v57 + 40);
+    v544[0] = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v54, 0);
+    v53 = v544[0];
+    v55 = (v52 + 40);
     do
     {
-      v62 = *(v60 - 1);
-      v61 = *v60;
-      v553[0] = v58;
-      v63 = *(v58 + 16);
-      v64 = *(v58 + 24);
+      v57 = *(v55 - 1);
+      v56 = *v55;
+      v544[0] = v53;
+      v58 = *(v53 + 16);
+      v59 = *(v53 + 24);
 
-      if (v63 >= v64 >> 1)
+      if (v58 >= v59 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v64 > 1), v63 + 1, 1);
-        v58 = v553[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v58 + 1, 1);
+        v53 = v544[0];
       }
 
-      *(v58 + 16) = v63 + 1;
-      v65 = v58 + 16 * v63;
-      *(v65 + 32) = v62;
-      *(v65 + 40) = v61;
-      v60 += 3;
-      --v59;
+      *(v53 + 16) = v58 + 1;
+      v60 = v53 + 16 * v58;
+      *(v60 + 32) = v57;
+      *(v60 + 40) = v56;
+      v55 += 3;
+      --v54;
     }
 
-    while (v59);
-    v13 = v533;
-    v46 = v550;
+    while (v54);
+    v11 = v524;
+    v41 = v541;
   }
 
-  v66 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC19TokenGenerationCore17NonTerminalSymbolV_SayAFGTt0g5Tf4g_n(v58);
+  v61 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC19TokenGenerationCore17NonTerminalSymbolV_SayAFGTt0g5Tf4g_n(v53);
 
-  v67 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufC19TokenGenerationCore17NonTerminalSymbolV_ShyAFGTt0g5(v66);
-  v68 = v67[2];
-  v69 = MEMORY[0x1E69E7CC0];
-  v505 = v7;
-  v507 = v67;
-  if (v68)
+  v62 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufC19TokenGenerationCore17NonTerminalSymbolV_ShyAFGTt0g5(v61);
+  v63 = v62[2];
+  v64 = MEMORY[0x1E69E7CC0];
+  v496 = v5;
+  v498 = v62;
+  if (v63)
   {
-    v553[0] = MEMORY[0x1E69E7CC0];
+    v544[0] = MEMORY[0x1E69E7CC0];
 
-    specialized ContiguousArray.reserveCapacity(_:)(v68);
-    v70 = v507;
-    v71 = 0;
-    v72 = v507[2];
-    v73 = v507 + 5;
+    specialized ContiguousArray.reserveCapacity(_:)(v63);
+    v65 = v498;
+    v66 = 0;
+    v67 = v498[2];
+    v68 = v498 + 5;
     while (1)
     {
-      if (v72 == v71)
+      if (v67 == v66)
       {
         goto LABEL_362;
       }
 
-      if (v71 >= v70[2])
+      if (v66 >= v65[2])
       {
         break;
       }
 
-      v75 = *(v73 - 1);
-      v74 = *v73;
-      v69 = v553[0];
+      v70 = *(v68 - 1);
+      v69 = *v68;
+      v64 = v544[0];
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v69 + 16) + 1, 1);
-        v70 = v507;
-        v69 = v553[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v64 + 16) + 1, 1);
+        v65 = v498;
+        v64 = v544[0];
       }
 
-      v77 = *(v69 + 16);
-      v76 = *(v69 + 24);
-      if (v77 >= v76 >> 1)
+      v72 = *(v64 + 16);
+      v71 = *(v64 + 24);
+      if (v72 >= v71 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v76 > 1), v77 + 1, 1);
-        v70 = v507;
-        v69 = v553[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v71 > 1), v72 + 1, 1);
+        v65 = v498;
+        v64 = v544[0];
       }
 
-      *(v69 + 16) = v77 + 1;
-      v78 = (v69 + 24 * v77);
-      v78[5] = v74;
-      v78[6] = v71;
-      v78[4] = v75;
-      v73 += 2;
-      ++v71;
-      v13 = v533;
-      v46 = v550;
-      if (v68 == v71)
+      *(v64 + 16) = v72 + 1;
+      v73 = (v64 + 24 * v72);
+      v73[5] = v69;
+      v73[6] = v66;
+      v73[4] = v70;
+      v68 += 2;
+      ++v66;
+      v11 = v524;
+      v41 = v541;
+      if (v63 == v66)
       {
 
         goto LABEL_17;
@@ -229,101 +224,101 @@ LABEL_389:
   }
 
 LABEL_17:
-  v79 = MEMORY[0x1E69E7CC8];
-  v80 = v547;
-  if (*(v69 + 16))
+  v74 = MEMORY[0x1E69E7CC8];
+  v75 = v538;
+  if (*(v64 + 16))
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy19TokenGenerationCore17NonTerminalSymbolVSiGMd, &_ss18_DictionaryStorageCy19TokenGenerationCore17NonTerminalSymbolVSiGMR);
-    v81 = static _DictionaryStorage.allocate(capacity:)();
+    v76 = static _DictionaryStorage.allocate(capacity:)();
   }
 
   else
   {
-    v81 = MEMORY[0x1E69E7CC8];
+    v76 = MEMORY[0x1E69E7CC8];
   }
 
-  v553[0] = v81;
+  v544[0] = v76;
 
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v82, 1, v553);
-  v527 = 0;
+  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v77, 1, v544);
+  v518 = 0;
 
-  v514 = v553[0];
-  v554 = v79;
-  v83 = MEMORY[0x1E69E7CC0];
-  v540 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_10Foundation12CharacterSetVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v84 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_SiTt0g5Tf4g_n(v83);
-  v85 = v494;
-  v86 = *(v494 + 16);
-  if (!v86)
+  v505 = v544[0];
+  v545 = v74;
+  v78 = MEMORY[0x1E69E7CC0];
+  v531 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_10Foundation12CharacterSetVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  v79 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_SiTt0g5Tf4g_n(v78);
+  v80 = v485;
+  v81 = *(v485 + 16);
+  if (!v81)
   {
-    v89 = v83;
-    v544 = v83;
+    v84 = v78;
+    v535 = v78;
     goto LABEL_249;
   }
 
-  v87 = 0;
-  v88 = v494 + 32;
-  v539 = (v529 + 32);
-  v522 = v529 + 40;
-  v89 = MEMORY[0x1E69E7CC0];
-  v544 = MEMORY[0x1E69E7CC0];
-  v489 = v86;
-  v488 = v494 + 32;
+  v82 = 0;
+  v83 = v485 + 32;
+  v530 = (v520 + 32);
+  v513 = v520 + 40;
+  v84 = MEMORY[0x1E69E7CC0];
+  v535 = MEMORY[0x1E69E7CC0];
+  v480 = v81;
+  v479 = v485 + 32;
   do
   {
-    if (v87 >= *(v85 + 16))
+    if (v82 >= *(v80 + 16))
     {
       goto LABEL_386;
     }
 
-    v90 = (v88 + 24 * v87);
-    v91 = v90[2];
-    v496 = *(v91 + 16);
-    if (!v496)
+    v85 = (v83 + 24 * v82);
+    v86 = v85[2];
+    v487 = *(v86 + 16);
+    if (!v487)
     {
       goto LABEL_246;
     }
 
+    v481 = v82;
+    v499 = v79;
+    v87 = v85[1];
+    v489 = *v85;
+    v488 = v86 + 32;
     v490 = v87;
-    v508 = v84;
-    v92 = v90[1];
-    v498 = *v90;
-    v497 = v91 + 32;
-    v499 = v92;
-    v93 = v89;
+    v88 = v84;
 
-    v500 = v91;
+    v491 = v86;
     swift_bridgeObjectRetain_n();
-    v94 = v93;
-    v95 = 0;
-    v530 = 0;
-    v96 = 0;
+    v89 = v88;
+    v90 = 0;
+    v521 = 0;
+    v91 = 0;
     do
     {
-      if (v96 >= *(v500 + 16))
+      if (v91 >= *(v491 + 16))
       {
         goto LABEL_376;
       }
 
-      v506 = v94;
-      v501 = v96;
-      v97 = *(v497 + 8 * v96);
-      v98 = *(v97 + 16);
-      v523 = v97;
-      v521 = v98;
-      if (v98)
+      v497 = v89;
+      v492 = v91;
+      v92 = *(v488 + 8 * v91);
+      v93 = *(v92 + 16);
+      v514 = v92;
+      v512 = v93;
+      if (v93)
       {
-        v99 = v495;
-        v520 = v97 + ((*(v99 + 80) + 32) & ~*(v99 + 80));
+        v94 = v486;
+        v511 = v92 + ((*(v94 + 80) + 32) & ~*(v94 + 80));
         swift_bridgeObjectRetain_n();
-        v100 = 0;
-        v519 = *(v99 + 72);
-        v101 = MEMORY[0x1E69E7CC0];
-        v102 = v517;
+        v95 = 0;
+        v510 = *(v94 + 72);
+        v96 = MEMORY[0x1E69E7CC0];
+        v97 = v508;
         while (1)
         {
-          v526 = v100 + 1;
-          outlined init with copy of TerminalSymbol(v520 + v519 * v100, v102, type metadata accessor for Symbol);
+          v517 = v95 + 1;
+          outlined init with copy of TerminalSymbol(v511 + v510 * v95, v97, type metadata accessor for Symbol);
           EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
           if (!EnumCaseMultiPayload)
           {
@@ -332,503 +327,503 @@ LABEL_17:
 
           if (EnumCaseMultiPayload == 1)
           {
-            v106 = *v102;
-            v544 = *(*v102 + 16);
-            if (v544)
+            v101 = *v97;
+            v535 = *(*v97 + 16);
+            if (v535)
             {
-              v107 = 0;
-              v108 = *(v545 + 80);
-              v542 = v106;
-              v543 = v106 + ((v108 + 32) & ~v108);
+              v102 = 0;
+              v103 = *(v536 + 80);
+              v533 = v101;
+              v534 = v101 + ((v103 + 32) & ~v103);
               while (1)
               {
-                if (v107 >= *(v106 + 16))
+                if (v102 >= *(v101 + 16))
                 {
                   __break(1u);
                   goto LABEL_326;
                 }
 
-                v551 = v101;
-                v109 = *(v545 + 72);
-                outlined init with copy of TerminalSymbol(v543 + v109 * v107, v46, type metadata accessor for TerminalSymbol);
-                if (!v80)
+                v542 = v96;
+                v104 = *(v536 + 72);
+                outlined init with copy of TerminalSymbol(v534 + v104 * v102, v41, type metadata accessor for TerminalSymbol);
+                if (!v75)
                 {
-                  v118 = (v79 + 16);
-                  if (*(v79 + 16))
+                  v113 = (v74 + 16);
+                  if (*(v74 + 16))
                   {
-                    v119 = specialized __RawDictionaryStorage.find<A>(_:)(v46);
-                    if (v120)
+                    v114 = specialized __RawDictionaryStorage.find<A>(_:)(v41);
+                    if (v115)
                     {
-                      v118 = (*(v79 + 56) + 8 * v119);
+                      v113 = (*(v74 + 56) + 8 * v114);
                     }
                   }
 
-                  v121 = *v118;
-                  v122 = v541;
-                  outlined init with copy of TerminalSymbol(v46, v541, type metadata accessor for TerminalSymbol);
+                  v116 = *v113;
+                  v117 = v532;
+                  outlined init with copy of TerminalSymbol(v41, v532, type metadata accessor for TerminalSymbol);
                   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-                  v124 = v554;
-                  v553[0] = v554;
-                  v125 = specialized __RawDictionaryStorage.find<A>(_:)(v122);
-                  v127 = *(v124 + 16);
-                  v128 = (v126 & 1) == 0;
-                  v129 = __OFADD__(v127, v128);
-                  v130 = v127 + v128;
-                  if (v129)
+                  v119 = v545;
+                  v544[0] = v545;
+                  v120 = specialized __RawDictionaryStorage.find<A>(_:)(v117);
+                  v122 = *(v119 + 16);
+                  v123 = (v121 & 1) == 0;
+                  v124 = __OFADD__(v122, v123);
+                  v125 = v122 + v123;
+                  if (v124)
                   {
                     goto LABEL_350;
                   }
 
-                  v131 = v126;
-                  if (*(v124 + 24) >= v130)
+                  v126 = v121;
+                  if (*(v119 + 24) >= v125)
                   {
                     if (isUniquelyReferenced_nonNull_native)
                     {
                       goto LABEL_55;
                     }
 
-                    v241 = v125;
+                    v236 = v120;
                     specialized _NativeDictionary.copy()();
-                    v125 = v241;
-                    v79 = v553[0];
-                    if ((v131 & 1) == 0)
+                    v120 = v236;
+                    v74 = v544[0];
+                    if ((v126 & 1) == 0)
                     {
                       goto LABEL_137;
                     }
 
 LABEL_56:
-                    *(*(v79 + 56) + 8 * v125) = v121;
-                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v541, type metadata accessor for TerminalSymbol);
+                    *(*(v74 + 56) + 8 * v120) = v116;
+                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v532, type metadata accessor for TerminalSymbol);
                   }
 
                   else
                   {
-                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v130, isUniquelyReferenced_nonNull_native);
-                    v125 = specialized __RawDictionaryStorage.find<A>(_:)(v541);
-                    if ((v131 & 1) != (v132 & 1))
+                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v125, isUniquelyReferenced_nonNull_native);
+                    v120 = specialized __RawDictionaryStorage.find<A>(_:)(v532);
+                    if ((v126 & 1) != (v127 & 1))
                     {
                       goto LABEL_399;
                     }
 
 LABEL_55:
-                    v79 = v553[0];
-                    if (v131)
+                    v74 = v544[0];
+                    if (v126)
                     {
                       goto LABEL_56;
                     }
 
 LABEL_137:
-                    *(v79 + 8 * (v125 >> 6) + 64) |= 1 << v125;
-                    v242 = v125;
-                    v243 = v541;
-                    outlined init with copy of TerminalSymbol(v541, *(v79 + 48) + v125 * v109, type metadata accessor for TerminalSymbol);
-                    *(*(v79 + 56) + 8 * v242) = v121;
-                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v243, type metadata accessor for TerminalSymbol);
-                    v244 = *(v79 + 16);
-                    v129 = __OFADD__(v244, 1);
-                    v245 = v244 + 1;
-                    if (v129)
+                    *(v74 + 8 * (v120 >> 6) + 64) |= 1 << v120;
+                    v237 = v120;
+                    v238 = v532;
+                    outlined init with copy of TerminalSymbol(v532, *(v74 + 48) + v120 * v104, type metadata accessor for TerminalSymbol);
+                    *(*(v74 + 56) + 8 * v237) = v116;
+                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v238, type metadata accessor for TerminalSymbol);
+                    v239 = *(v74 + 16);
+                    v124 = __OFADD__(v239, 1);
+                    v240 = v239 + 1;
+                    if (v124)
                     {
                       goto LABEL_354;
                     }
 
-                    *(v79 + 16) = v245;
+                    *(v74 + 16) = v240;
                   }
 
-                  v554 = v79;
-                  v101 = v551;
+                  v545 = v74;
+                  v96 = v542;
                   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                   {
-                    v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v101 + 2) + 1, 1, v101);
+                    v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v96 + 2) + 1, 1, v96);
                   }
 
-                  v247 = *(v101 + 2);
-                  v246 = *(v101 + 3);
-                  v248 = v247 + 1;
-                  if (v247 >= v246 >> 1)
+                  v242 = *(v96 + 2);
+                  v241 = *(v96 + 3);
+                  v243 = v242 + 1;
+                  if (v242 >= v241 >> 1)
                   {
-                    v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v246 > 1), v247 + 1, 1, v101);
+                    v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v241 > 1), v242 + 1, 1, v96);
                   }
 
                   goto LABEL_158;
                 }
 
-                v110 = v538;
-                outlined init with copy of TerminalSymbol(v46, v538, type metadata accessor for TerminalSymbol);
-                v111 = swift_getEnumCaseMultiPayload();
-                if ((v111 - 1) < 2)
+                v105 = v529;
+                outlined init with copy of TerminalSymbol(v41, v529, type metadata accessor for TerminalSymbol);
+                v106 = swift_getEnumCaseMultiPayload();
+                if ((v106 - 1) < 2)
                 {
-                  v112 = *v539;
-                  (*v539)(v536, v110, v13);
-                  v114 = (v79 + 16);
-                  v113 = *(v79 + 16);
+                  v107 = *v530;
+                  (*v530)(v527, v105, v11);
+                  v109 = (v74 + 16);
+                  v108 = *(v74 + 16);
 
-                  if (v113)
+                  if (v108)
                   {
-                    v115 = specialized __RawDictionaryStorage.find<A>(_:)(v46);
-                    v116 = v528;
-                    if (v117)
+                    v110 = specialized __RawDictionaryStorage.find<A>(_:)(v41);
+                    v111 = v519;
+                    if (v112)
                     {
-                      v114 = (*(v79 + 56) + 8 * v115);
+                      v109 = (*(v74 + 56) + 8 * v110);
                     }
                   }
 
                   else
                   {
-                    v116 = v528;
+                    v111 = v519;
                   }
 
-                  v154 = *v114;
-                  outlined init with copy of TerminalSymbol(v46, v116, type metadata accessor for TerminalSymbol);
-                  v155 = swift_isUniquelyReferenced_nonNull_native();
-                  v156 = v554;
-                  v553[0] = v554;
-                  v157 = specialized __RawDictionaryStorage.find<A>(_:)(v116);
-                  v159 = *(v156 + 16);
-                  v160 = (v158 & 1) == 0;
-                  v129 = __OFADD__(v159, v160);
-                  v161 = v159 + v160;
-                  if (v129)
+                  v149 = *v109;
+                  outlined init with copy of TerminalSymbol(v41, v111, type metadata accessor for TerminalSymbol);
+                  v150 = swift_isUniquelyReferenced_nonNull_native();
+                  v151 = v545;
+                  v544[0] = v545;
+                  v152 = specialized __RawDictionaryStorage.find<A>(_:)(v111);
+                  v154 = *(v151 + 16);
+                  v155 = (v153 & 1) == 0;
+                  v124 = __OFADD__(v154, v155);
+                  v156 = v154 + v155;
+                  if (v124)
                   {
                     goto LABEL_351;
                   }
 
-                  v162 = v158;
-                  if (*(v156 + 24) >= v161)
+                  v157 = v153;
+                  if (*(v151 + 24) >= v156)
                   {
-                    if ((v155 & 1) == 0)
+                    if ((v150 & 1) == 0)
                     {
-                      v250 = v157;
+                      v245 = v152;
                       specialized _NativeDictionary.copy()();
-                      v157 = v250;
+                      v152 = v245;
                     }
                   }
 
                   else
                   {
-                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v161, v155);
-                    v157 = specialized __RawDictionaryStorage.find<A>(_:)(v116);
-                    if ((v162 & 1) != (v163 & 1))
+                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v156, v150);
+                    v152 = specialized __RawDictionaryStorage.find<A>(_:)(v111);
+                    if ((v157 & 1) != (v158 & 1))
                     {
                       goto LABEL_399;
                     }
                   }
 
-                  v13 = v533;
-                  v164 = v553[0];
-                  if (v162)
+                  v11 = v524;
+                  v159 = v544[0];
+                  if (v157)
                   {
-                    *(*(v553[0] + 56) + 8 * v157) = v154;
-                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v116, type metadata accessor for TerminalSymbol);
+                    *(*(v544[0] + 56) + 8 * v152) = v149;
+                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v111, type metadata accessor for TerminalSymbol);
                   }
 
                   else
                   {
-                    *(v553[0] + 8 * (v157 >> 6) + 64) |= 1 << v157;
-                    v165 = v157;
-                    outlined init with copy of TerminalSymbol(v116, v164[6] + v157 * v109, type metadata accessor for TerminalSymbol);
-                    *(v164[7] + 8 * v165) = v154;
-                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v116, type metadata accessor for TerminalSymbol);
-                    v166 = v164[2];
-                    v129 = __OFADD__(v166, 1);
-                    v167 = v166 + 1;
-                    if (v129)
+                    *(v544[0] + 8 * (v152 >> 6) + 64) |= 1 << v152;
+                    v160 = v152;
+                    outlined init with copy of TerminalSymbol(v111, v159[6] + v152 * v104, type metadata accessor for TerminalSymbol);
+                    *(v159[7] + 8 * v160) = v149;
+                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v111, type metadata accessor for TerminalSymbol);
+                    v161 = v159[2];
+                    v124 = __OFADD__(v161, 1);
+                    v162 = v161 + 1;
+                    if (v124)
                     {
                       goto LABEL_356;
                     }
 
-                    v164[2] = v167;
+                    v159[2] = v162;
                   }
 
-                  v168 = v164;
-                  v554 = v164;
-                  v169 = v551;
+                  v163 = v159;
+                  v545 = v159;
+                  v164 = v542;
                   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                   {
-                    v169 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v169 + 2) + 1, 1, v169);
+                    v164 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v164 + 2) + 1, 1, v164);
                   }
 
-                  v171 = *(v169 + 2);
-                  v170 = *(v169 + 3);
-                  if (v171 >= v170 >> 1)
+                  v166 = *(v164 + 2);
+                  v165 = *(v164 + 3);
+                  if (v166 >= v165 >> 1)
                   {
-                    v169 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v170 > 1), v171 + 1, 1, v169);
+                    v164 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v165 > 1), v166 + 1, 1, v164);
                   }
 
-                  *(v169 + 2) = v171 + 1;
-                  v172 = v169;
-                  v173 = &v169[16 * v171];
-                  *(v173 + 4) = v154;
-                  v173[40] = 0;
-                  v112(v535, v536, v13);
-                  v174 = v540;
-                  v175 = swift_isUniquelyReferenced_nonNull_native();
-                  v553[0] = v174;
-                  v176 = specialized __RawDictionaryStorage.find<A>(_:)(v154);
-                  v178 = *(v174 + 16);
-                  v179 = (v177 & 1) == 0;
-                  v129 = __OFADD__(v178, v179);
-                  v180 = v178 + v179;
-                  if (v129)
+                  *(v164 + 2) = v166 + 1;
+                  v167 = v164;
+                  v168 = &v164[16 * v166];
+                  *(v168 + 4) = v149;
+                  v168[40] = 0;
+                  v107(v526, v527, v11);
+                  v169 = v531;
+                  v170 = swift_isUniquelyReferenced_nonNull_native();
+                  v544[0] = v169;
+                  v171 = specialized __RawDictionaryStorage.find<A>(_:)(v149);
+                  v173 = *(v169 + 16);
+                  v174 = (v172 & 1) == 0;
+                  v124 = __OFADD__(v173, v174);
+                  v175 = v173 + v174;
+                  if (v124)
                   {
                     goto LABEL_352;
                   }
 
-                  v181 = v177;
-                  if (*(v174 + 24) >= v180)
+                  v176 = v172;
+                  if (*(v169 + 24) >= v175)
                   {
-                    if ((v175 & 1) == 0)
+                    if ((v170 & 1) == 0)
                     {
-                      v251 = v176;
+                      v246 = v171;
                       specialized _NativeDictionary.copy()();
-                      v176 = v251;
+                      v171 = v246;
                     }
                   }
 
                   else
                   {
-                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v180, v175);
-                    v176 = specialized __RawDictionaryStorage.find<A>(_:)(v154);
-                    if ((v181 & 1) != (v182 & 1))
+                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v175, v170);
+                    v171 = specialized __RawDictionaryStorage.find<A>(_:)(v149);
+                    if ((v176 & 1) != (v177 & 1))
                     {
                       goto LABEL_400;
                     }
                   }
 
-                  v101 = v172;
-                  v183 = v553[0];
-                  v540 = v553[0];
-                  if (v181)
+                  v96 = v167;
+                  v178 = v544[0];
+                  v531 = v544[0];
+                  if (v176)
                   {
-                    (*(v529 + 40))(*(v553[0] + 56) + *(v529 + 72) * v176, v535, v13);
+                    (*(v520 + 40))(*(v544[0] + 56) + *(v520 + 72) * v171, v526, v11);
 
-                    v46 = v550;
-                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v550, type metadata accessor for TerminalSymbol);
+                    v41 = v541;
+                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v541, type metadata accessor for TerminalSymbol);
                   }
 
                   else
                   {
-                    *(v553[0] + 8 * (v176 >> 6) + 64) |= 1 << v176;
-                    *(*(v183 + 48) + 8 * v176) = v154;
-                    v112((*(v183 + 56) + *(v529 + 72) * v176), v535, v13);
+                    *(v544[0] + 8 * (v171 >> 6) + 64) |= 1 << v171;
+                    *(*(v178 + 48) + 8 * v171) = v149;
+                    v107((*(v178 + 56) + *(v520 + 72) * v171), v526, v11);
 
-                    v46 = v550;
-                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v550, type metadata accessor for TerminalSymbol);
-                    v184 = *(v540 + 16);
-                    v129 = __OFADD__(v184, 1);
-                    v185 = v184 + 1;
-                    if (v129)
+                    v41 = v541;
+                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v541, type metadata accessor for TerminalSymbol);
+                    v179 = *(v531 + 16);
+                    v124 = __OFADD__(v179, 1);
+                    v180 = v179 + 1;
+                    if (v124)
                     {
                       goto LABEL_357;
                     }
 
-                    *(v540 + 16) = v185;
+                    *(v531 + 16) = v180;
                   }
 
-                  v95 = 1;
-                  v530 = 1;
-                  v79 = v168;
-                  v80 = v547;
+                  v90 = 1;
+                  v521 = 1;
+                  v74 = v163;
+                  v75 = v538;
                   goto LABEL_159;
                 }
 
-                if (!v111)
+                if (!v106)
                 {
-                  v548 = v79;
-                  v133 = *v538;
-                  v134 = v80[12];
-                  __swift_project_boxed_opaque_existential_1(v80 + 8, v80[11]);
-                  v525 = v95;
-                  if (v133 > 0x7F)
+                  v539 = v74;
+                  v128 = *v529;
+                  v129 = v75[12];
+                  __swift_project_boxed_opaque_existential_1(v75 + 8, v75[11]);
+                  v516 = v90;
+                  if (v128 > 0x7F)
                   {
-                    v249 = (v133 & 0x3F) << 8;
-                    if (v133 >= 0x800)
+                    v244 = (v128 & 0x3F) << 8;
+                    if (v128 >= 0x800)
                     {
-                      v264 = (v249 | (v133 >> 6) & 0x3F) << 8;
-                      v265 = (((v264 | (v133 >> 12) & 0x3F) << 8) | (v133 >> 18)) - 2122219023;
-                      v135 = (v133 >> 12) + v264 + 8487393;
-                      if (HIWORD(v133))
+                      v259 = (v244 | (v128 >> 6) & 0x3F) << 8;
+                      v260 = (((v259 | (v128 >> 12) & 0x3F) << 8) | (v128 >> 18)) - 2122219023;
+                      v130 = (v128 >> 12) + v259 + 8487393;
+                      if (HIWORD(v128))
                       {
-                        v135 = v265;
+                        v130 = v260;
                       }
                     }
 
                     else
                     {
-                      v135 = (v133 >> 6) + v249 + 33217;
+                      v130 = (v128 >> 6) + v244 + 33217;
                     }
                   }
 
                   else
                   {
-                    v135 = v133 + 1;
+                    v130 = v128 + 1;
                   }
 
-                  v553[0] = (v135 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v135) >> 3))));
-                  v80 = v547;
+                  v544[0] = (v130 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v130) >> 3))));
+                  v75 = v538;
 
-                  v136 = static String._uncheckedFromUTF8(_:)();
-                  v137 = v527;
-                  v138 = (*(v134 + 24))(v136);
-                  if (v137)
+                  v131 = static String._uncheckedFromUTF8(_:)();
+                  v132 = v518;
+                  v133 = (*(v129 + 24))(v131);
+                  if (v132)
                   {
 
-                    v527 = 0;
-                    v139 = v548;
+                    v518 = 0;
+                    v134 = v539;
                   }
 
                   else
                   {
-                    v187 = v138;
-                    v527 = 0;
+                    v182 = v133;
+                    v518 = 0;
 
-                    v188 = v512;
-                    VocabularyManager.prefixLookUp.getter(v512);
-                    v189 = *(v188 + *(v537 + 52));
+                    v183 = v503;
+                    VocabularyManager.prefixLookUp.getter(v503);
+                    v184 = *(v183 + *(v528 + 52));
 
-                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v188, type metadata accessor for VocabularyManager.PrefixLookup);
-                    v190 = MEMORY[0x1AC57C380](*(v187 + 16), MEMORY[0x1E69E6530], MEMORY[0x1E69E6540]);
-                    v553[0] = v190;
-                    v191 = *(v187 + 16);
-                    v192 = v187;
-                    v139 = v548;
-                    if (v191)
+                    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v183, type metadata accessor for VocabularyManager.PrefixLookup);
+                    v185 = MEMORY[0x1AC57C380](*(v182 + 16), MEMORY[0x1E69E6530], MEMORY[0x1E69E6540]);
+                    v544[0] = v185;
+                    v186 = *(v182 + 16);
+                    v187 = v182;
+                    v134 = v539;
+                    if (v186)
                     {
-                      v193 = v192;
-                      v194 = (v192 + 32);
-                      v195 = v191;
+                      v188 = v187;
+                      v189 = (v187 + 32);
+                      v190 = v186;
                       do
                       {
-                        v196 = *v194++;
-                        specialized Set._Variant.insert(_:)(&v552, v196);
-                        --v195;
+                        v191 = *v189++;
+                        specialized Set._Variant.insert(_:)(&v543, v191);
+                        --v190;
                       }
 
-                      while (v195);
-                      v197 = v553[0];
+                      while (v190);
+                      v192 = v544[0];
                     }
 
                     else
                     {
-                      v197 = v190;
-                      v193 = v192;
+                      v192 = v185;
+                      v188 = v187;
                     }
 
-                    v80 = v547;
-                    v198 = specialized Set.isDisjoint(with:)(v197, v189);
+                    v75 = v538;
+                    v193 = specialized Set.isDisjoint(with:)(v192, v184);
 
-                    if ((v198 & 1) == 0)
+                    if ((v193 & 1) == 0)
                     {
-                      if (v191)
+                      if (v186)
                       {
-                        v213 = v80[13];
-                        v214 = (v193 + 32);
-                        v215 = MEMORY[0x1E69E7CC0];
+                        v208 = v75[13];
+                        v209 = (v188 + 32);
+                        v210 = MEMORY[0x1E69E7CC0];
                         do
                         {
-                          v219 = *v214++;
-                          v218 = v219;
-                          if (v213 != v219)
+                          v214 = *v209++;
+                          v213 = v214;
+                          if (v208 != v214)
                           {
-                            v220 = swift_isUniquelyReferenced_nonNull_native();
-                            v553[0] = v215;
-                            if ((v220 & 1) == 0)
+                            v215 = swift_isUniquelyReferenced_nonNull_native();
+                            v544[0] = v210;
+                            if ((v215 & 1) == 0)
                             {
-                              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v215 + 16) + 1, 1);
-                              v215 = v553[0];
+                              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v210 + 16) + 1, 1);
+                              v210 = v544[0];
                             }
 
-                            v217 = *(v215 + 16);
-                            v216 = *(v215 + 24);
-                            if (v217 >= v216 >> 1)
+                            v212 = *(v210 + 16);
+                            v211 = *(v210 + 24);
+                            if (v212 >= v211 >> 1)
                             {
-                              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v216 > 1), v217 + 1, 1);
-                              v215 = v553[0];
+                              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v211 > 1), v212 + 1, 1);
+                              v210 = v544[0];
                             }
 
-                            *(v215 + 16) = v217 + 1;
-                            *(v215 + 8 * v217 + 32) = v218;
+                            *(v210 + 16) = v212 + 1;
+                            *(v210 + 8 * v212 + 32) = v213;
                           }
 
-                          --v191;
+                          --v186;
                         }
 
-                        while (v191);
+                        while (v186);
                       }
 
                       else
                       {
-                        v215 = MEMORY[0x1E69E7CC0];
+                        v210 = MEMORY[0x1E69E7CC0];
                       }
 
-                      v221 = *(v215 + 16);
-                      if (v221)
+                      v216 = *(v210 + 16);
+                      if (v216)
                       {
-                        v222 = 0;
-                        while (v222 < *(v215 + 16))
+                        v217 = 0;
+                        while (v217 < *(v210 + 16))
                         {
-                          v223 = *(v215 + 32 + 8 * v222);
-                          v224 = v534;
-                          VocabularyManager.prefixLookUp.getter(v534);
-                          v225 = *(v224 + *(v537 + 48));
+                          v218 = *(v210 + 32 + 8 * v217);
+                          v219 = v525;
+                          VocabularyManager.prefixLookUp.getter(v525);
+                          v220 = *(v219 + *(v528 + 48));
 
-                          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v224, type metadata accessor for VocabularyManager.PrefixLookup);
-                          if (!*(v225 + 16))
+                          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v219, type metadata accessor for VocabularyManager.PrefixLookup);
+                          if (!*(v220 + 16))
                           {
                             goto LABEL_388;
                           }
 
-                          v226 = specialized __RawDictionaryStorage.find<A>(_:)(v223);
-                          if ((v227 & 1) == 0)
+                          v221 = specialized __RawDictionaryStorage.find<A>(_:)(v218);
+                          if ((v222 & 1) == 0)
                           {
                             goto LABEL_388;
                           }
 
-                          v228 = *(*(v225 + 56) + v226);
+                          v223 = *(*(v220 + 56) + v221);
 
-                          v229 = v549;
-                          *v549 = v228;
+                          v224 = v540;
+                          *v540 = v223;
                           swift_storeEnumTagMultiPayload();
-                          v230 = v548;
-                          v231 = v548 + 2;
-                          if (v548[2])
+                          v225 = v539;
+                          v226 = v539 + 2;
+                          if (v539[2])
                           {
-                            v232 = specialized __RawDictionaryStorage.find<A>(_:)(v229);
-                            if (v233)
+                            v227 = specialized __RawDictionaryStorage.find<A>(_:)(v224);
+                            if (v228)
                             {
-                              v231 = (v230[7] + 8 * v232);
+                              v226 = (v225[7] + 8 * v227);
                             }
                           }
 
-                          v234 = *v231;
-                          v235 = swift_isUniquelyReferenced_nonNull_native();
-                          v553[0] = v554;
-                          specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v234, v549, v235);
-                          v548 = v553[0];
-                          v554 = v553[0];
+                          v229 = *v226;
+                          v230 = swift_isUniquelyReferenced_nonNull_native();
+                          v544[0] = v545;
+                          specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v229, v540, v230);
+                          v539 = v544[0];
+                          v545 = v544[0];
                           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                           {
-                            v551 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v551 + 16) + 1, 1, v551);
+                            v542 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v542 + 16) + 1, 1, v542);
                           }
 
-                          v237 = *(v551 + 16);
-                          v236 = *(v551 + 24);
-                          v238 = v549;
-                          if (v237 >= v236 >> 1)
+                          v232 = *(v542 + 16);
+                          v231 = *(v542 + 24);
+                          v233 = v540;
+                          if (v232 >= v231 >> 1)
                           {
-                            v551 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v236 > 1), v237 + 1, 1, v551);
-                            v238 = v549;
+                            v542 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v231 > 1), v232 + 1, 1, v542);
+                            v233 = v540;
                           }
 
-                          ++v222;
-                          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v238, type metadata accessor for TerminalSymbol);
-                          v239 = v551;
-                          *(v551 + 16) = v237 + 1;
-                          v240 = v239 + 16 * v237;
-                          *(v240 + 32) = v234;
-                          *(v240 + 40) = 0;
-                          v46 = v550;
-                          if (v221 == v222)
+                          ++v217;
+                          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v233, type metadata accessor for TerminalSymbol);
+                          v234 = v542;
+                          *(v542 + 16) = v232 + 1;
+                          v235 = v234 + 16 * v232;
+                          *(v235 + 32) = v229;
+                          *(v235 + 40) = 0;
+                          v41 = v541;
+                          if (v216 == v217)
                           {
                             goto LABEL_135;
                           }
@@ -864,165 +859,165 @@ LABEL_362:
                         goto LABEL_363;
                       }
 
-                      v46 = v550;
+                      v41 = v541;
 LABEL_135:
-                      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v46, type metadata accessor for TerminalSymbol);
+                      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v41, type metadata accessor for TerminalSymbol);
 
                       swift_bridgeObjectRelease_n();
-                      v80 = v547;
+                      v75 = v538;
 
-                      v13 = v533;
-                      v79 = v548;
-                      v101 = v551;
-                      v106 = v542;
-                      v95 = v525;
+                      v11 = v524;
+                      v74 = v539;
+                      v96 = v542;
+                      v101 = v533;
+                      v90 = v516;
                       goto LABEL_160;
                     }
 
                     swift_bridgeObjectRelease_n();
-                    v13 = v533;
+                    v11 = v524;
                   }
 
-                  v95 = v525;
-                  v199 = v139 + 2;
-                  v200 = v550;
-                  if (v139[2])
+                  v90 = v516;
+                  v194 = v134 + 2;
+                  v195 = v541;
+                  if (v134[2])
                   {
-                    v201 = specialized __RawDictionaryStorage.find<A>(_:)(v550);
-                    if (v202)
+                    v196 = specialized __RawDictionaryStorage.find<A>(_:)(v541);
+                    if (v197)
                     {
-                      v199 = (v139[7] + 8 * v201);
+                      v194 = (v134[7] + 8 * v196);
                     }
                   }
 
-                  v121 = *v199;
-                  v203 = v531;
-                  outlined init with copy of TerminalSymbol(v200, v531, type metadata accessor for TerminalSymbol);
-                  v204 = swift_isUniquelyReferenced_nonNull_native();
-                  v205 = v554;
-                  v553[0] = v554;
-                  v206 = specialized __RawDictionaryStorage.find<A>(_:)(v203);
-                  v208 = *(v205 + 16);
-                  v209 = (v207 & 1) == 0;
-                  v129 = __OFADD__(v208, v209);
-                  v210 = v208 + v209;
-                  if (v129)
+                  v116 = *v194;
+                  v198 = v522;
+                  outlined init with copy of TerminalSymbol(v195, v522, type metadata accessor for TerminalSymbol);
+                  v199 = swift_isUniquelyReferenced_nonNull_native();
+                  v200 = v545;
+                  v544[0] = v545;
+                  v201 = specialized __RawDictionaryStorage.find<A>(_:)(v198);
+                  v203 = *(v200 + 16);
+                  v204 = (v202 & 1) == 0;
+                  v124 = __OFADD__(v203, v204);
+                  v205 = v203 + v204;
+                  if (v124)
                   {
                     goto LABEL_359;
                   }
 
-                  v211 = v207;
-                  if (*(v205 + 24) >= v210)
+                  v206 = v202;
+                  if (*(v200 + 24) >= v205)
                   {
-                    if (v204)
+                    if (v199)
                     {
                       goto LABEL_108;
                     }
 
-                    v257 = v206;
+                    v252 = v201;
                     specialized _NativeDictionary.copy()();
-                    v206 = v257;
-                    v79 = v553[0];
-                    if ((v211 & 1) == 0)
+                    v201 = v252;
+                    v74 = v544[0];
+                    if ((v206 & 1) == 0)
                     {
                       goto LABEL_149;
                     }
 
 LABEL_109:
-                    *(*(v79 + 56) + 8 * v206) = v121;
+                    *(*(v74 + 56) + 8 * v201) = v116;
                   }
 
                   else
                   {
-                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v210, v204);
-                    v206 = specialized __RawDictionaryStorage.find<A>(_:)(v531);
-                    if ((v211 & 1) != (v212 & 1))
+                    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v205, v199);
+                    v201 = specialized __RawDictionaryStorage.find<A>(_:)(v522);
+                    if ((v206 & 1) != (v207 & 1))
                     {
                       goto LABEL_399;
                     }
 
 LABEL_108:
-                    v79 = v553[0];
-                    if (v211)
+                    v74 = v544[0];
+                    if (v206)
                     {
                       goto LABEL_109;
                     }
 
 LABEL_149:
-                    *(v79 + 8 * (v206 >> 6) + 64) |= 1 << v206;
-                    v258 = v206;
-                    outlined init with copy of TerminalSymbol(v531, *(v79 + 48) + v206 * v109, type metadata accessor for TerminalSymbol);
-                    *(*(v79 + 56) + 8 * v258) = v121;
-                    v259 = *(v79 + 16);
-                    v129 = __OFADD__(v259, 1);
-                    v260 = v259 + 1;
-                    if (v129)
+                    *(v74 + 8 * (v201 >> 6) + 64) |= 1 << v201;
+                    v253 = v201;
+                    outlined init with copy of TerminalSymbol(v522, *(v74 + 48) + v201 * v104, type metadata accessor for TerminalSymbol);
+                    *(*(v74 + 56) + 8 * v253) = v116;
+                    v254 = *(v74 + 16);
+                    v124 = __OFADD__(v254, 1);
+                    v255 = v254 + 1;
+                    if (v124)
                     {
                       goto LABEL_364;
                     }
 
-                    *(v79 + 16) = v260;
+                    *(v74 + 16) = v255;
                   }
 
-                  v186 = &v556;
+                  v181 = &v547;
                   goto LABEL_152;
                 }
 
-                v141 = (v79 + 16);
-                v140 = *(v79 + 16);
+                v136 = (v74 + 16);
+                v135 = *(v74 + 16);
 
-                if (v140)
+                if (v135)
                 {
-                  v142 = specialized __RawDictionaryStorage.find<A>(_:)(v46);
-                  if (v143)
+                  v137 = specialized __RawDictionaryStorage.find<A>(_:)(v41);
+                  if (v138)
                   {
-                    v141 = (*(v79 + 56) + 8 * v142);
+                    v136 = (*(v74 + 56) + 8 * v137);
                   }
                 }
 
-                v121 = *v141;
-                v144 = v532;
-                outlined init with copy of TerminalSymbol(v46, v532, type metadata accessor for TerminalSymbol);
-                v145 = swift_isUniquelyReferenced_nonNull_native();
-                v146 = v554;
-                v553[0] = v554;
-                v147 = specialized __RawDictionaryStorage.find<A>(_:)(v144);
-                v149 = *(v146 + 16);
-                v150 = (v148 & 1) == 0;
-                v129 = __OFADD__(v149, v150);
-                v151 = v149 + v150;
-                if (v129)
+                v116 = *v136;
+                v139 = v523;
+                outlined init with copy of TerminalSymbol(v41, v523, type metadata accessor for TerminalSymbol);
+                v140 = swift_isUniquelyReferenced_nonNull_native();
+                v141 = v545;
+                v544[0] = v545;
+                v142 = specialized __RawDictionaryStorage.find<A>(_:)(v139);
+                v144 = *(v141 + 16);
+                v145 = (v143 & 1) == 0;
+                v124 = __OFADD__(v144, v145);
+                v146 = v144 + v145;
+                if (v124)
                 {
                   goto LABEL_355;
                 }
 
-                v152 = v148;
-                if (*(v146 + 24) >= v151)
+                v147 = v143;
+                if (*(v141 + 24) >= v146)
                 {
-                  if ((v145 & 1) == 0)
+                  if ((v140 & 1) == 0)
                   {
-                    v252 = v147;
+                    v247 = v142;
                     specialized _NativeDictionary.copy()();
-                    v147 = v252;
-                    v79 = v553[0];
-                    if ((v152 & 1) == 0)
+                    v142 = v247;
+                    v74 = v544[0];
+                    if ((v147 & 1) == 0)
                     {
 LABEL_146:
-                      *(v79 + 8 * (v147 >> 6) + 64) |= 1 << v147;
-                      v253 = v147;
-                      v254 = v532;
-                      outlined init with copy of TerminalSymbol(v532, *(v79 + 48) + v147 * v109, type metadata accessor for TerminalSymbol);
-                      *(*(v79 + 56) + 8 * v253) = v121;
-                      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v254, type metadata accessor for TerminalSymbol);
-                      v255 = *(v79 + 16);
-                      v129 = __OFADD__(v255, 1);
-                      v256 = v255 + 1;
-                      if (v129)
+                      *(v74 + 8 * (v142 >> 6) + 64) |= 1 << v142;
+                      v248 = v142;
+                      v249 = v523;
+                      outlined init with copy of TerminalSymbol(v523, *(v74 + 48) + v142 * v104, type metadata accessor for TerminalSymbol);
+                      *(*(v74 + 56) + 8 * v248) = v116;
+                      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v249, type metadata accessor for TerminalSymbol);
+                      v250 = *(v74 + 16);
+                      v124 = __OFADD__(v250, 1);
+                      v251 = v250 + 1;
+                      if (v124)
                       {
                         goto LABEL_361;
                       }
 
-                      *(v79 + 16) = v256;
+                      *(v74 + 16) = v251;
                       goto LABEL_153;
                     }
 
@@ -1032,53 +1027,53 @@ LABEL_146:
 
                 else
                 {
-                  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v151, v145);
-                  v147 = specialized __RawDictionaryStorage.find<A>(_:)(v532);
-                  if ((v152 & 1) != (v153 & 1))
+                  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v146, v140);
+                  v142 = specialized __RawDictionaryStorage.find<A>(_:)(v523);
+                  if ((v147 & 1) != (v148 & 1))
                   {
                     goto LABEL_399;
                   }
                 }
 
-                v79 = v553[0];
-                if ((v152 & 1) == 0)
+                v74 = v544[0];
+                if ((v147 & 1) == 0)
                 {
                   goto LABEL_146;
                 }
 
 LABEL_92:
-                *(*(v79 + 56) + 8 * v147) = v121;
-                v186 = &v557;
+                *(*(v74 + 56) + 8 * v142) = v116;
+                v181 = &v548;
 LABEL_152:
-                outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(*(v186 - 32), type metadata accessor for TerminalSymbol);
+                outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(*(v181 - 32), type metadata accessor for TerminalSymbol);
 LABEL_153:
-                v554 = v79;
-                v101 = v551;
+                v545 = v74;
+                v96 = v542;
                 if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                 {
-                  v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v101 + 2) + 1, 1, v101);
+                  v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v96 + 2) + 1, 1, v96);
                 }
 
-                v247 = *(v101 + 2);
-                v261 = *(v101 + 3);
-                v248 = v247 + 1;
-                if (v247 >= v261 >> 1)
+                v242 = *(v96 + 2);
+                v256 = *(v96 + 3);
+                v243 = v242 + 1;
+                if (v242 >= v256 >> 1)
                 {
-                  v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v261 > 1), v247 + 1, 1, v101);
+                  v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v256 > 1), v242 + 1, 1, v96);
                 }
 
 LABEL_158:
-                v262 = v550;
-                outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v550, type metadata accessor for TerminalSymbol);
-                *(v101 + 2) = v248;
-                v263 = &v101[16 * v247];
-                v46 = v262;
-                *(v263 + 4) = v121;
-                v263[40] = 0;
+                v257 = v541;
+                outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v541, type metadata accessor for TerminalSymbol);
+                *(v96 + 2) = v243;
+                v258 = &v96[16 * v242];
+                v41 = v257;
+                *(v258 + 4) = v116;
+                v258[40] = 0;
 LABEL_159:
-                v106 = v542;
+                v101 = v533;
 LABEL_160:
-                if (++v107 == v544)
+                if (++v102 == v535)
                 {
 
                   goto LABEL_28;
@@ -1089,308 +1084,308 @@ LABEL_160:
             goto LABEL_29;
           }
 
-          v284 = v514;
-          if (!*(v514 + 16))
+          v279 = v505;
+          if (!*(v505 + 16))
           {
             goto LABEL_365;
           }
 
-          v285 = specialized __RawDictionaryStorage.find<A>(_:)(*v102, v102[1]);
-          v287 = v286;
+          v280 = specialized __RawDictionaryStorage.find<A>(_:)(*v97, v97[1]);
+          v282 = v281;
 
-          if ((v287 & 1) == 0)
+          if ((v282 & 1) == 0)
           {
             goto LABEL_366;
           }
 
-          v288 = *(*(v284 + 56) + 8 * v285);
+          v283 = *(*(v279 + 56) + 8 * v280);
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v101 + 2) + 1, 1, v101);
+            v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v96 + 2) + 1, 1, v96);
           }
 
-          v46 = v550;
-          v290 = *(v101 + 2);
-          v289 = *(v101 + 3);
-          v103 = v523;
-          v104 = v526;
-          if (v290 >= v289 >> 1)
+          v41 = v541;
+          v285 = *(v96 + 2);
+          v284 = *(v96 + 3);
+          v98 = v514;
+          v99 = v517;
+          if (v285 >= v284 >> 1)
           {
-            v328 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v289 > 1), v290 + 1, 1, v101);
-            v104 = v526;
-            v101 = v328;
-            v103 = v523;
+            v323 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v284 > 1), v285 + 1, 1, v96);
+            v99 = v517;
+            v96 = v323;
+            v98 = v514;
           }
 
-          *(v101 + 2) = v290 + 1;
-          v291 = &v101[16 * v290];
-          *(v291 + 4) = v288;
-          v291[40] = 1;
-          v102 = v517;
+          *(v96 + 2) = v285 + 1;
+          v286 = &v96[16 * v285];
+          *(v286 + 4) = v283;
+          v286[40] = 1;
+          v97 = v508;
 LABEL_30:
-          if (v104 == v521)
+          if (v99 == v512)
           {
 
-            if ((v530 & 1) == 0)
+            if ((v521 & 1) == 0)
             {
-              v340 = 0;
+              v335 = 0;
               goto LABEL_226;
             }
 
 LABEL_228:
-            v341 = v508;
-            v342 = v514;
-            if (*(v101 + 2) == 1 && !v101[40])
+            v336 = v499;
+            v337 = v505;
+            if (*(v96 + 2) == 1 && !v96[40])
             {
-              if (!*(v514 + 16))
+              if (!*(v505 + 16))
               {
                 goto LABEL_392;
               }
 
-              v343 = *(v101 + 4);
-              v344 = specialized __RawDictionaryStorage.find<A>(_:)(v498, v499);
-              if ((v345 & 1) == 0)
+              v338 = *(v96 + 4);
+              v339 = specialized __RawDictionaryStorage.find<A>(_:)(v489, v490);
+              if ((v340 & 1) == 0)
               {
                 goto LABEL_393;
               }
 
-              v346 = *(*(v342 + 56) + 8 * v344);
-              v347 = v508;
-              v348 = swift_isUniquelyReferenced_nonNull_native();
-              v553[0] = v347;
-              v342 = v514;
-              specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v343, v346, v348);
-              v341 = v553[0];
+              v341 = *(*(v337 + 56) + 8 * v339);
+              v342 = v499;
+              v343 = swift_isUniquelyReferenced_nonNull_native();
+              v544[0] = v342;
+              v337 = v505;
+              specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v338, v341, v343);
+              v336 = v544[0];
             }
 
-            v340 = 1;
+            v335 = 1;
             goto LABEL_234;
           }
 
 LABEL_31:
-          v100 = v104;
-          if (v104 >= *(v103 + 16))
+          v95 = v99;
+          if (v99 >= *(v98 + 16))
           {
             goto LABEL_358;
           }
         }
 
-        v266 = v102;
-        v267 = v524;
-        outlined init with take of TerminalSymbol(v266, v524, type metadata accessor for TerminalSymbol);
-        v268 = v511;
-        outlined init with copy of TerminalSymbol(v267, v511, type metadata accessor for TerminalSymbol);
+        v261 = v97;
+        v262 = v515;
+        outlined init with take of TerminalSymbol(v261, v515, type metadata accessor for TerminalSymbol);
+        v263 = v502;
+        outlined init with copy of TerminalSymbol(v262, v502, type metadata accessor for TerminalSymbol);
         if (swift_getEnumCaseMultiPayload() - 1 <= 1)
         {
-          v269 = *v539;
-          (*v539)(v510, v268, v13);
-          v270 = (v79 + 16);
-          if (*(v79 + 16))
+          v264 = *v530;
+          (*v530)(v501, v263, v11);
+          v265 = (v74 + 16);
+          if (*(v74 + 16))
           {
-            v271 = specialized __RawDictionaryStorage.find<A>(_:)(v524);
-            if (v272)
+            v266 = specialized __RawDictionaryStorage.find<A>(_:)(v515);
+            if (v267)
             {
-              v270 = (*(v79 + 56) + 8 * v271);
+              v265 = (*(v74 + 56) + 8 * v266);
             }
           }
 
-          v273 = *v270;
-          v274 = v515;
-          outlined init with copy of TerminalSymbol(v524, v515, type metadata accessor for TerminalSymbol);
-          v275 = swift_isUniquelyReferenced_nonNull_native();
-          v276 = v554;
-          v553[0] = v554;
-          v277 = specialized __RawDictionaryStorage.find<A>(_:)(v274);
-          v279 = *(v276 + 16);
-          v280 = (v278 & 1) == 0;
-          v129 = __OFADD__(v279, v280);
-          v281 = v279 + v280;
-          if (v129)
+          v268 = *v265;
+          v269 = v506;
+          outlined init with copy of TerminalSymbol(v515, v506, type metadata accessor for TerminalSymbol);
+          v270 = swift_isUniquelyReferenced_nonNull_native();
+          v271 = v545;
+          v544[0] = v545;
+          v272 = specialized __RawDictionaryStorage.find<A>(_:)(v269);
+          v274 = *(v271 + 16);
+          v275 = (v273 & 1) == 0;
+          v124 = __OFADD__(v274, v275);
+          v276 = v274 + v275;
+          if (v124)
           {
             goto LABEL_369;
           }
 
-          v282 = v278;
-          if (*(v276 + 24) >= v281)
+          v277 = v273;
+          if (*(v271 + 24) >= v276)
           {
-            if ((v275 & 1) == 0)
+            if ((v270 & 1) == 0)
             {
-              v329 = v277;
+              v324 = v272;
               specialized _NativeDictionary.copy()();
-              v277 = v329;
+              v272 = v324;
             }
           }
 
           else
           {
-            specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v281, v275);
-            v277 = specialized __RawDictionaryStorage.find<A>(_:)(v515);
-            if ((v282 & 1) != (v283 & 1))
+            specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v276, v270);
+            v272 = specialized __RawDictionaryStorage.find<A>(_:)(v506);
+            if ((v277 & 1) != (v278 & 1))
             {
               goto LABEL_399;
             }
           }
 
-          v13 = v533;
-          v306 = v553[0];
-          if (v282)
+          v11 = v524;
+          v301 = v544[0];
+          if (v277)
           {
-            *(*(v553[0] + 56) + 8 * v277) = v273;
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v515, type metadata accessor for TerminalSymbol);
+            *(*(v544[0] + 56) + 8 * v272) = v268;
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v506, type metadata accessor for TerminalSymbol);
           }
 
           else
           {
-            *(v553[0] + 8 * (v277 >> 6) + 64) |= 1 << v277;
-            v307 = v277;
-            v308 = v515;
-            outlined init with copy of TerminalSymbol(v515, v306[6] + *(v545 + 72) * v277, type metadata accessor for TerminalSymbol);
-            *(v306[7] + 8 * v307) = v273;
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v308, type metadata accessor for TerminalSymbol);
-            v309 = v306[2];
-            v129 = __OFADD__(v309, 1);
-            v310 = v309 + 1;
-            if (v129)
+            *(v544[0] + 8 * (v272 >> 6) + 64) |= 1 << v272;
+            v302 = v272;
+            v303 = v506;
+            outlined init with copy of TerminalSymbol(v506, v301[6] + *(v536 + 72) * v272, type metadata accessor for TerminalSymbol);
+            *(v301[7] + 8 * v302) = v268;
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v303, type metadata accessor for TerminalSymbol);
+            v304 = v301[2];
+            v124 = __OFADD__(v304, 1);
+            v305 = v304 + 1;
+            if (v124)
             {
               goto LABEL_373;
             }
 
-            v306[2] = v310;
+            v301[2] = v305;
           }
 
-          v311 = v306;
-          v554 = v306;
+          v306 = v301;
+          v545 = v301;
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v101 + 2) + 1, 1, v101);
+            v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v96 + 2) + 1, 1, v96);
           }
 
-          v313 = *(v101 + 2);
-          v312 = *(v101 + 3);
-          if (v313 >= v312 >> 1)
+          v308 = *(v96 + 2);
+          v307 = *(v96 + 3);
+          if (v308 >= v307 >> 1)
           {
-            v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v312 > 1), v313 + 1, 1, v101);
+            v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v307 > 1), v308 + 1, 1, v96);
           }
 
-          *(v101 + 2) = v313 + 1;
-          v314 = v101;
-          v315 = &v101[16 * v313];
-          *(v315 + 4) = v273;
-          v315[40] = 0;
-          v269(v509, v510, v13);
-          v316 = v540;
-          v317 = swift_isUniquelyReferenced_nonNull_native();
-          v553[0] = v316;
-          v318 = specialized __RawDictionaryStorage.find<A>(_:)(v273);
-          v320 = *(v316 + 16);
-          v321 = (v319 & 1) == 0;
-          v129 = __OFADD__(v320, v321);
-          v322 = v320 + v321;
-          if (v129)
+          *(v96 + 2) = v308 + 1;
+          v309 = v96;
+          v310 = &v96[16 * v308];
+          *(v310 + 4) = v268;
+          v310[40] = 0;
+          v264(v500, v501, v11);
+          v311 = v531;
+          v312 = swift_isUniquelyReferenced_nonNull_native();
+          v544[0] = v311;
+          v313 = specialized __RawDictionaryStorage.find<A>(_:)(v268);
+          v315 = *(v311 + 16);
+          v316 = (v314 & 1) == 0;
+          v124 = __OFADD__(v315, v316);
+          v317 = v315 + v316;
+          if (v124)
           {
             goto LABEL_371;
           }
 
-          v323 = v319;
-          if (*(v316 + 24) >= v322)
+          v318 = v314;
+          if (*(v311 + 24) >= v317)
           {
-            if ((v317 & 1) == 0)
+            if ((v312 & 1) == 0)
             {
-              v339 = v318;
+              v334 = v313;
               specialized _NativeDictionary.copy()();
-              v318 = v339;
+              v313 = v334;
             }
           }
 
           else
           {
-            specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v322, v317);
-            v318 = specialized __RawDictionaryStorage.find<A>(_:)(v273);
-            if ((v323 & 1) != (v324 & 1))
+            specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v317, v312);
+            v313 = specialized __RawDictionaryStorage.find<A>(_:)(v268);
+            if ((v318 & 1) != (v319 & 1))
             {
               goto LABEL_400;
             }
           }
 
-          v101 = v314;
-          v325 = v553[0];
-          v540 = v553[0];
-          if (v323)
+          v96 = v309;
+          v320 = v544[0];
+          v531 = v544[0];
+          if (v318)
           {
-            (*(v529 + 40))(*(v553[0] + 56) + *(v529 + 72) * v318, v509, v13);
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v524, type metadata accessor for TerminalSymbol);
+            (*(v520 + 40))(*(v544[0] + 56) + *(v520 + 72) * v313, v500, v11);
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v515, type metadata accessor for TerminalSymbol);
           }
 
           else
           {
-            *(v553[0] + 8 * (v318 >> 6) + 64) |= 1 << v318;
-            *(*(v325 + 48) + 8 * v318) = v273;
-            v269((*(v325 + 56) + *(v529 + 72) * v318), v509, v13);
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v524, type metadata accessor for TerminalSymbol);
-            v326 = *(v540 + 16);
-            v129 = __OFADD__(v326, 1);
-            v327 = v326 + 1;
-            if (v129)
+            *(v544[0] + 8 * (v313 >> 6) + 64) |= 1 << v313;
+            *(*(v320 + 48) + 8 * v313) = v268;
+            v264((*(v320 + 56) + *(v520 + 72) * v313), v500, v11);
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v515, type metadata accessor for TerminalSymbol);
+            v321 = *(v531 + 16);
+            v124 = __OFADD__(v321, 1);
+            v322 = v321 + 1;
+            if (v124)
             {
               goto LABEL_375;
             }
 
-            *(v540 + 16) = v327;
+            *(v531 + 16) = v322;
           }
 
-          v104 = v526;
-          v79 = v311;
-          v46 = v550;
-          v102 = v517;
-          v103 = v523;
-          if (v526 == v521)
+          v99 = v517;
+          v74 = v306;
+          v41 = v541;
+          v97 = v508;
+          v98 = v514;
+          if (v517 == v512)
           {
 
-            v95 = 1;
+            v90 = 1;
             goto LABEL_228;
           }
 
-          v95 = 1;
-          v530 = 1;
+          v90 = 1;
+          v521 = 1;
           goto LABEL_31;
         }
 
-        v292 = (v79 + 16);
-        if (*(v79 + 16))
+        v287 = (v74 + 16);
+        if (*(v74 + 16))
         {
-          v293 = specialized __RawDictionaryStorage.find<A>(_:)(v524);
-          if (v294)
+          v288 = specialized __RawDictionaryStorage.find<A>(_:)(v515);
+          if (v289)
           {
-            v292 = (*(v79 + 56) + 8 * v293);
+            v287 = (*(v74 + 56) + 8 * v288);
           }
         }
 
-        v295 = *v292;
-        v296 = v516;
-        outlined init with copy of TerminalSymbol(v524, v516, type metadata accessor for TerminalSymbol);
-        v297 = swift_isUniquelyReferenced_nonNull_native();
-        v298 = v554;
-        v553[0] = v554;
-        v299 = specialized __RawDictionaryStorage.find<A>(_:)(v296);
-        v301 = *(v298 + 16);
-        v302 = (v300 & 1) == 0;
-        v129 = __OFADD__(v301, v302);
-        v303 = v301 + v302;
-        if (v129)
+        v290 = *v287;
+        v291 = v507;
+        outlined init with copy of TerminalSymbol(v515, v507, type metadata accessor for TerminalSymbol);
+        v292 = swift_isUniquelyReferenced_nonNull_native();
+        v293 = v545;
+        v544[0] = v545;
+        v294 = specialized __RawDictionaryStorage.find<A>(_:)(v291);
+        v296 = *(v293 + 16);
+        v297 = (v295 & 1) == 0;
+        v124 = __OFADD__(v296, v297);
+        v298 = v296 + v297;
+        if (v124)
         {
           goto LABEL_370;
         }
 
-        v304 = v300;
-        if (*(v298 + 24) >= v303)
+        v299 = v295;
+        if (*(v293 + 24) >= v298)
         {
-          if ((v297 & 1) == 0)
+          if ((v292 & 1) == 0)
           {
-            v330 = v299;
+            v325 = v294;
             specialized _NativeDictionary.copy()();
-            v299 = v330;
-            v79 = v553[0];
-            if (v304)
+            v294 = v325;
+            v74 = v544[0];
+            if (v299)
             {
               goto LABEL_194;
             }
@@ -1401,170 +1396,170 @@ LABEL_31:
 
         else
         {
-          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v303, v297);
-          v299 = specialized __RawDictionaryStorage.find<A>(_:)(v516);
-          if ((v304 & 1) != (v305 & 1))
+          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v298, v292);
+          v294 = specialized __RawDictionaryStorage.find<A>(_:)(v507);
+          if ((v299 & 1) != (v300 & 1))
           {
             goto LABEL_399;
           }
         }
 
-        v79 = v553[0];
-        if (v304)
+        v74 = v544[0];
+        if (v299)
         {
 LABEL_194:
-          *(*(v79 + 56) + 8 * v299) = v295;
-          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v516, type metadata accessor for TerminalSymbol);
+          *(*(v74 + 56) + 8 * v294) = v290;
+          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v507, type metadata accessor for TerminalSymbol);
 LABEL_216:
-          v554 = v79;
-          v335 = swift_isUniquelyReferenced_nonNull_native();
-          v46 = v550;
-          if ((v335 & 1) == 0)
+          v545 = v74;
+          v330 = swift_isUniquelyReferenced_nonNull_native();
+          v41 = v541;
+          if ((v330 & 1) == 0)
           {
-            v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v101 + 2) + 1, 1, v101);
+            v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v96 + 2) + 1, 1, v96);
           }
 
-          v337 = *(v101 + 2);
-          v336 = *(v101 + 3);
-          if (v337 >= v336 >> 1)
+          v332 = *(v96 + 2);
+          v331 = *(v96 + 3);
+          if (v332 >= v331 >> 1)
           {
-            v101 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v336 > 1), v337 + 1, 1, v101);
+            v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v331 > 1), v332 + 1, 1, v96);
           }
 
-          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v524, type metadata accessor for TerminalSymbol);
-          *(v101 + 2) = v337 + 1;
-          v338 = &v101[16 * v337];
-          *(v338 + 4) = v295;
-          v338[40] = 0;
+          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v515, type metadata accessor for TerminalSymbol);
+          *(v96 + 2) = v332 + 1;
+          v333 = &v96[16 * v332];
+          *(v333 + 4) = v290;
+          v333[40] = 0;
 LABEL_28:
-          v102 = v517;
+          v97 = v508;
 LABEL_29:
-          v103 = v523;
-          v104 = v526;
+          v98 = v514;
+          v99 = v517;
           goto LABEL_30;
         }
 
 LABEL_214:
-        *(v79 + 8 * (v299 >> 6) + 64) |= 1 << v299;
-        v331 = v299;
-        v332 = v516;
-        outlined init with copy of TerminalSymbol(v516, *(v79 + 48) + *(v545 + 72) * v299, type metadata accessor for TerminalSymbol);
-        *(*(v79 + 56) + 8 * v331) = v295;
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v332, type metadata accessor for TerminalSymbol);
-        v333 = *(v79 + 16);
-        v129 = __OFADD__(v333, 1);
-        v334 = v333 + 1;
-        if (v129)
+        *(v74 + 8 * (v294 >> 6) + 64) |= 1 << v294;
+        v326 = v294;
+        v327 = v507;
+        outlined init with copy of TerminalSymbol(v507, *(v74 + 48) + *(v536 + 72) * v294, type metadata accessor for TerminalSymbol);
+        *(*(v74 + 56) + 8 * v326) = v290;
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v327, type metadata accessor for TerminalSymbol);
+        v328 = *(v74 + 16);
+        v124 = __OFADD__(v328, 1);
+        v329 = v328 + 1;
+        if (v124)
         {
           goto LABEL_374;
         }
 
-        *(v79 + 16) = v334;
+        *(v74 + 16) = v329;
         goto LABEL_216;
       }
 
-      if (v530)
+      if (v521)
       {
-        v101 = MEMORY[0x1E69E7CC0];
+        v96 = MEMORY[0x1E69E7CC0];
         goto LABEL_228;
       }
 
-      v340 = 0;
-      v101 = MEMORY[0x1E69E7CC0];
+      v335 = 0;
+      v96 = MEMORY[0x1E69E7CC0];
 LABEL_226:
-      v341 = v508;
-      v342 = v514;
+      v336 = v499;
+      v337 = v505;
 LABEL_234:
-      if (!*(v342 + 16))
+      if (!*(v337 + 16))
       {
         goto LABEL_377;
       }
 
-      v508 = v341;
-      v349 = specialized __RawDictionaryStorage.find<A>(_:)(v498, v499);
-      v351 = v350;
+      v499 = v336;
+      v344 = specialized __RawDictionaryStorage.find<A>(_:)(v489, v490);
+      v346 = v345;
 
-      if ((v351 & 1) == 0)
+      if ((v346 & 1) == 0)
       {
         goto LABEL_378;
       }
 
-      v352 = *(*(v342 + 56) + 8 * v349);
-      if (*(v101 + 2))
+      v347 = *(*(v337 + 56) + 8 * v344);
+      if (*(v96 + 2))
       {
-        v553[0] = v498;
-        v553[1] = v499;
-        v553[2] = v500;
-        v353 = Rule.isRecursiveRule()();
+        v544[0] = v489;
+        v544[1] = v490;
+        v544[2] = v491;
+        v348 = Rule.isRecursiveRule()();
       }
 
       else
       {
-        v353 = 0;
+        v348 = 0;
       }
 
-      v354 = swift_isUniquelyReferenced_nonNull_native();
-      v530 = v340;
-      if (v354)
+      v349 = swift_isUniquelyReferenced_nonNull_native();
+      v521 = v335;
+      if (v349)
       {
-        v94 = v506;
+        v89 = v497;
       }
 
       else
       {
-        v94 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v506 + 2) + 1, 1, v506, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMR);
+        v89 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v497 + 2) + 1, 1, v497, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMR, &type metadata for EarleyRecognizer.RecognizerRule);
       }
 
-      v356 = *(v94 + 2);
-      v355 = *(v94 + 3);
-      v357 = v501;
-      if (v356 >= v355 >> 1)
+      v351 = *(v89 + 2);
+      v350 = *(v89 + 3);
+      v352 = v492;
+      if (v351 >= v350 >> 1)
       {
-        v359 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v355 > 1), v356 + 1, 1, v94, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMR);
-        v357 = v501;
-        v94 = v359;
+        v354 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v350 > 1), v351 + 1, 1, v89, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC0H4RuleVGMR, &type metadata for EarleyRecognizer.RecognizerRule);
+        v352 = v492;
+        v89 = v354;
       }
 
-      v96 = v357 + 1;
-      *(v94 + 2) = v356 + 1;
-      v358 = &v94[24 * v356];
-      *(v358 + 4) = v352;
-      *(v358 + 5) = v101;
-      v358[48] = v353;
-      v358[49] = v95 & 1;
-      v555 = v94;
-      v46 = v550;
+      v91 = v352 + 1;
+      *(v89 + 2) = v351 + 1;
+      v353 = &v89[24 * v351];
+      *(v353 + 4) = v347;
+      *(v353 + 5) = v96;
+      v353[48] = v348;
+      v353[49] = v90 & 1;
+      v546 = v89;
+      v41 = v541;
     }
 
-    while (v96 != v496);
-    v360 = v94;
+    while (v91 != v487);
+    v355 = v89;
 
     swift_bridgeObjectRelease_n();
-    v89 = v360;
-    v544 = v360;
-    v84 = v508;
-    v85 = v494;
-    v86 = v489;
-    v87 = v490;
-    v88 = v488;
+    v84 = v355;
+    v535 = v355;
+    v79 = v499;
+    v80 = v485;
+    v81 = v480;
+    v82 = v481;
+    v83 = v479;
 LABEL_246:
-    ++v87;
+    ++v82;
   }
 
-  while (v87 != v86);
+  while (v82 != v81);
 LABEL_249:
-  v361 = v514;
-  if (!*(v514 + 16))
+  v356 = v505;
+  if (!*(v505 + 16))
   {
 LABEL_390:
     __break(1u);
     goto LABEL_391;
   }
 
-  v107 = v89;
-  v508 = v84;
-  v362 = specialized __RawDictionaryStorage.find<A>(_:)(v493, v492);
-  if ((v363 & 1) == 0)
+  v102 = v84;
+  v499 = v79;
+  v357 = specialized __RawDictionaryStorage.find<A>(_:)(v484, v483);
+  if ((v358 & 1) == 0)
   {
 LABEL_391:
     __break(1u);
@@ -1575,45 +1570,45 @@ LABEL_393:
     goto LABEL_394;
   }
 
-  v539 = *(*(v361 + 56) + 8 * v362);
+  v530 = *(*(v356 + 56) + 8 * v357);
 
-  v364 = v544;
-  v365 = *(v544 + 16);
+  v359 = v535;
+  v360 = *(v535 + 16);
 
-  if (!v365)
+  if (!v360)
   {
 LABEL_326:
-    v370 = v107;
+    v365 = v102;
     goto LABEL_327;
   }
 
-  v366 = 0;
-  v367 = v364 + 32;
-  v549 = (v529 + 16);
-  v368 = v364;
-  v369 = v508;
-  v370 = v107;
-  v542 = v365;
-  v543 = v364 + 32;
+  v361 = 0;
+  v362 = v359 + 32;
+  v540 = (v520 + 16);
+  v363 = v359;
+  v364 = v499;
+  v365 = v102;
+  v533 = v360;
+  v534 = v359 + 32;
   while (2)
   {
-    v551 = v368 + 32;
-    v548 = v79;
-    v506 = v370;
+    v542 = v363 + 32;
+    v539 = v74;
+    v497 = v365;
     while (2)
     {
-      if (v366 >= *(v364 + 16))
+      if (v361 >= *(v359 + 16))
       {
         goto LABEL_372;
       }
 
-      v371 = v366;
-      v372 = 24 * v366;
-      v373 = v367 + 24 * v366++;
-      if (*(v373 + 16) != 1 || (v374 = *(v373 + 8), (v375 = *(v374 + 16)) == 0) || (v376 = 16 * v375 - 16, v377 = v374 + v376, *(v377 + 40) != 1))
+      v366 = v361;
+      v367 = 24 * v361;
+      v368 = v362 + 24 * v361++;
+      if (*(v368 + 16) != 1 || (v369 = *(v368 + 8), (v370 = *(v369 + 16)) == 0) || (v371 = 16 * v370 - 16, v372 = v369 + v371, *(v372 + 40) != 1))
       {
 LABEL_254:
-        if (v366 == v365)
+        if (v361 == v360)
         {
           goto LABEL_327;
         }
@@ -1624,91 +1619,90 @@ LABEL_254:
       break;
     }
 
-    v547 = v366;
-    v378 = *(v377 + 32);
-    if (*(v369 + 16))
+    v538 = v361;
+    v373 = *(v372 + 32);
+    if (*(v364 + 16))
     {
-      v379 = specialized __RawDictionaryStorage.find<A>(_:)(v378);
-      if (v380)
+      v374 = specialized __RawDictionaryStorage.find<A>(_:)(v373);
+      if (v375)
       {
-        v441 = v540;
-        if (*(v540 + 16))
+        v435 = v531;
+        if (*(v531 + 16))
         {
-          v442 = specialized __RawDictionaryStorage.find<A>(_:)(*(*(v508 + 56) + 8 * v379));
-          v443 = v491;
-          if (v444)
+          v436 = specialized __RawDictionaryStorage.find<A>(_:)(*(*(v499 + 56) + 8 * v374));
+          v437 = v482;
+          if (v438)
           {
-            (*(v529 + 16))(v491, *(v441 + 56) + *(v529 + 72) * v442, v533);
+            (*(v520 + 16))(v482, *(v435 + 56) + *(v520 + 72) * v436, v524);
             swift_storeEnumTagMultiPayload();
-            v445 = v548;
-            v446 = v548 + 2;
-            if (v548[2])
+            v439 = v539;
+            v440 = v539 + 2;
+            if (v539[2])
             {
-              v447 = specialized __RawDictionaryStorage.find<A>(_:)(v443);
-              if (v448)
+              v441 = specialized __RawDictionaryStorage.find<A>(_:)(v437);
+              if (v442)
               {
-                v446 = (v445[7] + 8 * v447);
+                v440 = (v439[7] + 8 * v441);
               }
             }
 
-            v449 = *v446;
+            v443 = *v440;
             swift_beginAccess();
-            v450 = swift_isUniquelyReferenced_nonNull_native();
-            v552 = v554;
-            v554 = 0x8000000000000000;
-            specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v449, v443, v450);
-            v451 = v552;
-            v554 = v552;
+            v444 = swift_isUniquelyReferenced_nonNull_native();
+            v543 = v545;
+            v545 = 0x8000000000000000;
+            specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v443, v437, v444);
+            v445 = v543;
+            v545 = v543;
             swift_endAccess();
-            if (v371 < *(v368 + 16))
+            if (v366 < *(v363 + 16))
             {
-              v452 = *(v551 + v372);
-              v453 = *(v551 + v372 + 8);
-              LODWORD(v551) = *(v551 + v372 + 16);
+              v446 = *(v542 + v367);
+              v447 = *(v542 + v367 + 8);
+              LODWORD(v542) = *(v542 + v367 + 16);
               swift_bridgeObjectRetain_n();
-              v454 = v453;
+              v448 = v447;
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                v454 = specialized _ArrayBuffer._consumeAndCreateNew()(v453);
+                v448 = specialized _ArrayBuffer._consumeAndCreateNew()(v447);
               }
 
-              if (v375 <= *(v454 + 2))
+              if (v370 <= *(v448 + 2))
               {
-                v455 = &v454[v376];
-                *(v455 + 4) = v449;
-                v455[40] = 0;
+                v449 = &v448[v371];
+                *(v449 + 4) = v443;
+                v449[40] = 0;
 
                 swift_beginAccess();
-                v456 = swift_isUniquelyReferenced_nonNull_native();
-                v555 = v368;
-                if (v456)
+                v450 = swift_isUniquelyReferenced_nonNull_native();
+                v546 = v363;
+                if (v450)
                 {
-                  v457 = v368;
+                  v451 = v363;
                 }
 
                 else
                 {
-                  v457 = specialized _ArrayBuffer._consumeAndCreateNew()(v368);
-                  v555 = v457;
+                  v451 = specialized _ArrayBuffer._consumeAndCreateNew()(v363);
+                  v546 = v451;
                 }
 
-                v79 = v451;
-                v364 = v544;
-                if (v371 < *(v457 + 2))
+                v74 = v445;
+                v359 = v535;
+                if (v366 < *(v451 + 2))
                 {
-                  v458 = &v457[v372];
-                  v459 = *&v457[v372 + 40];
-                  *(v458 + 4) = v452;
-                  *(v458 + 5) = v454;
-                  v458[48] = v551;
-                  v458[49] = 1;
-                  v555 = v457;
-                  v460 = v457;
+                  v452 = &v451[v367];
+                  *(v452 + 4) = v446;
+                  *(v452 + 5) = v448;
+                  v452[48] = v542;
+                  v452[49] = 1;
+                  v546 = v451;
+                  v453 = v451;
                   swift_endAccess();
 
-                  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v491, type metadata accessor for TerminalSymbol);
-                  v370 = v460;
-                  v368 = v460;
+                  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v482, type metadata accessor for TerminalSymbol);
+                  v365 = v453;
+                  v363 = v453;
                   goto LABEL_322;
                 }
 
@@ -1720,7 +1714,6 @@ LABEL_399:
 LABEL_400:
                 KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
                 __break(1u);
-                v487 = *(v486 - 256);
                 result = swift_unexpectedError();
                 __break(1u);
                 return result;
@@ -1747,286 +1740,285 @@ LABEL_394:
       }
     }
 
-    v381 = 0;
-    v382 = MEMORY[0x1E69E7CC0];
-    v553[0] = MEMORY[0x1E69E7CC0];
-    v383 = *(v368 + 16);
+    v376 = 0;
+    v377 = MEMORY[0x1E69E7CC0];
+    v544[0] = MEMORY[0x1E69E7CC0];
+    v378 = *(v363 + 16);
 LABEL_262:
-    v384 = 24 * v381;
-    v385 = v533;
-    v386 = v502;
-    while (v383 != v381)
+    v379 = 24 * v376;
+    v380 = v524;
+    v381 = v493;
+    while (v378 != v376)
     {
-      if (v381 >= *(v368 + 16))
+      if (v376 >= *(v363 + 16))
       {
         goto LABEL_360;
       }
 
-      v387 = *(v368 + v384 + 32);
-      ++v381;
-      v384 += 24;
-      if (v387 == v378)
+      v382 = *(v363 + v379 + 32);
+      ++v376;
+      v379 += 24;
+      if (v382 == v373)
       {
-        v388 = v368 + v384;
-        v389 = *(v388 + 16);
-        v390 = *(v388 + 24);
-        v391 = *(v388 + 25);
+        v383 = v363 + v379;
+        v384 = *(v383 + 16);
+        v385 = *(v383 + 24);
+        v386 = *(v383 + 25);
 
-        v392 = swift_isUniquelyReferenced_nonNull_native();
-        v553[0] = v382;
-        if ((v392 & 1) == 0)
+        v387 = swift_isUniquelyReferenced_nonNull_native();
+        v544[0] = v377;
+        if ((v387 & 1) == 0)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v382 + 16) + 1, 1);
-          v382 = v553[0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v377 + 16) + 1, 1);
+          v377 = v544[0];
         }
 
-        v394 = *(v382 + 16);
-        v393 = *(v382 + 24);
-        if (v394 >= v393 >> 1)
+        v389 = *(v377 + 16);
+        v388 = *(v377 + 24);
+        if (v389 >= v388 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v393 > 1), v394 + 1, 1);
-          v382 = v553[0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v388 > 1), v389 + 1, 1);
+          v377 = v544[0];
         }
 
-        *(v382 + 16) = v394 + 1;
-        v395 = v382 + 32 * v394;
-        *(v395 + 32) = v381 - 1;
-        *(v395 + 40) = v378;
-        *(v395 + 48) = v389;
-        *(v395 + 56) = v390;
-        *(v395 + 57) = v391;
-        v79 = v548;
+        *(v377 + 16) = v389 + 1;
+        v390 = v377 + 32 * v389;
+        *(v390 + 32) = v376 - 1;
+        *(v390 + 40) = v373;
+        *(v390 + 48) = v384;
+        *(v390 + 56) = v385;
+        *(v390 + 57) = v386;
+        v74 = v539;
         goto LABEL_262;
       }
     }
 
-    v396 = *(v382 + 16);
-    if (!v396)
+    v391 = *(v377 + 16);
+    if (!v391)
     {
 
-      v369 = v508;
-      v370 = v506;
-      v367 = v543;
-      v364 = v544;
-      v365 = v542;
-      v366 = v547;
+      v364 = v499;
+      v365 = v497;
+      v362 = v534;
+      v359 = v535;
+      v360 = v533;
+      v361 = v538;
       goto LABEL_254;
     }
 
-    v397 = 0;
-    v538 = (v382 + 32);
-    v537 = v382;
-    v536 = v396;
+    v392 = 0;
+    v529 = (v377 + 32);
+    v528 = v377;
+    v527 = v391;
     while (2)
     {
-      if (v397 >= *(v382 + 16))
+      if (v392 >= *(v377 + 16))
       {
         goto LABEL_389;
       }
 
-      v398 = &v538[8 * v397];
-      v399 = v398[2];
-      v400 = *(v399 + 16);
-      if (v400)
+      v393 = &v529[8 * v392];
+      v394 = v393[2];
+      v395 = *(v394 + 16);
+      if (v395)
       {
-        v541 = v397;
-        v548 = v79;
-        v401 = *v398;
-        v551 = 24 * *v398;
+        v532 = v392;
+        v539 = v74;
+        v396 = *v393;
+        v542 = 24 * *v393;
 
-        v402 = 0;
-        v403 = 0;
-        v404 = v508;
-        v405 = v506;
-        v550 = v400;
+        v397 = 0;
+        v398 = 0;
+        v399 = v499;
+        v400 = v497;
+        v541 = v395;
         while (1)
         {
-          if (v403 >= *(v399 + 16))
+          if (v398 >= *(v394 + 16))
           {
             goto LABEL_367;
           }
 
-          if (*(v399 + v402 + 40) == 1 && *(v404 + 16))
+          if (*(v394 + v397 + 40) == 1 && *(v399 + 16))
           {
-            v406 = v405;
-            v407 = specialized __RawDictionaryStorage.find<A>(_:)(*(v399 + v402 + 32));
-            if (v408)
+            v401 = v400;
+            v402 = specialized __RawDictionaryStorage.find<A>(_:)(*(v394 + v397 + 32));
+            if (v403)
             {
-              v409 = v540;
-              if (!*(v540 + 16))
+              v404 = v531;
+              if (!*(v531 + 16))
               {
                 goto LABEL_379;
               }
 
-              v410 = specialized __RawDictionaryStorage.find<A>(_:)(*(*(v508 + 56) + 8 * v407));
-              if ((v411 & 1) == 0)
+              v405 = specialized __RawDictionaryStorage.find<A>(_:)(*(*(v499 + 56) + 8 * v402));
+              if ((v406 & 1) == 0)
               {
                 goto LABEL_380;
               }
 
-              (*(v529 + 16))(v386, *(v409 + 56) + *(v529 + 72) * v410, v385);
+              (*(v520 + 16))(v381, *(v404 + 56) + *(v520 + 72) * v405, v380);
               swift_storeEnumTagMultiPayload();
-              v412 = v548;
-              v413 = v548 + 2;
-              if (v548[2])
+              v407 = v539;
+              v408 = v539 + 2;
+              if (v539[2])
               {
-                v414 = specialized __RawDictionaryStorage.find<A>(_:)(v386);
-                if (v415)
+                v409 = specialized __RawDictionaryStorage.find<A>(_:)(v381);
+                if (v410)
                 {
-                  v413 = (v412[7] + 8 * v414);
+                  v408 = (v407[7] + 8 * v409);
                 }
               }
 
-              v416 = *v413;
+              v411 = *v408;
               swift_beginAccess();
-              v417 = swift_isUniquelyReferenced_nonNull_native();
-              v418 = v554;
-              v552 = v554;
-              v554 = 0x8000000000000000;
-              v419 = specialized __RawDictionaryStorage.find<A>(_:)(v502);
-              v421 = v420;
-              v422 = *(v418 + 16);
-              v423 = (v420 & 1) == 0;
-              if (__OFADD__(v422, v423))
+              v412 = swift_isUniquelyReferenced_nonNull_native();
+              v413 = v545;
+              v543 = v545;
+              v545 = 0x8000000000000000;
+              v414 = specialized __RawDictionaryStorage.find<A>(_:)(v493);
+              v416 = v415;
+              v417 = *(v413 + 16);
+              v418 = (v415 & 1) == 0;
+              if (__OFADD__(v417, v418))
               {
                 goto LABEL_381;
               }
 
-              v424 = v419;
-              if (specialized _NativeDictionary.ensureUnique(isUnique:capacity:)(v417, v422 + v423))
+              v419 = v414;
+              if (specialized _NativeDictionary.ensureUnique(isUnique:capacity:)(v412, v417 + v418))
               {
-                v425 = v502;
-                v426 = specialized __RawDictionaryStorage.find<A>(_:)(v502);
-                if ((v421 & 1) != (v427 & 1))
+                v420 = v493;
+                v421 = specialized __RawDictionaryStorage.find<A>(_:)(v493);
+                if ((v416 & 1) != (v422 & 1))
                 {
                   goto LABEL_399;
                 }
 
-                v424 = v426;
-                v428 = v552;
-                if ((v421 & 1) == 0)
+                v419 = v421;
+                v423 = v543;
+                if ((v416 & 1) == 0)
                 {
 LABEL_294:
-                  v428[(v424 >> 6) + 8] |= 1 << v424;
-                  outlined init with copy of TerminalSymbol(v425, v428[6] + *(v545 + 72) * v424, type metadata accessor for TerminalSymbol);
-                  *(v428[7] + 8 * v424) = v416;
-                  v429 = v428[2];
-                  v129 = __OFADD__(v429, 1);
-                  v430 = v429 + 1;
-                  if (v129)
+                  v423[(v419 >> 6) + 8] |= 1 << v419;
+                  outlined init with copy of TerminalSymbol(v420, v423[6] + *(v536 + 72) * v419, type metadata accessor for TerminalSymbol);
+                  *(v423[7] + 8 * v419) = v411;
+                  v424 = v423[2];
+                  v124 = __OFADD__(v424, 1);
+                  v425 = v424 + 1;
+                  if (v124)
                   {
                     goto LABEL_387;
                   }
 
-                  v428[2] = v430;
+                  v423[2] = v425;
                   goto LABEL_298;
                 }
               }
 
               else
               {
-                v425 = v502;
-                v428 = v552;
-                if ((v421 & 1) == 0)
+                v420 = v493;
+                v423 = v543;
+                if ((v416 & 1) == 0)
                 {
                   goto LABEL_294;
                 }
               }
 
-              *(v428[7] + 8 * v424) = v416;
+              *(v423[7] + 8 * v419) = v411;
 LABEL_298:
-              v548 = v428;
-              v554 = v428;
+              v539 = v423;
+              v545 = v423;
               swift_endAccess();
-              if ((v401 & 0x8000000000000000) != 0)
+              if ((v396 & 0x8000000000000000) != 0)
               {
                 goto LABEL_382;
               }
 
-              if (v401 >= *(v368 + 16))
+              if (v396 >= *(v363 + 16))
               {
                 goto LABEL_383;
               }
 
-              v432 = *(v368 + v551 + 32);
-              v431 = *(v368 + v551 + 40);
-              v433 = *(v368 + v551 + 48);
+              v427 = *(v363 + v542 + 32);
+              v426 = *(v363 + v542 + 40);
+              v428 = *(v363 + v542 + 48);
               swift_bridgeObjectRetain_n();
-              v434 = v431;
+              v429 = v426;
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                v434 = specialized _ArrayBuffer._consumeAndCreateNew()(v431);
+                v429 = specialized _ArrayBuffer._consumeAndCreateNew()(v426);
               }
 
-              if (v403 >= *(v434 + 2))
+              if (v398 >= *(v429 + 2))
               {
                 goto LABEL_384;
               }
 
-              v435 = &v434[v402];
-              *(v435 + 4) = v416;
-              v435[40] = 0;
+              v430 = &v429[v397];
+              *(v430 + 4) = v411;
+              v430[40] = 0;
 
               swift_beginAccess();
-              v436 = swift_isUniquelyReferenced_nonNull_native();
-              v555 = v368;
-              if (v436)
+              v431 = swift_isUniquelyReferenced_nonNull_native();
+              v546 = v363;
+              if (v431)
               {
-                v437 = v368;
+                v432 = v363;
               }
 
               else
               {
-                v437 = specialized _ArrayBuffer._consumeAndCreateNew()(v368);
-                v555 = v437;
+                v432 = specialized _ArrayBuffer._consumeAndCreateNew()(v363);
+                v546 = v432;
               }
 
-              if (v401 >= *(v437 + 2))
+              if (v396 >= *(v432 + 2))
               {
                 goto LABEL_385;
               }
 
-              v438 = &v437[v551];
-              v439 = *&v437[v551 + 40];
-              *(v438 + 4) = v432;
-              *(v438 + 5) = v434;
-              v438[48] = v433;
-              v438[49] = 1;
-              v555 = v437;
-              v440 = v437;
+              v433 = &v432[v542];
+              *(v433 + 4) = v427;
+              *(v433 + 5) = v429;
+              v433[48] = v428;
+              v433[49] = 1;
+              v546 = v432;
+              v434 = v432;
               swift_endAccess();
 
-              v386 = v502;
-              outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v502, type metadata accessor for TerminalSymbol);
-              v405 = v440;
-              v368 = v440;
-              v385 = v533;
-              v404 = v508;
-              v400 = v550;
+              v381 = v493;
+              outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v493, type metadata accessor for TerminalSymbol);
+              v400 = v434;
+              v363 = v434;
+              v380 = v524;
+              v399 = v499;
+              v395 = v541;
               goto LABEL_280;
             }
 
-            v404 = v508;
-            v405 = v406;
+            v399 = v499;
+            v400 = v401;
           }
 
 LABEL_280:
-          ++v403;
-          v402 += 16;
-          if (v400 == v403)
+          ++v398;
+          v397 += 16;
+          if (v395 == v398)
           {
-            v506 = v405;
+            v497 = v400;
 
-            v79 = v548;
-            v382 = v537;
-            v396 = v536;
-            v397 = v541;
+            v74 = v539;
+            v377 = v528;
+            v391 = v527;
+            v392 = v532;
             break;
           }
         }
       }
 
-      if (++v397 != v396)
+      if (++v392 != v391)
       {
         continue;
       }
@@ -2034,14 +2026,14 @@ LABEL_280:
       break;
     }
 
-    v370 = v506;
-    v364 = v544;
+    v365 = v497;
+    v359 = v535;
 LABEL_322:
-    v365 = v542;
-    v367 = v543;
-    v366 = v547;
-    v369 = v508;
-    if (v547 != v542)
+    v360 = v533;
+    v362 = v534;
+    v361 = v538;
+    v364 = v499;
+    if (v538 != v533)
     {
       continue;
     }
@@ -2050,60 +2042,60 @@ LABEL_322:
   }
 
 LABEL_327:
-  v506 = v370;
+  v497 = v365;
 
-  v461 = v503;
-  *v503 = 46;
+  v454 = v494;
+  *v494 = 46;
   swift_storeEnumTagMultiPayload();
-  v551 = _sSa9repeating5countSayxGx_SitcfC19TokenGenerationCore14TerminalSymbolO_Tt1g5(v461, *(v79 + 16));
-  v462 = v79 + 64;
-  v463 = 1 << *(v79 + 32);
-  v464 = -1;
-  if (v463 < 64)
+  v542 = _sSa9repeating5countSayxGx_SitcfC19TokenGenerationCore14TerminalSymbolO_Tt1g5(v454, *(v74 + 16));
+  v455 = v74 + 64;
+  v456 = 1 << *(v74 + 32);
+  v457 = -1;
+  if (v456 < 64)
   {
-    v464 = ~(-1 << v463);
+    v457 = ~(-1 << v456);
   }
 
-  v465 = v464 & *(v79 + 64);
-  v466 = v79;
-  v467 = (v463 + 63) >> 6;
-  v548 = v466;
+  v458 = v457 & *(v74 + 64);
+  v459 = v74;
+  v460 = (v456 + 63) >> 6;
+  v539 = v459;
 
-  v468 = 0;
-  if (!v465)
+  v461 = 0;
+  if (!v458)
   {
 LABEL_331:
-    if (v467 <= v468 + 1)
+    if (v460 <= v461 + 1)
     {
-      v470 = v468 + 1;
+      v463 = v461 + 1;
     }
 
     else
     {
-      v470 = v467;
+      v463 = v460;
     }
 
-    v471 = v470 - 1;
+    v464 = v463 - 1;
     while (1)
     {
-      v469 = v468 + 1;
-      if (__OFADD__(v468, 1))
+      v462 = v461 + 1;
+      if (__OFADD__(v461, 1))
       {
         goto LABEL_353;
       }
 
-      if (v469 >= v467)
+      if (v462 >= v460)
       {
-        v484 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMd, &_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMR);
-        v480 = v505;
-        (*(*(v484 - 8) + 56))(v505, 1, 1, v484);
-        v465 = 0;
+        v477 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMd, &_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMR);
+        v473 = v496;
+        (*(*(v477 - 8) + 56))(v496, 1, 1, v477);
+        v458 = 0;
         goto LABEL_339;
       }
 
-      v465 = *(v462 + 8 * v469);
-      ++v468;
-      if (v465)
+      v458 = *(v455 + 8 * v462);
+      ++v461;
+      if (v458)
       {
         goto LABEL_338;
       }
@@ -2112,37 +2104,37 @@ LABEL_331:
 
   while (1)
   {
-    v469 = v468;
+    v462 = v461;
 LABEL_338:
-    v472 = __clz(__rbit64(v465));
-    v465 &= v465 - 1;
-    v473 = v472 | (v469 << 6);
-    v474 = v548;
-    v475 = v503;
-    outlined init with copy of TerminalSymbol(v548[6] + *(v545 + 72) * v473, v503, type metadata accessor for TerminalSymbol);
-    v476 = *(v474[7] + 8 * v473);
-    v477 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMd, &_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMR);
-    v478 = *(v477 + 48);
-    v479 = v475;
-    v480 = v505;
-    outlined init with take of TerminalSymbol(v479, v505, type metadata accessor for TerminalSymbol);
-    *(v480 + v478) = v476;
-    (*(*(v477 - 8) + 56))(v480, 0, 1, v477);
-    v471 = v469;
+    v465 = __clz(__rbit64(v458));
+    v458 &= v458 - 1;
+    v466 = v465 | (v462 << 6);
+    v467 = v539;
+    v468 = v494;
+    outlined init with copy of TerminalSymbol(v539[6] + *(v536 + 72) * v466, v494, type metadata accessor for TerminalSymbol);
+    v469 = *(v467[7] + 8 * v466);
+    v470 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMd, &_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMR);
+    v471 = *(v470 + 48);
+    v472 = v468;
+    v473 = v496;
+    outlined init with take of TerminalSymbol(v472, v496, type metadata accessor for TerminalSymbol);
+    *(v473 + v471) = v469;
+    (*(*(v470 - 8) + 56))(v473, 0, 1, v470);
+    v464 = v462;
 LABEL_339:
-    v481 = v504;
-    outlined init with take of (key: TerminalSymbol, value: Int)?(v480, v504);
-    v482 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMd, &_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMR);
-    if ((*(*(v482 - 8) + 48))(v481, 1, v482) == 1)
+    v474 = v495;
+    outlined init with take of (key: TerminalSymbol, value: Int)?(v473, v495);
+    v475 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMd, &_s19TokenGenerationCore14TerminalSymbolO3key_Si5valuetMR);
+    if ((*(*(v475 - 8) + 48))(v474, 1, v475) == 1)
     {
       break;
     }
 
-    v483 = *(v481 + *(v482 + 48));
-    outlined init with take of TerminalSymbol(v481, v513, type metadata accessor for TerminalSymbol);
+    v476 = *(v474 + *(v475 + 48));
+    outlined init with take of TerminalSymbol(v474, v504, type metadata accessor for TerminalSymbol);
     if (swift_isUniquelyReferenced_nonNull_native())
     {
-      if ((v483 & 0x8000000000000000) != 0)
+      if ((v476 & 0x8000000000000000) != 0)
       {
         goto LABEL_347;
       }
@@ -2150,8 +2142,8 @@ LABEL_339:
 
     else
     {
-      v551 = specialized _ArrayBuffer._consumeAndCreateNew()(v551);
-      if ((v483 & 0x8000000000000000) != 0)
+      v542 = specialized _ArrayBuffer._consumeAndCreateNew()(v542);
+      if ((v476 & 0x8000000000000000) != 0)
       {
 LABEL_347:
         __break(1u);
@@ -2159,37 +2151,24 @@ LABEL_347:
       }
     }
 
-    if (v483 >= *(v551 + 16))
+    if (v476 >= *(v542 + 16))
     {
       goto LABEL_368;
     }
 
-    outlined assign with take of TerminalSymbol(v513, v551 + ((*(v545 + 80) + 32) & ~*(v545 + 80)) + *(v545 + 72) * v483);
-    v468 = v471;
-    if (!v465)
+    outlined assign with take of TerminalSymbol(v504, v542 + ((*(v536 + 80) + 32) & ~*(v536 + 80)) + *(v536 + 72) * v476);
+    v461 = v464;
+    if (!v458)
     {
       goto LABEL_331;
     }
   }
 
-  return v539;
+  return v530;
 }
 
 void *EarleyRecognizer.RecognizerGrammar.deinit()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
-
-  v4 = v0[5];
-
-  v5 = v0[7];
-
-  v6 = v0[8];
-
-  v7 = v0[9];
 
   return v0;
 }
@@ -2226,17 +2205,17 @@ void protocol witness for Hashable.hash(into:) in conformance EarleyRecognizer.R
   Hasher._combine(_:)(v5);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.RecognizerRule()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.RecognizerRule(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 17);
+  v2 = *v1;
+  v3 = v1[1];
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 17);
   Hasher.init(_seed:)();
-  MEMORY[0x1AC57CB80](v1);
-  specialized Array<A>.hash(into:)(v6, v2);
-  Hasher._combine(_:)(v3);
+  MEMORY[0x1AC57CB80](v2);
+  specialized Array<A>.hash(into:)(v7, v3);
   Hasher._combine(_:)(v4);
+  Hasher._combine(_:)(v5);
   return Hasher._finalize()();
 }
 
@@ -2273,38 +2252,37 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Ear
   }
 }
 
-uint64_t EarleyRecognizer.Item.getDescription(grammar:)(uint64_t a1)
+void EarleyRecognizer.Item.getDescription(grammar:)(uint64_t a1)
 {
   v3 = type metadata accessor for TerminalSymbol(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  result = MEMORY[0x1EEE9AC00](v3 - 8);
-  v8 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *v1;
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v6 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *v1;
   if ((*v1 & 0x8000000000000000) != 0)
   {
     goto LABEL_31;
   }
 
-  v10 = *(a1 + 56);
-  if (v9 >= *(v10 + 16))
+  v8 = *(a1 + 56);
+  if (v7 >= *(v8 + 16))
   {
 LABEL_32:
     __break(1u);
     goto LABEL_33;
   }
 
-  v11 = v10 + 24 * v9;
-  v12 = *(v11 + 32);
-  if ((v12 & 0x8000000000000000) != 0)
+  v9 = v8 + 24 * v7;
+  v10 = *(v9 + 32);
+  if ((v10 & 0x8000000000000000) != 0)
   {
 LABEL_33:
     __break(1u);
     goto LABEL_34;
   }
 
-  v13 = *(a1 + 16);
-  if (v12 >= *(v13 + 16))
+  v11 = *(a1 + 16);
+  if (v10 >= *(v11 + 16))
   {
 LABEL_34:
     __break(1u);
@@ -2313,64 +2291,64 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v14 = *(v11 + 40);
-  v45 = v13 + 32;
-  v15 = (v13 + 32 + 16 * v12);
-  v16 = v15[1];
-  v40 = *v15;
-  v17 = *(v14 + 16);
-  v41 = v16;
-  v42 = v1;
-  if (v17)
+  v12 = *(v9 + 40);
+  v43 = v11 + 32;
+  v13 = (v11 + 32 + 16 * v10);
+  v14 = v13[1];
+  v38 = *v13;
+  v15 = *(v12 + 16);
+  v39 = v14;
+  v40 = v1;
+  if (v15)
   {
-    v43 = v13;
-    v44 = a1;
-    v46 = MEMORY[0x1E69E7CC0];
+    v41 = v11;
+    v42 = a1;
+    v44 = MEMORY[0x1E69E7CC0];
 
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17, 0);
-    v18 = v46;
-    v39 = v14;
-    v19 = (v14 + 40);
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15, 0);
+    v16 = v44;
+    v37 = v12;
+    v17 = (v12 + 40);
     while (1)
     {
-      v20 = *(v19 - 1);
-      if (*v19)
+      v18 = *(v17 - 1);
+      if (*v17)
       {
-        if (*v19 == 1)
+        if (*v17 == 1)
         {
-          if ((v20 & 0x8000000000000000) != 0)
+          if ((v18 & 0x8000000000000000) != 0)
           {
             goto LABEL_28;
           }
 
-          if (v20 >= *(v43 + 16))
+          if (v18 >= *(v41 + 16))
           {
             goto LABEL_30;
           }
 
-          v21 = (v45 + 16 * v20);
-          v22 = *v21;
-          v23 = v21[1];
-          v48 = 60;
-          v49 = 0xE100000000000000;
+          v19 = (v43 + 16 * v18);
+          v20 = *v19;
+          v21 = v19[1];
+          v46 = 60;
+          v47 = 0xE100000000000000;
 
-          MEMORY[0x1AC57C120](v22, v23);
+          MEMORY[0x1AC57C120](v20, v21);
           MEMORY[0x1AC57C120](62, 0xE100000000000000);
 
-          v25 = v48;
-          v24 = v49;
+          v23 = v46;
+          v22 = v47;
         }
 
         else
         {
-          v25 = 0;
-          v24 = 0xE000000000000000;
+          v23 = 0;
+          v22 = 0xE000000000000000;
         }
       }
 
       else
       {
-        if ((v20 & 0x8000000000000000) != 0)
+        if ((v18 & 0x8000000000000000) != 0)
         {
           __break(1u);
 LABEL_28:
@@ -2384,33 +2362,33 @@ LABEL_31:
           goto LABEL_32;
         }
 
-        v26 = *(v44 + 24);
-        if (v20 >= *(v26 + 16))
+        v24 = *(v42 + 24);
+        if (v18 >= *(v24 + 16))
         {
           goto LABEL_29;
         }
 
-        outlined init with copy of TerminalSymbol(v26 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v20, v8, type metadata accessor for TerminalSymbol);
-        v25 = TerminalSymbol.description.getter();
-        v24 = v27;
-        result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v8, type metadata accessor for TerminalSymbol);
+        outlined init with copy of TerminalSymbol(v24 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v18, v6, type metadata accessor for TerminalSymbol);
+        v23 = TerminalSymbol.description.getter();
+        v22 = v25;
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v6, type metadata accessor for TerminalSymbol);
       }
 
-      v46 = v18;
-      v29 = *(v18 + 2);
-      v28 = *(v18 + 3);
-      if (v29 >= v28 >> 1)
+      v44 = v16;
+      v27 = *(v16 + 2);
+      v26 = *(v16 + 3);
+      if (v27 >= v26 >> 1)
       {
-        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1);
-        v18 = v46;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v26 > 1), v27 + 1, 1);
+        v16 = v44;
       }
 
-      v19 += 16;
-      *(v18 + 2) = v29 + 1;
-      v30 = &v18[16 * v29];
-      *(v30 + 4) = v25;
-      *(v30 + 5) = v24;
-      if (!--v17)
+      v17 += 16;
+      *(v16 + 2) = v27 + 1;
+      v28 = &v16[16 * v27];
+      *(v28 + 4) = v23;
+      *(v28 + 5) = v22;
+      if (!--v15)
       {
 
         goto LABEL_21;
@@ -2418,63 +2396,62 @@ LABEL_31:
     }
   }
 
-  v18 = MEMORY[0x1E69E7CC0];
+  v16 = MEMORY[0x1E69E7CC0];
 LABEL_21:
-  v31 = v42;
-  v32 = v42[1];
-  v33 = *(v18 + 2);
-  if (v33 < v32)
+  v29 = v40;
+  v30 = v40[1];
+  v31 = *(v16 + 2);
+  if (v31 < v30)
   {
     goto LABEL_35;
   }
 
-  if (v32 < 0)
+  if (v30 < 0)
   {
 LABEL_36:
     __break(1u);
-    return result;
+    return;
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v50 = v18;
-  if (!isUniquelyReferenced_nonNull_native || v33 >= *(v18 + 3) >> 1)
+  v48 = v16;
+  if (!isUniquelyReferenced_nonNull_native || v31 >= *(v16 + 3) >> 1)
   {
-    v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v33 + 1, 1, v18);
-    v50 = v18;
+    v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v31 + 1, 1, v16);
+    v48 = v16;
   }
 
-  specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(v32, v32, 1, 12226530, 0xA300000000000000);
-  v48 = v18;
+  specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(v30, v30, 1, 12226530, 0xA300000000000000);
+  v46 = v16;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
-  v35 = BidirectionalCollection<>.joined(separator:)();
-  v37 = v36;
+  v33 = BidirectionalCollection<>.joined(separator:)();
+  v35 = v34;
 
-  v48 = 0;
-  v49 = 0xE000000000000000;
+  v46 = 0;
+  v47 = 0xE000000000000000;
   _StringGuts.grow(_:)(19);
-  v46 = 60;
-  v47 = 0xE100000000000000;
-  MEMORY[0x1AC57C120](v40, v41);
+  v44 = 60;
+  v45 = 0xE100000000000000;
+  MEMORY[0x1AC57C120](v38, v39);
   MEMORY[0x1AC57C120](62, 0xE100000000000000);
 
-  MEMORY[0x1AC57C120](v46, v47);
+  MEMORY[0x1AC57C120](v44, v45);
 
   MEMORY[0x1AC57C120](0x203D3A3A20, 0xE500000000000000);
-  MEMORY[0x1AC57C120](v35, v37);
+  MEMORY[0x1AC57C120](v33, v35);
 
   MEMORY[0x1AC57C120](31520, 0xE200000000000000);
-  v46 = v31[2];
-  v38 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1AC57C120](v38);
+  v44 = v29[2];
+  v36 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1AC57C120](v36);
 
   MEMORY[0x1AC57C120](8069245, 0xE300000000000000);
-  v46 = v31[3];
-  LOBYTE(v47) = *(v31 + 32);
+  v44 = v29[3];
+  LOBYTE(v45) = *(v29 + 32);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiSgMd, &_sSiSgMR);
   _print_unlocked<A, B>(_:_:)();
   MEMORY[0x1AC57C120](125, 0xE100000000000000);
-  return v48;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance EarleyRecognizer.Item()
@@ -2523,18 +2500,18 @@ void protocol witness for Hashable.hash(into:) in conformance EarleyRecognizer.I
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.Item()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.Item(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
-  v5 = *(v0 + 32);
+  v2 = *v1;
+  v3 = v1[1];
+  v5 = v1[2];
+  v4 = v1[3];
+  v6 = *(v1 + 32);
   Hasher.init(_seed:)();
-  MEMORY[0x1AC57CB80](v1);
   MEMORY[0x1AC57CB80](v2);
-  MEMORY[0x1AC57CB80](v4);
-  if (v5 == 1)
+  MEMORY[0x1AC57CB80](v3);
+  MEMORY[0x1AC57CB80](v5);
+  if (v6 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -2542,7 +2519,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Ear
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1AC57CB80](v3);
+    MEMORY[0x1AC57CB80](v4);
   }
 
   return Hasher._finalize()();
@@ -2627,24 +2604,21 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore4RuleV_Tt1g5(uint64_
     {
       v5 = *v3;
       v6 = *i;
-      if (*(v3 - 2) != *(i - 2) || *(v3 - 1) != *(i - 1))
+      v7 = *(v3 - 2) == *(i - 2) && *(v3 - 1) == *(i - 1);
+      if (!v7 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
-        v8 = *(v3 - 1);
-        v9 = *(i - 1);
-        if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-        {
-          break;
-        }
+        break;
       }
 
       swift_bridgeObjectRetain_n();
 
       swift_bridgeObjectRetain_n();
-      v10 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore6ChoiceV_Tt1g5(v5, v6);
+      _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore6ChoiceV_Tt1g5(v5, v6);
+      v9 = v8;
 
       swift_bridgeObjectRelease_n();
       swift_bridgeObjectRelease_n();
-      if ((v10 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
         break;
       }
@@ -2660,268 +2634,257 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore4RuleV_Tt1g5(uint64_
   return 0;
 }
 
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore6ChoiceV_Tt1g5(uint64_t a1, uint64_t a2)
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore6ChoiceV_Tt1g5(uint64_t a1, uint64_t a2)
 {
-  v155 = type metadata accessor for CharacterSet();
-  v160 = *(v155 - 8);
-  v4 = *(v160 + 64);
-  v5 = MEMORY[0x1EEE9AC00](v155);
-  v7 = &v119 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v10 = &v119 - v9;
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v136 = &v119 - v12;
+  v149 = type metadata accessor for CharacterSet();
+  v154 = *(v149 - 8);
+  MEMORY[0x1EEE9AC00](v149);
+  v5 = &v113 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v113 - v7;
+  MEMORY[0x1EEE9AC00](v9);
+  v130 = &v113 - v10;
   MEMORY[0x1EEE9AC00](v11);
-  v135 = &v119 - v13;
-  v161 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
-  v14 = *(*(v161 - 8) + 64);
-  v15 = MEMORY[0x1EEE9AC00](v161);
-  v165 = &v119 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v18 = &v119 - v17;
-  v162 = type metadata accessor for TerminalSymbol(0);
-  v140 = *(v162 - 8);
-  v19 = *(v140 + 64);
-  v20 = MEMORY[0x1EEE9AC00](v162);
-  v154 = &v119 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v147 = &v119 - v23;
-  v24 = MEMORY[0x1EEE9AC00](v22);
-  v148 = &v119 - v25;
-  v26 = MEMORY[0x1EEE9AC00](v24);
-  v153 = (&v119 - v27);
-  v28 = MEMORY[0x1EEE9AC00](v26);
-  v157 = &v119 - v29;
-  v30 = MEMORY[0x1EEE9AC00](v28);
-  v32 = &v119 - v31;
-  v33 = MEMORY[0x1EEE9AC00](v30);
-  v143 = &v119 - v34;
-  v35 = MEMORY[0x1EEE9AC00](v33);
-  v137 = &v119 - v36;
-  v37 = MEMORY[0x1EEE9AC00](v35);
-  v39 = &v119 - v38;
-  v40 = MEMORY[0x1EEE9AC00](v37);
-  v142 = (&v119 - v41);
-  MEMORY[0x1EEE9AC00](v40);
-  v150 = &v119 - v42;
-  v156 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
-  v43 = *(*(v156 - 8) + 64);
+  v129 = &v113 - v12;
+  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
+  MEMORY[0x1EEE9AC00](v155);
+  v159 = &v113 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v113 - v15;
+  v156 = type metadata accessor for TerminalSymbol(0);
+  v134 = *(v156 - 8);
   MEMORY[0x1EEE9AC00](v156);
-  v152 = &v119 - v44;
-  v163 = type metadata accessor for Symbol(0);
-  v158 = *(v163 - 8);
-  v45 = *(v158 + 64);
-  v46 = MEMORY[0x1EEE9AC00](v163);
-  v47 = MEMORY[0x1EEE9AC00](v46);
-  v48 = MEMORY[0x1EEE9AC00](v47);
-  v49 = MEMORY[0x1EEE9AC00](v48);
-  v51 = &v119 - v50;
-  result = MEMORY[0x1EEE9AC00](v49);
-  v164 = &v119 - v56;
-  v57 = *(a1 + 16);
-  if (v57 != *(a2 + 16))
+  v148 = &v113 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v141 = &v113 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v142 = &v113 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v147 = (&v113 - v23);
+  MEMORY[0x1EEE9AC00](v24);
+  v151 = &v113 - v25;
+  MEMORY[0x1EEE9AC00](v26);
+  v28 = &v113 - v27;
+  MEMORY[0x1EEE9AC00](v29);
+  v137 = &v113 - v30;
+  MEMORY[0x1EEE9AC00](v31);
+  v131 = &v113 - v32;
+  MEMORY[0x1EEE9AC00](v33);
+  v35 = &v113 - v34;
+  MEMORY[0x1EEE9AC00](v36);
+  v136 = (&v113 - v37);
+  MEMORY[0x1EEE9AC00](v38);
+  v144 = &v113 - v39;
+  v150 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
+  MEMORY[0x1EEE9AC00](v150);
+  v146 = &v113 - v40;
+  v157 = type metadata accessor for Symbol(0);
+  v152 = *(v157 - 8);
+  MEMORY[0x1EEE9AC00](v157);
+  MEMORY[0x1EEE9AC00](v41);
+  MEMORY[0x1EEE9AC00](v42);
+  MEMORY[0x1EEE9AC00](v43);
+  v45 = &v113 - v44;
+  MEMORY[0x1EEE9AC00](v46);
+  v158 = &v113 - v50;
+  v51 = *(a1 + 16);
+  if (v51 != *(a2 + 16) || !v51 || a1 == a2)
   {
-    return 0;
+    return;
   }
 
-  if (!v57 || a1 == a2)
-  {
-    return 1;
-  }
-
-  v58 = 0;
-  v59 = a1 + 32;
-  v60 = a2 + 32;
-  v138 = (v160 + 32);
-  v139 = (v160 + 8);
-  v133 = v51;
-  v125 = v39;
-  v127 = v7;
-  v126 = v10;
-  v130 = v18;
-  v134 = v53;
-  v129 = v54;
-  v128 = v55;
-  v122 = v57;
-  v121 = a1 + 32;
-  v120 = a2 + 32;
+  v52 = 0;
+  v53 = a1 + 32;
+  v54 = a2 + 32;
+  v132 = (v154 + 32);
+  v133 = (v154 + 8);
+  v127 = v45;
+  v119 = v35;
+  v121 = v5;
+  v120 = v8;
+  v124 = v16;
+  v128 = v47;
+  v123 = v48;
+  v122 = v49;
+  v116 = v51;
+  v115 = a1 + 32;
+  v114 = a2 + 32;
   while (1)
   {
-    if (v58 == v57)
+    if (v52 == v51)
     {
-      goto LABEL_82;
+      goto LABEL_81;
     }
 
-    v61 = *(v59 + 8 * v58);
-    v62 = *(v61 + 16);
-    v159 = *(v60 + 8 * v58);
-    v63 = *(v159 + 16);
-    result = v62 == v63;
-    if (v62 != v63)
+    v55 = *(v53 + 8 * v52);
+    v56 = *(v55 + 16);
+    v153 = *(v54 + 8 * v52);
+    v57 = *(v153 + 16);
+    if (v56 != v57)
     {
-      return result;
+      return;
     }
 
-    if (v62 && v61 != v159)
+    if (v56 && v55 != v153)
     {
       break;
     }
 
 LABEL_7:
-    if (++v58 == v57)
+    if (++v52 == v51)
     {
-      return result;
+      return;
     }
   }
 
-  v141 = v62;
-  v123 = v62 == v63;
-  v124 = v58;
-  v64 = (*(v158 + 80) + 32) & ~*(v158 + 80);
-  v145 = v159 + v64;
-  v146 = v61 + v64;
+  v135 = v56;
+  v117 = v56 == v57;
+  v118 = v52;
+  v58 = (*(v152 + 80) + 32) & ~*(v152 + 80);
+  v139 = v153 + v58;
+  v140 = v55 + v58;
 
-  v65 = 0;
-  v66 = v152;
-  v67 = v157;
-  v144 = v61;
+  v59 = 0;
+  v60 = v146;
+  v61 = v151;
+  v138 = v55;
   while (1)
   {
-    if (v65 >= *(v61 + 16))
+    if (v59 >= *(v55 + 16))
     {
+      __break(1u);
+LABEL_80:
       __break(1u);
 LABEL_81:
       __break(1u);
-LABEL_82:
-      __break(1u);
-      return result;
+      return;
     }
 
-    v68 = *(v158 + 72) * v65;
-    result = outlined init with copy of TerminalSymbol(v146 + v68, v164, type metadata accessor for Symbol);
-    if (v65 >= *(v159 + 16))
+    v62 = *(v152 + 72) * v59;
+    outlined init with copy of TerminalSymbol(v140 + v62, v158, type metadata accessor for Symbol);
+    if (v59 >= *(v153 + 16))
     {
-      goto LABEL_81;
+      goto LABEL_80;
     }
 
-    outlined init with copy of TerminalSymbol(v145 + v68, v51, type metadata accessor for Symbol);
-    v69 = (v66 + *(v156 + 48));
-    outlined init with copy of TerminalSymbol(v164, v66, type metadata accessor for Symbol);
-    outlined init with copy of TerminalSymbol(v51, v69, type metadata accessor for Symbol);
+    outlined init with copy of TerminalSymbol(v139 + v62, v45, type metadata accessor for Symbol);
+    v63 = (v60 + *(v150 + 48));
+    outlined init with copy of TerminalSymbol(v158, v60, type metadata accessor for Symbol);
+    outlined init with copy of TerminalSymbol(v45, v63, type metadata accessor for Symbol);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (!EnumCaseMultiPayload)
     {
-      v92 = v66;
-      v93 = v134;
-      outlined init with copy of TerminalSymbol(v92, v134, type metadata accessor for Symbol);
-      v94 = swift_getEnumCaseMultiPayload();
-      v95 = v130;
-      v96 = v150;
-      if (v94)
+      v86 = v60;
+      v87 = v128;
+      outlined init with copy of TerminalSymbol(v86, v128, type metadata accessor for Symbol);
+      v88 = swift_getEnumCaseMultiPayload();
+      v89 = v124;
+      v90 = v144;
+      if (v88)
       {
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v93, type metadata accessor for TerminalSymbol);
-        v66 = v152;
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v87, type metadata accessor for TerminalSymbol);
+        v60 = v146;
         goto LABEL_71;
       }
 
-      outlined init with take of TerminalSymbol(v69, v150, type metadata accessor for TerminalSymbol);
-      v97 = *(v161 + 48);
-      outlined init with copy of TerminalSymbol(v93, v95, type metadata accessor for TerminalSymbol);
-      outlined init with copy of TerminalSymbol(v96, v95 + v97, type metadata accessor for TerminalSymbol);
-      v98 = swift_getEnumCaseMultiPayload();
-      if (v98 > 1)
+      outlined init with take of TerminalSymbol(v63, v144, type metadata accessor for TerminalSymbol);
+      v91 = *(v155 + 48);
+      outlined init with copy of TerminalSymbol(v87, v89, type metadata accessor for TerminalSymbol);
+      outlined init with copy of TerminalSymbol(v90, v89 + v91, type metadata accessor for TerminalSymbol);
+      v92 = swift_getEnumCaseMultiPayload();
+      if (v92 > 1)
       {
-        if (v98 != 2)
+        if (v92 != 2)
         {
-          outlined init with copy of TerminalSymbol(v95, v143, type metadata accessor for TerminalSymbol);
-          v116 = swift_getEnumCaseMultiPayload();
-          v66 = v152;
-          if (v116 != 3)
+          outlined init with copy of TerminalSymbol(v89, v137, type metadata accessor for TerminalSymbol);
+          v110 = swift_getEnumCaseMultiPayload();
+          v60 = v146;
+          if (v110 != 3)
           {
-            goto LABEL_78;
+            goto LABEL_77;
           }
 
-          v100 = *v143;
-          v101 = *(v95 + v97);
+          v94 = *v137;
+          v95 = *(v89 + v91);
           goto LABEL_59;
         }
 
-        v107 = v137;
-        outlined init with copy of TerminalSymbol(v95, v137, type metadata accessor for TerminalSymbol);
+        v101 = v131;
+        outlined init with copy of TerminalSymbol(v89, v131, type metadata accessor for TerminalSymbol);
         if (swift_getEnumCaseMultiPayload() != 2)
         {
-          goto LABEL_77;
+          goto LABEL_76;
         }
 
-        v108 = *v138;
-        v109 = v95 + v97;
-        v110 = &v167;
+        v102 = *v132;
+        v103 = v89 + v91;
+        v104 = &v161;
       }
 
       else
       {
-        if (!v98)
+        if (!v92)
         {
-          outlined init with copy of TerminalSymbol(v95, v142, type metadata accessor for TerminalSymbol);
-          v99 = swift_getEnumCaseMultiPayload();
-          v66 = v152;
-          if (v99)
+          outlined init with copy of TerminalSymbol(v89, v136, type metadata accessor for TerminalSymbol);
+          v93 = swift_getEnumCaseMultiPayload();
+          v60 = v146;
+          if (v93)
           {
-            goto LABEL_78;
+            goto LABEL_77;
           }
 
-          v100 = *v142;
-          v101 = *(v95 + v97);
+          v94 = *v136;
+          v95 = *(v89 + v91);
 LABEL_59:
-          if (v100 == v101)
+          if (v94 == v95)
           {
 LABEL_60:
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v95, type metadata accessor for TerminalSymbol);
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v96, type metadata accessor for TerminalSymbol);
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v134, type metadata accessor for TerminalSymbol);
-            v51 = v133;
-            v67 = v157;
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v89, type metadata accessor for TerminalSymbol);
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v90, type metadata accessor for TerminalSymbol);
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v128, type metadata accessor for TerminalSymbol);
+            v45 = v127;
+            v61 = v151;
             goto LABEL_14;
           }
 
-LABEL_76:
-          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v95, type metadata accessor for TerminalSymbol);
-LABEL_79:
-          v51 = v133;
-          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v96, type metadata accessor for TerminalSymbol);
-          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v134, type metadata accessor for TerminalSymbol);
+LABEL_75:
+          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v89, type metadata accessor for TerminalSymbol);
+LABEL_78:
+          v45 = v127;
+          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v90, type metadata accessor for TerminalSymbol);
+          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v128, type metadata accessor for TerminalSymbol);
           goto LABEL_68;
         }
 
-        v107 = v125;
-        outlined init with copy of TerminalSymbol(v95, v125, type metadata accessor for TerminalSymbol);
+        v101 = v119;
+        outlined init with copy of TerminalSymbol(v89, v119, type metadata accessor for TerminalSymbol);
         if (swift_getEnumCaseMultiPayload() != 1)
         {
+LABEL_76:
+          (*v133)(v101, v149);
+          v60 = v146;
 LABEL_77:
-          (*v139)(v107, v155);
-          v66 = v152;
-LABEL_78:
-          outlined destroy of [Regex2BNF.CharacterPredicate](v95, &_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
-          goto LABEL_79;
+          outlined destroy of [Regex2BNF.CharacterPredicate](v89, &_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
+          goto LABEL_78;
         }
 
-        v108 = *v138;
-        v109 = v95 + v97;
-        v110 = &v166;
+        v102 = *v132;
+        v103 = v89 + v91;
+        v104 = &v160;
       }
 
-      v112 = *(v110 - 32);
-      v113 = v155;
-      v108(v112, v109, v155);
-      v114 = static CharacterSet.== infix(_:_:)();
-      v115 = *v139;
-      (*v139)(v112, v113);
-      v115(v107, v113);
-      v96 = v150;
-      v66 = v152;
-      if ((v114 & 1) == 0)
+      v106 = *(v104 - 32);
+      v107 = v149;
+      v102(v106, v103, v149);
+      v108 = static CharacterSet.== infix(_:_:)();
+      v109 = *v133;
+      (*v133)(v106, v107);
+      v109(v101, v107);
+      v90 = v144;
+      v60 = v146;
+      if ((v108 & 1) == 0)
       {
-        goto LABEL_76;
+        goto LABEL_75;
       }
 
       goto LABEL_60;
@@ -2929,23 +2892,23 @@ LABEL_78:
 
     if (EnumCaseMultiPayload != 1)
     {
-      v102 = v129;
-      outlined init with copy of TerminalSymbol(v66, v129, type metadata accessor for Symbol);
-      v104 = *v102;
-      v103 = v102[1];
+      v96 = v123;
+      outlined init with copy of TerminalSymbol(v60, v123, type metadata accessor for Symbol);
+      v98 = *v96;
+      v97 = v96[1];
       if (swift_getEnumCaseMultiPayload() == 2)
       {
-        v105 = *v69;
-        v106 = v69[1];
-        if (v104 == v105 && v103 == v106)
+        v99 = *v63;
+        v100 = v63[1];
+        if (v98 == v99 && v97 == v100)
         {
         }
 
         else
         {
-          v111 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v105 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if ((v111 & 1) == 0)
+          if ((v105 & 1) == 0)
           {
             goto LABEL_68;
           }
@@ -2957,83 +2920,82 @@ LABEL_78:
 LABEL_70:
 
 LABEL_71:
-      outlined destroy of [Regex2BNF.CharacterPredicate](v66, &_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
+      outlined destroy of [Regex2BNF.CharacterPredicate](v60, &_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
       goto LABEL_72;
     }
 
-    v71 = v128;
-    outlined init with copy of TerminalSymbol(v66, v128, type metadata accessor for Symbol);
-    v160 = *v71;
+    v65 = v122;
+    outlined init with copy of TerminalSymbol(v60, v122, type metadata accessor for Symbol);
+    v154 = *v65;
     if (swift_getEnumCaseMultiPayload() != 1)
     {
       goto LABEL_70;
     }
 
-    v72 = *v69;
-    v73 = *(v160 + 16);
-    if (v73 != *(v72 + 16))
+    v66 = *v63;
+    v67 = *(v154 + 16);
+    if (v67 != *(v66 + 16))
     {
 
-      v51 = v133;
+      v45 = v127;
       goto LABEL_68;
     }
 
-    if (v73 && v160 != v72)
+    if (v67 && v154 != v66)
     {
       break;
     }
 
-    v51 = v133;
+    v45 = v127;
 LABEL_14:
-    ++v65;
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v66, type metadata accessor for Symbol);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v51, type metadata accessor for Symbol);
-    result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v164, type metadata accessor for Symbol);
-    v61 = v144;
-    if (v65 == v141)
+    ++v59;
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v60, type metadata accessor for Symbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v45, type metadata accessor for Symbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v158, type metadata accessor for Symbol);
+    v55 = v138;
+    if (v59 == v135)
     {
 
-      v57 = v122;
-      v58 = v124;
-      v59 = v121;
-      v60 = v120;
-      result = v123;
+      v51 = v116;
+      v52 = v118;
+      v53 = v115;
+      v54 = v114;
       goto LABEL_7;
     }
   }
 
-  v74 = (*(v140 + 80) + 32) & ~*(v140 + 80);
-  v149 = *(v140 + 72);
-  v75 = v148;
-  v132 = v72;
-  v151 = v32;
+  v68 = (*(v134 + 80) + 32) & ~*(v134 + 80);
+  v143 = *(v134 + 72);
+  v69 = v142;
+  v126 = v66;
+  v145 = v28;
   while (1)
   {
-    outlined init with copy of TerminalSymbol(v160 + v74, v32, type metadata accessor for TerminalSymbol);
-    outlined init with copy of TerminalSymbol(v72 + v74, v67, type metadata accessor for TerminalSymbol);
-    v76 = v32;
-    v77 = *(v161 + 48);
-    v78 = v165;
-    outlined init with copy of TerminalSymbol(v76, v165, type metadata accessor for TerminalSymbol);
-    outlined init with copy of TerminalSymbol(v67, v78 + v77, type metadata accessor for TerminalSymbol);
-    v79 = swift_getEnumCaseMultiPayload();
-    if (v79 > 1)
+    outlined init with copy of TerminalSymbol(v154 + v68, v28, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v66 + v68, v61, type metadata accessor for TerminalSymbol);
+    v70 = v28;
+    v71 = *(v155 + 48);
+    v72 = v159;
+    outlined init with copy of TerminalSymbol(v70, v159, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v61, v72 + v71, type metadata accessor for TerminalSymbol);
+    v73 = swift_getEnumCaseMultiPayload();
+    if (v73 > 1)
     {
       break;
     }
 
-    if (!v79)
+    if (!v73)
     {
-      outlined init with copy of TerminalSymbol(v165, v153, type metadata accessor for TerminalSymbol);
+      outlined init with copy of TerminalSymbol(v159, v147, type metadata accessor for TerminalSymbol);
       if (swift_getEnumCaseMultiPayload())
       {
         goto LABEL_66;
       }
 
-      v80 = *v153;
-      v81 = *(v165 + v77);
+      v74 = *v147;
+      v75 = *(v159 + v71);
 LABEL_24:
-      if (v80 != v81)
+      if (v74 != v75)
       {
         goto LABEL_62;
       }
@@ -3041,74 +3003,74 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    outlined init with copy of TerminalSymbol(v165, v75, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v159, v69, type metadata accessor for TerminalSymbol);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v117 = v75;
+      v111 = v69;
       goto LABEL_65;
     }
 
-    v87 = v126;
-    v88 = v155;
-    (*v138)(v126, v165 + v77, v155);
-    v89 = static CharacterSet.== infix(_:_:)();
-    v90 = *v139;
-    v91 = v87;
-    v67 = v157;
-    (*v139)(v91, v88);
-    v90(v75, v88);
-    v72 = v132;
-    if ((v89 & 1) == 0)
+    v81 = v120;
+    v82 = v149;
+    (*v132)(v120, v159 + v71, v149);
+    v83 = static CharacterSet.== infix(_:_:)();
+    v84 = *v133;
+    v85 = v81;
+    v61 = v151;
+    (*v133)(v85, v82);
+    v84(v69, v82);
+    v66 = v126;
+    if ((v83 & 1) == 0)
     {
 LABEL_62:
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v165, type metadata accessor for TerminalSymbol);
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v159, type metadata accessor for TerminalSymbol);
       goto LABEL_67;
     }
 
 LABEL_25:
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v165, type metadata accessor for TerminalSymbol);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v67, type metadata accessor for TerminalSymbol);
-    v32 = v151;
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v151, type metadata accessor for TerminalSymbol);
-    v74 += v149;
-    if (!--v73)
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v159, type metadata accessor for TerminalSymbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v61, type metadata accessor for TerminalSymbol);
+    v28 = v145;
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v145, type metadata accessor for TerminalSymbol);
+    v68 += v143;
+    if (!--v67)
     {
 
-      v51 = v133;
-      v66 = v152;
+      v45 = v127;
+      v60 = v146;
       goto LABEL_14;
     }
   }
 
-  if (v79 != 2)
+  if (v73 != 2)
   {
-    outlined init with copy of TerminalSymbol(v165, v154, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v159, v148, type metadata accessor for TerminalSymbol);
     if (swift_getEnumCaseMultiPayload() != 3)
     {
       goto LABEL_66;
     }
 
-    v80 = *v154;
-    v81 = *(v165 + v77);
+    v74 = *v148;
+    v75 = *(v159 + v71);
     goto LABEL_24;
   }
 
-  v82 = v147;
-  outlined init with copy of TerminalSymbol(v165, v147, type metadata accessor for TerminalSymbol);
+  v76 = v141;
+  outlined init with copy of TerminalSymbol(v159, v141, type metadata accessor for TerminalSymbol);
   if (swift_getEnumCaseMultiPayload() == 2)
   {
-    v83 = v127;
-    v84 = v155;
-    (*v138)(v127, v165 + v77, v155);
-    v131 = static CharacterSet.== infix(_:_:)();
-    v85 = *v139;
-    v86 = v83;
-    v67 = v157;
-    (*v139)(v86, v84);
-    v85(v82, v84);
-    v75 = v148;
-    v72 = v132;
-    if ((v131 & 1) == 0)
+    v77 = v121;
+    v78 = v149;
+    (*v132)(v121, v159 + v71, v149);
+    v125 = static CharacterSet.== infix(_:_:)();
+    v79 = *v133;
+    v80 = v77;
+    v61 = v151;
+    (*v133)(v80, v78);
+    v79(v76, v78);
+    v69 = v142;
+    v66 = v126;
+    if ((v125 & 1) == 0)
     {
       goto LABEL_62;
     }
@@ -3116,131 +3078,124 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v117 = v82;
+  v111 = v76;
 LABEL_65:
-  (*v139)(v117, v155);
+  (*v133)(v111, v149);
 LABEL_66:
-  outlined destroy of [Regex2BNF.CharacterPredicate](v165, &_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
+  outlined destroy of [Regex2BNF.CharacterPredicate](v159, &_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
 LABEL_67:
-  v118 = v151;
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v67, type metadata accessor for TerminalSymbol);
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v118, type metadata accessor for TerminalSymbol);
+  v112 = v145;
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v61, type metadata accessor for TerminalSymbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v112, type metadata accessor for TerminalSymbol);
 
-  v51 = v133;
-  v66 = v152;
+  v45 = v127;
+  v60 = v146;
 LABEL_68:
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v66, type metadata accessor for Symbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v60, type metadata accessor for Symbol);
 LABEL_72:
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v51, type metadata accessor for Symbol);
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v164, type metadata accessor for Symbol);
-
-  return 0;
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v45, type metadata accessor for Symbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v158, type metadata accessor for Symbol);
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore6SymbolO_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for CharacterSet();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v9 = &v87 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v105 = &v87 - v10;
-  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
-  v11 = *(*(v112 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v112);
-  v13 = &v87 - v12;
-  v115 = type metadata accessor for TerminalSymbol(0);
-  v99 = *(v115 - 8);
-  v14 = *(v99 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v115);
-  v110 = &v87 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v106 = &v87 - v18;
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v107 = &v87 - v20;
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v109 = (&v87 - v22);
-  v23 = MEMORY[0x1EEE9AC00](v21);
-  v116 = &v87 - v24;
-  v25 = MEMORY[0x1EEE9AC00](v23);
-  v111 = &v87 - v26;
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v82 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v100 = &v82 - v9;
+  v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
+  MEMORY[0x1EEE9AC00](v107);
+  v11 = &v82 - v10;
+  v110 = type metadata accessor for TerminalSymbol(0);
+  v94 = *(v110 - 8);
+  MEMORY[0x1EEE9AC00](v110);
+  v105 = &v82 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v101 = &v82 - v14;
+  MEMORY[0x1EEE9AC00](v15);
+  v102 = &v82 - v16;
+  MEMORY[0x1EEE9AC00](v17);
+  v104 = (&v82 - v18);
+  MEMORY[0x1EEE9AC00](v19);
+  v111 = &v82 - v20;
+  MEMORY[0x1EEE9AC00](v21);
+  v106 = &v82 - v22;
+  MEMORY[0x1EEE9AC00](v23);
+  v99 = &v82 - v24;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
   MEMORY[0x1EEE9AC00](v25);
-  v104 = &v87 - v27;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
-  v29 = *(*(v28 - 8) + 64);
+  v112 = &v82 - v26;
+  v109 = type metadata accessor for Symbol(0);
+  MEMORY[0x1EEE9AC00](v109);
+  MEMORY[0x1EEE9AC00](v27);
   MEMORY[0x1EEE9AC00](v28);
-  v117 = &v87 - v30;
-  v114 = type metadata accessor for Symbol(0);
-  v31 = *(*(v114 - 8) + 64);
-  v32 = MEMORY[0x1EEE9AC00](v114);
-  v33 = MEMORY[0x1EEE9AC00](v32);
-  MEMORY[0x1EEE9AC00](v33);
-  v35 = MEMORY[0x1EEE9AC00](&v87 - v34);
-  v37 = &v87 - v36;
-  v38 = MEMORY[0x1EEE9AC00](v35);
-  v43 = &v87 - v40;
-  v44 = *(a1 + 16);
-  if (v44 != *(a2 + 16))
+  MEMORY[0x1EEE9AC00](&v82 - v29);
+  v31 = &v82 - v30;
+  MEMORY[0x1EEE9AC00](v32);
+  v38 = &v82 - v35;
+  v39 = *(a1 + 16);
+  if (v39 != *(a2 + 16))
   {
     return 0;
   }
 
-  if (!v44 || a1 == a2)
+  if (!v39 || a1 == a2)
   {
     return 1;
   }
 
-  v89 = v38;
-  v90 = v42;
-  v91 = v41;
-  v88 = v9;
-  v45 = 0;
-  v46 = (*(v39 + 80) + 32) & ~*(v39 + 80);
-  v103 = a1 + v46;
-  v101 = a2 + v46;
-  v95 = (v5 + 32);
-  v98 = (v5 + 8);
-  v102 = *(v39 + 72);
-  v94 = &v87 - v40;
-  v100 = v28;
-  v96 = v37;
+  v84 = v33;
+  v85 = v37;
+  v86 = v36;
+  v83 = v7;
+  v40 = 0;
+  v41 = (*(v34 + 80) + 32) & ~*(v34 + 80);
+  v98 = a1 + v41;
+  v96 = a2 + v41;
+  v90 = (v5 + 32);
+  v93 = (v5 + 8);
+  v97 = *(v34 + 72);
+  v89 = &v82 - v35;
+  v95 = v25;
+  v91 = v31;
   while (1)
   {
-    v47 = v102 * v45;
-    result = outlined init with copy of TerminalSymbol(v103 + v102 * v45, v43, type metadata accessor for Symbol);
-    if (v45 == v44)
+    v42 = v97 * v40;
+    result = outlined init with copy of TerminalSymbol(v98 + v97 * v40, v38, type metadata accessor for Symbol);
+    if (v40 == v39)
     {
       __break(1u);
       return result;
     }
 
-    outlined init with copy of TerminalSymbol(v101 + v47, v37, type metadata accessor for Symbol);
-    v49 = (v117 + *(v28 + 48));
-    outlined init with copy of TerminalSymbol(v43, v117, type metadata accessor for Symbol);
-    outlined init with copy of TerminalSymbol(v37, v49, type metadata accessor for Symbol);
+    outlined init with copy of TerminalSymbol(v96 + v42, v31, type metadata accessor for Symbol);
+    v44 = (v112 + *(v25 + 48));
+    outlined init with copy of TerminalSymbol(v38, v112, type metadata accessor for Symbol);
+    outlined init with copy of TerminalSymbol(v31, v44, type metadata accessor for Symbol);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (!EnumCaseMultiPayload)
     {
-      v72 = v45;
-      v73 = v4;
-      v74 = v117;
-      v75 = v44;
-      v76 = v89;
-      outlined init with copy of TerminalSymbol(v117, v89, type metadata accessor for Symbol);
+      v67 = v40;
+      v68 = v4;
+      v69 = v112;
+      v70 = v39;
+      v71 = v84;
+      outlined init with copy of TerminalSymbol(v112, v84, type metadata accessor for Symbol);
       if (!swift_getEnumCaseMultiPayload())
       {
-        v77 = v104;
-        outlined init with take of TerminalSymbol(v49, v104, type metadata accessor for TerminalSymbol);
-        v78 = specialized static TerminalSymbol.== infix(_:_:)(v76, v77);
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v77, type metadata accessor for TerminalSymbol);
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v76, type metadata accessor for TerminalSymbol);
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v74, type metadata accessor for Symbol);
-        v44 = v75;
-        v4 = v73;
-        v45 = v72;
-        v37 = v96;
-        if ((v78 & 1) == 0)
+        v72 = v99;
+        outlined init with take of TerminalSymbol(v44, v99, type metadata accessor for TerminalSymbol);
+        v73 = specialized static TerminalSymbol.== infix(_:_:)(v71, v72);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v72, type metadata accessor for TerminalSymbol);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v71, type metadata accessor for TerminalSymbol);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v69, type metadata accessor for Symbol);
+        v39 = v70;
+        v4 = v68;
+        v40 = v67;
+        v31 = v91;
+        if ((v73 & 1) == 0)
         {
           goto LABEL_55;
         }
@@ -3248,33 +3203,33 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore6SymbolO_Tt1g5(uint6
         goto LABEL_7;
       }
 
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v76, type metadata accessor for TerminalSymbol);
-      v37 = v96;
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v71, type metadata accessor for TerminalSymbol);
+      v31 = v91;
       goto LABEL_54;
     }
 
     if (EnumCaseMultiPayload != 1)
     {
-      v79 = v91;
-      outlined init with copy of TerminalSymbol(v117, v91, type metadata accessor for Symbol);
-      v81 = *v79;
-      v80 = v79[1];
+      v74 = v86;
+      outlined init with copy of TerminalSymbol(v112, v86, type metadata accessor for Symbol);
+      v76 = *v74;
+      v75 = v74[1];
       if (swift_getEnumCaseMultiPayload() == 2)
       {
-        v82 = *v49;
-        v83 = v49[1];
-        if (v81 == v82 && v80 == v83)
+        v77 = *v44;
+        v78 = v44[1];
+        if (v76 == v77 && v75 == v78)
         {
         }
 
         else
         {
-          v85 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v80 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if ((v85 & 1) == 0)
+          if ((v80 & 1) == 0)
           {
-            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v117, type metadata accessor for Symbol);
-            v43 = v94;
+            outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v112, type metadata accessor for Symbol);
+            v38 = v89;
             goto LABEL_55;
           }
         }
@@ -3282,86 +3237,86 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore6SymbolO_Tt1g5(uint6
         goto LABEL_6;
       }
 
-      v43 = v94;
+      v38 = v89;
 LABEL_54:
-      outlined destroy of [Regex2BNF.CharacterPredicate](v117, &_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
+      outlined destroy of [Regex2BNF.CharacterPredicate](v112, &_s19TokenGenerationCore6SymbolO_ACtMd, &_s19TokenGenerationCore6SymbolO_ACtMR);
       goto LABEL_55;
     }
 
-    v51 = v90;
-    outlined init with copy of TerminalSymbol(v117, v90, type metadata accessor for Symbol);
-    v113 = *v51;
+    v46 = v85;
+    outlined init with copy of TerminalSymbol(v112, v85, type metadata accessor for Symbol);
+    v108 = *v46;
     if (swift_getEnumCaseMultiPayload() != 1)
     {
 
       goto LABEL_54;
     }
 
-    v52 = *v49;
-    v53 = *(v113 + 16);
-    if (v53 != *(v52 + 16))
+    v47 = *v44;
+    v48 = *(v108 + 16);
+    if (v48 != *(v47 + 16))
     {
 
-      v37 = v96;
+      v31 = v91;
       goto LABEL_50;
     }
 
-    if (v53)
+    if (v48)
     {
-      v54 = v111;
-      if (v113 != v52)
+      v49 = v106;
+      if (v108 != v47)
       {
         break;
       }
     }
 
-    v37 = v96;
+    v31 = v91;
 LABEL_6:
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v117, type metadata accessor for Symbol);
-    v43 = v94;
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v112, type metadata accessor for Symbol);
+    v38 = v89;
 LABEL_7:
-    ++v45;
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v37, type metadata accessor for Symbol);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v43, type metadata accessor for Symbol);
-    v28 = v100;
-    if (v45 == v44)
+    ++v40;
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v31, type metadata accessor for Symbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v38, type metadata accessor for Symbol);
+    v25 = v95;
+    if (v40 == v39)
     {
       return 1;
     }
   }
 
-  v87 = v44;
-  v97 = v4;
-  v55 = (*(v99 + 80) + 32) & ~*(v99 + 80);
-  v108 = *(v99 + 72);
-  v56 = v107;
-  v93 = v52;
+  v82 = v39;
+  v92 = v4;
+  v50 = (*(v94 + 80) + 32) & ~*(v94 + 80);
+  v103 = *(v94 + 72);
+  v51 = v102;
+  v88 = v47;
   while (1)
   {
-    outlined init with copy of TerminalSymbol(v113 + v55, v54, type metadata accessor for TerminalSymbol);
-    v57 = v116;
-    outlined init with copy of TerminalSymbol(v52 + v55, v116, type metadata accessor for TerminalSymbol);
-    v58 = *(v112 + 48);
-    outlined init with copy of TerminalSymbol(v54, v13, type metadata accessor for TerminalSymbol);
-    outlined init with copy of TerminalSymbol(v57, &v13[v58], type metadata accessor for TerminalSymbol);
-    v59 = swift_getEnumCaseMultiPayload();
-    if (v59 > 1)
+    outlined init with copy of TerminalSymbol(v108 + v50, v49, type metadata accessor for TerminalSymbol);
+    v52 = v111;
+    outlined init with copy of TerminalSymbol(v47 + v50, v111, type metadata accessor for TerminalSymbol);
+    v53 = *(v107 + 48);
+    outlined init with copy of TerminalSymbol(v49, v11, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v52, &v11[v53], type metadata accessor for TerminalSymbol);
+    v54 = swift_getEnumCaseMultiPayload();
+    if (v54 > 1)
     {
       break;
     }
 
-    if (!v59)
+    if (!v54)
     {
-      outlined init with copy of TerminalSymbol(v13, v109, type metadata accessor for TerminalSymbol);
+      outlined init with copy of TerminalSymbol(v11, v104, type metadata accessor for TerminalSymbol);
       if (swift_getEnumCaseMultiPayload())
       {
         goto LABEL_48;
       }
 
-      v60 = *v109;
-      v61 = *&v13[v58];
+      v55 = *v104;
+      v56 = *&v11[v53];
 LABEL_16:
-      if (v60 != v61)
+      if (v55 != v56)
       {
         goto LABEL_44;
       }
@@ -3369,74 +3324,74 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    outlined init with copy of TerminalSymbol(v13, v56, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v11, v51, type metadata accessor for TerminalSymbol);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v86 = v56;
+      v81 = v51;
       goto LABEL_47;
     }
 
-    v67 = v105;
-    v68 = v97;
-    (*v95)(v105, &v13[v58], v97);
-    v69 = static CharacterSet.== infix(_:_:)();
-    v70 = *v98;
-    v71 = v67;
-    v54 = v111;
-    (*v98)(v71, v68);
-    v70(v56, v68);
-    v52 = v93;
-    if ((v69 & 1) == 0)
+    v62 = v100;
+    v63 = v92;
+    (*v90)(v100, &v11[v53], v92);
+    v64 = static CharacterSet.== infix(_:_:)();
+    v65 = *v93;
+    v66 = v62;
+    v49 = v106;
+    (*v93)(v66, v63);
+    v65(v51, v63);
+    v47 = v88;
+    if ((v64 & 1) == 0)
     {
 LABEL_44:
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v13, type metadata accessor for TerminalSymbol);
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v11, type metadata accessor for TerminalSymbol);
       goto LABEL_49;
     }
 
 LABEL_17:
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v13, type metadata accessor for TerminalSymbol);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v116, type metadata accessor for TerminalSymbol);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v54, type metadata accessor for TerminalSymbol);
-    v55 += v108;
-    if (!--v53)
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v11, type metadata accessor for TerminalSymbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v111, type metadata accessor for TerminalSymbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v49, type metadata accessor for TerminalSymbol);
+    v50 += v103;
+    if (!--v48)
     {
 
-      v4 = v97;
-      v37 = v96;
-      v44 = v87;
+      v4 = v92;
+      v31 = v91;
+      v39 = v82;
       goto LABEL_6;
     }
   }
 
-  if (v59 != 2)
+  if (v54 != 2)
   {
-    outlined init with copy of TerminalSymbol(v13, v110, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v11, v105, type metadata accessor for TerminalSymbol);
     if (swift_getEnumCaseMultiPayload() != 3)
     {
       goto LABEL_48;
     }
 
-    v60 = *v110;
-    v61 = v13[v58];
+    v55 = *v105;
+    v56 = v11[v53];
     goto LABEL_16;
   }
 
-  v62 = v106;
-  outlined init with copy of TerminalSymbol(v13, v106, type metadata accessor for TerminalSymbol);
+  v57 = v101;
+  outlined init with copy of TerminalSymbol(v11, v101, type metadata accessor for TerminalSymbol);
   if (swift_getEnumCaseMultiPayload() == 2)
   {
-    v63 = v88;
-    v64 = v97;
-    (*v95)(v88, &v13[v58], v97);
-    v92 = static CharacterSet.== infix(_:_:)();
-    v65 = *v98;
-    v66 = v63;
-    v54 = v111;
-    (*v98)(v66, v64);
-    v65(v62, v64);
-    v56 = v107;
-    v52 = v93;
-    if ((v92 & 1) == 0)
+    v58 = v83;
+    v59 = v92;
+    (*v90)(v83, &v11[v53], v92);
+    v87 = static CharacterSet.== infix(_:_:)();
+    v60 = *v93;
+    v61 = v58;
+    v49 = v106;
+    (*v93)(v61, v59);
+    v60(v57, v59);
+    v51 = v102;
+    v47 = v88;
+    if ((v87 & 1) == 0)
     {
       goto LABEL_44;
     }
@@ -3444,22 +3399,22 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v86 = v62;
+  v81 = v57;
 LABEL_47:
-  (*v98)(v86, v97);
+  (*v93)(v81, v92);
 LABEL_48:
-  outlined destroy of [Regex2BNF.CharacterPredicate](v13, &_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
+  outlined destroy of [Regex2BNF.CharacterPredicate](v11, &_s19TokenGenerationCore14TerminalSymbolO_ACtMd, &_s19TokenGenerationCore14TerminalSymbolO_ACtMR);
 LABEL_49:
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v116, type metadata accessor for TerminalSymbol);
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v54, type metadata accessor for TerminalSymbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v111, type metadata accessor for TerminalSymbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v49, type metadata accessor for TerminalSymbol);
 
-  v37 = v96;
-  v43 = v94;
+  v31 = v91;
+  v38 = v89;
 LABEL_50:
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v117, type metadata accessor for Symbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v112, type metadata accessor for Symbol);
 LABEL_55:
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v37, type metadata accessor for Symbol);
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v43, type metadata accessor for Symbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v31, type metadata accessor for Symbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v38, type metadata accessor for Symbol);
   return 0;
 }
 
@@ -3479,81 +3434,81 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore4JSONO_Tt1g5(uint64_
   v3 = (a2 + 48);
   for (i = (a1 + 48); ; i += 3)
   {
-    v13 = *(i - 2);
-    v14 = *(i - 1);
-    v15 = *i;
-    v16 = *(v3 - 2);
-    v17 = *(v3 - 1);
-    v18 = *v3;
-    if (v15 > 2)
+    v9 = *(i - 2);
+    v10 = *(i - 1);
+    v11 = *i;
+    v12 = *(v3 - 2);
+    v13 = *(v3 - 1);
+    v14 = *v3;
+    if (v11 > 2)
     {
-      if (v15 == 3)
+      if (v11 == 3)
       {
-        v22 = *(v3 - 2);
-        v23 = *(v3 - 1);
-        if (v18 != 3)
+        v17 = *(v3 - 2);
+        v18 = *(v3 - 1);
+        if (v14 != 3)
         {
-          outlined copy of JSON(v22, v23, *v3);
-          v28 = v13;
-          v29 = v14;
-          v30 = 3;
+          outlined copy of JSON(v17, v18, *v3);
+          v23 = v9;
+          v24 = v10;
+          v25 = 3;
           goto LABEL_36;
         }
 
-        outlined copy of JSON(v22, v23, 3);
-        outlined copy of JSON(v13, v14, 3);
-        outlined copy of JSON(v16, v17, 3);
-        outlined copy of JSON(v13, v14, 3);
-        v9 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore4JSONO_Tt1g5(v13, v16);
-        outlined consume of JSON(v13, v14, 3);
-        outlined consume of JSON(v16, v17, 3);
-        outlined consume of JSON(v16, v17, 3);
-        v10 = v13;
-        v11 = v14;
-        v12 = 3;
+        outlined copy of JSON(v17, v18, 3);
+        outlined copy of JSON(v9, v10, 3);
+        outlined copy of JSON(v12, v13, 3);
+        outlined copy of JSON(v9, v10, 3);
+        v5 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore4JSONO_Tt1g5(v9, v12);
+        outlined consume of JSON(v9, v10, 3);
+        outlined consume of JSON(v12, v13, 3);
+        outlined consume of JSON(v12, v13, 3);
+        v6 = v9;
+        v7 = v10;
+        v8 = 3;
         goto LABEL_6;
       }
 
-      if (v15 == 4)
+      if (v11 == 4)
       {
-        v20 = *(v3 - 2);
-        v21 = *(v3 - 1);
-        if (v18 != 4)
+        v15 = *(v3 - 2);
+        v16 = *(v3 - 1);
+        if (v14 != 4)
         {
-          outlined copy of JSON(v20, v21, *v3);
-          v28 = v13;
-          v29 = v14;
-          v30 = 4;
+          outlined copy of JSON(v15, v16, *v3);
+          v23 = v9;
+          v24 = v10;
+          v25 = 4;
           goto LABEL_36;
         }
 
-        outlined copy of JSON(v20, v21, 4);
-        outlined copy of JSON(v13, v14, 4);
-        outlined copy of JSON(v16, v17, 4);
-        outlined copy of JSON(v13, v14, 4);
-        v9 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(v13, v16);
-        outlined consume of JSON(v13, v14, 4);
-        outlined consume of JSON(v16, v17, 4);
-        outlined consume of JSON(v16, v17, 4);
-        v10 = v13;
-        v11 = v14;
-        v12 = 4;
+        outlined copy of JSON(v15, v16, 4);
+        outlined copy of JSON(v9, v10, 4);
+        outlined copy of JSON(v12, v13, 4);
+        outlined copy of JSON(v9, v10, 4);
+        v5 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(v9, v12);
+        outlined consume of JSON(v9, v10, 4);
+        outlined consume of JSON(v12, v13, 4);
+        outlined consume of JSON(v12, v13, 4);
+        v6 = v9;
+        v7 = v10;
+        v8 = 4;
         goto LABEL_6;
       }
 
-      if (v18 != 5 || v17 | v16)
+      if (v14 != 5 || v13 | v12)
       {
 LABEL_32:
-        v28 = *(v3 - 2);
-        v29 = *(v3 - 1);
-        v30 = *v3;
+        v23 = *(v3 - 2);
+        v24 = *(v3 - 1);
+        v25 = *v3;
         goto LABEL_36;
       }
 
       outlined consume of JSON(*(i - 2), *(i - 1), 5);
-      v24 = 0;
-      v25 = 0;
-      v26 = 5;
+      v19 = 0;
+      v20 = 0;
+      v21 = 5;
       goto LABEL_30;
     }
 
@@ -3568,8 +3523,8 @@ LABEL_32:
     }
 
     outlined consume of JSON(*(i - 2), *(i - 1), 0);
-    outlined consume of JSON(v16, v17, 0);
-    if ((v16 ^ v13))
+    outlined consume of JSON(v12, v13, 0);
+    if ((v12 ^ v9))
     {
       return 0;
     }
@@ -3582,17 +3537,16 @@ LABEL_7:
     }
   }
 
-  if (v15 == 1)
+  if (v11 == 1)
   {
-    if (v18 != 1)
+    if (v14 != 1)
     {
       goto LABEL_32;
     }
 
-    v19 = *(v3 - 2);
     outlined consume of JSON(*(i - 2), *(i - 1), 1);
-    outlined consume of JSON(v16, v17, 1);
-    if (*&v13 != *&v16)
+    outlined consume of JSON(v12, v13, 1);
+    if (*&v9 != *&v12)
     {
       return 0;
     }
@@ -3600,24 +3554,20 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if (v18 == 2)
+  if (v14 == 2)
   {
-    if (v13 != v16 || v14 != v17)
+    if (v9 != v12 || v10 != v13)
     {
-      v5 = *(i - 2);
-      v6 = *(i - 1);
-      v7 = *(v3 - 2);
-      v8 = *(v3 - 1);
-      v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      outlined copy of JSON(v16, v17, 2);
-      outlined copy of JSON(v13, v14, 2);
-      outlined consume of JSON(v13, v14, 2);
-      v10 = v16;
-      v11 = v17;
-      v12 = 2;
+      v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      outlined copy of JSON(v12, v13, 2);
+      outlined copy of JSON(v9, v10, 2);
+      outlined consume of JSON(v9, v10, 2);
+      v6 = v12;
+      v7 = v13;
+      v8 = 2;
 LABEL_6:
-      outlined consume of JSON(v10, v11, v12);
-      if ((v9 & 1) == 0)
+      outlined consume of JSON(v6, v7, v8);
+      if ((v5 & 1) == 0)
       {
         return 0;
       }
@@ -3626,24 +3576,24 @@ LABEL_6:
     }
 
     outlined copy of JSON(*(i - 2), *(i - 1), 2);
-    outlined copy of JSON(v13, v14, 2);
-    outlined consume of JSON(v13, v14, 2);
-    v24 = v13;
-    v25 = v14;
-    v26 = 2;
+    outlined copy of JSON(v9, v10, 2);
+    outlined consume of JSON(v9, v10, 2);
+    v19 = v9;
+    v20 = v10;
+    v21 = 2;
 LABEL_30:
-    outlined consume of JSON(v24, v25, v26);
+    outlined consume of JSON(v19, v20, v21);
     goto LABEL_7;
   }
 
   outlined copy of JSON(*(v3 - 2), *(v3 - 1), *v3);
-  v28 = v13;
-  v29 = v14;
-  v30 = 2;
+  v23 = v9;
+  v24 = v10;
+  v25 = 2;
 LABEL_36:
-  outlined copy of JSON(v28, v29, v30);
-  outlined consume of JSON(v13, v14, v15);
-  outlined consume of JSON(v16, v17, v18);
+  outlined copy of JSON(v23, v24, v25);
+  outlined consume of JSON(v9, v10, v11);
+  outlined consume of JSON(v12, v13, v14);
   return 0;
 }
 
@@ -3680,132 +3630,128 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZSi_Tt1g5(uint64_t result, uint64_t a2)
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore14TerminalSymbolO_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(void), uint64_t (*a5)(char *, char *), uint64_t (*a6)(void))
 {
-  v11 = a3(0);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x1EEE9AC00](v11 - 8);
-  v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v18 = &v26 - v17;
-  v19 = *(a1 + 16);
-  if (v19 == *(a2 + 16))
+  v11 = a3(0) - 8;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v25 - v16;
+  v18 = *(a1 + 16);
+  if (v18 == *(a2 + 16))
   {
-    if (!v19 || a1 == a2)
+    if (!v18 || a1 == a2)
     {
-      v24 = 1;
+      v23 = 1;
     }
 
     else
     {
-      v20 = (*(v16 + 80) + 32) & ~*(v16 + 80);
-      v21 = a1 + v20;
-      v22 = a2 + v20;
-      v23 = *(v16 + 72);
+      v19 = (*(v15 + 80) + 32) & ~*(v15 + 80);
+      v20 = a1 + v19;
+      v21 = a2 + v19;
+      v22 = *(v15 + 72);
       do
       {
-        outlined init with copy of TerminalSymbol(v21, v18, a4);
-        outlined init with copy of TerminalSymbol(v22, v15, a4);
-        v24 = a5(v18, v15);
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v15, a6);
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v18, a6);
-        if ((v24 & 1) == 0)
+        outlined init with copy of TerminalSymbol(v20, v17, a4);
+        outlined init with copy of TerminalSymbol(v21, v13, a4);
+        v23 = a5(v17, v13);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v13, a6);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v17, a6);
+        if ((v23 & 1) == 0)
         {
           break;
         }
 
-        v22 += v23;
-        v21 += v23;
-        --v19;
+        v21 += v22;
+        v20 += v22;
+        --v18;
       }
 
-      while (v19);
+      while (v18);
     }
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  return v24 & 1;
+  return v23 & 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore18TokenizationResultO_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Prompt.AttachmentContent(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore18TokenizationResultO_ACtMd, &_s19TokenGenerationCore18TokenizationResultO_ACtMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v44 - v10;
-  v12 = type metadata accessor for TokenizationResult(0);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v44 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v41 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore18TokenizationResultO_ACtMd, &_s19TokenGenerationCore18TokenizationResultO_ACtMR);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v41 - v8;
+  v10 = type metadata accessor for TokenizationResult(0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = (&v41 - v14);
   MEMORY[0x1EEE9AC00](v16);
-  v18 = (&v44 - v17);
+  v18 = &v41 - v17;
   MEMORY[0x1EEE9AC00](v19);
-  v21 = &v44 - v20;
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = &v44 - v24;
-  v26 = *(a1 + 16);
-  if (v26 != *(a2 + 16))
+  v22 = &v41 - v21;
+  v23 = *(a1 + 16);
+  if (v23 != *(a2 + 16))
   {
     return 0;
   }
 
-  if (!v26 || a1 == a2)
+  if (!v23 || a1 == a2)
   {
     return 1;
   }
 
-  v44 = v18;
-  v45 = v7;
-  v27 = 0;
-  v28 = (*(v23 + 80) + 32) & ~*(v23 + 80);
-  v46 = a2 + v28;
-  v47 = *(v23 + 72);
-  v48 = a1 + v28;
-  v49 = v26;
+  v41 = v15;
+  v42 = v6;
+  v24 = 0;
+  v25 = (*(v20 + 80) + 32) & ~*(v20 + 80);
+  v43 = a2 + v25;
+  v44 = *(v20 + 72);
+  v45 = a1 + v25;
+  v46 = v23;
   while (1)
   {
-    v29 = v47 * v27;
-    result = outlined init with copy of TerminalSymbol(v48 + v47 * v27, v25, type metadata accessor for TokenizationResult);
-    if (v27 == v49)
+    v26 = v44 * v24;
+    result = outlined init with copy of TerminalSymbol(v45 + v44 * v24, v22, type metadata accessor for TokenizationResult);
+    if (v24 == v46)
     {
       break;
     }
 
-    outlined init with copy of TerminalSymbol(v46 + v29, v21, type metadata accessor for TokenizationResult);
-    v31 = *(v8 + 48);
-    outlined init with copy of TerminalSymbol(v25, v11, type metadata accessor for TokenizationResult);
-    outlined init with copy of TerminalSymbol(v21, &v11[v31], type metadata accessor for TokenizationResult);
+    outlined init with copy of TerminalSymbol(v43 + v26, v18, type metadata accessor for TokenizationResult);
+    v28 = *(v7 + 48);
+    outlined init with copy of TerminalSymbol(v22, v9, type metadata accessor for TokenizationResult);
+    outlined init with copy of TerminalSymbol(v18, &v9[v28], type metadata accessor for TokenizationResult);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined init with copy of TerminalSymbol(v11, v15, type metadata accessor for TokenizationResult);
+      outlined init with copy of TerminalSymbol(v9, v12, type metadata accessor for TokenizationResult);
       if (swift_getEnumCaseMultiPayload() != 1)
       {
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v15, type metadata accessor for Prompt.AttachmentContent);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v12, type metadata accessor for Prompt.AttachmentContent);
         goto LABEL_25;
       }
 
-      v32 = v25;
-      v33 = v21;
-      v34 = v12;
-      v35 = v8;
-      v36 = v45;
-      outlined init with take of TerminalSymbol(&v11[v31], v45, type metadata accessor for Prompt.AttachmentContent);
-      v37 = static Prompt.AttachmentContent.== infix(_:_:)(v15, v36);
-      v38 = v36;
-      v8 = v35;
-      v12 = v34;
-      v21 = v33;
-      v25 = v32;
-      v18 = v44;
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v38, type metadata accessor for Prompt.AttachmentContent);
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v15, type metadata accessor for Prompt.AttachmentContent);
-      if ((v37 & 1) == 0)
+      v29 = v22;
+      v30 = v18;
+      v31 = v10;
+      v32 = v7;
+      v33 = v42;
+      outlined init with take of TerminalSymbol(&v9[v28], v42, type metadata accessor for Prompt.AttachmentContent);
+      v34 = static Prompt.AttachmentContent.== infix(_:_:)(v12, v33);
+      v35 = v33;
+      v7 = v32;
+      v10 = v31;
+      v18 = v30;
+      v22 = v29;
+      v15 = v41;
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v35, type metadata accessor for Prompt.AttachmentContent);
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v12, type metadata accessor for Prompt.AttachmentContent);
+      if ((v34 & 1) == 0)
       {
         goto LABEL_22;
       }
@@ -3813,32 +3759,32 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore18TokenizationResult
 
     else
     {
-      outlined init with copy of TerminalSymbol(v11, v18, type metadata accessor for TokenizationResult);
-      v39 = *v18;
+      outlined init with copy of TerminalSymbol(v9, v15, type metadata accessor for TokenizationResult);
+      v36 = *v15;
       if (swift_getEnumCaseMultiPayload() == 1)
       {
 
 LABEL_25:
-        outlined destroy of [Regex2BNF.CharacterPredicate](v11, &_s19TokenGenerationCore18TokenizationResultO_ACtMd, &_s19TokenGenerationCore18TokenizationResultO_ACtMR);
+        outlined destroy of [Regex2BNF.CharacterPredicate](v9, &_s19TokenGenerationCore18TokenizationResultO_ACtMd, &_s19TokenGenerationCore18TokenizationResultO_ACtMR);
         goto LABEL_26;
       }
 
-      v40 = *&v11[v31];
-      v41 = *(v39 + 16);
-      if (v41 != *(v40 + 16))
+      v37 = *&v9[v28];
+      v38 = *(v36 + 16);
+      if (v38 != *(v37 + 16))
       {
         goto LABEL_21;
       }
 
-      if (v41 && v39 != v40)
+      if (v38 && v36 != v37)
       {
-        v42 = (v39 + 32);
-        v43 = (v40 + 32);
-        while (*v42 == *v43)
+        v39 = (v36 + 32);
+        v40 = (v37 + 32);
+        while (*v39 == *v40)
         {
-          ++v42;
-          ++v43;
-          if (!--v41)
+          ++v39;
+          ++v40;
+          if (!--v38)
           {
             goto LABEL_5;
           }
@@ -3847,21 +3793,21 @@ LABEL_25:
 LABEL_21:
 
 LABEL_22:
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v11, type metadata accessor for TokenizationResult);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v9, type metadata accessor for TokenizationResult);
 LABEL_26:
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v21, type metadata accessor for TokenizationResult);
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v25, type metadata accessor for TokenizationResult);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v18, type metadata accessor for TokenizationResult);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v22, type metadata accessor for TokenizationResult);
         return 0;
       }
 
 LABEL_5:
     }
 
-    ++v27;
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v11, type metadata accessor for TokenizationResult);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v21, type metadata accessor for TokenizationResult);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v25, type metadata accessor for TokenizationResult);
-    if (v27 == v49)
+    ++v24;
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v9, type metadata accessor for TokenizationResult);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v18, type metadata accessor for TokenizationResult);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v22, type metadata accessor for TokenizationResult);
+    if (v24 == v46)
     {
       return 1;
     }
@@ -4375,136 +4321,132 @@ BOOL _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration6PromptV9DelimiterV_Tt1g5(ui
 {
   v4 = type metadata accessor for Locale();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v48 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v48 - v11;
-  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
-  v13 = *(*(v58 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v58);
-  v15 = &v48 - v14;
-  v56 = type metadata accessor for Prompt.Delimiter(0);
-  v16 = *(*(v56 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v56);
-  v18 = (&v48 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = (&v48 - v21);
-  v23 = *(a1 + 16);
-  if (v23 == *(a2 + 16))
+  v7 = &v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v44 - v9;
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
+  MEMORY[0x1EEE9AC00](v54);
+  v12 = &v44 - v11;
+  v52 = type metadata accessor for Prompt.Delimiter(0);
+  MEMORY[0x1EEE9AC00](v52);
+  v14 = (&v44 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = (&v44 - v17);
+  v19 = *(a1 + 16);
+  if (v19 == *(a2 + 16))
   {
-    if (!v23 || a1 == a2)
+    if (!v19 || a1 == a2)
     {
       return 1;
     }
 
-    v52 = v12;
-    v24 = (*(v20 + 80) + 32) & ~*(v20 + 80);
-    v25 = a1 + v24;
-    v26 = a2 + v24;
-    v27 = (v5 + 48);
-    v49 = (v5 + 32);
-    v50 = v8;
-    v51 = (v5 + 8);
-    v28 = v26;
-    v54 = *(v20 + 72);
-    v55 = v27;
-    v29 = v56;
+    v48 = v10;
+    v20 = (*(v16 + 80) + 32) & ~*(v16 + 80);
+    v21 = a1 + v20;
+    v22 = a2 + v20;
+    v23 = (v5 + 48);
+    v45 = (v5 + 32);
+    v46 = v7;
+    v47 = (v5 + 8);
+    v24 = v22;
+    v50 = *(v16 + 72);
+    v51 = v23;
+    v25 = v52;
     while (1)
     {
-      outlined init with copy of TerminalSymbol(v25, v22, type metadata accessor for Prompt.Delimiter);
-      v57 = v28;
-      outlined init with copy of TerminalSymbol(v28, v18, type metadata accessor for Prompt.Delimiter);
-      v30 = *v22 == *v18 && v22[1] == v18[1];
-      if (!v30 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      outlined init with copy of TerminalSymbol(v21, v18, type metadata accessor for Prompt.Delimiter);
+      v53 = v24;
+      outlined init with copy of TerminalSymbol(v24, v14, type metadata accessor for Prompt.Delimiter);
+      v26 = *v18 == *v14 && v18[1] == v14[1];
+      if (!v26 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         break;
       }
 
-      v59 = type metadata accessor for Prompt.SpecialToken(0);
-      v31 = *(v59 + 20);
-      v32 = *(v58 + 48);
-      outlined init with copy of Locale?(v22 + v31, v15);
-      outlined init with copy of Locale?(v18 + v31, &v15[v32]);
-      v33 = *v27;
-      if ((*v27)(v15, 1, v4) == 1)
+      v55 = type metadata accessor for Prompt.SpecialToken(0);
+      v27 = *(v55 + 20);
+      v28 = *(v54 + 48);
+      outlined init with copy of Locale?(v18 + v27, v12);
+      outlined init with copy of Locale?(v14 + v27, &v12[v28]);
+      v29 = *v23;
+      if ((*v23)(v12, 1, v4) == 1)
       {
-        if (v33(&v15[v32], 1, v4) != 1)
+        if (v29(&v12[v28], 1, v4) != 1)
         {
           goto LABEL_29;
         }
 
-        outlined destroy of [Regex2BNF.CharacterPredicate](v15, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-        v34 = v59;
+        outlined destroy of [Regex2BNF.CharacterPredicate](v12, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+        v30 = v55;
       }
 
       else
       {
-        v53 = v25;
-        v35 = v52;
-        outlined init with copy of Locale?(v15, v52);
-        if (v33(&v15[v32], 1, v4) == 1)
+        v49 = v21;
+        v31 = v48;
+        outlined init with copy of Locale?(v12, v48);
+        if (v29(&v12[v28], 1, v4) == 1)
         {
-          (*v51)(v35, v4);
+          (*v47)(v31, v4);
 LABEL_29:
-          outlined destroy of [Regex2BNF.CharacterPredicate](v15, &_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
+          outlined destroy of [Regex2BNF.CharacterPredicate](v12, &_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
           break;
         }
 
-        v36 = v50;
-        (*v49)(v50, &v15[v32], v4);
-        lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type Locale and conformance Locale, 255, MEMORY[0x1E6969770]);
-        v37 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v38 = *v51;
-        v39 = v36;
-        v29 = v56;
-        (*v51)(v39, v4);
-        v38(v35, v4);
-        outlined destroy of [Regex2BNF.CharacterPredicate](v15, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-        v25 = v53;
-        v34 = v59;
-        if ((v37 & 1) == 0)
+        v32 = v46;
+        (*v45)(v46, &v12[v28], v4);
+        lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type Locale and conformance Locale, 255, MEMORY[0x1E6969770], MEMORY[0x1E6969788]);
+        v33 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v34 = *v47;
+        v35 = v32;
+        v25 = v52;
+        (*v47)(v35, v4);
+        v34(v31, v4);
+        outlined destroy of [Regex2BNF.CharacterPredicate](v12, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+        v21 = v49;
+        v30 = v55;
+        if ((v33 & 1) == 0)
         {
           break;
         }
       }
 
-      v40 = *(v34 + 24);
-      v41 = (v22 + v40);
-      v42 = *(v22 + v40 + 8);
-      v43 = (v18 + v40);
-      v44 = v43[1];
-      if (v42)
+      v36 = *(v30 + 24);
+      v37 = (v18 + v36);
+      v38 = *(v18 + v36 + 8);
+      v39 = (v14 + v36);
+      v40 = v39[1];
+      if (v38)
       {
-        if (!v44 || (*v41 != *v43 || v42 != v44) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+        if (!v40 || (*v37 != *v39 || v38 != v40) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
         {
           break;
         }
       }
 
-      else if (v44)
+      else if (v40)
       {
         break;
       }
 
-      if (*(v22 + *(v34 + 28)) != *(v18 + *(v34 + 28)) || *(v22 + *(v29 + 20)) != *(v18 + *(v29 + 20)))
+      if (*(v18 + *(v30 + 28)) != *(v14 + *(v30 + 28)) || *(v18 + *(v25 + 20)) != *(v14 + *(v25 + 20)))
       {
         break;
       }
 
-      v45 = *(v22 + *(v29 + 24));
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v22, type metadata accessor for Prompt.Delimiter);
-      v46 = *(v18 + *(v29 + 24));
+      v41 = *(v18 + *(v25 + 24));
       outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v18, type metadata accessor for Prompt.Delimiter);
-      result = v45 == v46;
-      if (v45 == v46)
+      v42 = *(v14 + *(v25 + 24));
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v14, type metadata accessor for Prompt.Delimiter);
+      result = v41 == v42;
+      if (v41 == v42)
       {
-        v27 = v55;
-        v28 = v57 + v54;
-        v25 += v54;
-        if (--v23)
+        v23 = v51;
+        v24 = v53 + v50;
+        v21 += v50;
+        if (--v19)
         {
           continue;
         }
@@ -4513,8 +4455,8 @@ LABEL_29:
       return result;
     }
 
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v14, type metadata accessor for Prompt.Delimiter);
     outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v18, type metadata accessor for Prompt.Delimiter);
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v22, type metadata accessor for Prompt.Delimiter);
   }
 
   return 0;
@@ -4523,51 +4465,50 @@ LABEL_29:
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration6PromptV10AttachmentV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Prompt.Attachment(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v21 - v10;
-  v12 = *(a1 + 16);
-  if (v12 != *(a2 + 16))
+  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v20 - v9;
+  v11 = *(a1 + 16);
+  if (v11 != *(a2 + 16))
   {
     return 0;
   }
 
-  if (!v12 || a1 == a2)
+  if (!v11 || a1 == a2)
   {
     return 1;
   }
 
-  v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v14 = a1 + v13;
-  v15 = a2 + v13;
-  v16 = *(v9 + 72);
+  v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+  v13 = a1 + v12;
+  v14 = a2 + v12;
+  v15 = *(v8 + 72);
   while (1)
   {
-    result = outlined init with copy of TerminalSymbol(v14, v11, type metadata accessor for Prompt.Attachment);
-    if (!v12)
+    result = outlined init with copy of TerminalSymbol(v13, v10, type metadata accessor for Prompt.Attachment);
+    if (!v11)
     {
       break;
     }
 
-    outlined init with copy of TerminalSymbol(v15, v7, type metadata accessor for Prompt.Attachment);
-    if ((static Prompt.AttachmentContent.== infix(_:_:)(v11, v7) & 1) == 0 || *&v11[*(v4 + 20)] != *&v7[*(v4 + 20)])
+    outlined init with copy of TerminalSymbol(v14, v6, type metadata accessor for Prompt.Attachment);
+    if ((static Prompt.AttachmentContent.== infix(_:_:)(v10, v6) & 1) == 0 || *&v10[*(v4 + 20)] != *&v6[*(v4 + 20)])
     {
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v7, type metadata accessor for Prompt.Attachment);
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v11, type metadata accessor for Prompt.Attachment);
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v6, type metadata accessor for Prompt.Attachment);
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v10, type metadata accessor for Prompt.Attachment);
       return 0;
     }
 
-    v18 = *&v11[*(v4 + 24)];
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v11, type metadata accessor for Prompt.Attachment);
-    v19 = *&v7[*(v4 + 24)];
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v7, type metadata accessor for Prompt.Attachment);
-    result = v18 == v19;
-    v20 = v18 != v19 || v12-- == 1;
-    v15 += v16;
-    v14 += v16;
-    if (v20)
+    v17 = *&v10[*(v4 + 24)];
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v10, type metadata accessor for Prompt.Attachment);
+    v18 = *&v6[*(v4 + 24)];
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v6, type metadata accessor for Prompt.Attachment);
+    result = v17 == v18;
+    v19 = v17 != v18 || v11-- == 1;
+    v14 += v15;
+    v13 += v15;
+    if (v19)
     {
       return result;
     }
@@ -4577,17 +4518,16 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration6PromptV10AttachmentV_Tt
   return result;
 }
 
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation12CharacterSetV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, void (*a5)(uint64_t), uint64_t a6)
+uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation12CharacterSetV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
   v33 = a5;
   v34 = a6;
   v32 = a4;
   v8 = a3(0);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x1EEE9AC00](v12);
   v15 = &v29 - v14;
   v16 = *(a1 + 16);
   if (v16 != *(a2 + 16))
@@ -4613,18 +4553,18 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation12CharacterSetV_Tt1g5Tm(uint6
   while (1)
   {
     v23 = v31;
-    result = (v31)(v15, v18, v8);
+    result = (v31)(v15, v18, v8, v13);
     if (!v16)
     {
       break;
     }
 
     v25 = v20;
-    v23(v13, v19, v8);
-    lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(v32, 255, v33);
+    v23(v11, v19, v8);
+    lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(v32, 255, v33, v34);
     v26 = dispatch thunk of static Equatable.== infix(_:_:)();
     v27 = *v22;
-    (*v22)(v13, v8);
+    (*v22)(v11, v8);
     v27(v15, v8);
     if (v26)
     {
@@ -4717,367 +4657,357 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration6PromptV4TurnV7SegmentO_
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration6PromptV8ToolCallV_Tt1g5(uint64_t a1, uint64_t a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 16);
-  if (v2 == *(a2 + 16))
+  if (v2 != *(a2 + 16))
   {
-    if (v2 && a1 != a2)
+    return 0;
+  }
+
+  if (v2 && a1 != a2)
+  {
+    v40 = 0;
+    v3 = (a1 + 32);
+    v4 = (a2 + 32);
+    for (i = v2 - 1; ; --i)
     {
-      v41 = 0;
-      v3 = (a1 + 32);
-      v4 = (a2 + 32);
-      for (i = v2 - 1; ; --i)
+      v6 = v3[1];
+      v43 = *v3;
+      v44 = v6;
+      v7 = v3[3];
+      v45 = v3[2];
+      v8 = *v4;
+      v9 = v4[1];
+      v46 = v7;
+      v47 = v8;
+      v10 = v4[2];
+      v11 = v4[3];
+      v48 = v9;
+      v49 = v10;
+      v50 = v11;
+      if (v43 != v47 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
-        v6 = v3[1];
-        v44 = *v3;
-        v45 = v6;
-        v7 = v3[3];
-        v46 = v3[2];
-        v8 = *v4;
-        v9 = v4[1];
-        v47 = v7;
-        v48 = v8;
-        v10 = v4[2];
-        v11 = v4[3];
-        v49 = v9;
-        v50 = v10;
-        v51 = v11;
-        if (v44 != v48 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+        return 0;
+      }
+
+      v12 = v45;
+      v13 = v49;
+      if (v44 != v48 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        return 0;
+      }
+
+      if (v12 != v13 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        return 0;
+      }
+
+      v14 = *(&v46 + 1);
+      v15 = v46;
+      v16 = v50;
+      if (*(&v46 + 1) >> 60 == 15)
+      {
+        if (*(&v50 + 1) >> 60 != 15)
         {
-          goto LABEL_67;
+          goto LABEL_66;
         }
 
-        v12 = v46;
-        v13 = v50;
-        if (v45 != v49 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-        {
-          goto LABEL_67;
-        }
+        outlined copy of Data?(v46, *(&v46 + 1));
+        outlined copy of Data?(v16, *(&v16 + 1));
+        outlined consume of Data?(v15, v14);
+        goto LABEL_63;
+      }
 
-        if (v12 != v13 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-        {
-          goto LABEL_67;
-        }
-
-        v14 = *(&v47 + 1);
-        v15 = v47;
-        v16 = v51;
-        if (*(&v47 + 1) >> 60 == 15)
-        {
-          if (*(&v51 + 1) >> 60 != 15)
-          {
-            goto LABEL_66;
-          }
-
-          outlined copy of Data?(v47, *(&v47 + 1));
-          outlined copy of Data?(v16, *(&v16 + 1));
-          outlined consume of Data?(v15, v14);
-          goto LABEL_63;
-        }
-
-        if (*(&v51 + 1) >> 60 == 15)
-        {
+      if (*(&v50 + 1) >> 60 == 15)
+      {
 LABEL_66:
-          outlined copy of Data?(v47, *(&v47 + 1));
-          outlined copy of Data?(v16, *(&v16 + 1));
-          outlined consume of Data?(v15, v14);
-          outlined consume of Data?(v16, *(&v16 + 1));
-          goto LABEL_67;
-        }
+        outlined copy of Data?(v46, *(&v46 + 1));
+        outlined copy of Data?(v16, *(&v16 + 1));
+        outlined consume of Data?(v15, v14);
+        outlined consume of Data?(v16, *(&v16 + 1));
+        return 0;
+      }
 
-        v17 = *(&v47 + 1) >> 62;
-        v18 = *(&v51 + 1) >> 62;
-        if (*(&v47 + 1) >> 62 == 3)
-        {
-          break;
-        }
+      v17 = *(&v46 + 1) >> 62;
+      v18 = *(&v50 + 1) >> 62;
+      if (*(&v46 + 1) >> 62 == 3)
+      {
+        break;
+      }
 
-        if (v17 > 1)
+      if (v17 > 1)
+      {
+        if (v17 == 2)
         {
-          if (v17 == 2)
+          v27 = *(v46 + 16);
+          v26 = *(v46 + 24);
+          v24 = __OFSUB__(v26, v27);
+          v19 = v26 - v27;
+          if (v24)
           {
-            v27 = *(v47 + 16);
-            v26 = *(v47 + 24);
-            v24 = __OFSUB__(v26, v27);
-            v19 = v26 - v27;
-            if (v24)
-            {
-              goto LABEL_71;
-            }
-
-            goto LABEL_29;
+            goto LABEL_70;
           }
 
-          v19 = 0;
-          if (v18 <= 1)
-          {
-            goto LABEL_30;
-          }
+          goto LABEL_29;
         }
 
-        else if (v17)
+        v19 = 0;
+        if (v18 <= 1)
         {
-          LODWORD(v19) = DWORD1(v47) - v47;
-          if (__OFSUB__(DWORD1(v47), v47))
-          {
-            goto LABEL_72;
-          }
+          goto LABEL_30;
+        }
+      }
 
-          v19 = v19;
-          if (v18 <= 1)
-          {
+      else if (v17)
+      {
+        LODWORD(v19) = DWORD1(v46) - v46;
+        if (__OFSUB__(DWORD1(v46), v46))
+        {
+          goto LABEL_71;
+        }
+
+        v19 = v19;
+        if (v18 <= 1)
+        {
 LABEL_30:
-            if (v18)
-            {
-              LODWORD(v25) = DWORD1(v51) - v51;
-              if (__OFSUB__(DWORD1(v51), v51))
-              {
-                goto LABEL_70;
-              }
-
-              v25 = v25;
-            }
-
-            else
-            {
-              v25 = BYTE14(v51);
-            }
-
-            goto LABEL_36;
-          }
-        }
-
-        else
-        {
-          v19 = BYTE14(v47);
-          if (v18 <= 1)
+          if (v18)
           {
-            goto LABEL_30;
+            LODWORD(v25) = DWORD1(v50) - v50;
+            if (__OFSUB__(DWORD1(v50), v50))
+            {
+              goto LABEL_69;
+            }
+
+            v25 = v25;
           }
+
+          else
+          {
+            v25 = BYTE14(v50);
+          }
+
+          goto LABEL_36;
         }
+      }
+
+      else
+      {
+        v19 = BYTE14(v46);
+        if (v18 <= 1)
+        {
+          goto LABEL_30;
+        }
+      }
 
 LABEL_23:
-        if (v18 != 2)
+      if (v18 != 2)
+      {
+        if (v19)
         {
-          if (v19)
-          {
-            goto LABEL_69;
-          }
-
-LABEL_41:
-          outlined init with copy of Prompt.ToolCall(&v44, v43);
-          outlined init with copy of Prompt.ToolCall(&v48, v43);
-          outlined copy of Data?(v15, v14);
-          outlined copy of Data?(v16, *(&v16 + 1));
-          v21 = *(&v16 + 1);
-          v20 = v16;
-LABEL_42:
-          outlined consume of Data?(v20, v21);
-          outlined consume of Data?(v15, v14);
-          outlined destroy of Prompt.ToolCall(&v48);
-          outlined destroy of Prompt.ToolCall(&v44);
-          goto LABEL_63;
-        }
-
-        v23 = *(v51 + 16);
-        v22 = *(v51 + 24);
-        v24 = __OFSUB__(v22, v23);
-        v25 = v22 - v23;
-        if (v24)
-        {
-          __break(1u);
-LABEL_70:
-          __break(1u);
-LABEL_71:
-          __break(1u);
-LABEL_72:
-          __break(1u);
-LABEL_73:
-          __break(1u);
-LABEL_74:
-          __break(1u);
-LABEL_75:
-          __break(1u);
-LABEL_76:
-          __break(1u);
-        }
-
-LABEL_36:
-        if (v19 != v25)
-        {
-LABEL_69:
-          outlined init with copy of Prompt.ToolCall(&v44, v43);
-          outlined init with copy of Prompt.ToolCall(&v48, v43);
-          outlined copy of Data?(v15, v14);
-          outlined copy of Data?(v16, *(&v16 + 1));
-          outlined consume of Data?(v16, *(&v16 + 1));
-          outlined consume of Data?(v15, v14);
-          outlined destroy of Prompt.ToolCall(&v48);
-          outlined destroy of Prompt.ToolCall(&v44);
-          result = 0;
           goto LABEL_68;
         }
 
-        if (v19 < 1)
-        {
-          goto LABEL_41;
-        }
+LABEL_41:
+        outlined init with copy of Prompt.ToolCall(&v43, v42);
+        outlined init with copy of Prompt.ToolCall(&v47, v42);
+        outlined copy of Data?(v15, v14);
+        outlined copy of Data?(v16, *(&v16 + 1));
+        v21 = *(&v16 + 1);
+        v20 = v16;
+LABEL_42:
+        outlined consume of Data?(v20, v21);
+        outlined consume of Data?(v15, v14);
+        outlined destroy of Prompt.ToolCall(&v47);
+        outlined destroy of Prompt.ToolCall(&v43);
+        goto LABEL_63;
+      }
 
-        if (v17 > 1)
+      v23 = *(v50 + 16);
+      v22 = *(v50 + 24);
+      v24 = __OFSUB__(v22, v23);
+      v25 = v22 - v23;
+      if (v24)
+      {
+        __break(1u);
+LABEL_69:
+        __break(1u);
+LABEL_70:
+        __break(1u);
+LABEL_71:
+        __break(1u);
+LABEL_72:
+        __break(1u);
+LABEL_73:
+        __break(1u);
+LABEL_74:
+        __break(1u);
+LABEL_75:
+        __break(1u);
+      }
+
+LABEL_36:
+      if (v19 != v25)
+      {
+LABEL_68:
+        outlined init with copy of Prompt.ToolCall(&v43, v42);
+        outlined init with copy of Prompt.ToolCall(&v47, v42);
+        outlined copy of Data?(v15, v14);
+        outlined copy of Data?(v16, *(&v16 + 1));
+        outlined consume of Data?(v16, *(&v16 + 1));
+        outlined consume of Data?(v15, v14);
+        outlined destroy of Prompt.ToolCall(&v47);
+        outlined destroy of Prompt.ToolCall(&v43);
+        return 0;
+      }
+
+      if (v19 < 1)
+      {
+        goto LABEL_41;
+      }
+
+      if (v17 > 1)
+      {
+        if (v17 == 2)
         {
-          if (v17 == 2)
+          v28 = *(v46 + 16);
+          v39 = *(v46 + 24);
+          outlined init with copy of Prompt.ToolCall(&v43, v42);
+          outlined init with copy of Prompt.ToolCall(&v47, v42);
+          outlined copy of Data?(v15, v14);
+          outlined copy of Data?(v16, *(&v16 + 1));
+          outlined copy of Data?(v16, *(&v16 + 1));
+          v29 = __DataStorage._bytes.getter();
+          if (v29)
           {
-            v28 = *(v47 + 16);
-            v40 = *(v47 + 24);
-            outlined init with copy of Prompt.ToolCall(&v44, v43);
-            outlined init with copy of Prompt.ToolCall(&v48, v43);
-            outlined copy of Data?(v15, v14);
-            outlined copy of Data?(v16, *(&v16 + 1));
-            outlined copy of Data?(v16, *(&v16 + 1));
-            v29 = __DataStorage._bytes.getter();
-            if (v29)
-            {
-              v30 = __DataStorage._offset.getter();
-              if (__OFSUB__(v28, v30))
-              {
-                goto LABEL_75;
-              }
-
-              v29 += v28 - v30;
-            }
-
-            if (__OFSUB__(v40, v28))
+            v30 = __DataStorage._offset.getter();
+            if (__OFSUB__(v28, v30))
             {
               goto LABEL_74;
             }
 
-            MEMORY[0x1AC57AAA0]();
-            v31 = v29;
-            v33 = *(&v16 + 1);
-            v32 = v16;
-            v34 = v41;
-            goto LABEL_59;
+            v29 += v28 - v30;
           }
 
-          memset(v42, 0, 14);
-          outlined init with copy of Prompt.ToolCall(&v44, v43);
-          outlined init with copy of Prompt.ToolCall(&v48, v43);
-          outlined copy of Data?(v15, v14);
-          outlined copy of Data?(v16, *(&v16 + 1));
-          outlined copy of Data?(v16, *(&v16 + 1));
-        }
-
-        else
-        {
-          if (v17)
+          if (__OFSUB__(v39, v28))
           {
-            if (v47 >> 32 < v47)
-            {
-              goto LABEL_73;
-            }
-
-            outlined init with copy of Prompt.ToolCall(&v44, v43);
-            outlined init with copy of Prompt.ToolCall(&v48, v43);
-            outlined copy of Data?(v15, v14);
-            outlined copy of Data?(v16, *(&v16 + 1));
-            outlined copy of Data?(v16, *(&v16 + 1));
-            v35 = __DataStorage._bytes.getter();
-            if (v35)
-            {
-              v36 = __DataStorage._offset.getter();
-              if (__OFSUB__(v15, v36))
-              {
-                goto LABEL_76;
-              }
-
-              v35 += v15 - v36;
-            }
-
-            v34 = v41;
-            MEMORY[0x1AC57AAA0]();
-            v31 = v35;
-            v33 = *(&v16 + 1);
-            v32 = v16;
-LABEL_59:
-            closure #1 in static Data.== infix(_:_:)(v31, v32, v33, v43);
-            v41 = v34;
-            outlined consume of Data?(v16, *(&v16 + 1));
-            outlined consume of Data?(v16, *(&v16 + 1));
-            v37 = v43[0];
-            goto LABEL_62;
+            goto LABEL_73;
           }
 
-          v42[0] = v47;
-          LOWORD(v42[1]) = WORD4(v47);
-          *(&v42[1] + 2) = *(&v47 + 10);
-          outlined init with copy of Prompt.ToolCall(&v44, v43);
-          outlined init with copy of Prompt.ToolCall(&v48, v43);
+          MEMORY[0x1AC57AAA0]();
+          v31 = v29;
+          v33 = *(&v16 + 1);
+          v32 = v16;
+          v34 = v40;
+          goto LABEL_59;
+        }
+
+        memset(v41, 0, 14);
+        outlined init with copy of Prompt.ToolCall(&v43, v42);
+        outlined init with copy of Prompt.ToolCall(&v47, v42);
+        outlined copy of Data?(v15, v14);
+        outlined copy of Data?(v16, *(&v16 + 1));
+        outlined copy of Data?(v16, *(&v16 + 1));
+      }
+
+      else
+      {
+        if (v17)
+        {
+          if (v46 >> 32 < v46)
+          {
+            goto LABEL_72;
+          }
+
+          outlined init with copy of Prompt.ToolCall(&v43, v42);
+          outlined init with copy of Prompt.ToolCall(&v47, v42);
           outlined copy of Data?(v15, v14);
           outlined copy of Data?(v16, *(&v16 + 1));
           outlined copy of Data?(v16, *(&v16 + 1));
+          v35 = __DataStorage._bytes.getter();
+          if (v35)
+          {
+            v36 = __DataStorage._offset.getter();
+            if (__OFSUB__(v15, v36))
+            {
+              goto LABEL_75;
+            }
+
+            v35 += v15 - v36;
+          }
+
+          v34 = v40;
+          MEMORY[0x1AC57AAA0]();
+          v31 = v35;
+          v33 = *(&v16 + 1);
+          v32 = v16;
+LABEL_59:
+          closure #1 in static Data.== infix(_:_:)(v31, v32, v33, v42);
+          v40 = v34;
+          outlined consume of Data?(v16, *(&v16 + 1));
+          outlined consume of Data?(v16, *(&v16 + 1));
+          v37 = v42[0];
+          goto LABEL_62;
         }
 
-        closure #1 in static Data.== infix(_:_:)(v42, v16, *(&v16 + 1), v43);
-        outlined consume of Data?(v16, *(&v16 + 1));
-        outlined consume of Data?(v16, *(&v16 + 1));
-        v37 = v43[0];
+        v41[0] = v46;
+        LODWORD(v41[1]) = DWORD2(v46);
+        WORD2(v41[1]) = WORD6(v46);
+        outlined init with copy of Prompt.ToolCall(&v43, v42);
+        outlined init with copy of Prompt.ToolCall(&v47, v42);
+        outlined copy of Data?(v15, v14);
+        outlined copy of Data?(v16, *(&v16 + 1));
+        outlined copy of Data?(v16, *(&v16 + 1));
+      }
+
+      closure #1 in static Data.== infix(_:_:)(v41, v16, *(&v16 + 1), v42);
+      outlined consume of Data?(v16, *(&v16 + 1));
+      outlined consume of Data?(v16, *(&v16 + 1));
+      v37 = v42[0];
 LABEL_62:
-        outlined consume of Data?(v15, v14);
-        outlined destroy of Prompt.ToolCall(&v48);
-        outlined destroy of Prompt.ToolCall(&v44);
-        if (!v37)
-        {
-          goto LABEL_67;
-        }
+      outlined consume of Data?(v15, v14);
+      outlined destroy of Prompt.ToolCall(&v47);
+      outlined destroy of Prompt.ToolCall(&v43);
+      if ((v37 & 1) == 0)
+      {
+        return 0;
+      }
 
 LABEL_63:
-        if (!i)
-        {
-          goto LABEL_65;
-        }
-
-        v4 += 4;
-        v3 += 4;
-      }
-
-      v19 = 0;
-      if (v47 == __PAIR128__(0xC000000000000000, 0) && *(&v51 + 1) >> 62 == 3)
+      if (!i)
       {
-        v19 = 0;
-        if (v51 == __PAIR128__(0xC000000000000000, 0))
-        {
-          outlined init with copy of Prompt.ToolCall(&v44, v43);
-          outlined init with copy of Prompt.ToolCall(&v48, v43);
-          outlined copy of Data?(0, 0xC000000000000000);
-          outlined copy of Data?(0, 0xC000000000000000);
-          v20 = 0;
-          v21 = 0xC000000000000000;
-          goto LABEL_42;
-        }
+        return 1;
       }
 
-LABEL_29:
-      if (v18 <= 1)
-      {
-        goto LABEL_30;
-      }
-
-      goto LABEL_23;
+      v4 += 4;
+      v3 += 4;
     }
 
-LABEL_65:
-    result = 1;
+    v19 = 0;
+    if (v46 == __PAIR128__(0xC000000000000000, 0) && *(&v50 + 1) >> 62 == 3)
+    {
+      v19 = 0;
+      if (v50 == __PAIR128__(0xC000000000000000, 0))
+      {
+        outlined init with copy of Prompt.ToolCall(&v43, v42);
+        outlined init with copy of Prompt.ToolCall(&v47, v42);
+        outlined copy of Data?(0, 0xC000000000000000);
+        outlined copy of Data?(0, 0xC000000000000000);
+        v20 = 0;
+        v21 = 0xC000000000000000;
+        goto LABEL_42;
+      }
+    }
+
+LABEL_29:
+    if (v18 <= 1)
+    {
+      goto LABEL_30;
+    }
+
+    goto LABEL_23;
   }
 
-  else
-  {
-LABEL_67:
-    result = 0;
-  }
-
-LABEL_68:
-  v39 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZs7Float16V_Tt1g5(uint64_t result, uint64_t a2)
@@ -5163,11 +5093,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance EarleyR
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.State()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.State(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  specialized Array<A>.hash(into:)(v3, v1);
+  specialized Array<A>.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -5456,13 +5386,13 @@ void protocol witness for Hashable.hash(into:) in conformance EarleyRecognizer.C
   specialized Array<A>.hash(into:)(a1, v4);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.Chart()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer.Chart(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  specialized Array<A>.hash(into:)(v4, v1);
-  specialized Array<A>.hash(into:)(v4, v2);
+  specialized Array<A>.hash(into:)(v5, v2);
+  specialized Array<A>.hash(into:)(v5, v3);
   return Hasher._finalize()();
 }
 
@@ -5478,40 +5408,39 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Ear
   return _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore16EarleyRecognizerC5StateV_Tt1g5(v2, v3);
 }
 
-uint64_t EarleyRecognizer.childRecognizer(consumingElement:)(uint64_t a1)
+uint64_t EarleyRecognizer.childRecognizer(consumingElement:)(unsigned int *a1)
 {
-  v2 = *v1;
-  v3 = *a1;
-  v4 = *(a1 + 4);
-  v5 = v1[5];
-  v6 = v1[6];
-  v18 = MEMORY[0x1E69E7CC0];
+  v2 = *a1;
+  v3 = *(a1 + 4);
+  v4 = v1[5];
+  v5 = v1[6];
+  v17 = MEMORY[0x1E69E7CC0];
+  v18 = v4;
+  v6 = v1[4];
   v19 = v5;
-  v7 = v1[4];
-  v20 = v6;
+  v15 = v2;
   v16 = v3;
-  v17 = v4;
 
-  specialized static EarleyRecognizer.parse(recognizerGrammar:element:with:items:)(v7, &v16, &v19, &v18);
-  v8 = *(v18 + 2);
+  specialized static EarleyRecognizer.parse(recognizerGrammar:element:with:items:)(v6, &v15, &v18, &v17);
+  v7 = *(v17 + 2);
 
-  if (v8)
+  if (v7)
   {
-    v9 = v1[2];
-    v10 = v4 != 0;
-    v11 = v20;
+    v8 = v1[2];
+    v9 = v3 != 0;
+    v10 = v19;
 
-    v12 = EarleyRecognizer.Chart.appending(states:)(v11, v5, MEMORY[0x1E69E7CC0]);
-    v14 = v13;
+    v11 = EarleyRecognizer.Chart.appending(states:)(v10, v4, MEMORY[0x1E69E7CC0]);
+    v13 = v12;
 
     swift_bridgeObjectRelease_n();
     result = swift_allocObject();
-    *(result + 16) = v9;
-    *(result + 28) = v10;
-    *(result + 24) = v3;
-    *(result + 32) = v7;
-    *(result + 40) = v12;
-    *(result + 48) = v14;
+    *(result + 16) = v8;
+    *(result + 28) = v9;
+    *(result + 24) = v2;
+    *(result + 32) = v6;
+    *(result + 40) = v11;
+    *(result + 48) = v13;
   }
 
   else
@@ -5526,133 +5455,132 @@ uint64_t EarleyRecognizer.childRecognizer(consumingElement:)(uint64_t a1)
 uint64_t EarleyRecognizer.childRecognizer(consumingString:)(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = *v2;
-  v6 = v2[5];
-  v7 = v2[6];
+  v5 = *(v2 + 40);
+  v6 = *(v2 + 48);
+  v30 = v5;
   v31 = v6;
-  v32 = v7;
-  v30 = MEMORY[0x1E69E7CC0];
+  v29 = MEMORY[0x1E69E7CC0];
   if ((a2 & 0x2000000000000000) != 0)
   {
-    v8 = HIBYTE(a2) & 0xF;
+    v7 = HIBYTE(a2) & 0xF;
   }
 
   else
   {
-    v8 = a1 & 0xFFFFFFFFFFFFLL;
+    v7 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v8)
+  if (v7)
   {
-    v28 = v6;
-    v10 = a2 & 0xFFFFFFFFFFFFFFLL;
-    v11 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
+    v27 = v5;
+    v9 = a2 & 0xFFFFFFFFFFFFFFLL;
+    v10 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
 
-    v12 = 0;
+    v11 = 0;
     while (1)
     {
       if ((a2 & 0x1000000000000000) != 0)
       {
-        v15 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
-        v17 = v16;
+        v14 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
+        v16 = v15;
         goto LABEL_15;
       }
 
       if ((a2 & 0x2000000000000000) != 0)
       {
-        v29[0] = a1;
-        v29[1] = v10;
-        v14 = v29 + v12;
+        v28[0] = a1;
+        v28[1] = v9;
+        v13 = v28 + v11;
       }
 
       else
       {
-        v13 = v11;
+        v12 = v10;
         if ((a1 & 0x1000000000000000) == 0)
         {
-          v13 = _StringObject.sharedUTF8.getter();
+          v12 = _StringObject.sharedUTF8.getter();
         }
 
-        v14 = (v13 + v12);
+        v13 = (v12 + v11);
       }
 
-      v15 = *v14;
-      if ((*v14 & 0x80000000) == 0)
+      v14 = *v13;
+      if ((*v13 & 0x80000000) == 0)
       {
         break;
       }
 
-      v19 = (__clz(v15 ^ 0xFF) - 24);
-      if (v19 > 2)
+      v18 = (__clz(v14 ^ 0xFF) - 24);
+      if (v18 > 2)
       {
-        if (v19 == 3)
+        if (v18 == 3)
         {
-          v15 = ((v15 & 0xF) << 12) | ((v14[1] & 0x3F) << 6) | v14[2] & 0x3F;
-          v17 = 3;
+          v14 = ((v14 & 0xF) << 12) | ((v13[1] & 0x3F) << 6) | v13[2] & 0x3F;
+          v16 = 3;
         }
 
         else
         {
-          v15 = ((v15 & 0xF) << 18) | ((v14[1] & 0x3F) << 12) | ((v14[2] & 0x3F) << 6) | v14[3] & 0x3F;
-          v17 = 4;
+          v14 = ((v14 & 0xF) << 18) | ((v13[1] & 0x3F) << 12) | ((v13[2] & 0x3F) << 6) | v13[3] & 0x3F;
+          v16 = 4;
         }
       }
 
       else
       {
-        if (v19 == 1)
+        if (v18 == 1)
         {
           break;
         }
 
-        v15 = v14[1] & 0x3F | ((v15 & 0x1F) << 6);
-        v17 = 2;
+        v14 = v13[1] & 0x3F | ((v14 & 0x1F) << 6);
+        v16 = 2;
       }
 
 LABEL_15:
-      v18 = v3[4];
-      LODWORD(v29[0]) = v15;
-      BYTE4(v29[0]) = 0;
-      specialized static EarleyRecognizer.parse(recognizerGrammar:element:with:items:)(v18, v29, &v31, &v30);
-      if (!*(v30 + 2))
+      v17 = *(v3 + 32);
+      LODWORD(v28[0]) = v14;
+      BYTE4(v28[0]) = 0;
+      specialized static EarleyRecognizer.parse(recognizerGrammar:element:with:items:)(v17, v28, &v30, &v29);
+      if (!*(v29 + 2))
       {
 
         return 0;
       }
 
-      v12 += v17;
-      if (v12 >= v8)
+      v11 += v16;
+      if (v11 >= v7)
       {
 
-        v21 = v15;
-        v7 = v32;
-        v22 = v28;
+        v20 = v14;
+        v6 = v31;
+        v21 = v27;
         goto LABEL_25;
       }
     }
 
-    v17 = 1;
+    v16 = 1;
     goto LABEL_15;
   }
 
-  v22 = v6;
+  v21 = v5;
 
-  v21 = 0xFF00000000;
+  v20 = 0xFF00000000;
 LABEL_25:
-  v23 = v3[2];
-  v24 = v3[4];
+  v22 = *(v3 + 16);
+  v23 = *(v3 + 32);
 
-  v25 = EarleyRecognizer.Chart.appending(states:)(v7, v22, MEMORY[0x1E69E7CC0]);
-  v27 = v26;
+  v24 = EarleyRecognizer.Chart.appending(states:)(v6, v21, MEMORY[0x1E69E7CC0]);
+  v26 = v25;
 
   swift_bridgeObjectRelease_n();
   result = swift_allocObject();
-  *(result + 16) = v23;
-  *(result + 28) = BYTE4(v21);
-  *(result + 24) = v21;
-  *(result + 32) = v24;
-  *(result + 40) = v25;
-  *(result + 48) = v27;
+  *(result + 16) = v22;
+  *(result + 28) = BYTE4(v20);
+  *(result + 24) = v20;
+  *(result + 32) = v23;
+  *(result + 40) = v24;
+  *(result + 48) = v26;
   return result;
 }
 
@@ -5838,7 +5766,7 @@ LABEL_48:
               v18 = v12;
             }
 
-            v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v18, 1, v11, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMR);
+            v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v18, 1, v11, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMR, &type metadata for EarleyRecognizer.State);
           }
 
           swift_arrayDestroy();
@@ -6060,53 +5988,52 @@ LABEL_21:
 Swift::tuple_cacheKey_Int_optional_nextValidTerminals_OpaquePointer __swiftcall EarleyRecognizer.nextValidTerminalsWithCacheKey()()
 {
   v1 = type metadata accessor for TerminalSymbol(0);
-  v56 = *(v1 - 8);
-  v2 = *(v56 + 64);
+  v55 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1 - 8);
-  v4 = &v44 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  EarleyRecognizer.Chart.lastState.getter(v0[5], v0[6], &v58);
-  v5 = v58;
-  if (!v58)
+  v3 = &v43 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  EarleyRecognizer.Chart.lastState.getter(v0[5], v0[6], &v57);
+  v4 = v57;
+  if (!v57)
   {
     goto LABEL_42;
   }
 
-  v6 = *(v58 + 16);
-  if (!v6)
+  v5 = *(v57 + 16);
+  if (!v5)
   {
 
 LABEL_42:
     isUniquelyReferenced_nonNull_native = 0;
-    v18 = MEMORY[0x1E69E7CC0];
+    v17 = MEMORY[0x1E69E7CC0];
     goto LABEL_44;
   }
 
-  v7 = v0[4];
-  v8 = v7[7];
-  v9 = v7[2];
-  v10 = v7[3];
+  v6 = v0[4];
+  v7 = v6[7];
+  v8 = v6[2];
+  v9 = v6[3];
 
-  v55 = v9;
+  v54 = v8;
 
-  v14 = v8 + 32;
-  v46 = 0;
-  v15 = 0;
-  v16 = -v6;
-  v17 = v5 + 64;
+  v13 = v7 + 32;
+  v45 = 0;
+  v14 = 0;
+  v15 = -v5;
+  v16 = v4 + 64;
+  v17 = MEMORY[0x1E69E7CC0];
   v18 = MEMORY[0x1E69E7CC0];
-  v19 = MEMORY[0x1E69E7CC0];
-  v50 = v4;
-  v51 = v10;
-  v53 = -v6;
-  v54 = v8 + 32;
-  v45 = v5 + 64;
-  v52 = v8;
+  v49 = v3;
+  v50 = v9;
+  v52 = -v5;
+  v53 = v7 + 32;
+  v44 = v4 + 64;
+  v51 = v7;
 LABEL_4:
-  v47 = v19;
-  v19 = v17 + 40 * v15++;
+  v46 = v18;
+  v18 = v16 + 40 * v14++;
   do
   {
-    if ((v15 - 1) >= *(v5 + 16))
+    if ((v14 - 1) >= *(v4 + 16))
     {
       __break(1u);
 LABEL_47:
@@ -6116,37 +6043,37 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    v20 = *(v19 - 32);
-    if ((v20 & 0x8000000000000000) != 0)
+    v19 = *(v18 - 32);
+    if ((v19 & 0x8000000000000000) != 0)
     {
       goto LABEL_47;
     }
 
-    if (v20 >= *(v8 + 16))
+    if (v19 >= *(v7 + 16))
     {
       goto LABEL_48;
     }
 
-    v21 = *(v19 - 24);
-    v22 = (v14 + 24 * v20);
-    v23 = v22[1];
-    if (v21 < *(v23 + 16))
+    v20 = *(v18 - 24);
+    v21 = (v13 + 24 * v19);
+    v22 = v21[1];
+    if (v20 < *(v22 + 16))
     {
-      v24 = *(v19 - 8);
-      v25 = *v19;
-      v26 = v23 + 16 * v21;
-      if (*(v26 + 40))
+      v23 = *(v18 - 8);
+      v24 = *v18;
+      v25 = v22 + 16 * v20;
+      if (*(v25 + 40))
       {
-        if (*(v26 + 40) == 1)
+        if (*(v25 + 40) == 1)
         {
-          v27 = v21 ? *v19 : 1;
-          if ((v27 & 1) == 0)
+          v26 = v20 ? *v18 : 1;
+          if ((v26 & 1) == 0)
           {
-            v48 = *(v19 - 16);
-            v49 = v24;
-            v19 = v47;
+            v47 = *(v18 - 16);
+            v48 = v23;
+            v18 = v46;
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            v57 = v18;
+            v56 = v17;
             if ((isUniquelyReferenced_nonNull_native & 1) == 0)
             {
               goto LABEL_37;
@@ -6159,8 +6086,8 @@ LABEL_48:
 
       else
       {
-        v28 = *v22;
-        if ((*v22 & 0x8000000000000000) != 0)
+        v27 = *v21;
+        if ((*v21 & 0x8000000000000000) != 0)
         {
           __break(1u);
 LABEL_51:
@@ -6170,94 +6097,94 @@ LABEL_52:
           goto LABEL_53;
         }
 
-        v29 = *(v26 + 32);
-        if ((v29 & 0x8000000000000000) != 0 || v28 >= *(v55 + 16))
+        v28 = *(v25 + 32);
+        if ((v28 & 0x8000000000000000) != 0 || v27 >= *(v54 + 16))
         {
           goto LABEL_51;
         }
 
-        if (v29 >= *(v10 + 16))
+        if (v28 >= *(v9 + 16))
         {
           goto LABEL_52;
         }
 
-        v48 = *(v19 - 16);
-        v49 = v24;
-        v30 = (*(v56 + 80) + 32) & ~*(v56 + 80);
-        v31 = v10 + v30;
-        v32 = *(v56 + 72);
-        outlined init with copy of TerminalSymbol(v31 + v32 * v29, v4, type metadata accessor for TerminalSymbol);
+        v47 = *(v18 - 16);
+        v48 = v23;
+        v29 = (*(v55 + 80) + 32) & ~*(v55 + 80);
+        v30 = v9 + v29;
+        v31 = *(v55 + 72);
+        outlined init with copy of TerminalSymbol(v30 + v31 * v28, v3, type metadata accessor for TerminalSymbol);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18[2] + 1, 1, v18, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMR, type metadata accessor for TerminalSymbol);
+          v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17[2] + 1, 1, v17, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMR, type metadata accessor for TerminalSymbol);
         }
 
-        v34 = v18[2];
-        v33 = v18[3];
-        v57 = v18;
-        if (v34 >= v33 >> 1)
+        v33 = v17[2];
+        v32 = v17[3];
+        v56 = v17;
+        if (v33 >= v32 >> 1)
         {
-          v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v33 > 1, v34 + 1, 1, v57, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMR, type metadata accessor for TerminalSymbol);
+          v56 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1, v56, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore14TerminalSymbolOGMR, type metadata accessor for TerminalSymbol);
         }
 
-        v35 = v57;
-        v57[2] = v34 + 1;
-        v18 = v35;
-        v36 = v35 + v30 + v34 * v32;
-        v4 = v50;
-        isUniquelyReferenced_nonNull_native = outlined init with take of TerminalSymbol(v50, v36, type metadata accessor for TerminalSymbol);
-        if (v21)
+        v34 = v56;
+        v56[2] = v33 + 1;
+        v17 = v34;
+        v35 = v34 + v29 + v33 * v31;
+        v3 = v49;
+        isUniquelyReferenced_nonNull_native = outlined init with take of TerminalSymbol(v49, v35, type metadata accessor for TerminalSymbol);
+        if (v20)
         {
-          v37 = v25;
+          v36 = v24;
         }
 
         else
         {
-          v37 = 1;
+          v36 = 1;
         }
 
-        if ((v37 & 1) == 0)
+        if ((v36 & 1) == 0)
         {
-          v19 = v47;
+          v18 = v46;
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          v10 = v51;
-          v8 = v52;
+          v9 = v50;
+          v7 = v51;
           if ((isUniquelyReferenced_nonNull_native & 1) == 0)
           {
 LABEL_37:
-            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v19 + 16) + 1, 1, v19);
-            v19 = isUniquelyReferenced_nonNull_native;
+            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 16) + 1, 1, v18);
+            v18 = isUniquelyReferenced_nonNull_native;
           }
 
 LABEL_32:
-          v39 = v48;
-          v38 = v49;
-          v41 = *(v19 + 16);
-          v40 = *(v19 + 24);
-          v16 = v53;
-          v14 = v54;
-          v17 = v45;
-          if (v41 >= v40 >> 1)
+          v38 = v47;
+          v37 = v48;
+          v40 = *(v18 + 16);
+          v39 = *(v18 + 24);
+          v15 = v52;
+          v13 = v53;
+          v16 = v44;
+          if (v40 >= v39 >> 1)
           {
-            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1, v19);
-            v39 = v48;
-            v38 = v49;
-            v17 = v45;
-            v16 = v53;
-            v14 = v54;
-            v19 = isUniquelyReferenced_nonNull_native;
+            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1, v18);
+            v38 = v47;
+            v37 = v48;
+            v16 = v44;
+            v15 = v52;
+            v13 = v53;
+            v18 = isUniquelyReferenced_nonNull_native;
           }
 
-          *(v19 + 16) = v41 + 1;
-          v42 = v19 + 40 * v41;
-          *(v42 + 32) = v20;
-          *(v42 + 40) = v21;
-          *(v42 + 48) = v39;
-          *(v42 + 56) = v38;
-          *(v42 + 64) = 0;
-          v46 = 1;
-          v18 = v57;
-          if (!(v16 + v15))
+          *(v18 + 16) = v40 + 1;
+          v41 = v18 + 40 * v40;
+          *(v41 + 32) = v19;
+          *(v41 + 40) = v20;
+          *(v41 + 48) = v38;
+          *(v41 + 56) = v37;
+          *(v41 + 64) = 0;
+          v45 = 1;
+          v17 = v56;
+          if (!(v15 + v14))
           {
 LABEL_49:
 
@@ -6267,41 +6194,41 @@ LABEL_49:
           goto LABEL_4;
         }
 
-        v10 = v51;
-        v8 = v52;
-        v16 = v53;
-        v14 = v54;
+        v9 = v50;
+        v7 = v51;
+        v15 = v52;
+        v13 = v53;
       }
     }
 
-    ++v15;
-    v19 += 40;
+    ++v14;
+    v18 += 40;
   }
 
-  while (v16 + v15 != 1);
+  while (v15 + v14 != 1);
 
-  if (v46)
+  if (v45)
   {
-    v57 = v18;
-    v19 = v47;
+    v56 = v17;
+    v18 = v46;
 LABEL_40:
-    v43 = specialized Collection<>.itemCacheKey()(v19);
+    v42 = specialized Collection<>.itemCacheKey()(v18);
 
-    isUniquelyReferenced_nonNull_native = v43;
-    v12 = 0;
-    v18 = v57;
+    isUniquelyReferenced_nonNull_native = v42;
+    v11 = 0;
+    v17 = v56;
     goto LABEL_45;
   }
 
   isUniquelyReferenced_nonNull_native = 0;
 LABEL_44:
-  v12 = 1;
+  v11 = 1;
 LABEL_45:
-  v13 = v18;
+  v12 = v17;
 LABEL_53:
-  result.nextValidTerminals._rawValue = v13;
+  result.nextValidTerminals._rawValue = v12;
   result.cacheKey.value = isUniquelyReferenced_nonNull_native;
-  result.cacheKey.is_nil = v12;
+  result.cacheKey.is_nil = v11;
   return result;
 }
 
@@ -6371,42 +6298,41 @@ Swift::Bool __swiftcall EarleyRecognizer.nextTerminalsPotentiallyDeterministic()
 BOOL specialized Collection<>.containsCharacterSetTerminal()(uint64_t a1)
 {
   v2 = type metadata accessor for TerminalSymbol(0);
-  v3 = *(*(v2 - 8) + 64);
-  v4 = MEMORY[0x1EEE9AC00](v2);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v9 = &v20 - v8;
-  MEMORY[0x1EEE9AC00](v7);
-  v12 = &v20 - v11;
-  v13 = *(a1 + 16);
-  if (!v13)
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v19 - v6;
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v19 - v10;
+  v12 = *(a1 + 16);
+  if (!v12)
   {
     return 0;
   }
 
-  v14 = a1 + ((*(v10 + 80) + 32) & ~*(v10 + 80));
-  v15 = *(v10 + 72);
-  v16 = v13 - 1;
+  v13 = a1 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
+  v14 = *(v9 + 72);
+  v15 = v12 - 1;
   while (1)
   {
-    v17 = v16;
-    outlined init with copy of TerminalSymbol(v14, v12, type metadata accessor for TerminalSymbol);
-    outlined init with copy of TerminalSymbol(v12, v9, type metadata accessor for TerminalSymbol);
+    v16 = v15;
+    outlined init with copy of TerminalSymbol(v13, v11, type metadata accessor for TerminalSymbol);
+    outlined init with copy of TerminalSymbol(v11, v7, type metadata accessor for TerminalSymbol);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       break;
     }
 
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v9, type metadata accessor for TerminalSymbol);
-    outlined init with take of TerminalSymbol(v12, v6, type metadata accessor for TerminalSymbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v7, type metadata accessor for TerminalSymbol);
+    outlined init with take of TerminalSymbol(v11, v4, type metadata accessor for TerminalSymbol);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v6, type metadata accessor for TerminalSymbol);
+    outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v4, type metadata accessor for TerminalSymbol);
     result = EnumCaseMultiPayload == 2;
     if (EnumCaseMultiPayload != 2)
     {
-      v16 = v17 - 1;
-      v14 += v15;
-      if (v17)
+      v15 = v16 - 1;
+      v13 += v14;
+      if (v16)
       {
         continue;
       }
@@ -6415,31 +6341,19 @@ BOOL specialized Collection<>.containsCharacterSetTerminal()(uint64_t a1)
     return result;
   }
 
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v12, type metadata accessor for TerminalSymbol);
-  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v9, type metadata accessor for TerminalSymbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v11, type metadata accessor for TerminalSymbol);
+  outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v7, type metadata accessor for TerminalSymbol);
   return 1;
 }
 
 void *EarleyRecognizer.deinit()
 {
-  v1 = v0[2];
-
-  v2 = v0[4];
-
-  v4 = v0[5];
-  v3 = v0[6];
 
   return v0;
 }
 
 uint64_t EarleyRecognizer.__deallocating_deinit()
 {
-  v1 = v0[2];
-
-  v2 = v0[4];
-
-  v4 = v0[5];
-  v3 = v0[6];
 
   return swift_deallocClassInstance();
 }
@@ -6461,9 +6375,8 @@ void protocol witness for GrammarRecognizer.lastConsumedElement.getter in confor
   *a1 = v2;
 }
 
-uint64_t protocol witness for GrammarRecognizer.childRecognizer(consumingElement:) in conformance EarleyRecognizer@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for GrammarRecognizer.childRecognizer(consumingElement:) in conformance EarleyRecognizer@<X0>(unsigned int *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = *v2;
   result = EarleyRecognizer.childRecognizer(consumingElement:)(a1);
   *a2 = result;
   return result;
@@ -6471,7 +6384,6 @@ uint64_t protocol witness for GrammarRecognizer.childRecognizer(consumingElement
 
 uint64_t protocol witness for GrammarRecognizer.childRecognizer(consumingString:) in conformance EarleyRecognizer@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v5 = *v3;
   result = EarleyRecognizer.childRecognizer(consumingString:)(a1, a2);
   *a3 = result;
   return result;
@@ -6501,19 +6413,11 @@ uint64_t protocol witness for GrammarRecognizer.createValidatorCache() in confor
   return result;
 }
 
-void *protocol witness for GrammarRecognizer.nextValidTerminals() in conformance EarleyRecognizer()
-{
-  v1 = *v0;
-  v3 = EarleyRecognizer.nextValidTerminalsWithCacheKey()();
-  return v3.nextValidTerminals._rawValue;
-}
-
 BOOL protocol witness for GrammarRecognizer.nextTerminalsPotentiallyDeterministic() in conformance EarleyRecognizer()
 {
-  v1 = *v0;
-  v5 = EarleyRecognizer.nextValidTerminalsWithCacheKey()();
-  rawValue = v5.nextValidTerminals._rawValue;
-  if (specialized Collection<>.containsCharacterSetTerminal()(v5.nextValidTerminals._rawValue))
+  v3 = EarleyRecognizer.nextValidTerminalsWithCacheKey()();
+  rawValue = v3.nextValidTerminals._rawValue;
+  if (specialized Collection<>.containsCharacterSetTerminal()(v3.nextValidTerminals._rawValue))
   {
 
     return 0;
@@ -6521,9 +6425,9 @@ BOOL protocol witness for GrammarRecognizer.nextTerminalsPotentiallyDeterministi
 
   else
   {
-    v4 = rawValue[2];
+    v2 = rawValue[2];
 
-    return v4 < 2;
+    return v2 < 2;
   }
 }
 
@@ -6550,15 +6454,15 @@ void protocol witness for Hashable.hash(into:) in conformance EarleyRecognizer(u
   specialized Array<A>.hash(into:)(a1, v5);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EarleyRecognizer(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  specialized Array<A>.hash(into:)(v5, *(v1[4] + 56));
-  v2 = v1[5];
-  v3 = v1[6];
-  specialized Array<A>.hash(into:)(v5, v2);
-  specialized Array<A>.hash(into:)(v5, v3);
+  specialized Array<A>.hash(into:)(v6, *(v2[4] + 56));
+  v3 = v2[5];
+  v4 = v2[6];
+  specialized Array<A>.hash(into:)(v6, v3);
+  specialized Array<A>.hash(into:)(v6, v4);
   return Hasher._finalize()();
 }
 
@@ -6572,7 +6476,7 @@ void *_sSaySayxGqd__c7ElementQyd__RszSTRd__lufC19TokenGenerationCore17NonTermina
 
   v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC19TokenGenerationCore17NonTerminalSymbolV_Tt1g5(*(a1 + 16), 0);
   v4 = specialized Sequence._copySequenceContents(initializing:)(&v6, v3 + 4, v2, a1);
-  outlined consume of Set<NonTerminalSymbol>.Iterator._Variant();
+  outlined consume of Set<NonTerminalSymbol>.Iterator._Variant(v6);
   if (v4 != v2)
   {
     __break(1u);
@@ -6707,8 +6611,6 @@ char *EarleyRecognizer.Chart.getDebugDescription(recognizerGrammar:)(char *resul
         goto LABEL_39;
       }
 
-      v11 = *v5;
-
       result = swift_isUniquelyReferenced_nonNull_native();
       if (result && v10 <= *(v6 + 3) >> 1)
       {
@@ -6722,15 +6624,15 @@ char *EarleyRecognizer.Chart.getDebugDescription(recognizerGrammar:)(char *resul
       {
         if (v9 <= v10)
         {
-          v12 = v9 + v8;
+          v11 = v9 + v8;
         }
 
         else
         {
-          v12 = v9;
+          v11 = v9;
         }
 
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v6, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMR);
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v6, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore16EarleyRecognizerC5StateVGMR, &type metadata for EarleyRecognizer.State);
         v6 = result;
         if (!*(v7 + 16))
         {
@@ -6754,15 +6656,15 @@ LABEL_3:
 
       if (v8)
       {
-        v13 = *(v6 + 2);
-        v14 = __OFADD__(v13, v8);
-        v15 = v13 + v8;
-        if (v14)
+        v12 = *(v6 + 2);
+        v13 = __OFADD__(v12, v8);
+        v14 = v12 + v8;
+        if (v13)
         {
           goto LABEL_42;
         }
 
-        *(v6 + 2) = v15;
+        *(v6 + 2) = v14;
       }
 
 LABEL_4:
@@ -6776,120 +6678,120 @@ LABEL_4:
 
   v6 = MEMORY[0x1E69E7CC0];
 LABEL_19:
-  v46[0] = v6;
-  v46[1] = a3;
+  v45[0] = v6;
+  v45[1] = a3;
 
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
-  v18 = MEMORY[0x1E69E7CC0];
+  v17 = MEMORY[0x1E69E7CC0];
   while (1)
   {
-    v44 = v16;
-    v19 = v46[v17];
-    v20 = *(v19 + 16);
+    v43 = v15;
+    v18 = v45[v16];
+    v19 = *(v18 + 16);
 
-    if (v20)
+    if (v19)
     {
       break;
     }
 
 LABEL_20:
 
+    v15 = 1;
     v16 = 1;
-    v17 = 1;
-    if (v44)
+    if (v43)
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19TokenGenerationCore16EarleyRecognizerC5StateVGMd, &_sSay19TokenGenerationCore16EarleyRecognizerC5StateVGMR);
       swift_arrayDestroy();
-      v45[0] = v18;
+      v44[0] = v17;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
       lazy protocol witness table accessor for type [String] and conformance [A]();
-      v40 = BidirectionalCollection<>.joined(separator:)();
+      v39 = BidirectionalCollection<>.joined(separator:)();
 
-      return v40;
+      return v39;
     }
   }
 
-  v21 = 0;
-  while (v21 < v20)
+  v20 = 0;
+  while (v20 < v19)
   {
-    v22 = *(v19 + 32 + 8 * v21);
+    v21 = *(v18 + 32 + 8 * v20);
 
     _StringGuts.grow(_:)(19);
 
-    strcpy(v45, "==== State: ");
-    BYTE5(v45[1]) = 0;
-    HIWORD(v45[1]) = -5120;
-    v23 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x1AC57C120](v23);
+    strcpy(v44, "==== State: ");
+    BYTE5(v44[1]) = 0;
+    HIWORD(v44[1]) = -5120;
+    v22 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1AC57C120](v22);
 
     MEMORY[0x1AC57C120](0x3D3D3D3D20, 0xE500000000000000);
-    v24 = v45[0];
-    v25 = v45[1];
+    v23 = v44[0];
+    v24 = v44[1];
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 2) + 1, 1, v18);
+      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17);
     }
 
-    v27 = *(v18 + 2);
-    v26 = *(v18 + 3);
-    if (v27 >= v26 >> 1)
+    v26 = *(v17 + 2);
+    v25 = *(v17 + 3);
+    if (v26 >= v25 >> 1)
     {
-      v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v26 > 1), v27 + 1, 1, v18);
+      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1, v17);
     }
 
-    *(v18 + 2) = v27 + 1;
-    v28 = &v18[16 * v27];
-    *(v28 + 4) = v24;
-    *(v28 + 5) = v25;
-    v29 = *(v22 + 16);
-    if (v29)
+    *(v17 + 2) = v26 + 1;
+    v27 = &v17[16 * v26];
+    *(v27 + 4) = v23;
+    *(v27 + 5) = v24;
+    v28 = *(v21 + 16);
+    if (v28)
     {
-      v30 = (v22 + 32);
+      v29 = (v21 + 32);
       do
       {
-        v31 = v30[1];
-        v47 = *v30;
-        v48 = v31;
-        v49 = *(v30 + 32);
-        v32 = EarleyRecognizer.Item.getDescription(grammar:)(v3);
-        v35 = *(v18 + 2);
-        v34 = *(v18 + 3);
-        if (v35 >= v34 >> 1)
+        v30 = v29[1];
+        v46 = *v29;
+        v47 = v30;
+        v48 = *(v29 + 32);
+        EarleyRecognizer.Item.getDescription(grammar:)(v3);
+        v34 = *(v17 + 2);
+        v33 = *(v17 + 3);
+        if (v34 >= v33 >> 1)
         {
-          v41 = v33;
-          v42 = v32;
-          v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1, v18);
-          v33 = v41;
-          v32 = v42;
+          v40 = v32;
+          v41 = v31;
+          v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v17);
+          v32 = v40;
+          v31 = v41;
         }
 
-        *(v18 + 2) = v35 + 1;
-        v36 = &v18[16 * v35];
-        *(v36 + 4) = v32;
-        *(v36 + 5) = v33;
-        v30 = (v30 + 40);
-        --v29;
+        *(v17 + 2) = v34 + 1;
+        v35 = &v17[16 * v34];
+        *(v35 + 4) = v31;
+        *(v35 + 5) = v32;
+        v29 = (v29 + 40);
+        --v28;
       }
 
-      while (v29);
+      while (v28);
     }
 
-    v38 = *(v18 + 2);
-    v37 = *(v18 + 3);
-    if (v38 >= v37 >> 1)
+    v37 = *(v17 + 2);
+    v36 = *(v17 + 3);
+    if (v37 >= v36 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v37 > 1), v38 + 1, 1, v18);
-      v18 = result;
+      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v36 > 1), v37 + 1, 1, v17);
+      v17 = result;
     }
 
-    ++v21;
-    *(v18 + 2) = v38 + 1;
-    v39 = &v18[16 * v38];
-    *(v39 + 4) = 0;
-    *(v39 + 5) = 0xE000000000000000;
-    v20 = *(v19 + 16);
-    if (v21 == v20)
+    ++v20;
+    *(v17 + 2) = v37 + 1;
+    v38 = &v17[16 * v37];
+    *(v38 + 4) = 0;
+    *(v38 + 5) = 0xE000000000000000;
+    v19 = *(v18 + 16);
+    if (v20 == v19)
     {
       goto LABEL_20;
     }
@@ -6909,7 +6811,7 @@ LABEL_42:
 
 uint64_t closure #1 in static Data.== infix(_:_:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, unint64_t a3@<X3>, BOOL *a4@<X8>)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3 >> 62;
   if ((a3 >> 62) > 1)
   {
@@ -6996,18 +6898,17 @@ LABEL_32:
   if (!v5)
   {
     __s2 = a2;
-    v21 = a3;
-    v22 = BYTE2(a3);
-    v23 = BYTE3(a3);
-    v24 = BYTE4(a3);
-    v25 = BYTE5(a3);
+    v20 = a3;
+    v21 = BYTE2(a3);
+    v22 = BYTE3(a3);
+    v23 = BYTE4(a3);
+    v24 = BYTE5(a3);
     if (result)
     {
       result = memcmp(result, &__s2, BYTE6(a3));
       v6 = result == 0;
 LABEL_30:
       *a4 = v6;
-      v19 = *MEMORY[0x1E69E9840];
       return result;
     }
 
@@ -7073,18 +6974,18 @@ LABEL_40:
 
 uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v7 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
     if (!v7)
     {
-      v14[0] = a1;
-      LOWORD(v14[1]) = a2;
-      BYTE2(v14[1]) = BYTE2(a2);
-      BYTE3(v14[1]) = BYTE3(a2);
-      BYTE4(v14[1]) = BYTE4(a2);
-      BYTE5(v14[1]) = BYTE5(a2);
+      v13[0] = a1;
+      LOWORD(v13[1]) = a2;
+      BYTE2(v13[1]) = BYTE2(a2);
+      BYTE3(v13[1]) = BYTE3(a2);
+      BYTE4(v13[1]) = BYTE4(a2);
+      BYTE5(v13[1]) = BYTE5(a2);
       goto LABEL_9;
     }
 
@@ -7098,7 +6999,7 @@ uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint
 LABEL_7:
     v10 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v8, v9, a2 & 0x3FFFFFFFFFFFFFFFLL, a3, a4);
     outlined consume of Data._Representation(a3, a4);
-    goto LABEL_11;
+    return v10 & 1;
   }
 
   if (v7 == 2)
@@ -7108,18 +7009,16 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  memset(v14, 0, 14);
+  memset(v13, 0, 14);
 LABEL_9:
-  closure #1 in static Data.== infix(_:_:)(v14, a3, a4, &v13);
+  closure #1 in static Data.== infix(_:_:)(v13, a3, a4, &v12);
   v10 = v4;
   outlined consume of Data._Representation(a3, a4);
   if (!v4)
   {
-    v10 = v13;
+    v10 = v12;
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x1E69E9840];
   return v10 & 1;
 }
 
@@ -7343,7 +7242,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3, void *a4)
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore6SymbolOGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore6SymbolOGMR, type metadata accessor for Symbol);
 }
@@ -7353,11 +7252,35 @@ size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapac
 }
 
 {
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySaySiGGMd, &_ss23_ContiguousArrayStorageCySaySiGGMR, &_sSaySiGMd, &_sSaySiGMR);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySay19TokenGenerationCore16EarleyRecognizerC5StateVGGMd, &_ss23_ContiguousArrayStorageCySay19TokenGenerationCore16EarleyRecognizerC5StateVGGMR, &_sSay19TokenGenerationCore16EarleyRecognizerC5StateVGMd, &_sSay19TokenGenerationCore16EarleyRecognizerC5StateVGMR);
+}
+
+{
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy10Foundation12CharacterSetVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12CharacterSetVGMR, MEMORY[0x1E69680B8]);
 }
 
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGMd, &_ss23_ContiguousArrayStorageCy29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGMR, MEMORY[0x1E69A0AD0]);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGGMd, &_ss23_ContiguousArrayStorageCySay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGGMR, &_sSay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGMd, &_sSay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGMR);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC27SpaceLookaheadMaskGeneratorVyAKG__GGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC27SpaceLookaheadMaskGeneratorVyAKG__GGMR, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA27SpaceLookaheadMaskGeneratorVyAIG__GMd, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA27SpaceLookaheadMaskGeneratorVyAIG__GMR);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC28ExhaustiveLogitMaskGeneratorVyAKG__GGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC28ExhaustiveLogitMaskGeneratorVyAKG__GGMR, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA28ExhaustiveLogitMaskGeneratorVyAIG__GMd, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA28ExhaustiveLogitMaskGeneratorVyAIG__GMR);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCyShySiGGMd, &_ss23_ContiguousArrayStorageCyShySiGGMR, &_sShySiGMd, &_sShySiGMR);
 }
 
 {
@@ -7412,97 +7335,144 @@ size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapac
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy15TokenGeneration6PromptV5turnsSayAE4TurnVGyF0H9DelimiterL_VGMd, &_ss23_ContiguousArrayStorageCy15TokenGeneration6PromptV5turnsSayAE4TurnVGyF0H9DelimiterL_VGMR, type metadata accessor for TurnDelimiter #1 in Prompt.turns());
 }
 
-void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3, void *a4)
+char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t a7)
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySaySiGGMd, &_ss23_ContiguousArrayStorageCySaySiGGMR, &_sSaySiGMd, &_sSaySiGMR);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySay19TokenGenerationCore16EarleyRecognizerC5StateVGGMd, &_ss23_ContiguousArrayStorageCySay19TokenGenerationCore16EarleyRecognizerC5StateVGGMR, &_sSay19TokenGenerationCore16EarleyRecognizerC5StateVGMd, &_sSay19TokenGenerationCore16EarleyRecognizerC5StateVGMR);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGGMd, &_ss23_ContiguousArrayStorageCySay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGGMR, &_sSay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGMd, &_sSay29GenerativeFunctionsFoundation10JSONSchemaO8PropertyVGMR);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC27SpaceLookaheadMaskGeneratorVyAKG__GGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC27SpaceLookaheadMaskGeneratorVyAKG__GGMR, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA27SpaceLookaheadMaskGeneratorVyAIG__GMd, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA27SpaceLookaheadMaskGeneratorVyAIG__GMR);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC28ExhaustiveLogitMaskGeneratorVyAKG__GGMd, &_ss23_ContiguousArrayStorageCy19TokenGenerationCore016RecognizerGuidedE11ConstraintsV0dG7ManagerC0dG5CacheVyAC06EarleyG0CAC28ExhaustiveLogitMaskGeneratorVyAKG__GGMR, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA28ExhaustiveLogitMaskGeneratorVyAIG__GMd, &_s19TokenGenerationCore016RecognizerGuidedB11ConstraintsV0aD7ManagerC0aD5CacheVyAA06EarleyD0CAA28ExhaustiveLogitMaskGeneratorVyAIG__GMR);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCyShySiGGMd, &_ss23_ContiguousArrayStorageCyShySiGGMR, &_sShySiGMd, &_sShySiGMR);
-}
-
-char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4, uint64_t *a5, uint64_t *a6)
-{
-  v7 = result;
+  v8 = result;
   if (a3)
   {
-    v8 = *(a4 + 3);
-    v9 = v8 >> 1;
-    if ((v8 >> 1) < a2)
+    v9 = *(a4 + 3);
+    v10 = v9 >> 1;
+    if ((v9 >> 1) < a2)
     {
-      if (v9 + 0x4000000000000000 < 0)
+      if (v10 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v10 = v9 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v9 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v9 = a2;
+        v10 = a2;
       }
     }
   }
 
   else
   {
-    v9 = a2;
+    v10 = a2;
   }
 
-  v10 = *(a4 + 2);
-  if (v9 <= v10)
+  v11 = *(a4 + 2);
+  if (v10 <= v11)
   {
-    v11 = *(a4 + 2);
+    v12 = *(a4 + 2);
   }
 
   else
   {
-    v11 = v9;
+    v12 = v10;
   }
 
-  if (v11)
+  if (v12)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
-    v12 = swift_allocObject();
-    v13 = _swift_stdlib_malloc_size(v12);
-    v14 = v13 - 32;
-    if (v13 < 32)
+    v13 = swift_allocObject();
+    v14 = _swift_stdlib_malloc_size(v13);
+    v15 = v14 - 32;
+    if (v14 < 32)
     {
-      v14 = v13 - 25;
+      v15 = v14 - 25;
     }
 
-    *(v12 + 2) = v10;
-    *(v12 + 3) = 2 * (v14 >> 3);
+    *(v13 + 2) = v11;
+    *(v13 + 3) = 2 * (v15 >> 3);
   }
 
   else
   {
-    v12 = MEMORY[0x1E69E7CC0];
+    v13 = MEMORY[0x1E69E7CC0];
   }
 
-  v15 = v12 + 32;
+  v16 = v13 + 32;
+  v17 = a4 + 32;
+  if (v8)
+  {
+    if (v13 != a4 || v16 >= &v17[8 * v11])
+    {
+      memmove(v16, v17, 8 * v11);
+    }
+
+    *(a4 + 2) = 0;
+  }
+
+  else
+  {
+    swift_arrayInitWithCopy();
+  }
+
+  return v13;
+}
+
+{
+  v8 = result;
+  if (a3)
+  {
+    v9 = *(a4 + 3);
+    v10 = v9 >> 1;
+    if ((v9 >> 1) < a2)
+    {
+      if (v10 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v10 = v9 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v9 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v10 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v10 = a2;
+  }
+
+  v11 = *(a4 + 2);
+  if (v10 <= v11)
+  {
+    v12 = *(a4 + 2);
+  }
+
+  else
+  {
+    v12 = v10;
+  }
+
+  if (v12)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v13 = swift_allocObject();
+    v14 = _swift_stdlib_malloc_size(v13);
+    *(v13 + 2) = v11;
+    *(v13 + 3) = 2 * ((v14 - 32) / 24);
+  }
+
+  else
+  {
+    v13 = MEMORY[0x1E69E7CC0];
+  }
+
+  v15 = v13 + 32;
   v16 = a4 + 32;
-  if (v7)
+  if (v8)
   {
-    if (v12 != a4 || v15 >= &v16[8 * v10])
+    if (v13 != a4 || v15 >= &v16[24 * v11])
     {
-      memmove(v15, v16, 8 * v10);
+      memmove(v15, v16, 24 * v11);
     }
 
     *(a4 + 2) = 0;
@@ -7513,68 +7483,74 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
     swift_arrayInitWithCopy();
   }
 
-  return v12;
+  return v13;
 }
 
 {
-  v7 = result;
+  v8 = result;
   if (a3)
   {
-    v8 = *(a4 + 3);
-    v9 = v8 >> 1;
-    if ((v8 >> 1) < a2)
+    v9 = *(a4 + 3);
+    v10 = v9 >> 1;
+    if ((v9 >> 1) < a2)
     {
-      if (v9 + 0x4000000000000000 < 0)
+      if (v10 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v10 = v9 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v9 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v9 = a2;
+        v10 = a2;
       }
     }
   }
 
   else
   {
-    v9 = a2;
+    v10 = a2;
   }
 
-  v10 = *(a4 + 2);
-  if (v9 <= v10)
+  v11 = *(a4 + 2);
+  if (v10 <= v11)
   {
-    v11 = *(a4 + 2);
+    v12 = *(a4 + 2);
   }
 
   else
   {
-    v11 = v9;
+    v12 = v10;
   }
 
-  if (v11)
+  if (v12)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
-    v12 = swift_allocObject();
-    v13 = _swift_stdlib_malloc_size(v12);
-    *(v12 + 2) = v10;
-    *(v12 + 3) = 2 * ((v13 - 32) / 24);
+    v13 = swift_allocObject();
+    v14 = _swift_stdlib_malloc_size(v13);
+    v15 = v14 - 32;
+    if (v14 < 32)
+    {
+      v15 = v14 - 17;
+    }
+
+    *(v13 + 2) = v11;
+    *(v13 + 3) = 2 * (v15 >> 4);
   }
 
   else
   {
-    v12 = MEMORY[0x1E69E7CC0];
+    v13 = MEMORY[0x1E69E7CC0];
   }
 
-  v14 = v12 + 32;
-  v15 = a4 + 32;
-  if (v7)
+  v16 = v13 + 32;
+  v17 = a4 + 32;
+  if (v8)
   {
-    if (v12 != a4 || v14 >= &v15[24 * v10])
+    if (v13 != a4 || v16 >= &v17[16 * v11])
     {
-      memmove(v14, v15, 24 * v10);
+      memmove(v16, v17, 16 * v11);
     }
 
     *(a4 + 2) = 0;
@@ -7585,85 +7561,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
     swift_arrayInitWithCopy();
   }
 
-  return v12;
-}
-
-{
-  v7 = result;
-  if (a3)
-  {
-    v8 = *(a4 + 3);
-    v9 = v8 >> 1;
-    if ((v8 >> 1) < a2)
-    {
-      if (v9 + 0x4000000000000000 < 0)
-      {
-        __break(1u);
-        return result;
-      }
-
-      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-      {
-        v9 = a2;
-      }
-    }
-  }
-
-  else
-  {
-    v9 = a2;
-  }
-
-  v10 = *(a4 + 2);
-  if (v9 <= v10)
-  {
-    v11 = *(a4 + 2);
-  }
-
-  else
-  {
-    v11 = v9;
-  }
-
-  if (v11)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
-    v12 = swift_allocObject();
-    v13 = _swift_stdlib_malloc_size(v12);
-    v14 = v13 - 32;
-    if (v13 < 32)
-    {
-      v14 = v13 - 17;
-    }
-
-    *(v12 + 2) = v10;
-    *(v12 + 3) = 2 * (v14 >> 4);
-  }
-
-  else
-  {
-    v12 = MEMORY[0x1E69E7CC0];
-  }
-
-  v15 = v12 + 32;
-  v16 = a4 + 32;
-  if (v7)
-  {
-    if (v12 != a4 || v15 >= &v16[16 * v10])
-    {
-      memmove(v15, v16, 16 * v10);
-    }
-
-    *(a4 + 2) = 0;
-  }
-
-  else
-  {
-    swift_arrayInitWithCopy();
-  }
-
-  return v12;
+  return v13;
 }
 
 void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
@@ -7821,7 +7719,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v16;
 }
 
-size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -7881,7 +7779,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -7915,8 +7813,8 @@ LABEL_19:
 
 void specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(void *a1, char a2, void *a3)
 {
-  v39 = a1[2];
-  if (!v39)
+  v37 = a1[2];
+  if (!v37)
   {
     goto LABEL_23;
   }
@@ -7948,9 +7846,8 @@ LABEL_25:
   if (v9[3] < v15)
   {
     specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, v5 & 1);
-    v17 = *a3;
     v10 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-    if ((v16 & 1) == (v18 & 1))
+    if ((v16 & 1) == (v17 & 1))
     {
       goto LABEL_8;
     }
@@ -7971,15 +7868,15 @@ LABEL_8:
     goto LABEL_12;
   }
 
-  v21 = v10;
+  v20 = v10;
   specialized _NativeDictionary.copy()();
-  v10 = v21;
+  v10 = v20;
   if (v16)
   {
 LABEL_9:
-    v19 = swift_allocError();
+    v18 = swift_allocError();
     swift_willThrow();
-    v20 = v19;
+    v19 = v18;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
@@ -7991,15 +7888,15 @@ LABEL_9:
   }
 
 LABEL_12:
-  v22 = *a3;
+  v21 = *a3;
   *(*a3 + 8 * (v10 >> 6) + 64) |= 1 << v10;
-  v23 = (v22[6] + 16 * v10);
-  *v23 = v8;
-  v23[1] = v7;
-  *(v22[7] + 8 * v10) = v6;
-  v24 = v22[2];
-  v14 = __OFADD__(v24, 1);
-  v25 = v24 + 1;
+  v22 = (v21[6] + 16 * v10);
+  *v22 = v8;
+  v22[1] = v7;
+  *(v21[7] + 8 * v10) = v6;
+  v23 = v21[2];
+  v14 = __OFADD__(v23, 1);
+  v24 = v23 + 1;
   if (v14)
   {
 LABEL_26:
@@ -8016,15 +7913,15 @@ LABEL_28:
     return;
   }
 
-  v22[2] = v25;
-  if (v39 != 1)
+  v21[2] = v24;
+  if (v37 != 1)
   {
     v5 = a1 + 9;
     v6 = 1;
     while (v6 < a1[2])
     {
       v7 = *(v5 - 1);
-      v26 = *v5;
+      v25 = *v5;
       v8 = *(v5 - 2);
 
       if (!v7)
@@ -8032,24 +7929,23 @@ LABEL_28:
         goto LABEL_23;
       }
 
-      v27 = *a3;
-      v28 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-      v30 = v27[2];
-      v31 = (v29 & 1) == 0;
-      v14 = __OFADD__(v30, v31);
-      v32 = v30 + v31;
+      v26 = *a3;
+      v27 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
+      v29 = v26[2];
+      v30 = (v28 & 1) == 0;
+      v14 = __OFADD__(v29, v30);
+      v31 = v29 + v30;
       if (v14)
       {
         goto LABEL_25;
       }
 
-      v16 = v29;
-      if (v27[3] < v32)
+      v16 = v28;
+      if (v26[3] < v31)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v32, 1);
-        v33 = *a3;
-        v28 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-        if ((v16 & 1) != (v34 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v31, 1);
+        v27 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
+        if ((v16 & 1) != (v32 & 1))
         {
           goto LABEL_6;
         }
@@ -8060,24 +7956,24 @@ LABEL_28:
         goto LABEL_9;
       }
 
-      v35 = *a3;
-      *(*a3 + 8 * (v28 >> 6) + 64) |= 1 << v28;
-      v36 = (v35[6] + 16 * v28);
-      *v36 = v8;
-      v36[1] = v7;
-      *(v35[7] + 8 * v28) = v26;
-      v37 = v35[2];
-      v14 = __OFADD__(v37, 1);
-      v38 = v37 + 1;
+      v33 = *a3;
+      *(*a3 + 8 * (v27 >> 6) + 64) |= 1 << v27;
+      v34 = (v33[6] + 16 * v27);
+      *v34 = v8;
+      v34[1] = v7;
+      *(v33[7] + 8 * v27) = v25;
+      v35 = v33[2];
+      v14 = __OFADD__(v35, 1);
+      v36 = v35 + 1;
       if (v14)
       {
         goto LABEL_26;
       }
 
       ++v6;
-      v35[2] = v38;
+      v33[2] = v36;
       v5 += 3;
-      if (v39 == v6)
+      if (v37 == v6)
       {
         goto LABEL_23;
       }
@@ -8095,37 +7991,28 @@ uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
   result = MEMORY[0x1AC57CB80](v4);
   if (v4)
   {
-    v6 = 0;
-    v7 = a2 + 32;
-    do
+    for (i = 0; i != v4; ++i)
     {
-      v8 = (v7 + 24 * v6);
-      v10 = *v8;
-      v9 = v8[1];
-      v11 = v8[2];
+      v7 = *(a2 + 32 + 24 * i + 16);
 
       String.hash(into:)();
-      MEMORY[0x1AC57CB80](*(v11 + 16));
-      v12 = *(v11 + 16);
-      if (v12)
+      MEMORY[0x1AC57CB80](*(v7 + 16));
+      v8 = *(v7 + 16);
+      if (v8)
       {
-        v13 = (v11 + 32);
+        v9 = (v7 + 32);
         do
         {
-          v14 = *v13++;
+          v10 = *v9++;
 
-          specialized Array<A>.hash(into:)(a1, v14);
+          specialized Array<A>.hash(into:)(a1, v10);
 
-          --v12;
+          --v8;
         }
 
-        while (v12);
+        while (v8);
       }
-
-      ++v6;
     }
-
-    while (v6 != v4);
   }
 
   return result;
@@ -8133,45 +8020,41 @@ uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
 
 {
   v3 = type metadata accessor for CharacterSet();
-  v55 = *(v3 - 8);
-  v4 = *(v55 + 64);
+  v51 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v44 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v57 = type metadata accessor for TerminalSymbol(0);
-  v44 = *(v57 - 8);
-  v7 = *(v44 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v57);
-  v10 = &v44 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = &v44 - v12;
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v44 - v15;
+  v5 = &v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = type metadata accessor for TerminalSymbol(0);
+  v40 = *(v53 - 8);
+  MEMORY[0x1EEE9AC00](v53);
+  v7 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v40 - v9;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v40 - v12;
   MEMORY[0x1EEE9AC00](v14);
-  v47 = &v44 - v17;
-  v52 = type metadata accessor for Symbol(0);
-  v18 = *(v52 - 8);
-  v19 = *(v18 + 64);
-  v20 = MEMORY[0x1EEE9AC00](v52);
-  v54 = (&v44 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v20);
-  v53 = &v44 - v22;
-  v23 = *(a2 + 16);
-  result = MEMORY[0x1AC57CB80](v23);
-  v51 = v23;
-  if (v23)
+  v43 = &v40 - v15;
+  v48 = type metadata accessor for Symbol(0);
+  v16 = *(v48 - 8);
+  MEMORY[0x1EEE9AC00](v48);
+  v50 = (&v40 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v19 = MEMORY[0x1EEE9AC00](v18);
+  v49 = &v40 - v20;
+  v21 = *(a2 + 16);
+  result = MEMORY[0x1AC57CB80](v21, v19);
+  v47 = v21;
+  if (v21)
   {
-    v50 = a2 + ((*(v18 + 80) + 32) & ~*(v18 + 80));
-    v49 = *(v18 + 72);
-    v25 = 0;
-    v26 = v55;
-    v55 += 8;
-    v56 = (v26 + 32);
-    v45 = v16;
+    v46 = a2 + ((*(v16 + 80) + 32) & ~*(v16 + 80));
+    v45 = *(v16 + 72);
+    v23 = 0;
+    v24 = v51++;
+    v52 = (v24 + 4);
+    v41 = v13;
     while (1)
     {
-      v27 = v53;
-      outlined init with copy of TerminalSymbol(v50 + v49 * v25, v53, type metadata accessor for Symbol);
-      outlined init with copy of TerminalSymbol(v27, v54, type metadata accessor for Symbol);
+      v25 = v49;
+      outlined init with copy of TerminalSymbol(v46 + v45 * v23, v49, type metadata accessor for Symbol);
+      outlined init with copy of TerminalSymbol(v25, v50, type metadata accessor for Symbol);
       EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
       if (!EnumCaseMultiPayload)
       {
@@ -8180,123 +8063,121 @@ uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
 
       if (EnumCaseMultiPayload != 1)
       {
-        v40 = *v54;
-        v41 = v54[1];
         MEMORY[0x1AC57CB80](2);
         String.hash(into:)();
 
 LABEL_28:
-        result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v53, type metadata accessor for Symbol);
+        result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v49, type metadata accessor for Symbol);
         goto LABEL_4;
       }
 
-      v46 = v25;
-      v29 = *v54;
+      v42 = v23;
+      v27 = *v50;
       MEMORY[0x1AC57CB80](1);
-      MEMORY[0x1AC57CB80](*(v29 + 16));
-      v48 = v29;
-      v30 = *(v29 + 16);
-      if (v30)
+      MEMORY[0x1AC57CB80](*(v27 + 16));
+      v44 = v27;
+      v28 = *(v27 + 16);
+      if (v28)
       {
-        v31 = v48 + ((*(v44 + 80) + 32) & ~*(v44 + 80));
-        v32 = *(v44 + 72);
+        v29 = v44 + ((*(v40 + 80) + 32) & ~*(v40 + 80));
+        v30 = *(v40 + 72);
         do
         {
-          outlined init with copy of TerminalSymbol(v31, v13, type metadata accessor for TerminalSymbol);
-          outlined init with copy of TerminalSymbol(v13, v10, type metadata accessor for TerminalSymbol);
-          v34 = swift_getEnumCaseMultiPayload();
-          if (v34 > 1)
+          outlined init with copy of TerminalSymbol(v29, v10, type metadata accessor for TerminalSymbol);
+          outlined init with copy of TerminalSymbol(v10, v7, type metadata accessor for TerminalSymbol);
+          v32 = swift_getEnumCaseMultiPayload();
+          if (v32 > 1)
           {
-            if (v34 == 2)
+            if (v32 == 2)
             {
-              (*v56)(v6, v10, v3);
-              v36 = 2;
+              (*v52)(v5, v7, v3);
+              v34 = 2;
 LABEL_17:
-              MEMORY[0x1AC57CB80](v36);
-              lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, 255, MEMORY[0x1E69680B8]);
+              MEMORY[0x1AC57CB80](v34);
+              lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, 255, MEMORY[0x1E69680B8], MEMORY[0x1E69680C0]);
               dispatch thunk of Hashable.hash(into:)();
-              (*v55)(v6, v3);
+              (*v51)(v5, v3);
               goto LABEL_10;
             }
 
-            v33 = *v10;
+            v31 = *v7;
             MEMORY[0x1AC57CB80](3);
-            Hasher._combine(_:)(v33);
+            Hasher._combine(_:)(v31);
           }
 
           else
           {
-            if (v34)
+            if (v32)
             {
-              (*v56)(v6, v10, v3);
-              v36 = 1;
+              (*v52)(v5, v7, v3);
+              v34 = 1;
               goto LABEL_17;
             }
 
-            v35 = *v10;
+            v33 = *v7;
             MEMORY[0x1AC57CB80](0);
-            Hasher._combine(_:)(v35);
+            Hasher._combine(_:)(v33);
           }
 
 LABEL_10:
-          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v13, type metadata accessor for TerminalSymbol);
-          v31 += v32;
-          --v30;
+          outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v10, type metadata accessor for TerminalSymbol);
+          v29 += v30;
+          --v28;
         }
 
-        while (v30);
+        while (v28);
       }
 
-      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v53, type metadata accessor for Symbol);
+      outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v49, type metadata accessor for Symbol);
 
-      v16 = v45;
-      v25 = v46;
+      v13 = v41;
+      v23 = v42;
 LABEL_4:
-      if (++v25 == v51)
+      if (++v23 == v47)
       {
         return result;
       }
     }
 
-    v37 = v47;
-    outlined init with take of TerminalSymbol(v54, v47, type metadata accessor for TerminalSymbol);
+    v35 = v43;
+    outlined init with take of TerminalSymbol(v50, v43, type metadata accessor for TerminalSymbol);
     MEMORY[0x1AC57CB80](0);
-    outlined init with copy of TerminalSymbol(v37, v16, type metadata accessor for TerminalSymbol);
-    v38 = swift_getEnumCaseMultiPayload();
-    if (v38 > 1)
+    outlined init with copy of TerminalSymbol(v35, v13, type metadata accessor for TerminalSymbol);
+    v36 = swift_getEnumCaseMultiPayload();
+    if (v36 > 1)
     {
-      if (v38 != 2)
+      if (v36 != 2)
       {
-        v43 = *v16;
+        v39 = *v13;
         MEMORY[0x1AC57CB80](3);
-        Hasher._combine(_:)(v43);
+        Hasher._combine(_:)(v39);
         goto LABEL_27;
       }
 
-      (*v56)(v6, v16, v3);
-      v42 = 2;
+      (*v52)(v5, v13, v3);
+      v38 = 2;
     }
 
     else
     {
-      if (!v38)
+      if (!v36)
       {
-        v39 = *v16;
+        v37 = *v13;
         MEMORY[0x1AC57CB80](0);
-        Hasher._combine(_:)(v39);
+        Hasher._combine(_:)(v37);
 LABEL_27:
-        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v47, type metadata accessor for TerminalSymbol);
+        outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v43, type metadata accessor for TerminalSymbol);
         goto LABEL_28;
       }
 
-      (*v56)(v6, v16, v3);
-      v42 = 1;
+      (*v52)(v5, v13, v3);
+      v38 = 1;
     }
 
-    MEMORY[0x1AC57CB80](v42);
-    lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, 255, MEMORY[0x1E69680B8]);
+    MEMORY[0x1AC57CB80](v38);
+    lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, 255, MEMORY[0x1E69680B8], MEMORY[0x1E69680C0]);
     dispatch thunk of Hashable.hash(into:)();
-    (*v55)(v6, v3);
+    (*v51)(v5, v3);
     goto LABEL_27;
   }
 
@@ -8306,29 +8187,27 @@ LABEL_27:
 {
   v3 = type metadata accessor for CharacterSet();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = type metadata accessor for TerminalSymbol(0);
-  v8 = *(v29 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v29);
-  v12 = (&v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v10);
-  v14 = &v26 - v13;
-  v15 = *(a2 + 16);
-  result = MEMORY[0x1AC57CB80](v15);
-  if (v15)
+  v6 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = type metadata accessor for TerminalSymbol(0);
+  v7 = *(v28 - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v9 = (&v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = MEMORY[0x1EEE9AC00](v10);
+  v13 = &v25 - v12;
+  v14 = *(a2 + 16);
+  result = MEMORY[0x1AC57CB80](v14, v11);
+  if (v14)
   {
-    v17 = a2 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-    v18 = *(v8 + 72);
-    v27 = (v4 + 32);
-    v28 = v18;
-    v19 = (v4 + 8);
+    v16 = a2 + ((*(v7 + 80) + 32) & ~*(v7 + 80));
+    v17 = *(v7 + 72);
+    v26 = (v4 + 32);
+    v27 = v17;
+    v18 = (v4 + 8);
     while (1)
     {
-      outlined init with copy of TerminalSymbol(v17, v14, type metadata accessor for TerminalSymbol);
-      outlined init with copy of TerminalSymbol(v14, v12, type metadata accessor for TerminalSymbol);
+      outlined init with copy of TerminalSymbol(v16, v13, type metadata accessor for TerminalSymbol);
+      outlined init with copy of TerminalSymbol(v13, v9, type metadata accessor for TerminalSymbol);
       EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
       if (EnumCaseMultiPayload > 1)
       {
@@ -8337,25 +8216,25 @@ LABEL_27:
 
       if (EnumCaseMultiPayload)
       {
-        (*v27)(v7, v12, v3);
-        v23 = 1;
+        (*v26)(v6, v9, v3);
+        v22 = 1;
 LABEL_10:
-        MEMORY[0x1AC57CB80](v23);
-        lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, 255, MEMORY[0x1E69680B8]);
+        MEMORY[0x1AC57CB80](v22);
+        lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, 255, MEMORY[0x1E69680B8], MEMORY[0x1E69680C0]);
         dispatch thunk of Hashable.hash(into:)();
-        (*v19)(v7, v3);
+        (*v18)(v6, v3);
         goto LABEL_4;
       }
 
-      v20 = *v12;
+      v19 = *v9;
       MEMORY[0x1AC57CB80](0);
-      v21 = v20;
-      v18 = v28;
-      Hasher._combine(_:)(v21);
+      v20 = v19;
+      v17 = v27;
+      Hasher._combine(_:)(v20);
 LABEL_4:
-      result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v14, type metadata accessor for TerminalSymbol);
-      v17 += v18;
-      if (!--v15)
+      result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v13, type metadata accessor for TerminalSymbol);
+      v16 += v17;
+      if (!--v14)
       {
         return result;
       }
@@ -8363,16 +8242,16 @@ LABEL_4:
 
     if (EnumCaseMultiPayload != 2)
     {
-      v24 = *v12;
+      v23 = *v9;
       MEMORY[0x1AC57CB80](3);
-      v25 = v24;
-      v18 = v28;
-      Hasher._combine(_:)(v25);
+      v24 = v23;
+      v17 = v27;
+      Hasher._combine(_:)(v24);
       goto LABEL_4;
     }
 
-    (*v27)(v7, v12, v3);
-    v23 = 2;
+    (*v26)(v6, v9, v3);
+    v22 = 2;
     goto LABEL_10;
   }
 
@@ -8420,29 +8299,28 @@ LABEL_5:
 {
   v4 = type metadata accessor for Prompt.Attachment(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(a2 + 16);
-  result = MEMORY[0x1AC57CB80](v10, v7);
-  if (v10)
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a2 + 16);
+  result = MEMORY[0x1AC57CB80](v9, v6);
+  if (v9)
   {
-    v13 = *(v4 + 20);
-    v12 = *(v4 + 24);
-    v14 = a2 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
-    v15 = *(v5 + 72);
+    v12 = *(v4 + 20);
+    v11 = *(v4 + 24);
+    v13 = a2 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
+    v14 = *(v5 + 72);
     do
     {
-      outlined init with copy of TerminalSymbol(v14, v9, type metadata accessor for Prompt.Attachment);
+      outlined init with copy of TerminalSymbol(v13, v8, type metadata accessor for Prompt.Attachment);
       Prompt.AttachmentContent.hash(into:)(a1);
-      MEMORY[0x1AC57CB80](*&v9[v13]);
-      MEMORY[0x1AC57CB80](*&v9[v12]);
-      result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v9, type metadata accessor for Prompt.Attachment);
-      v14 += v15;
-      --v10;
+      MEMORY[0x1AC57CB80](*&v8[v12]);
+      MEMORY[0x1AC57CB80](*&v8[v11]);
+      result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v8, type metadata accessor for Prompt.Attachment);
+      v13 += v14;
+      --v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
   return result;
@@ -8451,61 +8329,55 @@ LABEL_5:
 {
   v3 = type metadata accessor for Locale();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v32 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v29 - v9;
-  v11 = type metadata accessor for Prompt.Delimiter(0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = (&v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = *(a2 + 16);
-  result = MEMORY[0x1AC57CB80](v17, v14);
-  if (v17)
+  v26 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v23 - v7;
+  v9 = type metadata accessor for Prompt.Delimiter(0);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(a2 + 16);
+  result = MEMORY[0x1AC57CB80](v14, v11);
+  if (v14)
   {
-    v19 = type metadata accessor for Prompt.SpecialToken(0);
-    v20 = v19[5];
-    v37 = (v16 + v19[6]);
-    v38 = v20;
-    v21 = v19[7];
-    v22 = *(v11 + 24);
-    v35 = *(v11 + 20);
-    v36 = v21;
-    v23 = a2 + ((*(v12 + 80) + 32) & ~*(v12 + 80));
-    v33 = *(v12 + 72);
-    v34 = v22;
-    v24 = (v4 + 48);
-    v30 = (v4 + 8);
-    v31 = (v4 + 32);
+    v16 = type metadata accessor for Prompt.SpecialToken(0);
+    v17 = v16[5];
+    v31 = &v13[v16[6]];
+    v32 = v17;
+    v18 = v16[7];
+    v19 = *(v9 + 24);
+    v29 = *(v9 + 20);
+    v30 = v18;
+    v20 = a2 + ((*(v10 + 80) + 32) & ~*(v10 + 80));
+    v27 = *(v10 + 72);
+    v28 = v19;
+    v21 = (v4 + 48);
+    v24 = (v4 + 8);
+    v25 = (v4 + 32);
     do
     {
-      outlined init with copy of TerminalSymbol(v23, v16, type metadata accessor for Prompt.Delimiter);
-      v26 = *v16;
-      v27 = v16[1];
+      outlined init with copy of TerminalSymbol(v20, v13, type metadata accessor for Prompt.Delimiter);
       String.hash(into:)();
-      outlined init with copy of Locale?(v16 + v38, v10);
-      if ((*v24)(v10, 1, v3) == 1)
+      outlined init with copy of Locale?(&v13[v32], v8);
+      if ((*v21)(v8, 1, v3) == 1)
       {
         Hasher._combine(_:)(0);
       }
 
       else
       {
-        v28 = v32;
-        (*v31)(v32, v10, v3);
+        v22 = v26;
+        (*v25)(v26, v8, v3);
         Hasher._combine(_:)(1u);
-        lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type Locale and conformance Locale, 255, MEMORY[0x1E6969770]);
+        lazy protocol witness table accessor for type EarleyRecognizer and conformance EarleyRecognizer(&lazy protocol witness table cache variable for type Locale and conformance Locale, 255, MEMORY[0x1E6969770], MEMORY[0x1E6969780]);
         dispatch thunk of Hashable.hash(into:)();
-        (*v30)(v28, v3);
+        (*v24)(v22, v3);
       }
 
-      if (v37[1])
+      if (*(v31 + 1))
       {
-        v25 = *v37;
         Hasher._combine(_:)(1u);
         String.hash(into:)();
       }
@@ -8515,15 +8387,15 @@ LABEL_5:
         Hasher._combine(_:)(0);
       }
 
-      Hasher._combine(_:)(*(v16 + v36));
-      MEMORY[0x1AC57CB80](*(v16 + v35));
-      MEMORY[0x1AC57CB80](*(v16 + v34));
-      result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v16, type metadata accessor for Prompt.Delimiter);
-      v23 += v33;
-      --v17;
+      Hasher._combine(_:)(v13[v30]);
+      MEMORY[0x1AC57CB80](*&v13[v29]);
+      MEMORY[0x1AC57CB80](*&v13[v28]);
+      result = outlined destroy of PromptTemplateInfo.RichVariableBinding.Component(v13, type metadata accessor for Prompt.Delimiter);
+      v20 += v27;
+      --v14;
     }
 
-    while (v17);
+    while (v14);
   }
 
   return result;
@@ -8534,24 +8406,18 @@ LABEL_5:
   result = MEMORY[0x1AC57CB80](v3);
   if (v3)
   {
-    v5 = (a2 + 48);
+    v5 = a2 + 48;
     do
     {
-      v7 = *(v5 - 2);
-      v6 = *(v5 - 1);
-      v9 = *v5;
-      v8 = v5[1];
-      v10 = v5[3];
-      v13 = v5[2];
-      v11 = v5[4];
-      v12 = v5[5];
+      v6 = *(v5 + 32);
+      v7 = *(v5 + 40);
 
-      outlined copy of Data?(v11, v12);
+      outlined copy of Data?(v6, v7);
       String.hash(into:)();
       MEMORY[0x1AC57CB80](0);
       String.hash(into:)();
       String.hash(into:)();
-      if (v12 >> 60 == 15)
+      if (v7 >> 60 == 15)
       {
         Hasher._combine(_:)(0);
       }
@@ -8562,8 +8428,8 @@ LABEL_5:
         Data.hash(into:)();
       }
 
-      result = outlined consume of Data?(v11, v12);
-      v5 += 8;
+      result = outlined consume of Data?(v6, v7);
+      v5 += 64;
       --v3;
     }
 
@@ -8873,14 +8739,14 @@ LABEL_8:
 {
   v3 = *(a2 + 16);
   MEMORY[0x1AC57CB80](v3);
-  v28 = v3;
+  v27 = v3;
   if (v3)
   {
     v4 = 0;
-    v27 = a2 + 32;
+    v26 = a2 + 32;
     do
     {
-      v6 = v27 + 56 * v4;
+      v6 = v26 + 56 * v4;
       v8 = *v6;
       v7 = *(v6 + 8);
       v9 = *(v6 + 16);
@@ -8929,14 +8795,14 @@ LABEL_8:
         if (v15 != 3)
         {
           MEMORY[0x1AC57CB80](4);
-          MEMORY[0x1AC57CB80](*(v8 + 2));
-          v16 = *(v8 + 2);
+          MEMORY[0x1AC57CB80](v8[2]);
+          v16 = v8[2];
           if (v16)
           {
-            v17 = v8 + 16;
+            v17 = v8 + 4;
             do
             {
-              v18 = *v17++;
+              v17 = (v17 + 2);
               __asm { FCMP            H0, #0 }
 
               if (_ZF)
@@ -8952,18 +8818,18 @@ LABEL_8:
           }
 
           MEMORY[0x1AC57CB80](*(v7 + 16));
-          v24 = *(v7 + 16);
-          if (v24)
+          v23 = *(v7 + 16);
+          if (v23)
           {
-            v25 = (v7 + 32);
+            v24 = (v7 + 32);
             do
             {
-              v26 = *v25++;
-              MEMORY[0x1AC57CB80](v26);
-              --v24;
+              v25 = *v24++;
+              MEMORY[0x1AC57CB80](v25);
+              --v23;
             }
 
-            while (v24);
+            while (v23);
           }
 
           goto LABEL_5;
@@ -8983,7 +8849,7 @@ LABEL_5:
       ++v4;
     }
 
-    while (v4 != v28);
+    while (v4 != v27);
   }
 }
 
@@ -8992,10 +8858,10 @@ LABEL_5:
   MEMORY[0x1AC57CB80](v3);
   if (v3)
   {
-    v4 = (a2 + 32);
+    v4 = a2 + 32;
     do
     {
-      v5 = *v4++;
+      v4 += 2;
       __asm { FCMP            H0, #0 }
 
       if (_ZF)
@@ -9069,23 +8935,23 @@ void specialized static EarleyRecognizer.predictAndComplete(recognizerGrammar:ch
   v7 = a1[7];
   v6 = a1[8];
   v8 = EarleyRecognizer.Chart.numberOfStates()();
-  v182 = MEMORY[0x1E69E7CD0];
+  v178 = MEMORY[0x1E69E7CD0];
   v9 = *a4;
   v10 = *(*a4 + 2);
   if (v10)
   {
     v11 = 0;
-    v151 = v5;
-    v152 = v7 + 32;
-    v147 = v5 + 32;
-    v148 = (v6 + 32);
-    v155 = v8;
-    v156 = a4;
+    v147 = v5;
+    v148 = v7 + 32;
+    v143 = v5 + 32;
+    v144 = (v6 + 32);
+    v151 = v8;
+    v152 = a4;
     v12 = v5;
-    v168 = v7 + 40;
-    v169 = v7;
+    v164 = v7 + 40;
+    v165 = v7;
     v13 = v6;
-    v150 = v6;
+    v146 = v6;
     while (1)
     {
       if (v11 >= v10)
@@ -9107,7 +8973,7 @@ void specialized static EarleyRecognizer.predictAndComplete(recognizerGrammar:ch
 
       v17 = *(v14 + 5);
       v16 = *(v14 + 6);
-      v18 = (v152 + 24 * v15);
+      v18 = (v148 + 24 * v15);
       v20 = *v18;
       v19 = v18[1];
       if (v17 >= *(v19 + 16))
@@ -9129,7 +8995,7 @@ void specialized static EarleyRecognizer.predictAndComplete(recognizerGrammar:ch
       v22 = *(v14 + 7);
       v23 = v14[64];
       v24 = *(v21 + 32);
-      v25 = v148;
+      v25 = v144;
       v26 = *(v13 + 16);
       while (v26)
       {
@@ -9151,58 +9017,58 @@ LABEL_109:
         goto LABEL_209;
       }
 
-      v93 = a1[9];
-      if (v24 >= *(v93 + 16))
+      v91 = a1[9];
+      if (v24 >= *(v91 + 16))
       {
         goto LABEL_210;
       }
 
-      v94 = *(v93 + 8 * v24 + 32);
-      v95 = *(v94 + 16);
-      if (!v95)
+      v92 = *(v91 + 8 * v24 + 32);
+      v93 = *(v92 + 16);
+      if (!v93)
       {
         goto LABEL_196;
       }
 
-      v144 = v24;
-      v145 = v23;
-      v146 = v22;
-      v154 = v17;
-      v158 = v11;
-      v160 = v15;
-      v162 = v16;
-      v173 = v94 + 32;
-      v178 = v29;
+      v140 = v24;
+      v141 = v23;
+      v142 = v22;
+      v150 = v17;
+      v154 = v11;
+      v156 = v15;
+      v158 = v16;
+      v169 = v92 + 32;
+      v174 = v29;
 
-      v96 = v178;
-      v97 = 0;
-      v175 = v28;
-      v164 = v94;
-      v167 = v95;
+      v94 = v174;
+      v95 = 0;
+      v171 = v28;
+      v160 = v92;
+      v163 = v93;
       while (2)
       {
-        if (v97 >= *(v94 + 16))
+        if (v95 >= *(v92 + 16))
         {
           goto LABEL_205;
         }
 
-        v101 = *(v173 + 8 * v97);
-        v190 = v101;
-        *&v191 = v8;
-        *(&v191 + 1) = v96;
-        v192 = v28;
-        v102 = *(v9 + 2);
-        v180 = v102;
-        if (v102 <= 9)
+        v99 = *(v169 + 8 * v95);
+        v186 = v99;
+        *&v187 = v8;
+        *(&v187 + 1) = v94;
+        v188 = v28;
+        v100 = *(v9 + 2);
+        v176 = v100;
+        if (v100 <= 9)
         {
-          if (v102)
+          if (v100)
           {
-            v103 = v9 + 64;
+            v101 = v9 + 64;
             do
             {
-              if (*(v103 - 4) == v101 && *(v103 - 3) == 0 && *(v103 - 2) == v8)
+              if (*(v101 - 4) == v99 && *(v101 - 3) == 0 && *(v101 - 2) == v8)
               {
-                if (*v103)
+                if (*v101)
                 {
                   if (v28)
                   {
@@ -9212,84 +9078,83 @@ LABEL_109:
 
                 else
                 {
-                  if (*(v103 - 1) == v96)
+                  if (*(v101 - 1) == v94)
                   {
-                    v104 = v28;
+                    v102 = v28;
                   }
 
                   else
                   {
-                    v104 = 1;
+                    v102 = 1;
                   }
 
-                  if ((v104 & 1) == 0)
+                  if ((v102 & 1) == 0)
                   {
                     goto LABEL_115;
                   }
                 }
               }
 
-              v103 += 40;
-              --v102;
+              v101 += 40;
+              --v100;
             }
 
-            while (v102);
+            while (v100);
           }
 
-          v108 = a4;
-          v109 = v97;
+          v106 = a4;
+          v107 = v95;
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v180 + 1, 1, v9);
+            v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v176 + 1, 1, v9);
           }
 
-          v111 = *(v9 + 2);
-          v110 = *(v9 + 3);
-          v112 = v111 + 1;
-          v96 = v178;
-          if (v111 >= v110 >> 1)
+          v109 = *(v9 + 2);
+          v108 = *(v9 + 3);
+          v110 = v109 + 1;
+          v94 = v174;
+          if (v109 >= v108 >> 1)
           {
-            v142 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v110 > 1), v111 + 1, 1, v9);
-            v97 = v109;
-            v96 = v178;
-            v9 = v142;
+            v138 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v108 > 1), v109 + 1, 1, v9);
+            v95 = v107;
+            v94 = v174;
+            v9 = v138;
           }
 
           else
           {
-            v97 = v109;
+            v95 = v107;
           }
 
-          a4 = v108;
+          a4 = v106;
           goto LABEL_114;
         }
 
-        v107 = v182;
-        v171 = v97;
-        if (!*(v182 + 16))
+        v105 = v178;
+        v167 = v95;
+        if (!*(v178 + 16))
         {
-          v165 = v101;
-          v113 = 0;
-          v114 = v182 + 56;
+          v161 = v99;
+          v111 = 0;
+          v112 = v178 + 56;
           while (1)
           {
             while (1)
             {
-              v115 = &v9[40 * v113 + 32];
-              v116 = *(v115 + 32);
-              v117 = *(v115 + 16);
-              v193[0] = *v115;
-              v193[1] = v117;
-              v194 = v116;
-              v118 = v193[0];
-              v119 = v117;
-              v120 = v116;
-              v121 = *(v107 + 40);
+              v113 = &v9[40 * v111 + 32];
+              v114 = *(v113 + 32);
+              v115 = *(v113 + 16);
+              v189[0] = *v113;
+              v189[1] = v115;
+              v190 = v114;
+              v116 = v189[0];
+              v117 = v115;
+              v118 = v114;
               Hasher.init(_seed:)();
-              MEMORY[0x1AC57CB80](v118);
-              MEMORY[0x1AC57CB80](*(&v118 + 1));
-              MEMORY[0x1AC57CB80](v119);
-              if (v120 == 1)
+              MEMORY[0x1AC57CB80](v116);
+              MEMORY[0x1AC57CB80](*(&v116 + 1));
+              MEMORY[0x1AC57CB80](v117);
+              if (v118 == 1)
               {
                 Hasher._combine(_:)(0);
               }
@@ -9297,119 +9162,119 @@ LABEL_109:
               else
               {
                 Hasher._combine(_:)(1u);
-                MEMORY[0x1AC57CB80](*(&v119 + 1));
+                MEMORY[0x1AC57CB80](*(&v117 + 1));
               }
 
-              ++v113;
-              v122 = Hasher._finalize()();
-              v123 = -1 << *(v107 + 32);
-              v124 = v122 & ~v123;
-              if ((*(v114 + ((v124 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v124))
+              ++v111;
+              v119 = Hasher._finalize()();
+              v120 = -1 << *(v105 + 32);
+              v121 = v119 & ~v120;
+              if ((*(v112 + ((v121 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v121))
               {
                 break;
               }
 
 LABEL_166:
               isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-              v181[0] = v107;
-              specialized _NativeSet.insertNew(_:at:isUnique:)(v193, v124, isUniquelyReferenced_nonNull_native);
-              v107 = v181[0];
-              if (v113 == v180)
+              v177[0] = v105;
+              specialized _NativeSet.insertNew(_:at:isUnique:)(v189, v121, isUniquelyReferenced_nonNull_native);
+              v105 = v177[0];
+              if (v111 == v176)
               {
 LABEL_168:
-                v182 = v107;
-                v8 = v155;
-                a4 = v156;
-                v28 = v175;
-                v94 = v164;
-                v101 = v165;
-                if (*(v107 + 16))
+                v178 = v105;
+                v8 = v151;
+                a4 = v152;
+                v28 = v171;
+                v92 = v160;
+                v99 = v161;
+                if (*(v105 + 16))
                 {
                   goto LABEL_169;
                 }
 
 LABEL_190:
-                specialized Set._Variant.insert(_:)(v181, &v190);
+                specialized Set._Variant.insert(_:)(v177, &v186);
                 if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                 {
                   v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 2) + 1, 1, v9);
                 }
 
-                v111 = *(v9 + 2);
-                v140 = *(v9 + 3);
-                v112 = v111 + 1;
-                v96 = v178;
+                v109 = *(v9 + 2);
+                v136 = *(v9 + 3);
+                v110 = v109 + 1;
+                v94 = v174;
+                v93 = v163;
                 v95 = v167;
-                v97 = v171;
-                if (v111 >= v140 >> 1)
+                if (v109 >= v136 >> 1)
                 {
-                  v141 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v140 > 1), v111 + 1, 1, v9);
-                  v97 = v171;
-                  v96 = v178;
-                  v9 = v141;
+                  v137 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v136 > 1), v109 + 1, 1, v9);
+                  v95 = v167;
+                  v94 = v174;
+                  v9 = v137;
                 }
 
-                v7 = v169;
+                v7 = v165;
 LABEL_114:
-                *(v9 + 2) = v112;
-                v98 = &v9[40 * v111];
-                v99 = v190;
-                v100 = v191;
-                v98[64] = v192;
-                *(v98 + 2) = v99;
-                *(v98 + 3) = v100;
+                *(v9 + 2) = v110;
+                v96 = &v9[40 * v109];
+                v97 = v186;
+                v98 = v187;
+                v96[64] = v188;
+                *(v96 + 2) = v97;
+                *(v96 + 3) = v98;
                 *a4 = v9;
-                v28 = v175;
+                v28 = v171;
                 goto LABEL_115;
               }
 
-              v114 = v181[0] + 56;
+              v112 = v177[0] + 56;
             }
 
-            v125 = ~v123;
+            v122 = ~v120;
             while (1)
             {
-              v127 = *(v107 + 48) + 40 * v124;
-              if (*v127 != v118 || *(v127 + 8) != *(&v118 + 1) || *(v127 + 16) != v119)
+              v124 = *(v105 + 48) + 40 * v121;
+              if (*v124 != v116 || *(v124 + 8) != *(&v116 + 1) || *(v124 + 16) != v117)
               {
                 goto LABEL_154;
               }
 
-              if ((*(v127 + 32) & 1) == 0)
+              if ((*(v124 + 32) & 1) == 0)
               {
                 break;
               }
 
-              if (v120)
+              if (v118)
               {
                 goto LABEL_144;
               }
 
 LABEL_154:
-              v124 = (v124 + 1) & v125;
-              if (((*(v114 + ((v124 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v124) & 1) == 0)
+              v121 = (v121 + 1) & v122;
+              if (((*(v112 + ((v121 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v121) & 1) == 0)
               {
                 goto LABEL_166;
               }
             }
 
-            if (*(v127 + 24) == *(&v119 + 1))
+            if (*(v124 + 24) == *(&v117 + 1))
             {
-              v126 = v120;
+              v123 = v118;
             }
 
             else
             {
-              v126 = 1;
+              v123 = 1;
             }
 
-            if (v126)
+            if (v123)
             {
               goto LABEL_154;
             }
 
 LABEL_144:
-            if (v113 == v180)
+            if (v111 == v176)
             {
               goto LABEL_168;
             }
@@ -9417,9 +9282,8 @@ LABEL_144:
         }
 
 LABEL_169:
-        v131 = *(v107 + 40);
         Hasher.init(_seed:)();
-        MEMORY[0x1AC57CB80](v101);
+        MEMORY[0x1AC57CB80](v99);
         MEMORY[0x1AC57CB80](0);
         MEMORY[0x1AC57CB80](v8);
         if (v28)
@@ -9430,28 +9294,28 @@ LABEL_169:
         else
         {
           Hasher._combine(_:)(1u);
-          MEMORY[0x1AC57CB80](v178);
+          MEMORY[0x1AC57CB80](v174);
         }
 
-        v132 = Hasher._finalize()();
-        v133 = -1 << *(v107 + 32);
-        v134 = v132 & ~v133;
-        v96 = v178;
-        if (((*(v107 + 56 + ((v134 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v134) & 1) == 0)
+        v128 = Hasher._finalize()();
+        v129 = -1 << *(v105 + 32);
+        v130 = v128 & ~v129;
+        v94 = v174;
+        if (((*(v105 + 56 + ((v130 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v130) & 1) == 0)
         {
           goto LABEL_190;
         }
 
-        v135 = ~v133;
+        v131 = ~v129;
         while (1)
         {
-          v136 = *(v107 + 48) + 40 * v134;
-          if (*v136 != v101 || *(v136 + 8) != 0 || *(v136 + 16) != v8)
+          v132 = *(v105 + 48) + 40 * v130;
+          if (*v132 != v99 || *(v132 + 8) != 0 || *(v132 + 16) != v8)
           {
             goto LABEL_175;
           }
 
-          if ((*(v136 + 32) & 1) == 0)
+          if ((*(v132 + 32) & 1) == 0)
           {
             break;
           }
@@ -9462,34 +9326,34 @@ LABEL_169:
           }
 
 LABEL_175:
-          v134 = (v134 + 1) & v135;
-          if (((*(v107 + 56 + ((v134 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v134) & 1) == 0)
+          v130 = (v130 + 1) & v131;
+          if (((*(v105 + 56 + ((v130 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v130) & 1) == 0)
           {
             goto LABEL_190;
           }
         }
 
-        if (*(v136 + 24) == v178)
+        if (*(v132 + 24) == v174)
         {
-          v139 = v28;
+          v135 = v28;
         }
 
         else
         {
-          v139 = 1;
+          v135 = 1;
         }
 
-        if (v139)
+        if (v135)
         {
           goto LABEL_175;
         }
 
 LABEL_189:
+        v93 = v163;
+        v7 = v165;
         v95 = v167;
-        v7 = v169;
-        v97 = v171;
 LABEL_115:
-        if (++v97 != v95)
+        if (++v95 != v93)
         {
           continue;
         }
@@ -9497,33 +9361,33 @@ LABEL_115:
         break;
       }
 
-      v15 = v160;
-      v16 = v162;
-      v13 = v150;
-      v12 = v151;
-      v11 = v158;
-      v17 = v154;
-      v22 = v146;
-      LOBYTE(v23) = v145;
-      v24 = v144;
+      v15 = v156;
+      v16 = v158;
+      v13 = v146;
+      v12 = v147;
+      v11 = v154;
+      v17 = v150;
+      v22 = v142;
+      LOBYTE(v23) = v141;
+      v24 = v140;
 LABEL_196:
       if (v24 >= *(v12 + 16))
       {
         goto LABEL_211;
       }
 
-      if (*(v147 + v24) == 1)
+      if (*(v143 + v24) == 1)
       {
-        v188[0] = v15;
-        v188[1] = v17 + 1;
-        v188[2] = v16;
-        v188[3] = v22;
-        v189 = v23;
-        v143 = v11;
-        Array<A>.appendUnique(_:itemsSet:)(v188, &v182);
-        v11 = v143;
-        v13 = v150;
-        v12 = v151;
+        v184[0] = v15;
+        v184[1] = v17 + 1;
+        v184[2] = v16;
+        v184[3] = v22;
+        v185 = v23;
+        v139 = v11;
+        Array<A>.appendUnique(_:itemsSet:)(v184, &v178);
+        v11 = v139;
+        v13 = v146;
+        v12 = v147;
       }
 
 LABEL_4:
@@ -9536,7 +9400,7 @@ LABEL_4:
       }
     }
 
-    v157 = v11;
+    v153 = v11;
     if (v16 >= v8)
     {
     }
@@ -9544,27 +9408,27 @@ LABEL_4:
     else
     {
       EarleyRecognizer.Chart.state(at:)(v16);
-      v30 = v181[0];
-      v10 = *(v181[0] + 16);
+      v30 = v177[0];
+      v10 = *(v177[0] + 16);
       if (!v10)
       {
 LABEL_3:
 
-        v13 = v150;
-        v12 = v151;
-        v11 = v157;
+        v13 = v146;
+        v12 = v147;
+        v11 = v153;
         goto LABEL_4;
       }
     }
 
     v31 = 0;
     v32 = v30 + 32;
-    v172 = v30 + 32;
-    v174 = v30;
-    v33 = v168;
+    v168 = v30 + 32;
+    v170 = v30;
+    v33 = v164;
     v34 = v20;
-    v153 = v10;
-    v166 = v20;
+    v149 = v10;
+    v162 = v20;
     while (v31 < *(v30 + 16))
     {
       v38 = v32 + 40 * v31;
@@ -9592,42 +9456,41 @@ LABEL_3:
           v46 = *(v38 + 24);
           v47 = *(v38 + 32);
           v48 = v40 + 1;
-          *&v183 = *v38;
-          *(&v183 + 1) = v40 + 1;
-          *&v184 = v45;
-          *(&v184 + 1) = v46;
-          v185 = v47;
+          *&v179 = *v38;
+          *(&v179 + 1) = v40 + 1;
+          *&v180 = v45;
+          *(&v180 + 1) = v46;
+          v181 = v47;
           v49 = *(v9 + 2);
-          v179 = v49;
+          v175 = v49;
           if (v49 > 9)
           {
-            v176 = v9;
-            v54 = v182;
-            v170 = v31;
-            v177 = v47;
-            if (*(v182 + 16))
+            v172 = v9;
+            v54 = v178;
+            v166 = v31;
+            v173 = v47;
+            if (*(v178 + 16))
             {
               goto LABEL_84;
             }
 
-            v159 = v48;
-            v161 = v46;
-            v163 = v45;
+            v155 = v48;
+            v157 = v46;
+            v159 = v45;
             v63 = 0;
-            v64 = v182 + 56;
+            v64 = v178 + 56;
 LABEL_60:
             while (2)
             {
-              v65 = &v176[40 * v63 + 32];
+              v65 = &v172[40 * v63 + 32];
               v66 = *(v65 + 32);
               v67 = *(v65 + 16);
-              v186[0] = *v65;
-              v186[1] = v67;
-              v187 = v66;
-              v68 = v186[0];
+              v182[0] = *v65;
+              v182[1] = v67;
+              v183 = v66;
+              v68 = v182[0];
               v69 = v67;
               v70 = v66;
-              v71 = *(v54 + 40);
               Hasher.init(_seed:)();
               MEMORY[0x1AC57CB80](v68);
               MEMORY[0x1AC57CB80](*(&v68 + 1));
@@ -9644,18 +9507,18 @@ LABEL_60:
               }
 
               ++v63;
-              v72 = Hasher._finalize()();
-              v73 = -1 << *(v54 + 32);
-              v74 = v72 & ~v73;
-              if ((*(v64 + ((v74 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v74))
+              v71 = Hasher._finalize()();
+              v72 = -1 << *(v54 + 32);
+              v73 = v71 & ~v72;
+              if ((*(v64 + ((v73 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v73))
               {
-                v75 = ~v73;
+                v74 = ~v72;
                 do
                 {
-                  v77 = *(v54 + 48) + 40 * v74;
-                  if (*v77 == v68 && *(v77 + 8) == *(&v68 + 1) && *(v77 + 16) == v69)
+                  v76 = *(v54 + 48) + 40 * v73;
+                  if (*v76 == v68 && *(v76 + 8) == *(&v68 + 1) && *(v76 + 16) == v69)
                   {
-                    if (*(v77 + 32))
+                    if (*(v76 + 32))
                     {
                       if (v70)
                       {
@@ -9665,20 +9528,20 @@ LABEL_60:
 
                     else
                     {
-                      if (*(v77 + 24) == *(&v69 + 1))
+                      if (*(v76 + 24) == *(&v69 + 1))
                       {
-                        v76 = v70;
+                        v75 = v70;
                       }
 
                       else
                       {
-                        v76 = 1;
+                        v75 = 1;
                       }
 
-                      if ((v76 & 1) == 0)
+                      if ((v75 & 1) == 0)
                       {
 LABEL_59:
-                        if (v63 == v179)
+                        if (v63 == v175)
                         {
                           goto LABEL_83;
                         }
@@ -9688,19 +9551,19 @@ LABEL_59:
                     }
                   }
 
-                  v74 = (v74 + 1) & v75;
+                  v73 = (v73 + 1) & v74;
                 }
 
-                while (((*(v64 + ((v74 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v74) & 1) != 0);
+                while (((*(v64 + ((v73 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v73) & 1) != 0);
               }
 
-              v80 = swift_isUniquelyReferenced_nonNull_native();
-              v181[0] = v54;
-              specialized _NativeSet.insertNew(_:at:isUnique:)(v186, v74, v80);
-              v54 = v181[0];
-              if (v63 != v179)
+              v79 = swift_isUniquelyReferenced_nonNull_native();
+              v177[0] = v54;
+              specialized _NativeSet.insertNew(_:at:isUnique:)(v182, v73, v79);
+              v54 = v177[0];
+              if (v63 != v175)
               {
-                v64 = v181[0] + 56;
+                v64 = v177[0] + 56;
                 continue;
               }
 
@@ -9708,23 +9571,22 @@ LABEL_59:
             }
 
 LABEL_83:
-            v182 = v54;
-            v8 = v155;
-            v44 = v156;
-            v10 = v153;
-            v45 = v163;
-            v48 = v159;
-            v46 = v161;
+            v178 = v54;
+            v8 = v151;
+            v44 = v152;
+            v10 = v149;
+            v45 = v159;
+            v48 = v155;
+            v46 = v157;
             if (*(v54 + 16))
             {
 LABEL_84:
-              v81 = *(v54 + 40);
-              v82 = v48;
+              v80 = v48;
               Hasher.init(_seed:)();
               MEMORY[0x1AC57CB80](v39);
-              MEMORY[0x1AC57CB80](v82);
+              MEMORY[0x1AC57CB80](v80);
               MEMORY[0x1AC57CB80](v45);
-              if (v177)
+              if (v173)
               {
                 Hasher._combine(_:)(0);
               }
@@ -9735,20 +9597,20 @@ LABEL_84:
                 MEMORY[0x1AC57CB80](v46);
               }
 
-              v83 = Hasher._finalize()();
-              v84 = -1 << *(v54 + 32);
-              v85 = v83 & ~v84;
-              if ((*(v54 + 56 + ((v85 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v85))
+              v81 = Hasher._finalize()();
+              v82 = -1 << *(v54 + 32);
+              v83 = v81 & ~v82;
+              if ((*(v54 + 56 + ((v83 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v83))
               {
-                v86 = ~v84;
+                v84 = ~v82;
                 do
                 {
-                  v87 = *(v54 + 48) + 40 * v85;
-                  if (*v87 == v39 && *(v87 + 8) == v82 && *(v87 + 16) == v45)
+                  v85 = *(v54 + 48) + 40 * v83;
+                  if (*v85 == v39 && *(v85 + 8) == v80 && *(v85 + 16) == v45)
                   {
-                    if (*(v87 + 32))
+                    if (*(v85 + 32))
                     {
-                      if (v177)
+                      if (v173)
                       {
                         goto LABEL_103;
                       }
@@ -9756,63 +9618,63 @@ LABEL_84:
 
                     else
                     {
-                      v43 = *(v87 + 24) == v46;
-                      v90 = v177;
+                      v43 = *(v85 + 24) == v46;
+                      v88 = v173;
                       if (!v43)
                       {
-                        v90 = 1;
+                        v88 = 1;
                       }
 
-                      if ((v90 & 1) == 0)
+                      if ((v88 & 1) == 0)
                       {
 LABEL_103:
-                        v30 = v174;
-                        v9 = v176;
-                        v31 = v170;
-                        v32 = v172;
+                        v30 = v170;
+                        v9 = v172;
+                        v31 = v166;
+                        v32 = v168;
                         a4 = v44;
-                        v34 = v166;
-                        v33 = v168;
-                        v7 = v169;
+                        v34 = v162;
+                        v33 = v164;
+                        v7 = v165;
                         goto LABEL_23;
                       }
                     }
                   }
 
-                  v85 = (v85 + 1) & v86;
+                  v83 = (v83 + 1) & v84;
                 }
 
-                while (((*(v54 + 56 + ((v85 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v85) & 1) != 0);
+                while (((*(v54 + 56 + ((v83 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v83) & 1) != 0);
               }
             }
 
-            specialized Set._Variant.insert(_:)(v181, &v183);
-            v9 = v176;
+            specialized Set._Variant.insert(_:)(v177, &v179);
+            v9 = v172;
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v176 + 2) + 1, 1, v176);
+              v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v172 + 2) + 1, 1, v172);
             }
 
             a4 = v44;
             v60 = *(v9 + 2);
-            v91 = *(v9 + 3);
+            v89 = *(v9 + 3);
             v61 = v60 + 1;
-            v32 = v172;
-            v30 = v174;
-            v7 = v169;
-            v31 = v170;
-            v34 = v166;
-            v33 = v168;
-            if (v60 >= v91 >> 1)
+            v32 = v168;
+            v30 = v170;
+            v7 = v165;
+            v31 = v166;
+            v34 = v162;
+            v33 = v164;
+            if (v60 >= v89 >> 1)
             {
-              v92 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v91 > 1), v60 + 1, 1, v9);
-              v34 = v166;
-              v33 = v168;
-              v31 = v170;
+              v90 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v89 > 1), v60 + 1, 1, v9);
+              v34 = v162;
+              v33 = v164;
+              v31 = v166;
               a4 = v44;
-              v9 = v92;
-              v32 = v172;
-              v30 = v174;
+              v9 = v90;
+              v32 = v168;
+              v30 = v170;
             }
           }
 
@@ -9867,14 +9729,14 @@ LABEL_51:
             v58 = v31;
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v179 + 1, 1, v9);
+              v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v175 + 1, 1, v9);
             }
 
             v60 = *(v9 + 2);
             v59 = *(v9 + 3);
             v61 = v60 + 1;
-            v32 = v172;
-            v30 = v174;
+            v32 = v168;
+            v30 = v170;
             if (v60 < v59 >> 1)
             {
               v31 = v58;
@@ -9887,8 +9749,8 @@ LABEL_51:
               v34 = v55;
               v31 = v58;
               v9 = v62;
-              v32 = v172;
-              v30 = v174;
+              v32 = v168;
+              v30 = v170;
             }
 
             a4 = v44;
@@ -9898,9 +9760,9 @@ LABEL_51:
 
           *(v9 + 2) = v61;
           v35 = &v9[40 * v60];
-          v36 = v183;
-          v37 = v184;
-          v35[64] = v185;
+          v36 = v179;
+          v37 = v180;
+          v35[64] = v181;
           *(v35 + 2) = v36;
           *(v35 + 3) = v37;
           *a4 = v9;

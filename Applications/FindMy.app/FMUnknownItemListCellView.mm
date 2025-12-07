@@ -10,10 +10,10 @@
   v4 = type metadata accessor for UICellConfigurationState();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UICellConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1002358A0(v7);
+  sub_1002358A0(v7, v9);
 
   (*(v5 + 8))(v7, v4);
 }

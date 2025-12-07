@@ -355,7 +355,7 @@ LABEL_8:
   activeSegment = self->_activeSegment;
   if (activeSegment)
   {
-    [(VCPSegment *)activeSegment timeRange];
+    objc_msgSend_timeRange(activeSegment, a2);
   }
 
   else
@@ -371,7 +371,7 @@ LABEL_8:
     v9 = self->_activeSegment;
     if (v9)
     {
-      [(VCPSegment *)v9 timeRange];
+      objc_msgSend_timeRange(v9);
     }
 
     else
@@ -397,7 +397,7 @@ LABEL_8:
     time = *start;
     if (lastObject)
     {
-      [lastObject timeRange];
+      objc_msgSend_timeRange(lastObject);
     }
 
     else
@@ -432,7 +432,7 @@ void __35__VCPActionAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
   v3 = v2;
   if (v2)
   {
-    [v2 timeRange];
+    objc_msgSend_timeRange(v2);
   }
 
   else
@@ -447,7 +447,7 @@ void __35__VCPActionAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
   Seconds = CMTimeGetSeconds(&time.start);
   if (v3)
   {
-    [v3 timeRange];
+    objc_msgSend_timeRange(v3);
   }
 
   else
@@ -514,7 +514,7 @@ void __35__VCPActionAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     v15 = v14;
     if (v14)
     {
-      [v14 timeRange];
+      objc_msgSend_timeRange(v14);
     }
 
     else
@@ -531,7 +531,7 @@ void __35__VCPActionAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     v18 = lastObject;
     if (lastObject)
     {
-      [lastObject timeRange];
+      objc_msgSend_timeRange(lastObject);
     }
 
     else
@@ -555,7 +555,7 @@ void __61__VCPActionAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_inv
   v6 = v5;
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
   }
 
   else
@@ -571,7 +571,7 @@ void __61__VCPActionAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_inv
 
   if (v6)
   {
-    [v6 timeRange];
+    objc_msgSend_timeRange(v6);
   }
 
   else

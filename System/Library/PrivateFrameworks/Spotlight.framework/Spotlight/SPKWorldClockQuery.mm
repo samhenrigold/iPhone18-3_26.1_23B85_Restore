@@ -53,35 +53,35 @@
 
 void __27__SPKWorldClockQuery_start__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([*(a1 + 32) isCanceled] & 1) == 0)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = [v3 results];
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         v8 = 0;
         do
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v17 + 1) + 8 * v8++) setQueryId:{objc_msgSend(*(a1 + 32), "queryGroupId")}];
+          [*(*(&v16 + 1) + 8 * v8++) setQueryId:{objc_msgSend(*(a1 + 32), "queryGroupId")}];
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v6);
@@ -91,8 +91,8 @@ void __27__SPKWorldClockQuery_start__block_invoke(uint64_t a1, void *a2)
     v10 = [*(a1 + 32) queryGroupId];
     if (v3)
     {
-      v21 = v3;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+      v20 = v3;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
       v12 = [v9 initWithQueryID:v10 sourceKind:7 sections:v11];
     }
 
@@ -109,8 +109,6 @@ void __27__SPKWorldClockQuery_start__block_invoke(uint64_t a1, void *a2)
     v15 = [MEMORY[0x277D4BEC0] sharedProxy];
     [v15 sendFeedbackType:6 feedback:v14 queryId:*(a1 + 56) clientID:*(a1 + 48)];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

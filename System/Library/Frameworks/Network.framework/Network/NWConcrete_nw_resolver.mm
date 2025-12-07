@@ -8,7 +8,7 @@
 
 - (void)dealloc
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   if (!*(self + 30) || (*(self + 370) & 0x20) != 0)
   {
     goto LABEL_50;
@@ -21,16 +21,14 @@
     v7 = gLogObj;
     v8 = *(self + 91);
     *buf = 136446466;
-    v58 = "[NWConcrete_nw_resolver dealloc]";
-    v59 = 1024;
-    *v60 = v8;
-    v52 = 18;
-    v51 = buf;
-    v4 = _os_log_send_and_compose_impl();
+    v56 = "[NWConcrete_nw_resolver dealloc]";
+    v57 = 1024;
+    *v58 = v8;
+    v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s [R%u] over-release of nw_resolver_t! Object should not be internally retained and deallocating", buf, 18);
 
     type = OS_LOG_TYPE_ERROR;
-    v55 = 0;
-    if (!__nwlog_fault(v4, &type, &v55))
+    v53 = 0;
+    if (!__nwlog_fault(v4, &type, &v53))
     {
       goto LABEL_48;
     }
@@ -45,16 +43,16 @@
       {
         v10 = *(self + 91);
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 1024;
-        *v60 = v10;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 1024;
+        *v58 = v10;
         _os_log_impl(&dword_181A37000, v5, v9, "%{public}s [R%u] over-release of nw_resolver_t! Object should not be internally retained and deallocating", buf, 0x12u);
       }
 
       goto LABEL_47;
     }
 
-    if (v55 != 1)
+    if (v53 != 1)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
@@ -64,9 +62,9 @@
       {
         v21 = *(self + 91);
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 1024;
-        *v60 = v21;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 1024;
+        *v58 = v21;
         _os_log_impl(&dword_181A37000, v5, v20, "%{public}s [R%u] over-release of nw_resolver_t! Object should not be internally retained and deallocating, backtrace limit exceeded", buf, 0x12u);
       }
 
@@ -85,9 +83,9 @@
       {
         v23 = *(self + 91);
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 1024;
-        *v60 = v23;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 1024;
+        *v58 = v23;
         _os_log_impl(&dword_181A37000, v5, v16, "%{public}s [R%u] over-release of nw_resolver_t! Object should not be internally retained and deallocating, no backtrace", buf, 0x12u);
       }
 
@@ -98,11 +96,11 @@
     {
       v18 = *(self + 91);
       *buf = 136446722;
-      v58 = "[NWConcrete_nw_resolver dealloc]";
-      v59 = 1024;
-      *v60 = v18;
-      *&v60[4] = 2082;
-      *&v60[6] = backtrace_string;
+      v56 = "[NWConcrete_nw_resolver dealloc]";
+      v57 = 1024;
+      *v58 = v18;
+      *&v58[4] = 2082;
+      *&v58[6] = backtrace_string;
       _os_log_impl(&dword_181A37000, v5, v16, "%{public}s [R%u] over-release of nw_resolver_t! Object should not be internally retained and deallocating, dumping backtrace:%{public}s", buf, 0x1Cu);
     }
 
@@ -124,16 +122,14 @@ LABEL_49:
 
   v3 = gconnectionLogObj;
   *buf = 136446466;
-  v58 = "[NWConcrete_nw_resolver dealloc]";
-  v59 = 2082;
-  *v60 = self + 280;
-  v52 = 22;
-  v51 = buf;
-  v4 = _os_log_send_and_compose_impl();
+  v56 = "[NWConcrete_nw_resolver dealloc]";
+  v57 = 2082;
+  *v58 = self + 280;
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not be internally retained and deallocating", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
-  v55 = 0;
-  if (!__nwlog_fault(v4, &type, &v55))
+  v53 = 0;
+  if (!__nwlog_fault(v4, &type, &v53))
   {
 LABEL_48:
     if (!v4)
@@ -156,9 +152,9 @@ LABEL_48:
     if (os_log_type_enabled(v5, type))
     {
       *buf = 136446466;
-      v58 = "[NWConcrete_nw_resolver dealloc]";
-      v59 = 2082;
-      *v60 = self + 280;
+      v56 = "[NWConcrete_nw_resolver dealloc]";
+      v57 = 2082;
+      *v58 = self + 280;
       _os_log_impl(&dword_181A37000, v5, v6, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not be internally retained and deallocating", buf, 0x16u);
     }
 
@@ -167,7 +163,7 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if (v55 != 1)
+  if (v53 != 1)
   {
     if (__nwlog_connection_log::onceToken[0] != -1)
     {
@@ -179,9 +175,9 @@ LABEL_47:
     if (os_log_type_enabled(v5, type))
     {
       *buf = 136446466;
-      v58 = "[NWConcrete_nw_resolver dealloc]";
-      v59 = 2082;
-      *v60 = self + 280;
+      v56 = "[NWConcrete_nw_resolver dealloc]";
+      v57 = 2082;
+      *v58 = self + 280;
       _os_log_impl(&dword_181A37000, v5, v19, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not be internally retained and deallocating, backtrace limit exceeded", buf, 0x16u);
     }
 
@@ -201,9 +197,9 @@ LABEL_47:
     if (os_log_type_enabled(v5, type))
     {
       *buf = 136446466;
-      v58 = "[NWConcrete_nw_resolver dealloc]";
-      v59 = 2082;
-      *v60 = self + 280;
+      v56 = "[NWConcrete_nw_resolver dealloc]";
+      v57 = 2082;
+      *v58 = self + 280;
       _os_log_impl(&dword_181A37000, v5, v22, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not be internally retained and deallocating, no backtrace", buf, 0x16u);
     }
 
@@ -221,11 +217,11 @@ LABEL_47:
   if (os_log_type_enabled(v13, type))
   {
     *buf = 136446722;
-    v58 = "[NWConcrete_nw_resolver dealloc]";
-    v59 = 2082;
-    *v60 = self + 280;
-    *&v60[8] = 2082;
-    *&v60[10] = v12;
+    v56 = "[NWConcrete_nw_resolver dealloc]";
+    v57 = 2082;
+    *v58 = self + 280;
+    *&v58[8] = 2082;
+    *&v58[10] = v12;
     _os_log_impl(&dword_181A37000, v13, v14, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not be internally retained and deallocating, dumping backtrace:%{public}s", buf, 0x20u);
   }
 
@@ -253,16 +249,15 @@ LABEL_50:
     v28 = gLogObj;
     v29 = *(self + 91);
     *buf = 136446466;
-    v58 = "[NWConcrete_nw_resolver dealloc]";
-    v59 = 1024;
-    *v60 = v29;
-    v52 = 18;
-    v51 = buf;
-    v25 = _os_log_send_and_compose_impl();
+    v56 = "[NWConcrete_nw_resolver dealloc]";
+    v57 = 1024;
+    *v58 = v29;
+    LODWORD(v50) = 18;
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s [R%u] over-release of nw_resolver_t! Object should not still have a DNS service", buf, v50);
 
     type = OS_LOG_TYPE_ERROR;
-    v55 = 0;
-    if (!__nwlog_fault(v25, &type, &v55))
+    v53 = 0;
+    if (!__nwlog_fault(v25, &type, &v53))
     {
       goto LABEL_97;
     }
@@ -277,14 +272,14 @@ LABEL_50:
       {
         v31 = *(self + 91);
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 1024;
-        *v60 = v31;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 1024;
+        *v58 = v31;
         _os_log_impl(&dword_181A37000, v26, v30, "%{public}s [R%u] over-release of nw_resolver_t! Object should not still have a DNS service", buf, 0x12u);
       }
     }
 
-    else if (v55 == 1)
+    else if (v53 == 1)
     {
       v36 = __nw_create_backtrace_string();
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -298,11 +293,11 @@ LABEL_50:
         {
           v39 = *(self + 91);
           *buf = 136446722;
-          v58 = "[NWConcrete_nw_resolver dealloc]";
-          v59 = 1024;
-          *v60 = v39;
-          *&v60[4] = 2082;
-          *&v60[6] = v36;
+          v56 = "[NWConcrete_nw_resolver dealloc]";
+          v57 = 1024;
+          *v58 = v39;
+          *&v58[4] = 2082;
+          *&v58[6] = v36;
           _os_log_impl(&dword_181A37000, v26, v37, "%{public}s [R%u] over-release of nw_resolver_t! Object should not still have a DNS service, dumping backtrace:%{public}s", buf, 0x1Cu);
         }
 
@@ -319,9 +314,9 @@ LABEL_50:
       {
         v44 = *(self + 91);
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 1024;
-        *v60 = v44;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 1024;
+        *v58 = v44;
         _os_log_impl(&dword_181A37000, v26, v37, "%{public}s [R%u] over-release of nw_resolver_t! Object should not still have a DNS service, no backtrace", buf, 0x12u);
       }
     }
@@ -336,9 +331,9 @@ LABEL_50:
       {
         v42 = *(self + 91);
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 1024;
-        *v60 = v42;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 1024;
+        *v58 = v42;
         _os_log_impl(&dword_181A37000, v26, v41, "%{public}s [R%u] over-release of nw_resolver_t! Object should not still have a DNS service, backtrace limit exceeded", buf, 0x12u);
       }
     }
@@ -353,16 +348,15 @@ LABEL_50:
 
   v24 = gconnectionLogObj;
   *buf = 136446466;
-  v58 = "[NWConcrete_nw_resolver dealloc]";
-  v59 = 2082;
-  *v60 = self + 280;
-  v52 = 22;
-  v51 = buf;
-  v25 = _os_log_send_and_compose_impl();
+  v56 = "[NWConcrete_nw_resolver dealloc]";
+  v57 = 2082;
+  *v58 = self + 280;
+  LODWORD(v50) = 22;
+  v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not still have a DNS service", buf, v50);
 
   type = OS_LOG_TYPE_ERROR;
-  v55 = 0;
-  if (__nwlog_fault(v25, &type, &v55))
+  v53 = 0;
+  if (__nwlog_fault(v25, &type, &v53))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -376,14 +370,14 @@ LABEL_50:
       if (os_log_type_enabled(v26, type))
       {
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 2082;
-        *v60 = self + 280;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 2082;
+        *v58 = self + 280;
         _os_log_impl(&dword_181A37000, v26, v27, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not still have a DNS service", buf, 0x16u);
       }
     }
 
-    else if (v55 == 1)
+    else if (v53 == 1)
     {
       v32 = __nw_create_backtrace_string();
       if (v32)
@@ -399,11 +393,11 @@ LABEL_50:
         if (os_log_type_enabled(v34, type))
         {
           *buf = 136446722;
-          v58 = "[NWConcrete_nw_resolver dealloc]";
-          v59 = 2082;
-          *v60 = self + 280;
-          *&v60[8] = 2082;
-          *&v60[10] = v33;
+          v56 = "[NWConcrete_nw_resolver dealloc]";
+          v57 = 2082;
+          *v58 = self + 280;
+          *&v58[8] = 2082;
+          *&v58[10] = v33;
           _os_log_impl(&dword_181A37000, v34, v35, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not still have a DNS service, dumping backtrace:%{public}s", buf, 0x20u);
         }
 
@@ -426,9 +420,9 @@ LABEL_50:
       if (os_log_type_enabled(v26, type))
       {
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 2082;
-        *v60 = self + 280;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 2082;
+        *v58 = self + 280;
         _os_log_impl(&dword_181A37000, v26, v43, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not still have a DNS service, no backtrace", buf, 0x16u);
       }
     }
@@ -445,9 +439,9 @@ LABEL_50:
       if (os_log_type_enabled(v26, type))
       {
         *buf = 136446466;
-        v58 = "[NWConcrete_nw_resolver dealloc]";
-        v59 = 2082;
-        *v60 = self + 280;
+        v56 = "[NWConcrete_nw_resolver dealloc]";
+        v57 = 2082;
+        *v58 = self + 280;
         _os_log_impl(&dword_181A37000, v26, v40, "%{public}s [C%{public}s] over-release of nw_resolver_t! Object should not still have a DNS service, backtrace limit exceeded", buf, 0x16u);
       }
     }
@@ -465,12 +459,12 @@ LABEL_98:
 LABEL_99:
   v45 = *(self + 8);
   v46 = *(self + 4);
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __33__NWConcrete_nw_resolver_dealloc__block_invoke;
-  v54[3] = &__block_descriptor_40_e5_v8__0l;
-  v54[4] = v45;
-  nw_queue_context_async_if_needed(v46, v54);
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __33__NWConcrete_nw_resolver_dealloc__block_invoke;
+  v52[3] = &__block_descriptor_40_e5_v8__0l;
+  v52[4] = v45;
+  nw_queue_context_async_if_needed(v46, v52);
 LABEL_100:
   v47 = *(self + 18);
   if (v47)
@@ -479,23 +473,23 @@ LABEL_100:
   }
 
   nw_path_evaluator_cancel(*(self + 16));
-  v49 = *(self + 23);
-  if (v49)
+  v48 = *(self + 23);
+  if (v48)
   {
-    nw_queue_cancel_source(v49, v48);
+    nw_queue_cancel_source(v48);
     *(self + 23) = 0;
   }
 
-  v50 = *(self + 31);
-  if (v50)
+  v49 = *(self + 31);
+  if (v49)
   {
-    free(v50);
+    free(v49);
     *(self + 31) = 0;
   }
 
-  v53.receiver = self;
-  v53.super_class = NWConcrete_nw_resolver;
-  [(NWConcrete_nw_resolver *)&v53 dealloc:v51];
+  v51.receiver = self;
+  v51.super_class = NWConcrete_nw_resolver;
+  [(NWConcrete_nw_resolver *)&v51 dealloc];
 }
 
 - (NSString)description
@@ -576,7 +570,7 @@ LABEL_13:
     v67 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_resolver initWithEndpoint:parameters:path:log_str:]";
-    v68 = _os_log_send_and_compose_impl();
+    v68 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v67, 16, "%{public}s [super init] failed", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v80 = 0;
@@ -673,7 +667,7 @@ LABEL_119:
     v23 = gLogObj;
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_resolver initWithEndpoint:parameters:path:log_str:]";
-    v24 = _os_log_send_and_compose_impl();
+    v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s Cannot use nw_resolver on inline contexts", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v80 = 0;

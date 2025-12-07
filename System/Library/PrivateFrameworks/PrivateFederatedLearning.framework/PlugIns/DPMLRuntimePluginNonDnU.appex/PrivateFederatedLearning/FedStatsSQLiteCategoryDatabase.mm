@@ -465,26 +465,25 @@ LABEL_67:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v9 = categoriesCopy;
-      v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v34;
+        v12 = *v33;
         while (2)
         {
-          for (i = 0; i != v11; i = i + 1)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v34 != v12)
+            if (*v33 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v33 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -496,7 +495,7 @@ LABEL_67:
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
           if (v11)
           {
             continue;
@@ -506,46 +505,46 @@ LABEL_67:
         }
       }
 
-      v32 = 0;
-      v15 = [FedStatsSQLiteDatabase databaseWithURL:atCopy mode:119 error:&v32];
-      v16 = v32;
-      v17 = v16;
-      if (v15)
+      v31 = 0;
+      v14 = [FedStatsSQLiteDatabase databaseWithURL:atCopy mode:119 error:&v31];
+      v15 = v31;
+      v16 = v15;
+      if (v14)
       {
-        v31 = v16;
-        v18 = [v15 execute:@"CREATE TABLE categories (idx INTEGER UNIQUE error:{category TEXT UNIQUE, PRIMARY KEY(idx, category)) WITHOUT ROWID, STRICT", &v31}];
-        v19 = v31;
+        v30 = v15;
+        v17 = [v14 execute:@"CREATE TABLE categories (idx INTEGER UNIQUE error:{category TEXT UNIQUE, PRIMARY KEY(idx, category)) WITHOUT ROWID, STRICT", &v30}];
+        v18 = v30;
 
-        if (v18)
+        if (v17)
         {
-          v29 = v15;
-          v20 = 0;
-          v21 = 1;
+          v28 = v14;
+          v19 = 0;
+          v20 = 1;
           do
           {
-            if (v21 - 1 >= [v9 count])
+            if (v20 - 1 >= [v9 count])
             {
 
-              v26 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:atCopy error:error];
+              v25 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:atCopy error:error];
               goto LABEL_36;
             }
 
-            v22 = [v9 objectAtIndex:v21 - 1];
-            v23 = [NSString stringWithFormat:@"INSERT INTO categories VALUES (%lu, '%@')", v21, v22];
+            v21 = [v9 objectAtIndex:v20 - 1];
+            v22 = [NSString stringWithFormat:@"INSERT INTO categories VALUES (%lu, '%@')", v20, v21];
 
-            v30 = v19;
-            LOBYTE(v22) = [v29 execute:v23 error:&v30];
-            v24 = v30;
+            v29 = v18;
+            LOBYTE(v21) = [v28 execute:v22 error:&v29];
+            v23 = v29;
 
-            ++v21;
-            v19 = v24;
-            v20 = v23;
+            ++v20;
+            v18 = v23;
+            v19 = v22;
           }
 
-          while ((v22 & 1) != 0);
+          while ((v21 & 1) != 0);
           if (error)
           {
-            *error = [FedStatsError errorWithCode:302 underlyingError:v24 description:@"Cannot insert elements into the table"];
+            *error = [FedStatsError errorWithCode:302 underlyingError:v23 description:@"Cannot insert elements into the table"];
           }
 
           goto LABEL_35;
@@ -555,22 +554,22 @@ LABEL_67:
         {
           goto LABEL_34;
         }
-        v27 = ;
+        v26 = ;
       }
 
       else
       {
         if (!error)
         {
-          v19 = v16;
+          v18 = v15;
           goto LABEL_34;
         }
 
-        v27 = [FedStatsError errorWithCode:302 underlyingError:v16 description:@"Cannot create new database"];
-        v19 = v17;
+        v26 = [FedStatsError errorWithCode:302 underlyingError:v15 description:@"Cannot create new database"];
+        v18 = v16;
       }
 
-      *error = v27;
+      *error = v26;
 LABEL_34:
 
       goto LABEL_35;
@@ -585,16 +584,16 @@ LABEL_34:
   else if (error)
   {
 LABEL_23:
-    [FedStatsError errorWithCode:302 description:v25];
-    *error = v26 = 0;
+    [FedStatsError errorWithCode:302 description:v24];
+    *error = v25 = 0;
     goto LABEL_36;
   }
 
 LABEL_35:
-  v26 = 0;
+  v25 = 0;
 LABEL_36:
 
-  return v26;
+  return v25;
 }
 
 @end

@@ -89,7 +89,7 @@
 
 + (id)brc_fetchShareIDWithSharedItem:()BRCShareIDAdditions
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [v3 db];
   [v4 assertOnQueue];
@@ -119,7 +119,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = v7;
+      v29 = v7;
       _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] No share options set on an item which is clearly shared%@", buf, 0xCu);
     }
   }
@@ -159,14 +159,13 @@
   }
 
 LABEL_14:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (id)brc_collaborationIdentifierWithCachedCurrentUserRecordName:()BRCShareIDAdditions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
   zoneID = [self zoneID];
   zoneName = [zoneID zoneName];
@@ -193,20 +192,18 @@ LABEL_5:
   }
 
   ownerName2 = brc_bread_crumbs();
-  v16 = brc_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = brc_default_log();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v19 = 2112;
-    v20 = ownerName2;
-    _os_log_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] No collaboration identifier can be computed yet for %@%@", buf, 0x16u);
+    v18 = 2112;
+    v19 = ownerName2;
+    _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] No collaboration identifier can be computed yet for %@%@", buf, 0x16u);
   }
 
   v13 = 0;
 LABEL_6:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

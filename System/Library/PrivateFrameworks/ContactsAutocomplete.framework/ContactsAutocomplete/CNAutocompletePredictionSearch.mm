@@ -42,42 +42,40 @@
 
 - (id)executeRequest:(id)request completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
-  v8 = CNALoggingContextDebug();
+  v8 = CNALoggingContextDebug(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v24 = requestCopy;
+    v23 = requestCopy;
     _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Executing request %p against predictions CoreDuet/PeopleSuggester", buf, 0xCu);
   }
 
   v9 = [(CNAutocompletePredictionSearch *)self suggestionsForRequest:requestCopy];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __67__CNAutocompletePredictionSearch_executeRequest_completionHandler___block_invoke;
-  v21[3] = &unk_2781C4218;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __67__CNAutocompletePredictionSearch_executeRequest_completionHandler___block_invoke;
+  v20[3] = &unk_2781C4218;
   v10 = handlerCopy;
-  v22 = v10;
-  [v9 addSuccessBlock:v21];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __67__CNAutocompletePredictionSearch_executeRequest_completionHandler___block_invoke_2;
-  v19[3] = &unk_2781C4240;
-  v20 = v10;
+  v21 = v10;
+  [v9 addSuccessBlock:v20];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __67__CNAutocompletePredictionSearch_executeRequest_completionHandler___block_invoke_2;
+  v18[3] = &unk_2781C4240;
+  v19 = v10;
   v11 = v10;
-  [v9 addFailureBlock:v19];
+  [v9 addFailureBlock:v18];
   v12 = MEMORY[0x277CFBDC8];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __67__CNAutocompletePredictionSearch_executeRequest_completionHandler___block_invoke_3;
-  v17[3] = &unk_2781C3FB0;
-  v18 = v9;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __67__CNAutocompletePredictionSearch_executeRequest_completionHandler___block_invoke_3;
+  v16[3] = &unk_2781C3FB0;
+  v17 = v9;
   v13 = v9;
-  v14 = [v12 tokenWithCancelationBlock:v17];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [v12 tokenWithCancelationBlock:v16];
 
   return v14;
 }
@@ -92,8 +90,8 @@
   [defaultProvider timestamp];
   v9 = v8;
 
-  v10 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = CNALoggingContextTriage(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier = [requestCopy triageIdentifier];
     descriptionForLogging = [v6 descriptionForLogging];
@@ -101,7 +99,7 @@
     v29 = triageIdentifier;
     v30 = 2114;
     v31 = descriptionForLogging;
-    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Predictions: Will search %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Predictions: Will search %{public}@", buf, 0x16u);
   }
 
   scheduler = self->_scheduler;
@@ -113,77 +111,74 @@
   v25 = requestCopy;
   v27 = v9;
   v26 = v5;
-  v14 = v5;
-  v15 = requestCopy;
-  v16 = v6;
+  v15 = v5;
+  v16 = requestCopy;
+  v17 = v6;
   [(CNScheduler *)scheduler performBlock:&v20];
-  future = [v14 future];
-
-  v18 = *MEMORY[0x277D85DE8];
+  future = [v15 future];
 
   return future;
 }
 
 void __56__CNAutocompletePredictionSearch_suggestionsForRequest___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) searchResultsForFetchRequest:*(a1 + 40)];
   v3 = [MEMORY[0x277CFBED0] defaultProvider];
   [v3 timestamp];
   v5 = v4;
 
   v6 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v5 - *(a1 + 56)];
-  v7 = CNALoggingContextTriage();
+  v7 = CNALoggingContextTriage(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 40) triageIdentifier];
     v9 = [v2 count];
     v10 = [v2 count];
     v11 = "results";
-    v19 = 138544130;
-    v21 = 2048;
-    v20 = v8;
+    v20 = 138544130;
+    v22 = 2048;
+    v21 = v8;
     if (v10 == 1)
     {
       v11 = "result";
     }
 
-    v22 = v9;
-    v23 = 2080;
-    v24 = v11;
-    v25 = 2114;
-    v26 = v6;
-    _os_log_impl(&dword_2155FE000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Predictions: Search complete (%lu %s, %{public}@)", &v19, 0x2Au);
+    v23 = v9;
+    v24 = 2080;
+    v25 = v11;
+    v26 = 2114;
+    v27 = v6;
+    _os_log_impl(&dword_2155FE000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Predictions: Search complete (%lu %s, %{public}@)", &v20, 0x2Au);
   }
 
-  v12 = CNALoggingContextPerformance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = CNALoggingContextPerformance(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v13 = [v2 count];
-    v14 = [*(a1 + 32) descriptionForLogging];
-    v19 = 134218498;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2114;
-    v24 = v6;
-    _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_INFO, "Time to fetch %lu predictions results from %@: %{public}@", &v19, 0x20u);
+    v14 = [v2 count];
+    v15 = [*(a1 + 32) descriptionForLogging];
+    v20 = 134218498;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v15;
+    v24 = 2114;
+    v25 = v6;
+    _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_INFO, "Time to fetch %lu predictions results from %@: %{public}@", &v20, 0x20u);
   }
 
-  v15 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = CNALoggingContextDebug(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "count")}];
-    v17 = [v2 _cn_take:200];
-    v19 = 138412546;
-    v20 = v16;
-    v21 = 2112;
-    v22 = v17;
-    _os_log_impl(&dword_2155FE000, v15, OS_LOG_TYPE_DEFAULT, "Predicted results (first 200 out of %@): %@", &v19, 0x16u);
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "count")}];
+    v19 = [v2 _cn_take:200];
+    v20 = 138412546;
+    v21 = v18;
+    v22 = 2112;
+    v23 = v19;
+    _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "Predicted results (first 200 out of %@): %@", &v20, 0x16u);
   }
 
   [*(a1 + 48) finishWithResult:v2];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)strategyForRequest:(id)request

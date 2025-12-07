@@ -158,7 +158,6 @@
     xpc_dictionary_set_double(xdict, "epT", endTime);
   }
 
-  appDiscoveryConfiguration = self->_appDiscoveryConfiguration;
   CUXPCEncodeObject();
   xpc_dictionary_set_int64(xdict, "dvSt", self->_state);
   wifiAwarePairingID = self->_wifiAwarePairingID;
@@ -314,90 +313,110 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v38 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v37 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v37, &v38, "%@", v5);
+    v6 = v37;
   }
 
   bundleIdentifier = self->_bundleIdentifier;
   if (bundleIdentifier)
   {
-    v20 = bundleIdentifier;
-    CUAppendF();
-    v6 = v4;
+    v36 = v6;
+    v8 = bundleIdentifier;
+    CUAppendF(&v36, &v38, "%@", v8);
+    v9 = v36;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   deviceIdentifier = self->_deviceIdentifier;
   if (deviceIdentifier)
   {
-    v21 = deviceIdentifier;
-    CUAppendF();
-    v8 = v4;
+    v35 = v6;
+    v11 = deviceIdentifier;
+    CUAppendF(&v35, &v38, "ID %@", v11);
+    v12 = v35;
 
-    v4 = v8;
+    v6 = v12;
   }
 
-  v9 = DADeviceStateToString(self->_state);
-  CUAppendF();
-  v10 = v4;
+  v34 = v6;
+  v13 = DADeviceStateToString(self->_state);
+  CUAppendF(&v34, &v38, "state %@", v13);
+  v14 = v34;
 
-  v22 = DADeviceAccessorySetupOptionsToString(self->_accessoryOptions);
-  CUAppendF();
-  v11 = v10;
+  v33 = v14;
+  v15 = DADeviceAccessorySetupOptionsToString(self->_accessoryOptions);
+  CUAppendF(&v33, &v38, "< %@ >", v15);
+  v16 = v33;
 
   if (self->_approveTime != 0.0)
   {
-    v23 = CUPrintDateCF();
-    CUAppendF();
-    v12 = v11;
+    v32 = v16;
+    v17 = CUPrintDateCF();
+    CUAppendF(&v32, &v38, "Time %@", v17);
+    v18 = v32;
 
-    v11 = v12;
+    v16 = v18;
   }
 
   if (self->_endTime != 0.0)
   {
-    v24 = CUPrintDateCF();
-    CUAppendF();
-    v13 = v11;
+    v31 = v16;
+    v19 = CUPrintDateCF();
+    CUAppendF(&v31, &v38, "endTime %@", v19);
+    v20 = v31;
 
-    v11 = v13;
+    v16 = v20;
   }
 
   appDiscoveryConfiguration = self->_appDiscoveryConfiguration;
   if (appDiscoveryConfiguration)
   {
-    v25 = appDiscoveryConfiguration;
-    CUAppendF();
-    v15 = v11;
+    v30 = v16;
+    v22 = appDiscoveryConfiguration;
+    CUAppendF(&v30, &v38, "disConfig %@", v22);
+    v23 = v30;
 
-    v11 = v15;
+    v16 = v23;
   }
 
-  if (self->_wifiAwarePairingID)
+  wifiAwarePairingID = self->_wifiAwarePairingID;
+  if (wifiAwarePairingID)
   {
-    wifiAwarePairingID = self->_wifiAwarePairingID;
-    CUAppendF();
-    v16 = v11;
+    v29 = v16;
+    CUAppendF(&v29, &v38, "wFID %llu", wifiAwarePairingID);
+    v25 = v29;
 
-    v11 = v16;
+    v16 = v25;
   }
 
-  v17 = &stru_285B4C350;
-  if (v11)
+  v26 = &stru_285B4C350;
+  if (v16)
   {
-    v17 = v11;
+    v26 = v16;
   }
 
-  v18 = v17;
+  v27 = v26;
 
-  return v18;
+  return v27;
 }
 
 - (NSString)associationIdentifier
@@ -415,30 +434,31 @@
 - (DADeviceAppAccessInfo)initWithXPCObject:(id)object error:(id *)error
 {
   objectCopy = object;
-  v20.receiver = self;
-  v20.super_class = DADeviceAppAccessInfo;
-  v7 = [(DADeviceAppAccessInfo *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = DADeviceAppAccessInfo;
+  v7 = [(DADeviceAppAccessInfo *)&v21 init];
+  v11 = v7;
   if (!v7)
   {
     if (error)
     {
-      v13 = objc_opt_class();
-      DAErrorF(350001, "%@ super init failed", v14, v15, v16, v17, v18, v19, v13);
-      *error = v11 = 0;
+      v20 = objc_opt_class();
+      DAErrorF(350001, "%@ super init failed", v20);
+      *error = v18 = 0;
       goto LABEL_16;
     }
 
     goto LABEL_19;
   }
 
-  v21 = 0;
-  v8 = OUTLINED_FUNCTION_0();
-  if (v8 == 6)
+  v22 = 0;
+  v12 = OUTLINED_FUNCTION_0(v7, "dvAo", v8, v9, v10);
+  if (v12 == 6)
   {
-    v7->_accessoryOptions = v21;
+    v11->_accessoryOptions = v22;
   }
 
-  else if (v8 == 5)
+  else if (v12 == 5)
   {
     goto LABEL_19;
   }
@@ -469,38 +489,38 @@
 
   objc_opt_class();
   CUXPCDecodeObject();
-  v21 = 0;
-  v9 = CUXPCDecodeSInt64RangedEx();
-  if (v9 == 6)
+  v22 = 0;
+  v13 = CUXPCDecodeSInt64RangedEx();
+  if (v13 == 6)
   {
-    v7->_state = v21;
+    v11->_state = v22;
   }
 
-  else if (v9 == 5)
+  else if (v13 == 5)
   {
     goto LABEL_19;
   }
 
-  v21 = 0;
-  v10 = OUTLINED_FUNCTION_0();
-  if (v10 != 6)
+  v22 = 0;
+  v17 = OUTLINED_FUNCTION_0(v13, "wFPi", v14, v15, v16);
+  if (v17 != 6)
   {
-    if (v10 != 5)
+    if (v17 != 5)
     {
       goto LABEL_15;
     }
 
 LABEL_19:
-    v11 = 0;
+    v18 = 0;
     goto LABEL_16;
   }
 
-  v7->_wifiAwarePairingID = v21;
+  v11->_wifiAwarePairingID = v22;
 LABEL_15:
-  v11 = v7;
+  v18 = v11;
 LABEL_16:
 
-  return v11;
+  return v18;
 }
 
 - (void)initWithPersistentDictionaryRepresentation:(void *)result error:.cold.1(void *result)
@@ -509,7 +529,7 @@ LABEL_16:
   {
     v1 = result;
     v2 = objc_opt_class();
-    result = DAErrorF(350001, "%@ super init failed", v3, v4, v5, v6, v7, v8, v2);
+    result = DAErrorF(350001, "%@ super init failed", v2);
     *v1 = result;
   }
 
@@ -519,8 +539,8 @@ LABEL_16:
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
   v2 = objc_opt_class();
-  v9 = DAErrorF(350001, "%@ init failed", v3, v4, v5, v6, v7, v8, v2);
-  [a1 failWithError:v9];
+  v3 = DAErrorF(350001, "%@ init failed", v2);
+  [a1 failWithError:v3];
 }
 
 @end

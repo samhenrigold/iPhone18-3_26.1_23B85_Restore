@@ -1,6 +1,180 @@
-void sub_19D1EDFBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1ED69C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
-  va_start(va, a2);
+  __cxa_free_exception(v25);
+  applesauce::CF::StringRef::~StringRef((v26 - 192));
+  if (*(v26 - 113) < 0)
+  {
+    operator delete(*(v26 - 136));
+  }
+
+  applesauce::CF::DictionaryRef::~DictionaryRef((v26 - 112));
+  std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(v26 - 104, *(v26 - 96));
+  _Unwind_Resume(a1);
+}
+
+void applesauce::CF::convert_to<std::map<std::string,std::vector<float>>,0>(const void *a1@<X0>, uint64_t **a2@<X8>)
+{
+  if (!a1 || (TypeID = CFDictionaryGetTypeID(), TypeID != CFGetTypeID(a1)))
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::convert_error(exception);
+    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  applesauce::CF::details::CFDictionary_get_value_to<std::map<std::string,std::vector<float>>>(a1, a2);
+}
+
+void applesauce::CF::convert_or<std::string>(uint64_t a1@<X1>, std::string *a2@<X8>, const __CFString *a3@<X0>)
+{
+  applesauce::CF::convert_as<std::string,0>(a3, __p);
+  if ((v7 & 1) == 0)
+  {
+    *&a2->__r_.__value_.__l.__data_ = *a1;
+    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
+    return;
+  }
+
+  if (SHIBYTE(v6) < 0)
+  {
+    std::string::__init_copy_ctor_external(a2, __p[0], __p[1]);
+    if ((v7 & 1) == 0)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    *&a2->__r_.__value_.__l.__data_ = *__p;
+    a2->__r_.__value_.__r.__words[2] = v6;
+  }
+
+  if (SHIBYTE(v6) < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_19D1EDB10(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10, uint64_t *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  std::unique_ptr<CoreNLP::EmbeddingManager>::~unique_ptr[abi:ne200100](&a10);
+  std::unique_ptr<CoreNLP::EmbeddingManager>::~unique_ptr[abi:ne200100](&a11);
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x19D1EDAF4);
+}
+
+void sub_19D1EDCE4(void *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, uint64_t *);
+  std::unique_ptr<CoreNLP::EmbeddingManager>::~unique_ptr[abi:ne200100](va);
+  std::unique_ptr<CoreNLP::EmbeddingManager>::~unique_ptr[abi:ne200100](va1);
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x19D1EDCC8);
+}
+
+CFLocaleRef NLStringEmbeddingCopyModelLocale(CoreNLP *a1, void *a2)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v2 = *CoreNLP::unwrapGazetteer(a1, a2);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = (*(*v2 + 72))(v2);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = CoreNLP::convertLanguageIDToCode(v3);
+  v5 = strlen(v4);
+  if (v4)
+  {
+    v6 = CFStringCreateWithBytes(0, v4, v5, 0x8000100u, 0);
+    cf = v6;
+    if (!v6)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    cf = 0;
+  }
+
+  v8 = CFLocaleCreate(*MEMORY[0x1E695E480], v6);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  return v8;
+}
+
+void sub_19D1EDE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
+  _Unwind_Resume(a1);
+}
+
+CFNumberRef NLEmbeddingCopyVersion(const __CFLocale *a1)
+{
+  CoreNLP::WordEmbedding::WordEmbedding(&v5);
+  CoreNLP::WordEmbedding::clearEmptyModels(&v5);
+  if (CoreNLP::WordEmbedding::loadModel(&v5, a1, @"embedding.dat"))
+  {
+    v4 = v7;
+    v2 = CFNumberCreate(0, kCFNumberCFIndexType, &v4);
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  v5 = &unk_1F10AF170;
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  cf = 0;
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  CoreNLP::ProductQuantizer::~ProductQuantizer(&v11);
+  CoreNLP::KDTree::~KDTree(&v10);
+  if (v9 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(v6, v6[1]);
+  return v2;
+}
+
+void sub_19D1EDFBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   CoreNLP::WordEmbedding::~WordEmbedding(va);
   _Unwind_Resume(a1);
 }
@@ -30,7 +204,7 @@ CoreNLP *NLStringEmbeddingCopyVersion(CoreNLP *result, void *a2)
 CFNumberRef NLStringEmbeddingCopyCurrentVersion(const __CFLocale *a1, const __CFString *a2)
 {
   CoreNLP::EmbeddingManager::EmbeddingManager(&v11);
-  CoreNLP::EmbeddingManager::supportedVersions(&v11, a1, a2, &__p);
+  CoreNLP::EmbeddingManager::supportedVersions(&__p, &v11, a1, a2);
   v4 = __p;
   if (__p != v10)
   {
@@ -68,14 +242,15 @@ LABEL_4:
   return v5;
 }
 
-void sub_19D1EE140(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14)
+void sub_19D1EE140(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   if (__p)
   {
     operator delete(__p);
   }
 
-  CoreNLP::EmbeddingManager::~EmbeddingManager(&a14);
+  CoreNLP::EmbeddingManager::~EmbeddingManager(va);
   _Unwind_Resume(a1);
 }
 
@@ -110,8 +285,8 @@ float NLEmbeddingGetDistance(const __CFLocale *a1, const __CFString *a2, const _
   Distance = 2.0;
   if (a3 && v7)
   {
-    CoreNLP::getUTF8StringFromCFString(a2, v12);
-    CoreNLP::getUTF8StringFromCFString(a3, __p);
+    CoreNLP::getUTF8StringFromCFString(v12, a2);
+    CoreNLP::getUTF8StringFromCFString(__p, a3);
     Distance = CoreNLP::WordEmbedding::getDistance(&v14, v12, __p);
     if (v11 < 0)
     {
@@ -175,8 +350,8 @@ float NLStringEmbeddingGetDistance(CoreNLP *a1, __CFString *a2, __CFString *a3)
   if (CompressedWordEmbedding)
   {
     v8 = CompressedWordEmbedding;
-    CoreNLP::getUTF8StringFromCFString(a2, valuePtr);
-    CoreNLP::getUTF8StringFromCFString(a3, __p);
+    CoreNLP::getUTF8StringFromCFString(valuePtr, a2);
+    CoreNLP::getUTF8StringFromCFString(__p, a3);
     Distance = CoreNLP::WordEmbedding::getDistance(v8, valuePtr, __p);
     if (v22 < 0)
     {
@@ -277,7 +452,7 @@ __CFArray *NLStringEmbeddingCopyVector(CoreNLP *a1, __CFString *a2)
   v12 = 0;
   v13 = 0;
   v3 = CoreNLP::unwrapGazetteer(a1, a2);
-  CoreNLP::getUTF8StringFromCFString(a2, __p);
+  CoreNLP::getUTF8StringFromCFString(__p, a2);
   (*(**v3 + 32))(*v3, __p, &v11);
   if (v10 < 0)
   {
@@ -335,8 +510,9 @@ void sub_19D1EE69C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__CFArray *NLEmbeddingCopyNeighbors(const __CFLocale *a1, const __CFString *a2, int a3, float a4)
+__CFArray *NLEmbeddingCopyNeighbors(const __CFLocale *a1, const __CFString *a2, uint64_t a3, float a4)
 {
+  v5 = a3;
   CoreNLP::WordEmbedding::WordEmbedding(&v20);
   Model = CoreNLP::WordEmbedding::loadModel(&v20, a1, @"embedding.dat");
   if (a2)
@@ -351,8 +527,8 @@ __CFArray *NLEmbeddingCopyNeighbors(const __CFLocale *a1, const __CFString *a2, 
 
   if (v9)
   {
-    CoreNLP::getUTF8StringFromCFString(a2, __p);
-    CoreNLP::WordEmbedding::getNearestNeighbors(&v20, __p, a3, &v18, a4);
+    CoreNLP::getUTF8StringFromCFString(__p, a2);
+    CoreNLP::WordEmbedding::getNearestNeighbors(&v20, __p, v5, &v18, a4);
     if (v17 < 0)
     {
       operator delete(__p[0]);
@@ -371,7 +547,7 @@ __CFArray *NLEmbeddingCopyNeighbors(const __CFLocale *a1, const __CFString *a2, 
       while (v11 != v12)
       {
         v13 = v11;
-        if (*(v11 + 23) < 0)
+        if (v11[23] < 0)
         {
           v13 = *v11;
         }
@@ -423,13 +599,14 @@ void sub_19D1EE880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__CFArray *NLStringEmbeddingCopyNeighbors(CoreNLP *a1, __CFString *a2, int a3, float a4)
+__CFArray *NLStringEmbeddingCopyNeighbors(CoreNLP *a1, __CFString *a2, uint64_t a3, float a4)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v5 = a3;
   v7 = CoreNLP::unwrapGazetteer(a1, a2);
   CompressedWordEmbedding = CoreNLP::EmbeddingManager::getCompressedWordEmbedding(v7);
   if (!CompressedWordEmbedding)
@@ -438,8 +615,8 @@ __CFArray *NLStringEmbeddingCopyNeighbors(CoreNLP *a1, __CFString *a2, int a3, f
   }
 
   v9 = CompressedWordEmbedding;
-  CoreNLP::getUTF8StringFromCFString(a2, __p);
-  CoreNLP::WordEmbedding::getNearestNeighbors(v9, __p, a3, &v18, a4);
+  CoreNLP::getUTF8StringFromCFString(__p, a2);
+  CoreNLP::WordEmbedding::getNearestNeighbors(v9, __p, v5, &v18, a4);
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -458,7 +635,7 @@ __CFArray *NLStringEmbeddingCopyNeighbors(CoreNLP *a1, __CFString *a2, int a3, f
     while (v11 != v12)
     {
       v13 = v11;
-      if (*(v11 + 23) < 0)
+      if (v11[23] < 0)
       {
         v13 = *v11;
       }
@@ -482,8 +659,9 @@ void sub_19D1EE9E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__CFDictionary *NLEmbeddingCopyNeighborsWithDistances(const __CFLocale *a1, const __CFString *a2, int a3, float a4)
+__CFDictionary *NLEmbeddingCopyNeighborsWithDistances(const __CFLocale *a1, const __CFString *a2, uint64_t a3, float a4)
 {
+  v5 = a3;
   CoreNLP::WordEmbedding::WordEmbedding(&v21);
   Model = CoreNLP::WordEmbedding::loadModel(&v21, a1, @"embedding.dat");
   if (a2)
@@ -498,8 +676,8 @@ __CFDictionary *NLEmbeddingCopyNeighborsWithDistances(const __CFLocale *a1, cons
 
   if (v9)
   {
-    CoreNLP::getUTF8StringFromCFString(a2, __p);
-    CoreNLP::WordEmbedding::getNearestNeighbors(&v21, __p, a3, &v19, a4);
+    CoreNLP::getUTF8StringFromCFString(__p, a2);
+    CoreNLP::WordEmbedding::getNearestNeighbors(&v21, __p, v5, &v19, a4);
     if (v18 < 0)
     {
       operator delete(__p[0]);
@@ -518,13 +696,13 @@ __CFDictionary *NLEmbeddingCopyNeighborsWithDistances(const __CFLocale *a1, cons
       while (v11 != v12)
       {
         v13 = v11;
-        if (*(v11 + 23) < 0)
+        if (v11[23] < 0)
         {
           v13 = *v11;
         }
 
         v14 = CFStringCreateWithCString(0, v13, 0x8000100u);
-        v15 = CFNumberCreate(0, kCFNumberFloatType, (v11 + 24));
+        v15 = CFNumberCreate(0, kCFNumberFloatType, v11 + 24);
         CFDictionaryAddValue(Mutable, v14, v15);
         CFRelease(v14);
         CFRelease(v15);
@@ -572,13 +750,14 @@ void sub_19D1EEBF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__CFDictionary *NLStringEmbeddingCopyNeighborsWithDistances(CoreNLP *a1, __CFString *a2, int a3, float a4)
+__CFDictionary *NLStringEmbeddingCopyNeighborsWithDistances(CoreNLP *a1, __CFString *a2, uint64_t a3, float a4)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v5 = a3;
   v7 = CoreNLP::unwrapGazetteer(a1, a2);
   CompressedWordEmbedding = CoreNLP::EmbeddingManager::getCompressedWordEmbedding(v7);
   if (!CompressedWordEmbedding)
@@ -587,8 +766,8 @@ __CFDictionary *NLStringEmbeddingCopyNeighborsWithDistances(CoreNLP *a1, __CFStr
   }
 
   v9 = CompressedWordEmbedding;
-  CoreNLP::getUTF8StringFromCFString(a2, __p);
-  CoreNLP::WordEmbedding::getNearestNeighbors(v9, __p, a3, &v19, a4);
+  CoreNLP::getUTF8StringFromCFString(__p, a2);
+  CoreNLP::WordEmbedding::getNearestNeighbors(v9, __p, v5, &v19, a4);
   if (v18 < 0)
   {
     operator delete(__p[0]);
@@ -607,13 +786,13 @@ __CFDictionary *NLStringEmbeddingCopyNeighborsWithDistances(CoreNLP *a1, __CFStr
     while (v11 != v12)
     {
       v13 = v11;
-      if (*(v11 + 23) < 0)
+      if (v11[23] < 0)
       {
         v13 = *v11;
       }
 
       v14 = CFStringCreateWithCString(0, v13, 0x8000100u);
-      v15 = CFNumberCreate(0, kCFNumberFloatType, (v11 + 24));
+      v15 = CFNumberCreate(0, kCFNumberFloatType, v11 + 24);
       CFDictionaryAddValue(Mutable, v14, v15);
       CFRelease(v14);
       CFRelease(v15);
@@ -643,7 +822,7 @@ __CFArray *NLEmbeddingCopyWordClusterIDs(const __CFLocale *a1, const __CFString 
     goto LABEL_13;
   }
 
-  CoreNLP::getUTF8StringFromCFString(a2, __p);
+  CoreNLP::getUTF8StringFromCFString(__p, a2);
   CoreNLP::WordEmbedding::getCentroids(&v13, __p, &v11);
   if (v10 < 0)
   {
@@ -737,7 +916,7 @@ __CFArray *NLStringEmbeddingCopyWordClusterIDs(CoreNLP *a1, __CFString *a2)
   }
 
   v5 = CompressedWordEmbedding;
-  CoreNLP::getUTF8StringFromCFString(a2, __p);
+  CoreNLP::getUTF8StringFromCFString(__p, a2);
   CoreNLP::WordEmbedding::getCentroids(v5, __p, &v13);
   if (v12 < 0)
   {
@@ -797,21 +976,21 @@ void sub_19D1EF0BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 __CFArray *NLEmbeddingCopyWordVector(const __CFLocale *a1, const __CFString *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  CoreNLP::WordEmbedding::WordEmbedding(&v12);
-  CoreNLP::WordEmbedding::clearEmptyModels(&v12);
-  if (CoreNLP::WordEmbedding::loadModel(&v12, a1, @"embedding.dat"))
+  v20 = *MEMORY[0x1E69E9840];
+  CoreNLP::WordEmbedding::WordEmbedding(&v11);
+  CoreNLP::WordEmbedding::clearEmptyModels(&v11);
+  if (CoreNLP::WordEmbedding::loadModel(&v11, a1, @"embedding.dat"))
   {
     memset(&__p, 0, sizeof(__p));
-    CoreNLP::getUTF8StringFromCFString(a2, valuePtr);
-    memset(v10, 0, sizeof(v10));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(v10, valuePtr, &v21, 1uLL);
-    if (v20 < 0)
+    CoreNLP::getUTF8StringFromCFString(valuePtr, a2);
+    memset(v9, 0, sizeof(v9));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(v9, valuePtr, &v20, 1uLL);
+    if (v19 < 0)
     {
       operator delete(valuePtr[0]);
     }
 
-    if (CoreNLP::WordEmbedding::getAverageEmbedding(&v12, v10, &__p))
+    if (CoreNLP::WordEmbedding::getAverageEmbedding(&v11, v9, &__p))
     {
       Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
       begin = __p.__begin_;
@@ -831,7 +1010,7 @@ __CFArray *NLEmbeddingCopyWordVector(const __CFLocale *a1, const __CFString *a2)
       Mutable = 0;
     }
 
-    valuePtr[0] = v10;
+    valuePtr[0] = v9;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](valuePtr);
     if (__p.__begin_)
     {
@@ -845,45 +1024,45 @@ __CFArray *NLEmbeddingCopyWordVector(const __CFLocale *a1, const __CFString *a2)
     Mutable = 0;
   }
 
-  v12 = &unk_1F10AF170;
+  v11 = &unk_1F10AF170;
   if (cf)
   {
     CFRelease(cf);
   }
 
   cf = 0;
-  if (v17)
+  if (v16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
-  CoreNLP::ProductQuantizer::~ProductQuantizer(&v16);
-  CoreNLP::KDTree::~KDTree(&v15);
-  if (v14 < 0)
+  CoreNLP::ProductQuantizer::~ProductQuantizer(&v15);
+  CoreNLP::KDTree::~KDTree(&v14);
+  if (v13 < 0)
   {
-    operator delete(v13[5]);
+    operator delete(v12[5]);
   }
 
-  std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(v13, v13[1]);
-  v8 = *MEMORY[0x1E69E9840];
+  std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(v12, v12[1]);
   return Mutable;
 }
 
-void sub_19D1EF2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, char a16)
+void sub_19D1EF2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, ...)
 {
-  *(v16 - 80) = &a10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v16 - 80));
+  va_start(va, a15);
+  *(v15 - 80) = &a10;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v15 - 80));
   if (__p)
   {
     a14 = __p;
     operator delete(__p);
   }
 
-  CoreNLP::WordEmbedding::~WordEmbedding(&a16);
+  CoreNLP::WordEmbedding::~WordEmbedding(va);
   _Unwind_Resume(a1);
 }
 
-CoreNLP *NLStringEmbeddingFillWordVectorsWithShape(CoreNLP *result, void *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, int a8)
+CoreNLP *NLStringEmbeddingFillWordVectorsWithShape(CoreNLP *result, void *a2, uint64_t a3, uint64_t a4, char *a5, uint64_t a6, uint64_t a7, int a8)
 {
   if (result)
   {
@@ -895,7 +1074,7 @@ CoreNLP *NLStringEmbeddingFillWordVectorsWithShape(CoreNLP *result, void *a2, ui
   return result;
 }
 
-CoreNLP *NLStringEmbeddingFillTokenVectorsWithShape(CoreNLP *result, void *a2, unsigned int a3, void *a4, uint64_t a5, uint64_t a6, int a7)
+CoreNLP *NLStringEmbeddingFillTokenVectorsWithShape(CoreNLP *result, void *a2, unsigned int a3, char *a4, uint64_t a5, uint64_t a6, int a7)
 {
   if (result)
   {
@@ -1041,21 +1220,21 @@ __CFDictionary *NLEmbeddingCopyAllWordVectors(const __CFLocale *a1)
   return Mutable;
 }
 
-void sub_19D1EF7FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1EF7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void **);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void **);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   v11 = va_arg(va2, void);
-  *(v2 - 96) = va;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100]((v2 - 96));
-  va_copy(v4, va1);
+  v12 = va_arg(va2, void);
+  *(v3 - 96) = va;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100]((v3 - 96));
+  va_copy(v5, va1);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   CoreNLP::WordEmbedding::~WordEmbedding(va2);
   _Unwind_Resume(a1);
@@ -1134,23 +1313,24 @@ void sub_19D1EF9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-__CFArray *NLStringEmbeddingCopyNeighborsForVector(CoreNLP *a1, const void *a2, int a3, float a4)
+__CFArray *NLStringEmbeddingCopyNeighborsForVector(CoreNLP *a1, const void *a2, uint64_t a3, float a4)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v5 = a3;
   applesauce::CF::convert_to<std::vector<float>,0>(a2, &v24);
   v8 = CoreNLP::unwrapGazetteer(a1, v7);
   CompressedWordEmbedding = CoreNLP::EmbeddingManager::getCompressedWordEmbedding(v8);
-  if (CompressedWordEmbedding && (v10 = CompressedWordEmbedding, begin = v24.__begin_, end = v24.__end_, (*(*CompressedWordEmbedding + 8))(CompressedWordEmbedding) == end - begin))
+  if (CompressedWordEmbedding && (v10 = CompressedWordEmbedding, begin = v24.__begin_, end = v24.__end_, (*(*CompressedWordEmbedding + 64))(CompressedWordEmbedding) == end - begin))
   {
     v20 = 0;
     v21 = 0;
     __p = 0;
     std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v24.__begin_, v24.__end_, v24.__end_ - v24.__begin_);
-    CoreNLP::WordEmbedding::getNearestNeighborsForVector(v10, &__p, a3, &v22, a4);
+    CoreNLP::WordEmbedding::getNearestNeighborsForVector(v10, &__p, v5, &v22, a4);
     if (__p)
     {
       v20 = __p;
@@ -1170,7 +1350,7 @@ __CFArray *NLStringEmbeddingCopyNeighborsForVector(CoreNLP *a1, const void *a2, 
       while (v14 != v15)
       {
         v16 = v14;
-        if (*(v14 + 23) < 0)
+        if (v14[23] < 0)
         {
           v16 = *v14;
         }
@@ -1213,23 +1393,24 @@ void sub_19D1EFBB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__CFDictionary *NLStringEmbeddingCopyNeighborsForVectorWithDistances(CoreNLP *a1, const void *a2, int a3, float a4)
+__CFDictionary *NLStringEmbeddingCopyNeighborsForVectorWithDistances(CoreNLP *a1, const void *a2, uint64_t a3, float a4)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v5 = a3;
   applesauce::CF::convert_to<std::vector<float>,0>(a2, &v25);
   v8 = CoreNLP::unwrapGazetteer(a1, v7);
   CompressedWordEmbedding = CoreNLP::EmbeddingManager::getCompressedWordEmbedding(v8);
-  if (CompressedWordEmbedding && (v10 = CompressedWordEmbedding, begin = v25.__begin_, end = v25.__end_, (*(*CompressedWordEmbedding + 8))(CompressedWordEmbedding) == end - begin))
+  if (CompressedWordEmbedding && (v10 = CompressedWordEmbedding, begin = v25.__begin_, end = v25.__end_, (*(*CompressedWordEmbedding + 64))(CompressedWordEmbedding) == end - begin))
   {
     v21 = 0;
     v22 = 0;
     __p = 0;
     std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v25.__begin_, v25.__end_, v25.__end_ - v25.__begin_);
-    CoreNLP::WordEmbedding::getNearestNeighborsForVector(v10, &__p, a3, &v23, a4);
+    CoreNLP::WordEmbedding::getNearestNeighborsForVector(v10, &__p, v5, &v23, a4);
     if (__p)
     {
       v21 = __p;
@@ -1249,13 +1430,13 @@ __CFDictionary *NLStringEmbeddingCopyNeighborsForVectorWithDistances(CoreNLP *a1
       while (v14 != v15)
       {
         v16 = v14;
-        if (*(v14 + 23) < 0)
+        if (v14[23] < 0)
         {
           v16 = *v14;
         }
 
         v17 = CFStringCreateWithCString(0, v16, 0x8000100u);
-        v18 = CFNumberCreate(0, kCFNumberFloatType, (v14 + 24));
+        v18 = CFNumberCreate(0, kCFNumberFloatType, v14 + 24);
         CFDictionaryAddValue(Mutable, v17, v18);
         CFRelease(v17);
         CFRelease(v18);
@@ -1297,7 +1478,7 @@ void sub_19D1EFDCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 CFTypeRef NLStringEmbeddingCopySupportedVersions(const __CFLocale *a1, const __CFString *a2)
 {
   CoreNLP::EmbeddingManager::EmbeddingManager(&v11);
-  CoreNLP::EmbeddingManager::supportedVersions(&v11, a1, a2, &__p);
+  CoreNLP::EmbeddingManager::supportedVersions(&__p, &v11, a1, a2);
   v4 = __p;
   if (__p == v10)
   {
@@ -1340,8 +1521,9 @@ LABEL_5:
   return v6;
 }
 
-void sub_19D1EFF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, void *__p, uint64_t a12, uint64_t a13, char a14)
+void sub_19D1EFF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, void *__p, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   applesauce::CF::ArrayRef::~ArrayRef(&a10);
   if (__p)
   {
@@ -1349,7 +1531,7 @@ void sub_19D1EFF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  CoreNLP::EmbeddingManager::~EmbeddingManager(&a14);
+  CoreNLP::EmbeddingManager::~EmbeddingManager(va);
   _Unwind_Resume(a1);
 }
 
@@ -1358,7 +1540,7 @@ CFArrayRef NLStringEmbeddingCopyTokenIDsForText(CoreNLP *a1, applesauce::CF::Str
   CFArray = 0;
   if (a1 && this)
   {
-    applesauce::CF::StringRef::from_get(this, &v11);
+    applesauce::CF::StringRef::from_get(&v11, this);
     v5 = CoreNLP::unwrapGazetteer(a1, v4);
     if (!v11)
     {
@@ -1510,12 +1692,12 @@ CoreNLP *NLStringEmbeddingApplyMeanPoolingOverFragments(CoreNLP *result, void *a
   return result;
 }
 
-void applesauce::CF::details::CFDictionary_get_value_to<std::map<std::string,std::vector<float>>>(const __CFDictionary *a1@<X0>, void *a2@<X8>)
+void applesauce::CF::details::CFDictionary_get_value_to<std::map<std::string,std::vector<float>>>(const __CFDictionary *a1@<X0>, uint64_t **a2@<X8>)
 {
   Count = CFDictionaryGetCount(a1);
   a2[2] = 0;
   a2[1] = 0;
-  *a2 = a2 + 1;
+  *a2 = (a2 + 1);
   std::vector<void const*>::vector[abi:ne200100](v13, Count);
   std::vector<void const*>::vector[abi:ne200100](v12, Count);
   CFDictionaryGetKeysAndValues(a1, v13[0], v12[0]);
@@ -1532,7 +1714,7 @@ void applesauce::CF::details::CFDictionary_get_value_to<std::map<std::string,std
       __p = v6;
       memset(&v6, 0, sizeof(v6));
       v7[0] = 0;
-      std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<float>>>(a2, v9);
+      std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<float>>>(a2, v9, v9);
       if (__p.__begin_)
       {
         __p.__end_ = __p.__begin_;
@@ -1590,15 +1772,15 @@ void sub_19D1F04E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<float>>>(uint64_t a1, const void **a2)
+char *std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<float>>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__construct_node<std::pair<std::string const,std::vector<float>>>();
   }
 
-  return v2;
+  return v3;
 }
 
 std::string *std::pair<std::string const,std::vector<float>>::pair[abi:ne200100](std::string *this, __int128 *a2)
@@ -1663,7 +1845,7 @@ uint64_t std::pair<std::string const,std::vector<float>>::~pair(uint64_t a1)
   return a1;
 }
 
-const __CFNumber *applesauce::CF::details::find_at_key_or_optional<int,std::string>(const __CFDictionary *a1, const __CFString *a2)
+const __CFNumber *applesauce::CF::details::find_at_key_or_optional<int,std::string>(const __CFDictionary *a1, const UInt8 *a2)
 {
   result = applesauce::CF::details::at_key<std::string>(a1, a2);
   if (result)
@@ -1674,13 +1856,13 @@ const __CFNumber *applesauce::CF::details::find_at_key_or_optional<int,std::stri
   return result;
 }
 
-const void *applesauce::CF::details::at_key<std::string>(const __CFDictionary *a1, CFStringRef a2)
+const void *applesauce::CF::details::at_key<std::string>(const __CFDictionary *a1, const UInt8 *a2)
 {
   v3 = a2;
-  data_high = HIBYTE(a2->data);
-  if ((data_high & 0x80u) != 0)
+  v5 = a2[23];
+  if ((v5 & 0x80u) != 0)
   {
-    a2 = a2->isa;
+    a2 = *a2;
   }
 
   if (!a2)
@@ -1700,15 +1882,15 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  info = v3->info;
-  if ((data_high & 0x80u) == 0)
+  v6 = *(v3 + 1);
+  if ((v5 & 0x80u) == 0)
   {
-    v7 = data_high;
+    v7 = v5;
   }
 
   else
   {
-    v7 = info;
+    v7 = v6;
   }
 
   a2 = CFStringCreateWithBytes(0, a2, v7, 0x8000100u, 0);
@@ -1743,16 +1925,16 @@ LABEL_14:
   return Value;
 }
 
-void sub_19D1F0830(void *a1, uint64_t a2, ...)
+void sub_19D1F0830(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x19D1F07DCLL);
 }
 
-const __CFNumber *applesauce::CF::details::find_at_key_or_optional<unsigned int,std::string>(const __CFDictionary *a1, const __CFString *a2)
+const __CFBoolean *applesauce::CF::details::find_at_key_or_optional<unsigned int,std::string>(const __CFDictionary *a1, const __CFString *a2)
 {
   result = applesauce::CF::details::at_key<std::string>(a1, a2);
   if (result)
@@ -1763,7 +1945,7 @@ const __CFNumber *applesauce::CF::details::find_at_key_or_optional<unsigned int,
   return result;
 }
 
-uint64_t applesauce::CF::convert_as<unsigned int,0>(const __CFNumber *a1)
+uint64_t applesauce::CF::convert_as<unsigned int,0>(const __CFBoolean *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -1912,7 +2094,7 @@ LABEL_32:
   return v18.i64[0] | v14 | v18.i64[1];
 }
 
-const void *applesauce::CF::details::find_at_key_or_optional<std::string,std::string&>@<X0>(const __CFDictionary *a1@<X0>, const __CFString *a2@<X1>, _BYTE *a3@<X8>)
+const __CFString *applesauce::CF::details::find_at_key_or_optional<std::string,std::string&>@<X0>(const __CFDictionary *a1@<X0>, const __CFString *a2@<X1>, _BYTE *a3@<X8>)
 {
   result = applesauce::CF::details::at_key<std::string>(a1, a2);
   if (result)
@@ -1930,7 +2112,7 @@ const void *applesauce::CF::details::find_at_key_or_optional<std::string,std::st
   return result;
 }
 
-CFTypeID applesauce::CF::convert_as<std::string,0>@<X0>(CFTypeID result@<X0>, uint64_t a2@<X8>)
+const __CFString *applesauce::CF::convert_as<std::string,0>@<X0>(const __CFString *result@<X0>, uint64_t a2@<X8>)
 {
   if (result && (v3 = result, TypeID = CFStringGetTypeID(), result = CFGetTypeID(v3), TypeID == result))
   {
@@ -1949,7 +2131,7 @@ CFTypeID applesauce::CF::convert_as<std::string,0>@<X0>(CFTypeID result@<X0>, ui
   return result;
 }
 
-_BYTE *applesauce::CF::details::find_at_key<std::string,std::string&>@<X0>(const __CFDictionary *a1@<X0>, const __CFString *a2@<X1>, _BYTE *a3@<X8>)
+void *applesauce::CF::details::find_at_key<std::string,std::string&>@<X0>(const __CFDictionary *a1@<X0>, const __CFString *a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = applesauce::CF::details::at_key<std::string>(a1, a2);
   if (!v4)
@@ -1991,7 +2173,7 @@ void std::vector<std::pair<std::string,float>>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-uint64_t CoreNLP::crfsuite::Instance::init(CoreNLP::crfsuite::Instance *this)
+uint64_t CoreNLP::crfsuite::Instance::init(CoreNLP::crfsuite::Instance *this, uint64_t a2, uint64_t a3)
 {
   if (*(this + 3) && *(this + 4))
   {
@@ -2001,17 +2183,16 @@ uint64_t CoreNLP::crfsuite::Instance::init(CoreNLP::crfsuite::Instance *this)
   result = crfsuite_instance_init_n();
   if (*(this + 4) >= 1)
   {
-    v3 = 0;
-    v4 = 0;
+    v5 = 0;
+    v6 = 0;
     do
     {
-      v5 = *(this + 3);
       result = crfsuite_item_init_with_capacity();
-      ++v4;
-      v3 += 16;
+      ++v6;
+      v5 += 16;
     }
 
-    while (v4 < *(this + 4));
+    while (v6 < *(this + 4));
   }
 
   return result;
@@ -2023,8 +2204,8 @@ void CoreNLP::TaggingModelManager::applyGazetteer(uint64_t a1, uint64_t *a2)
   v5 = v4 - *a2;
   if (v4 != *a2)
   {
-    v30 = v2;
-    v31 = v3;
+    v29[11] = v2;
+    v29[12] = v3;
     v7 = 0;
     LODWORD(v8) = 0;
     v9 = v5 >> 3;
@@ -2040,16 +2221,16 @@ void CoreNLP::TaggingModelManager::applyGazetteer(uint64_t a1, uint64_t *a2)
         if ((v13 & 0x8000000000) != 0 && (*(*(v11 + 8 * (v10 + 1)) + 76) & 0x80) != 0 && (*(*(v11 + 8 * v8) + 76) & 0x80) != 0)
         {
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v12 + 24, &v28) + 10) = 69;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v12 + 24, &v28, &std::piecewise_construct, v29) + 10) = 69;
           v21 = *(*a2 + 8 * (v10 + 1));
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v21 + 24, &v28) + 10) = 69;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v21 + 24, &v28, &std::piecewise_construct, v29) + 10) = 69;
           v22 = *(*a2 + 8 * v8);
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v22 + 24, &v28) + 10) = 69;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v22 + 24, &v28, &std::piecewise_construct, v29) + 10) = 69;
 LABEL_35:
           LODWORD(v8) = v10 + 3;
           goto LABEL_36;
@@ -2058,32 +2239,32 @@ LABEL_35:
         if ((v13 & 0x4000000000) != 0 && (*(*(v11 + 8 * (v10 + 1)) + 76) & 0x40) != 0 && (*(*(v11 + 8 * v8) + 76) & 0x40) != 0)
         {
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v12 + 24, &v28) + 10) = 68;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v12 + 24, &v28, &std::piecewise_construct, v29) + 10) = 68;
           v24 = *(*a2 + 8 * (v10 + 1));
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v24 + 24, &v28) + 10) = 68;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v24 + 24, &v28, &std::piecewise_construct, v29) + 10) = 68;
           v25 = *(*a2 + 8 * v8);
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v25 + 24, &v28) + 10) = 68;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v25 + 24, &v28, &std::piecewise_construct, v29) + 10) = 68;
           goto LABEL_35;
         }
 
         if ((v13 & 0x2000000000) != 0 && (*(*(v11 + 8 * (v10 + 1)) + 76) & 0x20) != 0 && (*(*(v11 + 8 * v8) + 76) & 0x20) != 0)
         {
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v12 + 24, &v28) + 10) = 67;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v12 + 24, &v28, &std::piecewise_construct, v29) + 10) = 67;
           v26 = *(*a2 + 8 * (v10 + 1));
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v26 + 24, &v28) + 10) = 67;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v26 + 24, &v28, &std::piecewise_construct, v29) + 10) = 67;
           v27 = *(*a2 + 8 * v8);
           v28 = 7;
-          v29 = &v28;
-          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v27 + 24, &v28) + 10) = 67;
+          v29[0] = &v28;
+          *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v27 + 24, &v28, &std::piecewise_construct, v29) + 10) = 67;
           goto LABEL_35;
         }
       }
@@ -2099,23 +2280,23 @@ LABEL_35:
       if ((v16 & 0x2000000000) != 0 && (*(*(v11 + 8 * v14) + 76) & 0x20) != 0)
       {
         v28 = 7;
-        v29 = &v28;
-        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28) + 10) = 67;
+        v29[0] = &v28;
+        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28, &std::piecewise_construct, v29) + 10) = 67;
         v19 = *(*a2 + 8 * v14);
         v28 = 7;
-        v29 = &v28;
-        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v19 + 24, &v28) + 10) = 67;
+        v29[0] = &v28;
+        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v19 + 24, &v28, &std::piecewise_construct, v29) + 10) = 67;
       }
 
       else if ((v16 & 0x8000000000) != 0 && (*(*(v11 + 8 * v14) + 76) & 0x80) != 0)
       {
         v28 = 7;
-        v29 = &v28;
-        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28) + 10) = 69;
+        v29[0] = &v28;
+        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28, &std::piecewise_construct, v29) + 10) = 69;
         v20 = *(*a2 + 8 * v14);
         v28 = 7;
-        v29 = &v28;
-        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v20 + 24, &v28) + 10) = 69;
+        v29[0] = &v28;
+        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v20 + 24, &v28, &std::piecewise_construct, v29) + 10) = 69;
       }
 
       else
@@ -2126,30 +2307,30 @@ LABEL_20:
           if ((v16 & 0x8000000000) != 0)
           {
             v28 = 7;
-            v29 = &v28;
-            *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28) + 10) = 69;
+            v29[0] = &v28;
+            *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28, &std::piecewise_construct, v29) + 10) = 69;
           }
 
           else if ((v16 & 0x4000000000) != 0)
           {
             v28 = 7;
-            v29 = &v28;
-            *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28) + 10) = 68;
+            v29[0] = &v28;
+            *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28, &std::piecewise_construct, v29) + 10) = 68;
           }
 
           else
           {
             v28 = 7;
-            v29 = &v28;
+            v29[0] = &v28;
             if ((v16 & 0x2000000000) != 0)
             {
-              v17 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28);
+              v17 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28, &std::piecewise_construct, v29);
               v18 = 67;
             }
 
             else
             {
-              v17 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28);
+              v17 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28, &std::piecewise_construct, v29);
               v18 = 70;
             }
 
@@ -2161,12 +2342,12 @@ LABEL_20:
         }
 
         v28 = 7;
-        v29 = &v28;
-        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28) + 10) = 68;
+        v29[0] = &v28;
+        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v15 + 24, &v28, &std::piecewise_construct, v29) + 10) = 68;
         v23 = *(*a2 + 8 * v14);
         v28 = 7;
-        v29 = &v28;
-        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v23 + 24, &v28) + 10) = 68;
+        v29[0] = &v28;
+        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v23 + 24, &v28, &std::piecewise_construct, v29) + 10) = 68;
       }
 
 LABEL_36:
@@ -2177,19 +2358,19 @@ LABEL_36:
   }
 }
 
-uint64_t *CoreNLP::TaggingModelManager::checkInvalidCharInNER(uint64_t *result, uint64_t *a2, int a3, CoreNLP::NLAttributedToken *a4)
+uint64_t CoreNLP::TaggingModelManager::checkInvalidCharInNER(uint64_t result, uint64_t *a2, int a3, CoreNLP::NLAttributedToken *a4)
 {
   if (a3 != 4)
   {
-    v37 = v4;
-    v38 = v5;
-    v7 = result[78];
+    v36[7] = v4;
+    v36[8] = v5;
+    v7 = *(result + 624);
     if (!v7)
     {
       goto LABEL_9;
     }
 
-    v8 = result + 78;
+    v8 = result + 624;
     do
     {
       if (*(v7 + 32) >= a3)
@@ -2201,15 +2382,15 @@ uint64_t *CoreNLP::TaggingModelManager::checkInvalidCharInNER(uint64_t *result, 
     }
 
     while (v7);
-    if (v8 != result + 78 && *(v8 + 8) <= a3)
+    if (v8 != result + 624 && *(v8 + 32) <= a3)
     {
       v10 = *(a4 + 1);
-      if (v8[5] && v10 && (v33 = *a2, a2[1] != *a2))
+      if (*(v8 + 40) && v10 && (v33 = *a2, a2[1] != *a2))
       {
         v34 = 0;
         do
         {
-          result = CoreNLP::hasInvalidCharInNERToken(v8[5], v10, *(v33 + 8 * v34), a4);
+          result = CoreNLP::hasInvalidCharInNERToken(*(v8 + 40), v10, *(v33 + 8 * v34), a4);
           v9 = result;
           if (result)
           {
@@ -2353,9 +2534,9 @@ LABEL_43:
       {
         v31 = *(v11 + 8 * v30);
         v35 = 7;
-        v36 = &v35;
-        result = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v31 + 24, &v35);
-        *(result + 10) = 70;
+        v36[0] = &v35;
+        result = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(v31 + 24, &v35, &std::piecewise_construct, v36);
+        *(result + 40) = 70;
         v11 = *a2;
         v32 = v30 + 2;
         ++v30;
@@ -2406,7 +2587,7 @@ void CoreNLP::ReadOnlyFile<char>::open(uint64_t a1@<X0>, uint64_t a2@<X1>, char 
   }
 }
 
-void sub_19D1F1640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_19D1F1640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   v29 = *(v27 + 8);
   if (v29)
@@ -2450,52 +2631,52 @@ uint64_t CoreNLP::SingletonResourceManager<std::pair<CoreNLP::NLTagSchemeType,NL
 uint64_t ___ZN7CoreNLP19TaggingModelManager12loadCRFModelENS_15NLTagSchemeTypeE12NLLanguageID_block_invoke(uint64_t a1)
 {
   v2 = CoreNLP::copyLocaleForLanguageID(*(a1 + 36));
-  v4 = v2;
-  v11 = 0;
-  v5 = *(a1 + 32);
-  if (v5 == 7)
+  v3 = v2;
+  v9 = 0;
+  v4 = *(a1 + 32);
+  if (v4 == 7)
   {
     if (*(a1 + 36) == 10)
     {
-      v7 = @"ner_v2.dat";
+      v6 = @"ner_v2.dat";
     }
 
     else
     {
-      v7 = @"ner.dat";
+      v6 = @"ner.dat";
     }
 
-    CoreNLP::Resource::getAssetResource(v2, @"Tagging", v7, 0, __p);
+    CoreNLP::Resource::getAssetResource(__p, v2, @"Tagging", v6, 0);
   }
 
   else
   {
-    v6 = 0;
-    if (v5 != 6)
+    v5 = 0;
+    if (v4 != 6)
     {
       goto LABEL_9;
     }
 
-    CoreNLP::Resource::getAssetResource(v2, @"Tagging", @"pos.dat", 0, __p);
+    CoreNLP::Resource::getAssetResource(__p, v2, @"Tagging", @"pos.dat", 0);
   }
 
-  v6 = __p[0];
-  v11 = __p[0];
+  v5 = __p[0];
+  v9 = __p[0];
 LABEL_9:
-  if (v4)
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
-  if (v6)
+  if (v5)
   {
-    if (CoreNLP::Resource::exists(v6, v3))
+    if (CoreNLP::Resource::exists(v5))
     {
-      CoreNLP::Resource::path(v6, v8, __p);
-      CoreNLP::ReadOnlyFile<char>::create();
+      CoreNLP::Resource::path(__p, v5);
+      CoreNLP::ReadOnlyFile<char>::create(__p, "r", 1);
     }
 
-    CoreNLP::Resource::~Resource(v6);
+    CoreNLP::Resource::~Resource(v5);
     MEMORY[0x19EAF8CA0]();
   }
 
@@ -2513,11 +2694,11 @@ void sub_19D1F1890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void ***CoreNLP::TaggingModelManager::labelMap@<X0>(const void ***result@<X0>, int a2@<W1>, int a3@<W2>, void *a4@<X8>)
+const void ***CoreNLP::TaggingModelManager::labelMap@<X0>(int a1@<W1>, void *a2@<X8>, const void ***result@<X0>, int a4@<W2>)
 {
-  if (a2 == 7)
+  if (a1 == 7)
   {
-    if (a3 == 4)
+    if (a4 == 4)
     {
       v4 = result + 70;
     }
@@ -2530,18 +2711,18 @@ const void ***CoreNLP::TaggingModelManager::labelMap@<X0>(const void ***result@<
 
   else
   {
-    if (a2 != 6)
+    if (a1 != 6)
     {
-      a4[2] = 0;
-      a4[1] = 0;
-      *a4 = a4 + 1;
+      a2[2] = 0;
+      a2[1] = 0;
+      *a2 = a2 + 1;
       return result;
     }
 
     v4 = result + 73;
   }
 
-  return std::map<std::string,int>::map[abi:ne200100](a4, v4);
+  return std::map<std::string,int>::map[abi:ne200100](a2, v4);
 }
 
 uint64_t CoreNLP::SingletonResourceManager<NLLanguageID,USet>::getPersistentResource(uint64_t a1, uint64_t a2)
@@ -2570,8 +2751,7 @@ uint64_t CoreNLP::SingletonResourceManager<NLLanguageID,USet>::getPersistentReso
 
 void CoreNLP::TaggingModelManager::tagToLabel(void *a1@<X0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, std::string *a5@<X8>)
 {
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
+  *&a5->__r_.__value_.__l.__data_ = 0uLL;
   a5->__r_.__value_.__r.__words[2] = 0;
   if (a3 == 7 && (v6 = a2 - 100, (a2 - 100) <= 0x64))
   {
@@ -2651,12 +2831,12 @@ void CoreNLP::TaggingModelManager::tagToLabel(void *a1@<X0>, int a2@<W1>, int a3
       v15 = v12;
       do
       {
-        if (*(v13 + 8) >= a3)
+        if (*(v13 + 32) >= a3)
         {
           v15 = v13;
         }
 
-        v13 = v13[*(v13 + 8) < a3];
+        v13 = *(v13 + 8 * (*(v13 + 32) < a3));
       }
 
       while (v13);
@@ -2726,7 +2906,7 @@ void CoreNLP::TaggingModelManager::setCustomModelPath(uint64_t a1, int a2, int a
   v8[0] = a3;
   v8[1] = a2;
   v12 = v8;
-  v7 = std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>&&>,std::tuple<>>(a1 + 464, v8);
+  v7 = std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>&&>,std::tuple<>>((a1 + 464), v8, &std::piecewise_construct, &v12);
   std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>::operator=[abi:ne200100](v7 + 40, &v9);
   if (v11)
   {
@@ -2739,9 +2919,9 @@ void CoreNLP::TaggingModelManager::setCustomModelPath(uint64_t a1, int a2, int a
   }
 }
 
-void sub_19D1F1C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19D1F1C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -2771,15 +2951,15 @@ uint64_t std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>::op
   return a1;
 }
 
-uint64_t CoreNLP::TaggingModelManager::loadCustomGazetteer(uint64_t result, const char *a2)
+void CoreNLP::TaggingModelManager::loadCustomGazetteer(uint64_t a1, const char *a2)
 {
-  v2 = *(result + 496);
+  v2 = *(a1 + 496);
   if (!v2)
   {
     goto LABEL_8;
   }
 
-  v3 = result + 496;
+  v3 = a1 + 496;
   do
   {
     v4 = *(v2 + 32);
@@ -2792,7 +2972,7 @@ uint64_t CoreNLP::TaggingModelManager::loadCustomGazetteer(uint64_t result, cons
   }
 
   while (v2);
-  if (v3 == result + 496 || *(v3 + 32) >= 1)
+  if (v3 == a1 + 496 || *(v3 + 32) >= 1)
   {
 LABEL_8:
     if (a2[23] < 0)
@@ -2804,15 +2984,13 @@ LABEL_8:
     v6 = CFURLCreateWithFileSystemPath(0, v5, kCFURLPOSIXPathStyle, 0);
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     CFDictionaryAddValue(Mutable, kNLGazetteerCompressedModelURL[0], v6);
-    NLGazetteerCreate();
+    NLGazetteerCreate(Mutable);
   }
-
-  return result;
 }
 
-void sub_19D1F1E90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1F1E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<void *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -2832,9 +3010,9 @@ CFIndex CoreNLP::TaggingModelManager::setCustomGazetteers(uint64_t a1, CFArrayRe
         v11 = v9;
         LocaleLanguage = CoreNLP::getLocaleLanguage(v9, v10);
         p_LocaleLanguage = &LocaleLanguage;
-        v12 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType const&>,std::tuple<>>(a1 + 488, &LocaleLanguage);
+        v12 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType const&>,std::tuple<>>(a1 + 488, &LocaleLanguage, &std::piecewise_construct, &p_LocaleLanguage);
         p_LocaleLanguage = &v17;
-        v13 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>((v12 + 5), &v17);
+        v13 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>((v12 + 5), &v17, &std::piecewise_construct, &p_LocaleLanguage);
         nlp::CFScopedPtr<void *>::acquire(v13 + 5, ValueAtIndex);
         CFRelease(v11);
       }
@@ -2843,9 +3021,9 @@ CFIndex CoreNLP::TaggingModelManager::setCustomGazetteers(uint64_t a1, CFArrayRe
       {
         LocaleLanguage = 0;
         p_LocaleLanguage = &LocaleLanguage;
-        v14 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType const&>,std::tuple<>>(a1 + 488, &LocaleLanguage);
+        v14 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::map<NLLanguageID,CoreNLP::AbstractModel *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType const&>,std::tuple<>>(a1 + 488, &LocaleLanguage, &std::piecewise_construct, &p_LocaleLanguage);
         p_LocaleLanguage = &v17;
-        v15 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>((v14 + 5), &v17);
+        v15 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>((v14 + 5), &v17, &std::piecewise_construct, &p_LocaleLanguage);
         nlp::CFScopedPtr<void *>::acquire(v15 + 5, ValueAtIndex);
       }
 
@@ -2919,7 +3097,7 @@ LABEL_15:
 LABEL_18:
         v16 = 7;
         v17 = &v16;
-        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(&a3->length, &v16) + 10) = 70;
+        *(std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(&a3->length, &v16, &std::piecewise_construct, &v17) + 10) = 70;
         return 1;
       }
     }
@@ -2982,15 +3160,15 @@ uint64_t CoreNLP::TaggingModelManager::checkInvalidCharInSimplifiedChineseNER(ui
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>>>::__emplace_hint_unique_key_args<NLLanguageID,std::pair<NLLanguageID const,CoreNLP::AbstractModel *> const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>>>::__emplace_hint_unique_key_args<NLLanguageID,std::pair<NLLanguageID const,CoreNLP::AbstractModel *> const&>(uint64_t **a1, uint64_t *a2, int *a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::__find_equal<NLLanguageID>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::__find_equal<NLLanguageID>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>::~pair(uint64_t a1)
@@ -3164,31 +3342,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -3197,177 +3374,177 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-void std::vector<CoreNLP::NLAttributedToken *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CoreNLP::NLAttributedToken *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3377,48 +3554,48 @@ void std::vector<CoreNLP::NLAttributedToken *>::__vallocate[abi:ne200100](uint64
   std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t *std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-char *std::vector<std::pair<int,double>>::__assign_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>(char **a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::pair<int,double>>::__assign_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -3465,8 +3642,7 @@ char *std::vector<std::pair<int,double>>::__assign_with_size[abi:ne200100]<std::
     while (v5 != a3)
     {
       *result = *v5;
-      *(result + 1) = *(v5 + 8);
-      v5 += 16;
+      *(result + 1) = *(v5++ + 1);
       result += 16;
     }
 
@@ -3481,8 +3657,7 @@ char *std::vector<std::pair<int,double>>::__assign_with_size[abi:ne200100]<std::
       do
       {
         *result = *v5;
-        *(result + 1) = *(v5 + 8);
-        v5 += 16;
+        *(result + 1) = *(v5++ + 1);
         result += 16;
       }
 
@@ -3514,41 +3689,41 @@ char *std::vector<std::pair<int,double>>::__assign_with_size[abi:ne200100]<std::
   return result;
 }
 
-void *std::__tree<CoreNLP::AbstractModel *>::__emplace_unique_key_args<CoreNLP::AbstractModel *,CoreNLP::AbstractModel * const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<CoreNLP::AbstractModel *>::__emplace_unique_key_args<CoreNLP::AbstractModel *,CoreNLP::AbstractModel * const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -3619,14 +3794,14 @@ void CoreNLP::SingletonResourceManager<std::string,CoreNLP::ReadOnlyFile<char>>:
   }
 }
 
-void sub_19D1F2D78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_19D1F2D78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x19EAF8CA0](v16, 0x1012C403EBA5055);
+  MEMORY[0x19EAF8CA0](v16, 0x1012C403EBA5055, a3, a4, a5, a6, a7, a8);
   if (a2 == 1)
   {
     v19 = __cxa_begin_catch(a1);
@@ -3657,7 +3832,7 @@ void __Block_byref_object_dispose__109(uint64_t a1)
   }
 }
 
-void ___ZN7CoreNLP24SingletonResourceManagerINSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS_12ReadOnlyFileIcEEE11getResourceERKS7_U13block_pointerFPS9_vE_block_invoke(uint64_t a1)
+void ___ZN7CoreNLP24SingletonResourceManagerINSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS_12ReadOnlyFileIcEEE11getResourceERKS7_U13block_pointerFPS9_vE_block_invoke(void *a1)
 {
   if (CoreNLP::SingletonResourceManager<std::string,CoreNLP::ReadOnlyFile<char>>::getCache(void)::onceToken != -1)
   {
@@ -3665,13 +3840,13 @@ void ___ZN7CoreNLP24SingletonResourceManagerINSt3__112basic_stringIcNS1_11char_t
   }
 
   v2 = CoreNLP::SingletonResourceManager<std::string,CoreNLP::ReadOnlyFile<char>>::getCache(void)::cache;
-  v3 = std::__tree<std::string>::find<std::string>(CoreNLP::SingletonResourceManager<std::string,CoreNLP::ReadOnlyFile<char>>::getCache(void)::cache, *(a1 + 48));
+  v3 = std::__tree<std::string>::find<std::string>(CoreNLP::SingletonResourceManager<std::string,CoreNLP::ReadOnlyFile<char>>::getCache(void)::cache, a1[6]);
   if (v2 + 8 == v3 || (v4 = v3, (v5 = *(v3 + 64)) == 0) || v5->__shared_owners_ == -1)
   {
-    v8 = (*(*(a1 + 32) + 16))();
+    v8 = (*(a1[4] + 16))();
     if (v8)
     {
-      std::shared_ptr<CoreNLP::ReadOnlyFile<char>>::reset[abi:ne200100]<CoreNLP::ReadOnlyFile<char>,0>(*(*(a1 + 40) + 8) + 40, v8);
+      std::shared_ptr<CoreNLP::ReadOnlyFile<char>>::reset[abi:ne200100]<CoreNLP::ReadOnlyFile<char>,0>((*(a1[5] + 8) + 40), v8);
     }
   }
 
@@ -3688,7 +3863,7 @@ void ___ZN7CoreNLP24SingletonResourceManagerINSt3__112basic_stringIcNS1_11char_t
       v7 = 0;
     }
 
-    v9 = *(*(a1 + 40) + 8);
+    v9 = *(a1[5] + 8);
     v10 = *(v9 + 48);
     *(v9 + 40) = v7;
     *(v9 + 48) = v6;
@@ -3726,9 +3901,9 @@ void std::shared_ptr<CoreNLP::ReadOnlyFile<char>>::shared_ptr[abi:ne200100]<Core
   operator new();
 }
 
-void sub_19D1F3114(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1F3114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CoreNLP::ReadOnlyFile<char>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3765,18 +3940,18 @@ uint64_t std::__shared_ptr_pointer<CoreNLP::ReadOnlyFile<char> *,std::shared_ptr
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::weak_ptr<CoreNLP::ReadOnlyFile<char>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3809,7 +3984,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::weak_ptr<C
   }
 }
 
-uint64_t ___ZN7CoreNLP24SingletonResourceManagerINSt3__14pairINS_15NLTagSchemeTypeE12NLLanguageIDEENS_12ReadOnlyFileIcEEE21getPersistentResourceERKS5_U13block_pointerFPS7_vE_block_invoke(uint64_t a1)
+uint64_t *___ZN7CoreNLP24SingletonResourceManagerINSt3__14pairINS_15NLTagSchemeTypeE12NLLanguageIDEENS_12ReadOnlyFileIcEEE21getPersistentResourceERKS5_U13block_pointerFPS7_vE_block_invoke(uint64_t a1)
 {
   if (CoreNLP::SingletonResourceManager<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char>>::getPersistentCache(void)::onceToken != -1)
   {
@@ -3818,18 +3993,19 @@ uint64_t ___ZN7CoreNLP24SingletonResourceManagerINSt3__14pairINS_15NLTagSchemeTy
 
   v2 = CoreNLP::SingletonResourceManager<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char>>::getPersistentCache(void)::cache;
   result = std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>>>::find<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>(CoreNLP::SingletonResourceManager<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char>>::getPersistentCache(void)::cache, *(a1 + 48));
-  if (v2 + 8 == result)
+  if (v2 + 1 == result)
   {
     *(*(*(a1 + 40) + 8) + 24) = (*(*(a1 + 32) + 16))();
     v4 = *(a1 + 48);
     v5 = *(*(*(a1 + 40) + 8) + 24);
-    result = std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID> const&>,std::tuple<>>(v2, v4);
-    *(result + 40) = v5;
+    v6 = v4;
+    result = std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID> const&>,std::tuple<>>(v2, v4, &std::piecewise_construct, &v6);
+    result[5] = v5;
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 24) = *(result + 40);
+    *(*(*(a1 + 40) + 8) + 24) = result[5];
   }
 
   return result;
@@ -3843,18 +4019,18 @@ void sub_19D1F3490(void *a1)
   JUMPOUT(0x19D1F344CLL);
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID> const&>,std::tuple<>>(uint64_t a1, int *a2)
+void *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID> const&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, void **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__find_equal<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__find_equal<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__find_equal<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>(uint64_t a1, void *a2, int *a3)
+uint64_t *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__find_equal<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>(uint64_t a1, uint64_t **a2, int *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -3868,7 +4044,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLan
       while (1)
       {
         v8 = v4;
-        v9 = *(v4 + 8);
+        v9 = *(v4 + 32);
         if (v6 >= v9)
         {
           break;
@@ -3912,7 +4088,7 @@ LABEL_12:
   return result;
 }
 
-void ___ZN7CoreNLP24SingletonResourceManagerI12NLLanguageID4USetE21getPersistentResourceERKS1_U13block_pointerFPS2_vE_block_invoke(uint64_t a1)
+void ___ZN7CoreNLP24SingletonResourceManagerI12NLLanguageID4USetE21getPersistentResourceERKS1_U13block_pointerFPS2_vE_block_invoke(void *result)
 {
   if (CoreNLP::SingletonResourceManager<NLLanguageID,USet>::getPersistentCache(void)::onceToken != -1)
   {
@@ -3926,7 +4102,7 @@ void ___ZN7CoreNLP24SingletonResourceManagerI12NLLanguageID4USetE21getPersistent
     goto LABEL_10;
   }
 
-  v4 = **(a1 + 48);
+  v4 = *result[6];
   v5 = CoreNLP::SingletonResourceManager<NLLanguageID,USet>::getPersistentCache(void)::cache + 8;
   do
   {
@@ -3941,16 +4117,17 @@ void ___ZN7CoreNLP24SingletonResourceManagerI12NLLanguageID4USetE21getPersistent
   while (v3);
   if (v5 != CoreNLP::SingletonResourceManager<NLLanguageID,USet>::getPersistentCache(void)::cache + 8 && v4 >= *(v5 + 8))
   {
-    *(*(*(a1 + 40) + 8) + 24) = *(v5 + 5);
+    *(*(result[5] + 8) + 24) = *(v5 + 5);
   }
 
   else
   {
 LABEL_10:
-    *(*(*(a1 + 40) + 8) + 24) = (*(*(a1 + 32) + 16))();
-    v6 = *(a1 + 48);
-    v7 = *(*(*(a1 + 40) + 8) + 24);
-    std::__tree<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>>>::__emplace_unique_key_args<NLLanguageID,std::piecewise_construct_t const&,std::tuple<NLLanguageID const&>,std::tuple<>>(v2, v6)[5] = v7;
+    *(*(result[5] + 8) + 24) = (*(result[4] + 16))();
+    v6 = result[6];
+    v7 = *(*(result[5] + 8) + 24);
+    v8 = v6;
+    std::__tree<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,CoreNLP::AbstractModel *>>>::__emplace_unique_key_args<NLLanguageID,std::piecewise_construct_t const&,std::tuple<NLLanguageID const&>,std::tuple<>>(v2, v6, &std::piecewise_construct, &v8)[5] = v7;
   }
 }
 
@@ -3971,56 +4148,56 @@ void ___ZN7CoreNLP24SingletonResourceManagerI12NLLanguageID4USetE8getQueueEv_blo
   dispatch_set_target_queue(v0, global_queue);
 }
 
-void *std::__tree<std::__value_type<CoreNLP::AbstractModel *,std::set<CoreNLP::AbstractModel *>>,std::__map_value_compare<CoreNLP::AbstractModel *,std::__value_type<CoreNLP::AbstractModel *,std::set<CoreNLP::AbstractModel *>>,std::less<CoreNLP::AbstractModel *>,true>,std::allocator<std::__value_type<CoreNLP::AbstractModel *,std::set<CoreNLP::AbstractModel *>>>>::__emplace_unique_key_args<CoreNLP::AbstractModel *,std::piecewise_construct_t const&,std::tuple<CoreNLP::AbstractModel * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<CoreNLP::AbstractModel *,std::set<CoreNLP::AbstractModel *>>,std::__map_value_compare<CoreNLP::AbstractModel *,std::__value_type<CoreNLP::AbstractModel *,std::set<CoreNLP::AbstractModel *>>,std::less<CoreNLP::AbstractModel *>,true>,std::allocator<std::__value_type<CoreNLP::AbstractModel *,std::set<CoreNLP::AbstractModel *>>>>::__emplace_unique_key_args<CoreNLP::AbstractModel *,std::piecewise_construct_t const&,std::tuple<CoreNLP::AbstractModel * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>&&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>>>::__emplace_unique_key_args<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::piecewise_construct_t const&,std::tuple<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>&&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, void **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__find_equal<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::__map_value_compare<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>,std::less<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>,true>,std::allocator<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,CoreNLP::ReadOnlyFile<char> *>>>::__find_equal<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::pair<CoreNLP::NLTagSchemeType,NLLanguageID>,std::pair<std::string,std::shared_ptr<CoreNLP::ReadOnlyFile<char>>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -4040,41 +4217,41 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::pair<CoreNLP::N
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,nlp::CFScopedPtr<void *>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -4108,164 +4285,163 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<CoreNLP::NL
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-CoreNLP::EmbeddingManager *CoreNLP::EmbeddingManager::EmbeddingManager(CoreNLP::EmbeddingManager *this)
+uint64_t **CoreNLP::EmbeddingManager::EmbeddingManager(uint64_t **this)
 {
-  v49[3] = *MEMORY[0x1E69E9840];
+  v48[3] = *MEMORY[0x1E69E9840];
   *this = 0;
-  v2 = (this + 8);
-  v34 = 1;
-  v35 = @"embedding.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v18, &v34, 1);
-  v36 = 10;
-  std::map<long,__CFString const*>::map[abi:ne200100](v37, &v18);
-  v30 = 1;
-  v31 = @"embedding.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v32, &v30, 1);
-  v38 = 4;
-  std::map<long,__CFString const*>::map[abi:ne200100](v39, &v32);
-  v28 = 1;
-  v29 = @"embedding.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v16, &v28, 1);
-  v40 = 12;
-  std::map<long,__CFString const*>::map[abi:ne200100](v41, &v16);
-  v26 = 1;
-  v27 = @"embedding.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v14, &v26, 1);
-  v42 = 13;
-  std::map<long,__CFString const*>::map[abi:ne200100](v43, &v14);
-  v24 = 1;
-  v25 = @"embedding.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v12, &v24, 1);
-  v44 = 29;
-  std::map<long,__CFString const*>::map[abi:ne200100](v45, &v12);
-  v22 = 1;
-  v23 = @"embedding.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v10, &v22, 1);
-  v46 = 19;
-  std::map<long,__CFString const*>::map[abi:ne200100](v47, &v10);
-  v20 = 1;
-  v21 = @"embedding.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v8, &v20, 1);
-  v48 = 25;
-  std::map<long,__CFString const*>::map[abi:ne200100](v49, &v8);
-  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](v2, &v36, 7);
+  v2 = this + 1;
+  v33 = 1;
+  v34 = @"embedding.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v17, &v33, 1);
+  v35 = 10;
+  std::map<long,__CFString const*>::map[abi:ne200100](v36, &v17);
+  v29 = 1;
+  v30 = @"embedding.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v31, &v29, 1);
+  v37 = 4;
+  std::map<long,__CFString const*>::map[abi:ne200100](v38, &v31);
+  v27 = 1;
+  v28 = @"embedding.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v15, &v27, 1);
+  v39 = 12;
+  std::map<long,__CFString const*>::map[abi:ne200100](v40, &v15);
+  v25 = 1;
+  v26 = @"embedding.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v13, &v25, 1);
+  v41 = 13;
+  std::map<long,__CFString const*>::map[abi:ne200100](v42, &v13);
+  v23 = 1;
+  v24 = @"embedding.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v11, &v23, 1);
+  v43 = 29;
+  std::map<long,__CFString const*>::map[abi:ne200100](v44, &v11);
+  v21 = 1;
+  v22 = @"embedding.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v9, &v21, 1);
+  v45 = 19;
+  std::map<long,__CFString const*>::map[abi:ne200100](v46, &v9);
+  v19 = 1;
+  v20 = @"embedding.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v7, &v19, 1);
+  v47 = 25;
+  std::map<long,__CFString const*>::map[abi:ne200100](v48, &v7);
+  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](v2, &v35, 7);
   for (i = 0; i != -28; i -= 4)
   {
-    std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v49[i], v49[i + 1]);
+    std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v48[i], v48[i + 1]);
   }
 
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v8, v9);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v10, v11);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v12, v13);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v14, v15);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v16, v17);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v32, v33);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v18, v19);
-  v34 = 1;
-  v35 = @"bilm.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v18, &v34, 1);
-  v36 = 10;
-  std::map<long,__CFString const*>::map[abi:ne200100](v37, &v18);
-  v30 = 1;
-  v31 = @"bilm.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v32, &v30, 1);
-  v38 = 4;
-  std::map<long,__CFString const*>::map[abi:ne200100](v39, &v32);
-  v28 = 1;
-  v29 = @"bilm.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v16, &v28, 1);
-  v40 = 12;
-  std::map<long,__CFString const*>::map[abi:ne200100](v41, &v16);
-  v26 = 1;
-  v27 = @"bilm.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v14, &v26, 1);
-  v42 = 29;
-  std::map<long,__CFString const*>::map[abi:ne200100](v43, &v14);
-  v24 = 1;
-  v25 = @"bilm.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v12, &v24, 1);
-  v44 = 19;
-  std::map<long,__CFString const*>::map[abi:ne200100](v45, &v12);
-  v22 = 1;
-  v23 = @"bilm.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v10, &v22, 1);
-  v46 = 13;
-  std::map<long,__CFString const*>::map[abi:ne200100](v47, &v10);
-  v20 = 1;
-  v21 = @"bilm.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v8, &v20, 1);
-  v48 = 25;
-  std::map<long,__CFString const*>::map[abi:ne200100](v49, &v8);
-  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](this + 4, &v36, 7);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v7, v8);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v9, v10);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v11, v12);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v13, v14);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v15, v16);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v31, v32);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v17, v18);
+  v33 = 1;
+  v34 = @"bilm.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v17, &v33, 1);
+  v35 = 10;
+  std::map<long,__CFString const*>::map[abi:ne200100](v36, &v17);
+  v29 = 1;
+  v30 = @"bilm.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v31, &v29, 1);
+  v37 = 4;
+  std::map<long,__CFString const*>::map[abi:ne200100](v38, &v31);
+  v27 = 1;
+  v28 = @"bilm.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v15, &v27, 1);
+  v39 = 12;
+  std::map<long,__CFString const*>::map[abi:ne200100](v40, &v15);
+  v25 = 1;
+  v26 = @"bilm.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v13, &v25, 1);
+  v41 = 29;
+  std::map<long,__CFString const*>::map[abi:ne200100](v42, &v13);
+  v23 = 1;
+  v24 = @"bilm.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v11, &v23, 1);
+  v43 = 19;
+  std::map<long,__CFString const*>::map[abi:ne200100](v44, &v11);
+  v21 = 1;
+  v22 = @"bilm.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v9, &v21, 1);
+  v45 = 13;
+  std::map<long,__CFString const*>::map[abi:ne200100](v46, &v9);
+  v19 = 1;
+  v20 = @"bilm.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v7, &v19, 1);
+  v47 = 25;
+  std::map<long,__CFString const*>::map[abi:ne200100](v48, &v7);
+  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](this + 4, &v35, 7);
   for (j = 0; j != -28; j -= 4)
   {
-    std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v49[j], v49[j + 1]);
+    std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v48[j], v48[j + 1]);
   }
 
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v8, v9);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v10, v11);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v12, v13);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v14, v15);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v16, v17);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v32, v33);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v18, v19);
-  v34 = 1;
-  v35 = @"sentence.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v18, &v34, 1);
-  v36 = 10;
-  std::map<long,__CFString const*>::map[abi:ne200100](v37, &v18);
-  v30 = 1;
-  v31 = @"sentence.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v32, &v30, 1);
-  v38 = 4;
-  std::map<long,__CFString const*>::map[abi:ne200100](v39, &v32);
-  v28 = 1;
-  v29 = @"sentence.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v16, &v28, 1);
-  v40 = 12;
-  std::map<long,__CFString const*>::map[abi:ne200100](v41, &v16);
-  v26 = 1;
-  v27 = @"sentence.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v14, &v26, 1);
-  v42 = 29;
-  std::map<long,__CFString const*>::map[abi:ne200100](v43, &v14);
-  v24 = 1;
-  v25 = @"sentence.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v12, &v24, 1);
-  v44 = 19;
-  std::map<long,__CFString const*>::map[abi:ne200100](v45, &v12);
-  v22 = 1;
-  v23 = @"sentence.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v10, &v22, 1);
-  v46 = 13;
-  std::map<long,__CFString const*>::map[abi:ne200100](v47, &v10);
-  v20 = 1;
-  v21 = @"sentence.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v8, &v20, 1);
-  v48 = 25;
-  std::map<long,__CFString const*>::map[abi:ne200100](v49, &v8);
-  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](this + 7, &v36, 7);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v7, v8);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v9, v10);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v11, v12);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v13, v14);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v15, v16);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v31, v32);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v17, v18);
+  v33 = 1;
+  v34 = @"sentence.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v17, &v33, 1);
+  v35 = 10;
+  std::map<long,__CFString const*>::map[abi:ne200100](v36, &v17);
+  v29 = 1;
+  v30 = @"sentence.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v31, &v29, 1);
+  v37 = 4;
+  std::map<long,__CFString const*>::map[abi:ne200100](v38, &v31);
+  v27 = 1;
+  v28 = @"sentence.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v15, &v27, 1);
+  v39 = 12;
+  std::map<long,__CFString const*>::map[abi:ne200100](v40, &v15);
+  v25 = 1;
+  v26 = @"sentence.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v13, &v25, 1);
+  v41 = 29;
+  std::map<long,__CFString const*>::map[abi:ne200100](v42, &v13);
+  v23 = 1;
+  v24 = @"sentence.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v11, &v23, 1);
+  v43 = 19;
+  std::map<long,__CFString const*>::map[abi:ne200100](v44, &v11);
+  v21 = 1;
+  v22 = @"sentence.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v9, &v21, 1);
+  v45 = 13;
+  std::map<long,__CFString const*>::map[abi:ne200100](v46, &v9);
+  v19 = 1;
+  v20 = @"sentence.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v7, &v19, 1);
+  v47 = 25;
+  std::map<long,__CFString const*>::map[abi:ne200100](v48, &v7);
+  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](this + 7, &v35, 7);
   for (k = 0; k != -28; k -= 4)
   {
-    std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v49[k], v49[k + 1]);
+    std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v48[k], v48[k + 1]);
   }
 
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v8, v9);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v10, v11);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v12, v13);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v14, v15);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v16, v17);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v32, v33);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v18, v19);
-  v32 = 1;
-  v33 = @"similarity.dat";
-  std::map<long,__CFString const*>::map[abi:ne200100](&v18, &v32, 1);
-  v36 = 10;
-  std::map<long,__CFString const*>::map[abi:ne200100](v37, &v18);
-  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](this + 10, &v36, 1);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(v37, v37[1]);
-  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v18, v19);
-  v6 = *MEMORY[0x1E69E9840];
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v7, v8);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v9, v10);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v11, v12);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v13, v14);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v15, v16);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v31, v32);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v17, v18);
+  v31 = 1;
+  v32 = @"similarity.dat";
+  std::map<long,__CFString const*>::map[abi:ne200100](&v17, &v31, 1);
+  v35 = 10;
+  std::map<long,__CFString const*>::map[abi:ne200100](v36, &v17);
+  std::map<NLLanguageID,std::map<long,__CFString const*>>::map[abi:ne200100](this + 10, &v35, 1);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(v36, v36[1]);
+  std::__tree<std::__value_type<NLLanguageID,__CFString const*>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,__CFString const*>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,__CFString const*>>>::destroy(&v17, v18);
   return this;
 }
 
@@ -4286,7 +4462,7 @@ void sub_19D1F41D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19D1F44E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11, uint64_t a12, uint64_t a13, char a14, void *a15, uint64_t a16, uint64_t a17, char a18, void *a19, uint64_t a20, uint64_t a21, char a22, void *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_19D1F44E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
 {
   v47 = v45 + 200;
   v48 = -224;
@@ -4308,7 +4484,7 @@ void sub_19D1F44E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x19D1F4474);
 }
 
-void sub_19D1F4914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_19D1F4914(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a14 < 0)
   {
@@ -4320,7 +4496,7 @@ void sub_19D1F4914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a15);
   }
 
-  MEMORY[0x19EAF8CA0](v21, v20);
+  MEMORY[0x19EAF8CA0](v21, v20, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4344,25 +4520,25 @@ void *CoreNLP::EmbeddingManager::EmbeddingManager(void *result, uint64_t *a2)
   return result;
 }
 
-void CoreNLP::EmbeddingManager::supportedVersions(CoreNLP::EmbeddingManager *this@<X0>, const __CFLocale *a2@<X1>, const __CFString *a3@<X2>, const void **a4@<X8>)
+void CoreNLP::EmbeddingManager::supportedVersions(const void **__return_ptr a1@<X8>, CoreNLP::EmbeddingManager *this@<X0>, const __CFLocale *a3@<X1>, const __CFString *a4@<X2>)
 {
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v26[0] = 0;
   v26[1] = 0;
   v25 = v26;
-  if (kNLStringEmbeddingModelTypeCompressedWordEmbedding[0] == a3)
+  if (kNLStringEmbeddingModelTypeCompressedWordEmbedding[0] == a4)
   {
     v5 = this + 8;
   }
 
-  else if (kNLStringEmbeddingModelTypeContextualWordEmbedding[0] == a3)
+  else if (kNLStringEmbeddingModelTypeContextualWordEmbedding[0] == a4)
   {
     v5 = this + 32;
   }
 
-  else if (kNLStringEmbeddingModelTypeSentenceEmbedding[0] == a3)
+  else if (kNLStringEmbeddingModelTypeSentenceEmbedding[0] == a4)
   {
     v5 = this + 56;
   }
@@ -4372,7 +4548,7 @@ void CoreNLP::EmbeddingManager::supportedVersions(CoreNLP::EmbeddingManager *thi
     v5 = &v25;
   }
 
-  LocaleLanguage = CoreNLP::getLocaleLanguage(a2, a2);
+  LocaleLanguage = CoreNLP::getLocaleLanguage(a3, a3);
   v9 = *(v5 + 1);
   v8 = v5 + 8;
   v7 = v9;
@@ -4399,11 +4575,11 @@ void CoreNLP::EmbeddingManager::supportedVersions(CoreNLP::EmbeddingManager *thi
         v13 = 0;
         do
         {
-          v14 = a4[2];
+          v14 = a1[2];
           if (v13 >= v14)
           {
-            v15 = *a4;
-            v16 = v13 - *a4;
+            v15 = *a1;
+            v16 = v13 - *a1;
             v17 = v16 >> 3;
             v18 = (v16 >> 3) + 1;
             if (v18 >> 61)
@@ -4429,16 +4605,16 @@ void CoreNLP::EmbeddingManager::supportedVersions(CoreNLP::EmbeddingManager *thi
 
             if (v20)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a4, v20);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, v20);
             }
 
             *(8 * v17) = *(v11 + 4);
             v13 = (8 * v17 + 8);
             memcpy(0, v15, v16);
-            v21 = *a4;
-            *a4 = 0;
-            a4[1] = v13;
-            a4[2] = 0;
+            v21 = *a1;
+            *a1 = 0;
+            a1[1] = v13;
+            a1[2] = 0;
             if (v21)
             {
               operator delete(v21);
@@ -4451,7 +4627,7 @@ void CoreNLP::EmbeddingManager::supportedVersions(CoreNLP::EmbeddingManager *thi
             v13 += 8;
           }
 
-          a4[1] = v13;
+          a1[1] = v13;
           v22 = *(v11 + 1);
           if (v22)
           {
@@ -4487,7 +4663,7 @@ void CoreNLP::EmbeddingManager::supportedVersions(CoreNLP::EmbeddingManager *thi
   std::__tree<std::__value_type<NLLanguageID,std::map<long,__CFString const*>>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,std::map<long,__CFString const*>>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,std::map<long,__CFString const*>>>>::destroy(&v25, v26[0]);
 }
 
-void sub_19D1F4B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11)
+void sub_19D1F4B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
 {
   std::__tree<std::__value_type<NLLanguageID,std::map<long,__CFString const*>>,std::__map_value_compare<NLLanguageID,std::__value_type<NLLanguageID,std::map<long,__CFString const*>>,std::less<NLLanguageID>,true>,std::allocator<std::__value_type<NLLanguageID,std::map<long,__CFString const*>>>>::destroy(&a10, a11);
   v13 = *v11;
@@ -4500,52 +4676,49 @@ void sub_19D1F4B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZL37getModelVersionForContextualEmbeddingPK14__CFDictionary_block_invoke()
+void *___ZL37getModelVersionForContextualEmbeddingPK14__CFDictionary_block_invoke()
 {
-  v3[7] = *MEMORY[0x1E69E9840];
-  v2[0] = kNLStringEmbeddingELMo[0];
-  v2[1] = kNLStringEmbeddingBERTPlusGECTagger[0];
-  v3[0] = &unk_1F10B4D70;
-  v3[1] = &unk_1F10B4D88;
-  v2[2] = kNLStringEmbeddingBERT[0];
-  v2[3] = kNLStringEmbeddingMultilingualBERT[0];
-  v3[2] = &unk_1F10B4DA0;
-  v3[3] = &unk_1F10B4DB8;
-  v2[4] = kNLStringEmbeddingBERTPlusGECS2S[0];
-  v2[5] = kNLStringEmbeddingBERTPlusParser[0];
-  v3[4] = &unk_1F10B4DD0;
-  v3[5] = &unk_1F10B4DE8;
-  v2[6] = kNLStringEmbeddingMultilingualBERTForSearch[0];
-  v3[6] = &unk_1F10B4E00;
-  result = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:{7), "copy"}];
+  v2[7] = *MEMORY[0x1E69E9840];
+  v1[0] = kNLStringEmbeddingELMo[0];
+  v1[1] = kNLStringEmbeddingBERTPlusGECTagger[0];
+  v2[0] = &unk_1F10B4D70;
+  v2[1] = &unk_1F10B4D88;
+  v1[2] = kNLStringEmbeddingBERT[0];
+  v1[3] = kNLStringEmbeddingMultilingualBERT[0];
+  v2[2] = &unk_1F10B4DA0;
+  v2[3] = &unk_1F10B4DB8;
+  v1[4] = kNLStringEmbeddingBERTPlusGECS2S[0];
+  v1[5] = kNLStringEmbeddingBERTPlusParser[0];
+  v2[4] = &unk_1F10B4DD0;
+  v2[5] = &unk_1F10B4DE8;
+  v1[6] = kNLStringEmbeddingMultilingualBERTForSearch[0];
+  v2[6] = &unk_1F10B4E00;
+  result = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v2 forKeys:v1 count:{7), "copy"}];
   getModelVersionForContextualEmbedding(__CFDictionary const*)::mappingArchitectureToVersion = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t ___ZL20requestedEnglishBERTP8NSStringlPb_block_invoke()
+void *___ZL20requestedEnglishBERTP8NSStringlPb_block_invoke()
 {
-  v3[4] = *MEMORY[0x1E69E9840];
+  v2[4] = *MEMORY[0x1E69E9840];
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
-  v3[0] = kNLStringEmbeddingBERTPlusGECTagger[0];
-  v3[1] = kNLStringEmbeddingBERT[0];
-  v3[2] = kNLStringEmbeddingBERTPlusGECS2S[0];
-  v3[3] = kNLStringEmbeddingBERTPlusParser[0];
-  result = [v0 initWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v3, 4)}];
+  v2[0] = kNLStringEmbeddingBERTPlusGECTagger[0];
+  v2[1] = kNLStringEmbeddingBERT[0];
+  v2[2] = kNLStringEmbeddingBERTPlusGECS2S[0];
+  v2[3] = kNLStringEmbeddingBERTPlusParser[0];
+  result = [v0 initWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v2, 4)}];
   requestedEnglishBERT(NSString *,long,BOOL *)::englishBERT = result;
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t ___ZL25requestedMultilingualBERTP8NSStringl_block_invoke()
+void *___ZL25requestedMultilingualBERTP8NSStringl_block_invoke()
 {
-  v3[2] = *MEMORY[0x1E69E9840];
+  v2[2] = *MEMORY[0x1E69E9840];
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
-  v3[0] = kNLStringEmbeddingMultilingualBERT[0];
-  v3[1] = kNLStringEmbeddingMultilingualBERTForSearch[0];
-  result = [v0 initWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v3, 2)}];
+  v2[0] = kNLStringEmbeddingMultilingualBERT[0];
+  v2[1] = kNLStringEmbeddingMultilingualBERTForSearch[0];
+  result = [v0 initWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v2, 2)}];
   requestedMultilingualBERT(NSString *,long)::multilingualBERT = result;
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4562,16 +4735,16 @@ void *applesauce::CF::StringRef_proxy::StringRef_proxy(void *this, const applesa
   return this;
 }
 
-_BYTE *applesauce::CF::details::pretty_print@<X0>(const __CFString *this@<X0>, _BYTE *a2@<X8>)
+void *applesauce::CF::details::pretty_print@<X0>(void *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
   if (this)
   {
-    return applesauce::CF::convert_to<std::string,0>(this, a2);
+    return applesauce::CF::convert_to<std::string,0>(this, a1);
   }
 
   else
   {
-    return std::string::basic_string[abi:ne200100]<0>(a2, "(null)");
+    return std::string::basic_string[abi:ne200100]<0>(a1, "(null)");
   }
 }
 
@@ -4590,15 +4763,16 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void *CoreNLP::MontrealModel::MontrealModel(void *a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   a1[1] = 0;
   if (CoreNLP::MontrealModel::MontrealModel(std::vector<std::pair<std::string,MRLNeuralNetworkNodeParameter>> const&)::onceToken != -1)
   {
@@ -4607,13 +4781,13 @@ void *CoreNLP::MontrealModel::MontrealModel(void *a1, void *a2)
 
   if (CoreNLP::MontrealModel::MontrealModel(std::vector<std::pair<std::string,MRLNeuralNetworkNodeParameter>> const&)::softLinked == 1 && *a2 != a2[1])
   {
-    v29[0] = 0;
-    v29[1] = 0;
-    v28 = v29;
+    v28[0] = 0;
+    v28[1] = 0;
+    v27 = v28;
     std::string::basic_string[abi:ne200100]<0>(__dst, "input");
     std::string::basic_string[abi:ne200100]<0>(&__p, "MRLNeuralNetworkOptionInputNamesKey");
     p_p = &__p;
-    v4 = std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v28, &__p.__r_.__value_.__l.__data_);
+    v4 = std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v27, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
     std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string const*,std::string const*>((v4 + 56), __dst, &__dst[24], 1uLL);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4628,7 +4802,7 @@ void *CoreNLP::MontrealModel::MontrealModel(void *a1, void *a2)
     std::string::basic_string[abi:ne200100]<0>(__dst, "output");
     std::string::basic_string[abi:ne200100]<0>(&__p, "MRLNeuralNetworkOptionOutputNamesKey");
     p_p = &__p;
-    v5 = std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v28, &__p.__r_.__value_.__l.__data_);
+    v5 = std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v27, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
     std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string const*,std::string const*>((v5 + 56), __dst, &__dst[24], 1uLL);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4640,7 +4814,7 @@ void *CoreNLP::MontrealModel::MontrealModel(void *a1, void *a2)
       operator delete(*__dst);
     }
 
-    p_p = applesauce::CF::details::make_CFDictionaryRef<std::string,std::vector<std::string>>(&v28);
+    p_p = applesauce::CF::details::make_CFDictionaryRef<std::string,std::vector<std::string>>(&v27);
     *a1 = CoreNLP::_MRLNeuralNetworkCreate(p_p, 0);
     v6 = *a2;
     if (*(*a2 + 23) < 0)
@@ -4703,7 +4877,7 @@ void *CoreNLP::MontrealModel::MontrealModel(void *a1, void *a2)
       CFRetain(cf);
     }
 
-    v25 = cf;
+    v24 = cf;
     v14 = *a2;
     if ((0x2FD2FD2FD2FD2FD3 * ((a2[1] - *a2) >> 3)) >= 2)
     {
@@ -4736,9 +4910,9 @@ LABEL_34:
         v20 = *a1;
         memcpy(__dst, (*a2 + 728 * v15 + 24), sizeof(__dst));
         (CoreNLP::_MRLNeuralNetworkAddNode)(v20, v13, __dst, 0);
-        v21 = v25;
-        CoreNLP::_MRLNeuralNetworkConnectNodes(*a1, v25, 9, v13, 1, 0);
-        v25 = v13;
+        v21 = v24;
+        CoreNLP::_MRLNeuralNetworkConnectNodes(*a1, v24, 9, v13, 1, 0);
+        v24 = v13;
         if (v13)
         {
           CFRetain(v13);
@@ -4764,9 +4938,9 @@ LABEL_33:
       *__dst = v13;
       if (!v13)
       {
-        v24 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v24, "Could not construct");
-        __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        v23 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v23, "Could not construct");
+        __cxa_throw(v23, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
       }
 
       goto LABEL_34;
@@ -4794,10 +4968,9 @@ LABEL_43:
       CFRelease(p_p);
     }
 
-    std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::destroy(&v28, v29[0]);
+    std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::destroy(&v27, v28[0]);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -4892,108 +5065,103 @@ uint64_t CoreNLP::MontrealModel::setInput(CoreNLP::MontrealModel *this, uint64_t
 
 uint64_t CoreNLP::MontrealModel::copyInt8ModelData(void *a1, void *a2)
 {
-  v26[4] = *MEMORY[0x1E69E9840];
-  if (*a1)
+  v25[4] = *MEMORY[0x1E69E9840];
+  if (!*a1)
   {
-    v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:{-[NSString stringByAppendingPathComponent:](NSTemporaryDirectory(), "stringByAppendingPathComponent:", @"modelInt8.dat"}];
-    v4 = [MEMORY[0x1E695DF90] dictionary];
-    v25[0] = @"MRLNeuralNetworkOptionModelURLKey";
-    v25[1] = @"MRLNeuralNetworkOptionModelNameKey";
-    v26[0] = v3;
-    v26[1] = @"000-000";
-    v26[2] = @"1";
-    v25[2] = @"MRLNeuralNetworkOptionModelVersionKey";
-    v25[3] = @"MRLNeuralNetworkOptionQuantizationParamsKey";
-    v26[3] = [MEMORY[0x1E695DF90] dictionary];
-    [v4 setDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v26, v25, 4)}];
-    v7 = *a2;
-    v5 = a2 + 1;
-    v6 = v7;
-    if (v7 != v5)
+    return 0;
+  }
+
+  v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:{-[NSString stringByAppendingPathComponent:](NSTemporaryDirectory(), "stringByAppendingPathComponent:", @"modelInt8.dat"}];
+  v4 = [MEMORY[0x1E695DF90] dictionary];
+  v24[0] = @"MRLNeuralNetworkOptionModelURLKey";
+  v24[1] = @"MRLNeuralNetworkOptionModelNameKey";
+  v25[0] = v3;
+  v25[1] = @"000-000";
+  v25[2] = @"1";
+  v24[2] = @"MRLNeuralNetworkOptionModelVersionKey";
+  v24[3] = @"MRLNeuralNetworkOptionQuantizationParamsKey";
+  v25[3] = [MEMORY[0x1E695DF90] dictionary];
+  [v4 setDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v25, v24, 4)}];
+  v7 = *a2;
+  v5 = a2 + 1;
+  v6 = v7;
+  if (v7 != v5)
+  {
+    do
     {
-      do
+      if (*(v6 + 55) < 0)
       {
-        if (*(v6 + 55) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v21, v6[4], v6[5]);
-        }
-
-        else
-        {
-          v8 = *(v6 + 2);
-          *&v21.__r_.__value_.__l.__data_ = v8;
-          v21.__r_.__value_.__r.__words[2] = v6[6];
-        }
-
-        v22 = *(v6 + 14);
-        v24[0] = @"MRLNeuralNetworkOptionQuantizationSchemeNameLinearInt8";
-        v23[0] = @"MRLNeuralNetworkOptionQuantizationSchemeNameKey";
-        v23[1] = @"MRLNeuralNetworkOptionQuantizationSchemeLinearInt8RangeMinKey";
-        *&v8 = -v22;
-        v24[1] = [MEMORY[0x1E696AD98] numberWithFloat:*&v8];
-        v23[2] = @"MRLNeuralNetworkOptionQuantizationSchemeLinearInt8RangeMaxKey";
-        *&v9 = v22;
-        v24[2] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
-        v11 = [v4 objectForKeyedSubscript:@"MRLNeuralNetworkOptionQuantizationParamsKey"];
-        if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v12 = &v21;
-        }
-
-        else
-        {
-          v12 = v21.__r_.__value_.__r.__words[0];
-        }
-
-        [v11 setObject:v10 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", v12)}];
-        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v21.__r_.__value_.__l.__data_);
-        }
-
-        v13 = v6[1];
-        if (v13)
-        {
-          do
-          {
-            v14 = v13;
-            v13 = *v13;
-          }
-
-          while (v13);
-        }
-
-        else
-        {
-          do
-          {
-            v14 = v6[2];
-            v15 = *v14 == v6;
-            v6 = v14;
-          }
-
-          while (!v15);
-        }
-
-        v6 = v14;
+        std::string::__init_copy_ctor_external(&v20, v6[4], v6[5]);
       }
 
-      while (v14 != v5);
+      else
+      {
+        v8 = *(v6 + 2);
+        *&v20.__r_.__value_.__l.__data_ = v8;
+        v20.__r_.__value_.__r.__words[2] = v6[6];
+      }
+
+      v21 = *(v6 + 14);
+      v23[0] = @"MRLNeuralNetworkOptionQuantizationSchemeNameLinearInt8";
+      v22[0] = @"MRLNeuralNetworkOptionQuantizationSchemeNameKey";
+      v22[1] = @"MRLNeuralNetworkOptionQuantizationSchemeLinearInt8RangeMinKey";
+      *&v8 = -v21;
+      v23[1] = [MEMORY[0x1E696AD98] numberWithFloat:*&v8];
+      v22[2] = @"MRLNeuralNetworkOptionQuantizationSchemeLinearInt8RangeMaxKey";
+      *&v9 = v21;
+      v23[2] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+      v11 = [v4 objectForKeyedSubscript:@"MRLNeuralNetworkOptionQuantizationParamsKey"];
+      if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v12 = &v20;
+      }
+
+      else
+      {
+        v12 = v20.__r_.__value_.__r.__words[0];
+      }
+
+      [v11 setObject:v10 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", v12)}];
+      if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v20.__r_.__value_.__l.__data_);
+      }
+
+      v13 = v6[1];
+      if (v13)
+      {
+        do
+        {
+          v14 = v13;
+          v13 = *v13;
+        }
+
+        while (v13);
+      }
+
+      else
+      {
+        do
+        {
+          v14 = v6[2];
+          v15 = *v14 == v6;
+          v6 = v14;
+        }
+
+        while (!v15);
+      }
+
+      v6 = v14;
     }
 
-    CoreNLP::_MRLNeuralNetworkSave(*a1, v4, 0);
-    v16 = CoreNLP::_MRLNeuralNetworkCreate(v4, 0);
-    v17 = CoreNLP::_MRLNeuralNetworkCopyModelData(v16, 0);
-    CFRelease(v16);
+    while (v14 != v5);
   }
 
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
+  CoreNLP::_MRLNeuralNetworkSave(*a1, v4, 0);
+  v16 = CoreNLP::_MRLNeuralNetworkCreate(v4, 0);
+  v17 = CoreNLP::_MRLNeuralNetworkCopyModelData(v16, 0);
+  CFRelease(v16);
   return v17;
 }
 
@@ -5019,15 +5187,15 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::vector<std
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -5195,7 +5363,7 @@ void sub_19D1F5FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<std::string const&,std::vector<std::string> const&>(uint64_t a1, const UInt8 *a2, __int128 **a3)
+uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<std::string const&,std::vector<std::string> const&>(uint64_t a1, const UInt8 *a2, char **a3)
 {
   v3 = (*(a1 + 8) - *a1) >> 4;
   v4 = v3 + 1;
@@ -5246,14 +5414,14 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<std:
   return v14;
 }
 
-void sub_19D1F60EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1F60EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-CFStringRef *applesauce::CF::TypeRefPair::TypeRefPair<std::string const&,std::vector<std::string> const&>(CFStringRef *a1, const UInt8 *a2, __int128 **a3)
+CFStringRef *applesauce::CF::TypeRefPair::TypeRefPair<std::string const&,std::vector<std::string> const&>(CFStringRef *a1, const UInt8 *a2, char **a3)
 {
   v5 = *(a2 + 1);
   if (*(a2 + 23) >= 0)
@@ -5331,9 +5499,9 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<std:
   return v14;
 }
 
-void sub_19D1F62E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1F62E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5495,19 +5663,19 @@ void __NLTaggerCopyAvailableTagSchemes_block_invoke(uint64_t a1, CoreNLP::Resour
   }
 }
 
-void NLTaggerSetStringEditedInRange(CoreNLP *a1, void *a2, CFIndex a3)
+void NLTaggerSetStringEditedInRange(CoreNLP *result, void *a2, CFIndex a3, uint64_t a4)
 {
-  if (a1)
+  if (result)
   {
-    v5 = CoreNLP::unwrapGazetteer(a1, a2);
-    v6.location = a2;
-    v6.length = a3;
+    v6 = CoreNLP::unwrapGazetteer(result, a2);
+    v7.location = a2;
+    v7.length = a3;
 
-    CoreNLP::TaggerManager::setStringEditedInRange(v5, v6);
+    CoreNLP::TaggerManager::setStringEditedInRange(v6, v7);
   }
 }
 
-__CFDictionary *NLTaggerCopyHypothesesForCurrentToken(__CFDictionary *result, __CFString *a2)
+CoreNLP *NLTaggerCopyHypothesesForCurrentToken(CoreNLP *result, __CFString *a2)
 {
   if (result)
   {
@@ -5519,14 +5687,13 @@ __CFDictionary *NLTaggerCopyHypothesesForCurrentToken(__CFDictionary *result, __
   return result;
 }
 
-__CFDictionary *NLTaggerCopyHypothesesAtIndex(__CFDictionary *result, void *a2, CFIndex a3, const __CFString *a4, uint64_t a5)
+CoreNLP *NLTaggerCopyHypothesesAtIndex(CoreNLP *result, void *a2, CFIndex a3, __CFString *a4, uint64_t a5)
 {
   if (result)
   {
-    v8 = a2;
     v9 = CoreNLP::unwrapGazetteer(result, a2);
 
-    return CoreNLP::TaggerManager::copyTagAndProbabilityAtIndex(v9, v8, a3, a4, a5);
+    return CoreNLP::TaggerManager::copyTagAndProbabilityAtIndex(v9, a2, a3, a4, a5);
   }
 
   return result;
@@ -5536,27 +5703,24 @@ void NLTaggerEnumerateSubTokens(CoreNLP *a1, void *a2)
 {
   if (a1)
   {
-    v3 = CoreNLP::unwrapGazetteer(a1, a2);
-    v4 = *a2;
-    v5 = a2[2];
-    CoreNLP::SubWordTagger::~SubWordTagger(v3);
+    v2 = CoreNLP::unwrapGazetteer(a1, a2);
+    CoreNLP::SubWordTagger::~SubWordTagger(v2);
   }
 }
 
-__CFDictionary *NLTaggerCopyLanguageMapAtIndex(__CFDictionary *result, void *a2, CFIndex a3)
+CoreNLP *NLTaggerCopyLanguageMapAtIndex(CoreNLP *result, void *a2, CFIndex a3)
 {
   if (result)
   {
-    v4 = a2;
     v5 = CoreNLP::unwrapGazetteer(result, a2);
 
-    return CoreNLP::TaggerManager::copyLanguageMapAtIndex(v5, v4, a3);
+    return CoreNLP::TaggerManager::copyLanguageMapAtIndex(v5, a2, a3);
   }
 
   return result;
 }
 
-CoreNLP *NLTaggerSetGazetteers(CoreNLP *result, void *a2, const __CFString *a3)
+CoreNLP *NLTaggerSetGazetteers(CoreNLP *result, void *a2, __CFString *a3)
 {
   if (result)
   {
@@ -5587,34 +5751,33 @@ uint64_t std::__shared_ptr_pointer<CoreNLP::TaggerManager *,std::shared_ptr<Core
   }
 }
 
-void CoreNLP::chunkNounPhrases(CoreNLP *this@<X0>, uint64_t *a2@<X8>)
+void CoreNLP::chunkNounPhrases(CoreNLP *this@<X0>, unint64_t *a2@<X8>)
 {
-  v99 = *MEMORY[0x1E69E9840];
-  v5 = (this + 8);
-  std::vector<unsigned long>::vector[abi:ne200100](&v79, 0xAAAAAAAAAAAAAAABLL * ((*(this + 1) - *this) >> 3));
-  v72 = a2;
-  v6 = *v5;
-  v7 = *this;
-  v8 = 0xAAAAAAAAAAAAAAABLL * ((*v5 - *this) >> 3);
-  v9 = this;
-  v77 = this;
-  if (v8 >= 2)
+  v95[4] = *MEMORY[0x1E69E9840];
+  v4 = (this + 8);
+  v69 = a2;
+  v5 = *v4;
+  v6 = *this;
+  v7 = 0xAAAAAAAAAAAAAAABLL * ((*v4 - *this) >> 3);
+  v8 = this;
+  v74 = this;
+  if (v7 >= 2)
   {
+    v9 = 1;
     v10 = 1;
-    v11 = 1;
     while (1)
     {
-      v12 = *(v9 + 6);
-      v13 = *(v9 + 12);
-      v14 = *(v12 + 4 * v11);
-      if (v14 == 12 || v14 == 9)
+      v11 = *(v8 + 6);
+      v12 = *(v8 + 12);
+      v13 = *(v11 + 4 * v10);
+      if (v13 == 12 || v13 == 9)
       {
-        *&v79[8 * v11] = v10++;
+        *&v76[8 * v10] = v9++;
       }
 
-      if (v14 == 11)
+      if (v13 == 11)
       {
-        if (*(v13 + 4 * *(*(v9 + 9) + 4 * v11)) == 2 || *(v13 + 4 * v11) == 46)
+        if (*(v12 + 4 * *(*(v8 + 9) + 4 * v10)) == 2 || *(v12 + 4 * v10) == 46)
         {
           goto LABEL_29;
         }
@@ -5622,51 +5785,51 @@ void CoreNLP::chunkNounPhrases(CoreNLP *this@<X0>, uint64_t *a2@<X8>)
 
       else
       {
-        v16 = *(v13 + 4 * v11);
-        if (v14 != 8 || v16 == 11)
+        v15 = *(v12 + 4 * v10);
+        if (v13 != 8 || v15 == 11)
         {
-          if (v14 != 15 || v16 == 11)
+          if (v13 != 15 || v15 == 11)
           {
             goto LABEL_23;
           }
 
           {
             std::string::basic_string[abi:ne200100]<0>(__p, "$");
-            std::string::basic_string[abi:ne200100]<0>(&v83[1], "%");
-            std::string::basic_string[abi:ne200100]<0>(&v84[16], "£");
-            std::string::basic_string[abi:ne200100]<0>(v85, "°");
-            std::string::basic_string[abi:ne200100]<0>(v86, "€");
-            std::string::basic_string[abi:ne200100]<0>(v87, "n°");
-            std::string::basic_string[abi:ne200100]<0>(v88, "kw");
-            std::string::basic_string[abi:ne200100]<0>(v89, "kg");
-            std::string::basic_string[abi:ne200100]<0>(v90, "g");
-            std::string::basic_string[abi:ne200100]<0>(v91, "km");
-            std::string::basic_string[abi:ne200100]<0>(v92, "cm");
-            std::string::basic_string[abi:ne200100]<0>(v93, "mm");
-            std::string::basic_string[abi:ne200100]<0>(v94, "m");
-            std::string::basic_string[abi:ne200100]<0>(v95, "m²");
-            std::string::basic_string[abi:ne200100]<0>(v96, "cm²");
-            std::string::basic_string[abi:ne200100]<0>(v97, "mm²");
-            std::string::basic_string[abi:ne200100]<0>(v98, "km²");
-            v19 = 51;
+            std::string::basic_string[abi:ne200100]<0>(&v80[1], "%");
+            std::string::basic_string[abi:ne200100]<0>(&v81[16], "£");
+            std::string::basic_string[abi:ne200100]<0>(v82, "°");
+            std::string::basic_string[abi:ne200100]<0>(v83, "€");
+            std::string::basic_string[abi:ne200100]<0>(v84, "n°");
+            std::string::basic_string[abi:ne200100]<0>(v85, "kw");
+            std::string::basic_string[abi:ne200100]<0>(v86, "kg");
+            std::string::basic_string[abi:ne200100]<0>(v87, "g");
+            std::string::basic_string[abi:ne200100]<0>(v88, "km");
+            std::string::basic_string[abi:ne200100]<0>(v89, "cm");
+            std::string::basic_string[abi:ne200100]<0>(v90, "mm");
+            std::string::basic_string[abi:ne200100]<0>(v91, "m");
+            std::string::basic_string[abi:ne200100]<0>(v92, "m²");
+            std::string::basic_string[abi:ne200100]<0>(v93, "cm²");
+            std::string::basic_string[abi:ne200100]<0>(v94, "mm²");
+            std::string::basic_string[abi:ne200100]<0>(v95, "km²");
+            v18 = 51;
             do
             {
-              if (SHIBYTE(__p[v19 - 1]) < 0)
+              if (SHIBYTE(__p[v18 - 1]) < 0)
               {
-                operator delete(v81.__r_.__value_.__r.__words[v19 + 1]);
+                operator delete(v78.__r_.__value_.__r.__words[v18 + 1]);
               }
 
-              v19 -= 3;
+              v18 -= 3;
             }
 
-            while (v19 * 8);
-            v9 = this;
+            while (v18 * 8);
+            v8 = this;
           }
 
           {
-            v14 = *(v12 + 4 * v11);
+            v13 = *(v11 + 4 * v10);
 LABEL_23:
-            if (v14 != 1)
+            if (v13 != 1)
             {
               goto LABEL_29;
             }
@@ -5674,12 +5837,12 @@ LABEL_23:
         }
       }
 
-      *&v79[8 * v11] = v10++;
+      *&v76[8 * v10] = v9++;
 LABEL_29:
-      ++v11;
-      v7 = *v9;
-      v6 = *(v9 + 1);
-      if (v11 >= 0xAAAAAAAAAAAAAAABLL * ((v6 - *v9) >> 3))
+      ++v10;
+      v6 = *v8;
+      v5 = *(v8 + 1);
+      if (v10 >= 0xAAAAAAAAAAAAAAABLL * ((v5 - *v8) >> 3))
       {
         goto LABEL_38;
       }
@@ -5689,75 +5852,75 @@ LABEL_29:
   do
   {
 LABEL_38:
-    if (0xAAAAAAAAAAAAAAABLL * ((v6 - v7) >> 3) < 2)
+    if (0xAAAAAAAAAAAAAAABLL * ((v5 - v6) >> 3) < 2)
     {
       break;
     }
 
+    v19 = 0;
     v20 = 0;
     v21 = 0;
-    v22 = 0;
-    v23 = -2;
-    v24 = 2;
-    v25 = 16;
-    v26 = 8;
-    v27 = 1;
+    v22 = -2;
+    v23 = 2;
+    v24 = 16;
+    v25 = 8;
+    v26 = 1;
     do
     {
-      v28 = *(*(v9 + 9) + 4 * v27);
-      if (!v28)
+      v27 = *(*(v8 + 9) + 4 * v26);
+      if (!v27)
       {
         goto LABEL_75;
       }
 
-      v29 = *(v9 + 6);
-      *v78 = *(v9 + 12);
-      v30 = *&v79[8 * v28];
-      if (!v30 || *&v79[8 * v27] == v30)
+      v28 = *(v8 + 6);
+      *v75 = *(v8 + 12);
+      v29 = *&v76[8 * v27];
+      if (!v29 || *&v76[8 * v26] == v29)
       {
         goto LABEL_43;
       }
 
-      v35 = *(v29 + 4 * v27);
-      LODWORD(v81.__r_.__value_.__l.__data_) = *(*v78 + 4 * v27);
+      v34 = *(v28 + 4 * v26);
+      LODWORD(v78.__r_.__value_.__l.__data_) = *(*v75 + 4 * v26);
       {
-        v76 = v22;
-        *v74 = v29;
-        v29 = *v74;
-        v22 = v76;
-        if (v54)
+        v73 = v21;
+        *v71 = v28;
+        v28 = *v71;
+        v21 = v73;
+        if (v53)
         {
-          *&v84[16] = 52;
+          *&v81[16] = 52;
           *__p = xmmword_19D27ED08;
-          *v83 = unk_19D27ED18;
-          *v84 = xmmword_19D27ED28;
-          v22 = v76;
-          v29 = *v74;
+          *v80 = unk_19D27ED18;
+          *v81 = xmmword_19D27ED28;
+          v21 = v73;
+          v28 = *v71;
         }
       }
 
-      if (v35 == 11 || LODWORD(v81.__r_.__value_.__l.__data_) != 46)
+      if (v34 == 11 || LODWORD(v78.__r_.__value_.__l.__data_) != 46)
       {
-        *v73 = v29;
-        v75 = v22;
-        v9 = v77;
+        *v70 = v28;
+        v72 = v21;
+        v8 = v74;
         {
-          if (v27 + 1 >= (v80 - v79) >> 3)
+          if (v26 + 1 >= (v77 - v76) >> 3)
           {
 LABEL_83:
-            v51 = v27 - 1;
-            if (v27 == 1)
+            v50 = v26 - 1;
+            if (v26 == 1)
             {
-              v22 = v75;
+              v21 = v72;
               goto LABEL_75;
             }
 
-            while (*&v79[8 * v51] != *&v79[8 * *(*(v77 + 9) + 4 * v27)])
+            while (*&v76[8 * v50] != *&v76[8 * *(*(v74 + 9) + 4 * v26)])
             {
-              v52 = *(*(v77 + 12) + 4 * v51);
-              if (v52 == 41 || v52 == 37)
+              v51 = *(*(v74 + 12) + 4 * v50);
+              if (v51 == 41 || v51 == 37)
               {
-                if (--v51)
+                if (--v50)
                 {
                   continue;
                 }
@@ -5769,21 +5932,21 @@ LABEL_83:
 
           else
           {
-            v47 = ((v80 - v79) >> 3) + v23;
-            v48 = (*(v77 + 12) + v26);
-            v49 = &v79[v25];
+            v46 = ((v77 - v76) >> 3) + v22;
+            v47 = (*(v74 + 12) + v25);
+            v48 = &v76[v24];
             while (1)
             {
-              v50 = *v49++;
-              if (v50 == *&v79[8 * *(*(v77 + 9) + 4 * v27)])
+              v49 = *v48++;
+              if (v49 == *&v76[8 * *(*(v74 + 9) + 4 * v26)])
               {
                 break;
               }
 
-              if (*v48 == 41 || *v48 == 37)
+              if (*v47 == 41 || *v47 == 37)
               {
-                ++v48;
-                if (--v47)
+                ++v47;
+                if (--v46)
                 {
                   continue;
                 }
@@ -5793,62 +5956,62 @@ LABEL_83:
             }
           }
 
-          LODWORD(v81.__r_.__value_.__l.__data_) = *(*v78 + 4 * v27);
+          LODWORD(v78.__r_.__value_.__l.__data_) = *(*v75 + 4 * v26);
           {
             *__p = xmmword_19D27ED3C;
-            *v83 = unk_19D27ED4C;
-            *v84 = xmmword_19D27ED5C;
-            *&v84[12] = *(&xmmword_19D27ED5C + 12);
-            v9 = v77;
+            *v80 = unk_19D27ED4C;
+            *v81 = xmmword_19D27ED5C;
+            *&v81[12] = *(&xmmword_19D27ED5C + 12);
+            v8 = v74;
           }
 
           {
             std::string::basic_string[abi:ne200100]<0>(__p, "-");
-            std::string::basic_string[abi:ne200100]<0>(&v83[1], "/");
-            std::string::basic_string[abi:ne200100]<0>(&v84[16], "'");
-            std::string::basic_string[abi:ne200100]<0>(v85, "");
-            std::string::basic_string[abi:ne200100]<0>(v86, "(");
-            std::string::basic_string[abi:ne200100]<0>(v87, ")");
-            for (i = 0; i != -144; i -= 24)
+            std::string::basic_string[abi:ne200100]<0>(&v80[1], "/");
+            std::string::basic_string[abi:ne200100]<0>(&v81[16], "'");
+            std::string::basic_string[abi:ne200100]<0>(v82, "");
+            std::string::basic_string[abi:ne200100]<0>(v83, "(");
+            std::string::basic_string[abi:ne200100]<0>(v84, ")");
+            for (i = 0; i != -18; i -= 3)
             {
-              if (v87[i + 23] < 0)
+              if (SHIBYTE(v84[i + 2]) < 0)
               {
-                operator delete(*&v87[i]);
+                operator delete(v84[i]);
               }
             }
 
-            v9 = v77;
+            v8 = v74;
           }
 
           {
 LABEL_95:
-            v22 = v75;
-            v29 = *v73;
+            v21 = v72;
+            v28 = *v70;
           }
 
           else
           {
-            v22 = v75;
-            v29 = *v73;
-            if (v53)
+            v21 = v72;
+            v28 = *v70;
+            if (v52)
             {
-              *&v79[8 * v27] = *&v79[8 * v28];
-              v22 = 1;
+              *&v76[8 * v26] = *&v76[8 * v27];
+              v21 = 1;
             }
           }
 
 LABEL_43:
-          if (v27 >= 2 && v27 < 0xAAAAAAAAAAAAAAABLL * ((*(v9 + 1) - *v9) >> 3) - 1)
+          if (v26 >= 2 && v26 < 0xAAAAAAAAAAAAAAABLL * ((*(v8 + 1) - *v8) >> 3) - 1)
           {
-            v31 = *(*v78 + 4 * v27);
-            if (v31 == 61 || v31 == 12 || v31 == 11 && *(v29 + 4 * v27) == 10)
+            v30 = *(*v75 + 4 * v26);
+            if (v30 == 61 || v30 == 12 || v30 == 11 && *(v28 + 4 * v26) == 10)
             {
-              v32 = &v79[8 * v27];
-              v33 = *(v32 - 1);
-              if (v33 == *(v32 + 1) && v33 && *v32 != v33)
+              v31 = &v76[8 * v26];
+              v32 = *(v31 - 1);
+              if (v32 == *(v31 + 1) && v32 && *v31 != v32)
               {
-                *v32 = v33;
-                v22 = 1;
+                *v31 = v32;
+                v21 = 1;
               }
             }
           }
@@ -5859,216 +6022,213 @@ LABEL_43:
 
       else
       {
-        v9 = v77;
+        v8 = v74;
       }
 
-      v36 = v79;
-      v37 = *&v79[8 * v28];
-      *&v79[8 * v27] = v37;
-      if (v27 < v28)
+      v35 = v76;
+      v36 = *&v76[8 * v27];
+      *&v76[8 * v26] = v36;
+      if (v26 < v27)
       {
-        v38 = vdupq_n_s64(~v21 + v28 - 1);
-        v39 = (v20 + v28) & 0xFFFFFFFFFFFFFFFELL;
-        v40 = &v36[v25];
-        v41 = 1;
+        v37 = vdupq_n_s64(~v20 + v27 - 1);
+        v38 = (v19 + v27) & 0xFFFFFFFFFFFFFFFELL;
+        v39 = (v35 + v24);
+        v40 = 1;
         do
         {
-          v42 = vmovn_s64(vcgeq_u64(v38, vorrq_s8(vdupq_n_s64(v41 - 1), xmmword_19D27D560)));
-          if (v42.i8[0])
+          v41 = vmovn_s64(vcgeq_u64(v37, vorrq_s8(vdupq_n_s64(v40 - 1), xmmword_19D27D560)));
+          if (v41.i8[0])
           {
-            *(v40 - 1) = v37;
+            *(v39 - 1) = v36;
           }
 
-          if (v42.i8[4])
+          if (v41.i8[4])
           {
-            *v40 = v37;
+            *v39 = v36;
           }
 
-          v41 += 2;
-          v40 += 16;
-          v39 -= 2;
+          v40 += 2;
+          v39 += 2;
+          v38 -= 2;
         }
 
-        while (v39);
+        while (v38);
       }
 
-      if (v27 > v28)
+      if (v26 > v27)
       {
-        v43 = 0;
-        v44 = vdupq_n_s64(~v28 + v27);
-        v45 = &v36[8 * v28];
+        v42 = 0;
+        v43 = vdupq_n_s64(~v27 + v26);
+        v44 = v35 + 8 * v27;
         do
         {
-          v46 = vmovn_s64(vcgeq_u64(v44, vorrq_s8(vdupq_n_s64(v43), xmmword_19D27D560)));
-          if (v46.i8[0])
+          v45 = vmovn_s64(vcgeq_u64(v43, vorrq_s8(vdupq_n_s64(v42), xmmword_19D27D560)));
+          if (v45.i8[0])
           {
-            *&v45[8 * v43] = v37;
+            *(v44 + 8 * v42) = v36;
           }
 
-          if (v46.i8[4])
+          if (v45.i8[4])
           {
-            *&v45[8 * v43 + 8] = v37;
+            *(v44 + 8 * v42 + 8) = v36;
           }
 
-          v43 += 2;
+          v42 += 2;
         }
 
-        while (((v24 - v28) & 0xFFFFFFFFFFFFFFFELL) != v43);
+        while (((v23 - v27) & 0xFFFFFFFFFFFFFFFELL) != v42);
       }
 
-      v22 = 1;
+      v21 = 1;
 LABEL_75:
-      ++v27;
-      v7 = *v9;
-      v6 = *(v9 + 1);
-      ++v21;
-      --v23;
-      v26 += 4;
-      v25 += 8;
-      --v20;
-      ++v24;
+      ++v26;
+      v6 = *v8;
+      v5 = *(v8 + 1);
+      ++v20;
+      --v22;
+      v25 += 4;
+      v24 += 8;
+      --v19;
+      ++v23;
     }
 
-    while (v27 < 0xAAAAAAAAAAAAAAABLL * ((v6 - *v9) >> 3));
+    while (v26 < 0xAAAAAAAAAAAAAAABLL * ((v5 - *v8) >> 3));
   }
 
-  while ((v22 & 1) != 0);
-  *v72 = 0;
-  v72[1] = 0;
-  v72[2] = 0;
-  v56 = v79;
-  v57 = v80;
-  if ((v80 - v79) >= 9)
+  while ((v21 & 1) != 0);
+  *v69 = 0;
+  v69[1] = 0;
+  v69[2] = 0;
+  v55 = v76;
+  v56 = v77;
+  if ((v77 - v76) >= 9)
   {
-    v58 = 1;
+    v57 = 1;
     do
     {
-      v59 = *&v56[8 * v58];
-      if (v59)
+      v58 = *&v55[8 * v57];
+      if (v58)
       {
-        v60 = *v9 + 24 * v58;
-        if (*(v60 + 23) < 0)
+        v59 = *v8 + 24 * v57;
+        if (*(v59 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v81, *v60, *(v60 + 8));
-          v56 = v79;
-          v57 = v80;
+          std::string::__init_copy_ctor_external(&v78, *v59, *(v59 + 8));
+          v55 = v76;
+          v56 = v77;
         }
 
         else
         {
-          v61 = *v60;
-          v81.__r_.__value_.__r.__words[2] = *(v60 + 16);
-          *&v81.__r_.__value_.__l.__data_ = v61;
+          v60 = *v59;
+          v78.__r_.__value_.__r.__words[2] = *(v59 + 16);
+          *&v78.__r_.__value_.__l.__data_ = v60;
         }
 
-        v62 = v58 + 1;
-        if (v58 + 1 < ((v57 - v56) >> 3))
+        v61 = v57 + 1;
+        if (v57 + 1 < ((v56 - v55) >> 3))
         {
-          v63 = 24 * v58 + 24;
+          v62 = 24 * v57 + 24;
           do
           {
-            if (*&v56[8 * v62] != v59)
+            if (*&v55[8 * v61] != v58)
             {
               break;
             }
 
-            v64 = *v9;
             std::operator+<char>();
-            if (SHIBYTE(v83[0]) >= 0)
+            if (SHIBYTE(v80[0]) >= 0)
             {
-              v65 = __p;
+              v63 = __p;
             }
 
             else
             {
-              v65 = __p[0];
+              v63 = __p[0];
             }
 
-            if (SHIBYTE(v83[0]) >= 0)
+            if (SHIBYTE(v80[0]) >= 0)
             {
-              v66 = HIBYTE(v83[0]);
+              v64 = HIBYTE(v80[0]);
             }
 
             else
             {
-              v66 = __p[1];
+              v64 = __p[1];
             }
 
-            std::string::append(&v81, v65, v66);
-            if (SHIBYTE(v83[0]) < 0)
+            std::string::append(&v78, v63, v64);
+            if (SHIBYTE(v80[0]) < 0)
             {
               operator delete(__p[0]);
             }
 
-            ++v62;
-            v56 = v79;
-            v63 += 24;
+            ++v61;
+            v55 = v76;
+            v62 += 24;
           }
 
-          while (v62 < (v80 - v79) >> 3);
+          while (v61 < (v77 - v76) >> 3);
         }
 
-        __p[0] = v58;
-        __p[1] = (v62 - v58);
-        if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+        __p[0] = v57;
+        __p[1] = (v61 - v57);
+        if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(v83, v81.__r_.__value_.__l.__data_, v81.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(v80, v78.__r_.__value_.__l.__data_, v78.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          *v83 = *&v81.__r_.__value_.__l.__data_;
-          *v84 = *(&v81.__r_.__value_.__l + 2);
+          *v80 = *&v78.__r_.__value_.__l.__data_;
+          *v81 = *(&v78.__r_.__value_.__l + 2);
         }
 
-        v67 = v72[1];
-        if (v67 >= v72[2])
+        v65 = v69[1];
+        if (v65 >= v69[2])
         {
-          v69 = std::vector<CoreNLP::NounPhrase>::__emplace_back_slow_path<CoreNLP::NounPhrase>(v72, __p);
-          v70 = v84[7];
-          v72[1] = v69;
-          if (v70 < 0)
+          v67 = std::vector<CoreNLP::NounPhrase>::__emplace_back_slow_path<CoreNLP::NounPhrase>(v69, __p);
+          v68 = v81[7];
+          v69[1] = v67;
+          if (v68 < 0)
           {
-            operator delete(v83[0]);
+            operator delete(v80[0]);
           }
         }
 
         else
         {
-          *v67 = *__p;
-          v68 = *v83;
-          *(v67 + 32) = *v84;
-          *(v67 + 16) = v68;
-          v72[1] = v67 + 40;
+          *v65 = *__p;
+          v66 = *v80;
+          *(v65 + 32) = *v81;
+          *(v65 + 16) = v66;
+          v69[1] = v65 + 40;
         }
 
-        if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v81.__r_.__value_.__l.__data_);
+          operator delete(v78.__r_.__value_.__l.__data_);
         }
 
-        v56 = v79;
-        v57 = v80;
+        v55 = v76;
+        v56 = v77;
       }
 
       else
       {
-        v62 = v58 + 1;
+        v61 = v57 + 1;
       }
 
-      v58 = v62;
+      v57 = v61;
     }
 
-    while (v62 < (v57 - v56) >> 3);
+    while (v61 < (v56 - v55) >> 3);
   }
 
-  if (v56)
+  if (v55)
   {
-    v80 = v56;
-    operator delete(v56);
+    v77 = v55;
+    operator delete(v55);
   }
-
-  v71 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19D1F73D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
@@ -6099,7 +6259,7 @@ void sub_19D1F73D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 }
 
-uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -6109,7 +6269,7 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void 
     v5 = 24 * a3;
     do
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2, a2);
       a2 += 3;
       v5 -= 24;
     }
@@ -6120,35 +6280,35 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void 
   return a1;
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__construct_node_hash<std::string const&>();
@@ -6156,44 +6316,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_19D1F7814(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -6206,9 +6366,9 @@ void sub_19D1F7814(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -6430,9 +6590,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -6464,7 +6624,7 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
   }
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -6543,7 +6703,8 @@ uint64_t std::unordered_set<NLDepLabel>::unordered_set(uint64_t a1, unsigned int
     v5 = 4 * a3;
     do
     {
-      std::__hash_table<NLDepLabel,std::hash<NLDepLabel>,std::equal_to<NLDepLabel>,std::allocator<NLDepLabel>>::__emplace_unique_key_args<NLDepLabel,NLDepLabel const&>(a1, a2++);
+      std::__hash_table<NLDepLabel,std::hash<NLDepLabel>,std::equal_to<NLDepLabel>,std::allocator<NLDepLabel>>::__emplace_unique_key_args<NLDepLabel,NLDepLabel const&>(a1, a2, a2);
+      ++a2;
       v5 -= 4;
     }
 
@@ -6553,33 +6714,33 @@ uint64_t std::unordered_set<NLDepLabel>::unordered_set(uint64_t a1, unsigned int
   return a1;
 }
 
-uint64_t *std::__hash_table<NLDepLabel,std::hash<NLDepLabel>,std::equal_to<NLDepLabel>,std::allocator<NLDepLabel>>::__emplace_unique_key_args<NLDepLabel,NLDepLabel const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<NLDepLabel,std::hash<NLDepLabel>,std::equal_to<NLDepLabel>,std::allocator<NLDepLabel>>::__emplace_unique_key_args<NLDepLabel,NLDepLabel const&>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -6587,44 +6748,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t *std::__hash_table<NLDepLabel,std::hash<NLDepLabel>,std::equal_to<NLDepLabel>,std::allocator<NLDepLabel>>::find<NLDepLabel>(void *a1, unsigned int *a2)
@@ -6694,7 +6855,7 @@ uint64_t *std::__hash_table<NLDepLabel,std::hash<NLDepLabel>,std::equal_to<NLDep
   return result;
 }
 
-uint64_t std::vector<CoreNLP::NounPhrase>::__emplace_back_slow_path<CoreNLP::NounPhrase>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<CoreNLP::NounPhrase>::__emplace_back_slow_path<CoreNLP::NounPhrase>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -6752,9 +6913,9 @@ uint64_t std::vector<CoreNLP::NounPhrase>::__emplace_back_slow_path<CoreNLP::Nou
   return v14;
 }
 
-void sub_19D1F8488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1F8488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CoreNLP::NounPhrase>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6986,163 +7147,161 @@ void CoreNLP::ModelTrainerWrapper::~ModelTrainerWrapper(CoreNLP::ModelTrainerWra
   JUMPOUT(0x19EAF8CA0);
 }
 
-void CoreNLP::SentimentModel::CreateModel(int a1@<W0>, void *a2@<X8>)
+void CoreNLP::SentimentModel::CreateModel(int a1@<W0>, uint64_t *a2@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = CoreNLP::copyLocaleForLanguageID(a1);
-  v26[1] = v3;
-  CoreNLP::Resource::getAssetResource(v3, @"Sentiment", @"sentiment.bundle", 0, v26);
-  v24 = 0uLL;
-  v25 = 0;
-  if (v26[0] && CoreNLP::Resource::exists(v26[0], v4))
+  v23[1] = v3;
+  CoreNLP::Resource::getAssetResource(v23, v3, @"Sentiment", @"sentiment.bundle", 0);
+  v21 = 0uLL;
+  v22 = 0;
+  if (v23[0] && CoreNLP::Resource::exists(v23[0]))
   {
-    CoreNLP::Resource::path(v26[0], v5, &v21);
-    if (SHIBYTE(v25) < 0)
+    CoreNLP::Resource::path(&v18.st_dev, v23[0]);
+    if (SHIBYTE(v22) < 0)
     {
-      operator delete(v24);
+      operator delete(v21);
     }
 
-    v25 = *&v21.st_uid;
-    v24 = *&v21.st_dev;
-    if ((v21.st_gid & 0x80000000) == 0)
+    v22 = *&v18.st_uid;
+    v21 = *&v18.st_dev;
+    if ((v18.st_gid & 0x80000000) == 0)
     {
-      st_gid_high = HIBYTE(v21.st_gid);
+      st_gid_high = HIBYTE(v18.st_gid);
     }
 
     else
     {
-      st_gid_high = *(&v24 + 1);
+      st_gid_high = *(&v21 + 1);
     }
 
-    v7 = &v21;
-    std::string::basic_string[abi:ne200100](&v21, st_gid_high + 1);
-    if ((v21.st_gid & 0x80000000) != 0)
+    v5 = &v18;
+    std::string::basic_string[abi:ne200100](&v18, st_gid_high + 1);
+    if ((v18.st_gid & 0x80000000) != 0)
     {
-      v7 = *&v21.st_dev;
+      v5 = *&v18.st_dev;
     }
 
     if (st_gid_high)
     {
-      if (v25 >= 0)
+      if (v22 >= 0)
       {
-        v8 = &v24;
+        v6 = &v21;
       }
 
       else
       {
-        v8 = v24;
+        v6 = v21;
       }
 
-      memmove(v7, v8, st_gid_high);
+      memmove(v5, v6, st_gid_high);
     }
 
-    *(&v7->st_dev + st_gid_high) = 47;
-    v9 = std::string::append(&v21, "sentiment.nlmodel");
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v23 = v9->__r_.__value_.__r.__words[2];
-    v22 = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v21.st_gid) < 0)
+    *(&v5->st_dev + st_gid_high) = 47;
+    v7 = std::string::append(&v18, "sentiment.nlmodel");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v20 = v7->__r_.__value_.__r.__words[2];
+    v19 = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v18.st_gid) < 0)
     {
-      operator delete(*&v21.st_dev);
+      operator delete(*&v18.st_dev);
     }
 
-    if (v23 >= 0)
+    if (v20 >= 0)
     {
-      v11 = &v22;
+      v9 = &v19;
     }
 
     else
     {
-      v11 = v22;
+      v9 = v19;
     }
 
-    if (stat(v11, &v21))
+    if (stat(v9, &v18))
     {
-      std::string::basic_string[abi:ne200100]<0>(&v28, "output1");
+      std::string::basic_string[abi:ne200100]<0>(&v25, "output1");
       __p[0] = 0;
       __p[1] = 0;
-      v20 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(__p, &v28, &v29, 1uLL);
-      CoreNLP::CNNModel::CreateCNNModel(1, &v18);
-      v27 = __p;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v27);
-      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+      v17 = 0;
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(__p, &v25, &v26, 1uLL);
+      CoreNLP::CNNModel::CreateCNNModel(1, &v15);
+      v24 = __p;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v24);
+      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v25.__r_.__value_.__l.__data_);
       }
 
       operator new();
     }
 
-    if (v25 >= 0)
+    if (v22 >= 0)
     {
-      v12 = HIBYTE(v25);
+      v10 = HIBYTE(v22);
     }
 
     else
     {
-      v12 = *(&v24 + 1);
+      v10 = *(&v21 + 1);
     }
 
-    v13 = &v28;
-    std::string::basic_string[abi:ne200100](&v28, v12 + 1);
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v11 = &v25;
+    std::string::basic_string[abi:ne200100](&v25, v10 + 1);
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v13 = v28.__r_.__value_.__r.__words[0];
+      v11 = v25.__r_.__value_.__r.__words[0];
     }
 
-    if (v12)
+    if (v10)
     {
-      if (v25 >= 0)
+      if (v22 >= 0)
       {
-        v14 = &v24;
+        v12 = &v21;
       }
 
       else
       {
-        v14 = v24;
+        v12 = v21;
       }
 
-      memmove(v13, v14, v12);
+      memmove(v11, v12, v10);
     }
 
-    *(&v13->__r_.__value_.__l.__data_ + v12) = 47;
-    v15 = std::string::append(&v28, "char_id.json");
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v20 = v15->__r_.__value_.__r.__words[2];
-    *__p = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    *(&v11->__r_.__value_.__l.__data_ + v10) = 47;
+    v13 = std::string::append(&v25, "char_id.json");
+    v14 = *&v13->__r_.__value_.__l.__data_;
+    v17 = v13->__r_.__value_.__r.__words[2];
+    *__p = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v28.__r_.__value_.__l.__data_);
+      operator delete(v25.__r_.__value_.__l.__data_);
     }
 
     operator new();
   }
 
   *a2 = 0;
-  if (SHIBYTE(v25) < 0)
+  if (SHIBYTE(v22) < 0)
   {
-    operator delete(v24);
+    operator delete(v21);
   }
 
-  std::unique_ptr<CoreNLP::Resource>::~unique_ptr[abi:ne200100](v26);
+  std::unique_ptr<CoreNLP::Resource>::~unique_ptr[abi:ne200100](v23);
   if (v3)
   {
     CFRelease(v3);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-void sub_19D1F8DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_19D1F8DC4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
-  MEMORY[0x19EAF8CA0](v23, 0x10B3C40686E1955);
+  MEMORY[0x19EAF8CA0](v23, 0x10B3C40686E1955, a3, a4, a5, a6, a7, a8);
   if (a16 < 0)
   {
     operator delete(__p);
@@ -7181,14 +7340,14 @@ void *CoreNLP::SentimentModel::SentimentModel(void *a1, uint64_t *a2)
   return a1;
 }
 
-void CoreNLP::SentimentModel::SentimentModel(void *a1)
+void CoreNLP::SentimentModel::SentimentModel(void *a1, uint64_t a2, uint64_t *a3)
 {
-  v3[71] = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
-  v3[1] = 0;
-  v2 = v3;
-  CoreNLP::AbstractModel::AbstractModel(a1, &v2);
-  std::__tree<std::string>::destroy(&v2, v3[0]);
+  v5[71] = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  v5[1] = 0;
+  v4 = v5;
+  CoreNLP::AbstractModel::AbstractModel(a1, &v4);
+  std::__tree<std::string>::destroy(&v4, v5[0]);
   *a1 = &unk_1F10AED30;
   a1[9] = 0;
   operator new();
@@ -7236,23 +7395,23 @@ CoreNLP::MontrealModel **std::unique_ptr<CoreNLP::MontrealModel>::~unique_ptr[ab
   return a1;
 }
 
-void CoreNLP::SentimentModel::vinference(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void CoreNLP::SentimentModel::vinference(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (*(a1 + 80))
   {
-    std::string::basic_string[abi:ne200100]<0>(&__p, "PAD");
-    v6 = std::__tree<std::string>::find<std::string>(a1 + 88, &__p.__begin_);
-    if (SHIBYTE(__p.__end_cap_.__value_) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v34 + 1, "PAD");
+    v6 = std::__tree<std::string>::find<std::string>(a1 + 88, &v34 + 1);
+    if (SHIBYTE(v36) < 0)
     {
-      operator delete(__p.__begin_);
+      operator delete(*(&v34 + 1));
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&__p, "UNK");
-    v7 = std::__tree<std::string>::find<std::string>(a1 + 88, &__p.__begin_);
-    if (SHIBYTE(__p.__end_cap_.__value_) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v34 + 1, "UNK");
+    v7 = std::__tree<std::string>::find<std::string>(a1 + 88, &v34 + 1);
+    if (SHIBYTE(v36) < 0)
     {
-      operator delete(__p.__begin_);
+      operator delete(*(&v34 + 1));
     }
 
     v8 = a1 + 96;
@@ -7263,22 +7422,21 @@ void CoreNLP::SentimentModel::vinference(uint64_t a1@<X0>, uint64_t *a2@<X1>, vo
       v10 = *(v6 + 56);
     }
 
-    v32 = v10;
+    v31 = v10;
     if (v8 != v7)
     {
       v9 = *(v7 + 56);
     }
 
-    std::vector<float>::vector[abi:ne200100](&__p, 0x190uLL);
+    std::vector<float>::vector[abi:ne200100](&v34 + 1, 0x190uLL, &v31);
     v11 = *a2;
-    v35 = 0;
-    v36 = 0;
-    v34 = 0;
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v34, *v11, v11[1], 0xAAAAAAAAAAAAAAABLL * ((v11[1] - *v11) >> 3));
+    *&v34 = 0;
+    v33 = 0uLL;
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v33, *v11, v11[1], 0xAAAAAAAAAAAAAAABLL * ((v11[1] - *v11) >> 3));
     v12 = 0x5555555555555555 * ((*(*a2 + 8) - **a2) >> 3);
     if (v12 <= 0xFFFFFFFFFFFFFE6FLL)
     {
-      begin = __p.__begin_;
+      v17 = *(&v34 + 1);
     }
 
     else
@@ -7294,15 +7452,15 @@ void CoreNLP::SentimentModel::vinference(uint64_t a1@<X0>, uint64_t *a2@<X1>, vo
           v16 = *(v15 + 56);
         }
 
-        begin = __p.__begin_;
-        *&__p.__begin_[v14++] = v16;
+        v17 = *(&v34 + 1);
+        *(*(&v34 + 1) + 4 * v14++) = v16;
         v13 += 24;
       }
 
       while (v14 != 400);
     }
 
-    CoreNLP::MontrealModel::setInput(*(a1 + 80), 1, 1, begin, 0);
+    CoreNLP::MontrealModel::setInput(*(a1 + 80), 1, 1, v17, 0);
     CoreNLP::MontrealModel::predict(*(a1 + 80));
     v25 = CoreNLP::MontrealModel::output(*(a1 + 80), 0);
     if (v25)
@@ -7315,24 +7473,24 @@ void CoreNLP::SentimentModel::vinference(uint64_t a1@<X0>, uint64_t *a2@<X1>, vo
       v24 = 0.0;
     }
 
-    cf = &v34;
+    cf = &v33;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&cf);
-    if (__p.__begin_)
+    if (*(&v34 + 1))
     {
-      __p.__end_ = __p.__begin_;
-      operator delete(__p.__begin_);
+      v35 = *(&v34 + 1);
+      operator delete(*(&v34 + 1));
     }
 
     goto LABEL_30;
   }
 
   v18 = *(a1 + 72);
-  memset(v31, 0, sizeof(v31));
-  std::vector<std::vector<std::string>>::__init_with_size[abi:ne200100]<std::vector<std::string>*,std::vector<std::string>*>(v31, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
-  v19 = CoreNLP::CNNModel::featureRepresentation(v18, v31);
-  v34 = v19;
-  __p.__begin_ = v31;
-  std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](&__p);
+  memset(v30, 0, sizeof(v30));
+  std::vector<std::vector<std::string>>::__init_with_size[abi:ne200100]<std::vector<std::string>*,std::vector<std::string>*>(v30, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  v19 = CoreNLP::CNNModel::featureRepresentation(v18, v30);
+  *&v33 = v19;
+  *(&v34 + 1) = v30;
+  std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](&v34 + 1);
   Value = CFDictionaryGetValue(v19, @"output1");
   v21 = Value;
   if (!Value)
@@ -7354,15 +7512,15 @@ void CoreNLP::SentimentModel::vinference(uint64_t a1@<X0>, uint64_t *a2@<X1>, vo
   if (!cf)
   {
 LABEL_70:
-    v29 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v29, "Could not construct");
-    __cxa_throw(v29, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v28 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v28, "Could not construct");
+    __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  applesauce::CF::convert_to<std::vector<float>,0>(cf, &__p);
-  v23 = *(__p.__begin_ + 1);
-  __p.__end_ = __p.__begin_;
-  operator delete(__p.__begin_);
+  applesauce::CF::convert_to<std::vector<float>,0>(cf, (&v34 + 8));
+  v23 = *(*(&v34 + 1) + 4);
+  v35 = *(&v34 + 1);
+  operator delete(*(&v34 + 1));
   if (cf)
   {
     CFRelease(cf);
@@ -7462,21 +7620,21 @@ LABEL_30:
     v26 = 201;
   }
 
-  v34 = v26;
-  v35 = 0x3FF0000000000000;
-  memset(&__p, 0, sizeof(__p));
-  std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double> const*,std::pair<int,double> const*>(&__p, &v34, &v36, 1uLL);
+  *&v33 = v26;
+  *(&v33 + 1) = 0x3FF0000000000000;
+  v35 = 0;
+  v36 = 0;
+  *(&v34 + 1) = 0;
+  std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double> const*,std::pair<int,double> const*>(&v34 + 1, &v33, &v34, 1uLL);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<std::vector<std::pair<int,double>>>::__init_with_size[abi:ne200100]<std::vector<std::pair<int,double>> const*,std::vector<std::pair<int,double>> const*>(a3, &__p, &v38, 1uLL);
-  if (__p.__begin_)
+  std::vector<std::vector<std::pair<int,double>>>::__init_with_size[abi:ne200100]<std::vector<std::pair<int,double>> const*,std::vector<std::pair<int,double>> const*>(a3, &v34 + 8, &v37, 1uLL);
+  if (*(&v34 + 1))
   {
-    __p.__end_ = __p.__begin_;
-    operator delete(__p.__begin_);
+    v35 = *(&v34 + 1);
+    operator delete(*(&v34 + 1));
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19D1F9C0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, const void *a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -7528,7 +7686,7 @@ void applesauce::CF::details::parse_object<minijson::const_buffer_context>(minij
   std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::destroy(&v3, v4[0]);
 }
 
-uint64_t minijson::parse_object<minijson::const_buffer_context,applesauce::CF::TypeRef applesauce::CF::details::parse_object<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(char const*,minijson::value)#1}>(minijson::detail::buffer_context_base *this, uint64_t a2, uint64_t a3)
+uint64_t minijson::parse_object<minijson::const_buffer_context,applesauce::CF::TypeRef applesauce::CF::details::parse_object<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(char const*,minijson::value)#1}>(minijson::detail::buffer_context_base *this, uint64_t **a2, uint64_t **a3)
 {
   v33[0] = a2;
   v33[1] = a3;
@@ -7670,7 +7828,7 @@ LABEL_16:
           }
 
           *(this + 7) = *(this + 3) + *(this + 6);
-          minijson::detail::read_quoted_string<minijson::const_buffer_context>(this, 1);
+          minijson::detail::read_quoted_string<minijson::const_buffer_context>(this, 1, a3);
           v8 = *(this + 7);
           v6 = 3;
 LABEL_35:
@@ -7773,118 +7931,118 @@ LABEL_37:
   return result;
 }
 
-void *minijson::detail::read_quoted_string<minijson::const_buffer_context>(minijson::detail::buffer_context_base *this, int a2)
+void *minijson::detail::read_quoted_string<minijson::const_buffer_context>(minijson::detail::buffer_context_base *this, int a2, int a3)
 {
-  v2 = a2;
+  v3 = a2;
+  v44 = 0;
   v43 = 0;
-  v42 = 0;
-  v4 = *(this + 5);
-  if (v4 >= *(this + 4))
+  v5 = *(this + 5);
+  if (v5 >= *(this + 4))
   {
-    v7 = 0;
+    v8 = 0;
 LABEL_65:
     exception = __cxa_allocate_exception(0x18uLL);
-    v23 = *(this + 5);
-    v24 = v23 != 0;
-    v25 = v23 - 1;
-    if (!v24)
+    v24 = *(this + 5);
+    v25 = v24 != 0;
+    v26 = v24 - 1;
+    if (!v25)
     {
-      v25 = 0;
+      v26 = 0;
     }
 
     *exception = &unk_1F10AEDD0;
-    exception[1] = v25;
-    if (v7 & 1) != 0 || (v2)
+    exception[1] = v26;
+    if (v8 & 1) != 0 || (v3)
     {
-      v26 = 5;
+      v27 = 5;
     }
 
     else
     {
-      v26 = 1;
+      v27 = 1;
     }
 
     goto LABEL_73;
   }
 
-  v5 = 0;
   v6 = 0;
   v7 = 0;
-  v8 = MEMORY[0x1E69E9830];
-  v9 = a2;
+  v8 = 0;
+  v9 = MEMORY[0x1E69E9830];
+  v10 = a2;
   while (1)
   {
-    v10 = *(this + 2);
-    *(this + 5) = v4 + 1;
-    v11 = *(v10 + v4);
-    if (!v11)
+    v11 = *(this + 2);
+    *(this + 5) = v5 + 1;
+    v12 = *(v11 + v5);
+    if (!v12)
     {
       goto LABEL_65;
     }
 
-    if (v9 <= 1)
+    if (v10 <= 1)
     {
       break;
     }
 
-    if (v9 == 2)
+    if (v10 == 2)
     {
-      if (v11 <= 101)
+      if (v12 <= 101)
       {
-        if (v11 > 91)
+        if (v12 > 91)
         {
-          if (v11 == 92)
+          if (v12 == 92)
           {
-            v17 = this;
-            v18 = 92;
+            v18 = this;
+            v19 = 92;
           }
 
           else
           {
-            if (v11 != 98)
+            if (v12 != 98)
             {
               goto LABEL_84;
             }
 
-            v17 = this;
-            v18 = 8;
+            v18 = this;
+            v19 = 8;
           }
         }
 
-        else if (v11 == 34)
+        else if (v12 == 34)
         {
-          v17 = this;
-          v18 = 34;
+          v18 = this;
+          v19 = 34;
         }
 
         else
         {
-          if (v11 != 47)
+          if (v12 != 47)
           {
             goto LABEL_84;
           }
 
-          v17 = this;
-          v18 = 47;
+          v18 = this;
+          v19 = 47;
         }
 
         goto LABEL_50;
       }
 
-      if (v11 > 113)
+      if (v12 > 113)
       {
-        switch(v11)
+        switch(v12)
         {
           case 'r':
-            v17 = this;
-            v18 = 13;
+            v18 = this;
+            v19 = 13;
             break;
           case 't':
-            v17 = this;
-            v18 = 9;
+            v18 = this;
+            v19 = 9;
             break;
           case 'u':
-            v9 = 3;
+            v10 = 3;
             goto LABEL_64;
           default:
             goto LABEL_84;
@@ -7893,177 +8051,177 @@ LABEL_65:
         goto LABEL_50;
       }
 
-      if (v11 == 102)
+      if (v12 == 102)
       {
-        v17 = this;
-        v18 = 12;
+        v18 = this;
+        v19 = 12;
         goto LABEL_50;
       }
 
-      if (v11 == 110)
+      if (v12 == 110)
       {
-        v17 = this;
-        v18 = 10;
+        v18 = this;
+        v19 = 10;
 LABEL_50:
-        minijson::detail::buffer_context_base::write(v17, v18);
+        minijson::detail::buffer_context_base::write(v18, v19);
         goto LABEL_63;
       }
 
 LABEL_84:
       exception = __cxa_allocate_exception(0x18uLL);
-      v37 = *(this + 5);
-      v24 = v37 != 0;
-      v38 = v37 - 1;
-      if (!v24)
+      v38 = *(this + 5);
+      v25 = v38 != 0;
+      v39 = v38 - 1;
+      if (!v25)
       {
-        v38 = 0;
+        v39 = 0;
       }
 
       *exception = &unk_1F10AEDD0;
-      exception[1] = v38;
-      v26 = 3;
+      exception[1] = v39;
+      v27 = 3;
 LABEL_73:
-      *(exception + 4) = v26;
+      *(exception + 4) = v27;
       goto LABEL_74;
     }
 
-    *(&v42 + v5) = v11;
-    if (v5 == 3)
+    *(&v43 + v6) = v12;
+    if (v6 == 3)
     {
       for (i = 0; i != 4; ++i)
       {
-        v13 = *(&v42 + i);
-        if (v13 < 0 || (*(v8 + 4 * v13 + 60) & 0x10000) == 0)
+        v14 = *(&v43 + i);
+        if (v14 < 0 || (*(v9 + 4 * v14 + 60) & 0x10000) == 0)
         {
-          v28 = __cxa_allocate_exception(1uLL);
+          v29 = __cxa_allocate_exception(1uLL);
         }
       }
 
-      v14 = minijson::detail::parse_long(&v42, 0x10);
-      if (!(v14 | v6))
+      v15 = minijson::detail::parse_long(&v43, 0x10);
+      if (!(v15 | v7))
       {
-        v34 = __cxa_allocate_exception(0x18uLL);
-        v35 = *(this + 5);
-        v24 = v35 != 0;
-        v36 = v35 - 1;
-        if (!v24)
+        v35 = __cxa_allocate_exception(0x18uLL);
+        v36 = *(this + 5);
+        v25 = v36 != 0;
+        v37 = v36 - 1;
+        if (!v25)
         {
-          v36 = 0;
+          v37 = 0;
         }
 
-        *v34 = &unk_1F10AEDD0;
-        v34[1] = v36;
-        *(v34 + 4) = 13;
+        *v35 = &unk_1F10AEDD0;
+        v35[1] = v37;
+        *(v35 + 4) = 13;
       }
 
-      if (v6)
+      if (v7)
       {
-        v15 = minijson::detail::utf16_to_utf8(v6, v14);
-        v16 = 0;
-        v41 = v15;
+        v16 = minijson::detail::utf16_to_utf8(v7, v15);
+        v17 = 0;
+        v42 = v16;
         do
         {
-          if (v16 && !*(&v41 + v16))
+          if (v17 && !*(&v42 + v17))
           {
             break;
           }
 
-          minijson::detail::buffer_context_base::write(this, *(&v41 + v16++));
+          minijson::detail::buffer_context_base::write(this, *(&v42 + v17++));
         }
 
-        while (v16 != 4);
+        while (v17 != 4);
         goto LABEL_61;
       }
 
-      if (v14 >> 10 != 54)
+      if (v15 >> 10 != 54)
       {
-        if (((v14 + 0x2000) >> 11) > 0x1Eu)
+        if (((v15 + 0x2000) >> 11) > 0x1Eu)
         {
-          v39 = __cxa_allocate_exception(1uLL);
+          v40 = __cxa_allocate_exception(1uLL);
         }
 
-        v19 = v14;
-        if (v14 >= 0x80u)
+        v20 = v15;
+        if (v15 >= 0x80u)
         {
-          if (v14 > 0x7FFu)
+          if (v15 > 0x7FFu)
           {
-            v19 = (v14 >> 12) | 0xE0;
-            v21 = (v14 >> 6) & 0x3F | 0x80;
-            v20 = ((v14 & 0x3F) << 16) | 0x800000;
+            v20 = (v15 >> 12) | 0xE0;
+            v22 = (v15 >> 6) & 0x3F | 0x80;
+            v21 = ((v15 & 0x3F) << 16) | 0x800000;
           }
 
           else
           {
-            v20 = 0;
-            v19 = (v14 >> 6) | 0xC0;
-            v21 = v14 & 0x3F | 0x80;
+            v21 = 0;
+            v20 = (v15 >> 6) | 0xC0;
+            v22 = v15 & 0x3F | 0x80;
           }
         }
 
         else
         {
-          v20 = 0;
           v21 = 0;
+          v22 = 0;
         }
 
-        v22 = 0;
-        v40 = v20 | (v21 << 8) | v19;
+        v23 = 0;
+        v41 = v21 | (v22 << 8) | v20;
         do
         {
-          if (v22 && !*(&v40 + v22))
+          if (v23 && !*(&v41 + v23))
           {
             break;
           }
 
-          minijson::detail::buffer_context_base::write(this, *(&v40 + v22++));
+          minijson::detail::buffer_context_base::write(this, *(&v41 + v23++));
         }
 
-        while (v22 != 4);
+        while (v23 != 4);
 LABEL_61:
-        v5 = 0;
-LABEL_62:
         v6 = 0;
+LABEL_62:
+        v7 = 0;
 LABEL_63:
-        v9 = 1;
+        v10 = 1;
         goto LABEL_64;
       }
 
-      v5 = 0;
-      v9 = 1;
-      v6 = v14;
+      v6 = 0;
+      v10 = 1;
+      v7 = v15;
     }
 
     else
     {
-      v9 = 3;
-      ++v5;
+      v10 = 3;
+      ++v6;
     }
 
 LABEL_64:
-    v4 = *(this + 5);
-    v7 = 1;
-    if (v4 >= *(this + 4))
+    v5 = *(this + 5);
+    v8 = 1;
+    if (v5 >= *(this + 4))
     {
       goto LABEL_65;
     }
   }
 
-  if (!v9)
+  if (!v10)
   {
-    v9 = 1;
-    if (v11 != 34)
+    v10 = 1;
+    if (v12 != 34)
     {
       exception = __cxa_allocate_exception(0x18uLL);
-      v30 = *(this + 5);
-      v24 = v30 != 0;
-      v31 = v30 - 1;
-      if (!v24)
+      v31 = *(this + 5);
+      v25 = v31 != 0;
+      v32 = v31 - 1;
+      if (!v25)
       {
-        v31 = 0;
+        v32 = 0;
       }
 
       *exception = &unk_1F10AEDD0;
-      exception[1] = v31;
+      exception[1] = v32;
       *(exception + 4) = 1;
 LABEL_74:
     }
@@ -8071,32 +8229,32 @@ LABEL_74:
     goto LABEL_64;
   }
 
-  if (v11 == 92)
+  if (v12 == 92)
   {
-    v9 = 2;
+    v10 = 2;
     goto LABEL_64;
   }
 
-  if (v6)
+  if (v7)
   {
     exception = __cxa_allocate_exception(0x18uLL);
-    v32 = *(this + 5);
-    v24 = v32 != 0;
-    v33 = v32 - 1;
-    if (!v24)
+    v33 = *(this + 5);
+    v25 = v33 != 0;
+    v34 = v33 - 1;
+    if (!v25)
     {
-      v33 = 0;
+      v34 = 0;
     }
 
     *exception = &unk_1F10AEDD0;
-    exception[1] = v33;
-    v26 = 2;
+    exception[1] = v34;
+    v27 = 2;
     goto LABEL_73;
   }
 
-  if (v11 != 34)
+  if (v12 != 34)
   {
-    minijson::detail::buffer_context_base::write(this, v11);
+    minijson::detail::buffer_context_base::write(this, v12);
     goto LABEL_62;
   }
 
@@ -8125,18 +8283,18 @@ void sub_19D1FA750(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void applesauce::CF::details::parse_object<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(char const*,minijson::value)#1}::operator()(uint64_t a1, char *__s, uint64_t a3)
+void applesauce::CF::details::parse_object<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(char const*,minijson::value)#1}::operator()(uint64_t ***a1, char *__s, uint64_t a3)
 {
   v5 = *a3;
   if (*a3 > 2)
   {
     if (v5 == 3)
     {
-      applesauce::CF::details::parse_object<minijson::const_buffer_context>(&cf, *(a1 + 8));
+      applesauce::CF::details::parse_object<minijson::const_buffer_context>(a1[1], &cf);
       v16 = *a1;
       std::string::basic_string[abi:ne200100]<0>(__p, __s);
       v27 = __p;
-      v17 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16, __p);
+      v17 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16, __p, &std::piecewise_construct, &v27);
       v15 = *(v17 + 56);
       *(v17 + 56) = cf;
       cf = v15;
@@ -8166,7 +8324,7 @@ void applesauce::CF::details::parse_object<minijson::const_buffer_context>(minij
           v11 = *a1;
           std::string::basic_string[abi:ne200100]<0>(__p, __s);
           v27 = __p;
-          v12 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v11, __p);
+          v12 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v11, __p, &std::piecewise_construct, &v27);
           v10 = *(v12 + 56);
           *(v12 + 56) = 0;
           cf = v10;
@@ -8188,11 +8346,11 @@ void applesauce::CF::details::parse_object<minijson::const_buffer_context>(minij
         return;
       }
 
-      applesauce::CF::details::parse_array<minijson::const_buffer_context>(*(a1 + 8), &cf);
+      applesauce::CF::details::parse_array<minijson::const_buffer_context>(a1[1], &cf);
       v21 = *a1;
       std::string::basic_string[abi:ne200100]<0>(__p, __s);
       v27 = __p;
-      v22 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v21, __p);
+      v22 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v21, __p, &std::piecewise_construct, &v27);
       v15 = *(v22 + 56);
       *(v22 + 56) = cf;
       cf = v15;
@@ -8224,7 +8382,7 @@ LABEL_38:
       v13 = *a1;
       std::string::basic_string[abi:ne200100]<0>(__p, __s);
       v27 = __p;
-      v14 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v13, __p);
+      v14 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v13, __p, &std::piecewise_construct, &v27);
       v15 = *(v14 + 56);
       *(v14 + 56) = cf;
       cf = v15;
@@ -8257,7 +8415,7 @@ LABEL_38:
       v18 = *a1;
       std::string::basic_string[abi:ne200100]<0>(__p, __s);
       v27 = __p;
-      v19 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18, __p);
+      v19 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18, __p, &std::piecewise_construct, &v27);
       v20 = *(v19 + 56);
       *(v19 + 56) = cf;
       cf = v20;
@@ -8290,7 +8448,7 @@ LABEL_38:
       v8 = *a1;
       std::string::basic_string[abi:ne200100]<0>(__p, __s);
       v27 = __p;
-      v9 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8, __p);
+      v9 = std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8, __p, &std::piecewise_construct, &v27);
       v10 = *(v9 + 56);
       *(v9 + 56) = v7;
       cf = v10;
@@ -8318,7 +8476,7 @@ LABEL_34:
 
 minijson::detail::buffer_context_base *minijson::detail::parse_value_helper<minijson::const_buffer_context>@<X0>(minijson::detail::buffer_context_base *a1@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X2>, _OWORD *a4@<X8>)
 {
-  result = minijson::detail::read_value<minijson::const_buffer_context>(a1, *a2, v12);
+  result = minijson::detail::read_value<minijson::const_buffer_context>(v12, a1, *a2, a3);
   v9 = v12[1];
   *a4 = v12[0];
   a4[1] = v9;
@@ -8497,25 +8655,25 @@ void applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijs
   std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](&v4);
 }
 
-void sub_19D1FAFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1FAFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void minijson::parse_array<minijson::const_buffer_context,applesauce::CF::TypeRef applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(minijson::value)#1}>(minijson::detail::buffer_context_base *a1, uint64_t a2, uint64_t a3)
+void minijson::parse_array<minijson::const_buffer_context,applesauce::CF::TypeRef applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(minijson::value)#1}>(minijson::detail::buffer_context_base *a1, char **a2, char **a3)
 {
   v26[0] = a2;
   v26[1] = a3;
@@ -8694,7 +8852,7 @@ LABEL_25:
   }
 }
 
-void applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(minijson::value)#1}::operator()(uint64_t *a1, uint64_t a2)
+void applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijson::const_buffer_context &)::{lambda(minijson::value)#1}::operator()(char ***a1, uint64_t a2)
 {
   v2 = *a2;
   if (*a2 <= 2)
@@ -8711,8 +8869,8 @@ void applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijs
         v3 = *a1;
         v4 = *(a2 + 16);
         LOBYTE(cf) = v4 != 0;
-        v5 = *(v3 + 8);
-        if (v5 >= *(v3 + 16))
+        v5 = v3[1];
+        if (v5 >= v3[2])
         {
           v7 = std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<BOOL>(v3, &cf);
         }
@@ -8730,7 +8888,7 @@ void applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijs
           }
 
           *v5 = *v6;
-          v7 = (v5 + 1);
+          v7 = (v5 + 8);
         }
 
         goto LABEL_29;
@@ -8738,14 +8896,14 @@ void applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijs
 
       v3 = *a1;
       cf = *(a2 + 24);
-      v10 = *(v3 + 8);
-      if (v10 >= *(v3 + 16))
+      v10 = v3[1];
+      if (v10 >= v3[2])
       {
         v7 = std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<double>(v3, &cf);
         goto LABEL_29;
       }
 
-      std::allocator_traits<std::allocator<applesauce::CF::TypeRef>>::construct[abi:ne200100]<applesauce::CF::TypeRef,double,0>(v3, *(v3 + 8), &cf);
+      std::allocator_traits<std::allocator<applesauce::CF::TypeRef>>::construct[abi:ne200100]<applesauce::CF::TypeRef,double,0>(v3, v3[1], &cf);
     }
 
     else
@@ -8753,27 +8911,27 @@ void applesauce::CF::details::parse_array<minijson::const_buffer_context>(minijs
       v3 = *a1;
       v9 = *(a2 + 8);
       cf = v9;
-      v10 = *(v3 + 8);
-      if (v10 >= *(v3 + 16))
+      v10 = v3[1];
+      if (v10 >= v3[2])
       {
         v7 = std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<char const*>(v3, &cf);
         goto LABEL_29;
       }
 
-      applesauce::CF::TypeRef::TypeRef(*(v3 + 8), v9);
+      applesauce::CF::TypeRef::TypeRef(v3[1], v9);
     }
 
-    v7 = v10 + 8;
-    *(v3 + 8) = v10 + 8;
+    v7 = (v10 + 8);
+    v3[1] = v10 + 8;
 LABEL_29:
-    *(v3 + 8) = v7;
+    v3[1] = v7;
     return;
   }
 
   if (v2 == 3)
   {
     v11 = *a1;
-    applesauce::CF::details::parse_object<minijson::const_buffer_context>(&cf, a1[1]);
+    applesauce::CF::details::parse_object<minijson::const_buffer_context>(a1[1], &cf);
     v12 = v11[1];
     if (v12 < v11[2])
     {
@@ -8799,8 +8957,8 @@ LABEL_29:
     }
 
     v3 = *a1;
-    v8 = *(*a1 + 8);
-    if (v8 >= *(v3 + 16))
+    v8 = (*a1)[1];
+    if (v8 >= v3[2])
     {
       v7 = std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<>(v3);
     }
@@ -8808,20 +8966,20 @@ LABEL_29:
     else
     {
       *v8 = 0;
-      v7 = (v8 + 1);
+      v7 = (v8 + 8);
     }
 
     goto LABEL_29;
   }
 
   v11 = *a1;
-  applesauce::CF::details::parse_array<minijson::const_buffer_context>(&cf, a1[1]);
+  applesauce::CF::details::parse_array<minijson::const_buffer_context>(a1[1], &cf);
   v12 = v11[1];
   if (v12 < v11[2])
   {
 LABEL_24:
     *v12 = cf;
-    v11[1] = v12 + 1;
+    v11[1] = (v12 + 1);
     return;
   }
 
@@ -8835,23 +8993,23 @@ LABEL_32:
   }
 }
 
-void sub_19D1FB548(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1FB548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<char const*>(uint64_t a1, char **a2)
+uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<char const*>(CFTypeRef **a1, char **a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = a1[1] - *a1;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -8878,14 +9036,14 @@ uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<char con
   v16 = (8 * v2);
   applesauce::CF::TypeRef::TypeRef((8 * v2), *a2);
   *&v16 = 8 * v2 + 8;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = (8 * v2 + *a1 - v8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<applesauce::CF::TypeRef>,applesauce::CF::TypeRef*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -8894,9 +9052,9 @@ uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<char con
   return v13;
 }
 
-void sub_19D1FB670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1FB670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9044,9 +9202,9 @@ uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<double>(
   return v13;
 }
 
-void sub_19D1FB954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1FB954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9066,7 +9224,7 @@ CFNumberRef std::allocator_traits<std::allocator<applesauce::CF::TypeRef>>::cons
   return result;
 }
 
-uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<BOOL>(void *a1, _BYTE *a2)
+uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<BOOL>(char **a1, _BYTE *a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -9123,14 +9281,14 @@ uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<BOOL>(vo
   return v14;
 }
 
-void sub_19D1FBB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1FBB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<applesauce::CF::TypeRef>(void *a1, CFTypeRef *a2)
+uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<applesauce::CF::TypeRef>(char **a1, void *a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -9177,14 +9335,14 @@ uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<applesau
   return v12;
 }
 
-void sub_19D1FBC44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1FBC44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<>(void *a1)
+uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<>(char **a1)
 {
   v1 = *a1;
   v2 = a1[1];
@@ -9230,14 +9388,14 @@ uint64_t std::vector<applesauce::CF::TypeRef>::__emplace_back_slow_path<>(void *
   return v10;
 }
 
-void sub_19D1FBD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1FBD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](CFTypeRef ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -9262,39 +9420,39 @@ void std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne20
   }
 }
 
-minijson::detail::buffer_context_base *minijson::detail::read_value<minijson::const_buffer_context>@<X0>(minijson::detail::buffer_context_base *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+minijson::detail::buffer_context_base *minijson::detail::read_value<minijson::const_buffer_context>@<X0>(uint64_t *__return_ptr a1@<X8>, minijson::detail::buffer_context_base *this@<X0>, int a3@<W1>, int a4@<W2>)
 {
-  v3 = this;
-  switch(a2)
+  v4 = this;
+  switch(a3)
   {
     case '""':
       *(this + 7) = *(this + 3) + *(this + 6);
-      this = minijson::detail::read_quoted_string<minijson::const_buffer_context>(this, 1);
-      v6 = *(v3 + 56);
-      *a3 = 0;
-      *(a3 + 4) = 0;
+      this = minijson::detail::read_quoted_string<minijson::const_buffer_context>(this, 1, a4);
+      v7 = *(v4 + 7);
+      *a1 = 0;
+      *(a1 + 2) = 0;
       goto LABEL_8;
     case '[':
-      v5 = 4;
+      v6 = 4;
       goto LABEL_6;
     case '{':
-      v5 = 3;
+      v6 = 3;
 LABEL_6:
-      *a3 = v5;
-      *(a3 + 4) = 0;
-      v6 = "";
+      *a1 = v6;
+      *(a1 + 2) = 0;
+      v7 = "";
 LABEL_8:
-      *(a3 + 16) = 0;
-      *(a3 + 24) = 0;
-      *(a3 + 8) = v6;
-      *(a3 + 32) = 0;
+      a1[2] = 0;
+      a1[3] = 0;
+      a1[1] = v7;
+      *(a1 + 32) = 0;
       return this;
   }
 
   *(this + 7) = *(this + 3) + *(this + 6);
-  v7 = minijson::detail::read_unquoted_value<minijson::const_buffer_context>(this, a2);
-  this = minijson::detail::parse_unquoted_value<minijson::const_buffer_context>(v3, a3);
-  *(a3 + 32) = v7;
+  v8 = minijson::detail::read_unquoted_value<minijson::const_buffer_context>(this, a3);
+  this = minijson::detail::parse_unquoted_value<minijson::const_buffer_context>(v4, a1);
+  *(a1 + 32) = v8;
   return this;
 }
 
@@ -9609,9 +9767,9 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<std:
   return v14;
 }
 
-void sub_19D1FC490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1FC490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9655,151 +9813,5 @@ void *std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::constr
   }
 
   a2[1] = v10;
-  return result;
-}
-
-void std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::destroy(uint64_t a1, char *a2)
-{
-  if (a2)
-  {
-    std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<std::string,applesauce::CF::TypeRef>,std::__map_value_compare<std::string,std::__value_type<std::string,applesauce::CF::TypeRef>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,applesauce::CF::TypeRef>>>::destroy(a1, *(a2 + 1));
-    v4 = *(a2 + 7);
-    if (v4)
-    {
-      CFRelease(v4);
-    }
-
-    if (a2[55] < 0)
-    {
-      operator delete(*(a2 + 4));
-    }
-
-    operator delete(a2);
-  }
-}
-
-void applesauce::CF::convert_to<std::map<std::string,int>,0>(const void *a1@<X0>, void *a2@<X8>)
-{
-  if (!a1 || (TypeID = CFDictionaryGetTypeID(), TypeID != CFGetTypeID(a1)))
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::convert_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  applesauce::CF::details::CFDictionary_get_value_to<std::map<std::string,int>>(a1, a2);
-}
-
-void applesauce::CF::details::CFDictionary_get_value_to<std::map<std::string,int>>(const __CFDictionary *a1@<X0>, void *a2@<X8>)
-{
-  Count = CFDictionaryGetCount(a1);
-  a2[2] = 0;
-  a2[1] = 0;
-  *a2 = a2 + 1;
-  std::vector<void const*>::vector[abi:ne200100](v13, Count);
-  std::vector<void const*>::vector[abi:ne200100](values, Count);
-  CFDictionaryGetKeysAndValues(a1, v13[0], values[0]);
-  if (Count)
-  {
-    for (i = 0; i != Count; ++i)
-    {
-      applesauce::CF::convert_to<std::string,0>(*(v13[0] + i), v7);
-      v6 = applesauce::CF::convert_to<int,0>(values[0][i]);
-      *__p = *v7;
-      v10 = v8;
-      v7[1] = 0;
-      v8 = 0;
-      v7[0] = 0;
-      v11 = v6;
-      std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int>>(a2, __p);
-      if (SHIBYTE(v10) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (SHIBYTE(v8) < 0)
-      {
-        operator delete(v7[0]);
-      }
-    }
-  }
-
-  if (values[0])
-  {
-    values[1] = values[0];
-    operator delete(values[0]);
-  }
-
-  if (v13[0])
-  {
-    v13[1] = v13[0];
-    operator delete(v13[0]);
-  }
-}
-
-void sub_19D1FC7B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  v27 = *(v25 - 56);
-  if (v27)
-  {
-    *(v25 - 48) = v27;
-    operator delete(v27);
-  }
-
-  std::__tree<std::string>::destroy(v24, *(v24 + 8));
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int>>(uint64_t a1, const void **a2)
-{
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
-  if (!result)
-  {
-    std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__construct_node<std::pair<std::string const,int> const&>();
-  }
-
-  return result;
-}
-
-uint64_t applesauce::CF::convert_to<int,0>(const __CFNumber *a1)
-{
-  result = applesauce::CF::convert_as<int,0>(a1);
-  if ((result & 0x100000000) == 0)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::convert_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  return result;
-}
-
-void CoreNLP::SentenceTagger::setLocale(CoreNLP::TaggerContext **this, const __CFLocale *a2)
-{
-  CoreNLP::Tagger::setLocale(this, a2);
-
-  CoreNLP::SentenceTagger::resetICUSentenceBreak(this, a2);
-}
-
-uint64_t CoreNLP::SentenceTagger::setLocaleConstraints(CoreNLP::TaggerContext **this, const __CFArray *a2)
-{
-  result = CoreNLP::Tagger::setLocaleConstraints(this, a2);
-  if (a2)
-  {
-    result = CFArrayGetCount(a2);
-    if (result == 1)
-    {
-      ValueAtIndex = CFArrayGetValueAtIndex(a2, 0);
-
-      CoreNLP::SentenceTagger::resetICUSentenceBreak(this, ValueAtIndex);
-    }
-  }
-
   return result;
 }

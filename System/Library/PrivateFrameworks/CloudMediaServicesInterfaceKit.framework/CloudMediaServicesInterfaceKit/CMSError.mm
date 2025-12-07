@@ -17,17 +17,15 @@
 
 + (id)errorWithDomain:(id)domain code:(int64_t)code description:(id)description
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCA9B8];
-  v15 = *MEMORY[0x277CCA450];
-  v16[0] = description;
+  v14 = *MEMORY[0x277CCA450];
+  v15[0] = description;
   v8 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
   domainCopy = domain;
-  v11 = [v8 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v11 = [v8 dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [v7 errorWithDomain:domainCopy code:code userInfo:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

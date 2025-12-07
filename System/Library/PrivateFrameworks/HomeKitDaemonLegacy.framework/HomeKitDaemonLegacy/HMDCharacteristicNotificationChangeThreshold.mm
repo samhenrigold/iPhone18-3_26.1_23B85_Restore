@@ -15,7 +15,7 @@
   if (v9)
   {
     objc_storeStrong(&v9->_characteristic, characteristic);
-    v11 = [thresholdCopy copy];
+    v11 = objc_msgSend_copy(thresholdCopy);
     threshold = v10->_threshold;
     v10->_threshold = v11;
   }

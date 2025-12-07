@@ -43,10 +43,10 @@
     v7 = [ARKitUserDefaults integerForKey:@"com.apple.arkit.jasper.aggregationBankCount"];
     if (v7 >= 1)
     {
-      [(ADAggregationParameters *)self->_aggregationParameters setAggregationSize:v7];
+      v7 = [(ADAggregationParameters *)self->_aggregationParameters setAggregationSize:v7];
     }
 
-    v8 = _ARLogGeneral_39();
+    v8 = _ARLogGeneral_39(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = objc_opt_class();
@@ -87,69 +87,69 @@
 
 - (void)addDepthPointCloudData:(id)data
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   os_unfair_lock_lock(&self->_aggregatorLock);
   aggregator = self->_aggregator;
   if (!aggregator || (-[ADPointCloudAggregator aggregationParameters](aggregator, "aggregationParameters"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 aggregationSize], v8 = aggregationSizeForPointCloud(dataCopy), v6, v7 != v8))
   {
     v9 = [(ARDepthPointCloudCoalescer *)self _createModifiedParametersIfNecessary:dataCopy];
-    v10 = _ARLogGeneral_39();
+    v10 = _ARLogGeneral_39(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = objc_opt_class();
       v12 = NSStringFromClass(v11);
       v13 = self->_aggregator;
-      v34 = 138543874;
-      v35 = v12;
-      v36 = 2048;
+      v35 = 138543874;
+      v36 = v12;
+      v37 = 2048;
       selfCopy2 = self;
-      v38 = 2048;
-      v39 = v13;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: About to create a new ADPointCloudAggregator; old: (%p)", &v34, 0x20u);
+      v39 = 2048;
+      v40 = v13;
+      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: About to create a new ADPointCloudAggregator; old: (%p)", &v35, 0x20u);
     }
 
     v14 = [objc_alloc(MEMORY[0x1E698C198]) initWithAggregationParameters:v9];
     v15 = self->_aggregator;
     self->_aggregator = v14;
 
-    v16 = _ARLogGeneral_39();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = _ARLogGeneral_39(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = self->_aggregator;
-      aggregationParameters = [(ADPointCloudAggregator *)v19 aggregationParameters];
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = self->_aggregator;
+      aggregationParameters = [(ADPointCloudAggregator *)v20 aggregationParameters];
       aggregationSize = [aggregationParameters aggregationSize];
       aggregationParameters2 = [(ADPointCloudAggregator *)self->_aggregator aggregationParameters];
       [aggregationParameters2 maxPointCloudAge];
-      v34 = 138544386;
-      v35 = v18;
-      v36 = 2048;
+      v35 = 138544386;
+      v36 = v19;
+      v37 = 2048;
       selfCopy2 = self;
-      v38 = 2048;
-      v39 = v19;
-      v40 = 1024;
-      v41 = aggregationSize;
-      v42 = 2048;
-      v43 = v23;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Created a new ADPointCloudAggregator (%p) with Size:%u Age:%lf", &v34, 0x30u);
+      v39 = 2048;
+      v40 = v20;
+      v41 = 1024;
+      v42 = aggregationSize;
+      v43 = 2048;
+      v44 = v24;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Created a new ADPointCloudAggregator (%p) with Size:%u Age:%lf", &v35, 0x30u);
     }
   }
 
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   pointCloud = [dataCopy pointCloud];
   [pointCloud length];
   kdebug_trace();
 
-  v25 = self->_aggregator;
+  v26 = self->_aggregator;
   pointCloud2 = [dataCopy pointCloud];
-  [dataCopy timestamp];
-  v28 = v27;
-  v29 = MEMORY[0x1E698C198];
+  objc_msgSend_timestamp(dataCopy);
+  v29 = v28;
+  v30 = MEMORY[0x1E698C198];
   [dataCopy visionCameraTransform];
-  [v29 transformMetersToMillimiters:?];
-  [(ADPointCloudAggregator *)v25 pushPointCloud:pointCloud2 timestamp:v28 worldToCameraTransform:v30, v31, v32, v33];
+  [v30 transformMetersToMillimiters:?];
+  [(ADPointCloudAggregator *)v26 pushPointCloud:pointCloud2 timestamp:v29 worldToCameraTransform:v31, v32, v33, v34];
 
   kdebug_trace();
   os_unfair_lock_unlock(&self->_aggregatorLock);
@@ -157,14 +157,14 @@
 
 - (id)depthPointCloudWithPose:(id)pose imageData:(id)data
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   poseCopy = pose;
   dataCopy = data;
   os_unfair_lock_lock(&self->_aggregatorLock);
   aggregator = self->_aggregator;
   if (!aggregator)
   {
-    v22 = 0;
+    v23 = 0;
     goto LABEL_35;
   }
 
@@ -172,7 +172,7 @@
   [aggregationParameters aggregationSize];
   CVPixelBufferGetWidth([dataCopy pixelBuffer]);
   CVPixelBufferGetHeight([dataCopy pixelBuffer]);
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   kdebug_trace();
   calibrationData = [dataCopy calibrationData];
   if (calibrationData)
@@ -190,55 +190,55 @@
       [ARDepthPointCloudCoalescer depthPointCloudWithPose:imageData:];
     }
 
-    v13 = ARShouldUseLogTypeError_internalOSVersion_45;
-    v14 = _ARLogGeneral_39();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError_internalOSVersion_45;
+    v15 = _ARLogGeneral_39(v13);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 138544130;
-        v68 = v17;
-        v69 = 2048;
+        v71 = v18;
+        v72 = 2048;
         selfCopy6 = self;
-        v71 = 2114;
-        v72 = v19;
-        v73 = 2114;
-        v74 = v21;
-        _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
+        v74 = 2114;
+        v75 = v20;
+        v76 = 2114;
+        v77 = v22;
+        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138544130;
-      v68 = v24;
-      v69 = 2048;
+      v71 = v25;
+      v72 = 2048;
       selfCopy6 = self;
-      v71 = 2114;
-      v72 = v26;
-      v73 = 2114;
-      v74 = v28;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
+      v74 = 2114;
+      v75 = v27;
+      v76 = 2114;
+      v77 = v29;
+      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
     }
   }
 
   adCameraCalibration = [dataCopy adCameraCalibration];
-  v30 = adCameraCalibration == 0;
+  v31 = adCameraCalibration == 0;
 
-  if (v30)
+  if (v31)
   {
 LABEL_25:
     if (ARShouldUseLogTypeError_onceToken_45 != -1)
@@ -246,38 +246,38 @@ LABEL_25:
       [ARDepthPointCloudCoalescer depthPointCloudWithPose:imageData:];
     }
 
-    v51 = ARShouldUseLogTypeError_internalOSVersion_45;
-    v52 = _ARLogGeneral_39();
-    v53 = v52;
-    if (v51 == 1)
+    v54 = ARShouldUseLogTypeError_internalOSVersion_45;
+    v55 = _ARLogGeneral_39(v32);
+    v56 = v55;
+    if (v54 == 1)
     {
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
-        v54 = objc_opt_class();
-        v55 = NSStringFromClass(v54);
+        v57 = objc_opt_class();
+        v58 = NSStringFromClass(v57);
         cameraType = [dataCopy cameraType];
         *buf = 138543874;
-        v68 = v55;
-        v69 = 2048;
+        v71 = v58;
+        v72 = 2048;
         selfCopy6 = self;
-        v71 = 2114;
-        v72 = cameraType;
-        _os_log_impl(&dword_1C241C000, v53, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not update aggregator calibration for image: %{public}@", buf, 0x20u);
+        v74 = 2114;
+        v75 = cameraType;
+        _os_log_impl(&dword_1C241C000, v56, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not update aggregator calibration for image: %{public}@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
     {
-      v57 = objc_opt_class();
-      v58 = NSStringFromClass(v57);
+      v60 = objc_opt_class();
+      v61 = NSStringFromClass(v60);
       cameraType2 = [dataCopy cameraType];
       *buf = 138543874;
-      v68 = v58;
-      v69 = 2048;
+      v71 = v61;
+      v72 = 2048;
       selfCopy6 = self;
-      v71 = 2114;
-      v72 = cameraType2;
-      _os_log_impl(&dword_1C241C000, v53, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not update aggregator calibration for image: %{public}@", buf, 0x20u);
+      v74 = 2114;
+      v75 = cameraType2;
+      _os_log_impl(&dword_1C241C000, v56, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not update aggregator calibration for image: %{public}@", buf, 0x20u);
     }
 
     v12 = 0;
@@ -287,14 +287,14 @@ LABEL_25:
     }
 
 LABEL_33:
-    v65 = *(MEMORY[0x1E69E9B18] + 48);
-    v66 = *(MEMORY[0x1E69E9B18] + 32);
+    v68 = *(MEMORY[0x1E69E9B18] + 48);
+    v69 = *(MEMORY[0x1E69E9B18] + 32);
     goto LABEL_34;
   }
 
-  v31 = MEMORY[0x1E698C160];
+  v33 = MEMORY[0x1E698C160];
   adCameraCalibration2 = [dataCopy adCameraCalibration];
-  v12 = [v31 ar_calibrationWithImageData:dataCopy adCalibrationData:adCameraCalibration2];
+  v12 = [v33 ar_calibrationWithImageData:dataCopy adCalibrationData:adCameraCalibration2];
 
   if (!v12)
   {
@@ -303,48 +303,48 @@ LABEL_33:
       [ARDepthPointCloudCoalescer depthPointCloudWithPose:imageData:];
     }
 
-    v36 = ARShouldUseLogTypeError_internalOSVersion_45;
-    v37 = _ARLogGeneral_39();
-    v38 = v37;
-    if (v36 == 1)
+    v39 = ARShouldUseLogTypeError_internalOSVersion_45;
+    v40 = _ARLogGeneral_39(v35);
+    v41 = v40;
+    if (v39 == 1)
     {
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v39 = objc_opt_class();
-        v40 = NSStringFromClass(v39);
-        v41 = objc_opt_class();
-        v42 = NSStringFromClass(v41);
-        v43 = objc_opt_class();
-        v44 = NSStringFromClass(v43);
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
+        v44 = objc_opt_class();
+        v45 = NSStringFromClass(v44);
+        v46 = objc_opt_class();
+        v47 = NSStringFromClass(v46);
         *buf = 138544130;
-        v68 = v40;
-        v69 = 2048;
+        v71 = v43;
+        v72 = 2048;
         selfCopy6 = self;
-        v71 = 2114;
-        v72 = v42;
-        v73 = 2114;
-        v74 = v44;
-        _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
+        v74 = 2114;
+        v75 = v45;
+        v76 = 2114;
+        v77 = v47;
+        _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      v45 = objc_opt_class();
-      v46 = NSStringFromClass(v45);
-      v47 = objc_opt_class();
-      v48 = NSStringFromClass(v47);
-      v49 = objc_opt_class();
-      v50 = NSStringFromClass(v49);
+      v48 = objc_opt_class();
+      v49 = NSStringFromClass(v48);
+      v50 = objc_opt_class();
+      v51 = NSStringFromClass(v50);
+      v52 = objc_opt_class();
+      v53 = NSStringFromClass(v52);
       *buf = 138544130;
-      v68 = v46;
-      v69 = 2048;
+      v71 = v49;
+      v72 = 2048;
       selfCopy6 = self;
-      v71 = 2114;
-      v72 = v48;
-      v73 = 2114;
-      v74 = v50;
-      _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
+      v74 = 2114;
+      v75 = v51;
+      v76 = 2114;
+      v77 = v53;
+      _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: failed to create %{public}@ from calibration data, using last known %{public}@ calibration", buf, 0x2Au);
     }
 
     goto LABEL_25;
@@ -354,23 +354,23 @@ LABEL_15:
   [(ADPointCloudAggregator *)self->_aggregator setColorCameraCalibration:v12];
   [v12 cameraToPlatformTransform];
   ARMatrix4x4FromMatrix4x3();
-  v78 = __invert_f4(v77);
-  [(ADPointCloudAggregator *)self->_aggregator setJasperToCameraTransform:*v78.columns[0].i64, *v78.columns[1].i64, *v78.columns[2].i64, *v78.columns[3].i64];
+  v81 = __invert_f4(v80);
+  [(ADPointCloudAggregator *)self->_aggregator setJasperToCameraTransform:*v81.columns[0].i64, *v81.columns[1].i64, *v81.columns[2].i64, *v81.columns[3].i64];
   if (!poseCopy)
   {
     goto LABEL_33;
   }
 
 LABEL_16:
-  v33 = MEMORY[0x1E698C198];
+  v36 = MEMORY[0x1E698C198];
   [poseCopy visionCameraTransform];
-  [v33 transformMetersToMillimiters:?];
-  v65 = v35;
-  v66 = v34;
+  [v36 transformMetersToMillimiters:?];
+  v68 = v38;
+  v69 = v37;
 LABEL_34:
-  v60 = self->_aggregator;
-  [poseCopy timestamp];
-  v22 = [ADPointCloudAggregator aggregateForTime:v60 worldToCameraTransform:"aggregateForTime:worldToCameraTransform:"];
+  v63 = self->_aggregator;
+  objc_msgSend_timestamp(poseCopy, v68, v69);
+  v23 = [ADPointCloudAggregator aggregateForTime:v63 worldToCameraTransform:"aggregateForTime:worldToCameraTransform:"];
   [(ADPointCloudAggregator *)self->_aggregator jasperToCameraTransform];
   [(ADPointCloudAggregator *)self->_aggregator jasperToCameraTransform];
   [(ADPointCloudAggregator *)self->_aggregator jasperToCameraTransform];
@@ -395,13 +395,13 @@ LABEL_34:
   [colorCameraCalibration3 intrinsicMatrix];
   kdebug_trace();
 
-  [v22 length];
+  [v23 length];
   kdebug_trace();
 
 LABEL_35:
   os_unfair_lock_unlock(&self->_aggregatorLock);
 
-  return v22;
+  return v23;
 }
 
 @end

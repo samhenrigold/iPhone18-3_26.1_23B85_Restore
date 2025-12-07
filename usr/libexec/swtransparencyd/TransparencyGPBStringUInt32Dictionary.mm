@@ -10,6 +10,7 @@
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndUInt32sUsingBlock:(id)block;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
+- (void)setUInt32:(unsigned int)int32 forKey:(id)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
 
@@ -230,6 +231,23 @@
 
       sub_1000E2C68(autocreator, self);
     }
+  }
+}
+
+- (void)setUInt32:(unsigned int)int32 forKey:(id)key
+{
+  v5 = *&int32;
+  if (!key)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil key to a Dictionary"];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithUnsignedInt:" numberWithUnsignedInt:v5], key];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_1000E2C68(autocreator, self);
   }
 }
 

@@ -134,7 +134,7 @@ LABEL_8:
 
 - (id)transferToImmutableIfValidWithError:(id *)error
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   query = [(MSPMutableHistoryEntrySearch *)self query];
   v7 = [query length];
@@ -149,11 +149,11 @@ LABEL_8:
     if (error)
     {
       v8 = MEMORY[0x277CCA9B8];
-      v12[0] = @"MSPContainerUntransferableObject";
-      v12[1] = @"MSPContainerUnavailableKeys";
-      v13[0] = self;
-      v13[1] = v5;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+      v11[0] = @"MSPContainerUntransferableObject";
+      v11[1] = @"MSPContainerUnavailableKeys";
+      v12[0] = self;
+      v12[1] = v5;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
       *error = [v8 errorWithDomain:@"com.apple.MapsSupport.MSPContainer" code:1 userInfo:v9];
 
       error = 0;
@@ -165,8 +165,6 @@ LABEL_8:
     [(MSPMutableHistoryEntry *)self _markImmutable];
     error = self;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return error;
 }

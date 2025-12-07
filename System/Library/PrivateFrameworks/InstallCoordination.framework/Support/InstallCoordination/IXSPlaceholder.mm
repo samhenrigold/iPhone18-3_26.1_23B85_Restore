@@ -61,6 +61,7 @@
 - (void)promiseDidReset:(id)reset;
 - (void)setAppExtensionPlaceholders:(id)placeholders;
 - (void)setAttributes:(id)attributes;
+- (void)setComplete:(BOOL)complete;
 - (void)setConfigurationComplete:(BOOL)complete;
 - (void)setEntitlements:(id)entitlements;
 - (void)setIcon:(id)icon;
@@ -1811,29 +1812,7 @@ LABEL_25:
 
   icon = [(IXSPlaceholder *)self icon];
   v5 = icon;
-  if (!icon)
-  {
-    goto LABEL_7;
-  }
-
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
-  v47 = 0;
-  accessQueue2 = [icon accessQueue];
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_100022314;
-  block[3] = &unk_100101880;
-  v8 = v5;
-  selfCopy = self;
-  v43 = &v44;
-  v41 = v8;
-  dispatch_sync(accessQueue2, block);
-
-  LOBYTE(accessQueue2) = *(v45 + 24);
-  _Block_object_dispose(&v44, 8);
-  if ((accessQueue2 & 1) == 0)
+  if (icon && (v44 = 0, v45 = &v44, v46 = 0x2020000000, v47 = 0, [icon accessQueue], v7 = objc_claimAutoreleasedReturnValue(), block[0] = _NSConcreteStackBlock, block[1] = 3221225472, block[2] = sub_100022314, block[3] = &unk_100101880, v8 = v5, v42 = self, v43 = &v44, v41 = v8, dispatch_sync(v7, block), v7, LOBYTE(v7) = *(v45 + 24), v41, _Block_object_dispose(&v44, 8), (v7 & 1) == 0))
   {
     v25 = 0;
     v5 = v8;
@@ -1841,90 +1820,14 @@ LABEL_25:
 
   else
   {
-LABEL_7:
     iconResourcesPromise = [(IXSPlaceholder *)self iconResourcesPromise];
-    if (iconResourcesPromise)
+    if (iconResourcesPromise && (v44 = 0, v45 = &v44, v46 = 0x2020000000, v47 = 0, [iconResourcesPromise accessQueue], v9 = objc_claimAutoreleasedReturnValue(), v36[0] = _NSConcreteStackBlock, v36[1] = 3221225472, v36[2] = sub_1000223A8, v36[3] = &unk_100101880, v38 = self, v39 = &v44, v37 = iconResourcesPromise, dispatch_sync(v9, v36), v9, v10 = *(v45 + 24), v37, _Block_object_dispose(&v44, 8), (v10 & 1) == 0) || (-[IXSPlaceholder entitlements](self, "entitlements"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11) && (v44 = 0, v45 = &v44, v46 = 0x2020000000, v47 = 0, -[IXSPlaceholder entitlements](self, "entitlements"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "accessQueue"), v13 = objc_claimAutoreleasedReturnValue(), v35[0] = _NSConcreteStackBlock, v35[1] = 3221225472, v35[2] = sub_10002243C, v35[3] = &unk_1001013C8, v35[4] = self, v35[5] = &v44, dispatch_sync(v13, v35), v13, v12, v14 = *(v45 + 24), _Block_object_dispose(&v44, 8), (v14 & 1) == 0) || (-[IXSPlaceholder infoPlistLoctable](self, "infoPlistLoctable"), v15 = objc_claimAutoreleasedReturnValue(), v15, v15) && (v44 = 0, v45 = &v44, v46 = 0x2020000000, v47 = 0, -[IXSPlaceholder infoPlistLoctable](self, "infoPlistLoctable"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "accessQueue"), v17 = objc_claimAutoreleasedReturnValue(), v34[0] = _NSConcreteStackBlock, v34[1] = 3221225472, v34[2] = sub_1000224D8, v34[3] = &unk_1001013C8, v34[4] = self, v34[5] = &v44, dispatch_sync(v17, v34), v17, v16, v18 = *(v45 + 24), _Block_object_dispose(&v44, 8), (v18 & 1) == 0))
     {
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x2020000000;
-      v47 = 0;
-      accessQueue3 = [iconResourcesPromise accessQueue];
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_1000223A8;
-      v36[3] = &unk_100101880;
-      selfCopy2 = self;
-      v39 = &v44;
-      v37 = iconResourcesPromise;
-      dispatch_sync(accessQueue3, v36);
-
-      v10 = *(v45 + 24);
-      _Block_object_dispose(&v44, 8);
-      if ((v10 & 1) == 0)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    entitlements = [(IXSPlaceholder *)self entitlements];
-
-    if (entitlements)
-    {
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x2020000000;
-      v47 = 0;
-      entitlements2 = [(IXSPlaceholder *)self entitlements];
-      accessQueue4 = [entitlements2 accessQueue];
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_10002243C;
-      v35[3] = &unk_1001013C8;
-      v35[4] = self;
-      v35[5] = &v44;
-      dispatch_sync(accessQueue4, v35);
-
-      v14 = *(v45 + 24);
-      _Block_object_dispose(&v44, 8);
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    infoPlistLoctable = [(IXSPlaceholder *)self infoPlistLoctable];
-
-    if (!infoPlistLoctable)
-    {
-      goto LABEL_13;
-    }
-
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 0;
-    infoPlistLoctable2 = [(IXSPlaceholder *)self infoPlistLoctable];
-    accessQueue5 = [infoPlistLoctable2 accessQueue];
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1000224D8;
-    v34[3] = &unk_1001013C8;
-    v34[4] = self;
-    v34[5] = &v44;
-    dispatch_sync(accessQueue5, v34);
-
-    v18 = *(v45 + 24);
-    _Block_object_dispose(&v44, 8);
-    if ((v18 & 1) == 0)
-    {
-LABEL_27:
       v25 = 0;
     }
 
     else
     {
-LABEL_13:
       appExtensionPlaceholders = [(IXSPlaceholder *)self appExtensionPlaceholders];
 
       if (appExtensionPlaceholders)
@@ -1952,7 +1855,7 @@ LABEL_13:
               v45 = &v44;
               v46 = 0x2020000000;
               v47 = 0;
-              accessQueue6 = [v23 accessQueue];
+              accessQueue2 = [v23 accessQueue];
               v29[0] = _NSConcreteStackBlock;
               v29[1] = 3221225472;
               v29[2] = sub_100022574;
@@ -1960,7 +1863,7 @@ LABEL_13:
               v29[5] = self;
               v29[6] = &v44;
               v29[4] = v23;
-              dispatch_sync(accessQueue6, v29);
+              dispatch_sync(accessQueue2, v29);
 
               LOBYTE(v23) = *(v45 + 24);
               _Block_object_dispose(&v44, 8);
@@ -2044,6 +1947,12 @@ LABEL_26:
   v5 = stagedPath != 0;
 
   return v5;
+}
+
+- (void)setComplete:(BOOL)complete
+{
+  accessQueue = [(IXSDataPromise *)self accessQueue];
+  dispatch_assert_queue_V2(accessQueue);
 }
 
 - (double)percentComplete
@@ -3430,35 +3339,14 @@ LABEL_30:
                 v36 = sub_100040078(v19, &v42);
                 v15 = v42;
 
-                if (!v36)
+                if (!v36 || (v35 = v15, [v13 accessQueue], v30 = objc_claimAutoreleasedReturnValue(), v40[0] = _NSConcreteStackBlock, v40[1] = 3221225472, v40[2] = sub_100027F00, v40[3] = &unk_1001010A0, v31 = v13, v41 = v31, dispatch_sync(v30, v40), v30, v32 = [IXSPromisedInMemoryData alloc], v39 = v35, -[IXSPromisedInMemoryData updatedPromiseWithData:error:](v32, "updatedPromiseWithData:error:", v36, &v39), v13 = objc_claimAutoreleasedReturnValue(), v15 = v39, v35, v31, v32, v41, !v13))
                 {
-                  goto LABEL_26;
-                }
-
-                v35 = v15;
-                accessQueue3 = [v13 accessQueue];
-                v40[0] = _NSConcreteStackBlock;
-                v40[1] = 3221225472;
-                v40[2] = sub_100027F00;
-                v40[3] = &unk_1001010A0;
-                v31 = v13;
-                v41 = v31;
-                dispatch_sync(accessQueue3, v40);
-
-                v32 = [IXSPromisedInMemoryData alloc];
-                v39 = v35;
-                v13 = [(IXSPromisedInMemoryData *)v32 updatedPromiseWithData:v36 error:&v39];
-                v15 = v39;
-
-                if (!v13)
-                {
-LABEL_26:
                   v34 = v36;
                   goto LABEL_27;
                 }
               }
 
-              accessQueue4 = [(IXSDataPromise *)self accessQueue];
+              accessQueue3 = [(IXSDataPromise *)self accessQueue];
               v37[0] = _NSConcreteStackBlock;
               v37[1] = 3221225472;
               v37[2] = sub_100027F08;
@@ -3466,7 +3354,7 @@ LABEL_26:
               v37[4] = self;
               v13 = v13;
               v38 = v13;
-              dispatch_sync(accessQueue4, v37);
+              dispatch_sync(accessQueue3, v37);
 
               v34 = v38;
 LABEL_27:
@@ -3528,13 +3416,13 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  accessQueue5 = [(IXSDataPromise *)self accessQueue];
+  accessQueue4 = [(IXSDataPromise *)self accessQueue];
   v52[0] = _NSConcreteStackBlock;
   v52[1] = 3221225472;
   v52[2] = sub_100027EC0;
   v52[3] = &unk_1001010A0;
   v52[4] = self;
-  dispatch_sync(accessQueue5, v52);
+  dispatch_sync(accessQueue4, v52);
 
   completionCopy[2](completionCopy, 0);
 LABEL_29:

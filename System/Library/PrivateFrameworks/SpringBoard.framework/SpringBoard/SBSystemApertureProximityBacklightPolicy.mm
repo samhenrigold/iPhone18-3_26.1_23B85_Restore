@@ -95,25 +95,26 @@
 - (void)proximitySensorManager:(id)manager objectWithinProximityDidChange:(BOOL)change detectionMode:(int)mode
 {
   changeCopy = change;
-  *&v28[5] = *MEMORY[0x277D85DE8];
+  *&v30[5] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v9 = !self->_suppressBacklightChanges || !changeCopy;
-  if (v9 || self->_objectThatCanPreventTouchesInProximity)
+  v9 = managerCopy;
+  v10 = !self->_suppressBacklightChanges || !changeCopy;
+  if (v10 || self->_objectThatCanPreventTouchesInProximity)
   {
     if (self->_objectInProximityAccordingToProxManager != changeCopy)
     {
       self->_objectInProximityAccordingToProxManager = changeCopy;
       if (self->_touchAllowanceGracePeriodTimer)
       {
-        v10 = SBLogProximitySensor();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = SBLogProximitySensor(managerCopy);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = NSStringFromBKSHIDServicesProximityDetectionMode();
+          v12 = NSStringFromBKSHIDServicesProximityDetectionMode();
           *buf = 67109378;
-          v28[0] = changeCopy;
-          LOWORD(v28[1]) = 2114;
-          *(&v28[1] + 2) = v11;
-          _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Canceling grace period due to incoming event (objectInProximity:%{BOOL}u mode:%{public}@)", buf, 0x12u);
+          v30[0] = changeCopy;
+          LOWORD(v30[1]) = 2114;
+          *(&v30[1] + 2) = v12;
+          _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Canceling grace period due to incoming event (objectInProximity:%{BOOL}u mode:%{public}@)", buf, 0x12u);
         }
 
         [(NSTimer *)self->_touchAllowanceGracePeriodTimer invalidate];
@@ -122,32 +123,32 @@
       }
 
       [(SBSystemApertureProximityBacklightPolicy *)self _nontelephonyTouchAllowanceGracePeriod];
-      if (changeCopy && (v14 = v13, v13 > 0.0) && ((v15 = [(SBSystemApertureProximityBacklightPolicy *)self _isGracePeriodDisabledByEntitledApp], mode != 6) ? (v16 = 1) : (v16 = v15), (v16 & 1) == 0))
+      if (changeCopy && (v15 = v14, v14 > 0.0) && ((v16 = [(SBSystemApertureProximityBacklightPolicy *)self _isGracePeriodDisabledByEntitledApp], mode != 6) ? (v17 = 1) : (v17 = v16), (v17 & 1) == 0))
       {
         objc_initWeak(&location, self);
-        objc_initWeak(&from, managerCopy);
-        v18 = SBLogProximitySensor();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        inited = objc_initWeak(&from, v9);
+        v20 = SBLogProximitySensor(inited);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *v28 = v14;
-          _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Scheduling grace period (%gs)", buf, 0xCu);
+          *v30 = v15;
+          _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Scheduling grace period (%gs)", buf, 0xCu);
         }
 
-        v19 = MEMORY[0x277CBEBB8];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __112__SBSystemApertureProximityBacklightPolicy_proximitySensorManager_objectWithinProximityDidChange_detectionMode___block_invoke;
-        v22[3] = &unk_2783C11B0;
-        objc_copyWeak(&v23, &location);
-        v24[1] = *&v14;
-        objc_copyWeak(v24, &from);
-        v20 = [v19 scheduledTimerWithTimeInterval:0 repeats:v22 block:v14];
-        v21 = self->_touchAllowanceGracePeriodTimer;
-        self->_touchAllowanceGracePeriodTimer = v20;
+        v21 = MEMORY[0x277CBEBB8];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __112__SBSystemApertureProximityBacklightPolicy_proximitySensorManager_objectWithinProximityDidChange_detectionMode___block_invoke;
+        v24[3] = &unk_2783C11B0;
+        objc_copyWeak(&v25, &location);
+        v26[1] = *&v15;
+        objc_copyWeak(v26, &from);
+        v22 = [v21 scheduledTimerWithTimeInterval:0 repeats:v24 block:v15];
+        v23 = self->_touchAllowanceGracePeriodTimer;
+        self->_touchAllowanceGracePeriodTimer = v22;
 
-        objc_destroyWeak(v24);
-        objc_destroyWeak(&v23);
+        objc_destroyWeak(v26);
+        objc_destroyWeak(&v25);
         objc_destroyWeak(&from);
         objc_destroyWeak(&location);
       }
@@ -161,42 +162,46 @@
 
   else
   {
-    v17 = SBLogProximitySensor();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = SBLogProximitySensor(managerCopy);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Suppresing prox -- backlight change suppression is active", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Suppresing prox -- backlight change suppression is active", buf, 2u);
     }
   }
 }
 
 void __112__SBSystemApertureProximityBacklightPolicy_proximitySensorManager_objectWithinProximityDidChange_detectionMode___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained && [v3 isValid])
+  if (WeakRetained)
   {
-    v5 = SBLogProximitySensor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 isValid];
+    if (v5)
     {
-      v6 = *(a1 + 48);
-      v9 = 134217984;
-      v10 = v6;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Grace period finished (%gs)", &v9, 0xCu);
+      v6 = SBLogProximitySensor(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = *(a1 + 48);
+        v10 = 134217984;
+        v11 = v7;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Grace period finished (%gs)", &v10, 0xCu);
+      }
+
+      v8 = WeakRetained[12];
+      WeakRetained[12] = 0;
+
+      v9 = objc_loadWeakRetained((a1 + 40));
+      [WeakRetained _objectThatCanPreventTouchesWithinProximityDidChange:objc_msgSend(v9 fromGracePeriod:{"isObjectInProximity"), 1}];
     }
-
-    v7 = WeakRetained[12];
-    WeakRetained[12] = 0;
-
-    v8 = objc_loadWeakRetained((a1 + 40));
-    [WeakRetained _objectThatCanPreventTouchesWithinProximityDidChange:objc_msgSend(v8 fromGracePeriod:{"isObjectInProximity"), 1}];
   }
 }
 
 - (void)_objectThatCanPreventTouchesWithinProximityDidChange:(BOOL)change fromGracePeriod:(BOOL)period
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (self->_objectThatCanPreventTouchesInProximity != change)
   {
     periodCopy = period;
@@ -235,31 +240,32 @@ void __112__SBSystemApertureProximityBacklightPolicy_proximitySensorManager_obje
 
       objc_storeWeak(&self->_touchTrackingView, WeakRetained);
       objc_storeWeak(&self->_touchBlockingView, v9);
-      [delegate systemApertureProximityBacklightPolicy:self embedProximityTouchTrackingView:WeakRetained touchBlockingView:v9];
+      v17 = [delegate systemApertureProximityBacklightPolicy:self embedProximityTouchTrackingView:WeakRetained touchBlockingView:v9];
       if (periodCopy)
       {
-        v17 = SBLogProximitySensor();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = SBLogProximitySensor(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v27) = 0;
-          _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero immediately because we already spent time on the grace period.", &v27, 2u);
+          LOWORD(v30) = 0;
+          _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero immediately because we already spent time on the grace period.", &v30, 2u);
         }
 
         [(SBSystemApertureProximityBacklightPolicy *)self _startCancelingTouches];
-        v18 = 0.0;
+        v19 = 0.0;
         selfCopy2 = self;
 LABEL_13:
-        [(SBDefaultProximityBacklightPolicy *)selfCopy2 _scheduleBacklightFactorToZeroAfterDebounceDuration:v18];
+        [(SBDefaultProximityBacklightPolicy *)selfCopy2 _scheduleBacklightFactorToZeroAfterDebounceDuration:v19];
         goto LABEL_24;
       }
 
-      if ([delegate systemApertureProximityBacklightPolicyShouldConsiderSystemApertureInert:self])
+      v23 = [delegate systemApertureProximityBacklightPolicyShouldConsiderSystemApertureInert:self];
+      if (v23)
       {
-        v22 = SBLogProximitySensor();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = SBLogProximitySensor(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v27) = 0;
-          _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero after default duration (0.5s) because System Aperture is inert.", &v27, 2u);
+          LOWORD(v30) = 0;
+          _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero after default duration (0.5s) because System Aperture is inert.", &v30, 2u);
         }
 
         [(SBSystemApertureProximityBacklightPolicy *)self _startCancelingTouches];
@@ -269,21 +275,22 @@ LABEL_13:
 
       _proximitySettings3 = [(SBSystemApertureProximityBacklightPolicy *)self _proximitySettings];
       [_proximitySettings3 initialBacklightDebounceDuration];
-      v25 = v24;
+      v27 = v26;
 
-      if (BSFloatGreaterThanFloat())
+      v28 = BSFloatGreaterThanFloat();
+      if (v28)
       {
-        v26 = SBLogProximitySensor();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v29 = SBLogProximitySensor(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 134217984;
-          v28 = v25;
-          _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero after initialBacklightDebounceDuration (%gs) because System Aperture is active.", &v27, 0xCu);
+          v30 = 134217984;
+          v31 = v27;
+          _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero after initialBacklightDebounceDuration (%gs) because System Aperture is active.", &v30, 0xCu);
         }
 
         [(SBSystemApertureProximityBacklightPolicy *)self _startCancelingTouches];
         selfCopy2 = self;
-        v18 = v25;
+        v19 = v27;
         goto LABEL_13;
       }
     }
@@ -293,8 +300,8 @@ LABEL_13:
       [(SBSystemApertureProximityBacklightPolicy *)self _stopCancelingTouches];
       self->_numberOfTouchesWhileObjectInProximity = 0;
       [(SBDefaultProximityBacklightPolicy *)self _restoreBacklightFactor];
-      v20 = 0;
       v21 = 0;
+      v22 = 0;
       if (!(WeakRetained | v9))
       {
 LABEL_25:
@@ -306,8 +313,8 @@ LABEL_25:
     }
 
 LABEL_24:
-    v20 = v9;
-    v21 = WeakRetained;
+    v21 = v9;
+    v22 = WeakRetained;
     goto LABEL_25;
   }
 }
@@ -360,7 +367,7 @@ LABEL_24:
 
 - (void)_scheduleBacklightFactorToZeroForTouchWithinSystemAperture
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_isTrackingTouchPossiblyInJindoWithObjectInProximity)
   {
     self->_isTrackingTouchPossiblyInJindoWithObjectInProximity = 0;
@@ -368,12 +375,12 @@ LABEL_24:
     [_proximitySettings subsequentBacklightDebounceDuration];
     v5 = v4;
 
-    v6 = SBLogProximitySensor();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogProximitySensor(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero after subsequentBacklightDebounceDuration (%.3f) because System Aperture is active and either did handle or could have handled touch.", &v7, 0xCu);
+      v8 = 134217984;
+      v9 = v5;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Scheduling backlight factor to zero after subsequentBacklightDebounceDuration (%.3f) because System Aperture is active and either did handle or could have handled touch.", &v8, 0xCu);
     }
 
     if (BSFloatGreaterThanFloat())

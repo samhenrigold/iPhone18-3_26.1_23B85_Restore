@@ -2,9 +2,11 @@
 - (BOOL)addReferenceToAutoAssetId:(id)id forLifetimeOfPath:(id)path;
 - (BOOL)dropTableWithName:(id)name transaction:(id)transaction;
 - (BOOL)enumerateAllAutoAssetReferencesWithBlock:(id)block;
+- (BOOL)migrateToVersion:(unsigned int)version;
 - (TRIAssetStoreDatabase)initWithPaths:(id)paths assetStorePath:(id)path storageManagement:(id)management;
 - (TRIAssetStoreDatabase)initWithPaths:(id)paths databasePath:(id)path storageManagement:(id)management performMigrations:(BOOL)migrations;
 - (TRIAssetStoreDatabase)initWithPaths:(id)paths storageManagement:(id)management;
+- (id)initInMemoryAndPerformMigrations:(BOOL)migrations;
 - (id)migrations;
 - (id)queriesToSkipFromEmptyToVersion:(unsigned int *)version;
 - (void)_disableQueryPlanLogging;
@@ -56,10 +58,29 @@
   return v14;
 }
 
+- (id)initInMemoryAndPerformMigrations:(BOOL)migrations
+{
+  migrationsCopy = migrations;
+  v6 = objc_autoreleasePoolPush();
+  v7 = [@"assets.db" stringByAppendingPathExtension:@"testing"];
+  objc_autoreleasePoolPop(v6);
+  if (!v7)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAssetStoreDatabase.m" lineNumber:79 description:{@"Error adding extension on %@", @"assets.db"}];
+  }
+
+  v8 = [MEMORY[0x277D42630] randomlyNamedInMemoryPathWithBaseName:v7];
+  v9 = objc_opt_new();
+  v10 = [(TRIAssetStoreDatabase *)self initWithPaths:0 databasePath:v8 storageManagement:v9 performMigrations:migrationsCopy];
+
+  return v10;
+}
+
 - (TRIAssetStoreDatabase)initWithPaths:(id)paths databasePath:(id)path storageManagement:(id)management performMigrations:(BOOL)migrations
 {
   migrationsCopy = migrations;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   pathCopy = path;
   managementCopy = management;
@@ -69,9 +90,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAssetStoreDatabase.m" lineNumber:90 description:{@"Invalid parameter not satisfying: %@", @"databasePath"}];
   }
 
-  v51.receiver = self;
-  v51.super_class = TRIAssetStoreDatabase;
-  v14 = [(TRIAssetStoreDatabase *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = TRIAssetStoreDatabase;
+  v14 = [(TRIAssetStoreDatabase *)&v50 init];
   v15 = v14;
   if (!v14)
   {
@@ -113,9 +134,9 @@
   v22 = MEMORY[0x277D42630];
   databasePath = v15->_databasePath;
   v24 = [[TRISqliteErrorHandler alloc] initWithStorageManagement:v15->_storageManagement];
-  v50 = 0;
-  v25 = [v22 sqliteDatabaseWithFilename:databasePath contentProtection:3 errorHandler:v24 error:&v50];
-  v26 = v50;
+  v49 = 0;
+  v25 = [v22 sqliteDatabaseWithFilename:databasePath contentProtection:3 errorHandler:v24 error:&v49];
+  v26 = v49;
   db = v15->_db;
   v15->_db = v25;
 
@@ -134,25 +155,25 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__28;
-  v57 = __Block_byref_object_dispose__28;
-  v58 = 0;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__28;
+  v56 = __Block_byref_object_dispose__28;
+  v57 = 0;
   v28 = v15->_db;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __88__TRIAssetStoreDatabase_initWithPaths_databasePath_storageManagement_performMigrations___block_invoke;
-  v49[3] = &unk_279DDF778;
-  v49[4] = &buf;
-  if (([(_PASSqliteDatabase *)v28 prepAndRunNonDataQueries:&unk_287FC5050 onError:v49]& 1) == 0)
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __88__TRIAssetStoreDatabase_initWithPaths_databasePath_storageManagement_performMigrations___block_invoke;
+  v48[3] = &unk_279DDF778;
+  v48[4] = &buf;
+  if (([(_PASSqliteDatabase *)v28 prepAndRunNonDataQueries:&unk_287FC5050 onError:v48]& 1) == 0)
   {
     v39 = TRILogCategory_Server();
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v44 = *(*(&buf + 1) + 40);
-      *v52 = 138543362;
-      v53 = v44;
-      _os_log_error_impl(&dword_26F567000, v39, OS_LOG_TYPE_ERROR, "Failed to run initial database pragmas: %{public}@", v52, 0xCu);
+      v43 = *(*(&buf + 1) + 40);
+      *v51 = 138543362;
+      v52 = v43;
+      _os_log_error_impl(&dword_26F567000, v39, OS_LOG_TYPE_ERROR, "Failed to run initial database pragmas: %{public}@", v51, 0xCu);
     }
 
     [(_PASSqliteDatabase *)v15->_db closePermanently];
@@ -198,36 +219,35 @@ LABEL_35:
   objc_initWeak(&buf, v15);
   v35 = v15->_kvoHandler;
   v36 = v15->_defaults;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __88__TRIAssetStoreDatabase_initWithPaths_databasePath_storageManagement_performMigrations___block_invoke_75;
-  v47[3] = &unk_279DE1670;
-  objc_copyWeak(&v48, &buf);
-  [(_PASKVOHandler *)v35 reactAfterChangesToKeyPath:@"queryPlanLoggingEnabled" ofObject:v36 usingBlock:v47];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __88__TRIAssetStoreDatabase_initWithPaths_databasePath_storageManagement_performMigrations___block_invoke_75;
+  v46[3] = &unk_279DE1670;
+  objc_copyWeak(&v47, &buf);
+  [(_PASKVOHandler *)v35 reactAfterChangesToKeyPath:@"queryPlanLoggingEnabled" ofObject:v36 usingBlock:v46];
   [(TRIAssetStoreDatabase *)v15 _updateQueryPlanLogging];
   if (migrationsCopy && ![(TRIAssetStoreDatabase *)v15 migrateToVersion:*MEMORY[0x277D426A0]])
   {
-    v43 = TRILogCategory_Server();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = TRILogCategory_Server();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      *v52 = 0;
-      _os_log_error_impl(&dword_26F567000, v43, OS_LOG_TYPE_ERROR, "TRIAssetStoreDatabase: migrations failed", v52, 2u);
+      *v51 = 0;
+      _os_log_error_impl(&dword_26F567000, v42, OS_LOG_TYPE_ERROR, "TRIAssetStoreDatabase: migrations failed", v51, 2u);
     }
 
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(&buf);
 
     goto LABEL_35;
   }
 
-  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v47);
   objc_destroyWeak(&buf);
 
 LABEL_24:
   v37 = v15;
 LABEL_36:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -239,17 +259,16 @@ void __88__TRIAssetStoreDatabase_initWithPaths_databasePath_storageManagement_pe
 
 uint64_t __31__TRIAssetStoreDatabase_vacuum__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = TRILogCategory_Server();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v2;
-    _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "TRIAssetStoreDatabase incremental vacuum failed: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v2;
+    _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "TRIAssetStoreDatabase incremental vacuum failed: %{public}@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -311,7 +330,7 @@ LABEL_3:
 
 - (void)_enableQueryPlanLogging
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   paths = self->_paths;
   if (paths)
@@ -337,7 +356,7 @@ LABEL_3:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v18 = v13;
+        v17 = v13;
         _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEFAULT, "TRIAssetStoreDatabase: generating EXPLAIN QUERY PLAN log at %{public}@", buf, 0xCu);
       }
 
@@ -349,7 +368,7 @@ LABEL_3:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v18 = v13;
+        v17 = v13;
         _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "TRIAssetStoreDatabase: unable to generate EXPLAIN QUERY PLAN log at %{public}@", buf, 0xCu);
       }
     }
@@ -366,12 +385,11 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v3);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disableQueryPlanLogging
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [(_PASSqliteDatabase *)self->_db disableQueryPlanLogging];
   if (atomic_exchange(&self->_isQueryPlanLoggingEnabled, 0))
   {
@@ -379,27 +397,138 @@ LABEL_3:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       db = self->_db;
-      v6 = 134217984;
-      v7 = db;
-      _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "TRIAssetStoreDatabase: disable EXPLAIN QUERY PLAN log for handle %p", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = db;
+      _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "TRIAssetStoreDatabase: disable EXPLAIN QUERY PLAN log for handle %p", &v5, 0xCu);
     }
   }
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (BOOL)migrateToVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v22[1] = *MEMORY[0x277D85DE8];
+  v6 = TRILogCategory_Server();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "TRIAssetStoreDatabase now performing migration.", buf, 2u);
+  }
+
+  v7 = objc_alloc(MEMORY[0x277D42588]);
+  v22[0] = self;
+  v8 = 1;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v10 = [v7 initWithMigrationObjects:v9];
+
+  v11 = [v10 migrateDatabasesToVersion:v3];
+  v12 = v11;
+  if (v11 > 2)
+  {
+    if ((v11 - 4) >= 3)
+    {
+      if (v11 == 3)
+      {
+        v13 = TRILogCategory_Server();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          v14 = "TRIAssetStoreDatabase has a future schema version, cannot use database. (DID YOU DOWNGRADE YOUR OS WITHOUT AN ERASE-INSTALL??? THAT IS NOT SUPPORTED!!!)";
+LABEL_26:
+          _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, v14, buf, 2u);
+          goto LABEL_21;
+        }
+
+        goto LABEL_21;
+      }
+
+LABEL_22:
+      currentHandler = [MEMORY[0x277CCA890] currentHandler];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAssetStoreDatabase.m" lineNumber:278 description:{@"Unhandled migration result: %u", v12}];
+
+      goto LABEL_23;
+    }
+
+LABEL_11:
+    v15 = TRILogCategory_Server();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v21 = v12;
+      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "TRIAssetStoreDatabase got an unexpected and unrecoverable migration result of %u. Database is considered corrupt and Trial storage will be reset on next launch.", buf, 8u);
+    }
+
+    storageManagement = self->_storageManagement;
+    if (storageManagement)
+    {
+      if ([(TRIStorageManagementProtocol *)storageManagement requestTrialStorageResetOnNextLaunch])
+      {
+        v17 = TRILogCategory_Server();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_26F567000, v17, OS_LOG_TYPE_DEFAULT, "TRIAssetStoreDatabase issuing triald exit request.", buf, 2u);
+        }
+
+        xpc_transaction_exit_clean();
+      }
+
+      goto LABEL_23;
+    }
+
+    v13 = TRILogCategory_Server();
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_21;
+    }
+
+    *buf = 0;
+    v14 = "TRIAssetStoreDatabase is corrupt but no path for recovery due to nil _storageManagement.";
+    goto LABEL_26;
+  }
+
+  if (!v11)
+  {
+    v13 = TRILogCategory_Server();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v14 = "TRIAssetStoreDatabase could not perform migrations (device locked?), try again later.";
+      goto LABEL_26;
+    }
+
+LABEL_21:
+
+LABEL_23:
+    v8 = 0;
+    goto LABEL_24;
+  }
+
+  if (v11 != 1)
+  {
+    if (v11 != 2)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_24:
+
+  return v8;
 }
 
 - (id)migrations
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @" CREATE TABLE maAutoAssets(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     type TEXT NOT NULL,     specifier TEXT NOT NULL,     version TEXT NOT NULL,     UNIQUE (type, specifier, version));";
-  v6[1] = @" CREATE TABLE maAutoAssetPathRefs(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     maAutoAssets_rowid INTEGER NOT NULL,     path TEXT NOT NULL,     UNIQUE (maAutoAssets_rowid, path),     FOREIGN KEY (maAutoAssets_rowid) REFERENCES maAutoAssets (rowid));";
-  v6[2] = @" CREATE INDEX ix_maAutoAssetPathRefs_maAutoAssets_rowid ON maAutoAssetPathRefs (maAutoAssets_rowid);";
-  v7 = &unk_287FC4BD0;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
-  v8[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @" CREATE TABLE maAutoAssets(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     type TEXT NOT NULL,     specifier TEXT NOT NULL,     version TEXT NOT NULL,     UNIQUE (type, specifier, version));";
+  v5[1] = @" CREATE TABLE maAutoAssetPathRefs(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     maAutoAssets_rowid INTEGER NOT NULL,     path TEXT NOT NULL,     UNIQUE (maAutoAssets_rowid, path),     FOREIGN KEY (maAutoAssets_rowid) REFERENCES maAutoAssets (rowid));";
+  v5[2] = @" CREATE INDEX ix_maAutoAssetPathRefs_maAutoAssets_rowid ON maAutoAssetPathRefs (maAutoAssets_rowid);";
+  v6 = &unk_287FC4BD0;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+  v7[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v3;
 }
@@ -615,25 +744,24 @@ uint64_t __66__TRIAssetStoreDatabase_enumerateAllAutoAssetReferencesWithBlock___
 
 uint64_t __66__TRIAssetStoreDatabase_enumerateAllAutoAssetReferencesWithBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = [v3 localizedDescription];
-    v8 = 138412290;
-    v9 = v7;
-    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Enumeration failed with error:%@", &v8, 0xCu);
+    v6 = [v3 localizedDescription];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Enumeration failed with error:%@", &v7, 0xCu);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 - (void)enumerateOnDiskMAReferencesWithoutCorrespondingDatabaseEntriesUsingBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   paths = self->_paths;
   if (paths)
@@ -647,22 +775,22 @@ uint64_t __66__TRIAssetStoreDatabase_enumerateAllAutoAssetReferencesWithBlock___
   }
 
   v8 = mEMORY[0x277D737E0];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__28;
-  v33 = __Block_byref_object_dispose__28;
-  v34 = objc_opt_new();
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __98__TRIAssetStoreDatabase_enumerateOnDiskMAReferencesWithoutCorrespondingDatabaseEntriesUsingBlock___block_invoke;
-  v28[3] = &unk_279DE24D8;
-  v28[5] = &v29;
-  v28[6] = a2;
-  v28[4] = self;
-  v27 = MEMORY[0x2743948D0](v28);
-  [MEMORY[0x277D42640] writeTransactionWithHandle:self->_db block:v27];
-  v9 = [MEMORY[0x277CBEB58] setWithArray:v30[5]];
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__28;
+  v32 = __Block_byref_object_dispose__28;
+  v33 = objc_opt_new();
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __98__TRIAssetStoreDatabase_enumerateOnDiskMAReferencesWithoutCorrespondingDatabaseEntriesUsingBlock___block_invoke;
+  v27[3] = &unk_279DE24D8;
+  v27[5] = &v28;
+  v27[6] = a2;
+  v27[4] = self;
+  v26 = MEMORY[0x2743948D0](v27);
+  [MEMORY[0x277D42640] writeTransactionWithHandle:self->_db block:v26];
+  v9 = [MEMORY[0x277CBEB58] setWithArray:v29[5]];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   treatmentsDir = [(TRIPaths *)v8 treatmentsDir];
   v12 = [defaultManager enumeratorAtPath:treatmentsDir];
@@ -674,7 +802,7 @@ uint64_t __66__TRIAssetStoreDatabase_enumerateAllAutoAssetReferencesWithBlock___
     {
       treatmentsDir2 = [(TRIPaths *)v8 treatmentsDir];
       *buf = 138543362;
-      v36 = treatmentsDir2;
+      v35 = treatmentsDir2;
       _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Unable to find subpaths of treatments dir %{public}@", buf, 0xCu);
     }
   }
@@ -707,7 +835,7 @@ uint64_t __66__TRIAssetStoreDatabase_enumerateAllAutoAssetReferencesWithBlock___
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v36 = v22;
+              v35 = v22;
               _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "Found missing MA ref db entry: %{public}@", buf, 0xCu);
             }
 
@@ -722,8 +850,7 @@ uint64_t __66__TRIAssetStoreDatabase_enumerateAllAutoAssetReferencesWithBlock___
 
   while (v17);
 
-  _Block_object_dispose(&v29, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 }
 
 void __98__TRIAssetStoreDatabase_enumerateOnDiskMAReferencesWithoutCorrespondingDatabaseEntriesUsingBlock___block_invoke(uint64_t a1, void *a2)
@@ -770,7 +897,7 @@ uint64_t __98__TRIAssetStoreDatabase_enumerateOnDiskMAReferencesWithoutCorrespon
 
 void __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   arc4random_buf(__buf, 0x10uLL);
   v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:__buf length:16 freeWhenDone:0];
@@ -783,18 +910,18 @@ void __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBloc
   [v9 prepAndRunQuery:v8 onPrep:0 onRow:0 onError:0];
 
   v10 = [v3 db];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBlock___block_invoke_2;
-  v30[3] = &unk_279DE2500;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBlock___block_invoke_2;
+  v29[3] = &unk_279DE2500;
   v11 = *(a1 + 32);
-  v33 = *(a1 + 48);
-  v30[4] = v11;
+  v32 = *(a1 + 48);
+  v29[4] = v11;
   v12 = v3;
-  v31 = v12;
+  v30 = v12;
   v13 = v7;
-  v32 = v13;
-  [v10 prepAndRunQuery:@"SELECT rowid onPrep:maAutoAssets_rowid onRow:path FROM maAutoAssetPathRefs;" onError:{0, v30, 0}];
+  v31 = v13;
+  [v10 prepAndRunQuery:@"SELECT rowid onPrep:maAutoAssets_rowid onRow:path FROM maAutoAssetPathRefs;" onError:{0, v29, 0}];
 
   v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" DELETE FROM     maAutoAssetPathRefs WHERE     rowid IN (SELECT rowid FROM %@);", v13];
   v15 = [v12 db];
@@ -805,26 +932,25 @@ void __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBloc
   [v17 prepAndRunQuery:v16 onPrep:0 onRow:0 onError:0];
 
   v18 = [v12 db];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBlock___block_invoke_4;
-  v26[3] = &unk_279DE2528;
-  v26[4] = *(a1 + 32);
-  v25 = *(a1 + 40);
-  v19 = v25;
-  v29 = v25;
-  v27 = v12;
-  v28 = v13;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBlock___block_invoke_4;
+  v25[3] = &unk_279DE2528;
+  v25[4] = *(a1 + 32);
+  v24 = *(a1 + 40);
+  v19 = v24;
+  v28 = v24;
+  v26 = v12;
+  v27 = v13;
   v20 = v13;
   v21 = v12;
-  [v18 prepAndRunQuery:@" SELECT rowid AS r onPrep:type onRow:specifier onError:{version FROM     maAutoAssets WHERE     NOT EXISTS(        SELECT * FROM             maAutoAssetPathRefs         WHERE             maAutoAssets_rowid = r    );", 0, v26, 0}];
+  [v18 prepAndRunQuery:@" SELECT rowid AS r onPrep:type onRow:specifier onError:{version FROM     maAutoAssets WHERE     NOT EXISTS(        SELECT * FROM             maAutoAssetPathRefs         WHERE             maAutoAssets_rowid = r    );", 0, v25, 0}];
 
   v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" DELETE FROM     maAutoAssets WHERE     rowid IN (SELECT rowid FROM %@);", v20];
   v23 = [v21 db];
   [v23 prepAndRunQuery:v22 onPrep:0 onRow:0 onError:0];
 
   [*(a1 + 32) dropTableWithName:v20 transaction:v21];
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__TRIAssetStoreDatabase_enumerateAssetIdsWithoutLiveReferencesUsingBlock___block_invoke_2(uint64_t a1, void *a2)

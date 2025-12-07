@@ -128,28 +128,31 @@
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [ATXNotificationSmartPauseSuggestion initWithProto:];
+        [ATXNotificationSmartPauseSuggestion initWithProto:?];
       }
 
       selfCopy = 0;
       goto LABEL_17;
     }
 
-    v5 = protoCopy;
-    if (([v5 hasExpirationTimestamp]& 1) != 0)
+    v6 = protoCopy;
+    hasExpirationTimestamp = [v6 hasExpirationTimestamp];
+    if (hasExpirationTimestamp)
     {
-      v6 = MEMORY[0x1E695DF00];
-      [v5 expirationTimestamp];
-      v7 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
-      if (([v5 hasPauseDuration]& 1) != 0)
+      v8 = MEMORY[0x1E695DF00];
+      [v6 expirationTimestamp];
+      v9 = [v8 dateWithTimeIntervalSinceReferenceDate:?];
+      hasPauseDuration = [v6 hasPauseDuration];
+      if (hasPauseDuration)
       {
-        [v5 pauseDuration];
-        self = [(ATXNotificationSmartPauseSuggestion *)self initWithSuggestionExpiration:v7 pauseDuration:?];
+        [v6 pauseDuration];
+        self = [(ATXNotificationSmartPauseSuggestion *)self initWithSuggestionExpiration:v9 pauseDuration:?];
         selfCopy = self;
 LABEL_16:
 
@@ -157,19 +160,19 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v9 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v12 = __atxlog_handle_notification_management(hasPauseDuration);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        [ATXNotificationSmartPauseSuggestion initWithProto:];
+        [ATXNotificationSmartPauseSuggestion initWithProto:?];
       }
     }
 
     else
     {
-      v7 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v9 = __atxlog_handle_notification_management(hasExpirationTimestamp);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        [ATXNotificationSmartPauseSuggestion initWithProto:];
+        [ATXNotificationSmartPauseSuggestion initWithProto:?];
       }
     }
 
@@ -209,25 +212,31 @@ LABEL_18:
   return v6;
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "%@: Unable to construct class from ProtoBuf object", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v3, v4, "%@: Unable to construct class from ProtoBuf object", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-- (void)initWithProto:.cold.2()
+- (void)initWithProto:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "%@: missing expirationTimestamp.", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v3, v4, "%@: missing expirationTimestamp.", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-- (void)initWithProto:.cold.3()
+- (void)initWithProto:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "%@: missing pauseDuration.", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v3, v4, "%@: missing pauseDuration.", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

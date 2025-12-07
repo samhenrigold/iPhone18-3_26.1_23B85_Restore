@@ -63,7 +63,7 @@
   v6 = [v5 outputVideo:mix];
   [(NUSlowMotionNode *)self rate];
   v8 = v7;
-  [(NUSlowMotionNode *)self range];
+  objc_msgSend_range(self);
   LODWORD(v9) = v8;
   v10 = [NUSlowMotionUtilities slowMotionAudioMixFromAsset:v6 rate:buf range:mix error:v9];
 
@@ -164,7 +164,7 @@
   v6 = [v5 outputVideo:video];
   [(NUSlowMotionNode *)self rate];
   v8 = v7;
-  [(NUSlowMotionNode *)self range];
+  objc_msgSend_range(self);
   LODWORD(v9) = v8;
   v10 = [NUSlowMotionUtilities slowMotionVideoFromAsset:v6 rate:buf range:video error:v9];
 
@@ -249,7 +249,7 @@
         memset(buf, 0, 24);
         v17 = MEMORY[0x1E69C0910];
         [v13 nominalFrameRate];
-        [v17 minFrameDurationForNominalFrameRate:?];
+        objc_msgSend_minFrameDurationForNominalFrameRate_(v17);
         [v14 setSourceTrackIDForFrameTiming:0];
         v36 = *buf;
         v37 = *&buf[16];
@@ -329,7 +329,7 @@ LABEL_13:
   if (v9)
   {
     memset(&range, 0, 24);
-    [v9 duration];
+    objc_msgSend_duration(v9);
     time = range.start;
     Seconds = CMTimeGetSeconds(&time);
     v12 = [NUTimeTransformSlowMo alloc];

@@ -502,7 +502,7 @@ void __45__SBReachabilityBackgroundView__setupChevron__block_invoke(uint64_t a1)
     v6 = jindoTintColorMatrixSettings;
     if (jindoTintColorMatrixSettings)
     {
-      [jindoTintColorMatrixSettings colorMatrix];
+      objc_msgSend_colorMatrix(jindoTintColorMatrixSettings);
     }
 
     else

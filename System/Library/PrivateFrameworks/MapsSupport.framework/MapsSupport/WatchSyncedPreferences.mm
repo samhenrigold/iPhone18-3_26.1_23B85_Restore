@@ -192,7 +192,7 @@ LABEL_11:
 - (void)synchronize
 {
   writtenDefaults = [(WatchSyncedPreferences *)self writtenDefaults];
-  v4 = sub_10005329C();
+  v4 = sub_10005329C(writtenDefaults);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;

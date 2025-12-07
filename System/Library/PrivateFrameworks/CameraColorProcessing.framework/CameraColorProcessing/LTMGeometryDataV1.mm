@@ -65,148 +65,230 @@ LABEL_5:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v46 = CGRectIntegral(sourceRect);
-  v9 = v46.origin.x;
-  v34 = v46.origin.y;
-  rect2 = v46.origin.x;
-  v10 = v46.origin.y;
-  v39 = v46.size.width;
-  v11 = v46.size.height;
-  v33 = v46.size.height;
-  v46.origin.x = x;
-  v46.origin.y = y;
-  v46.size.width = width;
-  v46.size.height = height;
-  v47 = CGRectIntegral(v46);
-  v12 = v47.origin.x;
-  v13 = v47.origin.y;
-  v14 = v47.size.width;
-  v15 = v47.size.height;
-  v53.origin.x = v9;
-  v53.origin.y = v10;
-  v53.size.width = v39;
-  v53.size.height = v11;
-  v48 = CGRectIntersection(self->_inputTextureRect, v53);
-  v16 = v48.origin.x;
-  rect1 = v48.origin.y;
-  v17 = v48.size.width;
-  v18 = v48.size.height;
-  v54.origin.x = v12;
-  v54.origin.y = v13;
-  v54.size.width = v14;
-  v54.size.height = v15;
-  v49 = CGRectIntersection(self->_inputTextureRect, v54);
-  v40 = v49.origin.x;
-  v37 = v49.size.width;
-  v38 = v49.origin.y;
-  v36 = v49.size.height;
-  v43 = v16;
-  v49.origin.x = v16;
-  v55.origin.y = v34;
-  v49.origin.y = rect1;
-  v49.size.width = v17;
-  v49.size.height = v18;
-  v55.origin.x = rect2;
-  v55.size.width = v39;
-  v55.size.height = v33;
-  if (!CGRectEqualToRect(v49, v55))
+  v63 = CGRectIntegral(sourceRect);
+  v9 = v63.origin.x;
+  v46 = v63.origin.y;
+  rect2 = v63.origin.x;
+  v10 = v63.origin.y;
+  v51 = v63.size.width;
+  v11 = v63.size.height;
+  v45 = v63.size.height;
+  v63.origin.x = x;
+  v63.origin.y = y;
+  v63.size.width = width;
+  v63.size.height = height;
+  v64 = CGRectIntegral(v63);
+  v12 = v64.origin.x;
+  v13 = v64.origin.y;
+  v14 = v64.size.width;
+  v15 = v64.size.height;
+  v70.origin.x = v9;
+  v70.origin.y = v10;
+  v70.size.width = v51;
+  v70.size.height = v11;
+  v65 = CGRectIntersection(self->_inputTextureRect, v70);
+  v16 = v65.origin.x;
+  rect1 = v65.origin.y;
+  v17 = v65.size.width;
+  v18 = v65.size.height;
+  v71.origin.x = v12;
+  v71.origin.y = v13;
+  v71.size.width = v14;
+  v71.size.height = v15;
+  v66 = CGRectIntersection(self->_inputTextureRect, v71);
+  v52 = v66.origin.x;
+  v49 = v66.size.width;
+  v50 = v66.origin.y;
+  v48 = v66.size.height;
+  v55 = v16;
+  v66.origin.x = v16;
+  v72.origin.y = v46;
+  v66.origin.y = rect1;
+  v66.size.width = v17;
+  v66.size.height = v18;
+  v72.origin.x = rect2;
+  v72.size.width = v51;
+  v72.size.height = v45;
+  if (!CGRectEqualToRect(v66, v72))
   {
+    v62 = 0;
+    v61 = OS_LOG_TYPE_DEFAULT;
     v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v50.origin.x = v40;
-  v56.origin.x = v12;
-  v50.size.width = v37;
-  v50.origin.y = v38;
-  v50.size.height = v36;
-  v56.origin.y = v13;
-  v56.size.width = v14;
-  v56.size.height = v15;
+  v67.origin.x = v52;
+  v73.origin.x = v12;
+  v67.size.width = v49;
+  v67.origin.y = v50;
+  v67.size.height = v48;
+  v73.origin.y = v13;
+  v73.size.width = v14;
+  v73.size.height = v15;
   r1 = v18;
-  if (!CGRectEqualToRect(v50, v56))
+  if (!CGRectEqualToRect(v67, v73))
   {
+    v62 = 0;
+    v61 = OS_LOG_TYPE_DEFAULT;
     v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    v21 = v62;
+    v22 = v61;
+    if (os_log_type_enabled(v20, v61))
+    {
+      v23 = v21;
+    }
+
+    else
+    {
+      v23 = v21 & 0xFFFFFFFE;
+    }
+
+    if (v23)
+    {
+      v58 = 136315138;
+      v59 = "[LTMGeometryDataV1 setCropRect:sourceRect:]";
+      _os_log_send_and_compose_impl(v23, 0, v60, 128, &dword_1C92CA000, v20, v22, "<<<< LTMAlgorithm >>>> %s: The cropRect doesn't lie inside an input texture", &v58);
+    }
+
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if (v39 < 480.0 || v33 < 320.0)
+  if (v51 < 480.0 || v45 < 320.0)
   {
-    v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+    v62 = 0;
+    v61 = OS_LOG_TYPE_DEFAULT;
+    v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v27 = v62;
+    v28 = v61;
+    if (os_log_type_enabled(v26, v61))
+    {
+      v29 = v27;
+    }
+
+    else
+    {
+      v29 = v27 & 0xFFFFFFFE;
+    }
+
+    if (v29)
+    {
+      v58 = 136315138;
+      v59 = "[LTMGeometryDataV1 setCropRect:sourceRect:]";
+      _os_log_send_and_compose_impl(v29, 0, v60, 128, &dword_1C92CA000, v26, v28, "<<<< LTMAlgorithm >>>> %s: The sourceRect is too small", &v58);
+    }
+
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-    v22 = self->_minimumRect.origin.x;
+    v25 = self->_minimumRect.origin.x;
     rect1 = self->_minimumRect.origin.y;
     v17 = self->_minimumRect.size.width;
     r1 = self->_minimumRect.size.height;
-    v21 = v40;
+    v24 = v52;
   }
 
   else
   {
-    v21 = v40;
-    v22 = v43;
+    v24 = v52;
+    v25 = v55;
   }
 
   if (v14 < 480.0 || v15 < 320.0)
   {
-    v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+    v62 = 0;
+    v61 = OS_LOG_TYPE_DEFAULT;
+    v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v34 = v62;
+    v35 = v61;
+    if (os_log_type_enabled(v33, v61))
+    {
+      v36 = v34;
+    }
+
+    else
+    {
+      v36 = v34 & 0xFFFFFFFE;
+    }
+
+    if (v36)
+    {
+      v58 = 136315138;
+      v59 = "[LTMGeometryDataV1 setCropRect:sourceRect:]";
+      _os_log_send_and_compose_impl(v36, 0, v60, 128, &dword_1C92CA000, v33, v35, "<<<< LTMAlgorithm >>>> %s: The cropRect is too small", &v58);
+    }
+
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-    v21 = self->_minimumRect.origin.x;
-    v25 = self->_minimumRect.origin.y;
-    v26 = self->_minimumRect.size.width;
-    v24 = self->_minimumRect.size.height;
+    v24 = self->_minimumRect.origin.x;
+    v31 = self->_minimumRect.origin.y;
+    v32 = self->_minimumRect.size.width;
+    v30 = self->_minimumRect.size.height;
   }
 
   else
   {
-    v24 = v36;
-    v26 = v37;
-    v25 = v38;
+    v30 = v48;
+    v32 = v49;
+    v31 = v50;
   }
 
-  v44 = v22;
-  v51.origin.x = v22;
-  v51.origin.y = rect1;
-  v41 = v17;
-  v51.size.width = v17;
-  v51.size.height = r1;
-  v57.origin.x = v21;
-  v57.origin.y = v25;
-  v57.size.width = v26;
-  v57.size.height = v24;
-  v52 = CGRectIntersection(v51, v57);
-  v28 = v52.origin.x;
-  v29 = v52.origin.y;
-  v30 = v52.size.width;
-  v31 = v52.size.height;
-  v52.origin.x = v21;
-  v52.origin.y = v25;
-  v52.size.width = v26;
-  v52.size.height = v24;
-  v58.origin.x = v28;
-  v58.origin.y = v29;
-  v58.size.width = v30;
-  v58.size.height = v31;
-  if (!CGRectEqualToRect(v52, v58))
+  v56 = v25;
+  v68.origin.x = v25;
+  v68.origin.y = rect1;
+  v53 = v17;
+  v68.size.width = v17;
+  v68.size.height = r1;
+  v74.origin.x = v24;
+  v74.origin.y = v31;
+  v74.size.width = v32;
+  v74.size.height = v30;
+  v69 = CGRectIntersection(v68, v74);
+  v37 = v69.origin.x;
+  v38 = v69.origin.y;
+  v39 = v69.size.width;
+  v40 = v69.size.height;
+  v69.origin.x = v24;
+  v69.origin.y = v31;
+  v69.size.width = v32;
+  v69.size.height = v30;
+  v75.origin.x = v37;
+  v75.origin.y = v38;
+  v75.size.width = v39;
+  v75.size.height = v40;
+  if (!CGRectEqualToRect(v69, v75))
   {
-    v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+    v62 = 0;
+    v61 = OS_LOG_TYPE_DEFAULT;
+    v41 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v42 = v62;
+    v43 = v61;
+    if (os_log_type_enabled(v41, v61))
+    {
+      v44 = v42;
+    }
+
+    else
+    {
+      v44 = v42 & 0xFFFFFFFE;
+    }
+
+    if (v44)
+    {
+      v58 = 136315138;
+      v59 = "[LTMGeometryDataV1 setCropRect:sourceRect:]";
+      _os_log_send_and_compose_impl(v44, 0, v60, 128, &dword_1C92CA000, v41, v43, "<<<< LTMAlgorithm >>>> %s: The mCropRect is larger than the mSourceRect", &v58);
+    }
+
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  self->_cropRect.origin.x = v28;
-  self->_cropRect.origin.y = v29;
-  self->_cropRect.size.width = v30;
-  self->_cropRect.size.height = v31;
-  self->_sourceRect.origin.x = v44;
+  self->_cropRect.origin.x = v37;
+  self->_cropRect.origin.y = v38;
+  self->_cropRect.size.width = v39;
+  self->_cropRect.size.height = v40;
+  self->_sourceRect.origin.x = v56;
   self->_sourceRect.origin.y = rect1;
-  self->_sourceRect.size.width = v41;
+  self->_sourceRect.size.width = v53;
   self->_sourceRect.size.height = r1;
 }
 
@@ -256,52 +338,62 @@ LABEL_5:
 
 - (void)initWithInputTextureWidth:height:.cold.1()
 {
-  LODWORD(v12) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v29, v32, v38, v40, v41, v42);
   OUTLINED_FUNCTION_2();
   v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  if (OUTLINED_FUNCTION_5(v3, v4, v5, v6, v7, v8, v9, v10, v12, v2, v13, v14, SWORD2(v14), SBYTE6(v14), HIBYTE(v14)))
+  if (OUTLINED_FUNCTION_5(v3, v4, v5, v6, v7, v8, v9, v10, v25, v27, v30, v33, v35, v36, v37))
   {
-    v11 = v1;
+    v17 = v1;
   }
 
   else
   {
-    v11 = v1 & 0xFFFFFFFE;
+    v17 = v1 & 0xFFFFFFFE;
   }
 
-  if (v11)
+  if (v17)
   {
     OUTLINED_FUNCTION_3("[LTMGeometryDataV1 initWithInputTextureWidth:height:]");
-    OUTLINED_FUNCTION_4();
+    v17 = OUTLINED_FUNCTION_4(v18, v19, v20, v21, &dword_1C92CA000, v22, v23, "<<<< LTMAlgorithm >>>> %s: Input image too small", v26, v28, v31, v34);
+    v24 = v17;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v24 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v17, v11, v12, v24, v13, v14, v15, v16, v26, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 - (void)initWithInputTextureWidth:height:.cold.2()
 {
-  LODWORD(v12) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v29, v32, v38, v40, v41, v42);
   OUTLINED_FUNCTION_2();
   v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  if (OUTLINED_FUNCTION_5(v3, v4, v5, v6, v7, v8, v9, v10, v12, v2, v13, v14, SWORD2(v14), SBYTE6(v14), HIBYTE(v14)))
+  if (OUTLINED_FUNCTION_5(v3, v4, v5, v6, v7, v8, v9, v10, v25, v27, v30, v33, v35, v36, v37))
   {
-    v11 = v1;
+    v17 = v1;
   }
 
   else
   {
-    v11 = v1 & 0xFFFFFFFE;
+    v17 = v1 & 0xFFFFFFFE;
   }
 
-  if (v11)
+  if (v17)
   {
     OUTLINED_FUNCTION_3("[LTMGeometryDataV1 initWithInputTextureWidth:height:]");
-    OUTLINED_FUNCTION_4();
+    v17 = OUTLINED_FUNCTION_4(v18, v19, v20, v21, &dword_1C92CA000, v22, v23, "<<<< LTMAlgorithm >>>> %s: LTMGeometryData init failed", v26, v28, v31, v34);
+    v24 = v17;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v24 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v17, v11, v12, v24, v13, v14, v15, v16, v26, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 @end

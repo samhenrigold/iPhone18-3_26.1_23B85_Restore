@@ -25,185 +25,183 @@
 
 void __26__HMDHomeModel_properties__block_invoke()
 {
-  v58[54] = *MEMORY[0x277D85DE8];
-  v57[0] = @"name";
-  v56 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[0] = v56;
-  v57[1] = @"ownerName";
+  v57[54] = *MEMORY[0x277D85DE8];
+  v56[0] = @"name";
   v55 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[1] = v55;
-  v57[2] = @"ownerUserID";
+  v57[0] = v55;
+  v56[1] = @"ownerName";
   v54 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[2] = v54;
-  v57[3] = @"ownerUUID";
+  v57[1] = v54;
+  v56[2] = @"ownerUserID";
   v53 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[3] = v53;
-  v57[4] = @"creationDate";
+  v57[2] = v53;
+  v56[3] = @"ownerUUID";
   v52 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[4] = v52;
-  v57[5] = @"firstHAPAccessoryAddedDate";
+  v57[3] = v52;
+  v56[4] = @"creationDate";
   v51 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[5] = v51;
-  v57[6] = @"defaultRoomUUID";
+  v57[4] = v51;
+  v56[5] = @"firstHAPAccessoryAddedDate";
   v50 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[6] = v50;
-  v57[7] = @"presenceAuthorizationStatus";
+  v57[5] = v50;
+  v56[6] = @"defaultRoomUUID";
   v49 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[7] = v49;
-  v57[8] = @"presenceComputeStatus";
+  v57[6] = v49;
+  v56[7] = @"presenceAuthorizationStatus";
   v48 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[8] = v48;
-  v57[9] = @"ownerPublicKey";
+  v57[7] = v48;
+  v56[8] = @"presenceComputeStatus";
   v47 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[9] = v47;
-  v57[10] = @"homeLocationData";
+  v57[8] = v47;
+  v56[9] = @"ownerPublicKey";
   v46 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[10] = v46;
-  v57[11] = @"primaryResidentUUID";
+  v57[9] = v46;
+  v56[10] = @"homeLocationData";
   v45 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[11] = v45;
-  v57[12] = @"sharedHomeSourceVersion";
+  v57[10] = v45;
+  v56[11] = @"primaryResidentUUID";
   v44 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[12] = v44;
-  v57[13] = @"networkProtectionMode";
+  v57[11] = v44;
+  v56[12] = @"sharedHomeSourceVersion";
   v43 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[13] = v43;
-  v57[14] = @"supportsNetworkProtection";
-  v42 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
-  v58[14] = v42;
-  v57[15] = @"activeNetworkRouterAccessoryUUID";
+  v57[12] = v43;
+  v56[13] = @"networkProtectionMode";
+  v42 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v57[13] = v42;
+  v56[14] = @"supportsNetworkProtection";
   v41 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
-  v58[15] = v41;
-  v57[16] = @"primaryNetworkRouterManagingDeviceUUID";
+  v57[14] = v41;
+  v56[15] = @"activeNetworkRouterAccessoryUUID";
   v40 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
-  v58[16] = v40;
-  v57[17] = @"multiUserEnabled";
-  v39 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[17] = v39;
-  v57[18] = @"matCredGRK";
+  v57[15] = v40;
+  v56[16] = @"primaryNetworkRouterManagingDeviceUUID";
+  v39 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
+  v57[16] = v39;
+  v56[17] = @"multiUserEnabled";
   v38 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[18] = v38;
-  v57[19] = @"hasAnyUserAcknowledgedCameraRecordingOnboarding";
+  v57[17] = v38;
+  v56[18] = @"matCredGRK";
   v37 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[19] = v37;
-  v57[20] = @"hasOnboardedForAccessCode";
+  v57[18] = v37;
+  v56[19] = @"hasAnyUserAcknowledgedCameraRecordingOnboarding";
   v36 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[20] = v36;
-  v57[21] = @"hasOnboardedForWalletKey";
+  v57[19] = v36;
+  v56[20] = @"hasOnboardedForAccessCode";
   v35 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[21] = v35;
-  v57[22] = @"encodedNfcReaderKey";
-  v34 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
-  v58[22] = v34;
-  v57[23] = @"encodedNaturalLightingContext";
-  v33 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[23] = v33;
-  v57[24] = @"chipFabricID";
+  v57[20] = v35;
+  v56[21] = @"hasOnboardedForWalletKey";
+  v34 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v57[21] = v34;
+  v56[22] = @"encodedNfcReaderKey";
+  v33 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
+  v57[22] = v33;
+  v56[23] = @"encodedNaturalLightingContext";
   v32 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[24] = v32;
-  v57[25] = @"chipFabricIndex";
+  v57[23] = v32;
+  v56[24] = @"chipFabricID";
   v31 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[25] = v31;
-  v57[26] = @"chipLastNodeID";
+  v57[24] = v31;
+  v56[25] = @"chipFabricIndex";
   v30 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[26] = v30;
-  v57[27] = @"chipRootCertificate";
+  v57[25] = v30;
+  v56[26] = @"chipLastNodeID";
   v29 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[27] = v29;
-  v57[28] = @"chipOperationalCertificate";
+  v57[26] = v29;
+  v56[27] = @"chipRootCertificate";
   v28 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[28] = v28;
-  v57[29] = @"chipIntermediateCertificate";
+  v57[27] = v28;
+  v56[28] = @"chipOperationalCertificate";
   v27 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[29] = v27;
-  v57[30] = @"chipKeyValueStore";
+  v57[28] = v27;
+  v56[29] = @"chipIntermediateCertificate";
   v26 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[30] = v26;
-  v57[31] = @"matterControllerNodeID";
+  v57[29] = v26;
+  v56[30] = @"chipKeyValueStore";
   v25 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[31] = v25;
-  v57[32] = @"matterFabricID";
+  v57[30] = v25;
+  v56[31] = @"matterControllerNodeID";
   v24 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[32] = v24;
-  v57[33] = @"threadOperationalDataset";
+  v57[31] = v24;
+  v56[32] = @"matterFabricID";
   v23 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[33] = v23;
-  v57[34] = @"soundCheckEnabled";
+  v57[32] = v23;
+  v56[33] = @"threadOperationalDataset";
   v22 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[34] = v22;
-  v57[35] = @"analysisOptions";
+  v57[33] = v22;
+  v56[34] = @"soundCheckEnabled";
   v21 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[35] = v21;
-  v57[36] = @"didOnboardAnalysis";
+  v57[34] = v21;
+  v56[35] = @"analysisOptions";
   v20 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[36] = v20;
-  v57[37] = @"siriPhraseOptions";
+  v57[35] = v20;
+  v56[36] = @"didOnboardAnalysis";
   v19 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[37] = v19;
-  v57[38] = @"locationServicesEnabled";
+  v57[36] = v19;
+  v56[37] = @"siriPhraseOptions";
   v18 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[38] = v18;
-  v57[39] = @"didOnboardLocationServices";
+  v57[37] = v18;
+  v56[38] = @"locationServicesEnabled";
   v17 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[39] = v17;
-  v57[40] = @"residentSyncClientDidSync";
+  v57[38] = v17;
+  v56[39] = @"didOnboardLocationServices";
   v16 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[40] = v16;
-  v57[41] = @"owned";
+  v57[39] = v16;
+  v56[40] = @"residentSyncClientDidSync";
   v15 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[41] = v15;
-  v57[42] = @"hh2EncodedNfcReaderKey";
+  v57[40] = v15;
+  v56[41] = @"owned";
   v14 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[42] = v14;
-  v57[43] = @"primaryIPv4NetworkSignature";
+  v57[41] = v14;
+  v56[42] = @"hh2EncodedNfcReaderKey";
   v13 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[43] = v13;
-  v57[44] = @"primaryIPv6NetworkSignature";
+  v57[42] = v13;
+  v56[43] = @"primaryIPv4NetworkSignature";
   v12 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[44] = v12;
-  v57[45] = @"primaryWiFiSSID";
+  v57[43] = v12;
+  v56[44] = @"primaryIPv6NetworkSignature";
+  v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v57[44] = v11;
+  v56[45] = @"primaryWiFiSSID";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[45] = v0;
-  v57[46] = @"primaryWiFiRequiresPassword";
+  v57[45] = v0;
+  v56[46] = @"primaryWiFiRequiresPassword";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[46] = v1;
-  v57[47] = @"residentSelectionVersion";
+  v57[46] = v1;
+  v56[47] = @"residentSelectionVersion";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[47] = v2;
-  v57[48] = @"didOnboardEventLog";
+  v57[47] = v2;
+  v56[48] = @"didOnboardEventLog";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[48] = v3;
-  v57[49] = @"eventLogHomeSettingEnabled";
+  v57[48] = v3;
+  v56[49] = @"eventLogHomeSettingEnabled";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[49] = v4;
-  v57[50] = @"eventLogDuration";
+  v57[49] = v4;
+  v56[50] = @"eventLogDuration";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[50] = v5;
-  v57[51] = @"timeZone";
+  v57[50] = v5;
+  v56[51] = @"timeZone";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[51] = v6;
-  v57[52] = @"numberOfCameras";
+  v57[51] = v6;
+  v56[52] = @"numberOfCameras";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[52] = v7;
-  v57[53] = @"isAllowedToEnableAdaptiveTemperatureAutomations";
+  v57[52] = v7;
+  v56[53] = @"isAllowedToEnableAdaptiveTemperatureAutomations";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v58[53] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:54];
+  v57[53] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:54];
   v10 = properties__properties_123917;
   properties__properties_123917 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeNFCReaderKey)nfcReaderKey
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   hh2EncodedNfcReaderKey = [(HMDHomeModel *)self hh2EncodedNfcReaderKey];
   if (hh2EncodedNfcReaderKey)
   {
-    v12 = 0;
-    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:hh2EncodedNfcReaderKey error:&v12];
-    v4 = v12;
+    v11 = 0;
+    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:hh2EncodedNfcReaderKey error:&v11];
+    v4 = v11;
     v5 = v4;
     if (v3)
     {
@@ -223,11 +221,11 @@ void __26__HMDHomeModel_properties__block_invoke()
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v14 = v9;
-        v15 = 2112;
-        v16 = hh2EncodedNfcReaderKey;
-        v17 = 2112;
-        v18 = v5;
+        v13 = v9;
+        v14 = 2112;
+        v15 = hh2EncodedNfcReaderKey;
+        v16 = 2112;
+        v17 = v5;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode nfc reader key set on model %@:%@", buf, 0x20u);
       }
 
@@ -240,18 +238,16 @@ void __26__HMDHomeModel_properties__block_invoke()
     v3 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)setNfcReaderKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v12 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:keyCopy requiringSecureCoding:1 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:keyCopy requiringSecureCoding:1 error:&v11];
+  v6 = v11;
   if (v5)
   {
     [(HMDHomeModel *)self setHh2EncodedNfcReaderKey:v5];
@@ -266,29 +262,27 @@ void __26__HMDHomeModel_properties__block_invoke()
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v14 = v10;
-      v15 = 2112;
-      v16 = keyCopy;
-      v17 = 2112;
-      v18 = v6;
+      v13 = v10;
+      v14 = 2112;
+      v15 = keyCopy;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to set encoded nfc reader key on model %@:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDNaturalLightingContext)naturalLightingContext
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   encodedNaturalLightingContext = [(HMDHomeModel *)self encodedNaturalLightingContext];
   if (encodedNaturalLightingContext)
   {
-    v10 = 0;
-    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:encodedNaturalLightingContext error:&v10];
-    v4 = v10;
+    v9 = 0;
+    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:encodedNaturalLightingContext error:&v9];
+    v4 = v9;
     if (!v3)
     {
       v5 = objc_autoreleasePoolPush();
@@ -297,11 +291,11 @@ void __26__HMDHomeModel_properties__block_invoke()
       {
         v7 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v12 = v7;
-        v13 = 2112;
-        v14 = encodedNaturalLightingContext;
-        v15 = 2112;
-        v16 = v4;
+        v11 = v7;
+        v12 = 2112;
+        v13 = encodedNaturalLightingContext;
+        v14 = 2112;
+        v15 = v4;
         _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode natural lighting context set on home model %@:%@", buf, 0x20u);
       }
 
@@ -314,18 +308,16 @@ void __26__HMDHomeModel_properties__block_invoke()
     v3 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)setNaturalLightingContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v11 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v10];
+  v6 = v10;
   if (v5)
   {
     [(HMDHomeModel *)self setEncodedNaturalLightingContext:v5];
@@ -339,23 +331,21 @@ void __26__HMDHomeModel_properties__block_invoke()
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v13 = v9;
-      v14 = 2112;
-      v15 = contextCopy;
-      v16 = 2112;
-      v17 = v6;
+      v12 = v9;
+      v13 = 2112;
+      v14 = contextCopy;
+      v15 = 2112;
+      v16 = v6;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to set encoded natural lighting context on the home model %@:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   fieldCopy = field;
   contextCopy = context;
@@ -369,9 +359,9 @@ void __26__HMDHomeModel_properties__block_invoke()
 
       if (dictionary)
       {
-        v56 = 0;
-        defaultRoom = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dictionary ofModelType:objc_opt_class() error:&v56];
-        v15 = v56;
+        v55 = 0;
+        defaultRoom = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dictionary ofModelType:objc_opt_class() error:&v55];
+        v15 = v55;
         managedObject = v15;
         if (defaultRoom && !v15)
         {
@@ -394,11 +384,11 @@ LABEL_28:
 
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v58 = v20;
-        v59 = 2112;
-        v60 = dictionary;
-        v61 = 2112;
-        v62 = managedObject;
+        v57 = v20;
+        v58 = 2112;
+        v59 = dictionary;
+        v60 = 2112;
+        v61 = managedObject;
         v21 = "%{public}@Unable to find NSManagedObject for home owner with UUID %@: %@";
 LABEL_16:
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, v21, buf, 0x20u);
@@ -426,9 +416,9 @@ LABEL_16:
 
         if (dictionary)
         {
-          v55 = 0;
-          defaultRoom = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dictionary ofModelType:objc_opt_class() error:&v55];
-          v25 = v55;
+          v54 = 0;
+          defaultRoom = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dictionary ofModelType:objc_opt_class() error:&v54];
+          v25 = v54;
           managedObject = v25;
           if (defaultRoom && !v25)
           {
@@ -445,11 +435,11 @@ LABEL_16:
 
           v20 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v58 = v20;
-          v59 = 2112;
-          v60 = dictionary;
-          v61 = 2112;
-          v62 = managedObject;
+          v57 = v20;
+          v58 = 2112;
+          v59 = dictionary;
+          v60 = 2112;
+          v61 = managedObject;
           v21 = "%{public}@Unable to find NSManagedObject for resident device with UUID %@: %@";
           goto LABEL_16;
         }
@@ -520,9 +510,9 @@ LABEL_27:
       v33 = objc_autoreleasePoolPush();
       v34 = objc_alloc(MEMORY[0x277CCAAC8]);
       homeLocationData = [(HMDHomeModel *)self homeLocationData];
-      v54 = 0;
-      v36 = [v34 initForReadingFromData:homeLocationData error:&v54];
-      v37 = v54;
+      v53 = 0;
+      v36 = [v34 initForReadingFromData:homeLocationData error:&v53];
+      v37 = v53;
 
       if (v37)
       {
@@ -533,9 +523,9 @@ LABEL_27:
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v58 = v41;
-          v59 = 2112;
-          v60 = v37;
+          v57 = v41;
+          v58 = 2112;
+          v59 = v37;
           _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Unable to initialize unarchiver for HomeLocationData: %@", buf, 0x16u);
         }
 
@@ -544,28 +534,28 @@ LABEL_27:
         goto LABEL_45;
       }
 
-      v44 = [v36 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCA308]];
-      if (!v44)
+      v43 = [v36 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCA308]];
+      if (!v43)
       {
-        v46 = objc_autoreleasePoolPush();
+        v45 = objc_autoreleasePoolPush();
         selfCopy4 = self;
-        v48 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v47 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v49 = HMFGetLogIdentifier();
+          v48 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v58 = v49;
-          _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive HomeLocationData", buf, 0xCu);
+          v57 = v48;
+          _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive HomeLocationData", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v46);
+        objc_autoreleasePoolPop(v45);
         defaultRoom = 0;
         goto LABEL_60;
       }
 
       if ([fieldCopy isEqualToString:@"location"])
       {
-        location = [v44 location];
+        location = [v43 location];
 LABEL_59:
         defaultRoom = location;
 LABEL_60:
@@ -576,13 +566,13 @@ LABEL_60:
 
       if ([fieldCopy isEqualToString:@"locationUpdateTimeStamp"])
       {
-        location = [v44 locationUpdateTimestamp];
+        location = [v43 locationUpdateTimestamp];
         goto LABEL_59;
       }
 
       if ([fieldCopy isEqualToString:@"locationSource"])
       {
-        location = [v44 locationSource];
+        location = [v43 locationSource];
         goto LABEL_59;
       }
 
@@ -603,7 +593,7 @@ LABEL_60:
         chipKeyValueStore = [(HMDHomeModel *)self chipKeyValueStore];
         [dictionary addEntriesFromDictionary:chipKeyValueStore];
 
-        defaultRoom = [dictionary copy];
+        defaultRoom = objc_msgSend_copy(dictionary);
         goto LABEL_28;
       }
 
@@ -634,9 +624,9 @@ LABEL_60:
     {
       if (![fieldCopy isEqualToString:@"memoryDuration"])
       {
-        v53.receiver = self;
-        v53.super_class = HMDHomeModel;
-        null = [(HMDBackingStoreModelObject *)&v53 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
+        v52.receiver = self;
+        v52.super_class = HMDHomeModel;
+        null = [(HMDBackingStoreModelObject *)&v52 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
 LABEL_36:
         defaultRoom = null;
         goto LABEL_46;
@@ -672,14 +662,13 @@ LABEL_32:
   defaultRoom = v31;
 
 LABEL_46:
-  v42 = *MEMORY[0x277D85DE8];
 
   return defaultRoom;
 }
 
 - (id)cd_generateValueForModelObjectFromManagedObject:(id)object modelObjectField:(id)field modelFieldInfo:(id)info
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   fieldCopy = field;
   infoCopy = info;
@@ -750,24 +739,24 @@ LABEL_15:
     owner = [objectCopy naturalLightingContext];
     if (owner)
     {
-      v51 = 0;
-      v23 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:owner requiringSecureCoding:1 error:&v51];
-      v24 = v51;
-      if (!v23)
+      v50 = 0;
+      v22 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:owner requiringSecureCoding:1 error:&v50];
+      v23 = v50;
+      if (!v22)
       {
-        v25 = objc_autoreleasePoolPush();
+        v24 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v27 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v26 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v28 = HMFGetLogIdentifier();
+          v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v53 = v28;
-          v54 = 2112;
-          v55 = v24;
-          v29 = "%{public}@Failed to encode natural lighting context while MFK -> HMD conversion: %@";
+          v52 = v27;
+          v53 = 2112;
+          v54 = v23;
+          v28 = "%{public}@Failed to encode natural lighting context while MFK -> HMD conversion: %@";
 LABEL_35:
-          _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, v29, buf, 0x16u);
+          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, v28, buf, 0x16u);
 
           goto LABEL_36;
         }
@@ -790,38 +779,38 @@ LABEL_41:
     owner = [objectCopy nfcReaderKey];
     if (owner)
     {
-      v50 = 0;
-      v23 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:owner requiringSecureCoding:1 error:&v50];
-      v24 = v50;
-      if (!v23)
+      v49 = 0;
+      v22 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:owner requiringSecureCoding:1 error:&v49];
+      v23 = v49;
+      if (!v22)
       {
-        v25 = objc_autoreleasePoolPush();
+        v24 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v27 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v26 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v28 = HMFGetLogIdentifier();
+          v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v53 = v28;
-          v54 = 2112;
-          v55 = v24;
-          v29 = "%{public}@Failed to encode nfc reader key while MFK -> HMD conversion: %@";
+          v52 = v27;
+          v53 = 2112;
+          v54 = v23;
+          v28 = "%{public}@Failed to encode nfc reader key while MFK -> HMD conversion: %@";
           goto LABEL_35;
         }
 
 LABEL_36:
 
-        objc_autoreleasePoolPop(v25);
+        objc_autoreleasePoolPop(v24);
       }
 
 LABEL_37:
-      v30 = *MEMORY[0x277CBEEE8];
-      if (v23)
+      v29 = *MEMORY[0x277CBEEE8];
+      if (v22)
       {
-        v30 = v23;
+        v29 = v22;
       }
 
-      v12 = v30;
+      v12 = v29;
 
       goto LABEL_21;
     }
@@ -841,14 +830,14 @@ LABEL_37:
     pairingIdentity = [owner pairingIdentity];
     publicKey = [pairingIdentity publicKey];
     data = [publicKey data];
-    v33 = data;
-    v34 = *MEMORY[0x277CBEEE8];
+    v32 = data;
+    v33 = *MEMORY[0x277CBEEE8];
     if (data)
     {
-      v34 = data;
+      v33 = data;
     }
 
-    v12 = v34;
+    v12 = v33;
 
     goto LABEL_19;
   }
@@ -859,7 +848,7 @@ LABEL_37:
     {
       matterKeyValueStore = [objectCopy matterKeyValueStore];
       owner = matterKeyValueStore;
-      v46 = @"HMDHMMKVS.fabricID";
+      v45 = @"HMDHMMKVS.fabricID";
     }
 
     else
@@ -885,9 +874,9 @@ LABEL_37:
         {
           if (![fieldCopy isEqualToString:@"eventLogDuration"])
           {
-            v49.receiver = self;
-            v49.super_class = HMDHomeModel;
-            v11 = [(HMDBackingStoreModelObject *)&v49 cd_generateValueForModelObjectFromManagedObject:objectCopy modelObjectField:fieldCopy modelFieldInfo:infoCopy];
+            v48.receiver = self;
+            v48.super_class = HMDHomeModel;
+            v11 = [(HMDBackingStoreModelObject *)&v48 cd_generateValueForModelObjectFromManagedObject:objectCopy modelObjectField:fieldCopy modelFieldInfo:infoCopy];
             goto LABEL_3;
           }
 
@@ -895,22 +884,22 @@ LABEL_37:
         }
 
         owner = matterKeyValueStore2;
-        v48 = *MEMORY[0x277CBEEE8];
+        v47 = *MEMORY[0x277CBEEE8];
         if (matterKeyValueStore2)
         {
-          v48 = matterKeyValueStore2;
+          v47 = matterKeyValueStore2;
         }
 
-        null = v48;
+        null = v47;
         goto LABEL_41;
       }
 
       matterKeyValueStore = [objectCopy matterKeyValueStore];
       owner = matterKeyValueStore;
-      v46 = @"HMDHMMKVS.fabricIndex";
+      v45 = @"HMDHMMKVS.fabricIndex";
     }
 
-    userID = [matterKeyValueStore objectForKeyedSubscript:v46];
+    userID = [matterKeyValueStore objectForKeyedSubscript:v45];
     goto LABEL_8;
   }
 
@@ -920,7 +909,7 @@ LABEL_37:
     goto LABEL_61;
   }
 
-  v36 = location;
+  v35 = location;
   locationUpdateTimeStamp = [objectCopy locationUpdateTimeStamp];
   if (!locationUpdateTimeStamp)
   {
@@ -928,7 +917,7 @@ LABEL_37:
     goto LABEL_61;
   }
 
-  v38 = locationUpdateTimeStamp;
+  v37 = locationUpdateTimeStamp;
   locationSource = [objectCopy locationSource];
 
   if (!locationSource)
@@ -938,23 +927,22 @@ LABEL_61:
     goto LABEL_3;
   }
 
-  v40 = [HMDHomeLocationData alloc];
+  v39 = [HMDHomeLocationData alloc];
   location2 = [objectCopy location];
   locationUpdateTimeStamp2 = [objectCopy locationUpdateTimeStamp];
   locationSource2 = [objectCopy locationSource];
-  v44 = [(HMDHomeLocationData *)v40 initWithLocation:location2 locationUpdateTimestamp:locationUpdateTimeStamp2 locationSource:locationSource2];
+  v43 = [(HMDHomeLocationData *)v39 initWithLocation:location2 locationUpdateTimestamp:locationUpdateTimeStamp2 locationSource:locationSource2];
 
   v12 = encodeRootObject();
 
 LABEL_22:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)cd_getHomeFromUUID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -962,9 +950,9 @@ LABEL_22:
   }
 
   v5 = dCopy;
-  v17 = 0;
-  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dCopy ofManagedObjectType:objc_opt_class() error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dCopy ofManagedObjectType:objc_opt_class() error:&v16];
+  v7 = v16;
   v8 = v7;
   if (v6)
   {
@@ -990,19 +978,17 @@ LABEL_22:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v8;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find mkfHome with UUID %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

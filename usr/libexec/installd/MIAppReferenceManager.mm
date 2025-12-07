@@ -6,9 +6,19 @@
 - (BOOL)_removeReferenceAtURL:(id)l personaUniqueString:(id)string inBundleContainer:(id)container wasLastReference:(BOOL *)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
 - (BOOL)_updateReferenceAtURL:(id)l byAddingPersonaUniqueString:(id)string resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
 - (BOOL)_updateReferenceAtURL:(id)l byRemovingPersonaUniqueString:(id)string resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
+- (BOOL)addReferenceForIdentity:(id)identity inDomain:(unint64_t)domain forUserWithID:(unsigned int)d resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
+- (BOOL)addReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string byRemovingTemporaryReference:(BOOL)reference inBundleContainer:(id)container resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
+- (BOOL)addTemporaryReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string inBundleContainer:(id)container error:(id *)error;
 - (BOOL)finalizeTemporaryReference:(id)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
+- (BOOL)removeReferenceForIdentity:(id)identity inDomain:(unint64_t)domain forUserWithID:(unsigned int)d wasLastReference:(BOOL *)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
+- (BOOL)removeReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string inBundleContainer:(id)container wasLastReference:(BOOL *)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error;
+- (BOOL)removeTemporaryReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string inBundleContainer:(id)container wasLastReference:(BOOL *)reference error:(id *)error;
 - (BOOL)revokeTemporaryReference:(id)reference wasLastReference:(BOOL *)lastReference error:(id *)error;
 - (MIAppReferenceManager)init;
+- (id)_referenceURLForUserWithID:(unsigned int)d inBundleContainer:(id)container;
+- (id)_temporaryReferenceURLForUserWithID:(unsigned int)d inBundleContainer:(id)container;
+- (id)addTemporaryReferenceForIdentity:(id)identity inDomain:(unint64_t)domain forUserWithID:(unsigned int)d error:(id *)error;
+- (id)personaUniqueStringsForAppWithBundleID:(id)d domain:(unint64_t)domain forUserWithID:(unsigned int)iD error:(id *)error;
 - (id)personaUniqueStringsForAppWithBundleID:(id)d error:(id *)error;
 - (id)referencesForIdentifier:(id)identifier inDomain:(unint64_t)domain error:(id *)error;
 - (void)enumerateAppReferencesWithBlock:(id)block;
@@ -38,6 +48,175 @@
   v3.receiver = self;
   v3.super_class = MIAppReferenceManager;
   return [(MIAppReferenceManager *)&v3 init];
+}
+
+- (BOOL)addReferenceForIdentity:(id)identity inDomain:(unint64_t)domain forUserWithID:(unsigned int)d resultingPersonaUniqueStrings:(id *)strings error:(id *)error
+{
+  v9 = *&d;
+  identityCopy = identity;
+  bundleID = [identityCopy bundleID];
+  v26 = 0;
+  v14 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:domain withError:&v26];
+  v15 = v26;
+
+  if (v14)
+  {
+    personaUniqueString = [identityCopy personaUniqueString];
+    v24 = v15;
+    v25 = 0;
+    v17 = [(MIAppReferenceManager *)self addReferenceForUserWithID:v9 personaUniqueString:personaUniqueString byRemovingTemporaryReference:0 inBundleContainer:v14 resultingPersonaUniqueStrings:&v25 error:&v24];
+    v18 = v25;
+    v19 = v24;
+
+    v15 = v19;
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+    v17 = 0;
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  if (!v17)
+  {
+    v20 = v15;
+    *error = v15;
+  }
+
+LABEL_7:
+  v21 = !v17;
+  if (!strings)
+  {
+    v21 = 1;
+  }
+
+  if ((v21 & 1) == 0)
+  {
+    v22 = v18;
+    *strings = v18;
+  }
+
+  return v17;
+}
+
+- (BOOL)removeReferenceForIdentity:(id)identity inDomain:(unint64_t)domain forUserWithID:(unsigned int)d wasLastReference:(BOOL *)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error
+{
+  v11 = *&d;
+  identityCopy = identity;
+  bundleID = [identityCopy bundleID];
+  v28 = 0;
+  v16 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:domain withError:&v28];
+  v17 = v28;
+
+  if (v16)
+  {
+    personaUniqueString = [identityCopy personaUniqueString];
+    v26 = v17;
+    v27 = 0;
+    v19 = [(MIAppReferenceManager *)self removeReferenceForUserWithID:v11 personaUniqueString:personaUniqueString inBundleContainer:v16 wasLastReference:reference resultingPersonaUniqueStrings:&v27 error:&v26];
+    v20 = v27;
+    v21 = v26;
+
+    v17 = v21;
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    v20 = 0;
+    v19 = 0;
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  if (!v19)
+  {
+    v22 = v17;
+    *error = v17;
+  }
+
+LABEL_7:
+  v23 = !v19;
+  if (!strings)
+  {
+    v23 = 1;
+  }
+
+  if ((v23 & 1) == 0)
+  {
+    v24 = v20;
+    *strings = v20;
+  }
+
+  return v19;
+}
+
+- (id)addTemporaryReferenceForIdentity:(id)identity inDomain:(unint64_t)domain forUserWithID:(unsigned int)d error:(id *)error
+{
+  v7 = *&d;
+  identityCopy = identity;
+  bundleID = [identityCopy bundleID];
+  v23 = 0;
+  v12 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:domain withError:&v23];
+  v13 = v23;
+
+  if (v12)
+  {
+    personaUniqueString = [identityCopy personaUniqueString];
+    v22 = v13;
+    v15 = [(MIAppReferenceManager *)self addTemporaryReferenceForUserWithID:v7 personaUniqueString:personaUniqueString inBundleContainer:v12 error:&v22];
+    v16 = v22;
+
+    if (v15)
+    {
+      v17 = [MIAppReference alloc];
+      v18 = +[NSUUID UUID];
+      v19 = [v17 initWithReferenceUUID:v18 identity:identityCopy domain:domain uid:v7];
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    v13 = v16;
+    if (!error)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v19 = 0;
+    if (!error)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  if (!v19)
+  {
+    v20 = v13;
+    *error = v13;
+  }
+
+LABEL_10:
+
+  return v19;
 }
 
 - (BOOL)finalizeTemporaryReference:(id)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error
@@ -140,6 +319,26 @@ LABEL_7:
 LABEL_7:
 
   return v15;
+}
+
+- (id)_referenceURLForUserWithID:(unsigned int)d inBundleContainer:(id)container
+{
+  v4 = *&d;
+  referenceStorageURL = [container referenceStorageURL];
+  v6 = [NSString stringWithFormat:@"user_%d/%@", v4, @"AppReferences"];
+  v7 = [referenceStorageURL URLByAppendingPathComponent:v6 isDirectory:0];
+
+  return v7;
+}
+
+- (id)_temporaryReferenceURLForUserWithID:(unsigned int)d inBundleContainer:(id)container
+{
+  v4 = *&d;
+  referenceStorageURL = [container referenceStorageURL];
+  v6 = [NSString stringWithFormat:@"user_%d/%@", v4, @"TemporaryAppReferences"];
+  v7 = [referenceStorageURL URLByAppendingPathComponent:v6 isDirectory:0];
+
+  return v7;
 }
 
 - (BOOL)_updateReferenceAtURL:(id)l byAddingPersonaUniqueString:(id)string resultingPersonaUniqueStrings:(id *)strings error:(id *)error
@@ -525,6 +724,36 @@ LABEL_37:
   return error;
 }
 
+- (BOOL)addTemporaryReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string inBundleContainer:(id)container error:(id *)error
+{
+  v8 = *&d;
+  stringCopy = string;
+  v11 = [(MIAppReferenceManager *)self _temporaryReferenceURLForUserWithID:v8 inBundleContainer:container];
+  LOBYTE(error) = [(MIAppReferenceManager *)self _updateReferenceAtURL:v11 byAddingPersonaUniqueString:stringCopy resultingPersonaUniqueStrings:0 error:error];
+
+  return error;
+}
+
+- (BOOL)addReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string byRemovingTemporaryReference:(BOOL)reference inBundleContainer:(id)container resultingPersonaUniqueStrings:(id *)strings error:(id *)error
+{
+  referenceCopy = reference;
+  v12 = *&d;
+  stringCopy = string;
+  containerCopy = container;
+  v16 = [(MIAppReferenceManager *)self _referenceURLForUserWithID:v12 inBundleContainer:containerCopy];
+  if (referenceCopy && ![(MIAppReferenceManager *)self removeTemporaryReferenceForUserWithID:v12 personaUniqueString:stringCopy inBundleContainer:containerCopy wasLastReference:0 error:error])
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = [(MIAppReferenceManager *)self _updateReferenceAtURL:v16 byAddingPersonaUniqueString:stringCopy resultingPersonaUniqueStrings:strings error:error];
+  }
+
+  return v17;
+}
+
 - (BOOL)_removeReferenceAtURL:(id)l personaUniqueString:(id)string inBundleContainer:(id)container wasLastReference:(BOOL *)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error
 {
   stringCopy = string;
@@ -592,6 +821,28 @@ LABEL_16:
   return v17;
 }
 
+- (BOOL)removeTemporaryReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string inBundleContainer:(id)container wasLastReference:(BOOL *)reference error:(id *)error
+{
+  v10 = *&d;
+  containerCopy = container;
+  stringCopy = string;
+  v14 = [(MIAppReferenceManager *)self _temporaryReferenceURLForUserWithID:v10 inBundleContainer:containerCopy];
+  LOBYTE(error) = [(MIAppReferenceManager *)self _removeReferenceAtURL:v14 personaUniqueString:stringCopy inBundleContainer:containerCopy wasLastReference:reference resultingPersonaUniqueStrings:0 error:error];
+
+  return error;
+}
+
+- (BOOL)removeReferenceForUserWithID:(unsigned int)d personaUniqueString:(id)string inBundleContainer:(id)container wasLastReference:(BOOL *)reference resultingPersonaUniqueStrings:(id *)strings error:(id *)error
+{
+  v12 = *&d;
+  containerCopy = container;
+  stringCopy = string;
+  v16 = [(MIAppReferenceManager *)self _referenceURLForUserWithID:v12 inBundleContainer:containerCopy];
+  LOBYTE(error) = [(MIAppReferenceManager *)self _removeReferenceAtURL:v16 personaUniqueString:stringCopy inBundleContainer:containerCopy wasLastReference:reference resultingPersonaUniqueStrings:strings error:error];
+
+  return error;
+}
+
 - (void)enumerateAppReferencesWithBlock:(id)block
 {
   if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
@@ -603,44 +854,44 @@ LABEL_16:
 - (id)referencesForIdentifier:(id)identifier inDomain:(unint64_t)domain error:(id *)error
 {
   identifierCopy = identifier;
-  v28 = objc_opt_new();
+  v29 = objc_opt_new();
   v7 = sub_100009938();
-  v8 = sub_100009864();
-  v32 = 0u;
+  v9 = sub_100009864(v7, v8);
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  v29 = v9;
-  if (v10)
+  v36 = 0u;
+  v10 = v7;
+  v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v30 = v10;
+  if (v11)
   {
-    v11 = v10;
-    v12 = 0;
-    v13 = *v33;
+    v12 = v11;
+    v13 = 0;
+    v14 = *v34;
 LABEL_3:
-    v14 = 0;
+    v15 = 0;
     while (1)
     {
-      if (*v33 != v13)
+      if (*v34 != v14)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v10);
       }
 
-      v15 = [*(*(&v32 + 1) + 8 * v14) uid];
-      v16 = v15;
-      if (domain != 3 || v8 == v15)
+      v16 = [*(*(&v33 + 1) + 8 * v15) uid];
+      v17 = v16;
+      if (domain != 3 || v9 == v16)
       {
-        v31 = v12;
-        v17 = [(MIAppReferenceManager *)self personaUniqueStringsForAppWithBundleID:identifierCopy domain:domain forUserWithID:v15 error:&v31];
-        v18 = v31;
+        v32 = v13;
+        v18 = [(MIAppReferenceManager *)self personaUniqueStringsForAppWithBundleID:identifierCopy domain:domain forUserWithID:v16 error:&v32];
+        v19 = v32;
 
-        if (!v17)
+        if (!v18)
         {
 
-          v20 = 0;
+          v21 = 0;
           errorCopy2 = error;
-          v22 = v28;
+          v23 = v29;
           if (error)
           {
             goto LABEL_20;
@@ -649,17 +900,17 @@ LABEL_3:
           goto LABEL_22;
         }
 
-        v19 = [NSNumber numberWithUnsignedInt:v16];
-        [v28 setObject:v17 forKeyedSubscript:v19];
+        v20 = [NSNumber numberWithUnsignedInt:v17];
+        [v29 setObject:v18 forKeyedSubscript:v20];
 
-        v12 = v18;
-        v9 = v29;
+        v13 = v19;
+        v10 = v30;
       }
 
-      if (v11 == ++v14)
+      if (v12 == ++v15)
       {
-        v11 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
-        if (v11)
+        v12 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        if (v12)
         {
           goto LABEL_3;
         }
@@ -669,46 +920,149 @@ LABEL_3:
     }
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_16:
 
-  v22 = v28;
-  if ([v28 count])
+  v23 = v29;
+  if ([v29 count])
   {
-    v20 = [v28 copy];
-    v18 = v12;
+    v21 = [v29 copy];
+    v19 = v13;
   }
 
   else
   {
-    v18 = sub_100010734("[MIAppReferenceManager referencesForIdentifier:inDomain:error:]", 511, MIInstallerErrorDomain, 4, 0, 0, @"Unexpectedly got no references for %@ for users %@", v23, identifierCopy);
+    v19 = sub_100010734("[MIAppReferenceManager referencesForIdentifier:inDomain:error:]", 511, MIInstallerErrorDomain, 4, 0, 0, @"Unexpectedly got no references for %@ for users %@", v24, identifierCopy);
 
-    v20 = 0;
+    v21 = 0;
   }
 
   errorCopy2 = error;
   if (error)
   {
 LABEL_20:
-    if (!v20)
+    if (!v21)
     {
-      v24 = v18;
-      *errorCopy2 = v18;
+      v25 = v19;
+      *errorCopy2 = v19;
     }
   }
 
 LABEL_22:
-  v25 = v20;
+  v26 = v21;
 
-  return v20;
+  return v21;
+}
+
+- (id)personaUniqueStringsForAppWithBundleID:(id)d domain:(unint64_t)domain forUserWithID:(unsigned int)iD error:(id *)error
+{
+  v7 = *&iD;
+  v28 = 0;
+  v9 = [MIBundleContainer appBundleContainerForIdentifier:d inDomain:domain withError:&v28];
+  v10 = v28;
+  if (v9)
+  {
+    v11 = [(MIAppReferenceManager *)self _referenceURLForUserWithID:v7 inBundleContainer:v9];
+    v27 = v10;
+    v12 = [MIAppReferenceMetadata referenceMetadataFromURL:v11 error:&v27];
+    v13 = v27;
+
+    if (v12)
+    {
+      personas = [v12 personas];
+      v15 = personas;
+      if (!qword_1000A9720 || *(qword_1000A9720 + 44) < 7)
+      {
+        goto LABEL_18;
+      }
+
+      v16 = [personas count];
+      path = [v11 path];
+      v25 = v15;
+      v26 = path;
+      v24 = v16;
+      MOLogWrite();
+      goto LABEL_6;
+    }
+
+    domain = [v13 domain];
+    if ([domain isEqualToString:NSCocoaErrorDomain])
+    {
+      code = [v13 code];
+
+      if (code == 260)
+      {
+
+        v13 = qword_1000A9720;
+        if (qword_1000A9720)
+        {
+          if (*(qword_1000A9720 + 44) >= 7)
+          {
+            path = [v11 path];
+            v24 = path;
+            MOLogWrite();
+            v13 = 0;
+            v15 = &__NSArray0__struct;
+LABEL_6:
+
+LABEL_18:
+            v18 = [NSSet setWithArray:v15, v24, v25, v26];
+LABEL_19:
+            v10 = v13;
+            if (!error)
+            {
+              goto LABEL_22;
+            }
+
+            goto LABEL_20;
+          }
+
+          v13 = 0;
+        }
+
+        v15 = &__NSArray0__struct;
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+    }
+
+    v18 = 0;
+    v12 = 0;
+    v15 = 0;
+    goto LABEL_19;
+  }
+
+  v18 = 0;
+  v11 = 0;
+  v12 = 0;
+  v15 = 0;
+  if (!error)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_20:
+  if (!v18)
+  {
+    v21 = v10;
+    *error = v10;
+  }
+
+LABEL_22:
+  v22 = v18;
+
+  return v18;
 }
 
 - (id)personaUniqueStringsForAppWithBundleID:(id)d error:(id *)error
 {
   dCopy = d;
-  v7 = [(MIAppReferenceManager *)self personaUniqueStringsForAppWithBundleID:dCopy domain:2 forUserWithID:sub_100009864() error:error];
+  error = [(MIAppReferenceManager *)self personaUniqueStringsForAppWithBundleID:dCopy domain:2 forUserWithID:sub_100009864(dCopy error:v7), error];
 
-  return v7;
+  return error;
 }
 
 @end

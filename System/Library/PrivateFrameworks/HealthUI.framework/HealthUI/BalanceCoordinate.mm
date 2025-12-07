@@ -23,13 +23,14 @@
 - (id)copyWithTransform:(CGAffineTransform *)transform roundToViewScale:(BOOL)scale
 {
   v4 = *&transform->c;
-  v8[0] = *&transform->a;
-  v8[1] = v4;
-  v8[2] = *&transform->tx;
+  v9[0] = *&transform->a;
+  v9[1] = v4;
+  v9[2] = *&transform->tx;
   selfCopy = self;
-  v6 = sub_1C3CD898C(v8);
+  sub_1C3CD898C(v9);
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 @end

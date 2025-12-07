@@ -253,19 +253,19 @@ void __58__PKPaymentAuthorizationController_presentWithCompletion___block_invoke
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __58__PKPaymentAuthorizationController_presentWithCompletion___block_invoke_2(uint64_t a1)
+uint64_t __58__PKPaymentAuthorizationController_presentWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 48) & 1) == 0)
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      *v5 = 0;
-      _os_log_error_impl(&dword_1BD026000, v2, OS_LOG_TYPE_ERROR, "Connection to remote alert view service failed", v5, 2u);
+      *v6 = 0;
+      _os_log_error_impl(&dword_1BD026000, v3, OS_LOG_TYPE_ERROR, "Connection to remote alert view service failed", v6, 2u);
     }
 
-    v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69BBBC8] code:-1 userInfo:0];
-    [*(a1 + 32) paymentAuthorizationCoordinator:*(*(a1 + 32) + 24) willFinishWithError:v3];
+    v4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69BBBC8] code:-1 userInfo:0];
+    [*(a1 + 32) paymentAuthorizationCoordinator:*(*(a1 + 32) + 24) willFinishWithError:v4];
     [*(a1 + 32) paymentAuthorizationCoordinatorDidFinish:*(*(a1 + 32) + 24)];
   }
 

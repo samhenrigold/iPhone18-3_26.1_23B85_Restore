@@ -7,9 +7,7 @@
 - (id)description
 {
   v3 = [objc_opt_class() description];
-  identifier = self->_identifier;
-  blePSM = self->_blePSM;
-  v4 = NSPrintF();
+  v4 = NSPrintF("%@: ID %@, PSM 0x%X", v3, self->_identifier, self->_blePSM);
 
   return v4;
 }

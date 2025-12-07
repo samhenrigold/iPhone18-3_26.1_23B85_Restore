@@ -1,9 +1,12 @@
 @interface APSConnectionOffloader
+- (APSConnectionOffloader)initWithEnvironment:(id)environment cacheDictionary:(id)dictionary supportsKeepAliveV2:(BOOL)v2;
 - (APSConnectionOffloadingDelegate)offloadDelegate;
 - (APSOffloadMetricReporter)metricDelegate;
 - (BOOL)_establishTightbeamInterface;
 - (unsigned)APSInterfaceToAONInterface:(int64_t)interface;
 - (unsigned)PCAddressFamilyToAONAddressFamily:(int)family;
+- (void)_initializeKeepAliveStateMachine:(id)machine supportsKeepAliveV2:(BOOL)v2;
+- (void)connectionOffloadSever:(id)sever cacheKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth;
 - (void)offloadKeepAlive:(int64_t)alive;
 - (void)reportOffloadEvents:(const aonmicroapsd_telemetryeventrecord_v_s *)events droppedEvents:(aonmicroapsd_droppedtelemetryeventcount_s *)droppedEvents;
 - (void)sendAPOriginatedKeepAlive:(int64_t)alive;
@@ -11,6 +14,46 @@
 @end
 
 @implementation APSConnectionOffloader
+
+- (APSConnectionOffloader)initWithEnvironment:(id)environment cacheDictionary:(id)dictionary supportsKeepAliveV2:(BOOL)v2
+{
+  v2Copy = v2;
+  dictionaryCopy = dictionary;
+  if ([environment environmentType] == 1)
+  {
+    goto LABEL_9;
+  }
+
+  v13.receiver = self;
+  v13.super_class = APSConnectionOffloader;
+  v9 = [(APSConnectionOffloader *)&v13 init];
+  self = v9;
+  if (v9)
+  {
+    if ([(APSConnectionOffloader *)v9 _establishTightbeamInterface])
+    {
+      [(APSConnectionOffloader *)self _initializeKeepAliveStateMachine:dictionaryCopy supportsKeepAliveV2:v2Copy];
+      goto LABEL_5;
+    }
+
+    v11 = +[APSLog offloader];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_10010D8C8(self, v11);
+    }
+
+LABEL_9:
+    selfCopy = 0;
+    goto LABEL_10;
+  }
+
+LABEL_5:
+  self = self;
+  selfCopy = self;
+LABEL_10:
+
+  return selfCopy;
+}
 
 - (BOOL)_establishTightbeamInterface
 {
@@ -59,8 +102,7 @@ LABEL_11:
     return v8;
   }
 
-  [(APSConnectionOffloader *)self serverEndpoint];
-  sub_1000C4264(&self->_device);
+  sub_1000C4264(&self->_device, [(APSConnectionOffloader *)self serverEndpoint]);
   v10 = [[APSConnectionOffloadServer alloc] initWithServerEndpoint:[(APSConnectionOffloader *)self clientEndpoint]];
   v11 = v10;
   v8 = v10 != 0;
@@ -101,6 +143,67 @@ LABEL_11:
   return -1;
 }
 
+- (void)_initializeKeepAliveStateMachine:(id)machine supportsKeepAliveV2:(BOOL)v2
+{
+  v2Copy = v2;
+  machineCopy = machine;
+  v31 = 0;
+  v7 = PCIntervalCacheInInitialGrowthKey;
+  v8 = PCIntervalCacheKeepAliveIntervalKey;
+  v9 = 1;
+  v10 = &fputc_ptr;
+  v11 = &fputc_ptr;
+  v29 = machineCopy;
+  do
+  {
+    v28 = v9;
+    v30 = [(APSConnectionOffloader *)self APSInterfaceToAONInterface:v31];
+    v12 = 0;
+    v13 = 1;
+    do
+    {
+      v34 = v13;
+      v33 = [(APSConnectionOffloader *)self PCAddressFamilyToAONAddressFamily:v12];
+      v32 = [v10[376] stringForAddressFamily:v12];
+      [v11[341] numberWithInteger:v31];
+      v14 = v10;
+      v16 = v15 = v2Copy;
+      v17 = [machineCopy objectForKeyedSubscript:v16];
+      v18 = [v17 objectForKeyedSubscript:v32];
+
+      v19 = [v18 objectForKeyedSubscript:v7];
+      bOOLValue = [v19 BOOLValue];
+
+      v21 = [v18 objectForKeyedSubscript:v8];
+      v22 = v8;
+      selfCopy = self;
+      v24 = v7;
+      longValue = [v21 longValue];
+
+      v2Copy = v15;
+      v10 = v14;
+      v11 = &fputc_ptr;
+      v26 = longValue;
+      v7 = v24;
+      self = selfCopy;
+      v8 = v22;
+      v35 = v26;
+      v27 = bOOLValue;
+      machineCopy = v29;
+      sub_1000C3BD0(&self->_device.connection, v30, v33, v2Copy, v27, &v35, &stru_100189E00);
+
+      v13 = 0;
+      v12 = 1;
+    }
+
+    while ((v34 & 1) != 0);
+    v9 = 0;
+    v31 = 1;
+  }
+
+  while ((v28 & 1) != 0);
+}
+
 - (void)offloadKeepAlive:(int64_t)alive
 {
   v5 = [(APSConnectionOffloader *)self APSInterfaceToAONInterface:?];
@@ -115,7 +218,7 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: Offloading keep alive to AOP on interface %@", &v8, 0x16u);
   }
 
-  sub_1000C3DA8(&self->_device, v5);
+  sub_1000C3DA8(&self->_device.connection, v5, &stru_100189E20);
 }
 
 - (void)sendAPOriginatedKeepAlive:(int64_t)alive
@@ -132,7 +235,7 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: Forcing AP Keep Alive on interface %@", &v8, 0x16u);
   }
 
-  sub_1000C40F0(&self->_device, v5);
+  sub_1000C40F0(&self->_device.connection, v5, &stru_100189E40);
 }
 
 - (void)stopOffloading
@@ -142,21 +245,21 @@ LABEL_11:
   do
   {
     v5 = v4;
-    v6 = [(APSConnectionOffloader *)self APSInterfaceToAONInterface:v3, v11, v12, v13, v14, selfCopy, v16];
+    v6 = [(APSConnectionOffloader *)self APSInterfaceToAONInterface:v3];
     v7 = 0;
     v8 = 1;
     do
     {
       v9 = v8;
-      v10 = [(APSConnectionOffloader *)self PCAddressFamilyToAONAddressFamily:v7, v11, v12, v13, v14, selfCopy, v16];
-      v11 = _NSConcreteStackBlock;
-      v12 = 3221225472;
-      v13 = sub_1000BCBD8;
-      v14 = &unk_100189E68;
-      selfCopy = self;
-      BYTE4(v16) = v6;
-      LODWORD(v16) = v7;
-      sub_1000C3F1C(&self->_device, v6, v10);
+      v10 = [(APSConnectionOffloader *)self PCAddressFamilyToAONAddressFamily:v7];
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_1000BCBD8;
+      v11[3] = &unk_100189E68;
+      v11[4] = self;
+      v13 = v6;
+      v12 = v7;
+      sub_1000C3F1C(&self->_device.connection, v6, v10, v11);
       v8 = 0;
       v7 = 1;
     }
@@ -185,6 +288,13 @@ LABEL_11:
   [v6 handleFailureInMethod:a2 object:self file:@"APSConnectionOffloader.m" lineNumber:194 description:@"Unexpected interface"];
 
   return -1;
+}
+
+- (void)connectionOffloadSever:(id)sever cacheKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth
+{
+  growthCopy = growth;
+  offloadDelegate = [(APSConnectionOffloader *)self offloadDelegate];
+  [offloadDelegate connectionOffloader:self cacheKeepAliveInterval:growthCopy isInitialGrowth:interval];
 }
 
 - (void)reportOffloadEvents:(const aonmicroapsd_telemetryeventrecord_v_s *)events droppedEvents:(aonmicroapsd_droppedtelemetryeventcount_s *)droppedEvents

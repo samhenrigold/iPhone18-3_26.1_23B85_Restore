@@ -25,8 +25,10 @@
 - (void)barcodePaymentSession:(id)session didUpdateTransactionStatus:(unint64_t)status withTransaction:(id)transaction;
 - (void)handleAuthorize18013RequestWithDataToRelease:(id)release credential:(id)credential;
 - (void)handleBarcodePaymentPinCodeEntry:(id)entry;
+- (void)handleBarcodePaymentUserIntentionConfirmation:(BOOL)confirmation;
 - (void)handleContactlessPaymentInterfaceDidAppear;
 - (void)handleContactlessPaymentInterfaceDidDisappear;
+- (void)handleContactlessPaymentSession:(id)session authenticationExpected:(BOOL)expected;
 - (void)handleCredential:(id)credential;
 - (void)handleDidPresentPasscodeAuthentication;
 - (void)handleDoublePressReceivedAtDate:(id)date;
@@ -127,18 +129,99 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
   }
 }
 
+- (void)handleContactlessPaymentSession:(id)session authenticationExpected:(BOOL)expected
+{
+  expectedCopy = expected;
+  v29 = *MEMORY[0x277D85DE8];
+  sessionCopy = session;
+  v8 = pk_Payment_log(sessionCopy);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+
+  if (v9)
+  {
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v27 = 138412290;
+      v28 = sessionCopy;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling new contactless payment session: %@", &v27, 0xCu);
+    }
+  }
+
+  [(NPKContactlessPaymentSessionManager *)self _cleanupBarcodePaymentSession];
+  [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
+  objc_storeStrong(&self->_quickPaymentSession, session);
+  v13 = pk_Payment_log(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+
+  if (v14)
+  {
+    v16 = pk_Payment_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v27 = 138412290;
+      v28 = sessionCopy;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] did set new quick payment session: %@", &v27, 0xCu);
+    }
+  }
+
+  serviceModeRequestedPass = [(NPKContactlessPaymentSessionState *)self->_lastSessionState serviceModeRequestedPass];
+  uniqueID = [serviceModeRequestedPass uniqueID];
+  currentPass = [sessionCopy currentPass];
+  uniqueID2 = [currentPass uniqueID];
+  v21 = [uniqueID isEqualToString:uniqueID2];
+
+  if (v21)
+  {
+    [(NPKQuickPaymentSession *)self->_quickPaymentSession setInServiceMode:1];
+    [(NPKContactlessPaymentSessionManager *)self _handleServiceModeRequestEnded];
+  }
+
+  lastSessionState = self->_lastSessionState;
+  self->_lastSessionState = 0;
+
+  credential = self->_credential;
+  self->_credential = 0;
+
+  [sessionCopy setDelegate:self];
+  currentPass2 = [sessionCopy currentPass];
+  if (!currentPass2)
+  {
+    userSelectedPass = self->_userSelectedPass;
+    if (userSelectedPass)
+    {
+      currentPass2 = userSelectedPass;
+      [sessionCopy setCurrentPass:currentPass2];
+    }
+
+    else
+    {
+      currentPass2 = 0;
+    }
+  }
+
+  if (!self->_contactlessPaymentInterfaceVisible || (-[NPKContactlessPaymentSessionManager _startSessionTimerWithReason:](self, "_startSessionTimerWithReason:", 1), [sessionCopy confirmSessionExpectingCredential:expectedCopy], !self->_contactlessPaymentInterfaceVisible))
+  {
+    [(NPKContactlessPaymentSessionManager *)self _startSessionTimerWithReason:0];
+  }
+
+  _baseSessionStateForUpdate = [(NPKContactlessPaymentSessionManager *)self _baseSessionStateForUpdate];
+  [_baseSessionStateForUpdate setCurrentPass:currentPass2];
+  [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
+}
+
 - (void)handleDidPresentPasscodeAuthentication
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling did present passcode Authentication", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling did present passcode Authentication", v7, 2u);
     }
   }
 
@@ -147,16 +230,16 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
 
 - (void)handleContactlessPaymentInterfaceDidAppear
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling contactless payment interface did appear", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling contactless payment interface did appear", v7, 2u);
     }
   }
 
@@ -173,17 +256,17 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(quickPaymentSession);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = quickPaymentSession;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling contactless payment interface did disappear with session: %@", &v11, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling contactless payment interface did disappear with session: %@", &v11, 0xCu);
     }
   }
 
@@ -191,112 +274,107 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
   if (quickPaymentSession)
   {
     [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
-    v7 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
-    [v7 setCompletionReason:1];
-    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v7];
+    v8 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
+    [v8 setCompletionReason:1];
+    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v8];
   }
 
   barcodePaymentSession = [(NPKContactlessPaymentSessionManager *)self barcodePaymentSession];
   if (barcodePaymentSession)
   {
     [(NPKContactlessPaymentSessionManager *)self _cleanupBarcodePaymentSession];
-    v9 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
-    [v9 setCompletionReason:1];
-    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v9];
+    v10 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
+    [v10 setCompletionReason:1];
+    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCredential:(id)credential
 {
   v16 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(credentialCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       quickPaymentSession = self->_quickPaymentSession;
       v12 = 138412546;
       v13 = credentialCopy;
       v14 = 2112;
       v15 = quickPaymentSession;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling credential: %@ with quickPaymentSession:%@", &v12, 0x16u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling credential: %@ with quickPaymentSession:%@", &v12, 0x16u);
     }
   }
 
   credential = self->_credential;
   self->_credential = credentialCopy;
-  v10 = credentialCopy;
+  v11 = credentialCopy;
 
-  [(NPKQuickPaymentSession *)self->_quickPaymentSession setCredential:v10];
+  [(NPKQuickPaymentSession *)self->_quickPaymentSession setCredential:v11];
   if (self->_contactlessPaymentInterfaceVisible)
   {
     [(NPKContactlessPaymentSessionManager *)self _startSessionTimerWithReason:1];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserSelectedPass:(id)pass
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(passCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
-      v31 = 138412290;
-      v32 = uniqueID;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling user selected pass: %@", &v31, 0xCu);
+      v36 = 138412290;
+      v37 = uniqueID;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling user selected pass: %@", &v36, 0xCu);
     }
   }
 
   p_userSelectedPass = &self->_userSelectedPass;
-  [(PKPass *)self->_userSelectedPass isEqualToPassIncludingMetadata:passCopy];
-  v11 = pk_Payment_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log([(PKPass *)self->_userSelectedPass isEqualToPassIncludingMetadata:passCopy]);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v12)
+  if (v13)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID2 = [(PKPass *)*p_userSelectedPass uniqueID];
       uniqueID3 = [passCopy uniqueID];
-      v16 = NSStringFromBOOL();
-      v31 = 138412802;
-      v32 = uniqueID2;
-      v33 = 2112;
-      v34 = uniqueID3;
-      v35 = 2112;
-      v36 = v16;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Is previous user selected pass (%@) equal to new pass (%@)? %@", &v31, 0x20u);
+      v18 = NSStringFromBOOL();
+      v36 = 138412802;
+      v37 = uniqueID2;
+      v38 = 2112;
+      v39 = uniqueID3;
+      v40 = 2112;
+      v41 = v18;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Is previous user selected pass (%@) equal to new pass (%@)? %@", &v36, 0x20u);
     }
   }
 
   objc_storeStrong(&self->_userSelectedPass, pass);
   if (self->_quickPaymentSession)
   {
-    v17 = pk_Payment_log();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v20 = pk_Payment_log(v19);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-    if (v18)
+    if (v21)
     {
-      v19 = pk_Payment_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v23 = pk_Payment_log(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v31) = 0;
-        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Updating payment session with user selected pass", &v31, 2u);
+        LOWORD(v36) = 0;
+        _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Updating payment session with user selected pass", &v36, 2u);
       }
     }
 
@@ -304,27 +382,27 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
   }
 
   serviceModeRequestedPass = [(NPKContactlessPaymentSessionState *)self->_lastSessionState serviceModeRequestedPass];
-  v21 = serviceModeRequestedPass;
+  v25 = serviceModeRequestedPass;
   if (serviceModeRequestedPass)
   {
     uniqueID4 = [serviceModeRequestedPass uniqueID];
     uniqueID5 = [(PKPass *)*p_userSelectedPass uniqueID];
-    v24 = [uniqueID4 isEqualToString:uniqueID5];
+    v28 = [uniqueID4 isEqualToString:uniqueID5];
 
-    if ((v24 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
-      v25 = pk_Payment_log();
-      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+      v30 = pk_Payment_log(v29);
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-      if (v26)
+      if (v31)
       {
-        v27 = pk_Payment_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v33 = pk_Payment_log(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          uniqueID6 = [v21 uniqueID];
-          v31 = 138412290;
-          v32 = uniqueID6;
-          _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Clearing service mode requested pass %@", &v31, 0xCu);
+          uniqueID6 = [v25 uniqueID];
+          v36 = 138412290;
+          v37 = uniqueID6;
+          _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Clearing service mode requested pass %@", &v36, 0xCu);
         }
       }
 
@@ -334,25 +412,23 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
       [(NPKContactlessPaymentSessionManager *)self _handleServiceModeRequestEnded];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDoublePressReceivedAtDate:(id)date
 {
   v12 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(dateCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
       v11 = dateCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] handleDoublePressReceivedAtDate:%@", &v10, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] handleDoublePressReceivedAtDate:%@", &v10, 0xCu);
     }
   }
 
@@ -360,8 +436,6 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
   [_baseSessionStateForUpdate setDoublePressReceived:1];
   [_baseSessionStateForUpdate setDoublePressTimestamp:dateCopy];
   [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleServiceModeRequestedForPass:(id)pass
@@ -387,24 +461,24 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
 
 - (void)handleRKEActionRequestedForTileItem:(id)item pass:(id)pass completion:(id)completion
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   passCopy = pass;
   completionCopy = completion;
-  v11 = pk_Payment_log();
+  v11 = pk_Payment_log(completionCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412546;
-      v38 = itemCopy;
-      v39 = 2112;
-      v40 = uniqueID;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling tile requested for item: %@ pass: %@", buf, 0x16u);
+      v42 = itemCopy;
+      v43 = 2112;
+      v44 = uniqueID;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling tile requested for item: %@ pass: %@", buf, 0x16u);
     }
   }
 
@@ -413,33 +487,34 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
 
   if (type == 4)
   {
-    v35 = 0;
-    v36 = 0;
-    v34 = 0;
-    v17 = [(NPKContactlessPaymentSessionManager *)self _canHandleRKEActionForTileItem:itemCopy pass:passCopy outAction:&v36 outFunction:&v35 outError:&v34];
-    v18 = v36;
-    v19 = v35;
-    v20 = v34;
-    if (v20 || !v17)
+    v39 = 0;
+    v40 = 0;
+    v38 = 0;
+    v19 = [(NPKContactlessPaymentSessionManager *)self _canHandleRKEActionForTileItem:itemCopy pass:passCopy outAction:&v40 outFunction:&v39 outError:&v38];
+    v20 = v40;
+    v21 = v39;
+    v22 = v38;
+    v23 = v22;
+    if (v22 || !v19)
     {
-      v28 = pk_Payment_log();
-      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+      v32 = pk_Payment_log(v22);
+      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
 
-      if (v29)
+      if (v33)
       {
-        v30 = pk_Payment_log();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v35 = pk_Payment_log(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           uniqueID2 = [passCopy uniqueID];
           *buf = 138413058;
-          v38 = uniqueID2;
-          v39 = 2112;
-          v40 = v18;
-          v41 = 2112;
-          v42 = v19;
+          v42 = uniqueID2;
           v43 = 2112;
           v44 = v20;
-          _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Unable to handle RKE action for pass: %@ with action: %@ function: %@ error: %@", buf, 0x2Au);
+          v45 = 2112;
+          v46 = v21;
+          v47 = 2112;
+          v48 = v23;
+          _os_log_impl(&dword_25B300000, v35, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Unable to handle RKE action for pass: %@ with action: %@ function: %@ error: %@", buf, 0x2Au);
         }
       }
 
@@ -462,8 +537,8 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
     else
     {
       [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
-      v21 = [NPKQuickPaymentSession sessionWithQueue:MEMORY[0x277D85CD0]];
-      [(NPKContactlessPaymentSessionManager *)self setQuickPaymentSession:v21];
+      v24 = [NPKQuickPaymentSession sessionWithQueue:MEMORY[0x277D85CD0]];
+      [(NPKContactlessPaymentSessionManager *)self setQuickPaymentSession:v24];
 
       quickPaymentSession2 = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
       [quickPaymentSession2 setCurrentPass:passCopy];
@@ -472,77 +547,77 @@ void __43__NPKContactlessPaymentSessionManager_init__block_invoke(uint64_t a1)
       [quickPaymentSession3 setRequireFirstInQueue:0];
 
       quickPaymentSession4 = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
-      [(NPKContactlessPaymentSessionManager *)self _handleRKEActionRequestedForPass:passCopy action:v18 function:v19 withSession:quickPaymentSession4 completion:completionCopy];
+      [(NPKContactlessPaymentSessionManager *)self _handleRKEActionRequestedForPass:passCopy action:v20 function:v21 withSession:quickPaymentSession4 completion:completionCopy];
     }
 
 LABEL_21:
     goto LABEL_22;
   }
 
-  v25 = pk_Payment_log();
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+  v28 = pk_Payment_log(v18);
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
 
-  if (v26)
+  if (v29)
   {
-    v18 = pk_Payment_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = pk_Payment_log(v30);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       uniqueID3 = [passCopy uniqueID];
       *buf = 138412546;
-      v38 = itemCopy;
-      v39 = 2112;
-      v40 = uniqueID3;
-      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Asked to handle RKE action for unexpected item: %@ pass: %@; Aborting.", buf, 0x16u);
+      v42 = itemCopy;
+      v43 = 2112;
+      v44 = uniqueID3;
+      _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Asked to handle RKE action for unexpected item: %@ pass: %@; Aborting.", buf, 0x16u);
     }
 
     goto LABEL_21;
   }
 
 LABEL_22:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEndSessionRequestedForReason:(unint64_t)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
+  v6 = quickPaymentSession;
   if (quickPaymentSession)
   {
-    v6 = pk_Payment_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = pk_Payment_log(quickPaymentSession);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_Payment_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_Payment_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = quickPaymentSession;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling end quick payment session requested with session: %@", &v16, 0xCu);
+        v19 = 138412290;
+        v20 = v6;
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling end quick payment session requested with session: %@", &v19, 0xCu);
       }
     }
 
     [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
-    v9 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
-    [v9 setCompletionReason:reason];
-    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v9];
+    v11 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
+    [v11 setCompletionReason:reason];
+    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v11];
   }
 
   barcodePaymentSession = [(NPKContactlessPaymentSessionManager *)self barcodePaymentSession];
+  v13 = barcodePaymentSession;
   if (barcodePaymentSession)
   {
-    v11 = pk_Payment_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v14 = pk_Payment_log(barcodePaymentSession);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v15)
     {
-      v13 = pk_Payment_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = barcodePaymentSession;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling end barcode payment session requested with session: %@", &v16, 0xCu);
+        v19 = 138412290;
+        v20 = v13;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling end barcode payment session requested with session: %@", &v19, 0xCu);
       }
     }
 
@@ -550,8 +625,6 @@ LABEL_22:
     _sessionStateForUserCanceledBarcodeTransaction = [(NPKContactlessPaymentSessionManager *)self _sessionStateForUserCanceledBarcodeTransaction];
     [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_sessionStateForUserCanceledBarcodeTransaction];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleStandaloneTransactionWithAction:(unint64_t)action forPass:(id)pass
@@ -607,20 +680,20 @@ LABEL_22:
   transactionCopy = transaction;
   balancesCopy = balances;
   stateCopy = state;
-  v21 = pk_Payment_log();
+  v21 = pk_Payment_log(stateCopy);
   v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
   if (v22)
   {
-    v23 = pk_Payment_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = pk_Payment_log(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       v27 = NSStringFromNPKExpressTransactionStatus(status);
       [passCopy uniqueID];
       *buf = 138413570;
       v29 = v27;
       v31 = v30 = 2112;
-      v24 = v31;
+      v25 = v31;
       v32 = 2112;
       v33 = transactionsCopy;
       v34 = 2112;
@@ -629,31 +702,29 @@ LABEL_22:
       v37 = balancesCopy;
       v38 = 2112;
       v39 = stateCopy;
-      _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got express transaction status %@ for pass %@ concrete transactions %@ ephemeral transactions %@ mutatedBalances:%@ applet state %@", buf, 0x3Eu);
+      _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got express transaction status %@ for pass %@ concrete transactions %@ ephemeral transactions %@ mutatedBalances:%@ applet state %@", buf, 0x3Eu);
     }
   }
 
-  v25 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForExpressTransactionStatus:status pass:passCopy paymentApplication:applicationCopy concreteTransactions:transactionsCopy ephemeralTransaction:transactionCopy mutatedBalances:balancesCopy appletState:stateCopy];
-  [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v25];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v26 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForExpressTransactionStatus:status pass:passCopy paymentApplication:applicationCopy concreteTransactions:transactionsCopy ephemeralTransaction:transactionCopy mutatedBalances:balancesCopy appletState:stateCopy];
+  [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v26];
 }
 
 - (void)handleLocalAuthenticationError:(id)error
 {
   v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(errorCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412290;
       v13 = errorCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling local authentication error %@", &v12, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling local authentication error %@", &v12, 0xCu);
     }
   }
 
@@ -683,8 +754,6 @@ LABEL_9:
 
 LABEL_10:
   [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEndQuickPaymentSessionRequestedByUI
@@ -693,16 +762,16 @@ LABEL_10:
 
   if (quickPaymentSession)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling ending quick payment session requested by UI.", v10, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling ending quick payment session requested by UI.", v12, 2u);
       }
     }
 
@@ -712,18 +781,18 @@ LABEL_10:
     if (([paymentPass supportsBarcodePayment] & 1) == 0)
     {
       [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
-      v9 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
-      [v9 setCompletionReason:7];
-      [v9 setDoublePressReceived:0];
-      [v9 setSessionAuthorized:0];
-      [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v9];
+      v11 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
+      [v11 setCompletionReason:7];
+      [v11 setDoublePressReceived:0];
+      [v11 setSessionAuthorized:0];
+      [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v11];
     }
   }
 }
 
 - (void)handlePaymentBarcodeRequested
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   userSelectedPass = [(NPKContactlessPaymentSessionManager *)self userSelectedPass];
   paymentPass = [userSelectedPass paymentPass];
 
@@ -737,59 +806,57 @@ LABEL_10:
 
     barcodePaymentSession = [(NPKContactlessPaymentSessionManager *)self barcodePaymentSession];
 
-    v9 = pk_Payment_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = pk_Payment_log(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
     if (IsPersonalized && quickPaymentSession && !barcodePaymentSession)
     {
-      if (v10)
+      if (v11)
       {
-        v11 = pk_Payment_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = pk_Payment_log(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v18[0]) = 0;
-          _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Transitioning from quickPaymentSession into barcodePaymentSession.", v18, 2u);
+          LOWORD(v19[0]) = 0;
+          _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Transitioning from quickPaymentSession into barcodePaymentSession.", v19, 2u);
         }
       }
 
       [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
-      v12 = [NPKBarcodePaymentSession alloc];
+      v14 = [NPKBarcodePaymentSession alloc];
       credential = [(NPKContactlessPaymentSessionManager *)self credential];
-      v14 = [(NPKBarcodePaymentSession *)v12 initWithPaymentPass:paymentPass authorizationCredential:credential];
+      v16 = [(NPKBarcodePaymentSession *)v14 initWithPaymentPass:paymentPass authorizationCredential:credential];
 
-      [v14 setDelegate:self];
-      [v14 startSession];
-      [(NPKContactlessPaymentSessionManager *)self setBarcodePaymentSession:v14];
-      currentPaymentBarcode = [v14 currentPaymentBarcode];
-      v16 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForPaymentBarcode:currentPaymentBarcode];
+      [v16 setDelegate:self];
+      [v16 startSession];
+      [(NPKContactlessPaymentSessionManager *)self setBarcodePaymentSession:v16];
+      currentPaymentBarcode = [v16 currentPaymentBarcode];
+      v18 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForPaymentBarcode:currentPaymentBarcode];
 
-      [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v16];
+      [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v18];
     }
 
     else
     {
-      if (!v10)
+      if (!v11)
       {
         goto LABEL_14;
       }
 
-      v14 = pk_Payment_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18[0] = 67109632;
-        v18[1] = IsPersonalized != 0;
-        v19 = 1024;
-        v20 = quickPaymentSession != 0;
-        v21 = 1024;
-        v22 = barcodePaymentSession == 0;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Skip creating new barcodePaymentSession - isPersonalized: %d, hasQuickPaymentSession: %d, hasNoExistingBarcodePaymentSession: %d", v18, 0x14u);
+        v19[0] = 67109632;
+        v19[1] = IsPersonalized != 0;
+        v20 = 1024;
+        v21 = quickPaymentSession != 0;
+        v22 = 1024;
+        v23 = barcodePaymentSession == 0;
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Skip creating new barcodePaymentSession - isPersonalized: %d, hasQuickPaymentSession: %d, hasNoExistingBarcodePaymentSession: %d", v19, 0x14u);
       }
     }
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRetryLoadingPaymentBarcodeRequested
@@ -798,22 +865,29 @@ LABEL_14:
 
   if (barcodePaymentSession)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling retry loading paymentBarcode", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling retry loading paymentBarcode", v10, 2u);
       }
     }
 
     barcodePaymentSession2 = [(NPKContactlessPaymentSessionManager *)self barcodePaymentSession];
     [barcodePaymentSession2 retryFetchingBarcode];
   }
+}
+
+- (void)handleBarcodePaymentUserIntentionConfirmation:(BOOL)confirmation
+{
+  confirmationCopy = confirmation;
+  barcodePaymentSession = [(NPKContactlessPaymentSessionManager *)self barcodePaymentSession];
+  [barcodePaymentSession submitUserIntentionConfirmation:confirmationCopy];
 }
 
 - (void)handleBarcodePaymentPinCodeEntry:(id)entry
@@ -829,16 +903,16 @@ LABEL_14:
 
   if (barcodePaymentSession)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling ending barcode payment session requested by UI.", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling ending barcode payment session requested by UI.", v11, 2u);
       }
     }
 
@@ -895,16 +969,16 @@ LABEL_14:
 
   if (quickPaymentSession)
   {
-    v5 = pk_Payment_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = pk_Payment_log(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v7)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = pk_Payment_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling ending quick payment session requested by UI.", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling ending quick payment session requested by UI.", v13, 2u);
       }
     }
 
@@ -914,13 +988,13 @@ LABEL_14:
     if (([paymentPass supportsBarcodePayment] & 1) == 0)
     {
       [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
-      v10 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
-      [v10 setTransactionContext:v3];
-      [v10 setCompletionReason:7];
-      [v10 setFailureType:7];
-      [v10 setDoublePressReceived:0];
-      [v10 setSessionAuthorized:0];
-      [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v10];
+      v12 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
+      [v12 setTransactionContext:v3];
+      [v12 setCompletionReason:7];
+      [v12 setFailureType:7];
+      [v12 setDoublePressReceived:0];
+      [v12 setSessionAuthorized:0];
+      [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v12];
     }
   }
 }
@@ -1058,24 +1132,24 @@ LABEL_14:
 
 - (void)passesDataSource:(id)source didRemovePasses:(id)passes
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB98];
   v6 = [passes pk_arrayByApplyingBlock:&__block_literal_global_545];
   v7 = [v5 setWithArray:v6];
 
-  v8 = pk_Payment_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_Payment_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       allObjects = [v7 allObjects];
-      v12 = [allObjects componentsJoinedByString:{@", "}];
-      v31 = 138412290;
-      v32 = v12;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got removed unique IDs: %@", &v31, 0xCu);
+      v14 = [allObjects componentsJoinedByString:{@", "}];
+      v40 = 138412290;
+      v41 = v14;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got removed unique IDs: %@", &v40, 0xCu);
     }
   }
 
@@ -1083,101 +1157,107 @@ LABEL_14:
   currentPass = [quickPaymentSession currentPass];
   uniqueID = [currentPass uniqueID];
 
-  v16 = pk_Payment_log();
-  LODWORD(currentPass) = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  v19 = pk_Payment_log(v18);
+  LODWORD(currentPass) = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
   if (currentPass)
   {
-    v17 = pk_Payment_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v21 = pk_Payment_log(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 138412290;
-      v32 = uniqueID;
-      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Quick payment session pass unique ID is %@", &v31, 0xCu);
+      v40 = 138412290;
+      v41 = uniqueID;
+      _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Quick payment session pass unique ID is %@", &v40, 0xCu);
     }
   }
 
-  if (uniqueID && [v7 containsObject:uniqueID])
+  if (uniqueID)
   {
-    v18 = pk_Payment_log();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-
-    if (v19)
+    v22 = [v7 containsObject:uniqueID];
+    if (v22)
     {
-      v20 = pk_Payment_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v31) = 0;
-        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Clearing quick payment session current pass because it has been removed", &v31, 2u);
-      }
-    }
+      v23 = pk_Payment_log(v22);
+      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-    [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
-    v21 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
-    [v21 setCompletionReason:7];
-    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v21];
+      if (v24)
+      {
+        v26 = pk_Payment_log(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v40) = 0;
+          _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Clearing quick payment session current pass because it has been removed", &v40, 2u);
+        }
+      }
+
+      [(NPKContactlessPaymentSessionManager *)self _cleanupQuickPaymentSession];
+      v27 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:0];
+      [v27 setCompletionReason:7];
+      [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v27];
+    }
   }
 
   barcodePaymentSession = [(NPKContactlessPaymentSessionManager *)self barcodePaymentSession];
   paymentPass = [barcodePaymentSession paymentPass];
   uniqueID2 = [paymentPass uniqueID];
 
-  v25 = pk_Payment_log();
-  LODWORD(paymentPass) = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+  v32 = pk_Payment_log(v31);
+  LODWORD(paymentPass) = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
 
   if (paymentPass)
   {
-    v26 = pk_Payment_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v34 = pk_Payment_log(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 138412290;
-      v32 = uniqueID2;
-      _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Barcode payment session pass unique ID is %@", &v31, 0xCu);
+      v40 = 138412290;
+      v41 = uniqueID2;
+      _os_log_impl(&dword_25B300000, v34, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Barcode payment session pass unique ID is %@", &v40, 0xCu);
     }
   }
 
-  if (uniqueID2 && [v7 containsObject:uniqueID2])
+  if (uniqueID2)
   {
-    v27 = pk_Payment_log();
-    v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-
-    if (v28)
+    v35 = [v7 containsObject:uniqueID2];
+    if (v35)
     {
-      v29 = pk_Payment_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v36 = pk_Payment_log(v35);
+      v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+
+      if (v37)
       {
-        LOWORD(v31) = 0;
-        _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Tearing down barcode payment session because pass has been removed", &v31, 2u);
+        v39 = pk_Payment_log(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v40) = 0;
+          _os_log_impl(&dword_25B300000, v39, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Tearing down barcode payment session because pass has been removed", &v40, 2u);
+        }
       }
+
+      [(NPKContactlessPaymentSessionManager *)self _cleanupBarcodePaymentSession];
     }
-
-    [(NPKContactlessPaymentSessionManager *)self _cleanupBarcodePaymentSession];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)passesDataSource:(id)source didUpdatePasses:(id)passes
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   passesCopy = passes;
   v6 = MEMORY[0x277CBEB98];
   v7 = [passesCopy pk_arrayByApplyingBlock:&__block_literal_global_550];
   v8 = [v6 setWithArray:v7];
 
-  v9 = pk_Payment_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = pk_Payment_log(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v11)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       allObjects = [v8 allObjects];
-      v13 = [allObjects componentsJoinedByString:{@", "}];
+      v15 = [allObjects componentsJoinedByString:{@", "}];
       *buf = 138412290;
-      v55 = v13;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got updated unique IDs: %@", buf, 0xCu);
+      v67 = v15;
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got updated unique IDs: %@", buf, 0xCu);
     }
   }
 
@@ -1185,44 +1265,44 @@ LABEL_14:
   currentPass = [quickPaymentSession currentPass];
   uniqueID = [currentPass uniqueID];
 
-  v17 = pk_Payment_log();
-  LODWORD(currentPass) = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v20 = pk_Payment_log(v19);
+  LODWORD(currentPass) = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
   if (currentPass)
   {
-    v18 = pk_Payment_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v22 = pk_Payment_log(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v55 = uniqueID;
-      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Quick payment session pass unique ID is %@", buf, 0xCu);
+      v67 = uniqueID;
+      _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Quick payment session pass unique ID is %@", buf, 0xCu);
     }
   }
 
   if (uniqueID && [v8 containsObject:uniqueID])
   {
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePasses___block_invoke_551;
-    v52[3] = &unk_279946E00;
-    v53 = uniqueID;
-    v19 = [passesCopy pk_objectsPassingTest:v52];
-    firstObject = [v19 firstObject];
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePasses___block_invoke_551;
+    v64[3] = &unk_279946E00;
+    v65 = uniqueID;
+    v23 = [passesCopy pk_objectsPassingTest:v64];
+    firstObject = [v23 firstObject];
 
     if (firstObject)
     {
-      v21 = pk_Payment_log();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+      v26 = pk_Payment_log(v25);
+      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
 
-      if (v22)
+      if (v27)
       {
-        v23 = pk_Payment_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v29 = pk_Payment_log(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           uniqueID2 = [firstObject uniqueID];
           *buf = 138412290;
-          v55 = uniqueID2;
-          _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Setting updated payment session pass with unique ID %@", buf, 0xCu);
+          v67 = uniqueID2;
+          _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Setting updated payment session pass with unique ID %@", buf, 0xCu);
         }
       }
 
@@ -1232,44 +1312,44 @@ LABEL_14:
   }
 
   uniqueID3 = [(PKPass *)self->_userSelectedPass uniqueID];
-  v27 = pk_Payment_log();
-  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+  v33 = pk_Payment_log(uniqueID3);
+  v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
 
-  if (v28)
+  if (v34)
   {
-    v29 = pk_Payment_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v36 = pk_Payment_log(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v55 = uniqueID3;
-      _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] User selected pass unique ID is %@", buf, 0xCu);
+      v67 = uniqueID3;
+      _os_log_impl(&dword_25B300000, v36, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] User selected pass unique ID is %@", buf, 0xCu);
     }
   }
 
   if (uniqueID3 && [v8 containsObject:uniqueID3])
   {
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePasses___block_invoke_553;
-    v51[3] = &unk_279946E00;
-    v51[4] = self;
-    v30 = [passesCopy pk_objectsPassingTest:v51];
-    firstObject2 = [v30 firstObject];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePasses___block_invoke_553;
+    v63[3] = &unk_279946E00;
+    v63[4] = self;
+    v37 = [passesCopy pk_objectsPassingTest:v63];
+    firstObject2 = [v37 firstObject];
 
     if (firstObject2)
     {
-      v32 = pk_Payment_log();
-      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+      v40 = pk_Payment_log(v39);
+      v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
 
-      if (v33)
+      if (v41)
       {
-        v34 = pk_Payment_log();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v43 = pk_Payment_log(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           uniqueID4 = [firstObject2 uniqueID];
           *buf = 138412290;
-          v55 = uniqueID4;
-          _os_log_impl(&dword_25B300000, v34, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Setting updated user selected pass with unique ID %@", buf, 0xCu);
+          v67 = uniqueID4;
+          _os_log_impl(&dword_25B300000, v43, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Setting updated user selected pass with unique ID %@", buf, 0xCu);
         }
       }
 
@@ -1281,54 +1361,52 @@ LABEL_14:
   paymentPass = [barcodePaymentSession paymentPass];
   uniqueID5 = [paymentPass uniqueID];
 
-  v39 = pk_Payment_log();
-  LODWORD(paymentPass) = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
+  v49 = pk_Payment_log(v48);
+  LODWORD(paymentPass) = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
 
   if (paymentPass)
   {
-    v40 = pk_Payment_log();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v51 = pk_Payment_log(v50);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v55 = uniqueID5;
-      _os_log_impl(&dword_25B300000, v40, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Barcode payment session pass unique ID is %@", buf, 0xCu);
+      v67 = uniqueID5;
+      _os_log_impl(&dword_25B300000, v51, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Barcode payment session pass unique ID is %@", buf, 0xCu);
     }
   }
 
   if (uniqueID5 && [v8 containsObject:uniqueID5])
   {
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePasses___block_invoke_554;
-    v49[3] = &unk_279946E00;
-    v50 = uniqueID;
-    v41 = [passesCopy pk_objectsPassingTest:v49];
-    firstObject3 = [v41 firstObject];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePasses___block_invoke_554;
+    v61[3] = &unk_279946E00;
+    v62 = uniqueID;
+    v52 = [passesCopy pk_objectsPassingTest:v61];
+    firstObject3 = [v52 firstObject];
 
     secureElementPass = [firstObject3 secureElementPass];
     passActivationState = [secureElementPass passActivationState];
 
     if (passActivationState)
     {
-      v45 = pk_Payment_log();
-      v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
+      v57 = pk_Payment_log(v56);
+      v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT);
 
-      if (v46)
+      if (v58)
       {
-        v47 = pk_Payment_log();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v60 = pk_Payment_log(v59);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v55 = passActivationState;
-          _os_log_impl(&dword_25B300000, v47, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Tearing down barcode payment session because updated pass is not activated (state %lu)", buf, 0xCu);
+          v67 = passActivationState;
+          _os_log_impl(&dword_25B300000, v60, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Tearing down barcode payment session because updated pass is not activated (state %lu)", buf, 0xCu);
         }
       }
 
       [(NPKContactlessPaymentSessionManager *)self _cleanupBarcodePaymentSession];
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePasses___block_invoke_551(uint64_t a1, void *a2)
@@ -1358,18 +1436,18 @@ uint64_t __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePas
 
 - (void)passesDataSourceDidReloadPasses:(id)passes
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   passesCopy = passes;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(passesCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v47) = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got passes reloaded", &v47, 2u);
+      LOWORD(v55) = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Got passes reloaded", &v55, 2u);
     }
   }
 
@@ -1377,75 +1455,76 @@ uint64_t __72__NPKContactlessPaymentSessionManager_passesDataSource_didUpdatePas
   currentPass = [quickPaymentSession currentPass];
 
   uniqueID = [currentPass uniqueID];
-  v11 = pk_Payment_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log(uniqueID);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v12)
+  if (v13)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = 138412290;
-      v48 = uniqueID;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Quick payment session pass unique ID is %@", &v47, 0xCu);
+      v55 = 138412290;
+      v56 = uniqueID;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Quick payment session pass unique ID is %@", &v55, 0xCu);
     }
   }
 
   if (uniqueID)
   {
-    v14 = [passesCopy passForUniqueID:uniqueID];
-    v15 = v14;
-    if (v14)
+    v16 = [passesCopy passForUniqueID:uniqueID];
+    v17 = v16;
+    if (v16)
     {
-      if ([v14 isEqualToPassIncludingMetadata:currentPass])
+      v18 = [v16 isEqualToPassIncludingMetadata:currentPass];
+      if (v18)
       {
         goto LABEL_24;
       }
 
-      v16 = pk_Payment_log();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      v19 = pk_Payment_log(v18);
+      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-      if (v17)
+      if (v20)
       {
-        v18 = pk_Payment_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v22 = pk_Payment_log(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          uniqueID2 = [v15 uniqueID];
-          v47 = 138412290;
-          v48 = uniqueID2;
-          _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Setting reloaded pass for unique ID %@", &v47, 0xCu);
+          uniqueID2 = [v17 uniqueID];
+          v55 = 138412290;
+          v56 = uniqueID2;
+          _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Setting reloaded pass for unique ID %@", &v55, 0xCu);
         }
       }
 
       quickPaymentSession2 = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
-      [quickPaymentSession2 setCurrentPass:v15];
+      [quickPaymentSession2 setCurrentPass:v17];
 
       uniqueID3 = [(PKPass *)self->_userSelectedPass uniqueID];
-      uniqueID4 = [v15 uniqueID];
-      v23 = [uniqueID3 isEqualToString:uniqueID4];
+      uniqueID4 = [v17 uniqueID];
+      v27 = [uniqueID3 isEqualToString:uniqueID4];
 
-      if (!v23)
+      if (!v27)
       {
         goto LABEL_24;
       }
 
-      v24 = v15;
+      v28 = v17;
       userSelectedPass = self->_userSelectedPass;
-      self->_userSelectedPass = v24;
+      self->_userSelectedPass = v28;
     }
 
     else
     {
-      v26 = pk_Payment_log();
-      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+      v30 = pk_Payment_log(0);
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-      if (v27)
+      if (v31)
       {
-        v28 = pk_Payment_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v33 = pk_Payment_log(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v47) = 0;
-          _os_log_impl(&dword_25B300000, v28, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Clearing quick payment session current pass because it has been removed", &v47, 2u);
+          LOWORD(v55) = 0;
+          _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Clearing quick payment session current pass because it has been removed", &v55, 2u);
         }
       }
 
@@ -1460,53 +1539,53 @@ LABEL_24:
   paymentPass = [barcodePaymentSession paymentPass];
   uniqueID5 = [paymentPass uniqueID];
 
-  v32 = pk_Payment_log();
-  LODWORD(paymentPass) = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+  v38 = pk_Payment_log(v37);
+  LODWORD(paymentPass) = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
 
   if (paymentPass)
   {
-    v33 = pk_Payment_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v40 = pk_Payment_log(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = 138412290;
-      v48 = uniqueID5;
-      _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Barcode payment session pass unique ID is %@", &v47, 0xCu);
+      v55 = 138412290;
+      v56 = uniqueID5;
+      _os_log_impl(&dword_25B300000, v40, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Barcode payment session pass unique ID is %@", &v55, 0xCu);
     }
   }
 
   if (uniqueID5)
   {
-    v34 = [passesCopy passForUniqueID:uniqueID5];
-    v35 = pk_Payment_log();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+    v41 = [passesCopy passForUniqueID:uniqueID5];
+    v42 = pk_Payment_log(v41);
+    v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
 
-    if (v36)
+    if (v43)
     {
-      v37 = pk_Payment_log();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v45 = pk_Payment_log(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        secureElementPass = [v34 secureElementPass];
+        secureElementPass = [v41 secureElementPass];
         passActivationState = [secureElementPass passActivationState];
-        v47 = 138412546;
-        v48 = v34;
-        v49 = 2048;
-        v50 = passActivationState;
-        _os_log_impl(&dword_25B300000, v37, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Reloaded barcode payment pass is %@ (state %lu)", &v47, 0x16u);
+        v55 = 138412546;
+        v56 = v41;
+        v57 = 2048;
+        v58 = passActivationState;
+        _os_log_impl(&dword_25B300000, v45, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Reloaded barcode payment pass is %@ (state %lu)", &v55, 0x16u);
       }
     }
 
-    if (!v34 || ([v34 secureElementPass], v40 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend(v40, "passActivationState"), v40, v41))
+    if (!v41 || ([v41 secureElementPass], v48 = objc_claimAutoreleasedReturnValue(), v49 = objc_msgSend(v48, "passActivationState"), v48, v49))
     {
-      v42 = pk_Payment_log();
-      v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
+      v50 = pk_Payment_log(v44);
+      v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT);
 
-      if (v43)
+      if (v51)
       {
-        v44 = pk_Payment_log();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v53 = pk_Payment_log(v52);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v47) = 0;
-          _os_log_impl(&dword_25B300000, v44, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Tearing down barcode payment session because updated pass no longer exists or is not activated", &v47, 2u);
+          LOWORD(v55) = 0;
+          _os_log_impl(&dword_25B300000, v53, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Tearing down barcode payment session because updated pass no longer exists or is not activated", &v55, 2u);
         }
       }
 
@@ -1514,8 +1593,6 @@ LABEL_24:
       [barcodePaymentSession2 invalidateSession];
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer withRelativePriority:(unint64_t)priority
@@ -1552,37 +1629,35 @@ LABEL_24:
 {
   v16 = *MEMORY[0x277D85DE8];
   currentCopy = current;
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(currentCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [currentCopy uniqueID];
       v14 = 138412290;
       v15 = uniqueID;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] New current pass from payment session: %@", &v14, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] New current pass from payment session: %@", &v14, 0xCu);
     }
   }
 
   _baseSessionStateForUpdate = [(NPKContactlessPaymentSessionManager *)self _baseSessionStateForUpdate];
   [_baseSessionStateForUpdate setCurrentPass:currentCopy];
-  v12 = 1;
+  v13 = 1;
   if ([currentCopy passType] != 1 || (objc_msgSend(_baseSessionStateForUpdate, "doublePressReceived") & 1) == 0)
   {
-    if (![currentCopy npkHasValidNFCPayload] || (-[NPKContactlessPaymentSessionManager quickPaymentSession](self, "quickPaymentSession"), v11 = objc_claimAutoreleasedReturnValue(), v11, !v11))
+    if (![currentCopy npkHasValidNFCPayload] || (-[NPKContactlessPaymentSessionManager quickPaymentSession](self, "quickPaymentSession"), v12 = objc_claimAutoreleasedReturnValue(), v12, !v12))
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
-  [_baseSessionStateForUpdate setPassActivating:v12];
+  [_baseSessionStateForUpdate setPassActivating:v13];
   [_baseSessionStateForUpdate setContactlessInterfaceReady:0];
   [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)paymentSession:(id)session willActivatePass:(id)pass
@@ -1590,99 +1665,99 @@ LABEL_24:
   v68 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   passCopy = pass;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(passCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v67 = uniqueID;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session will activate pass: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session will activate pass: %@", buf, 0xCu);
     }
   }
 
   kdebug_trace();
   if ([passCopy style] != 8)
   {
-    v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v12 setObject:*MEMORY[0x277D38468] forKeyedSubscript:*MEMORY[0x277D383D8]];
-    [v12 setObject:*MEMORY[0x277D384C0] forKeyedSubscript:*MEMORY[0x277D384B8]];
-    v13 = v12;
-    v14 = passCopy;
-    v15 = v14;
-    if (!v14 || !v13)
+    v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v13 setObject:*MEMORY[0x277D38468] forKeyedSubscript:*MEMORY[0x277D383D8]];
+    [v13 setObject:*MEMORY[0x277D384C0] forKeyedSubscript:*MEMORY[0x277D384B8]];
+    v14 = v13;
+    v15 = passCopy;
+    v16 = v15;
+    if (!v15 || !v14)
     {
 LABEL_76:
 
-      v56 = MEMORY[0x277D37D28];
+      v57 = MEMORY[0x277D37D28];
       v65 = *MEMORY[0x277D38558];
-      v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
-      [v56 subjects:v57 sendEvent:v13];
+      v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+      [v57 subjects:v58 sendEvent:v14];
 
       goto LABEL_77;
     }
 
-    passType = [v14 passType];
-    v17 = MEMORY[0x277D38530];
+    passType = [v15 passType];
+    v18 = MEMORY[0x277D38530];
     if ((passType + 1) >= 3)
     {
-      v18 = *MEMORY[0x277D38530];
+      v19 = *MEMORY[0x277D38530];
     }
 
     else
     {
-      v18 = off_2799470B8[passType + 1];
+      v19 = off_2799470B8[passType + 1];
     }
 
-    [v13 setObject:v18 forKeyedSubscript:*MEMORY[0x277D384F0]];
+    [v14 setObject:v19 forKeyedSubscript:*MEMORY[0x277D384F0]];
 
-    style = [v15 style];
-    secureElementPass = [v15 secureElementPass];
+    style = [v16 style];
+    secureElementPass = [v16 secureElementPass];
     isIdentityPass = [secureElementPass isIdentityPass];
 
     if (isIdentityPass)
     {
-      v22 = @"identity";
+      v23 = @"identity";
     }
 
     else if (style < 0xE && ((0x27FFu >> style) & 1) != 0)
     {
-      v22 = off_2799470D0[style];
+      v23 = off_2799470D0[style];
     }
 
     else
     {
-      v22 = *v17;
+      v23 = *v18;
     }
 
-    [v13 setObject:v22 forKeyedSubscript:*MEMORY[0x277D384E8]];
+    [v14 setObject:v23 forKeyedSubscript:*MEMORY[0x277D384E8]];
 
-    nfcPayload = [v15 nfcPayload];
-    v24 = PKAnalyticsReportSwitchToggleResultValue();
-    [v13 setObject:v24 forKeyedSubscript:*MEMORY[0x277D384C8]];
+    nfcPayload = [v16 nfcPayload];
+    v25 = PKAnalyticsReportSwitchToggleResultValue();
+    [v14 setObject:v25 forKeyedSubscript:*MEMORY[0x277D384C8]];
 
-    v25 = v15;
-    if ([v25 passType] == 1)
+    v26 = v16;
+    if ([v26 passType] == 1)
     {
-      secureElementPass2 = [v25 secureElementPass];
+      secureElementPass2 = [v26 secureElementPass];
       cardType = [secureElementPass2 cardType];
       if (cardType <= 4)
       {
-        v24 = **(&unk_279947140 + cardType);
+        v25 = **(&unk_279947140 + cardType);
       }
     }
 
     else
     {
-      v24 = @"other";
+      v25 = @"other";
     }
 
-    [v13 setObject:v24 forKeyedSubscript:*MEMORY[0x277D384E0]];
-    secureElementPass3 = [v25 secureElementPass];
+    [v14 setObject:v25 forKeyedSubscript:*MEMORY[0x277D384E0]];
+    secureElementPass3 = [v26 secureElementPass];
     if ([secureElementPass3 isIdentityPass])
     {
       identityType = [secureElementPass3 identityType];
@@ -1690,13 +1765,13 @@ LABEL_76:
       {
         if (identityType == 1)
         {
-          v30 = MEMORY[0x277D383A0];
+          v31 = MEMORY[0x277D383A0];
           goto LABEL_43;
         }
 
         if (identityType == 2)
         {
-          v30 = MEMORY[0x277D38518];
+          v31 = MEMORY[0x277D38518];
           goto LABEL_43;
         }
       }
@@ -1708,21 +1783,21 @@ LABEL_76:
           case 3:
             goto LABEL_27;
           case 4:
-            v30 = MEMORY[0x277D38488];
+            v31 = MEMORY[0x277D38488];
             goto LABEL_43;
           case 5:
 LABEL_27:
-            v30 = MEMORY[0x277D384F8];
+            v31 = MEMORY[0x277D384F8];
 LABEL_43:
-            v35 = *v30;
+            v36 = *v31;
             goto LABEL_44;
         }
       }
 
 LABEL_36:
-      v35 = *v17;
+      v36 = *v18;
 LABEL_44:
-      v34 = v35;
+      v35 = v36;
       goto LABEL_57;
     }
 
@@ -1733,53 +1808,53 @@ LABEL_44:
 
     accessType = [secureElementPass3 accessType];
     accessReportingType = [secureElementPass3 accessReportingType];
-    v33 = accessReportingType;
+    v34 = accessReportingType;
     if (accessType <= 2)
     {
       switch(accessType)
       {
         case 0:
-          v36 = @"general";
+          v37 = @"general";
           if (accessReportingType)
           {
-            v36 = accessReportingType;
+            v37 = accessReportingType;
           }
 
           goto LABEL_52;
         case 1:
-          v34 = @"hospitality";
+          v35 = @"hospitality";
           goto LABEL_56;
         case 2:
-          v34 = @"corporate";
+          v35 = @"corporate";
 LABEL_56:
 
 LABEL_57:
-          [v13 setObject:v34 forKeyedSubscript:*MEMORY[0x277D384D8]];
+          [v14 setObject:v35 forKeyedSubscript:*MEMORY[0x277D384D8]];
 
-          secureElementPass4 = [v25 secureElementPass];
+          secureElementPass4 = [v26 secureElementPass];
           devicePaymentApplications = [secureElementPass4 devicePaymentApplications];
           [devicePaymentApplications count];
 
-          v39 = PKAnalyticsReportSwitchToggleResultValue();
+          v40 = PKAnalyticsReportSwitchToggleResultValue();
 
-          [v13 setObject:v39 forKeyedSubscript:*MEMORY[0x277D38398]];
-          secureElementPass5 = [v25 secureElementPass];
-          v41 = *v17;
+          [v14 setObject:v40 forKeyedSubscript:*MEMORY[0x277D38398]];
+          secureElementPass5 = [v26 secureElementPass];
+          v42 = *v18;
           organizationName = [secureElementPass5 organizationName];
           if ([organizationName length])
           {
             cardType2 = [secureElementPass5 cardType];
             if (cardType2 <= 4 && ((1 << cardType2) & 0x16) != 0)
             {
-              v44 = organizationName;
+              v45 = organizationName;
 
-              v41 = v44;
+              v42 = v45;
             }
           }
 
-          [v13 setObject:v41 forKeyedSubscript:*MEMORY[0x277D38490]];
-          secureElementPass6 = [v25 secureElementPass];
-          v46 = secureElementPass6;
+          [v14 setObject:v42 forKeyedSubscript:*MEMORY[0x277D38490]];
+          secureElementPass6 = [v26 secureElementPass];
+          v47 = secureElementPass6;
           if (secureElementPass6)
           {
             v60 = sessionCopy;
@@ -1787,36 +1862,36 @@ LABEL_57:
             v61 = 0u;
             v62 = 0u;
             v63 = 0u;
-            v47 = v64 = 0u;
-            v48 = [v47 countByEnumeratingWithState:&v61 objects:buf count:16];
+            v48 = v64 = 0u;
+            v49 = [v48 countByEnumeratingWithState:&v61 objects:buf count:16];
             selfCopy = self;
-            if (v48)
+            if (v49)
             {
-              v49 = v48;
+              v50 = v49;
               paymentType = 0;
-              v51 = *v62;
+              v52 = *v62;
               while (2)
               {
-                for (i = 0; i != v49; ++i)
+                for (i = 0; i != v50; ++i)
                 {
-                  if (*v62 != v51)
+                  if (*v62 != v52)
                   {
-                    objc_enumerationMutation(v47);
+                    objc_enumerationMutation(v48);
                   }
 
-                  v53 = *(*(&v61 + 1) + 8 * i);
+                  v54 = *(*(&v61 + 1) + 8 * i);
                   if (paymentType && paymentType != [*(*(&v61 + 1) + 8 * i) paymentType])
                   {
 
-                    v54 = @"multiple";
+                    v55 = @"multiple";
                     goto LABEL_74;
                   }
 
-                  paymentType = [v53 paymentType];
+                  paymentType = [v54 paymentType];
                 }
 
-                v49 = [v47 countByEnumeratingWithState:&v61 objects:buf count:16];
-                if (v49)
+                v50 = [v48 countByEnumeratingWithState:&v61 objects:buf count:16];
+                if (v50)
                 {
                   continue;
                 }
@@ -1825,12 +1900,12 @@ LABEL_57:
               }
             }
 
-            v54 = PKPaymentMethodTypeToString();
+            v55 = PKPaymentMethodTypeToString();
 LABEL_74:
 
-            [v13 setObject:v54 forKeyedSubscript:*MEMORY[0x277D38508]];
-            issuerCountryCode = [v46 issuerCountryCode];
-            [v13 setObject:issuerCountryCode forKeyedSubscript:*MEMORY[0x277D384D0]];
+            [v14 setObject:v55 forKeyedSubscript:*MEMORY[0x277D38508]];
+            issuerCountryCode = [v47 issuerCountryCode];
+            [v14 setObject:issuerCountryCode forKeyedSubscript:*MEMORY[0x277D384D0]];
 
             self = selfCopy;
             sessionCopy = v60;
@@ -1846,12 +1921,12 @@ LABEL_74:
       {
         if (accessType == 3)
         {
-          v34 = @"singlefamily";
+          v35 = @"singlefamily";
         }
 
         else
         {
-          v34 = @"cars";
+          v35 = @"cars";
         }
 
         goto LABEL_56;
@@ -1859,45 +1934,43 @@ LABEL_74:
 
       if (accessType == 5)
       {
-        v34 = @"multifamily";
+        v35 = @"multifamily";
         goto LABEL_56;
       }
 
       if (accessType == 6)
       {
-        v34 = @"urbanmobility";
+        v35 = @"urbanmobility";
         goto LABEL_56;
       }
     }
 
-    v36 = *v17;
+    v37 = *v18;
 LABEL_52:
-    v34 = v36;
+    v35 = v37;
     goto LABEL_56;
   }
 
 LABEL_77:
   [(NPKContactlessPaymentSessionManager *)self paymentSession:sessionCopy didMakePassCurrent:passCopy, selfCopy];
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)paymentSession:(id)session didActivatePass:(id)pass
 {
   v14 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(passCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       v12 = 138412290;
       v13 = uniqueID;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session did activate pass: %@", &v12, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session did activate pass: %@", &v12, 0xCu);
     }
   }
 
@@ -1912,24 +1985,22 @@ LABEL_77:
   [_baseSessionStateForUpdate setPassActivating:0];
   [_baseSessionStateForUpdate setContactlessInterfaceReady:1];
   [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)paymentSession:(id)session didFailTransactionForPass:(id)pass withValueAddedServiceTransactions:(id)transactions forValueAddedServicePasses:(id)passes
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   passCopy = pass;
   transactionsCopy = transactions;
   passesCopy = passes;
-  v14 = pk_Payment_log();
+  v14 = pk_Payment_log(passesCopy);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
   if (v15)
   {
-    v16 = pk_Payment_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_Payment_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
       *buf = 138412802;
@@ -1937,24 +2008,25 @@ LABEL_77:
       *&buf[12] = 2112;
       *&buf[14] = quickPaymentSession;
       *&buf[22] = 2112;
-      v38 = passCopy;
-      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session %@ (current %@) failed (VAS) transaction for pass %@", buf, 0x20u);
+      v42 = passCopy;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session %@ (current %@) failed (VAS) transaction for pass %@", buf, 0x20u);
     }
   }
 
   if (transactionsCopy)
   {
-    v32 = 0;
-    [(NPKContactlessPaymentSessionManager *)self _handleValueAddedServiceTransactions:transactionsCopy forValueAddedServicePasses:passesCopy paymentTransaction:0 outUserInterventionRequiredPasses:&v32];
-    v18 = v32;
+    v36 = 0;
+    [(NPKContactlessPaymentSessionManager *)self _handleValueAddedServiceTransactions:transactionsCopy forValueAddedServicePasses:passesCopy paymentTransaction:0 outUserInterventionRequiredPasses:&v36];
+    v19 = v36;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  if (![v18 count])
+  v20 = [v19 count];
+  if (!v20)
   {
     if (![transactionsCopy count])
     {
@@ -1964,30 +2036,30 @@ LABEL_77:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v38) = 1;
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __141__NPKContactlessPaymentSessionManager_paymentSession_didFailTransactionForPass_withValueAddedServiceTransactions_forValueAddedServicePasses___block_invoke;
-    v31[3] = &unk_279946E28;
-    v31[4] = buf;
-    [transactionsCopy enumerateObjectsUsingBlock:v31];
+    LOBYTE(v42) = 1;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __141__NPKContactlessPaymentSessionManager_paymentSession_didFailTransactionForPass_withValueAddedServiceTransactions_forValueAddedServicePasses___block_invoke;
+    v35[3] = &unk_279946E28;
+    v35[4] = buf;
+    [transactionsCopy enumerateObjectsUsingBlock:v35];
     quickPaymentSession2 = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
     currentPass = [quickPaymentSession2 currentPass];
 
-    v24 = pk_Payment_log();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+    v28 = pk_Payment_log(v27);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
-    if (v25)
+    if (v29)
     {
-      v26 = pk_Payment_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v31 = pk_Payment_log(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         style = [currentPass style];
-        *v33 = 138412546;
-        v34 = currentPass;
-        v35 = 1024;
-        v36 = style;
-        _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] current pass unique ID is %@ style %d", v33, 0x12u);
+        *v37 = 138412546;
+        v38 = currentPass;
+        v39 = 1024;
+        v40 = style;
+        _os_log_impl(&dword_25B300000, v31, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] current pass unique ID is %@ style %d", v37, 0x12u);
       }
     }
 
@@ -1996,7 +2068,7 @@ LABEL_77:
     [_baseSessionStateForUpdate setContactlessInterfaceReady:1];
     if ([currentPass passType] == 1 && (*(*&buf[8] + 24) & 1) != 0)
     {
-      v29 = 4;
+      v34 = 4;
     }
 
     else
@@ -2010,33 +2082,31 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      v29 = 2;
+      v34 = 2;
     }
 
-    [_baseSessionStateForUpdate setFailureType:v29];
+    [_baseSessionStateForUpdate setFailureType:v34];
     goto LABEL_24;
   }
 
-  v19 = pk_Payment_log();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+  v21 = pk_Payment_log(v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-  if (v20)
+  if (v22)
   {
-    v21 = pk_Payment_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = pk_Payment_log(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *&buf[4] = v18;
-      _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Got user intervention required passes %@", buf, 0xCu);
+      *&buf[4] = v19;
+      _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Got user intervention required passes %@", buf, 0xCu);
     }
   }
 
 LABEL_25:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __141__NPKContactlessPaymentSessionManager_paymentSession_didFailTransactionForPass_withValueAddedServiceTransactions_forValueAddedServicePasses___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__141__NPKContactlessPaymentSessionManager_paymentSession_didFailTransactionForPass_withValueAddedServiceTransactions_forValueAddedServicePasses___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 terminalMode];
   if (result != 2)
@@ -2050,26 +2120,26 @@ uint64_t __141__NPKContactlessPaymentSessionManager_paymentSession_didFailTransa
 
 - (void)paymentSession:(id)session didCompleteTransactionForReason:(unint64_t)reason withTransactionContext:(id)context shouldCleanupSession:(BOOL)cleanupSession
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   contextCopy = context;
-  v12 = pk_Payment_log();
+  v12 = pk_Payment_log(contextCopy);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
   if (v13)
   {
-    v14 = pk_Payment_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
-      v16 = NSStringFromNPKQuickPaymentSessionCompletionReason(reason);
-      v27 = 138412802;
-      v28 = sessionCopy;
-      v29 = 2112;
-      v30 = quickPaymentSession;
+      v17 = NSStringFromNPKQuickPaymentSessionCompletionReason(reason);
+      v29 = 138412802;
+      v30 = sessionCopy;
       v31 = 2112;
-      v32 = v16;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session %@ (current %@) completed for reason %@", &v27, 0x20u);
+      v32 = quickPaymentSession;
+      v33 = 2112;
+      v34 = v17;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session %@ (current %@) completed for reason %@", &v29, 0x20u);
     }
   }
 
@@ -2077,19 +2147,20 @@ uint64_t __141__NPKContactlessPaymentSessionManager_paymentSession_didFailTransa
 
   if (quickPaymentSession2 == sessionCopy)
   {
-    v18 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:contextCopy];
-    [v18 setCompletionReason:reason];
-    v19 = reason - 4;
-    if (reason - 4 <= 7 && ((0xF3u >> v19) & 1) != 0)
+    v19 = [(NPKContactlessPaymentSessionManager *)self _sessionStateForTransactionContext:contextCopy];
+    [v19 setCompletionReason:reason];
+    v20 = reason - 4;
+    if (reason - 4 <= 7 && ((0xF3u >> v20) & 1) != 0)
     {
-      [v18 setFailureType:qword_25B59A968[v19]];
+      [v19 setFailureType:qword_25B59A968[v20]];
     }
 
-    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v18];
-    if ([v18 hasSession])
+    [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:v19];
+    hasSession = [v19 hasSession];
+    if (hasSession)
     {
-      transactionContext = [v18 transactionContext];
-      v21 = [transactionContext transactionType] == 5;
+      transactionContext = [v19 transactionContext];
+      v23 = [transactionContext transactionType] == 5;
 
       if (cleanupSession)
       {
@@ -2099,14 +2170,14 @@ uint64_t __141__NPKContactlessPaymentSessionManager_paymentSession_didFailTransa
 
     else
     {
-      v21 = 0;
+      v23 = 0;
       if (cleanupSession)
       {
         goto LABEL_14;
       }
     }
 
-    if (!v21)
+    if (!v23)
     {
 LABEL_19:
 
@@ -2114,16 +2185,16 @@ LABEL_19:
     }
 
 LABEL_14:
-    v22 = pk_Payment_log();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    v24 = pk_Payment_log(hasSession);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
 
-    if (v23)
+    if (v25)
     {
-      v24 = pk_Payment_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = pk_Payment_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Will cleanup payment session", &v27, 2u);
+        LOWORD(v29) = 0;
+        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Will cleanup payment session", &v29, 2u);
       }
     }
 
@@ -2131,29 +2202,27 @@ LABEL_14:
     _baseSessionStateForUpdate = [(NPKContactlessPaymentSessionManager *)self _baseSessionStateForUpdate];
 
     [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
-    v18 = _baseSessionStateForUpdate;
+    v19 = _baseSessionStateForUpdate;
     goto LABEL_19;
   }
 
 LABEL_20:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)paymentSessionDidEnterField:(id)field
 {
   v68 = *MEMORY[0x277D85DE8];
   fieldCopy = field;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(fieldCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session detected field entry", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session detected field entry", buf, 2u);
     }
   }
 
@@ -2172,80 +2241,80 @@ LABEL_20:
   currentPass2 = [fieldCopy currentPass];
   if ([currentPass2 style] != 8)
   {
-    v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v13 setObject:*MEMORY[0x277D38438] forKeyedSubscript:*MEMORY[0x277D383D8]];
-    v14 = v13;
-    v15 = currentPass2;
-    v16 = v15;
-    if (!v15 || !v14)
+    v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v14 setObject:*MEMORY[0x277D38438] forKeyedSubscript:*MEMORY[0x277D383D8]];
+    v15 = v14;
+    v16 = currentPass2;
+    v17 = v16;
+    if (!v16 || !v15)
     {
 LABEL_79:
 
-      v55 = MEMORY[0x277D37D28];
+      v56 = MEMORY[0x277D37D28];
       v66 = *MEMORY[0x277D38558];
-      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
-      [v55 subjects:v56 sendEvent:v14];
+      v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+      [v56 subjects:v57 sendEvent:v15];
 
       goto LABEL_80;
     }
 
-    passType = [v15 passType];
+    passType = [v16 passType];
     if ((passType + 1) >= 3)
     {
-      v18 = *MEMORY[0x277D38530];
+      v19 = *MEMORY[0x277D38530];
     }
 
     else
     {
-      v18 = off_2799470B8[passType + 1];
+      v19 = off_2799470B8[passType + 1];
     }
 
-    [v14 setObject:v18 forKeyedSubscript:*MEMORY[0x277D384F0]];
+    [v15 setObject:v19 forKeyedSubscript:*MEMORY[0x277D384F0]];
 
-    style = [v16 style];
-    secureElementPass = [v16 secureElementPass];
+    style = [v17 style];
+    secureElementPass = [v17 secureElementPass];
     isIdentityPass = [secureElementPass isIdentityPass];
 
     if (isIdentityPass)
     {
-      v22 = @"identity";
+      v23 = @"identity";
     }
 
     else if (style < 0xE && ((0x27FFu >> style) & 1) != 0)
     {
-      v22 = off_2799470D0[style];
+      v23 = off_2799470D0[style];
     }
 
     else
     {
-      v22 = *MEMORY[0x277D38530];
+      v23 = *MEMORY[0x277D38530];
     }
 
-    [v14 setObject:v22 forKeyedSubscript:*MEMORY[0x277D384E8]];
+    [v15 setObject:v23 forKeyedSubscript:*MEMORY[0x277D384E8]];
 
-    nfcPayload = [v16 nfcPayload];
-    v24 = PKAnalyticsReportSwitchToggleResultValue();
-    [v14 setObject:v24 forKeyedSubscript:*MEMORY[0x277D384C8]];
+    nfcPayload = [v17 nfcPayload];
+    v25 = PKAnalyticsReportSwitchToggleResultValue();
+    [v15 setObject:v25 forKeyedSubscript:*MEMORY[0x277D384C8]];
 
-    v60 = v16;
-    v25 = v16;
-    if ([v25 passType] == 1)
+    v60 = v17;
+    v26 = v17;
+    if ([v26 passType] == 1)
     {
-      secureElementPass2 = [v25 secureElementPass];
+      secureElementPass2 = [v26 secureElementPass];
       cardType = [secureElementPass2 cardType];
       if (cardType <= 4)
       {
-        v24 = **(&unk_279947140 + cardType);
+        v25 = **(&unk_279947140 + cardType);
       }
     }
 
     else
     {
-      v24 = @"other";
+      v25 = @"other";
     }
 
-    [v14 setObject:v24 forKeyedSubscript:*MEMORY[0x277D384E0]];
-    secureElementPass3 = [v25 secureElementPass];
+    [v15 setObject:v25 forKeyedSubscript:*MEMORY[0x277D384E0]];
+    secureElementPass3 = [v26 secureElementPass];
     v61 = paymentPass;
     if ([secureElementPass3 isIdentityPass])
     {
@@ -2254,13 +2323,13 @@ LABEL_79:
       {
         if (identityType == 1)
         {
-          v30 = MEMORY[0x277D383A0];
+          v31 = MEMORY[0x277D383A0];
           goto LABEL_47;
         }
 
         if (identityType == 2)
         {
-          v30 = MEMORY[0x277D38518];
+          v31 = MEMORY[0x277D38518];
           goto LABEL_47;
         }
       }
@@ -2272,19 +2341,19 @@ LABEL_79:
           case 3:
             goto LABEL_31;
           case 4:
-            v30 = MEMORY[0x277D38488];
+            v31 = MEMORY[0x277D38488];
             goto LABEL_47;
           case 5:
 LABEL_31:
-            v30 = MEMORY[0x277D384F8];
+            v31 = MEMORY[0x277D384F8];
 LABEL_47:
-            v34 = *v30;
+            v35 = *v31;
             goto LABEL_60;
         }
       }
 
 LABEL_40:
-      v30 = MEMORY[0x277D38530];
+      v31 = MEMORY[0x277D38530];
       goto LABEL_47;
     }
 
@@ -2295,53 +2364,53 @@ LABEL_40:
 
     accessType = [secureElementPass3 accessType];
     accessReportingType = [secureElementPass3 accessReportingType];
-    v33 = accessReportingType;
+    v34 = accessReportingType;
     if (accessType <= 2)
     {
       switch(accessType)
       {
         case 0:
-          v35 = @"general";
+          v36 = @"general";
           if (accessReportingType)
           {
-            v35 = accessReportingType;
+            v36 = accessReportingType;
           }
 
           goto LABEL_55;
         case 1:
-          v34 = @"hospitality";
+          v35 = @"hospitality";
           goto LABEL_59;
         case 2:
-          v34 = @"corporate";
+          v35 = @"corporate";
 LABEL_59:
 
 LABEL_60:
-          [v14 setObject:v34 forKeyedSubscript:*MEMORY[0x277D384D8]];
+          [v15 setObject:v35 forKeyedSubscript:*MEMORY[0x277D384D8]];
 
-          secureElementPass4 = [v25 secureElementPass];
+          secureElementPass4 = [v26 secureElementPass];
           devicePaymentApplications = [secureElementPass4 devicePaymentApplications];
           [devicePaymentApplications count];
 
-          v38 = PKAnalyticsReportSwitchToggleResultValue();
+          v39 = PKAnalyticsReportSwitchToggleResultValue();
 
-          [v14 setObject:v38 forKeyedSubscript:*MEMORY[0x277D38398]];
-          secureElementPass5 = [v25 secureElementPass];
-          v40 = *MEMORY[0x277D38530];
+          [v15 setObject:v39 forKeyedSubscript:*MEMORY[0x277D38398]];
+          secureElementPass5 = [v26 secureElementPass];
+          v41 = *MEMORY[0x277D38530];
           organizationName = [secureElementPass5 organizationName];
           if ([organizationName length])
           {
             cardType2 = [secureElementPass5 cardType];
             if (cardType2 <= 4 && ((1 << cardType2) & 0x16) != 0)
             {
-              v43 = organizationName;
+              v44 = organizationName;
 
-              v40 = v43;
+              v41 = v44;
             }
           }
 
-          [v14 setObject:v40 forKeyedSubscript:*MEMORY[0x277D38490]];
-          secureElementPass6 = [v25 secureElementPass];
-          v45 = secureElementPass6;
+          [v15 setObject:v41 forKeyedSubscript:*MEMORY[0x277D38490]];
+          secureElementPass6 = [v26 secureElementPass];
+          v46 = secureElementPass6;
           if (secureElementPass6)
           {
             v58 = currentPass2;
@@ -2349,36 +2418,36 @@ LABEL_60:
             v62 = 0u;
             v63 = 0u;
             v64 = 0u;
-            v46 = v65 = 0u;
-            v47 = [v46 countByEnumeratingWithState:&v62 objects:buf count:16];
+            v47 = v65 = 0u;
+            v48 = [v47 countByEnumeratingWithState:&v62 objects:buf count:16];
             v59 = fieldCopy;
-            if (v47)
+            if (v48)
             {
-              v48 = v47;
+              v49 = v48;
               paymentType = 0;
-              v50 = *v63;
+              v51 = *v63;
               while (2)
               {
-                for (i = 0; i != v48; ++i)
+                for (i = 0; i != v49; ++i)
                 {
-                  if (*v63 != v50)
+                  if (*v63 != v51)
                   {
-                    objc_enumerationMutation(v46);
+                    objc_enumerationMutation(v47);
                   }
 
-                  v52 = *(*(&v62 + 1) + 8 * i);
+                  v53 = *(*(&v62 + 1) + 8 * i);
                   if (paymentType && paymentType != [*(*(&v62 + 1) + 8 * i) paymentType])
                   {
 
-                    v53 = @"multiple";
+                    v54 = @"multiple";
                     goto LABEL_77;
                   }
 
-                  paymentType = [v52 paymentType];
+                  paymentType = [v53 paymentType];
                 }
 
-                v48 = [v46 countByEnumeratingWithState:&v62 objects:buf count:16];
-                if (v48)
+                v49 = [v47 countByEnumeratingWithState:&v62 objects:buf count:16];
+                if (v49)
                 {
                   continue;
                 }
@@ -2387,18 +2456,18 @@ LABEL_60:
               }
             }
 
-            v53 = PKPaymentMethodTypeToString();
+            v54 = PKPaymentMethodTypeToString();
 LABEL_77:
 
-            [v14 setObject:v53 forKeyedSubscript:*MEMORY[0x277D38508]];
-            issuerCountryCode = [v45 issuerCountryCode];
-            [v14 setObject:issuerCountryCode forKeyedSubscript:*MEMORY[0x277D384D0]];
+            [v15 setObject:v54 forKeyedSubscript:*MEMORY[0x277D38508]];
+            issuerCountryCode = [v46 issuerCountryCode];
+            [v15 setObject:issuerCountryCode forKeyedSubscript:*MEMORY[0x277D384D0]];
 
             currentPass2 = v58;
             fieldCopy = v59;
           }
 
-          v16 = v60;
+          v17 = v60;
           paymentPass = v61;
           goto LABEL_79;
       }
@@ -2410,12 +2479,12 @@ LABEL_77:
       {
         if (accessType == 3)
         {
-          v34 = @"singlefamily";
+          v35 = @"singlefamily";
         }
 
         else
         {
-          v34 = @"cars";
+          v35 = @"cars";
         }
 
         goto LABEL_59;
@@ -2423,47 +2492,45 @@ LABEL_77:
 
       if (accessType == 5)
       {
-        v34 = @"multifamily";
+        v35 = @"multifamily";
         goto LABEL_59;
       }
 
       if (accessType == 6)
       {
-        v34 = @"urbanmobility";
+        v35 = @"urbanmobility";
         goto LABEL_59;
       }
     }
 
-    v35 = *MEMORY[0x277D38530];
+    v36 = *MEMORY[0x277D38530];
 LABEL_55:
-    v34 = v35;
+    v35 = v36;
     goto LABEL_59;
   }
 
 LABEL_80:
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)paymentSessionDidExitField:(id)field
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   fieldCopy = field;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(fieldCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session detected field exit", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session detected field exit", buf, 2u);
     }
   }
 
   transactionContext = [(NPKContactlessPaymentSessionState *)self->_lastSessionState transactionContext];
-  if (!transactionContext || (v9 = transactionContext, -[NPKContactlessPaymentSessionState transactionContext](self->_lastSessionState, "transactionContext"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 transactionType], v10, v9, v11 != 5))
+  if (!transactionContext || (v10 = transactionContext, -[NPKContactlessPaymentSessionState transactionContext](self->_lastSessionState, "transactionContext"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 transactionType], v11, v10, v12 != 5))
   {
     _baseSessionStateForUpdate = [(NPKContactlessPaymentSessionManager *)self _baseSessionStateForUpdate];
     [_baseSessionStateForUpdate setInField:0];
@@ -2477,80 +2544,80 @@ LABEL_83:
       goto LABEL_84;
     }
 
-    v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v16 setObject:*MEMORY[0x277D38440] forKeyedSubscript:*MEMORY[0x277D383D8]];
-    v17 = v16;
-    v18 = currentPass;
-    v19 = v18;
-    if (!v18 || !v17)
+    v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v19 setObject:*MEMORY[0x277D38440] forKeyedSubscript:*MEMORY[0x277D383D8]];
+    v20 = v19;
+    v21 = currentPass;
+    v22 = v21;
+    if (!v21 || !v20)
     {
 LABEL_81:
 
-      v60 = MEMORY[0x277D37D28];
-      v69 = *MEMORY[0x277D38558];
-      v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
-      [v60 subjects:v61 sendEvent:v17];
+      v63 = MEMORY[0x277D37D28];
+      v71 = *MEMORY[0x277D38558];
+      v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+      [v63 subjects:v64 sendEvent:v20];
 
       goto LABEL_82;
     }
 
-    passType = [v18 passType];
-    v21 = MEMORY[0x277D38530];
+    passType = [v21 passType];
+    v24 = MEMORY[0x277D38530];
     if ((passType + 1) >= 3)
     {
-      v22 = *MEMORY[0x277D38530];
+      v25 = *MEMORY[0x277D38530];
     }
 
     else
     {
-      v22 = off_2799470B8[passType + 1];
+      v25 = off_2799470B8[passType + 1];
     }
 
-    [v17 setObject:v22 forKeyedSubscript:*MEMORY[0x277D384F0]];
+    [v20 setObject:v25 forKeyedSubscript:*MEMORY[0x277D384F0]];
 
-    style = [v19 style];
-    secureElementPass = [v19 secureElementPass];
+    style = [v22 style];
+    secureElementPass = [v22 secureElementPass];
     isIdentityPass = [secureElementPass isIdentityPass];
 
     if (isIdentityPass)
     {
-      v26 = @"identity";
+      v29 = @"identity";
     }
 
     else if (style < 0xE && ((0x27FFu >> style) & 1) != 0)
     {
-      v26 = off_2799470D0[style];
+      v29 = off_2799470D0[style];
     }
 
     else
     {
-      v26 = *v21;
+      v29 = *v24;
     }
 
-    [v17 setObject:v26 forKeyedSubscript:*MEMORY[0x277D384E8]];
+    [v20 setObject:v29 forKeyedSubscript:*MEMORY[0x277D384E8]];
 
-    nfcPayload = [v19 nfcPayload];
-    v28 = PKAnalyticsReportSwitchToggleResultValue();
-    [v17 setObject:v28 forKeyedSubscript:*MEMORY[0x277D384C8]];
+    nfcPayload = [v22 nfcPayload];
+    v31 = PKAnalyticsReportSwitchToggleResultValue();
+    [v20 setObject:v31 forKeyedSubscript:*MEMORY[0x277D384C8]];
 
-    v29 = v19;
-    if ([v29 passType] == 1)
+    v32 = v22;
+    if ([v32 passType] == 1)
     {
-      secureElementPass2 = [v29 secureElementPass];
+      secureElementPass2 = [v32 secureElementPass];
       cardType = [secureElementPass2 cardType];
       if (cardType <= 4)
       {
-        v28 = **(&unk_279947140 + cardType);
+        v31 = **(&unk_279947140 + cardType);
       }
     }
 
     else
     {
-      v28 = @"other";
+      v31 = @"other";
     }
 
-    [v17 setObject:v28 forKeyedSubscript:*MEMORY[0x277D384E0]];
-    secureElementPass3 = [v29 secureElementPass];
+    [v20 setObject:v31 forKeyedSubscript:*MEMORY[0x277D384E0]];
+    secureElementPass3 = [v32 secureElementPass];
     if ([secureElementPass3 isIdentityPass])
     {
       identityType = [secureElementPass3 identityType];
@@ -2558,13 +2625,13 @@ LABEL_81:
       {
         if (identityType == 1)
         {
-          v34 = MEMORY[0x277D383A0];
+          v37 = MEMORY[0x277D383A0];
           goto LABEL_48;
         }
 
         if (identityType == 2)
         {
-          v34 = MEMORY[0x277D38518];
+          v37 = MEMORY[0x277D38518];
           goto LABEL_48;
         }
       }
@@ -2576,21 +2643,21 @@ LABEL_81:
           case 3:
             goto LABEL_32;
           case 4:
-            v34 = MEMORY[0x277D38488];
+            v37 = MEMORY[0x277D38488];
             goto LABEL_48;
           case 5:
 LABEL_32:
-            v34 = MEMORY[0x277D384F8];
+            v37 = MEMORY[0x277D384F8];
 LABEL_48:
-            v39 = *v34;
+            v42 = *v37;
             goto LABEL_49;
         }
       }
 
 LABEL_41:
-      v39 = *v21;
+      v42 = *v24;
 LABEL_49:
-      v38 = v39;
+      v41 = v42;
       goto LABEL_62;
     }
 
@@ -2601,90 +2668,90 @@ LABEL_49:
 
     accessType = [secureElementPass3 accessType];
     accessReportingType = [secureElementPass3 accessReportingType];
-    v37 = accessReportingType;
+    v40 = accessReportingType;
     if (accessType <= 2)
     {
       switch(accessType)
       {
         case 0:
-          v40 = @"general";
+          v43 = @"general";
           if (accessReportingType)
           {
-            v40 = accessReportingType;
+            v43 = accessReportingType;
           }
 
           goto LABEL_57;
         case 1:
-          v38 = @"hospitality";
+          v41 = @"hospitality";
           goto LABEL_61;
         case 2:
-          v38 = @"corporate";
+          v41 = @"corporate";
 LABEL_61:
 
 LABEL_62:
-          [v17 setObject:v38 forKeyedSubscript:*MEMORY[0x277D384D8]];
+          [v20 setObject:v41 forKeyedSubscript:*MEMORY[0x277D384D8]];
 
-          secureElementPass4 = [v29 secureElementPass];
+          secureElementPass4 = [v32 secureElementPass];
           devicePaymentApplications = [secureElementPass4 devicePaymentApplications];
           [devicePaymentApplications count];
 
-          v43 = PKAnalyticsReportSwitchToggleResultValue();
+          v46 = PKAnalyticsReportSwitchToggleResultValue();
 
-          [v17 setObject:v43 forKeyedSubscript:*MEMORY[0x277D38398]];
-          secureElementPass5 = [v29 secureElementPass];
-          v45 = *v21;
+          [v20 setObject:v46 forKeyedSubscript:*MEMORY[0x277D38398]];
+          secureElementPass5 = [v32 secureElementPass];
+          v48 = *v24;
           organizationName = [secureElementPass5 organizationName];
           if ([organizationName length])
           {
             cardType2 = [secureElementPass5 cardType];
             if (cardType2 <= 4 && ((1 << cardType2) & 0x16) != 0)
             {
-              v48 = organizationName;
+              v51 = organizationName;
 
-              v45 = v48;
+              v48 = v51;
             }
           }
 
-          [v17 setObject:v45 forKeyedSubscript:*MEMORY[0x277D38490]];
-          secureElementPass6 = [v29 secureElementPass];
-          v50 = secureElementPass6;
+          [v20 setObject:v48 forKeyedSubscript:*MEMORY[0x277D38490]];
+          secureElementPass6 = [v32 secureElementPass];
+          v53 = secureElementPass6;
           if (secureElementPass6)
           {
-            v64 = fieldCopy;
+            v66 = fieldCopy;
             [secureElementPass6 devicePaymentApplications];
-            v65 = 0u;
-            v66 = 0u;
             v67 = 0u;
-            v51 = v68 = 0u;
-            v52 = [v51 countByEnumeratingWithState:&v65 objects:buf count:16];
-            v63 = v19;
-            if (v52)
+            v68 = 0u;
+            v69 = 0u;
+            v54 = v70 = 0u;
+            v55 = [v54 countByEnumeratingWithState:&v67 objects:buf count:16];
+            v65 = v22;
+            if (v55)
             {
-              v53 = v52;
+              v56 = v55;
               paymentType = 0;
-              v55 = *v66;
+              v58 = *v68;
               while (2)
               {
-                for (i = 0; i != v53; ++i)
+                for (i = 0; i != v56; ++i)
                 {
-                  if (*v66 != v55)
+                  if (*v68 != v58)
                   {
-                    objc_enumerationMutation(v51);
+                    objc_enumerationMutation(v54);
                   }
 
-                  v57 = *(*(&v65 + 1) + 8 * i);
-                  if (paymentType && paymentType != [*(*(&v65 + 1) + 8 * i) paymentType])
+                  v60 = *(*(&v67 + 1) + 8 * i);
+                  if (paymentType && paymentType != [*(*(&v67 + 1) + 8 * i) paymentType])
                   {
 
-                    v58 = @"multiple";
+                    v61 = @"multiple";
                     goto LABEL_79;
                   }
 
-                  paymentType = [v57 paymentType];
+                  paymentType = [v60 paymentType];
                 }
 
-                v53 = [v51 countByEnumeratingWithState:&v65 objects:buf count:16];
-                if (v53)
+                v56 = [v54 countByEnumeratingWithState:&v67 objects:buf count:16];
+                if (v56)
                 {
                   continue;
                 }
@@ -2693,15 +2760,15 @@ LABEL_62:
               }
             }
 
-            v58 = PKPaymentMethodTypeToString();
+            v61 = PKPaymentMethodTypeToString();
 LABEL_79:
 
-            [v17 setObject:v58 forKeyedSubscript:*MEMORY[0x277D38508]];
-            issuerCountryCode = [v50 issuerCountryCode];
-            [v17 setObject:issuerCountryCode forKeyedSubscript:*MEMORY[0x277D384D0]];
+            [v20 setObject:v61 forKeyedSubscript:*MEMORY[0x277D38508]];
+            issuerCountryCode = [v53 issuerCountryCode];
+            [v20 setObject:issuerCountryCode forKeyedSubscript:*MEMORY[0x277D384D0]];
 
-            v19 = v63;
-            fieldCopy = v64;
+            v22 = v65;
+            fieldCopy = v66;
           }
 
           goto LABEL_81;
@@ -2714,12 +2781,12 @@ LABEL_79:
       {
         if (accessType == 3)
         {
-          v38 = @"singlefamily";
+          v41 = @"singlefamily";
         }
 
         else
         {
-          v38 = @"cars";
+          v41 = @"cars";
         }
 
         goto LABEL_61;
@@ -2727,29 +2794,29 @@ LABEL_79:
 
       if (accessType == 5)
       {
-        v38 = @"multifamily";
+        v41 = @"multifamily";
         goto LABEL_61;
       }
 
       if (accessType == 6)
       {
-        v38 = @"urbanmobility";
+        v41 = @"urbanmobility";
         goto LABEL_61;
       }
     }
 
-    v40 = *v21;
+    v43 = *v24;
 LABEL_57:
-    v38 = v40;
+    v41 = v43;
     goto LABEL_61;
   }
 
-  v12 = pk_Payment_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v14 = pk_Payment_log(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v15)
   {
-    _baseSessionStateForUpdate = pk_Payment_log();
+    _baseSessionStateForUpdate = pk_Payment_log(v16);
     if (os_log_type_enabled(_baseSessionStateForUpdate, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -2760,28 +2827,26 @@ LABEL_57:
   }
 
 LABEL_84:
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)paymentSessionDidSelectPayment:(id)payment
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
   currentPass = [quickPaymentSession currentPass];
 
-  v6 = pk_Payment_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_Payment_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [currentPass uniqueID];
-      v12 = 138412290;
-      v13 = uniqueID;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session did select payment for unique ID: %@", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = uniqueID;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session did select payment for unique ID: %@", &v13, 0xCu);
     }
   }
 
@@ -2792,137 +2857,136 @@ LABEL_84:
     [_baseSessionStateForUpdate setFailureType:3];
     [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)paymentSessionDidSelectValueAddedService:(id)service
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session selected value added service", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session selected value added service", v7, 2u);
     }
   }
 }
 
 - (void)paymentSessionDidReceiveStartTransaction:(id)transaction
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received start transaction", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received start transaction", v7, 2u);
     }
   }
 }
 
 - (void)paymentSessionDidReceiveActivityTimeout:(id)timeout
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   timeoutCopy = timeout;
   currentPass = [timeoutCopy currentPass];
   paymentPass = [currentPass paymentPass];
   isTransitPass = [paymentPass isTransitPass];
 
-  v6 = pk_Payment_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_Payment_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 67109120;
       DWORD1(buf) = isTransitPass;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received activity timeout isTransit %i", &buf, 8u);
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received activity timeout isTransit %i", &buf, 8u);
     }
   }
 
   if (isTransitPass)
   {
-    v9 = NPKIsTruthOnCardTransitPass(currentPass);
-    v10 = pk_Payment_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v11 = NPKIsTruthOnCardTransitPass(currentPass);
+    v12 = v11;
+    v13 = pk_Payment_log(v11);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v12)
     {
-      if (v11)
+      if (v14)
       {
-        v12 = pk_Payment_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v16 = pk_Payment_log(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling activity timeout in transit pass as completion", &buf, 2u);
+          _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling activity timeout in transit pass as completion", &buf, 2u);
         }
       }
 
       quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
       currentPass2 = [quickPaymentSession currentPass];
 
-      v37 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v38 = 0u;
-      v35 = 0u;
-      v36 = 0u;
+      v39 = 0u;
       paymentPass2 = [currentPass2 paymentPass];
       obj = [paymentPass2 npkPreferredContactlessPaymentApplications];
 
-      v16 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
-      if (v16)
+      v20 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
+      if (v20)
       {
-        v30 = *v36;
+        v33 = *v39;
         do
         {
-          v17 = 0;
+          v21 = 0;
           do
           {
-            if (*v36 != v30)
+            if (*v39 != v33)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v35 + 1) + 8 * v17);
-            v19 = objc_alloc_init(NPKContactlessPaymentSessionManagerTransactionContext);
-            [(NPKContactlessPaymentSessionManagerTransactionContext *)v19 setTransactionStatus:2];
+            v22 = *(*(&v38 + 1) + 8 * v21);
+            v23 = objc_alloc_init(NPKContactlessPaymentSessionManagerTransactionContext);
+            [(NPKContactlessPaymentSessionManagerTransactionContext *)v23 setTransactionStatus:2];
             currentPass3 = [timeoutCopy currentPass];
-            [(NPKContactlessPaymentSessionManagerTransactionContext *)v19 setTransactionPass:currentPass3];
+            [(NPKContactlessPaymentSessionManagerTransactionContext *)v23 setTransactionPass:currentPass3];
 
             if (NPKIsTruthOnCardTransitPass(currentPass2))
             {
-              v21 = objc_alloc_init(MEMORY[0x277D380F0]);
-              v22 = dispatch_semaphore_create(0);
+              v25 = objc_alloc_init(MEMORY[0x277D380F0]);
+              v26 = dispatch_semaphore_create(0);
               *&buf = 0;
               *(&buf + 1) = &buf;
-              v40 = 0x3032000000;
-              v41 = __Block_byref_object_copy__7;
-              v42 = __Block_byref_object_dispose__7;
-              v43 = 0;
+              v43 = 0x3032000000;
+              v44 = __Block_byref_object_copy__7;
+              v45 = __Block_byref_object_dispose__7;
+              v46 = 0;
               uniqueID = [currentPass2 uniqueID];
-              v32[0] = MEMORY[0x277D85DD0];
-              v32[1] = 3221225472;
-              v32[2] = __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityTimeout___block_invoke;
-              v32[3] = &unk_279946E50;
+              v35[0] = MEMORY[0x277D85DD0];
+              v35[1] = 3221225472;
+              v35[2] = __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityTimeout___block_invoke;
+              v35[3] = &unk_279946E50;
               p_buf = &buf;
-              v24 = v22;
-              v33 = v24;
-              [v21 transitStateWithPassUniqueIdentifier:uniqueID paymentApplication:v18 completion:v32];
+              v28 = v26;
+              v36 = v28;
+              [v25 transitStateWithPassUniqueIdentifier:uniqueID paymentApplication:v22 completion:v35];
 
-              dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
-              [(NPKContactlessPaymentSessionManagerTransactionContext *)v19 updateWithConcreteTransactions:MEMORY[0x277CBEBF8] ephemeralTransaction:0 updatedPassTransitItems:MEMORY[0x277CBEBF8] paymentApplication:v18];
+              dispatch_semaphore_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
+              [(NPKContactlessPaymentSessionManagerTransactionContext *)v23 updateWithConcreteTransactions:MEMORY[0x277CBEBF8] ephemeralTransaction:0 updatedPassTransitItems:MEMORY[0x277CBEBF8] paymentApplication:v22];
               if (*(*(&buf + 1) + 40))
               {
-                [(NPKContactlessPaymentSessionManagerTransactionContext *)v19 forceToTransitTypeTransactionWithTransactionStatus:1];
+                [(NPKContactlessPaymentSessionManagerTransactionContext *)v23 forceToTransitTypeTransactionWithTransactionStatus:1];
               }
 
               _Block_object_dispose(&buf, 8);
@@ -2930,7 +2994,7 @@ LABEL_84:
 
             else
             {
-              [(NPKContactlessPaymentSessionManagerTransactionContext *)v19 updateWithConcreteTransactions:MEMORY[0x277CBEBF8] ephemeralTransaction:0 updatedPassTransitItems:MEMORY[0x277CBEBF8] paymentApplication:v18];
+              [(NPKContactlessPaymentSessionManagerTransactionContext *)v23 updateWithConcreteTransactions:MEMORY[0x277CBEBF8] ephemeralTransaction:0 updatedPassTransitItems:MEMORY[0x277CBEBF8] paymentApplication:v22];
             }
 
             _baseSessionStateForUpdate = [(NPKContactlessPaymentSessionManager *)self _baseSessionStateForUpdate];
@@ -2940,26 +3004,26 @@ LABEL_84:
             [_baseSessionStateForUpdate setContactlessInterfaceReady:0];
             [_baseSessionStateForUpdate setCanChangePass:1];
             [_baseSessionStateForUpdate setCompletionReason:0];
-            [_baseSessionStateForUpdate setTransactionContext:v19];
+            [_baseSessionStateForUpdate setTransactionContext:v23];
             [(NPKContactlessPaymentSessionManager *)self _sendSessionStateToObservers:_baseSessionStateForUpdate];
 
-            ++v17;
+            ++v21;
           }
 
-          while (v16 != v17);
-          v16 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+          while (v20 != v21);
+          v20 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
         }
 
-        while (v16);
+        while (v20);
       }
 
 LABEL_27:
       goto LABEL_28;
     }
 
-    if (v11)
+    if (v14)
     {
-      currentPass2 = pk_Payment_log();
+      currentPass2 = pk_Payment_log(v15);
       if (os_log_type_enabled(currentPass2, OS_LOG_TYPE_DEFAULT))
       {
         uniqueID2 = [currentPass uniqueID];
@@ -2973,8 +3037,6 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityTimeout___block_invoke(uint64_t a1, void *a2)
@@ -2986,16 +3048,16 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 
 - (void)paymentSessionDidReceiveCredential:(id)credential
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received credential", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received credential", v9, 2u);
     }
   }
 
@@ -3008,16 +3070,16 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 {
   requestCopy = request;
   infoCopy = info;
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(infoCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received 18013 Request", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received 18013 Request", v13, 2u);
     }
   }
 
@@ -3026,16 +3088,16 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 
 - (void)paymentSessionDidReceiveAuthorizationTimeout:(id)timeout
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received authorization timeout", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received authorization timeout", v9, 2u);
     }
   }
 
@@ -3051,16 +3113,16 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 
 - (void)paymentSessionDidReceiveActivationError:(id)error
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received activation error", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received activation error", v9, 2u);
     }
   }
 
@@ -3073,16 +3135,16 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 
 - (void)paymentSessionDidReceiveTransactionError:(id)error
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received transaction error", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session received transaction error", v9, 2u);
     }
   }
 
@@ -3095,16 +3157,16 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 
 - (void)paymentSessionIsWaitingToStart:(id)start
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session waiting to start", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session waiting to start", v9, 2u);
     }
   }
 
@@ -3115,16 +3177,16 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 
 - (void)paymentSessionDidStart:(id)start
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session did start", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Payment session did start", v9, 2u);
     }
   }
 
@@ -3134,35 +3196,34 @@ void __79__NPKContactlessPaymentSessionManager_paymentSessionDidReceiveActivityT
 
 - (void)_cleanupQuickPaymentSession
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
+  v4 = quickPaymentSession;
   if (quickPaymentSession)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(quickPaymentSession);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315394;
-        v10 = "[NPKContactlessPaymentSessionManager _cleanupQuickPaymentSession]";
-        v11 = 2112;
-        v12 = quickPaymentSession;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] %s cleaning payment session:%@", &v9, 0x16u);
+        v10 = 136315394;
+        v11 = "[NPKContactlessPaymentSessionManager _cleanupQuickPaymentSession]";
+        v12 = 2112;
+        v13 = v4;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] %s cleaning payment session:%@", &v10, 0x16u);
       }
     }
 
-    [quickPaymentSession deactivateSessionWithCompletion:0];
+    [v4 deactivateSessionWithCompletion:0];
     [(NPKContactlessPaymentSessionManager *)self setQuickPaymentSession:0];
     cleanupDelegate = [(NPKContactlessPaymentSessionManager *)self cleanupDelegate];
-    [quickPaymentSession setDelegate:cleanupDelegate];
+    [v4 setDelegate:cleanupDelegate];
 
     [(NPKContactlessPaymentSessionManager *)self _stopSessionTimer];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_managerContextForContactlessInterfaceTransactionContext:(id)context
@@ -3356,17 +3417,17 @@ void __96__NPKContactlessPaymentSessionManager__managerContextForContactlessInte
   transactionsCopy = transactions;
   passesCopy = passes;
   transactionCopy = transaction;
-  v11 = pk_Payment_log();
+  v11 = pk_Payment_log(transactionCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v50 = transactionsCopy;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling VAS transactions: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Handling VAS transactions: %@", buf, 0xCu);
     }
   }
 
@@ -3381,74 +3442,72 @@ void __96__NPKContactlessPaymentSessionManager__managerContextForContactlessInte
     array = 0;
   }
 
-  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v15 = passesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v44 objects:v48 count:16];
-  if (v16)
+  v16 = passesCopy;
+  v17 = [v16 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v45;
+    v18 = v17;
+    v19 = *v45;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v45 != v18)
+        if (*v45 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v44 + 1) + 8 * i);
-        passTypeIdentifier = [v20 passTypeIdentifier];
-        v22 = [passTypeIdentifier dataUsingEncoding:4];
-        sHA256Hash = [v22 SHA256Hash];
+        v21 = *(*(&v44 + 1) + 8 * i);
+        passTypeIdentifier = [v21 passTypeIdentifier];
+        v23 = [passTypeIdentifier dataUsingEncoding:4];
+        sHA256Hash = [v23 SHA256Hash];
 
-        array2 = [v14 objectForKey:sHA256Hash];
+        array2 = [v15 objectForKey:sHA256Hash];
         if (!array2)
         {
           array2 = [MEMORY[0x277CBEB18] array];
-          [v14 setObject:array2 forKey:sHA256Hash];
+          [v15 setObject:array2 forKey:sHA256Hash];
         }
 
-        [array2 addObject:v20];
+        [array2 addObject:v21];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
   array3 = [MEMORY[0x277CBEB18] array];
   array4 = [MEMORY[0x277CBEB18] array];
-  v27 = objc_alloc_init(MEMORY[0x277D380F0]);
+  v28 = objc_alloc_init(MEMORY[0x277D380F0]);
   v37[0] = MEMORY[0x277D85DD0];
   v37[1] = 3221225472;
   v37[2] = __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransactions_forValueAddedServicePasses_paymentTransaction_outUserInterventionRequiredPasses___block_invoke;
   v37[3] = &unk_279946EC8;
-  v38 = v14;
+  v38 = v15;
   v39 = array3;
   v40 = array4;
-  v41 = v27;
+  v41 = v28;
   v42 = transactionCopy;
   v43 = array;
-  v28 = array;
-  v29 = transactionCopy;
-  v30 = v27;
-  v31 = array4;
-  v32 = array3;
-  v33 = v14;
+  v29 = array;
+  v30 = transactionCopy;
+  v31 = v28;
+  v32 = array4;
+  v33 = array3;
+  v34 = v15;
   [transactionsCopy enumerateObjectsUsingBlock:v37];
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransactions_forValueAddedServicePasses_paymentTransaction_outUserInterventionRequiredPasses___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 merchant];
@@ -3457,28 +3516,28 @@ void __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransact
 
   if ([v3 didSucceed])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * v12);
-          [*(a1 + 40) addObject:{v3, v21}];
+          v13 = *(*(&v20 + 1) + 8 * v12);
+          [*(a1 + 40) addObject:{v3, v20}];
           v14 = *(a1 + 48);
           v15 = [v13 uniqueID];
           [v14 addObject:v15];
@@ -3491,7 +3550,7 @@ void __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransact
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -3518,8 +3577,6 @@ void __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransact
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_baseSessionStateForUpdate
@@ -3612,67 +3669,65 @@ void __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransact
 
 - (void)_sendSessionStateToObservers:(id)observers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   observersCopy = observers;
   [(NPKContactlessPaymentSessionManager *)self _prepareSessionStateForSendingToObservers:observersCopy];
   objc_storeStrong(&self->_lastSessionState, observers);
-  v6 = pk_Payment_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_Payment_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = observersCopy;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] sending to observer new session State:%@", buf, 0xCu);
+      v16 = observersCopy;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] sending to observer new session State:%@", buf, 0xCu);
     }
   }
 
   observersManager = self->_observersManager;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __68__NPKContactlessPaymentSessionManager__sendSessionStateToObservers___block_invoke;
-  v12[3] = &unk_279946EF0;
-  v12[4] = self;
-  v13 = observersCopy;
-  v10 = observersCopy;
-  [(NPKObserverManager *)observersManager enumerateObserversUsingBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __68__NPKContactlessPaymentSessionManager__sendSessionStateToObservers___block_invoke;
+  v13[3] = &unk_279946EF0;
+  v13[4] = self;
+  v14 = observersCopy;
+  v12 = observersCopy;
+  [(NPKObserverManager *)observersManager enumerateObserversUsingBlock:v13];
 }
 
 - (id)_sessionStateForTransactionContext:(id)context
 {
   contextCopy = context;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(contextCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Getting session state for transaction completion", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Getting session state for transaction completion", buf, 2u);
     }
   }
 
   valueAddedServicePasses = [contextCopy valueAddedServicePasses];
   valueAddedServiceTransactions = [contextCopy valueAddedServiceTransactions];
   *buf = 0;
-  v21 = buf;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__7;
-  v24 = __Block_byref_object_dispose__7;
-  v25 = 0;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __74__NPKContactlessPaymentSessionManager__sessionStateForTransactionContext___block_invoke;
-  v19[3] = &unk_279946E28;
-  v19[4] = buf;
-  [valueAddedServiceTransactions enumerateObjectsUsingBlock:v19];
+  v22 = buf;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__7;
+  v25 = __Block_byref_object_dispose__7;
+  v26 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __74__NPKContactlessPaymentSessionManager__sessionStateForTransactionContext___block_invoke;
+  v20[3] = &unk_279946E28;
+  v20[4] = buf;
+  [valueAddedServiceTransactions enumerateObjectsUsingBlock:v20];
   quickPaymentSession = [(NPKContactlessPaymentSessionManager *)self quickPaymentSession];
   currentPass = [quickPaymentSession currentPass];
 
@@ -3684,7 +3739,7 @@ void __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransact
     {
     }
 
-    else if (*(v21 + 5))
+    else if (*(v22 + 5))
     {
       firstObject = [valueAddedServicePasses firstObject];
 
@@ -3699,13 +3754,13 @@ void __156__NPKContactlessPaymentSessionManager__handleValueAddedServiceTransact
     }
   }
 
-  if (*(v21 + 5))
+  if (*(v22 + 5))
   {
     firstObject2 = [valueAddedServicePasses firstObject];
     if (!contextCopy)
     {
 LABEL_17:
-      v14 = 0;
+      v15 = 0;
       if (!valueAddedServiceTransactions)
       {
         goto LABEL_19;
@@ -3725,8 +3780,8 @@ LABEL_17:
   }
 
 LABEL_13:
-  v14 = [(NPKContactlessPaymentSessionManager *)self _managerContextForContactlessInterfaceTransactionContext:contextCopy];
-  [v14 setValueAddedServicePass:firstObject2];
+  v15 = [(NPKContactlessPaymentSessionManager *)self _managerContextForContactlessInterfaceTransactionContext:contextCopy];
+  [v15 setValueAddedServicePass:firstObject2];
   if (valueAddedServiceTransactions)
   {
 LABEL_18:
@@ -3741,7 +3796,7 @@ LABEL_19:
   [_baseSessionStateForUpdate setDoublePressReceived:0];
   [_baseSessionStateForUpdate setContactlessInterfaceReady:0];
   [_baseSessionStateForUpdate setCanChangePass:1];
-  [_baseSessionStateForUpdate setTransactionContext:v14];
+  [_baseSessionStateForUpdate setTransactionContext:v15];
 
   _Block_object_dispose(buf, 8);
 
@@ -3813,55 +3868,54 @@ void __74__NPKContactlessPaymentSessionManager__sessionStateForTransactionContex
 - (void)_startSessionTimerWithReason:(unint64_t)reason
 {
   v16 = *MEMORY[0x277D85DE8];
-  v5 = pk_ui_log();
+  v5 = pk_ui_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_ui_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_ui_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"authTokenInUse";
+      v9 = @"authTokenInUse";
       if (!reason)
       {
-        v8 = @"sessionCreated";
+        v9 = @"sessionCreated";
       }
 
-      v9 = v8;
+      v10 = v9;
       v14 = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Starting contactless session timer for reason: %@", &v14, 0xCu);
+      v15 = v10;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Starting contactless session timer for reason: %@", &v14, 0xCu);
     }
   }
 
   sessionTimer = self->_sessionTimer;
   if (reason)
   {
-    v11 = 60000000000;
+    v12 = 60000000000;
   }
 
   else
   {
-    v11 = 5000000000;
+    v12 = 5000000000;
   }
 
-  v12 = dispatch_time(0, v11);
-  dispatch_source_set_timer(sessionTimer, v12, 0xFFFFFFFFFFFFFFFFLL, 0);
-  v13 = *MEMORY[0x277D85DE8];
+  v13 = dispatch_time(0, v12);
+  dispatch_source_set_timer(sessionTimer, v13, 0xFFFFFFFFFFFFFFFFLL, 0);
 }
 
 - (void)_stopSessionTimer
 {
-  v3 = pk_ui_log();
+  v3 = pk_ui_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_ui_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_ui_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Stopping contactless session timer", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Stopping contactless session timer", v7, 2u);
     }
   }
 
@@ -3871,18 +3925,18 @@ void __74__NPKContactlessPaymentSessionManager__sessionStateForTransactionContex
 - (void)_handleSessionTimerFired
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = pk_ui_log();
+  v3 = pk_ui_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_ui_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_ui_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       contactlessPaymentInterfaceVisible = self->_contactlessPaymentInterfaceVisible;
       v9[0] = 67109120;
       v9[1] = contactlessPaymentInterfaceVisible;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: contactless session timer fired with visibility %d", v9, 8u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: contactless session timer fired with visibility %d", v9, 8u);
     }
   }
 
@@ -3897,8 +3951,6 @@ void __74__NPKContactlessPaymentSessionManager__sessionStateForTransactionContex
   {
     [(NPKContactlessPaymentSessionManager *)self _cleanupBarcodePaymentSession];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleServiceModeRequestEnded
@@ -3927,52 +3979,53 @@ void __74__NPKContactlessPaymentSessionManager__sessionStateForTransactionContex
 
 void __81__NPKContactlessPaymentSessionManager__registerForServiceModeRequestNotification__block_invoke(uint64_t a1)
 {
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Got cancel service mode requests notification", v9, 2u);
+      v10[0] = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Got cancel service mode requests notification", v10, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = [WeakRetained[2] serviceModeRequestedPass];
+    v8 = [WeakRetained[2] serviceModeRequestedPass];
 
-    if (v7)
+    if (v8)
     {
-      v8 = [v6 _baseSessionStateForUpdate];
-      [v8 setServiceModeRequestedPass:0];
-      [v6 _sendSessionStateToObservers:v8];
+      v9 = [v7 _baseSessionStateForUpdate];
+      [v9 setServiceModeRequestedPass:0];
+      [v7 _sendSessionStateToObservers:v9];
     }
   }
 }
 
 - (BOOL)_canHandleRKEActionForTileItem:(id)item pass:(id)pass outAction:(id *)action outFunction:(id *)function outError:(id *)error
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   passCopy = pass;
-  v55 = 0;
-  v12 = [PKGetClassNFDigitalCarKeySession() getVehicleReports:&v55];
-  v13 = v55;
+  v56 = 0;
+  v12 = [PKGetClassNFDigitalCarKeySession() getVehicleReports:&v56];
+  v13 = v56;
   secureElementPass = [passCopy secureElementPass];
   devicePrimaryPaymentApplication = [secureElementPass devicePrimaryPaymentApplication];
 
-  v48 = devicePrimaryPaymentApplication;
+  v49 = devicePrimaryPaymentApplication;
   subcredentials = [devicePrimaryPaymentApplication subcredentials];
   anyObject = [subcredentials anyObject];
   identifier = [anyObject identifier];
 
   v19 = [v12 objectForKeyedSubscript:identifier];
-  v50 = v12;
+  v20 = v19;
+  v51 = v12;
   if (v19 && !v13)
   {
     errorCopy = error;
@@ -3980,45 +4033,45 @@ void __81__NPKContactlessPaymentSessionManager__registerForServiceModeRequestNot
     action = [itemCopy action];
     vehicleFunctionActions = [action vehicleFunctionActions];
 
-    v53 = 0u;
     v54 = 0u;
-    v51 = 0u;
+    v55 = 0u;
     v52 = 0u;
+    v53 = 0u;
     tile = [itemCopy tile];
     metadata = [tile metadata];
     metadataTypeVehicleFunction = [metadata metadataTypeVehicleFunction];
     vehicleFunctions = [metadataTypeVehicleFunction vehicleFunctions];
 
-    v26 = [vehicleFunctions countByEnumeratingWithState:&v51 objects:v64 count:16];
-    if (v26)
+    v27 = [vehicleFunctions countByEnumeratingWithState:&v52 objects:v65 count:16];
+    if (v27)
     {
-      v44 = passCopy;
-      v45 = itemCopy;
-      v27 = *v52;
+      v45 = passCopy;
+      v46 = itemCopy;
+      v28 = *v53;
       while (2)
       {
-        for (i = 0; i != v26; i = i + 1)
+        for (i = 0; i != v27; i = i + 1)
         {
-          if (*v52 != v27)
+          if (*v53 != v28)
           {
             objc_enumerationMutation(vehicleFunctions);
           }
 
-          v29 = *(*(&v51 + 1) + 8 * i);
-          if ([v19 isRKEFunctionSupported:v29])
+          v30 = *(*(&v52 + 1) + 8 * i);
+          if ([v20 isRKEFunctionSupported:v30])
           {
-            v30 = [vehicleFunctionActions objectForKeyedSubscript:v29];
-            if (v30)
+            v31 = [vehicleFunctionActions objectForKeyedSubscript:v30];
+            if (v31)
             {
-              v31 = v30;
-              v26 = v29;
+              v32 = v31;
+              v27 = v30;
               goto LABEL_18;
             }
           }
         }
 
-        v26 = [vehicleFunctions countByEnumeratingWithState:&v51 objects:v64 count:16];
-        if (v26)
+        v27 = [vehicleFunctions countByEnumeratingWithState:&v52 objects:v65 count:16];
+        if (v27)
         {
           continue;
         }
@@ -4026,15 +4079,15 @@ void __81__NPKContactlessPaymentSessionManager__registerForServiceModeRequestNot
         break;
       }
 
-      v31 = 0;
+      v32 = 0;
 LABEL_18:
-      passCopy = v44;
-      itemCopy = v45;
+      passCopy = v45;
+      itemCopy = v46;
     }
 
     else
     {
-      v31 = 0;
+      v32 = 0;
     }
 
     error = errorCopy;
@@ -4050,74 +4103,73 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v32 = pk_Payment_log();
-  v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
+  v33 = pk_Payment_log(v19);
+  v34 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
 
-  if (v33)
+  if (v34)
   {
     functionCopy2 = function;
-    vehicleFunctionActions = pk_Payment_log();
+    vehicleFunctionActions = pk_Payment_log(v35);
     if (os_log_type_enabled(vehicleFunctionActions, OS_LOG_TYPE_ERROR))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138413058;
-      v57 = v19;
-      v58 = 2112;
-      v59 = uniqueID;
-      v60 = 2112;
-      v61 = identifier;
-      v62 = 2112;
-      v63 = v13;
+      v58 = v20;
+      v59 = 2112;
+      v60 = uniqueID;
+      v61 = 2112;
+      v62 = identifier;
+      v63 = 2112;
+      v64 = v13;
       _os_log_impl(&dword_25B300000, vehicleFunctionActions, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Failed to obtain vehicle report (%@) for pass: %@ with subcredential identifier: %@! Error: %@", buf, 0x2Au);
     }
 
-    v26 = 0;
-    v31 = 0;
+    v27 = 0;
+    v32 = 0;
     goto LABEL_23;
   }
 
-  v26 = 0;
-  v31 = 0;
+  v27 = 0;
+  v32 = 0;
   actionCopy2 = action;
   if (action)
   {
 LABEL_24:
-    v36 = v31;
-    *actionCopy2 = v31;
+    v38 = v32;
+    *actionCopy2 = v32;
   }
 
 LABEL_25:
   if (function)
   {
-    v37 = v26;
-    *function = v26;
+    v39 = v27;
+    *function = v27;
   }
 
   if (error)
   {
-    v38 = v13;
+    v40 = v13;
     *error = v13;
   }
 
-  if (v31)
+  if (v32)
   {
-    v39 = v26 == 0;
+    v41 = v27 == 0;
   }
 
   else
   {
-    v39 = 1;
+    v41 = 1;
   }
 
-  v41 = !v39 && v13 == 0;
+  v43 = !v41 && v13 == 0;
 
-  v42 = *MEMORY[0x277D85DE8];
-  return v41;
+  return v43;
 }
 
 - (void)_handleRKEActionRequestedForPass:(id)pass action:(id)action function:(id)function withSession:(id)session completion:(id)completion
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   actionCopy = action;
   functionCopy = function;
@@ -4128,84 +4180,83 @@ LABEL_25:
   aBlock[2] = __111__NPKContactlessPaymentSessionManager__handleRKEActionRequestedForPass_action_function_withSession_completion___block_invoke;
   aBlock[3] = &unk_279946F18;
   v17 = passCopy;
-  v35 = v17;
+  v36 = v17;
   v18 = actionCopy;
-  v36 = v18;
+  v37 = v18;
   v19 = functionCopy;
-  v37 = v19;
+  v38 = v19;
   v20 = sessionCopy;
-  v38 = v20;
+  v39 = v20;
   selfCopy = self;
   v21 = completionCopy;
-  v40 = v21;
+  v41 = v21;
   v22 = _Block_copy(aBlock);
+  v23 = v22;
   if (v17 && v18 && v19)
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __111__NPKContactlessPaymentSessionManager__handleRKEActionRequestedForPass_action_function_withSession_completion___block_invoke_568;
-    v28[3] = &unk_279946F68;
-    v29 = v17;
-    v30 = v19;
-    v31 = v18;
-    v32 = v20;
-    v33 = v22;
-    [v32 executeRKEActionForPass:v29 function:v30 action:v31 withCompletion:v28];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __111__NPKContactlessPaymentSessionManager__handleRKEActionRequestedForPass_action_function_withSession_completion___block_invoke_568;
+    v29[3] = &unk_279946F68;
+    v30 = v17;
+    v31 = v19;
+    v32 = v18;
+    v33 = v20;
+    v34 = v23;
+    [v33 executeRKEActionForPass:v30 function:v31 action:v32 withCompletion:v29];
   }
 
   else
   {
-    v23 = pk_Payment_log();
-    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+    v24 = pk_Payment_log(v22);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
 
-    if (v24)
+    if (v25)
     {
-      v25 = pk_Payment_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v27 = pk_Payment_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         uniqueID = [v17 uniqueID];
         *buf = 138412802;
-        v42 = uniqueID;
-        v43 = 2112;
-        v44 = v19;
-        v45 = 2112;
-        v46 = v18;
-        _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Unable to handle RKE action for pass: %@ function: %@ action: %@! Invalid input.", buf, 0x20u);
+        v43 = uniqueID;
+        v44 = 2112;
+        v45 = v19;
+        v46 = 2112;
+        v47 = v18;
+        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_ERROR, "Error: [PaymentSessionManager] Unable to handle RKE action for pass: %@ function: %@ action: %@! Invalid input.", buf, 0x20u);
       }
     }
 
-    (*(v22 + 2))(v22, 0, 6);
+    v23[2](v23, 0, 6);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __111__NPKContactlessPaymentSessionManager__handleRKEActionRequestedForPass_action_function_withSession_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v26 = *MEMORY[0x277D85DE8];
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(a1);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 32) uniqueID];
-      v10 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v12 = *(a1 + 56);
+      v10 = [*(a1 + 32) uniqueID];
+      v11 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      v13 = *(a1 + 56);
       v16 = 138413314;
-      v17 = v9;
+      v17 = v10;
       v18 = 2112;
-      v19 = v10;
+      v19 = v11;
       v20 = 2112;
-      v21 = v11;
+      v21 = v12;
       v22 = 2048;
       v23 = a3;
       v24 = 2112;
-      v25 = v12;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Invoking RKE action completion handler for pass %@ action %@ function %@ with reason %lu for session %@", &v16, 0x34u);
+      v25 = v13;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] Invoking RKE action completion handler for pass %@ action %@ function %@ with reason %lu for session %@", &v16, 0x34u);
     }
   }
 
@@ -4214,75 +4265,71 @@ void __111__NPKContactlessPaymentSessionManager__handleRKEActionRequestedForPass
     [*(a1 + 64) _cleanupQuickPaymentSession];
   }
 
-  v13 = [*(a1 + 64) _sessionStateForTransactionContext:0];
-  [v13 setCompletionReason:a3];
-  [*(a1 + 64) _sendSessionStateToObservers:v13];
-  v14 = *(a1 + 72);
-  if (v14)
+  v14 = [*(a1 + 64) _sessionStateForTransactionContext:0];
+  [v14 setCompletionReason:a3];
+  [*(a1 + 64) _sendSessionStateToObservers:v14];
+  v15 = *(a1 + 72);
+  if (v15)
   {
-    (*(v14 + 16))(v14, a2);
+    (*(v15 + 16))(v15, a2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __111__NPKContactlessPaymentSessionManager__handleRKEActionRequestedForPass_action_function_withSession_completion___block_invoke_568(uint64_t a1, int a2)
 {
   v30 = *MEMORY[0x277D85DE8];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 32) uniqueID];
-      v8 = v7;
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 48);
-      v11 = @"NO";
-      v12 = *(a1 + 56);
+      v8 = [*(a1 + 32) uniqueID];
+      v9 = v8;
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 48);
+      v12 = @"NO";
+      v13 = *(a1 + 56);
       if (a2)
       {
-        v11 = @"YES";
+        v12 = @"YES";
       }
 
       *buf = 138413314;
-      v21 = v7;
+      v21 = v8;
       v22 = 2112;
-      v23 = v9;
+      v23 = v10;
       v24 = 2112;
-      v25 = v10;
+      v25 = v11;
       v26 = 2112;
-      v27 = v11;
+      v27 = v12;
       v28 = 2112;
-      v29 = v12;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] RKE action execution for pass: %@ function: %@ action: %@ completed with success: %@ for session: %@", buf, 0x34u);
+      v29 = v13;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [PaymentSessionManager] RKE action execution for pass: %@ function: %@ action: %@ completed with success: %@ for session: %@", buf, 0x34u);
     }
   }
 
   if (a2)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = 5;
+    v14 = 5;
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __111__NPKContactlessPaymentSessionManager__handleRKEActionRequestedForPass_action_function_withSession_completion___block_invoke_575;
   block[3] = &unk_279946F40;
-  v14 = *(a1 + 64);
+  v15 = *(a1 + 64);
   v19 = a2;
-  v17 = v14;
-  v18 = v13;
+  v17 = v15;
+  v18 = v14;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sessionStateForPaymentBarcode:(id)barcode

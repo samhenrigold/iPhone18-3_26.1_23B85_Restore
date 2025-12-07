@@ -160,7 +160,7 @@ atomic_uint *CA::Render::Context::root_layer_handle(CA::Render::Context *this)
 
       if (v5)
       {
-        v6 = (v5 + 8);
+        v6 = v5 + 2;
         if (!atomic_fetch_add(v5 + 2, 1u))
         {
           v5 = 0;
@@ -1043,7 +1043,7 @@ LABEL_128:
                 v64 = CA::Render::Fence::cleared_f_names;
                 if (attributes || *&v169[24] == 0)
                 {
-                  attributes = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(CA::Render::Fence::cleared_f_names, v62[2]);
+                  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(CA::Render::Fence::cleared_f_names, v62[2], v62 + 2);
                   v62 = *v62;
                   v63 = 1;
                   if (v62)
@@ -1113,7 +1113,7 @@ LABEL_142:
                   v78 = *(v72 + 16);
                   if (v78 == 0.0 || (v79 = mach_absolute_time(), v78 <= CATimeWithHostTime(v79)))
                   {
-                    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(CA::Render::Fence::cleared_b_ports, *(v68 + 4));
+                    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(CA::Render::Fence::cleared_b_ports, *(v68 + 4), v68 + 4);
                     v68 = *v68;
                     v69 = 1;
                     if (v68)
@@ -1678,7 +1678,7 @@ LABEL_316:
               v104 = v166;
               if (!std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(v103, v166))
               {
-                std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(v103, v104);
+                std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(v103, v104, &v166);
                 v104 = v166;
                 if (*(v102 + 44) == 1)
                 {
@@ -1687,7 +1687,7 @@ LABEL_316:
                 }
               }
 
-              std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(*(v102 + 32), v104);
+              std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(*(v102 + 32), v104, &v166);
               v99 = *v99;
             }
 
@@ -2465,9 +2465,9 @@ void CA::Render::Coder::~Coder(CA::Render::Coder *this)
   malloc_zone_free(v2, this);
 }
 
-void *CA::Render::Server::CmdStreamMsg::consume_batch_ports(void *result, void *a2)
+void CA::Render::Server::CmdStreamMsg::consume_batch_ports(uint64_t result, void *a2)
 {
-  v2 = result[5];
+  v2 = *(result + 40);
   if (v2)
   {
     if (*(v2 + 11))
@@ -2475,7 +2475,7 @@ void *CA::Render::Server::CmdStreamMsg::consume_batch_ports(void *result, void *
       v4 = *(v2 + 3);
       if (!v4)
       {
-        return result;
+        return;
       }
 
       v2 = *v2;
@@ -2492,12 +2492,12 @@ void *CA::Render::Server::CmdStreamMsg::consume_batch_ports(void *result, void *
       v6 = *v2;
       if ((*v2 + 1) >= 2)
       {
-        result = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a2, v6);
+        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a2, v6, v2);
       }
 
       else
       {
-        result = mach_port_deallocate(*v5, v6);
+        mach_port_deallocate(*v5, v6);
       }
 
       *v2 = 0;
@@ -2507,8 +2507,6 @@ void *CA::Render::Server::CmdStreamMsg::consume_batch_ports(void *result, void *
 
     while (v4);
   }
-
-  return result;
 }
 
 void CA::Render::Context::apply_streams(CA::Render::Context *this, void *a2, uint64_t a3)
@@ -3032,7 +3030,7 @@ LABEL_39:
         v75 = CA::Render::Decoder::decode_int32(v12);
         v76 = CA::Render::Decoder::decode_int32(v12);
         v77 = CA::Render::Decoder::decode_int32(v12);
-        v18 = CA::Render::Decoder::decode_object(v12, 6, &CA::Render::texture_types);
+        v18 = CA::Render::Decoder::decode_object(v12, 6, CA::Render::texture_types);
         v78 = CA::Render::Decoder::decode_int32(v12);
         v79 = CA::Render::Decoder::decode_int32(v12);
         if ((*(v12 + 18) & 1) == 0)
@@ -3321,7 +3319,7 @@ uint64_t CA::Render::Context::increment_commit_seed(os_unfair_lock_s *this)
 {
   os_unfair_lock_lock(this + 13);
   ++this[16]._os_unfair_lock_opaque;
-  CA::Render::Context::check_sync_reqs(this, 0.0);
+  CA::Render::Context::check_sync_reqs(this, 0.0, v2, v3, v4, v5, v6);
   os_unfair_lock_opaque = this[16]._os_unfair_lock_opaque;
   os_unfair_lock_unlock(this + 13);
   return os_unfair_lock_opaque;
@@ -3836,7 +3834,7 @@ _DWORD *CARecordCurrentDisplayGet()
   return result;
 }
 
-uint64_t CAGetColorSpace(int a1)
+uint64_t CAGetColorSpace(uint64_t a1)
 {
   v32 = *MEMORY[0x1E69E9840];
   if (a1 > 0x26)
@@ -3844,20 +3842,21 @@ uint64_t CAGetColorSpace(int a1)
     return 0;
   }
 
+  v2 = a1;
   result = colorspaces[a1];
   if (!result)
   {
-    v3 = a1;
-    if (a1 <= 28)
+    v3 = v2;
+    if (v2 <= 28)
     {
-      if (a1 <= 26)
+      if (v2 <= 26)
       {
-        if (!a1)
+        if (!v2)
         {
           return colorspaces[v3];
         }
 
-        if (a1 != 26)
+        if (v2 != 26)
         {
           goto LABEL_29;
         }
@@ -3873,7 +3872,7 @@ uint64_t CAGetColorSpace(int a1)
         goto LABEL_25;
       }
 
-      if (a1 == 27)
+      if (v2 == 27)
       {
         v11 = *MEMORY[0x1E6965F30];
         *&v20 = *MEMORY[0x1E6965D88];
@@ -3895,9 +3894,9 @@ uint64_t CAGetColorSpace(int a1)
 
     else
     {
-      if (a1 > 30)
+      if (v2 > 30)
       {
-        switch(a1)
+        switch(v2)
         {
           case 31:
             *values = xmmword_183E32120;
@@ -3931,20 +3930,20 @@ uint64_t CAGetColorSpace(int a1)
             goto LABEL_22;
           default:
 LABEL_29:
-            if (get_cg_name(a1))
+            if (get_cg_name(v2))
             {
-              cg_name = get_cg_name(a1);
+              cg_name = get_cg_name(v2);
               Linearized = CGColorSpaceCreateWithName(cg_name);
             }
 
             else
             {
-              if ((0x3FF3E7FFFuLL >> a1))
+              if ((0x3FF3E7FFFuLL >> v2))
               {
                 __assert_rtn("CAGetColorSpace", "CACGUtil.cpp", 1435, "false");
               }
 
-              v19 = CAGetColorSpace(unlinearized_colorspaces[a1]);
+              v19 = CAGetColorSpace(unlinearized_colorspaces[v2]);
               Linearized = CGColorSpaceCreateLinearized(v19);
             }
 
@@ -3961,7 +3960,7 @@ LABEL_25:
         v21 = v16;
         Linearized = CGColorSpaceCreateCalibratedRGB(values, &blackPoint, gamma, &v20);
 LABEL_26:
-        colorspaces[a1] = Linearized;
+        colorspaces[v2] = Linearized;
         return colorspaces[v3];
       }
 
@@ -3969,7 +3968,7 @@ LABEL_26:
       *&v20 = *MEMORY[0x1E6965D88];
       *(&v20 + 1) = v10;
       *&v21 = *MEMORY[0x1E6965F98];
-      if (a1 == 29)
+      if (v2 == 29)
       {
         v9 = MEMORY[0x1E6965DD8];
       }
@@ -4075,106 +4074,106 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,st
   return result;
 }
 
-void CA::Render::Context::check_sync_reqs(CA::Render::Context *this, double a2)
+void CA::Render::Context::check_sync_reqs(CA::Render::Context *this, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v3 = (this + 56);
-  v2 = *(this + 7);
-  if (v2)
+  v53 = *MEMORY[0x1E69E9840];
+  v8 = (this + 56);
+  v7 = *(this + 7);
+  if (v7)
   {
     while (1)
     {
-      v6 = v2[9];
-      v7 = *(this + 16);
-      v8 = v7 >= v6;
-      if (v7 >= v6 && (v2[10] & 1) != 0)
+      v11 = v7[9];
+      v12 = *(this + 16);
+      v13 = v12 >= v11;
+      if (v12 >= v11 && (v7[10] & 1) != 0)
       {
-        v8 = *(this + 17) >= v6 || *(this + 88) == 0;
+        v13 = *(this + 17) >= v11 || *(this + 88) == 0;
       }
 
-      if (*(v2 + 2) <= a2)
+      if (*(v7 + 2) <= a2)
       {
         if (CA::Render::sync_hang_report_level(void)::onceToken != -1)
         {
           dispatch_once(&CA::Render::sync_hang_report_level(void)::onceToken, &__block_literal_global_98_4538);
         }
 
-        v9 = CA::Render::sync_hang_report_level(void)::level;
+        v14 = CA::Render::sync_hang_report_level(void)::level;
         if (x_log_get_render(void)::once[0] != -1)
         {
           dispatch_once(x_log_get_render(void)::once, &__block_literal_global_6229);
         }
 
-        v10 = x_log_get_render(void)::log;
-        if (v9 == 2)
+        v15 = x_log_get_render(void)::log;
+        if (v14 == 2)
         {
           if (os_log_type_enabled(x_log_get_render(void)::log, OS_LOG_TYPE_FAULT))
           {
-            v24 = *(this + 4);
-            v25 = *(this + 16);
-            v26 = *(this + 17);
-            if (*(v2 + 40))
+            v29 = *(this + 4);
+            v30 = *(this + 16);
+            v31 = *(this + 17);
+            if (*(v7 + 40))
             {
-              v27 = 114;
+              v32 = 114;
             }
 
             else
             {
-              v27 = 99;
+              v32 = 99;
             }
 
-            v29 = v2[8];
-            v28 = v2[9];
+            v34 = v7[8];
+            v33 = v7[9];
             *buf = 67110400;
-            v37 = v24;
-            v38 = 1024;
-            v39 = v25;
-            v40 = 1024;
-            v41 = v26;
-            v42 = 1024;
-            v43 = v27;
-            v44 = 1024;
-            v45 = v28;
-            v46 = 1024;
-            v47 = v29;
-            _os_log_fault_impl(&dword_183AA6000, v10, OS_LOG_TYPE_FAULT, "CoreAnimation: long synchronize for %x: now (%u,%u): req %c%u(%u)", buf, 0x26u);
+            v42 = v29;
+            v43 = 1024;
+            v44 = v30;
+            v45 = 1024;
+            v46 = v31;
+            v47 = 1024;
+            v48 = v32;
+            v49 = 1024;
+            v50 = v33;
+            v51 = 1024;
+            v52 = v34;
+            _os_log_fault_impl(&dword_183AA6000, v15, OS_LOG_TYPE_FAULT, "CoreAnimation: long synchronize for %x: now (%u,%u): req %c%u(%u)", buf, 0x26u);
           }
         }
 
         else
         {
-          if (v9 == 3)
+          if (v14 == 3)
           {
             if (os_log_type_enabled(x_log_get_render(void)::log, OS_LOG_TYPE_ERROR))
             {
-              v30 = *(this + 4);
-              v31 = *(this + 16);
-              v32 = *(this + 17);
-              if (*(v2 + 40))
+              v35 = *(this + 4);
+              v36 = *(this + 16);
+              v37 = *(this + 17);
+              if (*(v7 + 40))
               {
-                v33 = 114;
+                v38 = 114;
               }
 
               else
               {
-                v33 = 99;
+                v38 = 99;
               }
 
-              v35 = v2[8];
-              v34 = v2[9];
+              v40 = v7[8];
+              v39 = v7[9];
               *buf = 67110400;
-              v37 = v30;
-              v38 = 1024;
-              v39 = v31;
-              v40 = 1024;
-              v41 = v32;
-              v42 = 1024;
-              v43 = v33;
-              v44 = 1024;
-              v45 = v34;
-              v46 = 1024;
-              v47 = v35;
-              _os_log_error_impl(&dword_183AA6000, v10, OS_LOG_TYPE_ERROR, "CoreAnimation: long synchronize for %x: now (%u,%u): req %c%u(%u)", buf, 0x26u);
+              v42 = v35;
+              v43 = 1024;
+              v44 = v36;
+              v45 = 1024;
+              v46 = v37;
+              v47 = 1024;
+              v48 = v38;
+              v49 = 1024;
+              v50 = v39;
+              v51 = 1024;
+              v52 = v40;
+              _os_log_error_impl(&dword_183AA6000, v15, OS_LOG_TYPE_ERROR, "CoreAnimation: long synchronize for %x: now (%u,%u): req %c%u(%u)", buf, 0x26u);
             }
 
             abort();
@@ -4182,52 +4181,52 @@ void CA::Render::Context::check_sync_reqs(CA::Render::Context *this, double a2)
 
           if (os_log_type_enabled(x_log_get_render(void)::log, OS_LOG_TYPE_ERROR))
           {
-            v11 = *(this + 4);
-            v12 = *(this + 16);
-            v13 = *(this + 17);
-            if (*(v2 + 40))
+            v16 = *(this + 4);
+            v17 = *(this + 16);
+            v18 = *(this + 17);
+            if (*(v7 + 40))
             {
-              v14 = 114;
+              v19 = 114;
             }
 
             else
             {
-              v14 = 99;
+              v19 = 99;
             }
 
-            v16 = v2[8];
-            v15 = v2[9];
+            v21 = v7[8];
+            v20 = v7[9];
             *buf = 67110400;
-            v37 = v11;
-            v38 = 1024;
-            v39 = v12;
-            v40 = 1024;
-            v41 = v13;
-            v42 = 1024;
-            v43 = v14;
-            v44 = 1024;
-            v45 = v15;
-            v46 = 1024;
-            v47 = v16;
-            _os_log_error_impl(&dword_183AA6000, v10, OS_LOG_TYPE_ERROR, "long synchronize for %x: now (%u,%u): req %c%u(%u)", buf, 0x26u);
+            v42 = v16;
+            v43 = 1024;
+            v44 = v17;
+            v45 = 1024;
+            v46 = v18;
+            v47 = 1024;
+            v48 = v19;
+            v49 = 1024;
+            v50 = v20;
+            v51 = 1024;
+            v52 = v21;
+            _os_log_error_impl(&dword_183AA6000, v15, OS_LOG_TYPE_ERROR, "long synchronize for %x: now (%u,%u): req %c%u(%u)", buf, 0x26u);
           }
         }
       }
 
-      if (*(v2 + 3) <= a2)
+      if (*(v7 + 3) <= a2)
       {
         break;
       }
 
-      if (v8)
+      if (v13)
       {
         goto LABEL_26;
       }
 
-      v3 = v2;
+      v8 = v7;
 LABEL_29:
-      v2 = *v3;
-      if (!*v3)
+      v7 = *v8;
+      if (!*v8)
       {
         return;
       }
@@ -4238,48 +4237,48 @@ LABEL_29:
       dispatch_once(x_log_get_render(void)::once, &__block_literal_global_6229);
     }
 
-    v17 = x_log_get_render(void)::log;
+    v22 = x_log_get_render(void)::log;
     if (os_log_type_enabled(x_log_get_render(void)::log, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(this + 4);
-      v19 = *(this + 16);
-      v20 = *(this + 17);
-      if (*(v2 + 40))
+      v23 = *(this + 4);
+      v24 = *(this + 16);
+      v25 = *(this + 17);
+      if (*(v7 + 40))
       {
-        v21 = 114;
+        v26 = 114;
       }
 
       else
       {
-        v21 = 99;
+        v26 = 99;
       }
 
-      v23 = v2[8];
-      v22 = v2[9];
+      v28 = v7[8];
+      v27 = v7[9];
       *buf = 67110400;
-      v37 = v18;
-      v38 = 1024;
-      v39 = v19;
-      v40 = 1024;
-      v41 = v20;
-      v42 = 1024;
-      v43 = v21;
-      v44 = 1024;
-      v45 = v22;
-      v46 = 1024;
-      v47 = v23;
-      _os_log_error_impl(&dword_183AA6000, v17, OS_LOG_TYPE_ERROR, "synchronize timed out for %x with (%u,%u): req %c%u(%u)", buf, 0x26u);
+      v42 = v23;
+      v43 = 1024;
+      v44 = v24;
+      v45 = 1024;
+      v46 = v25;
+      v47 = 1024;
+      v48 = v26;
+      v49 = 1024;
+      v50 = v27;
+      v51 = 1024;
+      v52 = v28;
+      _os_log_error_impl(&dword_183AA6000, v22, OS_LOG_TYPE_ERROR, "synchronize timed out for %x with (%u,%u): req %c%u(%u)", buf, 0x26u);
     }
 
 LABEL_26:
-    CA::Render::send_synchronize_reply(*(this + 4), v2[2], v2[8], *(this + 16), *(this + 17));
-    *v3 = *v2;
+    CA::Render::send_synchronize_reply(*(this + 4), v7[2], v7[8], *(this + 16), *(this + 17));
+    *v8 = *v7;
     if (x_malloc_get_zone::once != -1)
     {
       dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
     }
 
-    malloc_zone_free(malloc_zone, v2);
+    malloc_zone_free(malloc_zone, v7);
     goto LABEL_29;
   }
 }
@@ -4605,7 +4604,7 @@ LABEL_56:
         else
         {
           *v499 = &v461;
-          std::__hash_table<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v475, v48)[3] = v47;
+          std::__hash_table<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v475, v48, v499)[3] = v47;
         }
 
         v39[2] = 0;
@@ -4623,9 +4622,9 @@ LABEL_70:
       else
       {
         *v499 = &v464;
-        v53 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v490, v464);
+        v53 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v490, v464, v499);
         *v499 = &handler;
-        *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v53 + 3, handler) + 5) = v40;
+        *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v53 + 3, handler, v499) + 5) = v40;
         v54 = std::__hash_table<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>>>::find<unsigned int>(v485, *(&v485 + 1), v464);
         if (v54)
         {
@@ -4647,7 +4646,7 @@ LABEL_70:
           *(v55 + 25) = v414;
           v55[4] = 0;
           *v499 = &v464;
-          std::__hash_table<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v485, v464)[3] = v55;
+          std::__hash_table<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v485, v464, v499)[3] = v55;
         }
 
         v57 = v55;
@@ -4742,9 +4741,9 @@ LABEL_111:
             }
 
             *v499 = &v464;
-            v70 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v490, v464);
+            v70 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v490, v464, v499);
             *v499 = &handler;
-            *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v70 + 3, handler) + 5) = v66;
+            *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v70 + 3, handler, v499) + 5) = v66;
             v71 = std::__hash_table<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>>>::find<unsigned int>(v485, *(&v485 + 1), v464);
             if (v71)
             {
@@ -4766,7 +4765,7 @@ LABEL_111:
               *(v72 + 25) = v414;
               v72[4] = 0;
               *v499 = &v464;
-              std::__hash_table<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v485, v464)[3] = v72;
+              std::__hash_table<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Render::Fence::Transaction::Info *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v485, v464, v499)[3] = v72;
             }
 
             if (x_malloc_get_zone::once != -1)
@@ -4901,7 +4900,7 @@ LABEL_138:
           {
             v88 = *(i + 2);
             *v499 = i + 12;
-            v79 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&handler, v87);
+            v79 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&handler, v87, v499);
             *(v79 + 5) = v88;
             v78 = &unk_1ED4EA000;
             ++v85;
@@ -4934,7 +4933,7 @@ LABEL_138:
       {
         v94 = *(j + 2);
         *v499 = j + 12;
-        v79 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&handler, v93);
+        v79 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&handler, v93, v499);
         *(v79 + 5) = v94;
         v78 = &unk_1ED4EA000;
         ++v85;
@@ -5419,7 +5418,7 @@ LABEL_245:
       goto LABEL_245;
     }
 
-    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v472, v130);
+    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v472, v130, v499);
     if (!v410)
     {
       v410 = 0;
@@ -5436,12 +5435,12 @@ LABEL_245:
     v409 = *(v149 + 40);
     if (!v409)
     {
-      add = atomic_fetch_add(&CA::Transaction::capture_ftx_seed(void)::next_ftx_seed, 1u);
+      add = atomic_fetch_add(CA::Transaction::capture_ftx_seed(void)::next_ftx_seed, 1u);
       v409 = add + 1;
       *(v149 + 40) = add + 1;
       if (add == -1)
       {
-        v409 = atomic_fetch_add(&CA::Transaction::capture_ftx_seed(void)::next_ftx_seed, 1u) + 1;
+        v409 = atomic_fetch_add(CA::Transaction::capture_ftx_seed(void)::next_ftx_seed, 1u) + 1;
         *(v149 + 40) = v409;
       }
     }
@@ -5495,17 +5494,17 @@ LABEL_247:
       if (v133 <= 0xFFFFFFFD)
       {
         *v499 = &v461;
-        v135 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v490, v461);
+        v135 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v490, v461, v499);
         v136 = v134[3];
         *v499 = v134 + 3;
-        LODWORD(handler) = *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v135 + 3, v136) + 5);
+        LODWORD(handler) = *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v135 + 3, v136, v499) + 5);
         *v499 = &handler;
-        *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v470, handler) + 5) = v130;
+        *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v470, handler, v499) + 5) = v130;
         if (*(v421 + 32))
         {
           v137 = v134[3];
           *v499 = &handler;
-          *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v464, handler) + 5) = v137;
+          *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v464, handler, v499) + 5) = v137;
           if (!*(&v467 + 1))
           {
             goto LABEL_277;
@@ -5874,7 +5873,7 @@ LABEL_778:
           v383 = v451;
           if (v451 - 1 < 0xFFFFFFFE && !std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(&v461, v451))
           {
-            std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v461, v383);
+            std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v461, v383, &v451);
             *&v499[44] = 0;
           }
 
@@ -6240,7 +6239,7 @@ LABEL_356:
         }
 
         *v499 = &v464;
-        v194 = std::__hash_table<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(CA::Context::_deferred_by_lid, v464)[3];
+        v194 = std::__hash_table<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(CA::Context::_deferred_by_lid, v464, v499)[3];
         while (v194)
         {
           v195 = v194;
@@ -6252,7 +6251,7 @@ LABEL_356:
         }
 
         *v499 = &v464;
-        v195 = std::__hash_table<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(CA::Context::_deferred_by_lid, v464) + 3;
+        v195 = std::__hash_table<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Context::DeferredCommit *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(CA::Context::_deferred_by_lid, v464, v499) + 3;
 LABEL_415:
         *v195 = v193;
         os_unfair_lock_unlock(&CA::Context::_deferred_lock);
@@ -6278,7 +6277,7 @@ LABEL_415:
         }
 
         *v499 = &v464;
-        v407 = std::__hash_table<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v475, v464)[3];
+        v407 = std::__hash_table<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v475, v464, v499)[3];
         v201 = v475;
         v202 = std::__hash_table<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,X::List<void({block_pointer})(CAFenceResolution *)> *>>>::find<unsigned int>(v475, *(&v475 + 1), v464);
         if (v202)
@@ -6790,11 +6789,11 @@ LABEL_515:
     }
 
     LOBYTE(v452) = 0;
-    CA::Transaction::get_value(v256[13], 233, 7, &v452);
+    CA::Transaction::get_value(*(v256 + 104), 233, 7, &v452);
     if (*(&v447 + 1) && *(*(&v447 + 1) + 32) - *(*(&v447 + 1) + 24) != *(*(&v447 + 1) + 96) || LOBYTE(v452) == 1)
     {
       LOBYTE(v485) = 0;
-      CA::Transaction::get_value(v256[13], 491, 7, &v485);
+      CA::Transaction::get_value(*(v256 + 104), 491, 7, &v485);
       if (LOBYTE(v452) == 1)
       {
         LOBYTE(v485) = 1;
@@ -6858,7 +6857,7 @@ LABEL_554:
       }
 
       LOBYTE(v461) = 0;
-      if (CA::Transaction::get_value(v256[13], 268, 6, &v461))
+      if (CA::Transaction::get_value(*(v256 + 104), 268, 6, &v461))
       {
         if (v448)
         {
@@ -6891,7 +6890,7 @@ LABEL_554:
       }
 
       *v499 = 0;
-      if (CA::Transaction::_update_cycle_support_enabled == 1 && CA::Transaction::get_value(v256[13], 727, 0x12, v499))
+      if (CA::Transaction::_update_cycle_support_enabled == 1 && CA::Transaction::get_value(*(v256 + 104), 727, 0x12, v499))
       {
         v269 = *(&v447 + 1);
         v270 = *v499;
@@ -6917,7 +6916,7 @@ LABEL_554:
       }
     }
 
-    v273 = v256[15];
+    v273 = *(v256 + 120);
     v274 = *(v273 + 192);
     if (v274 != 0.0)
     {
@@ -6955,7 +6954,7 @@ LABEL_554:
     }
 
     *&v485 = 0;
-    if (CA::Transaction::get_value(v256[13], 600, 0x10, &v485))
+    if (CA::Transaction::get_value(*(v256 + 104), 600, 0x10, &v485))
     {
       if (v448)
       {
@@ -7387,7 +7386,7 @@ LABEL_680:
       LODWORD(v450) = *(v322 + 4);
       v323 = v322[3];
       *v499 = &v450;
-      v324 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v480, v450);
+      v324 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v480, v450, v499);
       if (v324[6])
       {
         std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__hash_table(&v456, v324 + 3);
@@ -7443,9 +7442,9 @@ LABEL_680:
         }
 
         v328 = *(v323 + 24);
-        if (CA::Render::Fence::_observer_callback_queue(void)::onceToken != -1)
+        if (CA::Render::Fence::_observer_callback_queue(void)::onceToken[0] != -1)
         {
-          dispatch_once(&CA::Render::Fence::_observer_callback_queue(void)::onceToken, &__block_literal_global_21684);
+          dispatch_once(CA::Render::Fence::_observer_callback_queue(void)::onceToken, &__block_literal_global_21684);
         }
 
         v329 = CA::Render::Fence::_observer_callback_queue(void)::q;
@@ -7525,7 +7524,7 @@ LABEL_680:
     *&v499[32] = 1065353216;
     v333 = mach_absolute_time();
     v334 = CATimeWithHostTime(v333);
-    CA::Context::send_deferrals(0, 0, v499, 0, v334);
+    CA::Context::send_deferrals(0, 0, v499, 0, 0, v334);
     std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(v499);
   }
 
@@ -7761,7 +7760,7 @@ LABEL_757:
   if (buffer_list)
   {
     v370 = 0;
-    atomic_compare_exchange_strong(&pending_async_collect, &v370, 1u);
+    atomic_compare_exchange_strong(pending_async_collect, &v370, 1u);
     if (!v370)
     {
       CA::DispatchGroup::enqueue(v367, v368, v369);
@@ -7840,7 +7839,7 @@ CA::Render::Object *CA::Render::Handle::set_update_flags(CA::Render::Object *thi
   return this;
 }
 
-CA::Render::Object *CA::Render::Context::lookup_handle(CA::Render::Context *this, CA::Render::Object *a2, int a3, int a4, unsigned int *a5)
+CA::Render::Object *CA::Render::Context::lookup_handle(CA::Render::Context *this, CA::Render::Object *a2, unsigned int a3, int a4, unsigned int *a5)
 {
   v8 = (this + 136);
   v9 = ((a2 ^ 0x8000000000000000) + ~(a2 << 32)) ^ (((a2 ^ 0x8000000000000000) + ~(a2 << 32)) >> 22);
@@ -8091,45 +8090,37 @@ void *std::__hash_table<std::__hash_value_type<CA::Render::Object *,x_link_struc
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -8416,12 +8407,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -8435,22 +8426,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -8484,13 +8475,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -8561,15 +8552,15 @@ int8x16_t CA::Mat4Impl::mat4_apply_to_rect(float64x2_t *this, int8x16_t *a2, dou
   result.i64[0] = a2[1].i64[1];
   if (v4 <= *result.i64)
   {
-    v5 = *&a2[1].i64[1];
+    v5 = a2[1].i64[1];
   }
 
   else
   {
-    v5 = *a2[1].i64;
+    v5 = a2[1].i64[0];
   }
 
-  if (v5 < 1.79769313e308)
+  if (*&v5 < 1.79769313e308)
   {
     v8 = 0;
     v9 = *&a2->i64[1];
@@ -8682,7 +8673,7 @@ float64x2_t CA::Mat4Impl::mat4_concat(float64x2_t *this, double *a2, const doubl
   return result;
 }
 
-CA::WindowServer::Display::ModeSet *CA::WindowServer::Display::ModeSet::ModeSet(int8x8_t *this, const CA::WindowServer::Display::ModeSet *a2)
+int8x8_t *CA::WindowServer::Display::ModeSet::ModeSet(int8x8_t *this, const CA::WindowServer::Display::ModeSet *a2)
 {
   v33[1] = *MEMORY[0x1E69E9840];
   *this = 0;
@@ -8707,14 +8698,14 @@ CA::WindowServer::Display::ModeSet *CA::WindowServer::Display::ModeSet::ModeSet(
     {
       v33[0] = 0;
       v9 = *v5;
-      v10 = this + 4;
+      v10 = &this[4];
       if (*v6 == v5)
       {
         goto LABEL_21;
       }
 
       v11 = *v5;
-      v12 = this + 4;
+      v12 = &this[4];
       if (v9)
       {
         do
@@ -8738,7 +8729,7 @@ CA::WindowServer::Display::ModeSet *CA::WindowServer::Display::ModeSet::ModeSet(
         while (v15);
       }
 
-      v13 = v10[3].u16[1];
+      v13 = *(v10 + 13);
       v14 = *(v7 + 13);
       v15 = v13 == v14;
       if (v13 >= v14)
@@ -8753,7 +8744,7 @@ CA::WindowServer::Display::ModeSet *CA::WindowServer::Display::ModeSet::ModeSet(
 
       if (v15)
       {
-        v17 = v10[3].u16[2];
+        v17 = *(v10 + 14);
         v18 = *(v7 + 14);
         v19 = v17 == v18;
         v16 = v17 >= v18 ? 1 : -1;
@@ -8769,12 +8760,12 @@ LABEL_21:
         if (v9)
         {
           v33[0] = v10;
-          v20 = &v10[1];
+          v20 = v10 + 1;
         }
 
         else
         {
-          v33[0] = this + 4;
+          v33[0] = &this[4];
           v20 = &this[4];
         }
       }
@@ -8924,7 +8915,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<CA::WindowServer::Dis
   std::vector<CA::Display::DisplayEDRState *>::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<CA::WindowServer::Display::Mode>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CA::WindowServer::Display::Mode>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9003,50 +8994,48 @@ LABEL_6:
   }
 }
 
-id create_mode(uint64_t a1, unint64_t a2, uint64_t a3)
+id create_mode(uint64_t a1, const Mode *a2, int8x8_t *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 8);
   v7 = [MEMORY[0x1E695DF70] array];
   if (a3)
   {
-    v14 = 0;
-    v15 = 0;
+    v14 = 0uLL;
     CA::WindowServer::Display::ModeSet::get_per_mode_info(a3, a2, &v14);
-    HIDWORD(v15) = *(a3 + 88);
+    HIDWORD(v14) = a3[11].i32[0];
+    v9 = *(&v14 + 1);
     v8 = v14;
-    v9 = v15;
   }
 
   else
   {
-    os_unfair_lock_lock(v6 + 18);
-    v14 = 0;
-    v15 = 0;
-    CA::WindowServer::Display::ModeSet::get_per_mode_info(&v6[38], a2, &v14);
-    HIDWORD(v15) = v6[60];
+    os_unfair_lock_lock((v6 + 72));
+    v14 = 0uLL;
+    CA::WindowServer::Display::ModeSet::get_per_mode_info((v6 + 152), a2, &v14);
+    HIDWORD(v14) = *(v6 + 240);
+    v9 = *(&v14 + 1);
     v8 = v14;
-    v9 = v15;
-    os_unfair_lock_unlock(v6 + 18);
+    os_unfair_lock_unlock((v6 + 72));
   }
 
   v10 = [CADisplayMode _displayModeWithMode:a2 display:a1 rates:v7 perMode:v8 maxSourceBandwidthPerPipe:v9, HIDWORD(v9)];
   if (a2 == -1)
   {
-    os_unfair_lock_lock(v6 + 18);
-    os_unfair_lock_opaque = v6[68]._os_unfair_lock_opaque;
-    v12 = v6[69]._os_unfair_lock_opaque;
-    os_unfair_lock_unlock(v6 + 18);
-    [v10 _setWidth:os_unfair_lock_opaque height:v12];
+    os_unfair_lock_lock((v6 + 72));
+    v11 = *(v6 + 272);
+    v12 = *(v6 + 276);
+    os_unfair_lock_unlock((v6 + 72));
+    [v10 _setWidth:v11 height:v12];
   }
 
-  [v10 _setPreferredUIScale:v6[110]._os_unfair_lock_opaque];
+  [v10 _setPreferredUIScale:*(v6 + 440)];
   return v10;
 }
 
-uint64_t CA::WindowServer::Display::ModeSet::get_per_mode_info(uint64_t this, unint64_t a2, PerModeInfo *a3)
+int8x8_t *CA::WindowServer::Display::ModeSet::get_per_mode_info(int8x8_t *this, unint64_t a2, PerModeInfo *a3)
 {
-  v3 = *(this + 56);
+  v3 = this[7];
   if (v3)
   {
     v4 = vcnt_s8(v3);
@@ -9054,18 +9043,18 @@ uint64_t CA::WindowServer::Display::ModeSet::get_per_mode_info(uint64_t this, un
     if (v4.u32[0] > 1uLL)
     {
       v5 = a2;
-      if (v3 <= a2)
+      if (*&v3 <= a2)
       {
-        v5 = a2 % v3;
+        v5 = a2 % *&v3;
       }
     }
 
     else
     {
-      v5 = (v3 - 1) & a2;
+      v5 = (*&v3 - 1) & a2;
     }
 
-    v6 = *(*(this + 48) + 8 * v5);
+    v6 = *(*&this[6] + 8 * v5);
     if (v6)
     {
       for (i = *v6; i; i = *i)
@@ -9086,15 +9075,15 @@ uint64_t CA::WindowServer::Display::ModeSet::get_per_mode_info(uint64_t this, un
         {
           if (v4.u32[0] > 1uLL)
           {
-            if (v8 >= v3)
+            if (v8 >= *&v3)
             {
-              v8 %= v3;
+              v8 %= *&v3;
             }
           }
 
           else
           {
-            v8 &= v3 - 1;
+            v8 &= *&v3 - 1;
           }
 
           if (v8 != v5)
@@ -9735,13 +9724,13 @@ void CA::Render::BackdropLayer::~BackdropLayer(CA::Render::BackdropLayer *this, 
   v3 = *(this + 17);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 3);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   --dword_1ED4EAA44;
@@ -9766,13 +9755,13 @@ void CA::Render::BackdropLayer::~BackdropLayer(CA::Render::BackdropLayer *this, 
   v3 = *(this + 17);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 3);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   --dword_1ED4EAA44;
@@ -9781,4 +9770,24 @@ void CA::Render::BackdropLayer::~BackdropLayer(CA::Render::BackdropLayer *this, 
   {
     CA::Render::Encoder::ObjectCache::invalidate(this, a2);
   }
+}
+
+float CA::WindowServer::IOMFBDisplay::contrast_preservation(CA::WindowServer::IOMFBDisplay *this)
+{
+  if (initialized[0] != -1)
+  {
+    dispatch_once_f(initialized, 0, init_debug);
+  }
+
+  result = *&dword_1ED4E972C;
+  if (*&dword_1ED4E972C == 0.0)
+  {
+    result = *(this + 6621);
+    if (!*(this + 26492))
+    {
+      return 0.0;
+    }
+  }
+
+  return result;
 }

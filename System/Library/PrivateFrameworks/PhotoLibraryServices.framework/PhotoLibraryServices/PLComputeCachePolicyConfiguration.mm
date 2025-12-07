@@ -110,7 +110,7 @@
   return v5;
 }
 
-uint64_t __69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary___block_invoke(uint64_t result, void *a2)
+void *__69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary___block_invoke(void *result, void *a2)
 {
   v2 = result;
   if (a2)
@@ -124,11 +124,11 @@ uint64_t __69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary
     v3 = 1;
   }
 
-  *(*(v2 + 32) + 8) = v3;
+  *(v2[4] + 8) = v3;
   return result;
 }
 
-uint64_t __69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary___block_invoke_2(uint64_t result, void *a2)
+void *__69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary___block_invoke_2(void *result, void *a2)
 {
   v2 = result;
   if (a2)
@@ -142,7 +142,7 @@ uint64_t __69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary
     v3 = 1;
   }
 
-  *(*(v2 + 32) + 9) = v3;
+  *(v2[4] + 9) = v3;
   return result;
 }
 
@@ -178,7 +178,7 @@ uint64_t __69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary
   return result;
 }
 
-unint64_t __69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary___block_invoke_5(unint64_t result, void *a2)
+void *__69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionary___block_invoke_5(void *result, void *a2)
 {
   v2 = result;
   if (a2)
@@ -192,7 +192,7 @@ unint64_t __69__PLComputeCachePolicyConfiguration_initWithConfigurationDictionar
     v3 = 1209600.0;
   }
 
-  *(*(v2 + 32) + 32) = v3;
+  *(v2[4] + 32) = v3;
   return result;
 }
 

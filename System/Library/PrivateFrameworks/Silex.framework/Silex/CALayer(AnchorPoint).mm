@@ -18,11 +18,11 @@
   v15 = v14;
   [self anchorPoint];
   v17 = v15 * v16;
-  [self transform];
+  objc_msgSend_transform(self);
   CATransform3DGetAffineTransform(&v26, &v25);
   v18 = v26.tx + v9 * v26.c + v26.a * v7;
   v19 = v26.ty + v9 * v26.d + v26.b * v7;
-  [self transform];
+  objc_msgSend_transform(self);
   CATransform3DGetAffineTransform(&v26, &v25);
   v20 = v26.tx + v17 * v26.c + v26.a * v13;
   v21 = v26.ty + v17 * v26.d + v26.b * v13;

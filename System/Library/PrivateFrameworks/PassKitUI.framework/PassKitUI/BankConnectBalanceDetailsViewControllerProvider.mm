@@ -7,7 +7,7 @@
 
 + (id)makeViewControllerWithBankConnectItem:(id)item
 {
-  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD46360));
+  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD46360, &unk_1BE0D6C00));
   itemCopy = item;
   v6 = sub_1BE04F894();
 

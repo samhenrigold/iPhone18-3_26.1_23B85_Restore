@@ -141,42 +141,42 @@ void __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke
   v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  [*(*(a1 + 32) + 48) removeAllObjects];
+  v7 = [*(*(a1 + 32) + 48) removeAllObjects];
   *(*(a1 + 32) + 56) = 0;
-  v7 = LogSubsystem();
-  v8 = v7;
+  v8 = LogSubsystem(v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke_cold_1(v6, v8);
+      __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke_cold_1(v6, v9);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v16 = v5;
-      _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "Apps Syncing To Drive : %@", buf, 0xCu);
+      _os_log_impl(&dword_275819000, v9, OS_LOG_TYPE_DEFAULT, "Apps Syncing To Drive : %@", buf, 0xCu);
     }
 
-    v9 = [v5 apps];
+    v10 = [v5 apps];
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke_53;
     v14[3] = &unk_27A666148;
     v14[4] = *(a1 + 32);
-    [v9 enumerateObjectsUsingBlock:v14];
+    [v10 enumerateObjectsUsingBlock:v14];
 
-    v10 = [*(*(a1 + 32) + 24) specifiers];
+    v11 = [*(*(a1 + 32) + 24) specifiers];
     v13[0] = MEMORY[0x277D85DD0];
     v13[1] = 3221225472;
     v13[2] = __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke_55;
     v13[3] = &unk_27A666170;
     v13[4] = *(a1 + 32);
-    [v10 enumerateObjectsUsingBlock:v13];
+    [v11 enumerateObjectsUsingBlock:v13];
 
     [*(*(a1 + 32) + 48) intersectSet:*(*(a1 + 32) + 40)];
     block[0] = MEMORY[0x277D85DD0];
@@ -186,21 +186,19 @@ void __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke_53(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogSubsystem();
+  v4 = LogSubsystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 label];
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "App from server %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "App from server %@", &v10, 0xCu);
   }
 
   v6 = *(*(a1 + 32) + 40);
@@ -210,8 +208,6 @@ void __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke
   v8 = *(*(a1 + 32) + 40);
   v9 = [v3 bundleIds];
   [v8 addObjectsFromArray:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke_55(uint64_t a1, void *a2)
@@ -230,11 +226,10 @@ void __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke
 
 void __58__ICSAppsSyncingToDriveSpecifierProvider__fetchServerApps__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Apps Syncing To Drive error : %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Apps Syncing To Drive error : %@", &v2, 0xCu);
 }
 
 @end

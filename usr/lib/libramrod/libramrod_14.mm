@@ -226,7 +226,7 @@ uint64_t sub_BE69C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint6
         v33 = v24;
         if (a11)
         {
-          v34 = &unk_1723F0 + (*(a11 + 4 * v24) << 9);
+          v34 = &byte_1723F0[*(a11 + 4 * v24) << 9];
           v33 = (v24 << 6) + (v34[v26 + 256] | v34[v32]);
         }
 
@@ -503,7 +503,7 @@ uint64_t sub_BEB68(uint64_t a1, char a2)
 
     if (!*(v4 + 40) && *(v4 + 72) < *(v4 + 88))
     {
-      v18 = sub_B967C(v4 + 48);
+      v18 = sub_B967C((v4 + 48));
       if (v18 == -1)
       {
         if (a2)
@@ -611,7 +611,7 @@ LABEL_42:
   }
 }
 
-size_t sub_BEE2C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
+uint64_t sub_BEE2C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
 {
   result = 0;
   if (a4 >= 0xC && a5)
@@ -1142,14 +1142,14 @@ size_t compression_encode_buffer(uint8_t *dst_buffer, size_t dst_size, const uin
     {
       if (v15 <= 516)
       {
-        if (v15 == COMPRESSION_LZ4)
+        if (v15 == 256)
         {
           v21 = sub_8FD48(dst_buffer, dst_size, src_buffer, src_size, scratch_buffer);
         }
 
         else
         {
-          if (v15 != COMPRESSION_LZ4_RAW)
+          if (v15 != 257)
           {
             goto LABEL_66;
           }
@@ -1160,14 +1160,14 @@ size_t compression_encode_buffer(uint8_t *dst_buffer, size_t dst_size, const uin
         goto LABEL_65;
       }
 
-      if (v15 != COMPRESSION_ZLIB)
+      if (v15 != 517)
       {
-        if (v15 != COMPRESSION_LZMA)
+        if (v15 != 774)
         {
           goto LABEL_66;
         }
 
-        v21 = sub_B09DC();
+        v21 = sub_B09DC(dst_buffer, dst_size, src_buffer, src_size);
         goto LABEL_65;
       }
 
@@ -1182,13 +1182,13 @@ size_t compression_encode_buffer(uint8_t *dst_buffer, size_t dst_size, const uin
 
     else
     {
-      if (v15 - 1536 < 3)
+      if ((v15 - 1536) < 3)
       {
         v21 = sub_9D754(dst_buffer, dst_size, src_buffer, src_size, scratch_buffer, v15 & 0xF);
         goto LABEL_65;
       }
 
-      if (v15 - 1792 < 3)
+      if ((v15 - 1792) < 3)
       {
         v21 = sub_9D7E0(dst_buffer, dst_size, src_buffer, src_size, scratch_buffer, v15 & 0xF);
 LABEL_65:
@@ -1216,7 +1216,7 @@ LABEL_65:
 
   if (v15 > 2583)
   {
-    if (v15 - 3072 > 0x20 || ((1 << v15) & 0x100010001) == 0)
+    if ((v15 - 3072) > 0x20 || ((1 << v15) & 0x100010001) == 0)
     {
       if (v15 == 2584)
       {
@@ -1225,7 +1225,7 @@ LABEL_65:
 
       else
       {
-        if (v15 != COMPRESSION_BROTLI)
+        if (v15 != 2818)
         {
           goto LABEL_66;
         }
@@ -1244,7 +1244,7 @@ LABEL_65:
 
   if (v15 > 2208)
   {
-    if (v15 - 2304 < 2)
+    if ((v15 - 2304) < 2)
     {
       v21 = sub_88E6C(dst_buffer, dst_size, src_buffer, src_size, scratch_buffer, v15);
       goto LABEL_65;
@@ -1260,7 +1260,7 @@ LABEL_60:
     goto LABEL_65;
   }
 
-  if (v15 - 2049 < 2 || v15 == 2193)
+  if ((v15 - 2049) < 2 || v15 == 2193)
   {
     goto LABEL_60;
   }
@@ -1364,7 +1364,7 @@ size_t compression_decode_buffer(uint8_t *dst_buffer, size_t dst_size, const uin
             goto LABEL_60;
           }
 
-          v20 = sub_B0980();
+          v20 = sub_B0980(dst_buffer, dst_size, src_buffer, src_size);
         }
 
         else
@@ -1438,7 +1438,7 @@ LABEL_59:
           goto LABEL_60;
         }
 
-        v20 = sub_86A24(dst_buffer, dst_size);
+        v20 = sub_86A24(dst_buffer, dst_size, src_buffer, src_size);
       }
     }
 
@@ -2072,7 +2072,7 @@ LABEL_93:
   return result;
 }
 
-uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, unsigned int a7, uint64_t a8, unsigned int *a9, unsigned int a10, uint64_t a11, uint64_t a12, uint64_t a13, unint64_t *a14, uint64_t a15)
+uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, unsigned int a7, uint64_t a8, unsigned int *a9, unsigned int a10, uint64_t a11, uint64_t a12, unint64_t *a13, unint64_t *a14, uint64_t a15)
 {
   v15 = a8;
   LODWORD(v92) = a6;
@@ -2119,10 +2119,10 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     memset(v98, 0, sizeof(v98));
     v96 = 0u;
     v97 = 0u;
-    v25 = *(a13 + 16);
-    v24 = *(a13 + 24);
+    v25 = a13[2];
+    v24 = a13[3];
     v26 = *a13;
-    v27 = *(a13 + 8);
+    v27 = a13[1];
     v112[0] = 256;
     v112[1] = v26;
     v112[2] = v25;
@@ -2145,10 +2145,10 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     v145 = 0;
     v147 = 0;
     v146 = 0;
-    v30 = *(a13 + 64);
-    v29 = *(a13 + 72);
-    v31 = *(a13 + 48);
-    v32 = *(a13 + 56);
+    v30 = a13[8];
+    v29 = a13[9];
+    v31 = a13[6];
+    v32 = a13[7];
     v104[0] = 704;
     v104[1] = v31;
     *&v105 = v30;
@@ -2170,10 +2170,10 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     v109 = 0;
     v111 = 0;
     v110 = 0;
-    v35 = *(a13 + 112);
-    v34 = *(a13 + 120);
-    v36 = *(a13 + 96);
-    v37 = *(a13 + 104);
+    v35 = a13[14];
+    v34 = a13[15];
+    v36 = a13[12];
+    v37 = a13[13];
     *&v96 = v20;
     *(&v96 + 1) = v36;
     *&v97 = v35;
@@ -2220,10 +2220,10 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       while (v43 < *a13);
     }
 
-    v44 = *(a13 + 152);
+    v44 = a13[19];
     if (v44)
     {
-      result = sub_C143C(a1, *(a13 + 144), v44, *(a13 + 184), v22, a14, a15);
+      result = sub_C143C(a1, a13[18], v44, a13[23], v22, a14, a15);
       if (*(a1 + 24))
       {
         return result;
@@ -2232,13 +2232,13 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      sub_C1220(*(a13 + 184), 6uLL, v22, a14, a15);
+      sub_C1220(a13[23], 6uLL, v22, a14, a15);
     }
 
-    v45 = *(a13 + 168);
+    v45 = a13[21];
     if (v45)
     {
-      result = sub_C143C(a1, *(a13 + 160), v45, *(a13 + 216), v22, a14, a15);
+      result = sub_C143C(a1, a13[20], v45, a13[27], v22, a14, a15);
       if (*(a1 + 24))
       {
         return result;
@@ -2247,12 +2247,12 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      sub_C1220(*(a13 + 216), 2uLL, v22, a14, a15);
+      sub_C1220(a13[27], 2uLL, v22, a14, a15);
     }
 
     v85 = v15;
-    v47 = *(a13 + 176);
-    v46 = *(a13 + 184);
+    v47 = a13[22];
+    v46 = a13[23];
     if (v112[0] * v46)
     {
       v146 = sub_B933C(a1);
@@ -2282,8 +2282,8 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     if (!v48)
     {
-      v51 = *(a13 + 192);
-      v50 = *(a13 + 200);
+      v51 = a13[24];
+      v50 = a13[25];
       if (v104[0] * v50)
       {
         v110 = sub_B933C(a1);
@@ -2313,7 +2313,7 @@ uint64_t sub_C04DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
       if (!v52)
       {
-        result = sub_C1B3C(a1, &v96, *(a13 + 208), *(a13 + 216), v95, v22, a14, a15);
+        result = sub_C1B3C(a1, &v96, a13[26], a13[27], v95, v22, a14, a15);
         if (!*(a1 + 24))
         {
           sub_B9474(a1, v22);
@@ -2576,12 +2576,12 @@ uint64_t sub_C0E64(uint64_t result, uint64_t a2, unint64_t *a3, uint64_t a4)
   return result;
 }
 
-unint64_t sub_C0F9C(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4)
+uint64_t sub_C0F9C(void *a1, uint64_t a2, unint64_t *a3, uint64_t a4)
 {
-  v7 = *(a1 + 24);
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 8);
-  v10 = *(a1 + 16);
+  v7 = a1[3];
+  v8 = a1[4];
+  v9 = a1[1];
+  v10 = a1[2];
   bzero(v40, 4 * (v9 + 2));
   v39 = 0;
   memset(v38, 0, sizeof(v38));
@@ -2671,12 +2671,12 @@ unint64_t sub_C0F9C(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4)
   result = sub_C2E04(v9 - 1, a3, a4);
   if (v9 >= 2)
   {
-    sub_C2244(v40, v9 + 2, v9 + 2, a2, (a1 + 56), a1 + 314, a3, a4);
-    result = sub_C2244(v38, 0x1AuLL, 26, a2, (a1 + 830), a1 + 856, a3, a4);
+    sub_C2244(v40, v9 + 2, v9 + 2, a2, a1 + 56, a1 + 314, a3, a4);
+    result = sub_C2244(v38, 0x1AuLL, 26, a2, a1 + 830, (a1 + 107), a3, a4);
     v24 = *v7;
-    v25 = *(a1 + 40);
-    *(a1 + 40) = *v10;
-    *(a1 + 48) = v25;
+    v25 = a1[5];
+    a1[5] = *v10;
+    a1[6] = v25;
     v26 = 14;
     if (v24 > 0x2F0)
     {
@@ -2716,10 +2716,10 @@ unint64_t sub_C0F9C(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4)
     while (v24 >= v31);
     v32 = (&unk_10C3AE + 4 * v30);
     v33 = *(v32 + 2);
-    v34 = *(a1 + 830 + v30);
+    v34 = *(a1 + v30 + 830);
     v35 = *a3;
     v36 = v24 - *v32;
-    *(a4 + (*a3 >> 3)) = (*(a1 + 856 + 2 * v30) << (*a3 & 7)) | *(a4 + (*a3 >> 3));
+    *(a4 + (*a3 >> 3)) = (*(a1 + v30 + 428) << (*a3 & 7)) | *(a4 + (*a3 >> 3));
     *a3 = v35 + v34;
     *(a4 + ((v35 + v34) >> 3)) = (v36 << ((v35 + v34) & 7)) | *(a4 + ((v35 + v34) >> 3));
     *a3 = v35 + v34 + v33;
@@ -2728,7 +2728,7 @@ unint64_t sub_C0F9C(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_C1220(unint64_t a1, unint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
+uint64_t sub_C1220(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
 {
   result = sub_C2E04(a1 - 1, a4, a5);
   if (a1 >= 2)
@@ -3174,7 +3174,7 @@ LABEL_97:
   return sub_B9474(a1, v15);
 }
 
-unint64_t sub_C1B3C(uint64_t a1, size_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, uint64_t a8)
+size_t sub_C1B3C(uint64_t a1, size_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, uint64_t a8)
 {
   if (*a2 * a4)
   {
@@ -3393,7 +3393,7 @@ void *sub_C1DAC(void *result, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *
 
 uint64_t sub_C1F40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t *a10, uint64_t a11)
 {
-  v11 = off_1AD518();
+  v11 = off_1AD518(a1, a2, a3, a4, a5, a6, a7, a8);
   v13 = v12;
   v15 = v14;
   v17 = v16;
@@ -3731,11 +3731,11 @@ uint64_t sub_C2624(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint6
         LOWORD(v28) = v26 + v25 - 2;
       }
 
-      v31 = 4 * v23;
-      v32 = *(&unk_10BA2C + v31);
-      v33 = 4 * v28;
-      v34 = ((v27 - *(&unk_10BA8C + v33)) << v32) | (v16 - *(&unk_10B9CC + v31));
-      v35 = (*(&unk_10BAEC + v33) + v32);
+      v31 = v23;
+      v32 = dword_10BA2C[v31];
+      v33 = v28;
+      v34 = ((v27 - *(&unk_10BA8C + v33 * 4)) << v32) | (v16 - *(&unk_10B9CC + v31 * 4));
+      v35 = dword_10BAEC[v33] + v32;
       *(a13 + (v22 >> 3)) = (v34 << (v22 & 7)) | *(a13 + (v22 >> 3));
       v14 = v22 + v35;
       *a12 = v14;
@@ -3780,7 +3780,7 @@ uint64_t sub_C2624(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_C28B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, unint64_t *a10, uint64_t a11)
 {
-  v11 = off_1AD518();
+  v11 = off_1AD518(a1, a2, a3, a4, a5, a6, a7, a8);
   v13 = v12;
   v15 = v14;
   v17 = v16;
@@ -3878,7 +3878,7 @@ LABEL_16:
   return result;
 }
 
-void *sub_C2C74(int a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5, uint64_t *a6, uint64_t a7)
+void *sub_C2C74(int a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5, unint64_t *a6, uint64_t a7)
 {
   v9 = a5;
   v12 = a4 & a3;
@@ -3967,7 +3967,7 @@ compression_status compression_stream_init(compression_stream *stream, compressi
   {
     if (algorithm - 2304 < 2)
     {
-      return sub_87574(stream, operation, algorithm, 0);
+      return sub_87574(stream, operation, *&algorithm, 0);
     }
 
     if (algorithm == COMPRESSION_BROTLI)
@@ -3977,7 +3977,7 @@ compression_status compression_stream_init(compression_stream *stream, compressi
 
     if (algorithm == 2193)
     {
-      return sub_AE4A4(stream, operation, algorithm, 0);
+      return sub_AE4A4(stream, operation, *&algorithm, 0);
     }
 
     return -1;
@@ -3987,7 +3987,7 @@ compression_status compression_stream_init(compression_stream *stream, compressi
   {
     if (algorithm - 2049 < 2)
     {
-      return sub_AE4A4(stream, operation, algorithm, 0);
+      return sub_AE4A4(stream, operation, *&algorithm, 0);
     }
 
     return -1;
@@ -4012,7 +4012,7 @@ compression_status compression_stream_init(compression_stream *stream, compressi
   return sub_8CC20(stream, operation, 0);
 }
 
-uint64_t compression_stream_init_with_state_buffer(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t compression_stream_init_with_state_buffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if ((a5 - 0x100000000) < 0xFFFFFFFF00000010)
   {
@@ -4028,7 +4028,7 @@ uint64_t compression_stream_init_with_state_buffer(uint64_t a1, int a2, int a3, 
   return compression_stream_reinit(a1, a2, a3);
 }
 
-uint64_t compression_stream_reinit(uint64_t a1, int a2, int a3)
+uint64_t compression_stream_reinit(uint64_t a1, int a2, uint64_t a3)
 {
   if (a3 > 2192)
   {
@@ -4071,14 +4071,14 @@ compression_status compression_stream_process(compression_stream *stream, int fl
     return -1;
   }
 
-  v3 = flags;
+  v4 = flags;
   src_ptr = stream->src_ptr;
   dst_ptr = stream->dst_ptr;
-  v7 = state[1];
+  v8 = state[1];
   result = COMPRESSION_STATUS_ERROR;
-  if (v7 > 2192)
+  if (v8 > 2192)
   {
-    if ((v7 - 2304) < 2)
+    if ((v8 - 2304) < 2)
     {
       result = sub_875A0(stream, flags);
       if (result)
@@ -4089,9 +4089,9 @@ compression_status compression_stream_process(compression_stream *stream, int fl
       goto LABEL_24;
     }
 
-    if (v7 == 2818)
+    if (v8 == 2818)
     {
-      result = sub_86AB8(stream, flags);
+      result = sub_86AB8(stream, flags, v2);
       if (result)
       {
         return result;
@@ -4100,7 +4100,7 @@ compression_status compression_stream_process(compression_stream *stream, int fl
       goto LABEL_24;
     }
 
-    if (v7 != 2193)
+    if (v8 != 2193)
     {
       return result;
     }
@@ -4108,9 +4108,9 @@ compression_status compression_stream_process(compression_stream *stream, int fl
     goto LABEL_15;
   }
 
-  if (v7 > 2048)
+  if (v8 > 2048)
   {
-    if ((v7 - 2049) >= 2)
+    if ((v8 - 2049) >= 2)
     {
       return result;
     }
@@ -4125,7 +4125,7 @@ LABEL_15:
     goto LABEL_24;
   }
 
-  switch(v7)
+  switch(v8)
   {
     case 256:
       result = sub_8D0FC(stream, flags);
@@ -4156,7 +4156,7 @@ LABEL_15:
   }
 
 LABEL_24:
-  if ((v3 & 1) != 0 && stream->src_ptr == src_ptr && stream->dst_ptr == dst_ptr)
+  if ((v4 & 1) != 0 && stream->src_ptr == src_ptr && stream->dst_ptr == dst_ptr)
   {
     return -1;
   }
@@ -4279,13 +4279,13 @@ uint64_t compression_stream_get_state_size(uint64_t a1)
   return result;
 }
 
-uint64_t compression_stream_get_encode_state_size(int a1)
+uint64_t compression_stream_get_encode_state_size(uint64_t a1)
 {
   if (a1 > 2192)
   {
     if ((a1 - 2304) < 2)
     {
-      return sub_8765C(a1);
+      return sub_8765C();
     }
 
     if (a1 != 2193)
@@ -4314,7 +4314,7 @@ uint64_t compression_stream_get_encode_state_size(int a1)
   return sub_8D738();
 }
 
-uint64_t compression_stream_get_decode_state_size(int a1)
+uint64_t compression_stream_get_decode_state_size(uint64_t a1)
 {
   if (a1 > 2192)
   {
@@ -4328,12 +4328,12 @@ uint64_t compression_stream_get_decode_state_size(int a1)
       return 0;
     }
 
-    return sub_AE588();
+    return sub_AE588(a1);
   }
 
   if ((a1 - 2049) < 2)
   {
-    return sub_AE588();
+    return sub_AE588(a1);
   }
 
   if (a1 != 256)
@@ -5288,8 +5288,9 @@ uint64_t encryptFDRData(const void *a1, size_t a2, void *a3, size_t *a4)
   return v10;
 }
 
-uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4, int a5)
+uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4, uint64_t a5)
 {
+  v5 = a5;
   if (qword_1C6C98 != -1)
   {
     sub_CAC3C();
@@ -5316,7 +5317,7 @@ uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4,
     v25 = 2048;
     v26 = a4;
     v27 = 1024;
-    v28 = a5;
+    v28 = v5;
     _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "encryptFDRDataInternal %p %zu %p %p %d\n", &v19, 0x30u);
   }
 
@@ -5348,7 +5349,7 @@ uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4,
 
             else
             {
-              v12 = sub_C4988(dword_1C6C90, 9, a5, a1, a2, a3, a4);
+              v12 = sub_C4988(dword_1C6C90, 9, v5, a1, a2, a3, a4);
               if (!v12)
               {
                 v13 = 0;

@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFEngineGaugeUIObservable.engineGaugeUIService(_:didUpdateUiEmphasizedEngineGauge:)();
+  CAFEngineGaugeUIObservable.engineGaugeUIService(_:didUpdateUiEmphasizedEngineGauge:)(selfCopy, gauge);
 }
 
 - (void)engineGaugeUIService:(id)service didUpdateUiSecondaryEngineGaugeHidden:(BOOL)hidden
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFEngineGaugeUIObservable.engineGaugeUIService(_:didUpdateUiSecondaryEngineGaugeHidden:)();
+  CAFEngineGaugeUIObservable.engineGaugeUIService(_:didUpdateUiSecondaryEngineGaugeHidden:)(selfCopy, hidden);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

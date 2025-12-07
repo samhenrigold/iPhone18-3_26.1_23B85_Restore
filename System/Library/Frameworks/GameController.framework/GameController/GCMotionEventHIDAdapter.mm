@@ -3,116 +3,113 @@
 
 @implementation GCMotionEventHIDAdapter
 
-void __51___GCMotionEventHIDAdapter_initWithSource_service___block_invoke(uint64_t a1)
+void __51___GCMotionEventHIDAdapter_initWithSource_service___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if ((!v2 || v2 == IOHIDEventGetSenderID() || IOHIDEventGetSenderID() == -1) && IOHIDEventGetType() == 1)
+  v28 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if ((!v3 || v3 == IOHIDEventGetSenderID() || IOHIDEventGetSenderID() == -1) && IOHIDEventGetType() == 1)
   {
     IntegerValue = IOHIDEventGetIntegerValue();
-    v4 = IOHIDEventGetIntegerValue();
-    if (IntegerValue == 65280 && v4 == 59)
+    v5 = IOHIDEventGetIntegerValue();
+    if (IntegerValue == 65280 && v5 == 59)
     {
-      v5 = objc_opt_new();
-      [v5 setTimestamp:IOHIDEventGetTimeStamp()];
-      v6 = IOHIDEventGetChildren();
+      v6 = objc_opt_new();
+      [v6 setTimestamp:IOHIDEventGetTimeStamp()];
+      v7 = IOHIDEventGetChildren();
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
-      v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
-      if (v7)
+      v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      if (v8)
       {
-        v8 = v7;
-        v9 = *v24;
+        v9 = v8;
+        v10 = *v23;
         do
         {
-          v10 = 0;
+          v11 = 0;
           do
           {
-            if (*v24 != v9)
+            if (*v23 != v10)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v23 + 1) + 8 * v10);
             Type = IOHIDEventGetType();
             switch(Type)
             {
               case 10:
-                [v5 setHasAttitude:1];
+                [v6 setHasAttitude:1];
                 IOHIDEventGetFloatValue();
-                [v5 setAttitudeX:?];
+                [v6 setAttitudeX:?];
                 IOHIDEventGetFloatValue();
-                [v5 setAttitudeY:?];
+                [v6 setAttitudeY:?];
                 IOHIDEventGetFloatValue();
-                [v5 setAttitudeZ:?];
+                [v6 setAttitudeZ:?];
                 IOHIDEventGetFloatValue();
-                [v5 setAttitudeW:?];
+                [v6 setAttitudeW:?];
                 break;
               case 13:
-                [v5 setHasAccelerometer:1];
+                [v6 setHasAccelerometer:1];
                 IOHIDEventGetDoubleValue();
-                [v5 setAccelerometerX:?];
+                [v6 setAccelerometerX:?];
                 IOHIDEventGetDoubleValue();
-                [v5 setAccelerometerY:?];
+                [v6 setAccelerometerY:?];
                 IOHIDEventGetDoubleValue();
-                [v5 setAccelerometerZ:?];
+                [v6 setAccelerometerZ:?];
                 break;
               case 20:
-                [v5 setHasGyro:1];
+                [v6 setHasGyro:1];
                 IOHIDEventGetDoubleValue();
-                [v5 setGyroPitch:?];
+                [v6 setGyroPitch:?];
                 IOHIDEventGetDoubleValue();
-                [v5 setGyroYaw:?];
+                [v6 setGyroYaw:?];
                 IOHIDEventGetDoubleValue();
-                [v5 setGyroRoll:?];
+                [v6 setGyroRoll:?];
                 break;
             }
 
-            ++v10;
+            ++v11;
           }
 
-          while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          while (v9 != v11);
+          v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
-        while (v8);
+        while (v9);
       }
 
       v13 = objc_getProperty(*(a1 + 40), sel_observers, 24, 1);
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
-      v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v20;
+        v16 = *v19;
         do
         {
           v17 = 0;
           do
           {
-            if (*v20 != v16)
+            if (*v19 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            (*(*(*(&v19 + 1) + 8 * v17++) + 16))();
+            (*(*(*(&v18 + 1) + 8 * v17++) + 16))();
           }
 
           while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
         }
 
         while (v15);
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __48___GCMotionEventHIDAdapter_observeMotionEvents___block_invoke(uint64_t a1)

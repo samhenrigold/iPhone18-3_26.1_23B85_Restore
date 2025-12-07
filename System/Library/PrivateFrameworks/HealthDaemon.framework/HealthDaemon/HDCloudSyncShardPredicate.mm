@@ -21,11 +21,11 @@
   if (v10)
   {
     v10->_type = type;
-    v12 = [dateCopy copy];
+    v12 = objc_msgSend_copy(dateCopy);
     startDate = v11->_startDate;
     v11->_startDate = v12;
 
-    v14 = [endDateCopy copy];
+    v14 = objc_msgSend_copy(endDateCopy);
     endDate = v11->_endDate;
     v11->_endDate = v14;
   }

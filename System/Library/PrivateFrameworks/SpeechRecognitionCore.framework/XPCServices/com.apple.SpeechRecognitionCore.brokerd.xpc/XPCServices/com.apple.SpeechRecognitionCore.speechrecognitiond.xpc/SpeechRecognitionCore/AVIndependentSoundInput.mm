@@ -25,30 +25,9 @@
   v21.receiver = self;
   v21.super_class = AVIndependentSoundInput;
   v9 = [(AVIndependentSoundInput *)&v21 init];
-  if (!v9)
+  if (v9 && (v10 = dispatch_queue_create("RDAudioBufferQueue", 0), v11 = *(v9 + 2), *(v9 + 2) = v10, v11, dispatch_queue_set_specific(*(v9 + 2), v9, v9, 0), objc_storeStrong(v9 + 6, format), v12 = objc_retainBlock(samplesCopy), v13 = *(v9 + 5), *(v9 + 5) = v12, v13, v14 = objc_alloc_init(AVAudioEngine), v15 = *(v9 + 4), *(v9 + 4) = v14, v15, v16 = [v9 setupAudioSession], *(v9 + 24) = v16, (v16 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v10 = dispatch_queue_create("RDAudioBufferQueue", 0);
-  v11 = *(v9 + 2);
-  *(v9 + 2) = v10;
-
-  dispatch_queue_set_specific(*(v9 + 2), v9, v9, 0);
-  objc_storeStrong(v9 + 6, format);
-  v12 = objc_retainBlock(samplesCopy);
-  v13 = *(v9 + 5);
-  *(v9 + 5) = v12;
-
-  v14 = objc_alloc_init(AVAudioEngine);
-  v15 = *(v9 + 4);
-  *(v9 + 4) = v14;
-
-  setupAudioSession = [v9 setupAudioSession];
-  *(v9 + 24) = setupAudioSession;
-  if ((setupAudioSession & 1) == 0)
-  {
-    v18 = RXOSLog();
+    v18 = RXOSLog(v16);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *v20 = 0;
@@ -60,7 +39,6 @@
 
   else
   {
-LABEL_3:
     v17 = v9;
   }
 
@@ -72,58 +50,59 @@ LABEL_3:
   v2 = objc_alloc_init(AVAudioSessionRouteControl);
   [v2 setRouteControlOptions:1];
   v3 = +[AVAudioSession sharedInstance];
-  v18 = 0;
-  [v3 setPreferredRouteControlConfig:v2 error:&v18];
-  v4 = v18;
+  v23 = 0;
+  [v3 setPreferredRouteControlConfig:v2 error:&v23];
+  v4 = v23;
 
   if (v4)
   {
-    preferredRouteControlConfig = RXOSLog();
+    preferredRouteControlConfig = RXOSLog(v5);
     if (os_log_type_enabled(preferredRouteControlConfig, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v4;
-      v6 = "AVI:Error setting preffered route: %@";
+      v25 = v4;
+      v7 = "AVI:Error setting preffered route: %@";
 LABEL_7:
-      _os_log_impl(&_mh_execute_header, preferredRouteControlConfig, OS_LOG_TYPE_ERROR, v6, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, preferredRouteControlConfig, OS_LOG_TYPE_ERROR, v7, buf, 0xCu);
       goto LABEL_17;
     }
 
     goto LABEL_17;
   }
 
-  v7 = +[AVAudioSession sharedInstance];
-  v17 = 0;
-  [v7 setCategory:AVAudioSessionCategoryRecord withOptions:131073 error:&v17];
-  v4 = v17;
+  v8 = +[AVAudioSession sharedInstance];
+  v22 = 0;
+  [v8 setCategory:AVAudioSessionCategoryRecord withOptions:131073 error:&v22];
+  v4 = v22;
 
   if (!v4)
   {
-    v8 = +[AVAudioSession sharedInstance];
-    preferredRouteControlConfig = [v8 preferredRouteControlConfig];
+    v10 = +[AVAudioSession sharedInstance];
+    preferredRouteControlConfig = [v10 preferredRouteControlConfig];
 
-    if ([v2 routeControlOptions] != 1)
+    routeControlOptions = [v2 routeControlOptions];
+    if (routeControlOptions != 1)
     {
-      v10 = RXOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = RXOSLog(routeControlOptions);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "AVI:no independent route", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "AVI:no independent route", buf, 2u);
       }
 
       v4 = 0;
       goto LABEL_16;
     }
 
-    v9 = +[AVAudioSession sharedInstance];
-    v16 = 0;
-    [v9 setAllowHapticsAndSystemSoundsDuringRecording:1 error:&v16];
-    v4 = v16;
+    v12 = +[AVAudioSession sharedInstance];
+    v21 = 0;
+    [v12 setAllowHapticsAndSystemSoundsDuringRecording:1 error:&v21];
+    v4 = v21;
 
     if (v4)
     {
-      v10 = RXOSLog();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = RXOSLog(v13);
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
 LABEL_16:
 
@@ -131,31 +110,31 @@ LABEL_16:
       }
 
       *buf = 138412290;
-      v20 = v4;
-      v11 = "AVI:Error setting haptics and sounds during recording: %@";
+      v25 = v4;
+      v15 = "AVI:Error setting haptics and sounds during recording: %@";
 LABEL_12:
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
       goto LABEL_16;
     }
 
     if (_os_feature_enabled_impl())
     {
-      v14 = +[AVAudioSession sharedInstance];
-      v15 = 0;
-      [v14 setMXSessionProperty:kMXSessionProperty_PrefersNoInterruptionsDuringRemoteDeviceControl value:&__kCFBooleanTrue error:&v15];
-      v4 = v15;
+      v18 = +[AVAudioSession sharedInstance];
+      v20 = 0;
+      [v18 setMXSessionProperty:kMXSessionProperty_PrefersNoInterruptionsDuringRemoteDeviceControl value:&__kCFBooleanTrue error:&v20];
+      v4 = v20;
 
       if (v4)
       {
-        v10 = RXOSLog();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v14 = RXOSLog(v19);
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_16;
         }
 
         *buf = 138412290;
-        v20 = v4;
-        v11 = "AVI:Error setting MX property for non-interruption: %@";
+        v25 = v4;
+        v15 = "AVI:Error setting MX property for non-interruption: %@";
         goto LABEL_12;
       }
     }
@@ -165,29 +144,29 @@ LABEL_12:
       v4 = 0;
     }
 
-    v12 = 1;
+    v16 = 1;
     goto LABEL_18;
   }
 
-  preferredRouteControlConfig = RXOSLog();
+  preferredRouteControlConfig = RXOSLog(v9);
   if (os_log_type_enabled(preferredRouteControlConfig, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v20 = v4;
-    v6 = "AVI:Error setting audio session category: %@";
+    v25 = v4;
+    v7 = "AVI:Error setting audio session category: %@";
     goto LABEL_7;
   }
 
 LABEL_17:
-  v12 = 0;
+  v16 = 0;
 LABEL_18:
 
-  return v12;
+  return v16;
 }
 
 - (void)activateNotifications
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *v5 = 0;
@@ -200,7 +179,7 @@ LABEL_18:
 
 - (void)deactivateNotifications
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *v5 = 0;
@@ -214,7 +193,7 @@ LABEL_18:
 - (void)_handleConfigurationChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = RXOSLog();
+  v5 = RXOSLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -232,117 +211,120 @@ LABEL_18:
 
 - (BOOL)startRecording:(int)recording
 {
-  v4 = RXOSLog();
+  v4 = RXOSLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "AVI:startRecording", buf, 2u);
   }
 
-  if (+[RDSoundInputImpl_iOS_Shared isSystemSleeping])
+  v5 = +[RDSoundInputImpl_iOS_Shared isSystemSleeping];
+  if (v5)
   {
-    v5 = RXOSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = RXOSLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "AVI:System is sleeping, so don't start recording", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "AVI:System is sleeping, so don't start recording", buf, 2u);
     }
 
-    v6 = 0;
+    v7 = 0;
     goto LABEL_33;
   }
 
-  if (![(AVAudioEngine *)self->_audioEngine isRunning])
+  isRunning = [(AVAudioEngine *)self->_audioEngine isRunning];
+  if (!isRunning)
   {
     [(AVIndependentSoundInput *)self stopRunningAudioEngine];
     if ([(AVIndependentSoundInput *)self audioSessionSetupCompleted])
     {
-      v5 = 0;
+      v6 = 0;
     }
 
     else
     {
-      v7 = +[AVAudioSession sharedInstance];
-      v21 = 0;
-      v8 = [v7 setActive:1 error:&v21];
-      v5 = v21;
+      v9 = +[AVAudioSession sharedInstance];
+      v26 = 0;
+      v10 = [v9 setActive:1 error:&v26];
+      v6 = v26;
 
-      v9 = RXOSLog();
-      v10 = v9;
-      if ((v8 & 1) == 0)
+      v12 = RXOSLog(v11);
+      v13 = v12;
+      if ((v10 & 1) == 0)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          localizedDescription = [v5 localizedDescription];
+          localizedDescription = [v6 localizedDescription];
           *buf = 138412546;
-          v23 = v5;
-          v24 = 2112;
-          v25 = localizedDescription;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "AVI:AVAudioSession set active failed with error code:{%@}, error message: {%@}", buf, 0x16u);
+          v28 = v6;
+          v29 = 2112;
+          v30 = localizedDescription;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "AVI:AVAudioSession set active failed with error code:{%@}, error message: {%@}", buf, 0x16u);
         }
 
-        v6 = 0;
+        v7 = 0;
         goto LABEL_32;
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "AVI:Audio Session already active", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "AVI:Audio Session already active", buf, 2u);
       }
     }
 
     [(AVIndependentSoundInput *)self activateNotifications];
     startRunningAudioEngine = [(AVIndependentSoundInput *)self startRunningAudioEngine];
-    v12 = RXOSLog();
-    v10 = v12;
-    if (startRunningAudioEngine)
+    v15 = startRunningAudioEngine;
+    v16 = RXOSLog(startRunningAudioEngine);
+    v13 = v16;
+    if (v15)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "AVI:Started Recording from AV", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "AVI:Started Recording from AV", buf, 2u);
       }
 
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "AVI:Could not start recording from AV, deactivating the audio session", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "AVI:Could not start recording from AV, deactivating the audio session", buf, 2u);
       }
 
-      v13 = +[AVAudioSession sharedInstance];
-      v20 = v5;
-      v14 = [v13 setActive:0 withOptions:1 error:&v20];
-      v15 = v20;
+      v17 = +[AVAudioSession sharedInstance];
+      v25 = v6;
+      v18 = [v17 setActive:0 withOptions:1 error:&v25];
+      v19 = v25;
 
-      v16 = RXOSLog();
-      v10 = v16;
-      if (v14)
+      v21 = RXOSLog(v20);
+      v13 = v21;
+      if (v18)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "AVI:Could not start recording from AV, Audio Session deactivated", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "AVI:Could not start recording from AV, Audio Session deactivated", buf, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        localizedDescription2 = [v15 localizedDescription];
+        localizedDescription2 = [v19 localizedDescription];
         *buf = 138412546;
-        v23 = v15;
-        v24 = 2112;
-        v25 = localizedDescription2;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "AVI:AVAudioSession could not deactivate, error code:{%@}, error message: {%@}", buf, 0x16u);
+        v28 = v19;
+        v29 = 2112;
+        v30 = localizedDescription2;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "AVI:AVAudioSession could not deactivate, error code:{%@}, error message: {%@}", buf, 0x16u);
       }
 
-      v6 = 0;
-      v5 = v15;
+      v7 = 0;
+      v6 = v19;
     }
 
 LABEL_32:
@@ -350,49 +332,51 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v5 = RXOSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = RXOSLog(isRunning);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "AVI:AV is already running", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "AVI:AV is already running", buf, 2u);
   }
 
-  v6 = 1;
+  v7 = 1;
 LABEL_33:
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)startRunningAudioEngine
 {
   inputNode = [(AVAudioEngine *)self->_audioEngine inputNode];
   v4 = [inputNode inputFormatForBus:0];
-  if ([v4 channelCount])
+  channelCount = [v4 channelCount];
+  if (channelCount)
   {
-    v5 = +[AVAudioSession sharedInstance];
-    availableInputs = [v5 availableInputs];
+    v6 = +[AVAudioSession sharedInstance];
+    availableInputs = [v6 availableInputs];
 
     [inputNode removeTapOnBus:0];
     objc_initWeak(&location, self);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100008604;
-    v13[3] = &unk_1000FE158;
-    objc_copyWeak(&v14, &location);
-    [inputNode installTapOnBus:0 bufferSize:1024 format:v4 block:v13];
-    objc_destroyWeak(&v14);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100008604;
+    v15[3] = &unk_1000FE158;
+    objc_copyWeak(&v16, &location);
+    [inputNode installTapOnBus:0 bufferSize:1024 format:v4 block:v15];
+    objc_destroyWeak(&v16);
     audioEngine = self->_audioEngine;
-    v12 = 0;
-    v8 = [(AVAudioEngine *)audioEngine startAndReturnError:&v12];
-    v9 = v12;
-    if ((v8 & 1) == 0)
+    v14 = 0;
+    v9 = [(AVAudioEngine *)audioEngine startAndReturnError:&v14];
+    v10 = v14;
+    v11 = v10;
+    if ((v9 & 1) == 0)
     {
-      v10 = RXOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = RXOSLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v17 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "AVI:Error Starting engine: %@", buf, 0xCu);
+        v19 = v11;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "AVI:Error Starting engine: %@", buf, 0xCu);
       }
     }
 
@@ -401,22 +385,22 @@ LABEL_33:
 
   else
   {
-    availableInputs = RXOSLog();
+    availableInputs = RXOSLog(channelCount);
     if (os_log_type_enabled(availableInputs, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, availableInputs, OS_LOG_TYPE_ERROR, "AVI:No audio input available, channel count 0", buf, 2u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)stopRunningAudioEngine
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -431,7 +415,7 @@ LABEL_33:
 
 - (void)stopRecording
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -457,18 +441,18 @@ LABEL_33:
   }
 
   v5 = +[AVAudioSession sharedInstance];
-  v8 = 0;
-  [v5 setActive:0 withOptions:1 error:&v8];
-  v6 = v8;
+  v9 = 0;
+  [v5 setActive:0 withOptions:1 error:&v9];
+  v6 = v9;
 
   if (v6)
   {
-    v7 = RXOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = RXOSLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "AVI:stopRecording : error stopping AVAudioSession: %@", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "AVI:stopRecording : error stopping AVAudioSession: %@", buf, 0xCu);
     }
   }
 }
@@ -483,7 +467,7 @@ LABEL_33:
 
 - (void)dealloc
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -540,39 +524,40 @@ LABEL_33:
 {
   bufferCopy = buffer;
   format = [bufferCopy format];
-  v18 = self->_expectedFormat;
+  v19 = self->_expectedFormat;
   inputFormat = [(AVAudioConverter *)self->_converter inputFormat];
   v6 = [inputFormat isEqual:format];
 
   if ((v6 & 1) == 0)
   {
     [(AVIndependentSoundInput *)self _drainAndClearAudioConverter];
-    v7 = [[AVAudioConverter alloc] initFromFormat:format toFormat:v18];
+    v7 = [[AVAudioConverter alloc] initFromFormat:format toFormat:v19];
     converter = self->_converter;
     self->_converter = v7;
 
     [(AVAudioConverter *)self->_converter setSampleRateConverterQuality:127];
   }
 
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
-  v25 = 0;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
+  v26 = 0;
   v9 = [[AVAudioPCMBuffer alloc] initWithPCMFormat:self->_expectedFormat frameCapacity:8000];
   [v9 setFrameLength:8000];
   while (1)
   {
     v10 = self->_converter;
-    v22 = v24;
-    v23 = 0;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100008E40;
-    v20[3] = &unk_1000FE1A0;
+    v23 = v25;
+    v24 = 0;
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100008E40;
+    v21[3] = &unk_1000FE1A0;
     v11 = bufferCopy;
-    v21 = v11;
-    v12 = [(AVAudioConverter *)v10 convertToBuffer:v9 error:&v23 withInputFromBlock:v20];
-    v13 = v23;
+    v22 = v11;
+    v12 = [(AVAudioConverter *)v10 convertToBuffer:v9 error:&v24 withInputFromBlock:v21];
+    v13 = v24;
+    v14 = v13;
     if (v12 == 2)
     {
       break;
@@ -580,12 +565,12 @@ LABEL_33:
 
     if (v12 == 3)
     {
-      v15 = RXOSLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = RXOSLog(v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v13;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "AVI:Could not run audio converter %@", buf, 0xCu);
+        v28 = v14;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "AVI:Could not run audio converter %@", buf, 0xCu);
       }
 
       break;
@@ -594,8 +579,8 @@ LABEL_33:
     int16ChannelData = [v9 int16ChannelData];
     if (!int16ChannelData)
     {
-      v16 = +[NSAssertionHandler currentHandler];
-      [v16 handleFailureInMethod:a2 object:self file:@"RDSoundInputImpl_iOS_Independent_AV.m" lineNumber:308 description:@"Invalid audio format"];
+      v17 = +[NSAssertionHandler currentHandler];
+      [v17 handleFailureInMethod:a2 object:self file:@"RDSoundInputImpl_iOS_Independent_AV.m" lineNumber:308 description:@"Invalid audio format"];
     }
 
     -[AVIndependentSoundInput _addRecordedSpeechSampleData:length:](self, "_addRecordedSpeechSampleData:length:", *int16ChannelData, [v9 frameLength]);
@@ -605,7 +590,7 @@ LABEL_33:
     }
   }
 
-  _Block_object_dispose(v24, 8);
+  _Block_object_dispose(v25, 8);
 }
 
 - (void)_addRecordedSpeechSampleData:(signed __int16 *)data length:(unsigned int)length
@@ -626,9 +611,10 @@ LABEL_33:
     while (1)
     {
       converter = self->_converter;
-      v11 = 0;
-      v6 = [(AVAudioConverter *)converter convertToBuffer:v4 error:&v11 withInputFromBlock:&stru_1000FE1E0];
-      v7 = v11;
+      v12 = 0;
+      v6 = [(AVAudioConverter *)converter convertToBuffer:v4 error:&v12 withInputFromBlock:&stru_1000FE1E0];
+      v7 = v12;
+      v8 = v7;
       if (v6 == 2)
       {
         break;
@@ -636,12 +622,12 @@ LABEL_33:
 
       if (v6 == 3)
       {
-        v9 = RXOSLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = RXOSLog(v7);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v13 = v7;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "AVI:Could not drain converter %@", buf, 0xCu);
+          v14 = v8;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "AVI:Could not drain converter %@", buf, 0xCu);
         }
 
         break;
@@ -660,7 +646,7 @@ LABEL_33:
       }
     }
 
-    v10 = self->_converter;
+    v11 = self->_converter;
     self->_converter = 0;
   }
 }

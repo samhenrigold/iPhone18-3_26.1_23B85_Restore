@@ -16,6 +16,7 @@
 - (int64_t)compare:(id)compare;
 - (int64_t)predictionScore;
 - (void)addObserver:(id)observer;
+- (void)invalidateValidIntervals;
 - (void)predictionDidUpdate;
 - (void)removeObserver:(id)observer;
 @end
@@ -424,6 +425,13 @@ LABEL_11:
 
   [v2 initialValidInterval];
   return result;
+}
+
+- (void)invalidateValidIntervals
+{
+  validRanges = self->_validRanges;
+  self->_validRanges = 0;
+  MEMORY[0x2821F96F8](self, validRanges);
 }
 
 - (NSString)shortDescription

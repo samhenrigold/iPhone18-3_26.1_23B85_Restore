@@ -26,7 +26,9 @@
 - (void)presentQuotaDepletionAlertForDataclass:(id)dataclass withHandler:(id)handler;
 - (void)renewCredentialsForAppleIDWithHandler:(id)handler;
 - (void)setAuthToken:(id)token;
+- (void)setNeedsToVerifyTerms:(BOOL)terms;
 - (void)setPassword:(id)password;
+- (void)setPrimaryAccount:(BOOL)account;
 - (void)setUseCellular:(BOOL)cellular forDataclass:(id)dataclass;
 - (void)updateAccountPropertiesWithHandler:(id)handler;
 - (void)updateAccountWithProvisioningResponse:(id)response;
@@ -109,6 +111,13 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setPrimaryAccount:(BOOL)account
+{
+  account = self->_account;
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:account];
+  [(ACAccount *)account setAccountProperty:v4 forKey:@"primaryAccount"];
 }
 
 - (BOOL)primaryEmailVerified
@@ -356,30 +365,30 @@
 
 - (id)_mailChildAccount
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(AAAccount *)self isProvisionedForDataclass:*MEMORY[0x1E6959B28]])
   {
     [(ACAccount *)self->_account childAccounts];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v3 = v18 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v3 = v17 = 0u;
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v16;
+      v6 = *v15;
       v7 = *MEMORY[0x1E6959898];
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           accountType = [v9 accountType];
           identifier = [accountType identifier];
 
@@ -391,7 +400,7 @@
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v5)
         {
           continue;
@@ -409,8 +418,6 @@ LABEL_13:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -533,6 +540,12 @@ void __48__AAAccount_updateAccountPropertiesWithHandler___block_invoke(uint64_t 
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setNeedsToVerifyTerms:(BOOL)terms
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:terms];
+  [(AAAccount *)self setAccountProperty:v4 forKey:@"needsToVerifyTerms"];
 }
 
 @end

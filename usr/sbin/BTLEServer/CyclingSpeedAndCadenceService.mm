@@ -1,6 +1,7 @@
 @interface CyclingSpeedAndCadenceService
 - ($F0FB0F8730EF0E25F4B4D62181058401)lastMeasurement;
 - (BOOL)supportsHKQuantityType:(id)type;
+- (void)collectData:(BOOL)data;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error;
 - (void)readWheelSize;
@@ -137,13 +138,46 @@ LABEL_6:
   }
 }
 
+- (void)collectData:(BOOL)data
+{
+  dataCopy = data;
+  v5 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    if (dataCopy)
+    {
+      v6 = @"ON";
+    }
+
+    else
+    {
+      v6 = @"OFF";
+    }
+
+    v7 = v5;
+    peripheral = [(ClientService *)self peripheral];
+    name = [peripheral name];
+    v12 = 138412546;
+    v13 = v6;
+    v14 = 2112;
+    v15 = name;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "collectData:%@ for “%@”", &v12, 0x16u);
+  }
+
+  csMeasurementCharacteristic = [(CyclingSpeedAndCadenceService *)self csMeasurementCharacteristic];
+  [(FitnessService *)self setNotify:dataCopy forCharacteristic:csMeasurementCharacteristic];
+
+  csControlPointCharacteristic = [(CyclingSpeedAndCadenceService *)self csControlPointCharacteristic];
+  [(FitnessService *)self setNotify:dataCopy forCharacteristic:csControlPointCharacteristic];
+}
+
 - (void)updatedCadenceMeasurementValue:(id *)value at:(id)at
 {
   atCopy = at;
   v7 = qword_1000DDBC8;
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
   {
-    sub_10007C7B0(v7, self, value);
+    sub_10007C7B0(v7, self);
   }
 
   p_lastMeasurement = &self->_lastMeasurement;
@@ -235,7 +269,7 @@ LABEL_6:
   v7 = qword_1000DDBC8;
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
   {
-    sub_10007C9BC(v7, self, value);
+    sub_10007C9BC(v7, self);
   }
 
   p_lastMeasurement = &self->_lastMeasurement;

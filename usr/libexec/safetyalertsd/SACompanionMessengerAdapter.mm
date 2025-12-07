@@ -129,7 +129,7 @@
           uniqueIDOverride = [v8 uniqueIDOverride];
           if (v8)
           {
-            [v8 operatingSystemVersion];
+            objc_msgSend_operatingSystemVersion(v8);
           }
 
           v9 = SALogObjectGeneral;

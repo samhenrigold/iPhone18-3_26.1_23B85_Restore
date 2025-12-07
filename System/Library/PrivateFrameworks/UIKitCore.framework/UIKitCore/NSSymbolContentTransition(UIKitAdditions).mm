@@ -1,10 +1,10 @@
 @interface NSSymbolContentTransition(UIKitAdditions)
-- (id)ui_animationConfigurationFromSymbolImage:()UIKitAdditions toSymbolImage:options:completion:;
+- (_UIRBSymbolAnimationConfiguration)ui_animationConfigurationFromSymbolImage:()UIKitAdditions toSymbolImage:options:completion:;
 @end
 
 @implementation NSSymbolContentTransition(UIKitAdditions)
 
-- (id)ui_animationConfigurationFromSymbolImage:()UIKitAdditions toSymbolImage:options:completion:
+- (_UIRBSymbolAnimationConfiguration)ui_animationConfigurationFromSymbolImage:()UIKitAdditions toSymbolImage:options:completion:
 {
   v11 = a3;
   v12 = a4;

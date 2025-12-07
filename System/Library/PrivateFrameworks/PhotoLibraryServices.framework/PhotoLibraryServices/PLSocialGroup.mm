@@ -449,7 +449,7 @@ void __63__PLSocialGroup_runAssetContainmentWithError_assetIDsToUpdate___block_i
   completionCopy = completion;
   v5 = MEMORY[0x1E696AE38];
   members = [(PLSocialGroup *)self members];
-  v7 = [v5 progressWithTotalUnitCount:{objc_msgSend(members, "count")}];
+  v7 = [v5 progressWithTotalUnitCount:objc_msgSend_count(members)];
 
   sourceNode = [(PLGraphNodeContainer *)self sourceNode];
   photoLibrary = [sourceNode photoLibrary];
@@ -1495,7 +1495,7 @@ LABEL_14:
   edgeExternalIdentifiersHavingLabel = [v10 edgeExternalIdentifiersHavingLabel];
   indexesWithBitsSet = [edgeExternalIdentifiersHavingLabel indexesWithBitsSet];
 
-  if (![indexesWithBitsSet count])
+  if (!objc_msgSend_count(indexesWithBitsSet))
   {
     firstObject = 0;
     goto LABEL_13;
@@ -1530,13 +1530,13 @@ LABEL_14:
   if (v25)
   {
     firstObject = [v25 firstObject];
-    if ([v25 count] >= 2)
+    if (objc_msgSend_count(v25) >= 2)
     {
       v28 = PLBackendGetLog();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         uuid = [(PLGraphNodeContainer *)self uuid];
-        v30 = [v25 count];
+        v30 = objc_msgSend_count(v25);
         *buf = 138543618;
         v37 = uuid;
         v38 = 2048;
@@ -1658,7 +1658,7 @@ LABEL_13:
   if (v12)
   {
     v24 = contextCopy;
-    v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+    v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v12)];
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
@@ -1727,7 +1727,7 @@ LABEL_13:
   if (v12)
   {
     v24 = contextCopy;
-    v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+    v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v12)];
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
@@ -2041,7 +2041,7 @@ void __36__PLSocialGroup_rebuildWithLibrary___block_invoke(uint64_t a1, void *a2
       }
 
       members = [v12 members];
-      v15 = [members count];
+      v15 = objc_msgSend_count(members);
 
       if (v15)
       {
@@ -2138,7 +2138,7 @@ void __36__PLSocialGroup_rebuildWithLibrary___block_invoke(uint64_t a1, void *a2
 
 void __41__PLSocialGroup_resetAllInContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(a2, "count")}];
+  v3 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(a2)];
   v4 = *(*(a1 + 32) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -2205,7 +2205,7 @@ void __46__PLSocialGroup_resetAllInLibrary_completion___block_invoke(void *a1)
   dsCopy = ds;
   iDsCopy = iDs;
   libraryCopy = library;
-  if ([dsCopy count] >= 2)
+  if (objc_msgSend_count(dsCopy) >= 2)
   {
     photoAnalysisClient = [libraryCopy photoAnalysisClient];
     v14 = [[PLPhotoAnalysisPhotoLibraryService alloc] initWithServiceProvider:photoAnalysisClient];
@@ -2224,7 +2224,7 @@ void __46__PLSocialGroup_resetAllInLibrary_completion___block_invoke(void *a1)
 {
   dsCopy = ds;
   libraryCopy = library;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v7 = +[PLConcurrencyLimiter sharedLimiter];
     v8[0] = MEMORY[0x1E69E9820];
@@ -2304,7 +2304,7 @@ LABEL_6:
   v11 = [contextCopy executeFetchRequest:v9 error:&v49];
   v12 = v49;
   v42 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v13 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(v11, "count")}];
+  v13 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(v11)];
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
@@ -2580,7 +2580,7 @@ LABEL_27:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLSocialGroup.m" lineNumber:302 description:{@"Invalid parameter not satisfying: %@", @"edges"}];
   }
 
-  v6 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(edgesCopy, "count")}];
+  v6 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(edgesCopy)];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
@@ -3002,7 +3002,7 @@ LABEL_27:
   groupCopy = group;
   v7 = [self _fetchDuplicateSocialGroupNodes:groupCopy error:error];
   v8 = v7;
-  if (v7 && [v7 count])
+  if (v7 && objc_msgSend_count(v7))
   {
     socialGroupVerifiedType = [groupCopy socialGroupVerifiedType];
     if (socialGroupVerifiedType <= 1)

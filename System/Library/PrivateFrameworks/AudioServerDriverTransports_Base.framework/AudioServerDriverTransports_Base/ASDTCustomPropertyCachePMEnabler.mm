@@ -1,6 +1,7 @@
 @interface ASDTCustomPropertyCachePMEnabler
 - (ASDTCustomProperty)property;
 - (ASDTCustomPropertyCachePMEnabler)initWithConfig:(id)config forSequencer:(id)sequencer;
+- (int)enable:(BOOL)enable;
 - (void)property;
 @end
 
@@ -204,8 +205,8 @@ LABEL_42:
 
     if (!v9)
     {
-      v10 = ASDTBaseLogType();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = ASDTBaseLogType(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [(ASDTCustomPropertyCachePMEnabler *)self property];
       }
@@ -217,18 +218,36 @@ LABEL_42:
   return v4;
 }
 
+- (int)enable:(BOOL)enable
+{
+  enableCopy = enable;
+  property = [(ASDTCustomPropertyCachePMEnabler *)self property];
+  if (property)
+  {
+    property2 = [(ASDTCustomPropertyCachePMEnabler *)self property];
+    [property2 setUseCache:enableCopy];
+
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = 560227702;
+  }
+
+  return v7;
+}
+
 - (void)property
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   name = [self name];
   propertyAddress = [self propertyAddress];
-  v7 = 138412546;
-  v8 = name;
-  v9 = 2112;
-  v10 = propertyAddress;
-  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "%@: No property found matching address %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = name;
+  v8 = 2112;
+  v9 = propertyAddress;
+  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "%@: No property found matching address %@", &v6, 0x16u);
 }
 
 @end

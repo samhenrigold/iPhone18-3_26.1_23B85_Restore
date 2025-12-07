@@ -110,22 +110,21 @@ LABEL_6:
       v11 = theString;
       if (theString && CFStringGetLength(theString) >= 1)
       {
-        v12 = *(a1 + 40);
-        v13 = objc_opt_new();
-        values = v13;
-        v21.length = CFStringGetLength(v11);
-        v21.location = 0;
-        v14 = DCSCopyDefinitionMarkup(v10, v11, v21, 1, 0);
-        if (v14)
+        v12 = objc_opt_new();
+        values = v12;
+        v20.length = CFStringGetLength(v11);
+        v20.location = 0;
+        v13 = DCSCopyDefinitionMarkup(v10, v11, v20, 1, 0);
+        if (v13)
         {
-          v15 = v14;
-          [v13 setHtmlString_];
-          CFRelease(v15);
+          v14 = v13;
+          [v12 setHtmlString_];
+          CFRelease(v14);
         }
 
-        v16 = CFArrayCreate(0, &values, 1, MEMORY[0x277CBF128]);
+        v15 = CFArrayCreate(0, &values, 1, MEMORY[0x277CBF128]);
         [*(a1 + 32) setCardSections_];
-        CFRelease(v16);
+        CFRelease(v15);
       }
 
       CFRelease(v10);

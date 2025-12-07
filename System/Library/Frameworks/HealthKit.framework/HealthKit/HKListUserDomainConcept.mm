@@ -1,4 +1,5 @@
 @interface HKListUserDomainConcept
+- (BOOL)unitTesting_isIdentical:(id)identical ignoreModificationTimestamp:(BOOL)timestamp;
 - (HKListUserDomainConcept)init;
 - (HKListUserDomainConcept)initWithCoder:(id)coder;
 - (HKListUserDomainConcept)initWithCodingCollection:(id)collection linkCollection:(id)linkCollection propertyCollection:(id)propertyCollection;
@@ -85,7 +86,7 @@
 
 - (id)_dataDescription
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
   v4 = HKStringFromListUserDomainType(self->_listType);
   v5 = [v3 stringWithFormat:@"%@", v4];
@@ -106,38 +107,38 @@
   else
   {
     v8 = [[HKTableFormatter alloc] initWithColumnTitles:&unk_1F0686BC8];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     obj = [(HKUserDomainConcept *)self linkCollection];
-    v9 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v9 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           v15 = [MEMORY[0x1E696AD98] numberWithInteger:v11];
-          v26[0] = v15;
+          v25[0] = v15;
           targetUUID = [v14 targetUUID];
-          v26[1] = targetUUID;
-          v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+          v25[1] = targetUUID;
+          v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
           [(HKTableFormatter *)v8 appendHeterogenousRow:v17];
 
           ++v11;
         }
 
-        v10 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v10 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v10);
@@ -147,8 +148,6 @@
     formattedTable = [(HKTableFormatter *)v8 formattedTable];
     [v5 appendString:formattedTable];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -328,6 +327,15 @@ HKUserDomainConceptLink *__58__HKListUserDomainConcept_listByAddingUserDomainCon
   v6 = v4;
 
   return v6;
+}
+
+- (BOOL)unitTesting_isIdentical:(id)identical ignoreModificationTimestamp:(BOOL)timestamp
+{
+  timestampCopy = timestamp;
+  identicalCopy = identical;
+  v9 = [(HKUserDomainConcept *)self isEqual:identicalCopy]&& (v11.receiver = self, v11.super_class = HKListUserDomainConcept, [(HKUserDomainConcept *)&v11 unitTesting_isIdentical:identicalCopy ignoreModificationTimestamp:timestampCopy]) && ((listName = self->_listName, v8 = identicalCopy[15], listName == v8) || v8 && [(NSString *)listName isEqual:?]) && self->_listType == identicalCopy[14];
+
+  return v9;
 }
 
 @end

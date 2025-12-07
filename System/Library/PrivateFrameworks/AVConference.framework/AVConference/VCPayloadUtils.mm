@@ -51,7 +51,7 @@
 
     if (time == 113)
     {
-      return VCFeatureFlagManager_UseAudioCodecACC24ForU1();
+      return VCFeatureFlagManager_UseAudioCodecACC24ForU1(1);
     }
   }
 
@@ -559,6 +559,7 @@ LABEL_12:
 
 + (int)codecRateModeForDesiredANBR:(unsigned int)r payload:(int)payload supportedBitrates:(id)bitrates supportedBandwidths:(id)bandwidths
 {
+  v6 = *&payload;
   v23 = *MEMORY[0x1E69E9840];
   v8 = [self allowedBitratesForPayload:*&payload supportedBitrates:bitrates supportedBandwidths:bandwidths];
   if (v8)
@@ -601,7 +602,7 @@ LABEL_4:
             goto LABEL_4;
           }
 
-          return VCPayloadUtils_AudioCodecRateModeForBitrate(payload, [v15 unsignedIntValue]);
+          return VCPayloadUtils_AudioCodecRateModeForBitrate(v6, [v15 unsignedIntValue]);
         }
       }
     }
@@ -611,7 +612,7 @@ LABEL_4:
       v15 = v10;
     }
 
-    return VCPayloadUtils_AudioCodecRateModeForBitrate(payload, [v15 unsignedIntValue]);
+    return VCPayloadUtils_AudioCodecRateModeForBitrate(v6, [v15 unsignedIntValue]);
   }
 
   else
@@ -1516,7 +1517,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to allocate filteredAndSortedBitrates", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to allocate filteredAndSortedBitrates", v4, v5, v6, v7);
     }
   }
 
@@ -1532,7 +1533,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to allocate standardsBitrateSet", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to allocate standardsBitrateSet", v4, v5, v6, v7);
     }
   }
 
@@ -1548,7 +1549,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to allocate primaryBitrates", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to allocate primaryBitrates", v4, v5, v6, v7);
     }
   }
 
@@ -1564,7 +1565,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Audio format cannot be nil", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Audio format cannot be nil", v4, v5, v6, v7);
     }
   }
 
@@ -1580,7 +1581,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Audio format cannot be nil", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Audio format cannot be nil", v4, v5, v6, v7);
     }
   }
 

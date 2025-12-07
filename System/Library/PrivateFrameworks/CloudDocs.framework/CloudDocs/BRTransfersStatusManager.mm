@@ -393,7 +393,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t __49__BRTransfersStatusManager__progressSubscription__block_invoke_2(uint64_t a1)
+void *__49__BRTransfersStatusManager__progressSubscription__block_invoke_2(uint64_t a1)
 {
   if ([*(a1 + 32) isEqualToString:*MEMORY[0x1E696A848]])
   {

@@ -1,4 +1,5 @@
 @interface CFPrefsPlistSource
+- (BOOL)_logLoudlyAboutSettingKey:(_BOOL8)result;
 - (BOOL)attachAccessTokenToMessage:(int)message accessType:;
 - (BOOL)synchronize;
 - (CFPrefsPlistSource)initWithDomain:(__CFString *)domain user:(__CFString *)user byHost:(BOOL)host containerPath:(__CFString *)path containingPreferences:(id)preferences;
@@ -10,11 +11,10 @@
 - (int)alreadylocked_updateObservingRemoteChanges;
 - (int64_t)alreadylocked_generationCount;
 - (int64_t)generationCount;
-- (uint64_t)_logLoudlyAboutSettingKey:(uint64_t)result;
 - (uint64_t)_shouldEnableDirectMode;
 - (uint64_t)alreadylocked_requestNewData;
-- (uint64_t)handleErrorReply:(void *)reply toMessage:(const void *)message settingKeys:(const void *)keys toValues:(CFIndex)values count:(int)count retryCount:(uint64_t)retryCount retryContinuation:;
-- (uint64_t)handleErrorReply:(void *)reply toMessage:(int)message retryCount:(uint64_t)count retryContinuation:;
+- (uint64_t)handleErrorReply:(void *)reply toMessage:(const void *)message settingKeys:(__CFString *)keys toValues:(CFIndex)values count:(uint64_t)count retryCount:(uint64_t)retryCount retryContinuation:;
+- (uint64_t)handleErrorReply:(void *)reply toMessage:(uint64_t)message retryCount:(uint64_t)count retryContinuation:;
 - (uint64_t)sendMessageSettingValues:(__objc2_class *)values forKeys:(uint64_t)keys count:;
 - (uint64_t)volatilizeIfInvalidHomeDir;
 - (void)_sharedCleanup;
@@ -42,16 +42,16 @@
 
 - (__CFDictionary)alreadylocked_copyDictionary
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (byte_1EA84A4F1)
   {
     [(CFPrefsPlistSource *)self alreadylocked_clearCache];
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v17 = __alreadylocked_requestNewDataIfStale_block_invoke;
-  v18 = &unk_1E6D81EC0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v16 = __alreadylocked_requestNewDataIfStale_block_invoke;
+  v17 = &unk_1E6D81EC0;
   selfCopy = self;
   v3 = atomic_load(&self->_volatile);
   if ((v3 & 1) == 0)
@@ -60,7 +60,7 @@
     if (!v4 || (v5 = atomic_load(v4), v6 = atomic_load(&sentinelGeneration), v5 != v6) && (v7 = atomic_load(&self->super.lastKnownShmemState), v5 != v7))
     {
       os_unfair_lock_assert_owner(&self->super._lock);
-      v17(v16);
+      v16(v15);
     }
   }
 
@@ -77,22 +77,21 @@
       MutableCopy = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     }
 
-    alreadylocked_copyDictionary = MutableCopy;
+    v11 = MutableCopy;
     os_unfair_lock_lock(&locallySetDictLock);
     v12 = atomic_load(&self->_locallySetDict);
-    CFDictionaryApplyFunction(v12, locallySetValueOverlayMergeFunc, alreadylocked_copyDictionary);
+    CFDictionaryApplyFunction(v12, locallySetValueOverlayMergeFunc, v11);
     os_unfair_lock_unlock(&locallySetDictLock);
   }
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = CFPrefsPlistSource;
-    alreadylocked_copyDictionary = [(CFPrefsSource *)&v15 alreadylocked_copyDictionary];
+    v14.receiver = self;
+    v14.super_class = CFPrefsPlistSource;
+    return [(CFPrefsSource *)&v14 alreadylocked_copyDictionary];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return alreadylocked_copyDictionary;
+  return v11;
 }
 
 - (id)createSynchronizeMessage
@@ -102,7 +101,7 @@
   v3 = atomic_load(&self->_volatile);
   if (v3)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   v4 = xpc_dictionary_create(0, 0, 0);
@@ -110,9 +109,7 @@
   if ((_CFPrefsEncodeValueIntoMessage(v4, "CFPreferencesDomain", domainIdentifier, 0) & 1) == 0)
   {
     xpc_release(v4);
-LABEL_9:
-    v4 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   os_unfair_lock_lock_with_options();
@@ -131,7 +128,7 @@ LABEL_9:
 
       else
       {
-        v10 = _CFPrefsDaemonLog();
+        v10 = _CFPrefsDaemonLog(0, v8);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [(CFPrefsPlistSource *)buffer createSynchronizeMessage];
@@ -250,53 +247,69 @@ LABEL_32:
     xpc_dictionary_set_int64(v4, "kCFPreferencesTestingSimulateOutOfDiskSpace", v24);
   }
 
-LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (uint64_t)volatilizeIfInvalidHomeDir
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if (self && (v2 = atomic_load((self + 109)), (v2 & 1) == 0) && (atomic_store(1u, (self + 109)), -[_CFXPreferences euid](*(self + 8))) && !CFEqual(@"kCFPreferencesAnyUser", [self userIdentifier]) && -[_CFXPreferences currentUserHasInvalidHomeDirectory](*(self + 8)))
+  v14 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v3 = _CFPrefsClientLog();
-    v4 = 1;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
-    {
-      copyOSLogDescription = [self copyOSLogDescription];
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v6 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-      {
-        v9 = 138543362;
-        v10 = copyOSLogDescription;
-        _os_log_impl(&dword_1830E6000, v6, OS_LOG_TYPE_INFO, "Volatilizing domain, because home directory is invalid. %{public}@", &v9, 0xCu);
-      }
+    return 0;
+  }
 
-      _CFSetTSD(0xFu, 0, 0);
-      if (copyOSLogDescription)
-      {
-        CFRelease(copyOSLogDescription);
-      }
+  v2 = atomic_load((self + 109));
+  if (v2)
+  {
+    return 0;
+  }
+
+  atomic_store(1u, (self + 109));
+  if (![(_CFXPreferences *)*(self + 8) euid])
+  {
+    return 0;
+  }
+
+  if (CFEqual(@"kCFPreferencesAnyUser", [self userIdentifier]))
+  {
+    return 0;
+  }
+
+  HasInvalidHome = [(_CFXPreferences *)*(self + 8) currentUserHasInvalidHomeDirectory];
+  if (!HasInvalidHome)
+  {
+    return 0;
+  }
+
+  v5 = _CFPrefsClientLog(HasInvalidHome, v4);
+  v6 = 1;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    copyOSLogDescription = [self copyOSLogDescription];
+    v8 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+    v10 = _CFPrefsClientLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v12 = 138543362;
+      v13 = copyOSLogDescription;
+      _os_log_impl(&dword_1830E6000, v10, OS_LOG_TYPE_INFO, "Volatilizing domain, because home directory is invalid. %{public}@", &v12, 0xCu);
     }
 
-    atomic_store(1u, (self + 105));
+    _CFSetTSD(15, 0, 0);
+    if (copyOSLogDescription)
+    {
+      CFRelease(copyOSLogDescription);
+    }
   }
 
-  else
-  {
-    v4 = 0;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return v4;
+  atomic_store(1u, (self + 105));
+  return v6;
 }
 
 - (uint64_t)alreadylocked_requestNewData
 {
   selfCopy = self;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = atomic_load((self + 105));
@@ -315,13 +328,13 @@ LABEL_10:
 
       else
       {
-        v14 = 0;
-        v15 = &v14;
-        v16 = 0x2020000000;
-        v17 = 0;
+        v13 = 0;
+        v14 = &v13;
+        v15 = 0x2020000000;
+        v16 = 0;
         v7 = *(self + 8);
         v8 = atomic_load((self + 113));
-        if (v8 & 1) != 0 || (_CFPrefsDirectMode())
+        if (v8 & 1) != 0 || (_CFPrefsDirectMode(self))
         {
           v9 = 3;
         }
@@ -337,26 +350,25 @@ LABEL_10:
         }
 
         userIdentifier = [(CFTypeRef *)selfCopy userIdentifier];
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __50__CFPrefsPlistSource_alreadylocked_requestNewData__block_invoke;
-        v13[3] = &unk_1E6DD2C28;
-        v13[4] = selfCopy;
-        v13[5] = &v14;
-        [(_CFXPreferences *)v7 withConnectionForRole:v9 andUserIdentifier:userIdentifier performBlock:v13];
-        LOBYTE(selfCopy) = *(v15 + 24) ^ 1;
-        _Block_object_dispose(&v14, 8);
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __50__CFPrefsPlistSource_alreadylocked_requestNewData__block_invoke;
+        v12[3] = &unk_1E6DD2C28;
+        v12[4] = selfCopy;
+        v12[5] = &v13;
+        [(_CFXPreferences *)v7 withConnectionForRole:v9 andUserIdentifier:userIdentifier performBlock:v12];
+        LOBYTE(selfCopy) = *(v14 + 24) ^ 1;
+        _Block_object_dispose(&v13, 8);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return selfCopy & 1;
 }
 
 void __50__CFPrefsPlistSource_alreadylocked_requestNewData__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (a2 && ((v4 = *(a1 + 32), v5 = atomic_load((v4 + 113)), (v5 & 1) == 0) && (_CFPrefsDirectMode() & 1) == 0 ? (xpc_user_sessions_enabled() && (CFEqual(*(v4 + 64), @"kCFPreferencesAnyUser") || !xpc_user_sessions_get_session_uid() && CFEqual(*(v4 + 64), @"kCFPreferencesCurrentUser")) ? (v6 = 2) : (v6 = 1)) : (v6 = 3), (v7 = [v4 createRequestNewContentMessageForDaemon:v6]) != 0))
+  if (a2 && ((v4 = *(a1 + 32), v5 = atomic_load((v4 + 113)), (v5 & 1) == 0) && (_CFPrefsDirectMode(a1) & 1) == 0 ? (xpc_user_sessions_enabled() && (CFEqual(*(v4 + 64), @"kCFPreferencesAnyUser") || !xpc_user_sessions_get_session_uid() && CFEqual(*(v4 + 64), @"kCFPreferencesCurrentUser")) ? (v6 = 2) : (v6 = 1)) : (v6 = 3), (v7 = [v4 createRequestNewContentMessageForDaemon:v6]) != 0))
   {
     v8 = v7;
     [(CFPrefsPlistSource *)*(a1 + 32) sendRequestNewDataMessage:v7 toConnection:a2 retryCount:0 error:(*(*(a1 + 40) + 8) + 24)];
@@ -440,16 +452,16 @@ void __50__CFPrefsPlistSource_alreadylocked_requestNewData__block_invoke(uint64_
 
 - (__CFArray)alreadylocked_copyKeyList
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (byte_1EA84A4F1)
   {
     [(CFPrefsPlistSource *)self alreadylocked_clearCache];
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v12 = __alreadylocked_requestNewDataIfStale_block_invoke;
-  v13 = &unk_1E6D81EC0;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v11 = __alreadylocked_requestNewDataIfStale_block_invoke;
+  v12 = &unk_1E6D81EC0;
   selfCopy = self;
   v3 = atomic_load(&self->_volatile);
   if ((v3 & 1) == 0)
@@ -458,15 +470,13 @@ void __50__CFPrefsPlistSource_alreadylocked_requestNewData__block_invoke(uint64_
     if (!v4 || (v5 = atomic_load(v4), v6 = atomic_load(&sentinelGeneration), v5 != v6) && (v7 = atomic_load(&self->super.lastKnownShmemState), v5 != v7))
     {
       os_unfair_lock_assert_owner(&self->super._lock);
-      v12(v11);
+      v11(v10);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = CFPrefsPlistSource;
-  result = [(CFPrefsSource *)&v10 alreadylocked_copyKeyList];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v9.receiver = self;
+  v9.super_class = CFPrefsPlistSource;
+  return [(CFPrefsSource *)&v9 alreadylocked_copyKeyList];
 }
 
 - (void)_sharedCleanup
@@ -511,12 +521,11 @@ void __50__CFPrefsPlistSource_alreadylocked_requestNewData__block_invoke(uint64_
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [(CFPrefsPlistSource *)self _sharedCleanup];
-  v4.receiver = self;
-  v4.super_class = CFPrefsPlistSource;
-  [(CFPrefsSource *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = CFPrefsPlistSource;
+  [(CFPrefsSource *)&v3 dealloc];
 }
 
 - (void)setDomainIdentifier:(uint64_t)identifier
@@ -554,10 +563,10 @@ LABEL_8:
 
 - (CFPrefsPlistSource)initWithDomain:(__CFString *)domain user:(__CFString *)user byHost:(BOOL)host containerPath:(__CFString *)path containingPreferences:(id)preferences
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = CFPrefsPlistSource;
-  v11 = [(CFPrefsSource *)&v15 initWithContainingPreferences:preferences];
+  v15 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = CFPrefsPlistSource;
+  v11 = [(CFPrefsSource *)&v14 initWithContainingPreferences:preferences];
   v12 = v11;
   if (v11)
   {
@@ -569,7 +578,6 @@ LABEL_8:
     atomic_store(0, (v12 + 48));
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -583,28 +591,28 @@ LABEL_8:
 
 - (void)alreadylocked_setPrecopiedValues:(const void *)values forKeys:(const __CFString *)keys count:(int64_t)count from:(id)from
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->super._lock);
   if (_CFPrefsTestingFlags)
   {
     [(CFPrefsPlistSource *)self alreadylocked_clearCache];
   }
 
-  v10 = atomic_load(&self->super.shmemEntry);
-  if (!v10)
+  v11 = atomic_load(&self->super.shmemEntry);
+  if (!v11)
   {
-    v13 = 1;
+    v14 = 1;
 LABEL_8:
-    cf = v13;
+    cf = v14;
     goto LABEL_9;
   }
 
-  v11 = atomic_load(v10);
-  v12 = atomic_load(&sentinelGeneration);
-  if (v11 != v12)
+  v12 = atomic_load(v11);
+  v13 = atomic_load(&sentinelGeneration);
+  if (v12 != v13)
   {
-    v14 = atomic_load(&self->super.lastKnownShmemState);
-    v13 = v11 != v14;
+    v15 = atomic_load(&self->super.lastKnownShmemState);
+    v14 = v12 != v15;
     goto LABEL_8;
   }
 
@@ -617,20 +625,20 @@ LABEL_39:
     goto LABEL_68;
   }
 
-  v51 = 0;
-  v15 = 0;
+  v57 = 0;
   v16 = 0;
+  v17 = 0;
   do
   {
-    v17 = keys[v16];
-    v18 = values[v16];
+    v18 = keys[v17];
+    v19 = values[v17];
     if (_CFPrefsTestingFlags)
     {
       goto LABEL_29;
     }
 
-    v19 = atomic_load(&self->_locallySetDict);
-    if (v19 != 0 || cf)
+    v20 = atomic_load(&self->_locallySetDict);
+    if (v20 != 0 || cf)
     {
       goto LABEL_29;
     }
@@ -639,7 +647,7 @@ LABEL_39:
     if (!dict)
     {
       v22 = 0;
-      v23 = v18 != 0;
+      v23 = v19 != 0;
 LABEL_21:
       if (v22 || !self->super._dict || v23)
       {
@@ -649,12 +657,12 @@ LABEL_21:
       goto LABEL_24;
     }
 
-    Value = CFDictionaryGetValue(dict, keys[v16]);
-    v22 = Value != 0;
-    v23 = v18 != 0;
-    if (Value)
+    dict = CFDictionaryGetValue(dict, keys[v17]);
+    v22 = dict != 0;
+    v23 = v19 != 0;
+    if (dict)
     {
-      v24 = v18 == 0;
+      v24 = v19 == 0;
     }
 
     else
@@ -667,86 +675,89 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    if (!CFEqual(Value, v18))
+    dict = CFEqual(dict, v19);
+    if (!dict)
     {
       goto LABEL_29;
     }
 
 LABEL_24:
-    v25 = _CFPrefsClientLog();
+    v25 = _CFPrefsClientLog(dict, v10);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       copyOSLogDescription = [(CFPrefsSource *)self copyOSLogDescription];
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v27 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v27 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v29 = _CFPrefsClientLog(v27, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543618;
-        v56 = copyOSLogDescription;
-        v57 = 2114;
-        v58 = v17;
-        _os_log_debug_impl(&dword_1830E6000, v27, OS_LOG_TYPE_DEBUG, "%{public}@ skipping setting already-present value for key %{public}@", buf, 0x16u);
+        v62 = copyOSLogDescription;
+        v63 = 2114;
+        v64 = v18;
+        _os_log_debug_impl(&dword_1830E6000, v29, OS_LOG_TYPE_DEBUG, "%{public}@ skipping setting already-present value for key %{public}@", buf, 0x16u);
       }
 
-      _CFSetTSD(0xFu, 0, 0);
+      _CFSetTSD(15, 0, 0);
       CFRelease(copyOSLogDescription);
     }
 
-    keys[v16] = 0;
+    keys[v17] = 0;
 LABEL_29:
-    if (([(CFPrefsSource *)self validateValue:v18 forKey:v17 inDict:0 forWriting:1]& 1) != 0)
+    v30 = [(CFPrefsSource *)self validateValue:v19 forKey:v18 inDict:0 forWriting:1];
+    if (v30)
     {
-      if (keys[v16])
+      if (keys[v17])
       {
-        v15 |= [CFPrefsPlistSource _logLoudlyAboutSettingKey:?];
-        v51 = 1;
+        v30 = [CFPrefsPlistSource _logLoudlyAboutSettingKey:?];
+        v16 |= v30;
+        v57 = 1;
       }
     }
 
     else
     {
-      keys[v16] = 0;
+      keys[v17] = 0;
     }
 
-    ++v16;
+    ++v17;
   }
 
-  while (count != v16);
-  if ((v51 & 1) == 0)
+  while (count != v17);
+  if ((v57 & 1) == 0)
   {
     goto LABEL_39;
   }
 
-  v28 = _CFPrefsClientLog();
-  if (((os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG) | v15) & 1) == 0)
+  v31 = _CFPrefsClientLog(v30, v10);
+  if (((os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG) | v16) & 1) == 0)
   {
     goto LABEL_67;
   }
 
   cfa = [(CFPrefsSource *)self copyOSLogDescription];
-  v29 = _CFPrefsClientLog();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  v33 = _CFPrefsClientLog(cfa, v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
     Mutable = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    if ((v15 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
       goto LABEL_38;
     }
 
 LABEL_41:
-    v31 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    v35 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   }
 
   else
   {
     Mutable = 0;
-    if (v15)
+    if (v16)
     {
       goto LABEL_41;
     }
 
 LABEL_38:
-    v31 = 0;
+    v35 = 0;
   }
 
   countCopy = count;
@@ -756,21 +767,21 @@ LABEL_38:
   {
     if (*keysCopy)
     {
-      if (v31)
+      if (v35)
       {
-        v35 = [CFPrefsPlistSource _logLoudlyAboutSettingKey:?];
-        v36 = v35 | (Mutable != 0);
-        if (v35)
+        v39 = [CFPrefsPlistSource _logLoudlyAboutSettingKey:?];
+        v40 = v39 || Mutable != 0;
+        if (v39)
         {
-          v37 = v31;
+          v41 = v35;
         }
 
         else
         {
-          v37 = Mutable;
+          v41 = Mutable;
         }
 
-        if ((v36 & 1) == 0)
+        if (!v40)
         {
           goto LABEL_55;
         }
@@ -778,7 +789,7 @@ LABEL_38:
 
       else
       {
-        v37 = Mutable;
+        v41 = Mutable;
         if (!Mutable)
         {
           goto LABEL_55;
@@ -787,15 +798,15 @@ LABEL_38:
 
       if (*valuesCopy)
       {
-        v38 = *valuesCopy;
+        v42 = *valuesCopy;
       }
 
       else
       {
-        v38 = @"nil";
+        v42 = @"nil";
       }
 
-      CFDictionarySetValue(v37, *keysCopy, v38);
+      CFDictionarySetValue(v41, *keysCopy, v42);
     }
 
 LABEL_55:
@@ -809,15 +820,15 @@ LABEL_55:
     break;
   }
 
-  v39 = objc_autoreleasePoolPush();
-  _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
+  v43 = objc_autoreleasePoolPush();
+  _CFSetTSD(15, &__kCFBooleanTrue, 0);
   if (Mutable)
   {
     if (CFDictionaryGetCount(Mutable) >= 1)
     {
-      [(__CFDictionary *)Mutable description];
-      v40 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v44 = [(__CFDictionary *)Mutable description];
+      v46 = _CFPrefsClientLog(v44, v45);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
       {
         [CFPrefsPlistSource alreadylocked_setPrecopiedValues:forKeys:count:from:];
       }
@@ -826,33 +837,33 @@ LABEL_55:
     CFRelease(Mutable);
   }
 
-  if (v31)
+  if (v35)
   {
-    if (CFDictionaryGetCount(v31) >= 1)
+    if (CFDictionaryGetCount(v35) >= 1)
     {
-      v41 = [(__CFDictionary *)v31 description];
-      v42 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v47 = [(__CFDictionary *)v35 description];
+      v49 = _CFPrefsClientLog(v47, v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v56 = v41;
-        v57 = 2114;
-        v58 = cfa;
-        _os_log_impl(&dword_1830E6000, v42, OS_LOG_TYPE_DEFAULT, "setting %{public}@ in %{public}@", buf, 0x16u);
+        v62 = v47;
+        v63 = 2114;
+        v64 = cfa;
+        _os_log_impl(&dword_1830E6000, v49, OS_LOG_TYPE_DEFAULT, "setting %{public}@ in %{public}@", buf, 0x16u);
       }
     }
 
-    CFRelease(v31);
+    CFRelease(v35);
   }
 
   CFRelease(cfa);
-  _CFSetTSD(0xFu, 0, 0);
-  objc_autoreleasePoolPop(v39);
+  _CFSetTSD(15, 0, 0);
+  objc_autoreleasePoolPop(v43);
 LABEL_67:
   cfb = [(CFPrefsPlistSource *)self sendMessageSettingValues:values forKeys:keys count:count]!= 1;
 LABEL_68:
-  v43 = atomic_load(&self->_locallySetDict);
-  if (!v43 && _CFPrefsReadOnly())
+  v50 = atomic_load(&self->_locallySetDict);
+  if (!v50 && _CFPrefsReadOnly())
   {
     os_unfair_lock_lock(&locallySetDictLock);
     atomic_store(CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks), &self->_locallySetDict);
@@ -863,23 +874,23 @@ LABEL_68:
   {
     while (2)
     {
-      v44 = *keys;
+      v51 = *keys;
       if (!*keys)
       {
         goto LABEL_82;
       }
 
-      v45 = *values;
-      v46 = self->super._dict;
+      v52 = *values;
+      v53 = self->super._dict;
       if (*values)
       {
-        if (!v46)
+        if (!v53)
         {
-          v46 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-          self->super._dict = v46;
+          v53 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+          self->super._dict = v53;
         }
 
-        CFDictionarySetValue(v46, v44, v45);
+        CFDictionarySetValue(v53, v51, v52);
         if (!atomic_load(&self->_locallySetDict))
         {
           goto LABEL_82;
@@ -888,14 +899,14 @@ LABEL_68:
 
       else
       {
-        if (v46)
+        if (v53)
         {
-          CFDictionaryRemoveValue(v46, *keys);
+          CFDictionaryRemoveValue(v53, *keys);
         }
 
-        v48 = atomic_load(&self->_locallySetDict);
-        v45 = @"MagicRemovedValue";
-        if (!v48)
+        v55 = atomic_load(&self->_locallySetDict);
+        v52 = @"MagicRemovedValue";
+        if (!v55)
         {
 LABEL_82:
           ++values;
@@ -913,8 +924,8 @@ LABEL_82:
     }
 
     os_unfair_lock_lock(&locallySetDictLock);
-    v49 = atomic_load(&self->_locallySetDict);
-    CFDictionarySetValue(v49, v44, v45);
+    v56 = atomic_load(&self->_locallySetDict);
+    CFDictionarySetValue(v56, v51, v52);
     os_unfair_lock_unlock(&locallySetDictLock);
     goto LABEL_82;
   }
@@ -924,24 +935,20 @@ LABEL_83:
   {
     atomic_fetch_add(&self->super._generationCount, 1uLL);
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)sendMessageSettingValues:(__objc2_class *)values forKeys:(uint64_t)keys count:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_17;
+    return result;
   }
 
   v7 = result;
   if (_CFPrefsReadOnly())
   {
-LABEL_3:
-    result = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v8 = atomic_load(v7 + 105);
@@ -953,36 +960,35 @@ LABEL_3:
       createSynchronizeMessage = [v7 createSynchronizeMessage];
       if (!createSynchronizeMessage)
       {
-        result = 3;
-        goto LABEL_17;
+        return 3;
       }
 
-      v20 = createSynchronizeMessage;
+      v23 = createSynchronizeMessage;
       *buf = 0;
-      v21 = _CFPrefsEncodeKeyValuePairsIntoMessage(createSynchronizeMessage, values, a2, keys, buf);
-      v22 = _CFPrefsDomainSizeAcceptabilityForByteCount(*buf);
-      [(CFPrefsPlistSource *)v7 handlePossibleOversizedMessage:v22 forWritingKeys:values values:a2 count:keys];
-      v23 = atomic_load(v7 + 112);
-      if ((v23 & 1) != 0 && (_CFPrefsDirectMode() & 1) == 0)
+      v24 = _CFPrefsEncodeKeyValuePairsIntoMessage(createSynchronizeMessage, values, a2, keys, buf);
+      v25 = _CFPrefsDomainSizeAcceptabilityForByteCount(*buf);
+      [(CFPrefsPlistSource *)v7 handlePossibleOversizedMessage:v25 forWritingKeys:values values:a2 count:keys];
+      v27 = atomic_load(v7 + 112);
+      if ((v27 & 1) != 0 && (_CFPrefsDirectMode(v26) & 1) == 0)
       {
-        v24 = atomic_load(v7 + 113);
-        if ((v24 & v21 & 1) == 0)
+        v28 = atomic_load(v7 + 113);
+        if ((v28 & v24 & 1) == 0)
         {
 LABEL_27:
-          xpc_release(v20);
-          goto LABEL_3;
+          xpc_release(v23);
+          return 0;
         }
       }
 
-      else if (!v21)
+      else if (!v24)
       {
         goto LABEL_27;
       }
 
-      if ([(CFPrefsPlistSource *)v7 attachAccessTokenToMessage:v20 accessType:1])
+      if ([(CFPrefsPlistSource *)v7 attachAccessTokenToMessage:v23 accessType:1])
       {
-        [(CFPrefsPlistSource *)v7 addPIDImpersonationIfNecessary:v20];
-        [(CFPrefsPlistSource *)v7 sendFullyPreparedMessage:v20 toConnection:0 settingValues:a2 forKeys:values count:keys retryCount:0];
+        [(CFPrefsPlistSource *)v7 addPIDImpersonationIfNecessary:v23];
+        [(CFPrefsPlistSource *)v7 sendFullyPreparedMessage:v23 toConnection:0 settingValues:a2 forKeys:values count:keys retryCount:0];
       }
 
       goto LABEL_27;
@@ -999,41 +1005,41 @@ LABEL_27:
         v11 = atomic_load(v7 + 106);
         if (v11)
         {
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v12 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v12 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v14 = _CFPrefsClientLog(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v14 = *a2;
-            v15 = *values;
+            v18 = *a2;
+            v19 = *values;
             *buf = 138478339;
-            *&buf[4] = v14;
-            v26 = 2113;
-            v27 = v15;
-            v28 = 2114;
-            v29 = copyOSLogDescription;
-            _os_log_error_impl(&dword_1830E6000, v12, OS_LOG_TYPE_ERROR, "attempt to set %{private}@ for key in %{private}@ in read-only (due to a previously logged write error) preferences domain %{public}@", buf, 0x20u);
+            *&buf[4] = v18;
+            v30 = 2113;
+            v31 = v19;
+            v32 = 2114;
+            v33 = copyOSLogDescription;
+            _os_log_error_impl(&dword_1830E6000, v14, OS_LOG_TYPE_ERROR, "attempt to set %{private}@ for key in %{private}@ in read-only (due to a previously logged write error) preferences domain %{public}@", buf, 0x20u);
           }
         }
 
         else
         {
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v13 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v15 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v17 = _CFPrefsClientLog(v15, v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            v16 = *a2;
-            v17 = *values;
+            v20 = *a2;
+            v21 = *values;
             *buf = 138478339;
-            *&buf[4] = v16;
-            v26 = 2113;
-            v27 = v17;
-            v28 = 2114;
-            v29 = copyOSLogDescription;
-            _os_log_error_impl(&dword_1830E6000, v13, OS_LOG_TYPE_ERROR, "attempt to set %{private}@ for key in %{private}@ in non-persistent preferences domain %{public}@", buf, 0x20u);
+            *&buf[4] = v20;
+            v30 = 2113;
+            v31 = v21;
+            v32 = 2114;
+            v33 = copyOSLogDescription;
+            _os_log_error_impl(&dword_1830E6000, v17, OS_LOG_TYPE_ERROR, "attempt to set %{private}@ for key in %{private}@ in non-persistent preferences domain %{public}@", buf, 0x20u);
           }
         }
 
-        _CFSetTSD(0xFu, 0, 0);
+        _CFSetTSD(15, 0, 0);
       }
 
       ++a2;
@@ -1045,10 +1051,7 @@ LABEL_27:
   }
 
   CFRelease(copyOSLogDescription);
-  result = 2;
-LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return 2;
 }
 
 - (void)writeFailedForKeys:(__CFString *)keys values:(uint64_t)values count:
@@ -1095,12 +1098,12 @@ LABEL_17:
   }
 }
 
-- (uint64_t)handleErrorReply:(void *)reply toMessage:(const void *)message settingKeys:(const void *)keys toValues:(CFIndex)values count:(int)count retryCount:(uint64_t)retryCount retryContinuation:
+- (uint64_t)handleErrorReply:(void *)reply toMessage:(const void *)message settingKeys:(__CFString *)keys toValues:(CFIndex)values count:(uint64_t)count retryCount:(uint64_t)retryCount retryContinuation:
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_62;
+    return result;
   }
 
   if (!a2)
@@ -1110,20 +1113,23 @@ LABEL_17:
 
   if (a2 == MEMORY[0x1E69E9E18])
   {
-    if (!__CFProcessIsRestricted() && getenv("__CFPreferencesTestDaemon"))
+    if (!__CFProcessIsRestricted())
     {
-      v49 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+      v29 = getenv("__CFPreferencesTestDaemon");
+      if (v29)
       {
-        [CFPrefsPlistSource handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:];
-      }
+        v72 = _CFPrefsClientLog(v29, v30);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
+        {
+          [CFPrefsPlistSource handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:];
+        }
 
-      abort();
+        abort();
+      }
     }
 
     [CFPrefsPlistSource handleErrorReply:count toMessage:retryCount settingKeys:buf toValues:? count:? retryCount:? retryContinuation:?];
-    result = buf[0];
-    goto LABEL_62;
+    return buf[0];
   }
 
   v14 = result;
@@ -1135,72 +1141,72 @@ LABEL_17:
     if (int64 == 4)
     {
       string = xpc_dictionary_get_string(a2, "CFPreferencesUncanonicalizedPath");
-      v37 = string;
+      v45 = string;
       if (count < 4)
       {
         if (string)
         {
           bzero(buf, 0x402uLL);
-          if (dirname_r(v37, buf))
+          if (dirname_r(v45, buf))
           {
-            geteuid();
-            getegid();
-            if (_CFPrefsCreatePreferencesDirectory(buf))
+            v57 = geteuid();
+            v58 = getegid();
+            if (_CFPrefsCreatePreferencesDirectory(buf, 448, v57, v58, 0))
             {
-              _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-              v44 = _CFPrefsClientLog();
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+              v59 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+              v61 = _CFPrefsClientLog(v59, v60);
+              if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
               {
                 [CFPrefsPlistSource handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:];
               }
 
-              _CFSetTSD(0xFu, 0, 0);
+              _CFSetTSD(15, 0, 0);
               (*(retryCount + 16))(retryCount, (count + 1));
-              goto LABEL_61;
+              return 1;
             }
 
-            _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-            v47 = _CFPrefsClientLog();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+            v68 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+            v70 = _CFPrefsClientLog(v68, v69);
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
             {
-              v48 = __error();
-              [CFPrefsPlistSource handleErrorReply:buf toMessage:v48 settingKeys:v51 toValues:v47 count:? retryCount:? retryContinuation:?];
+              v71 = __error();
+              [CFPrefsPlistSource handleErrorReply:buf toMessage:v71 settingKeys:v74 toValues:v70 count:? retryCount:? retryContinuation:?];
             }
 
-            _CFSetTSD(0xFu, 0, 0);
+            _CFSetTSD(15, 0, 0);
           }
 
           else
           {
-            _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-            v46 = _CFPrefsClientLog();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v65 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+            v67 = _CFPrefsClientLog(v65, v66);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
             {
               [CFPrefsPlistSource handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:];
             }
 
-            _CFSetTSD(0xFu, 0, 0);
+            _CFSetTSD(15, 0, 0);
           }
         }
 
         else
         {
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v45 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v62 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v64 = _CFPrefsClientLog(v62, v63);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
           {
             [CFPrefsPlistSource handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:];
           }
 
-          _CFSetTSD(0xFu, 0, 0);
+          _CFSetTSD(15, 0, 0);
         }
 
         goto LABEL_5;
       }
 
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v38 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+      v46 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v48 = _CFPrefsClientLog(v46, v47);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
       {
         [CFPrefsPlistSource handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:];
       }
@@ -1213,39 +1219,38 @@ LABEL_17:
         goto LABEL_5;
       }
 
-      v28 = xpc_dictionary_get_string(a2, "CFPreferencesAccessToken");
-      v29 = v28;
+      v32 = xpc_dictionary_get_string(a2, "CFPreferencesAccessToken");
+      v33 = v32;
       if (count < 10)
       {
-        if (v28)
+        if (v32)
         {
           xpc_dictionary_set_value(reply, "CFPreferencesAccessToken", 0);
-          v42 = strdup(v29);
-          v43 = 0;
-          atomic_compare_exchange_strong((v14 + 96), &v43, v42);
-          if (v43)
+          v55 = strdup(v33);
+          v56 = 0;
+          atomic_compare_exchange_strong((v14 + 96), &v56, v55);
+          if (v56)
           {
-            free(v42);
+            free(v55);
           }
 
           (*(retryCount + 16))(retryCount, (count + 1));
-          goto LABEL_61;
+          return 1;
         }
 
         goto LABEL_5;
       }
 
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v30 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+      v34 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v36 = _CFPrefsClientLog(v34, v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
       {
         [CFPrefsPlistSource handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:];
       }
     }
 
-    _CFSetTSD(0xFu, 0, 0);
-    result = 0;
-    goto LABEL_62;
+    _CFSetTSD(15, 0, 0);
+    return 0;
   }
 
 LABEL_5:
@@ -1287,18 +1292,18 @@ LABEL_5:
       {
         if (values < 1)
         {
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v39 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v39, v21))
+          v49 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v51 = _CFPrefsClientLog(v49, v50);
+          if (os_log_type_enabled(v51, v21))
           {
             *buf = 138543618;
-            v53 = copyOSLogDescription;
-            v54 = 2082;
-            v55 = v19;
-            _os_log_impl(&dword_1830E6000, v39, v21, "Couldn't read values in %{public}@: %{public}s, detaching from cfprefsd", buf, 0x16u);
+            v76 = copyOSLogDescription;
+            v77 = 2082;
+            v78 = v19;
+            _os_log_impl(&dword_1830E6000, v51, v21, "Couldn't read values in %{public}@: %{public}s, detaching from cfprefsd", buf, 0x16u);
           }
 
-          _CFSetTSD(0xFu, 0, 0);
+          _CFSetTSD(15, 0, 0);
         }
 
         else
@@ -1324,20 +1329,20 @@ LABEL_5:
             CFRelease(Mutable);
           }
 
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v26 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v26, v21))
+          v26 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v28 = _CFPrefsClientLog(v26, v27);
+          if (os_log_type_enabled(v28, v21))
           {
             *buf = 138543874;
-            v53 = v25;
-            v54 = 2114;
-            v55 = copyOSLogDescription;
-            v56 = 2082;
-            v57 = v19;
-            _os_log_impl(&dword_1830E6000, v26, v21, "Couldn't write values for keys %{public}@ in %{public}@: %{public}s, detaching from cfprefsd", buf, 0x20u);
+            v76 = v25;
+            v77 = 2114;
+            v78 = copyOSLogDescription;
+            v79 = 2082;
+            v80 = v19;
+            _os_log_impl(&dword_1830E6000, v28, v21, "Couldn't write values for keys %{public}@ in %{public}@: %{public}s, detaching from cfprefsd", buf, 0x20u);
           }
 
-          _CFSetTSD(0xFu, 0, 0);
+          _CFSetTSD(15, 0, 0);
           if (v25)
           {
             CFRelease(v25);
@@ -1352,30 +1357,30 @@ LABEL_5:
       {
         if (values < 1)
         {
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v40 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v40, v21))
+          v52 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v54 = _CFPrefsClientLog(v52, v53);
+          if (os_log_type_enabled(v54, v21))
           {
             *buf = 138543618;
-            v53 = copyOSLogDescription;
-            v54 = 2082;
-            v55 = v19;
-            _os_log_impl(&dword_1830E6000, v40, v21, "Couldn't read values in %{public}@: %{public}s", buf, 0x16u);
+            v76 = copyOSLogDescription;
+            v77 = 2082;
+            v78 = v19;
+            _os_log_impl(&dword_1830E6000, v54, v21, "Couldn't read values in %{public}@: %{public}s", buf, 0x16u);
           }
 
-          _CFSetTSD(0xFu, 0, 0);
+          _CFSetTSD(15, 0, 0);
         }
 
         else
         {
-          v31 = CFArrayCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
+          v37 = CFArrayCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
           valuesCopy2 = values;
           messageCopy2 = message;
           do
           {
             if (*messageCopy2)
             {
-              CFArrayAppendValue(v31, *messageCopy2);
+              CFArrayAppendValue(v37, *messageCopy2);
             }
 
             ++messageCopy2;
@@ -1383,29 +1388,29 @@ LABEL_5:
           }
 
           while (valuesCopy2);
-          v34 = CFCopyDescription(v31);
-          if (v31)
+          v40 = CFCopyDescription(v37);
+          if (v37)
           {
-            CFRelease(v31);
+            CFRelease(v37);
           }
 
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v35 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v35, v21))
+          v41 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v43 = _CFPrefsClientLog(v41, v42);
+          if (os_log_type_enabled(v43, v21))
           {
             *buf = 138543874;
-            v53 = v34;
-            v54 = 2114;
-            v55 = copyOSLogDescription;
-            v56 = 2082;
-            v57 = v19;
-            _os_log_impl(&dword_1830E6000, v35, v21, "Couldn't write values for keys %{public}@ in %{public}@: %{public}s", buf, 0x20u);
+            v76 = v40;
+            v77 = 2114;
+            v78 = copyOSLogDescription;
+            v79 = 2082;
+            v80 = v19;
+            _os_log_impl(&dword_1830E6000, v43, v21, "Couldn't write values for keys %{public}@ in %{public}@: %{public}s", buf, 0x20u);
           }
 
-          _CFSetTSD(0xFu, 0, 0);
-          if (v34)
+          _CFSetTSD(15, 0, 0);
+          if (v40)
           {
-            CFRelease(v34);
+            CFRelease(v40);
           }
         }
 
@@ -1420,12 +1425,9 @@ LABEL_5:
       atomic_store(xpc_dictionary_get_uint64(a2, "CFPreferencesShmemState"), (v14 + 48));
     }
 
-LABEL_61:
-    result = 1;
+    return 1;
   }
 
-LABEL_62:
-  v41 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1436,10 +1438,10 @@ void __81__CFPrefsPlistSource_handlePossibleOversizedMessage_forWritingKeys_valu
   CFNotificationCenterPostNotification(LocalCenter, @"com.apple.CFPreferences.byteCountLimitReached", 0, 0, 1u);
 }
 
-void __105__CFPrefsPlistSource_handleErrorReply_toMessage_settingKeys_toValues_count_retryCount_retryContinuation___block_invoke()
+void __105__CFPrefsPlistSource_handleErrorReply_toMessage_settingKeys_toValues_count_retryCount_retryContinuation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _CFPrefsClientLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = _CFPrefsClientLog(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __105__CFPrefsPlistSource_handleErrorReply_toMessage_settingKeys_toValues_count_retryCount_retryContinuation___block_invoke_cold_1();
   }
@@ -1447,7 +1449,7 @@ void __105__CFPrefsPlistSource_handleErrorReply_toMessage_settingKeys_toValues_c
 
 void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke(uint64_t a1, xpc_connection_t connection)
 {
-  v15[10] = *MEMORY[0x1E69E9840];
+  v14[10] = *MEMORY[0x1E69E9840];
   if (connection)
   {
     v4 = xpc_connection_send_message_with_reply_sync(connection, *(a1 + 32));
@@ -1465,31 +1467,29 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
   v9 = *(a1 + 56);
   v10 = *(a1 + 64);
   v11 = *(a1 + 72);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke_2;
-  v15[3] = &unk_1E6DD2BD8;
-  v15[4] = v7;
-  v15[5] = v6;
-  v15[6] = connection;
-  v15[7] = v9;
-  v15[8] = v8;
-  v15[9] = v10;
-  [(CFPrefsPlistSource *)v6 handleErrorReply:v5 toMessage:v7 settingKeys:v8 toValues:v9 count:v10 retryCount:v11 retryContinuation:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke_2;
+  v14[3] = &unk_1E6DD2BD8;
+  v14[4] = v7;
+  v14[5] = v6;
+  v14[6] = connection;
+  v14[7] = v9;
+  v14[8] = v8;
+  v14[9] = v10;
+  [(CFPrefsPlistSource *)v6 handleErrorReply:v5 toMessage:v7 settingKeys:v8 toValues:v9 count:v10 retryCount:v11 retryContinuation:v14];
   if (object_getClass(v5) == MEMORY[0x1E69E9E80])
   {
     uint64 = xpc_dictionary_get_uint64(v5, "CFPreferencesShmemState");
     if (uint64)
     {
-      v14 = atomic_load((*(a1 + 40) + 48));
-      if (uint64 == v14 + 1)
+      v13 = atomic_load((*(a1 + 40) + 48));
+      if (uint64 == v13 + 1)
       {
         atomic_store(uint64, (*(a1 + 40) + 48));
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendRequestNewDataMessage:(uint64_t)message toConnection:(uint64_t)connection retryCount:(BOOL *)count error:
@@ -1519,8 +1519,8 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
         v18 = a2;
         v19 = &description;
         messageCopy = message;
-        v11 = atomic_load((self + 113));
-        if (v11 & 1) != 0 || (_CFPrefsDirectMode())
+        v12 = atomic_load((self + 113));
+        if (v12 & 1) != 0 || (_CFPrefsDirectMode(v11))
         {
           CFPREFERENCES_IS_WAITING_FOR_DIRECT_CFPREFSD(*(self + 8), &v13);
         }
@@ -1548,8 +1548,6 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
       *count = 1;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createRequestNewContentMessageForDaemon:(int)daemon
@@ -1562,23 +1560,23 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
   v23 = __Block_byref_object_copy__7;
   v24 = __Block_byref_object_dispose__7;
   v25 = 0;
-  v5 = atomic_load(&self->_directMode);
-  if (v5 & 1) != 0 || (_CFPrefsDirectMode())
+  v6 = atomic_load(&self->_directMode);
+  if (v6 & 1) != 0 || (_CFPrefsDirectMode(v5))
   {
-    v6 = 3;
+    v7 = 3;
   }
 
   else if (xpc_user_sessions_enabled() && (CFEqual(self->userIdentifier, @"kCFPreferencesAnyUser") || !xpc_user_sessions_get_session_uid() && CFEqual(self->userIdentifier, @"kCFPreferencesCurrentUser")))
   {
-    v6 = 2;
+    v7 = 2;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  if (v6 == daemon)
+  if (v7 == daemon)
   {
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
@@ -1586,11 +1584,11 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
     v17 = &unk_1E6DD2C50;
     selfCopy = self;
     v19 = &v20;
-    v7 = atomic_load(&self->_volatile);
-    if ((v7 & 1) == 0)
+    v8 = atomic_load(&self->_volatile);
+    if ((v8 & 1) == 0)
     {
-      v8 = atomic_load(&self->super.shmemEntry);
-      if (!v8 || (v9 = atomic_load(v8), v10 = atomic_load(&sentinelGeneration), v9 != v10) && (v11 = atomic_load(&self->super.lastKnownShmemState), v9 != v11))
+      v9 = atomic_load(&self->super.shmemEntry);
+      if (!v9 || (v10 = atomic_load(v9), v11 = atomic_load(&sentinelGeneration), v10 != v11) && (v12 = atomic_load(&self->super.lastKnownShmemState), v10 != v12))
       {
         os_unfair_lock_assert_owner(&self->super._lock);
         v16(v15);
@@ -1598,10 +1596,9 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
     }
   }
 
-  v12 = v21[5];
+  v13 = v21[5];
   _Block_object_dispose(&v20, 8);
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v13;
 }
 
 void __62__CFPrefsPlistSource_createRequestNewContentMessageForDaemon___block_invoke(uint64_t a1)
@@ -1623,186 +1620,186 @@ void __62__CFPrefsPlistSource_createRequestNewContentMessageForDaemon___block_in
 
 void __44__CFPrefsPlistSource_requestPlistValidation__block_invoke(uint64_t a1, _xpc_connection_s *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) createSynchronizeMessage];
   if (v4)
   {
-    v6 = v4;
+    v5 = v4;
     if ([(CFPrefsPlistSource *)*(a1 + 32) attachAccessTokenToMessage:v4 accessType:0])
     {
-      [(CFPrefsPlistSource *)*(a1 + 32) addPIDImpersonationIfNecessary:v6];
-      xpc_dictionary_set_BOOL(v6, "ValidatePlist", 1);
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v7 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      [(CFPrefsPlistSource *)*(a1 + 32) addPIDImpersonationIfNecessary:v5];
+      xpc_dictionary_set_BOOL(v5, "ValidatePlist", 1);
+      v6 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v8 = _CFPrefsClientLog(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_1830E6000, v7, OS_LOG_TYPE_INFO, "Requesting validation of plist after invalid data detected", v9, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_1830E6000, v8, OS_LOG_TYPE_INFO, "Requesting validation of plist after invalid data detected", v10, 2u);
       }
 
-      _CFSetTSD(0xFu, 0, 0);
+      _CFSetTSD(15, 0, 0);
       global_queue = dispatch_get_global_queue(17, 0);
-      xpc_connection_send_message_with_reply(a2, v6, global_queue, &__block_literal_global_53);
+      xpc_connection_send_message_with_reply(a2, v5, global_queue, &__block_literal_global_53);
     }
 
-    xpc_release(v6);
+    xpc_release(v5);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleReply:(id)reply toRequestNewDataMessage:(id)message onConnection:(id)connection retryCount:(int)count error:(BOOL *)error
 {
   errorCopy = error;
-  v89 = *MEMORY[0x1E69E9840];
+  v7 = *&count;
+  v115 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->super._lock);
   v12 = atomic_load(&self->super.shmemEntry);
   if (v12 || (string = xpc_dictionary_get_string(reply, "CFPreferencesShmemName")) == 0)
   {
 LABEL_2:
-    v86[0] = MEMORY[0x1E69E9820];
-    v86[1] = 3221225472;
-    v86[2] = __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_retryCount_error___block_invoke;
-    v86[3] = &unk_1E6DD2C98;
-    v86[4] = message;
-    v86[5] = self;
-    v86[6] = connection;
-    v86[7] = errorCopy;
-    if (([(CFPrefsPlistSource *)self handleErrorReply:reply toMessage:message settingKeys:0 toValues:0 count:0 retryCount:count retryContinuation:v86]& 1) != 0)
+    v112[0] = MEMORY[0x1E69E9820];
+    v112[1] = 3221225472;
+    v112[2] = __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_retryCount_error___block_invoke;
+    v112[3] = &unk_1E6DD2C98;
+    v112[4] = message;
+    v112[5] = self;
+    v112[6] = connection;
+    v112[7] = errorCopy;
+    if (([(CFPrefsPlistSource *)self handleErrorReply:reply toMessage:message settingKeys:0 toValues:0 count:0 retryCount:v7 retryContinuation:v112]& 1) != 0)
     {
-      goto LABEL_152;
+      return;
     }
 
     atomic_store(xpc_dictionary_get_uint64(reply, "CFPreferencesShmemState"), &self->super.lastKnownShmemState);
     value = xpc_dictionary_get_value(reply, "CFPreferencesPropertyList");
     v13 = xpc_dictionary_dup_fd(reply, "PlistFD");
     v14 = xpc_dictionary_get_value(reply, "PlistDiff");
-    v15 = xpc_dictionary_get_value(reply, "CFPreferencesValidationPropertyList");
-    if (v14 | v15)
+    v16 = xpc_dictionary_get_value(reply, "CFPreferencesValidationPropertyList");
+    if (v14 | v16)
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v16 = dyld_program_sdk_at_least();
+      v17 = dyld_program_sdk_at_least();
     }
 
     if (v13 != -1)
     {
-      memset(&v88, 0, sizeof(v88));
-      if (fstat(v13, &v88))
+      memset(&v114, 0, sizeof(v114));
+      if (fstat(v13, &v114))
       {
-        _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-        v22 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v26 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+        v28 = _CFPrefsClientLog(v26, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v23 = __error();
-          [CFPrefsPlistSource handleReply:v23 toRequestNewDataMessage:v87 onConnection:v22 retryCount:? error:?];
+          v29 = __error();
+          [CFPrefsPlistSource handleReply:v29 toRequestNewDataMessage:v113 onConnection:v28 retryCount:? error:?];
         }
 
-        _CFSetTSD(0xFu, 0, 0);
+        _CFSetTSD(15, 0, 0);
         goto LABEL_17;
       }
 
-      st_size = v88.st_size;
-      if (!_plistSizeIsAppropriateToRead(v88.st_size))
+      st_size = v114.st_size;
+      if (!_plistSizeIsAppropriateToRead(v114.st_size))
       {
 LABEL_17:
-        v24 = 0;
+        v30 = 0;
         Mutable = 0;
 LABEL_18:
-        close(v13);
+        v32 = close(v13);
         goto LABEL_19;
       }
 
-      v30 = mmap(0, st_size, 1, 2, v13, 0);
-      if (v30 == -1)
+      v39 = mmap(0, st_size, 1, 2, v13, 0);
+      if (v39 == -1)
       {
-        v42 = *__error();
+        __error();
         copyOSLogDescription = [(CFPrefsSource *)self copyOSLogDescription];
-        _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-        v44 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v54 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+        v56 = _CFPrefsClientLog(v54, v55);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
         }
 
-        _CFSetTSD(0xFu, 0, 0);
+        _CFSetTSD(15, 0, 0);
         CFRelease(copyOSLogDescription);
         goto LABEL_17;
       }
 
-      v87[0] = 0;
-      copyOSLogDescription3 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, v30, st_size, &__kCFAllocatorNull);
-      v31 = CFPropertyListCreateWithData(&__kCFAllocatorSystemDefault, copyOSLogDescription3, v16 ^ 1u, 0, v87);
-      Mutable = v31;
-      if (v31)
+      v113[0] = 0;
+      copyOSLogDescription3 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, v39, st_size, &__kCFAllocatorNull);
+      v40 = CFPropertyListCreateWithData(&__kCFAllocatorSystemDefault, copyOSLogDescription3, v17 ^ 1u, 0, v113);
+      Mutable = v40;
+      if (v40)
       {
-        if (CFGetTypeID(v31) == 18)
+        if (CFGetTypeID(v40) == 18)
         {
-          v24 = 1;
+          v30 = 1;
 LABEL_81:
           if (copyOSLogDescription3)
           {
             CFRelease(copyOSLogDescription3);
           }
 
-          munmap(v30, st_size);
+          munmap(v39, st_size);
           goto LABEL_18;
         }
 
         copyOSLogDescription2 = [(CFPrefsSource *)self copyOSLogDescription];
-        _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-        v46 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v60 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+        v62 = _CFPrefsClientLog(v60, v61);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
         {
           [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
         }
 
-        _CFSetTSD(0xFu, 0, 0);
+        _CFSetTSD(15, 0, 0);
         CFRelease(copyOSLogDescription2);
       }
 
       else
       {
         copyOSLogDescription2 = [(CFPrefsSource *)self copyOSLogDescription];
-        v80 = &__kCFBooleanTrue;
-        _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-        v45 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v106 = &__kCFBooleanTrue;
+        v57 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+        v59 = _CFPrefsClientLog(v57, v58);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
-          [CFPrefsPlistSource handleReply:copyOSLogDescription2 toRequestNewDataMessage:v87 onConnection:? retryCount:? error:?];
+          [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
         }
 
-        _CFSetTSD(0xFu, 0, 0);
+        _CFSetTSD(15, 0, 0);
         if (os_variant_has_internal_diagnostics())
         {
-          v79 = os_log_create("com.apple.defaults", "diagnostics");
-          _CFSetTSD(0xFu, v80, 0);
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+          v105 = os_log_create("com.apple.defaults", "diagnostics");
+          _CFSetTSD(15, v106, 0);
+          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
           {
             [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
           }
 
-          _CFSetTSD(0xFu, 0, 0);
+          _CFSetTSD(15, 0, 0);
         }
 
         CFRelease(copyOSLogDescription2);
-        if (v87[0])
+        if (v113[0])
         {
-          CFRelease(v87[0]);
+          CFRelease(v113[0]);
         }
       }
 
-      v24 = 0;
+      v30 = 0;
       goto LABEL_81;
     }
 
+    v32 = value;
     if (!value)
     {
       Mutable = 0;
-      v24 = 1;
+      v30 = 1;
       goto LABEL_19;
     }
 
@@ -1812,150 +1809,156 @@ LABEL_81:
       goto LABEL_126;
     }
 
-    *&v88.st_dev = 0;
+    *&v114.st_dev = 0;
     bytes_ptr = xpc_data_get_bytes_ptr(value);
-    v39 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, bytes_ptr, length, &__kCFAllocatorNull);
-    v40 = CFPropertyListCreateWithData(&__kCFAllocatorSystemDefault, v39, v16 ^ 1u, 0, &v88);
-    Mutable = v40;
-    if (v39)
+    v50 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, bytes_ptr, length, &__kCFAllocatorNull);
+    v51 = CFPropertyListCreateWithData(&__kCFAllocatorSystemDefault, v50, v17 ^ 1u, 0, &v114);
+    Mutable = v51;
+    if (v50)
     {
-      v41 = v40 == 0;
+      v52 = v51 == 0;
     }
 
     else
     {
-      v41 = 0;
+      v52 = 0;
     }
 
-    v24 = !v41;
-    if (v41)
+    v30 = !v52;
+    if (v52)
     {
       copyOSLogDescription3 = [(CFPrefsSource *)self copyOSLogDescription];
       copyOSLogDescription2 = &__kCFBooleanTrue;
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v47 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-      {
-        [CFPrefsPlistSource handleReply:copyOSLogDescription3 toRequestNewDataMessage:&v88.st_dev onConnection:? retryCount:? error:?];
-      }
-
-      _CFSetTSD(0xFu, 0, 0);
-      CFRelease(copyOSLogDescription3);
-      [(CFPrefsPlistSource *)self requestPlistValidation];
-      if (os_variant_has_internal_diagnostics())
-      {
-        v48 = os_log_create("com.apple.defaults", "diagnostics");
-        v80 = v39;
-        _CFSetTSD(0xFu, copyOSLogDescription2, 0);
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-        {
-          [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
-        }
-
-        _CFSetTSD(0xFu, 0, 0);
-
-        v39 = v80;
-      }
-    }
-
-    else if (!v39)
-    {
-      goto LABEL_91;
-    }
-
-    CFRelease(v39);
-LABEL_91:
-    if (*&v88.st_dev)
-    {
-      CFRelease(*&v88.st_dev);
-    }
-
-    if (Mutable && CFGetTypeID(Mutable) != 18)
-    {
-      copyOSLogDescription4 = [(CFPrefsSource *)self copyOSLogDescription];
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v50 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v63 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v65 = _CFPrefsClientLog(v63, v64);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
       }
 
-      _CFSetTSD(0xFu, 0, 0);
-      CFRelease(copyOSLogDescription4);
+      _CFSetTSD(15, 0, 0);
+      CFRelease(copyOSLogDescription3);
       [(CFPrefsPlistSource *)self requestPlistValidation];
-      v24 = 0;
+      if (os_variant_has_internal_diagnostics())
+      {
+        v66 = os_log_create("com.apple.defaults", "diagnostics");
+        v106 = v50;
+        _CFSetTSD(15, copyOSLogDescription2, 0);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        {
+          [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
+        }
+
+        _CFSetTSD(15, 0, 0);
+
+        v50 = v106;
+      }
+    }
+
+    else if (!v50)
+    {
+      goto LABEL_91;
+    }
+
+    CFRelease(v50);
+LABEL_91:
+    v32 = *&v114.st_dev;
+    if (*&v114.st_dev)
+    {
+      CFRelease(*&v114.st_dev);
+    }
+
+    if (Mutable)
+    {
+      v32 = CFGetTypeID(Mutable);
+      if (v32 != 18)
+      {
+        copyOSLogDescription4 = [(CFPrefsSource *)self copyOSLogDescription];
+        v68 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+        v70 = _CFPrefsClientLog(v68, v69);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        {
+          [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
+        }
+
+        _CFSetTSD(15, 0, 0);
+        CFRelease(copyOSLogDescription4);
+        [(CFPrefsPlistSource *)self requestPlistValidation];
+        v30 = 0;
+      }
     }
 
 LABEL_19:
-    if (!v24 || !v14)
+    if (!v30 || !v14)
     {
-      if (v15)
+      if (v16)
       {
-        v28 = v24;
+        v37 = v30;
       }
 
       else
       {
-        v28 = 0;
+        v37 = 0;
       }
 
-      if (v28)
+      if (v37)
       {
 LABEL_103:
-        if (object_getClass(v15) == MEMORY[0x1E69E9E70])
+        if (object_getClass(v16) == MEMORY[0x1E69E9E70])
         {
-          v51 = xpc_data_get_length(v15);
-          if (v51 <= 0x7FFFFFFFFFFFFFFELL)
+          v71 = xpc_data_get_length(v16);
+          if (v71 <= 0x7FFFFFFFFFFFFFFELL)
           {
-            *&v88.st_dev = 0;
-            v52 = xpc_data_get_bytes_ptr(v15);
+            *&v114.st_dev = 0;
+            v72 = xpc_data_get_bytes_ptr(v16);
             errorCopy = &__kCFAllocatorSystemDefault;
-            v53 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, v52, v51, &__kCFAllocatorNull);
-            v54 = CFPropertyListCreateWithData(&__kCFAllocatorSystemDefault, v53, 0, 0, &v88);
-            v55 = v54;
-            if (!v54 || CFGetTypeID(v54) != 18)
+            v73 = CFDataCreateWithBytesNoCopy(&__kCFAllocatorSystemDefault, v72, v71, &__kCFAllocatorNull);
+            v74 = CFPropertyListCreateWithData(&__kCFAllocatorSystemDefault, v73, 0, 0, &v114);
+            v75 = v74;
+            if (!v74 || (v32 = CFGetTypeID(v74), v32 != 18))
             {
               copyOSLogDescription5 = [(CFPrefsSource *)self copyOSLogDescription];
-              _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-              v57 = _CFPrefsClientLog();
-              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+              v77 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+              v79 = _CFPrefsClientLog(v77, v78);
+              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
               {
-                [CFPrefsPlistSource handleReply:copyOSLogDescription5 toRequestNewDataMessage:&v88.st_dev onConnection:? retryCount:? error:?];
+                [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
               }
 
-              _CFSetTSD(0xFu, 0, 0);
+              _CFSetTSD(15, 0, 0);
               CFRelease(copyOSLogDescription5);
-              if (*&v88.st_dev)
+              v32 = *&v114.st_dev;
+              if (*&v114.st_dev)
               {
-                CFRelease(*&v88.st_dev);
+                CFRelease(*&v114.st_dev);
               }
             }
 
-            if (v53)
+            if (v73)
             {
-              CFRelease(v53);
+              CFRelease(v73);
             }
 
-            if (v55)
+            if (v75)
             {
-              if (CFDictionaryGetCount(v55) >= 1)
+              if (CFDictionaryGetCount(v75) >= 1)
               {
                 if (!Mutable)
                 {
                   Mutable = CFDictionaryCreateMutable(errorCopy, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
                 }
 
-                v85[0] = MEMORY[0x1E69E9820];
-                v85[1] = 3221225472;
-                v85[2] = __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_retryCount_error___block_invoke_62;
-                v85[3] = &unk_1E6DD2CC0;
-                v85[5] = Mutable;
-                v85[6] = v55;
-                v85[4] = self;
-                CFDictionaryApplyFunction(v55, applyDictBlock, v85);
+                v111[0] = MEMORY[0x1E69E9820];
+                v111[1] = 3221225472;
+                v111[2] = __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_retryCount_error___block_invoke_62;
+                v111[3] = &unk_1E6DD2CC0;
+                v111[5] = Mutable;
+                v111[6] = v75;
+                v111[4] = self;
+                CFDictionaryApplyFunction(v75, applyDictBlock, v111);
               }
 
-              CFRelease(v55);
+              CFRelease(v75);
             }
 
             goto LABEL_119;
@@ -1964,14 +1967,14 @@ LABEL_103:
 
 LABEL_126:
         copyOSLogDescription6 = [(CFPrefsSource *)self copyOSLogDescription];
-        _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-        v63 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+        v85 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+        v87 = _CFPrefsClientLog(v85, v86);
+        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
         {
           [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
         }
 
-        _CFSetTSD(0xFu, 0, 0);
+        _CFSetTSD(15, 0, 0);
         if (copyOSLogDescription6)
         {
           CFRelease(copyOSLogDescription6);
@@ -1983,60 +1986,60 @@ LABEL_126:
           CFRelease(Mutable);
         }
 
-        goto LABEL_152;
+        return;
       }
 
-      if (!v24)
+      if (!v30)
       {
         goto LABEL_126;
       }
 
 LABEL_119:
-      v58 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+      v80 = _CFPrefsClientLog(v32, v15);
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
       {
         copyOSLogDescription7 = [(CFPrefsSource *)self copyOSLogDescription];
-        v60 = v13 == -1;
+        v82 = v13 == -1;
         if (!value)
         {
-          v60 = 0;
+          v82 = 0;
         }
 
-        if (v60)
+        if (v82)
         {
-          v61 = "a new base plist";
+          v83 = "a new base plist";
         }
 
         else if (self->super._dict)
         {
-          v61 = "the same base plist";
+          v83 = "the same base plist";
         }
 
         else
         {
-          v61 = "an empty base plist";
+          v83 = "an empty base plist";
         }
 
-        _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-        v64 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+        v88 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+        v90 = _CFPrefsClientLog(v88, v89);
+        if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
         {
-          v75 = "no additional changes from the base plist";
-          v88.st_dev = 138543874;
-          *&v88.st_mode = copyOSLogDescription7;
-          WORD2(v88.st_ino) = 2080;
+          v101 = "no additional changes from the base plist";
+          v114.st_dev = 138543874;
+          *&v114.st_mode = copyOSLogDescription7;
+          WORD2(v114.st_ino) = 2080;
           if (v14)
           {
-            v75 = "a diff relative to the base plist";
+            v101 = "a diff relative to the base plist";
           }
 
-          *(&v88.st_ino + 6) = v61;
-          HIWORD(v88.st_gid) = 2080;
-          *&v88.st_rdev = v75;
-          _os_log_debug_impl(&dword_1830E6000, v64, OS_LOG_TYPE_DEBUG, "%{public}@ loaded: %s and %s", &v88, 0x20u);
+          *(&v114.st_ino + 6) = v83;
+          HIWORD(v114.st_gid) = 2080;
+          *&v114.st_rdev = v101;
+          _os_log_debug_impl(&dword_1830E6000, v90, OS_LOG_TYPE_DEBUG, "%{public}@ loaded: %s and %s", &v114, 0x20u);
         }
 
-        _CFSetTSD(0xFu, 0, 0);
+        _CFSetTSD(15, 0, 0);
         CFRelease(copyOSLogDescription7);
       }
 
@@ -2046,7 +2049,7 @@ LABEL_119:
         CFRelease(dict);
       }
 
-      if (((Mutable != 0) & v16) == 1)
+      if (((Mutable != 0) & v17) == 1)
       {
         MutableCopy = CFDictionaryCreateMutableCopy(&__kCFAllocatorSystemDefault, 0, Mutable);
         CFRelease(Mutable);
@@ -2056,13 +2059,13 @@ LABEL_119:
       if (Mutable)
       {
         Count = CFDictionaryGetCount(Mutable);
-        v69 = Count;
+        v96 = Count;
         if (Count >> 60)
         {
-          v76 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
-          v77 = [NSException exceptionWithName:@"NSGenericException" reason:v76 userInfo:0];
-          CFRelease(v76);
-          objc_exception_throw(v77);
+          v102 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
+          v103 = [NSException exceptionWithName:@"NSGenericException" reason:v102 userInfo:0];
+          CFRelease(v102);
+          objc_exception_throw(v103);
         }
 
         if (Count <= 1)
@@ -2070,59 +2073,59 @@ LABEL_119:
           Count = 1;
         }
 
-        v70 = MEMORY[0x1EEE9AC00](Count, v68);
-        v72 = (&v78 - v71);
-        *&v88.st_dev = 0;
-        if (v69 >= 0x101)
+        v97 = MEMORY[0x1EEE9AC00](Count, v94, v95);
+        v99 = (&v104 - v98);
+        *&v114.st_dev = 0;
+        if (v96 >= 0x101)
         {
-          v72 = _CFCreateArrayStorage(v70, 0, &v88);
-          v73 = v72;
+          v99 = _CFCreateArrayStorage(v97, 0, &v114);
+          v100 = v99;
         }
 
         else
         {
-          v73 = 0;
+          v100 = 0;
         }
 
-        CFDictionaryGetKeysAndValues(Mutable, v72, 0);
-        for (; v69; --v69)
+        CFDictionaryGetKeysAndValues(Mutable, v99, 0);
+        for (; v96; --v96)
         {
-          if (([(CFPrefsSource *)self validateValue:*v72 forKey:Mutable inDict:0 forWriting:?]& 1) == 0)
+          if (([(CFPrefsSource *)self validateValue:*v99 forKey:Mutable inDict:0 forWriting:?]& 1) == 0)
           {
-            CFDictionaryRemoveValue(Mutable, *v72);
+            CFDictionaryRemoveValue(Mutable, *v99);
           }
 
-          ++v72;
+          ++v99;
         }
 
-        free(v73);
+        free(v100);
       }
 
       self->super._dict = Mutable;
       atomic_fetch_add(&self->super._generationCount, 1uLL);
-      goto LABEL_152;
+      return;
     }
 
     if (object_getClass(v14) != MEMORY[0x1E69E9E50])
     {
 LABEL_22:
       copyOSLogDescription8 = [(CFPrefsSource *)self copyOSLogDescription];
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v27 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v34 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v36 = _CFPrefsClientLog(v34, v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         [CFPrefsPlistSource handleReply:toRequestNewDataMessage:onConnection:retryCount:error:];
       }
 
-      _CFSetTSD(0xFu, 0, 0);
+      _CFSetTSD(15, 0, 0);
       CFRelease(copyOSLogDescription8);
       goto LABEL_126;
     }
 
-    v34 = xpc_array_get_count(v14);
-    if ((v34 & 1) != 0 || Mutable)
+    v45 = xpc_array_get_count(v14);
+    if ((v45 & 1) != 0 || Mutable)
     {
-      if (v34)
+      if (v45)
       {
         goto LABEL_22;
       }
@@ -2130,27 +2133,27 @@ LABEL_22:
 
     else
     {
-      v35 = self->super._dict;
-      if (v34)
+      v46 = self->super._dict;
+      if (v45)
       {
-        if (v35)
+        if (v46)
         {
-          v36 = CFDictionaryCreateMutableCopy(&__kCFAllocatorSystemDefault, 0, v35);
+          v47 = CFDictionaryCreateMutableCopy(&__kCFAllocatorSystemDefault, 0, v46);
         }
 
         else
         {
-          v36 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+          v47 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         }
 
         goto LABEL_101;
       }
 
-      if (v35)
+      if (v46)
       {
-        v36 = CFRetain(self->super._dict);
+        v47 = CFRetain(self->super._dict);
 LABEL_101:
-        Mutable = v36;
+        Mutable = v47;
         goto LABEL_102;
       }
 
@@ -2159,7 +2162,7 @@ LABEL_101:
 
 LABEL_102:
     _CFPrefsApplyChangesQueueToDictionary(v14, Mutable);
-    if (v15)
+    if (v16)
     {
       goto LABEL_103;
     }
@@ -2167,54 +2170,51 @@ LABEL_102:
     goto LABEL_119;
   }
 
-  v18 = string;
-  v19 = atomic_load(&self->_directMode);
-  if (v19 & 1) != 0 || (_CFPrefsDirectMode())
+  v22 = string;
+  v23 = atomic_load(&self->_directMode);
+  if (v23 & 1) != 0 || (_CFPrefsDirectMode(string))
   {
-    v20 = 3;
+    v24 = 3;
   }
 
   else if (xpc_user_sessions_enabled() && (CFEqual(self->userIdentifier, @"kCFPreferencesAnyUser") || !xpc_user_sessions_get_session_uid() && CFEqual(self->userIdentifier, @"kCFPreferencesCurrentUser")))
   {
-    v20 = 2;
+    v24 = 2;
   }
 
   else
   {
-    v20 = 1;
+    v24 = 1;
   }
 
-  v21 = [(_CFXPreferences *)self->super._containingPreferences shmemForRole:v20 name:v18];
-  if (v21)
+  v25 = [(_CFXPreferences *)self->super._containingPreferences shmemForRole:v24 name:v22, v19, v20, v21];
+  if (v25)
   {
-    atomic_store(v21 + 4 * xpc_dictionary_get_int64(reply, "CFPreferencesShmemIndex"), &self->super.shmemEntry);
+    atomic_store(v25 + 4 * xpc_dictionary_get_int64(reply, "CFPreferencesShmemIndex"), &self->super.shmemEntry);
     goto LABEL_2;
   }
 
   copyOSLogDescription9 = [(CFPrefsSource *)self copyOSLogDescription];
-  _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-  v33 = _CFPrefsClientLog();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  v42 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+  v44 = _CFPrefsClientLog(v42, v43);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
   {
-    v88.st_dev = 67109634;
-    *&v88.st_mode = v20;
-    LOWORD(v88.st_ino) = 2082;
-    *(&v88.st_ino + 2) = v18;
-    HIWORD(v88.st_uid) = 2114;
-    *&v88.st_gid = copyOSLogDescription9;
-    _os_log_error_impl(&dword_1830E6000, v33, OS_LOG_TYPE_ERROR, "going volatile, because unable to obtain shmem entry for role: %d name: %{public}s. %{public}@", &v88, 0x1Cu);
+    v114.st_dev = 67109634;
+    *&v114.st_mode = v24;
+    LOWORD(v114.st_ino) = 2082;
+    *(&v114.st_ino + 2) = v22;
+    HIWORD(v114.st_uid) = 2114;
+    *&v114.st_gid = copyOSLogDescription9;
+    _os_log_error_impl(&dword_1830E6000, v44, OS_LOG_TYPE_ERROR, "going volatile, because unable to obtain shmem entry for role: %d name: %{public}s. %{public}@", &v114, 0x1Cu);
   }
 
-  _CFSetTSD(0xFu, 0, 0);
+  _CFSetTSD(15, 0, 0);
   atomic_store(1u, &self->_volatile);
   *errorCopy = 1;
   if (copyOSLogDescription9)
   {
     CFRelease(copyOSLogDescription9);
   }
-
-LABEL_152:
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_retryCount_error___block_invoke(uint64_t a1, uint64_t a2)
@@ -2234,7 +2234,7 @@ void __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_r
 
 void __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_retryCount_error___block_invoke_62(uint64_t a1, CFStringRef theString, const void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!CFStringHasPrefix(theString, @"Sig_"))
   {
     Value = CFDictionaryGetValue(*(a1 + 40), theString);
@@ -2245,30 +2245,28 @@ void __88__CFPrefsPlistSource_handleReply_toRequestNewDataMessage_onConnection_r
       v9 = CFDictionaryGetValue(*(a1 + 48), v8);
       CFRelease(v8);
       v10 = [*(a1 + 32) copyOSLogDescription];
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v11 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v11 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v13 = _CFPrefsClientLog(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138544387;
-        v14 = v10;
-        v15 = 2114;
-        v16 = theString;
-        v17 = 2113;
-        v18 = v7;
-        v19 = 2113;
-        v20 = a3;
-        v21 = 2114;
-        v22 = v9;
-        _os_log_error_impl(&dword_1830E6000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Value for key %{public}@ was %{private}@. Expected %{private}@ (%{public}@)", buf, 0x34u);
+        v15 = v10;
+        v16 = 2114;
+        v17 = theString;
+        v18 = 2113;
+        v19 = v7;
+        v20 = 2113;
+        v21 = a3;
+        v22 = 2114;
+        v23 = v9;
+        _os_log_error_impl(&dword_1830E6000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Value for key %{public}@ was %{private}@. Expected %{private}@ (%{public}@)", buf, 0x34u);
       }
 
-      _CFSetTSD(0xFu, 0, 0);
+      _CFSetTSD(15, 0, 0);
       CFRelease(v10);
       CFDictionarySetValue(*(a1 + 40), theString, a3);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_retryCount_error___block_invoke(uint64_t a1)
@@ -2294,16 +2292,16 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
 
 - (int64_t)alreadylocked_generationCount
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (byte_1EA84A4F1)
   {
     [(CFPrefsPlistSource *)self alreadylocked_clearCache];
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v11 = __alreadylocked_requestNewDataIfStale_block_invoke;
-  v12 = &unk_1E6D81EC0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v10 = __alreadylocked_requestNewDataIfStale_block_invoke;
+  v11 = &unk_1E6D81EC0;
   selfCopy = self;
   v3 = atomic_load(&self->_volatile);
   if ((v3 & 1) == 0)
@@ -2312,28 +2310,26 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
     if (!v4 || (v5 = atomic_load(v4), v6 = atomic_load(&sentinelGeneration), v5 != v6) && (v7 = atomic_load(&self->super.lastKnownShmemState), v5 != v7))
     {
       os_unfair_lock_assert_owner(&self->super._lock);
-      v11(v10);
+      v10(v9);
     }
   }
 
-  result = atomic_load(&self->super._generationCount);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return atomic_load(&self->super._generationCount);
 }
 
 - (int64_t)generationCount
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->super._lock);
   if (byte_1EA84A4F1)
   {
     [(CFPrefsPlistSource *)self alreadylocked_clearCache];
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v11 = __alreadylocked_requestNewDataIfStale_block_invoke;
-  v12 = &unk_1E6D81EC0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v10 = __alreadylocked_requestNewDataIfStale_block_invoke;
+  v11 = &unk_1E6D81EC0;
   selfCopy = self;
   v3 = atomic_load(&self->_volatile);
   if ((v3 & 1) == 0)
@@ -2342,14 +2338,12 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
     if (!v4 || (v5 = atomic_load(v4), v6 = atomic_load(&sentinelGeneration), v5 != v6) && (v7 = atomic_load(&self->super.lastKnownShmemState), v5 != v7))
     {
       os_unfair_lock_assert_owner(&self->super._lock);
-      v11(v10);
+      v10(v9);
     }
   }
 
   os_unfair_lock_unlock(&self->super._lock);
-  result = atomic_load(&self->super._generationCount);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return atomic_load(&self->super._generationCount);
 }
 
 - (id)alreadylocked_createObserverUpdateMessageWithOperation:(int)operation forRole:(int *)role
@@ -2361,23 +2355,23 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
 
   createSynchronizeMessage = [(CFPrefsPlistSource *)self createSynchronizeMessage];
   xpc_dictionary_set_int64(createSynchronizeMessage, "CFPreferencesOperation", operation);
-  v8 = atomic_load(&self->_directMode);
-  if (v8 & 1) != 0 || (_CFPrefsDirectMode())
+  v9 = atomic_load(&self->_directMode);
+  if (v9 & 1) != 0 || (_CFPrefsDirectMode(v8))
   {
-    v9 = 3;
+    v10 = 3;
   }
 
   else if (xpc_user_sessions_enabled() && (CFEqual(self->userIdentifier, @"kCFPreferencesAnyUser") || !xpc_user_sessions_get_session_uid() && CFEqual(self->userIdentifier, @"kCFPreferencesCurrentUser")))
   {
-    v9 = 2;
+    v10 = 2;
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  *role = v9;
+  *role = v10;
   return createSynchronizeMessage;
 }
 
@@ -2442,7 +2436,7 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
   }
 }
 
-- (uint64_t)_logLoudlyAboutSettingKey:(uint64_t)result
+- (BOOL)_logLoudlyAboutSettingKey:(_BOOL8)result
 {
   if (result)
   {
@@ -2481,25 +2475,25 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
 {
   if (self)
   {
-    OUTLINED_FUNCTION_6_5(self, 112);
-    if ((v2 & 1) != 0 && (_CFPrefsDirectMode() & 1) == 0)
+    v2 = OUTLINED_FUNCTION_6_5(self, 112);
+    if ((v3 & 1) != 0 && (_CFPrefsDirectMode(v2) & 1) == 0)
     {
-      v4 = atomic_load((self + 113));
-      v3 = v4 ^ 1;
+      v5 = atomic_load((self + 113));
+      v4 = v5 ^ 1;
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)transitionIntoDirectModeIfNeededWithRetryBlock:(id)block
@@ -2508,18 +2502,18 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
   if (self)
   {
     v4 = atomic_load(&self->_byteCountLimitExceeded);
-    if ((v4 & 1) != 0 && (_CFPrefsDirectMode() & 1) == 0)
+    if ((v4 & 1) != 0 && (_CFPrefsDirectMode(self) & 1) == 0)
     {
       v6 = atomic_load(&self->_directMode);
       if ((v6 & 1) == 0)
       {
         copyOSLogDescription = [(CFPrefsSource *)self copyOSLogDescription];
-        v8 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = _CFPrefsClientLog(copyOSLogDescription, v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           v10 = 138543362;
           v11 = copyOSLogDescription;
-          _os_log_error_impl(&dword_1830E6000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Transitioning into direct mode", &v10, 0xCu);
+          _os_log_error_impl(&dword_1830E6000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Transitioning into direct mode", &v10, 0xCu);
         }
 
         CFRelease(copyOSLogDescription);
@@ -2532,8 +2526,6 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)goReadOnlyAfterTryingToWriteKeys:(__CFString *)keys values:(uint64_t)values count:
@@ -2545,7 +2537,7 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
   }
 }
 
-- (uint64_t)handleErrorReply:(void *)reply toMessage:(int)message retryCount:(uint64_t)count retryContinuation:
+- (uint64_t)handleErrorReply:(void *)reply toMessage:(uint64_t)message retryCount:(uint64_t)count retryContinuation:
 {
   if (result)
   {
@@ -2557,34 +2549,34 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
 
 - (void)handlePossibleOversizedMessage:(const void *)message forWritingKeys:(const void *)keys values:(CFIndex)values count:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (a2 == 1)
     {
-      v12 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = _CFPrefsClientLog(self, a2);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         copyOSLogDescription = [self copyOSLogDescription];
         alreadylocked_copyDictionary = [self alreadylocked_copyDictionary];
         v16 = OUTLINED_FUNCTION_11_1([_CFPrefsOversizedPlistDescription alloc]);
-        v17 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v18 = _CFPrefsClientLog(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           _CFProcessNameString();
-          v19 = 138544642;
-          v20 = copyOSLogDescription;
+          v20 = 138544642;
+          v21 = copyOSLogDescription;
           OUTLINED_FUNCTION_8_3();
-          v21 = 3145728;
-          v22 = 1026;
-          v23 = 0x400000;
-          v24 = 2082;
-          v25 = "cause performance problems or lose data";
-          v26 = 2114;
-          v27 = v18;
-          v28 = 2112;
-          v29 = v16;
-          _os_log_impl(&dword_1830E6000, v17, OS_LOG_TYPE_INFO, "%{public}@: Storing >= %d bytes of data in CFPreferences/NSUserDefaults. If this exceeds %{public}d, it may %{public}s. This is a bug in %{public}@ or a library it uses.\n%@", &v19, 0x36u);
+          v22 = 3145728;
+          v23 = 1026;
+          v24 = 0x400000;
+          v25 = 2082;
+          v26 = "cause performance problems or lose data";
+          v27 = 2114;
+          v28 = v19;
+          v29 = 2112;
+          v30 = v16;
+          _os_log_impl(&dword_1830E6000, v18, OS_LOG_TYPE_INFO, "%{public}@: Storing >= %d bytes of data in CFPreferences/NSUserDefaults. If this exceeds %{public}d, it may %{public}s. This is a bug in %{public}@ or a library it uses.\n%@", &v20, 0x36u);
         }
 
         CFRelease(copyOSLogDescription);
@@ -2600,17 +2592,17 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
     else if (a2 == 2)
     {
       v9 = atomic_load((self + 113));
-      if (v9 & 1) != 0 || (_CFPrefsDirectMode())
+      if (v9 & 1) != 0 || (_CFPrefsDirectMode(self))
       {
         copyOSLogDescription2 = [self copyOSLogDescription];
-        v11 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = _CFPrefsClientLog(copyOSLogDescription2, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v19 = 138543618;
-          v20 = copyOSLogDescription2;
+          v20 = 138543618;
+          v21 = copyOSLogDescription2;
           OUTLINED_FUNCTION_8_3();
-          v21 = 0x400000;
-          _os_log_debug_impl(&dword_1830E6000, v11, OS_LOG_TYPE_DEBUG, "%{public}@: Attempt to store >= %d bytes of data in CFPreferences/NSUserDefaults was allowed by virtue of direct mode", &v19, 0x12u);
+          v22 = 0x400000;
+          _os_log_debug_impl(&dword_1830E6000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Attempt to store >= %d bytes of data in CFPreferences/NSUserDefaults was allowed by virtue of direct mode", &v20, 0x12u);
         }
 
         CFRelease(copyOSLogDescription2);
@@ -2628,8 +2620,6 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)attachAccessTokenToMessage:(int)message accessType:
@@ -2663,11 +2653,11 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
 
 - (void)addPIDImpersonationIfNecessary:(void *)necessary
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (necessary)
   {
-    memset(v7, 0, sizeof(v7));
-    if (memcmp(&_CFPrefsAuditTokenToImpersonate, v7, 0x20uLL))
+    memset(v6, 0, sizeof(v6));
+    if (memcmp(&_CFPrefsAuditTokenToImpersonate, v6, 0x20uLL))
     {
       domainIdentifier = [necessary domainIdentifier];
       CacheStringForBundleID = _CFPrefsGetCacheStringForBundleID(@"kCFPreferencesCurrentApplication");
@@ -2677,40 +2667,38 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendFullyPreparedMessage:(xpc_connection_t)connection toConnection:(uint64_t)connection settingValues:(uint64_t)values forKeys:(uint64_t)keys count:(int)count retryCount:
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke;
-    v14[3] = &unk_1E6DD2C00;
-    v14[4] = a2;
-    v14[5] = self;
-    v14[6] = values;
-    v14[7] = connection;
-    v14[8] = keys;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke;
+    v13[3] = &unk_1E6DD2C00;
+    v13[4] = a2;
+    v13[5] = self;
+    v13[6] = values;
+    v13[7] = connection;
+    v13[8] = keys;
     countCopy = count;
     if (connection)
     {
-      __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke(v14, connection);
+      __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke(v13, connection);
     }
 
     else
     {
       v8 = *(self + 8);
       v9 = atomic_load((self + 113));
-      if (v9 & 1) != 0 || (_CFPrefsDirectMode())
+      if (v9 & 1) != 0 || (_CFPrefsDirectMode(self))
       {
         v10 = 3;
       }
 
-      else if (xpc_user_sessions_enabled() && ((v12 = OUTLINED_FUNCTION_9_2(), CFEqual(v12, @"kCFPreferencesAnyUser")) || !xpc_user_sessions_get_session_uid() && (v13 = OUTLINED_FUNCTION_9_2(), CFEqual(v13, @"kCFPreferencesCurrentUser"))))
+      else if (xpc_user_sessions_enabled() && ((v11 = OUTLINED_FUNCTION_9_2(), CFEqual(v11, @"kCFPreferencesAnyUser")) || !xpc_user_sessions_get_session_uid() && (v12 = OUTLINED_FUNCTION_9_2(), CFEqual(v12, @"kCFPreferencesCurrentUser"))))
       {
         v10 = 2;
       }
@@ -2720,39 +2708,34 @@ xpc_object_t __78__CFPrefsPlistSource_sendRequestNewDataMessage_toConnection_ret
         v10 = 1;
       }
 
-      -[_CFXPreferences withConnectionForRole:andUserIdentifier:performBlock:](v8, v10, [self userIdentifier], v14);
+      -[_CFXPreferences withConnectionForRole:andUserIdentifier:performBlock:](v8, v10, [self userIdentifier], v13);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke_2(uint64_t a1)
+void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValues_forKeys_count_retryCount___block_invoke_2(uint64_t a1, int a2)
 {
-  v2 = xpc_copy(*(a1 + 32));
-  v3 = v2;
+  v4 = xpc_copy(*(a1 + 32));
+  v5 = v4;
   if (byte_1EA84A4F4)
   {
-    xpc_dictionary_set_BOOL(v2, "PreviousMessageInjectedFailure", 1);
+    xpc_dictionary_set_BOOL(v4, "PreviousMessageInjectedFailure", 1);
   }
 
-  v4 = [(CFPrefsPlistSource *)*(a1 + 40) attachAccessTokenToMessage:v3 accessType:1];
-  v5 = *(a1 + 40);
-  if (v4)
+  v6 = [(CFPrefsPlistSource *)*(a1 + 40) attachAccessTokenToMessage:v5 accessType:1];
+  v7 = *(a1 + 40);
+  if (v6)
   {
-    v6 = *(a1 + 56);
-    v7 = *(a1 + 64);
-    v8 = *(a1 + 72);
-    [CFPrefsPlistSource sendFullyPreparedMessage:v3 toConnection:*(a1 + 48) settingValues:? forKeys:? count:? retryCount:?];
+    [(CFPrefsPlistSource *)*(a1 + 40) sendFullyPreparedMessage:v5 toConnection:*(a1 + 48) settingValues:*(a1 + 56) forKeys:*(a1 + 64) count:*(a1 + 72) retryCount:a2];
   }
 
-  else if (v5)
+  else if (v7)
   {
     [(CFPrefsPlistSource *)*(a1 + 40) writeFailedForKeys:*(a1 + 56) values:*(a1 + 72) count:?];
-    OUTLINED_FUNCTION_4_6((v5 + 106));
+    OUTLINED_FUNCTION_4_6((v7 + 106));
   }
 
-  xpc_release(v3);
+  xpc_release(v5);
 }
 
 - (void)requestPlistValidation
@@ -2764,20 +2747,20 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
     if (v1)
     {
       v3 = self[1];
-      OUTLINED_FUNCTION_6_5(self, 113);
-      if (v4 & 1) != 0 || (_CFPrefsDirectMode())
+      v4 = OUTLINED_FUNCTION_6_5(self, 113);
+      if (v5 & 1) != 0 || (_CFPrefsDirectMode(v4))
       {
-        v5 = 3;
+        v6 = 3;
       }
 
       else if (xpc_user_sessions_enabled() && ((v8 = OUTLINED_FUNCTION_9_2(), CFEqual(v8, @"kCFPreferencesAnyUser")) || !xpc_user_sessions_get_session_uid() && (v9 = OUTLINED_FUNCTION_9_2(), CFEqual(v9, @"kCFPreferencesCurrentUser"))))
       {
-        v5 = 2;
+        v6 = 2;
       }
 
       else
       {
-        v5 = 1;
+        v6 = 1;
       }
 
       userIdentifier = [self userIdentifier];
@@ -2786,11 +2769,9 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
       v10[2] = __44__CFPrefsPlistSource_requestPlistValidation__block_invoke;
       v10[3] = &unk_1E6DD1D00;
       v10[4] = self;
-      [(_CFXPreferences *)v3 withConnectionForRole:v5 andUserIdentifier:userIdentifier performBlock:v10];
+      [(_CFXPreferences *)v3 withConnectionForRole:v6 andUserIdentifier:userIdentifier performBlock:v10];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setDomainIdentifier:(uint64_t)a3 .cold.2(__CFString *cf, uint64_t a2, uint64_t a3, __CFString *a4)
@@ -2809,32 +2790,21 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
   return a3 == 0;
 }
 
-- (void)alreadylocked_setPrecopiedValues:forKeys:count:from:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_10_2(&dword_1830E6000, v0, v1, "setting %{private}@ in %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)createSynchronizeMessage
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = *a2;
-  v7 = 136446466;
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 136446466;
   selfCopy = self;
-  v9 = 2082;
+  v6 = 2082;
   error_description = container_get_error_description();
-  _os_log_error_impl(&dword_1830E6000, a3, OS_LOG_TYPE_ERROR, "Could not lookup group container %{public}s: %{public}s", &v7, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1830E6000, a3, OS_LOG_TYPE_ERROR, "Could not lookup group container %{public}s: %{public}s", &v4, 0x16u);
 }
 
 - (void)handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_29();
-  _os_log_debug_impl(&dword_1830E6000, v0, OS_LOG_TYPE_DEBUG, "Successfully created directory %{private}s. Retrying write.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1830E6000, v0, OS_LOG_TYPE_DEBUG, "Successfully created directory %{private}s. Retrying write.", v1, 0xCu);
 }
 
 - (void)handleErrorReply:(uint8_t *)buf toMessage:(os_log_t)log settingKeys:toValues:count:retryCount:retryContinuation:.cold.2(uint64_t a1, int *a2, uint8_t *buf, os_log_t log)
@@ -2847,62 +2817,41 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
   _os_log_error_impl(&dword_1830E6000, log, OS_LOG_TYPE_ERROR, "Failed to create directory %{private}s because of %{darwin.errno}d.", buf, 0x12u);
 }
 
-- (void)handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_21(&dword_1830E6000, v0, v1, "Failed to compute parent directory path for %{private}s.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.4()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_6();
-  _os_log_error_impl(&dword_1830E6000, v1, OS_LOG_TYPE_ERROR, "cfprefsd required creation of a directory, but failed to provide the path.", v3, 2u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_7_3();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_7_3();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleErrorReply:toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.9()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_6();
   OUTLINED_FUNCTION_7_3();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)handleErrorReply:(char *)a3 toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.11(int a1, uint64_t a2, char *a3)
+- (void)handleErrorReply:(char *)a3 toMessage:settingKeys:toValues:count:retryCount:retryContinuation:.cold.11(uint64_t a1, uint64_t a2, char *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = _CFPrefsClientLog();
+  v5 = a1;
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = _CFPrefsClientLog(a1, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1830E6000, v6, OS_LOG_TYPE_INFO, "cfprefsd crashed, retrying message", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1830E6000, v6, OS_LOG_TYPE_INFO, "cfprefsd crashed, retrying message", v8, 2u);
   }
 
-  if (a1 <= 9)
+  if (v5 <= 9)
   {
-    (*(a2 + 16))(a2, (a1 + 1));
+    (*(a2 + 16))(a2, (v5 + 1));
     v7 = 1;
   }
 
@@ -2912,15 +2861,6 @@ void __99__CFPrefsPlistSource_sendFullyPreparedMessage_toConnection_settingValue
   }
 
   *a3 = v7;
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __105__CFPrefsPlistSource_handleErrorReply_toMessage_settingKeys_toValues_count_retryCount_retryContinuation___block_invoke_cold_1()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_6();
-  _os_log_error_impl(&dword_1830E6000, v1, OS_LOG_TYPE_ERROR, "Could not connect to cfprefsd. No CFPreferences/NSUserDefaults changes will be saved", v3, 2u);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)sendRequestNewDataMessage:(uint64_t)a1 toConnection:(void *)a2 retryCount:(BOOL *)a3 error:(const char *)a4 .cold.1(uint64_t a1, void *a2, BOOL *a3, const char **a4)
@@ -2933,7 +2873,7 @@ void __105__CFPrefsPlistSource_handleErrorReply_toMessage_settingKeys_toValues_c
   }
 
   v8 = atomic_load((a1 + 113));
-  if (v8 & 1) != 0 || (_CFPrefsDirectMode())
+  if (v8 & 1) != 0 || (_CFPrefsDirectMode(v7))
   {
     v9 = "Loading Preferences From Direct CFPrefsD";
   }
@@ -2964,31 +2904,12 @@ void __62__CFPrefsPlistSource_createRequestNewContentMessageForDaemon___block_in
   }
 }
 
-- (void)handleReply:(uint64_t)a1 toRequestNewDataMessage:(uint64_t *)a2 onConnection:retryCount:error:.cold.1(uint64_t a1, uint64_t *a2)
+- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_3_9();
   OUTLINED_FUNCTION_2_11();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_21(&dword_1830E6000, v0, v1, "bad plist data: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_21(&dword_1830E6000, v0, v1, "serialized plist for %{public}@ was not a dictionary", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)handleReply:(os_log_t)log toRequestNewDataMessage:onConnection:retryCount:error:.cold.4(int *a1, uint8_t *buf, os_log_t log)
@@ -2999,68 +2920,28 @@ void __62__CFPrefsPlistSource_createRequestNewContentMessageForDaemon___block_in
   _os_log_error_impl(&dword_1830E6000, log, OS_LOG_TYPE_ERROR, "failed to lstat plist fd: %{darwin.errno}d.", buf, 8u);
 }
 
-- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.5()
+- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.6()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_21(&dword_1830E6000, v0, v1, "plist read from disk for %{public}@ was not a dictionary", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleReply:(uint64_t)a1 toRequestNewDataMessage:(uint64_t *)a2 onConnection:retryCount:error:.cold.6(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_3_9();
   OUTLINED_FUNCTION_2_11();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_21(&dword_1830E6000, v0, v1, "bad plist data: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_8_3();
   OUTLINED_FUNCTION_2_11();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.9()
+- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.11()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_21(&dword_1830E6000, v0, v1, "plist diff for %{public}@ was invalid", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleReply:toRequestNewDataMessage:onConnection:retryCount:error:.cold.10()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_21(&dword_1830E6000, v0, v1, "A RequestNewData response gave an invalid plist. We'll return wrong data this time, but NOT going volatile. Sent a request to validate the plist in the daemon and remove it if invalid. %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleReply:(uint64_t)a1 toRequestNewDataMessage:(uint64_t *)a2 onConnection:retryCount:error:.cold.11(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_3_9();
   OUTLINED_FUNCTION_2_11();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

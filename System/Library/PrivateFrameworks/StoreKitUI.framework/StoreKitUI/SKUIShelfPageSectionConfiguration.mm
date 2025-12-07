@@ -25,6 +25,9 @@
 - (unint64_t)numberOfCellsForNumberOfShelfItems:(unint64_t)items;
 - (unint64_t)numberOfIterations;
 - (void)_updateShelfLayoutDataContentInset;
+- (void)existingShelfCollectionView;
+- (void)numberOfIterations;
+- (void)numberOfSectionCells;
 - (void)registerReusableClassesForCollectionView:(id)view;
 - (void)reloadLockupTypeForShelfViewElement:(id)element;
 - (void)reloadShelfLayoutDataForShelfViewElement:(id)element withShelfItemViewElements:(id)elements requestCellLayouts:(BOOL)layouts numberOfShelfItems:(int64_t)items;
@@ -33,7 +36,9 @@
 - (void)setShelfCollectionViewDataSource:(id)source;
 - (void)setShelfCollectionViewDelegate:(id)delegate;
 - (void)setShelfViewElementStyle:(id)style;
+- (void)shelfCollectionView;
 - (void)shelfItemsCollectionView:(id)view willApplyLayoutAttributes:(id)attributes forViewElement:(id)element withItemIndex:(int64_t)index;
+- (void)supportsDuplicateShelfItems;
 @end
 
 @implementation SKUIShelfPageSectionConfiguration
@@ -229,7 +234,7 @@
 
     self->_zoomingShelfLayoutFocusedItemHorizontalCenterOffset = self->_zoomingShelfLayoutInterItemSpacing + v16 + self->_zoomingShelfLayoutScaledItemWidth * 0.5;
     v23 = [(IKViewElementStyle *)self->_shelfViewElementStyle valueForStyle:@"itml-shelf-layout"];
-    self->_wantsZoomingShelfLayout = [v23 isEqualToString:@"zooming"];
+    self->_wantsZoomingShelfLayout = objc_msgSend_isEqualToString_(v23);
 
     [(SKUIShelfPageSectionConfiguration *)self _updateShelfLayoutDataContentInset];
     shelfCollectionView = self->_shelfCollectionView;
@@ -581,9 +586,9 @@ LABEL_18:
   v23 = v22;
   style = [v17 style];
   visibility = [style visibility];
-  v26 = [visibility isEqualToString:@"hidden"];
+  isEqualToString = objc_msgSend_isEqualToString_(visibility);
 
-  if (v26)
+  if (isEqualToString)
   {
     v27 = 0;
   }
@@ -1307,6 +1312,150 @@ double __82__SKUIShelfPageSectionConfiguration__reloadShelfLayoutDataWithNumberO
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
 
   return WeakRetained;
+}
+
+- (void)existingShelfCollectionView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration existingShelfCollectionView]";
+}
+
+- (void)numberOfIterations
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration numberOfIterations]";
+}
+
+- (void)shelfCollectionView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration shelfCollectionView]";
+}
+
+- (void)setShelfCollectionViewBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration setShelfCollectionViewBackgroundColor:]";
+}
+
+- (void)setShelfCollectionViewDataSource:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration setShelfCollectionViewDataSource:]";
+}
+
+- (void)setShelfCollectionViewDelegate:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration setShelfCollectionViewDelegate:]";
+}
+
+- (void)setShelfViewElementStyle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration setShelfViewElementStyle:]";
+}
+
+- (void)actualIndexPathOfShelfItemClosestToVisibleBoundsForNormalizedIndexPath:(uint64_t)a3 numberOfShelfItems:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration actualIndexPathOfShelfItemClosestToVisibleBoundsForNormalizedIndexPath:numberOfShelfItems:]";
+}
+
+- (void)backgroundColorForShelfViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration backgroundColorForShelfViewElement:]";
+}
+
+- (void)cellForShelfViewElement:(uint64_t)a3 indexPath:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration cellForShelfViewElement:indexPath:]";
+}
+
+- (void)cellSizeForShelfViewElement:(uint64_t)a3 indexPath:(uint64_t)a4 numberOfShelfItems:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration cellSizeForShelfViewElement:indexPath:numberOfShelfItems:]";
+}
+
+- (void)cellForShelfItemViewElement:(uint64_t)a3 indexPath:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration cellForShelfItemViewElement:indexPath:]";
+}
+
+- (void)effectiveViewElementForShelfItemViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration effectiveViewElementForShelfItemViewElement:]";
+}
+
+- (void)lockupTypeForLockup:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration lockupTypeForLockup:]";
+}
+
+- (void)normalizedShelfItemIndexPathFromActualIndexPath:(uint64_t)a3 numberOfShelfItems:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration normalizedShelfItemIndexPathFromActualIndexPath:numberOfShelfItems:]";
+}
+
+- (void)numberOfCellsForNumberOfShelfItems:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration numberOfCellsForNumberOfShelfItems:]";
+}
+
+- (void)numberOfSectionCells
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration numberOfSectionCells]";
+}
+
+- (void)prefetchResourcesForShelfItemViewElement:(uint64_t)a3 reason:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration prefetchResourcesForShelfItemViewElement:reason:]";
+}
+
+- (void)registerReusableClassesForCollectionView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration registerReusableClassesForCollectionView:]";
+}
+
+- (void)reloadShelfLayoutDataForShelfViewElement:(uint64_t)a3 withShelfItemViewElements:(uint64_t)a4 requestCellLayouts:(uint64_t)a5 numberOfShelfItems:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration reloadShelfLayoutDataForShelfViewElement:withShelfItemViewElements:requestCellLayouts:numberOfShelfItems:]";
+}
+
+- (void)requestCellLayoutForViewElement:(uint64_t)a3 withColumnWidth:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration requestCellLayoutForViewElement:withColumnWidth:]";
+}
+
+- (void)sectionContentInsetAdjustedFromValue:(uint64_t)a3 forShelfViewElement:(uint64_t)a4 withSectionIndex:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration sectionContentInsetAdjustedFromValue:forShelfViewElement:withSectionIndex:]";
+}
+
+- (void)shelfItemsCollectionView:(uint64_t)a3 willApplyLayoutAttributes:(uint64_t)a4 forViewElement:(uint64_t)a5 withItemIndex:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration shelfItemsCollectionView:willApplyLayoutAttributes:forViewElement:withItemIndex:]";
+}
+
+- (void)supportsDuplicateShelfItems
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfPageSectionConfiguration supportsDuplicateShelfItems]";
 }
 
 @end

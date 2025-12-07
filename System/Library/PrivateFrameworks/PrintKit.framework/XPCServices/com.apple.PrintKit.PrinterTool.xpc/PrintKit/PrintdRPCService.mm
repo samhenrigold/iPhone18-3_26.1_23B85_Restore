@@ -15,7 +15,9 @@
 - (void)_removeKeychainItem:(id)item;
 - (void)addPrinterToiCloudWithInfo:(id)info;
 - (void)browseInfoForPrinter:(id)printer timeout:(double)timeout reply:(id)reply;
+- (void)cancelJob:(int)job;
 - (void)finishRequestWithCancel:(BOOL)cancel reply:(id)reply;
+- (void)getJobUpdateStatus:(int)status includeThumbnail:(BOOL)thumbnail reply:(id)reply;
 - (void)getLastUsedPrintersForCurrentNetworkReply:(id)reply;
 - (void)getRecentJobsReply:(id)reply;
 - (void)getiCloudPrintersReply:(id)reply;
@@ -199,7 +201,7 @@
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection, a2);
   }
 
   memset(&token, 0, sizeof(token));
@@ -389,6 +391,37 @@ LABEL_14:
   sub_100010D5C(buf, 0xBu, @"translationsForPrinter");
 }
 
+- (void)cancelJob:(int)job
+{
+  v3 = *&job;
+  v5 = _PKLogCategory(PKLogCategoryDefault[0]);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v10) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "cancelJob", &v10, 2u);
+  }
+
+  v6 = [(NSXPCConnection *)self->_connection valueForEntitlement:@"com.apple.printing.getjoblist"];
+  bOOLValue = [v6 BOOLValue];
+
+  if (bOOLValue)
+  {
+    [lite_job_t cancelJob:v3];
+  }
+
+  else
+  {
+    v8 = _PKLogCategory(PKLogCategoryProgress[0]);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      connection = self->_connection;
+      v10 = 138543362;
+      v11 = connection;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Client %{public}@ doesn't have getjoblist entitlement", &v10, 0xCu);
+    }
+  }
+}
+
 - (void)getRecentJobsReply:(id)reply
 {
   replyCopy = reply;
@@ -419,6 +452,41 @@ LABEL_14:
     }
 
     (*(replyCopy + 2))(replyCopy, 0, 0);
+  }
+}
+
+- (void)getJobUpdateStatus:(int)status includeThumbnail:(BOOL)thumbnail reply:(id)reply
+{
+  thumbnailCopy = thumbnail;
+  v6 = *&status;
+  replyCopy = reply;
+  v9 = _PKLogCategory(PKLogCategoryDefault[0]);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "getJobUpdateStatus:includeThumbnail:reply:", &v14, 2u);
+  }
+
+  v10 = [(NSXPCConnection *)self->_connection valueForEntitlement:@"com.apple.printing.getjoblist"];
+  bOOLValue = [v10 BOOLValue];
+
+  if (bOOLValue)
+  {
+    [lite_job_t getJobAttributes:v6 includeThumbnail:thumbnailCopy completionHandler:replyCopy];
+  }
+
+  else
+  {
+    v12 = _PKLogCategory(PKLogCategoryProgress[0]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      connection = self->_connection;
+      v14 = 138543362;
+      v15 = connection;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Client %{public}@ doesn't have getjoblist entitlement", &v14, 0xCu);
+    }
+
+    replyCopy[2](replyCopy, 0);
   }
 }
 

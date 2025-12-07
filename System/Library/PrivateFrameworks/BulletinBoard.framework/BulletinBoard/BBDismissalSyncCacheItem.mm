@@ -29,49 +29,49 @@
 
 - (void)cacheDismissalDictionaries:(id)dictionaries dismissalIDs:(id)ds forFeeds:(unint64_t)feeds
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   dsCopy = ds;
   obj = dictionariesCopy;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v9 = [dictionariesCopy countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v9 = [dictionariesCopy countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v9)
   {
     v10 = v9;
-    v30 = *v40;
+    v29 = *v39;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v40 != v30)
+        if (*v39 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v39 + 1) + 8 * i);
+        v12 = *(*(&v38 + 1) + 8 * i);
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
         v13 = self->_dismissalDictionariesAndFeeds;
-        v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v34 objects:v43 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v36;
+          v16 = *v35;
           while (2)
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v36 != v16)
+              if (*v35 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v35 + 1) + 8 * j);
+              v18 = *(*(&v34 + 1) + 8 * j);
               if ([v18 matchDismissalDictionary:v12])
               {
                 [v18 addFeeds:feeds];
@@ -79,7 +79,7 @@
               }
             }
 
-            v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v35 objects:v44 count:16];
+            v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v34 objects:v43 count:16];
             if (v15)
             {
               continue;
@@ -94,32 +94,32 @@
 LABEL_16:
       }
 
-      v10 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v10 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v10);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v19 = dsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v32;
+    v22 = *v31;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v32 != v22)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v31 + 1) + 8 * k);
+        v24 = *(*(&v30 + 1) + 8 * k);
         v25 = [(NSMutableDictionary *)self->_dismissalIDToFeeds objectForKeyedSubscript:v24];
         if (v25)
         {
@@ -134,18 +134,16 @@ LABEL_16:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v21);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findBulletinMatch:(id)match
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   dismissalID = [matchCopy dismissalID];
   if (!dismissalID || ([(NSMutableDictionary *)self->_dismissalIDToFeeds objectForKeyedSubscript:dismissalID], (v6 = objc_claimAutoreleasedReturnValue()) == 0) || (v7 = v6, v8 = [[BBDismissalSyncBulletinMatch alloc] initWithDismissalID:dismissalID andItem:v6], v7, !v8))
@@ -163,33 +161,33 @@ LABEL_16:
       [dictionary setObject:syncHash forKeyedSubscript:@"h"];
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v12 = self->_dismissalDictionariesAndFeeds;
-    v8 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
-      v13 = *v19;
+      v13 = *v18;
       while (2)
       {
         for (i = 0; i != v8; i = (i + 1))
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v12);
           }
 
-          v15 = *(*(&v18 + 1) + 8 * i);
-          if ([v15 matchDismissalDictionary:{dictionary, v18}])
+          v15 = *(*(&v17 + 1) + 8 * i);
+          if ([v15 matchDismissalDictionary:{dictionary, v17}])
           {
             v8 = [[BBDismissalSyncBulletinMatch alloc] initWithDismissalDictionaryItem:v15];
             goto LABEL_18;
           }
         }
 
-        v8 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v8)
         {
           continue;
@@ -201,8 +199,6 @@ LABEL_16:
 
 LABEL_18:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

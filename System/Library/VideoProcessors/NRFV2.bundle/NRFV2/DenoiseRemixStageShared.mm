@@ -38,84 +38,84 @@
   count = selfCopy->_cache.count;
   if (count >= 1)
   {
-    v15 = 0;
+    v16 = 0;
     p_enableGdFlatness = &selfCopy->_cache.entries[0].options.enableGdFlatness;
     while (*(p_enableGdFlatness - 13) != p16Copy || *(p_enableGdFlatness - 12) != fP16Copy || options->lgaAlgorithm != *(p_enableGdFlatness - 9) || options->enableBandZeroDenoising != *(p_enableGdFlatness - 5) || options->enableBilateralRegression != *(p_enableGdFlatness - 4) || options->enableLoGOffset != *(p_enableGdFlatness - 3) || options->enableLowVarSharpening != *(p_enableGdFlatness - 2) || options->enableNoiseMap != *(p_enableGdFlatness - 1) || options->enableGdFlatness != *p_enableGdFlatness)
     {
       p_enableGdFlatness += 20;
-      if (count == ++v15)
+      if (count == ++v16)
       {
         goto LABEL_13;
       }
     }
 
-    v23 = objc_msgSend_objectAtIndexedSubscript_(selfCopy->_denoiseShaders, v12, v15, v13);
-    if (v23)
+    v24 = objc_msgSend_objectAtIndexedSubscript_(selfCopy->_denoiseShaders, v13, v16, v14);
+    if (v24)
     {
       goto LABEL_22;
     }
   }
 
 LABEL_13:
-  v17 = [DenoiseRemixShaders alloc];
+  v18 = [DenoiseRemixShaders alloc];
   if (p16Copy)
   {
-    v19 = 25;
+    v20 = 25;
   }
 
   else
   {
-    v19 = 10;
+    v20 = 10;
   }
 
   if (fP16Copy)
   {
-    v20 = objc_msgSend_initWithMetal_vertName_pixelFormatLuma_pixelFormatChroma_options_(v17, v18, shadersCopy, @"RemixDenoise_vert", v19, 65, options);
+    v21 = objc_msgSend_initWithMetal_vertName_pixelFormatLuma_pixelFormatChroma_options_(v18, v19, shadersCopy, @"RemixDenoise_vert", v20, 65, options);
   }
 
   else
   {
-    v20 = objc_msgSend_initWithMetal_vertName_pixelFormatLuma_pixelFormatChroma_options_(v17, v18, shadersCopy, @"RemixDenoise_vert", v19, 30, options);
+    v21 = objc_msgSend_initWithMetal_vertName_pixelFormatLuma_pixelFormatChroma_options_(v18, v19, shadersCopy, @"RemixDenoise_vert", v20, 30, options);
   }
 
-  v23 = v20;
-  if (v20)
+  v24 = v21;
+  if (v21)
   {
-    v24 = selfCopy->_cache.count;
-    if (v24 < 100)
+    v25 = selfCopy->_cache.count;
+    if (v25 < 100)
     {
-      v25 = &selfCopy->_cache.entries[v24];
-      *(v25 + 4) = p16Copy;
-      *(v25 + 5) = fP16Copy;
-      v26 = *&options->lgaAlgorithm;
-      *(v25 + 16) = *&options->enableNoiseMap;
-      *(v25 + 8) = v26;
-      selfCopy->_cache.count = v24 + 1;
-      objc_msgSend_addObject_(selfCopy->_denoiseShaders, v21, v20, v22);
+      v26 = &selfCopy->_cache.entries[v25];
+      *(v26 + 4) = p16Copy;
+      *(v26 + 5) = fP16Copy;
+      v27 = *&options->lgaAlgorithm;
+      *(v26 + 16) = *&options->enableNoiseMap;
+      *(v26 + 8) = v27;
+      selfCopy->_cache.count = v25 + 1;
+      objc_msgSend_addObject_(selfCopy->_denoiseShaders, v22, v21, v23);
 LABEL_22:
-      v27 = v23;
-      v23 = v27;
+      v28 = v24;
+      v24 = v28;
       goto LABEL_23;
     }
 
-    FigDebugAssert3();
-    FigSignalErrorAtGM();
-    v27 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v34, v37, v38, v39, v40, v41);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v31, v33, v36);
+    v28 = 0;
   }
 
   else
   {
-    FigDebugAssert3();
-    FigSignalErrorAtGM();
-    v27 = 0;
-    v23 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v34, v37, v38, v39, v40, v41);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v30, v32, v35);
+    v28 = 0;
+    v24 = 0;
   }
 
 LABEL_23:
 
   objc_sync_exit(selfCopy);
 
-  return v27;
+  return v28;
 }
 
 + (id)getSharedInstanceOrRelease:(BOOL)release

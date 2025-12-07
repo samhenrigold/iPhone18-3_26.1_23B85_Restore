@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)networkType;
 - (unint64_t)hash;
@@ -77,6 +78,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFEFFFF | v3);
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898CED8[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -821,7 +837,6 @@ LABEL_29:
   toCopy = to;
   if ((*(&self->_has + 1) & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -833,7 +848,6 @@ LABEL_29:
   has = self->_has;
   if ((*&has & 0x10000) != 0)
   {
-    networkType = self->_networkType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((*&has & 0x100000) == 0)
@@ -853,7 +867,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  hasInternetConn = self->_hasInternetConn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -868,7 +881,6 @@ LABEL_8:
   }
 
 LABEL_34:
-  cumulInternetOutageSecs = self->_cumulInternetOutageSecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -883,7 +895,6 @@ LABEL_9:
   }
 
 LABEL_35:
-  connAttempts = self->_connAttempts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -898,7 +909,6 @@ LABEL_10:
   }
 
 LABEL_36:
-  connSuccess = self->_connSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -913,7 +923,6 @@ LABEL_11:
   }
 
 LABEL_37:
-  packetsIn = self->_packetsIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -928,7 +937,6 @@ LABEL_12:
   }
 
 LABEL_38:
-  packetsOut = self->_packetsOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -943,7 +951,6 @@ LABEL_13:
   }
 
 LABEL_39:
-  bytesIn = self->_bytesIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -958,7 +965,6 @@ LABEL_14:
   }
 
 LABEL_40:
-  bytesOut = self->_bytesOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -973,7 +979,6 @@ LABEL_15:
   }
 
 LABEL_41:
-  rttMinUsecs = self->_rttMinUsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -988,7 +993,6 @@ LABEL_16:
   }
 
 LABEL_42:
-  dnsServers = self->_dnsServers;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1003,7 +1007,6 @@ LABEL_17:
   }
 
 LABEL_43:
-  penalizedDnsServers = self->_penalizedDnsServers;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1018,7 +1021,6 @@ LABEL_18:
   }
 
 LABEL_44:
-  rxSignalThreshold = self->_rxSignalThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1033,7 +1035,6 @@ LABEL_19:
   }
 
 LABEL_45:
-  rxSignalThresholded = self->_rxSignalThresholded;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1048,7 +1049,6 @@ LABEL_20:
   }
 
 LABEL_46:
-  arpThreshold = self->_arpThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1063,7 +1063,6 @@ LABEL_21:
   }
 
 LABEL_47:
-  arpThresholded = self->_arpThresholded;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1078,7 +1077,6 @@ LABEL_22:
   }
 
 LABEL_48:
-  supportsIPv4 = self->_supportsIPv4;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1093,7 +1091,6 @@ LABEL_23:
   }
 
 LABEL_49:
-  supportsIPv6 = self->_supportsIPv6;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1108,7 +1105,6 @@ LABEL_24:
   }
 
 LABEL_50:
-  lastReportedRSSI = self->_lastReportedRSSI;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1123,7 +1119,6 @@ LABEL_25:
   }
 
 LABEL_51:
-  lastReportedLQM = self->_lastReportedLQM;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1138,7 +1133,6 @@ LABEL_26:
   }
 
 LABEL_52:
-  lastReportedL2TxFrames = self->_lastReportedL2TxFrames;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1153,12 +1147,10 @@ LABEL_27:
   }
 
 LABEL_53:
-  lastReportedL2TxReTry = self->_lastReportedL2TxReTry;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_28:
-    lastReportedL2TxFail = self->_lastReportedL2TxFail;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1920,7 +1912,6 @@ LABEL_26:
       goto LABEL_140;
     }
 
-    v9 = *(equalCopy + 141);
     if (self->_hasInternetConn)
     {
       if ((*(equalCopy + 141) & 1) == 0)
@@ -2090,7 +2081,6 @@ LABEL_26:
       goto LABEL_140;
     }
 
-    v10 = *(equalCopy + 142);
     if (self->_rxSignalThresholded)
     {
       if ((*(equalCopy + 142) & 1) == 0)
@@ -2130,7 +2120,6 @@ LABEL_26:
       goto LABEL_140;
     }
 
-    v11 = *(equalCopy + 140);
     if (self->_arpThresholded)
     {
       if ((*(equalCopy + 140) & 1) == 0)
@@ -2157,7 +2146,6 @@ LABEL_26:
       goto LABEL_140;
     }
 
-    v12 = *(equalCopy + 143);
     if (self->_supportsIPv4)
     {
       if ((*(equalCopy + 143) & 1) == 0)
@@ -2185,7 +2173,7 @@ LABEL_26:
     }
 
 LABEL_140:
-    v14 = 0;
+    v9 = 0;
     goto LABEL_141;
   }
 
@@ -2194,7 +2182,6 @@ LABEL_140:
     goto LABEL_140;
   }
 
-  v13 = *(equalCopy + 144);
   if (self->_supportsIPv6)
   {
     if ((*(equalCopy + 144) & 1) == 0)
@@ -2268,17 +2255,17 @@ LABEL_97:
       goto LABEL_140;
     }
 
-    v14 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v14 = (*(equalCopy + 37) & 0x20) == 0;
+    v9 = (*(equalCopy + 37) & 0x20) == 0;
   }
 
 LABEL_141:
 
-  return v14;
+  return v9;
 }
 
 - (unint64_t)hash

@@ -5,6 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventTypeAsString:(int)string;
 - (int)StringAsEventType:(id)type;
 - (int)eventType;
 - (unint64_t)hash;
@@ -89,6 +90,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)eventTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061B198[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEventType:(id)type
@@ -191,7 +207,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    eventType = self->_eventType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -203,14 +218,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    dateSinceEpoch = self->_dateSinceEpoch;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if (has)
   {
-    confidenceScore = self->_confidenceScore;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -286,7 +299,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 40) & 4) == 0 || self->_eventType != *(equalCopy + 6))
@@ -306,7 +318,7 @@
     if (![(NSString *)text isEqual:?])
     {
 LABEL_19:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_20;
     }
 
@@ -326,7 +338,7 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v8 = (*(equalCopy + 40) & 1) == 0;
+  v7 = (*(equalCopy + 40) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_confidenceScore != *(equalCopy + 1))
@@ -334,12 +346,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_20:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

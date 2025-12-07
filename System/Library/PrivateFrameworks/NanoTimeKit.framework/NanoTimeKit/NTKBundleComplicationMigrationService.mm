@@ -13,16 +13,16 @@
 
 - (NTKBundleComplicationMigrationService)init
 {
-  v6.receiver = self;
-  v6.super_class = NTKBundleComplicationMigrationService;
-  v2 = [(NTKBundleComplicationMigrationService *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = NTKBundleComplicationMigrationService;
+  v2 = [(NTKBundleComplicationMigrationService *)&v7 init];
   if (v2)
   {
     v3 = objc_opt_new();
     cache = v2->_cache;
     v2->_cache = v3;
 
-    NTKBundleComplicationMigrationServiceEnsureLookupDirectory();
+    NTKBundleComplicationMigrationServiceEnsureLookupDirectory(v5);
   }
 
   return v2;

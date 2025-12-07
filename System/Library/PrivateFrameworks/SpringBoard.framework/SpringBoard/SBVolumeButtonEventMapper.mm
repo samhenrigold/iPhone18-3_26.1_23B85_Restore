@@ -116,7 +116,7 @@ void __33__SBVolumeButtonEventMapper_init__block_invoke(uint64_t a1)
 - (BOOL)isVolumeButtonEventInvertible:(id)invertible withPressType:(int64_t)type
 {
   v4 = 0;
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ((type & 0xFFFFFFFFFFFFFFFELL) == 0x66 && self->_volumeButtonRemappingEnabled)
   {
     _hidEvent = [invertible _hidEvent];
@@ -132,15 +132,16 @@ void __33__SBVolumeButtonEventMapper_init__block_invoke(uint64_t a1)
       if (_hidEvent && Type == 3)
       {
         v7 = BKSHIDEventGetBaseAttributes();
-        if ([v7 source])
+        source = [v7 source];
+        if (source)
         {
-          v8 = SBLogButtonsVolume();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+          v9 = SBLogButtonsVolume(source);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
-            v9 = NSStringFromBKSHIDEventSource();
-            v14 = 138543362;
-            v15 = v9;
-            _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "will not remap presses from source: %{public}@", &v14, 0xCu);
+            v10 = NSStringFromBKSHIDEventSource();
+            v16 = 138543362;
+            v17 = v10;
+            _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "will not remap presses from source: %{public}@", &v16, 0xCu);
           }
 
           v4 = 0;
@@ -149,19 +150,20 @@ void __33__SBVolumeButtonEventMapper_init__block_invoke(uint64_t a1)
         else
         {
           SenderID = IOHIDEventGetSenderID();
-          v11 = SBHIDIsAccessibilitySenderID(SenderID);
-          if (v11)
+          v12 = SBHIDIsAccessibilitySenderID(SenderID);
+          v13 = v12;
+          if (v12)
           {
-            v12 = SBLogButtonsVolume();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+            v14 = SBLogButtonsVolume(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
             {
-              v14 = 134217984;
-              v15 = SenderID;
-              _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "will not remap presses from accessibility sender: %llX", &v14, 0xCu);
+              v16 = 134217984;
+              v17 = SenderID;
+              _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "will not remap presses from accessibility sender: %llX", &v16, 0xCu);
             }
           }
 
-          v4 = v11 ^ 1;
+          v4 = v13 ^ 1;
         }
       }
     }
@@ -178,7 +180,7 @@ void __33__SBVolumeButtonEventMapper_init__block_invoke(uint64_t a1)
     effectiveInterfaceOrientation = [(SBVolumeButtonEventMapper *)self effectiveInterfaceOrientation];
     layoutDirection = self->_layoutDirection;
     v7 = [objc_opt_class() shouldInvertVolumeButtonsOnEdge:self->_buttonsEdge forInterfaceOrientation:effectiveInterfaceOrientation userInterfaceLayoutDirection:layoutDirection];
-    v8 = SBLogButtonsVolume();
+    v8 = SBLogButtonsVolume(v7);
     v9 = v8;
     if (v7)
     {
@@ -318,21 +320,22 @@ LABEL_18:
 
 void __118__SBVolumeButtonEventMapper_activeInterfaceOrientationDidChangeToOrientation_willAnimateWithDuration_fromOrientation___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained[2];
-  if ([WeakRetained isPreventingEffectiveInterfaceOrientationChanges])
+  v4 = [WeakRetained isPreventingEffectiveInterfaceOrientationChanges];
+  if (v4)
   {
-    v4 = SBLogButtonsVolume();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogButtonsVolume(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = BSInterfaceOrientationDescription();
       v6 = BSInterfaceOrientationDescription();
-      v12 = 138543618;
-      v13 = v5;
-      v14 = 2114;
+      v7 = BSInterfaceOrientationDescription();
+      v14 = 138543618;
       v15 = v6;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "effective interface orientation for volume button remapping NOT changing from: %{public}@ to: %{public}@ (it's disabled!)", &v12, 0x16u);
+      v16 = 2114;
+      v17 = v7;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "effective interface orientation for volume button remapping NOT changing from: %{public}@ to: %{public}@ (it's disabled!)", &v14, 0x16u);
     }
 
 LABEL_9:
@@ -341,30 +344,30 @@ LABEL_9:
   }
 
   WeakRetained[2] = *(a1 + 40);
-  v7 = SBLogButtonsVolume();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = SBLogButtonsVolume(v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = BSInterfaceOrientationDescription();
     v9 = BSInterfaceOrientationDescription();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2114;
+    v10 = BSInterfaceOrientationDescription();
+    v14 = 138543618;
     v15 = v9;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "effective interface orientation for volume button remapping changing from: %{public}@ to: %{public}@", &v12, 0x16u);
+    v16 = 2114;
+    v17 = v10;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "effective interface orientation for volume button remapping changing from: %{public}@ to: %{public}@", &v14, 0x16u);
   }
 
   if (*(a1 + 48) != v3)
   {
-    v4 = SBLogButtonsVolume();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogButtonsVolume(v11);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v10 = BSInterfaceOrientationDescription();
-      v11 = BSInterfaceOrientationDescription();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v11;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "effective interface orientation for volume button remapping - update had a fromOrientation mismatch, got: %{public}@, expected: %{public}@", &v12, 0x16u);
+      v12 = BSInterfaceOrientationDescription();
+      v13 = BSInterfaceOrientationDescription();
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2114;
+      v17 = v13;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "effective interface orientation for volume button remapping - update had a fromOrientation mismatch, got: %{public}@, expected: %{public}@", &v14, 0x16u);
     }
 
     goto LABEL_9;
@@ -375,30 +378,31 @@ LABEL_10:
 
 - (void)_hardwareDefaultsChanged
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   isVolumeButtonRemappingEnabled = [(SBVolumeButtonEventMapper *)self isVolumeButtonRemappingEnabled];
   v4 = +[SBDefaults localDefaults];
   hardwareDefaults = [v4 hardwareDefaults];
   -[SBVolumeButtonEventMapper setVolumeButtonRemappingEnabled:](self, "setVolumeButtonRemappingEnabled:", [hardwareDefaults isNaturalVolumeButtonOrientationEnabled]);
 
-  if (isVolumeButtonRemappingEnabled != [(SBVolumeButtonEventMapper *)self isVolumeButtonRemappingEnabled])
+  isVolumeButtonRemappingEnabled2 = [(SBVolumeButtonEventMapper *)self isVolumeButtonRemappingEnabled];
+  if (isVolumeButtonRemappingEnabled != isVolumeButtonRemappingEnabled2)
   {
-    v6 = SBLogButtonsVolume();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogButtonsVolume(isVolumeButtonRemappingEnabled2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_volumeButtonRemappingEnabled)
       {
-        v7 = @"enabled";
+        v8 = @"enabled";
       }
 
       else
       {
-        v7 = @"disabled";
+        v8 = @"disabled";
       }
 
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "volume button remapping is now %{public}@", &v8, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "volume button remapping is now %{public}@", &v9, 0xCu);
     }
   }
 }

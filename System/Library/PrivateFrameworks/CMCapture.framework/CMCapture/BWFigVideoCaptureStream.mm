@@ -38,7 +38,14 @@
 - (float)cmioZoomFactor;
 - (float)fudgedBaseZoomFactorForAspectRatio:(int)ratio;
 - (float)maxEIT;
+- (id)_addBracketecCaptureSequenceNumberToMetadataIfNeededForStillImageSampleBuffer:(id *)result;
+- (id)_aeTables;
+- (id)_propagateFaceAndObjectDetectionSettings;
+- (id)_setHighlightRecoveryEnabled:(id *)result;
 - (id)_setMaxExposureDuration:(double)duration;
+- (id)_updateAETables;
+- (id)_updateMasterSlavePropertiesOnStream;
+- (id)_updateSuspendStateForInfraredDepthStream;
 - (int)activeNondisruptiveSwitchingCommandID;
 - (int)activeNondisruptiveSwitchingFormatIndex;
 - (int)activeQuadraBinningFactor;
@@ -52,18 +59,11 @@
 - (int)stop;
 - (int)synchronizedStreamsGroupDidUpdateActiveNondisruptiveSwitchingFormatIndex:(int)index activeNondisruptiveSwitchingCommandID:(int)d maximumAllowedFrameRate:(int)rate minimumFrameRate:(int)frameRate maximumFrameRate:(int)maximumFrameRate;
 - (uint64_t)_activeFormatIndexWithNondisruptiveSwitching;
-- (uint64_t)_addBracketecCaptureSequenceNumberToMetadataIfNeededForStillImageSampleBuffer:(uint64_t)result;
-- (uint64_t)_aeTables;
-- (uint64_t)_configureKeypointDetection;
 - (uint64_t)_handleStillImageSampleBuffer:(int)buffer withError:(int)error fromTimeMachine:;
-- (uint64_t)_propagateFaceAndObjectDetectionSettings;
 - (uint64_t)_setFrameRateRational:(int)rational;
-- (uint64_t)_setHighlightRecoveryEnabled:(uint64_t)result;
-- (uint64_t)_updateAETables;
-- (uint64_t)_updateMasterSlavePropertiesOnStream;
-- (uint64_t)_updateSuspendStateForInfraredDepthStream;
 - (void)_captureStreamFaceDetectionConfiguration;
 - (void)_captureStreamObjectDetectionConfiguration;
+- (void)_configureKeypointDetection;
 - (void)_logStreamingPowerEvent:(uint64_t)event;
 - (void)_prepareForStillImageCaptureWithStillImageSettings:(char)settings fromCMTimeMachine:;
 - (void)_recomputeOpticalCenterOffsets;
@@ -145,19 +145,19 @@
     if (v2)
     {
       currentSphereMode = [v2 currentSphereMode];
-      if (([currentSphereMode isEqualToString:*(self + 472)] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(currentSphereMode) & 1) == 0)
       {
         if ([*(self + 8) setProperty:*off_1E798C178 value:currentSphereMode])
         {
           OUTLINED_FUNCTION_1_5();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
           return;
         }
 
         *(self + 472) = currentSphereMode;
       }
 
-      v4 = [currentSphereMode isEqualToString:*off_1E798C498] ^ 1;
+      v4 = objc_msgSend_isEqualToString_(currentSphereMode) ^ 1;
     }
 
     else
@@ -172,14 +172,14 @@
   }
 }
 
-- (uint64_t)_propagateFaceAndObjectDetectionSettings
+- (id)_propagateFaceAndObjectDetectionSettings
 {
   if (result)
   {
     v1 = result;
     v2 = *(result + 704);
     v3 = *off_1E798C0B0;
-    if ([*(result + 104) objectForKeyedSubscript:*off_1E798C0B0])
+    if ([result[13] objectForKeyedSubscript:*off_1E798C0B0])
     {
       if (v2)
       {
@@ -191,12 +191,12 @@
         _captureStreamObjectDetectionConfiguration = [(BWFigVideoCaptureStream *)v1 _captureStreamObjectDetectionConfiguration];
       }
 
-      result = [*(v1 + 728) isEqualToDictionary:_captureStreamObjectDetectionConfiguration];
+      result = [v1[91] isEqualToDictionary:_captureStreamObjectDetectionConfiguration];
       if ((result & 1) == 0)
       {
-        v5 = (v1 + 728);
+        v5 = v1 + 91;
 LABEL_7:
-        [*(v1 + 8) setProperty:v3 value:_captureStreamObjectDetectionConfiguration];
+        [v1[1] setProperty:v3 value:_captureStreamObjectDetectionConfiguration];
 
         result = _captureStreamObjectDetectionConfiguration;
         *v5 = result;
@@ -206,23 +206,23 @@ LABEL_7:
     else
     {
       v3 = *off_1E798BE40;
-      result = [*(v1 + 104) objectForKeyedSubscript:*off_1E798BE40];
+      result = [v1[13] objectForKeyedSubscript:*off_1E798BE40];
       if (result)
       {
         _captureStreamFaceDetectionConfiguration = [(BWFigVideoCaptureStream *)v1 _captureStreamFaceDetectionConfiguration];
-        if (([*(v1 + 736) isEqualToDictionary:_captureStreamFaceDetectionConfiguration] & 1) == 0)
+        if (([v1[92] isEqualToDictionary:_captureStreamFaceDetectionConfiguration] & 1) == 0)
         {
-          [*(v1 + 8) setProperty:*off_1E798BE38 value:_captureStreamFaceDetectionConfiguration];
+          [v1[1] setProperty:*off_1E798BE38 value:_captureStreamFaceDetectionConfiguration];
 
-          *(v1 + 736) = _captureStreamFaceDetectionConfiguration;
+          v1[92] = _captureStreamFaceDetectionConfiguration;
         }
 
         v7 = (v2 & 1) != 0 ? 0 : *(v1 + 720);
         _captureStreamObjectDetectionConfiguration = [MEMORY[0x1E696AD98] numberWithBool:v7 & 1];
-        result = [*(v1 + 744) isEqualToNumber:_captureStreamObjectDetectionConfiguration];
+        result = [v1[93] isEqualToNumber:_captureStreamObjectDetectionConfiguration];
         if ((result & 1) == 0)
         {
-          v5 = (v1 + 744);
+          v5 = v1 + 93;
           goto LABEL_7;
         }
       }
@@ -347,7 +347,7 @@ LABEL_38:
   return dictionary;
 }
 
-- (uint64_t)_updateMasterSlavePropertiesOnStream
+- (id)_updateMasterSlavePropertiesOnStream
 {
   if (result)
   {
@@ -360,9 +360,9 @@ LABEL_38:
 
     else
     {
-      if ([*(result + 464) lowPowerSphereModeEnabled])
+      if ([result[58] lowPowerSphereModeEnabled])
       {
-        [*(v1 + 464) setLowPowerSphereModeEnabled:0];
+        [v1[58] setLowPowerSphereModeEnabled:0];
         [(BWFigVideoCaptureStream *)v1 _updateSphereMode];
       }
 
@@ -559,15 +559,15 @@ LABEL_38:
 
   v9 = 0uLL;
   v10 = 0;
-  [(BWFigVideoCaptureStream *)self maxExposureDuration];
+  objc_msgSend_maxExposureDuration(self);
   v7 = v9;
   *&v8 = v10;
   [(BWFigVideoCaptureStream *)&self->super.isa _setMaxExposureDuration:*&v9];
-  [(BWFigVideoCaptureStream *)self _updateAETables];
+  [(BWFigVideoCaptureStream *)&self->super.isa _updateAETables];
   *&self->_aeStatisticsEnabled = 0;
   self->_deskCamActive = 0;
   os_unfair_lock_lock(&self->_lastFaceDetectionEnabled);
-  [(BWFigVideoCaptureStream *)self _propagateFaceAndObjectDetectionSettings];
+  [(BWFigVideoCaptureStream *)&self->super.isa _propagateFaceAndObjectDetectionSettings];
   os_unfair_lock_unlock(&self->_lastFaceDetectionEnabled);
   [(NSArray *)self->_nondisruptiveSwitchingZoomFactors setVideoStabilizationStrength:*&self->_backgroundBlurEnabled];
   [OUTLINED_FUNCTION_11_23() captureStreamWillStartStreaming:?];
@@ -596,16 +596,16 @@ LABEL_38:
   return self;
 }
 
-- (uint64_t)_updateAETables
+- (id)_updateAETables
 {
   if (result)
   {
     v1 = result;
     v2 = *off_1E798BC28;
-    result = [*(result + 104) objectForKeyedSubscript:*off_1E798BC28];
+    result = [result[13] objectForKeyedSubscript:*off_1E798BC28];
     if (result)
     {
-      v3 = *(v1 + 8);
+      v3 = v1[1];
       _aeTables = [(BWFigVideoCaptureStream *)v1 _aeTables];
 
       return [v3 setProperty:v2 value:_aeTables];
@@ -615,7 +615,7 @@ LABEL_38:
   return result;
 }
 
-- (uint64_t)_aeTables
+- (id)_aeTables
 {
   if (result)
   {
@@ -628,34 +628,33 @@ LABEL_38:
     {
       if (*(result + 934) == 1)
       {
-        v13 = 0u;
-        v14 = 0u;
-        v11 = 0u;
         v12 = 0u;
-        activeStreams = [*(result + 760) activeStreams];
-        v3 = [activeStreams countByEnumeratingWithState:&v11 objects:v10 count:16];
+        v13 = 0u;
+        v10 = 0u;
+        v11 = 0u;
+        activeStreams = [result[95] activeStreams];
+        v3 = [activeStreams countByEnumeratingWithState:&v10 objects:v9 count:16];
         if (v3)
         {
           v4 = v3;
-          v5 = *v12;
-          v6 = *off_1E798A0D8;
+          v5 = *v11;
           while (2)
           {
             for (i = 0; i != v4; ++i)
             {
-              if (*v12 != v5)
+              if (*v11 != v5)
               {
                 objc_enumerationMutation(activeStreams);
               }
 
-              if ([objc_msgSend(*(*(&v11 + 1) + 8 * i) "portType")])
+              if (objc_msgSend_isEqualToString_([*(*(&v10 + 1) + 8 * i) portType]))
               {
                 v1 = 6;
                 goto LABEL_23;
               }
             }
 
-            v4 = [activeStreams countByEnumeratingWithState:&v11 objects:v10 count:16];
+            v4 = [activeStreams countByEnumeratingWithState:&v10 objects:v9 count:16];
             v1 = 1;
             if (v4)
             {
@@ -696,8 +695,8 @@ LABEL_38:
     }
 
 LABEL_23:
-    v9 = [MEMORY[0x1E696AD98] numberWithInt:{v1, &unk_1F2243CD8}];
-    return [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:{v1, &unk_1F2243CD8}];
+    return [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
   }
 
   return result;
@@ -706,7 +705,7 @@ LABEL_23:
 - (float)maxEIT
 {
   memset(&v6[32], 0, 24);
-  if (!self || ([(BWFigVideoCaptureStream *)self maxExposureDuration], (v6[44] & 1) == 0))
+  if (!self || (objc_msgSend_maxExposureDuration(self, a2), (v6[44] & 1) == 0))
   {
     if (self->_started)
     {
@@ -742,7 +741,7 @@ LABEL_23:
   self->_isSlave = 0;
   [*&self->_timeMachineEnabled resume];
 
-  [(BWFigVideoCaptureStream *)self _updateMasterSlavePropertiesOnStream];
+  [(BWFigVideoCaptureStream *)&self->super.isa _updateMasterSlavePropertiesOnStream];
 }
 
 - ($273FE01EDA4852E8FFB0AF95686D18CC)activeVideoLockedFrameRate
@@ -869,87 +868,87 @@ LABEL_23:
 
 - (BWFigVideoCaptureStream)initWithCaptureStream:(id)stream parentDevice:(id)device attributes:(id)attributes sensorIDDictionary:(id)dictionary synchronizedStreamsGroup:(id)group applicationID:(id)d clientAuditToken:(id *)token tccIdentity:(id)self0 mediaEnvironment:(id)self1 error:(int *)self2
 {
-  v109[0] = 0;
-  v108.receiver = self;
-  v108.super_class = BWFigVideoCaptureStream;
-  v18 = [(BWFigVideoCaptureStream *)&v108 init];
-  if (!v18)
+  v115[0] = 0;
+  v114.receiver = self;
+  v114.super_class = BWFigVideoCaptureStream;
+  v24 = [(BWFigVideoCaptureStream *)&v114 init];
+  if (!v24)
   {
     goto LABEL_69;
   }
 
   if (stream)
   {
-    *(v18 + 1) = stream;
-    *(v18 + 4) = [stream portType];
-    *(v18 + 2) = device;
-    *(v18 + 13) = [*(v18 + 1) supportedProperties];
-    if (!v109[0])
+    *(v24 + 1) = stream;
+    *(v24 + 4) = [stream portType];
+    *(v24 + 2) = device;
+    *(v24 + 13) = [*(v24 + 1) supportedProperties];
+    if (!v115[0])
     {
-      *(v18 + 14) = [*(v18 + 1) copyProperty:*off_1E798C1B8 error:v109];
-      if (v109[0])
+      *(v24 + 14) = [*(v24 + 1) copyProperty:*off_1E798C1B8 error:v115];
+      if (v115[0])
       {
         [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
         goto LABEL_69;
       }
 
-      *(v18 + 20) = [*(v18 + 1) copyPropertyIfSupported:*off_1E798C078 error:v109];
-      if (v109[0])
+      *(v24 + 20) = [*(v24 + 1) copyPropertyIfSupported:*off_1E798C078 error:v115];
+      if (v115[0])
       {
         [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
         goto LABEL_69;
       }
 
-      v19 = [*(v18 + 1) getPropertyIfSupported:*off_1E798BE60 error:v109];
-      if (v109[0])
+      v25 = [*(v24 + 1) getPropertyIfSupported:*off_1E798BE60 error:v115];
+      if (v115[0])
       {
-        [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
+        [BWFigVideoCaptureStream initWithCaptureStream:? parentDevice:? attributes:? sensorIDDictionary:? synchronizedStreamsGroup:? applicationID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? error:?];
         goto LABEL_69;
       }
 
-      [v19 floatValue];
-      *(v18 + 73) = v20;
-      v21 = [*(v18 + 1) getPropertyIfSupported:*off_1E798BF60 error:v109];
-      if (v109[0])
+      [v25 floatValue];
+      *(v24 + 73) = v26;
+      v27 = [*(v24 + 1) getPropertyIfSupported:*off_1E798BF60 error:v115];
+      if (v115[0])
       {
-        [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
+        [BWFigVideoCaptureStream initWithCaptureStream:? parentDevice:? attributes:? sensorIDDictionary:? synchronizedStreamsGroup:? applicationID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? error:?];
         goto LABEL_69;
       }
 
-      [v21 floatValue];
-      *(v18 + 74) = v22;
-      v23 = [*(v18 + 1) getPropertyIfSupported:*off_1E798BEB8 error:v109];
-      if (v109[0])
+      [v27 floatValue];
+      *(v24 + 74) = v28;
+      v29 = [*(v24 + 1) getPropertyIfSupported:*off_1E798BEB8 error:v115];
+      if (v115[0])
       {
-        [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
+        [BWFigVideoCaptureStream initWithCaptureStream:? parentDevice:? attributes:? sensorIDDictionary:? synchronizedStreamsGroup:? applicationID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? error:?];
         goto LABEL_69;
       }
 
-      if (v23)
+      if (v29)
       {
-        *(v18 + 46) = fvcs_ambientViewingEnvironment([v23 intValue]);
+        *(v24 + 46) = fvcs_ambientViewingEnvironment([v29 intValue]);
       }
 
-      v24 = *&token->var0[4];
-      v104[0] = *token->var0;
-      v104[1] = v24;
-      *(v18 + 96) = FigCaptureGetPIDFromAuditToken(v104);
-      *(v18 + 49) = [d copy];
-      v25 = *&token->var0[4];
-      *(v18 + 25) = *token->var0;
-      *(v18 + 26) = v25;
-      *(v18 + 108) = 0;
-      *(v18 + 55) = identity;
-      *(v18 + 56) = environment;
-      *(v18 + 43) = [attributes objectForKeyedSubscript:@"NonLocalizedName"];
-      *(v18 + 89) = [objc_msgSend(attributes objectForKeyedSubscript:{@"DeviceType", "intValue"}];
-      *(v18 + 147) = [attributes objectForKeyedSubscript:@"UniqueID"];
-      *(v18 + 16) = 0xFFFFFFFFLL;
-      *(v18 + 34) = -1;
-      *(v18 + 148) = -1;
-      v26 = [objc_msgSend(group "activePortTypes")];
-      v18[756] = v26 > 1;
-      if (v26 < 2)
+      v30 = *&token->var0[4];
+      v110[0] = *token->var0;
+      v110[1] = v30;
+      *(v24 + 96) = FigCaptureGetPIDFromAuditToken(v110);
+      *(v24 + 49) = [d copy];
+      v31 = *&token->var0[4];
+      *(v24 + 25) = *token->var0;
+      *(v24 + 26) = v31;
+      *(v24 + 108) = 0;
+      *(v24 + 55) = identity;
+      *(v24 + 56) = environment;
+      *(v24 + 43) = [attributes objectForKeyedSubscript:@"NonLocalizedName"];
+      *(v24 + 89) = [objc_msgSend(attributes objectForKeyedSubscript:{@"DeviceType", "intValue"}];
+      *(v24 + 147) = [attributes objectForKeyedSubscript:@"UniqueID"];
+      *(v24 + 16) = 0xFFFFFFFFLL;
+      *(v24 + 34) = -1;
+      *(v24 + 148) = -1;
+      v32 = [objc_msgSend(group "activePortTypes")];
+      v24[756] = v32 > 1;
+      if (v32 < 2)
       {
         syncGroup = 0;
       }
@@ -959,157 +958,157 @@ LABEL_23:
         syncGroup = [group syncGroup];
       }
 
-      *(v18 + 95) = syncGroup;
-      *(v18 + 114) = 0;
-      *(v18 + 94) = 0;
-      *(v18 + 126) = 0;
-      if ([objc_msgSend(*(v18 + 20) objectForKeyedSubscript:{*off_1E798A250), "intValue"}] && objc_msgSend(objc_msgSend(*(v18 + 20), "objectForKeyedSubscript:", *off_1E798A248), "intValue"))
+      *(v24 + 95) = syncGroup;
+      *(v24 + 114) = 0;
+      *(v24 + 94) = 0;
+      *(v24 + 126) = 0;
+      if ([objc_msgSend(*(v24 + 20) objectForKeyedSubscript:{*off_1E798A250), "intValue"}] && objc_msgSend(objc_msgSend(*(v24 + 20), "objectForKeyedSubscript:", *off_1E798A248), "intValue"))
       {
-        v18[176] = 1;
+        v24[176] = 1;
       }
 
       [objc_msgSend(objc_msgSend(group "baseZoomFactorsByPortType")];
-      if (v28 == 0.0)
+      if (v34 == 0.0)
       {
-        v28 = 1.0;
+        v34 = 1.0;
       }
 
-      *(v18 + 50) = v28;
-      if (v18[756] == 1)
+      *(v24 + 50) = v34;
+      if (v24[756] == 1)
       {
-        v29 = [*(v18 + 1) getProperty:*off_1E798C1D0 error:v109];
-        if (v109[0])
+        v35 = [*(v24 + 1) getProperty:*off_1E798C1D0 error:v115];
+        if (v115[0])
         {
-          [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
+          [BWFigVideoCaptureStream initWithCaptureStream:? parentDevice:? attributes:? sensorIDDictionary:? synchronizedStreamsGroup:? applicationID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? error:?];
           goto LABEL_69;
         }
 
-        *(v18 + 192) = [objc_msgSend(v29 objectForKeyedSubscript:{*off_1E798C728), "intValue"}];
+        *(v24 + 192) = [objc_msgSend(v35 objectForKeyedSubscript:{*off_1E798C728), "intValue"}];
       }
 
       if ([objc_msgSend(attributes objectForKeyedSubscript:{@"Sphere", "BOOLValue"}])
       {
-        v30 = [*(v18 + 1) getPropertyIfSupported:*off_1E798C1C0 error:0];
-        v31 = [v30 containsObject:*off_1E798C4C8];
-        if (v31)
+        v36 = [*(v24 + 1) getPropertyIfSupported:*off_1E798C1C0 error:0];
+        v37 = [v36 containsObject:*off_1E798C4C8];
+        if (v37)
         {
-          LOBYTE(v31) = [v30 containsObject:*off_1E798C4C0];
+          LOBYTE(v37) = [v36 containsObject:*off_1E798C4C0];
         }
 
-        v18[480] = v31;
-        v32 = [v30 containsObject:*off_1E798C4A0];
-        v33 = [BWSphereModeSelector alloc];
-        v34 = *(v18 + 4);
-        v35 = [objc_msgSend(attributes objectForKeyedSubscript:{@"SphereStillActivePreview", "BOOLValue"}];
-        v36 = [objc_msgSend(attributes objectForKeyedSubscript:{@"SphereVideo", "BOOLValue"}];
+        v24[480] = v37;
+        v38 = [v36 containsObject:*off_1E798C4A0];
+        v39 = [BWSphereModeSelector alloc];
+        v40 = *(v24 + 4);
+        v41 = [objc_msgSend(attributes objectForKeyedSubscript:{@"SphereStillActivePreview", "BOOLValue"}];
+        v42 = [objc_msgSend(attributes objectForKeyedSubscript:{@"SphereVideo", "BOOLValue"}];
         [objc_msgSend(attributes objectForKeyedSubscript:{@"SphereVideoMaxFrameRate", "floatValue"}];
-        v38 = v37;
-        v39 = [objc_msgSend(attributes objectForKeyedSubscript:{@"TrueVideoUsesSphereModeVideoHighRange", "BOOLValue"}];
-        LODWORD(v40) = v38;
-        *(v18 + 58) = [(BWSphereModeSelector *)v33 initWithPortType:v34 stillActivePreviewSupported:v35 sphereVideoSupported:v36 sphereVideoMaxFrameRate:v32 spherePanoSupported:v39 trueVideoUsesSphereModeVideoHighRange:v40];
+        v44 = v43;
+        v45 = [objc_msgSend(attributes objectForKeyedSubscript:{@"TrueVideoUsesSphereModeVideoHighRange", "BOOLValue"}];
+        LODWORD(v46) = v44;
+        *(v24 + 58) = [(BWSphereModeSelector *)v39 initWithPortType:v40 stillActivePreviewSupported:v41 sphereVideoSupported:v42 sphereVideoMaxFrameRate:v38 spherePanoSupported:v45 trueVideoUsesSphereModeVideoHighRange:v46];
       }
 
-      *(v18 + 121) = -1;
-      *(v18 + 165) = 3;
-      *(v18 + 86) = FigDispatchQueueCreateWithPriority();
+      *(v24 + 121) = -1;
+      *(v24 + 165) = 3;
+      *(v24 + 86) = FigDispatchQueueCreateWithPriority();
       dictionaryCopy = dictionary;
-      *(v18 + 23) = dictionaryCopy;
-      v18[168] = [objc_msgSend(dictionaryCopy objectForKeyedSubscript:{@"usePinholeCameraFocalLengthInIntrinsicMatrixCalculation", "BOOLValue"}];
-      [objc_msgSend(*(v18 + 23) objectForKeyedSubscript:{@"ExifFocalLengthMultiplier", "floatValue"}];
-      *(v18 + 43) = v42;
-      v43 = [*(v18 + 1) getProperty:*off_1E798C0D8 error:v109];
-      v44 = v109[0];
-      if (!v109[0])
+      *(v24 + 23) = dictionaryCopy;
+      v24[168] = [objc_msgSend(dictionaryCopy objectForKeyedSubscript:{@"usePinholeCameraFocalLengthInIntrinsicMatrixCalculation", "BOOLValue"}];
+      [objc_msgSend(*(v24 + 23) objectForKeyedSubscript:{@"ExifFocalLengthMultiplier", "floatValue"}];
+      *(v24 + 43) = v48;
+      v49 = [*(v24 + 1) getProperty:*off_1E798C0D8 error:v115];
+      v50 = v115[0];
+      if (!v115[0])
       {
-        v45 = v43;
-        [v43 floatValue];
-        if (v46 > 0.0)
+        v51 = v49;
+        [v49 floatValue];
+        if (v52 > 0.0)
         {
-          [v45 floatValue];
-          if (v47 < 100.0)
+          [v51 floatValue];
+          if (v53 < 100.0)
           {
-            [v45 floatValue];
-            *(v18 + 71) = v48;
-            if (v48 <= 0.0)
+            [v51 floatValue];
+            *(v24 + 71) = v54;
+            if (v54 <= 0.0)
             {
-              v49 = 1.0;
+              v55 = 1.0;
             }
 
             else
             {
-              v49 = 1.0 / v48;
+              v55 = 1.0 / v54;
             }
 
-            *(v18 + 72) = v49;
-            v50 = [*(v18 + 1) getPropertyIfSupported:*off_1E798C120 error:v109];
-            if (v50)
+            *(v24 + 72) = v55;
+            v56 = [*(v24 + 1) getPropertyIfSupported:*off_1E798C120 error:v115];
+            if (v56)
             {
-              v51 = v50;
-              v52 = [objc_msgSend(v50 objectForKeyedSubscript:{*off_1E798A2C0), "intValue"}];
-              v53 = [objc_msgSend(v51 objectForKeyedSubscript:{*off_1E798A288), "intValue"}];
-              *(v18 + 244) = v52;
-              *(v18 + 245) = v53;
+              v57 = v56;
+              v58 = [objc_msgSend(v56 objectForKeyedSubscript:{*off_1E798A2C0), "intValue"}];
+              v59 = [objc_msgSend(v57 objectForKeyedSubscript:{*off_1E798A288), "intValue"}];
+              *(v24 + 244) = v58;
+              *(v24 + 245) = v59;
             }
 
-            *(v18 + 40) = [*(v18 + 1) copyPropertyIfSupported:*off_1E798BD28 error:v109];
-            *(v18 + 41) = [*(v18 + 1) copyPropertyIfSupported:*off_1E798BD20 error:v109];
-            [objc_msgSend(*(v18 + 1) getPropertyIfSupported:*off_1E798BD18 error:{v109), "floatValue"}];
-            *(v18 + 88) = v54;
-            v55 = *off_1E798BD38;
-            if ([*(v18 + 13) objectForKeyedSubscript:*off_1E798BD38])
+            *(v24 + 40) = [*(v24 + 1) copyPropertyIfSupported:*off_1E798BD28 error:v115];
+            *(v24 + 41) = [*(v24 + 1) copyPropertyIfSupported:*off_1E798BD20 error:v115];
+            [objc_msgSend(*(v24 + 1) getPropertyIfSupported:*off_1E798BD18 error:{v115), "floatValue"}];
+            *(v24 + 88) = v60;
+            v61 = *off_1E798BD38;
+            if ([*(v24 + 13) objectForKeyedSubscript:*off_1E798BD38])
             {
-              v56 = [*(v18 + 1) copyProperty:v55 error:v109];
-              *(v18 + 38) = v56;
-              v57 = BWInvertRowMajorViewMatrixData(v56);
+              v62 = [*(v24 + 1) copyProperty:v61 error:v115];
+              *(v24 + 38) = v62;
+              v63 = BWInvertRowMajorViewMatrixData(v62);
             }
 
             else
             {
-              *(v18 + 38) = [group cameraViewMatrixForPortType:*(v18 + 4)];
-              v57 = [group cameraPoseMatrixForPortType:*(v18 + 4)];
+              *(v24 + 38) = [group cameraViewMatrixForPortType:*(v24 + 4)];
+              v63 = [group cameraPoseMatrixForPortType:*(v24 + 4)];
             }
 
-            v58 = v57;
-            *(v18 + 42) = v58;
-            if (!(*(v18 + 38) | v58))
+            v64 = v63;
+            *(v24 + 42) = v64;
+            if (!(*(v24 + 38) | v64))
             {
-              v59 = FigCaptureDeviceCoreRepairStatusForPortType(*(v18 + 4));
-              if ((v59 & 0xFFFFFFFE) == 2)
+              v65 = FigCaptureDeviceCoreRepairStatusForPortType(*(v24 + 4));
+              if ((v65 & 0xFFFFFFFE) == 2)
               {
-                v60 = v59;
-                v107[0] = xmmword_1AD046FE0;
-                v107[1] = xmmword_1AD046FF0;
-                v107[2] = xmmword_1ACF06340;
-                v61 = [MEMORY[0x1E695DEF0] dataWithBytes:v107 length:48];
-                *(v18 + 38) = v61;
-                *(v18 + 42) = v61;
+                v66 = v65;
+                v113[0] = xmmword_1AD046FE0;
+                v113[1] = xmmword_1AD046FF0;
+                v113[2] = xmmword_1ACF06340;
+                v67 = [MEMORY[0x1E695DEF0] dataWithBytes:v113 length:48];
+                *(v24 + 38) = v67;
+                *(v24 + 42) = v67;
                 if (dword_1ED844330)
                 {
-                  v106 = 0;
-                  v105 = OS_LOG_TYPE_DEFAULT;
+                  v112 = 0;
+                  v111 = OS_LOG_TYPE_DEFAULT;
                   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                  v63 = v106;
-                  if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v105))
+                  v69 = v112;
+                  if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v111))
                   {
-                    v65 = v63;
+                    v71 = v69;
                   }
 
                   else
                   {
-                    v65 = v63 & 0xFFFFFFFE;
+                    v71 = v69 & 0xFFFFFFFE;
                   }
 
-                  if (v65)
+                  if (v71)
                   {
-                    v66 = BWPortTypeToDisplayString(*(v18 + 4), v64);
-                    v98 = 136315650;
-                    v99 = "[BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:]";
-                    v100 = 2114;
-                    v101 = v66;
-                    v102 = 1024;
-                    v103 = v60;
-                    LODWORD(v88) = 28;
-                    v87 = &v98;
+                    v72 = BWPortTypeToDisplayString(*(v24 + 4), v70);
+                    v104 = 136315650;
+                    v105 = "[BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:]";
+                    v106 = 2114;
+                    v107 = v72;
+                    v108 = 1024;
+                    v109 = v66;
+                    LODWORD(v94) = 28;
+                    v93 = &v104;
                     _os_log_send_and_compose_impl();
                   }
 
@@ -1118,91 +1117,91 @@ LABEL_23:
               }
             }
 
-            if ([objc_msgSend(attributes objectForKeyedSubscript:{@"Focus", v87, v88), "BOOLValue"}] && (v109[0] = FigMotionGetGravityFactor(*(v18 + 20), *(v18 + 23), v18 + 75)) != 0)
+            if ([objc_msgSend(attributes objectForKeyedSubscript:{@"Focus", v93, v94), "BOOLValue"}] && (v115[0] = FigMotionGetGravityFactor(*(v24 + 20), *(v24 + 23), v24 + 75)) != 0)
             {
               [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
             }
 
             else
             {
-              *(v18 + 188) = 0;
-              v67 = *off_1E798BED8;
-              if ([*(v18 + 13) objectForKeyedSubscript:*off_1E798BED8] && (v109[0] = objc_msgSend(*(v18 + 1), "setProperty:value:", v67, MEMORY[0x1E695E110])) != 0)
+              *(v24 + 188) = 0;
+              v73 = *off_1E798BED8;
+              if ([*(v24 + 13) objectForKeyedSubscript:*off_1E798BED8] && (v115[0] = objc_msgSend(*(v24 + 1), "setProperty:value:", v73, MEMORY[0x1E695E110])) != 0)
               {
                 [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
               }
 
               else
               {
-                v68 = *off_1E798C0E8;
-                if (![*(v18 + 13) objectForKeyedSubscript:*off_1E798C0E8] || (objc_msgSend(*(v18 + 4), "isEqualToString:", *off_1E798A0E8) & 1) != 0 || (objc_msgSend(objc_msgSend(attributes, "objectForKeyedSubscript:", @"RawBufferCompandingDisabled"), "BOOLValue") & 1) != 0)
+                v74 = *off_1E798C0E8;
+                if (![*(v24 + 13) objectForKeyedSubscript:*off_1E798C0E8] || (objc_msgSend_isEqualToString_(*(v24 + 4)) & 1) != 0 || (objc_msgSend(objc_msgSend(attributes, "objectForKeyedSubscript:", @"RawBufferCompandingDisabled"), "BOOLValue") & 1) != 0)
                 {
                   goto LABEL_55;
                 }
 
-                v109[0] = [*(v18 + 1) setProperty:v68 value:MEMORY[0x1E695E118]];
-                if (!v109[0])
+                v115[0] = [*(v24 + 1) setProperty:v74 value:MEMORY[0x1E695E118]];
+                if (!v115[0])
                 {
-                  v18[92] = 1;
+                  v24[92] = 1;
 LABEL_55:
-                  v96 = 0u;
-                  v97 = 0u;
-                  v94 = 0u;
-                  v95 = 0u;
-                  v69 = *(v18 + 14);
-                  v70 = [v69 countByEnumeratingWithState:&v94 objects:v93 count:16];
-                  v71 = *off_1E798C9A0;
-                  if (v70)
+                  v102 = 0u;
+                  v103 = 0u;
+                  v100 = 0u;
+                  v101 = 0u;
+                  v75 = *(v24 + 14);
+                  v76 = [v75 countByEnumeratingWithState:&v100 objects:v99 count:16];
+                  v77 = *off_1E798C9A0;
+                  if (v76)
                   {
-                    v72 = v70;
-                    v73 = *v95;
-                    v74 = *off_1E798CAB8;
-                    v75 = *off_1E798C710;
+                    v78 = v76;
+                    v79 = *v101;
+                    v80 = *off_1E798CAB8;
+                    v81 = *off_1E798C710;
                     while (2)
                     {
-                      for (i = 0; i != v72; ++i)
+                      for (i = 0; i != v78; ++i)
                       {
-                        if (*v95 != v73)
+                        if (*v101 != v79)
                         {
-                          objc_enumerationMutation(v69);
+                          objc_enumerationMutation(v75);
                         }
 
-                        v77 = [objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v94 + 1) + 8 * i) objectForKeyedSubscript:{v71), "objectForKeyedSubscript:", v74), "objectForKeyedSubscript:", v75), "intValue"}];
-                        if (v77)
+                        v83 = [objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v100 + 1) + 8 * i) objectForKeyedSubscript:{v77), "objectForKeyedSubscript:", v80), "objectForKeyedSubscript:", v81), "intValue"}];
+                        if (v83)
                         {
-                          if (v18[92] == 1)
+                          if (v24[92] == 1)
                           {
-                            if (v77 > 1735549491)
+                            if (v83 > 1735549491)
                             {
-                              if (v77 == 1919379252)
+                              if (v83 == 1919379252)
                               {
-                                v77 = 1919378232;
+                                v83 = 1919378232;
                               }
 
-                              else if (v77 == 1735549492)
+                              else if (v83 == 1735549492)
                               {
-                                v77 = 1735549752;
+                                v83 = 1735549752;
                               }
                             }
 
-                            else if (v77 == 1650943796)
+                            else if (v83 == 1650943796)
                             {
-                              v77 = 1650942776;
+                              v83 = 1650942776;
                             }
 
-                            else if (v77 == 1734505012)
+                            else if (v83 == 1734505012)
                             {
-                              v77 = 1734501176;
+                              v83 = 1734501176;
                             }
                           }
 
-                          *(v18 + 24) = v77;
+                          *(v24 + 24) = v83;
                           goto LABEL_66;
                         }
                       }
 
-                      v72 = [v69 countByEnumeratingWithState:&v94 objects:v93 count:16];
-                      if (v72)
+                      v78 = [v75 countByEnumeratingWithState:&v100 objects:v99 count:16];
+                      if (v78)
                       {
                         continue;
                       }
@@ -1212,25 +1211,25 @@ LABEL_55:
                   }
 
 LABEL_66:
-                  *(v18 + 15) = [objc_msgSend(objc_msgSend(*(v18 + 14) "firstObject")];
-                  v78 = *off_1E798C098;
-                  if ([*(v18 + 13) objectForKeyedSubscript:*off_1E798C098] && (v79 = MEMORY[0x1E695E110], *(v18 + 105) = -[BWNoiseReductionAndSharpeningParameters initWithPortType:sensorIDDictionary:]([BWNoiseReductionAndSharpeningParameters alloc], "initWithPortType:sensorIDDictionary:", *(v18 + 4), *(v18 + 23)), v80 = *(v18 + 1), v81 = *off_1E798B808, v90 = v79, v91 = v81, v89 = *off_1E798B7E8, v92 = objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v90, &v89, 1), (v109[0] = objc_msgSend(v80, "setProperty:value:", v78, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v92, &v91, 1))) != 0))
+                  *(v24 + 15) = [objc_msgSend(objc_msgSend(*(v24 + 14) "firstObject")];
+                  v84 = *off_1E798C098;
+                  if ([*(v24 + 13) objectForKeyedSubscript:*off_1E798C098] && (v85 = MEMORY[0x1E695E110], *(v24 + 105) = -[BWNoiseReductionAndSharpeningParameters initWithPortType:sensorIDDictionary:]([BWNoiseReductionAndSharpeningParameters alloc], "initWithPortType:sensorIDDictionary:", *(v24 + 4), *(v24 + 23)), v86 = *(v24 + 1), v87 = *off_1E798B808, v96 = v85, v97 = v87, v95 = *off_1E798B7E8, v98 = objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v96, &v95, 1), (v115[0] = objc_msgSend(v86, "setProperty:value:", v84, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v98, &v97, 1))) != 0))
                   {
                     [BWFigVideoCaptureStream initWithCaptureStream:parentDevice:attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:];
                   }
 
                   else
                   {
-                    *(v18 + 1080) = *MEMORY[0x1E695EFF8];
-                    *(v18 + 278) = 0;
-                    v82 = MEMORY[0x1E6960C70];
-                    v83 = *MEMORY[0x1E6960C70];
-                    *(v18 + 1116) = *MEMORY[0x1E6960C70];
-                    v84 = *(v82 + 16);
-                    *(v18 + 1132) = v84;
-                    *(v18 + 1140) = v83;
-                    *(v18 + 1156) = v84;
-                    *(v18 + 291) = 0;
+                    *(v24 + 1080) = *MEMORY[0x1E695EFF8];
+                    *(v24 + 278) = 0;
+                    v88 = MEMORY[0x1E6960C70];
+                    v89 = *MEMORY[0x1E6960C70];
+                    *(v24 + 1116) = *MEMORY[0x1E6960C70];
+                    v90 = *(v88 + 16);
+                    *(v24 + 1132) = v90;
+                    *(v24 + 1140) = v89;
+                    *(v24 + 1156) = v90;
+                    *(v24 + 291) = 0;
                   }
 
                   goto LABEL_69;
@@ -1241,16 +1240,16 @@ LABEL_66:
             }
 
 LABEL_69:
-            v85 = v109[0];
+            v91 = v115[0];
             goto LABEL_70;
           }
         }
 
-        v44 = -12783;
-        v109[0] = -12783;
+        v50 = -12783;
+        v115[0] = -12783;
       }
 
-      *error = v44;
+      *error = v50;
       goto LABEL_71;
     }
 
@@ -1258,18 +1257,18 @@ LABEL_69:
     goto LABEL_69;
   }
 
-  [BWFigVideoCaptureStream initWithCaptureStream:v109 parentDevice:v104 attributes:? sensorIDDictionary:? synchronizedStreamsGroup:? applicationID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? error:?];
-  v85 = v104[0];
+  [BWFigVideoCaptureStream initWithCaptureStream:v115 parentDevice:v110 attributes:v18 sensorIDDictionary:v19 synchronizedStreamsGroup:v20 applicationID:v21 clientAuditToken:v22 tccIdentity:v23 mediaEnvironment:? error:?];
+  v91 = v110[0];
 LABEL_70:
-  *error = v85;
-  if (v85)
+  *error = v91;
+  if (v91)
   {
 LABEL_71:
 
     return 0;
   }
 
-  return v18;
+  return v24;
 }
 
 - (void)dealloc
@@ -1488,19 +1487,19 @@ LABEL_71:
     return -12782;
   }
 
-  v6 = *&maximumFrameRate;
-  v7 = *&frameRate;
-  v8 = *&rate;
-  v9 = *&index;
+  v7 = *&maximumFrameRate;
+  v8 = *&frameRate;
+  v9 = *&rate;
+  v10 = *&index;
   if (index > -2)
   {
     os_unfair_lock_lock(&self->_activeNondisruptiveSwitchingFormatIndexLock);
-    if (v9 == -1)
+    if (v10 == -1)
     {
       fastSwitchingMainFormatIndex = self->_fastSwitchingMainFormatIndex;
       if (fastSwitchingMainFormatIndex < 0)
       {
-        v9 = 0xFFFFFFFFLL;
+        v10 = 0xFFFFFFFFLL;
       }
 
       else
@@ -1508,12 +1507,12 @@ LABEL_71:
         activeFormatIndex = self->_activeFormatIndex;
         if (fastSwitchingMainFormatIndex == activeFormatIndex)
         {
-          v9 = 0xFFFFFFFFLL;
+          v10 = 0xFFFFFFFFLL;
         }
 
         else
         {
-          v9 = activeFormatIndex;
+          v10 = activeFormatIndex;
         }
       }
     }
@@ -1530,7 +1529,7 @@ LABEL_71:
   }
 
   activeNondisruptiveSwitchingFormatIndex = self->_activeNondisruptiveSwitchingFormatIndex;
-  if (v9 == activeNondisruptiveSwitchingFormatIndex)
+  if (v10 == activeNondisruptiveSwitchingFormatIndex)
   {
     goto LABEL_16;
   }
@@ -1546,53 +1545,53 @@ LABEL_71:
     activeFastSwitchingMainFormatIndex = self->_activeFormatIndex;
   }
 
-  if (v9 == activeFastSwitchingMainFormatIndex)
+  if (v10 == activeFastSwitchingMainFormatIndex)
   {
 LABEL_16:
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
 LABEL_17:
-    if (v9 == -1)
+    if (v10 == -1)
     {
-      v16 = *MEMORY[0x1E695E738];
+      v17 = *MEMORY[0x1E695E738];
     }
 
     else
     {
-      v16 = [MEMORY[0x1E696AD98] numberWithInt:v9];
+      v17 = [MEMORY[0x1E696AD98] numberWithInt:v10];
     }
 
-    v17 = (self->_activeNondisruptiveSwitchingCommandID + 1);
+    v18 = (self->_activeNondisruptiveSwitchingCommandID + 1);
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    [dictionary setObject:v16 forKeyedSubscript:*off_1E798A1F8];
-    [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v17), *off_1E798A1C8}];
-    if (v8 && v7 && v6)
+    [dictionary setObject:v17 forKeyedSubscript:*off_1E798A1F8];
+    [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v18), *off_1E798A1C8}];
+    if (v9 && v8 && v7)
     {
-      [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v8), *off_1E798A230}];
-      [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v7), *off_1E798A240}];
-      [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v6), *off_1E798A238}];
+      [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v9), *off_1E798A230}];
+      [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v8), *off_1E798A240}];
+      [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v7), *off_1E798A238}];
     }
 
-    v19 = v9;
-    if (v9 == -1)
+    v20 = v10;
+    if (v10 == -1)
     {
-      v19 = self->_activeFormatIndex;
+      v20 = self->_activeFormatIndex;
     }
 
-    if ([objc_msgSend(-[NSArray objectAtIndexedSubscript:](self->_supportedFormats objectAtIndexedSubscript:{v19), "objectForKeyedSubscript:", *off_1E798C968), "BOOLValue"}])
+    if ([objc_msgSend(-[NSArray objectAtIndexedSubscript:](self->_supportedFormats objectAtIndexedSubscript:{v20), "objectForKeyedSubscript:", *off_1E798C968), "BOOLValue"}])
     {
-      v24.x = FigCaptureMetadataUtilitiesDenormalizePoint(self->_previewShift.y, self->_previewShiftAtBaseZoom.x, self->_videoCaptureDimensions.width);
-      [dictionary setObject:CGPointCreateDictionaryRepresentation(v24) forKeyedSubscript:*off_1E798A268];
+      v31.x = FigCaptureMetadataUtilitiesDenormalizePoint(self->_previewShift.y, self->_previewShiftAtBaseZoom.x, self->_videoCaptureDimensions.width);
+      [dictionary setObject:CGPointCreateDictionaryRepresentation(v31) forKeyedSubscript:*off_1E798A268];
     }
 
-    v20 = [(BWFigCaptureStream *)self->_stream setProperty:*off_1E798C0A8 value:dictionary];
-    if (v20)
+    v21 = [(BWFigCaptureStream *)self->_stream setProperty:*off_1E798C0A8 value:dictionary];
+    if (v21)
     {
-      v15 = v20;
-      FigDebugAssert3();
+      v16 = v21;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21, v6, v25, v26, v27, v28, v29, v30);
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1602,19 +1601,19 @@ LABEL_17:
     {
       if (dword_1ED844330)
       {
-        v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+        v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v15 = 0;
-      self->_activeNondisruptiveSwitchingFormatIndex = v9;
-      self->_activeNondisruptiveSwitchingCommandID = v17;
+      v16 = 0;
+      self->_activeNondisruptiveSwitchingFormatIndex = v10;
+      self->_activeNondisruptiveSwitchingCommandID = v18;
     }
   }
 
   os_unfair_lock_unlock(&self->_activeNondisruptiveSwitchingFormatIndexLock);
-  return v15;
+  return v16;
 }
 
 - (int)activeNondisruptiveSwitchingFormatIndex
@@ -1666,7 +1665,7 @@ LABEL_17:
       self->_minimumFrameRate.tag = var1;
       if (self->_started)
       {
-        [(BWFigVideoCaptureStream *)self maxExposureDuration];
+        objc_msgSend_maxExposureDuration(self, v7);
         memset(&v8, 0, sizeof(v8));
         [(BWFigVideoCaptureStream *)&self->super.isa _setMaxExposureDuration:0.0];
       }
@@ -1741,7 +1740,7 @@ LABEL_6:
     *&retstr->var1 = 0;
     retstr->var3 = 0;
     retstr->var0 = 0;
-    [($3CC8671D27C23BF42ADDB32F2B5E48AE *)v6 maxExposureDuration];
+    objc_msgSend_maxExposureDuration(v6);
     return [(BWFigVideoCaptureStream *)v6 _setMaxExposureDuration:*&retstr->var0];
   }
 
@@ -1798,7 +1797,7 @@ LABEL_6:
   if (LOBYTE(self->_faceDetectionConfiguration) != enabledCopy)
   {
     LOBYTE(self->_faceDetectionConfiguration) = enabledCopy;
-    [(BWFigVideoCaptureStream *)self _propagateFaceAndObjectDetectionSettings];
+    [(BWFigVideoCaptureStream *)&self->super.isa _propagateFaceAndObjectDetectionSettings];
   }
 
   os_unfair_lock_unlock(&self->_lastFaceDetectionEnabled);
@@ -1811,7 +1810,7 @@ LABEL_6:
   if (BYTE1(self->_faceDetectionConfiguration) != requiredCopy)
   {
     BYTE1(self->_faceDetectionConfiguration) = requiredCopy;
-    [(BWFigVideoCaptureStream *)self _propagateFaceAndObjectDetectionSettings];
+    [(BWFigVideoCaptureStream *)&self->super.isa _propagateFaceAndObjectDetectionSettings];
   }
 
   os_unfair_lock_unlock(&self->_lastFaceDetectionEnabled);
@@ -1863,7 +1862,7 @@ LABEL_6:
     if (LOBYTE(self->_detectedObjectTypes) != deferredCopy)
     {
       LOBYTE(self->_detectedObjectTypes) = deferredCopy;
-      [(BWFigVideoCaptureStream *)self _propagateFaceAndObjectDetectionSettings];
+      [(BWFigVideoCaptureStream *)&self->super.isa _propagateFaceAndObjectDetectionSettings];
     }
 
     os_unfair_lock_unlock(&self->_lastFaceDetectionEnabled);
@@ -1959,9 +1958,10 @@ LABEL_6:
 
   fvcs_removeSampleBufferPixelBufferMetadata(buffer);
   v9 = figVideoCaptureStream_blackenFrameIfNecessary(self, buffer);
+  v10 = v9;
   if (v9)
   {
-    [BWFigVideoCaptureStream sourceNodeWillEmitVideoSampleBuffer:drivesCameraControls:deliversStills:];
+    [BWFigVideoCaptureStream sourceNodeWillEmitVideoSampleBuffer:v9 drivesCameraControls:? deliversStills:?];
   }
 
   else
@@ -1978,13 +1978,13 @@ LABEL_6:
     }
 
     ++self->_lastValidPTS.flags;
-    CMSampleBufferGetPresentationTimeStamp(&v14, buffer);
-    value = v14.value;
-    flags = v14.flags;
-    timescale = v14.timescale;
-    if (v14.flags)
+    CMSampleBufferGetPresentationTimeStamp(&v15, buffer);
+    value = v15.value;
+    flags = v15.flags;
+    timescale = v15.timescale;
+    if (v15.flags)
     {
-      epoch = v14.epoch;
+      epoch = v15.epoch;
       if ((self->_firstValidPTS.value & 1) == 0)
       {
         *(&self->_averageFrameRateCalculationLock + 1) = timescale;
@@ -2000,7 +2000,7 @@ LABEL_6:
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)sourceNodeWillEmitDetectedFacesSampleBuffer:(opaqueCMSampleBuffer *)buffer
@@ -2175,13 +2175,13 @@ LABEL_6:
   if (LODWORD(self->_synchronizedStreamsGroup) != ratio)
   {
     LODWORD(self->_synchronizedStreamsGroup) = ratio;
-    [(BWFigVideoCaptureStream *)self _updateMasterSlavePropertiesOnStream];
+    [(BWFigVideoCaptureStream *)&self->super.isa _updateMasterSlavePropertiesOnStream];
     if ([(BWFigVideoCaptureStream *)self suspendingSupported])
     {
-      if ([(NSString *)self->_portType isEqualToString:*off_1E798A0E8])
+      if (objc_msgSend_isEqualToString_(self->_portType))
       {
 
-        [(BWFigVideoCaptureStream *)self _updateSuspendStateForInfraredDepthStream];
+        [(BWFigVideoCaptureStream *)&self->super.isa _updateSuspendStateForInfraredDepthStream];
       }
     }
   }
@@ -2192,7 +2192,7 @@ LABEL_6:
   if (BYTE4(self->_synchronizedStreamsGroup) != slave)
   {
     BYTE4(self->_synchronizedStreamsGroup) = slave;
-    [(BWFigVideoCaptureStream *)self _updateMasterSlavePropertiesOnStream];
+    [(BWFigVideoCaptureStream *)&self->super.isa _updateMasterSlavePropertiesOnStream];
   }
 }
 
@@ -2295,7 +2295,7 @@ LABEL_6:
 - (void)setMultiBandNoiseReductionMode:(int)mode
 {
   v5 = *off_1E798C098;
-  if ([(NSDictionary *)self->_supportedProperties objectForKeyedSubscript:*off_1E798C098]&& ![(NSString *)self->_portType isEqualToString:*off_1E798A0E8])
+  if ([(NSDictionary *)self->_supportedProperties objectForKeyedSubscript:*off_1E798C098]&& (objc_msgSend_isEqualToString_(self->_portType) & 1) == 0)
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
     if (mode == 2)
@@ -2648,7 +2648,7 @@ LABEL_6:
 
   else
   {
-    [BWFigVideoCaptureStream serviceNondisruptiveSwitchingFormatForZoomFactor:frameStatistics:imageControlMode:stillImageDigitalFlashMode:isStationary:binnedSIFROnSecondaryStreamAllowed:ignoreZoomFactorAndQuadraSubPixelSceneMonitoring:ultraHighResolutionZeroShutterLagEnabled:];
+    [BWFigVideoCaptureStream serviceNondisruptiveSwitchingFormatForZoomFactor:factor frameStatistics:? imageControlMode:? stillImageDigitalFlashMode:? isStationary:? binnedSIFROnSecondaryStreamAllowed:? ignoreZoomFactorAndQuadraSubPixelSceneMonitoring:? ultraHighResolutionZeroShutterLagEnabled:?];
   }
 }
 
@@ -2861,6 +2861,7 @@ LABEL_6:
       }
 
       OUTLINED_FUNCTION_1_5();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
@@ -2873,10 +2874,10 @@ LABEL_6:
       }
 
       OUTLINED_FUNCTION_1_5();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
 LABEL_16:
-    FigDebugAssert3();
     OUTLINED_FUNCTION_7_31();
     return v11;
   }
@@ -2889,6 +2890,7 @@ LABEL_16:
   if (-[BWFigCaptureStream setPropertyIfSupported:value:](v12, "setPropertyIfSupported:value:", v10, [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2]))
   {
     OUTLINED_FUNCTION_1_5();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_16;
   }
 
@@ -2910,19 +2912,19 @@ LABEL_9:
     result = FigCaptureFrameRateIsValidRational(a2, rational);
     if (result)
     {
-      v8[0] = *off_1E798C068;
-      v7[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
-      v7[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(a2)];
-      v9[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-      v8[1] = *off_1E798C040;
-      v6[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
-      v6[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(a2)];
-      v9[1] = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
-      result = [*(v5 + 8) setPropertyIfSupported:*off_1E798BE90 value:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, v8, 2)}];
+      v12 = *off_1E798C068;
+      v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
+      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(a2)];
+      v14[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:2];
+      v13 = *off_1E798C040;
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
+      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(a2)];
+      v14[1] = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:2];
+      result = [*(v5 + 8) setPropertyIfSupported:*off_1E798BE90 value:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v14, &v12, 2)}];
       if (result)
       {
         OUTLINED_FUNCTION_1_5();
-        return FigDebugAssert3();
+        return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, v12, v13);
       }
 
       else
@@ -2945,8 +2947,8 @@ LABEL_9:
   retstr->var3 = 0;
   if (self)
   {
-    maxExposureDuration = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)self maxExposureDuration];
-    return OUTLINED_FUNCTION_16_15(maxExposureDuration, v4, v5, v6, v7, v8, v9, v10, v11, v12);
+    v3 = objc_msgSend_maxExposureDuration(self, a3);
+    return OUTLINED_FUNCTION_16_15(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12);
   }
 
   return self;
@@ -3211,13 +3213,13 @@ LABEL_11:
 - (int)setSuspended:(BOOL)suspended
 {
   suspendedCopy = suspended;
-  v33[0] = 0;
+  v39[0] = 0;
   if (![(BWFigVideoCaptureStream *)self suspendingSupported])
   {
     OUTLINED_FUNCTION_1_8();
-    FigDebugAssert3();
-    v33[0] = -12782;
-    return v33[0];
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v22, v23, v25, v26, v28, v30, v32);
+    v39[0] = -12782;
+    return v39[0];
   }
 
   if (self->_suspended != suspendedCopy)
@@ -3228,104 +3230,101 @@ LABEL_11:
       if (suspendedCopy)
       {
 
-        self->_cachedVideoOutputsEnabled = [(BWFigCaptureStream *)self->_stream copyProperty:*off_1E798C2A0 error:v33];
-        if (v33[0] || (v6 = [(BWFigCaptureStream *)self->_stream getProperty:*off_1E798C280 error:v33], v33[0]))
+        self->_cachedVideoOutputsEnabled = [(BWFigCaptureStream *)self->_stream copyProperty:*off_1E798C2A0 error:v39];
+        if (v39[0] || (v6 = [(BWFigCaptureStream *)self->_stream getProperty:*off_1E798C280 error:v39], v39[0]))
         {
           OUTLINED_FUNCTION_19_11();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+          return v39[0];
         }
 
-        else
+        v7 = v6;
+        v24 = v5;
+        v27 = suspendedCopy;
+        v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v35 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        allKeys = [(NSDictionary *)self->_cachedVideoOutputsEnabled allKeys];
+        v10 = [(NSArray *)allKeys countByEnumeratingWithState:&v35 objects:v34 count:16];
+        if (v10)
         {
-          v7 = v6;
-          v23 = v5;
-          v24 = suspendedCopy;
-          v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          v29 = 0u;
-          v30 = 0u;
-          v31 = 0u;
-          v32 = 0u;
-          allKeys = [(NSDictionary *)self->_cachedVideoOutputsEnabled allKeys];
-          v10 = [(NSArray *)allKeys countByEnumeratingWithState:&v29 objects:v28 count:16];
-          if (v10)
+          v11 = v10;
+          v12 = *v36;
+          v13 = *off_1E798CA20;
+          v33 = *off_1E798CA48;
+          v31 = *off_1E798C9F8;
+          v29 = *off_1E798C9D8;
+          do
           {
-            v11 = v10;
-            v12 = *v30;
-            v13 = *off_1E798CA20;
-            v14 = *off_1E798CAC0;
-            v27 = *off_1E798CA48;
-            v26 = *off_1E798C9F8;
-            v25 = *off_1E798C9D8;
-            do
+            for (i = 0; i != v11; ++i)
             {
-              for (i = 0; i != v11; ++i)
+              if (*v36 != v12)
               {
-                if (*v30 != v12)
-                {
-                  objc_enumerationMutation(allKeys);
-                }
-
-                v16 = *(*(&v29 + 1) + 8 * i);
-                if ([-[NSDictionary objectForKeyedSubscript:](self->_cachedVideoOutputsEnabled objectForKeyedSubscript:{v16), "BOOLValue"}])
-                {
-                  -[NSDictionary setObject:forKeyedSubscript:](v8, "setObject:forKeyedSubscript:", [objc_msgSend(v7 objectForKeyedSubscript:{v16), "mutableCopy"}], v16);
-                  [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v13];
-                  if ([v16 isEqualToString:v14])
-                  {
-                    [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v27];
-                    [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v26];
-                    [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v25];
-                  }
-                }
+                objc_enumerationMutation(allKeys);
               }
 
-              v11 = [(NSArray *)allKeys countByEnumeratingWithState:&v29 objects:v28 count:16];
+              v15 = *(*(&v35 + 1) + 8 * i);
+              if ([-[NSDictionary objectForKeyedSubscript:](self->_cachedVideoOutputsEnabled objectForKeyedSubscript:{v15), "BOOLValue"}])
+              {
+                -[NSDictionary setObject:forKeyedSubscript:](v8, "setObject:forKeyedSubscript:", [objc_msgSend(v7 objectForKeyedSubscript:{v15), "mutableCopy"}], v15);
+                [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v13];
+                if (objc_msgSend_isEqualToString_(v15))
+                {
+                  [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v33];
+                  [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v31];
+                  [OUTLINED_FUNCTION_24_9() setObject:0 forKeyedSubscript:v29];
+                }
+              }
             }
 
-            while (v11);
+            v11 = [(NSArray *)allKeys countByEnumeratingWithState:&v35 objects:v34 count:16];
           }
 
-          self->_cachedVideoOutputConfigurations = v8;
-          if (!v23)
-          {
-            [OUTLINED_FUNCTION_11_23() captureStreamWillStopStreaming:?];
-          }
-
-          v33[0] = [(BWFigCaptureStream *)self->_stream stop];
-          suspendedCopy = v24;
-          if (!v33[0])
-          {
-            if (!v23)
-            {
-              [OUTLINED_FUNCTION_11_23() captureStreamDidStopStreaming:?];
-            }
-
-            self->_streamHasBeenSuspended = 1;
-            goto LABEL_31;
-          }
-
-          OUTLINED_FUNCTION_1_5();
+          while (v11);
         }
 
-LABEL_44:
-        FigDebugAssert3();
-        return v33[0];
+        self->_cachedVideoOutputConfigurations = v8;
+        if (!v24)
+        {
+          [OUTLINED_FUNCTION_11_23() captureStreamWillStopStreaming:?];
+        }
+
+        v39[0] = [(BWFigCaptureStream *)self->_stream stop];
+        suspendedCopy = v27;
+        if (v39[0])
+        {
+          OUTLINED_FUNCTION_1_5();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+          return v39[0];
+        }
+
+        if (!v24)
+        {
+          [OUTLINED_FUNCTION_11_23() captureStreamDidStopStreaming:?];
+        }
+
+        self->_streamHasBeenSuspended = 1;
+        goto LABEL_31;
       }
 
       if (self->_streamHasBeenSuspended)
       {
-        v33[0] = [(BWFigCaptureStream *)self->_stream setProperty:*off_1E798C280 value:self->_cachedVideoOutputConfigurations];
-        if (v33[0] || (v33[0] = [(BWFigCaptureStream *)self->_stream setProperty:*off_1E798C2A0 value:self->_cachedVideoOutputsEnabled]) != 0)
+        v39[0] = [(BWFigCaptureStream *)self->_stream setProperty:*off_1E798C280 value:self->_cachedVideoOutputConfigurations];
+        if (v39[0] || (v39[0] = [(BWFigCaptureStream *)self->_stream setProperty:*off_1E798C2A0 value:self->_cachedVideoOutputsEnabled]) != 0)
         {
 LABEL_43:
           OUTLINED_FUNCTION_1_5();
-          goto LABEL_44;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+          return v39[0];
         }
       }
 
       if (v5)
       {
-        v33[0] = [(BWFigVideoCaptureStream *)self start];
-        if (v33[0])
+        v39[0] = [(BWFigVideoCaptureStream *)self start];
+        if (v39[0])
         {
           goto LABEL_43;
         }
@@ -3334,8 +3333,8 @@ LABEL_43:
       else
       {
         [OUTLINED_FUNCTION_11_23() captureStreamWillStartStreaming:?];
-        v33[0] = [(BWFigVideoCaptureStream *)self start];
-        if (v33[0])
+        v39[0] = [(BWFigVideoCaptureStream *)self start];
+        if (v39[0])
         {
           goto LABEL_43;
         }
@@ -3351,8 +3350,8 @@ LABEL_31:
       if (suspendedCopy)
       {
         +[BWCameraStreamingMonitor sharedCameraStreamingMonitor];
-        *&v17 = OUTLINED_FUNCTION_2_51();
-        [v18 setStreaming:0 deviceType:v17 maxFrameRate:0 streamUniqueID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? completionHandler:?];
+        *&v16 = OUTLINED_FUNCTION_2_51();
+        [v17 setStreaming:0 deviceType:v16 maxFrameRate:0 streamUniqueID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? completionHandler:?];
       }
 
       else
@@ -3363,8 +3362,8 @@ LABEL_31:
         if (clientProcessHasAccessToCamera)
         {
           +[BWCameraStreamingMonitor sharedCameraStreamingMonitor];
-          *&v20 = OUTLINED_FUNCTION_2_51();
-          [v21 setStreaming:1 deviceType:v20 maxFrameRate:0 streamUniqueID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? completionHandler:?];
+          *&v19 = OUTLINED_FUNCTION_2_51();
+          [v20 setStreaming:1 deviceType:v19 maxFrameRate:0 streamUniqueID:? clientAuditToken:? tccIdentity:? mediaEnvironment:? completionHandler:?];
         }
       }
     }
@@ -3373,7 +3372,7 @@ LABEL_31:
     os_unfair_lock_unlock(&self->_streamStateLock);
   }
 
-  return v33[0];
+  return v39[0];
 }
 
 - (void)_resetStillImageCaptureState
@@ -3466,8 +3465,8 @@ LABEL_6:
     return 1;
   }
 
-  [(BWFigVideoCaptureStream *)self _addBracketecCaptureSequenceNumberToMetadataIfNeededForStillImageSampleBuffer:buffer];
-  if ([(NSString *)self->_portType isEqualToString:*off_1E798A0E8])
+  [(BWFigVideoCaptureStream *)&self->super.isa _addBracketecCaptureSequenceNumberToMetadataIfNeededForStillImageSampleBuffer:buffer];
+  if (objc_msgSend_isEqualToString_(self->_portType))
   {
     return 0;
   }
@@ -3538,106 +3537,106 @@ LABEL_6:
 
   if (dword_1ED844330)
   {
-    OUTLINED_FUNCTION_14_14();
-    v22 = OUTLINED_FUNCTION_35_2();
-    if (os_log_type_enabled(v22, v57))
+    v22 = OUTLINED_FUNCTION_14_14();
+    v23 = OUTLINED_FUNCTION_35_2(v22);
+    if (os_log_type_enabled(v23, v70))
     {
-      v23 = v58;
+      v24 = v71;
     }
 
     else
     {
-      v23 = v58 & 0xFFFFFFFE;
+      v24 = v71 & 0xFFFFFFFE;
     }
 
-    if (v23)
+    if (v24)
     {
-      v24 = [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B5E8), "BOOLValue"}];
+      v25 = [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B5E8), "BOOLValue"}];
       settingsID = [(BWStillImageCaptureSettings *)self->_activeResolvedStillImageCaptureSettings settingsID];
-      v47 = 136316674;
-      v48 = "[BWFigVideoCaptureStream sourceNodeShouldDiscardStillImageSampleBuffer:sensorRawOutput:]";
-      v49 = 1026;
-      *v50 = epoch;
-      *&v50[4] = 1026;
-      *&v50[6] = 1;
-      LOWORD(v51) = 1026;
-      *(&v51 + 2) = v15;
-      HIWORD(v51) = 1026;
-      v52 = v21;
-      v53 = 1026;
-      v54 = v24;
-      v55 = 2050;
-      v56 = settingsID;
+      v60 = 136316674;
+      v61 = "[BWFigVideoCaptureStream sourceNodeShouldDiscardStillImageSampleBuffer:sensorRawOutput:]";
+      v62 = 1026;
+      *v63 = epoch;
+      *&v63[4] = 1026;
+      *&v63[6] = 1;
+      LOWORD(v64) = 1026;
+      *(&v64 + 2) = v15;
+      HIWORD(v64) = 1026;
+      v65 = v21;
+      v66 = 1026;
+      v67 = v25;
+      v68 = 2050;
+      v69 = settingsID;
       OUTLINED_FUNCTION_5_29();
       OUTLINED_FUNCTION_13();
       _os_log_send_and_compose_impl();
     }
 
-    OUTLINED_FUNCTION_4_39();
-    OUTLINED_FUNCTION_31_0();
+    v27 = OUTLINED_FUNCTION_4_39();
+    OUTLINED_FUNCTION_31_0(v27, v28, v29, v30, v31);
   }
 
   if ([-[BWStillImageCaptureStreamSettings captureFrameInfos](self->_activeResolvedStillImageCaptureStreamSettings "captureFrameInfos")])
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     captureFrameInfos = [(BWStillImageCaptureStreamSettings *)self->_activeResolvedStillImageCaptureStreamSettings captureFrameInfos];
-    v27 = [captureFrameInfos countByEnumeratingWithState:&v43 objects:v42 count:16];
-    if (v27)
+    v33 = [captureFrameInfos countByEnumeratingWithState:&v56 objects:v55 count:16];
+    if (v33)
     {
-      v28 = v27;
+      v34 = v33;
       selfCopy = self;
-      v29 = *v44;
+      v35 = *v57;
       do
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v44 != v29)
+          if (*v57 != v35)
           {
             objc_enumerationMutation(captureFrameInfos);
           }
 
           if (dword_1ED844330)
           {
-            v31 = *(*(&v43 + 1) + 8 * i);
-            OUTLINED_FUNCTION_14_14();
-            v32 = OUTLINED_FUNCTION_35_2();
-            v33 = v58;
-            if (os_log_type_enabled(v32, v57))
+            v37 = *(*(&v56 + 1) + 8 * i);
+            v38 = OUTLINED_FUNCTION_14_14();
+            v39 = OUTLINED_FUNCTION_35_2(v38);
+            v40 = v71;
+            if (os_log_type_enabled(v39, v70))
             {
-              v35 = v33;
+              v42 = v40;
             }
 
             else
             {
-              v35 = v33 & 0xFFFFFFFE;
+              v42 = v40 & 0xFFFFFFFE;
             }
 
-            if (v35)
+            if (v42)
             {
-              v36 = BWPortTypeToDisplayString(selfCopy->_portType, v34);
-              v47 = 136315650;
-              v48 = "[BWFigVideoCaptureStream sourceNodeShouldDiscardStillImageSampleBuffer:sensorRawOutput:]";
-              v49 = 2114;
-              *v50 = v36;
-              *&v50[8] = 2114;
-              v51 = v31;
+              v43 = BWPortTypeToDisplayString(selfCopy->_portType, v41);
+              v60 = 136315650;
+              v61 = "[BWFigVideoCaptureStream sourceNodeShouldDiscardStillImageSampleBuffer:sensorRawOutput:]";
+              v62 = 2114;
+              *v63 = v43;
+              *&v63[8] = 2114;
+              v64 = v37;
               OUTLINED_FUNCTION_5_29();
               OUTLINED_FUNCTION_13();
               _os_log_send_and_compose_impl();
             }
 
-            OUTLINED_FUNCTION_4_39();
-            OUTLINED_FUNCTION_31_0();
+            v44 = OUTLINED_FUNCTION_4_39();
+            OUTLINED_FUNCTION_31_0(v44, v45, v46, v47, v48);
           }
         }
 
-        v28 = [captureFrameInfos countByEnumeratingWithState:&v43 objects:v42 count:16];
+        v34 = [captureFrameInfos countByEnumeratingWithState:&v56 objects:v55 count:16];
       }
 
-      while (v28);
+      while (v34);
     }
 
     return 1;
@@ -3648,25 +3647,25 @@ LABEL_6:
     return 1;
   }
 
-  OUTLINED_FUNCTION_14_14();
-  v37 = OUTLINED_FUNCTION_35_2();
-  if (OUTLINED_FUNCTION_8_26(v37))
+  v49 = OUTLINED_FUNCTION_14_14();
+  v50 = OUTLINED_FUNCTION_35_2(v49);
+  if (OUTLINED_FUNCTION_8_26(v50))
   {
-    v39 = v21;
+    v52 = v21;
   }
 
   else
   {
-    v39 = v21 & 0xFFFFFFFE;
+    v52 = v21 & 0xFFFFFFFE;
   }
 
-  if (v39)
+  if (v52)
   {
-    v40 = BWPortTypeToDisplayString(self->_portType, v38);
-    v47 = 136315394;
-    v48 = "[BWFigVideoCaptureStream sourceNodeShouldDiscardStillImageSampleBuffer:sensorRawOutput:]";
-    v49 = 2114;
-    *v50 = v40;
+    v53 = BWPortTypeToDisplayString(self->_portType, v51);
+    v60 = 136315394;
+    v61 = "[BWFigVideoCaptureStream sourceNodeShouldDiscardStillImageSampleBuffer:sensorRawOutput:]";
+    v62 = 2114;
+    *v63 = v53;
     OUTLINED_FUNCTION_5_29();
     OUTLINED_FUNCTION_13();
     _os_log_send_and_compose_impl();
@@ -3678,7 +3677,7 @@ LABEL_6:
   return v18;
 }
 
-- (uint64_t)_addBracketecCaptureSequenceNumberToMetadataIfNeededForStillImageSampleBuffer:(uint64_t)result
+- (id)_addBracketecCaptureSequenceNumberToMetadataIfNeededForStillImageSampleBuffer:(id *)result
 {
   if (!result)
   {
@@ -3686,16 +3685,16 @@ LABEL_6:
   }
 
   v3 = result;
-  result = [*(result + 520) captureType];
+  result = [result[65] captureType];
   if (result != 2)
   {
     return result;
   }
 
   v4 = CMGetAttachment(a2, *off_1E798A3C8, 0);
-  if (([*(v3 + 520) captureFlags] & 8) == 0)
+  if (([v3[65] captureFlags] & 8) == 0)
   {
-    result = [objc_msgSend(*(v3 + 520) "unifiedBracketedCaptureParams")];
+    result = [objc_msgSend(v3[65] "unifiedBracketedCaptureParams")];
     if (!result)
     {
       return result;
@@ -3727,11 +3726,13 @@ LABEL_9:
     return 0;
   }
 
-  v8 = [*(self + 32) isEqualToString:{objc_msgSend(*(self + 512), "masterPortType")}];
+  v8 = *(self + 32);
+  [*(self + 512) masterPortType];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
   captureType = [*(self + 520) captureType];
   captureFlags = [*(self + 520) captureFlags];
-  v11 = CMGetAttachment(a2, *off_1E798A3C8, 0);
-  v12 = v11;
+  v12 = CMGetAttachment(a2, *off_1E798A3C8, 0);
+  v13 = v12;
   if (error)
   {
     goto LABEL_3;
@@ -3741,13 +3742,13 @@ LABEL_9:
   {
     if ((captureFlags & 8) != 0)
     {
-      if (([objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B150), "BOOLValue"}] & 1) == 0)
+      if (([objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B150), "BOOLValue"}] & 1) == 0)
       {
         goto LABEL_9;
       }
     }
 
-    else if ([objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B5C8), "BOOLValue"}])
+    else if ([objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B5C8), "BOOLValue"}])
     {
       goto LABEL_9;
     }
@@ -3757,46 +3758,46 @@ LABEL_3:
   }
 
 LABEL_9:
-  LODWORD(v86) = buffer;
+  LODWORD(v88) = buffer;
   os_unfair_lock_lock((self + 504));
-  v13 = *(self + 616);
-  if (!v13)
+  v14 = *(self + 616);
+  if (!v14)
   {
     os_unfair_lock_unlock((self + 504));
     return 4294954516;
   }
 
   FrameworkRadarComponent = captureFlags;
-  HIDWORD(v87) = captureType;
-  v14 = *(self + 620);
-  HIDWORD(v86) = v8;
-  LODWORD(v87) = v14 + 1;
-  *(self + 620) = v14 + 1;
+  HIDWORD(v89) = captureType;
+  v15 = *(self + 620);
+  HIDWORD(v88) = isEqualToString;
+  LODWORD(v89) = v15 + 1;
+  *(self + 620) = v15 + 1;
   os_unfair_lock_unlock((self + 504));
   if (a2)
   {
-    v94 = 0;
-    v15 = [*(self + 520) captureFrameInfoForFrame:a2];
-    if (v15)
+    v96 = 0;
+    v16 = [*(self + 520) captureFrameInfoForFrame:a2];
+    if (v16)
     {
-      if ([objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B5E8), "BOOLValue"}])
+      if ([objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B5E8), "BOOLValue"}])
       {
-        sifrFlags = [v15 sifrFlags];
+        sifrFlags = [v16 sifrFlags];
       }
 
       else
       {
-        sifrFlags = [v15 mainFlags];
+        sifrFlags = [v16 mainFlags];
       }
 
       sifrFlags2 = sifrFlags;
-      v94 = sifrFlags;
+      v96 = sifrFlags;
       if (!sifrFlags)
       {
-        if ([*(self + 32) isEqualToString:*off_1E798A0E8])
+        if (objc_msgSend_isEqualToString_(*(self + 32)))
         {
-          sifrFlags2 = [v15 sifrFlags];
-          v94 = sifrFlags2;
+          sifrFlags2 = [v16 sifrFlags];
+          v96 = sifrFlags2;
         }
 
         else
@@ -3806,16 +3807,16 @@ LABEL_9:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v15 isNoLongErrorRecoveryFrame] && objc_msgSend(*(self + 520), "isUnifiedBracketingErrorRecoveryFrame:isReferenceFrame:", a2, (sifrFlags2 >> 4) & 1))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v16 isNoLongErrorRecoveryFrame] && objc_msgSend(*(self + 520), "isUnifiedBracketingErrorRecoveryFrame:isReferenceFrame:", a2, (sifrFlags2 >> 4) & 1))
       {
-        v94 = sifrFlags2 & 0xFFFFFFFFFFFFFFEFLL;
+        v96 = sifrFlags2 & 0xFFFFFFFFFFFFFFEFLL;
       }
     }
 
     if (*(self + 624) >= 2)
     {
-      v19 = *off_1E798B760;
-      if ([v12 objectForKeyedSubscript:*off_1E798B760])
+      v20 = *off_1E798B760;
+      if ([v13 objectForKeyedSubscript:*off_1E798B760])
       {
         if (CMGetAttachment(a2, *off_1E798A3C0, 0))
         {
@@ -3824,39 +3825,39 @@ LABEL_9:
             *(self + 632) = objc_alloc_init(MEMORY[0x1E695DF90]);
           }
 
-          v20 = [objc_msgSend(v12 objectForKeyedSubscript:{v19), "intValue"}];
-          v21 = *off_1E798A470;
-          v22 = CMGetAttachment(a2, *off_1E798A470, 0);
-          if (v22)
+          v21 = [objc_msgSend(v13 objectForKeyedSubscript:{v20), "intValue"}];
+          v22 = *off_1E798A470;
+          v23 = CMGetAttachment(a2, *off_1E798A470, 0);
+          if (v23)
           {
-            v23 = v22;
-            if ([objc_msgSend(objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B5F0), "objectForKeyedSubscript:", *off_1E798B5F8), "BOOLValue"}])
+            v24 = v23;
+            if ([objc_msgSend(objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B5F0), "objectForKeyedSubscript:", *off_1E798B5F8), "BOOLValue"}])
             {
-              v24 = (v20 - 1);
+              v25 = (v21 - 1);
             }
 
             else
             {
-              v24 = (v20 + 1);
+              v25 = (v21 + 1);
             }
 
-            [*(self + 632) setObject:v23 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v24)}];
+            [*(self + 632) setObject:v24 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v25)}];
           }
 
           else
           {
-            v25 = [*(self + 632) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v20)}];
-            if (v25)
+            v26 = [*(self + 632) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v21)}];
+            if (v26)
             {
-              CMSetAttachment(a2, v21, v25, 1u);
+              CMSetAttachment(a2, v22, v26, 1u);
             }
 
             else
             {
-              LODWORD(v88) = 0;
-              BYTE4(v90) = 0;
+              LODWORD(v90) = 0;
+              BYTE4(v92) = 0;
               os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              HIDWORD(v84) = 0;
+              HIDWORD(v86) = 0;
               os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
               OUTLINED_FUNCTION_1_4();
               fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -3868,38 +3869,38 @@ LABEL_9:
 
     if (([*(self + 520) referenceFrameIndex] & 0x80000000) != 0)
     {
-      v26 = HIDWORD(v86);
+      v27 = HIDWORD(v88);
       if ([*(self + 512) timeMachineReferenceFrameBracketedCaptureSequenceNumber] < 1)
       {
-        v27 = 0;
+        v28 = 0;
 LABEL_46:
-        v29 = v14 + 1;
-        BWAddStillImageCaptureFrameMetadataToSampleBuffer(a2, *(self + 520), v27, &v94);
-        v30 = [objc_msgSend(*(self + 512) "captureStreamSettings")];
+        v30 = v15 + 1;
+        BWAddStillImageCaptureFrameMetadataToSampleBuffer(a2, *(self + 520), v28, &v96);
+        v31 = [objc_msgSend(*(self + 512) "captureStreamSettings")];
         if (*(self + 496))
         {
-          v31 = *(self + 580) | (v30 > 1);
+          v32 = *(self + 580) | (v31 > 1);
         }
 
         else
         {
-          v31 = 0;
+          v32 = 0;
         }
 
-        memset(&v91, 0, sizeof(v91));
-        PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(&v91, a2);
-        if ((v31 & v26 & 1) == 0)
+        memset(&v93, 0, sizeof(v93));
+        PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(&v93, a2);
+        if ((v32 & v27 & 1) == 0)
         {
           goto LABEL_76;
         }
 
-        PresentationTimeStamp = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B558), "BOOLValue"}];
+        PresentationTimeStamp = [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B558), "BOOLValue"}];
         if (PresentationTimeStamp)
         {
-          OUTLINED_FUNCTION_1_57(*(self + 496), v33, v34, v35, v36, v37, v38, v39, v82, v83, v84, FrameworkRadarComponent, v86, v87, v88, v89, v90, *&v91.value);
+          OUTLINED_FUNCTION_1_57(*(self + 496), v34, v35, v36, v37, v38, v39, v40, v84, v85, v86, FrameworkRadarComponent, v88, v89, v90, v91, v92, *&v93.value);
           OUTLINED_FUNCTION_17_13();
-          PresentationTimeStamp = [v41 captureStream:? didCapturePreBracketedEV0ImageWithPTS:?];
-          if ((v27 & 1) == 0)
+          PresentationTimeStamp = [v43 captureStream:? didCapturePreBracketedEV0ImageWithPTS:?];
+          if ((v28 & 1) == 0)
           {
             goto LABEL_71;
           }
@@ -3907,44 +3908,44 @@ LABEL_46:
           goto LABEL_70;
         }
 
-        if (HIDWORD(v87) == 3)
+        if (HIDWORD(v89) == 3)
         {
-          PresentationTimeStamp = [v12 objectForKeyedSubscript:*off_1E798A830];
+          PresentationTimeStamp = [v13 objectForKeyedSubscript:*off_1E798A830];
           if (PresentationTimeStamp)
           {
             PresentationTimeStamp = [PresentationTimeStamp doubleValue];
-            if (v40.n128_f64[0] == 0.0)
+            if (v41.n128_f64[0] == 0.0)
             {
-              v40 = OUTLINED_FUNCTION_21_12(PresentationTimeStamp, v33, v34, v35, v36, v37, v38, v39, v82, v83, v84, FrameworkRadarComponent, v86, v87, v88, v89, v90, v40, v91.value);
+              v41 = OUTLINED_FUNCTION_21_12(PresentationTimeStamp, v34, v35, v36, v37, v38, v39, v40, v41, v84, v85, v86, FrameworkRadarComponent, v88, v89, v90, v91, v92, v42, v93.value);
               goto LABEL_64;
             }
           }
         }
 
-        else if ((HIDWORD(v87) & 0xFFFFFFFE) == 4)
+        else if ((HIDWORD(v89) & 0xFFFFFFFE) == 4)
         {
-          PresentationTimeStamp = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B1B8), "intValue"}];
-          if (HIDWORD(v87) != 5 || (v42 = PresentationTimeStamp, PresentationTimeStamp = [*(self + 512) bracketedCaptureSequenceNumberForOISLongExposure], v42 != PresentationTimeStamp))
+          PresentationTimeStamp = [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B1B8), "intValue"}];
+          if (HIDWORD(v89) != 5 || (v44 = PresentationTimeStamp, PresentationTimeStamp = [*(self + 512) bracketedCaptureSequenceNumberForOISLongExposure], v44 != PresentationTimeStamp))
           {
             if ((FrameworkRadarComponent & 0x2000) == 0)
             {
-              v43 = [v12 mutableCopy];
-              OUTLINED_FUNCTION_1_57(v43, *MEMORY[0x1E695E480], v44, v45, v46, v47, v48, v49, v82, v83, v84, FrameworkRadarComponent, v86, v87, v88, v89, v90, *&v91.value);
-              v51 = CMTimeCopyAsDictionary(&time, v50);
-              [v43 setObject:v51 forKeyedSubscript:*off_1E798A420];
+              v45 = [v13 mutableCopy];
+              OUTLINED_FUNCTION_1_57(v45, *MEMORY[0x1E695E480], v46, v47, v48, v49, v50, v51, v84, v85, v86, FrameworkRadarComponent, v88, v89, v90, v91, v92, *&v93.value);
+              v53 = CMTimeCopyAsDictionary(&time, v52);
+              [v45 setObject:v53 forKeyedSubscript:*off_1E798A420];
 
-              v52 = *(self + 584);
-              if (!v52)
+              v54 = *(self + 584);
+              if (!v54)
               {
-                v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                *(self + 584) = v52;
+                v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                *(self + 584) = v54;
               }
 
-              [v52 addObject:v43];
+              [v54 addObject:v45];
 
-              v26 = HIDWORD(v86);
+              v27 = HIDWORD(v88);
 LABEL_64:
-              if ((v27 & 1) == 0)
+              if ((v28 & 1) == 0)
               {
                 goto LABEL_76;
               }
@@ -3954,23 +3955,23 @@ LABEL_64:
           }
         }
 
-        else if (HIDWORD(v87) == 2)
+        else if (HIDWORD(v89) == 2)
         {
-          PresentationTimeStamp = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B350), "BOOLValue"}];
+          PresentationTimeStamp = [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B350), "BOOLValue"}];
           if ((PresentationTimeStamp & 1) == 0)
           {
 LABEL_76:
-            if (v29 >= v13)
+            if (v30 >= v14)
             {
-              v56 = !*(self + 496) || HIDWORD(v87) == 11;
-              v57 = !v56;
-              if ((v57 & v26) == 1)
+              v58 = !*(self + 496) || HIDWORD(v89) == 11;
+              v59 = !v58;
+              if ((v59 & v27) == 1)
               {
-                time2.value = v91.value;
-                flags = v91.flags;
-                time2.timescale = v91.timescale;
-                epoch = v91.epoch;
-                if (v31)
+                time2.value = v93.value;
+                flags = v93.flags;
+                time2.timescale = v93.timescale;
+                epoch = v93.epoch;
+                if (v32)
                 {
                   if (([*(self + 512) captureFlags] & 0x2000) != 0)
                   {
@@ -3982,23 +3983,23 @@ LABEL_76:
                     else
                     {
                       FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-                      HIDWORD(v90) = 0;
-                      BYTE3(v90) = 0;
-                      v60 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                      os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT);
+                      HIDWORD(v92) = 0;
+                      BYTE3(v92) = 0;
+                      v62 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                      os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT);
                       fig_log_call_emit_and_clean_up_after_send_and_compose();
                       LOWORD(time.value) = 0;
-                      v65 = _os_log_send_and_compose_impl();
-                      v83 = 0;
-                      FigCapturePleaseFileRadar(FrameworkRadarComponent, v65, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Base/BWFigVideoCaptureStream.m", 3279, @"LastShownDate:BWFigVideoCaptureStream.m:3279", @"LastShownBuild:BWFigVideoCaptureStream.m:3279", 0);
-                      free(v65);
-                      v26 = HIDWORD(v86);
+                      v67 = _os_log_send_and_compose_impl();
+                      v85 = 0;
+                      FigCapturePleaseFileRadar(FrameworkRadarComponent, v67, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Base/BWFigVideoCaptureStream.m", 3279, @"LastShownDate:BWFigVideoCaptureStream.m:3279", @"LastShownBuild:BWFigVideoCaptureStream.m:3279", 0);
+                      free(v67);
+                      v27 = HIDWORD(v88);
                     }
 
                     [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(*(self + 512), "timeMachineReferenceFrameBracketedCaptureSequenceNumber")}];
                   }
 
-                  else if (HIDWORD(v87) == 3)
+                  else if (HIDWORD(v89) == 3)
                   {
                     if (*(self + 604))
                     {
@@ -4006,98 +4007,98 @@ LABEL_76:
                     }
                   }
 
-                  else if ((HIDWORD(v87) & 0xFFFFFFFE) == 4)
+                  else if ((HIDWORD(v89) & 0xFFFFFFFE) == 4)
                   {
-                    LODWORD(v88) = -1;
-                    if (FigCaptureReferenceFrameSelection(*(self + 584), &v88) || (v61 = v88, (v88 & 0x80000000) != 0) || [*(self + 584) count] <= v61)
+                    LODWORD(v90) = -1;
+                    if (FigCaptureReferenceFrameSelection(*(self + 584), &v90) || (v63 = v90, (v90 & 0x80000000) != 0) || [*(self + 584) count] <= v63)
                     {
-                      v62 = [*(self + 584) count] - 1;
-                      LODWORD(v88) = v62;
+                      v64 = [*(self + 584) count] - 1;
+                      LODWORD(v90) = v64;
                     }
 
                     else
                     {
-                      v62 = v88;
+                      v64 = v90;
                     }
 
-                    v64 = [*(self + 584) objectAtIndexedSubscript:v62];
-                    CMTimeMakeFromDictionary(&time, [v64 objectForKeyedSubscript:*off_1E798A420]);
+                    v66 = [*(self + 584) objectAtIndexedSubscript:v64];
+                    CMTimeMakeFromDictionary(&time, [v66 objectForKeyedSubscript:*off_1E798A420]);
                     time2.value = time.value;
                     flags = time.flags;
                     time2.timescale = time.timescale;
                     epoch = time.epoch;
-                    [v64 objectForKeyedSubscript:*off_1E798B1B8];
+                    [v66 objectForKeyedSubscript:*off_1E798B1B8];
                   }
                 }
 
-                *(self + 532) = v91;
-                *(self + 528) = HIDWORD(v87);
+                *(self + 532) = v93;
+                *(self + 528) = HIDWORD(v89);
                 time.value = time2.value;
                 time.timescale = time2.timescale;
                 time.flags = flags;
                 time.epoch = epoch;
                 OUTLINED_FUNCTION_17_13();
-                PresentationTimeStamp = [v66 captureStream:? didCaptureReferenceFrameWithPTS:? referenceFrameBracketedCaptureSequenceNumber:?];
-                v29 = v87;
+                PresentationTimeStamp = [v68 captureStream:? didCaptureReferenceFrameWithPTS:? referenceFrameBracketedCaptureSequenceNumber:?];
+                v30 = v89;
               }
             }
 
-            v67 = (self + 556);
-            if ((*(self + 568) & 1) == 0 || (OUTLINED_FUNCTION_1_57(PresentationTimeStamp, v33, v34, v35, v36, v37, v38, v39, v82, v83, v84, FrameworkRadarComponent, v86, v87, v88, v89, v90, *&v91.value), *&time2.value = *v67, time2.epoch = *(self + 572), CMTimeCompare(&time, &time2) >= 1))
+            v69 = (self + 556);
+            if ((*(self + 568) & 1) == 0 || (OUTLINED_FUNCTION_1_57(PresentationTimeStamp, v34, v35, v36, v37, v38, v39, v40, v84, v85, v86, FrameworkRadarComponent, v88, v89, v90, v91, v92, *&v93.value), *&time2.value = *v69, time2.epoch = *(self + 572), CMTimeCompare(&time, &time2) >= 1))
             {
-              *v67 = *&v91.value;
-              *(self + 572) = v91.epoch;
+              *v69 = *&v93.value;
+              *(self + 572) = v93.epoch;
             }
 
             [*(self + 520) addAdaptiveBracketingMetadataIfNeededForFrame:a2];
             [OUTLINED_FUNCTION_11_23() captureStream:? willEmitStillImageSampleBuffer:? fromTimeMachine:?];
             if (error)
             {
-              v68 = *(self + 672);
-              if (v68)
+              v70 = *(self + 672);
+              if (v70)
               {
-                (*(v68 + 16))(v68, a2);
+                (*(v70 + 16))(v70, a2);
               }
 
-              v17 = 0;
+              v18 = 0;
             }
 
             else
             {
-              v69 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798A538), "intValue"}];
-              if (v69 >= 1)
+              v71 = [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798A538), "intValue"}];
+              if (v71 >= 1)
               {
-                [*(self + 520) setAdaptiveBracketingLastFramePTS:{&time, OUTLINED_FUNCTION_1_57(v69, v70, v71, v72, v73, v74, v75, v76, v82, v83, v84, FrameworkRadarComponent, v86, v87, v88, v89, v90, *&v91.value).n128_f64[0]}];
+                [*(self + 520) setAdaptiveBracketingLastFramePTS:{&time, OUTLINED_FUNCTION_1_57(v71, v72, v73, v74, v75, v76, v77, v78, v84, v85, v86, FrameworkRadarComponent, v88, v89, v90, v91, v92, *&v93.value).n128_f64[0]}];
               }
 
               fvcs_removeSampleBufferPixelBufferMetadata(a2);
-              v17 = figVideoCaptureStream_blackenFrameIfNecessary(self, a2);
+              v18 = figVideoCaptureStream_blackenFrameIfNecessary(self, a2);
             }
 
             goto LABEL_113;
           }
 
 LABEL_70:
-          *&time.value = OUTLINED_FUNCTION_21_12(PresentationTimeStamp, v33, v34, v35, v36, v37, v38, v39, v82, v83, v84, FrameworkRadarComponent, v86, v87, v88, v89, v90, v40, v91.value);
-          time.epoch = v53;
+          *&time.value = OUTLINED_FUNCTION_21_12(PresentationTimeStamp, v34, v35, v36, v37, v38, v39, v40, v41, v84, v85, v86, FrameworkRadarComponent, v88, v89, v90, v91, v92, v42, v93.value);
+          time.epoch = v55;
           OUTLINED_FUNCTION_17_13();
-          PresentationTimeStamp = [v54 captureStream:? didCaptureReferenceFrameWithPTS:? referenceFrameBracketedCaptureSequenceNumber:?];
+          PresentationTimeStamp = [v56 captureStream:? didCaptureReferenceFrameWithPTS:? referenceFrameBracketedCaptureSequenceNumber:?];
           goto LABEL_71;
         }
 
-        if (!v27)
+        if (!v28)
         {
 LABEL_71:
-          if (HIDWORD(v87) == 10)
+          if (HIDWORD(v89) == 10)
           {
             PresentationTimeStamp = [*(self + 512) deliverOriginalImage];
             if (PresentationTimeStamp)
             {
-              if ((FrameworkRadarComponent & 0x40000) != 0 && (v94 & 0x20) != 0)
+              if ((FrameworkRadarComponent & 0x40000) != 0 && (v96 & 0x20) != 0)
               {
-                OUTLINED_FUNCTION_1_57(*(self + 496), v33, v34, v35, v36, v37, v38, v39, v82, v83, v84, FrameworkRadarComponent, v86, v87, v88, v89, v90, *&v91.value);
+                OUTLINED_FUNCTION_1_57(*(self + 496), v34, v35, v36, v37, v38, v39, v40, v84, v85, v86, FrameworkRadarComponent, v88, v89, v90, v91, v92, *&v93.value);
                 OUTLINED_FUNCTION_17_13();
-                PresentationTimeStamp = [v55 captureStream:? didCapturePreBracketedEV0ImageWithPTS:?];
+                PresentationTimeStamp = [v57 captureStream:? didCapturePreBracketedEV0ImageWithPTS:?];
               }
             }
           }
@@ -4108,44 +4109,44 @@ LABEL_71:
         goto LABEL_70;
       }
 
-      v28 = v14 == [*(self + 512) timeMachineReferenceFrameBracketedCaptureSequenceNumber] - 1;
+      v29 = v15 == [*(self + 512) timeMachineReferenceFrameBracketedCaptureSequenceNumber] - 1;
     }
 
     else
     {
-      v26 = HIDWORD(v86);
-      if (v15)
+      v27 = HIDWORD(v88);
+      if (v16)
       {
-        v27 = (v94 >> 4) & 1;
+        v28 = (v96 >> 4) & 1;
         goto LABEL_46;
       }
 
-      v28 = v14 == [*(self + 520) referenceFrameIndex];
+      v29 = v15 == [*(self + 520) referenceFrameIndex];
     }
 
-    v27 = v28;
+    v28 = v29;
     goto LABEL_46;
   }
 
-  v17 = 4294954516;
-  v26 = v8;
-  v29 = v14 + 1;
+  v18 = 4294954516;
+  v27 = isEqualToString;
+  v30 = v15 + 1;
 LABEL_113:
-  if (v29 >= v13)
+  if (v30 >= v14)
   {
-    v78 = *(self + 520);
+    v80 = *(self + 520);
     [(BWFigVideoCaptureStream *)self _resetStillImageCaptureState];
     time = *(self + 556);
     OUTLINED_FUNCTION_17_13();
-    [v79 captureStream:? didCompleteStillImageCaptureWithPTS:? error:?];
-    if (a2 && [v78 reachedEndOfAdaptiveBracketing])
+    [v81 captureStream:? didCompleteStillImageCaptureWithPTS:? error:?];
+    if (a2 && [v80 reachedEndOfAdaptiveBracketing])
     {
-      if (v26)
+      if (v27)
       {
-        v80 = *(self + 496);
-        if (v78)
+        v82 = *(self + 496);
+        if (v80)
         {
-          [v78 adaptiveBracketingLastFramePTS];
+          objc_msgSend_adaptiveBracketingLastFramePTS(v80);
         }
 
         else
@@ -4153,19 +4154,19 @@ LABEL_113:
           memset(&time, 0, sizeof(time));
         }
 
-        [v80 captureStream:self didCaptureReferenceFrameWithPTS:&time referenceFrameBracketedCaptureSequenceNumber:0];
+        [v82 captureStream:self didCaptureReferenceFrameWithPTS:&time referenceFrameBracketedCaptureSequenceNumber:0];
       }
 
       CMSetAttachment(a2, *off_1E798D2D0, MEMORY[0x1E695E118], 1u);
     }
 
-    if (![v78 adaptiveBracketingParameters] || objc_msgSend(v78, "reachedEndOfAdaptiveBracketing"))
+    if (![v80 adaptiveBracketingParameters] || objc_msgSend(v80, "reachedEndOfAdaptiveBracketing"))
     {
       [*(self + 496) captureStreamDidCompleteStillImageCapture:self];
     }
   }
 
-  return v17;
+  return v18;
 }
 
 - (void)_prepareForStillImageCaptureWithStillImageSettings:(char)settings fromCMTimeMachine:
@@ -4193,12 +4194,12 @@ LABEL_113:
   [(BWFigVideoCaptureStream *)self _resetStillImageCaptureState];
 }
 
-- (uint64_t)_updateSuspendStateForInfraredDepthStream
+- (id)_updateSuspendStateForInfraredDepthStream
 {
   if (result)
   {
     v1 = result;
-    v2 = (*(result + 768) == 0x7FFFFFFF) & ([objc_msgSend(*(result + 8) getPropertyIfSupported:*off_1E798C1A8 error:{0), "BOOLValue"}] ^ 1);
+    v2 = (*(result + 192) == 0x7FFFFFFF) & ([objc_msgSend(result[1] getPropertyIfSupported:*off_1E798C1A8 error:{0), "BOOLValue"}] ^ 1);
 
     return [v1 setSuspended:v2];
   }
@@ -4206,13 +4207,13 @@ LABEL_113:
   return result;
 }
 
-- (uint64_t)_setHighlightRecoveryEnabled:(uint64_t)result
+- (id)_setHighlightRecoveryEnabled:(id *)result
 {
   if (result)
   {
     v2 = a2;
     v3 = result;
-    result = [*(result + 8) setPropertyIfSupported:*off_1E798BEE0 value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", a2 & ~*(result + 811))}];
+    result = [result[1] setPropertyIfSupported:*off_1E798BEE0 value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", a2 & ~*(result + 811))}];
     if (!result)
     {
       *(v3 + 812) = v2;
@@ -4222,17 +4223,17 @@ LABEL_113:
   return result;
 }
 
-- (uint64_t)_configureKeypointDetection
+- (void)_configureKeypointDetection
 {
   if (result)
   {
     v1 = result;
-    if ((*(result + 808) & 1) == 0)
+    if ((result[101] & 1) == 0)
     {
-      v2 = *(result + 8);
-      if (*(v1 + 800))
+      v2 = result[1];
+      if (v1[100])
       {
-        v3 = *(v1 + 800);
+        v3 = v1[100];
       }
 
       else
@@ -4253,8 +4254,8 @@ LABEL_113:
 
 - (BOOL)needsRollingShutterCorrection
 {
-  v3 = [(NSString *)self->_portType isEqualToString:*off_1E798A0D8];
-  if (v3)
+  isEqualToString = objc_msgSend_isEqualToString_(self->_portType, a2, *off_1E798A0D8);
+  if (isEqualToString)
   {
     firstObject = [(NSDictionary *)self->_zoomFactorToNondisruptiveSwitchingFormatIndexSIFRNonBinned firstObject];
     v5 = [(NSDictionary *)self->_zoomFactorToNondisruptiveSwitchingFormatIndexSIFRBinned objectForKeyedSubscript:firstObject];
@@ -4268,7 +4269,7 @@ LABEL_113:
     v12.size = *(MEMORY[0x1E695F050] + 16);
     FigCFDictionaryGetCGRectIfPresent();
     IsNull = CGRectIsNull(v12);
-    LOBYTE(v3) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (firstObject && !IsNull)
     {
       videoCaptureDimensions = self->_videoCaptureDimensions;
@@ -4278,16 +4279,16 @@ LABEL_113:
       v9 = self->_baseZoomFactor * *&videoCaptureDimensions.width;
       [firstObject doubleValue];
       *&v10 = v10;
-      LOBYTE(v3) = vabds_f32(v9, *&v10) > 0.05;
+      LOBYTE(isEqualToString) = vabds_f32(v9, *&v10) > 0.05;
     }
   }
 
-  return v3;
+  return isEqualToString;
 }
 
-- (uint64_t)initWithCaptureStream:(_DWORD *)a1 parentDevice:(_DWORD *)a2 attributes:sensorIDDictionary:synchronizedStreamsGroup:applicationID:clientAuditToken:tccIdentity:mediaEnvironment:error:.cold.12(_DWORD *a1, _DWORD *a2)
+- (uint64_t)initWithCaptureStream:(uint64_t)a3 parentDevice:(uint64_t)a4 attributes:(uint64_t)a5 sensorIDDictionary:(uint64_t)a6 synchronizedStreamsGroup:(void *)a7 applicationID:(void *)a8 clientAuditToken:tccIdentity:mediaEnvironment:error:.cold.12(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844328, 0xFFFFCE14, "<<<< BWFigVideoCaptureStream >>>>", 0x164, v8, a7, a8, v12);
   *a2 = result;
   *a1 = result;
   return result;
@@ -4303,7 +4304,7 @@ LABEL_113:
   [(BWFigVideoCaptureStream *)a1 _updateSphereMode];
 }
 
-- (uint64_t)setFaceDetectionConfiguration:(void *)a1 .cold.1(void **a1)
+- (id)setFaceDetectionConfiguration:(void *)a1 .cold.1(void **a1)
 {
   OUTLINED_FUNCTION_23_7(a1);
   *v3 = [v2 copy];

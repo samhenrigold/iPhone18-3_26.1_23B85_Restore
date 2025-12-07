@@ -36,7 +36,7 @@
 
     else
     {
-      v15 = LogCategory_Unspecified();
+      v15 = LogCategory_Unspecified(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [(NSObject(NSObject_KVOBlock) *)v4 removeKVOBlockForToken:v15, v16, v17, v18, v19, v20, v21];
@@ -46,7 +46,7 @@
 
   else
   {
-    keypath = LogCategory_Unspecified();
+    keypath = LogCategory_Unspecified(0);
     if (os_log_type_enabled(keypath, OS_LOG_TYPE_ERROR))
     {
       [(NSObject(NSObject_KVOBlock) *)v4 removeKVOBlockForToken:keypath, v9, v10, v11, v12, v13, v14];
@@ -93,16 +93,16 @@
 
 - (void)removeKVOBlockForToken:()NSObject_KVOBlock .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, a2, a3, "No keyPath in removeKVOBlockForToken: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, a2, a3, "No keyPath in removeKVOBlockForToken: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)removeKVOBlockForToken:()NSObject_KVOBlock .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, a2, a3, "No context in removeKVOBlockForToken: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, a2, a3, "No context in removeKVOBlockForToken: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

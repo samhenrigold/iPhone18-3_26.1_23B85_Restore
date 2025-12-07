@@ -485,7 +485,7 @@
     processIdentifier = [v4 processIdentifier];
     *buf = 0u;
     v16 = 0u;
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
     v7 = objc_opt_class();
     *v14 = *buf;
     *&v14[16] = v16;
@@ -532,7 +532,7 @@
     processIdentifier = [v4 processIdentifier];
     *buf = 0u;
     v16 = 0u;
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
     v7 = objc_opt_class();
     *v14 = *buf;
     *&v14[16] = v16;

@@ -148,7 +148,7 @@
         memset(&v16, 0, sizeof(v16));
         if (v10)
         {
-          [v10 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v10);
         }
 
         v14 = v16;
@@ -165,7 +165,7 @@
 
     while (v6);
 
-    [(AVPlayerControllerTimeResolver *)self currentTime];
+    objc_msgSend_currentTime(self);
     if (v12 > v8 + -2.0)
     {
       return 1;
@@ -192,7 +192,7 @@
   playerController = [(AVPlayerControllerTimeResolver *)self playerController];
   [playerController maxTime];
   v5 = v4;
-  [(AVPlayerControllerTimeResolver *)self currentTime];
+  objc_msgSend_currentTime(self);
   v7 = v5 - v6;
 
   return v7;
@@ -203,7 +203,7 @@
   playerController = [(AVPlayerControllerTimeResolver *)self playerController];
   [playerController contentDuration];
   v5 = v4;
-  [(AVPlayerControllerTimeResolver *)self currentTime];
+  objc_msgSend_currentTime(self);
   v7 = v5 - v6;
 
   return v7;
@@ -218,7 +218,7 @@
 
 - (double)currentTimeWithinEndTimes
 {
-  [(AVPlayerControllerTimeResolver *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   v4 = v3;
   playerController = [(AVPlayerControllerTimeResolver *)self playerController];
   [playerController minTime];
@@ -258,7 +258,7 @@
 
 - (double)targetTime
 {
-  [(AVPlayerControllerTimeResolver *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   v4 = v3;
   playerController = [(AVPlayerControllerTimeResolver *)self playerController];
   [playerController seekToTime];

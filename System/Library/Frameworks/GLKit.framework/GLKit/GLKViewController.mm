@@ -15,9 +15,13 @@
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)loadView;
+- (void)setPaused:(BOOL)paused;
 - (void)setPreferredFramesPerSecond:(NSInteger)preferredFramesPerSecond;
 - (void)setView:(id)view;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 - (void)viewDidUnload;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation GLKViewController
@@ -177,19 +181,19 @@
   v5 = [screen displayLinkWithTarget:self->_displayLinkMessenger selector:sel_message];
   self->_displayLink = v5;
   [(CADisplayLink *)v5 setPaused:self->_displayLinkPaused];
-  [(CADisplayLink *)self->_displayLink setPreferredFramesPerSecond:self->_preferredFramesPerSecond];
-  LODWORD(screen) = glkLinkedOSVersion();
+  v6 = [(CADisplayLink *)self->_displayLink setPreferredFramesPerSecond:self->_preferredFramesPerSecond];
+  LODWORD(screen) = glkLinkedOSVersion(v6, v7);
   displayLink = self->_displayLink;
   currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
-  v8 = MEMORY[0x277CBE738];
+  v10 = MEMORY[0x277CBE738];
   if (screen <= 0x90000)
   {
-    v8 = MEMORY[0x277CBE640];
+    v10 = MEMORY[0x277CBE640];
   }
 
-  v9 = *v8;
+  v11 = *v10;
 
-  [(CADisplayLink *)displayLink addToRunLoop:currentRunLoop forMode:v9];
+  [(CADisplayLink *)displayLink addToRunLoop:currentRunLoop forMode:v11];
 }
 
 - (void)_updateAndDraw
@@ -306,6 +310,14 @@
   }
 }
 
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = GLKViewController;
+  [(GLKViewController *)&v5 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  [(GLKViewController *)self _updateScreenIfChanged];
+}
+
 - (void)setView:(id)view
 {
   if ([(GLKViewController *)self _existingView]!= view)
@@ -364,6 +376,25 @@
   [(GLKViewController *)self setScreen:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(GLKViewController *)self setPaused:0];
+  self->_viewIsVisible = 1;
+  v5.receiver = self;
+  v5.super_class = GLKViewController;
+  [(GLKViewController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = GLKViewController;
+  [(GLKViewController *)&v4 viewWillDisappear:disappear];
+  self->_viewIsVisible = 0;
+  [(GLKViewController *)self setPaused:1];
+}
+
 - (void)setPreferredFramesPerSecond:(NSInteger)preferredFramesPerSecond
 {
   if (preferredFramesPerSecond <= 1)
@@ -374,6 +405,47 @@
   self->_preferredFramesPerSecond = preferredFramesPerSecond;
   [(CADisplayLink *)self->_displayLink setPreferredFramesPerSecond:?];
   self->_framesPerSecond = self->_preferredFramesPerSecond;
+}
+
+- (void)setPaused:(BOOL)paused
+{
+  self->_displayLinkPaused = paused;
+  if (self->_displayLink)
+  {
+    v3 = paused;
+    if (!self->_firstResumeOccurred && !paused)
+    {
+      self->_timeSinceFirstResumeStartTime = CACurrentMediaTime();
+      self->_firstResumeOccurred = 1;
+    }
+
+    if (!self->_lastResumeOccurred && !v3)
+    {
+      self->_timeSinceLastResumeStartTime = CACurrentMediaTime();
+      self->_lastResumeOccurred = 1;
+    }
+
+    if (v3)
+    {
+      self->_lastResumeOccurred = 0;
+      self->_lastUpdateOccurred = 0;
+      self->_lastDrawOccurred = 0;
+    }
+
+    if (self->_delegate && (objc_opt_respondsToSelector() & 1) != 0)
+    {
+      [(GLKViewControllerDelegate *)self->_delegate glkViewController:self willPause:v3];
+    }
+
+    if (v3)
+    {
+      [-[GLKViewController _existingView](self "_existingView")];
+    }
+
+    displayLink = self->_displayLink;
+
+    [(CADisplayLink *)displayLink setPaused:v3];
+  }
 }
 
 - (NSTimeInterval)timeSinceFirstResume

@@ -131,15 +131,13 @@ LABEL_10:
 
 - (void)performOperationWithMappedAlarms:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 alarmID];
-  v7 = 134218242;
-  v8 = a2;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_244378000, a3, OS_LOG_TYPE_ERROR, "Operation (%ld) didn't find alarm %@!", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218242;
+  v7 = a2;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_244378000, a3, OS_LOG_TYPE_ERROR, "Operation (%ld) didn't find alarm %@!", &v6, 0x16u);
 }
 
 @end

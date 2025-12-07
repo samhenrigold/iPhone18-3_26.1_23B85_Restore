@@ -42,102 +42,102 @@
 - (id)origins
 {
   WebKit::StorageTracker::tracker(self, a2);
-  WebKit::StorageTracker::origins(v2, &v19);
-  v3 = objc_alloc(MEMORY[0x1E695DF70]);
-  v5 = [v3 initWithCapacity:v21];
-  if (v21)
+  WebKit::StorageTracker::origins(v2, v3, &v20);
+  v4 = objc_alloc(MEMORY[0x1E695DF70]);
+  v6 = [v4 initWithCapacity:v22];
+  if (v22)
   {
-    v6 = v19;
-    v7 = 32 * v21;
+    v7 = v20;
+    v8 = 32 * v22;
     while (1)
     {
-      v8 = [WebSecurityOrigin alloc];
-      WebCore::SecurityOriginData::securityOrigin(&v22, v6);
-      v9 = [(WebSecurityOrigin *)v8 _initWithWebCoreSecurityOrigin:v22];
-      v10 = v22;
-      v22 = 0;
-      if (v10)
+      v9 = [WebSecurityOrigin alloc];
+      WebCore::SecurityOriginData::securityOrigin(&v23, v7);
+      v10 = [(WebSecurityOrigin *)v9 _initWithWebCoreSecurityOrigin:v23];
+      v11 = v23;
+      v23 = 0;
+      if (v11)
       {
-        if (atomic_fetch_add(v10, 0xFFFFFFFF) == 1)
+        if (atomic_fetch_add(v11, 0xFFFFFFFF) == 1)
         {
           break;
         }
       }
 
-      if (v9)
+      if (v10)
       {
         goto LABEL_7;
       }
 
 LABEL_3:
-      v6 = (v6 + 32);
-      v7 -= 32;
-      if (!v7)
+      v7 = (v7 + 32);
+      v8 -= 32;
+      if (!v8)
       {
         goto LABEL_10;
       }
     }
 
-    atomic_store(1u, v10);
-    WebCore::SecurityOrigin::~SecurityOrigin(v10, v4);
-    WTF::fastFree(v11, v12);
-    if (!v9)
+    atomic_store(1u, v11);
+    WebCore::SecurityOrigin::~SecurityOrigin(v11, v5);
+    WTF::fastFree(v12, v13);
+    if (!v10)
     {
       goto LABEL_3;
     }
 
 LABEL_7:
-    [v5 addObject:v9];
+    [v6 addObject:v10];
 
     goto LABEL_3;
   }
 
 LABEL_10:
-  if (v5)
+  if (v6)
   {
-    v13 = v5;
+    v14 = v6;
   }
 
-  v14 = v19;
-  if (v21)
+  v15 = v20;
+  if (v22)
   {
-    v15 = 32 * v21;
+    v16 = 32 * v22;
     do
     {
-      if (!*(v14 + 24))
+      if (!*(v15 + 24))
       {
-        v16 = *(v14 + 1);
-        *(v14 + 1) = 0;
-        if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
-        {
-          WTF::StringImpl::destroy(v16, v4);
-        }
-
-        v17 = *v14;
-        *v14 = 0;
+        v17 = *(v15 + 1);
+        *(v15 + 1) = 0;
         if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v17, v4);
+          WTF::StringImpl::destroy(v17, v5);
+        }
+
+        v18 = *v15;
+        *v15 = 0;
+        if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        {
+          WTF::StringImpl::destroy(v18, v5);
         }
       }
 
-      *(v14 + 24) = -1;
-      v14 = (v14 + 32);
-      v15 -= 32;
+      *(v15 + 24) = -1;
+      v15 = (v15 + 32);
+      v16 -= 32;
     }
 
-    while (v15);
-    v14 = v19;
+    while (v16);
+    v15 = v20;
   }
 
-  if (v14)
+  if (v15)
   {
-    v19 = 0;
     v20 = 0;
-    WTF::fastFree(v14, v4);
+    v21 = 0;
+    WTF::fastFree(v15, v5);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)deleteAllOrigins

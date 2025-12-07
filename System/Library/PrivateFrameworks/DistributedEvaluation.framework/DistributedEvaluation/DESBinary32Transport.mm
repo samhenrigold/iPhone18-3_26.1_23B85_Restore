@@ -69,7 +69,6 @@
       v6 = 0;
       do
       {
-        v7 = p_datas->list[v6];
         PBDataWriterWriteFloatField();
         ++v6;
       }

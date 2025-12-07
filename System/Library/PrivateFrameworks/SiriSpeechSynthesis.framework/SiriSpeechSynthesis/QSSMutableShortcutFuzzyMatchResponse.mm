@@ -2,11 +2,18 @@
 - (QSSMutableShortcutFuzzyMatchResponse)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)return_code;
+- (void)setReturn_code:(int)return_code;
 - (void)setShortcut_score_pairs:(id)shortcut_score_pairs;
 - (void)setUtterance:(id)utterance;
 @end
 
 @implementation QSSMutableShortcutFuzzyMatchResponse
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (int)return_code
 {

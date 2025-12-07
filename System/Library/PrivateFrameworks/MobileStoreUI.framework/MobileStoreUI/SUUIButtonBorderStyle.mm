@@ -81,7 +81,7 @@
         v25 = namedStyle;
         if (namedStyle)
         {
-          if ([namedStyle isEqualToString:@"square"])
+          if (objc_msgSend_isEqualToString_(namedStyle))
           {
             *(v6 + 72) = 0u;
             *(v6 + 56) = 0u;
@@ -137,7 +137,7 @@
   bottomLeft = self->_cornerRadii.bottomLeft;
   topLeft = self->_cornerRadii.topLeft;
   topRight = self->_cornerRadii.topRight;
-  if ([(NSString *)self->_namedCornerStyle isEqualToString:@"circle-caps"])
+  if (objc_msgSend_isEqualToString_(self->_namedCornerStyle))
   {
     v12 = height * 0.5;
     topRight = floorf(v12);

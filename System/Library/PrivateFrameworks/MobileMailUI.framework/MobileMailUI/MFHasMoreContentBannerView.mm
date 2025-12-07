@@ -25,10 +25,10 @@
 
 - (MFHasMoreContentBannerView)initWithFrame:(CGRect)frame
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = MFHasMoreContentBannerView;
-  v3 = [(MFSuggestionBannerView *)&v18 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = MFHasMoreContentBannerView;
+  v3 = [(MFSuggestionBannerView *)&v17 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_opt_new();
@@ -36,27 +36,26 @@
     [v4 setActionButtonType:0];
     objc_initWeak(&location, v3);
     v5 = MEMORY[0x277D025D8];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __44__MFHasMoreContentBannerView_initWithFrame___block_invoke;
-    v15 = &unk_2781819F8;
-    objc_copyWeak(&v16, &location);
-    v6 = [v5 actionWithTitle:&stru_2826D1AD8 handler:&v12];
-    [v4 setPrimaryAction:{v6, v12, v13, v14, v15}];
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __44__MFHasMoreContentBannerView_initWithFrame___block_invoke;
+    v14 = &unk_2781819F8;
+    objc_copyWeak(&v15, &location);
+    v6 = [v5 actionWithTitle:&stru_2826D1AD8 handler:&v11];
+    [v4 setPrimaryAction:{v6, v11, v12, v13, v14}];
 
     mailInteractiveColor = [MEMORY[0x277D75348] mailInteractiveColor];
     v8 = [MFSuggestionBannerView bannerIconViewForSymbol:*MEMORY[0x277D259C8] tintColor:mailInteractiveColor];
-    v19[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     [v4 setImageSGViews:v9];
 
     [(MFSuggestionBannerView *)v3 setBanner:v4];
     [v4 reload];
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

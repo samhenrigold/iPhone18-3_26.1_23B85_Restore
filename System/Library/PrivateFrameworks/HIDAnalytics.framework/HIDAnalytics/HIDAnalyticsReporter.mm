@@ -71,7 +71,7 @@
 
 void __28__HIDAnalyticsReporter_init__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -81,32 +81,32 @@ void __28__HIDAnalyticsReporter_init__block_invoke(uint64_t a1)
     os_unfair_lock_unlock(v2 + 8);
     if (v3)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
-      v21 = v3;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v20 = v3;
       obj = v3;
-      v4 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v4 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v4)
       {
         v5 = v4;
-        v6 = *v24;
+        v6 = *v23;
         while (2)
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v24 != v6)
+            if (*v23 != v6)
             {
               objc_enumerationMutation(obj);
             }
 
-            v8 = *(*(&v23 + 1) + 8 * i);
+            v8 = *(*(&v22 + 1) + 8 * i);
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               v9 = [v8 name];
               *buf = 138412290;
-              v28 = v9;
+              v27 = v9;
               _os_log_impl(&dword_25092B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HIDAnalytics Timer Send event %@", buf, 0xCu);
             }
 
@@ -159,7 +159,7 @@ void __28__HIDAnalyticsReporter_init__block_invoke(uint64_t a1)
             }
           }
 
-          v5 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v5 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
           if (v5)
           {
             continue;
@@ -171,11 +171,9 @@ void __28__HIDAnalyticsReporter_init__block_invoke(uint64_t a1)
 
 LABEL_24:
 
-      v3 = v21;
+      v3 = v20;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -267,7 +265,7 @@ void __69__HIDAnalyticsReporter_createBucketData_fieldvalue_fieldDescription___b
 
 void __70__HIDAnalyticsReporter_logAnalyticsEvent_eventDescription_eventValue___block_invoke(uint64_t a1, void *a2)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -292,25 +290,23 @@ LABEL_10:
       }
 
       v9 = v8;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __70__HIDAnalyticsReporter_logAnalyticsEvent_eventDescription_eventValue___block_invoke_2;
-      v15[3] = &unk_2796A1E10;
-      v10 = &v16;
-      v16 = *(a1 + 48);
-      [v9 enumerateObjectsUsingBlock:v15];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __70__HIDAnalyticsReporter_logAnalyticsEvent_eventDescription_eventValue___block_invoke_2;
+      v12[3] = &unk_2796A1E10;
+      v10 = &v13;
+      v13 = *(a1 + 48);
+      [v9 enumerateObjectsUsingBlock:v12];
     }
 
     else
     {
-      v17[0] = @"FieldName";
-      v17[1] = @"FieldValue";
-      v18[0] = v5;
-      v18[1] = v7;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-      v12 = *(a1 + 48);
-      v10 = &v14;
-      v14 = v11;
+      v14[0] = @"FieldName";
+      v14[1] = @"FieldValue";
+      v15[0] = v5;
+      v15[1] = v7;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+      v11 = v10 = &v11;
       v9 = v11;
       AnalyticsSendEventLazy();
     }
@@ -319,16 +315,12 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HIDAnalyticsReporter_logAnalyticsEvent_eventDescription_eventValue___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v6 = v3;
-  v5 = v3;
+  v2 = v3;
   AnalyticsSendEventLazy();
 }
 
@@ -406,7 +398,7 @@ void __42__HIDAnalyticsReporter_logAnalyticsEvent___block_invoke(uint64_t a1)
 
 - (void)unregisterEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableSet *)self->_events removeObject:eventCopy];
@@ -416,15 +408,13 @@ void __42__HIDAnalyticsReporter_logAnalyticsEvent___block_invoke(uint64_t a1)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       name = [eventCopy name];
-      v7 = 138412290;
-      v8 = name;
-      _os_log_impl(&dword_25092B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HIDAnalytics Unregister Send event %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = name;
+      _os_log_impl(&dword_25092B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HIDAnalytics Unregister Send event %@", &v6, 0xCu);
     }
 
     [(HIDAnalyticsReporter *)self logAnalyticsEvent:eventCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -437,7 +427,7 @@ void __42__HIDAnalyticsReporter_logAnalyticsEvent___block_invoke(uint64_t a1)
 
 - (void)dispatchAnalyticsForEvent:(id)event
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock(&self->_lock);
   v5 = [(NSMutableSet *)self->_events containsObject:eventCopy];
@@ -447,15 +437,13 @@ void __42__HIDAnalyticsReporter_logAnalyticsEvent___block_invoke(uint64_t a1)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       name = [eventCopy name];
-      v8 = 138412290;
-      v9 = name;
-      _os_log_impl(&dword_25092B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HIDAnalytics Set Value Send event %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = name;
+      _os_log_impl(&dword_25092B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HIDAnalytics Set Value Send event %@", &v7, 0xCu);
     }
 
     [(HIDAnalyticsReporter *)self logAnalyticsEvent:eventCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

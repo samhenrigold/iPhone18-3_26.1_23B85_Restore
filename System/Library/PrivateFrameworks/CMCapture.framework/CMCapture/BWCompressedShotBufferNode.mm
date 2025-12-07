@@ -5,20 +5,20 @@
 - (BOOL)hasUncompressedEquivalentFreeBufferCount:(int)count;
 - (BWCompressedShotBufferNode)initWithNodeConfiguration:(id)configuration compressionInputDimensions:(id)dimensions;
 - (BWPixelBufferPool)_setupDecompressionPoolWithDimensions:(BWPixelBufferPool *)result;
-- (CMAttachmentBearerRef)_newSampleBufferFromDecompressionPoolWithCopyOfSampleBuffer:(CMAttachmentBearerRef)result;
+- (CMSampleBufferRef)_newCompressedSampleBufferFromUncompressedSampleBuffer:(CMSampleBufferRef)result;
 - (CMVideoFormatDescriptionRef)_copyCompressedFormatDescriptionForUncompressedSampleBuffer:(CMVideoFormatDescriptionRef)result;
 - (double)_cropRectForSampleBuffer:(uint64_t)buffer;
+- (id)_newSampleBufferFromDecompressionPoolWithCopyOfSampleBuffer:(id *)result;
 - (id)freeBufferCountIncreasedHandler;
 - (int)uncompressedEquivalentCapacity;
+- (opaqueCMSampleBuffer)_newDecompressedSampleBufferFromCompressedSampleBuffer:(uint64_t)buffer;
 - (uint64_t)_compressedByteCapacity;
-- (uint64_t)_copyRAWThumbnailsForSampleBufferIfNeeded:(uint64_t)result;
 - (uint64_t)_inUseCompressedBufferCount;
 - (uint64_t)_inUseCompressedBytes;
-- (uint64_t)_newCompressedSampleBufferFromUncompressedSampleBuffer:(uint64_t)result;
 - (uint64_t)_newCompressionSession;
-- (uint64_t)_newDecompressedSampleBufferFromCompressedSampleBuffer:(uint64_t)buffer;
 - (uint64_t)_shouldPassthroughSampleBuffer:(uint64_t)buffer compressionInputDimensions:(uint64_t)dimensions forInput:;
 - (uint64_t)_updateCompressedByteCapacity;
+- (unsigned)_copyRAWThumbnailsForSampleBufferIfNeeded:(unsigned __int8 *)result;
 - (void)_asyncOnDecompressionQueue:(uint64_t)queue;
 - (void)_compressionOptionsWithCropRect:(uint64_t)rect pixelFormat:(int)format;
 - (void)_cropRectForMetadata:(uint64_t)metadata dimensions:(void *)dimensions settings:;
@@ -478,7 +478,7 @@ LABEL_32:
   }
 
   os_unfair_lock_unlock(&self->_bufferTrackingLock);
-  v18 = [(BWCompressedShotBufferNode *)self _newSampleBufferFromDecompressionPoolWithCopyOfSampleBuffer:bufferCopy];
+  v18 = [(BWCompressedShotBufferNode *)&self->super.super.isa _newSampleBufferFromDecompressionPoolWithCopyOfSampleBuffer:bufferCopy];
 LABEL_16:
   v19 = v18;
   if (!v18)
@@ -550,7 +550,7 @@ void __58__BWCompressedShotBufferNode_renderSampleBuffer_forInput___block_invoke
   }
 }
 
-uint64_t __72__BWCompressedShotBufferNode_didReachEndOfDataForConfigurationID_input___block_invoke(uint64_t a1)
+void *__72__BWCompressedShotBufferNode_didReachEndOfDataForConfigurationID_input___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [*(*(a1 + 40) + 256) flush];
@@ -653,7 +653,8 @@ uint64_t __72__BWCompressedShotBufferNode_didReachEndOfDataForConfigurationID_in
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v21 + 1) + 8 * v17++) markEndOfLiveOutputForConfigurationID:*(a1 + 32)];
+        [*(*(&v21 + 1) + 8 * v17) markEndOfLiveOutputForConfigurationID:*(a1 + 32)];
+        v17 = v17 + 1;
       }
 
       while (v15 != v17);
@@ -908,7 +909,7 @@ void __72__BWCompressedShotBufferNode__copyRAWThumbnailsForSampleBufferIfNeeded_
   return v2;
 }
 
-- (uint64_t)_newCompressedSampleBufferFromUncompressedSampleBuffer:(uint64_t)result
+- (CMSampleBufferRef)_newCompressedSampleBufferFromUncompressedSampleBuffer:(CMSampleBufferRef)result
 {
   if (!result)
   {
@@ -916,8 +917,8 @@ void __72__BWCompressedShotBufferNode__copyRAWThumbnailsForSampleBufferIfNeeded_
   }
 
   v3 = result;
-  v49 = 0;
-  v50 = 0;
+  v57 = 0;
+  v58 = 0;
   ImageBuffer = CMSampleBufferGetImageBuffer(sbuf);
   v5 = MEMORY[0x1E695FF58];
   if (ImageBuffer)
@@ -937,7 +938,7 @@ void __72__BWCompressedShotBufferNode__copyRAWThumbnailsForSampleBufferIfNeeded_
       if (PixelFormatType != 1651925816 && PixelFormatType != 1652056888)
       {
         OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", sampleTimingArray, v44, sampleSizeArray, v46, v47, v48, v50, v52);
 LABEL_37:
         v30 = v7;
         goto LABEL_43;
@@ -950,10 +951,10 @@ LABEL_37:
         goto LABEL_37;
       }
 
-      if (!*(v3 + 216))
+      if (!*(v3 + 27))
       {
         _newCompressionSession = [(BWCompressedShotBufferNode *)v3 _newCompressionSession];
-        *(v3 + 216) = _newCompressionSession;
+        *(v3 + 27) = _newCompressionSession;
         if (!_newCompressionSession)
         {
           goto LABEL_37;
@@ -961,19 +962,19 @@ LABEL_37:
       }
 
       v12 = *MEMORY[0x1E6991870];
-      v47[0] = &unk_1F2242718;
+      v55[0] = &unk_1F2242718;
       v13 = *MEMORY[0x1E6991860];
-      v46[0] = v12;
-      v46[1] = v13;
+      v54[0] = v12;
+      v54[1] = v13;
       v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:2];
       v15 = *MEMORY[0x1E6991880];
-      v47[1] = v14;
-      v47[2] = &unk_1F2242718;
+      v55[1] = v14;
+      v55[2] = &unk_1F2242718;
       v16 = *MEMORY[0x1E6991868];
-      v46[2] = v15;
-      v46[3] = v16;
-      v47[3] = MEMORY[0x1E695E118];
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:4];
+      v54[2] = v15;
+      v54[3] = v16;
+      v55[3] = MEMORY[0x1E695E118];
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:4];
       if (CMPhotoCompressionSessionOpenEmptyContainer())
       {
         goto LABEL_37;
@@ -981,7 +982,7 @@ LABEL_37:
 
       Width = CVPixelBufferGetWidth(v7);
       Height = CVPixelBufferGetHeight(v7);
-      dimensions = [*(v3 + 264) dimensions];
+      dimensions = [*(v3 + 33) dimensions];
       v20 = dimensions;
       v21 = HIDWORD(dimensions);
       if (Width <= dimensions && Height <= SHIDWORD(dimensions))
@@ -990,12 +991,12 @@ LABEL_37:
       }
 
       v23 = dimensions;
-      v51.origin.x = [(BWCompressedShotBufferNode *)v3 _cropRectForSampleBuffer:?];
-      v24 = v51.size.width;
-      v25 = v51.size.height;
-      y = v51.origin.y;
-      x = v51.origin.x;
-      if (CGRectIsNull(v51))
+      v59.origin.x = [(BWCompressedShotBufferNode *)v3 _cropRectForSampleBuffer:?];
+      v24 = v59.size.width;
+      v25 = v59.size.height;
+      y = v59.origin.y;
+      x = v59.origin.x;
+      if (CGRectIsNull(v59))
       {
         goto LABEL_37;
       }
@@ -1033,7 +1034,7 @@ LABEL_40:
         }
 
         v30 = v29;
-        v45 = v11;
+        v53 = v11;
         v31 = *MEMORY[0x1E69661F8];
         v32 = CVBufferCopyAttachment(v7, *MEMORY[0x1E69661F8], 0);
         if (v32)
@@ -1072,7 +1073,7 @@ LABEL_40:
         CFRetain(v30);
         CFRelease(v7);
         v5 = MEMORY[0x1E695FF58];
-        LODWORD(v11) = v45;
+        LODWORD(v11) = v53;
       }
 
       OUTLINED_FUNCTION_2_20();
@@ -1087,17 +1088,17 @@ LABEL_40:
   }
 
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", sampleTimingArray, v44, sampleSizeArray, v46, v47, v48, v50, v52);
   v30 = 0;
 LABEL_43:
   if (*v5 == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822153558);
   }
 
-  if (v49)
+  if (v57)
   {
-    CFRelease(v49);
+    CFRelease(v57);
   }
 
   if (v30)
@@ -1105,7 +1106,7 @@ LABEL_43:
     CFRelease(v30);
   }
 
-  return v50;
+  return v58;
 }
 
 - (void)_decompressionWork
@@ -1115,7 +1116,7 @@ LABEL_43:
     if (!_FigIsCurrentDispatchQueue())
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v17, v18, v19, v21, v22, v23, v24);
     }
 
     v2 = OUTLINED_FUNCTION_10_7();
@@ -1156,7 +1157,7 @@ LABEL_43:
         if (v14 != DataLength)
         {
           OUTLINED_FUNCTION_0();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v17, v18, v19, v21, v22, v23, v24);
         }
 
         *(self + 164) = 0;
@@ -1167,12 +1168,12 @@ LABEL_43:
         kdebug_trace();
       }
 
-      v16 = *(self + 200);
+      v20 = *(self + 200);
       v15 = OUTLINED_FUNCTION_10_7();
       os_unfair_lock_unlock(v15);
-      if (v16)
+      if (v20)
       {
-        v16[2](v16);
+        v20[2](v20);
       }
     }
 
@@ -1185,39 +1186,40 @@ LABEL_43:
   }
 }
 
-- (CMAttachmentBearerRef)_newSampleBufferFromDecompressionPoolWithCopyOfSampleBuffer:(CMAttachmentBearerRef)result
+- (id)_newSampleBufferFromDecompressionPoolWithCopyOfSampleBuffer:(id *)result
 {
   if (result)
   {
     v3 = result;
     mach_absolute_time();
-    target = 0;
+    target[0] = 0;
     ImageBuffer = CMSampleBufferGetImageBuffer(a2);
-    newPixelBuffer = [*(v3 + 264) newPixelBuffer];
+    newPixelBuffer = [v3[33] newPixelBuffer];
     v6 = newPixelBuffer;
     if (!ImageBuffer)
     {
       OUTLINED_FUNCTION_0();
-      goto LABEL_50;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, "<<<< BWCompressedShotBufferNode >>>> Fig", "inputPixelBuffer", "bail", 0, "BWCompressedShotBufferNode.m", 1404);
+      goto LABEL_51;
     }
 
     if (!newPixelBuffer)
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
-      return target;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v49, v50, v51, v53, v55, target[0], target[1], v57);
+      return target[0];
     }
 
     PixelFormatType = CVPixelBufferGetPixelFormatType(ImageBuffer);
     v8 = CVPixelBufferGetPixelFormatType(v6);
     if (PixelFormatType != 1651925816 && PixelFormatType != 1652056888)
     {
-      goto LABEL_13;
+      goto LABEL_8;
     }
 
     if (v8 != 1651925816 && v8 != 1652056888)
     {
-      goto LABEL_13;
+      goto LABEL_8;
     }
 
     Width = CVPixelBufferGetWidth(ImageBuffer);
@@ -1228,28 +1230,28 @@ LABEL_43:
     v16 = *(MEMORY[0x1E695F050] + 8);
     v17 = *(MEMORY[0x1E695F050] + 16);
     v18 = *(MEMORY[0x1E695F050] + 24);
-    v47 = v13 | (v14 << 32);
-    v48 = Width | (Height << 32);
-    if (v48 != v47)
+    v52 = v13 | (v14 << 32);
+    v54 = Width | (Height << 32);
+    if (v54 != v52)
     {
       v19 = v14;
       if (Width > v13 || Height > v14)
       {
-        v42 = [(BWCompressedShotBufferNode *)v3 _cropRectForSampleBuffer:a2];
-        v15 = v42;
-        v16 = v43;
-        if (v44 > v13 || v45 > v19)
+        v43 = [(BWCompressedShotBufferNode *)v3 _cropRectForSampleBuffer:a2];
+        v15 = v43;
+        v16 = v44;
+        if (v45 > v13 || v46 > v19)
         {
-LABEL_13:
+LABEL_8:
           OUTLINED_FUNCTION_0();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_40:
           CFRelease(v6);
-          return target;
+          return target[0];
         }
 
-        v17 = v44;
-        v18 = v45;
+        v17 = v45;
+        v18 = v46;
       }
     }
 
@@ -1262,11 +1264,63 @@ LABEL_40:
     v25 = CVPixelBufferGetBaseAddress(v6);
     if (BytesPerRow == v23)
     {
-      v50.origin.x = OUTLINED_FUNCTION_1();
-      if (CGRectIsNull(v50))
+      v58.origin.x = OUTLINED_FUNCTION_1();
+      if (CGRectIsNull(v58))
       {
         memcpy(v25, BaseAddress, BytesPerRow * (v21 >> 32));
-        goto LABEL_31;
+LABEL_31:
+        CVPixelBufferUnlockBaseAddress(ImageBuffer, 1uLL);
+        CVPixelBufferUnlockBaseAddress(v6, 0);
+        CVBufferPropagateAttachments(ImageBuffer, v6);
+        v28 = *MEMORY[0x1E69661F8];
+        v29 = CVBufferCopyAttachment(ImageBuffer, *MEMORY[0x1E69661F8], 0);
+        CVBufferSetAttachment(v6, v28, v29, kCVAttachmentMode_ShouldNotPropagate);
+        if (v29)
+        {
+          CFRelease(v29);
+        }
+
+        CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(a2, v6, v3 + 35, target);
+        if (!CopyWithNewPixelBuffer)
+        {
+          [(BWCompressedShotBufferNode *)v3 _copyRAWThumbnailsForSampleBufferIfNeeded:?];
+          v60.origin.x = OUTLINED_FUNCTION_1();
+          if (!CGRectIsNull(v60))
+          {
+            v31 = BWCMSampleBufferCopyReattachAndReturnMutableMetadata(target[0]);
+            v32 = CMGetAttachment(target[0], @"StillSettings", 0);
+            if (*(v3 + 136) == 1)
+            {
+              if ([objc_msgSend(v32 "processingSettings")])
+              {
+                OUTLINED_FUNCTION_1();
+                FigCaptureMetadataUtilitiesUpdateISPSpatialMetadataForStillImageCrop(v33, v34);
+                OUTLINED_FUNCTION_1();
+                FigCFDictionarySetCGRect();
+              }
+            }
+
+            v35.n128_f64[0] = OUTLINED_FUNCTION_1();
+            FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v36, v37, v52, v35, v38, v39, v40, v41, v42, v17, v18);
+            FigCaptureMetadataUtilitiesUpdateMetadataForNewFinalDimensions(v31, v54, v52);
+          }
+
+          if (!v6)
+          {
+            return target[0];
+          }
+
+          goto LABEL_40;
+        }
+
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", qword_1EB58E238, "<<<< BWCompressedShotBufferNode >>>> Fig", "err == 0 ", "bail", 0, "BWCompressedShotBufferNode.m", 1472, CopyWithNewPixelBuffer);
+LABEL_51:
+        if (!v6)
+        {
+          return target[0];
+        }
+
+        goto LABEL_40;
       }
     }
 
@@ -1280,8 +1334,8 @@ LABEL_40:
       v26 = BytesPerRow;
     }
 
-    v51.origin.x = OUTLINED_FUNCTION_1();
-    if (CGRectIsNull(v51))
+    v59.origin.x = OUTLINED_FUNCTION_1();
+    if (CGRectIsNull(v59))
     {
       v27 = v21 >> 32;
       if (!v27)
@@ -1310,58 +1364,7 @@ LABEL_40:
     }
 
     while (v27);
-LABEL_31:
-    CVPixelBufferUnlockBaseAddress(ImageBuffer, 1uLL);
-    CVPixelBufferUnlockBaseAddress(v6, 0);
-    CVBufferPropagateAttachments(ImageBuffer, v6);
-    v28 = *MEMORY[0x1E69661F8];
-    v29 = CVBufferCopyAttachment(ImageBuffer, *MEMORY[0x1E69661F8], 0);
-    CVBufferSetAttachment(v6, v28, v29, kCVAttachmentMode_ShouldNotPropagate);
-    if (v29)
-    {
-      CFRelease(v29);
-    }
-
-    if (!BWCMSampleBufferCreateCopyWithNewPixelBuffer(a2, v6, (v3 + 280), &target))
-    {
-      [(BWCompressedShotBufferNode *)v3 _copyRAWThumbnailsForSampleBufferIfNeeded:?];
-      v52.origin.x = OUTLINED_FUNCTION_1();
-      if (!CGRectIsNull(v52))
-      {
-        v30 = BWCMSampleBufferCopyReattachAndReturnMutableMetadata(target);
-        v31 = CMGetAttachment(target, @"StillSettings", 0);
-        if (*(v3 + 136) == 1)
-        {
-          if ([objc_msgSend(v31 "processingSettings")])
-          {
-            OUTLINED_FUNCTION_1();
-            FigCaptureMetadataUtilitiesUpdateISPSpatialMetadataForStillImageCrop(v32, v33);
-            OUTLINED_FUNCTION_1();
-            FigCFDictionarySetCGRect();
-          }
-        }
-
-        v34 = OUTLINED_FUNCTION_1();
-        FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v35, v36, v47, v34, v37, v38, v39, v40, v41, v17, v18);
-        FigCaptureMetadataUtilitiesUpdateMetadataForNewFinalDimensions(v30, v48, v47);
-      }
-
-      if (!v6)
-      {
-        return target;
-      }
-
-      goto LABEL_40;
-    }
-
-LABEL_50:
-    FigDebugAssert3();
-    if (!v6)
-    {
-      return target;
-    }
-
-    goto LABEL_40;
+    goto LABEL_31;
   }
 
   return result;
@@ -1406,7 +1409,7 @@ LABEL_50:
 
   if (*v6 == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822153578);
   }
 
   if (_inUseCompressedBytes <= v5)
@@ -1452,7 +1455,7 @@ LABEL_50:
     if (a2 && (metadata >= 1 ? (v9 = SHIDWORD(metadata) <= 0) : (v9 = 1), !v9 && dimensions))
     {
       v12 = [objc_msgSend(dimensions "requestedSettings")];
-      FigCaptureMetadataUtilitiesGetValidBufferRect();
+      FigCaptureMetadataUtilitiesGetValidBufferRect(a2);
       OUTLINED_FUNCTION_11_1();
       if (*(self + 136) == 1 && [objc_msgSend(dimensions "processingSettings")] && v12 && v12 != 6)
       {
@@ -1473,7 +1476,7 @@ LABEL_50:
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 
@@ -1494,7 +1497,7 @@ LABEL_50:
   return result;
 }
 
-- (uint64_t)_copyRAWThumbnailsForSampleBufferIfNeeded:(uint64_t)result
+- (unsigned)_copyRAWThumbnailsForSampleBufferIfNeeded:(unsigned __int8 *)result
 {
   if (result)
   {
@@ -1503,7 +1506,7 @@ LABEL_50:
     v14[1] = 3221225472;
     v15 = __72__BWCompressedShotBufferNode__copyRAWThumbnailsForSampleBufferIfNeeded___block_invoke;
     v16 = &unk_1E798FEC8;
-    v4 = *(result + 288);
+    v4 = result[288];
     v17 = result;
     v18 = target;
     if (v4 == 1)
@@ -1514,7 +1517,7 @@ LABEL_50:
 
     v5 = CMGetAttachment(target, @"StillSettings", 0);
     result = [objc_msgSend(v5 "requestedSettings")];
-    if (*(v3 + 136) == 1)
+    if (v3[136] == 1)
     {
       v6 = result;
       result = [objc_msgSend(v5 "processingSettings")];
@@ -1692,7 +1695,7 @@ LABEL_5:
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v15 = OUTLINED_FUNCTION_17_0(v7, v8, v9, v10, v11, v12, v13, v14, v29, formatDescriptionOut, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, 0);
+      v15 = OUTLINED_FUNCTION_17_0(v7, v8, v9, v10, v11, v12, v13, v14, v29, formatDescriptionOut, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47);
       if (v15)
       {
         v16 = v15;
@@ -1712,7 +1715,7 @@ LABEL_5:
           }
 
           while (v16 != v18);
-          v16 = OUTLINED_FUNCTION_17_0(v19, v20, v21, v22, v23, v24, v25, v26, v30, formatDescriptionOut, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48);
+          v16 = OUTLINED_FUNCTION_17_0(v19, v20, v21, v22, v23, v24, v25, v26, v30, formatDescriptionOut, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47);
         }
 
         while (v16);
@@ -1752,7 +1755,7 @@ LABEL_5:
   return v2;
 }
 
-- (uint64_t)_newDecompressedSampleBufferFromCompressedSampleBuffer:(uint64_t)buffer
+- (opaqueCMSampleBuffer)_newDecompressedSampleBufferFromCompressedSampleBuffer:(uint64_t)buffer
 {
   if (!buffer)
   {
@@ -1765,14 +1768,14 @@ LABEL_5:
     OUTLINED_FUNCTION_16_2();
     if (v4)
     {
-      OUTLINED_FUNCTION_5_14();
+      OUTLINED_FUNCTION_5_14(822153569);
     }
 
     waitForAvailablePixelBuffer = [*(buffer + 264) waitForAvailablePixelBuffer];
     OUTLINED_FUNCTION_16_2();
     if (v4)
     {
-      OUTLINED_FUNCTION_5_14();
+      OUTLINED_FUNCTION_5_14(822153570);
     }
 
     if (dword_1EB58E240)
@@ -1787,7 +1790,7 @@ LABEL_5:
 
     if (v6 == 1)
     {
-      v14 = 0;
+      v14[0] = 0;
       v13 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1800,7 +1803,7 @@ LABEL_5:
   OUTLINED_FUNCTION_16_2();
   if (v4)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822153565);
   }
 
   v8 = *(buffer + 256);
@@ -1809,7 +1812,7 @@ LABEL_5:
     if (!*(buffer + 264) || (v8 = [[BWPhotoDecompressor alloc] initWithOutputPixelBufferPool:*(buffer + 264)], (*(buffer + 256) = v8) == 0))
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       return 0;
     }
   }
@@ -1818,7 +1821,7 @@ LABEL_5:
   OUTLINED_FUNCTION_16_2();
   if (v4)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822153566);
   }
 
   return v9;

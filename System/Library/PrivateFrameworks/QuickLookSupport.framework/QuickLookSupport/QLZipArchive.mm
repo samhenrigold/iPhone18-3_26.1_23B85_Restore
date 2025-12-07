@@ -83,52 +83,53 @@
 
 - (BOOL)_reopenWithError:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = archive_read_new();
   self->_archive = v5;
   if (v5)
   {
-    if (archive_read_support_filter_all() || archive_read_support_format_all())
+    support_filter_all = archive_read_support_filter_all();
+    if (support_filter_all || (support_filter_all = archive_read_support_format_all(), support_filter_all))
     {
-      v6 = _qlsLogHandle;
+      v9 = _qlsLogHandle;
       if (!_qlsLogHandle)
       {
-        QLSInitLogging();
-        v6 = _qlsLogHandle;
+        QLSInitLogging(support_filter_all, v8);
+        v9 = _qlsLogHandle;
       }
 
-      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_9;
       }
 
       url = self->_url;
-      v18 = 138412290;
-      v19 = url;
-      v8 = "Could not configure archive struct to unzip %@ #Conversion";
+      v25 = 138412290;
+      v26 = url;
+      v11 = "Could not configure archive struct to unzip %@ #Conversion";
     }
 
     else
     {
-      v14 = self->_url;
-      if (v14 && ([(NSURL *)v14 fileSystemRepresentation], archive_read_open_filename()))
+      v17 = self->_url;
+      if (v17 && ([(NSURL *)v17 fileSystemRepresentation], open_filename = archive_read_open_filename(), open_filename))
       {
-        v6 = _qlsLogHandle;
+        v9 = _qlsLogHandle;
         if (!_qlsLogHandle)
         {
-          QLSInitLogging();
-          v6 = _qlsLogHandle;
+          QLSInitLogging(open_filename, v19);
+          v9 = _qlsLogHandle;
         }
 
-        if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_9;
         }
 
-        v15 = self->_url;
-        v18 = 138412290;
-        v19 = v15;
-        v8 = "Could not unzip %@ #Conversion";
+        v20 = self->_url;
+        v25 = 138412290;
+        v26 = v20;
+        v11 = "Could not unzip %@ #Conversion";
       }
 
       else
@@ -141,31 +142,32 @@
 
         [(NSData *)data bytes];
         [(NSData *)self->_data length];
-        if (!archive_read_open_memory())
+        open_memory = archive_read_open_memory();
+        if (!open_memory)
         {
           return 1;
         }
 
-        v6 = _qlsLogHandle;
+        v9 = _qlsLogHandle;
         if (!_qlsLogHandle)
         {
-          QLSInitLogging();
-          v6 = _qlsLogHandle;
+          QLSInitLogging(open_memory, v23);
+          v9 = _qlsLogHandle;
         }
 
-        if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_9;
         }
 
-        v17 = self->_url;
-        v18 = 138412290;
-        v19 = v17;
-        v8 = "Could not unzip %@ #Conversion";
+        v24 = self->_url;
+        v25 = 138412290;
+        v26 = v24;
+        v11 = "Could not unzip %@ #Conversion";
       }
     }
 
-    _os_log_impl(&dword_2615AE000, v6, OS_LOG_TYPE_DEFAULT, v8, &v18, 0xCu);
+    _os_log_impl(&dword_2615AE000, v9, OS_LOG_TYPE_DEFAULT, v11, &v25, 0xCu);
 LABEL_9:
     if (error)
     {
@@ -178,19 +180,19 @@ LABEL_9:
     return result;
   }
 
-  v10 = _qlsLogHandle;
+  v13 = _qlsLogHandle;
   if (!_qlsLogHandle)
   {
-    QLSInitLogging();
-    v10 = _qlsLogHandle;
+    QLSInitLogging(0, v6);
+    v13 = _qlsLogHandle;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = self->_url;
-    v18 = 138412290;
-    v19 = v11;
-    _os_log_impl(&dword_2615AE000, v10, OS_LOG_TYPE_DEFAULT, "Could not create archive struct to unzip %@ #Conversion", &v18, 0xCu);
+    v14 = self->_url;
+    v25 = 138412290;
+    v26 = v14;
+    _os_log_impl(&dword_2615AE000, v13, OS_LOG_TYPE_DEFAULT, "Could not create archive struct to unzip %@ #Conversion", &v25, 0xCu);
   }
 
   if (!error)
@@ -199,7 +201,7 @@ LABEL_9:
   }
 
   libarchiveError = [(QLZipArchive *)self libarchiveError];
-  v13 = libarchiveError;
+  v16 = libarchiveError;
   result = 0;
   *error = libarchiveError;
   return result;
@@ -210,66 +212,67 @@ LABEL_9:
   v4 = MEMORY[0x28223BE20](self, a2, entry, error);
   v6 = v5;
   v7 = v4;
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (archive_entry_size_is_set())
   {
     v8 = archive_entry_size();
     v9 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:v8];
     [v9 setLength:v8];
     [v9 mutableBytes];
-    if (archive_read_data() < 1)
+    data = archive_read_data();
+    if (data < 1)
     {
-      v13 = _qlsLogHandle;
+      v15 = _qlsLogHandle;
       if (!_qlsLogHandle)
       {
-        QLSInitLogging();
-        v13 = _qlsLogHandle;
+        QLSInitLogging(data, v11);
+        v15 = _qlsLogHandle;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = v13;
-        v16 = 136315138;
-        v17 = archive_error_string();
-        _os_log_impl(&dword_2615AE000, v14, OS_LOG_TYPE_DEFAULT, "Error reading archive: %s #Conversion", &v16, 0xCu);
+        v16 = v15;
+        v18 = 136315138;
+        v19 = archive_error_string();
+        _os_log_impl(&dword_2615AE000, v16, OS_LOG_TYPE_DEFAULT, "Error reading archive: %s #Conversion", &v18, 0xCu);
       }
 
       if (v6)
       {
         [v7 libarchiveError];
-        *v6 = v10 = 0;
+        *v6 = v12 = 0;
       }
 
       else
       {
-        v10 = 0;
+        v12 = 0;
       }
     }
 
     else
     {
-      v10 = v9;
+      v12 = v9;
     }
   }
 
   else
   {
-    v10 = objc_alloc_init(MEMORY[0x277CBEB28]);
-    data = archive_read_data();
-    if (data)
+    v12 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    v13 = archive_read_data();
+    if (v13)
     {
-      v12 = data;
+      v14 = v13;
       do
       {
-        [v10 appendBytes:&v16 length:v12];
-        v12 = archive_read_data();
+        [v12 appendBytes:&v18 length:v14];
+        v14 = archive_read_data();
       }
 
-      while (v12);
+      while (v14);
     }
   }
 
-  return v10;
+  return v12;
 }
 
 - (void)enumerateEntriesWithHandler:(id)handler
@@ -360,7 +363,7 @@ LABEL_9:
 
 void __27__QLZipArchive_fileWrapper__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 url];
   v5 = v4;
@@ -437,30 +440,31 @@ LABEL_8:
 LABEL_13:
 
 LABEL_14:
-  v31 = 0;
-  v26 = [v3 readDataWithError:&v31];
-  v27 = v31;
-  if (v27 || ![v26 length])
+  v33 = 0;
+  v26 = [v3 readDataWithError:&v33];
+  v27 = v33;
+  v29 = v27;
+  if (v27 || (v27 = [v26 length]) == 0)
   {
-    v28 = _qlsLogHandle;
+    v30 = _qlsLogHandle;
     if (!_qlsLogHandle)
     {
-      QLSInitLogging();
-      v28 = _qlsLogHandle;
+      QLSInitLogging(v27, v28);
+      v30 = _qlsLogHandle;
     }
 
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = v27;
-      _os_log_impl(&dword_2615AE000, v28, OS_LOG_TYPE_ERROR, "Error while reading data: %@ #ZIPHandling", buf, 0xCu);
+      v35 = v29;
+      _os_log_impl(&dword_2615AE000, v30, OS_LOG_TYPE_ERROR, "Error while reading data: %@ #ZIPHandling", buf, 0xCu);
     }
   }
 
   else
   {
-    v29 = [v5 lastPathComponent];
-    v30 = [v10 addRegularFileWithContents:v26 preferredFilename:v29];
+    v31 = [v5 lastPathComponent];
+    v32 = [v10 addRegularFileWithContents:v26 preferredFilename:v31];
   }
 
 LABEL_22:

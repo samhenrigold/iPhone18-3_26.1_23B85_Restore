@@ -16,10 +16,12 @@
 - (void)_updateEnablePlanItems;
 - (void)prepare:(id)prepare;
 - (void)scrollViewDidEndDecelerating:(id)decelerating;
+- (void)selectRowAtIndexPath:(id)path animated:(BOOL)animated scrollPosition:(int64_t)position;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSEnableTableViewController
@@ -72,7 +74,7 @@
 
 - (TSEnableTableViewController)initWithEnablingPlanInfo:(id)info
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_FOR_TURN_ON_A_SIM_TITLE" value:&stru_28753DF48 table:@"Localizable"];
@@ -145,21 +147,21 @@ LABEL_6:
   planItem6 = [infoCopy planItem];
   userLabel = [planItem6 userLabel];
   label = [userLabel label];
-  v52 = [label length];
+  v51 = [label length];
 
-  if (v52)
+  if (v51)
   {
-    v53 = MEMORY[0x277CCACA8];
-    v54 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v55 = [v54 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_FOR_TURN_ON_A_SIM_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
+    v52 = MEMORY[0x277CCACA8];
+    v53 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v54 = [v53 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_FOR_TURN_ON_A_SIM_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
     planItem7 = [infoCopy planItem];
     [planItem7 userLabel];
     selfCopy3 = self;
-    v59 = v58 = infoCopy;
-    label2 = [v59 label];
-    v19 = [v53 stringWithFormat:v55, label2];
+    v58 = v57 = infoCopy;
+    label2 = [v58 label];
+    v19 = [v52 stringWithFormat:v54, label2];
 
-    infoCopy = v58;
+    infoCopy = v57;
     self = selfCopy3;
 
     v20 = MEMORY[0x277CCACA8];
@@ -174,42 +176,42 @@ LABEL_14:
 
   planItem8 = [infoCopy planItem];
   carrierName = [planItem8 carrierName];
-  v63 = [carrierName length];
+  v62 = [carrierName length];
 
-  if (v63)
+  if (v62)
   {
-    v64 = MEMORY[0x277CCACA8];
-    v65 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v66 = [v65 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_FOR_TURN_ON_A_SIM_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
+    v63 = MEMORY[0x277CCACA8];
+    v64 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v65 = [v64 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_FOR_TURN_ON_A_SIM_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
     planItem9 = [infoCopy planItem];
     [planItem9 carrierName];
     selfCopy4 = self;
-    v70 = v69 = infoCopy;
-    v19 = [v64 stringWithFormat:v66, v70];
+    v69 = v68 = infoCopy;
+    v19 = [v63 stringWithFormat:v65, v69];
 
-    infoCopy = v69;
+    infoCopy = v68;
     self = selfCopy4;
 
     v20 = MEMORY[0x277CCACA8];
     goto LABEL_14;
   }
 
-  v71 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v19 = [v71 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_FOR_TURN_ON_A_SIM_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
+  v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v19 = [v70 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_FOR_TURN_ON_A_SIM_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
 
   v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v72 = [v21 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_NO_CHANGE" value:&stru_28753DF48 table:@"Localizable"];
+  v71 = [v21 localizedStringForKey:@"CELLULAR_PLAN_ENABLEMENT_SELECTION_NO_CHANGE" value:&stru_28753DF48 table:@"Localizable"];
   v22 = self->_secondaryButtonDetail;
-  self->_secondaryButtonDetail = v72;
+  self->_secondaryButtonDetail = v71;
 LABEL_7:
 
-  v73.receiver = self;
-  v73.super_class = TSEnableTableViewController;
-  v42 = [(OBTableWelcomeController *)&v73 initWithTitle:v6 detailText:v19 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
+  v72.receiver = self;
+  v72.super_class = TSEnableTableViewController;
+  v42 = [(OBTableWelcomeController *)&v72 initWithTitle:v6 detailText:v19 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
   if (v42)
   {
-    v74[0] = infoCopy;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
+    v73[0] = infoCopy;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
     installInfos = v42->_installInfos;
     v42->_installInfos = v43;
 
@@ -218,7 +220,6 @@ LABEL_7:
     v42->_enablingIccid = targetIccid;
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v42;
 }
 
@@ -318,6 +319,14 @@ LABEL_7:
   [(OBTableWelcomeController *)&v4 viewDidLayoutSubviews];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TSEnableTableViewController;
+  [(OBTableWelcomeController *)&v4 viewWillAppear:appear];
+  [(TSEnableTableViewController *)self _updateButtonStatus];
+}
+
 - (void)prepare:(id)prepare
 {
   prepareCopy = prepare;
@@ -339,19 +348,19 @@ LABEL_7:
 
 - (void)_prepareForEnablingItem:(id)item
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v4 = [MEMORY[0x277CBEB58] set];
   array = [MEMORY[0x277CBEB18] array];
   mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
   v7 = [mEMORY[0x277CF96D8] planItemsShouldUpdate:0];
 
-  v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
+  v37 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v36 objects:v48 count:16];
   if (!v9)
   {
     v11 = 0;
@@ -360,17 +369,17 @@ LABEL_7:
 
   v10 = v9;
   v11 = 0;
-  v12 = *v36;
+  v12 = *v37;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v36 != v12)
+      if (*v37 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v35 + 1) + 8 * i);
+      v14 = *(*(&v36 + 1) + 8 * i);
       if ([v14 isSelectable] && objc_msgSend(v14, "transferredStatus") != 2 && objc_msgSend(v14, "transferredStatus") != 4)
       {
         if ([v14 isSelected])
@@ -392,7 +401,7 @@ LABEL_7:
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v35 objects:v47 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v36 objects:v48 count:16];
   }
 
   while (v10);
@@ -409,51 +418,52 @@ LABEL_18:
   v21 = +[TSCoreTelephonyClientCache sharedInstance];
   deviceSupportsHydra = [v21 deviceSupportsHydra];
 
-  v23 = 1;
+  v24 = 1;
   if (deviceSupportsHydra)
   {
-    v23 = 2;
+    v24 = 2;
   }
 
-  self->_maxAllowedeSIMCount = v23;
-  v24 = _TSLogDomain();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  self->_maxAllowedeSIMCount = v24;
+  v25 = _TSLogDomain(v23);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     if (deviceSupportsHydra)
     {
-      v25 = @"YES";
+      v26 = @"YES";
     }
 
     else
     {
-      v25 = @"NO";
+      v26 = @"NO";
     }
 
-    v26 = [array count];
-    v27 = [v4 count];
+    v27 = [array count];
+    v28 = [v4 count];
     *buf = 138413058;
-    v40 = v25;
-    v41 = 2048;
-    v42 = v26;
-    v43 = 2048;
-    v44 = v27;
-    v45 = 2080;
-    v46 = "[TSEnableTableViewController _prepareForEnablingItem:]";
-    _os_log_impl(&dword_262AA8000, v24, OS_LOG_TYPE_DEFAULT, "supports hydra: %@, selectable plans: %lu, enabled plans: %lu @%s", buf, 0x2Au);
+    v41 = v26;
+    v42 = 2048;
+    v43 = v27;
+    v44 = 2048;
+    v45 = v28;
+    v46 = 2080;
+    v47 = "[TSEnableTableViewController _prepareForEnablingItem:]";
+    _os_log_impl(&dword_262AA8000, v25, OS_LOG_TYPE_DEFAULT, "supports hydra: %@, selectable plans: %lu, enabled plans: %lu @%s", buf, 0x2Au);
   }
 
   if (itemCopy)
   {
     if ([(NSString *)self->_enablingIccid length])
     {
-      if ([v4 count] == 2)
+      v29 = [v4 count];
+      if (v29 == 2)
       {
         if ((deviceSupportsHydra & 1) == 0)
         {
-          v28 = _TSLogDomain();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+          v30 = _TSLogDomain(2);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
           {
-            [TSEnableTableViewController _prepareForEnablingItem:v28];
+            [TSEnableTableViewController _prepareForEnablingItem:v30];
           }
 
           goto LABEL_34;
@@ -462,10 +472,10 @@ LABEL_18:
 
       else
       {
-        v28 = _TSLogDomain();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+        v30 = _TSLogDomain(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
         {
-          [TSEnableTableViewController _prepareForEnablingItem:v28];
+          [TSEnableTableViewController _prepareForEnablingItem:v30];
         }
 
 LABEL_34:
@@ -474,8 +484,8 @@ LABEL_34:
 
     else
     {
-      v29 = [array count];
-      v11 = v29 > [v4 count];
+      v31 = [array count];
+      v11 = v31 > [v4 count];
     }
 
     self->_needShow = v11 & 1;
@@ -484,15 +494,13 @@ LABEL_34:
     block[1] = 3221225472;
     block[2] = __55__TSEnableTableViewController__prepareForEnablingItem___block_invoke;
     block[3] = &unk_279B454B8;
-    v33 = itemCopy;
-    objc_copyWeak(&v34, buf);
+    v34 = itemCopy;
+    objc_copyWeak(&v35, buf);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v35);
 
     objc_destroyWeak(buf);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __55__TSEnableTableViewController__prepareForEnablingItem___block_invoke(uint64_t a1)
@@ -521,11 +529,11 @@ void __55__TSEnableTableViewController__prepareForEnablingItem___block_invoke(ui
 
 void __58__TSEnableTableViewController__prepareForInstallingItems___block_invoke(uint64_t a1, char a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ((a2 & 1) != 0 || !_os_feature_enabled_impl())
+  v11 = *MEMORY[0x277D85DE8];
+  if ((a2 & 1) != 0 || (v3 = _os_feature_enabled_impl(), !v3))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v9 = WeakRetained;
+    v8 = WeakRetained;
     if (WeakRetained)
     {
       v6 = [WeakRetained _areAllInstallingPlansBeEnabled];
@@ -537,7 +545,7 @@ void __58__TSEnableTableViewController__prepareForInstallingItems___block_invoke
 
       else
       {
-        [v9 _prepareForEnablingItem:v7];
+        [v8 _prepareForEnablingItem:v7];
       }
     }
 
@@ -545,22 +553,19 @@ void __58__TSEnableTableViewController__prepareForInstallingItems___block_invoke
     {
       (*(*(a1 + 32) + 16))(*(a1 + 32), 0);
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _TSLogDomain(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[TSEnableTableViewController _prepareForInstallingItems:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Skip showing enablement pane for travel eSIM @%s", buf, 0xCu);
+      v10 = "[TSEnableTableViewController _prepareForInstallingItems:]_block_invoke";
+      _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "Skip showing enablement pane for travel eSIM @%s", buf, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
-    v4 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -618,7 +623,7 @@ void __58__TSEnableTableViewController__prepareForInstallingItems___block_invoke
         }
 
         v11 = -[NSArray objectAtIndex:](self->_allPlans, "objectAtIndex:", [*(*(&v22 + 1) + 8 * i) row]);
-        v12 = _TSLogDomain();
+        v12 = _TSLogDomain(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = [(NSString *)self->_enablingIccid length];
@@ -665,30 +670,30 @@ void __58__TSEnableTableViewController__prepareForInstallingItems___block_invoke
   selectedItems = self->_selectedItems;
   self->_selectedItems = allObjects;
 
-  if ([v3 isEqualToSet:self->_originalEnabledPlans])
+  v19 = [v3 isEqualToSet:self->_originalEnabledPlans];
+  if (v19)
   {
-    v19 = _TSLogDomain();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _TSLogDomain(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v27 = "[TSEnableTableViewController _updateEnablePlanItems]";
-      _os_log_impl(&dword_262AA8000, v19, OS_LOG_TYPE_DEFAULT, "no change @%s", buf, 0xCu);
+      _os_log_impl(&dword_262AA8000, v20, OS_LOG_TYPE_DEFAULT, "no change @%s", buf, 0xCu);
     }
   }
 
   else
   {
-    v19 = +[TSCellularPlanManagerCache sharedInstance];
-    [v19 didEnablePlanItems:self->_selectedItems];
+    v20 = +[TSCellularPlanManagerCache sharedInstance];
+    [v20 didEnablePlanItems:self->_selectedItems];
   }
 
   [(TSEnableTableViewController *)self _maybeDismissSelf];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_maybeDismissSelf
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_installInfos count]== 1 && [(NSArray *)self->_selectedItems count]== 1)
   {
     defaultCenter2 = [(NSArray *)self->_installInfos objectAtIndexedSubscript:0];
@@ -710,9 +715,9 @@ void __58__TSEnableTableViewController__prepareForInstallingItems___block_invoke
       [defaultCenter addObserver:self selector:sel__updateTrayButtonText_ name:@"esim.install.state.changed" object:0];
 
       defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-      v13 = @"InstallStateKey";
-      v14[0] = @"PostInstall";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = @"InstallStateKey";
+      v13[0] = @"PostInstall";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       [defaultCenter2 postNotificationName:@"esim.install.state.changed" object:0 userInfo:v10];
 
 LABEL_7:
@@ -721,49 +726,47 @@ LABEL_7:
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained viewControllerDidComplete:self];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshTableView
 {
   selfCopy = self;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   tableView = [(OBTableWelcomeController *)self tableView];
   indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
-  v35 = [indexPathsForSelectedRows count];
+  v34 = [indexPathsForSelectedRows count];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   tableView2 = [(OBTableWelcomeController *)selfCopy tableView];
   indexPathsForSelectedRows2 = [tableView2 indexPathsForSelectedRows];
 
-  v7 = [indexPathsForSelectedRows2 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v7 = [indexPathsForSelectedRows2 countByEnumeratingWithState:&v36 objects:v40 count:16];
   v8 = 0x27FF49000uLL;
   if (v7)
   {
     v9 = v7;
     v10 = 0;
-    v11 = *v38;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(indexPathsForSelectedRows2);
         }
 
-        v13 = -[NSArray objectAtIndex:](selfCopy->_allPlans, "objectAtIndex:", [*(*(&v37 + 1) + 8 * i) row]);
+        v13 = -[NSArray objectAtIndex:](selfCopy->_allPlans, "objectAtIndex:", [*(*(&v36 + 1) + 8 * i) row]);
         if ([v13 type])
         {
           ++v10;
         }
       }
 
-      v9 = [indexPathsForSelectedRows2 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v9 = [indexPathsForSelectedRows2 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v9);
@@ -797,12 +800,12 @@ LABEL_26:
 
       if (v16 >= numberOfSections2)
       {
-        goto LABEL_27;
+        return;
       }
     }
 
     v19 = 0;
-    v36 = v16;
+    v35 = v16;
     while (1)
     {
       v20 = [MEMORY[0x277CCAA70] indexPathForRow:v19 inSection:v16];
@@ -827,18 +830,18 @@ LABEL_26:
         if ([v24 type])
         {
           selfCopy = v25;
-          v29 = v35 <= 1 && v10 < v25->_maxAllowedeSIMCount;
+          v29 = v34 <= 1 && v10 < v25->_maxAllowedeSIMCount;
           v8 = v23;
           [v22 setUserInteractionEnabled:v29];
-          v16 = v36;
+          v16 = v35;
           goto LABEL_25;
         }
 
-        [v22 setUserInteractionEnabled:v35 < 2];
+        [v22 setUserInteractionEnabled:v34 < 2];
       }
 
       v8 = v23;
-      v16 = v36;
+      v16 = v35;
       selfCopy = v25;
 LABEL_25:
 
@@ -852,9 +855,6 @@ LABEL_25:
       }
     }
   }
-
-LABEL_27:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateButtonStatus
@@ -913,16 +913,16 @@ LABEL_27:
 
 void __65__TSEnableTableViewController__getTraveleSIMStateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2080;
-    v12 = "[TSEnableTableViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "CTPlanTravelDetails (%@) @%s", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 2080;
+    v11 = "[TSEnableTableViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "CTPlanTravelDetails (%@) @%s", &v8, 0x16u);
   }
 
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v3, "isTraveleSIM")}];
@@ -952,8 +952,6 @@ void __65__TSEnableTableViewController__getTraveleSIMStateWithCompletion___block
   {
     (*(*(a1 + 40) + 16))(*(a1 + 40), [v3 isTraveleSIM] ^ 1);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_areAllInstallingPlansBeEnabled
@@ -992,22 +990,22 @@ void __65__TSEnableTableViewController__getTraveleSIMStateWithCompletion___block
 
             if (!isSelected)
             {
-              v14 = 0;
+              v15 = 0;
               goto LABEL_16;
             }
           }
 
           else
           {
-            v12 = _TSLogDomain();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v13 = _TSLogDomain(v10);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               identifier = [v8 identifier];
               *buf = v17;
               v23 = identifier;
               v24 = 2080;
               v25 = "[TSEnableTableViewController _areAllInstallingPlansBeEnabled]";
-              _os_log_error_impl(&dword_262AA8000, v12, OS_LOG_TYPE_ERROR, "[E]plan %@ has no item @%s", buf, 0x16u);
+              _os_log_error_impl(&dword_262AA8000, v13, OS_LOG_TYPE_ERROR, "[E]plan %@ has no item @%s", buf, 0x16u);
             }
           }
         }
@@ -1019,11 +1017,10 @@ void __65__TSEnableTableViewController__getTraveleSIMStateWithCompletion___block
     while (v5);
   }
 
-  v14 = 1;
+  v15 = 1;
 LABEL_16:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 - (TSSIMSetupFlowDelegate)delegate
@@ -1131,6 +1128,29 @@ LABEL_16:
   [v9 setContentConfiguration:defaultConfig];
 
   return v9;
+}
+
+- (void)selectRowAtIndexPath:(id)path animated:(BOOL)animated scrollPosition:(int64_t)position
+{
+  animatedCopy = animated;
+  pathCopy = path;
+  tableView = [(OBTableWelcomeController *)self tableView];
+  indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
+  v11 = [indexPathsForSelectedRows containsObject:pathCopy];
+
+  if ((v11 & 1) == 0)
+  {
+    tableView2 = [(OBTableWelcomeController *)self tableView];
+    [tableView2 selectRowAtIndexPath:pathCopy animated:animatedCopy scrollPosition:position];
+
+    v13 = dispatch_time(0, 50000000);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __99__TSEnableTableViewController_UITableViewDataSource__selectRowAtIndexPath_animated_scrollPosition___block_invoke;
+    block[3] = &unk_279B44578;
+    block[4] = self;
+    dispatch_after(v13, MEMORY[0x277D85CD0], block);
+  }
 }
 
 uint64_t __99__TSEnableTableViewController_UITableViewDataSource__selectRowAtIndexPath_animated_scrollPosition___block_invoke(uint64_t a1)
@@ -1260,20 +1280,18 @@ uint64_t __82__TSEnableTableViewController_UIScrollViewDelegate__scrollViewDidEn
 
 - (void)_prepareForEnablingItem:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSEnableTableViewController _prepareForEnablingItem:]";
-  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]No need to launch enable plan flow when there is only 1 plan enabled @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSEnableTableViewController _prepareForEnablingItem:]";
+  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]No need to launch enable plan flow when there is only 1 plan enabled @%s", &v1, 0xCu);
 }
 
 - (void)_prepareForEnablingItem:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSEnableTableViewController _prepareForEnablingItem:]";
-  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]No need launch enable plan flow for non-hydra device @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSEnableTableViewController _prepareForEnablingItem:]";
+  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]No need launch enable plan flow for non-hydra device @%s", &v1, 0xCu);
 }
 
 @end

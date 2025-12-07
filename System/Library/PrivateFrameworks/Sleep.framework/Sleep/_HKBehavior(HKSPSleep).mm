@@ -10,11 +10,11 @@
 - (uint64_t)hksp_activePairedDeviceSupportsSleepStages;
 - (uint64_t)hksp_demoMode;
 - (uint64_t)hksp_device;
-- (uint64_t)hksp_supportsLegacySleepAlarms;
 - (uint64_t)hksp_supportsSleepWidget;
 - (uint64_t)hksp_supportsWakeUpResults;
 - (uint64_t)hksp_useDemoSleepData;
 - (void)hksp_activePairedDeviceHasSleepAppInstalledWithCompletion:()HKSPSleep;
+- (void)hksp_supportsLegacySleepAlarms;
 @end
 
 @implementation _HKBehavior(HKSPSleep)
@@ -216,12 +216,12 @@ LABEL_19:
   return result;
 }
 
-- (uint64_t)hksp_supportsLegacySleepAlarms
+- (void)hksp_supportsLegacySleepAlarms
 {
   result = [self hksp_supportsSleepAlarms];
   if (result)
   {
-    return (([self hksp_device] - 1) & 0xFFFFFFFFFFFFFFFDLL) == 0;
+    return ((([self hksp_device] - 1) & 0xFFFFFFFFFFFFFFFDLL) == 0);
   }
 
   return result;

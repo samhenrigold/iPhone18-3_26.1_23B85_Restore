@@ -16,132 +16,130 @@
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v49 = &v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v6 = &v46 - v5;
-  v7 = type metadata accessor for URL();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v46 - v13;
+  v2 = __chkstk_darwin(v0);
+  v47 = &v44 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v5 = &v44 - v4;
+  v6 = type metadata accessor for URL();
+  v7 = *(v6 - 8);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v44 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v12 = &v44 - v11;
   static NDOConstants.ndoDirPath.getter();
-  v51 = objc_opt_self();
-  defaultManager = [v51 defaultManager];
-  v50 = v14;
-  URL._bridgeToObjectiveC()(v16);
-  v18 = v17;
-  v53 = 0;
-  v19 = [defaultManager contentsOfDirectoryAtURL:v17 includingPropertiesForKeys:0 options:4 error:&v53];
+  v49 = objc_opt_self();
+  defaultManager = [v49 defaultManager];
+  v48 = v12;
+  URL._bridgeToObjectiveC()(v14);
+  v16 = v15;
+  v51 = 0;
+  v17 = [defaultManager contentsOfDirectoryAtURL:v15 includingPropertiesForKeys:0 options:4 error:&v51];
 
-  v20 = v53;
-  v52 = v7;
-  if (v19)
+  v18 = v51;
+  v50 = v6;
+  if (v17)
   {
-    v46 = v6;
-    v47 = v1;
-    v48 = v0;
-    v21 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-    v22 = v20;
+    v44 = v5;
+    v45 = v1;
+    v46 = v0;
+    v19 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v20 = v18;
 
-    v23 = *(v21 + 16);
-    if (!v23)
+    v21 = *(v19 + 16);
+    if (!v21)
     {
 LABEL_7:
 
-      v31 = sub_100049C1C();
-      v32 = v46;
-      v1 = v47;
-      v0 = v48;
-      (*(v47 + 16))(v46, v31, v48);
-      v33 = Logger.logObject.getter();
-      v34 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v33, v34))
+      v29 = sub_100049C1C();
+      v30 = v44;
+      v1 = v45;
+      v0 = v46;
+      (*(v45 + 16))(v44, v29, v46);
+      v31 = Logger.logObject.getter();
+      v32 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v31, v32))
       {
-        v35 = swift_slowAlloc();
-        *v35 = 0;
-        _os_log_impl(&_mh_execute_header, v33, v34, "Sucessfully cleared cache", v35, 2u);
+        v33 = swift_slowAlloc();
+        *v33 = 0;
+        _os_log_impl(&_mh_execute_header, v31, v32, "Sucessfully cleared cache", v33, 2u);
       }
 
-      v7 = v52;
+      v6 = v50;
       goto LABEL_15;
     }
 
-    v24 = 0;
+    v22 = 0;
     while (1)
     {
-      if (v24 >= *(v21 + 16))
+      if (v22 >= *(v19 + 16))
       {
         __break(1u);
       }
 
-      v25 = v52;
-      (*(v8 + 16))(v12, v21 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v24, v52);
-      defaultManager2 = [v51 defaultManager];
-      URL._bridgeToObjectiveC()(v27);
-      v29 = v28;
-      (*(v8 + 8))(v12, v25);
-      v53 = 0;
-      LODWORD(v25) = [defaultManager2 removeItemAtURL:v29 error:&v53];
+      v23 = v50;
+      (*(v7 + 16))(v10, v19 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v22, v50);
+      defaultManager2 = [v49 defaultManager];
+      URL._bridgeToObjectiveC()(v25);
+      v27 = v26;
+      (*(v7 + 8))(v10, v23);
+      v51 = 0;
+      LODWORD(v23) = [defaultManager2 removeItemAtURL:v27 error:&v51];
 
-      if (!v25)
+      if (!v23)
       {
         break;
       }
 
-      ++v24;
-      v30 = v53;
-      if (v23 == v24)
+      ++v22;
+      v28 = v51;
+      if (v21 == v22)
       {
         goto LABEL_7;
       }
     }
 
-    v36 = v53;
+    v34 = v51;
 
-    v1 = v47;
-    v0 = v48;
-    v7 = v52;
+    v1 = v45;
+    v0 = v46;
+    v6 = v50;
   }
 
   else
   {
-    v36 = v53;
+    v34 = v51;
   }
 
   _convertNSErrorToError(_:)();
 
   swift_willThrow();
-  v37 = sub_100049C1C();
-  v32 = v49;
-  (*(v1 + 16))(v49, v37, v0);
+  v35 = sub_100049C1C();
+  v30 = v47;
+  (*(v1 + 16))(v47, v35, v0);
   swift_errorRetain();
-  v38 = Logger.logObject.getter();
-  v39 = static os_log_type_t.error.getter();
+  v36 = Logger.logObject.getter();
+  v37 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v38, v39))
+  if (os_log_type_enabled(v36, v37))
   {
+    v38 = swift_slowAlloc();
+    v39 = v1;
     v40 = swift_slowAlloc();
-    v41 = v1;
-    v42 = swift_slowAlloc();
-    *v40 = 138412290;
+    *v38 = 138412290;
     swift_errorRetain();
-    v43 = _swift_stdlib_bridgeErrorToNSError();
-    *(v40 + 4) = v43;
-    *v42 = v43;
-    _os_log_impl(&_mh_execute_header, v38, v39, "Cache clearing error: %@", v40, 0xCu);
-    sub_100020470(v42);
-    v1 = v41;
-    v7 = v52;
+    v41 = _swift_stdlib_bridgeErrorToNSError();
+    *(v38 + 4) = v41;
+    *v40 = v41;
+    _os_log_impl(&_mh_execute_header, v36, v37, "Cache clearing error: %@", v38, 0xCu);
+    sub_100020470(v40);
+    v1 = v39;
+    v6 = v50;
   }
 
 LABEL_15:
-  v44 = v50;
-  (*(v1 + 8))(v32, v0);
-  return (*(v8 + 8))(v44, v7);
+  v42 = v48;
+  (*(v1 + 8))(v30, v0);
+  return (*(v7 + 8))(v42, v6);
 }
 
 @end

@@ -13,14 +13,12 @@
 
 - (NSArray)handlers
 {
-  v3 = OBJC_IVAR___MUPlaceActionBarItem_handlers;
   swift_beginAccess();
-  v4 = *(self + v3);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC170E00, &qword_1C5878C88);
-  v5 = sub_1C584F750();
+  v2 = sub_1C584F750();
 
-  return v5;
+  return v2;
 }
 
 - (void)setHandlers:(id)handlers
@@ -29,7 +27,6 @@
   v4 = sub_1C584F770();
   v5 = OBJC_IVAR___MUPlaceActionBarItem_handlers;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -76,7 +73,6 @@
   MEMORY[0x1C6949DF0]();
   if (*((*(self + v5) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(self + v5) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v7 = *((*(self + v5) & 0xFFFFFFFFFFFFFF8) + 0x10);
     sub_1C584F7A0();
   }
 

@@ -17,6 +17,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateFromSelectedProfile;
 - (void)updateNLCProfilesList;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -65,6 +66,28 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"NETWORK_LINK_CONDITIONER" value:&stru_3E0D8 table:@"NLCSettings"];
   [(NLCSettings *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = NLCSettings;
+  [(NLCSettings *)&v14 viewDidAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v4 bundleURL];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [v6 initWithKey:@"DEVELOPER" table:@"DTSettings" locale:v7 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = [v9 initWithKey:@"NETWORK_LINK_CONDITIONER" table:@"NLCSettings" locale:v10 bundleURL:bundleURL];
+
+  v15 = v8;
+  v12 = [NSArray arrayWithObjects:&v15 count:1];
+  v13 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Developer/NLC"];
+  [(NLCSettings *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.developer-tools" title:v11 localizedNavigationComponents:v12 deepLink:v13];
 }
 
 - (void)dealloc

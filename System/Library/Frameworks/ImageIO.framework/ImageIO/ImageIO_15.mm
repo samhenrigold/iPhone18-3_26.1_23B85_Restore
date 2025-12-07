@@ -1,1598 +1,3 @@
-uint64_t jp2_input_box::close(jp2_input_box *this)
-{
-  if (*(this + 126) != 1)
-  {
-    return 1;
-  }
-
-  v2 = *(this + 5);
-  if (v2 && *(v2 + 32))
-  {
-    jp2_input_box::is_complete(this);
-  }
-
-  *(this + 126) = 0;
-  *(this + 12) = 0;
-  *(this + 32) = 0;
-  v3 = *(this + 125);
-  if ((v3 & 1) != 0 || (v4 = *(this + 11), *(this + 17) >= v4))
-  {
-    result = 1;
-  }
-
-  else
-  {
-    result = 0;
-    *(this + 17) = v4;
-  }
-
-  v6 = *(this + 4);
-  if (v6)
-  {
-    *(v6 + 127) = 0;
-    v7 = *(this + 9);
-    *(v6 + 136) += v7;
-    if (v3)
-    {
-      if (!v7)
-      {
-        *(v6 + 136) = *(this + 17);
-      }
-
-      v8 = *(*v6 + 16);
-
-      return v8(v6);
-    }
-  }
-
-  return result;
-}
-
-uint64_t jp2_input_box::is_complete(jp2_input_box *this)
-{
-  if (*(this + 126) == 1)
-  {
-    v2 = *(this + 5);
-    if (v2)
-    {
-      v3 = *(v2 + 32);
-      if (v3)
-      {
-        if ((*(this + 12) & 0x8000000000000000) != 0 || (*(this + 30) & 0x80000000) != 0)
-        {
-          jp2_input_box::is_complete();
-        }
-
-        v4 = (*(*v3 + 80))(v3);
-        LOBYTE(v2) = *(this + 30) == 4 && *(this + 125) != 1 && *(this + 11) <= v4;
-      }
-
-      else
-      {
-        LOBYTE(v2) = 1;
-      }
-    }
-  }
-
-  else
-  {
-    LOBYTE(v2) = 0;
-  }
-
-  return v2 & 1;
-}
-
-uint64_t jp2_input_box::transplant(jp2_input_box *this, jp2_input_box *a2)
-{
-  if ((*(this + 126) & 1) != 0 || (*(a2 + 126) & 1) == 0)
-  {
-    v7 = 0;
-    memset(v6, 0, sizeof(v6));
-    kdu_error::kdu_error(v6, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(v6);
-  }
-
-  v2 = *(a2 + 8);
-  *(this + 6) = *(a2 + 6);
-  *(this + 8) = v2;
-  v3 = *(a2 + 5);
-  *(this + 4) = 0;
-  *(this + 5) = v3;
-  *(this + 12) = *(a2 + 12);
-  *(this + 56) = *(a2 + 56);
-  *(this + 72) = *(a2 + 72);
-  *(this + 88) = *(a2 + 88);
-  *(this + 104) = *(a2 + 104);
-  *(this + 30) = *(a2 + 30);
-  *(this + 124) = *(a2 + 124);
-  *(this + 125) = *(a2 + 125);
-  *(this + 63) = 1;
-  *(this + 32) = *(a2 + 32);
-  *(this + 136) = *(a2 + 136);
-  LODWORD(v3) = *(a2 + 44);
-  *(this + 44) = v3;
-  if (v3 >= 1)
-  {
-    v4 = 0;
-    do
-    {
-      *(this + v4 + 152) = *(a2 + v4 + 152);
-      ++v4;
-    }
-
-    while (v4 < *(this + 44));
-  }
-
-  return (*(*a2 + 16))(a2);
-}
-
-uint64_t jp2_input_box::seek(jp2_input_box *this, uint64_t a2)
-{
-  if (*(this + 126) != 1 || *(this + 127) == 1)
-  {
-    v7 = 0;
-    memset(v6, 0, sizeof(v6));
-    kdu_error::kdu_error(v6, "Error in Kakadu File Format Support:\n");
-    (*(*&v6[0] + 16))(v6, "Attempting to seek inside a JP2 box which is not open, or is sharing its read pointer with an open sub-box.");
-    kdu_error::~kdu_error(v6);
-  }
-
-  result = *(*(this + 5) + 68);
-  if (result == 1)
-  {
-    v4 = *(this + 10);
-    v5 = *(this + 11);
-    if (v4 + a2 < v5)
-    {
-      v5 = v4 + a2;
-    }
-
-    if (v5 > v4)
-    {
-      v4 = v5;
-    }
-
-    *(this + 17) = v4;
-    *(this + 44) = 0;
-  }
-
-  return result;
-}
-
-uint64_t jp2_input_box::set_tileheader_scope(jp2_input_box *this, int a2)
-{
-  if (*(this + 126) != 1)
-  {
-    return 0;
-  }
-
-  v9 = v2;
-  v10 = v3;
-  v5 = *(this + 5);
-  if (!v5)
-  {
-    return 0;
-  }
-
-  result = *(v5 + 32);
-  if (!result)
-  {
-    return result;
-  }
-
-  if ((*(this + 18) & 0x8000000000000000) != 0)
-  {
-    return 0;
-  }
-
-  *(this + 30) = 1;
-  *(this + 12) = a2;
-  *(this + 10) = 0;
-  *(this + 17) = 0;
-  v8 = 0;
-  LODWORD(v7) = (*(*result + 80))(result, 1);
-  result = v8;
-  v7 = v7;
-  if (!v8)
-  {
-    v7 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  *(this + 11) = v7;
-  return result;
-}
-
-uint64_t jp2_input_box::set_precinct_scope(jp2_input_box *this, uint64_t a2)
-{
-  if (*(this + 126) != 1)
-  {
-    return 0;
-  }
-
-  v2 = *(this + 5);
-  if (!v2 || !*(v2 + 32) || (*(this + 18) & 0x8000000000000000) != 0)
-  {
-    return 0;
-  }
-
-  *(this + 30) = 0;
-  *(this + 12) = a2;
-  *(this + 17) = 0;
-  *(this + 5) = xmmword_1862067E0;
-  return 1;
-}
-
-uint64_t jp2_input_box::set_codestream_scope(jp2_input_box *this, uint64_t a2, int a3)
-{
-  if (*(this + 126) == 1 && (v5 = *(this + 5)) != 0 && *(this + 13) <= a2 && *(this + 14) > a2)
-  {
-    *(this + 30) = 3;
-    *(this + 12) = 0;
-    *(this + 17) = 0;
-    *(this + 18) = a2;
-    *(this + 5) = xmmword_1862067E0;
-    if (a3)
-    {
-      v9 = v3;
-      v10 = v4;
-      v8 = 0;
-      (*(**(v5 + 32) + 80))(*(v5 + 32), 3, a2, 0, &v8);
-      v6 = v8;
-    }
-
-    else
-    {
-      v6 = 1;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return v6 & 1;
-}
-
-size_t jp2_input_box::read(jp2_input_box *this, unsigned __int8 *a2, size_t a3)
-{
-  if (!*(this + 5) || *(this + 126) != 1 || *(this + 127) == 1)
-  {
-    v36 = 0;
-    v34 = 0u;
-    v35 = 0u;
-    kdu_error::kdu_error(&v34, "Error in Kakadu File Format Support:\n");
-    (*(v34 + 16))(&v34, "Illegal attempt to read from a JP2 box which is either not open or else has an open sub-box.");
-    kdu_error::~kdu_error(&v34);
-  }
-
-  v6 = *(this + 11) - *(this + 17);
-  if (*(this + 125) & 1 | (v6 >= a3))
-  {
-    v7 = a3;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  if (v7 < 1)
-  {
-    return 0;
-  }
-
-  if (v7 > a3)
-  {
-    v36 = 0;
-    v34 = 0u;
-    v35 = 0u;
-    kdu_warning::kdu_warning(&v34, "Warning in Kakadu File Format Support:\n");
-    (*(v34 + 16))(&v34, "Corrupt JP2 Data");
-    kdu_warning::~kdu_warning(&v34);
-    v7 = a3;
-  }
-
-  (*(**(this + 5) + 16))(*(this + 5));
-  v8 = *(this + 5);
-  v9 = *(v8 + 32);
-  if (v9)
-  {
-    if ((*(v8 + 68) & 1) == 0)
-    {
-      jp2_input_box::read();
-    }
-
-    v10 = *(this + 30);
-    if (v10 == 4)
-    {
-      v11 = 0;
-    }
-
-    else
-    {
-      v11 = *(this + 18);
-    }
-
-    v15 = *(this + 12);
-    if (*(v8 + 48) != v15 || *(v8 + 64) != v10 || *(v8 + 56) != v11)
-    {
-      *(v8 + 64) = v10;
-      *(v8 + 48) = v15;
-      *(v8 + 56) = v11;
-      *(v8 + 40) = 0;
-      (*(*v9 + 160))(v9);
-      v8 = *(this + 5);
-    }
-
-    if (*(v8 + 40) != *(this + 17))
-    {
-      v16 = (*(**(v8 + 32) + 40))(*(v8 + 32));
-      v8 = *(this + 5);
-      if ((v16 & 1) == 0)
-      {
-        (*(*v8 + 24))(v8);
-        v36 = 0;
-        v34 = 0u;
-        v35 = 0u;
-        kdu_error::kdu_error(&v34, "Error in Kakadu File Format Support:\n");
-        (*(v34 + 16))(&v34, "Caching source does not appear to support seeking!");
-        kdu_error::~kdu_error(&v34);
-      }
-    }
-
-    v12 = (*(**(v8 + 32) + 32))(*(v8 + 32), a2, v7);
-    v17 = *(this + 17) + v12;
-    *(this + 17) = v17;
-    v18 = *(this + 5);
-    v18[5] = v17;
-    if (v12 < v7)
-    {
-      v18[6] = -1;
-    }
-
-    (*(*v18 + 24))(v18);
-    if (v12 < v7)
-    {
-      v33 = 0;
-      v19 = (*(**(*(this + 5) + 32) + 80))(*(*(this + 5) + 32), *(this + 30), v11, *(this + 12), &v33);
-      if (v33 == 1 && *(this + 17) == v19)
-      {
-        v20 = v19;
-        if ((*(this + 125) & 1) == 0 && *(this + 30) == 4)
-        {
-          v21 = *(this + 11);
-          if (v21 != v19 && v21 != 0x7FFFFFFFFFFFFFFFLL)
-          {
-            v36 = 0;
-            v34 = 0u;
-            v35 = 0u;
-            kdu_error::kdu_error(&v34, "Error in Kakadu File Format Support:\n");
-            (*(v34 + 16))(&v34, "Cached data-bin appears to be complete yet terminates prior to the end of the current JP2 box.");
-            kdu_error::~kdu_error(&v34);
-          }
-
-          *(this + 11) = v19;
-          return v12;
-        }
-
-LABEL_55:
-        *(this + 11) = v20;
-        *(this + 125) = 0;
-      }
-    }
-  }
-
-  else
-  {
-    v13 = *(v8 + 40);
-    v14 = *(this + 17);
-    if (*(v8 + 68))
-    {
-      if (v13 != v14)
-      {
-        if (*(v8 + 16))
-        {
-          fseek(*(v8 + 16), v14, 0);
-        }
-
-        else
-        {
-          v32 = *(v8 + 24);
-          if (v32)
-          {
-            (*(*v32 + 40))(v32);
-          }
-        }
-      }
-    }
-
-    else
-    {
-      for (; v13 < v14; v14 = *(this + 17))
-      {
-        v22 = v13 + 24;
-        v23 = v14 - v13;
-        if (v22 <= v14)
-        {
-          v24 = 24;
-        }
-
-        else
-        {
-          v24 = v23;
-        }
-
-        v25 = *(v8 + 16);
-        if (v25)
-        {
-          v24 = v24;
-          fread(this + 152, 1uLL, v24, v25);
-        }
-
-        else
-        {
-          (*(**(v8 + 24) + 32))(*(v8 + 24), this + 152, v24);
-          v24 = v24;
-        }
-
-        v8 = *(this + 5);
-        v13 = *(v8 + 40) + v24;
-        *(v8 + 40) = v13;
-      }
-
-      if (v13 != v14)
-      {
-        (*(*v8 + 24))(v8);
-        v36 = 0;
-        v34 = 0u;
-        v35 = 0u;
-        kdu_error::kdu_error(&v34, "Error in Kakadu File Format Support:\n");
-        (*(v34 + 16))(&v34, "Non-seekable JP2 sources must be read sequentially.  You are attempting to read from multiple boxes simultaneously.");
-        kdu_error::~kdu_error(&v34);
-      }
-    }
-
-    v26 = *(this + 5);
-    v27 = *(v26 + 16);
-    if (v27)
-    {
-      v12 = fread(a2, 1uLL, v7, v27);
-    }
-
-    else
-    {
-      v28 = *(v26 + 24);
-      v12 = v7;
-      if (v28)
-      {
-        v12 = (*(*v28 + 32))(v28, a2, v7);
-      }
-    }
-
-    v29 = *(this + 17) + v12;
-    *(this + 17) = v29;
-    v30 = *(this + 5);
-    v30[5] = v29;
-    (*(*v30 + 24))(v30);
-    if (v12 < v7 && *(this + 125) == 1)
-    {
-      v20 = *(this + 17);
-      goto LABEL_55;
-    }
-  }
-
-  return v12;
-}
-
-BOOL jp2_input_box::read(jp2_input_box *this, unsigned int *a2)
-{
-  v2 = *(this + 44);
-  if (v2 >= 4)
-  {
-    jp2_input_box::read();
-  }
-
-  v5 = *(this + 44) + (*(*this + 32))(this, this + v2 + 152, (4 - v2));
-  *(this + 44) = v5;
-  if (v5 >= 4)
-  {
-    if (v5 != 4)
-    {
-      jp2_input_box::read();
-    }
-
-    v6 = *(this + 152);
-    *a2 = v6;
-    v7 = *(this + 153) | (v6 << 8);
-    *a2 = v7;
-    v8 = *(this + 154) | (v7 << 8);
-    *a2 = v8;
-    *a2 = *(this + 155) | (v8 << 8);
-    *(this + 44) = 0;
-  }
-
-  return v5 > 3;
-}
-
-BOOL jp2_input_box::read(jp2_input_box *this, unsigned __int16 *a2)
-{
-  v4 = *(this + 44);
-  if (v4 >= 2)
-  {
-    v9 = 0;
-    memset(v8, 0, sizeof(v8));
-    kdu_error::kdu_error(v8, "Error in Kakadu File Format Support:\n");
-    (*(*&v8[0] + 16))(v8, "Attempting to read a 2-byte word from a JP2 box, after first reading a partial 4-byte word!");
-    kdu_error::~kdu_error(v8);
-  }
-
-  v5 = *(this + 44) + (*(*this + 32))(this, this + v4 + 152, (2 - v4));
-  *(this + 44) = v5;
-  if (v5 >= 2)
-  {
-    if (v5 != 2)
-    {
-      jp2_input_box::read();
-    }
-
-    v6 = *(this + 152);
-    *a2 = v6;
-    *a2 = *(this + 153) | (v6 << 8);
-    *(this + 44) = 0;
-  }
-
-  return v5 > 1;
-}
-
-uint64_t jp2_family_tgt::open(uint64_t this, kdu_compressed_target *a2)
-{
-  if (*(this + 8) || *(this + 16))
-  {
-    v3 = 0;
-    memset(v2, 0, sizeof(v2));
-    kdu_error::kdu_error(v2, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(v2);
-  }
-
-  *(this + 16) = a2;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  return this;
-}
-
-FILE *jp2_family_tgt::close(jp2_family_tgt *this)
-{
-  v3 = (this + 8);
-  result = *(this + 1);
-  if (result)
-  {
-    result = fclose(result);
-  }
-
-  *(this + 32) = 0;
-  *v3 = 0;
-  v3[1] = 0;
-  return result;
-}
-
-void jp2_output_box::jp2_output_box(jp2_output_box *this)
-{
-  *this = &unk_1EF4D29C0;
-  *(this + 2) = 0;
-  *(this + 72) = 0;
-  *(this + 12) = 0;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(this + 5) = 0;
-  *(this + 6) = 0;
-  *(this + 8) = 0;
-  *(this + 7) = -1;
-  *(this + 8) = 0;
-}
-
-void jp2_output_box::~jp2_output_box(jp2_output_box *this)
-{
-  *this = &unk_1EF4D29C0;
-  v2 = *(this + 8);
-  if (v2)
-  {
-    MEMORY[0x186602830](v2, 0x1000C8077774924);
-  }
-
-  *this = &unk_1EF4D2B00;
-}
-
-{
-  *this = &unk_1EF4D29C0;
-  v2 = *(this + 8);
-  if (v2)
-  {
-    MEMORY[0x186602830](v2, 0x1000C8077774924);
-  }
-
-  *this = &unk_1EF4D2B00;
-
-  JUMPOUT(0x186602850);
-}
-
-uint64_t jp2_output_box::open(uint64_t this, jp2_family_tgt *a2, int a3, int a4)
-{
-  if (*(this + 8))
-  {
-    v6 = 0;
-    v4 = 0u;
-    v5 = 0u;
-    kdu_error::kdu_error(&v4, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(&v4);
-  }
-
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  if (a2)
-  {
-    if (*(a2 + 32) == 1)
-    {
-      v6 = 0;
-      v4 = 0u;
-      v5 = 0u;
-      kdu_error::kdu_error(&v4, "Error in Kakadu File Format Support:\n");
-      kdu_error::~kdu_error(&v4);
-    }
-  }
-
-  else if (a4)
-  {
-    jp2_output_box::open();
-  }
-
-  if (*(this + 64) || *(this + 32))
-  {
-    jp2_output_box::open();
-  }
-
-  *(this + 8) = a3;
-  *(this + 12) = a4;
-  *(this + 16) = a2;
-  *(this + 40) = 0;
-  *(this + 48) = -1;
-  *(this + 56) = -1;
-  *(this + 72) = 0;
-  *(this + 73) = a4;
-  *(this + 74) = 0;
-  if (a4)
-  {
-    return jp2_output_box::write_header(this);
-  }
-
-  return this;
-}
-
-uint64_t jp2_output_box::write_header(jp2_output_box *this)
-{
-  if (!*(this + 2) || !*(this + 2) && !*(this + 3))
-  {
-    jp2_output_box::write_header();
-  }
-
-  if ((*(this + 73) & 1) == 0)
-  {
-    jp2_output_box::write_header();
-  }
-
-  if ((*(this + 7) & 0x8000000000000000) == 0)
-  {
-    jp2_output_box::write_header();
-  }
-
-  v2 = *(this + 5);
-  *(this + 5) = -16;
-  if (*(this + 12) == 1)
-  {
-    if (*(this + 74) == 1)
-    {
-      jp2_output_box::write_header();
-    }
-
-    v8 = 0;
-  }
-
-  else
-  {
-    v3 = *(this + 6);
-    if ((v3 & 0x8000000000000000) != 0)
-    {
-      jp2_output_box::write_header();
-    }
-
-    v4 = 8;
-    if (v3 > 0x1FFFFFFF7)
-    {
-      v4 = 16;
-    }
-
-    if (*(this + 74))
-    {
-      v5 = v4 + v3 + 8;
-    }
-
-    else
-    {
-      v5 = v4 + v3;
-    }
-
-    if (v3 > 0x1FFFFFFF7 || (*(this + 74) & 1) != 0)
-    {
-      v8 = 0x1000000;
-      (*(*this + 40))(this, &v8, 4);
-      v8 = bswap32(*(this + 2));
-      (*(*this + 40))(this, &v8, 4);
-      HIBYTE(v8) = BYTE4(v5);
-      BYTE2(v8) = BYTE5(v5);
-      BYTE1(v8) = BYTE6(v5);
-      LOBYTE(v8) = HIBYTE(v5);
-      (*(*this + 40))(this, &v8, 4);
-      v6 = bswap32(v5);
-      goto LABEL_20;
-    }
-
-    v8 = bswap32(v5);
-  }
-
-  (*(*this + 40))(this, &v8, 4);
-  v6 = bswap32(*(this + 2));
-LABEL_20:
-  v8 = v6;
-  result = (*(*this + 40))(this, &v8, 4);
-  *(this + 5) = v2;
-  return result;
-}
-
-uint64_t jp2_output_box::open(uint64_t this, jp2_output_box *a2, int a3, int a4)
-{
-  v5 = this;
-  if (*(this + 8))
-  {
-    v7 = 0;
-    memset(v6, 0, sizeof(v6));
-    kdu_error::kdu_error(v6, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(v6);
-  }
-
-  if (*(this + 64) || *(this + 32))
-  {
-    jp2_output_box::open();
-  }
-
-  *(this + 8) = a3;
-  *(this + 12) = a4;
-  *(this + 16) = 0;
-  *(this + 24) = a2;
-  *(this + 40) = 0;
-  *(this + 48) = -1;
-  *(this + 56) = -1;
-  *(this + 72) = 0;
-  *(this + 73) = a4;
-  *(this + 74) = 0;
-  if (a4)
-  {
-    jp2_output_box::set_rubber_length(a2);
-    if (*(a2 + 12) != 1 || (*(a2 + 73) & 1) == 0)
-    {
-      jp2_output_box::open();
-    }
-
-    return jp2_output_box::write_header(v5);
-  }
-
-  return this;
-}
-
-uint64_t jp2_output_box::set_rubber_length(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    jp2_output_box::set_rubber_length();
-  }
-
-  v1 = this;
-  if ((*(this + 16) || *(this + 24)) && (*(this + 12) & 1) == 0)
-  {
-    if (*(this + 73) == 1)
-    {
-      v11 = 0;
-      v9 = 0u;
-      v10 = 0u;
-      kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-      (*(v9 + 16))(&v9, "Attempting to set a rubber length for a JP2 box whose total length has already been declared, or is to be written at the end.");
-      kdu_error::~kdu_error(&v9);
-    }
-
-    if ((*(this + 56) & 0x8000000000000000) == 0)
-    {
-      v11 = 0;
-      v9 = 0u;
-      v10 = 0u;
-      kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-      (*(v9 + 16))(&v9, "Attempting to set a rubber length for a JP2 box which is currently inside a rewrite section.");
-      kdu_error::~kdu_error(&v9);
-    }
-
-    v2 = *(this + 24);
-    if (v2)
-    {
-      jp2_output_box::set_rubber_length(v2);
-    }
-
-    *(v1 + 12) = 1;
-    *(v1 + 73) = 1;
-    this = jp2_output_box::write_header(v1);
-    if (*(v1 + 64))
-    {
-      v3 = *(v1 + 24);
-      if (v3)
-      {
-        *(v1 + 72) = (*(*v3 + 40))(v3) ^ 1;
-      }
-
-      else
-      {
-        v4 = *(v1 + 16);
-        v5 = *(v4 + 8);
-        if (v5)
-        {
-          v6 = fwrite(*(v1 + 64), 1uLL, *(v1 + 40), v5);
-          v7 = *(v1 + 40);
-          *(v1 + 72) = v6 != v7;
-        }
-
-        else
-        {
-          v8 = *(v4 + 16);
-          if (!v8)
-          {
-            jp2_output_box::set_rubber_length();
-          }
-
-          *(v1 + 72) = (*(*v8 + 40))(v8) ^ 1;
-          v7 = *(v1 + 40);
-        }
-
-        *(*(v1 + 16) + 24) += v7;
-      }
-
-      this = *(v1 + 64);
-      if (this)
-      {
-        this = MEMORY[0x186602830](this, 0x1000C8077774924);
-      }
-
-      *(v1 + 32) = 0;
-      *(v1 + 64) = 0;
-    }
-  }
-
-  return this;
-}
-
-uint64_t jp2_output_box::open_next(jp2_output_box *this)
-{
-  if (*(this + 3))
-  {
-    v1 = *(*this + 64);
-  }
-
-  else
-  {
-    if (!*(this + 2))
-    {
-      v4 = 0;
-      memset(v3, 0, sizeof(v3));
-      kdu_error::kdu_error(v3, "Error in Kakadu File Format Support:\n");
-      kdu_error::~kdu_error(v3);
-    }
-
-    v1 = *(*this + 56);
-  }
-
-  return v1();
-}
-
-uint64_t jp2_output_box::set_target_size(uint64_t this, uint64_t a2)
-{
-  v2 = this;
-  if (*(this + 12) == 1)
-  {
-    v11 = 0;
-    v9 = 0u;
-    v10 = 0u;
-    kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-    (*(v9 + 16))(&v9, "Attempting to set the target size of a JP2 box which has already been assigned a rubber length.");
-    kdu_error::~kdu_error(&v9);
-  }
-
-  if (*(this + 73) == 1)
-  {
-    v11 = 0;
-    v9 = 0u;
-    v10 = 0u;
-    kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-    (*(v9 + 16))(&v9, "Attempting to set the target size of a JP2 box whose content length is already known, or is to be written at the end.");
-    kdu_error::~kdu_error(&v9);
-  }
-
-  if ((*(this + 56) & 0x8000000000000000) == 0)
-  {
-    v11 = 0;
-    v9 = 0u;
-    v10 = 0u;
-    kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-    (*(v9 + 16))(&v9, "Attempting to set the target size of a JP2 box which is currently inside a rewrite section.");
-    kdu_error::~kdu_error(&v9);
-  }
-
-  if (!*(this + 8))
-  {
-    jp2_output_box::set_target_size();
-  }
-
-  if (*(this + 16) || *(this + 24))
-  {
-    *(this + 48) = a2;
-    if (*(this + 40) > a2)
-    {
-      v11 = 0;
-      v9 = 0u;
-      v10 = 0u;
-      kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-      (*(v9 + 16))(&v9, "Attempting to set the target size of a JP2 box to which a larger number of bytes has already been written.");
-      kdu_error::~kdu_error(&v9);
-    }
-
-    *(this + 73) = 1;
-    this = jp2_output_box::write_header(this);
-    if (*(v2 + 64))
-    {
-      v3 = *(v2 + 24);
-      if (v3)
-      {
-        *(v2 + 72) = (*(*v3 + 40))(v3) ^ 1;
-      }
-
-      else
-      {
-        v4 = *(v2 + 16);
-        v5 = *(v4 + 8);
-        if (v5)
-        {
-          v6 = fwrite(*(v2 + 64), 1uLL, *(v2 + 40), v5);
-          v7 = *(v2 + 40);
-          *(v2 + 72) = v6 != v7;
-        }
-
-        else
-        {
-          v8 = *(v4 + 16);
-          if (!v8)
-          {
-            jp2_output_box::set_target_size();
-          }
-
-          *(v2 + 72) = (*(*v8 + 40))(v8) ^ 1;
-          v7 = *(v2 + 40);
-        }
-
-        *(*(v2 + 16) + 24) += v7;
-      }
-
-      this = *(v2 + 64);
-      if (this)
-      {
-        this = MEMORY[0x186602830](this, 0x1000C8077774924);
-      }
-
-      *(v2 + 32) = 0;
-      *(v2 + 64) = 0;
-    }
-  }
-
-  return this;
-}
-
-uint64_t jp2_output_box::write_header_last(uint64_t this)
-{
-  v1 = this;
-  if (!*(this + 8))
-  {
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
-    kdu_error::kdu_error(&v5, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(&v5);
-  }
-
-  if ((*(this + 73) & 1) == 0 && (*(this + 74) & 1) == 0)
-  {
-    v2 = *(this + 16);
-    if (v2)
-    {
-      if (*(v2 + 8) || (v3 = *(v2 + 16)) != 0 && (v4 = (*(*v3 + 24))(v3, 0), (*(**(*(v1 + 16) + 16) + 32))(*(*(v1 + 16) + 16)), (v4 & 1) != 0))
-      {
-        *(v1 + 74) = 1;
-        this = (*(*v1 + 48))(v1, 0x7FFFFFFFFFFFFFFFLL);
-        if ((*(v1 + 73) & 1) == 0)
-        {
-          jp2_output_box::write_header_last();
-        }
-
-        return this;
-      }
-    }
-
-    else if (!*(this + 24))
-    {
-      return this;
-    }
-
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
-    kdu_error::kdu_error(&v5, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(&v5);
-  }
-
-  return this;
-}
-
-uint64_t jp2_output_box::close(jp2_output_box *this)
-{
-  if (!*(this + 2))
-  {
-    v3 = 1;
-    return v3 & 1;
-  }
-
-  (*(*this + 32))(this);
-  v2 = *(this + 6);
-  if (v2 < 0 || *(this + 74) == 1)
-  {
-    *(this + 6) = *(this + 5);
-  }
-
-  else if (v2 != *(this + 5))
-  {
-    v21 = 0;
-    memset(v20, 0, sizeof(v20));
-    kdu_error::kdu_error(v20, "Error in Kakadu File Format Support:\n");
-    (*(*&v20[0] + 16))(v20, "Attempting to close an output JP2 box whose length was defined ahead of time, having written less bytes than indicated by that length value.");
-    kdu_error::~kdu_error(v20);
-  }
-
-  if (*(this + 2) || *(this + 3))
-  {
-    if (*(this + 73))
-    {
-      if (*(this + 8))
-      {
-        jp2_output_box::close();
-      }
-    }
-
-    else
-    {
-      *(this + 73) = 1;
-      jp2_output_box::write_header(this);
-      if (*(this + 8))
-      {
-        v4 = *(this + 3);
-        if (v4)
-        {
-          *(this + 72) = (*(*v4 + 40))(v4) ^ 1;
-        }
-
-        else
-        {
-          v6 = *(this + 2);
-          v7 = *(v6 + 8);
-          if (v7)
-          {
-            v8 = fwrite(*(this + 8), 1uLL, *(this + 5), v7);
-            v9 = *(this + 5);
-            *(this + 72) = v8 != v9;
-          }
-
-          else
-          {
-            v10 = *(v6 + 16);
-            if (!v10)
-            {
-              jp2_output_box::close();
-            }
-
-            *(this + 72) = (*(*v10 + 40))(v10) ^ 1;
-            v9 = *(this + 5);
-          }
-
-          *(*(this + 2) + 24) += v9;
-        }
-
-        v11 = *(this + 8);
-        if (v11)
-        {
-          MEMORY[0x186602830](v11, 0x1000C8077774924);
-        }
-
-        *(this + 8) = 0;
-        *(this + 8) = 0;
-      }
-    }
-  }
-
-  else
-  {
-    v5 = *(this + 8);
-    if (v5)
-    {
-      MEMORY[0x186602830](v5, 0x1000C8077774924);
-    }
-
-    *(this + 8) = 0;
-    *(this + 8) = 0;
-    *(this + 73) = 0;
-  }
-
-  if (*(this + 74) == 1)
-  {
-    v12 = *(this + 2);
-    if (v12)
-    {
-      v13 = v12[1];
-      if (v13)
-      {
-        fflush(v13);
-        v14 = *(this + 2);
-        v15 = *(v14 + 24);
-        v16 = v15 - *(this + 6) - 16;
-        *(v14 + 24) = v16;
-        fseek(*(v14 + 8), v16, 0);
-        jp2_output_box::write_header(this);
-        fseek(*(*(this + 2) + 8), v15, 0);
-LABEL_34:
-        *(*(this + 2) + 24) = v15;
-        goto LABEL_35;
-      }
-
-      v17 = v12[2];
-      if (v17)
-      {
-        v15 = v12[3];
-        v12[3] = v15 - (*(this + 6) + 16);
-        if (((*(*v17 + 24))(v17) & 1) == 0)
-        {
-          jp2_output_box::close();
-        }
-
-        jp2_output_box::write_header(this);
-        (*(**(*(this + 2) + 16) + 32))(*(*(this + 2) + 16));
-        goto LABEL_34;
-      }
-    }
-
-    jp2_output_box::close();
-  }
-
-LABEL_35:
-  *(this + 2) = 0;
-  if (*(this + 12) == 1)
-  {
-    v18 = *(this + 2);
-    if (v18)
-    {
-      *(v18 + 32) = 1;
-    }
-  }
-
-  v3 = *(this + 72) ^ 1;
-  return v3 & 1;
-}
-
-uint64_t jp2_output_box::start_rewrite(jp2_output_box *this, uint64_t a2)
-{
-  if (!*(this + 2))
-  {
-    return 0;
-  }
-
-  result = 0;
-  if ((a2 & 0x8000000000000000) == 0 && (*(this + 7) & 0x8000000000000000) != 0)
-  {
-    v5 = *(this + 5);
-    if (v5 < a2)
-    {
-      return 0;
-    }
-
-    *(this + 7) = v5;
-    *(this + 5) = v5 - a2;
-    if (*(this + 73) != 1)
-    {
-      return 1;
-    }
-
-    v6 = *(this + 2);
-    if (v6)
-    {
-      v7 = *(v6 + 8);
-      if (v7)
-      {
-        if (a2)
-        {
-          fflush(v7);
-          v8 = *(this + 2);
-          v9 = *(v8 + 24) - a2;
-          *(v8 + 24) = v9;
-          fseek(*(v8 + 8), v9, 0);
-        }
-
-        return 1;
-      }
-
-      v11 = *(v6 + 16);
-      if (v11 && (*(*v11 + 24))(v11, a2))
-      {
-        *(*(this + 2) + 24) -= a2;
-        return 1;
-      }
-    }
-
-    else
-    {
-      v10 = *(this + 3);
-      if (v10 && ((*(*v10 + 24))(v10, a2) & 1) != 0)
-      {
-        return 1;
-      }
-    }
-
-    result = 0;
-    *(this + 7) = -1;
-    *(this + 5) += a2;
-  }
-
-  return result;
-}
-
-BOOL jp2_output_box::end_rewrite(jp2_output_box *this)
-{
-  v1 = *(this + 7);
-  if ((v1 & 0x8000000000000000) == 0)
-  {
-    v3 = *(this + 5);
-    v4 = v1 - v3;
-    if (v1 - v3 < 0)
-    {
-      jp2_output_box::end_rewrite();
-    }
-
-    *(this + 5) = v1;
-    *(this + 7) = -1;
-    if (*(this + 73) == 1)
-    {
-      v5 = *(this + 2);
-      if (v5)
-      {
-        v6 = *(v5 + 8);
-        if (v6)
-        {
-          if (v1 != v3)
-          {
-            fflush(v6);
-            v7 = *(this + 2);
-            v8 = *(v7 + 24) + v4;
-            *(v7 + 24) = v8;
-            fseek(*(v7 + 8), v8, 0);
-          }
-        }
-
-        else
-        {
-          v10 = *(v5 + 16);
-          if (!v10 || !(*(*v10 + 32))(v10))
-          {
-            jp2_output_box::end_rewrite();
-          }
-
-          *(*(this + 2) + 24) += v4;
-        }
-      }
-
-      else
-      {
-        v9 = *(this + 3);
-        if (!v9)
-        {
-          jp2_output_box::end_rewrite();
-        }
-
-        if (((*(*v9 + 32))(v9) & 1) == 0)
-        {
-          jp2_output_box::end_rewrite();
-        }
-      }
-    }
-  }
-
-  return v1 >= 0;
-}
-
-BOOL jp2_output_box::write(jp2_output_box *this, const unsigned __int8 *__ptr, size_t __nitems)
-{
-  if (!*(this + 2) || (*(this + 72) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v5 = __nitems;
-  v6 = *(this + 7);
-  v7 = __nitems;
-  if ((v6 & 0x8000000000000000) == 0)
-  {
-    v8 = *(this + 5);
-    v9 = v8 + __nitems;
-    v10 = v6 - v8;
-    if (v9 > v6)
-    {
-      v7 = v10;
-    }
-
-    else
-    {
-      v7 = __nitems;
-    }
-  }
-
-  if (v7 <= 0)
-  {
-    return v7 == v5;
-  }
-
-  v11 = *(this + 6);
-  v12 = *(this + 5) + v7;
-  *(this + 5) = v12;
-  if ((v11 & 0x8000000000000000) == 0 && v12 > v11)
-  {
-    v22 = 0;
-    memset(v21, 0, sizeof(v21));
-    kdu_error::kdu_error(v21, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(v21);
-  }
-
-  if (*(this + 73) != 1)
-  {
-    v15 = *(this + 5);
-    v16 = *(this + 8);
-    if (v15 > v16)
-    {
-      if ((*(this + 7) & 0x8000000000000000) != 0)
-      {
-        *(this + 8) = v15 + v16 + 1024;
-        operator new[]();
-      }
-
-      jp2_output_box::write();
-    }
-
-    memcpy((*(this + 8) + v15 - v7), __ptr, v7);
-    return v7 == v5;
-  }
-
-  v13 = *(this + 3);
-  if (v13)
-  {
-    v14 = (*(*v13 + 40))(v13, __ptr, v7);
-    *(this + 72) = v14 ^ 1;
-  }
-
-  else
-  {
-    v17 = *(this + 2);
-    v18 = *(v17 + 8);
-    if (v18)
-    {
-      v14 = fwrite(__ptr, 1uLL, v7, v18) == v7;
-      if (v14)
-      {
-        v19 = 0;
-      }
-
-      else
-      {
-        v19 = 1;
-      }
-    }
-
-    else
-    {
-      v20 = *(v17 + 16);
-      if (!v20)
-      {
-        jp2_output_box::write();
-      }
-
-      v14 = (*(*v20 + 40))(v20, __ptr, v7);
-      v19 = v14 ^ 1;
-    }
-
-    *(this + 72) = v19;
-    *(*(this + 2) + 24) += v7;
-  }
-
-  return (v7 == v5) & v14;
-}
-
-void jp2_dimensions::init(uint64_t *a1, uint64_t a2, int a3, unsigned __int8 a4, int a5)
-{
-  if (*a1)
-  {
-    if (*(*a1 + 20))
-    {
-      v7 = 0;
-      memset(v6, 0, sizeof(v6));
-      kdu_error::kdu_error(v6, "Error in Kakadu File Format Support:\n");
-      (*(*&v6[0] + 16))(v6, "JP2 dimensions may be initialized only once!");
-      kdu_error::~kdu_error(v6);
-    }
-
-    if (a3 > 0)
-    {
-      **a1 = a2;
-      v5 = *a1;
-      *(v5 + 20) = a3;
-      *(v5 + 24) = a4;
-      *(v5 + 8) = a5;
-      *(v5 + 12) = 2;
-      *(v5 + 16) = 1;
-      operator new[]();
-    }
-
-    jp2_dimensions::init();
-  }
-
-  jp2_dimensions::init();
-}
-
-void j2_dimensions::init(j2_dimensions *this, jp2_input_box *a2)
-{
-  if (*(this + 5))
-  {
-    v12 = 0;
-    v10 = 0u;
-    v11 = 0u;
-    kdu_error::kdu_error(&v10, "Error in Kakadu File Format Support:\n");
-    kdu_error::~kdu_error(&v10);
-  }
-
-  if (*(a2 + 12) == 1768449138)
-  {
-    *v9 = 0;
-    v8 = 0;
-    v7 = 0;
-    v6 = 0;
-    if (!jp2_input_box::read(a2, &v9[1]) || !jp2_input_box::read(a2, v9) || !jp2_input_box::read(a2, &v8) || (*(*a2 + 32))(a2, &v7 + 1, 1) != 1 || (*(*a2 + 32))(a2, &v7, 1) != 1 || (*(*a2 + 32))(a2, &v6 + 1, 1) != 1 || (*(*a2 + 32))(a2, &v6, 1) != 1)
-    {
-      v12 = 0;
-      v10 = 0u;
-      v11 = 0u;
-      kdu_error::kdu_error(&v10, "Error in Kakadu File Format Support:\n");
-      (*(v10 + 16))(&v10, "Malformed image header box (ihdr) found in JP2-family data source.  Not all fields were present.");
-      kdu_error::~kdu_error(&v10);
-    }
-
-    if (((*(*a2 + 16))(a2) & 1) == 0)
-    {
-      v12 = 0;
-      v10 = 0u;
-      v11 = 0u;
-      kdu_error::kdu_error(&v10, "Error in Kakadu File Format Support:\n");
-      (*(v10 + 16))(&v10, "Malformed image header box (ihdr) found in JP2-family data source.  The box appears to be too long.");
-      kdu_error::~kdu_error(&v10);
-    }
-
-    v4 = v8;
-    if ((v8 - 1) >> 14 || v7 > 9u || HIBYTE(v6) > 1u || v6 > 1u || HIBYTE(v7) != 255 && (HIBYTE(v7) & 0x7Eu) >= 0x26)
-    {
-      v12 = 0;
-      v10 = 0u;
-      v11 = 0u;
-      kdu_error::kdu_error(&v10, "Error in Kakadu File Format Support:\n");
-      (*(v10 + 16))(&v10, "Malformed image header box (ihdr) found in JP2-family data source.  The box contains fields which do not conform to their legal range.");
-      kdu_error::~kdu_error(&v10);
-    }
-
-    v5 = v9[0];
-    if ((v9[1] & 0x80000000) == 0 && (v9[0] & 0x80000000) == 0)
-    {
-      *this = v9[1];
-      *(this + 1) = v5;
-      *(this + 5) = v4;
-      *(this + 24) = HIBYTE(v6) != 0;
-      *(this + 25) = v6 != 0;
-      *(this + 2) = v7;
-      operator new[]();
-    }
-
-    v12 = 0;
-    v10 = 0u;
-    v11 = 0u;
-    kdu_error::kdu_error(&v10, "Error in Kakadu File Format Support:\n");
-    (*(v10 + 16))(&v10, "Sorry: Cannot process JP2-family data sources whose image header box contains height or width values larger than 2^{31}-1.");
-    kdu_error::~kdu_error(&v10);
-  }
-
-  j2_dimensions::init();
-}
-
-uint64_t j2_dimensions::process_bpcc_box(j2_dimensions *this, jp2_input_box *a2)
-{
-  v12 = 0;
-  if (*(this + 5) >= 1)
-  {
-    v4 = 0;
-    while ((*(*a2 + 32))(a2, &v12, 1) == 1)
-    {
-      v5 = v12 & 0x7F;
-      if (v5 >= 0x26)
-      {
-        v11 = 0;
-        v9 = 0u;
-        v10 = 0u;
-        kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-        (*(v9 + 16))(&v9, "Malformed bits per component (bpcc) box found in JP2-family data source.  The box contains an illegal bit-depth specifier.  Bit depths may not exceed 38 bits per sample.");
-        goto LABEL_7;
-      }
-
-      v6 = ~v5;
-      if ((v12 & 0x80u) == 0)
-      {
-        v7 = v12 + 1;
-      }
-
-      else
-      {
-        v7 = v6;
-      }
-
-      *(*(this + 4) + 4 * v4++) = v7;
-      if (v4 >= *(this + 5))
-      {
-        goto LABEL_12;
-      }
-    }
-
-    v11 = 0;
-    v9 = 0u;
-    v10 = 0u;
-    kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-    (*(v9 + 16))(&v9, "Malformed bits per component (bpcc) box found in JP2-family data source.  The box contains insufficient bit-depth specifiers.");
-LABEL_7:
-    kdu_error::~kdu_error(&v9);
-  }
-
-LABEL_12:
-  result = (*(*a2 + 16))(a2);
-  if ((result & 1) == 0)
-  {
-    v11 = 0;
-    v9 = 0u;
-    v10 = 0u;
-    kdu_error::kdu_error(&v9, "Error in Kakadu File Format Support:\n");
-    (*(v9 + 16))(&v9, "Malformed bits per component (bpcc) box found in JP2-family data source.  The box appears to be too long.");
-    kdu_error::~kdu_error(&v9);
-  }
-
-  return result;
-}
-
 uint64_t j2_dimensions::finalize(uint64_t this)
 {
   v1 = *(this + 20);
@@ -1753,12 +158,11 @@ LABEL_7:
   return result;
 }
 
-void sub_185F4FB00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185F4FB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -1767,6 +171,7 @@ void sub_185F4FB00(_Unwind_Exception *a1, uint64_t a2, ...)
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   jp2_output_box::~jp2_output_box(va);
   jp2_output_box::~jp2_output_box(va1);
   _Unwind_Resume(a1);
@@ -1789,9 +194,9 @@ void jp2_dimensions::init(jp2_dimensions *this, siz_params *a2, unsigned __int8 
   kdu_error::~kdu_error(v6);
 }
 
-uint64_t *jp2_dimensions::set_precision(uint64_t *this, unsigned int a2, int a3, int a4)
+uint64_t *jp2_dimensions::set_precision(uint64_t *this, signed int a2, int a3, int a4)
 {
-  if ((a2 & 0x80000000) != 0 || (v4 = *this) == 0 || *(v4 + 20) <= a2)
+  if (a2 < 0 || (v4 = *this) == 0 || *(v4 + 20) <= a2)
   {
     jp2_dimensions::set_precision();
   }
@@ -1920,7 +325,7 @@ LABEL_25:
   return this;
 }
 
-uint64_t jp2_dimensions::get_size(jp2_dimensions *this)
+uint64_t jp2_dimensions::get_size(jp2_dimensions *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -1930,9 +335,9 @@ uint64_t jp2_dimensions::get_size(jp2_dimensions *this)
   return **this;
 }
 
-uint64_t jp2_dimensions::get_bit_depth(jp2_dimensions *this, unsigned int a2)
+uint64_t jp2_dimensions::get_bit_depth(jp2_dimensions *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || (v2 = *this) == 0 || *(v2 + 20) <= a2)
+  if (a2 < 0 || (v2 = *this) == 0 || *(v2 + 20) <= a2)
   {
     jp2_dimensions::get_bit_depth();
   }
@@ -1949,9 +354,9 @@ uint64_t jp2_dimensions::get_bit_depth(jp2_dimensions *this, unsigned int a2)
   }
 }
 
-uint64_t jp2_dimensions::get_signed(jp2_dimensions *this, unsigned int a2)
+uint64_t jp2_dimensions::get_signed(jp2_dimensions *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || (v2 = *this) == 0 || *(v2 + 20) <= a2)
+  if (a2 < 0 || (v2 = *this) == 0 || *(v2 + 20) <= a2)
   {
     jp2_dimensions::get_signed();
   }
@@ -2162,17 +567,17 @@ uint64_t j2_palette::save_box(uint64_t this, jp2_output_box *a2)
   return this;
 }
 
-void sub_185F50CF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+void sub_185F50CF4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   if (a19)
   {
-    MEMORY[0x186602830](a19, 0x1000C8077774924);
+    MEMORY[0x186602830](a19, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t jp2_palette::get_num_entries(jp2_palette *this)
+uint64_t jp2_palette::get_num_entries(jp2_palette *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -2182,7 +587,7 @@ uint64_t jp2_palette::get_num_entries(jp2_palette *this)
   return *(*this + 8);
 }
 
-uint64_t jp2_palette::get_num_luts(jp2_palette *this)
+uint64_t jp2_palette::get_num_luts(jp2_palette *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -2192,9 +597,9 @@ uint64_t jp2_palette::get_num_luts(jp2_palette *this)
   return *(*this + 4);
 }
 
-uint64_t jp2_palette::get_bit_depth(jp2_palette *this, unsigned int a2)
+uint64_t jp2_palette::get_bit_depth(jp2_palette *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || (v2 = *this) == 0 || *(v2 + 4) <= a2)
+  if (a2 < 0 || (v2 = *this) == 0 || *(v2 + 4) <= a2)
   {
     jp2_palette::get_bit_depth();
   }
@@ -2211,9 +616,9 @@ uint64_t jp2_palette::get_bit_depth(jp2_palette *this, unsigned int a2)
   }
 }
 
-uint64_t jp2_palette::get_signed(jp2_palette *this, unsigned int a2)
+uint64_t jp2_palette::get_signed(jp2_palette *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || (v2 = *this) == 0 || *(v2 + 4) <= a2)
+  if (a2 < 0 || (v2 = *this) == 0 || *(v2 + 4) <= a2)
   {
     jp2_palette::get_signed();
   }
@@ -2221,9 +626,9 @@ uint64_t jp2_palette::get_signed(jp2_palette *this, unsigned int a2)
   return *(*(v2 + 16) + 4 * a2) >> 31;
 }
 
-uint64_t *jp2_palette::get_lut(uint64_t *result, unsigned int a2, uint64_t a3)
+uint64_t *jp2_palette::get_lut(uint64_t *result, signed int a2, uint64_t a3)
 {
-  if ((a2 & 0x80000000) != 0 || (v3 = *result) == 0 || *(v3 + 4) <= a2)
+  if (a2 < 0 || (v3 = *result) == 0 || *(v3 + 4) <= a2)
   {
     jp2_palette::get_lut();
   }
@@ -2369,9 +774,9 @@ _BYTE *j2_component_map::save_box(_BYTE *this, jp2_output_box *a2, int a3)
   return this;
 }
 
-void sub_185F515A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185F515A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   jp2_output_box::~jp2_output_box(va);
   _Unwind_Resume(a1);
 }
@@ -3676,11 +2081,11 @@ LABEL_104:
   return this;
 }
 
-void sub_185F53834(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_185F53834(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va, a6);
+  va_start(va, a12);
   jp2_output_box::~jp2_output_box(va);
-  _Unwind_Resume(v6);
+  _Unwind_Resume(v12);
 }
 
 void jp2_channels::init(jp2_channels *this, int a2)
@@ -3766,7 +2171,7 @@ uint64_t *jp2_channels::set_premult_mapping(uint64_t *this, unsigned int a2, int
   return this;
 }
 
-uint64_t jp2_channels::get_num_colours(jp2_channels *this)
+uint64_t jp2_channels::get_num_colours(jp2_channels *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -4005,11 +2410,11 @@ LABEL_16:
   return v4 ^ 1u;
 }
 
-void sub_185F54040(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_185F54040(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va, a6);
+  va_start(va, a12);
   jp2_input_box::~jp2_input_box(va);
-  _Unwind_Resume(v6);
+  _Unwind_Resume(v12);
 }
 
 uint64_t j2_resolution::parse_sub_box(j2_resolution *this, jp2_input_box *a2)
@@ -4355,7 +2760,7 @@ uint64_t jp2_resolution::init(jp2_resolution *this, float a2)
   return j2_resolution::init(v3, a2);
 }
 
-float **jp2_resolution::set_resolution(float **this, float a2, int a3)
+float **jp2_resolution::set_resolution(float **this, __n128 a2, int a3)
 {
   v3 = *this;
   if (!*this || *v3 <= 0.0)
@@ -4369,11 +2774,11 @@ float **jp2_resolution::set_resolution(float **this, float a2, int a3)
     v4 = 2;
   }
 
-  v3[v4] = a2;
+  v3[v4] = a2.n128_f32[0];
   return this;
 }
 
-uint64_t j2_icc_profile::init(uint64_t this, unsigned __int8 *a2, int a3, int a4)
+_DWORD *j2_icc_profile::init(_DWORD *this, unsigned __int8 *a2, int a3, int a4)
 {
   v4 = this;
   if (a4)
@@ -4392,9 +2797,9 @@ uint64_t j2_icc_profile::init(uint64_t this, unsigned __int8 *a2, int a3, int a4
   }
 
   *this = a2;
-  *(this + 8) = 4;
+  this[2] = 4;
   v5 = bswap32(*a2);
-  *(this + 8) = 0;
+  this[2] = 0;
   if ((a4 & 1) == 0)
   {
     *this = 0;
@@ -4431,7 +2836,7 @@ LABEL_11:
     kdu_error::~kdu_error(&v22);
   }
 
-  *(this + 8) = v5;
+  this[2] = v5;
   if ((a4 & 1) == 0)
   {
     operator new[]();
@@ -4628,7 +3033,7 @@ LABEL_109:
   }
 
 LABEL_61:
-  *(this + 12) = v9;
+  this[3] = v9;
   v10 = bswap32(*(*this + 20));
   if (v10 == 1281450528)
   {
@@ -4651,17 +3056,17 @@ LABEL_61:
   }
 
   v11 = bswap32(*(*this + 128));
-  *(this + 28) = 0;
-  *(this + 16) = v11;
-  *(this + 36) = 0;
-  *(this + 44) = 0;
+  *(this + 7) = 0;
+  this[4] = v11;
+  *(this + 9) = 0;
+  *(this + 11) = 0;
   if (v11 >= 1)
   {
     v12 = 0;
     v13 = 143;
     do
     {
-      v14 = *(v4 + 8) - 3;
+      v14 = *(v4 + 2) - 3;
       if (v13 - 11 >= v14 || (v15 = *v4 + v13, v16 = bswap32(*(v15 - 11)), v14 <= v13 - 7) || (v17 = bswap32(*(v15 - 7)), v14 <= v13 - 3) || (v18 = bswap32(*(*v4 + v13 - 3)), v17 >= 0x5F5E101))
       {
         v24 = 0;
@@ -4678,15 +3083,15 @@ LABEL_61:
         {
           case 1649693251:
             this = j2_icc_profile::get_curve_data_offset(v4, v17, v18);
-            *(v4 + 36) = this;
+            *(v4 + 9) = this;
             break;
           case 1649957210:
             this = j2_icc_profile::get_xyz_data_offset(v4, v17, v18);
-            *(v4 + 48) = this;
+            *(v4 + 12) = this;
             break;
           case 1733579331:
             this = j2_icc_profile::get_curve_data_offset(v4, v17, v18);
-            *(v4 + 32) = this;
+            *(v4 + 8) = this;
             break;
         }
 
@@ -4700,7 +3105,7 @@ LABEL_61:
           if (v16 == 1918392666)
           {
             this = j2_icc_profile::get_xyz_data_offset(v4, v17, v18);
-            *(v4 + 40) = this;
+            *(v4 + 10) = this;
           }
 
           goto LABEL_89;
@@ -4712,7 +3117,7 @@ LABEL_61:
         if (v16 == 1733843290)
         {
           this = j2_icc_profile::get_xyz_data_offset(v4, v17, v18);
-          *(v4 + 44) = this;
+          *(v4 + 11) = this;
           goto LABEL_89;
         }
 
@@ -4723,17 +3128,17 @@ LABEL_61:
       }
 
       this = j2_icc_profile::get_curve_data_offset(v4, v17, v18);
-      *(v4 + 28) = this;
+      *(v4 + 7) = this;
 LABEL_89:
       ++v12;
       v13 += 12;
     }
 
-    while (v12 < *(v4 + 16));
+    while (v12 < *(v4 + 4));
   }
 
   *(v4 + 24) = 0;
-  v19 = *(v4 + 12);
+  v19 = *(v4 + 3);
   if (v19 >= 4)
   {
     v24 = 0;
@@ -4748,7 +3153,7 @@ LABEL_89:
   {
     for (i = 0; i < v19; ++i)
     {
-      if (!*(v4 + 28 + 4 * i))
+      if (!*(v4 + i + 7))
       {
         if (*(v4 + 21) == 1)
         {
@@ -4771,7 +3176,7 @@ LABEL_89:
     {
       for (j = 0; j != 12; j += 4)
       {
-        if (!*(v4 + 40 + j))
+        if (!*(v4 + j + 40))
         {
           if (*(v4 + 21) == 1)
           {
@@ -4902,7 +3307,7 @@ void j2_colour::~j2_colour(j2_colour *this)
   }
 }
 
-uint64_t j2_colour::copy(j2_colour *this, j2_colour *a2)
+void *j2_colour::copy(j2_colour *this, j2_colour *a2)
 {
   result = *(this + 7);
   if (result)
@@ -5261,7 +3666,7 @@ int32x2_t j2_colour::finalize(j2_colour *this, j2_channels *a2)
   return result;
 }
 
-uint64_t j2_channels::get_bit_depth(j2_channels *this, unsigned int a2)
+uint64_t j2_channels::get_bit_depth(j2_channels *this, int a2)
 {
   if (*(this + 1) <= a2)
   {
@@ -5733,7 +4138,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t jp2_colour::get_num_colours(jp2_colour *this)
+uint64_t jp2_colour::get_num_colours(jp2_colour *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -5743,7 +4148,7 @@ uint64_t jp2_colour::get_num_colours(jp2_colour *this)
   return *(*this + 8);
 }
 
-uint64_t jp2_colour::get_space(jp2_colour *this)
+uint64_t jp2_colour::get_space(jp2_colour *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -5753,7 +4158,7 @@ uint64_t jp2_colour::get_space(jp2_colour *this)
   return *(*this + 4);
 }
 
-uint64_t jp2_colour::is_opponent_space(jp2_colour *this)
+uint64_t jp2_colour::is_opponent_space(jp2_colour *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -5763,7 +4168,7 @@ uint64_t jp2_colour::is_opponent_space(jp2_colour *this)
   return (*(*this + 4) < 0x19u) & (0x1CC621Au >> *(*this + 4));
 }
 
-uint64_t jp2_colour::get_precedence(jp2_colour *this)
+uint64_t jp2_colour::get_precedence(jp2_colour *this, uint64_t a2)
 {
   if (!*this)
   {
@@ -6284,7 +4689,7 @@ j2_colour_converter *jp2_colour_converter::clear(j2_colour_converter **this)
   return result;
 }
 
-void jp2_colour_converter::init(j2_colour_converter **a1)
+void jp2_colour_converter::init(j2_colour_converter **a1, j2_colour *a2, int a3, int a4)
 {
   if (*a1)
   {
@@ -7046,48 +5451,48 @@ uint64_t jp2_target::open_codestream(jp2_target *this, uint64_t a2)
   return (*(*this + 80))(this, 1785737827, a2);
 }
 
-uint64_t jp2_target::access_dimensions(jp2_target *this)
+uint64_t jp2_target::access_dimensions(jp2_target *this, uint64_t a2)
 {
-  v1 = *(this + 10);
-  if (!v1)
+  v2 = *(this + 10);
+  if (!v2)
   {
     jp2_target::access_dimensions();
   }
 
-  return *v1 + 192;
+  return *v2 + 192;
 }
 
-uint64_t jp2_target::access_colour(jp2_target *this)
+uint64_t jp2_target::access_colour(jp2_target *this, uint64_t a2)
 {
-  v1 = *(this + 10);
-  if (!v1)
+  v2 = *(this + 10);
+  if (!v2)
   {
     jp2_target::access_colour();
   }
 
-  return *v1 + 232;
+  return *v2 + 232;
 }
 
-uint64_t jp2_target::access_channels(jp2_target *this)
+uint64_t jp2_target::access_channels(jp2_target *this, uint64_t a2)
 {
-  v1 = *(this + 10);
-  if (!v1)
+  v2 = *(this + 10);
+  if (!v2)
   {
     jp2_target::access_channels();
   }
 
-  return *v1 + 416;
+  return *v2 + 416;
 }
 
-uint64_t jp2_target::access_resolution(jp2_target *this)
+uint64_t jp2_target::access_resolution(jp2_target *this, uint64_t a2)
 {
-  v1 = *(this + 10);
-  if (!v1)
+  v2 = *(this + 10);
+  if (!v2)
   {
     jp2_target::access_resolution();
   }
 
-  return *v1 + 456;
+  return *v2 + 456;
 }
 
 void j2_data_references::init(j2_data_references *this, jp2_input_box *a2)
@@ -7196,14 +5601,14 @@ void j2_data_references::init(j2_data_references *this, jp2_input_box *a2)
   }
 }
 
-void sub_185F59DB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_185F59DB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va, a6);
+  va_start(va, a12);
   jp2_input_box::~jp2_input_box(va);
-  _Unwind_Resume(v6);
+  _Unwind_Resume(v12);
 }
 
-const char *jp2_data_references::get_url(jp2_data_references *this, unsigned int a2)
+const char *jp2_data_references::get_url(jp2_data_references *this, signed int a2)
 {
   result = 0;
   if ((a2 & 0x80000000) == 0)
@@ -8286,7 +6691,7 @@ LABEL_59:
         do
         {
           this = kdu_params::copy_from(v31, v30, a3, v11, a5, a6, a7, a8, a9, a10);
-          v31 = *(v31 + 7);
+          v31 = *(v31 + 56);
           v30 = *(v30 + 7);
           if (v30)
           {
@@ -8519,7 +6924,7 @@ uint64_t kdu_params::access_cluster(kdu_params *this, const char *__s2)
   return v2;
 }
 
-uint64_t kdu_params::access_cluster(kdu_params *this, int a2)
+uint64_t kdu_params::access_cluster(kdu_params *this, unsigned int a2)
 {
   result = *(**(this + 8) + 48);
   if (result)
@@ -8791,7 +7196,7 @@ LABEL_46:
     v20 = *(v16 + 36) > 0;
   }
 
-  if ((v20 & 1) == 0 && a6 && (!*(this + 6) || *(this + 42) == 1))
+  if (!v20 && a6 && (!*(this + 6) || *(this + 42) == 1))
   {
     if ((*(this + 5) & 0x80000000) == 0)
     {
@@ -8940,7 +7345,7 @@ LABEL_44:
     v18 = *(v16 + 36) > 0;
   }
 
-  if ((v18 & 1) == 0 && a6 && (!*(this + 6) || *(this + 42) == 1))
+  if (!v18 && a6 && (!*(this + 6) || *(this + 42) == 1))
   {
     if ((*(this + 5) & 0x80000000) == 0)
     {
@@ -9089,7 +7494,7 @@ LABEL_44:
     v18 = *(v16 + 36) > 0;
   }
 
-  if ((v18 & 1) == 0 && a6 && (!*(this + 6) || *(this + 42) == 1))
+  if (!v18 && a6 && (!*(this + 6) || *(this + 42) == 1))
   {
     if ((*(this + 5) & 0x80000000) == 0)
     {
@@ -10429,4 +8834,1056 @@ LABEL_174:
   *(this + 36) = 0;
   setlocale(4, v53);
   return 1;
+}
+
+uint64_t kdu_params::delete_unparsed_attribute(uint64_t this, const char *a2)
+{
+  v2 = *(this + 96);
+  if (!v2)
+  {
+LABEL_64:
+    v37 = 0;
+    memset(v36, 0, sizeof(v36));
+    kdu_error::kdu_error(v36, "Kakadu Core Error:\n");
+    (*(*&v36[0] + 16))(v36, "Attempting to delete a non-existent attribute with kdu_params::delete_unparsed_attribute.");
+    kdu_error::~kdu_error(v36);
+  }
+
+  v4 = this;
+  v5 = *(this + 96);
+  while (*v5 != a2)
+  {
+    v5 = *(v5 + 56);
+    if (!v5)
+    {
+      while (1)
+      {
+        this = strcmp(*v2, a2);
+        if (!this)
+        {
+          break;
+        }
+
+        v2 = *(v2 + 56);
+        if (!v2)
+        {
+          goto LABEL_64;
+        }
+      }
+
+      v5 = v2;
+      break;
+    }
+  }
+
+  if ((*(v5 + 49) & 1) == 0)
+  {
+    v6 = (*(v5 + 32) * *(v5 + 36));
+    if (v6)
+    {
+      if ((*(v4 + 104) & 1) == 0)
+      {
+        *(v4 + 104) = 1;
+        v7 = *(v4 + 80);
+        *(v7 + 104) = 1;
+        v8 = **(v7 + 64);
+        *(v8 + 104) = 1;
+        *(*(v8 + 48) + 104) = 1;
+      }
+
+      if (v6 >= 1)
+      {
+        v9 = (v6 + 15) & 0xFFFFFFF0;
+        v10 = vdupq_n_s64(v6 - 1);
+        v11 = xmmword_186205E50;
+        v12 = xmmword_186205E60;
+        v13 = xmmword_186205E70;
+        v14 = xmmword_186205E80;
+        v15 = xmmword_186205E90;
+        v16 = xmmword_186205EA0;
+        v17 = xmmword_186205EB0;
+        v18 = xmmword_186205EC0;
+        v19 = (*(v5 + 40) + 208);
+        v20 = vdupq_n_s64(0x10uLL);
+        do
+        {
+          v21 = vmovn_s64(vcgeq_u64(v10, v18));
+          if (vuzp1_s8(vuzp1_s16(v21, *v10.i8), *v10.i8).u8[0])
+          {
+            *(v19 - 192) = 0;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(v21, *&v10), *&v10).i8[1])
+          {
+            *(v19 - 168) = 0;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v17))), *&v10).i8[2])
+          {
+            *(v19 - 144) = 0;
+            *(v19 - 120) = 0;
+          }
+
+          v22 = vmovn_s64(vcgeq_u64(v10, v16));
+          if (vuzp1_s8(*&v10, vuzp1_s16(v22, *&v10)).i32[1])
+          {
+            *(v19 - 96) = 0;
+          }
+
+          if (vuzp1_s8(*&v10, vuzp1_s16(v22, *&v10)).i8[5])
+          {
+            *(v19 - 72) = 0;
+          }
+
+          if (vuzp1_s8(*&v10, vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v15)))).i8[6])
+          {
+            *(v19 - 48) = 0;
+            *(v19 - 24) = 0;
+          }
+
+          v23 = vmovn_s64(vcgeq_u64(v10, v14));
+          if (vuzp1_s8(vuzp1_s16(v23, *v10.i8), *v10.i8).u8[0])
+          {
+            *v19 = 0;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(v23, *&v10), *&v10).i8[1])
+          {
+            v19[24] = 0;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v13))), *&v10).i8[2])
+          {
+            v19[48] = 0;
+            v19[72] = 0;
+          }
+
+          v24 = vmovn_s64(vcgeq_u64(v10, v12));
+          if (vuzp1_s8(*&v10, vuzp1_s16(v24, *&v10)).i32[1])
+          {
+            v19[96] = 0;
+          }
+
+          if (vuzp1_s8(*&v10, vuzp1_s16(v24, *&v10)).i8[5])
+          {
+            v19[120] = 0;
+          }
+
+          if (vuzp1_s8(*&v10, vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v11)))).i8[6])
+          {
+            v19[144] = 0;
+            v19[168] = 0;
+          }
+
+          v16 = vaddq_s64(v16, v20);
+          v17 = vaddq_s64(v17, v20);
+          v18 = vaddq_s64(v18, v20);
+          v15 = vaddq_s64(v15, v20);
+          v14 = vaddq_s64(v14, v20);
+          v13 = vaddq_s64(v13, v20);
+          v12 = vaddq_s64(v12, v20);
+          v19 += 384;
+          v11 = vaddq_s64(v11, v20);
+          v9 -= 16;
+        }
+
+        while (v9);
+      }
+    }
+
+    *(v5 + 36) = 0;
+  }
+
+  if (*(v4 + 80) == v4)
+  {
+    for (i = *(v4 + 88); i; i = *(i + 88))
+    {
+      this = kdu_params::delete_unparsed_attribute(i, a2);
+    }
+
+    if ((*(v4 + 20) & 0x80000000) != 0)
+    {
+      v26 = *(v4 + 16);
+      v27 = *(v4 + 32);
+      if (v27 >= 1)
+      {
+        v28 = v27 + 1;
+        v29 = (*(v4 + 64) + 8 * (v28 + v28 * v26) + 8);
+        do
+        {
+          this = *v29;
+          if (*v29)
+          {
+            v30 = this == v4;
+          }
+
+          else
+          {
+            v30 = 1;
+          }
+
+          if (!v30)
+          {
+            this = kdu_params::delete_unparsed_attribute(this, a2);
+          }
+
+          ++v29;
+          --v28;
+        }
+
+        while (v28 > 1);
+        v26 = *(v4 + 16);
+      }
+
+      if (v26 < 0)
+      {
+        v31 = *(v4 + 28);
+        if (v31 >= 1)
+        {
+          v32 = *(v4 + 32);
+          v33 = (*(v4 + 64) + 8 * v32 + 8);
+          v34 = v31 + 1;
+          do
+          {
+            this = *v33;
+            if (*v33)
+            {
+              v35 = this == v4;
+            }
+
+            else
+            {
+              v35 = 1;
+            }
+
+            if (!v35)
+            {
+              this = kdu_params::delete_unparsed_attribute(this, a2);
+              LODWORD(v32) = *(v4 + 32);
+            }
+
+            v33 += v32 + 1;
+            --v34;
+          }
+
+          while (v34 > 1);
+        }
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t display_options(char *a1, kdu_message *a2)
+{
+  v3 = a1;
+  v27 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  *v22 = 0u;
+  memset(v21, 0, sizeof(v21));
+  v20 = 0;
+  v4 = *a1;
+  if (v4 != 91)
+  {
+    if (v4 != 40)
+    {
+      display_options();
+    }
+
+    (*(*a2 + 16))(a2, "Expected one of the identifiers, ");
+    v6 = 0;
+    v7 = 0;
+    v8 = v21;
+    v9 = v22;
+    do
+    {
+      v10 = v9;
+      v3 = parse_translator_entry(v3 + 1, 0x2Cu, v9, &v20, v5);
+      if (v7)
+      {
+        (*(*a2 + 16))(a2, ", ");
+      }
+
+      if (v6)
+      {
+        (*(*a2 + 16))(a2, "");
+        (*(*a2 + 16))(a2, v6);
+        (*(*a2 + 16))(a2, "");
+        v7 = 1;
+      }
+
+      v11 = *v3;
+      v9 = v8;
+      v8 = v10;
+      v6 = v10;
+    }
+
+    while (v11 == 44);
+    if (v11 != 41)
+    {
+      display_options();
+    }
+
+    v12 = ".";
+    if ((v7 & 1) == 0)
+    {
+      goto LABEL_21;
+    }
+
+LABEL_20:
+    (*(*a2 + 16))(a2, " or ");
+    goto LABEL_21;
+  }
+
+  (*(*a2 + 16))(a2, "Expected one or more of the identifiers, ");
+  v14 = 0;
+  v15 = 0;
+  v16 = v21;
+  v17 = v22;
+  do
+  {
+    v10 = v17;
+    v3 = parse_translator_entry(v3 + 1, 0x7Cu, v17, &v20, v13);
+    if (v15)
+    {
+      (*(*a2 + 16))(a2, ", ");
+    }
+
+    if (v14)
+    {
+      (*(*a2 + 16))(a2, "");
+      (*(*a2 + 16))(a2, v14);
+      (*(*a2 + 16))(a2, "");
+      v15 = 1;
+    }
+
+    v18 = *v3;
+    v17 = v16;
+    v16 = v10;
+    v14 = v10;
+  }
+
+  while (v18 == 124);
+  if (v18 != 93)
+  {
+    display_options();
+  }
+
+  if (v15)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_21:
+  (*(*a2 + 16))(a2, "");
+  (*(*a2 + 16))(a2, v10);
+  return (*(*a2 + 16))(a2, v12);
+}
+
+uint64_t kdu_params::textualize_attributes(uint64_t this, kdu_message *a2, char a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  v20 = this;
+  for (i = *(this + 96); i; i = i[7])
+  {
+    if (*(i + 9) && (*(i + 48) != 1 || (a3 & 1) == 0))
+    {
+      (*(*a2 + 16))(a2, *i);
+      if ((*(v20 + 20) & 0x80000000) == 0 || (*(v20 + 16) & 0x80000000) == 0 || *(v20 + 42) == 1)
+      {
+        strcpy(v27, ":");
+        (*(*a2 + 16))(a2, v27);
+        if ((*(v20 + 16) & 0x80000000) == 0)
+        {
+          (*(*a2 + 16))(a2, "T");
+          v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          *v27 = 0u;
+          if (*(a2 + 8))
+          {
+            sprintf(v27, "%x");
+          }
+
+          else
+          {
+            sprintf(v27, "%d");
+          }
+
+          (*(*a2 + 16))(a2, v27);
+        }
+
+        if ((*(v20 + 20) & 0x80000000) == 0)
+        {
+          (*(*a2 + 16))(a2, "C");
+          v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          *v27 = 0u;
+          if (*(a2 + 8))
+          {
+            sprintf(v27, "%x");
+          }
+
+          else
+          {
+            sprintf(v27, "%d");
+          }
+
+          (*(*a2 + 16))(a2, v27);
+        }
+
+        if (*(v20 + 42) == 1)
+        {
+          (*(*a2 + 16))(a2, "I");
+          v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          *v27 = 0u;
+          if (*(a2 + 8))
+          {
+            sprintf(v27, "%x");
+          }
+
+          else
+          {
+            sprintf(v27, "%d");
+          }
+
+          (*(*a2 + 16))(a2, v27);
+        }
+      }
+
+      strcpy(v27, "=");
+      (*(*a2 + 16))(a2, v27);
+      if (*(i + 9) >= 1)
+      {
+        v6 = 0;
+        while (1)
+        {
+          if (v6)
+          {
+            strcpy(v27, ",");
+            (*(*a2 + 16))(a2, v27);
+          }
+
+          LODWORD(v7) = *(i + 8);
+          if (v7 > 1)
+          {
+            strcpy(v27, "{");
+            (*(*a2 + 16))(a2, v27);
+            LODWORD(v7) = *(i + 8);
+          }
+
+          if (v7 >= 1)
+          {
+            break;
+          }
+
+LABEL_80:
+          if (++v6 >= *(i + 9))
+          {
+            goto LABEL_81;
+          }
+        }
+
+        v8 = 0;
+        while (2)
+        {
+          v9 = i[5];
+          if (v8)
+          {
+            strcpy(v27, ",");
+            (*(*a2 + 16))(a2, v27);
+          }
+
+          v10 = (v9 + 24 * v7 * v6 + 24 * v8);
+          if ((v10[4] & 1) == 0)
+          {
+            *&v24 = 0;
+            *v22 = 0u;
+            v23 = 0u;
+            kdu_error::kdu_error(v22, "Kakadu Core Error:\n");
+            (*(*v22 + 16))(v22, "Attempting to textualize a code-stream parameter attribute, which has only partially been set!\nError occurred in attribute");
+            (*(*v22 + 16))(v22, " ");
+            (*(*v22 + 16))(v22, *i);
+            (*(*v22 + 16))(v22, " ");
+            (*(*v22 + 16))(v22, "in field ");
+            v30 = 0u;
+            v31 = 0u;
+            v28 = 0u;
+            v29 = 0u;
+            *v27 = 0u;
+            if (v22[8])
+            {
+              sprintf(v27, "%x");
+            }
+
+            else
+            {
+              sprintf(v27, "%d");
+            }
+
+            (*(*v22 + 16))(v22, v27);
+            (*(*v22 + 16))(v22, " of record ");
+            v30 = 0u;
+            v31 = 0u;
+            v28 = 0u;
+            v29 = 0u;
+            *v27 = 0u;
+            if (v22[8])
+            {
+              sprintf(v27, "%x");
+            }
+
+            else
+            {
+              sprintf(v27, "%d");
+            }
+
+            (*(*v22 + 16))(v22, v27);
+            (*(*v22 + 16))(v22, ".");
+            kdu_error::~kdu_error(v22);
+          }
+
+          v11 = *(v10 + 1);
+          v12 = *v11;
+          if (v12 > 0x45)
+          {
+            if (v12 == 91)
+            {
+              v25 = 0u;
+              v26 = 0u;
+              v23 = 0u;
+              v24 = 0u;
+              *v22 = 0u;
+              v21 = 0;
+              if (!*v10)
+              {
+                v30 = 0uLL;
+                v31 = 0uLL;
+                v28 = 0uLL;
+                v29 = 0uLL;
+                *v27 = 0uLL;
+                if (*(a2 + 8))
+                {
+                  sprintf(v27, "%x");
+                }
+
+                else
+                {
+                  sprintf(v27, "%d");
+                }
+
+                (*(*a2 + 16))(a2, v27);
+              }
+
+              v16 = 0;
+              do
+              {
+                v11 = parse_translator_entry(v11 + 1, 0x7Cu, v22, &v21, v5);
+                v17 = v21 | v16;
+                if ((v21 & ~*v10) == 0 && v17 > v16)
+                {
+                  (*(*a2 + 16))(a2, v22);
+                  if (v17 == *v10)
+                  {
+                    goto LABEL_77;
+                  }
+
+                  strcpy(v27, ",");
+                  (*(*a2 + 16))(a2, v27);
+                  v16 = v17;
+                }
+              }
+
+              while (*v11 == 124);
+              if (v16 != *v10)
+              {
+                kdu_params::textualize_attributes();
+              }
+
+              goto LABEL_77;
+            }
+
+            if (v12 != 73)
+            {
+              if (v12 != 70)
+              {
+LABEL_84:
+                kdu_params::textualize_attributes();
+              }
+
+              v13 = *v10;
+              v30 = 0u;
+              v31 = 0u;
+              v28 = 0u;
+              v29 = 0u;
+              *v27 = 0u;
+              sprintf(v27, "%f", v13);
+              (*(*a2 + 16))(a2, v27);
+LABEL_77:
+              ++v8;
+              v7 = *(i + 8);
+              if (v8 >= v7)
+              {
+                if (v7 >= 2)
+                {
+                  strcpy(v27, "}");
+                  (*(*a2 + 16))(a2, v27);
+                }
+
+                goto LABEL_80;
+              }
+
+              continue;
+            }
+
+            v30 = 0u;
+            v31 = 0u;
+            v28 = 0u;
+            v29 = 0u;
+            *v27 = 0u;
+            if (*(a2 + 8))
+            {
+              sprintf(v27, "%x");
+            }
+
+            else
+            {
+              sprintf(v27, "%d");
+            }
+          }
+
+          else
+          {
+            if (v12 != 40)
+            {
+              if (v12 == 66)
+              {
+                if (*v10)
+                {
+                  v14 = "yes";
+                }
+
+                else
+                {
+                  v14 = "no";
+                }
+
+                (*(*a2 + 16))(a2, v14);
+              }
+
+              else
+              {
+                if (v12 != 67)
+                {
+                  goto LABEL_84;
+                }
+
+                (*(*v20 + 64))(v20, a2, *i, v8, *v10);
+              }
+
+              goto LABEL_77;
+            }
+
+            v30 = 0u;
+            v31 = 0u;
+            v28 = 0u;
+            v29 = 0u;
+            *v27 = 0u;
+            *v22 = 0;
+            while (1)
+            {
+              v15 = parse_translator_entry(v11 + 1, 0x2Cu, v27, v22, v5);
+              if (*v22 == *v10)
+              {
+                break;
+              }
+
+              v11 = v15;
+              if (*v15 != 44)
+              {
+                kdu_params::textualize_attributes();
+              }
+            }
+          }
+
+          break;
+        }
+
+        (*(*a2 + 16))(a2, v27);
+        goto LABEL_77;
+      }
+
+LABEL_81:
+      strcpy(v27, "\n");
+      this = (*(*a2 + 16))(a2, v27);
+    }
+  }
+
+  return this;
+}
+
+uint64_t kdu_params::textualize_attributes(uint64_t this, kdu_message *a2, int a3, int a4, char a5)
+{
+  v7 = this;
+  if (a3 < 0)
+  {
+    v8 = -1;
+  }
+
+  else
+  {
+    v8 = a3;
+  }
+
+  v9 = *(this + 28);
+  if (v9 <= a4)
+  {
+    v10 = v9 - 1;
+  }
+
+  else
+  {
+    v10 = a4;
+  }
+
+  v11 = *(this + 16);
+  if (v11 < 0)
+  {
+    v11 = v8;
+  }
+
+  else
+  {
+    v12 = v11 >= a3 && v11 <= v10;
+    v10 = *(this + 16);
+    if (!v12)
+    {
+      return this;
+    }
+  }
+
+  if (*(this + 24))
+  {
+
+    return kdu_params::textualize_attributes(this, a2, a5);
+  }
+
+  else
+  {
+    v13 = *(this + 20);
+    if (v13 < 0)
+    {
+      v14 = 0xFFFFFFFFLL;
+    }
+
+    else
+    {
+      v14 = v13;
+    }
+
+    if (v11 <= v10)
+    {
+      v15 = *(this + 32);
+      if (v13 >= 0)
+      {
+        v16 = *(this + 20);
+      }
+
+      else
+      {
+        v16 = v15 - 1;
+      }
+
+      v17 = *(this + 64) + 8 * (v11 + 1 + (v11 + 1) * v15) + 8 * v14 + 8;
+      v25 = v10;
+      do
+      {
+        if (v14 <= v16)
+        {
+          v18 = v17;
+          v19 = v14;
+          do
+          {
+            v20 = *v18;
+            if (*(*v18 + 20) == v14 && *(v20 + 16) == v11)
+            {
+              do
+              {
+                this = kdu_params::textualize_attributes(v20, a2, a5);
+                v20 = *(v20 + 88);
+              }
+
+              while (v20);
+            }
+
+            ++v18;
+            v21 = v14 == v16;
+            LODWORD(v14) = v14 + 1;
+          }
+
+          while (!v21);
+          v15 = *(v7 + 32);
+          v10 = v25;
+          v14 = v19;
+        }
+
+        v17 += 8 * v15 + 8;
+        v21 = v11++ == v10;
+      }
+
+      while (!v21);
+    }
+
+    if (*(v7 + 48) == v7)
+    {
+      for (i = *(v7 + 56); i; i = *(i + 56))
+      {
+        this = kdu_params::textualize_attributes(i, a2, a3, a4, a5);
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t kdu_params::translate_marker_segment(kdu_params *this, uint64_t a2, uint64_t a3, unsigned __int8 *a4, int a5, uint64_t a6)
+{
+  v16 = -1;
+  v6 = *(**(this + 8) + 48);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  while (*(v6 + 7) <= a5 || ((*(*v6 + 40))(v6, a2, a3, a4, &v16) & 1) == 0)
+  {
+    v6 = *(v6 + 7);
+    if (!v6)
+    {
+      return 0;
+    }
+  }
+
+  v13 = v16;
+  if (*(v6 + 42) == 1)
+  {
+    v14 = -1;
+    v16 = -1;
+  }
+
+  else
+  {
+    v14 = v16;
+    v13 = 0;
+  }
+
+  result = kdu_params::access_relation(v6, a5, v14, v13, 0);
+  if (result)
+  {
+    v15 = result;
+    if (*(result + 40) == 1 && (*(result + 42) & 1) == 0)
+    {
+      while (v15[37] == 1)
+      {
+        result = 0;
+        v15 = *(v15 + 11);
+        if (!v15)
+        {
+          return result;
+        }
+      }
+    }
+
+    result = (*(*v15 + 48))(v15, a2, a3, a4, a6);
+    if (result)
+    {
+      v15[37] = 1;
+      if (v15[40] == 1 && (v15[42] & 1) == 0)
+      {
+        kdu_params::new_instance(v15);
+      }
+
+      v15[36] = 0;
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t kdu_params::generate_marker_segments(kdu_params *this, kdu_output *a2, int a3, uint64_t a4)
+{
+  v4 = *(**(this + 8) + 48);
+  if (v4)
+  {
+    v8 = 0;
+    v23 = a3 + 1;
+    while (1)
+    {
+      if (*(v4 + 28) > a3)
+      {
+        v9 = *(v4 + 32);
+        if ((v9 & 0x80000000) == 0)
+        {
+          break;
+        }
+      }
+
+LABEL_44:
+      v4 = *(v4 + 56);
+      if (!v4)
+      {
+        return v8;
+      }
+    }
+
+    v10 = v23 + v23 * v9;
+    v11 = *(*(v4 + 64) + 8 * v10);
+    v12 = -1;
+    while (1)
+    {
+      v13 = *(v4 + 64);
+      v14 = *(v13 + 8 * v10);
+      if (*(v14 + 16) == a3 || *(v11 + 16) == a3 && *(v11 + 37) == 1)
+      {
+        v15 = *(v14 + 20);
+        if (v15 == v12)
+        {
+          if ((v12 & 0x8000000000000000) == 0)
+          {
+            goto LABEL_18;
+          }
+
+          goto LABEL_20;
+        }
+
+        if (*(v14 + 41) == 1)
+        {
+          if (v12 < 0 || v15 != -1)
+          {
+            kdu_params::generate_marker_segments();
+          }
+
+          v16 = kdu_params::access_relation(v14, a3, v12, 0, 0);
+          v13 = *(v4 + 64);
+          if (v16 != *(v13 + 8 * v10) || (v14 = v16, *(v16 + 20) != v12))
+          {
+            kdu_params::generate_marker_segments();
+          }
+
+LABEL_18:
+          if (*(v11 + 16) != a3 || (v17 = v11, (*(v11 + 37) & 1) == 0))
+          {
+LABEL_20:
+            v17 = *(v13 + 8 * v12 + 8);
+            if ((*(v17 + 37) & 1) == 0)
+            {
+              if (*(v4 + 37))
+              {
+                v17 = v4;
+              }
+
+              else
+              {
+                v17 = 0;
+              }
+            }
+          }
+
+          if (v17 == v14)
+          {
+            v18 = 0;
+          }
+
+          else
+          {
+            v18 = v17;
+          }
+
+          do
+          {
+            if (*(v14 + 42) == 1)
+            {
+              if ((*(v14 + 16) & 0x80000000) != 0)
+              {
+                goto LABEL_35;
+              }
+
+              v19 = *(v14 + 24);
+              v18 = v4;
+              while (1)
+              {
+                v20 = *(v18 + 24);
+                if (v20 >= v19)
+                {
+                  break;
+                }
+
+                v18 = *(v18 + 88);
+                if (!v18)
+                {
+                  goto LABEL_35;
+                }
+              }
+
+              if (v20 != v19 || (*(v18 + 37) & 1) == 0)
+              {
+LABEL_35:
+                v18 = 0;
+              }
+            }
+
+            v21 = (*(*v14 + 32))(v14, a2, v18, a4);
+            if (v21 <= 0)
+            {
+              if (*(v14 + 37))
+              {
+                v18 = v14;
+              }
+
+              else
+              {
+                v18 = 0;
+              }
+            }
+
+            else
+            {
+              if (v21 <= 3)
+              {
+                kdu_params::generate_marker_segments();
+              }
+
+              v8 = (v21 + v8);
+              *(v14 + 37) = 1;
+              v18 = v14;
+            }
+
+            v14 = *(v14 + 88);
+          }
+
+          while (v14);
+        }
+      }
+
+      ++v12;
+      ++v10;
+      if (v12 >= *(v4 + 32))
+      {
+        goto LABEL_44;
+      }
+    }
+  }
+
+  return 0;
 }

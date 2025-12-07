@@ -187,72 +187,71 @@ void __61__AXUIMessageSendHandler__sendMessage_context_previousError___block_inv
   count = xpc_dictionary_get_count(v5);
   if (!count)
   {
-    v14 = 0;
+    v13 = 0;
     goto LABEL_22;
   }
 
   v10 = count;
-  v11 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v26 = 0;
-    v12 = *(a1 + 32);
-    v13 = [*(a1 + 40) messageSender];
-    v14 = [v12 messageSender:v13 extractCustomDataFromXPCReply:v5 numberOfKeyValuePairsForCustomData:&v26];
+    v25 = 0;
+    v11 = *(a1 + 32);
+    v12 = [*(a1 + 40) messageSender];
+    v13 = [v11 messageSender:v12 extractCustomDataFromXPCReply:v5 numberOfKeyValuePairsForCustomData:&v25];
 
-    v10 -= v26;
+    v10 -= v25;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   if (v10 == 2)
   {
     string = xpc_dictionary_get_string(v5, _AXUIMessageReplyKeyErrorDomain[0]);
-    v17 = xpc_dictionary_get_string(v5, _AXUIMessageReplyKeyErrorDescription[0]);
+    v16 = xpc_dictionary_get_string(v5, _AXUIMessageReplyKeyErrorDescription[0]);
     if (string)
     {
-      v18 = v17;
-      if (v17)
+      v17 = v16;
+      if (v16)
       {
-        v19 = [*(a1 + 40) completion];
+        v18 = [*(a1 + 40) completion];
 
-        if (!v19)
+        if (!v18)
         {
           goto LABEL_7;
         }
 
         v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
-        v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v18];
-        v20 = [MEMORY[0x277CCA9B8] ax_errorWithDomain:v7 description:{@"%@", v8}];
-        v21 = [*(a1 + 40) completion];
-        (v21)[2](v21, v14, 0, v20);
+        v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v17];
+        v19 = [MEMORY[0x277CCA9B8] ax_errorWithDomain:v7 description:{@"%@", v8}];
+        v20 = [*(a1 + 40) completion];
+        (v20)[2](v20, v13, 0, v19);
 
         goto LABEL_5;
       }
     }
 
 LABEL_22:
-    v25 = 0;
-    v8 = [MEMORY[0x277CE69B8] dictionaryFromXPCMessage:v5 error:&v25];
-    v22 = v25;
-    v7 = v22;
+    v24 = 0;
+    v8 = [MEMORY[0x277CE69B8] dictionaryFromXPCMessage:v5 error:&v24];
+    v21 = v24;
+    v7 = v21;
     if (v8)
     {
-      v23 = [*(a1 + 40) completion];
+      v22 = [*(a1 + 40) completion];
 
-      if (v23)
+      if (v22)
       {
-        v24 = [*(a1 + 40) completion];
-        (v24)[2](v24, v14, v8, 0);
+        v23 = [*(a1 + 40) completion];
+        (v23)[2](v23, v13, v8, 0);
       }
 
       goto LABEL_5;
     }
 
-    if (v22)
+    if (v21)
     {
 LABEL_4:
       (*(*(a1 + 56) + 16))();
@@ -272,15 +271,15 @@ LABEL_3:
     goto LABEL_22;
   }
 
-  v15 = [*(a1 + 40) completion];
+  v14 = [*(a1 + 40) completion];
 
-  if (!v15)
+  if (!v14)
   {
     goto LABEL_7;
   }
 
   v7 = [*(a1 + 40) completion];
-  (*(v7 + 2))(v7, v14, 0, 0);
+  (*(v7 + 2))(v7, v13, 0, 0);
 LABEL_6:
 
 LABEL_7:
@@ -302,13 +301,11 @@ LABEL_7:
 
 void __61__AXUIMessageSendHandler__sendMessage_context_previousError___block_invoke_1_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "remainingAttempts")}];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_23DC04000, a2, OS_LOG_TYPE_DEBUG, "AXUIMessageSendHandler remainingAttempts: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_23DC04000, a2, OS_LOG_TYPE_DEBUG, "AXUIMessageSendHandler remainingAttempts: %@", &v4, 0xCu);
 }
 
 @end

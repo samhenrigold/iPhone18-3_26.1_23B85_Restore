@@ -12,7 +12,7 @@
 
 - (BOOL)reportDediscoRecords:(id)records
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   if (recordsCopy)
   {
@@ -35,98 +35,98 @@
 
       else
       {
-        v29 = objc_autoreleasePoolPush();
-        v10 = +[_DPKeyNames keyNamesGroupedByPropertyName];
-        v36 = [MEMORY[0x277CBEBF8] mutableCopy];
-        v32 = v10;
-        allKeys = [v10 allKeys];
+        v28 = objc_autoreleasePoolPush();
+        v9 = +[_DPKeyNames keyNamesGroupedByPropertyName];
+        v35 = [MEMORY[0x277CBEBF8] mutableCopy];
+        v31 = v9;
+        allKeys = [v9 allKeys];
         [objc_opt_class() randomizeKeys:allKeys andSortByPriority:1];
+        v41 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
-        obj = v45 = 0u;
-        v33 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-        if (v33)
+        obj = v44 = 0u;
+        v32 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+        if (v32)
         {
-          v31 = *v43;
+          v30 = *v42;
           do
           {
-            v11 = 0;
+            v10 = 0;
             do
             {
-              if (*v43 != v31)
+              if (*v42 != v30)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v35 = v11;
-              v12 = *(*(&v42 + 1) + 8 * v11);
+              v34 = v10;
+              v11 = *(*(&v41 + 1) + 8 * v10);
               context = objc_autoreleasePoolPush();
-              v13 = [v32 objectForKeyedSubscript:v12];
-              v14 = [v13 mutableCopy];
+              v12 = [v31 objectForKeyedSubscript:v11];
+              v13 = [v12 mutableCopy];
 
-              v15 = [MEMORY[0x277CBEBF8] mutableCopy];
+              v14 = [MEMORY[0x277CBEBF8] mutableCopy];
+              v37 = 0u;
               v38 = 0u;
               v39 = 0u;
               v40 = 0u;
-              v41 = 0u;
-              v16 = v14;
-              v17 = [v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
-              if (v17)
+              v15 = v13;
+              v16 = [v15 countByEnumeratingWithState:&v37 objects:v45 count:16];
+              if (v16)
               {
-                v18 = v17;
-                v19 = *v39;
+                v17 = v16;
+                v18 = *v38;
                 do
                 {
-                  for (i = 0; i != v18; ++i)
+                  for (i = 0; i != v17; ++i)
                   {
-                    if (*v39 != v19)
+                    if (*v38 != v18)
                     {
-                      objc_enumerationMutation(v16);
+                      objc_enumerationMutation(v15);
                     }
 
-                    v21 = *(*(&v38 + 1) + 8 * i);
-                    v22 = [_DPKeyNames keyPropertiesForKey:v21];
-                    if ([v22 transport] == 4)
+                    v20 = *(*(&v37 + 1) + 8 * i);
+                    v21 = [_DPKeyNames keyPropertiesForKey:v20];
+                    if ([v21 transport] == 4)
                     {
-                      [v15 addObject:v21];
-                      v23 = [objc_opt_class() queryKeysForPattern:v21 storage:recordsCopy];
-                      if ([v23 count])
+                      [v14 addObject:v20];
+                      v22 = [objc_opt_class() queryKeysForPattern:v20 storage:recordsCopy];
+                      if ([v22 count])
                       {
-                        v24 = [objc_opt_class() randomizeKeys:v23 andSortByPriority:0];
-                        [v36 addObjectsFromArray:v24];
+                        v23 = [objc_opt_class() randomizeKeys:v22 andSortByPriority:0];
+                        [v35 addObjectsFromArray:v23];
                       }
                     }
                   }
 
-                  v18 = [v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                  v17 = [v15 countByEnumeratingWithState:&v37 objects:v45 count:16];
                 }
 
-                while (v18);
+                while (v17);
               }
 
-              [v16 removeObjectsInArray:v15];
-              v25 = [v16 copy];
-              if ([v25 count])
+              [v15 removeObjectsInArray:v14];
+              v24 = [v15 copy];
+              if ([v24 count])
               {
-                v26 = [objc_opt_class() randomizeKeys:v25 andSortByPriority:0];
-                [v36 addObjectsFromArray:v26];
+                v25 = [objc_opt_class() randomizeKeys:v24 andSortByPriority:0];
+                [v35 addObjectsFromArray:v25];
               }
 
               objc_autoreleasePoolPop(context);
-              v11 = v35 + 1;
+              v10 = v34 + 1;
             }
 
-            while (v35 + 1 != v33);
-            v33 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+            while (v34 + 1 != v32);
+            v32 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
           }
 
-          while (v33);
+          while (v32);
         }
 
-        v27 = [(_DPDediscoReporter *)self reportDediscoKeys:v36 storage:recordsCopy];
-        objc_autoreleasePoolPop(v29);
-        if (v27)
+        v26 = [(_DPDediscoReporter *)self reportDediscoKeys:v35 storage:recordsCopy];
+        objc_autoreleasePoolPop(v28);
+        if (v26)
         {
           v7 = 1;
           goto LABEL_12;
@@ -153,46 +153,45 @@
   v7 = 0;
 LABEL_12:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)reportDediscoKeys:(id)keys storage:(id)storage
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   storageCopy = storage;
   if (storageCopy)
   {
-    v37 = objc_autoreleasePoolPush();
-    v44 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v36 = objc_autoreleasePoolPush();
+    v43 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v38 = keysCopy;
+    v37 = keysCopy;
     v6 = keysCopy;
-    v7 = [v6 countByEnumeratingWithState:&v51 objects:v62 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v50 objects:v61 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v52;
+      v9 = *v51;
       v10 = 40;
       v11 = 0x27858A000uLL;
-      v39 = *v52;
-      v40 = v6;
+      v38 = *v51;
+      v39 = v6;
       do
       {
         v12 = 0;
-        v41 = v8;
+        v40 = v8;
         do
         {
-          if (*v52 != v9)
+          if (*v51 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v51 + 1) + 8 * v12);
+          v13 = *(*(&v50 + 1) + 8 * v12);
           v14 = objc_autoreleasePoolPush();
           v15 = [*(v11 + 624) keyPropertiesForKey:v13];
           v16 = v15;
@@ -216,33 +215,33 @@ LABEL_12:
                 }
 
                 v21 = [_DPEnhancedPrivacyAlgorithm findMultipleDonationForKey:v13 inRecords:v19];
+                v46 = 0u;
                 v47 = 0u;
                 v48 = 0u;
                 v49 = 0u;
-                v50 = 0u;
                 obj = [v21 allKeys];
-                v22 = [obj countByEnumeratingWithState:&v47 objects:v61 count:16];
+                v22 = [obj countByEnumeratingWithState:&v46 objects:v60 count:16];
                 if (v22)
                 {
                   v23 = v22;
-                  v24 = *v48;
+                  v24 = *v47;
                   while (2)
                   {
                     v25 = 0;
                     v26 = v19;
                     do
                     {
-                      if (*v48 != v24)
+                      if (*v47 != v24)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v19 = [v21 objectForKeyedSubscript:*(*(&v47 + 1) + 8 * v25)];
+                      v19 = [v21 objectForKeyedSubscript:*(*(&v46 + 1) + 8 * v25)];
 
                       v27 = [(_DPDediscoReporter *)self directlyUploadDediscoRecords:v19 forKey:v13 keyProperties:v16 storage:storageCopy];
                       if ([v27 count])
                       {
-                        [v44 addObjectsFromArray:v27];
+                        [v43 addObjectsFromArray:v27];
                         v10 -= [v27 count];
                         if (!v10)
                         {
@@ -253,17 +252,17 @@ LABEL_12:
                         if (v10 < 0)
                         {
                           v32 = +[_DPLog daemon];
-                          v29 = v44;
+                          v29 = v43;
                           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                           {
-                            v35 = [v19 count];
-                            v36 = [v44 count];
+                            v34 = [v19 count];
+                            v35 = [v43 count];
                             *buf = 134218496;
-                            v56 = v10;
-                            v57 = 2048;
-                            v58 = v35;
-                            v59 = 2048;
-                            v60 = v36;
+                            v55 = v10;
+                            v56 = 2048;
+                            v57 = v34;
+                            v58 = 2048;
+                            v59 = v35;
                             _os_log_error_impl(&dword_22622D000, v32, OS_LOG_TYPE_ERROR, "The max report count (%ld) has become negative. The latest submitted record count is %lu with the total submitted records of %lu so far.", buf, 0x20u);
                           }
 
@@ -278,7 +277,7 @@ LABEL_12:
                     }
 
                     while (v23 != v25);
-                    v23 = [obj countByEnumeratingWithState:&v47 objects:v61 count:16];
+                    v23 = [obj countByEnumeratingWithState:&v46 objects:v60 count:16];
                     if (v23)
                     {
                       continue;
@@ -291,14 +290,14 @@ LABEL_12:
 LABEL_27:
 
                 v18 = v19;
-                v9 = v39;
-                v6 = v40;
-                v8 = v41;
+                v9 = v38;
+                v6 = v39;
+                v8 = v40;
                 v14 = context;
                 goto LABEL_28;
               }
 
-              v8 = v41;
+              v8 = v40;
             }
 
             objc_autoreleasePoolPop(v17);
@@ -312,32 +311,32 @@ LABEL_28:
         }
 
         while (v12 != v8);
-        v8 = [v6 countByEnumeratingWithState:&v51 objects:v62 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v50 objects:v61 count:16];
       }
 
       while (v8);
     }
 
     v28 = +[_DPLog daemon];
-    v29 = v44;
+    v29 = v43;
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      [_DPDediscoReporter reportDediscoKeys:v44 storage:?];
+      [_DPDediscoReporter reportDediscoKeys:v43 storage:?];
     }
 
-    if ([v44 count])
+    if ([v43 count])
     {
       v30 = objc_autoreleasePoolPush();
       [_DPPrivacyBudget updateAllBudgetsIn:storageCopy];
       objc_autoreleasePoolPop(v30);
-      [(_DPDediscoReporter *)self markSubmitted:v44 storage:storageCopy];
+      [(_DPDediscoReporter *)self markSubmitted:v43 storage:storageCopy];
     }
 
     v31 = 1;
 LABEL_39:
-    keysCopy = v38;
+    keysCopy = v37;
 
-    objc_autoreleasePoolPop(v37);
+    objc_autoreleasePoolPop(v36);
   }
 
   else
@@ -345,13 +344,12 @@ LABEL_39:
     v31 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (id)directlyUploadDediscoRecords:(id)records forKey:(id)key keyProperties:(id)properties storage:(id)storage
 {
-  v44[4] = *MEMORY[0x277D85DE8];
+  v43[4] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   propertiesCopy = properties;
   storageCopy = storage;
@@ -360,7 +358,7 @@ LABEL_39:
   v14 = [recordsCopy count];
 
   v15 = v14 - [v13 count];
-  v40 = propertiesCopy;
+  v39 = propertiesCopy;
   telemetryAllowed = [propertiesCopy telemetryAllowed];
   v17 = 1;
   if ((telemetryAllowed & 1) == 0)
@@ -368,21 +366,21 @@ LABEL_39:
     v17 = +[_DPDeviceInfo isInternalBuild];
   }
 
-  LOBYTE(v36) = v17;
-  LODWORD(v34) = 1;
-  HIDWORD(v34) = v15;
-  [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:3 uuid:0 succeeded:0 errorCode:301 errorMessage:@"No budget left" aggregateFunction:v34 count:v36 telemetryAllowed:?];
+  LOBYTE(v35) = v17;
+  LODWORD(v33) = 1;
+  HIDWORD(v33) = v15;
+  [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:3 uuid:0 succeeded:0 errorCode:301 errorMessage:@"No budget left" aggregateFunction:v33 count:v35 telemetryAllowed:?];
   v18 = +[_DPCoreAnalyticsCollector sharedInstance];
-  v43[0] = @"Phase";
-  v43[1] = @"TaskName";
-  v44[0] = &unk_283975F28;
-  v44[1] = keyCopy;
-  v44[2] = MEMORY[0x277CBEC28];
-  v43[2] = @"Status";
-  v43[3] = @"Counts";
+  v42[0] = @"Phase";
+  v42[1] = @"TaskName";
+  v43[0] = &unk_283975F28;
+  v43[1] = keyCopy;
+  v43[2] = MEMORY[0x277CBEC28];
+  v42[2] = @"Status";
+  v42[3] = @"Counts";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
-  v44[3] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
+  v43[3] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
   [v18 reportMetricsForEvent:@"com.apple.DifferentialPrivacy.PhaseCount" withMetrics:v20];
 
   if ([v13 count])
@@ -396,25 +394,25 @@ LABEL_39:
       v24 = +[_DPDeviceInfo isInternalBuild];
     }
 
-    LOBYTE(v37) = v24;
-    LODWORD(v35) = 1;
-    HIDWORD(v35) = v21;
-    [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:3 uuid:0 succeeded:1 errorCode:300 errorMessage:0 aggregateFunction:v35 count:v37 telemetryAllowed:?];
+    LOBYTE(v36) = v24;
+    LODWORD(v34) = 1;
+    HIDWORD(v34) = v21;
+    [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:3 uuid:0 succeeded:1 errorCode:300 errorMessage:0 aggregateFunction:v34 count:v36 telemetryAllowed:?];
     v25 = +[_DPCoreAnalyticsCollector sharedInstance];
-    v41[0] = @"Phase";
-    v41[1] = @"TaskName";
-    v42[0] = &unk_283975F28;
-    v42[1] = keyCopy;
-    v42[2] = MEMORY[0x277CBEC38];
-    v41[2] = @"Status";
-    v41[3] = @"Counts";
+    v40[0] = @"Phase";
+    v40[1] = @"TaskName";
+    v41[0] = &unk_283975F28;
+    v41[1] = keyCopy;
+    v41[2] = MEMORY[0x277CBEC38];
+    v40[2] = @"Status";
+    v40[3] = @"Counts";
     v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
-    v42[3] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
+    v41[3] = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
     [v25 reportMetricsForEvent:@"com.apple.DifferentialPrivacy.PhaseCount" withMetrics:v27];
 
     v28 = storageCopy;
-    v29 = [(_DPDediscoReporter *)self reportToDediscoRecords:v13 forKey:keyCopy keyProperties:v40 storage:storageCopy];
+    v29 = [(_DPDediscoReporter *)self reportToDediscoRecords:v13 forKey:keyCopy keyProperties:v39 storage:storageCopy];
     if ([v29 count])
     {
       [_DPPrivacyBudget updateBudgetForRecords:v29 withKey:keyCopy inDatabase:storageCopy];
@@ -436,14 +434,12 @@ LABEL_39:
     v28 = storageCopy;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 - (id)reportToDediscoRecords:(id)records forKey:(id)key keyProperties:(id)properties storage:(id)storage
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   keyCopy = key;
   propertiesCopy = properties;
@@ -459,64 +455,64 @@ LABEL_39:
   }
 
   context = objc_autoreleasePoolPush();
-  v48 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.DPSubmissionService"];
+  v47 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.DPSubmissionService"];
   v10 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_283982D30];
-  [v48 setRemoteObjectInterface:v10];
+  [v47 setRemoteObjectInterface:v10];
 
-  [v48 resume];
-  if (v48)
+  [v47 resume];
+  if (v47)
   {
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke;
-    v72[3] = &unk_27858AEA8;
-    v73 = @"com.apple.DPSubmissionService";
-    v53 = keyCopy;
-    v74 = v53;
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke;
+    v71[3] = &unk_27858AEA8;
+    v72 = @"com.apple.DPSubmissionService";
+    v52 = keyCopy;
+    v73 = v52;
     v11 = recordsCopy;
-    v75 = v11;
+    v74 = v11;
     v12 = propertiesCopy;
-    v76 = v12;
-    v51 = [v48 synchronousRemoteObjectProxyWithErrorHandler:v72];
+    v75 = v12;
+    v50 = [v47 synchronousRemoteObjectProxyWithErrorHandler:v71];
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v79 = __Block_byref_object_copy__3;
-    v80 = __Block_byref_object_dispose__3;
-    v81 = [MEMORY[0x277CBEBF8] mutableCopy];
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x3032000000;
-    v69 = __Block_byref_object_copy__3;
-    v70 = __Block_byref_object_dispose__3;
-    v71 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v78 = __Block_byref_object_copy__3;
+    v79 = __Block_byref_object_dispose__3;
+    v80 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x3032000000;
+    v68 = __Block_byref_object_copy__3;
+    v69 = __Block_byref_object_dispose__3;
+    v70 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     obj = v11;
-    v13 = [obj countByEnumeratingWithState:&v62 objects:v77 count:16];
+    v13 = [obj countByEnumeratingWithState:&v61 objects:v76 count:16];
     if (v13)
     {
-      v50 = *v63;
+      v49 = *v62;
       do
       {
-        v52 = v13;
-        for (i = 0; i != v52; ++i)
+        v51 = v13;
+        for (i = 0; i != v51; ++i)
         {
-          if (*v63 != v50)
+          if (*v62 != v49)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v62 + 1) + 8 * i);
-          v60[0] = 0;
-          v60[1] = v60;
-          v60[2] = 0x3032000000;
-          v60[3] = __Block_byref_object_copy__3;
-          v60[4] = __Block_byref_object_dispose__3;
+          v15 = *(*(&v61 + 1) + 8 * i);
+          v59[0] = 0;
+          v59[1] = v59;
+          v59[2] = 0x3032000000;
+          v59[3] = __Block_byref_object_copy__3;
+          v59[4] = __Block_byref_object_dispose__3;
           v16 = v15;
-          v61 = v16;
+          v60 = v16;
           parameterDictionary = [v12 parameterDictionary];
           metadata = [v16 metadata];
           v19 = [metadata objectForKeyedSubscript:@"dimensionality"];
@@ -541,31 +537,31 @@ LABEL_39:
           share2 = [v16 share2];
           dimension = [v16 dimension];
           serverAlgorithmString = [v12 serverAlgorithmString];
-          v30 = [(_DPDediscoDonation *)v25 initWithKey:v53 share1:share1 share2:share2 dimension:dimension metadata:v23 serverAlgorithm:serverAlgorithmString algorithmParameters:parameterDictionary];
+          v30 = [(_DPDediscoDonation *)v25 initWithKey:v52 share1:share1 share2:share2 dimension:dimension metadata:v23 serverAlgorithm:serverAlgorithmString algorithmParameters:parameterDictionary];
 
-          v54[0] = MEMORY[0x277D85DD0];
-          v54[1] = 3221225472;
-          v54[2] = __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_53;
-          v54[3] = &unk_27858AED0;
-          v55 = v53;
-          v57 = buf;
-          v58 = v60;
-          v59 = &v66;
+          v53[0] = MEMORY[0x277D85DD0];
+          v53[1] = 3221225472;
+          v53[2] = __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_53;
+          v53[3] = &unk_27858AED0;
+          v54 = v52;
+          v56 = buf;
+          v57 = v59;
+          v58 = &v65;
           v31 = v30;
-          v56 = v31;
-          [v51 submitDonation:v31 toDediscoWithReply:v54];
+          v55 = v31;
+          [v50 submitDonation:v31 toDediscoWithReply:v53];
 
-          _Block_object_dispose(v60, 8);
+          _Block_object_dispose(v59, 8);
         }
 
-        v13 = [obj countByEnumeratingWithState:&v62 objects:v77 count:16];
+        v13 = [obj countByEnumeratingWithState:&v61 objects:v76 count:16];
       }
 
       while (v13);
     }
 
-    [v48 invalidate];
-    v32 = _DPNewTransparencyLog(v67[5], 0);
+    [v47 invalidate];
+    v32 = _DPNewTransparencyLog(v66[5], 0);
     v33 = v32;
     if (v32)
     {
@@ -574,15 +570,15 @@ LABEL_39:
 
     v34 = [*(*&buf[8] + 40) copy];
 
-    _Block_object_dispose(&v66, 8);
+    _Block_object_dispose(&v65, 8);
     _Block_object_dispose(buf, 8);
 
-    v35 = v73;
+    v35 = v72;
   }
 
   else
   {
-    v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not create connection to %@", @"com.apple.DPSubmissionService"];
+    v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not create connection to %@", @"com.apple.DPSubmissionService"];
     v36 = [recordsCopy count];
     telemetryAllowed = [propertiesCopy telemetryAllowed];
     v38 = 1;
@@ -591,10 +587,10 @@ LABEL_39:
       v38 = +[_DPDeviceInfo isInternalBuild];
     }
 
-    LOBYTE(v42) = v38;
-    LODWORD(v41) = 1;
-    HIDWORD(v41) = v36;
-    [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:4 uuid:0 succeeded:0 errorCode:411 errorMessage:v51 aggregateFunction:v41 count:v42 telemetryAllowed:context];
+    LOBYTE(v41) = v38;
+    LODWORD(v40) = 1;
+    HIDWORD(v40) = v36;
+    [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:4 uuid:0 succeeded:0 errorCode:411 errorMessage:v50 aggregateFunction:v40 count:v41 telemetryAllowed:context];
     v35 = +[_DPLog daemon];
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
@@ -605,7 +601,6 @@ LABEL_39:
   }
 
   objc_autoreleasePoolPop(context);
-  v39 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
@@ -623,37 +618,37 @@ LABEL_39:
 
 - (BOOL)markSubmitted:(id)submitted storage:(id)storage
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   submittedCopy = submitted;
   storageCopy = storage;
   if (storageCopy)
   {
     v7 = objc_autoreleasePoolPush();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v8 = submittedCopy;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v15 + 1) + 8 * v12++) setSubmitted:{1, v15}];
+          [*(*(&v14 + 1) + 8 * v12++) setSubmitted:{1, v14}];
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -663,7 +658,6 @@ LABEL_39:
     objc_autoreleasePoolPop(v7);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return storageCopy != 0;
 }
 
@@ -686,62 +680,47 @@ LABEL_39:
 
 - (void)reportDediscoRecords:(const char *)a1 .cold.1(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
-  v8 = +[_DPStrings databaseDirectoryPath];
+  v7 = +[_DPStrings databaseDirectoryPath];
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportDediscoRecords:(const char *)a1 .cold.2(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_22622D000, v2, v3, "%@: Disabled by D&U switch - skipping dedisco reporter", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_22622D000, v2, v3, "%@: Disabled by D&U switch - skipping dedisco reporter", v4, v5, v6, v7);
 }
 
 - (void)reportDediscoRecords:(const char *)a1 .cold.4(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_22622D000, v2, v3, "%@: Disabled by Tasking - skipping dedisco reporter", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_22622D000, v2, v3, "%@: Disabled by Tasking - skipping dedisco reporter", v4, v5, v6, v7);
 }
 
 - (void)reportDediscoKeys:(void *)a1 storage:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)directlyUploadDediscoRecords:(const char *)a1 forKey:keyProperties:storage:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportToDediscoRecords:forKey:keyProperties:storage:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_22622D000, v0, OS_LOG_TYPE_ERROR, "%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22622D000, v0, OS_LOG_TYPE_ERROR, "%@", v1, 0xCu);
 }
 
 @end

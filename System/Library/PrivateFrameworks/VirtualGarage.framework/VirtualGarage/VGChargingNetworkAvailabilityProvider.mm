@@ -51,7 +51,7 @@ void __62__VGChargingNetworkAvailabilityProvider_countryCodeDidChange___block_in
 
 - (void)_reloadNetworks
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = VGGetChargingNetworksLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -80,22 +80,22 @@ void __62__VGChargingNetworkAvailabilityProvider_countryCodeDidChange___block_in
       {
         v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke;
-        v38[3] = &unk_279E26950;
-        v33 = chargingNetworkInfo;
-        v39 = v33;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke;
+        v37[3] = &unk_279E26950;
+        v32 = chargingNetworkInfo;
+        v38 = v32;
         v14 = v12;
-        v40 = v14;
+        v39 = v14;
         v15 = v13;
-        v41 = v15;
-        v16 = MEMORY[0x2743B8310](v38);
+        v40 = v15;
+        v16 = MEMORY[0x2743B8310](v37);
         mEMORY[0x277D0EB00] = [MEMORY[0x277D0EB00] sharedConfiguration];
         countryCode = [mEMORY[0x277D0EB00] countryCode];
 
-        v34 = countryCode;
-        v35 = v16;
+        v33 = countryCode;
+        v34 = v16;
         (*(v16 + 16))(v16, countryCode);
         if (!-[NSObject count](v14, "count") && ![v15 count])
         {
@@ -103,30 +103,30 @@ void __62__VGChargingNetworkAvailabilityProvider_countryCodeDidChange___block_in
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v43 = countryCode;
+            v42 = countryCode;
             _os_log_impl(&dword_270EC1000, v19, OS_LOG_TYPE_INFO, "Country code: %@ did not produce any networks, will fallback to using global list.", buf, 0xCu);
           }
 
-          (v35)[2](v35, @"global");
+          (v34)[2](v34, @"global");
         }
 
         v20 = VGGetChargingNetworksLog();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v32 = [v14 count];
+          v31 = [v14 count];
           v21 = chargingNetworkInfo;
           v22 = v15;
           v23 = [v15 count];
-          brandInfoMappings = [v33 brandInfoMappings];
+          brandInfoMappings = [v32 brandInfoMappings];
           v25 = [brandInfoMappings count];
           *buf = 134218496;
-          v43 = v32;
-          v44 = 2048;
-          v45 = v23;
+          v42 = v31;
+          v43 = 2048;
+          v44 = v23;
           v15 = v22;
           chargingNetworkInfo = v21;
-          v46 = 2048;
-          v47 = v25;
+          v45 = 2048;
+          v46 = v25;
           _os_log_impl(&dword_270EC1000, v20, OS_LOG_TYPE_INFO, "Created %lu suggested and %lu other networks out of %lu mappings", buf, 0x20u);
         }
 
@@ -144,9 +144,9 @@ void __62__VGChargingNetworkAvailabilityProvider_countryCodeDidChange___block_in
         block[1] = 3221225472;
         block[2] = __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke_3;
         block[3] = &unk_279E26E88;
-        objc_copyWeak(&v37, buf);
+        objc_copyWeak(&v36, buf);
         dispatch_async(delegateQueue, block);
-        objc_destroyWeak(&v37);
+        objc_destroyWeak(&v36);
         objc_destroyWeak(buf);
       }
 
@@ -156,7 +156,7 @@ void __62__VGChargingNetworkAvailabilityProvider_countryCodeDidChange___block_in
         if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v43 = v10;
+          v42 = v10;
           _os_log_impl(&dword_270EC1000, v14, OS_LOG_TYPE_FAULT, "There was no featuresInfo with charging networks info: %@", buf, 0xCu);
         }
       }
@@ -179,41 +179,39 @@ void __62__VGChargingNetworkAvailabilityProvider_countryCodeDidChange___block_in
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v43 = v6;
+      v42 = v6;
       _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_FAULT, "Failed to load charging networks data with filename: %@", buf, 0xCu);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v21 = a1;
+  v20 = a1;
   v4 = [*(a1 + 32) brandInfoMappings];
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v23;
+    v8 = *v22;
     *&v6 = 138412290;
-    v20 = v6;
+    v19 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [v10 isoCountryCodes];
         v12 = [v3 lowercaseString];
         v13 = [v11 indexOfObject:v12];
@@ -229,20 +227,20 @@ void __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke(u
               v16 = VGGetChargingNetworksLog();
               if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
               {
-                *buf = v20;
-                v27 = v10;
+                *buf = v19;
+                v26 = v10;
                 _os_log_impl(&dword_270EC1000, v16, OS_LOG_TYPE_FAULT, "Malformed brandInfoMapping. notify the routing team: %@", buf, 0xCu);
               }
             }
 
             if (v13 < [v10 isSuggestedsCount] && *(objc_msgSend(v10, "isSuggesteds") + v13) == 1)
             {
-              v17 = *(v21 + 40);
+              v17 = *(v20 + 40);
             }
 
             else
             {
-              v17 = *(v21 + 48);
+              v17 = *(v20 + 48);
             }
 
             [v17 addObject:v14];
@@ -254,25 +252,23 @@ void __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke(u
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v27 = v10;
+              v26 = v10;
               _os_log_impl(&dword_270EC1000, v18, OS_LOG_TYPE_ERROR, "Failed to create a network from brandInfoMapping: %{public}@", buf, 0xCu);
             }
           }
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -286,15 +282,13 @@ void __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke_3
     v3 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[VGChargingNetworkAvailabilityProvider _reloadNetworks]_block_invoke_3";
-      v7 = 1024;
-      v8 = 169;
-      _os_log_impl(&dword_270EC1000, v3, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v5, 0x12u);
+      v4 = 136315394;
+      v5 = "[VGChargingNetworkAvailabilityProvider _reloadNetworks]_block_invoke_3";
+      v6 = 1024;
+      v7 = 169;
+      _os_log_impl(&dword_270EC1000, v3, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v4, 0x12u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -341,10 +335,7 @@ uint64_t __56__VGChargingNetworkAvailabilityProvider__reloadNetworks__block_invo
 
 uint64_t __54__VGChargingNetworkAvailabilityProvider_otherNetworks__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -373,10 +364,7 @@ uint64_t __54__VGChargingNetworkAvailabilityProvider_otherNetworks__block_invoke
 
 uint64_t __58__VGChargingNetworkAvailabilityProvider_suggestedNetworks__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) copy];
 
   return MEMORY[0x2821F96F8]();
 }

@@ -100,7 +100,7 @@
         if (bOOLValue)
         {
           computeDeltaKernel = [objc_opt_class() computeDeltaKernel];
-          [v7 extent];
+          objc_msgSend_extent(v7);
           v19 = v18;
           v21 = v20;
           v23 = v22;
@@ -116,7 +116,7 @@
           [(PISegmentationInfillFilter *)v27 setInputMatteImage:inputNode2];
           outputImage = [(PISegmentationInfillFilter *)v27 outputImage];
           applyDeltaKernel = [objc_opt_class() applyDeltaKernel];
-          [v7 extent];
+          objc_msgSend_extent(v7);
           v31 = v30;
           v33 = v32;
           v35 = v34;

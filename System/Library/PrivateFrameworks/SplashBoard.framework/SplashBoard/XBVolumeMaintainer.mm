@@ -84,7 +84,7 @@ void __32__XBVolumeMaintainer_configure___block_invoke_2(uint64_t a1)
         v17 = *(*(&v29 + 1) + 8 * i);
         v18 = [v17 bundleIdentifier];
         v19 = [v11 containsObject:v18];
-        v20 = XBLogPurge();
+        v20 = XBLogPurge(v19);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
@@ -113,10 +113,10 @@ void __32__XBVolumeMaintainer_configure___block_invoke_2(uint64_t a1)
 
 id __32__XBVolumeMaintainer_configure___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v54[2] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v37 = objc_autoreleasePoolPush();
+  v38 = objc_autoreleasePoolPush();
   v6 = objc_alloc_init(MEMORY[0x277CBEB40]);
   v7 = MEMORY[0x277CCA920];
   v8 = MEMORY[0x277CFE260];
@@ -124,18 +124,18 @@ id __32__XBVolumeMaintainer_configure___block_invoke_3(uint64_t a1, void *a2, vo
   v10 = [v8 predicateForObjectsWithMetadataKey:v9];
   v11 = [v7 notPredicateWithSubpredicate:v10];
 
-  v38 = v5;
-  v39 = v4;
+  v39 = v5;
+  v40 = v4;
   v12 = [MEMORY[0x277CFE260] predicateForEventsWithStartInDateRangeFrom:v4 to:v5];
   v13 = MEMORY[0x277CCA920];
-  v35 = v12;
-  v36 = v11;
-  v53[0] = v12;
-  v53[1] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
-  v41 = [v13 andPredicateWithSubpredicates:v14];
+  v36 = v12;
+  v37 = v11;
+  v54[0] = v12;
+  v54[1] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+  v42 = [v13 andPredicateWithSubpredicates:v14];
 
-  v40 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:0];
+  v41 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:0];
   v15 = 0;
   v16 = 0;
   while (1)
@@ -143,16 +143,16 @@ id __32__XBVolumeMaintainer_configure___block_invoke_3(uint64_t a1, void *a2, vo
     v17 = objc_autoreleasePoolPush();
     v18 = MEMORY[0x277CFE1E0];
     v19 = [MEMORY[0x277CFE298] appUsageStream];
-    v52 = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
-    v51 = v40;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
-    v22 = [v18 eventQueryWithPredicate:v41 eventStreams:v20 offset:v16 limit:32 sortDescriptors:v21];
+    v53 = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+    v52 = v41;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+    v22 = [v18 eventQueryWithPredicate:v42 eventStreams:v20 offset:v16 limit:32 sortDescriptors:v21];
 
     v23 = [MEMORY[0x277CFE208] knowledgeStore];
-    v47 = 0;
-    v24 = [v23 executeQuery:v22 error:&v47];
-    v25 = v47;
+    v48 = 0;
+    v24 = [v23 executeQuery:v22 error:&v48];
+    v25 = v48;
 
     if (v25)
     {
@@ -160,64 +160,64 @@ id __32__XBVolumeMaintainer_configure___block_invoke_3(uint64_t a1, void *a2, vo
     }
 
     context = v17;
-    v26 = [v24 count];
-    v43 = 0u;
+    v27 = [v24 count];
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
     v15 = v24;
-    v27 = [v15 countByEnumeratingWithState:&v43 objects:v48 count:16];
-    if (v27)
+    v28 = [v15 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    if (v28)
     {
-      v28 = v27;
-      v29 = *v44;
+      v29 = v28;
+      v30 = *v45;
       do
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v44 != v29)
+          if (*v45 != v30)
           {
             objc_enumerationMutation(v15);
           }
 
-          v31 = [*(*(&v43 + 1) + 8 * i) stringValue];
-          if (v31)
+          v32 = [*(*(&v44 + 1) + 8 * i) stringValue];
+          if (v32)
           {
-            [v6 addObject:v31];
+            [v6 addObject:v32];
           }
         }
 
-        v28 = [v15 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v29 = [v15 countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
-      while (v28);
+      while (v29);
     }
 
-    v16 += v26;
+    v16 += v27;
 
     objc_autoreleasePoolPop(context);
     if ([v15 count] != 32)
     {
-      v32 = [v6 array];
+      v33 = [v6 array];
       goto LABEL_17;
     }
   }
 
-  v33 = XBLogPurge();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v34 = XBLogPurge(v26);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v50 = v25;
-    _os_log_impl(&dword_26B5EF000, v33, OS_LOG_TYPE_DEFAULT, "Failed to obtain recently used applications with error: %{public}@", buf, 0xCu);
+    v51 = v25;
+    _os_log_impl(&dword_26B5EF000, v34, OS_LOG_TYPE_DEFAULT, "Failed to obtain recently used applications with error: %{public}@", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v17);
-  v32 = MEMORY[0x277CBEBF8];
+  v33 = MEMORY[0x277CBEBF8];
 LABEL_17:
 
-  objc_autoreleasePoolPop(v37);
+  objc_autoreleasePoolPop(v38);
 
-  return v32;
+  return v33;
 }
 
 @end

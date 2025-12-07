@@ -275,24 +275,7 @@
 - (BOOL)isEqualToPredictedItem:(id)item
 {
   itemCopy = item;
-  if (!itemCopy)
-  {
-    goto LABEL_27;
-  }
-
-  identifier = self->_identifier;
-  if (identifier != itemCopy[2] && ![(NSString *)identifier isEqual:?])
-  {
-    goto LABEL_27;
-  }
-
-  label = self->_label;
-  if (label != itemCopy[4] && ![(NSString *)label isEqual:?])
-  {
-    goto LABEL_27;
-  }
-
-  if (((value = self->_value, value == itemCopy[5]) || [(NSString *)value isEqual:?]) && ((name = self->_name, name == itemCopy[6]) || [(NSString *)name isEqual:?]) && ((date = self->_date, date == itemCopy[7]) || [(NSDate *)date isEqual:?]) && ((originatingBundleID = self->_originatingBundleID, originatingBundleID == itemCopy[8]) || [(NSString *)originatingBundleID isEqual:?]) && ((originatingWebsiteURL = self->_originatingWebsiteURL, originatingWebsiteURL == itemCopy[9]) || [(NSURL *)originatingWebsiteURL isEqual:?]) && self->_predictionAge == itemCopy[10] && [(_ICPredictedItem *)self hasScoreSimilarToItem:itemCopy]&& ((trigger = self->_trigger, trigger == itemCopy[3]) || [(_ICProactiveTrigger *)trigger isEqual:?]) && self->_flags == *(itemCopy + 10) && self->_shouldAggregate == *(itemCopy + 9) && self->_itemType == *(itemCopy + 8) && ((targetBundleID = self->_targetBundleID, targetBundleID == itemCopy[12]) || [(NSString *)targetBundleID isEqual:?]))
+  if (itemCopy && ((identifier = self->_identifier, identifier == itemCopy[2]) || [(NSString *)identifier isEqual:?]) && ((label = self->_label, label == itemCopy[4]) || [(NSString *)label isEqual:?]) && ((value = self->_value, value == itemCopy[5]) || [(NSString *)value isEqual:?]) && ((name = self->_name, name == itemCopy[6]) || [(NSString *)name isEqual:?]) && ((date = self->_date, date == itemCopy[7]) || [(NSDate *)date isEqual:?]) && ((originatingBundleID = self->_originatingBundleID, originatingBundleID == itemCopy[8]) || [(NSString *)originatingBundleID isEqual:?]) && ((originatingWebsiteURL = self->_originatingWebsiteURL, originatingWebsiteURL == itemCopy[9]) || [(NSURL *)originatingWebsiteURL isEqual:?]) && self->_predictionAge == itemCopy[10] && [(_ICPredictedItem *)self hasScoreSimilarToItem:itemCopy]&& ((trigger = self->_trigger, trigger == itemCopy[3]) || [(_ICProactiveTrigger *)trigger isEqual:?]) && self->_flags == *(itemCopy + 10) && self->_shouldAggregate == *(itemCopy + 9) && self->_itemType == *(itemCopy + 8) && ((targetBundleID = self->_targetBundleID, targetBundleID == itemCopy[12]) || [(NSString *)targetBundleID isEqual:?]))
   {
     operationData = self->_operationData;
     if (operationData == itemCopy[13])
@@ -308,7 +291,6 @@
 
   else
   {
-LABEL_27:
     v15 = 0;
   }
 

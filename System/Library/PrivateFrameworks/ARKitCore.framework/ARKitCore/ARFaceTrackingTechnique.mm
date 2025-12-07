@@ -36,16 +36,16 @@
   return +[ARFaceTrackingTechnique isSupported]::supported;
 }
 
-uint64_t __38__ARFaceTrackingTechnique_isSupported__block_invoke()
+uint64_t __38__ARFaceTrackingTechnique_isSupported__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = ARPearlCameraSupported();
+  result = ARPearlCameraSupported(a1, a2);
   +[ARFaceTrackingTechnique isSupported]::supported = result;
   if ((result & 1) == 0)
   {
-    result = ARRGBFaceTrackingEnabled();
+    result = ARRGBFaceTrackingEnabled(result, v3);
     if (result)
     {
-      result = ARRGBFaceTrackingEnabled();
+      result = ARRGBFaceTrackingEnabled(result, v4);
       +[ARFaceTrackingTechnique isSupported]::supported = result;
     }
   }
@@ -83,7 +83,7 @@ uint64_t __38__ARFaceTrackingTechnique_isSupported__block_invoke()
   {
 
 LABEL_6:
-    [v6 timestamp];
+    objc_msgSend_timestamp(v6);
     kdebug_trace();
     goto LABEL_7;
   }
@@ -135,7 +135,7 @@ LABEL_7:
   [v26 setTrackedFaces:v21];
   v34[0] = v26;
   v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
-  [v6 timestamp];
+  objc_msgSend_timestamp(v6);
   [(ARImageBasedTechnique *)self pushResultData:v27 forTimestamp:?];
 
 LABEL_12:
@@ -145,77 +145,79 @@ LABEL_12:
 
 void __39__ARFaceTrackingTechnique_processData___block_invoke(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = [v6 objectForKeyedSubscript:*MEMORY[0x1E698C038]];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v7];
+    v9 = v8;
 LABEL_5:
-    v11 = _ARLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = _ARLogGeneral(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = *(a1 + 32);
-      *v32 = 138543874;
-      *&v32[4] = v13;
-      *&v32[12] = 2048;
-      *&v32[14] = v14;
-      v33 = 2112;
-      v34 = v8;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tracking anchor with ID = %@", v32, 0x20u);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = *(a1 + 32);
+      *v34 = 138543874;
+      *&v34[4] = v15;
+      *&v34[12] = 2048;
+      *&v34[14] = v16;
+      v35 = 2112;
+      v36 = v9;
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tracking anchor with ID = %@", v34, 0x20u);
     }
 
-    v15 = [[ARFaceTrackingData alloc] initWithTrackingData:v6 transformToMirrored:*(a1 + 48) anchorIdentifier:v8];
-    v16 = [*(a1 + 32) isFaceTracked];
-    if (v16 != [(ARFaceTrackingData *)v15 isValid])
+    v17 = [[ARFaceTrackingData alloc] initWithTrackingData:v6 transformToMirrored:*(a1 + 48) anchorIdentifier:v9];
+    v18 = [*(a1 + 32) isFaceTracked];
+    if (v18 != [(ARFaceTrackingData *)v17 isValid])
     {
       if (_ARLogTechnique(void)::onceToken != -1)
       {
         __39__ARFaceTrackingTechnique_processData___block_invoke_cold_2();
       }
 
-      v17 = _ARLogTechnique(void)::logObj;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = _ARLogTechnique(void)::logObj;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v20 = *(a1 + 32);
-        v21 = [(ARFaceTrackingData *)v15 isValid];
-        v22 = @"NO";
-        *v32 = 138543874;
-        *&v32[4] = v19;
-        if (v21)
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = *(a1 + 32);
+        v23 = [(ARFaceTrackingData *)v17 isValid];
+        v24 = @"NO";
+        *v34 = 138543874;
+        *&v34[4] = v21;
+        if (v23)
         {
-          v22 = @"YES";
+          v24 = @"YES";
         }
 
-        *&v32[12] = 2048;
-        *&v32[14] = v20;
-        v33 = 2112;
-        v34 = v22;
-        _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Face is being tracked: %@", v32, 0x20u);
+        *&v34[12] = 2048;
+        *&v34[14] = v22;
+        v35 = 2112;
+        v36 = v24;
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Face is being tracked: %@", v34, 0x20u);
       }
 
-      [*(a1 + 32) setIsFaceTracked:{-[ARFaceTrackingData isValid](v15, "isValid")}];
+      [*(a1 + 32) setIsFaceTracked:{-[ARFaceTrackingData isValid](v17, "isValid")}];
     }
 
-    [*(a1 + 40) addObject:{v15, *v32}];
-    v23 = [*(a1 + 40) count];
-    *a4 = v23 >= [*(a1 + 32) maximumNumberOfTrackedFaces];
+    [*(a1 + 40) addObject:{v17, *v34, *&v34[8]}];
+    v25 = [*(a1 + 40) count];
+    *a4 = v25 >= [*(a1 + 32) maximumNumberOfTrackedFaces];
 
     goto LABEL_16;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = v7;
-    *v32 = [v9 intValue];
-    v10 = [MEMORY[0x1E695DEF0] dataWithBytes:v32 length:4];
-    v8 = [MEMORY[0x1E696AFB0] ar_UUIDWithData:v10];
+    v11 = v7;
+    *v34 = [v11 intValue];
+    v12 = [MEMORY[0x1E695DEF0] dataWithBytes:v34 length:4];
+    v9 = [MEMORY[0x1E696AFB0] ar_UUIDWithData:v12];
 
     goto LABEL_5;
   }
@@ -225,34 +227,34 @@ LABEL_5:
     __39__ARFaceTrackingTechnique_processData___block_invoke_cold_1();
   }
 
-  v24 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v25 = _ARLogGeneral();
-  v8 = v25;
-  if (v24 == 1)
+  v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v27 = _ARLogGeneral(isKindOfClass);
+  v9 = v27;
+  if (v26 == 1)
   {
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
-      v28 = *(a1 + 32);
-      *v32 = 138543618;
-      *&v32[4] = v27;
-      *&v32[12] = 2048;
-      *&v32[14] = v28;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Encountered invalid face ID", v32, 0x16u);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
+      v30 = *(a1 + 32);
+      *v34 = 138543618;
+      *&v34[4] = v29;
+      *&v34[12] = 2048;
+      *&v34[14] = v30;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Encountered invalid face ID", v34, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
-    v29 = objc_opt_class();
-    v30 = NSStringFromClass(v29);
-    v31 = *(a1 + 32);
-    *v32 = 138543618;
-    *&v32[4] = v30;
-    *&v32[12] = 2048;
-    *&v32[14] = v31;
-    _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Encountered invalid face ID", v32, 0x16u);
+    v31 = objc_opt_class();
+    v32 = NSStringFromClass(v31);
+    v33 = *(a1 + 32);
+    *v34 = 138543618;
+    *&v34[4] = v32;
+    *&v34[12] = 2048;
+    *&v34[14] = v33;
+    _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Encountered invalid face ID", v34, 0x16u);
   }
 
 LABEL_16:

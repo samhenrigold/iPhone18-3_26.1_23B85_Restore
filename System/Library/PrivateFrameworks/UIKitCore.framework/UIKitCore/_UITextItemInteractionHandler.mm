@@ -59,8 +59,8 @@
     v22 = _defaultMenuForInteractableItem;
     v11 = _Block_copy(aBlock);
     previewProvider = [_defaultContextMenuConfiguration previewProvider];
-    preview = [v10 preview];
-    _previewView = [preview _previewView];
+    v13 = objc_msgSend_preview(v10);
+    _previewView = [v13 _previewView];
 
     if (_previewView)
     {
@@ -69,22 +69,22 @@
       v18[2] = __57___UITextItemInteractionHandler_contextMenuConfiguration__block_invoke_2;
       v18[3] = &unk_1E70F46E0;
       v19 = _previewView;
-      preview2 = _Block_copy(v18);
+      v15 = _Block_copy(v18);
 
       previewProvider = v19;
     }
 
     else
     {
-      preview2 = [v10 preview];
+      v15 = objc_msgSend_preview(v10);
 
-      if (preview2)
+      if (v15)
       {
         goto LABEL_9;
       }
     }
 
-    previewProvider = preview2;
+    previewProvider = v15;
 LABEL_9:
     if (_defaultContextMenuConfiguration)
     {
@@ -181,11 +181,11 @@ LABEL_13:
 - (id)_menuForInteractableItem
 {
   v3 = [(_UITextItemInteractionHandler *)self _preparedMenuConfigurationWithDefaultMenu:0];
-  menu = [v3 menu];
-  v5 = menu;
-  if (menu)
+  v4 = objc_msgSend_menu(v3);
+  v5 = v4;
+  if (v4)
   {
-    _defaultMenuForInteractableItem = menu;
+    _defaultMenuForInteractableItem = v4;
   }
 
   else

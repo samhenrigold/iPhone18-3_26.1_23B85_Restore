@@ -30,11 +30,11 @@
 
 - (COMTAlarmNotificationAction)initWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = COMTAlarmNotificationAction;
-  v5 = [(COMTAction *)&v26 initWithCoder:coderCopy];
+  v24.receiver = self;
+  v24.super_class = COMTAlarmNotificationAction;
+  v5 = [(COMTAction *)&v24 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"reason"];
@@ -44,7 +44,7 @@
     if (![(NSString *)v5->_reason length])
     {
 LABEL_14:
-      v19 = 0;
+      v18 = 0;
       goto LABEL_15;
     }
 
@@ -53,27 +53,26 @@ LABEL_14:
     v10 = [v8 setWithObjects:{v9, objc_opt_class(), 0}];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"alarms"];
 
-    v24 = 0u;
-    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = v11;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v21;
       while (2)
       {
         v16 = 0;
         do
         {
-          if (*v23 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * v16);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -85,7 +84,7 @@ LABEL_14:
         }
 
         while (v14 != v16);
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v14)
         {
           continue;
@@ -99,11 +98,10 @@ LABEL_14:
     v5->_alarms = v12;
   }
 
-  v19 = v5;
+  v18 = v5;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v18;
 }
 
 - (void)encodeWithCoder:(id)coder

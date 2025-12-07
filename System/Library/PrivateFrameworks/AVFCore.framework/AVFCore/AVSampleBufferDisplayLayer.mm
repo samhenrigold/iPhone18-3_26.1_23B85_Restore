@@ -140,10 +140,10 @@ uint64_t __123__AVSampleBufferDisplayLayer__updateLayerTreeGeometryWithVideoGrav
     v20 = 0;
   }
 
-  [v20 duration];
+  objc_msgSend_duration(v20);
   if (v24 > 0.0 || *(a1 + 64) == 1)
   {
-    [v20 duration];
+    objc_msgSend_duration(v20);
     v26 = v25;
     v27 = [v20 timingFunction];
     v28 = [MEMORY[0x1E6979318] animationWithKeyPath:@"sublayerTransform"];
@@ -201,15 +201,15 @@ uint64_t __123__AVSampleBufferDisplayLayer__updateLayerTreeGeometryWithVideoGrav
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __54__AVSampleBufferDisplayLayer__updatePresentationSize___block_invoke(uint64_t result)
+char *__54__AVSampleBufferDisplayLayer__updatePresentationSize___block_invoke(char *result)
 {
-  if (*(*(result + 32) + 64) != *(result + 56) || *(*(result + 32) + 72) != *(result + 64))
+  if (*(*(result + 4) + 64) != *(result + 7) || *(*(result + 4) + 72) != *(result + 8))
   {
     v2 = result;
-    *(*(*(result + 40) + 8) + 24) = 1;
-    *(*(result + 32) + 64) = *(result + 56);
-    result = [*(*(result + 32) + 56) copy];
-    *(*(*(v2 + 48) + 8) + 40) = result;
+    *(*(*(result + 5) + 8) + 24) = 1;
+    *(*(result + 4) + 64) = *(result + 56);
+    result = [*(*(result + 4) + 56) copy];
+    *(*(*(v2 + 6) + 8) + 40) = result;
   }
 
   return result;
@@ -401,7 +401,7 @@ __n128 __46__AVSampleBufferDisplayLayer_setVideoGravity___block_invoke(uint64_t 
   return v3;
 }
 
-uint64_t __42__AVSampleBufferDisplayLayer_videoGravity__block_invoke(uint64_t a1)
+void *__42__AVSampleBufferDisplayLayer_videoGravity__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -526,7 +526,7 @@ __n128 __45__AVSampleBufferDisplayLayer_layoutSublayers__block_invoke(void *a1)
   return result;
 }
 
-uint64_t __39__AVSampleBufferDisplayLayer_videoRect__block_invoke(void *a1)
+void *__39__AVSampleBufferDisplayLayer_videoRect__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 32) = *(a1[4] + 64);
   result = [*(a1[4] + 56) copy];

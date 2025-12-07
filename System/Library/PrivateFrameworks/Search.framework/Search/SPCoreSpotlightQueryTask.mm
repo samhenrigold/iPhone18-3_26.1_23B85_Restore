@@ -93,34 +93,25 @@
 - (void)cancel
 {
   v3 = si_tracing_current_span();
-  v17 = *v3;
-  v18 = *(v3 + 16);
-  v19 = *(v3 + 32);
+  v8 = *v3;
+  v9 = *(v3 + 16);
+  v10 = *(v3 + 32);
   v4 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v6 = *(v3 + 8);
-  v7 = *(v3 + 24);
   *v3 = v4;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v6;
   *(v3 + 28) = 102;
   *(v3 + 32) = "[SPCoreSpotlightQueryTask cancel]";
   si_tracing_log_span_begin();
-  v8 = [[SFEndLocalSearchFeedback alloc] initWithStartSearch:self->_feedback];
-  queue = self->_queue;
-  v16 = v8;
+  v7 = [[SFEndLocalSearchFeedback alloc] initWithStartSearch:self->_feedback];
   md_tracing_dispatch_async_propagating();
 
-  v10 = *v3;
-  v11 = *(v3 + 8);
-  v12 = *(v3 + 16);
-  v13 = *(v3 + 24);
-  v14 = *(v3 + 28);
-  v15 = *(v3 + 32);
   si_tracing_log_span_end();
-  *v3 = v17;
-  *(v3 + 16) = v18;
-  *(v3 + 32) = v19;
+  *v3 = v8;
+  *(v3 + 16) = v9;
+  *(v3 + 32) = v10;
 }
 
 - (void)beginQuery:(id)query
@@ -132,13 +123,12 @@
   if ((isSearchToolClient & 1) == 0)
   {
     v7 = si_tracing_current_span();
-    v40 = *v7;
-    v41 = *(v7 + 16);
-    v42 = *(v7 + 32);
+    v32 = *v7;
+    v33 = *(v7 + 16);
+    v34 = *(v7 + 32);
     v8 = *v7;
     spanid = si_tracing_calc_next_spanid();
     v10 = *(v7 + 8);
-    v11 = *(v7 + 24);
     *v7 = v8;
     *(v7 + 8) = spanid;
     *(v7 + 16) = v10;
@@ -162,33 +152,26 @@
         if (isKindOfClass)
         {
           command3 = [firstObject command];
-          v20 = [command3 copy];
+          v19 = [command3 copy];
 
-          [v20 setSearchString:0];
-          [v20 setTokenString:0];
-          v37 = [SFStartLocalSearchFeedback alloc];
+          [v19 setSearchString:0];
+          [v19 setTokenString:0];
+          v29 = [SFStartLocalSearchFeedback alloc];
           whyQuery = [queryContext2 whyQuery];
           queryIdent = [queryCopy queryIdent];
           connection = [queryCopy connection];
           bundleID = [connection bundleID];
-          v24 = [v37 initWithEntityQueryCommand:v20 triggerEvent:whyQuery searchType:3 indexType:1 queryId:queryIdent originatingApp:bundleID];
+          v23 = [v29 initWithEntityQueryCommand:v19 triggerEvent:whyQuery searchType:3 indexType:1 queryId:queryIdent originatingApp:bundleID];
 
 LABEL_13:
-          queue = self->_queue;
-          v38 = v24;
-          v39 = queryCopy;
+          v30 = v23;
+          v31 = queryCopy;
           md_tracing_dispatch_async_propagating();
 
-          v30 = *v7;
-          v31 = *(v7 + 8);
-          v32 = *(v7 + 16);
-          v33 = *(v7 + 24);
-          v34 = *(v7 + 28);
-          v35 = *(v7 + 32);
           si_tracing_log_span_end();
-          *v7 = v40;
-          *(v7 + 16) = v41;
-          *(v7 + 32) = v42;
+          *v7 = v32;
+          *(v7 + 16) = v33;
+          *(v7 + 32) = v34;
           goto LABEL_14;
         }
       }
@@ -201,23 +184,23 @@ LABEL_13:
       currentSearchString = [queryContext3 searchString];
     }
 
-    v27 = [SFStartLocalSearchFeedback alloc];
-    if ([firstObject isContactEntitySearch])
+    v26 = [SFStartLocalSearchFeedback alloc];
+    if (objc_msgSend_isContactEntitySearch(firstObject))
     {
-      v28 = 0;
+      v27 = 0;
     }
 
-    else if ([firstObject isPhotosEntitySearch])
+    else if (objc_msgSend_isPhotosEntitySearch(firstObject))
     {
-      v28 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v28 = currentSearchString;
+      v27 = currentSearchString;
     }
 
-    v24 = [v27 initWithInput:v28 triggerEvent:objc_msgSend(queryContext2 indexType:"whyQuery") queryId:{1, objc_msgSend(queryCopy, "queryIdent")}];
+    v23 = [v26 initWithInput:v27 triggerEvent:objc_msgSend(queryContext2 indexType:"whyQuery") queryId:{1, objc_msgSend(queryCopy, "queryIdent")}];
     goto LABEL_13;
   }
 
@@ -229,13 +212,12 @@ LABEL_14:
   completionsCopy = completions;
   v5 = si_tracing_current_span();
   v6 = *(v5 + 16);
-  v27 = *v5;
-  v28 = v6;
-  v29 = *(v5 + 32);
+  v20 = *v5;
+  v21 = v6;
+  v22 = *(v5 + 32);
   v7 = *v5;
   spanid = si_tracing_calc_next_spanid();
   v9 = *(v5 + 8);
-  v10 = *(v5 + 24);
   *v5 = v7;
   *(v5 + 8) = spanid;
   *(v5 + 16) = v9;
@@ -244,53 +226,47 @@ LABEL_14:
   si_tracing_log_span_begin();
   if (self->_canceled)
   {
-    v11 = SPLogForSPLogCategoryDefault();
-    v12 = v11;
+    v10 = SPLogForSPLogCategoryDefault();
+    v11 = v10;
     if (gSPLogDebugAsDefault)
     {
-      v13 = OS_LOG_TYPE_DEFAULT;
+      v12 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
     {
-      v13 = OS_LOG_TYPE_DEBUG;
+      v12 = OS_LOG_TYPE_DEBUG;
     }
 
-    if (os_log_type_enabled(v11, v13))
+    if (os_log_type_enabled(v10, v12))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, v13, "Not sending completions --- canceled.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, v12, "Not sending completions --- canceled.", buf, 2u);
     }
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained(&self->_resultPipe);
-    v15 = +[SDController workQueue];
-    v12 = WeakRetained;
-    v25 = completionsCopy;
+    v14 = +[SDController workQueue];
+    v11 = WeakRetained;
+    v18 = completionsCopy;
     tracing_dispatch_async();
 
-    v16 = SPLogForSPLogCategoryTelemetry();
-    v17 = [(SPCoreSpotlightTask *)self->_job queryID:_NSConcreteStackBlock];
-    if ((v17 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v15 = SPLogForSPLogCategoryTelemetry();
+    v16 = [(SPCoreSpotlightTask *)self->_job queryID:_NSConcreteStackBlock];
+    if ((v16 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, v17, "coreSpotlightComplete", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_EVENT, v16, "coreSpotlightComplete", " enableTelemetry=YES ", buf, 2u);
     }
   }
 
-  v18 = *v5;
-  v19 = *(v5 + 8);
-  v20 = *(v5 + 16);
-  v21 = *(v5 + 24);
-  v22 = *(v5 + 28);
-  v23 = *(v5 + 32);
   si_tracing_log_span_end();
-  v24 = v28;
-  *v5 = v27;
-  *(v5 + 16) = v24;
-  *(v5 + 32) = v29;
+  v17 = v21;
+  *v5 = v20;
+  *(v5 + 16) = v17;
+  *(v5 + 32) = v22;
 }
 
 - (void)progressWithSections:(id)sections suggestionResults:(id)results
@@ -299,70 +275,63 @@ LABEL_14:
   resultsCopy = results;
   v8 = si_tracing_current_span();
   v9 = *(v8 + 16);
-  v35 = *v8;
-  v36 = v9;
-  v37 = *(v8 + 32);
+  v28 = *v8;
+  v29 = v9;
+  v30 = *(v8 + 32);
   v10 = *v8;
   spanid = si_tracing_calc_next_spanid();
   v12 = *(v8 + 8);
-  v13 = *(v8 + 24);
   *v8 = v10;
   *(v8 + 8) = spanid;
   *(v8 + 16) = v12;
   *(v8 + 28) = 102;
   *(v8 + 32) = "[SPCoreSpotlightQueryTask progressWithSections:suggestionResults:]";
   si_tracing_log_span_begin();
-  v14 = SPLogForSPLogCategoryDefault();
-  v15 = v14;
+  v13 = SPLogForSPLogCategoryDefault();
+  v14 = v13;
   if (gSPLogDebugAsDefault)
   {
-    v16 = OS_LOG_TYPE_DEFAULT;
+    v15 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v16 = OS_LOG_TYPE_DEBUG;
+    v15 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v14, v16))
+  if (os_log_type_enabled(v13, v15))
   {
-    v17 = objc_opt_class();
+    v16 = objc_opt_class();
     *buf = 138412546;
-    v39 = v17;
-    v40 = 1024;
-    v41 = qos_class_self();
-    _os_log_impl(&_mh_execute_header, v15, v16, "QOS %@ progressWithSections: %d", buf, 0x12u);
+    v32 = v16;
+    v33 = 1024;
+    v34 = qos_class_self();
+    _os_log_impl(&_mh_execute_header, v14, v15, "QOS %@ progressWithSections: %d", buf, 0x12u);
   }
 
   if (!self->_canceled)
   {
     WeakRetained = objc_loadWeakRetained(&self->_resultPipe);
-    v19 = +[SDController workQueue];
-    v20 = qos_class_self();
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_100030004;
-    v30[3] = &unk_100093178;
-    v21 = WeakRetained;
-    v31 = v21;
+    v18 = +[SDController workQueue];
+    v19 = qos_class_self();
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100030004;
+    v23[3] = &unk_100093178;
+    v20 = WeakRetained;
+    v24 = v20;
     selfCopy = self;
-    v33 = sectionsCopy;
-    v34 = resultsCopy;
-    v22 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v20, 0, v30);
+    v26 = sectionsCopy;
+    v27 = resultsCopy;
+    v21 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v19, 0, v23);
     tracing_dispatch_async();
   }
 
-  v23 = *v8;
-  v24 = *(v8 + 8);
-  v25 = *(v8 + 16);
-  v26 = *(v8 + 24);
-  v27 = *(v8 + 28);
-  v28 = *(v8 + 32);
   si_tracing_log_span_end();
-  v29 = v36;
-  *v8 = v35;
-  *(v8 + 16) = v29;
-  *(v8 + 32) = v37;
+  v22 = v29;
+  *v8 = v28;
+  *(v8 + 16) = v22;
+  *(v8 + 32) = v30;
 }
 
 - (void)finishWithSections:(id)sections suggestionResults:(id)results
@@ -371,39 +340,38 @@ LABEL_14:
   resultsCopy = results;
   v8 = si_tracing_current_span();
   v9 = *(v8 + 16);
-  v48 = *v8;
-  v49 = v9;
-  v50 = *(v8 + 32);
+  v40 = *v8;
+  v41 = v9;
+  v42 = *(v8 + 32);
   v10 = *v8;
   spanid = si_tracing_calc_next_spanid();
   v12 = *(v8 + 8);
-  v13 = *(v8 + 24);
   *v8 = v10;
   *(v8 + 8) = spanid;
   *(v8 + 16) = v12;
   *(v8 + 28) = 102;
   *(v8 + 32) = "[SPCoreSpotlightQueryTask finishWithSections:suggestionResults:]";
   si_tracing_log_span_begin();
-  v14 = SPLogForSPLogCategoryDefault();
-  v15 = v14;
+  v13 = SPLogForSPLogCategoryDefault();
+  v14 = v13;
   if (gSPLogDebugAsDefault)
   {
-    v16 = OS_LOG_TYPE_DEFAULT;
+    v15 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v16 = OS_LOG_TYPE_DEBUG;
+    v15 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v14, v16))
+  if (os_log_type_enabled(v13, v15))
   {
-    v17 = objc_opt_class();
+    v16 = objc_opt_class();
     *buf = 138412546;
-    v52 = v17;
-    v53 = 1024;
-    v54 = qos_class_self();
-    _os_log_impl(&_mh_execute_header, v15, v16, "QOS %@ finishWithSections: %d", buf, 0x12u);
+    v44 = v16;
+    v45 = 1024;
+    v46 = qos_class_self();
+    _os_log_impl(&_mh_execute_header, v14, v15, "QOS %@ finishWithSections: %d", buf, 0x12u);
   }
 
   if (!self->_done && !self->_canceled)
@@ -411,37 +379,36 @@ LABEL_14:
     WeakRetained = objc_loadWeakRetained(&self->_resultPipe);
     queryContext = [WeakRetained queryContext];
     queryUnderstandingOutput = [queryContext queryUnderstandingOutput];
-    v21 = [SSQueryUnderstandingUtilities queryUnderstandingParseWithQueryUnderstanding:queryUnderstandingOutput];
+    v20 = [SSQueryUnderstandingUtilities queryUnderstandingParseWithQueryUnderstanding:queryUnderstandingOutput];
 
     queryContext2 = [WeakRetained queryContext];
     LOBYTE(queryUnderstandingOutput) = [queryContext2 isSearchToolClient];
 
     if ((queryUnderstandingOutput & 1) == 0)
     {
-      v23 = [[SFEndLocalSearchFeedback alloc] initWithStartSearch:self->_feedback queryUnderstandingParse:v21];
-      queue = self->_queue;
-      v41 = _NSConcreteStackBlock;
-      v42 = 3221225472;
-      v43 = sub_1000303EC;
-      v44 = &unk_100093150;
-      v45 = v23;
-      v46 = WeakRetained;
+      v22 = [[SFEndLocalSearchFeedback alloc] initWithStartSearch:self->_feedback queryUnderstandingParse:v20];
+      v33 = _NSConcreteStackBlock;
+      v34 = 3221225472;
+      v35 = sub_1000303EC;
+      v36 = &unk_100093150;
+      v37 = v22;
+      v38 = WeakRetained;
       selfCopy = self;
       md_tracing_dispatch_async_propagating();
     }
 
-    v25 = +[SDController workQueue];
-    v26 = qos_class_self();
+    v23 = +[SDController workQueue];
+    v24 = qos_class_self();
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100030498;
     block[3] = &unk_100093178;
-    v27 = WeakRetained;
-    v37 = v27;
+    v25 = WeakRetained;
+    v29 = v25;
     selfCopy2 = self;
-    v39 = sectionsCopy;
-    v40 = resultsCopy;
-    v28 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v26, 0, block);
+    v31 = sectionsCopy;
+    v32 = resultsCopy;
+    v26 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v24, 0, block);
     tracing_dispatch_async();
 
     objc_storeWeak(&self->_resultPipe, 0);
@@ -449,17 +416,11 @@ LABEL_14:
     atomic_fetch_add(&dword_1000A8420, 0xFFFFFFFF);
   }
 
-  v29 = *v8;
-  v30 = *(v8 + 8);
-  v31 = *(v8 + 16);
-  v32 = *(v8 + 24);
-  v33 = *(v8 + 28);
-  v34 = *(v8 + 32);
   si_tracing_log_span_end();
-  v35 = v49;
-  *v8 = v48;
-  *(v8 + 16) = v35;
-  *(v8 + 32) = v50;
+  v27 = v41;
+  *v8 = v40;
+  *(v8 + 16) = v27;
+  *(v8 + 32) = v42;
 }
 
 - (SDSearchQuery)resultPipe

@@ -1,6 +1,7 @@
 @interface RPAWDLBonjourTransportServiceMetadata
 - (RPAWDLBonjourTransportServiceMetadata)initWithDictionary:(id)dictionary;
 - (RPAWDLBonjourTransportServiceMetadata)initWithSingleBandModeRequired:(BOOL)required;
+- (id)descriptionWithLevel:(int)level;
 - (id)dictionaryRepresentation;
 @end
 
@@ -73,6 +74,22 @@
   CFDictionarySetValue(v4, &off_1001B7F90, *v5);
 
   return v4;
+}
+
+- (id)descriptionWithLevel:(int)level
+{
+  v11.receiver = self;
+  v11.super_class = RPAWDLBonjourTransportServiceMetadata;
+  v4 = [(RPTransportServiceMetadata *)&v11 descriptionWithLevel:*&level];
+  v5 = [v4 mutableCopy];
+
+  isSingleBandModeRequired = self->_isSingleBandModeRequired;
+  v10 = v5;
+  NSAppendPrintF(&v10, " single band required: %d", isSingleBandModeRequired);
+  v6 = v10;
+  v7 = v10;
+
+  return v6;
 }
 
 @end

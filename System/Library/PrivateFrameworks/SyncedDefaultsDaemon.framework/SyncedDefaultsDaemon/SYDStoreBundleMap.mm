@@ -257,7 +257,7 @@ void __69__SYDStoreBundleMap_isCloudSyncUserDefaultEnabledForStoreIdentifier___b
 
 void __68__SYDStoreBundleMap_setCloudSyncUserDefaultEnabled_storeIdentifier___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (![*(a1 + 32) length])
   {
     __68__SYDStoreBundleMap_setCloudSyncUserDefaultEnabled_storeIdentifier___block_invoke_cold_1(a1);
@@ -272,9 +272,9 @@ void __68__SYDStoreBundleMap_setCloudSyncUserDefaultEnabled_storeIdentifier___bl
     if (v5)
     {
       v6 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_26C384000, v4, OS_LOG_TYPE_INFO, "Enabling cloud sync for store <(%@)>", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_26C384000, v4, OS_LOG_TYPE_INFO, "Enabling cloud sync for store <(%@)>", &v9, 0xCu);
     }
 
     v7 = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -286,16 +286,14 @@ void __68__SYDStoreBundleMap_setCloudSyncUserDefaultEnabled_storeIdentifier___bl
     if (v5)
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_26C384000, v4, OS_LOG_TYPE_INFO, "Disabling cloud sync for store <(%@)>", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_26C384000, v4, OS_LOG_TYPE_INFO, "Disabling cloud sync for store <(%@)>", &v9, 0xCu);
     }
 
     v7 = [MEMORY[0x277CBEBD0] standardUserDefaults];
     [v7 setBool:1 forKey:v2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SYDStoreBundleMap_disabledStoreIdentifiers__block_invoke()
@@ -346,11 +344,11 @@ void __45__SYDStoreBundleMap_disabledStoreIdentifiers__block_invoke()
 {
   identifierCopy = identifier;
   v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x3032000000;
-  v14[2] = __Block_byref_object_copy__0;
-  v14[3] = __Block_byref_object_dispose__0;
-  v15 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__0;
+  v17 = __Block_byref_object_dispose__0;
+  v18 = 0;
   queue = [(SYDStoreBundleMap *)self queue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -362,12 +360,12 @@ void __45__SYDStoreBundleMap_disabledStoreIdentifiers__block_invoke()
   v11 = v6;
   dispatch_sync(queue, block);
 
-  if ([*(v14[0] + 40) count])
+  if ([v14[5] count])
   {
     v7 = SYDGetMiscLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(SYDStoreBundleMap *)v6 bundleIdentifiersForStoreIdentifier:v14];
+      [SYDStoreBundleMap bundleIdentifiersForStoreIdentifier:];
     }
   }
 
@@ -380,7 +378,7 @@ void __45__SYDStoreBundleMap_disabledStoreIdentifiers__block_invoke()
     }
   }
 
-  v8 = *(v14[0] + 40);
+  v8 = v14[5];
   _Block_object_dispose(&v13, 8);
 
   return v8;
@@ -425,7 +423,7 @@ void __46__SYDStoreBundleMap_clearCachedStoreBundleMap__block_invoke(uint64_t a1
 
 - (id)generateStoreBundleMap
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v2 = SYDGetMiscLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -434,62 +432,60 @@ void __46__SYDStoreBundleMap_clearCachedStoreBundleMap__block_invoke(uint64_t a1
 
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v11 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
-  v12 = 0x277CC1000uLL;
   [MEMORY[0x277CC1E50] enumeratorWithOptions:0];
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v41 = v63 = 0u;
-  v42 = v11;
-  v72[0] = v11;
-  v72[1] = v41;
-  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
-  v45 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
-  if (v45)
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v38 = v60 = 0u;
+  v39 = v11;
+  v69[0] = v11;
+  v69[1] = v38;
+  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+  v42 = [obj countByEnumeratingWithState:&v57 objects:v70 count:16];
+  if (v42)
   {
-    v44 = *v61;
+    v41 = *v58;
     do
     {
-      v13 = 0;
+      v12 = 0;
       do
       {
-        if (*v61 != v44)
+        if (*v58 != v41)
         {
-          v14 = v13;
+          v13 = v12;
           objc_enumerationMutation(obj);
-          v13 = v14;
+          v12 = v13;
         }
 
-        v46 = v13;
-        v15 = *(*(&v60 + 1) + 8 * v13);
+        v43 = v12;
+        v14 = *(*(&v57 + 1) + 8 * v12);
+        v53 = 0u;
+        v54 = 0u;
+        v55 = 0u;
         v56 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v49 = v15;
-        v16 = [v49 countByEnumeratingWithState:&v56 objects:v71 count:16];
-        if (v16)
+        v46 = v14;
+        v15 = [v46 countByEnumeratingWithState:&v53 objects:v68 count:16];
+        if (v15)
         {
-          v17 = v16;
-          v18 = *v57;
-          v47 = *v57;
+          v16 = v15;
+          v17 = *v54;
+          v44 = *v54;
           do
           {
-            v19 = 0;
-            v48 = v17;
+            v18 = 0;
+            v45 = v16;
             do
             {
-              if (*v57 != v18)
+              if (*v54 != v17)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v46);
               }
 
-              v20 = *(*(&v56 + 1) + 8 * v19);
-              v21 = *(v12 + 3664);
+              v19 = *(*(&v53 + 1) + 8 * v18);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                effectiveBundleIdentifier = [v20 effectiveBundleIdentifier];
+                effectiveBundleIdentifier = [v19 effectiveBundleIdentifier];
               }
 
               else
@@ -497,141 +493,138 @@ void __46__SYDStoreBundleMap_clearCachedStoreBundleMap__block_invoke(uint64_t a1
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v36 = SYDGetMiscLog();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+                  v34 = SYDGetMiscLog();
+                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v66 = v20;
-                    _os_log_debug_impl(&dword_26C384000, v36, OS_LOG_TYPE_DEBUG, "LSBundleRecord did not map to an effectiveBundleIdentifier or contain one: %@", buf, 0xCu);
+                    v63 = v19;
+                    _os_log_debug_impl(&dword_26C384000, v34, OS_LOG_TYPE_DEBUG, "LSBundleRecord did not map to an effectiveBundleIdentifier or contain one: %@", buf, 0xCu);
                   }
 
                   goto LABEL_39;
                 }
 
-                effectiveBundleIdentifier = [v20 bundleIdentifier];
+                effectiveBundleIdentifier = [v19 bundleIdentifier];
               }
 
-              v23 = effectiveBundleIdentifier;
+              v21 = effectiveBundleIdentifier;
               if (effectiveBundleIdentifier)
               {
-                v24 = SYDGetMiscLog();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+                v22 = SYDGetMiscLog();
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v66 = v23;
-                  _os_log_debug_impl(&dword_26C384000, v24, OS_LOG_TYPE_DEBUG, "Checking if bundle identifier: %@ is entitled for KVS", buf, 0xCu);
+                  v63 = v21;
+                  _os_log_debug_impl(&dword_26C384000, v22, OS_LOG_TYPE_DEBUG, "Checking if bundle identifier: %@ is entitled for KVS", buf, 0xCu);
                 }
 
-                v25 = [objc_alloc(MEMORY[0x277D6B878]) initWithBundleRecord:v20];
-                storeIdentifiers = [v25 storeIdentifiers];
+                v23 = [objc_alloc(MEMORY[0x277D6B878]) initWithBundleRecord:v19];
+                storeIdentifiers = [v23 storeIdentifiers];
                 if ([storeIdentifiers count])
                 {
-                  v51 = v19;
-                  v27 = SYDGetMiscLog();
-                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+                  v48 = v18;
+                  v25 = SYDGetMiscLog();
+                  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
                   {
-                    v37 = [storeIdentifiers count];
+                    v35 = [storeIdentifiers count];
                     *buf = 134218498;
-                    v66 = v37;
-                    v67 = 2112;
-                    v68 = v23;
-                    v69 = 2112;
-                    v70 = storeIdentifiers;
-                    _os_log_debug_impl(&dword_26C384000, v27, OS_LOG_TYPE_DEBUG, "Found %ld store identifiers for bundle identifier: %@ %@ ", buf, 0x20u);
+                    v63 = v35;
+                    v64 = 2112;
+                    v65 = v21;
+                    v66 = 2112;
+                    v67 = storeIdentifiers;
+                    _os_log_debug_impl(&dword_26C384000, v25, OS_LOG_TYPE_DEBUG, "Found %ld store identifiers for bundle identifier: %@ %@ ", buf, 0x20u);
                   }
 
-                  v54 = 0u;
-                  v55 = 0u;
+                  v51 = 0u;
                   v52 = 0u;
-                  v53 = 0u;
-                  v50 = storeIdentifiers;
-                  v28 = storeIdentifiers;
-                  v29 = [v28 countByEnumeratingWithState:&v52 objects:v64 count:16];
-                  if (v29)
+                  v49 = 0u;
+                  v50 = 0u;
+                  v47 = storeIdentifiers;
+                  v26 = storeIdentifiers;
+                  v27 = [v26 countByEnumeratingWithState:&v49 objects:v61 count:16];
+                  if (v27)
                   {
-                    v30 = v29;
-                    v31 = *v53;
+                    v28 = v27;
+                    v29 = *v50;
                     do
                     {
-                      for (i = 0; i != v30; ++i)
+                      for (i = 0; i != v28; ++i)
                       {
-                        if (*v53 != v31)
+                        if (*v50 != v29)
                         {
-                          objc_enumerationMutation(v28);
+                          objc_enumerationMutation(v26);
                         }
 
-                        v33 = *(*(&v52 + 1) + 8 * i);
-                        v34 = [v10 objectForKeyedSubscript:v33];
-                        if (!v34)
+                        v31 = *(*(&v49 + 1) + 8 * i);
+                        v32 = [v10 objectForKeyedSubscript:v31];
+                        if (!v32)
                         {
-                          v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                          [v10 setObject:v34 forKeyedSubscript:v33];
+                          v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                          [v10 setObject:v32 forKeyedSubscript:v31];
                         }
 
-                        [v34 addObject:v23];
-                        v35 = [v25 relatedApplicationsForStoreIdentifier:v33];
-                        if ([v35 count])
+                        [v32 addObject:v21];
+                        v33 = [v23 relatedApplicationsForStoreIdentifier:v31];
+                        if ([v33 count])
                         {
-                          [v34 addObjectsFromArray:v35];
+                          [v32 addObjectsFromArray:v33];
                         }
                       }
 
-                      v30 = [v28 countByEnumeratingWithState:&v52 objects:v64 count:16];
+                      v28 = [v26 countByEnumeratingWithState:&v49 objects:v61 count:16];
                     }
 
-                    while (v30);
+                    while (v28);
                   }
 
-                  v12 = 0x277CC1000;
-                  v18 = v47;
-                  v17 = v48;
-                  storeIdentifiers = v50;
-                  v19 = v51;
+                  v17 = v44;
+                  v16 = v45;
+                  storeIdentifiers = v47;
+                  v18 = v48;
                 }
 
                 goto LABEL_41;
               }
 
 LABEL_39:
-              v23 = SYDGetMiscLog();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+              v21 = SYDGetMiscLog();
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v66 = v20;
-                _os_log_debug_impl(&dword_26C384000, v23, OS_LOG_TYPE_DEBUG, "No bundle identifier found using LSBundleRecord for: %@", buf, 0xCu);
+                v63 = v19;
+                _os_log_debug_impl(&dword_26C384000, v21, OS_LOG_TYPE_DEBUG, "No bundle identifier found using LSBundleRecord for: %@", buf, 0xCu);
               }
 
 LABEL_41:
 
-              ++v19;
+              ++v18;
             }
 
-            while (v19 != v17);
-            v17 = [v49 countByEnumeratingWithState:&v56 objects:v71 count:16];
+            while (v18 != v16);
+            v16 = [v46 countByEnumeratingWithState:&v53 objects:v68 count:16];
           }
 
-          while (v17);
+          while (v16);
         }
 
-        v13 = v46 + 1;
+        v12 = v43 + 1;
       }
 
-      while (v46 + 1 != v45);
-      v45 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
+      while (v43 + 1 != v42);
+      v42 = [obj countByEnumeratingWithState:&v57 objects:v70 count:16];
     }
 
-    while (v45);
+    while (v42);
   }
 
-  v38 = SYDGetMiscLog();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+  v36 = SYDGetMiscLog();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v66 = v10;
-    _os_log_impl(&dword_26C384000, v38, OS_LOG_TYPE_INFO, "Generated new store bundle mapping: %@", buf, 0xCu);
+    v63 = v10;
+    _os_log_impl(&dword_26C384000, v36, OS_LOG_TYPE_INFO, "Generated new store bundle mapping: %@", buf, 0xCu);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -661,30 +654,6 @@ uint64_t __44__SYDStoreBundleMap_installedAppsDidChange___block_invoke(uint64_t 
   return [*(a1 + 40) setCachedStoreBundleMap:0];
 }
 
-- (void)shouldSyncStoreWithIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Not syncing store that isn't used on this device: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)shouldSyncStoreWithIdentifier:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Not syncing store that is disabled via NSUserDefaults: <(%@)>", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)shouldSyncStoreWithIdentifier:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Not syncing TCC-disabled store %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __69__SYDStoreBundleMap_isCloudSyncUserDefaultEnabledForStoreIdentifier___block_invoke_cold_1(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCA890] currentHandler];
@@ -693,18 +662,16 @@ void __69__SYDStoreBundleMap_isCloudSyncUserDefaultEnabledForStoreIdentifier___b
 
 void __69__SYDStoreBundleMap_isCloudSyncUserDefaultEnabledForStoreIdentifier___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, a2, a3, "Checking cloud sync status for store <(%@)> Status is enabled.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_26C384000, a2, a3, "Checking cloud sync status for store <(%@)> Status is enabled.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __69__SYDStoreBundleMap_isCloudSyncUserDefaultEnabledForStoreIdentifier___block_invoke_cold_3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, a2, a3, "Checking cloud sync status for store <(%@)> Status is disabled.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_26C384000, a2, a3, "Checking cloud sync status for store <(%@)> Status is disabled.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __68__SYDStoreBundleMap_setCloudSyncUserDefaultEnabled_storeIdentifier___block_invoke_cold_1(uint64_t a1)
@@ -713,39 +680,20 @@ void __68__SYDStoreBundleMap_setCloudSyncUserDefaultEnabled_storeIdentifier___bl
   [v2 handleFailureInMethod:*(a1 + 48) object:*(a1 + 40) file:@"SYDStoreBundleMap.m" lineNumber:98 description:@"storeIdentifier must not be empty"];
 }
 
-- (void)isStoreIdentifierUsedOnThisDevice:.cold.1()
+- (void)bundleIdentifiersForStoreIdentifier:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Explicitly disabling store %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)bundleIdentifiersForStoreIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_2();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_26C384000, v4, OS_LOG_TYPE_DEBUG, "Found bundle identifiers for store %@: %@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)bundleIdentifiersForStoreIdentifier:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "No bundle identifiers for store %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_26C384000, v1, OS_LOG_TYPE_DEBUG, "Found bundle identifiers for store %@: %@", v2, 0x16u);
 }
 
 void __44__SYDStoreBundleMap_installedAppsDidChange___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, a2, a3, "Installed apps changed. Clearing cached store bundle map. Notification=%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_26C384000, a2, a3, "Installed apps changed. Clearing cached store bundle map. Notification=%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -11,10 +11,12 @@
 {
   selfCopy = self;
   sub_1CF015B18();
+  v4 = v3;
 
-  v3 = sub_1CF9E6888();
+  v5 = sub_1CF9E6888();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (void)currentSyncAnchorWithCompletionHandler:(id)handler

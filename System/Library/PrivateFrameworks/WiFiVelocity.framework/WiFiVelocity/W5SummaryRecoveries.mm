@@ -36,41 +36,41 @@
       v16 = 31;
       v17 = 2080;
       v18 = "[W5SummaryRecoveries initWithSummaryRecoveries:]";
-      _os_log_send_and_compose_impl();
+      LODWORD(v9) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, p_super, 0, "[wifivelocity] %s (%s:%u) %s: init error!", &v11, v9, LODWORD(v10.receiver), v10.super_class);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)description
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithCapacity:0];
   [v3 appendFormat:@"Recoveries in last Hour: %lu\n", -[NSArray count](self->_lastHrRecoveries, "count")];
   if ([(NSArray *)self->_lastHrRecoveries count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     obj = self->_lastHrRecoveries;
-    v4 = [(NSArray *)obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v4 = [(NSArray *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v15;
+      v6 = *v14;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v15 != v6)
+          if (*v14 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v14 + 1) + 8 * i);
+          v8 = *(*(&v13 + 1) + 8 * i);
           v9 = [v8 objectForKeyedSubscript:@"recoveryType"];
           [v3 appendFormat:@"Recovery Type: %@\n", v9];
 
@@ -78,21 +78,19 @@
           [v3 appendFormat:@"\tRecovery Reason: %@\n", v10];
         }
 
-        v5 = [(NSArray *)obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [(NSArray *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v5);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (BOOL)isEqualToRecoveries:(id)recoveries
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   recoveriesCopy = recoveries;
   v5 = [(NSArray *)self->_lastHrRecoveries count];
   lastHrRecoveries = [recoveriesCopy lastHrRecoveries];
@@ -100,58 +98,58 @@
 
   if (v5 == v7)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = [recoveriesCopy lastHrRecoveries];
-    v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
-      v22 = recoveriesCopy;
+      v10 = *v28;
+      v21 = recoveriesCopy;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v28 + 1) + 8 * i);
+          v12 = *(*(&v27 + 1) + 8 * i);
+          v23 = 0u;
           v24 = 0u;
           v25 = 0u;
           v26 = 0u;
-          v27 = 0u;
           v13 = self->_lastHrRecoveries;
-          v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (!v14)
           {
 
 LABEL_20:
             v19 = 0;
-            recoveriesCopy = v22;
+            recoveriesCopy = v21;
             goto LABEL_21;
           }
 
           v15 = v14;
           v16 = 0;
-          v17 = *v25;
+          v17 = *v24;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v25 != v17)
+              if (*v24 != v17)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v16 |= [*(*(&v24 + 1) + 8 * j) isEqualToDictionary:{v12, v22}];
+              v16 |= [*(*(&v23 + 1) + 8 * j) isEqualToDictionary:{v12, v21}];
             }
 
-            v15 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v15);
@@ -162,9 +160,9 @@ LABEL_20:
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
         v19 = 1;
-        recoveriesCopy = v22;
+        recoveriesCopy = v21;
         if (v9)
         {
           continue;
@@ -187,7 +185,6 @@ LABEL_21:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

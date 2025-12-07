@@ -57,9 +57,9 @@
   captureCopy = capture;
   modelCopy = model;
   schedulerCopy = scheduler;
-  v22.receiver = self;
-  v22.super_class = AVTSelectableStickerSheetController;
-  v11 = [(AVTSelectableStickerSheetController *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = AVTSelectableStickerSheetController;
+  v11 = [(AVTSelectableStickerSheetController *)&v24 init];
   v12 = v11;
   if (v11)
   {
@@ -77,15 +77,15 @@
     stickerItems = [(AVTStickerSheetModel *)v12->_model stickerItems];
     v16 = [v14 arrayWithArray:stickerItems];
 
-    if (captureCopy && AVTUIIsFacetrackingSupported())
+    if (captureCopy && AVTUIIsFacetrackingSupported(v17, v18))
     {
-      v17 = [AVTUIStickerItem alloc];
-      v18 = AVTAvatarUIBundle();
-      v19 = [v18 localizedStringForKey:@"CUSTOM_POSE" value:&stru_1F39618F0 table:@"Localized"];
-      v20 = [(AVTUIStickerItem *)v17 initWithIdentifier:@"cameraStickerItem" localizedName:v19 resourceProvider:0];
+      v19 = [AVTUIStickerItem alloc];
+      v20 = AVTAvatarUIBundle(v19);
+      v21 = [v20 localizedStringForKey:@"CUSTOM_POSE" value:&stru_1F39618F0 table:@"Localized"];
+      v22 = [(AVTUIStickerItem *)v19 initWithIdentifier:@"cameraStickerItem" localizedName:v21 resourceProvider:0];
 
-      [v16 insertObject:v20 atIndex:0];
-      objc_storeWeak(&v12->_cameraStickerItem, v20);
+      [v16 insertObject:v22 atIndex:0];
+      objc_storeWeak(&v12->_cameraStickerItem, v22);
     }
 
     [(AVTSelectableStickerSheetController *)v12 setStickerItems:v16];
@@ -411,7 +411,7 @@ void __88__AVTSelectableStickerSheetController_startAllSchedulerTasksExcludingVi
   }
 }
 
-uint64_t __88__AVTSelectableStickerSheetController_startAllSchedulerTasksExcludingVisibleIndexPaths___block_invoke_3(uint64_t a1, uint64_t a2)
+void *__88__AVTSelectableStickerSheetController_startAllSchedulerTasksExcludingVisibleIndexPaths___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setCachedImage:a2];
   result = [*(a1 + 40) isPageVisible];

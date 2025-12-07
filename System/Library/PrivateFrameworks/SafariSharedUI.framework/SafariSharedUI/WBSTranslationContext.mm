@@ -31,7 +31,7 @@ void __72__WBSTranslationContext_contentFiller_didCompleteFillingItem_withError_
   v6 = [v4 safari_privacyPreservingDescription];
   v7 = [*(a3 + 48) safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_9(&dword_1C6968000, v8, v9, "Failed to fill translated content into webpage with error: %{public}@; content: %{public}@", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_1_9(&dword_1C6968000, v8, v9, "Failed to fill translated content into webpage with error: %{public}@; content: %{public}@", v10, v11, v12, v13);
 }
 
 void __72__WBSTranslationContext_contentFiller_didCompleteFillingItem_withError___block_invoke_2_cold_2(uint64_t a1, void *a2)
@@ -66,7 +66,7 @@ void __72__WBSTranslationContext_contentFiller_didCompleteFillingItem_withError_
   [a2 count];
   v4 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_9(&dword_1C6968000, v5, v6, "Failed to generate JSON version of extracted paragraphs with count %lu and with error %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_9(&dword_1C6968000, v5, v6, "Failed to generate JSON version of extracted paragraphs with count %lu and with error %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_generateJSONVersionOfErrors:(void *)a1 completionHandler:(void *)a2 .cold.1(void *a1, void *a2)
@@ -75,7 +75,7 @@ void __72__WBSTranslationContext_contentFiller_didCompleteFillingItem_withError_
   [a2 count];
   v4 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_9(&dword_1C6968000, v5, v6, "Failed to generate JSON version of errors with count %lu and with error %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_9(&dword_1C6968000, v5, v6, "Failed to generate JSON version of errors with count %lu and with error %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_startProgressForExtractingContent

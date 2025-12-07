@@ -101,7 +101,7 @@ uint64_t PropertyListEncoder.encodeToTopLevelContainerBPlist<A>(_:configuration:
     v18 = type metadata accessor for EncodingError();
     swift_allocError();
     v20 = v19;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd, &_syp_s13EncodingErrorO7ContextVtMR);
     v20[3] = a3;
     boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v20);
     (*(*(a3 - 8) + 16))(boxed_opaque_existential_0, a1, a3);
@@ -143,7 +143,7 @@ uint64_t PropertyListEncoder.encodeToTopLevelContainerXML<A>(_:configuration:)@<
   *(v12 + 120) = 8;
   *(v12 + 40) = xmmword_181248570;
   v30 = v11;
-  v31 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, type metadata accessor for __PlistEncoderXML);
+  v31 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, type metadata accessor for __PlistEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
   v27 = v12;
   v13 = *(a4 + 16);
   v14 = a3;
@@ -184,7 +184,7 @@ uint64_t PropertyListEncoder.encodeToTopLevelContainerXML<A>(_:configuration:)@<
     v20 = type metadata accessor for EncodingError();
     swift_allocError();
     v22 = v21;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd, &_syp_s13EncodingErrorO7ContextVtMR);
     v22[3] = v14;
     boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v22);
     (*(*(v14 - 8) + 16))(boxed_opaque_existential_0, a1, v14);
@@ -295,7 +295,7 @@ uint64_t static _XMLPlistDecodingFormat.unwrapDate<A>(from:in:for:_:)@<X0>(unint
     {
       (*(v28 + 32))(v39, v16, a5);
       v30 = _CodingPathNode.path.getter(a3);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_181218E20;
       v32 = v37;
@@ -335,7 +335,7 @@ uint64_t _s10Foundation23_XMLPlistDecodingFormatV12unwrapString4from2in3for_SSAA
     {
       outlined copy of _CodingKey(a4, a5, a6, a7);
       v18 = _CodingPathNode.path.getter(a3);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_181218E20;
       *(inited + 56) = &type metadata for _CodingKey;
@@ -487,7 +487,7 @@ double specialized XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(uint64_t a1, 
       {
         (v42[4])(v12, v16, a5);
         v44 = _CodingPathNode.path.getter(v56);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         v46 = v52;
@@ -512,7 +512,7 @@ double specialized XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(uint64_t a1, 
   return v6;
 }
 
-void partial apply for specialized closure #1 in XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(const char *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void partial apply for specialized closure #1 in XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   specialized closure #1 in XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(a1, a2, *(v3 + 32), *(v3 + 40), *(v3 + 16), *(v3 + 24));
   if (!v4)
@@ -848,7 +848,7 @@ LABEL_66:
       v74(v82, v41, v72);
       v76 = v71;
       v77 = _CodingPathNode.path.getter(v91);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_181218E20;
       v79 = v85;
@@ -955,7 +955,7 @@ LABEL_61:
       v57(v83, v45, v55);
       v59 = v54;
       v60 = _CodingPathNode.path.getter(v91);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       v61 = swift_initStackObject();
       *(v61 + 16) = xmmword_181218E20;
       v62 = v85;
@@ -1129,7 +1129,7 @@ uint64_t specialized closure #1 in static XMLPlistMap.Value.parseSpecialRealValu
     v31 = v38;
     (*(v28 + 32))(v38, v16, a5);
     v32 = _CodingPathNode.path.getter(v42);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_181218E20;
     v34 = v37;
@@ -1148,7 +1148,7 @@ uint64_t specialized closure #1 in static XMLPlistMap.Value.parseSpecialRealValu
   return swift_willThrow();
 }
 
-void specialized closure #1 in XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(const char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void specialized closure #1 in XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(unsigned __int8 *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v88 = a6;
   v89 = a4;
@@ -1247,7 +1247,7 @@ void specialized closure #1 in XMLPlistMap.Value.realValue<A, B>(in:as:for:_:)(c
           {
             (*(v68 + 32))(v37, v67, v69);
             v71 = _CodingPathNode.path.getter(v83);
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
             v72 = v37;
             inited = swift_initStackObject();
             *(inited + 16) = xmmword_181218E20;
@@ -1316,7 +1316,7 @@ LABEL_10:
             v53 = v81;
             v52(v81, v48, v50);
             v54 = _CodingPathNode.path.getter(v41);
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
             v55 = swift_initStackObject();
             *(v55 + 16) = xmmword_181218E20;
             v56 = v88;
@@ -1382,90 +1382,90 @@ uint64_t protocol witness for Encoder.singleValueContainer() in conformance __Pl
 {
   v3 = *v1;
   a1[3] = type metadata accessor for __PlistEncoderXML();
-  a1[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v4, type metadata accessor for __PlistEncoderXML);
+  a1[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v4, type metadata accessor for __PlistEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
   *a1 = v3;
 }
 
-char *_PlistKeyedEncodingContainerXML.encodeNil(forKey:)()
+char *_PlistKeyedEncodingContainerXML.encodeNil(forKey:)(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 8);
-  v4 = *(*v0 + 56);
-  v3 = *(*v0 + 64);
-  v47 = *(*v0 + 72);
-  outlined copy of _XMLPlistEncodingFormat.Reference(v4, v3, v47);
+  v3 = *(v2 + 24);
+  v4 = *(v2 + 8);
+  v6 = *(*v2 + 56);
+  v5 = *(*v2 + 64);
+  v49 = *(*v2 + 72);
+  outlined copy of _XMLPlistEncodingFormat.Reference(v6, v5, v49);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v1 == 7)
+  if (v3 == 7)
   {
-    v7 = result;
-    v8 = v6;
+    v9 = result;
+    v10 = v8;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v2 + 16);
-    *(v2 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v50 = *(v4 + 16);
+    *(v4 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v1) = v11;
-      if (*(v48 + 24) < v15)
+      LOBYTE(v3) = v13;
+      if (*(v50 + 24) < v17)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v1 & 1) == (v17 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v3 & 1) == (v19 & 1))
         {
           goto LABEL_8;
         }
 
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v16 = v48;
+        v18 = v50;
 LABEL_8:
-        if (v1)
+        if (v3)
         {
 LABEL_9:
-          v18 = *(v16 + 56) + 24 * v10;
-          v19 = *v18;
-          v20 = *(v18 + 8);
-          *v18 = v4;
-          *(v18 + 8) = v3;
-          v21 = *(v18 + 16);
-          *(v18 + 16) = v47;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v19, v20, v21);
+          v20 = *(v18 + 56) + 24 * v12;
+          v21 = *v20;
+          v22 = *(v20 + 8);
+          *v20 = v6;
+          *(v20 + 8) = v5;
+          v23 = *(v20 + 16);
+          *(v20 + 16) = v49;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v21, v22, v23);
 
 LABEL_28:
-          *(v2 + 16) = v16;
+          *(v4 + 16) = v18;
           return result;
         }
 
 LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, v4, v3, v47, v16);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, v6, v5, v49, v18);
         goto LABEL_28;
       }
     }
 
-    v41 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v22 = static _DictionaryStorage.copy(original:)();
-    v16 = v22;
-    if (!*(v48 + 16))
+    v43 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v24 = static _DictionaryStorage.copy(original:)();
+    v18 = v24;
+    if (!*(v50 + 16))
     {
 LABEL_26:
 
-      v10 = v41;
-      if (v1)
+      v12 = v43;
+      if (v3)
       {
         goto LABEL_9;
       }
@@ -1473,79 +1473,79 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    result = (v22 + 64);
-    v23 = (v48 + 64);
-    v24 = ((1 << *(v16 + 32)) + 63) >> 6;
-    if (v16 != v48 || result >= &v23[8 * v24])
+    result = (v24 + 64);
+    v25 = (v50 + 64);
+    v26 = ((1 << *(v18 + 32)) + 63) >> 6;
+    if (v18 != v50 || result >= &v25[8 * v26])
     {
-      result = memmove(result, v23, 8 * v24);
+      result = memmove(result, v25, 8 * v26);
     }
 
-    v25 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v26 = 1 << *(v48 + 32);
-    v27 = -1;
-    if (v26 < 64)
+    v27 = 0;
+    *(v18 + 16) = *(v50 + 16);
+    v28 = 1 << *(v50 + 32);
+    v29 = -1;
+    if (v28 < 64)
     {
-      v27 = ~(-1 << v26);
+      v29 = ~(-1 << v28);
     }
 
-    v28 = v27 & *(v48 + 64);
-    v29 = (v26 + 63) >> 6;
-    v42 = v29;
-    if (v28)
+    v30 = v29 & *(v50 + 64);
+    v31 = (v28 + 63) >> 6;
+    v44 = v31;
+    if (v30)
     {
       do
       {
-        v30 = __clz(__rbit64(v28));
-        v46 = (v28 - 1) & v28;
+        v32 = __clz(__rbit64(v30));
+        v48 = (v30 - 1) & v30;
 LABEL_24:
-        v33 = 24 * (v30 | (v25 << 6));
-        v34 = *(v48 + 48) + v33;
-        v35 = *v34;
-        v36 = *(v34 + 8);
-        v37 = *(v48 + 56) + v33;
-        v44 = *(v37 + 8);
-        v45 = *v37;
-        v38 = *(v16 + 48) + v33;
-        v39 = *(v34 + 16);
-        v43 = *(v37 + 16);
-        *v38 = *v34;
-        *(v38 + 8) = v36;
-        *(v38 + 16) = v39;
-        v40 = *(v16 + 56) + v33;
-        *v40 = v45;
-        *(v40 + 8) = v44;
-        *(v40 + 16) = v43;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v35, v36, v39);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v45, v44, v43);
-        v29 = v42;
-        v28 = v46;
+        v35 = 24 * (v32 | (v27 << 6));
+        v36 = *(v50 + 48) + v35;
+        v37 = *v36;
+        v38 = *(v36 + 8);
+        v39 = *(v50 + 56) + v35;
+        v46 = *(v39 + 8);
+        v47 = *v39;
+        v40 = *(v18 + 48) + v35;
+        v41 = *(v36 + 16);
+        v45 = *(v39 + 16);
+        *v40 = *v36;
+        *(v40 + 8) = v38;
+        *(v40 + 16) = v41;
+        v42 = *(v18 + 56) + v35;
+        *v42 = v47;
+        *(v42 + 8) = v46;
+        *(v42 + 16) = v45;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v37, v38, v41);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v47, v46, v45);
+        v31 = v44;
+        v30 = v48;
       }
 
-      while (v46);
+      while (v48);
     }
 
-    v31 = v25;
+    v33 = v27;
     while (1)
     {
-      v25 = v31 + 1;
-      if (__OFADD__(v31, 1))
+      v27 = v33 + 1;
+      if (__OFADD__(v33, 1))
       {
         break;
       }
 
-      if (v25 >= v29)
+      if (v27 >= v31)
       {
         goto LABEL_26;
       }
 
-      v32 = *(v48 + 64 + 8 * v25);
-      ++v31;
-      if (v32)
+      v34 = *(v50 + 64 + 8 * v27);
+      ++v33;
+      if (v34)
       {
-        v30 = __clz(__rbit64(v32));
-        v46 = (v32 - 1) & v32;
+        v32 = __clz(__rbit64(v34));
+        v48 = (v34 - 1) & v34;
         goto LABEL_24;
       }
     }
@@ -1557,108 +1557,108 @@ LABEL_24:
   return result;
 }
 
-char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(char a1)
+char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(char a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 8);
-  v4 = (*v1 + 80);
-  v5 = (*v1 + 120);
+  v4 = *(v3 + 24);
+  v5 = *(v3 + 8);
+  v6 = (*v3 + 80);
+  v7 = (*v3 + 120);
   if ((a1 & 1) == 0)
   {
-    v4 = (*v1 + 104);
+    v6 = (*v3 + 104);
   }
 
-  v6 = *v4;
+  v8 = *v6;
   if (a1)
   {
-    v7 = (*v1 + 88);
+    v9 = (*v3 + 88);
   }
 
   else
   {
-    v7 = (*v1 + 112);
+    v9 = (*v3 + 112);
   }
 
-  v8 = *v7;
+  v10 = *v9;
   if (a1)
   {
-    v5 = (*v1 + 96);
+    v7 = (*v3 + 96);
   }
 
-  v51 = *v5;
-  outlined copy of _XMLPlistEncodingFormat.Reference(v6, *v7, *v5);
+  v53 = *v7;
+  outlined copy of _XMLPlistEncodingFormat.Reference(v8, *v9, *v7);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v2 == 7)
+  if (v4 == 7)
   {
-    v11 = result;
-    v12 = v10;
+    v13 = result;
+    v14 = v12;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v52 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v14 = specialized __RawDictionaryStorage.find<A>(_:)(v11, v12, 0);
-    v16 = *(v52 + 16);
-    v17 = (v15 & 1) == 0;
-    v18 = __OFADD__(v16, v17);
-    v19 = v16 + v17;
-    if (v18)
+    v54 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v16 = specialized __RawDictionaryStorage.find<A>(_:)(v13, v14, 0);
+    v18 = *(v54 + 16);
+    v19 = (v17 & 1) == 0;
+    v20 = __OFADD__(v18, v19);
+    v21 = v18 + v19;
+    if (v20)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v2) = v15;
-      if (*(v52 + 24) < v19)
+      LOBYTE(v4) = v17;
+      if (*(v54 + 24) < v21)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v19, isUniquelyReferenced_nonNull_native);
-        v20 = v52;
-        v14 = specialized __RawDictionaryStorage.find<A>(_:)(v11, v12, 0);
-        if ((v2 & 1) == (v21 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v21, isUniquelyReferenced_nonNull_native);
+        v22 = v54;
+        v16 = specialized __RawDictionaryStorage.find<A>(_:)(v13, v14, 0);
+        if ((v4 & 1) == (v23 & 1))
         {
           goto LABEL_15;
         }
 
-        v14 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v16 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v20 = v52;
+        v22 = v54;
 LABEL_15:
-        if (v2)
+        if (v4)
         {
 LABEL_16:
-          v22 = *(v20 + 56) + 24 * v14;
-          v23 = *v22;
-          v24 = *(v22 + 8);
-          *v22 = v6;
-          *(v22 + 8) = v8;
-          v25 = *(v22 + 16);
-          *(v22 + 16) = v51;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v23, v24, v25);
+          v24 = *(v22 + 56) + 24 * v16;
+          v25 = *v24;
+          v26 = *(v24 + 8);
+          *v24 = v8;
+          *(v24 + 8) = v10;
+          v27 = *(v24 + 16);
+          *(v24 + 16) = v53;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v25, v26, v27);
 
 LABEL_35:
-          *(v3 + 16) = v20;
+          *(v5 + 16) = v22;
           return result;
         }
 
 LABEL_34:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v14, v11, v12, 0, v6, v8, v51, v20);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v16, v13, v14, 0, v8, v10, v53, v22);
         goto LABEL_35;
       }
     }
 
-    v45 = v14;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v26 = static _DictionaryStorage.copy(original:)();
-    v20 = v26;
-    if (!*(v52 + 16))
+    v47 = v16;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v28 = static _DictionaryStorage.copy(original:)();
+    v22 = v28;
+    if (!*(v54 + 16))
     {
 LABEL_33:
 
-      v14 = v45;
-      if (v2)
+      v16 = v47;
+      if (v4)
       {
         goto LABEL_16;
       }
@@ -1666,79 +1666,79 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    result = (v26 + 64);
-    v27 = (v52 + 64);
-    v28 = ((1 << *(v20 + 32)) + 63) >> 6;
-    if (v20 != v52 || result >= &v27[8 * v28])
+    result = (v28 + 64);
+    v29 = (v54 + 64);
+    v30 = ((1 << *(v22 + 32)) + 63) >> 6;
+    if (v22 != v54 || result >= &v29[8 * v30])
     {
-      result = memmove(result, v27, 8 * v28);
+      result = memmove(result, v29, 8 * v30);
     }
 
-    v29 = 0;
-    *(v20 + 16) = *(v52 + 16);
-    v30 = 1 << *(v52 + 32);
-    v31 = -1;
-    if (v30 < 64)
+    v31 = 0;
+    *(v22 + 16) = *(v54 + 16);
+    v32 = 1 << *(v54 + 32);
+    v33 = -1;
+    if (v32 < 64)
     {
-      v31 = ~(-1 << v30);
+      v33 = ~(-1 << v32);
     }
 
-    v32 = v31 & *(v52 + 64);
-    v33 = (v30 + 63) >> 6;
-    v46 = v33;
-    if (v32)
+    v34 = v33 & *(v54 + 64);
+    v35 = (v32 + 63) >> 6;
+    v48 = v35;
+    if (v34)
     {
       do
       {
-        v34 = __clz(__rbit64(v32));
-        v50 = (v32 - 1) & v32;
+        v36 = __clz(__rbit64(v34));
+        v52 = (v34 - 1) & v34;
 LABEL_31:
-        v37 = 24 * (v34 | (v29 << 6));
-        v38 = *(v52 + 48) + v37;
-        v39 = *v38;
-        v40 = *(v38 + 8);
-        v41 = *(v52 + 56) + v37;
-        v48 = *(v41 + 8);
-        v49 = *v41;
-        v42 = *(v20 + 48) + v37;
-        v43 = *(v38 + 16);
-        v47 = *(v41 + 16);
-        *v42 = *v38;
-        *(v42 + 8) = v40;
-        *(v42 + 16) = v43;
-        v44 = *(v20 + 56) + v37;
-        *v44 = v49;
-        *(v44 + 8) = v48;
-        *(v44 + 16) = v47;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v39, v40, v43);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v49, v48, v47);
-        v33 = v46;
-        v32 = v50;
+        v39 = 24 * (v36 | (v31 << 6));
+        v40 = *(v54 + 48) + v39;
+        v41 = *v40;
+        v42 = *(v40 + 8);
+        v43 = *(v54 + 56) + v39;
+        v50 = *(v43 + 8);
+        v51 = *v43;
+        v44 = *(v22 + 48) + v39;
+        v45 = *(v40 + 16);
+        v49 = *(v43 + 16);
+        *v44 = *v40;
+        *(v44 + 8) = v42;
+        *(v44 + 16) = v45;
+        v46 = *(v22 + 56) + v39;
+        *v46 = v51;
+        *(v46 + 8) = v50;
+        *(v46 + 16) = v49;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v41, v42, v45);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v51, v50, v49);
+        v35 = v48;
+        v34 = v52;
       }
 
-      while (v50);
+      while (v52);
     }
 
-    v35 = v29;
+    v37 = v31;
     while (1)
     {
-      v29 = v35 + 1;
-      if (__OFADD__(v35, 1))
+      v31 = v37 + 1;
+      if (__OFADD__(v37, 1))
       {
         break;
       }
 
-      if (v29 >= v33)
+      if (v31 >= v35)
       {
         goto LABEL_33;
       }
 
-      v36 = *(v52 + 64 + 8 * v29);
-      ++v35;
-      if (v36)
+      v38 = *(v54 + 64 + 8 * v31);
+      ++v37;
+      if (v38)
       {
-        v34 = __clz(__rbit64(v36));
-        v50 = (v36 - 1) & v36;
+        v36 = __clz(__rbit64(v38));
+        v52 = (v38 - 1) & v38;
         goto LABEL_31;
       }
     }
@@ -1751,82 +1751,82 @@ LABEL_31:
 }
 
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
+  if (v6 == 7)
   {
-    v7 = result;
-    v8 = v6;
+    v9 = result;
+    v10 = v8;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v50 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v4) = v11;
-      if (*(v48 + 24) < v15)
+      LOBYTE(v6) = v13;
+      if (*(v50 + 24) < v17)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v6 & 1) == (v19 & 1))
         {
           goto LABEL_8;
         }
 
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v16 = v48;
+        v18 = v50;
 LABEL_8:
-        v18 = a1;
-        if (v4)
+        v20 = a1;
+        if (v6)
         {
 LABEL_9:
-          v19 = *(v16 + 56) + 24 * v10;
-          v20 = *v19;
-          v21 = *(v19 + 8);
-          *v19 = v18;
-          *(v19 + 8) = 0;
-          v22 = *(v19 + 16);
-          *(v19 + 16) = 2;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v20, v21, v22);
+          v21 = *(v18 + 56) + 24 * v12;
+          v22 = *v21;
+          v23 = *(v21 + 8);
+          *v21 = v20;
+          *(v21 + 8) = 0;
+          v24 = *(v21 + 16);
+          *(v21 + 16) = 2;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v22, v23, v24);
 
 LABEL_28:
-          *(v3 + 16) = v16;
+          *(v5 + 16) = v18;
           return result;
         }
 
 LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, v18, 0, 2, v16);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, v20, 0, 2, v18);
         goto LABEL_28;
       }
     }
 
-    v42 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v23 = static _DictionaryStorage.copy(original:)();
-    v16 = v23;
-    if (!*(v48 + 16))
+    v44 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v25 = static _DictionaryStorage.copy(original:)();
+    v18 = v25;
+    if (!*(v50 + 16))
     {
 LABEL_26:
 
-      v10 = v42;
-      v18 = a1;
-      if (v4)
+      v12 = v44;
+      v20 = a1;
+      if (v6)
       {
         goto LABEL_9;
       }
@@ -1834,79 +1834,79 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    result = (v23 + 64);
-    v24 = (v48 + 64);
-    v25 = ((1 << *(v16 + 32)) + 63) >> 6;
-    if (v16 != v48 || result >= &v24[8 * v25])
+    result = (v25 + 64);
+    v26 = (v50 + 64);
+    v27 = ((1 << *(v18 + 32)) + 63) >> 6;
+    if (v18 != v50 || result >= &v26[8 * v27])
     {
-      result = memmove(result, v24, 8 * v25);
+      result = memmove(result, v26, 8 * v27);
     }
 
-    v26 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v27 = 1 << *(v48 + 32);
-    v28 = -1;
-    if (v27 < 64)
+    v28 = 0;
+    *(v18 + 16) = *(v50 + 16);
+    v29 = 1 << *(v50 + 32);
+    v30 = -1;
+    if (v29 < 64)
     {
-      v28 = ~(-1 << v27);
+      v30 = ~(-1 << v29);
     }
 
-    v29 = v28 & *(v48 + 64);
-    v30 = (v27 + 63) >> 6;
-    v43 = v30;
-    if (v29)
+    v31 = v30 & *(v50 + 64);
+    v32 = (v29 + 63) >> 6;
+    v45 = v32;
+    if (v31)
     {
       do
       {
-        v31 = __clz(__rbit64(v29));
-        v47 = (v29 - 1) & v29;
+        v33 = __clz(__rbit64(v31));
+        v49 = (v31 - 1) & v31;
 LABEL_24:
-        v34 = 24 * (v31 | (v26 << 6));
-        v35 = *(v48 + 48) + v34;
-        v36 = *v35;
-        v37 = *(v35 + 8);
-        v38 = *(v48 + 56) + v34;
-        v45 = *(v38 + 8);
-        v46 = *v38;
-        v39 = *(v16 + 48) + v34;
-        v40 = *(v35 + 16);
-        v44 = *(v38 + 16);
-        *v39 = *v35;
-        *(v39 + 8) = v37;
-        *(v39 + 16) = v40;
-        v41 = *(v16 + 56) + v34;
-        *v41 = v46;
-        *(v41 + 8) = v45;
-        *(v41 + 16) = v44;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v36, v37, v40);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v46, v45, v44);
-        v30 = v43;
-        v29 = v47;
+        v36 = 24 * (v33 | (v28 << 6));
+        v37 = *(v50 + 48) + v36;
+        v38 = *v37;
+        v39 = *(v37 + 8);
+        v40 = *(v50 + 56) + v36;
+        v47 = *(v40 + 8);
+        v48 = *v40;
+        v41 = *(v18 + 48) + v36;
+        v42 = *(v37 + 16);
+        v46 = *(v40 + 16);
+        *v41 = *v37;
+        *(v41 + 8) = v39;
+        *(v41 + 16) = v42;
+        v43 = *(v18 + 56) + v36;
+        *v43 = v48;
+        *(v43 + 8) = v47;
+        *(v43 + 16) = v46;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v38, v39, v42);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v48, v47, v46);
+        v32 = v45;
+        v31 = v49;
       }
 
-      while (v47);
+      while (v49);
     }
 
-    v32 = v26;
+    v34 = v28;
     while (1)
     {
-      v26 = v32 + 1;
-      if (__OFADD__(v32, 1))
+      v28 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         break;
       }
 
-      if (v26 >= v30)
+      if (v28 >= v32)
       {
         goto LABEL_26;
       }
 
-      v33 = *(v48 + 64 + 8 * v26);
-      ++v32;
-      if (v33)
+      v35 = *(v50 + 64 + 8 * v28);
+      ++v34;
+      if (v35)
       {
-        v31 = __clz(__rbit64(v33));
-        v47 = (v33 - 1) & v33;
+        v33 = __clz(__rbit64(v35));
+        v49 = (v35 - 1) & v35;
         goto LABEL_24;
       }
     }
@@ -1918,84 +1918,84 @@ LABEL_24:
   return result;
 }
 
-char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(__int16 a1)
+char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(__int16 a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
+  if (v6 == 7)
   {
-    v7 = result;
-    v8 = v6;
+    v9 = result;
+    v10 = v8;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v50 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v4) = v11;
-      if (*(v48 + 24) < v15)
+      LOBYTE(v6) = v13;
+      if (*(v50 + 24) < v17)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v6 & 1) == (v19 & 1))
         {
           goto LABEL_8;
         }
 
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v16 = v48;
+        v18 = v50;
 LABEL_8:
-        v18 = a1;
-        if (v4)
+        v20 = a1;
+        if (v6)
         {
 LABEL_9:
-          v19 = *(v16 + 56) + 24 * v10;
-          v20 = *v19;
-          v21 = *(v19 + 8);
-          *v19 = v18;
-          *(v19 + 8) = 0;
-          v22 = *(v19 + 16);
-          *(v19 + 16) = 2;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v20, v21, v22);
+          v21 = *(v18 + 56) + 24 * v12;
+          v22 = *v21;
+          v23 = *(v21 + 8);
+          *v21 = v20;
+          *(v21 + 8) = 0;
+          v24 = *(v21 + 16);
+          *(v21 + 16) = 2;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v22, v23, v24);
 
 LABEL_28:
-          *(v3 + 16) = v16;
+          *(v5 + 16) = v18;
           return result;
         }
 
 LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, v18, 0, 2, v16);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, v20, 0, 2, v18);
         goto LABEL_28;
       }
     }
 
-    v42 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v23 = static _DictionaryStorage.copy(original:)();
-    v16 = v23;
-    if (!*(v48 + 16))
+    v44 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v25 = static _DictionaryStorage.copy(original:)();
+    v18 = v25;
+    if (!*(v50 + 16))
     {
 LABEL_26:
 
-      v10 = v42;
-      v18 = a1;
-      if (v4)
+      v12 = v44;
+      v20 = a1;
+      if (v6)
       {
         goto LABEL_9;
       }
@@ -2003,79 +2003,79 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    result = (v23 + 64);
-    v24 = (v48 + 64);
-    v25 = ((1 << *(v16 + 32)) + 63) >> 6;
-    if (v16 != v48 || result >= &v24[8 * v25])
+    result = (v25 + 64);
+    v26 = (v50 + 64);
+    v27 = ((1 << *(v18 + 32)) + 63) >> 6;
+    if (v18 != v50 || result >= &v26[8 * v27])
     {
-      result = memmove(result, v24, 8 * v25);
+      result = memmove(result, v26, 8 * v27);
     }
 
-    v26 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v27 = 1 << *(v48 + 32);
-    v28 = -1;
-    if (v27 < 64)
+    v28 = 0;
+    *(v18 + 16) = *(v50 + 16);
+    v29 = 1 << *(v50 + 32);
+    v30 = -1;
+    if (v29 < 64)
     {
-      v28 = ~(-1 << v27);
+      v30 = ~(-1 << v29);
     }
 
-    v29 = v28 & *(v48 + 64);
-    v30 = (v27 + 63) >> 6;
-    v43 = v30;
-    if (v29)
+    v31 = v30 & *(v50 + 64);
+    v32 = (v29 + 63) >> 6;
+    v45 = v32;
+    if (v31)
     {
       do
       {
-        v31 = __clz(__rbit64(v29));
-        v47 = (v29 - 1) & v29;
+        v33 = __clz(__rbit64(v31));
+        v49 = (v31 - 1) & v31;
 LABEL_24:
-        v34 = 24 * (v31 | (v26 << 6));
-        v35 = *(v48 + 48) + v34;
-        v36 = *v35;
-        v37 = *(v35 + 8);
-        v38 = *(v48 + 56) + v34;
-        v45 = *(v38 + 8);
-        v46 = *v38;
-        v39 = *(v16 + 48) + v34;
-        v40 = *(v35 + 16);
-        v44 = *(v38 + 16);
-        *v39 = *v35;
-        *(v39 + 8) = v37;
-        *(v39 + 16) = v40;
-        v41 = *(v16 + 56) + v34;
-        *v41 = v46;
-        *(v41 + 8) = v45;
-        *(v41 + 16) = v44;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v36, v37, v40);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v46, v45, v44);
-        v30 = v43;
-        v29 = v47;
+        v36 = 24 * (v33 | (v28 << 6));
+        v37 = *(v50 + 48) + v36;
+        v38 = *v37;
+        v39 = *(v37 + 8);
+        v40 = *(v50 + 56) + v36;
+        v47 = *(v40 + 8);
+        v48 = *v40;
+        v41 = *(v18 + 48) + v36;
+        v42 = *(v37 + 16);
+        v46 = *(v40 + 16);
+        *v41 = *v37;
+        *(v41 + 8) = v39;
+        *(v41 + 16) = v42;
+        v43 = *(v18 + 56) + v36;
+        *v43 = v48;
+        *(v43 + 8) = v47;
+        *(v43 + 16) = v46;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v38, v39, v42);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v48, v47, v46);
+        v32 = v45;
+        v31 = v49;
       }
 
-      while (v47);
+      while (v49);
     }
 
-    v32 = v26;
+    v34 = v28;
     while (1)
     {
-      v26 = v32 + 1;
-      if (__OFADD__(v32, 1))
+      v28 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         break;
       }
 
-      if (v26 >= v30)
+      if (v28 >= v32)
       {
         goto LABEL_26;
       }
 
-      v33 = *(v48 + 64 + 8 * v26);
-      ++v32;
-      if (v33)
+      v35 = *(v50 + 64 + 8 * v28);
+      ++v34;
+      if (v35)
       {
-        v31 = __clz(__rbit64(v33));
-        v47 = (v33 - 1) & v33;
+        v33 = __clz(__rbit64(v35));
+        v49 = (v35 - 1) & v35;
         goto LABEL_24;
       }
     }
@@ -2087,84 +2087,84 @@ LABEL_24:
   return result;
 }
 
-char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(int a1)
+char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(int a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
+  if (v6 == 7)
   {
-    v7 = result;
-    v8 = v6;
+    v9 = result;
+    v10 = v8;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v50 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v4) = v11;
-      if (*(v48 + 24) < v15)
+      LOBYTE(v6) = v13;
+      if (*(v50 + 24) < v17)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v6 & 1) == (v19 & 1))
         {
           goto LABEL_8;
         }
 
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v16 = v48;
+        v18 = v50;
 LABEL_8:
-        v18 = a1;
-        if (v4)
+        v20 = a1;
+        if (v6)
         {
 LABEL_9:
-          v19 = *(v16 + 56) + 24 * v10;
-          v20 = *v19;
-          v21 = *(v19 + 8);
-          *v19 = v18;
-          *(v19 + 8) = 0;
-          v22 = *(v19 + 16);
-          *(v19 + 16) = 2;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v20, v21, v22);
+          v21 = *(v18 + 56) + 24 * v12;
+          v22 = *v21;
+          v23 = *(v21 + 8);
+          *v21 = v20;
+          *(v21 + 8) = 0;
+          v24 = *(v21 + 16);
+          *(v21 + 16) = 2;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v22, v23, v24);
 
 LABEL_28:
-          *(v3 + 16) = v16;
+          *(v5 + 16) = v18;
           return result;
         }
 
 LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, v18, 0, 2, v16);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, v20, 0, 2, v18);
         goto LABEL_28;
       }
     }
 
-    v42 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v23 = static _DictionaryStorage.copy(original:)();
-    v16 = v23;
-    if (!*(v48 + 16))
+    v44 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v25 = static _DictionaryStorage.copy(original:)();
+    v18 = v25;
+    if (!*(v50 + 16))
     {
 LABEL_26:
 
-      v10 = v42;
-      v18 = a1;
-      if (v4)
+      v12 = v44;
+      v20 = a1;
+      if (v6)
       {
         goto LABEL_9;
       }
@@ -2172,79 +2172,79 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    result = (v23 + 64);
-    v24 = (v48 + 64);
-    v25 = ((1 << *(v16 + 32)) + 63) >> 6;
-    if (v16 != v48 || result >= &v24[8 * v25])
+    result = (v25 + 64);
+    v26 = (v50 + 64);
+    v27 = ((1 << *(v18 + 32)) + 63) >> 6;
+    if (v18 != v50 || result >= &v26[8 * v27])
     {
-      result = memmove(result, v24, 8 * v25);
+      result = memmove(result, v26, 8 * v27);
     }
 
-    v26 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v27 = 1 << *(v48 + 32);
-    v28 = -1;
-    if (v27 < 64)
+    v28 = 0;
+    *(v18 + 16) = *(v50 + 16);
+    v29 = 1 << *(v50 + 32);
+    v30 = -1;
+    if (v29 < 64)
     {
-      v28 = ~(-1 << v27);
+      v30 = ~(-1 << v29);
     }
 
-    v29 = v28 & *(v48 + 64);
-    v30 = (v27 + 63) >> 6;
-    v43 = v30;
-    if (v29)
+    v31 = v30 & *(v50 + 64);
+    v32 = (v29 + 63) >> 6;
+    v45 = v32;
+    if (v31)
     {
       do
       {
-        v31 = __clz(__rbit64(v29));
-        v47 = (v29 - 1) & v29;
+        v33 = __clz(__rbit64(v31));
+        v49 = (v31 - 1) & v31;
 LABEL_24:
-        v34 = 24 * (v31 | (v26 << 6));
-        v35 = *(v48 + 48) + v34;
-        v36 = *v35;
-        v37 = *(v35 + 8);
-        v38 = *(v48 + 56) + v34;
-        v45 = *(v38 + 8);
-        v46 = *v38;
-        v39 = *(v16 + 48) + v34;
-        v40 = *(v35 + 16);
-        v44 = *(v38 + 16);
-        *v39 = *v35;
-        *(v39 + 8) = v37;
-        *(v39 + 16) = v40;
-        v41 = *(v16 + 56) + v34;
-        *v41 = v46;
-        *(v41 + 8) = v45;
-        *(v41 + 16) = v44;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v36, v37, v40);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v46, v45, v44);
-        v30 = v43;
-        v29 = v47;
+        v36 = 24 * (v33 | (v28 << 6));
+        v37 = *(v50 + 48) + v36;
+        v38 = *v37;
+        v39 = *(v37 + 8);
+        v40 = *(v50 + 56) + v36;
+        v47 = *(v40 + 8);
+        v48 = *v40;
+        v41 = *(v18 + 48) + v36;
+        v42 = *(v37 + 16);
+        v46 = *(v40 + 16);
+        *v41 = *v37;
+        *(v41 + 8) = v39;
+        *(v41 + 16) = v42;
+        v43 = *(v18 + 56) + v36;
+        *v43 = v48;
+        *(v43 + 8) = v47;
+        *(v43 + 16) = v46;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v38, v39, v42);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v48, v47, v46);
+        v32 = v45;
+        v31 = v49;
       }
 
-      while (v47);
+      while (v49);
     }
 
-    v32 = v26;
+    v34 = v28;
     while (1)
     {
-      v26 = v32 + 1;
-      if (__OFADD__(v32, 1))
+      v28 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         break;
       }
 
-      if (v26 >= v30)
+      if (v28 >= v32)
       {
         goto LABEL_26;
       }
 
-      v33 = *(v48 + 64 + 8 * v26);
-      ++v32;
-      if (v33)
+      v35 = *(v50 + 64 + 8 * v28);
+      ++v34;
+      if (v35)
       {
-        v31 = __clz(__rbit64(v33));
-        v47 = (v33 - 1) & v33;
+        v33 = __clz(__rbit64(v35));
+        v49 = (v35 - 1) & v35;
         goto LABEL_24;
       }
     }
@@ -2256,84 +2256,84 @@ LABEL_24:
   return result;
 }
 
-char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(unsigned __int8 a1)
+char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(unsigned __int8 a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
+  if (v6 == 7)
   {
-    v7 = result;
-    v8 = v6;
+    v9 = result;
+    v10 = v8;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v50 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v4) = v11;
-      if (*(v48 + 24) < v15)
+      LOBYTE(v6) = v13;
+      if (*(v50 + 24) < v17)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v6 & 1) == (v19 & 1))
         {
           goto LABEL_8;
         }
 
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v16 = v48;
+        v18 = v50;
 LABEL_8:
-        v18 = a1;
-        if (v4)
+        v20 = a1;
+        if (v6)
         {
 LABEL_9:
-          v19 = *(v16 + 56) + 24 * v10;
-          v20 = *v19;
-          v21 = *(v19 + 8);
-          *v19 = v18;
-          *(v19 + 8) = 0;
-          v22 = *(v19 + 16);
-          *(v19 + 16) = 1;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v20, v21, v22);
+          v21 = *(v18 + 56) + 24 * v12;
+          v22 = *v21;
+          v23 = *(v21 + 8);
+          *v21 = v20;
+          *(v21 + 8) = 0;
+          v24 = *(v21 + 16);
+          *(v21 + 16) = 1;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v22, v23, v24);
 
 LABEL_28:
-          *(v3 + 16) = v16;
+          *(v5 + 16) = v18;
           return result;
         }
 
 LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, v18, 0, 1, v16);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, v20, 0, 1, v18);
         goto LABEL_28;
       }
     }
 
-    v42 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v23 = static _DictionaryStorage.copy(original:)();
-    v16 = v23;
-    if (!*(v48 + 16))
+    v44 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v25 = static _DictionaryStorage.copy(original:)();
+    v18 = v25;
+    if (!*(v50 + 16))
     {
 LABEL_26:
 
-      v10 = v42;
-      v18 = a1;
-      if (v4)
+      v12 = v44;
+      v20 = a1;
+      if (v6)
       {
         goto LABEL_9;
       }
@@ -2341,79 +2341,79 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    result = (v23 + 64);
-    v24 = (v48 + 64);
-    v25 = ((1 << *(v16 + 32)) + 63) >> 6;
-    if (v16 != v48 || result >= &v24[8 * v25])
+    result = (v25 + 64);
+    v26 = (v50 + 64);
+    v27 = ((1 << *(v18 + 32)) + 63) >> 6;
+    if (v18 != v50 || result >= &v26[8 * v27])
     {
-      result = memmove(result, v24, 8 * v25);
+      result = memmove(result, v26, 8 * v27);
     }
 
-    v26 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v27 = 1 << *(v48 + 32);
-    v28 = -1;
-    if (v27 < 64)
+    v28 = 0;
+    *(v18 + 16) = *(v50 + 16);
+    v29 = 1 << *(v50 + 32);
+    v30 = -1;
+    if (v29 < 64)
     {
-      v28 = ~(-1 << v27);
+      v30 = ~(-1 << v29);
     }
 
-    v29 = v28 & *(v48 + 64);
-    v30 = (v27 + 63) >> 6;
-    v43 = v30;
-    if (v29)
+    v31 = v30 & *(v50 + 64);
+    v32 = (v29 + 63) >> 6;
+    v45 = v32;
+    if (v31)
     {
       do
       {
-        v31 = __clz(__rbit64(v29));
-        v47 = (v29 - 1) & v29;
+        v33 = __clz(__rbit64(v31));
+        v49 = (v31 - 1) & v31;
 LABEL_24:
-        v34 = 24 * (v31 | (v26 << 6));
-        v35 = *(v48 + 48) + v34;
-        v36 = *v35;
-        v37 = *(v35 + 8);
-        v38 = *(v48 + 56) + v34;
-        v45 = *(v38 + 8);
-        v46 = *v38;
-        v39 = *(v16 + 48) + v34;
-        v40 = *(v35 + 16);
-        v44 = *(v38 + 16);
-        *v39 = *v35;
-        *(v39 + 8) = v37;
-        *(v39 + 16) = v40;
-        v41 = *(v16 + 56) + v34;
-        *v41 = v46;
-        *(v41 + 8) = v45;
-        *(v41 + 16) = v44;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v36, v37, v40);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v46, v45, v44);
-        v30 = v43;
-        v29 = v47;
+        v36 = 24 * (v33 | (v28 << 6));
+        v37 = *(v50 + 48) + v36;
+        v38 = *v37;
+        v39 = *(v37 + 8);
+        v40 = *(v50 + 56) + v36;
+        v47 = *(v40 + 8);
+        v48 = *v40;
+        v41 = *(v18 + 48) + v36;
+        v42 = *(v37 + 16);
+        v46 = *(v40 + 16);
+        *v41 = *v37;
+        *(v41 + 8) = v39;
+        *(v41 + 16) = v42;
+        v43 = *(v18 + 56) + v36;
+        *v43 = v48;
+        *(v43 + 8) = v47;
+        *(v43 + 16) = v46;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v38, v39, v42);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v48, v47, v46);
+        v32 = v45;
+        v31 = v49;
       }
 
-      while (v47);
+      while (v49);
     }
 
-    v32 = v26;
+    v34 = v28;
     while (1)
     {
-      v26 = v32 + 1;
-      if (__OFADD__(v32, 1))
+      v28 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         break;
       }
 
-      if (v26 >= v30)
+      if (v28 >= v32)
       {
         goto LABEL_26;
       }
 
-      v33 = *(v48 + 64 + 8 * v26);
-      ++v32;
-      if (v33)
+      v35 = *(v50 + 64 + 8 * v28);
+      ++v34;
+      if (v35)
       {
-        v31 = __clz(__rbit64(v33));
-        v47 = (v33 - 1) & v33;
+        v33 = __clz(__rbit64(v35));
+        v49 = (v35 - 1) & v35;
         goto LABEL_24;
       }
     }
@@ -2425,84 +2425,84 @@ LABEL_24:
   return result;
 }
 
-char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(unsigned __int16 a1)
+char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(unsigned __int16 a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
+  if (v6 == 7)
   {
-    v7 = result;
-    v8 = v6;
+    v9 = result;
+    v10 = v8;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v50 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v4) = v11;
-      if (*(v48 + 24) < v15)
+      LOBYTE(v6) = v13;
+      if (*(v50 + 24) < v17)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v6 & 1) == (v19 & 1))
         {
           goto LABEL_8;
         }
 
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v16 = v48;
+        v18 = v50;
 LABEL_8:
-        v18 = a1;
-        if (v4)
+        v20 = a1;
+        if (v6)
         {
 LABEL_9:
-          v19 = *(v16 + 56) + 24 * v10;
-          v20 = *v19;
-          v21 = *(v19 + 8);
-          *v19 = v18;
-          *(v19 + 8) = 0;
-          v22 = *(v19 + 16);
-          *(v19 + 16) = 1;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v20, v21, v22);
+          v21 = *(v18 + 56) + 24 * v12;
+          v22 = *v21;
+          v23 = *(v21 + 8);
+          *v21 = v20;
+          *(v21 + 8) = 0;
+          v24 = *(v21 + 16);
+          *(v21 + 16) = 1;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v22, v23, v24);
 
 LABEL_28:
-          *(v3 + 16) = v16;
+          *(v5 + 16) = v18;
           return result;
         }
 
 LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, v18, 0, 1, v16);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, v20, 0, 1, v18);
         goto LABEL_28;
       }
     }
 
-    v42 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v23 = static _DictionaryStorage.copy(original:)();
-    v16 = v23;
-    if (!*(v48 + 16))
+    v44 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v25 = static _DictionaryStorage.copy(original:)();
+    v18 = v25;
+    if (!*(v50 + 16))
     {
 LABEL_26:
 
-      v10 = v42;
-      v18 = a1;
-      if (v4)
+      v12 = v44;
+      v20 = a1;
+      if (v6)
       {
         goto LABEL_9;
       }
@@ -2510,79 +2510,79 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    result = (v23 + 64);
-    v24 = (v48 + 64);
-    v25 = ((1 << *(v16 + 32)) + 63) >> 6;
-    if (v16 != v48 || result >= &v24[8 * v25])
+    result = (v25 + 64);
+    v26 = (v50 + 64);
+    v27 = ((1 << *(v18 + 32)) + 63) >> 6;
+    if (v18 != v50 || result >= &v26[8 * v27])
     {
-      result = memmove(result, v24, 8 * v25);
+      result = memmove(result, v26, 8 * v27);
     }
 
-    v26 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v27 = 1 << *(v48 + 32);
-    v28 = -1;
-    if (v27 < 64)
+    v28 = 0;
+    *(v18 + 16) = *(v50 + 16);
+    v29 = 1 << *(v50 + 32);
+    v30 = -1;
+    if (v29 < 64)
     {
-      v28 = ~(-1 << v27);
+      v30 = ~(-1 << v29);
     }
 
-    v29 = v28 & *(v48 + 64);
-    v30 = (v27 + 63) >> 6;
-    v43 = v30;
-    if (v29)
+    v31 = v30 & *(v50 + 64);
+    v32 = (v29 + 63) >> 6;
+    v45 = v32;
+    if (v31)
     {
       do
       {
-        v31 = __clz(__rbit64(v29));
-        v47 = (v29 - 1) & v29;
+        v33 = __clz(__rbit64(v31));
+        v49 = (v31 - 1) & v31;
 LABEL_24:
-        v34 = 24 * (v31 | (v26 << 6));
-        v35 = *(v48 + 48) + v34;
-        v36 = *v35;
-        v37 = *(v35 + 8);
-        v38 = *(v48 + 56) + v34;
-        v45 = *(v38 + 8);
-        v46 = *v38;
-        v39 = *(v16 + 48) + v34;
-        v40 = *(v35 + 16);
-        v44 = *(v38 + 16);
-        *v39 = *v35;
-        *(v39 + 8) = v37;
-        *(v39 + 16) = v40;
-        v41 = *(v16 + 56) + v34;
-        *v41 = v46;
-        *(v41 + 8) = v45;
-        *(v41 + 16) = v44;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v36, v37, v40);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v46, v45, v44);
-        v30 = v43;
-        v29 = v47;
+        v36 = 24 * (v33 | (v28 << 6));
+        v37 = *(v50 + 48) + v36;
+        v38 = *v37;
+        v39 = *(v37 + 8);
+        v40 = *(v50 + 56) + v36;
+        v47 = *(v40 + 8);
+        v48 = *v40;
+        v41 = *(v18 + 48) + v36;
+        v42 = *(v37 + 16);
+        v46 = *(v40 + 16);
+        *v41 = *v37;
+        *(v41 + 8) = v39;
+        *(v41 + 16) = v42;
+        v43 = *(v18 + 56) + v36;
+        *v43 = v48;
+        *(v43 + 8) = v47;
+        *(v43 + 16) = v46;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v38, v39, v42);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v48, v47, v46);
+        v32 = v45;
+        v31 = v49;
       }
 
-      while (v47);
+      while (v49);
     }
 
-    v32 = v26;
+    v34 = v28;
     while (1)
     {
-      v26 = v32 + 1;
-      if (__OFADD__(v32, 1))
+      v28 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         break;
       }
 
-      if (v26 >= v30)
+      if (v28 >= v32)
       {
         goto LABEL_26;
       }
 
-      v33 = *(v48 + 64 + 8 * v26);
-      ++v32;
-      if (v33)
+      v35 = *(v50 + 64 + 8 * v28);
+      ++v34;
+      if (v35)
       {
-        v31 = __clz(__rbit64(v33));
-        v47 = (v33 - 1) & v33;
+        v33 = __clz(__rbit64(v35));
+        v49 = (v35 - 1) & v35;
         goto LABEL_24;
       }
     }
@@ -2594,84 +2594,84 @@ LABEL_24:
   return result;
 }
 
-char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(unsigned int a1)
+char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(unsigned int a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
   result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
+  if (v6 == 7)
   {
-    v7 = result;
-    v8 = v6;
+    v9 = result;
+    v10 = v8;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v50 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
     {
       __break(1u);
     }
 
     else
     {
-      LOBYTE(v4) = v11;
-      if (*(v48 + 24) < v15)
+      LOBYTE(v6) = v13;
+      if (*(v50 + 24) < v17)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v6 & 1) == (v19 & 1))
         {
           goto LABEL_8;
         }
 
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
       }
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v16 = v48;
+        v18 = v50;
 LABEL_8:
-        v18 = a1;
-        if (v4)
+        v20 = a1;
+        if (v6)
         {
 LABEL_9:
-          v19 = *(v16 + 56) + 24 * v10;
-          v20 = *v19;
-          v21 = *(v19 + 8);
-          *v19 = v18;
-          *(v19 + 8) = 0;
-          v22 = *(v19 + 16);
-          *(v19 + 16) = 1;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v20, v21, v22);
+          v21 = *(v18 + 56) + 24 * v12;
+          v22 = *v21;
+          v23 = *(v21 + 8);
+          *v21 = v20;
+          *(v21 + 8) = 0;
+          v24 = *(v21 + 16);
+          *(v21 + 16) = 1;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v22, v23, v24);
 
 LABEL_28:
-          *(v3 + 16) = v16;
+          *(v5 + 16) = v18;
           return result;
         }
 
 LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, v18, 0, 1, v16);
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, v20, 0, 1, v18);
         goto LABEL_28;
       }
     }
 
-    v42 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v23 = static _DictionaryStorage.copy(original:)();
-    v16 = v23;
-    if (!*(v48 + 16))
+    v44 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v25 = static _DictionaryStorage.copy(original:)();
+    v18 = v25;
+    if (!*(v50 + 16))
     {
 LABEL_26:
 
-      v10 = v42;
-      v18 = a1;
-      if (v4)
+      v12 = v44;
+      v20 = a1;
+      if (v6)
       {
         goto LABEL_9;
       }
@@ -2679,79 +2679,79 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    result = (v23 + 64);
-    v24 = (v48 + 64);
-    v25 = ((1 << *(v16 + 32)) + 63) >> 6;
-    if (v16 != v48 || result >= &v24[8 * v25])
+    result = (v25 + 64);
+    v26 = (v50 + 64);
+    v27 = ((1 << *(v18 + 32)) + 63) >> 6;
+    if (v18 != v50 || result >= &v26[8 * v27])
     {
-      result = memmove(result, v24, 8 * v25);
+      result = memmove(result, v26, 8 * v27);
     }
 
-    v26 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v27 = 1 << *(v48 + 32);
-    v28 = -1;
-    if (v27 < 64)
+    v28 = 0;
+    *(v18 + 16) = *(v50 + 16);
+    v29 = 1 << *(v50 + 32);
+    v30 = -1;
+    if (v29 < 64)
     {
-      v28 = ~(-1 << v27);
+      v30 = ~(-1 << v29);
     }
 
-    v29 = v28 & *(v48 + 64);
-    v30 = (v27 + 63) >> 6;
-    v43 = v30;
-    if (v29)
+    v31 = v30 & *(v50 + 64);
+    v32 = (v29 + 63) >> 6;
+    v45 = v32;
+    if (v31)
     {
       do
       {
-        v31 = __clz(__rbit64(v29));
-        v47 = (v29 - 1) & v29;
+        v33 = __clz(__rbit64(v31));
+        v49 = (v31 - 1) & v31;
 LABEL_24:
-        v34 = 24 * (v31 | (v26 << 6));
-        v35 = *(v48 + 48) + v34;
-        v36 = *v35;
-        v37 = *(v35 + 8);
-        v38 = *(v48 + 56) + v34;
-        v45 = *(v38 + 8);
-        v46 = *v38;
-        v39 = *(v16 + 48) + v34;
-        v40 = *(v35 + 16);
-        v44 = *(v38 + 16);
-        *v39 = *v35;
-        *(v39 + 8) = v37;
-        *(v39 + 16) = v40;
-        v41 = *(v16 + 56) + v34;
-        *v41 = v46;
-        *(v41 + 8) = v45;
-        *(v41 + 16) = v44;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v36, v37, v40);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v46, v45, v44);
-        v30 = v43;
-        v29 = v47;
+        v36 = 24 * (v33 | (v28 << 6));
+        v37 = *(v50 + 48) + v36;
+        v38 = *v37;
+        v39 = *(v37 + 8);
+        v40 = *(v50 + 56) + v36;
+        v47 = *(v40 + 8);
+        v48 = *v40;
+        v41 = *(v18 + 48) + v36;
+        v42 = *(v37 + 16);
+        v46 = *(v40 + 16);
+        *v41 = *v37;
+        *(v41 + 8) = v39;
+        *(v41 + 16) = v42;
+        v43 = *(v18 + 56) + v36;
+        *v43 = v48;
+        *(v43 + 8) = v47;
+        *(v43 + 16) = v46;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v38, v39, v42);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v48, v47, v46);
+        v32 = v45;
+        v31 = v49;
       }
 
-      while (v47);
+      while (v49);
     }
 
-    v32 = v26;
+    v34 = v28;
     while (1)
     {
-      v26 = v32 + 1;
-      if (__OFADD__(v32, 1))
+      v28 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         break;
       }
 
-      if (v26 >= v30)
+      if (v28 >= v32)
       {
         goto LABEL_26;
       }
 
-      v33 = *(v48 + 64 + 8 * v26);
-      ++v32;
-      if (v33)
+      v35 = *(v50 + 64 + 8 * v28);
+      ++v34;
+      if (v35)
       {
-        v31 = __clz(__rbit64(v33));
-        v47 = (v33 - 1) & v33;
+        v33 = __clz(__rbit64(v35));
+        v49 = (v35 - 1) & v35;
         goto LABEL_24;
       }
     }
@@ -2830,7 +2830,7 @@ LABEL_30:
     }
 
     v45 = v14;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
     v26 = static _DictionaryStorage.copy(original:)();
     v20 = v26;
     if (!*(v52 + 16))
@@ -2930,21 +2930,188 @@ LABEL_27:
   return result;
 }
 
-char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(uint64_t a1, uint64_t a2)
+char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(v2 + 8);
-  v6 = *(v2 + 24);
+  v7 = *(v4 + 8);
+  v8 = *(v4 + 24);
+  result = dispatch thunk of CodingKey.stringValue.getter();
+  if (v8 == 7)
+  {
+    v11 = result;
+    v12 = v10;
+
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v51 = *(v7 + 16);
+    *(v7 + 16) = 0x8000000000000000;
+    v14 = specialized __RawDictionaryStorage.find<A>(_:)(v11, v12, 0);
+    v16 = *(v51 + 16);
+    v17 = (v15 & 1) == 0;
+    v18 = __OFADD__(v16, v17);
+    v19 = v16 + v17;
+    if (v18)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      LOBYTE(v8) = v15;
+      if (*(v51 + 24) < v19)
+      {
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v19, isUniquelyReferenced_nonNull_native);
+        v20 = v51;
+        v14 = specialized __RawDictionaryStorage.find<A>(_:)(v11, v12, 0);
+        if ((v8 & 1) == (v21 & 1))
+        {
+          goto LABEL_8;
+        }
+
+        v14 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        __break(1u);
+      }
+
+      if (isUniquelyReferenced_nonNull_native)
+      {
+        v20 = v51;
+LABEL_8:
+        if (v8)
+        {
+LABEL_9:
+          v22 = *(v20 + 56) + 24 * v14;
+          v23 = *v22;
+          v24 = *(v22 + 8);
+          *v22 = a1;
+          *(v22 + 8) = a2;
+          v25 = *(v22 + 16);
+          *(v22 + 16) = 0;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v23, v24, v25);
+
+LABEL_28:
+          *(v7 + 16) = v20;
+          return result;
+        }
+
+LABEL_27:
+        result = specialized _NativeDictionary._insert(at:key:value:)(v14, v11, v12, 0, a1, a2, 0, v20);
+        goto LABEL_28;
+      }
+    }
+
+    v45 = v14;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v26 = static _DictionaryStorage.copy(original:)();
+    v20 = v26;
+    if (!*(v51 + 16))
+    {
+LABEL_26:
+
+      v14 = v45;
+      if (v8)
+      {
+        goto LABEL_9;
+      }
+
+      goto LABEL_27;
+    }
+
+    result = (v26 + 64);
+    v27 = (v51 + 64);
+    v28 = ((1 << *(v20 + 32)) + 63) >> 6;
+    if (v20 != v51 || result >= &v27[8 * v28])
+    {
+      result = memmove(result, v27, 8 * v28);
+    }
+
+    v29 = 0;
+    *(v20 + 16) = *(v51 + 16);
+    v30 = 1 << *(v51 + 32);
+    v31 = -1;
+    if (v30 < 64)
+    {
+      v31 = ~(-1 << v30);
+    }
+
+    v32 = v31 & *(v51 + 64);
+    v33 = (v30 + 63) >> 6;
+    v46 = v33;
+    if (v32)
+    {
+      do
+      {
+        v34 = __clz(__rbit64(v32));
+        v50 = (v32 - 1) & v32;
+LABEL_24:
+        v37 = 24 * (v34 | (v29 << 6));
+        v38 = *(v51 + 48) + v37;
+        v39 = *v38;
+        v40 = *(v38 + 8);
+        v41 = *(v51 + 56) + v37;
+        v48 = *(v41 + 8);
+        v49 = *v41;
+        v42 = *(v20 + 48) + v37;
+        v43 = *(v38 + 16);
+        v47 = *(v41 + 16);
+        *v42 = *v38;
+        *(v42 + 8) = v40;
+        *(v42 + 16) = v43;
+        v44 = *(v20 + 56) + v37;
+        *v44 = v49;
+        *(v44 + 8) = v48;
+        *(v44 + 16) = v47;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v39, v40, v43);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v49, v48, v47);
+        v33 = v46;
+        v32 = v50;
+      }
+
+      while (v50);
+    }
+
+    v35 = v29;
+    while (1)
+    {
+      v29 = v35 + 1;
+      if (__OFADD__(v35, 1))
+      {
+        break;
+      }
+
+      if (v29 >= v33)
+      {
+        goto LABEL_26;
+      }
+
+      v36 = *(v51 + 64 + 8 * v29);
+      ++v35;
+      if (v36)
+      {
+        v34 = __clz(__rbit64(v36));
+        v50 = (v36 - 1) & v36;
+        goto LABEL_24;
+      }
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+void *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(float a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
   result = dispatch thunk of CodingKey.stringValue.getter();
   if (v6 == 7)
   {
     v9 = result;
     v10 = v8;
-
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v49 = *(v5 + 16);
+    v51 = *(v5 + 16);
     *(v5 + 16) = 0x8000000000000000;
     v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
-    v14 = *(v49 + 16);
+    v14 = *(v51 + 16);
     v15 = (v13 & 1) == 0;
     v16 = __OFADD__(v14, v15);
     v17 = v14 + v15;
@@ -2956,10 +3123,10 @@ char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(uint64_t a1, uint64_t a2
     else
     {
       LOBYTE(v6) = v13;
-      if (*(v49 + 24) < v17)
+      if (*(v51 + 24) < v17)
       {
         specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
-        v18 = v49;
+        v18 = v51;
         v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
         if ((v6 & 1) == (v19 & 1))
         {
@@ -2972,7 +3139,176 @@ char *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(uint64_t a1, uint64_t a2
 
       if (isUniquelyReferenced_nonNull_native)
       {
-        v18 = v49;
+        v18 = v51;
+LABEL_8:
+        v20 = a1;
+        if (v6)
+        {
+LABEL_9:
+          v21 = *(v18 + 56) + 24 * v12;
+          v22 = *v21;
+          v23 = *(v21 + 8);
+          *v21 = v20;
+          *(v21 + 8) = 0;
+          v24 = *(v21 + 16);
+          *(v21 + 16) = 3;
+          outlined consume of _XMLPlistEncodingFormat.Reference(v22, v23, v24);
+
+LABEL_31:
+          *(v5 + 16) = v18;
+          return result;
+        }
+
+LABEL_30:
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, *&v20, 0, 3, v18);
+        goto LABEL_31;
+      }
+    }
+
+    v45 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
+    v25 = static _DictionaryStorage.copy(original:)();
+    v18 = v25;
+    if (!*(v51 + 16))
+    {
+LABEL_29:
+
+      v12 = v45;
+      v20 = a1;
+      if (v6)
+      {
+        goto LABEL_9;
+      }
+
+      goto LABEL_30;
+    }
+
+    result = (v25 + 64);
+    v26 = ((1 << *(v18 + 32)) + 63) >> 6;
+    __src = (v51 + 64);
+    if (v18 != v51 || result >= v51 + 64 + 8 * v26)
+    {
+      result = memmove(result, __src, 8 * v26);
+    }
+
+    v28 = 0;
+    *(v18 + 16) = *(v51 + 16);
+    v29 = 1 << *(v51 + 32);
+    v30 = -1;
+    if (v29 < 64)
+    {
+      v30 = ~(-1 << v29);
+    }
+
+    v31 = v30 & *(v51 + 64);
+    v32 = (v29 + 63) >> 6;
+    v47 = v32;
+    if (v31)
+    {
+      do
+      {
+        v33 = __clz(__rbit64(v31));
+        v50 = (v31 - 1) & v31;
+LABEL_27:
+        v36 = 24 * (v33 | (v28 << 6));
+        v37 = *(v51 + 48) + v36;
+        v38 = *v37;
+        v39 = *(v37 + 8);
+        v40 = *(v51 + 56) + v36;
+        v48 = *(v40 + 8);
+        v49 = *v40;
+        v41 = *(v18 + 48) + v36;
+        v42 = *(v37 + 16);
+        v43 = *(v40 + 16);
+        *v41 = *v37;
+        *(v41 + 8) = v39;
+        *(v41 + 16) = v42;
+        v44 = *(v18 + 56) + v36;
+        *v44 = v49;
+        *(v44 + 8) = v48;
+        *(v44 + 16) = v43;
+        outlined copy of _XMLPlistEncodingFormat.Reference(v38, v39, v42);
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v49, v48, v43);
+        v32 = v47;
+        v31 = v50;
+      }
+
+      while (v50);
+    }
+
+    v34 = v28;
+    while (1)
+    {
+      v28 = v34 + 1;
+      if (__OFADD__(v34, 1))
+      {
+        break;
+      }
+
+      if (v28 >= v32)
+      {
+        goto LABEL_29;
+      }
+
+      v35 = *(__src + v28);
+      ++v34;
+      if (v35)
+      {
+        v33 = __clz(__rbit64(v35));
+        v50 = (v35 - 1) & v35;
+        goto LABEL_27;
+      }
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+void *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(double a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(v3 + 8);
+  v6 = *(v3 + 24);
+  result = dispatch thunk of CodingKey.stringValue.getter();
+  if (v6 == 7)
+  {
+    v9 = result;
+    v10 = v8;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v50 = *(v5 + 16);
+    *(v5 + 16) = 0x8000000000000000;
+    v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+    v14 = *(v50 + 16);
+    v15 = (v13 & 1) == 0;
+    v16 = __OFADD__(v14, v15);
+    v17 = v14 + v15;
+    if (v16)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      LOBYTE(v6) = v13;
+      if (*(v50 + 24) < v17)
+      {
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
+        v18 = v50;
+        v12 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10, 0);
+        if ((v6 & 1) == (v19 & 1))
+        {
+          goto LABEL_8;
+        }
+
+        v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        __break(1u);
+      }
+
+      if (isUniquelyReferenced_nonNull_native)
+      {
+        v18 = v50;
 LABEL_8:
         if (v6)
         {
@@ -2981,90 +3317,90 @@ LABEL_9:
           v21 = *v20;
           v22 = *(v20 + 8);
           *v20 = a1;
-          *(v20 + 8) = a2;
+          *(v20 + 8) = 0;
           v23 = *(v20 + 16);
-          *(v20 + 16) = 0;
+          *(v20 + 16) = 3;
           outlined consume of _XMLPlistEncodingFormat.Reference(v21, v22, v23);
 
-LABEL_28:
+LABEL_31:
           *(v5 + 16) = v18;
           return result;
         }
 
-LABEL_27:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, a1, a2, 0, v18);
-        goto LABEL_28;
+LABEL_30:
+        result = specialized _NativeDictionary._insert(at:key:value:)(v12, v9, v10, 0, *&a1, 0, 3, v18);
+        goto LABEL_31;
       }
     }
 
-    v43 = v12;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
+    v44 = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
     v24 = static _DictionaryStorage.copy(original:)();
     v18 = v24;
-    if (!*(v49 + 16))
+    if (!*(v50 + 16))
     {
-LABEL_26:
+LABEL_29:
 
-      v12 = v43;
+      v12 = v44;
       if (v6)
       {
         goto LABEL_9;
       }
 
-      goto LABEL_27;
+      goto LABEL_30;
     }
 
     result = (v24 + 64);
-    v25 = (v49 + 64);
-    v26 = ((1 << *(v18 + 32)) + 63) >> 6;
-    if (v18 != v49 || result >= &v25[8 * v26])
+    v25 = ((1 << *(v18 + 32)) + 63) >> 6;
+    __src = (v50 + 64);
+    if (v18 != v50 || result >= v50 + 64 + 8 * v25)
     {
-      result = memmove(result, v25, 8 * v26);
+      result = memmove(result, __src, 8 * v25);
     }
 
     v27 = 0;
-    *(v18 + 16) = *(v49 + 16);
-    v28 = 1 << *(v49 + 32);
+    *(v18 + 16) = *(v50 + 16);
+    v28 = 1 << *(v50 + 32);
     v29 = -1;
     if (v28 < 64)
     {
       v29 = ~(-1 << v28);
     }
 
-    v30 = v29 & *(v49 + 64);
+    v30 = v29 & *(v50 + 64);
     v31 = (v28 + 63) >> 6;
-    v44 = v31;
+    v46 = v31;
     if (v30)
     {
       do
       {
         v32 = __clz(__rbit64(v30));
-        v48 = (v30 - 1) & v30;
-LABEL_24:
+        v49 = (v30 - 1) & v30;
+LABEL_27:
         v35 = 24 * (v32 | (v27 << 6));
-        v36 = *(v49 + 48) + v35;
+        v36 = *(v50 + 48) + v35;
         v37 = *v36;
         v38 = *(v36 + 8);
-        v39 = *(v49 + 56) + v35;
-        v46 = *(v39 + 8);
-        v47 = *v39;
+        v39 = *(v50 + 56) + v35;
+        v47 = *(v39 + 8);
+        v48 = *v39;
         v40 = *(v18 + 48) + v35;
         v41 = *(v36 + 16);
-        v45 = *(v39 + 16);
+        v42 = *(v39 + 16);
         *v40 = *v36;
         *(v40 + 8) = v38;
         *(v40 + 16) = v41;
-        v42 = *(v18 + 56) + v35;
-        *v42 = v47;
-        *(v42 + 8) = v46;
-        *(v42 + 16) = v45;
+        v43 = *(v18 + 56) + v35;
+        *v43 = v48;
+        *(v43 + 8) = v47;
+        *(v43 + 16) = v42;
         outlined copy of _XMLPlistEncodingFormat.Reference(v37, v38, v41);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v47, v46, v45);
-        v31 = v44;
-        v30 = v48;
+        result = outlined copy of _XMLPlistEncodingFormat.Reference(v48, v47, v42);
+        v31 = v46;
+        v30 = v49;
       }
 
-      while (v48);
+      while (v49);
     }
 
     v33 = v27;
@@ -3078,351 +3414,15 @@ LABEL_24:
 
       if (v27 >= v31)
       {
-        goto LABEL_26;
+        goto LABEL_29;
       }
 
-      v34 = *(v49 + 64 + 8 * v27);
+      v34 = *(__src + v27);
       ++v33;
       if (v34)
       {
         v32 = __clz(__rbit64(v34));
-        v48 = (v34 - 1) & v34;
-        goto LABEL_24;
-      }
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-void *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(float a1)
-{
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
-  result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
-  {
-    v7 = result;
-    v8 = v6;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v49 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v49 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      LOBYTE(v4) = v11;
-      if (*(v49 + 24) < v15)
-      {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v49;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
-        {
-          goto LABEL_8;
-        }
-
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-        __break(1u);
-      }
-
-      if (isUniquelyReferenced_nonNull_native)
-      {
-        v16 = v49;
-LABEL_8:
-        v18 = a1;
-        if (v4)
-        {
-LABEL_9:
-          v19 = *(v16 + 56) + 24 * v10;
-          v20 = *v19;
-          v21 = *(v19 + 8);
-          *v19 = v18;
-          *(v19 + 8) = 0;
-          v22 = *(v19 + 16);
-          *(v19 + 16) = 3;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v20, v21, v22);
-
-LABEL_31:
-          *(v3 + 16) = v16;
-          return result;
-        }
-
-LABEL_30:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, *&v18, 0, 3, v16);
-        goto LABEL_31;
-      }
-    }
-
-    v43 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v23 = static _DictionaryStorage.copy(original:)();
-    v16 = v23;
-    if (!*(v49 + 16))
-    {
-LABEL_29:
-
-      v10 = v43;
-      v18 = a1;
-      if (v4)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_30;
-    }
-
-    result = (v23 + 64);
-    v24 = ((1 << *(v16 + 32)) + 63) >> 6;
-    __src = (v49 + 64);
-    if (v16 != v49 || result >= v49 + 64 + 8 * v24)
-    {
-      result = memmove(result, __src, 8 * v24);
-    }
-
-    v26 = 0;
-    *(v16 + 16) = *(v49 + 16);
-    v27 = 1 << *(v49 + 32);
-    v28 = -1;
-    if (v27 < 64)
-    {
-      v28 = ~(-1 << v27);
-    }
-
-    v29 = v28 & *(v49 + 64);
-    v30 = (v27 + 63) >> 6;
-    v45 = v30;
-    if (v29)
-    {
-      do
-      {
-        v31 = __clz(__rbit64(v29));
-        v48 = (v29 - 1) & v29;
-LABEL_27:
-        v34 = 24 * (v31 | (v26 << 6));
-        v35 = *(v49 + 48) + v34;
-        v36 = *v35;
-        v37 = *(v35 + 8);
-        v38 = *(v49 + 56) + v34;
-        v46 = *(v38 + 8);
-        v47 = *v38;
-        v39 = *(v16 + 48) + v34;
-        v40 = *(v35 + 16);
-        v41 = *(v38 + 16);
-        *v39 = *v35;
-        *(v39 + 8) = v37;
-        *(v39 + 16) = v40;
-        v42 = *(v16 + 56) + v34;
-        *v42 = v47;
-        *(v42 + 8) = v46;
-        *(v42 + 16) = v41;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v36, v37, v40);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v47, v46, v41);
-        v30 = v45;
-        v29 = v48;
-      }
-
-      while (v48);
-    }
-
-    v32 = v26;
-    while (1)
-    {
-      v26 = v32 + 1;
-      if (__OFADD__(v32, 1))
-      {
-        break;
-      }
-
-      if (v26 >= v30)
-      {
-        goto LABEL_29;
-      }
-
-      v33 = *(__src + v26);
-      ++v32;
-      if (v33)
-      {
-        v31 = __clz(__rbit64(v33));
-        v48 = (v33 - 1) & v33;
-        goto LABEL_27;
-      }
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-void *_PlistKeyedEncodingContainerXML.encode(_:forKey:)(double a1)
-{
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 24);
-  result = dispatch thunk of CodingKey.stringValue.getter();
-  if (v4 == 7)
-  {
-    v7 = result;
-    v8 = v6;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v48 = *(v3 + 16);
-    *(v3 + 16) = 0x8000000000000000;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-    v12 = *(v48 + 16);
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      LOBYTE(v4) = v11;
-      if (*(v48 + 24) < v15)
-      {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, isUniquelyReferenced_nonNull_native);
-        v16 = v48;
-        v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8, 0);
-        if ((v4 & 1) == (v17 & 1))
-        {
-          goto LABEL_8;
-        }
-
-        v10 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-        __break(1u);
-      }
-
-      if (isUniquelyReferenced_nonNull_native)
-      {
-        v16 = v48;
-LABEL_8:
-        if (v4)
-        {
-LABEL_9:
-          v18 = *(v16 + 56) + 24 * v10;
-          v19 = *v18;
-          v20 = *(v18 + 8);
-          *v18 = a1;
-          *(v18 + 8) = 0;
-          v21 = *(v18 + 16);
-          *(v18 + 16) = 3;
-          outlined consume of _XMLPlistEncodingFormat.Reference(v19, v20, v21);
-
-LABEL_31:
-          *(v3 + 16) = v16;
-          return result;
-        }
-
-LABEL_30:
-        result = specialized _NativeDictionary._insert(at:key:value:)(v10, v7, v8, 0, *&a1, 0, 3, v16);
-        goto LABEL_31;
-      }
-    }
-
-    v42 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
-    v22 = static _DictionaryStorage.copy(original:)();
-    v16 = v22;
-    if (!*(v48 + 16))
-    {
-LABEL_29:
-
-      v10 = v42;
-      if (v4)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_30;
-    }
-
-    result = (v22 + 64);
-    v23 = ((1 << *(v16 + 32)) + 63) >> 6;
-    __src = (v48 + 64);
-    if (v16 != v48 || result >= v48 + 64 + 8 * v23)
-    {
-      result = memmove(result, __src, 8 * v23);
-    }
-
-    v25 = 0;
-    *(v16 + 16) = *(v48 + 16);
-    v26 = 1 << *(v48 + 32);
-    v27 = -1;
-    if (v26 < 64)
-    {
-      v27 = ~(-1 << v26);
-    }
-
-    v28 = v27 & *(v48 + 64);
-    v29 = (v26 + 63) >> 6;
-    v44 = v29;
-    if (v28)
-    {
-      do
-      {
-        v30 = __clz(__rbit64(v28));
-        v47 = (v28 - 1) & v28;
-LABEL_27:
-        v33 = 24 * (v30 | (v25 << 6));
-        v34 = *(v48 + 48) + v33;
-        v35 = *v34;
-        v36 = *(v34 + 8);
-        v37 = *(v48 + 56) + v33;
-        v45 = *(v37 + 8);
-        v46 = *v37;
-        v38 = *(v16 + 48) + v33;
-        v39 = *(v34 + 16);
-        v40 = *(v37 + 16);
-        *v38 = *v34;
-        *(v38 + 8) = v36;
-        *(v38 + 16) = v39;
-        v41 = *(v16 + 56) + v33;
-        *v41 = v46;
-        *(v41 + 8) = v45;
-        *(v41 + 16) = v40;
-        outlined copy of _XMLPlistEncodingFormat.Reference(v35, v36, v39);
-        result = outlined copy of _XMLPlistEncodingFormat.Reference(v46, v45, v40);
-        v29 = v44;
-        v28 = v47;
-      }
-
-      while (v47);
-    }
-
-    v31 = v25;
-    while (1)
-    {
-      v25 = v31 + 1;
-      if (__OFADD__(v31, 1))
-      {
-        break;
-      }
-
-      if (v25 >= v29)
-      {
-        goto LABEL_29;
-      }
-
-      v32 = *(__src + v25);
-      ++v31;
-      if (v32)
-      {
-        v30 = __clz(__rbit64(v32));
-        v47 = (v32 - 1) & v32;
+        v49 = (v34 - 1) & v34;
         goto LABEL_27;
       }
     }
@@ -3564,7 +3564,7 @@ LABEL_26:
 LABEL_29:
         __break(1u);
 LABEL_30:
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
         v61 = static _DictionaryStorage.copy(original:)();
         v40 = v61;
         if (*(v35 + 16))
@@ -3699,7 +3699,7 @@ LABEL_14:
 
   v88 = v11;
   v89 = v10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMR);
   v30 = swift_allocObject();
   *(v30 + 16) = MEMORY[0x1E69E7CC0];
   if (*(v5 + 24) != 7)
@@ -3767,7 +3767,7 @@ uint64_t _PlistKeyedEncodingContainerXML.superEncoder()@<X0>(uint64_t *a1@<X8>)
   outlined copy of _XMLPlistEncodingFormat.Reference(v4, v6, v7);
   v10 = specialized __PlistReferencingEncoderXML.init(referencing:at:codingPathNode:wrapping:)(v3, 0x7265707573, 0xE500000000000000, 0, 0, v5, v4, v6, v7, v9);
   a1[3] = v8;
-  result = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistReferencingEncoderXML and conformance __PlistEncoderXML, 255, type metadata accessor for __PlistReferencingEncoderXML);
+  result = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistReferencingEncoderXML and conformance __PlistEncoderXML, 255, type metadata accessor for __PlistReferencingEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
   a1[4] = result;
   *a1 = v10;
   return result;
@@ -3798,19 +3798,19 @@ uint64_t _PlistKeyedEncodingContainerXML.superEncoder(forKey:)@<X0>(uint64_t a1@
   v15 = specialized __PlistReferencingEncoderXML.init(referencing:at:codingPathNode:wrapping:)(v8, v7, v10, v21, v14, v4, *(v19 + 24));
   v16 = v20;
   v20[3] = v13;
-  result = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistReferencingEncoderXML and conformance __PlistEncoderXML, 255, type metadata accessor for __PlistReferencingEncoderXML);
+  result = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistReferencingEncoderXML and conformance __PlistEncoderXML, 255, type metadata accessor for __PlistReferencingEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
   v16[4] = result;
   *v16 = v15;
   return result;
 }
 
-char *protocol witness for KeyedEncodingContainerProtocol.encode(_:forKey:) in conformance _PlistKeyedEncodingContainerXML<A>(char a1)
+char *protocol witness for KeyedEncodingContainerProtocol.encode(_:forKey:) in conformance _PlistKeyedEncodingContainerXML<A>(char a1, uint64_t a2, uint64_t a3)
 {
-  return _PlistKeyedEncodingContainerXML.encode(_:forKey:)(a1);
+  return _PlistKeyedEncodingContainerXML.encode(_:forKey:)(a1, a2, a3);
 }
 
 {
-  return _PlistKeyedEncodingContainerXML.encode(_:forKey:)(a1);
+  return _PlistKeyedEncodingContainerXML.encode(_:forKey:)(a1, a2, a3);
 }
 
 uint64_t _PlistUnkeyedEncodingContainerXML.encode(_:)(uint64_t result)
@@ -3889,74 +3889,74 @@ uint64_t _PlistUnkeyedEncodingContainerXML.encode(_:)(uint64_t result)
   return result;
 }
 
-void _PlistUnkeyedEncodingContainerXML.nestedContainer<A>(keyedBy:)()
+void _PlistUnkeyedEncodingContainerXML.nestedContainer<A>(keyedBy:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(v0 + 24);
-  if ((v1 & 0xFE) != 6)
+  v4 = *(v3 + 24);
+  if ((v4 & 0xFE) != 6)
   {
 LABEL_15:
     __break(1u);
     goto LABEL_16;
   }
 
-  v2 = v0;
-  v3 = *(v0 + 8);
-  v4 = (v3 + 16);
-  v5 = *(v3 + 16);
-  v6 = *(v5 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd);
-  v7 = swift_allocObject();
-  *(v7 + 16) = MEMORY[0x1E69E7CC8];
-  if (v1 == 6)
+  v5 = v3;
+  v7 = *(v3 + 8);
+  v8 = (v7 + 16);
+  v9 = *(v7 + 16);
+  v10 = *(v9 + 16);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMR);
+  v11 = swift_allocObject();
+  *(v11 + 16) = MEMORY[0x1E69E7CC8];
+  if (v4 == 6)
   {
-    v8 = v7;
-    v9 = *(v2 + 16);
-    outlined copy of _XMLPlistEncodingFormat.Reference(v3, v9, 6u);
+    v12 = v11;
+    v13 = *(v5 + 16);
+    outlined copy of _XMLPlistEncodingFormat.Reference(v7, v13, 6u);
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *(v3 + 16) = v5;
+    *(v7 + 16) = v9;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 16) + 1, 1);
-      v5 = *v4;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 16) + 1, 1);
+      v9 = *v8;
     }
 
-    v12 = *(v5 + 16);
-    v11 = *(v5 + 24);
-    if (v12 >= v11 >> 1)
+    v16 = *(v9 + 16);
+    v15 = *(v9 + 24);
+    if (v16 >= v15 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
-      v5 = *v4;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
+      v9 = *v8;
     }
 
-    *(v5 + 16) = v12 + 1;
-    v13 = v5 + 24 * v12;
-    *(v13 + 32) = v8;
-    *(v13 + 40) = 0;
-    *(v13 + 48) = 7;
-    *(v3 + 16) = v5;
-    outlined consume of _XMLPlistEncodingFormat.Reference(v3, v9, 6u);
-    v14 = *(v2 + 32);
-    v15 = swift_allocObject();
-    v15[5] = &type metadata for _CodingKey;
-    v15[6] = lazy protocol witness table accessor for type _CodingKey and conformance _CodingKey();
-    v16 = swift_allocObject();
-    v15[2] = v16;
-    *(v16 + 24) = 0;
-    *(v16 + 32) = 0;
-    *(v16 + 16) = v6;
-    *(v16 + 40) = 2;
-    v15[7] = v14;
-    if (v14 >> 62)
+    *(v9 + 16) = v16 + 1;
+    v17 = v9 + 24 * v16;
+    *(v17 + 32) = v12;
+    *(v17 + 40) = 0;
+    *(v17 + 48) = 7;
+    *(v7 + 16) = v9;
+    outlined consume of _XMLPlistEncodingFormat.Reference(v7, v13, 6u);
+    v18 = *(v5 + 32);
+    v19 = swift_allocObject();
+    v19[5] = &type metadata for _CodingKey;
+    v19[6] = lazy protocol witness table accessor for type _CodingKey and conformance _CodingKey();
+    v20 = swift_allocObject();
+    v19[2] = v20;
+    *(v20 + 24) = 0;
+    *(v20 + 32) = 0;
+    *(v20 + 16) = v10;
+    *(v20 + 40) = 2;
+    v19[7] = v18;
+    if (v18 >> 62)
     {
-      v17 = 0;
-      if (v14 >> 62 != 1)
+      v22 = 0;
+      if (v18 >> 62 != 1)
       {
 LABEL_12:
-        if (!__OFADD__(v17, 1))
+        if (!__OFADD__(v22, 1))
         {
-          v15[8] = v17 + 1;
-          type metadata accessor for _PlistKeyedEncodingContainerXML();
+          v19[8] = v22 + 1;
+          type metadata accessor for _PlistKeyedEncodingContainerXML(0, a2, a3, v21);
 
           swift_getWitnessTable();
           KeyedEncodingContainer.init<A>(_:)();
@@ -3967,15 +3967,15 @@ LABEL_12:
         goto LABEL_15;
       }
 
-      v18 = ((v14 & 0x3FFFFFFFFFFFFFFFLL) + 32);
+      v23 = ((v18 & 0x3FFFFFFFFFFFFFFFLL) + 32);
     }
 
     else
     {
-      v18 = (v14 + 64);
+      v23 = (v18 + 64);
     }
 
-    v17 = *v18;
+    v22 = *v23;
 
     goto LABEL_12;
   }
@@ -3997,7 +3997,7 @@ void _PlistUnkeyedEncodingContainerXML.nestedUnkeyedContainer()(uint64_t *a1@<X8
   v6 = (v5 + 16);
   v7 = *(v5 + 16);
   v8 = *(v7 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMR);
   v9 = swift_allocObject();
   *(v9 + 16) = MEMORY[0x1E69E7CC0];
   if (v3 != 6)
@@ -4186,7 +4186,7 @@ LABEL_14:
   *(v9 + 104) = xmmword_18121D490;
   *(v9 + 120) = 8;
   a1[3] = v17;
-  a1[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistReferencingEncoderXML and conformance __PlistEncoderXML, 255, type metadata accessor for __PlistReferencingEncoderXML);
+  a1[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistReferencingEncoderXML and conformance __PlistEncoderXML, 255, type metadata accessor for __PlistReferencingEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
   *a1 = v9;
 
   outlined copy of _XMLPlistEncodingFormat.Reference(v4, v18, v3);
@@ -4738,7 +4738,7 @@ LABEL_13:
   *v1 = v8;
 }
 
-uint64_t __PlistEncoderXML.encode<A>(_:)(int64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __PlistEncoderXML.encode<A>(_:)(int64_t a1, uint64_t a2, void *a3)
 {
   v7 = v4;
   v8 = v3;
@@ -4833,7 +4833,7 @@ LABEL_14:
 LABEL_16:
   v3[6] = v31;
   v36 = type metadata accessor for __PlistEncoderXML();
-  v37 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v32, type metadata accessor for __PlistEncoderXML);
+  v37 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v32, type metadata accessor for __PlistEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
   v33 = v3;
 
   dispatch thunk of Encodable.encode(to:)();
@@ -4847,11 +4847,11 @@ LABEL_16:
     if (v28 >= *(v3[2] + 16))
     {
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMR);
       v6 = 7;
       a3 = swift_allocObject();
       a2 = 0;
-      *(a3 + 16) = MEMORY[0x1E69E7CC8];
+      a3[2] = MEMORY[0x1E69E7CC8];
     }
 
     else
@@ -4904,7 +4904,7 @@ LABEL_16:
   return __swift_destroy_boxed_opaque_existential_1(v38);
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encodeNil() in conformance __PlistEncoderXML()
+char *protocol witness for SingleValueEncodingContainer.encodeNil() in conformance __PlistEncoderXML()
 {
   v6 = *v0;
   if (((*(*v6 + 240))() & 1) == 0)
@@ -4949,7 +4949,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(uint64_t a1, uint64_t a2)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(uint64_t a1, uint64_t a2)
 {
   v7 = *v2;
   if (((*(*v7 + 240))() & 1) == 0)
@@ -4991,7 +4991,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(double a1)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(double a1)
 {
   v5 = *v1;
   if (((*(*v5 + 240))() & 1) == 0)
@@ -5074,7 +5074,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(char a1)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(char a1)
 {
   v5 = *v1;
   if (((*(*v5 + 240))() & 1) == 0)
@@ -5115,7 +5115,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(__int16 a1)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(__int16 a1)
 {
   v5 = *v1;
   if (((*(*v5 + 240))() & 1) == 0)
@@ -5156,7 +5156,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(int a1)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(int a1)
 {
   v5 = *v1;
   if (((*(*v5 + 240))() & 1) == 0)
@@ -5197,7 +5197,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(unsigned __int8 a1)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(unsigned __int8 a1)
 {
   v5 = *v1;
   if (((*(*v5 + 240))() & 1) == 0)
@@ -5238,7 +5238,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(unsigned __int16 a1)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(unsigned __int16 a1)
 {
   v5 = *v1;
   if (((*(*v5 + 240))() & 1) == 0)
@@ -5279,7 +5279,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(unsigned int a1)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(unsigned int a1)
 {
   v5 = *v1;
   if (((*(*v5 + 240))() & 1) == 0)
@@ -5320,10 +5320,10 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
   v9 = *v4;
-  if (((*(*v9 + 240))() & 1) == 0)
+  if (((*(*v9 + 240))(a1, a2, a3) & 1) == 0)
   {
     __break(1u);
 LABEL_7:
@@ -5421,7 +5421,7 @@ LABEL_47:
       goto LABEL_48;
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMR);
     v9 = 7;
     v10 = swift_allocObject();
     v11 = 0;
@@ -5501,7 +5501,7 @@ LABEL_22:
 LABEL_23:
     v58 = v8;
     v59 = v7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
     v32 = static _DictionaryStorage.copy(original:)();
     v23 = v32;
     if (*(v1 + 16))
@@ -5827,7 +5827,7 @@ LABEL_7:
   __break(1u);
 }
 
-void closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:)(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, Swift::Int a5, uint64_t a6, char *a7)
+void closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:)(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, Swift::Int a5, uint64_t a6, _BYTE *a7)
 {
   if (a2 >= 1)
   {
@@ -5988,9 +5988,9 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance _XMLPli
   return result;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance _XMLPlistEncodingFormat.Reference()
+uint64_t protocol witness for Hashable.hash(into:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t a1)
 {
-  if (*(v0 + 16))
+  if (*(v1 + 16))
   {
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -6005,11 +6005,11 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance _XMLPlistEncod
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance _XMLPlistEncodingFormat.Reference()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t a1)
 {
-  v1 = *(v0 + 16);
+  v2 = *(v1 + 16);
   Hasher.init(_seed:)();
-  if (v1)
+  if (v2)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -6024,7 +6024,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance _XM
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t *a1, uint64_t *a2)
 {
   if (*(a1 + 16) || *(a2 + 16))
   {
@@ -6032,7 +6032,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance _XM
     __break(1u);
   }
 
-  else if (*a1 == *a2 && *(a1 + 8) == *(a2 + 8))
+  else if (*a1 == *a2 && a1[1] == a2[1])
   {
     return 1;
   }
@@ -6046,7 +6046,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance _XM
   return result;
 }
 
-uint64_t protocol witness for static Comparable.< infix(_:_:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Comparable.< infix(_:_:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t *a1, uint64_t *a2)
 {
   if (*(a1 + 16) || *(a2 + 16))
   {
@@ -6054,7 +6054,7 @@ uint64_t protocol witness for static Comparable.< infix(_:_:) in conformance _XM
     __break(1u);
   }
 
-  else if (*a1 == *a2 && *(a1 + 8) == *(a2 + 8))
+  else if (*a1 == *a2 && a1[1] == a2[1])
   {
     return 0;
   }
@@ -6098,7 +6098,7 @@ uint64_t protocol witness for static Comparable.<= infix(_:_:) in conformance _X
   return result;
 }
 
-uint64_t protocol witness for static Comparable.>= infix(_:_:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Comparable.>= infix(_:_:) in conformance _XMLPlistEncodingFormat.Reference(uint64_t *a1, uint64_t a2)
 {
   if (*(a1 + 16) || *(a2 + 16))
   {
@@ -6108,7 +6108,7 @@ uint64_t protocol witness for static Comparable.>= infix(_:_:) in conformance _X
 
   else
   {
-    if (*a1 == *a2 && *(a1 + 8) == *(a2 + 8))
+    if (*a1 == *a2 && a1[1] == *(a2 + 8))
     {
       v3 = 1;
     }
@@ -6656,750 +6656,6 @@ LABEL_3:
   specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v99, *a1, v6);
 }
 
-{
-  v5 = v4;
-  v129 = type metadata accessor for Unicode.CanonicalCombiningClass();
-  v9 = *(v129 - 8);
-  v10 = MEMORY[0x1EEE9AC00](v129);
-  v128 = &v110 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v127 = &v110 - v12;
-  v130 = type metadata accessor for Unicode.Scalar.Properties();
-  v13 = MEMORY[0x1EEE9AC00](v130);
-  v126 = &v110 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x1EEE9AC00](v13);
-  v125 = &v110 - v17;
-  v133 = MEMORY[0x1E69E7CC0];
-  v18 = a3[1];
-  if (v18 >= 1)
-  {
-    v19 = 0;
-    v123 = (v9 + 8);
-    v124 = (v16 + 8);
-    v20 = MEMORY[0x1E69E7CC0];
-    v110 = a3;
-    v113 = a4;
-    v114 = a1;
-    do
-    {
-      v21 = v19++;
-      if (v19 < v18)
-      {
-        v112 = v5;
-        v111 = v20;
-        v22 = *a3 + 4 * v21 + 8;
-        v23 = v125;
-        Unicode.Scalar.properties.getter();
-        v24 = v127;
-        Unicode.Scalar.Properties.canonicalCombiningClass.getter();
-        v25 = *v124;
-        (*v124)(v23, v130);
-        LODWORD(v120) = Unicode.CanonicalCombiningClass.rawValue.getter();
-        v115 = v21;
-        v26 = *v123;
-        v27 = v24;
-        v28 = v129;
-        (*v123)(v27, v129);
-        v29 = v126;
-        Unicode.Scalar.properties.getter();
-        v30 = v128;
-        Unicode.Scalar.Properties.canonicalCombiningClass.getter();
-        v117 = v25;
-        v25(v29, v130);
-        LODWORD(v119) = Unicode.CanonicalCombiningClass.rawValue.getter();
-        v116 = v26;
-        result = (v26)(v30, v28);
-        v31 = v115 + 2;
-        v118 = v18;
-        while (v18 != v31)
-        {
-          LODWORD(v131) = v120 < v119;
-          LODWORD(v121) = *(v22 - 4);
-          v32 = v125;
-          Unicode.Scalar.properties.getter();
-          v33 = v127;
-          Unicode.Scalar.Properties.canonicalCombiningClass.getter();
-          v34 = v130;
-          v35 = v117;
-          v117(v32, v130);
-          LOBYTE(v122) = Unicode.CanonicalCombiningClass.rawValue.getter();
-          LODWORD(v122) = v122;
-          v36 = v129;
-          v132 = v22;
-          v37 = v116;
-          v116(v33, v129);
-          v38 = v126;
-          Unicode.Scalar.properties.getter();
-          v39 = v128;
-          Unicode.Scalar.Properties.canonicalCombiningClass.getter();
-          v35(v38, v34);
-          LOBYTE(v35) = Unicode.CanonicalCombiningClass.rawValue.getter();
-          result = (v37)(v39, v36);
-          v18 = v118;
-          ++v31;
-          v22 = v132 + 4;
-          if (((v131 ^ (v122 >= v35)) & 1) == 0)
-          {
-            v18 = v31 - 1;
-            break;
-          }
-        }
-
-        v5 = v112;
-        a4 = v113;
-        v20 = v111;
-        a3 = v110;
-        a1 = v114;
-        v21 = v115;
-        if (v120 < v119)
-        {
-          if (v18 < v115)
-          {
-            goto LABEL_107;
-          }
-
-          if (v115 < v18)
-          {
-            v40 = v18 - 1;
-            v41 = v115;
-            do
-            {
-              if (v41 != v40)
-              {
-                v44 = *a3;
-                if (!*a3)
-                {
-                  goto LABEL_112;
-                }
-
-                v42 = *(v44 + 4 * v41);
-                *(v44 + 4 * v41) = *(v44 + 4 * v40);
-                *(v44 + 4 * v40) = v42;
-              }
-            }
-
-            while (++v41 < v40--);
-          }
-        }
-
-        v19 = v18;
-      }
-
-      v45 = a3[1];
-      if (v19 < v45)
-      {
-        if (__OFSUB__(v19, v21))
-        {
-          goto LABEL_106;
-        }
-
-        if (v19 - v21 < a4)
-        {
-          v46 = v21 + a4;
-          if (__OFADD__(v21, a4))
-          {
-            goto LABEL_108;
-          }
-
-          if (v46 >= v45)
-          {
-            v46 = a3[1];
-          }
-
-          if (v46 < v21)
-          {
-LABEL_109:
-            __break(1u);
-LABEL_110:
-            __break(1u);
-LABEL_111:
-            __break(1u);
-LABEL_112:
-            __break(1u);
-LABEL_113:
-            __break(1u);
-LABEL_114:
-            __break(1u);
-            return result;
-          }
-
-          if (v19 != v46)
-          {
-            v111 = v20;
-            v112 = v5;
-            v122 = *a3;
-            v47 = (v122 + 4 * v19 - 4);
-            v115 = v21;
-            v48 = v21 - v19;
-            v118 = v46;
-            do
-            {
-              v120 = v47;
-              v121 = v19;
-              v119 = v48;
-              v49 = v48;
-              do
-              {
-                v131 = v49;
-                v50 = v125;
-                Unicode.Scalar.properties.getter();
-                v51 = v127;
-                Unicode.Scalar.Properties.canonicalCombiningClass.getter();
-                v52 = *v124;
-                v53 = v130;
-                (*v124)(v50, v130);
-                LOBYTE(v132) = Unicode.CanonicalCombiningClass.rawValue.getter();
-                LODWORD(v132) = v132;
-                v54 = *v123;
-                v55 = v51;
-                v56 = v129;
-                (*v123)(v55, v129);
-                v57 = v126;
-                Unicode.Scalar.properties.getter();
-                v58 = v128;
-                Unicode.Scalar.Properties.canonicalCombiningClass.getter();
-                v52(v57, v53);
-                v59 = Unicode.CanonicalCombiningClass.rawValue.getter();
-                result = (v54)(v58, v56);
-                if (v132 >= v59)
-                {
-                  break;
-                }
-
-                v60 = v131;
-                if (!v122)
-                {
-                  goto LABEL_110;
-                }
-
-                v61 = *v47;
-                result = v47[1];
-                *v47 = result;
-                v47[1] = v61;
-                --v47;
-                v62 = __CFADD__(v60, 1);
-                v49 = v60 + 1;
-              }
-
-              while (!v62);
-              v19 = v121 + 1;
-              v47 = v120 + 1;
-              v48 = v119 - 1;
-            }
-
-            while (v121 + 1 != v118);
-            v19 = v118;
-            v5 = v112;
-            a3 = v110;
-            a1 = v114;
-            v21 = v115;
-            v20 = v111;
-          }
-        }
-      }
-
-      if (v19 < v21)
-      {
-        goto LABEL_105;
-      }
-
-      result = swift_isUniquelyReferenced_nonNull_native();
-      if ((result & 1) == 0)
-      {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 16) + 1, 1, v20);
-        v20 = result;
-      }
-
-      v64 = *(v20 + 16);
-      v63 = *(v20 + 24);
-      v65 = v64 + 1;
-      if (v64 >= v63 >> 1)
-      {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v63 > 1), v64 + 1, 1, v20);
-        v20 = result;
-      }
-
-      *(v20 + 16) = v65;
-      v66 = v20 + 16 * v64;
-      *(v66 + 32) = v21;
-      *(v66 + 40) = v19;
-      v133 = v20;
-      if (!*a1)
-      {
-        goto LABEL_113;
-      }
-
-      if (v64)
-      {
-        v67 = *a1;
-        while (1)
-        {
-          v68 = v65 - 1;
-          if (v65 >= 4)
-          {
-            break;
-          }
-
-          if (v65 == 3)
-          {
-            v69 = *(v20 + 32);
-            v70 = *(v20 + 40);
-            v79 = __OFSUB__(v70, v69);
-            v71 = v70 - v69;
-            v72 = v79;
-LABEL_58:
-            if (v72)
-            {
-              goto LABEL_96;
-            }
-
-            v85 = (v20 + 16 * v65);
-            v87 = *v85;
-            v86 = v85[1];
-            v88 = __OFSUB__(v86, v87);
-            v89 = v86 - v87;
-            v90 = v88;
-            if (v88)
-            {
-              goto LABEL_99;
-            }
-
-            v91 = (v20 + 32 + 16 * v68);
-            v93 = *v91;
-            v92 = v91[1];
-            v79 = __OFSUB__(v92, v93);
-            v94 = v92 - v93;
-            if (v79)
-            {
-              goto LABEL_102;
-            }
-
-            if (__OFADD__(v89, v94))
-            {
-              goto LABEL_103;
-            }
-
-            if (v89 + v94 >= v71)
-            {
-              if (v71 < v94)
-              {
-                v68 = v65 - 2;
-              }
-
-              goto LABEL_79;
-            }
-
-            goto LABEL_72;
-          }
-
-          v95 = (v20 + 16 * v65);
-          v97 = *v95;
-          v96 = v95[1];
-          v79 = __OFSUB__(v96, v97);
-          v89 = v96 - v97;
-          v90 = v79;
-LABEL_72:
-          if (v90)
-          {
-            goto LABEL_98;
-          }
-
-          v98 = v20 + 16 * v68;
-          v100 = *(v98 + 32);
-          v99 = *(v98 + 40);
-          v79 = __OFSUB__(v99, v100);
-          v101 = v99 - v100;
-          if (v79)
-          {
-            goto LABEL_101;
-          }
-
-          if (v101 < v89)
-          {
-            goto LABEL_3;
-          }
-
-LABEL_79:
-          v106 = v68 - 1;
-          if (v68 - 1 >= v65)
-          {
-            __break(1u);
-LABEL_92:
-            __break(1u);
-LABEL_93:
-            __break(1u);
-LABEL_94:
-            __break(1u);
-LABEL_95:
-            __break(1u);
-LABEL_96:
-            __break(1u);
-LABEL_97:
-            __break(1u);
-LABEL_98:
-            __break(1u);
-LABEL_99:
-            __break(1u);
-LABEL_100:
-            __break(1u);
-LABEL_101:
-            __break(1u);
-LABEL_102:
-            __break(1u);
-LABEL_103:
-            __break(1u);
-LABEL_104:
-            __break(1u);
-LABEL_105:
-            __break(1u);
-LABEL_106:
-            __break(1u);
-LABEL_107:
-            __break(1u);
-LABEL_108:
-            __break(1u);
-            goto LABEL_109;
-          }
-
-          if (!*a3)
-          {
-            goto LABEL_111;
-          }
-
-          v107 = *(v20 + 32 + 16 * v106);
-          v108 = *(v20 + 32 + 16 * v68 + 8);
-          result = specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 4 * v107), (*a3 + 4 * *(v20 + 32 + 16 * v68)), (*a3 + 4 * v108), v67);
-          if (v5)
-          {
-          }
-
-          if (v108 < v107)
-          {
-            goto LABEL_92;
-          }
-
-          result = swift_isUniquelyReferenced_nonNull_native();
-          if ((result & 1) == 0)
-          {
-            result = specialized _ArrayBuffer._consumeAndCreateNew()(v20);
-            v20 = result;
-          }
-
-          if (v106 >= *(v20 + 16))
-          {
-            goto LABEL_93;
-          }
-
-          v109 = v20 + 16 * v106;
-          *(v109 + 32) = v107;
-          *(v109 + 40) = v108;
-          v133 = v20;
-          result = specialized Array.remove(at:)(v68);
-          v20 = v133;
-          v65 = *(v133 + 16);
-          if (v65 <= 1)
-          {
-            goto LABEL_3;
-          }
-        }
-
-        v73 = v20 + 32 + 16 * v65;
-        v74 = *(v73 - 64);
-        v75 = *(v73 - 56);
-        v79 = __OFSUB__(v75, v74);
-        v76 = v75 - v74;
-        if (v79)
-        {
-          goto LABEL_94;
-        }
-
-        v78 = *(v73 - 48);
-        v77 = *(v73 - 40);
-        v79 = __OFSUB__(v77, v78);
-        v71 = v77 - v78;
-        v72 = v79;
-        if (v79)
-        {
-          goto LABEL_95;
-        }
-
-        v80 = (v20 + 16 * v65);
-        v82 = *v80;
-        v81 = v80[1];
-        v79 = __OFSUB__(v81, v82);
-        v83 = v81 - v82;
-        if (v79)
-        {
-          goto LABEL_97;
-        }
-
-        v79 = __OFADD__(v71, v83);
-        v84 = v71 + v83;
-        if (v79)
-        {
-          goto LABEL_100;
-        }
-
-        if (v84 >= v76)
-        {
-          v102 = (v20 + 32 + 16 * v68);
-          v104 = *v102;
-          v103 = v102[1];
-          v79 = __OFSUB__(v103, v104);
-          v105 = v103 - v104;
-          if (v79)
-          {
-            goto LABEL_104;
-          }
-
-          if (v71 < v105)
-          {
-            v68 = v65 - 2;
-          }
-
-          goto LABEL_79;
-        }
-
-        goto LABEL_58;
-      }
-
-LABEL_3:
-      v18 = a3[1];
-      a4 = v113;
-      a1 = v114;
-    }
-
-    while (v19 < v18);
-  }
-
-  if (!*a1)
-  {
-    goto LABEL_114;
-  }
-
-  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v133, *a1, a3);
-}
-
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, char *a2, uint64_t *a3)
-{
-  v4 = *a1;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    goto LABEL_66;
-  }
-
-  while (1)
-  {
-    *a1 = v4;
-    v5 = *(v4 + 2);
-    if (v5 < 2)
-    {
-      return 1;
-    }
-
-    while (1)
-    {
-      v6 = *a3;
-      if (!*a3)
-      {
-        __break(1u);
-LABEL_68:
-        result = _assertionFailure(_:_:file:line:flags:)();
-        __break(1u);
-        return result;
-      }
-
-      v38 = v5 - 1;
-      v39 = v5;
-      v42 = *&v4[16 * v5];
-      v7 = (v6 + 48 * v42);
-      v8 = 48 * *&v4[16 * v5 + 16];
-      v9 = (v6 + v8);
-      v40 = v4;
-      v41 = *&v4[16 * v5 + 24];
-      v10 = (v6 + 48 * v41);
-      v11 = v8 - 48 * v42;
-      v12 = 48 * v41 - v8;
-      v13 = v12 / 48;
-      if (v11 / 48 >= v12 / 48)
-      {
-        v21 = 48 * v13;
-        if (v9 != a2 || &v9[48 * v13] <= a2)
-        {
-          memmove(a2, v9, 48 * v13);
-        }
-
-        v4 = &a2[v21];
-        if (v12 < 48 || v8 <= 48 * v42)
-        {
-          v15 = a2;
-        }
-
-        else
-        {
-LABEL_38:
-          v24 = v9 - 48;
-          v10 -= 48;
-          v25 = v4;
-          do
-          {
-            v27 = *(v25 - 6);
-            v25 -= 48;
-            v26 = v27;
-            if (v25[16] || *(v9 - 32))
-            {
-              goto LABEL_68;
-            }
-
-            v28 = v26 == *(v9 - 6) && *(v25 + 1) == *(v9 - 5);
-            if (!v28 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-            {
-              if (v10 + 48 != v9)
-              {
-                v31 = *v24;
-                v32 = *(v9 - 1);
-                *(v10 + 1) = *(v9 - 2);
-                *(v10 + 2) = v32;
-                *v10 = v31;
-              }
-
-              if (v4 <= a2 || (v9 -= 48, v7 >= v24))
-              {
-                v15 = a2;
-                v9 = v24;
-                goto LABEL_55;
-              }
-
-              goto LABEL_38;
-            }
-
-            if (v10 + 48 != v4)
-            {
-              v29 = *v25;
-              v30 = *(v25 + 2);
-              *(v10 + 1) = *(v25 + 1);
-              *(v10 + 2) = v30;
-              *v10 = v29;
-            }
-
-            v10 -= 48;
-            v4 = v25;
-          }
-
-          while (v25 > a2);
-          v4 = v25;
-          v15 = a2;
-        }
-      }
-
-      else
-      {
-        v14 = 48 * (v11 / 48);
-        if (v7 != a2 || &v7[v14] <= a2)
-        {
-          memmove(a2, v7, 48 * (v11 / 48));
-        }
-
-        v4 = &a2[v14];
-        v16 = v11 < 48;
-        v15 = a2;
-        v16 = v16 || 48 * v41 <= v8;
-        if (!v16)
-        {
-          while (1)
-          {
-            if (v9[16] || v15[16])
-            {
-              goto LABEL_68;
-            }
-
-            v17 = *v9 == *v15 && *(v9 + 1) == *(v15 + 1);
-            if (v17 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-            {
-              break;
-            }
-
-            v18 = v9;
-            v17 = v7 == v9;
-            v9 += 48;
-            if (!v17)
-            {
-              goto LABEL_23;
-            }
-
-LABEL_24:
-            v7 += 48;
-            if (v15 >= v4 || v9 >= v10)
-            {
-              goto LABEL_26;
-            }
-          }
-
-          v18 = v15;
-          v17 = v7 == v15;
-          v15 += 48;
-          if (v17)
-          {
-            goto LABEL_24;
-          }
-
-LABEL_23:
-          v19 = *v18;
-          v20 = *(v18 + 2);
-          *(v7 + 1) = *(v18 + 1);
-          *(v7 + 2) = v20;
-          *v7 = v19;
-          goto LABEL_24;
-        }
-
-LABEL_26:
-        v9 = v7;
-      }
-
-LABEL_55:
-      v33 = 48 * ((v4 - v15) / 48);
-      if (v9 != v15 || v9 >= &v15[v33])
-      {
-        memmove(v9, v15, v33);
-      }
-
-      if (v41 < v42)
-      {
-        break;
-      }
-
-      v4 = v40;
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v4 = specialized _ArrayBuffer._consumeAndCreateNew()(v40);
-      }
-
-      if ((v39 - 2) >= *(v4 + 2))
-      {
-        goto LABEL_65;
-      }
-
-      v34 = &v4[16 * v39];
-      *v34 = v42;
-      *(v34 + 1) = v41;
-      *a1 = v4;
-      specialized Array.remove(at:)(v38);
-      v4 = *a1;
-      v5 = *(*a1 + 2);
-      if (v5 <= 1)
-      {
-        return 1;
-      }
-    }
-
-    __break(1u);
-LABEL_65:
-    __break(1u);
-LABEL_66:
-    v4 = specialized _ArrayBuffer._consumeAndCreateNew()(v4);
-  }
-}
-
 uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *__dst, char *__src, char *a3, char *a4)
 {
   v4 = a4;
@@ -7555,9 +6811,9 @@ LABEL_47:
   return result;
 }
 
-uint64_t specialized ContiguousArray.replaceSubrange<A>(_:with:)(uint64_t result, uint64_t a2, uint64_t a3)
+unint64_t specialized ContiguousArray.replaceSubrange<A>(_:with:)(unint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (result < 0)
+  if ((result & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_13;
@@ -7610,7 +6866,7 @@ LABEL_16:
   return specialized ContiguousArray._endMutation()();
 }
 
-uint64_t specialized ContiguousArray.replaceSubrange<A>(_:with:)(uint64_t result, int64_t a2, uint64_t a3, uint64_t a4)
+uint64_t specialized ContiguousArray.replaceSubrange<A>(_:with:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (result < 0)
   {
@@ -7618,17 +6874,16 @@ uint64_t specialized ContiguousArray.replaceSubrange<A>(_:with:)(uint64_t result
     goto LABEL_19;
   }
 
-  v6 = *v4;
-  v7 = *(*v4 + 16);
-  if (v7 < a2)
+  v5 = *v4;
+  v6 = *(*v4 + 16);
+  if (v6 < a2)
   {
 LABEL_19:
     __break(1u);
     goto LABEL_20;
   }
 
-  v8 = result;
-  v9 = a2 - result;
+  v7 = a2 - result;
   if (__OFSUB__(a2, result))
   {
 LABEL_20:
@@ -7636,17 +6891,17 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v11 = __OFSUB__(a3, v9);
-  v12 = a3 - v9;
-  if (v11)
+  v8 = __OFSUB__(a3, v7);
+  v9 = a3 - v7;
+  if (v8)
   {
 LABEL_21:
     __break(1u);
     goto LABEL_22;
   }
 
-  v13 = v7 + v12;
-  if (__OFADD__(v7, v12))
+  v10 = v6 + v9;
+  if (__OFADD__(v6, v9))
   {
 LABEL_22:
     __break(1u);
@@ -7654,39 +6909,39 @@ LABEL_22:
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v4 = v6;
+  *v4 = v5;
   if (!isUniquelyReferenced_nonNull_native)
   {
-    if (v7 <= v13)
+    if (v6 <= v10)
     {
-      v16 = v13;
+      v12 = v10;
     }
 
     else
     {
-      v16 = v7;
+      v12 = v6;
     }
 
     goto LABEL_14;
   }
 
-  if (v13 > *(v6 + 24) >> 1)
+  if (v10 > *(v5 + 24) >> 1)
   {
-    if (v7 <= v13)
+    if (v6 <= v10)
     {
-      v16 = v13;
+      v12 = v10;
     }
 
     else
     {
-      v16 = v7;
+      v12 = v6;
     }
 
 LABEL_14:
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v16, 1);
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v12, 1);
   }
 
-  return specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(v8, a2, a3, a3, a4);
+  return specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)();
 }
 
 uint64_t outlined consume of __PlistReferencingEncoderXML.Reference(uint64_t a1, unint64_t a2, uint64_t a3)
@@ -7703,9 +6958,10 @@ uint64_t outlined consume of __PlistReferencingEncoderXML.Reference(uint64_t a1,
   }
 }
 
-uint64_t specialized __PlistReferencingEncoderXML.init(referencing:at:codingPathNode:wrapping:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5, uint64_t *a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, uint64_t a10)
+uint64_t specialized __PlistReferencingEncoderXML.init(referencing:at:codingPathNode:wrapping:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, uint64_t a10)
 {
   v57 = a6;
+  v12 = a5;
   v58[3] = &type metadata for _CodingKey;
   v53 = lazy protocol witness table accessor for type _CodingKey and conformance _CodingKey();
   v58[4] = v53;
@@ -7714,10 +6970,10 @@ uint64_t specialized __PlistReferencingEncoderXML.init(referencing:at:codingPath
   *(v17 + 16) = a2;
   *(v17 + 24) = a3;
   *(v17 + 32) = a4;
-  *(v17 + 40) = a5;
+  *(v17 + 40) = v12;
   *(a10 + 128) = a1;
 
-  v18 = _CodingKey.stringValue.getter(a2, a3, a4, a5);
+  v18 = _CodingKey.stringValue.getter(a2, a3, a4, v12);
   *(a10 + 136) = a7;
   *(a10 + 144) = a8;
   *(a10 + 152) = a9 | 0x8000000000000000;
@@ -7980,11 +7236,11 @@ LABEL_17:
   return result;
 }
 
-uint64_t specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(double a1)
+uint64_t specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(uint64_t a1, double a2)
 {
-  if (fabs(a1) == INFINITY)
+  if (fabs(a2) == INFINITY)
   {
-    if (a1 <= 0.0)
+    if (a2 <= 0.0)
     {
       return 0x74696E69666E692DLL;
     }
@@ -7997,22 +7253,22 @@ uint64_t specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(double a
 
   else
   {
-    v4 = Double.description.getter();
+    v5 = Double.description.getter();
 
-    v2._countAndFlagsBits = 12334;
-    v2._object = 0xE200000000000000;
-    v3 = String.hasSuffix(_:)(v2);
+    v3._countAndFlagsBits = 12334;
+    v3._object = 0xE200000000000000;
+    v4 = String.hasSuffix(_:)(v3);
 
-    if (v3)
+    if (v4)
     {
       specialized RangeReplaceableCollection<>.removeLast(_:)(2uLL);
     }
 
-    return v4;
+    return v5;
   }
 }
 
-unint64_t specialized ContiguousArray.replaceSubrange<A>(_:with:)(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t specialized ContiguousArray.replaceSubrange<A>(_:with:)(unint64_t result, int64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if ((result & 0x8000000000000000) != 0)
   {
@@ -8228,7 +7484,7 @@ uint64_t protocol witness for UnkeyedEncodingContainer.encode(_:) in conformance
   return sub_180A4B800(a1, a2, a3);
 }
 
-uint64_t protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(uint64_t a1, uint64_t a2, uint64_t a3)
+char *protocol witness for SingleValueEncodingContainer.encode(_:) in conformance __PlistEncoderXML(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   return sub_180A4B81C(a1, a2, a3);
 }
@@ -8288,7 +7544,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t protocol witness for PlistDecodingMap.topObject.getter in conformance XMLPlistMap@<X0>(unint64_t *a1@<X8>)
+uint64_t protocol witness for PlistDecodingMap.topObject.getter in conformance XMLPlistMap@<X0>(uint64_t *a1@<X8>)
 {
   result = XMLPlistMap.loadValue(at:)(0);
   if ((~result & 0xF000000000000007) != 0)
@@ -8383,7 +7639,7 @@ LABEL_59:
       v76 = v151;
       v75(v151, v20, v72);
       v77 = _CodingPathNode.path.getter(v157);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       v78 = swift_allocObject();
       *(v78 + 16) = xmmword_181218E20;
       v79 = v152;
@@ -8422,13 +7678,13 @@ LABEL_75:
     goto LABEL_76;
   }
 
-  v29 = a3 + v30;
-  if ((a3 + v30 - v32) < 0)
+  v29 = (a3 + v30);
+  if (a3 + v30 - v32 < 0)
   {
     goto LABEL_70;
   }
 
-  v29 = (a1 + 1);
+  v29 = a1 + 1;
   v33 = *a1;
   if (v33 == 45)
   {
@@ -8439,7 +7695,7 @@ LABEL_75:
     }
 
     v34 = a1 + 1;
-    v29 = (a1 + 2);
+    v29 = a1 + 2;
   }
 
   else
@@ -8460,7 +7716,7 @@ LABEL_75:
       goto LABEL_67;
     }
 
-    if ((v32 - v34) < 0)
+    if (v32 - v34 < 0)
     {
       goto LABEL_68;
     }
@@ -8524,12 +7780,12 @@ LABEL_68:
   }
 
 LABEL_23:
-  if ((v29 - a3) < 0)
+  if (&v29[-a3] < 0)
   {
     goto LABEL_71;
   }
 
-  if ((v32 - v29) < 0)
+  if (v32 - v29 < 0)
   {
     goto LABEL_72;
   }
@@ -8555,8 +7811,8 @@ LABEL_23:
   }
 
   v44 = v162[5];
-  v29 = (v44 + 1);
-  if (v32 < (v44 + 1))
+  v29 = v44 + 1;
+  if (v32 < v44 + 1)
   {
     goto LABEL_59;
   }
@@ -8566,7 +7822,7 @@ LABEL_23:
     goto LABEL_73;
   }
 
-  if ((v32 - v44) < 0)
+  if (v32 - v44 < 0)
   {
     goto LABEL_74;
   }
@@ -8586,8 +7842,8 @@ LABEL_23:
   }
 
   v48 = v162[5];
-  v29 = (v48 + 1);
-  if (v32 < (v48 + 1))
+  v29 = v48 + 1;
+  if (v32 < v48 + 1)
   {
     goto LABEL_59;
   }
@@ -8597,7 +7853,7 @@ LABEL_23:
     goto LABEL_75;
   }
 
-  if ((v32 - v48) < 0)
+  if (v32 - v48 < 0)
   {
 LABEL_76:
     __break(1u);
@@ -8662,7 +7918,7 @@ LABEL_90:
       v108 = v150;
       (*(v158 + 32))(v150, v154, v159);
       v109 = _CodingPathNode.path.getter(v157);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       v110 = swift_allocObject();
       *(v110 + 16) = xmmword_181218E20;
       v111 = v152;
@@ -8696,7 +7952,7 @@ LABEL_90:
   }
 
   v53 = v162[5];
-  if (v32 < (v53 + 1))
+  if (v32 < v53 + 1)
   {
     goto LABEL_59;
   }
@@ -8707,7 +7963,7 @@ LABEL_90:
     goto LABEL_97;
   }
 
-  if ((v32 - v53) < 0)
+  if (v32 - v53 < 0)
   {
 LABEL_97:
     __break(1u);
@@ -8728,7 +7984,7 @@ LABEL_97:
   }
 
   v55 = v162[5];
-  if (v32 < (v55 + 1))
+  if (v32 < v55 + 1)
   {
     goto LABEL_59;
   }
@@ -8741,7 +7997,7 @@ LABEL_98:
     goto LABEL_99;
   }
 
-  if ((v32 - v55) < 0)
+  if (v32 - v55 < 0)
   {
 LABEL_99:
     __break(1u);
@@ -8763,8 +8019,8 @@ LABEL_99:
 
   v58 = v162[5];
   v142 = v58 + 1;
-  v29 = v32 - (v58 + 1);
-  if (v32 < (v58 + 1))
+  v29 = (v32 - (v58 + 1));
+  if (v32 < v58 + 1)
   {
     goto LABEL_59;
   }
@@ -8776,7 +8032,7 @@ LABEL_100:
     goto LABEL_101;
   }
 
-  if ((v32 - v58) < 0)
+  if (v32 - v58 < 0)
   {
 LABEL_101:
     __break(1u);
@@ -8789,7 +8045,7 @@ LABEL_101:
   }
 
   v162[5] = v142;
-  if (v32 >= (v58 + 2))
+  if (v32 >= v58 + 2)
   {
     goto LABEL_77;
   }
@@ -8802,13 +8058,13 @@ LABEL_102:
 
   v32 = qword_1ED440450;
   os_unfair_lock_lock((qword_1ED440450 + 24));
-  v59 = *(v32 + 16);
+  v59 = *(v32 + 2);
   if (*(v59 + 16) && (v60 = specialized __RawDictionaryStorage.find<A>(_:)(7), (v61 & 1) != 0))
   {
     v161 = *(*(v59 + 56) + 16 * v60);
     v62 = v161;
     swift_unknownObjectRetain();
-    os_unfair_lock_unlock((v32 + 24));
+    os_unfair_lock_unlock(v32 + 6);
     if (v62)
     {
       goto LABEL_124;
@@ -8817,7 +8073,7 @@ LABEL_102:
 
   else
   {
-    os_unfair_lock_unlock((v32 + 24));
+    os_unfair_lock_unlock(v32 + 6);
   }
 
   v20 = type metadata accessor for _CalendarGregorian();
@@ -8830,13 +8086,13 @@ LABEL_102:
   LOBYTE(v163[1]) = 1;
   *&v161 = v94;
   v23 = protocol witness for _CalendarProtocol.init(identifier:timeZone:locale:firstWeekday:minimumDaysInFirstWeek:gregorianStartDate:) in conformance _CalendarGregorian(&v164, v167, v166, 0, 1, 0, 1, v163);
-  os_unfair_lock_lock((v32 + 24));
-  v95 = *(v32 + 16);
+  os_unfair_lock_lock(v32 + 6);
+  v95 = *(v32 + 2);
   if (!*(v95 + 16) || (v96 = specialized __RawDictionaryStorage.find<A>(_:)(7), (v97 & 1) == 0))
   {
     swift_unknownObjectRetain();
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *&v167[0] = *(v32 + 16);
+    *&v167[0] = *(v32 + 2);
     a3 = *&v167[0];
     v160 = specialized __RawDictionaryStorage.find<A>(_:)(7);
     v101 = *(a3 + 16);
@@ -8867,7 +8123,7 @@ LABEL_95:
           v114[1] = v113;
           swift_unknownObjectRelease();
 LABEL_122:
-          *(v32 + 16) = v104;
+          *(v32 + 2) = v104;
           *&v98 = v23;
           *(&v98 + 1) = v161;
           goto LABEL_123;
@@ -8885,7 +8141,7 @@ LABEL_121:
       }
 
 LABEL_105:
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd, "nC)");
       v115 = static _DictionaryStorage.copy(original:)();
       v104 = v115;
       if (*(a3 + 16))
@@ -8962,7 +8218,7 @@ LABEL_104:
 LABEL_123:
   v161 = v98;
   swift_unknownObjectRetain();
-  os_unfair_lock_unlock((v32 + 24));
+  os_unfair_lock_unlock(v32 + 6);
 
 LABEL_124:
   v168 = v161;
@@ -9213,7 +8469,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t XMLPlistScanner.PartialMapData.recordEmptyCollection(tagType:with:)(unsigned __int8 a1, uint64_t a2)
+char *XMLPlistScanner.PartialMapData.recordEmptyCollection(tagType:with:)(unsigned __int8 a1, char *a2)
 {
   result = XMLPlistScanner.PartialMapData.resizeIfNecessary(with:)(a2);
   v5 = *(*v2 + 16);
@@ -9225,7 +8481,7 @@ uint64_t XMLPlistScanner.PartialMapData.recordEmptyCollection(tagType:with:)(uns
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_18121D6C0;
     *(inited + 32) = a1;
@@ -9582,7 +8838,7 @@ uint64_t *specialized static XMLPlistScanner.parseNumericEntityReference(reader:
   v1 = *result;
   v3 = result[3];
   v2 = result[4];
-  v4 = v3 + 1;
+  v4 = (v3 + 1);
   if (v2 < (v3 + 1))
   {
     goto LABEL_9;
@@ -9811,7 +9067,7 @@ LABEL_51:
     if (v13 == 103)
     {
 LABEL_10:
-      v14 = v4 + 4;
+      v14 = (v4 + 4);
       if (v3 < (v4 + 4) || v4[2] != 116 || v4[3] != 59)
       {
         goto LABEL_3;
@@ -9846,7 +9102,7 @@ LABEL_10:
             goto LABEL_3;
           }
 
-          v14 = v4 + 6;
+          v14 = (v4 + 6);
           goto LABEL_42;
         }
 
@@ -9876,7 +9132,7 @@ LABEL_10:
           {
             if (*v9 == 28781 && v4[4] == 59)
             {
-              v14 = v4 + 5;
+              v14 = (v4 + 5);
             }
 
             else
@@ -9886,7 +9142,7 @@ LABEL_10:
                 goto LABEL_3;
               }
 
-              v14 = v4 + 6;
+              v14 = (v4 + 6);
             }
 
 LABEL_42:
@@ -9935,4 +9191,745 @@ LABEL_43:
   }
 
   return result;
+}
+
+uint64_t get_enum_tag_for_layout_string_10Foundation13XMLPlistErrorO(uint64_t a1)
+{
+  if ((*(a1 + 32) & 7u) <= 5)
+  {
+    return *(a1 + 32) & 7;
+  }
+
+  else
+  {
+    return (*a1 + 6);
+  }
+}
+
+uint64_t getEnumTagSinglePayload for XMLPlistError(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFA && *(a1 + 33))
+  {
+    return (*a1 + 250);
+  }
+
+  v3 = *(a1 + 32);
+  if (v3 <= 6)
+  {
+    v4 = -1;
+  }
+
+  else
+  {
+    v4 = v3 ^ 0xFF;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for XMLPlistError(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xF9)
+  {
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *(result + 32) = 0;
+    *result = a2 - 250;
+    *(result + 8) = 0;
+    if (a3 >= 0xFA)
+    {
+      *(result + 33) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFA)
+    {
+      *(result + 33) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 32) = -a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t destructiveInjectEnumTag for XMLPlistError(uint64_t result, unsigned int a2)
+{
+  if (a2 >= 6)
+  {
+    *result = a2 - 6;
+    *(result + 8) = 0;
+    LOBYTE(a2) = 6;
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+  }
+
+  *(result + 32) = a2;
+  return result;
+}
+
+void *destructiveInjectEnumTag for XMLPlistMap.Value(void *result, uint64_t a2)
+{
+  if (a2 < 8)
+  {
+    *result = *result & 0xFFFFFFFFFFFFFF8 | (a2 << 60);
+  }
+
+  else
+  {
+    *result = (8 * (a2 - 8)) | 0x8000000000000000;
+  }
+
+  return result;
+}
+
+void specialized XMLPlistMap.Value._skipIntegerWhitespace(_:)(uint64_t *a1)
+{
+  v2 = type metadata accessor for Unicode.Scalar.Properties();
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = a1[3];
+  v7 = a1[4];
+  v8 = (v6 + 1);
+  if (v7 >= (v6 + 1))
+  {
+    v9 = *a1;
+    if ((*a1 + a1[1] - v7) >= 0)
+    {
+      v10 = (v3 + 8);
+      while (v7 >= v6)
+      {
+        if (&v6[-v9] < 0)
+        {
+          goto LABEL_15;
+        }
+
+        if ((v7 - v6) < 0)
+        {
+          goto LABEL_16;
+        }
+
+        v11 = *v6;
+        if (v11 >= 0x21 && v11 - 127 > 0x21)
+        {
+          if ((BufferView<A>._decodeScalar()(v6, v7 - v6) & 0x100000000) != 0)
+          {
+            return;
+          }
+
+          v13 = v12;
+          Unicode.Scalar.properties.getter();
+          v14 = Unicode.Scalar.Properties.isWhitespace.getter();
+          (*v10)(v5, v2);
+          if ((v14 & 1) == 0)
+          {
+            return;
+          }
+
+          v8 = &v6[v13];
+        }
+
+        a1[3] = v8;
+        v6 = v8++;
+        if (v7 < v8)
+        {
+          return;
+        }
+      }
+
+      __break(1u);
+LABEL_15:
+      __break(1u);
+LABEL_16:
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+}
+
+uint64_t getEnumTagSinglePayload for XMLPlistTag(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xF6)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 10 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 10) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 10;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 10;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 10;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0xB;
+  v8 = v6 - 11;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for XMLPlistTag(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 10 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 10) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xF6)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xF5)
+  {
+    v5 = ((a2 - 246) >> 8) + 1;
+    *result = a2 + 10;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 10;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type XMLPlistTag and conformance XMLPlistTag()
+{
+  result = lazy protocol witness table cache variable for type XMLPlistTag and conformance XMLPlistTag;
+  if (!lazy protocol witness table cache variable for type XMLPlistTag and conformance XMLPlistTag)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type XMLPlistTag and conformance XMLPlistTag);
+  }
+
+  return result;
+}
+
+uint64_t BidirectionalCollection._range<A>(of:anchored:backwards:)@<X0>(uint64_t a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X5>, void (**a7)(char *)@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+{
+  v146 = a8;
+  LODWORD(v153) = a3;
+  LODWORD(v150) = a2;
+  v160 = a1;
+  v129 = a9;
+  v158 = a6;
+  v13 = a6[1];
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v123 = *(TupleTypeMetadata2 - 8);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v124 = &v119 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v122 = &v119 - v17;
+  v145 = swift_getAssociatedTypeWitness();
+  v140 = *(v145 - 8);
+  MEMORY[0x1EEE9AC00](v145);
+  v144 = &v119 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v143 = &v119 - v20;
+  v141 = a7;
+  v147 = a7[1];
+  v159 = swift_getAssociatedTypeWitness();
+  v137 = *(v159 - 8);
+  MEMORY[0x1EEE9AC00](v159);
+  v156 = &v119 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v161 = &v119 - v23;
+  v135 = type metadata accessor for Optional();
+  v134 = *(v135 - 8);
+  MEMORY[0x1EEE9AC00](v135);
+  v133 = &v119 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v25);
+  v152 = &v119 - v26;
+  v27 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v157 = &v119 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v30);
+  v120 = &v119 - v31;
+  MEMORY[0x1EEE9AC00](v32);
+  v34 = &v119 - v33;
+  MEMORY[0x1EEE9AC00](v35);
+  v119 = &v119 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v139 = &v119 - v38;
+  MEMORY[0x1EEE9AC00](v39);
+  v41 = &v119 - v40;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v42 = type metadata accessor for Range();
+  v132 = type metadata accessor for Optional();
+  v130 = *(v132 - 8);
+  MEMORY[0x1EEE9AC00](v132);
+  v121 = &v119 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = MEMORY[0x1EEE9AC00](v44);
+  v47 = &v119 - v46;
+  v48 = *(v42 - 8);
+  v127 = *(v48 + 56);
+  v126 = v48 + 56;
+  v127(&v119 - v46, 1, 1, v42, v45);
+  v148 = v9;
+  v149 = v34;
+  v154 = v13;
+  v155 = a4;
+  v128 = v42;
+  v131 = v47;
+  if (v153)
+  {
+    dispatch thunk of Collection.endIndex.getter();
+    v49 = v152;
+    BidirectionalCollection._index<A>(_:backwardsOffsetByCountOf:)(v160, a5, v158, v141, v152);
+    v50 = *(v27 + 8);
+    v50(v34, AssociatedTypeWitness);
+    if ((*(v27 + 48))(v49, 1, AssociatedTypeWitness) == 1)
+    {
+      (*(v130 + 8))(v131, v132);
+      (*(v134 + 8))(v152, v135);
+      return (v127)(v129, 1, 1, v128);
+    }
+
+    v136 = a5;
+    v56 = *(v27 + 32);
+    v57 = v119;
+    v56(v119, v152, AssociatedTypeWitness);
+    v135 = v27;
+    v58 = *(v27 + 16);
+    v58(v41, v57, AssociatedTypeWitness);
+    if (v150)
+    {
+      v50(v57, AssociatedTypeWitness);
+      v59 = v120;
+      v58(v120, v41, AssociatedTypeWitness);
+    }
+
+    else
+    {
+      v65 = v120;
+      dispatch thunk of Collection.startIndex.getter();
+      v50(v57, AssociatedTypeWitness);
+      v59 = v65;
+    }
+
+    v52 = v41;
+    v56(v139, v59, AssociatedTypeWitness);
+    v54 = AssociatedTypeWitness;
+    a5 = v136;
+    v55 = v157;
+    v53 = v135;
+  }
+
+  else
+  {
+    v51 = v158;
+    dispatch thunk of Collection.startIndex.getter();
+    v52 = v41;
+    if (v150)
+    {
+      v53 = v27;
+      v54 = AssociatedTypeWitness;
+      (*(v27 + 16))(v139, v41, AssociatedTypeWitness);
+      v55 = v157;
+    }
+
+    else
+    {
+      v138 = v41;
+      v60 = v149;
+      dispatch thunk of Collection.endIndex.getter();
+      v61 = v133;
+      BidirectionalCollection._index<A>(_:backwardsOffsetByCountOf:)(v160, a5, v51, v141, v133);
+      v53 = v27;
+      v62 = *(v27 + 8);
+      v62(v60, AssociatedTypeWitness);
+      v63 = (*(v27 + 48))(v61, 1, AssociatedTypeWitness);
+      v55 = v157;
+      if (v63 == 1)
+      {
+        v62(v138, AssociatedTypeWitness);
+        (*(v130 + 8))(v131, v132);
+        (*(v134 + 8))(v61, v135);
+        return (v127)(v129, 1, 1, v128);
+      }
+
+      (*(v27 + 32))(v139, v61, AssociatedTypeWitness);
+      v54 = AssociatedTypeWitness;
+      v52 = v138;
+    }
+  }
+
+  v66 = v140;
+  v67 = v137;
+  v68 = dispatch thunk of static Comparable.<= infix(_:_:)();
+  v69 = 1;
+  if ((v68 & 1) == 0)
+  {
+    v69 = -1;
+  }
+
+  v133 = v69;
+  v71 = *(v53 + 16);
+  v70 = v53 + 16;
+  v137 = v71;
+  v158 = v67 + 8;
+  v150 = v70 - 8;
+  v141 = (v66 + 2);
+  v140 = v66 + 1;
+  v134 = v70 + 16;
+  v72 = v54;
+  v136 = a5;
+  v142 = v54;
+  v138 = v52;
+  v135 = v70;
+  while (1)
+  {
+    (v137)(v55, v52, v72);
+    dispatch thunk of Collection.startIndex.getter();
+    while (1)
+    {
+      v73 = v156;
+      dispatch thunk of Collection.endIndex.getter();
+      v74 = v159;
+      v152 = swift_getAssociatedConformanceWitness();
+      v75 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v153 = *v158;
+      v153(v73, v74);
+      if ((v75 & 1) == 0)
+      {
+        break;
+      }
+
+      v76 = v72;
+      v77 = v149;
+      dispatch thunk of Collection.endIndex.getter();
+      v78 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v79 = v77;
+      v72 = v76;
+      (*v150)(v79, v76);
+      if ((v78 & 1) == 0)
+      {
+        break;
+      }
+
+      v80 = dispatch thunk of Collection.subscript.read();
+      v81 = *v141;
+      v82 = v143;
+      v83 = v145;
+      (*v141)(v143);
+      v80(v162, 0);
+      v84 = dispatch thunk of Collection.subscript.read();
+      v85 = v144;
+      v81(v144);
+      (v84)(v162, 0);
+      LOBYTE(v84) = dispatch thunk of static Equatable.== infix(_:_:)();
+      v86 = *v140;
+      (*v140)(v85, v83);
+      v86(v82, v83);
+      v72 = v142;
+      if ((v84 & 1) == 0)
+      {
+        break;
+      }
+
+      dispatch thunk of Collection.formIndex(after:)();
+      dispatch thunk of Collection.formIndex(after:)();
+    }
+
+    v87 = v156;
+    dispatch thunk of Collection.endIndex.getter();
+    v88 = v159;
+    v89 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v90 = v153;
+    v153(v87, v88);
+    if (v89)
+    {
+      break;
+    }
+
+    v52 = v138;
+    v91 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v55 = v157;
+    v92 = v150;
+    if (v91)
+    {
+      v90(v161, v159);
+      v117 = v52;
+      v118 = *v92;
+      (*v92)(v55, v72);
+      v118(v139, v72);
+      v118(v117, v72);
+      return (*(v130 + 32))(v129, v131, v132);
+    }
+
+    v93 = v72;
+    v94 = v149;
+    (*v134)(v149, v52, v93);
+    dispatch thunk of Collection.index(_:offsetBy:)();
+    v95 = *v92;
+    v96 = v94;
+    v72 = v93;
+    (*v92)(v96, v93);
+    v90(v161, v159);
+    v95(v55, v93);
+  }
+
+  v97 = v138;
+  v98 = v157;
+  v99 = v72;
+  v100 = dispatch thunk of static Comparable.<= infix(_:_:)();
+  v90(v161, v159);
+  v101 = *v150;
+  (*v150)(v139, v72);
+  v102 = v130;
+  result = (*(v130 + 8))(v131, v132);
+  v103 = TupleTypeMetadata2;
+  if (v100)
+  {
+    v161 = v101;
+    v104 = *v134;
+    v105 = v122;
+    (*v134)(v122, v97, v72);
+    v104(&v105[*(v103 + 48)], v98, v72);
+    v106 = v123;
+    v107 = v124;
+    (*(v123 + 16))(v124, v105, v103);
+    v108 = *(v103 + 48);
+    v109 = v102;
+    v110 = v121;
+    v104(v121, v107, v99);
+    (v161)(&v107[v108], v99);
+    v111 = v105;
+    v112 = v132;
+    (*(v106 + 32))(v107, v111, v103);
+    v113 = v128;
+    v104(&v110[*(v128 + 36)], &v107[*(v103 + 48)], v99);
+    (v161)(v107, v99);
+    v114 = v113;
+    v115 = v131;
+    (v127)(v110, 0, 1, v114);
+    v116 = *(v109 + 32);
+    v116(v115, v110, v112);
+    return (v116)(v129, v115, v112);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+unint64_t BidirectionalCollection<>._alignIndex(roundingUp:)(unint64_t a1, uint64_t a2, uint64_t a3)
+{
+  dispatch thunk of BidirectionalCollection.index(_:offsetBy:)();
+  if (v5 >> 14 < a1 >> 14)
+  {
+    dispatch thunk of Collection.endIndex.getter();
+  }
+
+  return v5;
+}
+
+uint64_t BidirectionalCollection._index<A>(_:backwardsOffsetByCountOf:)@<X0>(uint64_t a1@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X8>)
+{
+  v40 = a6;
+  v43 = a5;
+  v9 = *(a5 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v10 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v50 = &v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v39 - v13;
+  v42 = a4;
+  v45 = *(a4 + 8);
+  v15 = swift_getAssociatedTypeWitness();
+  v16 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v44 = &v39 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x1EEE9AC00](v18);
+  v20 = *(v16 + 16);
+  v48 = &v39 - v22;
+  v49 = v21;
+  v20(v19);
+  v51 = v9;
+  dispatch thunk of Collection.endIndex.getter();
+  v52 = (v10 + 8);
+  v39 = v16;
+  v46 = (v16 + 8);
+  v23 = MEMORY[0x1E69E6610];
+  v41 = a1;
+  v47 = v14;
+  while (1)
+  {
+    v24 = v50;
+    dispatch thunk of Collection.startIndex.getter();
+    v25 = AssociatedTypeWitness;
+    swift_getAssociatedConformanceWitness();
+    v26 = dispatch thunk of static Comparable.> infix(_:_:)();
+    v27 = *v52;
+    (*v52)(v24, v25);
+    if ((v26 & 1) == 0)
+    {
+      v27(v47, AssociatedTypeWitness);
+      v36 = v39;
+      v35 = v40;
+      v30 = v49;
+      (*(v39 + 32))(v40, v48, v49);
+      v37 = 0;
+      return (*(v36 + 56))(v35, v37, 1, v30);
+    }
+
+    v28 = a3;
+    v29 = v44;
+    dispatch thunk of Collection.startIndex.getter();
+    v30 = v49;
+    v31 = v23;
+    swift_getAssociatedConformanceWitness();
+    v32 = v48;
+    v33 = dispatch thunk of static Comparable.> infix(_:_:)();
+    v34 = *v46;
+    (*v46)(v29, v30);
+    if ((v33 & 1) == 0)
+    {
+      break;
+    }
+
+    a3 = v28;
+    dispatch thunk of BidirectionalCollection.formIndex(before:)();
+    dispatch thunk of BidirectionalCollection.formIndex(before:)();
+    v23 = v31;
+  }
+
+  v27(v47, AssociatedTypeWitness);
+  v34(v32, v30);
+  v37 = 1;
+  v36 = v39;
+  v35 = v40;
+  return (*(v36 + 56))(v35, v37, 1, v30);
 }

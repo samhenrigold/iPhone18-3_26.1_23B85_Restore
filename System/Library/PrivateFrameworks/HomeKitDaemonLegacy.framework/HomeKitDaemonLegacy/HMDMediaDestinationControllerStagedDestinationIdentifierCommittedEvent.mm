@@ -7,19 +7,17 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"duration";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"duration";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:{ceil(-[HMMLogEvent durationMilliseconds](self, "durationMilliseconds") / 1000.0 / 0.1) * 0.1}];
-  v10[0] = v3;
-  v9[1] = @"isTriggeredOnControllerDevice";
+  v9[0] = v3;
+  v8[1] = @"isTriggeredOnControllerDevice";
   isTriggeredOnControllerDevice = [(HMDMediaDestinationControllerLogEvent *)self isTriggeredOnControllerDevice];
-  v10[1] = isTriggeredOnControllerDevice;
-  v9[2] = @"userPrivilege";
+  v9[1] = isTriggeredOnControllerDevice;
+  v8[2] = @"userPrivilege";
   userPrivilege = [(HMDMediaDestinationControllerLogEvent *)self userPrivilege];
-  v10[2] = userPrivilege;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = userPrivilege;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

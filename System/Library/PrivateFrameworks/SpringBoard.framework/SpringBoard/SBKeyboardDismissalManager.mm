@@ -155,10 +155,10 @@
   }
 }
 
-uint64_t __38__SBKeyboardDismissalManager__didTap___block_invoke(uint64_t result)
+char *__38__SBKeyboardDismissalManager__didTap___block_invoke(char *result)
 {
   v1 = (result + 32);
-  if (*(result + 48) == *(*(result + 32) + 56))
+  if (*(result + 12) == *(*(result + 4) + 56))
   {
     v2 = result;
     v3 = SBLogKeyboardDismissal();
@@ -184,12 +184,12 @@ uint64_t __38__SBKeyboardDismissalManager__didTap___block_invoke(uint64_t result
   [(SBKeyboardDismissalManager *)self _reset];
 }
 
-uint64_t __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_context_pid___block_invoke(uint64_t result)
+char *__79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_context_pid___block_invoke(char *result)
 {
   v21 = *MEMORY[0x277D85DE8];
   v2 = (result + 32);
-  v1 = *(result + 32);
-  v3 = *(result + 48);
+  v1 = *(result + 4);
+  v3 = *(result + 12);
   if (v3)
   {
     v4 = v3 == *(v1 + 56);
@@ -208,8 +208,8 @@ uint64_t __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_c
   v5 = result;
   if ([*(v1 + 40) isActive])
   {
-    v6 = *(v5 + 52);
-    v7 = [*(*(v5 + 32) + 24) presentingKeyboardProcessIdentifier];
+    v6 = *(v5 + 13);
+    v7 = [*(*(v5 + 4) + 24) presentingKeyboardProcessIdentifier];
     v8 = SBLogKeyboardDismissal();
     v9 = v8;
     if (v6 != v7)
@@ -229,8 +229,8 @@ uint64_t __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_c
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v10 = _SBFLoggingMethodProem();
-      v12 = *(v5 + 52);
-      v11 = *(v5 + 56);
+      v12 = *(v5 + 13);
+      v11 = *(v5 + 14);
       v15 = 138543874;
       v16 = v10;
       v17 = 1024;
@@ -346,7 +346,7 @@ LABEL_17:
   OUTLINED_FUNCTION_3_24();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ resetting touch tracking", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ resetting touch tracking", v3, v4, v5, v6);
 }
 
 - (void)gestureRecognizer:shouldReceiveTouch:.cold.1()
@@ -355,7 +355,7 @@ LABEL_17:
   OUTLINED_FUNCTION_3_24();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ first check for preventDismissal", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ first check for preventDismissal", v3, v4, v5, v6);
 }
 
 - (void)_didTap:.cold.1()
@@ -364,7 +364,7 @@ LABEL_17:
   OUTLINED_FUNCTION_3_24();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ starting expiry timer for successful tap", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ starting expiry timer for successful tap", v3, v4, v5, v6);
 }
 
 void __38__SBKeyboardDismissalManager__didTap___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -381,7 +381,7 @@ void __38__SBKeyboardDismissalManager__didTap___block_invoke_cold_1(uint64_t a1,
   OUTLINED_FUNCTION_3_24();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ resetting after failed tap", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ resetting after failed tap", v3, v4, v5, v6);
 }
 
 void __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_context_pid___block_invoke_cold_1(uint64_t a1)
@@ -389,7 +389,7 @@ void __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_conte
   OUTLINED_FUNCTION_1_23(a1);
   v1 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "%{public}@ no longer active; preventing dismiss", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "%{public}@ no longer active; preventing dismiss", v4, v5, v6, v7);
 }
 
 void __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_context_pid___block_invoke_cold_2(uint64_t a1)
@@ -397,7 +397,7 @@ void __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_conte
   OUTLINED_FUNCTION_1_23(a1);
   v1 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "%{public}@ resetting after touchUp", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "%{public}@ resetting after touchUp", v4, v5, v6, v7);
 }
 
 - (void)_shouldPreventDismissalForTouch:.cold.1()
@@ -406,7 +406,7 @@ void __79__SBKeyboardDismissalManager_touchUpOccuredForIdentifier_detached_conte
   OUTLINED_FUNCTION_3_24();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ preventing dismiss as we're not active", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@ preventing dismiss as we're not active", v3, v4, v5, v6);
 }
 
 @end

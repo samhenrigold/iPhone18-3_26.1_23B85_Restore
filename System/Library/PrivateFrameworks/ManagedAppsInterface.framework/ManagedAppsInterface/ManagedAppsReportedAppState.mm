@@ -13,11 +13,10 @@
   v7 = sub_25807FCB8();
   [coderCopy encodeObject:v4 forKey:v7];
 
-  v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtC20ManagedAppsInterface27ManagedAppsReportedAppState_extensionsState);
   type metadata accessor for ManagedAppsReportedStateItem();
-  v9 = sub_25807FC88();
-  v10 = sub_25807FCB8();
-  [coderCopy encodeObject:v9 forKey:v10];
+  v8 = sub_25807FC88();
+  v9 = sub_25807FCB8();
+  [coderCopy encodeObject:v8 forKey:v9];
 }
 
 - (_TtC20ManagedAppsInterface27ManagedAppsReportedAppState)init

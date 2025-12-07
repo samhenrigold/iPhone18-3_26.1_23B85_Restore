@@ -62,7 +62,7 @@
 
 - (void)addContinueButton
 {
-  v33[4] = *MEMORY[0x1E69E9840];
+  v34[4] = *MEMORY[0x1E69E9840];
   if (!self->_continueButton)
   {
     v3 = [MEMORY[0x1E69DC738] buttonWithType:1];
@@ -70,22 +70,22 @@
     self->_continueButton = v3;
 
     [(UIButton *)self->_continueButton _setContinuousCornerRadius:14.0];
-    [(UIButton *)self->_continueButton setClipsToBounds:1];
-    v5 = self->_continueButton;
-    v6 = SBHBundle();
-    v7 = [v6 localizedStringForKey:@"MODAL_WIDGET_DISCOVERABILITY_CONTINUE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    [(UIButton *)v5 setTitle:v7 forState:0];
+    v5 = [(UIButton *)self->_continueButton setClipsToBounds:1];
+    v6 = self->_continueButton;
+    v7 = SBHBundle(v5);
+    v8 = [v7 localizedStringForKey:@"MODAL_WIDGET_DISCOVERABILITY_CONTINUE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    [(UIButton *)v6 setTitle:v8 forState:0];
 
     titleLabel = [(UIButton *)self->_continueButton titleLabel];
-    v9 = [MEMORY[0x1E69DB878] systemFontOfSize:18.0 weight:*MEMORY[0x1E69DB980]];
-    [titleLabel setFont:v9];
+    v10 = [MEMORY[0x1E69DB878] systemFontOfSize:18.0 weight:*MEMORY[0x1E69DB980]];
+    [titleLabel setFont:v10];
 
     titleLabel2 = [(UIButton *)self->_continueButton titleLabel];
     [titleLabel2 setAdjustsFontSizeToFitWidth:1];
 
-    v11 = self->_continueButton;
+    v12 = self->_continueButton;
     systemBlueColor = [MEMORY[0x1E69DC888] systemBlueColor];
-    [(UIButton *)v11 setTitleColor:systemBlueColor forState:0];
+    [(UIButton *)v12 setTitleColor:systemBlueColor forState:0];
 
     [(UIButton *)self->_continueButton setAccessibilityIdentifier:@"SBWidgetIntroductionButton-Continue"];
     view = [(SBModalWidgetIntroductionViewController *)self view];
@@ -95,34 +95,34 @@
     topAnchor = [(UIButton *)self->_continueButton topAnchor];
     view2 = [(SBModalWidgetIntroductionViewController *)self view];
     bottomAnchor = [view2 bottomAnchor];
-    v17 = [topAnchor constraintEqualToAnchor:bottomAnchor constant:0.0];
+    v18 = [topAnchor constraintEqualToAnchor:bottomAnchor constant:0.0];
     continueButtonTopAnchorConstraint = self->_continueButtonTopAnchorConstraint;
-    self->_continueButtonTopAnchorConstraint = v17;
+    self->_continueButtonTopAnchorConstraint = v18;
 
-    v31 = MEMORY[0x1E696ACD8];
+    v32 = MEMORY[0x1E696ACD8];
     centerXAnchor = [(UIButton *)self->_continueButton centerXAnchor];
     view3 = [(SBModalWidgetIntroductionViewController *)self view];
     centerXAnchor2 = [view3 centerXAnchor];
-    v21 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v22 = self->_continueButtonTopAnchorConstraint;
-    v33[0] = v21;
-    v33[1] = v22;
+    v22 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v23 = self->_continueButtonTopAnchorConstraint;
+    v34[0] = v22;
+    v34[1] = v23;
     widthAnchor = [(UIButton *)self->_continueButton widthAnchor];
-    v24 = [widthAnchor constraintEqualToConstant:300.0];
-    v33[2] = v24;
+    v25 = [widthAnchor constraintEqualToConstant:300.0];
+    v34[2] = v25;
     heightAnchor = [(UIButton *)self->_continueButton heightAnchor];
-    v26 = [heightAnchor constraintEqualToConstant:54.0];
-    v33[3] = v26;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
-    [v31 activateConstraints:v27];
+    v27 = [heightAnchor constraintEqualToConstant:54.0];
+    v34[3] = v27;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:4];
+    [v32 activateConstraints:v28];
 
     [(UIButton *)self->_continueButton addTarget:self action:sel_continueButtonTapped_ forControlEvents:64];
-    v28 = [MEMORY[0x1E69DC730] effectWithStyle:7];
-    v29 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v28];
-    [v29 setUserInteractionEnabled:0];
-    [(UIButton *)self->_continueButton insertSubview:v29 atIndex:0];
-    [v29 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v30 = SBHPinViewWithinView(self->_continueButton, v29);
+    v29 = [MEMORY[0x1E69DC730] effectWithStyle:7];
+    v30 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v29];
+    [v30 setUserInteractionEnabled:0];
+    [(UIButton *)self->_continueButton insertSubview:v30 atIndex:0];
+    [v30 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v31 = SBHPinViewWithinView(self->_continueButton, v30);
   }
 }
 
@@ -273,7 +273,7 @@ LABEL_18:
   [(SBModalWidgetIntroductionViewController *)&v8 loadView];
   v3 = [SBModalWidgetIntroductionBackgroundDescriptionView alloc];
   view = [(SBModalWidgetIntroductionViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = [(SBModalWidgetIntroductionBackgroundDescriptionView *)v3 initWithFrame:self withOwner:?];
   backgroundDescriptionView = self->_backgroundDescriptionView;
   self->_backgroundDescriptionView = v5;
@@ -663,7 +663,7 @@ LABEL_18:
   v43[4] = self;
   [MEMORY[0x1E69DD250] animateWithDuration:1 delay:v43 options:0 animations:1.0 completion:0.0];
   homescreenPreviewContainer = [(SBModalWidgetIntroductionViewController *)self homescreenPreviewContainer];
-  [(SBModalWidgetIntroductionViewController *)self homeScreenPreviewSublayerTransform];
+  objc_msgSend_homeScreenPreviewSublayerTransform(self);
   [(SBModalWidgetIntroductionViewController *)self setupSublayerDisplayPreviewTransformForView:homescreenPreviewContainer withTransform:&v53];
 
   onboardingFallingWidgetPreviewTop2 = [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewTop];
@@ -671,7 +671,7 @@ LABEL_18:
   if (onboardingFallingWidgetPreviewTop2)
   {
     onboardingFallingWidgetPreviewTop3 = [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewTop];
-    [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewSublayerTransformTop];
+    objc_msgSend_onboardingFallingWidgetPreviewSublayerTransformTop(self);
     [(SBModalWidgetIntroductionViewController *)self setupSublayerDisplayPreviewTransformForView:onboardingFallingWidgetPreviewTop3 withTransform:&v53];
   }
 
@@ -680,7 +680,7 @@ LABEL_18:
   if (onboardingFallingWidgetPreviewMiddle)
   {
     onboardingFallingWidgetPreviewMiddle2 = [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewMiddle];
-    [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewSublayerTransformMiddle];
+    objc_msgSend_onboardingFallingWidgetPreviewSublayerTransformMiddle(self);
     [(SBModalWidgetIntroductionViewController *)self setupSublayerDisplayPreviewTransformForView:onboardingFallingWidgetPreviewMiddle2 withTransform:&v53];
   }
 
@@ -729,7 +729,7 @@ void __66__SBModalWidgetIntroductionViewController_displayPreviewAndButton__bloc
   if (onboardingFallingWidgetPreviewMiddle)
   {
     onboardingFallingWidgetPreviewMiddle2 = [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewMiddle];
-    [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewSublayerTransformMiddle];
+    objc_msgSend_onboardingFallingWidgetPreviewSublayerTransformMiddle(self);
     [(SBModalWidgetIntroductionViewController *)self setupSublayerDismissPreviewTransformForView:onboardingFallingWidgetPreviewMiddle2 withTransform:v14];
   }
 
@@ -738,12 +738,12 @@ void __66__SBModalWidgetIntroductionViewController_displayPreviewAndButton__bloc
   if (onboardingFallingWidgetPreviewTop)
   {
     onboardingFallingWidgetPreviewTop2 = [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewTop];
-    [(SBModalWidgetIntroductionViewController *)self onboardingFallingWidgetPreviewSublayerTransformTop];
+    objc_msgSend_onboardingFallingWidgetPreviewSublayerTransformTop(self);
     [(SBModalWidgetIntroductionViewController *)self setupSublayerDismissPreviewTransformForView:onboardingFallingWidgetPreviewTop2 withTransform:v14];
   }
 
   homescreenPreviewContainer = [(SBModalWidgetIntroductionViewController *)self homescreenPreviewContainer];
-  [(SBModalWidgetIntroductionViewController *)self homeScreenPreviewSublayerTransform];
+  objc_msgSend_homeScreenPreviewSublayerTransform(self);
   [(SBModalWidgetIntroductionViewController *)self setupSublayerDismissPreviewTransformForView:homescreenPreviewContainer withTransform:v14];
 
   [MEMORY[0x1E6979518] commit];

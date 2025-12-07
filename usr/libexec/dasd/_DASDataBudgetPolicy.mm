@@ -325,18 +325,8 @@ LABEL_10:
 
   clientDataBudgetName = [activityCopy clientDataBudgetName];
 
-  if (!clientDataBudgetName)
+  if (!clientDataBudgetName || (+[_DASBudgetManager sharedInstance](_DASBudgetManager, "sharedInstance"), v9 = objc_claimAutoreleasedReturnValue(), [activityCopy clientDataBudgetName], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "budgetKeyPathForBudgetName:", v10), v11 = objc_claimAutoreleasedReturnValue(), v10, v9, !v11))
   {
-    goto LABEL_5;
-  }
-
-  v9 = +[_DASBudgetManager sharedInstance];
-  clientDataBudgetName2 = [activityCopy clientDataBudgetName];
-  v11 = [v9 budgetKeyPathForBudgetName:clientDataBudgetName2];
-
-  if (!v11)
-  {
-LABEL_5:
     v11 = +[_CDContextQueries keyPathForNetworkingBudgetRemainingStatus];
   }
 

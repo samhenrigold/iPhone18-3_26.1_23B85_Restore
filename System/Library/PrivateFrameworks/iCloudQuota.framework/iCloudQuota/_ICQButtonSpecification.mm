@@ -9,14 +9,14 @@
 
 - (_ICQButtonSpecification)initWithServerDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = [(_ICQButtonSpecification *)self init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_serverDict, dictionary);
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"mesg"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     v9 = _ICQStringForKey(v8, @"format");
     buttonFormat = v7->_buttonFormat;
     v7->_buttonFormat = v9;
@@ -46,11 +46,11 @@
     {
       v19 = v7->_textFormat;
       v20 = v7->_linkFormat;
-      v25 = 138412546;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v20;
-      _os_log_impl(&dword_275572000, v18, OS_LOG_TYPE_DEFAULT, "format array %@ %@", &v25, 0x16u);
+      v24 = 138412546;
+      v25 = v19;
+      v26 = 2112;
+      v27 = v20;
+      _os_log_impl(&dword_275572000, v18, OS_LOG_TYPE_DEFAULT, "format array %@ %@", &v24, 0x16u);
     }
 
     v21 = _ICQLinkButtonForServerMessage(v8, 2);
@@ -58,7 +58,6 @@
     v7->_buttonLink = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -90,7 +89,7 @@
   else
   {
     linkForBundleIdentifier = [(_ICQButtonSpecification *)self linkForBundleIdentifier];
-    buttonLink = [linkForBundleIdentifier objectForKeyedSubscript:identifierCopy];
+    buttonLink = objc_msgSend_objectForKeyedSubscript_(linkForBundleIdentifier);
   }
 
   return buttonLink;

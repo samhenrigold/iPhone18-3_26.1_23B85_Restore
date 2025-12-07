@@ -1185,7 +1185,7 @@ LABEL_12:
 
   if (v7)
   {
-    [v7 doubleValue];
+    objc_msgSend_doubleValue(v7);
     v9 = v8;
   }
 
@@ -2588,7 +2588,7 @@ LABEL_9:
 
   if (v50)
   {
-    [v50 doubleValue];
+    objc_msgSend_doubleValue(v50);
     v52 = v51;
   }
 
@@ -2617,7 +2617,7 @@ LABEL_9:
 
   if (v59)
   {
-    [v59 doubleValue];
+    objc_msgSend_doubleValue(v59);
     v61 = v60;
   }
 
@@ -2740,7 +2740,7 @@ LABEL_9:
 
   if (v110)
   {
-    [v110 doubleValue];
+    objc_msgSend_doubleValue(v110);
     v112 = v111;
   }
 
@@ -2772,7 +2772,7 @@ LABEL_9:
 
   if (v120)
   {
-    [v120 doubleValue];
+    objc_msgSend_doubleValue(v120);
     v122 = v121;
   }
 
@@ -4122,7 +4122,7 @@ LABEL_14:
       }
     }
 
-    if ([dCopy isEqualToIgnoringCase:{@"com.apple.healthd", v60, v61, v62, v63, v64, v65, connection2, v67}])
+    if (objc_msgSend_isEqualToIgnoringCase_(dCopy, v60, v61, v62, v63, v64, v65, connection2, v67))
     {
       v47 = +[IMRGLog healthDebug];
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
@@ -5382,7 +5382,7 @@ LABEL_10:
 {
   topicCopy = topic;
   contextCopy = context;
-  if (([topicCopy isEqualToIgnoringCase:@"com.apple.madrid"] & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToIgnoringCase:", @"com.apple.ess") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToIgnoringCase:", @"com.apple.private.ac") & 1) != 0 || objc_msgSend(topicCopy, "isEqualToIgnoringCase:", @"com.apple.private.alloy.facetime.multi"))
+  if ((objc_msgSend_isEqualToIgnoringCase_(topicCopy) & 1) != 0 || (objc_msgSend_isEqualToIgnoringCase_(topicCopy) & 1) != 0 || (objc_msgSend_isEqualToIgnoringCase_(topicCopy) & 1) != 0 || objc_msgSend_isEqualToIgnoringCase_(topicCopy))
   {
     v8 = [(IDSDaemon *)self broadcasterForTopic:topicCopy entitlement:kIDSRegistrationEntitlement messageContext:contextCopy];
   }
@@ -5434,7 +5434,7 @@ LABEL_10:
     v15 = [NSArray arrayWithObjects:v25 count:7];
     v16 = [(IDSDaemon *)self _lockedRemoteObjectsWithService:v14 entitlements:v15 command:0 capabilities:0 ignoreService:listenerCopy useNotificationServices:0];
     v17 = [NSSet setWithArray:v16];
-    if ([topicCopy isEqualToIgnoringCase:@"com.apple.private.alloy.accountssync"])
+    if (objc_msgSend_isEqualToIgnoringCase_(topicCopy))
     {
       v18 = +[IMRGLog accountsDebugging];
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -5445,7 +5445,7 @@ LABEL_10:
       }
     }
 
-    if (([topicCopy isEqualToIgnoringCase:@"com.apple.private.alloy.health.sync.classc"] & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToIgnoringCase:", @"com.apple.private.alloy.fitnessfriends.icloud") & 1) != 0 || objc_msgSend(topicCopy, "isEqualToIgnoringCase:", @"com.apple.private.alloy.fitnessfriends.imessage"))
+    if ((objc_msgSend_isEqualToIgnoringCase_(topicCopy) & 1) != 0 || (objc_msgSend_isEqualToIgnoringCase_(topicCopy) & 1) != 0 || objc_msgSend_isEqualToIgnoringCase_(topicCopy))
     {
       v19 = +[IMRGLog healthDebugging];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
@@ -6495,7 +6495,7 @@ LABEL_19:
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && ([entitlementCopy isEqualToIgnoringCase:kIDSRegistrationEntitlement] & 1) == 0)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isEqualToIgnoringCase_(entitlementCopy) & 1) == 0)
     {
       LOBYTE(v17) = [v16 BOOLValue];
       if (serviceCopy)
@@ -6596,7 +6596,7 @@ LABEL_18:
     goto LABEL_4;
   }
 
-  if (([nameCopy isEqualToIgnoringCase:@"com.apple.purplebuddy"] & 1) != 0 || objc_msgSend(nameCopy, "isEqualToIgnoringCase:", @"com.apple.SetupAssistant"))
+  if ((objc_msgSend_isEqualToIgnoringCase_(nameCopy) & 1) != 0 || objc_msgSend_isEqualToIgnoringCase_(nameCopy))
   {
     v18 = [[NSMutableDictionary alloc] initWithDictionary:v15];
     [v18 removeObjectForKey:v13];
@@ -6606,7 +6606,7 @@ LABEL_18:
     goto LABEL_10;
   }
 
-  if ([nameCopy isEqualToIgnoringCase:@"com.apple.Preferences"] && IDSDebuggingRegistrationDebuggingEnabled())
+  if (objc_msgSend_isEqualToIgnoringCase_(nameCopy) && IDSDebuggingRegistrationDebuggingEnabled())
   {
 LABEL_4:
     v18 = [[NSMutableDictionary alloc] initWithDictionary:v15];
@@ -6926,10 +6926,10 @@ LABEL_10:
   contextCopy = context;
   messageContextCopy = messageContext;
   v11 = [contextCopy objectForKey:@"object-type"];
-  if ([v11 isEqualToIgnoringCase:@"socket"])
+  if (objc_msgSend_isEqualToIgnoringCase_(v11))
   {
     v12 = [contextCopy objectForKey:@"socket-type"];
-    if ([v12 isEqualToIgnoringCase:@"session-socket"])
+    if (objc_msgSend_isEqualToIgnoringCase_(v12))
     {
       v13 = [contextCopy objectForKey:@"sessionID"];
       v14 = OSLogHandleForIDSCategory();
@@ -7306,7 +7306,7 @@ LABEL_5:
       v29 = [(__CFString *)optionsCopy objectForKey:@"service"];
       [v26 setServiceName:v29 forConnectionUUID:v53];
 
-      [v50 doubleValue];
+      objc_msgSend_doubleValue(v50);
       [v26 setClientInitTime:v53 forConnectionUUID:?];
       [v26 setDaemonOpenSocketTime:v53 forConnectionUUID:v28];
     }
@@ -7546,7 +7546,7 @@ LABEL_5:
     if (v22 && v23)
     {
       v25 = +[IDSDeviceConnectionAWDMetrics sharedInstance];
-      [v22 doubleValue];
+      objc_msgSend_doubleValue(v22);
       [v25 setClientOpenSocketCompletionTime:v24 forConnectionUUID:?];
       [v25 setSuccess:bOOLValue3 forConnectionUUID:v24];
       [v25 reportAndRemoveForConnectionUUID:v24];
@@ -8257,23 +8257,23 @@ LABEL_37:
       localObject2 = [contextCopy localObject];
       processName = [localObject2 processName];
       *buf = 138412546;
-      v25 = dCopy;
-      v26 = 2112;
-      v27 = processName;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = processName;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Authenticating phone {uuid: %@, client: %@}", buf, 0x16u);
     }
 
-    v15 = sub_100483074();
-    authenticatePhoneUser = [v15 authenticatePhoneUser];
+    v16 = sub_100483074(v15);
+    authenticatePhoneUser = [v16 authenticatePhoneUser];
 
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_1004830B8;
-    v21[3] = &unk_100BDD188;
-    v21[4] = self;
-    v22 = contextCopy;
-    v23 = dCopy;
-    [authenticatePhoneUser registerResultBlock:v21];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1004830B8;
+    v22[3] = &unk_100BDD188;
+    v22[4] = self;
+    v23 = contextCopy;
+    v24 = dCopy;
+    [authenticatePhoneUser registerResultBlock:v22];
   }
 
   else
@@ -8283,7 +8283,7 @@ LABEL_37:
       localObject3 = [contextCopy localObject];
       processName2 = [localObject3 processName];
       *buf = 138412290;
-      v25 = processName2;
+      v26 = processName2;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Missing phone number authentication entitlement -- failing authenticate phone request {client: %@}", buf, 0xCu);
     }
 
@@ -8292,8 +8292,8 @@ LABEL_37:
 
     if (authenticatePhoneUser)
     {
-      v20 = [(IDSDaemon *)self _errorForMissingEntitlement:v9];
-      [authenticatePhoneUser didAuthenticatePhoneWithAuthenticationCertificateData:0 requestUUID:dCopy error:v20];
+      v21 = [(IDSDaemon *)self _errorForMissingEntitlement:v9];
+      [authenticatePhoneUser didAuthenticatePhoneWithAuthenticationCertificateData:0 requestUUID:dCopy error:v21];
     }
   }
 }
@@ -8326,28 +8326,28 @@ LABEL_37:
       }
 
       *buf = 138413058;
-      v30 = dCopy;
-      v31 = 2112;
-      v32 = processName;
-      v33 = 2112;
-      v34 = v18;
-      v35 = 2048;
-      v36 = [dataCopy length];
+      v31 = dCopy;
+      v32 = 2112;
+      v33 = processName;
+      v34 = 2112;
+      v35 = v18;
+      v36 = 2048;
+      v37 = [dataCopy length];
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Generating phone authentication signature over data {uuid: %@, client: %@, data: %@, length: %lu}", buf, 0x2Au);
     }
 
-    v19 = sub_100483074();
-    localPhoneAuthenticationCertificates = [v19 localPhoneAuthenticationCertificates];
+    v20 = sub_100483074(v19);
+    localPhoneAuthenticationCertificates = [v20 localPhoneAuthenticationCertificates];
 
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_1004834AC;
-    v25[3] = &unk_100BDD1B0;
-    v25[4] = self;
-    v26 = contextCopy;
-    v27 = dataCopy;
-    v28 = dCopy;
-    [localPhoneAuthenticationCertificates registerResultBlock:v25];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1004834AC;
+    v26[3] = &unk_100BDD1B0;
+    v26[4] = self;
+    v27 = contextCopy;
+    v28 = dataCopy;
+    v29 = dCopy;
+    [localPhoneAuthenticationCertificates registerResultBlock:v26];
   }
 
   else
@@ -8357,7 +8357,7 @@ LABEL_37:
       localObject3 = [contextCopy localObject];
       processName2 = [localObject3 processName];
       *buf = 138412290;
-      v30 = processName2;
+      v31 = processName2;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Missing phone number authentication entitlement -- failing phone authentication signature request {client: %@}", buf, 0xCu);
     }
 
@@ -8366,8 +8366,8 @@ LABEL_37:
 
     if (localPhoneAuthenticationCertificates)
     {
-      v24 = [(IDSDaemon *)self _errorForMissingEntitlement:v12];
-      [localPhoneAuthenticationCertificates didGeneratePhoneAuthenticationSignature:0 nonce:0 certificates:0 labelIDs:0 inputData:0 requestUUID:dCopy error:v24];
+      v25 = [(IDSDaemon *)self _errorForMissingEntitlement:v12];
+      [localPhoneAuthenticationCertificates didGeneratePhoneAuthenticationSignature:0 nonce:0 certificates:0 labelIDs:0 inputData:0 requestUUID:dCopy error:v25];
     }
   }
 }
@@ -8848,9 +8848,9 @@ LABEL_16:
     sub_100921B90();
   }
 
-  v1 = qword_100CBD558;
+  v2 = qword_100CBD558;
 
-  return [v1 sharedInstance];
+  return [v2 sharedInstance];
 }
 
 - (id)accountWithIdentifier:(id)identifier localObject:(id)object requiredEntitlement:(id)entitlement
@@ -9366,7 +9366,7 @@ LABEL_48:
         v28 = v27;
         service = [(IDSDAccount *)v27 service];
         identifier = [service identifier];
-        v31 = [identifier isEqualToIgnoringCase:nameCopy];
+        v31 = objc_msgSend_isEqualToIgnoringCase_(identifier);
 
         if (v31)
         {
@@ -10241,7 +10241,7 @@ LABEL_17:
   else
   {
     unprefixedURI = [iCopy unprefixedURI];
-    v38 = [unprefixedURI isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias];
+    v38 = objc_msgSend_isEqualToIgnoringCase_(unprefixedURI);
 
     if (!v38)
     {
@@ -11762,7 +11762,7 @@ LABEL_11:
       }
     }
 
-    if (dCopy && v17 && [v17 isEqualToIgnoringCase:dCopy])
+    if (dCopy && v17 && objc_msgSend_isEqualToIgnoringCase_(v17))
     {
       v24 = +[IMRGLog registration];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
@@ -13308,7 +13308,7 @@ LABEL_313:
         destinationURIs5 = [destinations8 destinationURIs];
         allObjects2 = [destinationURIs5 allObjects];
         firstObject2 = [allObjects2 firstObject];
-        v94 = [firstObject2 isEqualToIgnoringCase:IDSDefaultPairedDevice];
+        v94 = objc_msgSend_isEqualToIgnoringCase_(firstObject2);
 
         v95 = +[IDSPairingManager sharedInstance];
         LODWORD(destinations8) = [v95 activePairedDeviceHasPairingType:1];
@@ -13354,7 +13354,7 @@ LABEL_313:
           goto LABEL_311;
         }
 
-        if ((v94 & 1) != 0 || [v223 isEqualToIgnoringCase:IDSLocalDeviceIdentity])
+        if ((v94 & 1) != 0 || objc_msgSend_isEqualToIgnoringCase_(v223))
         {
           firstObject3 = +[IDSPairingManager sharedInstance];
           pairedDeviceUniqueID2 = [firstObject3 pairedDeviceUniqueID];
@@ -13625,7 +13625,7 @@ LABEL_258:
         pairedDeviceUniqueID3 = [pairingManager2 pairedDeviceUniqueID];
 
         localDestinationDeviceUUID2 = [parametersCopy localDestinationDeviceUUID];
-        LODWORD(pairingManager2) = [pairedDeviceUniqueID3 isEqualToIgnoringCase:localDestinationDeviceUUID2];
+        LODWORD(pairingManager2) = objc_msgSend_isEqualToIgnoringCase_(pairedDeviceUniqueID3);
         v159 = [localDestinationDeviceUUID2 length] == 0;
         v160 = v220;
         if (((v159 | pairingManager2) & 1) == 0)
@@ -15031,9 +15031,9 @@ LABEL_25:
     _IDSLogV();
   }
 
-  v31 = [__imFirstObject isEqualToIgnoringCase:{IDSDefaultPairedDevice, v38}];
+  v31 = objc_msgSend_isEqualToIgnoringCase_(__imFirstObject, v38);
   _stripFZIDPrefix = [__imFirstObject _stripFZIDPrefix];
-  v33 = [_stripFZIDPrefix isEqualToIgnoringCase:pairedDeviceUniqueID];
+  v33 = objc_msgSend_isEqualToIgnoringCase_(_stripFZIDPrefix);
 
   v34 = [__imFirstObject length];
   if (v34)
@@ -15681,7 +15681,7 @@ LABEL_10:
   else if (!type)
   {
     timestamp = [contextCopy timestamp];
-    [timestamp doubleValue];
+    objc_msgSend_doubleValue(timestamp);
     v18 = v17;
 
     serverStorageStateMachine = [(IDSDaemon *)self serverStorageStateMachine];
@@ -18068,7 +18068,7 @@ LABEL_6:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v6 doubleValue];
+      objc_msgSend_doubleValue(v6);
       v8 = v7;
     }
 
@@ -18083,7 +18083,7 @@ LABEL_6:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v10 doubleValue];
+      objc_msgSend_doubleValue(v10);
       v12 = v11;
     }
 
@@ -18302,7 +18302,7 @@ LABEL_6:
                 _IDSLogV();
               }
 
-              [v11 doubleValue];
+              objc_msgSend_doubleValue(v11, v29, v30, v31, v32);
               if (v21 >= 0.0)
               {
                 v22 = v21;
@@ -22701,7 +22701,7 @@ LABEL_22:
 
     identifier = [serviceCopy identifier];
     v27 = tokenCopy;
-    v28 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.facetime.multi"];
+    v28 = objc_msgSend_isEqualToIgnoringCase_(identifier);
 
     if (v28 && [(__CFString *)commandCopy integerValue]== 242)
     {
@@ -22722,7 +22722,7 @@ LABEL_22:
             v45 = v33;
             if (v33)
             {
-              [v33 doubleValue];
+              objc_msgSend_doubleValue(v33);
               v34 = [v46 didProcessParticipantUpdateFrom:tokenCopy dedupTimestamp:?];
               v35 = OSLogHandleForIDSCategory();
               if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
@@ -23552,7 +23552,7 @@ LABEL_3:
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v4 = v3;
-    [v4 doubleValue];
+    objc_msgSend_doubleValue(v4);
     v6 = v5;
     v7 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -23590,7 +23590,7 @@ LABEL_3:
     if (objc_opt_isKindOfClass())
     {
       v5 = v3;
-      [v5 doubleValue];
+      objc_msgSend_doubleValue(v5);
       v4 = v6;
       v7 = OSLogHandleForIDSCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -24598,7 +24598,7 @@ LABEL_246:
               v211 = integerValue5;
               v215 = v152;
               v169 = objc_retainBlock(v187);
-              if ([v96 isEqualToIgnoringCase:@"com.apple.private.alloy.icloudpairing"])
+              if (objc_msgSend_isEqualToIgnoringCase_(v96))
               {
                 v97 = OSLogHandleForIDSCategory();
                 if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
@@ -25210,8 +25210,9 @@ LABEL_33:
 
     else
     {
+      buf.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
       v53 = _os_activity_create(&_mh_execute_header, "Storing under first lock", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-      memset(&buf, 170, sizeof(buf));
+      buf.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
       os_activity_scope_enter(v53, &buf);
       v34 = OSLogHandleForIDSCategory();
       contextCopy = v22;
@@ -27134,7 +27135,7 @@ LABEL_12:
       service4 = [v28 service];
       identifier4 = [service4 identifier];
       unsignedIntegerValue = [sizeCopy unsignedIntegerValue];
-      [timeCopy doubleValue];
+      objc_msgSend_doubleValue(timeCopy);
       v40 = [v35 initWithServiceIdentifier:identifier4 messageSize:unsignedIntegerValue deltaTime:(v39 * 1000.0) priority:{objc_msgSend(priorityCopy, "integerValue")}];
 
       v41 = +[IDSCoreAnalyticsLogger defaultLogger];
@@ -27144,7 +27145,7 @@ LABEL_12:
       service5 = [v28 service];
       identifier5 = [service5 identifier];
       unsignedIntegerValue2 = [sizeCopy unsignedIntegerValue];
-      [timeCopy doubleValue];
+      objc_msgSend_doubleValue(timeCopy);
       [v42 clientProcessReceivedMessage:identifier5 messageSize:unsignedIntegerValue2 deltaTime:(v46 * 1000.0) priority:{objc_msgSend(priorityCopy, "integerValue")}];
     }
   }
@@ -27223,7 +27224,7 @@ LABEL_12:
       service4 = [v21 service];
       identifier4 = [service4 identifier];
       unsignedIntegerValue = [sizeCopy unsignedIntegerValue];
-      [timeCopy doubleValue];
+      objc_msgSend_doubleValue(timeCopy);
       v32 = [v27 initWithServiceIdentifier:identifier4 messageSize:unsignedIntegerValue deltaTime:(v31 * 1000.0) priority:{objc_msgSend(priorityCopy, "integerValue")}];
 
       v33 = +[IDSCoreAnalyticsLogger defaultLogger];
@@ -27233,7 +27234,7 @@ LABEL_12:
       service5 = [v21 service];
       identifier5 = [service5 identifier];
       unsignedIntegerValue2 = [sizeCopy unsignedIntegerValue];
-      [timeCopy doubleValue];
+      objc_msgSend_doubleValue(timeCopy);
       [v34 clientProcessReceivedMessage:identifier5 messageSize:unsignedIntegerValue2 deltaTime:(v38 * 1000.0) priority:{objc_msgSend(priorityCopy, "integerValue")}];
     }
   }
@@ -29720,7 +29721,7 @@ LABEL_18:
     _IDSLogV();
   }
 
-  v27 = [(IDSDaemon *)self _sessionWithUniqueID:dCopy messageContext:messageContextCopy requiredEntitlement:kIDSSessionEntitlement, v30, v31, v32, v33, v34, v35, *buf];
+  v27 = [(IDSDaemon *)self _sessionWithUniqueID:dCopy messageContext:messageContextCopy requiredEntitlement:kIDSSessionEntitlement, v30, v31, v32, v33, v34, v35, *buf, *&buf[8]];
   v28 = v27;
   if (v27)
   {

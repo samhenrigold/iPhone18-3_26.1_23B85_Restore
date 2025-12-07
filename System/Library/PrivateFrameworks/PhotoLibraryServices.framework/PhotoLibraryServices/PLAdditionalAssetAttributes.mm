@@ -173,7 +173,7 @@
 - (void)appendLibraryScopeAssetContributorsToUpdate:(id)update
 {
   updateCopy = update;
-  if ([updateCopy count])
+  if (objc_msgSend_count(updateCopy))
   {
     libraryScopeAssetContributorsToUpdate = [(PLAdditionalAssetAttributes *)self libraryScopeAssetContributorsToUpdate];
     v5 = [libraryScopeAssetContributorsToUpdate mutableCopy];
@@ -601,7 +601,7 @@ LABEL_9:
         if (v61)
         {
           keywords = [(PLAdditionalAssetAttributes *)self keywords];
-          v63 = [keywords count] != 0;
+          v63 = objc_msgSend_count(keywords) != 0;
 
           asset8 = [(PLAdditionalAssetAttributes *)self asset];
           [asset8 setKeywordBadgeAttribute:v63];

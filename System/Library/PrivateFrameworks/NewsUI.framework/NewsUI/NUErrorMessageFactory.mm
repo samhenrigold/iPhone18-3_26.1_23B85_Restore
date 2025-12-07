@@ -35,22 +35,22 @@
   if ((reason - 1) > 5)
   {
     v5 = 0;
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
     v3 = off_2799A36F8[reason - 1];
-    v4 = NUBundle();
+    v4 = NUBundle(self);
     v5 = [v4 localizedStringForKey:@"NUStoryUnavailableAlertTitle" value:&stru_286E03B58 table:0];
 
-    v6 = NUBundle();
-    v7 = [v6 localizedStringForKey:v3 value:&stru_286E03B58 table:0];
+    v7 = NUBundle(v6);
+    v8 = [v7 localizedStringForKey:v3 value:&stru_286E03B58 table:0];
   }
 
-  v8 = [NUErrorMessageFactory errorMessageForTitle:v5 subtitle:v7];
+  v9 = [NUErrorMessageFactory errorMessageForTitle:v5 subtitle:v8];
 
-  return v8;
+  return v9;
 }
 
 + (id)errorMessageForTitle:(id)title subtitle:(id)subtitle

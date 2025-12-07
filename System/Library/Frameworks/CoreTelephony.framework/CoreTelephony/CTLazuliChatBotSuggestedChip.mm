@@ -16,8 +16,7 @@
   type = [(CTLazuliChatBotSuggestedChip *)self type];
   type2 = [(CTLazuliChatBotSuggestedChip *)self type];
   [v3 appendFormat:@", type = [%ld - %s]", type, print_CTLazuliSuggestedChipType(&type2)];
-  chip = self->_chip;
-  [v3 appendFormat:@", chip {%@} = %@", objc_opt_class(), chip];
+  [v3 appendFormat:@", chip {%@} = %@", objc_opt_class(), self->_chip];
   [v3 appendString:@">"];
 
   return v3;
@@ -137,93 +136,92 @@ LABEL_11:
 
 - (CTLazuliChatBotSuggestedChip)initWithReflection:(const void *)reflection
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = CTLazuliChatBotSuggestedChip;
-  v4 = [(CTLazuliChatBotSuggestedChip *)&v13 init];
+  v19 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = CTLazuliChatBotSuggestedChip;
+  v4 = [(CTLazuliChatBotSuggestedChip *)&v12 init];
   if (v4)
   {
     v4->_type = encode_CTLazuliGroupChatParticipantRoleType(reflection);
     v5 = *(reflection + 56);
     if (v5 == 1)
     {
-      *&v17 = 0;
+      *&v16 = 0;
       *__p = 0u;
-      memset(v15, 0, sizeof(v15));
+      memset(v14, 0, sizeof(v14));
       if (*(reflection + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(v15, *(reflection + 1), *(reflection + 2));
+        std::string::__init_copy_ctor_external(v14, *(reflection + 1), *(reflection + 2));
       }
 
       else
       {
-        *v15 = *(reflection + 8);
-        *&v15[16] = *(reflection + 3);
+        *v14 = *(reflection + 8);
+        *&v14[16] = *(reflection + 3);
       }
 
-      std::__optional_copy_base<Lazuli::ChatBotPostbackData,false>::__optional_copy_base[abi:nn200100](&v15[24], reflection + 2);
-      v9 = [[CTLazuliChatBotSuggestedReply alloc] initWithReflection:v15];
+      std::__optional_copy_base<Lazuli::ChatBotPostbackData,false>::__optional_copy_base[abi:nn200100](&v14[24], reflection + 2);
+      v9 = [[CTLazuliChatBotSuggestedReply alloc] initWithReflection:v14];
       chip = v4->_chip;
       v4->_chip = v9;
 
-      if (v17 == 1 && SHIBYTE(__p[1]) < 0)
+      if (v16 == 1 && SHIBYTE(__p[1]) < 0)
       {
-        operator delete(*&v15[24]);
+        operator delete(*&v14[24]);
       }
 
-      if ((v15[23] & 0x80000000) != 0)
+      if ((v14[23] & 0x80000000) != 0)
       {
-        v8 = *v15;
+        v8 = *v14;
         goto LABEL_22;
       }
     }
 
     else if (!v5)
     {
-      v19 = 0;
-      v17 = 0u;
-      memset(v18, 0, sizeof(v18));
+      v18 = 0;
+      v16 = 0u;
+      memset(v17, 0, sizeof(v17));
       *__p = 0u;
-      memset(v15, 0, sizeof(v15));
-      *v15 = *(reflection + 2);
+      memset(v14, 0, sizeof(v14));
+      *v14 = *(reflection + 2);
       if (*(reflection + 39) < 0)
       {
-        std::string::__init_copy_ctor_external(&v15[8], *(reflection + 2), *(reflection + 3));
+        std::string::__init_copy_ctor_external(&v14[8], *(reflection + 2), *(reflection + 3));
       }
 
       else
       {
-        *&v15[8] = *(reflection + 1);
-        *&v15[24] = *(reflection + 4);
+        *&v14[8] = *(reflection + 1);
+        *&v14[24] = *(reflection + 4);
       }
 
       std::__optional_copy_base<Lazuli::ChatBotPostbackData,false>::__optional_copy_base[abi:nn200100](__p, (reflection + 40));
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<Lazuli::SuggestedActionOpenUrlInWebView,Lazuli::SuggestedActionOpenUrlInApplication,Lazuli::SuggestedActionComposeText,Lazuli::SuggestedActionComposeAudioRecording,Lazuli::SuggestedActionComposeVideoRecording,Lazuli::SuggestedActionShowLocation,Lazuli::SuggestedActionRequestLocationPush,Lazuli::SuggestedActionCalendar,Lazuli::SuggestedActionDialVideoCall,Lazuli::SuggestedActionDialEnrichedCall,Lazuli::SuggestedActionDialPhoneNumber,Lazuli::SuggestedActionDevice,Lazuli::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:nn200100](v18 + 8, reflection + 80);
-      v6 = [[CTLazuliChatBotSuggestedAction alloc] initWithReflection:v15];
+      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<Lazuli::SuggestedActionOpenUrlInWebView,Lazuli::SuggestedActionOpenUrlInApplication,Lazuli::SuggestedActionComposeText,Lazuli::SuggestedActionComposeAudioRecording,Lazuli::SuggestedActionComposeVideoRecording,Lazuli::SuggestedActionShowLocation,Lazuli::SuggestedActionRequestLocationPush,Lazuli::SuggestedActionCalendar,Lazuli::SuggestedActionDialVideoCall,Lazuli::SuggestedActionDialEnrichedCall,Lazuli::SuggestedActionDialPhoneNumber,Lazuli::SuggestedActionDevice,Lazuli::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:nn200100](v17 + 8, reflection + 80);
+      v6 = [[CTLazuliChatBotSuggestedAction alloc] initWithReflection:v14];
       v7 = v4->_chip;
       v4->_chip = v6;
 
-      if (v19 != -1)
+      if (v18 != -1)
       {
-        (off_1EF0137C8[v19])(&v14, v18 + 8);
+        (off_1EF0137C8[v18])(&v13, v17 + 8);
       }
 
-      LODWORD(v19) = -1;
-      if (BYTE8(v17) == 1 && SBYTE7(v17) < 0)
+      LODWORD(v18) = -1;
+      if (BYTE8(v16) == 1 && SBYTE7(v16) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if ((v15[31] & 0x80000000) != 0)
+      if ((v14[31] & 0x80000000) != 0)
       {
-        v8 = *&v15[8];
+        v8 = *&v14[8];
 LABEL_22:
         operator delete(v8);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

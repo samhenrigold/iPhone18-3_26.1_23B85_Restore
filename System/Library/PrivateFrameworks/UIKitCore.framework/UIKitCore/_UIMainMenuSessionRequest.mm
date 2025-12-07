@@ -75,10 +75,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v8 = [(_UIMainMenuSession *)sessionIdentifierToEnd isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(sessionIdentifierToEnd, v7, v7);
 
   v9 = v11;
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_providedSessionToEnd, end);
@@ -144,9 +144,9 @@ LABEL_10:
           goto LABEL_17;
         }
 
-        v13 = [(_UIMainMenuSessionIdentifier *)v10 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v10);
 
-        if (!v13)
+        if (!isEqual)
         {
           goto LABEL_21;
         }
@@ -175,7 +175,7 @@ LABEL_21:
 
       if (v10 && v16)
       {
-        v17 = [(_UIMainMenuSessionIdentifier *)v10 isEqual:v16];
+        v17 = objc_msgSend_isEqual_(v10);
 
         if (!v17)
         {

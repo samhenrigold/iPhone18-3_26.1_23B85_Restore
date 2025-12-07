@@ -397,7 +397,7 @@
   v16 = layout2;
   if (layout2)
   {
-    [layout2 transformInRoot];
+    objc_msgSend_transformInRoot(layout2);
   }
 
   else
@@ -1087,7 +1087,7 @@
   v6 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry fullTransform];
+    objc_msgSend_fullTransform(originalPureGeometry);
   }
 
   else
@@ -1700,11 +1700,11 @@ LABEL_13:
     else if (self->_playbackState == 1)
     {
       self->_playbackState = 2;
-      [(CRLMediaPlayerTimeController *)self->_timeController currentTime];
+      objc_msgSend_currentTime(self->_timeController);
       v25 = v24;
       [(CRLMediaPlayerTimeController *)self->_timeController updateInterval];
       v27 = v25 + v26;
-      [(CRLAVPlayerController *)self->_playerController duration];
+      objc_msgSend_duration(self->_playerController);
       if (v27 > v28)
       {
         self->_playbackState = 0;
@@ -1720,7 +1720,7 @@ LABEL_13:
     [canvas contentsScale];
     v21 = v20 * 138.230077;
 
-    [(CRLAVPlayerController *)self->_playerController duration];
+    objc_msgSend_duration(self->_playerController);
     v23 = v22 / (v21 * 4.0);
     if (v23 < 0.0166666667)
     {
@@ -1734,9 +1734,9 @@ LABEL_13:
   {
     +[CATransaction begin];
     [CATransaction setDisableActions:1];
-    [(CRLMediaPlayerTimeController *)self->_timeController currentTime];
+    objc_msgSend_currentTime(self->_timeController);
     v30 = v29;
-    [(CRLAVPlayerController *)self->_playerController duration];
+    objc_msgSend_duration(self->_playerController);
     [(CRLCanvasShapeRenderable *)self->_progressRenderable setStrokeEnd:v30 / v31];
     +[CATransaction commit];
   }

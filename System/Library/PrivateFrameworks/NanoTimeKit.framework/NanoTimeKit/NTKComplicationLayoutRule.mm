@@ -135,7 +135,7 @@
 
   if (equalCopy)
   {
-    [equalCopy editingTransform];
+    objc_msgSend_editingTransform(equalCopy);
   }
 
   else
@@ -152,7 +152,7 @@
     p_contentTransform = &self->_contentTransform;
     if (equalCopy)
     {
-      [equalCopy contentTransform];
+      objc_msgSend_contentTransform(equalCopy);
     }
 
     else

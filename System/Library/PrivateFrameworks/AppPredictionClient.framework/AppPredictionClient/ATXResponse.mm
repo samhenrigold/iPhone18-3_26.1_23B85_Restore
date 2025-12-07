@@ -163,14 +163,14 @@ ATXAppIdentity *__37__ATXResponse_predictedAppIdentities__block_invoke(uint64_t 
 {
   v2 = MEMORY[0x1E696ACB0];
   jsonRawData = [(ATXResponse *)self jsonRawData];
-  v8 = 0;
-  v4 = [v2 dataWithJSONObject:jsonRawData options:1 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [v2 dataWithJSONObject:jsonRawData options:1 error:&v9];
+  v5 = v9;
 
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(ATXResponse *)v5 json];
     }
@@ -322,7 +322,7 @@ LABEL_20:
 
 void __41__ATXResponse_enumerateAtxSearchResults___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = *(*(a1 + 32) + 48);
   v6 = a2;
   if ([v5 count] <= a3)
@@ -342,9 +342,9 @@ void __41__ATXResponse_enumerateAtxSearchResults___block_invoke(uint64_t a1, voi
   if (![ATXApplicationRecord isAppClipWebClipBundleId:v10])
   {
     v12 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v10 allowPlaceholder:1 error:0];
-    v13 = [v12 localizedName];
-    v15 = 2;
-    v14 = v10;
+    v14 = [v12 localizedName];
+    v16 = 2;
+    v15 = v10;
     goto LABEL_10;
   }
 
@@ -352,73 +352,80 @@ void __41__ATXResponse_enumerateAtxSearchResults___block_invoke(uint64_t a1, voi
   v12 = [v11 synchronouslyGetAppClipWithIdentifier:v10];
 
   v13 = [v12 title];
-  if (v12 && [v12 isApplicationInstalled] && v13)
+  v14 = v13;
+  if (v12)
   {
-    v14 = @"com.apple.application";
-    v15 = 22;
+    v13 = [v12 isApplicationInstalled];
+    if (v13)
+    {
+      if (v14)
+      {
+        v15 = @"com.apple.application";
+        v16 = 22;
 LABEL_10:
 
-    if (![v13 length])
-    {
-      v16 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
-      {
-        __41__ATXResponse_enumerateAtxSearchResults___block_invoke_cold_1(v10, v16);
+        if (![v14 length])
+        {
+          v17 = __atxlog_handle_ui(0);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+          {
+            __41__ATXResponse_enumerateAtxSearchResults___block_invoke_cold_1(v10, v17);
+          }
+        }
+
+        v18 = [MEMORY[0x1E69CA4F0] textWithString:v14];
+        [(ATXSearchResult *)v8 setTitle:v18];
+
+        [(ATXSearchResult *)v8 setIdentifier:v10];
+        [(ATXSearchResult *)v8 setApplicationBundleIdentifier:v15];
+        [(ATXSearchResult *)v8 setIsLocalApplicationResult:1];
+        [(ATXSearchResult *)v8 setSectionBundleIdentifier:@"com.apple.spotlight.dec.zkw.apps"];
+        [(ATXSearchResult *)v8 setRenderHorizontallyWithOtherResultsInCategory:1];
+        v19 = [(ATXSearchResult *)v8 title];
+        [v19 setMaxLines:1];
+
+        v20 = [(ATXSearchResult *)v8 applicationBundleIdentifier];
+        [(ATXSearchResult *)v8 setResultBundleId:v20];
+
+        v21 = __atxlog_handle_ui([(ATXSearchResult *)v8 setType:v16]);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v30 = v14;
+          _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_INFO, "zkw app title: %@", buf, 0xCu);
+        }
+
+        v23 = __atxlog_handle_ui(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        {
+          v24 = [(ATXSearchResult *)v8 identifier];
+          *buf = 138412290;
+          v30 = v24;
+          _os_log_impl(&dword_1BF549000, v23, OS_LOG_TYPE_INFO, "zkw searchResult.identifier: %@", buf, 0xCu);
+        }
+
+        v26 = __atxlog_handle_ui(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        {
+          v27 = [(ATXSearchResult *)v8 applicationBundleIdentifier];
+          *buf = 138412290;
+          v30 = v27;
+          _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_INFO, "zkw searchResult.applicationBundleIdentifier: %@", buf, 0xCu);
+        }
+
+        (*(*(a1 + 40) + 16))();
+        goto LABEL_24;
       }
     }
-
-    v17 = [MEMORY[0x1E69CA4F0] textWithString:v13];
-    [(ATXSearchResult *)v8 setTitle:v17];
-
-    [(ATXSearchResult *)v8 setIdentifier:v10];
-    [(ATXSearchResult *)v8 setApplicationBundleIdentifier:v14];
-    [(ATXSearchResult *)v8 setIsLocalApplicationResult:1];
-    [(ATXSearchResult *)v8 setSectionBundleIdentifier:@"com.apple.spotlight.dec.zkw.apps"];
-    [(ATXSearchResult *)v8 setRenderHorizontallyWithOtherResultsInCategory:1];
-    v18 = [(ATXSearchResult *)v8 title];
-    [v18 setMaxLines:1];
-
-    v19 = [(ATXSearchResult *)v8 applicationBundleIdentifier];
-    [(ATXSearchResult *)v8 setResultBundleId:v19];
-
-    [(ATXSearchResult *)v8 setType:v15];
-    v20 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412290;
-      v27 = v13;
-      _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_INFO, "zkw app title: %@", buf, 0xCu);
-    }
-
-    v21 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
-    {
-      v22 = [(ATXSearchResult *)v8 identifier];
-      *buf = 138412290;
-      v27 = v22;
-      _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_INFO, "zkw searchResult.identifier: %@", buf, 0xCu);
-    }
-
-    v23 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
-    {
-      v24 = [(ATXSearchResult *)v8 applicationBundleIdentifier];
-      *buf = 138412290;
-      v27 = v24;
-      _os_log_impl(&dword_1BF549000, v23, OS_LOG_TYPE_INFO, "zkw searchResult.applicationBundleIdentifier: %@", buf, 0xCu);
-    }
-
-    (*(*(a1 + 40) + 16))();
-    goto LABEL_24;
   }
 
-  v25 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v28 = __atxlog_handle_ui(v13);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    __41__ATXResponse_enumerateAtxSearchResults___block_invoke_cold_2(v25);
+    __41__ATXResponse_enumerateAtxSearchResults___block_invoke_cold_2(v28);
   }
 
-  v14 = @"com.apple.application";
+  v15 = @"com.apple.application";
 LABEL_24:
 }
 

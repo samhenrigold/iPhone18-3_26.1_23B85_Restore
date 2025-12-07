@@ -17,9 +17,10 @@
 + (id)weakRefWithObject:(id)object
 {
   objectCopy = object;
-  v5 = [[self alloc] initWithObject:objectCopy];
+  v5 = [self alloc];
+  v7 = objc_msgSend_initWithObject_(v5, v6, objectCopy);
 
-  return v5;
+  return v7;
 }
 
 - (CUTWeakReference)initWithObject:(id)object
@@ -44,16 +45,16 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    objectAddress = [equalCopy objectAddress];
-    v6 = objectAddress == [(CUTWeakReference *)self objectAddress];
+    v7 = objc_msgSend_objectAddress(equalCopy, v5, v6);
+    v10 = v7 == objc_msgSend_objectAddress(self, v8, v9);
   }
 
   else
   {
-    v6 = 0;
+    v10 = 0;
   }
 
-  return v6;
+  return v10;
 }
 
 @end

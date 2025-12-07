@@ -44,18 +44,28 @@ LABEL_7:
   v8 = fromCopy[1];
   if (error)
   {
-    if (v8)
+    if (!v8)
     {
-      [(ICAppleMusicAPITokenError *)error mergeFrom:?];
+      goto LABEL_13;
     }
+
+    error = [(ICAppleMusicAPITokenError *)error mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(ICAppleMusicAPITokenResponse *)self setError:?];
+    if (!v8)
+    {
+      goto LABEL_13;
+    }
+
+    error = [(ICAppleMusicAPITokenResponse *)self setError:?];
   }
 
-  _objc_release_x1();
+  fromCopy = v9;
+LABEL_13:
+
+  _objc_release_x1(error, fromCopy);
 }
 
 - (BOOL)isEqual:(id)equal

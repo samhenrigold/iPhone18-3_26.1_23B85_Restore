@@ -104,7 +104,7 @@
   selfCopy = self;
   sub_1003C4240();
 
-  sub_1000CE6B8(&unk_10190B260);
+  sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -112,7 +112,7 @@
 
 - (void)configureNavigationDisplay:(id)display
 {
-  sub_100014C84(0, &qword_101909920);
+  sub_100014C84(0, &qword_101909920, NSNumber_ptr);
   displayCopy = display;
   isa = NSNumber.init(integerLiteral:)(1).super.super.isa;
   [displayCopy setCameraPaused:isa];
@@ -123,7 +123,7 @@
   selfCopy = self;
   sub_100182128();
 
-  sub_100014C84(0, &qword_101909CF0);
+  sub_100014C84(0, &qword_101909CF0, off_1015F6500);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -175,7 +175,7 @@
 
 - (void)placeCardViewController:(id)controller openURL:(id)l
 {
-  v7 = sub_1000CE6B8(&unk_101909B00);
+  v7 = sub_1000CE6B8(&unk_101909B00, &unk_1011E4C10);
   __chkstk_darwin(v7 - 8);
   v9 = &v14 - v8;
   if (l)
@@ -195,7 +195,7 @@
   selfCopy = self;
   sub_1002B6F88(v9);
 
-  sub_100024F64(v9, &unk_101909B00);
+  sub_100024F64(v9, &unk_101909B00, &unk_1011E4C10);
 }
 
 - (void)placeCardViewController:(id)controller placeCardItemWillChange:(id)change
@@ -286,7 +286,7 @@ LABEL_7:
 {
   if (incidents)
   {
-    sub_1000CE6B8(&unk_10190A7F0);
+    sub_1000CE6B8(&unk_10190A7F0, &unk_1011E9F00);
     v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
     v6 = type metadata accessor for PlaceCardContextContainee.TransitIncidentsModel();
     v7 = objc_allocWithZone(v6);
@@ -387,8 +387,8 @@ LABEL_6:
   itemCopy = item;
   selfCopy = self;
   sub_1002B7AF4(item, v10, v13, v12, v14);
-  sub_1000588AC(v12);
-  sub_1000588AC(v10);
+  sub_1000588AC(v12, v14);
+  sub_1000588AC(v10, v13);
 }
 
 - (void)placeCardViewController:(id)controller showRelatedMapItems:(id)items withTitle:(id)title originalMapItem:(id)item analyticsDelegate:(id)delegate
@@ -396,7 +396,7 @@ LABEL_6:
   itemsCopy = items;
   if (items)
   {
-    sub_100014C84(0, &unk_101918390);
+    sub_100014C84(0, &unk_101918390, MKMapItem_ptr);
     itemsCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -425,7 +425,7 @@ LABEL_6:
   collectionsCopy = collections;
   if (collections)
   {
-    sub_100014C84(0, &qword_10190D6B0);
+    sub_100014C84(0, &qword_10190D6B0, GEOPlaceCollection_ptr);
     collectionsCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -445,7 +445,7 @@ LABEL_6:
   if (ids)
   {
 LABEL_5:
-    sub_100014C84(0, &qword_101919ED0);
+    sub_100014C84(0, &qword_101919ED0, GEOMapItemIdentifier_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -593,7 +593,7 @@ LABEL_6:
 
   sub_1002B8360(v10);
 
-  sub_100024F64(v10, &unk_101908380);
+  sub_100024F64(v10, &unk_101908380, &unk_1011E6860);
 }
 
 - (void)placeCardViewController:(id)controller doSearchItem:(id)item withUserInfo:(id)info
@@ -702,12 +702,12 @@ LABEL_6:
   *v19 = v11;
   v19[1] = v15;
   selfCopy = self;
-  sub_1000CD9D4(v11);
+  sub_1000CD9D4(v11, v15);
   v22.receiver = v17;
   v22.super_class = v16;
   v21 = [(PlaceCardContext *)&v22 init];
   sub_1003C43C8(v21 | 0x4000000000000000);
-  sub_1000588AC(v11);
+  sub_1000588AC(v11, v15);
 }
 
 - (void)createNewUserGuideWithSaveSession:(id)session

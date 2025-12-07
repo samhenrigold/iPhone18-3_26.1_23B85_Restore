@@ -33,62 +33,62 @@
 
 - (id)_sourceInfo
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   barManager = [(BrowserController *)self->_browserController barManager];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__16;
-  v19 = __Block_byref_object_dispose__16;
-  v20 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__16;
+  v20 = __Block_byref_object_dispose__16;
+  v21 = 0;
   barItem = self->_barItem;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __35__BarPopoverSourceInfo__sourceInfo__block_invoke;
-  v14[3] = &unk_2781DBC40;
-  v14[4] = &v15;
-  [barManager performWithRegistrationContainingItem:barItem block:v14];
-  v5 = v16[5];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __35__BarPopoverSourceInfo__sourceInfo__block_invoke;
+  v15[3] = &unk_2781DBC40;
+  v15[4] = &v16;
+  [barManager performWithRegistrationContainingItem:barItem block:v15];
+  v5 = v17[5];
   if (!v5)
   {
     rootViewController = [(BrowserController *)self->_browserController rootViewController];
-    v7 = WBS_LOG_CHANNEL_PREFIXUserInterface();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = WBS_LOG_CHANNEL_PREFIXUserInterface(rootViewController, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       navigationController = [rootViewController navigationController];
-      v11 = navigationController;
-      v12 = @"is NOT";
+      v12 = navigationController;
+      v13 = @"is NOT";
       if (rootViewController)
       {
-        v13 = @"is NOT";
+        v14 = @"is NOT";
       }
 
       else
       {
-        v13 = @"is";
+        v14 = @"is";
       }
 
       *buf = 138543874;
       selfCopy = self;
-      v23 = 2114;
-      v24 = v13;
+      v24 = 2114;
+      v25 = v14;
       if (!navigationController)
       {
-        v12 = @"is";
+        v13 = @"is";
       }
 
-      v25 = 2114;
-      v26 = v12;
-      _os_log_fault_impl(&dword_215819000, v7, OS_LOG_TYPE_FAULT, "%{public}@: No inner source info (view controller %{public}@ nil; navigation bar %{public}@ nil)", buf, 0x20u);
+      v26 = 2114;
+      v27 = v13;
+      _os_log_fault_impl(&dword_215819000, v8, OS_LOG_TYPE_FAULT, "%{public}@: No inner source info (view controller %{public}@ nil; navigation bar %{public}@ nil)", buf, 0x20u);
     }
 
-    v5 = v16[5];
+    v5 = v17[5];
   }
 
-  v8 = v5;
-  _Block_object_dispose(&v15, 8);
+  v9 = v5;
+  _Block_object_dispose(&v16, 8);
 
-  return v8;
+  return v9;
 }
 
 void __35__BarPopoverSourceInfo__sourceInfo__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)

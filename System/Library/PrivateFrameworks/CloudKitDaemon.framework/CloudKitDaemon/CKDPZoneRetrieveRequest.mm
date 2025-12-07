@@ -86,31 +86,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_zoneIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    onlyFetchPCSInfo = self->_onlyFetchPCSInfo;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_continuationMarker)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    skipContinuation = self->_skipContinuation;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -201,7 +199,6 @@
       goto LABEL_15;
     }
 
-    v16 = *(equalCopy + 24);
     if (self->_onlyFetchPCSInfo)
     {
       if ((equalCopy[3] & 1) == 0)

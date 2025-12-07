@@ -66,8 +66,8 @@
 
   if (!uuidString)
   {
-    v10 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_blending(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [(ATXProactiveSuggestion *)&self->_uuid proto];
     }
@@ -97,23 +97,24 @@
   executableObject = [executableSpecification executableObject];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = executableObject;
+    v5 = executableObject;
   }
 
   else
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [(ATXProactiveSuggestion(ATXProactiveCardSuggestionClient) *)v5 infoSuggestion];
+      [(ATXProactiveSuggestion(ATXProactiveCardSuggestionClient) *)v6 infoSuggestion];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (NSString)appBundleIdentifier
@@ -363,34 +364,7 @@ LABEL_26:
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    clientModelSpecification = [(ATXProactiveSuggestion *)self clientModelSpecification];
-    clientModelSpecification2 = [(ATXProactiveSuggestion *)suggestionCopy clientModelSpecification];
-    v7 = [clientModelSpecification fuzzyIsEqualToClientModelSpecification:clientModelSpecification2];
-
-    if (!v7)
-    {
-      goto LABEL_7;
-    }
-
-    executableSpecification = [(ATXProactiveSuggestion *)self executableSpecification];
-    executableSpecification2 = [(ATXProactiveSuggestion *)suggestionCopy executableSpecification];
-    v10 = [executableSpecification fuzzyIsEqualToExecutableSpecification:executableSpecification2];
-
-    if (!v10)
-    {
-      goto LABEL_7;
-    }
-
-    uiSpecification = [(ATXProactiveSuggestion *)self uiSpecification];
-    uiSpecification2 = [(ATXProactiveSuggestion *)suggestionCopy uiSpecification];
-    v13 = [uiSpecification fuzzyIsEqualToUISpecification:uiSpecification2];
-
-    if (v13)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (-[ATXProactiveSuggestion clientModelSpecification](self, "clientModelSpecification"), v5 = objc_claimAutoreleasedReturnValue(), -[ATXProactiveSuggestion clientModelSpecification](suggestionCopy, "clientModelSpecification"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 fuzzyIsEqualToClientModelSpecification:v6], v6, v5, v7) && (-[ATXProactiveSuggestion executableSpecification](self, "executableSpecification"), v8 = objc_claimAutoreleasedReturnValue(), -[ATXProactiveSuggestion executableSpecification](suggestionCopy, "executableSpecification"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "fuzzyIsEqualToExecutableSpecification:", v9), v9, v8, v10) && (-[ATXProactiveSuggestion uiSpecification](self, "uiSpecification"), v11 = objc_claimAutoreleasedReturnValue(), -[ATXProactiveSuggestion uiSpecification](suggestionCopy, "uiSpecification"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "fuzzyIsEqualToUISpecification:", v12), v12, v11, v13))
     {
       scoreSpecification = [(ATXProactiveSuggestion *)self scoreSpecification];
       scoreSpecification2 = [(ATXProactiveSuggestion *)suggestionCopy scoreSpecification];
@@ -399,7 +373,6 @@ LABEL_26:
 
     else
     {
-LABEL_7:
       v16 = 0;
     }
   }
@@ -414,61 +387,62 @@ LABEL_7:
   if ([newSuggestionsCopy count] || objc_msgSend(suggestionsCopy, "count"))
   {
     v7 = [newSuggestionsCopy count];
-    if (v7 == [suggestionsCopy count])
+    v8 = [suggestionsCopy count];
+    if (v7 == v8)
     {
-      v16 = 0;
-      v17 = &v16;
-      v18 = 0x2020000000;
-      v19 = 0;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __87__ATXProactiveSuggestion_suggestionsHaveChangedFromPreviousSuggestions_newSuggestions___block_invoke;
-      v13[3] = &unk_1E86A4830;
-      v14 = suggestionsCopy;
-      v15 = &v16;
-      [newSuggestionsCopy enumerateObjectsUsingBlock:v13];
-      v8 = *(v17 + 24);
-      if ((v8 & 1) == 0)
+      v18 = 0;
+      v19 = &v18;
+      v20 = 0x2020000000;
+      v21 = 0;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __87__ATXProactiveSuggestion_suggestionsHaveChangedFromPreviousSuggestions_newSuggestions___block_invoke;
+      v15[3] = &unk_1E86A4830;
+      v16 = suggestionsCopy;
+      v17 = &v18;
+      v9 = [newSuggestionsCopy enumerateObjectsUsingBlock:v15];
+      v10 = *(v19 + 24);
+      if ((v10 & 1) == 0)
       {
-        v9 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v11 = __atxlog_handle_blending(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           +[ATXProactiveSuggestion suggestionsHaveChangedFromPreviousSuggestions:newSuggestions:];
         }
       }
 
-      _Block_object_dispose(&v16, 8);
+      _Block_object_dispose(&v18, 8);
     }
 
     else
     {
-      v10 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = __atxlog_handle_blending(v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         +[ATXProactiveSuggestion suggestionsHaveChangedFromPreviousSuggestions:newSuggestions:];
       }
 
-      v8 = 1;
+      v10 = 1;
     }
   }
 
   else
   {
-    v11 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = __atxlog_handle_blending(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       +[ATXProactiveSuggestion suggestionsHaveChangedFromPreviousSuggestions:newSuggestions:];
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 void __87__ATXProactiveSuggestion_suggestionsHaveChangedFromPreviousSuggestions_newSuggestions___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = [v7 hash];
   v9 = [*(a1 + 32) objectAtIndexedSubscript:a3];
@@ -487,32 +461,30 @@ void __87__ATXProactiveSuggestion_suggestionsHaveChangedFromPreviousSuggestions_
   {
   }
 
-  v12 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_blending(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     __87__ATXProactiveSuggestion_suggestionsHaveChangedFromPreviousSuggestions_newSuggestions___block_invoke_cold_1();
   }
 
-  v13 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = __atxlog_handle_blending(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v15 = [v7 uiSpecification];
-    v16 = [v15 title];
-    v17 = [*(a1 + 32) objectAtIndexedSubscript:a3];
-    v18 = [v17 uiSpecification];
-    v19 = [v18 title];
-    v20 = 138412546;
-    v21 = v16;
-    v22 = 2112;
-    v23 = v19;
-    _os_log_debug_impl(&dword_1DEFC4000, v13, OS_LOG_TYPE_DEBUG, "Blending: New suggestion title: %@, Previous suggestion title: %@.", &v20, 0x16u);
+    v16 = [v7 uiSpecification];
+    v17 = [v16 title];
+    v18 = [*(a1 + 32) objectAtIndexedSubscript:a3];
+    v19 = [v18 uiSpecification];
+    v20 = [v19 title];
+    v21 = 138412546;
+    v22 = v17;
+    v23 = 2112;
+    v24 = v20;
+    _os_log_debug_impl(&dword_1DEFC4000, v15, OS_LOG_TYPE_DEBUG, "Blending: New suggestion title: %@, Previous suggestion title: %@.", &v21, 0x16u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
   *a4 = 1;
 LABEL_10:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)encodeAsProto
@@ -548,10 +520,11 @@ LABEL_10:
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestion initWithProto:];
       }
@@ -560,11 +533,12 @@ LABEL_10:
       goto LABEL_37;
     }
 
-    v5 = protoCopy;
-    if (![(ATXPBProactiveSuggestion *)v5 hasUuidString])
+    v6 = protoCopy;
+    hasUuidString = [(ATXPBProactiveSuggestion *)v6 hasUuidString];
+    if (!hasUuidString)
     {
-      v8 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v10 = __atxlog_handle_blending(hasUuidString);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestion initWithProto:];
       }
@@ -573,14 +547,14 @@ LABEL_10:
       goto LABEL_36;
     }
 
-    v6 = objc_alloc(MEMORY[0x1E696AFB0]);
-    uuidString = [(ATXPBProactiveSuggestion *)v5 uuidString];
-    v8 = [v6 initWithUUIDString:uuidString];
+    v8 = objc_alloc(MEMORY[0x1E696AFB0]);
+    uuidString = [(ATXPBProactiveSuggestion *)v6 uuidString];
+    v10 = [v8 initWithUUIDString:uuidString];
 
-    if (!v8)
+    if (!v10)
     {
-      v11 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v14 = __atxlog_handle_blending(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestion initWithProto:];
       }
@@ -589,14 +563,14 @@ LABEL_10:
       goto LABEL_35;
     }
 
-    v9 = [ATXProactiveSuggestionClientModelSpecification alloc];
-    clientModelSpecification = [(ATXPBProactiveSuggestion *)v5 clientModelSpecification];
-    v11 = [(ATXProactiveSuggestionClientModelSpecification *)v9 initWithProto:clientModelSpecification];
+    v12 = [ATXProactiveSuggestionClientModelSpecification alloc];
+    clientModelSpecification = [(ATXPBProactiveSuggestion *)v6 clientModelSpecification];
+    v14 = [(ATXProactiveSuggestionClientModelSpecification *)v12 initWithProto:clientModelSpecification];
 
-    if (!v11)
+    if (!v14)
     {
-      v14 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v18 = __atxlog_handle_blending(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestion initWithProto:];
       }
@@ -605,14 +579,14 @@ LABEL_10:
       goto LABEL_34;
     }
 
-    v12 = [ATXProactiveSuggestionExecutableSpecification alloc];
-    executableSpecification = [(ATXPBProactiveSuggestion *)v5 executableSpecification];
-    v14 = [(ATXProactiveSuggestionExecutableSpecification *)v12 initWithProto:executableSpecification];
+    v16 = [ATXProactiveSuggestionExecutableSpecification alloc];
+    executableSpecification = [(ATXPBProactiveSuggestion *)v6 executableSpecification];
+    v18 = [(ATXProactiveSuggestionExecutableSpecification *)v16 initWithProto:executableSpecification];
 
-    if (!v14)
+    if (!v18)
     {
-      v17 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v22 = __atxlog_handle_blending(v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestion initWithProto:];
       }
@@ -621,19 +595,19 @@ LABEL_10:
       goto LABEL_33;
     }
 
-    v15 = [ATXProactiveSuggestionUISpecification alloc];
-    uiSpecification = [(ATXPBProactiveSuggestion *)v5 uiSpecification];
-    v17 = [(ATXProactiveSuggestionUISpecification *)v15 initWithProto:uiSpecification];
+    v20 = [ATXProactiveSuggestionUISpecification alloc];
+    uiSpecification = [(ATXPBProactiveSuggestion *)v6 uiSpecification];
+    v22 = [(ATXProactiveSuggestionUISpecification *)v20 initWithProto:uiSpecification];
 
-    if (v17)
+    if (v22)
     {
-      v18 = [ATXProactiveSuggestionScoreSpecification alloc];
-      scoreSpecification = [(ATXPBProactiveSuggestion *)v5 scoreSpecification];
-      v20 = [(ATXProactiveSuggestionScoreSpecification *)v18 initWithProto:scoreSpecification];
+      v24 = [ATXProactiveSuggestionScoreSpecification alloc];
+      scoreSpecification = [(ATXPBProactiveSuggestion *)v6 scoreSpecification];
+      v26 = [(ATXProactiveSuggestionScoreSpecification *)v24 initWithProto:scoreSpecification];
 
-      if (v20)
+      if (v26)
       {
-        self = [(ATXProactiveSuggestion *)self initWithClientModelSpecification:v11 executableSpecification:v14 uiSpecification:v17 scoreSpecification:v20 uuid:v8];
+        self = [(ATXProactiveSuggestion *)self initWithClientModelSpecification:v14 executableSpecification:v18 uiSpecification:v22 scoreSpecification:v26 uuid:v10];
         selfCopy = self;
 LABEL_32:
 
@@ -647,8 +621,8 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      v22 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v29 = __atxlog_handle_blending(v27);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestion initWithProto:];
       }
@@ -656,8 +630,8 @@ LABEL_37:
 
     else
     {
-      v20 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v26 = __atxlog_handle_blending(v23);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestion initWithProto:];
       }
@@ -675,31 +649,31 @@ LABEL_38:
 
 + (id)suggestionsFromProtoSuggestions:(id)suggestions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   if (suggestionsCopy)
   {
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(suggestionsCopy, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = suggestionsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [[ATXProactiveSuggestion alloc] initWithProto:*(*(&v16 + 1) + 8 * i)];
+          v10 = [[ATXProactiveSuggestion alloc] initWithProto:*(*(&v15 + 1) + 8 * i)];
           if (v10)
           {
             [v4 addObject:v10];
@@ -707,15 +681,15 @@ LABEL_38:
 
           else
           {
-            v11 = __atxlog_handle_default();
+            v11 = __atxlog_handle_default(0);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
             {
-              [(ATXProactiveSuggestion *)&v14 suggestionsFromProtoSuggestions:v15];
+              [(ATXProactiveSuggestion *)&v13 suggestionsFromProtoSuggestions:v14];
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -727,38 +701,36 @@ LABEL_38:
     v4 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)protoSuggestionsFromSuggestions:(id)suggestions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   if (suggestionsCopy)
   {
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(suggestionsCopy, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = suggestionsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          proto = [*(*(&v16 + 1) + 8 * i) proto];
+          proto = [*(*(&v15 + 1) + 8 * i) proto];
           if (proto)
           {
             [v4 addObject:proto];
@@ -766,15 +738,15 @@ LABEL_38:
 
           else
           {
-            v11 = __atxlog_handle_default();
+            v11 = __atxlog_handle_default(0);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
             {
-              [(ATXProactiveSuggestion *)&v14 protoSuggestionsFromSuggestions:v15];
+              [(ATXProactiveSuggestion *)&v13 protoSuggestionsFromSuggestions:v14];
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -786,14 +758,12 @@ LABEL_38:
     v4 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -810,11 +780,11 @@ LABEL_38:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -825,7 +795,6 @@ LABEL_38:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -847,25 +816,23 @@ LABEL_7:
 
 - (id)jsonRawData
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v11[0] = @"uuid";
+  v11[5] = *MEMORY[0x1E69E9840];
+  v10[0] = @"uuid";
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
-  v12[0] = uUIDString;
-  v11[1] = @"clientModelSpecification";
+  v11[0] = uUIDString;
+  v10[1] = @"clientModelSpecification";
   jsonRawData = [(ATXProactiveSuggestionClientModelSpecification *)self->_clientModelSpecification jsonRawData];
-  v12[1] = jsonRawData;
-  v11[2] = @"uiSpecification";
+  v11[1] = jsonRawData;
+  v10[2] = @"uiSpecification";
   jsonRawData2 = [(ATXProactiveSuggestionUISpecification *)self->_uiSpecification jsonRawData];
-  v12[2] = jsonRawData2;
-  v11[3] = @"scoreSpecification";
+  v11[2] = jsonRawData2;
+  v10[3] = @"scoreSpecification";
   jsonRawData3 = [(ATXProactiveSuggestionScoreSpecification *)self->_scoreSpecification jsonRawData];
-  v12[3] = jsonRawData3;
-  v11[4] = @"executableSpecification";
+  v11[3] = jsonRawData3;
+  v10[4] = @"executableSpecification";
   jsonRawData4 = [(ATXProactiveSuggestionExecutableSpecification *)self->_executableSpecification jsonRawData];
-  v12[4] = jsonRawData4;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = jsonRawData4;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
@@ -873,20 +840,18 @@ LABEL_7:
 + (void)suggestionsHaveChangedFromPreviousSuggestions:newSuggestions:.cold.1()
 {
   OUTLINED_FUNCTION_4_3();
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [v2 count];
-  v4 = 134218240;
-  v5 = v1;
-  v6 = 2048;
-  v7 = [OUTLINED_FUNCTION_5_1() count];
-  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "Blending: New suggestions and previous suggestions have different counts. New %lu, Previous %lu.", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134218240;
+  v4 = v1;
+  v5 = 2048;
+  v6 = [OUTLINED_FUNCTION_5_1() count];
+  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "Blending: New suggestions and previous suggestions have different counts. New %lu, Previous %lu.", &v3, 0x16u);
 }
 
 - (void)initWithProto:.cold.1()
 {
   OUTLINED_FUNCTION_4_3();
-  v12 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_class();
   NSStringFromClass(v1);
   objc_claimAutoreleasedReturnValue();
@@ -894,21 +859,18 @@ LABEL_7:
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v4, v5, "Unable to construct class %@ from ProtoBuf object. Protobuf object was of class: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v4, v5, "Unable to construct class %@ from ProtoBuf object. Protobuf object was of class: %@", v6, v7, v8, v9);
 }
 
 - (void)proto
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *self;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "Proto uuidString not set for Proactive Suggestion with UUID: %@. Suggestion: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "Proto uuidString not set for Proactive Suggestion with UUID: %@. Suggestion: %@", &v4, 0x16u);
 }
 
 @end

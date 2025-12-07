@@ -1374,7 +1374,7 @@ uint64_t __69__HUAddPeopleViewController_consumeAutocompleteSearchResults_taskID
     }
 
     mEMORY[0x277D18728] = [MEMORY[0x277D18728] sharedInstance];
-    allKeys = [statusCopy allKeys];
+    v15 = objc_msgSend_allKeys(statusCopy);
     _getIDSServiceName = [(HUAddPeopleViewController *)self _getIDSServiceName];
     refreshIDInfo = [MEMORY[0x277D189C8] refreshIDInfo];
     v18[0] = MEMORY[0x277D85DD0];
@@ -1385,7 +1385,7 @@ uint64_t __69__HUAddPeopleViewController_consumeAutocompleteSearchResults_taskID
     v20 = a2;
     v19 = statusCopy;
     v21 = adaptiveTemperatureEnabled;
-    [mEMORY[0x277D18728] idInfoForDestinations:allKeys service:_getIDSServiceName infoTypes:1 options:refreshIDInfo listenerID:@"HomeUI" queue:MEMORY[0x277D85CD0] completionBlock:v18];
+    [mEMORY[0x277D18728] idInfoForDestinations:v15 service:_getIDSServiceName infoTypes:1 options:refreshIDInfo listenerID:@"HomeUI" queue:MEMORY[0x277D85CD0] completionBlock:v18];
   }
 
   else

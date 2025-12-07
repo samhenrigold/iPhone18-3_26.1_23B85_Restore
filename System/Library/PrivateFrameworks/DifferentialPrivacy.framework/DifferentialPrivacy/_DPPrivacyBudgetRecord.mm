@@ -99,20 +99,19 @@
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  key = self->_key;
-  v7 = [v3 stringWithFormat:@"%@: { key=%@  balance=%lld ; cohortAggregateBalance=%lf ;creationDate=%.16g ; lastUpdate=%.16g ; ", v5, key, self->_balance, *&self->_cohortAggregateBalance, *&self->_creationDate, *&self->_lastUpdate];;
+  v6 = [v3 stringWithFormat:@"%@: { key=%@  balance=%lld ; cohortAggregateBalance=%lf ;creationDate=%.16g ; lastUpdate=%.16g ; ", v5, self->_key, self->_balance, *&self->_cohortAggregateBalance, *&self->_creationDate, *&self->_lastUpdate];;
 
   if (self->_objectId)
   {
-    [v7 appendFormat:@"objectId=%@ }", self->_objectId];
+    [v6 appendFormat:@"objectId=%@ }", self->_objectId];
   }
 
   else
   {
-    [v7 appendString:@"objectId=(nil) }"];
+    [v6 appendString:@"objectId=(nil) }"];
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

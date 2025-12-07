@@ -9,7 +9,7 @@ void __33___EXUtil__getEntryPointFunction__block_invoke()
   prog_image_header = _dyld_get_prog_image_header();
   if (!prog_image_header)
   {
-    v3 = _EXDefaultLog();
+    v3 = _EXDefaultLog(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __33___EXUtil__getEntryPointFunction__block_invoke_cold_1();
@@ -22,7 +22,7 @@ void __33___EXUtil__getEntryPointFunction__block_invoke()
   if (!v1 || size <= 3)
   {
 LABEL_9:
-    v4 = _EXDefaultLog();
+    v4 = _EXDefaultLog(v1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __33___EXUtil__getEntryPointFunction__block_invoke_cold_2();
@@ -39,7 +39,7 @@ LABEL_9:
   }
 
 LABEL_12:
-  v5 = _EXDefaultLog();
+  v5 = _EXDefaultLog(v1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __33___EXUtil__getEntryPointFunction__block_invoke_cold_3();

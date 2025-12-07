@@ -40,7 +40,7 @@
   effectCopy = effect;
   selfCopy = self;
   sub_188EC4CD8(effectCopy, v6, v7);
-  sub_188A55B8C(v6);
+  sub_188A55B8C(v6, v7);
 }
 
 - (void)replaceRangeUsingReplacementEffect:(id)effect withAttributedText:(id)text completion:(id)completion
@@ -62,7 +62,7 @@
   textCopy = text;
   selfCopy = self;
   sub_188EC4F6C(effectCopy, textCopy, v8, v9);
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (id)insertLoadingPlaceholderAtLocation:(id)location lines:(double)lines completion:(id)completion
@@ -82,10 +82,11 @@
 
   locationCopy = location;
   selfCopy = self;
-  v12 = sub_188EC56BC(locationCopy, v8, v9, lines);
-  sub_188A55B8C(v8);
+  sub_188EC56BC(locationCopy, v8, v9, lines);
+  v13 = v12;
+  sub_188A55B8C(v8, v9);
 
-  return v12;
+  return v13;
 }
 
 - (void)replacePlaceholder:(id)placeholder withText:(id)text completion:(id)completion
@@ -107,7 +108,7 @@
   textCopy = text;
   selfCopy = self;
   sub_188EC5E98(placeholderCopy, textCopy, v8, v9);
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (void)removePlaceholder:(id)placeholder
@@ -117,7 +118,7 @@
   v6 = *(self + v5);
   placeholderCopy = placeholder;
   selfCopy = self;
-  v9 = sub_18903AB08(placeholderCopy, v6);
+  sub_18903AB08(placeholderCopy, v6);
   if (v9)
   {
     v10 = v9;
@@ -160,7 +161,7 @@
 
 - (void)canGenerateTargetedPreviewsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -185,7 +186,7 @@
 
 - (void)canGenerateTargetedPreviewForChunk:(_TtC5UIKit21UITextEffectTextChunk *)chunk completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -212,7 +213,7 @@
 
 - (void)targetedPreviewFor:(_TtC5UIKit21UITextEffectTextChunk *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -239,7 +240,7 @@
 
 - (void)updateTextChunkVisibilityForAnimation:(_TtC5UIKit21UITextEffectTextChunk *)animation visible:(BOOL)visible completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

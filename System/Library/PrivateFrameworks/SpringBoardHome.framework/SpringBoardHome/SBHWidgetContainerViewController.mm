@@ -149,7 +149,7 @@
 
 - (void)_updateWidgetVisibility
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   userVisibilityStatus = [(SBHWidgetContainerViewController *)self userVisibilityStatus];
   v4 = "not visible";
   if (userVisibilityStatus == 2)
@@ -184,17 +184,18 @@
   }
 
   _widgetHostViewController = [(SBHWidgetContainerViewController *)self _widgetHostViewController];
-  if ([_widgetHostViewController visibility] != v7)
+  visibility = [_widgetHostViewController visibility];
+  if (visibility != v7)
   {
-    v9 = SBLogWidgets();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogWidgets(visibility);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = self->_logIdentifier;
-      v11 = 138543618;
-      v12 = logIdentifier;
-      v13 = 2082;
-      v14 = v6;
-      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@> Setting visibility to %{public}s", &v11, 0x16u);
+      v12 = 138543618;
+      v13 = logIdentifier;
+      v14 = 2082;
+      v15 = v6;
+      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> Setting visibility to %{public}s", &v12, 0x16u);
     }
 
     [_widgetHostViewController setVisibility:v7];
@@ -307,7 +308,7 @@
     [(UIView *)self->_deactivationSnapshotView setClipsToBounds:1];
     v8 = self->_deactivationSnapshotView;
     view = [(SBHWidgetContainerViewController *)self view];
-    [view bounds];
+    objc_msgSend_bounds(view);
     [(UIView *)v8 setFrame:?];
 
     [(UIView *)self->_deactivationSnapshotView setAutoresizingMask:18];
@@ -409,33 +410,33 @@ LABEL_12:
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = SBHWidgetContainerViewController;
-  [(SBHWidgetContainerViewController *)&v6 viewWillAppear:appear];
-  v4 = SBLogWidgets();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = SBHWidgetContainerViewController;
+  v4 = [(SBHWidgetContainerViewController *)&v7 viewWillAppear:appear];
+  v5 = SBLogWidgets(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
     *buf = 138543362;
-    v8 = logIdentifier;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewWillAppear", buf, 0xCu);
+    v9 = logIdentifier;
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewWillAppear", buf, 0xCu);
   }
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = SBHWidgetContainerViewController;
-  [(SBHWidgetContainerViewController *)&v6 viewIsAppearing:appearing];
-  v4 = SBLogWidgets();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = SBHWidgetContainerViewController;
+  v4 = [(SBHWidgetContainerViewController *)&v7 viewIsAppearing:appearing];
+  v5 = SBLogWidgets(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
     *buf = 138543362;
-    v8 = logIdentifier;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewIsAppearing", buf, 0xCu);
+    v9 = logIdentifier;
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewIsAppearing", buf, 0xCu);
   }
 
   [(SBHWidgetContainerViewController *)self _updateWidgetVisibility];
@@ -449,17 +450,17 @@ LABEL_12:
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = SBHWidgetContainerViewController;
-  [(SBHWidgetContainerViewController *)&v6 viewDidAppear:appear];
-  v4 = SBLogWidgets();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = SBHWidgetContainerViewController;
+  v4 = [(SBHWidgetContainerViewController *)&v7 viewDidAppear:appear];
+  v5 = SBLogWidgets(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
     *buf = 138543362;
-    v8 = logIdentifier;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewDidAppear", buf, 0xCu);
+    v9 = logIdentifier;
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewDidAppear", buf, 0xCu);
   }
 
   [(SBHWidgetContainerViewController *)self _updateWidgetVisibility];
@@ -467,17 +468,17 @@ LABEL_12:
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = SBHWidgetContainerViewController;
-  [(SBHWidgetContainerViewController *)&v6 viewWillDisappear:disappear];
-  v4 = SBLogWidgets();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = SBHWidgetContainerViewController;
+  v4 = [(SBHWidgetContainerViewController *)&v7 viewWillDisappear:disappear];
+  v5 = SBLogWidgets(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
     *buf = 138543362;
-    v8 = logIdentifier;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewWillDisappear", buf, 0xCu);
+    v9 = logIdentifier;
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewWillDisappear", buf, 0xCu);
   }
 
   [(SBHWidgetContainerViewController *)self _updateWidgetVisibility];
@@ -489,17 +490,17 @@ LABEL_12:
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = SBHWidgetContainerViewController;
-  [(SBHWidgetContainerViewController *)&v6 viewDidDisappear:disappear];
-  v4 = SBLogWidgets();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = SBHWidgetContainerViewController;
+  v4 = [(SBHWidgetContainerViewController *)&v7 viewDidDisappear:disappear];
+  v5 = SBLogWidgets(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
     *buf = 138543362;
-    v8 = logIdentifier;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewDidDisappear", buf, 0xCu);
+    v9 = logIdentifier;
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@> viewDidDisappear", buf, 0xCu);
   }
 
   [(SBHWidgetContainerViewController *)self _updateWidgetVisibility];
@@ -523,7 +524,7 @@ LABEL_12:
 - (id)snapshotViewExcludingGlassBackgroundEffects:(BOOL)effects
 {
   effectsCopy = effects;
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   _widgetHostViewController = [(SBHWidgetContainerViewController *)self _widgetHostViewController];
   if (effectsCopy && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -545,16 +546,16 @@ LABEL_12:
   widgetContainerView = [(SBHWidgetContainerViewController *)self widgetContainerView];
   screenTimeLockoutView = [widgetContainerView screenTimeLockoutView];
 
-  v11 = SBLogWidgets();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogWidgets(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
     _widgetHostViewController2 = [(SBHWidgetContainerViewController *)self _widgetHostViewController];
-    v19 = 138543618;
-    v20 = logIdentifier;
-    v21 = 2114;
-    v22 = _widgetHostViewController2;
-    _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@> Snapshot view requested for widget: %{public}@", &v19, 0x16u);
+    v21 = 138543618;
+    v22 = logIdentifier;
+    v23 = 2114;
+    v24 = _widgetHostViewController2;
+    _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@> Snapshot view requested for widget: %{public}@", &v21, 0x16u);
   }
 
   if (screenTimeLockoutView)
@@ -562,16 +563,16 @@ LABEL_12:
     snapshotView2 = [screenTimeLockoutView snapshotView];
     [snapshotView addSubview:snapshotView2];
 
-    v15 = SBLogWidgets();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogWidgets(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = self->_logIdentifier;
+      v18 = self->_logIdentifier;
       _widgetHostViewController3 = [(SBHWidgetContainerViewController *)self _widgetHostViewController];
-      v19 = 138543618;
-      v20 = v16;
-      v21 = 2114;
-      v22 = _widgetHostViewController3;
-      _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "<%{public}@> Snapshot view for screenTimeLockoutView was added to snapshotView's hierarchy: %{public}@", &v19, 0x16u);
+      v21 = 138543618;
+      v22 = v18;
+      v23 = 2114;
+      v24 = _widgetHostViewController3;
+      _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "<%{public}@> Snapshot view for screenTimeLockoutView was added to snapshotView's hierarchy: %{public}@", &v21, 0x16u);
     }
   }
 
@@ -760,7 +761,7 @@ LABEL_12:
     [(SBHWidgetContainerViewController *)self setShowsSnapshotWhenDeactivated:1];
     [(SBHWidgetContainerViewController *)self _addDeactivationSnapshotViewIfNecessary];
     view = [(SBHWidgetContainerViewController *)self view];
-    [view bounds];
+    objc_msgSend_bounds(view);
     [(SBHWidgetContainerViewController *)self _setOriginalSize:v13, v14];
     v15 = [SBHWidgetContainerViewSnapshotResizeCoordinator alloc];
     view2 = [(SBHWidgetContainerViewController *)self view];

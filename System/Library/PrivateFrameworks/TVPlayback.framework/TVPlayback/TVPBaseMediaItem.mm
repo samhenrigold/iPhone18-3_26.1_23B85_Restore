@@ -7,6 +7,7 @@
 - (void)performMediaItemMetadataTransactionWithBlock:(id)block;
 - (void)removeMediaItemMetadataForProperty:(id)property;
 - (void)setMediaItemMetadata:(id)metadata forProperty:(id)property;
+- (void)updateBookmarkWithSuggestedTime:(double)time forElapsedTime:(double)elapsedTime duration:(double)duration playbackOfMediaItemIsEnding:(BOOL)ending;
 @end
 
 @implementation TVPBaseMediaItem
@@ -96,6 +97,12 @@
   }
 }
 
+- (void)updateBookmarkWithSuggestedTime:(double)time forElapsedTime:(double)elapsedTime duration:(double)duration playbackOfMediaItemIsEnding:(BOOL)ending
+{
+  v7 = [MEMORY[0x277CCABB0] numberWithDouble:{ending, time, elapsedTime, duration}];
+  [(TVPBaseMediaItem *)self setMediaItemMetadata:v7 forProperty:@"TVPMediaItemMetadataBookmarkNetTime"];
+}
+
 - (NSString)description
 {
   v3 = MEMORY[0x277CCACA8];
@@ -111,7 +118,7 @@
 - (void)_setMetadata:(id)metadata forProperty:(id)property postNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   propertyCopy = property;
   if (propertyCopy)
@@ -125,8 +132,8 @@
 
     if (notificationCopy)
     {
-      v18[0] = propertyCopy;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+      v17[0] = propertyCopy;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
       [(TVPBaseMediaItem *)self _postMetadataWillChangeNotificationWithMetadataProperties:v12];
     }
 
@@ -156,43 +163,39 @@
     if (notificationCopy)
     {
 LABEL_12:
-      v17 = propertyCopy;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+      v16 = propertyCopy;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
       [(TVPBaseMediaItem *)self _postMetadataDidChangeNotificationWithMetadataProperties:v15];
     }
   }
 
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postMetadataWillChangeNotificationWithMetadataProperties:(id)properties
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"TVPMediaItemMetadataChangesKey";
-  v10[0] = properties;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"TVPMediaItemMetadataChangesKey";
+  v9[0] = properties;
   v4 = MEMORY[0x277CBEAC0];
   propertiesCopy = properties;
-  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
 
   [defaultCenter postNotificationName:@"TVPMediaItemMetadataWillChangeNotification" object:self userInfo:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postMetadataDidChangeNotificationWithMetadataProperties:(id)properties
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"TVPMediaItemMetadataChangesKey";
-  v10[0] = properties;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"TVPMediaItemMetadataChangesKey";
+  v9[0] = properties;
   v4 = MEMORY[0x277CBEAC0];
   propertiesCopy = properties;
-  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
 
   [defaultCenter postNotificationName:@"TVPMediaItemMetadataDidChangeNotification" object:self userInfo:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -5,6 +5,7 @@
 - (id).cxx_construct;
 - (id)commandAllocator;
 - (id)computeCommandEncoder;
+- (id)computeCommandEncoderWithSubstreamCount:(unsigned int)count;
 - (id)machineLearningCommandEncoder;
 - (id)renderCommandEncoderWithDescriptor:(id)descriptor;
 - (id)renderCommandEncoderWithDescriptor:(id)descriptor options:(unint64_t)options;
@@ -54,9 +55,8 @@
 
 - (id)commandAllocator
 {
-  v6 = 0;
-  memset(&v5[1], 0, 48);
-  device = self->super.super._device;
+  v5 = 0;
+  memset(&v4[1], 0, 48);
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -64,18 +64,17 @@
   }
 
   _MTLMessageContextEnd();
-  v5[0].receiver = self;
-  v5[0].super_class = MTL4DebugCommandBuffer;
-  return [(objc_super *)v5 commandAllocator];
+  v4[0].receiver = self;
+  v4[0].super_class = MTL4DebugCommandBuffer;
+  return [(objc_super *)v4 commandAllocator];
 }
 
 - (void)beginCommandBufferWithAllocator:(id)allocator
 {
-  v8 = 0;
-  memset(v7, 0, sizeof(v7));
-  device = self->super.super._device;
+  v7 = 0;
+  memset(v6, 0, sizeof(v6));
   _MTLMessageContextBegin_();
-  validateBeginCommandBufferWithAllocatorCommon(v7, self, allocator);
+  validateBeginCommandBufferWithAllocatorCommon(v6, self, allocator);
   _MTLMessageContextEnd();
   self->_currentState = 1;
   self->_aggregatedEncoderMask = 0;
@@ -83,18 +82,17 @@
   self->_allocatorGeneration = [allocator currentGeneration];
   [(MTL4DebugCommandBuffer *)self _resetRenderPassAttachmentTracking];
   [(MTL4DebugCommandBuffer *)self _clearSuspendResumeRenderPassInfo];
-  v6.receiver = self;
-  v6.super_class = MTL4DebugCommandBuffer;
-  [(MTL4ToolsCommandBuffer *)&v6 beginCommandBufferWithAllocator:allocator];
+  v5.receiver = self;
+  v5.super_class = MTL4DebugCommandBuffer;
+  [(MTL4ToolsCommandBuffer *)&v5 beginCommandBufferWithAllocator:allocator];
 }
 
 - (void)beginCommandBufferWithAllocator:(id)allocator options:(id)options
 {
-  v10 = 0;
-  memset(v9, 0, sizeof(v9));
-  device = self->super.super._device;
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
   _MTLMessageContextBegin_();
-  validateBeginCommandBufferWithAllocatorCommon(v9, self, allocator);
+  validateBeginCommandBufferWithAllocatorCommon(v8, self, allocator);
   _MTLMessageContextEnd();
   self->_currentState = 1;
   self->_aggregatedEncoderMask = 0;
@@ -102,16 +100,15 @@
   objc_storeWeak(&self->_debugCommandAllocator, allocator);
   [(MTL4DebugCommandBuffer *)self _resetRenderPassAttachmentTracking];
   [(MTL4DebugCommandBuffer *)self _clearSuspendResumeRenderPassInfo];
-  v8.receiver = self;
-  v8.super_class = MTL4DebugCommandBuffer;
-  [(MTL4ToolsCommandBuffer *)&v8 beginCommandBufferWithAllocator:allocator options:options];
+  v7.receiver = self;
+  v7.super_class = MTL4DebugCommandBuffer;
+  [(MTL4ToolsCommandBuffer *)&v7 beginCommandBufferWithAllocator:allocator options:options];
 }
 
 - (void)endCommandBuffer
 {
-  v5 = 0;
-  memset(&v4[1], 0, 48);
-  device = self->super.super._device;
+  v4 = 0;
+  memset(&v3[1], 0, 48);
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -125,16 +122,15 @@
 
   _MTLMessageContextEnd();
   self->_currentState = 2;
-  v4[0].receiver = self;
-  v4[0].super_class = MTL4DebugCommandBuffer;
-  [(objc_super *)v4 endCommandBuffer];
+  v3[0].receiver = self;
+  v3[0].super_class = MTL4DebugCommandBuffer;
+  [(objc_super *)v3 endCommandBuffer];
 }
 
 - (id)renderCommandEncoderWithDescriptor:(id)descriptor
 {
-  v11 = 0;
-  memset(&v10[1], 0, 48);
-  device = self->super.super._device;
+  v10 = 0;
+  memset(&v9[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -163,32 +159,31 @@
   }
 
   self->_aggregatedEncoderMask |= 1uLL;
-  v6 = objc_autoreleasePoolPush();
-  v10[0].receiver = self;
-  v10[0].super_class = MTL4DebugCommandBuffer;
-  v7 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v7)
+  v5 = objc_autoreleasePoolPush();
+  v9[0].receiver = self;
+  v9[0].super_class = MTL4DebugCommandBuffer;
+  v6 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v6)
   {
-    v8 = [[MTL4DebugRenderCommandEncoder alloc] initWithRenderCommandEncoder:v7 commandBuffer:self descriptor:descriptor];
-    self->_currentEncoder = v8;
+    v7 = [[MTL4DebugRenderCommandEncoder alloc] initWithRenderCommandEncoder:v6 commandBuffer:self descriptor:descriptor];
+    self->_currentEncoder = v7;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  objc_autoreleasePoolPop(v6);
-  return v8;
+  objc_autoreleasePoolPop(v5);
+  return v7;
 }
 
 - (id)renderCommandEncoderWithDescriptor:(id)descriptor options:(unint64_t)options
 {
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
+  v18 = 0;
+  v16 = 0u;
   v17 = 0u;
-  device = self->super.super._device;
+  v15 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -239,9 +234,8 @@ LABEL_11:
       goto LABEL_24;
     }
 
-    v16 = 0;
-    memset(&v15[1], 0, 48);
-    v8 = self->super.super._device;
+    v14 = 0;
+    memset(&v13[1], 0, 48);
     _MTLMessageContextBegin_();
     if ([descriptor visibilityResultBuffer] && objc_msgSend(descriptor, "visibilityResultType") != 1)
     {
@@ -254,52 +248,51 @@ LABEL_11:
   if ((options & 2) != 0)
   {
     self->_aggregatedEncoderMask |= 8uLL;
-    v10 = [descriptor copy];
-    self->_suspendResumeRenderPassInfo.resumingRenderPassDescriptor = v10;
+    v8 = [descriptor copy];
+    self->_suspendResumeRenderPassInfo.resumingRenderPassDescriptor = v8;
     if ((options & 1) == 0)
     {
       goto LABEL_25;
     }
 
     self->_aggregatedEncoderMask |= 0x10uLL;
-    v9 = v10;
+    v7 = v8;
     goto LABEL_22;
   }
 
   if (options)
   {
     self->_aggregatedEncoderMask |= 0x10uLL;
-    v9 = [descriptor copy];
+    v7 = [descriptor copy];
 LABEL_22:
-    self->_suspendResumeRenderPassInfo.suspendingRenderPassDescriptor = v9;
+    self->_suspendResumeRenderPassInfo.suspendingRenderPassDescriptor = v7;
     goto LABEL_25;
   }
 
 LABEL_24:
   self->_aggregatedEncoderMask |= 1uLL;
 LABEL_25:
-  v11 = objc_autoreleasePoolPush();
-  v15[0].receiver = self;
-  v15[0].super_class = MTL4DebugCommandBuffer;
-  v12 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v12)
+  v9 = objc_autoreleasePoolPush();
+  v13[0].receiver = self;
+  v13[0].super_class = MTL4DebugCommandBuffer;
+  v10 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v10)
   {
-    v13 = [[MTL4DebugRenderCommandEncoder alloc] initWithRenderCommandEncoder:v12 commandBuffer:self descriptor:descriptor];
-    self->_currentEncoder = v13;
+    v11 = [[MTL4DebugRenderCommandEncoder alloc] initWithRenderCommandEncoder:v10 commandBuffer:self descriptor:descriptor];
+    self->_currentEncoder = v11;
   }
 
   else
   {
-    v13 = 0;
+    v11 = 0;
   }
 
-  objc_autoreleasePoolPop(v11);
-  return v13;
+  objc_autoreleasePoolPop(v9);
+  return v11;
 }
 
 - (id)computeCommandEncoder
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -319,23 +312,22 @@ LABEL_25:
   _MTLMessageContextEnd();
   [(MTL4DebugCommandBuffer *)self _resetRenderPassAttachmentTracking:0];
   self->_aggregatedEncoderMask |= 2uLL;
-  v4 = objc_autoreleasePoolPush();
-  v5 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v5)
+  v3 = objc_autoreleasePoolPush();
+  v4 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v4)
   {
-    v5 = [[MTL4DebugComputeCommandEncoder alloc] initWithComputeCommandEncoder:v5 commandBuffer:self];
-    self->_currentEncoder = v5;
+    v4 = [[MTL4DebugComputeCommandEncoder alloc] initWithComputeCommandEncoder:v4 commandBuffer:self];
+    self->_currentEncoder = v4;
   }
 
-  objc_autoreleasePoolPop(v4);
-  return v5;
+  objc_autoreleasePoolPop(v3);
+  return v4;
 }
 
 - (void)useResidencySet:(id)set
 {
-  v7 = 0;
-  memset(&v6[1], 0, 48);
-  device = self->super.super._device;
+  v6 = 0;
+  memset(&v5[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!set || self->_currentState != 1)
   {
@@ -343,18 +335,17 @@ LABEL_25:
   }
 
   _MTLMessageContextEnd();
-  v6[0].receiver = self;
-  v6[0].super_class = MTL4DebugCommandBuffer;
-  [(objc_super *)v6 useResidencySet:set];
+  v5[0].receiver = self;
+  v5[0].super_class = MTL4DebugCommandBuffer;
+  [(objc_super *)v5 useResidencySet:set];
 }
 
 - (void)useResidencySets:(const void *)sets count:(unint64_t)count
 {
-  v13 = 0;
-  v11 = 0u;
-  v12 = 0u;
+  v12 = 0;
   v10 = 0u;
-  device = self->super.super._device;
+  v11 = 0u;
+  v9 = 0u;
   _MTLMessageContextBegin_();
   if (self->_currentState == 1)
   {
@@ -373,30 +364,29 @@ LABEL_25:
     }
   }
 
-  v8 = 0;
+  v7 = 0;
   do
   {
-    if (!sets[v8])
+    if (!sets[v7])
     {
       _MTLMessageContextPush_();
     }
 
-    ++v8;
+    ++v7;
   }
 
-  while (count != v8);
+  while (count != v7);
 LABEL_9:
   _MTLMessageContextEnd();
-  v9.receiver = self;
-  v9.super_class = MTL4DebugCommandBuffer;
-  [(MTL4ToolsCommandBuffer *)&v9 useResidencySets:sets count:count];
+  v8.receiver = self;
+  v8.super_class = MTL4DebugCommandBuffer;
+  [(MTL4ToolsCommandBuffer *)&v8 useResidencySets:sets count:count];
 }
 
 - (void)pushDebugGroup:(id)group
 {
-  v7 = 0;
-  memset(&v6[1], 0, 48);
-  device = self->super.super._device;
+  v6 = 0;
+  memset(&v5[1], 0, 48);
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -404,16 +394,15 @@ LABEL_9:
   }
 
   _MTLMessageContextEnd();
-  v6[0].receiver = self;
-  v6[0].super_class = MTL4DebugCommandBuffer;
-  [(objc_super *)v6 pushDebugGroup:group];
+  v5[0].receiver = self;
+  v5[0].super_class = MTL4DebugCommandBuffer;
+  [(objc_super *)v5 pushDebugGroup:group];
 }
 
 - (void)popDebugGroup
 {
-  v5 = 0;
-  memset(&v4[1], 0, 48);
-  device = self->super.super._device;
+  v4 = 0;
+  memset(&v3[1], 0, 48);
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -421,14 +410,13 @@ LABEL_9:
   }
 
   _MTLMessageContextEnd();
-  v4[0].receiver = self;
-  v4[0].super_class = MTL4DebugCommandBuffer;
-  [(objc_super *)v4 popDebugGroup];
+  v3[0].receiver = self;
+  v3[0].super_class = MTL4DebugCommandBuffer;
+  [(objc_super *)v3 popDebugGroup];
 }
 
 - (id)machineLearningCommandEncoder
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -448,21 +436,54 @@ LABEL_9:
   _MTLMessageContextEnd();
   [(MTL4DebugCommandBuffer *)self _resetRenderPassAttachmentTracking:0];
   self->_aggregatedEncoderMask |= 4uLL;
-  v4 = objc_autoreleasePoolPush();
-  v5 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v5)
+  v3 = objc_autoreleasePoolPush();
+  v4 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v4)
   {
-    v6 = [[MTL4DebugMachineLearningCommandEncoder alloc] initWithMLCommandEncoder:v5 commandBuffer:self];
-    self->_currentEncoder = v6;
-    objc_autoreleasePoolPop(v4);
-    return v6;
+    v5 = [[MTL4DebugMachineLearningCommandEncoder alloc] initWithMLCommandEncoder:v4 commandBuffer:self];
+    self->_currentEncoder = v5;
+    objc_autoreleasePoolPop(v3);
+    return v5;
   }
 
   else
   {
-    objc_autoreleasePoolPop(v4);
+    objc_autoreleasePoolPop(v3);
     return 0;
   }
+}
+
+- (id)computeCommandEncoderWithSubstreamCount:(unsigned int)count
+{
+  v3 = *&count;
+  _MTLMessageContextBegin_();
+  if (self->_currentState != 1)
+  {
+    _MTLMessageContextPush_();
+  }
+
+  if (self->_currentEncoder)
+  {
+    _MTLMessageContextPush_();
+  }
+
+  if ((self->_aggregatedEncoderMask & 0x10) != 0)
+  {
+    _MTLMessageContextPush_();
+  }
+
+  _MTLMessageContextEnd();
+  self->_aggregatedEncoderMask |= 2uLL;
+  v5 = objc_autoreleasePoolPush();
+  baseObject = [-[MTLToolsObject baseObject](self baseObject];
+  if (baseObject)
+  {
+    baseObject = [[MTL4DebugComputeCommandEncoder alloc] initWithComputeCommandEncoder:baseObject commandBuffer:self];
+    self->_currentEncoder = baseObject;
+  }
+
+  objc_autoreleasePoolPop(v5);
+  return baseObject;
 }
 
 - (void)_resetRenderPassAttachmentTracking
@@ -510,11 +531,10 @@ LABEL_9:
 
 - (void)writeTimestampIntoHeap:(id)heap atIndex:(unint64_t)index
 {
-  v12 = 0;
-  v10 = 0u;
-  v11 = 0u;
+  v11 = 0;
   v9 = 0u;
-  device = self->super.super._device;
+  v10 = 0u;
+  v8 = 0u;
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -549,20 +569,19 @@ LABEL_12:
   }
 
   _MTLMessageContextEnd();
-  v8.receiver = self;
-  v8.super_class = MTL4DebugCommandBuffer;
-  [(MTL4ToolsCommandBuffer *)&v8 writeTimestampIntoHeap:heap atIndex:index];
+  v7.receiver = self;
+  v7.super_class = MTL4DebugCommandBuffer;
+  [(MTL4ToolsCommandBuffer *)&v7 writeTimestampIntoHeap:heap atIndex:index];
 }
 
 - (void)resolveCounterHeap:(id)heap withRange:(_NSRange)range intoBuffer:(id)buffer atOffset:(unint64_t)offset waitFence:(id)fence updateFence:(id)updateFence
 {
   length = range.length;
   location = range.location;
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
+  v19 = 0;
   v17 = 0u;
-  device = self->super.super._device;
+  v18 = 0u;
+  v16 = 0u;
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -631,11 +650,11 @@ LABEL_9:
 
 LABEL_14:
   _MTLMessageContextEnd();
-  if (!v17)
+  if (!v16)
   {
-    v16.receiver = self;
-    v16.super_class = MTL4DebugCommandBuffer;
-    [(MTL4ToolsCommandBuffer *)&v16 resolveCounterHeap:heap withRange:location intoBuffer:length atOffset:buffer waitFence:offset updateFence:fence, updateFence];
+    v15.receiver = self;
+    v15.super_class = MTL4DebugCommandBuffer;
+    [(MTL4ToolsCommandBuffer *)&v15 resolveCounterHeap:heap withRange:location intoBuffer:length atOffset:buffer waitFence:offset updateFence:fence, updateFence];
   }
 }
 
@@ -645,11 +664,10 @@ LABEL_14:
   var0 = buffer.var0;
   length = range.length;
   location = range.location;
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
+  v18 = 0;
   v16 = 0u;
-  device = self->super.super._device;
+  v17 = 0u;
+  v15 = 0u;
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -718,19 +736,18 @@ LABEL_9:
 
 LABEL_14:
   _MTLMessageContextEnd();
-  if (!v16)
+  if (!v15)
   {
-    v15.receiver = self;
-    v15.super_class = MTL4DebugCommandBuffer;
-    [(MTL4ToolsCommandBuffer *)&v15 resolveCounterHeap:heap withRange:location intoBuffer:length waitFence:var0 updateFence:var1, fence, updateFence];
+    v14.receiver = self;
+    v14.super_class = MTL4DebugCommandBuffer;
+    [(MTL4ToolsCommandBuffer *)&v14 resolveCounterHeap:heap withRange:location intoBuffer:length waitFence:var0 updateFence:var1, fence, updateFence];
   }
 }
 
 - (id)sampledRenderCommandEncoderWithDescriptor:(id)descriptor programInfoBuffer:(id *)buffer capacity:(unint64_t)capacity
 {
-  v15 = 0;
-  memset(&v14[1], 0, 48);
-  device = self->super.super._device;
+  v14 = 0;
+  memset(&v13[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -754,28 +771,27 @@ LABEL_14:
 
   _MTLMessageContextEnd();
   self->_aggregatedEncoderMask |= 1uLL;
-  v10 = objc_autoreleasePoolPush();
-  v14[0].receiver = self;
-  v14[0].super_class = MTL4DebugCommandBuffer;
-  v11 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v11)
+  v9 = objc_autoreleasePoolPush();
+  v13[0].receiver = self;
+  v13[0].super_class = MTL4DebugCommandBuffer;
+  v10 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v10)
   {
-    v12 = [[MTL4DebugRenderCommandEncoder alloc] initWithRenderCommandEncoder:v11 commandBuffer:self descriptor:descriptor];
-    self->_currentEncoder = v12;
+    v11 = [[MTL4DebugRenderCommandEncoder alloc] initWithRenderCommandEncoder:v10 commandBuffer:self descriptor:descriptor];
+    self->_currentEncoder = v11;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  objc_autoreleasePoolPop(v10);
-  return v12;
+  objc_autoreleasePoolPop(v9);
+  return v11;
 }
 
 - (id)sampledComputeCommandEncoder:(id *)encoder capacity:(unint64_t)capacity
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (self->_currentState != 1)
   {
@@ -795,16 +811,16 @@ LABEL_14:
   _MTLMessageContextEnd();
   [(MTL4DebugCommandBuffer *)self _resetRenderPassAttachmentTracking:0];
   self->_aggregatedEncoderMask |= 2uLL;
-  v8 = objc_autoreleasePoolPush();
-  v9 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v9)
+  v7 = objc_autoreleasePoolPush();
+  v8 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v8)
   {
-    v9 = [[MTL4DebugComputeCommandEncoder alloc] initWithComputeCommandEncoder:v9 commandBuffer:self];
-    self->_currentEncoder = v9;
+    v8 = [[MTL4DebugComputeCommandEncoder alloc] initWithComputeCommandEncoder:v8 commandBuffer:self];
+    self->_currentEncoder = v8;
   }
 
-  objc_autoreleasePoolPop(v8);
-  return v9;
+  objc_autoreleasePoolPop(v7);
+  return v8;
 }
 
 - (BOOL)isAllocatorGenerationValid

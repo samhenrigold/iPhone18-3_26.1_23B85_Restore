@@ -8,10 +8,10 @@
 
 - (void)configureWithRewardsRedemption:(id)redemption rewardsBalance:(id)balance
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD4FE28);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD4FE28, &unk_1BE0EF620);
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v15[-v10];
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v14[-v9];
   redemptionCopy = redemption;
   balanceCopy = balance;
   sub_1BD5C355C();
@@ -20,12 +20,12 @@
   selfCopy = self;
   sub_1BE04FCE4();
   sub_1BE0501D4();
-  v18[3] = v7;
-  v18[4] = sub_1BD0DE4F4(&qword_1EBD4FE30, &qword_1EBD4FE28);
-  __swift_allocate_boxed_opaque_existential_1(v18);
+  v17[3] = v7;
+  v17[4] = sub_1BD0DE4F4(&qword_1EBD4FE30, &qword_1EBD4FE28, &unk_1BE0EF620, MEMORY[0x1E697C858]);
+  __swift_allocate_boxed_opaque_existential_1(v17);
   sub_1BE04FCD4();
-  (*(v8 + 8))(v11, v7);
-  MEMORY[0x1BFB3FD10](v18);
+  (*(v8 + 8))(v10, v7);
+  MEMORY[0x1BFB3FD10](v17);
 }
 
 - (_TtC9PassKitUI53PKTransactionDetailRewardsRedemptionInfoTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -34,14 +34,16 @@
   if (identifier)
   {
     sub_1BE052434();
+    v9 = v8;
     identifier = sub_1BE052404();
+    v9, v10, v11, v12, v13, v14, v15, v16;
   }
 
-  v10.receiver = self;
-  v10.super_class = ObjectType;
-  v8 = [(PKTransactionDetailRewardsRedemptionInfoTableViewCell *)&v10 initWithStyle:style reuseIdentifier:identifier];
+  v19.receiver = self;
+  v19.super_class = ObjectType;
+  v17 = [(PKTransactionDetailRewardsRedemptionInfoTableViewCell *)&v19 initWithStyle:style reuseIdentifier:identifier];
 
-  return v8;
+  return v17;
 }
 
 - (_TtC9PassKitUI53PKTransactionDetailRewardsRedemptionInfoTableViewCell)initWithCoder:(id)coder

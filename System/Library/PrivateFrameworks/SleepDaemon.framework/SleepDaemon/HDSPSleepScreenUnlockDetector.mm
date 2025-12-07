@@ -44,16 +44,16 @@
 
 - (void)startDetecting
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self->_isDetecting)
   {
     v3 = HKSPLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = objc_opt_class();
-      v4 = v9;
-      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] startDetecting", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = objc_opt_class();
+      v4 = v8;
+      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] startDetecting", &v7, 0xCu);
     }
 
     self->_isDetecting = 1;
@@ -61,20 +61,18 @@
     actionManager = [WeakRetained actionManager];
     [actionManager addObserver:self];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopDetecting
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    v4 = v9;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopDetecting", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = objc_opt_class();
+    v4 = v8;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopDetecting", &v7, 0xCu);
   }
 
   self->_isDetecting = 0;
@@ -82,8 +80,6 @@
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   actionManager = [WeakRetained actionManager];
   [actionManager removeObserver:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetCounter
@@ -98,23 +94,21 @@
 
 - (void)setNumberOfTimesDismissed:(unint64_t)dismissed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = objc_opt_class();
-    v12 = 2048;
+    v9 = 138543618;
+    v10 = objc_opt_class();
+    v11 = 2048;
     dismissedCopy = dismissed;
-    v6 = v11;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] setNumberOfTimesDismissed: %ld", &v10, 0x16u);
+    v6 = v10;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] setNumberOfTimesDismissed: %ld", &v9, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   userDefaults = [WeakRetained userDefaults];
   [userDefaults hksp_setInteger:dismissed forKey:@"HDSPSleepScreenUnlockCount"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)numberOfTimesDismissed
@@ -128,28 +122,28 @@
 
 - (void)sleepLockWasDismissed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(HDSPSleepScreenUnlockDetector *)self isDetecting])
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __54__HDSPSleepScreenUnlockDetector_sleepLockWasDismissed__block_invoke;
-    v11[3] = &unk_279C7B130;
-    v11[4] = self;
-    v11[5] = &v12;
-    [(HDSPSleepScreenUnlockDetector *)self _withLock:v11];
-    if (*(v13 + 24) == 1)
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
+    v14 = 0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __54__HDSPSleepScreenUnlockDetector_sleepLockWasDismissed__block_invoke;
+    v10[3] = &unk_279C7B130;
+    v10[4] = self;
+    v10[5] = &v11;
+    [(HDSPSleepScreenUnlockDetector *)self _withLock:v10];
+    if (*(v12 + 24) == 1)
     {
       v3 = HKSPLogForCategory();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = objc_opt_class();
         *buf = 138543362;
-        v17 = v4;
+        v16 = v4;
         v5 = v4;
         _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] counts as early wake up", buf, 0xCu);
       }
@@ -161,31 +155,27 @@
       [wakeDetectorDelegate wakeDetector:self didDetectWakeUpEventOnDate:v9];
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDSPSleepScreenUnlockDetector_sleepLockWasDismissed__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) numberOfTimesDismissed] + 1;
   [*(a1 + 32) setNumberOfTimesDismissed:v2];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2048;
-    v10 = v2;
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleepLockWasDismissed (%ld times)", &v7, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2048;
+    v8 = v2;
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleepLockWasDismissed (%ld times)", &v5, 0x16u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = v2 == 2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepModeDidChange:(int64_t)change previousMode:(int64_t)mode reason:(unint64_t)reason

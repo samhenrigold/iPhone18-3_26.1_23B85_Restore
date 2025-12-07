@@ -40,7 +40,7 @@
 
 - (void)endPlayback
 {
-  v2 = IntentHandlerDefaultLog();
+  v2 = IntentHandlerDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = 136315138;
@@ -53,7 +53,7 @@
 {
   voicemailCopy = voicemail;
   completionCopy = completion;
-  v8 = IntentHandlerDefaultLog();
+  v8 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -120,7 +120,7 @@
 {
   voicemailCopy = voicemail;
   completionCopy = completion;
-  v8 = IntentHandlerDefaultLog();
+  v8 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;

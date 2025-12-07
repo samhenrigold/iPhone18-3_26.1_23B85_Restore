@@ -1142,7 +1142,7 @@ uint64_t __65__MediaControlsExpandableButton_setSelectedOptionIndex_animated___b
   [(MediaControlsExpandableButton *)self setNeedsLayout];
 }
 
-uint64_t __56__MediaControlsExpandableButton_setSelectedOptionIndex___block_invoke(uint64_t a1)
+void *__56__MediaControlsExpandableButton_setSelectedOptionIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _layoutLabels];
   if (*(a1 + 40) == 1)
@@ -1556,7 +1556,7 @@ uint64_t __69__MediaControlsExpandableButton_continueTrackingWithTouch_withEvent
   return v4;
 }
 
-uint64_t __69__MediaControlsExpandableButton_continueTrackingWithTouch_withEvent___block_invoke_2(uint64_t a1)
+void *__69__MediaControlsExpandableButton_continueTrackingWithTouch_withEvent___block_invoke_2(uint64_t a1)
 {
   if (*(a1 + 56) == 1)
   {

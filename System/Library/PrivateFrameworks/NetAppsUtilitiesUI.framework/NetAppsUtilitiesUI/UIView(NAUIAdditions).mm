@@ -1,6 +1,6 @@
 @interface UIView(NAUIAdditions)
-+ (uint64_t)naui_beginDisablingAnimations;
-+ (uint64_t)naui_endDisablingAnimations;
++ (void)naui_beginDisablingAnimations;
++ (void)naui_endDisablingAnimations;
 + (void)naui_performAnimateableChangesWithAnimationDuration:()NAUIAdditions setupBlock:animatablesBlock:completion:;
 + (void)naui_prepareToAutolayoutProperDescendantsOfView:()NAUIAdditions inConstraints:;
 - (BOOL)naui_canAnimate;
@@ -128,7 +128,7 @@
   return v3;
 }
 
-+ (uint64_t)naui_beginDisablingAnimations
++ (void)naui_beginDisablingAnimations
 {
   if (!_animationsDisabledCount++)
   {
@@ -138,7 +138,7 @@
   return result;
 }
 
-+ (uint64_t)naui_endDisablingAnimations
++ (void)naui_endDisablingAnimations
 {
   if (!--_animationsDisabledCount)
   {
@@ -324,40 +324,40 @@
 {
   if (a3)
   {
-    return [self removeConstraint:?];
+    return [result removeConstraint:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)naui_removeConstraints:()NAUIAdditions
 {
   if (a3)
   {
-    return [self removeConstraints:?];
+    return [result removeConstraints:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)naui_addConstraint:()NAUIAdditions
 {
   if (a3)
   {
-    return [self addConstraint:?];
+    return [result addConstraint:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)naui_addConstraints:()NAUIAdditions
 {
   if (a3)
   {
-    return [self addConstraints:?];
+    return [result addConstraints:?];
   }
 
-  return self;
+  return result;
 }
 
 - (uint64_t)naui_replaceConstraint:()NAUIAdditions withConstraints:

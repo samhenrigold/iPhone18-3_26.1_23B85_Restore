@@ -3,6 +3,7 @@
 - (_INPBIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -320,31 +321,28 @@ LABEL_30:
 
   if ([(_INPBIntentResponse *)self hasRequiresAuthentication])
   {
-    requiresAuthentication = self->_requiresAuthentication;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBIntentResponse *)self hasRequiresProtectedData])
   {
-    requiresProtectedData = self->_requiresProtectedData;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBIntentResponse *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
   userActivity = [(_INPBIntentResponse *)self userActivity];
 
-  v12 = toCopy;
+  v9 = toCopy;
   if (userActivity)
   {
     userActivity2 = [(_INPBIntentResponse *)self userActivity];
     PBDataWriterWriteSubmessage();
 
-    v12 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -394,6 +392,21 @@ LABEL_30:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72806A0[string];
   }
 
   return v4;

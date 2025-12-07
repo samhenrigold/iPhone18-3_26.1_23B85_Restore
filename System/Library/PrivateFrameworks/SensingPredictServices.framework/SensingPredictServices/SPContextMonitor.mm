@@ -10,6 +10,7 @@
 - (void)_reportError:(id)error;
 - (void)activateWithCompletion:(id)completion;
 - (void)contextMonitorContextChanged:(id)changed;
+- (void)contextSignalUpdated:(id)updated fusedState:(unsigned int)state;
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
 - (void)setContextChangeFlags:(unsigned int)flags;
@@ -96,11 +97,11 @@ void __42__SPContextMonitor_setContextChangeFlags___block_invoke(uint64_t a1)
 
 - (id)description
 {
-  clientID = self->_clientID;
-  contextChangeFlags = self->_contextChangeFlags;
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "SPContextMonitor, CID 0x%X cmcf %d", self->_clientID, self->_contextChangeFlags);
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -122,11 +123,14 @@ void __43__SPContextMonitor_activateWithCompletion___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
-    if (gLogCategory_SPContextMonitor <= 90 && (gLogCategory_SPContextMonitor != -1 || _LogCategory_Initialize()))
+    v3 = NSErrorF();
+    v9 = v3;
+    if (gLogCategory_SPContextMonitor <= 90)
     {
-      __43__SPContextMonitor_activateWithCompletion___block_invoke_cold_1();
+      if (gLogCategory_SPContextMonitor != -1 || (v4 = _LogCategory_Initialize(), v3 = v9, v4))
+      {
+        __43__SPContextMonitor_activateWithCompletion___block_invoke_cold_1(v3);
+      }
     }
 
     (*(*(a1 + 40) + 16))();
@@ -135,14 +139,14 @@ void __43__SPContextMonitor_activateWithCompletion___block_invoke(uint64_t a1)
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x266759430](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v5 = MEMORY[0x266759430](*(a1 + 40));
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 16);
+    *(v6 + 16) = v5;
 
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
 
-    [v7 _activate:0];
+    [v8 _activate:0];
   }
 }
 
@@ -156,14 +160,21 @@ void __43__SPContextMonitor_activateWithCompletion___block_invoke(uint64_t a1)
       {
         goto LABEL_13;
       }
+
+      v5 = "Re-activate XPC, CID 0x%X";
     }
 
-    else if (gLogCategory_SPContextMonitor > 30 || gLogCategory_SPContextMonitor == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_13;
+      if (gLogCategory_SPContextMonitor > 30 || gLogCategory_SPContextMonitor == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_13;
+      }
+
+      v5 = "Activate, CID 0x%X";
     }
 
-    [SPContextMonitor _activate:?];
+    [(SPContextMonitor *)self _activate:v5];
 LABEL_13:
     [(SPContextMonitor *)self _ensureXPCStarted];
     xpcCnx = self->_xpcCnx;
@@ -185,11 +196,10 @@ LABEL_13:
     return;
   }
 
-  v4 = *MEMORY[0x277CCA590];
   v10 = NSErrorF();
   if (gLogCategory_SPContextMonitor <= 90 && (gLogCategory_SPContextMonitor != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SPContextMonitor, "[SPContextMonitor _activate:]", 90, "### Activate failed: %@, %@", self, v10);
   }
 
   v8 = MEMORY[0x266759430](self->_activateCompletion);
@@ -212,7 +222,7 @@ void __30__SPContextMonitor__activate___block_invoke(uint64_t a1, void *a2)
     {
       if (gLogCategory_SPContextMonitor != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        __30__SPContextMonitor__activate___block_invoke_cold_2();
+        __30__SPContextMonitor__activate___block_invoke_cold_2(v3);
 LABEL_13:
         v3 = v6;
       }
@@ -223,7 +233,7 @@ LABEL_13:
   {
     if (gLogCategory_SPContextMonitor != -1 || (v5 = _LogCategory_Initialize(), v3 = v6, v5))
     {
-      __30__SPContextMonitor__activate___block_invoke_cold_1();
+      __30__SPContextMonitor__activate___block_invoke_cold_1(v3);
       goto LABEL_13;
     }
   }
@@ -234,16 +244,16 @@ LABEL_13:
 void __30__SPContextMonitor__activate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v9 = v3;
+  v10 = v3;
   if (v3)
   {
     v4 = v3;
     if (gLogCategory_SPContextMonitor <= 90)
     {
-      if (gLogCategory_SPContextMonitor != -1 || (v5 = _LogCategory_Initialize(), v4 = v9, v5))
+      if (gLogCategory_SPContextMonitor != -1 || (v5 = _LogCategory_Initialize(), v4 = v10, v5))
       {
-        __30__SPContextMonitor__activate___block_invoke_2_cold_1();
-        v4 = v9;
+        __30__SPContextMonitor__activate___block_invoke_2_cold_1(v4);
+        v4 = v10;
       }
     }
 
@@ -257,23 +267,30 @@ void __30__SPContextMonitor__activate___block_invoke_2(uint64_t a1, void *a2)
     {
       goto LABEL_14;
     }
+
+    v6 = "Re-activated: %@\n";
   }
 
-  else if (gLogCategory_SPContextMonitor > 30 || gLogCategory_SPContextMonitor == -1 && !_LogCategory_Initialize())
+  else
   {
-    goto LABEL_14;
+    if (gLogCategory_SPContextMonitor > 30 || gLogCategory_SPContextMonitor == -1 && !_LogCategory_Initialize())
+    {
+      goto LABEL_14;
+    }
+
+    v6 = "Activated: %@\n";
   }
 
-  __30__SPContextMonitor__activate___block_invoke_2_cold_2(a1);
+  __30__SPContextMonitor__activate___block_invoke_2_cold_2(a1, v6);
 LABEL_14:
-  v6 = MEMORY[0x266759430](*(*(a1 + 32) + 16));
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 16);
-  *(v7 + 16) = 0;
+  v7 = MEMORY[0x266759430](*(*(a1 + 32) + 16));
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 16);
+  *(v8 + 16) = 0;
 
-  if (v6)
+  if (v7)
   {
-    v6[2](v6, 0);
+    v7[2](v7, 0);
   }
 
 LABEL_17:
@@ -329,14 +346,16 @@ uint64_t __37__SPContextMonitor__ensureXPCStarted__block_invoke_2(uint64_t a1)
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SPContextMonitor <= 50 && (gLogCategory_SPContextMonitor != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SPContextMonitor <= 50)
   {
-    [SPContextMonitor _interrupted];
+    if (gLogCategory_SPContextMonitor != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SPContextMonitor *)v3 _interrupted];
+    }
   }
 
-  v3 = *MEMORY[0x277CCA590];
-  v4 = NSErrorF();
-  [(SPContextMonitor *)self _reportError:v4];
+  v6 = NSErrorF();
+  [(SPContextMonitor *)self _reportError:v6];
 
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
@@ -344,9 +363,9 @@ uint64_t __37__SPContextMonitor__ensureXPCStarted__block_invoke_2(uint64_t a1)
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v7 = *(interruptionHandler + 2);
+    v9 = *(interruptionHandler + 2);
 
-    v7();
+    v9();
   }
 }
 
@@ -380,16 +399,15 @@ void __30__SPContextMonitor_invalidate__block_invoke(uint64_t a1)
       v4 = *(a1 + 32);
     }
 
-    v10 = MEMORY[0x266759430](*(v4 + 16));
+    v9 = MEMORY[0x266759430](*(v4 + 16));
     v6 = *(a1 + 32);
     v7 = *(v6 + 16);
     *(v6 + 16) = 0;
 
-    if (v10)
+    if (v9)
     {
-      v8 = *MEMORY[0x277CCA590];
-      v9 = NSErrorF();
-      v10[2](v10, v9);
+      v8 = NSErrorF();
+      v9[2](v9, v8);
     }
 
     [*(a1 + 32) _invalidated];
@@ -412,41 +430,61 @@ void __30__SPContextMonitor_invalidate__block_invoke(uint64_t a1)
   }
 }
 
+- (void)contextSignalUpdated:(id)updated fusedState:(unsigned int)state
+{
+  v4 = *&state;
+  updatedCopy = updated;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  contextSignalUpdatedHandler = self->_contextSignalUpdatedHandler;
+  if (contextSignalUpdatedHandler)
+  {
+    contextSignalUpdatedHandler[2](contextSignalUpdatedHandler, v4, updatedCopy);
+  }
+
+  else if (gLogCategory_SPContextMonitor <= 30 && (gLogCategory_SPContextMonitor != -1 || _LogCategory_Initialize()))
+  {
+    [SPContextMonitor contextSignalUpdated:? fusedState:?];
+  }
+}
+
 - (void)_invalidated
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SPContextMonitor <= 50 && (gLogCategory_SPContextMonitor != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && gLogCategory_SPContextMonitor <= 50)
     {
-      [SPContextMonitor _invalidated];
+      if (gLogCategory_SPContextMonitor != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SPContextMonitor *)self _invalidated];
+      }
     }
 
-    if (!self->_xpcCnx)
+    if (!selfCopy->_xpcCnx)
     {
-      v9 = MEMORY[0x266759430](self->_activateCompletion, a2);
-      activateCompletion = self->_activateCompletion;
-      self->_activateCompletion = 0;
+      v9 = MEMORY[0x266759430](selfCopy->_activateCompletion, a2);
+      activateCompletion = selfCopy->_activateCompletion;
+      selfCopy->_activateCompletion = 0;
 
       if (v9)
       {
-        v4 = *MEMORY[0x277CCA590];
         v5 = NSErrorF();
         v9[2](v9, v5);
       }
 
-      v6 = MEMORY[0x266759430](self->_invalidationHandler);
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      v6 = MEMORY[0x266759430](selfCopy->_invalidationHandler);
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
       if (v6)
       {
         v6[2](v6);
       }
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
       if (gLogCategory_SPContextMonitor <= 10 && (gLogCategory_SPContextMonitor != -1 || _LogCategory_Initialize()))
       {
         [SPContextMonitor _invalidated];
@@ -470,7 +508,7 @@ void __30__SPContextMonitor_invalidate__block_invoke(uint64_t a1)
   errorCopy = error;
   if (gLogCategory_SPContextMonitor <= 90 && (gLogCategory_SPContextMonitor != -1 || _LogCategory_Initialize()))
   {
-    [SPContextMonitor _reportError:];
+    [SPContextMonitor _reportError:errorCopy];
   }
 
   v4 = MEMORY[0x266759430](self->_activateCompletion);

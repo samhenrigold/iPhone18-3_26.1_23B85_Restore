@@ -42,7 +42,6 @@
 {
   if (*&self->_has)
   {
-    value = self->_value;
     PBDataWriterWriteDoubleField();
   }
 }

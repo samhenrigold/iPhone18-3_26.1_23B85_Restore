@@ -1,9 +1,9 @@
 @interface OrgApacheLuceneStoreRAMFile
 - (BOOL)isEqual:(id)equal;
-- (NSString)description;
 - (OrgApacheLuceneStoreRAMFile)init;
 - (OrgApacheLuceneStoreRAMFile)initWithOrgApacheLuceneStoreRAMDirectory:(id)directory;
 - (id)addBufferWithInt:(int)int;
+- (id)getBufferWithInt:(int)int;
 - (int)numBuffers;
 - (int64_t)getLength;
 - (int64_t)ramBytesUsed;
@@ -73,6 +73,21 @@
   return v5;
 }
 
+- (id)getBufferWithInt:(int)int
+{
+  v3 = *&int;
+  objc_sync_enter(self);
+  buffers = self->buffers_;
+  if (!buffers)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v6 = [(JavaUtilArrayList *)buffers getWithInt:v3];
+  objc_sync_exit(self);
+  return v6;
+}
+
 - (int)numBuffers
 {
   objc_sync_enter(self);
@@ -93,13 +108,6 @@
   sizeInBytes = self->sizeInBytes_;
   objc_sync_exit(self);
   return sizeInBytes;
-}
-
-- (NSString)description
-{
-  v3 = [-[OrgApacheLuceneStoreRAMFile getClass](self "getClass")];
-  length = self->length_;
-  return JreStrcat("$$JC", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (unint64_t)hash
@@ -193,7 +201,7 @@
   do
   {
     v9 = JavaUtilArrays_equalsWithByteArray_withByteArray_(-[JavaUtilArrayList getWithInt:](self->buffers_, "getWithInt:", v8), [*(equal + 1) getWithInt:v8]);
-    if ((v9 & 1) == 0)
+    if (!v9)
     {
       break;
     }

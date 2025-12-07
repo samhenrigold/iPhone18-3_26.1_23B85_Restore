@@ -23,7 +23,7 @@
     [v8 addObject:v9];
   }
 
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v10 = [v8 componentsJoinedByString:@" - "];
   }

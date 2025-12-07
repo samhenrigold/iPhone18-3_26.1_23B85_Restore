@@ -10,26 +10,25 @@
 
 - (PVCameraPreviewRenderer)init
 {
-  v10.receiver = self;
-  v10.super_class = PVCameraPreviewRenderer;
-  v2 = [(PVCameraPreviewRenderer *)&v10 init];
-  v3 = v2;
+  v9.receiver = self;
+  v9.super_class = PVCameraPreviewRenderer;
+  v2 = [(PVCameraPreviewRenderer *)&v9 init];
   if (v2)
   {
-    PVRenderManager::INSTANCE(v2, &v9);
-    m_Obj = v3->_renderManager.m_Obj;
-    v5 = v9;
-    if (m_Obj == v9)
+    PVRenderManager::INSTANCE(&v8);
+    m_Obj = v2->_renderManager.m_Obj;
+    v4 = v8;
+    if (m_Obj == v8)
     {
       if (m_Obj)
       {
-        (*(*v9 + 24))();
-        v5 = v3->_renderManager.m_Obj;
+        (*(*v8 + 24))();
+        v4 = v2->_renderManager.m_Obj;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
     }
 
@@ -37,20 +36,20 @@
     {
       if (m_Obj)
       {
-        (*(*m_Obj + 24))(v3->_renderManager.m_Obj);
-        v5 = v9;
+        (*(*m_Obj + 24))(v2->_renderManager.m_Obj);
+        v4 = v8;
       }
 
-      v3->_renderManager.m_Obj = v5;
+      v2->_renderManager.m_Obj = v4;
     }
 
-    PVRenderManager::SetupTextureFactories(v5, 0.5);
-    v6 = +[PVVideoCompositingContext createContextForGPU];
-    compositingContext = v3->_compositingContext;
-    v3->_compositingContext = v6;
+    PVRenderManager::SetupTextureFactories(v4, 0.5);
+    v5 = +[PVVideoCompositingContext createContextForGPU];
+    compositingContext = v2->_compositingContext;
+    v2->_compositingContext = v5;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc

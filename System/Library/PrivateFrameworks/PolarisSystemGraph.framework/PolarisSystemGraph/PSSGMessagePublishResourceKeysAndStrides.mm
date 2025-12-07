@@ -9,30 +9,30 @@
 
 + (id)messageWithKeysAndStrides:(id)strides sender:(id)sender
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   stridesCopy = strides;
   senderCopy = sender;
   data = [MEMORY[0x277CBEB28] data];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v6 = stridesCopy;
-  v33 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
-  if (v33)
+  v32 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  if (v32)
   {
-    v30 = v6;
-    v31 = *v40;
+    v29 = v6;
+    v30 = *v39;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v40 != v31)
+        if (*v39 != v30)
         {
           objc_enumerationMutation(v6);
         }
 
-        v8 = *(*(&v39 + 1) + 8 * i);
+        v8 = *(*(&v38 + 1) + 8 * i);
         v9 = [MEMORY[0x277CBEB28] dataWithLength:272];
         mutableBytes = [v9 mutableBytes];
         [v8 UTF8String];
@@ -43,36 +43,36 @@
 
         if (v13)
         {
-          v37 = 0u;
-          v38 = 0u;
-          v35 = 0u;
           v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           supportedStrides2 = [v11 supportedStrides];
-          v15 = [supportedStrides2 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v15 = [supportedStrides2 countByEnumeratingWithState:&v34 objects:v42 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v36;
+            v17 = *v35;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v36 != v17)
+                if (*v35 != v17)
                 {
                   objc_enumerationMutation(supportedStrides2);
                 }
 
-                v19 = *(*(&v35 + 1) + 8 * j);
-                v34 = 0;
+                v19 = *(*(&v34 + 1) + 8 * j);
+                v33 = 0;
                 v20 = [v19 objectAtIndexedSubscript:0];
-                LODWORD(v34) = [v20 unsignedIntValue];
+                LODWORD(v33) = [v20 unsignedIntValue];
                 v21 = [v19 objectAtIndexedSubscript:1];
-                HIDWORD(v34) = [v21 unsignedIntValue];
+                HIDWORD(v33) = [v21 unsignedIntValue];
 
-                [v9 appendBytes:&v34 length:8];
+                [v9 appendBytes:&v33 length:8];
               }
 
-              v16 = [supportedStrides2 countByEnumeratingWithState:&v35 objects:v43 count:16];
+              v16 = [supportedStrides2 countByEnumeratingWithState:&v34 objects:v42 count:16];
             }
 
             while (v16);
@@ -82,7 +82,7 @@
           *(mutableBytes + 256) = [supportedStrides3 count];
 
           defaultStride = [v11 defaultStride];
-          v6 = v30;
+          v6 = v29;
         }
 
         else
@@ -106,21 +106,20 @@
         [data appendData:v9];
       }
 
-      v33 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v32 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
   v26 = [(PSSGMessageBase *)[PSSGMessagePublishResourceKeysAndStrides alloc] initWithType:24 string1:senderCopy data:data];
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (NSDictionary)resourceOptions
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   data = [(PSSGMessageBase *)self data];
   bytes = [data bytes];
@@ -143,12 +142,12 @@
           do
           {
             v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v10 - 1)];
-            v26[0] = v11;
+            v25[0] = v11;
             v12 = *v10;
             v10 += 2;
             v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v12];
-            v26[1] = v13;
-            v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+            v25[1] = v13;
+            v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
             [v8 addObject:v14];
 
             ++v9;
@@ -178,8 +177,6 @@
 
     while (bytes < v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

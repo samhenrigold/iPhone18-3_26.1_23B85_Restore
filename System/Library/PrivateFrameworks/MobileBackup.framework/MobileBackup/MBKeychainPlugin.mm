@@ -22,23 +22,22 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v23 = @"/var/Keychains/keychain-backup.plist";
+    v22 = @"/var/Keychains/keychain-backup.plist";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Exporting keychain to %@", buf, 0xCu);
-    v19 = @"/var/Keychains/keychain-backup.plist";
-    _MBLog();
+    _MBLog(@"I ", "Exporting keychain to %@", @"/var/Keychains/keychain-backup.plist");
   }
 
   settingsContext = [engineCopy settingsContext];
   keybag = [settingsContext keybag];
-  v21 = 0;
-  v8 = [keybag dataWithError:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [keybag dataWithError:&v20];
+  v9 = v20;
 
   if (v8)
   {
-    v20 = v9;
-    v10 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v20];
-    v11 = v20;
+    v19 = v9;
+    v10 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v19];
+    v11 = v19;
 
     if (!v10)
     {
@@ -48,9 +47,9 @@
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v23 = @"/var/Keychains/keychain-backup.plist";
+          v22 = @"/var/Keychains/keychain-backup.plist";
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Exporting keychain to %@ failed: no password", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Exporting keychain to %@ failed: no password", @"/var/Keychains/keychain-backup.plist");
         }
 
         v9 = v11;
@@ -61,7 +60,7 @@
       v11 = 0;
     }
 
-    v12 = [v10 dataUsingEncoding:{4, v19}];
+    v12 = [v10 dataUsingEncoding:4];
     v13 = WriteKeychainToDisk(@"/var/Keychains/keychain-backup.plist");
     v14 = v11;
 
@@ -72,9 +71,9 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = @"/var/Keychains/keychain-backup.plist";
+        v22 = @"/var/Keychains/keychain-backup.plist";
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Exporting keychain to %@ succeeded", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "Exporting keychain to %@ succeeded", @"/var/Keychains/keychain-backup.plist");
       }
 
       v9 = 0;
@@ -85,11 +84,11 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v23 = @"/var/Keychains/keychain-backup.plist";
-        v24 = 2112;
-        v25 = v14;
+        v22 = @"/var/Keychains/keychain-backup.plist";
+        v23 = 2112;
+        v24 = v14;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Exporting keychain to %@ failed: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Exporting keychain to %@ failed: %@", @"/var/Keychains/keychain-backup.plist", v14);
       }
 
       v9 = v14;
@@ -103,9 +102,9 @@ LABEL_17:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v23 = @"/var/Keychains/keychain-backup.plist";
+    v22 = @"/var/Keychains/keychain-backup.plist";
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Exporting keychain to %@ failed: no keybag", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "Exporting keychain to %@ failed: no keybag", @"/var/Keychains/keychain-backup.plist");
   }
 
 LABEL_18:
@@ -121,22 +120,22 @@ LABEL_18:
   v4 = objc_opt_class();
   Name = class_getName(v4);
   v6 = dispatch_queue_create(Name, 0);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_1001405D0;
-  v31 = sub_1001405E0;
-  v32 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_1001405D0;
+  v30 = sub_1001405E0;
+  v31 = 0;
   v7 = dispatch_semaphore_create(0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001405E8;
   block[3] = &unk_1003BE1F8;
   v8 = engineCopy;
-  v24 = v8;
-  v26 = &v27;
+  v23 = v8;
+  v25 = &v26;
   v9 = v7;
-  v25 = v9;
+  v24 = v9;
   dispatch_async(v6, block);
   Current = CFAbsoluteTimeGetCurrent();
   v11 = dispatch_time(0, 5000000000);
@@ -153,10 +152,9 @@ LABEL_18:
         {
           v15 = v13 - Current;
           *buf = 134217984;
-          v34 = v15;
+          v33 = v15;
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Waiting for keychain export to finish (%.1fs)", buf, 0xCu);
-          v22 = v15;
-          _MBLog();
+          _MBLog(@"I ", "Waiting for keychain export to finish (%.1fs)", v15);
         }
       }
 
@@ -173,7 +171,7 @@ LABEL_18:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Backup was cancelled while waiting for the keychain export to finish", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Backup was cancelled while waiting for the keychain export to finish");
     }
 
     v18 = [MBError errorWithCode:202 format:@"Cancelled while waiting for keychain export"];
@@ -181,7 +179,7 @@ LABEL_18:
   }
 
 LABEL_9:
-  v17 = v28[5];
+  v17 = v27[5];
   if (v17)
   {
     v18 = v17;
@@ -193,7 +191,7 @@ LABEL_14:
   v20 = 0;
 LABEL_16:
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v20;
 }
@@ -202,15 +200,15 @@ LABEL_16:
 {
   engineCopy = engine;
   v6 = +[NSFileManager defaultManager];
-  v57 = 0;
-  v7 = [v6 attributesOfItemAtPath:@"/var/Keychains/keychain-2.db-wal" error:&v57];
-  v8 = v57;
+  v55 = 0;
+  v7 = [v6 attributesOfItemAtPath:@"/var/Keychains/keychain-2.db-wal" error:&v55];
+  v8 = v55;
   v9 = v8;
   if (v7)
   {
-    v56 = v8;
-    v10 = [v6 attributesOfItemAtPath:@"/var/Keychains/keychain-ota-backup.plist" error:&v56];
-    v11 = v56;
+    v54 = v8;
+    v10 = [v6 attributesOfItemAtPath:@"/var/Keychains/keychain-ota-backup.plist" error:&v54];
+    v11 = v54;
 
     if (v10)
     {
@@ -253,15 +251,15 @@ LABEL_16:
               if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
               {
                 *buf = 138413058;
-                v61 = fileModificationDate;
-                v62 = 2048;
-                v63 = v26;
-                v64 = 2112;
-                v65 = fileModificationDate2;
-                v66 = 2048;
-                v67 = v29;
+                v59 = fileModificationDate;
+                v60 = 2048;
+                v61 = v26;
+                v62 = 2112;
+                v63 = fileModificationDate2;
+                v64 = 2048;
+                v65 = v29;
                 _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "Not exporting keychain database during unlock - last export:%@ (%.2fs) last modified:%@ (%.2fs)", buf, 0x2Au);
-                _MBLog();
+                _MBLog(@"I ", "Not exporting keychain database during unlock - last export:%@ (%.2fs) last modified:%@ (%.2fs)", fileModificationDate, *&v26, fileModificationDate2, *&v29);
               }
 
               goto LABEL_32;
@@ -288,22 +286,20 @@ LABEL_64:
         v32 = v31;
         [fileModificationDate2 timeIntervalSince1970];
         *buf = 134218240;
-        v61 = v32;
-        v62 = 2048;
-        v63 = v33;
+        v59 = v32;
+        v60 = 2048;
+        v61 = v33;
         _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Keychain database was modified since the last export (%.6f, %.6f)", buf, 0x16u);
         [fileModificationDate timeIntervalSince1970];
         v35 = v34;
         [fileModificationDate2 timeIntervalSince1970];
-        v50 = v35;
-        v51 = v36;
-        _MBLog();
+        _MBLog(@"I ", "Keychain database was modified since the last export (%.6f, %.6f)", v35, v36);
       }
 
 LABEL_36:
       if (!+[MBKeyBag isDeviceKeyBagLocked])
       {
-        v55 = v11;
+        v53 = v11;
         v40 = WriteKeychainToDisk(@"/var/Keychains/keychain-ota-backup.plist");
         v41 = v11;
 
@@ -319,13 +315,13 @@ LABEL_36:
               {
                 *buf = 0;
                 _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_FAULT, "Failed to verify keychain keybag because open_dprotected_np failed", buf, 2u);
-                _MBLog();
+                _MBLog(@"F ", "Failed to verify keychain keybag because open_dprotected_np failed");
               }
             }
 
             else
             {
-              v54 = 0.0;
+              v52 = 0.0;
               v43 = _SecKeychainCopyKeybagUUIDFromFileDescriptor();
               if (v43)
               {
@@ -337,10 +333,9 @@ LABEL_36:
                   if (os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
                   {
                     *buf = 138543362;
-                    v61 = v43;
+                    v59 = v43;
                     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "Current backup doesn't have keybag %{public}@", buf, 0xCu);
-                    v50 = v43;
-                    _MBLog();
+                    _MBLog(@"F ", "Current backup doesn't have keybag %{public}@", v43);
                   }
                 }
               }
@@ -351,13 +346,11 @@ LABEL_36:
                 if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138543618;
-                  v61 = @"/var/Keychains/keychain-ota-backup.plist";
-                  v62 = 2114;
-                  v63 = v54;
+                  v59 = @"/var/Keychains/keychain-ota-backup.plist";
+                  v60 = 2114;
+                  v61 = v52;
                   _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "Failed to copy the UUID from the keybag plist at %{public}@: %{public}@", buf, 0x16u);
-                  v50 = @"/var/Keychains/keychain-ota-backup.plist";
-                  v51 = v54;
-                  _MBLog();
+                  _MBLog(@"F ", "Failed to copy the UUID from the keybag plist at %{public}@: %{public}@", @"/var/Keychains/keychain-ota-backup.plist", *&v52);
                 }
               }
             }
@@ -365,14 +358,14 @@ LABEL_36:
             close(v42);
           }
 
-          v58 = NSFileModificationDate;
+          v56 = NSFileModificationDate;
           fileModificationDate3 = [v7 fileModificationDate];
-          v59 = fileModificationDate3;
-          v48 = [NSDictionary dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v57 = fileModificationDate3;
+          v48 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
 
-          v53 = v41;
-          v19 = [v6 setAttributes:v48 ofItemAtPath:@"/var/Keychains/keychain-ota-backup.plist" error:&v53];
-          v11 = v53;
+          v51 = v41;
+          v19 = [v6 setAttributes:v48 ofItemAtPath:@"/var/Keychains/keychain-ota-backup.plist" error:&v51];
+          v11 = v51;
 
           if ((v19 & 1) == 0)
           {
@@ -432,7 +425,7 @@ LABEL_34:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, fileModificationDate, OS_LOG_TYPE_INFO, "Keychain backup not found", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Keychain backup not found");
         }
 
         goto LABEL_36;
@@ -498,7 +491,7 @@ LABEL_65:
     *buf = 138412290;
     v5 = @"/var/Keychains/keychain-ota-backup.plist";
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Removing %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Removing %@", @"/var/Keychains/keychain-ota-backup.plist");
   }
 
   v3 = +[NSFileManager defaultManager];
@@ -528,7 +521,7 @@ LABEL_3:
           *buf = 138412290;
           v10 = v7;
           _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to back up the keychain: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Failed to back up the keychain: %@", v7);
         }
       }
     }
@@ -620,7 +613,7 @@ LABEL_4:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "No keychain in backup", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "No keychain in backup");
     }
 
     v15 = 0;
@@ -631,7 +624,7 @@ LABEL_4:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Restoring backup password to keychain", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Restoring backup password to keychain");
   }
 
   settingsContext2 = [engineCopy settingsContext];
@@ -681,7 +674,7 @@ LABEL_18:
     *buf = 138543362;
     *v31 = pathCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Restoring keychain backup at %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Restoring keychain backup at %{public}@", pathCopy);
   }
 
   v29 = 0;
@@ -697,15 +690,13 @@ LABEL_18:
       *&v31[8] = 2114;
       *&v31[10] = v9;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to fetch the keychain backup protection class at %{public}@: %{public}@", buf, 0x16u);
-LABEL_9:
-      _MBLog();
-      goto LABEL_34;
+      _MBLog(@"E ", "Failed to fetch the keychain backup protection class at %{public}@: %{public}@", pathCopy, v9);
     }
 
     goto LABEL_34;
   }
 
-  if (v8 - 3 > 0xFFFFFFFD)
+  if ((v8 - 3) > 0xFFFFFFFD)
   {
     v10 = [NSURL fileURLWithPath:pathCopy isDirectory:0];
     v28 = v9;
@@ -722,7 +713,7 @@ LABEL_9:
         *&v31[8] = 2114;
         *&v31[10] = v12;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to open the keychain backup at %{public}@: %{public}@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to open the keychain backup at %{public}@: %{public}@", pathCopy, v12);
       }
 
       goto LABEL_33;
@@ -748,7 +739,7 @@ LABEL_9:
         *&v31[8] = 2114;
         *&v31[10] = v27;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to copy the UUID from the keybag at %{public}@: %{public}@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to copy the UUID from the keybag at %{public}@: %{public}@", pathCopy, v27);
       }
 
       v20 = 0;
@@ -779,8 +770,7 @@ LABEL_9:
           *&v31[8] = 2048;
           *&v31[10] = v22;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Found keybag for keychain restore: %{public}@ (%ld bytes)", buf, 0x16u);
-          [v18 length];
-          _MBLog();
+          _MBLog(@"Df", "Found keybag for keychain restore: %{public}@ (%ld bytes)", v14, [v18 length]);
         }
 
         [v11 fileDescriptor];
@@ -799,7 +789,7 @@ LABEL_9:
           *&v31[8] = 2114;
           *&v31[10] = v23;
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "_SecKeychainRestoreBackupFromFileDescriptor failed for the keychain backup at %{public}@: %{public}@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "_SecKeychainRestoreBackupFromFileDescriptor failed for the keychain backup at %{public}@: %{public}@", pathCopy, v23);
         }
 
 LABEL_31:
@@ -822,7 +812,7 @@ LABEL_33:
         *&v31[8] = 2114;
         *&v31[10] = v19;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to fetch the keybag data for %{public}@: %{public}@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch the keybag data for %{public}@: %{public}@", v14, v19);
       }
 
       v12 = v19;
@@ -838,7 +828,7 @@ LABEL_33:
         *&v31[8] = 2114;
         *&v31[10] = v12;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to fetch the keybag for %{public}@: %{public}@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch the keybag for %{public}@: %{public}@", v14, v12);
       }
     }
 
@@ -856,7 +846,7 @@ LABEL_33:
     *&v31[4] = 2114;
     *&v31[6] = pathCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Found an unexpected protection class (%d) for the keychain backup at %{public}@", buf, 0x12u);
-    goto LABEL_9;
+    _MBLog(@"E ", "Found an unexpected protection class (%d) for the keychain backup at %{public}@", v8, pathCopy);
   }
 
 LABEL_34:
@@ -874,18 +864,18 @@ LABEL_34:
   {
     if ([policyCopy isRestoringToSameDevice])
     {
-      v28 = 0;
-      v11 = [MBKeychain allPasswordItemsForServices:&off_1003E22A0 error:&v28];
-      v12 = v28;
+      v29 = 0;
+      v11 = [MBKeychain allPasswordItemsForServices:&off_1003E22A0 error:&v29];
+      v12 = v29;
       if (!v11)
       {
         v13 = MBGetDefaultLog();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v30 = v12;
+          v31 = v12;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to fetch the preserved keychain items: %{public}@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Failed to fetch the preserved keychain items: %{public}@", v12);
         }
       }
 
@@ -895,89 +885,86 @@ LABEL_34:
         v15 = [v11 count];
         v16 = MBStringWithArray();
         *buf = 134218242;
-        v30 = v15;
-        v31 = 2112;
-        v32 = v16;
+        v31 = v15;
+        v32 = 2112;
+        v33 = v16;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Preserving %ld keychain items: %@", buf, 0x16u);
 
-        [v11 count];
-        v26 = MBStringWithArray();
-        _MBLog();
+        v17 = [v11 count];
+        v18 = MBStringWithArray();
+        _MBLog(@"Df", "Preserving %ld keychain items: %@", v17, v18);
       }
 
       [(MBKeychainPlugin *)self _restoreKeychainBackupAtPath:v10 withEngine:engineCopy];
-      v17 = MBGetDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = MBGetDefaultLog();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v30 = v10;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Removing the keychain backup at %{public}@", buf, 0xCu);
-        _MBLog();
+        v31 = v10;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Removing the keychain backup at %{public}@", buf, 0xCu);
+        _MBLog(@"Df", "Removing the keychain backup at %{public}@", v10);
       }
 
-      v18 = +[NSFileManager defaultManager];
-      [v18 removeItemAtPath:v10 error:0];
+      v20 = +[NSFileManager defaultManager];
+      [v20 removeItemAtPath:v10 error:0];
 
-      v27 = v12;
-      v19 = [MBKeychain addAllPasswordItems:v11 error:&v27];
-      v20 = v27;
+      v28 = v12;
+      v21 = [MBKeychain addAllPasswordItems:v11 error:&v28];
+      v22 = v28;
 
-      v21 = MBGetDefaultLog();
-      v22 = v21;
-      if (v19)
+      v23 = MBGetDefaultLog();
+      v24 = v23;
+      if (v21)
       {
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = [v11 count];
+          v25 = [v11 count];
           *buf = 134217984;
-          v30 = v23;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Added %ld preserved keychain items to the restored keychain", buf, 0xCu);
+          v31 = v25;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Added %ld preserved keychain items to the restored keychain", buf, 0xCu);
           [v11 count];
-LABEL_21:
-          _MBLog();
+          _MBLog(@"Df", "Added %ld preserved keychain items to the restored keychain");
         }
       }
 
-      else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v25 = [v11 count];
+        v27 = [v11 count];
         *buf = 134218242;
-        v30 = v25;
-        v31 = 2114;
-        v32 = v20;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to add %ld items to the restored keychain: %{public}@", buf, 0x16u);
-        [v11 count];
-        goto LABEL_21;
+        v31 = v27;
+        v32 = 2114;
+        v33 = v22;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to add %ld items to the restored keychain: %{public}@", buf, 0x16u);
+        _MBLog(@"E ", "Failed to add %ld items to the restored keychain: %{public}@", [v11 count], v22);
+      }
+    }
+
+    else
+    {
+      v26 = MBGetDefaultLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v31 = v10;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Can't migrate keychain - removing the keychain backup at %{public}@", buf, 0xCu);
+        _MBLog(@"Df", "Can't migrate keychain - removing the keychain backup at %{public}@", v10);
       }
 
-      goto LABEL_23;
+      v22 = +[NSFileManager defaultManager];
+      [v22 removeItemAtPath:v10 error:0];
     }
-
-    v24 = MBGetDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543362;
-      v30 = v10;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Can't migrate keychain - removing the keychain backup at %{public}@", buf, 0xCu);
-      _MBLog();
-    }
-
-    v20 = +[NSFileManager defaultManager];
-    [v20 removeItemAtPath:v10 error:0];
   }
 
   else
   {
-    v20 = MBGetDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = MBGetDefaultLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No keychain in backup", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "No keychain in backup", buf, 2u);
+      _MBLog(@"Df", "No keychain in backup");
     }
   }
-
-LABEL_23:
 }
 
 - (id)endingRestoreWithPolicy:(id)policy engine:(id)engine

@@ -1,9 +1,26 @@
 @interface CTXPCSetSupports5GStandaloneRequest
 + (id)allowedClassesForArguments;
+- (CTXPCSetSupports5GStandaloneRequest)initWithDescriptor:(id)descriptor enabled:(BOOL)enabled;
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler;
 @end
 
 @implementation CTXPCSetSupports5GStandaloneRequest
+
+- (CTXPCSetSupports5GStandaloneRequest)initWithDescriptor:(id)descriptor enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13[1] = *MEMORY[0x1E69E9840];
+  descriptorCopy = descriptor;
+  v12 = @"enable";
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CTXPCSetSupports5GStandaloneRequest;
+  v9 = [(CTXPCSubscriptionContextRequest *)&v11 initWithDescriptor:descriptorCopy namedArguments:v8];
+
+  return v9;
+}
 
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler
 {

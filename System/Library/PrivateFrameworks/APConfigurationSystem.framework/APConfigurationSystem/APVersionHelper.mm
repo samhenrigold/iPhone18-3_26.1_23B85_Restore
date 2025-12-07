@@ -91,36 +91,36 @@
 
 - (int64_t)_getVersionForNodesAtDirectoryPath:(id)path
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v6 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v5, pathCopy);
   if (v6)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 0;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v19 = 0x3042000000;
-    v20 = sub_1CA1D56D4;
-    v21 = sub_1CA1D56E0;
-    v22[0] = 0;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = sub_1CA1D56E8;
-    v13[3] = &unk_1E8368CC0;
-    v13[4] = self;
-    v13[5] = &v14;
-    v13[6] = &buf;
-    v7 = MEMORY[0x1CCA9B7D0](v13);
+    v18 = 0x3042000000;
+    v19 = sub_1CA1D56D4;
+    v20 = sub_1CA1D56E0;
+    v21[0] = 0;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1CA1D56E8;
+    v12[3] = &unk_1E8368CC0;
+    v12[4] = self;
+    v12[5] = &v13;
+    v12[6] = &buf;
+    v7 = MEMORY[0x1CCA9B7D0](v12);
     objc_storeWeak((*(&buf + 1) + 40), v7);
     (v7)[2](v7, v6);
-    v8 = v15[3];
+    v8 = v14[3];
 
     _Block_object_dispose(&buf, 8);
-    objc_destroyWeak(v22);
-    _Block_object_dispose(&v14, 8);
+    objc_destroyWeak(v21);
+    _Block_object_dispose(&v13, 8);
   }
 
   else
@@ -137,34 +137,33 @@
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)_versionInDirectoryWithURLs:(id)ls
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   lsCopy = ls;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(lsCopy, v4, &v20, v24, 16);
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(lsCopy, v4, &v19, v23, 16);
   if (v5)
   {
     v8 = v5;
-    v9 = *v21;
+    v9 = *v20;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(lsCopy);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
-        v12 = objc_msgSend_pathExtension(v11, v6, v7, v20);
+        v11 = *(*(&v19 + 1) + 8 * i);
+        v12 = objc_msgSend_pathExtension(v11, v6, v7, v19);
         isEqualToString = objc_msgSend_isEqualToString_(v12, v13, @"json");
 
         if (isEqualToString)
@@ -176,7 +175,7 @@
         }
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(lsCopy, v6, &v20, v24, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(lsCopy, v6, &v19, v23, 16);
       if (v8)
       {
         continue;
@@ -188,8 +187,6 @@
 
   v15 = 0;
 LABEL_11:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

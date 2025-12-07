@@ -15,7 +15,7 @@
 
 - (void)setQuickSwitchActionAvailability:(id)availability
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   availabilityCopy = availability;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -27,17 +27,15 @@
   v9 = cslprf_sting_settings_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11 = 136446466;
-    v12 = "[CSLPRFStingQuickSwitchSettings setQuickSwitchActionAvailability:]";
-    v13 = 2112;
-    v14 = _toSettingValue;
-    _os_log_impl(&dword_22CE92000, v9, OS_LOG_TYPE_INFO, "%{public}s %@", &v11, 0x16u);
+    v10 = 136446466;
+    v11 = "[CSLPRFStingQuickSwitchSettings setQuickSwitchActionAvailability:]";
+    v12 = 2112;
+    v13 = _toSettingValue;
+    _os_log_impl(&dword_22CE92000, v9, OS_LOG_TYPE_INFO, "%{public}s %@", &v10, 0x16u);
   }
 
   [(CSLPRFStingQuickSwitchSettings *)selfCopy setValue:_toSettingValue];
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)quickSwitchActionAvailability
@@ -52,7 +50,7 @@
 
 - (void)setQuickSwitchEnabled:(BOOL)enabled
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   selfCopy->_quickSwitchEnabled = enabled;
@@ -60,17 +58,15 @@
   v6 = cslprf_sting_settings_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 136446466;
-    v9 = "[CSLPRFStingQuickSwitchSettings setQuickSwitchEnabled:]";
-    v10 = 2112;
-    v11 = _toSettingValue;
-    _os_log_impl(&dword_22CE92000, v6, OS_LOG_TYPE_INFO, "%{public}s %@", &v8, 0x16u);
+    v7 = 136446466;
+    v8 = "[CSLPRFStingQuickSwitchSettings setQuickSwitchEnabled:]";
+    v9 = 2112;
+    v10 = _toSettingValue;
+    _os_log_impl(&dword_22CE92000, v6, OS_LOG_TYPE_INFO, "%{public}s %@", &v7, 0x16u);
   }
 
   [(CSLPRFStingQuickSwitchSettings *)selfCopy setValue:_toSettingValue];
   objc_sync_exit(selfCopy);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isQuickSwitchEnabled
@@ -85,29 +81,27 @@
 
 - (id)_toSettingValue
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"isEnabled";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"isEnabled";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_quickSwitchEnabled];
   v4 = v3;
-  v9[1] = @"actionAvailability";
+  v8[1] = @"actionAvailability";
   quickSwitchActionAvailability = self->_quickSwitchActionAvailability;
   if (!quickSwitchActionAvailability)
   {
     quickSwitchActionAvailability = MEMORY[0x277CBEC10];
   }
 
-  v10[0] = v3;
-  v10[1] = quickSwitchActionAvailability;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v3;
+  v9[1] = quickSwitchActionAvailability;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
 
 - (void)fromSetting:(id)setting
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   v5 = [(CSLPRFTwoWaySyncSetting *)self safeValueOfType:objc_opt_class()];
   selfCopy = self;
@@ -138,9 +132,9 @@
     v9 = cslprf_sting_settings_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 136446210;
-      v13 = "[CSLPRFStingQuickSwitchSettings fromSetting:]";
-      _os_log_impl(&dword_22CE92000, v9, OS_LOG_TYPE_INFO, "%{public}s no value for setting, restoring default values", &v12, 0xCu);
+      v11 = 136446210;
+      v12 = "[CSLPRFStingQuickSwitchSettings fromSetting:]";
+      _os_log_impl(&dword_22CE92000, v9, OS_LOG_TYPE_INFO, "%{public}s no value for setting, restoring default values", &v11, 0xCu);
     }
 
     selfCopy->_quickSwitchEnabled = 1;
@@ -154,28 +148,25 @@
   {
     settingCopy[2](settingCopy);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = cslprf_sting_settings_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136446210;
-    v7 = "[CSLPRFStingQuickSwitchSettings didUpdate]";
+    v6 = "[CSLPRFStingQuickSwitchSettings didUpdate]";
     _os_log_impl(&dword_22CE92000, v3, OS_LOG_TYPE_INFO, "%{public}s", buf, 0xCu);
   }
 
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __43__CSLPRFStingQuickSwitchSettings_didUpdate__block_invoke;
-  v5[3] = &unk_278745368;
-  v5[4] = self;
-  [(CSLPRFStingQuickSwitchSettings *)self fromSetting:v5];
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __43__CSLPRFStingQuickSwitchSettings_didUpdate__block_invoke;
+  v4[3] = &unk_278745368;
+  v4[4] = self;
+  [(CSLPRFStingQuickSwitchSettings *)self fromSetting:v4];
 }
 
 id __43__CSLPRFStingQuickSwitchSettings_didUpdate__block_invoke_2(uint64_t a1)

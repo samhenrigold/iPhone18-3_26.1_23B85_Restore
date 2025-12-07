@@ -801,8 +801,9 @@ void __88__SBCoverSheetIconFlyInAnimator_animateZPositionsToFraction_completionG
 - (void)_cleanupAnimation
 {
   icons = [self icons];
-  [icons count];
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "icon scroll view layer opacity is still == 0 after cleanup, iconCount: %lu", v4, v5, v6, v7, 0);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = [icons count];
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "icon scroll view layer opacity is still == 0 after cleanup, iconCount: %lu", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __50__SBCoverSheetIconFlyInAnimator__cleanupAnimation__block_invoke(uint64_t a1)

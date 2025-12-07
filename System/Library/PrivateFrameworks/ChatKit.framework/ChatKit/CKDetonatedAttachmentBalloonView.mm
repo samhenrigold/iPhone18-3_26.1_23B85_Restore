@@ -85,7 +85,7 @@
 {
   v4 = [(CKBalloonView *)self orientation:size.width];
   v5 = +[CKUIBehavior sharedBehaviors];
-  [(CKColoredBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   [v5 attachmentBalloonAlignmentRectInsetsWithTailShape:v18];
   v9 = v8;
   v11 = v10;

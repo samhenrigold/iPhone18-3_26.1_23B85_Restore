@@ -173,7 +173,6 @@ LABEL_21:
   has = self->_has;
   self->_name = name;
   *&self->_has = has & 0xFC | 2;
-  rgb_value = self->_rgb_value;
   self->_rgb_value = 0;
   MEMORY[0x1EEE66BB8]();
 }

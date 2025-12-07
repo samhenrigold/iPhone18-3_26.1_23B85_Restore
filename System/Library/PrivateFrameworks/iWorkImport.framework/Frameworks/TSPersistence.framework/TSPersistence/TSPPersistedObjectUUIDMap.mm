@@ -123,9 +123,9 @@
   map = self->_map;
   if (!map)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d UUID map was initialized with no capacity.", "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPersistedObjectUUIDMap.mm", 123);
     v40 = MEMORY[0x277D81150];
-    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]", "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPersistedObjectUUIDMap.mm", 123);
+    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]");
     v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPersistedObjectUUIDMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v45, v42, v44, 123, 1, "UUID map was initialized with no capacity.");
 
@@ -133,7 +133,7 @@
     goto LABEL_12;
   }
 
-  v12 = sub_276A17248(map, &dCopy, &dCopy);
+  v12 = sub_276A17248(map, &dCopy, &dCopy, &locationCopy);
   v14 = v13;
   if (v13)
   {
@@ -144,9 +144,9 @@
       goto LABEL_9;
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPersistedObjectUUIDMap.mm", 100, "_objectIdentifiers");
     v46 = MEMORY[0x277D81150];
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]", "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPersistedObjectUUIDMap.mm", 100, "_objectIdentifiers");
+    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "[TSPPersistedObjectUUIDMap setObjectLocation:forUUID:objectReferenceMap:delegate:]");
     v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPersistedObjectUUIDMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v51, v48, v50, 100, 1, "invalid nil value for '%{public}s'", "_objectIdentifiers");
 
@@ -184,7 +184,7 @@ LABEL_12:
   objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v35, v29, v31, 116, 0, "There are two objects with the same UUID %{public}@:\n%{public}@%{public}@\nAND\n%{public}@%{public}@", v34, v54, v22, v53, v27);
 
   objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37);
-  objc_msgSend_persistedObjectUUIDMap_foundDuplicateUUID_firstObjectLocation_secondObjectLocation_(v55, v38, self, dCopy, locationCopy.var0, locationCopy.var1, v16[3], v16[4]);
+  objc_msgSend_persistedObjectUUIDMap_foundDuplicateUUID_firstObjectLocation_secondObjectLocation_(v55, v38, self, dCopy, locationCopy, v16[3], v16[4]);
 
   mapCopy = v52;
   delegateCopy = v55;

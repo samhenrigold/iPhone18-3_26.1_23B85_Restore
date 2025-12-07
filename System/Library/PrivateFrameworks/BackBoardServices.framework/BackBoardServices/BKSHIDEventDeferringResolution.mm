@@ -32,13 +32,13 @@
 
 - (id)_initWithCopyOf:(id *)of
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (of)
   {
-    v20.receiver = of;
-    v20.super_class = BKSHIDEventDeferringResolution;
-    of = objc_msgSendSuper2(&v20, sel_init);
+    v19.receiver = of;
+    v19.super_class = BKSHIDEventDeferringResolution;
+    of = objc_msgSendSuper2(&v19, sel_init);
     if (of)
     {
       v4 = objc_opt_class();
@@ -47,28 +47,28 @@
         v5 = objc_opt_class();
         if (v5 != objc_opt_class())
         {
-          v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDeferringResolution cannot be subclassed"];
+          v15 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v17 = NSStringFromSelector(sel__initWithCopyOf_);
-            v18 = objc_opt_class();
-            v19 = NSStringFromClass(v18);
+            v16 = NSStringFromSelector(sel__initWithCopyOf_);
+            v17 = objc_opt_class();
+            v18 = NSStringFromClass(v17);
             *buf = 138544642;
-            v22 = v17;
-            v23 = 2114;
-            v24 = v19;
-            v25 = 2048;
+            v21 = v16;
+            v22 = 2114;
+            v23 = v18;
+            v24 = 2048;
             ofCopy = of;
-            v27 = 2114;
-            v28 = @"BKSHIDEventDeferringResolution.m";
-            v29 = 1024;
-            v30 = 57;
-            v31 = 2114;
-            v32 = v16;
+            v26 = 2114;
+            v27 = @"BKSHIDEventDeferringResolution.m";
+            v28 = 1024;
+            v29 = 57;
+            v30 = 2114;
+            v31 = v15;
             _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
           }
 
-          [v16 UTF8String];
+          [v15 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x186386A6CLL);
@@ -96,26 +96,22 @@
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return of;
 }
 
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendProem:0 block:v6];
+  [v5 appendProem:v6 block:{3221225472, __60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke, &unk_1E6F47C78}];
 }
 
-id __60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke(uint64_t a1)
+void *__60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 16) withName:0];
+  v2 = [*(a1 + 32) appendObject:? withName:?];
   v3 = *(a1 + 40);
   v4 = *(v3 + 8);
   if (v4)
@@ -124,35 +120,31 @@ id __60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke
     v3 = *(a1 + 40);
     if ((v5 & 1) == 0)
     {
-      v6 = [*(a1 + 32) appendObject:*(v3 + 8) withName:@"display"];
+      v6 = [*(a1 + 32) appendObject:? withName:?];
       v3 = *(a1 + 40);
     }
   }
 
   if ([*(v3 + 48) length])
   {
-    [*(a1 + 32) appendString:*(*(a1 + 40) + 48) withName:0];
+    [*(a1 + 32) appendString:? withName:?];
+  }
+
+  else if ((*(*(a1 + 40) + 24) + 1) >= 2)
+  {
+    v8 = [*(a1 + 32) appendVersionedPID:? withName:?];
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    if ((*(v7 + 24) + 1) >= 2)
-    {
-      v9 = [*(a1 + 32) appendVersionedPID:? withName:?];
-    }
-
-    else
-    {
-      v8 = [*(a1 + 32) appendInteger:*(v7 + 32) withName:@"pid"];
-    }
+    v7 = [*(a1 + 32) appendInteger:? withName:?];
   }
 
-  v10 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 40) withName:@"token" skipIfNil:1];
+  v9 = [*(a1 + 32) appendObject:? withName:? skipIfNil:?];
   result = [*(a1 + 32) hasDebugStyle];
   if (result)
   {
-    return [*(a1 + 32) appendObject:*(*(a1 + 40) + 56) withName:@"dispatchingTarget" skipIfNil:1];
+    return [*(a1 + 32) appendObject:? withName:? skipIfNil:?];
   }
 
   return result;
@@ -160,11 +152,11 @@ id __60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke
 
 - (NSString)debugDescription
 {
-  v3 = MEMORY[0x1E698E688];
+  v2 = MEMORY[0x1E698E688];
   debugStyle = [MEMORY[0x1E698E690] debugStyle];
-  v5 = [v3 descriptionForRootObject:self withStyle:debugStyle];
+  v4 = [v2 descriptionForRootObject:? withStyle:?];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -172,31 +164,28 @@ id __60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v15 = 1;
+    v7 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    if ((v5 == objc_opt_class() || (v6 = objc_opt_class(), v6 == objc_opt_class())) && (display = self->_display, v8 = equalCopy->_display, BSEqualObjects()) && (environment = self->_environment, v10 = equalCopy->_environment, BSEqualObjects()) && self->_pid == equalCopy->_pid && (token = self->_token, v12 = equalCopy->_token, BSEqualObjects()) && self->_versionedPID == equalCopy->_versionedPID)
+    if ((v5 == objc_opt_class() || (v6 = objc_opt_class(), v6 == objc_opt_class())) && BSEqualObjects() && BSEqualObjects() && self->_pid == equalCopy->_pid && BSEqualObjects() && self->_versionedPID == equalCopy->_versionedPID)
     {
-      dispatchingTarget = self->_dispatchingTarget;
-      v14 = equalCopy->_dispatchingTarget;
-      v15 = BSEqualObjects();
+      v7 = BSEqualObjects();
     }
 
     else
     {
-      v15 = 0;
+      v7 = 0;
     }
   }
 
-  return v15;
+  return v7;
 }
 
 - (BKSHIDEventDeferringResolution)initWithCoder:(id)coder
 {
-  v29[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   if (v5 != objc_opt_class())
@@ -205,13 +194,10 @@ id __60__BKSHIDEventDeferringResolution_appendDescriptionToStream___block_invoke
     if (v6 != objc_opt_class())
     {
       v7 = MEMORY[0x1E696ABC0];
-      v8 = *MEMORY[0x1E696A250];
-      v26 = *MEMORY[0x1E696A588];
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventDeferringResolution: subclasses are not allowed : %@", objc_opt_class()];
-      v27 = v9;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      v11 = [v7 errorWithDomain:v8 code:4866 userInfo:v10];
-      [coderCopy failWithError:v11];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      v10 = [v7 errorWithDomain:? code:? userInfo:?];
+      [coderCopy failWithError:?];
 LABEL_9:
 
       selfCopy = 0;
@@ -219,77 +205,76 @@ LABEL_9:
     }
   }
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"display"];
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"environment"];
-  v12 = [coderCopy decodeInt64ForKey:@"versionedPID"];
-  v13 = [coderCopy decodeInt32ForKey:@"pid"];
-  v14 = v13;
-  if (!v9 || !v10 || v13 <= 0 && v12 == -1)
+  objc_opt_class();
+  v8 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
+  v11 = [coderCopy decodeInt64ForKey:?];
+  v12 = [coderCopy decodeInt32ForKey:?];
+  v13 = v12;
+  if (!v8 || !v9 || v12 <= 0 && v11 == -1)
   {
-    v15 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A250];
-    v28 = *MEMORY[0x1E696A588];
-    v17 = MEMORY[0x1E696AEC0];
-    v11 = NSStringFromBSVersionedPID();
-    v18 = [v17 stringWithFormat:@"Failed to decode BKSHIDEventDeferringResolution: invalid display, environment or process : display=%@ environment=%@ vpid=%@ pid=%i", v9, v10, v11, v14];
-    v29[0] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-    v20 = [v15 errorWithDomain:v16 code:4866 userInfo:v19];
-    [coderCopy failWithError:v20];
+    v14 = MEMORY[0x1E696ABC0];
+    v15 = MEMORY[0x1E696AEC0];
+    v10 = NSStringFromBSVersionedPID();
+    v22 = [v15 stringWithFormat:v8, v9, v10, v13];
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v17 = [v14 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
 
     goto LABEL_9;
   }
 
-  v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"token"];
+  objc_opt_class();
+  v20 = [coderCopy decodeObjectOfClass:? forKey:?];
   if (self)
   {
-    v25 = [BKSHIDEventDeferringResolution _initWithDisplay:v9 environment:v10 versionedPID:v12 pid:v14 token:v24 dispatchingTarget:?];
+    v21 = [BKSHIDEventDeferringResolution _initWithDisplay:v8 environment:v9 versionedPID:v11 pid:v13 token:v20 dispatchingTarget:?];
   }
 
   else
   {
-    v25 = 0;
+    v21 = 0;
   }
 
-  self = v25;
+  self = v21;
 
   selfCopy = self;
 LABEL_10:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)_initWithDisplay:(void *)display environment:(void *)environment versionedPID:(void *)d pid:(uint64_t)pid token:(int)token dispatchingTarget:(void *)target
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   environmentCopy = environment;
   dCopy = d;
   targetCopy = target;
   if (!environmentCopy)
   {
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"display != ((void *)0)"];
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"display != ((void *)0)"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v26 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
+      v25 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
       *buf = 138544642;
-      v55 = v26;
-      v56 = 2114;
-      v57 = v28;
-      v58 = 2048;
+      v54 = v25;
+      v55 = 2114;
+      v56 = v27;
+      v57 = 2048;
       displayCopy7 = display;
-      v60 = 2114;
-      v61 = @"BKSHIDEventDeferringResolution.m";
-      v62 = 1024;
-      v63 = 74;
-      v64 = 2114;
-      v65 = v25;
+      v59 = 2114;
+      v60 = @"BKSHIDEventDeferringResolution.m";
+      v61 = 1024;
+      v62 = 74;
+      v63 = 2114;
+      v64 = v24;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v25 UTF8String];
+    [v24 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186387390);
@@ -298,28 +283,28 @@ LABEL_10:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[display isKindOfClass:[BKSHIDEventDisplay class]]"];
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[display isKindOfClass:[BKSHIDEventDisplay class]]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v30 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
+      v29 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       *buf = 138544642;
-      v55 = v30;
-      v56 = 2114;
-      v57 = v32;
-      v58 = 2048;
+      v54 = v29;
+      v55 = 2114;
+      v56 = v31;
+      v57 = 2048;
       displayCopy7 = display;
-      v60 = 2114;
-      v61 = @"BKSHIDEventDeferringResolution.m";
-      v62 = 1024;
-      v63 = 75;
-      v64 = 2114;
-      v65 = v29;
+      v59 = 2114;
+      v60 = @"BKSHIDEventDeferringResolution.m";
+      v61 = 1024;
+      v62 = 75;
+      v63 = 2114;
+      v64 = v28;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v29 UTF8String];
+    [v28 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186387488);
@@ -327,28 +312,28 @@ LABEL_10:
 
   if (!dCopy)
   {
-    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"environment != ((void *)0)"];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"environment != ((void *)0)"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v34 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
-      v35 = objc_opt_class();
-      v36 = NSStringFromClass(v35);
+      v33 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
       *buf = 138544642;
-      v55 = v34;
-      v56 = 2114;
-      v57 = v36;
-      v58 = 2048;
+      v54 = v33;
+      v55 = 2114;
+      v56 = v35;
+      v57 = 2048;
       displayCopy7 = display;
-      v60 = 2114;
-      v61 = @"BKSHIDEventDeferringResolution.m";
-      v62 = 1024;
-      v63 = 76;
-      v64 = 2114;
-      v65 = v33;
+      v59 = 2114;
+      v60 = @"BKSHIDEventDeferringResolution.m";
+      v61 = 1024;
+      v62 = 76;
+      v63 = 2114;
+      v64 = v32;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v33 UTF8String];
+    [v32 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186387580);
@@ -357,28 +342,28 @@ LABEL_10:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[environment isKindOfClass:[BKSHIDEventDeferringEnvironment class]]"];
+    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[environment isKindOfClass:[BKSHIDEventDeferringEnvironment class]]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v38 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
+      v37 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
       *buf = 138544642;
-      v55 = v38;
-      v56 = 2114;
-      v57 = v40;
-      v58 = 2048;
+      v54 = v37;
+      v55 = 2114;
+      v56 = v39;
+      v57 = 2048;
       displayCopy7 = display;
-      v60 = 2114;
-      v61 = @"BKSHIDEventDeferringResolution.m";
-      v62 = 1024;
-      v63 = 77;
-      v64 = 2114;
-      v65 = v37;
+      v59 = 2114;
+      v60 = @"BKSHIDEventDeferringResolution.m";
+      v61 = 1024;
+      v62 = 77;
+      v63 = 2114;
+      v64 = v36;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v37 UTF8String];
+    [v36 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186387678);
@@ -388,28 +373,28 @@ LABEL_10:
   {
     if (token <= 0)
     {
-      v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid pid"];
+      v48 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v50 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
-        v51 = objc_opt_class();
-        v52 = NSStringFromClass(v51);
+        v49 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
+        v50 = objc_opt_class();
+        v51 = NSStringFromClass(v50);
         *buf = 138544642;
-        v55 = v50;
-        v56 = 2114;
-        v57 = v52;
-        v58 = 2048;
+        v54 = v49;
+        v55 = 2114;
+        v56 = v51;
+        v57 = 2048;
         displayCopy7 = display;
-        v60 = 2114;
-        v61 = @"BKSHIDEventDeferringResolution.m";
-        v62 = 1024;
-        v63 = 82;
-        v64 = 2114;
-        v65 = v49;
+        v59 = 2114;
+        v60 = @"BKSHIDEventDeferringResolution.m";
+        v61 = 1024;
+        v62 = 82;
+        v63 = 2114;
+        v64 = v48;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v49 UTF8String];
+      [v48 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186387948);
@@ -426,28 +411,28 @@ LABEL_10:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[token isKindOfClass:[BKSHIDEventDeferringToken class]]"];
+      v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[token isKindOfClass:[BKSHIDEventDeferringToken class]]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v42 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
-        v43 = objc_opt_class();
-        v44 = NSStringFromClass(v43);
+        v41 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
         *buf = 138544642;
-        v55 = v42;
-        v56 = 2114;
-        v57 = v44;
-        v58 = 2048;
+        v54 = v41;
+        v55 = 2114;
+        v56 = v43;
+        v57 = 2048;
         displayCopy7 = display;
-        v60 = 2114;
-        v61 = @"BKSHIDEventDeferringResolution.m";
-        v62 = 1024;
-        v63 = 86;
-        v64 = 2114;
-        v65 = v41;
+        v59 = 2114;
+        v60 = @"BKSHIDEventDeferringResolution.m";
+        v61 = 1024;
+        v62 = 86;
+        v63 = 2114;
+        v64 = v40;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v41 UTF8String];
+      [v40 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186387770);
@@ -460,37 +445,37 @@ LABEL_10:
     v15 = objc_opt_class();
     if (v15 != objc_opt_class())
     {
-      v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDeferringResolution cannot be subclassed"];
+      v44 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v46 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
-        v47 = objc_opt_class();
-        v48 = NSStringFromClass(v47);
+        v45 = NSStringFromSelector(sel__initWithDisplay_environment_versionedPID_pid_token_dispatchingTarget_);
+        v46 = objc_opt_class();
+        v47 = NSStringFromClass(v46);
         *buf = 138544642;
-        v55 = v46;
-        v56 = 2114;
-        v57 = v48;
-        v58 = 2048;
+        v54 = v45;
+        v55 = 2114;
+        v56 = v47;
+        v57 = 2048;
         displayCopy7 = display;
-        v60 = 2114;
-        v61 = @"BKSHIDEventDeferringResolution.m";
-        v62 = 1024;
-        v63 = 93;
-        v64 = 2114;
-        v65 = v45;
+        v59 = 2114;
+        v60 = @"BKSHIDEventDeferringResolution.m";
+        v61 = 1024;
+        v62 = 93;
+        v63 = 2114;
+        v64 = v44;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v45 UTF8String];
+      [v44 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18638785CLL);
     }
   }
 
-  v53.receiver = display;
-  v53.super_class = BKSHIDEventDeferringResolution;
-  v16 = objc_msgSendSuper2(&v53, sel_init);
+  v52.receiver = display;
+  v52.super_class = BKSHIDEventDeferringResolution;
+  v16 = objc_msgSendSuper2(&v52, sel_init);
   if (v16)
   {
     v17 = [environmentCopy copy];
@@ -510,31 +495,29 @@ LABEL_10:
     objc_storeStrong(v16 + 7, 0);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  display = self->_display;
   coderCopy = coder;
-  [coderCopy encodeObject:display forKey:@"display"];
-  [coderCopy encodeObject:self->_environment forKey:@"environment"];
-  [coderCopy encodeInt32:self->_pid forKey:@"pid"];
-  [coderCopy encodeInt64:self->_versionedPID forKey:@"versionedPID"];
-  [coderCopy encodeObject:self->_token forKey:@"token"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v4 = [BKSMutableHIDEventDeferringResolution allocWithZone:zone];
+  v4 = [BKSMutableHIDEventDeferringResolution allocWithZone:?];
 
   return [(BKSHIDEventDeferringResolution *)&v4->super.super.isa _initWithCopyOf:?];
 }
 
 - (BKSHIDEventDeferringResolution)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on BKSHIDEventDeferringResolution"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

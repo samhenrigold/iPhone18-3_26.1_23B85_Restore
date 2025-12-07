@@ -5,6 +5,7 @@
 - (UIViewController)contentViewController;
 - (WFWidgetConfigurationContainerViewControllerProtocolDelegate)containerDelegate;
 - (WFWidgetConfigurationHostContainerViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (WFWidgetConfigurationHostContainerViewController)initWithRequest:(id)request contentViewController:(id)controller;
 - (WFWidgetConfigurationRequest)request;
 - (void)setContainerBackgroundColor:(id)color;
 - (void)setContainerDelegate:(id)delegate;
@@ -24,7 +25,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C83C939C();
+  sub_1C83C939C(delegate);
 }
 
 - (WFWidgetConfigurationRequest)request
@@ -69,6 +70,13 @@
   v3 = sub_1C83C95C8();
 
   return v3;
+}
+
+- (WFWidgetConfigurationHostContainerViewController)initWithRequest:(id)request contentViewController:(id)controller
+{
+  requestCopy = request;
+  controllerCopy = controller;
+  return sub_1C83C9610(requestCopy, controllerCopy, v7);
 }
 
 - (void)viewDidLoad

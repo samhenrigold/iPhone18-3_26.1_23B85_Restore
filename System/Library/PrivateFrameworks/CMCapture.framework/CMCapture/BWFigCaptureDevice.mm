@@ -4,8 +4,7 @@
 - (BOOL)supportsISPProcessingSessionType:(int)type error:(int *)error;
 - (BWFigCaptureDevice)initWithFigCaptureDevice:(OpaqueFigCaptureDevice *)device deviceID:(id)d;
 - (NSString)description;
-- (_DWORD)_copyProperty:(int)property requireSupported:(int *)supported error:;
-- (const)_invalidateSyncStreamGroupsAndControlledStreams:(uint64_t)streams preserveTorchState:;
+- (double)_invalidateSyncStreamGroupsAndControlledStreams:(uint64_t)streams preserveTorchState:(double)result;
 - (id)_copyBWMultiCamConfigurationFromFig:(uint64_t)fig;
 - (id)_copyFigMultiCamConfigurationFromBW:(uint64_t)w;
 - (id)copyISPProcessingSessionWithType:(int)type error:(int *)error;
@@ -16,9 +15,10 @@
 - (id)getPropertyIfSupported:(__CFString *)supported error:(int *)error;
 - (int)relinquishControlOfStreams:(id)streams;
 - (int)requestControlOfStreams:(id)streams clientPriority:(int)priority;
+- (os_unfair_lock_s)_copyProperty:(int)property requireSupported:(int *)supported error:;
 - (uint64_t)_bwSyncGroupArrayFromFig:(uint64_t)fig;
 - (uint64_t)_removeFigCaptureDeviceListeners;
-- (uint64_t)_setProperty:(uint64_t)property value:(int)value requireSupported:;
+- (uint64_t)_setProperty:(void *)property value:(int)value requireSupported:;
 - (void)_figSyncGroupArrayFromBW:(uint64_t)w;
 - (void)dealloc;
 - (void)invalidateAndKeepFigCaptureDeviceAlive:(BOOL)alive streamsToRelinquishControl:(id)control preserveTorchState:(BOOL)state;
@@ -90,21 +90,21 @@
 - (BWFigCaptureDevice)initWithFigCaptureDevice:(OpaqueFigCaptureDevice *)device deviceID:(id)d
 {
   selfCopy = self;
-  v70[0] = 0;
+  v64[0] = 0;
   if (!device)
   {
-    v69 = 0;
-    v70[0] = -12780;
-    v68 = OS_LOG_TYPE_DEFAULT;
+    v63 = 0;
+    v64[0] = -12780;
+    v62 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     goto LABEL_67;
   }
 
-  v66.receiver = self;
-  v66.super_class = BWFigCaptureDevice;
-  v6 = [(BWFigCaptureDevice *)&v66 init];
+  v60.receiver = self;
+  v60.super_class = BWFigCaptureDevice;
+  v6 = [(BWFigCaptureDevice *)&v60 init];
   selfCopy = v6;
   if (!v6)
   {
@@ -122,11 +122,11 @@ LABEL_67:
   selfCopy->_loggingPrefix = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<%p FigCaptureDeviceRef(%p), %ld, %@>", selfCopy, device, selfCopy->_uniqueID, selfCopy->_deviceID];
   if (dword_1ED844390)
   {
-    v69 = 0;
-    v68 = OS_LOG_TYPE_DEFAULT;
+    v63 = 0;
+    v62 = OS_LOG_TYPE_DEFAULT;
     v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v10 = v69;
-    if (os_log_type_enabled(v9, v68))
+    v10 = v63;
+    if (os_log_type_enabled(v9, v62))
     {
       v11 = v10;
     }
@@ -139,27 +139,27 @@ LABEL_67:
     if (v11)
     {
       loggingPrefix = selfCopy->_loggingPrefix;
-      v54 = 136315394;
-      v55 = "[BWFigCaptureDevice initWithFigCaptureDevice:deviceID:]";
-      v56 = 2114;
-      v57 = loggingPrefix;
+      v48 = 136315394;
+      v49 = "[BWFigCaptureDevice initWithFigCaptureDevice:deviceID:]";
+      v50 = 2114;
+      v51 = loggingPrefix;
       LODWORD(v39) = 22;
-      v37 = &v54;
+      v37 = &v48;
       _os_log_send_and_compose_impl();
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  selfCopy->_supportedProperties = [(BWFigCaptureDevice *)selfCopy copyProperty:*off_1E798A2C8 error:v70, v37, v39];
-  if (v70[0])
+  selfCopy->_supportedProperties = [(BWFigCaptureDevice *)selfCopy copyProperty:*off_1E798A2C8 error:v64, v37, v39];
+  if (v64[0])
   {
     [BWFigCaptureDevice initWithFigCaptureDevice:deviceID:];
     goto LABEL_67;
   }
 
-  v13 = [(BWFigCaptureDevice *)selfCopy copyProperty:*off_1E798A028 error:v70];
-  if (v70[0])
+  v13 = [(BWFigCaptureDevice *)selfCopy copyProperty:*off_1E798A028 error:v64];
+  if (v64[0])
   {
     [BWFigCaptureDevice initWithFigCaptureDevice:deviceID:];
     goto LABEL_68;
@@ -168,26 +168,26 @@ LABEL_67:
   v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v13, "count")}];
   v15 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v13, "count")}];
   v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v68 = OS_LOG_TYPE_DEFAULT;
-  v45 = 0;
-  if (FigCaptureExternalCameraReplacesBuiltIn(&v68))
+  v62 = OS_LOG_TYPE_DEFAULT;
+  isEqualToString = 0;
+  if (FigCaptureExternalCameraReplacesBuiltIn(&v62))
   {
-    v45 = [(NSString *)selfCopy->_deviceID isEqualToString:@"Default"];
+    isEqualToString = objc_msgSend_isEqualToString_(selfCopy->_deviceID);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v17 = [v13 countByEnumeratingWithState:&v62 objects:v61 count:16];
-  v48 = v13;
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v17 = [v13 countByEnumeratingWithState:&v56 objects:v55 count:16];
+  v43 = v13;
   if (!v17)
   {
 LABEL_45:
-    v69 = 0;
+    v63 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v30 = v69;
+    v30 = v63;
     if (os_log_type_enabled(v29, type))
     {
       v31 = v30;
@@ -201,14 +201,14 @@ LABEL_45:
     if (v31)
     {
       v32 = selfCopy->_loggingPrefix;
-      v54 = 136315650;
-      v55 = "[BWFigCaptureDevice initWithFigCaptureDevice:deviceID:]";
-      v56 = 2114;
-      v57 = v32;
-      v58 = 2114;
-      v59 = v14;
+      v48 = 136315650;
+      v49 = "[BWFigCaptureDevice initWithFigCaptureDevice:deviceID:]";
+      v50 = 2114;
+      v51 = v32;
+      v52 = 2114;
+      v53 = v14;
       LODWORD(v40) = 32;
-      v38 = &v54;
+      v38 = &v48;
       _os_log_send_and_compose_impl();
     }
 
@@ -217,54 +217,48 @@ LABEL_45:
   }
 
   v18 = v17;
-  v49 = 0;
-  v19 = *v63;
-  v50 = *off_1E798A0E0;
-  v47 = *off_1E798A0F8;
-  obj = *off_1E798A0C0;
-  v43 = *off_1E798A0D8;
-  v42 = *off_1E798A0D0;
-  v41 = *off_1E798A0C8;
+  v44 = 0;
+  v19 = *v57;
   do
   {
     v20 = 0;
     do
     {
-      if (*v63 != v19)
+      if (*v57 != v19)
       {
         objc_enumerationMutation(v13);
       }
 
-      v21 = *(*(&v62 + 1) + 8 * v20);
-      v22 = [[BWFigCaptureStream alloc] initWithFigCaptureStream:v21 deviceID:d errOut:v70];
+      v21 = *(*(&v56 + 1) + 8 * v20);
+      v22 = [[BWFigCaptureStream alloc] initWithFigCaptureStream:v21 deviceID:d errOut:v64];
       if (v22)
       {
         v23 = v22;
         [v14 addObject:v22];
         [v16 addObject:v21];
         [v15 setObject:v23 forKeyedSubscript:{-[BWFigCaptureStream portType](v23, "portType")}];
-        if ([(NSString *)[(BWFigCaptureStream *)v23 portType] isEqualToString:v50]|| [(NSString *)[(BWFigCaptureStream *)v23 portType] isEqualToString:v47])
+        if ((objc_msgSend_isEqualToString_([(BWFigCaptureStream *)v23 portType]) & 1) != 0 || objc_msgSend_isEqualToString_([(BWFigCaptureStream *)v23 portType]))
         {
-          if (v68 == OS_LOG_TYPE_INFO)
+          if (v62 == OS_LOG_TYPE_INFO)
           {
             [v14 removeObject:v23];
             [v16 removeObject:v21];
             [v15 setObject:0 forKeyedSubscript:{-[BWFigCaptureStream portType](v23, "portType")}];
 
-            v49 = 1;
+            v44 = 1;
             goto LABEL_39;
           }
 
-          v49 = 1;
+          v44 = 1;
           goto LABEL_36;
         }
 
-        if ([(NSString *)[(BWFigCaptureStream *)v23 portType] isEqualToString:obj]|| [(NSString *)[(BWFigCaptureStream *)v23 portType] isEqualToString:v43]|| [(NSString *)[(BWFigCaptureStream *)v23 portType] isEqualToString:v42])
+        if (objc_msgSend_isEqualToString_([(BWFigCaptureStream *)v23 portType]) & 1) != 0 || (objc_msgSend_isEqualToString_([(BWFigCaptureStream *)v23 portType]) & 1) != 0 || (objc_msgSend_isEqualToString_([(BWFigCaptureStream *)v23 portType]))
         {
-          if (v45)
+          if (isEqualToString)
           {
 LABEL_34:
-            if ((v68 & 1) == 0)
+            if ((v62 & 1) == 0)
             {
               [v14 removeObject:v23];
               [v16 removeObject:v21];
@@ -273,7 +267,7 @@ LABEL_34:
           }
         }
 
-        else if ([(NSString *)[(BWFigCaptureStream *)v23 portType] isEqualToString:v41]&& v45)
+        else if (objc_msgSend_isEqualToString_([(BWFigCaptureStream *)v23 portType]) & isEqualToString)
         {
           goto LABEL_34;
         }
@@ -283,10 +277,10 @@ LABEL_36:
         goto LABEL_39;
       }
 
-      v69 = 0;
+      v63 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v25 = v69;
+      v25 = v63;
       if (os_log_type_enabled(v24, type))
       {
         v26 = v25;
@@ -300,35 +294,35 @@ LABEL_36:
       if (v26)
       {
         v27 = selfCopy->_loggingPrefix;
-        v54 = 136315394;
-        v55 = "[BWFigCaptureDevice initWithFigCaptureDevice:deviceID:]";
-        v56 = 2114;
-        v57 = v27;
+        v48 = 136315394;
+        v49 = "[BWFigCaptureDevice initWithFigCaptureDevice:deviceID:]";
+        v50 = 2114;
+        v51 = v27;
         LODWORD(v40) = 22;
-        v38 = &v54;
+        v38 = &v48;
         _os_log_send_and_compose_impl();
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v13 = v48;
-      if (v70[0] != -12787)
+      v13 = v43;
+      if (v64[0] != -12787)
       {
         goto LABEL_44;
       }
 
-      v70[0] = 0;
+      v64[0] = 0;
 LABEL_39:
       ++v20;
     }
 
     while (v18 != v20);
-    v28 = [v13 countByEnumeratingWithState:&v62 objects:v61 count:16];
+    v28 = [v13 countByEnumeratingWithState:&v56 objects:v55 count:16];
     v18 = v28;
   }
 
   while (v28);
 LABEL_44:
-  if ((v49 & 1) == 0)
+  if ((v44 & 1) == 0)
   {
     goto LABEL_45;
   }
@@ -338,7 +332,7 @@ LABEL_51:
   selfCopy->_streamsByPortType = [v15 copy];
   selfCopy->_streamsMapper = [[BWFigCaptureStreamsMapper alloc] initWithBWFigCaptureStreams:v14 figCaptureStreams:v16];
 
-  if (v70[0])
+  if (v64[0])
   {
     [BWFigCaptureDevice initWithFigCaptureDevice:deviceID:];
   }
@@ -351,25 +345,25 @@ LABEL_51:
       goto LABEL_57;
     }
 
-    selfCopy->_figCaptureSynchronizedStreamsGroups = [(BWFigCaptureDevice *)selfCopy copyProperty:v33 error:v70];
-    if (v70[0])
+    selfCopy->_figCaptureSynchronizedStreamsGroups = [(BWFigCaptureDevice *)selfCopy copyProperty:v33 error:v64];
+    if (v64[0])
     {
       [BWFigCaptureDevice initWithFigCaptureDevice:deviceID:];
     }
 
     else
     {
-      v46 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](selfCopy->_figCaptureSynchronizedStreamsGroups, "count")}];
-      memset(v53, 0, sizeof(v53));
-      if ([(NSArray *)selfCopy->_figCaptureSynchronizedStreamsGroups countByEnumeratingWithState:v53 objects:v52 count:16])
+      v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](selfCopy->_figCaptureSynchronizedStreamsGroups, "count")}];
+      memset(v47, 0, sizeof(v47));
+      if ([(NSArray *)selfCopy->_figCaptureSynchronizedStreamsGroups countByEnumeratingWithState:v47 objects:v46 count:16])
       {
-        v67 = 0;
+        v61 = 0;
         FigCaptureSynchronizedStreamsGroupGetFigBaseObject();
       }
 
-      selfCopy->_synchronizedStreamsGroups = [v46 copy];
+      selfCopy->_synchronizedStreamsGroups = [v42 copy];
 
-      if (v70[0])
+      if (v64[0])
       {
         [BWFigCaptureDevice initWithFigCaptureDevice:deviceID:];
       }
@@ -402,7 +396,7 @@ LABEL_57:
 
 LABEL_68:
 
-  if (v70[0])
+  if (v64[0])
   {
 
     return 0;
@@ -662,7 +656,7 @@ LABEL_14:
       v46 = 2114;
       streamsCopy2 = streams;
       v48 = 1024;
-      v49 = v15;
+      LODWORD(v49) = v15;
       _os_log_send_and_compose_impl();
     }
 
@@ -1040,53 +1034,53 @@ LABEL_5:
   os_unfair_lock_lock(&selfCopy->_lock);
   if (!selfCopy->_invalidated)
   {
-    v40 = stateCopy;
-    v41 = aliveCopy;
+    v41 = stateCopy;
+    v42 = aliveCopy;
     controlCopy = control;
-    v42 = v11;
+    v43 = v11;
     if (dword_1ED844390)
     {
-      v63 = 0;
-      v62 = OS_LOG_TYPE_DEFAULT;
+      v64 = 0;
+      v63 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v60 = 0u;
     v61 = 0u;
-    v58 = 0u;
+    v62 = 0u;
     v59 = 0u;
-    v43 = selfCopy;
+    v60 = 0u;
+    v44 = selfCopy;
     obj = selfCopy->_streams;
-    v13 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v57 count:16, v35, v37];
+    v13 = [(NSArray *)obj countByEnumeratingWithState:&v59 objects:v58 count:16, v36, v38];
     if (v13)
     {
       v14 = v13;
-      v15 = *v59;
+      v15 = *v60;
       v16 = *off_1E798C270;
-      v44 = *off_1E798C270;
+      v45 = *off_1E798C270;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v59 != v15)
+          if (*v60 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v58 + 1) + 8 * i);
+          v18 = *(*(&v59 + 1) + 8 * i);
           if ([objc_msgSend(v18 supportedProperties])
           {
             v19 = [v18 setProperty:v16 value:MEMORY[0x1E695E110]];
             if (v19)
             {
               v20 = v19;
-              v63 = 0;
-              v62 = OS_LOG_TYPE_DEFAULT;
+              v64 = 0;
+              v63 = OS_LOG_TYPE_DEFAULT;
               v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v22 = v63;
-              if (os_log_type_enabled(v21, v62))
+              v22 = v64;
+              if (os_log_type_enabled(v21, v63))
               {
                 v23 = v22;
               }
@@ -1099,28 +1093,28 @@ LABEL_5:
               if (v23)
               {
                 portType = [v18 portType];
-                v51 = 136315650;
-                v52 = "[BWFigCaptureDevice invalidateAndKeepFigCaptureDeviceAlive:streamsToRelinquishControl:preserveTorchState:]";
-                v53 = 2112;
-                v54 = portType;
-                v55 = 1024;
-                v56 = v20;
-                LODWORD(v38) = 28;
-                v36 = &v51;
+                v52 = 136315650;
+                v53 = "[BWFigCaptureDevice invalidateAndKeepFigCaptureDeviceAlive:streamsToRelinquishControl:preserveTorchState:]";
+                v54 = 2112;
+                v55 = portType;
+                v56 = 1024;
+                v57 = v20;
+                LODWORD(v39) = 28;
+                v37 = &v52;
                 _os_log_send_and_compose_impl();
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              v16 = v44;
+              v16 = v45;
             }
 
             else if (dword_1ED844390)
             {
-              v63 = 0;
-              v62 = OS_LOG_TYPE_DEFAULT;
+              v64 = 0;
+              v63 = OS_LOG_TYPE_DEFAULT;
               v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v26 = v63;
-              if (os_log_type_enabled(v25, v62))
+              v26 = v64;
+              if (os_log_type_enabled(v25, v63))
               {
                 v27 = v26;
               }
@@ -1133,12 +1127,12 @@ LABEL_5:
               if (v27)
               {
                 portType2 = [v18 portType];
-                v51 = 136315394;
-                v52 = "[BWFigCaptureDevice invalidateAndKeepFigCaptureDeviceAlive:streamsToRelinquishControl:preserveTorchState:]";
-                v53 = 2112;
-                v54 = portType2;
-                LODWORD(v38) = 22;
-                v36 = &v51;
+                v52 = 136315394;
+                v53 = "[BWFigCaptureDevice invalidateAndKeepFigCaptureDeviceAlive:streamsToRelinquishControl:preserveTorchState:]";
+                v54 = 2112;
+                v55 = portType2;
+                LODWORD(v39) = 22;
+                v37 = &v52;
                 _os_log_send_and_compose_impl();
               }
 
@@ -1147,54 +1141,54 @@ LABEL_5:
           }
         }
 
-        v14 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v57 count:16];
+        v14 = [(NSArray *)obj countByEnumeratingWithState:&v59 objects:v58 count:16];
       }
 
       while (v14);
     }
 
-    v49 = 0u;
     v50 = 0u;
-    v47 = 0u;
+    v51 = 0u;
     v48 = 0u;
-    selfCopy = v43;
-    v29 = *(v43 + 80);
-    v30 = [v29 countByEnumeratingWithState:&v47 objects:v46 count:{16, v36, v38}];
+    v49 = 0u;
+    selfCopy = v44;
+    v29 = *(v44 + 80);
+    v30 = [v29 countByEnumeratingWithState:&v48 objects:v47 count:{16, v37, v39}];
     if (v30)
     {
       v31 = v30;
-      v32 = *v48;
+      v32 = *v49;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v48 != v32)
+          if (*v49 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          referencedObject = [*(*(&v47 + 1) + 8 * j) referencedObject];
+          referencedObject = [*(*(&v48 + 1) + 8 * j) referencedObject];
           [referencedObject setDelegate:0];
           [referencedObject invalidate];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v47 objects:v46 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v48 objects:v47 count:16];
       }
 
       while (v31);
     }
 
-    *(v43 + 80) = 0;
-    [(BWFigCaptureDevice *)v43 _removeFigCaptureDeviceListeners];
+    *(v44 + 80) = 0;
+    [(BWFigCaptureDevice *)v44 _removeFigCaptureDeviceListeners];
     v10 = MEMORY[0x1E695FF58];
-    v11 = v42;
-    if (!v41)
+    v11 = v43;
+    if (!v42)
     {
       FigCaptureDeviceGetFigBaseObject();
     }
 
-    [(BWFigCaptureDevice *)v43 _invalidateSyncStreamGroupsAndControlledStreams:controlCopy preserveTorchState:v40];
-    *(v43 + 88) = 1;
+    [(BWFigCaptureDevice *)v44 _invalidateSyncStreamGroupsAndControlledStreams:controlCopy preserveTorchState:v41, v35];
+    *(v44 + 88) = 1;
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
@@ -1350,20 +1344,20 @@ LABEL_20:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    CMNotificationCenterGetDefaultLocalCenter();
-    OUTLINED_FUNCTION_20_28();
-    CMNotificationCenterGetDefaultLocalCenter();
-    OUTLINED_FUNCTION_20_28();
-    CMNotificationCenterGetDefaultLocalCenter();
-    OUTLINED_FUNCTION_20_28();
-    CMNotificationCenterGetDefaultLocalCenter();
-    return OUTLINED_FUNCTION_20_28();
+    DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
+    OUTLINED_FUNCTION_20_28(DefaultLocalCenter, v3, v4, *off_1E7989F90);
+    v5 = CMNotificationCenterGetDefaultLocalCenter();
+    OUTLINED_FUNCTION_20_28(v5, v6, v7, *off_1E7989FA0);
+    v8 = CMNotificationCenterGetDefaultLocalCenter();
+    OUTLINED_FUNCTION_20_28(v8, v9, v10, *off_1E7989FB0);
+    v11 = CMNotificationCenterGetDefaultLocalCenter();
+    return OUTLINED_FUNCTION_20_28(v11, v12, v13, *off_1E7989F98);
   }
 
   return result;
 }
 
-- (uint64_t)_setProperty:(uint64_t)property value:(int)value requireSupported:
+- (uint64_t)_setProperty:(void *)property value:(int)value requireSupported:
 {
   if (!self)
   {
@@ -1374,55 +1368,56 @@ LABEL_20:
   v8 = MEMORY[0x1E695FF58];
   if (v7)
   {
-    v9 = v7 & 0xFFFFFFC0 | 0xC;
+    v9 = v7 & 0xFFFFFFC0;
+    v10 = v7 & 0xFFFFFFC0 | 0xC;
     if (*MEMORY[0x1E695FF58])
     {
-      v10 = v9;
+      v11 = v10;
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
     if (*MEMORY[0x1E695FF58] == 1)
     {
-      CFHash(cf);
-      OUTLINED_FUNCTION_5_7();
+      v12 = CFHash(cf);
+      OUTLINED_FUNCTION_5_7(v9 | 0xD, v12);
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   os_unfair_lock_lock((self + 92));
   if (*(self + 88))
   {
-    v11 = 4294954511;
+    v13 = 4294954511;
   }
 
   else
   {
-    v12 = *(self + 32);
-    if (!v12 || [v12 objectForKeyedSubscript:cf])
+    v14 = *(self + 32);
+    if (!v14 || [v14 objectForKeyedSubscript:cf])
     {
-      if ([cf isEqualToString:*off_1E798A018] && -[BWFigCaptureDevice _copyFigMultiCamConfigurationFromBW:](self) && dword_1ED844390)
+      if (objc_msgSend_isEqualToString_(cf) && [BWFigCaptureDevice _copyFigMultiCamConfigurationFromBW:self]&& dword_1ED844390)
       {
         OUTLINED_FUNCTION_8_56();
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v20))
+        if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v22))
         {
-          v18 = v21;
+          v20 = v23;
         }
 
         else
         {
-          v18 = v21 & 0xFFFFFFFE;
+          v20 = v23 & 0xFFFFFFFE;
         }
 
-        if (v18)
+        if (v20)
         {
           OUTLINED_FUNCTION_3_97();
           OUTLINED_FUNCTION_2_1();
@@ -1439,44 +1434,22 @@ LABEL_20:
 
     if (value)
     {
-      v11 = 4294954509;
+      v13 = 4294954509;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
   }
 
   os_unfair_lock_unlock((self + 92));
-  if (v10 && *v8 == 1)
+  if (v11 && *v8 == 1)
   {
-    OUTLINED_FUNCTION_5_7();
+    OUTLINED_FUNCTION_5_7(v11 | 2, v13);
   }
 
-  if (v11)
-  {
-    OUTLINED_FUNCTION_8_56();
-    v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (OUTLINED_FUNCTION_38_14(v13))
-    {
-      v14 = v8;
-    }
-
-    else
-    {
-      v14 = v8 & 0xFFFFFFFE;
-    }
-
-    if (!v14)
-    {
-      goto LABEL_33;
-    }
-
-    goto LABEL_32;
-  }
-
-  if (dword_1ED844390)
+  if (v13)
   {
     OUTLINED_FUNCTION_8_56();
     v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1495,6 +1468,28 @@ LABEL_20:
       goto LABEL_33;
     }
 
+    goto LABEL_32;
+  }
+
+  if (dword_1ED844390)
+  {
+    OUTLINED_FUNCTION_8_56();
+    v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    if (OUTLINED_FUNCTION_38_14(v17))
+    {
+      v18 = v8;
+    }
+
+    else
+    {
+      v18 = v8 & 0xFFFFFFFE;
+    }
+
+    if (!v18)
+    {
+      goto LABEL_33;
+    }
+
 LABEL_32:
     OUTLINED_FUNCTION_3_97();
     OUTLINED_FUNCTION_2_1();
@@ -1505,7 +1500,7 @@ LABEL_33:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v11;
+  return v13;
 }
 
 - (id)_copyFigMultiCamConfigurationFromBW:(uint64_t)w
@@ -1525,7 +1520,7 @@ LABEL_33:
 
   v8 = v7;
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v17 = OUTLINED_FUNCTION_13_40(v9, v10, v11, v12, v13, v14, v15, v16, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v78, v80, v82, v84, v86, v88, v90, v92);
+  v17 = OUTLINED_FUNCTION_13_40(v9, v10, v11, v12, v13, v14, v15, v16, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v78, v80, v82, v84, v86, v88, v90);
   if (v17)
   {
     v3 = v17;
@@ -1543,7 +1538,7 @@ LABEL_33:
         v21 = [v9 setObject:-[BWFigCaptureStreamsMapper figCaptureStreamsForBWFigCaptureStreams:](v5 forKeyedSubscript:{v20), v4}];
       }
 
-      v3 = OUTLINED_FUNCTION_13_40(v21, v22, v23, v24, v25, v26, v27, v28, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v79, v81, v83, v85, v87, v89, v91, v93);
+      v3 = OUTLINED_FUNCTION_13_40(v21, v22, v23, v24, v25, v26, v27, v28, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v79, v81, v83, v85, v87, v89, v91);
     }
 
     while (v3);
@@ -1580,7 +1575,7 @@ LABEL_33:
   return v9;
 }
 
-- (_DWORD)_copyProperty:(int)property requireSupported:(int *)supported error:
+- (os_unfair_lock_s)_copyProperty:(int)property requireSupported:(int *)supported error:
 {
   if (!result)
   {
@@ -1588,95 +1583,96 @@ LABEL_33:
   }
 
   v7 = result;
-  v22 = 0;
-  v8 = result[24];
+  v39 = 0;
+  os_unfair_lock_opaque = result[24]._os_unfair_lock_opaque;
   v9 = MEMORY[0x1E695FF58];
-  if (v8)
+  if (os_unfair_lock_opaque)
   {
-    v10 = v8 & 0xFFFFFFC0 | 0x10;
+    v10 = os_unfair_lock_opaque & 0xFFFFFFC0;
+    v11 = os_unfair_lock_opaque & 0xFFFFFFC0 | 0x10;
     if (*MEMORY[0x1E695FF58])
     {
-      v11 = v10;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    if (*MEMORY[0x1E695FF58] == 1)
-    {
-      CFHash(cf);
-      OUTLINED_FUNCTION_5_7();
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  os_unfair_lock_lock((v7 + 92));
-  if (*(v7 + 88))
-  {
-    v12 = -12785;
-  }
-
-  else
-  {
-    v13 = *(v7 + 32);
-    if (!v13 || [v13 objectForKeyedSubscript:cf])
-    {
-      FigCaptureDeviceGetFigBaseObject();
-    }
-
-    if (property)
-    {
-      v12 = -12787;
+      v12 = v11;
     }
 
     else
     {
       v12 = 0;
     }
+
+    if (*MEMORY[0x1E695FF58] == 1)
+    {
+      v13 = CFHash(cf);
+      OUTLINED_FUNCTION_5_7(v10 | 0x11, v13);
+    }
   }
 
-  os_unfair_lock_unlock((v7 + 92));
-  if (v11 && *v9 == 1)
+  else
   {
-    OUTLINED_FUNCTION_5_7();
+    v12 = 0;
   }
 
-  if (v12)
+  os_unfair_lock_lock(v7 + 23);
+  if (v7[22]._os_unfair_lock_opaque)
+  {
+    v14 = -12785;
+  }
+
+  else
+  {
+    v15 = *&v7[8]._os_unfair_lock_opaque;
+    if (!v15 || [v15 objectForKeyedSubscript:cf])
+    {
+      FigCaptureDeviceGetFigBaseObject();
+    }
+
+    if (property)
+    {
+      v14 = -12787;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+  }
+
+  os_unfair_lock_unlock(v7 + 23);
+  if (v12 && *v9 == 1)
+  {
+    OUTLINED_FUNCTION_5_7(v12 | 2, v14);
+  }
+
+  if (v14)
   {
     OUTLINED_FUNCTION_9_60();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v15 = OUTLINED_FUNCTION_12_47(os_log_and_send_and_compose_flags_and_os_log_type);
-    if (OUTLINED_FUNCTION_31(v15))
+    v17 = OUTLINED_FUNCTION_12_47(os_log_and_send_and_compose_flags_and_os_log_type);
+    if (OUTLINED_FUNCTION_31(v17))
     {
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_40_17();
+      OUTLINED_FUNCTION_40_17(v18, v19, v20, v21, v22);
       OUTLINED_FUNCTION_31_20();
     }
   }
 
   else
   {
-    if (([cf isEqualToString:*off_1E798A048] & 1) != 0 || !dword_1ED844390)
+    if ((objc_msgSend_isEqualToString_(cf) & 1) != 0 || !dword_1ED844390)
     {
       goto LABEL_28;
     }
 
     OUTLINED_FUNCTION_9_60();
-    v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v17 = OUTLINED_FUNCTION_12_47(v16);
-    if (OUTLINED_FUNCTION_31(v17))
+    v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v24 = OUTLINED_FUNCTION_12_47(v23);
+    if (OUTLINED_FUNCTION_31(v24))
     {
       OUTLINED_FUNCTION_21_32();
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_40_17();
+      OUTLINED_FUNCTION_40_17(v25, v26, v27, v28, v29);
       OUTLINED_FUNCTION_31_20();
     }
   }
@@ -1684,23 +1680,23 @@ LABEL_33:
   OUTLINED_FUNCTION_10_52();
   fig_log_call_emit_and_clean_up_after_send_and_compose();
 LABEL_28:
-  if ([cf isEqualToString:*off_1E798A018])
+  if (objc_msgSend_isEqualToString_(cf))
   {
-    v18 = [BWFigCaptureDevice _copyBWMultiCamConfigurationFromFig:v7];
-    if (v18)
+    v30 = [BWFigCaptureDevice _copyBWMultiCamConfigurationFromFig:v7];
+    if (v30)
     {
-      v19 = v18;
+      v31 = v30;
       if (dword_1ED844390)
       {
         OUTLINED_FUNCTION_9_60();
-        v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v21 = OUTLINED_FUNCTION_12_47(v20);
-        if (OUTLINED_FUNCTION_31(v21))
+        v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v33 = OUTLINED_FUNCTION_12_47(v32);
+        if (OUTLINED_FUNCTION_31(v33))
         {
           OUTLINED_FUNCTION_21_32();
           OUTLINED_FUNCTION_5();
           OUTLINED_FUNCTION_13();
-          OUTLINED_FUNCTION_40_17();
+          OUTLINED_FUNCTION_40_17(v34, v35, v36, v37, v38);
           OUTLINED_FUNCTION_31_20();
         }
 
@@ -1708,21 +1704,21 @@ LABEL_28:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v22 = v19;
+      v39 = v31;
     }
   }
 
-  else if (([cf isEqualToString:*off_1E798A028] & 1) == 0)
+  else if ((objc_msgSend_isEqualToString_(cf) & 1) == 0)
   {
-    [cf isEqualToString:*off_1E798A038];
+    objc_msgSend_isEqualToString_(cf);
   }
 
   if (supported)
   {
-    *supported = v12;
+    *supported = v14;
   }
 
-  return v22;
+  return v39;
 }
 
 - (id)_copyBWMultiCamConfigurationFromFig:(uint64_t)fig
@@ -1736,7 +1732,7 @@ LABEL_28:
   v3 = OUTLINED_FUNCTION_29_19(*off_1E7989F60);
   v4 = OUTLINED_FUNCTION_36_18(*off_1E7989F48);
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v13 = OUTLINED_FUNCTION_13_40(v5, v6, v7, v8, v9, v10, v11, v12, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v75, v77, v79, v81, v83, v85, v87, v89);
+  v13 = OUTLINED_FUNCTION_13_40(v5, v6, v7, v8, v9, v10, v11, v12, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v75, v77, v79, v81, v83, v85, v87);
   if (v13)
   {
     v14 = v13;
@@ -1755,7 +1751,7 @@ LABEL_28:
         v18 = [OUTLINED_FUNCTION_8() setObject:? forKeyedSubscript:?];
       }
 
-      v14 = OUTLINED_FUNCTION_13_40(v18, v19, v20, v21, v22, v23, v24, v25, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v76, v78, v80, v82, v84, v86, v88, v90);
+      v14 = OUTLINED_FUNCTION_13_40(v18, v19, v20, v21, v22, v23, v24, v25, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v76, v78, v80, v82, v84, v86, v88);
     }
 
     while (v14);
@@ -1817,7 +1813,7 @@ LABEL_28:
   OUTLINED_FUNCTION_80();
   [v6 count];
   v7 = [OUTLINED_FUNCTION_8() arrayWithCapacity:?];
-  if (OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, 0))
+  if (OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56))
   {
     OUTLINED_FUNCTION_32_14();
     do
@@ -1845,7 +1841,7 @@ LABEL_28:
       }
 
       while (v3 != v15);
-      v3 = OUTLINED_FUNCTION_2_0(v17, v18, v19, v20, v21, v22, v23, v24, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v58);
+      v3 = OUTLINED_FUNCTION_2_0(v17, v18, v19, v20, v21, v22, v23, v24, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57);
     }
 
     while (v3);
@@ -1864,7 +1860,7 @@ LABEL_28:
   OUTLINED_FUNCTION_80();
   [v6 count];
   v7 = [OUTLINED_FUNCTION_8() arrayWithCapacity:?];
-  if (OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, 0))
+  if (OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58))
   {
     OUTLINED_FUNCTION_32_14();
     do
@@ -1894,7 +1890,7 @@ LABEL_28:
       }
 
       while (v3 != v15);
-      v3 = OUTLINED_FUNCTION_2_0(v19, v20, v21, v22, v23, v24, v25, v26, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v60);
+      v3 = OUTLINED_FUNCTION_2_0(v19, v20, v21, v22, v23, v24, v25, v26, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
     }
 
     while (v3);
@@ -1903,24 +1899,23 @@ LABEL_28:
   return v7;
 }
 
-- (const)_invalidateSyncStreamGroupsAndControlledStreams:(uint64_t)streams preserveTorchState:
+- (double)_invalidateSyncStreamGroupsAndControlledStreams:(uint64_t)streams preserveTorchState:(double)result
 {
-  if (result)
+  if (self)
   {
-    v5 = result;
-    os_unfair_lock_assert_owner(result + 23);
+    os_unfair_lock_assert_owner((self + 92));
     if (dword_1ED844390)
     {
       OUTLINED_FUNCTION_81_2();
       OUTLINED_FUNCTION_7_69();
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v7 = OUTLINED_FUNCTION_8_30(os_log_and_send_and_compose_flags_and_os_log_type);
-      if (OUTLINED_FUNCTION_12(v7))
+      v8 = OUTLINED_FUNCTION_8_30(os_log_and_send_and_compose_flags_and_os_log_type);
+      if (OUTLINED_FUNCTION_12(v8))
       {
         OUTLINED_FUNCTION_30_15(4.8151e-34);
-        *(v8 + 4) = "[BWFigCaptureDevice _invalidateSyncStreamGroupsAndControlledStreams:preserveTorchState:]";
+        *(v9 + 4) = "[BWFigCaptureDevice _invalidateSyncStreamGroupsAndControlledStreams:preserveTorchState:]";
         v217 = 2112;
-        *(v8 + 14) = v9;
+        *(v9 + 14) = v10;
         OUTLINED_FUNCTION_2_112();
         OUTLINED_FUNCTION_4_86();
         _os_log_send_and_compose_impl();
@@ -1930,10 +1925,10 @@ LABEL_28:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    if ((v5[22]._os_unfair_lock_opaque & 1) == 0)
+    if ((*(self + 88) & 1) == 0)
     {
-      v14 = *&v5[8]._os_unfair_lock_opaque;
-      if (!v14 || [v14 objectForKeyedSubscript:*off_1E798A040])
+      v15 = *(self + 32);
+      if (!v15 || [v15 objectForKeyedSubscript:*off_1E798A040])
       {
         FigCaptureDeviceGetFigBaseObject();
       }
@@ -1942,18 +1937,18 @@ LABEL_28:
     if (dword_1ED844390)
     {
       OUTLINED_FUNCTION_81_2();
-      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v11 = OUTLINED_FUNCTION_8_30(v10);
-      if (OUTLINED_FUNCTION_12(v11))
+      v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v12 = OUTLINED_FUNCTION_8_30(v11);
+      if (OUTLINED_FUNCTION_12(v12))
       {
-        v12 = *&v5[26]._os_unfair_lock_opaque;
-        v13 = *off_1E798A040;
+        v13 = *(self + 104);
+        v14 = *off_1E798A040;
         v215 = 136315906;
         v216 = "[BWFigCaptureDevice _invalidateSyncStreamGroupsAndControlledStreams:preserveTorchState:]";
         v217 = 2114;
-        v218 = v12;
+        v218 = v13;
         v219 = 2114;
-        v220 = v13;
+        v220 = v14;
         v221 = 1026;
         v222 = 0;
         OUTLINED_FUNCTION_2_112();
@@ -1965,236 +1960,236 @@ LABEL_28:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v96 = [(BWFigCaptureStreamsMapper *)*&v5[14]._os_unfair_lock_opaque figCaptureStreamsForBWFigCaptureStreams:a2];
+    v98 = [(BWFigCaptureStreamsMapper *)*(self + 56) figCaptureStreamsForBWFigCaptureStreams:a2];
     array = [MEMORY[0x1E695DF70] array];
     v211 = 0u;
     v212 = 0u;
     v213 = 0u;
     v214 = 0u;
-    v99 = v5;
-    v16 = *&v5[16]._os_unfair_lock_opaque;
-    v18 = OUTLINED_FUNCTION_1_0(array, v17, &v211, v210);
-    if (v18)
+    selfCopy = self;
+    v17 = *(self + 64);
+    v19 = OUTLINED_FUNCTION_1_0(array, v18, &v211, v210);
+    if (v19)
     {
-      v21 = v18;
-      v22 = *v212;
-      *&v20 = 136315394;
-      v102 = v20;
+      v22 = v19;
+      v23 = *v212;
+      *&v21 = 136315394;
+      v104 = v21;
       do
       {
-        v23 = 0;
+        v24 = 0;
         do
         {
-          if (*v212 != v22)
+          if (*v212 != v23)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v24 = *(*(&v211 + 1) + 8 * v23);
-          if ([v24 synchronizationMaster])
+          v25 = *(*(&v211 + 1) + 8 * v24);
+          if ([v25 synchronizationMaster])
           {
-            v25 = [array addObject:{objc_msgSend(v24, "synchronizationMaster")}];
+            v26 = [array addObject:{objc_msgSend(v25, "synchronizationMaster")}];
           }
 
           else
           {
             OUTLINED_FUNCTION_81_2();
             OUTLINED_FUNCTION_7_69();
-            v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v28 = v224;
-            if (os_log_type_enabled(v27, v223))
+            v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v29 = v224[0];
+            if (os_log_type_enabled(v28, v223))
             {
-              v29 = v28;
+              v30 = v29;
             }
 
             else
             {
-              v29 = v28 & 0xFFFFFFFE;
+              v30 = v29 & 0xFFFFFFFE;
             }
 
-            if (v29)
+            if (v30)
             {
-              v215 = v102;
+              v215 = v104;
               v216 = "[BWFigCaptureDevice _invalidateSyncStreamGroupsAndControlledStreams:preserveTorchState:]";
               v217 = 2112;
-              v218 = v24;
+              v218 = v25;
               OUTLINED_FUNCTION_2_112();
               OUTLINED_FUNCTION_4_86();
               _os_log_send_and_compose_impl();
             }
 
             OUTLINED_FUNCTION_1_120();
-            v25 = fig_log_call_emit_and_clean_up_after_send_and_compose();
+            v26 = fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          ++v23;
+          ++v24;
         }
 
-        while (v21 != v23);
-        v18 = OUTLINED_FUNCTION_1_0(v25, v26, &v211, v210);
-        v21 = v18;
+        while (v22 != v24);
+        v19 = OUTLINED_FUNCTION_1_0(v26, v27, &v211, v210);
+        v22 = v19;
       }
 
-      while (v18);
+      while (v19);
     }
 
     v208 = 0u;
     v209 = 0u;
     v206 = 0u;
     v207 = 0u;
-    v30 = v99;
-    v31 = *(v99 + 48);
-    v32 = OUTLINED_FUNCTION_1_0(v18, v19, &v206, v205);
-    if (v32)
+    v31 = selfCopy;
+    v32 = *(selfCopy + 48);
+    v33 = OUTLINED_FUNCTION_1_0(v19, v20, &v206, v205);
+    if (v33)
     {
-      v40 = v32;
-      v41 = *v207;
+      v41 = v33;
+      v42 = *v207;
       do
       {
-        v42 = 0;
+        v43 = 0;
         do
         {
-          if (*v207 != v41)
+          if (*v207 != v42)
           {
-            objc_enumerationMutation(v31);
+            objc_enumerationMutation(v32);
           }
 
-          v43 = *(*(&v206 + 1) + 8 * v42);
-          v44 = [array containsObject:v43];
-          if ((v44 & 1) == 0)
+          v44 = *(*(&v206 + 1) + 8 * v43);
+          v45 = [array containsObject:v44];
+          if ((v45 & 1) == 0)
           {
-            v44 = [v43 invalidateWhilePreservingTorchState:streams];
+            v45 = [v44 invalidateWhilePreservingTorchState:streams];
           }
 
-          ++v42;
+          ++v43;
         }
 
-        while (v40 != v42);
-        v32 = OUTLINED_FUNCTION_1_0(v44, v45, &v206, v205);
-        v40 = v32;
+        while (v41 != v43);
+        v33 = OUTLINED_FUNCTION_1_0(v45, v46, &v206, v205);
+        v41 = v33;
       }
 
-      while (v32);
+      while (v33);
     }
 
-    v46 = OUTLINED_FUNCTION_37_14(v32, v33, v34, v35, v36, v37, v38, v39, v90, v93, v96, v99, v102, *(&v102 + 1), v107, v110, v113, v116, v119, v122, v125, v128, v131, v134, v137, v140, v143, v146, v149, v152, v155, v158, v160, v162, v164, v166, v168, v170, v172, v174, v176, v178, v180, v182, v184, v186, v188, v190, v192, v194, v196, v198, v200, v202, 0);
-    if (v46)
+    v47 = OUTLINED_FUNCTION_37_14(v33, v34, v35, v36, v37, v38, v39, v40, v92, v95, v98, selfCopy, v104, *(&v104 + 1), v109, v112, v115, v118, v121, v124, v127, v130, v133, v136, v139, v142, v145, v148, v151, v154, v157, v159, v161, v163, v165, v167, v169, v171, v173, v175, v177, v179, v181, v183, v185, v187, v189, v191, v193, v195, v197, v199, v201, v203);
+    if (v47)
     {
-      v54 = v46;
-      v55 = MEMORY[0];
+      v55 = v47;
+      v56 = MEMORY[0];
       do
       {
-        v56 = 0;
+        v57 = 0;
         do
         {
-          if (MEMORY[0] != v55)
+          if (MEMORY[0] != v56)
           {
             objc_enumerationMutation(array);
           }
 
-          v57 = [*(8 * v56++) invalidateWhilePreservingTorchState:streams];
+          v58 = [*(8 * v57++) invalidateWhilePreservingTorchState:streams];
         }
 
-        while (v54 != v56);
-        v46 = OUTLINED_FUNCTION_37_14(v57, v58, v59, v60, v61, v62, v63, v64, v91, v94, v97, v100, v103, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v138, v141, v144, v147, v150, v153, v156, v159, v161, v163, v165, v167, v169, v171, v173, v175, v177, v179, v181, v183, v185, v187, v189, v191, v193, v195, v197, v199, v201, v203, v204);
-        v54 = v46;
+        while (v55 != v57);
+        v47 = OUTLINED_FUNCTION_37_14(v58, v59, v60, v61, v62, v63, v64, v65, v93, v96, v99, v102, v105, v107, v110, v113, v116, v119, v122, v125, v128, v131, v134, v137, v140, v143, v146, v149, v152, v155, v158, v160, v162, v164, v166, v168, v170, v172, v174, v176, v178, v180, v182, v184, v186, v188, v190, v192, v194, v196, v198, v200, v202, v204);
+        v55 = v47;
       }
 
-      while (v46);
+      while (v47);
     }
 
-    v65 = *(v30 + 64);
-    v66 = OUTLINED_FUNCTION_35_17(v46, v47, v48, v49, v50, v51, v52, v53, v91, v94, v97, v100, v103, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v138, v141, v144, v147, v150, v153, 0);
-    if (v66)
+    v66 = *(v31 + 64);
+    v67 = OUTLINED_FUNCTION_35_17(v47, v48, v49, v50, v51, v52, v53, v54, v93, v96, v99, v102, v105, v107, v110, v113, v116, v119, v122, v125, v128, v131, v134, v137, v140, v143, v146, v149, v152, v155);
+    if (v67)
     {
-      v67 = v66;
-      v68 = MEMORY[0];
+      v68 = v67;
+      v69 = MEMORY[0];
       do
       {
-        for (i = 0; i != v67; ++i)
+        for (i = 0; i != v68; ++i)
         {
-          if (MEMORY[0] != v68)
+          if (MEMORY[0] != v69)
           {
-            objc_enumerationMutation(v65);
+            objc_enumerationMutation(v66);
           }
 
           invalidate = [*(8 * i) invalidate];
         }
 
-        v67 = OUTLINED_FUNCTION_35_17(invalidate, v71, v72, v73, v74, v75, v76, v77, v92, v95, v98, v101, v104, v106, v109, v112, v115, v118, v121, v124, v127, v130, v133, v136, v139, v142, v145, v148, v151, v154, v157);
+        v68 = OUTLINED_FUNCTION_35_17(invalidate, v72, v73, v74, v75, v76, v77, v78, v94, v97, v100, v103, v106, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v138, v141, v144, v147, v150, v153, v156);
       }
 
-      while (v67);
+      while (v68);
     }
 
-    v78 = *(v30 + 8);
-    v79 = *(CMBaseObjectGetVTable() + 16);
-    if (*v79 >= 2uLL && (v80 = v79[3]) != 0)
+    v79 = *(v31 + 8);
+    v80 = *(CMBaseObjectGetVTable() + 16);
+    if (*v80 >= 2uLL && (v81 = v80[3]) != 0)
     {
-      result = v80(v78, v98, 0);
-      v81 = result;
-      if (!result)
+      v82 = v81(v79, v100, 0);
+      if (!v82)
       {
         if (!dword_1ED844390)
         {
-          return result;
+          return v83;
         }
 
         OUTLINED_FUNCTION_81_2();
         OUTLINED_FUNCTION_7_69();
-        v82 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v83 = v224;
-        if (os_log_type_enabled(v82, v223))
+        v84 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v85 = v224[0];
+        if (os_log_type_enabled(v84, v223))
         {
-          v84 = v83;
+          v86 = v85;
         }
 
         else
         {
-          v84 = v83 & 0xFFFFFFFE;
+          v86 = v85 & 0xFFFFFFFE;
         }
 
-        if (v84)
+        if (v86)
         {
           OUTLINED_FUNCTION_30_15(4.8152e-34);
-          OUTLINED_FUNCTION_5_81(v85);
-          v220 = v98;
+          OUTLINED_FUNCTION_5_81(v87);
+          v220 = v100;
           OUTLINED_FUNCTION_2_112();
           OUTLINED_FUNCTION_4_86();
           _os_log_send_and_compose_impl();
         }
 
         OUTLINED_FUNCTION_2_4();
-        return fig_log_call_emit_and_clean_up_after_send_and_compose();
+        goto LABEL_65;
       }
     }
 
     else
     {
-      v81 = -12782;
+      v82 = -12782;
     }
 
     OUTLINED_FUNCTION_81_2();
     OUTLINED_FUNCTION_7_69();
-    v86 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v87 = OUTLINED_FUNCTION_8_30(v86);
-    if (OUTLINED_FUNCTION_12(v87))
+    v88 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v89 = OUTLINED_FUNCTION_8_30(v88);
+    if (OUTLINED_FUNCTION_12(v89))
     {
       OUTLINED_FUNCTION_30_15(4.8153e-34);
-      OUTLINED_FUNCTION_5_81(v88);
-      v220 = v98;
+      OUTLINED_FUNCTION_5_81(v90);
+      v220 = v100;
       v221 = 1024;
-      *(v89 + 34) = v81;
+      *(v91 + 34) = v82;
       OUTLINED_FUNCTION_2_112();
       OUTLINED_FUNCTION_4_86();
       _os_log_send_and_compose_impl();
     }
 
     OUTLINED_FUNCTION_1_120();
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+LABEL_65:
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return result;
+  return v83;
 }
 
 @end

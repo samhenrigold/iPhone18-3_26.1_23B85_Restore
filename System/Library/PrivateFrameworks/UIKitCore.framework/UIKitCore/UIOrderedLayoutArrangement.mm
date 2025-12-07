@@ -77,7 +77,7 @@ void __79___UIOrderedLayoutArrangement__insertIndividualGuidesAndConstraintsAsNe
   [*(a1 + 40) _setUpMultilineTextWidthDisambiguationConstraintForItem:v3 numberOfVisibleMultilineItems:*(a1 + 48)];
 }
 
-uint64_t __71___UIOrderedLayoutArrangement__visibleItemAtEndWithEnumerationOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__71___UIOrderedLayoutArrangement__visibleItemAtEndWithEnumerationOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _itemWantsLayoutAsIfVisible:a2];
   *a4 = result;

@@ -4,6 +4,7 @@
 + (NSString)toolName;
 + (id)commandWithArgc:(int)argc argv:(char *)argv;
 + (id)commandWithName:(id)name;
++ (int)executeMainToolWithName:(id)name version:(id)version argc:(int)argc argv:(char *)argv;
 + (void)_printUsage;
 + (void)registerCommandClass:(Class)class;
 + (void)setToolName:(id)name;
@@ -19,9 +20,14 @@
 - (id)getEngineWrapperStatusesWithError:(id *)error;
 - (id)getLibraryIdentifiersWithDomain:(int64_t)domain error:(id *)error;
 - (id)openedLibraryManagerWithError:(id *)error;
+- (id)openedLibraryManagerWithLibraryIdentifier:(id)identifier targetUserIdentifier:(unsigned int)userIdentifier error:(id *)error;
 - (id)openedLibraryManagerWithLibraryIdentifier:(id)identifier timeout:(BOOL)timeout withTargetUserIdentifier:(unsigned int)userIdentifier error:(id *)error;
+- (id)openedLibraryManagerWithTargetUserIdentifier:(unsigned int)identifier error:(id *)error;
+- (id)openedLibraryManagerWithTimeout:(BOOL)timeout error:(id *)error;
+- (id)openedLibraryManagerWithTimeout:(BOOL)timeout withTargetUserIdentifier:(unsigned int)identifier error:(id *)error;
 - (id)photosLibraryURLFromBaseURL:(id)l;
 - (id)tempFolderURLWithError:(id *)error;
+- (id)urlWithinHomeWithPath:(id)path isDirectory:(BOOL)directory;
 - (int)execute;
 - (int)outputFd;
 - (void)_setInterruptionHandler:(id)handler;
@@ -36,6 +42,7 @@
 - (void)printError:(id)error arguments:(char *)arguments;
 - (void)printFormat:(id)format;
 - (void)printFormat:(id)format arguments:(char *)arguments;
+- (void)printHeaderIfNecessary:(char)necessary;
 - (void)printJSONData:(id)data;
 - (void)printJSONObject:(id)object;
 - (void)put:(id)put;
@@ -43,6 +50,8 @@
 - (void)putF:(id)f;
 - (void)putF:(id)f arguments:(char *)arguments;
 - (void)puts:(const char *)puts;
+- (void)setLogOutputFd:(int)fd;
+- (void)setPrintHeader:(char)header;
 - (void)startInterruptibleOperationWithInterruptionBlock:(id)block;
 - (void)stopInterruptibleOperation;
 @end
@@ -210,6 +219,21 @@ LABEL_11:
   return argc == 1;
 }
 
+- (void)setLogOutputFd:(int)fd
+{
+  if (fd < 0)
+  {
+    [(CPLCTLCommand *)self printFormat:@"invalid log output fd=%d.", *&fd];
+  }
+
+  else
+  {
+    self->_logOutput = [[CPLOutput alloc] initWithFileDescriptor:*&fd];
+
+    _objc_release_x1();
+  }
+}
+
 - (int)execute
 {
   commandName = [objc_opt_class() commandName];
@@ -237,6 +261,15 @@ LABEL_11:
   return bOOLValue;
 }
 
+- (id)openedLibraryManagerWithLibraryIdentifier:(id)identifier targetUserIdentifier:(unsigned int)userIdentifier error:(id *)error
+{
+  v6 = *&userIdentifier;
+  identifierCopy = identifier;
+  v9 = [(CPLCTLCommand *)self openedLibraryManagerWithLibraryIdentifier:identifierCopy timeout:[(CPLCTLCommand *)self _shouldUseTimeoutForLibraryOpening] withTargetUserIdentifier:v6 error:error];
+
+  return v9;
+}
+
 - (id)openedLibraryManagerWithLibraryIdentifier:(id)identifier timeout:(BOOL)timeout withTargetUserIdentifier:(unsigned int)userIdentifier error:(id *)error
 {
   identifierCopy = identifier;
@@ -255,26 +288,26 @@ LABEL_11:
   dispatch_group_enter(v14);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v45 = 0x3032000000;
-  v46 = sub_100009E98;
-  v47 = sub_100009EA8;
-  v48 = 0;
-  v37[0] = _NSConcreteStackBlock;
-  v37[1] = 3221225472;
-  v37[2] = sub_100009EB0;
-  v37[3] = &unk_100034D80;
+  v46 = 0x3032000000;
+  v47 = sub_100009E98;
+  v48 = sub_100009EA8;
+  v49 = 0;
+  v38[0] = _NSConcreteStackBlock;
+  v38[1] = 3221225472;
+  v38[2] = sub_100009EB0;
+  v38[3] = &unk_100034D80;
   p_buf = &buf;
   v15 = v14;
-  v38 = v15;
-  [libraryManager openWithCompletionHandler:v37];
+  v39 = v15;
+  [libraryManager openWithCompletionHandler:v38];
   if (timeout)
   {
     v16 = dispatch_time(0, 30000000000);
     if (dispatch_group_wait(v15, v16))
     {
-      v42 = NSLocalizedDescriptionKey;
-      v43 = @"Timed out opening library manager";
-      v17 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v43 = NSLocalizedDescriptionKey;
+      v44 = @"Timed out opening library manager";
+      v17 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
       v18 = [NSError errorWithDomain:NSPOSIXErrorDomain code:60 userInfo:v17];
 
       v19 = dispatch_get_global_queue(0, 0);
@@ -282,10 +315,10 @@ LABEL_11:
       block[1] = 3221225472;
       block[2] = sub_100009F18;
       block[3] = &unk_100034DD0;
-      v36 = &buf;
+      v37 = &buf;
       block[4] = self;
-      v34 = v13;
-      v35 = libraryManager;
+      v35 = v13;
+      v36 = libraryManager;
       dispatch_group_notify(v15, v19, block);
 
       goto LABEL_9;
@@ -314,12 +347,12 @@ LABEL_9:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = sub_10000A0FC();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = sub_10000A0FC(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v18;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Error trying to open daemon's library manager: %@", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Error trying to open daemon's library manager: %@", &buf, 0xCu);
       }
     }
 
@@ -327,23 +360,23 @@ LABEL_9:
     {
       if (([identifierCopy isEqualToString:CPLLibraryIdentifierSystemLibrary] & 1) == 0)
       {
-        v22 = [NSError alloc];
+        v23 = [NSError alloc];
         domain = [v18 domain];
         code = [v18 code];
-        v40[0] = NSLocalizedDescriptionKey;
-        v24 = [NSString alloc];
+        v41[0] = NSLocalizedDescriptionKey;
+        v25 = [NSString alloc];
         localizedDescription = [v18 localizedDescription];
-        identifierCopy = [v24 initWithFormat:@"%@ (%@)", localizedDescription, identifierCopy];
-        v40[1] = NSUnderlyingErrorKey;
-        v41[0] = identifierCopy;
-        v41[1] = v18;
-        v27 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:2];
-        v28 = [v22 initWithDomain:domain code:code userInfo:v27];
+        identifierCopy = [v25 initWithFormat:@"%@ (%@)", localizedDescription, identifierCopy];
+        v41[1] = NSUnderlyingErrorKey;
+        v42[0] = identifierCopy;
+        v42[1] = v18;
+        v28 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:2];
+        v29 = [v23 initWithDomain:domain code:code userInfo:v28];
 
-        v18 = v28;
+        v18 = v29;
       }
 
-      v29 = v18;
+      v30 = v18;
       *error = v18;
     }
 
@@ -473,12 +506,40 @@ LABEL_14:
   return v5;
 }
 
+- (id)openedLibraryManagerWithTimeout:(BOOL)timeout error:(id *)error
+{
+  timeoutCopy = timeout;
+  defaultLibraryIdentifier = [(CPLCTLCommand *)self defaultLibraryIdentifier];
+  v8 = [(CPLCTLCommand *)self openedLibraryManagerWithLibraryIdentifier:defaultLibraryIdentifier timeout:timeoutCopy error:error];
+
+  return v8;
+}
+
+- (id)openedLibraryManagerWithTimeout:(BOOL)timeout withTargetUserIdentifier:(unsigned int)identifier error:(id *)error
+{
+  v6 = *&identifier;
+  timeoutCopy = timeout;
+  defaultLibraryIdentifier = [(CPLCTLCommand *)self defaultLibraryIdentifier];
+  v10 = [(CPLCTLCommand *)self openedLibraryManagerWithLibraryIdentifier:defaultLibraryIdentifier timeout:timeoutCopy withTargetUserIdentifier:v6 error:error];
+
+  return v10;
+}
+
 - (id)openedLibraryManagerWithError:(id *)error
 {
   defaultLibraryIdentifier = [(CPLCTLCommand *)self defaultLibraryIdentifier];
   v6 = [(CPLCTLCommand *)self openedLibraryManagerWithLibraryIdentifier:defaultLibraryIdentifier error:error];
 
   return v6;
+}
+
+- (id)openedLibraryManagerWithTargetUserIdentifier:(unsigned int)identifier error:(id *)error
+{
+  v5 = *&identifier;
+  defaultLibraryIdentifier = [(CPLCTLCommand *)self defaultLibraryIdentifier];
+  v8 = [(CPLCTLCommand *)self openedLibraryManagerWithLibraryIdentifier:defaultLibraryIdentifier targetUserIdentifier:v5 error:error];
+
+  return v8;
 }
 
 - (void)closeLibraryManager:(id)manager
@@ -884,6 +945,29 @@ LABEL_14:
   return currentPrivateEngine;
 }
 
+- (void)setPrintHeader:(char)header
+{
+  headerCopy = header;
+  [(CPLOutput *)self->_output setPrintHeader:?];
+  outputStack = self->_outputStack;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000BE74;
+  v6[3] = &unk_100034FD0;
+  v7 = headerCopy;
+  [(NSMutableArray *)outputStack enumerateObjectsUsingBlock:v6];
+  [(CPLOutput *)self->_logOutput setPrintHeader:headerCopy];
+}
+
+- (void)printHeaderIfNecessary:(char)necessary
+{
+  necessaryCopy = necessary;
+  [(CPLOutput *)self->_output printHeaderIfNecessary:?];
+  logOutput = self->_logOutput;
+
+  [(CPLOutput *)logOutput printHeaderIfNecessary:necessaryCopy];
+}
+
 - (void)printJSONObject:(id)object
 {
   output = self->_output;
@@ -978,6 +1062,15 @@ LABEL_14:
   block[3] = &unk_100034BD0;
   block[4] = self;
   dispatch_sync(interruptionQueue, block);
+}
+
+- (id)urlWithinHomeWithPath:(id)path isDirectory:(BOOL)directory
+{
+  directoryCopy = directory;
+  v5 = [@"/var/mobile" stringByAppendingPathComponent:path];
+  v6 = [[NSURL alloc] initFileURLWithPath:v5 isDirectory:directoryCopy];
+
+  return v6;
 }
 
 - (id)_tempFolderURL
@@ -1102,6 +1195,135 @@ LABEL_5:
   }
 
   return v23;
+}
+
++ (int)executeMainToolWithName:(id)name version:(id)version argc:(int)argc argv:(char *)argv
+{
+  v7 = *&argc;
+  nameCopy = name;
+  versionCopy = version;
+  [self register];
+  v12 = objc_autoreleasePoolPush();
+  v13 = v12;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v14 = sub_10000A0FC(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v33 = nameCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Hello from %@", buf, 0xCu);
+    }
+  }
+
+  [CPLCTLCommand setToolName:nameCopy];
+  if (v7 != 2)
+  {
+    goto LABEL_15;
+  }
+
+  v15 = argv[1];
+  if (*v15 != 45)
+  {
+    if (strcmp(argv[1], "--version"))
+    {
+      goto LABEL_14;
+    }
+
+LABEL_19:
+    v21 = [self newMainCommandWithToolname:nameCopy];
+    v22 = v21;
+    if (v21)
+    {
+      commandVersion = [v21 commandVersion];
+      v24 = commandVersion;
+      if (commandVersion)
+      {
+        if (versionCopy)
+        {
+          v25 = [[NSString alloc] initWithFormat:@"%@ (%@)", versionCopy, commandVersion];
+
+          versionCopy = v25;
+        }
+
+        else
+        {
+          versionCopy = commandVersion;
+        }
+      }
+
+      additionalVersionInfo = [v22 additionalVersionInfo];
+      v27 = additionalVersionInfo;
+      if (additionalVersionInfo)
+      {
+        v28 = [versionCopy stringByAppendingFormat:@" [%@]", additionalVersionInfo];
+
+        versionCopy = v28;
+      }
+    }
+
+    if (!versionCopy)
+    {
+      versionCopy = __CPLVersion();
+    }
+
+    v29 = __stdoutp;
+    v30 = basename(*argv);
+    fprintf(v29, "%s %s\n", v30, [versionCopy UTF8String]);
+
+    goto LABEL_33;
+  }
+
+  if (v15[1] == 118 && !v15[2] || !strcmp(argv[1], "--version"))
+  {
+    goto LABEL_19;
+  }
+
+  if (v15[1] == 104 && !v15[2])
+  {
+    goto LABEL_25;
+  }
+
+LABEL_14:
+  if (!strcmp(v15, "--help"))
+  {
+LABEL_25:
+    [self _printUsage];
+LABEL_33:
+    execute = 0;
+    goto LABEL_34;
+  }
+
+LABEL_15:
+  v16 = objc_autoreleasePoolPush();
+  v17 = [self newMainCommandWithToolname:nameCopy];
+  v18 = v17;
+  if (v17)
+  {
+    v19 = [v17 parseCommandOptionsWithArgc:v7 argv:argv];
+    objc_autoreleasePoolPop(v16);
+    if (v19)
+    {
+      execute = [v18 execute];
+    }
+
+    else
+    {
+      [self _printUsage];
+      execute = 22;
+    }
+  }
+
+  else
+  {
+    objc_autoreleasePoolPop(v16);
+    execute = -1;
+  }
+
+LABEL_34:
+  objc_autoreleasePoolPop(v13);
+
+  return execute;
 }
 
 @end

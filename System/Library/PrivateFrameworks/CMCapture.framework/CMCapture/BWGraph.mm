@@ -14,6 +14,7 @@
 - (BWGraphLiveExtension)createAndBeginLiveExtension;
 - (NSObject)_newDispatchGroupForSinksToBecomeLiveWithConfigurationID:(uint64_t)d;
 - (NSObject)_newDispatchGroupForSinksToTransitionToState:(uint64_t)state;
+- (_BYTE)_resolveVideoRetainedBufferCountsForOutput:(uint64_t)output forAttachedMediaKey:(void *)key outputsWithSharedPools:;
 - (char)_attributeGraphStopTimeout;
 - (char)_timedOutWaitingForOperationToCompleteWithDescription:(void *)description briefReason:(void *)reason offendingNodes:;
 - (dispatch_time_t)_graphStateTransitionTimeout;
@@ -21,24 +22,23 @@
 - (id)_depthFirstEnumeratorWithVertexOrdering:(int)ordering;
 - (id)_reverseBreadthFirstEnumerator;
 - (id)_reverseDepthFirstEnumeratorWithVertexOrdering:(int)ordering;
+- (id)_setMemoryPoolFlushAssertion;
 - (id)createAndBeginLiveExtension;
 - (id)nodesUnsupportedForLiveReconfiguration;
 - (id)osStatePropertyList;
 - (int)safelyConnectOutput:(id)output toInput:(id)input pipelineStage:(id)stage deferredAttach:(BOOL)attach;
-- (uint64_t)_bypassInputConnectionsForNodes:(uint64_t)result;
-- (uint64_t)_discardMessagesForNodes:(uint64_t)nodes beforeLiveConfigurationID:;
-- (uint64_t)_makeParentConfigurationChangesLive;
-- (uint64_t)_prepareNode:(uint64_t)result;
 - (uint64_t)_prepareNodesWithConfigurationChanges:(uint64_t)result;
-- (uint64_t)_resolveVideoRetainedBufferCountsForOutput:(uint64_t)output forAttachedMediaKey:(void *)key outputsWithSharedPools:;
-- (uint64_t)_resumeInputConnectionsForNodes:(uint64_t)nodes eventsOnly:;
-- (uint64_t)_setMemoryPoolFlushAssertion;
+- (void)_bypassInputConnectionsForNodes:(void *)result;
 - (void)_collectActiveNodesAfterGraphStopTimeout;
 - (void)_collectActiveSinkNodesAfterGraphStopTimeout;
+- (void)_discardMessagesForNodes:(uint64_t)nodes beforeLiveConfigurationID:;
 - (void)_getNodesToPrepareSeriallyBeforeGraphStart:(uint64_t)start concurrentlyBeforeGraphStart:duringGraphStart:afterGraphStart:;
+- (void)_makeParentConfigurationChangesLive;
 - (void)_nodesInSubgraphOfSinkNode:(void *)node;
 - (void)_populateOutputsWithSharedPools:outputsWithSharedPoolsForAttachedMedia:forNode:;
+- (void)_prepareNode:(void *)result;
 - (void)_resolveRetainedBufferCounts:;
+- (void)_resumeInputConnectionsForNodes:(uint64_t)nodes eventsOnly:;
 - (void)_stopSourcesUsingDispatchGroup:(uint64_t)group;
 - (void)_suspendInputConnectionsForNodes:messageCachingAllowed:overrideCachingEnabled:bypassedNodes:afterHandlingMessageWithType:;
 - (void)_waitForSourceNodesToStart;
@@ -65,12 +65,12 @@
 
 @implementation BWGraph
 
-- (uint64_t)_setMemoryPoolFlushAssertion
+- (id)_setMemoryPoolFlushAssertion
 {
   if (result)
   {
     v1 = result;
-    *(result + 288) = [*(result + 232) newFlushAssertion:@"GraphStart"];
+    result[36] = [result[29] newFlushAssertion:@"GraphStart"];
     result = [v1 deferredNodePrepareEnabled];
     if ((result & 1) == 0)
     {
@@ -146,7 +146,7 @@
 {
   if (dword_1ED844610)
   {
-    v29 = 0;
+    v29[0] = 0;
     v28 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -173,7 +173,7 @@
         }
 
         v9 = *(*(&v24 + 1) + 8 * i);
-        if ([objc_msgSend(v9 "nodeSubType")])
+        if (objc_msgSend_isEqualToString_([v9 nodeSubType]))
         {
           v21 = 0u;
           v22 = 0u;
@@ -296,13 +296,13 @@ LABEL_14:
   if (([(NSMutableArray *)self->_nodes containsObject:node]& 1) == 0)
   {
     [(NSMutableArray *)self->_nodes addObject:node];
-    if ([objc_msgSend(node "nodeType")])
+    if (objc_msgSend_isEqualToString_([node nodeType]))
     {
       v12 = 16;
       goto LABEL_21;
     }
 
-    if ([objc_msgSend(node "nodeType")])
+    if (objc_msgSend_isEqualToString_([node nodeType]))
     {
       v12 = 24;
 LABEL_21:
@@ -425,7 +425,7 @@ LABEL_21:
     while (v13);
   }
 
-  if ([objc_msgSend(node "nodeType")])
+  if (objc_msgSend_isEqualToString_([node nodeType]))
   {
     v17 = 16;
 LABEL_24:
@@ -433,7 +433,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  if ([objc_msgSend(node "nodeType")])
+  if (objc_msgSend_isEqualToString_([node nodeType]))
   {
     v17 = 24;
     goto LABEL_24;
@@ -448,7 +448,7 @@ LABEL_25:
 {
   if (!output || !input)
   {
-    [BWGraph safelyConnectOutput:toInput:pipelineStage:deferredAttach:];
+    [BWGraph safelyConnectOutput:a2 toInput:? pipelineStage:? deferredAttach:?];
     return -12780;
   }
 
@@ -812,7 +812,7 @@ LABEL_41:
   *self = 0;
   [(BWGraph *)a2 _resumeInputConnectionsForNodes:v5 eventsOnly:1];
 
-  dispatch_group_leave(*(a2 + 160));
+  dispatch_group_leave(a2[20]);
   objc_autoreleasePoolPop(v4);
 }
 
@@ -821,7 +821,7 @@ LABEL_41:
   deferredCopy = deferred;
   if (dword_1ED844610)
   {
-    v14 = 0;
+    v14[0] = 0;
     v13 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -874,7 +874,7 @@ LABEL_41:
 {
   if (dword_1ED844610)
   {
-    v18 = 0;
+    v18[0] = 0;
     v17 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1115,7 +1115,7 @@ LABEL_20:
   v5 = [(NSMutableArray *)self->_sourceNodes count];
   if (self->_running)
   {
-    [BWGraph start:];
+    [BWGraph start:v5];
   }
 
   else
@@ -1247,7 +1247,7 @@ LABEL_44:
           v30 = v15;
           if (!v15)
           {
-            [(BWGraph *)self _setMemoryPoolFlushAssertion];
+            [(BWGraph *)&self->super.isa _setMemoryPoolFlushAssertion];
           }
 
           v31 = [MEMORY[0x1E695DFD8] setWithArray:{self->_deferredStartSourceNodes, v46, v48}];
@@ -2046,64 +2046,64 @@ LABEL_10:
 
 - (BOOL)commitConfigurationWithID:(int64_t)d error:(id *)error
 {
-  v29 = 0;
+  v32 = 0;
   if (!self->_beingConfigured)
   {
-    v21 = MEMORY[0x1E695DF30];
-    v22 = *MEMORY[0x1E695D920];
-    v23 = @"Graph is not being configured, no configuration to commit";
+    v24 = MEMORY[0x1E695DF30];
+    v25 = *MEMORY[0x1E695D920];
+    v26 = @"Graph is not being configured, no configuration to commit";
     goto LABEL_26;
   }
 
   if (self->_commitGroup)
   {
-    v21 = MEMORY[0x1E695DF30];
-    v22 = *MEMORY[0x1E695D930];
-    v23 = @"Shouldn't have a commit group";
+    v24 = MEMORY[0x1E695DF30];
+    v25 = *MEMORY[0x1E695D930];
+    v26 = @"Shouldn't have a commit group";
 LABEL_26:
-    objc_exception_throw([v21 exceptionWithName:v22 reason:v23 userInfo:0]);
+    objc_exception_throw([v24 exceptionWithName:v25 reason:v26 userInfo:0]);
   }
 
-  v27 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v29 = 0u;
   nodes = self->_nodes;
-  v8 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v25 objects:v24 count:16];
+  v8 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v28 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(nodes);
         }
 
-        [*(*(&v25 + 1) + 8 * i) setRequestedConfigurationID:d];
+        [*(*(&v28 + 1) + 8 * i) setRequestedConfigurationID:d];
       }
 
-      v9 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v25 objects:v24 count:16];
+      v9 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v28 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  [(BWGraph *)self _resolveFormats:&v29];
-  if (v29)
+  v12 = [(BWGraph *)self _resolveFormats:&v32];
+  if (v32)
   {
-    [BWGraph commitConfigurationWithID:error:];
+    [BWGraph commitConfigurationWithID:v12 error:?];
   }
 
   else
   {
     [BWGraph _resolveRetainedBufferCounts:];
-    if (v29)
+    if (v32)
     {
-      [BWGraph commitConfigurationWithID:error:];
+      [BWGraph commitConfigurationWithID:v13 error:?];
     }
 
     else
@@ -2117,15 +2117,15 @@ LABEL_26:
       self->_inflightConfigurationID = d;
       if (self->_running)
       {
-        [(BWGraph *)self _prepareNodesWithConfigurationChanges:?];
-        if (v29)
+        v16 = [(BWGraph *)self _prepareNodesWithConfigurationChanges:?];
+        if (v32)
         {
-          [BWGraph commitConfigurationWithID:error:];
+          [BWGraph commitConfigurationWithID:v16 error:?];
         }
 
         else
         {
-          [(BWGraph *)self _makeParentConfigurationChangesLive:v14];
+          [(BWGraph *)self _makeParentConfigurationChangesLive:v17];
           self->_commitGroup = [(BWGraph *)self _newDispatchGroupForSinksToBecomeLiveWithConfigurationID:d];
         }
       }
@@ -2133,13 +2133,13 @@ LABEL_26:
   }
 
   self->_beingConfigured = 0;
-  v12 = v29;
-  if (error && v29)
+  v14 = v32;
+  if (error && v32)
   {
-    *error = v29;
+    *error = v32;
   }
 
-  return v12 == 0;
+  return v14 == 0;
 }
 
 - (void)waitForStartOrCommitToComplete
@@ -2215,16 +2215,16 @@ LABEL_26:
 
 - (BOOL)commitLiveExtension:(id)extension withError:(id *)error
 {
-  v8 = 0;
+  v9 = 0;
   if (!extension || self->_activeLiveExtension != extension)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:@"Extension is not currently active userInfo:{cannot commit", 0}]);
   }
 
-  [(BWGraph *)self _resolveFormats:&v8];
-  if (v8)
+  v6 = [(BWGraph *)self _resolveFormats:&v9];
+  if (v9)
   {
-    [BWGraph commitLiveExtension:withError:];
+    [BWGraph commitLiveExtension:v6 withError:?];
   }
 
   else
@@ -2234,13 +2234,13 @@ LABEL_26:
     self->_activeLiveExtension = 0;
   }
 
-  v6 = v8;
-  if (error && v8)
+  v7 = v9;
+  if (error && v9)
   {
-    *error = v8;
+    *error = v9;
   }
 
-  return v6 == 0;
+  return v7 == 0;
 }
 
 - (void)prepareLiveExtensionToBecomeLive:(id)live
@@ -2345,8 +2345,17 @@ LABEL_26:
 {
   v5 = [d copy];
   self->_clientApplicationID = v5;
-  v6 = [(NSString *)v5 isEqualToString:0x1F21855B0]|| [(NSString *)self->_clientApplicationID isEqualToString:0x1F2185250];
-  self->_runningForContinuityCapture = v6;
+  if (objc_msgSend_isEqualToString_(v5))
+  {
+    isEqualToString = 1;
+  }
+
+  else
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(self->_clientApplicationID);
+  }
+
+  self->_runningForContinuityCapture = isEqualToString;
 }
 
 - (id)_depthFirstEnumeratorWithVertexOrdering:(int)ordering
@@ -2584,7 +2593,7 @@ LABEL_50:
   return v3;
 }
 
-- (uint64_t)_resolveVideoRetainedBufferCountsForOutput:(uint64_t)output forAttachedMediaKey:(void *)key outputsWithSharedPools:
+- (_BYTE)_resolveVideoRetainedBufferCountsForOutput:(uint64_t)output forAttachedMediaKey:(void *)key outputsWithSharedPools:
 {
   if (!result)
   {
@@ -2610,7 +2619,7 @@ LABEL_50:
     [key addObject:a2];
 LABEL_6:
     v13 = 0;
-    if (*(v7 + 224) == 1)
+    if (v7[224] == 1)
     {
       v11 = gr_countOfBuffersRetainedOutsideEmitCallbackOfOutput(a2, output, 0);
     }
@@ -2622,7 +2631,7 @@ LABEL_6:
 
     v12 = v11;
     [v9 resolvedRetainedBufferCount];
-    return [v9 setResolvedRetainedBufferCount:(v13 + v12)];
+    return [v9 setResolvedRetainedBufferCount:v13 + v12];
   }
 
   return [v9 setResolvedRetainedBufferCount:0];
@@ -2659,7 +2668,7 @@ void __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_5(uint64
   [*(a1 + 32) handleMessage:v2];
 }
 
-uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6(void *a1)
+void *__49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6(void **a1)
 {
   v25 = 0u;
   v26 = 0u;
@@ -2721,10 +2730,10 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6(vo
 
         else
         {
-          __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6_cold_1(v14, a1 + 5, &v15);
+          __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6_cold_1(v14, a1 + 5, v15);
         }
 
-        ++v13;
+        v13 = v13 + 1;
       }
 
       while (v11 != v13);
@@ -2773,9 +2782,9 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6(vo
   return result;
 }
 
-uint64_t __42__BWGraph__stopSourcesUsingDispatchGroup___block_invoke(uint64_t a1)
+double __42__BWGraph__stopSourcesUsingDispatchGroup___block_invoke(uint64_t a1)
 {
-  v7 = 0;
+  v7[0] = 0;
   if (dword_1ED844610)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -2783,12 +2792,12 @@ uint64_t __42__BWGraph__stopSourcesUsingDispatchGroup___block_invoke(uint64_t a1
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = [*(a1 + 40) stop:{&v7, v5, v6}];
-  if (v7 || dword_1ED844610)
+  [*(a1 + 40) stop:{v7, v5, v6}];
+  if (v7[0] || dword_1ED844610)
   {
     v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   return result;
@@ -2822,7 +2831,7 @@ uint64_t __42__BWGraph__stopSourcesUsingDispatchGroup___block_invoke(uint64_t a1
   return dictionary;
 }
 
-- (uint64_t)_prepareNode:(uint64_t)result
+- (void)_prepareNode:(void *)result
 {
   if (result)
   {
@@ -2855,7 +2864,7 @@ uint64_t __42__BWGraph__stopSourcesUsingDispatchGroup___block_invoke(uint64_t a1
   return result;
 }
 
-- (uint64_t)_resumeInputConnectionsForNodes:(uint64_t)nodes eventsOnly:
+- (void)_resumeInputConnectionsForNodes:(uint64_t)nodes eventsOnly:
 {
   if (result)
   {
@@ -2912,7 +2921,7 @@ uint64_t __42__BWGraph__stopSourcesUsingDispatchGroup___block_invoke(uint64_t a1
             }
           }
 
-          ++v9;
+          v9 = v9 + 1;
         }
 
         while (v9 != v7);
@@ -3267,7 +3276,7 @@ LABEL_71:
   OUTLINED_FUNCTION_81();
 }
 
-- (uint64_t)_bypassInputConnectionsForNodes:(uint64_t)result
+- (void)_bypassInputConnectionsForNodes:(void *)result
 {
   if (result)
   {
@@ -3290,7 +3299,8 @@ LABEL_71:
             objc_enumerationMutation(a2);
           }
 
-          v6 = [objc_msgSend(objc_msgSend(*(*(&v15 + 1) + 8 * v5++) "input")];
+          v6 = [objc_msgSend(objc_msgSend(*(*(&v15 + 1) + 8 * v5) "input")];
+          v5 = v5 + 1;
         }
 
         while (v3 != v5);
@@ -3491,24 +3501,24 @@ LABEL_71:
       if (v6)
       {
 LABEL_18:
-        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@Timed out stopping in the %@ graph (possible hang%@)", v7, -[__CFString lowercaseString](FigCaptureGetRadarFriendlyProcessNameString(), "lowercaseString"), v9];
-        return [(BWGraph *)v1 _timedOutWaitingForOperationToCompleteWithDescription:v13 briefReason:@"StopTime" offendingNodes:v5];
+        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@Timed out stopping in the %@ graph (possible hang%@)", v7, -[__CFString lowercaseString](FigCaptureGetRadarFriendlyProcessNameString(), "lowercaseString"), v9];
+        return [(BWGraph *)v1 _timedOutWaitingForOperationToCompleteWithDescription:v16 briefReason:@"StopTime" offendingNodes:v5];
       }
     }
 
     [MEMORY[0x1E696AEC0] stringWithFormat:@"GraphTimeout_%@", @"StopTime"];
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client application ID: %@\nClient process ID: %d", *(v1 + 30), *(v1 + 62)];
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client application ID: %@\nClient process ID: %d", *(v1 + 30), *(v1 + 62)];
     OUTLINED_FUNCTION_62();
     OUTLINED_FUNCTION_18_33();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v15))
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v19))
     {
-      v11 = v16;
+      v11 = v20;
     }
 
     else
     {
-      v11 = v16 & 0xFFFFFFFE;
+      v11 = v20 & 0xFFFFFFFE;
     }
 
     if (v11)
@@ -3519,10 +3529,10 @@ LABEL_18:
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    [(__CFString *)FigCaptureGetRadarFriendlyProcessNameString() lowercaseString];
-    v12 = OUTLINED_FUNCTION_6_0();
-    FigCapturePleaseFileRadar(1, v12, v14, &unk_1F2249A20, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Base/BWGraph.m", 3309, @"LastShownDate:BWGraph.m:3309", @"LastShownBuild:BWGraph.m:3309", 1);
-    free(v12);
+    lowercaseString = [(__CFString *)FigCaptureGetRadarFriendlyProcessNameString() lowercaseString];
+    v15 = OUTLINED_FUNCTION_6_0(lowercaseString, v12, v13, v14, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    FigCapturePleaseFileRadar(1, v15, v17, &unk_1F2249A20, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Base/BWGraph.m", 3309, @"LastShownDate:BWGraph.m:3309", @"LastShownBuild:BWGraph.m:3309", 1);
+    free(v15);
     goto LABEL_18;
   }
 
@@ -3976,11 +3986,11 @@ LABEL_29:
   return result;
 }
 
-- (uint64_t)_makeParentConfigurationChangesLive
+- (void)_makeParentConfigurationChangesLive
 {
   if (result)
   {
-    v8 = *(result + 16);
+    v8 = result[2];
     result = OUTLINED_FUNCTION_57(result, a2, a3, a4, a5, a6, a7, a8, v20);
     if (result)
     {
@@ -3996,7 +4006,8 @@ LABEL_29:
             objc_enumerationMutation(v8);
           }
 
-          makeCurrentConfigurationLive = [*(8 * v11++) makeCurrentConfigurationLive];
+          makeCurrentConfigurationLive = [*(8 * v11) makeCurrentConfigurationLive];
+          v11 = (v11 + 1);
         }
 
         while (v9 != v11);
@@ -4097,16 +4108,16 @@ LABEL_29:
         {
           v6 = *(self + 248);
           v7 = *(self + 240);
-          v22 = 136315906;
-          v23 = "[BWGraph _waitForSourceNodesToStart]";
-          v24 = 2048;
+          v25 = 136315906;
+          v26 = "[BWGraph _waitForSourceNodesToStart]";
+          v27 = 2048;
           selfCopy = self;
-          v26 = 1026;
-          *v27 = v6;
-          *&v27[4] = 2114;
-          *&v27[6] = v7;
-          LODWORD(v21) = 38;
-          v20 = &v22;
+          v29 = 1026;
+          *v30 = v6;
+          *&v30[4] = 2114;
+          *&v30[6] = v7;
+          LODWORD(v24) = 38;
+          v23 = &v25;
           OUTLINED_FUNCTION_13();
           _os_log_send_and_compose_impl();
         }
@@ -4144,8 +4155,8 @@ LABEL_29:
         OUTLINED_FUNCTION_62();
         OUTLINED_FUNCTION_18_33();
         v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v14 = v35;
-        if (os_log_type_enabled(v13, v34))
+        v14 = v38;
+        if (os_log_type_enabled(v13, v37))
         {
           v15 = v14;
         }
@@ -4158,31 +4169,31 @@ LABEL_29:
         if (v15)
         {
           lowercaseString = [(__CFString *)FigCaptureGetRadarFriendlyProcessNameString() lowercaseString];
-          v22 = 136315906;
-          v23 = "[BWGraph _waitForSourceNodesToStart]";
-          v24 = 2114;
+          v25 = 136315906;
+          v26 = "[BWGraph _waitForSourceNodesToStart]";
+          v27 = 2114;
           selfCopy = v9;
-          v26 = 2114;
-          *v27 = lowercaseString;
-          *&v27[8] = 2114;
-          *&v27[10] = v11;
+          v29 = 2114;
+          *v30 = lowercaseString;
+          *&v30[8] = 2114;
+          *&v30[10] = v11;
           OUTLINED_FUNCTION_13();
           _os_log_send_and_compose_impl();
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
         lowercaseString2 = [(__CFString *)FigCaptureGetRadarFriendlyProcessNameString() lowercaseString];
-        v28 = 138543874;
-        v29 = v9;
-        v30 = 2114;
-        v31 = lowercaseString2;
-        v32 = 2114;
-        v33 = v11;
-        v18 = OUTLINED_FUNCTION_6_0();
-        FigCapturePleaseFileRadar(1, v18, v12, &unk_1F22499D8, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Base/BWGraph.m", 3190, @"LastShownDate:BWGraph.m:3190", @"LastShownBuild:BWGraph.m:3190", 1);
-        free(v18);
-        v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@Timed out starting source nodes in the %@ graph (possible hang%@)", v9, -[__CFString lowercaseString](FigCaptureGetRadarFriendlyProcessNameString(), "lowercaseString"), v11];
-        [(BWGraph *)self _timedOutWaitingForOperationToCompleteWithDescription:v19 briefReason:@"SrcStart" offendingNodes:0];
+        v31 = 138543874;
+        v32 = v9;
+        v33 = 2114;
+        v34 = lowercaseString2;
+        v35 = 2114;
+        v36 = v11;
+        v21 = OUTLINED_FUNCTION_6_0(lowercaseString2, v18, v19, v20, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+        FigCapturePleaseFileRadar(1, v21, v12, &unk_1F22499D8, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Base/BWGraph.m", 3190, @"LastShownDate:BWGraph.m:3190", @"LastShownBuild:BWGraph.m:3190", 1);
+        free(v21);
+        v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@Timed out starting source nodes in the %@ graph (possible hang%@)", v9, -[__CFString lowercaseString](FigCaptureGetRadarFriendlyProcessNameString(), "lowercaseString"), v11];
+        [(BWGraph *)self _timedOutWaitingForOperationToCompleteWithDescription:v22 briefReason:@"SrcStart" offendingNodes:0];
       }
 
       *(self + 136) = 0;
@@ -4371,7 +4382,7 @@ LABEL_17:
         }
 
         v12 = *(8 * i);
-        if ([objc_msgSend(v12 "nodeType")])
+        if (objc_msgSend_isEqualToString_([v12 nodeType]))
         {
           v9 = v12 == a2;
         }
@@ -4392,7 +4403,7 @@ LABEL_17:
   return v4;
 }
 
-- (uint64_t)_discardMessagesForNodes:(uint64_t)nodes beforeLiveConfigurationID:
+- (void)_discardMessagesForNodes:(uint64_t)nodes beforeLiveConfigurationID:
 {
   if (result)
   {
@@ -4441,7 +4452,7 @@ LABEL_17:
             while (v10);
           }
 
-          ++v6;
+          v6 = v6 + 1;
         }
 
         while (v6 != v5);
@@ -4456,7 +4467,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_3(uint64_t a1)
+void *__49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_3(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -4472,47 +4483,47 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_3(ui
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
     obj = [v1 _depthFirstEnumeratorWithVertexOrdering:{0, OUTLINED_FUNCTION_16_40()}];
-    v91 = [obj countByEnumeratingWithState:v140 objects:v139 count:16];
-    if (v91)
+    v111 = [obj countByEnumeratingWithState:v160 objects:v159 count:16];
+    if (v111)
     {
       OUTLINED_FUNCTION_13_1();
-      v90 = v2;
+      v110 = v2;
       *&v3 = 136317698;
-      v93 = v3;
+      v113 = v3;
       *&v3 = 136317186;
-      v96 = v3;
+      v116 = v3;
       *&v3 = 136317442;
-      v97 = v3;
-      v103 = v1;
+      v117 = v3;
+      v123 = v1;
       do
       {
         v4 = 0;
         do
         {
           OUTLINED_FUNCTION_13_1();
-          if (v5 != v90)
+          if (v5 != v110)
           {
             objc_enumerationMutation(obj);
           }
 
-          v92 = v4;
-          name2 = *(v140[1] + 8 * v4);
-          v135 = 0u;
-          v136 = 0u;
-          v137 = 0u;
-          v138 = 0u;
+          v112 = v4;
+          name2 = *(v160[1] + 8 * v4);
+          v155 = 0u;
+          v156 = 0u;
+          v157 = 0u;
+          v158 = 0u;
           inputs = [name2 inputs];
-          v8 = [inputs countByEnumeratingWithState:&v135 objects:v134 count:16];
-          v112 = name2;
+          v8 = [inputs countByEnumeratingWithState:&v155 objects:v154 count:16];
+          v132 = name2;
           if (v8)
           {
             v9 = v8;
-            v100 = inputs;
-            v101 = *v136;
+            v120 = inputs;
+            v121 = *v156;
             do
             {
               v10 = 0;
-              v104 = v9;
+              v124 = v9;
               do
               {
                 OUTLINED_FUNCTION_42();
@@ -4521,7 +4532,7 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_3(ui
                   objc_enumerationMutation(inputs);
                 }
 
-                v12 = *(*(&v135 + 1) + 8 * v10);
+                v12 = *(*(&v155 + 1) + 8 * v10);
                 if ([v12 liveFormat])
                 {
                   v13 = [objc_msgSend(v12 "connection")];
@@ -4535,30 +4546,30 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_3(ui
                       OUTLINED_FUNCTION_13_41();
                       if (v9)
                       {
-                        v108 = *(v103 + 62);
-                        name2 = v112;
-                        nodeType = [v112 nodeType];
-                        nodeSubType = [v112 nodeSubType];
-                        name = [v112 name];
+                        v128 = *(v123 + 62);
+                        name2 = v132;
+                        nodeType = [v132 nodeType];
+                        nodeSubType = [v132 nodeSubType];
+                        name = [v132 name];
                         v18 = gr_logStringForInput(v12);
                         gr_logStringForOutput(v13, [objc_msgSend(objc_msgSend(v13 "node")]);
-                        v113 = v97;
+                        v133 = v117;
                         OUTLINED_FUNCTION_5_82();
-                        v114 = v103;
-                        inputs = v100;
+                        v134 = v123;
+                        inputs = v120;
                         OUTLINED_FUNCTION_28_16();
-                        v115 = v108;
+                        v135 = v128;
                         OUTLINED_FUNCTION_27_19();
                         OUTLINED_FUNCTION_23_25();
-                        v116 = nodeType;
-                        v117 = v19;
-                        v118 = nodeSubType;
-                        v119 = v20;
-                        v120 = name;
-                        v121 = v20;
-                        v122 = v18;
-                        v123 = v20;
-                        v124 = v21;
+                        v136 = nodeType;
+                        v137 = v19;
+                        v138 = nodeSubType;
+                        v139 = v20;
+                        v140 = name;
+                        v141 = v20;
+                        v142 = v18;
+                        v143 = v20;
+                        v144 = v21;
                         OUTLINED_FUNCTION_2_113();
                         _os_log_send_and_compose_impl();
                         OUTLINED_FUNCTION_33_18();
@@ -4566,12 +4577,12 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_3(ui
 
                       else
                       {
-                        name2 = v112;
+                        name2 = v132;
                       }
 
                       OUTLINED_FUNCTION_1_4();
-                      OUTLINED_FUNCTION_16_1();
-                      v9 = v104;
+                      OUTLINED_FUNCTION_16_1(v22, v23, v24, v25, v26);
+                      v9 = v124;
                       if (([array2 containsObject:{objc_msgSend(objc_msgSend(objc_msgSend(name2, "input"), "connection"), "pipelineStage")}] & 1) == 0)
                       {
                         [array2 addObject:{objc_msgSend(objc_msgSend(objc_msgSend(name2, "input"), "connection"), "pipelineStage")}];
@@ -4584,89 +4595,89 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_3(ui
               }
 
               while (v9 != v10);
-              v9 = [inputs countByEnumeratingWithState:&v135 objects:v134 count:16];
+              v9 = [inputs countByEnumeratingWithState:&v155 objects:v154 count:16];
             }
 
             while (v9);
           }
 
-          v130 = 0u;
-          v131 = 0u;
-          v128 = 0u;
-          v129 = 0u;
+          v150 = 0u;
+          v151 = 0u;
+          v148 = 0u;
+          v149 = 0u;
           outputs = [name2 outputs];
-          v107 = [outputs countByEnumeratingWithState:&v128 objects:v127 count:16];
-          if (v107)
+          v127 = [outputs countByEnumeratingWithState:&v148 objects:v147 count:16];
+          if (v127)
           {
-            v22 = 0;
-            v23 = 0;
-            v105 = *v129;
+            v27 = 0;
+            v28 = 0;
+            v125 = *v149;
             do
             {
-              for (i = 0; i != v107; ++i)
+              for (i = 0; i != v127; ++i)
               {
-                if (*v129 != v105)
+                if (*v149 != v125)
                 {
                   objc_enumerationMutation(outputs);
                 }
 
-                v25 = *(*(&v128 + 1) + 8 * i);
-                liveFormat2 = [v25 liveFormat];
-                v22 |= liveFormat2 != 0;
-                indexOfInputWhichDrivesThisOutput = [v25 indexOfInputWhichDrivesThisOutput];
-                v28 = [objc_msgSend(v25 "node")];
+                v30 = *(*(&v148 + 1) + 8 * i);
+                liveFormat2 = [v30 liveFormat];
+                v27 |= liveFormat2 != 0;
+                indexOfInputWhichDrivesThisOutput = [v30 indexOfInputWhichDrivesThisOutput];
+                v33 = [objc_msgSend(v30 "node")];
                 if ((indexOfInputWhichDrivesThisOutput & 0x80000000) == 0)
                 {
-                  v29 = v28;
-                  if ([v28 count] > indexOfInputWhichDrivesThisOutput)
+                  v34 = v33;
+                  if ([v33 count] > indexOfInputWhichDrivesThisOutput)
                   {
-                    v30 = [v29 objectAtIndexedSubscript:indexOfInputWhichDrivesThisOutput];
-                    liveFormat3 = [v30 liveFormat];
+                    v35 = [v34 objectAtIndexedSubscript:indexOfInputWhichDrivesThisOutput];
+                    liveFormat3 = [v35 liveFormat];
                     if (liveFormat2 && !liveFormat3)
                     {
-                      v32 = OUTLINED_FUNCTION_3_98();
-                      os_log_type_enabled(v32, type);
+                      v37 = OUTLINED_FUNCTION_3_98();
+                      os_log_type_enabled(v37, type);
                       OUTLINED_FUNCTION_13_41();
                       if (liveFormat2)
                       {
-                        LODWORD(v100) = *(v103 + 62);
-                        v101 = *(v103 + 30);
+                        LODWORD(v120) = *(v123 + 62);
+                        v121 = *(v123 + 30);
                         nodeType2 = [name2 nodeType];
                         [name2 nodeSubType];
                         name2 = [name2 name];
-                        v33 = gr_logStringForInput(v30);
-                        v34 = gr_logStringForOutput(v25, v23);
+                        v38 = gr_logStringForInput(v35);
+                        v39 = gr_logStringForOutput(v30, v28);
                         objc_opt_class();
-                        v113 = v93;
+                        v133 = v113;
                         OUTLINED_FUNCTION_5_82();
-                        v114 = v103;
+                        v134 = v123;
                         OUTLINED_FUNCTION_28_16();
-                        v115 = v100;
+                        v135 = v120;
                         OUTLINED_FUNCTION_27_19();
                         OUTLINED_FUNCTION_12_48();
-                        v116 = nodeType2;
+                        v136 = nodeType2;
                         OUTLINED_FUNCTION_8_57();
-                        v122 = v33;
-                        v123 = v35;
-                        v124 = v34;
-                        v125 = v36;
-                        v126 = v37;
+                        v142 = v38;
+                        v143 = v40;
+                        v144 = v39;
+                        v145 = v41;
+                        v146 = v42;
                         OUTLINED_FUNCTION_2_113();
                         _os_log_send_and_compose_impl();
                         OUTLINED_FUNCTION_33_18();
                       }
 
                       OUTLINED_FUNCTION_1_4();
-                      v62 = OUTLINED_FUNCTION_16_1();
-                      v70 = [OUTLINED_FUNCTION_29_20(v62 v63];
-                      if ((v70 & 1) == 0)
+                      v77 = OUTLINED_FUNCTION_16_1(v72, v73, v74, v75, v76);
+                      v85 = [OUTLINED_FUNCTION_29_20(v77 v78];
+                      if ((v85 & 1) == 0)
                       {
-                        [OUTLINED_FUNCTION_29_20(v70 v71];
+                        [OUTLINED_FUNCTION_29_20(v85 v86];
                       }
                     }
 
 LABEL_46:
-                    if ((v22 & 1) == 0)
+                    if ((v27 & 1) == 0)
                     {
                       goto LABEL_51;
                     }
@@ -4680,129 +4691,129 @@ LABEL_46:
                   goto LABEL_46;
                 }
 
-                v109 = v22;
+                v129 = v27;
                 objc_opt_class();
-                v38 = &stru_1F216A3D0;
+                v43 = &stru_1F216A3D0;
                 if (objc_opt_isKindOfClass())
                 {
-                  v39 = MEMORY[0x1E696AEC0];
-                  v87 = objc_opt_class();
-                  v38 = [v39 stringWithFormat:@" Possible bug in -[%@ stop:]."];
+                  v44 = MEMORY[0x1E696AEC0];
+                  v107 = objc_opt_class();
+                  v43 = [v44 stringWithFormat:@" Possible bug in -[%@ stop:]."];
                 }
 
-                v40 = OUTLINED_FUNCTION_3_98();
-                v41 = v133;
-                if (os_log_type_enabled(v40, type))
+                v45 = OUTLINED_FUNCTION_3_98();
+                v46 = v153;
+                if (os_log_type_enabled(v45, type))
                 {
-                  v42 = v41;
+                  v47 = v46;
                 }
 
                 else
                 {
-                  v42 = v41 & 0xFFFFFFFE;
+                  v47 = v46 & 0xFFFFFFFE;
                 }
 
-                if (v42)
+                if (v47)
                 {
-                  LODWORD(liveFormat2) = *(v103 + 62);
-                  v100 = *(v103 + 30);
-                  v101 = v38;
+                  LODWORD(liveFormat2) = *(v123 + 62);
+                  v120 = *(v123 + 30);
+                  v121 = v43;
                   nodeType3 = [name2 nodeType];
                   [name2 nodeSubType];
                   name2 = [name2 name];
-                  gr_logStringForOutput(v25, v23);
-                  v113 = v97;
+                  gr_logStringForOutput(v30, v28);
+                  v133 = v117;
                   OUTLINED_FUNCTION_5_82();
-                  v114 = v103;
+                  v134 = v123;
                   OUTLINED_FUNCTION_28_16();
-                  v115 = liveFormat2;
+                  v135 = liveFormat2;
                   OUTLINED_FUNCTION_27_19();
                   OUTLINED_FUNCTION_12_48();
-                  v116 = nodeType3;
+                  v136 = nodeType3;
                   OUTLINED_FUNCTION_8_57();
-                  v122 = v44;
-                  v123 = v45;
-                  v124 = v101;
-                  LODWORD(v88) = 98;
-                  v87 = &v113;
+                  v142 = v49;
+                  v143 = v50;
+                  v144 = v121;
+                  LODWORD(v108) = 98;
+                  v107 = &v133;
                   OUTLINED_FUNCTION_13();
                   _os_log_send_and_compose_impl();
                   OUTLINED_FUNCTION_33_18();
                 }
 
-                v22 = v109;
+                v27 = v129;
                 OUTLINED_FUNCTION_1_4();
-                OUTLINED_FUNCTION_16_1();
+                OUTLINED_FUNCTION_16_1(v51, v52, v53, v54, v55);
                 objc_opt_class();
                 isKindOfClass = objc_opt_isKindOfClass();
                 if (isKindOfClass)
                 {
-                  v54 = [OUTLINED_FUNCTION_29_20(isKindOfClass v47];
-                  if ((v54 & 1) == 0)
+                  v64 = [OUTLINED_FUNCTION_29_20(isKindOfClass v57];
+                  if ((v64 & 1) == 0)
                   {
-                    [OUTLINED_FUNCTION_29_20(v54 v55];
+                    [OUTLINED_FUNCTION_29_20(v64 v65];
                   }
                 }
 
 LABEL_47:
-                if ([array2 containsObject:{objc_msgSend(objc_msgSend(objc_msgSend(name2, "input", v87), "connection"), "pipelineStage")}])
+                if ([array2 containsObject:{objc_msgSend(objc_msgSend(objc_msgSend(name2, "input", v107), "connection"), "pipelineStage")}])
                 {
-                  v78 = OUTLINED_FUNCTION_3_98();
-                  os_log_type_enabled(v78, type);
+                  v93 = OUTLINED_FUNCTION_3_98();
+                  os_log_type_enabled(v93, type);
                   OUTLINED_FUNCTION_13_41();
                   if (liveFormat2)
                   {
-                    v79 = *(v103 + 62);
-                    v111 = v23;
-                    v80 = v22;
-                    nodeType4 = [v112 nodeType];
-                    nodeSubType2 = [v112 nodeSubType];
-                    name3 = [v112 name];
-                    [objc_msgSend(objc_msgSend(objc_msgSend(v112 "input")];
-                    v113 = v96;
+                    v94 = *(v123 + 62);
+                    v131 = v28;
+                    v95 = v27;
+                    nodeType4 = [v132 nodeType];
+                    nodeSubType2 = [v132 nodeSubType];
+                    name3 = [v132 name];
+                    [objc_msgSend(objc_msgSend(objc_msgSend(v132 "input")];
+                    v133 = v116;
                     OUTLINED_FUNCTION_5_82();
-                    v114 = v103;
+                    v134 = v123;
                     OUTLINED_FUNCTION_28_16();
-                    v115 = v79;
-                    name2 = v112;
+                    v135 = v94;
+                    name2 = v132;
                     OUTLINED_FUNCTION_27_19();
                     OUTLINED_FUNCTION_23_25();
-                    v116 = nodeType4;
-                    v22 = v80;
-                    v23 = v111;
-                    v117 = v84;
-                    v118 = nodeSubType2;
-                    v119 = v85;
-                    v120 = name3;
-                    v121 = v85;
-                    v122 = v86;
+                    v136 = nodeType4;
+                    v27 = v95;
+                    v28 = v131;
+                    v137 = v99;
+                    v138 = nodeSubType2;
+                    v139 = v100;
+                    v140 = name3;
+                    v141 = v100;
+                    v142 = v101;
                     OUTLINED_FUNCTION_2_113();
                     _os_log_send_and_compose_impl();
                     OUTLINED_FUNCTION_33_18();
                   }
 
                   OUTLINED_FUNCTION_1_4();
-                  OUTLINED_FUNCTION_16_1();
+                  OUTLINED_FUNCTION_16_1(v102, v103, v104, v105, v106);
                 }
 
 LABEL_51:
-                ++v23;
+                ++v28;
               }
 
-              v107 = [outputs countByEnumeratingWithState:&v128 objects:v127 count:16];
+              v127 = [outputs countByEnumeratingWithState:&v148 objects:v147 count:16];
             }
 
-            while (v107);
+            while (v127);
           }
 
-          v4 = v92 + 1;
+          v4 = v112 + 1;
         }
 
-        while (v92 + 1 != v91);
-        v91 = [obj countByEnumeratingWithState:v140 objects:v139 count:16];
+        while (v112 + 1 != v111);
+        v111 = [obj countByEnumeratingWithState:v160 objects:v159 count:16];
       }
 
-      while (v91);
+      while (v111);
     }
   }
 
@@ -5027,7 +5038,7 @@ LABEL_37:
   return array;
 }
 
-- (uint64_t)start:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4)
+- (id)start:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4)
 {
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
@@ -5085,7 +5096,7 @@ LABEL_37:
   return result;
 }
 
-uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6_cold_1(void *a1, uint64_t *a2, void *a3)
+void *__49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6_cold_1(void *a1, void **a2, void *a3)
 {
   [a1 waitUntilEndOfConfigurationHandled];
   [(BWGraph *)*a2 _prepareNode:a1];
@@ -5098,7 +5109,7 @@ uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6_co
   return -[BWGraph _resumeInputConnectionsForNodes:eventsOnly:](v8, [MEMORY[0x1E695DEC8] arrayWithObjects:a3 count:1], 0);
 }
 
-uint64_t __49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6_cold_2(uint64_t *a1, void *a2)
+void *__49__BWGraph__prepareNodesWithConfigurationChanges___block_invoke_6_cold_2(void **a1, void *a2)
 {
   [(BWGraph *)*a1 _prepareNode:a2];
   v2 = [MEMORY[0x1E695DF70] array];

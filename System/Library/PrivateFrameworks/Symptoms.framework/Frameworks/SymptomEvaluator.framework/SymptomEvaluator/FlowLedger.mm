@@ -474,7 +474,7 @@ LABEL_17:
 
 - (BOOL)statisticsForAccumulatedSamples:(unint64_t *)samples sampleDuration:(double *)duration avgRxTput:(double *)tput avgCeilingRxTput:(double *)rxTput avgTxTput:(double *)txTput avgCeilingTxTput:(double *)ceilingTxTput
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   nonIdleSamples = self->_nonIdleSamples;
   if (nonIdleSamples && [(NSMutableArray *)nonIdleSamples count])
@@ -502,18 +502,18 @@ LABEL_17:
     ceilingTxTputCopy = ceilingTxTput;
     durationCopy = duration;
     samplesCopy = samples;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v22 = v15;
-    v23 = [v22 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v23)
     {
       v24 = v23;
       v25 = 0;
       v26 = 0;
-      v27 = *v47;
+      v27 = *v46;
       v28 = 0.0;
       v29 = 0.0;
       v30 = 0.0;
@@ -521,12 +521,12 @@ LABEL_17:
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v47 != v27)
+          if (*v46 != v27)
           {
             objc_enumerationMutation(v22);
           }
 
-          v32 = *(*(&v46 + 1) + 8 * i);
+          v32 = *(*(&v45 + 1) + 8 * i);
           [v32 elapsedTime];
           v29 = v29 + v33;
           v25 += [v32 totalObservedRxBytes];
@@ -537,7 +537,7 @@ LABEL_17:
           v28 = v28 + v35;
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v24);
@@ -586,7 +586,6 @@ LABEL_17:
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v21 != 0;
 }
 
@@ -631,48 +630,47 @@ LABEL_17:
 - (id)description
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  flowUUID = self->_flowUUID;
   flowIdentifier = self->_flowIdentifier;
-  v30 = v3;
-  v27 = flowUUID;
+  v29 = v3;
+  flowUUID = self->_flowUUID;
   flowType = self->_flowType;
   createdBy = [(FlowLedger *)self createdBy];
   if (self->_rxTransferSizeLowerThreshold || self->_rxTransferSizeUpperThreshold || self->_txTransferSizeLowerThreshold || self->_txTransferSizeUpperThreshold)
   {
     latestClassification = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-plus-transfer", self->_latestClassification];
-    v26 = 1;
+    v25 = 1;
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
     latestClassification = self->_latestClassification;
   }
 
-  v7 = dateStringMillisecondsFromReferenceInterval(self->_prevSampleTime);
+  v6 = dateStringMillisecondsFromReferenceInterval(self->_prevSampleTime);
   totalObservedCellRxBytes = self->_totalObservedCellRxBytes;
   totalObservedCellTxBytes = self->_totalObservedCellTxBytes;
   totalObservedWiFiRxBytes = self->_totalObservedWiFiRxBytes;
   totalObservedWiFiTxBytes = self->_totalObservedWiFiTxBytes;
-  v25 = *&self->_flowIdleDuration;
+  v24 = *&self->_flowIdleDuration;
   maxRxThroughput = self->_maxRxThroughput;
   maxTxThroughput = self->_maxTxThroughput;
   notedAsFGAudioVideoTC = self->_notedAsFGAudioVideoTC;
   notedAsAudioVideoTC = self->_notedAsAudioVideoTC;
   [(FlowLedger *)self recentCellRxThroughput];
-  v17 = v16;
+  v16 = v15;
   [(FlowLedger *)self recentCellTxThroughput];
-  v19 = v18;
+  v18 = v17;
   [(FlowLedger *)self recentWiFiRxThroughput];
-  v21 = v20;
+  v20 = v19;
   [(FlowLedger *)self recentWiFiTxThroughput];
-  v23 = [v30 initWithFormat:@"FlowLedger %lld flow-type %@ flow-uuid %@ from %@ classified %@ sample %@ cell/wifi rx-bytes %lld/%lld tx-bytes %lld/%lld idle %f non-idle %f max-rx-tput %.6f Mbps max-tx-put %.6f Mbps fgAV %d anyAV %d recent cell/wifi rx-tput %.6f/%.6f tx-tput %.6f/%.6f alternating %@ accumulating %@", flowIdentifier, flowType, v27, createdBy, latestClassification, v7, totalObservedCellRxBytes, totalObservedWiFiRxBytes, totalObservedCellTxBytes, totalObservedWiFiTxBytes, v25, *&maxRxThroughput, *&maxTxThroughput, notedAsFGAudioVideoTC, notedAsAudioVideoTC, v17, v19, v21, v22, self->_alternatingIdleNonIdlePeriods, self->_nonIdleSamples];
+  v22 = [v29 initWithFormat:@"FlowLedger %lld flow-type %@ flow-uuid %@ from %@ classified %@ sample %@ cell/wifi rx-bytes %lld/%lld tx-bytes %lld/%lld idle %f non-idle %f max-rx-tput %.6f Mbps max-tx-put %.6f Mbps fgAV %d anyAV %d recent cell/wifi rx-tput %.6f/%.6f tx-tput %.6f/%.6f alternating %@ accumulating %@", flowIdentifier, flowType, flowUUID, createdBy, latestClassification, v6, totalObservedCellRxBytes, totalObservedWiFiRxBytes, totalObservedCellTxBytes, totalObservedWiFiTxBytes, v24, *&maxRxThroughput, *&maxTxThroughput, notedAsFGAudioVideoTC, notedAsAudioVideoTC, v16, v18, v20, v21, self->_alternatingIdleNonIdlePeriods, self->_nonIdleSamples];
 
-  if (v26)
+  if (v25)
   {
   }
 
-  return v23;
+  return v22;
 }
 
 - (id)briefDescription

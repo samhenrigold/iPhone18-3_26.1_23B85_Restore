@@ -7,9 +7,9 @@
 
 - (CTCellularData)init
 {
-  v9.receiver = self;
-  v9.super_class = CTCellularData;
-  v2 = [(CTCellularData *)&v9 init];
+  v7.receiver = self;
+  v7.super_class = CTCellularData;
+  v2 = [(CTCellularData *)&v7 init];
   if (v2)
   {
     v2->_cuPolicyClient = network_usage_policy_create_client();
@@ -19,12 +19,10 @@
     if (fObj)
     {
       dispatch_release(fObj);
-      v5 = v2->_cuPolicyClientQueue.fObj.fObj;
     }
 
     v2->_restrictedState = 0;
-    cuPolicyClient = v2->_cuPolicyClient;
-    v8 = v2;
+    v6 = v2;
     network_usage_policy_set_changed_handler();
   }
 

@@ -81,21 +81,21 @@ void __82__NSMutableAttributedString_TextEffects__ck_toggleTextEffectNamed_range
   *a5 = 1;
 }
 
-uint64_t __80__NSMutableAttributedString_TextEffects__ck_removeAnimatedTextEffectsFromRange___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__80__NSMutableAttributedString_TextEffects__ck_removeAnimatedTextEffectsFromRange___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) removeAttribute:*MEMORY[0x1E69A7CF8] range:{a3, a4}];
+    return [result[4] removeAttribute:*MEMORY[0x1E69A7CF8] range:{a3, a4}];
   }
 
   return result;
 }
 
-uint64_t __80__NSMutableAttributedString_TextEffects__ck_removeAnimatedTextEffectsFromRange___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__80__NSMutableAttributedString_TextEffects__ck_removeAnimatedTextEffectsFromRange___block_invoke_2(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) removeAttribute:*MEMORY[0x1E69DB6D8] range:{a3, a4}];
+    return [result[4] removeAttribute:*MEMORY[0x1E69DB6D8] range:{a3, a4}];
   }
 
   return result;

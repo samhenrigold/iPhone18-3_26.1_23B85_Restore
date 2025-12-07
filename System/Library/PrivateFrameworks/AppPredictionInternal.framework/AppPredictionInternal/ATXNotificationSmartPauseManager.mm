@@ -37,49 +37,47 @@
 
 - (id)_dictionaryForQueryResults:(id)results
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = resultsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         bundleId = [v11 bundleId];
         threadId = [v11 threadId];
         v14 = [(ATXNotificationSmartPauseManager *)self _queryResultIdentifierForBundleId:bundleId threadId:threadId];
         [v5 setObject:v11 forKeyedSubscript:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_proposeSmartPauseForNotification:(id)notification threadData:(id)data bundleData:(id)bundleData
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataCopy = data;
   bundleDataCopy = bundleData;
@@ -90,48 +88,49 @@
     if (bundleDataCopy)
     {
       countLastFiveMinutesPositiveEngagements = [bundleDataCopy countLastFiveMinutesPositiveEngagements];
-      v32 = countLastFiveMinutesPositiveEngagements / [bundleDataCopy countLastFiveMinutesNotifications];
-      v33 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      countLastFiveMinutesNotifications = [bundleDataCopy countLastFiveMinutesNotifications];
+      v35 = countLastFiveMinutesPositiveEngagements / countLastFiveMinutesNotifications;
+      v36 = __atxlog_handle_notification_management(countLastFiveMinutesNotifications);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        [ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:bundleDataCopy threadData:v33 bundleData:v32];
+        [ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:bundleDataCopy threadData:v36 bundleData:v35];
       }
 
-      countLastFiveMinutesNotifications = [bundleDataCopy countLastFiveMinutesNotifications];
-      if (countLastFiveMinutesNotifications > [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerThresholdForNumNotificationsReceivedInLastFiveMinutesForApp])
+      countLastFiveMinutesNotifications2 = [bundleDataCopy countLastFiveMinutesNotifications];
+      if (countLastFiveMinutesNotifications2 > [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerThresholdForNumNotificationsReceivedInLastFiveMinutesForApp])
       {
-        [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerEngagementRateThresholdForApp];
-        if (v32 <= v35)
+        smartPauseManagerEngagementRateThresholdForApp = [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerEngagementRateThresholdForApp];
+        if (v35 <= v39)
         {
-          v39 = __atxlog_handle_notification_management();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+          v42 = __atxlog_handle_notification_management(smartPauseManagerEngagementRateThresholdForApp);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
           {
-            [ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:v39 threadData:? bundleData:?];
+            [ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:v42 threadData:? bundleData:?];
           }
 
-          v40 = objc_alloc(MEMORY[0x277CEB758]);
-          v41 = MEMORY[0x277CBEAA8];
+          v43 = objc_alloc(MEMORY[0x277CEB758]);
+          v44 = MEMORY[0x277CBEAA8];
           [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerExpirationSeconds];
-          v42 = [v41 dateWithTimeIntervalSinceNow:?];
+          v45 = [v44 dateWithTimeIntervalSinceNow:?];
           [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerPauseDurationSeconds];
-          v21 = [v40 initWithSuggestionExpiration:v42 pauseDuration:?];
+          v23 = [v43 initWithSuggestionExpiration:v45 pauseDuration:?];
 
-          v43 = objc_alloc(MEMORY[0x277CEB6F0]);
+          v46 = objc_alloc(MEMORY[0x277CEB6F0]);
           uUID = [MEMORY[0x277CCAD78] UUID];
           bundleID = [notificationCopy bundleID];
-          v25 = [MEMORY[0x277CBEAA8] now];
+          v27 = [MEMORY[0x277CBEAA8] now];
           uuid = [notificationCopy uuid];
-          v27 = v43;
-          v28 = v21;
-          v29 = uUID;
-          v30 = 1;
+          v29 = v46;
+          v30 = v23;
+          v31 = uUID;
+          v32 = 1;
           goto LABEL_22;
         }
       }
     }
 
 LABEL_15:
-    v36 = 0;
+    v40 = 0;
     goto LABEL_16;
   }
 
@@ -141,69 +140,69 @@ LABEL_15:
   }
 
   countLastFiveMinutesPositiveEngagements2 = [dataCopy countLastFiveMinutesPositiveEngagements];
-  v13 = countLastFiveMinutesPositiveEngagements2 / [dataCopy countLastFiveMinutesNotifications];
-  v14 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  countLastFiveMinutesNotifications3 = [dataCopy countLastFiveMinutesNotifications];
+  v14 = countLastFiveMinutesPositiveEngagements2 / countLastFiveMinutesNotifications3;
+  v15 = __atxlog_handle_notification_management(countLastFiveMinutesNotifications3);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     threadID2 = [notificationCopy threadID];
-    v45 = 136315906;
-    v46 = "[ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:threadData:bundleData:]";
-    v47 = 2112;
-    v48 = threadID2;
-    v49 = 2048;
-    countLastFiveMinutesNotifications2 = [dataCopy countLastFiveMinutesNotifications];
-    v51 = 2048;
-    v52 = v13;
-    _os_log_debug_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEBUG, "%s: Considering SmartPause suggestion for thread: %@ countLastFiveMinutesNotifications: %ld lastFiveMinutesEngagementRate: %f", &v45, 0x2Au);
+    v48 = 136315906;
+    v49 = "[ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:threadData:bundleData:]";
+    v50 = 2112;
+    v51 = threadID2;
+    v52 = 2048;
+    countLastFiveMinutesNotifications4 = [dataCopy countLastFiveMinutesNotifications];
+    v54 = 2048;
+    v55 = v14;
+    _os_log_debug_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEBUG, "%s: Considering SmartPause suggestion for thread: %@ countLastFiveMinutesNotifications: %ld lastFiveMinutesEngagementRate: %f", &v48, 0x2Au);
   }
 
-  countLastFiveMinutesNotifications3 = [dataCopy countLastFiveMinutesNotifications];
-  if (countLastFiveMinutesNotifications3 <= [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerThresholdForNumNotificationsReceivedInLastFiveMinutesForThread])
+  countLastFiveMinutesNotifications5 = [dataCopy countLastFiveMinutesNotifications];
+  if (countLastFiveMinutesNotifications5 <= [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerThresholdForNumNotificationsReceivedInLastFiveMinutesForThread])
   {
     goto LABEL_15;
   }
 
-  [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerEngagementRateThresholdForThread];
-  if (v13 > v16)
+  smartPauseManagerEngagementRateThresholdForThread = [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerEngagementRateThresholdForThread];
+  if (v14 > v18)
   {
     goto LABEL_15;
   }
 
-  v17 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v19 = __atxlog_handle_notification_management(smartPauseManagerEngagementRateThresholdForThread);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    [ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:v17 threadData:? bundleData:?];
+    [ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:v19 threadData:? bundleData:?];
   }
 
-  v18 = objc_alloc(MEMORY[0x277CEB758]);
-  v19 = MEMORY[0x277CBEAA8];
+  v20 = objc_alloc(MEMORY[0x277CEB758]);
+  v21 = MEMORY[0x277CBEAA8];
   [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerExpirationSeconds];
-  v20 = [v19 dateWithTimeIntervalSinceNow:?];
+  v22 = [v21 dateWithTimeIntervalSinceNow:?];
   [(ATXNotificationManagementMAConstants *)self->_notificationManagementMAConstants smartPauseManagerPauseDurationSeconds];
-  v21 = [v18 initWithSuggestionExpiration:v20 pauseDuration:?];
+  v23 = [v20 initWithSuggestionExpiration:v22 pauseDuration:?];
 
-  v22 = objc_alloc(MEMORY[0x277CEB6F0]);
+  v24 = objc_alloc(MEMORY[0x277CEB6F0]);
   uUID = [MEMORY[0x277CCAD78] UUID];
   bundleID = [notificationCopy threadID];
-  v25 = [MEMORY[0x277CBEAA8] now];
+  v27 = [MEMORY[0x277CBEAA8] now];
   uuid = [notificationCopy uuid];
-  v27 = v22;
-  v28 = v21;
-  v29 = uUID;
-  v30 = 2;
+  v29 = v24;
+  v30 = v23;
+  v31 = uUID;
+  v32 = 2;
 LABEL_22:
-  v36 = [v27 initWithSmartPauseSuggestion:v28 uuid:v29 scope:v30 entityIdentifier:bundleID timestamp:v25 triggerNotificationUUID:uuid];
+  v40 = [v29 initWithSmartPauseSuggestion:v30 uuid:v31 scope:v32 entityIdentifier:bundleID timestamp:v27 triggerNotificationUUID:uuid];
 
 LABEL_16:
-  v37 = *MEMORY[0x277D85DE8];
 
-  return v36;
+  return v40;
 }
 
 - (id)currentSuggestionsGivenCandiateNotifications:(id)notifications
 {
   notificationsCopy = notifications;
-  v5 = __atxlog_handle_notification_management();
+  v5 = __atxlog_handle_notification_management(notificationsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(ATXNotificationSmartPauseManager *)notificationsCopy currentSuggestionsGivenCandiateNotifications:v5];
@@ -259,7 +258,7 @@ LABEL_16:
 
   else
   {
-    v22 = __atxlog_handle_notification_management();
+    v22 = __atxlog_handle_notification_management(v20);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationSmartPauseManager currentSuggestionsGivenCandiateNotifications:v22];
@@ -282,7 +281,7 @@ void __81__ATXNotificationSmartPauseManager_currentSuggestionsGivenCandiateNotif
     if (v4 == 1)
     {
       *(*(*(a1 + 32) + 8) + 24) = 0;
-      v5 = __atxlog_handle_notification_management();
+      v5 = __atxlog_handle_notification_management(1);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __81__ATXNotificationSmartPauseManager_currentSuggestionsGivenCandiateNotifications___block_invoke_2_cold_1(v3, v5);
@@ -320,14 +319,15 @@ id __81__ATXNotificationSmartPauseManager_currentSuggestionsGivenCandiateNotific
   if (!v4)
   {
 LABEL_6:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_8;
   }
 
-  if ([*(a1 + 32) containsObject:v4])
+  v5 = [*(a1 + 32) containsObject:v4];
+  if (v5)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 136315650;
       v16 = "[ATXNotificationSmartPauseManager currentSuggestionsGivenCandiateNotifications:]_block_invoke";
@@ -335,25 +335,24 @@ LABEL_6:
       v18 = v4;
       v19 = 2112;
       v20 = v3;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: Found app launch for bundleId: %@ in the last five minutes so not showing SmartPause for notification: %@", &v15, 0x20u);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%s: Found app launch for bundleId: %@ in the last five minutes so not showing SmartPause for notification: %@", &v15, 0x20u);
     }
 
     goto LABEL_6;
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = [v3 threadID];
-  v10 = [v8 _queryResultIdentifierForBundleId:v4 threadId:v9];
-  v11 = [v7 objectForKeyedSubscript:v10];
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  v10 = [v3 threadID];
+  v11 = [v9 _queryResultIdentifierForBundleId:v4 threadId:v10];
+  v12 = [v8 objectForKeyedSubscript:v11];
 
-  v12 = [*(a1 + 56) objectForKeyedSubscript:v4];
-  v6 = [*(a1 + 48) _proposeSmartPauseForNotification:v3 threadData:v11 bundleData:v12];
+  v13 = [*(a1 + 56) objectForKeyedSubscript:v4];
+  v7 = [*(a1 + 48) _proposeSmartPauseForNotification:v3 threadData:v12 bundleData:v13];
 
 LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
 
-  return v6;
+  return v7;
 }
 
 - (id)activeSuggestions
@@ -366,64 +365,57 @@ LABEL_8:
 
 - (void)_proposeSmartPauseForNotification:(os_log_t)log threadData:bundleData:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:threadData:bundleData:]";
-  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "%s: Sending SmartPause suggestion for notification", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:threadData:bundleData:]";
+  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "%s: Sending SmartPause suggestion for notification", &v1, 0xCu);
 }
 
 - (void)_proposeSmartPauseForNotification:(void *)a1 threadData:(NSObject *)a2 bundleData:(double)a3 .cold.2(void *a1, NSObject *a2, double a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [a1 countLastFiveMinutesNotifications];
-  v7[0] = 136315650;
+  v6[0] = 136315650;
   OUTLINED_FUNCTION_0_23();
-  v8 = v5;
-  v9 = a3;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s: Considering SmartPause suggestion for app, countLastFiveMinutesNotifications: %ld lastFiveMinutesEngagementRate: %f", v7, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = v5;
+  v8 = a3;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s: Considering SmartPause suggestion for app, countLastFiveMinutesNotifications: %ld lastFiveMinutesEngagementRate: %f", v6, 0x20u);
 }
 
 - (void)_proposeSmartPauseForNotification:(os_log_t)log threadData:bundleData:.cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:threadData:bundleData:]";
-  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "%s: Sending SmartPause suggestion for app", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ATXNotificationSmartPauseManager _proposeSmartPauseForNotification:threadData:bundleData:]";
+  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "%s: Sending SmartPause suggestion for app", &v1, 0xCu);
 }
 
 - (void)currentSuggestionsGivenCandiateNotifications:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 count];
-  v4[0] = 136315394;
+  v3[0] = 136315394;
   OUTLINED_FUNCTION_0_23();
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s: Fetching SmartPause suggestions for %ld candidate notifications", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s: Fetching SmartPause suggestions for %ld candidate notifications", v3, 0x16u);
 }
 
 - (void)currentSuggestionsGivenCandiateNotifications:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ATXNotificationSmartPauseManager currentSuggestionsGivenCandiateNotifications:]";
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "%s: Not returning any SmartPause suggestions because reading app launch events from Biome failed", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ATXNotificationSmartPauseManager currentSuggestionsGivenCandiateNotifications:]";
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "%s: Not returning any SmartPause suggestions because reading app launch events from Biome failed", &v1, 0xCu);
 }
 
 void __81__ATXNotificationSmartPauseManager_currentSuggestionsGivenCandiateNotifications___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXNotificationSmartPauseManager currentSuggestionsGivenCandiateNotifications:]_block_invoke_2";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error while reading from biome: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXNotificationSmartPauseManager currentSuggestionsGivenCandiateNotifications:]_block_invoke_2";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error while reading from biome: %@", &v4, 0x16u);
 }
 
 @end

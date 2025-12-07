@@ -1,50 +1,40 @@
-uint64_t synth_bet3_loc_ParamGetListen_0(uint64_t a1, _BYTE *a2, signed int a3, signed int a4, unsigned int a5, __int128 *a6, unsigned int *a7)
+uint64_t synth_bet3_loc_ParamGetListen_0(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, __int128 *a6, _DWORD *a7)
 {
-  if ((paramc_ParamGetInt(*(*(a1 + 16) + 40), a2, a7) & 0x80000000) != 0 || (a5 = a3, *a7 < a3) || (a5 = a4, *a7 > a4))
+  if (((paramc_ParamGetInt(*(*(a1 + 16) + 40), a2, a7) & 0x80000000) != 0 || (a5 = a3, *a7 < a3) || (a5 = a4, *a7 > a4)) && (v14 = paramc_ParamSetInt(*(*(a1 + 16) + 40), a2, a5), *a7 = a5, (v14 & 0x80000000) != 0))
   {
-    v14 = paramc_ParamSetInt(*(*(a1 + 16) + 40), a2, a5);
-    *a7 = a5;
-    if ((v14 & 0x80000000) != 0)
+    v16 = v14;
+    log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 56009, "%s%s");
+  }
+
+  else
+  {
+    v15 = *(*(a1 + 16) + 40);
+    v18 = *a6;
+    v19 = *(a6 + 2);
+    v16 = paramc_ListenerAdd(v15, a2, &v18);
+    if ((v16 & 0x80000000) != 0)
     {
-      v20 = v14;
-      v21 = *(*(a1 + 16) + 32);
-      v25 = "parameter";
-      v23 = "%s%s";
-      v22 = 56009;
-      goto LABEL_8;
+      log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 56010, 0);
     }
   }
 
-  v19 = *(*(a1 + 16) + 40);
-  v26 = *a6;
-  v27 = *(a6 + 2);
-  v20 = paramc_ListenerAdd(v19, a2, &v26);
-  if ((v20 & 0x80000000) != 0)
-  {
-    v21 = *(*(a1 + 16) + 32);
-    v22 = 56010;
-    v23 = 0;
-LABEL_8:
-    log_OutPublic(v21, "SYNTH_BET3", v22, v23, v15, v16, v17, v18, v25);
-  }
-
-  return v20;
+  return v16;
 }
 
 uint64_t synth_bet3_loc_SynthInit_MRCC(uint64_t a1)
 {
-  v18 = 0;
+  v10 = 0;
   __s1 = 0;
   v2 = *(a1 + 16);
   *(a1 + 1332) = 0;
   *(a1 + 1340) = 100;
-  RccSyn__deinit_Synthesis(a1 + 1048);
-  v21 = 0;
-  v20 = 0;
-  inited = paramc_ParamGet(*(v2 + 40), "mrcc_synthparam_ref_ptr", &v20, &v21);
+  RccSyn__deinit_Synthesis((a1 + 1048));
+  v13 = 0;
+  v12 = 0;
+  inited = paramc_ParamGet(*(v2 + 40), "mrcc_synthparam_ref_ptr", &v12, &v13);
   if ((inited & 0x80000000) == 0)
   {
-    v4 = *v20;
+    v4 = *v12;
     *(v4 + 128) = 4000;
     *(v4 + 112) = xmmword_26ED6DBB0;
     *(a1 + 1056) = v4 + 112;
@@ -62,52 +52,52 @@ uint64_t synth_bet3_loc_SynthInit_MRCC(uint64_t a1)
       *(a1 + 48) = v5;
       v6 = (paramc_ParamGetStr(*(v2 + 40), "voicemodel", &__s1) & 0x80000000) == 0 && cstdlib_strcmp(__s1, "bet3") == 0;
       *(a1 + 52) = v6;
-      Int = paramc_ParamGetInt(*(v2 + 40), "bet2voiceframesize", &v18);
+      Int = paramc_ParamGetInt(*(v2 + 40), "bet2voiceframesize", &v10);
       if ((Int & 0x80000000) != 0)
       {
         Str = Int;
-        log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 56008, "%s%s", v8, v9, v10, v11, "parameter");
+        log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 56008, "%s%s");
         return Str;
       }
 
-      *(a1 + 44) = v18 * *(a1 + 48) / 0x3E8u;
+      *(a1 + 44) = v10 * *(a1 + 48) / 0x3E8u;
       Str = paramc_ParamGetStr(*(v2 + 40), "bet2voicevol", &__s1);
       if ((Str & 0x80000000) != 0 || !__s1 || !*__s1)
       {
-        log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 26011, "%s%s", v12, v13, v14, v15, "parameter");
+        log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 26011, "%s%s");
         return Str;
       }
 
       *(a1 + 56) = LH_atoi(__s1);
       paramc_ParamRelease(*(v2 + 40));
-      inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "volume", &v18 + 1);
+      inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "volume", &v10 + 1);
       if ((inited & 0x80000000) == 0)
       {
-        inited = synth_bet3_loc_ParamSet_0(a1, "volume", HIDWORD(v18));
+        inited = synth_bet3_loc_ParamSet_0(a1, "volume", HIDWORD(v10));
         if ((inited & 0x80000000) == 0)
         {
-          inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate", &v18 + 1);
+          inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate", &v10 + 1);
           if ((inited & 0x80000000) == 0)
           {
-            inited = synth_bet3_loc_ParamSet_0(a1, "rate", HIDWORD(v18));
+            inited = synth_bet3_loc_ParamSet_0(a1, "rate", HIDWORD(v10));
             if ((inited & 0x80000000) == 0)
             {
-              inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate_baseline", &v18 + 1);
+              inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate_baseline", &v10 + 1);
               if ((inited & 0x80000000) == 0)
               {
-                inited = synth_bet3_loc_ParamSet_0(a1, "rate_baseline", HIDWORD(v18));
+                inited = synth_bet3_loc_ParamSet_0(a1, "rate_baseline", HIDWORD(v10));
                 if ((inited & 0x80000000) == 0)
                 {
-                  inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch_baseline", &v18 + 1);
+                  inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch_baseline", &v10 + 1);
                   if ((inited & 0x80000000) == 0)
                   {
-                    inited = synth_bet3_loc_ParamSet_0(a1, "pitch_baseline", HIDWORD(v18));
+                    inited = synth_bet3_loc_ParamSet_0(a1, "pitch_baseline", HIDWORD(v10));
                     if ((inited & 0x80000000) == 0)
                     {
-                      inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch", &v18 + 1);
+                      inited = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch", &v10 + 1);
                       if ((inited & 0x80000000) == 0)
                       {
-                        return synth_bet3_loc_ParamSet_0(a1, "pitch", HIDWORD(v18));
+                        return synth_bet3_loc_ParamSet_0(a1, "pitch", HIDWORD(v10));
                       }
                     }
                   }
@@ -125,85 +115,85 @@ uint64_t synth_bet3_loc_SynthInit_MRCC(uint64_t a1)
 
 uint64_t synth_bet3_loc_SynthInit_MLSA_0(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v44 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v25 = 0;
   __s1 = 0;
   v2 = *(a1 + 16);
-  v43 = 0;
-  v42 = 0;
+  v24 = 0;
+  v23 = 0;
   __b = 0u;
-  v41 = 0u;
-  v39 = 0;
-  v37 = 0;
-  v38 = 0;
-  Int = paramc_ParamGetInt(*(v2 + 40), "frequencyhz", &v44 + 1);
-  if ((Int & 0x80000000) != 0 || ((MFVSyn__denit__MVF_Synthesis((a1 + 64)), *(a1 + 48) = HIDWORD(v44), (paramc_ParamGetStr(*(v2 + 40), "voicemodel", &__s1) & 0x80000000) != 0) ? (v8 = 0) : (v8 = cstdlib_strcmp(__s1, "bet3") == 0), *(a1 + 52) = v8, cstdlib_memset(&__b, 0, 0x28uLL), v41 = xmmword_26ED6DBC0, LODWORD(__b) = wave_t__convertFromF0ToTp_SR(0xAF00u, SHIDWORD(v44)) >> 6, DWORD1(__b) = wave_t__convertFromF0ToTp_SR(0xA00u, SHIDWORD(v44)) >> 6, Int = paramc_ParamGetInt(*(v2 + 40), "bet2voiceframesize", &v43 + 1), (Int & 0x80000000) != 0))
+  v22 = 0u;
+  v20 = 0;
+  v18 = 0;
+  v19 = 0;
+  Int = paramc_ParamGetInt(*(v2 + 40), "frequencyhz", &v25 + 1);
+  if ((Int & 0x80000000) != 0 || ((MFVSyn__denit__MVF_Synthesis((a1 + 64)), *(a1 + 48) = HIDWORD(v25), (paramc_ParamGetStr(*(v2 + 40), "voicemodel", &__s1) & 0x80000000) != 0) ? (v4 = 0) : (v4 = cstdlib_strcmp(__s1, "bet3") == 0), *(a1 + 52) = v4, cstdlib_memset(&__b, 0, 0x28uLL), v22 = xmmword_26ED6DBC0, LODWORD(__b) = wave_t__convertFromF0ToTp_SR(0xAF00u, SHIDWORD(v25)) >> 6, DWORD1(__b) = wave_t__convertFromF0ToTp_SR(0xA00u, SHIDWORD(v25)) >> 6, Int = paramc_ParamGetInt(*(v2 + 40), "bet2voiceframesize", &v24 + 1), (Int & 0x80000000) != 0))
   {
     Str = Int;
-    v24 = *(*(a1 + 16) + 32);
+    v12 = *(*(a1 + 16) + 32);
 LABEL_34:
-    log_OutPublic(v24, "SYNTH_BET3", 56008, "%s%s", v4, v5, v6, v7, "parameter");
+    log_OutPublic(v12, "SYNTH_BET3", 56008, "%s%s");
     return Str;
   }
 
-  *(a1 + 44) = HIDWORD(v43) * *(a1 + 48) / 0x3E8u;
+  *(a1 + 44) = HIDWORD(v24) * *(a1 + 48) / 0x3E8u;
   Str = paramc_ParamGetStr(*(v2 + 40), "bet2voicevol", &__s1);
   if ((Str & 0x80000000) != 0 || !__s1 || !*__s1 || (*(a1 + 56) = LH_atoi(__s1), paramc_ParamRelease(*(v2 + 40)), Str = paramc_ParamGetStr(*(v2 + 40), "bet2voicemvfboost", &__s1), (Str & 0x80000000) != 0) || !__s1 || !*__s1)
   {
-    v25 = *(*(a1 + 16) + 32);
+    v13 = *(*(a1 + 16) + 32);
 LABEL_36:
-    log_OutPublic(v25, "SYNTH_BET3", 26011, "%s%s", v9, v10, v11, v12, "parameter");
+    log_OutPublic(v13, "SYNTH_BET3", 26011, "%s%s");
     return Str;
   }
 
-  v14 = LH_atoi(__s1);
+  v6 = LH_atoi(__s1);
   paramc_ParamRelease(*(v2 + 40));
   Str = paramc_ParamGetStr(*(v2 + 40), "bet2voicealpha", &__s1);
   if ((Str & 0x80000000) != 0 || !__s1 || !*__s1)
   {
-    v25 = *(*(a1 + 16) + 32);
+    v13 = *(*(a1 + 16) + 32);
     goto LABEL_36;
   }
 
-  v15 = LH_atoi(__s1);
+  v7 = LH_atoi(__s1);
   paramc_ParamRelease(*(v2 + 40));
   Str = paramc_ParamGetStr(*(v2 + 40), "bet2voicevuvrelamp", &__s1);
   if ((Str & 0x80000000) != 0 || !__s1 || !*__s1)
   {
-    v24 = *(*(a1 + 16) + 32);
+    v12 = *(*(a1 + 16) + 32);
     goto LABEL_34;
   }
 
-  v16 = LH_atoi(__s1);
+  v8 = LH_atoi(__s1);
   paramc_ParamRelease(*(v2 + 40));
-  v17 = paramc_ParamGetInt(*(v2 + 40), "bet2voiceorder", &v43);
-  if ((v17 & 0x80000000) != 0 || (v17 = paramc_ParamGetStr(*(v2 + 40), "bet2voicevsynthinit", &v38), (v17 & 0x80000000) != 0))
+  v9 = paramc_ParamGetInt(*(v2 + 40), "bet2voiceorder", &v24);
+  if ((v9 & 0x80000000) != 0 || (v9 = paramc_ParamGetStr(*(v2 + 40), "bet2voicevsynthinit", &v19), (v9 & 0x80000000) != 0))
   {
-    Str = v17;
-    v24 = *(*(a1 + 16) + 32);
+    Str = v9;
+    v12 = *(*(a1 + 16) + 32);
     goto LABEL_34;
   }
 
-  v18 = 1;
+  v10 = 1;
   if ((paramc_ParamGetStr(*(v2 + 40), "bet2cpupower", &__s1) & 0x80000000) == 0 && __s1 && *__s1)
   {
-    v19 = LH_atoi(__s1);
-    if (v19 >= 5)
+    v11 = LH_atoi(__s1);
+    if (v11 >= 5)
     {
-      v18 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v18 = v19;
+      v10 = v11;
     }
 
     paramc_ParamRelease(*(v2 + 40));
   }
 
-  if (!paramc_ParamGet(*(v2 + 40), "bet3cepstralequalizer", (a1 + 72), &v39) && v43 + 1 != v39 >> 2)
+  if (!paramc_ParamGet(*(v2 + 40), "bet3cepstralequalizer", (a1 + 72), &v20) && v24 + 1 != v20 >> 2)
   {
-    log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 56008, "%s%s", v20, v21, v22, v23, "parameter");
+    log_OutPublic(*(*(a1 + 16) + 32), "SYNTH_BET3", 56008, "%s%s", "parameter", "bet3cepstralequalizer");
     return 0;
   }
 
@@ -222,26 +212,26 @@ LABEL_36:
 
   cstdlib_strcat(__dst, "/fxd");
   cstdlib_strcat(__dst, "/bet3f");
-  v27 = HIDWORD(v44);
-  v28 = cstdlib_strlen(__dst);
-  LH_itoa(v27 / 1000, &__dst[v28], 0xAu);
-  v29 = ssftriff_reader_ObjOpen(*a1, *(a1 + 8), 0, __dst, "HMEX", 1031, &v37);
-  if ((v29 & 0x80000000) != 0)
+  v15 = HIDWORD(v25);
+  v16 = cstdlib_strlen(__dst);
+  LH_itoa(v15 / 1000, &__dst[v16], 0xAu);
+  v17 = ssftriff_reader_ObjOpen(*a1, *(a1 + 8), 0, __dst, "HMEX", 1031, &v18);
+  if ((v17 & 0x80000000) != 0)
   {
-    return v29;
+    return v17;
   }
 
-  Str = BET3FXD__MFVSyn__init__MVF_Synthesis((a1 + 64), *(a1 + 16), &__b, v37, SHIDWORD(v43), v43, v15, HIDWORD(v44), v18, v38);
+  Str = BET3FXD__MFVSyn__init__MVF_Synthesis((a1 + 64), *(a1 + 16), &__b, v18, HIDWORD(v24), v24, v7, HIDWORD(v25), v10, v19);
   if ((Str & 0x80000000) == 0)
   {
-    if (!v37 || (Str = ssftriff_reader_ObjClose(v37, v30, v31, v32, v33, v34, v35, v36), (Str & 0x80000000) == 0))
+    if (!v18 || (Str = ssftriff_reader_ObjClose(v18), (Str & 0x80000000) == 0))
     {
-      if (MFVSyn__setRelativeUVBoost(*(a1 + 64), v16))
+      if (MFVSyn__setRelativeUVBoost(*(a1 + 64), v8))
       {
         LODWORD(Str) = -2130698240;
       }
 
-      if ((Str & 0x80000000) == 0 && BET3FXD__MFVSyn__setMVFBoost(*(a1 + 64), v14))
+      if ((Str & 0x80000000) == 0 && BET3FXD__MFVSyn__setMVFBoost(*(a1 + 64), v6))
       {
         LODWORD(Str) = -2130698240;
       }
@@ -249,34 +239,34 @@ LABEL_36:
       Str = BET3FXD__MFVSyn__setVolumeBoost(*(a1 + 64), *(a1 + 56)) ? 2164269056 : Str;
       if ((Str & 0x80000000) == 0)
       {
-        v29 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "volume", &v44);
-        if ((v29 & 0x80000000) == 0)
+        v17 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "volume", &v25);
+        if ((v17 & 0x80000000) == 0)
         {
-          v29 = synth_bet3_loc_ParamSet_0(a1, "volume", v44);
-          if ((v29 & 0x80000000) == 0)
+          v17 = synth_bet3_loc_ParamSet_0(a1, "volume", v25);
+          if ((v17 & 0x80000000) == 0)
           {
-            v29 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate_baseline", &v44);
-            if ((v29 & 0x80000000) == 0)
+            v17 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate_baseline", &v25);
+            if ((v17 & 0x80000000) == 0)
             {
-              v29 = synth_bet3_loc_ParamSet_0(a1, "rate_baseline", v44);
-              if ((v29 & 0x80000000) == 0)
+              v17 = synth_bet3_loc_ParamSet_0(a1, "rate_baseline", v25);
+              if ((v17 & 0x80000000) == 0)
               {
-                v29 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate", &v44);
-                if ((v29 & 0x80000000) == 0)
+                v17 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate", &v25);
+                if ((v17 & 0x80000000) == 0)
                 {
-                  v29 = synth_bet3_loc_ParamSet_0(a1, "rate", v44);
-                  if ((v29 & 0x80000000) == 0)
+                  v17 = synth_bet3_loc_ParamSet_0(a1, "rate", v25);
+                  if ((v17 & 0x80000000) == 0)
                   {
-                    v29 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch_baseline", &v44);
-                    if ((v29 & 0x80000000) == 0)
+                    v17 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch_baseline", &v25);
+                    if ((v17 & 0x80000000) == 0)
                     {
-                      v29 = synth_bet3_loc_ParamSet_0(a1, "pitch_baseline", v44);
-                      if ((v29 & 0x80000000) == 0)
+                      v17 = synth_bet3_loc_ParamSet_0(a1, "pitch_baseline", v25);
+                      if ((v17 & 0x80000000) == 0)
                       {
-                        v29 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch", &v44);
-                        if ((v29 & 0x80000000) == 0)
+                        v17 = paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch", &v25);
+                        if ((v17 & 0x80000000) == 0)
                         {
-                          return synth_bet3_loc_ParamSet_0(a1, "pitch", v44);
+                          return synth_bet3_loc_ParamSet_0(a1, "pitch", v25);
                         }
                       }
                     }
@@ -287,7 +277,7 @@ LABEL_36:
           }
         }
 
-        return v29;
+        return v17;
       }
     }
   }
@@ -304,7 +294,7 @@ uint64_t synth_bet3_loc_ParamSet_0(uint64_t a1, const char *a2, unsigned int a3)
     {
       if (!cstdlib_strcmp(a2, "volume"))
       {
-        v11 = 2164269071;
+        v8 = 2164269071;
         if (a3 > 0x64)
         {
           goto LABEL_24;
@@ -318,55 +308,55 @@ uint64_t synth_bet3_loc_ParamSet_0(uint64_t a1, const char *a2, unsigned int a3)
       {
         if (!cstdlib_strcmp(a2, "rate"))
         {
-          v19 = MapProsodyValue_Scaling(50, 100, 400, *(a1 + 1040), a3);
-          if (!v19 || (v23 = (v19 + 9999) / v19, v24 = v23, (v23 - 201) < 0xFFFFFF50))
+          v16 = MapProsodyValue_Scaling(50, 100, 0x190u, *(a1 + 1040), a3);
+          if (!v16 || (v17 = (v16 + 9999) / v16, v18 = v17, (v17 - 201) < 0xFFFFFF50))
           {
-            v11 = 2164269071;
+            v8 = 2164269071;
             goto LABEL_24;
           }
 
-          log_OutText(*(*(a1 + 16) + 32), "SYNTH_BET3", 3, 0, "Set rate %d", v20, v21, v22, v19);
-          v25 = *(a1 + 1036);
-          if (v25 != 1)
+          log_OutText(*(*(a1 + 16) + 32), "SYNTH_BET3", 3, 0, "Set rate %d", v16);
+          v19 = *(a1 + 1036);
+          if (v19 != 1)
           {
-            v11 = v6;
-            if (!v25)
+            v8 = v6;
+            if (!v19)
             {
-              v14 = BET3FXD__MFVSyn__setRate(*(a1 + 64), v24);
+              v11 = BET3FXD__MFVSyn__setRate(*(a1 + 64), v18);
 LABEL_35:
-              if (v14)
+              if (v11)
               {
-                v11 = 2164269071;
+                v8 = 2164269071;
               }
 
               else
               {
-                v11 = v6;
+                v8 = v6;
               }
             }
 
 LABEL_24:
             critsec_Leave(*(a1 + 24));
-            return v11;
+            return v8;
           }
 
-          v26 = v23;
-          v27 = v23 - 25;
-          v11 = 2164269071;
-          if (v27 > 0xAF)
+          v20 = v17;
+          v21 = v17 - 25;
+          v8 = 2164269071;
+          if (v21 > 0xAF)
           {
             goto LABEL_24;
           }
 
-          *(a1 + 1340) = v26;
+          *(a1 + 1340) = v20;
 LABEL_23:
-          v11 = v6;
+          v8 = v6;
           goto LABEL_24;
         }
 
         if (!cstdlib_strcmp(a2, "ratewpm"))
         {
-          v11 = 2164269057;
+          v8 = 2164269057;
           goto LABEL_24;
         }
 
@@ -374,8 +364,8 @@ LABEL_23:
         {
           if (!cstdlib_strcmp(a2, "pitch"))
           {
-            v7 = MapProsodyValue_Scaling(50, 100, 200, *(a1 + 1044), a3);
-            v11 = 2164269071;
+            v7 = MapProsodyValue_Scaling(50, 100, 0xC8u, *(a1 + 1044), a3);
+            v8 = 2164269071;
             if ((v7 - 201) < 0xFFFFFF69)
             {
               goto LABEL_24;
@@ -383,57 +373,57 @@ LABEL_23:
 
             if (*(a1 + 52))
             {
-              v12 = v7;
-              log_OutText(*(*(a1 + 16) + 32), "SYNTH_BET3", 3, 0, "Set pitch %d (synth %d)", v8, v9, v10, v7);
-              v13 = *(a1 + 1036);
-              if (v13 != 1)
+              v9 = v7;
+              log_OutText(*(*(a1 + 16) + 32), "SYNTH_BET3", 3, 0, "Set pitch %d (synth %d)", v9, v9);
+              v10 = *(a1 + 1036);
+              if (v10 != 1)
               {
-                v11 = v6;
-                if (!v13)
+                v8 = v6;
+                if (!v10)
                 {
-                  v14 = BET3FXD__MFVSyn__setPitchLevelPercent(*(a1 + 64), v12);
+                  v11 = BET3FXD__MFVSyn__setPitchLevelPercent(*(a1 + 64), v9);
                   goto LABEL_35;
                 }
 
                 goto LABEL_24;
               }
 
-              *(a1 + 1328) = v12;
+              *(a1 + 1328) = v9;
             }
           }
 
           goto LABEL_23;
         }
 
-        v11 = 2164269071;
+        v8 = 2164269071;
         if (a3 - 201 < 0xFFFFFF69)
         {
           goto LABEL_24;
         }
 
-        v28 = 0;
+        v22 = 0;
         *(a1 + 1044) = a3;
-        v16 = "pitch";
-        paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch", &v28);
-        v17 = v28;
+        v13 = "pitch";
+        paramc_ParamGetInt(*(*(a1 + 16) + 40), "pitch", &v22);
+        v14 = v22;
       }
 
       else
       {
-        v11 = 2164269071;
+        v8 = 2164269071;
         if (a3 - 401 < 0xFFFFFEA1)
         {
           goto LABEL_24;
         }
 
-        v29 = 0;
+        v23 = 0;
         *(a1 + 1040) = a3;
-        v16 = "rate";
-        paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate", &v29);
-        v17 = v29;
+        v13 = "rate";
+        paramc_ParamGetInt(*(*(a1 + 16) + 40), "rate", &v23);
+        v14 = v23;
       }
 
-      synth_bet3_loc_ParamSet_0(a1, v16, v17);
+      synth_bet3_loc_ParamSet_0(a1, v13, v14);
       goto LABEL_23;
     }
   }
@@ -443,15 +433,15 @@ LABEL_23:
     v6 = 0;
     if (a3 <= 1)
     {
-      v15 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v15 = a3;
+      v12 = a3;
     }
 
-    *(a1 + 40) = v15;
+    *(a1 + 40) = v12;
   }
 
   return v6;
@@ -481,7 +471,7 @@ int *BET3FXD__rand31pmc_seedi(int *result, unsigned int a2)
   return result;
 }
 
-unsigned int *rand_num_qs(unsigned int *result, _WORD *a2, int a3, int a4)
+unsigned int *rand_num_qs(unsigned int *result, _WORD *a2, int a3, unsigned int a4)
 {
   if (a4 >= 1)
   {
@@ -564,14 +554,15 @@ void *BET3FXD__MFVSyn__constructExcitationShapingFilter(void *result, unsigned i
   return result;
 }
 
-uint64_t MFVSyn__filterExcitationWithShapingFilter(uint64_t a1, int a2, int a3, uint64_t a4)
+uint64_t MFVSyn__filterExcitationWithShapingFilter(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
+  v5 = a2;
   v6 = a1;
   v7 = *(a1 + 16) * a3;
   if (v7 < 0x7AE149)
   {
     cstdlib_memset(*(a4 + 8), 0, 2 * *(a4 + 16));
-    result = rand_num_qs((v6 + 60), *(v6 + 208), *(v6 + 32), a2);
+    result = rand_num_qs((v6 + 60), *(v6 + 208), *(v6 + 32), v5);
     *(v6 + 508) = 0xFFFFFFFFLL;
     goto LABEL_46;
   }
@@ -613,7 +604,7 @@ LABEL_6:
   {
     LODWORD(a1) = fxd_U16SqrtS32(a2 << 6);
     v14 = *(v6 + 500);
-    *(v6 + 504) = a2;
+    *(v6 + 504) = v5;
     v12 = a1;
     if (a1 != v14)
     {
@@ -683,9 +674,9 @@ LABEL_25:
   v27 = *(v6 + 264);
   if (v27 >= 1)
   {
-    if (v27 >= a2)
+    if (v27 >= v5)
     {
-      v28 = a2;
+      v28 = v5;
     }
 
     else
@@ -730,18 +721,18 @@ LABEL_25:
 
   cstdlib_memset(*(v6 + 256), 0, 2 * *(v6 + 268));
   v35 = *(v6 + 488);
-  v33 = __OFSUB__(v35, a2);
-  v36 = v35 - a2;
+  v33 = __OFSUB__(v35, v5);
+  v36 = v35 - v5;
   if ((v36 < 0) ^ v33 | (v36 == 0))
   {
-    v37 = a2;
+    v37 = v5;
   }
 
   else
   {
-    v37 = a2;
-    cstdlib_memmove(*(v6 + 256), (*(a4 + 8) + 2 * a2), 2 * v36);
-    v38 = *(v6 + 488) - a2;
+    v37 = v5;
+    cstdlib_memmove(*(v6 + 256), (*(a4 + 8) + 2 * v5), 2 * v36);
+    v38 = *(v6 + 488) - v5;
     if (v38 <= *(v6 + 264))
     {
       v38 = *(v6 + 264);
@@ -752,11 +743,11 @@ LABEL_25:
 
   v39 = *(v6 + 492);
   v40 = *(*(v6 + 480) + 24 * v9 + 22);
-  rand_num_qs((v6 + 60), (*(v6 + 208) + 2 * v39), ((*(v6 + 32) * v40) >> 14) + 4 * v40 * (*(v6 + 32) >> 16), a2);
+  rand_num_qs((v6 + 60), (*(v6 + 208) + 2 * v39), ((*(v6 + 32) * v40) >> 14) + 4 * v40 * (*(v6 + 32) >> 16), v5);
   cstdlib_memmove(*(v6 + 208), *(v6 + 280), 2 * v39);
   cstdlib_memmove(*(v6 + 280), (*(v6 + 208) + 2 * v37), 2 * v39);
-  zerflt_qs(*(v6 + 208) + 2 * v39, *(*(v6 + 480) + 24 * v9 + 8), *(v6 + 208) + 2 * v39, *(v6 + 492), a2);
-  result = cstdlib_memmove(*(v6 + 208), (*(v6 + 208) + 2 * v39), 2 * a2);
+  zerflt_qs(*(v6 + 208) + 2 * v39, *(*(v6 + 480) + 24 * v9 + 8), *(v6 + 208) + 2 * v39, *(v6 + 492), v5);
+  result = cstdlib_memmove(*(v6 + 208), (*(v6 + 208) + 2 * v39), 2 * v5);
   v41 = *(v6 + 512);
   v42 = *(v6 + 516);
   v33 = __OFSUB__(v41, v42);
@@ -768,11 +759,11 @@ LABEL_25:
 
   *(v6 + 508) = v9;
 LABEL_46:
-  if (a2 >= 1)
+  if (v5 >= 1)
   {
     v44 = 0;
     v45 = *(a4 + 8);
-    v46 = 2 * a2;
+    v46 = 2 * v5;
     do
     {
       result = fxd_S16SatAddS16S16(*(v45 + v44), *(*(v6 + 208) + v44));
@@ -1122,42 +1113,43 @@ LABEL_20:
     }
 
     v42 = v41 >> 6;
+    v43 = *(a1 + 24);
     if (v42 <= *(a1 + 20))
     {
       v42 = *(a1 + 20);
     }
 
-    if (v42 >= *(a1 + 24))
+    if (v42 >= v43)
     {
-      v43 = *(a1 + 24);
+      v44 = v43;
     }
 
     else
     {
-      v43 = v42;
+      v44 = v42;
     }
 
-    v44 = *(a1 + 352);
+    v45 = *(a1 + 352);
     if (*(a1 + 352) && *(a1 + 354))
     {
-      v44 = (v40 * v44 + (0x10000 - v40) * *(a1 + 354)) >> 16;
+      v45 = (v40 * v45 + (0x10000 - v40) * *(a1 + 354)) >> 16;
     }
 
-    MFVSyn__filterExcitationWithShapingFilter(a1, v43, v44, a1 + 176);
-    v45 = *(a1 + 464);
-    v46 = v45 + v43;
-    if (v45 + v43 >= v15)
+    MFVSyn__filterExcitationWithShapingFilter(a1, v44, v45, a1 + 176);
+    v46 = *(a1 + 464);
+    v47 = v46 + v44;
+    if (v46 + v44 >= v15)
     {
-      v46 = v15;
+      v47 = v15;
     }
 
-    BET3FXD__MFVSyn__mlsa_filter(a1, *(a1 + 184), *(a1 + 232) + 2 * v45, v46 - v45);
-    v47 = *(a1 + 464);
-    j = v47 + v43;
-    if (v47 + v43 > v15)
+    BET3FXD__MFVSyn__mlsa_filter(a1, *(a1 + 184), *(a1 + 232) + 2 * v46, v47 - v46);
+    v48 = *(a1 + 464);
+    j = v48 + v44;
+    if (v48 + v44 > v15)
     {
-      cstdlib_memmove(*(a1 + 160), (*(a1 + 184) + 2 * (v15 - v47)), 2 * (v43 - (v15 - v47)));
-      j = *(a1 + 464) + v43;
+      cstdlib_memmove(*(a1 + 160), (*(a1 + 184) + 2 * (v15 - v48)), 2 * (v44 - (v15 - v48)));
+      j = *(a1 + 464) + v44;
     }
   }
 
@@ -1396,8 +1388,9 @@ uint64_t BET3FXD__MFVSyn__reset__MVF_Synthesis(uint64_t *a1)
   return result;
 }
 
-uint64_t BET3FXD__MFVSyn__init__MVF_Synthesis(uint64_t *a1, uint64_t a2, __int128 *a3, uint64_t a4, int a5, int a6, int a7, uint64_t a8, int a9, _BYTE *a10)
+uint64_t BET3FXD__MFVSyn__init__MVF_Synthesis(uint64_t *a1, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5, int a6, int a7, uint64_t a8, int a9, _BYTE *a10)
 {
+  v13 = a5;
   v18 = heap_Calloc(*(a2 + 8), 1, 704);
   v33 = v18;
   *a1 = v18;
@@ -1472,7 +1465,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  *(v19 + 26) = BET3FXD__wave_t__convertFromMsecToTp(v19 + 2, a5) >> 6;
+  *(v19 + 26) = BET3FXD__wave_t__convertFromMsecToTp(v19 + 2, v13) >> 6;
   if (!BET3FXD__MFVSyn__loadExcTable(v19, a4))
   {
     *(v19 + 98) = 0;
@@ -1537,7 +1530,7 @@ LABEL_16:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t MFVSyn__denit__MVF_Synthesis(void **a1)
+uint64_t MFVSyn__denit__MVF_Synthesis(void *a1)
 {
   if (!a1)
   {
@@ -1985,7 +1978,7 @@ void *BET3FXD__MFVSyn__mlsa_filter(void *result, uint64_t a2, uint64_t a3, int a
     do
     {
       v12 = *(a2 + 2 * v7);
-      result = MFVSyn__mlsadf_fxd(v6, (((g_expTable[**(v6 + 104) >> 7] * v12) >> 12) + 16 * v12 * (g_expTable[**(v6 + 104) >> 7] >> 16)) >> 14, v9);
+      result = MFVSyn__mlsadf_fxd(v6, (((g_expTable[*v6[13] >> 7] * v12) >> 12) + 16 * v12 * (g_expTable[*v6[13] >> 7] >> 16)) >> 14, v9);
       for (i = 0; i != 5; ++i)
       {
         v14 = *(v8 + 4 * i) + *(v10 + 4 * i);
@@ -2011,7 +2004,7 @@ void *BET3FXD__MFVSyn__mlsa_filter(void *result, uint64_t a2, uint64_t a3, int a
         v18 = *(v8 + 4 * v17) + *(v10 + 4 * v17);
         *(v10 + 4 * v17) = v18;
         v9[v17] = v18 >> 8;
-        v19 = v17++ < *(v6 + 120);
+        v19 = v17++ < *(v6 + 30);
       }
 
       while (v19);
@@ -2282,7 +2275,7 @@ uint64_t mlsa_strcpy(uint64_t result, uint64_t a2)
   return result;
 }
 
-unint64_t mlsa_strlen(unint64_t result)
+unsigned __int8 *mlsa_strlen(unsigned __int8 *result)
 {
   v1 = result;
   LODWORD(result) = -1;
@@ -2471,7 +2464,7 @@ unint64_t zerflt_qs(unint64_t result, __int16 *a2, uint64_t a3, int a4, int a5)
   return result;
 }
 
-uint64_t v_sum_qs(__int16 *a1, int a2)
+uint64_t v_sum_qs(__int16 *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -2495,7 +2488,7 @@ uint64_t v_sum_qs(__int16 *a1, int a2)
   return v2;
 }
 
-uint64_t v_set_qs(uint64_t result, __int16 a2, int a3)
+uint64_t v_set_qs(uint64_t result, __int16 a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -2853,7 +2846,7 @@ uint64_t RccSyn__init_Synthesis(uint64_t a1, uint64_t a2, _DWORD *a3)
   v12 = xmmword_287EF0830;
   v13 = xmmword_287EF0820;
   *a2 = a1;
-  if (!PRMBLK_CreateFromMRCC_Param(a1, 2, (a2 + 32), &v13, &v12, 0, a3, 1))
+  if (!PRMBLK_CreateFromMRCC_Param(a1, 2u, (a2 + 32), &v13, &v12, 0, a3, 1))
   {
     v6 = *(a2 + 32);
     v7 = *(a2 + 40);
@@ -2922,41 +2915,40 @@ uint64_t RccSyn__SynthesisOneFrame(uint64_t a1, _DWORD *a2, void *a3)
   return result;
 }
 
-void *RccSyn__deinit_Synthesis(uint64_t a1)
+void *RccSyn__deinit_Synthesis(int *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = *(a1 + 4);
   if (v2)
   {
     Mrcc2Rr_Deallocate(v2);
-    *(a1 + 32) = 0;
+    *(a1 + 4) = 0;
   }
 
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 5);
   if (v3)
   {
     Rr2Pcm_Deallocate(v3);
-    *(a1 + 40) = 0;
+    *(a1 + 5) = 0;
   }
 
-  RrInput_DeallocateData((a1 + 160));
-  MrccInput_DeallocateData((a1 + 48));
-  result = MrccInput_DeallocateData((a1 + 104));
-  v5 = *(a1 + 264);
+  RrInput_DeallocateData(a1 + 40);
+  MrccInput_DeallocateData(a1 + 6);
+  result = MrccInput_DeallocateData(a1 + 13);
+  v5 = *(a1 + 33);
   if (v5)
   {
     result = heap_Free(*(*a1 + 8), v5);
-    *(a1 + 264) = 0;
+    *(a1 + 33) = 0;
   }
 
   return result;
 }
 
-uint64_t RccSyn__reset_Synthesis(uint64_t a1)
+void RccSyn__reset_Synthesis(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2.n128_f64[0] = Rr2Pcm_Reset(*(a1 + 40));
+  Rr2Pcm_Reset(*(a1 + 40));
 
-  return Mrcc2Rr_Reset(v1, v2);
+  Mrcc2Rr_Reset();
 }
 
 uint64_t PRMBLK_ReadParameters(uint64_t a1, void *a2, int a3, _DWORD *a4)
@@ -3550,7 +3542,7 @@ LABEL_79:
   return result;
 }
 
-uint64_t PRMBLK_CreateFromMRCC_Param(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5, uint64_t (**a6)(void, _DWORD *), _DWORD *a7, int a8)
+uint64_t PRMBLK_CreateFromMRCC_Param(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, uint64_t a5, uint64_t (**a6)(void, _DWORD *), _DWORD *a7, int a8)
 {
   v9 = a3;
   if (a2 <= 0)
@@ -3566,7 +3558,7 @@ uint64_t PRMBLK_CreateFromMRCC_Param(uint64_t a1, int a2, void *a3, uint64_t a4,
     v17 = a2;
     do
     {
-      v18 = (*(a4 + v15))(a1, a7);
+      v18 = (*(a4 + v15))(a1, a7, a3, a4, a5);
       v9[v15 / 8] = v18;
       if (!v18)
       {
@@ -3710,12 +3702,13 @@ LABEL_13:
   return v3;
 }
 
-uint64_t *Mrcc2Rr_AllocateAndInit(uint64_t a1, uint64_t a2, int a3)
+uint64_t *Mrcc2Rr_AllocateAndInit(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = heap_Calloc(*(a1 + 8), 1, 32);
   if (v6)
   {
-    Mrcc2Rr_Init(a1, a2, v6, a3);
+    Mrcc2Rr_Init(a1, a2, v6, v3);
     if (v7)
     {
       heap_Free(*(a1 + 8), v6);
@@ -3775,7 +3768,7 @@ double Mrcc2Rr_InitProps(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t Mrcc2Rr_InitByProps(int *a1, uint64_t *a2)
+uint64_t Mrcc2Rr_InitByProps(unsigned int *a1, uint64_t *a2)
 {
   if (a1)
   {
@@ -3790,7 +3783,7 @@ uint64_t Mrcc2Rr_InitByProps(int *a1, uint64_t *a2)
 
   v4 = a2[2];
   v5 = a2[3];
-  if (!v3[7] && !v3[6])
+  if (!*(v3 + 3))
   {
     return 1;
   }
@@ -3825,7 +3818,7 @@ double MrccInput_Init(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t MrccInput_AllocateData(uint64_t a1, unsigned int a2)
+uint64_t MrccInput_AllocateData(uint64_t a1, int a2)
 {
   v2 = *(a1 + 16);
   if (v2)
@@ -4041,51 +4034,46 @@ LABEL_38:
   return Mrcc_Solve_AmpPhase(v7, a3, v29, 1);
 }
 
-void *Mrcc2Rr_Deallocate(void *a1)
+void Mrcc2Rr_Deallocate(void *a1)
 {
-  result = Mrcc2Rr_Clear(a1);
+  Mrcc2Rr_Clear(a1);
   if (a1)
   {
-    v3 = *(*a1 + 8);
+    v2 = *(*a1 + 8);
 
-    return heap_Free(v3, a1);
+    heap_Free(v2, a1);
   }
-
-  return result;
 }
 
-void *Mrcc2Rr_Clear(void *a1)
+void Mrcc2Rr_Clear(void *a1)
 {
   if (*(a1[1] + 28))
   {
     Mrcc_Clear(*a1, a1[3]);
   }
 
-  v2 = a1[2];
-  Deinit_SinTable(*a1, v2);
-  result = Deinit_MelTable(*a1, v2 + 32);
-  v4 = a1[1];
-  if (v4)
+  Deinit_SinTable();
+  Deinit_MelTable();
+  v2 = a1[1];
+  if (v2)
   {
-    result = heap_Free(*(*a1 + 8), v4);
+    heap_Free(*(*a1 + 8), v2);
     a1[1] = 0;
   }
 
-  v5 = a1[2];
-  if (v5)
+  v3 = a1[2];
+  if (v3)
   {
-    result = heap_Free(*(*a1 + 8), v5);
+    heap_Free(*(*a1 + 8), v3);
     a1[2] = 0;
   }
 
-  v6 = a1[3];
-  if (v6)
+  v4 = a1[3];
+  if (v4)
   {
-    result = heap_Free(*(*a1 + 8), v6);
+    heap_Free(*(*a1 + 8), v4);
     a1[3] = 0;
   }
-
-  return result;
 }
 
 uint64_t Init_MelTable(uint64_t a1, uint64_t a2, int a3, int a4)
@@ -4136,17 +4124,18 @@ LABEL_16:
   return result;
 }
 
-uint64_t Get_MelValue(uint64_t a1, int a2)
+uint64_t Get_MelValue(uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 16);
-  v4 = a2 / *(a1 + 20) + 1;
+  v2 = a2;
+  v3 = *(a1 + 4);
+  v4 = a2 / *(a1 + 5) + 1;
   v5 = *a1;
-  v6 = *(a1 + 8);
-  *(a1 + 24) = v4;
-  return GetInterpolatedValue(v6, v5, v3, a2, (a1 + 24), 0);
+  v6 = a1[1];
+  *(a1 + 6) = v4;
+  return GetInterpolatedValue(v6, v5, v3, v2, a1 + 6, 0);
 }
 
-uint64_t Get_MelValues(uint64_t result, int *a2, _DWORD *a3, int a4)
+uint64_t Get_MelValues(uint64_t result, unsigned int *a2, _DWORD *a3, unsigned int a4)
 {
   *(result + 24) = 0;
   v4 = (result + 24);
@@ -4487,7 +4476,7 @@ uint64_t Mrcc_PutFrqs(uint64_t a1, const void *a2, int a3, int a4, int a5)
   return 0;
 }
 
-uint64_t warpFreqs(uint64_t result, int *a2, _DWORD *a3, unsigned int a4, _DWORD *a5)
+uint64_t warpFreqs(uint64_t result, unsigned int *a2, _DWORD *a3, signed int a4, _DWORD *a5)
 {
   v6 = result;
   v7 = *(result + 92);
@@ -5208,7 +5197,7 @@ uint64_t Mrcc_Solve_AmpPhase(uint64_t a1, void **a2, int a3, int a4)
   return result;
 }
 
-uint64_t Rr2Pcm_SetHarmonicInfo(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t Rr2Pcm_SetHarmonicInfo(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a5;
   v6 = a4;
@@ -5312,6 +5301,7 @@ uint64_t Rr2Pcm_SetHarmonicInfo(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a
     v105 = *v18;
     v107 = *(a3 + 72);
     v115 = *v27;
+    v116 = a5;
     v108 = *(a3 + 50);
     v110 = v25;
     if (*(a3 + 100))
@@ -5401,7 +5391,7 @@ uint64_t Rr2Pcm_SetHarmonicInfo(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a
           v24 = v50;
           v48[v56] = v55;
           ++v47;
-          v5 = a5;
+          v5 = v116;
           v8 = a2;
         }
 
@@ -5536,7 +5526,7 @@ LABEL_76:
               }
 
               v16 = v96;
-              v5 = a5;
+              v5 = v116;
               v24[1] = v104;
             }
           }
@@ -5743,8 +5733,9 @@ LABEL_76:
   return 0;
 }
 
-uint64_t scaleHarmEnergy(uint64_t a1, uint64_t a2, unsigned int a3, int a4, int a5)
+uint64_t scaleHarmEnergy(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int a5)
 {
+  v5 = a4;
   v38 = 0;
   if (a5)
   {
@@ -5847,7 +5838,7 @@ uint64_t scaleHarmEnergy(uint64_t a1, uint64_t a2, unsigned int a3, int a4, int 
     return result;
   }
 
-  if (a4)
+  if (v5)
   {
     v20 = v37;
   }
@@ -5958,7 +5949,7 @@ uint64_t scaleHarmEnergy(uint64_t a1, uint64_t a2, unsigned int a3, int a4, int 
     v33 = v27;
   }
 
-  if (!a4 || v31 < 0x4000)
+  if (!v5 || v31 < 0x4000)
   {
 LABEL_59:
     result = ScaleTo16BitSignedRangeWithSkip(v8 + 4, v17, 36, v13, v14, v31);
@@ -6899,7 +6890,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t RrInput_AllocateData(void *a1, int a2, int a3)
+uint64_t RrInput_AllocateData(void *a1, unsigned int a2, unsigned int a3)
 {
   if (a2 >= 1 && *(a1 + 18) < a2)
   {
@@ -7022,7 +7013,7 @@ LABEL_15:
   return 0;
 }
 
-uint64_t AddLinearPhase(uint64_t result, uint64_t a2, int a3, int a4, double a5, double a6)
+uint64_t AddLinearPhase(uint64_t result, uint64_t a2, unsigned int a3, int a4, double a5, double a6)
 {
   v6 = 40;
   if (!a4)
@@ -7323,10 +7314,11 @@ uint64_t AddRandomPhase(uint64_t result, uint64_t a2, int a3, double a4, double 
   return result;
 }
 
-uint64_t *Rr2Pcm_AllocateAndInit(uint64_t a1, int *a2, int a3)
+uint64_t *Rr2Pcm_AllocateAndInit(uint64_t a1, int *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = heap_Calloc(*(a1 + 8), 1, 40);
-  if (v6 && Rr2Pcm_Init(a1, a2, v6, a3))
+  if (v6 && Rr2Pcm_Init(a1, a2, v6, v3))
   {
     heap_Free(*(a1 + 8), v6);
     return 0;
@@ -8166,10 +8158,10 @@ void *Rr2Pcm_Clear(void *a1)
     *v5 = 0;
   }
 
-  Deinit_SinTable(*a1, v2 + 8);
-  Window_Destroy(v2);
-  WindowTrans_Destroy(v2);
-  NormRand_destroy(v2);
+  Deinit_SinTable();
+  Window_Destroy();
+  WindowTrans_Destroy();
+  NormRand_destroy();
   v9 = v4[14];
   if (v9)
   {
@@ -9216,7 +9208,7 @@ uint64_t Rr2Pcm_ProcessMvf_SetProperty(uint64_t a1, uint64_t a2, char *__s1, uns
   return result;
 }
 
-uint64_t Rr2Pcm_initProcessMvf(uint64_t a1, uint64_t a2, int a3)
+uint64_t Rr2Pcm_initProcessMvf(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   *(a2 + 16) = 0x33300000133;
   *a2 = xmmword_26ED79750;
@@ -9258,7 +9250,7 @@ void *Rr2Pcm_clearProcessMvf(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t Rr2Pcm_processMvf(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
+uint64_t Rr2Pcm_processMvf(uint64_t a1, uint64_t a2, int *a3, _DWORD *a4)
 {
   v4 = *(a2 + 64);
   v5 = *(v4 + 60);
@@ -9313,8 +9305,8 @@ uint64_t Rr2Pcm_processMvf(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
       do
       {
         v17 = *(*(v4 + 24) + 4 * v16 + 4) + (*(a2 + 196) << 12);
-        *(a3 + 4 * v16) = v17;
-        *(a3 + 4 * v16) = ipow2(v17);
+        a3[v16] = v17;
+        a3[v16] = ipow2(v17);
         v18 = v16 + 2;
         ++v16;
       }
@@ -9325,7 +9317,7 @@ uint64_t Rr2Pcm_processMvf(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 
   else
   {
-    a3 = *(v4 + 24) + 4;
+    a3 = (*(v4 + 24) + 4);
   }
 
   v20 = *(v4 + 40) - 1;
@@ -9367,7 +9359,7 @@ uint64_t Rr2Pcm_processMvf(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
   v23 = v23;
   do
   {
-    v27 += *(a3 + 4 * v23++);
+    v27 += a3[v23++];
   }
 
   while (v20 > v23);
@@ -9476,7 +9468,7 @@ uint64_t FindBestRationalFactor(uint64_t result, int a2, _DWORD *a3, _DWORD *a4)
   return result;
 }
 
-void *Rr2Pcm_EnvLineSpectrumToPcm(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *Rr2Pcm_EnvLineSpectrumToPcm(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = *(a3 + 8);
   v10 = *(a3 + 16);

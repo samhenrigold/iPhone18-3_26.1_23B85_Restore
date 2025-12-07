@@ -8,14 +8,14 @@
 - (void)removeAppWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = sub_100000D2C();
+  v5 = sub_100000D2C(replyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100001318();
   }
 
   _deleteAllUserDefaults = [(XPCAppRemovalService *)self _deleteAllUserDefaults];
-  v7 = sub_100000D2C();
+  v7 = sub_100000D2C(_deleteAllUserDefaults);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
   if (_deleteAllUserDefaults)
   {
@@ -35,35 +35,22 @@
     }
 
     v9 = +[RCSSavedRecordingService sharedService];
-    if (v9)
+    if (v9 || (v15[0] = NSLocalizedDescriptionKey, v15[1] = @"BundleId", v16[0] = @"Unable to connect to RCSSavedRecordingService.  Aborting.", v16[1] = RCVoiceMemosBundleID, [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2], v10 = objc_claimAutoreleasedReturnValue(), [NSError errorWithDomain:@"com.apple.VoiceMemos.appremoval.errorDomain" code:-1 userInfo:v10], _deleteAllUserDefaults = objc_claimAutoreleasedReturnValue(), v10, !_deleteAllUserDefaults))
     {
-      goto LABEL_10;
-    }
-
-    v14[0] = NSLocalizedDescriptionKey;
-    v14[1] = @"BundleId";
-    v15[0] = @"Unable to connect to RCSSavedRecordingService.  Aborting.";
-    v15[1] = RCVoiceMemosBundleID;
-    v10 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
-    _deleteAllUserDefaults = [NSError errorWithDomain:@"com.apple.VoiceMemos.appremoval.errorDomain" code:-1 userInfo:v10];
-
-    if (!_deleteAllUserDefaults)
-    {
-LABEL_10:
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_100001034;
-      v12[3] = &unk_100004160;
-      v13 = replyCopy;
-      [v9 removeAllUserDataWithCompletion:v12];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100001034;
+      v13[3] = &unk_100004160;
+      v14 = replyCopy;
+      [v9 removeAllUserDataWithCompletion:v13];
 
       _deleteAllUserDefaults = 0;
     }
 
     else
     {
-      v11 = sub_100000D2C();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_100000D2C(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10000139C();
       }
@@ -99,7 +86,7 @@ LABEL_10:
         }
 
         v9 = *(*(&v14 + 1) + 8 * v8);
-        v10 = sub_100000D2C();
+        v10 = sub_100000D2C(v5);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
@@ -107,15 +94,16 @@ LABEL_10:
           _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Removing User Default key %@", buf, 0xCu);
         }
 
-        [v2 removeObjectForKey:v9];
+        v5 = [v2 removeObjectForKey:v9];
         v8 = v8 + 1;
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v6 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
   if ([v2 synchronize])

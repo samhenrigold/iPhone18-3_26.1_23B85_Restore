@@ -84,12 +84,13 @@ LABEL_8:
 
 - (BOOL)isSignedByAppleFileAtPath:(id)path basicCheck:(BOOL)check
 {
+  checkCopy = check;
   v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = v7;
   selfCopy = self;
-  v10 = sub_10014E0CC(v6, v8, check);
+  LOBYTE(checkCopy) = sub_10014E0CC(v6, v8, checkCopy);
 
-  return v10 & 1;
+  return checkCopy & 1;
 }
 
 @end

@@ -35,7 +35,7 @@
 
 - (void)_setupHeader
 {
-  v106[1] = *MEMORY[0x1E69E9840];
+  v105[1] = *MEMORY[0x1E69E9840];
   _mapsui_defaultLabel = [MEMORY[0x1E69DCC10] _mapsui_defaultLabel];
   titleLabel = self->_titleLabel;
   self->_titleLabel = _mapsui_defaultLabel;
@@ -170,8 +170,8 @@ LABEL_13:
   headerFocusGuide = self->_headerFocusGuide;
   self->_headerFocusGuide = v34;
 
-  v106[0] = self->_seeAllButton;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v106 count:1];
+  v105[0] = self->_seeAllButton;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v105 count:1];
   [(UIFocusGuide *)self->_headerFocusGuide setPreferredFocusEnvironments:v36];
 
   [(MUPlaceSectionHeaderView *)self addLayoutGuide:self->_headerFocusGuide];
@@ -180,13 +180,13 @@ LABEL_18:
   leadingAnchor = [(UILabel *)self->_titleLabel leadingAnchor];
   leadingAnchor2 = [(MUPlaceSectionHeaderView *)self leadingAnchor];
   v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v105[0] = v40;
+  v104[0] = v40;
   topAnchor = [(UILabel *)self->_titleLabel topAnchor];
   topAnchor2 = [(MUPlaceSectionHeaderView *)self topAnchor];
   v43 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:10.0];
-  v105[1] = v43;
-  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v105 count:2];
-  v101 = v37;
+  v104[1] = v43;
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:2];
+  v100 = v37;
   [v37 addObjectsFromArray:v44];
 
   v45 = self->_titleLabel;
@@ -196,18 +196,18 @@ LABEL_18:
     leadingAnchor3 = [(UILabel *)v46 leadingAnchor];
     leadingAnchor4 = [(MUPlaceSectionHeaderView *)self leadingAnchor];
     v47 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v104[0] = v47;
+    v103[0] = v47;
     topAnchor3 = [(UILabel *)self->_subtitleLabel topAnchor];
     bottomAnchor = [(UILabel *)self->_titleLabel bottomAnchor];
     [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:4.0];
-    v50 = v94 = v45;
-    v104[1] = v50;
+    v50 = v93 = v45;
+    v103[1] = v50;
     bottomAnchor2 = [(UILabel *)self->_subtitleLabel bottomAnchor];
     bottomAnchor3 = [(MUPlaceSectionHeaderView *)self bottomAnchor];
     v53 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-    v104[2] = v53;
-    v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:3];
-    [v101 addObjectsFromArray:v54];
+    v103[2] = v53;
+    v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v103 count:3];
+    [v100 addObjectsFromArray:v54];
 
     v45 = self->_subtitleLabel;
   }
@@ -215,8 +215,8 @@ LABEL_18:
   bottomAnchor4 = [(UILabel *)v45 bottomAnchor];
   bottomAnchor5 = [(MUPlaceSectionHeaderView *)self bottomAnchor];
   v57 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-  v58 = v101;
-  [v101 addObject:v57];
+  v58 = v100;
+  [v100 addObject:v57];
 
   v59 = self->_seeAllButton;
   if (v59)
@@ -229,45 +229,45 @@ LABEL_18:
     [v62 setPriority:v63];
     trailingAnchor = [(UILabel *)self->_titleLabel trailingAnchor];
     leadingAnchor5 = [(UIButton *)self->_seeAllButton leadingAnchor];
-    v99 = [trailingAnchor constraintLessThanOrEqualToAnchor:leadingAnchor5 constant:-8.0];
-    v103[0] = v99;
+    v98 = [trailingAnchor constraintLessThanOrEqualToAnchor:leadingAnchor5 constant:-8.0];
+    v102[0] = v98;
     trailingAnchor2 = [(UIButton *)self->_seeAllButton trailingAnchor];
     trailingAnchor3 = [(MUPlaceSectionHeaderView *)self trailingAnchor];
-    v93 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
-    v103[1] = v93;
+    v92 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
+    v102[1] = v92;
     firstBaselineAnchor = [(UIButton *)self->_seeAllButton firstBaselineAnchor];
     firstBaselineAnchor2 = [(UILabel *)self->_titleLabel firstBaselineAnchor];
-    v91 = [firstBaselineAnchor constraintEqualToAnchor:firstBaselineAnchor2];
-    v103[2] = v91;
+    v90 = [firstBaselineAnchor constraintEqualToAnchor:firstBaselineAnchor2];
+    v102[2] = v90;
     topAnchor4 = [(UIButton *)self->_seeAllButton topAnchor];
     topAnchor5 = [(MUPlaceSectionHeaderView *)self topAnchor];
-    v86 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:topAnchor5];
-    v103[3] = v86;
-    v103[4] = v62;
+    v85 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:topAnchor5];
+    v102[3] = v85;
+    v102[4] = v62;
     leadingAnchor6 = [(UIFocusGuide *)self->_headerFocusGuide leadingAnchor];
     leadingAnchor7 = [(MUPlaceSectionHeaderView *)self leadingAnchor];
-    v83 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
-    v103[5] = v83;
+    v82 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
+    v102[5] = v82;
     trailingAnchor4 = [(UIFocusGuide *)self->_headerFocusGuide trailingAnchor];
     trailingAnchor5 = [(MUPlaceSectionHeaderView *)self trailingAnchor];
-    v80 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
-    v103[6] = v80;
+    v79 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
+    v102[6] = v79;
     topAnchor6 = [(UIFocusGuide *)self->_headerFocusGuide topAnchor];
     topAnchor7 = [(MUPlaceSectionHeaderView *)self topAnchor];
     v66 = [topAnchor6 constraintEqualToAnchor:topAnchor7];
-    v103[7] = v66;
+    v102[7] = v66;
     bottomAnchor8 = [(UIFocusGuide *)self->_headerFocusGuide bottomAnchor];
     bottomAnchor9 = [(MUPlaceSectionHeaderView *)self bottomAnchor];
     v69 = [bottomAnchor8 constraintEqualToAnchor:bottomAnchor9];
-    v103[8] = v69;
-    v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:v103 count:9];
-    [v101 addObjectsFromArray:v70];
+    v102[8] = v69;
+    v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:v102 count:9];
+    [v100 addObjectsFromArray:v70];
 
     trailingAnchor6 = v62;
     trailingAnchor7 = trailingAnchor;
 
     v73 = leadingAnchor5;
-    v58 = v101;
+    v58 = v100;
   }
 
   else
@@ -275,7 +275,7 @@ LABEL_18:
     trailingAnchor6 = [(UILabel *)self->_titleLabel trailingAnchor];
     trailingAnchor7 = [(MUPlaceSectionHeaderView *)self trailingAnchor];
     v73 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7];
-    [v101 addObject:v73];
+    [v100 addObject:v73];
   }
 
   v74 = MEMORY[0x1E696ACD8];
@@ -283,11 +283,9 @@ LABEL_18:
   [v74 activateConstraints:v75];
 
   v76 = objc_opt_self();
-  v102 = v76;
-  v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v102 count:1];
+  v101 = v76;
+  v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
   v78 = [(MUPlaceSectionHeaderView *)self registerForTraitChanges:v77 withAction:sel__contentSizeDidChange];
-
-  v79 = *MEMORY[0x1E69E9840];
 }
 
 id __40__MUPlaceSectionHeaderView__setupHeader__block_invoke(uint64_t a1, void *a2)

@@ -6,11 +6,11 @@
 
 - (GDSoftwareLink)initWithRelationshipIdTriplesIterator:(id)iterator
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   iteratorCopy = iterator;
-  v31.receiver = self;
-  v31.super_class = GDSoftwareLink;
-  v5 = [(GDSoftwareLink *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = GDSoftwareLink;
+  v5 = [(GDSoftwareLink *)&v30 init];
   if (!v5)
   {
 LABEL_20:
@@ -18,31 +18,31 @@ LABEL_20:
     goto LABEL_23;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v26 = iteratorCopy;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v25 = iteratorCopy;
   v6 = iteratorCopy;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (!v7)
   {
     goto LABEL_18;
   }
 
   v8 = v7;
-  v9 = *v28;
+  v9 = *v27;
   do
   {
     v10 = 0;
     do
     {
-      if (*v28 != v9)
+      if (*v27 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v27 + 1) + 8 * v10);
+      v11 = *(*(&v26 + 1) + 8 * v10);
       if (!v5->_relationshipIdentifier)
       {
         v12 = [GDRelationshipIdentifier alloc];
@@ -86,7 +86,7 @@ LABEL_16:
     }
 
     while (v8 != v10);
-    v8 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
   }
 
   while (v8);
@@ -94,7 +94,7 @@ LABEL_18:
 
   if (v5->_relationshipIdentifier)
   {
-    iteratorCopy = v26;
+    iteratorCopy = v25;
     if (v5->_softwareEntityIdentifier)
     {
       goto LABEL_20;
@@ -106,12 +106,11 @@ LABEL_18:
   else
   {
     v23 = 0;
-    iteratorCopy = v26;
+    iteratorCopy = v25;
   }
 
 LABEL_23:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

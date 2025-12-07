@@ -93,16 +93,16 @@
   [MEMORY[0x277CD9FF0] commit];
 }
 
-uint64_t __53__PBUIBokehWallpaperView__updateGradientAndFillColor__block_invoke(uint64_t result)
+void *__53__PBUIBokehWallpaperView__updateGradientAndFillColor__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 648) != 1 || *(v2 + 650) == 1)
   {
     v3 = *(v2 + 632);
     *(v2 + 632) = 0;
 
-    v4 = *(v1 + 32);
+    v4 = v1[4];
 
     return [v4 _notifyBlursInvalidated];
   }
@@ -694,7 +694,7 @@ LABEL_9:
 
           else
           {
-            [updateCopy duration];
+            objc_msgSend_duration(updateCopy);
             [v11 updatePositionWithTime:self->_isOnLockScreen dx:? dy:? lockScreen:?];
           }
         }

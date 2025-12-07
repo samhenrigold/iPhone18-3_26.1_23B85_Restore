@@ -22,9 +22,8 @@
   return v2;
 }
 
-uint64_t __38__ANVolumeController_sharedController__block_invoke(uint64_t a1)
+uint64_t __38__ANVolumeController_sharedController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   sharedController_controller = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -33,7 +32,7 @@ uint64_t __38__ANVolumeController_sharedController__block_invoke(uint64_t a1)
 - (void)setVolumeWithOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(ANVolumeController *)self smartSiriVolume];
   if (optionsCopy)
   {
@@ -55,18 +54,16 @@ uint64_t __38__ANVolumeController_sharedController__block_invoke(uint64_t a1)
         *&v10 = v5;
         v11 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
         v12 = [MEMORY[0x277CCABB0] numberWithBool:v8];
-        v14 = 138412802;
-        v15 = &stru_2836DAA20;
-        v16 = 2112;
-        v17 = v11;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_2237C8000, v9, OS_LOG_TYPE_DEFAULT, "%@Volume set to %@ = %@", &v14, 0x20u);
+        v13 = 138412802;
+        v14 = &stru_2836DAA20;
+        v15 = 2112;
+        v16 = v11;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_2237C8000, v9, OS_LOG_TYPE_DEFAULT, "%@Volume set to %@ = %@", &v13, 0x20u);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

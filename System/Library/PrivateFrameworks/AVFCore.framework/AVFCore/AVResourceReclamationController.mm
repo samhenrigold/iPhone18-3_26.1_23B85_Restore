@@ -177,7 +177,7 @@ uint64_t __89__AVResourceReclamationController_AVResourceReclamation__permitRecl
   dispatch_sync(stateQueue, block);
 }
 
-uint64_t __59__AVResourceReclamationController__resetEnrollmentTestOnly__block_invoke(uint64_t a1)
+void *__59__AVResourceReclamationController__resetEnrollmentTestOnly__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 56) = 0;
   *(*(a1 + 32) + 48) = 0;
@@ -229,7 +229,7 @@ uint64_t __59__AVResourceReclamationController__resetEnrollmentTestOnly__block_i
   _Block_object_dispose(&v13, 8);
 }
 
-uint64_t __83__AVResourceReclamationController_AVResourceReclamation__handlePurgedNotification___block_invoke(uint64_t a1)
+void *__83__AVResourceReclamationController_AVResourceReclamation__handlePurgedNotification___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -257,7 +257,7 @@ uint64_t __83__AVResourceReclamationController_AVResourceReclamation__handlePurg
           [*(*(*(a1 + 40) + 8) + 40) addObject:?];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -273,6 +273,7 @@ uint64_t __83__AVResourceReclamationController_AVResourceReclamation__handlePurg
 
 uint64_t __86__AVResourceReclamationController_AVResourceReclamation__registerForPurgeNotification__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v6 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak((a1 + 32));
   if (Weak)
   {
@@ -379,7 +380,7 @@ uint64_t __93__AVResourceReclamationController_AVResourceReclamation__informRecl
 
 - (BOOL)ensureIntegrityOfResourcesCreatedSince:(id)since
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   mostRecentReclamationEvent = [(AVResourceReclamationController *)self mostRecentReclamationEvent];
   if (!mostRecentReclamationEvent)
   {
@@ -406,7 +407,7 @@ LABEL_3:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v5 <= [objc_msgSend(since eventIdentifier];
+  return v5 <= [objc_msgSend(since "eventIdentifier")];
 }
 
 - (void)ensureIntegrityOfResourcesCreatedSince:(id)since completionHandler:(id)handler
@@ -549,6 +550,7 @@ uint64_t __111__AVResourceReclamationController_AVResourceReclamation__takeAsser
 
 - (AVResourceReclamationEvent)mostRecentReclamationEvent
 {
+  v3 = *MEMORY[0x1E69E9840];
   if ([(AVResourceReclamationController *)self isEnrolled])
   {
     FigProcessStateMonitorGetServerPurgeState();

@@ -80,7 +80,6 @@
       }
     }
 
-    queue = self->_queue;
     IDSGetDeliveryStatsWithCompletionBlock();
   }
 

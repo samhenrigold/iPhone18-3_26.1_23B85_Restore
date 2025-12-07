@@ -1,26 +1,84 @@
 @interface AppTelemetryTimeSeriesEvent
 + (id)_errorsChainIfNecessaryForAppTelemetryIdentifier:(int)identifier error:(id)error;
++ (id)_newTelemetryEventWithIdentifier:(int)identifier error:(id)error;
++ (id)_newTelemetryEventWithIdentifier:(int)identifier zoneWithMangledID:(id)d enhancedDrivePrivacyEnabled:(id)enabled error:(id)error errorDescription:(id)description itemIDString:(id)string;
 + (id)itemStatsInvestigationWithFoundInfo:(id)info;
++ (id)newAggregatedEventWithIdentifier:(int)identifier recordID:(id)d zoneMangledID:(id)iD enhancedDrivePrivacyEnabled:(id)enabled error:(id)error count:(int64_t)count;
++ (id)newBasehashSaltingProblemCountWithProblemCount:(int)count mangledID:(id)d itemIDString:(id)string;
++ (id)newBoolEvent:(int)event eventGroupUUID:(id)d value:(BOOL)value;
++ (id)newBouncedDocumentsDirectoryProblemCountWithProblemCount:(int)count;
++ (id)newCADownloadErrorCountEventWithCount:(int)count;
++ (id)newCADownloadErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled sharedZone:(BOOL)zone count:(int)count;
++ (id)newCASyncDownErrorCountEventWithCount:(int)count;
++ (id)newCASyncDownErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled zoneMangledID:(id)d;
++ (id)newCASyncUpItemErrorCountEventWithCount:(int)count;
++ (id)newCASyncUpItemErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled sharedZone:(BOOL)zone count:(int)count;
++ (id)newCASyncUpZoneErrorCountEventWithCount:(int)count;
++ (id)newCASyncUpZoneErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled zoneMangledID:(id)d;
++ (id)newCATotalErrorCountEventWithCount:(int)count;
++ (id)newCAUploadErrorCountEventWithCount:(int)count;
++ (id)newCAUploadErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled sharedZone:(BOOL)zone count:(int)count;
++ (id)newChainedDirectoryMissingChainPCSEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string;
++ (id)newChildCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude;
 + (id)newConsistencyCheckerFailedEvent;
++ (id)newContentPolicyProblemCountWithProblemCount:(int)count;
++ (id)newCorruptPackageDownloadEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled error:(id)error itemIDString:(id)string;
++ (id)newCorruptSharingOptionsProblemWithProblemCount:(int)count;
 + (id)newDBResetEventWithError:(id)error description:(id)description;
++ (id)newDanglingZombieProblemCountWithProblemCount:(int)count;
 + (id)newDatabaseIDMismatchEventWithFPDatabaseID:(id)d cloudDocsDatabaseID:(id)iD;
 + (id)newDeepScanEventWithReason:(id)reason appLibrary:(id)library;
++ (id)newDoubleEvent:(int)event eventGroupUUID:(id)d value:(double)value;
 + (id)newFSEventToSyncUpEventWithDuration:(double)duration;
 + (id)newFileBouncedManyTimes;
++ (id)newFileChecksumMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string;
++ (id)newFileReadErrorWithError:(id)error zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string;
++ (id)newFolderSharePCSChainingEventWithTime:(double)time zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string error:(id)error errorDescription:(id)description;
++ (id)newFolderSharingCountMismatchEventWithCount:(int)count zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled;
++ (id)newFromSqliteStatement:(sqlite3_stmt *)statement atIndex:(int)index;
 + (id)newFromSqliteValue:(sqlite3_value *)value;
 + (id)newFullyConsistentEvent;
++ (id)newIntEvent:(int)event UUID:(id)d value:(int)value;
++ (id)newLongEvent:(int)event UUID:(id)d value:(int64_t)value;
++ (id)newLongEvent:(int)event UUID:(id)d value:(int64_t)value round:(BOOL)round;
++ (id)newMissingApplyJobEventWithNumberMissing:(unsigned int)missing;
++ (id)newMissingAssetContentEventWithRecordID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled;
++ (id)newMissingDownloaderJobEventWithNumberMissing:(unsigned int)missing;
 + (id)newMissingPushEventWithNumberOutOfSync:(unsigned int)sync zonesType:(unsigned int)type;
++ (id)newMissingPushEventWithZonesOutOfSync:(unsigned __int16)sync zonesType:(unsigned __int8)type zonesWithNoRealChanges:(unsigned __int16)changes;
++ (id)newMissingReaderJobEventWithNumberMissing:(unsigned int)missing;
++ (id)newMissingShareAliasEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string;
++ (id)newMissingSyncUpJobEventWithNumberMissing:(unsigned int)missing;
++ (id)newMissingUploaderJobEventWithNumberMissing:(unsigned int)missing;
++ (id)newNSErrorEvent:(int)event eventGroupUUID:(id)d value:(id)value;
 + (id)newNonMigratedItemEvent:(id)event foundInfo:(id)info;
++ (id)newOperationTimedOutEventWithTime:(double)time type:(id)type nonDiscretionary:(BOOL)discretionary hasForegroundClients:(BOOL)clients;
++ (id)newPackageChecksumMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string;
++ (id)newPermanentlyInconsistentEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled;
 + (id)newQBSDirFaultsCountEvent:(unint64_t)event serverTruthDirFaultCount:(unint64_t)count serverTruthDirCount:(unint64_t)dirCount timeSinceLogin:(unint64_t)login serverTruthTotalItemsCount:(unint64_t)itemsCount zonesNeverFullSync:(unint64_t)sync;
 + (id)newQBSOperationPrformanceEventWithTime:(double)time type:(id)type recordsFetched:(unint64_t)fetched recordsFetchedTotalMetadataSize:(unint64_t)size xattrsFetchedTotalSize:(unint64_t)totalSize;
++ (id)newRecursiveItemCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude;
 + (id)newReimportDomainFailureEventWithError:(id)error description:(id)description;
++ (id)newShareAcceptationEventWithLastStep:(id)step zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string error:(id)error;
++ (id)newShareAliasCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude;
++ (id)newShareAliasInSharedFolderEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled;
++ (id)newShareCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude;
 + (id)newShareSaveEventWithError:(id)error;
++ (id)newSyncBoostingProblemCountWithProblemCount:(int)count;
++ (id)newSyncUpBackoffDelaySummaryEventWithNumberOfFailedZones:(unsigned int)zones;
++ (id)newSyncUpBackoffRatioSummaryEventWithNumberOfFailedZones:(unsigned int)zones;
++ (id)newTelemetryEventWithIdentifier:(int)identifier zoneWithMangledID:(id)d;
++ (id)newTelemetryEventWithIdentifier:(int)identifier zoneWithMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled fromError:(id)error errorDescription:(id)description itemIDString:(id)string;
++ (id)newTestMetricEventWithMagnitude:(unsigned int)magnitude;
++ (id)newTimestampEvent:(int)event eventGroupUUID:(id)d value:(unint64_t)value;
 + (id)newUploadErrorForEventName:(id)name foundInfo:(id)info;
 + (id)newUserDownloadEventWithDuration:(double)duration;
++ (id)newZoneResetEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled lastSyncDate:(id)date error:(id)error errorDescription:(id)description;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)magnitudeAsString:(int)string;
 - (int)StringAsMagnitude:(id)magnitude;
 - (int)magnitude;
 - (unint64_t)hash;
@@ -39,10 +97,18 @@
 - (void)setMagnitudeFloat:(float)float;
 - (void)setMagnitudeInt:(int)int;
 - (void)setMagnitudeLong:(int64_t)long;
+- (void)sqliteBind:(sqlite3_stmt *)bind index:(int)index;
 - (void)writeTo:(id)to;
 @end
 
 @implementation AppTelemetryTimeSeriesEvent
+
+- (void)sqliteBind:(sqlite3_stmt *)bind index:(int)index
+{
+  v4 = *&index;
+  data = [(AppTelemetryTimeSeriesEvent *)self data];
+  [data sqliteBind:bind index:v4];
+}
 
 + (id)newFromSqliteValue:(sqlite3_value *)value
 {
@@ -56,6 +122,58 @@
   v6 = [v4 initWithData:v5];
 
   return v6;
+}
+
++ (id)newFromSqliteStatement:(sqlite3_stmt *)statement atIndex:(int)index
+{
+  v4 = *&index;
+  if (sqlite3_column_type(statement, index) != 4)
+  {
+    return 0;
+  }
+
+  v6 = objc_alloc(objc_opt_class());
+  v7 = [MEMORY[0x277CBEA90] newFromSqliteStatement:statement atIndex:v4];
+  v8 = [v6 initWithData:v7];
+
+  return v8;
+}
+
++ (id)_newTelemetryEventWithIdentifier:(int)identifier error:(id)error
+{
+  v4 = *&identifier;
+  errorCopy = error;
+  v7 = [BRCUserDefaults defaultsForMangledID:0];
+  supportsEnhancedDrivePrivacy = [v7 supportsEnhancedDrivePrivacy];
+  v9 = [errorCopy description];
+  v10 = [self newTelemetryEventWithIdentifier:v4 zoneWithMangledID:0 enhancedDrivePrivacyEnabled:supportsEnhancedDrivePrivacy fromError:errorCopy errorDescription:v9 itemIDString:0];
+
+  return v10;
+}
+
++ (id)newTelemetryEventWithIdentifier:(int)identifier zoneWithMangledID:(id)d
+{
+  v4 = *&identifier;
+  dCopy = d;
+  v7 = [BRCUserDefaults defaultsForMangledID:0];
+  v8 = [self newTelemetryEventWithIdentifier:v4 zoneWithMangledID:dCopy enhancedDrivePrivacyEnabled:objc_msgSend(v7 fromError:"supportsEnhancedDrivePrivacy") errorDescription:0 itemIDString:{0, 0}];
+
+  return v8;
+}
+
++ (id)newTelemetryEventWithIdentifier:(int)identifier zoneWithMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled fromError:(id)error errorDescription:(id)description itemIDString:(id)string
+{
+  enabledCopy = enabled;
+  v12 = *&identifier;
+  v14 = MEMORY[0x277CCABB0];
+  stringCopy = string;
+  descriptionCopy = description;
+  errorCopy = error;
+  dCopy = d;
+  v19 = [v14 numberWithBool:enabledCopy];
+  v20 = [self _newTelemetryEventWithIdentifier:v12 zoneWithMangledID:dCopy enhancedDrivePrivacyEnabled:v19 error:errorCopy errorDescription:descriptionCopy itemIDString:stringCopy];
+
+  return v20;
 }
 
 + (id)_errorsChainIfNecessaryForAppTelemetryIdentifier:(int)identifier error:(id)error
@@ -110,11 +228,200 @@
   return v9;
 }
 
++ (id)_newTelemetryEventWithIdentifier:(int)identifier zoneWithMangledID:(id)d enhancedDrivePrivacyEnabled:(id)enabled error:(id)error errorDescription:(id)description itemIDString:(id)string
+{
+  v12 = *&identifier;
+  dCopy = d;
+  enabledCopy = enabled;
+  errorCopy = error;
+  descriptionCopy = description;
+  stringCopy = string;
+  v18 = objc_alloc_init(AppTelemetryTimeSeriesEvent);
+  [(AppTelemetryTimeSeriesEvent *)v18 setTelemetrySchema:v12];
+  [(AppTelemetryTimeSeriesEvent *)v18 setTimestamp:time(0)];
+  if (dCopy || errorCopy || descriptionCopy || (v19 = 0, v20 = 0, stringCopy))
+  {
+    v20 = objc_opt_new();
+    [(AppTelemetryTimeSeriesEvent *)v18 setInvestigation:v20];
+    if (dCopy)
+    {
+      appLibraryOrZoneName = [dCopy appLibraryOrZoneName];
+      v22 = [appLibraryOrZoneName dataUsingEncoding:4];
+      [v20 setZoneName:v22];
+
+      [v20 setSharedZone:{objc_msgSend(dCopy, "isShared")}];
+    }
+
+    if (errorCopy)
+    {
+      domain = [errorCopy domain];
+      [v20 setErrorDomain:domain];
+
+      [v20 setErrorCode:{objc_msgSend(errorCopy, "code")}];
+      if (!descriptionCopy)
+      {
+        brc_cloudKitErrorMessage = [errorCopy brc_cloudKitErrorMessage];
+        v25 = brc_cloudKitErrorMessage;
+        if (brc_cloudKitErrorMessage)
+        {
+          br_errorDescription = brc_cloudKitErrorMessage;
+        }
+
+        else
+        {
+          br_errorDescription = [errorCopy br_errorDescription];
+        }
+
+        descriptionCopy = br_errorDescription;
+      }
+
+      userInfo = [errorCopy userInfo];
+      v28 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+
+      if (v28)
+      {
+        domain2 = [v28 domain];
+        [v20 setUnderlyingErrorDomain:domain2];
+
+        [v20 setUnderlyingErrorCode:{objc_msgSend(v28, "code")}];
+      }
+
+      v30 = [AppTelemetryTimeSeriesEvent _errorsChainIfNecessaryForAppTelemetryIdentifier:v12 error:errorCopy];
+      [v20 setErrorsChain:v30];
+    }
+
+    if (descriptionCopy)
+    {
+      v31 = [BRCUserDefaults defaultsForMangledID:0];
+      telemetryErrorDescriptionMaxLength = [v31 telemetryErrorDescriptionMaxLength];
+
+      if ([descriptionCopy length] > telemetryErrorDescriptionMaxLength)
+      {
+        v33 = [descriptionCopy substringToIndex:telemetryErrorDescriptionMaxLength];
+
+        descriptionCopy = v33;
+      }
+
+      [v20 setErrorDescription:descriptionCopy];
+      v19 = descriptionCopy;
+      if (stringCopy)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      v19 = 0;
+      if (stringCopy)
+      {
+LABEL_20:
+        [v20 setItemID:stringCopy];
+      }
+    }
+  }
+
+  if (enabledCopy)
+  {
+    [v20 setIsEnhancedDrivePrivacyEnabled:{objc_msgSend(enabledCopy, "BOOLValue")}];
+  }
+
+  return v18;
+}
+
++ (id)newSyncUpBackoffRatioSummaryEventWithNumberOfFailedZones:(unsigned int)zones
+{
+  v3 = *&zones;
+  v4 = [self newTelemetryEventWithIdentifier:30 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newSyncUpBackoffDelaySummaryEventWithNumberOfFailedZones:(unsigned int)zones
+{
+  v3 = *&zones;
+  v4 = [self newTelemetryEventWithIdentifier:31 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newFolderSharingCountMismatchEventWithCount:(int)count zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled
+{
+  v5 = *&count;
+  v6 = [self newTelemetryEventWithIdentifier:2 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled];
+  [v6 setMagnitudeInt:v5];
+  return v6;
+}
+
 + (id)newMissingPushEventWithNumberOutOfSync:(unsigned int)sync zonesType:(unsigned int)type
 {
   v6 = [self newTelemetryEventWithIdentifier:3 zoneWithMangledID:0];
   [v6 setMagnitudeInt:type | (sync << 8)];
   return v6;
+}
+
++ (id)newMissingPushEventWithZonesOutOfSync:(unsigned __int16)sync zonesType:(unsigned __int8)type zonesWithNoRealChanges:(unsigned __int16)changes
+{
+  changesCopy = changes;
+  typeCopy = type;
+  syncCopy = sync;
+  v8 = [self newTelemetryEventWithIdentifier:49 zoneWithMangledID:0];
+  [v8 setMagnitudeLong:syncCopy | (changesCopy << 16) | (typeCopy << 32)];
+  return v8;
+}
+
++ (id)newPermanentlyInconsistentEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled
+{
+  v4 = [self newTelemetryEventWithIdentifier:4 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled];
+  [v4 setMagnitudeBool:1];
+  return v4;
+}
+
++ (id)newTestMetricEventWithMagnitude:(unsigned int)magnitude
+{
+  v3 = *&magnitude;
+  v5 = objc_alloc(MEMORY[0x277CFAE60]);
+  v6 = [v5 initWithZoneName:@"com.apple.testZone" ownerName:*MEMORY[0x277CBBF28]];
+  v7 = [self newTelemetryEventWithIdentifier:6 zoneWithMangledID:v6];
+  [v7 setMagnitudeInt:v3];
+
+  return v7;
+}
+
++ (id)newShareAliasInSharedFolderEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled
+{
+  v4 = [self newTelemetryEventWithIdentifier:7 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled];
+  [v4 setMagnitudeBool:1];
+  return v4;
+}
+
++ (id)newZoneResetEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled lastSyncDate:(id)date error:(id)error errorDescription:(id)description
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  errorCopy = error;
+  descriptionCopy = description;
+  dateCopy = date;
+  v16 = [BRCUserDefaults defaultsForMangledID:dCopy];
+  benignTelemetryErrorDescriptions = [v16 benignTelemetryErrorDescriptions];
+  v18 = benignTelemetryErrorDescriptions;
+  if (descriptionCopy && ([benignTelemetryErrorDescriptions containsObject:descriptionCopy] & 1) != 0)
+  {
+    v19 = 9;
+  }
+
+  else
+  {
+    v19 = 8;
+  }
+
+  v20 = [self newTelemetryEventWithIdentifier:v19 zoneWithMangledID:dCopy enhancedDrivePrivacyEnabled:enabledCopy fromError:errorCopy errorDescription:descriptionCopy itemIDString:0];
+  date = [MEMORY[0x277CBEAA8] date];
+  [date timeIntervalSinceDate:dateCopy];
+  v23 = v22;
+
+  [v20 setMagnitudeDouble:v23];
+  return v20;
 }
 
 + (id)newDBResetEventWithError:(id)error description:(id)description
@@ -139,11 +446,137 @@
   return v9;
 }
 
++ (id)newMissingApplyJobEventWithNumberMissing:(unsigned int)missing
+{
+  v3 = *&missing;
+  v4 = [self newTelemetryEventWithIdentifier:11 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newMissingSyncUpJobEventWithNumberMissing:(unsigned int)missing
+{
+  v3 = *&missing;
+  v4 = [self newTelemetryEventWithIdentifier:12 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newMissingUploaderJobEventWithNumberMissing:(unsigned int)missing
+{
+  v3 = *&missing;
+  v4 = [self newTelemetryEventWithIdentifier:14 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newMissingReaderJobEventWithNumberMissing:(unsigned int)missing
+{
+  v3 = *&missing;
+  v4 = [self newTelemetryEventWithIdentifier:13 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newMissingDownloaderJobEventWithNumberMissing:(unsigned int)missing
+{
+  v3 = *&missing;
+  v4 = [self newTelemetryEventWithIdentifier:15 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCorruptPackageDownloadEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled error:(id)error itemIDString:(id)string
+{
+  v6 = [self newTelemetryEventWithIdentifier:21 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:0 itemIDString:string];
+  [v6 setMagnitudeInt:1];
+  return v6;
+}
+
++ (id)newChainedDirectoryMissingChainPCSEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string
+{
+  v5 = [self newTelemetryEventWithIdentifier:22 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v5 setMagnitudeInt:1];
+  return v5;
+}
+
++ (id)newFolderSharePCSChainingEventWithTime:(double)time zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string error:(id)error errorDescription:(id)description
+{
+  v9 = [self newTelemetryEventWithIdentifier:17 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:description itemIDString:string];
+  [v9 setMagnitudeDouble:time];
+  return v9;
+}
+
++ (id)newShareAcceptationEventWithLastStep:(id)step zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string error:(id)error
+{
+  enabledCopy = enabled;
+  errorCopy = error;
+  stringCopy = string;
+  dCopy = d;
+  stepCopy = step;
+  brc_cloudKitErrorMessage = [errorCopy brc_cloudKitErrorMessage];
+  v17 = [self newTelemetryEventWithIdentifier:18 zoneWithMangledID:dCopy enhancedDrivePrivacyEnabled:enabledCopy fromError:errorCopy errorDescription:brc_cloudKitErrorMessage itemIDString:stringCopy];
+
+  investigation = [v17 investigation];
+  [investigation setLastStep:stepCopy];
+
+  [v17 setMagnitudeInt:1];
+  return v17;
+}
+
 + (id)newShareSaveEventWithError:(id)error
 {
   v3 = [self _newTelemetryEventWithIdentifier:47 error:error];
   [v3 setMagnitudeInt:1];
   return v3;
+}
+
++ (id)newSyncBoostingProblemCountWithProblemCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:23 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCorruptSharingOptionsProblemWithProblemCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:34 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newContentPolicyProblemCountWithProblemCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:35 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newBasehashSaltingProblemCountWithProblemCount:(int)count mangledID:(id)d itemIDString:(id)string
+{
+  v5 = *&count;
+  v6 = [self newTelemetryEventWithIdentifier:36 zoneWithMangledID:d enhancedDrivePrivacyEnabled:1 fromError:0 errorDescription:0 itemIDString:string];
+  [v6 setMagnitudeInt:v5];
+  return v6;
+}
+
++ (id)newDanglingZombieProblemCountWithProblemCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:40 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newBouncedDocumentsDirectoryProblemCountWithProblemCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:46 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
 }
 
 + (id)newFSEventToSyncUpEventWithDuration:(double)duration
@@ -175,6 +608,25 @@
   [investigation2 setReason:reasonCopy];
 
   return v8;
+}
+
++ (id)newOperationTimedOutEventWithTime:(double)time type:(id)type nonDiscretionary:(BOOL)discretionary hasForegroundClients:(BOOL)clients
+{
+  clientsCopy = clients;
+  discretionaryCopy = discretionary;
+  typeCopy = type;
+  v11 = [self newTelemetryEventWithIdentifier:25 zoneWithMangledID:0];
+  [v11 setMagnitudeDouble:time];
+  investigation = [v11 investigation];
+  [investigation setOperationType:typeCopy];
+
+  investigation2 = [v11 investigation];
+  [investigation2 setNonDiscretionary:discretionaryCopy];
+
+  investigation3 = [v11 investigation];
+  [investigation3 setHasForegroundClients:clientsCopy];
+
+  return v11;
 }
 
 + (id)newQBSOperationPrformanceEventWithTime:(double)time type:(id)type recordsFetched:(unint64_t)fetched recordsFetchedTotalMetadataSize:(unint64_t)size xattrsFetchedTotalSize:(unint64_t)totalSize
@@ -215,11 +667,206 @@
   return v2;
 }
 
++ (id)newFileChecksumMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string
+{
+  v5 = [self newTelemetryEventWithIdentifier:101 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v5 setMagnitudeInt:1];
+  return v5;
+}
+
++ (id)newPackageChecksumMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string
+{
+  v5 = [self newTelemetryEventWithIdentifier:102 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v5 setMagnitudeInt:1];
+  return v5;
+}
+
++ (id)newFileReadErrorWithError:(id)error zoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string
+{
+  v6 = [self newTelemetryEventWithIdentifier:108 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:0 itemIDString:string];
+  [v6 setMagnitudeInt:1];
+  return v6;
+}
+
++ (id)newChildCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude
+{
+  v6 = *&magnitude;
+  v7 = [self newTelemetryEventWithIdentifier:103 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v7 setMagnitudeInt:v6];
+  return v7;
+}
+
++ (id)newRecursiveItemCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude
+{
+  v6 = *&magnitude;
+  v7 = [self newTelemetryEventWithIdentifier:104 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v7 setMagnitudeInt:v6];
+  return v7;
+}
+
++ (id)newShareAliasCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude
+{
+  v6 = *&magnitude;
+  v7 = [self newTelemetryEventWithIdentifier:105 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v7 setMagnitudeInt:v6];
+  return v7;
+}
+
++ (id)newShareCountMismatchEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string magnitude:(int)magnitude
+{
+  v6 = *&magnitude;
+  v7 = [self newTelemetryEventWithIdentifier:106 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v7 setMagnitudeInt:v6];
+  return v7;
+}
+
++ (id)newMissingShareAliasEventWithZoneMangledID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled itemIDString:(id)string
+{
+  v5 = [self newTelemetryEventWithIdentifier:26 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:0 errorDescription:0 itemIDString:string];
+  [v5 setMagnitudeInt:1];
+  return v5;
+}
+
 + (id)newConsistencyCheckerFailedEvent
 {
   v2 = [self newTelemetryEventWithIdentifier:107 zoneWithMangledID:0];
   [v2 setMagnitudeInt:1];
   return v2;
+}
+
++ (id)newCATotalErrorCountEventWithCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:200 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCASyncUpZoneErrorCountEventWithCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:204 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCASyncDownErrorCountEventWithCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:205 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCASyncUpItemErrorCountEventWithCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:203 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCAUploadErrorCountEventWithCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:201 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCADownloadErrorCountEventWithCount:(int)count
+{
+  v3 = *&count;
+  v4 = [self newTelemetryEventWithIdentifier:202 zoneWithMangledID:0];
+  [v4 setMagnitudeInt:v3];
+  return v4;
+}
+
++ (id)newCASyncUpZoneErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled zoneMangledID:(id)d
+{
+  chainedCopy = chained;
+  v7 = [self newTelemetryEventWithIdentifier:213 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:0 itemIDString:0];
+  [v7 setMagnitudeInt:1];
+  investigation = [v7 investigation];
+  [investigation setIsPCSChained:chainedCopy];
+
+  return v7;
+}
+
++ (id)newCASyncDownErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled zoneMangledID:(id)d
+{
+  chainedCopy = chained;
+  v7 = [self newTelemetryEventWithIdentifier:214 zoneWithMangledID:d enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:0 itemIDString:0];
+  [v7 setMagnitudeInt:1];
+  investigation = [v7 investigation];
+  [investigation setIsPCSChained:chainedCopy];
+
+  return v7;
+}
+
++ (id)newCAUploadErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled sharedZone:(BOOL)zone count:(int)count
+{
+  v7 = *&count;
+  zoneCopy = zone;
+  chainedCopy = chained;
+  v10 = [self newTelemetryEventWithIdentifier:210 zoneWithMangledID:0 enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:0 itemIDString:0];
+  [v10 setMagnitudeInt:v7];
+  investigation = [v10 investigation];
+  [investigation setIsPCSChained:chainedCopy];
+
+  investigation2 = [v10 investigation];
+  [investigation2 setSharedZone:zoneCopy];
+
+  return v10;
+}
+
++ (id)newCADownloadErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled sharedZone:(BOOL)zone count:(int)count
+{
+  v7 = *&count;
+  zoneCopy = zone;
+  chainedCopy = chained;
+  v10 = [self newTelemetryEventWithIdentifier:211 zoneWithMangledID:0 enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:0 itemIDString:0];
+  [v10 setMagnitudeInt:v7];
+  investigation = [v10 investigation];
+  [investigation setIsPCSChained:chainedCopy];
+
+  investigation2 = [v10 investigation];
+  [investigation2 setSharedZone:zoneCopy];
+
+  return v10;
+}
+
++ (id)newCASyncUpItemErrorEventWithError:(id)error pcsChained:(BOOL)chained enhancedDrivePrivacyEnabled:(BOOL)enabled sharedZone:(BOOL)zone count:(int)count
+{
+  v7 = *&count;
+  zoneCopy = zone;
+  chainedCopy = chained;
+  v10 = [self newTelemetryEventWithIdentifier:212 zoneWithMangledID:0 enhancedDrivePrivacyEnabled:enabled fromError:error errorDescription:0 itemIDString:0];
+  [v10 setMagnitudeInt:v7];
+  investigation = [v10 investigation];
+  [investigation setIsPCSChained:chainedCopy];
+
+  investigation2 = [v10 investigation];
+  [investigation2 setSharedZone:zoneCopy];
+
+  return v10;
+}
+
++ (id)newMissingAssetContentEventWithRecordID:(id)d enhancedDrivePrivacyEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = MEMORY[0x277CFAE60];
+  dCopy = d;
+  v8 = [v6 alloc];
+  zoneID = [dCopy zoneID];
+  v10 = [v8 initWithRecordZoneID:zoneID];
+
+  recordName = [dCopy recordName];
+
+  v12 = [self newTelemetryEventWithIdentifier:27 zoneWithMangledID:v10 enhancedDrivePrivacyEnabled:enabledCopy fromError:0 errorDescription:0 itemIDString:recordName];
+  [v12 setMagnitudeInt:1];
+
+  return v12;
 }
 
 + (id)newQBSDirFaultsCountEvent:(unint64_t)event serverTruthDirFaultCount:(unint64_t)count serverTruthDirCount:(unint64_t)dirCount timeSinceLogin:(unint64_t)login serverTruthTotalItemsCount:(unint64_t)itemsCount zonesNeverFullSync:(unint64_t)sync
@@ -295,6 +942,138 @@
   {
     [investigation setMigrationUUID:dCopy];
   }
+}
+
++ (id)newIntEvent:(int)event UUID:(id)d value:(int)value
+{
+  v5 = *&value;
+  v6 = *&event;
+  dCopy = d;
+  v8 = objc_alloc_init(AppTelemetryTimeSeriesEvent);
+  v9 = objc_alloc_init(AppTelemetryInvestigation);
+  [(AppTelemetryTimeSeriesEvent *)v8 setInvestigation:v9];
+
+  [(AppTelemetryTimeSeriesEvent *)v8 setTelemetrySchema:v6];
+  [(AppTelemetryTimeSeriesEvent *)v8 setMagnitudeInt:v5];
+  [(AppTelemetryTimeSeriesEvent *)v8 setTimestamp:time(0)];
+  [(AppTelemetryTimeSeriesEvent *)v8 _populateUUID:dCopy];
+
+  return v8;
+}
+
++ (id)newLongEvent:(int)event UUID:(id)d value:(int64_t)value
+{
+  v6 = *&event;
+  dCopy = d;
+  v8 = [objc_opt_class() newLongEvent:v6 UUID:dCopy value:value round:0];
+
+  return v8;
+}
+
++ (id)newLongEvent:(int)event UUID:(id)d value:(int64_t)value round:(BOOL)round
+{
+  roundCopy = round;
+  v8 = *&event;
+  dCopy = d;
+  if (roundCopy)
+  {
+    v10 = [MEMORY[0x277CCABB0] numberWithLongLong:value];
+    value = [v10 br_roundedLongLongValue];
+  }
+
+  v11 = objc_alloc_init(AppTelemetryTimeSeriesEvent);
+  v12 = objc_alloc_init(AppTelemetryInvestigation);
+  [(AppTelemetryTimeSeriesEvent *)v11 setInvestigation:v12];
+
+  [(AppTelemetryTimeSeriesEvent *)v11 setTelemetrySchema:v8];
+  [(AppTelemetryTimeSeriesEvent *)v11 setMagnitudeLong:value];
+  [(AppTelemetryTimeSeriesEvent *)v11 setTimestamp:time(0)];
+  [(AppTelemetryTimeSeriesEvent *)v11 _populateUUID:dCopy];
+
+  return v11;
+}
+
++ (id)newDoubleEvent:(int)event eventGroupUUID:(id)d value:(double)value
+{
+  v6 = *&event;
+  dCopy = d;
+  v8 = objc_alloc_init(AppTelemetryTimeSeriesEvent);
+  v9 = objc_alloc_init(AppTelemetryInvestigation);
+  [(AppTelemetryTimeSeriesEvent *)v8 setInvestigation:v9];
+
+  [(AppTelemetryTimeSeriesEvent *)v8 setTelemetrySchema:v6];
+  [(AppTelemetryTimeSeriesEvent *)v8 setMagnitudeDouble:value];
+  [(AppTelemetryTimeSeriesEvent *)v8 setTimestamp:time(0)];
+  investigation = [(AppTelemetryTimeSeriesEvent *)v8 investigation];
+  [investigation setEventGroupUUID:dCopy];
+
+  return v8;
+}
+
++ (id)newBoolEvent:(int)event eventGroupUUID:(id)d value:(BOOL)value
+{
+  valueCopy = value;
+  v6 = *&event;
+  dCopy = d;
+  v8 = objc_alloc_init(AppTelemetryTimeSeriesEvent);
+  v9 = objc_alloc_init(AppTelemetryInvestigation);
+  [(AppTelemetryTimeSeriesEvent *)v8 setInvestigation:v9];
+
+  [(AppTelemetryTimeSeriesEvent *)v8 setTelemetrySchema:v6];
+  [(AppTelemetryTimeSeriesEvent *)v8 setMagnitudeBool:valueCopy];
+  [(AppTelemetryTimeSeriesEvent *)v8 setTimestamp:time(0)];
+  investigation = [(AppTelemetryTimeSeriesEvent *)v8 investigation];
+  [investigation setEventGroupUUID:dCopy];
+
+  return v8;
+}
+
++ (id)newNSErrorEvent:(int)event eventGroupUUID:(id)d value:(id)value
+{
+  v6 = *&event;
+  valueCopy = value;
+  dCopy = d;
+  v9 = objc_alloc_init(AppTelemetryTimeSeriesEvent);
+  v10 = objc_alloc_init(AppTelemetryInvestigation);
+  [(AppTelemetryTimeSeriesEvent *)v9 setInvestigation:v10];
+
+  [(AppTelemetryTimeSeriesEvent *)v9 setTelemetrySchema:v6];
+  [(AppTelemetryTimeSeriesEvent *)v9 setMagnitudeInt:1];
+  [(AppTelemetryTimeSeriesEvent *)v9 setTimestamp:time(0)];
+  domain = [valueCopy domain];
+  investigation = [(AppTelemetryTimeSeriesEvent *)v9 investigation];
+  [investigation setErrorDomain:domain];
+
+  code = [valueCopy code];
+  investigation2 = [(AppTelemetryTimeSeriesEvent *)v9 investigation];
+  [investigation2 setErrorCode:code];
+
+  v15 = [valueCopy description];
+
+  investigation3 = [(AppTelemetryTimeSeriesEvent *)v9 investigation];
+  [investigation3 setErrorDescription:v15];
+
+  investigation4 = [(AppTelemetryTimeSeriesEvent *)v9 investigation];
+  [investigation4 setEventGroupUUID:dCopy];
+
+  return v9;
+}
+
++ (id)newTimestampEvent:(int)event eventGroupUUID:(id)d value:(unint64_t)value
+{
+  v6 = *&event;
+  dCopy = d;
+  v8 = objc_alloc_init(AppTelemetryTimeSeriesEvent);
+  v9 = objc_alloc_init(AppTelemetryInvestigation);
+  [(AppTelemetryTimeSeriesEvent *)v8 setInvestigation:v9];
+
+  [(AppTelemetryTimeSeriesEvent *)v8 setTelemetrySchema:v6];
+  [(AppTelemetryTimeSeriesEvent *)v8 setMagnitudeInt:1];
+  [(AppTelemetryTimeSeriesEvent *)v8 setTimestamp:value];
+  investigation = [(AppTelemetryTimeSeriesEvent *)v8 investigation];
+  [investigation setEventGroupUUID:dCopy];
+
+  return v8;
 }
 
 + (id)itemStatsInvestigationWithFoundInfo:(id)info
@@ -824,6 +1603,20 @@
   return v6;
 }
 
++ (id)newAggregatedEventWithIdentifier:(int)identifier recordID:(id)d zoneMangledID:(id)iD enhancedDrivePrivacyEnabled:(id)enabled error:(id)error count:(int64_t)count
+{
+  v12 = *&identifier;
+  errorCopy = error;
+  enabledCopy = enabled;
+  iDCopy = iD;
+  dCopy = d;
+  br_errorDescription = [errorCopy br_errorDescription];
+  v19 = [self _newTelemetryEventWithIdentifier:v12 zoneWithMangledID:iDCopy enhancedDrivePrivacyEnabled:enabledCopy error:errorCopy errorDescription:br_errorDescription itemIDString:dCopy];
+
+  [v19 setMagnitudeLong:count];
+  return v19;
+}
+
 - (void)setMagnitudeFloat:(float)float
 {
   [(AppTelemetryTimeSeriesEvent *)self clearOneofValuesForMagnitude];
@@ -955,6 +1748,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)magnitudeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278506AE8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMagnitude:(id)magnitude
@@ -1170,30 +1978,25 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  telemetrySchema = self->_telemetrySchema;
-  v14 = toCopy;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    magnitudeFloat = self->_magnitudeFloat;
     PBDataWriterWriteFloatField();
     has = self->_has;
   }
 
   if (has)
   {
-    magnitudeDouble = self->_magnitudeDouble;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
-  v9 = v14;
+  v5 = toCopy;
   if ((has & 0x20) != 0)
   {
-    magnitudeInt = self->_magnitudeInt;
     PBDataWriterWriteInt32Field();
-    v9 = v14;
+    v5 = toCopy;
     has = self->_has;
     if ((has & 0x40) == 0)
     {
@@ -1212,9 +2015,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  magnitudeBool = self->_magnitudeBool;
   PBDataWriterWriteBOOLField();
-  v9 = v14;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -1228,22 +2030,20 @@ LABEL_8:
   }
 
 LABEL_17:
-  magnitudeLong = self->_magnitudeLong;
   PBDataWriterWriteInt64Field();
-  v9 = v14;
+  v5 = toCopy;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_9:
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    v9 = v14;
+    v5 = toCopy;
   }
 
 LABEL_10:
   if (self->_investigation)
   {
     PBDataWriterWriteSubmessage();
-    v9 = v14;
+    v5 = toCopy;
   }
 }
 
@@ -1447,7 +2247,6 @@ LABEL_10:
     goto LABEL_43;
   }
 
-  v5 = *(equalCopy + 60);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 60) & 8) == 0 || self->_magnitude != *(equalCopy + 10))
@@ -1513,7 +2312,7 @@ LABEL_10:
     }
 
 LABEL_43:
-    v8 = 0;
+    v6 = 0;
     goto LABEL_44;
   }
 
@@ -1522,7 +2321,6 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  v6 = *(equalCopy + 56);
   if (self->_magnitudeBool)
   {
     if ((*(equalCopy + 56) & 1) == 0)
@@ -1566,17 +2364,17 @@ LABEL_25:
   investigation = self->_investigation;
   if (investigation | *(equalCopy + 4))
   {
-    v8 = [(AppTelemetryInvestigation *)investigation isEqual:?];
+    v6 = [(AppTelemetryInvestigation *)investigation isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v6 = 1;
   }
 
 LABEL_44:
 
-  return v8;
+  return v6;
 }
 
 - (unint64_t)hash

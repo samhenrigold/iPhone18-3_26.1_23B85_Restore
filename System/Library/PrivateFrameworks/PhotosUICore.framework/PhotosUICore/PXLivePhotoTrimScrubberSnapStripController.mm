@@ -40,8 +40,8 @@
     snapKeyTimes = [trimScrubber snapKeyTimes];
     if (trimScrubber)
     {
-      [trimScrubber keyTime];
-      [trimScrubber suggestedKeyTime];
+      objc_msgSend_keyTime(trimScrubber);
+      objc_msgSend_suggestedKeyTime(trimScrubber);
     }
 
     else
@@ -70,7 +70,7 @@
       snapKeyTimes = [trimScrubber snapTrimStartTimes];
       if (trimScrubber)
       {
-        [trimScrubber trimStartTime];
+        objc_msgSend_trimStartTime(trimScrubber);
 LABEL_26:
         spec2 = [(PXLivePhotoTrimScrubberSnapStripController *)self spec];
         spec = -[PXLivePhotoTrimScrubberSnapStripController _snapIndicatorInfosForTimes:currentTime:style:skipSingleIndicatorWithCurrentTime:skipDefaultTimeIndicator:](self, "_snapIndicatorInfosForTimes:currentTime:style:skipSingleIndicatorWithCurrentTime:skipDefaultTimeIndicator:", snapKeyTimes, &v22, 1, 1, [spec2 showDefaultKeyTime] ^ 1);
@@ -101,7 +101,7 @@ LABEL_23:
       snapKeyTimes = [trimScrubber snapTrimEndTimes];
       if (trimScrubber)
       {
-        [trimScrubber trimEndTime];
+        objc_msgSend_trimEndTime(trimScrubber);
         goto LABEL_26;
       }
 
@@ -113,8 +113,8 @@ LABEL_23:
       snapKeyTimes2 = [trimScrubber snapKeyTimes];
       if (trimScrubber)
       {
-        [trimScrubber keyTime];
-        [trimScrubber suggestedKeyTime];
+        objc_msgSend_keyTime(trimScrubber);
+        objc_msgSend_suggestedKeyTime(trimScrubber);
       }
 
       else
@@ -137,7 +137,7 @@ LABEL_23:
       snapTrimStartTimes = [trimScrubber snapTrimStartTimes];
       if (trimScrubber)
       {
-        [trimScrubber trimStartTime];
+        objc_msgSend_trimStartTime(trimScrubber);
       }
 
       else
@@ -176,7 +176,7 @@ LABEL_28:
       v20 = firstObject;
       if (firstObject)
       {
-        [firstObject CMTimeValue];
+        objc_msgSend_CMTimeValue(firstObject);
       }
 
       else
@@ -228,7 +228,7 @@ LABEL_28:
             v35 = 0;
             if (v28)
             {
-              [v28 CMTimeValue];
+              objc_msgSend_CMTimeValue(v28);
             }
 
             v29 = v22[2];

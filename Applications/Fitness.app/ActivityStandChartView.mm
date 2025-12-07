@@ -12,13 +12,13 @@
 {
   animatedCopy = animated;
   selfCopy = self;
-  sub_100664E68(animatedCopy);
+  sub_100664E68(animatedCopy, selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1006656F8();
+  sub_1006656F8(selfCopy);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

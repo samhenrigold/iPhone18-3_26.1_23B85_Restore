@@ -1,3 +1,75 @@
+uint64_t ramrod_reprobe_media(CFErrorRef *a1)
+{
+  v2 = off_1C6788;
+  if (off_1C6788)
+  {
+
+    return v2();
+  }
+
+  else
+  {
+    ramrod_log_msg("%s() called without probing media first\n", "ramrod_reprobe_media");
+    ramrod_create_error_internal(a1, @"RamrodErrorDomain", 8, 0, "%s() called without probing media first", "ramrod_reprobe_media");
+    return 0;
+  }
+}
+
+uint64_t ramrod_get_storage_media_device_node(char *a1, size_t __size)
+{
+  if (!byte_1C6790)
+  {
+    return 0;
+  }
+
+  strlcpy(a1, &byte_1C6790, __size);
+  return 1;
+}
+
+uint64_t ramrod_get_apfs_container_device_node(char *a1, size_t __size)
+{
+  if (!byte_1C67B0)
+  {
+    return 0;
+  }
+
+  strlcpy(a1, &byte_1C67B0, __size);
+  return 1;
+}
+
+uint64_t ramrod_get_system_partition_device_node(char *a1, size_t __size)
+{
+  if (!byte_1C67D0)
+  {
+    return 0;
+  }
+
+  strlcpy(a1, &byte_1C67D0, __size);
+  return 1;
+}
+
+uint64_t ramrod_get_data_partition_device_node(char *a1, size_t __size)
+{
+  if (!byte_1C67F0)
+  {
+    return 0;
+  }
+
+  strlcpy(a1, &byte_1C67F0, __size);
+  return 1;
+}
+
+uint64_t ramrod_get_user_partition_device_node(char *a1, size_t __size)
+{
+  if (!byte_1C6810)
+  {
+    return 0;
+  }
+
+  strlcpy(a1, &byte_1C6810, __size);
+  return 1;
+}
+
 uint64_t ramrod_get_update_partition_device_node(char *a1, size_t __size)
 {
   if (!byte_1C6830)
@@ -42,19 +114,19 @@ uint64_t ramrod_get_xart_partition_device_node(char *a1, size_t __size)
   return 1;
 }
 
-uint64_t sub_21A98()
+uint64_t sub_21A98(uint64_t a1)
 {
-  v0 = MGCopyAnswer();
-  if (!v0)
+  v1 = MGCopyAnswer();
+  if (!v1)
   {
     return 0;
   }
 
-  v1 = v0;
-  v2 = CFGetTypeID(v0);
-  if (v2 == CFBooleanGetTypeID())
+  v2 = v1;
+  v3 = CFGetTypeID(v1);
+  if (v3 == CFBooleanGetTypeID())
   {
-    Value = CFBooleanGetValue(v1);
+    Value = CFBooleanGetValue(v2);
   }
 
   else
@@ -62,7 +134,7 @@ uint64_t sub_21A98()
     Value = 0;
   }
 
-  CFRelease(v1);
+  CFRelease(v2);
   return Value;
 }
 
@@ -71,70 +143,70 @@ uint64_t ramrod_get_isc_size_in_bytes()
   v0 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/filesystems-props");
   if (v0)
   {
-    v8 = v0;
+    v1 = v0;
     CFProperty = IORegistryEntryCreateCFProperty(v0, @"isc_size", kCFAllocatorDefault, 0);
     if (!CFProperty)
     {
-      ramrod_log_msg("isc_size property in IODeviceTree:/filesystems-props doesn't exist.\n", v10, v11, v12, v13, v14, v15, v16, v67);
-      v34 = 524288000;
-      ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n", v42, v43, v44, v45, v46, v47, v48, 0);
+      ramrod_log_msg("isc_size property in IODeviceTree:/filesystems-props doesn't exist.\n");
+      v6 = 524288000;
+      ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n", 0, 524288000);
 LABEL_14:
-      IOObjectRelease(v8);
-      return v34;
+      IOObjectRelease(v1);
+      return v6;
     }
 
-    v17 = CFProperty;
-    v18 = CFGetTypeID(CFProperty);
-    if (v18 == CFDataGetTypeID())
+    v3 = CFProperty;
+    v4 = CFGetTypeID(CFProperty);
+    if (v4 == CFDataGetTypeID())
     {
-      if (CFDataGetLength(v17) == 4)
+      if (CFDataGetLength(v3) == 4)
       {
-        BytePtr = CFDataGetBytePtr(v17);
-        ramrod_log_msg("isc_size is a CFData representing %4u bytes\n", v20, v21, v22, v23, v24, v25, v26, *BytePtr);
-        v34 = *BytePtr;
-        if (v34 >> 22 > 0x7C)
+        BytePtr = CFDataGetBytePtr(v3);
+        ramrod_log_msg("isc_size is a CFData representing %4u bytes\n", *BytePtr);
+        v6 = *BytePtr;
+        if (v6 >> 22 > 0x7C)
         {
-          ramrod_log_msg("Retrieved isc_size: %lld\n", v27, v28, v29, v30, v31, v32, v33, v34);
+          ramrod_log_msg("Retrieved isc_size: %lld\n");
         }
 
         else
         {
-          ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n", v27, v28, v29, v30, v31, v32, v33, v34);
-          v34 = 524288000;
+          ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n", v6, 524288000);
+          v6 = 524288000;
         }
 
         goto LABEL_13;
       }
 
-      Length = CFDataGetLength(v17);
-      ramrod_log_msg("isc_size is a CFData but has a length of %ld instead of 4\n", v59, v60, v61, v62, v63, v64, v65, Length);
+      Length = CFDataGetLength(v3);
+      ramrod_log_msg("isc_size is a CFData but has a length of %ld instead of 4\n", Length);
     }
 
     else
     {
-      v49 = CFGetTypeID(v17);
-      v50 = CFCopyTypeIDDescription(v49);
-      ramrod_log_msg_cf(@"isc_size has an unknown type: %@\n", v50);
-      if (v50)
+      v7 = CFGetTypeID(v3);
+      v8 = CFCopyTypeIDDescription(v7);
+      ramrod_log_msg_cf(@"isc_size has an unknown type: %@\n", v8);
+      if (v8)
       {
-        CFRelease(v50);
+        CFRelease(v8);
       }
     }
 
-    v34 = 524288000;
-    ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n", v51, v52, v53, v54, v55, v56, v57, 0);
+    v6 = 524288000;
+    ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n");
 LABEL_13:
-    CFRelease(v17);
+    CFRelease(v3);
     goto LABEL_14;
   }
 
-  ramrod_log_msg("isc_size lookup failed: entry IODeviceTree:/filesystems-props doesn't exist.\n", v1, v2, v3, v4, v5, v6, v7, v67);
-  v34 = 524288000;
-  ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n", v35, v36, v37, v38, v39, v40, v41, 0);
-  return v34;
+  ramrod_log_msg("isc_size lookup failed: entry IODeviceTree:/filesystems-props doesn't exist.\n");
+  v6 = 524288000;
+  ramrod_log_msg("Retrieved isc_size %lld seems too low. Returning default isc_size in bytes: %lld\n", 0, 524288000);
+  return v6;
 }
 
-uint64_t ramrod_hardware_partition_size_mb(int *a1)
+uint64_t ramrod_hardware_partition_size_mb(unsigned int *a1)
 {
   *a1 = 0;
   properties[0] = 0;
@@ -142,116 +214,118 @@ uint64_t ramrod_hardware_partition_size_mb(int *a1)
   LocalStoreMaxSize = AMFDRSealingMapGetLocalStoreMaxSize();
   if (LocalStoreMaxSize)
   {
-    ramrod_log_msg("Hardware partition size calculation:\n", v2, v3, v4, v5, v6, v7, v8, v110);
-    ramrod_log_msg("%4u MiB FDR\n", v11, v12, v13, v14, v15, v16, v17, 2 * LocalStoreMaxSize);
+    ramrod_log_msg("Hardware partition size calculation:\n");
+    ramrod_log_msg("%4u MiB FDR\n", 2 * LocalStoreMaxSize);
     *a1 += 2 * LocalStoreMaxSize;
   }
 
   else
   {
-    ramrod_log_msg("WARNING: AMFDRSealingMapGetLocalStoreMaxSize returned 0\n", v2, v3, v4, v5, v6, v7, v8, v110);
-    ramrod_log_msg("Hardware partition size calculation:\n", v18, v19, v20, v21, v22, v23, v24, v112);
+    ramrod_log_msg("WARNING: AMFDRSealingMapGetLocalStoreMaxSize returned 0\n");
+    ramrod_log_msg("Hardware partition size calculation:\n");
   }
 
-  v25 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/defaults");
-  v33 = v25;
-  if (!v25)
+  v4 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/defaults");
+  v5 = v4;
+  if (!v4)
   {
-    v109 = "IORegistryEntryFromPath returned IO_OBJECT_NULL\n";
-LABEL_41:
-    ramrod_log_msg(v109, v26, v27, v28, v29, v30, v31, v32, v111);
-    goto LABEL_2;
-  }
-
-  CFProperties = IORegistryEntryCreateCFProperties(v25, properties, kCFAllocatorDefault, 0);
-  if (CFProperties)
-  {
-    ramrod_log_msg("IORegistryEntryCreateCFProperties returned %x\n", v26, v27, v28, v29, v30, v31, v32, CFProperties);
+    ramrod_log_msg("IORegistryEntryFromPath returned IO_OBJECT_NULL\n", v25);
 LABEL_2:
-    v10 = 0;
+    v3 = 0;
     goto LABEL_28;
   }
 
-  v35 = properties[0];
-  if (!properties[0])
+  if (IORegistryEntryCreateCFProperties(v4, properties, kCFAllocatorDefault, 0))
   {
-    v109 = "IORegistryEntryCreateCFProperties returned NULL properties\n";
-    goto LABEL_41;
+    ramrod_log_msg("IORegistryEntryCreateCFProperties returned %x\n");
+    goto LABEL_2;
   }
 
-  v114 = v33;
-  v117 = 0u;
-  v118 = 0u;
-  v115 = 0u;
-  v116 = 0u;
-  v36 = [(__CFDictionary *)properties[0] countByEnumeratingWithState:&v115 objects:v120 count:16];
-  if (!v36)
+  v6 = properties[0];
+  if (!properties[0])
+  {
+    ramrod_log_msg("IORegistryEntryCreateCFProperties returned NULL properties\n");
+    goto LABEL_2;
+  }
+
+  v26 = v5;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v7 = [(__CFDictionary *)properties[0] countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (!v7)
   {
     goto LABEL_23;
   }
 
-  v37 = v36;
-  v38 = *v116;
+  v8 = v7;
+  v9 = *v28;
   while (2)
   {
-    for (i = 0; i != v37; i = i + 1)
+    for (i = 0; i != v8; i = i + 1)
     {
-      if (*v116 != v38)
+      if (*v28 != v9)
       {
-        objc_enumerationMutation(v35);
+        objc_enumerationMutation(v6);
       }
 
-      v40 = *(*(&v115 + 1) + 8 * i);
-      v41 = [v40 length];
-      if (v41 > [@"-hw-partition-size" length] && !objc_msgSend(v40, "compare:options:range:", @"-hw-partition-size", 0, objc_msgSend(v40, "length") - objc_msgSend(@"-hw-partition-size", "length"), objc_msgSend(@"-hw-partition-size", "length")))
+      v11 = *(*(&v27 + 1) + 8 * i);
+      v12 = [v11 length];
+      if (v12 > [@"-hw-partition-size" length])
       {
-        v42 = [v40 cStringUsingEncoding:4];
-        Value = CFDictionaryGetValue(properties[0], v40);
-        if (Value)
+        v13 = [v11 length];
+        v14 = v13 - [@"-hw-partition-size" length];
+        if (![v11 compare:@"-hw-partition-size" options:0 range:{v14, objc_msgSend(@"-hw-partition-size", "length")}])
         {
-          v51 = Value;
-          TypeID = CFDataGetTypeID();
-          if (TypeID == CFGetTypeID(v51))
+          v15 = [v11 cStringUsingEncoding:4];
+          Value = CFDictionaryGetValue(properties[0], v11);
+          if (Value)
           {
-            if (CFDataGetLength(v51) == 4)
+            v17 = Value;
+            TypeID = CFDataGetTypeID();
+            if (TypeID == CFGetTypeID(v17))
             {
-              BytePtr = CFDataGetBytePtr(v51);
-              if (BytePtr)
+              if (CFDataGetLength(v17) == 4)
               {
-                v75 = BytePtr;
-                ramrod_log_msg("%4u MiB %.*s\n", v68, v69, v70, v71, v72, v73, v74, *BytePtr);
-                *a1 += *v75;
-                continue;
+                BytePtr = CFDataGetBytePtr(v17);
+                if (BytePtr)
+                {
+                  v20 = BytePtr;
+                  ramrod_log_msg("%4u MiB %.*s\n", *BytePtr, v14, v15);
+                  *a1 += *v20;
+                  continue;
+                }
+
+                ramrod_log_msg("CFDataGetBytePtr returned NULL");
               }
 
-              ramrod_log_msg("CFDataGetBytePtr returned NULL", v68, v69, v70, v71, v72, v73, v74, v111);
+              else
+              {
+                ramrod_log_msg("Property %s is not 4 bytes\n");
+              }
             }
 
             else
             {
-              ramrod_log_msg("Property %s is not 4 bytes\n", v60, v61, v62, v63, v64, v65, v66, v42);
+              ramrod_log_msg("Property %s is not CFDataRef\n");
             }
           }
 
           else
           {
-            ramrod_log_msg("Property %s is not CFDataRef\n", v53, v54, v55, v56, v57, v58, v59, v42);
+            ramrod_log_msg("Failed to get property for %s\n");
           }
-        }
 
-        else
-        {
-          ramrod_log_msg("Failed to get property for %s\n", v44, v45, v46, v47, v48, v49, v50, v42);
+          v3 = 0;
+          v5 = v26;
+          goto LABEL_28;
         }
-
-        v10 = 0;
-        v33 = v114;
-        goto LABEL_28;
       }
     }
 
-    v37 = [(__CFDictionary *)v35 countByEnumeratingWithState:&v115 objects:v120 count:16];
-    if (v37)
+    v8 = [(__CFDictionary *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v8)
     {
       continue;
     }
@@ -260,41 +334,40 @@ LABEL_2:
   }
 
 LABEL_23:
-  v76 = IOServiceMatching("ApplePearlSEPDriver");
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v76);
+  v21 = IOServiceMatching("ApplePearlSEPDriver");
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v21);
   if (MatchingService)
   {
     IOObjectRelease(MatchingService);
-    ramrod_log_msg("%4u MiB Pearl Reference Frames\n", v85, v86, v87, v88, v89, v90, v91, 15);
+    ramrod_log_msg("%4u MiB Pearl Reference Frames\n", 15);
     *a1 += 15;
   }
 
-  ramrod_log_msg("%4u MiB free space for apfs\n", v78, v79, v80, v81, v82, v83, v84, 4);
-  v99 = *a1;
-  v100 = *a1 + 4;
-  *a1 = v100;
-  v33 = v114;
-  if (v100 == 4 || v99 >= 0xFFFFFFFC)
+  ramrod_log_msg("%4u MiB free space for apfs\n", 4);
+  v23 = *a1;
+  *a1 += 4;
+  v5 = v26;
+  if (v23 == 0 || v23 >= 0xFFFFFFFC)
   {
-    ramrod_log_msg("%4u MiB padding to 5 MiB\n", v92, v93, v94, v95, v96, v97, v98, 1 - v99);
+    ramrod_log_msg("%4u MiB padding to 5 MiB\n", 1 - v23);
     *a1 = 5;
   }
 
-  ramrod_log_msg("--------\n", v92, v93, v94, v95, v96, v97, v98, v113);
-  ramrod_log_msg("%4u MiB total\n", v101, v102, v103, v104, v105, v106, v107, *a1);
-  v10 = 1;
+  ramrod_log_msg("--------\n");
+  ramrod_log_msg("%4u MiB total\n", *a1);
+  v3 = 1;
 LABEL_28:
   if (properties[0])
   {
     CFRelease(properties[0]);
   }
 
-  if (v33)
+  if (v5)
   {
-    IOObjectRelease(v33);
+    IOObjectRelease(v5);
   }
 
-  return v10;
+  return v3;
 }
 
 uint64_t ramrod_get_hardware_partition_device_node(char *a1, size_t __size)
@@ -308,171 +381,168 @@ uint64_t ramrod_get_hardware_partition_device_node(char *a1, size_t __size)
   return 1;
 }
 
-uint64_t ramrod_os_release_is_internal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_os_release_is_internal()
 {
   if (new_os_build_version)
   {
-    v8 = "New";
-    v9 = &new_os_release_type;
+    v0 = "New";
+    v1 = &new_os_release_type;
   }
 
   else
   {
     if (!previous_os_build_version)
     {
-      ramrod_log_msg("No OS type analyzed, assuming customer variant\n", a2, a3, a4, a5, a6, a7, a8, v20);
+      ramrod_log_msg("No OS type analyzed, assuming customer variant\n");
       return 0;
     }
 
-    v8 = "Previous";
-    v9 = &previous_os_release_type;
+    v0 = "Previous";
+    v1 = &previous_os_release_type;
   }
 
-  v10 = *v9;
-  if (*v9)
+  v2 = *v1;
+  if (!*v1)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    *buffer = 0u;
-    v22 = 0u;
-    CFStringGetCString(v10, buffer, 128, 0x600u);
-    v18 = "%s OS release type %s is internal\n";
-    if (CFStringCompare(v10, @"NonUI", 0))
-    {
-      length = CFStringFind(v10, @"Internal", 0).length;
-      v10 = length > 0;
-      if (length <= 0)
-      {
-        v18 = "%s OS release type %s is not internal\n";
-      }
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    ramrod_log_msg(v18, length, v12, v13, v14, v15, v16, v17, v8);
+    ramrod_log_msg("%s OS release type (unset) is not internal\n");
+    return v2;
   }
 
-  else
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  *buffer = 0u;
+  v6 = 0u;
+  CFStringGetCString(v2, buffer, 128, 0x600u);
+  if (CFStringCompare(v2, @"NonUI", 0) == kCFCompareEqualTo)
   {
-    ramrod_log_msg("%s OS release type (unset) is not internal\n", a2, a3, a4, a5, a6, a7, a8, v8);
+    v2 = 1;
+    goto LABEL_11;
   }
 
-  return v10;
+  v3 = CFStringFind(v2, @"Internal", 0);
+  v2 = v3.length > 0;
+  if (v3.length > 0)
+  {
+LABEL_11:
+    ramrod_log_msg("%s OS release type %s is internal\n", v0, buffer);
+    return v2;
+  }
+
+  ramrod_log_msg("%s OS release type %s is not internal\n");
+  return v2;
 }
 
 uint64_t ramrod_should_have_xart_partition()
 {
-  v7 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/arm-io/sep/iop-sep-nub/xART");
-  if (v7)
+  v0 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/arm-io/sep/iop-sep-nub/xART");
+  if (v0)
   {
-    ramrod_log_msg("IODeviceTree:/arm-io/sep/iop-sep-nub/xART found\n", v0, v1, v2, v3, v4, v5, v6, v47);
-    IOObjectRelease(v7);
-    v7 = 1;
+    ramrod_log_msg("IODeviceTree:/arm-io/sep/iop-sep-nub/xART found\n");
+    IOObjectRelease(v0);
+    v0 = 1;
   }
 
-  v8 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen/has-xart");
-  if (v8)
+  v1 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen/has-xart");
+  if (v1)
   {
-    v16 = v8;
-    ramrod_log_msg("IODeviceTree:/chosen/has-xart found\n", v9, v10, v11, v12, v13, v14, v15, v47);
-    IOObjectRelease(v16);
-    v7 = 1;
+    v2 = v1;
+    ramrod_log_msg("IODeviceTree:/chosen/has-xart found\n");
+    IOObjectRelease(v2);
+    v0 = 1;
   }
 
-  v17 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/defaults");
-  if (!v17)
+  v3 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/defaults");
+  if (v3)
   {
-    ramrod_log_msg("Failed to read IODeviceTree:/defaults\n", v18, v19, v20, v21, v22, v23, v24, v47);
-    goto LABEL_22;
-  }
-
-  v25 = v17;
-  CFProperty = IORegistryEntryCreateCFProperty(v17, @"has-xart", kCFAllocatorDefault, 0);
-  if (CFProperty)
-  {
-    v27 = CFProperty;
-    v28 = CFGetTypeID(CFProperty);
-    if (v28 == CFNumberGetTypeID())
+    v4 = v3;
+    CFProperty = IORegistryEntryCreateCFProperty(v3, @"has-xart", kCFAllocatorDefault, 0);
+    if (CFProperty)
     {
-      valuePtr = 0;
-      CFNumberGetValue(v27, kCFNumberSInt32Type, &valuePtr);
-      if (valuePtr)
+      v6 = CFProperty;
+      v7 = CFGetTypeID(CFProperty);
+      if (v7 == CFNumberGetTypeID())
       {
-        v36 = "IODeviceTree:/defaults/has-xart found\n";
-      }
-
-      else
-      {
-        v36 = "IODeviceTree:/defaults/has-xart found but is zero\n";
-      }
-
-      if (valuePtr)
-      {
-        v7 = 1;
-      }
-
-      else
-      {
-        v7 = v7;
-      }
-    }
-
-    else
-    {
-      v44 = CFGetTypeID(v27);
-      if (v44 != CFDataGetTypeID())
-      {
-        goto LABEL_20;
-      }
-
-      *buffer = 0;
-      if (CFDataGetLength(v27) == 4)
-      {
-        v50.location = 0;
-        v50.length = 4;
-        CFDataGetBytes(v27, v50, buffer);
-        if (*buffer)
+        valuePtr = 0;
+        CFNumberGetValue(v6, kCFNumberSInt32Type, &valuePtr);
+        if (valuePtr)
         {
-          ramrod_log_msg("IODeviceTree:/defaults/has-xart found\n", v29, v30, v31, v32, v33, v34, v35, v47);
-          v7 = 1;
-          goto LABEL_20;
+          v8 = "IODeviceTree:/defaults/has-xart found\n";
         }
 
-        v36 = "IODeviceTree:/defaults/has-xart found but is zero\n";
+        else
+        {
+          v8 = "IODeviceTree:/defaults/has-xart found but is zero\n";
+        }
+
+        if (valuePtr)
+        {
+          v0 = 1;
+        }
+
+        else
+        {
+          v0 = v0;
+        }
+
+        ramrod_log_msg(v8);
       }
 
       else
       {
-        v36 = "IODeviceTree:/defaults/has-xart found but is not int sized\n";
+        v9 = CFGetTypeID(v6);
+        if (v9 == CFDataGetTypeID())
+        {
+          *buffer = 0;
+          if (CFDataGetLength(v6) == 4)
+          {
+            v13.location = 0;
+            v13.length = 4;
+            CFDataGetBytes(v6, v13, buffer);
+            if (*buffer)
+            {
+              ramrod_log_msg("IODeviceTree:/defaults/has-xart found\n");
+              v0 = 1;
+            }
+
+            else
+            {
+              ramrod_log_msg("IODeviceTree:/defaults/has-xart found but is zero\n");
+            }
+          }
+
+          else
+          {
+            ramrod_log_msg("IODeviceTree:/defaults/has-xart found but is not int sized\n");
+          }
+        }
       }
+
+      CFRelease(v6);
     }
 
-    ramrod_log_msg(v36, v29, v30, v31, v32, v33, v34, v35, v47);
-LABEL_20:
-    CFRelease(v27);
-  }
-
-  IOObjectRelease(v25);
-LABEL_22:
-  if (v7)
-  {
-    v45 = "We should have an xART partition.\n";
+    IOObjectRelease(v4);
   }
 
   else
   {
-    v45 = "We should not have an xART partition.\n";
+    ramrod_log_msg("Failed to read IODeviceTree:/defaults\n");
   }
 
-  ramrod_log_msg(v45, v37, v38, v39, v40, v41, v42, v43, v47);
-  return v7;
+  if (v0)
+  {
+    ramrod_log_msg("We should have an xART partition.\n");
+  }
+
+  else
+  {
+    ramrod_log_msg("We should not have an xART partition.\n");
+  }
+
+  return v0;
 }
 
 uint64_t ramrod_get_scratch_partition_device_node(char *a1, size_t __size)
@@ -581,106 +651,117 @@ uint64_t ramrod_disable_fsevents_rescan(const char *a1)
   v2 = open_dprotected_np(__str, 512, 4, 0, 420);
   if (v2 == -1)
   {
-    v11 = __error();
-    v12 = *v11;
-    if (v12 != 2)
+    v4 = __error();
+    v5 = *v4;
+    if (v5 != 2)
     {
-      strerror(*v11);
-      ramrod_log_msg("%s: %s (%d)\n", v14, v15, v16, v17, v18, v19, v20, __str);
-      return v12;
+      v7 = strerror(*v4);
+      ramrod_log_msg("%s: %s (%d)\n", __str, v7, v5);
+      return v5;
     }
   }
 
   else
   {
-    v10 = v2;
-    ramrod_log_msg("%s: created successfully\n", v3, v4, v5, v6, v7, v8, v9, __str);
-    close(v10);
+    v3 = v2;
+    ramrod_log_msg("%s: created successfully\n", __str);
+    close(v3);
   }
 
   return 0;
 }
 
-uint64_t ramrod_change_filesystem_permissions_opt_err(uint64_t a1, const char *a2, int a3, CFErrorRef *a4)
+uint64_t ramrod_change_filesystem_permissions_opt_err(const char *a1, const char *a2, int a3, CFErrorRef *a4)
 {
-  v7 = a1;
-  v21[0] = "/sbin/mount";
-  v21[1] = "-u";
+  v16[0] = "/sbin/mount";
+  v16[1] = "-u";
   v8 = "-r";
   if (!a3)
   {
     v8 = "-w";
   }
 
-  v21[2] = v8;
-  v21[3] = a1;
-  v21[4] = a2;
-  v21[5] = 0;
-  v16 = ramrod_execute_command(v21);
-  if (v16)
+  v16[2] = v8;
+  v16[3] = a1;
+  v16[4] = a2;
+  v16[5] = 0;
+  if (a3)
   {
-    ramrod_log_msg("Failed to change permissions on %s mounted at %s to %s. Error: %d.\n", v9, v10, v11, v12, v13, v14, v15, v7);
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: Failed to change permissions on %s mounted at %s to %s. Error: %d.\n", v17, v18, v19, "ramrod_change_filesystem_permissions_opt_err");
+    v9 = "readonly";
   }
 
   else
   {
-    ramrod_log_msg("Changed permissions on %s mounted at %s to %s\n", v9, v10, v11, v12, v13, v14, v15, v7);
+    v9 = "readwrite";
+  }
+
+  v10 = ramrod_execute_command(v16);
+  v11 = v10;
+  if (v10)
+  {
+    ramrod_log_msg("Failed to change permissions on %s mounted at %s to %s. Error: %d.\n", a1, a2, v9, v10);
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: Failed to change permissions on %s mounted at %s to %s. Error: %d.\n", v12, v13, v14, "ramrod_change_filesystem_permissions_opt_err");
+  }
+
+  else
+  {
+    ramrod_log_msg("Changed permissions on %s mounted at %s to %s\n", a1, a2, v9);
     if (!a3)
     {
       ramrod_disable_fsevents_rescan(a2);
     }
   }
 
-  return v16;
+  return v11;
 }
 
-uint64_t ramrod_mount_filesystem_opt_err(uint64_t a1, char *a2, int a3, CFErrorRef *a4)
+uint64_t ramrod_mount_filesystem_opt_err(const char *a1, char *a2, uint64_t a3, CFErrorRef *a4)
 {
-  v35[0] = "/sbin/fsck_apfs";
-  v35[1] = "-fdn";
-  v35[2] = a1;
-  v35[3] = 0;
+  v5 = a3;
+  v14[0] = "/sbin/fsck_apfs";
+  v14[1] = "-fdn";
+  v14[2] = a1;
+  v14[3] = 0;
   v8 = calloc(1uLL, 0x30uLL);
   v8[18] = 0;
   *(v8 + 5) = 0x7FFFFFFF000000B4;
   ramrod_execute_config_set_log_output(v8);
   v8[18] = 0;
   *(v8 + 5) = 0x7FFFFFFF000000B4;
-  if (ramrod_execute_command_with_config(v35, v8, v9, v10, v11, v12, v13, v14))
+  if (ramrod_execute_command_with_config(v14, v8))
   {
-    ramrod_log_msg("fsck failed on %s\n", v15, v16, v17, v18, v19, v20, v21, a1);
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: fsck failed on %s", v22, v23, v24, "ramrod_mount_filesystem_opt_err");
-    ramrod_dump_mounted_filesystem_info(v25, v26, v27, v28, v29, v30, v31, v32);
-    v33 = 0xFFFFFFFFLL;
+    ramrod_log_msg("fsck failed on %s\n", a1);
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: fsck failed on %s", v9, v10, v11, "ramrod_mount_filesystem_opt_err");
+    ramrod_dump_mounted_filesystem_info();
+    v12 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v33 = ramrod_mount_filesystem_no_fsck_opt_err(a1, a2, a3, a4);
+    v12 = ramrod_mount_filesystem_no_fsck_opt_err(a1, a2, v5, a4);
   }
 
   ramrod_execute_config_free(v8);
-  return v33;
+  return v12;
 }
 
-uint64_t ramrod_mount_filesystem_no_fsck_opt_err(uint64_t a1, char *a2, int a3, CFErrorRef *a4)
+uint64_t ramrod_mount_filesystem_no_fsck_opt_err(const char *a1, char *a2, int a3, CFErrorRef *a4)
 {
-  bzero(v51, 0x400uLL);
-  v50 = 0u;
-  v49 = 0u;
-  v48 = 0u;
-  v47 = 0u;
-  v46 = 0u;
-  v45 = 0u;
-  v44 = 0u;
-  v43[0] = "/sbin/mount_apfs";
-  v43[1] = "-R";
+  bzero(v22, 0x400uLL);
+  v21 = 0u;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 0u;
+  v14[0] = "/sbin/mount_apfs";
+  v14[1] = "-R";
   if (a3)
   {
-    *&v44 = "-o";
-    *(&v44 + 1) = "rdonly";
-    v15 = 4;
+    *&v15 = "-o";
+    *(&v15 + 1) = "rdonly";
+    v8 = 4;
     if (a2)
     {
       goto LABEL_7;
@@ -689,40 +770,40 @@ uint64_t ramrod_mount_filesystem_no_fsck_opt_err(uint64_t a1, char *a2, int a3, 
 
   else
   {
-    v15 = 2;
+    v8 = 2;
     if (a2)
     {
       goto LABEL_7;
     }
   }
 
-  ramrod_log_msg("Creating temporary mount point to mount %s\n", v8, v9, v10, v11, v12, v13, v14, a1);
-  a2 = v51;
+  ramrod_log_msg("Creating temporary mount point to mount %s\n", a1);
+  a2 = v22;
   __strlcpy_chk();
-  if (!mkdtemp(v51))
+  if (!mkdtemp(v22))
   {
-    v16 = __error();
-    ramrod_log_msg("unable to create temporary mount directory (%d). Using %s instead\n", v17, v18, v19, v20, v21, v22, v23, *v16);
-    a2 = v51;
+    v9 = __error();
+    ramrod_log_msg("unable to create temporary mount directory (%d). Using %s instead\n", *v9, "/mnt5");
+    a2 = v22;
     __strlcpy_chk();
   }
 
 LABEL_7:
-  v43[v15] = a1;
-  v43[v15 | 1u] = a2;
-  v43[v15 + 2] = 0;
+  v14[v8] = a1;
+  v14[v8 | 1u] = a2;
+  v14[v8 + 2] = 0;
   mkdir(a2, 0x1C0u);
-  if (ramrod_execute_command(v43))
+  if (ramrod_execute_command(v14))
   {
-    ramrod_log_msg("mounting %s on %s failed\n", v24, v25, v26, v27, v28, v29, v30, a1);
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: mounting %s on %s failed", v31, v32, v33, "ramrod_mount_filesystem_no_fsck_opt_err");
-    ramrod_dump_mounted_filesystem_info(v34, v35, v36, v37, v38, v39, v40, v41);
+    ramrod_log_msg("mounting %s on %s failed\n", a1, a2);
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: mounting %s on %s failed", v10, v11, v12, "ramrod_mount_filesystem_no_fsck_opt_err");
+    ramrod_dump_mounted_filesystem_info();
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    ramrod_log_msg("%s mounted on %s\n", v24, v25, v26, v27, v28, v29, v30, a1);
+    ramrod_log_msg("%s mounted on %s\n", a1, a2);
     if (!a3)
     {
       ramrod_disable_fsevents_rescan(a2);
@@ -732,101 +813,101 @@ LABEL_7:
   }
 }
 
-void ramrod_dump_mounted_filesystem_info(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ramrod_dump_mounted_filesystem_info()
 {
-  ramrod_log_msg("%s:**********DUMPING MOUNTED FILESYSTEMS********\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_dump_mounted_filesystem_info");
-  v26 = 0;
-  v8 = getmntinfo(&v26, 2);
-  ramrod_log_msg("%s: %d filesystems are mounted\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_dump_mounted_filesystem_info");
-  if (v26)
+  ramrod_log_msg("%s:**********DUMPING MOUNTED FILESYSTEMS********\n", "ramrod_dump_mounted_filesystem_info");
+  v3 = 0;
+  v0 = getmntinfo(&v3, 2);
+  ramrod_log_msg("%s: %d filesystems are mounted\n", "ramrod_dump_mounted_filesystem_info", v0);
+  if (v3)
   {
-    if (v8 >= 1)
+    if (v0 >= 1)
     {
-      v23 = v8 + 1;
-      v24 = 2168 * v8 - 2080;
+      v1 = v0 + 1;
+      v2 = 2168 * v0 - 2080;
       do
       {
-        ramrod_log_msg("%s is mounted at %s\n", v16, v17, v18, v19, v20, v21, v22, v26 + v24);
-        --v23;
-        v24 -= 2168;
+        ramrod_log_msg("%s is mounted at %s\n", &v3->f_mntonname[v2 + 936], v3 + v2);
+        --v1;
+        v2 -= 2168;
       }
 
-      while (v23 > 1);
+      while (v1 > 1);
     }
   }
 
   else
   {
-    ramrod_log_msg("Failed to get info regarding mounted filesystems\n", v16, v17, v18, v19, v20, v21, v22, v25);
+    ramrod_log_msg("Failed to get info regarding mounted filesystems\n");
   }
 
-  ramrod_log_msg("%s: *********DONE DUMPING MOUNTED FILESYSTEMS********\n", v16, v17, v18, v19, v20, v21, v22, "ramrod_dump_mounted_filesystem_info");
+  ramrod_log_msg("%s: *********DONE DUMPING MOUNTED FILESYSTEMS********\n", "ramrod_dump_mounted_filesystem_info");
 }
 
-uint64_t ramrod_mount_preboot_tmp(uint64_t a1, char *__dst, size_t a3)
+uint64_t ramrod_mount_preboot_tmp(const char *a1, char *__dst, size_t a3)
 {
   strlcpy(__dst, "/mnt5/preboot-mount-XXXXXX", a3);
   if (mkdtemp(__dst))
   {
-    if (ramrod_mount_filesystem_no_fsck_opt_err(a1, __dst, 0, 0))
+    v5 = ramrod_mount_filesystem_no_fsck_opt_err(a1, __dst, 0, 0);
+    if (v5)
     {
-      ramrod_log_msg("unable to mount preboot %s on %s: %d\n", v5, v6, v7, v8, v9, v10, v11, a1);
+      ramrod_log_msg("unable to mount preboot %s on %s: %d\n", a1, __dst, v5);
       return 0xFFFFFFFFLL;
     }
 
     else
     {
-      ramrod_log_msg("mounted preboot (%s) on %s\n", v5, v6, v7, v8, v9, v10, v11, a1);
+      ramrod_log_msg("mounted preboot (%s) on %s\n", a1, __dst);
       return 0;
     }
   }
 
   else
   {
-    v13 = __error();
-    v12 = *v13;
-    ramrod_log_msg("unable to create mount directory: %d\n", v14, v15, v16, v17, v18, v19, v20, *v13);
+    v7 = __error();
+    v6 = *v7;
+    ramrod_log_msg("unable to create mount directory: %d\n", *v7);
   }
 
-  return v12;
+  return v6;
 }
 
-uint64_t ramrod_fsck_filesystem_ignore_encryption_err(uint64_t a1, int a2, CFErrorRef *a3)
+uint64_t ramrod_fsck_filesystem_ignore_encryption_err(const char *a1, int a2, CFErrorRef *a3)
 {
-  v4 = a1;
   v5 = "-dyo";
   if (a2)
   {
     v5 = "-dyoM";
   }
 
-  v33[0] = "/sbin/fsck_apfs";
-  v33[1] = v5;
-  v33[2] = a1;
-  v33[3] = 0;
+  v12[0] = "/sbin/fsck_apfs";
+  v12[1] = v5;
+  v12[2] = a1;
+  v12[3] = 0;
   xpc_transaction_begin();
-  ramrod_log_msg("Starting an xpc transaction.\n", v6, v7, v8, v9, v10, v11, v12, v32);
-  v13 = calloc(1uLL, 0x30uLL);
-  v13[18] = 0;
-  *(v13 + 5) = 0x7FFFFFFF000000B4;
-  ramrod_execute_config_set_log_output(v13);
-  v13[18] = 0;
-  *(v13 + 5) = 0x7FFFFFFF000000B4;
-  if (ramrod_execute_command_with_config(v33, v13, v14, v15, v16, v17, v18, v19))
+  ramrod_log_msg("Starting an xpc transaction.\n");
+  v6 = calloc(1uLL, 0x30uLL);
+  v6[18] = 0;
+  *(v6 + 5) = 0x7FFFFFFF000000B4;
+  ramrod_execute_config_set_log_output(v6);
+  v6[18] = 0;
+  *(v6 + 5) = 0x7FFFFFFF000000B4;
+  if (ramrod_execute_command_with_config(v12, v6))
   {
-    ramrod_log_msg("fsck failed on %s\n", v20, v21, v22, v23, v24, v25, v26, v4);
+    ramrod_log_msg("fsck failed on %s\n", a1);
     if (a3)
     {
-      ramrod_create_error_cf(a3, @"RamrodErrorDomain", 7, 0, @"%s: fsck failed on %s", v27, v28, v29, "ramrod_fsck_filesystem_ignore_encryption_err");
+      ramrod_create_error_cf(a3, @"RamrodErrorDomain", 7, 0, @"%s: fsck failed on %s", v7, v8, v9, "ramrod_fsck_filesystem_ignore_encryption_err");
     }
 
-    v30 = 0xFFFFFFFFLL;
+    v10 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    ramrod_log_msg("fsck succeeded on %s\n", v20, v21, v22, v23, v24, v25, v26, v4);
-    v30 = 0;
+    ramrod_log_msg("fsck succeeded on %s\n", a1);
+    v10 = 0;
     if (a3)
     {
       *a3 = 0;
@@ -834,8 +915,8 @@ uint64_t ramrod_fsck_filesystem_ignore_encryption_err(uint64_t a1, int a2, CFErr
   }
 
   xpc_transaction_end();
-  ramrod_execute_config_free(v13);
-  return v30;
+  ramrod_execute_config_free(v6);
+  return v10;
 }
 
 uint64_t ramrod_clear_LwVMKey_effaceable_storage(uint64_t a1)
@@ -883,53 +964,55 @@ uint64_t sub_22F90(char *a1, int a2, _BYTE *a3)
   v6 = open(a1, 0x100000);
   if (v6 < 0)
   {
-    __error();
-    ramrod_log_msg("%s : Unable to open %s: %d", v44, v45, v46, v47, v48, v49, v50, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+    v19 = __error();
+    ramrod_log_msg("%s : Unable to open %s: %d", "ramrod_delete_all_mobilebackup_snapshots_with_wait", a1, *v19);
     return 1;
   }
 
   else
   {
     v7 = v6;
-    v93.reserved = 0;
-    *&v93.volattr = 0;
-    *&v93.fileattr = 0;
-    bzero(v94, 0x400uLL);
-    v93.bitmapcount = 5;
-    v93.commonattr = -1610612735;
-    v8 = fs_snapshot_list(v7, &v93, v94, 0x400uLL, 0);
+    v26.reserved = 0;
+    *&v26.volattr = 0;
+    *&v26.fileattr = 0;
+    bzero(v27, 0x400uLL);
+    v26.bitmapcount = 5;
+    v26.commonattr = -1610612735;
+    v8 = fs_snapshot_list(v7, &v26, v27, 0x400uLL, 0);
+    v9 = v8;
     if (v8 < 0)
     {
-      __error();
-      ramrod_log_msg("%s : fs_snapshot_list failed with error %d, errno %d\n", v51, v52, v53, v54, v55, v56, v57, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
-      v17 = 0;
-      v16 = 1;
+      v20 = __error();
+      ramrod_log_msg("%s : fs_snapshot_list failed with error %d, errno %d\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", v9, *v20);
+      v11 = 0;
+      v10 = 1;
     }
 
     else if (v8)
     {
-      v92 = a2;
-      v16 = 0;
-      v17 = 0;
-      v18 = v8 + 1;
-      v19 = v94;
+      v25 = a2;
+      v10 = 0;
+      v11 = 0;
+      v12 = v8 + 1;
+      v13 = v27;
       while (1)
       {
-        v20 = (v19 + 6);
-        v21 = v19[1];
-        if ((v21 & 0x20000000) != 0)
+        v14 = (v13 + 6);
+        v15 = v13[1];
+        if ((v15 & 0x20000000) != 0)
         {
           break;
         }
 
-        v22 = *v19;
-        if (v21)
+        v16 = *v13;
+        if (v15)
         {
-          if (fs_snapshot_delete(v7, &v20[*v20], 0))
+          v17 = v14 + *v14;
+          if (fs_snapshot_delete(v7, v17, 0))
           {
-            __error();
-            ramrod_log_msg("%s : Unable to delete snapshot %s: %d\n", v30, v31, v32, v33, v34, v35, v36, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
-            v16 = *__error();
+            v18 = __error();
+            ramrod_log_msg("%s : Unable to delete snapshot %s: %d\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", v17, *v18);
+            v10 = *__error();
             if (a3)
             {
               *a3 = 1;
@@ -938,110 +1021,108 @@ uint64_t sub_22F90(char *a1, int a2, _BYTE *a3)
 
           else
           {
-            ramrod_log_msg("%s : Waiting for snapshot delete to finish for %s\n", v23, v24, v25, v26, v27, v28, v29, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+            ramrod_log_msg("%s : Waiting for snapshot delete to finish for %s\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", v17);
             if (sub_282C4(v7, 0xFu))
             {
-              ramrod_log_msg("%s: Timed out waiting for snapshot(%s) to delete\n", v37, v38, v39, v40, v41, v42, v43, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
-              v17 = 0;
+              ramrod_log_msg("%s: Timed out waiting for snapshot(%s) to delete\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", v17);
+              v11 = 0;
             }
 
             else
             {
-              ramrod_log_msg("%s: Successfully deleted snapshot %s\n", v37, v38, v39, v40, v41, v42, v43, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
-              v17 = 1;
+              ramrod_log_msg("%s: Successfully deleted snapshot %s\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", v17);
+              v11 = 1;
             }
           }
         }
 
         else
         {
-          ramrod_log_msg("%s : Unactionable record, commonattr: %u\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+          ramrod_log_msg("%s : Unactionable record, commonattr: %u\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", v15);
         }
 
-        v19 = (v19 + v22);
-        if (--v18 <= 1)
+        v13 = (v13 + v16);
+        if (--v12 <= 1)
         {
           goto LABEL_20;
         }
       }
 
-      v16 = *v20;
-      ramrod_log_msg("%s : Error in reading attributes for directory entry %d\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+      v10 = *v14;
+      ramrod_log_msg("%s : Error in reading attributes for directory entry %d\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", *v14);
 LABEL_20:
-      sub_28350(a1, v9, v10, v11, v12, v13, v14, v15, v90);
-      a2 = v92;
+      sub_28350(a1);
+      a2 = v25;
     }
 
     else
     {
-      ramrod_log_msg("%s : No snapshots to delete on %s\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
-      v17 = 0;
-      v16 = 0;
+      ramrod_log_msg("%s : No snapshots to delete on %s\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", a1);
+      v11 = 0;
+      v10 = 0;
     }
 
-    if (!a2 || (v17 & 1) != 0)
+    if (!a2 || (v11 & 1) != 0)
     {
       goto LABEL_33;
     }
 
-    ramrod_log_msg("%s: Waiting for snapshots to delete\n", v58, v59, v60, v61, v62, v63, v64, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+    ramrod_log_msg("%s: Waiting for snapshots to delete\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait");
     for (i = 0; i != 3; ++i)
     {
-      v66 = sub_282C4(v7, 0x1Eu);
-      if (!v66)
+      v22 = sub_282C4(v7, 0x1Eu);
+      if (!v22)
       {
-        ramrod_log_msg("%s: Finished waiting for snapshots to delete\n", v67, v68, v69, v70, v71, v72, v73, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+        ramrod_log_msg("%s: Finished waiting for snapshots to delete\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait");
         goto LABEL_32;
       }
 
-      v74 = v66;
-      ramrod_log_msg("%s: Timed out waiting for snapshots to delete, attempt:%d\n", v67, v68, v69, v70, v71, v72, v73, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+      v23 = v22;
+      ramrod_log_msg("%s: Timed out waiting for snapshots to delete, attempt:%d\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait", i);
     }
 
-    if (v74 != 35)
+    if (v23 != 35)
     {
-      if (v74 == 17)
+      if (v23 == 17)
       {
-        ramrod_log_msg("%s: Snapshot exists after deletion. Returning error\n", v75, v76, v77, v78, v79, v80, v81, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+        ramrod_log_msg("%s: Snapshot exists after deletion. Returning error\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait");
         if (a3)
         {
           *a3 = 1;
         }
 
-        v16 = 17;
+        v10 = 17;
         goto LABEL_33;
       }
 
 LABEL_32:
-      ramrod_log_msg("%s: Syncing volume after snapshots deletion\n", v75, v76, v77, v78, v79, v80, v81, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
-      sub_28350(a1, v82, v83, v84, v85, v86, v87, v88, v91);
+      ramrod_log_msg("%s: Syncing volume after snapshots deletion\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+      sub_28350(a1);
       goto LABEL_33;
     }
 
-    ramrod_log_msg("%s: Returning timed out for snapshots deletion\n", v75, v76, v77, v78, v79, v80, v81, "ramrod_delete_all_mobilebackup_snapshots_with_wait");
+    ramrod_log_msg("%s: Returning timed out for snapshots deletion\n", "ramrod_delete_all_mobilebackup_snapshots_with_wait");
     if (a3)
     {
       *a3 = 1;
     }
 
-    v16 = 35;
+    v10 = 35;
 LABEL_33:
     close(v7);
   }
 
-  return v16;
+  return v10;
 }
 
 uint64_t ramrod_mount_and_delete_all_mobilebackup_snapshots(const char *a1, char *a2)
 {
   bzero(__s1, 0x400uLL);
-  v36 = 0;
+  v7 = 0;
   if (!a2)
   {
-    v19 = "mount path is not valid\n";
-LABEL_13:
-    ramrod_log_msg(v19, v4, v5, v6, v7, v8, v9, v10, v35);
-    return -v36;
+    ramrod_log_msg("mount path is not valid\n");
+    return -v7;
   }
 
   mount_path = ramrod_get_mount_path(a1, __s1, 0x400uLL);
@@ -1049,69 +1130,68 @@ LABEL_13:
   {
     if (ramrod_mount_filesystem_no_fsck_opt_err(a1, a2, 0, 0))
     {
-      ramrod_log_msg("Failed to mount %s to delete snapshots: %d\n", v12, v13, v14, v15, v16, v17, v18, a1);
-      return -v36;
+      ramrod_log_msg("Failed to mount %s to delete snapshots: %d\n");
+      return -v7;
     }
   }
 
   else if (strcmp(__s1, a2))
   {
-    ramrod_log_msg("Using %s mount path %s rather than supplied %s\n", v20, v21, v22, v23, v24, v25, v26, a1);
+    ramrod_log_msg("Using %s mount path %s rather than supplied %s\n", a1, __s1, a2);
     a2 = __s1;
   }
 
-  if (sub_22F90(a2, 1, &v36))
+  v5 = sub_22F90(a2, 1, &v7);
+  if (v5)
   {
-    ramrod_log_msg("ramrod_delete_all_mobilebackup_snapshots on device %s with mount %s failed with %d, fatal is %d\n", v27, v28, v29, v30, v31, v32, v33, a1);
+    ramrod_log_msg("ramrod_delete_all_mobilebackup_snapshots on device %s with mount %s failed with %d, fatal is %d\n", a1, a2, v5, v7);
   }
 
   if (mount_path && ramrod_force_unmount_filesystem(a2, 0))
   {
-    v35 = a1;
-    v19 = "Failed to unmount %s after deleting snapshots\n";
-    goto LABEL_13;
+    ramrod_log_msg("Failed to unmount %s after deleting snapshots\n");
   }
 
-  return -v36;
+  return -v7;
 }
 
 uint64_t ramrod_get_mount_path(const char *a1, char *a2, size_t a3)
 {
-  v19 = 0;
-  v6 = getmntinfo_r_np(&v19, 2);
+  v11 = 0;
+  v6 = getmntinfo_r_np(&v11, 2);
   if (!v6)
   {
-    ramrod_log_msg("Failed to get list of all mounted file systems\n", v7, v8, v9, v10, v11, v12, v13, v18);
+    ramrod_log_msg("Failed to get list of all mounted file systems\n");
     goto LABEL_8;
   }
 
   if (v6 < 1)
   {
 LABEL_8:
-    v16 = 1;
+    v9 = 1;
     goto LABEL_9;
   }
 
-  v14 = v6;
-  f_mntfromname = v19->f_mntfromname;
+  v7 = v6;
+  f_mntfromname = v11->f_mntfromname;
   while (strcmp(a1, f_mntfromname))
   {
     f_mntfromname += 2168;
-    if (!--v14)
+    if (!--v7)
     {
       goto LABEL_8;
     }
   }
 
   strlcpy(a2, f_mntfromname - 1024, a3);
-  v16 = 0;
+  v9 = 0;
 LABEL_9:
-  if (v19)
+  if (v11)
   {
-    free(v19);
+    free(v11);
   }
 
-  return v16;
+  return v9;
 }
 
 uint64_t ramrod_mount_and_delete_all_tmp_content(const char *a1, char *a2)
@@ -1123,53 +1203,53 @@ uint64_t ramrod_mount_and_delete_all_tmp_content(const char *a1, char *a2)
   {
     if (ramrod_mount_filesystem_no_fsck_opt_err(a1, a2, 0, 0))
     {
-      v12 = 0xFFFFFFFFLL;
-      ramrod_log_msg("Failed to mount %s to delete tmp content: %d\n", v5, v6, v7, v8, v9, v10, v11, a1);
-      return v12;
+      v5 = 0xFFFFFFFFLL;
+      ramrod_log_msg("Failed to mount %s to delete tmp content: %d\n");
+      return v5;
     }
 
-    v12 = 0;
+    v5 = 0;
   }
 
   else if (!strcmp(__s1, a2))
   {
-    v12 = 0xFFFFFFFFLL;
+    v5 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    ramrod_log_msg("Using %s mount path %s rather than supplied %s\n", v13, v14, v15, v16, v17, v18, v19, a1);
-    v12 = 0xFFFFFFFFLL;
+    ramrod_log_msg("Using %s mount path %s rather than supplied %s\n", a1, __s1, a2);
+    v5 = 0xFFFFFFFFLL;
     a2 = __s1;
   }
 
   snprintf(__str, 0x400uLL, "%s/tmp", a2);
-  ramrod_log_msg("Deleting content of %s\n", v20, v21, v22, v23, v24, v25, v26, __str);
+  ramrod_log_msg("Deleting content of %s\n", __str);
   if (removefile(__str, 0, 3u))
   {
-    __error();
-    ramrod_log_msg("delete of tmp content on device %s with mount %s failed with %d\n", v27, v28, v29, v30, v31, v32, v33, a1);
+    v6 = __error();
+    ramrod_log_msg("delete of tmp content on device %s with mount %s failed with %d\n", a1, a2, *v6);
     if (!mount_path)
     {
-      return v12;
+      return v5;
     }
   }
 
   else
   {
-    v12 = 0;
+    v5 = 0;
     if (!mount_path)
     {
-      return v12;
+      return v5;
     }
   }
 
   if (a2 && ramrod_force_unmount_filesystem(a2, 0))
   {
-    ramrod_log_msg("Failed to unmount %s after deleting tmp content\n", v34, v35, v36, v37, v38, v39, v40, a1);
+    ramrod_log_msg("Failed to unmount %s after deleting tmp content\n");
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t device_supports_effaceable_storage()
@@ -1198,33 +1278,33 @@ CFTypeRef device_supports_ean_storage()
 
 BOOL ramrod_update_ramdisk_root_mount()
 {
-  bzero(&v9, 0x878uLL);
-  if (!statfs("/", &v9))
+  bzero(&v2, 0x878uLL);
+  if (!statfs("/", &v2))
   {
-    return (*v9.f_fstypename ^ 0x73667061 | v9.f_fstypename[4]) == 0;
+    return (*v2.f_fstypename ^ 0x73667061 | v2.f_fstypename[4]) == 0;
   }
 
   v0 = __error();
-  ramrod_log_msg("statfs failed with error %d\n", v1, v2, v3, v4, v5, v6, v7, *v0);
+  ramrod_log_msg("statfs failed with error %d\n", *v0);
   return 0;
 }
 
 uint64_t ramrod_force_unmount_filesystem(char *a1, int a2)
 {
   v3 = (a2 != 0) << 19;
-  v60 = off_1A92B8;
-  v61 = unk_1A92C8;
-  v4 = &v61;
+  v18 = off_1A92B8;
+  v19 = unk_1A92C8;
+  v4 = &v19;
   if (a2)
   {
-    v5 = &v61;
-    v4 = (&v61 + 8);
-    *(&v60 + 1) = "-f";
+    v5 = &v19;
+    v4 = (&v19 + 8);
+    *(&v18 + 1) = "-f";
   }
 
   else
   {
-    v5 = (&v60 + 8);
+    v5 = (&v18 + 8);
   }
 
   *v5 = a1;
@@ -1232,13 +1312,13 @@ uint64_t ramrod_force_unmount_filesystem(char *a1, int a2)
   v6 = 3;
   while (1)
   {
-    v59 = 0;
-    v58 = xmmword_10ABF4;
-    memset(v56, 0, sizeof(v56));
-    v57 = 0;
-    if (!getattrlist(a1, &v58, v56, 0x1CuLL, 8u) && (v57 & 1) == 0)
+    v17 = 0;
+    v16 = xmmword_10ABF4;
+    memset(v14, 0, sizeof(v14));
+    v15 = 0;
+    if (!getattrlist(a1, &v16, v14, 0x1CuLL, 8u) && (v15 & 1) == 0)
     {
-      ramrod_log_msg("Tried to unmount a volume at '%s' that wasn't mounted. Ignoring the error.\n", v7, v8, v9, v10, v11, v12, v13, a1);
+      ramrod_log_msg("Tried to unmount a volume at '%s' that wasn't mounted. Ignoring the error.\n", a1);
       return 0;
     }
 
@@ -1247,181 +1327,182 @@ uint64_t ramrod_force_unmount_filesystem(char *a1, int a2)
       return 0;
     }
 
-    v14 = __error();
-    v15 = *v14;
-    v16 = v15 == 35 || v15 == 16;
-    v17 = *v14;
-    if (!v16)
+    v7 = __error();
+    v8 = *v7;
+    v9 = v8 == 35 || v8 == 16;
+    v10 = *v7;
+    if (!v9)
     {
       break;
     }
 
 LABEL_15:
-    strerror(v17);
-    ramrod_log_msg("Unmounting '%s' failed with %d: %s.\n", v18, v19, v20, v21, v22, v23, v24, a1);
-    ramrod_dump_mounted_filesystem_info(v25, v26, v27, v28, v29, v30, v31, v32);
-    ramrod_log_msg("Will retry unmounting '%s' in %u seconds.\n", v33, v34, v35, v36, v37, v38, v39, a1);
+    v11 = strerror(v10);
+    ramrod_log_msg("Unmounting '%s' failed with %d: %s.\n", a1, v10, v11);
+    ramrod_dump_mounted_filesystem_info();
+    ramrod_log_msg("Will retry unmounting '%s' in %u seconds.\n", a1, 3);
     sleep(3u);
     if (!--v6)
     {
-      return v15;
+      return v8;
     }
   }
 
-  if (v15 == 1)
+  if (v8 == 1)
   {
-    if (!ramrod_execute_command(&v60))
+    if (!ramrod_execute_command(&v18))
     {
       return 0;
     }
 
-    v17 = 1;
+    v10 = 1;
     goto LABEL_15;
   }
 
-  strerror(*v14);
-  ramrod_log_msg("Unmounting '%s' failed with %d: %s.\n", v41, v42, v43, v44, v45, v46, v47, a1);
-  ramrod_dump_mounted_filesystem_info(v48, v49, v50, v51, v52, v53, v54, v55);
-  return v15;
+  v13 = strerror(*v7);
+  ramrod_log_msg("Unmounting '%s' failed with %d: %s.\n", a1, v8, v13);
+  ramrod_dump_mounted_filesystem_info();
+  return v8;
 }
 
 uint64_t ramrod_unmount_all_filesystems()
 {
   if (chdir("/"))
   {
-    v6 = *__error();
-    ramrod_log_msg("Failed to chdir to %s when unmounting file systems, errno:%d", v7, v8, v9, v10, v11, v12, v13, "/");
+    v0 = __error();
+    v1 = *v0;
+    ramrod_log_msg("Failed to chdir to %s when unmounting file systems, errno:%d", "/", *v0);
   }
 
   else
   {
-    v6 = 0;
+    v1 = 0;
   }
 
   off_1C6788 = ramrod_probe_media;
-  sub_208DC(3, 0, v0, v1, v2, v3, v4, v5);
+  sub_208DC(3, 0);
   for (i = 0; i != 80; i += 8)
   {
-    v15 = *(&off_1A92D8 + i);
-    if (*v15)
+    v3 = *(&off_1A92D8 + i);
+    if (*v3)
     {
-      bzero(v26, 0x400uLL);
-      if (ramrod_get_mount_path(v15, v26, 0x400uLL))
+      bzero(v7, 0x400uLL);
+      if (ramrod_get_mount_path(v3, v7, 0x400uLL))
       {
-        ramrod_log_msg("%s is not mounted\n", v16, v17, v18, v19, v20, v21, v22, v15);
-        v23 = 0;
+        ramrod_log_msg("%s is not mounted\n", v3);
+        v4 = 0;
       }
 
       else
       {
-        ramrod_log_msg("%s is mounted at %s.\n", v16, v17, v18, v19, v20, v21, v22, v15);
-        v23 = ramrod_force_unmount_filesystem(v26, 0);
+        ramrod_log_msg("%s is mounted at %s.\n", v3, v7);
+        v4 = ramrod_force_unmount_filesystem(v7, 0);
       }
 
-      if (v6)
+      if (v1)
       {
-        v24 = 1;
-      }
-
-      else
-      {
-        v24 = v23 == 0;
-      }
-
-      if (v24)
-      {
-        v6 = v6;
+        v5 = 1;
       }
 
       else
       {
-        v6 = v23;
+        v5 = v4 == 0;
+      }
+
+      if (v5)
+      {
+        v1 = v1;
+      }
+
+      else
+      {
+        v1 = v4;
       }
     }
   }
 
-  return v6;
+  return v1;
 }
 
 uint64_t ramrod_get_snapshot_mount_path(const char *a1, char *a2, size_t a3)
 {
-  v22 = 0;
-  v6 = getmntinfo_r_np(&v22, 2);
+  v14 = 0;
+  v6 = getmntinfo_r_np(&v14, 2);
   if (!v6)
   {
-    ramrod_log_msg("Failed to get list of all mounted file systems\n", v7, v8, v9, v10, v11, v12, v13, v21);
+    ramrod_log_msg("Failed to get list of all mounted file systems\n");
     goto LABEL_9;
   }
 
-  v14 = v6;
+  v7 = v6;
   if (v6 < 1)
   {
 LABEL_9:
-    v19 = 1;
+    v12 = 1;
     goto LABEL_10;
   }
 
-  v15 = strlen(a1);
-  v16 = v14;
-  f_mntfromname = v22->f_mntfromname;
+  v8 = strlen(a1);
+  v9 = v7;
+  f_mntfromname = v14->f_mntfromname;
   while (1)
   {
-    v18 = strlen(f_mntfromname);
-    if (v18 >= v15 && !strcmp(a1, &f_mntfromname[v18 - v15]))
+    v11 = strlen(f_mntfromname);
+    if (v11 >= v8 && !strcmp(a1, &f_mntfromname[v11 - v8]))
     {
       break;
     }
 
     f_mntfromname += 2168;
-    if (!--v16)
+    if (!--v9)
     {
       goto LABEL_9;
     }
   }
 
   strlcpy(a2, f_mntfromname - 1024, a3);
-  v19 = 0;
+  v12 = 0;
 LABEL_10:
-  if (v22)
+  if (v14)
   {
-    free(v22);
+    free(v14);
   }
 
-  return v19;
+  return v12;
 }
 
-BOOL ramrod_preload_and_create_media_keys(const char *a1, char *a2, uint64_t a3, int a4)
+BOOL ramrod_preload_and_create_media_keys(const char *a1, char *a2, _BOOL8 a3, int a4)
 {
-  bzero(v15, 0x400uLL);
-  if (sub_23CD0(a1, a2, v15))
+  bzero(v11, 0x400uLL);
+  if (sub_23CD0(a1, a2, v11))
   {
     return 0;
   }
 
   if (a4)
   {
-    v13 = 4;
+    v9 = 4;
   }
 
   else
   {
-    v13 = 0;
+    v9 = 0;
   }
 
-  result = sub_23D80(a1, v15, a3, v13, v8, v9, v10, v11);
+  result = sub_23D80(a1, v11, a3, v9);
   if (result)
   {
     if (a4)
     {
-      v14 = 8;
+      v10 = 8;
     }
 
     else
     {
-      v14 = 0;
+      v10 = 0;
     }
 
-    result = sub_23EBC(qword_1C69F0, "additional eds volume", a2, a3, v14);
+    result = sub_23EBC(qword_1C69F0, "additional eds volume", a2, a3, v10);
     if (result)
     {
       return sub_23EBC(qword_1C69F8, "additional encrypted volume", a2, a3 | a4, 0);
@@ -1435,7 +1516,7 @@ uint64_t sub_23CD0(const char *a1, char *a2, char *a3)
 {
   if (!ramrod_get_mount_path(a1, a3, 0x400uLL))
   {
-    ramrod_log_msg("Using %s mount path %s rather than supplied value\n", v6, v7, v8, v9, v10, v11, v12, a1);
+    ramrod_log_msg("Using %s mount path %s rather than supplied value\n", a1, a3);
     return 0;
   }
 
@@ -1445,66 +1526,64 @@ uint64_t sub_23CD0(const char *a1, char *a2, char *a3)
     return 0;
   }
 
-  v13 = 0xFFFFFFFFLL;
-  strerror(-1);
-  ramrod_log_msg("Failed to mount %s to preload keys: %s (%d)\n", v14, v15, v16, v17, v18, v19, v20, a1);
-  return v13;
+  v6 = 0xFFFFFFFFLL;
+  v7 = strerror(-1);
+  ramrod_log_msg("Failed to mount %s to preload keys: %s (%d)\n", a1, v7, -1);
+  return v6;
 }
 
-BOOL sub_23D80(char a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23D80(const char *a1, char *a2, _BOOL8 a3, int a4)
 {
-  v8 = a4;
-  v9 = a3;
-  ramrod_log_msg("Calling APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %s\n", a2, a3, a4, a5, a6, a7, a8, a1);
-  v58 = 1;
-  if (fsctl(a2, 0x80014A22uLL, &v58, 0))
+  ramrod_log_msg("Calling APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %s\n", a1);
+  v13 = 1;
+  if (fsctl(a2, 0x80014A22uLL, &v13, 0))
   {
     if (*__error() == 17)
     {
-      ramrod_log_msg("Call to APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %s returned EEXIST\n", v19, v20, v21, v22, v23, v24, v25, a1);
+      ramrod_log_msg("Call to APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %s returned EEXIST\n");
     }
 
     else
     {
-      __error();
-      ramrod_log_msg("Failed to call APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %s with errno %d\n", v26, v27, v28, v29, v30, v31, v32, a1);
-      if (!v9)
+      v8 = __error();
+      ramrod_log_msg("Failed to call APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %s with errno %d\n", a1, *v8);
+      if (!a3)
       {
         goto LABEL_10;
       }
 
-      ramrod_log_msg("Ignoring APFS_FSCTL_UNMOUNT_CRYPTO_HINT failure\n", v33, v34, v35, v36, v37, v38, v39, v56);
+      ramrod_log_msg("Ignoring APFS_FSCTL_UNMOUNT_CRYPTO_HINT failure\n");
     }
   }
 
-  if (v8)
+  if (a4)
   {
-    ramrod_log_msg("Calling APFS_FSCTL_UNMOUNT_CRYPTO_HINT with hints:%d on %s\n", v12, v13, v14, v15, v16, v17, v18, v8);
-    v57 = v8;
-    v40 = fsctl(a2, 0x80014A22uLL, &v57, 0);
-    v9 = v40 == 0;
-    if (v40)
+    ramrod_log_msg("Calling APFS_FSCTL_UNMOUNT_CRYPTO_HINT with hints:%d on %s\n", a4, a1);
+    v12 = a4;
+    v9 = fsctl(a2, 0x80014A22uLL, &v12, 0);
+    a3 = v9 == 0;
+    if (v9)
     {
-      __error();
-      ramrod_log_msg("Failed to call APFS_FSCTL_UNMOUNT_CRYPTO_HINT with hints:%d on %s with errno %d\n", v41, v42, v43, v44, v45, v46, v47, v8);
+      v10 = __error();
+      ramrod_log_msg("Failed to call APFS_FSCTL_UNMOUNT_CRYPTO_HINT with hints:%d on %s with errno %d\n", a4, a1, *v10);
     }
   }
 
   else
   {
-    v9 = 1;
+    a3 = 1;
   }
 
 LABEL_10:
   if (ramrod_force_unmount_filesystem(a2, 0))
   {
-    ramrod_log_msg("Failed to unmount %s after loading crypto keys\n", v48, v49, v50, v51, v52, v53, v54, a1);
+    ramrod_log_msg("Failed to unmount %s after loading crypto keys\n", a1);
   }
 
-  return v9;
+  return a3;
 }
 
-BOOL sub_23EBC(const __CFArray *a1, char a2, char *a3, uint64_t a4, uint64_t a5)
+BOOL sub_23EBC(const __CFArray *a1, const char *a2, char *a3, _BOOL8 a4, int a5)
 {
   if (a1 && (Count = CFArrayGetCount(a1), Count >= 1))
   {
@@ -1512,18 +1591,18 @@ BOOL sub_23EBC(const __CFArray *a1, char a2, char *a3, uint64_t a4, uint64_t a5)
     v12 = 0;
     for (i = 0; i != v11; v12 = i >= v11)
     {
-      bzero(v29, 0x400uLL);
+      bzero(v18, 0x400uLL);
       *buffer = 0u;
-      v28 = 0u;
+      v17 = 0u;
       ValueAtIndex = CFArrayGetValueAtIndex(a1, i);
       CFStringGetCString(ValueAtIndex, buffer, 32, 0x8000100u);
-      if (sub_23CD0(buffer, a3, v29))
+      if (sub_23CD0(buffer, a3, v18))
       {
         break;
       }
 
-      ramrod_log_msg("Loading keys for %s %s\n", v15, v16, v17, v18, v19, v20, v21, a2);
-      if (!sub_23D80(buffer, v29, a4, a5, v22, v23, v24, v25))
+      ramrod_log_msg("Loading keys for %s %s\n", a2, buffer);
+      if (!sub_23D80(buffer, v18, a4, a5))
       {
         break;
       }
@@ -1542,135 +1621,134 @@ BOOL sub_23EBC(const __CFArray *a1, char a2, char *a3, uint64_t a4, uint64_t a5)
 
 uint64_t ramrod_create_readwrite_ramdisk()
 {
-  v89 = *off_1A9328;
-  v90 = 0;
-  v7 = ramrod_execute_command(&v89);
-  if (v7)
+  v21 = *off_1A9328;
+  v22 = 0;
+  v0 = ramrod_execute_command(&v21);
+  if (v0)
   {
-    ramrod_log_msg("failed to mount tmpfs\n", v0, v1, v2, v3, v4, v5, v6, v81);
+    ramrod_log_msg("failed to mount tmpfs\n");
   }
 
   *existing = 0;
   properties = 0;
-  ramrod_log_msg("entering %s\n", v0, v1, v2, v3, v4, v5, v6, "show_service_nodes");
+  ramrod_log_msg("entering %s\n", "show_service_nodes");
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v9 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v17 = v9;
+  v2 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  v3 = v2;
   if (Mutable)
   {
-    v18 = v9 == 0;
+    v4 = v2 == 0;
   }
 
   else
   {
-    v18 = 1;
+    v4 = 1;
   }
 
-  if (v18)
+  if (v4)
   {
-    ramrod_log_msg("failed to create dictionary\n", v10, v11, v12, v13, v14, v15, v16, v82);
+    ramrod_log_msg("failed to create dictionary\n");
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    if (v17)
+    if (v3)
     {
-      CFRelease(v17);
+      CFRelease(v3);
     }
   }
 
   else
   {
-    CFDictionarySetValue(v9, @"Whole", kCFBooleanTrue);
-    CFDictionarySetValue(Mutable, @"IOPropertyMatch", v17);
-    CFRelease(v17);
-    MatchingServices = IOServiceGetMatchingServices(kIOMasterPortDefault, Mutable, &existing[1]);
-    if (MatchingServices)
+    CFDictionarySetValue(v2, @"Whole", kCFBooleanTrue);
+    CFDictionarySetValue(Mutable, @"IOPropertyMatch", v3);
+    CFRelease(v3);
+    if (IOServiceGetMatchingServices(kIOMasterPortDefault, Mutable, &existing[1]))
     {
-      v27 = 1;
+      v5 = 1;
     }
 
     else
     {
-      v27 = existing[1] == 0;
+      v5 = existing[1] == 0;
     }
 
-    if (v27)
+    if (v5)
     {
-      ramrod_log_msg("failed to show service names (no matching service dictionary) error:%d\n", v20, v21, v22, v23, v24, v25, v26, MatchingServices);
+      ramrod_log_msg("failed to show service names (no matching service dictionary) error:%d\n");
     }
 
     else
     {
-      v28 = IOIteratorNext(existing[1]);
-      if (v28)
+      v6 = IOIteratorNext(existing[1]);
+      if (v6)
       {
-        v36 = v28;
+        v7 = v6;
         while (1)
         {
           existing[0] = 0;
-          Iterator = IORegistryEntryCreateCFProperties(v36, &properties, kCFAllocatorDefault, 0);
+          Iterator = IORegistryEntryCreateCFProperties(v7, &properties, kCFAllocatorDefault, 0);
           if (!Iterator && properties)
           {
             Value = CFDictionaryGetValue(properties, @"BSD Name");
             if (Value)
             {
-              v39 = Value;
+              v10 = Value;
               bzero(buffer, 0x400uLL);
-              CFStringGetCString(v39, buffer, 1024, 0x8000100u);
-              ramrod_log_msg("%s\n", v40, v41, v42, v43, v44, v45, v46, buffer);
-              ramrod_log_msg("\n", v47, v48, v49, v50, v51, v52, v53, v83);
+              CFStringGetCString(v10, buffer, 1024, 0x8000100u);
+              ramrod_log_msg("%s\n", buffer);
+              ramrod_log_msg("\n");
             }
 
-            Iterator = IORegistryEntryCreateIterator(v36, "IOService", 3u, existing);
-            v54 = existing[0];
+            Iterator = IORegistryEntryCreateIterator(v7, "IOService", 3u, existing);
+            v11 = existing[0];
             if (Iterator || !existing[0])
             {
               goto LABEL_31;
             }
 
-            v55 = IOIteratorNext(existing[0]);
-            v63 = 0uLL;
-            if (v55)
+            v12 = IOIteratorNext(existing[0]);
+            v13 = 0uLL;
+            if (v12)
             {
-              v64 = v55;
+              v14 = v12;
               do
               {
-                v97 = v63;
-                v98 = v63;
-                v95 = v63;
-                v96 = v63;
-                v93 = v63;
-                v94 = v63;
-                *buffer = v63;
-                v92 = v63;
+                v29 = v13;
+                v30 = v13;
+                v27 = v13;
+                v28 = v13;
+                v25 = v13;
+                v26 = v13;
+                *buffer = v13;
+                v24 = v13;
                 entryID = 0;
                 busyState = 0;
-                IORegistryEntryGetName(v64, buffer);
-                IORegistryEntryGetRegistryEntryID(v64, &entryID);
-                IOServiceGetBusyState(v64, &busyState);
+                IORegistryEntryGetName(v14, buffer);
+                IORegistryEntryGetRegistryEntryID(v14, &entryID);
+                IOServiceGetBusyState(v14, &busyState);
                 IOServiceGetState();
-                ramrod_log_msg("%s RegistryID : 0x%qx Busy State : 0x%x Service State : 0x%qx\n", v65, v66, v67, v68, v69, v70, v71, buffer);
-                IOObjectRelease(v64);
-                v72 = IOIteratorNext(existing[0]);
-                v63 = 0uLL;
-                v64 = v72;
+                ramrod_log_msg("%s RegistryID : 0x%qx Busy State : 0x%x Service State : 0x%qx\n", buffer, entryID, busyState, 0);
+                IOObjectRelease(v14);
+                v15 = IOIteratorNext(existing[0]);
+                v13 = 0uLL;
+                v14 = v15;
               }
 
-              while (v72);
+              while (v15);
             }
 
-            ramrod_log_msg("----\n", v56, v57, v58, v59, v60, v61, v62, v82);
-            ramrod_log_msg("\n", v73, v74, v75, v76, v77, v78, v79, v84);
+            ramrod_log_msg("----\n", 0.0);
+            ramrod_log_msg("\n");
             Iterator = 0;
           }
 
-          v54 = existing[0];
+          v11 = existing[0];
 LABEL_31:
-          if (v54)
+          if (v11)
           {
-            IOObjectRelease(v54);
+            IOObjectRelease(v11);
             existing[0] = 0;
           }
 
@@ -1680,11 +1758,11 @@ LABEL_31:
             properties = 0;
           }
 
-          IOObjectRelease(v36);
+          IOObjectRelease(v7);
           if (!Iterator)
           {
-            v36 = IOIteratorNext(existing[1]);
-            if (v36)
+            v7 = IOIteratorNext(existing[1]);
+            if (v7)
             {
               continue;
             }
@@ -1694,7 +1772,7 @@ LABEL_31:
         }
       }
 
-      ramrod_log_msg("failed to show service names (no initial object)\n", v29, v30, v31, v32, v33, v34, v35, v82);
+      ramrod_log_msg("failed to show service names (no initial object)\n");
     }
   }
 
@@ -1704,24 +1782,23 @@ LABEL_39:
     IOObjectRelease(existing[1]);
   }
 
-  return v7;
+  return v0;
 }
 
 uint64_t ramrod_eject_readwrite_ramdisk()
 {
-  v7 = ramrod_force_unmount_filesystem("/mnt5", 0);
-  if (v7)
+  v0 = ramrod_force_unmount_filesystem("/mnt5", 0);
+  if (v0)
   {
-    v8 = "failed to unmount tmpfs\n";
+    ramrod_log_msg("failed to unmount tmpfs\n");
   }
 
   else
   {
-    v8 = "successfully unmounted tmpfs\n";
+    ramrod_log_msg("successfully unmounted tmpfs\n");
   }
 
-  ramrod_log_msg(v8, v0, v1, v2, v3, v4, v5, v6, v10);
-  return v7;
+  return v0;
 }
 
 uint64_t ramrod_device_has_baseband_legacy()
@@ -1747,7 +1824,7 @@ uint64_t ramrod_device_has_baseband_legacy()
   return v2 & 1;
 }
 
-uint64_t ramrod_device_has_baseband()
+uint64_t ramrod_device_has_baseband(uint64_t a1)
 {
   if (qword_1C6A00 != -1)
   {
@@ -1757,7 +1834,7 @@ uint64_t ramrod_device_has_baseband()
   return byte_1C6A08;
 }
 
-uint64_t ramrod_device_has_int()
+uint64_t ramrod_device_has_int(uint64_t a1)
 {
   if (qword_1C6A00 != -1)
   {
@@ -1789,18 +1866,17 @@ uint64_t ramrod_device_expects_baseband_volume()
   if (v0)
   {
     IOObjectRelease(v0);
-    v8 = 1;
-    v9 = "We should have a baseband volume.\n";
+    v1 = 1;
+    ramrod_log_msg("We should have a baseband volume.\n");
   }
 
   else
   {
-    v8 = 0;
-    v9 = "We should not have a baseband volume.\n";
+    v1 = 0;
+    ramrod_log_msg("We should not have a baseband volume.\n");
   }
 
-  ramrod_log_msg(v9, v1, v2, v3, v4, v5, v6, v7, v11);
-  return v8;
+  return v1;
 }
 
 BOOL ramrod_device_has_hoover()
@@ -1816,65 +1892,65 @@ BOOL ramrod_device_has_hoover()
   return v2 != 0;
 }
 
-uint64_t bootstrap_hoover(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bootstrap_hoover()
 {
-  memset(&v59, 0, sizeof(v59));
-  ramrod_log_msg("entering %s\n", a2, a3, a4, a5, a6, a7, a8, "bootstrap_hoover");
-  if (stat("/usr/local/standalone/firmware/STDP2700/runtime", &v59))
+  memset(&v6, 0, sizeof(v6));
+  ramrod_log_msg("entering %s\n", "bootstrap_hoover");
+  if (stat("/usr/local/standalone/firmware/STDP2700/runtime", &v6))
   {
-    ramrod_log_msg("%s: using customer firmware\n", v8, v9, v10, v11, v12, v13, v14, "bootstrap_hoover");
-    v15 = "/usr/standalone/firmware/STDP2700/runtime";
-    if (stat("/usr/standalone/firmware/STDP2700/runtime", &v59))
+    ramrod_log_msg("%s: using customer firmware\n", "bootstrap_hoover");
+    v0 = "/usr/standalone/firmware/STDP2700/runtime";
+    if (stat("/usr/standalone/firmware/STDP2700/runtime", &v6))
     {
-      ramrod_log_msg("%s: could not find a firmware file in the ram disk\n", v16, v17, v18, v19, v20, v21, v22, "bootstrap_hoover");
+      ramrod_log_msg("%s: could not find a firmware file in the ram disk\n");
       return 0;
     }
   }
 
   else
   {
-    ramrod_log_msg("%s: using factory firmware\n", v8, v9, v10, v11, v12, v13, v14, "bootstrap_hoover");
-    v15 = "/usr/local/standalone/firmware/STDP2700/runtime";
+    ramrod_log_msg("%s: using factory firmware\n", "bootstrap_hoover");
+    v0 = "/usr/local/standalone/firmware/STDP2700/runtime";
   }
 
-  v23 = dlopen("/usr/lib/libdpfu.dylib", 261);
-  if (v23)
+  v1 = dlopen("/usr/lib/libdpfu.dylib", 261);
+  if (v1)
   {
-    v24 = dlsym(v23, "dpfuUpdateDeviceWithContentsOfFile");
-    if (v24)
+    v2 = dlsym(v1, "dpfuUpdateDeviceWithContentsOfFile");
+    if (v2)
     {
-      v25 = v24;
-      v26 = wait_for_io_service_matching_class_with_timeout("IODPDevice", 0x14u);
-      if (v26)
+      v3 = v2;
+      v4 = wait_for_io_service_matching_class_with_timeout("IODPDevice", 0x14u);
+      if (v4)
       {
-        IOObjectRelease(v26);
+        IOObjectRelease(v4);
       }
 
       else
       {
-        ramrod_log_msg("timed out waiting for IODPDevice service\n", v27, v28, v29, v30, v31, v32, v33, v56);
+        ramrod_log_msg("timed out waiting for IODPDevice service\n");
       }
 
-      if (!v25(v15, 2, 0, 1, 0, 0))
+      if (!v3(v0, 2, 0, 1, 0, 0))
       {
-        ramrod_log_msg("%s: hoover successfully bootstrapped\n", v48, v49, v50, v51, v52, v53, v54, "bootstrap_hoover");
+        ramrod_log_msg("%s: hoover successfully bootstrapped\n", "bootstrap_hoover");
         return 1;
       }
 
-      ramrod_log_msg("%s: hoover failed to bootstrap %d\n", v48, v49, v50, v51, v52, v53, v54, "bootstrap_hoover");
+      ramrod_log_msg("%s: hoover failed to bootstrap %d\n");
     }
 
     else
     {
-      v58 = dlerror();
-      ramrod_log_msg("unable to find updater function dpfuUpdateDeviceWithContentsOfFile: %s\n", v41, v42, v43, v44, v45, v46, v47, v58);
+      dlerror();
+      ramrod_log_msg("unable to find updater function dpfuUpdateDeviceWithContentsOfFile: %s\n");
     }
   }
 
   else
   {
-    v57 = dlerror();
-    ramrod_log_msg("unable to open libdpfu.dylib. %s, skipping step\n", v34, v35, v36, v37, v38, v39, v40, v57);
+    dlerror();
+    ramrod_log_msg("unable to open libdpfu.dylib. %s, skipping step\n");
   }
 
   return 0;
@@ -1918,9 +1994,9 @@ uint64_t ramrod_create_udid_string()
   return qword_1C6A10;
 }
 
-void *ramrod_copy_NVRAM_variable_as_string(uint64_t a1, CFErrorRef *a2)
+void *ramrod_copy_NVRAM_variable_as_string(const __CFString *a1, CFErrorRef *a2)
 {
-  v3 = ramrod_copy_NVRAM_variable(a1, a2);
+  v3 = ramrod_copy_NVRAM_variable(a1);
   if (v3)
   {
     v4 = v3;
@@ -1952,305 +2028,304 @@ LABEL_9:
   return 0;
 }
 
-id ramrod_get_NVRAM_variable_as_BOOLean(uint64_t a1, CFErrorRef *a2)
+id ramrod_get_NVRAM_variable_as_BOOLean(const __CFString *a1, CFErrorRef *a2)
 {
   v2 = ramrod_copy_NVRAM_variable_as_string(a1, a2);
 
   return [v2 BOOLValue];
 }
 
-void ramrod_kickstart_aces(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void ramrod_kickstart_aces()
 {
+  v7 = 0;
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (Mutable)
   {
-    v10 = Mutable;
-    v11 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    if (v11)
+    v1 = Mutable;
+    v2 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    if (v2)
     {
-      v19 = v11;
-      CFDictionarySetValue(v10, @"IOPropertyMatch", v11);
-      CFRetain(v10);
-      CFDictionarySetValue(v19, @"compatible", @"usbc,cd3215");
-      if (IOServiceGetMatchingService(kIOMasterPortDefault, v10))
+      v3 = v2;
+      CFDictionarySetValue(v1, @"IOPropertyMatch", v2);
+      CFRetain(v1);
+      CFDictionarySetValue(v3, @"compatible", @"usbc,cd3215");
+      if (IOServiceGetMatchingService(kIOMasterPortDefault, v1))
       {
-        CFRelease(v10);
-        CFRelease(v19);
-        goto LABEL_10;
-      }
-
-      v27 = 0;
-      do
-      {
-        v28 = v27;
-        if (v27 == 4)
-        {
-          break;
-        }
-
-        CFRetain(v10);
-        CFDictionarySetValue(v19, @"compatible", *(&off_1A9380 + v28 + 1));
-        MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v10);
-        v27 = v28 + 1;
-      }
-
-      while (!MatchingService);
-      CFRelease(v10);
-      CFRelease(v19);
-      if (v28 < 4)
-      {
+        CFRelease(v1);
+        CFRelease(v3);
 LABEL_10:
-        ramrod_log_msg("port micro restart in progress\n", v20, v21, v22, v23, v24, v25, v26, v45);
+        ramrod_log_msg("port micro restart in progress\n");
         set_usb_forced_off_bus(1);
-        if (ramrod_set_SMC_key("AC-R"))
+        if (ramrod_set_SMC_key("AC-R", &v7))
         {
-          if (ramrod_copy_NVRAM_variable(@"usbcfw.version", 0))
+          if (ramrod_copy_NVRAM_variable(@"usbcfw.version"))
           {
             ramrod_set_NVRAM_variable(@"ramrod-kickstart-aces", @"1", 0);
           }
 
-          v37 = "port micro restart in progress\n";
+          ramrod_log_msg("port micro restart in progress\n");
         }
 
         else
         {
-          v37 = "unable to kick port micro - Couldn't set AC-R to 0\n";
+          ramrod_log_msg("unable to kick port micro - Couldn't set AC-R to 0\n");
         }
 
-        ramrod_log_msg(v37, v30, v31, v32, v33, v34, v35, v36, v46);
         return;
+      }
+
+      v4 = 0;
+      do
+      {
+        v5 = v4;
+        if (v4 == 4)
+        {
+          break;
+        }
+
+        CFRetain(v1);
+        CFDictionarySetValue(v3, @"compatible", *(&off_1A9380 + v5 + 1));
+        MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v1);
+        v4 = v5 + 1;
+      }
+
+      while (!MatchingService);
+      CFRelease(v1);
+      CFRelease(v3);
+      if (v5 < 4)
+      {
+        goto LABEL_10;
       }
     }
 
     else
     {
-      ramrod_log_msg("Couldn't create a propertyMatchingDict to update USB-C firmware.\n", v12, v13, v14, v15, v16, v17, v18, v45);
-      CFRelease(v10);
+      ramrod_log_msg("Couldn't create a propertyMatchingDict to update USB-C firmware.\n");
+      CFRelease(v1);
     }
   }
 
   ramrod_delete_NVRAM_variable(@"ramrod-kickstart-aces", 0);
 
-  ramrod_log_msg("No valid port micro usbc,cdXXXX value. Not restarting port micro\n", v38, v39, v40, v41, v42, v43, v44, a9);
+  ramrod_log_msg("No valid port micro usbc,cdXXXX value. Not restarting port micro\n");
 }
 
-BOOL ramrod_set_SMC_key(char a1)
-{
-  v2 = IOServiceMatching("AppleSMC");
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v2);
-  if (!MatchingService)
-  {
-    ramrod_log_msg("Couldn't find matching SMC service. Bailing.\n", v4, v5, v6, v7, v8, v9, v10, v36);
-    return 0;
-  }
-
-  v11 = MatchingService;
-  if (!off_1AD498 || !SMCOpenConnection())
-  {
-    ramrod_log_msg("Failed to open SMC connection. Bailing.\n", v4, v5, v6, v7, v8, v9, v10, v36);
-    IOObjectRelease(v11);
-    return 0;
-  }
-
-  SMCMakeUInt32Key();
-  if (SMCGetKeyInfo())
-  {
-    ramrod_log_msg("Couldn't retrieve SMC Key %s. Got SMC error: %d\n", v12, v13, v14, v15, v16, v17, v18, a1);
-    v19 = 0;
-  }
-
-  else
-  {
-    v20 = SMCWriteKeyWithKnownSize();
-    v19 = v20 == 0;
-    if (v20)
-    {
-      ramrod_log_msg("Writing SMC key %s as value %s failed with error %d\n", v21, v22, v23, v24, v25, v26, v27, a1);
-    }
-
-    SMCReadKeyAsNumeric();
-    ramrod_log_msg("Read (0x%jX) for key %s\n", v28, v29, v30, v31, v32, v33, v34, 0);
-  }
-
-  IOObjectRelease(v11);
-  SMCCloseConnection();
-  return v19;
-}
-
-void _ramrod_reset_usbcretimer_legacy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  ramrod_log_msg("creating AppleTypeCRetimer obj\n", a2, a3, a4, a5, a6, a7, a8, v27);
-  v8 = off_1AD490;
-  if (!off_1AD490)
-  {
-    goto LABEL_7;
-  }
-
-  v9 = AppleTypeCRetimerUpdaterCreate();
-  if (!v9)
-  {
-    v8 = 0;
-LABEL_7:
-    ramrod_log_msg_cf(@"failed to create AppleTypeCRetimer error=%@\n", v8);
-    return;
-  }
-
-  v17 = v9;
-  ramrod_log_msg("executing AppleTypeCRetimerUpdaterReset on AppleUSBCRetimer\n", v10, v11, v12, v13, v14, v15, v16, v28);
-  v18 = AppleTypeCRetimerUpdaterReset();
-  v26 = "success";
-  if (!v18)
-  {
-    v26 = "failure";
-  }
-
-  ramrod_log_msg("AppleTypeCRetimerUpdaterReset returned %s\n", v19, v20, v21, v22, v23, v24, v25, v26);
-  CFRelease(v17);
-}
-
-void sub_24E04(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a2)
-  {
-    ramrod_log_msg("updater_log (%s): %s", a2, a3, a4, a5, a6, a7, a8, a1);
-  }
-}
-
-void _ramrod_reset_usbcretimer_uarp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  ramrod_log_msg("creating AppleTypeCRetimerUARP obj\n", a2, a3, a4, a5, a6, a7, a8, v27);
-  v8 = off_1AD488;
-  if (!off_1AD488)
-  {
-    goto LABEL_7;
-  }
-
-  v9 = AppleTypeCRetimerUARPUpdaterCreate();
-  if (!v9)
-  {
-    v8 = 0;
-LABEL_7:
-    ramrod_log_msg_cf(@"failed to create AppleTypeCRetimerUARP error=%@\n", v8);
-    return;
-  }
-
-  v17 = v9;
-  ramrod_log_msg("executing AppleTypeCRetimerUARPUpdaterReset on AppleUSBCRetimerUARP\n", v10, v11, v12, v13, v14, v15, v16, v28);
-  v18 = AppleTypeCRetimerUARPUpdaterReset();
-  v26 = "success";
-  if (!v18)
-  {
-    v26 = "failure";
-  }
-
-  ramrod_log_msg("AppleTypeCRetimerUARPUpdaterReset returned %s\n", v19, v20, v21, v22, v23, v24, v25, v26);
-  CFRelease(v17);
-}
-
-void ramrod_reset_usbcretimer()
-{
-  has_usbcretimer_legacy = ramrod_device_has_usbcretimer_legacy();
-  if (has_usbcretimer_legacy)
-  {
-    _ramrod_reset_usbcretimer_legacy(has_usbcretimer_legacy, v1, v2, v3, v4, v5, v6, v7);
-  }
-
-  has_usbcretimer_uarp = ramrod_device_has_usbcretimer_uarp();
-  if (has_usbcretimer_uarp)
-  {
-
-    _ramrod_reset_usbcretimer_uarp(has_usbcretimer_uarp, v9, v10, v11, v12, v13, v14, v15);
-  }
-}
-
-void ramrod_kickstart_usbcretimer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = ramrod_copy_NVRAM_variable(@"ramrod-kickstart-appletypecretimer", 0);
-  if (v9)
-  {
-    v17 = v9;
-    ramrod_reset_usbcretimer();
-    ramrod_delete_NVRAM_variable(@"ramrod-kickstart-appletypecretimer", 0);
-
-    CFRelease(v17);
-  }
-
-  else
-  {
-
-    ramrod_log_msg("nvram not set, skipping kick.\n", v10, v11, v12, v13, v14, v15, v16, a9);
-  }
-}
-
-BOOL ramrod_get_SMC_key(char a1, void *a2)
+BOOL ramrod_set_SMC_key(const char *a1, const char *a2)
 {
   v4 = IOServiceMatching("AppleSMC");
   MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v4);
   if (!MatchingService)
   {
-    ramrod_log_msg("Couldn't find matching SMC service. Bailing.\n", v6, v7, v8, v9, v10, v11, v12, v31);
+    ramrod_log_msg("Couldn't find matching SMC service. Bailing.\n");
     return 0;
   }
 
-  v13 = MatchingService;
+  v6 = MatchingService;
   if (!off_1AD498 || !SMCOpenConnection())
   {
-    ramrod_log_msg("Failed to open SMC connection. Bailing.\n", v6, v7, v8, v9, v10, v11, v12, v31);
-    IOObjectRelease(v13);
+    ramrod_log_msg("Failed to open SMC connection. Bailing.\n");
+    IOObjectRelease(v6);
     return 0;
   }
 
   SMCMakeUInt32Key();
-  v14 = SMCGetKeyInfo();
-  v22 = v14 == 0;
-  if (v14)
+  v7 = SMCGetKeyInfo();
+  if (v7)
   {
-    ramrod_log_msg("Couldn't retrieve SMC Key %s. Got SMC error: %d\n", v15, v16, v17, v18, v19, v20, v21, a1);
+    ramrod_log_msg("Couldn't retrieve SMC Key %s. Got SMC error: %d\n", a1, v7);
+    v8 = 0;
+  }
+
+  else
+  {
+    v9 = SMCWriteKeyWithKnownSize();
+    v8 = v9 == 0;
+    if (v9)
+    {
+      ramrod_log_msg("Writing SMC key %s as value %s failed with error %d\n", a1, a2, v9);
+    }
+
+    SMCReadKeyAsNumeric();
+    ramrod_log_msg("Read (0x%jX) for key %s\n", 0, a1);
+  }
+
+  IOObjectRelease(v6);
+  SMCCloseConnection();
+  return v8;
+}
+
+void _ramrod_reset_usbcretimer_legacy()
+{
+  ramrod_log_msg("creating AppleTypeCRetimer obj\n");
+  v0 = off_1AD490;
+  if (!off_1AD490)
+  {
+    goto LABEL_7;
+  }
+
+  v1 = AppleTypeCRetimerUpdaterCreate();
+  if (!v1)
+  {
+    v0 = 0;
+LABEL_7:
+    ramrod_log_msg_cf(@"failed to create AppleTypeCRetimer error=%@\n", v0);
+    return;
+  }
+
+  v2 = v1;
+  ramrod_log_msg("executing AppleTypeCRetimerUpdaterReset on AppleUSBCRetimer\n");
+  v3 = AppleTypeCRetimerUpdaterReset();
+  v4 = "success";
+  if (!v3)
+  {
+    v4 = "failure";
+  }
+
+  ramrod_log_msg("AppleTypeCRetimerUpdaterReset returned %s\n", v4);
+  CFRelease(v2);
+}
+
+void sub_24E04(const char *result, const char *a2)
+{
+  if (a2)
+  {
+    ramrod_log_msg("updater_log (%s): %s", result, a2);
+  }
+}
+
+void _ramrod_reset_usbcretimer_uarp()
+{
+  ramrod_log_msg("creating AppleTypeCRetimerUARP obj\n");
+  v0 = off_1AD488;
+  if (!off_1AD488)
+  {
+    goto LABEL_7;
+  }
+
+  v1 = AppleTypeCRetimerUARPUpdaterCreate();
+  if (!v1)
+  {
+    v0 = 0;
+LABEL_7:
+    ramrod_log_msg_cf(@"failed to create AppleTypeCRetimerUARP error=%@\n", v0);
+    return;
+  }
+
+  v2 = v1;
+  ramrod_log_msg("executing AppleTypeCRetimerUARPUpdaterReset on AppleUSBCRetimerUARP\n");
+  v3 = AppleTypeCRetimerUARPUpdaterReset();
+  v4 = "success";
+  if (!v3)
+  {
+    v4 = "failure";
+  }
+
+  ramrod_log_msg("AppleTypeCRetimerUARPUpdaterReset returned %s\n", v4);
+  CFRelease(v2);
+}
+
+void ramrod_reset_usbcretimer()
+{
+  if (ramrod_device_has_usbcretimer_legacy())
+  {
+    _ramrod_reset_usbcretimer_legacy();
+  }
+
+  if (ramrod_device_has_usbcretimer_uarp())
+  {
+
+    _ramrod_reset_usbcretimer_uarp();
+  }
+}
+
+void ramrod_kickstart_usbcretimer()
+{
+  v0 = ramrod_copy_NVRAM_variable(@"ramrod-kickstart-appletypecretimer");
+  if (v0)
+  {
+    v1 = v0;
+    ramrod_reset_usbcretimer();
+    ramrod_delete_NVRAM_variable(@"ramrod-kickstart-appletypecretimer", 0);
+
+    CFRelease(v1);
+  }
+
+  else
+  {
+
+    ramrod_log_msg("nvram not set, skipping kick.\n");
+  }
+}
+
+BOOL ramrod_get_SMC_key(const char *a1, void *a2)
+{
+  v4 = IOServiceMatching("AppleSMC");
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v4);
+  if (!MatchingService)
+  {
+    ramrod_log_msg("Couldn't find matching SMC service. Bailing.\n");
+    return 0;
+  }
+
+  v6 = MatchingService;
+  if (!off_1AD498 || !SMCOpenConnection())
+  {
+    ramrod_log_msg("Failed to open SMC connection. Bailing.\n");
+    IOObjectRelease(v6);
+    return 0;
+  }
+
+  SMCMakeUInt32Key();
+  v7 = SMCGetKeyInfo();
+  v8 = v7 == 0;
+  if (v7)
+  {
+    ramrod_log_msg("Couldn't retrieve SMC Key %s. Got SMC error: %d\n", a1, v7);
   }
 
   else
   {
     SMCReadKeyAsNumeric();
-    ramrod_log_msg("Read (0x%jX) for key %s\n", v23, v24, v25, v26, v27, v28, v29, 0);
+    ramrod_log_msg("Read (0x%jX) for key %s\n", 0, a1);
     *a2 = 0;
   }
 
-  IOObjectRelease(v13);
+  IOObjectRelease(v6);
   SMCCloseConnection();
-  return v22;
+  return v8;
 }
 
 uint64_t ramrod_set_rootless_flags(const char *a1)
 {
-  memset(&v27, 0, sizeof(v27));
+  memset(&v8, 0, sizeof(v8));
   bzero(__str, 0x400uLL);
   snprintf(__str, 0x400uLL, "%s/%s", a1, "/private/var/db/com.apple.xpc.roleaccountd.staging");
   if (setxattr(__str, "com.apple.rootless", "RoleAccountStaging", 0x12uLL, 0, 1))
   {
     v2 = __error();
-    v10 = *v2;
-    if (v10 != 2)
+    v3 = *v2;
+    if (v3 != 2)
     {
-      strerror(*v2);
-      ramrod_log_msg("Failed to set com.apple.rootless=RoleAccountStaging xattr on %s with error %d: %s\n", v19, v20, v21, v22, v23, v24, v25, __str);
-      return v10;
+      v6 = strerror(*v2);
+      ramrod_log_msg("Failed to set com.apple.rootless=RoleAccountStaging xattr on %s with error %d: %s\n", __str, v3, v6);
+      return v3;
     }
 
-    ramrod_log_msg("Failed to set com.apple.rootless=RoleAccountStaging xattr on %s because the directory doesn't exist. Not fatal.\n", v3, v4, v5, v6, v7, v8, v9, __str);
+    ramrod_log_msg("Failed to set com.apple.rootless=RoleAccountStaging xattr on %s because the directory doesn't exist. Not fatal.\n", __str);
     return 0;
   }
 
-  stat(__str, &v27);
-  if (!lchflags(__str, v27.st_flags | 0x80000))
+  stat(__str, &v8);
+  if (!lchflags(__str, v8.st_flags | 0x80000))
   {
     return 0;
   }
 
-  v11 = __error();
-  v10 = *v11;
-  strerror(*v11);
-  ramrod_log_msg("Failed to set SF_RESTRICTED flag on %s with error %d: %s\n", v12, v13, v14, v15, v16, v17, v18, __str);
-  return v10;
+  v4 = __error();
+  v3 = *v4;
+  v5 = strerror(*v4);
+  ramrod_log_msg("Failed to set SF_RESTRICTED flag on %s with error %d: %s\n", __str, v3, v5);
+  return v3;
 }
 
 uint64_t asp_nand_set_writable()
@@ -2259,72 +2334,72 @@ uint64_t asp_nand_set_writable()
   memset(name, 0, 128);
   if (IOMasterPort(0, mainPort))
   {
-    ramrod_log_msg("IOMasterPort failed\n", v0, v1, v2, v3, v4, v5, v6, v33);
+    ramrod_log_msg("IOMasterPort failed\n");
     return 1;
   }
 
-  v8 = IOServiceMatching("ASPStorage");
-  if (!v8)
+  v1 = IOServiceMatching("ASPStorage");
+  if (!v1)
   {
-    ramrod_log_msg("IOServiceMatching failed for %s\n", v9, v10, v11, v12, v13, v14, v15, "ASPStorage");
+    ramrod_log_msg("IOServiceMatching failed for %s\n");
     return 1;
   }
 
-  IOServiceGetMatchingServices(mainPort[0], v8, &mainPort[1]);
+  IOServiceGetMatchingServices(mainPort[0], v1, &mainPort[1]);
   if (!mainPort[1])
   {
     puts("ASPStorage instance not found!");
     return 1;
   }
 
-  v16 = IOIteratorNext(mainPort[1]);
-  if (!v16)
+  v2 = IOIteratorNext(mainPort[1]);
+  if (!v2)
   {
     return 1;
   }
 
-  v17 = v16;
+  v3 = v2;
   while (1)
   {
-    IORegistryEntryGetName(v17, name);
-    ramrod_log_msg("Service name : %s\n", v18, v19, v20, v21, v22, v23, v24, name);
-    v25 = IORegistryEntrySetCFProperty(v17, @"ASPSetWritable", kCFBooleanTrue);
-    if (v25)
+    IORegistryEntryGetName(v3, name);
+    ramrod_log_msg("Service name : %s\n", name);
+    v4 = IORegistryEntrySetCFProperty(v3, @"ASPSetWritable", kCFBooleanTrue);
+    if (v4)
     {
       break;
     }
 
-    ramrod_log_msg("Set ASP writable successfully\n", v26, v27, v28, v29, v30, v31, v32, v34);
-    IOObjectRelease(v17);
-    v17 = IOIteratorNext(mainPort[1]);
-    if (!v17)
+    ramrod_log_msg("Set ASP writable successfully\n");
+    IOObjectRelease(v3);
+    v3 = IOIteratorNext(mainPort[1]);
+    if (!v3)
     {
       return 1;
     }
   }
 
-  ramrod_log_msg("Failed to set ASP writable property. err = 0x%08x occurred\n", v26, v27, v28, v29, v30, v31, v32, v25);
+  ramrod_log_msg("Failed to set ASP writable property. err = 0x%08x occurred\n", v4);
   return 0;
 }
 
-uint64_t dump_panic_logs_from_path(uint64_t a1, uint64_t a2, CFErrorRef *a3)
+uint64_t dump_panic_logs_from_path(uint64_t a1, const char *a2, CFErrorRef *a3)
 {
-  bzero(v24, 0x401uLL);
-  ramrod_log_msg("entering %s\n", v4, v5, v6, v7, v8, v9, v10, "dump_panic_logs_from_path");
+  bzero(v10, 0x401uLL);
+  ramrod_log_msg("entering %s\n", "dump_panic_logs_from_path");
   __strlcpy_chk();
   __strlcat_chk();
   __strlcat_chk();
-  v23[0] = "/usr/libexec/DumpPanic";
-  v23[1] = v24;
-  v23[2] = 0;
-  v11 = ramrod_execute_command(v23);
-  if (!v11)
+  v9[0] = "/usr/libexec/DumpPanic";
+  v9[1] = v10;
+  v9[2] = 0;
+  v4 = ramrod_execute_command(v9);
+  if (!v4)
   {
     return 1;
   }
 
-  ramrod_log_msg("DumpPanic failure: %d\n", v12, v13, v14, v15, v16, v17, v18, v11);
-  ramrod_create_error_cf(a3, @"RamrodErrorDomain", 7, 0, @"%s: DumpPanic failed: %d", v19, v20, v21, "dump_panic_logs_from_path");
+  ramrod_log_msg("DumpPanic failure: %d\n", v4);
+  ramrod_create_error_cf(a3, @"RamrodErrorDomain", 7, 0, @"%s: DumpPanic failed: %d", v5, v6, v7, "dump_panic_logs_from_path");
   return 0;
 }
 
@@ -2341,139 +2416,139 @@ uint64_t dump_and_return_panic_logs_from_path(uint64_t a1, const char *a2, const
   }
 
   bzero(__s, 0x400uLL);
-  ramrod_log_msg("entering %s\n", v12, v13, v14, v15, v16, v17, v18, "dump_and_return_panic_logs_from_path");
+  ramrod_log_msg("entering %s\n", "dump_and_return_panic_logs_from_path");
   __strlcpy_chk();
   __strlcat_chk();
-  v19 = strlen(__s);
-  v20 = time(0);
-  v21 = dump_panic_logs_from_path(a1, v11, a6);
-  v22 = time(0);
+  v12 = strlen(__s);
+  v13 = time(0);
+  v14 = dump_panic_logs_from_path(a1, v11, a6);
+  v15 = time(0);
   *a4 = 0;
   *a3 = 0;
   *a5 = 0;
-  v23 = opendir(__s);
-  if (!v23)
+  v16 = opendir(__s);
+  if (!v16)
   {
-    v65 = __error();
-    strerror(*v65);
-    ramrod_log_msg("%s: Unable to open CrashReporter directory at %s: (%s)\n", v66, v67, v68, v69, v70, v71, v72, "dump_and_return_panic_logs_from_path");
+    v31 = __error();
+    v32 = strerror(*v31);
+    ramrod_log_msg("%s: Unable to open CrashReporter directory at %s: (%s)\n", "dump_and_return_panic_logs_from_path", __s, v32);
     __error();
-    ramrod_create_error_cf(a6, @"RamrodErrorDomain", 11, 0, @"%s: Failed to open CrashReporter directory: %d", v73, v74, v75, "dump_and_return_panic_logs_from_path");
+    ramrod_create_error_cf(a6, @"RamrodErrorDomain", 11, 0, @"%s: Failed to open CrashReporter directory: %d", v33, v34, v35, "dump_and_return_panic_logs_from_path");
     return 0;
   }
 
-  v31 = v23;
-  ramrod_log_msg("Looking for logs between %ld and %ld\n", v24, v25, v26, v27, v28, v29, v30, v20);
-  bzero(&v83, 0x418uLL);
-  v82 = 0;
-  if (readdir_r(v31, &v83, &v82) || !v82)
+  v17 = v16;
+  ramrod_log_msg("Looking for logs between %ld and %ld\n", v13, v15);
+  bzero(&v42, 0x418uLL);
+  v41 = 0;
+  if (readdir_r(v17, &v42, &v41) || !v41)
   {
     goto LABEL_42;
   }
 
   while (1)
   {
-    memset(&v81, 0, sizeof(v81));
-    if (v83.d_type != 8)
+    memset(&v40, 0, sizeof(v40));
+    if (v42.d_type != 8)
     {
       goto LABEL_25;
     }
 
-    d_namlen = v83.d_namlen;
-    if (v83.d_namlen < 5u)
+    d_namlen = v42.d_namlen;
+    if (v42.d_namlen < 5u)
     {
       goto LABEL_25;
     }
 
-    if (*v83.d_name == 1768841584 && v83.d_name[4] == 99)
+    if (*v42.d_name == 1768841584 && v42.d_name[4] == 99)
     {
-      v41 = "panic";
+      v21 = "panic";
     }
 
     else
     {
-      if (v83.d_namlen < 0xAu)
+      if (v42.d_namlen < 0xAu)
       {
         goto LABEL_25;
       }
 
-      if (*v83.d_name != 0x7365526563726F66 || *&v83.d_name[8] != 29797)
+      if (*v42.d_name != 0x7365526563726F66 || *&v42.d_name[8] != 29797)
       {
         goto LABEL_25;
       }
 
-      v41 = "forceReset";
+      v21 = "forceReset";
     }
 
-    *a3 = v41;
-    if (v19 + d_namlen >= 0x400)
+    *a3 = v21;
+    if (v12 + d_namlen >= 0x400)
     {
-      ramrod_log_msg("Log path name too long, skipping\n", v32, d_namlen, v33, v34, v35, v36, v37, v80);
+      ramrod_log_msg("Log path name too long, skipping\n");
       goto LABEL_25;
     }
 
-    strncpy(&__s[v19], v83.d_name, d_namlen);
-    __s[v19 + v83.d_namlen] = 0;
-    if (!stat(__s, &v81))
+    strncpy(&__s[v12], v42.d_name, d_namlen);
+    __s[v12 + v42.d_namlen] = 0;
+    if (!stat(__s, &v40))
     {
       break;
     }
 
-    v49 = __error();
-    ramrod_log_msg("Error %d from stat(%s)\n", v50, v51, v52, v53, v54, v55, v56, *v49);
+    v22 = __error();
+    ramrod_log_msg("Error %d from stat(%s)\n", *v22, __s);
 LABEL_25:
-    if (readdir_r(v31, &v83, &v82) || !v82)
+    if (readdir_r(v17, &v42, &v41) || !v41)
     {
       goto LABEL_42;
     }
   }
 
-  if (v81.st_ctimespec.tv_sec < v20 || v81.st_ctimespec.tv_sec > v22 || v81.st_mtimespec.tv_sec < v20 || v81.st_mtimespec.tv_sec > v22)
+  if (v40.st_ctimespec.tv_sec < v13 || v40.st_ctimespec.tv_sec > v15 || v40.st_mtimespec.tv_sec < v13 || v40.st_mtimespec.tv_sec > v15)
   {
     goto LABEL_25;
   }
 
-  ramrod_log_msg("Found %s log at %s\n", v42, v43, v44, v45, v46, v47, v48, *a3);
-  v57 = open(__s, 0);
-  if (v57 < 0)
+  ramrod_log_msg("Found %s log at %s\n", *a3, __s);
+  v23 = open(__s, 0);
+  if (v23 < 0)
   {
     __error();
-    ramrod_create_error_cf(a6, @"RamrodErrorDomain", 11, 0, @"%s: Error %d opening panic log", v76, v77, v78, "dump_and_return_panic_logs_from_path");
+    ramrod_create_error_cf(a6, @"RamrodErrorDomain", 11, 0, @"%s: Error %d opening panic log", v36, v37, v38, "dump_and_return_panic_logs_from_path");
   }
 
   else
   {
-    v58 = v57;
-    if (v81.st_size >= 0x200000uLL)
+    v24 = v23;
+    if (v40.st_size >= 0x200000uLL)
     {
       st_size = 0x200000;
     }
 
     else
     {
-      st_size = v81.st_size;
+      st_size = v40.st_size;
     }
 
-    v63 = malloc(st_size + 1);
-    if (v63)
+    v29 = malloc(st_size + 1);
+    if (v29)
     {
-      v64 = read(v58, v63, st_size);
-      *(v63 + v64) = 0;
-      *a4 = v63;
-      *a5 = v64;
+      v30 = read(v24, v29, st_size);
+      *(v29 + v30) = 0;
+      *a4 = v29;
+      *a5 = v30;
     }
 
     else
     {
-      ramrod_create_error_cf(a6, @"RamrodErrorDomain", 6, 0, @"%s: Could not allocate memory for panic log", v60, v61, v62, "dump_and_return_panic_logs_from_path");
+      ramrod_create_error_cf(a6, @"RamrodErrorDomain", 6, 0, @"%s: Could not allocate memory for panic log", v26, v27, v28, "dump_and_return_panic_logs_from_path");
     }
 
-    close(v58);
+    close(v24);
   }
 
 LABEL_42:
-  closedir(v31);
-  return v21;
+  closedir(v17);
+  return v14;
 }
 
 uint64_t ramrod_parse_panic_string(const char *a1, regoff_t a2, void *a3, void *a4)
@@ -2501,52 +2576,52 @@ BOOL sub_25A70(const char *a1, regoff_t a2, char *a3, void *a4, void *a5)
     *a5 = 0;
   }
 
-  memset(&v20, 0, sizeof(v20));
-  v9 = regcomp(&v20, a3, 265);
+  memset(&v13, 0, sizeof(v13));
+  v9 = regcomp(&v13, a3, 265);
   if (v9)
   {
-    v27 = 0uLL;
-    v28 = 0uLL;
-    v25 = 0uLL;
-    v26 = 0uLL;
-    v23 = 0uLL;
-    v24 = 0uLL;
+    v20 = 0uLL;
+    v21 = 0uLL;
+    v18 = 0uLL;
+    v19 = 0uLL;
+    v16 = 0uLL;
+    v17 = 0uLL;
     __pmatch = 0;
-    v22 = 0uLL;
-    regerror(v9, &v20, &__pmatch, 0x80uLL);
-    ramrod_log_msg("regcomp failed: %s\n", v13, v14, v15, v16, v17, v18, v19, &__pmatch);
+    v15 = 0uLL;
+    regerror(v9, &v13, &__pmatch, 0x80uLL);
+    ramrod_log_msg("regcomp failed: %s\n", &__pmatch);
     return 0;
   }
 
   else
   {
-    v29 = 0uLL;
-    v30 = 0uLL;
-    v27 = 0uLL;
-    v28 = 0uLL;
-    v25 = 0uLL;
-    v26 = 0uLL;
-    v23 = 0uLL;
-    v24 = 0uLL;
-    __pmatch.rm_so = 0;
     v22 = 0uLL;
+    v23 = 0uLL;
+    v20 = 0uLL;
+    v21 = 0uLL;
+    v18 = 0uLL;
+    v19 = 0uLL;
+    v16 = 0uLL;
+    v17 = 0uLL;
+    __pmatch.rm_so = 0;
+    v15 = 0uLL;
     __pmatch.rm_eo = a2;
-    v10 = regexec(&v20, a1, 0xAuLL, &__pmatch, 7);
+    v10 = regexec(&v13, a1, 0xAuLL, &__pmatch, 7);
     v11 = v10 == 0;
     if (!v10)
     {
       if (a4)
       {
-        *a4 = &a1[v22];
+        *a4 = &a1[v15];
       }
 
       if (a5)
       {
-        *a5 = *(&v22 + 1) - v22;
+        *a5 = *(&v15 + 1) - v15;
       }
     }
 
-    regfree(&v20);
+    regfree(&v13);
   }
 
   return v11;
@@ -2590,32 +2665,31 @@ uint64_t ramrod_parse_panic_uptime(const char *a1, regoff_t a2)
 
 uint64_t ramrod_raw_device_for_block_device(const char *a1, char *a2, size_t a3)
 {
-  v5 = a1;
-  memset(&v23, 0, sizeof(v23));
-  if (stat(a1, &v23))
+  memset(&v10, 0, sizeof(v10));
+  if (stat(a1, &v10))
   {
-    v13 = __error();
-    v14 = *v13;
-    strerror(*v13);
-    ramrod_log_msg("unable to stat block device %s: %s\n", v15, v16, v17, v18, v19, v20, v21, v5);
+    v6 = __error();
+    v7 = *v6;
+    v8 = strerror(*v6);
+    ramrod_log_msg("unable to stat block device %s: %s\n", a1, v8);
   }
 
-  else if ((v23.st_mode & 0xF000) == 0x6000)
+  else if ((v10.st_mode & 0xF000) == 0x6000)
   {
     *buf = 0u;
-    v25 = 0u;
-    devname_r(v23.st_rdev, 0x2000u, buf, 32);
+    v12 = 0u;
+    devname_r(v10.st_rdev, 0x2000u, buf, 32);
     snprintf(a2, a3, "%s%s", "/dev/", buf);
     return 0;
   }
 
   else
   {
-    ramrod_log_msg("%s is not a block device\n", v6, v7, v8, v9, v10, v11, v12, v5);
+    ramrod_log_msg("%s is not a block device\n", a1);
     return 0xFFFFFFFFLL;
   }
 
-  return v14;
+  return v7;
 }
 
 uint64_t ramrod_register_for_button_click()
@@ -2624,25 +2698,24 @@ uint64_t ramrod_register_for_button_click()
   {
     if (IOHIDEventSystemOpen())
     {
-      v7 = "Registered for button events\n";
+      ramrod_log_msg("Registered for button events\n");
     }
 
     else
     {
-      v7 = "IOHIDEventSystemOpen failed\n";
+      ramrod_log_msg("IOHIDEventSystemOpen failed\n");
     }
   }
 
   else
   {
-    v7 = "IOHIDEventSystemCreate failed\n";
+    ramrod_log_msg("IOHIDEventSystemCreate failed\n");
   }
 
-  ramrod_log_msg(v7, v0, v1, v2, v3, v4, v5, v6, vars0);
   return 0;
 }
 
-uint64_t sub_25DF4()
+uint64_t sub_25DF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (IOHIDEventGetType() != 3)
   {
@@ -2650,8 +2723,8 @@ uint64_t sub_25DF4()
   }
 
   IntegerValue = IOHIDEventGetIntegerValue();
-  IOHIDEventGetIntegerValue();
-  ramrod_log_msg("%s: usage: %ld - intValue:%ld\n", v1, v2, v3, v4, v5, v6, v7, "ramrodButtonHIDEventCallBack");
+  v5 = IOHIDEventGetIntegerValue();
+  ramrod_log_msg("%s: usage: %ld - intValue:%ld\n", "ramrodButtonHIDEventCallBack", IntegerValue, v5);
   if (IntegerValue > 232)
   {
     if ((IntegerValue - 233) > 1)
@@ -2669,13 +2742,13 @@ uint64_t sub_25DF4()
   {
     if ((byte_1C6B3D[0] & 1) == 0)
     {
-      v8 = 0;
-      while (v8 != 4)
+      v6 = 0;
+      while (v6 != 4)
       {
-        v9 = byte_1C6B3D[++v8];
-        if (v9 == 1)
+        v7 = byte_1C6B3D[++v6];
+        if (v7 == 1)
         {
-          if ((v8 - 1) < 4)
+          if ((v6 - 1) < 4)
           {
             goto LABEL_18;
           }
@@ -2701,12 +2774,12 @@ LABEL_18:
     {
       if (IntegerValue == 48)
       {
-        v10 = byte_1C6B3D;
+        v8 = byte_1C6B3D;
       }
 
       else
       {
-        v10 = &byte_1C6B3E;
+        v8 = &byte_1C6B3E;
       }
     }
 
@@ -2715,13 +2788,13 @@ LABEL_18:
       switch(IntegerValue)
       {
         case 149:
-          v10 = &byte_1C6B41;
+          v8 = &byte_1C6B41;
           break;
         case 233:
-          v10 = &byte_1C6B3F;
+          v8 = &byte_1C6B3F;
           break;
         case 234:
-          v10 = &byte_1C6B40;
+          v8 = &byte_1C6B40;
           break;
         default:
 LABEL_36:
@@ -2730,17 +2803,17 @@ LABEL_36:
       }
     }
 
-    *v10 = 1;
+    *v8 = 1;
     goto LABEL_36;
   }
 
   pthread_mutex_lock(&stru_1C4740);
   if (IntegerValue <= 148)
   {
-    v11 = byte_1C6B3D;
+    v9 = byte_1C6B3D;
     if (IntegerValue != 48)
     {
-      v11 = &byte_1C6B3E;
+      v9 = &byte_1C6B3E;
     }
   }
 
@@ -2749,31 +2822,31 @@ LABEL_36:
     switch(IntegerValue)
     {
       case 149:
-        v11 = &byte_1C6B41;
+        v9 = &byte_1C6B41;
         break;
       case 233:
-        v11 = &byte_1C6B3F;
+        v9 = &byte_1C6B3F;
         break;
       case 234:
-        v11 = &byte_1C6B40;
+        v9 = &byte_1C6B40;
         break;
       default:
         goto LABEL_40;
     }
   }
 
-  *v11 = 0;
+  *v9 = 0;
 LABEL_40:
   pthread_mutex_unlock(&stru_1C4740);
   if ((byte_1C6B3D[0] & 1) == 0)
   {
-    v12 = 0;
-    while (v12 != 4)
+    v10 = 0;
+    while (v10 != 4)
     {
-      v13 = byte_1C6B3D[++v12];
-      if (v13 == 1)
+      v11 = byte_1C6B3D[++v10];
+      if (v11 == 1)
       {
-        if ((v12 - 1) < 4)
+        if ((v10 - 1) < 4)
         {
           return 1;
         }
@@ -2798,53 +2871,56 @@ LABEL_40:
 
 uint64_t ramrod_wait_for_button(uint64_t a1)
 {
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  memset(v11.__opaque, 0, sizeof(v11.__opaque));
-  v11.__sig = 850045863;
-  v12 = 1018212795;
-  v16 = a1;
-  if (!IOHIDEventSystemCreate())
+  v4 = 0u;
+  v5 = 0u;
+  v6 = 0u;
+  memset(v2.__opaque, 0, sizeof(v2.__opaque));
+  v2.__sig = 850045863;
+  v3 = 1018212795;
+  v7 = a1;
+  if (IOHIDEventSystemCreate())
   {
-    v8 = "IOHIDEventSystemCreate failed\n";
-LABEL_8:
-    ramrod_log_msg(v8, v1, v2, v3, v4, v5, v6, v7, v10);
-    return 0;
+    if (IOHIDEventSystemOpen())
+    {
+      pthread_mutex_lock(&v2);
+      while (!DWORD2(v6))
+      {
+        pthread_cond_wait(&v3, &v2);
+      }
+
+      pthread_mutex_unlock(&v2);
+      IOHIDEventSystemClose();
+    }
+
+    else
+    {
+      ramrod_log_msg("IOHIDEventSystemOpen failed\n");
+    }
   }
 
-  if (!IOHIDEventSystemOpen())
+  else
   {
-    v8 = "IOHIDEventSystemOpen failed\n";
-    goto LABEL_8;
+    ramrod_log_msg("IOHIDEventSystemCreate failed\n");
   }
 
-  pthread_mutex_lock(&v11);
-  while (!DWORD2(v15))
-  {
-    pthread_cond_wait(&v12, &v11);
-  }
-
-  pthread_mutex_unlock(&v11);
-  IOHIDEventSystemClose();
   return 0;
 }
 
-uint64_t sub_26224(uint64_t a1, uint64_t a2)
+uint64_t sub_26224(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   Type = IOHIDEventGetType();
-  ramrod_log_msg("hid event type: %d\n", v4, v5, v6, v7, v8, v9, v10, Type);
+  ramrod_log_msg("hid event type: %d\n", Type);
   if (Type == 3)
   {
     IntegerValue = IOHIDEventGetIntegerValue();
-    v12 = IOHIDEventGetIntegerValue();
-    IOHIDEventGetIntegerValue();
-    ramrod_log_msg("%s: usage_page: %ld - usage: %ld - intValue:%ld\n", v13, v14, v15, v16, v17, v18, v19, "ramrodHIDEventCallBack");
-    ramrod_log_msg("%s: looking for %ld\n", v20, v21, v22, v23, v24, v25, v26, "ramrodHIDEventCallBack");
+    v7 = IOHIDEventGetIntegerValue();
+    v8 = IOHIDEventGetIntegerValue();
+    ramrod_log_msg("%s: usage_page: %ld - usage: %ld - intValue:%ld\n", "ramrodHIDEventCallBack", IntegerValue, v7, v8);
+    ramrod_log_msg("%s: looking for %ld\n", "ramrodHIDEventCallBack", *(a2 + 120));
     if (IntegerValue == 12)
     {
-      v27 = *(a2 + 120);
-      if (!v27 || v12 == v27)
+      v9 = *(a2 + 120);
+      if (!v9 || v7 == v9)
       {
         if (IOHIDEventGetIntegerValue())
         {
@@ -2860,31 +2936,31 @@ uint64_t sub_26224(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-CFTypeRef *ramrod_read_os_build_version(uint64_t a1, CFTypeRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef *ramrod_read_os_build_version(uint64_t a1, CFTypeRef *a2, CFTypeRef *a3)
 {
   if (!a1)
   {
-    ramrod_log_msg("%s: NULL system partition mount point\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_read_os_build_version");
+    ramrod_log_msg("%s: NULL system partition mount point\n", a2);
     return 0;
   }
 
-  v8 = a2;
+  v3 = a2;
   if (!a2)
   {
-    ramrod_log_msg("%s: NULL OS build version ref\n", 0, a3, a4, a5, a6, a7, a8, "ramrod_read_os_build_version");
-    return v8;
+    ramrod_log_msg("%s: NULL OS build version ref\n", "ramrod_read_os_build_version");
+    return v3;
   }
 
   if (!a3)
   {
-    ramrod_log_msg("%s: NULL OS release type mount point\n", a2, 0, a4, a5, a6, a7, a8, "ramrod_read_os_build_version");
+    ramrod_log_msg("%s: NULL OS release type mount point\n", a2);
     return 0;
   }
 
   if (*a2)
   {
     CFRelease(*a2);
-    *v8 = 0;
+    *v3 = 0;
   }
 
   if (*a3)
@@ -2893,74 +2969,60 @@ CFTypeRef *ramrod_read_os_build_version(uint64_t a1, CFTypeRef *a2, CFTypeRef *a
     *a3 = 0;
   }
 
-  v11 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s/System/Library/CoreServices/SystemVersion.plist", a1);
-  if (!v11)
+  v6 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s/System/Library/CoreServices/SystemVersion.plist", a1);
+  if (!v6)
   {
-    ramrod_log_msg("%s: Couldn't allocate plist path string\n", v12, v13, v14, v15, v16, v17, v18, "ramrod_read_os_build_version");
+    ramrod_log_msg("%s: Couldn't allocate plist path string\n", v7);
     return 0;
   }
 
-  v19 = v11;
+  v8 = v6;
   bzero(buffer, 0x400uLL);
-  CString = CFStringGetCString(v19, buffer, 1024, 0x8000100u);
-  CFRelease(v19);
+  CString = CFStringGetCString(v8, buffer, 1024, 0x8000100u);
+  CFRelease(v8);
   if (!CString)
   {
-    ramrod_log_msg("%s: Couldn't get c-string with plist path\n", v21, v22, v23, v24, v25, v26, v27, "ramrod_read_os_build_version");
+    ramrod_log_msg("%s: Couldn't get c-string with plist path\n", v10);
     return 0;
   }
 
   dictionary_from_plist = create_dictionary_from_plist(buffer, 0);
   if (!dictionary_from_plist)
   {
-    ramrod_log_msg("%s: Unable to read system version plist\n", v29, v30, v31, v32, v33, v34, v35, "ramrod_read_os_build_version");
+    ramrod_log_msg("%s: Unable to read system version plist\n", v12);
     return 0;
   }
 
-  v36 = dictionary_from_plist;
+  v13 = dictionary_from_plist;
   Value = CFDictionaryGetValue(dictionary_from_plist, @"ProductBuildVersion");
-  *v8 = Value;
-  v8 = (Value != 0);
+  *v3 = Value;
+  v3 = Value != 0;
   if (Value)
   {
     CFRetain(Value);
-    v45 = CFDictionaryGetValue(v36, @"ReleaseType");
-    *a3 = v45;
-    if (v45)
+    v15 = CFDictionaryGetValue(v13, @"ReleaseType");
+    *a3 = v15;
+    if (v15)
     {
-      CFRetain(v45);
+      CFRetain(v15);
     }
   }
 
   else
   {
-    ramrod_log_msg("%s: Unable to read build version from plist", v38, v39, v40, v41, v42, v43, v44, "ramrod_read_os_build_version");
+    ramrod_log_msg("%s: Unable to read build version from plist", "ramrod_read_os_build_version");
   }
 
-  CFRelease(v36);
-  return v8;
+  CFRelease(v13);
+  return v3;
 }
 
-CFTypeRef *ramrod_read_previous_os_build_version(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef *ramrod_read_previous_os_build_version(uint64_t a1)
 {
-  os_build_version = ramrod_read_os_build_version(a1, &previous_os_build_version, &previous_os_release_type, a4, a5, a6, a7, a8);
+  os_build_version = ramrod_read_os_build_version(a1, &previous_os_build_version, &previous_os_release_type);
   if (os_build_version)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    *buffer = 0u;
+    v33 = 0u;
     v34 = 0u;
     v31 = 0u;
     v32 = 0u;
@@ -2974,46 +3036,46 @@ CFTypeRef *ramrod_read_previous_os_build_version(uint64_t a1, uint64_t a2, uint6
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    *buffer = 0u;
     v20 = 0u;
-    *v17 = 0u;
+    v17 = 0u;
     v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v5 = 0u;
+    v6 = 0u;
+    *v3 = 0u;
+    v4 = 0u;
     if (!CFStringGetCString(previous_os_build_version, buffer, 256, 0x8000100u))
     {
       __strlcpy_chk();
     }
 
-    if (!previous_os_release_type || !CFStringGetCString(previous_os_release_type, v17, 256, 0x8000100u))
+    if (!previous_os_release_type || !CFStringGetCString(previous_os_release_type, v3, 256, 0x8000100u))
     {
       __strlcpy_chk();
     }
 
-    ramrod_log_msg("%s: previous OS version: %s (%s)\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_read_previous_os_build_version");
+    ramrod_log_msg("%s: previous OS version: %s (%s)\n", "ramrod_read_previous_os_build_version", buffer, v3);
   }
 
   return os_build_version;
 }
 
-CFTypeRef *ramrod_read_new_os_build_version(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef *ramrod_read_new_os_build_version(uint64_t a1)
 {
-  os_build_version = ramrod_read_os_build_version(a1, &new_os_build_version, &new_os_release_type, a4, a5, a6, a7, a8);
+  os_build_version = ramrod_read_os_build_version(a1, &new_os_build_version, &new_os_release_type);
   if (os_build_version)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    *buffer = 0u;
+    v33 = 0u;
     v34 = 0u;
     v31 = 0u;
     v32 = 0u;
@@ -3027,21 +3089,35 @@ CFTypeRef *ramrod_read_new_os_build_version(uint64_t a1, uint64_t a2, uint64_t a
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    *buffer = 0u;
     v20 = 0u;
-    *v17 = 0u;
+    v17 = 0u;
     v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v5 = 0u;
+    v6 = 0u;
+    *v3 = 0u;
+    v4 = 0u;
     if (!CFStringGetCString(new_os_build_version, buffer, 256, 0x8000100u))
     {
       __strlcpy_chk();
     }
 
-    if (!new_os_release_type || !CFStringGetCString(new_os_release_type, v17, 256, 0x8000100u))
+    if (!new_os_release_type || !CFStringGetCString(new_os_release_type, v3, 256, 0x8000100u))
     {
       __strlcpy_chk();
     }
 
-    ramrod_log_msg("%s: new OS version: %s (%s)\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_read_new_os_build_version");
+    ramrod_log_msg("%s: new OS version: %s (%s)\n", "ramrod_read_new_os_build_version", buffer, v3);
   }
 
   return os_build_version;
@@ -3055,22 +3131,22 @@ BOOL ramrod_plugin_done_is_last(const __CFNumber *a1)
   return valuePtr == dword_1C6A18;
 }
 
-uint64_t ramrod_reallocate_main_container(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_reallocate_main_container(uint64_t a1)
 {
   if (byte_1C67B0)
   {
-    ramrod_log_msg("Resizing main OS container to %lld bytes (0 mean max size of partition) \n", a2, a3, a4, a5, a6, a7, a8, a1);
-    v8 = APFSContainerResize();
-    if (v8)
+    ramrod_log_msg("Resizing main OS container to %lld bytes (0 mean max size of partition) \n", a1);
+    v1 = APFSContainerResize();
+    if (v1)
     {
-      ramrod_log_msg("APFSContainerResize failed: %d\n", v9, v10, v11, v12, v13, v14, v15, v8);
+      ramrod_log_msg("APFSContainerResize failed: %d\n", v1);
       return 0;
     }
   }
 
   else
   {
-    ramrod_log_msg("apfs_container_device_node_path wasn't created yet, skipping resize of container (partition resized already \n", a2, a3, a4, a5, a6, a7, a8, v17);
+    ramrod_log_msg("apfs_container_device_node_path wasn't created yet, skipping resize of container (partition resized already \n");
   }
 
   return 1;
@@ -3098,34 +3174,34 @@ uint64_t ramrod_resize_container(uint64_t a1, uint64_t a2, void *a3)
   return v7;
 }
 
-void sub_269E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26A00(uint64_t a1)
+void sub_26A00(uint64_t result)
 {
-  if ((*(*(*(a1 + 32) + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 32) + 8) + 24) & 1) == 0)
   {
     if (APFSCancelContainerResize())
     {
-      ramrod_log_msg("ramrod_resize_container: Failed to cancel resize container %s, %d.\n", v2, v3, v4, v5, v6, v7, v8, *(a1 + 40));
+      ramrod_log_msg("ramrod_resize_container: Failed to cancel resize container %s, %d.\n");
     }
 
     else
     {
-      ramrod_log_msg("ramrod_resize_container: Canceled resize container %s.\n", v2, v3, v4, v5, v6, v7, v8, *(a1 + 40));
+      ramrod_log_msg("ramrod_resize_container: Canceled resize container %s.\n");
     }
   }
 }
 
-uint64_t ramrod_shrink_main_os_container_with_error(unint64_t a1, unint64_t a2, void *a3, CFTypeRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_shrink_main_os_container_with_error(uint64_t a1, uint64_t a2, void *a3, CFTypeRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v50 = 0;
-  v48 = 0;
-  v49 = 0;
+  v39 = 0;
+  v37 = 0;
+  v38 = 0;
   cf = 0;
   if (!byte_1C67B0)
   {
@@ -3140,43 +3216,43 @@ LABEL_5:
   SpaceInfo = APFSContainerGetSpaceInfo();
   if (SpaceInfo)
   {
-    v44 = SpaceInfo;
+    v33 = SpaceInfo;
     __error();
     ramrod_create_error_cf(&cf, @"RamrodErrorDomain", 7, 0, @"%s: Failed getting %s container space information. status: %d, errno: %d", v13, v14, v15, "ramrod_shrink_main_os_container_with_error");
-    v16 = v44;
+    v16 = v33;
     goto LABEL_16;
   }
 
   MinimalSize = APFSContainerGetMinimalSize();
   if (MinimalSize)
   {
-    v45 = MinimalSize;
+    v34 = MinimalSize;
     __error();
-    ramrod_create_error_cf(&cf, @"RamrodErrorDomain", 7, 0, @"%s: Failed getting %s container minimum allowed space. status: %d, errno: %d", v27, v28, v29, "ramrod_shrink_main_os_container_with_error");
-    v16 = v45;
+    ramrod_create_error_cf(&cf, @"RamrodErrorDomain", 7, 0, @"%s: Failed getting %s container minimum allowed space. status: %d, errno: %d", v23, v24, v25, "ramrod_shrink_main_os_container_with_error");
+    v16 = v34;
     goto LABEL_16;
   }
 
-  if (v50 < a1 || v50 < a2)
+  if (v39 < a1 || v39 < a2)
   {
     v16 = 2;
-    ramrod_create_error_cf(&cf, @"RamrodErrorDomain", 2, 0, @"%s: Unexpected arguments and/or APFS results. main_container_min_allowed_size: %llu, current_container_size: %llu, max_recovery_os_extra_size: %llu, min_recovery_os_extra_size: %llu", v24, v25, v26, "ramrod_shrink_main_os_container_with_error");
+    ramrod_create_error_cf(&cf, @"RamrodErrorDomain", 2, 0, @"%s: Unexpected arguments and/or APFS results. main_container_min_allowed_size: %llu, current_container_size: %llu, max_recovery_os_extra_size: %llu, min_recovery_os_extra_size: %llu", v20, v21, v22, "ramrod_shrink_main_os_container_with_error");
   }
 
   else
   {
-    ramrod_log_msg("The container in %s current size is %lldMiB with min allowed size of %lldMiB. Asked to shrink by %lldMiB to %lldMiB.\n", v20, v21, v22, v23, v24, v25, v26, &byte_1C67B0);
-    if (v50 - v48 >= a2)
+    ramrod_log_msg("The container in %s current size is %lldMiB with min allowed size of %lldMiB. Asked to shrink by %lldMiB to %lldMiB.\n", &byte_1C67B0, v39 >> 20, v37 >> 20, a1 / 0x100000, a2 / 0x100000);
+    if (v39 - v37 >= a2)
     {
-      v30 = a2;
+      v26 = a2;
     }
 
     else
     {
-      v30 = v50 - v48;
+      v26 = v39 - v37;
     }
 
-    if (v30 < a1)
+    if (v26 < a1)
     {
       v17 = CFSTR("%s: Device doesn't have enough space to install recovery OS (max shrink offset %llu, minimum needed space %llu, maximum needed space %llu");
       v16 = 7;
@@ -3185,32 +3261,32 @@ LABEL_23:
       goto LABEL_5;
     }
 
-    v32 = ramrod_resize_container(&byte_1C67B0, v50 - v30, &v48);
-    if (v32)
+    v28 = ramrod_resize_container(&byte_1C67B0, v39 - v26, &v37);
+    if (v28)
     {
-      v16 = v32;
+      v16 = v28;
       __error();
       v17 = @"%s: Failed resizeing %s container. status: %d, errno:%d  (asked resize to %llu, estimated min possible size is %llu)";
       goto LABEL_23;
     }
 
-    v49 = 0;
-    v33 = APFSContainerGetSpaceInfo();
-    if (v33)
+    v38 = 0;
+    v29 = APFSContainerGetSpaceInfo();
+    if (v29)
     {
-      v46 = v33;
+      v35 = v29;
       __error();
-      ramrod_create_error_cf(&cf, @"RamrodErrorDomain", 7, 0, @"%s: Failed geting post resize %s container space information. status: %d, errno: %d", v41, v42, v43, "ramrod_shrink_main_os_container_with_error");
-      v16 = v46;
+      ramrod_create_error_cf(&cf, @"RamrodErrorDomain", 7, 0, @"%s: Failed geting post resize %s container space information. status: %d, errno: %d", v30, v31, v32, "ramrod_shrink_main_os_container_with_error");
+      v16 = v35;
     }
 
     else
     {
-      ramrod_log_msg("After resize for container %s we have, container_size %llu.\n", v34, v35, v36, v37, v38, v39, v40, &byte_1C67B0);
+      ramrod_log_msg("After resize for container %s we have, container_size %llu.\n", &byte_1C67B0, v39);
       v16 = 0;
       if (a3)
       {
-        *a3 = v50 - v49;
+        *a3 = v39 - v38;
       }
     }
   }
@@ -3233,66 +3309,65 @@ LABEL_16:
   return v16;
 }
 
-uint64_t ramrod_cancel_main_os_container_resize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_cancel_main_os_container_resize()
 {
   if (byte_1C67B0)
   {
-    v15 = APFSCancelContainerResize();
-    if (v15)
+    v0 = APFSCancelContainerResize();
+    if (v0)
     {
-      ramrod_log_msg("Failed to cancel resize for container %s, %d.\n", v8, v9, v10, v11, v12, v13, v14, &byte_1C67B0);
+      ramrod_log_msg("Failed to cancel resize for container %s, %d.\n");
     }
 
     else
     {
-      ramrod_log_msg("Canceled resize for container %s.\n", v8, v9, v10, v11, v12, v13, v14, &byte_1C67B0);
+      ramrod_log_msg("Canceled resize for container %s.\n");
     }
   }
 
   else
   {
-    ramrod_log_msg("APFS main container doesn't exist.\n", a2, a3, a4, a5, a6, a7, a8, v17);
+    ramrod_log_msg("APFS main container doesn't exist.\n");
     return 0xFFFFFFFFLL;
   }
 
-  return v15;
+  return v0;
 }
 
 uint64_t ramrod_get_device_size(const char *a1)
 {
-  v1 = a1;
-  v31 = 0;
-  v30 = 0;
+  v12 = 0;
+  v11 = 0;
   v2 = open(a1, 0);
   if (v2 == -1)
   {
-    v21 = __error();
-    strerror(*v21);
-    ramrod_log_msg("unable to open %s: %s\n", v22, v23, v24, v25, v26, v27, v28, v1);
+    v9 = __error();
+    v10 = strerror(*v9);
+    ramrod_log_msg("unable to open %s: %s\n", a1, v10);
     return 0;
   }
 
   else
   {
     v3 = v2;
-    if (ioctl(v2, 0x40046418uLL, &v31) == -1)
+    if (ioctl(v2, 0x40046418uLL, &v12) == -1)
     {
       v4 = __error();
-      v29 = strerror(*v4);
-      ramrod_log_msg("unable to get DKIOCGETBLOCKSIZE for %s: %s\n", v5, v6, v7, v8, v9, v10, v11, v1);
-      v31 = 0;
+      v5 = strerror(*v4);
+      ramrod_log_msg("unable to get DKIOCGETBLOCKSIZE for %s: %s\n", a1, v5);
+      v12 = 0;
     }
 
-    if (ioctl(v3, 0x40086419uLL, &v30, v29) == -1)
+    if (ioctl(v3, 0x40086419uLL, &v11) == -1)
     {
-      v12 = __error();
-      strerror(*v12);
-      ramrod_log_msg("unable to get DKIOCGETBLOCKCOUNT for %s: %s\n", v13, v14, v15, v16, v17, v18, v19, v1);
-      v30 = 0;
+      v6 = __error();
+      v7 = strerror(*v6);
+      ramrod_log_msg("unable to get DKIOCGETBLOCKCOUNT for %s: %s\n", a1, v7);
+      v11 = 0;
     }
 
     close(v3);
-    return v30 * v31;
+    return v11 * v12;
   }
 }
 
@@ -3304,10 +3379,10 @@ uint64_t ramrod_convert_eds_volumes(uint64_t a1, CFErrorRef *a2)
   }
 
   Count = CFArrayGetCount(qword_1C69F0);
-  v12 = Count;
+  v5 = Count;
   if (Count >= 2)
   {
-    ramrod_log_msg("Found %ld eds volumes, expected only 1, this is a BUG!\n", v5, v6, v7, v8, v9, v10, v11, Count);
+    ramrod_log_msg("Found %ld eds volumes, expected only 1, this is a BUG!\n", Count);
     goto LABEL_5;
   }
 
@@ -3317,72 +3392,72 @@ uint64_t ramrod_convert_eds_volumes(uint64_t a1, CFErrorRef *a2)
   }
 
 LABEL_5:
-  v13 = 0;
+  v6 = 0;
   while (1)
   {
     *buffer = 0u;
-    v55 = 0u;
-    ValueAtIndex = CFArrayGetValueAtIndex(qword_1C69F0, v13);
+    v20 = 0u;
+    ValueAtIndex = CFArrayGetValueAtIndex(qword_1C69F0, v6);
     CFStringGetCString(ValueAtIndex, buffer, 32, 0x8000100u);
-    ramrod_log_msg("Converting eds volume %s\n", v15, v16, v17, v18, v19, v20, v21, buffer);
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v57 = 0u;
-    v56[0] = "/System/Library/Filesystems/apfs.fs/apfs_vol_converter";
-    memset(v64, 0, sizeof(v64));
-    if (ramrod_raw_device_for_block_device(buffer, v64, 0x20uLL))
+    ramrod_log_msg("Converting eds volume %s\n", buffer);
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
+    v21[0] = "/System/Library/Filesystems/apfs.fs/apfs_vol_converter";
+    memset(v29, 0, sizeof(v29));
+    if (ramrod_raw_device_for_block_device(buffer, v29, 0x20uLL))
     {
-      ramrod_log_msg("Failed to convert block device path %s into character device node path\n", v22, v23, v24, v25, v26, v27, v28, buffer);
-      v46 = 3;
-      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 3, 0, @"%s: Failed to find raw data device", v48, v49, v50, "ramrod_convert_eds_volume");
-      return v46;
+      ramrod_log_msg("Failed to convert block device path %s into character device node path\n", buffer);
+      v11 = 3;
+      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 3, 0, @"%s: Failed to find raw data device", v13, v14, v15, "ramrod_convert_eds_volume");
+      return v11;
     }
 
-    v56[1] = "-v";
+    v21[1] = "-v";
     if (a1)
     {
-      *&v57 = "-m";
-      *(&v57 + 1) = a1;
-      v29 = 4;
+      *&v22 = "-m";
+      *(&v22 + 1) = a1;
+      v8 = 4;
     }
 
     else
     {
-      v29 = 2;
+      v8 = 2;
     }
 
-    v30 = &v56[v29];
-    *v30 = "-l";
-    v30[1] = "/mnt5/apfs_vol_converter.log";
-    v30[2] = v64;
-    v30[3] = 0;
-    ramrod_log_msg("Running apfs_vol_converter on volume %s\n", v22, v23, v24, v25, v26, v27, v28, buffer);
-    v31 = ramrod_execute_command(v56);
-    if (v31)
+    v9 = &v21[v8];
+    *v9 = "-l";
+    v9[1] = "/mnt5/apfs_vol_converter.log";
+    v9[2] = v29;
+    v9[3] = 0;
+    ramrod_log_msg("Running apfs_vol_converter on volume %s\n", buffer);
+    v10 = ramrod_execute_command(v21);
+    if (v10)
     {
       break;
     }
 
-    ramrod_log_msg("Successfully returned after running apfs_vol_converter on %s\n", v32, v33, v34, v35, v36, v37, v38, buffer);
-    ramrod_log_msg("Removing %s on success\n", v39, v40, v41, v42, v43, v44, v45, "/mnt5/apfs_vol_converter.log");
+    ramrod_log_msg("Successfully returned after running apfs_vol_converter on %s\n", buffer);
+    ramrod_log_msg("Removing %s on success\n", "/mnt5/apfs_vol_converter.log");
     unlink("/mnt5/apfs_vol_converter.log");
-    if (v12 == ++v13)
+    if (v5 == ++v6)
     {
       return 0;
     }
   }
 
-  ramrod_log_msg("Execution of apfs_vol_converter returned an error %d\n", v32, v33, v34, v35, v36, v37, v38, v31);
-  v46 = 7;
-  ramrod_create_error_cf(a2, @"RamrodErrorDomain", 7, 0, @"%s: Failed to convert eds volume", v51, v52, v53, "ramrod_convert_eds_volume");
-  return v46;
+  ramrod_log_msg("Execution of apfs_vol_converter returned an error %d\n", v10);
+  v11 = 7;
+  ramrod_create_error_cf(a2, @"RamrodErrorDomain", 7, 0, @"%s: Failed to convert eds volume", v16, v17, v18, "ramrod_convert_eds_volume");
+  return v11;
 }
 
-uint64_t ramrod_is_data_volume_split_required()
+uint64_t ramrod_is_data_volume_split_required(uint64_t a1, uint64_t a2)
 {
   if (qword_1C6A20 != -1)
   {
@@ -3403,7 +3478,7 @@ void sub_27210(id a1)
     {
       CFRelease(CFProperty);
       IOObjectRelease(v2);
-      ramrod_log_msg("%s: YES, enhanced apfs is supported\n", v4, v5, v6, v7, v8, v9, v10, "ramrod_is_data_volume_split_required_block_invoke");
+      ramrod_log_msg("%s: YES, enhanced apfs is supported\n", "ramrod_is_data_volume_split_required_block_invoke");
       byte_1C6A1C = 1;
       return;
     }
@@ -3411,36 +3486,36 @@ void sub_27210(id a1)
     IOObjectRelease(v2);
   }
 
-  v33 = 0;
-  if (sysctlbyname("kern.bootargs", 0, &v33, 0, 0))
+  v5 = 0;
+  if (sysctlbyname("kern.bootargs", 0, &v5, 0, 0))
   {
-    ramrod_log_msg("%s: failed to get kern.bootargs length\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_is_data_volume_split_required_block_invoke");
+    ramrod_log_msg("%s: failed to get kern.bootargs length\n", "ramrod_is_data_volume_split_required_block_invoke");
   }
 
   else
   {
-    v18 = calloc(1uLL, v33 + 1);
-    if (sysctlbyname("kern.bootargs", v18, &v33, 0, 0))
+    v4 = calloc(1uLL, v5 + 1);
+    if (sysctlbyname("kern.bootargs", v4, &v5, 0, 0))
     {
-      ramrod_log_msg("%s: failed to get kern.bootargs\n", v19, v20, v21, v22, v23, v24, v25, "ramrod_is_data_volume_split_required_block_invoke");
+      ramrod_log_msg("%s: failed to get kern.bootargs\n");
     }
 
-    else if (strstr(v18, "-apfs_restorevf_enabled"))
+    else if (strstr(v4, "-apfs_restorevf_enabled"))
     {
-      ramrod_log_msg("%s: YES, -apfs_restorevf_enabled in boot-args\n", v26, v27, v28, v29, v30, v31, v32, "ramrod_is_data_volume_split_required_block_invoke");
+      ramrod_log_msg("%s: YES, -apfs_restorevf_enabled in boot-args\n", "ramrod_is_data_volume_split_required_block_invoke");
       byte_1C6A1C = 1;
     }
 
     else
     {
-      ramrod_log_msg("%s: NO\n", v26, v27, v28, v29, v30, v31, v32, "ramrod_is_data_volume_split_required_block_invoke");
+      ramrod_log_msg("%s: NO\n");
     }
 
-    free(v18);
+    free(v4);
   }
 }
 
-uint64_t _ramrod_device_has_sandcat()
+uint64_t _ramrod_device_has_sandcat(uint64_t a1, uint64_t a2)
 {
   if (qword_1C6A30 != -1)
   {
@@ -3463,45 +3538,46 @@ void sub_273C8(id a1)
 
 uint64_t ramrod_is_device_needs_crypto_migration(const char *a1, char *a2)
 {
-  bzero(v41, 0x400uLL);
+  bzero(v7, 0x400uLL);
   if (a1 && *a1)
   {
-    mount_path = ramrod_get_mount_path(a1, v41, 0x400uLL);
+    mount_path = ramrod_get_mount_path(a1, v7, 0x400uLL);
     if (!mount_path)
     {
-      goto LABEL_18;
+      goto LABEL_9;
     }
 
     if (!a2)
     {
-      ramrod_log_msg("%s: mount path is not valid\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_is_device_needs_crypto_migration");
+      ramrod_log_msg("%s: mount path is not valid\n");
       return 1;
     }
 
     if (ramrod_mount_filesystem_no_fsck_opt_err(a1, a2, 0, 0))
     {
-      ramrod_log_msg("%s: Failed to mount %s for checking crypto migration: %d\n", v19, v20, v21, v22, v23, v24, v25, "ramrod_is_device_needs_crypto_migration");
+      ramrod_log_msg("%s: Failed to mount %s for checking crypto migration: %d\n");
     }
 
     else
     {
-LABEL_18:
-      if (APFSVolumeNeedsCryptoMigration())
+LABEL_9:
+      v6 = APFSVolumeNeedsCryptoMigration();
+      if (v6)
       {
-        ramrod_log_msg("%s: Calling APFSVolumeNeedsCryptoMigration on %s failed with error %d\n", v27, v28, v29, v30, v31, v32, v33, "ramrod_is_device_needs_crypto_migration");
+        ramrod_log_msg("%s: Calling APFSVolumeNeedsCryptoMigration on %s failed with error %d\n", "ramrod_is_device_needs_crypto_migration", a1, v6);
       }
 
-      ramrod_log_msg("%s: crypto migration for device %s is %s\n", v27, v28, v29, v30, v31, v32, v33, "ramrod_is_device_needs_crypto_migration");
+      ramrod_log_msg("%s: crypto migration for device %s is %s\n", "ramrod_is_device_needs_crypto_migration", a1, "needed");
       if (a2 && mount_path && ramrod_force_unmount_filesystem(a2, 0))
       {
-        ramrod_log_msg("%s: Failed to unmount %s after deleting snapshots\n", v34, v35, v36, v37, v38, v39, v40, "ramrod_is_device_needs_crypto_migration");
+        ramrod_log_msg("%s: Failed to unmount %s after deleting snapshots\n");
       }
     }
   }
 
   else
   {
-    ramrod_log_msg("%s: invalid device name\n", v4, v5, v6, v7, v8, v9, v10, "ramrod_is_device_needs_crypto_migration");
+    ramrod_log_msg("%s: invalid device name\n");
   }
 
   return 1;
@@ -3509,34 +3585,33 @@ LABEL_18:
 
 uint64_t ramrod_connect_to_ioservice(const char *a1, io_service_t *a2, io_connect_t *a3)
 {
-  v5 = a1;
-  v6 = IOServiceMatching(a1);
-  if (v6)
+  v5 = IOServiceMatching(a1);
+  if (v5)
   {
-    MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v6);
+    MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v5);
     if (MatchingService)
     {
-      v22 = MatchingService;
+      v7 = MatchingService;
       connect = 0;
       if (!IOServiceOpen(MatchingService, mach_task_self_, 0, &connect))
       {
-        *a2 = v22;
+        *a2 = v7;
         *a3 = connect;
         return 1;
       }
 
-      ramrod_log_msg("IOServiceOpen failed for class '%s'\n", v23, v24, v25, v26, v27, v28, v29, v5);
+      ramrod_log_msg("IOServiceOpen failed for class '%s'\n");
     }
 
     else
     {
-      ramrod_log_msg("IOServiceGetMatchingService failed\n", v15, v16, v17, v18, v19, v20, v21, v31);
+      ramrod_log_msg("IOServiceGetMatchingService failed\n");
     }
   }
 
   else
   {
-    ramrod_log_msg("IOServiceMatching failed for %s\n", v7, v8, v9, v10, v11, v12, v13, v5);
+    ramrod_log_msg("IOServiceMatching failed for %s\n");
   }
 
   return 0;
@@ -3544,38 +3619,38 @@ uint64_t ramrod_connect_to_ioservice(const char *a1, io_service_t *a2, io_connec
 
 uint64_t ramrod_generate_apslot_copy_nonce(_DWORD *a1, CFDataRef *a2)
 {
-  v35 = 4;
+  v14 = 4;
   *connection = 0;
-  v34 = 32;
+  v13 = 32;
   *bytes = 0u;
-  v38 = 0u;
+  v17 = 0u;
   if (!ramrod_connect_to_ioservice("AppleMobileApNonce", &connection[1], connection))
   {
-    ramrod_log_msg("Failed to connect to AppleMobileApNonce to generate AP nonce slot.\n", v4, v5, v6, v7, v8, v9, v10, outputStruct);
+    ramrod_log_msg("Failed to connect to AppleMobileApNonce to generate AP nonce slot.\n");
     goto LABEL_5;
   }
 
-  v11 = connection[0];
-  v12 = IOConnectCallMethod(connection[0], 0xC8u, 0, 0, 0, 0, 0, 0, bytes, &v34);
-  if (v12)
+  v4 = connection[0];
+  v5 = IOConnectCallMethod(connection[0], 0xC8u, 0, 0, 0, 0, 0, 0, bytes, &v13);
+  if (v5)
   {
-    mach_error_string(v12);
-    ramrod_log_msg("IOConnectCallMethod(%s,%u) failed: %s\n", v13, v14, v15, v16, v17, v18, v19, "AppleMobileApNonce");
+    mach_error_string(v5);
+    ramrod_log_msg("IOConnectCallMethod(%s,%u) failed: %s\n");
 LABEL_5:
-    v20 = 0;
+    outputStruct = 0;
     goto LABEL_6;
   }
 
-  v20 = calloc(1uLL, 4uLL);
-  v25 = IOConnectCallMethod(v11, 0xCBu, 0, 0, 0, 0, 0, 0, v20, &v35);
-  if (v25)
+  outputStruct = calloc(1uLL, 4uLL);
+  v11 = IOConnectCallMethod(v4, 0xCBu, 0, 0, 0, 0, 0, 0, outputStruct, &v14);
+  if (v11)
   {
-    mach_error_string(v25);
-    ramrod_log_msg("IOConnectCallMethod(%s,%u) failed: %s\n", v26, v27, v28, v29, v30, v31, v32, "AppleMobileApNonce");
+    v12 = mach_error_string(v11);
+    ramrod_log_msg("IOConnectCallMethod(%s,%u) failed: %s\n", "AppleMobileApNonce", 203, v12);
 LABEL_6:
-    v21 = 0;
-    v22 = 0;
-    v23 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     if (!a1)
     {
       goto LABEL_8;
@@ -3584,29 +3659,29 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v21 = *v20;
-  v22 = CFDataCreate(kCFAllocatorDefault, bytes, 32);
-  v23 = 1;
+  v7 = *outputStruct;
+  v8 = CFDataCreate(kCFAllocatorDefault, bytes, 32);
+  v9 = 1;
   if (a1)
   {
 LABEL_7:
-    *a1 = v21;
+    *a1 = v7;
   }
 
 LABEL_8:
   if (a2)
   {
-    *a2 = v22;
+    *a2 = v8;
   }
 
-  else if (v22)
+  else if (v8)
   {
-    CFRelease(v22);
+    CFRelease(v8);
   }
 
-  if (v20)
+  if (outputStruct)
   {
-    free(v20);
+    free(outputStruct);
   }
 
   if (connection[1])
@@ -3619,36 +3694,36 @@ LABEL_8:
     IOObjectRelease(connection[0]);
   }
 
-  return v23;
+  return v9;
 }
 
 uint64_t ramrod_generate_sepslot_copy_nonce(_DWORD *a1, CFDataRef *a2)
 {
   *bytes = 0;
-  v30 = 0;
-  v31 = 0;
+  v16 = 0;
+  v17 = 0;
   length = 20;
   *connection = 0;
   output = 0;
   outputCnt = 1;
   if (ramrod_connect_to_ioservice("AppleSEPManager", &connection[1], connection))
   {
-    v11 = connection[0];
-    v12 = IOConnectCallMethod(connection[0], 0x53u, 0, 0, 0, 0, &output, &outputCnt, bytes, &length);
-    if (v12)
+    v4 = connection[0];
+    v5 = IOConnectCallMethod(connection[0], 0x53u, 0, 0, 0, 0, &output, &outputCnt, bytes, &length);
+    if (v5)
     {
-      mach_error_string(v12);
-      ramrod_log_msg("IOConnectCallMethod(%s,%u) failed: %s\n", v13, v14, v15, v16, v17, v18, v19, "AppleSEPManager");
-      v20 = 0;
-      v21 = 0;
-      v22 = 0;
+      v6 = mach_error_string(v5);
+      ramrod_log_msg("IOConnectCallMethod(%s,%u) failed: %s\n", "AppleSEPManager", 83, v6);
+      v7 = 0;
+      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v21 = output;
-      v22 = CFDataCreate(kCFAllocatorDefault, bytes, length);
-      v20 = 1;
+      v8 = output;
+      v9 = CFDataCreate(kCFAllocatorDefault, bytes, length);
+      v7 = 1;
     }
 
     if (connection[1])
@@ -3656,34 +3731,34 @@ uint64_t ramrod_generate_sepslot_copy_nonce(_DWORD *a1, CFDataRef *a2)
       IOObjectRelease(connection[1]);
     }
 
-    if (v11)
+    if (v4)
     {
-      IOObjectRelease(v11);
+      IOObjectRelease(v4);
     }
 
     if (a1)
     {
-      *a1 = v21;
+      *a1 = v8;
     }
 
     if (a2)
     {
-      *a2 = v22;
+      *a2 = v9;
     }
 
-    else if (v22)
+    else if (v9)
     {
-      CFRelease(v22);
+      CFRelease(v9);
     }
   }
 
   else
   {
-    ramrod_log_msg("Failed to connect to AppleSEPManager to generate sep nonce.\n", v4, v5, v6, v7, v8, v9, v10, outputStruct);
+    ramrod_log_msg("Failed to connect to AppleSEPManager to generate sep nonce.\n");
     return 0;
   }
 
-  return v20;
+  return v7;
 }
 
 BOOL ramrod_should_disable_sep_load()
@@ -3750,7 +3825,7 @@ uint64_t ramrod_stash_info_to_file(uint64_t a1, uint64_t a2, uint64_t a3, NSMuta
   ramrod_log_msg_cf(@"%s: Stashing info to mount:%s dir:%s file:%s\n", "ramrod_stash_info_to_file", a1, a2, a3);
   if (!a1 || !a2 || !a3 || !a4)
   {
-    ramrod_log_msg_cf(@"%s: missing parameters\n", "ramrod_stash_info_to_file", v67, v68);
+    ramrod_log_msg_cf(@"%s: missing parameters\n", "ramrod_stash_info_to_file", v25, v26);
     return 0;
   }
 
@@ -3758,168 +3833,172 @@ uint64_t ramrod_stash_info_to_file(uint64_t a1, uint64_t a2, uint64_t a3, NSMuta
   v10 = [[NSString stringWithCString:?], "stringByAppendingPathComponent:", [NSString stringWithCString:a2]];
   if (!v10)
   {
-    ramrod_log_msg("%s: Failed to allocate path string to save persisted state\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_stash_info_to_file");
+    ramrod_log_msg("%s: Failed to allocate path string to save persisted state\n");
     return 0;
   }
 
-  v18 = v10;
-  v19 = +[NSFileManager defaultManager];
-  v73 = 0;
-  if ([(NSFileManager *)v19 fileExistsAtPath:v18 isDirectory:&v73])
+  v11 = v10;
+  v12 = +[NSFileManager defaultManager];
+  v31 = 0;
+  if ([(NSFileManager *)v12 fileExistsAtPath:v11 isDirectory:&v31])
   {
-    if ((v73 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
-      ramrod_log_msg_cf(@"%s: Directory(%@) doesn't exist but a file exists with the same name at that location. Cannot proceed.\n", "ramrod_stash_info_to_file", v18, v68);
+      ramrod_log_msg_cf(@"%s: Directory(%@) doesn't exist but a file exists with the same name at that location. Cannot proceed.\n", "ramrod_stash_info_to_file", v11, v26);
       return 0;
     }
   }
 
   else
   {
-    ramrod_log_msg_cf(@"%s: Creating directory(%@) to save current state\n", "ramrod_stash_info_to_file", v18);
-    v72 = 0;
-    if (![(NSFileManager *)v19 createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:0 error:&v72])
+    ramrod_log_msg_cf(@"%s: Creating directory(%@) to save current state\n", "ramrod_stash_info_to_file", v11);
+    v30 = 0;
+    if (![(NSFileManager *)v12 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v30])
     {
-      ramrod_log_msg_cf(@"%s: Failed to create directory. Error: %@\n", "ramrod_stash_info_to_file", v72, v68);
+      ramrod_log_msg_cf(@"%s: Failed to create directory. Error: %@\n", "ramrod_stash_info_to_file", v30, v26);
       return 0;
     }
   }
 
-  v20 = [(NSString *)v18 stringByAppendingPathComponent:[NSString stringWithCString:a3]];
-  if (v20)
+  v13 = [(NSString *)v11 stringByAppendingPathComponent:[NSString stringWithCString:a3]];
+  if (v13)
   {
-    v28 = v20;
+    v14 = v13;
     if (a5)
     {
-      ramrod_log_msg("%s: Attempting to read the current file so we can modify it\n", v21, v22, v23, v24, v25, v26, v27, "ramrod_stash_info_to_file");
-      v29 = [NSMutableDictionary dictionaryWithContentsOfFile:v28];
-      if (v29)
+      ramrod_log_msg("%s: Attempting to read the current file so we can modify it\n", "ramrod_stash_info_to_file");
+      v15 = [NSMutableDictionary dictionaryWithContentsOfFile:v14];
+      if (v15)
       {
-        v37 = v29;
-        [(NSMutableDictionary *)v29 addEntriesFromDictionary:a4];
-        a4 = v37;
+        v16 = v15;
+        [(NSMutableDictionary *)v15 addEntriesFromDictionary:a4];
+        a4 = v16;
       }
 
       else
       {
-        ramrod_log_msg("%s: No existing file\n", v30, v31, v32, v33, v34, v35, v36, "ramrod_stash_info_to_file");
+        ramrod_log_msg("%s: No existing file\n", "ramrod_stash_info_to_file");
       }
     }
 
-    ramrod_log_msg_cf(@"%s: Saving data to %@\n", "ramrod_stash_info_to_file", v28);
-    if (([(NSMutableDictionary *)a4 writeToFile:v28 atomically:1]& 1) != 0)
+    ramrod_log_msg_cf(@"%s: Saving data to %@\n", "ramrod_stash_info_to_file", v14);
+    if (([(NSMutableDictionary *)a4 writeToFile:v14 atomically:1]& 1) != 0)
     {
-      ramrod_log_msg("%s: Updating file permissions\n", v38, v39, v40, v41, v42, v43, v44, "ramrod_stash_info_to_file");
-      v45 = [(NSString *)v28 UTF8String];
-      if (v45)
+      ramrod_log_msg("%s: Updating file permissions\n", "ramrod_stash_info_to_file");
+      v17 = [(NSString *)v14 UTF8String];
+      if (v17)
       {
-        v53 = v45;
-        if (chmod(v45, 0x1F8u))
+        v18 = v17;
+        if (chmod(v17, 0x1F8u))
         {
-          v54 = *__error();
-          v55 = __error();
-          v70 = strerror(*v55);
-          ramrod_log_msg_cf(@"%s: Failed to chmod bootedOsStateFile at %@ errno=%d: (%s)..Deleting the file", "fixup_permissions_for_bootedos_state_file", v28, v54, v70);
+          v19 = *__error();
+          v20 = __error();
+          v28 = strerror(*v20);
+          ramrod_log_msg_cf(@"%s: Failed to chmod bootedOsStateFile at %@ errno=%d: (%s)..Deleting the file", "fixup_permissions_for_bootedos_state_file", v14, v19, v28);
         }
 
         else
         {
-          v64 = getpwnam("mobile");
-          if (v64)
+          v22 = getpwnam("mobile");
+          if (v22)
           {
-            if (!chown(v53, v64->pw_uid, v64->pw_gid))
+            if (!chown(v18, v22->pw_uid, v22->pw_gid))
             {
-              ramrod_log_msg_cf(@"%s: Successfully fixed up permissions for %@", "fixup_permissions_for_bootedos_state_file", v28);
+              ramrod_log_msg_cf(@"%s: Successfully fixed up permissions for %@", "fixup_permissions_for_bootedos_state_file", v14);
               return 1;
             }
 
-            v65 = *__error();
-            v66 = __error();
-            v71 = strerror(*v66);
-            ramrod_log_msg_cf(@"%s: Failed to chown bootedOSStateFile at %@ errno=%d: (%s)..Deleting the file", "fixup_permissions_for_bootedos_state_file", v28, v65, v71);
+            v23 = *__error();
+            v24 = __error();
+            v29 = strerror(*v24);
+            ramrod_log_msg_cf(@"%s: Failed to chown bootedOSStateFile at %@ errno=%d: (%s)..Deleting the file", "fixup_permissions_for_bootedos_state_file", v14, v23, v29);
           }
 
           else
           {
-            ramrod_log_msg_cf(@"%s: Failed to get uid/gid for mobile user to chown the bootedOSState file..Deleting the file at %@", "fixup_permissions_for_bootedos_state_file", v28, v68, v69);
+            ramrod_log_msg_cf(@"%s: Failed to get uid/gid for mobile user to chown the bootedOSState file..Deleting the file at %@", "fixup_permissions_for_bootedos_state_file", v14, v26, v27);
           }
         }
       }
 
       else
       {
-        ramrod_log_msg("%s: Failed to get c string representation of the bootedOSStateFile path to fixup permissions..Deleting the file", v46, v47, v48, v49, v50, v51, v52, "fixup_permissions_for_bootedos_state_file");
+        ramrod_log_msg("%s: Failed to get c string representation of the bootedOSStateFile path to fixup permissions..Deleting the file", "fixup_permissions_for_bootedos_state_file");
       }
 
-      ramrod_log_msg("%s: Failed to set permissions on stashed file..Deleting it\n", v56, v57, v58, v59, v60, v61, v62, "ramrod_stash_info_to_file");
-      v72 = 0;
-      [(NSFileManager *)v19 removeItemAtPath:v28 error:&v72];
-      if (v72)
+      ramrod_log_msg("%s: Failed to set permissions on stashed file..Deleting it\n", "ramrod_stash_info_to_file");
+      v30 = 0;
+      [(NSFileManager *)v12 removeItemAtPath:v14 error:&v30];
+      if (v30)
       {
-        ramrod_log_msg_cf(@"%s: Failed to delete persisted file at %@. Error: %@", "ramrod_stash_info_to_file", v28, v72);
+        ramrod_log_msg_cf(@"%s: Failed to delete persisted file at %@. Error: %@", "ramrod_stash_info_to_file", v14, v30);
       }
     }
 
     else
     {
-      ramrod_log_msg("%s: Failed to write env data to file\n", v38, v39, v40, v41, v42, v43, v44, "ramrod_stash_info_to_file");
+      ramrod_log_msg("%s: Failed to write env data to file\n");
     }
   }
 
   else
   {
-    ramrod_log_msg("%s: Failed to allocate string for the stashed file path\n", v21, v22, v23, v24, v25, v26, v27, "ramrod_stash_info_to_file");
+    ramrod_log_msg("%s: Failed to allocate string for the stashed file path\n");
   }
 
   return 0;
 }
 
-void ramrod_clear_apt_carvout(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void ramrod_clear_apt_carvout()
 {
-  ramrod_log_msg("Entering %s\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_clear_apt_carvout");
-  v9 = IOServiceNameMatching("AppleProcessorTraceNub");
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v9);
+  ramrod_log_msg("Entering %s\n", "ramrod_clear_apt_carvout");
+  v0 = IOServiceNameMatching("AppleProcessorTraceNub");
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v0);
   if (MatchingService)
   {
-    v18 = MatchingService;
+    v2 = MatchingService;
     CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"DeviceCapabilities", kCFAllocatorDefault, 0);
-    if (!CFProperty || (v27 = CFProperty, v28 = CFGetTypeID(CFProperty), v28 != CFDictionaryGetTypeID()))
+    if (CFProperty && (v4 = CFProperty, v5 = CFGetTypeID(CFProperty), v5 == CFDictionaryGetTypeID()))
     {
-      ramrod_log_msg("Device had no DeviceCapabilities dictionary?", v20, v21, v22, v23, v24, v25, v26, v40);
-LABEL_16:
-      IOObjectRelease(v18);
-      return;
-    }
-
-    Value = CFDictionaryGetValue(v27, @"FeatureFlags");
-    if (Value && (v37 = Value, v38 = CFGetTypeID(Value), v38 == CFNumberGetTypeID()))
-    {
-      valuePtr = 0;
-      if (CFNumberGetValue(v37, kCFNumberIntType, &valuePtr))
+      Value = CFDictionaryGetValue(v4, @"FeatureFlags");
+      if (Value && (v7 = Value, v8 = CFGetTypeID(Value), v8 == CFNumberGetTypeID()))
       {
-        if ((valuePtr & 4) != 0)
+        valuePtr = 0;
+        if (CFNumberGetValue(v7, kCFNumberIntType, &valuePtr))
         {
-          ramrod_delete_NVRAM_variable(@"apt-carveout-size-mb", 0);
+          if ((valuePtr & 4) != 0)
+          {
+            ramrod_delete_NVRAM_variable(@"apt-carveout-size-mb", 0);
+          }
         }
 
-        goto LABEL_15;
+        else
+        {
+          ramrod_log_msg("Couldn't read a kCFNumberIntType out of the feature flags");
+        }
       }
 
-      v39 = "Couldn't read a kCFNumberIntType out of the feature flags";
+      else
+      {
+        ramrod_log_msg("Feature flags were NULL. No need to clear apt carvout");
+      }
+
+      CFRelease(v4);
     }
 
     else
     {
-      v39 = "Feature flags were NULL. No need to clear apt carvout";
+      ramrod_log_msg("Device had no DeviceCapabilities dictionary?");
     }
 
-    ramrod_log_msg(v39, v30, v31, v32, v33, v34, v35, v36, v40);
-LABEL_15:
-    CFRelease(v27);
-    goto LABEL_16;
+    IOObjectRelease(v2);
   }
 
-  ramrod_log_msg("Device had no AppleProcessorTraceNub entry", v11, v12, v13, v14, v15, v16, v17, a9);
+  else
+  {
+
+    ramrod_log_msg("Device had no AppleProcessorTraceNub entry");
+  }
 }
 
 uint64_t sub_28164(uint64_t a1, posix_spawn_file_actions_t *a2)
@@ -3957,89 +4036,90 @@ uint64_t sub_2819C(uint64_t a1, int __fd)
 
     v7 = __error();
     v8 = strerror(*v7);
-    ramrod_log_msg("write failed for subprocess: %s\n", v9, v10, v11, v12, v13, v14, v15, v8);
+    ramrod_log_msg("write failed for subprocess: %s\n", v8);
   }
 
   return 0;
 }
 
-void sub_28224(uint64_t a1, void *__src, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_28224(uint64_t a1, void *__src, size_t a3)
 {
-  v8 = a3;
-  v9 = *(*(*(a1 + 32) + 8) + 24);
-  if (v9)
+  v3 = a3;
+  v5 = *(*(*(a1 + 32) + 8) + 24);
+  if (v5)
   {
-    if (v9 >= a3)
+    if (v5 >= a3)
     {
-      v11 = a3;
+      v7 = a3;
     }
 
     else
     {
-      v11 = *(*(*(a1 + 32) + 8) + 24);
+      v7 = *(*(*(a1 + 32) + 8) + 24);
     }
 
-    memcpy(*(*(*(a1 + 40) + 8) + 24), __src, v11);
-    *(*(*(a1 + 40) + 8) + 24) += v11;
-    *(*(*(a1 + 32) + 8) + 24) -= v11;
+    memcpy(*(*(*(a1 + 40) + 8) + 24), __src, v7);
+    *(*(*(a1 + 40) + 8) + 24) += v7;
+    *(*(*(a1 + 32) + 8) + 24) -= v7;
   }
 
-  ramrod_log_msg("%.*s", __src, a3, a4, a5, a6, a7, a8, v8);
+  ramrod_log_msg("%.*s", v3, __src);
 }
 
 uint64_t sub_282C4(int a1, unsigned int a2)
 {
-  v18[1] = 0;
-  v18[2] = 0;
-  v18[0] = a2;
-  if (ffsctl(a1, 0x80184A24uLL, v18, 0))
+  v5[1] = 0;
+  v5[2] = 0;
+  v5[0] = a2;
+  if (ffsctl(a1, 0x80184A24uLL, v5, 0))
   {
-    v9 = *__error();
-    ramrod_log_msg("%s: Failed waiting for snapshot to delete, errno:%d\n", v10, v11, v12, v13, v14, v15, v16, "ramrod_wait_for_snapshot_deletion");
+    v2 = __error();
+    v3 = *v2;
+    ramrod_log_msg("%s: Failed waiting for snapshot to delete, errno:%d\n", "ramrod_wait_for_snapshot_deletion", *v2);
   }
 
   else
   {
-    ramrod_log_msg("%s: Successfully waited for snapshot deletion\n", v2, v3, v4, v5, v6, v7, v8, "ramrod_wait_for_snapshot_deletion");
+    ramrod_log_msg("%s: Successfully waited for snapshot deletion\n", "ramrod_wait_for_snapshot_deletion");
     return 0;
   }
 
-  return v9;
+  return v3;
 }
 
-void sub_28350(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_28350(char *a1)
 {
   for (i = 0; i != 3; ++i)
   {
-    v11 = sync_volume_np(a1, 3);
-    if (v11)
+    v3 = sync_volume_np(a1, 3);
+    if (v3)
     {
-      ramrod_log_msg("Got error(%d) from sync_volume_np data volume call attempt %d", v12, v13, v14, v15, v16, v17, v18, v11);
+      ramrod_log_msg("Got error(%d) from sync_volume_np data volume call attempt %d", v3, i);
     }
   }
 
-  ramrod_log_msg("Done calling sync_volume_np on data volume\n", v12, v13, v14, v15, v16, v17, v18, a9);
+  ramrod_log_msg("Done calling sync_volume_np on data volume\n");
 }
 
 void sub_283F8(id a1)
 {
-  ramrod_log_msg("entering %s\n", v1, v2, v3, v4, v5, v6, v7, "ramrod_set_updating_text_block_invoke_2");
-  v15 = 0;
-  if ((ramrod_display_set_aux_image_path(@"/mnt5/updating.png", &v15) & 1) == 0)
+  ramrod_log_msg("entering %s\n", "ramrod_set_updating_text_block_invoke_2");
+  v1 = 0;
+  if ((ramrod_display_set_aux_image_path(@"/mnt5/updating.png", &v1) & 1) == 0)
   {
-    ramrod_log_msg("%s: failed to set aux image to updating image\n", v8, v9, v10, v11, v12, v13, v14, "ramrod_set_updating_text_block_invoke_2");
+    ramrod_log_msg("%s: failed to set aux image to updating image\n", "ramrod_set_updating_text_block_invoke_2");
   }
 }
 
 void sub_28488(id a1)
 {
-  v9 = 0;
-  ramrod_log_msg("entering %s\n", v1, v2, v3, v4, v5, v6, v7, "ramrod_clear_updating_text_block_invoke_2");
+  v2 = 0;
+  ramrod_log_msg("entering %s\n", "ramrod_clear_updating_text_block_invoke_2");
   pthread_mutex_lock(&stru_1C4780);
   byte_1C6B3C = 1;
   pthread_mutex_unlock(&stru_1C4780);
   sleep(3u);
-  ramrod_display_set_aux_image_path(0, &v9);
+  ramrod_display_set_aux_image_path(0, &v2);
   progress = ramrod_display_get_progress();
   if (progress != 0.0)
   {
@@ -4051,98 +4131,93 @@ void sub_28488(id a1)
   pthread_mutex_unlock(&stru_1C4780);
 }
 
-void sub_28524(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, char a7@<W8>)
+void sub_28524(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a5@<X4>, uint64_t x5_0@<X5>, uint64_t x6_0@<X6>, uint64_t a6@<X7>, uint64_t a7@<X8>)
 {
 
-  ramrod_create_error_cf(a1, a2, 6, 0, a3, a4, a5, a6, a7);
+  ramrod_create_error_cf(a1, a2, 6, 0, a5, x5_0, x6_0, a6, a7);
 }
 
 void sub_28654(uint64_t a1)
 {
   step_desc = checkpoint_closure_context_get_step_desc([*(a1 + 32) checkpoint_closure_context]);
-  ramrod_log_msg("[AsyncCP][Start] Checkpoint %s start running.\n", v3, v4, v5, v6, v7, v8, v9, *(step_desc + 8));
-  v10 = [*(a1 + 32) workQueue];
-  dispatch_queue_set_specific(v10, kCheckpointAsyncStepContextKey[0], [*(a1 + 32) checkpoint_closure_context], 0);
-  v11 = 0;
-  v12 = 1;
+  ramrod_log_msg("[AsyncCP][Start] Checkpoint %s start running.\n", *(step_desc + 8));
+  v3 = [*(a1 + 32) workQueue];
+  dispatch_queue_set_specific(v3, kCheckpointAsyncStepContextKey[0], [*(a1 + 32) checkpoint_closure_context], 0);
+  v4 = 0;
+  v5 = 1;
   do
   {
     while (1)
     {
-      v46 = 0;
-      v45 = 0;
-      if (v11)
+      v13 = 0;
+      v12 = 0;
+      if (v4)
       {
-        v13 = [*(a1 + 32) checkpoint_closure_context];
-        v12 = checkpoint_closure_context_handle_simulator_actions(v13, 1, &v46, &v45, v14, v15, v16, v17) != 0;
+        v5 = checkpoint_closure_context_handle_simulator_actions([*(a1 + 32) checkpoint_closure_context], 1, &v13, &v12) != 0;
       }
 
-      v18 = *(a1 + 32);
-      objc_sync_enter(v18);
-      v12 &= [*(a1 + 32) isCanceled] ^ 1;
-      objc_sync_exit(v18);
-      if (v12)
+      v6 = *(a1 + 32);
+      objc_sync_enter(v6);
+      v5 &= [*(a1 + 32) isCanceled] ^ 1;
+      objc_sync_exit(v6);
+      if (v5)
       {
         checkpoint_closure_context_set_start_time([*(a1 + 32) checkpoint_closure_context]);
         (*(*(a1 + 40) + 16))();
         checkpoint_closure_context_set_end_time([*(a1 + 32) checkpoint_closure_context]);
-        v46 = [*(a1 + 32) result];
-        v45 = [*(a1 + 32) error];
+        v13 = [*(a1 + 32) result];
+        v12 = [*(a1 + 32) error];
       }
 
-      v19 = [*(a1 + 32) checkpoint_closure_context];
-      if (checkpoint_closure_context_handle_simulator_actions(v19, 0, &v46, &v45, v20, v21, v22, v23))
+      if (checkpoint_closure_context_handle_simulator_actions([*(a1 + 32) checkpoint_closure_context], 0, &v13, &v12))
       {
-        v24 = [*(a1 + 32) checkpoint_closure_context];
-        v32 = checkpoint_closure_context_handle_simulator_match_name(v24, v25, v26, v27, v28, v29, v30, v31) != 0;
+        v7 = checkpoint_closure_context_handle_simulator_match_name([*(a1 + 32) checkpoint_closure_context]) != 0;
       }
 
       else
       {
-        v32 = 0;
+        v7 = 0;
       }
 
-      v33 = *(a1 + 32);
-      objc_sync_enter(v33);
+      v8 = *(a1 + 32);
+      objc_sync_enter(v8);
       if (([*(a1 + 32) isCanceled] & 1) == 0)
       {
-        [*(a1 + 32) setResult:v46];
-        [*(a1 + 32) setError:v45];
+        [*(a1 + 32) setResult:v13];
+        [*(a1 + 32) setError:v12];
       }
 
-      if (!v46)
+      if (!v13)
       {
         goto LABEL_14;
       }
 
-      v34 = [*(a1 + 32) isCanceled];
-      if (((v34 | v32) & 1) == 0)
+      v9 = [*(a1 + 32) isCanceled];
+      if (((v9 | v7) & 1) == 0)
       {
         break;
       }
 
-      LOBYTE(v32) = v34 ^ 1;
+      LOBYTE(v7) = v9 ^ 1;
 LABEL_14:
-      objc_sync_exit(v33);
-      v11 = 1;
-      if ((v32 & 1) == 0)
+      objc_sync_exit(v8);
+      v4 = 1;
+      if ((v7 & 1) == 0)
       {
         goto LABEL_17;
       }
     }
 
     should_retry = checkpoint_closure_context_should_retry([*(a1 + 32) checkpoint_closure_context]);
-    objc_sync_exit(v33);
-    v11 = 1;
+    objc_sync_exit(v8);
+    v4 = 1;
   }
 
   while (should_retry);
 LABEL_17:
-  v36 = [*(a1 + 32) workQueue];
-  dispatch_queue_set_specific(v36, kCheckpointAsyncStepContextKey[0], 0, 0);
-  v37 = *(step_desc + 8);
-  [*(a1 + 32) result];
-  ramrod_log_msg("[AsyncCP][End] Checkpoint %s finished with result: %d.\n", v38, v39, v40, v41, v42, v43, v44, v37);
+  v11 = [*(a1 + 32) workQueue];
+  dispatch_queue_set_specific(v11, kCheckpointAsyncStepContextKey[0], 0, 0);
+  ramrod_log_msg("[AsyncCP][End] Checkpoint %s finished with result: %d.\n", *(step_desc + 8), [*(a1 + 32) result]);
   if ([*(a1 + 32) result])
   {
     if ([*(a1 + 32) error])
@@ -4168,7 +4243,7 @@ void sub_2891C(uint64_t a1)
   _Block_object_dispose(v2, 3);
 }
 
-uint64_t ramrod_send_data_array(int a1, CFArrayRef theArray)
+uint64_t ramrod_send_data_array(uint64_t a1, CFArrayRef theArray)
 {
   Count = CFArrayGetCount(theArray);
   v5 = calloc(Count, 0x10uLL);
@@ -4194,7 +4269,7 @@ uint64_t ramrod_send_data_array(int a1, CFArrayRef theArray)
   return v10;
 }
 
-uint64_t sub_28E48(int a1, iovec *a2, int a3)
+uint64_t sub_28E48(uint64_t a1, iovec *a2, int a3)
 {
   if (a3 < 1)
   {
@@ -4253,14 +4328,14 @@ uint64_t sub_28E48(int a1, iovec *a2, int a3)
   return *__error();
 }
 
-uint64_t ramrod_send_bytes(int a1, void *a2, size_t a3)
+uint64_t ramrod_send_bytes(uint64_t a1, void *a2, size_t a3)
 {
   v4.iov_base = a2;
   v4.iov_len = a3;
   return sub_28E48(a1, &v4, 1);
 }
 
-uint64_t sub_28F54(int a1, char *a2, size_t a3, unsigned __int8 a4)
+uint64_t sub_28F54(uint64_t a1, char *a2, size_t a3, unsigned __int8 a4)
 {
   if (!a3)
   {
@@ -4302,7 +4377,7 @@ uint64_t sub_28F54(int a1, char *a2, size_t a3, unsigned __int8 a4)
   }
 }
 
-uint64_t ramrod_send_message(int a1, uint64_t a2)
+uint64_t ramrod_send_message(uint64_t a1, uint64_t a2)
 {
   v17 = 0;
   cf = 0;
@@ -4354,7 +4429,7 @@ uint64_t ramrod_send_message(int a1, uint64_t a2)
   return v14;
 }
 
-CFPropertyListRef ramrod_receive_message(int a1)
+CFPropertyListRef ramrod_receive_message(uint64_t a1)
 {
   memset(length, 0, sizeof(length));
   v2 = sub_28F54(a1, length, 4uLL, 1u);
@@ -4438,22 +4513,21 @@ uint64_t ramrod_socket_set_idle_timeouts_active(int a1, uint64_t a2)
   return 0;
 }
 
-uint64_t ramrod_socket_set_recv_timeout(int a1, int a2)
+uint64_t ramrod_socket_set_recv_timeout(uint64_t a1, int a2)
 {
-  v2 = a1;
   v19[0] = a2;
   v19[1] = 0;
   if (setsockopt(a1, 0xFFFF, 4102, v19, 0x10u))
   {
     v10 = __error();
     strerror(*v10);
-    ramrod_message_error("sock %3d: could not set SO_RCVTIMEO=%d: %s", v11, v12, v13, v14, v15, v16, v17, v2);
+    ramrod_message_error("sock %3d: could not set SO_RCVTIMEO=%d: %s", v11, v12, v13, v14, v15, v16, v17, a1);
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    ramrod_message_error("sock %3d: set SO_RCVTIMEO=%d", v3, v4, v5, v6, v7, v8, v9, v2);
+    ramrod_message_error("sock %3d: set SO_RCVTIMEO=%d", v3, v4, v5, v6, v7, v8, v9, a1);
     return 0;
   }
 }
@@ -4471,7 +4545,7 @@ CFPropertyListRef ramrod_receive_async_response_message(int a1)
   v13 = 128;
   v1 = accept(a1, &v14, &v13);
   v2 = v1;
-  if (v1 < 0)
+  if ((v1 & 0x80000000) != 0)
   {
     v4 = __error();
     ramrod_message_error("failed to accept incoming async response socket with errno: %d", v5, v6, v7, v8, v9, v10, v11, *v4);
@@ -4493,37 +4567,35 @@ CFPropertyListRef ramrod_receive_async_response_message(int a1)
   return v3;
 }
 
-uint64_t ramrod_socket_set_nosigpipe(int a1, int a2)
+uint64_t ramrod_socket_set_nosigpipe(uint64_t a1, int a2)
 {
-  v2 = a1;
   v12 = a2;
   result = setsockopt(a1, 0xFFFF, 4130, &v12, 4u);
   if (result)
   {
     v4 = __error();
     strerror(*v4);
-    ramrod_message_error("sock %3d: could not set SO_NOSIGPIPE=%d: %s", v5, v6, v7, v8, v9, v10, v11, v2);
+    ramrod_message_error("sock %3d: could not set SO_NOSIGPIPE=%d: %s", v5, v6, v7, v8, v9, v10, v11, a1);
     return 0xFFFFFFFFLL;
   }
 
   return result;
 }
 
-uint64_t ramrod_socket_set_keepalive(int a1, int a2)
+uint64_t ramrod_socket_set_keepalive(uint64_t a1, int a2)
 {
-  v2 = a1;
   v19 = a2;
   if (setsockopt(a1, 0xFFFF, 8, &v19, 4u))
   {
     v10 = __error();
     strerror(*v10);
-    ramrod_message_error("sock %3d: could not set SO_KEEPALIVE=%d: %s", v11, v12, v13, v14, v15, v16, v17, v2);
+    ramrod_message_error("sock %3d: could not set SO_KEEPALIVE=%d: %s", v11, v12, v13, v14, v15, v16, v17, a1);
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    ramrod_message_error("sock %3d: set SO_KEEPALIVE=%d", v3, v4, v5, v6, v7, v8, v9, v2);
+    ramrod_message_error("sock %3d: set SO_KEEPALIVE=%d", v3, v4, v5, v6, v7, v8, v9, a1);
     return 0;
   }
 }
@@ -4535,7 +4607,7 @@ uint64_t ramrod_socket_set_nopush(int a1, int a2)
   return 0;
 }
 
-uint64_t ramrod_socket_set_buffer_limits(int a1, int a2, int a3)
+uint64_t ramrod_socket_set_buffer_limits(uint64_t a1, int a2, int a3)
 {
   v23 = a2;
   v22 = a3;
@@ -4579,7 +4651,7 @@ uint64_t ramrod_getsockopt_int(int a1, int a2, int a3, unsigned int a4)
   }
 }
 
-void ramrod_socket_log_statistics(int a1)
+void ramrod_socket_log_statistics(uint64_t a1)
 {
   LODWORD(v13) = 0;
   HIDWORD(v20) = 4;
@@ -4612,14 +4684,14 @@ void ramrod_socket_log_statistics(int a1)
   }
 }
 
-ssize_t ramrod_socket_send(int a1, void *a2, size_t a3)
+ssize_t ramrod_socket_send(uint64_t a1, void *a2, size_t a3)
 {
   v4.iov_base = a2;
   v4.iov_len = a3;
   return sub_299F0(a1, &v4, 1);
 }
 
-ssize_t sub_299F0(int a1, iovec *a2, int a3)
+ssize_t sub_299F0(uint64_t a1, iovec *a2, int a3)
 {
   v6 = 0;
   v7 = a3;
@@ -4673,9 +4745,8 @@ ssize_t sub_299F0(int a1, iovec *a2, int a3)
   return result;
 }
 
-ssize_t ramrod_socket_recv(int a1, void *a2, size_t a3, uint64_t a4)
+ssize_t ramrod_socket_recv(uint64_t a1, void *a2, size_t a3, uint64_t a4)
 {
-  v5 = a1;
   v6 = recv(a1, a2, a3, a4 & 0x7FFFFFFF);
   v14 = v6;
   if (v6)
@@ -4684,20 +4755,20 @@ ssize_t ramrod_socket_recv(int a1, void *a2, size_t a3, uint64_t a4)
     {
       v15 = *__error();
       strerror(v15);
-      ramrod_message_error("sock %3d: recv(%lu) failed: %s", v16, v17, v18, v19, v20, v21, v22, v5);
+      ramrod_message_error("sock %3d: recv(%lu) failed: %s", v16, v17, v18, v19, v20, v21, v22, a1);
       *__error() = v15;
     }
   }
 
   else if ((a4 & 0x100000000) != 0)
   {
-    ramrod_message_error("sock %3d: recv(%lu) failed: connection closed", v7, v8, v9, v10, v11, v12, v13, v5);
+    ramrod_message_error("sock %3d: recv(%lu) failed: connection closed", v7, v8, v9, v10, v11, v12, v13, a1);
   }
 
   return v14;
 }
 
-uint64_t ramrod_socket_shutdown(char a1, int a2)
+uint64_t ramrod_socket_shutdown(uint64_t a1, int a2)
 {
   if (shutdown(a1, a2))
   {
@@ -4714,7 +4785,7 @@ uint64_t ramrod_socket_shutdown(char a1, int a2)
   }
 }
 
-uint64_t ramrod_socket_send_eof_and_wait(char a1)
+uint64_t ramrod_socket_send_eof_and_wait(uint64_t a1)
 {
   if (ramrod_socket_shutdown(a1, 1))
   {
@@ -4855,8 +4926,7 @@ uint64_t _ramrod_set_file_var(uint64_t a1, uint64_t a2)
 void sub_2A03C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v10 = objc_autoreleasePoolPush();
-  v11 = [objc_msgSend([NSString alloc] initWithFormat:a1 arguments:&a9), "cStringUsingEncoding:", 4];
-  ramrod_log_msg("%s", v12, v13, v14, v15, v16, v17, v18, v11);
+  ramrod_log_msg("%s", [objc_msgSend([NSString alloc] initWithFormat:a1 arguments:&a9), "cStringUsingEncoding:", 4]);
   objc_autoreleasePoolPop(v10);
 }
 
@@ -5297,22 +5367,22 @@ BOOL ramrod_set_NVRAM_variable_sync_no_shadow(uint64_t a1, uint64_t a2, CFErrorR
   {
 LABEL_32:
     mach_error_string(v8);
-    ramrod_create_error_cf(a3, kCFErrorDomainMach, v8, 0, @"%s: failed to set nvram '%@=%@': %#x (%s)", v26, v27, v28, "ramrod_set_NVRAM_variable_sync_no_shadow");
+    ramrod_create_error_cf(a3, kCFErrorDomainMach, v8, 0, @"%s: failed to set nvram '%@=%@': %#x (%s)", v19, v20, v21, "ramrod_set_NVRAM_variable_sync_no_shadow");
     return 0;
   }
 
   v9 = CFStringCreateWithFormat(0, 0, @"%@", a1);
   v10 = CFStringCreateWithFormat(0, 0, @"%@", a2);
-  v32[0] = CFDataGetTypeID();
-  v32[1] = CFStringGetTypeID();
-  v32[2] = CFNumberGetTypeID();
-  v32[3] = CFBooleanGetTypeID();
+  v25[0] = CFDataGetTypeID();
+  v25[1] = CFStringGetTypeID();
+  v25[2] = CFNumberGetTypeID();
+  v25[3] = CFBooleanGetTypeID();
   v11 = sub_2AEEC();
   v12 = 0;
   v8 = -536870206;
   while (1)
   {
-    v13 = v32[v12];
+    v13 = v25[v12];
     v14 = CFGetTypeID(v10);
     if (v14 == v13)
     {
@@ -5360,10 +5430,10 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    v35 = 0u;
-    v36 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     *buffer = 0u;
-    v34 = 0u;
+    v27 = 0u;
     if (!CFStringGetCString(v10, buffer, 64, 0x8000100u))
     {
       goto LABEL_28;
@@ -5417,7 +5487,7 @@ LABEL_31:
     return 1;
   }
 
-  result = ramrod_sync_NVRAM(a3, v19, v20, v21, v22, v23, v24, v25);
+  result = ramrod_sync_NVRAM(a3);
   if (result)
   {
     return 1;
@@ -5447,27 +5517,27 @@ uint64_t sub_2AEEC()
   return result;
 }
 
-BOOL ramrod_print_NVRAM_variables(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL ramrod_print_NVRAM_variables()
 {
   properties = 0;
-  ramrod_log_msg("%s\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_print_NVRAM_variables");
+  ramrod_log_msg("%s\n", "ramrod_print_NVRAM_variables");
   if (sub_2B024(0))
   {
     return 0;
   }
 
-  v10 = sub_2AEEC();
-  v8 = IORegistryEntryCreateCFProperties(v10, &properties, 0, 0) == 0;
+  v2 = sub_2AEEC();
+  v0 = IORegistryEntryCreateCFProperties(v2, &properties, 0, 0) == 0;
   if (properties)
   {
     Data = CFPropertyListCreateData(0, properties, kCFPropertyListXMLFormat_v1_0, 0, 0);
     if (Data)
     {
-      v12 = Data;
+      v4 = Data;
       Length = CFDataGetLength(Data);
-      CFDataGetBytePtr(v12);
-      ramrod_log_msg("NVRAM variables:\n%.*s\n", v14, v15, v16, v17, v18, v19, v20, Length);
-      CFRelease(v12);
+      BytePtr = CFDataGetBytePtr(v4);
+      ramrod_log_msg("NVRAM variables:\n%.*s\n", Length, BytePtr);
+      CFRelease(v4);
     }
 
     if (properties)
@@ -5476,7 +5546,7 @@ BOOL ramrod_print_NVRAM_variables(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     }
   }
 
-  return v8;
+  return v0;
 }
 
 uint64_t sub_2B024(CFErrorRef *a1)
@@ -5510,19 +5580,19 @@ LABEL_5:
   return 0;
 }
 
-BOOL ramrod_sync_NVRAM(CFErrorRef *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL ramrod_sync_NVRAM(CFErrorRef *a1)
 {
-  ramrod_log_msg("%s\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_sync_NVRAM");
-  v9 = sub_2AEEC();
-  v10 = IORegistryEntrySetCFProperty(v9, @"IONVRAM-FORCESYNCNOW-PROPERTY", @"IONVRAM-FORCESYNCNOW-PROPERTY");
-  v11 = v10;
-  if (v10)
+  ramrod_log_msg("%s\n", "ramrod_sync_NVRAM");
+  v2 = sub_2AEEC();
+  v3 = IORegistryEntrySetCFProperty(v2, @"IONVRAM-FORCESYNCNOW-PROPERTY", @"IONVRAM-FORCESYNCNOW-PROPERTY");
+  v4 = v3;
+  if (v3)
   {
-    mach_error_string(v10);
-    ramrod_create_error_cf(a1, kCFErrorDomainMach, v11, 0, @"%s: failed to sync NVRAM: %#x (%s)", v12, v13, v14, "ramrod_sync_NVRAM");
+    mach_error_string(v3);
+    ramrod_create_error_cf(a1, kCFErrorDomainMach, v4, 0, @"%s: failed to sync NVRAM: %#x (%s)", v5, v6, v7, "ramrod_sync_NVRAM");
   }
 
-  return v11 == 0;
+  return v4 == 0;
 }
 
 uint64_t ramrod_set_NVRAM_shadow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, char a6)
@@ -5672,22 +5742,20 @@ uint64_t ramrod_clear_NVRAM_variables(CFErrorRef *a1)
       v6 = v2;
       if (IOObjectConformsTo(v2, "AppleEFINVRAM"))
       {
-        v14 = "EFINvram machine. Skiping clearing nvram variables.\n";
-LABEL_5:
-        ramrod_log_msg(v14, v7, v8, v9, v10, v11, v12, v13, v21);
+        ramrod_log_msg("EFINvram machine. Skiping clearing nvram variables.\n");
         return 1;
       }
 
-      v16 = IORegistryEntrySetCFProperty(v6, @"40A0DDD2-77F8-4392-B4A3-1E7304206516:ResetNVRam", @"40A0DDD2-77F8-4392-B4A3-1E7304206516:ResetNVRam");
-      if (!v16)
+      v8 = IORegistryEntrySetCFProperty(v6, @"40A0DDD2-77F8-4392-B4A3-1E7304206516:ResetNVRam", @"40A0DDD2-77F8-4392-B4A3-1E7304206516:ResetNVRam");
+      if (!v8)
       {
-        v14 = "Clearing nvram with IORegistryEntrySetCFProperty succeeded.\n";
-        goto LABEL_5;
+        ramrod_log_msg("Clearing nvram with IORegistryEntrySetCFProperty succeeded.\n");
+        return 1;
       }
 
-      v17 = v16;
-      ramrod_log_msg("Failed to clear nvram with kernel_error %d\n", v7, v8, v9, v10, v11, v12, v13, v16);
-      ramrod_create_error_cf(a1, kCFErrorDomainMach, v17, 0, @"%s: Couldn't set ResetNVRam key to wipe nvram", v18, v19, v20, "ramrod_clear_NVRAM_variables");
+      v9 = v8;
+      ramrod_log_msg("Failed to clear nvram with kernel_error %d\n", v8);
+      ramrod_create_error_cf(a1, kCFErrorDomainMach, v9, 0, @"%s: Couldn't set ResetNVRam key to wipe nvram", v10, v11, v12, "ramrod_clear_NVRAM_variables");
     }
 
     else
@@ -5715,22 +5783,22 @@ void ramrod_load_nonce_slots(uint64_t a1, uint64_t a2)
 
 uint64_t ramrod_force_load_nonce_slots(uint64_t a1, uint64_t a2)
 {
-  result = _ramrod_device_has_sandcat();
+  result = _ramrod_device_has_sandcat(a1, a2);
   if (result)
   {
     v5 = (*(a1 + 48))(a2);
-    sub_351A4(v5, &dword_1C4800, v6, v7, v8, v9, v10, v11);
+    sub_351A4(v5, &dword_1C4800);
     AMSupportSafeRelease();
-    v12 = (*(a1 + 16))(a2);
-    ramrod_log_msg("Entering: %s\n", v13, v14, v15, v16, v17, v18, v19, "Boolean _ramrod_load_ap_nonce_slot_from_data(CFDataRef, int *)");
-    if (v12)
+    v6 = (*(a1 + 16))(a2);
+    ramrod_log_msg("Entering: %s\n", "Boolean _ramrod_load_ap_nonce_slot_from_data(CFDataRef, int *)");
+    if (v6)
     {
-      sub_42F44(v12, @"anid", &dword_1C6BA0);
+      sub_42F44(v6, @"anid", &dword_1C6BA0);
     }
 
     else
     {
-      ramrod_log_msg("WARNING: sep_data == NULL in %s. Will return default.\n", v20, v21, v22, v23, v24, v25, v26, "Boolean _ramrod_load_ap_nonce_slot_from_data(CFDataRef, int *)");
+      ramrod_log_msg("WARNING: sep_data == NULL in %s. Will return default.\n", "Boolean _ramrod_load_ap_nonce_slot_from_data(CFDataRef, int *)");
     }
 
     return AMSupportSafeRelease();
@@ -5769,7 +5837,7 @@ void ramrod_set_overridden_sfr_manifest_hash_with_data(const __CFData *a1)
   CFDataGetLength(a1);
   if (AMSupportCommonCopyHexStringFromData())
   {
-    ramrod_log_msg("Failed to decode sfr hash.\n", v2, v3, v4, v5, v6, v7, v8, v9);
+    ramrod_log_msg("Failed to decode sfr hash.\n");
   }
 }
 
@@ -5778,28 +5846,28 @@ BOOL ramrod_commit_dual_iboot_spi_partition(int a1)
   v2 = wait_for_io_service_matching_class_with_timeout("AppleEmbeddedSimpleSPINORFlasherDriver", 0xFu);
   if (v2)
   {
-    v10 = v2;
-    v11 = [[IODualSPIWriter alloc] initWithService:v2];
-    if ([(IOServiceWriter *)v11 isAvailable])
+    v3 = v2;
+    v4 = [[IODualSPIWriter alloc] initWithService:v2];
+    if ([(IOServiceWriter *)v4 isAvailable])
     {
-      v12 = [(IODualSPIWriter *)v11 commitHeaderAtIndex:a1 withError:0]== 0;
+      v5 = [(IODualSPIWriter *)v4 commitHeaderAtIndex:a1 withError:0]== 0;
     }
 
     else
     {
-      v12 = 0;
+      v5 = 0;
     }
 
-    IOObjectRelease(v10);
+    IOObjectRelease(v3);
   }
 
   else
   {
-    ramrod_log_msg("%s: no SPI flasher driver\n", v3, v4, v5, v6, v7, v8, v9, "ramrod_commit_dual_iboot_spi_partition");
+    ramrod_log_msg("%s: no SPI flasher driver\n", "ramrod_commit_dual_iboot_spi_partition");
     return 0;
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t ramrod_find_prepared_dual_iboot_spi_partition()
@@ -5807,41 +5875,41 @@ uint64_t ramrod_find_prepared_dual_iboot_spi_partition()
   v0 = wait_for_io_service_matching_class_with_timeout("AppleEmbeddedSimpleSPINORFlasherDriver", 0xFu);
   if (v0)
   {
-    v8 = v0;
-    v9 = [[IODualSPIWriter alloc] initWithService:v0];
-    if ([(IOServiceWriter *)v9 isAvailable])
+    v1 = v0;
+    v2 = [[IODualSPIWriter alloc] initWithService:v0];
+    if ([(IOServiceWriter *)v2 isAvailable])
     {
-      v10 = [(IODualSPIWriter *)v9 findPreparedHeader];
+      v3 = [(IODualSPIWriter *)v2 findPreparedHeader];
     }
 
     else
     {
-      v10 = 0xFFFFFFFFLL;
+      v3 = 0xFFFFFFFFLL;
     }
 
-    IOObjectRelease(v8);
+    IOObjectRelease(v1);
   }
 
   else
   {
-    ramrod_log_msg("%s: no SPI flasher driver\n", v1, v2, v3, v4, v5, v6, v7, "ramrod_find_prepared_dual_iboot_spi_partition");
-    v9 = 0;
-    v10 = 0xFFFFFFFFLL;
+    ramrod_log_msg("%s: no SPI flasher driver\n", "ramrod_find_prepared_dual_iboot_spi_partition");
+    v2 = 0;
+    v3 = 0xFFFFFFFFLL;
   }
 
-  return v10;
+  return v3;
 }
 
-uint64_t ramrod_create_directory_with_class(_BYTE *a1, mode_t a2, uid_t a3, gid_t a4, int a5, int a6)
+uint64_t ramrod_create_directory_with_class(_BYTE *a1, int a2, uid_t a3, gid_t a4, int a5, int a6)
 {
   if (!a1 || *a1 != 47)
   {
     return 22;
   }
 
-  bzero(v70, 0x400uLL);
+  bzero(v24, 0x400uLL);
   __strlcpy_chk();
-  for (i = v70; ; *i = 47)
+  for (i = v24; ; *i = 47)
   {
     v12 = strchr(i + 1, 47);
     i = v12;
@@ -5850,56 +5918,56 @@ uint64_t ramrod_create_directory_with_class(_BYTE *a1, mode_t a2, uid_t a3, gid_
       *v12 = 0;
     }
 
-    memset(&v69, 0, sizeof(v69));
-    if (lstat(v70, &v69))
+    memset(&v23, 0, sizeof(v23));
+    if (lstat(v24, &v23))
     {
       if (*__error() != 2)
       {
-        v20 = *__error();
-        v21 = __error();
-        strerror(*v21);
-        ramrod_log_msg("lstat %s failed: %s\n", v22, v23, v24, v25, v26, v27, v28, v70);
-        return v20;
+        v13 = *__error();
+        v14 = __error();
+        strerror(*v14);
+        ramrod_log_msg("lstat %s failed: %s\n");
+        return v13;
       }
 
       if (a6)
       {
-        ramrod_log_msg("creating directory (owner=%d group=%d mode=%o, class=%d) %s\n", v13, v14, v15, v16, v17, v18, v19, a3);
+        ramrod_log_msg("creating directory (owner=%d group=%d mode=%o, class=%d) %s\n", a3, a4, a2, a5, v24);
       }
 
-      if (mkdir(v70, a2 & 0x1FF))
+      if (mkdir(v24, a2 & 0x1FF))
       {
-        v20 = *__error();
-        v29 = __error();
-        v62 = strerror(*v29);
-        ramrod_log_msg("mkdir failed: %s\n", v30, v31, v32, v33, v34, v35, v36, v62);
-        return v20;
+        v13 = *__error();
+        v15 = __error();
+        strerror(*v15);
+        ramrod_log_msg("mkdir failed: %s\n");
+        return v13;
       }
 
-      if (chmod(v70, a2))
+      if (chmod(v24, a2))
       {
-        v20 = *__error();
-        v37 = __error();
-        v63 = strerror(*v37);
-        ramrod_log_msg("chmod failed: %s\n", v38, v39, v40, v41, v42, v43, v44, v63);
-        return v20;
+        v13 = *__error();
+        v16 = __error();
+        strerror(*v16);
+        ramrod_log_msg("chmod failed: %s\n");
+        return v13;
       }
 
-      if (chown(v70, a3, a4))
+      if (chown(v24, a3, a4))
       {
-        v20 = *__error();
-        v45 = __error();
-        v64 = strerror(*v45);
-        ramrod_log_msg("chown failed: %s\n", v46, v47, v48, v49, v50, v51, v52, v64);
-        return v20;
+        v13 = *__error();
+        v17 = __error();
+        strerror(*v17);
+        ramrod_log_msg("chown failed: %s\n");
+        return v13;
       }
 
       if ((a5 & 0x80000000) == 0)
       {
-        v68 = 0;
-        v67 = xmmword_10AD6C;
-        v66 = a5;
-        if (setattrlist(v70, &v67, &v66, 4uLL, 0))
+        v22 = 0;
+        v21 = xmmword_10AD6C;
+        v20 = a5;
+        if (setattrlist(v24, &v21, &v20, 4uLL, 0))
         {
           break;
         }
@@ -5912,11 +5980,11 @@ uint64_t ramrod_create_directory_with_class(_BYTE *a1, mode_t a2, uid_t a3, gid_
     }
   }
 
-  v20 = *__error();
-  v53 = __error();
-  v65 = strerror(*v53);
-  ramrod_log_msg("setattrlist failed: %s\n", v54, v55, v56, v57, v58, v59, v60, v65);
-  return v20;
+  v13 = *__error();
+  v18 = __error();
+  strerror(*v18);
+  ramrod_log_msg("setattrlist failed: %s\n");
+  return v13;
 }
 
 uint64_t ramrod_write_data_to_file_with_class(const __CFData *a1, char *a2, int a3)
@@ -5925,8 +5993,8 @@ uint64_t ramrod_write_data_to_file_with_class(const __CFData *a1, char *a2, int 
   if (v5 < 0)
   {
     v14 = __error();
-    strerror(*v14);
-    ramrod_log_msg("failed to open %s for writing (%s)\n", v15, v16, v17, v18, v19, v20, v21, a2);
+    v15 = strerror(*v14);
+    ramrod_log_msg("failed to open %s for writing (%s)\n", a2, v15);
   }
 
   else
@@ -5961,9 +6029,9 @@ LABEL_6:
       }
     }
 
-    v22 = __error();
-    strerror(*v22);
-    ramrod_log_msg("failed writing %s: %s\n", v23, v24, v25, v26, v27, v28, v29, a2);
+    v16 = __error();
+    v17 = strerror(*v16);
+    ramrod_log_msg("failed writing %s: %s\n", a2, v17);
     close(v6);
     unlink(a2);
   }
@@ -5977,129 +6045,132 @@ uint64_t ramrod_sync_apfs_metrics_nvram_checkpoint(uint64_t a1, const char *a2, 
   __linep = 0;
   cf = 0;
   v8 = calloc(8uLL, a4);
-  v15 = fopen(a2, "r");
-  if (!v15)
+  v9 = fopen(a2, "r");
+  if (!v9)
   {
-    v48 = sub_2C3AC(0, "Could not read file %s", v9, v10, v11, v12, v13, v14, a2);
-    v49 = 0;
-    v19 = 0;
-    v50 = 0;
+    v24 = sub_2C3AC(0, "Could not read file %s", a2);
+    v25 = 0;
+    v13 = 0;
+    v26 = 0;
     if (a1)
     {
-      goto LABEL_45;
+      goto LABEL_46;
     }
 
-    goto LABEL_47;
+    goto LABEL_48;
   }
 
-  if (getline(&__linep, &__linecapp, v15) == -1)
+  if (getline(&__linep, &__linecapp, v9) == -1)
   {
-    v48 = 0;
-    v50 = 0;
-    v19 = 0;
-    v49 = 1;
-    goto LABEL_49;
+    v24 = 0;
+    v26 = 0;
+    v13 = 0;
+    v25 = 1;
+    goto LABEL_50;
   }
 
-  v79 = a1;
-  v16 = 0;
-  v17 = 0;
-  v18 = 0;
-  v19 = 0;
+  v39 = a2;
+  v40 = a1;
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  v13 = 0;
   do
   {
-    v20 = __linep;
-    v21 = strchr(__linep, 10);
-    if (!v21)
+    v14 = __linep;
+    v15 = strchr(__linep, 10);
+    if (!v15)
     {
-      v48 = sub_2C3AC(0, "%d: no newline character detected while reading %s", v22, v23, v24, v25, v26, v27, v16);
-      v50 = 0;
-      v49 = 0;
-      goto LABEL_40;
+      v27 = v39;
+      v24 = sub_2C3AC(0, "%d: no newline character detected while reading %s", v10, v39);
+      v26 = 0;
+      v25 = 0;
+      goto LABEL_41;
     }
 
-    if (v21 == v20 || *v21 != 10)
+    if (v15 == v14 || *v15 != 10)
     {
       goto LABEL_13;
     }
 
-    if (v18 < a4)
+    if (v12 < a4)
     {
       *buffer = 0u;
-      v84 = 0u;
-      *v21 = 0;
-      asprintf(&v8[v18], "%s", __linep);
-      if (!v8[v18])
+      v45 = 0u;
+      *v15 = 0;
+      v17 = &v8[v12];
+      asprintf(v17, "%s", __linep);
+      if (!*v17)
       {
-        v48 = sub_2C3AC(0, "%d: failed to store log line[%d]", v29, v30, v31, v32, v33, v34, v16);
-        v50 = 0;
+        v24 = sub_2C3AC(0, "%d: failed to store log line[%d]", v10, v12);
+        v26 = 0;
         goto LABEL_39;
       }
 
-      CFStringGetCString(*(a3 + 8 * v18), buffer, 32, 0x8000100u);
-      v19 = sub_2C3AC(v19, "%s:%s", v35, v36, v37, v38, v39, v40, buffer);
-      ++v18;
-      v20 = __linep;
+      CFStringGetCString(*(a3 + 8 * v12), buffer, 32, 0x8000100u);
+      v13 = sub_2C3AC(v13, "%s:%s", buffer, *v17);
+      ++v12;
+      v14 = __linep;
 LABEL_13:
-      if (!v20)
+      if (!v14)
       {
         goto LABEL_15;
       }
 
 LABEL_14:
-      free(v20);
+      free(v14);
       __linep = 0;
       goto LABEL_15;
     }
 
-    ++v17;
-    if (v20)
+    ++v11;
+    if (v14)
     {
       goto LABEL_14;
     }
 
 LABEL_15:
-    ++v16;
+    ++v10;
   }
 
-  while (getline(&__linep, &__linecapp, v15) != -1);
-  if (v18 < 1)
+  while (getline(&__linep, &__linecapp, v9) != -1);
+  if (v12 < 1)
   {
-    v50 = 0;
-    v48 = 0;
-    v49 = 1;
+    v26 = 0;
+    v24 = 0;
+    v25 = 1;
     goto LABEL_40;
   }
 
-  v51 = 0;
+  v28 = 0;
   while (1)
   {
-    v41 = v8[v51];
-    if (!v41)
+    v29 = v8[v28];
+    if (!v29)
     {
 LABEL_29:
-      v50 = 0;
-      v48 = 0;
-      v49 = 1;
+      v26 = 0;
+      v24 = 0;
+      v25 = 1;
       goto LABEL_40;
     }
 
-    v50 = CFStringCreateWithCString(kCFAllocatorDefault, v41, 0x8000100u);
-    if (!v50)
+    v26 = CFStringCreateWithCString(kCFAllocatorDefault, v29, 0x8000100u);
+    if (!v26)
     {
-      v48 = sub_2C3AC(0, "failed to create CFString for log line[%d]", v52, v53, v54, v55, v56, v57, v51);
-      v49 = 0;
+      v24 = sub_2C3AC(0, "failed to create CFString for log line[%d]", v28);
+      v25 = 0;
       goto LABEL_40;
     }
 
-    if ((ramrod_set_NVRAM_variable_sync(*(a3 + 8 * v51), v50, &cf, v18 - 1 == v51) & 1) == 0)
+    if ((ramrod_set_NVRAM_variable_sync(*(a3 + 8 * v28), v26, &cf, v12 - 1 == v28) & 1) == 0)
     {
       break;
     }
 
-    ++v51;
-    CFRelease(v50);
-    if (v18 == v51)
+    ++v28;
+    CFRelease(v26);
+    if (v12 == v28)
     {
       goto LABEL_29;
     }
@@ -6110,111 +6181,113 @@ LABEL_29:
     goto LABEL_38;
   }
 
-  v64 = CFErrorCopyUserInfo(cf);
-  if (!v64)
+  v30 = CFErrorCopyUserInfo(cf);
+  if (!v30)
   {
     goto LABEL_38;
   }
 
-  v65 = v64;
-  Value = CFDictionaryGetValue(v64, kCFErrorLocalizedFailureReasonKey);
+  v31 = v30;
+  Value = CFDictionaryGetValue(v30, kCFErrorLocalizedFailureReasonKey);
   if (!Value)
   {
-    CFRelease(v65);
+    CFRelease(v31);
 LABEL_38:
-    v48 = sub_2C3AC(0, "failed NVRAM write of conversion log line[%d]", v58, v59, v60, v61, v62, v63, v51);
+    v24 = sub_2C3AC(0, "failed NVRAM write of conversion log line[%d]", v28);
     goto LABEL_39;
   }
 
-  v67 = Value;
+  v33 = Value;
   bzero(buffer, 0x800uLL);
-  CFStringGetCString(v67, buffer, 2048, 0x8000100u);
-  v48 = sub_2C3AC(0, "failed NVRAM write(%s) of conversion log line[%d]", v68, v69, v70, v71, v72, v73, buffer);
-  CFRelease(v65);
-  CFRelease(v67);
+  CFStringGetCString(v33, buffer, 2048, 0x8000100u);
+  v24 = sub_2C3AC(0, "failed NVRAM write(%s) of conversion log line[%d]", buffer, v28);
+  CFRelease(v31);
+  CFRelease(v33);
 LABEL_39:
-  v49 = 0;
+  v25 = 0;
 LABEL_40:
-  if (v17 >= 1)
+  v27 = v39;
+LABEL_41:
+  if (v11 >= 1)
   {
-    v48 = sub_2C3AC(v48, "%d log lines dropped from %s", v42, v43, v44, v45, v46, v47, v17);
+    v24 = sub_2C3AC(v24, "%d log lines dropped from %s", v11, v27);
   }
 
-  a1 = v79;
-  if (!v79)
+  a1 = v40;
+  if (!v40)
   {
-LABEL_47:
-    if (v48)
+LABEL_48:
+    if (v24)
     {
-      ramrod_log_msg("WARNING: %s\n", v41, v42, v43, v44, v45, v46, v47, v48);
+      ramrod_log_msg("WARNING: %s\n", v24);
     }
 
-    goto LABEL_49;
+    goto LABEL_50;
   }
 
-  if (v19)
+  if (v13)
   {
-    checkpoint_closure_info(v79, "%s", v42, v43, v44, v45, v46, v47, v19);
+    checkpoint_closure_info(v40, "%s", v18, v19, v20, v21, v22, v23, v13);
   }
 
-LABEL_45:
-  if (v48)
+LABEL_46:
+  if (v24)
   {
-    checkpoint_closure_warning(a1, "%s", v42, v43, v44, v45, v46, v47, v48);
+    checkpoint_closure_warning(a1, "%s", v18, v19, v20, v21, v22, v23, v24);
   }
 
-LABEL_49:
+LABEL_50:
   if (__linep)
   {
     free(__linep);
     __linep = 0;
   }
 
-  if (v19)
+  if (v13)
   {
-    free(v19);
+    free(v13);
   }
 
-  if (v48)
+  if (v24)
   {
-    free(v48);
+    free(v24);
   }
 
   if (a4 < 1)
   {
-    v76 = v8;
+    v36 = v8;
     if (v8)
     {
-      goto LABEL_62;
+      goto LABEL_63;
     }
   }
 
   else
   {
-    v74 = v8;
-    v75 = a4;
-    v76 = v74;
-    v77 = v74;
+    v34 = v8;
+    v35 = a4;
+    v36 = v34;
+    v37 = v34;
     do
     {
-      if (*v77)
+      if (*v37)
       {
-        free(*v77);
-        *v77 = 0;
+        free(*v37);
+        *v37 = 0;
       }
 
-      ++v77;
-      --v75;
+      ++v37;
+      --v35;
     }
 
-    while (v75);
-LABEL_62:
-    free(v76);
+    while (v35);
+LABEL_63:
+    free(v36);
   }
 
-  if (v50)
+  if (v26)
   {
-    CFRelease(v50);
+    CFRelease(v26);
   }
 
   if (cf)
@@ -6223,66 +6296,67 @@ LABEL_62:
     cf = 0;
   }
 
-  if (v15)
+  if (v9)
   {
-    fclose(v15);
+    fclose(v9);
   }
 
-  return v49;
+  return v25;
 }
 
-char *sub_2C3AC(char *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+char *sub_2C3AC(char *a1, const char *a2, ...)
 {
-  v11 = 0;
-  v12[0] = 0;
-  v12[1] = &a9;
-  vasprintf(v12, a2, &a9);
-  if (!v12[0])
+  va_start(va, a2);
+  v4 = 0;
+  v5[0] = 0;
+  va_copy(&v5[1], va);
+  vasprintf(v5, a2, va);
+  if (!v5[0])
   {
     return a1;
   }
 
   if (!a1)
   {
-    return v12[0];
+    return v5[0];
   }
 
-  asprintf(&v11, "%s;%s", a1, v12[0]);
-  if (v11)
+  asprintf(&v4, "%s;%s", a1, v5[0]);
+  if (v4)
   {
     free(a1);
   }
 
   else
   {
-    v11 = a1;
+    v4 = a1;
   }
 
-  if (v12[0])
+  if (v5[0])
   {
-    free(v12[0]);
-    v12[0] = 0;
+    free(v5[0]);
+    v5[0] = 0;
   }
 
-  return v11;
+  return v4;
 }
 
 uint64_t ramrod_sync_apfs_metrics_nvram()
 {
-  v7 = ramrod_sync_apfs_metrics_nvram_checkpoint(0, "/mnt5/fsck_logs", &off_1A9800, 1);
-  if (v7)
+  v0 = ramrod_sync_apfs_metrics_nvram_checkpoint(0, "/mnt5/fsck_logs", &off_1A9800, 1);
+  if (v0)
   {
-    ramrod_log_msg("%s : failed to sync fsck metrics\n", v0, v1, v2, v3, v4, v5, v6, "ramrod_sync_apfs_metrics_nvram");
+    ramrod_log_msg("%s : failed to sync fsck metrics\n", "ramrod_sync_apfs_metrics_nvram");
   }
 
-  return v7;
+  return v0;
 }
 
-const __CFDictionary *ramrod_should_update_stockholm(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const __CFDictionary *ramrod_should_update_stockholm(int a1)
 {
   if (a1)
   {
-    ramrod_log_msg("Skipping checking stockholm for booted update\n", a2, a3, a4, a5, a6, a7, a8, vars0);
+    ramrod_log_msg("Skipping checking stockholm for booted update\n");
     return 0;
   }
 
@@ -6293,79 +6367,77 @@ const __CFDictionary *ramrod_should_update_stockholm(int a1, uint64_t a2, uint64
   }
 }
 
-uint64_t ramrod_bootstrap_stockholm(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_bootstrap_stockholm(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
-  ramrod_log_msg("entering ramrod_bootstrap_stockholm\n", a2, a3, a4, a5, a6, a7, a8, v13);
+  ramrod_log_msg("entering ramrod_bootstrap_stockholm\n");
   if (a4)
   {
     *a4 = 0;
   }
 
-  v14[0] = @"Preboot Root";
-  v14[1] = @"Stockholm Skip JCOP";
-  v15[0] = a1;
-  v15[1] = [NSNumber numberWithBool:1];
-  return sub_2C5E4([NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2], a2, a3, a4);
+  v9[0] = @"Preboot Root";
+  v9[1] = @"Stockholm Skip JCOP";
+  v10[0] = a1;
+  v10[1] = [NSNumber numberWithBool:1];
+  return sub_2C5E4([NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:2], a2, a3, a4);
 }
 
 uint64_t sub_2C5E4(const __CFDictionary *a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
   if (CFDictionaryGetValue(a1, @"Perform stockholm install") == kCFBooleanFalse)
   {
-    goto LABEL_64;
+    goto LABEL_63;
   }
 
-  ramrod_log_msg("entering update_stockholm\n", v8, v9, v10, v11, v12, v13, v14, v85);
+  ramrod_log_msg("entering update_stockholm\n");
   (*(a2 + 8))(4, 0, a3);
-  v15 = IOServiceMatching("AppleStockholmControl");
-  if (!v15)
+  v8 = IOServiceMatching("AppleStockholmControl");
+  if (!v8)
   {
-    goto LABEL_64;
+    goto LABEL_63;
   }
 
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v15);
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v8);
   if (!MatchingService)
   {
-    goto LABEL_64;
+    goto LABEL_63;
   }
 
   IOObjectRelease(MatchingService);
-  memset(&v88, 0, sizeof(v88));
+  memset(&v57, 0, sizeof(v57));
   cf = 0;
-  v17 = dlopen("/usr/lib/libnfrestore.dylib", 261);
-  if (!v17)
+  v10 = dlopen("/usr/lib/libnfrestore.dylib", 261);
+  if (!v10)
   {
     sub_D7E94();
-LABEL_64:
+LABEL_63:
     (*(a2 + 8))(4, 100, a3);
     return 1;
   }
 
-  v18 = dlsym(v17, "NfRestoreReturnError");
-  if (!v18)
+  v11 = dlsym(v10, "NfRestoreReturnError");
+  if (!v11)
   {
-    v83 = "could not find NfRestore call\n";
-LABEL_63:
-    ramrod_log_msg(v83, v19, v20, v21, v22, v23, v24, v25, v86);
-    goto LABEL_64;
-  }
-
-  v26 = v18;
-  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (!Mutable)
-  {
-    v83 = "failed to create params dictionary\n";
+    ramrod_log_msg("could not find NfRestore call\n");
     goto LABEL_63;
   }
 
-  v28 = Mutable;
-  if (stat("/usr/standalone/firmware/nfrestore/firmware/", &v88))
+  v12 = v11;
+  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  if (!Mutable)
   {
-    ramrod_log_msg("Could not find stockholm firmware directory\n", v29, v30, v31, v32, v33, v34, v35, v86);
+    ramrod_log_msg("failed to create params dictionary\n");
+    goto LABEL_63;
+  }
+
+  v14 = Mutable;
+  if (stat("/usr/standalone/firmware/nfrestore/firmware/", &v57))
+  {
+    ramrod_log_msg("Could not find stockholm firmware directory\n");
     goto LABEL_56;
   }
 
-  CFDictionarySetValue(v28, @"RootFilePath", @"/usr/standalone/firmware/nfrestore/firmware/");
+  CFDictionarySetValue(v14, @"RootFilePath", @"/usr/standalone/firmware/nfrestore/firmware/");
   Value = CFDictionaryGetValue(a1, @"Preboot Root");
   if (!Value)
   {
@@ -6373,142 +6445,142 @@ LABEL_63:
     system_partition_device_node = ramrod_get_system_partition_device_node(valuePtr, 0x400uLL);
     if (system_partition_device_node)
     {
-      v37 = ramrod_copy_preboot_path(system_partition_device_node, "/mnt9", 0, 0, v42, v43, v44, v45);
-      if (v37)
+      v16 = ramrod_copy_preboot_path(system_partition_device_node, "/mnt9", 0, 0);
+      if (v16)
       {
         goto LABEL_12;
       }
     }
 
-    sub_D7E58(a4, v39, v40, v41, v42, v43, v44, v45);
+    sub_D7E58(a4, v18, v19, v20, v21, v22, v23, v24);
 LABEL_56:
-    v37 = 0;
+    v16 = 0;
     goto LABEL_57;
   }
 
-  v37 = Value;
+  v16 = Value;
   CFRetain(Value);
 LABEL_12:
-  CFDictionarySetValue(v28, @"RestoreSystemPartition", v37);
+  CFDictionarySetValue(v14, @"RestoreSystemPartition", v16);
   if (a1)
   {
-    v46 = CFDictionaryGetValue(a1, @"Stockholm Factory Install");
-    if (v46)
+    v25 = CFDictionaryGetValue(a1, @"Stockholm Factory Install");
+    if (v25)
     {
-      v47 = v46;
-      v48 = CFGetTypeID(v46);
-      if (v48 == CFBooleanGetTypeID() && CFBooleanGetValue(v47) == 1)
+      v26 = v25;
+      v27 = CFGetTypeID(v25);
+      if (v27 == CFBooleanGetTypeID() && CFBooleanGetValue(v26) == 1)
       {
-        CFDictionarySetValue(v28, @"FactoryInstall", kCFBooleanTrue);
+        CFDictionarySetValue(v14, @"FactoryInstall", kCFBooleanTrue);
       }
     }
 
-    v49 = CFDictionaryGetValue(a1, @"Stockholm Advanced Install");
-    if (v49)
+    v28 = CFDictionaryGetValue(a1, @"Stockholm Advanced Install");
+    if (v28)
     {
-      v50 = v49;
-      v51 = CFGetTypeID(v49);
-      if (v51 == CFBooleanGetTypeID() && CFBooleanGetValue(v50) == 1)
+      v29 = v28;
+      v30 = CFGetTypeID(v28);
+      if (v30 == CFBooleanGetTypeID() && CFBooleanGetValue(v29) == 1)
       {
-        CFDictionarySetValue(v28, @"AdvancedFeatures", kCFBooleanTrue);
+        CFDictionarySetValue(v14, @"AdvancedFeatures", kCFBooleanTrue);
       }
     }
 
-    v52 = CFDictionaryGetValue(a1, @"Terminate Applets");
-    if (v52)
+    v31 = CFDictionaryGetValue(a1, @"Terminate Applets");
+    if (v31)
     {
-      v53 = v52;
-      v54 = CFGetTypeID(v52);
-      if (v54 == CFBooleanGetTypeID() && CFBooleanGetValue(v53) == 1)
+      v32 = v31;
+      v33 = CFGetTypeID(v31);
+      if (v33 == CFBooleanGetTypeID() && CFBooleanGetValue(v32) == 1)
       {
-        CFDictionarySetValue(v28, @"JcopTerminateApplets", kCFBooleanTrue);
+        CFDictionarySetValue(v14, @"JcopTerminateApplets", kCFBooleanTrue);
       }
     }
 
-    v55 = CFDictionaryGetValue(a1, @"Stockholm Postflight Script");
-    if (v55)
+    v34 = CFDictionaryGetValue(a1, @"Stockholm Postflight Script");
+    if (v34)
     {
-      v56 = v55;
-      v57 = CFGetTypeID(v55);
-      if (v57 == CFStringGetTypeID())
+      v35 = v34;
+      v36 = CFGetTypeID(v34);
+      if (v36 == CFStringGetTypeID())
       {
-        CFDictionarySetValue(v28, @"JcopPostflightScript", v56);
+        CFDictionarySetValue(v14, @"JcopPostflightScript", v35);
       }
     }
 
-    v58 = CFDictionaryGetValue(a1, @"Stockholm Skip JCOP");
-    if (v58)
+    v37 = CFDictionaryGetValue(a1, @"Stockholm Skip JCOP");
+    if (v37)
     {
-      v59 = v58;
-      v60 = CFGetTypeID(v58);
-      if (v60 == CFBooleanGetTypeID() && CFBooleanGetValue(v59) == 1)
+      v38 = v37;
+      v39 = CFGetTypeID(v37);
+      if (v39 == CFBooleanGetTypeID() && CFBooleanGetValue(v38) == 1)
       {
-        CFDictionarySetValue(v28, @"JcopUpdateDisable", kCFBooleanTrue);
+        CFDictionarySetValue(v14, @"JcopUpdateDisable", kCFBooleanTrue);
       }
     }
 
-    v61 = CFDictionaryGetValue(a1, @"JCOP Type");
-    if (v61)
+    v40 = CFDictionaryGetValue(a1, @"JCOP Type");
+    if (v40)
     {
-      v62 = v61;
-      v63 = CFGetTypeID(v61);
-      if (v63 == CFStringGetTypeID())
+      v41 = v40;
+      v42 = CFGetTypeID(v40);
+      if (v42 == CFStringGetTypeID())
       {
-        if (CFEqual(v62, @"Development"))
+        if (CFEqual(v41, @"Development"))
         {
-          v64 = 1;
+          v43 = 1;
         }
 
         else
         {
-          v64 = 2 * (CFEqual(v62, @"Production") != 0);
+          v43 = 2 * (CFEqual(v41, @"Production") != 0);
         }
 
-        *valuePtr = v64;
-        v65 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, valuePtr);
-        CFDictionarySetValue(v28, @"JcopKeyType", v65);
-        CFRelease(v65);
+        *valuePtr = v43;
+        v44 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, valuePtr);
+        CFDictionarySetValue(v14, @"JcopKeyType", v44);
+        CFRelease(v44);
       }
     }
 
-    v66 = CFDictionaryGetValue(a1, @"Stockholm Verify JCOP");
-    if (v66)
+    v45 = CFDictionaryGetValue(a1, @"Stockholm Verify JCOP");
+    if (v45)
     {
-      v67 = v66;
-      v68 = CFGetTypeID(v66);
-      if (v68 == CFBooleanGetTypeID() && CFBooleanGetValue(v67) == 1)
+      v46 = v45;
+      v47 = CFGetTypeID(v45);
+      if (v47 == CFBooleanGetTypeID() && CFBooleanGetValue(v46) == 1)
       {
-        CFDictionarySetValue(v28, @"JcopValidateConfig", kCFBooleanTrue);
+        CFDictionarySetValue(v14, @"JcopValidateConfig", kCFBooleanTrue);
       }
     }
 
-    v69 = CFDictionaryGetValue(a1, @"StockholmOptions");
-    ramrod_log_msg("Adding stockholm options dictionary %d", v70, v71, v72, v73, v74, v75, v76, v69 != 0);
-    if (v69)
+    v48 = CFDictionaryGetValue(a1, @"StockholmOptions");
+    ramrod_log_msg("Adding stockholm options dictionary %d", v48 != 0);
+    if (v48)
     {
-      v77 = CFGetTypeID(v69);
-      if (v77 == CFDictionaryGetTypeID())
+      v49 = CFGetTypeID(v48);
+      if (v49 == CFDictionaryGetTypeID())
       {
-        CFDictionarySetValue(v28, @"StockholmOptions", v69);
+        CFDictionarySetValue(v14, @"StockholmOptions", v48);
       }
     }
   }
 
-  v81 = v26(v28, stockholm_progress_callback, sub_43094, &cf, 0);
+  v53 = v12(v14, stockholm_progress_callback, sub_43094, &cf, 0);
   if (cf)
   {
     CFRetain(cf);
   }
 
-  if (v81)
+  if (v53)
   {
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1007, cf, @"%s: NfRestore Failed. NfResult: %d", v78, v79, v80, "update_stockholm");
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1007, cf, @"%s: NfRestore Failed. NfResult: %d", v50, v51, v52, "update_stockholm");
     if (cf)
     {
       CFRelease(cf);
     }
 
-    v82 = 0;
+    v54 = 0;
     goto LABEL_58;
   }
 
@@ -6526,48 +6598,48 @@ LABEL_12:
   }
 
 LABEL_57:
-  v82 = 1;
+  v54 = 1;
 LABEL_58:
   (*(a2 + 8))(4, 100, a3);
-  CFRelease(v28);
-  if (v37)
+  CFRelease(v14);
+  if (v16)
   {
-    CFRelease(v37);
+    CFRelease(v16);
   }
 
-  return v82;
+  return v54;
 }
 
 void skip_NAND_update(uint64_t a1)
 {
-  bzero(v18, 0x400uLL);
-  ramrod_log_msg("skipping update_NAND\n", v2, v3, v4, v5, v6, v7, v8, v16);
-  v16 = *off_1A9808;
-  v17 = 0;
-  if (ramrod_execute_command_get_cstring_result(&v16, v18, 1024))
+  bzero(v3, 0x400uLL);
+  ramrod_log_msg("skipping update_NAND\n");
+  v1 = *off_1A9808;
+  v2 = 0;
+  if (ramrod_execute_command_get_cstring_result(&v1, v3, 1024))
   {
-    sub_D7EC4(a1, v9, v10, v11, v12, v13, v14, v15);
+    sub_D7EC4();
   }
 }
 
 CFPropertyListRef query_nvmefwupdater(const __CFData *Length, CFErrorRef *a2)
 {
   bzero(bytes, 0x400uLL);
-  memset(&v37, 0, sizeof(v37));
-  if (stat("/usr/bin/nvmefwupdater", &v37) == -1)
+  memset(&v9, 0, sizeof(v9));
+  if (stat("/usr/bin/nvmefwupdater", &v9) == -1)
   {
-    ramrod_log_msg("nvmefwupdater missing at %s\n", v4, v5, v6, v7, v8, v9, v10, "/usr/bin/nvmefwupdater");
+    ramrod_log_msg("nvmefwupdater missing at %s\n", "/usr/bin/nvmefwupdater");
     return 0;
   }
 
-  v38 = *off_1A9820;
-  v39 = *algn_1A9830;
+  v10 = *off_1A9820;
+  v11 = *algn_1A9830;
   if (Length)
   {
     BytePtr = CFDataGetBytePtr(Length);
     Length = CFDataGetLength(Length);
-    *&v39 = "-";
-    ramrod_log_msg("Overriding NAND BFH firmware\n", v12, v13, v14, v15, v16, v17, v18, v36);
+    *&v11 = "-";
+    ramrod_log_msg("Overriding NAND BFH firmware\n");
   }
 
   else
@@ -6575,46 +6647,46 @@ CFPropertyListRef query_nvmefwupdater(const __CFData *Length, CFErrorRef *a2)
     BytePtr = 0;
   }
 
-  cstring_result = ramrod_execute_command_with_input_data_get_cstring_result(&v38, BytePtr, Length, bytes, 1024);
+  cstring_result = ramrod_execute_command_with_input_data_get_cstring_result(&v10, BytePtr, Length, bytes, 1024);
   if (cstring_result)
   {
-    sub_D7F1C(cstring_result, a2, v21, v22, v23, v24, v25, v26);
+    sub_D7F1C(cstring_result, a2);
     return 0;
   }
 
-  v27 = CFDataCreate(kCFAllocatorDefault, bytes, 1024);
-  v19 = CFPropertyListCreateWithData(kCFAllocatorDefault, v27, 0, 0, 0);
-  if (!v19)
+  v7 = CFDataCreate(kCFAllocatorDefault, bytes, 1024);
+  v5 = CFPropertyListCreateWithData(kCFAllocatorDefault, v7, 0, 0, 0);
+  if (!v5)
   {
-    sub_D7F80(a2, v28, v29, v30, v31, v32, v33, v34);
-    if (!v27)
+    sub_D7F80();
+    if (!v7)
     {
-      return v19;
+      return v5;
     }
 
     goto LABEL_10;
   }
 
-  if (v27)
+  if (v7)
   {
 LABEL_10:
-    CFRelease(v27);
+    CFRelease(v7);
   }
 
-  return v19;
+  return v5;
 }
 
-uint64_t _validate_NAND_firmware(_BYTE *a1, _BYTE *a2, _BYTE *a3, CFErrorRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _validate_NAND_firmware(_BYTE *a1, _BYTE *a2, _BYTE *a3, CFErrorRef *a4)
 {
   if (!*a1)
   {
-    sub_D8088(a4, a2, a3, a4, a5, a6, a7, a8);
+    sub_D8088(a4);
     return 1;
   }
 
   if ((*a2 != 0) != (*a3 != 0))
   {
-    sub_D7FE0(*a2 != 0, a2, a4, a4, a5, a6, a7, a8);
+    sub_D7FE0(*a2 != 0);
     return 1;
   }
 
@@ -6624,319 +6696,314 @@ uint64_t _validate_NAND_firmware(_BYTE *a1, _BYTE *a2, _BYTE *a3, CFErrorRef *a4
 uint64_t update_NAND(const __CFDictionary *a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
   bzero(buffer, 0x400uLL);
-  bzero(v155, 0x400uLL);
-  bzero(v154, 0x400uLL);
-  ramrod_log_msg("entering update_NAND\n", v6, v7, v8, v9, v10, v11, v12, v144);
-  v151 = xmmword_1A9860;
-  v152 = unk_1A9870;
-  v153 = xmmword_1A9880;
-  v149 = off_1A9840;
-  v150 = *algn_1A9850;
+  bzero(v55, 0x400uLL);
+  bzero(v54, 0x400uLL);
+  ramrod_log_msg("entering update_NAND\n");
+  v51 = xmmword_1A9860;
+  v52 = unk_1A9870;
+  v53 = xmmword_1A9880;
+  v49 = off_1A9840;
+  v50 = *algn_1A9850;
   if (ramrod_should_do_legacy_restored_internal_behaviors() && CFDictionaryGetValue(a1, @"SkipS3E") == kCFBooleanTrue)
   {
     skip_NAND_update(a4);
-    return 1;
-  }
-
-  Value = CFDictionaryGetValue(a1, @"EraseInstall");
-  v14 = CFDictionaryGetValue(a1, @"NAND filepath");
-  v15 = CFDictionaryGetValue(a1, @"PHY Text filepath");
-  v16 = CFDictionaryGetValue(a1, @"PHY Data filepath");
-  v24 = v16;
-  if (!v14 && !v15 && !v16)
-  {
-    ramrod_log_msg("No queried filepaths found in updater options\n", v17, v18, v19, v20, v21, v22, v23, v145);
-    nvmefwupdater = query_nvmefwupdater(0, a4);
-    v14 = CFDictionaryGetValue(nvmefwupdater, @"nand");
-    v15 = CFDictionaryGetValue(nvmefwupdater, @"phy_text");
-    v24 = CFDictionaryGetValue(nvmefwupdater, @"phy_data");
-  }
-
-  memset(&v148, 0, sizeof(v148));
-  if (v14)
-  {
-    v145 = "/usr/standalone/firmware/";
-    v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s%@");
-    CFStringGetCString(v26, buffer, 1024, 0x8000100u);
-    CFRelease(v26);
-  }
-
-  if (v15)
-  {
-    v145 = "/usr/standalone/firmware/";
-    v27 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s%@");
-    CFStringGetCString(v27, v155, 1024, 0x8000100u);
-    CFRelease(v27);
-  }
-
-  if (v24)
-  {
-    v145 = "/usr/standalone/firmware/";
-    v28 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s%@");
-    CFStringGetCString(v28, v154, 1024, 0x8000100u);
-    CFRelease(v28);
-  }
-
-  if (ramrod_should_do_legacy_restored_internal_behaviors())
-  {
-    ramrod_create_directory_with_class("/mnt5/usr/standalone/firmware/", 0x1EDu, 0, 0, -1, 1);
-    if (CFDictionaryContainsKey(a1, @"S3E Override Folder"))
-    {
-      v33 = CFDictionaryGetValue(a1, @"S3E Override Folder");
-      v34 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%snand_fw.pak", "/mnt5/usr/standalone/firmware/");
-      CStringPtr = CFStringGetCStringPtr(v34, 0x8000100u);
-      ramrod_write_data_to_file_with_class(v33, CStringPtr, -1);
-      v36 = CFStringGetCStringPtr(v34, 0x8000100u);
-      ramrod_log_msg("Overriding NAND firmware: %s\n", v37, v38, v39, v40, v41, v42, v43, v36);
-      CFStringGetCString(v34, buffer, 1024, 0x8000100u);
-      if (v34)
-      {
-        CFRelease(v34);
-      }
-    }
-
-    if (CFDictionaryContainsKey(a1, @"PHY Text Override"))
-    {
-      v44 = CFDictionaryGetValue(a1, @"PHY Text Override");
-      v45 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%sphy_text.bin", "/mnt5/usr/standalone/firmware/", @"phy_text", *&v148.st_dev, v148.st_ino, *&v148.st_uid, *&v148.st_rdev, v148.st_atimespec.tv_sec, v148.st_atimespec.tv_nsec, v148.st_mtimespec.tv_sec, v148.st_mtimespec.tv_nsec, v148.st_ctimespec.tv_sec, v148.st_ctimespec.tv_nsec, v148.st_birthtimespec.tv_sec, v148.st_birthtimespec.tv_nsec, v148.st_size, v148.st_blocks, *&v148.st_blksize, *&v148.st_gen, v148.st_qspare[0], v148.st_qspare[1], v149, v150, v151, v152, v153);
-      v46 = CFStringGetCStringPtr(v45, 0x8000100u);
-      ramrod_write_data_to_file_with_class(v44, v46, -1);
-      v47 = CFStringGetCStringPtr(v45, 0x8000100u);
-      ramrod_log_msg("Overriding PHY text: %s\n", v48, v49, v50, v51, v52, v53, v54, v47);
-      CFStringGetCString(v45, v155, 1024, 0x8000100u);
-      if (v45)
-      {
-        CFRelease(v45);
-      }
-    }
-
-    if (CFDictionaryContainsKey(a1, @"PHY Data Override"))
-    {
-      v55 = CFDictionaryGetValue(a1, @"PHY Data Override");
-      v56 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%sphy_data.bin", "/mnt5/usr/standalone/firmware/", @"phy_data");
-      v57 = CFStringGetCStringPtr(v56, 0x8000100u);
-      ramrod_write_data_to_file_with_class(v55, v57, -1);
-      v58 = CFStringGetCStringPtr(v56, 0x8000100u);
-      ramrod_log_msg("Overriding PHY data: %s\n", v59, v60, v61, v62, v63, v64, v65, v58);
-      CFStringGetCString(v56, v154, 1024, 0x8000100u);
-      if (v56)
-      {
-        CFRelease(v56);
-      }
-    }
-
-    if (CFDictionaryGetValue(a1, @"SkipPHYUpdate") == kCFBooleanTrue)
-    {
-      ramrod_log_msg("Skipping PHY update, ignoring overrides\n", v66, v67, v68, v29, v30, v31, v32, v145);
-      v155[0] = 0;
-      v154[0] = 0;
-    }
-  }
-
-  if (_validate_NAND_firmware(buffer, v155, v154, a4, v29, v30, v31, v32))
-  {
-    return 0;
-  }
-
-  if (stat(buffer, &v148))
-  {
-    ramrod_log_msg("error: NAND firmware does not exist: %s\n", v70, v71, v72, v73, v74, v75, v76, buffer);
-    skip_NAND_update(a4);
-    if (a4)
-    {
-      ramrod_create_error_cf(a4, @"RamrodErrorDomain", 8, *a4, @"%s: missing NAND information %s", v77, v78, v79, "update_NAND");
-    }
-
-    return 1;
-  }
-
-  if (v155[0] && v154[0])
-  {
-    if (stat(v155, &v148))
-    {
-      ramrod_log_msg("error: PHY text does not exist: %s\n", v80, v81, v82, v83, v84, v85, v86, v155);
-      return 0;
-    }
-
-    v87 = v154;
-    if (stat(v154, &v148))
-    {
-      ramrod_log_msg("error: PHY data does not exist: %s\n", v88, v89, v90, v91, v92, v93, v94, v154);
-      return 0;
-    }
-
-    v95 = &v152 + 8;
-    ramrod_log_msg("Updating NAND: %s\n", v88, v89, v90, v91, v92, v93, v94, buffer);
-    ramrod_log_msg("Updating PHY: text: %s data: %s\n", v96, v97, v98, v99, v100, v101, v102, v155);
-    *(&v149 + 1) = "--validate";
-    *&v150 = "--nand_fw";
-    *(&v150 + 1) = buffer;
-    *&v151 = "--phy_text";
-    *(&v151 + 1) = v155;
-    *&v152 = "--phy_data";
   }
 
   else
   {
-    v95 = &v150 + 8;
-    v87 = buffer;
-    ramrod_log_msg("Updating NAND: %s\n", v70, v71, v72, v73, v74, v75, v76, buffer);
-    ramrod_log_msg("No PHY update data provided; skipping PHY update\n", v103, v104, v105, v106, v107, v108, v109, v147);
-    *(&v149 + 1) = "--validate";
-    *&v150 = "--nand_fw";
-  }
-
-  *v95 = v87;
-  v110 = ramrod_execute_command(&v149);
-  if (v110 > 3)
-  {
-    if (v110 == 4)
+    Value = CFDictionaryGetValue(a1, @"EraseInstall");
+    v7 = CFDictionaryGetValue(a1, @"NAND filepath");
+    v8 = CFDictionaryGetValue(a1, @"PHY Text filepath");
+    v9 = CFDictionaryGetValue(a1, @"PHY Data filepath");
+    v10 = v9;
+    if (!v7 && !v8 && !v9)
     {
-      ramrod_log_msg("ECC or DM version mismatch. Production update required\n", v111, v112, v113, v114, v115, v116, v117, v146);
-      v121 = @"%s: ECC or DM version mismatch. Production update required";
-      goto LABEL_53;
+      ramrod_log_msg("No queried filepaths found in updater options\n");
+      nvmefwupdater = query_nvmefwupdater(0, a4);
+      v7 = CFDictionaryGetValue(nvmefwupdater, @"nand");
+      v8 = CFDictionaryGetValue(nvmefwupdater, @"phy_text");
+      v10 = CFDictionaryGetValue(nvmefwupdater, @"phy_data");
     }
 
-    if (v110 != 5)
+    memset(&v48, 0, sizeof(v48));
+    if (v7)
     {
-      goto LABEL_51;
+      v12 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s%@", "/usr/standalone/firmware/", v7, *&v48.st_dev, v48.st_ino, *&v48.st_uid, *&v48.st_rdev, v48.st_atimespec.tv_sec, v48.st_atimespec.tv_nsec, v48.st_mtimespec.tv_sec, v48.st_mtimespec.tv_nsec, v48.st_ctimespec.tv_sec, v48.st_ctimespec.tv_nsec, v48.st_birthtimespec.tv_sec, v48.st_birthtimespec.tv_nsec, v48.st_size, v48.st_blocks, *&v48.st_blksize, *&v48.st_gen, v48.st_qspare[0], v48.st_qspare[1], v49, v50, v51, v52, v53);
+      CFStringGetCString(v12, buffer, 1024, 0x8000100u);
+      CFRelease(v12);
     }
 
-    if (Value != kCFBooleanTrue)
+    if (v8)
     {
-      ramrod_log_msg("FTL version mismatch. Erase install required\n", v111, v112, v113, v114, v115, v116, v117, v146);
-      v121 = @"%s: FTL version mismatch. Erase install required";
-      goto LABEL_53;
+      v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s%@", "/usr/standalone/firmware/", v8);
+      CFStringGetCString(v13, v55, 1024, 0x8000100u);
+      CFRelease(v13);
     }
-  }
 
-  else if (v110 != 1)
-  {
-    if (v110 == 3)
+    if (v10)
     {
-      ramrod_log_msg("Invalid FW package\n", v111, v112, v113, v114, v115, v116, v117, v146);
-      v121 = @"%s: Invalid FW package";
-LABEL_53:
-      ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, v121, v118, v119, v120, "update_NAND");
+      v14 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s%@", "/usr/standalone/firmware/", v10);
+      CFStringGetCString(v14, v54, 1024, 0x8000100u);
+      CFRelease(v14);
+    }
+
+    if (ramrod_should_do_legacy_restored_internal_behaviors())
+    {
+      ramrod_create_directory_with_class("/mnt5/usr/standalone/firmware/", 493, 0, 0, -1, 1);
+      if (CFDictionaryContainsKey(a1, @"S3E Override Folder"))
+      {
+        v15 = CFDictionaryGetValue(a1, @"S3E Override Folder");
+        v16 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%snand_fw.pak", "/mnt5/usr/standalone/firmware/");
+        CStringPtr = CFStringGetCStringPtr(v16, 0x8000100u);
+        ramrod_write_data_to_file_with_class(v15, CStringPtr, -1);
+        v18 = CFStringGetCStringPtr(v16, 0x8000100u);
+        ramrod_log_msg("Overriding NAND firmware: %s\n", v18);
+        CFStringGetCString(v16, buffer, 1024, 0x8000100u);
+        if (v16)
+        {
+          CFRelease(v16);
+        }
+      }
+
+      if (CFDictionaryContainsKey(a1, @"PHY Text Override"))
+      {
+        v19 = CFDictionaryGetValue(a1, @"PHY Text Override");
+        v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%sphy_text.bin", "/mnt5/usr/standalone/firmware/", @"phy_text");
+        v21 = CFStringGetCStringPtr(v20, 0x8000100u);
+        ramrod_write_data_to_file_with_class(v19, v21, -1);
+        v22 = CFStringGetCStringPtr(v20, 0x8000100u);
+        ramrod_log_msg("Overriding PHY text: %s\n", v22);
+        CFStringGetCString(v20, v55, 1024, 0x8000100u);
+        if (v20)
+        {
+          CFRelease(v20);
+        }
+      }
+
+      if (CFDictionaryContainsKey(a1, @"PHY Data Override"))
+      {
+        v23 = CFDictionaryGetValue(a1, @"PHY Data Override");
+        v24 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%sphy_data.bin", "/mnt5/usr/standalone/firmware/", @"phy_data");
+        v25 = CFStringGetCStringPtr(v24, 0x8000100u);
+        ramrod_write_data_to_file_with_class(v23, v25, -1);
+        v26 = CFStringGetCStringPtr(v24, 0x8000100u);
+        ramrod_log_msg("Overriding PHY data: %s\n", v26);
+        CFStringGetCString(v24, v54, 1024, 0x8000100u);
+        if (v24)
+        {
+          CFRelease(v24);
+        }
+      }
+
+      if (CFDictionaryGetValue(a1, @"SkipPHYUpdate") == kCFBooleanTrue)
+      {
+        ramrod_log_msg("Skipping PHY update, ignoring overrides\n");
+        v55[0] = 0;
+        v54[0] = 0;
+      }
+    }
+
+    if (_validate_NAND_firmware(buffer, v55, v54, a4))
+    {
       return 0;
     }
 
-LABEL_51:
-    ramrod_log_msg("Unknown return value %d from --validate\n", v111, v112, v113, v114, v115, v116, v117, v110);
-    v121 = @"%s: failed to validate NAND update file";
-    goto LABEL_53;
-  }
-
-  *(&v149 + 1) = "--update";
-  v122 = ramrod_execute_command(&v149);
-  if (v122 <= 3)
-  {
-    if (v122 != 1)
+    if (stat(buffer, &v48))
     {
-      if (v122 == 3)
+      ramrod_log_msg("error: NAND firmware does not exist: %s\n", buffer);
+      skip_NAND_update(a4);
+      if (a4)
       {
-        ramrod_log_msg("Update NAND - Invalid FW package\n", v123, v124, v125, v126, v127, v128, v129, v146);
-        v121 = @"%s: Update NAND - Invalid FW package";
-        goto LABEL_53;
+        ramrod_create_error_cf(a4, @"RamrodErrorDomain", 8, *a4, @"%s: missing NAND information %s", v28, v29, v30, "update_NAND");
       }
 
-LABEL_65:
-      ramrod_log_msg("Unknown return value %d from --update\n", v123, v124, v125, v126, v127, v128, v129, v122);
-      v121 = @"%s: failed to update NAND update file";
-      goto LABEL_53;
-    }
-  }
-
-  else
-  {
-    if (v122 == 4)
-    {
-      ramrod_log_msg("Update NAND - ECC or DM version mismatch. Production update required\n", v123, v124, v125, v126, v127, v128, v129, v146);
-      v121 = @"%s: Update NAND - ECC or DM version mismatch. Production update required";
-      goto LABEL_53;
+      return 1;
     }
 
-    if (v122 != 5)
+    if (v55[0] && v54[0])
     {
-      if (v122 == 6)
+      if (stat(v55, &v48))
       {
-        ramrod_log_msg("Update NAND - failed. Retry requested\n", v123, v124, v125, v126, v127, v128, v129, v146);
-        ramrod_create_error_cf(a4, @"RamrodErrorDomain", 13, 0, @"%s: NAND update failed with error %d, retrying", v130, v131, v132, "update_NAND");
+        ramrod_log_msg("error: PHY text does not exist: %s\n");
         return 0;
       }
 
-      goto LABEL_65;
-    }
-
-    if (Value != kCFBooleanTrue)
-    {
-      ramrod_log_msg("Update NAND - FTL version mismatch. Erase install required\n", v123, v124, v125, v126, v127, v128, v129, v146);
-      v121 = @"%s: Update NAND - FTL version mismatch. Erase install required";
-      goto LABEL_53;
-    }
-  }
-
-  if (!ramrod_should_do_legacy_restored_internal_behaviors() || (v133 = CFDictionaryGetValue(a1, @"NAND Tunable Tables Override Bundle")) == 0)
-  {
-    *(&v149 + 1) = "--sendtunabletables";
-    *&v150 = 0;
-    v138 = ramrod_execute_command(&v149);
-    if (v138 <= 7)
-    {
-      if (!v138)
+      v31 = v54;
+      if (stat(v54, &v48))
       {
-        return 1;
+        ramrod_log_msg("error: PHY data does not exist: %s\n");
+        return 0;
       }
 
-      if (v138 == 7)
+      v32 = &v52 + 8;
+      ramrod_log_msg("Updating NAND: %s\n", buffer);
+      ramrod_log_msg("Updating PHY: text: %s data: %s\n", v55, v54);
+      *(&v49 + 1) = "--validate";
+      *&v50 = "--nand_fw";
+      *(&v50 + 1) = buffer;
+      *&v51 = "--phy_text";
+      *(&v51 + 1) = v55;
+      *&v52 = "--phy_data";
+    }
+
+    else
+    {
+      v32 = &v50 + 8;
+      v31 = buffer;
+      ramrod_log_msg("Updating NAND: %s\n", buffer);
+      ramrod_log_msg("No PHY update data provided; skipping PHY update\n");
+      *(&v49 + 1) = "--validate";
+      *&v50 = "--nand_fw";
+    }
+
+    *v32 = v31;
+    v33 = ramrod_execute_command(&v49);
+    if (v33 > 3)
+    {
+      if (v33 == 4)
       {
-        v121 = @"%s: Failed to send ramdisk NAND tunable table data to device\n";
+        ramrod_log_msg("ECC or DM version mismatch. Production update required\n");
+        v37 = @"%s: ECC or DM version mismatch. Production update required";
         goto LABEL_53;
       }
 
-LABEL_73:
-      v121 = @"%s: Failed to read NAND tunable table data from ramdisk with error %d\n";
+      if (v33 != 5)
+      {
+        goto LABEL_51;
+      }
+
+      if (Value != kCFBooleanTrue)
+      {
+        ramrod_log_msg("FTL version mismatch. Erase install required\n");
+        v37 = @"%s: FTL version mismatch. Erase install required";
+        goto LABEL_53;
+      }
+    }
+
+    else if (v33 != 1)
+    {
+      if (v33 == 3)
+      {
+        ramrod_log_msg("Invalid FW package\n");
+        v37 = @"%s: Invalid FW package";
+LABEL_53:
+        ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, v37, v34, v35, v36, "update_NAND");
+        return 0;
+      }
+
+LABEL_51:
+      ramrod_log_msg("Unknown return value %d from --validate\n", v33);
+      v37 = @"%s: failed to validate NAND update file";
       goto LABEL_53;
     }
 
-    if (v138 == 8)
+    *(&v49 + 1) = "--update";
+    v38 = ramrod_execute_command(&v49);
+    if (v38 <= 3)
     {
-      v143 = "Note: A file was not found on the ramdisk for tunable table data\n";
+      if (v38 != 1)
+      {
+        if (v38 == 3)
+        {
+          ramrod_log_msg("Update NAND - Invalid FW package\n");
+          v37 = @"%s: Update NAND - Invalid FW package";
+          goto LABEL_53;
+        }
+
+LABEL_65:
+        ramrod_log_msg("Unknown return value %d from --update\n", v38);
+        v37 = @"%s: failed to update NAND update file";
+        goto LABEL_53;
+      }
     }
 
     else
     {
-      if (v138 != 9)
+      if (v38 == 4)
       {
-        goto LABEL_73;
+        ramrod_log_msg("Update NAND - ECC or DM version mismatch. Production update required\n");
+        v37 = @"%s: Update NAND - ECC or DM version mismatch. Production update required";
+        goto LABEL_53;
       }
 
-      v143 = "nvmefwupdater was unable to find the tunable table bundle name in the device tree\n";
+      if (v38 != 5)
+      {
+        if (v38 == 6)
+        {
+          ramrod_log_msg("Update NAND - failed. Retry requested\n");
+          ramrod_create_error_cf(a4, @"RamrodErrorDomain", 13, 0, @"%s: NAND update failed with error %d, retrying", v39, v40, v41, "update_NAND");
+          return 0;
+        }
+
+        goto LABEL_65;
+      }
+
+      if (Value != kCFBooleanTrue)
+      {
+        ramrod_log_msg("Update NAND - FTL version mismatch. Erase install required\n");
+        v37 = @"%s: Update NAND - FTL version mismatch. Erase install required";
+        goto LABEL_53;
+      }
     }
 
-    ramrod_log_msg(v143, v139, v140, v141, v142, v118, v119, v120, v146);
-    return 1;
-  }
-
-  v134 = v133;
-  *(&v149 + 1) = "--sendtunabletables";
-  *&v150 = "-";
-  BytePtr = CFDataGetBytePtr(v133);
-  Length = CFDataGetLength(v134);
-  v137 = ramrod_execute_command_with_input_data(&v149, BytePtr, Length);
-  if (v137)
-  {
-    if (v137 == 7)
+    if (!ramrod_should_do_legacy_restored_internal_behaviors() || (v42 = CFDictionaryGetValue(a1, @"NAND Tunable Tables Override Bundle")) == 0)
     {
-      v121 = @"%s: Failed to send override NAND tunable table data to device\n";
+      *(&v49 + 1) = "--sendtunabletables";
+      *&v50 = 0;
+      v47 = ramrod_execute_command(&v49);
+      if (v47 > 7)
+      {
+        if (v47 == 8)
+        {
+          ramrod_log_msg("Note: A file was not found on the ramdisk for tunable table data\n");
+          return 1;
+        }
+
+        if (v47 == 9)
+        {
+          ramrod_log_msg("nvmefwupdater was unable to find the tunable table bundle name in the device tree\n");
+          return 1;
+        }
+      }
+
+      else
+      {
+        if (!v47)
+        {
+          return 1;
+        }
+
+        if (v47 == 7)
+        {
+          v37 = @"%s: Failed to send ramdisk NAND tunable table data to device\n";
+          goto LABEL_53;
+        }
+      }
+
+      v37 = @"%s: Failed to read NAND tunable table data from ramdisk with error %d\n";
+      goto LABEL_53;
     }
 
-    else
+    v43 = v42;
+    *(&v49 + 1) = "--sendtunabletables";
+    *&v50 = "-";
+    BytePtr = CFDataGetBytePtr(v42);
+    Length = CFDataGetLength(v43);
+    v46 = ramrod_execute_command_with_input_data(&v49, BytePtr, Length);
+    if (v46)
     {
-      v121 = @"%s: Failed to read override NAND tunable table data from Purple Restore with error %d\n";
-    }
+      if (v46 == 7)
+      {
+        v37 = @"%s: Failed to send override NAND tunable table data to device\n";
+      }
 
-    goto LABEL_53;
+      else
+      {
+        v37 = @"%s: Failed to read override NAND tunable table data from Purple Restore with error %d\n";
+      }
+
+      goto LABEL_53;
+    }
   }
 
   return 1;
@@ -6948,158 +7015,156 @@ uint64_t update_usbc()
   v2 = v1;
   v4 = v3;
   v5 = v0;
-  v99 = *off_1A9890;
-  v100 = unk_1A98A0;
-  v101 = xmmword_1A98B0;
-  bzero(v98, 0x2000uLL);
+  v35 = *off_1A9890;
+  v36 = unk_1A98A0;
+  v37 = xmmword_1A98B0;
+  bzero(v34, 0x2000uLL);
   cf = 0;
   value = 0;
   *bytes = 1;
   URLFromString = AMSupportCreateURLFromString();
-  ramrod_log_msg("entering %s\n", v7, v8, v9, v10, v11, v12, v13, "update_usbc");
-  v14 = CFDictionaryContainsKey(*(v4 + 8), @"UUID");
-  if (v14)
+  ramrod_log_msg("entering %s\n", "update_usbc");
+  v7 = CFDictionaryContainsKey(*(v4 + 8), @"UUID");
+  if (v7)
   {
-    *(&v100 + 1) = "/mnt5/usbcfw.version";
-    v15 = "--stashExpectedFWVersion";
+    *(&v36 + 1) = "/mnt5/usbcfw.version";
+    v8 = "--stashExpectedFWVersion";
   }
 
   else
   {
-    v15 = "--reset";
+    v8 = "--reset";
   }
 
-  *&v100 = v15;
+  *&v36 = v8;
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!Mutable)
   {
-    goto LABEL_13;
-  }
-
-  v17 = Mutable;
-  v18 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (!v18)
-  {
-    v38 = "Couldn't create a propertyMatchingDict to update USB-C firmware.\n";
-LABEL_12:
-    ramrod_log_msg(v38, v19, v20, v21, v22, v23, v24, v25, v91);
-LABEL_13:
-    v39 = 0;
-    goto LABEL_14;
-  }
-
-  v26 = v18;
-  v27 = CFDataCreate(kCFAllocatorDefault, bytes, 4);
-  if (!v27)
-  {
-    v38 = "Couldn't create a swdFlashPayloadDataRef to update USB-C firmware.\n";
     goto LABEL_12;
   }
 
-  CFDictionarySetValue(v26, @"usbc-flash-update", v27);
-  CFDictionarySetValue(v17, @"IOPropertyMatch", v26);
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v17);
-  if (!MatchingService)
+  v10 = Mutable;
+  v11 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  if (!v11)
   {
-    ramrod_log_msg("No valid USB-C device found. Skipping updater.\n", v29, v30, v31, v32, v33, v34, v35, v91);
-    v39 = 1;
-    goto LABEL_14;
+    ramrod_log_msg("Couldn't create a propertyMatchingDict to update USB-C firmware.\n");
+LABEL_12:
+    v17 = 0;
+    goto LABEL_13;
   }
 
-  v36 = MatchingService;
+  v12 = v11;
+  v13 = CFDataCreate(kCFAllocatorDefault, bytes, 4);
+  if (!v13)
+  {
+    ramrod_log_msg("Couldn't create a swdFlashPayloadDataRef to update USB-C firmware.\n");
+    goto LABEL_12;
+  }
+
+  CFDictionarySetValue(v12, @"usbc-flash-update", v13);
+  CFDictionarySetValue(v10, @"IOPropertyMatch", v12);
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v10);
+  if (!MatchingService)
+  {
+    ramrod_log_msg("No valid USB-C device found. Skipping updater.\n");
+    v17 = 1;
+    goto LABEL_13;
+  }
+
+  v15 = MatchingService;
   ramrod_delete_NVRAM_variable(@"usbcfw.version", 0);
   ramrod_delete_NVRAM_variable(@"ramrod-kickstart-aces", 0);
   if (CFDictionaryGetValueIfPresent(v5, @"USBC", &value))
   {
-    v37 = value;
+    v16 = value;
   }
 
   else
   {
-    v37 = kCFBooleanTrue;
+    v16 = kCFBooleanTrue;
     value = kCFBooleanTrue;
   }
 
-  if (!CFBooleanGetValue(v37))
+  if (!CFBooleanGetValue(v16))
   {
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
-  if (ramrod_should_do_legacy_restored_internal_behaviors() && ramrod_ticket_has_BOOLean_entitlement(1635083887, v41, v42, v43, v44, v45, v46, v47) && CFDictionaryGetValueIfPresent(v5, @"USB-C FW Data", &cf))
+  if (ramrod_should_do_legacy_restored_internal_behaviors() && ramrod_ticket_has_BOOLean_entitlement(0x6175666Fu) && CFDictionaryGetValueIfPresent(v5, @"USB-C FW Data", &cf))
   {
-    bzero(v97, 0x400uLL);
+    bzero(v33, 0x400uLL);
     if (ramrod_write_data_to_file_with_class(cf, "/mnt5/USB-C_HPM,2.bin", -1))
     {
-      ramrod_create_error_cf(v2, @"RamrodErrorDomain", 7, 0, @"%s: %s: Failed to write out USB-C firmware file to %s.", v48, v49, v50, "update_usbc");
-      v39 = 0;
-      goto LABEL_38;
+      ramrod_create_error_cf(v2, @"RamrodErrorDomain", 7, 0, @"%s: %s: Failed to write out USB-C firmware file to %s.", v19, v20, v21, "update_usbc");
+      v17 = 0;
+      goto LABEL_37;
     }
 
-    __sprintf_chk(v97, 0, 0x400uLL, "--flash=%s", "/mnt5/USB-C_HPM,2.bin");
-    ramrod_log_msg("Instructing USBC FW flasher to use the FW at %s instead of the normal path.\n", v51, v52, v53, v54, v55, v56, v57, "/mnt5/USB-C_HPM,2.bin");
-    *&v101 = v97;
+    __sprintf_chk(v33, 0, 0x400uLL, "--flash=%s", "/mnt5/USB-C_HPM,2.bin");
+    ramrod_log_msg("Instructing USBC FW flasher to use the FW at %s instead of the normal path.\n", "/mnt5/USB-C_HPM,2.bin");
+    *&v37 = v33;
   }
 
-  cstring_result = ramrod_execute_command_get_cstring_result(&v99, v98, 0x2000);
+  cstring_result = ramrod_execute_command_get_cstring_result(&v35, v34, 0x2000);
   if (!cstring_result)
   {
-    ramrod_log_msg("USBC update succceeded. Looking for version file in %s\n", v59, v60, v61, v62, v63, v64, v65, "/mnt5/usbcfw.version");
+    ramrod_log_msg("USBC update succceeded. Looking for version file in %s\n", "/mnt5/usbcfw.version");
     if (!AMSupportCreateDataFromFileURL())
     {
-      ramrod_log_msg("Found USBC version file, reading it in.\n", v67, v68, v69, v70, v71, v72, v73, v92);
-      v74 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, 0, 0x8000100u);
-      if (v74)
+      ramrod_log_msg("Found USBC version file, reading it in.\n");
+      v27 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, 0, 0x8000100u);
+      if (v27)
       {
-        v82 = v74;
-        CStringPtr = CFStringGetCStringPtr(v74, 0x8000100u);
-        ramrod_log_msg("Read USBC version file: %s\n", v84, v85, v86, v87, v88, v89, v90, CStringPtr);
-        ramrod_set_NVRAM_variable(@"usbcfw.version", v82, 0);
-        CFRelease(v82);
+        v28 = v27;
+        CStringPtr = CFStringGetCStringPtr(v27, 0x8000100u);
+        ramrod_log_msg("Read USBC version file: %s\n", CStringPtr);
+        ramrod_set_NVRAM_variable(@"usbcfw.version", v28, 0);
+        CFRelease(v28);
       }
 
       else
       {
-        ramrod_log_msg("Couldn't create string from read CFDataRef.\n", v75, v76, v77, v78, v79, v80, v81, v93);
+        ramrod_log_msg("Couldn't create string from read CFDataRef.\n");
       }
     }
 
-    if (v14)
+    if (v7)
     {
       ramrod_set_NVRAM_variable(@"ramrod-kickstart-aces", @"1", 0);
     }
 
-LABEL_37:
-    v39 = 1;
-    goto LABEL_38;
+LABEL_36:
+    v17 = 1;
+    goto LABEL_37;
   }
 
-  v66 = cstring_result;
+  v26 = cstring_result;
   if (cstring_result == 99)
   {
-    v39 = 1;
+    v17 = 1;
   }
 
   else
   {
-    ramrod_create_error_cf(v2, @"RamrodErrorDomain", 7, 0, @"%s: USB-C firmware update failed with error: %d. Output: %s", v63, v64, v65, "update_usbc");
-    v39 = 0;
+    ramrod_create_error_cf(v2, @"RamrodErrorDomain", 7, 0, @"%s: USB-C firmware update failed with error: %d. Output: %s", v23, v24, v25, "update_usbc");
+    v17 = 0;
   }
 
-  ramrod_log_msg("USBC update failed with a sustained failure: %d. Output: %s. Proceeding without updating USBC.\n", v59, v60, v61, v62, v63, v64, v65, v66);
-LABEL_38:
-  IOObjectRelease(v36);
+  ramrod_log_msg("USBC update failed with a sustained failure: %d. Output: %s. Proceeding without updating USBC.\n", v26, v34);
+LABEL_37:
+  IOObjectRelease(v15);
   if (cf)
   {
     CFRelease(cf);
   }
 
-LABEL_14:
+LABEL_13:
   if (URLFromString)
   {
     CFRelease(URLFromString);
   }
 
-  return v39;
+  return v17;
 }
 
 void _AddOtherFlashImages(const __CFString *a1, const void *a2, __CFArray **a3)
@@ -7112,38 +7177,37 @@ void _AddOtherFlashImages(const __CFString *a1, const void *a2, __CFArray **a3)
   }
 }
 
-uint64_t _copy_current_fdr_ean_values()
+__CFDictionary *_copy_current_fdr_ean_values(uint64_t a1)
 {
   theArray = 0;
   value = 0;
-  v10 = 0;
+  v2 = 0;
   if (ramrod_ticket_copy())
   {
     if (AMFDRSealingMapGetEntriesForDevice())
     {
       if (AMFDRSealingMapCopyDataClassesWithAttribute())
       {
-        v7 = "No FDR Data for EAN.\n";
+        ramrod_log_msg("No FDR Data for EAN.\n");
       }
 
       else
       {
-        v7 = "AMFDRSealingMapCopyDataClassesWithAttribute returned failure\n";
+        ramrod_log_msg("AMFDRSealingMapCopyDataClassesWithAttribute returned failure\n");
       }
     }
 
     else
     {
-      v7 = "Skipping update_fdr_ean on non-FDR device\n";
+      ramrod_log_msg("Skipping update_fdr_ean on non-FDR device\n");
     }
   }
 
   else
   {
-    v7 = "Failed to get ap_ticket.\n";
+    ramrod_log_msg("Failed to get ap_ticket.\n");
   }
 
-  ramrod_log_msg(v7, v0, v1, v2, v3, v4, v5, v6, v9);
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
@@ -7158,240 +7222,228 @@ uint64_t _copy_current_fdr_ean_values()
   return 0;
 }
 
-uint64_t _copy_fdr_ean_values(const __CFString *a1, _DWORD *a2, CFDataRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _copy_fdr_ean_values(const __CFString *a1, _DWORD *a2, CFDataRef *a3)
 {
   theData = 0;
-  if (sub_2E3CC(a1, &theData, a3, a4, a5, a6, a7, a8))
+  if (sub_2E3CC(a1, &theData))
   {
     Length = CFDataGetLength(theData);
     if (Length > 0x1F)
     {
-      v26 = Length;
+      v7 = Length;
       BytePtr = CFDataGetBytePtr(theData);
       if (*BytePtr == 1769104486)
       {
         if (*(BytePtr + 1) == 1)
         {
-          v35 = *(BytePtr + 2);
-          if ((v35 + 1) > 1)
+          v9 = *(BytePtr + 2);
+          if ((v9 + 1) > 1)
           {
-            v39 = *(BytePtr + 3);
-            if (v39 > 0x1F)
+            v12 = *(BytePtr + 3);
+            if (v12 > 0x1F)
             {
-              v40 = *(BytePtr + 4);
-              if (v40)
+              v13 = *(BytePtr + 4);
+              if (!v13)
               {
-                if (v26 <= v40 + v39)
-                {
-                  v36 = "Hash is extends outside payload.\n";
-                }
-
-                else
-                {
-                  v41 = *(BytePtr + 5);
-                  if (v41)
-                  {
-                    if (16 * v41 != *(BytePtr + 7))
-                    {
-                      ramrod_log_msg("FDR info payload is incorrect size.\n\tExpect: %d * %lu = %zu\n\tFound: %d", v28, v29, v30, v31, v32, v33, v34, v41);
-                      goto LABEL_12;
-                    }
-
-                    if (a2)
-                    {
-                      *a2 = v35;
-                    }
-
-                    if (a3)
-                    {
-                      v42 = CFDataCreate(kCFAllocatorDefault, &BytePtr[*(BytePtr + 3)], *(BytePtr + 4));
-                      if (!v42)
-                      {
-                        goto LABEL_12;
-                      }
-
-                      *a3 = v42;
-                    }
-
-                    v37 = 1;
-                    goto LABEL_13;
-                  }
-
-                  v36 = "FDR info payload is empty.\n";
-                }
+                ramrod_log_msg("Hash size is zero.\n");
+                goto LABEL_11;
               }
 
-              else
+              if (v7 <= v13 + v12)
               {
-                v36 = "Hash size is zero.\n";
+                ramrod_log_msg("Hash is extends outside payload.\n");
+                goto LABEL_11;
               }
+
+              v14 = *(BytePtr + 5);
+              if (!v14)
+              {
+                ramrod_log_msg("FDR info payload is empty.\n");
+                goto LABEL_11;
+              }
+
+              if (16 * v14 != *(BytePtr + 7))
+              {
+                ramrod_log_msg("FDR info payload is incorrect size.\n\tExpect: %d * %lu = %zu\n\tFound: %d");
+                goto LABEL_11;
+              }
+
+              if (a2)
+              {
+                *a2 = v9;
+              }
+
+              if (a3)
+              {
+                v15 = CFDataCreate(kCFAllocatorDefault, &BytePtr[*(BytePtr + 3)], *(BytePtr + 4));
+                if (!v15)
+                {
+                  goto LABEL_11;
+                }
+
+                *a3 = v15;
+              }
+
+              v10 = 1;
+              goto LABEL_12;
             }
 
-            else
-            {
-              v36 = "Hash is inside header.\n";
-            }
+            ramrod_log_msg("Hash is inside header.\n");
           }
 
           else
           {
-            v36 = "Generation count is invalid.\n";
+            ramrod_log_msg("Generation count is invalid.\n");
           }
         }
 
         else
         {
-          v43 = 1;
-          v36 = "Bad fdr info header version.\n\tExpect: %d\n\tFound: %d\n";
+          ramrod_log_msg("Bad fdr info header version.\n\tExpect: %d\n\tFound: %d\n");
         }
-
-        ramrod_log_msg(v36, v28, v29, v30, v31, v32, v33, v34, v43);
       }
 
       else
       {
-        ramrod_log_msg("Bad fdr info header magic.\n\tExpect: %d\n\tFound: %d\n", v28, v29, v30, v31, v32, v33, v34, 102);
+        ramrod_log_msg("Bad fdr info header magic.\n\tExpect: %d\n\tFound: %d\n");
       }
     }
 
     else
     {
-      CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
-      ramrod_log_msg("Entry too small to be versioned blob: %s\n", v12, v13, v14, v15, v16, v17, v18, CStringPtr);
+      CFStringGetCStringPtr(a1, 0x8000100u);
+      ramrod_log_msg("Entry too small to be versioned blob: %s\n");
     }
   }
 
   else
   {
-    v45 = CFStringGetCStringPtr(a1, 0x8000100u);
-    ramrod_log_msg("Failed to load EAN key: %s\n", v19, v20, v21, v22, v23, v24, v25, v45);
+    CFStringGetCStringPtr(a1, 0x8000100u);
+    ramrod_log_msg("Failed to load EAN key: %s\n");
   }
 
+LABEL_11:
+  v10 = 0;
 LABEL_12:
-  v37 = 0;
-LABEL_13:
   AMSupportSafeRelease();
-  return v37;
+  return v10;
 }
 
-void *sub_2E3CC(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef *sub_2E3CC(const __CFString *a1, CFTypeRef *a2)
 {
   connect = 0;
   input = 0;
-  v60 = 0;
-  v61 = 0;
+  v20 = 0;
+  v21 = 0;
   output = 0;
   outputCnt = 1;
   if (!a1)
   {
-    v50 = "key is NULL.\n";
-    goto LABEL_27;
+    ramrod_log_msg("key is NULL.\n");
+LABEL_27:
+    LODWORD(v4) = 0;
+    goto LABEL_15;
   }
 
-  v9 = a2;
+  v3 = a2;
   if (a2)
   {
-    v17 = sub_430C4(a1, a2, a3, a4, a5, a6, a7, a8);
-    if (!v17)
+    v4 = sub_430C4(a1);
+    if (v4)
     {
-      ramrod_log_msg("payloadType is invalid.\n", v10, v11, v12, v13, v14, v15, v16, outputStruct);
-      goto LABEL_15;
-    }
-
-    v18 = sub_33448(a1, v10, v11, v12, v13, v14, v15, v16);
-    v26 = v18;
-    if (!v18)
-    {
-      ramrod_log_msg("Key %c%c%c%c not found.\n", v19, v20, v21, v22, v23, v24, v25, SHIBYTE(v17));
-      v17 = 0;
-      goto LABEL_15;
-    }
-
-    if ((v18 & 0xFFF) != 0)
-    {
-      ramrod_log_msg("payloadSize isn't %d-aligned.\n", v19, v20, v21, v22, v23, v24, v25, 0);
-      v17 = 0;
-      goto LABEL_15;
-    }
-
-    ramrod_log_msg("Reading EAN key %c%c%c%c.\n", v19, v20, v21, v22, v23, v24, v25, SHIBYTE(v17));
-    v27 = calloc(1uLL, v26);
-    v28 = v27;
-    if (v27)
-    {
-      input = v17;
-      v60 = v27;
-      v61 = v26;
-      v29 = IOServiceMatching("AppleNVMeEAN");
-      MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v29);
-      v17 = MatchingService;
-      if (!MatchingService)
+      v5 = sub_33448(a1);
+      v6 = v5;
+      if (v5)
       {
-        v51 = "IOServiceGetMatchingService failed to find kNVMeEANServiceMatchName.\n";
-LABEL_32:
-        ramrod_log_msg(v51, v31, v32, v33, v34, v35, v36, v37, outputStructa);
-        goto LABEL_15;
-      }
-
-      v38 = IOServiceOpen(MatchingService, mach_task_self_, 0, &connect);
-      if (!v38)
-      {
-        if (connect)
+        if ((v5 & 0xFFF) != 0)
         {
-          v39 = IOConnectCallMethod(connect, 4u, &input, 3u, 0, 0, &output, &outputCnt, 0, 0);
-          if (!v39)
+          ramrod_log_msg("payloadSize isn't %d-aligned.\n", 4096);
+          LODWORD(v4) = 0;
+          goto LABEL_15;
+        }
+
+        ramrod_log_msg("Reading EAN key %c%c%c%c.\n", BYTE3(v4), WORD1(v4), v4 >> 8, v4);
+        v7 = calloc(1uLL, v6);
+        v9 = v7;
+        if (v7)
+        {
+          input = v4;
+          v20 = v7;
+          v21 = v6;
+          v10 = IOServiceMatching("AppleNVMeEAN");
+          MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v10);
+          LODWORD(v4) = MatchingService;
+          if (MatchingService)
           {
-            v40 = CFDataCreate(kCFAllocatorDefault, v28, v26);
-            v48 = v40;
-            if (v40)
+            if (IOServiceOpen(MatchingService, mach_task_self_, 0, &connect))
             {
-              if (CFDataGetLength(v40) > 0)
+              ramrod_log_msg("IOServiceOpen returned result=0x%04x.\n");
+            }
+
+            else if (connect)
+            {
+              if (IOConnectCallMethod(connect, 4u, &input, 3u, 0, 0, &output, &outputCnt, 0, 0))
               {
-                *v9 = CFRetain(v48);
-                v9 = (&dword_0 + 1);
-                goto LABEL_16;
+                ramrod_log_msg("read failed, kernResult = 0x%x.\n");
               }
 
-              v52 = "CFData is 0 bytes.\n";
+              else
+              {
+                v12 = CFDataCreate(kCFAllocatorDefault, v9, v6);
+                v13 = v12;
+                if (v12)
+                {
+                  if (CFDataGetLength(v12) > 0)
+                  {
+                    *v3 = CFRetain(v13);
+                    v3 = (&dword_0 + 1);
+                    goto LABEL_16;
+                  }
+
+                  ramrod_log_msg("CFData is 0 bytes.\n");
+                }
+
+                else
+                {
+                  ramrod_log_msg("CFDataCreate returned NULL.\n");
+                }
+              }
             }
 
             else
             {
-              v52 = "CFDataCreate returned NULL.\n";
+              ramrod_log_msg("IOServiceOpen returned IO_OBJECT_NULL.\n");
             }
-
-            ramrod_log_msg(v52, v41, v42, v43, v44, v45, v46, v47, outputStructb);
-            goto LABEL_15;
           }
 
-          outputStructa = v39;
-          v51 = "read failed, kernResult = 0x%x.\n";
+          else
+          {
+            ramrod_log_msg("IOServiceGetMatchingService failed to find kNVMeEANServiceMatchName.\n", outputStruct);
+          }
+
+          goto LABEL_15;
         }
 
-        else
-        {
-          v51 = "IOServiceOpen returned IO_OBJECT_NULL.\n";
-        }
-
-        goto LABEL_32;
+        ramrod_log_msg("Failed to calloc() buffer %llu bytes.\n", v8);
+        goto LABEL_27;
       }
 
-      ramrod_log_msg("IOServiceOpen returned result=0x%04x.\n", v31, v32, v33, v34, v35, v36, v37, v38);
-LABEL_15:
-      v9 = 0;
-      goto LABEL_16;
+      ramrod_log_msg("Key %c%c%c%c not found.\n", BYTE3(v4), WORD1(v4), v4 >> 8, v4);
+      LODWORD(v4) = 0;
     }
 
-    outputStruct = 0;
-    v50 = "Failed to calloc() buffer %llu bytes.\n";
-LABEL_27:
-    ramrod_log_msg(v50, a2, a3, a4, a5, a6, a7, a8, outputStruct);
-    v17 = 0;
-    goto LABEL_15;
+    else
+    {
+      ramrod_log_msg("payloadType is invalid.\n");
+    }
+
+LABEL_15:
+    v3 = 0;
+    goto LABEL_16;
   }
 
-  ramrod_log_msg("outData is NULL.\n", 0, a3, a4, a5, a6, a7, a8, outputStruct);
-  v17 = 0;
+  ramrod_log_msg("outData is NULL.\n");
+  LODWORD(v4) = 0;
 LABEL_16:
   AMSupportSafeFree();
   if (connect)
@@ -7400,13 +7452,13 @@ LABEL_16:
     connect = 0;
   }
 
-  if (v17)
+  if (v4)
   {
-    IOObjectRelease(v17);
+    IOObjectRelease(v4);
   }
 
   AMSupportSafeRelease();
-  return v9;
+  return v3;
 }
 
 BOOL ramrod_copy_euicccsn_str(CFTypeRef *a1)
@@ -7422,104 +7474,104 @@ BOOL ramrod_copy_euicccsn_str(CFTypeRef *a1)
 
 void _baseband_update_requires_filesystems_once()
 {
-  if (!ramrod_device_has_baseband_legacy() && !ramrod_device_has_baseband())
+  has_baseband_legacy = ramrod_device_has_baseband_legacy();
+  if (!has_baseband_legacy && !ramrod_device_has_baseband(has_baseband_legacy))
   {
+    v5 = 0;
     v4 = 0;
-    v3 = 0;
     goto LABEL_26;
   }
 
-  v3 = BBUpdaterExtremeCreateWithError();
-  if (!v3)
+  v4 = BBUpdaterExtremeCreateWithError();
+  if (!v4)
   {
-    ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 1005, 0, @"%s: BBUpdaterExtremeCreateWithError failed", v0, v1, v2, "_baseband_update_requires_filesystems_once");
-    v4 = 0;
+    ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 1005, 0, @"%s: BBUpdaterExtremeCreateWithError failed", v1, v2, v3, "_baseband_update_requires_filesystems_once");
+    v5 = 0;
     goto LABEL_26;
   }
 
   BBUpdaterRegisterLogSink();
-  v4 = sub_2EA98(0, 0, &qword_1C6BB0);
-  if (!v4)
+  v5 = sub_2EA98(0, 0, &qword_1C6BB0);
+  if (!v5)
   {
     goto LABEL_26;
   }
 
   if (!BBUpdaterSetOptions())
   {
-    v36 = @"%s: BBUpdaterSetOptions rejected options";
+    v26 = @"%s: BBUpdaterSetOptions rejected options";
 LABEL_25:
-    ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 1005, 0, v36, v9, v10, v11, "_baseband_update_requires_filesystems_once");
+    ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 1005, 0, v26, v6, v7, v8, "_baseband_update_requires_filesystems_once");
     goto LABEL_26;
   }
 
-  ramrod_log_msg("%s: querying baseband to determine if it requires system filesystem\n", v5, v6, v7, v8, v9, v10, v11, "_baseband_update_requires_filesystems_once");
+  ramrod_log_msg("%s: querying baseband to determine if it requires system filesystem\n", "_baseband_update_requires_filesystems_once");
   if (!BBUpdaterExecCommand())
   {
-    v36 = @"%s: failed querying baseband";
+    v26 = @"%s: failed querying baseband";
     goto LABEL_25;
   }
 
   bzero(buffer, 0x800uLL);
-  v12 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@", 0);
-  if (v12)
+  v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@", 0);
+  if (v9)
   {
-    v13 = v12;
-    if (CFStringGetCString(v12, buffer, 2048, 0x8000100u))
+    v10 = v9;
+    if (CFStringGetCString(v9, buffer, 2048, 0x8000100u))
     {
-      ramrod_log_msg("%s: query returned %s\n", v14, v15, v16, v17, v18, v19, v20, "_baseband_update_requires_filesystems_once");
+      ramrod_log_msg("%s: query returned %s\n", "_baseband_update_requires_filesystems_once", buffer);
     }
 
-    CFRelease(v13);
+    CFRelease(v10);
   }
 
   Value = CFDictionaryGetValue(0, @"requireSystemPartitionMount");
-  if (Value && (v25 = Value, v26 = CFGetTypeID(Value), v26 == CFBooleanGetTypeID()))
+  if (Value && (v15 = Value, v16 = CFGetTypeID(Value), v16 == CFBooleanGetTypeID()))
   {
-    byte_1C6BB8 = CFBooleanGetValue(v25) != 0;
-    v27 = CFDictionaryGetValue(0, @"requireUserPartitionMount");
-    if (v27)
+    byte_1C6BB8 = CFBooleanGetValue(v15) != 0;
+    v17 = CFDictionaryGetValue(0, @"requireUserPartitionMount");
+    if (v17)
     {
-      v28 = v27;
-      v29 = CFGetTypeID(v27);
-      if (v29 == CFBooleanGetTypeID())
+      v18 = v17;
+      v19 = CFGetTypeID(v17);
+      if (v19 == CFBooleanGetTypeID())
       {
-        byte_1C6BB9 = CFBooleanGetValue(v28) != 0;
+        byte_1C6BB9 = CFBooleanGetValue(v18) != 0;
       }
     }
 
-    v30 = CFDictionaryGetValue(0, @"requestedBasebandFSPartitionMountSize");
-    if (v30)
+    v20 = CFDictionaryGetValue(0, @"requestedBasebandFSPartitionMountSize");
+    if (v20)
     {
-      v31 = v30;
-      v32 = CFGetTypeID(v30);
-      if (v32 == CFNumberGetTypeID() && !CFNumberGetValue(v31, kCFNumberLongType, &qword_1C6BC0))
+      v21 = v20;
+      v22 = CFGetTypeID(v20);
+      if (v22 == CFNumberGetTypeID() && !CFNumberGetValue(v21, kCFNumberLongType, &qword_1C6BC0))
       {
-        ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 3, 0, @"%s: could not convert baseband data partition size to size_t", v33, v34, v35, "_baseband_update_requires_filesystems_once");
+        ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 3, 0, @"%s: could not convert baseband data partition size to size_t", v23, v24, v25, "_baseband_update_requires_filesystems_once");
       }
     }
   }
 
   else
   {
-    ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 1004, 0, @"%s: baseband updater failed to indicate if it requires system filesystem mounted", v22, v23, v24, "_baseband_update_requires_filesystems_once");
+    ramrod_create_error_cf(&qword_1C6BB0, @"RamrodErrorDomain", 1004, 0, @"%s: baseband updater failed to indicate if it requires system filesystem mounted", v12, v13, v14, "_baseband_update_requires_filesystems_once");
   }
 
 LABEL_26:
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+
   if (v4)
   {
     CFRelease(v4);
-  }
-
-  if (v3)
-  {
-    CFRelease(v3);
   }
 }
 
 __CFDictionary *sub_2EA98(const __CFDictionary *a1, const __CFDictionary *a2, CFErrorRef *a3)
 {
-  v94 = @"Baseband";
-  v6 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@%@");
+  v6 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@%@", @"Baseband", @"Options");
   if (!v6)
   {
     ramrod_create_error_cf(a3, @"RamrodErrorDomain", 6, 0, @"%s: failed to allocate options key", v7, v8, v9, "create_baseband_update_options");
@@ -7527,22 +7579,23 @@ __CFDictionary *sub_2EA98(const __CFDictionary *a1, const __CFDictionary *a2, CF
   }
 
   v10 = v6;
-  if (ramrod_device_has_baseband_legacy())
+  has_baseband_legacy = ramrod_device_has_baseband_legacy();
+  if (has_baseband_legacy)
   {
     if (!a1)
     {
       goto LABEL_11;
     }
 
-    v11 = @"Baseband Updater Options";
-    v12 = a1;
+    v12 = @"Baseband Updater Options";
+    v13 = a1;
   }
 
   else
   {
-    if (!ramrod_device_has_baseband())
+    if (!ramrod_device_has_baseband(has_baseband_legacy))
     {
-      ramrod_create_error_cf(a3, @"RamrodErrorDomain", 8, 0, @"%s: device does not have a baseband", v13, v14, v15, "create_baseband_update_options");
+      ramrod_create_error_cf(a3, @"RamrodErrorDomain", 8, 0, @"%s: device does not have a baseband", v14, v15, v16, "create_baseband_update_options");
       goto LABEL_32;
     }
 
@@ -7551,11 +7604,11 @@ __CFDictionary *sub_2EA98(const __CFDictionary *a1, const __CFDictionary *a2, CF
       goto LABEL_11;
     }
 
-    v12 = a2;
-    v11 = v10;
+    v13 = a2;
+    v12 = v10;
   }
 
-  Value = CFDictionaryGetValue(v12, v11);
+  Value = CFDictionaryGetValue(v13, v12);
   if (Value)
   {
     MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, Value);
@@ -7565,10 +7618,10 @@ __CFDictionary *sub_2EA98(const __CFDictionary *a1, const __CFDictionary *a2, CF
 LABEL_11:
   MutableCopy = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 LABEL_12:
-  v21 = MutableCopy;
+  v22 = MutableCopy;
   if (!MutableCopy)
   {
-    ramrod_create_error_cf(a3, @"RamrodErrorDomain", 6, 0, @"%s: unable to allocate update options dictionary", v18, v19, v20, "create_baseband_update_options");
+    ramrod_create_error_cf(a3, @"RamrodErrorDomain", 6, 0, @"%s: unable to allocate update options dictionary", v19, v20, v21, "create_baseband_update_options");
 LABEL_32:
     CFRelease(v10);
     return 0;
@@ -7576,37 +7629,37 @@ LABEL_32:
 
   valuePtr = 0;
   CFDictionarySetValue(MutableCopy, @"autoSetupEnv", kCFBooleanFalse);
-  CFDictionarySetValue(v21, @"disablePing", kCFBooleanTrue);
+  CFDictionarySetValue(v22, @"disablePing", kCFBooleanTrue);
   if (a1)
   {
-    v22 = CFDictionaryGetValue(a1, @"Preboot Root");
-    if (v22)
+    v23 = CFDictionaryGetValue(a1, @"Preboot Root");
+    if (v23)
     {
-      CFDictionarySetValue(v21, @"SystemRoot", v22);
+      CFDictionarySetValue(v22, @"SystemRoot", v23);
 LABEL_16:
-      v23 = CFDictionaryGetValue(a1, @"Data Root");
-      if (v23)
-      {
-        CFDictionarySetValue(v21, @"DataRoot", v23);
-      }
-
-      v24 = CFDictionaryGetValue(a1, @"Baseband Data Root");
+      v24 = CFDictionaryGetValue(a1, @"Data Root");
       if (v24)
       {
-        CFDictionarySetValue(v21, @"RemoteFSRoot", v24);
+        CFDictionarySetValue(v22, @"DataRoot", v24);
       }
 
-      v95 = kCFBooleanTrue;
-      v25 = CFDictionaryGetValue(a1, @"Restore NV Items");
+      v25 = CFDictionaryGetValue(a1, @"Baseband Data Root");
       if (v25)
       {
-        CFDictionarySetValue(v21, @"NVRestoreSetting", v25);
+        CFDictionarySetValue(v22, @"RemoteFSRoot", v25);
       }
 
-      v26 = ramrod_ticket_copy();
+      v56 = kCFBooleanTrue;
+      v26 = CFDictionaryGetValue(a1, @"Restore NV Items");
       if (v26)
       {
-        CFDictionarySetValue(v21, @"apTicket", v26);
+        CFDictionarySetValue(v22, @"NVRestoreSetting", v26);
+      }
+
+      v27 = ramrod_ticket_copy();
+      if (v27)
+      {
+        CFDictionarySetValue(v22, @"apTicket", v27);
       }
 
       goto LABEL_26;
@@ -7615,14 +7668,14 @@ LABEL_16:
     pthread_once(&stru_1C4808, _baseband_update_requires_filesystems_once);
     if (a3)
     {
-      v66 = qword_1C6BB0;
+      v42 = qword_1C6BB0;
       *a3 = qword_1C6BB0;
-      if (v66)
+      if (v42)
       {
-        ramrod_log_msg("%s: Failed to query baseband.\n", v59, v60, v61, v62, v63, v64, v65, "create_baseband_update_options");
+        ramrod_log_msg("%s: Failed to query baseband.\n", "create_baseband_update_options");
         CFRelease(*a3);
-        v58 = 0;
-        v26 = 0;
+        v38 = 0;
+        v27 = 0;
         *a3 = 0;
         goto LABEL_63;
       }
@@ -7638,40 +7691,40 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    ramrod_create_error_cf(a3, @"RamrodErrorDomain", 1006, 0, @"%s: Baseband requires system filesystem to be mounted but it is not.", v63, v64, v65, "create_baseband_update_options");
-    v58 = 0;
-    v26 = 0;
+    ramrod_create_error_cf(a3, @"RamrodErrorDomain", 1006, 0, @"%s: Baseband requires system filesystem to be mounted but it is not.", v39, v40, v41, "create_baseband_update_options");
+    v38 = 0;
+    v27 = 0;
     goto LABEL_63;
   }
 
-  v95 = kCFBooleanTrue;
-  v26 = 0;
+  v56 = kCFBooleanTrue;
+  v27 = 0;
 LABEL_26:
-  v27 = IOServiceNameMatching("baseband");
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v27);
+  v28 = IOServiceNameMatching("baseband");
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v28);
   if (MatchingService)
   {
-    v36 = MatchingService;
+    v30 = MatchingService;
     CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"imeisv", kCFAllocatorDefault, 0);
     if (CFProperty)
     {
-      v45 = CFProperty;
-      v46 = CFGetTypeID(CFProperty);
-      if (v46 == CFDataGetTypeID())
+      v32 = CFProperty;
+      v33 = CFGetTypeID(CFProperty);
+      if (v33 == CFDataGetTypeID())
       {
-        v54 = *CFDataGetBytePtr(v45);
+        v34 = *CFDataGetBytePtr(v32);
       }
 
       else
       {
-        ramrod_log_msg("imeisv property has unexpected type, using 0\n", v47, v48, v49, v50, v51, v52, v53, @"Baseband");
-        v54 = 0;
+        ramrod_log_msg("imeisv property has unexpected type, using 0\n");
+        v34 = 0;
       }
 
-      CFRelease(v45);
-      IOObjectRelease(v36);
-      valuePtr = v54;
-      if (v54 < 0)
+      CFRelease(v32);
+      IOObjectRelease(v30);
+      valuePtr = v34;
+      if (v34 < 0)
       {
         goto LABEL_62;
       }
@@ -7679,35 +7732,36 @@ LABEL_26:
 
     else
     {
-      ramrod_log_msg("imeisv property not found, using 0\n", v38, v39, v40, v41, v42, v43, v44, @"Baseband");
-      IOObjectRelease(v36);
+      ramrod_log_msg("imeisv property not found, using 0\n");
+      IOObjectRelease(v30);
+      v34 = 0;
       valuePtr = 0;
     }
 
-    ramrod_log_msg("%s: Got imeisv: %d\n", v67, v68, v69, v70, v71, v72, v73, "create_baseband_update_options");
-    v74 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
-    if (v74)
+    ramrod_log_msg("%s: Got imeisv: %d\n", "create_baseband_update_options", v34);
+    v43 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
+    if (v43)
     {
-      v78 = v74;
-      CFDictionarySetValue(v21, @"IMEISwVersion", v74);
-      CFRelease(v78);
+      v47 = v43;
+      CFDictionarySetValue(v22, @"IMEISwVersion", v43);
+      CFRelease(v47);
       if (ramrod_should_do_legacy_restored_internal_behaviors())
       {
-        v79 = v95;
+        v48 = v56;
       }
 
       else
       {
-        v79 = kCFBooleanFalse;
+        v48 = kCFBooleanFalse;
       }
 
-      CFDictionarySetValue(v21, @"restoredInternal", v79);
+      CFDictionarySetValue(v22, @"restoredInternal", v48);
       if (ramrod_device_has_baseband_legacy())
       {
-        v80 = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v21);
-        if (v80)
+        v49 = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v22);
+        if (v49)
         {
-          v58 = v80;
+          v38 = v49;
           goto LABEL_63;
         }
       }
@@ -7724,109 +7778,109 @@ LABEL_26:
           Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         }
 
-        v58 = Mutable;
+        v38 = Mutable;
         if (Mutable)
         {
           if (a1)
           {
-            v83 = CFDictionaryGetValue(a1, @"Baseband Updater Options");
-            if (v83)
+            v52 = CFDictionaryGetValue(a1, @"Baseband Updater Options");
+            if (v52)
             {
-              CFDictionaryApplyFunction(v83, sub_43194, v21);
+              CFDictionaryApplyFunction(v52, sub_43194, v22);
             }
           }
 
-          CFDictionarySetValue(v58, v10, v21);
+          CFDictionarySetValue(v38, v10, v22);
           goto LABEL_63;
         }
       }
 
-      v81 = @"%s: unable to allocate CFDictionary";
+      v50 = @"%s: unable to allocate CFDictionary";
     }
 
     else
     {
-      v81 = @"%s: unable to allocate CFNumber";
+      v50 = @"%s: unable to allocate CFNumber";
     }
 
-    ramrod_create_error_cf(a3, @"RamrodErrorDomain", 6, 0, v81, v75, v76, v77, "create_baseband_update_options");
+    ramrod_create_error_cf(a3, @"RamrodErrorDomain", 6, 0, v50, v44, v45, v46, "create_baseband_update_options");
 LABEL_62:
-    v58 = 0;
+    v38 = 0;
     goto LABEL_63;
   }
 
-  ramrod_log_msg("unable to find baseband service\n", v29, v30, v31, v32, v33, v34, v35, @"Baseband");
-  ramrod_create_error_cf(a3, @"RamrodErrorDomain", 4, 0, @"%s: unable to get baseband service", v55, v56, v57, "get_imeisv");
-  v58 = 0;
+  ramrod_log_msg("unable to find baseband service\n");
+  ramrod_create_error_cf(a3, @"RamrodErrorDomain", 4, 0, @"%s: unable to get baseband service", v35, v36, v37, "get_imeisv");
+  v38 = 0;
   valuePtr = -1;
 LABEL_63:
-  v84 = CFCopyDescription(v21);
-  if (v84)
+  v53 = CFCopyDescription(v22);
+  if (v53)
   {
-    v85 = v84;
+    v54 = v53;
     bzero(buffer, 0x800uLL);
-    if (CFStringGetCString(v85, buffer, 2048, 0x8000100u) == 1)
+    if (CFStringGetCString(v54, buffer, 2048, 0x8000100u) == 1)
     {
-      ramrod_log_msg("baseband updater options = %s\n", v86, v87, v88, v89, v90, v91, v92, buffer);
+      ramrod_log_msg("baseband updater options = %s\n");
     }
 
     else
     {
-      ramrod_log_msg("unable to get updater options string\n", v86, v87, v88, v89, v90, v91, v92, v94);
+      ramrod_log_msg("unable to get updater options string\n");
     }
 
-    CFRelease(v85);
+    CFRelease(v54);
   }
 
-  CFRelease(v21);
+  CFRelease(v22);
   CFRelease(v10);
-  if (v26)
+  if (v27)
   {
-    CFRelease(v26);
+    CFRelease(v27);
   }
 
-  return v58;
+  return v38;
 }
 
-uint64_t ramrod_baseband_verify_sealed_manifest(const __CFDictionary *a1, uint64_t a2, uint64_t a3, CFErrorRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_baseband_verify_sealed_manifest(const __CFDictionary *a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
   cf = 0;
   theDict = 0;
-  ramrod_log_msg("entering %s\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_baseband_verify_sealed_manifest");
+  ramrod_log_msg("entering %s\n", "ramrod_baseband_verify_sealed_manifest");
   if (!ramrod_device_has_baseband_legacy())
   {
-    v61 = 0;
-    v62 = 0;
-    v63 = 1;
+    v36 = 0;
+    v37 = 0;
+    v38 = 1;
     goto LABEL_40;
   }
 
   observer[0] = a2;
   observer[1] = a3;
-  v15 = BBUpdaterExtremeCreateWithError();
-  if (!v15)
+  v11 = BBUpdaterExtremeCreateWithError();
+  if (!v11)
   {
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1004, cf, @"%s: BBUpdaterExtremeCreateWithError failed", v12, v13, v14, "ramrod_baseband_verify_sealed_manifest");
-    v61 = 0;
-    v62 = 0;
-    v63 = 0;
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1004, cf, @"%s: BBUpdaterExtremeCreateWithError failed", v8, v9, v10, "ramrod_baseband_verify_sealed_manifest");
+    v36 = 0;
+    v37 = 0;
+    v38 = 0;
     goto LABEL_40;
   }
 
   BBUpdaterRegisterLogSink();
-  ramrod_log_msg("%s: registering for progress notifications\n", v16, v17, v18, v19, v20, v21, v22, "ramrod_baseband_verify_sealed_manifest");
+  ramrod_log_msg("%s: registering for progress notifications\n", "ramrod_baseband_verify_sealed_manifest");
   LocalCenter = CFNotificationCenterGetLocalCenter();
-  v24 = LocalCenter;
+  v13 = LocalCenter;
   if (LocalCenter)
   {
-    CFNotificationCenterAddObserver(LocalCenter, observer, sub_2F6D4, @"BBUpdateProgress", v15, CFNotificationSuspensionBehaviorDeliverImmediately);
+    CFNotificationCenterAddObserver(LocalCenter, observer, sub_2F6D4, @"BBUpdateProgress", v11, CFNotificationSuspensionBehaviorDeliverImmediately);
   }
 
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!Mutable)
   {
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 6, 0, @"%s: failed to allocate update_options", v25, v26, v27, "ramrod_baseband_verify_sealed_manifest");
-    v33 = 0;
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 6, 0, @"%s: failed to allocate update_options", v14, v15, v16, "ramrod_baseband_verify_sealed_manifest");
+    v22 = 0;
     goto LABEL_37;
   }
 
@@ -7836,111 +7890,111 @@ uint64_t ramrod_baseband_verify_sealed_manifest(const __CFDictionary *a1, uint64
     CFDictionarySetValue(Mutable, @"SystemRoot", Value);
   }
 
-  v30 = CFDictionaryGetValue(a1, @"Data Root");
-  if (v30)
+  v19 = CFDictionaryGetValue(a1, @"Data Root");
+  if (v19)
   {
-    CFDictionarySetValue(Mutable, @"DataRoot", v30);
+    CFDictionarySetValue(Mutable, @"DataRoot", v19);
   }
 
-  v31 = CFDictionaryGetValue(a1, @"Baseband Data Root");
-  if (v31)
+  v20 = CFDictionaryGetValue(a1, @"Baseband Data Root");
+  if (v20)
   {
-    CFDictionarySetValue(Mutable, @"RemoteFSRoot", v31);
+    CFDictionarySetValue(Mutable, @"RemoteFSRoot", v20);
   }
 
-  v32 = CFDictionaryGetValue(a1, @"DebugArgs");
-  if (v32)
+  v21 = CFDictionaryGetValue(a1, @"DebugArgs");
+  if (v21)
   {
-    CFDictionarySetValue(Mutable, @"DebugArgs", v32);
+    CFDictionarySetValue(Mutable, @"DebugArgs", v21);
   }
 
-  v33 = ramrod_ticket_copy();
-  if (v33)
+  v22 = ramrod_ticket_copy();
+  if (v22)
   {
-    CFDictionarySetValue(Mutable, @"apTicket", v33);
+    CFDictionarySetValue(Mutable, @"apTicket", v22);
   }
 
   valuePtr = 1;
-  v34 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-  CFDictionarySetValue(Mutable, @"BootMode", v34);
+  v23 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
+  CFDictionarySetValue(Mutable, @"BootMode", v23);
   CFDictionarySetValue(Mutable, @"DisallowFusing", kCFBooleanTrue);
   CFDictionarySetValue(Mutable, @"EraseEFS", kCFBooleanFalse);
   if (!BBUpdaterSetOptions())
   {
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1005, cf, @"%s: BBUpdaterSetOptions rejected options", v35, v36, v37, "ramrod_baseband_verify_sealed_manifest");
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1005, cf, @"%s: BBUpdaterSetOptions rejected options", v24, v25, v26, "ramrod_baseband_verify_sealed_manifest");
     goto LABEL_37;
   }
 
   bzero(buffer, 0x800uLL);
-  v38 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@", Mutable);
-  if (v38)
+  v27 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@", Mutable);
+  if (v27)
   {
-    v39 = v38;
-    if (CFStringGetCString(v38, buffer, 2048, 0x8000100u))
+    v28 = v27;
+    if (CFStringGetCString(v27, buffer, 2048, 0x8000100u))
     {
-      ramrod_log_msg("update_options: %s\n", v40, v41, v42, v43, v44, v45, v46, buffer);
+      ramrod_log_msg("update_options: %s\n", buffer);
     }
 
-    CFRelease(v39);
+    CFRelease(v28);
   }
 
   if (!BBUpdaterExecCommand())
   {
-    ramrod_log_msg("%s: performManifestCheck returned error\n", v47, v48, v49, v50, v51, v52, v53, "ramrod_baseband_verify_sealed_manifest");
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1005, cf, @"%s: failed to perform manifest check", v64, v65, v66, "ramrod_baseband_verify_sealed_manifest");
+    ramrod_log_msg("%s: performManifestCheck returned error\n", "ramrod_baseband_verify_sealed_manifest");
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1005, cf, @"%s: failed to perform manifest check", v39, v40, v41, "ramrod_baseband_verify_sealed_manifest");
     (*(a2 + 40))(0, theDict, cf, a3);
     goto LABEL_37;
   }
 
-  ramrod_log_msg("%s: performManifestCheck returned success\n", v47, v48, v49, v50, v51, v52, v53, "ramrod_baseband_verify_sealed_manifest");
+  ramrod_log_msg("%s: performManifestCheck returned success\n", "ramrod_baseband_verify_sealed_manifest");
   if (!theDict)
   {
     goto LABEL_55;
   }
 
-  v54 = CFDictionaryGetValue(theDict, @"ManifestInfo");
-  if (!v54)
+  v29 = CFDictionaryGetValue(theDict, @"ManifestInfo");
+  if (!v29)
   {
-    v60 = @"%s: bb_output is missing ManifestInfo\n";
+    v35 = @"%s: bb_output is missing ManifestInfo\n";
     goto LABEL_35;
   }
 
-  v58 = v54;
-  v59 = CFDictionaryGetValue(v54, @"CMStatusCode");
-  if (!v59)
+  v33 = v29;
+  v34 = CFDictionaryGetValue(v29, @"CMStatusCode");
+  if (!v34)
   {
-    v60 = @"%s: bb_output is missing CMStatusCode\n";
+    v35 = @"%s: bb_output is missing CMStatusCode\n";
     goto LABEL_35;
   }
 
-  v72 = -1;
-  if (!CFNumberGetValue(v59, kCFNumberSInt64Type, &v72))
+  v47 = -1;
+  if (!CFNumberGetValue(v34, kCFNumberSInt64Type, &v47))
   {
-    v60 = @"%s: failed to convert CMStatusCode";
+    v35 = @"%s: failed to convert CMStatusCode";
     goto LABEL_50;
   }
 
-  if (!v72)
+  if (!v47)
   {
-    v71 = CFDictionaryGetValue(v58, @"PMStatusCode");
-    if (!v71)
+    v46 = CFDictionaryGetValue(v33, @"PMStatusCode");
+    if (!v46)
     {
-      v60 = @"%s: bb_output is missing PMStatusCode\n";
+      v35 = @"%s: bb_output is missing PMStatusCode\n";
       goto LABEL_35;
     }
 
-    v72 = -1;
-    if (CFNumberGetValue(v71, kCFNumberSInt64Type, &v72))
+    v47 = -1;
+    if (CFNumberGetValue(v46, kCFNumberSInt64Type, &v47))
     {
-      if (v72)
+      if (v47)
       {
-        v60 = @"%s: baseband rejected provisioning manifest, PMStatusCode=%lld\n";
+        v35 = @"%s: baseband rejected provisioning manifest, PMStatusCode=%lld\n";
         goto LABEL_35;
       }
 
 LABEL_55:
-      v69 = 1;
-      if (!v24)
+      v44 = 1;
+      if (!v13)
       {
         goto LABEL_39;
       }
@@ -7948,32 +8002,32 @@ LABEL_55:
       goto LABEL_38;
     }
 
-    v60 = @"%s: failed to convert PMStatusCode";
+    v35 = @"%s: failed to convert PMStatusCode";
 LABEL_50:
-    v67 = a4;
-    v68 = 3;
+    v42 = a4;
+    v43 = 3;
     goto LABEL_36;
   }
 
-  v60 = @"%s: baseband rejected calibration manifest, CMStatusCode=%lld\n";
+  v35 = @"%s: baseband rejected calibration manifest, CMStatusCode=%lld\n";
 LABEL_35:
-  v67 = a4;
-  v68 = 1005;
+  v42 = a4;
+  v43 = 1005;
 LABEL_36:
-  ramrod_create_error_cf(v67, @"RamrodErrorDomain", v68, 0, v60, v55, v56, v57, "ramrod_baseband_verify_sealed_manifest");
+  ramrod_create_error_cf(v42, @"RamrodErrorDomain", v43, 0, v35, v30, v31, v32, "ramrod_baseband_verify_sealed_manifest");
 LABEL_37:
-  v69 = 0;
-  if (v24)
+  v44 = 0;
+  if (v13)
   {
 LABEL_38:
-    CFNotificationCenterRemoveEveryObserver(v24, observer);
+    CFNotificationCenterRemoveEveryObserver(v13, observer);
   }
 
 LABEL_39:
-  CFRelease(v15);
-  v61 = v33;
-  v62 = Mutable;
-  v63 = v69;
+  CFRelease(v11);
+  v36 = v22;
+  v37 = Mutable;
+  v38 = v44;
 LABEL_40:
   if (theDict)
   {
@@ -7985,20 +8039,20 @@ LABEL_40:
     CFRelease(cf);
   }
 
-  if (v62)
+  if (v37)
   {
-    CFRelease(v62);
+    CFRelease(v37);
   }
 
-  if (v61)
+  if (v36)
   {
-    CFRelease(v61);
+    CFRelease(v36);
   }
 
-  return v63;
+  return v38;
 }
 
-void sub_2F6D4(int a1, void *a2, uint64_t a3, uint64_t a4, CFDictionaryRef theDict, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_2F6D4(int a1, void *a2, int a3, int a4, CFDictionaryRef theDict)
 {
   if (theDict)
   {
@@ -8013,7 +8067,7 @@ void sub_2F6D4(int a1, void *a2, uint64_t a3, uint64_t a4, CFDictionaryRef theDi
 
   else
   {
-    ramrod_log_msg("%s called without user info\n", a2, a3, a4, 0, a6, a7, a8, "bbupdater_progress");
+    ramrod_log_msg("%s called without user info\n", "bbupdater_progress");
   }
 }
 
@@ -8134,14 +8188,14 @@ LABEL_28:
   return v24;
 }
 
-BOOL ramrod_should_update_baseband(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL ramrod_should_update_baseband(uint64_t a1)
 {
   if (!a1)
   {
-    return ramrod_device_has_baseband() != 0;
+    return ramrod_device_has_baseband(a1) != 0;
   }
 
-  ramrod_log_msg("Skipping checking baseband for booted OS update\n", a2, a3, a4, a5, a6, a7, a8, vars0);
+  ramrod_log_msg("Skipping checking baseband for booted OS update\n");
   return 0;
 }
 
@@ -8356,66 +8410,67 @@ uint64_t sub_30034(const __CFDictionary *a1, CFStringRef theString1, uint64_t a3
   return 1;
 }
 
-uint64_t ramrod_update_nvram_overrides(const char *a1, __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_update_nvram_overrides(const char *a1, __CFDictionary *a2)
 {
-  if (!a2)
+  if (a2)
   {
-    v33 = "options is NULL\n";
-LABEL_22:
-    ramrod_log_msg(v33, a2, a3, a4, a5, a6, a7, a8, v34);
-    goto LABEL_6;
-  }
-
-  if (!a1)
-  {
-    v33 = "updaterName is NULL\n";
-    goto LABEL_22;
-  }
-
-  CStringPtr = CFStringGetCStringPtr(@"T200", 0x8000100u);
-  if (!strcmp(a1, CStringPtr) && (v14 = ramrod_copy_NVRAM_variable_from_devicetree(@"VeridianForceUpdate")) != 0)
-  {
-    v15 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v14, 0x8000100u);
-    v11 = v15;
-    if (v15)
+    if (a1)
     {
-      v16 = CFGetTypeID(v15);
-      if (v16 == CFStringGetTypeID() && CFStringCompare(v11, @"yes", 1uLL) == kCFCompareEqualTo)
+      CStringPtr = CFStringGetCStringPtr(@"T200", 0x8000100u);
+      if (!strcmp(a1, CStringPtr) && (v8 = ramrod_copy_NVRAM_variable_from_devicetree(@"VeridianForceUpdate")) != 0)
       {
-        ramrod_log_msg("Setting %s=false due to nvram variable %s=yes\n", v17, v18, v19, v20, v21, v22, v23, "SkipSameVersion");
-        CFDictionarySetValue(a2, @"SkipSameVersion", kCFBooleanFalse);
-        CFDictionarySetValue(a2, @"RestoreInternal", kCFBooleanTrue);
+        v9 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v8, 0x8000100u);
+        v5 = v9;
+        if (v9)
+        {
+          v10 = CFGetTypeID(v9);
+          if (v10 == CFStringGetTypeID() && CFStringCompare(v5, @"yes", 1uLL) == kCFCompareEqualTo)
+          {
+            ramrod_log_msg("Setting %s=false due to nvram variable %s=yes\n", "SkipSameVersion", "VeridianForceUpdate");
+            CFDictionarySetValue(a2, @"SkipSameVersion", kCFBooleanFalse);
+            CFDictionarySetValue(a2, @"RestoreInternal", kCFBooleanTrue);
+          }
+        }
       }
+
+      else
+      {
+        v5 = 0;
+      }
+
+      v6 = CFStringGetCStringPtr(@"AppleTCON", 0x8000100u);
+      if (!strcmp(a1, v6))
+      {
+        v11 = ramrod_copy_NVRAM_variable_from_devicetree(@"AppleTCONForceUpdate");
+        if (v11)
+        {
+          v5 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v11, 0x8000100u);
+        }
+
+        if (v5)
+        {
+          v12 = CFGetTypeID(v5);
+          if (v12 == CFStringGetTypeID() && CFStringCompare(v5, @"yes", 1uLL) == kCFCompareEqualTo)
+          {
+            ramrod_log_msg("Setting %s=false due to nvram variable %s=yes\n", "SkipSameVersion", "AppleTCONForceUpdate");
+            CFDictionarySetValue(a2, @"SkipSameVersion", kCFBooleanFalse);
+            CFDictionarySetValue(a2, @"RestoreInternal", kCFBooleanTrue);
+          }
+        }
+      }
+    }
+
+    else
+    {
+      ramrod_log_msg("updaterName is NULL\n");
     }
   }
 
   else
   {
-    v11 = 0;
+    ramrod_log_msg("options is NULL\n");
   }
 
-  v12 = CFStringGetCStringPtr(@"AppleTCON", 0x8000100u);
-  if (!strcmp(a1, v12))
-  {
-    v24 = ramrod_copy_NVRAM_variable_from_devicetree(@"AppleTCONForceUpdate");
-    if (v24)
-    {
-      v11 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v24, 0x8000100u);
-    }
-
-    if (v11)
-    {
-      v25 = CFGetTypeID(v11);
-      if (v25 == CFStringGetTypeID() && CFStringCompare(v11, @"yes", 1uLL) == kCFCompareEqualTo)
-      {
-        ramrod_log_msg("Setting %s=false due to nvram variable %s=yes\n", v26, v27, v28, v29, v30, v31, v32, "SkipSameVersion");
-        CFDictionarySetValue(a2, @"SkipSameVersion", kCFBooleanFalse);
-        CFDictionarySetValue(a2, @"RestoreInternal", kCFBooleanTrue);
-      }
-    }
-  }
-
-LABEL_6:
   AMSupportSafeRelease();
 
   return AMSupportSafeRelease();
@@ -8447,9 +8502,9 @@ void *ramrod_updater_copy_options(const char *a1, const __CFDictionary *a2, CFDi
         if (Mutable)
         {
 LABEL_12:
-          v95 = a4;
+          v72 = a4;
           cf = Mutable;
-          v97 = v21;
+          v74 = v21;
           v26 = CFDictionaryGetValue(a2, Mutable);
           if (v26)
           {
@@ -8467,11 +8522,11 @@ LABEL_12:
             sub_D83C8(a5, Mutable, v28, v29, v30, v31, v32, v33);
             Mutable = 0;
 LABEL_75:
-            v21 = v97;
+            v21 = v74;
             goto LABEL_76;
           }
 
-          AMSupportLogInternal();
+          AMSupportLogInternal(6, "ramrod_updater_copy_options", "%s options: %@", a1, MutableCopy);
           v35 = CFDictionaryGetValue(theDict, @"Preboot Root");
           if (v35)
           {
@@ -8494,7 +8549,7 @@ LABEL_75:
               goto LABEL_23;
             }
 
-            v36 = ramrod_copy_preboot_path(system_partition_device_node, "/mnt9", 0, 0, v44, v45, v46, v47);
+            v36 = ramrod_copy_preboot_path(system_partition_device_node, "/mnt9", 0, 0);
             if (!v36)
             {
               if (!v16)
@@ -8525,15 +8580,15 @@ LABEL_26:
           v39 = v38;
           if (v38)
           {
-            v94 = v36;
-            v104 = 0u;
-            v105 = 0u;
-            v102 = 0u;
-            v103 = 0u;
-            v100 = 0u;
-            v101 = 0u;
+            v71 = v36;
+            v81 = 0u;
+            v82 = 0u;
+            v79 = 0u;
+            v80 = 0u;
+            v77 = 0u;
+            v78 = 0u;
             *buffer = 0u;
-            v99 = 0u;
+            v76 = 0u;
             v40 = getpwnam("_wireless");
             if (v40)
             {
@@ -8543,16 +8598,17 @@ LABEL_26:
 
             else
             {
-              AMSupportLogInternal();
+              AMSupportLogInternal(3, "create_directory_with_wireless_owner", "wireless user doesn't exist, falling back to root user\n");
               pw_uid = 0;
               pw_gid = 0;
             }
 
             SystemEncoding = CFStringGetSystemEncoding();
             CStringPtr = CFStringGetCStringPtr(v39, SystemEncoding);
-            if (CStringPtr || (v50 = CFStringGetSystemEncoding(), CStringPtr = buffer, CFStringGetCString(v39, buffer, 128, v50)))
+            if (CStringPtr || (v46 = CFStringGetSystemEncoding(), CStringPtr = buffer, CFStringGetCString(v39, buffer, 128, v46)))
             {
-              if (!ramrod_create_directory_with_class(CStringPtr, 0x1EDu, pw_uid, pw_gid, -1, 1))
+              directory_with_class = ramrod_create_directory_with_class(CStringPtr, 493, pw_uid, pw_gid, -1, 1);
+              if (!directory_with_class)
               {
                 CFDictionarySetValue(v34, @"DebugLogPath", v39);
                 goto LABEL_39;
@@ -8561,131 +8617,132 @@ LABEL_26:
 
             else
             {
-              AMSupportLogInternal();
+              AMSupportLogInternal(3, "create_directory_with_wireless_owner", "failed to get CString from CFStringRef\n");
+              directory_with_class = -1;
             }
 
-            AMSupportLogInternal();
+            AMSupportLogInternal(3, "ramrod_updater_copy_options", "failed to create debug directory (status: %d)\n", directory_with_class);
 LABEL_39:
-            v36 = v94;
+            v36 = v71;
             CFRelease(v39);
 LABEL_42:
             AMSupportCFDictionarySetBoolean();
-            v51 = CFDictionaryGetValue(theDict, @"PreflightContext");
-            if (v51)
+            v48 = CFDictionaryGetValue(theDict, @"PreflightContext");
+            if (v48)
             {
-              v52 = v51;
+              v49 = v48;
             }
 
             else
             {
-              v52 = @"Limited";
+              v49 = @"Limited";
             }
 
-            CFDictionarySetValue(v34, @"PreflightContext", v52);
-            v53 = CFDictionaryGetValue(theDict, @"BootedUpdate");
-            if (v53)
+            CFDictionarySetValue(v34, @"PreflightContext", v49);
+            v50 = CFDictionaryGetValue(theDict, @"BootedUpdate");
+            if (v50)
             {
-              CFDictionarySetValue(v34, @"BootedUpdate", v53);
+              CFDictionarySetValue(v34, @"BootedUpdate", v50);
             }
 
             should_do_legacy_restored_internal_behaviors = ramrod_should_do_legacy_restored_internal_behaviors();
-            v55 = &kCFBooleanTrue;
+            v52 = &kCFBooleanTrue;
             if (!should_do_legacy_restored_internal_behaviors)
             {
-              v55 = &kCFBooleanFalse;
+              v52 = &kCFBooleanFalse;
             }
 
-            CFDictionarySetValue(v34, @"RestoreInternal", *v55);
-            v56 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen/iBoot");
-            if (v56)
+            CFDictionarySetValue(v34, @"RestoreInternal", *v52);
+            v53 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen/iBoot");
+            if (v53)
             {
-              v64 = v56;
-              v65 = v36;
-              CFProperty = IORegistryEntryCreateCFProperty(v56, @"iboot-build-variant", kCFAllocatorDefault, 0);
-              v67 = CFProperty;
+              v54 = v53;
+              v55 = v36;
+              CFProperty = IORegistryEntryCreateCFProperty(v53, @"iboot-build-variant", kCFAllocatorDefault, 0);
+              v57 = CFProperty;
               if (CFProperty)
               {
                 if (CFDataGetLength(CFProperty) <= 0)
                 {
-                  ramrod_log_msg("%s: iboot-build-variant is 0 bytes", v68, v69, v70, v71, v72, v73, v74, "_is_internal_iboot");
-                  v77 = 0;
+                  ramrod_log_msg("%s: iboot-build-variant is 0 bytes", "_is_internal_iboot");
+                  v60 = 0;
                 }
 
                 else
                 {
-                  BytePtr = CFDataGetBytePtr(v67);
-                  Length = CFDataGetLength(v67);
-                  v77 = strncmp(BytePtr, "release", Length) != 0;
+                  BytePtr = CFDataGetBytePtr(v57);
+                  Length = CFDataGetLength(v57);
+                  v60 = strncmp(BytePtr, "release", Length) != 0;
                 }
               }
 
               else
               {
-                v77 = 0;
+                v60 = 0;
               }
 
-              IOObjectRelease(v64);
+              IOObjectRelease(v54);
               AMSupportSafeRelease();
-              v78 = kCFBooleanFalse;
-              if (v77)
+              v61 = kCFBooleanFalse;
+              if (v60)
               {
-                v79 = kCFBooleanTrue;
+                v62 = kCFBooleanTrue;
               }
 
               else
               {
-                v79 = kCFBooleanFalse;
+                v62 = kCFBooleanFalse;
               }
 
-              v36 = v65;
+              v36 = v55;
             }
 
             else
             {
-              ramrod_log_msg("%s: IODeviceTree:/chosen/iBoot not found", v57, v58, v59, v60, v61, v62, v63, "_is_internal_iboot");
+              ramrod_log_msg("%s: IODeviceTree:/chosen/iBoot not found", "_is_internal_iboot");
               AMSupportSafeRelease();
-              v78 = kCFBooleanFalse;
-              v79 = kCFBooleanFalse;
+              v61 = kCFBooleanFalse;
+              v62 = kCFBooleanFalse;
             }
 
-            CFDictionarySetValue(v34, @"iBootInternal", v79);
+            CFDictionarySetValue(v34, @"iBootInternal", v62);
             if (CFDictionaryContainsKey(theDict, @"RestoreInternal"))
             {
-              v80 = CFDictionaryGetValue(theDict, @"RestoreInternal");
-              CFDictionarySetValue(v34, @"RestoreInternal", v80);
+              v63 = CFDictionaryGetValue(theDict, @"RestoreInternal");
+              CFDictionarySetValue(v34, @"RestoreInternal", v63);
             }
 
             if (CFDictionaryContainsKey(theDict, @"APTicket"))
             {
-              v81 = CFDictionaryGetValue(theDict, @"APTicket");
-              CFDictionarySetValue(v34, @"APTicket", v81);
+              v64 = CFDictionaryGetValue(theDict, @"APTicket");
+              CFDictionarySetValue(v34, @"APTicket", v64);
             }
 
-            v82 = CFDictionaryGetValue(theDict, @"PreflightTickets");
-            if (v82)
+            v65 = CFDictionaryGetValue(theDict, @"PreflightTickets");
+            if (v65)
             {
-              CFDictionarySetValue(v34, @"PreflightTickets", v82);
+              CFDictionarySetValue(v34, @"PreflightTickets", v65);
             }
 
-            v83 = CFDictionaryGetValue(theDict, @"DeferredCommit");
-            if (v83)
+            v66 = CFDictionaryGetValue(theDict, @"DeferredCommit");
+            if (v66)
             {
-              CFDictionarySetValue(v34, @"DeferredCommit", v83);
+              CFDictionarySetValue(v34, @"DeferredCommit", v66);
             }
 
-            ramrod_update_nvram_overrides(a1, v34, v84, v85, v86, v87, v88, v89);
+            ramrod_update_nvram_overrides(a1, v34);
             if (os_parse_boot_arg_int())
             {
-              CFDictionarySetValue(v34, @"SkipSameVersion", v78);
+              CFDictionarySetValue(v34, @"SkipSameVersion", v61);
               CFDictionarySetValue(v34, @"RestoreInternal", kCFBooleanTrue);
             }
 
             Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
             if (Mutable)
             {
-              if (v95)
+              if (v72)
               {
-                v95(a2, theDict, v34);
+                v72(a2, theDict, v34);
               }
 
               CFDictionarySetValue(Mutable, @"Options", v34);
@@ -8695,7 +8752,7 @@ LABEL_42:
 
             else
             {
-              ramrod_create_error_cf(a5, @"RamrodErrorDomain", 6, 0, @"%s: failed to allocate options dict", v90, v91, v92, "ramrod_updater_copy_options");
+              ramrod_create_error_cf(a5, @"RamrodErrorDomain", 6, 0, @"%s: failed to allocate options dict", v67, v68, v69, "ramrod_updater_copy_options");
             }
 
             CFRelease(cf);
@@ -8709,7 +8766,7 @@ LABEL_42:
           }
 
 LABEL_41:
-          AMSupportLogInternal();
+          AMSupportLogInternal(3, "ramrod_updater_copy_options", "failed to determine mount point\n");
           goto LABEL_42;
         }
       }
@@ -8731,36 +8788,36 @@ LABEL_76:
   return 0;
 }
 
-CFStringRef ramrod_copy_preboot_path(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFStringRef ramrod_copy_preboot_path(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
-  v9 = ramrod_ticket_copy_nsih(a3, a4, a3, a4, a5, a6, a7, a8);
-  if (v9)
+  v5 = ramrod_ticket_copy_nsih(a3, a4);
+  if (v5)
   {
-    v17 = v9;
+    v6 = v5;
     if (a2)
     {
-      v18 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s/%@", a2, v9);
+      v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s/%@", a2, v5);
     }
 
     else
     {
-      v18 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@", v9);
+      v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@", v5);
     }
 
-    v19 = v18;
-    CFRelease(v17);
+    v8 = v7;
+    CFRelease(v6);
   }
 
   else
   {
-    ramrod_log_msg("failed to obtain nsih\n", v10, v11, v12, v13, v14, v15, v16, v21);
+    ramrod_log_msg("failed to obtain nsih\n");
     return 0;
   }
 
-  return v19;
+  return v8;
 }
 
-uint64_t update_generic_firmware(const __CFString *a1, CFDictionaryRef theDict, uint64_t a3, CFErrorRef *a4)
+uint64_t update_generic_firmware(__CFString *a1, CFDictionaryRef theDict, uint64_t a3, CFErrorRef *a4)
 {
   v6 = theDict;
   MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, theDict);
@@ -8791,67 +8848,65 @@ LABEL_6:
   return v10;
 }
 
-uint64_t sub_30F48(const __CFString *a1, const __CFDictionary *a2, void *a3, CFErrorRef *a4)
+uint64_t sub_30F48(__CFString *a1, const __CFDictionary *a2, void *a3, CFErrorRef *a4)
 {
   cf = 0;
-  v130 = 0;
-  v127 = 0;
-  v128 = 0;
-  v126 = 0;
+  v81 = 0;
+  v78 = 0;
+  v79 = 0;
+  v77 = 0;
   v8 = sub_3190C(a1);
   if (!a1 || (v16 = v8) == 0 || !*a3[2])
   {
     sub_D8488(a4, v9, v10, v11, v12, v13, v14, v15);
-    v54 = 0;
-    v55 = 0;
-    v56 = 0;
+    v30 = 0;
+    v31 = 0;
+    v32 = 0;
     MutableCopy = 0;
 LABEL_48:
-    v57 = 0;
     v33 = 0;
+    v19 = 0;
 LABEL_49:
-    v58 = 0;
-    v61 = 0;
+    v34 = 0;
+    v37 = 0;
 LABEL_50:
-    v62 = 1;
+    v38 = 1;
     if (a4)
     {
       goto LABEL_51;
     }
 
-    goto LABEL_108;
+    goto LABEL_111;
   }
 
   MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, a2);
   if (!MutableCopy)
   {
-    ramrod_log_msg("options is NULL", v17, v18, v19, v20, v21, v22, v23, v123);
-    v54 = 0;
-    v55 = 0;
-    v56 = 0;
+    ramrod_log_msg("options is NULL");
+    v30 = 0;
+    v31 = 0;
+    v32 = 0;
     goto LABEL_48;
   }
 
   Length = CFStringGetLength(a1);
-  v33 = malloc(Length + 1);
-  if (!v33)
+  v19 = malloc(Length + 1);
+  if (!v19)
   {
-    v122 = "malloc failed for updaterName";
-LABEL_115:
-    ramrod_log_msg(v122, v26, v27, v28, v29, v30, v31, v32, v123);
-LABEL_116:
-    v54 = 0;
-    v55 = 0;
-    v56 = 0;
-    v57 = 0;
+    ramrod_log_msg("malloc failed for updaterName");
+LABEL_118:
+    v30 = 0;
+    v31 = 0;
+    v32 = 0;
+    v33 = 0;
     goto LABEL_49;
   }
 
-  v34 = CFStringGetLength(a1);
-  if (!CFStringGetCString(a1, v33, v34 + 1, 0x8000100u))
+  v20 = CFStringGetLength(a1);
+  if (!CFStringGetCString(a1, v19, v20 + 1, 0x8000100u))
   {
-    v122 = "CFStringGetCString failed";
-    goto LABEL_115;
+    ramrod_log_msg("CFStringGetCString failed");
+    goto LABEL_118;
   }
 
   dylib = ramrod_update_get_dylib(a1);
@@ -8859,9 +8914,9 @@ LABEL_116:
   {
     if (dylib)
     {
-      ramrod_log_msg("opening %s\n", v35, v36, v37, v38, v39, v40, v41, dylib);
-      v43 = dlopen(dylib, 261);
-      if (!v43)
+      ramrod_log_msg("opening %s\n", dylib);
+      v26 = dlopen(dylib, 261);
+      if (!v26)
       {
         sub_D844C();
         goto LABEL_45;
@@ -8870,78 +8925,88 @@ LABEL_116:
 
     else
     {
-      v43 = 0;
+      v26 = 0;
     }
 
-    if (ramrod_copy_updater_functions(v43, v33, &v130, a4, v38, v39, v40, v41))
+    if (ramrod_copy_updater_functions(v26, v19, &v81, a4, v21, v22, v23, v24))
     {
-      if ((*(v130 + 1))(0, &cf) == 1)
+      if ((*(v81 + 1))(0, &cf) == 1)
       {
-        ramrod_log_msg("%s firmware update not available for this device.\n", v44, v45, v46, v47, v48, v49, v50, v33);
+        ramrod_log_msg("%s firmware update not available for this device.\n", v19);
         if (cf)
         {
-          ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1015, cf, @"%s: %s updater aborted early returning error", v51, v52, v53, "_update_generic_firmware");
+          ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1015, cf, @"%s: %s updater aborted early returning error", v27, v28, v29, "_update_generic_firmware");
         }
 
-        v54 = 0;
-        v55 = 0;
-        v56 = 0;
-        v57 = 0;
-        v58 = 0;
+        v30 = 0;
+        v31 = 0;
+        v32 = 0;
+        v33 = 0;
+        v34 = 0;
         goto LABEL_18;
       }
 
       Value = CFDictionaryGetValue(MutableCopy, @"PostFDRSealing");
       if (Value)
       {
-        v64 = Value;
+        v40 = Value;
         TypeID = CFBooleanGetTypeID();
-        if (TypeID == CFGetTypeID(v64) && v64 == kCFBooleanTrue)
+        if (TypeID == CFGetTypeID(v40) && v40 == kCFBooleanTrue)
         {
           *(a3[2] + 12) = 1;
         }
       }
 
-      v66 = AMAuthInstallUpdaterDeviceRestoreInfo();
-      v67 = a3[1];
-      if (v66 && !*(v67 + 41))
+      v42 = AMAuthInstallUpdaterDeviceRestoreInfo();
+      v43 = a3[1];
+      if (v42 && !*(v43 + 41))
       {
         *(a3[2] + 12) = 1;
         ramrod_log_msg_cf(@"Supports DeviceRestoreInfo, setting ForceRepersonalization and skipping preflightTickets query for tethered restore.");
-        v67 = a3[1];
+        v43 = a3[1];
       }
 
-      v68 = a3[2];
-      if (*(v67 + 41))
+      v44 = a3[2];
+      if (*(v43 + 41))
       {
-        *(v68 + 12) = 0;
+        *(v44 + 12) = 0;
       }
 
-      else if (*(v68 + 12))
+      else if (*(v44 + 12))
       {
         goto LABEL_66;
       }
 
-      v69 = **(*a3 + 80);
-      if (v69)
+      v45 = **(*a3 + 80);
+      if (v45)
       {
-        v56 = v69(v33);
-        if (v56)
+        v32 = v45(v19);
+        if (v32)
         {
-          CFDictionarySetValue(MutableCopy, @"PreflightTickets", v56);
+          CFDictionarySetValue(MutableCopy, @"PreflightTickets", v32);
         }
 
 LABEL_69:
-        v57 = ramrod_ticket_copy();
-        if (v57)
+        v33 = ramrod_ticket_copy();
+        if (v33)
         {
-          ramrod_log_msg("populating AP ticket for updater\n", v70, v71, v72, v73, v74, v75, v76, v123);
-          CFDictionarySetValue(MutableCopy, @"APTicket", v57);
+          ramrod_log_msg("populating AP ticket for updater\n");
+          CFDictionarySetValue(MutableCopy, @"APTicket", v33);
         }
 
         if (ramrod_update_twostage_enabled(a1))
         {
-          ramrod_log_msg("%s Updater configured for two-stage update. DeferredCommit: %s.\n", v77, v78, v79, v80, v81, v82, v83, v33);
+          if (*(a3[1] + 41))
+          {
+            v46 = "YES";
+          }
+
+          else
+          {
+            v46 = "NO";
+          }
+
+          ramrod_log_msg("%s Updater configured for two-stage update. DeferredCommit: %s.\n", v19, v46);
           if (*(a3[1] + 41))
           {
             CFDictionarySetValue(MutableCopy, @"DeferredCommit", kCFBooleanTrue);
@@ -8952,118 +9017,129 @@ LABEL_69:
 
             if ((byte_1C6BD1 & 1) == 0 && *(v16 + 33))
             {
-              ramrod_log_msg("Not in restore/ramdisk.  Stage-1 of 2 treated as bestEffort.", v84, v85, v86, v87, v88, v89, v90, v124);
-              v61 = 1;
-LABEL_81:
-              v54 = ramrod_updater_copy_options(v33, *(*a3[2] + 8), MutableCopy, 0, &cf, v88, v89, v90);
-              if (!v54)
-              {
-                ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1022, cf, @"%s: failed to create options for %s updater", v95, v96, v97, "_update_generic_firmware");
-                v55 = 0;
-                v58 = 0;
-                goto LABEL_109;
-              }
-
-              ramrod_log_msg("creating %sUpdater obj\n", v91, v92, v93, v94, v95, v96, v97, v33);
-              v98 = (*v130)(v54, sub_32D20, v33, &cf);
-              v58 = v98;
-              if (!v98)
-              {
-                ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1013, cf, @"%s: failed to create %s updater", v99, v100, v101, "_update_generic_firmware");
-                goto LABEL_88;
-              }
-
-              if ((*(v130 + 1))(v98, &cf))
-              {
+              ramrod_log_msg("Not in restore/ramdisk.  Stage-1 of 2 treated as bestEffort.");
+              v37 = 1;
 LABEL_84:
-                AMSupportLogInternal();
+              v30 = ramrod_updater_copy_options(v19, *(*a3[2] + 8), MutableCopy, 0, &cf, v47, v48, v49);
+              if (!v30)
+              {
+                v74 = v19;
+                ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1022, cf, @"%s: failed to create options for %s updater", v50, v51, v52, "_update_generic_firmware");
+                v31 = 0;
+                v34 = 0;
+                goto LABEL_112;
+              }
+
+              ramrod_log_msg("creating %sUpdater obj\n", v19);
+              v53 = (*v81)(v30, sub_32D20, v19, &cf);
+              v34 = v53;
+              if (!v53)
+              {
+                v74 = v19;
+                ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1013, cf, @"%s: failed to create %s updater", v54, v55, v56, "_update_generic_firmware");
+                goto LABEL_91;
+              }
+
+              if ((*(v81 + 1))(v53, &cf))
+              {
+LABEL_87:
+                AMSupportLogInternal(6, "_update_generic_firmware", "%s updater loop done", v19);
                 if (!cf)
                 {
-                  v55 = 0;
+                  v31 = 0;
                   goto LABEL_18;
                 }
 
-                ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1015, cf, @"%s: failed to set %s firmware", v102, v103, v104, "_update_generic_firmware");
-LABEL_88:
-                v55 = 0;
-                goto LABEL_109;
+                v74 = v19;
+                ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1015, cf, @"%s: failed to set %s firmware", v57, v58, v59, "_update_generic_firmware");
+LABEL_91:
+                v31 = 0;
+                goto LABEL_112;
               }
 
-              v125 = v61;
+              v76 = v37;
               while (1)
               {
                 if (*(a3[2] + 8) >= 0x400u)
                 {
-                  AMSupportLogInternal();
-                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1016, cf, @"%s: Exceeded maximum loops for %s", v119, v120, v121, "_update_generic_firmware");
-                  goto LABEL_88;
+                  AMSupportLogInternal(3, "_update_generic_firmware", "Exceeded maximum loops (%d) for %s. error=%@", 1024, v19);
+                  v74 = v19;
+                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1016, cf, @"%s: Exceeded maximum loops for %s", v71, v72, v73, "_update_generic_firmware");
+                  goto LABEL_91;
                 }
 
-                if (!(*(v130 + 2))(v58, @"queryInfo", 0, &v128, &cf))
+                if (!(*(v81 + 2))(v34, @"queryInfo", 0, &v79, &cf))
                 {
-                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1016, cf, @"%s: failed to execute %@ on %s updater", v105, v106, v107, "_update_generic_firmware");
-                  v55 = 0;
+                  v74 = @"queryInfo";
+                  v75 = v19;
+                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1016, cf, @"%s: failed to execute %@ on %s updater", v60, v61, v62, "_update_generic_firmware");
+                  v31 = 0;
                   goto LABEL_50;
                 }
 
-                if (!v128 || (v108 = CFDictionaryGetTypeID(), v108 != CFGetTypeID(v128)))
+                if (!v79 || (v63 = CFDictionaryGetTypeID(), v63 != CFGetTypeID(v79)))
                 {
-                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1018, cf, @"%s: out dictionary from %s updater is null or malformed", v105, v106, v107, "_update_generic_firmware");
-                  goto LABEL_88;
+                  v74 = v19;
+                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1018, cf, @"%s: out dictionary from %s updater is null or malformed", v60, v61, v62, "_update_generic_firmware");
+                  goto LABEL_91;
                 }
 
-                ramrod_log_msg("copying %s updater response for loop %u\n", v109, v110, v111, v112, v105, v106, v107, v33);
-                v55 = (*(*(*a3 + 80) + 8))(v33, v128, a3[2], &v126);
-                if (!v55)
+                ramrod_log_msg("copying %s updater response for loop %u\n", v19, *(a3[2] + 8));
+                v64 = (*(*(*a3 + 80) + 8))(v19, v79, a3[2], &v77);
+                v31 = v64;
+                if (!v64)
                 {
-                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1020, v126, @"%s: failed to copy response for %s", v113, v114, v115, "_update_generic_firmware");
-                  goto LABEL_109;
+                  v74 = v19;
+                  ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1020, v77, @"%s: failed to copy response for %s", v65, v66, v67, "_update_generic_firmware");
+                  goto LABEL_112;
                 }
 
-                AMSupportLogInternal();
-                if (!(*(v130 + 2))(v58, @"performNextStage", v55, &v127, &cf))
+                AMSupportLogInternal(6, "_update_generic_firmware", "response = %@", v64);
+                if (!(*(v81 + 2))(v34, @"performNextStage", v31, &v78, &cf))
                 {
                   break;
                 }
 
-                AMSupportLogInternal();
-                if (v128)
+                AMSupportLogInternal(6, "_update_generic_firmware", "perform command returned dict = %@", v78);
+                if (v79)
                 {
-                  CFRelease(v128);
-                  v128 = 0;
+                  CFRelease(v79);
+                  v79 = 0;
                 }
 
-                CFRelease(v55);
-                v61 = v125;
-                if (v127)
+                CFRelease(v31);
+                v37 = v76;
+                if (v78)
                 {
-                  CFRelease(v127);
-                  v127 = 0;
+                  CFRelease(v78);
+                  v78 = 0;
                 }
 
                 ++*(a3[2] + 8);
-                if ((*(v130 + 1))(v58, &cf))
+                if ((*(v81 + 1))(v34, &cf))
                 {
-                  goto LABEL_84;
+                  goto LABEL_87;
                 }
               }
 
-              ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1017, cf, @"%s: failed to execute %@ on %s updater", v116, v117, v118, "_update_generic_firmware");
-              v62 = 1;
-              v61 = v125;
+              v74 = @"performNextStage";
+              v75 = v19;
+              ramrod_create_error_cf(a4, @"RamrodErrorDomain", 1017, cf, @"%s: failed to execute %@ on %s updater", v68, v69, v70, "_update_generic_firmware");
+              v38 = 1;
+              v37 = v76;
               if (a4)
               {
                 goto LABEL_51;
               }
 
-LABEL_108:
-              if (v62)
+LABEL_111:
+              if (v38)
               {
-                goto LABEL_109;
+                goto LABEL_112;
               }
 
 LABEL_18:
-              v59 = 1;
+              v35 = 1;
               goto LABEL_19;
             }
           }
@@ -9076,61 +9152,61 @@ LABEL_18:
 
         else
         {
-          ramrod_log_msg("%s Updater: Legacy / single-stage updater.\n", v77, v78, v79, v80, v81, v82, v83, v33);
+          ramrod_log_msg("%s Updater: Legacy / single-stage updater.\n", v19);
         }
 
-        v61 = 0;
-        goto LABEL_81;
+        v37 = 0;
+        goto LABEL_84;
       }
 
 LABEL_66:
-      v56 = 0;
+      v32 = 0;
       goto LABEL_69;
     }
 
-    goto LABEL_116;
+    goto LABEL_118;
   }
 
-  ramrod_log_msg("%s firmware not configured for preflight, skipping this update.\n", v35, v36, v37, v38, v39, v40, v41, v33);
+  ramrod_log_msg("%s firmware not configured for preflight, skipping this update.\n", v19);
 LABEL_45:
-  v54 = 0;
-  v55 = 0;
-  v56 = 0;
-  v57 = 0;
-  v58 = 0;
-  v61 = 0;
-  v62 = 0;
+  v30 = 0;
+  v31 = 0;
+  v32 = 0;
+  v33 = 0;
+  v34 = 0;
+  v37 = 0;
+  v38 = 0;
   if (!a4)
   {
-    goto LABEL_108;
+    goto LABEL_111;
   }
 
 LABEL_51:
   if (!*a4)
   {
-    goto LABEL_108;
+    goto LABEL_111;
   }
 
-  AMSupportLogInternal();
-  if ((v62 & 1) == 0)
+  AMSupportLogInternal(3, "_update_generic_firmware", "Operation failed: %@", *a4);
+  if ((v38 & 1) == 0)
   {
     goto LABEL_18;
   }
 
-LABEL_109:
-  AMSupportLogInternal();
-  if (v61)
+LABEL_112:
+  AMSupportLogInternal(3, "_update_generic_firmware", "Underlying error: %@", cf, v74, v75);
+  if (v37)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(4, "_update_generic_firmware", "Updater (Stage 1) failed, but this is bestEffort - returning success.");
     goto LABEL_18;
   }
 
-  v59 = 0;
+  v35 = 0;
 LABEL_19:
-  if (v130)
+  if (v81)
   {
-    free(v130);
-    v130 = 0;
+    free(v81);
+    v81 = 0;
   }
 
   if (cf)
@@ -9139,42 +9215,42 @@ LABEL_19:
     cf = 0;
   }
 
-  if (v54)
+  if (v30)
   {
-    CFRelease(v54);
+    CFRelease(v30);
   }
 
-  if (v58)
+  if (v34)
   {
-    CFRelease(v58);
+    CFRelease(v34);
   }
 
-  if (v128)
+  if (v79)
   {
-    CFRelease(v128);
-    v128 = 0;
+    CFRelease(v79);
+    v79 = 0;
   }
 
-  if (v55)
+  if (v31)
   {
-    CFRelease(v55);
+    CFRelease(v31);
   }
 
-  if (v127)
+  if (v78)
   {
-    CFRelease(v127);
-    v127 = 0;
+    CFRelease(v78);
+    v78 = 0;
   }
 
-  if (v126)
+  if (v77)
   {
-    CFRelease(v126);
-    v126 = 0;
+    CFRelease(v77);
+    v77 = 0;
   }
 
-  if (v56)
+  if (v32)
   {
-    CFRelease(v56);
+    CFRelease(v32);
   }
 
   if (MutableCopy)
@@ -9182,37 +9258,37 @@ LABEL_19:
     CFRelease(MutableCopy);
   }
 
-  if (v57)
-  {
-    CFRelease(v57);
-  }
-
   if (v33)
   {
-    free(v33);
+    CFRelease(v33);
   }
 
-  return v59;
+  if (v19)
+  {
+    free(v19);
+  }
+
+  return v35;
 }
 
 BOOL ramrod_update_supports_preflight(const __CFString *a1)
 {
   if (!a1)
   {
-    sub_D84C4();
+    sub_D84C4(0);
     return 1;
   }
 
-  v1 = sub_3190C(a1);
-  if (!v1)
+  v2 = sub_3190C(a1);
+  if (!v2)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "ramrod_update_supports_preflight", "updaterName %@ not found", a1);
     return 1;
   }
 
-  v2 = v1;
-  v3 = v1[2];
-  return v3 && v3(0) && *(v2 + 34);
+  v3 = v2;
+  v4 = v2[2];
+  return v4 && v4(0) && *(v3 + 34);
 }
 
 CFStringRef *sub_3190C(const __CFString *a1)
@@ -9222,6 +9298,7 @@ CFStringRef *sub_3190C(const __CFString *a1)
   {
     v2 = off_1C05E8;
     v3 = 14;
+    v4 = "Updater entry is NULL, defaulting to TRUE";
     while (*v2)
     {
       if (CFStringCompare(a1, *v2, 0) == kCFCompareEqualTo)
@@ -9237,7 +9314,12 @@ CFStringRef *sub_3190C(const __CFString *a1)
     }
   }
 
-  sub_D84D8();
+  else
+  {
+    v4 = "updaterName is NULL";
+  }
+
+  sub_D84D8(v4);
   return 0;
 }
 
@@ -9246,28 +9328,29 @@ uint64_t ramrod_update_needs_ap_receipt(const __CFString *a1)
   if (a1)
   {
     sub_4325C();
-    v2 = off_1C05E8;
-    v3 = 14;
-    while (*v2)
+    v3 = off_1C05E8;
+    v4 = 14;
+    while (*v3)
     {
-      if (CFStringCompare(a1, *v2, 0) == kCFCompareEqualTo)
+      v2 = CFStringCompare(a1, *v3, 0);
+      if (v2 == kCFCompareEqualTo)
       {
-        return *(v2 + 35);
+        return *(v3 + 35);
       }
 
-      v2 += 6;
-      if (!--v3)
+      v3 += 6;
+      if (!--v4)
       {
         return 0;
       }
     }
 
-    sub_D84E8();
+    sub_D84E8(v2);
   }
 
   else
   {
-    sub_D84FC();
+    sub_D84FC(0);
   }
 
   return 0;
@@ -9277,18 +9360,18 @@ CFStringRef ramrod_update_key_to_scrub(const __CFString *a1)
 {
   if (a1)
   {
-    v1 = sub_3190C(a1);
-    if (v1)
+    v2 = sub_3190C(a1);
+    if (v2)
     {
-      return v1[5];
+      return v2[5];
     }
 
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "ramrod_update_key_to_scrub", "updaterName %@ not found", a1);
   }
 
   else
   {
-    sub_D8510();
+    sub_D8510(0);
   }
 
   return 0;
@@ -9298,18 +9381,18 @@ CFStringRef ramrod_update_get_dylib(const __CFString *a1)
 {
   if (a1)
   {
-    v1 = sub_3190C(a1);
-    if (v1)
+    v2 = sub_3190C(a1);
+    if (v2)
     {
-      return v1[3];
+      return v2[3];
     }
 
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "ramrod_update_get_dylib", "updaterName %@ not found", a1);
   }
 
   else
   {
-    sub_D8524();
+    sub_D8524(0);
   }
 
   return 0;
@@ -9319,18 +9402,18 @@ uint64_t ramrod_update_preflight_looping(const __CFString *a1)
 {
   if (a1)
   {
-    v1 = sub_3190C(a1);
-    if (v1)
+    v2 = sub_3190C(a1);
+    if (v2)
     {
-      return *(v1 + 36);
+      return *(v2 + 36);
     }
 
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "ramrod_update_preflight_looping", "updaterName %@ not found", a1);
   }
 
   else
   {
-    sub_D8538();
+    sub_D8538(0);
   }
 
   return 0;
@@ -9365,7 +9448,7 @@ __CFArray *ramrod_update_copy_all_names()
 
   else
   {
-    sub_D8598();
+    sub_D8598(0);
   }
 
   return Mutable;
@@ -9400,7 +9483,7 @@ __CFArray *ramrod_update_copy_booted_updater_names()
 
   else
   {
-    sub_D85F8();
+    sub_D85F8(0);
   }
 
   return Mutable;
@@ -9410,18 +9493,18 @@ uint64_t ramrod_update_should_write_deviceinfo(const __CFString *a1)
 {
   if (a1)
   {
-    v1 = sub_3190C(a1);
-    if (v1)
+    v2 = sub_3190C(a1);
+    if (v2)
     {
-      return *(v1 + 32);
+      return *(v2 + 32);
     }
 
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "ramrod_update_should_write_deviceinfo", "updaterName %@ not found", a1);
   }
 
   else
   {
-    sub_D860C();
+    sub_D860C(0);
   }
 
   return 0;
@@ -9439,18 +9522,18 @@ CFDictionaryRef ramrod_update_copy_ap_parameters_generating_nonces(CFDictionaryR
     MutableCopy = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   }
 
-  v9 = MutableCopy;
+  v2 = MutableCopy;
   if (MutableCopy)
   {
     CFDictionarySetValue(MutableCopy, @"GenerateNonces", kCFBooleanTrue);
-    updated = ramrod_update_copy_ap_parameters(v9);
-    CFRelease(v9);
+    updated = ramrod_update_copy_ap_parameters(v2);
+    CFRelease(v2);
     return updated;
   }
 
   else
   {
-    ramrod_log_msg("Failed to allocate ap options dictionary.\n", v2, v3, v4, v5, v6, v7, v8, v12);
+    ramrod_log_msg("Failed to allocate ap options dictionary.\n");
     return 0;
   }
 }
@@ -9473,20 +9556,20 @@ CFDictionaryRef ramrod_update_copy_ap_parameters(const __CFDictionary *a1)
       CFDictionarySetValue(Mutable, kAMAuthInstallApParameterCertificateEpoch, v4);
     }
 
-    if (BOOLean_option && _ramrod_device_has_sandcat())
+    if (BOOLean_option && _ramrod_device_has_sandcat(v4, v5))
     {
-      v28 = 2;
+      v14 = 2;
       valuePtr = 0;
       cf = 0;
       value = 0;
       if (ramrod_generate_apslot_copy_nonce(&valuePtr, &value))
       {
-        v12 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
-        if (v12)
+        v6 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
+        if (v6)
         {
-          v13 = v12;
-          CFDictionarySetValue(Mutable, kAMAuthInstallApParameterApNonceSlotID, v12);
-          CFRelease(v13);
+          v7 = v6;
+          CFDictionarySetValue(Mutable, kAMAuthInstallApParameterApNonceSlotID, v6);
+          CFRelease(v7);
         }
 
         if (value)
@@ -9498,17 +9581,17 @@ CFDictionaryRef ramrod_update_copy_ap_parameters(const __CFDictionary *a1)
 
       else
       {
-        ramrod_log_msg("unable to read the AP slot id will not set.\n", v5, v6, v7, v8, v9, v10, v11, v25);
+        ramrod_log_msg("unable to read the AP slot id will not set.\n");
       }
 
-      if (ramrod_generate_sepslot_copy_nonce(&v28, &cf))
+      if (ramrod_generate_sepslot_copy_nonce(&v14, &cf))
       {
-        v21 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &v28);
-        if (v21)
+        v8 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &v14);
+        if (v8)
         {
-          v22 = v21;
-          CFDictionarySetValue(Mutable, kAMAuthInstallApParameterSepNonceSlotID, v21);
-          CFRelease(v22);
+          v9 = v8;
+          CFDictionarySetValue(Mutable, kAMAuthInstallApParameterSepNonceSlotID, v8);
+          CFRelease(v9);
         }
 
         if (cf)
@@ -9520,7 +9603,7 @@ CFDictionaryRef ramrod_update_copy_ap_parameters(const __CFDictionary *a1)
 
       else
       {
-        ramrod_log_msg("unable to read the SEP slot id will not set.\n", v14, v15, v16, v17, v18, v19, v20, v25);
+        ramrod_log_msg("unable to read the SEP slot id will not set.\n");
       }
     }
 
@@ -9529,7 +9612,7 @@ CFDictionaryRef ramrod_update_copy_ap_parameters(const __CFDictionary *a1)
 
   else
   {
-    sub_D8620();
+    sub_D8620(0);
     Copy = 0;
   }
 
@@ -9544,27 +9627,27 @@ CFNumberRef sub_31F98(const __CFString *a1)
   v2 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen");
   if (v2)
   {
-    v10 = v2;
+    v3 = v2;
     CFProperty = IORegistryEntryCreateCFProperty(v2, a1, kCFAllocatorDefault, 0);
     if (!CFProperty)
     {
       ramrod_log_msg_cf(@"unable to lookup %@ property\n", a1);
-      v15 = 0;
+      v8 = 0;
 LABEL_11:
-      IOObjectRelease(v10);
-      return v15;
+      IOObjectRelease(v3);
+      return v8;
     }
 
-    v12 = CFProperty;
-    v13 = CFGetTypeID(CFProperty);
-    if (v13 == CFDataGetTypeID())
+    v5 = CFProperty;
+    v6 = CFGetTypeID(CFProperty);
+    if (v6 == CFDataGetTypeID())
     {
-      BytePtr = CFDataGetBytePtr(v12);
-      v15 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, BytePtr);
-      if (v15)
+      BytePtr = CFDataGetBytePtr(v5);
+      v8 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, BytePtr);
+      if (v8)
       {
 LABEL_10:
-        CFRelease(v12);
+        CFRelease(v5);
         goto LABEL_11;
       }
 
@@ -9576,26 +9659,26 @@ LABEL_10:
       ramrod_log_msg_cf(@"%@ property is not a CFData\n", a1);
     }
 
-    v15 = 0;
+    v8 = 0;
     goto LABEL_10;
   }
 
-  ramrod_log_msg("unable to find 'chosen' registry entry\n", v3, v4, v5, v6, v7, v8, v9, v17);
+  ramrod_log_msg("unable to find 'chosen' registry entry\n");
   return 0;
 }
 
 CFMutableDictionaryRef ramrod_update_copy_deviceinfo_with_options(const __CFDictionary *a1, CFErrorRef *a2)
 {
-  v125 = 0;
-  v126[0] = 0;
-  v124 = 0;
+  v105 = 0;
+  v106[0] = 0;
+  v104 = 0;
   sub_4325C();
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!Mutable)
   {
     sub_D8634(a2, v3, v4, v5, v6, v7, v8, v9);
-LABEL_146:
-    v105 = 1;
+LABEL_147:
+    v85 = 1;
     goto LABEL_119;
   }
 
@@ -9603,50 +9686,50 @@ LABEL_146:
   if (!v18)
   {
     sub_D8864(a2, v11, v12, v13, v14, v15, v16, v17);
-    goto LABEL_146;
+    goto LABEL_147;
   }
 
   v26 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!v26)
   {
     sub_D8828(a2, v19, v20, v21, v22, v23, v24, v25);
-    goto LABEL_146;
+    goto LABEL_147;
   }
 
   v34 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!v34)
   {
     sub_D87EC(a2, v27, v28, v29, v30, v31, v32, v33);
-    goto LABEL_146;
+    goto LABEL_147;
   }
 
   if (!a1)
   {
     sub_D87A4(a2, v27, v28, v29, v30, v31, v32, v33);
-    goto LABEL_146;
+    goto LABEL_147;
   }
 
   theDict = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!theDict)
   {
-    sub_D8790();
-    goto LABEL_146;
+    sub_D8790(0);
+    goto LABEL_147;
   }
 
   v35 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!v35)
   {
-    sub_D877C();
-    goto LABEL_146;
+    sub_D877C(0);
+    goto LABEL_147;
   }
 
-  v120 = a1;
+  v100 = a1;
   v36 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v117 = v35;
+  v97 = v35;
   if (!v36)
   {
-    sub_D8768();
-    goto LABEL_146;
+    sub_D8768(0);
+    goto LABEL_147;
   }
 
   v37 = v36;
@@ -9662,18 +9745,18 @@ LABEL_146:
   {
     v39 = CFDictionaryGetValue(a1, @"BootedUpdate");
     CFDictionarySetValue(v35, @"BootedUpdate", v39);
-    v122 = v39 == kCFBooleanTrue;
+    v102 = v39 == kCFBooleanTrue;
   }
 
   else
   {
-    v122 = 0;
+    v102 = 0;
   }
 
-  v113 = Mutable;
-  v114 = v26;
-  v115 = v18;
-  v119 = v34;
+  v93 = Mutable;
+  v94 = v26;
+  v95 = v18;
+  v99 = v34;
   if (CFDictionaryContainsKey(a1, @"PreflightContext"))
   {
     v43 = CFDictionaryGetValue(a1, @"PreflightContext");
@@ -9692,12 +9775,12 @@ LABEL_146:
   v48 = 0;
   v49 = 0;
   MutableCopy = 0;
-  if (v122)
+  if (v102)
   {
     v44 = 1;
   }
 
-  v123 = v44;
+  v103 = v44;
   v51 = theDict;
   while (1)
   {
@@ -9706,10 +9789,10 @@ LABEL_146:
       CFRelease(v47);
     }
 
-    if (v125)
+    if (v105)
     {
-      CFRelease(v125);
-      v125 = 0;
+      CFRelease(v105);
+      v105 = 0;
     }
 
     if (v48)
@@ -9722,10 +9805,10 @@ LABEL_146:
       CFRelease(v49);
     }
 
-    if (v126[0])
+    if (v106[0])
     {
-      CFRelease(v126[0]);
-      v126[0] = 0;
+      CFRelease(v106[0]);
+      v106[0] = 0;
     }
 
     if (MutableCopy)
@@ -9733,20 +9816,20 @@ LABEL_146:
       CFRelease(MutableCopy);
     }
 
-    if (v124)
+    if (v104)
     {
-      free(v124);
-      v124 = 0;
+      free(v104);
+      v104 = 0;
     }
 
     v52 = &off_1C05E8[6 * v46];
     if (!*v52)
     {
-      v108 = v126[0];
-      v109 = @"%s: Updater Name is NULL at index %d";
+      v88 = v106[0];
+      v89 = @"%s: Updater Name is NULL at index %d";
 LABEL_130:
-      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, v108, v109, v40, v41, v42, "ramrod_update_copy_deviceinfo_with_options");
-      goto LABEL_136;
+      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, v88, v89, v40, v41, v42, "ramrod_update_copy_deviceinfo_with_options");
+      goto LABEL_137;
     }
 
     ramrod_log_msg_cf(@"Preflight loop %d for updater %@..", ++v46, *v52);
@@ -9756,7 +9839,7 @@ LABEL_130:
       goto LABEL_47;
     }
 
-    if (!v123)
+    if (!v103)
     {
       if ((v53)(1))
       {
@@ -9767,10 +9850,10 @@ LABEL_130:
       v53 = v52[2];
     }
 
-    if (!(v53)(v122))
+    if (!(v53)(v102))
     {
 LABEL_47:
-      ramrod_log_msg_cf(@"Updater %@ not supported on this device..", *v52, v110);
+      ramrod_log_msg_cf(@"Updater %@ not supported on this device..", *v52, v90);
 LABEL_49:
       v47 = 0;
       v48 = 0;
@@ -9790,8 +9873,8 @@ LABEL_42:
     CStringPtr = CFStringGetCStringPtr(*v52, 0x8000100u);
     if (!CStringPtr)
     {
-      v108 = v126[0];
-      v109 = @"%s: failed convert updaterName %@";
+      v88 = v106[0];
+      v89 = @"%s: failed convert updaterName %@";
       goto LABEL_130;
     }
 
@@ -9799,21 +9882,21 @@ LABEL_42:
     MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v35);
     if (!MutableCopy)
     {
-      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, v126[0], @"%s: Failed to copy subOptions for %s", v57, v58, v59, "ramrod_update_copy_deviceinfo_with_options");
-      goto LABEL_136;
+      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, v106[0], @"%s: Failed to copy subOptions for %s", v57, v58, v59, "ramrod_update_copy_deviceinfo_with_options");
+      goto LABEL_137;
     }
 
     CFDictionarySetValue(v51, @"Options", MutableCopy);
-    ramrod_update_nvram_overrides(v56, MutableCopy, v60, v61, v62, v63, v64, v65);
+    ramrod_update_nvram_overrides(v56, MutableCopy);
     if (ramrod_update_twostage_enabled(*v52))
     {
-      ramrod_log_msg("%s Updater configured for two-stage update. DeferredCommit: YES.\n", v66, v67, v68, v69, v70, v71, v72, v56);
+      ramrod_log_msg("%s Updater configured for two-stage update. DeferredCommit: YES.\n", v56);
       CFDictionarySetValue(MutableCopy, @"DeferredCommit", kCFBooleanTrue);
     }
 
     else
     {
-      ramrod_log_msg("%s Updater: Legacy / single-stage updater.\n", v66, v67, v68, v69, v70, v71, v72, v56);
+      ramrod_log_msg("%s Updater: Legacy / single-stage updater.\n", v56);
     }
 
     if (os_parse_boot_arg_int())
@@ -9827,8 +9910,8 @@ LABEL_42:
       v48 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
       if (!v48)
       {
-        ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, v126[0], @"%s: Failed to create queryResults array for %s", v73, v74, v75, "ramrod_update_copy_deviceinfo_with_options");
-        goto LABEL_136;
+        ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, v106[0], @"%s: Failed to create queryResults array for %s", v60, v61, v62, "ramrod_update_copy_deviceinfo_with_options");
+        goto LABEL_137;
       }
 
       if ((v54 & 1) == 0)
@@ -9848,24 +9931,29 @@ LABEL_56:
       }
     }
 
-    v76 = dlopen(v52[3], 261);
-    if (!v76)
+    v63 = dlopen(v52[3], 261);
+    if (!v63)
     {
-      v111 = dlerror();
-      ramrod_log_msg_cf(@"Failed to open updater library on device that should have %s: %s", v56, v111);
+      v91 = dlerror();
+      ramrod_log_msg_cf(@"Failed to open updater library on device that should have %s: %s", v56, v91);
       goto LABEL_65;
     }
 
-    if (!ramrod_copy_updater_functions(v76, v56, &v124, a2, v77, v78, v79, v80) || (v81 = (v124[1])(0, v126), v126[0]))
+    if (!ramrod_copy_updater_functions(v63, v56, &v104, a2, v64, v65, v66, v67))
     {
-LABEL_135:
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "ramrod_update_copy_deviceinfo_with_options", "ramrod_copy_updater_functions failed on %s");
+      goto LABEL_137;
+    }
+
+    v68 = (v104[1])(0, v106);
+    if (v106[0])
+    {
       goto LABEL_136;
     }
 
-    if (v81)
+    if (v68)
     {
-      ramrod_log_msg_cf(@"Updater %s returned isDone(NULL)=true (ie: module should skip), continuing.", v56, v110);
+      ramrod_log_msg_cf(@"Updater %s returned isDone(NULL)=true (ie: module should skip), continuing.", v56, v90);
 LABEL_65:
       v49 = 0;
       v47 = 0;
@@ -9873,95 +9961,97 @@ LABEL_65:
     }
 
     ramrod_log_msg_cf(@"creating %sUpdater obj", v56);
-    v82 = (*v124)(v51, sub_32D20, v56, v126);
-    v47 = v82;
-    if (!v82)
+    v69 = (*v104)(v51, sub_32D20, v56, v106);
+    v47 = v69;
+    if (!v69)
     {
       break;
     }
 
-    v83 = (v124[1])(v82, v126);
-    if (v126[0])
+    v70 = (v104[1])(v69, v106);
+    if (v106[0])
     {
-      goto LABEL_135;
+LABEL_136:
+      AMSupportLogInternal(3, "ramrod_update_copy_deviceinfo_with_options", "%sUpdater fp_isDone returned error: %@", v56, v106[0]);
+      goto LABEL_137;
     }
 
-    if (v83)
+    if (v70)
     {
       ramrod_log_msg_cf(@"Updater %s returned isDone(obj)=true (ie: module should skip), continuing.", v56);
       v49 = 0;
       goto LABEL_66;
     }
 
-    v84 = 0;
-    v116 = 0;
+    v71 = 0;
+    v96 = 0;
 LABEL_74:
-    if (v84 <= 1024)
+    if (v71 <= 1024)
     {
-      v85 = 1024;
+      v72 = 1024;
     }
 
     else
     {
-      v85 = v84;
+      v72 = v71;
     }
 
-    v86 = v85 - v84++ + 1;
+    v73 = v72 - v71++ + 1;
     do
     {
-      if (v125)
+      if (v105)
       {
-        CFRelease(v125);
-        v125 = 0;
+        CFRelease(v105);
+        v105 = 0;
       }
 
-      if (!--v86)
+      if (!--v73)
       {
         sub_D86EC();
-        goto LABEL_136;
+        goto LABEL_137;
       }
 
       if (v48)
       {
         ramrod_log_msg_cf(@"Calling %sUpdater fp_isDone", v56);
-        v87 = (v124[1])(v47, v126);
-        if (v126[0])
+        v74 = (v104[1])(v47, v106);
+        if (v106[0])
         {
-          goto LABEL_135;
+          goto LABEL_136;
         }
 
-        if (v87)
+        if (v74)
         {
           break;
         }
       }
 
-      ramrod_log_msg_cf(@"Calling %sUpdater fp_ExecCmd", v56, v110);
-      if ((v124[2])(v47, @"queryInfo", 0, &v125, v126))
+      ramrod_log_msg_cf(@"Calling %sUpdater fp_ExecCmd", v56, v90);
+      if ((v104[2])(v47, @"queryInfo", 0, &v105, v106))
       {
-        if (v125)
+        if (v105)
         {
           TypeID = CFDictionaryGetTypeID();
           v51 = theDict;
-          if (TypeID == CFGetTypeID(v125) && CFDictionaryGetValue(v120, @"PreflightRequired") == kCFBooleanFalse)
+          if (TypeID == CFGetTypeID(v105) && CFDictionaryGetValue(v100, @"PreflightRequired") == kCFBooleanFalse)
           {
-            v116 = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v125);
-            if (!v116)
+            v96 = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v105);
+            if (!v96)
             {
-              goto LABEL_136;
+              goto LABEL_137;
             }
 
-            v99 = v52[5];
-            if (v99)
+            v79 = v52[5];
+            if (v79)
             {
               key = v52[5];
-              if (CFDictionaryContainsKey(v116, v99))
+              if (CFDictionaryContainsKey(v96, v79))
               {
-                AMSupportLogInternal();
-                CFDictionaryRemoveValue(v116, key);
-                CFRelease(v125);
-                v125 = v116;
-                v116 = 0;
+                AMSupportLogInternal(3, "ramrod_update_copy_deviceinfo_with_options", "Removing updater reference from DeviceInfo to avoid serialization failures.");
+                CFDictionaryRemoveValue(v96, key);
+                CFRelease(v105);
+                v105 = v96;
+                v96 = 0;
               }
             }
           }
@@ -9972,28 +10062,28 @@ LABEL_74:
           v51 = theDict;
         }
 
-        v100 = v125;
+        v80 = v105;
         if (v48)
         {
-          CFArrayAppendValue(v48, v125);
-          v100 = v125;
+          CFArrayAppendValue(v48, v105);
+          v80 = v105;
         }
 
-        if (!v100 || v126[0])
+        if (!v80 || v106[0])
         {
-          if (v100 | v126[0])
+          if (v80 | v106[0])
           {
-            v103 = "NULL";
-            if (v100)
+            v83 = "NULL";
+            if (v80)
             {
-              v103 = "NOT-NULL";
+              v83 = "NOT-NULL";
             }
 
-            ramrod_log_msg_cf(@"Updater %s QueryInfo succeeded, but bad results. Results=%s, Error=%@", v56, v103, v126[0]);
+            ramrod_log_msg_cf(@"Updater %s QueryInfo succeeded, but bad results. Results=%s, Error=%@", v56, v83, v106[0]);
             if (*(v52 + 34))
             {
-              ramrod_create_error_cf(a2, @"RamrodErrorDomain", 1016, v126[0], @"%s: Preflight QueryInfo succeeded, but improper results on %s", v40, v41, v42, "ramrod_update_copy_deviceinfo_with_options");
-              goto LABEL_136;
+              ramrod_create_error_cf(a2, @"RamrodErrorDomain", 1016, v106[0], @"%s: Preflight QueryInfo succeeded, but improper results on %s", v40, v41, v42, "ramrod_update_copy_deviceinfo_with_options");
+              goto LABEL_137;
             }
           }
 
@@ -10005,8 +10095,8 @@ LABEL_74:
           if (!v48)
           {
 LABEL_117:
-            v49 = v116;
-            v35 = v117;
+            v49 = v96;
+            v35 = v97;
             goto LABEL_66;
           }
         }
@@ -10016,25 +10106,25 @@ LABEL_117:
           ramrod_log_msg_cf(@"Populated deviceinfo for %s, continuing.", v56);
           if (v48)
           {
-            v101 = v48;
+            v81 = v48;
           }
 
           else
           {
-            v101 = v125;
+            v81 = v105;
           }
 
           if (*(v52 + 34))
           {
-            v102 = v115;
+            v82 = v95;
           }
 
           else
           {
-            v102 = v114;
+            v82 = v94;
           }
 
-          CFDictionarySetValue(v102, *v52, v101);
+          CFDictionarySetValue(v82, *v52, v81);
           if (!v48)
           {
             goto LABEL_117;
@@ -10044,46 +10134,46 @@ LABEL_117:
         goto LABEL_74;
       }
 
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "ramrod_update_copy_deviceinfo_with_options", "fp_ExecCmd failed on %s, continuing to next updater.", v56);
       if (*(v52 + 33) == 1)
       {
-        ramrod_log_msg("%s updater failed but not reporting error since it is best effort\n", v88, v89, v90, v91, v92, v93, v94, v56);
+        ramrod_log_msg("%s updater failed but not reporting error since it is best effort\n", v56);
       }
 
       else
       {
-        CFDictionarySetValue(v119, *v52, v52[1]);
-        v110 = v56;
-        ramrod_create_error_cf(a2, @"RamrodErrorDomain", 1016, v126[0], @"%s: Preflight QueryInfo failed on %s", v95, v96, v97, "ramrod_update_copy_deviceinfo_with_options");
+        CFDictionarySetValue(v99, *v52, v52[1]);
+        v90 = v56;
+        ramrod_create_error_cf(a2, @"RamrodErrorDomain", 1016, v106[0], @"%s: Preflight QueryInfo failed on %s", v75, v76, v77, "ramrod_update_copy_deviceinfo_with_options");
       }
 
-      ++v84;
+      ++v71;
     }
 
     while (v48);
-    v35 = v117;
+    v35 = v97;
     v51 = theDict;
-    v49 = v116;
+    v49 = v96;
 LABEL_66:
-    v45 = v120;
+    v45 = v100;
 LABEL_67:
     if (v46 == 14)
     {
       updated = ramrod_update_copy_ap_parameters(v45);
-      Mutable = v113;
-      CFDictionaryAddValue(v113, @"DeviceInfo", v115);
-      CFDictionaryAddValue(v113, @"DeviceInfoDisabled", v114);
-      CFDictionaryAddValue(v113, @"DeviceInfoFailures", v119);
-      CFDictionaryAddValue(v113, @"ApParameters", updated);
-      v105 = 0;
+      Mutable = v93;
+      CFDictionaryAddValue(v93, @"DeviceInfo", v95);
+      CFDictionaryAddValue(v93, @"DeviceInfoDisabled", v94);
+      CFDictionaryAddValue(v93, @"DeviceInfoFailures", v99);
+      CFDictionaryAddValue(v93, @"ApParameters", updated);
+      v85 = 0;
       goto LABEL_119;
     }
   }
 
   sub_D8670();
-LABEL_136:
-  v105 = 1;
-  Mutable = v113;
+LABEL_137:
+  v85 = 1;
+  Mutable = v93;
 LABEL_119:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
@@ -10098,19 +10188,19 @@ LABEL_119:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  if (v124)
+  if (v104)
   {
-    free(v124);
-    v124 = 0;
+    free(v104);
+    v104 = 0;
   }
 
-  v106 = v105 ^ 1;
+  v86 = v85 ^ 1;
   if (!Mutable)
   {
-    v106 = 1;
+    v86 = 1;
   }
 
-  if ((v106 & 1) == 0)
+  if ((v86 & 1) == 0)
   {
     CFRelease(Mutable);
     return 0;

@@ -25,7 +25,7 @@
 
 - (id)decodeChunk:(id)chunk outError:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   chunkCopy = chunk;
   v7 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:2 * self->_asbd.mFramesPerPacket];
   *&outOutputData.mNumberBuffers = 1;
@@ -33,24 +33,24 @@
   outOutputData.mBuffers[0].mNumberChannels = 1;
   outOutputData.mBuffers[0].mDataByteSize = [v7 length];
   ioOutputDataPacketSize = self->_asbd.mFramesPerPacket;
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v31 = 0;
   v29[0] = 0;
   v29[1] = v29;
   v29[2] = 0x2020000000;
-  v29[3] = 1;
+  v30 = 0;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x2020000000;
+  v28[3] = 1;
   decoder = self->_decoder;
   inInputDataProcUserData[0] = MEMORY[0x277D85DD0];
   inInputDataProcUserData[1] = 3221225472;
   inInputDataProcUserData[2] = __38__VSOpusDecoder_decodeChunk_outError___block_invoke;
   inInputDataProcUserData[3] = &unk_279E4F090;
-  v26 = v29;
-  v28 = &v38;
+  v25 = v28;
+  v27 = &v37;
   v9 = chunkCopy;
-  v25 = v9;
-  v27 = v30;
+  v24 = v9;
+  v26 = v29;
   v10 = AudioConverterFillComplexBuffer(decoder, AudioConverterFillComplexBuffer_BlockInvoke, inInputDataProcUserData, &ioOutputDataPacketSize, &outOutputData, 0);
   if (v10 != 1836086393 && v10)
   {
@@ -59,9 +59,9 @@
     v14 = [v18 stringWithFormat:@"Could not finish decoding, res %@", v19];
 
     v20 = MEMORY[0x277CCA9B8];
-    v34 = *MEMORY[0x277CCA470];
-    v35 = v14;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v33 = *MEMORY[0x277CCA470];
+    v34 = v14;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v17 = [v20 errorWithDomain:@"VSSpeechServiceDecoderErrorDomain" code:0 userInfo:v16];
   }
 
@@ -90,9 +90,9 @@
 
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"decoder gave us %d bytes bytes but we really only expected %d", v13, outOutputData.mBuffers[0].mDataByteSize];
     v15 = MEMORY[0x277CCA9B8];
-    v36 = *MEMORY[0x277CCA470];
-    v37 = v14;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x277CCA470];
+    v36 = v14;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     v17 = [v15 errorWithDomain:@"VSSpeechServiceDecoderErrorDomain" code:0 userInfo:v16];
   }
 
@@ -108,17 +108,15 @@
 
 LABEL_13:
 
+  _Block_object_dispose(v28, 8);
   _Block_object_dispose(v29, 8);
-  _Block_object_dispose(v30, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _DWORD *a2, uint64_t a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = *a2;
   if (*(*(*(a1 + 40) + 8) + 24) >= v8)
   {
@@ -140,7 +138,7 @@ uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _D
       --*(*(*(a1 + 40) + 8) + 24);
       ++*(*(*(a1 + 48) + 8) + 24);
 
-      result = 0;
+      return 0;
     }
 
     else
@@ -148,13 +146,13 @@ uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _D
       v14 = VSGetLogDefault();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = *a2;
-        v17 = 134217984;
-        v18 = v16;
-        _os_log_error_impl(&dword_272850000, v14, OS_LOG_TYPE_ERROR, "Only expecting to get 1 packet at a time, not %lu", &v17, 0xCu);
+        v15 = *a2;
+        v16 = 134217984;
+        v17 = v15;
+        _os_log_error_impl(&dword_272850000, v14, OS_LOG_TYPE_ERROR, "Only expecting to get 1 packet at a time, not %lu", &v16, 0xCu);
       }
 
-      result = 1752524863;
+      return 1752524863;
     }
   }
 
@@ -173,18 +171,17 @@ uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _D
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (id)beginChunkDecoderForStreamDescription:(AudioStreamBasicDescription *)description
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = *&description->mBytesPerPacket;
-  v9[0] = *&description->mSampleRate;
-  v9[1] = v3;
-  v10 = *&description->mBitsPerChannel;
-  if ([(VSOpusDecoder *)self _opusDecoder:v9])
+  v8[0] = *&description->mSampleRate;
+  v8[1] = v3;
+  v9 = *&description->mBitsPerChannel;
+  if ([(VSOpusDecoder *)self _opusDecoder:v8])
   {
     v4 = 0;
   }
@@ -192,26 +189,24 @@ uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _D
   else
   {
     v5 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA470];
-    v12[0] = @"Failed to create opus decoder";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA470];
+    v11[0] = @"Failed to create opus decoder";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v4 = [v5 errorWithDomain:@"VSSpeechServiceDecoderErrorDomain" code:0 userInfo:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)decodeChunks:(id)chunks streamDescription:(AudioStreamBasicDescription *)description outError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
   v9 = *&description->mBytesPerPacket;
-  v34[0] = *&description->mSampleRate;
-  v34[1] = v9;
-  v35 = *&description->mBitsPerChannel;
-  v10 = [(VSOpusDecoder *)self beginChunkDecoderForStreamDescription:v34];
+  v33[0] = *&description->mSampleRate;
+  v33[1] = v9;
+  v34 = *&description->mBitsPerChannel;
+  v10 = [(VSOpusDecoder *)self beginChunkDecoderForStreamDescription:v33];
   v11 = v10;
   if (error && v10)
   {
@@ -225,30 +220,30 @@ uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _D
     mFramesPerPacket = description->mFramesPerPacket;
     v15 = 2 * mFramesPerPacket * [chunksCopy count];
     v13 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:v15];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v16 = chunksCopy;
-    v17 = [v16 countByEnumeratingWithState:&v30 objects:v36 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v17)
     {
       v18 = v17;
-      v28 = chunksCopy;
-      v19 = *v31;
+      v27 = chunksCopy;
+      v19 = *v30;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v31 != v19)
+          if (*v30 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v30 + 1) + 8 * i);
-          v29 = 0;
-          v22 = [(VSOpusDecoder *)self decodeChunk:v21 outError:&v29, v28];
-          v23 = v29;
+          v21 = *(*(&v29 + 1) + 8 * i);
+          v28 = 0;
+          v22 = [(VSOpusDecoder *)self decodeChunk:v21 outError:&v28, v27];
+          v23 = v28;
           if (v23)
           {
             v24 = v23;
@@ -259,7 +254,7 @@ uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _D
           [v13 appendData:v22];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v29 objects:v35 count:16];
         if (v18)
         {
           continue;
@@ -270,7 +265,7 @@ uint64_t __38__VSOpusDecoder_decodeChunk_outError___block_invoke(uint64_t a1, _D
 
       v24 = 0;
 LABEL_14:
-      chunksCopy = v28;
+      chunksCopy = v27;
     }
 
     else
@@ -291,14 +286,12 @@ LABEL_14:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (OpaqueAudioConverter)_opusDecoder:(AudioStreamBasicDescription *)decoder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   p_decoder = &self->_decoder;
   result = self->_decoder;
   if (!result)
@@ -320,45 +313,42 @@ LABEL_14:
           _os_log_error_impl(&dword_272850000, v11, OS_LOG_TYPE_ERROR, "Invalid target asbd: %@", buf, 0xCu);
         }
 
-        goto LABEL_12;
+LABEL_12:
+
+        return 0;
       }
 
       v7 = &VSAudioFormat48khzPCM;
     }
 
     v8 = v7[1];
-    *&v16.mSampleRate = *v7;
-    *&v16.mBytesPerPacket = v8;
-    *&v16.mBitsPerChannel = 16;
-    v9 = AudioConverterNew(decoder, &v16, p_decoder);
-    if (v9)
+    *&v15.mSampleRate = *v7;
+    *&v15.mBytesPerPacket = v8;
+    *&v15.mBitsPerChannel = 16;
+    v9 = AudioConverterNew(decoder, &v15, p_decoder);
+    if (!v9)
     {
-      v10 = v9;
-      v11 = VSGetLogDefault();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v10];
-        *buf = 138543362;
-        decoderCopy = v12;
-        _os_log_error_impl(&dword_272850000, v11, OS_LOG_TYPE_ERROR, "Could not create Opus decoder: %{public}@", buf, 0xCu);
-      }
-
-LABEL_12:
-
-      result = 0;
-      goto LABEL_13;
+      v13 = *&decoder->mSampleRate;
+      v14 = *&decoder->mBytesPerPacket;
+      *&self->_asbd.mBitsPerChannel = *&decoder->mBitsPerChannel;
+      *&self->_asbd.mSampleRate = v13;
+      *&self->_asbd.mBytesPerPacket = v14;
+      return self->_decoder;
     }
 
-    v13 = *&decoder->mSampleRate;
-    v14 = *&decoder->mBytesPerPacket;
-    *&self->_asbd.mBitsPerChannel = *&decoder->mBitsPerChannel;
-    *&self->_asbd.mSampleRate = v13;
-    *&self->_asbd.mBytesPerPacket = v14;
-    result = self->_decoder;
+    v10 = v9;
+    v11 = VSGetLogDefault();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v10];
+      *buf = 138543362;
+      decoderCopy = v12;
+      _os_log_error_impl(&dword_272850000, v11, OS_LOG_TYPE_ERROR, "Could not create Opus decoder: %{public}@", buf, 0xCu);
+    }
+
+    goto LABEL_12;
   }
 
-LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 

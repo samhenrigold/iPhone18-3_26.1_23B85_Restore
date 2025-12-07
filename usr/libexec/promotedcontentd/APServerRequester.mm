@@ -163,42 +163,42 @@ LABEL_6:
       bundleID = [(APServerRequester *)self bundleID];
       v9 = [_serverConfiguration serverURLForMessageID:v6 andBundleID:bundleID];
 
-      v10 = APPBAdsOptions();
-      v11 = [v10 objectForKeyedSubscript:@"protocolVersion"];
+      v11 = APPBAdsOptions(v10);
+      v12 = [v11 objectForKeyedSubscript:@"protocolVersion"];
 
-      if (v11)
+      if (v12)
       {
-        v12 = [v9 URLByAppendingPathComponent:v11];
-        v13 = [v5 objectForKeyedSubscript:@"URLSuffix"];
-        if (v13)
+        v13 = [v9 URLByAppendingPathComponent:v12];
+        v14 = [v5 objectForKeyedSubscript:@"URLSuffix"];
+        if (v14)
         {
-          v14 = [v12 URLByAppendingPathComponent:v13];
+          v15 = [v13 URLByAppendingPathComponent:v14];
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)makeNetworkRequest:(id)request

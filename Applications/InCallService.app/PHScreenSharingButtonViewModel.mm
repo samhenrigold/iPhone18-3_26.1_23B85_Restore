@@ -52,9 +52,10 @@
 
 - (void)conversationManager:(id)manager screenSharingAvailableChanged:(BOOL)changed
 {
+  changedCopy = changed;
   managerCopy = manager;
   selfCopy = self;
-  sub_10015D220(selfCopy, changed);
+  sub_10015D220(selfCopy, changedCopy);
 }
 
 @end

@@ -19,7 +19,7 @@
   v4 = sub_1CAD4C024();
   v6 = v5;
 
-  v7 = _s13CalendarUIKit17CUIKCalendarColorC011deserializeD0ySo7UIColorCSg10Foundation4DataVFZ_0();
+  v7 = _s13CalendarUIKit17CUIKCalendarColorC011deserializeD0ySo7UIColorCSg10Foundation4DataVFZ_0(v4, v6);
   sub_1CABB8C1C(v4, v6);
 
   return v7;

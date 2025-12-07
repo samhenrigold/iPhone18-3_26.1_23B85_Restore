@@ -210,7 +210,7 @@
   dispatch_async(dataQueryQueue, v7);
 }
 
-uint64_t __48__WDMedicalRecordDisplayItemProvider_setFilter___block_invoke(uint64_t a1)
+void *__48__WDMedicalRecordDisplayItemProvider_setFilter___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) isEqual:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -1913,43 +1913,43 @@ LABEL_30:
   return v2;
 }
 
-void __77__WDMedicalRecordDisplayItemProvider_supportedRecordCategoriesByCategoryType__block_invoke()
+void __77__WDMedicalRecordDisplayItemProvider_supportedRecordCategoriesByCategoryType__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v1 = [objc_opt_class() allSupportedRecordCategories];
-  v10 = 0u;
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v2 = [objc_opt_class() allSupportedRecordCategories];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v14 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v11;
+    v4 = v3;
+    v5 = *v12;
     do
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v4)
+        if (*v12 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
-        v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v6, "categoryType")}];
-        [v0 setObject:v6 forKeyedSubscript:v7];
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v7, "categoryType")}];
+        [v1 setObject:v7 forKeyedSubscript:v8];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v3);
+    while (v4);
   }
 
-  v8 = [v0 copy];
-  v9 = supportedRecordCategoriesByCategoryType_categoryDictionary;
-  supportedRecordCategoriesByCategoryType_categoryDictionary = v8;
+  v9 = [v1 copy];
+  v10 = supportedRecordCategoriesByCategoryType_categoryDictionary;
+  supportedRecordCategoriesByCategoryType_categoryDictionary = v9;
 }
 
 + (id)allSupportedSampleTypes

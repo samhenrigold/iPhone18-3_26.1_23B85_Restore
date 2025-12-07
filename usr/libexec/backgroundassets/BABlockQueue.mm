@@ -128,23 +128,7 @@
   blockQueueLock = [(BABlockQueue *)self blockQueueLock];
   [blockQueueLock lock];
 
-  if ([(BABlockQueue *)self awaitingBlockCompletion])
-  {
-    goto LABEL_5;
-  }
-
-  blockQueue = [(BABlockQueue *)self blockQueue];
-  v5 = [blockQueue count];
-
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  blockQueue2 = [(BABlockQueue *)self blockQueue];
-  v8 = [blockQueue2 objectAtIndex:0];
-
-  if (v8)
+  if (!-[BABlockQueue awaitingBlockCompletion](self, "awaitingBlockCompletion") && (-[BABlockQueue blockQueue](self, "blockQueue"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 count], v4, v5) && (-[BABlockQueue blockQueue](self, "blockQueue"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectAtIndex:", 0), v8 = objc_claimAutoreleasedReturnValue(), v6, v8))
   {
     [(BABlockQueue *)self setAwaitingBlockCompletion:1];
     [v8 executeWithSuccessfulDequeue:1];
@@ -152,7 +136,6 @@
 
   else
   {
-LABEL_5:
     v8 = 0;
   }
 

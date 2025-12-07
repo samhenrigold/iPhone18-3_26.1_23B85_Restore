@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)matcherTypeAsString:(int)string;
 - (int)StringAsMatcherType:(id)type;
 - (int)matcherType;
 - (unint64_t)hash;
@@ -473,25 +474,24 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_sourceItemIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_entityName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startIndex = self->_startIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -510,47 +510,44 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  endIndex = self->_endIndex;
   PBDataWriterWriteInt64Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_8:
-    matchScore = self->_matchScore;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_matchProperties)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    matcherType = self->_matcherType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_originAppBundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_userUtterance)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -683,6 +680,21 @@ LABEL_9:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)matcherTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327FA0[string];
   }
 
   return v4;

@@ -9,7 +9,7 @@ uint64_t start()
   {
     if (v2)
     {
-      v4 = OSLogHandleForIMFoundationCategory();
+      v4 = OSLogHandleForIMFoundationCategory("Warning");
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         LOWORD(v17[0]) = 0;
@@ -19,7 +19,7 @@ uint64_t start()
 
     if (IMOSLoggingEnabled())
     {
-      v5 = OSLogHandleForIMFoundationCategory();
+      v5 = OSLogHandleForIMFoundationCategory("Warning");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         LOWORD(v17[0]) = 0;
@@ -31,7 +31,7 @@ uint64_t start()
     {
       if (IMOSLoggingEnabled())
       {
-        v6 = OSLogHandleForIMFoundationCategory();
+        v6 = OSLogHandleForIMFoundationCategory("Warning");
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           LOWORD(v17[0]) = 0;
@@ -48,7 +48,7 @@ uint64_t start()
   {
     if (v2)
     {
-      v7 = OSLogHandleForIMFoundationCategory();
+      v7 = OSLogHandleForIMFoundationCategory("Warning");
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v17[0] = 67109120;
@@ -62,7 +62,7 @@ uint64_t start()
   {
     if (v2)
     {
-      v3 = OSLogHandleForIMFoundationCategory();
+      v3 = OSLogHandleForIMFoundationCategory("Warning");
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         LOWORD(v17[0]) = 0;
@@ -132,7 +132,7 @@ void sub_1000010A4(id a1, int a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
+    v2 = OSLogHandleForIMFoundationCategory("Warning");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v4 = 136315138;
@@ -145,7 +145,7 @@ void sub_1000010A4(id a1, int a2)
   {
     if (IMOSLoggingEnabled())
     {
-      v3 = OSLogHandleForIMFoundationCategory();
+      v3 = OSLogHandleForIMFoundationCategory("Warning");
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         LOWORD(v4) = 0;
@@ -176,11 +176,11 @@ void sub_10000124C(id a1, int a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
+    v2 = OSLogHandleForIMFoundationCategory("System language preferences changed: %s notification\n", v3);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v3 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "AppleLanguagePreferencesChangedNotification", v3, 2u);
+      LOWORD(v3) = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "AppleLanguagePreferencesChangedNotification", &v3, 2u);
     }
   }
 
@@ -197,13 +197,12 @@ void sub_1000012E0(id a1)
 
 void sub_100001320(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v2 = a2;
   if (MKBDeviceUnlockedSinceBoot() == 1 && qword_100008070 != -1)
   {
     sub_100001448();
   }
 
-  v3 = *(a1 + 32);
   __IMDPersistenceIPCServer_peer_event_handler();
 }
 
@@ -213,7 +212,7 @@ void sub_100001394(id a1)
   {
     if (IMOSLoggingEnabled())
     {
-      v1 = OSLogHandleForIMFoundationCategory();
+      v1 = OSLogHandleForIMFoundationCategory("ProtectionMerge");
       if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
       {
         *v2 = 0;

@@ -12,7 +12,7 @@
 
 + (id)stringForKey:(id)key transaction:(id)transaction
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   transactionCopy = transaction;
   v8 = [self loadBlobForKey:keyCopy transaction:transactionCopy];
@@ -22,9 +22,9 @@
     v10 = objc_autoreleasePoolPush();
     v11 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v10);
-    v18 = 0;
-    v12 = [v9 unarchivedObjectOfClasses:v11 fromData:v8 error:&v18];
-    v13 = v18;
+    v17 = 0;
+    v12 = [v9 unarchivedObjectOfClasses:v11 fromData:v8 error:&v17];
+    v13 = v17;
 
     if (v12)
     {
@@ -37,7 +37,7 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v13;
+        v19 = v13;
         _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "PPSQLDatabase: unable to unarchive string: %@", buf, 0xCu);
       }
     }
@@ -48,14 +48,12 @@
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)numberForKey:(id)key transaction:(id)transaction
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   transactionCopy = transaction;
   v8 = [self loadBlobForKey:keyCopy transaction:transactionCopy];
@@ -65,9 +63,9 @@
     v10 = objc_autoreleasePoolPush();
     v11 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v10);
-    v18 = 0;
-    v12 = [v9 unarchivedObjectOfClasses:v11 fromData:v8 error:&v18];
-    v13 = v18;
+    v17 = 0;
+    v12 = [v9 unarchivedObjectOfClasses:v11 fromData:v8 error:&v17];
+    v13 = v17;
 
     if (v12)
     {
@@ -80,7 +78,7 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v13;
+        v19 = v13;
         _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "PPSQLDatabase: unable to unarchive number: %@", buf, 0xCu);
       }
     }
@@ -91,19 +89,17 @@
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (void)setString:(id)string forKey:(id)key transaction:(id)transaction
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   transactionCopy = transaction;
-  v13 = 0;
-  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:string requiringSecureCoding:1 error:&v13];
-  v10 = v13;
+  v12 = 0;
+  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:string requiringSecureCoding:1 error:&v12];
+  v10 = v12;
   if (v9)
   {
     [PPSQLKVStore storeBlob:v9 forKey:keyCopy transaction:transactionCopy];
@@ -115,22 +111,20 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v10;
+      v14 = v10;
       _os_log_error_impl(&dword_23224A000, v11, OS_LOG_TYPE_ERROR, "PPSQLDatabase: unable to archive string: %@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setNumber:(id)number forKey:(id)key transaction:(id)transaction
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   transactionCopy = transaction;
-  v13 = 0;
-  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:number requiringSecureCoding:1 error:&v13];
-  v10 = v13;
+  v12 = 0;
+  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:number requiringSecureCoding:1 error:&v12];
+  v10 = v12;
   if (v9)
   {
     [PPSQLKVStore storeBlob:v9 forKey:keyCopy transaction:transactionCopy];
@@ -142,12 +136,10 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v10;
+      v14 = v10;
       _os_log_error_impl(&dword_23224A000, v11, OS_LOG_TYPE_ERROR, "PPSQLDatabase: unable to archive number: %@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeBlobForKey:(id)key transaction:(id)transaction

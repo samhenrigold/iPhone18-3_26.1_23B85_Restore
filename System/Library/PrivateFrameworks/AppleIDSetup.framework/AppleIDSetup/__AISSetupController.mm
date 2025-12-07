@@ -9,28 +9,25 @@
 - (__AISSetupController)initWithQueue:(id)queue
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E4B9B18, &qword_24076CB30);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v18 - v6;
-  v8 = sub_240759BE4();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = type metadata accessor for SetupController();
-  v10 = *(v9 + 48);
-  v11 = *(v9 + 52);
+  v6 = &v14 - v5;
+  v7 = sub_240759BE4();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  type metadata accessor for SetupController(0);
   swift_allocObject();
   queueCopy = queue;
-  v13 = sub_2406A95B8(queue, v7, 0);
-  v14 = type metadata accessor for __SetupController();
-  v15 = objc_allocWithZone(v14);
-  *&v15[OBJC_IVAR_____AISSetupController_setupController] = v13;
-  v18.receiver = v15;
-  v18.super_class = v14;
+  v9 = sub_2406A95B8(queue, v6, 0);
+  v10 = type metadata accessor for __SetupController();
+  v11 = objc_allocWithZone(v10);
+  *&v11[OBJC_IVAR_____AISSetupController_setupController] = v9;
+  v14.receiver = v11;
+  v14.super_class = v10;
 
-  v16 = [(__AISSetupController *)&v18 init];
+  v12 = [(__AISSetupController *)&v14 init];
 
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v16;
+  return v12;
 }
 
 - (void)setupWithContext:(id)context completionHandler:(id)handler
@@ -51,7 +48,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_2406A7458(contextCopy, v6, v7);
-  sub_24058CA60(v6);
+  sub_24058CA60(v6, v7);
 }
 
 - (__AISSetupController)init

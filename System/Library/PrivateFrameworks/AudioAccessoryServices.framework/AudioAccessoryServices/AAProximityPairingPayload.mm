@@ -54,25 +54,27 @@ LABEL_9:
 
 - (id)describeProperties
 {
-  v9.receiver = self;
-  v9.super_class = AAProximityPairingPayload;
-  describeProperties = [(AAAdvertisementPayload *)&v9 describeProperties];
+  v11.receiver = self;
+  v11.super_class = AAProximityPairingPayload;
+  describeProperties = [(AAAdvertisementPayload *)&v11 describeProperties];
   v4 = [(AAProximityPairingPayload *)self pid];
   if (v4)
   {
-    v8 = v4;
-    NSAppendPrintF_safe();
-    v5 = describeProperties;
+    v10 = describeProperties;
+    NSAppendPrintF_safe(&v10, ", PID %d", v4);
+    v5 = v10;
 
     describeProperties = v5;
   }
 
-  if ([(AAProximityPairingPayload *)self subType])
+  subType = [(AAProximityPairingPayload *)self subType];
+  if (subType)
   {
-    NSAppendPrintF_safe();
-    v6 = describeProperties;
+    v9 = describeProperties;
+    NSAppendPrintF_safe(&v9, ", ST: %u", subType);
+    v7 = v9;
 
-    describeProperties = v6;
+    describeProperties = v7;
   }
 
   return describeProperties;

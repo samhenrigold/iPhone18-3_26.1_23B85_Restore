@@ -847,7 +847,7 @@ LABEL_12:
   [array enumerateObjectsUsingBlock:v28];
 }
 
-void __36__AVLayoutView_setArrangedSubviews___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __36__AVLayoutView_setArrangedSubviews___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v9 = a2;
   v5 = [*(a1 + 32) containsObject:?];

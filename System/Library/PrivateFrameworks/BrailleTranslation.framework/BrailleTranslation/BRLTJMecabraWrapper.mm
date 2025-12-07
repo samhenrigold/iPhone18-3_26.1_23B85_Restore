@@ -71,13 +71,10 @@
   stringCopy = string;
   if (self->_mecabra)
   {
-    v9 = stringCopy;
+    v6 = stringCopy;
     objc_storeStrong(&self->_string, string);
-    string = self->_string;
-    mecabra = self->_mecabra;
-    context = self->_context;
     MecabraAnalyzeStringWithContext();
-    stringCopy = v9;
+    stringCopy = v6;
   }
 }
 
@@ -90,20 +87,19 @@
 
   else
   {
-    mecabra = self->_mecabra;
     NextCandidate = MecabraGetNextCandidate();
     if (NextCandidate)
     {
-      v5 = NextCandidate;
-      v6 = MecabraCandidateGetAnalysisString();
+      v4 = NextCandidate;
+      v5 = MecabraCandidateGetAnalysisString();
       currentAnalysis = self->_currentAnalysis;
-      self->_currentAnalysis = v6;
+      self->_currentAnalysis = v5;
 
-      v8 = MecabraCandidateGetSurface();
+      v7 = MecabraCandidateGetSurface();
       currentSurface = self->_currentSurface;
-      self->_currentSurface = v8;
+      self->_currentSurface = v7;
 
-      [(NSMutableDictionary *)self->_candidateRefForSurface setObject:v5 forKeyedSubscript:self->_currentSurface];
+      [(NSMutableDictionary *)self->_candidateRefForSurface setObject:v4 forKeyedSubscript:self->_currentSurface];
       LOBYTE(NextCandidate) = 1;
     }
 
@@ -120,14 +116,13 @@
 {
   if ([(NSMutableDictionary *)self->_candidateRefForSurface objectForKey:candidate])
   {
-    context = self->_context;
     MecabraContextAddInlineCandidate();
   }
 
   mecabra = self->_mecabra;
-  v6 = self->_context;
+  context = self->_context;
 
-  MEMORY[0x2821F8CA8](mecabra, v6);
+  MEMORY[0x2821F8CA8](mecabra, context);
 }
 
 @end

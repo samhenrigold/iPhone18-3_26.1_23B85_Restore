@@ -1,32 +1,3 @@
-void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1}>(trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::__clone(uint64_t a1, uint64_t a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  *a2 = &unk_2A1E14568;
-  *(a2 + 8) = v5;
-  if (v4)
-  {
-    v4 = _Block_copy(v4);
-  }
-
-  v6 = *(a1 + 24);
-  *(a2 + 16) = v4;
-  *(a2 + 24) = v6;
-  if (v6)
-  {
-    dispatch_retain(v6);
-  }
-
-  *(a2 + 32) = *(a1 + 32);
-  v7 = *(a1 + 48);
-  *(a2 + 40) = *(a1 + 40);
-  *(a2 + 48) = v7;
-  if (v7)
-  {
-    atomic_fetch_add_explicit((v7 + 16), 1uLL, memory_order_relaxed);
-  }
-}
-
 void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1}>(trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::destroy(void *a1)
 {
   v2 = a1[6];
@@ -71,17 +42,17 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
   operator delete(__p);
 }
 
-void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1}>(trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::operator()(uint64_t a1, abb::router::Message *this)
+void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1}>(trace::MipcCommandDriver::setLogLevel(trace::LogLevel,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Level_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::operator()(void *a1, abb::router::Message *this)
 {
-  v43 = *MEMORY[0x29EDCA608];
-  v29 = 0xAAAAAAAAAAAAAAAALL;
+  v40 = *MEMORY[0x29EDCA608];
+  v26 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v28[3] = v4;
-  v28[4] = v4;
-  v28[1] = v4;
-  v28[2] = v4;
-  v28[0] = v4;
+  v25[3] = v4;
+  v25[4] = v4;
+  v25[1] = v4;
+  v25[2] = v4;
+  v25[0] = v4;
   if (abb::router::Message::isError(this))
   {
     abb::router::Message::getError(__p, this);
@@ -90,19 +61,19 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *v35 = *__p;
+    *v32 = *__p;
     v6 = mipc::toErrorCode(*__p, v5);
-    std::error_code::message((&buf + 8), v35);
-    v41 = 0;
-    v42 = 0;
+    std::error_code::message((&buf + 8), v32);
+    v38 = 0;
+    v39 = 0;
     *&buf = v6;
-    MEMORY[0x29C266BF0](v28, &buf, 1);
-    v7 = v42;
-    if (v42 && !atomic_fetch_add(v42 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    MEMORY[0x29C266BF0](v25, &buf, 1);
+    v7 = v39;
+    if (v39 && !atomic_fetch_add(v39 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v7->__on_zero_shared)(v7);
       std::__shared_weak_count::__release_weak(v7);
-      if ((SHIBYTE(v40) & 0x80000000) == 0)
+      if ((SHIBYTE(v37) & 0x80000000) == 0)
       {
         goto LABEL_14;
       }
@@ -110,7 +81,7 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
       goto LABEL_6;
     }
 
-    if (SHIBYTE(v40) < 0)
+    if (SHIBYTE(v37) < 0)
     {
 LABEL_6:
       operator delete(*(&buf + 1));
@@ -122,7 +93,7 @@ LABEL_6:
     abb::router::Message::getRawMsg(&buf, this);
     v8 = *buf;
     abb::router::Message::getRawMsg(__p, this);
-    MEMORY[0x29C266C00](v28, v8, *(*__p + 8) - **__p);
+    MEMORY[0x29C266C00](v25, v8, *(*__p + 8) - **__p);
     v9 = *&__p[8];
     if (*&__p[8] && !atomic_fetch_add((*&__p[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -139,62 +110,60 @@ LABEL_6:
   }
 
 LABEL_14:
-  v11 = *(a1 + 48);
+  v11 = a1[6];
   if (!v11)
   {
     goto LABEL_48;
   }
 
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = std::__shared_weak_count::lock(v11);
-  v34 = v13;
+  v31 = v13;
   if (!v13)
   {
     goto LABEL_48;
   }
 
   v14 = v13;
-  if (*(a1 + 40))
+  if (a1[5])
   {
-    v32 = 0;
+    v29 = 0;
     v15 = mipc::operator==();
     v16 = *(v12 + 40);
     if (v15)
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(a1 + 32);
-        v18 = trace::toString();
+        v17 = trace::toString();
         LODWORD(buf) = 136315138;
-        *(&buf + 4) = v18;
+        *(&buf + 4) = v17;
         _os_log_impl(&dword_296E3E000, v16, OS_LOG_TYPE_DEFAULT, "#I Succeeded to set log level to %s", &buf, 0xCu);
       }
 
-      v19 = 0;
+      v18 = 0;
     }
 
     else
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v24 = *(a1 + 32);
-        v25 = trace::toString();
-        mipc::ResponseMessage::getError(v28, &buf);
-        v26 = mipc::asString();
-        mipc::ResponseMessage::getError(v28, __p);
-        v27 = &__p[8];
-        if (v31 < 0)
+        v22 = trace::toString();
+        mipc::ResponseMessage::getError(&buf, v25);
+        v23 = mipc::asString();
+        mipc::ResponseMessage::getError(__p, v25);
+        v24 = &__p[8];
+        if (v28 < 0)
         {
-          v27 = *&__p[8];
+          v24 = *&__p[8];
         }
 
-        *v35 = 136315650;
-        *&v35[4] = v25;
-        *&v35[12] = 2080;
-        *&v35[14] = v26;
-        v36 = 2080;
-        v37 = v27;
-        _os_log_error_impl(&dword_296E3E000, v16, OS_LOG_TYPE_ERROR, "Set log level to %s failed: %s (%s)", v35, 0x20u);
+        *v32 = 136315650;
+        *&v32[4] = v22;
+        *&v32[12] = 2080;
+        *&v32[14] = v23;
+        v33 = 2080;
+        v34 = v24;
+        _os_log_error_impl(&dword_296E3E000, v16, OS_LOG_TYPE_ERROR, "Set log level to %s failed: %s (%s)", v32, 0x20u);
         mipc::Error::~Error(__p);
         mipc::Error::~Error(&buf);
       }
@@ -203,8 +172,8 @@ LABEL_14:
       *&__p[8] = xmmword_296EB9CB0;
       strcpy(*__p, "Failed to set log level");
       CreateError();
-      v19 = buf;
-      v32 = buf;
+      v18 = buf;
+      v29 = buf;
       *&buf = 0;
       if ((__p[23] & 0x80000000) != 0)
       {
@@ -212,29 +181,29 @@ LABEL_14:
       }
     }
 
-    v20 = *(a1 + 16);
-    if (v20 && *(a1 + 24))
+    v19 = a1[2];
+    if (v19 && a1[3])
     {
-      if (v19 && (CFRetain(v19), (v20 = *(a1 + 16)) == 0))
+      if (v18 && (CFRetain(v18), (v19 = a1[2]) == 0))
       {
-        v21 = 0;
+        v20 = 0;
       }
 
       else
       {
-        v21 = _Block_copy(v20);
+        v20 = _Block_copy(v19);
       }
 
-      v22 = *(a1 + 24);
+      v21 = a1[3];
       *&buf = MEMORY[0x29EDCA5F8];
       *(&buf + 1) = 1174405120;
-      v39 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
-      v40 = &__block_descriptor_tmp_65;
-      if (v21)
+      v36 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
+      v37 = &__block_descriptor_tmp_65;
+      if (v20)
       {
-        v41 = _Block_copy(v21);
-        v42 = v19;
-        if (!v19)
+        v38 = _Block_copy(v20);
+        v39 = v18;
+        if (!v18)
         {
           goto LABEL_37;
         }
@@ -242,45 +211,45 @@ LABEL_14:
 
       else
       {
-        v41 = 0;
-        v42 = v19;
-        if (!v19)
+        v38 = 0;
+        v39 = v18;
+        if (!v18)
         {
 LABEL_37:
-          dispatch_async(v22, &buf);
-          if (v42)
+          dispatch_async(v21, &buf);
+          if (v39)
           {
-            CFRelease(v42);
+            CFRelease(v39);
           }
 
-          if (v41)
+          if (v38)
           {
-            _Block_release(v41);
+            _Block_release(v38);
           }
 
-          if (v21)
+          if (v20)
           {
-            _Block_release(v21);
+            _Block_release(v20);
           }
 
-          if (!v19)
+          if (!v18)
           {
             goto LABEL_46;
           }
 
-          CFRelease(v19);
+          CFRelease(v18);
           goto LABEL_45;
         }
       }
 
-      CFRetain(v19);
+      CFRetain(v18);
       goto LABEL_37;
     }
 
-    if (v19)
+    if (v18)
     {
 LABEL_45:
-      CFRelease(v19);
+      CFRelease(v18);
     }
   }
 
@@ -292,8 +261,7 @@ LABEL_46:
   }
 
 LABEL_48:
-  mipc::sys::Set_Md_Log_Level_Cnf::~Set_Md_Log_Level_Cnf(v28);
-  v23 = *MEMORY[0x29EDCA608];
+  mipc::sys::Set_Md_Log_Level_Cnf::~Set_Md_Log_Level_Cnf(v25);
 }
 
 void sub_296EAD218(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, int a32, __int16 a33, char a34, char a35)
@@ -332,26 +300,26 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 
 void dispatch::async<void ctu::SharedSynchronizable<trace::CommandDriver>::execute_wrapped<trace::MipcCommandDriver::flushLog(dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0>(trace::MipcCommandDriver::flushLog(dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<trace::MipcCommandDriver::flushLog(dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0,std::default_delete<trace::MipcCommandDriver::flushLog(dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = *(*a1 + 40);
-  v23 = 0xAAAAAAAAAAAAAAAALL;
+  v21 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22[3] = v4;
-  v22[4] = v4;
-  v22[1] = v4;
-  v22[2] = v4;
-  v22[0] = v4;
+  v20[3] = v4;
+  v20[4] = v4;
+  v20[1] = v4;
+  v20[2] = v4;
+  v20[0] = v4;
   mipc::sys::Trigger_Md_Log_Flush_Req::Trigger_Md_Log_Flush_Req();
-  v34 = 0xAAAAAAAAAAAAAAAALL;
+  v32 = 0xAAAAAAAAAAAAAAAALL;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v33[1] = v5;
-  v33[2] = v5;
-  v33[0] = v5;
-  mipc::sys::Trigger_Md_Log_Flush_Req::serialize(v33, v22);
-  if (v34)
+  v31[1] = v5;
+  v31[2] = v5;
+  v31[0] = v5;
+  mipc::sys::Trigger_Md_Log_Flush_Req::serialize(v31, v20);
+  if (v32)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "Serialization error");
@@ -359,36 +327,35 @@ void dispatch::async<void ctu::SharedSynchronizable<trace::CommandDriver>::execu
     __cxa_throw(exception, off_29EE5C750, MEMORY[0x29EDC9360]);
   }
 
-  v32 = 0xAAAAAAAAAAAAAAAALL;
+  v30 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v30 = v6;
-  v31 = v6;
   v28 = v6;
   v29 = v6;
   v26 = v6;
   v27 = v6;
   v24 = v6;
   v25 = v6;
-  MEMORY[0x29C266720](&v24, v33);
-  abb::router::SendProxy::SendProxy(v35, (v3 + 48), &v24);
-  MEMORY[0x29C266730](&v24);
-  if (v34 != -1)
+  v22 = v6;
+  v23 = v6;
+  MEMORY[0x29C266720](&v22, v31);
+  abb::router::SendProxy::SendProxy(v33, (v3 + 48), &v22);
+  MEMORY[0x29C266730](&v22);
+  if (v32 != -1)
   {
-    *&v24 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    *(&v24 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    (*(&v24 + v34))(&v19, v33);
+    *&v22 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    *(&v22 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    (*(&v22 + v32))(&v17, v31);
   }
 
-  v7 = *(v2 + 16);
   abb::router::SendProxy::timeout();
-  v8 = abb::router::SendProxy::queuePolicy();
-  v19 = v3;
+  v7 = abb::router::SendProxy::queuePolicy();
+  v17 = v3;
   if (*v2)
   {
-    v9 = _Block_copy(*v2);
-    v10 = *(v2 + 8);
-    if (!v10)
+    v8 = _Block_copy(*v2);
+    v9 = *(v2 + 8);
+    if (!v9)
     {
       goto LABEL_7;
     }
@@ -396,63 +363,63 @@ void dispatch::async<void ctu::SharedSynchronizable<trace::CommandDriver>::execu
     goto LABEL_6;
   }
 
-  v9 = 0;
-  v10 = *(v2 + 8);
-  if (v10)
+  v8 = 0;
+  v9 = *(v2 + 8);
+  if (v9)
   {
 LABEL_6:
-    dispatch_retain(v10);
+    dispatch_retain(v9);
   }
 
 LABEL_7:
-  v12 = *(v2 + 24);
-  v11 = *(v2 + 32);
-  if (v11)
+  v11 = *(v2 + 24);
+  v10 = *(v2 + 32);
+  if (v10)
   {
-    atomic_fetch_add_explicit((v11 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v10 + 16), 1uLL, memory_order_relaxed);
   }
 
-  *&v33[0] = v3;
-  v20 = 0u;
-  v21 = 0u;
-  *&v24 = v3;
-  *(&v24 + 1) = v9;
-  *(v33 + 8) = 0u;
-  *&v25 = v10;
-  *(&v25 + 1) = v12;
-  *&v26 = v11;
-  *(&v33[1] + 8) = 0u;
-  v13 = operator new(0x30uLL);
-  *v13 = &unk_2A1E145E8;
-  v13[1] = v3;
-  v13[2] = v9;
-  v13[3] = v10;
-  v13[4] = v12;
-  v13[5] = v11;
-  v37 = v13;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v36, (v8 + 152));
-  if (v37 == v36)
+  *&v31[0] = v3;
+  v18 = 0u;
+  v19 = 0u;
+  *&v22 = v3;
+  *(&v22 + 1) = v8;
+  *(v31 + 8) = 0u;
+  *&v23 = v9;
+  *(&v23 + 1) = v11;
+  *&v24 = v10;
+  *(&v31[1] + 8) = 0u;
+  v12 = operator new(0x30uLL);
+  *v12 = &unk_2A1E145E8;
+  v12[1] = v3;
+  v12[2] = v8;
+  v12[3] = v9;
+  v12[4] = v11;
+  v12[5] = v10;
+  v35 = v12;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v34, (v7 + 152));
+  if (v35 == v34)
   {
-    (*(*v37 + 32))(v37);
+    (*(*v35 + 32))(v35);
   }
 
-  else if (v37)
+  else if (v35)
   {
-    (*(*v37 + 40))(v37);
+    (*(*v35 + 40))(v35);
   }
 
-  MEMORY[0x29C266750](v35);
-  mipc::sys::Trigger_Md_Log_Flush_Req::~Trigger_Md_Log_Flush_Req(v22);
-  v14 = *(v2 + 32);
+  MEMORY[0x29C266750](v33);
+  mipc::sys::Trigger_Md_Log_Flush_Req::~Trigger_Md_Log_Flush_Req(v20);
+  v13 = *(v2 + 32);
+  if (v13)
+  {
+    std::__shared_weak_count::__release_weak(v13);
+  }
+
+  v14 = *(v2 + 8);
   if (v14)
   {
-    std::__shared_weak_count::__release_weak(v14);
-  }
-
-  v15 = *(v2 + 8);
-  if (v15)
-  {
-    dispatch_release(v15);
+    dispatch_release(v14);
   }
 
   if (*v2)
@@ -461,18 +428,17 @@ LABEL_7:
   }
 
   operator delete(v2);
-  v16 = a1[2];
-  if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v15 = a1[2];
+  if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v16->__on_zero_shared)(v16);
-    std::__shared_weak_count::__release_weak(v16);
+    (v15->__on_zero_shared)(v15);
+    std::__shared_weak_count::__release_weak(v15);
   }
 
   operator delete(a1);
-  v17 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296EAD6D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_296EAD6D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   std::variant<std::vector<unsigned char>,mipc::Error>::~variant[abi:ne200100](&a47);
   mipc::sys::Trigger_Md_Log_Flush_Req::~Trigger_Md_Log_Flush_Req(&a17);
@@ -711,15 +677,15 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
 void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<trace::MipcCommandDriver::flushLog(dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0::operator() const(void)::{lambda(mipc::sys::Trigger_Md_Log_Flush_Cnf const&)#1}>(trace::MipcCommandDriver::flushLog(dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0::operator() const(void)::{lambda(mipc::sys::Trigger_Md_Log_Flush_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::operator()(void *a1, abb::router::Message *this)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v24[4] = v4;
-  v24[5] = v4;
-  v24[2] = v4;
-  v24[3] = v4;
-  v24[0] = v4;
-  v24[1] = v4;
+  v23[4] = v4;
+  v23[5] = v4;
+  v23[2] = v4;
+  v23[3] = v4;
+  v23[0] = v4;
+  v23[1] = v4;
   if (abb::router::Message::isError(this))
   {
     abb::router::Message::getError(__p, this);
@@ -728,19 +694,19 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *v35 = *__p;
+    *v34 = *__p;
     v6 = mipc::toErrorCode(*__p, v5);
-    std::error_code::message(&v32, v35);
+    std::error_code::message(&v31, v34);
+    v32 = 0;
     v33 = 0;
-    v34 = 0;
     *buf = v6;
-    MEMORY[0x29C266D30](v24, buf, 1);
-    v7 = v34;
-    if (v34 && !atomic_fetch_add(v34 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    MEMORY[0x29C266D30](v23, buf, 1);
+    v7 = v33;
+    if (v33 && !atomic_fetch_add(v33 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v7->__on_zero_shared)(v7);
       std::__shared_weak_count::__release_weak(v7);
-      if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v31.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_14;
       }
@@ -748,10 +714,10 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
       goto LABEL_6;
     }
 
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
 LABEL_6:
-      operator delete(v32.__r_.__value_.__l.__data_);
+      operator delete(v31.__r_.__value_.__l.__data_);
     }
   }
 
@@ -760,7 +726,7 @@ LABEL_6:
     abb::router::Message::getRawMsg(buf, this);
     v8 = **buf;
     abb::router::Message::getRawMsg(__p, this);
-    MEMORY[0x29C266D40](v24, v8, *(*__p + 8) - **__p);
+    MEMORY[0x29C266D40](v23, v8, *(*__p + 8) - **__p);
     v9 = *&__p[8];
     if (*&__p[8] && !atomic_fetch_add((*&__p[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -768,8 +734,8 @@ LABEL_6:
       std::__shared_weak_count::__release_weak(v9);
     }
 
-    v10 = v32.__r_.__value_.__r.__words[0];
-    if (v32.__r_.__value_.__r.__words[0] && !atomic_fetch_add((v32.__r_.__value_.__r.__words[0] + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v10 = v31.__r_.__value_.__r.__words[0];
+    if (v31.__r_.__value_.__r.__words[0] && !atomic_fetch_add((v31.__r_.__value_.__r.__words[0] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
       (v10->__on_zero_shared)(v10);
       std::__shared_weak_count::__release_weak(v10);
@@ -785,7 +751,7 @@ LABEL_14:
 
   v12 = a1[1];
   v13 = std::__shared_weak_count::lock(v11);
-  v30 = v13;
+  v29 = v13;
   if (!v13)
   {
     goto LABEL_48;
@@ -794,7 +760,7 @@ LABEL_14:
   v14 = v13;
   if (a1[4])
   {
-    v28 = 0;
+    v27 = 0;
     v15 = mipc::operator==();
     v16 = *(v12 + 40);
     if (v15)
@@ -812,31 +778,31 @@ LABEL_14:
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        mipc::ResponseMessage::getError(v24, buf);
-        v22 = mipc::asString();
-        mipc::ResponseMessage::getError(v24, __p);
-        v23 = &__p[8];
-        if (v27 < 0)
+        mipc::ResponseMessage::getError(buf, v23);
+        v21 = mipc::asString();
+        mipc::ResponseMessage::getError(__p, v23);
+        v22 = &__p[8];
+        if (v26 < 0)
         {
-          v23 = *&__p[8];
+          v22 = *&__p[8];
         }
 
-        *v35 = 136315394;
-        *&v35[4] = v22;
-        *&v35[12] = 2080;
-        *&v35[14] = v23;
-        _os_log_error_impl(&dword_296E3E000, v16, OS_LOG_TYPE_ERROR, "Triggered flush log failed: %s (%s)", v35, 0x16u);
+        *v34 = 136315394;
+        *&v34[4] = v21;
+        *&v34[12] = 2080;
+        *&v34[14] = v22;
+        _os_log_error_impl(&dword_296E3E000, v16, OS_LOG_TYPE_ERROR, "Triggered flush log failed: %s (%s)", v34, 0x16u);
         mipc::Error::~Error(__p);
         mipc::Error::~Error(buf);
       }
 
-      v26 = 19;
+      v25 = 19;
       strcpy(__p, "Failed to flush log");
       CreateError();
       v17 = *buf;
-      v28 = *buf;
+      v27 = *buf;
       *buf = 0;
-      if (v26 < 0)
+      if (v25 < 0)
       {
         operator delete(*__p);
       }
@@ -857,13 +823,13 @@ LABEL_14:
 
       v20 = a1[3];
       *buf = MEMORY[0x29EDCA5F8];
-      v32.__r_.__value_.__r.__words[0] = 1174405120;
-      v32.__r_.__value_.__l.__size_ = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
-      v32.__r_.__value_.__r.__words[2] = &__block_descriptor_tmp_65;
+      v31.__r_.__value_.__r.__words[0] = 1174405120;
+      v31.__r_.__value_.__l.__size_ = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
+      v31.__r_.__value_.__r.__words[2] = &__block_descriptor_tmp_65;
       if (v19)
       {
-        v33 = _Block_copy(v19);
-        v34 = v17;
+        v32 = _Block_copy(v19);
+        v33 = v17;
         if (!v17)
         {
           goto LABEL_37;
@@ -872,20 +838,20 @@ LABEL_14:
 
       else
       {
-        v33 = 0;
-        v34 = v17;
+        v32 = 0;
+        v33 = v17;
         if (!v17)
         {
 LABEL_37:
           dispatch_async(v20, buf);
-          if (v34)
-          {
-            CFRelease(v34);
-          }
-
           if (v33)
           {
-            _Block_release(v33);
+            CFRelease(v33);
+          }
+
+          if (v32)
+          {
+            _Block_release(v32);
           }
 
           if (v19)
@@ -922,8 +888,7 @@ LABEL_46:
   }
 
 LABEL_48:
-  mipc::sys::Trigger_Md_Log_Flush_Cnf::~Trigger_Md_Log_Flush_Cnf(v24);
-  v21 = *MEMORY[0x29EDCA608];
+  mipc::sys::Trigger_Md_Log_Flush_Cnf::~Trigger_Md_Log_Flush_Cnf(v23);
 }
 
 void sub_296EADFC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
@@ -1136,15 +1101,15 @@ void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17M
 
 void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17MipcCommandDriver18sendCustomizedMaskENS_6vectorIhNS_9allocatorIhEEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb_E3__5EEOS4_OT_EUlRKNS3_7MessageEE_NS9_IST_EEFvSS_EEclESS_(void *a1, abb::router::Message *this)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v24[4] = v4;
-  v24[5] = v4;
-  v24[2] = v4;
-  v24[3] = v4;
-  v24[0] = v4;
-  v24[1] = v4;
+  v23[4] = v4;
+  v23[5] = v4;
+  v23[2] = v4;
+  v23[3] = v4;
+  v23[0] = v4;
+  v23[1] = v4;
   if (abb::router::Message::isError(this))
   {
     abb::router::Message::getError(__p, this);
@@ -1153,19 +1118,19 @@ void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17M
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *v35 = *__p;
+    *v34 = *__p;
     v6 = mipc::toErrorCode(*__p, v5);
-    std::error_code::message(&v32, v35);
+    std::error_code::message(&v31, v34);
+    v32 = 0;
     v33 = 0;
-    v34 = 0;
     *buf = v6;
-    MEMORY[0x29C266CE0](v24, buf, 1);
-    v7 = v34;
-    if (v34 && !atomic_fetch_add(v34 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    MEMORY[0x29C266CE0](v23, buf, 1);
+    v7 = v33;
+    if (v33 && !atomic_fetch_add(v33 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v7->__on_zero_shared)(v7);
       std::__shared_weak_count::__release_weak(v7);
-      if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v31.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_14;
       }
@@ -1173,10 +1138,10 @@ void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17M
       goto LABEL_6;
     }
 
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
 LABEL_6:
-      operator delete(v32.__r_.__value_.__l.__data_);
+      operator delete(v31.__r_.__value_.__l.__data_);
     }
   }
 
@@ -1185,7 +1150,7 @@ LABEL_6:
     abb::router::Message::getRawMsg(buf, this);
     v8 = **buf;
     abb::router::Message::getRawMsg(__p, this);
-    MEMORY[0x29C266CF0](v24, v8, *(*__p + 8) - **__p);
+    MEMORY[0x29C266CF0](v23, v8, *(*__p + 8) - **__p);
     v9 = *&__p[8];
     if (*&__p[8] && !atomic_fetch_add((*&__p[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -1193,8 +1158,8 @@ LABEL_6:
       std::__shared_weak_count::__release_weak(v9);
     }
 
-    v10 = v32.__r_.__value_.__r.__words[0];
-    if (v32.__r_.__value_.__r.__words[0] && !atomic_fetch_add((v32.__r_.__value_.__r.__words[0] + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v10 = v31.__r_.__value_.__r.__words[0];
+    if (v31.__r_.__value_.__r.__words[0] && !atomic_fetch_add((v31.__r_.__value_.__r.__words[0] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
       (v10->__on_zero_shared)(v10);
       std::__shared_weak_count::__release_weak(v10);
@@ -1210,7 +1175,7 @@ LABEL_14:
 
   v12 = a1[1];
   v13 = std::__shared_weak_count::lock(v11);
-  v30 = v13;
+  v29 = v13;
   if (!v13)
   {
     goto LABEL_48;
@@ -1219,7 +1184,7 @@ LABEL_14:
   v14 = v13;
   if (a1[4])
   {
-    v28 = 0;
+    v27 = 0;
     v15 = mipc::operator==();
     v16 = *(v12 + 40);
     if (v15)
@@ -1237,31 +1202,31 @@ LABEL_14:
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        mipc::ResponseMessage::getError(v24, buf);
-        v22 = mipc::asString();
-        mipc::ResponseMessage::getError(v24, __p);
-        v23 = &__p[8];
-        if (v27 < 0)
+        mipc::ResponseMessage::getError(buf, v23);
+        v21 = mipc::asString();
+        mipc::ResponseMessage::getError(__p, v23);
+        v22 = &__p[8];
+        if (v26 < 0)
         {
-          v23 = *&__p[8];
+          v22 = *&__p[8];
         }
 
-        *v35 = 136315394;
-        *&v35[4] = v22;
-        *&v35[12] = 2080;
-        *&v35[14] = v23;
-        _os_log_error_impl(&dword_296E3E000, v16, OS_LOG_TYPE_ERROR, "Applied filter failed: %s (%s)", v35, 0x16u);
+        *v34 = 136315394;
+        *&v34[4] = v21;
+        *&v34[12] = 2080;
+        *&v34[14] = v22;
+        _os_log_error_impl(&dword_296E3E000, v16, OS_LOG_TYPE_ERROR, "Applied filter failed: %s (%s)", v34, 0x16u);
         mipc::Error::~Error(__p);
         mipc::Error::~Error(buf);
       }
 
-      v26 = 19;
+      v25 = 19;
       strcpy(__p, "Apply Filter failed");
       CreateError();
       v17 = *buf;
-      v28 = *buf;
+      v27 = *buf;
       *buf = 0;
-      if (v26 < 0)
+      if (v25 < 0)
       {
         operator delete(*__p);
       }
@@ -1282,13 +1247,13 @@ LABEL_14:
 
       v20 = a1[3];
       *buf = MEMORY[0x29EDCA5F8];
-      v32.__r_.__value_.__r.__words[0] = 1174405120;
-      v32.__r_.__value_.__l.__size_ = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
-      v32.__r_.__value_.__r.__words[2] = &__block_descriptor_tmp_65;
+      v31.__r_.__value_.__r.__words[0] = 1174405120;
+      v31.__r_.__value_.__l.__size_ = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
+      v31.__r_.__value_.__r.__words[2] = &__block_descriptor_tmp_65;
       if (v19)
       {
-        v33 = _Block_copy(v19);
-        v34 = v17;
+        v32 = _Block_copy(v19);
+        v33 = v17;
         if (!v17)
         {
           goto LABEL_37;
@@ -1297,20 +1262,20 @@ LABEL_14:
 
       else
       {
-        v33 = 0;
-        v34 = v17;
+        v32 = 0;
+        v33 = v17;
         if (!v17)
         {
 LABEL_37:
           dispatch_async(v20, buf);
-          if (v34)
-          {
-            CFRelease(v34);
-          }
-
           if (v33)
           {
-            _Block_release(v33);
+            CFRelease(v33);
+          }
+
+          if (v32)
+          {
+            _Block_release(v32);
           }
 
           if (v19)
@@ -1347,8 +1312,7 @@ LABEL_46:
   }
 
 LABEL_48:
-  mipc::sys::Set_Md_Log_Filter_Cnf::~Set_Md_Log_Filter_Cnf(v24);
-  v21 = *MEMORY[0x29EDCA608];
+  mipc::sys::Set_Md_Log_Filter_Cnf::~Set_Md_Log_Filter_Cnf(v23);
 }
 
 void sub_296EAE8A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
@@ -1561,15 +1525,15 @@ void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17M
 
 void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17MipcCommandDriver10getLogModeEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEENS6_7LogModeEEEEEUb0_E3__6EEOS4_OT_EUlRKNS3_7MessageEE_NS_9allocatorISQ_EEFvSP_EEclESP_(void *a1, abb::router::Message *this)
 {
-  v61 = *MEMORY[0x29EDCA608];
+  v60 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v46[4] = v4;
-  v47 = v4;
-  v46[2] = v4;
-  v46[3] = v4;
-  v46[0] = v4;
-  v46[1] = v4;
+  v45[4] = v4;
+  v46 = v4;
+  v45[2] = v4;
+  v45[3] = v4;
+  v45[0] = v4;
+  v45[1] = v4;
   if (abb::router::Message::isError(this))
   {
     abb::router::Message::getError(__p, this);
@@ -1578,19 +1542,19 @@ void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17M
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *v54 = *__p;
+    *v53 = *__p;
     v6 = mipc::toErrorCode(*__p, v5);
-    std::error_code::message((&buf + 8), v54);
+    std::error_code::message((&buf + 8), v53);
+    v57 = 0;
     v58 = 0;
-    v59 = 0;
     *&buf = v6;
-    MEMORY[0x29C266B50](v46, &buf, 1);
-    v7 = v59;
-    if (v59 && !atomic_fetch_add(v59 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    MEMORY[0x29C266B50](v45, &buf, 1);
+    v7 = v58;
+    if (v58 && !atomic_fetch_add(v58 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v7->__on_zero_shared)(v7);
       std::__shared_weak_count::__release_weak(v7);
-      if ((SHIBYTE(v57) & 0x80000000) == 0)
+      if ((SHIBYTE(v56) & 0x80000000) == 0)
       {
         goto LABEL_14;
       }
@@ -1598,7 +1562,7 @@ void _ZNSt3__110__function6__funcIZNO3abb6router9SendProxy8callbackIZZN5trace17M
       goto LABEL_6;
     }
 
-    if (SHIBYTE(v57) < 0)
+    if (SHIBYTE(v56) < 0)
     {
 LABEL_6:
       operator delete(*(&buf + 1));
@@ -1610,7 +1574,7 @@ LABEL_6:
     abb::router::Message::getRawMsg(&buf, this);
     v8 = *buf;
     abb::router::Message::getRawMsg(__p, this);
-    MEMORY[0x29C266B60](v46, v8, *(*__p + 8) - **__p);
+    MEMORY[0x29C266B60](v45, v8, *(*__p + 8) - **__p);
     v9 = *&__p[8];
     if (*&__p[8] && !atomic_fetch_add((*&__p[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -1635,7 +1599,7 @@ LABEL_14:
 
   v12 = a1[1];
   v13 = std::__shared_weak_count::lock(v11);
-  v53 = v13;
+  v52 = v13;
   if (!v13)
   {
     goto LABEL_110;
@@ -1654,37 +1618,37 @@ LABEL_14:
     _os_log_impl(&dword_296E3E000, v15, OS_LOG_TYPE_DEFAULT, "#I Received get log mode confirmation", &buf, 2u);
   }
 
-  v51 = 0;
+  v50 = 0;
   if ((mipc::operator==() & 1) == 0)
   {
     v20 = *(v12 + 40);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      mipc::ResponseMessage::getError(v46, &buf);
+      mipc::ResponseMessage::getError(&buf, v45);
       v36 = mipc::asString();
-      mipc::ResponseMessage::getError(v46, __p);
+      mipc::ResponseMessage::getError(__p, v45);
       v37 = &__p[8];
-      if (v50 < 0)
+      if (v49 < 0)
       {
         v37 = *&__p[8];
       }
 
-      *v54 = 136315394;
-      *&v54[4] = v36;
-      *&v54[12] = 2080;
-      *&v54[14] = v37;
-      _os_log_error_impl(&dword_296E3E000, v20, OS_LOG_TYPE_ERROR, "get log mode failed: %s (%s)", v54, 0x16u);
+      *v53 = 136315394;
+      *&v53[4] = v36;
+      *&v53[12] = 2080;
+      *&v53[14] = v37;
+      _os_log_error_impl(&dword_296E3E000, v20, OS_LOG_TYPE_ERROR, "get log mode failed: %s (%s)", v53, 0x16u);
       mipc::Error::~Error(__p);
       mipc::Error::~Error(&buf);
     }
 
-    v49 = 19;
+    v48 = 19;
     strcpy(__p, "get log mode failed");
     CreateError();
     v21 = buf;
-    v51 = buf;
+    v50 = buf;
     *&buf = 0;
-    if (v49 < 0)
+    if (v48 < 0)
     {
       operator delete(*__p);
     }
@@ -1699,7 +1663,7 @@ LABEL_14:
     goto LABEL_88;
   }
 
-  v16 = **(&v47 + 1);
+  v16 = **(&v46 + 1);
   v17 = *(&xmmword_2A18B7E38 + 1);
   if (*(&xmmword_2A18B7E38 + 1))
   {
@@ -1707,7 +1671,7 @@ LABEL_14:
     v18.i16[0] = vaddlv_u8(v18);
     if (v18.u32[0] > 1uLL)
     {
-      v19 = **(&v47 + 1);
+      v19 = **(&v46 + 1);
       if (*(&xmmword_2A18B7E38 + 1) <= v16)
       {
         v19 = v16 % DWORD2(xmmword_2A18B7E38);
@@ -1948,12 +1912,12 @@ LABEL_84:
       v44 = a1[3];
       *&buf = MEMORY[0x29EDCA5F8];
       *(&buf + 1) = 1174405120;
-      v56 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEN5trace7LogModeEEEclIJS5_S7_EEEvDpT__block_invoke;
-      v57 = &__block_descriptor_tmp_70;
+      v55 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEN5trace7LogModeEEEclIJS5_S7_EEEvDpT__block_invoke;
+      v56 = &__block_descriptor_tmp_70;
       if (v42)
       {
-        v58 = _Block_copy(v42);
-        v59 = v21;
+        v57 = _Block_copy(v42);
+        v58 = v21;
         if (!v21)
         {
           goto LABEL_99;
@@ -1962,21 +1926,21 @@ LABEL_84:
 
       else
       {
-        v58 = 0;
-        v59 = v21;
+        v57 = 0;
+        v58 = v21;
         if (!v21)
         {
 LABEL_99:
-          v60 = v22;
+          v59 = v22;
           dispatch_async(v44, &buf);
-          if (v59)
-          {
-            CFRelease(v59);
-          }
-
           if (v58)
           {
-            _Block_release(v58);
+            CFRelease(v58);
+          }
+
+          if (v57)
+          {
+            _Block_release(v57);
           }
 
           if (v42)
@@ -2014,8 +1978,7 @@ LABEL_108:
   }
 
 LABEL_110:
-  mipc::sys::Get_Md_Log_Mode_Cnf::~Get_Md_Log_Mode_Cnf(v46);
-  v45 = *MEMORY[0x29EDCA608];
+  mipc::sys::Get_Md_Log_Mode_Cnf::~Get_Md_Log_Mode_Cnf(v45);
 }
 
 void sub_296EAF4B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, const void *a31, __int16 a32, char a33, char a34)
@@ -2027,11 +1990,11 @@ void sub_296EAF4B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_296EAF568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_296EAF568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v13 - 160);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v20 - 160);
   _Unwind_Resume(a1);
 }
 
@@ -2076,9 +2039,9 @@ void ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFError
   }
 }
 
-void sub_296EAF680(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296EAF680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFError>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -2128,9 +2091,9 @@ void __destroy_helper_block_e8_32c92_ZTSN8dispatch5blockIU13block_pointerFvN3ctu
 
 void dispatch::async<void ctu::SharedSynchronizable<trace::CommandDriver>::execute_wrapped<trace::MipcCommandDriver::setFlushTimer(unsigned int,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0>(trace::MipcCommandDriver::setFlushTimer(unsigned int,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<trace::MipcCommandDriver::setFlushTimer(unsigned int,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0,dispatch_queue_s *::default_delete<trace::MipcCommandDriver::setFlushTimer(unsigned int,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v53 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v31 = *a1;
+  v30 = *a1;
   v2 = *(*a1 + 8);
   if (!v2)
   {
@@ -2153,8 +2116,8 @@ void dispatch::async<void ctu::SharedSynchronizable<trace::CommandDriver>::execu
     }
 
 LABEL_21:
-    v22 = v31;
-    if (!v31)
+    v22 = v30;
+    if (!v30)
     {
       goto LABEL_29;
     }
@@ -2173,12 +2136,12 @@ LABEL_21:
 LABEL_5:
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v36[4] = v6;
+  v35[4] = v6;
   *__p = v6;
-  v36[2] = v6;
-  v36[3] = v6;
-  v36[0] = v6;
-  v36[1] = v6;
+  v35[2] = v6;
+  v35[3] = v6;
+  v35[0] = v6;
+  v35[1] = v6;
   mipc::sys::Set_Md_Log_Flush_Interval_Req::Set_Md_Log_Flush_Interval_Req();
   v7 = operator new(4uLL);
   *v7 = *(v1 + 8);
@@ -2194,18 +2157,18 @@ LABEL_5:
   {
     v10 = *(v1 + 8);
     *buf = 67109120;
-    v50 = v10;
+    v49 = v10;
     _os_log_impl(&dword_296E3E000, v9, OS_LOG_TYPE_DEFAULT, "#I Sending mipc message to set timer %x", buf, 8u);
   }
 
-  v48 = 0xAAAAAAAAAAAAAAAALL;
+  v47 = 0xAAAAAAAAAAAAAAAALL;
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v47[16] = v11;
-  *&v47[32] = v11;
-  *v47 = v11;
-  mipc::sys::Set_Md_Log_Flush_Interval_Req::serialize(v47, v36);
-  if (v48)
+  *&v46[16] = v11;
+  *&v46[32] = v11;
+  *v46 = v11;
+  mipc::sys::Set_Md_Log_Flush_Interval_Req::serialize(v46, v35);
+  if (v47)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "Serialization error");
@@ -2213,29 +2176,29 @@ LABEL_5:
     __cxa_throw(exception, off_29EE5C750, MEMORY[0x29EDC9360]);
   }
 
-  v46 = 0xAAAAAAAAAAAAAAAALL;
+  v45 = 0xAAAAAAAAAAAAAAAALL;
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v44 = v12;
-  v45 = v12;
-  v42 = v12;
   v43 = v12;
-  v40 = v12;
+  v44 = v12;
   v41 = v12;
-  v38 = v12;
+  v42 = v12;
   v39 = v12;
-  MEMORY[0x29C266720](&v38, v47);
-  abb::router::SendProxy::SendProxy(buf, (v3 + 48), &v38);
-  MEMORY[0x29C266730](&v38);
-  if (v48 != -1)
+  v40 = v12;
+  v37 = v12;
+  v38 = v12;
+  MEMORY[0x29C266720](&v37, v46);
+  abb::router::SendProxy::SendProxy(buf, (v3 + 48), &v37);
+  MEMORY[0x29C266730](&v37);
+  if (v47 != -1)
   {
-    *&v38 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    *(&v38 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    (*(&v38 + v48))(&v32, v47);
+    *&v37 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    *(&v37 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    (*(&v37 + v47))(&v31, v46);
   }
 
   v13 = abb::router::SendProxy::queuePolicy();
-  v32 = v3;
+  v31 = v3;
   v14 = v1[2];
   if (v14)
   {
@@ -2266,18 +2229,18 @@ LABEL_15:
   }
 
   v19 = *(v1 + 8);
-  v35 = v19;
-  *v47 = v3;
+  v34 = v19;
+  *v46 = v3;
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  *&v47[40] = v19;
-  *&v38 = v3;
-  *(&v38 + 1) = v15;
-  memset(&v47[8], 0, 32);
-  *&v39 = v16;
-  *(&v39 + 1) = v18;
-  *&v40 = v17;
-  DWORD2(v40) = v19;
+  *&v46[40] = v19;
+  *&v37 = v3;
+  *(&v37 + 1) = v15;
+  memset(&v46[8], 0, 32);
+  *&v38 = v16;
+  *(&v38 + 1) = v18;
+  *&v39 = v17;
+  DWORD2(v39) = v19;
   v20 = operator new(0x38uLL);
   *v20 = &unk_2A1E14798;
   v20[1] = v3;
@@ -2286,22 +2249,22 @@ LABEL_15:
   v20[4] = v18;
   v20[5] = v17;
   *(v20 + 12) = v19;
-  v52 = v20;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v51, (v13 + 152));
-  if (v52 == v51)
+  v51 = v20;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v50, (v13 + 152));
+  if (v51 == v50)
   {
-    (*(*v52 + 32))(v52);
+    (*(*v51 + 32))(v51);
   }
 
-  else if (v52)
+  else if (v51)
   {
-    (*(*v52 + 40))(v52);
+    (*(*v51 + 40))(v51);
   }
 
   MEMORY[0x29C266750](buf);
-  mipc::sys::Set_Md_Log_Flush_Interval_Req::~Set_Md_Log_Flush_Interval_Req(v36);
-  v22 = v31;
-  if (v31)
+  mipc::sys::Set_Md_Log_Flush_Interval_Req::~Set_Md_Log_Flush_Interval_Req(v35);
+  v22 = v30;
+  if (v30)
   {
 LABEL_22:
     v23 = v22[3];
@@ -2330,20 +2293,21 @@ LABEL_29:
   if (a1)
   {
     v27 = a1[2];
-    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v27)
     {
-      (v27->__on_zero_shared)(v27);
-      std::__shared_weak_count::__release_weak(v27);
-      v26 = a1;
+      if (!atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v27->__on_zero_shared)(v27);
+        std::__shared_weak_count::__release_weak(v27);
+        v26 = a1;
+      }
     }
 
     operator delete(v26);
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296EAFB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_296EAFB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   std::variant<std::vector<unsigned char>,mipc::Error>::~variant[abi:ne200100](&a47);
   mipc::sys::Set_Md_Log_Flush_Interval_Req::~Set_Md_Log_Flush_Interval_Req(&a17);
@@ -2584,15 +2548,15 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
 void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<trace::MipcCommandDriver::setFlushTimer(unsigned int,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Flush_Interval_Cnf &)#1}>(trace::MipcCommandDriver::setFlushTimer(unsigned int,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0::operator() const(void)::{lambda(mipc::sys::Set_Md_Log_Flush_Interval_Cnf &)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::operator()(uint64_t a1, abb::router::Message *this)
 {
-  v45 = *MEMORY[0x29EDCA608];
-  v37 = 0xAAAAAAAAAAAAAAAALL;
+  v44 = *MEMORY[0x29EDCA608];
+  v36 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v35 = v4;
-  v36 = v4;
-  v33 = v4;
   v34 = v4;
+  v35 = v4;
   v32 = v4;
+  v33 = v4;
+  v31 = v4;
   if (abb::router::Message::isError(this))
   {
     abb::router::Message::getError(__p, this);
@@ -2601,19 +2565,19 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v38 = *__p;
+    v37 = *__p;
     v6 = mipc::toErrorCode(*__p, v5);
-    std::error_code::message(&v42, &v38);
+    std::error_code::message(&v41, &v37);
+    v42 = 0;
     v43 = 0;
-    v44 = 0;
     *buf = v6;
-    MEMORY[0x29C266D80](&v32, buf, 1);
-    v7 = v44;
-    if (v44 && !atomic_fetch_add(v44 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    MEMORY[0x29C266D80](&v31, buf, 1);
+    v7 = v43;
+    if (v43 && !atomic_fetch_add(v43 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v7->__on_zero_shared)(v7);
       std::__shared_weak_count::__release_weak(v7);
-      if ((SHIBYTE(v42.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_14;
       }
@@ -2621,10 +2585,10 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
       goto LABEL_6;
     }
 
-    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
     {
 LABEL_6:
-      operator delete(v42.__r_.__value_.__l.__data_);
+      operator delete(v41.__r_.__value_.__l.__data_);
     }
   }
 
@@ -2633,7 +2597,7 @@ LABEL_6:
     abb::router::Message::getRawMsg(buf, this);
     v8 = **buf;
     abb::router::Message::getRawMsg(__p, this);
-    MEMORY[0x29C266D90](&v32, v8, *(*__p + 8) - **__p);
+    MEMORY[0x29C266D90](&v31, v8, *(*__p + 8) - **__p);
     v9 = *&__p[8];
     if (*&__p[8] && !atomic_fetch_add((*&__p[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -2641,8 +2605,8 @@ LABEL_6:
       std::__shared_weak_count::__release_weak(v9);
     }
 
-    v10 = v42.__r_.__value_.__r.__words[0];
-    if (v42.__r_.__value_.__r.__words[0] && !atomic_fetch_add((v42.__r_.__value_.__r.__words[0] + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v10 = v41.__r_.__value_.__r.__words[0];
+    if (v41.__r_.__value_.__r.__words[0] && !atomic_fetch_add((v41.__r_.__value_.__r.__words[0] + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
       (v10->__on_zero_shared)(v10);
       std::__shared_weak_count::__release_weak(v10);
@@ -2675,7 +2639,7 @@ LABEL_14:
   else
   {
     v22 = v13;
-    (v13->__on_zero_shared)(v13, v14, v15, v16, v17, v18, v19, v20, v32, *(&v32 + 1), v33);
+    (v13->__on_zero_shared)(v13, v14, v15, v16, v17, v18, v19, v20, v31, *(&v31 + 1), v32);
     std::__shared_weak_count::__release_weak(v22);
     if (!v21)
     {
@@ -2683,7 +2647,7 @@ LABEL_14:
     }
   }
 
-  *&v38.__val_ = 0;
+  *&v37.__val_ = 0;
   v23 = mipc::operator==();
   v24 = *(v12 + 40);
   if (v23)
@@ -2703,19 +2667,19 @@ LABEL_14:
   {
     if (os_log_type_enabled(*(v12 + 40), OS_LOG_TYPE_ERROR))
     {
-      v31 = *(a1 + 48);
+      v30 = *(a1 + 48);
       *buf = 67109120;
-      *&buf[4] = v31;
+      *&buf[4] = v30;
       _os_log_error_impl(&dword_296E3E000, v24, OS_LOG_TYPE_ERROR, "Failed to set timer to %x", buf, 8u);
     }
 
     strcpy(__p, "set flush timer failed");
-    v40 = 22;
+    v39 = 22;
     CreateError();
     v26 = *buf;
-    *&v38.__val_ = *buf;
+    *&v37.__val_ = *buf;
     *buf = 0;
-    if (v40 < 0)
+    if (v39 < 0)
     {
       operator delete(*__p);
     }
@@ -2744,13 +2708,13 @@ LABEL_14:
 
   v29 = *(a1 + 24);
   *buf = MEMORY[0x29EDCA5F8];
-  v42.__r_.__value_.__r.__words[0] = 1174405120;
-  v42.__r_.__value_.__l.__size_ = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
-  v42.__r_.__value_.__r.__words[2] = &__block_descriptor_tmp_65;
+  v41.__r_.__value_.__r.__words[0] = 1174405120;
+  v41.__r_.__value_.__l.__size_ = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
+  v41.__r_.__value_.__r.__words[2] = &__block_descriptor_tmp_65;
   if (!v28)
   {
-    v43 = 0;
-    v44 = v26;
+    v42 = 0;
+    v43 = v26;
     if (!v26)
     {
       goto LABEL_41;
@@ -2759,8 +2723,8 @@ LABEL_14:
     goto LABEL_40;
   }
 
-  v43 = _Block_copy(v28);
-  v44 = v26;
+  v42 = _Block_copy(v28);
+  v43 = v26;
   if (v26)
   {
 LABEL_40:
@@ -2769,14 +2733,14 @@ LABEL_40:
 
 LABEL_41:
   dispatch_async(v29, buf);
-  if (v44)
-  {
-    CFRelease(v44);
-  }
-
   if (v43)
   {
-    _Block_release(v43);
+    CFRelease(v43);
+  }
+
+  if (v42)
+  {
+    _Block_release(v42);
   }
 
   if (v28)
@@ -2792,8 +2756,7 @@ LABEL_49:
   }
 
 LABEL_50:
-  mipc::sys::Set_Md_Log_Flush_Interval_Cnf::~Set_Md_Log_Flush_Interval_Cnf(&v32);
-  v30 = *MEMORY[0x29EDCA608];
+  mipc::sys::Set_Md_Log_Flush_Interval_Cnf::~Set_Md_Log_Flush_Interval_Cnf(&v31);
 }
 
 void sub_296EB0430(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -2832,53 +2795,51 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 
 uint64_t *_GLOBAL__sub_I_MipcTraceCommandDriver_cpp()
 {
-  v4[1] = *MEMORY[0x29EDCA608];
-  v2 = xmmword_296EBEFD0;
-  *&v3 = 0x200000002;
+  v3[1] = *MEMORY[0x29EDCA608];
+  v1 = xmmword_296EBEFD0;
+  *&v2 = 0x200000002;
   _MergedGlobals_5 = 0u;
   *&qword_2A18B7E20 = 0u;
   dword_2A18B7E30 = 1065353216;
+  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&_MergedGlobals_5, &v1, &v1);
+  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&_MergedGlobals_5, &v1 + 2, &v1 + 1);
   std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&_MergedGlobals_5, &v2, &v2);
-  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&_MergedGlobals_5, &v2 + 2, &v2 + 1);
-  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&_MergedGlobals_5, &v3, &v3);
-  v2 = xmmword_296EBEFE8;
-  *&v3 = 0x200000002;
+  v1 = xmmword_296EBEFE8;
+  *&v2 = 0x200000002;
   xmmword_2A18B7E38 = 0u;
   *&qword_2A18B7E48 = 0u;
   dword_2A18B7E58 = 1065353216;
+  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7E38, &v1, &v1);
+  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7E38, &v1 + 2, &v1 + 1);
   std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7E38, &v2, &v2);
-  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7E38, &v2 + 2, &v2 + 1);
-  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7E38, &v3, &v3);
-  v2 = xmmword_296EBF000;
-  v3 = unk_296EBF010;
-  v4[0] = 0x400000004;
+  v1 = xmmword_296EBF000;
+  v2 = unk_296EBF010;
+  v3[0] = 0x400000004;
   xmmword_2A18B7E60 = 0u;
   *&qword_2A18B7E70 = 0u;
   dword_2A18B7E80 = 1065353216;
+  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, &v1, &v1);
+  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, &v1 + 2, &v1 + 1);
   std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, &v2, &v2);
   std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, &v2 + 2, &v2 + 1);
-  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, &v3, &v3);
-  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, &v3 + 2, &v3 + 1);
-  result = std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, v4, v4);
-  v1 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7E60, v3, v3);
 }
 
-double MipcCommandDriverFactory::create_default_global@<D0>(void *a1@<X8>)
+double MipcCommandDriverFactory::create_default_global@<D0>(CommandDriverFactory **a1@<X8>)
 {
-  v3 = operator new(0xA8uLL);
-  v3[1] = 0;
-  v3[2] = 0;
-  *v3 = &unk_2A1E148E8;
-  CommandDriverFactory::CommandDriverFactory((v3 + 3));
-  v3[3] = &unk_2A1E14818;
+  v2 = operator new(0xA8uLL);
+  v2[1] = 0;
+  v2[2] = 0;
+  *v2 = &unk_2A1E148E8;
+  CommandDriverFactory::CommandDriverFactory((v2 + 3));
+  v2[3] = &unk_2A1E14818;
   result = 0.0;
-  *(v3 + 7) = 0u;
-  *(v3 + 8) = 0u;
-  *(v3 + 9) = 0u;
-  v3[20] = 0;
-  *a1 = v5;
-  a1[1] = v3;
+  *(v2 + 7) = 0u;
+  *(v2 + 8) = 0u;
+  *(v2 + 9) = 0u;
+  v2[20] = 0;
+  *a1 = v4;
+  a1[1] = v2;
   return result;
 }
 
@@ -2936,13 +2897,13 @@ void MipcCommandDriverFactory::createRadioCommandDriver(MipcCommandDriverFactory
   }
 }
 
-void sub_296EB097C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296EB097C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    dispatch_release(v2);
+    dispatch_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -3064,11 +3025,11 @@ void MipcCommandDriverFactory::weakRFSCommandDriver(MipcCommandDriverFactory *th
   }
 }
 
-void sub_296EB0CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296EB0CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  std::mutex::unlock((v3 + 24));
+  std::mutex::unlock((v5 + 24));
   _Unwind_Resume(a1);
 }
 
@@ -3105,13 +3066,13 @@ void MipcCommandDriverFactory::createAntennaCommandDriver(uint64_t a1@<X0>, NSOb
   }
 }
 
-void sub_296EB0DC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296EB0DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    dispatch_release(v2);
+    dispatch_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -3199,13 +3160,13 @@ void MipcCommandDriverFactory::createTraceCommandDriver(MipcCommandDriverFactory
   v3[1] = v2;
   if (v2)
   {
-    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v2 + 1, 1uLL, memory_order_relaxed);
   }
 
   trace::MipcCommandDriver::create(v3, a2);
-  if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v2 && !atomic_fetch_add(v2 + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v2->__on_zero_shared)(v2);
+    (*(*v2 + 16))(v2);
 
     std::__shared_weak_count::__release_weak(v2);
   }
@@ -3300,36 +3261,34 @@ void std::__shared_ptr_emplace<MipcCommandDriverFactory>::__on_zero_shared(uint6
 
 uint64_t *_GLOBAL__sub_I_MipcCommandDriverFactory_cpp()
 {
-  v4[1] = *MEMORY[0x29EDCA608];
-  v2 = xmmword_296EC0260;
-  *&v3 = 0x200000002;
+  v3[1] = *MEMORY[0x29EDCA608];
+  v1 = xmmword_296EC0260;
+  *&v2 = 0x200000002;
   xmmword_2A18B7E90 = 0u;
   unk_2A18B7EA0 = 0u;
   dword_2A18B7EB0 = 1065353216;
+  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&xmmword_2A18B7E90, &v1, &v1);
+  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&xmmword_2A18B7E90, &v1 + 2, &v1 + 1);
   std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&xmmword_2A18B7E90, &v2, &v2);
-  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&xmmword_2A18B7E90, &v2 + 2, &v2 + 1);
-  std::__hash_table<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::__unordered_map_hasher<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::hash<trace::LogMode>,std::equal_to<trace::LogMode>,true>,std::__unordered_map_equal<trace::LogMode,std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>,std::equal_to<trace::LogMode>,std::hash<trace::LogMode>,true>,std::allocator<std::__hash_value_type<trace::LogMode,mipc::mipc_log_mode_const_enum>>>::__emplace_unique_key_args<trace::LogMode,std::pair<trace::LogMode const,mipc::mipc_log_mode_const_enum> const&>(&xmmword_2A18B7E90, &v3, &v3);
-  v2 = xmmword_296EC0278;
-  *&v3 = 0x200000002;
+  v1 = xmmword_296EC0278;
+  *&v2 = 0x200000002;
   xmmword_2A18B7EB8 = 0u;
   unk_2A18B7EC8 = 0u;
   dword_2A18B7ED8 = 1065353216;
+  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7EB8, &v1, &v1);
+  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7EB8, &v1 + 2, &v1 + 1);
   std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7EB8, &v2, &v2);
-  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7EB8, &v2 + 2, &v2 + 1);
-  std::__hash_table<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::__unordered_map_hasher<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::hash<mipc::mipc_log_mode_const_enum>,std::equal_to<mipc::mipc_log_mode_const_enum>,true>,std::__unordered_map_equal<mipc::mipc_log_mode_const_enum,std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>,std::equal_to<mipc::mipc_log_mode_const_enum>,std::hash<mipc::mipc_log_mode_const_enum>,true>,std::allocator<std::__hash_value_type<mipc::mipc_log_mode_const_enum,trace::LogMode>>>::__emplace_unique_key_args<mipc::mipc_log_mode_const_enum,std::pair<mipc::mipc_log_mode_const_enum const,trace::LogMode> const&>(&xmmword_2A18B7EB8, &v3, &v3);
-  v2 = xmmword_296EC0290;
-  v3 = unk_296EC02A0;
-  v4[0] = 0x400000004;
+  v1 = xmmword_296EC0290;
+  v2 = unk_296EC02A0;
+  v3[0] = 0x400000004;
   xmmword_2A18B7EE0 = 0u;
   *algn_2A18B7EF0 = 0u;
   dword_2A18B7F00 = 1065353216;
+  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, &v1, &v1);
+  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, &v1 + 2, &v1 + 1);
   std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, &v2, &v2);
   std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, &v2 + 2, &v2 + 1);
-  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, &v3, &v3);
-  std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, &v3 + 2, &v3 + 1);
-  result = std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, v4, v4);
-  v1 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__hash_table<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::__unordered_map_hasher<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::hash<trace::LogLevel>,std::equal_to<trace::LogLevel>,true>,std::__unordered_map_equal<trace::LogLevel,std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>,std::equal_to<trace::LogLevel>,std::hash<trace::LogLevel>,true>,std::allocator<std::__hash_value_type<trace::LogLevel,mipc::mipc_filter_level_const_enum>>>::__emplace_unique_key_args<trace::LogLevel,std::pair<trace::LogLevel const,mipc::mipc_filter_level_const_enum> const&>(&xmmword_2A18B7EE0, v3, v3);
 }
 
 double coredump::MipcCommandDriver::create@<D0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
@@ -3341,7 +3300,7 @@ double coredump::MipcCommandDriver::create@<D0>(uint64_t *a1@<X0>, _OWORD *a2@<X
   v10 = v6;
   if (v6)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
   coredump::MipcCommandDriver::MipcCommandDriver(v4, &v9);
@@ -3361,9 +3320,9 @@ double coredump::MipcCommandDriver::create@<D0>(uint64_t *a1@<X0>, _OWORD *a2@<X
   return result;
 }
 
-void sub_296EB1714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296EB1714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3417,10 +3376,10 @@ uint64_t ___ZN8coredump17MipcCommandDriver4initEv_block_invoke(uint64_t a1)
 
 void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
 {
-  v68 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   v4 = *(a2 + 8);
-  v60 = *a2;
-  v61 = v4;
+  v59 = *a2;
+  v60 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -3428,7 +3387,7 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
 
   *a1 = &unk_2A1E14A30;
   v5 = a1 + 1;
-  ctu::OsLogContext::OsLogContext(&v62, "com.apple.telephony.abm", "coredump.drv");
+  ctu::OsLogContext::OsLogContext(&v61, "com.apple.telephony.abm", "coredump.drv");
   v6 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
   v7 = dispatch_queue_create("coredump.drv", v6);
   *v5 = 0;
@@ -3448,19 +3407,19 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   }
 
   ctu::OsLogLogger::OsLogLogger();
-  MEMORY[0x29C2667B0](a1 + 5, v56);
-  MEMORY[0x29C2667C0](v56);
-  ctu::OsLogContext::~OsLogContext(&v62);
+  MEMORY[0x29C2667B0](a1 + 5, v55);
+  MEMORY[0x29C2667C0](v55);
+  ctu::OsLogContext::~OsLogContext(&v61);
   *a1 = &unk_2A1E14A30;
   a1[6] = &unk_2A1E14A78;
   v9 = operator new(0x28uLL);
   v10 = operator new(0x20uLL);
-  v62 = &v62;
-  v63 = &v62;
+  v61 = &v61;
+  v62 = &v61;
+  v65 = 0;
   v66 = 0;
-  v67 = 0;
-  v64 = 0;
-  v65 = &v66;
+  v63 = 0;
+  v64 = &v65;
   v11 = operator new(0x40uLL);
   *v11 = v11;
   v11[1] = v11;
@@ -3486,16 +3445,16 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   *v14 = &unk_2A1E14BA8;
   *(v14 + 2) = v10;
   v9[1] = v14;
-  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>>>::destroy(v66);
-  if (v64)
+  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>>>::destroy(v65);
+  if (v63)
   {
-    v15 = v63;
-    v16 = *(v62 + 8);
-    v17 = *v63;
+    v15 = v62;
+    v16 = *(v61 + 8);
+    v17 = *v62;
     *(v17 + 8) = v16;
     *v16 = v17;
-    v64 = 0;
-    if (v15 != &v62)
+    v63 = 0;
+    if (v15 != &v61)
     {
       do
       {
@@ -3517,7 +3476,7 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
         v15 = v18;
       }
 
-      while (v18 != &v62);
+      while (v18 != &v61);
     }
   }
 
@@ -3537,12 +3496,12 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   a1[9] = &unk_2A1E14CC8;
   v22 = operator new(0x28uLL);
   v23 = operator new(0x20uLL);
-  v62 = &v62;
-  v63 = &v62;
+  v61 = &v61;
+  v62 = &v61;
+  v65 = 0;
   v66 = 0;
-  v67 = 0;
-  v64 = 0;
-  v65 = &v66;
+  v63 = 0;
+  v64 = &v65;
   v24 = operator new(0x40uLL);
   *v24 = v24;
   v24[1] = v24;
@@ -3568,16 +3527,16 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   *v27 = &unk_2A1E14D98;
   *(v27 + 2) = v23;
   v22[1] = v27;
-  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>>>::destroy(v66);
-  if (v64)
+  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>>>::destroy(v65);
+  if (v63)
   {
-    v28 = v63;
-    v29 = *(v62 + 8);
-    v30 = *v63;
+    v28 = v62;
+    v29 = *(v61 + 8);
+    v30 = *v62;
     *(v30 + 8) = v29;
     *v29 = v30;
-    v64 = 0;
-    if (v28 != &v62)
+    v63 = 0;
+    if (v28 != &v61)
     {
       do
       {
@@ -3599,7 +3558,7 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
         v28 = v31;
       }
 
-      while (v31 != &v62);
+      while (v31 != &v61);
     }
   }
 
@@ -3619,12 +3578,12 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   a1[12] = &unk_2A1E14E58;
   v35 = operator new(0x28uLL);
   v36 = operator new(0x20uLL);
-  v62 = &v62;
-  v63 = &v62;
+  v61 = &v61;
+  v62 = &v61;
+  v65 = 0;
   v66 = 0;
-  v67 = 0;
-  v64 = 0;
-  v65 = &v66;
+  v63 = 0;
+  v64 = &v65;
   v37 = operator new(0x40uLL);
   *v37 = v37;
   v37[1] = v37;
@@ -3650,16 +3609,16 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   *v40 = &unk_2A1E14F28;
   *(v40 + 2) = v36;
   v35[1] = v40;
-  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>>>::destroy(v66);
-  if (v64)
+  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>>,boost::signals2::mutex>>,void *>>>>::destroy(v65);
+  if (v63)
   {
-    v41 = v63;
-    v42 = *(v62 + 8);
-    v43 = *v63;
+    v41 = v62;
+    v42 = *(v61 + 8);
+    v43 = *v62;
     *(v43 + 8) = v42;
     *v42 = v43;
-    v64 = 0;
-    if (v41 != &v62)
+    v63 = 0;
+    if (v41 != &v61)
     {
       do
       {
@@ -3681,7 +3640,7 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
         v41 = v44;
       }
 
-      while (v44 != &v62);
+      while (v44 != &v61);
     }
   }
 
@@ -3697,8 +3656,8 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   v47[1] = 0x100000001;
   *v47 = &unk_2A1E14F88;
   v47[2] = v35;
-  v48 = v60;
-  v49 = v61;
+  v48 = v59;
+  v49 = v60;
   a1[14] = v47;
   a1[15] = v48;
   a1[16] = v49;
@@ -3720,31 +3679,31 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
     dispatch_retain(v50);
   }
 
-  Registry::getRouterServer(&v62, *a2);
-  v51 = v62;
-  if (v62)
+  Registry::getRouterServer(&v61, *a2);
+  v51 = v61;
+  if (v61)
   {
-    Registry::getRouterServer(v56, *a2);
-    abb::router::Server::createLocalLink(&v57, v56[0]);
+    Registry::getRouterServer(v55, *a2);
+    abb::router::Server::createLocalLink(&v56, v55[0]);
   }
 
   else
   {
+    v56 = 0;
     v57 = 0;
-    v58 = 0;
   }
 
-  MEMORY[0x29C266EF0](a1 + 17, "coredump.drv", &object, &v57);
-  v52 = v58;
+  MEMORY[0x29C266EF0](a1 + 17, "coredump.drv", &object, &v56);
+  v52 = v57;
   if (v51)
   {
-    if (v58 && !atomic_fetch_add(&v58->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v57 && !atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v52->__on_zero_shared)(v52);
       std::__shared_weak_count::__release_weak(v52);
     }
 
-    v52 = v56[1];
+    v52 = v55[1];
   }
 
   if (v52 && !atomic_fetch_add(&v52->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3753,8 +3712,8 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
     std::__shared_weak_count::__release_weak(v52);
   }
 
-  v53 = v63;
-  if (v63 && !atomic_fetch_add(v63 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  v53 = v62;
+  if (v62 && !atomic_fetch_add(v62 + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v53->__on_zero_shared)(v53);
     std::__shared_weak_count::__release_weak(v53);
@@ -3766,20 +3725,20 @@ void *coredump::MipcCommandDriver::MipcCommandDriver(void *a1, uint64_t a2)
   }
 
   a1[20] = dispatch_group_create();
-  v54 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296EB2280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, dispatch_object_t object, uint64_t a16, uint64_t a17, char a18)
+void sub_296EB2280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, dispatch_object_t object, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a18);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   if (object)
   {
     dispatch_release(object);
   }
 
-  coredump::CommandDriver::~CommandDriver(v18);
+  coredump::CommandDriver::~CommandDriver(v17);
   _Unwind_Resume(a1);
 }
 
@@ -3881,26 +3840,26 @@ LABEL_8:
 
 void coredump::MipcCommandDriver::crashBaseband(uint64_t a1)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v25 = v2;
-  v26 = v2;
-  v23 = v2;
   v24 = v2;
-  v21 = v2;
+  v25 = v2;
   v22 = v2;
+  v23 = v2;
   v20 = v2;
+  v21 = v2;
+  v19 = v2;
   mipc::sys::Trigger_Coredump_Req::Trigger_Coredump_Req();
   dispatch_group_enter(*(a1 + 160));
-  v28 = 0xAAAAAAAAAAAAAAAALL;
+  v27 = 0xAAAAAAAAAAAAAAAALL;
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v27[1] = v3;
-  v27[2] = v3;
-  v27[0] = v3;
-  mipc::sys::Trigger_Coredump_Req::serialize(v27, &v20);
-  if (v28)
+  v26[1] = v3;
+  v26[2] = v3;
+  v26[0] = v3;
+  mipc::sys::Trigger_Coredump_Req::serialize(v26, &v19);
+  if (v27)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "Serialization error");
@@ -3908,25 +3867,25 @@ void coredump::MipcCommandDriver::crashBaseband(uint64_t a1)
     __cxa_throw(exception, off_29EE5C750, MEMORY[0x29EDC9360]);
   }
 
-  v39 = 0xAAAAAAAAAAAAAAAALL;
+  v38 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v37 = v4;
-  v38 = v4;
-  v35 = v4;
   v36 = v4;
-  v33 = v4;
+  v37 = v4;
   v34 = v4;
-  v31 = v4;
+  v35 = v4;
   v32 = v4;
-  MEMORY[0x29C266720](&v31, v27);
-  abb::router::SendProxy::SendProxy(v30, (a1 + 136), &v31);
-  MEMORY[0x29C266730](&v31);
-  if (v28 != -1)
+  v33 = v4;
+  v30 = v4;
+  v31 = v4;
+  MEMORY[0x29C266720](&v30, v26);
+  abb::router::SendProxy::SendProxy(v29, (a1 + 136), &v30);
+  MEMORY[0x29C266730](&v30);
+  if (v27 != -1)
   {
-    *&v31 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    *(&v31 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    (*(&v31 + v28))(&v29, v27);
+    *&v30 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    *(&v30 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    (*(&v30 + v27))(&v28, v26);
   }
 
   v5 = abb::router::SendProxy::timeout();
@@ -3949,22 +3908,21 @@ void coredump::MipcCommandDriver::crashBaseband(uint64_t a1)
   v10[1] = a1;
   v10[2] = v7;
   v10[3] = v9;
-  *(&v32 + 1) = v10;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](&v31, (v5 + 152));
-  if (*(&v32 + 1) == &v31)
+  *(&v31 + 1) = v10;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](&v30, (v5 + 152));
+  if (*(&v31 + 1) == &v30)
   {
-    (*(**(&v32 + 1) + 32))(*(&v32 + 1));
+    (*(**(&v31 + 1) + 32))(*(&v31 + 1));
   }
 
-  else if (*(&v32 + 1))
+  else if (*(&v31 + 1))
   {
-    (*(**(&v32 + 1) + 40))(*(&v32 + 1), v11, v12, v13, v14, v15, v16, v17, v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1));
+    (*(**(&v31 + 1) + 40))(*(&v31 + 1), v11, v12, v13, v14, v15, v16, v17, v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1));
   }
 
-  MEMORY[0x29C266750](v30);
+  MEMORY[0x29C266750](v29);
   dispatch_group_wait(*(a1 + 160), 0xFFFFFFFFFFFFFFFFLL);
-  mipc::sys::Trigger_Coredump_Req::~Trigger_Coredump_Req(&v20);
-  v18 = *MEMORY[0x29EDCA608];
+  mipc::sys::Trigger_Coredump_Req::~Trigger_Coredump_Req(&v19);
 }
 
 void sub_296EB2C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
@@ -5524,11 +5482,11 @@ LABEL_14:
   mipc::sys::Trigger_Coredump_Cnf::~Trigger_Coredump_Cnf(v16);
 }
 
-void sub_296EB5EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_296EB5EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v13 - 96);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v20 - 96);
   _Unwind_Resume(a1);
 }
 

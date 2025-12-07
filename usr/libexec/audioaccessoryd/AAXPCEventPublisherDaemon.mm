@@ -63,16 +63,20 @@
 {
   if (!self->_activateCalled)
   {
-    v7 = v2;
+    v8 = v3;
+    selfCopy = self;
     self->_activateCalled = 1;
-    if (dword_1002F7310 <= 30 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7310 <= 30)
     {
-      sub_1001F9998();
+      if (dword_1002F7310 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F9998(self, a2, v2);
+      }
     }
 
-    [(AAXPCEventPublisherDaemon *)self _deviceDiscoveryEnsureStarted:v3];
+    [(AAXPCEventPublisherDaemon *)selfCopy _deviceDiscoveryEnsureStarted:v4];
 
-    [(AAXPCEventPublisherDaemon *)self _ensureEventPublisherCreated];
+    [(AAXPCEventPublisherDaemon *)selfCopy _ensureEventPublisherCreated];
   }
 }
 
@@ -89,41 +93,45 @@
 
 - (void)_invalidate
 {
-  if (dword_1002F7310 <= 30 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F7310 <= 30)
   {
-    sub_1001F99B4();
+    if (dword_1002F7310 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001F99B4(self, a2, v2);
+    }
   }
 
-  [(AAXPCEventPublisherDaemon *)self _deviceDiscoveryEnsureStopped];
-  [(NSMutableDictionary *)self->_subscriptionMap removeAllObjects];
-  subscriptionMap = self->_subscriptionMap;
-  self->_subscriptionMap = 0;
+  [(AAXPCEventPublisherDaemon *)selfCopy _deviceDiscoveryEnsureStopped];
+  [(NSMutableDictionary *)selfCopy->_subscriptionMap removeAllObjects];
+  subscriptionMap = selfCopy->_subscriptionMap;
+  selfCopy->_subscriptionMap = 0;
 
-  xpcEventPublisher = self->_xpcEventPublisher;
-  self->_xpcEventPublisher = 0;
+  xpcEventPublisher = selfCopy->_xpcEventPublisher;
+  selfCopy->_xpcEventPublisher = 0;
 
-  self->_activateCalled = 0;
+  selfCopy->_activateCalled = 0;
 }
 
 - (void)_ensureEventPublisherCreated
 {
   if (!self->_xpcEventPublisher)
   {
-    if (dword_1002F7310 <= 30 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F7310 <= 30)
     {
-      sub_1001F99D0();
+      if (dword_1002F7310 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F99D0(self, a2, v2);
+      }
     }
 
-    dispatchQueue = self->_dispatchQueue;
     v4 = xpc_event_publisher_create();
-    xpcEventPublisher = self->_xpcEventPublisher;
-    self->_xpcEventPublisher = v4;
+    xpcEventPublisher = selfCopy->_xpcEventPublisher;
+    selfCopy->_xpcEventPublisher = v4;
 
-    v6 = self->_xpcEventPublisher;
     xpc_event_publisher_set_handler();
-    v7 = self->_xpcEventPublisher;
     xpc_event_publisher_set_error_handler();
-    v8 = self->_xpcEventPublisher;
     xpc_event_publisher_activate();
   }
 }
@@ -137,7 +145,7 @@
     {
       if (dword_1002F7310 != -1 || (descriptorCopy = _LogCategory_Initialize(), descriptorCopy))
       {
-        descriptorCopy = sub_1001F9A2C();
+        descriptorCopy = sub_1001F9A2C(descriptorCopy, v9, v10);
       }
     }
   }
@@ -153,7 +161,7 @@
     {
       if (dword_1002F7310 != -1 || (descriptorCopy = _LogCategory_Initialize(), descriptorCopy))
       {
-        descriptorCopy = sub_1001F9A48();
+        descriptorCopy = sub_1001F9A48(action);
       }
     }
   }
@@ -177,8 +185,7 @@
       sub_1001F9A88(subscriptionCopy, deviceCopy);
     }
 
-    v7 = xpc_dictionary_create(0, 0, 0);
-    xpcEventPublisher = self->_xpcEventPublisher;
+    v6 = xpc_dictionary_create(0, 0, 0);
     [subscriptionCopy token];
     xpc_event_publisher_fire();
   }
@@ -223,53 +230,52 @@
   descriptorCopy = descriptor;
   if (dword_1002F7310 <= 30 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
   {
-    CUPrintXPC();
-    v18 = v17 = token;
-    LogPrintF_safe();
+    v7 = CUPrintXPC();
+    LogPrintF_safe(&dword_1002F7310, "[AAXPCEventPublisherDaemon _subscriptionAddedWithToken:descriptor:]", 30, "New subscription with token %llu added: %@", token, v7);
   }
 
-  v7 = [AAXPCEventSubscription subscriptionWithToken:token descriptor:descriptorCopy, v17, v18];
-  if (v7)
+  v8 = [AAXPCEventSubscription subscriptionWithToken:token descriptor:descriptorCopy];
+  if (v8)
   {
     subscriptionMap = self->_subscriptionMap;
     if (!subscriptionMap)
     {
-      v9 = objc_alloc_init(NSMutableDictionary);
-      v10 = self->_subscriptionMap;
-      self->_subscriptionMap = v9;
+      v10 = objc_alloc_init(NSMutableDictionary);
+      v11 = self->_subscriptionMap;
+      self->_subscriptionMap = v10;
 
       subscriptionMap = self->_subscriptionMap;
     }
 
-    v11 = [NSNumber numberWithUnsignedLongLong:token];
-    [(NSMutableDictionary *)subscriptionMap setObject:v7 forKeyedSubscript:v11];
+    v12 = [NSNumber numberWithUnsignedLongLong:token];
+    [(NSMutableDictionary *)subscriptionMap setObject:v8 forKeyedSubscript:v12];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     discoveredDevices = [(AADeviceManager *)self->_deviceManager discoveredDevices];
-    v13 = [discoveredDevices countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v13)
+    v14 = [discoveredDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v20;
+      v15 = v14;
+      v16 = *v19;
       do
       {
-        for (i = 0; i != v14; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v20 != v15)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(discoveredDevices);
           }
 
-          [(AAXPCEventPublisherDaemon *)self _fireEventIfNeededForDevice:*(*(&v19 + 1) + 8 * i) subscription:v7];
+          [(AAXPCEventPublisherDaemon *)self _fireEventIfNeededForDevice:*(*(&v18 + 1) + 8 * i) subscription:v8];
         }
 
-        v14 = [discoveredDevices countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v15 = [discoveredDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
   }
 }
@@ -278,7 +284,7 @@
 {
   if (dword_1002F7310 <= 30 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_1002F7310, "[AAXPCEventPublisherDaemon _subscriptionRemovedForToken:]", 30, "Subscription with token %llu removed", token);
   }
 
   subscriptionMap = self->_subscriptionMap;
@@ -301,7 +307,7 @@
   {
     if (dword_1002F7310 <= 30 && (dword_1002F7310 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_1002F7310, "[AAXPCEventPublisherDaemon _deviceDiscoveryEnsureStopped]", 30, "Device discovery stop");
     }
 
     [(AADeviceManager *)self->_deviceManager invalidate];

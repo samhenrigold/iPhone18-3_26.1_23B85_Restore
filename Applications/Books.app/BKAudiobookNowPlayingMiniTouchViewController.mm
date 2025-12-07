@@ -68,7 +68,7 @@
   v10 = 0;
   memset(v9, 0, sizeof(v9));
   sub_10038ADA8(v9);
-  sub_100007840(v9, &qword_100AD4FA0);
+  sub_100007840(v9, &qword_100AD4FA0, &qword_10081F020);
   _Block_release(v6);
   _Block_release(v6);
   swift_unknownObjectRelease();
@@ -76,7 +76,7 @@
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
 {
-  sub_10000A7C4(0, &unk_100ADF0E0);
+  sub_10000A7C4(0, &unk_100ADF0E0, UIContextMenuConfiguration_ptr);
   v5 = swift_allocObject();
   *(v5 + 16) = self;
   selfCopy = self;
@@ -87,7 +87,7 @@
 
 - (void)contextMenuInteraction:(id)interaction willDisplayMenuForConfiguration:(id)configuration animator:(id)animator
 {
-  v6 = sub_1001F1160(&unk_100ADB5C0);
+  v6 = sub_1001F1160(&unk_100ADB5C0, &unk_100816880);
   __chkstk_darwin(v6 - 8);
   v8 = &v12 - v7;
   selfCopy = self;
@@ -134,7 +134,7 @@
 - (void)willUndock
 {
   selfCopy = self;
-  sub_10038D218();
+  sub_10038D218(selfCopy);
 }
 
 @end

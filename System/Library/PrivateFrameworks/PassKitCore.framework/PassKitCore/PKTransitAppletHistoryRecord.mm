@@ -263,9 +263,9 @@ LABEL_15:
           {
             if (@"XXX" && v21)
             {
-              v23 = [(__CFString *)v21 isEqualToString:?];
+              isEqualToString = objc_msgSend_isEqualToString_(v21);
 
-              if (v23)
+              if (isEqualToString)
               {
                 if (v15)
                 {
@@ -406,7 +406,7 @@ LABEL_15:
     goto LABEL_14;
   }
 
-  if ([(NSString *)v6->_transitDetail isEqualToString:@"PointsConversion"])
+  if (objc_msgSend_isEqualToString_(v6->_transitDetail))
   {
     v38 = PKLogFacilityTypeGetObject(0xDuLL);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
@@ -970,18 +970,14 @@ LABEL_71:
     }
   }
 
-  else
+  else if (([(NSNumber *)historySequenceNumber isEqual:?]& 1) == 0)
   {
-    v8 = [(NSNumber *)historySequenceNumber isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_68;
-    }
+    goto LABEL_68;
   }
 
   time = self->_time;
-  v10 = recordCopy[6];
-  if (time && v10)
+  v9 = recordCopy[6];
+  if (time && v9)
   {
     if (([(NSDate *)time isEqual:?]& 1) == 0)
     {
@@ -989,7 +985,7 @@ LABEL_71:
     }
   }
 
-  else if (time != v10)
+  else if (time != v9)
   {
     goto LABEL_68;
   }
@@ -999,33 +995,33 @@ LABEL_71:
     goto LABEL_68;
   }
 
-  v11 = recordCopy[16];
-  v12 = self->_transitDetail;
-  v13 = v11;
-  v14 = v13;
-  if (v12 == v13)
+  v10 = recordCopy[16];
+  v11 = self->_transitDetail;
+  v12 = v10;
+  v13 = v12;
+  if (v11 == v12)
   {
   }
 
   else
   {
-    if (!v12 || !v13)
+    if (!v11 || !v12)
     {
 
       goto LABEL_68;
     }
 
-    v15 = [(NSString *)v12 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_68;
     }
   }
 
   balance = self->_balance;
-  v17 = recordCopy[7];
-  if (balance && v17)
+  v16 = recordCopy[7];
+  if (balance && v16)
   {
     if (([(NSDecimalNumber *)balance isEqual:?]& 1) == 0)
     {
@@ -1033,14 +1029,14 @@ LABEL_71:
     }
   }
 
-  else if (balance != v17)
+  else if (balance != v16)
   {
     goto LABEL_68;
   }
 
   loyaltyBalance = self->_loyaltyBalance;
-  v19 = recordCopy[8];
-  if (loyaltyBalance && v19)
+  v18 = recordCopy[8];
+  if (loyaltyBalance && v18)
   {
     if (([(NSNumber *)loyaltyBalance isEqual:?]& 1) == 0)
     {
@@ -1048,14 +1044,14 @@ LABEL_71:
     }
   }
 
-  else if (loyaltyBalance != v19)
+  else if (loyaltyBalance != v18)
   {
     goto LABEL_68;
   }
 
   amount = self->_amount;
-  v21 = recordCopy[9];
-  if (amount && v21)
+  v20 = recordCopy[9];
+  if (amount && v20)
   {
     if (([(NSDecimalNumber *)amount isEqual:?]& 1) == 0)
     {
@@ -1063,14 +1059,14 @@ LABEL_71:
     }
   }
 
-  else if (amount != v21)
+  else if (amount != v20)
   {
     goto LABEL_68;
   }
 
   loyaltyAmount = self->_loyaltyAmount;
-  v23 = recordCopy[10];
-  if (loyaltyAmount && v23)
+  v22 = recordCopy[10];
+  if (loyaltyAmount && v22)
   {
     if (([(NSNumber *)loyaltyAmount isEqual:?]& 1) == 0)
     {
@@ -1078,14 +1074,14 @@ LABEL_71:
     }
   }
 
-  else if (loyaltyAmount != v23)
+  else if (loyaltyAmount != v22)
   {
     goto LABEL_68;
   }
 
   startStation = self->_startStation;
-  v25 = recordCopy[12];
-  if (startStation && v25)
+  v24 = recordCopy[12];
+  if (startStation && v24)
   {
     if (([(NSData *)startStation isEqual:?]& 1) == 0)
     {
@@ -1093,14 +1089,14 @@ LABEL_71:
     }
   }
 
-  else if (startStation != v25)
+  else if (startStation != v24)
   {
     goto LABEL_68;
   }
 
   endStation = self->_endStation;
-  v27 = recordCopy[13];
-  if (endStation && v27)
+  v26 = recordCopy[13];
+  if (endStation && v26)
   {
     if (([(NSData *)endStation isEqual:?]& 1) == 0)
     {
@@ -1108,7 +1104,7 @@ LABEL_71:
     }
   }
 
-  else if (endStation != v27)
+  else if (endStation != v26)
   {
     goto LABEL_68;
   }
@@ -1119,8 +1115,8 @@ LABEL_71:
   }
 
   cityCode = self->_cityCode;
-  v29 = recordCopy[11];
-  if (cityCode && v29)
+  v28 = recordCopy[11];
+  if (cityCode && v28)
   {
     if (([(NSNumber *)cityCode isEqual:?]& 1) == 0)
     {
@@ -1128,7 +1124,7 @@ LABEL_71:
     }
   }
 
-  else if (cityCode != v29)
+  else if (cityCode != v28)
   {
     goto LABEL_68;
   }
@@ -1139,16 +1135,16 @@ LABEL_71:
   }
 
   amounts = self->_amounts;
-  v31 = recordCopy[14];
-  if (!amounts || !v31)
+  v30 = recordCopy[14];
+  if (!amounts || !v30)
   {
-    if (amounts == v31)
+    if (amounts == v30)
     {
       goto LABEL_64;
     }
 
 LABEL_68:
-    v34 = 0;
+    v33 = 0;
     goto LABEL_69;
   }
 
@@ -1159,20 +1155,20 @@ LABEL_68:
 
 LABEL_64:
   plans = self->_plans;
-  v33 = recordCopy[15];
-  if (plans && v33)
+  v32 = recordCopy[15];
+  if (plans && v32)
   {
-    v34 = [(NSArray *)plans isEqual:?];
+    v33 = [(NSArray *)plans isEqual:?];
   }
 
   else
   {
-    v34 = plans == v33;
+    v33 = plans == v32;
   }
 
 LABEL_69:
 
-  return v34;
+  return v33;
 }
 
 - (unint64_t)hash

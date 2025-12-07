@@ -11,7 +11,9 @@
 - (VMTranscriptionService)init;
 - (VMVoicemailTranscriptionController)transcriptionController;
 - (id)determineAssetLocale:(id)locale;
+- (id)processLanguageIDCompletionHandlerForRecordWithIndentifier:(int)indentifier duration:(double)duration languageDetectorResult:(id)result error:(id)error;
 - (id)processLanguageIDResults:(id)results error:(id)error;
+- (id)processLanguageIDResultsForRecordWithIndentifier:(int)indentifier languageDetectorResult:(id)result error:(id)error;
 - (id)processTranscriptionSpeechAnalyzerResults:(id)results error:(id)error;
 - (id)readDataFromFile:(id)file;
 - (unint64_t)languageIDFailureReasonForError:(id)error;
@@ -43,6 +45,7 @@
 - (void)transcriptionAvailabilityChanged:(BOOL)changed;
 - (void)transcriptionController:(id)controller transcriptionProgressFractionCompletedChanged:(double)changed;
 - (void)transcriptionController:(id)controller transcriptionProgressTotalUnitCountChanged:(int64_t)changed;
+- (void)transcriptionController:(id)controller transcriptionStatusChanged:(BOOL)changed;
 - (void)unloadTranscriptionService;
 @end
 
@@ -117,50 +120,52 @@
 + (BOOL)isSupportedTranscriptionLanguageCode:(id)code
 {
   codeCopy = code;
+  v4 = codeCopy;
   if (codeCopy)
   {
-    if (_os_feature_enabled_impl())
+    v5 = _os_feature_enabled_impl();
+    if (v5)
     {
-      v4 = sub_1000330E0();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_1000330E0(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "isSupportedTranscriptionLanguageCode: Flag lvmExpansionLiveOnEnabled enabled", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "isSupportedTranscriptionLanguageCode: Flag lvmExpansionLiveOnEnabled enabled", buf, 2u);
       }
 
       matchLocaleForTranscriptionLanguage = [objc_opt_class() matchLocaleForTranscriptionLanguage];
-      LODWORD(v6) = matchLocaleForTranscriptionLanguage != 0;
+      LODWORD(v8) = matchLocaleForTranscriptionLanguage != 0;
     }
 
     else
     {
       [objc_opt_class() transcriptionLanguageCodes];
+      v15 = 0u;
+      v16 = 0u;
       v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
-      matchLocaleForTranscriptionLanguage = v12 = 0u;
-      v6 = [matchLocaleForTranscriptionLanguage countByEnumeratingWithState:&v11 objects:v19 count:16];
-      if (v6)
+      matchLocaleForTranscriptionLanguage = v14 = 0u;
+      v8 = [matchLocaleForTranscriptionLanguage countByEnumeratingWithState:&v13 objects:v21 count:16];
+      if (v8)
       {
-        v7 = *v12;
+        v9 = *v14;
         while (2)
         {
-          for (i = 0; i != v6; i = i + 1)
+          for (i = 0; i != v8; i = i + 1)
           {
-            if (*v12 != v7)
+            if (*v14 != v9)
             {
               objc_enumerationMutation(matchLocaleForTranscriptionLanguage);
             }
 
-            if ([codeCopy isEqualToString:{*(*(&v11 + 1) + 8 * i), v11}])
+            if ([v4 isEqualToString:{*(*(&v13 + 1) + 8 * i), v13}])
             {
-              LODWORD(v6) = 1;
+              LODWORD(v8) = 1;
               goto LABEL_17;
             }
           }
 
-          v6 = [matchLocaleForTranscriptionLanguage countByEnumeratingWithState:&v11 objects:v19 count:16];
-          if (v6)
+          v8 = [matchLocaleForTranscriptionLanguage countByEnumeratingWithState:&v13 objects:v21 count:16];
+          if (v8)
           {
             continue;
           }
@@ -175,20 +180,20 @@ LABEL_17:
 
   else
   {
-    LODWORD(v6) = 0;
+    LODWORD(v8) = 0;
   }
 
-  v9 = sub_1000330E0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_1000330E0(codeCopy);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v16 = v6;
-    v17 = 2112;
-    v18 = codeCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "isSupportedTranscriptionLanguageCode: Supported: %d for language: %@", buf, 0x12u);
+    v18 = v8;
+    v19 = 2112;
+    v20 = v4;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "isSupportedTranscriptionLanguageCode: Supported: %d for language: %@", buf, 0x12u);
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)loadTranscriptionService
@@ -244,45 +249,45 @@ LABEL_17:
   transcriptionCopy = transcription;
   completionCopy = completion;
   v13 = [completionCopy copy];
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_100033AE8;
-  v25[3] = &unk_1000EE218;
-  v25[4] = self;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_100033AE8;
+  v26[3] = &unk_1000EE218;
+  v26[4] = self;
   v14 = transcriptionCopy;
-  v26 = v14;
+  v27 = v14;
   v15 = v13;
-  v27 = v15;
-  v16 = objc_retainBlock(v25);
+  v28 = v15;
+  v16 = objc_retainBlock(v26);
   transcriptionController = [(VMTranscriptionService *)self transcriptionController];
 
   if (transcriptionController)
   {
-    v18 = [NSURL fileURLWithPath:pathCopy isDirectory:0];
-    v19 = [AVURLAsset assetWithURL:v18];
-    v20 = v19;
-    if (v19)
+    v19 = [NSURL fileURLWithPath:pathCopy isDirectory:0];
+    v20 = [AVURLAsset assetWithURL:v19];
+    v21 = v20;
+    if (v20)
     {
-      [v19 duration];
+      objc_msgSend_duration(v20);
     }
 
     else
     {
-      memset(&v24, 0, sizeof(v24));
+      memset(&v25, 0, sizeof(v25));
     }
 
-    Seconds = CMTimeGetSeconds(&v24);
+    Seconds = CMTimeGetSeconds(&v25);
     transcriptionController2 = [(VMTranscriptionService *)self transcriptionController];
-    [transcriptionController2 retrieveDictationResultForFileAtURL:v18 queuePriority:priority duration:&stru_1000EE238 transcriptionBeginCallback:v16 completion:Seconds];
+    [transcriptionController2 retrieveDictationResultForFileAtURL:v19 queuePriority:priority duration:&stru_1000EE238 transcriptionBeginCallback:v16 completion:Seconds];
   }
 
   else
   {
-    v21 = sub_1000330E0();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_1000330E0(v18);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24.value) = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Transcription service is disabled, not transcribing", &v24, 2u);
+      LOWORD(v25.value) = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Transcription service is disabled, not transcribing", &v25, 2u);
     }
 
     (v16[2])(v16, 0, 0);
@@ -293,13 +298,13 @@ LABEL_17:
 {
   pathCopy = path;
   completionCopy = completion;
-  v25 = [completionCopy copy];
+  v26 = [completionCopy copy];
   v8 = [NSURL fileURLWithPath:pathCopy isDirectory:0];
   v9 = [AVURLAsset assetWithURL:v8];
-  v23 = v9;
+  v24 = v9;
   if (v9)
   {
-    [v9 duration];
+    objc_msgSend_duration(v9);
   }
 
   else
@@ -311,90 +316,90 @@ LABEL_17:
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3032000000;
-  v59 = sub_1000344C4;
-  v60 = sub_1000344D4;
-  v61 = &stru_1000F0098;
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x3032000000;
-  v56[3] = sub_1000344C4;
-  v56[4] = sub_1000344D4;
-  v57 = &stru_1000F0098;
-  v54[0] = 0;
-  v54[1] = v54;
-  v54[2] = 0x3032000000;
-  v54[3] = sub_1000344C4;
-  v54[4] = sub_1000344D4;
-  v55 = &stru_1000F0098;
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x3032000000;
-  v52[3] = sub_1000344C4;
-  v52[4] = sub_1000344D4;
-  v53 = &stru_1000F0098;
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x3032000000;
-  v50[3] = sub_1000344C4;
-  v50[4] = sub_1000344D4;
-  v51 = &stru_1000F0098;
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x2020000000;
-  v49 = 0;
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_1000344DC;
-  v46[3] = &unk_1000EE260;
-  v46[4] = self;
+  v60 = sub_1000344C4;
+  v61 = sub_1000344D4;
+  v62 = &stru_1000F0098;
+  v57[0] = 0;
+  v57[1] = v57;
+  v57[2] = 0x3032000000;
+  v57[3] = sub_1000344C4;
+  v57[4] = sub_1000344D4;
+  v58 = &stru_1000F0098;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x3032000000;
+  v55[3] = sub_1000344C4;
+  v55[4] = sub_1000344D4;
+  v56 = &stru_1000F0098;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3032000000;
+  v53[3] = sub_1000344C4;
+  v53[4] = sub_1000344D4;
+  v54 = &stru_1000F0098;
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x3032000000;
+  v51[3] = sub_1000344C4;
+  v51[4] = sub_1000344D4;
+  v52 = &stru_1000F0098;
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x2020000000;
+  v50 = 0;
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_1000344DC;
+  v47[3] = &unk_1000EE260;
+  v47[4] = self;
   v11 = v8;
-  v47 = v11;
-  v12 = objc_retainBlock(v46);
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_100034624;
-  v38[3] = &unk_1000EE2B0;
-  v38[4] = self;
+  v48 = v11;
+  v12 = objc_retainBlock(v47);
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_100034624;
+  v39[3] = &unk_1000EE2B0;
+  v39[4] = self;
   p_time = &time;
-  v41 = v56;
-  v42 = v48;
-  v43 = v54;
-  v44 = v50;
-  v45 = v52;
-  v13 = v25;
-  v39 = v13;
-  v14 = objc_retainBlock(v38);
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100034954;
-  v26[3] = &unk_1000EE300;
-  v26[4] = self;
-  v30 = &time;
-  v31 = v56;
-  v32 = v54;
-  v33 = v50;
-  v34 = v52;
-  v35 = v48;
+  v42 = v57;
+  v43 = v49;
+  v44 = v55;
+  v45 = v51;
+  v46 = v53;
+  v13 = v26;
+  v40 = v13;
+  v14 = objc_retainBlock(v39);
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_100034954;
+  v27[3] = &unk_1000EE300;
+  v27[4] = self;
+  v31 = &time;
+  v32 = v57;
+  v33 = v55;
+  v34 = v51;
+  v35 = v53;
+  v36 = v49;
   v15 = v11;
-  v27 = v15;
+  v28 = v15;
   priorityCopy = priority;
-  v37 = Seconds;
+  v38 = Seconds;
   v16 = v12;
-  v28 = v16;
+  v29 = v16;
   v17 = v14;
-  v29 = v17;
-  v18 = objc_retainBlock(v26);
+  v30 = v17;
+  v18 = objc_retainBlock(v27);
   transcriptionController = [(VMTranscriptionService *)self transcriptionController];
   LOBYTE(v14) = transcriptionController == 0;
 
   if (v14)
   {
-    v21 = sub_1000330E0();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_1000330E0(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v63 = v15;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "processAudioForFileAtURL: Transcription service is disabled, not transcribing audio at external URL %@", buf, 0xCu);
+      v64 = v15;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "processAudioForFileAtURL: Transcription service is disabled, not transcribing audio at external URL %@", buf, 0xCu);
     }
 
     (v17[2])(v17, 0, 0);
@@ -406,13 +411,13 @@ LABEL_17:
     [transcriptionController2 retrieveLanguageIDResultForFileAtURL:v15 queuePriority:priority completion:v18];
   }
 
-  _Block_object_dispose(v48, 8);
-  _Block_object_dispose(v50, 8);
+  _Block_object_dispose(v49, 8);
+  _Block_object_dispose(v51, 8);
 
-  _Block_object_dispose(v52, 8);
-  _Block_object_dispose(v54, 8);
+  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(v55, 8);
 
-  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(v57, 8);
   _Block_object_dispose(&time, 8);
 }
 
@@ -448,7 +453,7 @@ LABEL_17:
 
   else
   {
-    v7 = sub_1000330E0();
+    v7 = sub_1000330E0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
@@ -553,6 +558,59 @@ LABEL_17:
   return v8;
 }
 
+- (id)processLanguageIDResultsForRecordWithIndentifier:(int)indentifier languageDetectorResult:(id)result error:(id)error
+{
+  v6 = *&indentifier;
+  resultCopy = result;
+  errorCopy = error;
+  v10 = VMStoreCopyRecordWithIdentifier();
+  if (v10)
+  {
+    v11 = [(VMTranscriptionService *)self processLanguageIDResults:resultCopy error:errorCopy];
+    v12 = [NSNumber numberWithInt:v6];
+    [v11 setObject:v12 forKeyedSubscript:@"vmIdentifier"];
+
+    v14 = sub_1000330E0(v13);
+    v15 = v14;
+    if (resultCopy)
+    {
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = [v11 objectForKeyedSubscript:@"detectedDominantLocale"];
+        v19 = 138412802;
+        v20 = resultCopy;
+        v21 = 2112;
+        v22 = v16;
+        v23 = 1024;
+        v24 = v6;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Language ID result:'%@' Dominant Locale: '%@' for voicemail with identifier %d", &v19, 0x1Cu);
+      }
+    }
+
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      sub_10009CB24();
+    }
+
+    CFRelease(v10);
+  }
+
+  else
+  {
+    v17 = sub_1000330E0(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = 67109120;
+      LODWORD(v20) = v6;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Record with identifier %d deleted during Language ID operation, ignoring LID result.", &v19, 8u);
+    }
+
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 - (id)processTranscriptionSpeechAnalyzerResults:(id)results error:(id)error
 {
   resultsCopy = results;
@@ -561,7 +619,7 @@ LABEL_17:
   v9 = v8;
   if (resultsCopy)
   {
-    v10 = sub_1000330E0();
+    v10 = sub_1000330E0(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       [resultsCopy confidence];
@@ -620,39 +678,40 @@ LABEL_11:
   if (v10)
   {
     v12 = VMStoreRecordGetLabel(v10);
-    v21 = [(VMTranscriptionService *)self processTranscriptionSpeechAnalyzerResults:transcriptCopy error:errorCopy];
+    v13 = [(VMTranscriptionService *)self processTranscriptionSpeechAnalyzerResults:transcriptCopy error:errorCopy];
+    v23 = v13;
     if (!transcriptCopy)
     {
-      v13 = sub_1000330E0();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_1000330E0(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10009CB94();
       }
 
-      LOBYTE(v16) = 0;
+      LOBYTE(v17) = 0;
       goto LABEL_21;
     }
 
-    v13 = VMStoreRecordCopyTranscriptionPath();
-    if ([v13 length])
+    v14 = VMStoreRecordCopyTranscriptionPath(v11);
+    if ([v14 length])
     {
-      v14 = [NSURL fileURLWithPath:v13 isDirectory:0];
-      if (v14)
+      v15 = [NSURL fileURLWithPath:v14 isDirectory:0];
+      if (v15)
       {
         archivedData = [transcriptCopy archivedData];
-        v22 = 0;
-        v16 = [archivedData writeToURL:v14 options:268435457 error:&v22];
-        v17 = v22;
+        v24 = 0;
+        v17 = [archivedData writeToURL:v15 options:268435457 error:&v24];
+        v18 = v24;
 
-        if (v16)
+        if (v17)
         {
           VMStoreRecordSetFlag(v12, v11, 0x100u);
         }
 
         else
         {
-          v18 = sub_1000330E0();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v20 = sub_1000330E0(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             sub_10009C988();
           }
@@ -664,18 +723,18 @@ LABEL_11:
 
     else
     {
-      v14 = sub_1000330E0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_1000330E0(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10009C9F8();
       }
     }
 
-    LOBYTE(v16) = 0;
+    LOBYTE(v17) = 0;
 LABEL_20:
 
 LABEL_21:
-    [(VMTranscriptionService *)self prepareAndReportVoicemailMetrics:v11 transcriptionResultsDict:v21];
+    [(VMTranscriptionService *)self prepareAndReportVoicemailMetrics:v11 transcriptionResultsDict:v23];
     Flags = VMStoreRecordGetFlags(v11);
     VMStoreRecordSetFlags(v12, v11, Flags & 0xFFFF6DFF | 0x1000);
     VMStoreSave();
@@ -684,7 +743,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v12 = sub_1000330E0();
+  v12 = sub_1000330E0(0);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -692,10 +751,10 @@ LABEL_21:
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Record with identifier %d deleted during transcribe operation, ignoring transcript result.", buf, 8u);
   }
 
-  LOBYTE(v16) = 0;
+  LOBYTE(v17) = 0;
 LABEL_22:
 
-  return v16;
+  return v17;
 }
 
 - (id)determineAssetLocale:(id)locale
@@ -708,24 +767,24 @@ LABEL_22:
   {
     if (localeCopy && ([localeCopy objectForKeyedSubscript:@"lidSuccess"], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqual:", &__kCFBooleanTrue), v7, v8))
     {
-      v9 = sub_1000330E0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000330E0(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "personalizedTranscriptionEnabled enabled and LID is successful.", &v25, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "personalizedTranscriptionEnabled enabled and LID is successful.", &v27, 2u);
       }
 
       transcriptionController2 = [(VMTranscriptionService *)self transcriptionController];
       matchedSystemLocale = [transcriptionController2 matchedSystemLocale];
       if (matchedSystemLocale)
       {
-        v12 = [localeCopy objectForKeyedSubscript:@"detectedDominantLanguage"];
+        v13 = [localeCopy objectForKeyedSubscript:@"detectedDominantLanguage"];
         transcriptionController3 = [(VMTranscriptionService *)self transcriptionController];
         matchedSystemLocale2 = [transcriptionController3 matchedSystemLocale];
-        v15 = [matchedSystemLocale2 objectForKey:NSLocaleLanguageCode];
-        v16 = [v12 isEqualToString:v15];
+        v16 = [matchedSystemLocale2 objectForKey:NSLocaleLanguageCode];
+        v17 = [v13 isEqualToString:v16];
 
-        if (v16)
+        if (v17)
         {
           transcriptionController4 = [(VMTranscriptionService *)self transcriptionController];
           matchedSystemLocale3 = [transcriptionController4 matchedSystemLocale];
@@ -739,9 +798,9 @@ LABEL_22:
       {
       }
 
-      v22 = [localeCopy objectForKeyedSubscript:@"dominantLocaleConfidence"];
+      v24 = [localeCopy objectForKeyedSubscript:@"dominantLocaleConfidence"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v22 doubleValue], v23 > 0.5))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v24 doubleValue], v25 > 0.5))
       {
         localeIdentifier = [localeCopy objectForKeyedSubscript:@"detectedDominantLocale"];
       }
@@ -757,12 +816,12 @@ LABEL_22:
       transcriptionController5 = [(VMTranscriptionService *)self transcriptionController];
       localeIdentifier = [transcriptionController5 getTranscriptionLocaleIdentifier];
 
-      v22 = sub_1000330E0();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_1000330E0(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = localeIdentifier;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "personalizedTranscriptionEnabled enabled but LID failed. Asset locale set to %@", &v25, 0xCu);
+        v27 = 138412290;
+        v28 = localeIdentifier;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "personalizedTranscriptionEnabled enabled but LID failed. Asset locale set to %@", &v27, 0xCu);
       }
     }
   }
@@ -778,52 +837,177 @@ LABEL_19:
   return localeIdentifier;
 }
 
+- (id)processLanguageIDCompletionHandlerForRecordWithIndentifier:(int)indentifier duration:(double)duration languageDetectorResult:(id)result error:(id)error
+{
+  v8 = *&indentifier;
+  resultCopy = result;
+  errorCopy = error;
+  v46 = objc_alloc_init(NSMutableDictionary);
+  v10 = VMStoreCopyRecordWithIdentifier();
+  if (v10)
+  {
+    v11 = [(VMTranscriptionService *)self processLanguageIDResultsForRecordWithIndentifier:v8 languageDetectorResult:resultCopy error:errorCopy];
+    v12 = v11;
+    if (v11)
+    {
+      v13 = [v11 objectForKeyedSubscript:@"lidSuccess"];
+      v14 = [v13 isEqual:&__kCFBooleanTrue];
+
+      if (v14)
+      {
+        v15 = [v12 objectForKeyedSubscript:@"detectedDominantLocale"];
+        v16 = [v12 objectForKeyedSubscript:@"dominantLocaleConfidence"];
+        [(VMTranscriptionService *)self donateToLanguageConsumptionBiomeStream:v15 confidence:v16 duration:duration];
+      }
+
+      v17 = 1;
+    }
+
+    else
+    {
+      v18 = objc_alloc_init(NSMutableDictionary);
+      [v18 setObject:&__kCFBooleanFalse forKeyedSubscript:@"lidSuccess"];
+      [v18 setObject:&off_1000F5800 forKeyedSubscript:@"lidFailureReason"];
+      v17 = 0;
+      v12 = v18;
+    }
+
+    v19 = +[NSLocale currentLocale];
+    localeIdentifier = [v19 localeIdentifier];
+    [v12 setObject:localeIdentifier forKeyedSubscript:@"systemLocale"];
+
+    v21 = [(VMTranscriptionService *)self determineAssetLocale:v12];
+    [v12 setObject:v21 forKeyedSubscript:@"assetLocale"];
+
+    v22 = [NSLocale alloc];
+    v23 = [v12 objectForKeyedSubscript:@"assetLocale"];
+    v24 = [v22 initWithLocaleIdentifier:v23];
+
+    transcriptionController = [(VMTranscriptionService *)self transcriptionController];
+    if ([transcriptionController isPersTranscriptionAvailable])
+    {
+      v26 = [v12 objectForKeyedSubscript:@"lidSuccess"];
+      v27 = [v26 isEqual:&__kCFBooleanTrue];
+
+      if (!v27)
+      {
+LABEL_14:
+        v31 = VMStoreRecordCopySummarizationPath(v10);
+        v32 = [(VMTranscriptionService *)self writeDataToFile:v31 fileData:v12];
+        if ((v32 & 1) == 0)
+        {
+          v33 = sub_1000330E0(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          {
+            sub_10009CC04();
+          }
+        }
+
+        v34 = [v12 objectForKeyedSubscript:@"assetLocale"];
+        transcriptionController2 = [(VMTranscriptionService *)self transcriptionController];
+        v36 = +[VMConfiguration getVMLocaleSpeechAssetTypeforLocaleIdentifier:gasrEnabled:](VMConfiguration, "getVMLocaleSpeechAssetTypeforLocaleIdentifier:gasrEnabled:", v34, [transcriptionController2 isGasrModelAvailable]);
+
+        if (v36 == kVM_GASRTaskHint || v36 == kVM_NGASRTaskHint)
+        {
+          [v46 setObject:v24 forKeyedSubscript:@"transcriptionAssetLocale"];
+          transcriptionController3 = [(VMTranscriptionService *)self transcriptionController];
+          v38 = [v46 objectForKeyedSubscript:@"transcriptionAssetLocale"];
+          v39 = [transcriptionController3 isSpeechAnalyzerTranscriptionModelInstalledForTaskHint:v38 taskHint:v36];
+
+          if ((v39 & 1) == 0)
+          {
+            v40 = VMStoreRecordGetLabel(v10);
+            VMStoreRecordSetFlag(v40, v10, 0x8000u);
+          }
+        }
+
+        CFRelease(v10);
+
+        goto LABEL_23;
+      }
+
+      v28 = [NSLocale alloc];
+      v29 = [v12 objectForKeyedSubscript:@"detectedDominantLocale"];
+      transcriptionController = [v28 initWithLocaleIdentifier:v29];
+
+      transcriptionController4 = [(VMTranscriptionService *)self transcriptionController];
+      [transcriptionController4 updateControllerWithLocale:transcriptionController assetLocale:v24];
+    }
+
+    goto LABEL_14;
+  }
+
+  v12 = sub_1000330E0(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Record deleted during Language ID operation, ignoring LID result.", buf, 2u);
+  }
+
+  v17 = 0;
+LABEL_23:
+
+  v42 = sub_1000330E0(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109634;
+    v48 = v8;
+    v49 = 1024;
+    v50 = v17;
+    v51 = 2112;
+    v52 = v46;
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Done processing Language ID results for record with identifier %d. Finished? %d Results : %@", buf, 0x18u);
+  }
+
+  return v46;
+}
+
 - (void)fetchLanguageIDBasedDictationResultForFileAtURL:(int)l dataURL:(id)rL queuePriority:(int64_t)priority duration:(double)duration completion:(id)completion
 {
   rLCopy = rL;
   completionCopy = completion;
   v12 = [completionCopy copy];
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_100038410;
-  v38[3] = &unk_1000EE348;
-  v38[4] = self;
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_100038410;
+  v40[3] = &unk_1000EE348;
+  v40[4] = self;
   lCopy = l;
-  v13 = objc_retainBlock(v38);
-  v35[0] = _NSConcreteStackBlock;
-  v35[1] = 3221225472;
-  v35[2] = sub_1000384B8;
-  v35[3] = &unk_1000EE460;
-  v35[4] = self;
+  v13 = objc_retainBlock(v40);
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_1000384B8;
+  v37[3] = &unk_1000EE460;
+  v37[4] = self;
   lCopy2 = l;
   v14 = v12;
-  v36 = v14;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100038620;
-  v28[3] = &unk_1000EE4B0;
-  v28[4] = self;
+  v38 = v14;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100038620;
+  v30[3] = &unk_1000EE4B0;
+  v30[4] = self;
   lCopy3 = l;
   durationCopy = duration;
-  v15 = objc_retainBlock(v35);
-  v30 = v15;
+  v15 = objc_retainBlock(v37);
+  v32 = v15;
   v16 = rLCopy;
-  v29 = v16;
+  v31 = v16;
   priorityCopy = priority;
   v17 = v13;
-  v31 = v17;
-  v18 = objc_retainBlock(v28);
+  v33 = v17;
+  v18 = objc_retainBlock(v30);
   transcriptionController = [(VMTranscriptionService *)self transcriptionController];
   LOBYTE(completion) = transcriptionController == 0;
 
   if (completion)
   {
-    v21 = sub_1000330E0();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_1000330E0(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       lCopy5 = l;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Transcription service is disabled, not transcribing record with identifier %d", buf, 8u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Transcription service is disabled, not transcribing record with identifier %d", buf, 8u);
     }
 
     (v15[2])(v15, 0, 0);
@@ -836,19 +1020,19 @@ LABEL_19:
       transcriptionController2 = [(VMTranscriptionService *)self transcriptionController];
       getTranscriptionLocaleIdentifier = [transcriptionController2 getTranscriptionLocaleIdentifier];
 
-      v23 = sub_1000330E0();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_1000330E0(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109378;
         lCopy5 = l;
-        v42 = 2112;
-        v43 = getTranscriptionLocaleIdentifier;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Skipping Language ID as voicemail is too short. Attempting to transcribe record with identifier %d in locale %@", buf, 0x12u);
+        v44 = 2112;
+        v45 = getTranscriptionLocaleIdentifier;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Skipping Language ID as voicemail is too short. Attempting to transcribe record with identifier %d in locale %@", buf, 0x12u);
       }
 
       transcriptionController3 = [(VMTranscriptionService *)self transcriptionController];
-      v25 = [[NSLocale alloc] initWithLocaleIdentifier:getTranscriptionLocaleIdentifier];
-      [transcriptionController3 retrieveDictationResultWithLocaleForFileAtURL:v16 locale:v25 profanityFilterOverride:-[VMTranscriptionService enableProfanityFilter:](self queuePriority:"enableProfanityFilter:" duration:0) transcriptionBeginCallback:priority completion:{v17, v15, duration}];
+      v27 = [[NSLocale alloc] initWithLocaleIdentifier:getTranscriptionLocaleIdentifier];
+      [transcriptionController3 retrieveDictationResultWithLocaleForFileAtURL:v16 locale:v27 profanityFilterOverride:-[VMTranscriptionService enableProfanityFilter:](self queuePriority:"enableProfanityFilter:" duration:0) transcriptionBeginCallback:priority completion:{v17, v15, duration}];
     }
 
     else
@@ -862,7 +1046,7 @@ LABEL_19:
 - (void)processSpeechAnalyzerTranscriptForRecordWithIdentifier:(int)identifier priority:(int64_t)priority completion:(id)completion
 {
   completionCopy = completion;
-  v9 = sub_1000330E0();
+  v9 = sub_1000330E0(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -952,73 +1136,73 @@ LABEL_19:
   dictCopy = dict;
   if (metrics && dictCopy)
   {
-    v41 = dictCopy;
-    v7 = VMStoreRecordCopySummarizationPath();
+    v42 = dictCopy;
+    v7 = VMStoreRecordCopySummarizationPath(metrics);
     v8 = +[NSSet set];
     v9 = [VMUtilities readDataFromFile:v7 customClassSet:v8];
 
-    v40 = v9;
-    if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v41 = v9;
+    if (v9 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v11 = sub_1000330E0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000330E0(isKindOfClass);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         metricsCopy = metrics;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Language ID results do not exist for record %@.", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Language ID results do not exist for record %@.", buf, 0xCu);
       }
 
-      v12 = objc_alloc_init(NSMutableDictionary);
-      v13 = +[NSLocale currentLocale];
-      localeIdentifier = [v13 localeIdentifier];
-      [v12 setObject:localeIdentifier forKeyedSubscript:@"systemLocale"];
+      v13 = objc_alloc_init(NSMutableDictionary);
+      v14 = +[NSLocale currentLocale];
+      localeIdentifier = [v14 localeIdentifier];
+      [v13 setObject:localeIdentifier forKeyedSubscript:@"systemLocale"];
 
       transcriptionController = [(VMTranscriptionService *)self transcriptionController];
       getTranscriptionLocaleIdentifier = [transcriptionController getTranscriptionLocaleIdentifier];
-      [v12 setObject:getTranscriptionLocaleIdentifier forKeyedSubscript:@"assetLocale"];
+      [v13 setObject:getTranscriptionLocaleIdentifier forKeyedSubscript:@"assetLocale"];
 
-      [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"lidSuccess"];
-      [v12 setObject:&off_1000F5800 forKeyedSubscript:@"lidFailureReason"];
-      [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"isEnglish"];
-      [v12 setObject:0 forKeyedSubscript:@"detectedDominantLocale"];
-      [v12 setObject:0 forKeyedSubscript:@"altLocaleDict"];
-      v10 = v12;
-      [v12 setObject:0 forKeyedSubscript:@"dominantLocaleConfidence"];
+      [v13 setObject:&__kCFBooleanFalse forKeyedSubscript:@"lidSuccess"];
+      [v13 setObject:&off_1000F5800 forKeyedSubscript:@"lidFailureReason"];
+      [v13 setObject:&__kCFBooleanFalse forKeyedSubscript:@"isEnglish"];
+      [v13 setObject:0 forKeyedSubscript:@"detectedDominantLocale"];
+      [v13 setObject:0 forKeyedSubscript:@"altLocaleDict"];
+      v11 = v13;
+      [v13 setObject:0 forKeyedSubscript:@"dominantLocaleConfidence"];
     }
 
-    v38 = +[VMAWDReporter sharedInstance];
-    v39 = [v10 objectForKeyedSubscript:@"systemLocale"];
-    v34 = [v41 objectForKeyedSubscript:@"transcriptionSuccess"];
-    bOOLValue = [v34 BOOLValue];
-    v36 = [v41 objectForKeyedSubscript:@"transcriptionFailureReason"];
-    v35 = [v10 objectForKeyedSubscript:@"assetLocale"];
-    v37 = [v41 objectForKeyedSubscript:@"confidence"];
-    v18 = [v10 objectForKeyedSubscript:@"lidSuccess"];
-    bOOLValue2 = [v18 BOOLValue];
-    v20 = [v10 objectForKeyedSubscript:@"lidFailureReason"];
-    v21 = [v10 objectForKeyedSubscript:@"isEnglish"];
-    bOOLValue3 = [v21 BOOLValue];
-    v23 = [v10 objectForKeyedSubscript:@"detectedDominantLocale"];
-    v24 = [v10 objectForKeyedSubscript:@"dominantLocaleConfidence"];
-    v25 = [v10 objectForKeyedSubscript:@"altLocaleDict"];
-    LOBYTE(v33) = bOOLValue3;
-    [v38 reportVoicemailProcessed:v39 transcriptionSuccess:bOOLValue transcriptionFailureReason:v36 assetLocale:v35 transcriptionConfidence:v37 lidSuccess:bOOLValue2 lidFailureReason:v20 isEnglish:v33 dominantLocale:v23 dominantLocaleConfidence:v24 altLocaleDict:v25];
+    v39 = +[VMAWDReporter sharedInstance];
+    v40 = [v11 objectForKeyedSubscript:@"systemLocale"];
+    v35 = [v42 objectForKeyedSubscript:@"transcriptionSuccess"];
+    bOOLValue = [v35 BOOLValue];
+    v37 = [v42 objectForKeyedSubscript:@"transcriptionFailureReason"];
+    v36 = [v11 objectForKeyedSubscript:@"assetLocale"];
+    v38 = [v42 objectForKeyedSubscript:@"confidence"];
+    v19 = [v11 objectForKeyedSubscript:@"lidSuccess"];
+    bOOLValue2 = [v19 BOOLValue];
+    v21 = [v11 objectForKeyedSubscript:@"lidFailureReason"];
+    v22 = [v11 objectForKeyedSubscript:@"isEnglish"];
+    bOOLValue3 = [v22 BOOLValue];
+    v24 = [v11 objectForKeyedSubscript:@"detectedDominantLocale"];
+    v25 = [v11 objectForKeyedSubscript:@"dominantLocaleConfidence"];
+    v26 = [v11 objectForKeyedSubscript:@"altLocaleDict"];
+    LOBYTE(v34) = bOOLValue3;
+    [v39 reportVoicemailProcessed:v40 transcriptionSuccess:bOOLValue transcriptionFailureReason:v37 assetLocale:v36 transcriptionConfidence:v38 lidSuccess:bOOLValue2 lidFailureReason:v21 isEnglish:v34 dominantLocale:v24 dominantLocaleConfidence:v25 altLocaleDict:v26];
 
-    v26 = +[VMAWDReporter sharedInstance];
-    v27 = [v10 objectForKeyedSubscript:@"systemLocale"];
-    v28 = [v41 objectForKeyedSubscript:@"transcriptionSuccess"];
-    bOOLValue4 = [v28 BOOLValue];
-    v30 = [v41 objectForKeyedSubscript:@"transcriptionFailureReason"];
-    v31 = [v10 objectForKeyedSubscript:@"assetLocale"];
-    v32 = [v41 objectForKeyedSubscript:@"confidence"];
-    [v26 reportVoicemailTranscriptionProcessed:v27 success:bOOLValue4 reason:v30 assetLocale:v31 confidence:v32];
+    v27 = +[VMAWDReporter sharedInstance];
+    v28 = [v11 objectForKeyedSubscript:@"systemLocale"];
+    v29 = [v42 objectForKeyedSubscript:@"transcriptionSuccess"];
+    bOOLValue4 = [v29 BOOLValue];
+    v31 = [v42 objectForKeyedSubscript:@"transcriptionFailureReason"];
+    v32 = [v11 objectForKeyedSubscript:@"assetLocale"];
+    v33 = [v42 objectForKeyedSubscript:@"confidence"];
+    [v27 reportVoicemailTranscriptionProcessed:v28 success:bOOLValue4 reason:v31 assetLocale:v32 confidence:v33];
 
-    dictCopy = v41;
+    dictCopy = v42;
   }
 }
 
@@ -1113,7 +1297,7 @@ LABEL_19:
   fileCopy = file;
   if (![fileCopy length])
   {
-    v4 = sub_1000330E0();
+    v4 = sub_1000330E0(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10009CCF4();
@@ -1123,20 +1307,20 @@ LABEL_19:
   }
 
   v4 = [NSURL fileURLWithPath:fileCopy isDirectory:0];
-  v25 = 0;
-  v5 = [NSData dataWithContentsOfURL:v4 options:1 error:&v25];
-  v6 = v25;
+  v26 = 0;
+  v5 = [NSData dataWithContentsOfURL:v4 options:1 error:&v26];
+  v6 = v26;
   v7 = v6;
   if (!v5)
   {
     localizedDescription = [v6 localizedDescription];
-    v20 = [NSString stringWithFormat:@"readDataFromFile: error %@\n", localizedDescription];
-    v21 = v20;
-    uTF8String = [v20 UTF8String];
+    v21 = [NSString stringWithFormat:@"readDataFromFile: error %@\n", localizedDescription];
+    v22 = v21;
+    uTF8String = [v21 UTF8String];
     fputs(uTF8String, __stderrp);
 
 LABEL_13:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_14;
   }
 
@@ -1144,36 +1328,36 @@ LABEL_13:
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = [NSSet setWithObjects:v8, v9, v10, objc_opt_class(), 0];
-  v24 = v7;
-  v12 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v5 error:&v24];
-  v13 = v24;
+  v25 = v7;
+  v12 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v5 error:&v25];
+  v13 = v25;
 
   if (v13)
   {
-    v14 = sub_1000330E0();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_1000330E0(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10009CC78();
     }
   }
 
-  v15 = sub_1000330E0();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_1000330E0(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = objc_opt_class();
+    v17 = objc_opt_class();
     *buf = 138412546;
-    v27 = fileCopy;
-    v28 = 2112;
-    v29 = v16;
-    v17 = v16;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "For file %@, unarchived object class: %@", buf, 0x16u);
+    v28 = fileCopy;
+    v29 = 2112;
+    v30 = v17;
+    v18 = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "For file %@, unarchived object class: %@", buf, 0x16u);
   }
 
-  v18 = v12;
-  v4 = v18;
+  v19 = v12;
+  v4 = v19;
 LABEL_14:
 
-  return v18;
+  return v19;
 }
 
 - (BOOL)writeDataToFile:(id)file fileData:(id)data
@@ -1185,75 +1369,76 @@ LABEL_14:
     v7 = [NSURL fileURLWithPath:fileCopy isDirectory:0];
     if (!v7)
     {
-      v11 = sub_1000330E0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_1000330E0(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10009CE1C();
       }
 
-      v12 = 0;
+      v13 = 0;
       goto LABEL_15;
     }
 
-    v17 = 0;
-    v8 = [NSKeyedArchiver archivedDataWithRootObject:dataCopy requiringSecureCoding:1 error:&v17];
-    v9 = v17;
+    v18 = 0;
+    v8 = [NSKeyedArchiver archivedDataWithRootObject:dataCopy requiringSecureCoding:1 error:&v18];
+    v9 = v18;
+    v10 = v9;
     if (v9)
     {
-      v10 = sub_1000330E0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_1000330E0(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_10009CD30();
       }
 
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v16 = 0;
-      v14 = [v8 writeToURL:v7 options:268435457 error:&v16];
+      v17 = 0;
+      v15 = [v8 writeToURL:v7 options:268435457 error:&v17];
+      v12 = v17;
+      v16 = sub_1000330E0(v12);
       v11 = v16;
-      v15 = sub_1000330E0();
-      v10 = v15;
-      if (v14)
+      if (v15)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v19 = dataCopy;
-          v20 = 2112;
-          v21 = v7;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "File data %@ written to location: %@", buf, 0x16u);
+          v20 = dataCopy;
+          v21 = 2112;
+          v22 = v7;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "File data %@ written to location: %@", buf, 0x16u);
         }
 
-        v12 = 1;
+        v13 = 1;
         goto LABEL_8;
       }
 
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10009CDA0();
       }
     }
 
-    v12 = 0;
+    v13 = 0;
 LABEL_8:
 
 LABEL_15:
     goto LABEL_16;
   }
 
-  v7 = sub_1000330E0();
+  v7 = sub_1000330E0(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_10009CE8C();
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_16:
 
-  return v12;
+  return v13;
 }
 
 - (void)setTranscriptionController:(id)controller
@@ -1349,7 +1534,7 @@ LABEL_16:
 
 - (void)transcriptionAvailabilityChanged:(BOOL)changed
 {
-  v5 = sub_1000330E0();
+  v5 = sub_1000330E0(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1370,10 +1555,38 @@ LABEL_16:
   [(VMTranscriptionService *)self performAtomicAccessorBlock:v8];
 }
 
+- (void)transcriptionController:(id)controller transcriptionStatusChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  controllerCopy = controller;
+  v7 = sub_1000330E0(controllerCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = objc_opt_class();
+    v9 = asNSStringBOOL();
+    *buf = 138412546;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ is handling transcriptionStatusChanged with transcribing %@", buf, 0x16u);
+  }
+
+  [(VMTranscriptionService *)self cache_setTranscribing:changedCopy];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10003AFD0;
+  v11[3] = &unk_1000EDFC8;
+  v11[4] = self;
+  v10 = controllerCopy;
+  v12 = v10;
+  v13 = changedCopy;
+  [(VMTranscriptionService *)self performAtomicAccessorBlock:v11];
+}
+
 - (void)transcriptionController:(id)controller transcriptionProgressFractionCompletedChanged:(double)changed
 {
   controllerCopy = controller;
-  v7 = sub_1000330E0();
+  v7 = sub_1000330E0(controllerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1399,7 +1612,7 @@ LABEL_16:
 - (void)transcriptionController:(id)controller transcriptionProgressTotalUnitCountChanged:(int64_t)changed
 {
   controllerCopy = controller;
-  v7 = sub_1000330E0();
+  v7 = sub_1000330E0(controllerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1426,7 +1639,7 @@ LABEL_16:
 {
   delegateCopy = delegate;
   queueCopy = queue;
-  v8 = sub_1000330E0();
+  v8 = sub_1000330E0(queueCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1452,7 +1665,7 @@ LABEL_16:
 - (void)removeTranscriptionDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v5 = sub_1000330E0();
+  v5 = sub_1000330E0(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

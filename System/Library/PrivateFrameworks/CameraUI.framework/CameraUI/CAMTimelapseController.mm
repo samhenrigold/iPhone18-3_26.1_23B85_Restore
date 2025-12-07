@@ -13,6 +13,7 @@
 - (id)_stillImageCaptureRequestWithCurrentSettings;
 - (void)_applicationDidEnterBackground:(id)background;
 - (void)_captureTimerFired;
+- (void)_invalidateCachedGraphConfiguration;
 - (void)_notifyInsufficientDiskSpaceForContinuingCapture;
 - (void)_notifyInsufficientDiskSpaceForStartingCaptureWithNeededBytes:(int64_t)bytes availableBytes:(int64_t)availableBytes;
 - (void)_prepareForTimelapseCaptureSetModeAndDevice:(BOOL)device;
@@ -544,6 +545,13 @@ void __52__CAMTimelapseController__stopCapturingWithReasons___block_invoke_2(voi
   v18 = self->__graphConfigurationForCurrentState;
 
   return v18;
+}
+
+- (void)_invalidateCachedGraphConfiguration
+{
+  graphConfigurationForCurrentState = self->__graphConfigurationForCurrentState;
+  self->__graphConfigurationForCurrentState = 0;
+  MEMORY[0x1EEE66BB8](self, graphConfigurationForCurrentState);
 }
 
 - (void)_restoreCaptureStateFromDisk

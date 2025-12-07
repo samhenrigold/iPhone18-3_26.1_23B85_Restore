@@ -144,29 +144,33 @@
 
 - (void)setStartingGridSizeClass:(id)class
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   classCopy = class;
   v5 = classCopy;
-  if (self->_startingGridSizeClass != classCopy && ![(NSString *)classCopy isEqualToString:?])
+  if (self->_startingGridSizeClass != classCopy)
   {
-    v6 = SBLogWidgetResizing();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = [(NSString *)classCopy isEqualToString:?];
+    if ((v6 & 1) == 0)
     {
-      v13 = 138543362;
-      v14 = v5;
-      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "setting resize starting grid size class to %{public}@", &v13, 0xCu);
+      v7 = SBLogWidgetResizing(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = 138543362;
+        v15 = v5;
+        _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "setting resize starting grid size class to %{public}@", &v14, 0xCu);
+      }
+
+      v8 = [(NSString *)v5 copy];
+      startingGridSizeClass = self->_startingGridSizeClass;
+      self->_startingGridSizeClass = v8;
+
+      v10 = [(SBWidgetIconResizeTransitionViewController *)self viewControllerForGridSizeClass:v5];
+      [(SBWidgetIconResizeTransitionViewController *)self setStartingViewController:v10];
+      listLayout = [(SBWidgetIconResizeTransitionViewController *)self listLayout];
+      viewHelper = [(SBWidgetIconResizeTransitionViewController *)self viewHelper];
+      SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(listLayout, [viewHelper orientation], v5);
+      [(SBWidgetIconResizeTransitionViewController *)self setStartingCornerRadius:v13];
     }
-
-    v7 = [(NSString *)v5 copy];
-    startingGridSizeClass = self->_startingGridSizeClass;
-    self->_startingGridSizeClass = v7;
-
-    v9 = [(SBWidgetIconResizeTransitionViewController *)self viewControllerForGridSizeClass:v5];
-    [(SBWidgetIconResizeTransitionViewController *)self setStartingViewController:v9];
-    listLayout = [(SBWidgetIconResizeTransitionViewController *)self listLayout];
-    viewHelper = [(SBWidgetIconResizeTransitionViewController *)self viewHelper];
-    SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(listLayout, [viewHelper orientation], v5);
-    [(SBWidgetIconResizeTransitionViewController *)self setStartingCornerRadius:v12];
   }
 }
 
@@ -216,40 +220,44 @@
 - (void)setEndingGridSizeClass:(id)class animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   classCopy = class;
   v7 = classCopy;
-  if (self->_endingGridSizeClass != classCopy && ![(NSString *)classCopy isEqualToString:?])
+  if (self->_endingGridSizeClass != classCopy)
   {
-    v8 = SBLogWidgetResizing();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = [(NSString *)classCopy isEqualToString:?];
+    if ((v8 & 1) == 0)
     {
-      v16 = 138543362;
-      v17 = v7;
-      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "setting resize ending grid size class to %{public}@", &v16, 0xCu);
+      v9 = SBLogWidgetResizing(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = 138543362;
+        v18 = v7;
+        _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "setting resize ending grid size class to %{public}@", &v17, 0xCu);
+      }
+
+      v10 = [(NSString *)v7 copy];
+      endingGridSizeClass = self->_endingGridSizeClass;
+      self->_endingGridSizeClass = v10;
+
+      if (v7)
+      {
+        v12 = [(SBWidgetIconResizeTransitionViewController *)self viewControllerForGridSizeClass:v7];
+        listLayout = [(SBWidgetIconResizeTransitionViewController *)self listLayout];
+        viewHelper = [(SBWidgetIconResizeTransitionViewController *)self viewHelper];
+        SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(listLayout, [viewHelper orientation], v7);
+        v16 = v15;
+      }
+
+      else
+      {
+        v12 = 0;
+        v16 = 0.0;
+      }
+
+      [(SBWidgetIconResizeTransitionViewController *)self setEndingViewController:v12 animated:animatedCopy];
+      [(SBWidgetIconResizeTransitionViewController *)self setEndingCornerRadius:v16];
     }
-
-    v9 = [(NSString *)v7 copy];
-    endingGridSizeClass = self->_endingGridSizeClass;
-    self->_endingGridSizeClass = v9;
-
-    if (v7)
-    {
-      v11 = [(SBWidgetIconResizeTransitionViewController *)self viewControllerForGridSizeClass:v7];
-      listLayout = [(SBWidgetIconResizeTransitionViewController *)self listLayout];
-      viewHelper = [(SBWidgetIconResizeTransitionViewController *)self viewHelper];
-      SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(listLayout, [viewHelper orientation], v7);
-      v15 = v14;
-    }
-
-    else
-    {
-      v11 = 0;
-      v15 = 0.0;
-    }
-
-    [(SBWidgetIconResizeTransitionViewController *)self setEndingViewController:v11 animated:animatedCopy];
-    [(SBWidgetIconResizeTransitionViewController *)self setEndingCornerRadius:v15];
   }
 }
 
@@ -357,7 +365,7 @@ void __79__SBWidgetIconResizeTransitionViewController_setEndingViewController_an
   v8 = *MEMORY[0x1E69E9840];
   if (self->_transitionProgress != progress)
   {
-    v5 = SBLogWidgetResizing();
+    v5 = SBLogWidgetResizing(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 134217984;
@@ -433,7 +441,7 @@ void __79__SBWidgetIconResizeTransitionViewController_setEndingViewController_an
   v18.super_class = SBWidgetIconResizeTransitionViewController;
   [(SBWidgetIconResizeTransitionViewController *)&v18 viewDidLayoutSubviews];
   view = [(SBWidgetIconResizeTransitionViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -544,7 +552,7 @@ void __67__SBWidgetIconResizeTransitionViewController_gatherViewControllers__blo
 - (CGRect)visibleBounds
 {
   view = [(SBWidgetIconResizeTransitionViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v4 = v3;
   v6 = v5;
   v8 = v7;

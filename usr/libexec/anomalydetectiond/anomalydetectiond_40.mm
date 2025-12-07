@@ -6628,7 +6628,7 @@ float CMMsl::KappaRemoteAudioResult::KappaRemoteAudioResult(uint64_t a1, uint64_
   return result;
 }
 
-CMMsl *CMMsl::KappaRemoteAudioResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaRemoteAudioResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

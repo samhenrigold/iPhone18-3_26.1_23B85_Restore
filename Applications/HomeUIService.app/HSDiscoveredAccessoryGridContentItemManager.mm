@@ -1,6 +1,7 @@
 @interface HSDiscoveredAccessoryGridContentItemManager
 - (HSDiscoveredAccessoryFilter)discoveredAccessoryFilter;
 - (HSDiscoveredAccessoryGridContentItemManager)initWithAccessoryBrowsingManager:(id)manager delegate:(id)delegate discoveredAccessoryFilter:(id)filter;
+- (HSDiscoveredAccessoryGridContentItemManager)initWithDelegate:(id)delegate shouldGroupByRoom:(BOOL)room itemProvidersCreator:(id)creator;
 - (id)_buildItemProvidersWithoutHome;
 - (id)_buildSectionsWithDisplayedItems:(id)items;
 - (void)_registerForExternalUpdates;
@@ -9,6 +10,15 @@
 @end
 
 @implementation HSDiscoveredAccessoryGridContentItemManager
+
+- (HSDiscoveredAccessoryGridContentItemManager)initWithDelegate:(id)delegate shouldGroupByRoom:(BOOL)room itemProvidersCreator:(id)creator
+{
+  v7 = [NSAssertionHandler currentHandler:delegate];
+  v8 = NSStringFromSelector("initWithAccessoryBrowsingManager:delegate:discoveredAccessoryFilter:");
+  [v7 handleFailureInMethod:a2 object:self file:@"HSDiscoveredAccessoryGridContentItemManager.m" lineNumber:25 description:{@"%s is unavailable; use %@ instead", "-[HSDiscoveredAccessoryGridContentItemManager initWithDelegate:shouldGroupByRoom:itemProvidersCreator:]", v8}];
+
+  return 0;
+}
 
 - (HSDiscoveredAccessoryGridContentItemManager)initWithAccessoryBrowsingManager:(id)manager delegate:(id)delegate discoveredAccessoryFilter:(id)filter
 {

@@ -10,19 +10,18 @@
 
 - (CTXPCGetLocalDeviceIdentifierRequest)initWithType:(unint64_t)type clientBundleIdentifier:(id)identifier
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v13[0] = @"type";
+  v12[0] = @"type";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-  v13[1] = @"bundleID";
-  v14[0] = v7;
-  v14[1] = identifierCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v12.receiver = self;
-  v12.super_class = CTXPCGetLocalDeviceIdentifierRequest;
-  v9 = [(CTXPCMessage *)&v12 initWithNamedArguments:v8];
+  v12[1] = @"bundleID";
+  v13[0] = v7;
+  v13[1] = identifierCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11.receiver = self;
+  v11.super_class = CTXPCGetLocalDeviceIdentifierRequest;
+  v9 = [(CTXPCMessage *)&v11 initWithNamedArguments:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -52,16 +51,14 @@ void __84__CTXPCGetLocalDeviceIdentifierRequest_performRequestWithHandler_comple
 
 + (id)allowedClassesForArguments
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___CTXPCGetLocalDeviceIdentifierRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClassesForArguments);
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___CTXPCGetLocalDeviceIdentifierRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClassesForArguments);
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v4 = [v2 setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

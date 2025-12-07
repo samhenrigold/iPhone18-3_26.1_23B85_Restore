@@ -198,33 +198,31 @@ LABEL_25:
 
 - (id)descriptionDictionary
 {
-  v17[6] = *MEMORY[0x277D85DE8];
-  v16[0] = @"EventType";
+  v16[6] = *MEMORY[0x277D85DE8];
+  v15[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v17[0] = v4;
-  v16[1] = @"PeopleDensityState";
+  v16[0] = v4;
+  v15[1] = @"PeopleDensityState";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[TAPeopleDensityResult peopleDensityState](self, "peopleDensityState")}];
-  v17[1] = v5;
-  v16[2] = @"Confidence";
+  v16[1] = v5;
+  v15[2] = @"Confidence";
   v6 = MEMORY[0x277CCABB0];
   [(TAPeopleDensityResult *)self confidence];
   v7 = [v6 numberWithDouble:?];
-  v17[2] = v7;
-  v16[3] = @"ObservationInterval";
+  v16[2] = v7;
+  v15[3] = @"ObservationInterval";
   observationInterval = [(TAPeopleDensityResult *)self observationInterval];
   v9 = [observationInterval description];
-  v17[3] = v9;
-  v16[4] = @"AdditionalInfo";
+  v16[3] = v9;
+  v15[4] = @"AdditionalInfo";
   additionalInfo = [(TAPeopleDensityResult *)self additionalInfo];
-  v17[4] = additionalInfo;
-  v16[5] = @"Date";
+  v16[4] = additionalInfo;
+  v15[5] = @"Date";
   date = [(TAPeopleDensityResult *)self date];
   getDateString = [date getDateString];
-  v17[5] = getDateString;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16[5] = getDateString;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
 
   return v13;
 }

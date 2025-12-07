@@ -16,12 +16,12 @@
 
 - (ICQPremiumOffer)initWithServerDictionary:(id)dictionary accountAltDSID:(id)d notificationID:(id)iD retrievalDate:(id)date callbackInterval:(double)interval appLaunchLink:(id)link bundleIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
-  v28.receiver = self;
-  v28.super_class = ICQPremiumOffer;
-  v18 = [(ICQOffer *)&v28 initWithServerDictionary:dictionaryCopy accountAltDSID:d notificationID:iD retrievalDate:date callbackInterval:link appLaunchLink:identifierCopy bundleIdentifier:interval];
+  v27.receiver = self;
+  v27.super_class = ICQPremiumOffer;
+  v18 = [(ICQOffer *)&v27 initWithServerDictionary:dictionaryCopy accountAltDSID:d notificationID:iD retrievalDate:date callbackInterval:link appLaunchLink:identifierCopy bundleIdentifier:interval];
   v19 = v18;
   if (!v18)
   {
@@ -48,7 +48,7 @@ LABEL_6:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = v19;
+      v29 = v19;
       _os_log_impl(&dword_275572000, v23, OS_LOG_TYPE_DEFAULT, "Successfully initialized premium offer from server response: %@", buf, 0xCu);
     }
 
@@ -59,21 +59,20 @@ LABEL_6:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = dictionaryCopy;
+    v29 = dictionaryCopy;
     _os_log_impl(&dword_275572000, v25, OS_LOG_TYPE_DEFAULT, "Cannot initialize premium offer from server dict due to invalid type: %@", buf, 0xCu);
   }
 
   v24 = 0;
 LABEL_10:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (BOOL)getBadgeAppFromServerDict:(id)dict
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = [dict objectForKeyedSubscript:@"badgeApp"];
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_objectForKeyedSubscript_(dict, a2, @"badgeApp");
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -88,25 +87,24 @@ LABEL_10:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = objc_opt_class();
-        v9 = 136315394;
+        v8 = 136315394;
         Name = class_getName(v6);
-        v11 = 2112;
-        v12 = v3;
-        _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v9, 0x16u);
+        v10 = 2112;
+        v11 = v3;
+        _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v8, 0x16u);
       }
     }
 
     bOOLValue = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)_hasFollowupEnabledFromServerDict:(id)dict
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = [dict objectForKeyedSubscript:@"followUpEnabled"];
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_objectForKeyedSubscript_(dict, a2, @"followUpEnabled");
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -121,27 +119,26 @@ LABEL_10:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = objc_opt_class();
-        v9 = 136315394;
+        v8 = 136315394;
         Name = class_getName(v6);
-        v11 = 2112;
-        v12 = v3;
-        _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v9, 0x16u);
+        v10 = 2112;
+        v11 = v3;
+        _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v8, 0x16u);
       }
     }
 
     LOBYTE(v4) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)_ICQOpportunityBubbleSpecificationForServerDict:(id)dict bundleId:(id)id
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   idCopy = id;
-  v7 = [dictCopy objectForKeyedSubscript:@"opportunityBubble"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -149,7 +146,7 @@ LABEL_10:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = [dictCopy objectForKeyedSubscript:@"opportunitySheet"];
+      v9 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
       if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         v10 = _ICQServerDictionaryForBundleIdentifier(v9, idCopy, 0, 0);
@@ -171,11 +168,11 @@ LABEL_10:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = objc_opt_class();
-        v17 = 136315394;
+        v16 = 136315394;
         Name = class_getName(v13);
-        v19 = 2112;
-        v20 = v8;
-        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v17, 0x16u);
+        v18 = 2112;
+        v19 = v8;
+        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v16, 0x16u);
       }
     }
   }
@@ -192,11 +189,11 @@ LABEL_10:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = objc_opt_class();
-      v17 = 136315394;
+      v16 = 136315394;
       Name = class_getName(v11);
-      v19 = 2112;
-      v20 = v7;
-      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v17, 0x16u);
+      v18 = 2112;
+      v19 = v7;
+      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v16, 0x16u);
     }
   }
 
@@ -204,7 +201,6 @@ LABEL_10:
 LABEL_17:
 
 LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -279,40 +275,36 @@ LABEL_6:
 
 - (id)_bundleStorageLevelFromServerDict:(id)dict
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = [dict objectForKeyedSubscript:@"quotaInfo"];
-  v5 = [v4 objectForKeyedSubscript:@"bundleQuotaInBytes"];
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_objectForKeyedSubscript_(dict, a2, @"quotaInfo");
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
 
   v6 = [(ICQPremiumOffer *)self _parseQuotaInfo:v5];
   v7 = _ICQGetLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Current bundle storage level from Premium offer: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Current bundle storage level from Premium offer: %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_commerceStorageLevelFromServerDict:(id)dict
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = [dict objectForKeyedSubscript:@"quotaInfo"];
-  v5 = [v4 objectForKeyedSubscript:@"commerceQuotaInBytes"];
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_objectForKeyedSubscript_(dict, a2, @"quotaInfo");
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
 
   v6 = [(ICQPremiumOffer *)self _parseQuotaInfo:v5];
   v7 = _ICQGetLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Current commerce storage level from Premium offer: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Current commerce storage level from Premium offer: %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -363,7 +355,7 @@ LABEL_6:
 - (void)shouldShowOpportunityBubbleWithDisplayRuleResult:(BOOL)result completion:(id)completion
 {
   resultCopy = result;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   opportunityBubble = [(ICQPremiumOffer *)self opportunityBubble];
   v8 = opportunityBubble != 0;
@@ -377,9 +369,9 @@ LABEL_6:
       v10 = @"YES";
     }
 
-    v15 = 138412290;
-    v16 = v10;
-    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "bubble not nil: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "bubble not nil: %@", &v14, 0xCu);
   }
 
   v11 = +[ICQPreferences shouldEnableUnifiedMessaging];
@@ -389,8 +381,8 @@ LABEL_6:
   {
     if (v13)
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Using Unified Messaging based on Internal Settings", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Using Unified Messaging based on Internal Settings", &v14, 2u);
     }
 
     if (opportunityBubble)
@@ -408,14 +400,12 @@ LABEL_6:
   {
     if (v13)
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Not using Unified Messaging based on Internal Settings", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Not using Unified Messaging based on Internal Settings", &v14, 2u);
     }
   }
 
   completionCopy[2](completionCopy, v8);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

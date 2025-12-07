@@ -189,7 +189,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -209,7 +208,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numberOfRequests = self->_numberOfRequests;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -224,12 +222,10 @@ LABEL_4:
   }
 
 LABEL_29:
-  numberOfResponses = self->_numberOfResponses;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    numMessages = self->_numMessages;
     PBDataWriterWriteUint32Field();
   }
 
@@ -239,15 +235,14 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (self->_numOutOfOrders.count)
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        v7 = self->_numOutOfOrders.list[v6];
         PBDataWriterWriteUint32Field();
-        ++v6;
+        ++v5;
       }
 
-      while (v6 < self->_numOutOfOrders.count);
+      while (v5 < self->_numOutOfOrders.count);
     }
 
     PBDataWriterRecallMark();
@@ -258,15 +253,14 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (self->_numMisseds.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_numMisseds.list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_numMisseds.count);
+      while (v6 < self->_numMisseds.count);
     }
 
     PBDataWriterRecallMark();
@@ -277,15 +271,14 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (self->_aliasesMatcheds.count)
     {
-      v10 = 0;
+      v7 = 0;
       do
       {
-        v11 = self->_aliasesMatcheds.list[v10];
         PBDataWriterWriteUint32Field();
-        ++v10;
+        ++v7;
       }
 
-      while (v10 < self->_aliasesMatcheds.count);
+      while (v7 < self->_aliasesMatcheds.count);
     }
 
     PBDataWriterRecallMark();
@@ -297,15 +290,14 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (p_coarseMatcheds->count)
     {
-      v13 = 0;
+      v9 = 0;
       do
       {
-        v14 = p_coarseMatcheds->list[v13];
         PBDataWriterWriteUint32Field();
-        ++v13;
+        ++v9;
       }
 
-      while (v13 < p_coarseMatcheds->count);
+      while (v9 < p_coarseMatcheds->count);
     }
 
     PBDataWriterRecallMark();
@@ -485,7 +477,6 @@ LABEL_6:
     return 0;
   }
 
-  v5 = *(equal + 124);
   if (*&self->_has)
   {
     if ((*(equal + 124) & 1) == 0 || self->_timestamp != *(equal + 13))

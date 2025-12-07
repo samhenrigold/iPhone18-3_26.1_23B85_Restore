@@ -34,17 +34,16 @@
 
 - (void)addRequest:(id)request consumer:(id)consumer
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v13[0] = request;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v12[0] = request;
   v6 = MEMORY[0x277CBEA60];
   consumerCopy = consumer;
   requestCopy = request;
-  v9 = [v6 arrayWithObjects:v13 count:1];
-  v12 = consumerCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v9 = [v6 arrayWithObjects:v12 count:1];
+  v11 = consumerCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
 
   [(MFRequestQueue *)self addRequests:v9 consumers:v10];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRequests:(id)requests consumers:(id)consumers
@@ -98,12 +97,9 @@ LABEL_6:
 
 - (void)_processRequests:(id)requests consumers:(id)consumers
 {
-  v9 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   consumersCopy = consumers;
   [(MFRequestQueue *)self processRequests:requestsCopy consumers:consumersCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processRequests:(id)requests consumers:(id)consumers

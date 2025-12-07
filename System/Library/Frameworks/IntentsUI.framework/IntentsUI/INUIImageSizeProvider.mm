@@ -9,7 +9,7 @@
 {
   var1 = size.var1;
   var0 = size.var0;
-  v94[1] = *MEMORY[0x277D85DE8];
+  v93[1] = *MEMORY[0x277D85DE8];
   imageCopy = image;
   v9 = imageCopy;
   if (var0 == 0.0 || var1 == 0.0)
@@ -22,10 +22,10 @@
 
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CD3848];
-    v93 = *MEMORY[0x277CCA068];
+    v92 = *MEMORY[0x277CCA068];
     _imageData = [MEMORY[0x277CCACA8] stringWithFormat:@"Image size is zero"];
-    v94[0] = _imageData;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:&v93 count:1];
+    v93[0] = _imageData;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:&v92 count:1];
     [v16 errorWithDomain:v17 code:6009 userInfo:v12];
     *error = v18 = 0;
     goto LABEL_52;
@@ -41,13 +41,13 @@
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v72 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
-      v73 = 2112;
-      v74 = v13;
-      v75 = 2048;
-      v76 = var0;
-      v77 = 2048;
-      v78 = var1;
+      v71 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
+      v72 = 2112;
+      v73 = v13;
+      v74 = 2048;
+      v75 = var0;
+      v76 = 2048;
+      v77 = var1;
       _os_log_impl(&dword_22CA36000, v14, OS_LOG_TYPE_INFO, "%s Creating image source from Data, size: %@, target image size: {%f, %f}", buf, 0x2Au);
     }
 
@@ -67,13 +67,13 @@
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v72 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
-      v73 = 2112;
-      v74 = v13;
-      v75 = 2048;
-      v76 = var0;
-      v77 = 2048;
-      v78 = var1;
+      v71 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
+      v72 = 2112;
+      v73 = v13;
+      v74 = 2048;
+      v75 = var0;
+      v76 = 2048;
+      v77 = var1;
       _os_log_impl(&dword_22CA36000, v23, OS_LOG_TYPE_INFO, "%s Creating image source from URL, size: %@, target image size: {%f, %f}", buf, 0x2Au);
     }
 
@@ -83,9 +83,9 @@ LABEL_14:
 
     if (v24)
     {
-      v89 = *MEMORY[0x277CD3618];
-      v90 = MEMORY[0x277CBEC28];
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+      v88 = *MEMORY[0x277CD3618];
+      v89 = MEMORY[0x277CBEC28];
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
       v26 = CGImageSourceCopyPropertiesAtIndex(v24, 0, v25);
       v27 = v26;
       if (v26)
@@ -97,7 +97,7 @@ LABEL_14:
         {
           [v28 doubleValue];
           v32 = v31;
-          v67 = v30;
+          v66 = v30;
           [v30 doubleValue];
           v34 = v33;
           v35 = *MEMORY[0x277CD38C8];
@@ -108,24 +108,24 @@ LABEL_14:
             {
               v59 = @"data";
               *buf = 136316674;
-              v72 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
+              v71 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
               if (!_imageData)
               {
                 v59 = @"URL";
               }
 
-              v73 = 2112;
-              v74 = v59;
-              v75 = 2112;
-              v76 = *&v9;
-              v77 = 2048;
-              v78 = v32;
-              v79 = 2048;
-              v80 = v34;
-              v81 = 2048;
-              v82 = var0;
-              v83 = 2048;
-              v84 = var1;
+              v72 = 2112;
+              v73 = v59;
+              v74 = 2112;
+              v75 = *&v9;
+              v76 = 2048;
+              v77 = v32;
+              v78 = 2048;
+              v79 = v34;
+              v80 = 2048;
+              v81 = var0;
+              v82 = 2048;
+              v83 = var1;
               _os_log_impl(&dword_22CA36000, v35, OS_LOG_TYPE_INFO, "%s Will NOT scale %@ image %@ from size {%f, %f} to size {%f, %f} because imageSize > oldImageSize", buf, 0x48u);
             }
 
@@ -135,33 +135,33 @@ LABEL_14:
 
           else
           {
-            v65 = v28;
+            v64 = v28;
             if (v36)
             {
               v37 = @"data";
               *buf = 136316674;
-              v72 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
+              v71 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
               if (!_imageData)
               {
                 v37 = @"URL";
               }
 
-              v73 = 2112;
-              v74 = v37;
-              v75 = 2112;
-              v76 = *&v9;
-              v77 = 2048;
-              v78 = v32;
-              v79 = 2048;
-              v80 = v34;
-              v81 = 2048;
-              v82 = var0;
-              v83 = 2048;
-              v84 = var1;
+              v72 = 2112;
+              v73 = v37;
+              v74 = 2112;
+              v75 = *&v9;
+              v76 = 2048;
+              v77 = v32;
+              v78 = 2048;
+              v79 = v34;
+              v80 = 2048;
+              v81 = var0;
+              v82 = 2048;
+              v83 = var1;
               _os_log_impl(&dword_22CA36000, v35, OS_LOG_TYPE_INFO, "%s About to scale %@ image %@ from size {%f, %f} to size {%f, %f}", buf, 0x48u);
             }
 
-            v69[0] = *MEMORY[0x277CD3660];
+            v68[0] = *MEMORY[0x277CD3660];
             if (v32 <= v34)
             {
               v38 = var1;
@@ -173,13 +173,13 @@ LABEL_14:
             }
 
             v39 = [MEMORY[0x277CCABB0] numberWithDouble:v38];
-            v69[1] = *MEMORY[0x277CD3568];
+            v68[1] = *MEMORY[0x277CD3568];
             v40 = *MEMORY[0x277CBED28];
-            v70[0] = v39;
-            v70[1] = v40;
-            v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+            v69[0] = v39;
+            v69[1] = v40;
+            v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:2];
 
-            v64 = v41;
+            v63 = v41;
             ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(v24, 0, v41);
             v43 = ThumbnailAtIndex;
             if (_imageData)
@@ -202,15 +202,15 @@ LABEL_14:
             else if (v12)
             {
               identifier2 = [*MEMORY[0x277CE1E10] identifier];
-              v63 = CGImageDestinationCreateWithURL(v12, identifier2, 1uLL, 0);
+              v62 = CGImageDestinationCreateWithURL(v12, identifier2, 1uLL, 0);
 
               v48 = v43;
-              CGImageDestinationAddImage(v63, v43, 0);
-              CGImageDestinationFinalize(v63);
+              CGImageDestinationAddImage(v62, v43, 0);
+              CGImageDestinationFinalize(v62);
               v18 = [MEMORY[0x277CD3D10] imageWithURL:v12];
-              if (v63)
+              if (v62)
               {
-                CFRelease(v63);
+                CFRelease(v62);
               }
             }
 
@@ -220,7 +220,7 @@ LABEL_14:
               v18 = 0;
             }
 
-            v28 = v65;
+            v28 = v64;
             [v18 _setImageSize:{var0, var1}];
             CGImageRelease(v48);
             CFRelease(v24);
@@ -229,29 +229,29 @@ LABEL_14:
             {
               v50 = @"data";
               *buf = 136316674;
-              v72 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
+              v71 = "+[INUIImageSizeProvider downscaledPNGImageForImage:size:error:]";
               if (!_imageData)
               {
                 v50 = @"URL";
               }
 
-              v73 = 2112;
-              v74 = v50;
-              v75 = 2112;
-              v76 = *&v9;
-              v77 = 2048;
-              v78 = v32;
-              v79 = 2048;
-              v80 = v34;
-              v81 = 2048;
-              v82 = var0;
-              v83 = 2048;
-              v84 = var1;
+              v72 = 2112;
+              v73 = v50;
+              v74 = 2112;
+              v75 = *&v9;
+              v76 = 2048;
+              v77 = v32;
+              v78 = 2048;
+              v79 = v34;
+              v80 = 2048;
+              v81 = var0;
+              v82 = 2048;
+              v83 = var1;
               _os_log_impl(&dword_22CA36000, v49, OS_LOG_TYPE_INFO, "%s Scaled %@ image %@ from size {%f, %f} to size {%f, %f}", buf, 0x48u);
             }
           }
 
-          v30 = v67;
+          v30 = v66;
         }
 
         else
@@ -259,18 +259,18 @@ LABEL_14:
           CFRelease(v24);
           if (error)
           {
-            v66 = MEMORY[0x277CCA9B8];
+            v65 = MEMORY[0x277CCA9B8];
             v55 = *MEMORY[0x277CD3848];
-            v85 = *MEMORY[0x277CCA068];
+            v84 = *MEMORY[0x277CCA068];
             [MEMORY[0x277CCACA8] stringWithFormat:@"Current image size unknown"];
-            v56 = v68 = v30;
-            v86 = v56;
-            [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+            v56 = v67 = v30;
+            v85 = v56;
+            [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
             v58 = v57 = v28;
-            *error = [v66 errorWithDomain:v55 code:6009 userInfo:v58];
+            *error = [v65 errorWithDomain:v55 code:6009 userInfo:v58];
 
             v28 = v57;
-            v30 = v68;
+            v30 = v67;
           }
 
           v18 = 0;
@@ -289,10 +289,10 @@ LABEL_14:
 
         v53 = MEMORY[0x277CCA9B8];
         v54 = *MEMORY[0x277CD3848];
-        v87 = *MEMORY[0x277CCA068];
+        v86 = *MEMORY[0x277CCA068];
         v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Current image size unknown"];
-        v88 = v28;
-        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+        v87 = v28;
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
         [v53 errorWithDomain:v54 code:6009 userInfo:v30];
         *error = v18 = 0;
       }
@@ -306,10 +306,10 @@ LABEL_51:
   {
     v51 = MEMORY[0x277CCA9B8];
     v52 = *MEMORY[0x277CD3848];
-    v91 = *MEMORY[0x277CCA068];
+    v90 = *MEMORY[0x277CCA068];
     v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Image is invalid"];
-    v92 = v25;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+    v91 = v25;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
     [v51 errorWithDomain:v52 code:6009 userInfo:v27];
     *error = v18 = 0;
     goto LABEL_51;
@@ -319,14 +319,13 @@ LABEL_51:
 LABEL_52:
 
 LABEL_53:
-  v60 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + ($F24F406B2B787EFB06265DBA3D28CBD5)imageSizeForImage:(id)image
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   imageCopy = image;
   _imageData = [imageCopy _imageData];
   _uri = [imageCopy _uri];
@@ -355,9 +354,9 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v19 = *MEMORY[0x277CD3618];
-  v20[0] = MEMORY[0x277CBEC28];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = *MEMORY[0x277CD3618];
+  v19[0] = MEMORY[0x277CBEC28];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v9 = CGImageSourceCopyPropertiesAtIndex(v7, 0, v8);
   CFRelease(v7);
   if (v9)
@@ -377,11 +376,10 @@ LABEL_8:
   }
 
 LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
-  v17 = v13;
-  v18 = v15;
-  result.var1 = v18;
-  result.var0 = v17;
+  v16 = v13;
+  v17 = v15;
+  result.var1 = v17;
+  result.var0 = v16;
   return result;
 }
 

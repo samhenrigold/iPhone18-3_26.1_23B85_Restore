@@ -40,7 +40,7 @@
         v12 = v6->_balance;
         if (v12)
         {
-          [(NSDecimalNumber *)v12 decimalValue];
+          objc_msgSend_decimalValue(v12);
         }
 
         else
@@ -164,7 +164,7 @@ LABEL_6:
   currency = self->_currency;
   if (currency)
   {
-    LOBYTE(currency) = ![(NSString *)currency isEqualToString:@"XXX"];
+    LOBYTE(currency) = objc_msgSend_isEqualToString_(currency, a2, @"XXX") ^ 1;
   }
 
   return currency;

@@ -457,7 +457,7 @@ uint64_t __49__ICNotesImporterClient_resumeConnectionIfNeeded__block_invoke(uint
   dispatch_sync(requestCountQueue, block);
 }
 
-uint64_t __50__ICNotesImporterClient_suspendConnectionIfNeeded__block_invoke(uint64_t a1)
+void *__50__ICNotesImporterClient_suspendConnectionIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) requestCount];
   if (result)

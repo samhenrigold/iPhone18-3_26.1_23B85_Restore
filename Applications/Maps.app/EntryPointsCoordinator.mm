@@ -883,8 +883,8 @@ LABEL_26:
     anyObject2 = [uRLContexts4 anyObject];
 
     v36 = [anyObject2 URL];
-    options = [anyObject2 options];
-    [(EntryPointsCoordinator *)self openURL:v36 session:sessionCopy sceneOptions:options mkOptions:0 windowSize:width, height];
+    v37 = objc_msgSend_options(anyObject2);
+    [(EntryPointsCoordinator *)self openURL:v36 session:sessionCopy sceneOptions:v37 mkOptions:0 windowSize:width, height];
   }
 
   userActivities2 = [(__CFString *)optionsCopy userActivities];

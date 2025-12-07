@@ -1,20 +1,19 @@
-void sub_1B5F8D254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F8D254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F8F858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B5F8F858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getEKEventStoreClass_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!EventKitLibraryCore_frameworkLibrary_0)
   {
     EventKitLibraryCore_frameworkLibrary_0 = _sl_dlopen();
@@ -23,23 +22,19 @@ Class __getEKEventStoreClass_block_invoke_0(uint64_t a1)
   result = objc_getClass("EKEventStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getEKEventStoreClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __EventKitLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   EventKitLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactStoreClass_block_invoke_8(uint64_t a1)
 {
-  ContactsLibraryCore_9();
+  ContactsLibraryCore_9(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_8 = *(*(*(a1 + 32) + 8) + 24);
@@ -48,27 +43,24 @@ Class __getCNContactStoreClass_block_invoke_8(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_16(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_16 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactFormatterClass_block_invoke_6(uint64_t a1)
 {
-  ContactsLibraryCore_9();
+  ContactsLibraryCore_9(0);
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass_6 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-void *__getCNContactIdentifierKeySymbolLoc_block_invoke_8(uint64_t a1)
+void *__getCNContactIdentifierKeySymbolLoc_block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = ContactsLibrary_8();
-  result = dlsym(v2, "CNContactIdentifierKey");
+  v5 = ContactsLibrary_8();
+  result = dlsym(v5, "CNContactIdentifierKey");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactIdentifierKeySymbolLoc_ptr_8 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -76,11 +68,19 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_8(uint64_t a1)
 
 uint64_t ContactsLibrary_8()
 {
-  v0 = ContactsLibraryCore_9();
+  v3 = 0;
+  v0 = ContactsLibraryCore_9(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -106,7 +106,6 @@ void *__getCNContactEmailAddressesKeySymbolLoc_block_invoke_7(uint64_t a1)
 
 Class __getTRIClientClass_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!TrialLibraryCore_frameworkLibrary_1)
   {
     TrialLibraryCore_frameworkLibrary_1 = _sl_dlopen();
@@ -115,23 +114,19 @@ Class __getTRIClientClass_block_invoke_1(uint64_t a1)
   result = objc_getClass("TRIClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTRIClientClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __TrialLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TrialLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F91C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B5F91C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -159,7 +154,7 @@ id _PSSuggestionKey(void *a1, void *a2)
 
 id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, void *a3, void *a4)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -168,13 +163,13 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138413058;
-    v71 = v7;
-    v72 = 2112;
-    v73 = v8;
-    v74 = 2112;
-    v75 = v9;
-    v76 = 2112;
-    v77 = v10;
+    v70 = v7;
+    v71 = 2112;
+    v72 = v8;
+    v73 = 2112;
+    v74 = v9;
+    v75 = 2112;
+    v76 = v10;
     _os_log_impl(&dword_1B5ED1000, v11, OS_LOG_TYPE_INFO, "Fetcheding intent for applicationBundleID: %@, extensionBundleID: %@, extensionContextUUID: %@, supportedIntents: %@", buf, 0x2Au);
   }
 
@@ -190,18 +185,18 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
       v16 = [v15 objectForKeyedSubscript:@"bundleID"];
       if ([v16 isEqualToString:v7])
       {
-        v64 = v14;
+        v63 = v14;
         v17 = [v15 objectForKeyedSubscript:@"derivedIntentIdentifier"];
         if (v17)
         {
-          v61 = v16;
-          v62 = v15;
-          v63 = v13;
-          v65 = [MEMORY[0x1E69979A0] knowledgeStore];
+          v60 = v16;
+          v61 = v15;
+          v62 = v13;
+          v64 = [MEMORY[0x1E69979A0] knowledgeStore];
           v18 = [MEMORY[0x1E69979D0] startDateSortDescriptorAscending:0];
           v19 = MEMORY[0x1E69979D0];
           v20 = [MEMORY[0x1E6997990] derivedIntentIdentifier];
-          v60 = v17;
+          v59 = v17;
           v21 = [v19 predicateForObjectsWithMetadataKey:v20 andStringValue:v17];
 
           v22 = MEMORY[0x1E69979D0];
@@ -209,21 +204,21 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
           v24 = [v22 predicateForEventsWithSourceID:v23 bundleID:v7];
 
           v25 = MEMORY[0x1E696AB28];
-          v57 = v24;
-          v58 = v21;
-          v69[0] = v21;
-          v69[1] = v24;
-          v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:2];
+          v56 = v24;
+          v57 = v21;
+          v68[0] = v21;
+          v68[1] = v24;
+          v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
           v27 = [v25 andPredicateWithSubpredicates:v26];
 
           v28 = MEMORY[0x1E6997968];
           v29 = [MEMORY[0x1E69979E8] appIntentsStream];
-          v68 = v29;
-          v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
-          v59 = v18;
-          v67 = v18;
-          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
-          v56 = v27;
+          v67 = v29;
+          v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
+          v58 = v18;
+          v66 = v18;
+          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
+          v55 = v27;
           v32 = [v28 eventQueryWithPredicate:v27 eventStreams:v30 offset:0 limit:1 sortDescriptors:v31];
 
           v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_PSSuggestion.m"];
@@ -232,35 +227,35 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
 
           [v32 setTracker:&__block_literal_global_40];
           [v32 setExecuteConcurrently:1];
-          v66 = 0;
-          v55 = v32;
-          v35 = [v65 executeQuery:v32 error:&v66];
-          v53 = v66;
-          v54 = v35;
-          if (v53)
+          v65 = 0;
+          v54 = v32;
+          v35 = [v64 executeQuery:v32 error:&v65];
+          v52 = v65;
+          v53 = v35;
+          if (v52)
           {
             +[_PSLogging shareExtensionChannel];
-            v52 = v14 = v64;
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+            v51 = v14 = v63;
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
             {
               _PSIntentForSelectedSuggestionWithContextExtensionUUID_cold_2();
             }
 
             v12 = 0;
-            v15 = v62;
-            v13 = v63;
-            v36 = v60;
-            v16 = v61;
+            v15 = v61;
+            v13 = v62;
+            v36 = v59;
+            v16 = v60;
           }
 
           else
           {
-            v52 = [v35 firstObject];
-            v38 = [v52 interaction];
+            v51 = [v35 firstObject];
+            v38 = [v51 interaction];
             v39 = [v38 intent];
 
-            v14 = v64;
-            v51 = v39;
+            v14 = v63;
+            v50 = v39;
             if (v39)
             {
               objc_opt_class();
@@ -268,12 +263,12 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
               {
                 v40 = MEMORY[0x1E696E9E8];
                 v41 = v39;
-                v49 = [v40 alloc];
+                v48 = [v40 alloc];
                 v42 = [v41 recipients];
                 v43 = [v41 speakableGroupName];
                 v44 = [v41 conversationIdentifier];
 
-                v12 = [v49 initWithRecipients:v42 outgoingMessageType:0 content:0 speakableGroupName:v43 conversationIdentifier:v44 serviceName:0 sender:0 attachments:0];
+                v12 = [v48 initWithRecipients:v42 outgoingMessageType:0 content:0 speakableGroupName:v43 conversationIdentifier:v44 serviceName:0 sender:0 attachments:0];
               }
 
               else
@@ -281,45 +276,45 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
                 v12 = 0;
               }
 
-              v15 = v62;
-              v13 = v63;
-              v16 = v61;
+              v15 = v61;
+              v13 = v62;
+              v16 = v60;
               v46 = +[_PSLogging shareExtensionChannel];
               if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v71 = v12;
-                v72 = 2112;
-                v73 = v7;
+                v70 = v12;
+                v71 = 2112;
+                v72 = v7;
                 _os_log_impl(&dword_1B5ED1000, v46, OS_LOG_TYPE_DEFAULT, "Fetched share extension intent %@ for applicationBundleID %@", buf, 0x16u);
               }
 
               v45 = v46;
-              v36 = v60;
+              v36 = v59;
             }
 
             else
             {
-              v50 = +[_PSLogging shareExtensionChannel];
-              if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+              v49 = +[_PSLogging shareExtensionChannel];
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
               {
-                v36 = v60;
+                v36 = v59;
                 _PSIntentForSelectedSuggestionWithContextExtensionUUID_cold_3();
-                v45 = v50;
+                v45 = v49;
                 v12 = 0;
-                v15 = v62;
-                v13 = v63;
-                v16 = v61;
+                v15 = v61;
+                v13 = v62;
+                v16 = v60;
               }
 
               else
               {
                 v12 = 0;
-                v15 = v62;
-                v13 = v63;
-                v36 = v60;
-                v16 = v61;
-                v45 = v50;
+                v15 = v61;
+                v13 = v62;
+                v36 = v59;
+                v16 = v60;
+                v45 = v49;
               }
             }
           }
@@ -328,21 +323,21 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
         else
         {
           v37 = +[_PSLogging shareExtensionChannel];
-          v65 = v37;
+          v64 = v37;
           if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
-            v71 = v7;
-            v72 = 2112;
-            v73 = v8;
-            v74 = 2112;
-            v75 = v9;
+            v70 = v7;
+            v71 = 2112;
+            v72 = v8;
+            v73 = 2112;
+            v74 = v9;
             _os_log_impl(&dword_1B5ED1000, v37, OS_LOG_TYPE_INFO, "No sharesheet selectedSuggestion for application %@ with share extension %@, extensionContextUUID: %@", buf, 0x20u);
           }
 
           v12 = 0;
           v36 = 0;
-          v14 = v64;
+          v14 = v63;
         }
       }
 
@@ -364,14 +359,18 @@ id _PSIntentForSelectedSuggestionWithContextExtensionUUID(void *a1, void *a2, vo
     }
   }
 
-  v47 = *MEMORY[0x1E69E9840];
-
   return v12;
+}
+
+void sub_1B5F97644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 Class __getBMStoreConfigClass_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!BiomeStorageLibraryCore_frameworkLibrary_0)
   {
     BiomeStorageLibraryCore_frameworkLibrary_0 = _sl_dlopen();
@@ -380,23 +379,18 @@ Class __getBMStoreConfigClass_block_invoke_0(uint64_t a1)
   result = objc_getClass("BMStoreConfig");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getBMStoreConfigClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeStorageLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStorageLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getBMStoreStreamClass_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!BiomeStreamsLibraryCore_frameworkLibrary_2)
   {
     BiomeStreamsLibraryCore_frameworkLibrary_2 = _sl_dlopen();
@@ -405,30 +399,33 @@ Class __getBMStoreStreamClass_block_invoke_0(uint64_t a1)
   result = objc_getClass("BMStoreStream");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getBMStoreStreamClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F99770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F99770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F99A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F99A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F9B15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -451,22 +448,16 @@ Class __getMADServiceClass_block_invoke_0(uint64_t a1)
 
 void MediaAnalysisServicesLibraryCore_0()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!MediaAnalysisServicesLibraryCore_frameworkLibrary_0)
   {
     MediaAnalysisServicesLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -481,7 +472,6 @@ Class __getMADPersonIdentificationRequestClass_block_invoke_0(uint64_t a1)
 
 Class __getPHPhotoLibraryClass_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!PhotosLibraryCore_frameworkLibrary_1)
   {
     PhotosLibraryCore_frameworkLibrary_1 = _sl_dlopen();
@@ -490,30 +480,25 @@ Class __getPHPhotoLibraryClass_block_invoke_1(uint64_t a1)
   result = objc_getClass("PHPhotoLibrary");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPHPhotoLibraryClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PhotosLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PhotosLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F9D25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B5F9D25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getLPLinkMetadataClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!LinkPresentationLibraryCore_frameworkLibrary)
   {
     LinkPresentationLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -522,23 +507,18 @@ Class __getLPLinkMetadataClass_block_invoke(uint64_t a1)
   result = objc_getClass("LPLinkMetadata");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getLPLinkMetadataClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __LinkPresentationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LinkPresentationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getMLMultiArrayClass_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!CoreMLLibraryCore_frameworkLibrary_4)
   {
     CoreMLLibraryCore_frameworkLibrary_4 = _sl_dlopen();
@@ -547,17 +527,13 @@ Class __getMLMultiArrayClass_block_invoke_1(uint64_t a1)
   result = objc_getClass("MLMultiArray");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMLMultiArrayClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreMLLibraryCore_block_invoke_4(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_4 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -894,16 +870,15 @@ LABEL_90:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1B5FA5D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5FA5D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNHandleStringClassifierClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsFoundationLibraryCore_frameworkLibrary)
   {
     ContactsFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -912,23 +887,26 @@ Class __getCNHandleStringClassifierClass_block_invoke(uint64_t a1)
   result = objc_getClass("CNHandleStringClassifier");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNHandleStringClassifierClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5FA67A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5FA67A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5FA6D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -954,9 +932,9 @@ id getMADServiceClass()
   return v1;
 }
 
-void sub_1B5FA7AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5FA7AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -972,22 +950,16 @@ Class __getMADPersonIdentificationRequestClass_block_invoke_1(uint64_t a1)
 
 void MediaAnalysisServicesLibraryCore_1()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!MediaAnalysisServicesLibraryCore_frameworkLibrary_1)
   {
     MediaAnalysisServicesLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1002,7 +974,6 @@ Class __getMADServiceClass_block_invoke_1(uint64_t a1)
 
 Class __getPHPhotoLibraryClass_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!PhotosLibraryCore_frameworkLibrary_2)
   {
     PhotosLibraryCore_frameworkLibrary_2 = _sl_dlopen();
@@ -1011,18 +982,21 @@ Class __getPHPhotoLibraryClass_block_invoke_2(uint64_t a1)
   result = objc_getClass("PHPhotoLibrary");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPHPhotoLibraryClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PhotosLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PhotosLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
+}
+
+void sub_1B5FA95A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 Class __getATXProactiveSuggestionClientModelClass_block_invoke_2(uint64_t a1)
@@ -1036,22 +1010,16 @@ Class __getATXProactiveSuggestionClientModelClass_block_invoke_2(uint64_t a1)
 
 void ProactiveSuggestionClientModelLibraryCore_2()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_3)
   {
     ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_3 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __ProactiveSuggestionClientModelLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_3 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1118,51 +1086,57 @@ Class __getATXSuggestionRequestResponseClass_block_invoke_2(uint64_t a1)
   return result;
 }
 
-void sub_1B5FA9F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B5FA9F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5FAA37C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B5FAA37C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id getMLMultiArrayClass_0()
+id getMLMultiArrayClass_0(uint64_t a1)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x2050000000;
-  v0 = getMLMultiArrayClass_softClass_2;
-  v6 = getMLMultiArrayClass_softClass_2;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v1 = getMLMultiArrayClass_softClass_2;
+  v7 = getMLMultiArrayClass_softClass_2;
   if (!getMLMultiArrayClass_softClass_2)
   {
     CoreMLLibraryCore_3();
-    v4[3] = objc_getClass("MLMultiArray");
-    getMLMultiArrayClass_softClass_2 = v4[3];
-    v0 = v4[3];
+    v5[3] = objc_getClass("MLMultiArray");
+    getMLMultiArrayClass_softClass_2 = v5[3];
+    v1 = v5[3];
   }
 
-  v1 = v0;
-  _Block_object_dispose(&v3, 8);
+  v2 = v1;
+  _Block_object_dispose(&v4, 8);
 
-  return v1;
+  return v2;
 }
 
-void sub_1B5FAB1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5FAB1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5FAC910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getLCFModelStoreClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!LighthouseCoreMLModelStoreLibraryCore_frameworkLibrary)
   {
     LighthouseCoreMLModelStoreLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -1171,23 +1145,18 @@ Class __getLCFModelStoreClass_block_invoke(uint64_t a1)
   result = objc_getClass("LCFModelStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getLCFModelStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __LighthouseCoreMLModelStoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LighthouseCoreMLModelStoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getTRIClientClass_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!TrialLibraryCore_frameworkLibrary_2)
   {
     TrialLibraryCore_frameworkLibrary_2 = _sl_dlopen();
@@ -1196,17 +1165,13 @@ Class __getTRIClientClass_block_invoke_2(uint64_t a1)
   result = objc_getClass("TRIClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTRIClientClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __TrialLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TrialLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1221,22 +1186,16 @@ Class __getMLModelConfigurationClass_block_invoke_0(uint64_t a1)
 
 void CoreMLLibraryCore_3()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!CoreMLLibraryCore_frameworkLibrary_5)
   {
     CoreMLLibraryCore_frameworkLibrary_5 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CoreMLLibraryCore_block_invoke_5(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_5 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1276,10 +1235,11 @@ Class __getMLArrayBatchProviderClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 uint64_t ContactEmbeddingAnalysisPETNeuralNetEmbeddingReadFrom(uint64_t a1, void *a2)
@@ -2107,9 +2067,9 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t _PSUnarchiverZip(const void *a1, unint64_t a2, NSURL *a3)
+uint64_t _PSUnarchiverZip(const void *a1, uint64_t a2, NSURL *a3)
 {
-  v70[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = os_log_create("com.apple.PeopleSuggester.unarchiver", "general");
   v6 = sLog;
@@ -2155,10 +2115,10 @@ LABEL_7:
   support_filter_all = archive_read_support_filter_all();
   if (support_filter_all != -20 && support_filter_all)
   {
-    v14 = sLog;
+    v13 = sLog;
     if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
     {
-      _PSUnarchiverZip(v14);
+      _PSUnarchiverZip(v13);
     }
 
     goto LABEL_7;
@@ -2166,26 +2126,26 @@ LABEL_7:
 
   if (!archive_read_open_memory())
   {
-    v16 = v4;
-    v17 = [MEMORY[0x1E696AC08] defaultManager];
-    v69 = *MEMORY[0x1E696A370];
-    v70[0] = &unk_1F2D8BF58;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:&v69 count:1];
-    v65[0] = 0;
-    v19 = [v17 createDirectoryAtURL:v16 withIntermediateDirectories:0 attributes:v18 error:v65];
-    v20 = v65[0];
+    v15 = v4;
+    v16 = [MEMORY[0x1E696AC08] defaultManager];
+    v68 = *MEMORY[0x1E696A370];
+    v69[0] = &unk_1F2D8BF58;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+    v64[0] = 0;
+    v18 = [v16 createDirectoryAtURL:v15 withIntermediateDirectories:0 attributes:v17 error:v64];
+    v19 = v64[0];
 
-    if (v19)
+    if (v18)
     {
       goto LABEL_22;
     }
 
-    v22 = [v20 domain];
-    if ([v22 isEqualToString:*MEMORY[0x1E696A250]])
+    v21 = [v19 domain];
+    if ([v21 isEqualToString:*MEMORY[0x1E696A250]])
     {
-      v23 = [v20 code];
+      v22 = [v19 code];
 
-      if (v23 == 516)
+      if (v22 == 516)
       {
 LABEL_22:
 
@@ -2193,10 +2153,10 @@ LABEL_22:
         {
           if (archive_write_disk_set_standard_lookup())
           {
-            v21 = sLog;
+            v20 = sLog;
             if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
             {
-              _PSUnarchiverZip(v21);
+              _PSUnarchiverZip(v20);
             }
           }
 
@@ -2204,38 +2164,38 @@ LABEL_22:
           {
             if (!archive_write_disk_set_options())
             {
-              v28 = [(NSURL *)v16 path];
-              if (v28)
+              v27 = [(NSURL *)v15 path];
+              if (v27)
               {
-                v30 = v28;
-                v31 = realpath_DARWIN_EXTSN([v28 fileSystemRepresentation], 0);
-                if (v31)
+                v29 = v27;
+                v30 = realpath_DARWIN_EXTSN([v27 fileSystemRepresentation], 0);
+                if (v30)
                 {
-                  v32 = v31;
-                  v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v31];
+                  v31 = v30;
+                  v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v30];
 
-                  free(v32);
-                  v64 = v33;
+                  free(v31);
+                  v63 = v32;
                 }
 
                 else
                 {
-                  v64 = v30;
-                  v34 = sLog;
+                  v63 = v29;
+                  v33 = sLog;
                   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
                   {
-                    _PSUnarchiverZip(v30, v34);
+                    _PSUnarchiverZip(v29, v33);
                   }
                 }
               }
 
               else
               {
-                v64 = 0;
+                v63 = 0;
               }
 
-              *&v29 = 134218240;
-              v63 = v29;
+              *&v28 = 134218240;
+              v62 = v28;
               while (1)
               {
                 next_header = archive_read_next_header();
@@ -2247,19 +2207,54 @@ LABEL_22:
                     goto LABEL_87;
                   }
 
+                  v50 = sLog;
+                  if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
+                  {
+                    _PSUnarchiverZip(v50);
+                  }
+
+                  goto LABEL_86;
+                }
+
+                v35 = archive_entry_filetype();
+                v36 = objc_autoreleasePoolPush();
+                v37 = archive_entry_pathname_utf8();
+                if (!v37)
+                {
                   v51 = sLog;
                   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
                   {
                     _PSUnarchiverZip(v51);
                   }
 
-                  goto LABEL_86;
+                  goto LABEL_85;
                 }
 
-                v36 = archive_entry_filetype();
-                v37 = objc_autoreleasePoolPush();
-                v38 = archive_entry_pathname_utf8();
-                if (!v38)
+                v38 = v37;
+                v39 = -1;
+                do
+                {
+                  v40 = *(v37 + v39++ + 1);
+                }
+
+                while (v40 == 47);
+                if (v39)
+                {
+                  v41 = sLog;
+                  if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
+                  {
+                    v46 = strlen(v38);
+                    *buf = v62;
+                    *&buf[4] = v39;
+                    v66 = 2048;
+                    v67 = v46;
+                    _os_log_error_impl(&dword_1B5ED1000, v41, OS_LOG_TYPE_ERROR, "_PSUnarchiver: archive_entry with absolute path encountered...ignoring leading %zu of %zu bytes.", buf, 0x16u);
+                  }
+                }
+
+                v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:&v38[v39]];
+                v43 = [v42 length];
+                if (!v43 && v35 != 0x4000)
                 {
                   v52 = sLog;
                   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
@@ -2267,69 +2262,34 @@ LABEL_22:
                     _PSUnarchiverZip(v52);
                   }
 
-                  goto LABEL_85;
-                }
-
-                v39 = v38;
-                v40 = -1;
-                do
-                {
-                  v41 = *(v38 + v40++ + 1);
-                }
-
-                while (v41 == 47);
-                if (v40)
-                {
-                  v42 = sLog;
-                  if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
-                  {
-                    v47 = strlen(v39);
-                    *buf = v63;
-                    *&buf[4] = v40;
-                    v67 = 2048;
-                    v68 = v47;
-                    _os_log_error_impl(&dword_1B5ED1000, v42, OS_LOG_TYPE_ERROR, "_PSUnarchiver: archive_entry with absolute path encountered...ignoring leading %zu of %zu bytes.", buf, 0x16u);
-                  }
-                }
-
-                v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:&v39[v40]];
-                v44 = [v43 length];
-                if (!v44 && v36 != 0x4000)
-                {
-                  v53 = sLog;
-                  if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
-                  {
-                    _PSUnarchiverZip(v53);
-                  }
-
 LABEL_85:
-                  objc_autoreleasePoolPop(v37);
+                  objc_autoreleasePoolPop(v36);
                   goto LABEL_86;
                 }
 
-                v45 = [v64 stringByAppendingPathComponent:{v43, v63}];
+                v44 = [v63 stringByAppendingPathComponent:{v42, v62}];
 
-                [v45 fileSystemRepresentation];
+                [v44 fileSystemRepresentation];
                 archive_entry_update_pathname_utf8();
 
-                objc_autoreleasePoolPop(v37);
+                objc_autoreleasePoolPop(v36);
                 archive_entry_perm();
                 archive_entry_set_perm();
-                if (v44)
+                if (v43)
                 {
                   if (archive_write_header())
                   {
-                    v56 = sLog;
+                    v55 = sLog;
                     if (!os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
                     {
                       goto LABEL_86;
                     }
 
-                    v57 = v56;
-                    v58 = archive_error_string();
+                    v56 = v55;
+                    v57 = archive_error_string();
                     *buf = 136446210;
-                    *&buf[4] = v58;
-                    v59 = "_PSUnarchiver: archive_write_header failed - %{public}s.";
+                    *&buf[4] = v57;
+                    v58 = "_PSUnarchiver: archive_write_header failed - %{public}s.";
                     goto LABEL_99;
                   }
 
@@ -2337,9 +2297,9 @@ LABEL_85:
                   {
                     while (1)
                     {
-                      v65[2] = 0;
+                      v64[2] = 0;
                       *buf = 0;
-                      v65[1] = 0;
+                      v64[1] = 0;
                       data_block = archive_read_data_block();
                       if (data_block)
                       {
@@ -2348,10 +2308,10 @@ LABEL_85:
 
                       if (archive_write_data_block() < 0)
                       {
-                        v49 = sLog;
+                        v48 = sLog;
                         if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
                         {
-                          _PSUnarchiverZip(v49);
+                          _PSUnarchiverZip(v48);
                         }
 
                         goto LABEL_86;
@@ -2363,10 +2323,10 @@ LABEL_85:
                       goto LABEL_70;
                     }
 
-                    v48 = sLog;
+                    v47 = sLog;
                     if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
                     {
-                      _PSUnarchiverZip(v48);
+                      _PSUnarchiverZip(v47);
                     }
 
                     goto LABEL_86;
@@ -2380,16 +2340,16 @@ LABEL_70:
                 }
               }
 
-              v60 = sLog;
+              v59 = sLog;
               if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
               {
-                v57 = v60;
-                v62 = archive_error_string();
+                v56 = v59;
+                v61 = archive_error_string();
                 *buf = 136446210;
-                *&buf[4] = v62;
-                v59 = "_PSUnarchiver: archive_write_finish_entry failed - %{public}s.";
+                *&buf[4] = v61;
+                v58 = "_PSUnarchiver: archive_write_finish_entry failed - %{public}s.";
 LABEL_99:
-                _os_log_impl(&dword_1B5ED1000, v57, OS_LOG_TYPE_INFO, v59, buf, 0xCu);
+                _os_log_impl(&dword_1B5ED1000, v56, OS_LOG_TYPE_INFO, v58, buf, 0xCu);
               }
 
 LABEL_86:
@@ -2397,10 +2357,10 @@ LABEL_86:
 LABEL_87:
               if (archive_write_close())
               {
-                v54 = sLog;
+                v53 = sLog;
                 if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
                 {
-                  _PSUnarchiverZip(v54);
+                  _PSUnarchiverZip(v53);
                 }
 
                 v7 = 0;
@@ -2408,29 +2368,29 @@ LABEL_87:
 
               if (archive_write_free())
               {
-                v55 = sLog;
+                v54 = sLog;
                 if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
                 {
-                  _PSUnarchiverZip(v55);
+                  _PSUnarchiverZip(v54);
                 }
               }
 
               goto LABEL_40;
             }
 
-            v24 = sLog;
+            v23 = sLog;
             if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
             {
-              _PSUnarchiverZip(v24);
+              _PSUnarchiverZip(v23);
             }
           }
 
           if (archive_write_free())
           {
-            v25 = sLog;
+            v24 = sLog;
             if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
             {
-              _PSUnarchiverZip(v25);
+              _PSUnarchiverZip(v24);
             }
           }
         }
@@ -2441,10 +2401,10 @@ LABEL_40:
 
         if (archive_read_close())
         {
-          v26 = sLog;
+          v25 = sLog;
           if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
           {
-            _PSUnarchiverZip(v26);
+            _PSUnarchiverZip(v25);
           }
         }
 
@@ -2464,26 +2424,25 @@ LABEL_40:
     goto LABEL_39;
   }
 
-  v15 = sLog;
+  v14 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    _PSUnarchiverZip(v15);
+    _PSUnarchiverZip(v14);
   }
 
   v7 = 0;
 LABEL_43:
   if (archive_read_free())
   {
-    v27 = sLog;
+    v26 = sLog;
     if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
     {
-      _PSUnarchiverZip(v27);
+      _PSUnarchiverZip(v26);
     }
   }
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -2495,15 +2454,12 @@ uint64_t OUTLINED_FUNCTION_2_0()
 
 void LogCompletionForCache_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   v2 = [v1 description];
   [v2 UTF8String];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void LogCompletionForCache_cold_2()
@@ -2515,198 +2471,134 @@ void LogCompletionForCache_cold_2()
 
 void _PSResolveContactWithPredicate_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Contact Resolution: Error fetching contacts from Contact Store = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Contact Resolution: Error fetching contacts from Contact Store = %@", &v2, 0xCu);
 }
 
 void LogCompletion_cold_1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
   v4 = [v3 description];
-  v6 = 136315138;
-  v7 = [v4 UTF8String];
-  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "BMGroupActivitySession access error: %s", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315138;
+  v6 = [v4 UTF8String];
+  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "BMGroupActivitySession access error: %s", &v5, 0xCu);
 }
 
-void _PSIntentForSelectedSuggestionWithContextExtensionUUID_cold_1()
+void sub_1B5FBE444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, v0, v1, "Current sharesheet selected suggestion has a different bundleID (%@) than the share extension requesting an intent (%@)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void _PSIntentForSelectedSuggestionWithContextExtensionUUID_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Error querying for intent when fetching selected suggestion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _PSIntentForSelectedSuggestionWithContextExtensionUUID_cold_3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, v0, v1, "No intent with applicationBundleID %@ and derivedIntentIdentifier %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1B5FBE444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void _PSUnarchiverZip(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void _PSUnarchiverZip()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B5ED1000, v1, OS_LOG_TYPE_ERROR, "_PSUnarchiver: failed to create directory at %@ - %@.", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B5ED1000, v1, OS_LOG_TYPE_ERROR, "_PSUnarchiver: failed to create directory at %@ - %@.", v2, 0x16u);
 }
 
 void _PSUnarchiverZip(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = __error();
   strerror(*v3);
   OUTLINED_FUNCTION_0_11();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void _PSUnarchiverZip(os_log_t log)

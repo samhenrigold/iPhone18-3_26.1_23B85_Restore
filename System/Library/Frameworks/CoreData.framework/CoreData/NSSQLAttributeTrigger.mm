@@ -127,18 +127,18 @@
 
 - (BOOL)validate:(id *)validate
 {
-  v110 = *MEMORY[0x1E69E9840];
-  v105 = 0;
+  v105 = *MEMORY[0x1E69E9840];
+  v100 = 0;
   if (self)
   {
     v5 = [MEMORY[0x1E696AE18] predicateWithFormat:self->_predicateString];
     self->_predicate = v5;
-    if ([(NSSQLAttributeTrigger *)self validatePredicate:v5 error:&v105])
+    if ([(NSSQLAttributeTrigger *)self validatePredicate:v5 error:&v100])
     {
       columnName = [(NSSQLColumn *)self->_attribute columnName];
       tableName = [(NSSQLEntity *)self->_entity tableName];
       tableName2 = [(NSSQLEntity *)self->_destinationEntity tableName];
-      v104 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ZT_%@_%@_%@", tableName, columnName, tableName2];
+      v97 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], tableName, columnName, tableName2);
       entity = self->_entity;
       if (entity)
       {
@@ -163,7 +163,7 @@
       }
 
       columnName3 = [(NSSQLColumn *)entityKey columnName];
-      v103 = objc_opt_new();
+      v98 = objc_opt_new();
       relationship = self->_relationship;
       if (relationship && LOBYTE(relationship->length) == 9)
       {
@@ -171,7 +171,7 @@
         columnName4 = [(__CFString *)relationship columnName];
         inverseColumnName = [(NSSQLManyToMany *)relationship inverseColumnName];
         v16 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_INSERT_INCREMENT", v104, correlationTableName];
+        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_INSERT_INCREMENT", v97, correlationTableName];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v17];
         [v16 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@ AFTER INSERT ON %@ FOR EACH ROW", v17, correlationTableName];
         [v16 appendString:@" BEGIN"];
@@ -182,11 +182,11 @@
         [v16 appendFormat:@" END"];
         [(NSMutableArray *)self->_mSqlDropStrings addObject:v18];
 
-        [v103 addObject:v16];
+        [v98 addObject:v16];
         v19 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_INCREMENT", v104];
-        v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v102];
-        [v19 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v102];
+        v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_INCREMENT", v97];
+        v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v20];
+        [v19 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v20];
         [v19 appendFormat:@" AFTER UPDATE OF %@ ON %@ FOR EACH ROW", self->_mOfClause, tableName2];
         [v19 appendFormat:@" WHEN %@", self->_mToManyIncrementWhenClause];
         [v19 appendString:@" BEGIN"];
@@ -194,13 +194,13 @@
         [v19 appendFormat:@" WHERE %@ IN (SELECT %@ FROM %@ WHERE %@ = NEW.%@ AND (%@));", columnName2, columnName4, correlationTableName, inverseColumnName, columnName2, self->_mNewMatchingClause];
         [v19 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
         [v19 appendString:@" END"];
-        [v103 addObject:v19];
+        [v98 addObject:v19];
         [(NSMutableArray *)self->_mSqlDropStrings addObject:v21];
 
         v22 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        v1022 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_DECREMENT", v104];
-        v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v1022];
-        [v22 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v1022];
+        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_DECREMENT", v97];
+        v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v23];
+        [v22 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v23];
         [v22 appendFormat:@" AFTER UPDATE OF %@ ON %@ FOR EACH ROW", self->_mOfClause, tableName2];
         [v22 appendFormat:@" WHEN %@", self->_mToManyDecrementWhenClause];
         [v22 appendString:@" BEGIN"];
@@ -208,11 +208,11 @@
         [v22 appendFormat:@" WHERE %@ IN (SELECT %@ FROM %@ WHERE %@ = NEW.%@ AND (%@));", columnName2, columnName4, correlationTableName, inverseColumnName, columnName2, self->_mOldMatchingClause];
         [v22 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
         [v22 appendString:@" END"];
-        [v103 addObject:v22];
+        [v98 addObject:v22];
         [(NSMutableArray *)self->_mSqlDropStrings addObject:v24];
 
         v25 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_DELETE_DECREMENT", v104, correlationTableName];
+        v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_DELETE_DECREMENT", v97, correlationTableName];
         v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v26];
         [v25 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@ AFTER DELETE ON %@ FOR EACH ROW", v26, correlationTableName];
         [v25 appendFormat:@" BEGIN"];
@@ -221,23 +221,23 @@
         [v25 appendFormat:@" AND OLD.%@ = %@;", columnName4, columnName2];
         [v25 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName4];
         [v25 appendFormat:@" END"];
-        [v103 addObject:v25];
+        [v98 addObject:v25];
         [(NSMutableArray *)self->_mSqlDropStrings addObject:v27];
 
         v28 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        v1023 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_DELETE_DECREMENT", v104];
-        v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v1023];
-        [v28 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@ AFTER DELETE ON %@ FOR EACH ROW WHEN %@", v1023, tableName2, self->_mOldMatchingClause];
+        v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_DELETE_DECREMENT", v97];
+        v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v29];
+        [v28 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@ AFTER DELETE ON %@ FOR EACH ROW WHEN %@", v29, tableName2, self->_mOldMatchingClause];
         [v28 appendFormat:@" BEGIN"];
         [v28 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1)", tableName, columnName, columnName];
         [v28 appendFormat:@" WHERE %@ IN (SELECT %@ FROM %@ WHERE %@ = OLD.%@ AND (%@));", columnName2, columnName4, correlationTableName, inverseColumnName, columnName2, self->_mOldMatchingClause];
         [v28 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
         [v28 appendFormat:@" END"];
-        [v103 addObject:v28];
+        [v98 addObject:v28];
         [(NSMutableArray *)self->_mSqlDropStrings addObject:v30];
 
-        v1024 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"COUNT_%@", v104];
-        v32 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"CREATE TEMP TABLE %@ AS", v1024];
+        v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"COUNT_%@", v97];
+        v32 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"CREATE TEMP TABLE %@ AS", v31];
         [v32 appendFormat:@" SELECT %@, COUNT(DISTINCT(%@.%@)) AS COUNT", columnName4, tableName2, columnName2];
         [v32 appendFormat:@" FROM %@, %@", tableName2, correlationTableName];
         [v32 appendFormat:@" WHERE %@ AND %@.%@ == %@.%@", self->_mToManyInnerFetchWhereClause, correlationTableName, inverseColumnName, tableName2, columnName2];
@@ -245,10 +245,10 @@
         p_mBulkChangeStrings = &self->_mBulkChangeStrings;
         [(NSMutableArray *)self->_mBulkChangeStrings addObject:v32];
 
-        v34 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" CREATE INDEX %@_INDEX ON %@(%@, COUNT);", v1024, v1024, columnName4];
+        v34 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" CREATE INDEX %@_INDEX ON %@(%@, COUNT);", v31, v31, columnName4];
         [(NSMutableArray *)self->_mBulkChangeStrings addObject:v34];
 
-        v35 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" UPDATE %@ SET %@ = IFNULL((SELECT COUNT FROM %@ WHERE %@ = %@), 0);", tableName, columnName, v1024, columnName2, columnName4];
+        v35 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" UPDATE %@ SET %@ = IFNULL((SELECT COUNT FROM %@ WHERE %@ = %@), 0);", tableName, columnName, v31, columnName2, columnName4];
       }
 
       else
@@ -264,111 +264,109 @@
 
           columnName5 = [(NSSQLProperty *)v37 columnName];
           v39 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v1025 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_INSERT_INCREMENT", v104];
-          v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v1025];
-          [v39 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v1025];
+          v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_INSERT_INCREMENT", v97];
+          v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v40];
+          [v39 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v40];
           [v39 appendFormat:@" AFTER INSERT ON %@ FOR EACH ROW WHEN %@", tableName2, self->_mNewMatchingClause];
           [v39 appendFormat:@" BEGIN"];
           [v39 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1", tableName, columnName, columnName];
           [v39 appendFormat:@" WHERE NEW.%@ = %@;", columnName5, columnName2];
           [v39 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
           [v39 appendFormat:@" END"];
-          [v103 addObject:v39];
+          [v98 addObject:v39];
           [(NSMutableArray *)self->_mSqlDropStrings addObject:v41];
 
           v42 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v1026 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_INCREMENT", v104];
-          v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v1026];
-          [v42 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v1026];
+          v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_INCREMENT", v97];
+          v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v43];
+          [v42 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v43];
           [v42 appendFormat:@" AFTER UPDATE OF %@ ON %@", self->_mOfClause, tableName2];
-          mNewMatchingClause = self->_mNewMatchingClause;
-          [v42 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@) AND (NEW.%@ == OLD.%@)", mNewMatchingClause, self->_mColumnChangedClause, columnName5, columnName5];
+          [v42 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@) AND (NEW.%@ == OLD.%@)", self->_mNewMatchingClause, self->_mColumnChangedClause, columnName5, columnName5];
           [v42 appendFormat:@" BEGIN"];
           [v42 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1", tableName, columnName, columnName];
           [v42 appendFormat:@" WHERE NEW.%@ = %@;", columnName5, columnName2];
           [v42 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
           [v42 appendFormat:@" END"];
-          [v103 addObject:v42];
+          [v98 addObject:v42];
           [(NSMutableArray *)self->_mSqlDropStrings addObject:v44];
 
-          v46 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v1027 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_DECREMENT", v104];
-          v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v1027];
-          [v46 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v1027];
-          [v46 appendFormat:@" AFTER UPDATE OF %@ ON %@", self->_mOfClause, tableName2];
-          mOldMatchingClause = self->_mOldMatchingClause;
-          [v46 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@) AND (OLD.%@ == NEW.%@)", mOldMatchingClause, self->_mColumnChangedClause, columnName5, columnName5];
-          [v46 appendFormat:@" BEGIN"];
-          [v46 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1)", tableName, columnName, columnName];
-          [v46 appendFormat:@" WHERE OLD.%@ = %@;", columnName5, columnName2];
-          [v46 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
-          [v46 appendFormat:@" END"];
-          [v103 addObject:v46];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v48];
+          v45 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_DECREMENT", v97];
+          v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v46];
+          [v45 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v46];
+          [v45 appendFormat:@" AFTER UPDATE OF %@ ON %@", self->_mOfClause, tableName2];
+          [v45 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@) AND (OLD.%@ == NEW.%@)", self->_mOldMatchingClause, self->_mColumnChangedClause, columnName5, columnName5];
+          [v45 appendFormat:@" BEGIN"];
+          [v45 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1)", tableName, columnName, columnName];
+          [v45 appendFormat:@" WHERE OLD.%@ = %@;", columnName5, columnName2];
+          [v45 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
+          [v45 appendFormat:@" END"];
+          [v98 addObject:v45];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v47];
 
-          v50 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v1028 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_DELETE_DECREMENT", v104];
-          v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v1028];
-          [v50 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v1028];
-          [v50 appendFormat:@" AFTER DELETE ON %@ FOR EACH ROW WHEN %@", tableName2, self->_mOldMatchingClause];
-          [v50 appendFormat:@" BEGIN"];
-          [v50 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1) WHERE OLD.%@ = %@;", tableName, columnName, columnName, columnName5, columnName2];
-          [v50 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
-          [v50 appendFormat:@" END"];
-          [v103 addObject:v50];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v52];
+          v48 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_DELETE_DECREMENT", v97];
+          v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v49];
+          [v48 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v49];
+          [v48 appendFormat:@" AFTER DELETE ON %@ FOR EACH ROW WHEN %@", tableName2, self->_mOldMatchingClause];
+          [v48 appendFormat:@" BEGIN"];
+          [v48 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1) WHERE OLD.%@ = %@;", tableName, columnName, columnName, columnName5, columnName2];
+          [v48 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
+          [v48 appendFormat:@" END"];
+          [v98 addObject:v48];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v50];
 
-          v53 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_INSERT_INCREMENT", v104, tableName];
-          v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v54];
-          [v53 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v54];
-          [v53 appendFormat:@" AFTER INSERT ON %@ FOR EACH ROW", tableName];
-          [v53 appendFormat:@" BEGIN"];
-          [v53 appendFormat:@" UPDATE %@ SET %@ = (SELECT COUNT(%@) FROM %@ WHERE (%@ = NEW.%@) AND (%@)) WHERE %@ = NEW.%@;", tableName, columnName, columnName2, tableName2, columnName5, columnName2, self->_mToManyInnerFetchWhereClause, columnName2, columnName2];
-          [v53 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
-          [v53 appendFormat:@" END"];
-          [v103 addObject:v53];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v55];
+          v51 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_INSERT_INCREMENT", v97, tableName];
+          v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v52];
+          [v51 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v52];
+          [v51 appendFormat:@" AFTER INSERT ON %@ FOR EACH ROW", tableName];
+          [v51 appendFormat:@" BEGIN"];
+          [v51 appendFormat:@" UPDATE %@ SET %@ = (SELECT COUNT(%@) FROM %@ WHERE (%@ = NEW.%@) AND (%@)) WHERE %@ = NEW.%@;", tableName, columnName, columnName2, tableName2, columnName5, columnName2, self->_mToManyInnerFetchWhereClause, columnName2, columnName2];
+          [v51 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
+          [v51 appendFormat:@" END"];
+          [v98 addObject:v51];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v53];
 
-          v56 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_INCREMENT", v104, columnName5];
-          v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v57];
-          [v56 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v57];
-          [v56 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN (%@) AND", columnName5, tableName2, self->_mNewMatchingClause];
-          [v56 appendFormat:@" ((NEW.%@ IS NOT NULL AND OLD.%@ IS NULL) OR (NEW.%@ != OLD.%@))", columnName5, columnName5, columnName5, columnName5];
-          [v56 appendFormat:@" BEGIN"];
-          [v56 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1 WHERE %@ = NEW.%@;", tableName, columnName, columnName, columnName2, columnName5];
-          [v56 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
-          [v56 appendFormat:@" END"];
-          [v103 addObject:v56];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v58];
+          v54 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_INCREMENT", v97, columnName5];
+          v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v55];
+          [v54 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v55];
+          [v54 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN (%@) AND", columnName5, tableName2, self->_mNewMatchingClause];
+          [v54 appendFormat:@" ((NEW.%@ IS NOT NULL AND OLD.%@ IS NULL) OR (NEW.%@ != OLD.%@))", columnName5, columnName5, columnName5, columnName5];
+          [v54 appendFormat:@" BEGIN"];
+          [v54 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1 WHERE %@ = NEW.%@;", tableName, columnName, columnName, columnName2, columnName5];
+          [v54 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
+          [v54 appendFormat:@" END"];
+          [v98 addObject:v54];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v56];
 
-          v59 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_DECREMENT", v104, columnName5];
-          v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v60];
-          [v59 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v60];
-          [v59 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN (%@) AND", columnName5, tableName2, self->_mOldMatchingClause];
-          [v59 appendFormat:@" ((OLD.%@ IS NOT NULL AND NEW.%@ IS NULL) OR (NEW.%@ != OLD.%@))", columnName5, columnName5, columnName5, columnName5];
-          [v59 appendFormat:@" BEGIN"];
-          [v59 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1) WHERE %@ = OLD.%@;", tableName, columnName, columnName, columnName2, columnName5];
-          [v59 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
-          [v59 appendFormat:@" END"];
-          [v103 addObject:v59];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v61];
+          v57 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_DECREMENT", v97, columnName5];
+          v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v58];
+          [v57 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v58];
+          [v57 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN (%@) AND", columnName5, tableName2, self->_mOldMatchingClause];
+          [v57 appendFormat:@" ((OLD.%@ IS NOT NULL AND NEW.%@ IS NULL) OR (NEW.%@ != OLD.%@))", columnName5, columnName5, columnName5, columnName5];
+          [v57 appendFormat:@" BEGIN"];
+          [v57 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1) WHERE %@ = OLD.%@;", tableName, columnName, columnName, columnName2, columnName5];
+          [v57 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName5];
+          [v57 appendFormat:@" END"];
+          [v98 addObject:v57];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v59];
 
-          v1024 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"COUNT_%@", v104];
-          v62 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"CREATE TEMP TABLE %@ AS", v1024];
-          [v62 appendFormat:@" SELECT %@, COUNT(DISTINCT(%@.%@)) AS COUNT", columnName5, tableName2, columnName2];
-          [v62 appendFormat:@" FROM %@", tableName2];
-          [v62 appendFormat:@" WHERE %@", self->_mToManyInnerFetchWhereClause];
-          [v62 appendFormat:@" GROUP BY %@;", columnName5];
+          v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"COUNT_%@", v97];
+          v60 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"CREATE TEMP TABLE %@ AS", v31];
+          [v60 appendFormat:@" SELECT %@, COUNT(DISTINCT(%@.%@)) AS COUNT", columnName5, tableName2, columnName2];
+          [v60 appendFormat:@" FROM %@", tableName2];
+          [v60 appendFormat:@" WHERE %@", self->_mToManyInnerFetchWhereClause];
+          [v60 appendFormat:@" GROUP BY %@;", columnName5];
           p_mBulkChangeStrings = &self->_mBulkChangeStrings;
-          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v62];
+          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v60];
 
-          v63 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" CREATE INDEX %@_INDEX ON %@(%@, COUNT);", v1024, v1024, columnName5];
-          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v63];
+          v61 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" CREATE INDEX %@_INDEX ON %@(%@, COUNT);", v31, v31, columnName5];
+          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v61];
 
-          v35 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" UPDATE %@ SET %@ = IFNULL((SELECT COUNT FROM %@ WHERE %@ = %@), 0);", tableName, columnName, v1024, columnName2, columnName5];
+          v35 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" UPDATE %@ SET %@ = IFNULL((SELECT COUNT FROM %@ WHERE %@ = %@), 0);", tableName, columnName, v31, columnName2, columnName5];
         }
 
         else
@@ -376,16 +374,16 @@
           if (!v37 || v37->super._propertyType != 7)
           {
 LABEL_18:
-            if ([v103 count])
+            if ([v98 count])
             {
-              v92 = [v103 copy];
+              v88 = [v98 copy];
 
-              if (v92)
+              if (v88)
               {
 LABEL_27:
-                self->_insertSQLStrings = v92;
-                LOBYTE(v95) = 1;
-                goto LABEL_38;
+                self->_insertSQLStrings = v88;
+                LOBYTE(v91) = 1;
+                return v91;
               }
             }
 
@@ -397,197 +395,193 @@ LABEL_27:
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v107 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
-              v108 = 1024;
-              v109 = 584;
+              v102 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
+              v103 = 1024;
+              v104 = 584;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
             }
 
-            v94 = _PFLogGetLogStream(17);
-            if (os_log_type_enabled(v94, OS_LOG_TYPE_FAULT))
+            v90 = _PFLogGetLogStream(17);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315394;
-              v107 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
-              v108 = 1024;
-              v109 = 584;
-              _os_log_fault_impl(&dword_18565F000, v94, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+              v102 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
+              v103 = 1024;
+              v104 = 584;
+              _os_log_fault_impl(&dword_18565F000, v90, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
             }
 
-            v92 = 0;
+            v88 = 0;
             goto LABEL_27;
           }
 
           columnName6 = [(NSSQLProperty *)v37 columnName];
-          v65 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v1029 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_INSERT_INCREMENT", v104];
-          v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v1029];
-          [v65 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v1029];
-          [v65 appendFormat:@" AFTER INSERT ON %@ FOR EACH ROW WHEN %@", tableName2, self->_mNewMatchingClause];
-          [v65 appendFormat:@" BEGIN"];
-          [v65 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1", tableName, columnName, columnName];
-          [v65 appendFormat:@" WHERE NEW.%@ = %@;", columnName2, columnName6];
-          [v65 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
-          [v65 appendFormat:@" END"];
-          [v103 addObject:v65];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v67];
+          v63 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v64 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_INSERT_INCREMENT", v97];
+          v65 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v64];
+          [v63 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v64];
+          [v63 appendFormat:@" AFTER INSERT ON %@ FOR EACH ROW WHEN %@", tableName2, self->_mNewMatchingClause];
+          [v63 appendFormat:@" BEGIN"];
+          [v63 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1", tableName, columnName, columnName];
+          [v63 appendFormat:@" WHERE NEW.%@ = %@;", columnName2, columnName6];
+          [v63 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
+          [v63 appendFormat:@" END"];
+          [v98 addObject:v63];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v65];
 
-          v68 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v10210 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_INCREMENT", v104];
-          v70 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v10210];
-          [v68 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v10210];
-          [v68 appendFormat:@" AFTER UPDATE OF %@ ON %@", self->_mOfClause, tableName2];
-          v71 = self->_mNewMatchingClause;
-          [v68 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@)", v71, self->_mColumnChangedClause];
-          [v68 appendFormat:@" BEGIN"];
-          [v68 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1", tableName, columnName, columnName];
-          [v68 appendFormat:@" WHERE NEW.%@ = %@;", columnName2, columnName6];
-          [v68 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
-          [v68 appendFormat:@" END"];
-          [v103 addObject:v68];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v70];
+          v66 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_INCREMENT", v97];
+          v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v67];
+          [v66 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v67];
+          [v66 appendFormat:@" AFTER UPDATE OF %@ ON %@", self->_mOfClause, tableName2];
+          [v66 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@)", self->_mNewMatchingClause, self->_mColumnChangedClause];
+          [v66 appendFormat:@" BEGIN"];
+          [v66 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1", tableName, columnName, columnName];
+          [v66 appendFormat:@" WHERE NEW.%@ = %@;", columnName2, columnName6];
+          [v66 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
+          [v66 appendFormat:@" END"];
+          [v98 addObject:v66];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v68];
+
+          v69 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v70 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_DECREMENT", v97];
+          v71 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v70];
+          [v69 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v70];
+          [v69 appendFormat:@" AFTER UPDATE OF %@ ON %@", self->_mOfClause, tableName2];
+          [v69 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@)", self->_mOldMatchingClause, self->_mColumnChangedClause];
+          [v69 appendFormat:@" BEGIN"];
+          [v69 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1)", tableName, columnName, columnName];
+          [v69 appendFormat:@" WHERE OLD.%@ = %@;", columnName2, columnName6];
+          [v69 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
+          [v69 appendFormat:@" END"];
+          [v98 addObject:v69];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v71];
 
           v72 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v10211 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_UPDATE_DECREMENT", v104];
-          v74 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v10211];
-          [v72 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v10211];
-          [v72 appendFormat:@" AFTER UPDATE OF %@ ON %@", self->_mOfClause, tableName2];
-          v75 = self->_mOldMatchingClause;
-          [v72 appendFormat:@" FOR EACH ROW WHEN (%@) AND (%@)", v75, self->_mColumnChangedClause];
+          v73 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_DELETE_DECREMENT", v97];
+          v74 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v73];
+          [v72 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v73];
+          [v72 appendFormat:@" AFTER DELETE ON %@ FOR EACH ROW WHEN %@", tableName2, self->_mOldMatchingClause];
           [v72 appendFormat:@" BEGIN"];
-          [v72 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1)", tableName, columnName, columnName];
-          [v72 appendFormat:@" WHERE OLD.%@ = %@;", columnName2, columnName6];
-          [v72 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
+          [v72 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1) WHERE OLD.%@ = %@;", tableName, columnName, columnName, columnName2, columnName6];
+          [v72 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
           [v72 appendFormat:@" END"];
-          [v103 addObject:v72];
+          [v98 addObject:v72];
           [(NSMutableArray *)self->_mSqlDropStrings addObject:v74];
 
-          v76 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v10212 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_DELETE_DECREMENT", v104];
-          v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v10212];
-          [v76 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v10212];
-          [v76 appendFormat:@" AFTER DELETE ON %@ FOR EACH ROW WHEN %@", tableName2, self->_mOldMatchingClause];
-          [v76 appendFormat:@" BEGIN"];
-          [v76 appendFormat:@" UPDATE %@ SET %@ = MAX(0, IFNULL(%@, 0) - 1) WHERE OLD.%@ = %@;", tableName, columnName, columnName, columnName2, columnName6];
-          [v76 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = OLD.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName6, columnName2];
-          [v76 appendFormat:@" END"];
-          [v103 addObject:v76];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v78];
+          v75 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v76 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_INSERT_INCREMENT", v97, tableName];
+          v77 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v76];
+          [v75 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v76];
+          [v75 appendFormat:@" AFTER INSERT ON %@ FOR EACH ROW", tableName];
+          [v75 appendFormat:@" BEGIN"];
+          [v75 appendFormat:@" UPDATE %@ SET %@ = (SELECT COUNT(%@) FROM %@ WHERE (%@ = NEW.%@) AND (%@)) WHERE %@ = NEW.%@;", tableName, columnName, columnName2, tableName2, columnName2, columnName6, self->_mToManyInnerFetchWhereClause, columnName2, columnName2];
+          [v75 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
+          [v75 appendFormat:@" END"];
+          [v98 addObject:v75];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v77];
 
-          v79 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v80 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_INSERT_INCREMENT", v104, tableName];
-          v81 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v80];
-          [v79 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v80];
-          [v79 appendFormat:@" AFTER INSERT ON %@ FOR EACH ROW", tableName];
-          [v79 appendFormat:@" BEGIN"];
-          [v79 appendFormat:@" UPDATE %@ SET %@ = (SELECT COUNT(%@) FROM %@ WHERE (%@ = NEW.%@) AND (%@)) WHERE %@ = NEW.%@;", tableName, columnName, columnName2, tableName2, columnName2, columnName6, self->_mToManyInnerFetchWhereClause, columnName2, columnName2];
-          [v79 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
-          [v79 appendFormat:@" END"];
-          [v103 addObject:v79];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v81];
+          v78 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_TO_NULL", v97, columnName6];
+          v80 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v79];
+          [v78 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v79];
+          [v78 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN", columnName6, tableName];
+          [v78 appendFormat:@" (NEW.%@ IS NULL AND OLD.%@ IS NOT NULL)", columnName6, columnName6];
+          [v78 appendFormat:@" BEGIN"];
+          [v78 appendFormat:@" UPDATE %@ SET %@ = 0 WHERE %@ = NEW.%@;", tableName, columnName, columnName2, columnName2];
+          [v78 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
+          [v78 appendFormat:@" END"];
+          [v98 addObject:v78];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v80];
 
-          v82 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v83 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_TO_NULL", v104, columnName6];
-          v84 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v83];
-          [v82 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v83];
-          [v82 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN", columnName6, tableName];
-          [v82 appendFormat:@" (NEW.%@ IS NULL AND OLD.%@ IS NOT NULL)", columnName6, columnName6];
-          [v82 appendFormat:@" BEGIN"];
-          [v82 appendFormat:@" UPDATE %@ SET %@ = 0 WHERE %@ = NEW.%@;", tableName, columnName, columnName2, columnName2];
-          [v82 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
-          [v82 appendFormat:@" END"];
-          [v103 addObject:v82];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v84];
+          v81 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v82 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_INCREMENT", v97, columnName6];
+          v83 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v82];
+          [v81 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v82];
+          [v81 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN", columnName6, tableName];
+          [v81 appendFormat:@" ((NEW.%@ IS NOT NULL AND OLD.%@ IS NULL) OR (NEW.%@ != OLD.%@))", columnName6, columnName6, columnName6, columnName6];
+          [v81 appendFormat:@" BEGIN"];
+          [v81 appendFormat:@" UPDATE %@ SET %@ = (SELECT COUNT(%@) FROM %@ WHERE %@ = NEW.%@ AND (%@)) WHERE %@ = NEW.%@;", tableName, columnName, columnName2, tableName2, columnName2, columnName6, self->_mToManyInnerFetchWhereClause, columnName2, columnName2];
+          [v81 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
+          [v81 appendFormat:@" END"];
+          [v98 addObject:v81];
+          [(NSMutableArray *)self->_mSqlDropStrings addObject:v83];
 
-          v85 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v86 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@_UPDATE_INCREMENT", v104, columnName6];
-          v87 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@", v86];
-          [v85 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@", v86];
-          [v85 appendFormat:@" AFTER UPDATE OF %@ ON %@ WHEN", columnName6, tableName];
-          [v85 appendFormat:@" ((NEW.%@ IS NOT NULL AND OLD.%@ IS NULL) OR (NEW.%@ != OLD.%@))", columnName6, columnName6, columnName6, columnName6];
-          [v85 appendFormat:@" BEGIN"];
-          [v85 appendFormat:@" UPDATE %@ SET %@ = (SELECT COUNT(%@) FROM %@ WHERE %@ = NEW.%@ AND (%@)) WHERE %@ = NEW.%@;", tableName, columnName, columnName2, tableName2, columnName2, columnName6, self->_mToManyInnerFetchWhereClause, columnName2, columnName2];
-          [v85 appendFormat:@" SELECT NSCoreDataTriggerUpdateAffectedObjectValue('%@', %@, %@, '%@', %@) FROM %@ WHERE %@ = NEW.%@;", tableName, columnName3, columnName2, columnName, columnName, tableName, columnName2, columnName2];
-          [v85 appendFormat:@" END"];
-          [v103 addObject:v85];
-          [(NSMutableArray *)self->_mSqlDropStrings addObject:v87];
-
-          v1024 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"COUNT_%@", v104];
-          v88 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"CREATE TEMP TABLE %@ AS", v1024];
-          [v88 appendFormat:@" SELECT %@, COUNT(DISTINCT(%@)) AS COUNT", columnName2, columnName2];
-          [v88 appendFormat:@" FROM %@", tableName2];
-          [v88 appendFormat:@" WHERE %@", self->_mToManyInnerFetchWhereClause];
-          [v88 appendFormat:@" GROUP BY %@;", columnName2];
+          v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"COUNT_%@", v97];
+          v84 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"CREATE TEMP TABLE %@ AS", v31];
+          [v84 appendFormat:@" SELECT %@, COUNT(DISTINCT(%@)) AS COUNT", columnName2, columnName2];
+          [v84 appendFormat:@" FROM %@", tableName2];
+          [v84 appendFormat:@" WHERE %@", self->_mToManyInnerFetchWhereClause];
+          [v84 appendFormat:@" GROUP BY %@;", columnName2];
           p_mBulkChangeStrings = &self->_mBulkChangeStrings;
-          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v88];
+          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v84];
 
-          v89 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" CREATE INDEX %@_INDEX ON %@(%@, COUNT);", v1024, v1024, columnName2];
-          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v89];
+          v85 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" CREATE INDEX %@_INDEX ON %@(%@, COUNT);", v31, v31, columnName2];
+          [(NSMutableArray *)self->_mBulkChangeStrings addObject:v85];
 
-          v35 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" UPDATE %@ SET %@ = IFNULL((SELECT COUNT FROM %@ WHERE %@ = %@), 0);", tableName, columnName, v1024, columnName2, columnName6];
+          v35 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" UPDATE %@ SET %@ = IFNULL((SELECT COUNT FROM %@ WHERE %@ = %@), 0);", tableName, columnName, v31, columnName2, columnName6];
         }
       }
 
-      v90 = v35;
+      v86 = v35;
       [(NSMutableArray *)*p_mBulkChangeStrings addObject:v35];
 
-      v91 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" DROP TABLE %@;", v1024];
-      [(NSMutableArray *)*p_mBulkChangeStrings addObject:v91];
+      v87 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" DROP TABLE %@;", v31];
+      [(NSMutableArray *)*p_mBulkChangeStrings addObject:v87];
 
       goto LABEL_18;
     }
   }
 
-  if (v105)
+  if (v100)
   {
     if (validate)
     {
-      LOBYTE(v95) = 0;
-      *validate = v105;
-      goto LABEL_38;
+      LOBYTE(v91) = 0;
+      *validate = v100;
+      return v91;
     }
 
 LABEL_37:
-    LOBYTE(v95) = 0;
-    goto LABEL_38;
+    LOBYTE(v91) = 0;
+    return v91;
   }
 
-  v96 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+  v92 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v107 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
-    v108 = 1024;
-    v109 = 145;
-    _os_log_error_impl(&dword_18565F000, v96, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+    v102 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
+    v103 = 1024;
+    v104 = 145;
+    _os_log_error_impl(&dword_18565F000, v92, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
-  v97 = _PFLogGetLogStream(17);
-  v95 = os_log_type_enabled(v97, OS_LOG_TYPE_FAULT);
-  if (v95)
+  v93 = _PFLogGetLogStream(17);
+  v91 = os_log_type_enabled(v93, OS_LOG_TYPE_FAULT);
+  if (v91)
   {
     *buf = 136315394;
-    v107 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
-    v108 = 1024;
-    v109 = 145;
-    _os_log_fault_impl(&dword_18565F000, v97, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+    v102 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
+    v103 = 1024;
+    v104 = 145;
+    _os_log_fault_impl(&dword_18565F000, v93, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     goto LABEL_37;
   }
 
-LABEL_38:
-  v98 = *MEMORY[0x1E69E9840];
-  return v95;
+  return v91;
 }
 
 - (BOOL)validatePredicate:(uint64_t *)predicate error:
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_51;
+    return result;
   }
 
   v5 = result;
-  v72 = 0;
+  v71 = 0;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -597,34 +591,34 @@ LABEL_38:
       if ([a2 compoundPredicateType] == 1 || objc_msgSend(a2, "compoundPredicateType") == 2)
       {
         predicateCopy = predicate;
-        v67 = [*(v5 + 64) length];
-        if (v67)
+        v66 = [*(v5 + 64) length];
+        if (v66)
         {
           objc_msgSend(*(v5 + 64), "appendString:", @"(");
           objc_msgSend(*(v5 + 96), "appendString:", @"(");
           objc_msgSend(*(v5 + 104), "appendString:", @"(");
         }
 
-        v70 = 0u;
-        v71 = 0u;
-        v68 = 0u;
         v69 = 0u;
+        v70 = 0u;
+        v67 = 0u;
+        v68 = 0u;
         subpredicates = [a2 subpredicates];
-        v14 = [subpredicates countByEnumeratingWithState:&v68 objects:v77 count:16];
+        v14 = [subpredicates countByEnumeratingWithState:&v67 objects:v76 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v69;
+          v16 = *v68;
           while (2)
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v69 != v16)
+              if (*v68 != v16)
               {
                 objc_enumerationMutation(subpredicates);
               }
 
-              v18 = *(*(&v68 + 1) + 8 * i);
+              v18 = *(*(&v67 + 1) + 8 * i);
               if ([*(v5 + 64) length] && objc_msgSend(*(v5 + 64), "characterAtIndex:", objc_msgSend(*(v5 + 64), "length") - 1) != 40)
               {
                 if ([a2 compoundPredicateType] == 1)
@@ -642,10 +636,10 @@ LABEL_38:
                 [*(v5 + 104) appendFormat:@" %@ ", v19];
               }
 
-              if (![(NSSQLAttributeTrigger *)v5 validatePredicate:v18 error:&v72])
+              if (![(NSSQLAttributeTrigger *)v5 validatePredicate:v18 error:&v71])
               {
                 predicate = predicateCopy;
-                if (v67)
+                if (v66)
                 {
                   [*(v5 + 64) appendString:@""]);
                   [*(v5 + 96) appendString:@""]);
@@ -656,7 +650,7 @@ LABEL_38:
               }
             }
 
-            v15 = [subpredicates countByEnumeratingWithState:&v68 objects:v77 count:16];
+            v15 = [subpredicates countByEnumeratingWithState:&v67 objects:v76 count:16];
             if (v15)
             {
               continue;
@@ -666,66 +660,64 @@ LABEL_38:
           }
         }
 
-        if (v67)
+        if (v66)
         {
           [*(v5 + 64) appendString:@""]);
           [*(v5 + 96) appendString:@""]);
           [*(v5 + 104) appendString:@""]);
         }
 
-        goto LABEL_28;
+        return 1;
       }
 
       v21 = MEMORY[0x1E696ABC0];
       v22 = *MEMORY[0x1E696A250];
-      v75[0] = @"offendingPredicate";
+      v74[0] = @"offendingPredicate";
       if (!a2)
       {
         a2 = [MEMORY[0x1E695DFB0] null];
       }
 
-      v75[1] = *MEMORY[0x1E696A588];
-      v76[0] = a2;
-      v76[1] = @"Invalid trigger predicate, compound predicates must be AND or OR predicates.";
+      v74[1] = *MEMORY[0x1E696A588];
+      v75[0] = a2;
+      v75[1] = @"Invalid trigger predicate, compound predicates must be AND or OR predicates.";
       v23 = MEMORY[0x1E695DF20];
-      v24 = v76;
-      v25 = v75;
+      v24 = v75;
+      v25 = v74;
     }
 
     else
     {
       v21 = MEMORY[0x1E696ABC0];
       v22 = *MEMORY[0x1E696A250];
-      v73[0] = @"offendingPredicate";
+      v72[0] = @"offendingPredicate";
       if (!a2)
       {
         a2 = [MEMORY[0x1E695DFB0] null];
       }
 
-      v73[1] = *MEMORY[0x1E696A588];
-      v74[0] = a2;
-      v74[1] = @"Invalid trigger predicate, predicate must evaluate to an instance of NSComparisonPredicate or NSCompoundPredicate.";
+      v72[1] = *MEMORY[0x1E696A588];
+      v73[0] = a2;
+      v73[1] = @"Invalid trigger predicate, predicate must evaluate to an instance of NSComparisonPredicate or NSCompoundPredicate.";
       v23 = MEMORY[0x1E695DF20];
-      v24 = v74;
-      v25 = v73;
+      v24 = v73;
+      v25 = v72;
     }
 
-    v72 = [v21 errorWithDomain:v22 code:134060 userInfo:{objc_msgSend(v23, "dictionaryWithObjects:forKeys:count:", v24, v25, 2)}];
+    v71 = [v21 errorWithDomain:v22 code:134060 userInfo:{objc_msgSend(v23, "dictionaryWithObjects:forKeys:count:", v24, v25, 2)}];
 LABEL_34:
-    v26 = v72;
-    if (v72)
+    v26 = v71;
+    if (v71)
     {
 LABEL_48:
       if (predicate)
       {
         result = 0;
         *predicate = v26;
-        goto LABEL_51;
+        return result;
       }
 
-LABEL_50:
-      result = 0;
-      goto LABEL_51;
+      return 0;
     }
 
     goto LABEL_35;
@@ -736,13 +728,13 @@ LABEL_50:
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
     v20 = *MEMORY[0x1E696A588];
-    v82[0] = @"offendingPredicate";
-    v82[1] = v20;
-    v83[0] = a2;
-    v83[1] = @"Invalid trigger predicate, left expression must evaluate to an instance of NSKeyPathExpressionType.";
+    v81[0] = @"offendingPredicate";
+    v81[1] = v20;
+    v82[0] = a2;
+    v82[1] = @"Invalid trigger predicate, left expression must evaluate to an instance of NSKeyPathExpressionType.";
     v10 = MEMORY[0x1E695DF20];
-    v11 = v83;
-    v12 = v82;
+    v11 = v82;
+    v12 = v81;
     goto LABEL_40;
   }
 
@@ -752,13 +744,13 @@ LABEL_50:
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
     v29 = *MEMORY[0x1E696A588];
-    v84[0] = @"offendingPredicate";
-    v84[1] = v29;
-    v85[0] = a2;
-    v85[1] = @"Invalid trigger predicate, left expression must be a key-path with only two components.";
+    v83[0] = @"offendingPredicate";
+    v83[1] = v29;
+    v84[0] = a2;
+    v84[1] = @"Invalid trigger predicate, left expression must be a key-path with only two components.";
     v10 = MEMORY[0x1E695DF20];
-    v11 = v85;
-    v12 = v84;
+    v11 = v84;
+    v12 = v83;
     goto LABEL_40;
   }
 
@@ -767,13 +759,13 @@ LABEL_50:
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
     v9 = *MEMORY[0x1E696A588];
-    v86[0] = @"offendingPredicate";
-    v86[1] = v9;
-    v87[0] = a2;
-    v87[1] = @"Invalid trigger predicate, right expression must evaluate to an instance of NSConstantValueExpressionType.";
+    v85[0] = @"offendingPredicate";
+    v85[1] = v9;
+    v86[0] = a2;
+    v86[1] = @"Invalid trigger predicate, right expression must evaluate to an instance of NSConstantValueExpressionType.";
     v10 = MEMORY[0x1E695DF20];
-    v11 = v87;
-    v12 = v86;
+    v11 = v86;
+    v12 = v85;
 LABEL_40:
     v30 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:2];
     v31 = v7;
@@ -785,197 +777,195 @@ LABEL_40:
   {
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
-    v47 = *MEMORY[0x1E696A588];
-    v88[0] = @"offendingPredicate";
-    v88[1] = v47;
-    v89[0] = a2;
-    v89[1] = @"Invalid trigger predicate, right expression must evaluate to a constant integer value.";
+    v46 = *MEMORY[0x1E696A588];
+    v87[0] = @"offendingPredicate";
+    v87[1] = v46;
+    v88[0] = a2;
+    v88[1] = @"Invalid trigger predicate, right expression must evaluate to a constant integer value.";
     v10 = MEMORY[0x1E695DF20];
-    v11 = v89;
-    v12 = v88;
+    v11 = v88;
+    v12 = v87;
     goto LABEL_40;
   }
 
-  v37 = [objc_msgSend(objc_msgSend(a2 "rightExpression")];
+  v36 = [objc_msgSend(objc_msgSend(a2 "rightExpression")];
   if ([a2 predicateOperatorType] > 5)
   {
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
-    v48 = *MEMORY[0x1E696A588];
-    v90[0] = @"offendingPredicate";
-    v90[1] = v48;
-    v91[0] = a2;
-    v91[1] = @"Invalid trigger predicate, predicate operator must be one of:\nNSLessThanPredicateOperatorType,\nNSLessThanOrEqualToPredicateOperatorType,\nNSGreaterThanPredicateOperatorType,\nNSGreaterThanOrEqualToPredicateOperatorType,\nNSEqualToPredicateOperatorType,\nNSNotEqualToPredicateOperatorType";
+    v47 = *MEMORY[0x1E696A588];
+    v89[0] = @"offendingPredicate";
+    v89[1] = v47;
+    v90[0] = a2;
+    v90[1] = @"Invalid trigger predicate, predicate operator must be one of:\nNSLessThanPredicateOperatorType,\nNSLessThanOrEqualToPredicateOperatorType,\nNSGreaterThanPredicateOperatorType,\nNSGreaterThanOrEqualToPredicateOperatorType,\nNSEqualToPredicateOperatorType,\nNSNotEqualToPredicateOperatorType";
     v10 = MEMORY[0x1E695DF20];
-    v11 = v91;
-    v12 = v90;
+    v11 = v90;
+    v12 = v89;
     goto LABEL_40;
   }
 
-  v38 = *(v5 + 24);
-  v39 = [v6 objectAtIndexedSubscript:0];
-  if (v38)
+  v37 = *(v5 + 24);
+  v38 = [v6 objectAtIndexedSubscript:0];
+  if (v37)
   {
-    v40 = [*(v38 + 40) objectForKey:v39];
+    v39 = [*(v37 + 40) objectForKey:v38];
   }
 
   else
   {
-    v40 = 0;
+    v39 = 0;
   }
 
-  destinationEntity = [v40 destinationEntity];
-  v42 = [v6 objectAtIndexedSubscript:1];
+  destinationEntity = [v39 destinationEntity];
+  v41 = [v6 objectAtIndexedSubscript:1];
   if (destinationEntity)
   {
-    v43 = [*(destinationEntity + 40) objectForKey:v42];
+    v42 = [*(destinationEntity + 40) objectForKey:v41];
   }
 
   else
   {
-    v43 = 0;
+    v42 = 0;
   }
 
+  v43 = [objc_msgSend(a2 "predicateOperator")];
   v44 = [objc_msgSend(a2 "predicateOperator")];
-  v45 = [objc_msgSend(a2 "predicateOperator")];
-  if (v45 > 5)
+  if (v44 > 5)
   {
-    v46 = 0;
+    v45 = 0;
   }
 
   else
   {
-    v46 = [objc_alloc(MEMORY[0x1E696AE20]) initWithOperatorType:qword_18592E558[v45]];
+    v45 = [objc_alloc(MEMORY[0x1E696AE20]) initWithOperatorType:qword_18592E558[v44]];
   }
 
-  symbol = [v46 symbol];
+  symbol = [v45 symbol];
 
-  if (!v40)
+  if (!v39)
   {
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
-    v61 = *MEMORY[0x1E696A588];
-    v92[0] = @"offendingPredicate";
-    v92[1] = v61;
-    v93[0] = a2;
-    v93[1] = @"Invalid trigger predicate, failed to find the relationship identified by the keyPath.";
+    v60 = *MEMORY[0x1E696A588];
+    v91[0] = @"offendingPredicate";
+    v91[1] = v60;
+    v92[0] = a2;
+    v92[1] = @"Invalid trigger predicate, failed to find the relationship identified by the keyPath.";
     v10 = MEMORY[0x1E695DF20];
-    v11 = v93;
-    v12 = v92;
+    v11 = v92;
+    v12 = v91;
     goto LABEL_40;
   }
 
-  v50 = *(v5 + 40);
-  if (!v50)
+  v49 = *(v5 + 40);
+  if (!v49)
   {
     goto LABEL_72;
   }
 
-  if (![v50 isEqual:v40])
+  if (![v49 isEqual:v39])
   {
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A250];
-    v62 = *MEMORY[0x1E696A588];
-    v94[0] = @"offendingPredicate";
-    v94[1] = v62;
-    v95[0] = a2;
-    v95[1] = @"Invalid trigger predicate, this predicate appears to reference a different relationship than other predicates in this trigger.";
+    v61 = *MEMORY[0x1E696A588];
+    v93[0] = @"offendingPredicate";
+    v93[1] = v61;
+    v94[0] = a2;
+    v94[1] = @"Invalid trigger predicate, this predicate appears to reference a different relationship than other predicates in this trigger.";
     v10 = MEMORY[0x1E695DF20];
-    v11 = v95;
-    v12 = v94;
+    v11 = v94;
+    v12 = v93;
     goto LABEL_40;
   }
 
   if (!*(v5 + 40))
   {
 LABEL_72:
-    v51 = v40;
-    *(v5 + 40) = v51;
-    *(v5 + 48) = [v51 destinationEntity];
+    v50 = v39;
+    *(v5 + 40) = v50;
+    *(v5 + 48) = [v50 destinationEntity];
   }
 
-  if (v43)
+  if (v42)
   {
-    v52 = *(v5 + 32);
-    if (v52)
+    v51 = *(v5 + 32);
+    if (v51)
     {
-      *(v52 + 32) |= 8u;
+      *(v51 + 32) |= 8u;
     }
 
-    if (([*(v5 + 56) containsObject:v43] & 1) == 0)
+    if (([*(v5 + 56) containsObject:v42] & 1) == 0)
     {
-      v53 = [*(v5 + 56) mutableCopy];
-      [v53 addObject:v43];
+      v52 = [*(v5 + 56) mutableCopy];
+      [v52 addObject:v42];
 
-      *(v5 + 56) = [v53 copy];
-      v54 = v40[7];
-      if (v54)
+      *(v5 + 56) = [v52 copy];
+      v53 = v39[7];
+      if (v53)
       {
-        [(NSSQLAttribute *)v43 addKeyForTriggerOnRelationship:v54];
+        [(NSSQLAttribute *)v42 addKeyForTriggerOnRelationship:v53];
       }
 
-      v55 = [*(v5 + 80) length];
-      v56 = *(v5 + 80);
-      columnName = [v43 columnName];
-      columnName2 = [v43 columnName];
-      if (v55)
+      v54 = [*(v5 + 80) length];
+      v55 = *(v5 + 80);
+      columnName = [v42 columnName];
+      columnName2 = [v42 columnName];
+      if (v54)
       {
-        v59 = @" OR (NEW.%@ %@ %ld AND OLD.%@ %@ %ld)";
+        v58 = @" OR (NEW.%@ %@ %ld AND OLD.%@ %@ %ld)";
       }
 
       else
       {
+        v58 = @"(NEW.%@ %@ %ld AND OLD.%@ %@ %ld)";
+      }
+
+      v59 = @" OR (NEW.%@ %@ %ld AND OLD.%@ %@ %ld)";
+      [v55 appendFormat:v58, columnName, v43, v36, columnName2, symbol, v36];
+      if (![*(v5 + 72) length])
+      {
         v59 = @"(NEW.%@ %@ %ld AND OLD.%@ %@ %ld)";
       }
 
-      v60 = @" OR (NEW.%@ %@ %ld AND OLD.%@ %@ %ld)";
-      [v56 appendFormat:v59, columnName, v44, v37, columnName2, symbol, v37];
-      if (![*(v5 + 72) length])
-      {
-        v60 = @"(NEW.%@ %@ %ld AND OLD.%@ %@ %ld)";
-      }
-
-      [*(v5 + 72) appendFormat:v60, objc_msgSend(v43, "columnName"), symbol, v37, objc_msgSend(v43, "columnName"), v44, v37];
+      [*(v5 + 72) appendFormat:v59, objc_msgSend(v42, "columnName"), symbol, v36, objc_msgSend(v42, "columnName"), v43, v36];
       if ([*(v5 + 88) length])
       {
         [*(v5 + 88) appendString:{@", "}];
       }
 
-      [*(v5 + 88) appendString:{objc_msgSend(v43, "columnName")}];
+      [*(v5 + 88) appendString:{objc_msgSend(v42, "columnName")}];
       if ([*(v5 + 112) length])
       {
         [*(v5 + 112) appendString:@" OR "];
       }
 
-      [*(v5 + 112) appendFormat:@"NEW.%@ != OLD.%@", objc_msgSend(v43, "columnName"), objc_msgSend(v43, "columnName")];
+      [*(v5 + 112) appendFormat:@"NEW.%@ != OLD.%@", objc_msgSend(v42, "columnName"), objc_msgSend(v42, "columnName")];
     }
 
-    [*(v5 + 64) appendFormat:@"%@ %@ %ld", objc_msgSend(v43, "columnName"), v44, objc_msgSend(objc_msgSend(objc_msgSend(a2, "rightExpression"), "constantValue"), "integerValue")];
-    [*(v5 + 96) appendFormat:@"OLD.%@ %@ %ld", objc_msgSend(v43, "columnName"), v44, v37];
-    [*(v5 + 104) appendFormat:@"NEW.%@ %@ %ld", objc_msgSend(v43, "columnName"), v44, v37];
-LABEL_28:
-    result = 1;
-    goto LABEL_51;
+    [*(v5 + 64) appendFormat:@"%@ %@ %ld", objc_msgSend(v42, "columnName"), v43, objc_msgSend(objc_msgSend(objc_msgSend(a2, "rightExpression"), "constantValue"), "integerValue")];
+    [*(v5 + 96) appendFormat:@"OLD.%@ %@ %ld", objc_msgSend(v42, "columnName"), v43, v36];
+    [*(v5 + 104) appendFormat:@"NEW.%@ %@ %ld", objc_msgSend(v42, "columnName"), v43, v36];
+    return 1;
   }
 
-  v63 = MEMORY[0x1E696ABC0];
-  v64 = *MEMORY[0x1E696A250];
+  v62 = MEMORY[0x1E696ABC0];
+  v63 = *MEMORY[0x1E696A250];
   *buf = a2;
-  v96[0] = @"offendingPredicate";
-  v96[1] = @"offendingAttribute";
+  v95[0] = @"offendingPredicate";
+  v95[1] = @"offendingAttribute";
   name = [*(v5 + 32) name];
-  v96[2] = *MEMORY[0x1E696A588];
+  v95[2] = *MEMORY[0x1E696A588];
   *&buf[8] = name;
   *&buf[16] = @"Invalid trigger predicate, unable to find the attribute specified by this predicate.";
-  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v96 count:3];
-  v31 = v63;
-  v32 = v64;
+  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v95 count:3];
+  v31 = v62;
+  v32 = v63;
 LABEL_41:
   v33 = [v31 errorWithDomain:v32 code:134060 userInfo:v30];
   v26 = v33;
   if (v33)
   {
-    v72 = v33;
+    v71 = v33;
   }
 
   else
@@ -983,21 +973,21 @@ LABEL_41:
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      *v78 = 136315394;
-      v79 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
-      v80 = 1024;
-      v81 = 837;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", v78, 0x12u);
+      *v77 = 136315394;
+      v78 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
+      v79 = 1024;
+      v80 = 837;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", v77, 0x12u);
     }
 
     v35 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
-      *v78 = 136315394;
-      v79 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
-      v80 = 1024;
-      v81 = 837;
-      _os_log_fault_impl(&dword_18565F000, v35, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", v78, 0x12u);
+      *v77 = 136315394;
+      v78 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSSQLAttributeTrigger.m";
+      v79 = 1024;
+      v80 = 837;
+      _os_log_fault_impl(&dword_18565F000, v35, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", v77, 0x12u);
     }
   }
 
@@ -1026,11 +1016,9 @@ LABEL_35:
     *&buf[12] = 1024;
     *&buf[14] = 676;
     _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-    goto LABEL_50;
+    return 0;
   }
 
-LABEL_51:
-  v36 = *MEMORY[0x1E69E9840];
   return result;
 }
 

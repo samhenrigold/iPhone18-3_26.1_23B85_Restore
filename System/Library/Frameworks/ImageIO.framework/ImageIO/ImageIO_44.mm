@@ -1,3217 +1,3 @@
-void sub_1860EC11C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16)
-{
-  if (a16)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a16);
-  }
-
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
-  }
-
-  v18 = *(v16 + 8);
-  if (v18)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v18);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void XMPUtils::ComposeArrayItemPath(char *a1, char *a2, int a3, std::string *a4)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    XMPUtils::ComposeArrayItemPath();
-  }
-
-  if (!a2 || !*a2)
-  {
-    XMPUtils::ComposeArrayItemPath();
-  }
-
-  if (!a4)
-  {
-    XMPUtils::ComposeArrayItemPath();
-  }
-
-  memset(v10, 0, sizeof(v10));
-  ExpandXPath(a1, a2, v10);
-  if (a3 <= -2)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 4;
-    exception[1] = "Array index out of bounds";
-    *(exception + 16) = 0;
-  }
-
-  v7 = strlen(a2);
-  memset(&v9, 0, sizeof(v9));
-  std::string::reserve(&v9, v7 + 34);
-  MEMORY[0x186602520](&v9, a2);
-  if (a3 == -1)
-  {
-    std::string::append(&v9, "[last()]");
-  }
-
-  else
-  {
-    *__str = 0u;
-    v12 = 0u;
-    snprintf(__str, 0x20uLL, "[%d]", a3);
-    std::string::append(&v9, __str);
-  }
-
-  std::string::operator=(a4, &v9);
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v9.__r_.__value_.__l.__data_);
-  }
-
-  *__str = v10;
-  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](__str);
-}
-
-void sub_1860EC338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, char *a20)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  a20 = &a17;
-  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a20);
-  _Unwind_Resume(a1);
-}
-
-void XMPUtils::ComposeStructFieldPath(char *a1, char *a2, char *a3, _BYTE *a4, std::string *a5)
-{
-  if (!a1 || !a3)
-  {
-    XMPUtils::ComposeStructFieldPath();
-  }
-
-  if (!a2 || !*a2)
-  {
-    XMPUtils::ComposeStructFieldPath();
-  }
-
-  if (!a4 || !*a4)
-  {
-    XMPUtils::ComposeStructFieldPath();
-  }
-
-  if (!a5)
-  {
-    XMPUtils::ComposeStructFieldPath();
-  }
-
-  memset(v19, 0, sizeof(v19));
-  ExpandXPath(a1, a2, v19);
-  v16 = 0;
-  v17 = 0;
-  v18 = 0;
-  ExpandXPath(a3, a4, &v16);
-  if (v17 - v16 != 64)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 102;
-    exception[1] = "The fieldName must be simple";
-    *(exception + 16) = 0;
-  }
-
-  v9 = strlen(a2);
-  v10 = *(v16 + 55);
-  if ((v10 & 0x8000000000000000) != 0)
-  {
-    v10 = v16[5];
-  }
-
-  memset(&__str, 0, sizeof(__str));
-  std::string::reserve(&__str, v9 + v10 + 1);
-  MEMORY[0x186602520](&__str, a2);
-  std::string::push_back(&__str, 47);
-  if ((v17 - v16) <= 0x20)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v11 = *(v16 + 55);
-    if (v11 >= 0)
-    {
-      v12 = (v16 + 4);
-    }
-
-    else
-    {
-      v12 = v16[4];
-    }
-
-    if (v11 >= 0)
-    {
-      v13 = *(v16 + 55);
-    }
-
-    else
-    {
-      v13 = v16[5];
-    }
-
-    std::string::append(&__str, v12, v13);
-    std::string::operator=(a5, &__str);
-    if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__str.__r_.__value_.__l.__data_);
-    }
-
-    __str.__r_.__value_.__r.__words[0] = &v16;
-    std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&__str);
-    v16 = v19;
-    std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v16);
-  }
-}
-
-void sub_1860EC50C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char *a16, uint64_t a17, uint64_t a18, char a19)
-{
-  a16 = &a19;
-  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a16);
-  _Unwind_Resume(a1);
-}
-
-void XMPUtils::ComposeQualifierPath(char *a1, char *a2, char *a3, _BYTE *a4, std::string *a5)
-{
-  if (!a1 || !a3)
-  {
-    XMPUtils::ComposeQualifierPath();
-  }
-
-  if (!a2 || !*a2)
-  {
-    XMPUtils::ComposeQualifierPath();
-  }
-
-  if (!a4 || !*a4)
-  {
-    XMPUtils::ComposeQualifierPath();
-  }
-
-  if (!a5)
-  {
-    XMPUtils::ComposeQualifierPath();
-  }
-
-  memset(v19, 0, sizeof(v19));
-  ExpandXPath(a1, a2, v19);
-  v16 = 0;
-  v17 = 0;
-  v18 = 0;
-  ExpandXPath(a3, a4, &v16);
-  if (v17 - v16 != 64)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 102;
-    exception[1] = "The qualifier name must be simple";
-    *(exception + 16) = 0;
-  }
-
-  v9 = strlen(a2);
-  v10 = *(v16 + 55);
-  if ((v10 & 0x8000000000000000) != 0)
-  {
-    v10 = v16[5];
-  }
-
-  memset(&__str, 0, sizeof(__str));
-  std::string::reserve(&__str, v9 + v10 + 2);
-  MEMORY[0x186602520](&__str, a2);
-  std::string::append(&__str, "/?");
-  if ((v17 - v16) <= 0x20)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v11 = *(v16 + 55);
-    if (v11 >= 0)
-    {
-      v12 = (v16 + 4);
-    }
-
-    else
-    {
-      v12 = v16[4];
-    }
-
-    if (v11 >= 0)
-    {
-      v13 = *(v16 + 55);
-    }
-
-    else
-    {
-      v13 = v16[5];
-    }
-
-    std::string::append(&__str, v12, v13);
-    std::string::operator=(a5, &__str);
-    if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__str.__r_.__value_.__l.__data_);
-    }
-
-    __str.__r_.__value_.__r.__words[0] = &v16;
-    std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&__str);
-    v16 = v19;
-    std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v16);
-  }
-}
-
-void sub_1860EC6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char *a16, uint64_t a17, uint64_t a18, char a19)
-{
-  a16 = &a19;
-  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a16);
-  _Unwind_Resume(a1);
-}
-
-void XMPUtils::ConvertFromBool(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-
-    JUMPOUT(0x186602520);
-  }
-
-  XMPUtils::ConvertFromBool();
-}
-
-uint64_t XMPUtils::ConvertFromInt(uint64_t a1, const char *a2, std::string *this)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a2 || !this)
-  {
-    XMPUtils::ConvertFromInt();
-  }
-
-  std::string::erase(this, 0, 0xFFFFFFFFFFFFFFFFLL);
-  if (*a2)
-  {
-    v6 = a2;
-  }
-
-  else
-  {
-    v6 = "%d";
-  }
-
-  *__str = 0u;
-  v9 = 0u;
-  snprintf(__str, 0x20uLL, v6, a1);
-  return MEMORY[0x186602520](this, __str);
-}
-
-uint64_t XMPUtils::ConvertFromInt64(uint64_t a1, const char *a2, std::string *this)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a2 || !this)
-  {
-    XMPUtils::ConvertFromInt64();
-  }
-
-  std::string::erase(this, 0, 0xFFFFFFFFFFFFFFFFLL);
-  if (*a2)
-  {
-    v6 = a2;
-  }
-
-  else
-  {
-    v6 = "%lld";
-  }
-
-  *__str = 0u;
-  v9 = 0u;
-  snprintf(__str, 0x20uLL, v6, a1);
-  return MEMORY[0x186602520](this, __str);
-}
-
-uint64_t XMPUtils::ConvertFromFloat(const char *a1, std::string *this, double a3)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  if (!a1 || !this)
-  {
-    XMPUtils::ConvertFromFloat();
-  }
-
-  std::string::erase(this, 0, 0xFFFFFFFFFFFFFFFFLL);
-  if (*a1)
-  {
-    v6 = a1;
-  }
-
-  else
-  {
-    v6 = "%f";
-  }
-
-  v10 = 0u;
-  v11 = 0u;
-  *__str = 0u;
-  v9 = 0u;
-  snprintf(__str, 0x40uLL, v6, *&a3);
-  return MEMORY[0x186602520](this, __str);
-}
-
-void XMPUtils::ConvertFromDate(__int128 *a1, std::string *a2)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (!a2)
-  {
-    XMPUtils::ConvertFromDate();
-  }
-
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  *__str = 0u;
-  v12 = 0u;
-  v3 = a1[1];
-  v9 = *a1;
-  *v10 = v3;
-  *&v10[16] = *(a1 + 4);
-  VerifyDateTimeFlags(&v9);
-  v4 = DWORD1(v9);
-  if (DWORD1(v9))
-  {
-    if (SDWORD1(v9) < 1)
-    {
-      v4 = 1;
-    }
-
-    else
-    {
-      if (DWORD1(v9) < 0xD)
-      {
-        goto LABEL_11;
-      }
-
-      v4 = 12;
-    }
-  }
-
-  else
-  {
-    v4 = 1;
-    if (!DWORD2(v9) && !v10[9])
-    {
-      v4 = 0;
-      goto LABEL_11;
-    }
-  }
-
-  DWORD1(v9) = v4;
-LABEL_11:
-  if (!DWORD2(v9))
-  {
-    if (!v10[9])
-    {
-      if (v4)
-      {
-        snprintf(__str, 0x64uLL, "%.4d-%02d");
-      }
-
-      else
-      {
-        snprintf(__str, 0x64uLL, "%.4d");
-      }
-
-      goto LABEL_25;
-    }
-
-    goto LABEL_16;
-  }
-
-  if (SDWORD2(v9) < 1)
-  {
-LABEL_16:
-    v5 = 1;
-    goto LABEL_17;
-  }
-
-  if (DWORD2(v9) >= 0x20)
-  {
-    v5 = 31;
-LABEL_17:
-    DWORD2(v9) = v5;
-  }
-
-  if (!v4)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 4;
-    exception[1] = "Invalid partial date";
-    *(exception + 16) = 0;
-  }
-
-  if (v10[9])
-  {
-    FormatFullDateTime(&v9, __str);
-  }
-
-  else
-  {
-    snprintf(__str, 0x64uLL, "%.4d-%02d-%02d");
-  }
-
-LABEL_25:
-  MEMORY[0x186602520](a2, __str);
-  if (!v10[10])
-  {
-    return;
-  }
-
-  if (*&v10[12] > 0x17u)
-  {
-    goto LABEL_38;
-  }
-
-  if (*&v10[16] > 0x3Bu)
-  {
-    goto LABEL_38;
-  }
-
-  v6 = v10[11];
-  if (v10[11] - 2 < 0xFD)
-  {
-    goto LABEL_38;
-  }
-
-  if (!v10[11])
-  {
-    if (!*&v10[12])
-    {
-      std::string::push_back(a2, 90);
-      return;
-    }
-
-LABEL_38:
-    v8 = __cxa_allocate_exception(0x18uLL);
-    *v8 = 4;
-    v8[1] = "Invalid time zone values";
-    *(v8 + 16) = 0;
-  }
-
-  snprintf(__str, 0x64uLL, "+%02d:%02d", *&v10[12], *&v10[16]);
-  if (v6 < 0)
-  {
-    __str[0] = 45;
-  }
-
-  std::string::append(a2, __str);
-}
-
-uint64_t VerifyDateTimeFlags(uint64_t result)
-{
-  if (*result || *(result + 4) || *(result + 8))
-  {
-    *(result + 24) = 1;
-  }
-
-  if (*(result + 12) || *(result + 16) || *(result + 20) || *(result + 36))
-  {
-    *(result + 25) = 1;
-  }
-
-  if (*(result + 27) || *(result + 28) || *(result + 32))
-  {
-    *(result + 26) = 1;
-LABEL_14:
-    *(result + 25) = 1;
-    return result;
-  }
-
-  if (*(result + 26))
-  {
-    goto LABEL_14;
-  }
-
-  return result;
-}
-
-size_t FormatFullDateTime(int *a1, char *a2)
-{
-  AdjustTimeOverflow(a1);
-  v4 = a1[9];
-  v5 = *a1;
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  if (!v4)
-  {
-    return snprintf(a2, 0x64uLL, "%.4d-%02d-%02dT%02d:%02d:%02d", v5, v6, v7, v8, a1[4], a1[5]);
-  }
-
-  snprintf(a2, 0x64uLL, "%.4d-%02d-%02dT%02d:%02d:%02d.%09d", v5, v6, v7, v8, a1[4], a1[5], v4);
-  a2[99] = 0;
-  result = strlen(a2);
-  for (i = &a2[result]; ; *i = 0)
-  {
-    v11 = *--i;
-    if (v11 != 48)
-    {
-      break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t XMPUtils::ConvertToBool(XMPUtils *this, const char *a2)
-{
-  if (!this || !*this)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 5;
-    exception[1] = "Empty convert-from string";
-    *(exception + 16) = 0;
-  }
-
-  v21 = 0;
-  v22 = 0;
-  v23 = 0;
-  std::string::basic_string[abi:fe200100]<0>(&v21, this);
-  v2 = HIBYTE(v23);
-  v3 = v21;
-  v4 = v22;
-  if (v23 >= 0)
-  {
-    v5 = HIBYTE(v23);
-  }
-
-  else
-  {
-    v5 = v22;
-  }
-
-  v6 = v21;
-  if (v5)
-  {
-    if (v23 >= 0)
-    {
-      v7 = &v21;
-    }
-
-    else
-    {
-      v7 = v21;
-    }
-
-    do
-    {
-      v8 = *v7;
-      if ((v8 - 65) <= 0x19)
-      {
-        *v7 = v8 | 0x20;
-        v2 = HIBYTE(v23);
-        v3 = v21;
-        v4 = v22;
-        v6 = v21;
-      }
-
-      ++v7;
-      v9 = (v2 & 0x80u) != 0;
-      if ((v2 & 0x80u) == 0)
-      {
-        v10 = &v21;
-      }
-
-      else
-      {
-        v10 = v3;
-      }
-
-      if ((v2 & 0x80u) == 0)
-      {
-        v11 = v2;
-      }
-
-      else
-      {
-        v11 = v4;
-      }
-    }
-
-    while (v7 != v10 + v11);
-  }
-
-  else
-  {
-    v9 = SHIBYTE(v23) >> 31;
-  }
-
-  v12 = v6;
-  if (!v9)
-  {
-    if (v2 != 1)
-    {
-      if (v2 != 4)
-      {
-        goto LABEL_50;
-      }
-
-      if (v21 != 1702195828)
-      {
-        goto LABEL_67;
-      }
-
-      return 1;
-    }
-
-    goto LABEL_31;
-  }
-
-  if (v4 == 1)
-  {
-    v12 = *v3;
-LABEL_31:
-    if (v12 == 116)
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_34;
-  }
-
-  if (v4 != 4)
-  {
-    goto LABEL_36;
-  }
-
-  if (*v3 == 1702195828)
-  {
-LABEL_32:
-    v13 = 1;
-    if (!v9)
-    {
-      return v13;
-    }
-
-    goto LABEL_48;
-  }
-
-LABEL_34:
-  if (!v9)
-  {
-    if (v2 != 1)
-    {
-      goto LABEL_50;
-    }
-
-    if (v6 != 49)
-    {
-      goto LABEL_45;
-    }
-
-    return 1;
-  }
-
-  if (v4 == 1)
-  {
-    v18 = *v3;
-    if (v18 == 49)
-    {
-      goto LABEL_32;
-    }
-
-    if (v9)
-    {
-      v6 = *v3;
-      if (v18 != 102)
-      {
-LABEL_46:
-        if (v6 == 48)
-        {
-          goto LABEL_47;
-        }
-
-LABEL_67:
-        v20 = __cxa_allocate_exception(0x18uLL);
-        *v20 = 4;
-        v20[1] = "Invalid Boolean string";
-        *(v20 + 16) = 0;
-      }
-
-      goto LABEL_47;
-    }
-
-    if (v2 == 1)
-    {
-      goto LABEL_45;
-    }
-
-LABEL_50:
-    if (v2 != 5)
-    {
-      goto LABEL_67;
-    }
-
-    if (v21 != 1936482662 || BYTE4(v21) != 101)
-    {
-      goto LABEL_67;
-    }
-
-    return 0;
-  }
-
-LABEL_36:
-  if (v4 != 5)
-  {
-    goto LABEL_67;
-  }
-
-  if (*v3 != 1936482662 || v3[4] != 101)
-  {
-    if (v2 == 1)
-    {
-      v15 = v9;
-    }
-
-    else
-    {
-      v15 = 1;
-    }
-
-    if (v15)
-    {
-      goto LABEL_67;
-    }
-
-LABEL_45:
-    if (v6 != 102)
-    {
-      goto LABEL_46;
-    }
-
-    return 0;
-  }
-
-LABEL_47:
-  v13 = 0;
-  if (v9)
-  {
-LABEL_48:
-    operator delete(v3);
-  }
-
-  return v13;
-}
-
-void sub_1860ECF90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t XMPUtils::ConvertToInt64(XMPUtils *this, const char *a2)
-{
-  if (!this || (v2 = *this, !*this))
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 5;
-    v6 = "Empty convert-from string";
-    goto LABEL_10;
-  }
-
-  v8 = 0;
-  v7 = 0;
-  v3 = "%lld%c";
-  if (v2 == 48 && *(this + 1) == 120)
-  {
-    v3 = "%llx%c";
-  }
-
-  if (sscanf(this, v3, &v7, &v8) != 1)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 4;
-    v6 = "Invalid integer string";
-LABEL_10:
-    exception[1] = v6;
-    *(exception + 16) = 0;
-  }
-
-  return v7;
-}
-
-uint64_t XMPUtils::ConvertToDate(char *__s, uint64_t a2)
-{
-  if (!__s || !*__s)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 5;
-    v42 = "Empty convert-from string";
-    goto LABEL_102;
-  }
-
-  v43 = 0;
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0;
-  v4 = strlen(__s);
-  v5 = 0;
-  if (*__s == 84)
-  {
-    goto LABEL_4;
-  }
-
-  if (v4 >= 2 && (__s[1] == 58 || v4 != 2 && __s[2] == 58))
-  {
-LABEL_5:
-    *(a2 + 25) = 1;
-    v6 = GatherInt(__s, &v43, "Invalid hour in date string");
-    v7 = v43;
-    if (__s[v43] != 58)
-    {
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 4;
-      v42 = "Invalid date string, after hour";
-      goto LABEL_102;
-    }
-
-    if (v6 >= 23)
-    {
-      v8 = 23;
-    }
-
-    else
-    {
-      v8 = v6;
-    }
-
-    *(a2 + 12) = v8;
-    v43 = v7 + 1;
-    result = GatherInt(__s, &v43, "Invalid minute in date string");
-    v10 = v43;
-    v11 = __s[v43];
-    if (((v11 - 43) > 0x2F || ((1 << (v11 - 43)) & 0x800000008005) == 0) && v11 != 0)
-    {
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 4;
-      v42 = "Invalid date string, after minute";
-      goto LABEL_102;
-    }
-
-    if (result >= 59)
-    {
-      v14 = 59;
-    }
-
-    else
-    {
-      v14 = result;
-    }
-
-    *(a2 + 16) = v14;
-    v15 = __s[v10];
-    if (v15 == 58)
-    {
-      v43 = v10 + 1;
-      result = GatherInt(__s, &v43, "Invalid whole seconds in date string");
-      v10 = v43;
-      v16 = __s[v43] - 43;
-      if ((v16 > 0x2F || ((1 << v16) & 0x80000000000DLL) == 0) && __s[v43])
-      {
-        exception = __cxa_allocate_exception(0x18uLL);
-        *exception = 4;
-        v42 = "Invalid date string, after whole seconds";
-        goto LABEL_102;
-      }
-
-      v17 = result >= 59 ? 59 : result;
-      *(a2 + 20) = v17;
-      v15 = __s[v10];
-      if (v15 == 46)
-      {
-        v18 = v10 + 1;
-        v43 = v10 + 1;
-        result = GatherInt(__s, &v43, "Invalid fractional seconds in date string");
-        v19 = v43;
-        v20 = __s[v43] - 43;
-        if ((v20 > 0x2F || ((1 << v20) & 0x800000000005) == 0) && __s[v43])
-        {
-          exception = __cxa_allocate_exception(0x18uLL);
-          *exception = 4;
-          v42 = "Invalid date string, after fractional second";
-          goto LABEL_102;
-        }
-
-        v21 = v43 - v18;
-        if (v43 - v18 < 0xA)
-        {
-          if (v21 != 9)
-          {
-            v29.i64[1] = 0x100000001;
-            v29.i64[0] = result | 0x100000000;
-            v30 = vdupq_n_s64(v10 - v43 + 9);
-            v31 = 4;
-            v32.i64[0] = 0xA0000000ALL;
-            v32.i64[1] = 0xA0000000ALL;
-            do
-            {
-              v33 = v29;
-              v29 = vmulq_s32(v29, v32);
-              v31 -= 4;
-            }
-
-            while (((v10 - v43 + 13) & 0xFFFFFFFFFFFFFFFCLL) + v31 != 4);
-            v34 = vdupq_n_s64(-v31);
-            v35 = vbslq_s8(vuzp1q_s32(vcgtq_u64(vorrq_s8(v34, xmmword_186205EC0), v30), vcgtq_u64(vorrq_s8(v34, xmmword_186205EB0), v30)), v33, v29);
-            *v35.i8 = vmul_s32(*v35.i8, *&vextq_s8(v35, v35, 8uLL));
-            result = (v35.i32[0] * v35.i32[1]);
-          }
-
-          if (result >= 1000000000)
-          {
-            exception = __cxa_allocate_exception(0x18uLL);
-            *exception = 4;
-            v42 = "Fractional second is out of range";
-            goto LABEL_102;
-          }
-        }
-
-        else
-        {
-          do
-          {
-            result = (result / 10);
-            --v21;
-          }
-
-          while (v21 > 9);
-        }
-
-        *(a2 + 36) = result;
-        v15 = __s[v19];
-        v10 = v19;
-      }
-    }
-
-    if (!v15)
-    {
-      return result;
-    }
-
-    v36 = 1;
-    *(a2 + 26) = 1;
-    v37 = __s[v10];
-    if (v37 != 43)
-    {
-      if (v37 != 45)
-      {
-        if (v37 != 90)
-        {
-          exception = __cxa_allocate_exception(0x18uLL);
-          *exception = 4;
-          v42 = "Time zone must begin with 'Z', '+', or '-'";
-          goto LABEL_102;
-        }
-
-        v38 = v10 + 1;
-        goto LABEL_86;
-      }
-
-      v36 = -1;
-    }
-
-    *(a2 + 27) = v36;
-    v43 = v10 + 1;
-    v39 = GatherInt(__s, &v43, "Invalid time zone hour in date string");
-    v40 = v43;
-    if (__s[v43] != 58)
-    {
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 4;
-      v42 = "Invalid date string, after time zone hour";
-      goto LABEL_102;
-    }
-
-    if (v39 >= 24)
-    {
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 4;
-      v42 = "Time zone hour is out of range";
-      goto LABEL_102;
-    }
-
-    *(a2 + 28) = v39;
-    v43 = v40 + 1;
-    result = GatherInt(__s, &v43, "Invalid time zone minute in date string");
-    if (result >= 60)
-    {
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 4;
-      v42 = "Time zone minute is out of range";
-      goto LABEL_102;
-    }
-
-    *(a2 + 32) = result;
-    v38 = v43;
-LABEL_86:
-    if (!__s[v38])
-    {
-      return result;
-    }
-
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 4;
-    v42 = "Invalid date string, extra chars at end";
-LABEL_102:
-    exception[1] = v42;
-    *(exception + 16) = 0;
-  }
-
-  *(a2 + 24) = 1;
-  if (*__s == 45)
-  {
-    v43 = 1;
-  }
-
-  result = GatherInt(__s, &v43, "Invalid year in date string");
-  v22 = v43;
-  if (__s[v43] && __s[v43] != 45)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 4;
-    v42 = "Invalid date string, after year";
-    goto LABEL_102;
-  }
-
-  if (*__s == 45)
-  {
-    v23 = -result;
-  }
-
-  else
-  {
-    v23 = result;
-  }
-
-  *a2 = v23;
-  if (__s[v22])
-  {
-    v43 = v22 + 1;
-    result = GatherInt(__s, &v43, "Invalid month in date string");
-    v24 = v43;
-    if (__s[v43] && __s[v43] != 45)
-    {
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 4;
-      v42 = "Invalid date string, after month";
-      goto LABEL_102;
-    }
-
-    if (result <= 1)
-    {
-      v25 = 1;
-    }
-
-    else
-    {
-      v25 = result;
-    }
-
-    if (*a2)
-    {
-      v26 = v25;
-    }
-
-    else
-    {
-      v26 = result;
-    }
-
-    if (v26 >= 12)
-    {
-      v26 = 12;
-    }
-
-    *(a2 + 4) = v26;
-    if (__s[v24])
-    {
-      v43 = v24 + 1;
-      result = GatherInt(__s, &v43, "Invalid day in date string");
-      v5 = v43;
-      if (__s[v43] && __s[v43] != 84)
-      {
-        exception = __cxa_allocate_exception(0x18uLL);
-        *exception = 4;
-        v42 = "Invalid date string, after day";
-        goto LABEL_102;
-      }
-
-      v27 = result >= 31 ? 31 : result;
-      *(a2 + 8) = v27;
-      if (__s[v5])
-      {
-        v28 = *(a2 + 4);
-        if (*a2 || v28 | result)
-        {
-          if (v28 <= 0)
-          {
-            *(a2 + 4) = 1;
-          }
-
-          if (result <= 0)
-          {
-            *(a2 + 8) = 1;
-          }
-        }
-
-        if (__s[v5] != 84)
-        {
-          exception = __cxa_allocate_exception(0x18uLL);
-          *exception = 4;
-          v42 = "Invalid date string, missing 'T' after date";
-          goto LABEL_102;
-        }
-
-LABEL_4:
-        v43 = v5 + 1;
-        goto LABEL_5;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t GatherInt(const char *a1, unint64_t *a2, const char *a3)
-{
-  v3 = *a2;
-  v4 = a1[*a2];
-  if ((v4 - 48) > 9)
-  {
-    goto LABEL_9;
-  }
-
-  v6 = 0;
-  result = 0;
-  v8 = a1 + 1;
-  do
-  {
-    result = (v4 & 0xF) + 10 * result;
-    if (result >= 0x80000000)
-    {
-      v9 = a3;
-      exception = __cxa_allocate_exception(0x18uLL);
-      v11 = 5;
-      goto LABEL_8;
-    }
-
-    v4 = v8[v3];
-    --v6;
-    ++v8;
-  }
-
-  while ((v4 - 48) < 0xA);
-  if (!v6)
-  {
-LABEL_9:
-    v9 = a3;
-    exception = __cxa_allocate_exception(0x18uLL);
-    v11 = 4;
-LABEL_8:
-    *exception = v11;
-    exception[1] = v9;
-    *(exception + 16) = 0;
-  }
-
-  *a2 = v3 - v6;
-  return result;
-}
-
-void XMPUtils::PackageForJPEG(const std::string *lpsrc, uint64_t a2, std::string *a3, std::string *a4)
-{
-  v4 = a4;
-  v82 = *MEMORY[0x1E69E9840];
-  if (sUseNewCoreAPIs)
-  {
-    if (!v8)
-    {
-      __cxa_bad_cast();
-    }
-
-    XMPUtils::PackageForJPEG(v8, a2, a3, v4);
-    return;
-  }
-
-  if (!a2 || !a3 || !a4)
-  {
-    XMPUtils::PackageForJPEG();
-  }
-
-  if ((atomic_load_explicit(&qword_1ED56A1A8, memory_order_acquire) & 1) == 0)
-  {
-    XMPUtils::PackageForJPEG();
-  }
-
-  memset(&__str, 0, sizeof(__str));
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v75 = 0u;
-  memset(v74, 0, sizeof(v74));
-  v73 = 0u;
-  memset(v72, 0, sizeof(v72));
-  XMPMeta::XMPMeta(v72);
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v65 = 0u;
-  memset(v64, 0, sizeof(v64));
-  memset(v63, 0, sizeof(v63));
-  XMPMeta::XMPMeta(v63);
-  std::string::erase(a2, 0, 0xFFFFFFFFFFFFFFFFLL);
-  std::string::erase(a3, 0, 0xFFFFFFFFFFFFFFFFLL);
-  std::string::erase(v4, 0, 0xFFFFFFFFFFFFFFFFLL);
-  (*(lpsrc->__r_.__value_.__r.__words[0] + 208))(lpsrc, &__str, 2112, 1, "", "", 0);
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    if (__str.__r_.__value_.__l.__size_ >= 0xFDE9)
-    {
-      DWORD2(v73) = lpsrc[9].__r_.__value_.__r.__words[2];
-      std::string::operator=(v74, lpsrc + 10);
-      std::string::operator=(&v74[1], lpsrc + 11);
-      CloneOffspring(&lpsrc[9].__r_.__value_.__l.__size_, &v73, 0);
-      if (XMPMeta::DoesPropertyExist(v72, "http://ns.adobe.com/xap/1.0/", "Thumbnails"))
-      {
-        XMPMeta::DeleteProperty(v72, "http://ns.adobe.com/xap/1.0/", "Thumbnails");
-        XMPMeta::SerializeToBuffer(v72, &__str, 0x840u, 1u, "", "", 0);
-      }
-    }
-
-    if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0 && __str.__r_.__value_.__l.__size_ >= 0xFDE9)
-    {
-      XMPMeta::SetProperty(v72, "http://ns.adobe.com/xmp/note/", "HasExtendedXMP", "123456789-123456789-123456789-12", 0);
-      *__dst.state = 0;
-      SchemaNode = FindSchemaNode(&v73, "http://ns.adobe.com/camera-raw-settings/1.0/", 0, &__dst);
-      *v60 = SchemaNode;
-      if (SchemaNode)
-      {
-        *(SchemaNode + 64) = v64;
-        std::vector<IIO_Writer *>::push_back[abi:fe200100](&v65 + 8, v60);
-        v14 = *__dst.state;
-        if (v76 == *__dst.state)
-        {
-          goto LABEL_143;
-        }
-
-        v15 = v76 - (*__dst.state + 8);
-        if (v76 != *__dst.state + 8)
-        {
-          memmove(*__dst.state, (*__dst.state + 8), v76 - (*__dst.state + 8));
-        }
-
-        *&v76 = v14 + v15;
-        XMPMeta::SerializeToBuffer(v72, &__str, 0x840u, 1u, "", "", 0);
-      }
-
-      if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0 && __str.__r_.__value_.__l.__size_ >= 0xFDE9)
-      {
-        MoveOneProperty(v72, v63, "http://ns.adobe.com/photoshop/1.0/", "photoshop:History");
-        if (v16)
-        {
-          XMPMeta::SerializeToBuffer(v72, &__str, 0x840u, 1u, "", "", 0);
-        }
-
-        if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0 && __str.__r_.__value_.__l.__size_ >= 0xFDE9)
-        {
-          v61 = 0;
-          v62 = 0;
-          *v60 = &v61;
-          if (v76 != *(&v75 + 1))
-          {
-            v17 = (v76 - *(&v75 + 1)) >> 3;
-            while (1)
-            {
-              if (--v17 >= ((v76 - *(&v75 + 1)) >> 3))
-              {
-                goto LABEL_143;
-              }
-
-              v18 = *(*(&v75 + 1) + 8 * v17);
-              v19 = *(v18 + 80) - *(v18 + 72);
-              if (v19)
-              {
-                break;
-              }
-
-LABEL_77:
-              if (!v17)
-              {
-                goto LABEL_78;
-              }
-            }
-
-            v20 = v19 >> 3;
-            v21 = v18 + 16;
-            while (1)
-            {
-              --v20;
-              v22 = *(v18 + 72);
-              if (v20 >= (*(v18 + 80) - v22) >> 3)
-              {
-                break;
-              }
-
-              v23 = *(v22 + 8 * v20);
-              if ((*(v18 + 39) & 0x80000000) == 0 || *(v18 + 24) != 29)
-              {
-                goto LABEL_58;
-              }
-
-              v24 = **v21 == 0x6E2F2F3A70747468 && *(*v21 + 8) == 0x2E65626F64612E73;
-              v25 = v24 && *(*v21 + 16) == 0x2F706D782F6D6F63;
-              if (!v25 || *(*v21 + 21) != 0x2F65746F6E2F706DLL)
-              {
-                goto LABEL_58;
-              }
-
-              v29 = (v23 + 16);
-              v30 = *(v23 + 39);
-              if (v30 < 0)
-              {
-                if (*(v23 + 24) != 22)
-                {
-                  goto LABEL_58;
-                }
-
-                v29 = *v29;
-              }
-
-              else if (v30 != 22)
-              {
-                goto LABEL_58;
-              }
-
-              v31 = *v29;
-              v32 = v29[1];
-              v33 = *(v29 + 14);
-              v34 = v31 == 0x3A65746F4E706D78 && v32 == 0x6E65747845736148;
-              if (!v34 || v33 != 0x504D586465646E65)
-              {
-LABEL_58:
-                v27 = EstimateSizeForJPEG(v23);
-                *__dst.state = v27;
-                *&__dst.state[2] = v18 + 16;
-                *__dst.count = v23 + 16;
-                  ;
-                }
-
-                std::__tree<std::__value_type<unsigned long,std::pair<std::string *,std::string *>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<std::string *,std::string *>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<std::string *,std::string *>>>>::__emplace_hint_multi<std::pair<unsigned long const,std::pair<std::string *,std::string *>> &>();
-              }
-
-              if (!v20)
-              {
-                goto LABEL_77;
-              }
-            }
-
-LABEL_143:
-            __break(1u);
-          }
-
-LABEL_78:
-          v36 = "MoveLargestProperty";
-LABEL_79:
-          if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-          {
-            size = __str.__r_.__value_.__l.__size_;
-            if (__str.__r_.__value_.__l.__size_ >= 0xFDE9 && v62 != 0)
-            {
-              while (1)
-              {
-                v39 = *v60;
-                v40 = *(*v60 + 8);
-                v41 = *v60;
-                if (v40)
-                {
-                  do
-                  {
-                    v42 = v40;
-                    v40 = *v40;
-                  }
-
-                  while (v40);
-                }
-
-                else
-                {
-                  do
-                  {
-                    v42 = v41[2];
-                    v24 = *v42 == v41;
-                    v41 = v42;
-                  }
-
-                  while (!v24);
-                }
-
-                while (v42 != &v61)
-                {
-                  v39 = v42;
-                  v43 = v42[1];
-                  v44 = v42;
-                  if (v43)
-                  {
-                    do
-                    {
-                      v42 = v43;
-                      v43 = *v43;
-                    }
-
-                    while (v43);
-                  }
-
-                  else
-                  {
-                    do
-                    {
-                      v42 = v44[2];
-                      v24 = *v42 == v44;
-                      v44 = v42;
-                    }
-
-                    while (!v24);
-                  }
-                }
-
-                v45 = v39[5];
-                if (v45[23] < 0)
-                {
-                  v45 = *v45;
-                }
-
-                v46 = v39[6];
-                if (v46[23] < 0)
-                {
-                  v46 = *v46;
-                }
-
-                v47 = v39[4];
-                MoveOneProperty(v72, v63, v45, v46);
-                if (!v48)
-                {
-                  break;
-                }
-
-                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__remove_node_pointer(v60, v39);
-                operator delete(v39);
-                if (!v47)
-                {
-                  v56 = 2979;
-                  v36 = "PackageForJPEG";
-                  v57 = "propSize > 0";
-LABEL_139:
-                  __assert_rtn(v36, "XMPUtils.cpp", v56, v57);
-                }
-
-                if (size >= v47)
-                {
-                  size -= v47;
-                }
-
-                else
-                {
-                  size = 0;
-                }
-
-                if (size < 0xFDE9 || !v62)
-                {
-                  XMPMeta::SerializeToBuffer(v72, &__str, 0x840u, 1u, "", "", 0);
-                  goto LABEL_79;
-                }
-              }
-
-              v56 = 1887;
-              v57 = "moved";
-              goto LABEL_139;
-            }
-          }
-
-          std::__tree<unsigned long long>::destroy(v60, v61);
-          if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0 && __str.__r_.__value_.__l.__size_ >= 0xFDE9)
-          {
-            exception = __cxa_allocate_exception(0x18uLL);
-            *exception = 110;
-            exception[1] = "Can't reduce XMP enough for JPEG file";
-            *(exception + 16) = 0;
-          }
-        }
-      }
-    }
-  }
-
-  if (*(&v65 + 1) == v66)
-  {
-    std::string::operator=(a2, &__str);
-  }
-
-  else
-  {
-    XMPMeta::SerializeToBuffer(v63, &__str, 0x850u, 0, "", "", 0);
-    std::string::operator=(a3, &__str);
-    *v60 = 0;
-    memset(&__dst, 0, sizeof(__dst));
-    v61 = 0;
-    MD5Init(&__dst);
-    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      p_str = &__str;
-    }
-
-    else
-    {
-      p_str = __str.__r_.__value_.__r.__words[0];
-    }
-
-    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v10 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v10 = __str.__r_.__value_.__r.__words[1];
-    }
-
-    MD5Update(&__dst, p_str, v10);
-    MD5Final(v60, &__dst);
-    std::string::reserve(v4, 0x20uLL);
-    for (j = 0; j != 16; ++j)
-    {
-      v12 = v60[j];
-      std::string::push_back(v4, a0123456789abcd[v12 >> 4]);
-      std::string::push_back(v4, a0123456789abcd[v12 & 0xF]);
-    }
-
-    if (SHIBYTE(v4->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v4 = v4->__r_.__value_.__r.__words[0];
-    }
-
-    XMPMeta::SetProperty(v72, "http://ns.adobe.com/xmp/note/", "HasExtendedXMP", v4, 0);
-    XMPMeta::SerializeToBuffer(v72, &__str, 0x840u, 1u, "", "", 0);
-    std::string::operator=(a2, &__str);
-  }
-
-  v49 = *(a2 + 23);
-  if ((v49 & 0x8000000000000000) != 0)
-  {
-    v49 = *(a2 + 8);
-    if (_MergedGlobals_5)
-    {
-      v50 = 19;
-    }
-
-    else
-    {
-      v50 = 0;
-    }
-
-    if (v49 > v50 && v49 <= 0xFDE8)
-    {
-      v51 = -19;
-      if (!_MergedGlobals_5)
-      {
-        v51 = 0;
-      }
-
-      v52 = *a2 + v49;
-      goto LABEL_127;
-    }
-
-LABEL_140:
-    __assert_rtn("PackageForJPEG", "XMPUtils.cpp", 3036, "(stdStr->size() > kTrailerLen) && (stdStr->size() <= kStdXMPLimit)");
-  }
-
-  if (_MergedGlobals_5)
-  {
-    v50 = 19;
-  }
-
-  else
-  {
-    v50 = 0;
-  }
-
-  if (v50 >= v49)
-  {
-    goto LABEL_140;
-  }
-
-  v51 = -19;
-  if (!_MergedGlobals_5)
-  {
-    v51 = 0;
-  }
-
-  v52 = a2 + v49;
-LABEL_127:
-  if (strcmp((v52 + v51), "<?xpacket end=w?>"))
-  {
-    __assert_rtn("PackageForJPEG", "XMPUtils.cpp", 3038, "(strcmp((packetEnd),(kPacketTrailer)) == 0)");
-  }
-
-  std::string::erase(a2, v49 - v50, 0xFFFFFFFFFFFFFFFFLL);
-  if (65000 - v49 >= 0x7FF)
-  {
-    v54 = 2047;
-  }
-
-  else
-  {
-    v54 = 65000 - v49;
-  }
-
-  std::string::append(a2, v54, 32);
-  std::string::append(a2, "<?xpacket end=w?>");
-  XMPMeta::~XMPMeta(v63);
-  XMPMeta::~XMPMeta(v72);
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_1860EE1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
-{
-  XMPMeta::~XMPMeta(&a30);
-  XMPMeta::~XMPMeta(&STACK[0x220]);
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void XMPUtils::PackageForJPEG(void *a1, uint64_t a2, std::string *a3, std::string *a4)
-{
-  v92 = *MEMORY[0x1E69E9840];
-  if (!a2 || !a3 || (v5 = a4) == 0)
-  {
-    XMPUtils::PackageForJPEG();
-  }
-
-  if ((atomic_load_explicit(&qword_1ED56A1B0, memory_order_acquire) & 1) == 0)
-  {
-    XMPUtils::PackageForJPEG();
-  }
-
-  memset(&__str, 0, sizeof(__str));
-  v91 = 0u;
-  v90 = 0u;
-  v89 = 0u;
-  v88 = 0u;
-  memset(v87, 0, sizeof(v87));
-  XMPMeta2::XMPMeta2(v87);
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
-  v84 = 0u;
-  memset(v82, 0, sizeof(v82));
-  XMPMeta2::XMPMeta2(v82);
-  std::string::erase(a2, 0, 0xFFFFFFFFFFFFFFFFLL);
-  std::string::erase(a3, 0, 0xFFFFFFFFFFFFFFFFLL);
-  std::string::erase(v5, 0, 0xFFFFFFFFFFFFFFFFLL);
-  (*(*a1 + 208))(a1, &__str, 2112, 1, "", "", 0);
-  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  if (__str.__r_.__value_.__l.__size_ >= 0xFDE9)
-  {
-    (*(*(a1[50] + *(*a1[50] - 544)) + 264))(v79);
-    (*(**v79 + 256))(&v78);
-    v12 = *v78.state;
-    *v78.state = 0;
-    *&v78.state[2] = 0;
-    v13 = *(&v88 + 1);
-    v88 = v12;
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v13);
-      if (*&v78.state[2])
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](*&v78.state[2]);
-      }
-    }
-
-    if (v80)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v80);
-    }
-
-    if (XMPMeta2::DoesPropertyExist(v87, "http://ns.adobe.com/xap/1.0/", "Thumbnails"))
-    {
-      XMPMeta2::DeleteProperty(v87, "http://ns.adobe.com/xap/1.0/", "Thumbnails");
-      XMPMeta2::SerializeToBuffer(v87, &__str);
-    }
-  }
-
-  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0 || __str.__r_.__value_.__l.__size_ < 0xFDE9)
-  {
-    goto LABEL_7;
-  }
-
-  XMPMeta2::SetProperty(v87, "http://ns.adobe.com/xmp/note/", "HasExtendedXMP", "123456789-123456789-123456789-12", 0);
-  if (v88)
-  {
-    v14 = (v88 + *(*v88 - 792));
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  v21 = *(&v88 + 1);
-  if (*(&v88 + 1))
-  {
-    atomic_fetch_add_explicit((*(&v88 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v67 = v21;
-  *v79 = 0;
-  v80 = 0;
-  v81 = 0;
-  v77 = 0uLL;
-  (*(*&v14[*(*v14 - 688)] + 552))(&v77, &v14[*(*v14 - 688)]);
-  for (i = v77; v77; i = v77)
-  {
-    while (1)
-    {
-      v75 = 0;
-      v76 = 0;
-      (*(*i + 48))(&v78);
-      (*(**v78.state + 264))(&v75);
-      if (*&v78.state[2])
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](*&v78.state[2]);
-      }
-
-      (*(*v75 + 88))(&v78);
-      v23 = (*(**v78.state + 192))(*v78.state);
-      v24 = strcmp(v23, "http://ns.adobe.com/camera-raw-settings/1.0/");
-      if (*&v78.state[2])
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](*&v78.state[2]);
-      }
-
-      if (!v24)
-      {
-        (*(*(v83 + *(*v83 - 688)) + 520))(v83 + *(*v83 - 688), &v75);
-        (*(*v75 + 72))(&v70);
-        v25 = (*(*v70 + 192))(v70);
-        std::string::basic_string[abi:fe200100]<0>(__p, v25);
-        v26 = v80;
-        if (v80 >= v81)
-        {
-          v28 = 0xAAAAAAAAAAAAAAABLL * ((v80 - *v79) >> 3);
-          v29 = v28 + 1;
-          if (v28 + 1 > 0xAAAAAAAAAAAAAAALL)
-          {
-            std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-          }
-
-          if (0x5555555555555556 * ((v81 - *v79) >> 3) > v29)
-          {
-            v29 = 0x5555555555555556 * ((v81 - *v79) >> 3);
-          }
-
-          if (0xAAAAAAAAAAAAAAABLL * ((v81 - *v79) >> 3) >= 0x555555555555555)
-          {
-            v30 = 0xAAAAAAAAAAAAAAALL;
-          }
-
-          else
-          {
-            v30 = v29;
-          }
-
-          *&v78.buffer[8] = v79;
-          if (v30)
-          {
-            std::__allocate_at_least[abi:fe200100]<std::allocator<std::string>>(v79, v30);
-          }
-
-          v31 = 8 * ((v80 - *v79) >> 3);
-          v32 = *__p;
-          *(v31 + 16) = v73;
-          *v31 = v32;
-          __p[1] = 0;
-          v73 = 0;
-          __p[0] = 0;
-          v33 = (24 * v28 + 24);
-          v34 = 24 * v28 - (v80 - *v79);
-          memcpy((v31 - (v80 - *v79)), *v79, v80 - *v79);
-          v35 = *v79;
-          v36 = v81;
-          *v79 = v34;
-          v80 = v33;
-          v81 = 0;
-          *v78.count = v35;
-          *v78.buffer = v36;
-          *v78.state = v35;
-          *&v78.state[2] = v35;
-          std::__split_buffer<std::string>::~__split_buffer(&v78);
-          v80 = v33;
-          if (SHIBYTE(v73) < 0)
-          {
-            operator delete(__p[0]);
-          }
-        }
-
-        else
-        {
-          v27 = *__p;
-          v80->__shared_weak_owners_ = v73;
-          v26->std::__shared_count = v27;
-          __p[1] = 0;
-          v73 = 0;
-          __p[0] = 0;
-          v80 = v26 + 1;
-        }
-
-        if (v71)
-        {
-          std::__shared_weak_count::__release_shared[abi:fe200100](v71);
-        }
-      }
-
-      if (v76)
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](v76);
-      }
-
-      (*(*v77 + 56))(&v78);
-      v37 = *v78.state;
-      *v78.state = 0;
-      *&v78.state[2] = 0;
-      v38 = *(&v77 + 1);
-      v77 = v37;
-      if (v38)
-      {
-        break;
-      }
-
-      i = v37;
-      if (!v37)
-      {
-        goto LABEL_88;
-      }
-    }
-
-    std::__shared_weak_count::__release_shared[abi:fe200100](v38);
-    if (*&v78.state[2])
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](*&v78.state[2]);
-    }
-  }
-
-LABEL_88:
-  if (*(&v77 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](*(&v77 + 1));
-  }
-
-  if (v80 == *v79)
-  {
-    goto LABEL_98;
-  }
-
-  v39 = 0;
-  v40 = 0;
-  v41 = 0xAAAAAAAAAAAAAAABLL * ((v80 - *v79) >> 3);
-  do
-  {
-    if (0xAAAAAAAAAAAAAAABLL * ((v80 - *v79) >> 3) <= v40)
-    {
-      __break(1u);
-      return;
-    }
-
-    (*(*(v88 + *(*v88 - 792)) + 672))(&v68);
-    if (v69)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v69);
-    }
-
-    ++v40;
-    v39 += 24;
-  }
-
-  while (v41 != v40);
-  if (v80 != *v79)
-  {
-    XMPMeta2::SerializeToBuffer(v87, &__str);
-  }
-
-LABEL_98:
-  *v78.state = v79;
-  std::vector<std::string>::__destroy_vector::operator()[abi:fe200100](&v78);
-  if (v67)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v67);
-  }
-
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0 && __str.__r_.__value_.__l.__size_ >= 0xFDE9)
-  {
-    if (MoveOneProperty(v87, v82, "http://ns.adobe.com/photoshop/1.0/", "History"))
-    {
-      XMPMeta2::SerializeToBuffer(v87, &__str);
-    }
-
-    if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0 && __str.__r_.__value_.__l.__size_ >= 0xFDE9)
-    {
-      v80 = 0;
-      v81 = 0;
-      *v79 = &v80;
-      v42 = v88;
-      if (v88)
-      {
-        v42 = (v88 + *(*v88 - 792));
-      }
-
-      v43 = *(&v88 + 1);
-      if (*(&v88 + 1))
-      {
-        atomic_fetch_add_explicit((*(&v88 + 1) + 8), 1uLL, memory_order_relaxed);
-      }
-
-      __p[0] = 0;
-      __p[1] = 0;
-      (*(*(v42 + *(*v42 - 688)) + 552))(__p);
-      for (j = __p[0]; __p[0]; j = __p[0])
-      {
-        while (1)
-        {
-          (*(*j + 48))(&v77);
-          (*(*v77 + 88))(&v78);
-          v45 = (*(**v78.state + 192))(*v78.state);
-          if (!strcmp(v45, "http://ns.adobe.com/xmp/note/"))
-          {
-            (*(*v77 + 72))(&v75);
-            v47 = (*(*v75 + 192))(v75);
-            v46 = strcmp(v47, "HasExtendedXMP") == 0;
-            if (v76)
-            {
-              std::__shared_weak_count::__release_shared[abi:fe200100](v76);
-            }
-          }
-
-          else
-          {
-            v46 = 0;
-          }
-
-          if (*&v78.state[2])
-          {
-            std::__shared_weak_count::__release_shared[abi:fe200100](*&v78.state[2]);
-          }
-
-          if (!v46)
-          {
-            v48 = EstimateSizeForJPEG(&v77);
-            (*(*v77 + 88))(&v78);
-            v49 = (*(**v78.state + 192))(*v78.state);
-            (*(*v77 + 72))(&v75);
-            v50 = (*(*v75 + 192))(v75);
-            if (v76)
-            {
-              std::__shared_weak_count::__release_shared[abi:fe200100](v76);
-            }
-
-            if (*&v78.state[2])
-            {
-              std::__shared_weak_count::__release_shared[abi:fe200100](*&v78.state[2]);
-            }
-
-            *v78.state = v48;
-            *&v78.state[2] = v49;
-            *v78.count = v50;
-              ;
-            }
-
-            std::__tree<std::__value_type<unsigned long,std::pair<char const*,char const*>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<char const*,char const*>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<char const*,char const*>>>>::__emplace_hint_multi<std::pair<unsigned long const,std::pair<char const*,char const*>> &>();
-          }
-
-          if (*(&v77 + 1))
-          {
-            std::__shared_weak_count::__release_shared[abi:fe200100](*(&v77 + 1));
-          }
-
-          (*(*__p[0] + 56))(&v78);
-          v52 = *v78.state;
-          *v78.state = 0;
-          *&v78.state[2] = 0;
-          v53 = __p[1];
-          *__p = v52;
-          if (v53)
-          {
-            break;
-          }
-
-          j = v52;
-          if (!v52)
-          {
-            goto LABEL_133;
-          }
-        }
-
-        std::__shared_weak_count::__release_shared[abi:fe200100](v53);
-        if (*&v78.state[2])
-        {
-          std::__shared_weak_count::__release_shared[abi:fe200100](*&v78.state[2]);
-        }
-      }
-
-LABEL_133:
-      if (__p[1])
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](__p[1]);
-      }
-
-      if (v43)
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](v43);
-      }
-
-      v54 = "MoveLargestProperty";
-LABEL_138:
-      if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-      {
-        size = __str.__r_.__value_.__l.__size_;
-        v56 = __str.__r_.__value_.__l.__size_ < 0xFDE9 || v81 == 0;
-        if (!v56)
-        {
-          while (1)
-          {
-            v57 = *v79;
-            v58 = *(*v79 + 8);
-            v59 = *v79;
-            if (v58)
-            {
-              do
-              {
-                shared_weak_owners = v58;
-                v58 = v58->__vftable;
-              }
-
-              while (v58);
-            }
-
-            else
-            {
-              do
-              {
-                shared_weak_owners = v59->__shared_weak_owners_;
-                v56 = *shared_weak_owners == v59;
-                v59 = shared_weak_owners;
-              }
-
-              while (!v56);
-            }
-
-            while (shared_weak_owners != &v80)
-            {
-              v57 = shared_weak_owners;
-              v61 = shared_weak_owners[1];
-              v62 = shared_weak_owners;
-              if (v61)
-              {
-                do
-                {
-                  shared_weak_owners = v61;
-                  v61 = v61->__vftable;
-                }
-
-                while (v61);
-              }
-
-              else
-              {
-                do
-                {
-                  shared_weak_owners = v62[2];
-                  v56 = *shared_weak_owners == v62;
-                  v62 = shared_weak_owners;
-                }
-
-                while (!v56);
-              }
-            }
-
-            v63 = v57[4];
-            if (!MoveOneProperty(v87, v82, v57[5], v57[6]))
-            {
-              break;
-            }
-
-            std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__remove_node_pointer(v79, v57);
-            operator delete(v57);
-            if (!v63)
-            {
-              v65 = 3196;
-              v54 = "PackageForJPEG";
-              v66 = "propSize > 0";
-LABEL_168:
-              __assert_rtn(v54, "XMPUtils.cpp", v65, v66);
-            }
-
-            if (size >= v63)
-            {
-              size -= v63;
-            }
-
-            else
-            {
-              size = 0;
-            }
-
-            if (size < 0xFDE9 || !v81)
-            {
-              XMPMeta2::SerializeToBuffer(v87, &__str);
-              goto LABEL_138;
-            }
-          }
-
-          v65 = 1851;
-          v66 = "moved";
-          goto LABEL_168;
-        }
-      }
-
-      std::__tree<unsigned long long>::destroy(v79, v80);
-      if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0 && __str.__r_.__value_.__l.__size_ >= 0xFDE9)
-      {
-        exception = __cxa_allocate_exception(0x18uLL);
-        *exception = 110;
-        exception[1] = "Can't reduce XMP enough for JPEG file";
-        *(exception + 16) = 0;
-      }
-    }
-  }
-
-LABEL_7:
-  if ((*(*(v83 + *(*v83 - 688)) + 560))(v83 + *(*v83 - 688)))
-  {
-    XMPMeta2::SerializeToBuffer(v82, &__str);
-    std::string::operator=(a3, &__str);
-    *v79 = 0;
-    memset(&v78, 0, sizeof(v78));
-    v80 = 0;
-    MD5Init(&v78);
-    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      p_str = &__str;
-    }
-
-    else
-    {
-      p_str = __str.__r_.__value_.__r.__words[0];
-    }
-
-    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v9 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v9 = __str.__r_.__value_.__r.__words[1];
-    }
-
-    MD5Update(&v78, p_str, v9);
-    MD5Final(v79, &v78);
-    std::string::reserve(v5, 0x20uLL);
-    for (m = 0; m != 16; ++m)
-    {
-      v11 = v79[m];
-      std::string::push_back(v5, a0123456789abcd[v11 >> 4]);
-      std::string::push_back(v5, a0123456789abcd[v11 & 0xF]);
-    }
-
-    if (SHIBYTE(v5->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v5 = v5->__r_.__value_.__r.__words[0];
-    }
-
-    XMPMeta2::SetProperty(v87, "http://ns.adobe.com/xmp/note/", "HasExtendedXMP", v5, 0);
-    XMPMeta2::SerializeToBuffer(v87, &__str);
-    std::string::operator=(a2, &__str);
-  }
-
-  else
-  {
-    std::string::operator=(a2, &__str);
-  }
-
-  v15 = *(a2 + 23);
-  if ((v15 & 0x8000000000000000) == 0)
-  {
-    if (byte_1ED56A1A0)
-    {
-      v16 = 19;
-    }
-
-    else
-    {
-      v16 = 0;
-    }
-
-    if (v16 < v15)
-    {
-      v17 = -19;
-      if (!byte_1ED56A1A0)
-      {
-        v17 = 0;
-      }
-
-      v18 = a2 + v15;
-      goto LABEL_50;
-    }
-
-LABEL_169:
-    __assert_rtn("PackageForJPEG", "XMPUtils.cpp", 3254, "(stdStr->size() > kTrailerLen) && (stdStr->size() <= kStdXMPLimit)");
-  }
-
-  v15 = *(a2 + 8);
-  if (byte_1ED56A1A0)
-  {
-    v16 = 19;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  if (v15 <= v16 || v15 > 0xFDE8)
-  {
-    goto LABEL_169;
-  }
-
-  v17 = -19;
-  if (!byte_1ED56A1A0)
-  {
-    v17 = 0;
-  }
-
-  v18 = *a2 + v15;
-LABEL_50:
-  if (strcmp((v18 + v17), "<?xpacket end=w?>"))
-  {
-    __assert_rtn("PackageForJPEG", "XMPUtils.cpp", 3256, "(strcmp((packetEnd),(kPacketTrailer)) == 0)");
-  }
-
-  std::string::erase(a2, v15 - v16, 0xFFFFFFFFFFFFFFFFLL);
-  if (65000 - v15 >= 0x7FF)
-  {
-    v20 = 2047;
-  }
-
-  else
-  {
-    v20 = 65000 - v15;
-  }
-
-  std::string::append(a2, v20, 32);
-  std::string::append(a2, "<?xpacket end=w?>");
-  XMPMeta2::~XMPMeta2(v82);
-  XMPMeta2::~XMPMeta2(v87);
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_1860EF288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, char a42)
-{
-  if (v42)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v42);
-  }
-
-  std::__tree<unsigned long long>::destroy(&a39, a40);
-  XMPMeta2::~XMPMeta2(&a42);
-  XMPMeta2::~XMPMeta2(&STACK[0x2C0]);
-  if (a23 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void MoveOneProperty(XMPMeta *a1, XMPMeta *a2, char *__s, char *a4)
-{
-  __dst = 0;
-  SchemaNode = FindSchemaNode(a1 + 224, __s, 0, 0);
-  if (SchemaNode)
-  {
-    v8 = SchemaNode;
-    ChildNode = FindChildNode(SchemaNode, a4, 0, &__dst);
-    v16 = ChildNode;
-    if (ChildNode)
-    {
-      v10 = ChildNode;
-      v11 = FindSchemaNode(a2 + 224, __s, 1, 0);
-      *(v10 + 64) = v11;
-      *(v11 + 8) &= ~0x8000u;
-      std::vector<IIO_Writer *>::push_back[abi:fe200100](v11 + 72, &v16);
-      v12 = __dst;
-      v13 = v8[10];
-      if (v13 == __dst)
-      {
-        __break(1u);
-      }
-
-      else
-      {
-        v14 = v13 - (__dst + 8);
-        if (v13 != __dst + 8)
-        {
-          memmove(__dst, __dst + 8, v13 - (__dst + 8));
-        }
-
-        v8[10] = &v12[v14];
-        DeleteEmptySchema(v8);
-      }
-    }
-  }
-}
-
-BOOL MoveOneProperty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v7 = *(a1 + 400);
-  if (v7)
-  {
-    v8 = v7 + *(*v7 - 544);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(a1 + 408);
-  if (v9)
-  {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  if (v8)
-  {
-    v24 = 0;
-    v25 = 0;
-    (*(*v8 + 240))(&v22, v8);
-    (*(*v22 + 648))(&v24);
-    if (v23)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v23);
-    }
-
-    v10 = v24 != 0;
-    if (v24)
-    {
-      v22 = 0;
-      v23 = 0;
-      (*(*v24 + 264))(&v22);
-      v11 = *(a2 + 400);
-      if (v11)
-      {
-        v12 = v11 + *(*v11 - 792);
-      }
-
-      else
-      {
-        v12 = 0;
-      }
-
-      v13 = *(a2 + 408);
-      if (v13)
-      {
-        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      (*(*v12 + 648))(&v20, v12, a3, -1, a4, -1);
-      v14 = v20;
-      if (v21)
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](v21);
-      }
-
-      if (v14)
-      {
-        (*(*v12 + 672))(&v18, v12, a3, -1, a4, -1);
-        if (v19)
-        {
-          std::__shared_weak_count::__release_shared[abi:fe200100](v19);
-        }
-      }
-
-      (*(*&v12[*(*v12 - 688)] + 520))(&v12[*(*v12 - 688)], &v22);
-      (*(*v8 + 240))(&v20, v8);
-      (*(*v20 + 672))(&v16);
-      if (v17)
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](v17);
-      }
-
-      if (v21)
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](v21);
-      }
-
-      if (v13)
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](v13);
-      }
-
-      if (v23)
-      {
-        std::__shared_weak_count::__release_shared[abi:fe200100](v23);
-      }
-    }
-
-    if (v25)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v25);
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
-  }
-
-  return v10;
-}
-
-void sub_1860EF858(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18)
-{
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
-  }
-
-  if (v19)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v19);
-  }
-
-  if (a16)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a16);
-  }
-
-  if (a18)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a18);
-  }
-
-  if (v18)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v18);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t XMPUtils::MergeFromJPEG(XMPUtils *this, XMPMeta *a2, const XMPMeta *a3)
-{
-  XMPUtils::ApplyTemplate(this, a2, 3);
-  v4 = *(*this + 80);
-
-  return v4(this, "http://ns.adobe.com/xmp/note/", "HasExtendedXMP");
-}
-
-uint64_t XMPUtils::ConvertToUTCTime(uint64_t a1)
-{
-  if (!a1)
-  {
-    XMPUtils::ConvertToUTCTime();
-  }
-
-  result = VerifyDateTimeFlags(a1);
-  if (*(a1 + 26))
-  {
-    v3 = *(a1 + 28);
-    if (v3 >= 0x18)
-    {
-      XMPUtils::ConvertToUTCTime();
-    }
-
-    v4 = *(a1 + 32);
-    if (v4 >= 0x3C)
-    {
-      XMPUtils::ConvertToUTCTime();
-    }
-
-    v5 = *(a1 + 27);
-    if ((v5 - 2) <= 0xFC)
-    {
-      XMPUtils::ConvertToUTCTime();
-    }
-
-    v6 = v4 | v3;
-    if (*(a1 + 27))
-    {
-      if (v6)
-      {
-        if (v5 == 255)
-        {
-          v7 = *(a1 + 12) + v3;
-          v8 = *(a1 + 16) + v4;
-          goto LABEL_14;
-        }
-
-        if (v5 == 1)
-        {
-          v7 = *(a1 + 12) - v3;
-          v8 = *(a1 + 16) - v4;
-LABEL_14:
-          *(a1 + 12) = v7;
-          *(a1 + 16) = v8;
-        }
-
-LABEL_15:
-        result = AdjustTimeOverflow(a1);
-        *(a1 + 35) = 0;
-        *(a1 + 27) = 0;
-        return result;
-      }
-    }
-
-    else if (!v6)
-    {
-      goto LABEL_15;
-    }
-
-    XMPUtils::ConvertToUTCTime();
-  }
-
-  return result;
-}
-
-uint64_t AdjustTimeOverflow(uint64_t result)
-{
-  v1 = result;
-  v2 = *(result + 4);
-  if (!*result)
-  {
-    v2 = 0;
-    v3 = 0;
-    v4 = 0;
-    v5 = 0;
-    if (!*(result + 8))
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_5;
-  }
-
-  v4 = *result;
-  v3 = *(result + 4);
-  if (v2 <= 0)
-  {
-LABEL_5:
-    if (v2 <= -11)
-    {
-      v6 = -11;
-    }
-
-    else
-    {
-      v6 = v2;
-    }
-
-    if (v2 >= -11)
-    {
-      v7 = v2;
-    }
-
-    else
-    {
-      v7 = v2 + 1;
-    }
-
-    v8 = (v6 - v7) / 0xCu;
-    if (v2 < -11)
-    {
-      ++v8;
-    }
-
-    v4 = *result + ~v8;
-    v3 = v2 + 12 * v8 + 12;
-    *result = v4;
-    *(result + 4) = v3;
-  }
-
-  if (v3 >= 13)
-  {
-    v9 = v3 - 24;
-    if (v3 < 0x18)
-    {
-      v9 = 0;
-    }
-
-    v10 = (v9 + 11) / 0xCu;
-    v4 += v10 + 1;
-    v3 = v3 - 12 * v10 - 12;
-    *result = v4;
-    *(result + 4) = v3;
-  }
-
-  v5 = *(result + 8);
-  if (v5 <= 0)
-  {
-    do
-    {
-      if (v3 > 1)
-      {
-        --v3;
-      }
-
-      else
-      {
-        *v1 = --v4;
-        v3 += 11;
-      }
-
-      result = DaysInMonth(v4, v3);
-      v5 += result;
-    }
-
-    while (v5 < 1);
-    v1[1] = v3;
-    v1[2] = v5;
-  }
-
-  else
-  {
-    result = DaysInMonth(v4, v3);
-  }
-
-  if (v5 > result)
-  {
-    do
-    {
-      if (v3 < 12)
-      {
-        ++v3;
-      }
-
-      else
-      {
-        *v1 = ++v4;
-        v3 -= 11;
-      }
-
-      v5 -= result;
-      result = DaysInMonth(v4, v3);
-    }
-
-    while (v5 > result);
-    v1[1] = v3;
-    v1[2] = v5;
-  }
-
-LABEL_31:
-  v11 = v1[3];
-  if ((v11 & 0x80000000) != 0)
-  {
-    if (v11 <= 0xFFFFFFE8)
-    {
-      v12 = -24;
-    }
-
-    else
-    {
-      v12 = v1[3];
-    }
-
-    if (v11 >= 0xFFFFFFE8)
-    {
-      v13 = v1[3];
-    }
-
-    else
-    {
-      v13 = v11 + 1;
-    }
-
-    v14 = (v12 - v13) / 0x18;
-    if (v11 < 0xFFFFFFE8)
-    {
-      ++v14;
-    }
-
-    v5 += ~v14;
-    v11 += 24 * v14 + 24;
-    v1[2] = v5;
-    v1[3] = v11;
-  }
-
-  if (v11 >= 24)
-  {
-    v15 = v11 - 47;
-    if (v11 < 0x2F)
-    {
-      v15 = 0;
-    }
-
-    v16 = (v15 + 23) / 0x18;
-    v5 += v16 + 1;
-    v11 = v11 - 24 * v16 - 24;
-    v1[2] = v5;
-    v1[3] = v11;
-  }
-
-  v17 = v1[4];
-  if ((v17 & 0x80000000) != 0)
-  {
-    if (v17 <= 0xFFFFFFC4)
-    {
-      v18 = -60;
-    }
-
-    else
-    {
-      v18 = v1[4];
-    }
-
-    if (v17 >= 0xFFFFFFC4)
-    {
-      v19 = v1[4];
-    }
-
-    else
-    {
-      v19 = v17 + 1;
-    }
-
-    v20 = (v18 - v19) / 0x3C;
-    if (v17 < 0xFFFFFFC4)
-    {
-      ++v20;
-    }
-
-    v11 += ~v20;
-    v17 += 60 * v20 + 60;
-    v1[3] = v11;
-    v1[4] = v17;
-  }
-
-  if (v17 >= 60)
-  {
-    v21 = v17 - 119;
-    if (v17 < 0x77)
-    {
-      v21 = 0;
-    }
-
-    v22 = (v21 + 59) / 0x3C;
-    v11 += v22 + 1;
-    v17 = v17 - 60 * v22 - 60;
-    v1[3] = v11;
-    v1[4] = v17;
-  }
-
-  v23 = v1[5];
-  if ((v23 & 0x80000000) != 0)
-  {
-    if (v23 <= 0xFFFFFFC4)
-    {
-      v24 = -60;
-    }
-
-    else
-    {
-      v24 = v1[5];
-    }
-
-    if (v23 >= 0xFFFFFFC4)
-    {
-      v25 = v1[5];
-    }
-
-    else
-    {
-      v25 = v23 + 1;
-    }
-
-    v26 = (v24 - v25) / 0x3C;
-    if (v23 < 0xFFFFFFC4)
-    {
-      ++v26;
-    }
-
-    v17 += ~v26;
-    v23 += 60 * v26 + 60;
-    v1[4] = v17;
-    v1[5] = v23;
-  }
-
-  if (v23 >= 60)
-  {
-    v27 = v23 - 119;
-    if (v23 < 0x77)
-    {
-      v27 = 0;
-    }
-
-    v28 = (v27 + 59) / 0x3C;
-    v17 += v28 + 1;
-    v23 = v23 - 60 * v28 - 60;
-    v1[4] = v17;
-    v1[5] = v23;
-  }
-
-  v29 = v1[9];
-  if ((v29 & 0x80000000) != 0)
-  {
-    if (v29 <= 0xC4653600)
-    {
-      v30 = -1000000000;
-    }
-
-    else
-    {
-      v30 = v1[9];
-    }
-
-    if (v29 >= 0xC4653600)
-    {
-      v31 = v1[9];
-    }
-
-    else
-    {
-      v31 = v29 + 1;
-    }
-
-    v32 = (v30 - v31) / 0x3B9ACA00;
-    if (v29 < 0xC4653600)
-    {
-      ++v32;
-    }
-
-    v23 += ~v32;
-    v29 += 1000000000 * v32 + 1000000000;
-    v1[5] = v23;
-    v1[9] = v29;
-  }
-
-  if (v29 > 999999999)
-  {
-    v33 = v29 - 1999999999;
-    if (v29 < 0x773593FF)
-    {
-      v33 = 0;
-    }
-
-    v34 = (v33 + 999999999) / 0x3B9ACA00;
-    v23 += v34 + 1;
-    v1[5] = v23;
-    v1[9] = v29 - 1000000000 * v34 - 1000000000;
-  }
-
-  if ((v23 & 0x80000000) != 0)
-  {
-    if (v23 <= 0xFFFFFFC4)
-    {
-      v35 = -60;
-    }
-
-    else
-    {
-      v35 = v23;
-    }
-
-    if (v23 >= 0xFFFFFFC4)
-    {
-      v36 = v23;
-    }
-
-    else
-    {
-      v36 = v23 + 1;
-    }
-
-    v37 = (v35 - v36) / 0x3C;
-    if (v23 < 0xFFFFFFC4)
-    {
-      ++v37;
-    }
-
-    v17 += ~v37;
-    v23 += 60 * v37 + 60;
-    v1[4] = v17;
-    v1[5] = v23;
-  }
-
-  if (v23 >= 60)
-  {
-    v38 = v23 - 119;
-    if (v23 < 0x77)
-    {
-      v38 = 0;
-    }
-
-    v39 = (v38 + 59) / 0x3C;
-    v17 += v39 + 1;
-    v1[4] = v17;
-    v1[5] = v23 - 60 * v39 - 60;
-  }
-
-  if ((v17 & 0x80000000) != 0)
-  {
-    if (v17 <= 0xFFFFFFC4)
-    {
-      v40 = -60;
-    }
-
-    else
-    {
-      v40 = v17;
-    }
-
-    if (v17 >= 0xFFFFFFC4)
-    {
-      v41 = v17;
-    }
-
-    else
-    {
-      v41 = v17 + 1;
-    }
-
-    v42 = (v40 - v41) / 0x3C;
-    if (v17 < 0xFFFFFFC4)
-    {
-      ++v42;
-    }
-
-    v11 += ~v42;
-    v17 += 60 * v42 + 60;
-    v1[3] = v11;
-    v1[4] = v17;
-  }
-
-  if (v17 >= 60)
-  {
-    v43 = v17 - 119;
-    if (v17 < 0x77)
-    {
-      v43 = 0;
-    }
-
-    v44 = (v43 + 59) / 0x3C;
-    v11 += v44 + 1;
-    v1[3] = v11;
-    v1[4] = v17 - 60 * v44 - 60;
-  }
-
-  if ((v11 & 0x80000000) != 0)
-  {
-    if (v11 <= 0xFFFFFFE8)
-    {
-      v45 = -24;
-    }
-
-    else
-    {
-      v45 = v11;
-    }
-
-    if (v11 >= 0xFFFFFFE8)
-    {
-      v46 = v11;
-    }
-
-    else
-    {
-      v46 = v11 + 1;
-    }
-
-    v47 = (v45 - v46) / 0x18;
-    if (v11 < 0xFFFFFFE8)
-    {
-      ++v47;
-    }
-
-    v5 += ~v47;
-    v11 += 24 * v47 + 24;
-    v1[2] = v5;
-    v1[3] = v11;
-  }
-
-  if (v11 >= 24)
-  {
-    v48 = v11 - 47;
-    if (v11 < 0x2F)
-    {
-      v48 = 0;
-    }
-
-    v49 = (v48 + 23) / 0x18;
-    v5 += v49 + 1;
-    v1[2] = v5;
-    v1[3] = v11 - 24 * v49 - 24;
-  }
-
-  if (!(v4 | v3))
-  {
-    if (!v5)
-    {
-      return result;
-    }
-
-    goto LABEL_133;
-  }
-
-  if (v3 <= 0)
-  {
-LABEL_133:
-    if (v3 <= -11)
-    {
-      v50 = -11;
-    }
-
-    else
-    {
-      v50 = v3;
-    }
-
-    if (v3 >= -11)
-    {
-      v51 = v3;
-    }
-
-    else
-    {
-      v51 = v3 + 1;
-    }
-
-    v52 = (v50 - v51) / 0xCu;
-    if (v3 < -11)
-    {
-      ++v52;
-    }
-
-    v4 += ~v52;
-    v3 += 12 * v52 + 12;
-    *v1 = v4;
-    v1[1] = v3;
-  }
-
-  if (v3 >= 13)
-  {
-    v53 = v3 - 24;
-    if (v3 < 0x18)
-    {
-      v53 = 0;
-    }
-
-    v54 = (v53 + 11) / 0xCu;
-    v4 += v54 + 1;
-    v3 = v3 - 12 * v54 - 12;
-    *v1 = v4;
-    v1[1] = v3;
-  }
-
-  if (v5 <= 0)
-  {
-    do
-    {
-      if (v3 > 1)
-      {
-        --v3;
-      }
-
-      else
-      {
-        *v1 = --v4;
-        v3 += 11;
-      }
-
-      result = DaysInMonth(v4, v3);
-      v5 += result;
-    }
-
-    while (v5 < 1);
-    v1[1] = v3;
-    v1[2] = v5;
-  }
-
-  else
-  {
-    result = DaysInMonth(v4, v3);
-  }
-
-  if (v5 > result)
-  {
-    do
-    {
-      if (v3 < 12)
-      {
-        ++v3;
-      }
-
-      else
-      {
-        *v1 = ++v4;
-        v3 -= 11;
-      }
-
-      v5 -= result;
-      result = DaysInMonth(v4, v3);
-    }
-
-    while (v5 > result);
-    v1[1] = v3;
-    v1[2] = v5;
-  }
-
-  return result;
-}
-
 std::string *XMPUtils::Trim(std::string *this)
 {
   v1 = this;
@@ -3678,24 +464,25 @@ LABEL_19:
   return a2;
 }
 
-uint64_t EstimateSizeForJPEG(void *a1)
+uint64_t EstimateSizeForJPEG(std::__shared_weak_count **a1)
 {
-  v32 = 0uLL;
+  v32 = 0;
+  v33 = 0;
   DefaultNameSpacePrefixMap = AdobeXMPCore::INameSpacePrefixMap_v1::GetDefaultNameSpacePrefixMap(&v32);
-  (*(**a1 + 72))(&v30, DefaultNameSpacePrefixMap);
-  v3 = (*(*v30 + 208))(v30);
+  ((*a1)->__vftable[1].__on_zero_shared_weak)(&v30, DefaultNameSpacePrefixMap);
+  v3 = (v30->__vftable[5].~__shared_weak_count_0)(v30);
   if (v31)
   {
     std::__shared_weak_count::__release_shared[abi:fe200100](v31);
   }
 
   v4 = v32;
-  (*(**a1 + 88))(&v29);
+  ((*a1)->__vftable[2].~__shared_weak_count_0)(&v29);
   v5 = (*(*v29 + 192))(v29);
-  (*(**a1 + 88))(&v28);
+  ((*a1)->__vftable[2].~__shared_weak_count_0)(&v28);
   v6 = (*(*v28 + 208))(v28);
   (*(*v4 + 88))(&v30, v4, v5, v6);
-  v7 = (*(*v30 + 208))(v30);
+  v7 = (v30->__vftable[5].~__shared_weak_count_0)(v30);
   if (v31)
   {
     std::__shared_weak_count::__release_shared[abi:fe200100](v31);
@@ -3725,8 +512,8 @@ uint64_t EstimateSizeForJPEG(void *a1)
     std::__shared_weak_count::__release_shared[abi:fe200100](v8);
   }
 
-  (*(**a1 + 56))(&v30);
-  v10 = (*(*v30 + 40))(v30);
+  ((*a1)->__vftable[1].__on_zero_shared)(&v30);
+  v10 = (v30->__vftable[1].~__shared_weak_count)(v30);
   v11 = v3 + 1;
   if (v31)
   {
@@ -3740,7 +527,7 @@ uint64_t EstimateSizeForJPEG(void *a1)
     {
       v30 = 0;
       v31 = 0;
-      (*(**a1 + 248))(&v30);
+      ((*a1)->__vftable[6].~__shared_weak_count_0)(&v30);
       if (v10 == 2)
       {
         v22 = 19;
@@ -3751,9 +538,9 @@ uint64_t EstimateSizeForJPEG(void *a1)
         v22 = 2 * v12 + 24;
       }
 
-      v23 = (*(*(v30 + *(*v30 - 688)) + 560))(v30 + *(*v30 - 688));
+      v23 = ((*(&v30->__vftable + v30->__vftable[-18].__on_zero_shared_weak))[14].~__shared_weak_count)(v30 + v30->__vftable[-18].__on_zero_shared_weak);
       v29 = 0uLL;
-      (*(*(v30 + *(*v30 - 688)) + 552))(&v29, v30 + *(*v30 - 688));
+      ((*(&v30->__vftable + v30->__vftable[-18].__on_zero_shared_weak))[13].__on_zero_shared_weak)(&v29, v30 + v30->__vftable[-18].__on_zero_shared_weak);
       v15 = 17 * v23 + v22;
       for (i = v29; i; v15 += v25)
       {
@@ -3791,7 +578,7 @@ uint64_t EstimateSizeForJPEG(void *a1)
     {
       v30 = 0;
       v31 = 0;
-      (*(**a1 + 240))(&v30);
+      ((*a1)->__vftable[6].~__shared_weak_count)(&v30);
       if (v10 == 2)
       {
         v15 = 25;
@@ -3802,9 +589,9 @@ uint64_t EstimateSizeForJPEG(void *a1)
         v15 = 2 * v12 + 30;
       }
 
-      (*(*(v30 + *(*v30 - 688)) + 560))(v30 + *(*v30 - 688));
+      ((*(&v30->__vftable + v30->__vftable[-18].__on_zero_shared_weak))[14].~__shared_weak_count)(v30 + v30->__vftable[-18].__on_zero_shared_weak);
       v29 = 0uLL;
-      (*(*(v30 + *(*v30 - 688)) + 552))(&v29, v30 + *(*v30 - 688));
+      ((*(&v30->__vftable + v30->__vftable[-18].__on_zero_shared_weak))[13].__on_zero_shared_weak)(&v29, v30 + v30->__vftable[-18].__on_zero_shared_weak);
       for (j = v29; j; v15 += v19)
       {
         (*(*j + 48))(&v28);
@@ -3861,9 +648,9 @@ uint64_t EstimateSizeForJPEG(void *a1)
       v13 = v12 + 3;
     }
 
-    (*(**a1 + 232))(&v29);
+    ((*a1)->__vftable[5].__on_zero_shared_weak)(&v29);
     (*(*v29 + 504))(&v30);
-    v14 = (*(*v30 + 208))(v30);
+    v14 = (v30->__vftable[5].~__shared_weak_count_0)(v30);
     if (v31)
     {
       std::__shared_weak_count::__release_shared[abi:fe200100](v31);
@@ -3878,9 +665,9 @@ LABEL_22:
     }
   }
 
-  if (*(&v32 + 1))
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:fe200100](*(&v32 + 1));
+    std::__shared_weak_count::__release_shared[abi:fe200100](v33);
   }
 
   return v15;
@@ -4075,11 +862,11 @@ void XMPUtils::ComposeQualifierPath()
 
 void XMPUtils::PackageForJPEG()
 {
-  if (__cxa_guard_acquire(&qword_1ED56A1A8))
+  if (__cxa_guard_acquire(byte_1ED56A1A8))
   {
     _MergedGlobals_5 = 1;
 
-    __cxa_guard_release(&qword_1ED56A1A8);
+    __cxa_guard_release(byte_1ED56A1A8);
   }
 }
 
@@ -4088,11 +875,11 @@ void XMPUtils::PackageForJPEG()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED56A1B0))
+  if (__cxa_guard_acquire(byte_1ED56A1B0))
   {
     byte_1ED56A1A0 = 1;
 
-    __cxa_guard_release(&qword_1ED56A1B0);
+    __cxa_guard_release(byte_1ED56A1B0);
   }
 }
 
@@ -4247,7 +1034,7 @@ void XMPFiles::ErrorCallbackInfo::~ErrorCallbackInfo(void **this)
   JUMPOUT(0x186602850);
 }
 
-void XMPFiles::~XMPFiles(XMPFiles *this)
+void XMPFiles::~XMPFiles(XMPFiles *this, int a2)
 {
   *this = &unk_1EF4DEA20;
   if (*(this + 2) >= 1)
@@ -4255,10 +1042,10 @@ void XMPFiles::~XMPFiles(XMPFiles *this)
     __assert_rtn("~XMPFiles", "XMPFiles.cpp", 411, "this->clientRefs <= 0");
   }
 
-  v2 = *(this + 31);
-  if (v2)
+  v3 = *(this + 31);
+  if (v3)
   {
-    (*(*v2 + 8))(v2);
+    (*(*v3 + 8))(v3);
     *(this + 31) = 0;
   }
 
@@ -4275,25 +1062,25 @@ void XMPFiles::~XMPFiles(XMPFiles *this)
     goto LABEL_10;
   }
 
-  v3 = *(this + 29);
-  if (v3)
+  v4 = *(this + 29);
+  if (v4)
   {
-    XMPFiles_IO::Close(*(this + 29));
-    (*(*v3 + 72))(v3);
+    XMPFiles_IO::Close(*(this + 29), a2);
+    (*(*v4 + 72))(v4);
     *(this + 29) = 0;
   }
 
 LABEL_10:
-  v4 = *(this + 36);
-  if (v4)
-  {
-    MEMORY[0x186602850](v4, 0x1080C40740E08D0);
-  }
-
-  v5 = *(this + 32);
+  v5 = *(this + 36);
   if (v5)
   {
-    free(v5);
+    MEMORY[0x186602850](v5, 0x1080C40740E08D0);
+  }
+
+  v6 = *(this + 32);
+  if (v6)
+  {
+    free(v6);
   }
 
   if (*(this + 391) < 0)
@@ -4311,28 +1098,28 @@ LABEL_10:
 }
 
 {
-  XMPFiles::~XMPFiles(this);
+  XMPFiles::~XMPFiles(this, a2);
 
   JUMPOUT(0x186602850);
 }
 
-uint64_t CloseLocalFile(uint64_t result)
+uint64_t CloseLocalFile(uint64_t result, int a2)
 {
-  v1 = result;
-  v2 = *(result + 391);
-  if (v2 < 0)
+  v2 = result;
+  v3 = *(result + 391);
+  if (v3 < 0)
   {
-    v2 = *(result + 376);
+    v3 = *(result + 376);
   }
 
-  if (v2)
+  if (v3)
   {
-    v3 = *(result + 232);
-    if (v3)
+    v4 = *(result + 232);
+    if (v4)
     {
-      XMPFiles_IO::Close(*(result + 232));
-      result = (*(*v3 + 72))(v3);
-      *(v1 + 232) = 0;
+      XMPFiles_IO::Close(*(result + 232), a2);
+      result = (*(*v4 + 72))(v4);
+      *(v2 + 232) = 0;
     }
   }
 
@@ -4523,7 +1310,7 @@ uint64_t DoOpenFile(uint64_t a1, uint64_t a2, Host_IO *a3, uint64_t a4, int a5)
   {
     exception = __cxa_allocate_exception(0x18uLL);
     *exception = 4;
-    v25 = "OptimizeFileLayout requires OpenForUpdate";
+    v26 = "OptimizeFileLayout requires OpenForUpdate";
     goto LABEL_45;
   }
 
@@ -4531,9 +1318,9 @@ uint64_t DoOpenFile(uint64_t a1, uint64_t a2, Host_IO *a3, uint64_t a4, int a5)
   {
     exception = __cxa_allocate_exception(0x18uLL);
     *exception = 4;
-    v25 = "File already open";
+    v26 = "File already open";
 LABEL_45:
-    exception[1] = v25;
+    exception[1] = v26;
     *(exception + 16) = 0;
   }
 
@@ -4549,7 +1336,7 @@ LABEL_45:
     v12 = *(a1 + 232);
     if (v12)
     {
-      XMPFiles_IO::Close(*(a1 + 232));
+      XMPFiles_IO::Close(*(a1 + 232), a2);
       (*(*v12 + 72))(v12);
       *(a1 + 232) = 0;
     }
@@ -4560,10 +1347,10 @@ LABEL_45:
   IsExcluded = MEMORY[0x186602520](a1 + 344, a3);
   *(a1 + 224) = 538976288;
   *(a1 + 240) = v10;
-  v30 = 0;
+  v31 = 0;
   __p[0] = 0;
   __p[1] = 0;
-  v29 = 0;
+  v30 = 0;
   if ((*(a1 + 391) & 0x8000000000000000) == 0)
   {
     if (*(a1 + 391))
@@ -4572,7 +1359,7 @@ LABEL_45:
     }
 
 LABEL_15:
-    v30 = 1;
+    v31 = 1;
     if ((a5 & 0x40) != 0)
     {
       goto LABEL_34;
@@ -4587,23 +1374,23 @@ LABEL_15:
   }
 
 LABEL_11:
-  IsExcluded = FileIsExcluded(a3, __p, &v30, a1 + 296);
+  IsExcluded = FileIsExcluded(a3, __p, &v31, a1 + 296);
   if (IsExcluded)
   {
 LABEL_36:
-    v22 = 0;
+    v23 = 0;
     goto LABEL_37;
   }
 
   if ((a5 & 0x40) != 0)
   {
 LABEL_34:
-    if (!v30)
+    if (!v31)
     {
-      v27[0] = 111;
-      v27[1] = "XMPFiles: file does not exist";
-      v27[2] = 0;
-      GenericErrorCallback::NotifyClient(a1 + 296, 0, v27, a3);
+      v28[0] = 111;
+      v28[1] = "XMPFiles: file does not exist";
+      v28[2] = 0;
+      GenericErrorCallback::NotifyClient(a1 + 296, 0, v28, a3);
     }
 
     goto LABEL_36;
@@ -4639,10 +1426,10 @@ LABEL_16:
   *(a1 + 248) = v18;
   if ((a5 & 2) != 0 && (v17 & 0x1000) != 0 && ((*(*v18 + 40))(v18) & 1) == 0)
   {
-    v26 = __cxa_allocate_exception(0x18uLL);
-    *v26 = 112;
-    v26[1] = "Open, file permission error";
-    *(v26 + 16) = 0;
+    v27 = __cxa_allocate_exception(0x18uLL);
+    *v27 = 112;
+    v27[1] = "Open, file permission error";
+    *(v27 + 16) = 0;
   }
 
   (*(*v19 + 48))(v19);
@@ -4653,47 +1440,47 @@ LABEL_16:
 
   if (!(a5 & 2 | v17 & 0x10100))
   {
-    v20 = *(a1 + 391);
-    if (v20 < 0)
+    v21 = *(a1 + 391);
+    if (v21 < 0)
     {
-      v20 = *(a1 + 376);
+      v21 = *(a1 + 376);
     }
 
-    if (v20)
+    if (v21)
     {
-      v21 = *(a1 + 232);
-      if (v21)
+      v22 = *(a1 + 232);
+      if (v22)
       {
-        XMPFiles_IO::Close(*(a1 + 232));
-        (*(*v21 + 72))(v21);
+        XMPFiles_IO::Close(*(a1 + 232), v20);
+        (*(*v22 + 72))(v22);
         *(a1 + 232) = 0;
       }
     }
   }
 
-  v22 = 1;
+  v23 = 1;
 LABEL_37:
-  if (SHIBYTE(v29) < 0)
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v22;
+  return v23;
 }
 
 void sub_1860F20F8(void *a1)
 {
   __cxa_begin_catch(a1);
-  v3 = *(v1 + 248);
-  if (v3)
+  v4 = *(v1 + 248);
+  if (v4)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v4 + 8))(v4);
   }
 
   *(v1 + 248) = 0;
   if ((v2 & 0x100) == 0)
   {
-    CloseLocalFile(v1);
+    CloseLocalFile(v1, v3);
   }
 
   __cxa_rethrow();
@@ -4764,10 +1551,10 @@ void XMPFiles::CloseFile(XMPFiles *this, char a2)
     v13 = (*(**(this + 29) + 40))(*(this + 29));
     if (!v13)
     {
-      v27 = __cxa_allocate_exception(0x18uLL);
-      *v27 = 9;
-      v27[1] = "XMPFiles::CloseFile, cannot create temp";
-      *(v27 + 16) = 0;
+      v31 = __cxa_allocate_exception(0x18uLL);
+      *v31 = 9;
+      v31[1] = "XMPFiles::CloseFile, cannot create temp";
+      *(v31 + 16) = 0;
     }
 
     if ((v7 & 4) != 0)
@@ -4786,15 +1573,15 @@ void XMPFiles::CloseFile(XMPFiles *this, char a2)
         XMP_ProgressTracker::BeginWork(v15, v16);
       }
 
-      (*(*v14 + 24))(v14);
-      XIO::Copy(v14, v13);
+      v17 = (*(*v14 + 24))(v14);
+      XIO::Copy(v14, v13, v17, *(this + 34), *(this + 35), v18, v19);
       *(this + 29) = v13;
       (*(**(this + 31) + 72))(*(this + 31), 0);
       *(this + 29) = v14;
-      v20 = *(this + 36);
-      if (v20 && (*(*v4 + 17) & 0x20) != 0)
+      v23 = *(this + 36);
+      if (v23 && (*(*v4 + 17) & 0x20) != 0)
       {
-        XMP_ProgressTracker::WorkComplete(v20, v17, v18, v19);
+        XMP_ProgressTracker::WorkComplete(v23, v20, v21, v22);
       }
     }
 
@@ -4820,11 +1607,11 @@ LABEL_40:
       goto LABEL_41;
     }
 
-    v22 = *(this + 29);
-    if (v22)
+    v26 = *(this + 29);
+    if (v26)
     {
-      XMPFiles_IO::Close(*(this + 29));
-      (*(*v22 + 72))(v22);
+      XMPFiles_IO::Close(*(this + 29), v24);
+      (*(*v26 + 72))(v26);
       *(this + 29) = 0;
     }
 
@@ -4850,21 +1637,21 @@ LABEL_40:
   if (*(this + 391))
   {
 LABEL_33:
-    v21 = *(this + 29);
-    if (!v21)
+    v25 = *(this + 29);
+    if (!v25)
     {
       goto LABEL_41;
     }
 
-    XMPFiles_IO::Close(*(this + 29));
-    (*(*v21 + 72))(v21);
+    XMPFiles_IO::Close(*(this + 29), v24);
+    (*(*v25 + 72))(v25);
     v4 = (this + 232);
     goto LABEL_40;
   }
 
 LABEL_41:
-  v23 = *(this + 391);
-  if ((v23 & 0x8000000000000000) == 0)
+  v27 = *(this + 391);
+  if ((v27 & 0x8000000000000000) == 0)
   {
     if (!*(this + 391))
     {
@@ -4872,13 +1659,13 @@ LABEL_41:
     }
 
 LABEL_45:
-    v24 = *(this + 29);
-    if (v24)
+    v28 = *(this + 29);
+    if (v28)
     {
-      XMPFiles_IO::Close(*(this + 29));
-      (*(*v24 + 72))(v24);
+      XMPFiles_IO::Close(*(this + 29), v24);
+      (*(*v28 + 72))(v28);
       *(this + 29) = 0;
-      LOBYTE(v23) = *(this + 391);
+      LOBYTE(v27) = *(this + 391);
     }
 
     goto LABEL_47;
@@ -4890,7 +1677,7 @@ LABEL_45:
   }
 
 LABEL_47:
-  if ((v23 & 0x80) != 0)
+  if ((v27 & 0x80) != 0)
   {
     **(this + 46) = 0;
     *(this + 47) = 0;
@@ -4918,10 +1705,10 @@ LABEL_47:
   *(this + 56) = 538976288;
   *(this + 29) = 0;
   *(this + 60) = 0;
-  v25 = *(this + 32);
-  if (v25)
+  v29 = *(this + 32);
+  if (v29)
   {
-    free(v25);
+    free(v29);
   }
 
   *(this + 32) = 0;
@@ -4946,22 +1733,22 @@ void sub_1860F26CC(void *a1)
     *v2 = 0;
   }
 
-  v4 = *(v1 + 232);
-  if (v4)
+  v5 = *(v1 + 232);
+  if (v5)
   {
-    (*(*v4 + 56))(v4);
+    (*(*v5 + 56))(v5);
   }
 
-  CloseLocalFile(v1);
+  CloseLocalFile(v1, v4);
   XMPFiles::ClearFilePath(v1);
   *(v1 + 248) = 0;
   *(v1 + 224) = 538976288;
   *(v1 + 232) = 0;
   *(v1 + 240) = 0;
-  v5 = *(v1 + 256);
-  if (v5)
+  v6 = *(v1 + 256);
+  if (v6)
   {
-    free(v5);
+    free(v6);
   }
 
   *(v1 + 256) = 0;
@@ -5239,15 +2026,15 @@ void sub_1860F2E5C(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-BOOL XMPFiles::ErrorCallbackInfo::CanNotify(XMPFiles::ErrorCallbackInfo *this)
+BOOL XMPFiles::ErrorCallbackInfo::CanNotify(XMPFiles::ErrorCallbackInfo *this, uint64_t a2)
 {
-  v1 = *(this + 4);
-  if (v1 && !*(this + 3))
+  v2 = *(this + 4);
+  if (v2 && !*(this + 3))
   {
     XMPFiles::ErrorCallbackInfo::CanNotify();
   }
 
-  return v1 != 0;
+  return v2 != 0;
 }
 
 BOOL XMPFiles::ErrorCallbackInfo::ClientCallbackWrapper(XMPFiles::ErrorCallbackInfo *this, const char *a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -5279,7 +2066,7 @@ std::logic_error *std::out_of_range::out_of_range[abi:fe200100](std::logic_error
   return result;
 }
 
-void *AdobeXMPCore_Int::IMetadata_I::GetInterfacePointerInternal(void *this, uint64_t a2, int a3, int a4)
+void *AdobeXMPCore_Int::IMetadata_I::GetInterfacePointerInternal(void *this, uint64_t a2, uint64_t a3, int a4)
 {
   if (a2 == 0x634D657461646174)
   {
@@ -5287,8 +2074,9 @@ void *AdobeXMPCore_Int::IMetadata_I::GetInterfacePointerInternal(void *this, uin
     {
       if (a3 != 1)
       {
+        v8 = a3;
         exception = __cxa_allocate_exception(0x10uLL);
-        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x634D657461646174, a3, exception);
+        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x634D657461646174, v8, exception);
       }
 
       return (this + *(*this - 856));
@@ -5318,7 +2106,7 @@ void *AdobeXMPCore_Int::IMetadata_I::GetInterfacePointerInternal(void *this, uin
   return this;
 }
 
-void *virtual thunk toAdobeXMPCore_Int::IMetadata_I::GetInterfacePointer(AdobeXMPCore_Int::IMetadata_I *this, uint64_t a2, int a3)
+void *virtual thunk toAdobeXMPCore_Int::IMetadata_I::GetInterfacePointer(AdobeXMPCore_Int::IMetadata_I *this, uint64_t a2, uint64_t a3)
 {
   return AdobeXMPCore_Int::IMetadata_I::GetInterfacePointerInternal((this + *(*this - 32)), a2, a3, 1);
 }
@@ -5396,7 +2184,7 @@ uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXM
   return v6;
 }
 
-void sub_1860F36D0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860F36D0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -5454,7 +2242,7 @@ void AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::IMetadata_I,void *,v
   __cxa_end_catch();
 }
 
-uint64_t AdobeXMPCommon::IUTF8String_v1::MakeShared@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+char *AdobeXMPCommon::IUTF8String_v1::MakeShared@<X0>(char *this@<X0>, void *a2@<X8>)
 {
   if (this)
   {
@@ -5877,11 +2665,11 @@ uint64_t AdobeXMPCommon::IUTF8String_v1::append(uint64_t a1)
   return (*(*a1 + 48))();
 }
 
-double AdobeXMPCommon::IError_v1::MakeShared@<D0>(AdobeXMPCommon::IError_v1 *this@<X0>, _OWORD *a2@<X8>)
+double AdobeXMPCommon::IError_v1::MakeShared@<D0>(AdobeXMPCommon::IError_v1 *this@<X0>, _OWORD *a3@<X8>)
 {
-  AdobeXMPCommon::IError_v1::MakeShared(this, &v5);
+  AdobeXMPCommon::IError_v1::MakeShared(&v5, this);
   result = *&v5;
-  *a2 = v5;
+  *a3 = v5;
   return result;
 }
 
@@ -6293,7 +3081,7 @@ uint64_t AdobeXMPCommon::CallConstSafeFunction<AdobeXMPCommon::IUTF8String_v1,in
   return result;
 }
 
-uint64_t AdobeXMPCommon::CallConstSafeFunctionReturningPointer<AdobeXMPCommon::IUTF8String_v1,AdobeXMPCommon::IUTF8String_v1*,AdobeXMPCommon::IUTF8String_v1,unsigned long long,unsigned long long>@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void *, uint64_t, uint64_t, AdobeXMPCommon::IError_v1 **)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
+char *AdobeXMPCommon::CallConstSafeFunctionReturningPointer<AdobeXMPCommon::IUTF8String_v1,AdobeXMPCommon::IUTF8String_v1*,AdobeXMPCommon::IUTF8String_v1,unsigned long long,unsigned long long>@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void *, uint64_t, uint64_t, AdobeXMPCommon::IError_v1 **)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
   v6 = a2;
   v12 = 0;
@@ -6630,34 +3418,34 @@ double *PutDoubleLE(double a1, double *result)
   return result;
 }
 
-uint64_t TIFF_Manager::SetTag_Short(void (**this)(uint64_t, __int16 *), uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t TIFF_Manager::SetTag_Short(uint64_t (***this)(void (**)(uint64_t, __int16 *), uint64_t, uint64_t, uint64_t, uint64_t, __int16 *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = 0;
-  this[5](a4, &v8);
-  return (*(*this + 4))(this, a2, a3, 3, 1, &v8);
+  (this[5])(a4, &v8);
+  return (*this)[4](this, a2, a3, 3, 1, &v8);
 }
 
-uint64_t TIFF_Manager::SetTag_Long(void (**this)(uint64_t, int *), uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t TIFF_Manager::SetTag_Long(uint64_t (***this)(void (**)(uint64_t, int *), uint64_t, uint64_t, uint64_t, uint64_t, int *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = 0;
-  this[6](a4, &v8);
-  return (*(*this + 4))(this, a2, a3, 4, 1, &v8);
+  (this[6])(a4, &v8);
+  return (*this)[4](this, a2, a3, 4, 1, &v8);
 }
 
-uint64_t TIFF_Manager::SetTag_Rational(void (**this)(uint64_t, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t TIFF_Manager::SetTag_Rational(uint64_t (***this)(void (**)(uint64_t, uint64_t *), uint64_t, uint64_t, uint64_t, uint64_t, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = 0;
-  this[6](a4, &v10);
-  this[6](a5, (&v10 + 4));
-  return (*(*this + 4))(this, a2, a3, 5, 1, &v10);
+  (this[6])(a4, &v10);
+  (this[6])(a5, &v10 + 4);
+  return (*this)[4](this, a2, a3, 5, 1, &v10);
 }
 
-uint64_t TIFF_Manager::SetTag_SRational(void (**this)(uint64_t, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t TIFF_Manager::SetTag_SRational(uint64_t (***this)(void (**)(uint64_t, uint64_t *), uint64_t, uint64_t, uint64_t, uint64_t, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = 0;
-  this[6](a4, &v10);
-  this[6](a5, (&v10 + 4));
-  return (*(*this + 4))(this, a2, a3, 10, 1, &v10);
+  (this[6])(a4, &v10);
+  (this[6])(a5, &v10 + 4);
+  return (*this)[4](this, a2, a3, 10, 1, &v10);
 }
 
 uint64_t TIFF_Manager::SetTag_ASCII(TIFF_Manager *this, uint64_t a2, uint64_t a3, const char *__s)
@@ -6724,7 +3512,7 @@ uint64_t TIFF_Manager::DecodeString(uint64_t a1, unsigned __int8 *a2, unint64_t 
         {
           v16(v10, v12, __s, 1000, &v18, &__n);
           std::string::append(this, __s, __n);
-          v10 += v18;
+          v10 += 2 * v18;
           v12 -= v18;
         }
 
@@ -7022,7 +3810,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningVoid<AdobeXMPCore_Int::ICo
     v9 = *(*v10 + a3);
   }
 
-  return v9(v10, a7, a8, a9);
+  return (v9)(v10, a7, a8, a9, a5, a6);
 }
 
 uint64_t AdobeXMPCore_Int::IConfigurable_I::GetParameter(AdobeXMPCore_Int::IConfigurable_I *this, const unint64_t *a2, BOOL *a3)
@@ -7179,7 +3967,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCommon::IConfigurable,unsi
     a4 = *(*v8 + a4);
   }
 
-  return a4(v8, a8);
+  return (a4)(v8, a8, a3);
 }
 
 void AdobeXMPCore_Int::IConfigurable_I::getAllParameters(AdobeXMPCore_Int::IConfigurable_I *this, unint64_t *a2)
@@ -7225,7 +4013,7 @@ uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCommon::IConfigurable
     a4 = *(*v8 + a4);
   }
 
-  return a4(v8, a8);
+  return (a4)(v8, a8, a3);
 }
 
 void AdobeXMPCore_Int::CallUnSafeFunctionReturningVoid<AdobeXMPCore_Int::IConfigurable_I,unsigned long long const&,AdobeXMPCommon::IConfigurable::eDataType,AdobeXMPCommon::IConfigurable::CombinedDataValue const&>(void *a1)
@@ -7287,7 +4075,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
   return v11;
 }
 
-void sub_1860F87D8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860F87D8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -7358,7 +4146,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
     v9 = *(*v10 + a3);
   }
 
-  v9(&v14, v10, a7, a8, a9);
+  (v9)(&v14, v10, a7, a8, a9, a5, a6);
   if (v14)
   {
     v11 = (*(*&v14[*(*v14 - 56)] + 16))(&v14[*(*v14 - 56)]);
@@ -7379,7 +4167,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
   return v12;
 }
 
-void sub_1860F8BE4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860F8BE4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -7450,7 +4238,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
     v9 = *(*v10 + a3);
   }
 
-  v9(&v14, v10, a7, a8, a9);
+  (v9)(&v14, v10, a7, a8, a9, a5, a6);
   if (v14)
   {
     v11 = (*(*&v14[*(*v14 - 56)] + 16))(&v14[*(*v14 - 56)]);
@@ -7471,7 +4259,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
   return v12;
 }
 
-void sub_1860F9118(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860F9118(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -7542,7 +4330,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
     v10 = *(*v11 + a3);
   }
 
-  v10(&v15, v11, a7, a8, a9, a10);
+  (v10)(&v15, v11, a7, a8, a9, a10, a6);
   if (v15)
   {
     v12 = (*(*&v15[*(*v15 - 56)] + 16))(&v15[*(*v15 - 56)]);
@@ -7563,7 +4351,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
   return v13;
 }
 
-void sub_1860F9528(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860F9528(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -7631,7 +4419,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
   return v11;
 }
 
-void sub_1860F98B4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860F98B4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -7690,7 +4478,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
     v10 = *(*v11 + a3);
   }
 
-  v10(&v15, v11, a7, a8, a9, a10);
+  (v10)(&v15, v11, a7, a8, a9, a10, a6);
   if (v15)
   {
     v12 = (*(*&v15[*(*v15 - 56)] + 16))(&v15[*(*v15 - 56)]);
@@ -7711,7 +4499,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
   return v13;
 }
 
-void sub_1860F9E10(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860F9E10(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -7803,7 +4591,7 @@ uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPComm
   return v14;
 }
 
-void sub_1860FA238(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860FA238(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -7935,7 +4723,7 @@ uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCommon::IUTF8String_v
     v11 = *(*v12 + a4);
   }
 
-  return v11(v12, a8, a9, a10, a11);
+  return (v11)(v12, a8, a9, a10, a11, a6, a7);
 }
 
 uint64_t AdobeXMPCore_Int::IUTF8String_I::compare(AdobeXMPCore_Int::IUTF8String_I *this, uint64_t a2, uint64_t a3, const AdobeXMPCommon::IUTF8String_v1 *a4, uint64_t a5, uint64_t a6, const AdobeXMPCommon::IError_v1 **a7)
@@ -7972,7 +4760,7 @@ uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCommon::IUTF8String_v
     v12 = *(*v13 + a4);
   }
 
-  return v12(v13, a8, a9, a10, a11, a12);
+  return (v12)(v13, a8, a9, a10, a11, a12, a7);
 }
 
 uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCommon::IUTF8String_v1,AdobeXMPCommon::IUTF8String_v1*,AdobeXMPCommon::IUTF8String_v1,unsigned long long,unsigned long long>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -8008,7 +4796,7 @@ uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXM
   return v11;
 }
 
-void sub_1860FB1C8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_1860FB1C8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -8055,7 +4843,7 @@ uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCommon::IUTF8String_v
   return a4(v5);
 }
 
-void *AdobeXMPCore_Int::IUTF8String_I::GetInterfacePointerInternal(void *this, uint64_t a2, int a3, int a4)
+void *AdobeXMPCore_Int::IUTF8String_I::GetInterfacePointerInternal(void *this, uint64_t a2, uint64_t a3, int a4)
 {
   if (a2 == 0x6E55544638537472)
   {
@@ -8063,8 +4851,9 @@ void *AdobeXMPCore_Int::IUTF8String_I::GetInterfacePointerInternal(void *this, u
     {
       if (a3 != 1)
       {
+        v6 = a3;
         exception = __cxa_allocate_exception(0x10uLL);
-        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x6E55544638537472, a3, exception);
+        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x6E55544638537472, v6, exception);
       }
 
       return (this + *(*this - 408));
@@ -9897,4 +6686,3482 @@ LABEL_122:
 
 LABEL_127:
   __break(1u);
+}
+
+void sub_1860FDB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t *a24)
+{
+  a24 = &a9;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a24);
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a23 < 0)
+  {
+    operator delete(a18);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta::DeleteLocalizedText(uint64_t this, char *a2, char *a3, char *__s, char *a5)
+{
+  if (!a2 || !a3 || !__s || !a5)
+  {
+LABEL_122:
+    XMPMeta::DeleteLocalizedText();
+  }
+
+  v73[0] = 0;
+  v73[1] = 0;
+  v74 = 0;
+  std::string::basic_string[abi:fe200100]<0>(v73, __s);
+  __p[0] = 0;
+  __p[1] = 0;
+  v72 = 0;
+  std::string::basic_string[abi:fe200100]<0>(__p, a5);
+  NormalizeLangValue(v73);
+  v9 = __p;
+  NormalizeLangValue(__p);
+  if (v74 >= 0)
+  {
+    v10 = v73;
+  }
+
+  else
+  {
+    v10 = v73[0];
+  }
+
+  if (v72 < 0)
+  {
+    v9 = __p[0];
+  }
+
+  memset(v70, 0, sizeof(v70));
+  ExpandXPath(a2, a3, v70);
+  Node = FindNode(this + 224, v70, 0, 0, 0);
+  v12 = Node;
+  if (Node)
+  {
+    v14 = *(Node + 9);
+    v13 = *(Node + 10);
+    v75 = 0;
+    if (ChooseLocalizedText(Node, v10, v9, &v75) == 1)
+    {
+      if (v13 == v14)
+      {
+LABEL_19:
+        exception = __cxa_allocate_exception(0x18uLL);
+        *exception = 7;
+        exception[1] = "XMP_Enforce failed: (itemIndex < arraySize) in /Library/Caches/com.apple.xbs/Sources/ImageIO/XMP-Toolkit-SDK/XMPCore/source/XMPMeta-GetSet.cpp at line 1068";
+        *(exception + 16) = 0;
+      }
+
+      v15 = 0;
+      v16 = (v13 - v14) >> 3;
+      v17 = *(v12 + 9);
+      v18 = *(v12 + 10);
+      v19 = v75;
+      if (v16 <= 1)
+      {
+        v20 = 1;
+      }
+
+      else
+      {
+        v20 = v16;
+      }
+
+      while (1)
+      {
+        if ((v18 - v17) >> 3 == v15)
+        {
+          goto LABEL_121;
+        }
+
+        v21 = *&v17[8 * v15];
+        if (v21 == v75)
+        {
+          break;
+        }
+
+        if (v20 == ++v15)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      v23 = *(v75 + 12);
+      if (v23 != *(v75 + 13))
+      {
+        v24 = *v23;
+        v25 = (v24 + 16);
+        v26 = *(v24 + 39);
+        if (v26 < 0)
+        {
+          if (*(v24 + 24) != 8)
+          {
+            goto LABEL_27;
+          }
+
+          v25 = *v25;
+        }
+
+        else if (v26 != 8)
+        {
+          goto LABEL_27;
+        }
+
+        if (*v25 != 0x676E616C3A6C6D78)
+        {
+          goto LABEL_27;
+        }
+
+        v37 = (v24 + 40);
+        v38 = *(v24 + 63);
+        if (v38 < 0)
+        {
+          if (*(v24 + 48) != 9)
+          {
+            goto LABEL_27;
+          }
+
+          v37 = *v37;
+        }
+
+        else if (v38 != 9)
+        {
+          goto LABEL_27;
+        }
+
+        v43 = *v37;
+        v44 = *(v37 + 8);
+        v46 = v43 != 0x6C75616665642D78 || v44 != 116;
+        if (!v15 || v46)
+        {
+          if (v46)
+          {
+            goto LABEL_27;
+          }
+        }
+
+        else
+        {
+          v47 = *v17;
+          *v17 = v21;
+          v48 = *(v12 + 9);
+          if (v15 >= (*(v12 + 10) - v48) >> 3)
+          {
+            goto LABEL_121;
+          }
+
+          *(v48 + 8 * v15) = v47;
+          v15 = 0;
+          v17 = *(v12 + 9);
+          v18 = *(v12 + 10);
+        }
+
+        if (v16 <= 1)
+        {
+          goto LABEL_42;
+        }
+
+        v51 = 0;
+        if (((v18 - v17) >> 3) <= 1)
+        {
+          v52 = 1;
+        }
+
+        else
+        {
+          v52 = (v18 - v17) >> 3;
+        }
+
+        v53 = 1;
+        while (1)
+        {
+          if (v52 == v53)
+          {
+            goto LABEL_121;
+          }
+
+          v27 = *&v17[v51 + 8];
+          v54 = *(v27 + 63);
+          if (v54 >= 0)
+          {
+            v55 = *(v27 + 63);
+          }
+
+          else
+          {
+            v55 = *(v27 + 48);
+          }
+
+          v56 = *(v19 + 63);
+          v57 = v56;
+          if ((v56 & 0x80u) != 0)
+          {
+            v56 = *(v19 + 6);
+          }
+
+          if (v55 == v56)
+          {
+            v58 = v54 >= 0 ? (v27 + 40) : *(v27 + 40);
+            v59 = v57 >= 0 ? v19 + 40 : *(v19 + 5);
+            if (!memcmp(v58, v59, v55))
+            {
+              break;
+            }
+          }
+
+          ++v53;
+          v51 += 8;
+          if (v16 == v53)
+          {
+            goto LABEL_42;
+          }
+        }
+
+        if (v15 < v53)
+        {
+          v63 = &v17[v51];
+          v64 = &v17[v51 + 8];
+          if (v18 != v64)
+          {
+            v65 = v18 - v17 - v51 - 16;
+            if (v63 + 16 != v18)
+            {
+              memmove(v64, v63 + 16, v65);
+            }
+
+            v66 = &v64[v65];
+            *(v12 + 10) = &v64[v65];
+            v67 = &v17[8 * v15];
+LABEL_117:
+            if (v66 != v67)
+            {
+              v69 = &v66[-v67 - 8];
+              if (v66 != (v67 + 8))
+              {
+                memmove(v67, (v67 + 8), &v66[-v67 - 8]);
+              }
+
+              v36 = 0;
+              v35 = &v69[v67];
+              goto LABEL_46;
+            }
+          }
+
+LABEL_121:
+          __break(1u);
+          goto LABEL_122;
+        }
+
+LABEL_113:
+        if (v18 != &v17[8 * v15])
+        {
+          v68 = &v17[8 * v15];
+          if (v18 != (v68 + 8))
+          {
+            memmove(&v17[8 * v15], (v68 + 8), &v18[-v68 - 8]);
+          }
+
+          v66 = v18 - 8;
+          *(v12 + 10) = v18 - 8;
+          v67 = &v17[8 * v53];
+          goto LABEL_117;
+        }
+
+        goto LABEL_121;
+      }
+
+LABEL_27:
+      if (!v15)
+      {
+        goto LABEL_42;
+      }
+
+      if (v18 == v17)
+      {
+        goto LABEL_121;
+      }
+
+      v27 = *v17;
+      v28 = *(*v17 + 63);
+      if (v28 >= 0)
+      {
+        v29 = *(*v17 + 63);
+      }
+
+      else
+      {
+        v29 = *(*v17 + 48);
+      }
+
+      v30 = *(v75 + 63);
+      v31 = v30;
+      if ((v30 & 0x80u) != 0)
+      {
+        v30 = *(v75 + 6);
+      }
+
+      if (v29 != v30)
+      {
+        goto LABEL_42;
+      }
+
+      v32 = v28 >= 0 ? (v27 + 40) : *(v27 + 40);
+      v33 = v31 >= 0 ? (v75 + 40) : *(v75 + 5);
+      if (memcmp(v32, v33, v29))
+      {
+        goto LABEL_42;
+      }
+
+      v39 = *(v27 + 96);
+      if (*(v27 + 104) == v39)
+      {
+        goto LABEL_121;
+      }
+
+      v40 = *v39;
+      v41 = (v40 + 16);
+      v42 = *(v40 + 39);
+      if (v42 < 0)
+      {
+        if (*(v40 + 24) != 8)
+        {
+          goto LABEL_42;
+        }
+
+        v41 = *v41;
+      }
+
+      else if (v42 != 8)
+      {
+        goto LABEL_42;
+      }
+
+      if (*v41 != 0x676E616C3A6C6D78)
+      {
+        goto LABEL_42;
+      }
+
+      v49 = (v40 + 40);
+      v50 = *(v40 + 63);
+      if (v50 < 0)
+      {
+        if (*(v40 + 48) != 9)
+        {
+          goto LABEL_42;
+        }
+
+        v49 = *v49;
+      }
+
+      else if (v50 != 9)
+      {
+        goto LABEL_42;
+      }
+
+      v60 = *v49;
+      v61 = *(v49 + 8);
+      if (v60 != 0x6C75616665642D78 || v61 != 116)
+      {
+LABEL_42:
+        if (v18 != &v17[8 * v15])
+        {
+          v34 = &v17[8 * v15];
+          if (v18 != (v34 + 8))
+          {
+            memmove(&v17[8 * v15], (v34 + 8), &v18[-v34 - 8]);
+          }
+
+          v27 = 0;
+          v35 = v18 - 8;
+          v36 = 1;
+LABEL_46:
+          *(v12 + 10) = v35;
+          (*(*v19 + 8))(v19);
+          if ((v36 & 1) == 0)
+          {
+            (*(*v27 + 8))(v27);
+          }
+
+          goto LABEL_48;
+        }
+
+        goto LABEL_121;
+      }
+
+      v53 = 0;
+      goto LABEL_113;
+    }
+  }
+
+LABEL_48:
+  v75 = v70;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v75);
+  if (SHIBYTE(v72) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v74) < 0)
+  {
+    operator delete(v73[0]);
+  }
+}
+
+void sub_1860FE368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char *a26)
+{
+  a26 = &a11;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a26);
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a25 < 0)
+  {
+    operator delete(a20);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t XMPMeta::GetProperty_Bool(XMPMeta *this, const char *a2, const char *a3, BOOL *a4, unsigned int *a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::GetProperty_Bool();
+  }
+
+  if (!a4 || !a5)
+  {
+    XMPMeta::GetProperty_Bool();
+  }
+
+  v12 = 0;
+  v11 = 0;
+  v8 = (*(*this + 16))(this);
+  if (v8)
+  {
+    if ((*(a5 + 1) & 0x1F) != 0)
+    {
+      exception = __cxa_allocate_exception(0x18uLL);
+      *exception = 102;
+      exception[1] = "Property must be simple";
+      *(exception + 16) = 0;
+    }
+
+    *a4 = XMPUtils::ConvertToBool(v12, v7);
+  }
+
+  return v8;
+}
+
+uint64_t XMPMeta::GetProperty_Int(XMPMeta *this, const char *a2, const char *a3, int *a4, unsigned int *a5)
+{
+  v8 = 0;
+  result = XMPMeta::GetProperty_Int64(this, a2, a3, &v8, a5);
+  if (result)
+  {
+    if (v8 != v8)
+    {
+      exception = __cxa_allocate_exception(0x18uLL);
+      *exception = 5;
+      exception[1] = "Overflow condition";
+      *(exception + 16) = 0;
+    }
+
+    *a4 = v8;
+  }
+
+  return result;
+}
+
+uint64_t XMPMeta::GetProperty_Int64(XMPMeta *this, const char *a2, const char *a3, uint64_t *a4, unsigned int *a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::GetProperty_Int64();
+  }
+
+  if (!a4 || !a5)
+  {
+    XMPMeta::GetProperty_Int64();
+  }
+
+  memset(__n, 0, sizeof(__n));
+  v7 = (*(*this + 16))(this);
+  if (v7)
+  {
+    if ((*(a5 + 1) & 0x1F) != 0)
+    {
+      exception = __cxa_allocate_exception(0x18uLL);
+      *exception = 102;
+      exception[1] = "Property must be simple";
+      *(exception + 16) = 0;
+    }
+
+    memset(&v12, 0, sizeof(v12));
+    std::string::append(&v12, *&__n[1], __n[0]);
+    XMPUtils::Trim(&v12);
+    if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v9 = &v12;
+    }
+
+    else
+    {
+      v9 = v12.__r_.__value_.__r.__words[0];
+    }
+
+    *a4 = XMPUtils::ConvertToInt64(v9, v8);
+    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v12.__r_.__value_.__l.__data_);
+    }
+  }
+
+  return v7;
+}
+
+void sub_1860FE628(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t XMPMeta::GetProperty_Date(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::GetProperty_Date();
+  }
+
+  if (!a4 || !a5)
+  {
+    XMPMeta::GetProperty_Date();
+  }
+
+  __s = 0;
+  v10 = 0;
+  v7 = (*(*a1 + 16))(a1);
+  if (v7)
+  {
+    if ((*(a5 + 1) & 0x1F) != 0)
+    {
+      exception = __cxa_allocate_exception(0x18uLL);
+      *exception = 102;
+      exception[1] = "Property must be simple";
+      *(exception + 16) = 0;
+    }
+
+    XMPUtils::ConvertToDate(__s, a4);
+  }
+
+  return v7;
+}
+
+void XMPMeta::SetProperty_Bool(XMPMeta *this, const char *a2, const char *a3, uint64_t a4, uint64_t a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::SetProperty_Bool();
+  }
+
+  __p[0] = 0;
+  __p[1] = 0;
+  v11 = 0;
+  XMPUtils::ConvertFromBool(a4, __p);
+  if (v11 >= 0)
+  {
+    v9 = __p;
+  }
+
+  else
+  {
+    v9 = __p[0];
+  }
+
+  (*(*this + 48))(this, a2, a3, v9, a5);
+  if (SHIBYTE(v11) < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_1860FE7D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void XMPMeta::SetProperty_Int(XMPMeta *this, const char *a2, const char *a3, uint64_t a4, uint64_t a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::SetProperty_Int();
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  XMPUtils::ConvertFromInt(a4, "", &__p);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  (*(*this + 48))(this, a2, a3, p_p, a5);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1860FE8B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void XMPMeta::SetProperty_Int64(XMPMeta *this, const char *a2, const char *a3, uint64_t a4, uint64_t a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::SetProperty_Int64();
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  XMPUtils::ConvertFromInt64(a4, "", &__p);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  (*(*this + 48))(this, a2, a3, p_p, a5);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1860FE998(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void XMPMeta::SetProperty_Float(XMPMeta *this, const char *a2, const char *a3, __n128 a4, uint64_t a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::SetProperty_Float();
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  XMPUtils::ConvertFromFloat("", &__p, a4.n128_f64[0]);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  (*(*this + 48))(this, a2, a3, p_p, a5);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1860FEA74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void XMPMeta::SetProperty_Date(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta::SetProperty_Date();
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  XMPUtils::ConvertFromDate(a4, &__p);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  (*(*a1 + 48))(a1, a2, a3, p_p, a5);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1860FEB4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void XMPMeta::GetProperty()
+{
+  __assert_rtn("GetProperty", "XMPMeta-GetSet.cpp", 423, "(propValue != 0) && (valueSize != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetProperty", "XMPMeta-GetSet.cpp", 422, "(schemaNS != 0) && (propName != 0)");
+}
+
+void XMPMeta::GetArrayItem()
+{
+  __assert_rtn("GetArrayItem", "XMPMeta-GetSet.cpp", 453, "(itemValue != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetArrayItem", "XMPMeta-GetSet.cpp", 452, "(schemaNS != 0) && (arrayName != 0)");
+}
+
+void XMPMeta::GetStructField()
+{
+  __assert_rtn("GetStructField", "XMPMeta-GetSet.cpp", 480, "(fieldValue != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetStructField", "XMPMeta-GetSet.cpp", 479, "(schemaNS != 0) && (structName != 0) && (fieldNS != 0) && (fieldName != 0)");
+}
+
+void XMPMeta::GetQualifier()
+{
+  __assert_rtn("GetQualifier", "XMPMeta-GetSet.cpp", 503, "(qualValue != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetQualifier", "XMPMeta-GetSet.cpp", 502, "(schemaNS != 0) && (propName != 0) && (qualNS != 0) && (qualName != 0)");
+}
+
+void XMPMeta::GetLocalizedText()
+{
+  __assert_rtn("GetLocalizedText", "XMPMeta-GetSet.cpp", 851, "(itemValue != 0) && (valueSize != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetLocalizedText", "XMPMeta-GetSet.cpp", 850, "(actualLang != 0) && (langSize != 0)");
+}
+
+{
+  __assert_rtn("GetLocalizedText", "XMPMeta-GetSet.cpp", 849, "(schemaNS != 0) && (arrayName != 0) && (_genericLang != 0) && (_specificLang != 0)");
+}
+
+void XMPMeta::GetProperty_Bool()
+{
+  __assert_rtn("GetProperty_Bool", "XMPMeta-GetSet.cpp", 1142, "(propValue != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetProperty_Bool", "XMPMeta-GetSet.cpp", 1141, "(schemaNS != 0) && (propName != 0)");
+}
+
+void XMPMeta::GetProperty_Int64()
+{
+  __assert_rtn("GetProperty_Int64", "XMPMeta-GetSet.cpp", 1193, "(propValue != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetProperty_Int64", "XMPMeta-GetSet.cpp", 1192, "(schemaNS != 0) && (propName != 0)");
+}
+
+void XMPMeta::GetProperty_Date()
+{
+  __assert_rtn("GetProperty_Date", "XMPMeta-GetSet.cpp", 1251, "(propValue != 0) && (options != 0)");
+}
+
+{
+  __assert_rtn("GetProperty_Date", "XMPMeta-GetSet.cpp", 1250, "(schemaNS != 0) && (propName != 0)");
+}
+
+void XMPMeta2::XMPMeta2(XMPMeta2 *this)
+{
+  XMPMeta::XMPMeta(this);
+  *v1 = &unk_1EF4DF5F8;
+  *(v1 + 400) = 0u;
+  *(v1 + 416) = 0u;
+  *(v1 + 432) = 0u;
+  *(v1 + 448) = 0u;
+  AdobeXMPCore::IMetadata_v1::CreateMetadata();
+}
+
+void sub_1860FF2DC(_Unwind_Exception *a1)
+{
+  v3 = *(v1 + 57);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v3);
+  }
+
+  v4 = *(v1 + 55);
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v4);
+  }
+
+  v5 = *(v1 + 53);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v5);
+  }
+
+  v6 = *(v1 + 51);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v6);
+  }
+
+  XMPMeta::~XMPMeta(v1);
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::~XMPMeta2(XMPMeta2 *this)
+{
+  *this = &unk_1EF4DF5F8;
+  v2 = *(this + 57);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v2);
+  }
+
+  v3 = *(this + 55);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v3);
+  }
+
+  v4 = *(this + 53);
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v4);
+  }
+
+  v5 = *(this + 51);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v5);
+  }
+
+  XMPMeta::~XMPMeta(this);
+}
+
+{
+  XMPMeta2::~XMPMeta2(this);
+
+  JUMPOUT(0x186602850);
+}
+
+void XMPMeta2::GetProperty(XMPMeta2 *this, char *a2, char *a3, const char **a4, unsigned int *a5, unsigned int *a6)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta2::GetProperty();
+  }
+
+  if (!a4 || !a5 || !a6)
+  {
+    XMPMeta2::GetProperty();
+  }
+
+  v117 = 0;
+  v118 = 0;
+  v119 = 0;
+  ExpandXPath(a2, a3, &v117);
+  v115 = 0;
+  v116 = 0;
+  AdobeXMPCore::INameSpacePrefixMap_v1::GetDefaultNameSpacePrefixMap(&v115);
+  v114 = 0uLL;
+  v10 = *(this + 50);
+  if (v10)
+  {
+    v11 = v10 + *(*v10 - 544);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = *(this + 51);
+  *&v114 = v11;
+  *(&v114 + 1) = v12;
+  if (v12)
+  {
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v13 = v118 - v117;
+  if ((v118 - v117) <= 0x20)
+  {
+LABEL_264:
+    __break(1u);
+    return;
+  }
+
+  if ((v117[7] & 0x10) == 0)
+  {
+    v91 = a6;
+    v92 = a4;
+    v93 = a5;
+    v14 = 1;
+LABEL_16:
+    if (v14 < v13 >> 5)
+    {
+      v15 = v13 >> 5;
+      while (1)
+      {
+        if (!v114)
+        {
+          goto LABEL_252;
+        }
+
+        memset(&v113, 0, sizeof(v113));
+        if (v14 >= (v118 - v117) >> 5)
+        {
+          goto LABEL_264;
+        }
+
+        v16 = &v117[4 * v14];
+        if (*(v16 + 23) < 0)
+        {
+          std::string::__init_copy_ctor_external(&v113, *v16, v16[1]);
+        }
+
+        else
+        {
+          v17 = *v16;
+          v113.__r_.__value_.__r.__words[2] = v16[2];
+          *&v113.__r_.__value_.__l.__data_ = v17;
+        }
+
+        memset(&v112, 0, sizeof(v112));
+        v18 = v117;
+        v19 = v118;
+        if (v14 - 1 >= (v118 - v117) >> 5)
+        {
+          goto LABEL_264;
+        }
+
+        v20 = &v117[4 * v14 - 4];
+        if (*(v20 + 23) < 0)
+        {
+          std::string::__init_copy_ctor_external(&v112, *v20, v20[1]);
+          v18 = v117;
+          v19 = v118;
+        }
+
+        else
+        {
+          v21 = *v20;
+          v112.__r_.__value_.__r.__words[2] = v20[2];
+          *&v112.__r_.__value_.__l.__data_ = v21;
+        }
+
+        if (v14 >= (v19 - v18) >> 5)
+        {
+          goto LABEL_264;
+        }
+
+        v22 = v18[4 * v14 + 3];
+        if (v22 <= 3)
+        {
+          switch(v22)
+          {
+            case 1:
+              v40 = std::string::find(&v113, 58, 0);
+              memset(&__str, 0, sizeof(__str));
+              std::string::basic_string(&__str, &v113, 0, v40, &v108);
+              (*(*v115 + 80))(&v108);
+              size = v108.__r_.__value_.__l.__size_;
+              v42 = v108.__r_.__value_.__r.__words[0];
+              if ((*(*v114 + 40))(v114) != 4)
+              {
+                if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+                {
+                  operator delete(__str.__r_.__value_.__l.__data_);
+                }
+
+                v37 = 1;
+                if (!size)
+                {
+                  goto LABEL_234;
+                }
+
+LABEL_194:
+                std::__shared_weak_count::__release_shared[abi:fe200100](size);
+                goto LABEL_234;
+              }
+
+              *&v108.__r_.__value_.__l.__data_ = 0uLL;
+              (*(*v114 + 240))(&v108);
+              v43 = v108.__r_.__value_.__r.__words[0];
+              v44 = (*(*v42 + 192))(v42);
+              if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              {
+                v45 = &v113;
+              }
+
+              else
+              {
+                v45 = v113.__r_.__value_.__r.__words[0];
+              }
+
+              (*(*v43 + 648))(v106, v43, v44, -1, v45->__r_.__value_.__r.__words + v40 + 1, -1);
+              v46 = *v106;
+              v106[0] = 0;
+              v106[1] = 0;
+              v47 = *(&v114 + 1);
+              v114 = v46;
+              if (!v47)
+              {
+                goto LABEL_119;
+              }
+
+              std::__shared_weak_count::__release_shared[abi:fe200100](v47);
+              v48 = v106[1];
+              if (!v106[1])
+              {
+                goto LABEL_119;
+              }
+
+              break;
+            case 2:
+              if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              {
+                v55 = &v113;
+              }
+
+              else
+              {
+                v55 = v113.__r_.__value_.__r.__words[0];
+              }
+
+              if (v55->__r_.__value_.__s.__data_[0] != 63)
+              {
+                __assert_rtn("GetProperty", "XMPMeta2-GetSet.cpp", 243, "stepStr[0]=='?'");
+              }
+
+              std::string::basic_string(&__str, &v113, 1uLL, 0xFFFFFFFFFFFFFFFFLL, &v108);
+              if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(v113.__r_.__value_.__l.__data_);
+              }
+
+              v113 = __str;
+              v56 = std::string::find(&v113, 58, 0);
+              memset(&__str, 0, sizeof(__str));
+              std::string::basic_string(&__str, &v113, 0, v56, &v108);
+              (*(*v115 + 80))(&v108);
+              size = v108.__r_.__value_.__l.__size_;
+              v57 = v108.__r_.__value_.__r.__words[0];
+              v58 = v114;
+              v59 = (*(*v108.__r_.__value_.__l.__data_ + 192))(v108.__r_.__value_.__r.__words[0]);
+              v60 = (*(*v57 + 208))(v57);
+              if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              {
+                v61 = &v113;
+              }
+
+              else
+              {
+                v61 = v113.__r_.__value_.__r.__words[0];
+              }
+
+              (*(*v58 + 128))(&v108, v58, v59, v60, v61->__r_.__value_.__r.__words + v56 + 1, -1);
+              v62 = *&v108.__r_.__value_.__l.__data_;
+              *&v108.__r_.__value_.__l.__data_ = 0uLL;
+              v48 = *(&v114 + 1);
+              v114 = v62;
+              if (!v48)
+              {
+LABEL_121:
+                if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+                {
+                  operator delete(__str.__r_.__value_.__l.__data_);
+                }
+
+LABEL_193:
+                v37 = 0;
+                if (!size)
+                {
+                  goto LABEL_234;
+                }
+
+                goto LABEL_194;
+              }
+
+              break;
+            case 3:
+              if ((*(*v114 + 40))(v114) == 2)
+              {
+                *&v108.__r_.__value_.__l.__data_ = 0uLL;
+                (*(*v114 + 248))(&v108);
+                v23 = SHIBYTE(v113.__r_.__value_.__r.__words[2]);
+                if ((SHIBYTE(v113.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+                {
+                  v24 = v113.__r_.__value_.__l.__size_;
+                  if (v113.__r_.__value_.__l.__size_ <= 1 || *v113.__r_.__value_.__l.__data_ != 91)
+                  {
+                    goto LABEL_260;
+                  }
+                }
+
+                else
+                {
+                  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 2 || v113.__r_.__value_.__s.__data_[0] != 91)
+                  {
+                    goto LABEL_260;
+                  }
+
+                  v24 = SHIBYTE(v113.__r_.__value_.__r.__words[2]);
+                }
+
+                v79 = v113.__r_.__value_.__r.__words[0];
+                if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                {
+                  v79 = &v113;
+                }
+
+                if (v79->__r_.__value_.__s.__data_[v24 - 1] == 93)
+                {
+                  if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                  {
+                    v23 = v113.__r_.__value_.__l.__size_;
+                  }
+
+                  v80 = v23 - 2;
+                  if (v23 == 2)
+                  {
+                    goto LABEL_262;
+                  }
+
+                  v81 = 0;
+                  v82 = 1;
+                  do
+                  {
+                    if (v23 < v82)
+                    {
+                      goto LABEL_264;
+                    }
+
+                    v83 = v79->__r_.__value_.__s.__data_[v82];
+                    if ((v83 - 58) <= 0xFFFFFFF5)
+                    {
+                      __assert_rtn("GetProperty", "XMPMeta2-GetSet.cpp", 209, "('0' <= stepStr[chNum]) && (stepStr[chNum] <= '9')");
+                    }
+
+                    v81 = v83 + 10 * v81 - 48;
+                    ++v82;
+                    --v80;
+                  }
+
+                  while (v80);
+                  if (v81 < 1)
+                  {
+LABEL_262:
+                    exception = __cxa_allocate_exception(0x18uLL);
+                    *exception = 102;
+                    exception[1] = "Array index must be larger than one";
+                    *(exception + 16) = 0;
+                  }
+
+                  v84 = std::string::find(&v112, 58, 0);
+                  memset(&__str, 0, sizeof(__str));
+                  std::string::basic_string(&__str, &v112, 0, v84, v106);
+                  (*(*v115 + 80))(v106);
+                  size = v106[1];
+                  (*(*v108.__r_.__value_.__l.__data_ + 656))(v106);
+                  v85 = *v106;
+                  v106[0] = 0;
+                  v106[1] = 0;
+                  v86 = *(&v114 + 1);
+                  v114 = v85;
+                  if (!v86)
+                  {
+                    goto LABEL_189;
+                  }
+
+                  std::__shared_weak_count::__release_shared[abi:fe200100](v86);
+                  v54 = v106[1];
+                  if (!v106[1])
+                  {
+                    goto LABEL_189;
+                  }
+
+                  goto LABEL_188;
+                }
+
+LABEL_260:
+                __assert_rtn("GetProperty", "XMPMeta2-GetSet.cpp", 207, "(stepStr.length() >= 2) && (*( stepStr.begin()) == '[') && (stepStr[stepStr.length()-1] == ']')");
+              }
+
+LABEL_233:
+              v37 = 1;
+              goto LABEL_234;
+            default:
+              goto LABEL_232;
+          }
+
+          std::__shared_weak_count::__release_shared[abi:fe200100](v48);
+LABEL_119:
+          if (v108.__r_.__value_.__l.__size_)
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](v108.__r_.__value_.__l.__size_);
+          }
+
+          goto LABEL_121;
+        }
+
+        if (v22 == 4)
+        {
+          if ((*(*v114 + 40))(v114) == 2)
+          {
+            *&v108.__r_.__value_.__l.__data_ = 0uLL;
+            (*(*v114 + 248))(&v108);
+            v49 = std::string::find(&v112, 58, 0);
+            memset(&__str, 0, sizeof(__str));
+            std::string::basic_string(&__str, &v112, 0, v49, v106);
+            (*(*v115 + 80))(v106);
+            size = v106[1];
+            v50 = v114;
+            if (*(&v114 + 1))
+            {
+              atomic_fetch_add_explicit((*(&v114 + 1) + 8), 1uLL, memory_order_relaxed);
+            }
+
+            if (v50 && (*(*v50 + 40))(v50) == 2)
+            {
+              (*(*v50 + 248))(v106, v50);
+              v51 = (*(*(v106[0] + *(*v106[0] - 688)) + 560))(v106[0] + *(*v106[0] - 688));
+              if (v106[1])
+              {
+                std::__shared_weak_count::__release_shared[abi:fe200100](v106[1]);
+              }
+
+              if (!v51)
+              {
+                v89 = __cxa_allocate_exception(0x18uLL);
+                *v89 = 102;
+                v89[1] = "Array index overflow";
+                *(v89 + 16) = 0;
+              }
+
+              (*(*v108.__r_.__value_.__l.__data_ + 656))(v106);
+              v52 = *v106;
+              v106[0] = 0;
+              v106[1] = 0;
+              v53 = *(&v114 + 1);
+              v114 = v52;
+              if (v53)
+              {
+                std::__shared_weak_count::__release_shared[abi:fe200100](v53);
+                if (v106[1])
+                {
+                  std::__shared_weak_count::__release_shared[abi:fe200100](v106[1]);
+                }
+              }
+            }
+
+            if (!*(&v50 + 1))
+            {
+              goto LABEL_189;
+            }
+
+            v54 = *(&v50 + 1);
+LABEL_188:
+            std::__shared_weak_count::__release_shared[abi:fe200100](v54);
+LABEL_189:
+            if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(__str.__r_.__value_.__l.__data_);
+            }
+
+            if (v108.__r_.__value_.__l.__size_)
+            {
+              std::__shared_weak_count::__release_shared[abi:fe200100](v108.__r_.__value_.__l.__size_);
+            }
+
+            goto LABEL_193;
+          }
+
+          goto LABEL_233;
+        }
+
+        if (v22 == 5)
+        {
+          break;
+        }
+
+        if (v22 != 6)
+        {
+          goto LABEL_232;
+        }
+
+        memset(&__str, 0, sizeof(__str));
+        memset(&v108, 0, sizeof(v108));
+        v106[0] = 0;
+        v106[1] = 0;
+        v107 = 0;
+        SplitNameAndValue(&v113, &__str, &v108);
+        v25 = v114;
+        if (*(&v114 + 1))
+        {
+          atomic_fetch_add_explicit((*(&v114 + 1) + 8), 1uLL, memory_order_relaxed);
+        }
+
+        v26 = std::string::find(&__str, 58, 0);
+        memset(&v105, 0, sizeof(v105));
+        std::string::basic_string(&v105, &__str, 0, v26, &__p);
+        (*(*v115 + 80))(&__p);
+        v27 = (*(*__p + 192))(__p);
+        MEMORY[0x186602520](v106, v27);
+        if (v98)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v98);
+        }
+
+        if (!v25 || (*(*v25 + 40))(v25) != 2)
+        {
+          v37 = 1;
+          goto LABEL_203;
+        }
+
+        v109 = 0;
+        v110 = 0;
+        (*(*v25 + 248))(&v109, v25);
+        v28 = (*(*(v109 + *(*v109 - 688)) + 560))(v109 + *(*v109 - 688));
+        if (!v28)
+        {
+          v87 = 0;
+          v37 = 0;
+          goto LABEL_199;
+        }
+
+        v29 = v28;
+        v90 = 0;
+        v30 = 1;
+        while (1)
+        {
+          v103 = 0;
+          v104 = 0;
+          (*(*v109 + 656))(&v103);
+          if ((*(*v103 + 40))(v103) != 4)
+          {
+            v37 = 1;
+            goto LABEL_77;
+          }
+
+          v101 = 0;
+          v102 = 0;
+          (*(*v103 + 240))(&__p);
+          (*(*__p + 648))(&v101);
+          if (v98)
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](v98);
+          }
+
+          if (!v101 || (*(*v101 + 40))(v101) != 1)
+          {
+            v37 = 14;
+            goto LABEL_75;
+          }
+
+          __p = 0;
+          v98 = 0;
+          v99 = 0;
+          (*(*v101 + 232))(&v96);
+          (*(*v96 + 504))(&v100);
+          v31 = (*(*v100 + 192))(v100);
+          std::string::basic_string[abi:fe200100]<0>(&__p, v31);
+          if (*(&v100 + 1))
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](*(&v100 + 1));
+          }
+
+          if (*(&v96 + 1))
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](*(&v96 + 1));
+          }
+
+          v32 = HIBYTE(v99);
+          if (v99 >= 0)
+          {
+            v33 = HIBYTE(v99);
+          }
+
+          else
+          {
+            v33 = v98;
+          }
+
+          v34 = HIBYTE(v108.__r_.__value_.__r.__words[2]);
+          if ((v108.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          {
+            v34 = v108.__r_.__value_.__l.__size_;
+          }
+
+          if (v33 == v34 && (v99 >= 0 ? (p_p = &__p) : (p_p = __p), (v108.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v36 = &v108) : (v36 = v108.__r_.__value_.__r.__words[0]), !memcmp(p_p, v36, v33)))
+          {
+            (*(*v109 + 656))(&v100);
+            v38 = v100;
+            v100 = 0uLL;
+            v39 = *(&v114 + 1);
+            v114 = v38;
+            if (v39)
+            {
+              std::__shared_weak_count::__release_shared[abi:fe200100](v39);
+              if (*(&v100 + 1))
+              {
+                std::__shared_weak_count::__release_shared[abi:fe200100](*(&v100 + 1));
+              }
+            }
+
+            v90 = 1;
+            v37 = 12;
+            if ((v99 & 0x8000000000000000) == 0)
+            {
+              goto LABEL_75;
+            }
+          }
+
+          else
+          {
+            v37 = 0;
+            if ((v32 & 0x80) == 0)
+            {
+              goto LABEL_75;
+            }
+          }
+
+          operator delete(__p);
+LABEL_75:
+          if (v102)
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](v102);
+          }
+
+LABEL_77:
+          if (v104)
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](v104);
+          }
+
+          if (v37 && v37 != 14)
+          {
+            break;
+          }
+
+          if (++v30 > v29)
+          {
+            goto LABEL_197;
+          }
+        }
+
+        if (v37 != 12)
+        {
+          goto LABEL_198;
+        }
+
+LABEL_197:
+        v37 = 0;
+LABEL_198:
+        v87 = v90;
+LABEL_199:
+        if (v110)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v110);
+        }
+
+        if (!v37)
+        {
+          v37 = (v87 & 1) == 0;
+        }
+
+LABEL_203:
+        if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v105.__r_.__value_.__l.__data_);
+        }
+
+        if (*(&v25 + 1))
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](*(&v25 + 1));
+        }
+
+        if (SHIBYTE(v107) < 0)
+        {
+          operator delete(v106[0]);
+        }
+
+        if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v108.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__str.__r_.__value_.__l.__data_);
+          if (v37)
+          {
+            goto LABEL_234;
+          }
+
+          goto LABEL_232;
+        }
+
+        if (!v37)
+        {
+          goto LABEL_232;
+        }
+
+LABEL_234:
+        if (SHIBYTE(v112.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v112.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v113.__r_.__value_.__l.__data_);
+        }
+
+        if (v37)
+        {
+          goto LABEL_252;
+        }
+
+        if (++v14 == v15)
+        {
+          goto LABEL_242;
+        }
+      }
+
+      if ((*(*v114 + 40))(v114) != 2)
+      {
+        goto LABEL_233;
+      }
+
+      v109 = 0;
+      v110 = 0;
+      (*(*v114 + 248))(&v109);
+      memset(&__str, 0, sizeof(__str));
+      memset(&v108, 0, sizeof(v108));
+      v106[0] = 0;
+      v106[1] = 0;
+      v107 = 0;
+      SplitNameAndValue(&v113, &__str, &v108);
+      v63 = v114;
+      if (*(&v114 + 1))
+      {
+        atomic_fetch_add_explicit((*(&v114 + 1) + 8), 1uLL, memory_order_relaxed);
+      }
+
+      v64 = std::string::find(&__str, 58, 0);
+      memset(&v105, 0, sizeof(v105));
+      std::string::basic_string(&v105, &__str, 0, v64, &__p);
+      (*(*v115 + 80))(&__p);
+      v65 = (*(*__p + 192))(__p);
+      MEMORY[0x186602520](v106, v65);
+      if (v98)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v98);
+      }
+
+      if (v63 && (*(*v63 + 40))(v63) == 2)
+      {
+        v103 = 0;
+        v104 = 0;
+        (*(*v63 + 248))(&v103, v63);
+        v66 = (*(*(v103 + *(*v103 - 688)) + 560))(v103 + *(*v103 - 688));
+        if (v66)
+        {
+          v67 = v66;
+          v68 = 0;
+          v69 = 1;
+          while (1)
+          {
+            v101 = 0;
+            v102 = 0;
+            (*(*v103 + 656))(&v101);
+            v100 = 0uLL;
+            (*(*v101 + 128))(&v100);
+            if (v100)
+            {
+              __p = 0;
+              v98 = 0;
+              v99 = 0;
+              (*(*v100 + 232))(&v94);
+              (*(*v94 + 504))(&v96);
+              v70 = (*(*v96 + 192))(v96);
+              std::string::basic_string[abi:fe200100]<0>(&__p, v70);
+              if (*(&v96 + 1))
+              {
+                std::__shared_weak_count::__release_shared[abi:fe200100](*(&v96 + 1));
+              }
+
+              if (v95)
+              {
+                std::__shared_weak_count::__release_shared[abi:fe200100](v95);
+              }
+
+              v71 = HIBYTE(v99);
+              if (v99 >= 0)
+              {
+                v72 = HIBYTE(v99);
+              }
+
+              else
+              {
+                v72 = v98;
+              }
+
+              v73 = HIBYTE(v108.__r_.__value_.__r.__words[2]);
+              if ((v108.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              {
+                v73 = v108.__r_.__value_.__l.__size_;
+              }
+
+              if (v72 == v73)
+              {
+                v74 = v99 >= 0 ? &__p : __p;
+                v75 = (v108.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v108 : v108.__r_.__value_.__r.__words[0];
+                if (!memcmp(v74, v75, v72))
+                {
+                  (*(*v103 + 656))(&v96);
+                  v77 = v96;
+                  v96 = 0uLL;
+                  v78 = *(&v114 + 1);
+                  v114 = v77;
+                  if (v78)
+                  {
+                    std::__shared_weak_count::__release_shared[abi:fe200100](v78);
+                    if (*(&v96 + 1))
+                    {
+                      std::__shared_weak_count::__release_shared[abi:fe200100](*(&v96 + 1));
+                    }
+                  }
+
+                  v68 = 1;
+                  v76 = 9;
+                  if ((v99 & 0x8000000000000000) == 0)
+                  {
+                    goto LABEL_154;
+                  }
+
+LABEL_151:
+                  operator delete(__p);
+                  goto LABEL_154;
+                }
+              }
+
+              v76 = 0;
+              if (v71 < 0)
+              {
+                goto LABEL_151;
+              }
+            }
+
+            else
+            {
+              v76 = 11;
+            }
+
+LABEL_154:
+            if (*(&v100 + 1))
+            {
+              std::__shared_weak_count::__release_shared[abi:fe200100](*(&v100 + 1));
+            }
+
+            if (v102)
+            {
+              std::__shared_weak_count::__release_shared[abi:fe200100](v102);
+            }
+
+            if ((v76 == 11 || !v76) && ++v69 <= v67)
+            {
+              continue;
+            }
+
+            goto LABEL_217;
+          }
+        }
+
+        v68 = 0;
+LABEL_217:
+        if (v104)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v104);
+        }
+      }
+
+      else
+      {
+        v68 = 0;
+      }
+
+      if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v105.__r_.__value_.__l.__data_);
+      }
+
+      if (*(&v63 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v63 + 1));
+      }
+
+      if (SHIBYTE(v107) < 0)
+      {
+        operator delete(v106[0]);
+      }
+
+      if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v108.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__str.__r_.__value_.__l.__data_);
+      }
+
+      if (v110)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v110);
+      }
+
+      if (v68)
+      {
+LABEL_232:
+        v37 = 0;
+        goto LABEL_234;
+      }
+
+      goto LABEL_233;
+    }
+
+LABEL_242:
+    if (v114)
+    {
+      *&v113.__r_.__value_.__l.__data_ = v114;
+      if (*(&v114 + 1))
+      {
+        atomic_fetch_add_explicit((*(&v114 + 1) + 8), 1uLL, memory_order_relaxed);
+      }
+
+      *v91 = XMPUtils::GetIXMPOptions(&v113);
+      if (v113.__r_.__value_.__l.__size_)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v113.__r_.__value_.__l.__size_);
+      }
+
+      if ((*(*v114 + 40))(v114) == 1)
+      {
+        *&v113.__r_.__value_.__l.__data_ = 0uLL;
+        (*(*v114 + 232))(&v112);
+        (*(*v112.__r_.__value_.__l.__data_ + 504))(&v113);
+        if (v112.__r_.__value_.__l.__size_)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v112.__r_.__value_.__l.__size_);
+        }
+
+        *v92 = (*(*v113.__r_.__value_.__l.__data_ + 192))(v113.__r_.__value_.__r.__words[0]);
+        *v93 = (*(*v113.__r_.__value_.__l.__data_ + 208))(v113.__r_.__value_.__r.__words[0]);
+        if (v113.__r_.__value_.__l.__size_)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v113.__r_.__value_.__l.__size_);
+        }
+      }
+    }
+
+    goto LABEL_252;
+  }
+
+  if (XMPUtils::HandleConstAliasStep(this + 50, &v114, &v117, 0))
+  {
+    v91 = a6;
+    v92 = a4;
+    v93 = a5;
+    v13 = v118 - v117;
+    v14 = 2;
+    goto LABEL_16;
+  }
+
+LABEL_252:
+  if (*(&v114 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](*(&v114 + 1));
+  }
+
+  if (v116)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v116);
+  }
+
+  v113.__r_.__value_.__r.__words[0] = &v117;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v113);
+}
+
+void sub_186100AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, std::__shared_weak_count *a28, uint64_t a29, std::__shared_weak_count *a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, std::__shared_weak_count *a51)
+{
+  if (a23 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a28)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a28);
+  }
+
+  if (a30)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a30);
+  }
+
+  if (a51)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a51);
+  }
+
+  if (a36 < 0)
+  {
+    operator delete(a31);
+  }
+
+  if (v51)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v51);
+  }
+
+  if (a42 < 0)
+  {
+    operator delete(a37);
+  }
+
+  if (a49 < 0)
+  {
+    operator delete(a44);
+  }
+
+  if (*(v52 - 209) < 0)
+  {
+    operator delete(*(v52 - 232));
+  }
+
+  if (*(v52 - 185) < 0)
+  {
+    operator delete(*(v52 - 208));
+  }
+
+  if (*(v52 - 153) < 0)
+  {
+    operator delete(*(v52 - 176));
+  }
+
+  v54 = *(v52 - 136);
+  if (v54)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v54);
+  }
+
+  v55 = *(v52 - 120);
+  if (v55)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v55);
+  }
+
+  *(v52 - 176) = v52 - 112;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100]((v52 - 176));
+  _Unwind_Resume(a1);
+}
+
+uint64_t XMPMeta2::CountArrayItems(XMPMeta2 *this, char *a2, char *a3)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta2::CountArrayItems();
+  }
+
+  memset(v13, 0, sizeof(v13));
+  ExpandXPath(a2, a3, v13);
+  v11 = 0;
+  v12 = 0;
+  v10 = 0;
+  XMPUtils::FindCnstNode((this + 400), v13, &v11, &v10, 0);
+  if (v4)
+  {
+    if ((v10 & 0x200) == 0)
+    {
+      exception = __cxa_allocate_exception(0x18uLL);
+      *exception = 102;
+      exception[1] = "The named property is not an array";
+      *(exception + 16) = 0;
+    }
+
+    v8 = v11;
+    v9 = v12;
+    if (v12)
+    {
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    NodeChildCount = XMPUtils::GetNodeChildCount(&v8);
+    if (v9)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+    }
+  }
+
+  else
+  {
+    NodeChildCount = 0;
+  }
+
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v12);
+  }
+
+  v11 = v13;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v11);
+  return NodeChildCount;
+}
+
+void sub_186100F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, void **a12, std::__shared_weak_count *a13, char a14)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a13)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
+  }
+
+  a12 = &a14;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a12);
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::ParseFromBuffer(XMPMeta2 *this, const char *a2, unsigned int a3, char a4)
+{
+  v6 = *(this + 56);
+  if (!v6)
+  {
+    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String();
+  }
+
+  (*(*v6 + 40))(&v13);
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+  }
+
+  if ((a4 & 2) == 0)
+  {
+    v7 = *(*(**(this + 54) + 232))(*(this + 54));
+    (*(v7 + 288))();
+    v8 = *(this + 54);
+    v9 = (*(**(this + 56) + 192))(*(this + 56));
+    v10 = (*(**(this + 56) + 208))(*(this + 56));
+    (*(*v8 + 200))(&v15, v8, v9, v10);
+    v11 = v15;
+    v15 = 0uLL;
+    v12 = *(this + 51);
+    *(this + 25) = v11;
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v12);
+      if (*(&v15 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v15 + 1));
+      }
+    }
+
+    (*(**(this + 56) + 200))(*(this + 56));
+  }
+}
+
+void XMPMeta2::SerializeToBuffer(AdobeXMPCore::IDOMImplementationRegistry_v1 *a1, uint64_t a2)
+{
+  v12 = 0;
+  v13 = 0;
+  AdobeXMPCore::IDOMImplementationRegistry_v1::GetDOMImplementationRegistry(&v12);
+  v10 = 0;
+  v11 = 0;
+  (*(*v12 + 48))(&v10);
+  v8 = 0;
+  v9 = 0;
+  v4 = (*(*v10 + 224))(v10);
+  v5 = *(a1 + 51);
+  v7 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v4 + 264))(&v8);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v7);
+  }
+
+  if (*(a2 + 23) < 0)
+  {
+    **a2 = 0;
+    *(a2 + 8) = 0;
+  }
+
+  else
+  {
+    *a2 = 0;
+    *(a2 + 23) = 0;
+  }
+
+  if (v8)
+  {
+    v6 = (*(*v8 + 192))(v8);
+    std::string::append(a2, v6);
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v11);
+  }
+
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v13);
+  }
+}
+
+void sub_18610137C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18)
+{
+  if (a14)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
+  }
+
+  if (a16)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a16);
+  }
+
+  if (a18)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a18);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t XMPMeta2::Erase(XMPMeta2 *this)
+{
+  v2 = *(this + 43);
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+    *(this + 43) = 0;
+  }
+
+  v3 = *(*(*(this + 50) + *(**(this + 50) - 544)) + 224);
+
+  return v3();
+}
+
+uint64_t XMPMeta2::DoesPropertyExist(XMPMeta2 *this, char *a2, char *a3)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta2::DoesPropertyExist();
+  }
+
+  memset(v10, 0, sizeof(v10));
+  ExpandXPath(a2, a3, v10);
+  v8 = 0;
+  v9 = 0;
+  v7 = 0;
+  XMPUtils::FindCnstNode((this + 400), v10, &v8, &v7, 0);
+  v5 = v4;
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  v8 = v10;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v8);
+  return v5;
+}
+
+void sub_186101510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, std::__shared_weak_count *a11, char a12)
+{
+  if (a11)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a11);
+  }
+
+  a10 = &a12;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a10);
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::SetProperty(XMPMeta2 *this, char *a2, char *a3, char *a4, unsigned int a5)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta2::SetProperty();
+  }
+
+  v9 = VerifySetOptions(a5, a4);
+  memset(v14, 0, sizeof(v14));
+  ExpandXPath(a2, a3, v14);
+  v12 = 0;
+  v13 = 0;
+  XMPUtils::FindNode((this + 400), v14, 1, v9, &v12, 0, 0);
+  if ((v10 & 1) == 0)
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 102;
+    exception[1] = "Specified property does not exist";
+    *(exception + 16) = 0;
+  }
+
+  XMPUtils::SetNode(&v12, a4, v9);
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v13);
+  }
+
+  v12 = v14;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v12);
+}
+
+void sub_186101640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, char a12)
+{
+  a10 = &a12;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a10);
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::SetArrayItem(XMPMeta2 *this, char *a2, char *a3, int a4, char *a5, unsigned int a6)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta2::SetArrayItem();
+  }
+
+  memset(v16, 0, sizeof(v16));
+  ExpandXPath(a2, a3, v16);
+  v14 = 0;
+  v15 = 0;
+  XMPUtils::FindNode((this + 400), v16, 0, a6, &v14, 0, 0);
+  if ((v10 & 1) == 0 || ((*v14)[5])(v14) != 2)
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 102;
+    exception[1] = "Specified array does not exist";
+    *(exception + 16) = 0;
+  }
+
+  v12 = 0;
+  v13 = 0;
+  ((*v14)[31])(&v12);
+  XMPUtils::DoSetArrayItem(&v12, a4, a5, a6);
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v13);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v15);
+  }
+
+  v14 = v16;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v14);
+}
+
+void sub_1861017CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, void **a12, std::__shared_weak_count *a13, char a14)
+{
+  if (a11)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a11);
+  }
+
+  if (a13)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
+  }
+
+  a12 = &a14;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a12);
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::AppendArrayItem(XMPMeta2 *this, char *a2, char *a3, unsigned int a4, char *a5, int a6)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta2::AppendArrayItem();
+  }
+
+  v11 = VerifySetOptions(a4, 0);
+  if ((v11 & 0xFFFFE1FF) != 0)
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 103;
+    exception[1] = "Only array form flags allowed for arrayOptions";
+    *(exception + 16) = 0;
+  }
+
+  v12 = v11;
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
+  ExpandXPath(a2, a3, &v28);
+  v26 = 0;
+  v27 = 0;
+  v25 = 0uLL;
+  v24 = 0;
+  XMPUtils::FindCnstNode((this + 400), &v28, &v26, &v24 + 1, 0);
+  if (v13)
+  {
+    if ((*(*v26 + 40))(v26) != 2)
+    {
+      v14 = "The named property is not an array";
+      v15 = 102;
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+    if (!v12)
+    {
+      v14 = "Explicit arrayOptions required to create new array";
+      v15 = 103;
+LABEL_28:
+      v20 = __cxa_allocate_exception(0x18uLL);
+      *v20 = v15;
+      v20[1] = v14;
+      *(v20 + 16) = 0;
+    }
+
+    memset(v23, 0, sizeof(v23));
+    v16 = v29;
+    if (v28 == v29)
+    {
+      __break(1u);
+      return;
+    }
+
+    if (*(v29 - 9) < 0)
+    {
+      std::string::__init_copy_ctor_external(v23, *(v29 - 4), *(v29 - 3));
+    }
+
+    else
+    {
+      v17 = *(v29 - 2);
+      *&v23[16] = *(v29 - 2);
+      *v23 = v17;
+    }
+
+    *&v23[24] = *(v16 - 2);
+    memset(&__p, 0, sizeof(__p));
+    if ((v23[23] & 0x80000000) != 0)
+    {
+      std::string::__init_copy_ctor_external(&__p, *v23, *&v23[8]);
+    }
+
+    else
+    {
+      __p = *v23;
+    }
+
+    XMPUtils::FindNode((this + 400), &v28, 1, v12, &v26, &v24, 0);
+    if ((v18 & 1) == 0)
+    {
+      v21 = __cxa_allocate_exception(0x18uLL);
+      *v21 = 102;
+      v21[1] = "Failure creating array node";
+      *(v21 + 16) = 0;
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if ((v23[23] & 0x80000000) != 0)
+    {
+      operator delete(*v23);
+    }
+  }
+
+  (*(*v26 + 248))(v23);
+  v25 = *v23;
+  XMPUtils::DoSetArrayItem(&v25, -1, a5, a6 | 0x8000);
+  if (*(&v25 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](*(&v25 + 1));
+  }
+
+  if (v27)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v27);
+  }
+
+  *v23 = &v28;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](v23);
+}
+
+void sub_186101AC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  v28 = *(v26 - 80);
+  if (v28)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v28);
+  }
+
+  __p = (v26 - 72);
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&__p);
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::SetQualifier(XMPMeta2 *this, char *a2, char *a3, char *a4, char *a5, const char *a6, uint64_t a7)
+{
+  if (!a2 || !a3 || !a4 || !a5)
+  {
+    XMPMeta2::SetQualifier();
+  }
+
+  memset(v20, 0, sizeof(v20));
+  ExpandXPath(a2, a3, v20);
+  v18 = 0;
+  v19 = 0;
+  XMPUtils::FindCnstNode((this + 400), v20, &v18, 0, 0);
+  if ((v14 & 1) == 0)
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 102;
+    exception[1] = "Specified property does not exist";
+    *(exception + 16) = 0;
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  XMPUtils::ComposeQualifierPath(a2, a3, a4, a5, &__p);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  (*(*this + 48))(this, a2, p_p, a6, a7);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v19)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v19);
+  }
+
+  __p.__r_.__value_.__r.__words[0] = v20;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&__p);
+}
+
+void sub_186101CAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17)
+{
+  __p = &a17;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&__p);
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::Clone(XMPMeta2 *this, XMPMeta *lpsrc, int a3)
+{
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 4;
+    v11 = "Null clone pointer";
+    goto LABEL_12;
+  }
+
+  if (a3)
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 103;
+    v11 = "No options are defined yet";
+LABEL_12:
+    exception[1] = v11;
+    *(exception + 16) = 0;
+  }
+
+  v6 = v5;
+  v7 = v5[50] + *(*v5[50] - 544);
+  (*(*v7 + 224))(v7, 1, 1);
+  (*(*(*(this + 50) + *(**(this + 50) - 544)) + 264))(&v12, *(this + 50) + *(**(this + 50) - 544), 0, 0);
+  (*(*v12 + 256))(&v14);
+  v8 = v14;
+  v14 = 0uLL;
+  v9 = v6[51];
+  *(v6 + 25) = v8;
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+    if (*(&v14 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](*(&v14 + 1));
+    }
+  }
+
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v13);
+  }
+}
+
+void sub_186101EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void XMPMeta2::DeleteProperty(XMPMeta2 *this, char *a2, char *a3)
+{
+  if (!a2 || !a3)
+  {
+    XMPMeta2::DeleteProperty();
+  }
+
+  memset(v38, 0, sizeof(v38));
+  ExpandXPath(a2, a3, v38);
+  v36 = 0;
+  v37 = 0;
+  v35 = 0;
+  XMPUtils::FindCnstNode((this + 400), v38, &v36, &v35 + 1, &v35);
+  if (v4 && v36)
+  {
+    v33 = 0;
+    v34 = 0;
+    ((*v36)[7])(&v33);
+    v5 = v33;
+    if ((v35 & 0x2000000000) != 0)
+    {
+      ((*v36)[11])(&v29);
+      v7 = (*(*v29 + 192))(v29);
+      ((*v36)[11])(&v27);
+      v8 = (*(*v27 + 208))(v27);
+      ((*v36)[9])(&v25);
+      v9 = (*(*v25 + 192))(v25);
+      ((*v36)[9])(&v23);
+      v10 = (*(*v23 + 208))(v23);
+      (*(*v5 + 152))(&v31, v5, v7, v8, v9, v10);
+      v11 = v32;
+      if (!v32)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else
+    {
+      if ((*(*v33 + 40))(v33) == 2)
+      {
+        v29 = 0;
+        v30 = 0;
+        (*(*v33 + 248))(&v29);
+        (*(*v29 + 680))(&v21);
+        v6 = v22;
+        if (!v22)
+        {
+LABEL_17:
+          if (v30)
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](v30);
+          }
+
+          goto LABEL_19;
+        }
+
+LABEL_16:
+        std::__shared_weak_count::__release_shared[abi:fe200100](v6);
+        goto LABEL_17;
+      }
+
+      if ((*(*v33 + 40))(v33) != 4)
+      {
+LABEL_19:
+        if (v34)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v34);
+        }
+
+        goto LABEL_21;
+      }
+
+      v29 = 0;
+      v30 = 0;
+      (*(*v33 + 240))(&v29);
+      v12 = v29;
+      ((*v36)[11])(&v27);
+      v13 = (*(*v27 + 192))(v27);
+      ((*v36)[11])(&v25);
+      v14 = (*(*v25 + 208))(v25);
+      ((*v36)[9])(&v23);
+      v15 = (*(*v23 + 192))(v23);
+      ((*v36)[9])(&v17);
+      v16 = (*(*v17 + 208))(v17);
+      (*(*v12 + 672))(&v19, v12, v13, v14, v15, v16);
+      if (v20)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v20);
+      }
+
+      v11 = v18;
+      if (!v18)
+      {
+LABEL_11:
+        if (v24)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v24);
+        }
+
+        if (v26)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v26);
+        }
+
+        v6 = v28;
+        if (!v28)
+        {
+          goto LABEL_17;
+        }
+
+        goto LABEL_16;
+      }
+    }
+
+    std::__shared_weak_count::__release_shared[abi:fe200100](v11);
+    goto LABEL_11;
+  }
+
+LABEL_21:
+  if (v37)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v37);
+  }
+
+  v36 = v38;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v36);
+}
+
+void sub_18610247C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, std::__shared_weak_count *a22)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a16)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a16);
+  }
+
+  if (a18)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a18);
+  }
+
+  if (a20)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a20);
+  }
+
+  if (a22)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a22);
+  }
+
+  v24 = *(v22 - 88);
+  if (v24)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v24);
+  }
+
+  v25 = *(v22 - 64);
+  if (v25)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v25);
+  }
+
+  *(v22 - 72) = v22 - 56;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100]((v22 - 72));
+  _Unwind_Resume(a1);
+}
+
+void XMPMeta2::GetObjectName(XMPMeta2 *this, const char **a2, unsigned int *a3)
+{
+  (*(**(this + 50) + 736))(&v6);
+  *a2 = (*(*v6 + 192))(v6);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v7);
+  }
+
+  (*(**(this + 50) + 736))(&v6);
+  *a3 = (*(*v6 + 208))(v6);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v7);
+  }
+}
+
+uint64_t XMPMeta2::SetObjectName(XMPMeta2 *this, char *a2)
+{
+  v4 = *a2;
+  if (*a2)
+  {
+    v5 = a2;
+    do
+    {
+      if (v4 >= 1)
+      {
+        do
+        {
+          v7 = *++v5;
+          v6 = v7;
+        }
+
+        while (v7 > 0);
+        if ((v6 & 0x80000000) == 0)
+        {
+          break;
+        }
+      }
+
+      v10 = 0;
+      v9 = 0;
+      CodePoint_from_UTF8(v5, 4uLL, &v10, &v9);
+      v5 += v9;
+      v4 = *v5;
+    }
+
+    while (*v5);
+  }
+
+  return (*(**(this + 50) + 744))(*(this + 50), a2, -1);
+}
+
+BOOL XMPMeta2::GetLocalizedText(XMPMeta2 *this, char *a2, char *a3, char *__s, char *a5, const char **a6, unsigned int *a7, const char **a8, unsigned int *a9, unsigned int *a10)
+{
+  if (!a2 || !a3 || !__s || !a5)
+  {
+    XMPMeta2::GetLocalizedText();
+  }
+
+  if (!a6 || !a7)
+  {
+    XMPMeta2::GetLocalizedText();
+  }
+
+  if (!a8 || !a9 || !a10)
+  {
+    XMPMeta2::GetLocalizedText();
+  }
+
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
+  std::string::basic_string[abi:fe200100]<0>(v40, __s);
+  __p[0] = 0;
+  __p[1] = 0;
+  v39 = 0;
+  std::string::basic_string[abi:fe200100]<0>(__p, a5);
+  NormalizeLangValue(v40);
+  v17 = __p;
+  NormalizeLangValue(__p);
+  if (v41 >= 0)
+  {
+    v18 = v40;
+  }
+
+  else
+  {
+    v18 = v40[0];
+  }
+
+  if (v39 < 0)
+  {
+    v17 = __p[0];
+  }
+
+  memset(v37, 0, sizeof(v37));
+  ExpandXPath(a2, a3, v37);
+  v35 = 0;
+  v36 = 0;
+  v33 = 0;
+  v34 = 0;
+  v32 = 0;
+  XMPUtils::FindCnstNode((this + 400), v37, &v35, &v32, 0);
+  if ((v19 & 1) == 0)
+  {
+    v21 = 0;
+    goto LABEL_40;
+  }
+
+  ((*v35)[31])(&v30);
+  v20 = ChooseIXMPLocalizedText(&v30, &v32, v18, v17, &v33);
+  if (v31)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v31);
+  }
+
+  v21 = v20 != 0;
+  if (!v20)
+  {
+    v24 = v34;
+    if (!v34)
+    {
+      goto LABEL_40;
+    }
+
+    goto LABEL_39;
+  }
+
+  v30 = 0;
+  v31 = 0;
+  v22 = v33;
+  v23 = strlen(xmlNameSpace);
+  (*(*v22 + 128))(&v28, v22, xmlNameSpace, v23, "lang", -1);
+  (*(*v28 + 232))(&v30);
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v29);
+  }
+
+  (*(*v30 + 504))(&v28);
+  *a6 = (*(*v28 + 192))(v28);
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v29);
+  }
+
+  (*(*v30 + 504))(&v28);
+  *a7 = (*(*v28 + 208))(v28);
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v29);
+  }
+
+  v28 = 0;
+  v29 = 0;
+  (*(*v22 + 232))(&v26, v22);
+  (*(*v26 + 504))(&v28);
+  if (v27)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v27);
+  }
+
+  *a8 = (*(*v28 + 192))(v28);
+  *a9 = (*(*v28 + 208))(v28);
+  v24 = v34;
+  v26 = v22;
+  v27 = v34;
+  if (v34)
+  {
+    atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  *a10 = XMPUtils::GetIXMPOptions(&v26);
+  if (v27)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v27);
+  }
+
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v29);
+  }
+
+  if (v31)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v31);
+  }
+
+  if (v24)
+  {
+LABEL_39:
+    std::__shared_weak_count::__release_shared[abi:fe200100](v24);
+  }
+
+LABEL_40:
+  if (v36)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v36);
+  }
+
+  v35 = v37;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v35);
+  if (SHIBYTE(v39) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v41) < 0)
+  {
+    operator delete(v40[0]);
+  }
+
+  return v21;
+}
+
+void sub_186102B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, std::__shared_weak_count *a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, char *a19, std::__shared_weak_count *a20, char a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+{
+  if (a11)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a11);
+  }
+
+  if (a13)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
+  }
+
+  if (a15)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a15);
+  }
+
+  if (a18)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a18);
+  }
+
+  if (a20)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a20);
+  }
+
+  a19 = &a21;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&a19);
+  if (a29 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (*(v29 - 89) < 0)
+  {
+    operator delete(*(v29 - 112));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t ChooseIXMPLocalizedText(uint64_t a1, _DWORD *a2, char *a3, const char *a4, void *a5)
+{
+  v10 = *a1 + *(**a1 - 688);
+  v11 = (*(*v10 + 560))(v10);
+  __p = 0;
+  v78 = 0;
+  v79 = 0;
+  std::string::basic_string[abi:fe200100]<0>(&__p, "lang");
+  if ((*a2 & 0x1000) == 0)
+  {
+    if (v11)
+    {
+      v12 = 1;
+    }
+
+    else
+    {
+      v12 = (*a2 & 0x800) == 0;
+    }
+
+    if (v12)
+    {
+      exception = __cxa_allocate_exception(0x18uLL);
+      *exception = 102;
+      exception[1] = "Localized text array is not alt-text";
+      *(exception + 16) = 0;
+    }
+
+    goto LABEL_70;
+  }
+
+  if (!v11)
+  {
+LABEL_70:
+    v26 = 0;
+    v44 = 0;
+    goto LABEL_110;
+  }
+
+  v69 = a5;
+  __s = a3;
+  v14 = 0;
+  v15 = 1;
+  v16 = "Alt-text array item is not simple";
+  do
+  {
+    (*(**a1 + 656))(&v76);
+    v18 = *(&v76 + 1);
+    v17 = v76;
+    v76 = 0uLL;
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+    }
+
+    if ((*(*v17 + 40))(v17) != 1)
+    {
+      goto LABEL_147;
+    }
+
+    if (!(*(*v17 + 184))(v17))
+    {
+      goto LABEL_146;
+    }
+
+    v19 = strlen(xmlNameSpace);
+    if (v79 >= 0)
+    {
+      p_p = &__p;
+    }
+
+    else
+    {
+      p_p = __p;
+    }
+
+    if (v79 >= 0)
+    {
+      v21 = HIBYTE(v79);
+    }
+
+    else
+    {
+      v21 = v78;
+    }
+
+    (*(*v17 + 128))(&v76, v17, xmlNameSpace, v19, p_p, v21);
+    v22 = v76;
+    if (*(&v76 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+    }
+
+    if (!v22)
+    {
+LABEL_146:
+      v16 = "Alt-text array item has no language qualifier";
+LABEL_147:
+      v68 = __cxa_allocate_exception(0x18uLL);
+      *v68 = 102;
+      v68[1] = v16;
+      *(v68 + 16) = 0;
+    }
+
+    ++v15;
+    v14 = v18;
+  }
+
+  while (v15 <= v11);
+  v23 = 0;
+  v24 = 0;
+  v25 = 1;
+  do
+  {
+    (*(**a1 + 656))(&v76);
+    v26 = *(&v76 + 1);
+    v27 = v76;
+    v76 = 0uLL;
+    if (v18)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v18);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+    }
+
+    (*(*v27 + 112))(&v72, v27);
+    (*(*v72 + 48))(&v74);
+    (*(*v74 + 232))(&v76);
+    v28 = *(&v76 + 1);
+    v29 = v76;
+    v76 = 0uLL;
+    if (v24)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v24);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+    }
+
+    if (v75)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v75);
+    }
+
+    if (v73)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v73);
+    }
+
+    (*(*v27 + 232))(&v76, v27);
+    v71 = *(&v76 + 1);
+    v76 = 0uLL;
+    if (v23)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v23);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+    }
+
+    (*(*v29 + 504))(&v76, v29);
+    v30 = (*(*v76 + 192))(v76);
+    v31 = strcmp(v30, a4);
+    if (*(&v76 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+    }
+
+    if (!v31)
+    {
+      if (v26)
+      {
+        atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v45 = v69[1];
+      *v69 = v27;
+      v69[1] = v26;
+      if (v45)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v45);
+      }
+
+      v44 = 1;
+LABEL_105:
+      v34 = v28;
+      goto LABEL_106;
+    }
+
+    ++v25;
+    v23 = v71;
+    v24 = v28;
+    v18 = v26;
+  }
+
+  while (v25 <= v11);
+  if (!*__s)
+  {
+    v34 = v28;
+LABEL_77:
+    v46 = 1;
+    v47 = v26;
+    while (1)
+    {
+      (*(**a1 + 656))(&v76);
+      v26 = *(&v76 + 1);
+      v48 = v76;
+      v76 = 0uLL;
+      if (v47)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v47);
+        if (*(&v76 + 1))
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+        }
+      }
+
+      v49 = strlen(xmlNameSpace);
+      if (v79 >= 0)
+      {
+        v50 = &__p;
+      }
+
+      else
+      {
+        v50 = __p;
+      }
+
+      if (v79 >= 0)
+      {
+        v51 = HIBYTE(v79);
+      }
+
+      else
+      {
+        v51 = v78;
+      }
+
+      (*(*v48 + 128))(&v74, v48, xmlNameSpace, v49, v50, v51);
+      (*(*v74 + 232))(&v76);
+      v28 = *(&v76 + 1);
+      v52 = v76;
+      v76 = 0uLL;
+      if (v34)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v34);
+        if (*(&v76 + 1))
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+        }
+      }
+
+      if (v75)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v75);
+      }
+
+      (*(*v52 + 504))(&v76, v52);
+      v53 = (*(*v76 + 192))(v76);
+      v54 = strcmp(v53, "x-default");
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+
+      if (v54)
+      {
+        break;
+      }
+
+      ++v46;
+      v34 = v28;
+      v47 = v26;
+      if (v46 > v11)
+      {
+        (*(**a1 + 656))(&v76);
+        v55 = v76;
+        v76 = 0uLL;
+        v56 = v69[1];
+        *v69 = v55;
+        if (v56)
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](v56);
+          if (*(&v76 + 1))
+          {
+            std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+          }
+        }
+
+        v44 = 5;
+        goto LABEL_105;
+      }
+    }
+
+    if (v26)
+    {
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v57 = v69[1];
+    *v69 = v48;
+    v69[1] = v26;
+    if (v57)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v57);
+    }
+
+    v44 = 4;
+    goto LABEL_105;
+  }
+
+  v32 = strlen(__s);
+  v33 = 2;
+  v34 = v28;
+  while (1)
+  {
+    v35 = v26;
+    (*(**a1 + 656))(&v76);
+    v26 = *(&v76 + 1);
+    v36 = v76;
+    v76 = 0uLL;
+    if (v35)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v35);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+    }
+
+    v37 = strlen(xmlNameSpace);
+    if (v79 >= 0)
+    {
+      v38 = &__p;
+    }
+
+    else
+    {
+      v38 = __p;
+    }
+
+    if (v79 >= 0)
+    {
+      v39 = HIBYTE(v79);
+    }
+
+    else
+    {
+      v39 = v78;
+    }
+
+    (*(*v36 + 128))(&v74, v36, xmlNameSpace, v37, v38, v39);
+    (*(*v74 + 232))(&v76);
+    v40 = v76;
+    v76 = 0uLL;
+    if (v34)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v34);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+    }
+
+    if (v75)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v75);
+    }
+
+    v34 = *(&v40 + 1);
+    (*(*v40 + 504))(&v76, v40);
+    v41 = (*(*v76 + 192))(v76);
+    if (*(&v76 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+    }
+
+    (*(*v40 + 504))(&v76, v40);
+    v42 = (*(*v76 + 208))(v76);
+    if (*(&v76 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+    }
+
+    if (v42 >= v32 && !strncmp(v41, __s, v32) && (v42 == v32 || v41[v32] == 45))
+    {
+      break;
+    }
+
+    if (v33++ > v11)
+    {
+      goto LABEL_77;
+    }
+  }
+
+  if (v26)
+  {
+    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v59 = v69[1];
+  *v69 = v36;
+  v69[1] = v26;
+  if (v59)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v59);
+  }
+
+  if (v33 <= v11)
+  {
+    while (1)
+    {
+      v60 = v26;
+      (*(**a1 + 656))(&v76);
+      v26 = *(&v76 + 1);
+      v61 = v76;
+      v76 = 0uLL;
+      if (v60)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v60);
+        if (*(&v76 + 1))
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+        }
+      }
+
+      v62 = strlen(xmlNameSpace);
+      if (v79 >= 0)
+      {
+        v63 = &__p;
+      }
+
+      else
+      {
+        v63 = __p;
+      }
+
+      if (v79 >= 0)
+      {
+        v64 = HIBYTE(v79);
+      }
+
+      else
+      {
+        v64 = v78;
+      }
+
+      (*(*v61 + 128))(&v74, v61, xmlNameSpace, v62, v63, v64);
+      (*(*v74 + 232))(&v76);
+      v65 = v76;
+      v76 = 0uLL;
+      if (v34)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v34);
+        if (*(&v76 + 1))
+        {
+          std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+        }
+      }
+
+      if (v75)
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](v75);
+      }
+
+      v34 = *(&v65 + 1);
+      (*(*v65 + 504))(&v76, v65);
+      v66 = (*(*v76 + 192))(v76);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+
+      (*(*v65 + 504))(&v76, v65);
+      v67 = (*(*v76 + 208))(v76);
+      if (*(&v76 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:fe200100](*(&v76 + 1));
+      }
+
+      if (v67 >= v32 && !strncmp(v66, __s, v32) && (v67 == v32 || v66[v32] == 45))
+      {
+        break;
+      }
+
+      ++v33;
+      v44 = 2;
+      if (v33 > v11)
+      {
+        goto LABEL_106;
+      }
+    }
+
+    v44 = 3;
+  }
+
+  else
+  {
+    v44 = 2;
+  }
+
+LABEL_106:
+  if (v71)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v71);
+  }
+
+  if (v34)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v34);
+  }
+
+LABEL_110:
+  if (SHIBYTE(v79) < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v26)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v26);
+  }
+
+  return v44;
 }

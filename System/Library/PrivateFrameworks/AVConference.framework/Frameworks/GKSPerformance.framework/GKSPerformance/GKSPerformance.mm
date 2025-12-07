@@ -1,10 +1,11 @@
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
-double machTimeScale()
+double machTimeScale(uint64_t a1, uint64_t a2)
 {
   if ((_MergedGlobals & 1) == 0)
   {
@@ -16,26 +17,25 @@ double machTimeScale()
 
 uint64_t GKSFacetimeSubmitMetric(int a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v2 = VRTraceErrorLogLevelToCSTR();
     v3 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315906;
-      v7 = v2;
-      v8 = 2080;
-      v9 = "GKSFacetimeSubmitMetric";
-      v10 = 1024;
-      v11 = 2330;
-      v12 = 1024;
-      v13 = a1;
-      _os_log_impl(&dword_23D482000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AWDFTLog: Metric Id:0x%x ignored", &v6, 0x22u);
+      v5 = 136315906;
+      v6 = v2;
+      v7 = 2080;
+      v8 = "GKSFacetimeSubmitMetric";
+      v9 = 1024;
+      v10 = 2330;
+      v11 = 1024;
+      v12 = a1;
+      _os_log_impl(&dword_23D482000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AWDFTLog: Metric Id:0x%x ignored", &v5, 0x22u);
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

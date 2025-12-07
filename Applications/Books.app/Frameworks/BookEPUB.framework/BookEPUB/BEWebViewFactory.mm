@@ -83,10 +83,11 @@
 
 + (id)_standardWKPreferences:(BOOL)preferences
 {
+  preferencesCopy = preferences;
   +[UIView be_enableWKContentViewOverrides];
   +[UILongPressGestureRecognizer be_enableUIVariableDelayLoupeGestureOverrides];
   v4 = objc_alloc_init(WKPreferences);
-  [v4 _setDeveloperExtrasEnabled:BEShouldEnableDeveloperExtrasSettings(preferences)];
+  [v4 _setDeveloperExtrasEnabled:{BEShouldEnableDeveloperExtrasSettings(preferencesCopy, v5)}];
   [v4 setJavaScriptCanOpenWindowsAutomatically:0];
   [v4 _setOfflineApplicationCacheIsEnabled:0];
   [v4 _setLargeImageAsyncDecodingEnabled:0];
@@ -94,35 +95,35 @@
   [v4 _setShouldSuppressKeyboardInputDuringProvisionalNavigation:1];
   [v4 _setTextAutosizingEnabled:0];
   [v4 _setJavaScriptCanAccessClipboard:0];
-  v5 = +[NSUserDefaults standardUserDefaults];
-  v15 = 0u;
+  v6 = +[NSUserDefaults standardUserDefaults];
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v6 = +[WKPreferences _internalDebugFeatures];
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v7)
+  v19 = 0u;
+  v7 = +[WKPreferences _internalDebugFeatures];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v16;
+    v9 = v8;
+    v10 = *v17;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v16 != v9)
+        if (*v17 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [v11 key];
-        if ([v12 isEqualToString:@"SelectionFlippingEnabled"])
+        v12 = *(*(&v16 + 1) + 8 * i);
+        v13 = [v12 key];
+        if ([v13 isEqualToString:@"SelectionFlippingEnabled"])
         {
-          v13 = [v4 _isEnabledForInternalDebugFeature:v11];
+          v14 = [v4 _isEnabledForInternalDebugFeature:v12];
 
-          if ((v13 & 1) == 0)
+          if ((v14 & 1) == 0)
           {
-            [v4 _setEnabled:1 forInternalDebugFeature:v11];
+            [v4 _setEnabled:1 forInternalDebugFeature:v12];
             goto LABEL_12;
           }
         }
@@ -132,20 +133,20 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
 LABEL_12:
 
-  if ([v5 BOOLForKey:BKDisableAccleratedWebRendering[0]])
+  if ([v6 BOOLForKey:BKDisableAccleratedWebRendering[0]])
   {
     [v4 _setAcceleratedDrawingEnabled:0];
   }
 
-  if ([v5 BOOLForKey:BKWebDrawBorders])
+  if ([v6 BOOLForKey:BKWebDrawBorders])
   {
     [v4 _setCompositingBordersVisible:1];
   }

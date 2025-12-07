@@ -10,11 +10,8 @@ void ___APConnectivityHelperHandleDynamicStoreNetworkEntityValueChange_block_inv
   {
     Count = CFArrayGetCount(ArrayBySeparatingStrings);
     CFArrayGetValueAtIndex(ArrayBySeparatingStrings, Count - 1);
-    v5 = CFArrayGetCount(ArrayBySeparatingStrings);
-    CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v5 - 2);
-    v6 = *(a1[4] + 168);
-    v7 = a1[5];
-    v8 = a1[6];
+    v4 = CFArrayGetCount(ArrayBySeparatingStrings);
+    CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v4 - 2);
     CFDictionaryApplyBlock();
   }
 

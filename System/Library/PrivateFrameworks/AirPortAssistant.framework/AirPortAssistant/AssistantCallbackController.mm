@@ -5,7 +5,7 @@
 + (int)updateKeychainNetworkPassword:(id)password forNetworkNamed:(id)named;
 + (void)keychainPasswordForBaseStation:(id)station delegate:(id)delegate;
 - (AssistantCallbackController)init;
-- (int)assistantCallback:(AssistantCallbackContext *)isEqualToString withSelector:(int)selector;
+- (int)assistantCallback:(AssistantCallbackContext *)callback withSelector:(int)selector;
 - (int)startJoinNetwork:(id)network password:(id)password rememberChoice:(int)choice;
 - (int)startScanForNetworks:(id)networks wifiType:(int)type mergeResults:(BOOL)results maxAge:(unint64_t)age;
 - (void)callbackAskUserAQuestionResult:(int)result result:(int)a4;
@@ -30,19 +30,19 @@
 
 - (void)dealloc
 {
-  v4 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, v2);
-  objc_msgSend_removeObserver_name_object_(v4, v5, self, @"com.apple.WiFiUtils.Join.Complete", 0);
-  v8 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v6, v7);
-  objc_msgSend_removeObserver_name_object_(v8, v9, self, @"com.apple.WiFiUtils.Scan.Complete", 0);
+  v5 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, v2, v3);
+  objc_msgSend_removeObserver_name_object_(v5, v6, self, @"com.apple.WiFiUtils.Join.Complete", 0);
+  v10 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v7, v8, v9);
+  objc_msgSend_removeObserver_name_object_(v10, v11, self, @"com.apple.WiFiUtils.Scan.Complete", 0);
   uiDelegate = self->_uiDelegate;
   if (uiDelegate && self->_callbackContext)
   {
-    objc_msgSend_callbackAskCancel(uiDelegate, v10, v11);
+    objc_msgSend_callbackAskCancel(uiDelegate, v12, v13, v14);
   }
 
-  v13.receiver = self;
-  v13.super_class = AssistantCallbackController;
-  [(AssistantCallbackController *)&v13 dealloc];
+  v16.receiver = self;
+  v16.super_class = AssistantCallbackController;
+  [(AssistantCallbackController *)&v16 dealloc];
 }
 
 + (int)updateKeychainNetworkPassword:(id)password forNetworkNamed:(id)named
@@ -63,7 +63,7 @@
   result = -6705;
   if (address && password && name)
   {
-    if (objc_msgSend_length(address, a2, password))
+    if (objc_msgSend_length(address, a2, password, address))
     {
       global_queue = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x277D85DD0];
@@ -88,59 +88,59 @@
 
 + (id)keychainPasswordForBaseStation:(id)station
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22 = 0;
+  v20 = *MEMORY[0x277D85DE8];
+  v18 = 0;
   if (!station)
   {
     goto LABEL_13;
   }
 
-  v9 = 0;
-  if (sub_23EB6AB20(station, &v22, station, v3, v4, v5, v6, v7))
+  v4 = 0;
+  if (sub_23EB6AB20(station, &v18))
   {
     goto LABEL_15;
   }
 
-  v10 = v22;
-  if (!v22)
+  v5 = v18;
+  if (!v18)
   {
     goto LABEL_15;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v8, &v18, v23, 16);
-  if (!v11)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v3, &v14, v19, 16);
+  if (!v6)
   {
 LABEL_13:
-    v9 = 0;
+    v4 = 0;
     goto LABEL_15;
   }
 
-  v13 = v11;
-  v14 = *v19;
+  v9 = v6;
+  v10 = *v15;
   while (2)
   {
-    for (i = 0; i != v13; ++i)
+    for (i = 0; i != v9; ++i)
     {
-      if (*v19 != v14)
+      if (*v15 != v10)
       {
-        objc_enumerationMutation(v10);
+        objc_enumerationMutation(v5);
       }
 
-      v16 = objc_msgSend_keychainPasswordForMACAddress_(KeychainWrapper, v12, *(*(&v18 + 1) + 8 * i));
-      if (v16)
+      v12 = objc_msgSend_keychainPasswordForMACAddress_(KeychainWrapper, v7, *(*(&v14 + 1) + 8 * i), v8);
+      if (v12)
       {
-        v9 = v16;
+        v4 = v12;
         goto LABEL_15;
       }
     }
 
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v18, v23, 16);
-    v9 = 0;
-    if (v13)
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v14, v19, 16);
+    v4 = 0;
+    if (v9)
     {
       continue;
     }
@@ -150,33 +150,33 @@ LABEL_13:
 
 LABEL_15:
 
-  return v9;
+  return v4;
 }
 
 + (void)keychainPasswordForBaseStation:(id)station delegate:(id)delegate
 {
-  v8 = 0;
-  v14 = 0;
+  v4 = 0;
+  v10 = 0;
   if (station)
   {
     if (delegate)
     {
-      v11 = sub_23EB6AB20(station, &v14, station, delegate, v4, v5, v6, v7);
-      v8 = v14;
-      if (!v11)
+      v7 = sub_23EB6AB20(station, &v10);
+      v4 = v10;
+      if (!v7)
       {
-        if (v14)
+        if (v10)
         {
           global_queue = dispatch_get_global_queue(0, 0);
-          v13[0] = MEMORY[0x277D85DD0];
-          v13[1] = 3221225472;
-          v13[2] = sub_23EB52BB0;
-          v13[3] = &unk_278C66C28;
-          v13[4] = v8;
-          v13[5] = delegate;
-          v13[6] = station;
-          dispatch_async(global_queue, v13);
-          v8 = v14;
+          v9[0] = MEMORY[0x277D85DD0];
+          v9[1] = 3221225472;
+          v9[2] = sub_23EB52BB0;
+          v9[3] = &unk_278C66C28;
+          v9[4] = v4;
+          v9[5] = delegate;
+          v9[6] = station;
+          dispatch_async(global_queue, v9);
+          v4 = v10;
         }
       }
     }
@@ -185,42 +185,42 @@ LABEL_15:
 
 + (int)removeKeychainPasswordForBaseStation:(id)station
 {
-  v14 = 0;
+  v9 = 0;
   if (station)
   {
-    v8 = sub_23EB6AB20(station, &v14, station, v3, v4, v5, v6, v7);
-    v9 = v14;
-    if (v8)
+    v3 = sub_23EB6AB20(station, &v9);
+    v4 = v9;
+    if (v3)
     {
-      v10 = v8;
+      v5 = v3;
     }
 
-    else if (v14)
+    else if (v9)
     {
       global_queue = dispatch_get_global_queue(0, 0);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = sub_23EB52DA4;
-      v13[3] = &unk_278C66C50;
-      v13[4] = v9;
-      dispatch_async(global_queue, v13);
-      v10 = 0;
-      v9 = v14;
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = sub_23EB52DA4;
+      v8[3] = &unk_278C66C50;
+      v8[4] = v4;
+      dispatch_async(global_queue, v8);
+      v5 = 0;
+      v4 = v9;
     }
 
     else
     {
-      v10 = -6728;
+      v5 = -6728;
     }
   }
 
   else
   {
-    v9 = 0;
-    v10 = -6705;
+    v4 = 0;
+    v5 = -6705;
   }
 
-  return v10;
+  return v5;
 }
 
 - (void)callbackAskUserForPasswordResult:(int)result password:(id)password remember:(int)remember
@@ -231,27 +231,27 @@ LABEL_15:
     if (result)
     {
 LABEL_3:
-      sub_23EBEB6CC(callbackContext, result, *&result, password, *&remember, v5, v6, v7);
+      sub_23EBEB6CC(callbackContext, result);
       goto LABEL_4;
     }
 
     if (!password)
     {
-      *&result = 4294960591;
+      result = -6705;
       goto LABEL_3;
     }
 
     v11 = sub_23EBEB5E8(callbackContext, @"BSAssistantCallback_String", password, password, *&remember, v5, v6, v7);
-    *&result = v11;
+    result = v11;
     if (remember != 2 && !v11)
     {
-      v12 = MEMORY[0x277CBED28];
+      v17 = MEMORY[0x277CBED28];
       if (remember != 1)
       {
-        v12 = MEMORY[0x277CBED10];
+        v17 = MEMORY[0x277CBED10];
       }
 
-      *&result = sub_23EBEB5E8(self->_callbackContext, @"BSAssistantCallback_Boolean", *v12, password, *&remember, v5, v6, v7);
+      result = sub_23EBEB5E8(self->_callbackContext, @"BSAssistantCallback_Boolean", *v17, v12, v13, v14, v15, v16);
     }
 
     callbackContext = self->_callbackContext;
@@ -275,7 +275,7 @@ LABEL_4:
     callbackContext = self->_callbackContext;
   }
 
-  sub_23EBEB6CC(callbackContext, resultCopy, *&result, string, v4, v5, v6, v7);
+  sub_23EBEB6CC(callbackContext, resultCopy);
   self->_callbackContext = 0;
 }
 
@@ -284,60 +284,58 @@ LABEL_4:
   switch(result)
   {
     case 5:
-      MEMORY[0x2821F9670](self, sel_userResponseToPPPoECredsFailed_, *&a4);
+      MEMORY[0x2821F9670](self, sel_userResponseToPPPoECredsFailed_, *&a4, *&a4);
       break;
     case 4:
-      objc_msgSend_userResponseToWarning_(self, a2, *&a4);
+      objc_msgSend_userResponseToWarning_(self, a2, *&a4, *&a4);
       break;
     case 3:
-      objc_msgSend_userResponseToJoinNetwork_(self, a2, *&a4);
+      objc_msgSend_userResponseToJoinNetwork_(self, a2, *&a4, *&a4);
       break;
   }
 }
 
-- (int)assistantCallback:(AssistantCallbackContext *)isEqualToString withSelector:(int)selector
+- (int)assistantCallback:(AssistantCallbackContext *)callback withSelector:(int)selector
 {
-  v8 = *&selector;
-  v9 = isEqualToString;
   if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "inSelector: %d\n", v4, v5, v6, v7, v8);
+    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "inSelector: %d\n", selector);
   }
 
-  switch(v8)
+  switch(selector)
   {
     case 1:
-      v11 = objc_msgSend_subclassAssistantCallback_(self, a2, v9);
-      if (v11)
+      v7 = objc_msgSend_subclassAssistantCallback_(self, a2, callback, *&selector);
+      if (v7)
       {
         goto LABEL_99;
       }
 
       return 0;
     case 2:
-      v117 = 0;
-      v118 = 0;
-      sub_23EBEB494(v9, @"BSAssistantCallback_ScanInfo", &v117, *&selector, v4, v5, v6, v7);
-      if (v11)
+      v111 = 0;
+      v112 = 0;
+      sub_23EBEB494(callback, @"BSAssistantCallback_ScanInfo", &v111);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v117)
+      if (!v111)
       {
         goto LABEL_151;
       }
 
-      sub_23EBEB494(v9, @"BSAssistantCallback_Boolean", &v118, *&selector, v4, v5, v6, v7);
-      if (v37)
+      sub_23EBEB494(callback, @"BSAssistantCallback_Boolean", &v112);
+      if (v50)
       {
-        updated = v37;
-        if (v37 != -6727)
+        updated = v50;
+        if (v50 != -6727)
         {
           goto LABEL_100;
         }
 
-        v118 = *MEMORY[0x277CBED10];
+        v112 = *MEMORY[0x277CBED10];
       }
 
       if (self->_callbackContext)
@@ -345,19 +343,19 @@ LABEL_4:
         goto LABEL_22;
       }
 
-      self->_callbackContext = v9;
-      if (CFBooleanGetValue(v118) && self->_uiDelegate && (objc_opt_respondsToSelector() & 1) != 0)
+      self->_callbackContext = callback;
+      if (CFBooleanGetValue(v112) && self->_uiDelegate && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v44 = objc_msgSend_objectForKey_(v117, v38, @"SSID_STR");
+        v54 = objc_msgSend_objectForKey_(v111, v51, @"SSID_STR", v52);
         if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
         {
-          sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "***Asking user if switching is OK\n", v40, v41, v42, v43, v105);
+          sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "***Asking user if switching is OK\n");
         }
 
         uiDelegate = self->_uiDelegate;
-        v46 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v39, v44, @"kAssistantCallbackAskUserParamKey_SwitchNetwork_SSID");
-        v11 = objc_msgSend_callbackAskUserAQuestion_paramDict_forController_(uiDelegate, v47, 3, v46, self);
-        if (v11)
+        v56 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v53, v54, @"kAssistantCallbackAskUserParamKey_SwitchNetwork_SSID");
+        v7 = objc_msgSend_callbackAskUserAQuestion_paramDict_forController_(uiDelegate, v57, 3, v56, self);
+        if (v7)
         {
           goto LABEL_99;
         }
@@ -365,7 +363,7 @@ LABEL_4:
 
       else
       {
-        objc_msgSend_userResponseToJoinNetwork_(self, v38, 0);
+        objc_msgSend_userResponseToJoinNetwork_(self, v51, 0, v52);
       }
 
       return 0;
@@ -375,173 +373,175 @@ LABEL_4:
         goto LABEL_22;
       }
 
-      self->_callbackContext = v9;
+      self->_callbackContext = callback;
       if (self->_uiDelegate && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v117 = 0;
-        v118 = 0;
-        v115 = 0;
-        v116 = 0;
-        v113 = 0;
-        v114 = 0;
         v111 = 0;
         v112 = 0;
+        v109 = 0;
         v110 = 0;
-        sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_PromptKey", &v118, v88, v89, v90, v91, v92);
-        if (v11)
+        v107 = 0;
+        v108 = 0;
+        v105 = 0;
+        v106 = 0;
+        v104 = 0;
+        sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_PromptKey", &v112);
+        if (v7)
         {
           goto LABEL_99;
         }
 
-        if (!v118)
+        if (!v112)
         {
           goto LABEL_151;
         }
 
-        sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_PromptParam1", &v117, *&selector, v4, v5, v6, v7);
-        if (v93 == -6727)
+        sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_PromptParam1", &v111);
+        if (v87 == -6727)
         {
-          v117 = 0;
+          v111 = 0;
         }
 
         else
         {
-          updated = v93;
-          if (v93)
+          updated = v87;
+          if (v87)
           {
             goto LABEL_100;
           }
 
-          if (!v117)
+          if (!v111)
           {
             goto LABEL_151;
           }
         }
 
-        sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_PromptParam2", &v116, *&selector, v4, v5, v6, v7);
-        if (v99 == -6727)
+        sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_PromptParam2", &v110);
+        if (v95 == -6727)
         {
-          v116 = 0;
+          v110 = 0;
         }
 
         else
         {
-          updated = v99;
-          if (v99)
+          updated = v95;
+          if (v95)
           {
             goto LABEL_100;
           }
 
-          if (!v116)
+          if (!v110)
           {
             goto LABEL_151;
           }
         }
 
-        sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_MessageKey", &v115, *&selector, v4, v5, v6, v7);
-        if (v11)
+        sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_MessageKey", &v109);
+        if (v7)
         {
           goto LABEL_99;
         }
 
-        if (v115)
+        if (v109)
         {
-          sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_MessageParam1", &v114, *&selector, v4, v5, v6, v7);
-          if (v100 == -6727)
+          sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_MessageParam1", &v108);
+          if (v96 == -6727)
           {
-            v114 = 0;
+            v108 = 0;
           }
 
           else
           {
-            updated = v100;
-            if (v100)
+            updated = v96;
+            if (v96)
             {
               goto LABEL_100;
             }
 
-            if (!v114)
+            if (!v108)
             {
               goto LABEL_151;
             }
           }
 
-          sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_MessageParam2", &v113, *&selector, v4, v5, v6, v7);
-          if (v101 == -6727)
+          sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_MessageParam2", &v107);
+          if (v97 == -6727)
           {
-            v113 = 0;
+            v107 = 0;
           }
 
           else
           {
-            updated = v101;
-            if (v101)
+            updated = v97;
+            if (v97)
             {
               goto LABEL_100;
             }
 
-            if (!v113)
+            if (!v107)
             {
               goto LABEL_151;
             }
           }
 
-          sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_OkKey", &v112, *&selector, v4, v5, v6, v7);
-          if (v102 == -6727)
+          sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_OkKey", &v106);
+          if (v98 == -6727)
           {
-            v112 = 0;
+            v106 = 0;
           }
 
           else
           {
-            updated = v102;
-            if (v102)
+            updated = v98;
+            if (v98)
             {
               goto LABEL_100;
             }
 
-            if (!v112)
+            if (!v106)
             {
               goto LABEL_151;
             }
           }
 
-          sub_23EBEB494(v9, @"kBSAssistantCallback_Warn_CancelKey", &v111, *&selector, v4, v5, v6, v7);
-          if (v103 == -6727)
+          sub_23EBEB494(callback, @"kBSAssistantCallback_Warn_CancelKey", &v105);
+          if (v99 == -6727)
           {
-            v111 = 0;
+            v100 = 0;
+            v105 = 0;
           }
 
           else
           {
-            updated = v103;
-            if (v103)
+            updated = v99;
+            if (v99)
             {
               goto LABEL_100;
             }
 
-            if (!v111)
+            v100 = v105;
+            if (!v105)
             {
               goto LABEL_151;
             }
           }
 
-          v11 = sub_23EB6F348(*MEMORY[0x277CBECE8], &v110, "{%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O}", *&selector, v4, v5, v6, v7, "kAssistantCallbackAskUserParamKey_Warning_PromptKey");
-          if (v11)
+          v7 = sub_23EB6F348(*MEMORY[0x277CBECE8], &v104, "{%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O%ks=%O}", "kAssistantCallbackAskUserParamKey_Warning_PromptKey", v112, "kAssistantCallbackAskUserParamKey_Warning_PromptParam1", v111, "kAssistantCallbackAskUserParamKey_Warning_PromptParam2", v110, "kAssistantCallbackAskUserParamKey_Warning_MessageKey", v109, "kAssistantCallbackAskUserParamKey_Warning_MessageParam1", v108, "kAssistantCallbackAskUserParamKey_Warning_MessageParam2", v107, "kAssistantCallbackAskUserParamKey_OKKey", v106, "kAssistantCallbackAskUserParamKey_CancelKey", v100);
+          if (v7)
           {
             goto LABEL_99;
           }
 
-          if (v110)
+          if (v104)
           {
             if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
             {
-              sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "***Warning user\n", v4, v5, v6, v7, v107);
+              sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "***Warning user\n");
             }
 
-            updated = objc_msgSend_callbackAskUserAQuestion_paramDict_forController_(self->_uiDelegate, v104, 4, v110, self);
-            v36 = v110;
-            if (v110)
+            updated = objc_msgSend_callbackAskUserAQuestion_paramDict_forController_(self->_uiDelegate, v101, 4, v104, self);
+            v49 = v104;
+            if (v104)
             {
               goto LABEL_41;
             }
@@ -553,60 +553,60 @@ LABEL_4:
         goto LABEL_151;
       }
 
-      objc_msgSend_userResponseToWarning_(self, a2, 0);
+      objc_msgSend_userResponseToWarning_(self, a2, 0, *&selector);
       return 0;
     case 4:
-      v117 = 0;
-      v118 = 0;
-      v115 = 0;
-      v116 = 0;
-      sub_23EBEB494(v9, @"kBSAssistantCallback_MessageKey", &v118, *&selector, v4, v5, v6, v7);
-      if (v11)
+      v111 = 0;
+      v112 = 0;
+      v109 = 0;
+      v110 = 0;
+      sub_23EBEB494(callback, @"kBSAssistantCallback_MessageKey", &v112);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v118)
+      if (!v112)
       {
         goto LABEL_151;
       }
 
-      sub_23EBEB494(v9, @"kBSAssistantCallback_OkKey", &v117, *&selector, v4, v5, v6, v7);
-      if (v11)
+      sub_23EBEB494(callback, @"kBSAssistantCallback_OkKey", &v111);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v117)
+      if (!v111)
       {
         goto LABEL_151;
       }
 
-      sub_23EBEB494(v9, @"kBSAssistantCallback_CancelKey", &v116, *&selector, v4, v5, v6, v7);
-      if (v11)
+      sub_23EBEB494(callback, @"kBSAssistantCallback_CancelKey", &v110);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v116)
+      if (!v110)
       {
         goto LABEL_151;
       }
 
-      v11 = sub_23EB6F348(*MEMORY[0x277CBECE8], &v115, "{%ks=%O%ks=%O%ks=%O}", *&selector, v4, v5, v6, v7, "kAssistantCallbackAskUserParamKey_MessageKey");
-      if (v11)
+      v7 = sub_23EB6F348(*MEMORY[0x277CBECE8], &v109, "{%ks=%O%ks=%O%ks=%O}", "kAssistantCallbackAskUserParamKey_MessageKey", v112, "kAssistantCallbackAskUserParamKey_OKKey", v111, "kAssistantCallbackAskUserParamKey_CancelKey", v110);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v115)
+      if (!v109)
       {
         goto LABEL_151;
       }
 
       if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
       {
-        sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "***Asking User whether to Skip PPPoE Creds failed\n", v4, v5, v6, v7, v106);
+        sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "***Asking User whether to Skip PPPoE Creds failed\n");
       }
 
       if (self->_callbackContext)
@@ -614,13 +614,13 @@ LABEL_4:
         goto LABEL_22;
       }
 
-      self->_callbackContext = v9;
-      updated = objc_msgSend_callbackAskUserAQuestion_paramDict_forController_(self->_uiDelegate, v35, 5, v115, self);
-      v36 = v115;
-      if (v115)
+      self->_callbackContext = callback;
+      updated = objc_msgSend_callbackAskUserAQuestion_paramDict_forController_(self->_uiDelegate, v48, 5, v109, self);
+      v49 = v109;
+      if (v109)
       {
 LABEL_41:
-        CFRelease(v36);
+        CFRelease(v49);
       }
 
 LABEL_42:
@@ -632,15 +632,15 @@ LABEL_42:
       return 0;
     case 5:
     case 6:
-      v118 = 0;
-      sub_23EBEB494(v9, @"BSAssistantCallback_AskUserDictionary", &v118, *&selector, v4, v5, v6, v7);
-      if (v11)
+      v112 = 0;
+      sub_23EBEB494(callback, @"BSAssistantCallback_AskUserDictionary", &v112);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      v13 = v118;
-      if (!v118)
+      v11 = v112;
+      if (!v112)
       {
         goto LABEL_151;
       }
@@ -654,50 +654,50 @@ LABEL_42:
             goto LABEL_22;
           }
 
-          self->_callbackContext = v9;
-          v14 = self->_uiDelegate;
-          v15 = objc_msgSend_allKeys(v118, v12, isEqualToString);
-          started = objc_msgSend_callbackAskUserToChooseFromStringList_context_forController_(v14, v16, v15, v8 == 6, self);
+          self->_callbackContext = callback;
+          v12 = self->_uiDelegate;
+          v13 = objc_msgSend_allKeys(v112, v8, v9, v10);
+          started = objc_msgSend_callbackAskUserToChooseFromStringList_context_forController_(v12, v14, v13, selector == 6, self);
           goto LABEL_110;
         }
 
-        v13 = v118;
+        v11 = v112;
       }
 
-      v94 = objc_msgSend_allKeys(v13, v12, isEqualToString);
-      if (objc_msgSend_count(v94, v95, v96))
+      v88 = objc_msgSend_allKeys(v11, v8, v9, v10);
+      if (objc_msgSend_count(v88, v89, v90, v91))
       {
-        v33 = objc_msgSend_objectAtIndex_(v94, v97, 0);
-        v34 = @"BSAssistantCallback_String";
+        v46 = objc_msgSend_objectAtIndex_(v88, v92, 0, v93);
+        v47 = @"BSAssistantCallback_String";
         goto LABEL_98;
       }
 
       return 0;
     case 7:
-      v115 = 0;
-      v116 = 0;
-      v118 = 0;
-      sub_23EBEB494(v9, @"BSAssistantCallback_String", &v118, *&selector, v4, v5, v6, v7);
-      v117 = 0;
-      sub_23EBEB494(v9, @"BSAssistantCallback_Number", &v117, v57, v58, v59, v60, v61);
-      sub_23EBEB494(v9, @"BSAssistantCallback_WiFiType", &v116, v62, v63, v64, v65, v66);
-      if (v11)
+      v109 = 0;
+      v110 = 0;
+      v112 = 0;
+      sub_23EBEB494(callback, @"BSAssistantCallback_String", &v112);
+      v111 = 0;
+      sub_23EBEB494(callback, @"BSAssistantCallback_Number", &v111);
+      sub_23EBEB494(callback, @"BSAssistantCallback_WiFiType", &v110);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v116)
+      if (!v110)
       {
         goto LABEL_119;
       }
 
-      sub_23EBEB494(v9, @"BSAssistantCallback_Boolean", &v115, *&selector, v4, v5, v6, v7);
-      if (v11)
+      sub_23EBEB494(callback, @"BSAssistantCallback_Boolean", &v109);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v115)
+      if (!v109)
       {
         goto LABEL_151;
       }
@@ -707,72 +707,72 @@ LABEL_42:
         goto LABEL_22;
       }
 
-      self->_callbackContext = v9;
-      v68 = v118;
-      v69 = objc_msgSend_integerValue(v116, v67, isEqualToString);
-      v72 = objc_msgSend_BOOLValue(v115, v70, v71);
-      v75 = objc_msgSend_integerValue(v117, v73, v74);
-      started = objc_msgSend_startScanForNetworks_wifiType_mergeResults_maxAge_(self, v76, v68, v69, v72, v75);
+      self->_callbackContext = callback;
+      v67 = v112;
+      v68 = objc_msgSend_integerValue(v110, v64, v65, v66);
+      v72 = objc_msgSend_BOOLValue(v109, v69, v70, v71);
+      v76 = objc_msgSend_integerValue(v111, v73, v74, v75);
+      started = objc_msgSend_startScanForNetworks_wifiType_mergeResults_maxAge_(self, v77, v67, v68, v72, v76);
       goto LABEL_110;
     case 8:
-      v27 = objc_msgSend_sharedInstance(WiFiUtils, a2, isEqualToString);
-      if (!objc_msgSend_airPortIsOn(v27, v28, v29))
+      v31 = objc_msgSend_sharedInstance(WiFiUtils, a2, callback, *&selector);
+      if (!objc_msgSend_airPortIsOn(v31, v32, v33, v34))
       {
         goto LABEL_78;
       }
 
-      if (!objc_msgSend_isCurrentlyAssociatedToAnInfrastructureNetwork_(v27, v30, 0))
+      if (!objc_msgSend_isCurrentlyAssociatedToAnInfrastructureNetwork_(v31, v35, 0, v36))
       {
         goto LABEL_78;
       }
 
-      CurrentAssociationInfo = objc_msgSend_getCurrentAssociationInfo(v27, v31, isEqualToString);
+      CurrentAssociationInfo = objc_msgSend_getCurrentAssociationInfo(v31, v37, v38, v39);
       if (!CurrentAssociationInfo)
       {
         goto LABEL_78;
       }
 
-      v33 = CurrentAssociationInfo;
-      v34 = @"BSAssistantCallback_AssociationInfo";
+      v46 = CurrentAssociationInfo;
+      v47 = @"BSAssistantCallback_AssociationInfo";
 LABEL_98:
-      v11 = sub_23EBEB5E8(v9, v34, v33, *&selector, v4, v5, v6, v7);
-      if (v11)
+      v7 = sub_23EBEB5E8(callback, v47, v46, v41, v42, v43, v44, v45);
+      if (v7)
       {
         goto LABEL_99;
       }
 
       goto LABEL_118;
     case 9:
-      v82 = objc_msgSend_sharedInstance(WiFiUtils, a2, isEqualToString);
-      if (!objc_msgSend_airPortIsOn(v82, v83, v84))
+      v78 = objc_msgSend_sharedInstance(WiFiUtils, a2, callback, *&selector);
+      if (!objc_msgSend_airPortIsOn(v78, v79, v80, v81))
       {
         goto LABEL_82;
       }
 
-      v25 = objc_msgSend_disassociateSync(v82, v85, isEqualToString);
+      v29 = objc_msgSend_disassociateSync(v78, v82, v83, v84);
       goto LABEL_81;
     case 10:
-      v21 = objc_msgSend_sharedInstance(WiFiUtils, a2, isEqualToString);
-      if (objc_msgSend_airPortIsOn(v21, v22, v23))
+      v22 = objc_msgSend_sharedInstance(WiFiUtils, a2, callback, *&selector);
+      if (objc_msgSend_airPortIsOn(v22, v23, v24, v25))
       {
-        v25 = objc_msgSend_clearScanCacheSync(v21, v24, isEqualToString);
+        v29 = objc_msgSend_clearScanCacheSync(v22, v26, v27, v28);
 LABEL_81:
-        v86 = v25;
+        v85 = v29;
       }
 
       else
       {
 LABEL_82:
-        v86 = 0;
+        v85 = 0;
       }
 
-      v87 = v9;
+      callbackCopy2 = callback;
       goto LABEL_84;
     case 11:
-      v117 = 0;
-      v118 = 0;
-      sub_23EBEB494(v9, @"BSAssistantCallback_String", &v118, *&selector, v4, v5, v6, v7);
-      sub_23EBEB494(v9, @"BSAssistantCallback_StringList", &v117, v77, v78, v79, v80, v81);
+      v111 = 0;
+      v112 = 0;
+      sub_23EBEB494(callback, @"BSAssistantCallback_String", &v112);
+      sub_23EBEB494(callback, @"BSAssistantCallback_StringList", &v111);
 LABEL_78:
       updated = -6727;
       goto LABEL_100;
@@ -783,28 +783,28 @@ LABEL_78:
         goto LABEL_100;
       }
 
-      v117 = 0;
-      v118 = 0;
-      sub_23EBEB494(v9, @"BSAssistantCallback_KeychainServiceType", &v118, *&selector, v4, v5, v6, v7);
-      if (v11)
+      v111 = 0;
+      v112 = 0;
+      sub_23EBEB494(callback, @"BSAssistantCallback_KeychainServiceType", &v112);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      sub_23EBEB494(v9, @"BSAssistantCallback_KeychainDeviceName", &v117, *&selector, v4, v5, v6, v7);
-      if (v11)
+      sub_23EBEB494(callback, @"BSAssistantCallback_KeychainDeviceName", &v111);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (objc_msgSend_isEqualToString_(v118, v18, @"keychainBaseStationType"))
+      if (objc_msgSend_isEqualToString_(v112, v16, @"keychainBaseStationType", v17))
       {
         isEqualToString = 0;
       }
 
       else
       {
-        isEqualToString = objc_msgSend_isEqualToString_(v118, v19, @"keychainNetworkType");
+        isEqualToString = objc_msgSend_isEqualToString_(v112, v18, @"keychainNetworkType", v19);
       }
 
       if (self->_callbackContext)
@@ -814,8 +814,8 @@ LABEL_22:
         goto LABEL_100;
       }
 
-      self->_callbackContext = v9;
-      started = objc_msgSend_callbackAskUserForPassword_param_forController_(self->_uiDelegate, v19, isEqualToString, v117, self);
+      self->_callbackContext = callback;
+      started = objc_msgSend_callbackAskUserForPassword_param_forController_(self->_uiDelegate, v18, isEqualToString, v111, self);
 LABEL_110:
       updated = started;
       if (!started)
@@ -830,52 +830,52 @@ LABEL_110:
       block[1] = 3221225472;
       block[2] = sub_23EB53AAC;
       block[3] = &unk_278C66C70;
-      block[4] = v9;
-      v109 = 13;
+      block[4] = callback;
+      v103 = 13;
       dispatch_async(global_queue, block);
       return 0;
     case 14:
-      v117 = 0;
-      v118 = 0;
-      v116 = 0;
-      sub_23EBEB494(v9, @"BSAssistantCallback_KeychainAccount", &v118, *&selector, v4, v5, v6, v7);
-      if (v11)
+      v111 = 0;
+      v112 = 0;
+      v110 = 0;
+      sub_23EBEB494(callback, @"BSAssistantCallback_KeychainAccount", &v112);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v118)
+      if (!v112)
       {
         goto LABEL_151;
       }
 
-      sub_23EBEB494(v9, @"BSAssistantCallback_KeychainServiceType", &v117, *&selector, v4, v5, v6, v7);
-      if (v11)
+      sub_23EBEB494(callback, @"BSAssistantCallback_KeychainServiceType", &v111);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v117)
+      if (!v111)
       {
         goto LABEL_151;
       }
 
-      sub_23EBEB494(v9, @"BSAssistantCallback_String", &v116, *&selector, v4, v5, v6, v7);
-      if (v11)
+      sub_23EBEB494(callback, @"BSAssistantCallback_String", &v110);
+      if (v7)
       {
         goto LABEL_99;
       }
 
-      if (!v116)
+      if (!v110)
       {
 LABEL_151:
         updated = -6728;
         goto LABEL_100;
       }
 
-      if (!objc_msgSend_isEqualToString_(v117, v48, @"keychainBaseStationType"))
+      if (!objc_msgSend_isEqualToString_(v111, v58, @"keychainBaseStationType", v59))
       {
-        if (objc_msgSend_isEqualToString_(v117, v49, @"keychainNetworkType"))
+        if (objc_msgSend_isEqualToString_(v111, v60, @"keychainNetworkType", v62))
         {
           goto LABEL_118;
         }
@@ -885,35 +885,35 @@ LABEL_119:
 LABEL_100:
         if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
         {
-          sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "failing inSelector: %d err: %m\n", v4, v5, v6, v7, v8);
+          sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) assistantCallback:withSelector:]", 800, "failing inSelector: %d err: %m\n", selector);
         }
 
-        sub_23EBEB6CC(v9, updated, isEqualToString, *&selector, v4, v5, v6, v7);
+        sub_23EBEB6CC(callback, updated);
         self->_callbackContext = 0;
         return 0;
       }
 
-      v115 = 0;
-      v118 = sub_23EB6D320(v118, 0, v50);
-      sub_23EBEB494(v9, @"BSAssistantCallback_KeychainDeviceName", &v115, v51, v52, v53, v54, v55);
-      if (v11)
+      v109 = 0;
+      v112 = sub_23EB6D320(v112, 0, v61, v62);
+      sub_23EBEB494(callback, @"BSAssistantCallback_KeychainDeviceName", &v109);
+      if (v7)
       {
 LABEL_99:
-        updated = v11;
+        updated = v7;
         goto LABEL_100;
       }
 
-      updated = objc_msgSend_updateKeychainBasePassword_forMACAddress_withBaseName_(AssistantCallbackController, v56, v116, v118, v115);
+      updated = objc_msgSend_updateKeychainBasePassword_forMACAddress_withBaseName_(AssistantCallbackController, v63, v110, v112, v109);
       if (updated)
       {
         goto LABEL_100;
       }
 
 LABEL_118:
-      v87 = v9;
-      v86 = 0;
+      callbackCopy2 = callback;
+      v85 = 0;
 LABEL_84:
-      sub_23EBEB6CC(v87, v86, isEqualToString, *&selector, v4, v5, v6, v7);
+      sub_23EBEB6CC(callbackCopy2, v85);
       return 0;
     default:
       goto LABEL_119;
@@ -922,10 +922,10 @@ LABEL_84:
 
 - (void)userResponseToJoinNetwork:(int)network
 {
-  v22 = 0;
-  v23 = 0;
-  v21 = 0;
-  v20 = 0;
+  v13 = 0;
+  v14 = 0;
+  v12 = 0;
+  v11 = 0;
   if (!self->_callbackContext)
   {
     goto LABEL_17;
@@ -934,67 +934,67 @@ LABEL_84:
   if (network)
   {
 LABEL_18:
-    sub_23EBEB6CC(&self->_callbackContext->var0, network, *&network, NetworkPassword, v4, v5, v6, v7);
+    sub_23EBEB6CC(&self->_callbackContext->var0, network);
     self->_callbackContext = 0;
     return;
   }
 
-  v22 = 0;
+  v13 = 0;
   if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) userResponseToJoinNetwork:]", 800, "***Done asking user if switching is OK\n", v4, v5, v6, v7, v19);
+    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) userResponseToJoinNetwork:]", 800, "***Done asking user if switching is OK\n");
   }
 
-  sub_23EBEB494(self->_callbackContext, @"BSAssistantCallback_ScanInfo", &v23, NetworkPassword, v4, v5, v6, v7);
+  sub_23EBEB494(self->_callbackContext, @"BSAssistantCallback_ScanInfo", &v14);
   if (started)
   {
 LABEL_8:
-    *&network = started;
+    network = started;
     goto LABEL_18;
   }
 
-  if (!v23)
+  if (!v14)
   {
 LABEL_17:
-    *&network = 4294960591;
+    network = -6705;
     goto LABEL_18;
   }
 
-  sub_23EBEB52C(self->_callbackContext, @"BSAssistantCallback_JoinRememberChoice", &v21, NetworkPassword, v4, v5, v6, v7);
+  sub_23EBEB52C(self->_callbackContext, @"BSAssistantCallback_JoinRememberChoice", &v12);
   if (started)
   {
     goto LABEL_8;
   }
 
-  if (!objc_msgSend_networkIsSecure_secMode_isEnterprise_(WiFiUtils, v10, v23, 0, &v20) || (v20 & 1) != 0)
+  if (!objc_msgSend_networkIsSecure_secMode_isEnterprise_(WiFiUtils, v5, v14, 0, &v11) || (v11 & 1) != 0)
   {
     NetworkPassword = 0;
 LABEL_14:
-    started = objc_msgSend_startJoinNetwork_password_rememberChoice_(self, v11, v23, NetworkPassword, v21);
+    started = objc_msgSend_startJoinNetwork_password_rememberChoice_(self, v6, v14, NetworkPassword, v12);
     goto LABEL_15;
   }
 
-  sub_23EBEB494(self->_callbackContext, @"BSAssistantCallback_ScanInfoPassword", &v22, v12, v13, v14, v15, v16);
-  if (v17 == -6727)
+  sub_23EBEB494(self->_callbackContext, @"BSAssistantCallback_ScanInfoPassword", &v13);
+  if (v8 == -6727)
   {
-    NetworkPassword = objc_msgSend_getNetworkPassword_(WiFiUtils, v18, v23);
-    v22 = NetworkPassword;
+    NetworkPassword = objc_msgSend_getNetworkPassword_(WiFiUtils, v9, v14, v10);
+    v13 = NetworkPassword;
     if (!NetworkPassword)
     {
-      *&network = 4294967280;
+      network = -16;
       goto LABEL_18;
     }
 
     goto LABEL_14;
   }
 
-  *&network = v17;
-  if (v17)
+  network = v8;
+  if (v8)
   {
     goto LABEL_18;
   }
 
-  started = objc_msgSend_startJoinNetwork_password_rememberChoice_(self, v18, v23, v22, v21);
+  started = objc_msgSend_startJoinNetwork_password_rememberChoice_(self, v9, v14, v13, v12);
 LABEL_15:
   if (started)
   {
@@ -1011,7 +1011,7 @@ LABEL_15:
     {
       if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
       {
-        sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) userResponseToWarning:]", 800, "***Done giving the user a warning\n", v4, v5, v6, v7, v10);
+        sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) userResponseToWarning:]", 800, "***Done giving the user a warning\n");
       }
 
       warningCopy = 0;
@@ -1023,7 +1023,7 @@ LABEL_15:
     warningCopy = -6705;
   }
 
-  sub_23EBEB6CC(&self->_callbackContext->var0, warningCopy, *&warning, v3, v4, v5, v6, v7);
+  sub_23EBEB6CC(&self->_callbackContext->var0, warningCopy);
   self->_callbackContext = 0;
 }
 
@@ -1036,7 +1036,7 @@ LABEL_15:
     {
       if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
       {
-        sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) userResponseToPPPoECredsFailed:]", 800, "***Done asking user to skip bad PPPoE Credentials\n", v4, v5, v6, v7, v10);
+        sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) userResponseToPPPoECredsFailed:]", 800, "***Done asking user to skip bad PPPoE Credentials\n");
       }
 
       failedCopy = 0;
@@ -1048,7 +1048,7 @@ LABEL_15:
     failedCopy = -6705;
   }
 
-  sub_23EBEB6CC(&self->_callbackContext->var0, failedCopy, *&failed, v3, v4, v5, v6, v7);
+  sub_23EBEB6CC(&self->_callbackContext->var0, failedCopy);
   self->_callbackContext = 0;
 }
 
@@ -1056,33 +1056,33 @@ LABEL_15:
 {
   if (network)
   {
-    v9 = *&choice;
-    v12 = objc_msgSend_sharedInstance(WiFiUtils, a2, network);
-    v14 = objc_msgSend_joinNetworkWithScanInfoAsync_password_rememberChoice_(v12, v13, network, password, v9);
+    v6 = *&choice;
+    v9 = objc_msgSend_sharedInstance(WiFiUtils, a2, network, password);
+    v11 = objc_msgSend_joinNetworkWithScanInfoAsync_password_rememberChoice_(v9, v10, network, password, v6);
   }
 
   else
   {
-    v14 = 4294960591;
+    v11 = 4294960591;
   }
 
   if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) startJoinNetwork:password:rememberChoice:]", 800, "err: %#m\n", *&choice, v5, v6, v7, v14);
+    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) startJoinNetwork:password:rememberChoice:]", 800, "err: %#m\n", v11);
   }
 
-  v15 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, network);
-  objc_msgSend_addObserver_selector_name_object_(v15, v16, self, sel_joinNetworkDone_, @"com.apple.WiFiUtils.Join.Complete", 0);
-  return v14;
+  v12 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, network, password);
+  objc_msgSend_addObserver_selector_name_object_(v12, v13, self, sel_joinNetworkDone_, @"com.apple.WiFiUtils.Join.Complete", 0);
+  return v11;
 }
 
 - (void)joinNetworkDone:(id)done
 {
-  v5 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, done);
-  objc_msgSend_removeObserver_name_object_(v5, v6, self, @"com.apple.WiFiUtils.Join.Complete", 0);
-  if (self->_callbackContext && (v14 = objc_msgSend_userInfo(done, v7, v8), (v16 = objc_msgSend_objectForKey_(v14, v15, @"WiFiUtils_OSStatus")) != 0))
+  v6 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, done, v3);
+  objc_msgSend_removeObserver_name_object_(v6, v7, self, @"com.apple.WiFiUtils.Join.Complete", 0);
+  if (self->_callbackContext && (v11 = objc_msgSend_userInfo(done, v8, v9, v10), (v14 = objc_msgSend_objectForKey_(v11, v12, @"WiFiUtils_OSStatus", v13)) != 0))
   {
-    v18 = objc_msgSend_integerValue(v16, v17, v8);
+    v18 = objc_msgSend_integerValue(v14, v15, v16, v17);
   }
 
   else
@@ -1092,10 +1092,10 @@ LABEL_15:
 
   if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) joinNetworkDone:]", 800, "err: %#m\n", v10, v11, v12, v13, v18);
+    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) joinNetworkDone:]", 800, "err: %#m\n", v18);
   }
 
-  sub_23EBEB6CC(&self->_callbackContext->var0, v18, v8, v9, v10, v11, v12, v13);
+  sub_23EBEB6CC(&self->_callbackContext->var0, v18);
   self->_callbackContext = 0;
 }
 
@@ -1103,66 +1103,66 @@ LABEL_15:
 {
   resultsCopy = results;
   v8 = *&type;
-  v11 = objc_msgSend_sharedInstance(WiFiUtils, a2, networks);
+  v11 = objc_msgSend_sharedInstance(WiFiUtils, a2, networks, *&type);
   if (v11)
   {
-    v18 = v11;
-    v19 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v12, v13);
-    objc_msgSend_addObserver_selector_name_object_(v19, v20, self, sel_scanForNetworksDone_, @"com.apple.WiFiUtils.Scan.Complete", 0);
-    v24 = objc_msgSend_asyncWiFiScan_wifiType_merge_maxAge_(v18, v21, networks, v8, resultsCopy, age);
-    if (v24)
+    v15 = v11;
+    v16 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v12, v13, v14);
+    objc_msgSend_addObserver_selector_name_object_(v16, v17, self, sel_scanForNetworksDone_, @"com.apple.WiFiUtils.Scan.Complete", 0);
+    v22 = objc_msgSend_asyncWiFiScan_wifiType_merge_maxAge_(v15, v18, networks, v8, resultsCopy, age);
+    if (v22)
     {
-      v25 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v22, v23);
-      objc_msgSend_removeObserver_name_object_(v25, v26, self, @"com.apple.WiFiUtils.Scan.Complete", 0);
+      v23 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v19, v20, v21);
+      objc_msgSend_removeObserver_name_object_(v23, v24, self, @"com.apple.WiFiUtils.Scan.Complete", 0);
     }
   }
 
   else
   {
-    v24 = 4294960569;
+    v22 = 4294960569;
   }
 
   if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) startScanForNetworks:wifiType:mergeResults:maxAge:]", 800, "err: %#m\n", v14, v15, v16, v17, v24);
+    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) startScanForNetworks:wifiType:mergeResults:maxAge:]", 800, "err: %#m\n", v22);
   }
 
-  return v24;
+  return v22;
 }
 
 - (void)scanForNetworksDone:(id)done
 {
-  v5 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, done);
-  objc_msgSend_removeObserver_name_object_(v5, v6, self, @"com.apple.WiFiUtils.Scan.Complete", 0);
-  if (self->_callbackContext && (v14 = objc_msgSend_userInfo(done, v7, v8)) != 0 && (v16 = v14, (v17 = objc_msgSend_objectForKey_(v14, v15, @"WiFiUtils_OSStatus")) != 0))
+  v6 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, done, v3);
+  objc_msgSend_removeObserver_name_object_(v6, v7, self, @"com.apple.WiFiUtils.Scan.Complete", 0);
+  if (self->_callbackContext && (v11 = objc_msgSend_userInfo(done, v8, v9, v10)) != 0 && (v14 = v11, (v15 = objc_msgSend_objectForKey_(v11, v12, @"WiFiUtils_OSStatus", v13)) != 0))
   {
-    v20 = objc_msgSend_integerValue(v17, v18, v8);
-    if (!v20)
+    v21 = objc_msgSend_integerValue(v15, v16, v17, v18);
+    if (!v21)
     {
-      v21 = objc_msgSend_objectForKey_(v16, v19, @"WiFiUtils_ScanInfos");
-      if (objc_msgSend_count(v21, v22, v23))
+      v22 = objc_msgSend_objectForKey_(v14, v19, @"WiFiUtils_ScanInfos", v20);
+      if (objc_msgSend_count(v22, v23, v24, v25))
       {
-        v20 = sub_23EBEB5E8(self->_callbackContext, @"BSAssistantCallback_ScanInfoRecords", v21, v9, v10, v11, v12, v13);
+        v21 = sub_23EBEB5E8(self->_callbackContext, @"BSAssistantCallback_ScanInfoRecords", v22, v26, v27, v28, v29, v30);
       }
 
       else
       {
-        v20 = 4294960569;
+        v21 = 4294960569;
       }
     }
   }
 
   else
   {
-    v20 = 4294960591;
+    v21 = 4294960591;
   }
 
   if (dword_27E380EF8 <= 800 && (dword_27E380EF8 != -1 || sub_23EB74AC8(&dword_27E380EF8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) scanForNetworksDone:]", 800, "err: %#m\n", v10, v11, v12, v13, v20);
+    sub_23EB75374(&dword_27E380EF8, "[AssistantCallbackController(Private) scanForNetworksDone:]", 800, "err: %#m\n", v21);
   }
 
-  sub_23EBEB6CC(&self->_callbackContext->var0, v20, v8, v9, v10, v11, v12, v13);
+  sub_23EBEB6CC(&self->_callbackContext->var0, v21);
   self->_callbackContext = 0;
 }
 

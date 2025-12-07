@@ -87,7 +87,7 @@
     objc_exception_throw(v13);
   }
 
-  return sub_10028F05C(getComponentType);
+  return sub_10028F05C(getComponentType, v4);
 }
 
 - (int)arrayIndexScaleWithIOSClass:(id)class
@@ -351,7 +351,7 @@
 - (void)parkWithBoolean:(BOOL)boolean withLong:(int64_t)long
 {
   booleanCopy = boolean;
-  v6 = JavaLangThread_currentThread();
+  v6 = JavaLangThread_currentThread(self, a2);
   if (booleanCopy)
   {
     if (v6)

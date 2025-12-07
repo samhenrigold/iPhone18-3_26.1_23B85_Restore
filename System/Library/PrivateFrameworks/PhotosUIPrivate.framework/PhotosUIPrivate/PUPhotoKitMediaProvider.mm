@@ -1189,7 +1189,7 @@ void __75__PUPhotoKitMediaProvider_requestPlayerItemForVideo_options_resultHandl
   }
 }
 
-uint64_t __75__PUPhotoKitMediaProvider_requestPlayerItemForVideo_options_resultHandler___block_invoke_215(void *a1)
+void *__75__PUPhotoKitMediaProvider_requestPlayerItemForVideo_options_resultHandler___block_invoke_215(void *a1)
 {
   result = [MEMORY[0x1E69C3858] configureLoadingStatusManager:a1[4] andVideoProgressHandler:a1[6] withVideoSensitivityProcessingProgress:a1[5] imageManagerRequestProgress:*(*(a1[8] + 8) + 40) loadOperationTrackingID:0 stop:0 info:*(*(a1[7] + 8) + 24) error:0];
   if (*(*(a1[7] + 8) + 24) >= 1.0)

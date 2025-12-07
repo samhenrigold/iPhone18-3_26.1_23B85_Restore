@@ -3,6 +3,7 @@
 - (_INPBMediaDestination)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)mediaDestinationTypeAsString:(int)string;
 - (int)StringAsMediaDestinationType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -144,19 +145,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBMediaDestination *)self hasMediaDestinationType])
   {
-    mediaDestinationType = self->_mediaDestinationType;
     PBDataWriterWriteInt32Field();
   }
 
   playlistName = [(_INPBMediaDestination *)self playlistName];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (playlistName)
   {
     playlistName2 = [(_INPBMediaDestination *)self playlistName];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -181,6 +181,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)mediaDestinationTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72868C8[string];
   }
 
   return v4;

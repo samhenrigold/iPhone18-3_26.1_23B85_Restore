@@ -126,7 +126,7 @@
   swift_unknownObjectRetain();
   changeCopy = change;
   selfCopy = self;
-  sub_100464394(player, change);
+  sub_100464394(player, change, v8);
   swift_unknownObjectRelease();
 }
 
@@ -134,7 +134,8 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100464680(player, chapter, change, position);
+  v11.n128_f64[0] = change;
+  sub_100464680(player, chapter, v11, position);
   swift_unknownObjectRelease();
 }
 
@@ -143,7 +144,7 @@
   swift_unknownObjectRetain();
   infoCopy = info;
   selfCopy = self;
-  sub_100464828(player, chapter, infoCopy);
+  sub_100464828(player, chapter, infoCopy, v10);
   swift_unknownObjectRelease();
 }
 
@@ -160,7 +161,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100465B70(player, scrubbing);
+  sub_100465B70(player, scrubbing, v7);
   swift_unknownObjectRelease();
 }
 
@@ -168,7 +169,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1004670C0(player, to);
+  sub_1004670C0(player, to, v8);
   swift_unknownObjectRelease();
 }
 
@@ -176,7 +177,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100465F6C(player);
+  sub_100465F6C(player, stalling, resources, v9);
   swift_unknownObjectRelease();
 }
 
@@ -219,7 +220,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_100467740();
+  sub_100467740(delta);
 }
 
 - (void)skipControllerDidEndSkipping:(id)skipping actionSource:(unint64_t)source

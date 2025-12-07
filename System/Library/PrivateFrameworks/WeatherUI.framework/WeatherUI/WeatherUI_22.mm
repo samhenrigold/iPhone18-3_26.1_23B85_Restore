@@ -1,8 +1,8 @@
 uint64_t FeelsLikeStringBuilder.__deallocating_deinit()
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
 
-  return MEMORY[0x1EEE6BDC0](v0, 56, 7);
+  return MEMORY[0x1EEE6BDC0](v0);
 }
 
 uint64_t OUTLINED_FUNCTION_49_2()
@@ -11,7 +11,7 @@ uint64_t OUTLINED_FUNCTION_49_2()
   return sub_1BCE1D760();
 }
 
-uint64_t OUTLINED_FUNCTION_76_1()
+uint64_t OUTLINED_FUNCTION_76_1(uint64_t a1)
 {
 
   return sub_1BCE1D4B0();
@@ -266,7 +266,7 @@ void sub_1BCB1349C(uint64_t a1@<X8>)
 
 __n128 sub_1BCB13C68()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -1778,7 +1778,7 @@ __n128 sub_1BCB13C68()
 
 double sub_1BCB15C2C()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -3520,7 +3520,7 @@ void sub_1BCB17E30(uint64_t a1@<X8>)
 
 __n128 sub_1BCB185AC()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3EBD0;
   *(v0 + 80) = xmmword_1BCE41330;
@@ -4589,7 +4589,7 @@ __n128 sub_1BCB1963C@<Q0>(uint64_t a1@<X8>)
 
 __n128 sub_1BCB19D38()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -6096,11 +6096,11 @@ __n128 sub_1BCB19D38()
   return result;
 }
 
-uint64_t sub_1BCB1BC88()
+uint64_t sub_1BCB1BC88(uint64_t a1, uint64_t a2)
 {
   if (sub_1BCE19010())
   {
-    type metadata accessor for StartOfDayCalculator.CacheKey();
+    type metadata accessor for StartOfDayCalculator.CacheKey(0);
 
     JUMPOUT(0x1BFB2BB80);
   }
@@ -6108,16 +6108,16 @@ uint64_t sub_1BCB1BC88()
   return 0;
 }
 
-uint64_t sub_1BCB1BCE8()
+uint64_t sub_1BCB1BCE8(uint64_t a1)
 {
   sub_1BCE19060();
   OUTLINED_FUNCTION_0_32();
-  sub_1BCB1C5D8(v0, v1);
+  sub_1BCB1C5D8(v1, v2, MEMORY[0x1E6969540]);
   sub_1BCE1D190();
-  type metadata accessor for StartOfDayCalculator.CacheKey();
+  type metadata accessor for StartOfDayCalculator.CacheKey(0);
   sub_1BCE19470();
   OUTLINED_FUNCTION_1_28();
-  sub_1BCB1C5D8(v2, v3);
+  sub_1BCB1C5D8(v3, v4, MEMORY[0x1E6969BD0]);
   return sub_1BCE1D190();
 }
 
@@ -6126,24 +6126,24 @@ uint64_t sub_1BCB1BDA0()
   sub_1BCE1E100();
   sub_1BCE19060();
   OUTLINED_FUNCTION_0_32();
-  sub_1BCB1C5D8(v0, v1);
+  sub_1BCB1C5D8(v0, v1, MEMORY[0x1E6969540]);
   sub_1BCE1D190();
-  type metadata accessor for StartOfDayCalculator.CacheKey();
+  type metadata accessor for StartOfDayCalculator.CacheKey(0);
   sub_1BCE19470();
   OUTLINED_FUNCTION_1_28();
-  sub_1BCB1C5D8(v2, v3);
+  sub_1BCB1C5D8(v2, v3, MEMORY[0x1E6969BD0]);
   sub_1BCE1D190();
   return sub_1BCE1E150();
 }
 
-uint64_t sub_1BCB1BE78()
+uint64_t sub_1BCB1BE78(uint64_t a1)
 {
   sub_1BCE1E100();
   sub_1BCE19060();
-  sub_1BCB1C5D8(&qword_1EDA1EBC8, MEMORY[0x1E6969530]);
+  sub_1BCB1C5D8(&qword_1EDA1EBC8, MEMORY[0x1E6969530], MEMORY[0x1E6969540]);
   sub_1BCE1D190();
   sub_1BCE19470();
-  sub_1BCB1C5D8(&qword_1EDA1BEF8, MEMORY[0x1E6969BC0]);
+  sub_1BCB1C5D8(&qword_1EDA1BEF8, MEMORY[0x1E6969BC0], MEMORY[0x1E6969BD0]);
   sub_1BCE1D190();
   return sub_1BCE1E150();
 }
@@ -6156,13 +6156,13 @@ uint64_t StartOfDayCalculator.startOfDay(for:timeZone:)@<X0>(uint64_t a1@<X0>, u
   v29 = *(v31 - 8);
   MEMORY[0x1EEE9AC00](v31);
   v5 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868, &unk_1BCE3E4F0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   OUTLINED_FUNCTION_3_0();
   v28 = v7;
   MEMORY[0x1EEE9AC00](v8);
   v10 = &v26 - v9;
-  v11 = type metadata accessor for StartOfDayCalculator.CacheKey();
+  v11 = type metadata accessor for StartOfDayCalculator.CacheKey(0);
   v12 = v11 - 8;
   MEMORY[0x1EEE9AC00](v11);
   OUTLINED_FUNCTION_3_0();
@@ -6201,7 +6201,7 @@ uint64_t StartOfDayCalculator.startOfDay(for:timeZone:)@<X0>(uint64_t a1@<X0>, u
   }
 }
 
-uint64_t type metadata accessor for StartOfDayCalculator.CacheKey()
+uint64_t type metadata accessor for StartOfDayCalculator.CacheKey(uint64_t a1)
 {
   result = qword_1EDA1A0A0;
   if (!qword_1EDA1A0A0)
@@ -6214,33 +6214,33 @@ uint64_t type metadata accessor for StartOfDayCalculator.CacheKey()
 
 uint64_t sub_1BCB1C2CC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for StartOfDayCalculator.CacheKey();
+  v4 = type metadata accessor for StartOfDayCalculator.CacheKey(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1BCB1C330(uint64_t a1)
 {
-  v2 = type metadata accessor for StartOfDayCalculator.CacheKey();
+  v2 = type metadata accessor for StartOfDayCalculator.CacheKey(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void *__swift_initWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_initWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithTake_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithTake_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -6309,13 +6309,13 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_1BCB1C50C()
+uint64_t sub_1BCB1C50C(uint64_t a1)
 {
   result = sub_1BCE19060();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = sub_1BCE19470();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -6325,7 +6325,7 @@ uint64_t sub_1BCB1C50C()
   return result;
 }
 
-uint64_t sub_1BCB1C5D8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1BCB1C5D8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6568,7 +6568,7 @@ void sub_1BCB1C620(uint64_t a1@<X8>)
 
 __n128 sub_1BCB1CDC0()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3E120;
   *(v0 + 48) = xmmword_1BCE3E8F0;
@@ -7084,7 +7084,7 @@ uint64_t MicaResourceModel.condition.getter@<X0>(uint64_t a1@<X8>)
   return v4(a1, v1, v3);
 }
 
-uint64_t type metadata accessor for MicaResourceModel()
+uint64_t type metadata accessor for MicaResourceModel(uint64_t a1)
 {
   result = qword_1EDA1D790;
   if (!qword_1EDA1D790)
@@ -7099,7 +7099,7 @@ int *MicaResourceModel.init(condition:isDay:windowBounds:displayScale:)@<X0>(uin
 {
   v16 = sub_1BCE199D0();
   (*(*(v16 - 8) + 32))(a3, a1, v16);
-  result = type metadata accessor for MicaResourceModel();
+  result = type metadata accessor for MicaResourceModel(0);
   *(a3 + result[5]) = a2;
   v18 = (a3 + result[6]);
   *v18 = a4;
@@ -7117,7 +7117,7 @@ BOOL static MicaResourceModel.== infix(_:_:)(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = type metadata accessor for MicaResourceModel();
+  v4 = type metadata accessor for MicaResourceModel(0);
   if (*(a1 + *(v4 + 20)) != *(a2 + *(v4 + 20)))
   {
     return 0;
@@ -7151,7 +7151,7 @@ id MicaLoader.loadMicaLayer(at:)()
 
 uint64_t MicaLoader.loadMicaURL(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD09490);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD09490, &qword_1BCE4FE90);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   sub_1BCB1DCCC(v2, a1);
@@ -7193,7 +7193,7 @@ uint64_t sub_1BCB1DCCC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1BCB1DD44(uint64_t a1)
 {
-  v2 = *(a1 + *(type metadata accessor for MicaResourceModel() + 20));
+  v2 = *(a1 + *(type metadata accessor for MicaResourceModel(0) + 20));
   sub_1BCB1E2D4(a1, v2);
   v3 = sub_1BCB1E658(a1, v2);
   v5 = v4;
@@ -7283,7 +7283,7 @@ LABEL_12:
 
 uint64_t sub_1BCB1E1D0(uint64_t a1)
 {
-  v2 = *(a1 + *(type metadata accessor for MicaResourceModel() + 20));
+  v2 = *(a1 + *(type metadata accessor for MicaResourceModel(0) + 20));
   v3 = sub_1BCB1E2D4(a1, v2);
   v4 = sub_1BCB1E658(a1, v2);
   MEMORY[0x1BFB2FB00](v4);
@@ -7294,7 +7294,7 @@ uint64_t sub_1BCB1E1D0(uint64_t a1)
 
 uint64_t sub_1BCB1E26C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD09490);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD09490, &qword_1BCE4FE90);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7420,7 +7420,7 @@ uint64_t sub_1BCB1E658(uint64_t a1, char a2)
 
 uint64_t sub_1BCB1E984(uint64_t a1)
 {
-  result = type metadata accessor for MicaResourceModel();
+  result = type metadata accessor for MicaResourceModel(0);
   v3 = *(a1 + *(result + 24) + 24);
   if ((*&v3 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
@@ -7542,16 +7542,16 @@ LABEL_27:
 uint64_t MicaLoader.__deallocating_deinit()
 {
 
-  return MEMORY[0x1EEE6BDC0](v0, 24, 7);
+  return MEMORY[0x1EEE6BDC0](v0);
 }
 
-void sub_1BCB1EBD0()
+void sub_1BCB1EBD0(uint64_t a1)
 {
   sub_1BCE199D0();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for CGRect(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -7567,367 +7567,361 @@ __n128 WeatherConditionConfigurationManager.__allocating_init()()
   return result;
 }
 
-double sub_1BCB1ECFC@<D0>(uint64_t a1@<X8>, char a2@<W0>)
+void sub_1BCB1ECFC(char a1@<W0>, uint64_t a2@<X8>)
 {
-  switch(a2)
+  switch(a1)
   {
     case 1:
-      sub_1BCB526FC(a1);
+      sub_1BCB526FC(a2);
       break;
     case 2:
-      sub_1BCC0F8C4(a1);
+      sub_1BCC0F8C4(a2);
       break;
     case 3:
-      *&result = sub_1BCB2B7D0(a1).n128_u64[0];
+      sub_1BCB2B7D0(a2);
       break;
     case 4:
-      result = sub_1BCE0906C(a1);
+      sub_1BCE0906C(a2);
       break;
     case 5:
-      sub_1BCB508C0(a1);
+      sub_1BCB508C0(a2);
       break;
     case 6:
-      sub_1BCAC9EBC(a1);
+      sub_1BCAC9EBC(a2);
       break;
     case 7:
-      sub_1BCAA3A80(a1);
+      sub_1BCAA3A80(a2);
       break;
     case 8:
     case 33:
-      sub_1BCCBB638(a1);
+      sub_1BCCBB638(a2);
       break;
     case 9:
-      sub_1BCBC25EC(a1);
+      sub_1BCBC25EC(a2);
       break;
     case 10:
-      sub_1BCDFE68C(a1);
+      sub_1BCDFE68C(a2);
       break;
     case 11:
-      sub_1BCDF693C(a1);
+      sub_1BCDF693C(a2);
       break;
     case 12:
-      *&result = sub_1BCD07C8C(a1).n128_u64[0];
+      sub_1BCD07C8C(a2);
       break;
     case 13:
-      sub_1BCA16900(a1);
+      sub_1BCA16900(a2);
       break;
     case 14:
-      sub_1BCD846F8(a1);
+      sub_1BCD846F8(a2);
       break;
     case 15:
-      sub_1BCA27270(a1);
+      sub_1BCA27270(a2);
       break;
     case 16:
-      *&result = sub_1BCB3C724(a1).n128_u64[0];
+      sub_1BCB3C724(a2);
       break;
     case 17:
-      *&result = sub_1BCABB318(a1).n128_u64[0];
+      sub_1BCABB318(a2);
       break;
     case 18:
-      *&result = sub_1BCAA0054(a1).n128_u64[0];
+      sub_1BCAA0054(a2);
       break;
     case 19:
-      sub_1BCB00580(a1);
+      sub_1BCB00580(a2);
       break;
     case 20:
-      sub_1BCB1349C(a1);
+      sub_1BCB1349C(a2);
       break;
     case 21:
-      sub_1BCB981B4(a1);
+      sub_1BCB981B4(a2);
       break;
     case 22:
-      *&result = sub_1BCC6C480(a1).n128_u64[0];
+      sub_1BCC6C480(a2);
       break;
     case 23:
-      *&result = sub_1BCCE0828(a1).n128_u64[0];
+      sub_1BCCE0828(a2);
       break;
     case 24:
-      *&result = sub_1BCA61CAC(a1).n128_u64[0];
+      sub_1BCA61CAC(a2);
       break;
     case 25:
-      *&result = sub_1BCB4A400(a1).n128_u64[0];
+      sub_1BCB4A400(a2);
       break;
     case 26:
-      *&result = sub_1BCC68054(a1).n128_u64[0];
+      sub_1BCC68054(a2);
       break;
     case 27:
-      sub_1BCDF477C(a1);
+      sub_1BCDF477C(a2);
       break;
     case 28:
-      sub_1BCB389D4(a1);
+      sub_1BCB389D4(a2);
       break;
     case 29:
-      sub_1BCA1AA90(a1);
+      sub_1BCA1AA90(a2);
       break;
     case 30:
-      sub_1BCD6C338(a1);
+      sub_1BCD6C338(a2);
       break;
     case 31:
-      result = sub_1BCA8DED4(a1);
+      sub_1BCA8DED4(a2);
       break;
     case 32:
-      sub_1BCB8EC0C(a1);
+      sub_1BCB8EC0C(a2);
       break;
     case 34:
-      sub_1BCB47314(a1);
+      sub_1BCB47314(a2);
       break;
     case 35:
-      sub_1BCC87AA0(a1);
+      sub_1BCC87AA0(a2);
       break;
     case 36:
-      sub_1BCDB64CC(a1);
+      sub_1BCDB64CC(a2);
       break;
     case 37:
-      *&result = sub_1BCDF59C8(a1).n128_u64[0];
+      sub_1BCDF59C8(a2);
       break;
     default:
-      result = sub_1BCBAB558(a1);
+      sub_1BCBAB558(a2);
       break;
   }
-
-  return result;
 }
 
-double sub_1BCB1EDB4@<D0>(uint64_t a1@<X8>, char a2@<W0>)
+void sub_1BCB1EDB4(char a1@<W0>, uint64_t a2@<X8>)
 {
-  switch(a2)
+  switch(a1)
   {
     case 1:
-      sub_1BCCAEADC(a1);
+      sub_1BCCAEADC(a2);
       break;
     case 2:
-      sub_1BCB01E84(a1);
+      sub_1BCB01E84(a2);
       break;
     case 3:
-      *&result = sub_1BCA8B7EC(a1).n128_u64[0];
+      sub_1BCA8B7EC(a2);
       break;
     case 4:
-      result = sub_1BCA9D864(a1);
+      sub_1BCA9D864(a2);
       break;
     case 5:
-      sub_1BCD9B6C8(a1);
+      sub_1BCD9B6C8(a2);
       break;
     case 6:
-      sub_1BCB924F4(a1);
+      sub_1BCB924F4(a2);
       break;
     case 7:
-      sub_1BCA94DA8(a1);
+      sub_1BCA94DA8(a2);
       break;
     case 8:
     case 33:
-      sub_1BCB6990C(a1);
+      sub_1BCB6990C(a2);
       break;
     case 9:
-      sub_1BCB6A088(a1);
+      sub_1BCB6A088(a2);
       break;
     case 10:
-      sub_1BCB54CC4(a1);
+      sub_1BCB54CC4(a2);
       break;
     case 11:
-      sub_1BCB4280C(a1);
+      sub_1BCB4280C(a2);
       break;
     case 12:
-      *&result = sub_1BCB42110(a1).n128_u64[0];
+      sub_1BCB42110(a2);
       break;
     case 13:
-      sub_1BCA1A2A8(a1);
+      sub_1BCA1A2A8(a2);
       break;
     case 14:
-      sub_1BCA1224C(a1);
+      sub_1BCA1224C(a2);
       break;
     case 15:
-      sub_1BCC6EDFC(a1);
+      sub_1BCC6EDFC(a2);
       break;
     case 16:
-      *&result = sub_1BCCF9930(a1).n128_u64[0];
+      sub_1BCCF9930(a2);
       break;
     case 17:
-      *&result = sub_1BCCEAB28(a1).n128_u64[0];
+      sub_1BCCEAB28(a2);
       break;
     case 18:
-      *&result = sub_1BCA5F3C0(a1).n128_u64[0];
+      sub_1BCA5F3C0(a2);
       break;
     case 19:
-      sub_1BCC2A048(a1);
+      sub_1BCC2A048(a2);
       break;
     case 20:
-      sub_1BCDA7E7C(a1);
+      sub_1BCDA7E7C(a2);
       break;
     case 21:
-      sub_1BCA3A6BC(a1);
+      sub_1BCA3A6BC(a2);
       break;
     case 22:
-      *&result = sub_1BCC1A1D4(a1).n128_u64[0];
+      sub_1BCC1A1D4(a2);
       break;
     case 23:
-      *&result = sub_1BCD229EC(a1).n128_u64[0];
+      sub_1BCD229EC(a2);
       break;
     case 24:
-      *&result = sub_1BCC30AFC(a1).n128_u64[0];
+      sub_1BCC30AFC(a2);
       break;
     case 25:
-      *&result = sub_1BCCFAF9C(a1).n128_u64[0];
+      sub_1BCCFAF9C(a2);
       break;
     case 26:
-      *&result = sub_1BCBB5830(a1).n128_u64[0];
+      sub_1BCBB5830(a2);
       break;
     case 27:
-      sub_1BCCF3084(a1);
+      sub_1BCCF3084(a2);
       break;
     case 28:
-      sub_1BCBD185C(a1);
+      sub_1BCBD185C(a2);
       break;
     case 29:
-      sub_1BCE160B8(a1);
+      sub_1BCE160B8(a2);
       break;
     case 30:
-      sub_1BCA74044(a1);
+      sub_1BCA74044(a2);
       break;
     case 31:
-      result = sub_1BCB26B84(a1);
+      sub_1BCB26B84(a2);
       break;
     case 32:
-      sub_1BCA901BC(a1);
+      sub_1BCA901BC(a2);
       break;
     case 34:
-      sub_1BCCC3FD0(a1);
+      sub_1BCCC3FD0(a2);
       break;
     case 35:
-      sub_1BCDB94FC(a1);
+      sub_1BCDB94FC(a2);
       break;
     case 36:
-      sub_1BCB1C620(a1);
+      sub_1BCB1C620(a2);
       break;
     case 37:
-      *&result = sub_1BCBFACAC(a1).n128_u64[0];
+      sub_1BCBFACAC(a2);
       break;
     default:
-      result = sub_1BCCF400C(a1);
+      sub_1BCCF400C(a2);
       break;
   }
-
-  return result;
 }
 
-double sub_1BCB1EE6C@<D0>(uint64_t a1@<X8>, char a2@<W0>)
+void sub_1BCB1EE6C(char a1@<W0>, uint64_t a2@<X8>)
 {
-  switch(a2)
+  switch(a1)
   {
     case 1:
-      sub_1BC9F7E64(a1);
+      sub_1BC9F7E64(a2);
       break;
     case 2:
-      sub_1BCAB4734(a1);
+      sub_1BCAB4734(a2);
       break;
     case 3:
-      *&result = sub_1BC9FE38C(a1).n128_u64[0];
+      sub_1BC9FE38C(a2);
       break;
     case 4:
-      result = sub_1BCCF3858(a1);
+      sub_1BCCF3858(a2);
       break;
     case 5:
-      sub_1BCDFEFB8(a1);
+      sub_1BCDFEFB8(a2);
       break;
     case 6:
-      sub_1BCA97FA8(a1);
+      sub_1BCA97FA8(a2);
       break;
     case 7:
-      sub_1BCC22914(a1);
+      sub_1BCC22914(a2);
       break;
     case 8:
     case 33:
-      sub_1BCD98E58(a1);
+      sub_1BCD98E58(a2);
       break;
     case 9:
-      sub_1BCC0ABA0(a1);
+      sub_1BCC0ABA0(a2);
       break;
     case 10:
-      sub_1BCDA4560(a1);
+      sub_1BCDA4560(a2);
       break;
     case 11:
-      sub_1BCABFA4C(a1);
+      sub_1BCABFA4C(a2);
       break;
     case 12:
-      *&result = sub_1BCA02C14(a1).n128_u64[0];
+      sub_1BCA02C14(a2);
       break;
     case 13:
-      sub_1BCE0CBB4(a1);
+      sub_1BCE0CBB4(a2);
       break;
     case 14:
-      sub_1BCD88A9C(a1);
+      sub_1BCD88A9C(a2);
       break;
     case 15:
-      sub_1BCA9F884(a1);
+      sub_1BCA9F884(a2);
       break;
     case 16:
-      *&result = sub_1BCA10A28(a1).n128_u64[0];
+      sub_1BCA10A28(a2);
       break;
     case 17:
-      *&result = sub_1BCCFA8A0(a1).n128_u64[0];
+      sub_1BCCFA8A0(a2);
       break;
     case 18:
-      *&result = sub_1BCE0C4A8(a1).n128_u64[0];
+      sub_1BCE0C4A8(a2);
       break;
     case 19:
-      sub_1BCA82F10(a1);
+      sub_1BCA82F10(a2);
       break;
     case 20:
-      result = sub_1BCB7DF04(a1);
+      sub_1BCB7DF04(a2);
       break;
     case 21:
-      result = sub_1BCBC2D08(a1);
+      sub_1BCBC2D08(a2);
       break;
     case 22:
-      result = sub_1BCC2A800(a1);
+      sub_1BCC2A800(a2);
       break;
     case 23:
-      *&result = sub_1BCBBD4E0(a1).n128_u64[0];
+      sub_1BCBBD4E0(a2);
       break;
     case 24:
-      result = sub_1BCC96200(a1);
+      sub_1BCC96200(a2);
       break;
     case 25:
-      result = sub_1BCA6AB30(a1);
+      sub_1BCA6AB30(a2);
       break;
     case 26:
-      *&result = sub_1BCCD0108(a1).n128_u64[0];
+      sub_1BCCD0108(a2);
       break;
     case 27:
-      sub_1BCBA8B0C(a1);
+      sub_1BCBA8B0C(a2);
       break;
     case 28:
-      sub_1BCB43118(a1);
+      sub_1BCB43118(a2);
       break;
     case 29:
-      sub_1BCA89FC4(a1);
+      sub_1BCA89FC4(a2);
       break;
     case 30:
-      sub_1BCB47ACC(a1);
+      sub_1BCB47ACC(a2);
       break;
     case 31:
-      result = sub_1BCCBC0D4(a1);
+      sub_1BCCBC0D4(a2);
       break;
     case 32:
-      sub_1BCB39178(a1);
+      sub_1BCB39178(a2);
       break;
     case 34:
-      sub_1BCCD0868(a1);
+      sub_1BCCD0868(a2);
       break;
     case 35:
-      sub_1BCD6B364(a1);
+      sub_1BCD6B364(a2);
       break;
     case 36:
-      sub_1BCCFA0FC(a1);
+      sub_1BCCFA0FC(a2);
       break;
     case 37:
-      *&result = sub_1BCA2AB84(a1).n128_u64[0];
+      sub_1BCA2AB84(a2);
       break;
     default:
-      result = sub_1BCA09254(a1);
+      sub_1BCA09254(a2);
       break;
   }
-
-  return result;
 }
 
 void sub_1BCB1EF24(uint64_t a1@<X8>, char a2@<W0>)
@@ -8049,125 +8043,123 @@ void sub_1BCB1EF24(uint64_t a1@<X8>, char a2@<W0>)
   }
 }
 
-double sub_1BCB1EFDC@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+void sub_1BCB1EFDC(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, uint64_t a9@<X7>)
 {
   switch(a1)
   {
     case 1:
-      sub_1BCA91ACC(a9);
+      sub_1BCA91ACC(a2);
       break;
     case 2:
-      sub_1BCC2F268(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+      sub_1BCC2F268(a2, a1, a3, a4, a5, a6, a7, a8, a9);
       break;
     case 3:
-      *&result = sub_1BCAD3F70(a9).n128_u64[0];
+      sub_1BCAD3F70(a2);
       break;
     case 4:
-      result = sub_1BCB85E98(a9);
+      sub_1BCB85E98(a2);
       break;
     case 5:
-      sub_1BCE08928(a9);
+      sub_1BCE08928(a2);
       break;
     case 6:
-      sub_1BCA9C584(a9);
+      sub_1BCA9C584(a2);
       break;
     case 7:
-      sub_1BCD7D0F4(a9);
+      sub_1BCD7D0F4(a2);
       break;
     case 8:
     case 33:
-      sub_1BCC6ABFC(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+      sub_1BCC6ABFC(a2, a1, a3, a4, a5, a6, a7, a8, a9);
       break;
     case 9:
-      sub_1BCCB4420(a9);
+      sub_1BCCB4420(a2);
       break;
     case 10:
-      sub_1BCD7EA64(a9);
+      sub_1BCD7EA64(a2);
       break;
     case 11:
-      sub_1BCA92E78(a9);
+      sub_1BCA92E78(a2);
       break;
     case 12:
-      *&result = sub_1BCB1963C(a9).n128_u64[0];
+      sub_1BCB1963C(a2);
       break;
     case 13:
-      sub_1BCD0173C(a9);
+      sub_1BCD0173C(a2);
       break;
     case 14:
-      sub_1BCDBFDC0(a9);
+      sub_1BCDBFDC0(a2);
       break;
     case 15:
-      sub_1BCA52920(a9);
+      sub_1BCA52920(a2);
       break;
     case 16:
-      *&result = sub_1BCC53340(a9).n128_u64[0];
+      sub_1BCC53340(a2);
       break;
     case 17:
-      *&result = sub_1BCDAC82C(a9).n128_u64[0];
+      sub_1BCDAC82C(a2);
       break;
     case 18:
-      *&result = sub_1BCDEE788(a9).n128_u64[0];
+      sub_1BCDEE788(a2);
       break;
     case 19:
-      result = sub_1BCAC8FC8(a9);
+      sub_1BCAC8FC8(a2);
       break;
     case 20:
-      sub_1BCB3D9FC(a9);
+      sub_1BCB3D9FC(a2);
       break;
     case 21:
-      sub_1BCBAC540(a9);
+      sub_1BCBAC540(a2);
       break;
     case 22:
-      *&result = sub_1BCA5B510(a9).n128_u64[0];
+      sub_1BCA5B510(a2);
       break;
     case 23:
-      *&result = sub_1BCA2C554(a9).n128_u64[0];
+      sub_1BCA2C554(a2);
       break;
     case 24:
-      sub_1BCC9B188(a9);
+      sub_1BCC9B188(a2);
       break;
     case 25:
-      *&result = sub_1BCAAE09C(a9).n128_u64[0];
+      sub_1BCAAE09C(a2);
       break;
     case 26:
-      *&result = sub_1BCBA3DAC(a9).n128_u64[0];
+      sub_1BCBA3DAC(a2);
       break;
     case 27:
-      sub_1BCCE38A0(a9);
+      sub_1BCCE38A0(a2);
       break;
     case 28:
-      sub_1BCA1C3CC(a9);
+      sub_1BCA1C3CC(a2);
       break;
     case 29:
-      sub_1BCB0777C(a9);
+      sub_1BCB0777C(a2);
       break;
     case 30:
-      sub_1BCB7D7A8(a9);
+      sub_1BCB7D7A8(a2);
       break;
     case 31:
-      sub_1BCCBFDFC(a9);
+      sub_1BCCBFDFC(a2);
       break;
     case 32:
-      sub_1BCD2779C(a9);
+      sub_1BCD2779C(a2);
       break;
     case 34:
-      sub_1BCC1F058(a9);
+      sub_1BCC1F058(a2);
       break;
     case 35:
-      sub_1BCA78D08(a9);
+      sub_1BCA78D08(a2);
       break;
     case 36:
-      sub_1BCE16F98(a9);
+      sub_1BCE16F98(a2);
       break;
     case 37:
-      *&result = sub_1BCDF6178(a9).n128_u64[0];
+      sub_1BCDF6178(a2);
       break;
     default:
-      sub_1BCA97858(a9);
+      sub_1BCA97858(a2);
       break;
   }
-
-  return result;
 }
 
 void sub_1BCB1F094(uint64_t a1@<X8>, char a2@<W0>)
@@ -8289,242 +8281,242 @@ void sub_1BCB1F094(uint64_t a1@<X8>, char a2@<W0>)
   }
 }
 
-double sub_1BCB1F14C@<D0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, uint64_t a9@<X7>)
+double sub_1BCB1F14C@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, uint64_t a9@<X7>)
 {
-  switch(a2)
+  switch(a1)
   {
     case 1:
-      sub_1BCD2C760(a1);
+      sub_1BCD2C760(a2);
       break;
     case 2:
-      sub_1BCD4A094(a1);
+      sub_1BCD4A094(a2);
       break;
     case 3:
-      *&result = sub_1BCD49994(a1).n128_u64[0];
+      *&result = sub_1BCD49994(a2).n128_u64[0];
       break;
     case 4:
-      result = sub_1BCD2EEAC(a1);
+      result = sub_1BCD2EEAC(a2);
       break;
     case 5:
-      sub_1BCD46A08(a1);
+      sub_1BCD46A08(a2);
       break;
     case 6:
-      sub_1BCD2D650(a1);
+      sub_1BCD2D650(a2);
       break;
     case 7:
-      sub_1BCD341EC(a1);
+      sub_1BCD341EC(a2);
       break;
     case 8:
     case 33:
-      sub_1BCD5382C(a1);
+      sub_1BCD5382C(a2);
       break;
     case 9:
-      sub_1BCD3D984(a1);
+      sub_1BCD3D984(a2);
       break;
     case 10:
-      sub_1BCD30854(a2, a3, a4, a5, a6, a7, a8, a9, a1);
+      sub_1BCD30854(a2, a1, a3, a4, a5, a6, a7, a8, a9);
       break;
     case 11:
-      sub_1BCD57410(a1);
+      sub_1BCD57410(a2);
       break;
     case 12:
-      *&result = sub_1BCD5A540(a1).n128_u64[0];
+      *&result = sub_1BCD5A540(a2).n128_u64[0];
       break;
     case 13:
-      sub_1BCD32168(a1);
+      sub_1BCD32168(a2);
       break;
     case 14:
-      sub_1BCD33AB4(a1);
+      sub_1BCD33AB4(a2);
       break;
     case 15:
-      sub_1BCD56180(a1);
+      sub_1BCD56180(a2);
       break;
     case 16:
-      *&result = sub_1BCD35BDC(a1).n128_u64[0];
+      *&result = sub_1BCD35BDC(a2).n128_u64[0];
       break;
     case 17:
-      *&result = sub_1BCD43AE0(a1).n128_u64[0];
+      *&result = sub_1BCD43AE0(a2).n128_u64[0];
       break;
     case 18:
-      *&result = sub_1BCD5501C(a1).n128_u64[0];
+      *&result = sub_1BCD5501C(a2).n128_u64[0];
       break;
     case 19:
-      sub_1BCD502EC(a1);
+      sub_1BCD502EC(a2);
       break;
     case 20:
-      result = sub_1BCD5EEC8(a1);
+      result = sub_1BCD5EEC8(a2);
       break;
     case 21:
-      sub_1BCD441E4(a1);
+      sub_1BCD441E4(a2);
       break;
     case 22:
-      result = sub_1BCD4B8A4(a1);
+      result = sub_1BCD4B8A4(a2);
       break;
     case 23:
-      *&result = sub_1BCD3E098(a1).n128_u64[0];
+      *&result = sub_1BCD3E098(a2).n128_u64[0];
       break;
     case 24:
-      *&result = sub_1BCD5C4E0(a1).n128_u64[0];
+      *&result = sub_1BCD5C4E0(a2).n128_u64[0];
       break;
     case 25:
-      *&result = sub_1BCD39608(a1).n128_u64[0];
+      *&result = sub_1BCD39608(a2).n128_u64[0];
       break;
     case 26:
-      *&result = sub_1BCD4714C(a1).n128_u64[0];
+      *&result = sub_1BCD4714C(a2).n128_u64[0];
       break;
     case 27:
-      sub_1BCD51BF4(a1);
+      sub_1BCD51BF4(a2);
       break;
     case 28:
-      sub_1BCD38E74(a1);
+      sub_1BCD38E74(a2);
       break;
     case 29:
-      sub_1BCD2CE84(a1);
+      sub_1BCD2CE84(a2);
       break;
     case 30:
-      sub_1BCD58BB4(a1);
+      sub_1BCD58BB4(a2);
       break;
     case 31:
-      sub_1BCD5AC40(a1);
+      sub_1BCD5AC40(a2);
       break;
     case 32:
-      sub_1BCD421A4(a1);
+      sub_1BCD421A4(a2);
       break;
     case 34:
-      sub_1BCD3BFD8(a1);
+      sub_1BCD3BFD8(a2);
       break;
     case 35:
-      sub_1BCD408B0(a1);
+      sub_1BCD408B0(a2);
       break;
     case 36:
-      sub_1BCD59300(a1);
+      sub_1BCD59300(a2);
       break;
     case 37:
-      *&result = sub_1BCD37434(a1).n128_u64[0];
+      *&result = sub_1BCD37434(a2).n128_u64[0];
       break;
     default:
-      sub_1BCD2F64C(a2, a3, a4, a5, a6, a7, a8, a9, a1);
+      sub_1BCD2F64C(a2, a1, a3, a4, a5, a6, a7, a8, a9);
       break;
   }
 
   return result;
 }
 
-double sub_1BCB1F204@<D0>(uint64_t a1@<X8>, char a2@<W0>)
+double sub_1BCB1F204@<D0>(char a1@<W0>, uint64_t a2@<X8>)
 {
-  switch(a2)
+  switch(a1)
   {
     case 1:
-      sub_1BCDE9C2C(a1);
+      sub_1BCDE9C2C(a2);
       break;
     case 2:
-      sub_1BCDC9EC8(a1);
+      sub_1BCDC9EC8(a2);
       break;
     case 3:
-      *&result = sub_1BCDD628C(a1).n128_u64[0];
+      *&result = sub_1BCDD628C(a2).n128_u64[0];
       break;
     case 4:
-      result = sub_1BCDDC874(a1);
+      result = sub_1BCDDC874(a2);
       break;
     case 5:
-      sub_1BCDD53BC(a1);
+      sub_1BCDD53BC(a2);
       break;
     case 6:
-      sub_1BCDDD024(a1);
+      sub_1BCDDD024(a2);
       break;
     case 7:
-      sub_1BCDE5628(a1);
+      sub_1BCDE5628(a2);
       break;
     case 8:
     case 33:
-      sub_1BCDDB95C(a1);
+      sub_1BCDDB95C(a2);
       break;
     case 9:
-      sub_1BCDE1588(a1);
+      sub_1BCDE1588(a2);
       break;
     case 10:
-      sub_1BCDD5B08(a1);
+      sub_1BCDD5B08(a2);
       break;
     case 11:
-      sub_1BCDD1B58(a1);
+      sub_1BCDD1B58(a2);
       break;
     case 12:
-      *&result = sub_1BCDD4CBC(a1).n128_u64[0];
+      *&result = sub_1BCDD4CBC(a2).n128_u64[0];
       break;
     case 13:
-      sub_1BCDCADC0(a1);
+      sub_1BCDCADC0(a2);
       break;
     case 14:
-      sub_1BCDEAAE4(a1);
+      sub_1BCDEAAE4(a2);
       break;
     case 15:
-      sub_1BCDD0870(a1);
+      sub_1BCDD0870(a2);
       break;
     case 16:
-      *&result = sub_1BCDC971C(a1).n128_u64[0];
+      *&result = sub_1BCDC971C(a2).n128_u64[0];
       break;
     case 17:
-      *&result = sub_1BCDD698C(a1).n128_u64[0];
+      *&result = sub_1BCDD698C(a2).n128_u64[0];
       break;
     case 18:
-      *&result = sub_1BCDD7084(a1).n128_u64[0];
+      *&result = sub_1BCDD7084(a2).n128_u64[0];
       break;
     case 19:
-      sub_1BCDD778C(a1);
+      sub_1BCDD778C(a2);
       break;
     case 20:
-      sub_1BCDE1C98(a1);
+      sub_1BCDE1C98(a2);
       break;
     case 21:
-      result = sub_1BCDCB5BC(a1);
+      result = sub_1BCDCB5BC(a2);
       break;
     case 22:
-      *&result = sub_1BCDE5DF8(a1).n128_u64[0];
+      *&result = sub_1BCDE5DF8(a2).n128_u64[0];
       break;
     case 23:
-      *&result = sub_1BCDCA650(a1).n128_u64[0];
+      *&result = sub_1BCDCA650(a2).n128_u64[0];
       break;
     case 24:
-      *&result = sub_1BCDD22DC(a1).n128_u64[0];
+      *&result = sub_1BCDD22DC(a2).n128_u64[0];
       break;
     case 25:
-      result = sub_1BCDE2460(a1);
+      result = sub_1BCDE2460(a2);
       break;
     case 26:
-      result = sub_1BCDD7F44(a1);
+      result = sub_1BCDD7F44(a2);
       break;
     case 27:
-      sub_1BCDD95B4(a1);
+      sub_1BCDD95B4(a2);
       break;
     case 28:
-      sub_1BCDDC0D4(a1);
+      sub_1BCDDC0D4(a2);
       break;
     case 29:
-      sub_1BCDDB188(a1);
+      sub_1BCDDB188(a2);
       break;
     case 30:
-      sub_1BCDE8D84(a1);
+      sub_1BCDE8D84(a2);
       break;
     case 31:
-      sub_1BCDE94D0(a1);
+      sub_1BCDE94D0(a2);
       break;
     case 32:
-      sub_1BCDE85B0(a1);
+      sub_1BCDE85B0(a2);
       break;
     case 34:
-      sub_1BCDE4E78(a1);
+      sub_1BCDE4E78(a2);
       break;
     case 35:
-      sub_1BCDD00AC(a1);
+      sub_1BCDD00AC(a2);
       break;
     case 36:
-      sub_1BCDEA348(a1);
+      sub_1BCDEA348(a2);
       break;
     case 37:
-      *&result = sub_1BCDD86D8(a1).n128_u64[0];
+      *&result = sub_1BCDD86D8(a2).n128_u64[0];
       break;
     default:
-      sub_1BCDD8E8C(a1);
+      sub_1BCDD8E8C(a2);
       break;
   }
 
@@ -8546,7 +8538,7 @@ unint64_t sub_1BCB1F2C4()
 
 uint64_t sub_1BCB1F31C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07870);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07870, &unk_1BCE3D7F0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8793,7 +8785,7 @@ void sub_1BCB1F408(uint64_t a1@<X8>)
 
 __n128 sub_1BCB1FB8C()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3EBD0;
   *(v0 + 80) = xmmword_1BCE41330;
@@ -9639,7 +9631,7 @@ uint64_t ConditionViewModel.init(id:conditionKind:conditionSymbol:conditionStrin
   sub_1BCE19090();
   OUTLINED_FUNCTION_4();
   (*(v18 + 32))(a9, a1);
-  v19 = type metadata accessor for ConditionViewModel();
+  v19 = type metadata accessor for ConditionViewModel(0);
   v20 = v19[5];
   sub_1BCE199D0();
   OUTLINED_FUNCTION_4();
@@ -9656,7 +9648,7 @@ uint64_t ConditionViewModel.init(id:conditionKind:conditionSymbol:conditionStrin
   return result;
 }
 
-uint64_t type metadata accessor for ConditionViewModel()
+uint64_t type metadata accessor for ConditionViewModel(uint64_t a1)
 {
   result = qword_1EDA1A568;
   if (!qword_1EDA1A568)
@@ -9669,7 +9661,7 @@ uint64_t type metadata accessor for ConditionViewModel()
 
 uint64_t static ConditionViewModel.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  if (sub_1BCE19070() & 1) != 0 && (v4 = type metadata accessor for ConditionViewModel(), (sub_1BC99EE9C()) && ((OUTLINED_FUNCTION_7_3(v4[6]), v7) ? (v7 = v5 == v6) : (v7 = 0), (v7 || (sub_1BCE1E090()) && ((OUTLINED_FUNCTION_7_3(v4[7]), v7) ? (v10 = v8 == v9) : (v10 = 0), (v10 || (sub_1BCE1E090()) && *(a1 + v4[8]) == *(a2 + v4[8]) && *(a1 + v4[9]) == *(a2 + v4[9]))))
+  if (sub_1BCE19070() & 1) != 0 && (v4 = type metadata accessor for ConditionViewModel(0), (sub_1BC99EE9C()) && ((OUTLINED_FUNCTION_7_3(v4[6]), v7) ? (v7 = v5 == v6) : (v7 = 0), (v7 || (sub_1BCE1E090()) && ((OUTLINED_FUNCTION_7_3(v4[7]), v7) ? (v10 = v8 == v9) : (v10 = 0), (v10 || (sub_1BCE1E090()) && *(a1 + v4[8]) == *(a2 + v4[8]) && *(a1 + v4[9]) == *(a2 + v4[9]))))
   {
     v11 = *(a1 + v4[10]) ^ *(a2 + v4[10]) ^ 1;
   }
@@ -9693,7 +9685,7 @@ uint64_t ConditionViewModel.id.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t ConditionViewModel.conditionKind.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for ConditionViewModel() + 20);
+  v3 = *(type metadata accessor for ConditionViewModel(0) + 20);
   sub_1BCE199D0();
   OUTLINED_FUNCTION_4();
   v6 = *(v5 + 16);
@@ -9703,14 +9695,14 @@ uint64_t ConditionViewModel.conditionKind.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t ConditionViewModel.conditionSymbol.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for ConditionViewModel() + 24));
+  v1 = *(v0 + *(type metadata accessor for ConditionViewModel(0) + 24));
 
   return v1;
 }
 
 uint64_t ConditionViewModel.conditionString.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for ConditionViewModel() + 28));
+  v1 = *(v0 + *(type metadata accessor for ConditionViewModel(0) + 28));
 
   return v1;
 }
@@ -9852,7 +9844,7 @@ uint64_t sub_1BCB213F4(uint64_t a1)
 
 uint64_t ConditionViewModel.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD095B8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD095B8, &qword_1BCE4FFF0);
   OUTLINED_FUNCTION_2();
   v5 = v4;
   MEMORY[0x1EEE9AC00](v6);
@@ -9863,16 +9855,16 @@ uint64_t ConditionViewModel.encode(to:)(void *a1)
   v14[15] = 0;
   sub_1BCE19090();
   OUTLINED_FUNCTION_2_28();
-  sub_1BCB21D9C(v9, v10);
+  sub_1BCB21D9C(v9, v10, MEMORY[0x1E69695B0]);
   OUTLINED_FUNCTION_4_27();
   sub_1BCE1E020();
   if (!v1)
   {
-    type metadata accessor for ConditionViewModel();
+    type metadata accessor for ConditionViewModel(0);
     v14[14] = 1;
     sub_1BCE199D0();
     OUTLINED_FUNCTION_3_38();
-    sub_1BCB21D9C(v11, v12);
+    sub_1BCB21D9C(v11, v12, MEMORY[0x1E6984D38]);
     OUTLINED_FUNCTION_4_27();
     sub_1BCE1E020();
     v14[13] = 2;
@@ -9907,85 +9899,88 @@ unint64_t sub_1BCB216D0()
   return result;
 }
 
-uint64_t ConditionViewModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+void ConditionViewModel.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v42 = a2;
+  v41 = a2;
   sub_1BCE199D0();
   OUTLINED_FUNCTION_2();
-  v44 = v4;
-  v45 = v3;
+  v43 = v4;
+  v44 = v3;
   MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_2_0();
   v7 = v6 - v5;
   v8 = sub_1BCE19090();
   OUTLINED_FUNCTION_2();
-  v46 = v9;
+  v45 = v9;
   MEMORY[0x1EEE9AC00](v10);
   OUTLINED_FUNCTION_2_0();
   v13 = v12 - v11;
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD095C8);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD095C8, &qword_1BCE4FFF8);
   OUTLINED_FUNCTION_2();
   v15 = v14;
   MEMORY[0x1EEE9AC00](v16);
-  v18 = &v41 - v17;
-  v47 = type metadata accessor for ConditionViewModel();
+  v18 = &v40 - v17;
+  v46 = type metadata accessor for ConditionViewModel(0);
   OUTLINED_FUNCTION_4();
   MEMORY[0x1EEE9AC00](v19);
   OUTLINED_FUNCTION_2_0();
   v22 = v21 - v20;
   v23 = a1[3];
-  v50 = a1;
+  v49 = a1;
   __swift_project_boxed_opaque_existential_1(a1, v23);
   sub_1BCB216D0();
-  v48 = v18;
-  v24 = v49;
+  v47 = v18;
+  v24 = v48;
   sub_1BCE1E160();
   if (v24)
   {
-    return __swift_destroy_boxed_opaque_existential_1(v50);
+    __swift_destroy_boxed_opaque_existential_1(v49);
   }
 
-  v49 = v15;
-  v57 = 0;
-  OUTLINED_FUNCTION_2_28();
-  sub_1BCB21D9C(v25, v26);
-  OUTLINED_FUNCTION_5_27();
-  sub_1BCE1DF70();
-  v27 = v22;
-  (*(v46 + 32))(v22, v13, v8);
-  v56 = 1;
-  OUTLINED_FUNCTION_3_38();
-  sub_1BCB21D9C(v28, v29);
-  v30 = v45;
-  OUTLINED_FUNCTION_5_27();
-  sub_1BCE1DF70();
-  v31 = v47;
-  (*(v44 + 32))(v22 + *(v47 + 20), v7, v30);
-  v55 = 2;
-  OUTLINED_FUNCTION_5_27();
-  v32 = sub_1BCE1DF20();
-  v33 = v49;
-  v34 = (v27 + v31[6]);
-  *v34 = v32;
-  v34[1] = v35;
-  v54 = 3;
-  OUTLINED_FUNCTION_5_27();
-  v36 = sub_1BCE1DF20();
-  v37 = (v27 + v31[7]);
-  *v37 = v36;
-  v37[1] = v38;
-  v53 = 4;
-  OUTLINED_FUNCTION_5_27();
-  *(v27 + v31[8]) = sub_1BCE1DF30() & 1;
-  v52 = 5;
-  OUTLINED_FUNCTION_5_27();
-  *(v27 + v31[9]) = sub_1BCE1DF30() & 1;
-  v51 = 6;
-  OUTLINED_FUNCTION_5_27();
-  v39 = sub_1BCE1DF30();
-  (*(v33 + 8))(v48, v43);
-  *(v27 + v31[10]) = v39 & 1;
-  sub_1BCB21C94(v27, v42);
-  __swift_destroy_boxed_opaque_existential_1(v50);
-  return sub_1BCB21CF8(v27);
+  else
+  {
+    v48 = v15;
+    v56 = 0;
+    OUTLINED_FUNCTION_2_28();
+    sub_1BCB21D9C(v25, v26, MEMORY[0x1E69695D0]);
+    OUTLINED_FUNCTION_5_27();
+    sub_1BCE1DF70();
+    v27 = v22;
+    (*(v45 + 32))(v22, v13, v8);
+    v55 = 1;
+    OUTLINED_FUNCTION_3_38();
+    sub_1BCB21D9C(v28, v29, MEMORY[0x1E6984D58]);
+    v30 = v44;
+    OUTLINED_FUNCTION_5_27();
+    sub_1BCE1DF70();
+    v31 = v46;
+    (*(v43 + 32))(v22 + *(v46 + 20), v7, v30);
+    v54 = 2;
+    OUTLINED_FUNCTION_5_27();
+    v32 = sub_1BCE1DF20();
+    v33 = v48;
+    v34 = (v27 + v31[6]);
+    *v34 = v32;
+    v34[1] = v35;
+    v53 = 3;
+    OUTLINED_FUNCTION_5_27();
+    v36 = sub_1BCE1DF20();
+    v37 = (v27 + v31[7]);
+    *v37 = v36;
+    v37[1] = v38;
+    v52 = 4;
+    OUTLINED_FUNCTION_5_27();
+    *(v27 + v31[8]) = sub_1BCE1DF30() & 1;
+    v51 = 5;
+    OUTLINED_FUNCTION_5_27();
+    *(v27 + v31[9]) = sub_1BCE1DF30() & 1;
+    v50 = 6;
+    OUTLINED_FUNCTION_5_27();
+    v39 = sub_1BCE1DF30();
+    (*(v33 + 8))(v47, v42);
+    *(v27 + v31[10]) = v39 & 1;
+    sub_1BCB21C94(v27, v41);
+    __swift_destroy_boxed_opaque_existential_1(v49);
+    sub_1BCB21CF8(v27);
+  }
 }

@@ -1263,7 +1263,7 @@ LABEL_13:
     v17 = self->_sceneViewControllerContainerView;
     viewIfLoaded = [(PBFPosterAssetViewController *)self viewIfLoaded];
     [viewIfLoaded bounds];
-    [(PBFPosterAssetViewController *)self _sceneViewControllerContainerViewAffineTransformForBounds:?];
+    objc_msgSend__sceneViewControllerContainerViewAffineTransformForBounds_(self);
     [(PUITransformContainerView *)v17 setContentViewTransform:&v19];
 
     [(_PBFPosterSceneViewController *)self->_sceneViewController bs_beginAppearanceTransition:1 animated:0];
@@ -1438,7 +1438,7 @@ LABEL_13:
   [view setFrame:{self->_referenceBounds.origin.x, self->_referenceBounds.origin.y, self->_referenceBounds.size.width, self->_referenceBounds.size.height}];
   [(PUITransformContainerView *)self->_sceneViewControllerContainerView setFrame:x, y, width, height];
   sceneViewControllerContainerView = self->_sceneViewControllerContainerView;
-  [(PBFPosterAssetViewController *)self _sceneViewControllerContainerViewAffineTransformForBounds:x, y, width, height];
+  objc_msgSend__sceneViewControllerContainerViewAffineTransformForBounds_(self, x, y, width, height);
   [(PUITransformContainerView *)sceneViewControllerContainerView setContentViewTransform:&v12];
   [view setHidden:v9];
 }
@@ -1450,7 +1450,7 @@ LABEL_13:
   memset(&v12, 0, sizeof(v12));
   CGAffineTransformMakeScale(&v12, v7, v6);
   memset(&v11, 0, sizeof(v11));
-  [(PBFPosterAssetViewController *)self _affineTransformForDisplayContext];
+  objc_msgSend__affineTransformForDisplayContext(self);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
@@ -1638,7 +1638,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
 
 - (void)initWithPosterPath:(char *)a1 definition:extensionBundleIdentifier:configuredProperties:configurableOptions:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"extensionBundleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1646,7 +1646,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"extensionBundleIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1656,7 +1656,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
 
 - (void)initWithPosterPath:(char *)a1 definition:extensionBundleIdentifier:configuredProperties:configurableOptions:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"path"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1664,7 +1664,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"path", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1674,7 +1674,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
 
 - (void)initWithPosterPath:(char *)a1 definition:extensionBundleIdentifier:configuredProperties:configurableOptions:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"definition"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1682,7 +1682,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"definition", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1692,7 +1692,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
 
 - (void)setDisplayContext:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1700,7 +1700,7 @@ void __65__PBFPosterAssetViewController__updateDebugImageViewsWithBounds___block
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

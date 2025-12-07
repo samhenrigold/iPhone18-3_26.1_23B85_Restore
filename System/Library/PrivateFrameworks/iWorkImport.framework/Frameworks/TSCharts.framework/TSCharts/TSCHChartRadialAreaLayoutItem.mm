@@ -87,7 +87,7 @@
 
 - (void)layoutInward
 {
-  v205[3] = *MEMORY[0x277D85DE8];
+  v204[3] = *MEMORY[0x277D85DE8];
   if ((objc_msgSend_treeBuilt(self, a2, v2, v3, v4) & 1) == 0)
   {
     objc_msgSend_buildSubTree(self, v6, v7, v8, v9);
@@ -181,20 +181,20 @@
   v83 = v82;
   v85 = v84;
   v87 = v86;
-  v202 = v88;
+  v201 = v88;
   v90 = objc_msgSend_bodyLayoutItem(self, v89, v82, v84, v86);
   objc_msgSend_overhangRect(v90, v91, v92, v93, v94);
-  v198 = v96;
-  v200 = v95;
-  v194 = v98;
-  v196 = v97;
+  v197 = v96;
+  v199 = v95;
+  v193 = v98;
+  v195 = v97;
 
   v103 = objc_msgSend_titleElement(self, v99, v100, v101, v102);
   if (objc_msgSend_shouldPlaceTitleAtCenter(v103, v104, v105, v106, v107))
   {
-    objc_msgSend_layoutSettings(self, v108, v109, v110, v111);
+    objc_msgSend_layoutSettings(self, v108, v109, v110);
 
-    if ((v204 & 1) == 0)
+    if ((v203 & 1) == 0)
     {
       TSUCenterOfRect();
       TSURectWithCenterAndSize();
@@ -208,69 +208,69 @@
 
   TSURectWithOriginAndSize();
 LABEL_30:
+  v116 = v112;
   v117 = v113;
   v118 = v114;
   v119 = v115;
-  v120 = v116;
-  v121 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v112, v83, v85, v87, v202);
-  v205[0] = v121;
-  v123 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v122, v200, v198, v196, v194);
-  v205[1] = v123;
-  v199 = v118;
-  v201 = v117;
-  v195 = v120;
-  v197 = v119;
-  v125 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v124, v117, v118, v119, v120);
-  v205[2] = v125;
-  v130 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v126, v127, v128, v129, v205, 3);
+  v120 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v111, v83, v85, v87, v201);
+  v204[0] = v120;
+  v122 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v121, v199, v197, v195, v193);
+  v204[1] = v122;
+  v198 = v117;
+  v200 = v116;
+  v194 = v119;
+  v196 = v118;
+  v124 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v123, v116, v117, v118, v119);
+  v204[2] = v124;
+  v129 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v125, v126, v127, v128, v204, 3);
 
-  objc_msgSend_outerRectForRects_(TSCHChartLayout, v131, v132, v133, v134, v130);
-  v136 = v135;
-  v138 = v137;
-  v140 = v139;
-  v142 = v141;
+  objc_msgSend_outerRectForRects_(TSCHChartLayout, v130, v131, v132, v133, v129);
+  v135 = v134;
+  v137 = v136;
+  v139 = v138;
+  v141 = v140;
   if ((TSUNearlyEqualSizes() & 1) == 0)
   {
-    objc_msgSend_setLayoutSize_(self, v143, v140, v142, v144);
+    objc_msgSend_setLayoutSize_(self, v142, v139, v141, v143);
   }
 
-  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v143, v83, v85, v87, v202, v136, v138, v140, v142);
-  v146 = v145;
-  v148 = v147;
-  v151 = objc_msgSend_bodyLayoutItem(self, v149, v145, v147, v150);
-  objc_msgSend_setLayoutOffset_(v151, v152, v146, v148, v153);
+  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v142, v83, v85, v87, v201, v135, v137, v139, v141);
+  v145 = v144;
+  v147 = v146;
+  v150 = objc_msgSend_bodyLayoutItem(self, v148, v144, v146, v149);
+  objc_msgSend_setLayoutOffset_(v150, v151, v145, v147, v152);
 
-  v158 = objc_msgSend_bodyLayoutItem(self, v154, v155, v156, v157);
-  objc_msgSend_layoutRect(v158, v159, v160, v161, v162);
-  v164 = v163;
-  v166 = v165;
-  v168 = v167;
-  v170 = v169;
-  v172 = objc_msgSend_gridLayoutItem(self, v171, v163, v165, v167);
-  objc_msgSend_setLayoutRect_(v172, v173, v164, v166, v168, v170);
+  v157 = objc_msgSend_bodyLayoutItem(self, v153, v154, v155, v156);
+  objc_msgSend_layoutRect(v157, v158, v159, v160, v161);
+  v163 = v162;
+  v165 = v164;
+  v167 = v166;
+  v169 = v168;
+  v171 = objc_msgSend_gridLayoutItem(self, v170, v162, v164, v166);
+  objc_msgSend_setLayoutRect_(v171, v172, v163, v165, v167, v169);
 
-  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v174, v201, v199, v197, v195, v136, v138, v140, v142);
-  v176 = v175;
-  v178 = v177;
-  v180 = v179;
-  v182 = v181;
-  v184 = objc_msgSend_titleElement(self, v183, v175, v177, v179);
-  objc_msgSend_setLayoutSize_(v184, v185, v180, v182, v186);
+  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v173, v200, v198, v196, v194, v135, v137, v139, v141);
+  v175 = v174;
+  v177 = v176;
+  v179 = v178;
+  v181 = v180;
+  v183 = objc_msgSend_titleElement(self, v182, v174, v176, v178);
+  objc_msgSend_setLayoutSize_(v183, v184, v179, v181, v185);
 
-  v191 = objc_msgSend_titleElement(self, v187, v188, v189, v190);
-  objc_msgSend_setLayoutOffset_(v191, v192, v176, v178, v193);
+  v190 = objc_msgSend_titleElement(self, v186, v187, v188, v189);
+  objc_msgSend_setLayoutOffset_(v190, v191, v175, v177, v192);
 
-  v203.receiver = self;
-  v203.super_class = TSCHChartRadialAreaLayoutItem;
-  [(TSCHChartLayoutItem *)&v203 layoutInward];
+  v202.receiver = self;
+  v202.super_class = TSCHChartRadialAreaLayoutItem;
+  [(TSCHChartLayoutItem *)&v202 layoutInward];
 }
 
 - (void)layoutOutward
 {
-  v288[3] = *MEMORY[0x277D85DE8];
-  v287.receiver = self;
-  v287.super_class = TSCHChartRadialAreaLayoutItem;
-  [(TSCHChartLayoutItem *)&v287 layoutOutward];
+  v286[3] = *MEMORY[0x277D85DE8];
+  v285.receiver = self;
+  v285.super_class = TSCHChartRadialAreaLayoutItem;
+  [(TSCHChartLayoutItem *)&v285 layoutOutward];
   v7 = objc_msgSend_bodyLayoutItem(self, v3, v4, v5, v6);
   objc_msgSend_layoutSize(v7, v8, v9, v10, v11);
   v13 = v12;
@@ -305,21 +305,21 @@ LABEL_30:
     v25 = objc_msgSend_titleElement(self, v21, v22, v23, v24);
     if (objc_msgSend_shouldPlaceTitleAtCenter(v25, v26, v27, v28, v29))
     {
-      objc_msgSend_layoutSettings(self, v30, v31, v32, v33);
+      objc_msgSend_layoutSettings(self, v30, v31, v32);
 
-      if ((v286 & 1) == 0)
+      if ((v284 & 1) == 0)
       {
         objc_opt_class();
-        v42 = objc_msgSend_bodyLayoutItem(self, v38, v39, v40, v41);
-        v43 = TSUDynamicCast();
+        v41 = objc_msgSend_bodyLayoutItem(self, v37, v38, v39, v40);
+        v42 = TSUDynamicCast();
 
-        v48 = objc_msgSend_model(v43, v44, v45, v46, v47);
-        objc_msgSend_rootedLayoutRect(v43, v49, v50, v51, v52);
-        objc_msgSend_bodySizeWithMinimumWedgeExplosionWithChartModel_bodySize_(TSCHStyleUtilities, v53, v54, v55, v54, v48);
-        v57 = v56;
+        v47 = objc_msgSend_model(v42, v43, v44, v45, v46);
+        objc_msgSend_rootedLayoutRect(v42, v48, v49, v50, v51);
+        objc_msgSend_bodySizeWithMinimumWedgeExplosionWithChartModel_bodySize_(TSCHStyleUtilities, v52, v53, v54, v53, v47);
+        v56 = v55;
 
-        v62 = objc_msgSend_titleElement(self, v58, v59, v60, v61);
-        objc_msgSend_setChartBodyWidth_(v62, v63, v57, v64, v65);
+        v61 = objc_msgSend_titleElement(self, v57, v58, v59, v60);
+        objc_msgSend_setChartBodyWidth_(v61, v62, v56, v63, v64);
 
 LABEL_14:
         goto LABEL_15;
@@ -330,65 +330,65 @@ LABEL_14:
     {
     }
 
-    v43 = objc_msgSend_titleElement(self, v34, v35, v36, v37);
-    objc_msgSend_setChartBodyWidth_(v43, v66, v13, v67, v68);
+    v42 = objc_msgSend_titleElement(self, v33, v34, v35, v36);
+    objc_msgSend_setChartBodyWidth_(v42, v65, v13, v66, v67);
     goto LABEL_14;
   }
 
 LABEL_15:
-  v70 = objc_msgSend_titleElement(self, v21, v22, v23, v24);
-  if (v70)
+  v69 = objc_msgSend_titleElement(self, v21, v22, v23, v24);
+  if (v69)
   {
-    v74 = objc_msgSend_titleElement(self, v69, v71, v72, v73);
-    objc_msgSend_minSize(v74, v75, v76, v77, v78);
-    v80 = v79;
-    v82 = v81;
+    v73 = objc_msgSend_titleElement(self, v68, v70, v71, v72);
+    objc_msgSend_minSize(v73, v74, v75, v76, v77);
+    v79 = v78;
+    v81 = v80;
   }
 
   else
   {
-    v80 = *MEMORY[0x277CBF3A8];
-    v82 = *(MEMORY[0x277CBF3A8] + 8);
+    v79 = *MEMORY[0x277CBF3A8];
+    v81 = *(MEMORY[0x277CBF3A8] + 8);
   }
 
-  v86 = objc_msgSend_titleElement(self, v83, INFINITY, v84, v85);
-  v91 = v86;
-  v92 = 0.0;
-  if (v80 > 0.0 && v86 && v82 > 0.0)
+  v85 = objc_msgSend_titleElement(self, v82, INFINITY, v83, v84);
+  v90 = v85;
+  v91 = 0.0;
+  if (v79 > 0.0 && v85 && v81 > 0.0)
   {
-    v93 = objc_msgSend_titleElement(self, v87, v88, v89, v90);
-    objc_msgSend_overhangMagnitudeForEdge_(v93, v94, v95, v96, v97, 3);
-    v92 = v98;
+    v92 = objc_msgSend_titleElement(self, v86, v87, v88, v89);
+    objc_msgSend_overhangMagnitudeForEdge_(v92, v93, v94, v95, v96, 3);
+    v91 = v97;
   }
 
   TSURectWithSize();
-  v100 = v99;
-  v102 = v101;
-  v104 = v103;
-  v106 = v105;
-  v108 = objc_msgSend_bodyLayoutItem(self, v107, v99, v101, v103);
-  objc_msgSend_overhangRect(v108, v109, v110, v111, v112);
-  v281 = v114;
-  v283 = v113;
-  v279 = v116;
-  v280 = v115;
+  v99 = v98;
+  v101 = v100;
+  v103 = v102;
+  v105 = v104;
+  v107 = objc_msgSend_bodyLayoutItem(self, v106, v98, v100, v102);
+  objc_msgSend_overhangRect(v107, v108, v109, v110, v111);
+  v279 = v113;
+  v281 = v112;
+  v277 = v115;
+  v278 = v114;
 
-  v121 = objc_msgSend_titleElement(self, v117, v118, v119, v120);
-  if (objc_msgSend_shouldPlaceTitleAtCenter(v121, v122, v123, v124, v125))
+  v120 = objc_msgSend_titleElement(self, v116, v117, v118, v119);
+  if (objc_msgSend_shouldPlaceTitleAtCenter(v120, v121, v122, v123, v124))
   {
-    objc_msgSend_layoutSettings(self, v126, v127, v128, v129);
+    objc_msgSend_layoutSettings(self, v125, v126, v127);
 
-    if ((v285 & 1) == 0)
+    if ((v283 & 1) == 0)
     {
       TSUCenterOfRect();
       TSURectWithCenterAndSize();
-      v130 = v104;
+      v128 = v103;
+      v130 = v129;
       v132 = v131;
-      v134 = v133;
-      v135 = v106;
+      v133 = v105;
+      v135 = v134;
       v137 = v136;
-      v139 = v138;
-      objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v140, v100, v102, v130, v135, *&v130, *&v135);
+      objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v138, v99, v101, v128, v133, *&v128, *&v133);
       goto LABEL_27;
     }
   }
@@ -399,81 +399,81 @@ LABEL_15:
 
   TSUCenterOfRect();
   TSURectWithCenterAndSize();
-  v141 = v104;
-  v132 = v142;
-  v143 = v106;
-  v137 = v144;
-  v139 = v145;
-  v134 = v102 - v145 - v92;
-  objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v146, v100, v102, v141, v143, *&v141, *&v143);
-  v147 = LABEL_27:;
-  v288[0] = v147;
-  v149 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v148, v132, v134, v137, v139);
-  v288[1] = v149;
-  v151 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v150, v283, v281, v280, v279);
-  v288[2] = v151;
-  v156 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v152, v153, v154, v155, v288, 3);
-  v161 = objc_msgSend_mutableCopy(v156, v157, v158, v159, v160);
+  v139 = v103;
+  v130 = v140;
+  v141 = v105;
+  v135 = v142;
+  v137 = v143;
+  v132 = v101 - v143 - v91;
+  objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v144, v99, v101, v139, v141, *&v139, *&v141);
+  v145 = LABEL_27:;
+  v286[0] = v145;
+  v147 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v146, v130, v132, v135, v137);
+  v286[1] = v147;
+  v149 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v148, v281, v279, v278, v277);
+  v286[2] = v149;
+  v154 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v150, v151, v152, v153, v286, 3);
+  v159 = objc_msgSend_mutableCopy(v154, v155, v156, v157, v158);
 
-  objc_msgSend_outerRectForRects_(TSCHChartLayout, v162, v163, v164, v165, v161);
-  v282 = v167;
-  v284 = v166;
+  objc_msgSend_outerRectForRects_(TSCHChartLayout, v160, v161, v162, v163, v159);
+  v280 = v165;
+  v282 = v164;
+  v167 = v166;
   v169 = v168;
-  v171 = v170;
-  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v172, v132, v134, v137, v139, v166, v167, v168, v170);
+  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v170, v130, v132, v135, v137, v164, v165, v166, v168);
+  v172 = v171;
   v174 = v173;
   v176 = v175;
   v178 = v177;
-  v180 = v179;
-  v182 = objc_msgSend_titleElement(self, v181, v173, v175, v177);
-  objc_msgSend_setLayoutOffset_(v182, v183, v174, v176, v184);
+  v180 = objc_msgSend_titleElement(self, v179, v171, v173, v175);
+  objc_msgSend_setLayoutOffset_(v180, v181, v172, v174, v182);
 
-  v189 = objc_msgSend_titleElement(self, v185, v186, v187, v188);
-  objc_msgSend_setLayoutSize_(v189, v190, v178, v180, v191);
+  v187 = objc_msgSend_titleElement(self, v183, v184, v185, v186);
+  objc_msgSend_setLayoutSize_(v187, v188, v176, v178, v189);
 
-  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v192, v100, v102, v277, v278, v284, v282, v169, v171);
+  objc_msgSend_normalizeRect_outerRect_(TSCHChartLayout, v190, v99, v101, v275, v276, v282, v280, v167, v169);
+  v192 = v191;
   v194 = v193;
   v196 = v195;
   v198 = v197;
-  v200 = v199;
-  v202 = objc_msgSend_bodyLayoutItem(self, v201, v193, v195, v197);
-  objc_msgSend_setLayoutOffset_(v202, v203, v194, v196, v204);
+  v200 = objc_msgSend_bodyLayoutItem(self, v199, v191, v193, v195);
+  objc_msgSend_setLayoutOffset_(v200, v201, v192, v194, v202);
 
-  v209 = objc_msgSend_bodyLayoutItem(self, v205, v206, v207, v208);
-  objc_msgSend_setLayoutSize_(v209, v210, v198, v200, v211);
+  v207 = objc_msgSend_bodyLayoutItem(self, v203, v204, v205, v206);
+  objc_msgSend_setLayoutSize_(v207, v208, v196, v198, v209);
 
-  v216 = objc_msgSend_bodyLayoutItem(self, v212, v213, v214, v215);
-  objc_msgSend_layoutRect(v216, v217, v218, v219, v220);
+  v214 = objc_msgSend_bodyLayoutItem(self, v210, v211, v212, v213);
+  objc_msgSend_layoutRect(v214, v215, v216, v217, v218);
+  v220 = v219;
   v222 = v221;
   v224 = v223;
   v226 = v225;
-  v228 = v227;
-  v230 = objc_msgSend_gridLayoutItem(self, v229, v221, v223, v225);
-  objc_msgSend_setLayoutRect_(v230, v231, v222, v224, v226, v228);
+  v228 = objc_msgSend_gridLayoutItem(self, v227, v219, v221, v223);
+  objc_msgSend_setLayoutRect_(v228, v229, v220, v222, v224, v226);
 
-  v236 = objc_msgSend_bodyLayoutItem(self, v232, v233, v234, v235);
-  objc_msgSend_layoutSize(v236, v237, v238, v239, v240);
+  v234 = objc_msgSend_bodyLayoutItem(self, v230, v231, v232, v233);
+  objc_msgSend_layoutSize(v234, v235, v236, v237, v238);
 
   if ((TSUNearlyEqualSizes() & 1) == 0)
   {
-    v245 = MEMORY[0x277D81150];
-    v246 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v241, v242, v243, v244, "[TSCHChartRadialAreaLayoutItem layoutOutward]");
-    v251 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v247, v248, v249, v250, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialAreaLayoutItem.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v245, v252, v253, v254, v255, v246, v251, 199, 0, "We don't expect to ever get contrained on an outward layout.");
+    v243 = MEMORY[0x277D81150];
+    v244 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v239, v240, v241, v242, "[TSCHChartRadialAreaLayoutItem layoutOutward]");
+    v249 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v245, v246, v247, v248, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialAreaLayoutItem.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v243, v250, v251, v252, v253, v244, v249, 199, 0, "We don't expect to ever get contrained on an outward layout.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v256, v257, v258, v259);
-    v260 = MEMORY[0x277CCAE60];
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v254, v255, v256, v257);
+    v258 = MEMORY[0x277CCAE60];
     TSURectWithOriginAndSize();
-    v265 = objc_msgSend_valueWithCGRect_(v260, v261, v262, v263, v264);
-    objc_msgSend_setObject_atIndexedSubscript_(v161, v266, v267, v268, v269, v265, 0);
+    v263 = objc_msgSend_valueWithCGRect_(v258, v259, v260, v261, v262);
+    objc_msgSend_setObject_atIndexedSubscript_(v159, v264, v265, v266, v267, v263, 0);
 
-    objc_msgSend_outerRectForRects_(TSCHChartLayout, v270, v271, v272, v273, v161);
-    v169 = v244;
-    v171 = v274;
+    objc_msgSend_outerRectForRects_(TSCHChartLayout, v268, v269, v270, v271, v159);
+    v167 = v242;
+    v169 = v272;
   }
 
-  objc_msgSend_setLayoutSize_(self, v241, v169, v171, v244);
-  objc_msgSend_setLayoutOffset_(self, v275, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v276);
+  objc_msgSend_setLayoutSize_(self, v239, v167, v169, v242);
+  objc_msgSend_setLayoutOffset_(self, v273, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v274);
 }
 
 - (id)renderersWithRep:(id)rep

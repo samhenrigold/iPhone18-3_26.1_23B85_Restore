@@ -94,29 +94,29 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, data);
-  v36 = 0;
-  objc_storeStrong(&v36, providedData);
   v35 = 0;
-  objc_storeStrong(&v35, completion);
+  objc_storeStrong(&v35, providedData);
+  v34 = 0;
+  objc_storeStrong(&v34, completion);
   proxiedDeviceAnisetteData = [(AKAppleIDAuthenticationContext *)selfCopy->_authContext proxiedDeviceAnisetteData];
   if (proxiedDeviceAnisetteData)
   {
-    v33 = _AKLogSystem();
-    v32 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v32 = _AKLogSystem();
+    v31 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      log = v33;
-      type = v32;
-      sub_10001CEEC(v31);
-      _os_log_impl(&_mh_execute_header, log, type, "Context has provided Anisette data for proxied device.", v31, 2u);
+      log = v32;
+      type = v31;
+      sub_10001CEEC(v30);
+      _os_log_impl(&_mh_execute_header, log, type, "Context has provided Anisette data for proxied device.", v30, 2u);
     }
 
-    objc_storeStrong(&v33, 0);
-    v30 = [NSMutableURLRequest ak_proxiedAnisetteHeadersWithData:proxiedDeviceAnisetteData];
-    [v36 addEntriesFromDictionary:v30];
-    [location[0] addEntriesFromDictionary:v30];
-    (*(v35 + 2))(v35, 1, 0);
-    objc_storeStrong(&v30, 0);
+    objc_storeStrong(&v32, 0);
+    v29 = [NSMutableURLRequest ak_proxiedAnisetteHeadersWithData:proxiedDeviceAnisetteData];
+    [v35 addEntriesFromDictionary:v29];
+    [location[0] addEntriesFromDictionary:v29];
+    (*(v34 + 2))(v34, 1, 0);
+    objc_storeStrong(&v29, 0);
   }
 
   else
@@ -125,51 +125,50 @@
     _objc_release(proxiedDevice);
     if (proxiedDevice)
     {
-      v29 = _AKLogSystem();
-      v28 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v28 = _AKLogSystem();
+      v27 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = v29;
-        v11 = v28;
-        sub_10001CEEC(v27);
-        _os_log_impl(&_mh_execute_header, v10, v11, "Grabbing Anisette data from proxied device.", v27, 2u);
+        v9 = v28;
+        v10 = v27;
+        sub_10001CEEC(v26);
+        _os_log_impl(&_mh_execute_header, v9, v10, "Grabbing Anisette data from proxied device.", v26, 2u);
       }
 
-      objc_storeStrong(&v29, 0);
-      v6 = [AKAnisetteProvisioningService alloc];
+      objc_storeStrong(&v28, 0);
+      v5 = [AKAnisetteProvisioningService alloc];
       client = [(AKSRPContextHelper *)selfCopy client];
-      authContext = selfCopy->_authContext;
-      v26 = [AKAnisetteProvisioningService initWithClient:v6 context:"initWithClient:context:"];
+      v25 = [AKAnisetteProvisioningService initWithClient:v5 context:"initWithClient:context:"];
       _objc_release(client);
-      v8 = v26;
+      v7 = v25;
       proxiedDevice2 = [(AKAppleIDAuthenticationContext *)selfCopy->_authContext proxiedDevice];
-      v17 = _NSConcreteStackBlock;
-      v18 = -1073741824;
-      v19 = 0;
-      v20 = sub_100050688;
-      v21 = &unk_100320378;
-      v22 = _objc_retain(v36);
-      v23 = _objc_retain(location[0]);
-      v25 = _objc_retain(v35);
-      v24 = _objc_retain(selfCopy);
-      [(AKAnisetteProvisioningService *)v8 fetchAnisetteDataAndProvisionIfNecessary:1 device:proxiedDevice2 completion:&v17];
+      v16 = _NSConcreteStackBlock;
+      v17 = -1073741824;
+      v18 = 0;
+      v19 = sub_100050688;
+      v20 = &unk_100320378;
+      v21 = _objc_retain(v35);
+      v22 = _objc_retain(location[0]);
+      v24 = _objc_retain(v34);
+      v23 = _objc_retain(selfCopy);
+      [(AKAnisetteProvisioningService *)v7 fetchAnisetteDataAndProvisionIfNecessary:1 device:proxiedDevice2 completion:&v16];
       _objc_release(proxiedDevice2);
-      objc_storeStrong(&v24, 0);
-      objc_storeStrong(&v25, 0);
       objc_storeStrong(&v23, 0);
+      objc_storeStrong(&v24, 0);
       objc_storeStrong(&v22, 0);
-      objc_storeStrong(&v26, 0);
+      objc_storeStrong(&v21, 0);
+      objc_storeStrong(&v25, 0);
     }
 
     else
     {
-      (*(v35 + 2))(v35, 1, 0);
+      (*(v34 + 2))(v34, 1, 0);
     }
   }
 
   objc_storeStrong(&proxiedDeviceAnisetteData, 0);
+  objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
-  objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -179,104 +178,103 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, data);
-  v41 = 0;
-  objc_storeStrong(&v41, providedData);
   v40 = 0;
-  objc_storeStrong(&v40, completion);
-  v16 = [AKAnisetteProvisioningService alloc];
+  objc_storeStrong(&v40, providedData);
+  v39 = 0;
+  objc_storeStrong(&v39, completion);
+  v15 = [AKAnisetteProvisioningService alloc];
   client = [(AKSRPContextHelper *)selfCopy client];
-  authContext = selfCopy->_authContext;
-  v39 = [AKAnisetteProvisioningService initWithClient:v16 context:"initWithClient:context:"];
+  v38 = [AKAnisetteProvisioningService initWithClient:v15 context:"initWithClient:context:"];
   _objc_release(client);
   companionDeviceAnisetteData = [(AKAppleIDAuthenticationContext *)selfCopy->_authContext companionDeviceAnisetteData];
   if (companionDeviceAnisetteData)
   {
-    v37 = _AKLogSystem();
-    v36 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v36 = _AKLogSystem();
+    v35 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      log = v37;
-      type = v36;
-      sub_10001CEEC(v35);
-      _os_log_impl(&_mh_execute_header, log, type, "Context has provided Anisette data for companion device.", v35, 2u);
+      log = v36;
+      type = v35;
+      sub_10001CEEC(v34);
+      _os_log_impl(&_mh_execute_header, log, type, "Context has provided Anisette data for companion device.", v34, 2u);
     }
 
-    objc_storeStrong(&v37, 0);
-    v34 = [NSMutableURLRequest ak_anisetteHeadersWithCompanionData:companionDeviceAnisetteData];
-    [v41 addEntriesFromDictionary:v34];
-    [location[0] addEntriesFromDictionary:v34];
-    (*(v40 + 2))(v40, 1, 0);
-    objc_storeStrong(&v34, 0);
+    objc_storeStrong(&v36, 0);
+    v33 = [NSMutableURLRequest ak_anisetteHeadersWithCompanionData:companionDeviceAnisetteData];
+    [v40 addEntriesFromDictionary:v33];
+    [location[0] addEntriesFromDictionary:v33];
+    (*(v39 + 2))(v39, 1, 0);
+    objc_storeStrong(&v33, 0);
   }
 
   else
   {
     companionDevice = [(AKAppleIDAuthenticationContext *)selfCopy->_authContext companionDevice];
-    v32 = 0;
-    v30 = 0;
-    v11 = 0;
+    v31 = 0;
+    v29 = 0;
+    v10 = 0;
     if (companionDevice)
     {
       companionDevice2 = [(AKAppleIDAuthenticationContext *)selfCopy->_authContext companionDevice];
-      v32 = 1;
+      v31 = 1;
       uniqueDeviceIdentifier = [companionDevice2 uniqueDeviceIdentifier];
-      v30 = 1;
-      v11 = uniqueDeviceIdentifier != 0;
+      v29 = 1;
+      v10 = uniqueDeviceIdentifier != 0;
     }
 
-    if (v30)
+    if (v29)
     {
       _objc_release(uniqueDeviceIdentifier);
     }
 
-    if (v32)
+    if (v31)
     {
       _objc_release(companionDevice2);
     }
 
     _objc_release(companionDevice);
-    if (v11)
+    if (v10)
     {
-      v29 = _AKLogSystem();
-      v28 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v28 = _AKLogSystem();
+      v27 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = v29;
-        v9 = v28;
-        sub_10001CEEC(v27);
-        _os_log_impl(&_mh_execute_header, v8, v9, "Looking to set companion Anisette data in CPD.", v27, 2u);
+        v7 = v28;
+        v8 = v27;
+        sub_10001CEEC(v26);
+        _os_log_impl(&_mh_execute_header, v7, v8, "Looking to set companion Anisette data in CPD.", v26, 2u);
       }
 
-      objc_storeStrong(&v29, 0);
-      v6 = v39;
+      objc_storeStrong(&v28, 0);
+      v5 = v38;
       companionDevice3 = [(AKAppleIDAuthenticationContext *)selfCopy->_authContext companionDevice];
-      v18 = _NSConcreteStackBlock;
-      v19 = -1073741824;
-      v20 = 0;
-      v21 = sub_100050DE8;
-      v22 = &unk_100320378;
-      v23 = _objc_retain(v41);
-      v24 = _objc_retain(location[0]);
-      v26 = _objc_retain(v40);
-      v25 = _objc_retain(selfCopy);
-      [v6 fetchAnisetteDataAndProvisionIfNecessary:1 device:companionDevice3 completion:&v18];
+      v17 = _NSConcreteStackBlock;
+      v18 = -1073741824;
+      v19 = 0;
+      v20 = sub_100050DE8;
+      v21 = &unk_100320378;
+      v22 = _objc_retain(v40);
+      v23 = _objc_retain(location[0]);
+      v25 = _objc_retain(v39);
+      v24 = _objc_retain(selfCopy);
+      [v5 fetchAnisetteDataAndProvisionIfNecessary:1 device:companionDevice3 completion:&v17];
       _objc_release(companionDevice3);
-      objc_storeStrong(&v25, 0);
-      objc_storeStrong(&v26, 0);
       objc_storeStrong(&v24, 0);
+      objc_storeStrong(&v25, 0);
       objc_storeStrong(&v23, 0);
+      objc_storeStrong(&v22, 0);
     }
 
     else
     {
-      (*(v40 + 2))(v40, 1, 0);
+      (*(v39 + 2))(v39, 1, 0);
     }
   }
 
   objc_storeStrong(&companionDeviceAnisetteData, 0);
+  objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
-  objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
 }
 

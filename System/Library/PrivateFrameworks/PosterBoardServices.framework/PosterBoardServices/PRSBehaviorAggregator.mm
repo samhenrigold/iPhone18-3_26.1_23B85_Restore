@@ -63,21 +63,19 @@ uint64_t __39__PRSBehaviorAggregator_sharedInstance__block_invoke()
 - (NSURL)sharedDirectoryURL
 {
   v2 = MEMORY[0x1E695DFF8];
-  identifier = self->_identifier;
-  v4 = BSSystemSharedDirectoryForIdentifier();
-  v5 = [v2 fileURLWithPath:v4 isDirectory:1];
+  v3 = BSSystemSharedDirectoryForIdentifier();
+  v4 = [v2 fileURLWithPath:v3 isDirectory:1];
 
-  return v5;
+  return v4;
 }
 
 - (NSURL)sharedResourcesDirectoryURL
 {
   v2 = MEMORY[0x1E695DFF8];
-  identifier = self->_identifier;
-  v4 = BSSystemSharedResourcesDirectoryForIdentifier();
-  v5 = [v2 fileURLWithPath:v4 isDirectory:1];
+  v3 = BSSystemSharedResourcesDirectoryForIdentifier();
+  v4 = [v2 fileURLWithPath:v3 isDirectory:1];
 
-  return v5;
+  return v4;
 }
 
 + (NSString)dataStoreContainerDirectoryPath

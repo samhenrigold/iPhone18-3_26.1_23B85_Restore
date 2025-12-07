@@ -212,17 +212,17 @@
   collectionCopy = collection;
   if (([(CRLCanvasViewAccessibility *)self accessibilityElementsHidden]& 1) == 0)
   {
+    v51 = 0u;
+    v52 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v46 = 0;
+    v48 = 0;
     crlaxTarget = [(CRLCanvasViewAccessibility *)self crlaxTarget];
     subviews = [crlaxTarget subviews];
 
     v7 = objc_opt_class();
-    v8 = __CRLAccessibilityCastAsClass(v7, subviews, 1, &v46);
-    if (v46 == 1)
+    v8 = __CRLAccessibilityCastAsClass(v7, subviews, 1, &v48);
+    if (v48 == 1)
     {
 LABEL_39:
       abort();
@@ -230,21 +230,21 @@ LABEL_39:
 
     v9 = v8;
 
-    v10 = [v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v49 objects:v55 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v48;
+      v12 = *v50;
       do
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v48 != v12)
+          if (*v50 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v47 + 1) + 8 * i);
+          v14 = *(*(&v49 + 1) + 8 * i);
           if (([v14 accessibilityElementsHidden] & 1) == 0 && (objc_msgSend(v14, "isHidden") & 1) == 0)
           {
             [v14 alpha];
@@ -258,7 +258,7 @@ LABEL_39:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v49 objects:v55 count:16];
       }
 
       while (v11);
@@ -267,95 +267,97 @@ LABEL_39:
     crlaxInteractiveCanvasController = [(CRLCanvasViewAccessibility *)self crlaxInteractiveCanvasController];
     crlaxFilteredTopLevelReps = [crlaxInteractiveCanvasController crlaxFilteredTopLevelReps];
 
+    v46 = 0u;
+    v47 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
     v18 = crlaxFilteredTopLevelReps;
-    v19 = [v18 countByEnumeratingWithState:&v42 objects:v52 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v44 objects:v54 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v43;
+      v21 = *v45;
       do
       {
         for (j = 0; j != v20; j = j + 1)
         {
-          if (*v43 != v21)
+          if (*v45 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v42 + 1) + 8 * j);
+          v23 = *(*(&v44 + 1) + 8 * j);
           if (objc_opt_respondsToSelector())
           {
-            crlaxAccessibilityElement = [v23 crlaxAccessibilityElement];
+            isKindOfClass = [v23 crlaxAccessibilityElement];
           }
 
           else
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            isKindOfClass = objc_opt_isKindOfClass();
+            if ((isKindOfClass & 1) == 0)
             {
               goto LABEL_26;
             }
 
-            crlaxAccessibilityElement = v23;
+            isKindOfClass = v23;
           }
 
-          v25 = crlaxAccessibilityElement;
-          if (crlaxAccessibilityElement)
+          v26 = isKindOfClass;
+          if (isKindOfClass)
           {
-            [collectionCopy addObject:crlaxAccessibilityElement];
+            [collectionCopy addObject:isKindOfClass];
 
             continue;
           }
 
 LABEL_26:
-          if (CRLAccessibilityShouldPerformValidationChecks())
+          ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(isKindOfClass, v25);
+          if (ShouldPerformValidationChecks)
           {
-            ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-            if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"crlaxAccessibilityElement must return an element!", v27, v28, v29, v30, v31, v38))
+            ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+            if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"crlaxAccessibilityElement must return an element!", v29, v30, v31, v32, v33, v40))
             {
               goto LABEL_39;
             }
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v42 objects:v52 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v44 objects:v54 count:16];
       }
 
       while (v20);
     }
 
+    v42 = 0u;
+    v43 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v32 = collectionCopy;
-    v33 = [v32 countByEnumeratingWithState:&v38 objects:v51 count:16];
-    if (v33)
+    v34 = collectionCopy;
+    v35 = [v34 countByEnumeratingWithState:&v40 objects:v53 count:16];
+    if (v35)
     {
-      v34 = v33;
-      v35 = *v39;
+      v36 = v35;
+      v37 = *v41;
       do
       {
-        for (k = 0; k != v34; k = k + 1)
+        for (k = 0; k != v36; k = k + 1)
         {
-          if (*v39 != v35)
+          if (*v41 != v37)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v34);
           }
 
-          v37 = *(*(&v38 + 1) + 8 * k);
-          [v37 crlaxEnsureChildrenAreLoaded];
-          [v37 setAccessibilityContainer:self];
+          v39 = *(*(&v40 + 1) + 8 * k);
+          [v39 crlaxEnsureChildrenAreLoaded];
+          [v39 setAccessibilityContainer:self];
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v38 objects:v51 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v40 objects:v53 count:16];
       }
 
-      while (v34);
+      while (v36);
     }
   }
 }
@@ -374,17 +376,17 @@ LABEL_26:
     [(CRLCanvasViewAccessibility *)self _crlaxSetHasEnqueuedBlockToLoadChildren:1];
     [crlaxTarget i_setLayersInvalidWithoutInvalidatingAnySpecificLayers];
     objc_initWeak(&location, self);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1003DEF68;
-    v8[3] = &unk_10183AF10;
-    objc_copyWeak(&v9, &location);
-    [crlaxTarget afterLayoutIncludingLayers:1 performBlock:v8];
-    objc_destroyWeak(&v9);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1003DEF68;
+    v9[3] = &unk_10183AF10;
+    objc_copyWeak(&v10, &location);
+    [crlaxTarget afterLayoutIncludingLayers:1 performBlock:v9];
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
   }
 
-  CRLAccessibilityPostLayoutChangedNotification(0);
+  CRLAccessibilityPostLayoutChangedNotification(0, v5);
 }
 
 - (id)accessibilityHitTest:(CGPoint)test withEvent:(id)event

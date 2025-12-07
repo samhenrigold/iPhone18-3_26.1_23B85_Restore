@@ -26,23 +26,23 @@
 
 - (ENGroupContextCoreDataCache)initWithType:(unint64_t)type containerURL:(id)l queue:(id)queue
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   queueCopy = queue;
-  v29.receiver = self;
-  v29.super_class = ENGroupContextCoreDataCache;
-  v10 = [(ENGroupContextCoreDataCache *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = ENGroupContextCoreDataCache;
+  v10 = [(ENGroupContextCoreDataCache *)&v28 init];
   if (v10)
   {
-    v27.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-    v28 = _os_activity_create(&dword_24A04B000, "Create ENGroupContextCoreDataCache", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-    v27.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-    os_activity_scope_enter(v28, &v27);
+    v26.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
+    v27 = _os_activity_create(&dword_24A04B000, "Create ENGroupContextCoreDataCache", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+    v26.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
+    os_activity_scope_enter(v27, &v26);
     objc_storeStrong(&v10->_queue, queue);
     v11 = MEMORY[0x277CBE450];
     v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v33[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v32[0] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
     v14 = [v11 mergedModelFromBundles:v13];
 
     v15 = [MEMORY[0x277CBE4A0] persistentContainerWithName:@"ENGroupContext" managedObjectModel:v14];
@@ -58,7 +58,7 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v19;
+      v31 = v19;
       _os_log_impl(&dword_24A04B000, v21, OS_LOG_TYPE_DEFAULT, "!setState url=%@", buf, 0xCu);
     }
 
@@ -68,7 +68,7 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = @"inMemory";
+        v31 = @"inMemory";
         _os_log_impl(&dword_24A04B000, v22, OS_LOG_TYPE_DEFAULT, "!setState db-type=%@", buf, 0xCu);
       }
 
@@ -80,11 +80,11 @@
       if (type)
       {
 LABEL_13:
-        v30 = v20;
-        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+        v29 = v20;
+        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
         [(NSPersistentContainer *)v10->_container setPersistentStoreDescriptions:v24];
 
-        os_activity_scope_leave(&v27);
+        os_activity_scope_leave(&v26);
         cut_arc_os_release();
 
         goto LABEL_14;
@@ -94,7 +94,7 @@ LABEL_13:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = @"SQLite";
+        v31 = @"SQLite";
         _os_log_impl(&dword_24A04B000, v22, OS_LOG_TYPE_DEFAULT, "!setState db-type=%@", buf, 0xCu);
       }
 
@@ -107,7 +107,6 @@ LABEL_13:
 
 LABEL_14:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -260,38 +259,36 @@ LABEL_14:
 
 - (void)deleteCachedValueForForGroupContext:(id)context withGroupID:(id)d completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dCopy = d;
   completionCopy = completion;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v21 = _os_activity_create(&dword_24A04B000, "Delete cached group", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  v20 = _os_activity_create(&dword_24A04B000, "Delete cached group", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v21, &state);
+  os_activity_scope_enter(v20, &state);
   v11 = +[ENLog groupContext];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = dCopy;
+    v22 = dCopy;
     _os_log_impl(&dword_24A04B000, v11, OS_LOG_TYPE_DEFAULT, "!setState groupID=%@", buf, 0xCu);
   }
 
   container = [(ENGroupContextCoreDataCache *)self container];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_24A04DE30;
-  v16[3] = &unk_278FC3328;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_24A04DE30;
+  v15[3] = &unk_278FC3328;
   v13 = dCopy;
-  v17 = v13;
+  v16 = v13;
   selfCopy = self;
   v14 = completionCopy;
-  v19 = v14;
-  [container performBackgroundTask:v16];
+  v18 = v14;
+  [container performBackgroundTask:v15];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)groupContext:(id)context fetchAllKnownGroups:(id)groups

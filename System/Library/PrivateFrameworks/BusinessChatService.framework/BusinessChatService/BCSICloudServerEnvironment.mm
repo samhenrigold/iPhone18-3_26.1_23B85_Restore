@@ -97,7 +97,7 @@
 
 - (NSDictionary)additionalRequestHTTPHeaders
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if (![(BCSICloudServerEnvironment *)self isInternalInstall])
   {
     goto LABEL_17;
@@ -161,13 +161,13 @@ LABEL_13:
     v8 = ABSLogCommon();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "Edge cache disabled", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "Edge cache disabled", v14, 2u);
     }
 
-    v16 = @"Cache-Control";
-    v17[0] = @"max-age=0";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = @"Cache-Control";
+    v16[0] = @"max-age=0";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     goto LABEL_20;
   }
 
@@ -175,13 +175,12 @@ LABEL_17:
   v12 = ABSLogCommon();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_242072000, v12, OS_LOG_TYPE_DEFAULT, "Edge cache enabled", v15, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_242072000, v12, OS_LOG_TYPE_DEFAULT, "Edge cache enabled", v14, 2u);
   }
 
   v9 = 0;
 LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

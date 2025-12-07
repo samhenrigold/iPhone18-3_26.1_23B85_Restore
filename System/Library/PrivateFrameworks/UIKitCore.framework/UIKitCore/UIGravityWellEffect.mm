@@ -11,7 +11,7 @@ uint64_t __37___UIGravityWellEffect_endForHandOff__block_invoke(uint64_t a1)
   return [v2 _performAllCompletions];
 }
 
-id __65___UIGravityWellEffect_effectWithDescriptor_continuationPreview___block_invoke(uint64_t a1, void *a2)
+_UIGravityWellEffectBody *__65___UIGravityWellEffect_effectWithDescriptor_continuationPreview___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_opt_new();
@@ -138,12 +138,12 @@ void __43___UIGravityWellEffect__installEffectViews__block_invoke(uint64_t a1)
   (*(v4 + 2))(v4, v25, v24);
 
   v26 = [*(v1 + 32) primaryBody];
-  v27 = [v26 preview];
+  v27 = objc_msgSend_preview(v26);
   v28 = [v27 target];
 
   v29 = [v28 container];
   v30 = [*(v1 + 32) primaryBody];
-  v31 = [v30 preview];
+  v31 = objc_msgSend_preview(v30);
   v32 = [v31 view];
 
   v33 = [v32 superview];
@@ -181,7 +181,7 @@ void __43___UIGravityWellEffect__installEffectViews__block_invoke_2(uint64_t a1,
 {
   v5 = a2;
   v6 = a3;
-  v7 = [v5 preview];
+  v7 = objc_msgSend_preview(v5);
   v8 = *(a1 + 32);
   v9 = [v7 view];
   v10 = [v9 traitCollection];
@@ -276,7 +276,7 @@ LABEL_7:
     v26 = v25;
     if (v25)
     {
-      [v25 transform];
+      objc_msgSend_transform(v25);
     }
 
     else
@@ -347,7 +347,7 @@ void __48___UIGravityWellEffect__updateToProgress_state___block_invoke(uint64_t 
 {
   v57 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setAnimationCount:{objc_msgSend(*(a1 + 32), "animationCount") + 1}];
-  v2 = [*(a1 + 40) preview];
+  v2 = objc_msgSend_preview(*(a1 + 40));
   [v2 size];
   v4 = v3;
   v6 = v5;
@@ -384,14 +384,14 @@ void __48___UIGravityWellEffect__updateToProgress_state___block_invoke(uint64_t 
 
   else
   {
-    [*(a1 + 40) preview];
+    objc_msgSend_preview(*(a1 + 40));
   }
   v15 = ;
   v16 = [v15 target];
   v17 = v16;
   if (v16)
   {
-    [v16 transform];
+    objc_msgSend_transform(v16);
   }
 
   else
@@ -475,7 +475,7 @@ void __48___UIGravityWellEffect__updateToProgress_state___block_invoke(uint64_t 
   }
 }
 
-uint64_t __48___UIGravityWellEffect__updateToProgress_state___block_invoke_2(uint64_t a1)
+void *__48___UIGravityWellEffect__updateToProgress_state___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) setAnimationCount:{objc_msgSend(*(a1 + 32), "animationCount") - 1}];
   [*(a1 + 32) animationCount];

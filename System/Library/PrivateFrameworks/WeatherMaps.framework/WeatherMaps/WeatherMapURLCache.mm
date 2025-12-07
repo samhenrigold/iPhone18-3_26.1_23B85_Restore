@@ -78,7 +78,7 @@
 
 - (_TtC11WeatherMaps18WeatherMapURLCache)initWithMemoryCapacity:(int64_t)capacity diskCapacity:(int64_t)diskCapacity directoryURL:(id)l
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF9D288);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF9D288, &qword_220FCBA00);
   MEMORY[0x28223BE20](v8 - 8, v9);
   v11 = &v15 - v10;
   if (l)

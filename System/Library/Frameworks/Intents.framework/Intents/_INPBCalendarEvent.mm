@@ -17,7 +17,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_calendarPunchoutURI)
   {
@@ -50,30 +50,30 @@
   if ([(NSArray *)self->_participants count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v14 = self->_participants;
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation3 = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v16);
@@ -88,8 +88,6 @@
     v21 = [title copy];
     [dictionary setObject:v21 forKeyedSubscript:@"title"];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -357,13 +355,12 @@ LABEL_37:
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   toCopy = to;
   calendarPunchoutURI = [(_INPBCalendarEvent *)self calendarPunchoutURI];
 
   if (calendarPunchoutURI)
   {
-    calendarPunchoutURI = self->_calendarPunchoutURI;
     PBDataWriterWriteStringField();
   }
 
@@ -379,13 +376,11 @@ LABEL_37:
 
   if (eventIdentifier)
   {
-    eventIdentifier = self->_eventIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBCalendarEvent *)self hasIsContactBirthday])
   {
-    isContactBirthday = self->_isContactBirthday;
     PBDataWriterWriteBOOLField();
   }
 
@@ -397,47 +392,43 @@ LABEL_37:
     PBDataWriterWriteSubmessage();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v14 = self->_participants;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v15)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_participants;
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v24;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      v18 = 0;
+      v15 = 0;
       do
       {
-        if (*v24 != v17)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * v18);
         PBDataWriterWriteSubmessage();
-        ++v18;
+        ++v15;
       }
 
-      while (v16 != v18);
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      while (v13 != v15);
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   title = [(_INPBCalendarEvent *)self title];
 
   if (title)
   {
-    title = self->_title;
     PBDataWriterWriteStringField();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTitle:(id)title

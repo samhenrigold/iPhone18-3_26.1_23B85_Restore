@@ -211,7 +211,7 @@
 
 - (void)_teardown
 {
-  v3 = PRLogEditing();
+  v3 = PRLogEditing(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -230,9 +230,9 @@
 
 - (void)viewDidLoad
 {
-  v48.receiver = self;
-  v48.super_class = PREditingSceneViewController;
-  [(PRSceneViewController *)&v48 viewDidLoad];
+  v50.receiver = self;
+  v50.super_class = PREditingSceneViewController;
+  [(PRSceneViewController *)&v50 viewDidLoad];
   subjectMonitorRegistry = [MEMORY[0x1E698B0F0] subjectMonitorRegistry];
   v4 = [subjectMonitorRegistry addMonitor:self subjectMask:1 subscriptionOptions:1];
   objc_storeWeak(&self->_appProtectionSubjectMonitorSubscription, v4);
@@ -257,29 +257,29 @@
     iconViewProvider = self->_iconViewProvider;
     self->_iconViewProvider = v12;
 
-    v14 = PRSharedWidgetExtensionProvider();
+    v15 = PRSharedWidgetExtensionProvider(v14);
     widgetExtensionProvider = self->_widgetExtensionProvider;
-    self->_widgetExtensionProvider = v14;
+    self->_widgetExtensionProvider = v15;
 
     [(CHSWidgetExtensionProvider *)self->_widgetExtensionProvider registerObserver:self];
-    v16 = [PRComplicationDescriptor alloc];
+    v17 = [PRComplicationDescriptor alloc];
     complicationLayout = [configuredProperties complicationLayout];
     inlineComplication = [complicationLayout inlineComplication];
-    v19 = [(PRComplicationDescriptor *)v16 initWithPRSWidget:inlineComplication];
+    v20 = [(PRComplicationDescriptor *)v17 initWithPRSWidget:inlineComplication];
 
     suggestionMetadata = [configuredProperties suggestionMetadata];
     suggestedComplicationsByIdentifier = [suggestionMetadata suggestedComplicationsByIdentifier];
 
-    uniqueIdentifier = [(PRComplicationDescriptor *)v19 uniqueIdentifier];
-    v23 = [suggestedComplicationsByIdentifier objectForKey:uniqueIdentifier];
-    [(PRComplicationDescriptor *)v19 setSuggestedComplication:v23];
+    uniqueIdentifier = [(PRComplicationDescriptor *)v20 uniqueIdentifier];
+    v24 = [suggestedComplicationsByIdentifier objectForKey:uniqueIdentifier];
+    [(PRComplicationDescriptor *)v20 setSuggestedComplication:v24];
 
-    [(PREditingSceneViewController *)self setSelectedInlineComplication:v19];
+    [(PREditingSceneViewController *)self setSelectedInlineComplication:v20];
     [(PREditingSceneViewController *)self _validateInlineComplication];
     [(PREditingSceneViewController *)self setGraphicComplicationSuggestionSets:MEMORY[0x1E695E0F0]];
     [(PREditingSceneViewController *)self _prefetchComplicationSuggestions];
     modifications = self->_modifications;
-    if (v19)
+    if (v20)
     {
       [(PREditingSessionModifications *)self->_modifications setContainedWidgetsBeforeEdit:1];
     }
@@ -300,18 +300,18 @@
 
     if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
-      v31 = [(PREditingSceneViewController *)self addComplicationGestureViewForElement:16 tapAction:sel_addSidebarComplicationTapped_ initiallyAllowed:[(PREditingSceneViewController *)self _shouldAllowAddComplicationsTapGestureForLocation:1]];
-      [(PREditingSceneViewController *)self setSidebarComplicationAddGestureView:v31];
+      v32 = [(PREditingSceneViewController *)self addComplicationGestureViewForElement:16 tapAction:sel_addSidebarComplicationTapped_ initiallyAllowed:[(PREditingSceneViewController *)self _shouldAllowAddComplicationsTapGestureForLocation:1]];
+      [(PREditingSceneViewController *)self setSidebarComplicationAddGestureView:v32];
     }
 
-    v32 = [(PREditingSceneViewController *)self addComplicationGestureViewForElement:4 tapAction:sel_inlineComplicationGestureViewTapped_ initiallyAllowed:[(PREditingSceneViewController *)self _shouldAllowInlineComplicationTapGesture]];
-    [(PREditingSceneViewController *)self setInlineComplicationGestureView:v32];
-    v33 = objc_opt_new();
-    [(PREditingSceneViewController *)self setEngagementCountsForViewedSuggestedComplications:v33];
+    v33 = [(PREditingSceneViewController *)self addComplicationGestureViewForElement:4 tapAction:sel_inlineComplicationGestureViewTapped_ initiallyAllowed:[(PREditingSceneViewController *)self _shouldAllowInlineComplicationTapGesture]];
+    [(PREditingSceneViewController *)self setInlineComplicationGestureView:v33];
+    v34 = objc_opt_new();
+    [(PREditingSceneViewController *)self setEngagementCountsForViewedSuggestedComplications:v34];
 
-    v34 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    v35 = objc_alloc_init(MEMORY[0x1E69DD250]);
     sidebarComplicationGallerySourceView = self->_sidebarComplicationGallerySourceView;
-    self->_sidebarComplicationGallerySourceView = v34;
+    self->_sidebarComplicationGallerySourceView = v35;
 
     [(UIView *)self->_sidebarComplicationGallerySourceView setHidden:1];
     view = [(PREditingSceneViewController *)self view];
@@ -326,21 +326,21 @@
 
   view2 = [(PREditingSceneViewController *)self view];
   isContentHidden = [(PREditingSceneViewController *)self isContentHidden];
-  v41 = 1.0;
+  v42 = 1.0;
   if (isContentHidden)
   {
-    v41 = 0.0;
+    v42 = 0.0;
   }
 
-  [view2 setAlpha:v41];
+  [view2 setAlpha:v42];
 
-  v42 = self->_modifications;
+  v43 = self->_modifications;
   date = [MEMORY[0x1E695DF00] date];
-  [(PREditingSessionModifications *)v42 setStartDate:date];
+  [(PREditingSessionModifications *)v43 setStartDate:date];
 
-  v44 = PRSharedWidgetExtensionProvider();
+  v46 = PRSharedWidgetExtensionProvider(v45);
   controlExtensionProvider = self->_controlExtensionProvider;
-  self->_controlExtensionProvider = v44;
+  self->_controlExtensionProvider = v46;
 
   complicationLayout3 = [configuredProperties complicationLayout];
   complicationsUseBottomLayout = [complicationLayout3 complicationsUseBottomLayout];
@@ -351,27 +351,27 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v5.receiver = self;
-  v5.super_class = PREditingSceneViewController;
-  [(PRSceneViewController *)&v5 viewWillAppear:appear];
-  v3 = PRLogEditing();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = PREditingSceneViewController;
+  v3 = [(PRSceneViewController *)&v6 viewWillAppear:appear];
+  v4 = PRLogEditing(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A8AA7000, v3, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController will appear", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController will appear", v5, 2u);
   }
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v6.receiver = self;
-  v6.super_class = PREditingSceneViewController;
-  [(PRSceneViewController *)&v6 viewDidAppear:appear];
-  v4 = PRLogEditing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v7.receiver = self;
+  v7.super_class = PREditingSceneViewController;
+  v4 = [(PRSceneViewController *)&v7 viewDidAppear:appear];
+  v5 = PRLogEditing(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController did appear", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController did appear", v6, 2u);
   }
 
   [(PREditingSceneViewController *)self _presentWidgetEducationAlertIfNeeded];
@@ -380,27 +380,27 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
-  v5.receiver = self;
-  v5.super_class = PREditingSceneViewController;
-  [(PRSceneViewController *)&v5 viewWillDisappear:disappear];
-  v3 = PRLogEditing();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = PREditingSceneViewController;
+  v3 = [(PRSceneViewController *)&v6 viewWillDisappear:disappear];
+  v4 = PRLogEditing(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A8AA7000, v3, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController will disappear", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController will disappear", v5, 2u);
   }
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v5.receiver = self;
-  v5.super_class = PREditingSceneViewController;
-  [(PRSceneViewController *)&v5 viewDidDisappear:disappear];
-  v3 = PRLogEditing();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = PREditingSceneViewController;
+  v3 = [(PRSceneViewController *)&v6 viewDidDisappear:disappear];
+  v4 = PRLogEditing(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A8AA7000, v3, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController did disappear", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "PREditingSceneViewController did disappear", v5, 2u);
   }
 }
 
@@ -1280,7 +1280,7 @@ LABEL_8:
   v12 = 0u;
   v9 = 0u;
   v10 = 0u;
-  [(PREditingSceneViewController *)self _topButtonLayout];
+  objc_msgSend__topButtonLayout(self);
   [settingsCopy pr_setLeadingTopButtonFrame:{v9, v10}];
   [settingsCopy pr_setTrailingTopButtonFrame:{v11, v12}];
   [(PREditingSceneViewController *)self horizontalTitleBoundingRect];
@@ -1345,7 +1345,7 @@ LABEL_8:
       v35 = 0;
       if (delegate)
       {
-        [delegate topButtonLayoutForEditingSceneViewController:self];
+        objc_msgSend_topButtonLayoutForEditingSceneViewController_(delegate);
         y = v34.y;
         x = v34.x;
         height = v35.height;
@@ -1706,7 +1706,7 @@ void __64__PREditingSceneViewController__prefetchComplicationSuggestions__block_
 {
   if (*(a1 + 32))
   {
-    v1 = PRLogEditing();
+    v1 = PRLogEditing(a1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __64__PREditingSceneViewController__prefetchComplicationSuggestions__block_invoke_2_cold_1();
@@ -1747,7 +1747,7 @@ void __64__PREditingSceneViewController__prefetchComplicationSuggestions__block_
 {
   if (*(a1 + 32))
   {
-    v1 = PRLogEditing();
+    v1 = PRLogEditing(a1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __64__PREditingSceneViewController__prefetchComplicationSuggestions__block_invoke_2_200_cold_1();
@@ -1788,7 +1788,7 @@ void __64__PREditingSceneViewController__prefetchComplicationSuggestions__block_
 {
   if (*(a1 + 32))
   {
-    v1 = PRLogEditing();
+    v1 = PRLogEditing(a1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __64__PREditingSceneViewController__prefetchComplicationSuggestions__block_invoke_2_203_cold_1();
@@ -2031,73 +2031,74 @@ void __59__PREditingSceneViewController__suggestedControlIdentities__block_invok
 
 - (void)_updateComplicationLayout
 {
-  v20 = *MEMORY[0x1E69E9840];
-  [PREditorElementLayoutController frameForElements:1 variant:3];
-  v4 = v3;
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = [PREditorElementLayoutController frameForElements:1 variant:3];
+  v5 = v4;
   height = self->_timeReticleFrame.size.height;
-  if (height <= v3 && self->_depthEffectDisabled)
+  if (height <= v4 && self->_depthEffectDisabled)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = PUIFeatureEnabled();
+    v3 = PUIFeatureEnabled();
+    v7 = v3;
   }
 
-  v7 = self->_complicationLayoutIsUserConfigured && self->_complicationsUseBottomLayout;
-  v8 = v6 | v7;
-  v9 = PRLogEditing();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v8 = self->_complicationLayoutIsUserConfigured && self->_complicationsUseBottomLayout;
+  v9 = v7 | v8;
+  v10 = PRLogEditing(v3);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     depthEffectDisabled = self->_depthEffectDisabled;
-    v14 = 67109632;
-    v15 = v8 & 1;
-    v16 = 1024;
-    v17 = height > v4;
+    v16 = 67109632;
+    v17 = v9 & 1;
     v18 = 1024;
-    v19 = depthEffectDisabled;
-    _os_log_impl(&dword_1A8AA7000, v9, OS_LOG_TYPE_DEFAULT, "[Widget Row] updating complication layout to bottom: %{BOOL}u because adaptive time configured: %{BOOL}u and depth effect disabled: %{BOOL}u", &v14, 0x14u);
+    v19 = height > v5;
+    v20 = 1024;
+    v21 = depthEffectDisabled;
+    _os_log_impl(&dword_1A8AA7000, v10, OS_LOG_TYPE_DEFAULT, "[Widget Row] updating complication layout to bottom: %{BOOL}u because adaptive time configured: %{BOOL}u and depth effect disabled: %{BOOL}u", &v16, 0x14u);
   }
 
-  if (!self->_complicationsUseBottomLayout && ((v6 ^ 1) & 1) == 0)
+  if (!self->_complicationsUseBottomLayout && ((v7 ^ 1) & 1) == 0)
   {
     self->_complicationLayoutIsUserConfigured = 0;
   }
 
   complicationRowMode = self->_complicationRowMode;
-  v12 = PRLogEditing();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v14 = PRLogEditing(v12);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (complicationRowMode == 2)
   {
-    if (v13)
+    if (v15)
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1A8AA7000, v12, OS_LOG_TYPE_DEFAULT, "[Widget Row] complicationRowMode is FixedBottom, forcing complications to bottom", &v14, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1A8AA7000, v14, OS_LOG_TYPE_DEFAULT, "[Widget Row] complicationRowMode is FixedBottom, forcing complications to bottom", &v16, 2u);
     }
 
-    v8 = 1;
+    v9 = 1;
   }
 
   else if (complicationRowMode == 1)
   {
-    if (v13)
+    if (v15)
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1A8AA7000, v12, OS_LOG_TYPE_DEFAULT, "[Widget Row] complicationRowMode is FixedTop, forcing complications to top", &v14, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1A8AA7000, v14, OS_LOG_TYPE_DEFAULT, "[Widget Row] complicationRowMode is FixedTop, forcing complications to top", &v16, 2u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  else if (v13)
+  else if (v15)
   {
-    v14 = 67109120;
-    v15 = v8 & 1;
-    _os_log_impl(&dword_1A8AA7000, v12, OS_LOG_TYPE_DEFAULT, "[Widget Row] complicationRowMode is Automatic, using calculated layout for bottom: %{BOOL}u", &v14, 8u);
+    v16 = 67109120;
+    v17 = v9 & 1;
+    _os_log_impl(&dword_1A8AA7000, v14, OS_LOG_TYPE_DEFAULT, "[Widget Row] complicationRowMode is Automatic, using calculated layout for bottom: %{BOOL}u", &v16, 8u);
   }
 
-  [(PREditingSceneViewController *)self setComplicationsUseBottomLayout:v8 & 1 animated:1];
+  [(PREditingSceneViewController *)self setComplicationsUseBottomLayout:v9 & 1 animated:1];
 }
 
 - (void)setComplicationsUseBottomLayout:(BOOL)layout animated:(BOOL)animated
@@ -2194,16 +2195,16 @@ void __67__PREditingSceneViewController__updateInlineComplicationVisibility__blo
 
 - (void)_presentComplicationGallery
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v72[1] = *MEMORY[0x1E69E9840];
   presentedComplicationsGallery = [(PREditingSceneViewController *)self presentedComplicationsGallery];
 
   if (presentedComplicationsGallery)
   {
-    v4 = PRLogEditing();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PRLogEditing(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "Complication gallery is already displayed, not showing another one", buf, 2u);
+      _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "Complication gallery is already displayed, not showing another one", buf, 2u);
     }
   }
 
@@ -2218,97 +2219,97 @@ void __67__PREditingSceneViewController__updateInlineComplicationVisibility__blo
 
     if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
-      v8 = objc_alloc_init(MEMORY[0x1E69D4080]);
-      v9 = [v8 layoutForIconLocation:*MEMORY[0x1E69D4158]];
-      [v9 iconImageInfo];
-      v11 = v10;
-      v13 = v12;
-      v15 = v14;
-      v17 = v16;
+      v9 = objc_alloc_init(MEMORY[0x1E69D4080]);
+      v10 = [v9 layoutForIconLocation:*MEMORY[0x1E69D4158]];
+      [v10 iconImageInfo];
+      v12 = v11;
+      v14 = v13;
+      v16 = v15;
+      v18 = v17;
 
-      v18 = [objc_alloc(MEMORY[0x1E69D40A0]) initWithName:@"iconImages" iconImageInfo:{v11, v13, v15, v17}];
-      v19 = objc_alloc(MEMORY[0x1E69D40D0]);
+      v19 = [objc_alloc(MEMORY[0x1E69D40A0]) initWithName:@"iconImages" iconImageInfo:{v12, v14, v16, v18}];
+      v20 = objc_alloc(MEMORY[0x1E69D40D0]);
       listLayoutProvider = [(PREditingSceneViewController *)self listLayoutProvider];
       iconViewProvider = [(PREditingSceneViewController *)self iconViewProvider];
-      v22 = [v19 initWithListLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider allowedWidgets:3072 appCellIconImageCache:0 addWidgetSheetStyle:{v18, 1}];
+      v23 = [v20 initWithListLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider allowedWidgets:3072 appCellIconImageCache:0 addWidgetSheetStyle:{v19, 1}];
 
-      [v22 setPresenter:self];
-      [v22 setDelegate:self];
-      [v22 setAddWidgetSheetLocation:1];
-      [v22 setWantsBottomAttachedPresentation:0];
-      [v22 setWantsCloseButton:1];
-      presentationController = [v22 presentationController];
-      v24 = objc_opt_class();
-      v25 = presentationController;
-      if (v24)
+      [v23 setPresenter:self];
+      [v23 setDelegate:self];
+      [v23 setAddWidgetSheetLocation:1];
+      [v23 setWantsBottomAttachedPresentation:0];
+      [v23 setWantsCloseButton:1];
+      presentationController = [v23 presentationController];
+      v25 = objc_opt_class();
+      v26 = presentationController;
+      if (v25)
       {
         if (objc_opt_isKindOfClass())
         {
-          v26 = v25;
+          v27 = v26;
         }
 
         else
         {
-          v26 = 0;
+          v27 = 0;
         }
       }
 
       else
       {
-        v26 = 0;
+        v27 = 0;
       }
 
-      v34 = v26;
+      v35 = v27;
 
-      v35 = [MEMORY[0x1E69DCF58] customDetentWithIdentifier:@"ComplicationGalleryDodge" resolver:&__block_literal_global_343];
-      v71[0] = v35;
-      v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:1];
-      [v34 setDetents:v36];
+      v36 = [MEMORY[0x1E69DCF58] customDetentWithIdentifier:@"ComplicationGalleryDodge" resolver:&__block_literal_global_343];
+      v72[0] = v36;
+      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1];
+      [v35 setDetents:v37];
 
-      [v34 setLargestUndimmedDetentIdentifier:@"ComplicationGalleryDodge"];
-      dimmingView = [v34 dimmingView];
+      [v35 setLargestUndimmedDetentIdentifier:@"ComplicationGalleryDodge"];
+      dimmingView = [v35 dimmingView];
       layer = [dimmingView layer];
       [layer setHitTestsAsOpaque:0];
 
-      _confinedDimmingView = [v34 _confinedDimmingView];
+      _confinedDimmingView = [v35 _confinedDimmingView];
       layer2 = [_confinedDimmingView layer];
       [layer2 setHitTestsAsOpaque:0];
 
-      v41 = [MEMORY[0x1E69DD708] appearancePreferringDimmingVisible:0];
-      [v34 _setStandardAppearance:v41];
+      v42 = [MEMORY[0x1E69DD708] appearancePreferringDimmingVisible:0];
+      [v35 _setStandardAppearance:v42];
 
-      [v34 setDelegate:self];
-      [v22 loadViewIfNeeded];
+      [v35 setDelegate:self];
+      [v23 loadViewIfNeeded];
       addWidgetSheetConfigurationManager2 = [(PREditingSceneViewController *)self addWidgetSheetConfigurationManager];
-      [addWidgetSheetConfigurationManager2 updatePresentedWidgetEditingViewController:v22];
+      [addWidgetSheetConfigurationManager2 updatePresentedWidgetEditingViewController:v23];
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-      [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalWillBegin_ name:*MEMORY[0x1E69DE2D0] object:v22];
-      [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalDidEnd_ name:*MEMORY[0x1E69DE2C8] object:v22];
+      [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalWillBegin_ name:*MEMORY[0x1E69DE2D0] object:v23];
+      [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalDidEnd_ name:*MEMORY[0x1E69DE2C8] object:v23];
     }
 
     else
     {
-      v27 = PRIconGridSizeClassSetForWidgetFamilyMask(3072);
+      v28 = PRIconGridSizeClassSetForWidgetFamilyMask(3072);
       addWidgetSheetConfigurationManager3 = [(PREditingSceneViewController *)self addWidgetSheetConfigurationManager];
-      v67 = v27;
-      v8 = [addWidgetSheetConfigurationManager3 applicationWidgetCollectionsForEditingViewController:self withAllowedSizeClasses:&v67 allowingNonStackableItems:0];
-      v29 = v67;
+      v68 = v28;
+      v9 = [addWidgetSheetConfigurationManager3 applicationWidgetCollectionsForEditingViewController:self withAllowedSizeClasses:&v68 allowingNonStackableItems:0];
+      v30 = v68;
 
-      v30 = [PRComplicationGalleryViewController alloc];
+      v31 = [PRComplicationGalleryViewController alloc];
       graphicComplicationSuggestionSets = self->_graphicComplicationSuggestionSets;
       listLayoutProvider2 = [(PREditingSceneViewController *)self listLayoutProvider];
       iconViewProvider2 = [(PREditingSceneViewController *)self iconViewProvider];
-      v18 = [(PRComplicationGalleryViewController *)v30 initWithSuggestionSets:graphicComplicationSuggestionSets applicationWidgetCollections:v8 listLayoutProvider:listLayoutProvider2 iconViewProvider:iconViewProvider2];
+      v19 = [(PRComplicationGalleryViewController *)v31 initWithSuggestionSets:graphicComplicationSuggestionSets applicationWidgetCollections:v9 listLayoutProvider:listLayoutProvider2 iconViewProvider:iconViewProvider2];
 
-      [(PRComplicationGalleryViewController *)v18 setDelegate:self];
-      v22 = [(PREditingSceneViewController *)self _configureNavigationControllerForGalleryViewController:v18];
+      [(PRComplicationGalleryViewController *)v19 setDelegate:self];
+      v23 = [(PREditingSceneViewController *)self _configureNavigationControllerForGalleryViewController:v19];
     }
 
-    [(PREditingSceneViewController *)self setPresentedComplicationsGallery:v22];
+    [(PREditingSceneViewController *)self setPresentedComplicationsGallery:v23];
     [(PREditingSceneViewController *)self _updateInlineComplicationVisibility];
-    v55 = v22;
-    [(PREditingSceneViewController *)self presentViewController:v22 animated:1 completion:0];
+    v56 = v23;
+    [(PREditingSceneViewController *)self presentViewController:v23 animated:1 completion:0];
     [(PREditingSceneViewController *)self setFocusedElement:2];
     [(PREditingSceneViewController *)self _updateSceneSettingsForPosterCoveredByModalPresentation];
     if (![(PREditingSceneViewController *)self _complicationsShouldUseBottomLayout])
@@ -2317,77 +2318,77 @@ void __67__PREditingSceneViewController__updateInlineComplicationVisibility__blo
     }
 
     [(PREditingSceneViewController *)self _updateAddComplicationsTapGestureAllowed];
-    v65 = 0u;
     v66 = 0u;
-    v63 = 0u;
+    v67 = 0u;
     v64 = 0u;
+    v65 = 0u;
     obj = self->_graphicComplicationSuggestionSets;
-    v58 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v70 count:16];
-    if (v58)
+    v59 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v71 count:16];
+    if (v59)
     {
-      v57 = *v64;
+      v58 = *v65;
       do
       {
-        v44 = 0;
+        v45 = 0;
         do
         {
-          if (*v64 != v57)
+          if (*v65 != v58)
           {
             objc_enumerationMutation(obj);
           }
 
-          v45 = *(*(&v63 + 1) + 8 * v44);
-          v59 = 0u;
+          v46 = *(*(&v64 + 1) + 8 * v45);
           v60 = 0u;
           v61 = 0u;
           v62 = 0u;
-          complications = [v45 complications];
-          v47 = [complications countByEnumeratingWithState:&v59 objects:v69 count:16];
-          if (v47)
+          v63 = 0u;
+          complications = [v46 complications];
+          v48 = [complications countByEnumeratingWithState:&v60 objects:v70 count:16];
+          if (v48)
           {
-            v48 = v47;
-            v49 = *v60;
+            v49 = v48;
+            v50 = *v61;
             do
             {
-              v50 = 0;
+              v51 = 0;
               do
               {
-                if (*v60 != v49)
+                if (*v61 != v50)
                 {
                   objc_enumerationMutation(complications);
                 }
 
-                v51 = *(*(&v59 + 1) + 8 * v50);
+                v52 = *(*(&v60 + 1) + 8 * v51);
                 engagementCountsForViewedSuggestedComplications = [(PREditingSceneViewController *)self engagementCountsForViewedSuggestedComplications];
-                v53 = [engagementCountsForViewedSuggestedComplications objectForKey:v51];
+                v54 = [engagementCountsForViewedSuggestedComplications objectForKey:v52];
 
-                if (!v53)
+                if (!v54)
                 {
                   engagementCountsForViewedSuggestedComplications2 = [(PREditingSceneViewController *)self engagementCountsForViewedSuggestedComplications];
-                  [engagementCountsForViewedSuggestedComplications2 setObject:&unk_1F1C6B9B0 forKey:v51];
+                  [engagementCountsForViewedSuggestedComplications2 setObject:&unk_1F1C6B9B0 forKey:v52];
                 }
 
-                ++v50;
+                ++v51;
               }
 
-              while (v48 != v50);
-              v48 = [complications countByEnumeratingWithState:&v59 objects:v69 count:16];
+              while (v49 != v51);
+              v49 = [complications countByEnumeratingWithState:&v60 objects:v70 count:16];
             }
 
-            while (v48);
+            while (v49);
           }
 
-          ++v44;
+          ++v45;
         }
 
-        while (v44 != v58);
-        v58 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+        while (v45 != v59);
+        v59 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v71 count:16];
       }
 
-      while (v58);
+      while (v59);
     }
 
-    v4 = v55;
+    v5 = v56;
   }
 }
 
@@ -2424,31 +2425,31 @@ void __67__PREditingSceneViewController__updateInlineComplicationVisibility__blo
 
 - (void)_presentSidebarComplicationGallery
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   presentedSidebarComplicationsGallery = [(PREditingSceneViewController *)self presentedSidebarComplicationsGallery];
 
   if (presentedSidebarComplicationsGallery)
   {
-    v4 = PRLogEditing();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PRLogEditing(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "Sidebar complication gallery is already displayed, not showing another one", buf, 2u);
+      _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "Sidebar complication gallery is already displayed, not showing another one", buf, 2u);
     }
   }
 
   else
   {
     [(PREditingSceneViewController *)self _performWidgetDescriptorDiscovery];
-    v5 = objc_alloc_init(MEMORY[0x1E69D4080]);
-    v6 = [v5 layoutForIconLocation:*MEMORY[0x1E69D4158]];
-    [v6 iconImageInfo];
-    v8 = v7;
-    v10 = v9;
-    v12 = v11;
-    v14 = v13;
+    v6 = objc_alloc_init(MEMORY[0x1E69D4080]);
+    v7 = [v6 layoutForIconLocation:*MEMORY[0x1E69D4158]];
+    [v7 iconImageInfo];
+    v9 = v8;
+    v11 = v10;
+    v13 = v12;
+    v15 = v14;
 
-    v15 = [objc_alloc(MEMORY[0x1E69D40A0]) initWithName:@"iconImages" iconImageInfo:{v8, v10, v12, v14}];
+    v16 = [objc_alloc(MEMORY[0x1E69D40A0]) initWithName:@"iconImages" iconImageInfo:{v9, v11, v13, v15}];
     addWidgetSheetConfigurationManager = [(PREditingSceneViewController *)self addWidgetSheetConfigurationManager];
     [addWidgetSheetConfigurationManager setAllowedWidgetFamilies:3074];
 
@@ -2460,147 +2461,147 @@ void __67__PREditingSceneViewController__updateInlineComplicationVisibility__blo
     iconViewProvider = [(PREditingSceneViewController *)self iconViewProvider];
     [iconViewProvider setDragManager:dragManager];
 
-    v22 = [PRPadAddSheetViewController alloc];
+    v23 = [PRPadAddSheetViewController alloc];
     listLayoutProvider = [(PREditingSceneViewController *)self listLayoutProvider];
     iconViewProvider2 = [(PREditingSceneViewController *)self iconViewProvider];
-    v25 = [(SBHAddWidgetSheetViewControllerBase *)v22 initWithListLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider2 allowedWidgets:3074 appCellIconImageCache:256 addWidgetSheetStyle:v15, 1];
+    v26 = [(SBHAddWidgetSheetViewControllerBase *)v23 initWithListLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider2 allowedWidgets:3074 appCellIconImageCache:256 addWidgetSheetStyle:v16, 1];
 
-    [(PRPadAddSheetViewController *)v25 setModalPresentationStyle:2];
-    [(SBHPadAddSheetViewController *)v25 setPresenter:self];
-    [(SBHAddWidgetSheetViewControllerBase *)v25 setDelegate:self];
-    [(SBHPadAddSheetViewController *)v25 setAddWidgetSheetLocation:1];
-    [(SBHPadAddSheetViewController *)v25 setWantsBottomAttachedPresentation:0];
-    [(SBHPadAddSheetViewController *)v25 setWantsCloseButton:1];
+    [(PRPadAddSheetViewController *)v26 setModalPresentationStyle:2];
+    [(SBHPadAddSheetViewController *)v26 setPresenter:self];
+    [(SBHAddWidgetSheetViewControllerBase *)v26 setDelegate:self];
+    [(SBHPadAddSheetViewController *)v26 setAddWidgetSheetLocation:1];
+    [(SBHPadAddSheetViewController *)v26 setWantsBottomAttachedPresentation:0];
+    [(SBHPadAddSheetViewController *)v26 setWantsCloseButton:1];
     if ((PUIFeatureEnabled() & 1) == 0)
     {
-      [(SBHPadAddSheetViewController *)v25 setWantsSeparator:1];
+      [(SBHPadAddSheetViewController *)v26 setWantsSeparator:1];
     }
 
-    presentationController = [(PRPadAddSheetViewController *)v25 presentationController];
-    v27 = objc_opt_class();
-    v28 = presentationController;
-    v52 = v15;
-    v53 = v5;
-    v51 = dragManager;
-    if (v27)
+    presentationController = [(PRPadAddSheetViewController *)v26 presentationController];
+    v28 = objc_opt_class();
+    v29 = presentationController;
+    v53 = v16;
+    v54 = v6;
+    v52 = dragManager;
+    if (v28)
     {
       if (objc_opt_isKindOfClass())
       {
-        v29 = v28;
+        v30 = v29;
       }
 
       else
       {
-        v29 = 0;
+        v30 = 0;
       }
     }
 
     else
     {
-      v29 = 0;
+      v30 = 0;
     }
 
-    v30 = v29;
+    v31 = v30;
 
-    dimmingView = [v30 dimmingView];
+    dimmingView = [v31 dimmingView];
     layer = [dimmingView layer];
     [layer setHitTestsAsOpaque:0];
 
-    _confinedDimmingView = [v30 _confinedDimmingView];
+    _confinedDimmingView = [v31 _confinedDimmingView];
     layer2 = [_confinedDimmingView layer];
     [layer2 setHitTestsAsOpaque:0];
 
-    v35 = [MEMORY[0x1E69DD708] appearancePreferringDimmingVisible:0];
-    [v30 _setStandardAppearance:v35];
+    v36 = [MEMORY[0x1E69DD708] appearancePreferringDimmingVisible:0];
+    [v31 _setStandardAppearance:v36];
 
-    [v30 setSourceView:self->_sidebarComplicationGallerySourceView];
-    v49 = v30;
-    [v30 setDelegate:self];
-    [(PREditingSceneViewController *)self presentViewController:v25 animated:1 completion:0];
-    [(PREditingSceneViewController *)self setPresentedSidebarComplicationsGallery:v25];
+    [v31 setSourceView:self->_sidebarComplicationGallerySourceView];
+    v50 = v31;
+    [v31 setDelegate:self];
+    [(PREditingSceneViewController *)self presentViewController:v26 animated:1 completion:0];
+    [(PREditingSceneViewController *)self setPresentedSidebarComplicationsGallery:v26];
     [(PREditingSceneViewController *)self setFocusedElement:3];
     [(PREditingSceneViewController *)self _updateSceneSettingsForPosterCoveredByModalPresentation];
     [(PREditingSceneViewController *)self _updatePresentationDismissalGestureView];
     [(PREditingSceneViewController *)self _updateAddComplicationsTapGestureAllowed];
     addWidgetSheetConfigurationManager2 = [(PREditingSceneViewController *)self addWidgetSheetConfigurationManager];
-    v50 = v25;
-    [addWidgetSheetConfigurationManager2 updatePresentedWidgetEditingViewController:v25];
+    v51 = v26;
+    [addWidgetSheetConfigurationManager2 updatePresentedWidgetEditingViewController:v26];
 
-    v63 = 0u;
     v64 = 0u;
-    v61 = 0u;
+    v65 = 0u;
     v62 = 0u;
+    v63 = 0u;
     obj = self->_graphicComplicationSuggestionSets;
-    v56 = [(NSArray *)obj countByEnumeratingWithState:&v61 objects:v67 count:16];
-    if (v56)
+    v57 = [(NSArray *)obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+    if (v57)
     {
-      v55 = *v62;
+      v56 = *v63;
       do
       {
-        v37 = 0;
+        v38 = 0;
         do
         {
-          if (*v62 != v55)
+          if (*v63 != v56)
           {
             objc_enumerationMutation(obj);
           }
 
-          v38 = *(*(&v61 + 1) + 8 * v37);
-          v57 = 0u;
+          v39 = *(*(&v62 + 1) + 8 * v38);
           v58 = 0u;
           v59 = 0u;
           v60 = 0u;
-          complications = [v38 complications];
-          v40 = [complications countByEnumeratingWithState:&v57 objects:v66 count:16];
-          if (v40)
+          v61 = 0u;
+          complications = [v39 complications];
+          v41 = [complications countByEnumeratingWithState:&v58 objects:v67 count:16];
+          if (v41)
           {
-            v41 = v40;
-            v42 = *v58;
+            v42 = v41;
+            v43 = *v59;
             do
             {
-              v43 = 0;
+              v44 = 0;
               do
               {
-                if (*v58 != v42)
+                if (*v59 != v43)
                 {
                   objc_enumerationMutation(complications);
                 }
 
-                v44 = *(*(&v57 + 1) + 8 * v43);
+                v45 = *(*(&v58 + 1) + 8 * v44);
                 engagementCountsForViewedSuggestedComplications = [(PREditingSceneViewController *)self engagementCountsForViewedSuggestedComplications];
-                v46 = [engagementCountsForViewedSuggestedComplications objectForKey:v44];
+                v47 = [engagementCountsForViewedSuggestedComplications objectForKey:v45];
 
-                if (!v46)
+                if (!v47)
                 {
                   engagementCountsForViewedSuggestedComplications2 = [(PREditingSceneViewController *)self engagementCountsForViewedSuggestedComplications];
-                  [engagementCountsForViewedSuggestedComplications2 setObject:&unk_1F1C6B9B0 forKey:v44];
+                  [engagementCountsForViewedSuggestedComplications2 setObject:&unk_1F1C6B9B0 forKey:v45];
                 }
 
-                ++v43;
+                ++v44;
               }
 
-              while (v41 != v43);
-              v41 = [complications countByEnumeratingWithState:&v57 objects:v66 count:16];
+              while (v42 != v44);
+              v42 = [complications countByEnumeratingWithState:&v58 objects:v67 count:16];
             }
 
-            while (v41);
+            while (v42);
           }
 
-          ++v37;
+          ++v38;
         }
 
-        while (v37 != v56);
-        v56 = [(NSArray *)obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+        while (v38 != v57);
+        v57 = [(NSArray *)obj countByEnumeratingWithState:&v62 objects:v68 count:16];
       }
 
-      while (v56);
+      while (v57);
     }
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalWillBegin_ name:*MEMORY[0x1E69DE2D0] object:v50];
-    [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalDidEnd_ name:*MEMORY[0x1E69DE2C8] object:v50];
+    [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalWillBegin_ name:*MEMORY[0x1E69DE2D0] object:v51];
+    [defaultCenter addObserver:self selector:sel_presentedViewControllerDismissalDidEnd_ name:*MEMORY[0x1E69DE2C8] object:v51];
 
-    v4 = v53;
+    v5 = v54;
   }
 }
 
@@ -3158,37 +3159,39 @@ id __50__PREditingSceneViewController_setFocusedElement___block_invoke(uint64_t 
 
 - (void)_dismissWithAction:(int64_t)action
 {
-  v84 = *MEMORY[0x1E69E9840];
-  if (![(PREditingSceneViewController *)self isDismissing])
+  v86 = *MEMORY[0x1E69E9840];
+  isDismissing = [(PREditingSceneViewController *)self isDismissing];
+  if ((isDismissing & 1) == 0)
   {
-    v5 = PRLogEditing();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRLogEditing(isDismissing);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       actionCopy = action;
-      _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "Dismiss with action %li", buf, 0xCu);
+      _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "Dismiss with action %li", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     [(PREditingSceneViewController *)self setDismissing:1];
     [(PREditingSceneViewController *)self _unregisterComplicationContainerViewControllerDelegates];
     delegate = [(PREditingSceneViewController *)self delegate];
+    v59 = delegate;
     if (action == 1 && !delegate)
     {
-      v6 = PRLogEditing();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = PRLogEditing(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v79 = 0;
-        _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "Discarding updated configuration because no delegate is set", v79, 2u);
+        *v81 = 0;
+        _os_log_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_DEFAULT, "Discarding updated configuration because no delegate is set", v81, 2u);
       }
 
       action = 0;
     }
 
     presentedViewController = [(PREditingSceneViewController *)self presentedViewController];
-    v8 = presentedViewController == 0;
+    v10 = presentedViewController == 0;
 
-    if (!v8)
+    if (!v10)
     {
       [(PREditingSceneViewController *)self _dismissAnyPresentedComplicationGalleryAnimated:1];
     }
@@ -3197,148 +3200,148 @@ id __50__PREditingSceneViewController_setFocusedElement___block_invoke(uint64_t 
     {
       _complicationsShouldUseBottomLayout = [(PREditingSceneViewController *)self _complicationsShouldUseBottomLayout];
       pRSWidget = [(PRComplicationDescriptor *)self->_selectedInlineComplication PRSWidget];
-      v54 = _complicationsShouldUseBottomLayout;
+      v56 = _complicationsShouldUseBottomLayout;
       anyObject = [(NSHashTable *)self->_complicationContainerViewControllers anyObject];
       widgetGridViewController = [anyObject widgetGridViewController];
       model = [widgetGridViewController model];
 
       complicationDescriptors = [model complicationDescriptors];
-      v13 = [complicationDescriptors bs_map:&__block_literal_global_367];
+      v15 = [complicationDescriptors bs_map:&__block_literal_global_367];
       [model saveIconStateIfNeeded];
       iconLayout = [model iconLayout];
-      v51 = v13;
+      v53 = v15;
       anyObject2 = [(NSHashTable *)self->_complicationContainerViewControllers anyObject];
       sidebarWidgetGridViewController = [anyObject2 sidebarWidgetGridViewController];
       model2 = [sidebarWidgetGridViewController model];
 
       complicationDescriptors2 = [model2 complicationDescriptors];
-      v17 = [complicationDescriptors2 bs_map:&__block_literal_global_369];
+      v19 = [complicationDescriptors2 bs_map:&__block_literal_global_369];
       [model2 saveIconStateIfNeeded];
       iconLayout2 = [model2 iconLayout];
-      v49 = v17;
-      v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v51 = v19;
+      v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
       suggestedComplication = [(PRComplicationDescriptor *)self->_selectedInlineComplication suggestedComplication];
 
       if (suggestedComplication)
       {
         suggestedComplication2 = [(PRComplicationDescriptor *)self->_selectedInlineComplication suggestedComplication];
         uniqueIdentifier = [(PRComplicationDescriptor *)self->_selectedInlineComplication uniqueIdentifier];
-        [v19 setObject:suggestedComplication2 forKey:uniqueIdentifier];
+        [v21 setObject:suggestedComplication2 forKey:uniqueIdentifier];
       }
 
+      v79 = 0u;
+      v80 = 0u;
       v77 = 0u;
       v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v23 = complicationDescriptors;
-      v24 = [v23 countByEnumeratingWithState:&v75 objects:v81 count:16];
-      if (v24)
+      v25 = complicationDescriptors;
+      v26 = [v25 countByEnumeratingWithState:&v77 objects:v83 count:16];
+      if (v26)
       {
-        v25 = *v76;
+        v27 = *v78;
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v26; ++i)
           {
-            if (*v76 != v25)
+            if (*v78 != v27)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v25);
             }
 
-            v27 = *(*(&v75 + 1) + 8 * i);
-            suggestedComplication3 = [v27 suggestedComplication];
+            v29 = *(*(&v77 + 1) + 8 * i);
+            suggestedComplication3 = [v29 suggestedComplication];
 
             if (suggestedComplication3)
             {
-              suggestedComplication4 = [v27 suggestedComplication];
-              uniqueIdentifier2 = [v27 uniqueIdentifier];
-              [v19 setObject:suggestedComplication4 forKey:uniqueIdentifier2];
+              suggestedComplication4 = [v29 suggestedComplication];
+              uniqueIdentifier2 = [v29 uniqueIdentifier];
+              [v21 setObject:suggestedComplication4 forKey:uniqueIdentifier2];
             }
           }
 
-          v24 = [v23 countByEnumeratingWithState:&v75 objects:v81 count:16];
+          v26 = [v25 countByEnumeratingWithState:&v77 objects:v83 count:16];
         }
 
-        while (v24);
+        while (v26);
       }
 
+      v75 = 0u;
+      v76 = 0u;
       v73 = 0u;
       v74 = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v31 = complicationDescriptors2;
-      v32 = [v31 countByEnumeratingWithState:&v71 objects:v80 count:16];
-      if (v32)
+      v33 = complicationDescriptors2;
+      v34 = [v33 countByEnumeratingWithState:&v73 objects:v82 count:16];
+      if (v34)
       {
-        v33 = *v72;
+        v35 = *v74;
         do
         {
-          for (j = 0; j != v32; ++j)
+          for (j = 0; j != v34; ++j)
           {
-            if (*v72 != v33)
+            if (*v74 != v35)
             {
-              objc_enumerationMutation(v31);
+              objc_enumerationMutation(v33);
             }
 
-            v35 = *(*(&v71 + 1) + 8 * j);
-            suggestedComplication5 = [v35 suggestedComplication];
+            v37 = *(*(&v73 + 1) + 8 * j);
+            suggestedComplication5 = [v37 suggestedComplication];
 
             if (suggestedComplication5)
             {
-              suggestedComplication6 = [v35 suggestedComplication];
-              uniqueIdentifier3 = [v35 uniqueIdentifier];
-              [v19 setObject:suggestedComplication6 forKey:uniqueIdentifier3];
+              suggestedComplication6 = [v37 suggestedComplication];
+              uniqueIdentifier3 = [v37 uniqueIdentifier];
+              [v21 setObject:suggestedComplication6 forKey:uniqueIdentifier3];
             }
           }
 
-          v32 = [v31 countByEnumeratingWithState:&v71 objects:v80 count:16];
+          v34 = [v33 countByEnumeratingWithState:&v73 objects:v82 count:16];
         }
 
-        while (v32);
+        while (v34);
       }
 
-      v60[0] = MEMORY[0x1E69E9820];
-      v60[1] = 3221225472;
-      v60[2] = __51__PREditingSceneViewController__dismissWithAction___block_invoke_3;
-      v60[3] = &unk_1E7845688;
-      v61 = delegate;
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __51__PREditingSceneViewController__dismissWithAction___block_invoke_3;
+      v62[3] = &unk_1E7845688;
+      v63 = v59;
       selfCopy = self;
-      objc_copyWeak(v69, buf);
-      v39 = pRSWidget;
-      v63 = v39;
-      v40 = iconLayout2;
-      v64 = v40;
-      v53 = v49;
-      v65 = v53;
-      v41 = iconLayout;
-      v66 = v41;
-      v42 = v51;
-      v67 = v42;
-      v70 = v54;
-      v43 = v19;
+      objc_copyWeak(v71, buf);
+      v41 = pRSWidget;
+      v65 = v41;
+      v42 = iconLayout2;
+      v66 = v42;
+      v55 = v51;
+      v67 = v55;
+      v43 = iconLayout;
       v68 = v43;
-      v69[1] = 1;
-      v44 = [PREditingDidDismissAction acceptChangesWithCompletion:v60];
+      v44 = v53;
+      v69 = v44;
+      v72 = v56;
+      v45 = v21;
+      v70 = v45;
+      v71[1] = 1;
+      v46 = [PREditingDidDismissAction acceptChangesWithCompletion:v62];
       scene = self->super._scene;
-      v46 = [MEMORY[0x1E695DFD8] setWithObject:v44];
-      [(FBScene *)scene sendActions:v46];
+      v48 = [MEMORY[0x1E695DFD8] setWithObject:v46];
+      [(FBScene *)scene sendActions:v48];
 
-      objc_destroyWeak(v69);
+      objc_destroyWeak(v71);
     }
 
     else
     {
-      v39 = +[PREditingDidDismissAction cancelAction];
-      v47 = self->super._scene;
-      v48 = [MEMORY[0x1E695DFD8] setWithObject:v39];
-      [(FBScene *)v47 sendActions:v48];
+      v41 = +[PREditingDidDismissAction cancelAction];
+      v49 = self->super._scene;
+      v50 = [MEMORY[0x1E695DFD8] setWithObject:v41];
+      [(FBScene *)v49 sendActions:v50];
 
-      v58[0] = MEMORY[0x1E69E9820];
-      v58[1] = 3221225472;
-      v58[2] = __51__PREditingSceneViewController__dismissWithAction___block_invoke_389;
-      v58[3] = &unk_1E78456B0;
-      objc_copyWeak(&v59, buf);
-      [delegate editingSceneViewController:self userDidDismissWithAction:action updatedConfiguration:0 updatedConfiguredProperties:0 completion:v58];
-      objc_destroyWeak(&v59);
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __51__PREditingSceneViewController__dismissWithAction___block_invoke_389;
+      v60[3] = &unk_1E78456B0;
+      objc_copyWeak(&v61, buf);
+      [v59 editingSceneViewController:self userDidDismissWithAction:action updatedConfiguration:0 updatedConfiguredProperties:0 completion:v60];
+      objc_destroyWeak(&v61);
     }
 
     objc_destroyWeak(buf);
@@ -3380,12 +3383,12 @@ void __51__PREditingSceneViewController__dismissWithAction___block_invoke_4(uint
   {
     WeakRetained = [*(a1 + 56) configuredProperties];
     v3 = [*(a1 + 40) mutableCopy];
-    v76 = [[PRPosterComplicationLayout alloc] initWithInlineComplication:*(a1 + 64) sidebarComplicationIconLayout:*(a1 + 72) sidebarComplications:*(a1 + 80) complicationIconLayout:*(a1 + 88) complications:*(a1 + 96) complicationsUseBottomLayout:*(a1 + 136)];
+    v77 = [[PRPosterComplicationLayout alloc] initWithInlineComplication:*(a1 + 64) sidebarComplicationIconLayout:*(a1 + 72) sidebarComplications:*(a1 + 80) complicationIconLayout:*(a1 + 88) complications:*(a1 + 96) complicationsUseBottomLayout:*(a1 + 136)];
     [v3 setComplicationLayout:?];
     v4 = [WeakRetained focusConfiguration];
     [v3 setFocusConfiguration:v4];
 
-    v75 = [WeakRetained renderingConfiguration];
+    v76 = [WeakRetained renderingConfiguration];
     [v3 setRenderingConfiguration:?];
     v5 = [*(a1 + 32) role];
     v6 = [v5 isEqual:@"PRPosterRoleLockScreen"];
@@ -3429,13 +3432,13 @@ void __51__PREditingSceneViewController__dismissWithAction___block_invoke_4(uint
       v3 = v9;
     }
 
-    v74 = [WeakRetained quickActionsConfiguration];
+    v75 = [WeakRetained quickActionsConfiguration];
     [v3 setQuickActionsConfiguration:?];
     v20 = [WeakRetained suggestionMetadata];
     v21 = [PRPosterSuggestionMetadata alloc];
     v22 = [v20 suggestedGalleryItem];
     v23 = *(a1 + 104);
-    v73 = v20;
+    v74 = v20;
     v24 = [v20 lastModifiedDate];
     v25 = [(PRPosterSuggestionMetadata *)v21 initWithSuggestedGalleryItem:v22 suggestedComplicationsByIdentifier:v23 lastModifiedDate:v24];
 
@@ -3489,7 +3492,7 @@ void __51__PREditingSceneViewController__dismissWithAction___block_invoke_4(uint
 
     v50 = *(*(a1 + 56) + 1200);
     v51 = [WeakRetained complicationLayout];
-    [v50 setWidgetsModified:{objc_msgSend(v51, "isEqualToComplicationLayout:", v76) ^ 1}];
+    [v50 setWidgetsModified:{objc_msgSend(v51, "isEqualToComplicationLayout:", v77) ^ 1}];
 
     v52 = [*(a1 + 32) role];
     LODWORD(v51) = [v52 isEqual:@"PRPosterRoleAmbient"];
@@ -3509,60 +3512,61 @@ void __51__PREditingSceneViewController__dismissWithAction___block_invoke_4(uint
     v57 = [*(a1 + 32) loadUserInfoWithError:0];
     [*(*(a1 + 56) + 1200) setPosterContentModified:{objc_msgSend(*(a1 + 56), "_posterUserInfo:containsUserChangesFromPrevious:", v57, v56)}];
     [*(a1 + 56) setConfiguredProperties:v3];
-    if (objc_opt_respondsToSelector())
+    v58 = objc_opt_respondsToSelector();
+    if (v58)
     {
-      v70 = v56;
-      v71 = v31;
-      v72 = v25;
-      v58 = *(a1 + 48);
-      v59 = *(a1 + 56);
-      v60 = *(a1 + 128);
-      v61 = *(a1 + 32);
-      v78[0] = MEMORY[0x1E69E9820];
-      v78[1] = 3221225472;
-      v78[2] = __51__PREditingSceneViewController__dismissWithAction___block_invoke_2_383;
-      v78[3] = &unk_1E7845638;
-      v62 = v61;
-      v63 = v3;
-      v64 = v62;
-      v79 = v62;
+      v71 = v56;
+      v72 = v31;
+      v73 = v25;
+      v59 = *(a1 + 48);
+      v60 = *(a1 + 56);
+      v61 = *(a1 + 128);
+      v62 = *(a1 + 32);
+      v79[0] = MEMORY[0x1E69E9820];
+      v79[1] = 3221225472;
+      v79[2] = __51__PREditingSceneViewController__dismissWithAction___block_invoke_2_383;
+      v79[3] = &unk_1E7845638;
+      v63 = v62;
+      v64 = v3;
       v65 = v63;
       v80 = v63;
-      v81 = *(a1 + 112);
-      objc_copyWeak(&v82, (a1 + 120));
-      [v58 editingSceneViewController:v59 userDidDismissWithAction:v60 updatedConfiguration:v64 updatedConfiguredProperties:v80 completion:v78];
-      objc_destroyWeak(&v82);
+      v66 = v64;
+      v81 = v64;
+      v82 = *(a1 + 112);
+      objc_copyWeak(&v83, (a1 + 120));
+      [v59 editingSceneViewController:v60 userDidDismissWithAction:v61 updatedConfiguration:v65 updatedConfiguredProperties:v81 completion:v79];
+      objc_destroyWeak(&v83);
 
-      v3 = v65;
-      v31 = v71;
-      v25 = v72;
-      v56 = v70;
+      v3 = v66;
+      v31 = v72;
+      v25 = v73;
+      v56 = v71;
     }
 
     else
     {
-      v67 = PRLogEditing();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+      v68 = PRLogEditing(v58);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A8AA7000, v67, OS_LOG_TYPE_DEFAULT, "dismissing editing scene view controller without saving because the delegate doesn't want to", buf, 2u);
+        _os_log_impl(&dword_1A8AA7000, v68, OS_LOG_TYPE_DEFAULT, "dismissing editing scene view controller without saving because the delegate doesn't want to", buf, 2u);
       }
 
       [*(a1 + 112) invalidate];
       [*(a1 + 56) _finalize];
     }
 
-    v68 = [MEMORY[0x1E698AEE8] sharedInstance];
-    v69 = [*(a1 + 56) engagementCountsForViewedSuggestedComplications];
-    [v68 logComplicationsSeenInGalleryWithEngagements:v69 completion:&__block_literal_global_386];
+    v69 = [MEMORY[0x1E698AEE8] sharedInstance];
+    v70 = [*(a1 + 56) engagementCountsForViewedSuggestedComplications];
+    [v69 logComplicationsSeenInGalleryWithEngagements:v70 completion:&__block_literal_global_386];
   }
 
   else
   {
-    v66 = PRLogEditing();
-    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+    v67 = PRLogEditing(a1);
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
-      __51__PREditingSceneViewController__dismissWithAction___block_invoke_4_cold_1(v66);
+      __51__PREditingSceneViewController__dismissWithAction___block_invoke_4_cold_1(v67);
     }
 
     [*(a1 + 48) editingSceneViewController:*(a1 + 56) userDidDismissWithAction:0 updatedConfiguration:0 updatedConfiguredProperties:0 completion:&__block_literal_global_374];
@@ -3574,11 +3578,11 @@ void __51__PREditingSceneViewController__dismissWithAction___block_invoke_4(uint
 void __51__PREditingSceneViewController__dismissWithAction___block_invoke_2_383(uint64_t a1, void *a2)
 {
   v3 = a2;
-  BSDispatchQueueAssertMain();
+  v4 = BSDispatchQueueAssertMain();
   if (v3)
   {
-    v4 = PRLogEditing();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRLogEditing(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__PREditingSceneViewController__dismissWithAction___block_invoke_2_383_cold_1();
     }
@@ -3592,12 +3596,13 @@ void __51__PREditingSceneViewController__dismissWithAction___block_invoke_2_383(
 void __51__PREditingSceneViewController__dismissWithAction___block_invoke_384(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = PRLogEditing();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PRLogEditing(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __51__PREditingSceneViewController__dismissWithAction___block_invoke_384_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __51__PREditingSceneViewController__dismissWithAction___block_invoke_384_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 }
@@ -4125,30 +4130,30 @@ LABEL_10:
 - (void)_presentFullAlertForComplication:(id)complication
 {
   complicationCopy = complication;
-  v5 = PRSharedWidgetExtensionProvider();
+  v5 = PRSharedWidgetExtensionProvider(complicationCopy);
   widget = [complicationCopy widget];
 
-  v21 = [v5 widgetDescriptorForWidget:widget];
+  v24 = [v5 widgetDescriptorForWidget:widget];
 
   v7 = MEMORY[0x1E696AEC0];
-  v8 = PRBundle();
-  v9 = [v8 localizedStringForKey:@"COMPLICATION_GALLERY_FULL_MESSAGE" value:&stru_1F1C13D90 table:@"PosterKit"];
-  displayName = [v21 displayName];
-  v11 = [v7 stringWithFormat:v9, displayName];
+  v9 = PRBundle(v8);
+  v10 = [v9 localizedStringForKey:@"COMPLICATION_GALLERY_FULL_MESSAGE" value:&stru_1F1C13D90 table:@"PosterKit"];
+  displayName = [v24 displayName];
+  v12 = [v7 stringWithFormat:v10, displayName];
 
-  v12 = MEMORY[0x1E69DC650];
-  v13 = PRBundle();
-  v14 = [v13 localizedStringForKey:@"COMPLICATION_GALLERY_FULL_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
-  v15 = [v12 alertControllerWithTitle:v14 message:v11 preferredStyle:1];
+  v13 = MEMORY[0x1E69DC650];
+  v15 = PRBundle(v14);
+  v16 = [v15 localizedStringForKey:@"COMPLICATION_GALLERY_FULL_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
+  v17 = [v13 alertControllerWithTitle:v16 message:v12 preferredStyle:1];
 
-  v16 = MEMORY[0x1E69DC648];
-  v17 = PRBundle();
-  v18 = [v17 localizedStringForKey:@"OK" value:&stru_1F1C13D90 table:@"PosterKit"];
-  v19 = [v16 actionWithTitle:v18 style:0 handler:0];
+  v18 = MEMORY[0x1E69DC648];
+  v20 = PRBundle(v19);
+  v21 = [v20 localizedStringForKey:@"OK" value:&stru_1F1C13D90 table:@"PosterKit"];
+  v22 = [v18 actionWithTitle:v21 style:0 handler:0];
 
-  [v15 addAction:v19];
+  [v17 addAction:v22];
   bs_topPresentedViewController = [(PREditingSceneViewController *)self bs_topPresentedViewController];
-  [bs_topPresentedViewController presentViewController:v15 animated:1 completion:0];
+  [bs_topPresentedViewController presentViewController:v17 animated:1 completion:0];
 }
 
 - (BOOL)_canAddComplicationDescriptor:(id)descriptor forLocation:(int64_t)location
@@ -4251,7 +4256,7 @@ LABEL_7:
 {
   descriptorCopy = descriptor;
   widget = [descriptorCopy widget];
-  v6 = PRSharedWidgetExtensionProvider();
+  v6 = PRSharedWidgetExtensionProvider(widget);
   v7 = [v6 widgetDescriptorForWidget:widget];
 
   if (!self->_presentedComplicationWidgetConfigurationViewController)
@@ -5055,7 +5060,8 @@ void __106__PREditingSceneViewController_scene_didUpdateClientSettingsWithDiff_o
 
 - (void)complicationContainerViewControllerDidTapAdd:(id)add forLocation:(int64_t)location
 {
-  if ([(PREditingSceneViewController *)self _shouldAllowGalleryPresentationForLocation:location])
+  v6 = [(PREditingSceneViewController *)self _shouldAllowGalleryPresentationForLocation:location];
+  if (v6)
   {
     if (location == 1)
     {
@@ -5072,11 +5078,11 @@ void __106__PREditingSceneViewController_scene_didUpdateClientSettingsWithDiff_o
 
   else
   {
-    v6 = PRLogEditing();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PRLogEditing(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "Gallery presentation disallowed, ignoring tap", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1A8AA7000, v7, OS_LOG_TYPE_DEFAULT, "Gallery presentation disallowed, ignoring tap", v8, 2u);
     }
   }
 }
@@ -5365,6 +5371,7 @@ LABEL_7:
   resultCopy = result;
   errorCopy = error;
   control = [resultCopy control];
+  v10 = control;
   if (!errorCopy)
   {
     selectedQuickActionPosition = [(PREditingSceneViewController *)self selectedQuickActionPosition];
@@ -5373,7 +5380,7 @@ LABEL_7:
       if (selectedQuickActionPosition == 2)
       {
         quickActionEditingViewController = [(PREditingSceneViewController *)self quickActionEditingViewController];
-        [quickActionEditingViewController setTrailingControl:control];
+        [quickActionEditingViewController setTrailingControl:v10];
       }
 
       else
@@ -5382,28 +5389,28 @@ LABEL_7:
         {
 LABEL_12:
           selectedQuickActionPosition2 = [(PREditingSceneViewController *)self selectedQuickActionPosition];
-          v20[0] = MEMORY[0x1E69E9820];
-          v20[1] = 3221225472;
-          v20[2] = __88__PREditingSceneViewController_controlsGalleryViewController_didFinishWithResult_error___block_invoke;
-          v20[3] = &unk_1E7845788;
-          v21 = resultCopy;
+          v21[0] = MEMORY[0x1E69E9820];
+          v21[1] = 3221225472;
+          v21[2] = __88__PREditingSceneViewController_controlsGalleryViewController_didFinishWithResult_error___block_invoke;
+          v21[3] = &unk_1E7845788;
+          v22 = resultCopy;
           selfCopy = self;
-          v23 = control;
-          v24 = selectedQuickActionPosition2;
-          [(PREditingSceneViewController *)self _dismissAnyPresentedComplicationGalleryAnimated:1 withCompletion:v20];
+          v24 = v10;
+          v25 = selectedQuickActionPosition2;
+          [(PREditingSceneViewController *)self _dismissAnyPresentedComplicationGalleryAnimated:1 withCompletion:v21];
 
-          v10 = v21;
+          v11 = v22;
           goto LABEL_13;
         }
 
         quickActionEditingViewController = [(PREditingSceneViewController *)self quickActionEditingViewController];
-        [quickActionEditingViewController setLeadingControl:control];
+        [quickActionEditingViewController setLeadingControl:v10];
       }
     }
 
     else
     {
-      quickActionEditingViewController = PRLogEditing();
+      quickActionEditingViewController = PRLogEditing(0);
       if (os_log_type_enabled(quickActionEditingViewController, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -5414,16 +5421,16 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v10 = PRLogEditing();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = PRLogEditing(control);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [(PREditingSceneViewController *)errorCopy controlsGalleryViewController:v10 didFinishWithResult:v11 error:v12, v13, v14, v15, v16];
+    [(PREditingSceneViewController *)errorCopy controlsGalleryViewController:v11 didFinishWithResult:v12 error:v13, v14, v15, v16, v17];
   }
 
 LABEL_13:
 }
 
-uint64_t __88__PREditingSceneViewController_controlsGalleryViewController_didFinishWithResult_error___block_invoke(uint64_t a1)
+void *__88__PREditingSceneViewController_controlsGalleryViewController_didFinishWithResult_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) promptsForUserConfiguration];
   if (result)
@@ -5442,7 +5449,7 @@ uint64_t __88__PREditingSceneViewController_controlsGalleryViewController_didFin
 {
   v15 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v5 = PRLogEditing();
+  v5 = PRLogEditing(nameCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138543362;
@@ -5451,7 +5458,7 @@ uint64_t __88__PREditingSceneViewController_controlsGalleryViewController_didFin
   }
 
   isActive = [(FBScene *)self->super._scene isActive];
-  v7 = PRLogEditing();
+  v7 = PRLogEditing(isActive);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithBool:isActive];
@@ -6179,6 +6186,20 @@ void __51__PREditingSceneViewController__dismissWithAction___block_invoke_2_383_
   v6 = 2112;
   v7 = v1;
   _os_log_error_impl(&dword_1A8AA7000, v2, OS_LOG_TYPE_ERROR, "Error saving updated configuration %@ with properties %@: %@", v3, 0x20u);
+}
+
+void __51__PREditingSceneViewController__dismissWithAction___block_invoke_384_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_1A8AA7000, a2, a3, "Error logging complications seen in gallery with engagements: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)controlsGalleryViewController:(uint64_t)a3 didFinishWithResult:(uint64_t)a4 error:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_1A8AA7000, a2, a3, "Error selecting control gallery item: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

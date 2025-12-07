@@ -31,9 +31,11 @@
 
 uint64_t __28__EKDebugPreferences_shared__block_invoke()
 {
-  shared_sharedPreferences_0 = objc_alloc_init(EKDebugPreferences);
+  v0 = objc_alloc_init(EKDebugPreferences);
+  v1 = shared_sharedPreferences_0;
+  shared_sharedPreferences_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (EKDebugPreferences)init
@@ -228,38 +230,6 @@ uint64_t __28__EKDebugPreferences_shared__block_invoke()
   v3 = objc_opt_class();
 
   return [(CalPreferences *)preferences getValueForPreference:@"overriddenTravelAdvisoryHypothesisTravelState" expectedClass:v3];
-}
-
-- (void)setAvailabilityFreshnessWindow:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Will not set an availability freshness window of less than 0.  Given value: [%f]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setOverriddenTravelAdvisoryHypothesisConservativeTravelTime:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Will not set an overridden travel advisory hypothesis conservative travel time of less than 0.  Given value: [%f]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setOverriddenTravelAdvisoryHypothesisEstimatedTravelTime:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Will not set an overridden travel advisory hypothesis estimated travel time of less than 0.  Given value: [%f]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setOverriddenTravelAdvisoryHypothesisAggressiveTravelTime:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Will not set an overridden travel advisory hypothesis aggressive travel time of less than 0.  Given value: [%f]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -83,7 +83,8 @@
 
 - (void)switchStateDidChange:(id)change withSpecifier:(id)specifier
 {
-  if ([change BOOLValue])
+  bOOLValue = [change BOOLValue];
+  if (bOOLValue)
   {
 
     [(HKHealthDataclassSpecifierProvider *)self _persistHealthDataclassEnablementState:1];
@@ -91,35 +92,35 @@
 
   else
   {
-    v5 = HKHealthDataclassOwnerBundle();
-    v6 = [v5 localizedStringForKey:@"DISABLE_TITLE" value:&stru_84F8 table:@"Localizable"];
-    v7 = HKHealthDataclassOwnerBundle();
-    v8 = [v7 localizedStringForKey:@"DISABLE_MESSAGE" value:&stru_84F8 table:@"Localizable"];
-    v9 = [UIAlertController alertControllerWithTitle:v6 message:v8 preferredStyle:0];
+    v6 = HKHealthDataclassOwnerBundle(bOOLValue);
+    v7 = [v6 localizedStringForKey:@"DISABLE_TITLE" value:&stru_84F8 table:@"Localizable"];
+    v8 = HKHealthDataclassOwnerBundle(v7);
+    v9 = [v8 localizedStringForKey:@"DISABLE_MESSAGE" value:&stru_84F8 table:@"Localizable"];
+    v10 = [UIAlertController alertControllerWithTitle:v7 message:v9 preferredStyle:0];
 
-    v10 = HKHealthDataclassOwnerBundle();
-    v11 = [v10 localizedStringForKey:@"DISABLE_CONFIRM" value:&stru_84F8 table:@"Localizable"];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1C00;
-    v18[3] = &unk_82D8;
-    v18[4] = self;
-    v19 = 0;
-    v12 = [UIAlertAction actionWithTitle:v11 style:2 handler:v18];
-    [v9 addAction:v12];
+    v12 = HKHealthDataclassOwnerBundle(v11);
+    v13 = [v12 localizedStringForKey:@"DISABLE_CONFIRM" value:&stru_84F8 table:@"Localizable"];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1C00;
+    v21[3] = &unk_82D8;
+    v21[4] = self;
+    v22 = 0;
+    v14 = [UIAlertAction actionWithTitle:v13 style:2 handler:v21];
+    [v10 addAction:v14];
 
-    v13 = HKHealthDataclassOwnerBundle();
-    v14 = [v13 localizedStringForKey:@"DISABLE_CANCEL" value:&stru_84F8 table:@"Localizable"];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1C40;
-    v17[3] = &unk_8300;
-    v17[4] = self;
-    v15 = [UIAlertAction actionWithTitle:v14 style:1 handler:v17];
-    [v9 addAction:v15];
+    v16 = HKHealthDataclassOwnerBundle(v15);
+    v17 = [v16 localizedStringForKey:@"DISABLE_CANCEL" value:&stru_84F8 table:@"Localizable"];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1C40;
+    v20[3] = &unk_8300;
+    v20[4] = self;
+    v18 = [UIAlertAction actionWithTitle:v17 style:1 handler:v20];
+    [v10 addAction:v18];
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained specifierProvider:self showViewController:v9];
+    [WeakRetained specifierProvider:self showViewController:v10];
   }
 }
 
@@ -166,40 +167,40 @@
 
 - (void)_presentHealthDatabaseObliterationAlert
 {
-  v3 = HKHealthDataclassOwnerBundle();
+  v3 = HKHealthDataclassOwnerBundle(self);
   v4 = [v3 localizedStringForKey:@"OBLITERATION_TITLE" value:&stru_84F8 table:@"Localizable"];
 
-  v5 = HKHealthDataclassOwnerBundle();
-  v6 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"OBLITERATION_MESSAGE"];
-  v7 = [v5 localizedStringForKey:v6 value:&stru_84F8 table:@"Localizable"];
+  v6 = HKHealthDataclassOwnerBundle(v5);
+  v7 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"OBLITERATION_MESSAGE"];
+  v8 = [v6 localizedStringForKey:v7 value:&stru_84F8 table:@"Localizable"];
 
-  v8 = HKHealthDataclassOwnerBundle();
-  v9 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"OBLITERATION_KEEP_DATA"];
-  v10 = [v8 localizedStringForKey:v9 value:&stru_84F8 table:@"Localizable"];
+  v10 = HKHealthDataclassOwnerBundle(v9);
+  v11 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"OBLITERATION_KEEP_DATA"];
+  v12 = [v10 localizedStringForKey:v11 value:&stru_84F8 table:@"Localizable"];
 
-  v11 = HKHealthDataclassOwnerBundle();
-  v12 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"OBLITERATION_DELETE_DATA"];
-  v13 = [v11 localizedStringForKey:v12 value:&stru_84F8 table:@"Localizable"];
+  v14 = HKHealthDataclassOwnerBundle(v13);
+  v15 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"OBLITERATION_DELETE_DATA"];
+  v16 = [v14 localizedStringForKey:v15 value:&stru_84F8 table:@"Localizable"];
 
-  v14 = [UIAlertController alertControllerWithTitle:v4 message:v7 preferredStyle:0];
-  v15 = [UIAlertAction actionWithTitle:v10 style:0 handler:&stru_83B8];
-  [v14 addAction:v15];
+  v17 = [UIAlertController alertControllerWithTitle:v4 message:v8 preferredStyle:0];
+  v18 = [UIAlertAction actionWithTitle:v12 style:0 handler:&stru_83B8];
+  [v17 addAction:v18];
 
-  v16 = [UIAlertAction actionWithTitle:v13 style:2 handler:&stru_83D8];
-  [v14 addAction:v16];
+  v19 = [UIAlertAction actionWithTitle:v16 style:2 handler:&stru_83D8];
+  [v17 addAction:v19];
 
-  v17 = HKHealthDataclassOwnerBundle();
-  v18 = [v17 localizedStringForKey:@"DISABLE_CANCEL" value:&stru_84F8 table:@"Localizable"];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_2624;
-  v21[3] = &unk_8300;
-  v21[4] = self;
-  v19 = [UIAlertAction actionWithTitle:v18 style:1 handler:v21];
-  [v14 addAction:v19];
+  v21 = HKHealthDataclassOwnerBundle(v20);
+  v22 = [v21 localizedStringForKey:@"DISABLE_CANCEL" value:&stru_84F8 table:@"Localizable"];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_2624;
+  v25[3] = &unk_8300;
+  v25[4] = self;
+  v23 = [UIAlertAction actionWithTitle:v22 style:1 handler:v25];
+  [v17 addAction:v23];
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  [WeakRetained specifierProvider:self showViewController:v14];
+  [WeakRetained specifierProvider:self showViewController:v17];
 }
 
 - (AAUISpecifierProviderDelegate)delegate

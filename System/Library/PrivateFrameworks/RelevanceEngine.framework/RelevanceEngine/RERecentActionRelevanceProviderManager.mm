@@ -47,14 +47,12 @@
 
 + (id)_features
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = +[REFeature recentSiriActionFeature];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = +[REFeature siriActionPerformedCountFeature];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }

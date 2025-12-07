@@ -58,66 +58,68 @@
 {
   if (self == equal)
   {
-    LOBYTE(v13) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else
   {
-    v30 = v8;
-    v31 = v7;
-    v32 = v6;
-    v33 = v5;
-    v34 = v4;
-    v35 = v3;
-    v36 = v9;
-    v37 = v10;
+    v31 = v8;
+    v32 = v7;
+    v33 = v6;
+    v34 = v5;
+    v35 = v4;
+    v36 = v3;
+    v37 = v9;
+    v38 = v10;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       goto LABEL_25;
     }
 
-    v13 = -[NSString isEqualToString:](self->_string, "isEqualToString:", [equal string]);
-    if (!v13)
+    string = self->_string;
+    [equal string];
+    isEqualToString = objc_msgSend_isEqualToString_(string);
+    if (!isEqualToString)
     {
-      return v13;
+      return isEqualToString;
     }
 
     syllableCount = self->_syllableCount;
     if (syllableCount != [equal syllableCount] || (lastSyllableIsPartial = self->_lastSyllableIsPartial, lastSyllableIsPartial != objc_msgSend(equal, "lastSyllableIsPartial")) || (score = self->_score, score != objc_msgSend(equal, "score")) || (rangeCount = self->_rangeCount, rangeCount != objc_msgSend(equal, "numberOfNonPinyinRanges")) || (replacementCount = self->_replacementCount, replacementCount != objc_msgSend(equal, "numberOfReplacements")) || (transpositionCount = self->_transpositionCount, transpositionCount != objc_msgSend(equal, "numberOfTranspositions")) || (insertionCount = self->_insertionCount, insertionCount != objc_msgSend(equal, "numberOfInsertions")) || (deletionCount = self->_deletionCount, deletionCount != objc_msgSend(equal, "numberOfDeletions")) || (firstModificationIndex = self->_firstModificationIndex, firstModificationIndex != objc_msgSend(equal, "indexOfFirstModification")))
     {
 LABEL_25:
-      LOBYTE(v13) = 0;
-      return v13;
+      LOBYTE(isEqualToString) = 0;
+      return isEqualToString;
     }
 
     if (self->_rangeCount)
     {
-      v23 = 0;
+      v24 = 0;
       do
       {
-        v24 = [(NSPinyinString *)self nonPinyinRangeAtIndex:v23, v30, v31, v32, v33, v34, v35, v36, v37];
-        v26 = v25;
-        v28 = v24 == [equal nonPinyinRangeAtIndex:v23] && v26 == v27;
-        LOBYTE(v13) = v28;
-        if (!v28)
+        v25 = [(NSPinyinString *)self nonPinyinRangeAtIndex:v24, v31, v32, v33, v34, v35, v36, v37, v38];
+        v27 = v26;
+        v29 = v25 == [equal nonPinyinRangeAtIndex:v24] && v27 == v28;
+        LOBYTE(isEqualToString) = v29;
+        if (!v29)
         {
           break;
         }
 
-        ++v23;
+        ++v24;
       }
 
-      while (v23 < self->_rangeCount);
+      while (v24 < self->_rangeCount);
     }
 
     else
     {
-      LOBYTE(v13) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
   }
 
-  return v13;
+  return isEqualToString;
 }
 
 - (id)nonPinyinIndexSet
@@ -165,20 +167,20 @@ LABEL_25:
   return v6;
 }
 
-uint64_t __29__NSPinyinString_description__block_invoke(uint64_t result, unint64_t a2, uint64_t a3)
+id *__29__NSPinyinString_description__block_invoke(id *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
-  if (a2 > *(*(*(result + 48) + 8) + 24))
+  if (a2 > *(*(result[6] + 1) + 24))
   {
-    result = [*(result + 32) appendString:{objc_msgSend(*(result + 40), "substringWithRange:")}];
+    result = [result[4] appendString:{objc_msgSend(result[5], "substringWithRange:")}];
   }
 
   if (a3)
   {
-    result = [*(v5 + 32) appendFormat:@"[%@]", objc_msgSend(*(v5 + 40), "substringWithRange:", a2, a3)];
+    result = [v5[4] appendFormat:@"[%@]", objc_msgSend(v5[5], "substringWithRange:", a2, a3)];
   }
 
-  *(*(*(v5 + 48) + 8) + 24) = a2 + a3;
+  *(*(v5[6] + 1) + 24) = a2 + a3;
   return result;
 }
 

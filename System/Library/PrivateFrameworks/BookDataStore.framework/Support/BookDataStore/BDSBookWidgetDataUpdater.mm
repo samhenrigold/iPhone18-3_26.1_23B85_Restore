@@ -210,10 +210,10 @@
 
   [v7 setDelegate:self];
   [(BDSBookWidgetDataUpdater *)self setFetchedResultsController:v7];
-  v20 = 0;
-  v8 = [v7 performFetch:&v20];
-  v9 = v20;
-  v10 = sub_10000DE28();
+  v21 = 0;
+  v8 = [v7 performFetch:&v21];
+  v9 = v21;
+  v10 = sub_10000DE28(v9);
   v11 = v10;
   if (v8)
   {
@@ -243,18 +243,18 @@
 
   v15 = [fetchedObjects subarrayWithRange:{0, v14}];
   v16 = [(BDSBookWidgetDataUpdater *)self _moc_updateWidgetDataFromWidgetInfo:v15];
-  if (v16 || [(BDSBookWidgetDataUpdater *)self dataFileDataIsNil])
+  if (v16 || (v17 = [(BDSBookWidgetDataUpdater *)self dataFileDataIsNil], v17))
   {
     [(BDSBookWidgetDataUpdater *)self _saveWidgetDatasWithWidgetDatasHaveChanged:v16];
   }
 
   else
   {
-    v17 = sub_10000DE28();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_10000DE28(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No changes at startup, not notifying widget.", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "No changes at startup, not notifying widget.", v19, 2u);
     }
   }
 }
@@ -269,10 +269,10 @@
   v7 = +[BDSBookWidgetInfoMO fetchRequest];
   [v7 setFetchBatchSize:3];
   v8 = [NSSortDescriptor sortDescriptorWithKey:@"readingNowDetail.lastEngagedDate" ascending:0];
-  v23[0] = v8;
+  v24[0] = v8;
   v9 = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:1];
-  v23[1] = v9;
-  v10 = [NSArray arrayWithObjects:v23 count:2];
+  v24[1] = v9;
+  v10 = [NSArray arrayWithObjects:v24 count:2];
   [v7 setSortDescriptors:v10];
 
   v11 = [NSPredicate predicateWithFormat:@"readingNowDetail.isTrackedAsRecent == YES and readingNowDetail.lastEngagedDate >= %@", v6];
@@ -280,28 +280,29 @@
   if (isExplicitMaterialAllowed)
   {
     v13 = v11;
+    v14 = v13;
   }
 
   else
   {
-    v22[0] = v11;
-    v14 = +[BDSBookWidgetDataUpdater predicateToExcludeLibraryAssetsWithExplicitContent];
-    v22[1] = v14;
-    v15 = [NSArray arrayWithObjects:v22 count:2];
-    v13 = [NSCompoundPredicate andPredicateWithSubpredicates:v15];
+    v23[0] = v11;
+    v15 = +[BDSBookWidgetDataUpdater predicateToExcludeLibraryAssetsWithExplicitContent];
+    v23[1] = v15;
+    v16 = [NSArray arrayWithObjects:v23 count:2];
+    v14 = [NSCompoundPredicate andPredicateWithSubpredicates:v16];
   }
 
-  v16 = sub_10000DE28();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_10000DE28(v13);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v19 = isExplicitMaterialAllowed ^ 1;
-    v20 = 2112;
-    v21 = v13;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "WidgetDataUpdater: explicitContentRestricted %{BOOL}d predicate:%@", buf, 0x12u);
+    v20 = isExplicitMaterialAllowed ^ 1;
+    v21 = 2112;
+    v22 = v14;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "WidgetDataUpdater: explicitContentRestricted %{BOOL}d predicate:%@", buf, 0x12u);
   }
 
-  [v7 setPredicate:v13];
+  [v7 setPredicate:v14];
   return v7;
 }
 
@@ -379,14 +380,14 @@
 - (void)_saveWidgetDatasWithWidgetDatasHaveChanged:(BOOL)changed
 {
   changedCopy = changed;
-  [(BDSBookWidgetDataUpdater *)self _saveCurrentWidgetDatas];
+  _saveCurrentWidgetDatas = [(BDSBookWidgetDataUpdater *)self _saveCurrentWidgetDatas];
   if (changedCopy)
   {
-    v5 = sub_10000DE28();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000DE28(_saveCurrentWidgetDatas);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Will notify widget of changes", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Will notify widget of changes", v7, 2u);
     }
 
     [(BDSBookWidgetDataUpdater *)self reloadWidgetTimelines];
@@ -454,62 +455,62 @@
 - (BOOL)_moc_updateWidgetDatas:(id)datas fromAssetDetails:(id)details
 {
   datasCopy = datas;
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
   obj = details;
-  v7 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v7 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v25 = 0;
-    v9 = *v28;
+    v26 = 0;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v28 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         assetID = [v11 assetID];
         v13 = [datasCopy objectForKeyedSubscript:assetID];
 
-        v14 = sub_10000DE28();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = sub_10000DE28(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           title = [v13 title];
           [v11 readingProgress];
           *buf = 138412546;
-          v32 = title;
-          v33 = 2048;
-          v34 = v16;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Reading progress for %@ is %f", buf, 0x16u);
+          v33 = title;
+          v34 = 2048;
+          v35 = v17;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Reading progress for %@ is %f", buf, 0x16u);
         }
 
         [v11 readingProgress];
-        v18 = v17;
+        v19 = v18;
         isFinished = [v11 isFinished];
-        LODWORD(v20) = v18;
-        [(BDSBookWidgetDataUpdater *)self _roundReadingProgressLikeBooksApp:isFinished isFinished:v20];
-        v21 = [NSNumber numberWithFloat:?];
-        if (v21)
+        LODWORD(v21) = v19;
+        [(BDSBookWidgetDataUpdater *)self _roundReadingProgressLikeBooksApp:isFinished isFinished:v21];
+        v22 = [NSNumber numberWithFloat:?];
+        if (v22)
         {
           readingProgress = [v13 readingProgress];
-          v23 = [readingProgress isEqualToNumber:v21];
+          v24 = [readingProgress isEqualToNumber:v22];
 
-          if ((v23 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
-            [v13 setReadingProgress:v21];
-            v25 = 1;
+            [v13 setReadingProgress:v22];
+            v26 = 1;
           }
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v8);
@@ -517,10 +518,10 @@
 
   else
   {
-    v25 = 0;
+    v26 = 0;
   }
 
-  return v25 & 1;
+  return v26 & 1;
 }
 
 - (BOOL)_moc_updateAndMonitorProgressForWidgetDatas:(id)datas
@@ -550,7 +551,7 @@
   v20 = 0;
   v14 = [v13 performFetch:&v20];
   v15 = v20;
-  fetchedObjects = sub_10000DE28();
+  fetchedObjects = sub_10000DE28(v15);
   v17 = os_log_type_enabled(fetchedObjects, OS_LOG_TYPE_DEFAULT);
   if (v14)
   {
@@ -598,7 +599,7 @@
 - (void)_handleSignificantTimeChangeNotification:(id)notification
 {
   v4 = os_transaction_create();
-  v5 = sub_10000DE28();
+  v5 = sub_10000DE28(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -620,7 +621,7 @@
 {
   changedCopy = changed;
   v5 = os_transaction_create();
-  v6 = sub_10000DE28();
+  v6 = sub_10000DE28(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;

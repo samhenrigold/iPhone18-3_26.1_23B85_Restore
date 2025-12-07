@@ -114,7 +114,7 @@ LABEL_19:
   }
 
   sub_100001BE8(&__dst, [v12 bytes], objc_msgSend(v12, "length"));
-  CoreNavigation::CLP::LogEntry::LogEntry::LogEntry(v43);
+  CoreNavigation::CLP::LogEntry::LogEntry::LogEntry(v39);
   if ((wireless_diagnostics::google::protobuf::MessageLite::ParseFromString() & 1) == 0)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -124,113 +124,91 @@ LABEL_19:
     }
 
     v14[2](v14, 0);
-    goto LABEL_51;
+    goto LABEL_45;
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  sub_100002924(&v39);
-  if ((v45 & 2) == 0)
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  sub_100002924(&v35);
+  if ((v41 & 2) == 0)
   {
-    goto LABEL_44;
+    goto LABEL_38;
   }
 
-  v20 = v44;
-  if (v44)
+  if (v40)
   {
-    v21 = v44;
-    if ((*(v44 + 320) & 2) == 0)
+    v20 = v40;
+    if ((*(v40 + 320) & 2) == 0)
     {
-      goto LABEL_44;
+      goto LABEL_38;
     }
 
 LABEL_31:
-    v22 = *(v21 + 272);
-    if (!v22)
+    v21 = *(v20 + 272);
+    if (!v21)
     {
-      v22 = *(CoreNavigation::CLP::LogEntry::PrivateData::PrivateDataCapture::default_instance_ + 272);
+      v21 = *(CoreNavigation::CLP::LogEntry::PrivateData::PrivateDataCapture::default_instance_ + 272);
     }
 
-    if ((*(v22 + 28) & 2) == 0)
+    if ((*(v21 + 28) & 2) == 0 || (raven::ConvertProtobufToRavenPlatformInfoObject() & 1) == 0)
     {
-      goto LABEL_44;
-    }
-
-    if (!v44)
-    {
-      v20 = *(CoreNavigation::CLP::LogEntry::LogEntry::default_instance_ + 40);
-    }
-
-    v23 = *(v20 + 272);
-    if (!v23)
-    {
-      v23 = *(CoreNavigation::CLP::LogEntry::PrivateData::PrivateDataCapture::default_instance_ + 272);
-    }
-
-    if (!*(v23 + 16))
-    {
-      v24 = *(CoreNavigation::CLP::LogEntry::Raven::LogEntry::default_instance_ + 16);
-    }
-
-    if ((raven::ConvertProtobufToRavenPlatformInfoObject() & 1) == 0)
-    {
-      goto LABEL_44;
+      goto LABEL_38;
     }
 
     raven::RavenParameters::RavenParameters();
-    sub_100001C98(&v36, [v13 UTF8String]);
-    if (SHIBYTE(v37) < 0)
+    sub_100001C98(&v32, [v13 UTF8String]);
+    if (SHIBYTE(v33) < 0)
     {
-      if (*(&v36 + 1))
+      if (*(&v32 + 1))
       {
-        v25 = v36;
-LABEL_55:
-        if (raven::RavenParameters::LoadConfigurationString(buf, v25, 0))
+        v22 = v32;
+LABEL_49:
+        if (raven::RavenParameters::LoadConfigurationString(buf, v22, 0))
         {
-          if (SHIBYTE(v37) < 0)
+          if (SHIBYTE(v33) < 0)
           {
-            sub_100002990(__p, v36, *(&v36 + 1));
+            sub_100002990(__p, v32, *(&v32 + 1));
           }
 
           else
           {
-            *__p = v36;
-            v35 = v37;
+            *__p = v32;
+            v31 = v33;
           }
 
-          v26 = HIBYTE(v35);
-          v27 = HIBYTE(v35);
-          v28 = __p[0];
-          if (v35 < 0)
+          v23 = HIBYTE(v31);
+          v24 = HIBYTE(v31);
+          v25 = __p[0];
+          if (v31 < 0)
           {
-            v26 = __p[1];
+            v23 = __p[1];
           }
 
           else
           {
-            v28 = __p;
+            v25 = __p;
           }
 
-          if (v26)
+          if (v23)
           {
             do
             {
-              if (*v28 == 10)
+              if (*v25 == 10)
               {
-                *v28 = 44;
+                *v25 = 44;
               }
 
-              v28 = (v28 + 1);
-              --v26;
+              v25 = (v25 + 1);
+              --v23;
             }
 
-            while (v26);
-            v27 = HIBYTE(v35);
+            while (v23);
+            v24 = HIBYTE(v31);
           }
 
-          if (v27 < 0)
+          if (v24 < 0)
           {
             operator delete(__p[0]);
           }
@@ -238,48 +216,47 @@ LABEL_55:
       }
     }
 
-    else if (HIBYTE(v37))
+    else if (HIBYTE(v33))
     {
-      v25 = &v36;
-      goto LABEL_55;
+      v22 = &v32;
+      goto LABEL_49;
     }
 
     sub_100002A34(__p);
     sub_100001D50(__p, buf);
-    v29 = *(v10 + 16);
     raven::RavenSupervisor::Configure();
     IsConfigured = raven::RavenSupervisor::IsConfigured(*(v10 + 16));
-    v31 = (*(**(v10 + 16) + 48))(*(v10 + 16));
-    v32 = v31;
-    v33 = IsConfigured & v31;
-    if (v33 == 1)
+    v27 = (*(**(v10 + 16) + 48))(*(v10 + 16));
+    v28 = v27;
+    v29 = IsConfigured & v27;
+    if (v29 == 1)
     {
       cnframework::Supervisor::Start(*(v10 + 16));
     }
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100004BB4(IsConfigured, v32);
+      sub_100004BB4(IsConfigured, v28);
     }
 
-    v14[2](v14, v33);
+    v14[2](v14, v29);
     sub_100004540(__p);
-    if (SHIBYTE(v37) < 0)
+    if (SHIBYTE(v33) < 0)
     {
-      operator delete(v36);
+      operator delete(v32);
     }
 
     sub_100004540(buf);
-    goto LABEL_47;
+    goto LABEL_41;
   }
 
-  v21 = *(CoreNavigation::CLP::LogEntry::LogEntry::default_instance_ + 40);
-  if ((*(v21 + 320) & 2) != 0)
+  v20 = *(CoreNavigation::CLP::LogEntry::LogEntry::default_instance_ + 40);
+  if ((*(v20 + 320) & 2) != 0)
   {
     goto LABEL_31;
   }
 
-LABEL_44:
+LABEL_38:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -287,20 +264,20 @@ LABEL_44:
   }
 
   v14[2](v14, 0);
-LABEL_47:
-  if (SBYTE7(v42) < 0)
+LABEL_41:
+  if (SBYTE7(v38) < 0)
   {
-    operator delete(v41);
+    operator delete(v37);
   }
 
-  if (SHIBYTE(v40) < 0)
+  if (SHIBYTE(v36) < 0)
   {
-    operator delete(*(&v39 + 1));
+    operator delete(*(&v35 + 1));
   }
 
-LABEL_51:
-  CoreNavigation::CLP::LogEntry::LogEntry::~LogEntry(v43);
-  if (v47 < 0)
+LABEL_45:
+  CoreNavigation::CLP::LogEntry::LogEntry::~LogEntry(v39);
+  if (v43 < 0)
   {
     operator delete(__dst);
   }
@@ -360,7 +337,7 @@ LABEL_13:
     __p = 0;
     v34 = 0;
     v35 = 0;
-    if (ConvertRavenSolutionEventToString(buf))
+    if (ConvertRavenSolutionEventToString(buf, &__p))
     {
       if (v35 >= 0)
       {
@@ -428,10 +405,10 @@ LABEL_26:
 
   if (!self->fRavenSupervisor.__ptr_)
   {
-    v19 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    if (v19)
+    v18 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    if (v18)
     {
-      sub_100004D74(v19, v20, v21, v22, v23, v24, v25, v26);
+      sub_100004D74(v18, v19, v20, v21, v22, v23, v24, v25);
     }
 
 LABEL_13:
@@ -443,14 +420,13 @@ LABEL_13:
   __p[0] = 0;
   __p[1] = 0;
   CNTimeSpan::SetTimeSpan(__p, 0, time);
-  v32 = *__p;
-  ptr = self->fRavenSupervisor.__ptr_;
+  v31 = *__p;
   if (raven::RavenSupervisor::GetRavenSolution())
   {
-    v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    if (v11)
+    v10 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    if (v10)
     {
-      sub_100004D38(v11, v12, v13, v14, v15, v16, v17, v18);
+      sub_100004D38(v10, v11, v12, v13, v14, v15, v16, v17);
     }
 
     replyCopy[2](replyCopy, 0);
@@ -460,31 +436,31 @@ LABEL_13:
   {
     __p[0] = 0;
     __p[1] = 0;
-    v31 = 0;
-    if (ConvertRavenSolutionEventToString(buf))
+    v30 = 0;
+    if (ConvertRavenSolutionEventToString(buf, __p))
     {
-      if (v31 >= 0)
+      if (v30 >= 0)
       {
-        v27 = __p;
+        v26 = __p;
       }
 
       else
       {
-        v27 = __p[0];
+        v26 = __p[0];
       }
 
-      if (v31 >= 0)
+      if (v30 >= 0)
       {
-        v28 = HIBYTE(v31);
+        v27 = HIBYTE(v30);
       }
 
       else
       {
-        v28 = __p[1];
+        v27 = __p[1];
       }
 
-      v29 = [NSData dataWithBytes:v27 length:v28];
-      (replyCopy)[2](replyCopy, v29);
+      v28 = [NSData dataWithBytes:v26 length:v27];
+      (replyCopy)[2](replyCopy, v28);
     }
 
     else
@@ -492,7 +468,7 @@ LABEL_13:
       replyCopy[2](replyCopy, 0);
     }
 
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v30) < 0)
     {
       operator delete(__p[0]);
     }
@@ -562,25 +538,24 @@ LABEL_26:
     if (self->fRavenSupervisor.__ptr_)
     {
       sub_100001BE8(__p, [dataCopy bytes], objc_msgSend(dataCopy, "length"));
-      v6 = v26;
-      if ((v26 & 0x80u) != 0)
+      v6 = v25;
+      if ((v25 & 0x80u) != 0)
       {
         v6 = __p[1];
       }
 
       if (v6)
       {
-        ptr = self->fRavenSupervisor.__ptr_;
         raven::RavenSupervisor::RaiseEventsFrom();
       }
 
       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 0;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "CLGLS,warning,raiseRavenEventsFromData,msgString empty", v24, 2u);
+        *v23 = 0;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "CLGLS,warning,raiseRavenEventsFromData,msgString empty", v23, 2u);
       }
 
-      if (v26 < 0)
+      if (v25 < 0)
       {
         operator delete(__p[0]);
       }
@@ -588,20 +563,20 @@ LABEL_26:
 
     else
     {
-      v16 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      if (v16)
+      v15 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      if (v15)
       {
-        sub_100004DB0(v16, v17, v18, v19, v20, v21, v22, v23);
+        sub_100004DB0(v15, v16, v17, v18, v19, v20, v21, v22);
       }
     }
   }
 
   else
   {
-    v8 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    if (v8)
+    v7 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    if (v7)
     {
-      sub_100004C84(v8, v9, v10, v11, v12, v13, v14, v15);
+      sub_100004C84(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 

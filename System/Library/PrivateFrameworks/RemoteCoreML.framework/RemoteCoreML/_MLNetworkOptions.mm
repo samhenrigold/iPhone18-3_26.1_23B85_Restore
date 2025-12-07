@@ -16,56 +16,55 @@
 
 - (_MLNetworkOptions)initWithOptions:(id)options
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v23.receiver = self;
-  v23.super_class = _MLNetworkOptions;
-  v5 = [(_MLNetworkOptions *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = _MLNetworkOptions;
+  v5 = [(_MLNetworkOptions *)&v22 init];
   v6 = v5;
   if (v5)
   {
     v5->_receiveTimeout = 20;
-    v25[0] = kMLNetworkNameIdentifierKey[0];
-    v25[1] = kMLNetworkPortNumberKey[0];
-    v26[0] = &stru_28744CC18;
-    v26[1] = @"8080";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v24[0] = kMLNetworkNameIdentifierKey[0];
+    v24[1] = kMLNetworkPortNumberKey[0];
+    v25[0] = &stru_28744CC18;
+    v25[1] = @"8080";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
     v8 = [v7 mutableCopy];
     networkOptions = v6->_networkOptions;
     v6->_networkOptions = v8;
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = optionsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          v16 = [v10 objectForKeyedSubscript:{v15, v19}];
+          v15 = *(*(&v18 + 1) + 8 * i);
+          v16 = [v10 objectForKeyedSubscript:{v15, v18}];
           [(NSMutableDictionary *)v6->_networkOptions setObject:v16 forKeyedSubscript:v15];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v12);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -36,10 +36,10 @@
 {
   x = offset->x;
   selfCopy = self;
-  v7 = sub_257C1B528(x);
+  sub_257C1B528(x);
   if ((v8 & 1) == 0)
   {
-    *&offset->x = v7;
+    offset->x = v7;
   }
 }
 

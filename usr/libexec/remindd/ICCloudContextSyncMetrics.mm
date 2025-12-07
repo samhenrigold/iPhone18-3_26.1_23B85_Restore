@@ -1,6 +1,7 @@
 @interface ICCloudContextSyncMetrics
 - (ICCloudContextSyncMetrics)initWithSyncReason:(id)reason;
 - (id)dictionaryRepresentation;
+- (void)finishWithSuccess:(BOOL)success;
 @end
 
 @implementation ICCloudContextSyncMetrics
@@ -105,6 +106,15 @@
   }
 
   return v19;
+}
+
+- (void)finishWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v5 = +[NSDate date];
+  [(ICCloudContextSyncMetrics *)self setEndDate:v5];
+
+  [(ICCloudContextSyncMetrics *)self setSuccess:successCopy];
 }
 
 @end

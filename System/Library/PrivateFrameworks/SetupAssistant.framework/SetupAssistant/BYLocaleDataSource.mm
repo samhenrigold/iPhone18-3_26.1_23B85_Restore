@@ -21,7 +21,7 @@
 
 - (void)reloadData
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v3 = +[BYLocationController sharedBuddyLocationController];
   guessedCountries = [v3 guessedCountries];
 
@@ -29,7 +29,7 @@
   if (!language || (v6 = language, v7 = [guessedCountries count], v6, v7))
   {
 LABEL_7:
-    v42 = 0;
+    v43 = 0;
     goto LABEL_8;
   }
 
@@ -38,34 +38,34 @@ LABEL_7:
 
   if (guessedCountries2)
   {
-    v10 = _BYLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _BYLoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B862F000, v10, OS_LOG_TYPE_DEFAULT, "No guessed region found and forcing guessed country from location.", buf, 2u);
+      _os_log_impl(&dword_1B862F000, v11, OS_LOG_TYPE_DEFAULT, "No guessed region found and forcing guessed country from location.", buf, 2u);
     }
 
     goto LABEL_7;
   }
 
-  v37 = MEMORY[0x1E695DF58];
+  v38 = MEMORY[0x1E695DF58];
   language2 = [(BYLocaleDataSource *)self language];
-  v39 = [v37 baseLanguageFromLanguage:language2];
+  v40 = [v38 baseLanguageFromLanguage:language2];
 
-  v42 = [MEMORY[0x1E695DF58] exemplarRegionForLanguage:v39];
+  v43 = [MEMORY[0x1E695DF58] exemplarRegionForLanguage:v40];
 
 LABEL_8:
-  v11 = _BYLoggingFacility();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _BYLoggingFacility(language);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v49 = v42;
-    v50 = 2114;
-    v51 = guessedCountries;
-    _os_log_impl(&dword_1B862F000, v11, OS_LOG_TYPE_DEFAULT, "Setup Assistant Locale: initializing with exemplar region %{public}@ countries = %{public}@", buf, 0x16u);
+    v50 = v43;
+    v51 = 2114;
+    v52 = guessedCountries;
+    _os_log_impl(&dword_1B862F000, v12, OS_LOG_TYPE_DEFAULT, "Setup Assistant Locale: initializing with exemplar region %{public}@ countries = %{public}@", buf, 0x16u);
   }
 
-  v40 = guessedCountries;
+  v41 = guessedCountries;
 
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
@@ -76,60 +76,61 @@ LABEL_8:
 
   [(BYLocaleDataSource *)self setHasRecommendedLocaleFromLanguage:0];
   supportedRegions = [MEMORY[0x1E695DF58] supportedRegions];
-  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v16 = [supportedRegions countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (v16)
+  v47 = 0u;
+  v17 = [supportedRegions countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v44;
+    v18 = v17;
+    v19 = *v45;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v44 != v18)
+        if (*v45 != v19)
         {
           objc_enumerationMutation(supportedRegions);
         }
 
-        v20 = *(*(&v43 + 1) + 8 * i);
-        v21 = MEMORY[0x1E695DF58];
+        v21 = *(*(&v44 + 1) + 8 * i);
+        v22 = MEMORY[0x1E695DF58];
         language3 = [(BYLocaleDataSource *)self language];
-        v23 = [v21 localeWithLocaleIdentifier:language3];
-        v24 = [v23 localizedStringForRegion:v20 context:3 short:0];
+        v24 = [v22 localeWithLocaleIdentifier:language3];
+        v25 = [v24 localizedStringForRegion:v21 context:3 short:0];
 
-        if ([v24 isEqualToString:v20])
+        v26 = [v25 isEqualToString:v21];
+        if (v26)
         {
-          v25 = _BYLoggingFacility();
-          if (os_log_type_enabled(&v25->super, OS_LOG_TYPE_DEFAULT))
+          v27 = _BYLoggingFacility(v26);
+          if (os_log_type_enabled(&v27->super, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v49 = v20;
-            _os_log_impl(&dword_1B862F000, &v25->super, OS_LOG_TYPE_DEFAULT, "Missing localization for country code: %{public}@", buf, 0xCu);
+            v50 = v21;
+            _os_log_impl(&dword_1B862F000, &v27->super, OS_LOG_TYPE_DEFAULT, "Missing localization for country code: %{public}@", buf, 0xCu);
           }
         }
 
         else
         {
-          if (![v24 length])
+          if (![v25 length])
           {
             goto LABEL_25;
           }
 
-          v25 = objc_alloc_init(BYLocaleCountry);
-          [(BYLocaleCountry *)v25 setName:v24];
-          [(BYLocaleCountry *)v25 setCode:v20];
-          if (([array containsObject:v25] & 1) == 0)
+          v27 = objc_alloc_init(BYLocaleCountry);
+          [(BYLocaleCountry *)v27 setName:v25];
+          [(BYLocaleCountry *)v27 setCode:v21];
+          if (([array containsObject:v27] & 1) == 0)
           {
-            [array addObject:v25];
-            if (([v40 containsObject:v20] & 1) != 0 || objc_msgSend(v42, "isEqualToString:", v20))
+            [array addObject:v27];
+            if (([v41 containsObject:v21] & 1) != 0 || objc_msgSend(v43, "isEqualToString:", v21))
             {
               suggestedCountries = [(BYLocaleDataSource *)self suggestedCountries];
-              [suggestedCountries addObject:v25];
+              [suggestedCountries addObject:v27];
 
-              if ([v42 isEqualToString:v20])
+              if ([v43 isEqualToString:v21])
               {
                 [(BYLocaleDataSource *)self setHasRecommendedLocaleFromLanguage:1];
               }
@@ -140,13 +141,13 @@ LABEL_8:
 LABEL_25:
       }
 
-      v17 = [supportedRegions countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v18 = [supportedRegions countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
-  [(BYLocaleDataSource *)self setMoreCountries:array, v40];
+  [(BYLocaleDataSource *)self setMoreCountries:array, v41];
   moreCountries = [(BYLocaleDataSource *)self moreCountries];
   suggestedCountries2 = [(BYLocaleDataSource *)self suggestedCountries];
   [moreCountries removeObjectsInArray:suggestedCountries2];
@@ -154,24 +155,22 @@ LABEL_25:
   language4 = [(BYLocaleDataSource *)self language];
   if ([language4 length])
   {
-    v30 = MEMORY[0x1E695DF58];
+    v32 = MEMORY[0x1E695DF58];
     language5 = [(BYLocaleDataSource *)self language];
-    v32 = [v30 localeWithLocaleIdentifier:language5];
+    v34 = [v32 localeWithLocaleIdentifier:language5];
   }
 
   else
   {
-    v32 = 0;
+    v34 = 0;
   }
 
-  v33 = [BYLocaleCountry comparatorForLocale:v32];
+  v35 = [BYLocaleCountry comparatorForLocale:v34];
   moreCountries2 = [(BYLocaleDataSource *)self moreCountries];
-  [moreCountries2 sortUsingComparator:v33];
+  [moreCountries2 sortUsingComparator:v35];
 
   suggestedCountries3 = [(BYLocaleDataSource *)self suggestedCountries];
-  [suggestedCountries3 sortUsingComparator:v33];
-
-  v36 = *MEMORY[0x1E69E9840];
+  [suggestedCountries3 sortUsingComparator:v35];
 }
 
 - (unint64_t)numberOfRecommendedLocales

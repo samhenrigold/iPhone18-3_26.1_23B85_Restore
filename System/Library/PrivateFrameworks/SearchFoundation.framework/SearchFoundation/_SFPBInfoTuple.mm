@@ -17,7 +17,7 @@
 
 - (_SFPBInfoTuple)initWithFacade:(id)facade
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBInfoTuple *)self init];
   if (v5)
@@ -41,33 +41,33 @@
       v9 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     values2 = [facadeCopy values];
-    v11 = [values2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [values2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(values2);
           }
 
-          v15 = [[_SFPBCommandButtonItem alloc] initWithFacade:*(*(&v21 + 1) + 8 * i)];
+          v15 = [[_SFPBCommandButtonItem alloc] initWithFacade:*(*(&v20 + 1) + 8 * i)];
           if (v15)
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [values2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [values2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -90,17 +90,16 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBInfoTuple)initWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = _SFPBInfoTuple;
-  v5 = [(_SFPBInfoTuple *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = _SFPBInfoTuple;
+  v5 = [(_SFPBInfoTuple *)&v26 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"key"];
@@ -115,28 +114,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = v6;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
+      v21 = v6;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v24;
+        v12 = *v23;
         do
         {
           v13 = 0;
           do
           {
-            if (*v24 != v12)
+            if (*v23 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * v13);
+            v14 = *(*(&v22 + 1) + 8 * v13);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -148,13 +147,13 @@
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v11);
       }
 
-      v6 = v22;
+      v6 = v21;
     }
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"initiallyVisibleValues"];
@@ -175,7 +174,6 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -215,7 +213,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_initiallyVisibleValues)
   {
@@ -240,26 +238,26 @@
   if ([(NSArray *)self->_values count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v10 = self->_values;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -272,7 +270,7 @@
           }
         }
 
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -280,8 +278,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"values"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -395,7 +391,7 @@ LABEL_19:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   v5 = [(_SFPBInfoTuple *)self key];
   if (v5)
@@ -404,32 +400,31 @@ LABEL_19:
   }
 
   values = [(_SFPBInfoTuple *)self values];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v7 = [values countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [values countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(values);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [values countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [values countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -445,15 +440,11 @@ LABEL_19:
   {
     PBDataWriterWriteStringField();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setShowMoreString:(id)string
 {
-  v4 = [string copy];
-  showMoreString = self->_showMoreString;
-  self->_showMoreString = v4;
+  self->_showMoreString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -478,18 +469,14 @@ LABEL_19:
 
 - (void)setValues:(id)values
 {
-  v4 = [values copy];
-  values = self->_values;
-  self->_values = v4;
+  self->_values = [values copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setKey:(id)key
 {
-  v4 = [key copy];
-  key = self->_key;
-  self->_key = v4;
+  self->_key = [key copy];
 
   MEMORY[0x1EEE66BB8]();
 }

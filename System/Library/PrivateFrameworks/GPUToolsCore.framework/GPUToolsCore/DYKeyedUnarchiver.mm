@@ -21,9 +21,10 @@
 
 uint64_t __32__DYKeyedUnarchiver_allClassSet__block_invoke()
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB58]);
   allClassSet__allClassSet = v0;
+  v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
@@ -36,9 +37,8 @@ uint64_t __32__DYKeyedUnarchiver_allClassSet__block_invoke()
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
-  v16 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:13];
-  [v0 addObjectsFromArray:{v1, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v3 count:13];
+  [v0 addObjectsFromArray:{v1, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14}];
   [DYKeyedUnarchiver registerClass:@"GTMTLResourceUsageItem" withSet:allClassSet__allClassSet];
   [DYKeyedUnarchiver registerRuntimeClass:@"DYMTLDeviceProfile" withSet:allClassSet__allClassSet];
   [DYKeyedUnarchiver registerRuntimeClass:@"DYDeviceInfo" withSet:allClassSet__allClassSet];
@@ -122,9 +122,7 @@ uint64_t __32__DYKeyedUnarchiver_allClassSet__block_invoke()
   [DYKeyedUnarchiver registerRuntimeClass:@"GTTelemetryLayerObject" withSet:allClassSet__allClassSet];
   [DYKeyedUnarchiver registerRuntimeClass:@"GTTelemetryQueueObject" withSet:allClassSet__allClassSet];
   [DYKeyedUnarchiver registerRuntimeClass:@"GTTelemetryDeviceObject" withSet:allClassSet__allClassSet];
-  result = [DYKeyedUnarchiver registerRuntimeClass:@"GTTelemetryStatistics" withSet:allClassSet__allClassSet];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return [DYKeyedUnarchiver registerRuntimeClass:@"GTTelemetryStatistics" withSet:allClassSet__allClassSet];
 }
 
 + (NSSet)captureArchiveClassSet
@@ -139,9 +137,10 @@ uint64_t __32__DYKeyedUnarchiver_allClassSet__block_invoke()
 
 uint64_t __43__DYKeyedUnarchiver_captureArchiveClassSet__block_invoke()
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB58]);
   captureArchiveClassSet__captureArchiveClassSet = v0;
+  v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
@@ -152,15 +151,12 @@ uint64_t __43__DYKeyedUnarchiver_captureArchiveClassSet__block_invoke()
   v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
-  v14 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:11];
-  [v0 addObjectsFromArray:{v1, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v3 count:11];
+  [v0 addObjectsFromArray:{v1, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12}];
   [DYKeyedUnarchiver registerRuntimeClass:@"DYMTLDeviceProfile" withSet:captureArchiveClassSet__captureArchiveClassSet];
   [DYKeyedUnarchiver registerRuntimeClass:@"DYDeviceInfo" withSet:captureArchiveClassSet__captureArchiveClassSet];
   [DYKeyedUnarchiver registerRuntimeClass:@"DYContextInfo" withSet:captureArchiveClassSet__captureArchiveClassSet];
-  result = [DYKeyedUnarchiver registerRuntimeClass:@"DYRendererInfo" withSet:captureArchiveClassSet__captureArchiveClassSet];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return [DYKeyedUnarchiver registerRuntimeClass:@"DYRendererInfo" withSet:captureArchiveClassSet__captureArchiveClassSet];
 }
 
 + (NSSet)graphicsAPIInfosClassSet
@@ -175,15 +171,13 @@ uint64_t __43__DYKeyedUnarchiver_captureArchiveClassSet__block_invoke()
 
 uint64_t __45__DYKeyedUnarchiver_graphicsAPIInfosClassSet__block_invoke()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
+  v2[1] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB58]);
   graphicsAPIInfosClassSet__graphicsAPIInfosClassSet = v0;
-  v3[0] = objc_opt_class();
-  [v0 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v3, 1)}];
+  v2[0] = objc_opt_class();
+  [v0 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v2, 1)}];
   [DYKeyedUnarchiver registerRuntimeClass:@"DYContextInfo" withSet:graphicsAPIInfosClassSet__graphicsAPIInfosClassSet];
-  result = [DYKeyedUnarchiver registerRuntimeClass:@"DYMTLDeviceProfile" withSet:graphicsAPIInfosClassSet__graphicsAPIInfosClassSet];
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return [DYKeyedUnarchiver registerRuntimeClass:@"DYMTLDeviceProfile" withSet:graphicsAPIInfosClassSet__graphicsAPIInfosClassSet];
 }
 
 + (void)registerClass:(id)class withSet:(id)set

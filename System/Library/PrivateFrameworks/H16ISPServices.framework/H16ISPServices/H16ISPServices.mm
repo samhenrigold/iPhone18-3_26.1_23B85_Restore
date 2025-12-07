@@ -4,15 +4,15 @@ CFDictionaryRef CreateNamedValue(const char *cStr, const char *a2, __CFArray *a3
   memset(keys, 0, 24);
   values = 0;
   cf = 0;
-  v13 = 0;
-  v10 = 0;
+  v12 = 0;
+  v9 = 0;
   v5 = MEMORY[0x277CBECE8];
   if (cStr)
   {
     keys[0] = @"Name";
     values = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr, 0x8000100u);
     v6 = 1;
-    LOBYTE(v10) = 1;
+    LOBYTE(v9) = 1;
     if (!a2)
     {
       goto LABEL_4;
@@ -27,7 +27,7 @@ CFDictionaryRef CreateNamedValue(const char *cStr, const char *a2, __CFArray *a3
 LABEL_3:
     keys[v6] = @"Value";
     *(&values + v6) = CFStringCreateWithCString(*v5, a2, 0x8000100u);
-    *(&v10 | v6++) = 1;
+    *(&v9 | v6++) = 1;
   }
 
 LABEL_4:
@@ -39,23 +39,20 @@ LABEL_4:
 
   else if (!v6)
   {
-    v7 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   v7 = CFDictionaryCreate(*v5, keys, &values, v6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  if (v10 == 1)
+  if (v9 == 1)
   {
     CFRelease(values);
   }
 
-  if (HIBYTE(v10) == 1)
+  if (HIBYTE(v9) == 1)
   {
     CFRelease(cf);
   }
 
-LABEL_14:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -396,18 +393,22 @@ LABEL_11:
   return 0;
 }
 
-uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int a2, int a3, int a4, int a5, float *a6)
+uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBF3A0];
   v7 = *(MEMORY[0x277CBF3A0] + 16);
-  v36.origin = *MEMORY[0x277CBF3A0];
-  v36.size = v7;
+  v34.origin = *MEMORY[0x277CBF3A0];
+  v34.size = v7;
   if (a1)
   {
     if (a6)
     {
-      FigMotionGetSensorValidCropRect(a1, &v36);
+      v9 = a5;
+      v10 = a4;
+      v11 = a3;
+      v12 = a2;
+      FigMotionGetSensorValidCropRect(a1, &v34);
       if (CFDictionaryContainsKey(a1, *MEMORY[0x277CF5318]))
       {
         v14 = v6[1];
@@ -416,40 +417,40 @@ uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int
         FigCFDictionaryGetCGRectIfPresent();
         if (*&buf[16] > 0.0 && *&buf[24] > 0.0)
         {
-          a3 = *&buf[24];
-          a2 = *&buf[16];
+          v11 = *&buf[24];
+          v12 = *&buf[16];
         }
       }
 
-      width = v36.size.width;
+      width = v34.size.width;
       if (width <= 0.0)
       {
         FigMotionComputeLensPositionScalingFactor();
       }
 
-      else if (a4 <= 0)
+      else if (v10 <= 0)
       {
         FigMotionComputeLensPositionScalingFactor();
       }
 
       else
       {
-        v16 = a2 / (a4 * width);
+        v16 = v12 / (v10 * width);
         *a6 = v16;
-        height = v36.size.height;
+        height = v34.size.height;
         if (height <= 0.0)
         {
           FigMotionComputeLensPositionScalingFactor();
         }
 
-        else if (a5 <= 0)
+        else if (v9 <= 0)
         {
           FigMotionComputeLensPositionScalingFactor();
         }
 
         else
         {
-          v18 = a3 / (a5 * height);
+          v18 = v11 / (v9 * height);
           v19 = fabsf((v16 / v18) + -1.0);
           if (v19 > 0.01)
           {
@@ -460,12 +461,12 @@ uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int
               CFNumberGetValue(Value, kCFNumberCGFloatType, &valuePtr);
             }
 
-            v34 = 0.0;
+            v32 = 0.0;
             v21 = CFDictionaryGetValue(a1, *MEMORY[0x277CF4D00]);
             if (v21)
             {
-              CFNumberGetValue(v21, kCFNumberDoubleType, &v34);
-              v22 = v34;
+              CFNumberGetValue(v21, kCFNumberDoubleType, &v32);
+              v22 = v32;
             }
 
             else
@@ -488,44 +489,43 @@ uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int
             v25 = v23 && v24;
             if (CFDictionaryGetValue(a1, *MEMORY[0x277CF5020]))
             {
-              v26 = *MEMORY[0x277CF3D20];
-              v27 = FigCFEqual() != 0;
+              v26 = FigCFEqual() != 0;
             }
 
             else
             {
-              v27 = 0;
+              v26 = 0;
             }
 
-            if (((v25 | v27) & 1) == 0)
+            if (((v25 | v26) & 1) == 0)
             {
               mach_absolute_time();
-              v28 = FigHostTimeToNanoseconds();
-              if ((v28 - FigMotionComputeLensPositionScalingFactor(__CFDictionary const*,int,int,int,int,float *)::lastLogTime) >= 0x3B9ACA00)
+              v27 = FigHostTimeToNanoseconds();
+              if ((v27 - FigMotionComputeLensPositionScalingFactor(__CFDictionary const*,int,int,int,int,float *)::lastLogTime) >= 0x3B9ACA00)
               {
-                v29 = v28;
-                v30 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                v28 = v27;
+                v29 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
                 if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
                 {
-                  v30 = os_log_create("com.apple.isp", "general");
-                  GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v30;
+                  v29 = os_log_create("com.apple.isp", "general");
+                  GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v29;
                 }
 
-                if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                 {
-                  v33 = *a6;
+                  v31 = *a6;
                   *buf = 136315906;
                   *&buf[4] = "FigMotionComputeLensPositionScalingFactor";
                   *&buf[12] = 2048;
                   *&buf[14] = (v19 * 100.0);
                   *&buf[22] = 2048;
-                  *&buf[24] = v33;
-                  v38 = 2048;
-                  v39 = v18;
-                  _os_log_error_impl(&dword_250805000, v30, OS_LOG_TYPE_ERROR, "%s - LensPositionScalingFactor disagrees by %.2f%% in horizontal (%f) and vertical (%f)\n", buf, 0x2Au);
+                  *&buf[24] = v31;
+                  v36 = 2048;
+                  v37 = v18;
+                  _os_log_error_impl(&dword_250805000, v29, OS_LOG_TYPE_ERROR, "%s - LensPositionScalingFactor disagrees by %.2f%% in horizontal (%f) and vertical (%f)\n", buf, 0x2Au);
                 }
 
-                FigMotionComputeLensPositionScalingFactor(__CFDictionary const*,int,int,int,int,float *)::lastLogTime = v29;
+                FigMotionComputeLensPositionScalingFactor(__CFDictionary const*,int,int,int,int,float *)::lastLogTime = v28;
               }
             }
           }
@@ -544,7 +544,6 @@ uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int
     FigMotionComputeLensPositionScalingFactor();
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -699,34 +698,32 @@ uint64_t FigMotionComputeAverageSpherePosition()
   v2 = v1;
   v4 = v3;
   v5 = v0;
-  v58[1528] = *MEMORY[0x277D85DE8];
-  v49 = 0;
+  v53[1530] = *MEMORY[0x277D85DE8];
+  v46 = 0;
   valuePtr = 0.0;
   Value = CFDictionaryGetValue(v0, *MEMORY[0x277CF4C58]);
   if (!Value)
   {
-    FigMotionComputeAverageSpherePosition(v56);
-LABEL_51:
-    result = LODWORD(v56[0]);
-    goto LABEL_48;
+    FigMotionComputeAverageSpherePosition(v53);
+    return LODWORD(v53[0]);
   }
 
   CFNumberGetValue(Value, kCFNumberFloat64Type, &valuePtr);
   v7 = CFDictionaryGetValue(v5, *MEMORY[0x277CF4D60]);
   if (!v7)
   {
-    FigMotionComputeAverageSpherePosition(v56);
-    goto LABEL_51;
+    FigMotionComputeAverageSpherePosition(v53);
+    return LODWORD(v53[0]);
   }
 
-  CFNumberGetValue(v7, kCFNumberSInt32Type, &v49);
-  v8 = v49;
+  CFNumberGetValue(v7, kCFNumberSInt32Type, &v46);
+  v8 = v46;
   v9 = valuePtr;
   *v2 = 0;
   result = CFDictionaryGetValue(v5, *MEMORY[0x277CF4E00]);
   if (!result)
   {
-    goto LABEL_48;
+    return result;
   }
 
   v11 = result;
@@ -735,7 +732,7 @@ LABEL_51:
   {
     FigMotionComputeAverageSpherePosition();
 LABEL_55:
-    v15 = v56[0];
+    v15 = *&v53[0];
     goto LABEL_9;
   }
 
@@ -761,7 +758,7 @@ LABEL_55:
   }
 
 LABEL_9:
-  v17 = v15[1];
+  v17 = *(v15 + 1);
   if (v17 >= 510)
   {
     v18 = 510;
@@ -791,68 +788,63 @@ LABEL_9:
   {
     if (v17 >= 1)
     {
-      v27 = v15 + 4;
-      v28 = &v57;
-      v47 = vdupq_n_s32(0x3B800000u);
-      v29 = v18;
+      v26 = v15 + 16;
+      v27 = &v53[1];
+      v44 = vdupq_n_s32(0x3B800000u);
+      v28 = v18;
       do
       {
-        v30 = *(v27 - 1);
-        v31 = FigHostTimeToNanoseconds();
-        CMTimeMake(&time, v31, 1000000000);
-        *&v28[-1].i64[1] = CMTimeGetSeconds(&time);
-        v32 = *v27;
+        v29 = FigHostTimeToNanoseconds();
+        CMTimeMake(&time, v29, 1000000000);
+        *&v27[-1].i64[1] = CMTimeGetSeconds(&time);
+        v30 = *v26;
+        v26 = (v26 + 24);
+        *v27 = vmulq_f32(vcvtq_f32_s32(v30), v44);
         v27 = (v27 + 24);
-        *v28 = vmulq_f32(vcvtq_f32_s32(v32), v47);
-        v28 = (v28 + 24);
-        --v29;
+        --v28;
       }
 
-      while (v29);
+      while (v28);
       goto LABEL_26;
     }
 
-LABEL_47:
-    result = 0;
-    goto LABEL_48;
+    return 0;
   }
 
   if (*v15)
   {
-    v40 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v38 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v40 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v40;
+      v38 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v38;
     }
 
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      FigMotionComputeAverageSpherePosition(v15, v40);
+      FigMotionComputeAverageSpherePosition(v15, v38);
     }
 
-    result = 4294954515;
-    goto LABEL_48;
+    return 4294954515;
   }
 
   if (v17 < 1)
   {
-    goto LABEL_47;
+    return 0;
   }
 
-  v20 = (v15 + 4);
-  v21 = v58;
+  v20 = (v15 + 16);
+  v21 = &v53[2];
   v22 = vdup_n_s32(0x3B800000u);
   v23 = v18;
   do
   {
-    v24 = v20[-1];
-    v25 = FigHostTimeToNanoseconds();
-    CMTimeMake(&time, v25, 1000000000);
+    v24 = FigHostTimeToNanoseconds();
+    CMTimeMake(&time, v24, 1000000000);
     *(v21 - 2) = CMTimeGetSeconds(&time);
-    v26 = *v20;
+    v25 = *v20;
     v20 += 2;
-    *(v21 - 1) = vmul_f32(vcvt_f32_s32(v26), v22);
+    *(v21 - 1) = vmul_f32(vcvt_f32_s32(v25), v22);
     *v21 = 0.0;
     v21 += 3;
     --v23;
@@ -860,87 +852,87 @@ LABEL_47:
 
   while (v23);
 LABEL_26:
-  v33 = 0;
-  v34 = v4 + v9 * -0.5;
-  v35 = v8 / 1000000.0 + v34;
-  v36 = &v57;
-  v37 = v18;
+  v31 = 0;
+  v32 = v4 + v9 * -0.5;
+  v33 = v8 / 1000000.0 + v32;
+  v34 = &v53[1];
+  v35 = v18;
   do
   {
-    v38 = *&v36[-1];
-    if (v38 >= v34 && v38 <= v35)
+    v36 = *&v34[-1];
+    if (v36 >= v32 && v36 <= v33)
     {
-      v38 = COERCE_DOUBLE(vadd_f32(*v36, *v2));
-      *v2 = v38;
-      ++v33;
+      v36 = COERCE_DOUBLE(vadd_f32(*v34, *v2));
+      *v2 = v36;
+      ++v31;
     }
 
-    v36 += 3;
-    --v37;
+    v34 += 3;
+    --v35;
   }
 
-  while (v37);
-  if (v33)
+  while (v35);
+  if (v31)
   {
     result = 0;
-    *&v38 = v33;
-    *v2 = vdiv_f32(*v2, vdup_lane_s32(*&v38, 0));
-    goto LABEL_48;
+    *&v36 = v31;
+    *v2 = vdiv_f32(*v2, vdup_lane_s32(*&v36, 0));
+    return result;
   }
 
-  v41 = v56[0];
-  v42 = v18 - 1;
-  if (*v56 <= v35)
+  v39 = v53[0];
+  v40 = v18 - 1;
+  if (v53[0] <= v33)
   {
-    v43 = v42;
+    v41 = v40;
   }
 
   else
   {
-    v43 = 0;
+    v41 = 0;
   }
 
-  *v2 = v56[3 * v43 + 1];
-  v44 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  *v2 = *&v53[3 * v41 + 1];
+  v42 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
   {
-    v44 = os_log_create("com.apple.isp", "general");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v44;
+    v42 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v42;
   }
 
-  result = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
+  result = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    v45 = v56[3 * v42];
+    v43 = v53[3 * v40];
     LODWORD(time.value) = 136316162;
     *(&time.value + 4) = "FigMotionComputeAverageSpherePositionForTimes";
     LOWORD(time.flags) = 2048;
-    *(&time.flags + 2) = v34;
+    *(&time.flags + 2) = v32;
     HIWORD(time.epoch) = 2048;
-    v51 = v8 / 1000000.0 + v34;
-    v52 = 2048;
-    v53 = v41;
-    v54 = 2048;
-    v55 = v45;
-    _os_log_error_impl(&dword_250805000, v44, OS_LOG_TYPE_ERROR, "%s - Could not find Hall samples in given time range [%f, %f]. Use the closest Hall sample in actual time range [%f, %f].\n", &time, 0x34u);
-    goto LABEL_47;
+    v48 = v8 / 1000000.0 + v32;
+    v49 = 2048;
+    v50 = v39;
+    v51 = 2048;
+    v52 = v43;
+    _os_log_error_impl(&dword_250805000, v42, OS_LOG_TYPE_ERROR, "%s - Could not find Hall samples in given time range [%f, %f]. Use the closest Hall sample in actual time range [%f, %f].\n", &time, 0x34u);
+    return 0;
   }
 
-LABEL_48:
-  v46 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -961,27 +953,26 @@ BOOL OUTLINED_FUNCTION_9()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-CFTypeRef H16ISP::CreateFormattedMetadata(uint64_t a1)
+CFTypeRef H16ISP::CreateFormattedMetadata(_DWORD *a1)
 {
-  v101[20] = *MEMORY[0x277D85DE8];
+  v99[20] = *MEMORY[0x277D85DE8];
   NamedValues::NamedValues(&cf);
-  NamedValues::NamedValues(&v86);
+  NamedValues::NamedValues(&v84);
   *__str = 20;
   *__str = (*a1 >> 21) & 0x3FF;
   *__str = (*a1 >> 11) & 0x3FF;
   *__str = (*a1 >> 1) & 0x3FF;
-  v3 = *(a1 + 16);
+  v3 = a1[4];
   if (v3 >= 1)
   {
     v4 = 0;
-    v5 = *(MEMORY[0x277D82818] + 64);
-    v83 = v5;
-    v84 = *MEMORY[0x277D82818];
-    v82 = *(MEMORY[0x277D82818] + 72);
+    v81 = *(MEMORY[0x277D82818] + 64);
+    v82 = *MEMORY[0x277D82818];
+    v80 = *(MEMORY[0x277D82818] + 72);
     while (1)
     {
-      v6 = *(a1 + 20 + 4 * v4);
-      if (v6)
+      v5 = a1[v4 + 5];
+      if (v5)
       {
         break;
       }
@@ -993,1370 +984,1370 @@ LABEL_153:
       }
     }
 
-    NamedValues::NamedValues(&v85);
-    v8 = (a1 + v6);
-    v9 = "Shared AiCam";
+    NamedValues::NamedValues(&v83);
+    v7 = (a1 + v5);
+    v8 = "Shared AiCam";
     switch(v4)
     {
       case 0:
         *__str = "unknown";
-        v10 = *(v8 + 4);
-        if (v10 > 1)
+        v9 = *(v7 + 4);
+        if (v9 > 1)
         {
-          if (v10 == 2)
+          if (v9 == 2)
           {
-            v11 = "blue";
+            v10 = "blue";
           }
 
           else
           {
-            if (v10 != 3)
+            if (v9 != 3)
             {
               goto LABEL_110;
             }
 
-            v11 = "green-blue";
+            v10 = "green-blue";
           }
         }
 
-        else if (v10)
+        else if (v9)
         {
-          if (v10 != 1)
+          if (v9 != 1)
           {
             goto LABEL_110;
           }
 
-          v11 = "red";
+          v10 = "red";
         }
 
         else
         {
-          v11 = "green-red";
+          v10 = "green-red";
         }
 
-        *__str = v11;
+        *__str = v10;
 LABEL_110:
         __p[0] = "unknown";
-        v67 = v8[14];
-        if (v67 == 2)
+        v66 = v7[14];
+        if (v66 == 2)
         {
-          v68 = "binning 1/4";
+          v67 = "binning 1/4";
         }
 
-        else if (v67 == 1)
+        else if (v66 == 1)
         {
-          v68 = "binning 1/2";
+          v67 = "binning 1/2";
         }
 
         else
         {
-          if (v8[14])
+          if (v7[14])
           {
             goto LABEL_117;
           }
 
-          v68 = "binning disabled";
+          v67 = "binning disabled";
         }
 
-        __p[0] = v68;
+        __p[0] = v67;
 LABEL_117:
-        *v95 = "unknown";
-        v69 = v8[15];
-        if (v69 == 2)
+        *v93 = "unknown";
+        v68 = v7[15];
+        if (v68 == 2)
         {
-          v70 = "binning 1/4";
+          v69 = "binning 1/4";
         }
 
-        else if (v69 == 1)
+        else if (v68 == 1)
         {
-          v70 = "binning 1/2";
+          v69 = "binning 1/2";
         }
 
         else
         {
-          if (v8[15])
+          if (v7[15])
           {
             goto LABEL_124;
           }
 
-          v70 = "binning disabled";
+          v69 = "binning disabled";
         }
 
-        *v95 = v70;
+        *v93 = v69;
 LABEL_124:
-        *v94 = "unknown";
-        v71 = v8[34];
-        if (v71 > 1)
+        *v92 = "unknown";
+        v70 = v7[34];
+        if (v70 > 1)
         {
-          if (v71 == 2)
+          if (v70 == 2)
           {
-            v72 = "raw12";
+            v71 = "raw12";
           }
 
           else
           {
-            if (v71 != 3)
+            if (v70 != 3)
             {
               goto LABEL_134;
             }
 
-            v72 = "raw14";
+            v71 = "raw14";
           }
         }
 
-        else if (v8[34])
+        else if (v7[34])
         {
-          if (v71 != 1)
+          if (v70 != 1)
           {
             goto LABEL_134;
           }
 
-          v72 = "raw10";
+          v71 = "raw10";
         }
 
         else
         {
-          v72 = "raw8";
+          v71 = "raw8";
         }
 
-        *v94 = v72;
+        *v92 = v71;
 LABEL_134:
-        *v91 = "unknown";
-        if (v8[35] == 1)
+        *v89 = "unknown";
+        if (v7[35] == 1)
         {
-          v73 = "unpacked";
+          v72 = "unpacked";
         }
 
         else
         {
-          if (v8[35])
+          if (v7[35])
           {
 LABEL_139:
-            *&v90 = 1016;
-            LODWORD(v90) = *(v8 + 43);
-            LODWORD(v90) = *(v8 + 44);
-            LODWORD(v90) = *(v8 + 45);
-            LODWORD(v90) = *(v8 + 46);
-            LODWORD(v90) = *(v8 + 47);
-            v90 = vcvtd_n_f64_u32(*(v8 + 12), 8uLL);
-            v90 = vcvtd_n_f64_u32(v8[32], 8uLL);
-            LODWORD(v90) = *(v8 + 72);
-            LODWORD(v90) = *(v8 + 73);
-            v90 = COERCE_DOUBLE(bswap64(*(v8 + 37)));
-            *&v90 = v8 + 48;
-            *&v90 = v8 + 64;
-            *&v90 = v8 + 80;
-            *&v90 = v8 + 96;
-            v74 = *(v8 + 80);
-            v75 = *(v8 + 81);
-            v88 = bswap32(v75);
-            v89 = bswap32(v74);
-            LODWORD(v90) = v74;
-            LODWORD(v90) = BYTE1(v74);
-            LODWORD(v90) = BYTE2(v74);
-            LODWORD(v90) = HIBYTE(v74) & 0xF;
-            LODWORD(v90) = v74 >> 28;
-            LODWORD(v90) = HIBYTE(v75);
-            LODWORD(v90) = BYTE2(v75);
-            LODWORD(v90) = BYTE1(v75);
-            LODWORD(v90) = v75;
-            LODWORD(v90) = v8[168];
-            v90 = vcvtd_n_f64_s32(v8[231], 0xFuLL) + v8[168];
-            LODWORD(v90) = *(v8 + 338);
-            LODWORD(v90) = *(v8 + 339);
-            LODWORD(v90) = *(v8 + 460);
-            LODWORD(v90) = *(v8 + 461);
-            LODWORD(v90) = v8[229];
-            LODWORD(v90) = v8[246];
-            LODWORD(v90) = v8[247];
-            LODWORD(v90) = v8[248];
-            LODWORD(v90) = v8[249];
-            LODWORD(v90) = *(v8 + 500);
-            LODWORD(v90) = *(v8 + 501);
-            LODWORD(v90) = v8[254];
-            LODWORD(v90) = v8[255];
-            LODWORD(v90) = v8[256];
-            LODWORD(v90) = v8[257];
-            LODWORD(v90) = *(v8 + 129);
-            LODWORD(v90) = *(v8 + 130);
-            LODWORD(v90) = *(v8 + 131);
-            LODWORD(v90) = *(v8 + 132);
-            LODWORD(v90) = *(v8 + 133);
-            LODWORD(v90) = *(v8 + 134);
-            LODWORD(v90) = *(v8 + 135);
-            LODWORD(v90) = v8[272];
-            LODWORD(v90) = v8[273];
-            LODWORD(v90) = v8[282];
-            LODWORD(v90) = v8[283];
-            LODWORD(v90) = v8[284];
-            LODWORD(v90) = v8[285];
-            LODWORD(v90) = v8[286];
-            LODWORD(v90) = v8[287];
-            LODWORD(v90) = v8[288];
-            LODWORD(v90) = v8[289];
-            LODWORD(v90) = *(v8 + 145);
-            LODWORD(v90) = *(v8 + 146);
-            LODWORD(v90) = v8[294];
-            LODWORD(v90) = *(v8 + 148);
-            LODWORD(v90) = *(v8 + 149);
-            LODWORD(v90) = *(v8 + 150);
-            LODWORD(v90) = *(v8 + 604);
-            LODWORD(v90) = *(v8 + 605);
-            LODWORD(v90) = *(v8 + 152);
-            LODWORD(v90) = *(v8 + 153);
-            LODWORD(v90) = *(v8 + 154);
-            LODWORD(v90) = v8[312];
-            LODWORD(v90) = v8[313];
-            LODWORD(v90) = v8[314];
-            LODWORD(v90) = v8[315];
-            LODWORD(v90) = *(v8 + 155);
-            LODWORD(v90) = *(v8 + 632);
-            LODWORD(v90) = v8[317];
-            LODWORD(v90) = *(v8 + 159);
-            LODWORD(v90) = *(v8 + 162);
-            LODWORD(v90) = v8[326];
-            LODWORD(v90) = v8[327];
-            LODWORD(v90) = v8[328];
-            LODWORD(v90) = v8[329];
-            LODWORD(v90) = *(v8 + 660);
-            LODWORD(v90) = *(v8 + 661);
-            LODWORD(v90) = *(v8 + 167);
-            LODWORD(v90) = *(v8 + 168);
-            LODWORD(v90) = v8[338];
-            LODWORD(v90) = v8[339];
-            LODWORD(v90) = v8[340];
-            LODWORD(v90) = v8[341];
-            LODWORD(v90) = *(v8 + 173);
-            LODWORD(v90) = v8[348];
-            LODWORD(v90) = v8[349];
-            LODWORD(v90) = v8[350];
-            LODWORD(v90) = v8[351];
-            LODWORD(v90) = v8[352];
-            LODWORD(v90) = v8[353];
-            LODWORD(v90) = v8[354];
-            LODWORD(v90) = v8[355];
-            LODWORD(v90) = v8[356];
-            LODWORD(v90) = v8[357];
-            LODWORD(v90) = v8[358];
-            LODWORD(v90) = v8[359];
-            LODWORD(v90) = v8[360];
-            LODWORD(v90) = v8[361];
-            LODWORD(v90) = v8[362];
-            LODWORD(v90) = v8[363];
-            LODWORD(v90) = v8[364];
-            LODWORD(v90) = v8[365];
-            LODWORD(v90) = v8[366];
-            LODWORD(v90) = v8[367];
-            LODWORD(v90) = v8[368];
-            LODWORD(v90) = v8[369];
-            LODWORD(v90) = v8[370];
-            LODWORD(v90) = v8[371];
-            LODWORD(v90) = v8[372];
-            LODWORD(v90) = v8[373];
-            LODWORD(v90) = *(v8 + 748);
-            LODWORD(v90) = *(v8 + 749);
-            LODWORD(v90) = *(v8 + 750);
-            LODWORD(v90) = v8[377];
-            LODWORD(v90) = *(v8 + 804);
-            LODWORD(v90) = *(v8 + 805);
-            v9 = "Shared Input";
+            *&v88 = 1016;
+            LODWORD(v88) = *(v7 + 43);
+            LODWORD(v88) = *(v7 + 44);
+            LODWORD(v88) = *(v7 + 45);
+            LODWORD(v88) = *(v7 + 46);
+            LODWORD(v88) = *(v7 + 47);
+            v88 = vcvtd_n_f64_u32(*(v7 + 12), 8uLL);
+            v88 = vcvtd_n_f64_u32(v7[32], 8uLL);
+            LODWORD(v88) = *(v7 + 72);
+            LODWORD(v88) = *(v7 + 73);
+            v88 = COERCE_DOUBLE(bswap64(*(v7 + 37)));
+            *&v88 = v7 + 48;
+            *&v88 = v7 + 64;
+            *&v88 = v7 + 80;
+            *&v88 = v7 + 96;
+            v73 = *(v7 + 80);
+            v74 = *(v7 + 81);
+            v86 = bswap32(v74);
+            v87 = bswap32(v73);
+            LODWORD(v88) = v73;
+            LODWORD(v88) = BYTE1(v73);
+            LODWORD(v88) = BYTE2(v73);
+            LODWORD(v88) = HIBYTE(v73) & 0xF;
+            LODWORD(v88) = v73 >> 28;
+            LODWORD(v88) = HIBYTE(v74);
+            LODWORD(v88) = BYTE2(v74);
+            LODWORD(v88) = BYTE1(v74);
+            LODWORD(v88) = v74;
+            LODWORD(v88) = v7[168];
+            v88 = vcvtd_n_f64_s32(v7[231], 0xFuLL) + v7[168];
+            LODWORD(v88) = *(v7 + 338);
+            LODWORD(v88) = *(v7 + 339);
+            LODWORD(v88) = *(v7 + 460);
+            LODWORD(v88) = *(v7 + 461);
+            LODWORD(v88) = v7[229];
+            LODWORD(v88) = v7[246];
+            LODWORD(v88) = v7[247];
+            LODWORD(v88) = v7[248];
+            LODWORD(v88) = v7[249];
+            LODWORD(v88) = *(v7 + 500);
+            LODWORD(v88) = *(v7 + 501);
+            LODWORD(v88) = v7[254];
+            LODWORD(v88) = v7[255];
+            LODWORD(v88) = v7[256];
+            LODWORD(v88) = v7[257];
+            LODWORD(v88) = *(v7 + 129);
+            LODWORD(v88) = *(v7 + 130);
+            LODWORD(v88) = *(v7 + 131);
+            LODWORD(v88) = *(v7 + 132);
+            LODWORD(v88) = *(v7 + 133);
+            LODWORD(v88) = *(v7 + 134);
+            LODWORD(v88) = *(v7 + 135);
+            LODWORD(v88) = v7[272];
+            LODWORD(v88) = v7[273];
+            LODWORD(v88) = v7[282];
+            LODWORD(v88) = v7[283];
+            LODWORD(v88) = v7[284];
+            LODWORD(v88) = v7[285];
+            LODWORD(v88) = v7[286];
+            LODWORD(v88) = v7[287];
+            LODWORD(v88) = v7[288];
+            LODWORD(v88) = v7[289];
+            LODWORD(v88) = *(v7 + 145);
+            LODWORD(v88) = *(v7 + 146);
+            LODWORD(v88) = v7[294];
+            LODWORD(v88) = *(v7 + 148);
+            LODWORD(v88) = *(v7 + 149);
+            LODWORD(v88) = *(v7 + 150);
+            LODWORD(v88) = *(v7 + 604);
+            LODWORD(v88) = *(v7 + 605);
+            LODWORD(v88) = *(v7 + 152);
+            LODWORD(v88) = *(v7 + 153);
+            LODWORD(v88) = *(v7 + 154);
+            LODWORD(v88) = v7[312];
+            LODWORD(v88) = v7[313];
+            LODWORD(v88) = v7[314];
+            LODWORD(v88) = v7[315];
+            LODWORD(v88) = *(v7 + 155);
+            LODWORD(v88) = *(v7 + 632);
+            LODWORD(v88) = v7[317];
+            LODWORD(v88) = *(v7 + 159);
+            LODWORD(v88) = *(v7 + 162);
+            LODWORD(v88) = v7[326];
+            LODWORD(v88) = v7[327];
+            LODWORD(v88) = v7[328];
+            LODWORD(v88) = v7[329];
+            LODWORD(v88) = *(v7 + 660);
+            LODWORD(v88) = *(v7 + 661);
+            LODWORD(v88) = *(v7 + 167);
+            LODWORD(v88) = *(v7 + 168);
+            LODWORD(v88) = v7[338];
+            LODWORD(v88) = v7[339];
+            LODWORD(v88) = v7[340];
+            LODWORD(v88) = v7[341];
+            LODWORD(v88) = *(v7 + 173);
+            LODWORD(v88) = v7[348];
+            LODWORD(v88) = v7[349];
+            LODWORD(v88) = v7[350];
+            LODWORD(v88) = v7[351];
+            LODWORD(v88) = v7[352];
+            LODWORD(v88) = v7[353];
+            LODWORD(v88) = v7[354];
+            LODWORD(v88) = v7[355];
+            LODWORD(v88) = v7[356];
+            LODWORD(v88) = v7[357];
+            LODWORD(v88) = v7[358];
+            LODWORD(v88) = v7[359];
+            LODWORD(v88) = v7[360];
+            LODWORD(v88) = v7[361];
+            LODWORD(v88) = v7[362];
+            LODWORD(v88) = v7[363];
+            LODWORD(v88) = v7[364];
+            LODWORD(v88) = v7[365];
+            LODWORD(v88) = v7[366];
+            LODWORD(v88) = v7[367];
+            LODWORD(v88) = v7[368];
+            LODWORD(v88) = v7[369];
+            LODWORD(v88) = v7[370];
+            LODWORD(v88) = v7[371];
+            LODWORD(v88) = v7[372];
+            LODWORD(v88) = v7[373];
+            LODWORD(v88) = *(v7 + 748);
+            LODWORD(v88) = *(v7 + 749);
+            LODWORD(v88) = *(v7 + 750);
+            LODWORD(v88) = v7[377];
+            LODWORD(v88) = *(v7 + 804);
+            LODWORD(v88) = *(v7 + 805);
+            v8 = "Shared Input";
             goto LABEL_151;
           }
 
-          v73 = "packed";
+          v72 = "packed";
         }
 
-        *v91 = v73;
+        *v89 = v72;
         goto LABEL_139;
       case 1:
-        v26 = "unknown";
+        v25 = "unknown";
         *__str = "unknown";
-        v27 = *v8;
-        if (v27 == 2)
+        v26 = *v7;
+        if (v26 == 2)
         {
-          v28 = "R'G'B'";
+          v27 = "R'G'B'";
         }
 
-        else if (v27 == 1)
+        else if (v26 == 1)
         {
-          v28 = "Y'CbCr 4:2:2";
+          v27 = "Y'CbCr 4:2:2";
         }
 
         else
         {
-          if (*v8)
+          if (*v7)
           {
             goto LABEL_99;
           }
 
-          v28 = "Y'CbCr 4:2:0";
+          v27 = "Y'CbCr 4:2:0";
         }
 
-        *__str = v28;
+        *__str = v27;
 LABEL_99:
         __p[0] = "unknown";
-        v65 = v8[1];
-        if (v65 <= 1)
+        v64 = v7[1];
+        if (v64 <= 1)
         {
-          if (v8[1])
+          if (v7[1])
           {
-            if (v65 != 1)
+            if (v64 != 1)
             {
               goto LABEL_144;
             }
 
-            v66 = "StatsBlock";
+            v65 = "StatsBlock";
           }
 
           else
           {
-            v66 = "BackEnd";
+            v65 = "BackEnd";
           }
         }
 
         else
         {
-          switch(v65)
+          switch(v64)
           {
             case 2u:
-              v66 = "RawProcBlock";
+              v65 = "RawProcBlock";
               break;
             case 3u:
-              v66 = "RGBProcBlock";
+              v65 = "RGBProcBlock";
               break;
             case 4u:
-              v66 = "YCCProcBlock";
+              v65 = "YCCProcBlock";
               break;
             default:
               goto LABEL_144;
           }
         }
 
-        __p[0] = v66;
+        __p[0] = v65;
 LABEL_144:
-        v76 = "RGBY";
-        if (!*(v8 + 9))
+        v75 = "RGBY";
+        if (!*(v7 + 9))
         {
-          v76 = "RGGB";
+          v75 = "RGGB";
         }
 
-        *v95 = v76;
-        v77 = *(v8 + 1028);
-        if (v77 == 1)
+        *v93 = v75;
+        v76 = *(v7 + 1028);
+        if (v76 == 1)
         {
-          v26 = "log2";
+          v25 = "log2";
         }
 
-        else if (!v77)
+        else if (!v76)
         {
-          v26 = "linear";
+          v25 = "linear";
         }
 
-        *v94 = v26;
-        *v91 = 4876;
-        NamedValues::NamedValues(v91);
-        v90 = vcvtd_n_f64_u32(*(v8 + 1027), 4uLL);
-        LODWORD(v90) = *(v8 + 4138);
-        LODWORD(v90) = *(v8 + 4139);
-        LODWORD(v90) = *(v8 + 1035);
-        LODWORD(v90) = *(v8 + 1036);
-        LODWORD(v90) = *(v8 + 1037);
-        LODWORD(v90) = *(v8 + 1038);
-        LODWORD(v90) = *(v8 + 1039);
-        LODWORD(v90) = *(v8 + 1040);
-        LODWORD(v90) = *(v8 + 1041);
-        LODWORD(v90) = *(v8 + 1042);
-        LODWORD(v90) = *(v8 + 1043);
-        LODWORD(v90) = *(v8 + 1044);
-        LODWORD(v90) = *(v8 + 1045);
-        LODWORD(v90) = *(v8 + 1046);
-        LODWORD(v90) = *(v8 + 4188);
-        NamedValues::~NamedValues(v91);
-        v9 = "Shared Output";
+        *v92 = v25;
+        *v89 = 4876;
+        NamedValues::NamedValues(v89);
+        v88 = vcvtd_n_f64_u32(*(v7 + 1027), 4uLL);
+        LODWORD(v88) = *(v7 + 4138);
+        LODWORD(v88) = *(v7 + 4139);
+        LODWORD(v88) = *(v7 + 1035);
+        LODWORD(v88) = *(v7 + 1036);
+        LODWORD(v88) = *(v7 + 1037);
+        LODWORD(v88) = *(v7 + 1038);
+        LODWORD(v88) = *(v7 + 1039);
+        LODWORD(v88) = *(v7 + 1040);
+        LODWORD(v88) = *(v7 + 1041);
+        LODWORD(v88) = *(v7 + 1042);
+        LODWORD(v88) = *(v7 + 1043);
+        LODWORD(v88) = *(v7 + 1044);
+        LODWORD(v88) = *(v7 + 1045);
+        LODWORD(v88) = *(v7 + 1046);
+        LODWORD(v88) = *(v7 + 4188);
+        NamedValues::~NamedValues(v89);
+        v8 = "Shared Output";
 LABEL_151:
 LABEL_152:
-        NamedValues::~NamedValues(&v85);
+        NamedValues::~NamedValues(&v83);
         goto LABEL_153;
       case 2:
         *__str = 5856;
-        *__str = vcvtd_n_f64_u32(v8[2], 8uLL);
-        *__str = vcvtd_n_f64_u32(*(v8 + 1313), 8uLL);
-        *__str = vcvtd_n_f64_u32(v8[4], 8uLL);
-        *__str = v8[5];
-        *__str = *(v8 + 13);
-        *__str = vcvtd_n_f64_u32(*(v8 + 5), 0x10uLL);
-        *__str = *(v8 + 158);
-        *__str = *(v8 + 1732);
-        *__str = *(v8 + 434);
-        *__str = v8[870];
-        *__str = v8[871];
-        *__str = v8[872];
-        *__str = *(v8 + 437);
-        *__str = *(v8 + 438);
-        *__str = *(v8 + 439);
-        *__str = *(v8 + 440);
-        *__str = *(v8 + 441);
-        *__str = *(v8 + 442);
-        *__str = *(v8 + 443);
-        *__str = *(v8 + 444);
-        *__str = *(v8 + 445);
-        *__str = *(v8 + 446);
-        *__str = *(v8 + 447);
-        *__str = *(v8 + 448);
-        *__str = *(v8 + 449);
-        *__str = *(v8 + 450);
-        *__str = *(v8 + 451);
-        *__str = *(v8 + 452);
-        *__str = *(v8 + 453);
-        *__str = *(v8 + 455);
-        *__str = *(v8 + 456);
-        *__str = *(v8 + 457);
-        *__str = *(v8 + 458);
-        *__str = *(v8 + 459);
-        *__str = *(v8 + 460);
-        *__str = *(v8 + 461);
-        *__str = *(v8 + 462);
-        *__str = *(v8 + 463);
-        *__str = *(v8 + 479);
-        *__str = *(v8 + 483);
-        *__str = *(v8 + 484);
-        *__str = *(v8 + 485);
-        *__str = *(v8 + 486);
-        *__str = *(v8 + 487);
-        *__str = *(v8 + 488);
-        *__str = *(v8 + 489);
-        *__str = *(v8 + 490);
-        *__str = *(v8 + 491);
-        *__str = *(v8 + 492);
-        *__str = *(v8 + 493);
-        *__str = v8[988];
-        *__str = v8[989];
-        *__str = v8[990];
-        *__str = v8[991];
-        *__str = v8[992];
-        *__str = *(v8 + 497);
+        *__str = vcvtd_n_f64_u32(v7[2], 8uLL);
+        *__str = vcvtd_n_f64_u32(*(v7 + 1313), 8uLL);
+        *__str = vcvtd_n_f64_u32(v7[4], 8uLL);
+        *__str = v7[5];
+        *__str = *(v7 + 13);
+        *__str = vcvtd_n_f64_u32(*(v7 + 5), 0x10uLL);
+        *__str = *(v7 + 158);
+        *__str = *(v7 + 1732);
+        *__str = *(v7 + 434);
+        *__str = v7[870];
+        *__str = v7[871];
+        *__str = v7[872];
+        *__str = *(v7 + 437);
+        *__str = *(v7 + 438);
+        *__str = *(v7 + 439);
+        *__str = *(v7 + 440);
+        *__str = *(v7 + 441);
+        *__str = *(v7 + 442);
+        *__str = *(v7 + 443);
+        *__str = *(v7 + 444);
+        *__str = *(v7 + 445);
+        *__str = *(v7 + 446);
+        *__str = *(v7 + 447);
+        *__str = *(v7 + 448);
+        *__str = *(v7 + 449);
+        *__str = *(v7 + 450);
+        *__str = *(v7 + 451);
+        *__str = *(v7 + 452);
+        *__str = *(v7 + 453);
+        *__str = *(v7 + 455);
+        *__str = *(v7 + 456);
+        *__str = *(v7 + 457);
+        *__str = *(v7 + 458);
+        *__str = *(v7 + 459);
+        *__str = *(v7 + 460);
+        *__str = *(v7 + 461);
+        *__str = *(v7 + 462);
+        *__str = *(v7 + 463);
+        *__str = *(v7 + 479);
+        *__str = *(v7 + 483);
+        *__str = *(v7 + 484);
+        *__str = *(v7 + 485);
+        *__str = *(v7 + 486);
+        *__str = *(v7 + 487);
+        *__str = *(v7 + 488);
+        *__str = *(v7 + 489);
+        *__str = *(v7 + 490);
+        *__str = *(v7 + 491);
+        *__str = *(v7 + 492);
+        *__str = *(v7 + 493);
+        *__str = v7[988];
+        *__str = v7[989];
+        *__str = v7[990];
+        *__str = v7[991];
+        *__str = v7[992];
+        *__str = *(v7 + 497);
         NamedValues::NamedValues(__str);
-        LODWORD(__p[0]) = *(v8 + 592);
-        LODWORD(__p[0]) = *(v8 + 593);
+        LODWORD(__p[0]) = *(v7 + 592);
+        LODWORD(__p[0]) = *(v7 + 593);
         NamedValues::NamedValues(__p);
-        *v95 = *(v8 + 405);
-        *v95 = *(v8 + 406);
-        *v95 = *(v8 + 407);
-        *v95 = *(v8 + 408);
-        *v95 = *(v8 + 409);
-        *v95 = *(v8 + 410);
-        *v95 = *(v8 + 411);
-        *v95 = *(v8 + 412);
-        *v95 = *(v8 + 413);
-        *v95 = *(v8 + 414);
-        *v95 = *(v8 + 415);
-        *v95 = *(v8 + 416);
+        *v93 = *(v7 + 405);
+        *v93 = *(v7 + 406);
+        *v93 = *(v7 + 407);
+        *v93 = *(v7 + 408);
+        *v93 = *(v7 + 409);
+        *v93 = *(v7 + 410);
+        *v93 = *(v7 + 411);
+        *v93 = *(v7 + 412);
+        *v93 = *(v7 + 413);
+        *v93 = *(v7 + 414);
+        *v93 = *(v7 + 415);
+        *v93 = *(v7 + 416);
         NamedValues::~NamedValues(__p);
         NamedValues::~NamedValues(__str);
-        v9 = "Shared Auto Exposure";
+        v8 = "Shared Auto Exposure";
         goto LABEL_151;
       case 3:
         *__str = 3768;
-        NamedValues::NamedValues(v94);
-        *__str = v8[80];
-        *__str = v8[81];
-        *__str = v8[82];
-        *__str = v8[83];
-        *__str = v8[1292];
-        *__str = v8[1293];
-        *__str = *(v8 + 2716);
-        *__str = v8[1360];
-        *__str = v8[1361];
-        *__str = *(v8 + 682);
-        *__str = *(v8 + 2732);
-        *__str = *(v8 + 2733);
-        *__str = *(v8 + 2734);
-        *__str = *(v8 + 684);
-        *__str = *(v8 + 685);
-        *__str = v8[1372];
-        *__str = v8[1373];
-        *__str = v8[1390];
-        *__str = v8[1391];
-        *__str = v8[1392];
-        *__str = v8[1393];
-        *__str = v8[1394];
-        *__str = *(v8 + 775);
+        NamedValues::NamedValues(v92);
+        *__str = v7[80];
+        *__str = v7[81];
+        *__str = v7[82];
+        *__str = v7[83];
+        *__str = v7[1292];
+        *__str = v7[1293];
+        *__str = *(v7 + 2716);
+        *__str = v7[1360];
+        *__str = v7[1361];
+        *__str = *(v7 + 682);
+        *__str = *(v7 + 2732);
+        *__str = *(v7 + 2733);
+        *__str = *(v7 + 2734);
+        *__str = *(v7 + 684);
+        *__str = *(v7 + 685);
+        *__str = v7[1372];
+        *__str = v7[1373];
+        *__str = v7[1390];
+        *__str = v7[1391];
+        *__str = v7[1392];
+        *__str = v7[1393];
+        *__str = v7[1394];
+        *__str = *(v7 + 775);
         std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](__str);
-        MEMORY[0x253061A20](&v97, *(v8 + 840));
+        MEMORY[0x253061A20](&v95, *(v7 + 840));
         std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](__str, __p);
-        if (v93 >= 0)
+        if (v91 >= 0)
         {
-          v41 = __p;
+          v40 = __p;
         }
 
         else
         {
-          v41 = __p[0];
+          v40 = __p[0];
         }
 
-        NamedValue::NamedValue(v95, "roiType", v41, 0);
-        if (v93 < 0)
+        NamedValue::NamedValue(v93, "roiType", v40, 0);
+        if (v91 < 0)
         {
           operator delete(__p[0]);
         }
 
-        NamedValues::push_back(&v85, v95);
-        NamedValue::~NamedValue(v95);
-        *__str = v84;
-        *&__str[*(v84 - 24)] = v83;
-        *&v97 = v82;
-        *(&v97 + 1) = MEMORY[0x277D82878] + 16;
-        if (v100 < 0)
+        NamedValues::push_back(&v83, v93);
+        NamedValue::~NamedValue(v93);
+        *__str = v82;
+        *&__str[*(v82 - 24)] = v81;
+        *&v95 = v80;
+        *(&v95 + 1) = MEMORY[0x277D82878] + 16;
+        if (v98 < 0)
         {
-          operator delete(v99);
+          operator delete(v97);
         }
 
-        *(&v97 + 1) = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(v98);
+        *(&v95 + 1) = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(v96);
         std::iostream::~basic_iostream();
-        MEMORY[0x253061AE0](v101);
-        *__str = v8[1695];
-        NamedValues::~NamedValues(v94);
-        v9 = "Shared Auto Focus";
+        MEMORY[0x253061AE0](v99);
+        *__str = v7[1695];
+        NamedValues::~NamedValues(v92);
+        v8 = "Shared Auto Focus";
         goto LABEL_151;
       case 4:
         *__str = 1356;
-        *__str = vcvtd_n_f64_u32(v8[21], 0xEuLL);
-        *__str = vcvtd_n_f64_u32(v8[22], 0xEuLL);
-        *__str = vcvtd_n_f64_u32(*(v8 + 13), 0xCuLL);
-        *__str = v8[73];
-        *__str = v8[86];
-        *__str = v8[87];
-        *__str = v8[88];
-        *__str = *(v8 + 178);
-        *__str = *(v8 + 179);
-        *__str = *(v8 + 180);
-        *__str = v8[91];
-        *__str = v8[92];
-        *__str = v8[93];
-        *__str = v8[94];
-        *__str = v8[95];
-        *__str = v8[96];
-        *__str = v8[97];
-        *__str = v8[98];
-        *__str = v8[99];
-        *__str = *(v8 + 68);
-        *__str = *(v8 + 98);
-        *__str = v8[230];
-        *__str = vcvtd_n_f64_u32(v8[138], 0xEuLL);
-        *__str = vcvtd_n_f64_u32(v8[139], 0xEuLL);
-        *__str = *(v8 + 70);
-        v9 = "Shared Auto White Balance";
+        *__str = vcvtd_n_f64_u32(v7[21], 0xEuLL);
+        *__str = vcvtd_n_f64_u32(v7[22], 0xEuLL);
+        *__str = vcvtd_n_f64_u32(*(v7 + 13), 0xCuLL);
+        *__str = v7[73];
+        *__str = v7[86];
+        *__str = v7[87];
+        *__str = v7[88];
+        *__str = *(v7 + 178);
+        *__str = *(v7 + 179);
+        *__str = *(v7 + 180);
+        *__str = v7[91];
+        *__str = v7[92];
+        *__str = v7[93];
+        *__str = v7[94];
+        *__str = v7[95];
+        *__str = v7[96];
+        *__str = v7[97];
+        *__str = v7[98];
+        *__str = v7[99];
+        *__str = *(v7 + 68);
+        *__str = *(v7 + 98);
+        *__str = v7[230];
+        *__str = vcvtd_n_f64_u32(v7[138], 0xEuLL);
+        *__str = vcvtd_n_f64_u32(v7[139], 0xEuLL);
+        *__str = *(v7 + 70);
+        v8 = "Shared Auto White Balance";
         goto LABEL_151;
       case 5:
         *__str = 24;
-        v9 = "Adaptive Tone Curve";
+        v8 = "Adaptive Tone Curve";
         goto LABEL_151;
       case 6:
         *__str = 112;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = v8[2];
-        *__str = v8[3];
-        *__str = v8[4];
-        *__str = v8[5];
-        *__str = v8[10];
-        v9 = "Shared LTM";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = v7[2];
+        *__str = v7[3];
+        *__str = v7[4];
+        *__str = v7[5];
+        *__str = v7[10];
+        v8 = "Shared LTM";
         goto LABEL_151;
       case 7:
         *__str = 612;
-        *__str = vcvtd_n_f64_u32(*(v8 + 5), 8uLL);
-        *__str = vcvtd_n_f64_u32(*(v8 + 10), 8uLL);
-        *__str = *(v8 + 60);
-        *__str = *(v8 + 61);
-        *__str = *(v8 + 62);
-        *__str = *(v8 + 63);
-        *__str = *(v8 + 64);
-        *__str = *(v8 + 65);
-        *__str = *(v8 + 66);
-        *__str = *(v8 + 67);
-        *__str = *(v8 + 68);
-        *__str = *(v8 + 69);
-        *__str = *(v8 + 70);
-        *__str = *(v8 + 71);
-        *__str = *(v8 + 72);
-        *__str = *(v8 + 73);
-        *__str = *(v8 + 74);
-        *__str = *(v8 + 75);
-        *__str = v8[38];
-        *__str = v8[39];
-        *__str = v8[40];
-        *__str = v8[41];
-        *__str = vcvtd_n_f64_u32(v8[56], 0xEuLL);
-        *__str = vcvtd_n_f64_u32(v8[57], 0xEuLL);
-        *__str = vcvtd_n_f64_u32(v8[58], 0xCuLL);
-        *__str = vcvtd_n_f64_u32(v8[59], 0xCuLL);
-        *__str = vcvtd_n_f64_u32(v8[60], 0xCuLL);
-        *__str = vcvtd_n_f64_u32(v8[61], 0xCuLL);
-        *__str = vcvtd_n_f64_u32(v8[62], 0xCuLL);
-        *__str = vcvtd_n_f64_u32(v8[63], 0xCuLL);
-        *__str = *(v8 + 128);
-        *__str = *(v8 + 129);
-        *__str = *(v8 + 132);
-        *__str = *(v8 + 133);
-        *__str = v8[67];
-        *__str = v8[68];
-        *__str = v8[69];
-        *__str = v8[76];
-        *__str = v8[77];
-        *__str = *(v8 + 160);
-        *__str = *(v8 + 161);
-        *__str = *(v8 + 162);
-        *__str = *(v8 + 41);
-        *__str = *(v8 + 44);
-        *__str = *(v8 + 45);
-        *__str = *(v8 + 46);
-        *__str = *(v8 + 47);
-        *__str = *(v8 + 48);
-        *__str = *(v8 + 49);
-        *__str = *(v8 + 50);
-        *__str = *(v8 + 51);
-        *__str = *(v8 + 52);
-        *__str = *(v8 + 53);
-        *__str = v8[108];
-        *__str = v8[109];
-        *__str = *(v8 + 243);
-        *__str = v8[149];
-        *__str = v8[154];
-        *__str = v8[155];
-        *__str = *(v8 + 78);
-        *__str = *(v8 + 79);
-        *__str = *(v8 + 80);
-        *__str = *(v8 + 81);
-        *__str = *(v8 + 91);
-        *__str = *(v8 + 92);
-        *__str = *(v8 + 93);
-        *__str = *(v8 + 94);
-        v16 = 0;
-        v17 = v8 + 122;
-        v18 = (a1 + 250 + v6);
+        *__str = vcvtd_n_f64_u32(*(v7 + 5), 8uLL);
+        *__str = vcvtd_n_f64_u32(*(v7 + 10), 8uLL);
+        *__str = *(v7 + 60);
+        *__str = *(v7 + 61);
+        *__str = *(v7 + 62);
+        *__str = *(v7 + 63);
+        *__str = *(v7 + 64);
+        *__str = *(v7 + 65);
+        *__str = *(v7 + 66);
+        *__str = *(v7 + 67);
+        *__str = *(v7 + 68);
+        *__str = *(v7 + 69);
+        *__str = *(v7 + 70);
+        *__str = *(v7 + 71);
+        *__str = *(v7 + 72);
+        *__str = *(v7 + 73);
+        *__str = *(v7 + 74);
+        *__str = *(v7 + 75);
+        *__str = v7[38];
+        *__str = v7[39];
+        *__str = v7[40];
+        *__str = v7[41];
+        *__str = vcvtd_n_f64_u32(v7[56], 0xEuLL);
+        *__str = vcvtd_n_f64_u32(v7[57], 0xEuLL);
+        *__str = vcvtd_n_f64_u32(v7[58], 0xCuLL);
+        *__str = vcvtd_n_f64_u32(v7[59], 0xCuLL);
+        *__str = vcvtd_n_f64_u32(v7[60], 0xCuLL);
+        *__str = vcvtd_n_f64_u32(v7[61], 0xCuLL);
+        *__str = vcvtd_n_f64_u32(v7[62], 0xCuLL);
+        *__str = vcvtd_n_f64_u32(v7[63], 0xCuLL);
+        *__str = *(v7 + 128);
+        *__str = *(v7 + 129);
+        *__str = *(v7 + 132);
+        *__str = *(v7 + 133);
+        *__str = v7[67];
+        *__str = v7[68];
+        *__str = v7[69];
+        *__str = v7[76];
+        *__str = v7[77];
+        *__str = *(v7 + 160);
+        *__str = *(v7 + 161);
+        *__str = *(v7 + 162);
+        *__str = *(v7 + 41);
+        *__str = *(v7 + 44);
+        *__str = *(v7 + 45);
+        *__str = *(v7 + 46);
+        *__str = *(v7 + 47);
+        *__str = *(v7 + 48);
+        *__str = *(v7 + 49);
+        *__str = *(v7 + 50);
+        *__str = *(v7 + 51);
+        *__str = *(v7 + 52);
+        *__str = *(v7 + 53);
+        *__str = v7[108];
+        *__str = v7[109];
+        *__str = *(v7 + 243);
+        *__str = v7[149];
+        *__str = v7[154];
+        *__str = v7[155];
+        *__str = *(v7 + 78);
+        *__str = *(v7 + 79);
+        *__str = *(v7 + 80);
+        *__str = *(v7 + 81);
+        *__str = *(v7 + 91);
+        *__str = *(v7 + 92);
+        *__str = *(v7 + 93);
+        *__str = *(v7 + 94);
+        v15 = 0;
+        v16 = v7 + 122;
+        v17 = a1 + v5 + 250;
         do
         {
           NamedValues::NamedValues(__p);
-          v19 = &v17[8 * v16];
-          *v95 = *v19;
-          *v95 = *(v19 + 4);
-          v20 = 0;
-          v21 = v18;
+          v18 = &v16[8 * v15];
+          *v93 = *v18;
+          *v93 = *(v18 + 4);
+          v19 = 0;
+          v20 = v17;
           do
           {
-            NamedValues::NamedValues(v95);
-            *v94 = *(v21 - 1);
-            *v94 = *v21;
-            snprintf(__str, 0x40uLL, "strength[%d]", v20);
-            NamedValues::~NamedValues(v95);
-            ++v20;
-            v21 += 2;
+            NamedValues::NamedValues(v93);
+            *v92 = *(v20 - 1);
+            *v92 = *v20;
+            snprintf(__str, 0x40uLL, "strength[%d]", v19);
+            NamedValues::~NamedValues(v93);
+            ++v19;
+            v20 += 2;
           }
 
-          while (v20 != 5);
-          snprintf(__str, 0x40uLL, "mbnrConfig[%d]", v16);
+          while (v19 != 5);
+          snprintf(__str, 0x40uLL, "mbnrConfig[%d]", v15);
           NamedValues::~NamedValues(__p);
-          ++v16;
-          v18 += 16;
+          ++v15;
+          v17 += 16;
         }
 
-        while (v16 != 3);
-        v9 = "Shared RAW Proc";
+        while (v15 != 3);
+        v8 = "Shared RAW Proc";
         goto LABEL_151;
       case 8:
         *__str = 776;
-        *__str = v8[2];
-        *__str = v8[275];
-        *__str = *(v8 + 552);
-        *__str = *(v8 + 553);
-        *__str = *(v8 + 554);
-        *__str = *(v8 + 555);
-        *__str = *(v8 + 568);
-        *__str = *(v8 + 640);
-        v9 = "Shared RGB Proc";
+        *__str = v7[2];
+        *__str = v7[275];
+        *__str = *(v7 + 552);
+        *__str = *(v7 + 553);
+        *__str = *(v7 + 554);
+        *__str = *(v7 + 555);
+        *__str = *(v7 + 568);
+        *__str = *(v7 + 640);
+        v8 = "Shared RGB Proc";
         goto LABEL_151;
       case 9:
         *__str = 192;
-        *__str = *v8;
-        *__str = *(v8 + 2);
-        *__str = *(v8 + 3);
-        *__str = *(v8 + 4);
-        *__str = *(v8 + 5);
-        *__str = *(v8 + 6);
-        *__str = *(v8 + 7);
-        *__str = *(v8 + 8);
-        *__str = *(v8 + 9);
-        *__str = *(v8 + 10);
-        *__str = *(v8 + 11);
-        *__str = *(v8 + 12);
-        *__str = *(v8 + 13);
-        *__str = v8[7];
-        *__str = v8[8];
-        *__str = v8[9];
-        *__str = v8[10];
-        *__str = v8[11];
-        *__str = v8[12];
-        *__str = v8[79];
-        *__str = v8[80];
-        *__str = *(v8 + 162);
-        *__str = v8[82];
-        *__str = v8[83];
-        *__str = v8[84];
-        *__str = *(v8 + 43);
-        *__str = *(v8 + 44);
-        *__str = *(v8 + 45);
-        *__str = *(v8 + 184);
-        v9 = "Shared YCC Proc";
+        *__str = *v7;
+        *__str = *(v7 + 2);
+        *__str = *(v7 + 3);
+        *__str = *(v7 + 4);
+        *__str = *(v7 + 5);
+        *__str = *(v7 + 6);
+        *__str = *(v7 + 7);
+        *__str = *(v7 + 8);
+        *__str = *(v7 + 9);
+        *__str = *(v7 + 10);
+        *__str = *(v7 + 11);
+        *__str = *(v7 + 12);
+        *__str = *(v7 + 13);
+        *__str = v7[7];
+        *__str = v7[8];
+        *__str = v7[9];
+        *__str = v7[10];
+        *__str = v7[11];
+        *__str = v7[12];
+        *__str = v7[79];
+        *__str = v7[80];
+        *__str = *(v7 + 162);
+        *__str = v7[82];
+        *__str = v7[83];
+        *__str = v7[84];
+        *__str = *(v7 + 43);
+        *__str = *(v7 + 44);
+        *__str = *(v7 + 45);
+        *__str = *(v7 + 184);
+        v8 = "Shared YCC Proc";
         goto LABEL_151;
       case 10:
         *__str = 4;
-        *__str = *v8;
-        *__str = *(v8 + 1);
-        v9 = "Shared BES Proc";
+        *__str = *v7;
+        *__str = *(v7 + 1);
+        v8 = "Shared BES Proc";
         goto LABEL_151;
       case 11:
         *__str = 20132;
-        *__str = *(v8 + 324);
-        *__str = *(v8 + 325);
-        *__str = *(v8 + 326);
-        *__str = v8[164];
-        *__str = v8[165];
-        *__str = v8[166];
-        *__str = v8[167];
-        *__str = *(v8 + 326);
-        *__str = *(v8 + 326);
-        *__str = *(v8 + 326);
-        *__str = *(v8 + 326);
-        *__str = *(v8 + 326);
-        *__str = *(v8 + 326);
-        *__str = *(v8 + 326);
-        *__str = v8[170];
-        *__str = *(v8 + 342);
-        *__str = *(v8 + 343);
-        *__str = v8[174];
-        *__str = v8[175];
-        *__str = v8[176];
-        *__str = v8[177];
-        *__str = v8[178];
-        *__str = v8[179];
-        *__str = v8[180];
-        *__str = v8[181];
-        LOWORD(v29) = v8[186];
-        LOWORD(v30) = v8[187];
-        LOWORD(v31) = v8[188];
-        LOWORD(v33) = v8[189];
-        LOWORD(v34) = v8[190];
-        LOWORD(v35) = v8[191];
-        *__str = v8[191];
-        *__str = v8[192];
-        *__str = v8[198];
-        *__str = v8[199];
-        *__str = v8[200];
-        *__str = v8[201];
-        *__str = v8[204];
-        *__str = v8[205];
-        *__str = v8[212];
-        *__str = v8[213];
-        *__str = v8[214];
-        *__str = v8[215];
-        *__str = v8[216];
-        *__str = v8[217];
-        *__str = v8[340];
-        *__str = v8[341];
-        *__str = v8[342];
-        *__str = v8[343];
-        *__str = v8[344];
-        *__str = v8[345];
-        *__str = *(v8 + 4071);
-        *__str = *(v8 + 4072);
-        v9 = "Shared Stats";
+        *__str = *(v7 + 324);
+        *__str = *(v7 + 325);
+        *__str = *(v7 + 326);
+        *__str = v7[164];
+        *__str = v7[165];
+        *__str = v7[166];
+        *__str = v7[167];
+        *__str = *(v7 + 326);
+        *__str = *(v7 + 326);
+        *__str = *(v7 + 326);
+        *__str = *(v7 + 326);
+        *__str = *(v7 + 326);
+        *__str = *(v7 + 326);
+        *__str = *(v7 + 326);
+        *__str = v7[170];
+        *__str = *(v7 + 342);
+        *__str = *(v7 + 343);
+        *__str = v7[174];
+        *__str = v7[175];
+        *__str = v7[176];
+        *__str = v7[177];
+        *__str = v7[178];
+        *__str = v7[179];
+        *__str = v7[180];
+        *__str = v7[181];
+        LOWORD(v28) = v7[186];
+        LOWORD(v29) = v7[187];
+        LOWORD(v30) = v7[188];
+        LOWORD(v32) = v7[189];
+        LOWORD(v33) = v7[190];
+        LOWORD(v34) = v7[191];
+        *__str = v7[191];
+        *__str = v7[192];
+        *__str = v7[198];
+        *__str = v7[199];
+        *__str = v7[200];
+        *__str = v7[201];
+        *__str = v7[204];
+        *__str = v7[205];
+        *__str = v7[212];
+        *__str = v7[213];
+        *__str = v7[214];
+        *__str = v7[215];
+        *__str = v7[216];
+        *__str = v7[217];
+        *__str = v7[340];
+        *__str = v7[341];
+        *__str = v7[342];
+        *__str = v7[343];
+        *__str = v7[344];
+        *__str = v7[345];
+        *__str = *(v7 + 4071);
+        *__str = *(v7 + 4072);
+        v8 = "Shared Stats";
         goto LABEL_151;
       case 12:
         *__str = 0x10000;
-        v9 = "Shared Debug";
+        v8 = "Shared Debug";
         goto LABEL_151;
       case 13:
         *__str = 61040;
-        v9 = "Shared OIS";
+        v8 = "Shared OIS";
         goto LABEL_151;
       case 14:
         *__str = 65608;
-        v9 = "Shared FocusPixel";
+        v8 = "Shared FocusPixel";
         goto LABEL_151;
       case 15:
         *__str = 8222;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = v8[2];
-        *__str = v8[3];
-        *__str = v8[4];
-        *__str = v8[5];
-        v9 = "Shared LocalHist";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = v7[2];
+        *__str = v7[3];
+        *__str = v7[4];
+        *__str = v7[5];
+        v8 = "Shared LocalHist";
         goto LABEL_151;
       case 16:
         *__str = 65540;
-        v9 = "Shared VIS";
+        v8 = "Shared VIS";
         goto LABEL_151;
       case 17:
         *__str = 16388;
-        v9 = "Shared TNR";
+        v8 = "Shared TNR";
         goto LABEL_151;
       case 18:
         *__str = 64;
-        *__str = v8[8];
-        *__str = v8[9];
-        *__str = v8[10];
-        *__str = v8[11];
-        *__str = v8[12];
-        *__str = v8[13];
-        *__str = v8[14];
-        *__str = v8[15];
-        *__str = v8[16];
-        *__str = v8[17];
-        *__str = v8[28];
-        *__str = *(v8 + 58);
-        *__str = *(v8 + 59);
-        *__str = *(v8 + 60);
-        v9 = "Shared System";
+        *__str = v7[8];
+        *__str = v7[9];
+        *__str = v7[10];
+        *__str = v7[11];
+        *__str = v7[12];
+        *__str = v7[13];
+        *__str = v7[14];
+        *__str = v7[15];
+        *__str = v7[16];
+        *__str = v7[17];
+        *__str = v7[28];
+        *__str = *(v7 + 58);
+        *__str = *(v7 + 59);
+        *__str = *(v7 + 60);
+        v8 = "Shared System";
         goto LABEL_151;
       case 19:
         *__str = 74192;
-        *__str = v8[36805];
-        *__str = v8[36806];
-        *__str = v8[36807];
-        *__str = v8[36808];
-        *__str = v8[36810];
-        *__str = v8[36812];
-        *__str = v8[36813];
-        *__str = v8[36814];
-        *__str = v8[37073];
-        *__str = v8[37074];
-        *__str = *(v8 + 18538);
-        *__str = *(v8 + 18539);
-        *__str = v8[37080];
-        *__str = v8[37081];
-        v9 = "Shared LTM LUTs";
+        *__str = v7[36805];
+        *__str = v7[36806];
+        *__str = v7[36807];
+        *__str = v7[36808];
+        *__str = v7[36810];
+        *__str = v7[36812];
+        *__str = v7[36813];
+        *__str = v7[36814];
+        *__str = v7[37073];
+        *__str = v7[37074];
+        *__str = *(v7 + 18538);
+        *__str = *(v7 + 18539);
+        *__str = v7[37080];
+        *__str = v7[37081];
+        v8 = "Shared LTM LUTs";
         goto LABEL_151;
       case 20:
         *__str = 1736;
-        v9 = "Shared VIS Info";
+        v8 = "Shared VIS Info";
         goto LABEL_151;
       case 21:
         *__str = 11008;
-        v9 = "Shared Motion Info";
+        v8 = "Shared Motion Info";
         goto LABEL_151;
       case 22:
         *__str = 4144;
-        v9 = "Shared AF FocusMap";
+        v8 = "Shared AF FocusMap";
         goto LABEL_151;
       case 23:
         *__str = 644;
-        *__str = *v8;
-        v9 = "Shared DMA Config";
+        *__str = *v7;
+        v8 = "Shared DMA Config";
         goto LABEL_151;
       case 24:
         *__str = 19904;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = *(v8 + 1);
-        *__str = *(v8 + 2);
-        *__str = *(v8 + 3);
-        *__str = *(v8 + 4);
-        *__str = *(v8 + 5);
-        *__str = *(v8 + 6);
-        *__str = v8[12];
-        *__str = v8[13];
-        v9 = "Shared HITH";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = *(v7 + 1);
+        *__str = *(v7 + 2);
+        *__str = *(v7 + 3);
+        *__str = *(v7 + 4);
+        *__str = *(v7 + 5);
+        *__str = *(v7 + 6);
+        *__str = v7[12];
+        *__str = v7[13];
+        v8 = "Shared HITH";
         goto LABEL_151;
       case 25:
         *__str = 77528;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = *(v8 + 19381);
-        v9 = "Shared APS";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = *(v7 + 19381);
+        v8 = "Shared APS";
         goto LABEL_151;
       case 26:
         *__str = 786600;
-        v9 = "Shared SideBand";
+        v8 = "Shared SideBand";
         goto LABEL_151;
       case 27:
         *__str = 33012;
-        *__str = *v8;
-        *__str = *(v8 + 4);
-        v9 = "Shared VisionProc";
+        *__str = *v7;
+        *__str = *(v7 + 4);
+        v8 = "Shared VisionProc";
         goto LABEL_151;
       case 28:
         *__str = 116;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = v8[2];
-        *__str = v8[3];
-        *__str = *(v8 + 2);
-        *__str = *(v8 + 3);
-        *__str = *(v8 + 4);
-        *__str = *(v8 + 5);
-        *__str = *(v8 + 6);
-        *__str = *(v8 + 14);
-        *__str = *(v8 + 15);
-        *__str = v8[14];
-        *__str = v8[15];
-        *__str = vcvtd_n_f64_s32(*(v8 + 8), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 9), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 10), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 11), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 12), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 13), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 16), 5uLL);
-        *__str = *(v8 + 18);
-        *__str = v8[34];
-        *__str = *(v8 + 19);
-        *__str = *(v8 + 20);
-        v9 = "Shared Projector";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = v7[2];
+        *__str = v7[3];
+        *__str = *(v7 + 2);
+        *__str = *(v7 + 3);
+        *__str = *(v7 + 4);
+        *__str = *(v7 + 5);
+        *__str = *(v7 + 6);
+        *__str = *(v7 + 14);
+        *__str = *(v7 + 15);
+        *__str = v7[14];
+        *__str = v7[15];
+        *__str = vcvtd_n_f64_s32(*(v7 + 8), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 9), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 10), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 11), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 12), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 13), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 16), 5uLL);
+        *__str = *(v7 + 18);
+        *__str = v7[34];
+        *__str = *(v7 + 19);
+        *__str = *(v7 + 20);
+        v8 = "Shared Projector";
         goto LABEL_151;
       case 29:
         *__str = 456;
-        *__str = *v8;
-        *__str = *(v8 + 1);
-        v9 = "Shared BodyDetector";
+        *__str = *v7;
+        *__str = *(v7 + 1);
+        v8 = "Shared BodyDetector";
         goto LABEL_151;
       case 30:
         *__str = 156;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = v8[6];
-        *__str = v8[7];
-        *__str = v8[8];
-        *__str = v8[9];
-        *__str = *(v8 + 5);
-        *__str = *(v8 + 6);
-        *__str = *(v8 + 7);
-        *__str = *(v8 + 8);
-        *__str = *(v8 + 9);
-        *__str = *(v8 + 12);
-        *__str = *(v8 + 13);
-        *__str = *(v8 + 14);
-        *__str = *(v8 + 15);
-        *__str = v8[34];
-        *__str = *(v8 + 18);
-        *__str = *(v8 + 19);
-        *__str = *(v8 + 20);
-        *__str = *(v8 + 21);
-        *__str = *(v8 + 22);
-        *__str = *(v8 + 25);
-        *__str = *(v8 + 26);
-        v9 = "Shared Distortion";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = v7[6];
+        *__str = v7[7];
+        *__str = v7[8];
+        *__str = v7[9];
+        *__str = *(v7 + 5);
+        *__str = *(v7 + 6);
+        *__str = *(v7 + 7);
+        *__str = *(v7 + 8);
+        *__str = *(v7 + 9);
+        *__str = *(v7 + 12);
+        *__str = *(v7 + 13);
+        *__str = *(v7 + 14);
+        *__str = *(v7 + 15);
+        *__str = v7[34];
+        *__str = *(v7 + 18);
+        *__str = *(v7 + 19);
+        *__str = *(v7 + 20);
+        *__str = *(v7 + 21);
+        *__str = *(v7 + 22);
+        *__str = *(v7 + 25);
+        *__str = *(v7 + 26);
+        v8 = "Shared Distortion";
         goto LABEL_151;
       case 31:
         *__str = 1024;
-        v9 = "BodyDetector Debug";
+        v8 = "BodyDetector Debug";
         goto LABEL_151;
       case 32:
         *__str = 1453212;
-        *__str = *v8;
-        *__str = v8[1];
-        v9 = "PDE Debug";
+        *__str = *v7;
+        *__str = v7[1];
+        v8 = "PDE Debug";
         goto LABEL_151;
       case 33:
         *__str = 44;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = vcvtd_n_f64_s32(*(v8 + 3), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 4), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 5), 5uLL);
-        *__str = vcvtd_n_f64_s32(*(v8 + 6), 5uLL);
-        *__str = *(v8 + 7);
-        *__str = *(v8 + 8);
-        *__str = *(v8 + 9);
-        *__str = *(v8 + 10);
-        v9 = "Shared Powersupply";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = vcvtd_n_f64_s32(*(v7 + 3), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 4), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 5), 5uLL);
+        *__str = vcvtd_n_f64_s32(*(v7 + 6), 5uLL);
+        *__str = *(v7 + 7);
+        *__str = *(v7 + 8);
+        *__str = *(v7 + 9);
+        *__str = *(v7 + 10);
+        v8 = "Shared Powersupply";
         goto LABEL_151;
       case 34:
         *__str = 2284;
-        *__str = *(v8 + 570);
+        *__str = *(v7 + 570);
         *__str = 0;
-        if (*(v8 + 570))
+        if (*(v7 + 570))
         {
-          v63 = 0;
-          v64 = v8;
+          v62 = 0;
+          v63 = v7;
           do
           {
-            LODWORD(__p[0]) = *v64;
-            LODWORD(__p[0]) = v64[1];
-            LODWORD(__p[0]) = *(v64 + 1);
-            LODWORD(__p[0]) = *(v64 + 2);
-            LODWORD(__p[0]) = *(v64 + 3);
-            LODWORD(__p[0]) = *(v64 + 4);
-            LODWORD(__p[0]) = *(v64 + 5);
-            LODWORD(__p[0]) = *(v64 + 6);
-            LODWORD(__p[0]) = *(v64 + 7);
-            LODWORD(__p[0]) = v64[16];
-            LODWORD(__p[0]) = v64[17];
-            LODWORD(__p[0]) = *(v64 + 9);
-            LODWORD(__p[0]) = v64[20];
-            LODWORD(__p[0]) = v64[21];
-            LODWORD(__p[0]) = v64[22];
-            LODWORD(__p[0]) = *(v64 + 164);
-            LODWORD(__p[0]) = *(v64 + 51);
-            LODWORD(__p[0]) = v64[24];
-            LODWORD(__p[0]) = *(v64 + 13);
-            LODWORD(__p[0]) = v64[28];
-            LODWORD(__p[0]) = v64[29];
-            LODWORD(__p[0]) = *(v64 + 15);
-            LODWORD(__p[0]) = *(v64 + 16);
-            LODWORD(__p[0]) = *(v64 + 17);
-            LODWORD(__p[0]) = *(v64 + 18);
-            LODWORD(__p[0]) = *(v64 + 19);
-            LODWORD(__p[0]) = v64[40];
-            LODWORD(__p[0]) = v64[327];
-            *__str = ++v63;
-            v64 += 380;
+            LODWORD(__p[0]) = *v63;
+            LODWORD(__p[0]) = v63[1];
+            LODWORD(__p[0]) = *(v63 + 1);
+            LODWORD(__p[0]) = *(v63 + 2);
+            LODWORD(__p[0]) = *(v63 + 3);
+            LODWORD(__p[0]) = *(v63 + 4);
+            LODWORD(__p[0]) = *(v63 + 5);
+            LODWORD(__p[0]) = *(v63 + 6);
+            LODWORD(__p[0]) = *(v63 + 7);
+            LODWORD(__p[0]) = v63[16];
+            LODWORD(__p[0]) = v63[17];
+            LODWORD(__p[0]) = *(v63 + 9);
+            LODWORD(__p[0]) = v63[20];
+            LODWORD(__p[0]) = v63[21];
+            LODWORD(__p[0]) = v63[22];
+            LODWORD(__p[0]) = *(v63 + 164);
+            LODWORD(__p[0]) = *(v63 + 51);
+            LODWORD(__p[0]) = v63[24];
+            LODWORD(__p[0]) = *(v63 + 13);
+            LODWORD(__p[0]) = v63[28];
+            LODWORD(__p[0]) = v63[29];
+            LODWORD(__p[0]) = *(v63 + 15);
+            LODWORD(__p[0]) = *(v63 + 16);
+            LODWORD(__p[0]) = *(v63 + 17);
+            LODWORD(__p[0]) = *(v63 + 18);
+            LODWORD(__p[0]) = *(v63 + 19);
+            LODWORD(__p[0]) = v63[40];
+            LODWORD(__p[0]) = v63[327];
+            *__str = ++v62;
+            v63 += 380;
           }
 
-          while (v63 < *(v8 + 570));
+          while (v62 < *(v7 + 570));
         }
 
-        v9 = "Shared Multi Slave";
+        v8 = "Shared Multi Slave";
         goto LABEL_151;
       case 35:
         *__str = 10032;
-        *__str = *v8;
-        *__str = HIWORD(*v8) & 1;
-        *__str = v8[2];
-        v9 = "Shared FD DCN";
+        *__str = *v7;
+        *__str = HIWORD(*v7) & 1;
+        *__str = v7[2];
+        v8 = "Shared FD DCN";
         goto LABEL_151;
       case 36:
         *__str = 4212;
-        *__str = *v8;
-        *__str = HIWORD(*v8) & 1;
-        *__str = (*v8 >> 18) & 1;
-        *__str = (*v8 >> 19) & 1;
-        *__str = (*v8 >> 20) & 1;
-        *__str = (*v8 >> 21) & 1;
-        *__str = *(v8 + 1);
-        *__str = *(v8 + 2);
-        v9 = "Shared FID DCN";
+        *__str = *v7;
+        *__str = HIWORD(*v7) & 1;
+        *__str = (*v7 >> 18) & 1;
+        *__str = (*v7 >> 19) & 1;
+        *__str = (*v7 >> 20) & 1;
+        *__str = (*v7 >> 21) & 1;
+        *__str = *(v7 + 1);
+        *__str = *(v7 + 2);
+        v8 = "Shared FID DCN";
         goto LABEL_151;
       case 37:
         *__str = 1036;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = v8[2];
-        *__str = v8[3];
-        *__str = v8[4];
-        *__str = v8[5];
-        v9 = "Shared YCC Histogram";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = v7[2];
+        *__str = v7[3];
+        *__str = v7[4];
+        *__str = v7[5];
+        v8 = "Shared YCC Histogram";
         goto LABEL_151;
       case 38:
         *__str = 148024;
-        *__str = *v8;
-        v9 = "Shared FD DCN Debug";
+        *__str = *v7;
+        v8 = "Shared FD DCN Debug";
         goto LABEL_151;
       case 39:
         *__str = 695440;
-        *__str = *v8;
-        v9 = "Shared FID DCN Debug";
+        *__str = *v7;
+        v8 = "Shared FID DCN Debug";
         goto LABEL_151;
       case 40:
         *__str = 1788;
-        *__str = *v8;
-        *__str = HIWORD(*v8) & 1;
-        *__str = (*v8 >> 17) & 1;
-        *__str = *(v8 + 1);
-        v9 = "Shared Attention";
+        *__str = *v7;
+        *__str = HIWORD(*v7) & 1;
+        *__str = (*v7 >> 17) & 1;
+        *__str = *(v7 + 1);
+        v8 = "Shared Attention";
         goto LABEL_151;
       case 41:
         *__str = 246036;
-        *__str = *v8;
-        v9 = "Shared Attention Debug";
+        *__str = *v7;
+        v8 = "Shared Attention Debug";
         goto LABEL_151;
       case 42:
         *__str = 2945604;
-        *__str = *v8;
-        *__str = v8[1];
-        v9 = "Shared IR PDP Debug";
+        *__str = *v7;
+        *__str = v7[1];
+        v8 = "Shared IR PDP Debug";
         goto LABEL_151;
       case 43:
         *__str = 3848;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = *(v8 + 1);
-        v9 = "Shared MasterSlave AF";
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = *(v7 + 1);
+        v8 = "Shared MasterSlave AF";
         goto LABEL_151;
       case 44:
         *__str = 480;
-        *__str = *v8;
-        *__str = v8[1];
-        *__str = v8[2];
-        *__str = *(v8 + 2);
-        *__str = v8[6];
-        *__str = *(v8 + 6);
-        *__str = v8[14];
-        *__str = v8[15];
-        *__str = v8[36];
-        if (*(v8 + 91))
+        *__str = *v7;
+        *__str = v7[1];
+        *__str = v7[2];
+        *__str = *(v7 + 2);
+        *__str = v7[6];
+        *__str = *(v7 + 6);
+        *__str = v7[14];
+        *__str = v7[15];
+        *__str = v7[36];
+        if (*(v7 + 91))
         {
-          *__str = v8[186];
-          *__str = v8[187];
-          *__str = v8[208];
+          *__str = v7[186];
+          *__str = v7[187];
+          *__str = v7[208];
         }
 
-        *__str = v8[38];
-        *__str = v8[39];
-        *__str = v8[40];
-        *__str = v8[41];
-        *__str = v8[7];
-        *__str = v8[8];
-        *__str = v8[42];
-        *__str = *(v8 + 22);
-        *__str = *(v8 + 23);
-        *__str = *(v8 + 24);
-        *__str = *(v8 + 25);
-        *__str = *(v8 + 26);
-        *__str = v8[37];
-        v9 = "Shared PDE";
+        *__str = v7[38];
+        *__str = v7[39];
+        *__str = v7[40];
+        *__str = v7[41];
+        *__str = v7[7];
+        *__str = v7[8];
+        *__str = v7[42];
+        *__str = *(v7 + 22);
+        *__str = *(v7 + 23);
+        *__str = *(v7 + 24);
+        *__str = *(v7 + 25);
+        *__str = *(v7 + 26);
+        *__str = v7[37];
+        v8 = "Shared PDE";
         goto LABEL_151;
       case 45:
         *__str = 134012;
-        *__str = *v8;
-        *__str = *(v8 + 9);
-        *__str = *(v8 + 40);
-        *__str = *(v8 + 49);
-        *__str = *(v8 + 52);
-        *__str = *(v8 + 212);
-        *__str = *(v8 + 105);
-        *__str = *(v8 + 824);
-        *__str = *(v8 + 207);
-        *__str = *(v8 + 208);
-        *__str = *(v8 + 209);
-        *__str = *(v8 + 210);
-        *__str = *(v8 + 213);
-        *__str = *(v8 + 215);
-        *__str = *(v8 + 221);
-        *__str = *(v8 + 222);
-        *__str = *(v8 + 223);
-        *__str = *(v8 + 224);
-        *__str = *(v8 + 225);
-        *__str = *(v8 + 226);
-        *__str = *(v8 + 227);
-        *__str = *(v8 + 912);
-        *__str = v8[457];
-        *__str = v8[458];
-        *__str = v8[459];
-        *__str = v8[460];
-        *__str = v8[461];
-        *__str = *(v8 + 940);
-        *__str = *(v8 + 956);
-        *__str = *(v8 + 957);
-        *__str = *(v8 + 958);
-        *__str = *(v8 + 959);
-        *__str = *(v8 + 240);
-        *__str = *(v8 + 964);
-        *__str = *(v8 + 242);
-        *__str = *(v8 + 243);
-        *__str = *(v8 + 992);
-        *__str = v8[497];
-        *__str = *(v8 + 249);
-        *__str = *(v8 + 250);
-        *__str = v8[1182];
-        *__str = *(v8 + 6052);
-        *__str = *(v8 + 25556);
-        *__str = *(v8 + 25557);
-        *__str = *(v8 + 25558);
-        *__str = *(v8 + 25559);
-        *__str = *(v8 + 25560);
-        *__str = *(v8 + 25561);
-        *__str = *(v8 + 25562);
-        *__str = *(v8 + 25563);
-        *__str = *(v8 + 25564);
-        *__str = *(v8 + 25565);
-        *__str = *(v8 + 25566);
-        *__str = *(v8 + 25567);
-        *__str = *(v8 + 25568);
-        *__str = *(v8 + 25569);
-        *__str = *(v8 + 25570);
-        *__str = *(v8 + 25571);
-        *__str = *(v8 + 25572);
-        *__str = *(v8 + 25573);
-        *__str = *(v8 + 25574);
-        *__str = *(v8 + 25575);
-        *__str = *(v8 + 25656);
-        *__str = *(v8 + 25664);
-        *__str = *(v8 + 25665);
-        *__str = *(v8 + 25666);
-        *__str = *(v8 + 25667);
-        *__str = *(v8 + 25668);
-        *__str = *(v8 + 25669);
-        *__str = *(v8 + 6422);
-        *__str = *(v8 + 6711);
-        *__str = *(v8 + 6985);
-        *__str = *(v8 + 6986);
-        *__str = *(v8 + 6987);
-        *__str = *(v8 + 6988);
-        *__str = *(v8 + 6994);
-        *__str = *(v8 + 6995);
-        *__str = *(v8 + 6997);
-        *__str = *(v8 + 7000);
-        *__str = *(v8 + 7005);
-        *__str = *(v8 + 7014);
-        *__str = *(v8 + 7015);
-        *__str = *(v8 + 7020);
-        *__str = *(v8 + 7021);
-        *__str = *(v8 + 7025);
-        *__str = *(v8 + 7026);
-        *__str = *(v8 + 7027);
-        *__str = *(v8 + 7028);
-        *__str = *(v8 + 7534);
-        *__str = *(v8 + 7535);
-        v9 = "Shared CBAF Debug";
+        *__str = *v7;
+        *__str = *(v7 + 9);
+        *__str = *(v7 + 40);
+        *__str = *(v7 + 49);
+        *__str = *(v7 + 52);
+        *__str = *(v7 + 212);
+        *__str = *(v7 + 105);
+        *__str = *(v7 + 824);
+        *__str = *(v7 + 207);
+        *__str = *(v7 + 208);
+        *__str = *(v7 + 209);
+        *__str = *(v7 + 210);
+        *__str = *(v7 + 213);
+        *__str = *(v7 + 215);
+        *__str = *(v7 + 221);
+        *__str = *(v7 + 222);
+        *__str = *(v7 + 223);
+        *__str = *(v7 + 224);
+        *__str = *(v7 + 225);
+        *__str = *(v7 + 226);
+        *__str = *(v7 + 227);
+        *__str = *(v7 + 912);
+        *__str = v7[457];
+        *__str = v7[458];
+        *__str = v7[459];
+        *__str = v7[460];
+        *__str = v7[461];
+        *__str = *(v7 + 940);
+        *__str = *(v7 + 956);
+        *__str = *(v7 + 957);
+        *__str = *(v7 + 958);
+        *__str = *(v7 + 959);
+        *__str = *(v7 + 240);
+        *__str = *(v7 + 964);
+        *__str = *(v7 + 242);
+        *__str = *(v7 + 243);
+        *__str = *(v7 + 992);
+        *__str = v7[497];
+        *__str = *(v7 + 249);
+        *__str = *(v7 + 250);
+        *__str = v7[1182];
+        *__str = *(v7 + 6052);
+        *__str = *(v7 + 25556);
+        *__str = *(v7 + 25557);
+        *__str = *(v7 + 25558);
+        *__str = *(v7 + 25559);
+        *__str = *(v7 + 25560);
+        *__str = *(v7 + 25561);
+        *__str = *(v7 + 25562);
+        *__str = *(v7 + 25563);
+        *__str = *(v7 + 25564);
+        *__str = *(v7 + 25565);
+        *__str = *(v7 + 25566);
+        *__str = *(v7 + 25567);
+        *__str = *(v7 + 25568);
+        *__str = *(v7 + 25569);
+        *__str = *(v7 + 25570);
+        *__str = *(v7 + 25571);
+        *__str = *(v7 + 25572);
+        *__str = *(v7 + 25573);
+        *__str = *(v7 + 25574);
+        *__str = *(v7 + 25575);
+        *__str = *(v7 + 25656);
+        *__str = *(v7 + 25664);
+        *__str = *(v7 + 25665);
+        *__str = *(v7 + 25666);
+        *__str = *(v7 + 25667);
+        *__str = *(v7 + 25668);
+        *__str = *(v7 + 25669);
+        *__str = *(v7 + 6422);
+        *__str = *(v7 + 6711);
+        *__str = *(v7 + 6985);
+        *__str = *(v7 + 6986);
+        *__str = *(v7 + 6987);
+        *__str = *(v7 + 6988);
+        *__str = *(v7 + 6994);
+        *__str = *(v7 + 6995);
+        *__str = *(v7 + 6997);
+        *__str = *(v7 + 7000);
+        *__str = *(v7 + 7005);
+        *__str = *(v7 + 7014);
+        *__str = *(v7 + 7015);
+        *__str = *(v7 + 7020);
+        *__str = *(v7 + 7021);
+        *__str = *(v7 + 7025);
+        *__str = *(v7 + 7026);
+        *__str = *(v7 + 7027);
+        *__str = *(v7 + 7028);
+        *__str = *(v7 + 7534);
+        *__str = *(v7 + 7535);
+        v8 = "Shared CBAF Debug";
         goto LABEL_151;
       case 46:
         *__str = 131136;
-        v9 = "Shared PDAFHW Debug";
+        v8 = "Shared PDAFHW Debug";
         goto LABEL_151;
       case 47:
         *__str = 336;
-        v9 = "Shared CRC Check";
+        v8 = "Shared CRC Check";
         goto LABEL_151;
       case 48:
         *__str = 24;
-        v9 = "Shared Calibration";
+        v8 = "Shared Calibration";
         goto LABEL_151;
       case 49:
         *__str = 32;
-        *__str = *v8;
-        *__str = *(v8 + 1);
-        *__str = *(v8 + 2);
-        *__str = *(v8 + 3);
-        *__str = *(v8 + 4);
-        *__str = *(v8 + 5);
-        *__str = *(v8 + 6);
-        v9 = "Shared Motion Stats";
+        *__str = *v7;
+        *__str = *(v7 + 1);
+        *__str = *(v7 + 2);
+        *__str = *(v7 + 3);
+        *__str = *(v7 + 4);
+        *__str = *(v7 + 5);
+        *__str = *(v7 + 6);
+        v8 = "Shared Motion Stats";
         goto LABEL_151;
       case 50:
         *__str = 116;
-        *__str = *v8;
-        *__str = *(v8 + 1);
-        *__str = *(v8 + 2);
-        *__str = *(v8 + 3);
-        v9 = "Shared APS Stats";
+        *__str = *v7;
+        *__str = *(v7 + 1);
+        *__str = *(v7 + 2);
+        *__str = *(v7 + 3);
+        v8 = "Shared APS Stats";
         goto LABEL_151;
       case 51:
         *__str = 256;
-        *__str = *v8;
-        *__str = *(v8 + 1);
-        *__str = *(v8 + 4);
-        *__str = *(v8 + 5);
-        v9 = "Shared OIS Stats";
+        *__str = *v7;
+        *__str = *(v7 + 1);
+        *__str = *(v7 + 4);
+        *__str = *(v7 + 5);
+        v8 = "Shared OIS Stats";
         goto LABEL_151;
       case 52:
         goto LABEL_151;
       case 53:
-        v9 = "Shared AiCam Debug";
+        v8 = "Shared AiCam Debug";
         goto LABEL_151;
       case 54:
         *__str = 64;
-        *__str = *v8;
-        *__str = *(v8 + 2);
-        *__str = v8[1];
-        *__str = *(v8 + 3);
-        *__str = vcvtd_n_f64_u32(v8[8], 8uLL);
-        *__str = vcvtd_n_f64_u32(*(v8 + 9), 8uLL);
-        *__str = vcvtd_n_f64_u32(v8[10], 8uLL);
-        *__str = vcvtd_n_f64_u32(v8[11], 0xCuLL);
-        *__str = vcvtd_n_f64_u32(v8[12], 0xAuLL);
-        *__str = v8[25];
-        *__str = v8[26];
-        *__str = *(v8 + 60);
-        *__str = *(v8 + 59);
-        *__str = *(v8 + 61);
-        v9 = "Shared SIFR";
+        *__str = *v7;
+        *__str = *(v7 + 2);
+        *__str = v7[1];
+        *__str = *(v7 + 3);
+        *__str = vcvtd_n_f64_u32(v7[8], 8uLL);
+        *__str = vcvtd_n_f64_u32(*(v7 + 9), 8uLL);
+        *__str = vcvtd_n_f64_u32(v7[10], 8uLL);
+        *__str = vcvtd_n_f64_u32(v7[11], 0xCuLL);
+        *__str = vcvtd_n_f64_u32(v7[12], 0xAuLL);
+        *__str = v7[25];
+        *__str = v7[26];
+        *__str = *(v7 + 60);
+        *__str = *(v7 + 59);
+        *__str = *(v7 + 61);
+        v8 = "Shared SIFR";
         goto LABEL_151;
       case 55:
-        *__str = *v8;
-        *__str = *(v8 + 1);
-        v9 = "Shared FPC";
+        *__str = *v7;
+        *__str = *(v7 + 1);
+        v8 = "Shared FPC";
         goto LABEL_151;
       case 56:
-        *__str = *v8;
-        *__str = v8[1];
-        v9 = "Shared Reduced APS";
+        *__str = *v7;
+        *__str = v7[1];
+        v8 = "Shared Reduced APS";
         goto LABEL_151;
       case 62:
         *__str = 300;
-        *__str = *v8;
-        *__str = *(v8 + 2);
-        *__str = *(v8 + 9);
-        *__str = *(v8 + 10);
-        *__str = *(v8 + 4);
-        *__str = *(v8 + 5);
-        *__str = *(v8 + 6);
-        *__str = *(v8 + 17);
-        *__str = *(v8 + 18);
-        *__str = *(v8 + 19);
-        *__str = *(v8 + 44);
-        *__str = *(v8 + 88);
-        *__str = *(v8 + 89);
-        *__str = *(v8 + 45);
-        *__str = *(v8 + 13);
-        *__str = *(v8 + 12);
-        *__str = *(v8 + 1);
-        *__str = *(v8 + 8);
-        *__str = *(v8 + 20);
-        *__str = *(v8 + 21);
-        *__str = *(v8 + 26);
-        *__str = *(v8 + 27);
-        *__str = *(v8 + 28);
-        *__str = *(v8 + 101);
-        *__str = v8[23];
-        *__str = *(v8 + 12);
-        *__str = v8[26];
-        *__str = *(v8 + 14);
-        *__str = *(v8 + 15);
-        v9 = "Shared Auto Focus Assist Debug";
+        *__str = *v7;
+        *__str = *(v7 + 2);
+        *__str = *(v7 + 9);
+        *__str = *(v7 + 10);
+        *__str = *(v7 + 4);
+        *__str = *(v7 + 5);
+        *__str = *(v7 + 6);
+        *__str = *(v7 + 17);
+        *__str = *(v7 + 18);
+        *__str = *(v7 + 19);
+        *__str = *(v7 + 44);
+        *__str = *(v7 + 88);
+        *__str = *(v7 + 89);
+        *__str = *(v7 + 45);
+        *__str = *(v7 + 13);
+        *__str = *(v7 + 12);
+        *__str = *(v7 + 1);
+        *__str = *(v7 + 8);
+        *__str = *(v7 + 20);
+        *__str = *(v7 + 21);
+        *__str = *(v7 + 26);
+        *__str = *(v7 + 27);
+        *__str = *(v7 + 28);
+        *__str = *(v7 + 101);
+        *__str = v7[23];
+        *__str = *(v7 + 12);
+        *__str = v7[26];
+        *__str = *(v7 + 14);
+        *__str = *(v7 + 15);
+        v8 = "Shared Auto Focus Assist Debug";
         goto LABEL_151;
       case 69:
-        memset(v98, 0, 32);
+        memset(v96, 0, 32);
         *__str = 0u;
-        v97 = 0u;
+        v95 = 0u;
         NamedValues::NamedValues(__p);
         for (i = 0; i != 256; ++i)
         {
           snprintf(__str, 0x40uLL, "ch0[%03d]", i);
-          *v95 = *&v8[2 * i];
+          *v93 = *&v7[2 * i];
         }
 
-        NamedValues::NamedValues(v95);
+        NamedValues::NamedValues(v93);
         for (j = 0; j != 256; ++j)
         {
           snprintf(__str, 0x40uLL, "ch1[%03d]", j);
-          *v94 = *&v8[2 * j + 512];
+          *v92 = *&v7[2 * j + 512];
         }
 
-        NamedValues::NamedValues(v94);
-        v58 = 0;
-        v59 = v8 + 1024;
+        NamedValues::NamedValues(v92);
+        v57 = 0;
+        v58 = v7 + 1024;
         do
         {
-          snprintf(__str, 0x40uLL, "ch2[%03d]", v58);
-          *v91 = *&v59[2 * v58];
-          ++v58;
+          snprintf(__str, 0x40uLL, "ch2[%03d]", v57);
+          *v89 = *&v58[2 * v57];
+          ++v57;
         }
 
-        while (v58 != 256);
-        NamedValues::~NamedValues(v94);
-        NamedValues::~NamedValues(v95);
+        while (v57 != 256);
+        NamedValues::~NamedValues(v92);
+        NamedValues::~NamedValues(v93);
         NamedValues::~NamedValues(__p);
-        v9 = "Shared Stats BE Histogram";
+        v8 = "Shared Stats BE Histogram";
         goto LABEL_151;
       case 75:
-        *__str = *v8;
-        *__str = *(v8 + 4);
-        v9 = "Shared LTC Data";
+        *__str = *v7;
+        *__str = *(v7 + 4);
+        v8 = "Shared LTC Data";
         goto LABEL_151;
       case 78:
         *__str = 288;
-        v9 = "Shared Depth to Position Debug";
+        v8 = "Shared Depth to Position Debug";
         goto LABEL_151;
       default:
         goto LABEL_152;
@@ -2364,20 +2355,19 @@ LABEL_152:
   }
 
 LABEL_154:
-  v79 = cf;
+  v78 = cf;
   CFRetain(cf);
-  NamedValues::~NamedValues(&v86);
+  NamedValues::~NamedValues(&v84);
   NamedValues::~NamedValues(&cf);
-  v80 = *MEMORY[0x277D85DE8];
-  return v79;
+  return v78;
 }
 
-void sub_250811650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, int a17, __int16 a18, char a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, char a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, char a34, int a35, __int16 a36, char a37, char a38, int a39, __int16 a40, char a41, char a42)
+void sub_250811650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, const void *a16, const void *a17, const void *a18, uint64_t a19, uint64_t a20, const void *a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28, int a29, __int16 a30, char a31, char a32, int a33, __int16 a34, char a35, char a36)
 {
-  NamedValues::~NamedValues(&a27);
+  NamedValues::~NamedValues(&a21);
   NamedValues::~NamedValues(&a16);
+  NamedValues::~NamedValues(&a17);
   NamedValues::~NamedValues(&a18);
-  NamedValues::~NamedValues(&a22);
   _Unwind_Resume(a1);
 }
 
@@ -2388,9 +2378,9 @@ void anonymous namespace::AppendMetadataList(__CFArray **this, NamedValues *a2, 
   NamedValue::~NamedValue(&v5);
 }
 
-void sub_2508119C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2508119C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   NamedValue::~NamedValue(va);
   _Unwind_Resume(a1);
 }
@@ -2434,10 +2424,10 @@ uint64_t anonymous namespace::AppendMetadataItem<unsigned long>(__CFArray **a1, 
   return MEMORY[0x253061AE0](&v15);
 }
 
-void sub_250811BAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250811BAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -2516,10 +2506,10 @@ LABEL_13:
   return MEMORY[0x253061AE0](&v22);
 }
 
-void sub_250811E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250811E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -2573,10 +2563,10 @@ uint64_t anonymous namespace::AppendMetadataItem<unsigned long long>(__CFArray *
   return MEMORY[0x253061AE0](&v20);
 }
 
-void sub_2508120B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_2508120B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -2620,7 +2610,7 @@ void sub_250812370(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 24);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2634,13 +2624,13 @@ const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<c
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -2780,16 +2770,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -2812,9 +2802,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_250812940(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_250812940(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x2530619F0](&a10);
+  MEMORY[0x2530619F0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -2920,16 +2910,13 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
 uint64_t anonymous namespace::AppendMetadataItem<char const*>(__CFArray **a1, const char *a2, const char **a3)
@@ -2973,10 +2960,10 @@ uint64_t anonymous namespace::AppendMetadataItem<char const*>(__CFArray **a1, co
   return MEMORY[0x253061AE0](&v19);
 }
 
-void sub_250812DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250812DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3055,10 +3042,10 @@ LABEL_13:
   return MEMORY[0x253061AE0](&v22);
 }
 
-void sub_250813064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250813064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3133,10 +3120,10 @@ uint64_t anonymous namespace::AppendMetadataItem<unsigned char>(__CFArray **a1, 
   return MEMORY[0x253061AE0](&v23);
 }
 
-void sub_2508132CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_2508132CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3190,10 +3177,10 @@ uint64_t anonymous namespace::AppendMetadataItem<int>(__CFArray **a1, const char
   return MEMORY[0x253061AE0](&v20);
 }
 
-void sub_250813534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250813534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3236,10 +3223,10 @@ uint64_t anonymous namespace::AppendMetadataItem<double>(__CFArray **a1, const c
   return MEMORY[0x253061AE0](&v17);
 }
 
-void sub_25081374C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_25081374C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3318,10 +3305,10 @@ LABEL_13:
   return MEMORY[0x253061AE0](&v22);
 }
 
-void sub_2508139EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_2508139EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3364,57 +3351,56 @@ uint64_t anonymous namespace::AppendMetadataItem<char [4]>(__CFArray **a1, const
   return MEMORY[0x253061AE0](&v15);
 }
 
-void sub_250813C08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250813C08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
-uint64_t anonymous namespace::AppendMetadataItem<float>(__CFArray **a1, const char *a2, int *a3)
+uint64_t anonymous namespace::AppendMetadataItem<float>(__CFArray **a1, const char *a2, float *a3)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
-  v6 = *a3;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
   std::ostream::operator<<();
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v13, __p);
-  if (v11 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v11, __p);
+  if (v9 >= 0)
   {
-    v7 = __p;
+    v5 = __p;
   }
 
   else
   {
-    v7 = __p[0];
+    v5 = __p[0];
   }
 
-  NamedValue::NamedValue(&v12, a2, v7, 0);
-  if (v11 < 0)
+  NamedValue::NamedValue(&v10, a2, v5, 0);
+  if (v9 < 0)
   {
     operator delete(__p[0]);
   }
 
-  NamedValues::push_back(a1, &v12);
-  NamedValue::~NamedValue(&v12);
-  v13[0] = *MEMORY[0x277D82818];
-  v8 = *(MEMORY[0x277D82818] + 72);
-  *(v13 + *(v13[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v13[2] = v8;
-  v14 = MEMORY[0x277D82878] + 16;
-  if (v16 < 0)
+  NamedValues::push_back(a1, &v10);
+  NamedValue::~NamedValue(&v10);
+  v11[0] = *MEMORY[0x277D82818];
+  v6 = *(MEMORY[0x277D82818] + 72);
+  *(v11 + *(v11[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v11[2] = v6;
+  v12 = MEMORY[0x277D82878] + 16;
+  if (v14 < 0)
   {
-    operator delete(v15[7].__locale_);
+    operator delete(v13[7].__locale_);
   }
 
-  v14 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v15);
+  v12 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v13);
   std::iostream::~basic_iostream();
-  return MEMORY[0x253061AE0](&v17);
+  return MEMORY[0x253061AE0](&v15);
 }
 
-void sub_250813E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250813E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3457,10 +3443,10 @@ uint64_t anonymous namespace::AppendMetadataItem<eCIspFocusingMethod>(__CFArray 
   return MEMORY[0x253061AE0](&v15);
 }
 
-void sub_250814030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_250814030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3508,10 +3494,10 @@ uint64_t anonymous namespace::AppendMetadataItem(__CFArray **this, NamedValues *
   return MEMORY[0x253061AE0](&v26);
 }
 
-void sub_2508142B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20)
+void sub_2508142B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19)
 {
   NamedValue::~NamedValue(&a16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
   _Unwind_Resume(a1);
 }
 
@@ -3542,9 +3528,9 @@ uint64_t ISPStopwatch::start(uint64_t this)
   return this;
 }
 
-uint64_t ISPStopwatch::stop(uint64_t this)
+void *ISPStopwatch::stop(void *this)
 {
-  v1 = *(this + 8);
+  v1 = this[1];
   if (v1)
   {
     v2 = this;
@@ -3621,8 +3607,8 @@ unint64_t ISPStopwatch::getNs(ISPStopwatch *this)
 
 void H16ISP::H16ISPAppendNamedValuesToCFString(__CFString *this, __CFString *a2, const __CFArray *a3, const __CFArray *a4)
 {
-  v24 = a2;
-  v27 = *MEMORY[0x277D85DE8];
+  v22 = a2;
+  v25 = *MEMORY[0x277D85DE8];
   Count = CFArrayGetCount(a3);
   if (Count >= 1)
   {
@@ -3647,9 +3633,9 @@ void H16ISP::H16ISPAppendNamedValuesToCFString(__CFString *this, __CFString *a2,
         if (v9)
         {
 LABEL_5:
-          if (CFStringGetCString(v9, v25, 256, 0x8000100u))
+          if (CFStringGetCString(v9, v23, 256, 0x8000100u))
           {
-            v12 = v25;
+            v12 = v23;
           }
 
           else
@@ -3673,8 +3659,8 @@ LABEL_10:
         v13 = "";
       }
 
-      v14 = v24;
-      if (v24 >= 1)
+      v14 = v22;
+      if (v22 >= 1)
       {
         do
         {
@@ -3697,13 +3683,13 @@ LABEL_10:
 
         CFStringAppendCString(this, v13, 0x8000100u);
         CFStringAppendCString(this, "\n", 0x8000100u);
-        H16ISP::H16ISPAppendNamedValuesToCFString(this, (v24 + 1), v10, a4, v15);
-        if (!v24)
+        H16ISP::H16ISPAppendNamedValuesToCFString(this, (v22 + 1), v10, a4);
+        if (!v22)
         {
           CFStringAppendCString(this, "\n", 0x8000100u);
         }
 
-        v16 = "</value>\n";
+        v15 = "</value>\n";
         if ((a4 & 1) == 0)
         {
           continue;
@@ -3717,12 +3703,12 @@ LABEL_10:
         Length = CFStringGetLength(v8);
         if (Length <= 38)
         {
-          v18 = 38 - Length;
+          v17 = 38 - Length;
         }
 
         else
         {
-          v18 = 0;
+          v17 = 0;
         }
 
         if (!a4)
@@ -3733,7 +3719,7 @@ LABEL_10:
 
       else
       {
-        v18 = 38;
+        v17 = 38;
         if (!a4)
         {
           goto LABEL_28;
@@ -3745,43 +3731,41 @@ LABEL_10:
       v13 = "</name>";
 LABEL_28:
       CFStringAppendCString(this, v13, 0x8000100u);
-      if (v18 >= 1)
+      if (v17 >= 1)
       {
         do
         {
           CFStringAppendCString(this, " ", 0x8000100u);
-          --v18;
+          --v17;
         }
 
-        while (v18);
+        while (v17);
       }
 
       CFStringAppendCString(this, "\t", 0x8000100u);
-      v19 = this;
+      v18 = this;
       if (a4)
       {
         CFStringAppendCString(this, "<value>", 0x8000100u);
         CFStringAppendCString(this, v12, 0x8000100u);
-        v19 = this;
-        v20 = "</value>";
+        v18 = this;
+        v19 = "</value>";
       }
 
       else
       {
-        v20 = v12;
+        v19 = v12;
       }
 
-      CFStringAppendCString(v19, v20, 0x8000100u);
-      v16 = "\n";
+      CFStringAppendCString(v18, v19, 0x8000100u);
+      v15 = "\n";
 LABEL_34:
-      CFStringAppendCString(this, v16, 0x8000100u);
+      CFStringAppendCString(this, v15, 0x8000100u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-__CFString *H16ISP::H16ISPCreateFrameMetaDataAsCFString(uint64_t a1, const __CFArray *a2)
+__CFString *H16ISP::H16ISPCreateFrameMetaDataAsCFString(_DWORD *a1, const __CFArray *a2)
 {
   Mutable = CFStringCreateMutable(0, 0);
   if (!Mutable)
@@ -3812,7 +3796,7 @@ LABEL_8:
   return v5;
 }
 
-__CFDictionary *H16ISP::H16ISPCreateFrameMetaDataAsCFDictionary(uint64_t a1)
+__CFDictionary *H16ISP::H16ISPCreateFrameMetaDataAsCFDictionary(_DWORD *a1)
 {
   v2 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -3916,10 +3900,11 @@ void OUTLINED_FUNCTION_3_0(int a1, const void *a2, int a3, int a4, int a5, int a
   CFDictionaryAddValue(v15, a2, value);
 }
 
-uint64_t OUTLINED_FUNCTION_6_0(const __CFNumber *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char valuePtr)
+uint64_t OUTLINED_FUNCTION_6_0(const __CFNumber *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  return CFNumberGetValue(a1, kCFNumberIntType, &valuePtr);
+  return CFNumberGetValue(a1, kCFNumberIntType, va);
 }
 
 CFNumberRef OUTLINED_FUNCTION_7_0(uint64_t a1, uint64_t a2, const void *a3)
@@ -3930,7 +3915,7 @@ CFNumberRef OUTLINED_FUNCTION_7_0(uint64_t a1, uint64_t a2, const void *a3)
 
 uint64_t FigMotionAdjustPointForSphereMovement(const __CFDictionary *a1, float a2, float a3, double a4, float64x2_t *a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     result = FigMotionComputeAverageSpherePosition();
@@ -3942,486 +3927,467 @@ uint64_t FigMotionAdjustPointForSphereMovement(const __CFDictionary *a1, float a
 
   else
   {
-    v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v11 = os_log_create("com.apple.isp", "general");
-      OUTLINED_FUNCTION_4(v11);
+      v10 = os_log_create("com.apple.isp", "general");
+      OUTLINED_FUNCTION_4(v10);
     }
 
     result = OUTLINED_FUNCTION_8();
     if (result)
     {
-      v13 = 136315138;
-      v14 = "FigMotionAdjustPointForSphereMovement";
-      OUTLINED_FUNCTION_6(&dword_250805000, v10, v12, "%s - metadataDict is null!\n", &v13);
-      result = 0;
+      v12 = 136315138;
+      v13 = "FigMotionAdjustPointForSphereMovement";
+      OUTLINED_FUNCTION_6(&dword_250805000, v9, v11, "%s - metadataDict is null!\n", &v12);
+      return 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t FigMotionComputePrincipalPoint(const __CFDictionary *a1, float a2, float a3, double a4, int a5, int a6, int a7, int a8, int a9, CGPoint *a10)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   value = 0;
-  v26 = *MEMORY[0x277CBF348];
+  v25 = *MEMORY[0x277CBF348];
   if (a1 && a10)
   {
     v18 = (a5 + -1.0) * 0.5;
     v19 = (a6 + -1.0) * 0.5;
-    v28.x = v18;
-    v28.y = v19;
-    if (CFDictionaryGetValueIfPresent(a1, *MEMORY[0x277CF5000], &value) && CGPointMakeWithDictionaryRepresentation(value, &v26))
+    v27.x = v18;
+    v27.y = v19;
+    if (CFDictionaryGetValueIfPresent(a1, *MEMORY[0x277CF5000], &value) && CGPointMakeWithDictionaryRepresentation(value, &v25))
     {
       v20 = *(MEMORY[0x277CBF3A0] + 16);
-      v29.origin = *MEMORY[0x277CBF3A0];
-      v29.size = v20;
-      FigMotionGetSensorValidCropRect(a1, &v29);
-      v28.x = v18 + (v26.x - (v29.origin.x + (v29.size.width + -1.0) * 0.5)) * a3 * a7;
-      v28.y = v19 + (v26.y - (v29.origin.y + (v29.size.height + -1.0) * 0.5)) * a3 * a8;
+      v28.origin = *MEMORY[0x277CBF3A0];
+      v28.size = v20;
+      FigMotionGetSensorValidCropRect(a1, &v28);
+      v27.x = v18 + (v25.x - (v28.origin.x + (v28.size.width + -1.0) * 0.5)) * a3 * a7;
+      v27.y = v19 + (v25.y - (v28.origin.y + (v28.size.height + -1.0) * 0.5)) * a3 * a8;
     }
 
-    if (!a9 || (result = FigMotionAdjustPointForSphereMovement(a1, a2, a3, a4, &v28), !result))
+    if (!a9 || (result = FigMotionAdjustPointForSphereMovement(a1, a2, a3, a4, &v27), !result))
     {
       result = 0;
-      *a10 = v28;
+      *a10 = v27;
     }
   }
 
   else
   {
-    v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v24 = os_log_create("com.apple.isp", "general");
-      OUTLINED_FUNCTION_4(v24);
+      v23 = os_log_create("com.apple.isp", "general");
+      OUTLINED_FUNCTION_4(v23);
     }
 
     result = OUTLINED_FUNCTION_8();
     if (result)
     {
-      LODWORD(v29.origin.x) = 136315138;
-      *(&v29.origin.x + 4) = "FigMotionComputePrincipalPoint";
-      OUTLINED_FUNCTION_6(&dword_250805000, v23, v25, "%s - metadataDict or adjustedPrincipalPointOut is null!\n", &v29);
-      result = 0;
+      LODWORD(v28.origin.x) = 136315138;
+      *(&v28.origin.x + 4) = "FigMotionComputePrincipalPoint";
+      OUTLINED_FUNCTION_6(&dword_250805000, v22, v24, "%s - metadataDict or adjustedPrincipalPointOut is null!\n", &v28);
+      return 0;
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void FigMotionGetGravityZ()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v1);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v3, v4, "%s - ISP motion data size did not match expected number of bytes.\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionISPMotionDataFromCFData";
+    OUTLINED_FUNCTION_3(&dword_250805000, v2, v3, "%s - ISP motion data size did not match expected number of bytes.\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
 
   OUTLINED_FUNCTION_7();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v1);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v3, v4, "%s - ISP motion data version is not supported.\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionISPMotionDataFromCFData";
+    OUTLINED_FUNCTION_3(&dword_250805000, v2, v3, "%s - ISP motion data version is not supported.\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
 
   OUTLINED_FUNCTION_7();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v1);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v3, v4, "%s - Empty ISP motion data\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionISPMotionDataFromCFData";
+    OUTLINED_FUNCTION_3(&dword_250805000, v2, v3, "%s - Empty ISP motion data\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
 
   OUTLINED_FUNCTION_7();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v1);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v3, v4, "%s - Invalid ISP motion data\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionISPMotionDataFromCFData";
+    OUTLINED_FUNCTION_3(&dword_250805000, v2, v3, "%s - Invalid ISP motion data\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
 
   OUTLINED_FUNCTION_7();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - ISP motion data not available\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionGetGravityZ";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - ISP motion data not available\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - NULL metadata dictionary\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionGetGravityZ";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - NULL metadata dictionary\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void FigMotionComputeLensPositionScalingFactor()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - binningFactorVertical is not strictly positive!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionComputeLensPositionScalingFactor";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - binningFactorVertical is not strictly positive!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - Sensor crop rect height is not strictly positive!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionComputeLensPositionScalingFactor";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - Sensor crop rect height is not strictly positive!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - binningFactorHorizontal is not strictly positive!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionComputeLensPositionScalingFactor";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - binningFactorHorizontal is not strictly positive!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - Sensor crop rect width is not strictly positive!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionComputeLensPositionScalingFactor";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - Sensor crop rect width is not strictly positive!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - Invalid parameter!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionComputeLensPositionScalingFactor";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - Invalid parameter!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - metadataDict is null!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionComputeLensPositionScalingFactor";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - metadataDict is null!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void FigMotionGetSensorValidCropRect(NSObject *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = "FigMotionGetSensorValidCropRect";
-  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - SensorRawValidBufferRect found in metadata dictionary but malformed!\n", &v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = "FigMotionGetSensorValidCropRect";
+  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - SensorRawValidBufferRect found in metadata dictionary but malformed!\n", &v3);
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = "FigMotionGetSensorValidCropRect";
-  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - TotalSensorCropRect found in metadata dictionary but malformed!\n", &v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = "FigMotionGetSensorValidCropRect";
+  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - TotalSensorCropRect found in metadata dictionary but malformed!\n", &v3);
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = "FigMotionGetSensorValidCropRect";
-  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - RawCropRect found in metadata dictionary but malformed!\n", &v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = "FigMotionGetSensorValidCropRect";
+  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - RawCropRect found in metadata dictionary but malformed!\n", &v3);
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = "FigMotionGetSensorValidCropRect";
-  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - Could not find any CropRect in the metadata dictionary!\n", &v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = "FigMotionGetSensorValidCropRect";
+  OUTLINED_FUNCTION_6(&dword_250805000, a1, a3, "%s - Could not find any CropRect in the metadata dictionary!\n", &v3);
 }
 
 void FigMotionCalculateAdjustedLensPosition()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - Invalid lens coefficients!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionCalculateAdjustedLensPosition";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - Invalid lens coefficients!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - No CurrentFocusPosition!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionCalculateAdjustedLensPosition";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - No CurrentFocusPosition!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_4(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_4(v1);
   }
 
   if (OUTLINED_FUNCTION_8())
   {
-    OUTLINED_FUNCTION_2(&dword_250805000, v3, v4, "%s - No metadata dictionary!\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionCalculateAdjustedLensPosition";
+    OUTLINED_FUNCTION_2(&dword_250805000, v2, v3, "%s - No metadata dictionary!\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void FigMotionComputeAverageSpherePosition()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v1);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v3, v4, "%s - ISP Hall data size did not match expected number of bytes.\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionISPHallDataFromCFData";
+    OUTLINED_FUNCTION_3(&dword_250805000, v2, v3, "%s - ISP Hall data size did not match expected number of bytes.\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
 
   OUTLINED_FUNCTION_7();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v1);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v3, v4, "%s - ISP Hall data version is not supported.\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionISPHallDataFromCFData";
+    OUTLINED_FUNCTION_3(&dword_250805000, v2, v3, "%s - ISP Hall data version is not supported.\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
 
   OUTLINED_FUNCTION_7();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v0 == MEMORY[0x277D86220])
   {
-    v2 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v2);
+    v1 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v1);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v3, v4, "%s - Invalid ISP Hall data\n", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "FigMotionISPHallDataFromCFData";
+    OUTLINED_FUNCTION_3(&dword_250805000, v2, v3, "%s - Invalid ISP Hall data\n", v4, v5, v6, v7, v8, DWORD2(v8));
   }
 
   OUTLINED_FUNCTION_7();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void FigMotionComputeAverageSpherePosition(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "FigMotionGetISPHallData";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_250805000, a2, OS_LOG_TYPE_ERROR, "%s - Extracting only the first %d ISP Hall samples\n", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "FigMotionGetISPHallData";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_250805000, a2, OS_LOG_TYPE_ERROR, "%s - Extracting only the first %d ISP Hall samples\n", &v2, 0x12u);
 }
 
 void FigMotionComputeAverageSpherePosition(int *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 136315394;
-  v5 = "FigMotionGetISPHallData";
-  v6 = 1024;
-  v7 = v2;
-  _os_log_error_impl(&dword_250805000, a2, OS_LOG_TYPE_ERROR, "%s - Unsupported Hall data version %d\n", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "FigMotionGetISPHallData";
+  v5 = 1024;
+  v6 = v2;
+  _os_log_error_impl(&dword_250805000, a2, OS_LOG_TYPE_ERROR, "%s - Unsupported Hall data version %d\n", &v3, 0x12u);
 }
 
 void FigMotionComputeAverageSpherePosition(_DWORD *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v1 == MEMORY[0x277D86220])
   {
-    v4 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v4);
+    v3 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v3);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v5, v6, "%s - FrameRollingShutterSkew missing from metadata\n", v7, v8, v9, v10, 2u);
+    LODWORD(v10) = 136315138;
+    *(&v10 + 4) = "FigMotionComputeAverageSpherePosition";
+    OUTLINED_FUNCTION_3(&dword_250805000, v4, v5, "%s - FrameRollingShutterSkew missing from metadata\n", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   *a1 = 0;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   if (v1 == MEMORY[0x277D86220])
   {
-    v4 = os_log_create("com.apple.isp", "general");
-    OUTLINED_FUNCTION_5(v4);
+    v3 = os_log_create("com.apple.isp", "general");
+    OUTLINED_FUNCTION_5(v3);
   }
 
   if (OUTLINED_FUNCTION_9())
   {
-    OUTLINED_FUNCTION_3(&dword_250805000, v5, v6, "%s - ExposureTime missing from metadata\n", v7, v8, v9, v10, 2u);
+    LODWORD(v10) = 136315138;
+    *(&v10 + 4) = "FigMotionComputeAverageSpherePosition";
+    OUTLINED_FUNCTION_3(&dword_250805000, v4, v5, "%s - ExposureTime missing from metadata\n", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   *a1 = 0;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 __CFDictionary *H16ISP::H16ISPCreateEXIFDictFromMetadataDict(H16ISP *this, const __CFDictionary *a2, int a3)
@@ -4573,17 +4539,17 @@ __CFDictionary *H16ISP::H16ISPCreateEXIFDictFromMetadataDict(H16ISP *this, const
           {
             v84 = v77;
             ValueAtIndex = CFArrayGetValueAtIndex(cf, 0);
-            OUTLINED_FUNCTION_6_0(ValueAtIndex, v86, v87, v88, v89, v90, v91, v92, v226, v237, v238, *&valuePtr, v240[0]);
+            OUTLINED_FUNCTION_6_0(ValueAtIndex, v86, v87, v88, v89, v90, v91, v92, v226, v237, v238, *&valuePtr);
             LOWORD(valuePtr) = v244 * *v240 / 0x3E8u;
             v93 = CFArrayGetValueAtIndex(cf, 1);
-            OUTLINED_FUNCTION_6_0(v93, v94, v95, v96, v97, v98, v99, v100, v227, v237, v238, *&valuePtr, v240[0]);
+            OUTLINED_FUNCTION_6_0(v93, v94, v95, v96, v97, v98, v99, v100, v227, v237, v238, *&valuePtr);
             OUTLINED_FUNCTION_4_0();
             LOWORD(v238) = v101;
             v102 = CFArrayGetValueAtIndex(cf, 2);
-            OUTLINED_FUNCTION_6_0(v102, v103, v104, v105, v106, v107, v108, v109, v228, v237, v238, *&valuePtr, v240[0]);
+            OUTLINED_FUNCTION_6_0(v102, v103, v104, v105, v106, v107, v108, v109, v228, v237, v238, *&valuePtr);
             HIWORD(v237) = v244 * *v240 / 0x3E8u;
             v110 = CFArrayGetValueAtIndex(cf, 3);
-            OUTLINED_FUNCTION_6_0(v110, v111, v112, v113, v114, v115, v116, v117, v229, v237, v238, *&valuePtr, v240[0]);
+            OUTLINED_FUNCTION_6_0(v110, v111, v112, v113, v114, v115, v116, v117, v229, v237, v238, *&valuePtr);
             OUTLINED_FUNCTION_4_0();
             WORD2(v237) = v118;
             LOWORD(valuePtr) += SHIWORD(v237) / 2;

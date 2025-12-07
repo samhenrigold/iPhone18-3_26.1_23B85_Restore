@@ -13,33 +13,32 @@
 
 - (MTStopwatchManagerExportedObject)initWithStopwatchManager:(id)manager
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
-  v9.receiver = self;
-  v9.super_class = MTStopwatchManagerExportedObject;
-  v5 = [(MTStopwatchManagerExportedObject *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = MTStopwatchManagerExportedObject;
+  v5 = [(MTStopwatchManagerExportedObject *)&v8 init];
   if (v5)
   {
     v6 = MTLogForCategory(5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v11 = v5;
-      v12 = 2114;
-      v13 = managerCopy;
+      v10 = v5;
+      v11 = 2114;
+      v12 = managerCopy;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ initialized exported object, manager: %{public}@", buf, 0x16u);
     }
 
     objc_storeWeak(&v5->_stopwatchManager, managerCopy);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -51,21 +50,20 @@
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
   [defaultCenter removeObserver:self name:@"com.apple.MTStopwatchServer.ready" object:0];
 
-  v6.receiver = self;
-  v6.super_class = MTStopwatchManagerExportedObject;
-  [(MTStopwatchManagerExportedObject *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MTStopwatchManagerExportedObject;
+  [(MTStopwatchManagerExportedObject *)&v5 dealloc];
 }
 
 - (void)_didReceiveTimerServerReadyNotification:(id)notification
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     stopwatchManager = [(MTStopwatchManagerExportedObject *)self stopwatchManager];
     *buf = 138543362;
-    v9 = stopwatchManager;
+    v8 = stopwatchManager;
     _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ received MTStopwatchServerReadyNotification", buf, 0xCu);
   }
 
@@ -75,7 +73,6 @@
   block[3] = &unk_1E7B0C9D8;
   block[4] = self;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __76__MTStopwatchManagerExportedObject__didReceiveTimerServerReadyNotification___block_invoke(uint64_t a1)
@@ -227,7 +224,7 @@ void __55__MTStopwatchManagerExportedObject_didUpdateStopwatch___block_invoke(ui
 
 void __83__MTStopwatchManagerExportedObject_publishEvent_withStopwatch_modifiedItem_source___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -235,15 +232,15 @@ void __83__MTStopwatchManagerExportedObject_publishEvent_withStopwatch_modifiedI
     v4 = *(a1 + 40);
     v5 = [*(a1 + 48) identifier];
     v6 = [*(a1 + 56) sourceIdentifier];
-    v18 = 138544130;
-    v19 = v3;
-    v20 = 2114;
-    v21 = v4;
-    v22 = 2114;
-    v23 = v5;
-    v24 = 2114;
-    v25 = v6;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - Publishing event: %{public}@, for stopwatch id: %{public}@, source identifier: %{public}@", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v3;
+    v19 = 2114;
+    v20 = v4;
+    v21 = 2114;
+    v22 = v5;
+    v23 = 2114;
+    v24 = v6;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - Publishing event: %{public}@, for stopwatch id: %{public}@, source identifier: %{public}@", &v17, 0x2Au);
   }
 
   v7 = objc_opt_new();
@@ -273,8 +270,6 @@ void __83__MTStopwatchManagerExportedObject_publishEvent_withStopwatch_modifiedI
   v15 = *(a1 + 40);
   v16 = [*(a1 + 32) stopwatchManager];
   [v14 postNotificationName:v15 object:v16 userInfo:v8];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (MTStopwatchManager)stopwatchManager

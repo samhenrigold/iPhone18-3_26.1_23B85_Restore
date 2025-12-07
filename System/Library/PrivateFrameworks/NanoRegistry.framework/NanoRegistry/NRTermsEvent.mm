@@ -20,7 +20,9 @@
 - (void)setDisplayDeviceSerialNumber:(id)number;
 - (void)setDocumentationID:(id)d;
 - (void)setEventDate:(double)date;
+- (void)setEventType:(int)type;
 - (void)setLoggingProcessName:(id)name;
+- (void)setPresentationLocation:(int)location;
 - (void)setPresentationReason:(id)reason;
 - (void)setTermsText:(id)text;
 - (void)updateEventDate;
@@ -31,13 +33,13 @@
 + (id)pathToTermsCache
 {
   objc_opt_self();
-  v0 = MEMORY[0x1E695DFF8];
-  v1 = +[NRDataFilePaths pathToNanoRegistryStateDirectory];
-  v2 = [v0 fileURLWithPath:v1];
+  v2 = MEMORY[0x1E695DFF8];
+  v3 = +[NRDataFilePaths pathToNanoRegistryStateDirectory];
+  v4 = [v2 fileURLWithPath:v3];
 
-  v3 = [v2 URLByAppendingPathComponent:@"termsCache"];
+  v5 = [v4 URLByAppendingPathComponent:@"termsCache"];
 
-  return v3;
+  return v5;
 }
 
 + (id)pathToTermsWithDigest:(uint64_t)digest
@@ -50,10 +52,10 @@
   [v4 addCharactersInString:@"%."];
   v5 = [v2 stringByAppendingString:@".termsText"];
 
-  v6 = +[NRTermsEvent pathToTermsCache];
-  v7 = [v6 URLByAppendingPathComponent:v5];
+  v7 = +[NRTermsEvent pathToTermsCache];
+  v8 = [v7 URLByAppendingPathComponent:v5];
 
-  return v7;
+  return v8;
 }
 
 - (id)description
@@ -77,10 +79,9 @@
   v9 = v8;
   termsText = [(NRTermsEvent *)self termsText];
   v11 = [NRTermsEvent digestFromData:termsText];
-  acknowledgedDeviceName = self->super._acknowledgedDeviceName;
-  v13 = [v3 stringWithFormat:@"NRTermsEvent[%@] %@: digest(%@) docID(%@) process(%@) displayDeviceName(%@) acknowlegedDeviceName(%@) presentationReason(%@)", v6, v9, v11, self->super._documentationID, self->super._loggingProcessName, self->super._displayDeviceName, acknowledgedDeviceName, self->super._presentationReason];
+  v12 = [v3 stringWithFormat:@"NRTermsEvent[%@] %@: digest(%@) docID(%@) process(%@) displayDeviceName(%@) acknowlegedDeviceName(%@) presentationReason(%@)", v6, v9, v11, self->super._documentationID, self->super._loggingProcessName, self->super._displayDeviceName, self->super._acknowledgedDeviceName, self->super._presentationReason];
 
-  return v13;
+  return v12;
 }
 
 + (id)digestFromData:(id)data
@@ -134,19 +135,19 @@ LABEL_6:
 + (uint64_t)shouldAllowArchivingOfTermsTextToFile
 {
   objc_opt_self();
-  v0 = getpid();
-  v2 = NRProcessNameForPID(v0, v1);
-  if ([@"nanoregistryd" isEqualToString:v2])
+  v2 = getpid();
+  v4 = NRProcessNameForPID(v2, v3);
+  if ([@"nanoregistryd" isEqualToString:v4])
   {
-    v3 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v3 = [@"pairtool" isEqualToString:v2];
+    v5 = [@"pairtool" isEqualToString:v4];
   }
 
-  return v3;
+  return v5;
 }
 
 - (void)saveTerms
@@ -154,53 +155,50 @@ LABEL_6:
   v19[1] = *MEMORY[0x1E69E9840];
   if ([(NRTermsEvent *)self isTermsAlreadyArchived])
   {
-    goto LABEL_8;
+    return;
   }
 
   v18 = *MEMORY[0x1E696A3A0];
   v19[0] = *MEMORY[0x1E696A3A8];
   v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v5 = +[NRTermsEvent pathToTermsCache];
+  v6 = +[NRTermsEvent pathToTermsCache];
   v17 = 0;
-  [defaultManager createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:v3 error:&v17];
-  v6 = v17;
+  [defaultManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:v3 error:&v17];
+  v7 = v17;
 
-  if (v6)
+  if (v7)
   {
-    v11 = v6;
+    v12 = v7;
     goto LABEL_10;
   }
 
   termsText = [(NRTermsEvent *)self termsText];
   if (termsText)
   {
-    v8 = [objc_opt_class() digestFromData:termsText];
-    v9 = *&self->_flaggedForSend;
-    *&self->_flaggedForSend = v8;
+    v9 = [objc_opt_class() digestFromData:termsText];
+    v10 = *&self->_flaggedForSend;
+    *&self->_flaggedForSend = v9;
   }
 
-  v10 = [NRTermsEvent pathToTermsWithDigest:?];
+  v11 = [NRTermsEvent pathToTermsWithDigest:?];
   v16 = 0;
-  [termsText writeToURL:v10 options:1073741825 error:&v16];
-  v11 = v16;
-  if (v11)
+  [termsText writeToURL:v11 options:1073741825 error:&v16];
+  v12 = v16;
+  if (v12)
   {
 LABEL_10:
-    objc_exception_throw(v11);
+    objc_exception_throw(v12);
   }
 
-  path = [v10 path];
-  v13 = [termsText matchesDataAtFilePath:path];
+  path = [v11 path];
+  v14 = [termsText matchesDataAtFilePath:path];
 
-  if ((v13 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
     v15 = [NRTermsAcknowledgementRegistry errorWithEnum:2];
     objc_exception_throw(v15);
   }
-
-LABEL_8:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)loadTermsWithPath:(id)path
@@ -230,32 +228,32 @@ LABEL_8:
 - (NRTermsEvent)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = NRTermsEvent;
-  v5 = [(NRTermsEvent *)&v12 initWithCoder:coderCopy];
-  v6 = v5;
+  v13.receiver = self;
+  v13.super_class = NRTermsEvent;
+  v5 = [(NRTermsEvent *)&v13 initWithCoder:coderCopy];
+  v7 = v5;
   if (v5)
   {
     if (!v5->super._termsText && +[NRTermsEvent shouldAllowArchivingOfTermsTextToFile])
     {
-      v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"termsDigest"];
-      v8 = *&v6->_flaggedForSend;
-      *&v6->_flaggedForSend = v7;
+      v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"termsDigest"];
+      v9 = *&v7->_flaggedForSend;
+      *&v7->_flaggedForSend = v8;
     }
 
     if ((+[NRTermsEvent shouldAllowArchivingOfTermsTextToFile]& 1) == 0)
     {
-      v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"termsDigest"];
+      v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"termsDigest"];
 
-      if (v9)
+      if (v10)
       {
-        v11 = [NRTermsAcknowledgementRegistry errorWithEnum:4];
-        objc_exception_throw(v11);
+        v12 = [NRTermsAcknowledgementRegistry errorWithEnum:4];
+        objc_exception_throw(v12);
       }
     }
   }
 
-  return v6;
+  return v7;
 }
 
 + (id)eventWithProtobuf:(id)protobuf
@@ -307,7 +305,7 @@ LABEL_8:
 
 - (NRTermsEvent)initWithDeviceID:(id)d
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [(NRTermsEvent *)self init];
   v6 = v5;
@@ -317,26 +315,26 @@ LABEL_8:
     v7 = +[NRPairedDeviceRegistry sharedInstance];
     v8 = [v7 getAllDevicesWithArchivedAltAccountDevicesMatching:&__block_literal_global];
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v40 objects:v52 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v39 objects:v51 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v41;
+      v12 = *v40;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v41 != v12)
+          if (*v40 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v40 + 1) + 8 * i);
+          v14 = *(*(&v39 + 1) + 8 * i);
           v15 = [v14 valueForProperty:@"pairingID"];
           v16 = [v15 isEqual:dCopy];
 
@@ -347,7 +345,7 @@ LABEL_8:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v40 objects:v52 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v39 objects:v51 count:16];
         if (v11)
         {
           continue;
@@ -377,9 +375,9 @@ LABEL_12:
     v6->super._displayDeviceSerialNumber = v24;
 
     [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    v39.receiver = v6;
-    v39.super_class = NRTermsEvent;
-    [(NRPBTermsEvent *)&v39 setEventDate:?];
+    v38.receiver = v6;
+    v38.super_class = NRTermsEvent;
+    [(NRPBTermsEvent *)&v38 setEventDate:?];
     v26 = getpid();
     v28 = NRProcessNameForPID(v26, v27);
     loggingProcessName = v6->super._loggingProcessName;
@@ -400,26 +398,25 @@ LABEL_12:
           v35 = v6->super._displayDeviceName;
           v36 = v6->super._displayDeviceSerialNumber;
           *buf = 138413058;
-          v45 = v33;
-          v46 = 2112;
-          v47 = v34;
-          v48 = 2112;
-          v49 = v35;
-          v50 = 2112;
-          v51 = v36;
+          v44 = v33;
+          v45 = 2112;
+          v46 = v34;
+          v47 = 2112;
+          v48 = v35;
+          v49 = 2112;
+          v50 = v36;
           _os_log_impl(&dword_1E0ADF000, v32, OS_LOG_TYPE_DEFAULT, "_acknowledgedDeviceName: %@ _acknowledgedDeviceSerialNumber: %@ _displayDeviceName:%@ _displayDeviceSerialNumber:%@", buf, 0x2Au);
         }
       }
     }
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (!self->super._acknowledgedDeviceName || !self->super._acknowledgedDeviceSerialNumber || !self->super._displayDeviceName || !self->super._displayDeviceSerialNumber)
   {
@@ -433,7 +430,7 @@ LABEL_12:
       {
         v8 = [NRTermsAcknowledgementRegistry errorWithEnum:3];
         *buf = 138412290;
-        v13 = v8;
+        v12 = v8;
         _os_log_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_DEFAULT, "Terms saved with missing device info.  This is not fatal: %@", buf, 0xCu);
       }
     }
@@ -445,11 +442,22 @@ LABEL_12:
     [coderCopy encodeObject:v9 forKey:@"termsDigest"];
   }
 
-  v11.receiver = self;
-  v11.super_class = NRTermsEvent;
-  [(NRTermsEvent *)&v11 encodeWithCoder:coderCopy];
+  v10.receiver = self;
+  v10.super_class = NRTermsEvent;
+  [(NRTermsEvent *)&v10 encodeWithCoder:coderCopy];
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)setEventType:(int)type
+{
+  if (*(&self->super._has + 5) != 1)
+  {
+    v3 = [NRTermsAcknowledgementRegistry errorWithEnum:5];
+    objc_exception_throw(v3);
+  }
+
+  v4.receiver = self;
+  v4.super_class = NRTermsEvent;
+  [(NRPBTermsEvent *)&v4 setEventType:*&type];
 }
 
 - (void)_setEventType:(unint64_t)type
@@ -502,6 +510,19 @@ LABEL_12:
   v7.receiver = self;
   v7.super_class = NRTermsEvent;
   [(NRPBTermsEvent *)&v7 setPresentationReason:reasonCopy];
+}
+
+- (void)setPresentationLocation:(int)location
+{
+  if (*(&self->super._has + 5) != 1)
+  {
+    v3 = [NRTermsAcknowledgementRegistry errorWithEnum:5];
+    objc_exception_throw(v3);
+  }
+
+  v4.receiver = self;
+  v4.super_class = NRTermsEvent;
+  [(NRPBTermsEvent *)&v4 setPresentationLocation:*&location];
 }
 
 - (void)setAcknowledgedDeviceName:(id)name

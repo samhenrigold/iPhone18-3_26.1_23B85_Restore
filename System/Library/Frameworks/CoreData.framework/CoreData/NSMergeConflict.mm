@@ -91,35 +91,34 @@
   }
 
   v8 = *p_snapshot2;
-  source = self->_source;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  objectID = self->_source;
+  source = self->_source;
   if ((isKindOfClass & 1) == 0)
   {
-    objectID = [self->_source objectID];
+    source = [self->_source objectID];
   }
 
   newVersion = self->_newVersion;
-  v13 = MEMORY[0x1E696AEC0];
-  v14 = objc_opt_class();
-  v15 = self->_source;
+  v12 = MEMORY[0x1E696AEC0];
+  v13 = objc_opt_class();
+  v14 = self->_source;
   oldVersion_low = LODWORD(self->_oldVersion);
   if (newVersion)
   {
-    v17 = [v13 stringWithFormat:@"%@ (%p) for NSManagedObject (%p) with objectID '%@' with oldVersion = %d and newVersion = %d and old %@ = %@ and new %@ = %@", v14, self, v15, objectID, oldVersion_low, self->_newVersion, v7, snapshot1, v6, v8];
+    v16 = objc_msgSend_stringWithFormat_(v12, v13, self, v14, source, oldVersion_low, self->_newVersion, v7, snapshot1, v6, v8);
   }
 
   else
   {
-    v17 = [v13 stringWithFormat:@"%@ (%p) for NSManagedObject (%p) with objectID '%@' with oldVersion = %d and newVersion = <deleted> and old %@ = %@", v14, self, v15, objectID, oldVersion_low, v7, snapshot1, v21, v22, v23];
+    v16 = objc_msgSend_stringWithFormat_(v12, v13, self, v14, source, oldVersion_low, v7, snapshot1);
   }
 
-  v18 = v17;
-  v19 = v17;
+  v17 = v16;
+  v18 = v16;
   objc_autoreleasePoolPop(v3);
 
-  return v18;
+  return v17;
 }
 
 - (void)dealloc
@@ -158,7 +157,7 @@
 
 - (NSMergeConflict)initWithCoder:(id)coder
 {
-  if ([coder requiresSecureCoding] && (objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend(coder, "userInfo") && !objc_msgSend(objc_msgSend(coder, "userInfo"), "valueForKey:", @"PSCKey") || (objc_msgSend(coder, "requiresSecureCoding") & 1) == 0 && !objc_msgSend(coder, "delegate"))
+  if ([coder requiresSecureCoding] && (objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend(coder, "userInfo") && !objc_msgSend_valueForKey_(objc_msgSend(coder, "userInfo")) || (objc_msgSend(coder, "requiresSecureCoding") & 1) == 0 && !objc_msgSend(coder, "delegate"))
   {
     NSLog(@"This is probably not where you want to be");
   }

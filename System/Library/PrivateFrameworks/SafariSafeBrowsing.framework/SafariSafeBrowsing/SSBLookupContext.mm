@@ -49,10 +49,10 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
 
 - (SSBLookupContext)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = SSBLookupContext;
-  v2 = [(SSBLookupContext *)&v13 init];
+  v16 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SSBLookupContext;
+  v2 = [(SSBLookupContext *)&v12 init];
   if (v2)
   {
     _ZNSt3__115allocate_sharedB8sn200100IN12SafeBrowsing13LookupContextENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(location);
@@ -73,13 +73,13 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
     objc_initWeak(location, v2);
     v5 = *(v2 + 1);
     objc_copyWeak(&to, location);
-    v16 = 0;
-    v14 = &unk_2838CF3E0;
-    objc_moveWeak(&v15, &to);
-    v16 = &v14;
+    v15 = 0;
+    v13 = &unk_2838CF3E0;
+    objc_moveWeak(&v14, &to);
+    v15 = &v13;
     objc_destroyWeak(&to);
-    *(v2 + 6) = SafeBrowsing::LookupContext::addDatabaseUpdateObserver(v5, &v14);
-    std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](&v14);
+    *(v2 + 6) = SafeBrowsing::LookupContext::addDatabaseUpdateObserver(v5, &v13);
+    std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](&v13);
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v2, safeBrowsingEnabledStateChanged, @"SafeBrowsingEnabledStateDidChangeNotification", 0, 1028);
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
@@ -89,7 +89,6 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
     objc_destroyWeak(location);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -110,33 +109,32 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
 {
   safetyCopy = safety;
   frameCopy = frame;
-  v21[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
-  v14 = SSBOSLogLookup();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v15 = SSBOSLogLookup(handlerCopy, v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+  if (v16)
   {
-    *v20 = 0;
-    _os_log_impl(&dword_2255EE000, v14, OS_LOG_TYPE_INFO, "Look up a url", v20, 2u);
+    *v22 = 0;
+    _os_log_impl(&dword_2255EE000, v15, OS_LOG_TYPE_INFO, "Look up a url", v22, 2u);
   }
 
-  v15 = SSBOSLogLookup();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = SSBOSLogLookup(v16, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    [SSBLookupContext _lookUpURL:lCopy isMainFrame:v15 hasHighConfidenceOfSafety:? ignoreEnableState:? completionHandler:?];
+    [SSBLookupContext _lookUpURL:lCopy isMainFrame:v18 hasHighConfidenceOfSafety:? ignoreEnableState:? completionHandler:?];
   }
 
   ptr = self->_lookupContext.__ptr_;
-  v17 = lCopy;
-  v18 = MEMORY[0x22AA67A70](handlerCopy);
-  v21[0] = &unk_2838CF458;
-  v21[1] = v17;
-  v21[2] = v18;
-  v21[3] = v21;
-  SafeBrowsing::LookupContext::lookUpURL(ptr, v17, !frameCopy, safetyCopy, state, v21);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v21);
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = lCopy;
+  v21 = MEMORY[0x22AA67A70](handlerCopy);
+  v23[0] = &unk_2838CF458;
+  v23[1] = v20;
+  v23[2] = v21;
+  v23[3] = v23;
+  SafeBrowsing::LookupContext::lookUpURL(ptr, v20, !frameCopy, safetyCopy, state, v23);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v23);
 }
 
 - (id).cxx_construct
@@ -148,110 +146,101 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
 
 - (void)_forceDatabaseUpdateWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF4A0;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::forceDatabaseUpdate(ptr, v5);
-  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF4A0;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::forceDatabaseUpdate(ptr, v4);
+  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_forceDeviceIdentificationTokenUpdateWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF4E8;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(ptr, v5);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF4E8;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(ptr, v4);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_getDatabaseStatusWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF530;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::getDatabaseStatus(ptr, v5);
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF530;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::getDatabaseStatus(ptr, v4);
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_getServiceStatusWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF578;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::getServiceStatus(ptr, v5);
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF578;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::getServiceStatus(ptr, v4);
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_forceLoadRemoteConfigurationFromDiskWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF5C0;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::forceLoadRemoteConfigurationFromDisk(ptr, v5);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF5C0;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::forceLoadRemoteConfigurationFromDisk(ptr, v4);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_forceUpdateRemoteConfigurationFromServerWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF608;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::forceUpdateRemoteConfigurationFromServer(ptr, v5);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF608;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::forceUpdateRemoteConfigurationFromServer(ptr, v4);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_deleteAllDatabasesWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF650;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::deleteAllDatabases(ptr, v5);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF650;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::deleteAllDatabases(ptr, v4);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_fetchCellularDataPlanWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF698;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::fetchCellularDataPlan(ptr, v5);
-  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF698;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::fetchCellularDataPlan(ptr, v4);
+  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_getLastDatabaseUpdateTimeWithCompletionHandler:(id)handler
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF6E0;
-  v5[1] = MEMORY[0x22AA67A70](handler, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::getLastDatabaseUpdateTime(ptr, v5);
-  std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF6E0;
+  v4[1] = MEMORY[0x22AA67A70](handler, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::getLastDatabaseUpdateTime(ptr, v4);
+  std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)_lookUpURLs:(id)ls forProtectionType:(int64_t)type completionHandler:(id)handler
@@ -269,7 +258,7 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
 
 - (void)_setSafeBrowsingEnabledStateNeedsUpdate
 {
-  v3 = SSBOSLogEnabledState();
+  v3 = SSBOSLogEnabledState(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -281,14 +270,13 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
 
 - (void)_getSafeBrowsingEnabledState:(id)state
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   ptr = self->_lookupContext.__ptr_;
-  v5[0] = &unk_2838CF728;
-  v5[1] = MEMORY[0x22AA67A70](state, a2);
-  v5[3] = v5;
-  SafeBrowsing::LookupContext::getSafeBrowsingEnabledState(ptr, v5);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2838CF728;
+  v4[1] = MEMORY[0x22AA67A70](state, a2);
+  v4[3] = v4;
+  SafeBrowsing::LookupContext::getSafeBrowsingEnabledState(ptr, v4);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v4);
 }
 
 - (void)init
@@ -368,11 +356,10 @@ uint64_t __39__SSBLookupContext_sharedLookupContext__block_invoke()
 
 - (void)_lookUpURL:(uint64_t)a1 isMainFrame:(NSObject *)a2 hasHighConfidenceOfSafety:ignoreEnableState:completionHandler:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2255EE000, a2, OS_LOG_TYPE_DEBUG, "Look up a url %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2255EE000, a2, OS_LOG_TYPE_DEBUG, "Look up a url %@", &v2, 0xCu);
 }
 
 @end

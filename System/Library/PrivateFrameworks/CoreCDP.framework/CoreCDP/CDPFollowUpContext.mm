@@ -37,25 +37,23 @@
   telemetryDeviceSessionID = [contextCopy telemetryDeviceSessionID];
 
   [v7 setTelemetryDeviceSessionID:telemetryDeviceSessionID];
-  v11 = _CDPLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     altDSID2 = [v7 altDSID];
     v15 = 141558274;
     v16 = 1752392040;
     v17 = 2112;
     v18 = altDSID2;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "CDPFollowUpContext: set altDSID to %{mask.hash}@", &v15, 0x16u);
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "CDPFollowUpContext: set altDSID to %{mask.hash}@", &v15, 0x16u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)contextForSOSCompatibilityMode
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[CDPFollowUpContext contextForSOSCompatibilityMode];
@@ -69,7 +67,7 @@
 
 + (id)contextForRecoveryKeyMismatchHealing
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[CDPFollowUpContext contextForRecoveryKeyMismatchHealing];
@@ -82,7 +80,7 @@
 
 + (id)contextForADPUpsell
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[CDPFollowUpContext contextForADPUpsell];
@@ -95,7 +93,7 @@
 
 + (id)contextForADPStateHealing
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[CDPFollowUpContext contextForADPStateHealing];

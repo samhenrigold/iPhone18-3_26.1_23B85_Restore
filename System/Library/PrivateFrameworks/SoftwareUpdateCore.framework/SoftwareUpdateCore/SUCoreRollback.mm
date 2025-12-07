@@ -71,7 +71,7 @@ void __34__SUCoreRollback_eligibleRollback__block_invoke(uint64_t a1)
 
 - (void)loadPersistedStateFile
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_not_V2(self->_stateQueue);
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
@@ -153,9 +153,9 @@ LABEL_15:
     if ((v21 & 1) == 0)
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v35 = 0;
-      [defaultManager2 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v35];
-      v23 = v35;
+      v34 = 0;
+      [defaultManager2 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v34];
+      v23 = v34;
 
       if (v23)
       {
@@ -166,9 +166,9 @@ LABEL_15:
         {
           path2 = [v17 path];
           *buf = 138543618;
-          v37 = path2;
-          v38 = 2114;
-          v39 = v23;
+          v36 = path2;
+          v37 = 2114;
+          v38 = v23;
           _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "Error creating persisted state file %{public}@: %{public}@", buf, 0x16u);
         }
       }
@@ -189,8 +189,6 @@ LABEL_15:
     block[4] = self;
     dispatch_sync(v32, block);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __40__SUCoreRollback_loadPersistedStateFile__block_invoke(uint64_t a1)
@@ -230,22 +228,20 @@ void __40__SUCoreRollback_loadPersistedStateFile__block_invoke(uint64_t a1)
   return v4;
 }
 
-void __34__SUCoreRollback_previousRollback__block_invoke(uint64_t a1)
+void __34__SUCoreRollback_previousRollback__block_invoke(uint64_t a1, uint64_t a2)
 {
   v11[2] = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 16);
-  v3 = objc_opt_class();
-  v4 = MEMORY[0x277CBEB98];
+  v3 = *(*(a1 + 32) + 16);
+  v4 = objc_opt_class();
+  v5 = MEMORY[0x277CBEB98];
   v11[0] = objc_opt_class();
   v11[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-  v6 = [v4 setWithArray:v5];
-  v7 = [v2 secureCodedObjectForKey:@"previousRollback" ofClass:v3 encodeClasses:v6];
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
-
-  v10 = *MEMORY[0x277D85DE8];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v7 = [v5 setWithArray:v6];
+  v8 = [v3 secureCodedObjectForKey:@"previousRollback" ofClass:v4 encodeClasses:v7];
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 }
 
 - (void)rollbackCompleted

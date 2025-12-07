@@ -442,18 +442,18 @@ LABEL_10:
   [(SHSheetContentLayoutProvider *)self->_layoutProvider setDelegate:self];
   objc_initWeak(&location, self);
   v25 = [_UIActivityCollectionViewCompositionalLayout alloc];
-  v50 = MEMORY[0x1E69E9820];
-  v51 = 3221225472;
-  v52 = __57__UIActivityContentViewController__configureWithContext___block_invoke;
-  v53 = &unk_1E71F9E90;
-  objc_copyWeak(&v54, &location);
-  v26 = [(_UIActivityCollectionViewCompositionalLayout *)v25 initWithSectionProvider:&v50];
+  v55 = MEMORY[0x1E69E9820];
+  v56 = 3221225472;
+  v57 = __57__UIActivityContentViewController__configureWithContext___block_invoke;
+  v58 = &unk_1E71F9E90;
+  objc_copyWeak(&v59, &location);
+  v26 = [(_UIActivityCollectionViewCompositionalLayout *)v25 initWithSectionProvider:&v55];
   activityCollectionViewLayout = self->_activityCollectionViewLayout;
   self->_activityCollectionViewLayout = v26;
 
-  v28 = objc_alloc_init(getSFUIActivityImageProviderClass_0());
+  v32 = objc_alloc_init(getSFUIActivityImageProviderClass_0(v28, v29, v30, v31));
   activityImageProvider = self->_activityImageProvider;
-  self->_activityImageProvider = v28;
+  self->_activityImageProvider = v32;
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   identifiersToActivityImageRequestID = self->_identifiersToActivityImageRequestID;
@@ -463,30 +463,30 @@ LABEL_10:
   identifiersToPeopleSuggestionImageRequestIDs = self->_identifiersToPeopleSuggestionImageRequestIDs;
   self->_identifiersToPeopleSuggestionImageRequestIDs = dictionary2;
 
-  homeScreenService = [(objc_class *)getSFUIActivityImageProviderClass_0() homeScreenService];
-  v35 = [homeScreenService addHomeScreenIconStyleObserver:self];
+  homeScreenService = [(objc_class *)(getSFUIActivityImageProviderClass_0)() homeScreenService];
+  v39 = [homeScreenService addHomeScreenIconStyleObserver:self];
   homeScreenIconStyleObserver = self->_homeScreenIconStyleObserver;
-  self->_homeScreenIconStyleObserver = v35;
+  self->_homeScreenIconStyleObserver = v39;
 
   if (self->_canRenderPeople)
   {
     [(SHSheetContentLayoutSpec *)self->_layoutSpec peopleIconWidth];
-    v38 = v37;
-    [(SHSheetContentLayoutSpec *)self->_layoutSpec peopleIconWidth];
-    v40 = v39;
-    v41 = objc_alloc(getSFUIPeopleSuggestionImageProviderClass());
+    v42 = v41;
+    peopleIconWidth = [(SHSheetContentLayoutSpec *)self->_layoutSpec peopleIconWidth];
+    v45 = v44;
+    v46 = objc_alloc(getSFUIPeopleSuggestionImageProviderClass(peopleIconWidth));
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
     traitCollection2 = [(SHSheetContentLayoutSpec *)self->_layoutSpec traitCollection];
-    v45 = [v41 initWithTargetSize:userInterfaceLayoutDirection layoutDirection:objc_msgSend(traitCollection2 userInterfaceStyle:{"userInterfaceStyle"), v38, v40}];
+    v50 = [v46 initWithTargetSize:userInterfaceLayoutDirection layoutDirection:objc_msgSend(traitCollection2 userInterfaceStyle:{"userInterfaceStyle"), v42, v45}];
     peopleSuggestionImageProvider = self->_peopleSuggestionImageProvider;
-    self->_peopleSuggestionImageProvider = v45;
+    self->_peopleSuggestionImageProvider = v50;
   }
 
   self->_headerLinkActionsNeedsUpdate = 1;
-  v47 = [MEMORY[0x1E695DFA8] set];
+  v52 = [MEMORY[0x1E695DFA8] set];
   sandboxExtensionHandles = self->_sandboxExtensionHandles;
-  self->_sandboxExtensionHandles = v47;
+  self->_sandboxExtensionHandles = v52;
 
   self->_showAllActions = [contextCopy sharingStyle] == 2;
   if ([(UIActivityContentViewController *)self isRemote])
@@ -495,24 +495,24 @@ LABEL_10:
     {
       if ([(UIActivityContentViewController *)self modalPresentationStyle]== 2)
       {
-        v49 = _ShareSheetFormSheetSize();
+        v54 = _ShareSheetFormSheetSize();
       }
 
       else
       {
-        v49 = _ShareSheetPopoverSize();
+        v54 = _ShareSheetPopoverSize();
       }
     }
 
     else
     {
-      v49 = _ShareSheetDefaultSheetSize();
+      v54 = _ShareSheetDefaultSheetSize();
     }
 
-    [(UIActivityContentViewController *)self setPreferredContentSize:v49];
+    [(UIActivityContentViewController *)self setPreferredContentSize:v54];
   }
 
-  objc_destroyWeak(&v54);
+  objc_destroyWeak(&v59);
   objc_destroyWeak(&location);
 }
 
@@ -1371,21 +1371,26 @@ uint64_t __95__UIActivityContentViewController_homeScreenService_homeScreenIconS
 
     if (!hostAuditToken)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
     v16 = [(UIActivityContentViewController *)self hostAuditToken:0];
     v17 = v16;
     if (v16)
     {
-      [v16 realToken];
+      objc_msgSend_realToken(v16);
     }
 
-    firstObject2 = _ShareSheetBundleIDFromAuditToken();
+    else
+    {
+      memset(v21, 0, sizeof(v21));
+    }
+
+    firstObject2 = _ShareSheetBundleIDFromAuditToken(v21);
     [v7 _setSourceBundleIdentifier:firstObject2];
   }
 
-LABEL_12:
+LABEL_13:
 
   return v7;
 }
@@ -1437,8 +1442,7 @@ LABEL_12:
       v40 = [(_UIActivityContentTitleView *)v6 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
       [(_UIActivityContentTitleView *)v40 setPreservesSuperviewLayoutMargins:1];
       [(_UIActivityContentTitleView *)v40 setTranslatesAutoresizingMaskIntoConstraints:0];
-      customViewController = [(UIActivityContentViewController *)self customViewController];
-      v10 = customViewController && ([MEMORY[0x1E69DC938] currentDevice], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "userInterfaceIdiom"), v8, (v9 & 0xFFFFFFFFFFFFFFFBLL) != 1) && (_ShareSheetCachedActiveInterfaceOrientation() - 3) < 0xFFFFFFFFFFFFFFFELL;
+      v10 = customViewController && ([MEMORY[0x1E69DC938] currentDevice], v8 = customViewController = [(UIActivityContentViewController *)self customViewController];
       [(_UIActivityContentTitleView *)v40 setPhotosCarouselMode:v10];
 
       viewModel2 = [(UIActivityContentViewController *)self viewModel];
@@ -3219,8 +3223,8 @@ LABEL_16:
       contentView = [cellCopy contentView];
       [contentView bounds];
       [view setFrame:?];
-      [view setAutoresizingMask:18];
-      getPUCarouselSharingViewControllerClass();
+      v12 = [view setAutoresizingMask:18];
+      getPUCarouselSharingViewControllerClass(v12);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -4865,7 +4869,7 @@ LABEL_10:
 
 - (void)_updateHeaderLinkViewAction
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
   _canShowOptions = [(UIActivityContentViewController *)self _canShowOptions];
   [(UIActivityContentViewController *)self _configureHeaderViewIfNeeded];
@@ -4889,7 +4893,7 @@ LABEL_10:
     }
 
     *buf = 138412290;
-    v89 = v7;
+    v90 = v7;
     _os_log_impl(&dword_18B359000, v6, OS_LOG_TYPE_DEFAULT, "updating header action to %@", buf, 0xCu);
     if ((_canShowOptions & 1) == 0)
     {
@@ -4906,17 +4910,17 @@ LABEL_10:
     {
       viewModel3 = [(UIActivityContentViewController *)self viewModel];
       customOptionsTitle = [viewModel3 customOptionsTitle];
-      v76[0] = MEMORY[0x1E69E9820];
-      v76[1] = 3221225472;
-      v76[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_5;
-      v76[3] = &unk_1E71F95A8;
-      v26 = &v77;
-      objc_copyWeak(&v77, &location);
-      v27 = UIActivityContentHelperOptionsButtonAction(_canShowOptions, customOptionsTitle, v76);
+      v77[0] = MEMORY[0x1E69E9820];
+      v77[1] = 3221225472;
+      v77[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_5;
+      v77[3] = &unk_1E71F95A8;
+      v26 = &v78;
+      objc_copyWeak(&v78, &location);
+      v27 = UIActivityContentHelperOptionsButtonAction(_canShowOptions, customOptionsTitle, v77);
 
       headerLinkView = [(UIActivityContentViewController *)self headerLinkView];
-      v87 = v27;
-      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
+      v88 = v27;
+      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
       [headerLinkView _setButtonActions:v29];
 
       headerLinkView2 = [(UIActivityContentViewController *)self headerLinkView];
@@ -4935,21 +4939,21 @@ LABEL_10:
         isCollaborative = [v15 isCollaborative];
         viewModel5 = [(UIActivityContentViewController *)self viewModel];
         collaborationModeTitle = [viewModel5 collaborationModeTitle];
-        v84[0] = MEMORY[0x1E69E9820];
-        v84[1] = 3221225472;
-        v84[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke;
-        v84[3] = &unk_1E71F95A8;
-        objc_copyWeak(&v85, &location);
-        v19 = UIActivityContentHelperCollaborationButtonAction(isCollaborative, collaborationModeTitle, v84);
+        v85[0] = MEMORY[0x1E69E9820];
+        v85[1] = 3221225472;
+        v85[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke;
+        v85[3] = &unk_1E71F95A8;
+        objc_copyWeak(&v86, &location);
+        v19 = UIActivityContentHelperCollaborationButtonAction(isCollaborative, collaborationModeTitle, v85);
 
         viewModel6 = [(UIActivityContentViewController *)self viewModel];
         LODWORD(v15) = [viewModel6 isCollaborative];
-        v82[0] = MEMORY[0x1E69E9820];
-        v82[1] = 3221225472;
-        v82[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_2;
-        v82[3] = &unk_1E71F95A8;
-        objc_copyWeak(&v83, &location);
-        v21 = UIActivityContentHelperCopyButtonAction(v15, v82);
+        v83[0] = MEMORY[0x1E69E9820];
+        v83[1] = 3221225472;
+        v83[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_2;
+        v83[3] = &unk_1E71F95A8;
+        objc_copyWeak(&v84, &location);
+        v21 = UIActivityContentHelperCopyButtonAction(v15, v83);
 
         v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v19, v21, 0}];
         headerLinkView3 = [(UIActivityContentViewController *)self headerLinkView];
@@ -4958,8 +4962,8 @@ LABEL_10:
         headerLinkView4 = [(UIActivityContentViewController *)self headerLinkView];
         [headerLinkView4 _setOverrideActionButtonColor:0];
 
-        objc_destroyWeak(&v83);
-        objc_destroyWeak(&v85);
+        objc_destroyWeak(&v84);
+        objc_destroyWeak(&v86);
       }
 
       else
@@ -4982,28 +4986,28 @@ LABEL_10:
       headerLinkView6 = [(UIActivityContentViewController *)self headerLinkView];
       [headerLinkView6 _setCollaborationFooterViewModel:0 action:0];
 
-      [(UIActivityContentViewController *)self setCollaborationFooterViewModel:0];
+      v61 = [(UIActivityContentViewController *)self setCollaborationFooterViewModel:0];
 LABEL_42:
       if (!_canShowOptions)
       {
 LABEL_45:
-        v72 = objc_alloc_init(getLPLinkRendererSizeClassParametersClass());
-        [v72 setAlignButtonWithCaptionTextLeadingEdge:1];
+        v73 = objc_alloc_init(getLPLinkRendererSizeClassParametersClass(v61));
+        [v73 setAlignButtonWithCaptionTextLeadingEdge:1];
         headerLinkView7 = [(UIActivityContentViewController *)self headerLinkView];
-        [headerLinkView7 _setSizeClassParameters:v72];
+        [headerLinkView7 _setSizeClassParameters:v73];
 
         goto LABEL_46;
       }
 
       viewModel8 = [(UIActivityContentViewController *)self viewModel];
       customOptionsTitle2 = [viewModel8 customOptionsTitle];
-      v78[0] = MEMORY[0x1E69E9820];
-      v78[1] = 3221225472;
-      v78[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_4;
-      v78[3] = &unk_1E71F95A8;
-      v26 = &v79;
-      objc_copyWeak(&v79, &location);
-      v27 = UIActivityContentHelperOptionsButtonAction(1, customOptionsTitle2, v78);
+      v79[0] = MEMORY[0x1E69E9820];
+      v79[1] = 3221225472;
+      v79[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_4;
+      v79[3] = &unk_1E71F95A8;
+      v26 = &v80;
+      objc_copyWeak(&v80, &location);
+      v27 = UIActivityContentHelperOptionsButtonAction(1, customOptionsTitle2, v79);
 
       headerLinkView8 = [(UIActivityContentViewController *)self headerLinkView];
       [headerLinkView8 _setSecondaryButtonAction:v27];
@@ -5084,21 +5088,21 @@ LABEL_33:
     headerLinkView9 = [(UIActivityContentViewController *)self headerLinkView];
     if (showCollaborationOptions2)
     {
-      v80[0] = MEMORY[0x1E69E9820];
-      v80[1] = 3221225472;
-      v80[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_3;
-      v80[3] = &unk_1E71F95A8;
-      headerLinkView4 = &v81;
-      objc_copyWeak(&v81, &location);
-      v68 = v80;
+      v81[0] = MEMORY[0x1E69E9820];
+      v81[1] = 3221225472;
+      v81[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_3;
+      v81[3] = &unk_1E71F95A8;
+      headerLinkView4 = &v82;
+      objc_copyWeak(&v82, &location);
+      v69 = v81;
     }
 
     else
     {
-      v68 = 0;
+      v69 = 0;
     }
 
-    [headerLinkView9 _setCollaborationFooterViewModel:collaborationFooterViewModel action:v68];
+    [headerLinkView9 _setCollaborationFooterViewModel:collaborationFooterViewModel action:v69];
 
     if (showCollaborationOptions2)
     {
@@ -5117,21 +5121,21 @@ LABEL_33:
     [headerLinkView10 _setPreferredSizeClass:12];
 
     headerLinkView11 = [(UIActivityContentViewController *)self headerLinkView];
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_6;
-    v74[3] = &unk_1E71F95A8;
-    objc_copyWeak(&v75, &location);
+    v75[0] = MEMORY[0x1E69E9820];
+    v75[1] = 3221225472;
+    v75[2] = __62__UIActivityContentViewController__updateHeaderLinkViewAction__block_invoke_6;
+    v75[3] = &unk_1E71F95A8;
+    objc_copyWeak(&v76, &location);
     viewModel14 = [(UIActivityContentViewController *)self viewModel];
     customHeaderButtonTitle = [viewModel14 customHeaderButtonTitle];
-    [headerLinkView11 _setAction:v74 withAttributedText:customHeaderButtonTitle buttonType:1];
+    [headerLinkView11 _setAction:v75 withAttributedText:customHeaderButtonTitle buttonType:1];
 
     headerLinkView12 = [(UIActivityContentViewController *)self headerLinkView];
     viewModel15 = [(UIActivityContentViewController *)self viewModel];
     customHeaderButtonColor = [viewModel15 customHeaderButtonColor];
     [headerLinkView12 _setOverrideActionButtonColor:customHeaderButtonColor];
 
-    objc_destroyWeak(&v75);
+    objc_destroyWeak(&v76);
   }
 
   else
@@ -5768,7 +5772,7 @@ void __91__UIActivityContentViewController_dataSourceManager_didPublishDataSourc
   v25 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
-  if (([(objc_class *)getRPTTestRunnerClass() isRecapAvailable]& 1) != 0)
+  if ([getRPTTestRunnerClass(handlerCopy) isRecapAvailable])
   {
     v10 = [(UIActivityContentViewController *)self _scrollViewForScrollingType:type];
     v11 = share_sheet_log();
@@ -5800,7 +5804,7 @@ void __91__UIActivityContentViewController_dataSourceManager_didPublishDataSourc
       }
 
       [v15 setShouldFlick:0];
-      [(objc_class *)getRPTTestRunnerClass() runTestWithParameters:v15];
+      [(objc_class *)(getRPTTestRunnerClass)() runTestWithParameters:v15];
     }
 
     else

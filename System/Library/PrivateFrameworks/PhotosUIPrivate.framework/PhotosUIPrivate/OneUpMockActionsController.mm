@@ -120,7 +120,7 @@
 
 - (void)performDuplicateActionWithAssetsByAssetCollection:(id)collection
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0, &unk_1B3D04890);
   sub_1B3C9C4C8();
   selfCopy = self;
   sub_1B37F2850();
@@ -128,7 +128,7 @@
 
 - (void)performActionType:(unint64_t)type assetsByAssetCollection:(id)collection
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0, &unk_1B3D04890);
   sub_1B3C9C4C8();
   selfCopy = self;
   sub_1B37F28F4(type);
@@ -147,13 +147,19 @@
   v6 = _Block_copy(handler);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_1B37F39C0;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   selfCopy = self;
   sub_1B37F2A20(type);
-  sub_1B36F9DA0(v6);
+  sub_1B36F9DA0(v6, v7);
 
   return 1;
 }

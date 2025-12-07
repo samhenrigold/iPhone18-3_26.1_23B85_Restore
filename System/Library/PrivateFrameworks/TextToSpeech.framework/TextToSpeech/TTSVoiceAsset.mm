@@ -11,295 +11,290 @@
 
 - (TTSVoiceAsset)initWithName:(id)name languages:(id)languages gender:(int64_t)gender footprint:(int64_t)footprint isInstalled:(BOOL)installed isBuiltIn:(BOOL)in masteredVersion:(id)version compatibilityVersion:(id)self0 neural:(BOOL)self1
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   languagesCopy = languages;
-  v53.receiver = self;
-  v53.super_class = TTSVoiceAsset;
-  v23 = [(TTSVoiceAsset *)&v53 init];
-  if (v23)
+  v40.receiver = self;
+  v40.super_class = TTSVoiceAsset;
+  v19 = [(TTSVoiceAsset *)&v40 init];
+  if (v19)
   {
     genderCopy = gender;
     footprintCopy = footprint;
     inCopy = in;
-    v24 = objc_msgSend_copy(nameCopy, v19, v20, v21, v22);
-    name = v23->_name;
-    v23->_name = v24;
+    v20 = [nameCopy copy];
+    name = v19->_name;
+    v19->_name = v20;
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v26 = languagesCopy;
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v49, v54, 16);
-    if (v28)
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v22 = languagesCopy;
+    v23 = [v22 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    if (v23)
     {
-      v32 = v28;
-      v33 = *v50;
+      v24 = v23;
+      v25 = *v37;
       do
       {
-        v34 = 0;
+        v26 = 0;
         do
         {
-          if (*v50 != v33)
+          if (*v37 != v25)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v22);
           }
 
-          if (objc_msgSend_containsString_(*(*(&v49 + 1) + 8 * v34), v29, @"_", v30, v31))
+          if ([*(*(&v36 + 1) + 8 * v26) containsString:@"_"])
           {
-            v35 = AXTTSLogCommon();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+            v27 = AXTTSLogCommon();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
             {
-              sub_1A9579CB8(&buf, v48, v35);
+              sub_1A9579CB8(&buf, v35, v27);
             }
           }
 
-          ++v34;
+          ++v26;
         }
 
-        while (v32 != v34);
-        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v49, v54, 16);
+        while (v24 != v26);
+        v24 = [v22 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
-      while (v32);
+      while (v24);
     }
 
-    v40 = objc_msgSend_copy(v26, v36, v37, v38, v39);
-    languages = v23->_languages;
-    v23->_languages = v40;
+    v28 = [v22 copy];
+    languages = v19->_languages;
+    v19->_languages = v28;
 
-    v23->_gender = genderCopy;
-    v23->_footprint = footprintCopy;
-    v23->_isInstalled = installed;
-    v23->_isBuiltInVoice = inCopy;
-    v23->_neural = neural;
+    v19->_gender = genderCopy;
+    v19->_footprint = footprintCopy;
+    v19->_isInstalled = installed;
+    v19->_isBuiltInVoice = inCopy;
+    v19->_neural = neural;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v19;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v34.receiver = self;
-  v34.super_class = TTSVoiceAsset;
-  v7 = [(TTSVoiceAsset *)&v34 description];
+  v17.receiver = self;
+  v17.super_class = TTSVoiceAsset;
+  v4 = [(TTSVoiceAsset *)&v17 description];
   name = self->_name;
   languages = self->_languages;
   gender = self->_gender;
-  v11 = @"any";
+  v8 = @"any";
   if (gender == 2)
   {
-    v11 = @"female";
+    v8 = @"female";
   }
 
   if (gender == 1)
   {
-    v12 = @"male";
+    v9 = @"male";
   }
 
   else
   {
-    v12 = v11;
+    v9 = v8;
   }
 
   if (self->_footprint == 3)
   {
-    v13 = @"compact";
+    v10 = @"compact";
   }
 
   else
   {
-    v13 = @"premium";
+    v10 = @"premium";
   }
 
-  v14 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v4, self->_neural, v5, v6);
-  v18 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v15, self->_isInstalled, v16, v17);
-  v23 = objc_msgSend_masteredVersion(self, v19, v20, v21, v22);
-  v28 = objc_msgSend_compatibilityVersion(self, v24, v25, v26, v27);
-  v32 = objc_msgSend_stringWithFormat_(v3, v29, @"%@ Name: %@, Languages: %@, Gender: %@, Footprint: %@, Neural: %@, Installed: %@, Version: %@/%@", v30, v31, v7, name, languages, v12, v13, v14, v18, v23, v28);
+  v11 = [MEMORY[0x1E696AD98] numberWithBool:self->_neural];
+  v12 = [MEMORY[0x1E696AD98] numberWithBool:self->_isInstalled];
+  masteredVersion = [(TTSAssetBase *)self masteredVersion];
+  compatibilityVersion = [(TTSAssetBase *)self compatibilityVersion];
+  v15 = [v3 stringWithFormat:@"%@ Name: %@, Languages: %@, Gender: %@, Footprint: %@, Neural: %@, Installed: %@, Version: %@/%@", v4, name, languages, v9, v10, v11, v12, masteredVersion, compatibilityVersion];
 
-  return v32;
+  return v15;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   name = self->_name;
   coderCopy = coder;
-  objc_msgSend_encodeObject_forKey_(coderCopy, v6, name, @"_name", v7);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v8, self->_languages, @"_languages", v9);
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v10, self->_gender, @"_gender", v11);
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v12, self->_footprint, @"_footprint", v13);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v14, self->_isInstalled, @"_isInstalled", v15);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v16, self->_isBuiltInVoice, @"_isBuiltInVoice", v17);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v18, self->_voicePath, @"_voicePath", v19);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v20, self->_neural, @"_neural", v21);
-  v27 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v22, self->_fileSize, v23, v24);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v25, v27, @"fileSizeWithNumber", v26);
+  [coderCopy encodeObject:name forKey:@"_name"];
+  [coderCopy encodeObject:self->_languages forKey:@"_languages"];
+  [coderCopy encodeInteger:self->_gender forKey:@"_gender"];
+  [coderCopy encodeInteger:self->_footprint forKey:@"_footprint"];
+  [coderCopy encodeBool:self->_isInstalled forKey:@"_isInstalled"];
+  [coderCopy encodeBool:self->_isBuiltInVoice forKey:@"_isBuiltInVoice"];
+  [coderCopy encodeObject:self->_voicePath forKey:@"_voicePath"];
+  [coderCopy encodeBool:self->_neural forKey:@"_neural"];
+  v6 = [MEMORY[0x1E696AD98] numberWithLongLong:self->_fileSize];
+  [coderCopy encodeObject:v6 forKey:@"fileSizeWithNumber"];
 }
 
 - (TTSVoiceAsset)initWithCoder:(id)coder
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v53.receiver = self;
-  v53.super_class = TTSVoiceAsset;
-  v5 = [(TTSVoiceAsset *)&v53 init];
+  v17.receiver = self;
+  v17.super_class = TTSVoiceAsset;
+  v5 = [(TTSVoiceAsset *)&v17 init];
   if (v5)
   {
-    v6 = objc_opt_class();
-    v9 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v7, v6, @"_name", v8);
+    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_name"];
     name = v5->_name;
-    v5->_name = v9;
+    v5->_name = v6;
 
-    v11 = MEMORY[0x1E695DFD8];
-    v54[0] = objc_opt_class();
-    v54[1] = objc_opt_class();
-    v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v54, 2, v13);
-    v18 = objc_msgSend_setWithArray_(v11, v15, v14, v16, v17);
-    v21 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v19, v18, @"_languages", v20);
+    v8 = MEMORY[0x1E695DFD8];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v10 = [v8 setWithArray:v9];
+    v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"_languages"];
     languages = v5->_languages;
-    v5->_languages = v21;
+    v5->_languages = v11;
 
-    v5->_gender = objc_msgSend_decodeIntegerForKey_(coderCopy, v23, @"_gender", v24, v25);
-    v5->_footprint = objc_msgSend_decodeIntegerForKey_(coderCopy, v26, @"_footprint", v27, v28);
-    v5->_isInstalled = objc_msgSend_decodeBoolForKey_(coderCopy, v29, @"_isInstalled", v30, v31);
-    v5->_isBuiltInVoice = objc_msgSend_decodeBoolForKey_(coderCopy, v32, @"_isBuiltInVoice", v33, v34);
-    v35 = objc_opt_class();
-    v38 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v36, v35, @"_voicePath", v37);
+    v5->_gender = [coderCopy decodeIntegerForKey:@"_gender"];
+    v5->_footprint = [coderCopy decodeIntegerForKey:@"_footprint"];
+    v5->_isInstalled = [coderCopy decodeBoolForKey:@"_isInstalled"];
+    v5->_isBuiltInVoice = [coderCopy decodeBoolForKey:@"_isBuiltInVoice"];
+    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_voicePath"];
     voicePath = v5->_voicePath;
-    v5->_voicePath = v38;
+    v5->_voicePath = v13;
 
-    v5->_neural = objc_msgSend_decodeBoolForKey_(coderCopy, v40, @"_neural", v41, v42);
-    v43 = objc_opt_class();
-    v46 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v44, v43, @"fileSizeWithNumber", v45);
-    v5->_fileSize = objc_msgSend_integerValue(v46, v47, v48, v49, v50);
+    v5->_neural = [coderCopy decodeBoolForKey:@"_neural"];
+    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fileSizeWithNumber"];
+    v5->_fileSize = [v15 integerValue];
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (TTSVoiceAsset)initWithDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v7 = objc_msgSend_objectForKey_(representationCopy, v4, @"Name", v5, v6);
+  v4 = [representationCopy objectForKey:@"Name"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = v7;
+    v5 = v4;
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
-  v9 = v8;
-  v13 = objc_msgSend_objectForKey_(representationCopy, v10, @"Languages", v11, v12);
+  v6 = v5;
+  v7 = [representationCopy objectForKey:@"Languages"];
   objc_opt_class();
-  v18 = 0;
+  v8 = 0;
   if (objc_opt_isKindOfClass())
   {
-    v19 = objc_msgSend_lastObject(v13, v14, v15, v16, v17);
+    lastObject = [v7 lastObject];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = v13;
+      v10 = v7;
     }
 
     else
     {
-      v20 = 0;
+      v10 = 0;
     }
 
-    v18 = v20;
+    v8 = v10;
   }
 
-  v21 = objc_msgSend_objectForKey_(representationCopy, v14, @"Gender", v16, v17);
+  v11 = [representationCopy objectForKey:@"Gender"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v26 = objc_msgSend_integerValue(v21, v22, v23, v24, v25);
+    integerValue = [v11 integerValue];
   }
 
   else
   {
-    v26 = 0;
+    integerValue = 0;
   }
 
-  v27 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v22, @"neural", v24, v25);
-  v32 = objc_msgSend_BOOLValue(v27, v28, v29, v30, v31);
+  v13 = [representationCopy objectForKeyedSubscript:@"neural"];
+  bOOLValue = [v13 BOOLValue];
 
-  v36 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v33, @"MasteredVersion", v34, v35);
-  v40 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v37, @"CompatabilityVersion", v38, v39);
-  v52 = v32;
-  isBuiltIn_masteredVersion_compatibilityVersion_neural = objc_msgSend_initWithName_languages_gender_footprint_isInstalled_isBuiltIn_masteredVersion_compatibilityVersion_neural_(self, v41, v9, v18, v26, 1, 0, 1, v36, v40, v52);
+  v15 = [representationCopy objectForKeyedSubscript:@"MasteredVersion"];
+  v16 = [representationCopy objectForKeyedSubscript:@"CompatabilityVersion"];
+  LOBYTE(v21) = bOOLValue;
+  v17 = [(TTSVoiceAsset *)self initWithName:v6 languages:v8 gender:integerValue footprint:1 isInstalled:0 isBuiltIn:1 masteredVersion:v15 compatibilityVersion:v16 neural:v21];
 
-  v43 = isBuiltIn_masteredVersion_compatibilityVersion_neural;
-  v47 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v44, @"VoicePath", v45, v46);
-  objc_msgSend_setVoicePath_(v43, v48, v47, v49, v50);
+  v18 = v17;
+  v19 = [representationCopy objectForKeyedSubscript:@"VoicePath"];
+  [(TTSVoiceAsset *)v18 setVoicePath:v19];
 
-  return v43;
+  return v18;
 }
 
 - (id)dictionaryRepresentation
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v7 = v3;
+  v4 = v3;
   name = self->_name;
   if (name)
   {
-    objc_msgSend_setObject_forKey_(v3, v4, name, @"Name", v6);
+    [v3 setObject:name forKey:@"Name"];
   }
 
   languages = self->_languages;
   if (languages)
   {
-    objc_msgSend_setObject_forKey_(v7, v4, languages, @"Languages", v6);
+    [v4 setObject:languages forKey:@"Languages"];
   }
 
-  v10 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v4, self->_gender, v5, v6);
-  objc_msgSend_setObject_forKey_(v7, v11, v10, @"Gender", v12);
+  v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_gender];
+  [v4 setObject:v7 forKey:@"Gender"];
 
-  v16 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v13, self->_neural, v14, v15);
-  objc_msgSend_setObject_forKey_(v7, v17, v16, @"neural", v18);
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:self->_neural];
+  [v4 setObject:v8 forKey:@"neural"];
 
-  v23 = objc_msgSend_contentVersion(self, v19, v20, v21, v22);
+  contentVersion = [(TTSAssetBase *)self contentVersion];
 
-  if (v23)
+  if (contentVersion)
   {
-    v28 = objc_msgSend_contentVersion(self, v24, v25, v26, v27);
-    objc_msgSend_setObject_forKey_(v7, v29, v28, @"ContentVersion", v30);
+    contentVersion2 = [(TTSAssetBase *)self contentVersion];
+    [v4 setObject:contentVersion2 forKey:@"ContentVersion"];
   }
 
-  v31 = objc_msgSend_masteredVersion(self, v24, v25, v26, v27);
+  masteredVersion = [(TTSAssetBase *)self masteredVersion];
 
-  if (v31)
+  if (masteredVersion)
   {
-    v36 = objc_msgSend_masteredVersion(self, v32, v33, v34, v35);
-    objc_msgSend_setObject_forKey_(v7, v37, v36, @"MasteredVersion", v38);
+    masteredVersion2 = [(TTSAssetBase *)self masteredVersion];
+    [v4 setObject:masteredVersion2 forKey:@"MasteredVersion"];
   }
 
-  v39 = objc_msgSend_compatibilityVersion(self, v32, v33, v34, v35);
+  compatibilityVersion = [(TTSAssetBase *)self compatibilityVersion];
 
-  if (v39)
+  if (compatibilityVersion)
   {
-    v44 = objc_msgSend_compatibilityVersion(self, v40, v41, v42, v43);
-    objc_msgSend_setObject_forKey_(v7, v45, v44, @"CompatabilityVersion", v46);
+    compatibilityVersion2 = [(TTSAssetBase *)self compatibilityVersion];
+    [v4 setObject:compatibilityVersion2 forKey:@"CompatabilityVersion"];
   }
 
-  v47 = objc_msgSend_voicePath(self, v40, v41, v42, v43);
+  voicePath = [(TTSVoiceAsset *)self voicePath];
 
-  if (v47)
+  if (voicePath)
   {
-    v52 = objc_msgSend_voicePath(self, v48, v49, v50, v51);
-    objc_msgSend_setObject_forKey_(v7, v53, v52, @"VoicePath", v54);
+    voicePath2 = [(TTSVoiceAsset *)self voicePath];
+    [v4 setObject:voicePath2 forKey:@"VoicePath"];
   }
 
-  return v7;
+  return v4;
 }
 
 @end

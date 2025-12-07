@@ -1,6 +1,8 @@
 @interface CalDateRange
 + (BOOL)range:(id)range intersectsRange:(id)intersectsRange;
++ (BOOL)range:(id)range intersectsRange:(id)intersectsRange allowSinglePointIntersection:(BOOL)intersection;
 + (BOOL)range:(id)range intersectsRangeWithStartDate:(id)date endDate:(id)endDate;
++ (BOOL)range:(id)range intersectsRangeWithStartDate:(id)date endDate:(id)endDate allowSinglePointIntersection:(BOOL)intersection;
 + (BOOL)rangesIntersectWithStartDate1:(id)date1 endDate1:(id)endDate1 startDate2:(id)date2 endDate2:(id)endDate2 allowSinglePointIntersection:(BOOL)intersection;
 + (id)rangeByExpandingRange:(id)range direction:(int64_t)direction components:(id)components calendar:(id)calendar;
 + (id)rangeByExpandingRange:(id)range direction:(int64_t)direction duration:(double)duration;
@@ -11,7 +13,9 @@
 - (BOOL)containsDate:(id)date;
 - (BOOL)containsRange:(id)range;
 - (BOOL)intersectsRange:(id)range;
+- (BOOL)intersectsRange:(id)range allowSinglePointIntersection:(BOOL)intersection;
 - (BOOL)intersectsRangeWithStartDate:(id)date endDate:(id)endDate;
+- (BOOL)intersectsRangeWithStartDate:(id)date endDate:(id)endDate allowSinglePointIntersection:(BOOL)intersection;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isValid;
 - (CalDateRange)initWithCoder:(id)coder;
@@ -440,6 +444,17 @@ LABEL_10:
   return v9;
 }
 
+- (BOOL)intersectsRange:(id)range allowSinglePointIntersection:(BOOL)intersection
+{
+  intersectionCopy = intersection;
+  rangeCopy = range;
+  startDate = [rangeCopy startDate];
+  endDate = [rangeCopy endDate];
+
+  LOBYTE(intersectionCopy) = [(CalDateRange *)self intersectsRangeWithStartDate:startDate endDate:endDate allowSinglePointIntersection:intersectionCopy];
+  return intersectionCopy;
+}
+
 + (BOOL)range:(id)range intersectsRange:(id)intersectsRange
 {
   intersectsRangeCopy = intersectsRange;
@@ -454,6 +469,21 @@ LABEL_10:
   return v11;
 }
 
++ (BOOL)range:(id)range intersectsRange:(id)intersectsRange allowSinglePointIntersection:(BOOL)intersection
+{
+  intersectionCopy = intersection;
+  intersectsRangeCopy = intersectsRange;
+  rangeCopy = range;
+  startDate = [rangeCopy startDate];
+  endDate = [rangeCopy endDate];
+
+  startDate2 = [intersectsRangeCopy startDate];
+  endDate2 = [intersectsRangeCopy endDate];
+
+  LOBYTE(intersectionCopy) = [CalDateRange rangesIntersectWithStartDate1:startDate endDate1:endDate startDate2:startDate2 endDate2:endDate2 allowSinglePointIntersection:intersectionCopy];
+  return intersectionCopy;
+}
+
 + (BOOL)range:(id)range intersectsRangeWithStartDate:(id)date endDate:(id)endDate
 {
   endDateCopy = endDate;
@@ -466,6 +496,19 @@ LABEL_10:
   return rangeCopy;
 }
 
++ (BOOL)range:(id)range intersectsRangeWithStartDate:(id)date endDate:(id)endDate allowSinglePointIntersection:(BOOL)intersection
+{
+  intersectionCopy = intersection;
+  endDateCopy = endDate;
+  dateCopy = date;
+  rangeCopy = range;
+  startDate = [rangeCopy startDate];
+  endDate = [rangeCopy endDate];
+
+  LOBYTE(intersectionCopy) = [CalDateRange rangesIntersectWithStartDate1:startDate endDate1:endDate startDate2:dateCopy endDate2:endDateCopy allowSinglePointIntersection:intersectionCopy];
+  return intersectionCopy;
+}
+
 - (BOOL)intersectsRangeWithStartDate:(id)date endDate:(id)endDate
 {
   endDateCopy = endDate;
@@ -475,6 +518,18 @@ LABEL_10:
   v10 = [CalDateRange rangesIntersectWithStartDate1:startDate endDate1:endDate startDate2:dateCopy endDate2:endDateCopy];
 
   return v10;
+}
+
+- (BOOL)intersectsRangeWithStartDate:(id)date endDate:(id)endDate allowSinglePointIntersection:(BOOL)intersection
+{
+  intersectionCopy = intersection;
+  endDateCopy = endDate;
+  dateCopy = date;
+  startDate = [(CalDateRange *)self startDate];
+  endDate = [(CalDateRange *)self endDate];
+  LOBYTE(intersectionCopy) = [CalDateRange rangesIntersectWithStartDate1:startDate endDate1:endDate startDate2:dateCopy endDate2:endDateCopy allowSinglePointIntersection:intersectionCopy];
+
+  return intersectionCopy;
 }
 
 + (BOOL)rangesIntersectWithStartDate1:(id)date1 endDate1:(id)endDate1 startDate2:(id)date2 endDate2:(id)endDate2 allowSinglePointIntersection:(BOOL)intersection

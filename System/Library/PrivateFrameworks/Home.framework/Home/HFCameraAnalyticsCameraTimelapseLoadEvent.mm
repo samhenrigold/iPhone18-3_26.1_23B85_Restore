@@ -6,7 +6,7 @@
 
 - (id)sendEventForState:(unint64_t)state
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   startDate = [(HFCameraAnalyticsEvent *)self startDate];
   [date timeIntervalSinceDate:startDate];
@@ -17,16 +17,14 @@
   processName = [processInfo processName];
 
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:state];
-  v16[0] = HFCameraAnalyticsLoadState;
-  v16[1] = HFCameraAnalyticsProcessName;
-  v17[0] = v12;
-  v17[1] = processName;
-  v16[2] = HFCameraAnalyticsLatency;
-  v17[2] = v9;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v15[0] = HFCameraAnalyticsLoadState;
+  v15[1] = HFCameraAnalyticsProcessName;
+  v16[0] = v12;
+  v16[1] = processName;
+  v15[2] = HFCameraAnalyticsLatency;
+  v16[2] = v9;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
   [HFCameraAnalyticsEventHandler sendEventNamed:@"com.apple.Home.CameraClipTimelapseLoad" payload:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

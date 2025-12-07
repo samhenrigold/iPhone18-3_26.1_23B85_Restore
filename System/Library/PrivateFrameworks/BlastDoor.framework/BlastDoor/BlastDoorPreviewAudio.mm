@@ -7,8 +7,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorPreviewAudio_previewAudio);
-  v5 = *&self->previewAudio[OBJC_IVAR___BlastDoorPreviewAudio_previewAudio];
 
   sub_2146D9608();
   v2 = sub_2146D9588();

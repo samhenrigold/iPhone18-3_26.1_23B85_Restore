@@ -31,11 +31,11 @@
   v10 = [(HDCloudSyncZoneIdentifier *)&v32 init];
   if (v10)
   {
-    v11 = [zoneCopy copy];
+    v11 = objc_msgSend_copy(zoneCopy);
     zoneIdentifier = v10->_zoneIdentifier;
     v10->_zoneIdentifier = v11;
 
-    v13 = [containerCopy copy];
+    v13 = objc_msgSend_copy(containerCopy);
     containerIdentifier = v10->_containerIdentifier;
     v10->_containerIdentifier = v13;
 

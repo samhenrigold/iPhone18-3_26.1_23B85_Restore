@@ -64,7 +64,7 @@ LABEL_6:
 
 - (id)cmsCoded
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:4];
   absoluteString = [(NSURL *)self->_URL absoluteString];
   [v3 cmsSetOptionalObject:absoluteString forKey:@"url"];
@@ -83,18 +83,16 @@ LABEL_6:
     underlyingErrors2 = [(NSError *)self->_error underlyingErrors];
     firstObject = [underlyingErrors2 firstObject];
 
-    v16[0] = @"errorCode";
+    v15[0] = @"errorCode";
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(firstObject, "code")}];
-    v16[1] = @"errorDomain";
-    v17[0] = v11;
+    v15[1] = @"errorDomain";
+    v16[0] = v11;
     domain2 = [firstObject domain];
-    v17[1] = domain2;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v16[1] = domain2;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     [v3 setObject:v13 forKeyedSubscript:@"underlyingError"];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

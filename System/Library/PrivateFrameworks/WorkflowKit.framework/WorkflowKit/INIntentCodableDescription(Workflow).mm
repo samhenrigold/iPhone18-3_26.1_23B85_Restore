@@ -75,36 +75,36 @@
 
 - (id)wf_actionParameterDefinitionsWithOverrides:()Workflow
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v46 = a3;
+  v60 = *MEMORY[0x1E69E9840];
+  v45 = a3;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v6 = v4;
   selfCopy = self;
   displayOrderedAttributes = [self displayOrderedAttributes];
-  v8 = [displayOrderedAttributes countByEnumeratingWithState:&v53 objects:v60 count:16];
+  v8 = [displayOrderedAttributes countByEnumeratingWithState:&v52 objects:v59 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v54;
+    v10 = *v53;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v54 != v10)
+        if (*v53 != v10)
         {
           objc_enumerationMutation(displayOrderedAttributes);
         }
 
-        v12 = *(*(&v53 + 1) + 8 * i);
+        v12 = *(*(&v52 + 1) + 8 * i);
         if ([v12 isConfigurable])
         {
           propertyName = [v12 propertyName];
-          v14 = [v46 objectForKeyedSubscript:propertyName];
+          v14 = [v45 objectForKeyedSubscript:propertyName];
           v15 = v14;
           if (v14)
           {
@@ -146,35 +146,35 @@
         }
       }
 
-      v9 = [displayOrderedAttributes countByEnumeratingWithState:&v53 objects:v60 count:16];
+      v9 = [displayOrderedAttributes countByEnumeratingWithState:&v52 objects:v59 count:16];
     }
 
     while (v9);
   }
 
-  v43 = v6;
+  v42 = v6;
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = [selfCopy displayOrderedAttributes];
-  v25 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+  v25 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v50;
+    v27 = *v49;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v50 != v27)
+        if (*v49 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v49 + 1) + 8 * j);
-        v30 = [selfCopy wf_relationResourceDefinitionForAttribute:v29 parameters:v5 overrides:v46];
+        v29 = *(*(&v48 + 1) + 8 * j);
+        v30 = [selfCopy wf_relationResourceDefinitionForAttribute:v29 parameters:v5 overrides:v45];
         if (v30)
         {
           propertyName4 = [v29 propertyName];
@@ -185,30 +185,28 @@
           v35 = [v33 initWithArray:v34];
 
           [v35 addObject:v30];
-          v57 = @"RequiredResources";
-          v58 = v35;
-          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          v56 = @"RequiredResources";
+          v57 = v35;
+          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
           v37 = [v32 definitionByAddingEntriesInDictionary:v36];
           propertyName5 = [v29 propertyName];
           [v5 setObject:v37 forKeyedSubscript:propertyName5];
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+      v26 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
     }
 
     while (v26);
   }
 
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __83__INIntentCodableDescription_Workflow__wf_actionParameterDefinitionsWithOverrides___block_invoke;
-  v47[3] = &unk_1E83760B0;
-  v48 = v5;
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __83__INIntentCodableDescription_Workflow__wf_actionParameterDefinitionsWithOverrides___block_invoke;
+  v46[3] = &unk_1E83760B0;
+  v47 = v5;
   v39 = v5;
-  v40 = [v43 if_map:v47];
-
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = [v42 if_map:v46];
 
   return v40;
 }

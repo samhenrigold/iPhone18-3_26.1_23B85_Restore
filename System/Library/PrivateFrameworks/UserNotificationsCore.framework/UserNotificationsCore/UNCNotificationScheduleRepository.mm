@@ -81,10 +81,7 @@ uint64_t __51__UNCNotificationScheduleRepository__dateFormatter__block_invoke()
 
 uint64_t __57__UNCNotificationScheduleRepository_allBundleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allKeys];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -117,10 +114,7 @@ uint64_t __57__UNCNotificationScheduleRepository_allBundleIdentifiers__block_inv
 
 uint64_t __65__UNCNotificationScheduleRepository_scheduleForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_scheduleForBundleIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_scheduleForBundleIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -172,47 +166,45 @@ uint64_t __65__UNCNotificationScheduleRepository_scheduleForBundleIdentifier___b
 
 void __69__UNCNotificationScheduleRepository_notificationSourcesDidUninstall___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v10 + 1) + 8 * v6) bundleIdentifier];
+        v8 = [*(*(&v9 + 1) + 8 * v6) bundleIdentifier];
         [v7 _queue_removeScheduleForBundleIdentifier:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_scheduleForBundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(UNCKeyedDictionaryRepository *)self->_repository dictionaryForKey:identifierCopy];
   if (v5)
@@ -240,14 +232,12 @@ void __69__UNCNotificationScheduleRepository_notificationSourcesDidUninstall___b
   v10 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543618;
-    v14 = identifierCopy;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_1DA7A9000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Load last local notification fire date: %{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = identifierCopy;
+    v14 = 2114;
+    v15 = v9;
+    _os_log_impl(&dword_1DA7A9000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Load last local notification fire date: %{public}@", &v12, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

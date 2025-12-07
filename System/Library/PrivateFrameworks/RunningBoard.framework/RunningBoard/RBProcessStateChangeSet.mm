@@ -20,50 +20,49 @@
 
 - (RBProcessStateChangeSet)initWithChanges:(id)changes
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
-  v22.receiver = self;
-  v22.super_class = RBProcessStateChangeSet;
-  v5 = [(RBProcessStateChangeSet *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = RBProcessStateChangeSet;
+  v5 = [(RBProcessStateChangeSet *)&v21 init];
   if (v5)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     stateChangesByIdentity = v5->_stateChangesByIdentity;
     v5->_stateChangesByIdentity = dictionary;
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = changesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           v14 = v5->_stateChangesByIdentity;
           identity = [v13 identity];
           [(NSMutableDictionary *)v14 setObject:v13 forKey:identity];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v10);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -88,27 +87,27 @@
 
 - (void)applyChanges:(id)changes
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [changesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [changesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(changesCopy);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         stateChangesByIdentity = self->_stateChangesByIdentity;
         identity = [v9 identity];
         v12 = [(NSMutableDictionary *)stateChangesByIdentity objectForKey:identity];
@@ -137,13 +136,11 @@
         }
       }
 
-      v6 = [changesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [changesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count

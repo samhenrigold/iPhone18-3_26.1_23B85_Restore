@@ -152,7 +152,7 @@
       [titleLabel setFont:v17];
 
       v18 = self->_okButton;
-      v19 = +[UIColor blackColor];
+      v19 = objc_msgSend_blackColor(UIColor);
       [(UIButton *)v18 setTitleShadowColor:v19 forState:0];
 
       [(UIButton *)self->_okButton setTitleColor:v6 forState:2];
@@ -410,7 +410,7 @@
       [(UIView *)self addSubview:v28];
       [(UIView *)v28 addSubview:v29];
       [v29 setUndoEnabled:0];
-      v30 = +[UIColor blackColor];
+      v30 = objc_msgSend_blackColor(UIColor);
       [v29 setTextColor:v30];
 
       [v29 setTextCentersVertically:1];

@@ -72,7 +72,7 @@
 
 - (id)specifiers
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -90,8 +90,8 @@
       self->_shouldCalculateUsage = 0;
     }
 
-    v17[0] = self->_groupSpecifier;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = self->_groupSpecifier;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     appDataUsageGroup = [(CTUIWirelessUsageAndAppPolicyController *)self appDataUsageGroup];
     specifiers = [appDataUsageGroup specifiers];
     v10 = [v7 arrayByAddingObjectsFromArray:specifiers];
@@ -106,23 +106,22 @@
   [v12 logSpecifiers:v13 origin:@"[CTUIWirelessUsageAndAppPolicyController specifiers] end"];
 
   v14 = *(&self->super.super.super.super.super.isa + v3);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)simStatusDidChange:(id)change status:(id)status
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [*MEMORY[0x277CC3F00] isEqualToString:status];
   getLogger = [(CTUIWirelessUsageAndAppPolicyController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[CTUIWirelessUsageAndAppPolicyController simStatusDidChange:status:]";
-    v10 = 1024;
-    v11 = v5;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s with simReady %d", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "[CTUIWirelessUsageAndAppPolicyController simStatusDidChange:status:]";
+    v9 = 1024;
+    v10 = v5;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s with simReady %d", &v7, 0x12u);
   }
 
   if (v5)
@@ -130,8 +129,6 @@
     self->_shouldCalculateUsage = 1;
     [(CTUIWirelessUsageAndAppPolicyController *)self reloadSpecifiers];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCellularPlanChangedNotification:(id)notification

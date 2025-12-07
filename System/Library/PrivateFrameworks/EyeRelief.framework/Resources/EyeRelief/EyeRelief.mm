@@ -310,14 +310,13 @@ uint64_t sub_100002738(uint64_t a1, uint64_t a2)
   v4 = [*(a1 + 32) engine];
   [v4 processInterventionOutcome:a2];
 
-  v5 = *(a1 + 32);
   [objc_opt_class() reportAnalyticsInterventionOutcome:a2];
-  v6 = [NSString stringWithFormat:@"EyeReliefUI has exited with outcome %li. Now scheduling next sample", a2];
-  [ERLogging log:v6 withType:0];
+  v5 = [NSString stringWithFormat:@"EyeReliefUI has exited with outcome %li. Now scheduling next sample", a2];
+  [ERLogging log:v5 withType:0];
 
-  v7 = *(*(a1 + 40) + 16);
+  v6 = *(*(a1 + 40) + 16);
 
-  return v7();
+  return v6();
 }
 
 uint64_t sub_100002A64(uint64_t a1, void *a2)
@@ -359,22 +358,17 @@ id sub_100002CB4(uint64_t a1)
 
 void sub_100002DDC(uint64_t a1)
 {
-  v2 = +[ACAccountStore defaultStore];
-  v3 = [v2 aa_primaryAppleAccount];
+  v1 = +[ACAccountStore defaultStore];
+  v2 = [v1 aa_primaryAppleAccount];
 
-  if (v3)
+  if (v2)
   {
-    v4 = [[NSSet alloc] initWithArray:&off_100008BF8];
-    v5 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v3 aa_ageCategory]);
-    v6 = [v4 containsObject:v5];
+    v3 = [[NSSet alloc] initWithArray:&off_100008BF8];
+    v4 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v2 aa_ageCategory]);
+    [v3 containsObject:v4];
 
-    if ((*(a1 + 32) & 1) != 0 || v6 != 1)
-    {
-      *(a1 + 32);
-    }
-
-    v7 = [NSString stringWithFormat:@"Gathering analytics for Eye Relief toggle."];
-    [ERLogging log:v7 withType:0];
+    v5 = [NSString stringWithFormat:@"Gathering analytics for Eye Relief toggle."];
+    [ERLogging log:v5 withType:0];
 
     AnalyticsSendEventLazy();
   }

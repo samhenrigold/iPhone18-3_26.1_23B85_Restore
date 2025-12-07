@@ -17,11 +17,12 @@
   v3 = *&self->_UINavigationBarTitleView_opaque[OBJC_IVAR____TtC8AppStore16ProductTitleView_iconTapHandler];
   if (v3)
   {
+    v4 = *&self->iconTitleView[OBJC_IVAR____TtC8AppStore16ProductTitleView_iconTapHandler];
     selfCopy = self;
-    v5 = sub_10000827C(v3);
-    v3(v5);
+    v6 = sub_10000827C(v3, v4);
+    v3(v6);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 }
 

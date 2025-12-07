@@ -137,11 +137,10 @@
     v4 = 0;
     do
     {
-      spriteColumnCount = self->_spriteColumnCount;
-      v6 = MEMORY[0x277CCAE60];
+      v5 = MEMORY[0x277CCAE60];
       UIRectGetCenter();
-      v7 = [v6 valueWithCGPoint:?];
-      [v3 addObject:v7];
+      v6 = [v5 valueWithCGPoint:?];
+      [v3 addObject:v6];
 
       ++v4;
     }

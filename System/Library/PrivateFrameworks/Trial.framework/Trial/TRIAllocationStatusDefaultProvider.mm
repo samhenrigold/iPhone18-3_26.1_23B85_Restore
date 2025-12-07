@@ -1,10 +1,13 @@
 @interface TRIAllocationStatusDefaultProvider
+- (BOOL)enumerateActiveExperimentsForEnvironment:(int)environment error:(id *)error block:(id)block;
 - (BOOL)enumerateActiveRolloutsWithError:(id *)error block:(id)block;
+- (BOOL)enumerateSampledActiveExperimentsForEnvironment:(int)environment correlationID:(id)d error:(id *)error block:(id)block;
 - (BOOL)enumerateSampledActiveRolloutsForCorrelationID:(id)d error:(id *)error block:(id)block;
 - (BOOL)isOptedOutOfExperimentation;
 - (BOOL)removeUpdateHandlerForToken:(id)token;
 - (id)_defaultQueue;
 - (id)activeExperimentInformationWithEnvironments:(id)environments error:(id *)error;
+- (id)addStatusUpdateHandlerForEnvironment:(int)environment queue:(id)queue block:(id)block;
 - (id)enumerateExperimentStatusesForEnvironment:(int)environment startingFromCursor:(id)cursor error:(id *)error block:(id)block;
 - (id)initForTrialdSystem:(BOOL)system;
 - (void)dealloc;
@@ -134,38 +137,36 @@
 
 void __45__TRIAllocationStatusDefaultProvider_dealloc__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a2 + 8);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        notify_cancel([*(*(&v8 + 1) + 8 * v6++) intValue]);
+        notify_cancel([*(*(&v7 + 1) + 8 * v6++) intValue]);
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_defaultQueue
@@ -192,7 +193,7 @@ void __51__TRIAllocationStatusDefaultProvider__defaultQueue__block_invoke()
 
 - (id)enumerateExperimentStatusesForEnvironment:(int)environment startingFromCursor:(id)cursor error:(id *)error block:(id)block
 {
-  v110[1] = *MEMORY[0x277D85DE8];
+  v109[1] = *MEMORY[0x277D85DE8];
   cursorCopy = cursor;
   blockCopy = block;
   if (!blockCopy)
@@ -204,21 +205,21 @@ void __51__TRIAllocationStatusDefaultProvider__defaultQueue__block_invoke()
   if (+[TRIMisc unsafeFirstAuthenticationState])
   {
     v8 = dispatch_semaphore_create(0);
-    *v100 = 0;
-    v101 = v100;
-    v102 = 0x3032000000;
-    v103 = __Block_byref_object_copy__7;
-    v104 = __Block_byref_object_dispose__7;
-    v105 = 0;
-    v97[0] = MEMORY[0x277D85DD0];
-    v97[1] = 3221225472;
-    v97[2] = __111__TRIAllocationStatusDefaultProvider_enumerateExperimentStatusesForEnvironment_startingFromCursor_error_block___block_invoke;
-    v97[3] = &unk_27885EE28;
-    v99 = v100;
-    v55 = v8;
-    v98 = v55;
-    v49 = MEMORY[0x2318F2490](v97);
-    v56 = [(_PASXPCClientHelper *)self->_clientHelper remoteObjectProxyWithErrorHandler:v49];
+    *v99 = 0;
+    v100 = v99;
+    v101 = 0x3032000000;
+    v102 = __Block_byref_object_copy__7;
+    v103 = __Block_byref_object_dispose__7;
+    v104 = 0;
+    v96[0] = MEMORY[0x277D85DD0];
+    v96[1] = 3221225472;
+    v96[2] = __111__TRIAllocationStatusDefaultProvider_enumerateExperimentStatusesForEnvironment_startingFromCursor_error_block___block_invoke;
+    v96[3] = &unk_27885EE28;
+    v98 = v99;
+    v54 = v8;
+    v97 = v54;
+    v48 = MEMORY[0x2318F2490](v96);
+    v55 = [(_PASXPCClientHelper *)self->_clientHelper remoteObjectProxyWithErrorHandler:v48];
     if (cursorCopy)
     {
       [cursorCopy date];
@@ -228,54 +229,54 @@ void __51__TRIAllocationStatusDefaultProvider__defaultQueue__block_invoke()
     {
       [MEMORY[0x277CBEAA8] distantPast];
     }
-    v58 = ;
+    v57 = ;
     v11 = 0;
-    v51 = *MEMORY[0x277CCA450];
+    v50 = *MEMORY[0x277CCA450];
     while (1)
     {
       if (v11)
       {
         v45 = [TRIAllocationStatusCursor alloc];
-        [v58 timeIntervalSince1970];
+        [v57 timeIntervalSince1970];
         v10 = [(TRIAllocationStatusCursor *)v45 initWithSecondsFromEpoch:?];
         goto LABEL_52;
       }
 
-      v91 = 0;
-      v92 = &v91;
-      v93 = 0x3032000000;
-      v94 = __Block_byref_object_copy__7;
-      v95 = __Block_byref_object_dispose__7;
-      v96 = 0;
-      v85 = 0;
-      v86 = &v85;
-      v87 = 0x3032000000;
-      v88 = __Block_byref_object_copy__7;
-      v89 = __Block_byref_object_dispose__7;
       v90 = 0;
-      v79 = 0;
-      v80 = &v79;
-      v81 = 0x3032000000;
-      v82 = __Block_byref_object_copy__7;
-      v83 = __Block_byref_object_dispose__7;
+      v91 = &v90;
+      v92 = 0x3032000000;
+      v93 = __Block_byref_object_copy__7;
+      v94 = __Block_byref_object_dispose__7;
+      v95 = 0;
       v84 = 0;
-      v73 = 0;
-      v74 = &v73;
-      v75 = 0x3032000000;
-      v76 = __Block_byref_object_copy__7;
-      v77 = __Block_byref_object_dispose__7;
+      v85 = &v84;
+      v86 = 0x3032000000;
+      v87 = __Block_byref_object_copy__7;
+      v88 = __Block_byref_object_dispose__7;
+      v89 = 0;
       v78 = 0;
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __111__TRIAllocationStatusDefaultProvider_enumerateExperimentStatusesForEnvironment_startingFromCursor_error_block___block_invoke_2;
-      v67[3] = &unk_27885EE50;
-      v12 = v55;
-      v68 = v12;
-      v69 = &v91;
-      v70 = &v85;
-      v71 = &v79;
-      v72 = &v73;
-      [v56 experimentHistoryRecordsWithLimit:100 newerThanDate:v58 deploymentEnvironment:environment completion:v67];
+      v79 = &v78;
+      v80 = 0x3032000000;
+      v81 = __Block_byref_object_copy__7;
+      v82 = __Block_byref_object_dispose__7;
+      v83 = 0;
+      v72 = 0;
+      v73 = &v72;
+      v74 = 0x3032000000;
+      v75 = __Block_byref_object_copy__7;
+      v76 = __Block_byref_object_dispose__7;
+      v77 = 0;
+      v66[0] = MEMORY[0x277D85DD0];
+      v66[1] = 3221225472;
+      v66[2] = __111__TRIAllocationStatusDefaultProvider_enumerateExperimentStatusesForEnvironment_startingFromCursor_error_block___block_invoke_2;
+      v66[3] = &unk_27885EE50;
+      v12 = v54;
+      v67 = v12;
+      v68 = &v90;
+      v69 = &v84;
+      v70 = &v78;
+      v71 = &v72;
+      [v55 experimentHistoryRecordsWithLimit:100 newerThanDate:v57 deploymentEnvironment:environment completion:v66];
       if ([MEMORY[0x277D425A0] waitForSemaphore:v12 timeoutSeconds:10.0])
       {
         v13 = MEMORY[0x277CCACA8];
@@ -285,9 +286,9 @@ void __51__TRIAllocationStatusDefaultProvider__defaultQueue__block_invoke()
         if (error)
         {
           v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v109 = v51;
-          v110[0] = v15;
-          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v110 forKeys:&v109 count:1];
+          v108 = v50;
+          v109[0] = v15;
+          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v109 forKeys:&v108 count:1];
           *error = [v16 initWithDomain:@"TRIGeneralErrorDomain" code:7 userInfo:v17];
         }
 
@@ -296,14 +297,14 @@ void __51__TRIAllocationStatusDefaultProvider__defaultQueue__block_invoke()
         {
           v44 = NSStringFromSelector(a2);
           *buf = 138412290;
-          v108 = v44;
+          v107 = v44;
           _os_log_error_impl(&dword_22EA6B000, v18, OS_LOG_TYPE_ERROR, "Timeout while attempting to invoke method on TRIXPCStatusServiceProtocol proxy object from: %@.", buf, 0xCu);
         }
       }
 
       else
       {
-        v20 = *(v101 + 5);
+        v20 = *(v100 + 5);
         if (v20)
         {
           if (error)
@@ -319,29 +320,29 @@ LABEL_25:
 
         else
         {
-          if (v92[5])
+          if (v91[5])
           {
-            v22 = v74[5];
+            v22 = v73[5];
             if (v22)
             {
               v23 = v22;
 
-              v58 = v23;
+              v57 = v23;
             }
 
-            v62 = +[TRIAllocationStatus internalToExternalStatusMapping];
+            v61 = +[TRIAllocationStatus internalToExternalStatusMapping];
             buf[0] = 0;
-            v65 = 0u;
-            v66 = 0u;
-            v63 = 0u;
             v64 = 0u;
-            obj = v92[5];
-            v24 = [obj countByEnumeratingWithState:&v63 objects:v106 count:16];
+            v65 = 0u;
+            v62 = 0u;
+            v63 = 0u;
+            obj = v91[5];
+            v24 = [obj countByEnumeratingWithState:&v62 objects:v105 count:16];
             if (!v24)
             {
 LABEL_48:
 
-              v42 = [v80[5] intValue] < 0x64;
+              v42 = [v79[5] intValue] < 0x64;
               v43 = buf[0];
 
               v11 = v42 | v43;
@@ -349,21 +350,21 @@ LABEL_48:
               goto LABEL_20;
             }
 
-            v60 = *v64;
+            v59 = *v63;
             while (2)
             {
               v25 = 0;
-              v61 = v24;
+              v60 = v24;
 LABEL_32:
-              if (*v64 != v60)
+              if (*v63 != v59)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v26 = *(*(&v63 + 1) + 8 * v25);
+              v26 = *(*(&v62 + 1) + 8 * v25);
               v27 = objc_autoreleasePoolPush();
               v28 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{objc_msgSend(v26, "eventType")}];
-              v29 = [v62 objectForKeyedSubscript:v28];
+              v29 = [v61 objectForKeyedSubscript:v28];
               intValue = [v29 intValue];
 
               if (!intValue)
@@ -402,7 +403,7 @@ LABEL_32:
                   eventDate2 = [v26 eventDate];
 
                   v41 = 6;
-                  v58 = eventDate2;
+                  v57 = eventDate2;
                 }
 
                 else
@@ -425,9 +426,9 @@ LABEL_40:
                 goto LABEL_48;
               }
 
-              if (v61 == ++v25)
+              if (v60 == ++v25)
               {
-                v24 = [obj countByEnumeratingWithState:&v63 objects:v106 count:16];
+                v24 = [obj countByEnumeratingWithState:&v62 objects:v105 count:16];
                 if (!v24)
                 {
                   goto LABEL_48;
@@ -442,7 +443,7 @@ LABEL_40:
 
           if (error)
           {
-            v21 = v86[5];
+            v21 = v85[5];
             goto LABEL_25;
           }
         }
@@ -452,18 +453,18 @@ LABEL_40:
       v19 = 0;
 LABEL_20:
 
-      _Block_object_dispose(&v73, 8);
-      _Block_object_dispose(&v79, 8);
+      _Block_object_dispose(&v72, 8);
+      _Block_object_dispose(&v78, 8);
 
-      _Block_object_dispose(&v85, 8);
-      _Block_object_dispose(&v91, 8);
+      _Block_object_dispose(&v84, 8);
+      _Block_object_dispose(&v90, 8);
 
       if ((v19 & 1) == 0)
       {
         v10 = 0;
 LABEL_52:
 
-        _Block_object_dispose(v100, 8);
+        _Block_object_dispose(v99, 8);
         goto LABEL_53;
       }
     }
@@ -472,8 +473,8 @@ LABEL_52:
   v9 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    *v100 = 0;
-    _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, "unable to enumerate experiment statuses while device is class C locked", v100, 2u);
+    *v99 = 0;
+    _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, "unable to enumerate experiment statuses while device is class C locked", v99, 2u);
   }
 
   if (error)
@@ -488,8 +489,6 @@ LABEL_52:
   }
 
 LABEL_53:
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -527,6 +526,193 @@ void __111__TRIAllocationStatusDefaultProvider_enumerateExperimentStatusesForEnv
   }
 }
 
+- (BOOL)enumerateActiveExperimentsForEnvironment:(int)environment error:(id *)error block:(id)block
+{
+  v6 = *&environment;
+  v71 = *MEMORY[0x277D85DE8];
+  blockCopy = block;
+  if (!blockCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:305 description:{@"Invalid parameter not satisfying: %@", @"block"}];
+  }
+
+  if (+[TRIMisc unsafeFirstAuthenticationState])
+  {
+    v10 = dispatch_semaphore_create(0);
+    *v65 = 0;
+    v66 = v65;
+    v67 = 0x3032000000;
+    v68 = __Block_byref_object_copy__7;
+    v69 = __Block_byref_object_dispose__7;
+    v70 = 0;
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvironment_error_block___block_invoke;
+    v57[3] = &unk_27885EE28;
+    v59 = v65;
+    v11 = v10;
+    v58 = v11;
+    v12 = MEMORY[0x2318F2490](v57);
+    v13 = [(_PASXPCClientHelper *)self->_clientHelper remoteObjectProxyWithErrorHandler:v12];
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__7;
+    v55 = __Block_byref_object_dispose__7;
+    v56 = 0;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__7;
+    v49 = __Block_byref_object_dispose__7;
+    v50 = 0;
+    v14 = objc_autoreleasePoolPush();
+    v15 = objc_alloc(MEMORY[0x277CBEB98]);
+    v16 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    v17 = [v15 initWithObjects:{v16, 0}];
+
+    objc_autoreleasePoolPop(v14);
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvironment_error_block___block_invoke_2;
+    v41[3] = &unk_27885EE78;
+    v18 = v11;
+    v42 = v18;
+    v43 = &v45;
+    v44 = &v51;
+    [v13 experimentRecordsWithDeploymentEnvironments:v17 completion:v41];
+
+    if ([MEMORY[0x277D425A0] waitForSemaphore:v18 timeoutSeconds:10.0])
+    {
+      v19 = MEMORY[0x277CCACA8];
+      v20 = NSStringFromSelector(a2);
+      v21 = [v19 stringWithFormat:@"Timeout while attempting to invoke method on TRIXPCStatusServiceProtocol proxy object from: %@.", v20];
+
+      if (error)
+      {
+        v22 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v63 = *MEMORY[0x277CCA450];
+        v64 = v21;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+        *error = [v22 initWithDomain:@"TRIGeneralErrorDomain" code:7 userInfo:v23];
+      }
+
+      v24 = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        v35 = NSStringFromSelector(a2);
+        *buf = 138412290;
+        v62 = v35;
+        _os_log_error_impl(&dword_22EA6B000, v24, OS_LOG_TYPE_ERROR, "Timeout while attempting to invoke method on TRIXPCStatusServiceProtocol proxy object from: %@.", buf, 0xCu);
+      }
+
+      goto LABEL_10;
+    }
+
+    v27 = *(v66 + 5);
+    if (v27)
+    {
+      if (!error)
+      {
+LABEL_10:
+        v25 = 0;
+LABEL_11:
+
+        _Block_object_dispose(&v45, 8);
+        _Block_object_dispose(&v51, 8);
+
+        _Block_object_dispose(v65, 8);
+        goto LABEL_21;
+      }
+
+      v28 = v27;
+    }
+
+    else
+    {
+      v30 = v52[5];
+      if (v30)
+      {
+        buf[0] = 0;
+        v37 = 0u;
+        v38 = 0u;
+        v39 = 0u;
+        v40 = 0u;
+        v31 = v30;
+        v32 = [v31 countByEnumeratingWithState:&v37 objects:v60 count:16];
+        if (v32)
+        {
+          v33 = *v38;
+LABEL_25:
+          v34 = 0;
+          while (1)
+          {
+            if (*v38 != v33)
+            {
+              objc_enumerationMutation(v31);
+            }
+
+            blockCopy[2](blockCopy, *(*(&v37 + 1) + 8 * v34), buf);
+            if (buf[0])
+            {
+              break;
+            }
+
+            if (v32 == ++v34)
+            {
+              v32 = [v31 countByEnumeratingWithState:&v37 objects:v60 count:16];
+              if (v32)
+              {
+                goto LABEL_25;
+              }
+
+              break;
+            }
+          }
+        }
+
+        v25 = 1;
+        goto LABEL_11;
+      }
+
+      if (!error)
+      {
+        goto LABEL_10;
+      }
+
+      v28 = v46[5];
+    }
+
+    v25 = 0;
+    *error = v28;
+    goto LABEL_11;
+  }
+
+  v26 = TRILogCategory_ClientFramework();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  {
+    *v65 = 67240192;
+    *&v65[4] = qos_class_self();
+    _os_log_error_impl(&dword_22EA6B000, v26, OS_LOG_TYPE_ERROR, "unable to enumerate active experiments while device is class C locked qos:%{public}u", v65, 8u);
+  }
+
+  if (error)
+  {
+    [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:5 userInfo:0];
+    *error = v25 = 0;
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+LABEL_21:
+
+  return v25;
+}
+
 void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvironment_error_block___block_invoke(uint64_t a1, void *a2)
 {
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -536,42 +722,42 @@ void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvir
 
 void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvironment_error_block___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v33 = a2;
-  v31 = a3;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvironment_error_block___block_invoke_3;
-  v49[3] = &unk_27885E190;
-  v34 = a1;
-  v50 = *(a1 + 32);
-  v32 = MEMORY[0x2318F2490](v49);
-  if (v33)
+  v52 = *MEMORY[0x277D85DE8];
+  v32 = a2;
+  v30 = a3;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvironment_error_block___block_invoke_3;
+  v48[3] = &unk_27885E190;
+  v33 = a1;
+  v49 = *(a1 + 32);
+  v31 = MEMORY[0x2318F2490](v48);
+  if (v32)
   {
     v5 = objc_opt_new();
     v6 = *(*(a1 + 48) + 8);
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    obj = v33;
-    v39 = [obj countByEnumeratingWithState:&v45 objects:v52 count:{16, v31}];
-    if (v39)
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    obj = v32;
+    v38 = [obj countByEnumeratingWithState:&v44 objects:v51 count:{16, v30}];
+    if (v38)
     {
-      v38 = *v46;
+      v37 = *v45;
       do
       {
-        for (i = 0; i != v39; ++i)
+        for (i = 0; i != v38; ++i)
         {
-          if (*v46 != v38)
+          if (*v45 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v45 + 1) + 8 * i);
+          v8 = *(*(&v44 + 1) + 8 * i);
           if ([v8 status] == 1)
           {
             v9 = [v8 treatmentId];
@@ -580,45 +766,45 @@ void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvir
             if (!v10)
             {
               v11 = objc_opt_new();
-              v43 = 0u;
-              v44 = 0u;
-              v41 = 0u;
               v42 = 0u;
+              v43 = 0u;
+              v40 = 0u;
+              v41 = 0u;
               v12 = [v8 namespaces];
-              v13 = [v12 countByEnumeratingWithState:&v41 objects:v51 count:16];
+              v13 = [v12 countByEnumeratingWithState:&v40 objects:v50 count:16];
               if (v13)
               {
-                v14 = *v42;
+                v14 = *v41;
                 do
                 {
                   for (j = 0; j != v13; ++j)
                   {
-                    if (*v42 != v14)
+                    if (*v41 != v14)
                     {
                       objc_enumerationMutation(v12);
                     }
 
-                    v16 = *(*(&v41 + 1) + 8 * j);
+                    v16 = *(*(&v40 + 1) + 8 * j);
                     v17 = [TRIVersionedNamespace alloc];
                     v18 = [v16 name];
                     v19 = -[TRIVersionedNamespace initWithName:compatibilityVersion:](v17, "initWithName:compatibilityVersion:", v18, [v16 compatibilityVersion]);
                     [v11 addObject:v19];
                   }
 
-                  v13 = [v12 countByEnumeratingWithState:&v41 objects:v51 count:16];
+                  v13 = [v12 countByEnumeratingWithState:&v40 objects:v50 count:16];
                 }
 
                 while (v13);
               }
 
-              v37 = *(*(*(v34 + 48) + 8) + 40);
+              v36 = *(*(*(v33 + 48) + 8) + 40);
               v20 = [TRIExperimentAllocationStatus alloc];
               v21 = [v8 startDate];
               v22 = v21;
               if (!v21)
               {
-                v35 = objc_opt_new();
-                v22 = v35;
+                v34 = objc_opt_new();
+                v22 = v34;
               }
 
               v23 = [v8 experimentDeployment];
@@ -627,7 +813,7 @@ void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvir
               v26 = [v25 deploymentId];
               v27 = [v8 treatmentId];
               v28 = [(TRIExperimentAllocationStatus *)v20 initWithType:2 date:v22 experimentId:v24 deploymentId:v26 treatmentId:v27 namespaces:v11];
-              [v37 addObject:v28];
+              [v36 addObject:v28];
 
               if (!v21)
               {
@@ -636,10 +822,10 @@ void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvir
           }
         }
 
-        v39 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+        v38 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
       }
 
-      while (v39);
+      while (v38);
     }
   }
 
@@ -648,19 +834,97 @@ void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvir
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   }
 
-  v29 = v32;
-  if (v32)
+  v29 = v31;
+  if (v31)
   {
-    (*(v32 + 2))();
-    v29 = v32;
+    (*(v31 + 2))();
+    v29 = v31;
+  }
+}
+
+- (BOOL)enumerateSampledActiveExperimentsForEnvironment:(int)environment correlationID:(id)d error:(id *)error block:(id)block
+{
+  v8 = *&environment;
+  v35 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  blockCopy = block;
+  if (!blockCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:392 description:{@"Invalid parameter not satisfying: %@", @"block"}];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__7;
+  v32 = __Block_byref_object_dispose__7;
+  v33 = objc_opt_new();
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __112__TRIAllocationStatusDefaultProvider_enumerateSampledActiveExperimentsForEnvironment_correlationID_error_block___block_invoke;
+  v27[3] = &unk_27885EEA0;
+  v27[4] = &v28;
+  [(TRIAllocationStatusDefaultProvider *)self enumerateActiveExperimentsForEnvironment:v8 error:error block:v27];
+  if (v8 || [MEMORY[0x277D42590] isInternalBuild])
+  {
+    v13 = v29[5];
+  }
+
+  else
+  {
+    v13 = [TRIAllocationStatus sampleAllocationStatuses:v29[5] correlationId:dCopy nrSamples:2];
+  }
+
+  v26 = 0;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v14 = v13;
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  if (v15)
+  {
+    v16 = *v23;
+LABEL_8:
+    v17 = 0;
+    while (1)
+    {
+      if (*v23 != v16)
+      {
+        objc_enumerationMutation(v14);
+      }
+
+      v18 = *(*(&v22 + 1) + 8 * v17);
+      v19 = objc_autoreleasePoolPush();
+      blockCopy[2](blockCopy, v18, &v26);
+      LOBYTE(v18) = v26;
+      objc_autoreleasePoolPop(v19);
+      if (v18)
+      {
+        break;
+      }
+
+      if (v15 == ++v17)
+      {
+        v15 = [v14 countByEnumeratingWithState:&v22 objects:v34 count:16];
+        if (v15)
+        {
+          goto LABEL_8;
+        }
+
+        break;
+      }
+    }
+  }
+
+  _Block_object_dispose(&v28, 8);
+  return 1;
 }
 
 - (BOOL)enumerateActiveRolloutsWithError:(id *)error block:(id)block
 {
-  v65[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -671,42 +935,42 @@ void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvir
   if (+[TRIMisc unsafeFirstAuthenticationState])
   {
     v8 = dispatch_semaphore_create(0);
-    *v55 = 0;
-    v56 = v55;
-    v57 = 0x3032000000;
-    v58 = __Block_byref_object_copy__7;
-    v59 = __Block_byref_object_dispose__7;
-    v60 = 0;
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __77__TRIAllocationStatusDefaultProvider_enumerateActiveRolloutsWithError_block___block_invoke;
-    v52[3] = &unk_27885EE28;
-    v54 = v55;
+    *v54 = 0;
+    v55 = v54;
+    v56 = 0x3032000000;
+    v57 = __Block_byref_object_copy__7;
+    v58 = __Block_byref_object_dispose__7;
+    v59 = 0;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __77__TRIAllocationStatusDefaultProvider_enumerateActiveRolloutsWithError_block___block_invoke;
+    v51[3] = &unk_27885EE28;
+    v53 = v54;
     v9 = v8;
-    v53 = v9;
-    v10 = MEMORY[0x2318F2490](v52);
+    v52 = v9;
+    v10 = MEMORY[0x2318F2490](v51);
     v11 = [(_PASXPCClientHelper *)self->_clientHelper remoteObjectProxyWithErrorHandler:v10];
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x3032000000;
-    v49 = __Block_byref_object_copy__7;
-    v50 = __Block_byref_object_dispose__7;
-    v51 = 0;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x3032000000;
-    v43 = __Block_byref_object_copy__7;
-    v44 = __Block_byref_object_dispose__7;
     v45 = 0;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __77__TRIAllocationStatusDefaultProvider_enumerateActiveRolloutsWithError_block___block_invoke_2;
-    v36[3] = &unk_27885EE78;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__7;
+    v49 = __Block_byref_object_dispose__7;
+    v50 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = __Block_byref_object_copy__7;
+    v43 = __Block_byref_object_dispose__7;
+    v44 = 0;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __77__TRIAllocationStatusDefaultProvider_enumerateActiveRolloutsWithError_block___block_invoke_2;
+    v35[3] = &unk_27885EE78;
     v12 = v9;
-    v37 = v12;
-    v38 = &v40;
-    v39 = &v46;
-    [v11 rolloutAllocationStatusWithCompletion:v36];
+    v36 = v12;
+    v37 = &v39;
+    v38 = &v45;
+    [v11 rolloutAllocationStatusWithCompletion:v35];
     if ([MEMORY[0x277D425A0] waitForSemaphore:v12 timeoutSeconds:10.0])
     {
       v13 = MEMORY[0x277CCACA8];
@@ -716,25 +980,25 @@ void __91__TRIAllocationStatusDefaultProvider_enumerateActiveExperimentsForEnvir
       if (error)
       {
         v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v64 = *MEMORY[0x277CCA450];
-        v65[0] = v15;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:&v64 count:1];
+        v63 = *MEMORY[0x277CCA450];
+        v64[0] = v15;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:&v63 count:1];
         *error = [v16 initWithDomain:@"TRIGeneralErrorDomain" code:7 userInfo:v17];
       }
 
       v18 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v30 = NSStringFromSelector(a2);
+        v29 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v63 = v30;
+        v62 = v29;
         _os_log_error_impl(&dword_22EA6B000, v18, OS_LOG_TYPE_ERROR, "Timeout while attempting to invoke method on TRIXPCStatusServiceProtocol proxy object from: %@.", buf, 0xCu);
       }
 
       goto LABEL_10;
     }
 
-    v21 = *(v56 + 5);
+    v21 = *(v55 + 5);
     if (v21)
     {
       if (!error)
@@ -743,10 +1007,10 @@ LABEL_10:
         v19 = 0;
 LABEL_11:
 
-        _Block_object_dispose(&v40, 8);
-        _Block_object_dispose(&v46, 8);
+        _Block_object_dispose(&v39, 8);
+        _Block_object_dispose(&v45, 8);
 
-        _Block_object_dispose(v55, 8);
+        _Block_object_dispose(v54, 8);
         goto LABEL_21;
       }
 
@@ -755,38 +1019,38 @@ LABEL_11:
 
     else
     {
-      v25 = v47[5];
-      if (v25)
+      v24 = v46[5];
+      if (v24)
       {
         buf[0] = 0;
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
-        v26 = v25;
-        v27 = [v26 countByEnumeratingWithState:&v32 objects:v61 count:16];
-        if (v27)
+        v25 = v24;
+        v26 = [v25 countByEnumeratingWithState:&v31 objects:v60 count:16];
+        if (v26)
         {
-          v28 = *v33;
+          v27 = *v32;
 LABEL_25:
-          v29 = 0;
+          v28 = 0;
           while (1)
           {
-            if (*v33 != v28)
+            if (*v32 != v27)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v25);
             }
 
-            blockCopy[2](blockCopy, *(*(&v32 + 1) + 8 * v29), buf);
+            blockCopy[2](blockCopy, *(*(&v31 + 1) + 8 * v28), buf);
             if (buf[0])
             {
               break;
             }
 
-            if (v27 == ++v29)
+            if (v26 == ++v28)
             {
-              v27 = [v26 countByEnumeratingWithState:&v32 objects:v61 count:16];
-              if (v27)
+              v26 = [v25 countByEnumeratingWithState:&v31 objects:v60 count:16];
+              if (v26)
               {
                 goto LABEL_25;
               }
@@ -805,7 +1069,7 @@ LABEL_25:
         goto LABEL_10;
       }
 
-      v22 = v41[5];
+      v22 = v40[5];
     }
 
     v19 = 0;
@@ -816,8 +1080,8 @@ LABEL_25:
   v20 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    *v55 = 0;
-    _os_log_error_impl(&dword_22EA6B000, v20, OS_LOG_TYPE_ERROR, "unable to enumerate active rollouts while device is class C locked", v55, 2u);
+    *v54 = 0;
+    _os_log_error_impl(&dword_22EA6B000, v20, OS_LOG_TYPE_ERROR, "unable to enumerate active rollouts while device is class C locked", v54, 2u);
   }
 
   if (error)
@@ -833,7 +1097,6 @@ LABEL_25:
 
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -879,7 +1142,7 @@ void __77__TRIAllocationStatusDefaultProvider_enumerateActiveRolloutsWithError_b
 
 - (BOOL)enumerateSampledActiveRolloutsForCorrelationID:(id)d error:(id *)error block:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   if (!blockCopy)
@@ -888,51 +1151,51 @@ void __77__TRIAllocationStatusDefaultProvider_enumerateActiveRolloutsWithError_b
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:497 description:{@"Invalid parameter not satisfying: %@", @"block"}];
   }
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__7;
-  v31 = __Block_byref_object_dispose__7;
-  v32 = objc_opt_new();
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __97__TRIAllocationStatusDefaultProvider_enumerateSampledActiveRolloutsForCorrelationID_error_block___block_invoke;
-  v26[3] = &unk_27885EEC8;
-  v26[4] = &v27;
-  [(TRIAllocationStatusDefaultProvider *)self enumerateActiveRolloutsWithError:error block:v26];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__7;
+  v30 = __Block_byref_object_dispose__7;
+  v31 = objc_opt_new();
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __97__TRIAllocationStatusDefaultProvider_enumerateSampledActiveRolloutsForCorrelationID_error_block___block_invoke;
+  v25[3] = &unk_27885EEC8;
+  v25[4] = &v26;
+  [(TRIAllocationStatusDefaultProvider *)self enumerateActiveRolloutsWithError:error block:v25];
   if ([MEMORY[0x277D42590] isInternalBuild])
   {
-    v11 = v28[5];
+    v11 = v27[5];
   }
 
   else
   {
-    v11 = [TRIAllocationStatus sampleAllocationStatuses:v28[5] correlationId:dCopy nrSamples:2];
+    v11 = [TRIAllocationStatus sampleAllocationStatuses:v27[5] correlationId:dCopy nrSamples:2];
   }
 
-  v25 = 0;
+  v24 = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v33 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v32 count:16];
   if (v13)
   {
-    v14 = *v22;
+    v14 = *v21;
 LABEL_8:
     v15 = 0;
     while (1)
     {
-      if (*v22 != v14)
+      if (*v21 != v14)
       {
         objc_enumerationMutation(v12);
       }
 
-      v16 = *(*(&v21 + 1) + 8 * v15);
+      v16 = *(*(&v20 + 1) + 8 * v15);
       v17 = objc_autoreleasePoolPush();
-      blockCopy[2](blockCopy, v16, &v25);
-      LOBYTE(v16) = v25;
+      blockCopy[2](blockCopy, v16, &v24);
+      LOBYTE(v16) = v24;
       objc_autoreleasePoolPop(v17);
       if (v16)
       {
@@ -941,7 +1204,7 @@ LABEL_8:
 
       if (v13 == ++v15)
       {
-        v13 = [v12 countByEnumeratingWithState:&v21 objects:v33 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v20 objects:v32 count:16];
         if (v13)
         {
           goto LABEL_8;
@@ -952,9 +1215,61 @@ LABEL_8:
     }
   }
 
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
   return 1;
+}
+
+- (id)addStatusUpdateHandlerForEnvironment:(int)environment queue:(id)queue block:(id)block
+{
+  v6 = *&environment;
+  queueCopy = queue;
+  blockCopy = block;
+  if (!blockCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:529 description:{@"Invalid parameter not satisfying: %@", @"block"}];
+  }
+
+  v11 = [TRIAllocationStatus notificationNameForDeploymentEnvironment:v6];
+  if (v11)
+  {
+    if (!queueCopy)
+    {
+      queueCopy = [(TRIAllocationStatusDefaultProvider *)self _defaultQueue];
+    }
+
+    out_token = 0;
+    uTF8String = [v11 UTF8String];
+    handler[0] = MEMORY[0x277D85DD0];
+    handler[1] = 3221225472;
+    handler[2] = __87__TRIAllocationStatusDefaultProvider_addStatusUpdateHandlerForEnvironment_queue_block___block_invoke;
+    handler[3] = &unk_27885ECF8;
+    v21 = blockCopy;
+    if (notify_register_dispatch(uTF8String, &out_token, queueCopy, handler))
+    {
+      v13 = 0;
+    }
+
+    else
+    {
+      lock = self->_lock;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __87__TRIAllocationStatusDefaultProvider_addStatusUpdateHandlerForEnvironment_queue_block___block_invoke_2;
+      v18[3] = &__block_descriptor_36_e48_v16__0__TRIAllocationStatusProviderGuardedData_8l;
+      v19 = out_token;
+      [(_PASLock *)lock runWithLockAcquired:v18];
+      v15 = [TRINotificationState alloc];
+      v13 = [(TRINotificationState *)v15 initWithToken:out_token];
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 void __87__TRIAllocationStatusDefaultProvider_addStatusUpdateHandlerForEnvironment_queue_block___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -1006,36 +1321,36 @@ void __66__TRIAllocationStatusDefaultProvider_removeUpdateHandlerForToken___bloc
 
 - (id)activeExperimentInformationWithEnvironments:(id)environments error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   environmentsCopy = environments;
   if (+[TRIMisc unsafeFirstAuthenticationState])
   {
     *buf = 0;
-    v23 = buf;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__7;
-    v26 = __Block_byref_object_dispose__7;
-    v27 = 0;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __88__TRIAllocationStatusDefaultProvider_activeExperimentInformationWithEnvironments_error___block_invoke;
-    v21[3] = &unk_27885EF10;
-    v21[4] = buf;
-    v7 = MEMORY[0x2318F2490](v21);
+    v22 = buf;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__7;
+    v25 = __Block_byref_object_dispose__7;
+    v26 = 0;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __88__TRIAllocationStatusDefaultProvider_activeExperimentInformationWithEnvironments_error___block_invoke;
+    v20[3] = &unk_27885EF10;
+    v20[4] = buf;
+    v7 = MEMORY[0x2318F2490](v20);
     v8 = [(_PASXPCClientHelper *)self->_internalHelper synchronousRemoteObjectProxyWithErrorHandler:v7];
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__7;
-    v19 = __Block_byref_object_dispose__7;
-    v20 = 0;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __88__TRIAllocationStatusDefaultProvider_activeExperimentInformationWithEnvironments_error___block_invoke_2;
-    v14[3] = &unk_27885EF38;
-    v14[4] = &v15;
-    [v8 activeExperimentInformationWithEnvironments:environmentsCopy completion:v14];
-    v9 = *(v23 + 5);
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__7;
+    v18 = __Block_byref_object_dispose__7;
+    v19 = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __88__TRIAllocationStatusDefaultProvider_activeExperimentInformationWithEnvironments_error___block_invoke_2;
+    v13[3] = &unk_27885EF38;
+    v13[4] = &v14;
+    [v8 activeExperimentInformationWithEnvironments:environmentsCopy completion:v13];
+    v9 = *(v22 + 5);
     if (v9)
     {
       v10 = 0;
@@ -1047,10 +1362,10 @@ void __66__TRIAllocationStatusDefaultProvider_removeUpdateHandlerForToken___bloc
 
     else
     {
-      v10 = v16[5];
+      v10 = v15[5];
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v14, 8);
 
     _Block_object_dispose(buf, 8);
   }
@@ -1077,50 +1392,48 @@ void __66__TRIAllocationStatusDefaultProvider_removeUpdateHandlerForToken___bloc
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (BOOL)isOptedOutOfExperimentation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (+[TRIMisc unsafeFirstAuthenticationState])
   {
     *buf = 0;
-    v16 = buf;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__7;
-    v19 = __Block_byref_object_dispose__7;
-    v20 = 0;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __65__TRIAllocationStatusDefaultProvider_isOptedOutOfExperimentation__block_invoke;
-    v14[3] = &unk_27885EF10;
-    v14[4] = buf;
-    v3 = MEMORY[0x2318F2490](v14);
+    v15 = buf;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__7;
+    v18 = __Block_byref_object_dispose__7;
+    v19 = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __65__TRIAllocationStatusDefaultProvider_isOptedOutOfExperimentation__block_invoke;
+    v13[3] = &unk_27885EF10;
+    v13[4] = buf;
+    v3 = MEMORY[0x2318F2490](v13);
     v4 = [(_PASXPCClientHelper *)self->_internalHelper synchronousRemoteObjectProxyWithErrorHandler:v3];
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
-    v13 = 0;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __65__TRIAllocationStatusDefaultProvider_isOptedOutOfExperimentation__block_invoke_2;
-    v9[3] = &unk_27885EF60;
-    v9[4] = &v10;
-    [v4 isOptedOutOfExperimentationWithCompletion:v9];
-    if (*(v16 + 5))
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x2020000000;
+    v12 = 0;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __65__TRIAllocationStatusDefaultProvider_isOptedOutOfExperimentation__block_invoke_2;
+    v8[3] = &unk_27885EF60;
+    v8[4] = &v9;
+    [v4 isOptedOutOfExperimentationWithCompletion:v8];
+    if (*(v15 + 5))
     {
       v5 = 0;
     }
 
     else
     {
-      v5 = *(v11 + 24);
+      v5 = *(v10 + 24);
     }
 
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(&v9, 8);
 
     _Block_object_dispose(buf, 8);
   }
@@ -1138,7 +1451,6 @@ void __66__TRIAllocationStatusDefaultProvider_removeUpdateHandlerForToken___bloc
     v5 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 

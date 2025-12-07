@@ -1,4 +1,4 @@
-void sub_2702EC3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, std::__shared_weak_count *a23)
+void sub_2702EC3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, char a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, std::__shared_weak_count *a23)
 {
   if (a12)
   {
@@ -16,15 +16,15 @@ void sub_2702EC3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(UC::SUE::UCSegmentedURLCoderProvider *this@<X0>, void *a2@<X8>)
+void UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(uint64_t *__return_ptr a1@<X8>, UC::SUE::UCSegmentedURLCoderProvider *this@<X0>)
 {
-  *(&v128 + 1) = *MEMORY[0x277D85DE8];
+  *(&v127 + 1) = *MEMORY[0x277D85DE8];
   v4 = *(this + 11);
   if (v4)
   {
     v5 = *(this + 12);
-    *a2 = v4;
-    a2[1] = v5;
+    *a1 = v4;
+    a1[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -33,168 +33,166 @@ void UC::SUE::UCSegmentedURLCoderProvider::getTLDFixedLengthCoder(UC::SUE::UCSeg
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v14, ".co");
-    std::string::basic_string[abi:ne200100]<0>(v15, ".es");
-    std::string::basic_string[abi:ne200100]<0>(v16, ".ch");
-    std::string::basic_string[abi:ne200100]<0>(v17, ".eu");
-    std::string::basic_string[abi:ne200100]<0>(v18, ".io");
-    std::string::basic_string[abi:ne200100]<0>(v19, ".vn");
-    std::string::basic_string[abi:ne200100]<0>(v20, ".be");
-    std::string::basic_string[abi:ne200100]<0>(v21, ".at");
-    std::string::basic_string[abi:ne200100]<0>(v22, ".ua");
-    std::string::basic_string[abi:ne200100]<0>(v23, ".cz");
-    std::string::basic_string[abi:ne200100]<0>(v24, ".gov");
-    std::string::basic_string[abi:ne200100]<0>(v25, ".tv");
-    std::string::basic_string[abi:ne200100]<0>(v26, ".gr");
-    std::string::basic_string[abi:ne200100]<0>(v27, ".cf");
-    std::string::basic_string[abi:ne200100]<0>(v28, ".kr");
-    std::string::basic_string[abi:ne200100]<0>(v29, ".tw");
-    std::string::basic_string[abi:ne200100]<0>(v30, ".me");
-    std::string::basic_string[abi:ne200100]<0>(v31, ".biz");
-    std::string::basic_string[abi:ne200100]<0>(v32, ".site");
-    std::string::basic_string[abi:ne200100]<0>(v33, ".se");
-    std::string::basic_string[abi:ne200100]<0>(v34, ".tr");
-    std::string::basic_string[abi:ne200100]<0>(v35, ".id");
-    std::string::basic_string[abi:ne200100]<0>(v36, ".mx");
-    std::string::basic_string[abi:ne200100]<0>(v37, ".wang");
-    std::string::basic_string[abi:ne200100]<0>(v38, ".hu");
-    std::string::basic_string[abi:ne200100]<0>(v39, ".nz");
-    std::string::basic_string[abi:ne200100]<0>(v40, ".ro");
-    std::string::basic_string[abi:ne200100]<0>(v41, ".cc");
-    std::string::basic_string[abi:ne200100]<0>(v42, ".top");
-    std::string::basic_string[abi:ne200100]<0>(v43, ".club");
-    std::string::basic_string[abi:ne200100]<0>(v44, ".dk");
-    std::string::basic_string[abi:ne200100]<0>(v45, ".ie");
-    std::string::basic_string[abi:ne200100]<0>(v46, ".za");
-    std::string::basic_string[abi:ne200100]<0>(v47, ".ar");
-    std::string::basic_string[abi:ne200100]<0>(v48, ".no");
-    std::string::basic_string[abi:ne200100]<0>(v49, ".online");
-    std::string::basic_string[abi:ne200100]<0>(v50, ".cl");
-    std::string::basic_string[abi:ne200100]<0>(v51, ".tk");
-    std::string::basic_string[abi:ne200100]<0>(v52, ".fi");
-    std::string::basic_string[abi:ne200100]<0>(v53, ".my");
-    std::string::basic_string[abi:ne200100]<0>(v54, ".hk");
-    std::string::basic_string[abi:ne200100]<0>(v55, ".sk");
-    std::string::basic_string[abi:ne200100]<0>(v56, ".il");
-    std::string::basic_string[abi:ne200100]<0>(v57, ".pt");
-    std::string::basic_string[abi:ne200100]<0>(v58, ".th");
-    std::string::basic_string[abi:ne200100]<0>(v59, ".nu");
-    std::string::basic_string[abi:ne200100]<0>(v60, ".sg");
-    std::string::basic_string[abi:ne200100]<0>(v61, ".kz");
-    std::string::basic_string[abi:ne200100]<0>(v62, ".by");
-    std::string::basic_string[abi:ne200100]<0>(v63, ".pk");
-    std::string::basic_string[abi:ne200100]<0>(v64, ".su");
-    std::string::basic_string[abi:ne200100]<0>(v65, ".to");
-    std::string::basic_string[abi:ne200100]<0>(v66, ".ph");
-    std::string::basic_string[abi:ne200100]<0>(v67, ".live");
-    std::string::basic_string[abi:ne200100]<0>(v68, ".ae");
-    std::string::basic_string[abi:ne200100]<0>(v69, ".space");
-    std::string::basic_string[abi:ne200100]<0>(v70, ".mobi");
-    std::string::basic_string[abi:ne200100]<0>(v71, ".ai");
-    std::string::basic_string[abi:ne200100]<0>(v72, ".app");
-    std::string::basic_string[abi:ne200100]<0>(v73, ".is");
-    std::string::basic_string[abi:ne200100]<0>(v74, ".news");
-    std::string::basic_string[abi:ne200100]<0>(v75, ".name");
-    std::string::basic_string[abi:ne200100]<0>(v76, ".tech");
-    std::string::basic_string[abi:ne200100]<0>(v77, ".vip");
-    std::string::basic_string[abi:ne200100]<0>(v78, ".fun");
-    std::string::basic_string[abi:ne200100]<0>(v79, ".network");
-    std::string::basic_string[abi:ne200100]<0>(v80, ".cloud");
-    std::string::basic_string[abi:ne200100]<0>(v81, ".lu");
-    std::string::basic_string[abi:ne200100]<0>(v82, ".am");
-    std::string::basic_string[abi:ne200100]<0>(v83, ".website");
-    std::string::basic_string[abi:ne200100]<0>(v84, ".jobs");
-    std::string::basic_string[abi:ne200100]<0>(v85, ".life");
-    std::string::basic_string[abi:ne200100]<0>(v86, ".win");
-    std::string::basic_string[abi:ne200100]<0>(v87, ".ly");
-    std::string::basic_string[abi:ne200100]<0>(v88, ".do");
-    std::string::basic_string[abi:ne200100]<0>(v89, ".tn");
-    std::string::basic_string[abi:ne200100]<0>(v90, ".md");
-    std::string::basic_string[abi:ne200100]<0>(v91, ".shop");
-    std::string::basic_string[abi:ne200100]<0>(v92, ".store");
-    std::string::basic_string[abi:ne200100]<0>(v93, ".media");
-    std::string::basic_string[abi:ne200100]<0>(v94, ".world");
-    std::string::basic_string[abi:ne200100]<0>(v95, ".travel");
-    std::string::basic_string[abi:ne200100]<0>(v96, ".work");
-    std::string::basic_string[abi:ne200100]<0>(v97, ".int");
-    std::string::basic_string[abi:ne200100]<0>(v98, ".qa");
-    std::string::basic_string[abi:ne200100]<0>(v99, ".global");
-    std::string::basic_string[abi:ne200100]<0>(v100, ".company");
-    std::string::basic_string[abi:ne200100]<0>(v101, ".host");
-    std::string::basic_string[abi:ne200100]<0>(v102, ".wiki");
-    std::string::basic_string[abi:ne200100]<0>(v103, ".stream");
-    std::string::basic_string[abi:ne200100]<0>(v104, ".gt");
-    std::string::basic_string[abi:ne200100]<0>(v105, ".py");
-    std::string::basic_string[abi:ne200100]<0>(v106, ".video");
-    std::string::basic_string[abi:ne200100]<0>(v107, ".bid");
-    std::string::basic_string[abi:ne200100]<0>(v108, ".cm");
-    std::string::basic_string[abi:ne200100]<0>(v109, ".mo");
-    std::string::basic_string[abi:ne200100]<0>(v110, ".tel");
-    std::string::basic_string[abi:ne200100]<0>(v111, ".digital");
-    std::string::basic_string[abi:ne200100]<0>(v112, ".center");
-    std::string::basic_string[abi:ne200100]<0>(v113, ".plus");
-    std::string::basic_string[abi:ne200100]<0>(v114, ".ltd");
-    std::string::basic_string[abi:ne200100]<0>(v115, ".services");
-    std::string::basic_string[abi:ne200100]<0>(v116, ".so");
-    std::string::basic_string[abi:ne200100]<0>(v117, ".tt");
-    std::string::basic_string[abi:ne200100]<0>(v118, ".support");
-    std::string::basic_string[abi:ne200100]<0>(v119, ".pub");
-    std::string::basic_string[abi:ne200100]<0>(v120, ".help");
-    std::string::basic_string[abi:ne200100]<0>(v121, ".gl");
-    std::string::basic_string[abi:ne200100]<0>(v122, ".museum");
-    std::string::basic_string[abi:ne200100]<0>(v123, ".pm");
-    std::string::basic_string[abi:ne200100]<0>(v124, ".business");
-    std::string::basic_string[abi:ne200100]<0>(v125, ".bike");
-    std::string::basic_string[abi:ne200100]<0>(v126, ".loan");
-    std::string::basic_string[abi:ne200100]<0>(v127, ".estate");
-    memset(&v13, 0, sizeof(v13));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v13, &v14, &v128, 0x72uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v13, ".co");
+    std::string::basic_string[abi:ne200100]<0>(v14, ".es");
+    std::string::basic_string[abi:ne200100]<0>(v15, ".ch");
+    std::string::basic_string[abi:ne200100]<0>(v16, ".eu");
+    std::string::basic_string[abi:ne200100]<0>(v17, ".io");
+    std::string::basic_string[abi:ne200100]<0>(v18, ".vn");
+    std::string::basic_string[abi:ne200100]<0>(v19, ".be");
+    std::string::basic_string[abi:ne200100]<0>(v20, ".at");
+    std::string::basic_string[abi:ne200100]<0>(v21, ".ua");
+    std::string::basic_string[abi:ne200100]<0>(v22, ".cz");
+    std::string::basic_string[abi:ne200100]<0>(v23, ".gov");
+    std::string::basic_string[abi:ne200100]<0>(v24, ".tv");
+    std::string::basic_string[abi:ne200100]<0>(v25, ".gr");
+    std::string::basic_string[abi:ne200100]<0>(v26, ".cf");
+    std::string::basic_string[abi:ne200100]<0>(v27, ".kr");
+    std::string::basic_string[abi:ne200100]<0>(v28, ".tw");
+    std::string::basic_string[abi:ne200100]<0>(v29, ".me");
+    std::string::basic_string[abi:ne200100]<0>(v30, ".biz");
+    std::string::basic_string[abi:ne200100]<0>(v31, ".site");
+    std::string::basic_string[abi:ne200100]<0>(v32, ".se");
+    std::string::basic_string[abi:ne200100]<0>(v33, ".tr");
+    std::string::basic_string[abi:ne200100]<0>(v34, ".id");
+    std::string::basic_string[abi:ne200100]<0>(v35, ".mx");
+    std::string::basic_string[abi:ne200100]<0>(v36, ".wang");
+    std::string::basic_string[abi:ne200100]<0>(v37, ".hu");
+    std::string::basic_string[abi:ne200100]<0>(v38, ".nz");
+    std::string::basic_string[abi:ne200100]<0>(v39, ".ro");
+    std::string::basic_string[abi:ne200100]<0>(v40, ".cc");
+    std::string::basic_string[abi:ne200100]<0>(v41, ".top");
+    std::string::basic_string[abi:ne200100]<0>(v42, ".club");
+    std::string::basic_string[abi:ne200100]<0>(v43, ".dk");
+    std::string::basic_string[abi:ne200100]<0>(v44, ".ie");
+    std::string::basic_string[abi:ne200100]<0>(v45, ".za");
+    std::string::basic_string[abi:ne200100]<0>(v46, ".ar");
+    std::string::basic_string[abi:ne200100]<0>(v47, ".no");
+    std::string::basic_string[abi:ne200100]<0>(v48, ".online");
+    std::string::basic_string[abi:ne200100]<0>(v49, ".cl");
+    std::string::basic_string[abi:ne200100]<0>(v50, ".tk");
+    std::string::basic_string[abi:ne200100]<0>(v51, ".fi");
+    std::string::basic_string[abi:ne200100]<0>(v52, ".my");
+    std::string::basic_string[abi:ne200100]<0>(v53, ".hk");
+    std::string::basic_string[abi:ne200100]<0>(v54, ".sk");
+    std::string::basic_string[abi:ne200100]<0>(v55, ".il");
+    std::string::basic_string[abi:ne200100]<0>(v56, ".pt");
+    std::string::basic_string[abi:ne200100]<0>(v57, ".th");
+    std::string::basic_string[abi:ne200100]<0>(v58, ".nu");
+    std::string::basic_string[abi:ne200100]<0>(v59, ".sg");
+    std::string::basic_string[abi:ne200100]<0>(v60, ".kz");
+    std::string::basic_string[abi:ne200100]<0>(v61, ".by");
+    std::string::basic_string[abi:ne200100]<0>(v62, ".pk");
+    std::string::basic_string[abi:ne200100]<0>(v63, ".su");
+    std::string::basic_string[abi:ne200100]<0>(v64, ".to");
+    std::string::basic_string[abi:ne200100]<0>(v65, ".ph");
+    std::string::basic_string[abi:ne200100]<0>(v66, ".live");
+    std::string::basic_string[abi:ne200100]<0>(v67, ".ae");
+    std::string::basic_string[abi:ne200100]<0>(v68, ".space");
+    std::string::basic_string[abi:ne200100]<0>(v69, ".mobi");
+    std::string::basic_string[abi:ne200100]<0>(v70, ".ai");
+    std::string::basic_string[abi:ne200100]<0>(v71, ".app");
+    std::string::basic_string[abi:ne200100]<0>(v72, ".is");
+    std::string::basic_string[abi:ne200100]<0>(v73, ".news");
+    std::string::basic_string[abi:ne200100]<0>(v74, ".name");
+    std::string::basic_string[abi:ne200100]<0>(v75, ".tech");
+    std::string::basic_string[abi:ne200100]<0>(v76, ".vip");
+    std::string::basic_string[abi:ne200100]<0>(v77, ".fun");
+    std::string::basic_string[abi:ne200100]<0>(v78, ".network");
+    std::string::basic_string[abi:ne200100]<0>(v79, ".cloud");
+    std::string::basic_string[abi:ne200100]<0>(v80, ".lu");
+    std::string::basic_string[abi:ne200100]<0>(v81, ".am");
+    std::string::basic_string[abi:ne200100]<0>(v82, ".website");
+    std::string::basic_string[abi:ne200100]<0>(v83, ".jobs");
+    std::string::basic_string[abi:ne200100]<0>(v84, ".life");
+    std::string::basic_string[abi:ne200100]<0>(v85, ".win");
+    std::string::basic_string[abi:ne200100]<0>(v86, ".ly");
+    std::string::basic_string[abi:ne200100]<0>(v87, ".do");
+    std::string::basic_string[abi:ne200100]<0>(v88, ".tn");
+    std::string::basic_string[abi:ne200100]<0>(v89, ".md");
+    std::string::basic_string[abi:ne200100]<0>(v90, ".shop");
+    std::string::basic_string[abi:ne200100]<0>(v91, ".store");
+    std::string::basic_string[abi:ne200100]<0>(v92, ".media");
+    std::string::basic_string[abi:ne200100]<0>(v93, ".world");
+    std::string::basic_string[abi:ne200100]<0>(v94, ".travel");
+    std::string::basic_string[abi:ne200100]<0>(v95, ".work");
+    std::string::basic_string[abi:ne200100]<0>(v96, ".int");
+    std::string::basic_string[abi:ne200100]<0>(v97, ".qa");
+    std::string::basic_string[abi:ne200100]<0>(v98, ".global");
+    std::string::basic_string[abi:ne200100]<0>(v99, ".company");
+    std::string::basic_string[abi:ne200100]<0>(v100, ".host");
+    std::string::basic_string[abi:ne200100]<0>(v101, ".wiki");
+    std::string::basic_string[abi:ne200100]<0>(v102, ".stream");
+    std::string::basic_string[abi:ne200100]<0>(v103, ".gt");
+    std::string::basic_string[abi:ne200100]<0>(v104, ".py");
+    std::string::basic_string[abi:ne200100]<0>(v105, ".video");
+    std::string::basic_string[abi:ne200100]<0>(v106, ".bid");
+    std::string::basic_string[abi:ne200100]<0>(v107, ".cm");
+    std::string::basic_string[abi:ne200100]<0>(v108, ".mo");
+    std::string::basic_string[abi:ne200100]<0>(v109, ".tel");
+    std::string::basic_string[abi:ne200100]<0>(v110, ".digital");
+    std::string::basic_string[abi:ne200100]<0>(v111, ".center");
+    std::string::basic_string[abi:ne200100]<0>(v112, ".plus");
+    std::string::basic_string[abi:ne200100]<0>(v113, ".ltd");
+    std::string::basic_string[abi:ne200100]<0>(v114, ".services");
+    std::string::basic_string[abi:ne200100]<0>(v115, ".so");
+    std::string::basic_string[abi:ne200100]<0>(v116, ".tt");
+    std::string::basic_string[abi:ne200100]<0>(v117, ".support");
+    std::string::basic_string[abi:ne200100]<0>(v118, ".pub");
+    std::string::basic_string[abi:ne200100]<0>(v119, ".help");
+    std::string::basic_string[abi:ne200100]<0>(v120, ".gl");
+    std::string::basic_string[abi:ne200100]<0>(v121, ".museum");
+    std::string::basic_string[abi:ne200100]<0>(v122, ".pm");
+    std::string::basic_string[abi:ne200100]<0>(v123, ".business");
+    std::string::basic_string[abi:ne200100]<0>(v124, ".bike");
+    std::string::basic_string[abi:ne200100]<0>(v125, ".loan");
+    std::string::basic_string[abi:ne200100]<0>(v126, ".estate");
+    memset(&v12, 0, sizeof(v12));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v12, &v13, &v127, 0x72uLL);
     v6 = 342;
     do
     {
-      if (*(&v15[v6 - 1] - 1) < 0)
+      if (*(&v14[v6 - 1] - 1) < 0)
       {
-        operator delete(v13.__r_.__value_.__r.__words[v6 + 1]);
+        operator delete(v12.__r_.__value_.__r.__words[v6 + 1]);
       }
 
       v6 -= 3;
     }
 
     while (v6 * 8);
-    v12 = 8;
-    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v13, &v11);
-    std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v12, &v11, &v14);
-    v7 = v14;
-    v14 = 0uLL;
+    v11 = 8;
+    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v12, &v10);
+    std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v11, &v10, &v13);
+    v7 = v13;
+    v13 = 0uLL;
     v8 = *(this + 12);
     *(this + 88) = v7;
     if (v8)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      if (*(&v14 + 1))
+      if (*(&v13 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v14 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v13 + 1));
       }
     }
 
-    if (*(&v11 + 1))
+    if (*(&v10 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
     }
 
     v9 = *(this + 12);
-    *a2 = *(this + 11);
-    a2[1] = v9;
+    *a1 = *(this + 11);
+    a1[1] = v9;
     if (v9)
     {
       atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *&v14 = &v13;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v14);
+    *&v13 = &v12;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v13);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2702ED050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void **a17)
@@ -209,15 +207,15 @@ void sub_2702ED050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(UC::SUE::UCSegmentedURLCoderProvider *this@<X0>, void *a2@<X8>)
+void UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(uint64_t *__return_ptr a1@<X8>, UC::SUE::UCSegmentedURLCoderProvider *this@<X0>)
 {
-  *&v55 = *MEMORY[0x277D85DE8];
+  *&v54 = *MEMORY[0x277D85DE8];
   v4 = *(this + 13);
   if (v4)
   {
     v5 = *(this + 14);
-    *a2 = v4;
-    a2[1] = v5;
+    *a1 = v4;
+    a1[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -226,106 +224,104 @@ void UC::SUE::UCSegmentedURLCoderProvider::getHostCoder(UC::SUE::UCSegmentedURLC
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v16, "-");
-    std::string::basic_string[abi:ne200100]<0>(v17, ".");
-    std::string::basic_string[abi:ne200100]<0>(v18, "0");
-    std::string::basic_string[abi:ne200100]<0>(v19, "1");
-    std::string::basic_string[abi:ne200100]<0>(v20, "2");
-    std::string::basic_string[abi:ne200100]<0>(v21, "3");
-    std::string::basic_string[abi:ne200100]<0>(v22, "4");
-    std::string::basic_string[abi:ne200100]<0>(v23, "5");
-    std::string::basic_string[abi:ne200100]<0>(v24, "6");
-    std::string::basic_string[abi:ne200100]<0>(v25, "7");
-    std::string::basic_string[abi:ne200100]<0>(v26, "8");
-    std::string::basic_string[abi:ne200100]<0>(v27, "9");
-    std::string::basic_string[abi:ne200100]<0>(v28, "a");
-    std::string::basic_string[abi:ne200100]<0>(v29, "b");
-    std::string::basic_string[abi:ne200100]<0>(v30, "c");
-    std::string::basic_string[abi:ne200100]<0>(v31, "d");
-    std::string::basic_string[abi:ne200100]<0>(v32, "e");
-    std::string::basic_string[abi:ne200100]<0>(v33, "f");
-    std::string::basic_string[abi:ne200100]<0>(v34, "g");
-    std::string::basic_string[abi:ne200100]<0>(v35, "h");
-    std::string::basic_string[abi:ne200100]<0>(v36, "i");
-    std::string::basic_string[abi:ne200100]<0>(v37, "j");
-    std::string::basic_string[abi:ne200100]<0>(v38, "k");
-    std::string::basic_string[abi:ne200100]<0>(v39, "l");
-    std::string::basic_string[abi:ne200100]<0>(v40, "m");
-    std::string::basic_string[abi:ne200100]<0>(v41, "n");
-    std::string::basic_string[abi:ne200100]<0>(v42, "o");
-    std::string::basic_string[abi:ne200100]<0>(v43, "p");
-    std::string::basic_string[abi:ne200100]<0>(v44, "q");
-    std::string::basic_string[abi:ne200100]<0>(v45, "r");
-    std::string::basic_string[abi:ne200100]<0>(v46, "s");
-    std::string::basic_string[abi:ne200100]<0>(v47, "t");
-    std::string::basic_string[abi:ne200100]<0>(v48, "u");
-    std::string::basic_string[abi:ne200100]<0>(v49, "v");
-    std::string::basic_string[abi:ne200100]<0>(v50, "w");
-    std::string::basic_string[abi:ne200100]<0>(v51, "x");
-    std::string::basic_string[abi:ne200100]<0>(v52, "y");
-    std::string::basic_string[abi:ne200100]<0>(v53, "z");
-    std::string::basic_string[abi:ne200100]<0>(v54, "|");
-    memset(&v15, 0, sizeof(v15));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v15, &v16, &v55, 0x27uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v15, "-");
+    std::string::basic_string[abi:ne200100]<0>(v16, ".");
+    std::string::basic_string[abi:ne200100]<0>(v17, "0");
+    std::string::basic_string[abi:ne200100]<0>(v18, "1");
+    std::string::basic_string[abi:ne200100]<0>(v19, "2");
+    std::string::basic_string[abi:ne200100]<0>(v20, "3");
+    std::string::basic_string[abi:ne200100]<0>(v21, "4");
+    std::string::basic_string[abi:ne200100]<0>(v22, "5");
+    std::string::basic_string[abi:ne200100]<0>(v23, "6");
+    std::string::basic_string[abi:ne200100]<0>(v24, "7");
+    std::string::basic_string[abi:ne200100]<0>(v25, "8");
+    std::string::basic_string[abi:ne200100]<0>(v26, "9");
+    std::string::basic_string[abi:ne200100]<0>(v27, "a");
+    std::string::basic_string[abi:ne200100]<0>(v28, "b");
+    std::string::basic_string[abi:ne200100]<0>(v29, "c");
+    std::string::basic_string[abi:ne200100]<0>(v30, "d");
+    std::string::basic_string[abi:ne200100]<0>(v31, "e");
+    std::string::basic_string[abi:ne200100]<0>(v32, "f");
+    std::string::basic_string[abi:ne200100]<0>(v33, "g");
+    std::string::basic_string[abi:ne200100]<0>(v34, "h");
+    std::string::basic_string[abi:ne200100]<0>(v35, "i");
+    std::string::basic_string[abi:ne200100]<0>(v36, "j");
+    std::string::basic_string[abi:ne200100]<0>(v37, "k");
+    std::string::basic_string[abi:ne200100]<0>(v38, "l");
+    std::string::basic_string[abi:ne200100]<0>(v39, "m");
+    std::string::basic_string[abi:ne200100]<0>(v40, "n");
+    std::string::basic_string[abi:ne200100]<0>(v41, "o");
+    std::string::basic_string[abi:ne200100]<0>(v42, "p");
+    std::string::basic_string[abi:ne200100]<0>(v43, "q");
+    std::string::basic_string[abi:ne200100]<0>(v44, "r");
+    std::string::basic_string[abi:ne200100]<0>(v45, "s");
+    std::string::basic_string[abi:ne200100]<0>(v46, "t");
+    std::string::basic_string[abi:ne200100]<0>(v47, "u");
+    std::string::basic_string[abi:ne200100]<0>(v48, "v");
+    std::string::basic_string[abi:ne200100]<0>(v49, "w");
+    std::string::basic_string[abi:ne200100]<0>(v50, "x");
+    std::string::basic_string[abi:ne200100]<0>(v51, "y");
+    std::string::basic_string[abi:ne200100]<0>(v52, "z");
+    std::string::basic_string[abi:ne200100]<0>(v53, "|");
+    memset(&v14, 0, sizeof(v14));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v14, &v15, &v54, 0x27uLL);
     v6 = 117;
     do
     {
-      if (*(&v17[v6 - 1] - 1) < 0)
+      if (*(&v16[v6 - 1] - 1) < 0)
       {
-        operator delete(v15.__r_.__value_.__r.__words[v6 + 1]);
+        operator delete(v14.__r_.__value_.__r.__words[v6 + 1]);
       }
 
       v6 -= 3;
     }
 
     while (v6 * 8);
-    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v15, &v16);
-    LODWORD(v13) = 2;
-    std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(&v13, &v16, this, &v14);
-    UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(v14);
-    UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency(v14, &v12);
-    v11 = 2;
-    std::allocate_shared[abi:ne200100]<UC::UCMultiContextHuffmanCoder,std::allocator<UC::UCMultiContextHuffmanCoder>,std::shared_ptr<UC::UCMultiContextSymbolFrequencyTrie>,int,0>(&v12, &v11, &v13);
-    v7 = v13;
-    v13 = 0uLL;
+    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v14, &v15);
+    LODWORD(v12) = 2;
+    std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(&v12, &v15, this, &v13);
+    UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(v13);
+    UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency(&v11, v13);
+    v10 = 2;
+    std::allocate_shared[abi:ne200100]<UC::UCMultiContextHuffmanCoder,std::allocator<UC::UCMultiContextHuffmanCoder>,std::shared_ptr<UC::UCMultiContextSymbolFrequencyTrie>,int,0>(&v11, &v10, &v12);
+    v7 = v12;
+    v12 = 0uLL;
     v8 = *(this + 14);
     *(this + 104) = v7;
     if (v8)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      if (*(&v13 + 1))
+      if (*(&v12 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v13 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
       }
     }
 
-    if (*(&v12 + 1))
+    if (*(&v11 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
     }
 
     v9 = *(this + 14);
-    *a2 = *(this + 13);
-    a2[1] = v9;
+    *a1 = *(this + 13);
+    a1[1] = v9;
     if (v9)
     {
       atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
     }
 
-    std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&v14, 0);
-    if (*(&v16 + 1))
+    std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&v13, 0);
+    if (*(&v15 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v16 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v15 + 1));
     }
 
-    *&v16 = &v15;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v16);
+    *&v15 = &v14;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2702ED5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void **a21, std::__shared_weak_count *a22)
+void sub_2702ED5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, std::__shared_weak_count *a23)
 {
   if (a12)
   {
@@ -333,17 +329,17 @@ void sub_2702ED5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&a16, 0);
-  if (a22)
+  if (a23)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a23);
   }
 
-  a21 = &a17;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a21);
+  a22 = &a18;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a22);
   _Unwind_Resume(a1);
 }
 
-void std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(int *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(int *a1@<X0>, std::string::size_type *a2@<X1>, uint64_t a3@<X2>, std::string **a4@<X8>)
 {
   v8 = operator new(0x40uLL);
   v9 = *a1;
@@ -389,15 +385,15 @@ void sub_2702ED758(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::UCSegmentedURLCoderProvider::getCombinedPathAndQueryCoder(UC::SUE::UCSegmentedURLCoderProvider *this@<X0>, void *a2@<X8>)
+void UC::SUE::UCSegmentedURLCoderProvider::getCombinedPathAndQueryCoder(uint64_t *__return_ptr a1@<X8>, UC::SUE::UCSegmentedURLCoderProvider *this@<X0>)
 {
-  *&v91 = *MEMORY[0x277D85DE8];
+  *&v90 = *MEMORY[0x277D85DE8];
   v4 = *(this + 15);
   if (v4)
   {
     v5 = *(this + 16);
-    *a2 = v4;
-    a2[1] = v5;
+    *a1 = v4;
+    a1[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -406,525 +402,112 @@ void UC::SUE::UCSegmentedURLCoderProvider::getCombinedPathAndQueryCoder(UC::SUE:
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v16, "#");
-    std::string::basic_string[abi:ne200100]<0>(v17, "%");
-    std::string::basic_string[abi:ne200100]<0>(v18, "&");
-    std::string::basic_string[abi:ne200100]<0>(v19, "+");
-    std::string::basic_string[abi:ne200100]<0>(v20, ",");
-    std::string::basic_string[abi:ne200100]<0>(v21, "-");
-    std::string::basic_string[abi:ne200100]<0>(v22, ".");
-    std::string::basic_string[abi:ne200100]<0>(v23, "/");
-    std::string::basic_string[abi:ne200100]<0>(v24, "0");
-    std::string::basic_string[abi:ne200100]<0>(v25, "1");
-    std::string::basic_string[abi:ne200100]<0>(v26, "2");
-    std::string::basic_string[abi:ne200100]<0>(v27, "3");
-    std::string::basic_string[abi:ne200100]<0>(v28, "4");
-    std::string::basic_string[abi:ne200100]<0>(v29, "5");
-    std::string::basic_string[abi:ne200100]<0>(v30, "6");
-    std::string::basic_string[abi:ne200100]<0>(v31, "7");
-    std::string::basic_string[abi:ne200100]<0>(v32, "8");
-    std::string::basic_string[abi:ne200100]<0>(v33, "9");
-    std::string::basic_string[abi:ne200100]<0>(v34, ":");
-    std::string::basic_string[abi:ne200100]<0>(v35, ";");
-    std::string::basic_string[abi:ne200100]<0>(v36, "=");
-    std::string::basic_string[abi:ne200100]<0>(v37, "?");
-    std::string::basic_string[abi:ne200100]<0>(v38, "A");
-    std::string::basic_string[abi:ne200100]<0>(v39, "B");
-    std::string::basic_string[abi:ne200100]<0>(v40, "C");
-    std::string::basic_string[abi:ne200100]<0>(v41, "D");
-    std::string::basic_string[abi:ne200100]<0>(v42, "E");
-    std::string::basic_string[abi:ne200100]<0>(v43, "F");
-    std::string::basic_string[abi:ne200100]<0>(v44, "G");
-    std::string::basic_string[abi:ne200100]<0>(v45, "H");
-    std::string::basic_string[abi:ne200100]<0>(v46, "I");
-    std::string::basic_string[abi:ne200100]<0>(v47, "J");
-    std::string::basic_string[abi:ne200100]<0>(v48, "K");
-    std::string::basic_string[abi:ne200100]<0>(v49, "L");
-    std::string::basic_string[abi:ne200100]<0>(v50, "M");
-    std::string::basic_string[abi:ne200100]<0>(v51, "N");
-    std::string::basic_string[abi:ne200100]<0>(v52, "O");
-    std::string::basic_string[abi:ne200100]<0>(v53, "P");
-    std::string::basic_string[abi:ne200100]<0>(v54, "Q");
-    std::string::basic_string[abi:ne200100]<0>(v55, "R");
-    std::string::basic_string[abi:ne200100]<0>(v56, "S");
-    std::string::basic_string[abi:ne200100]<0>(v57, "T");
-    std::string::basic_string[abi:ne200100]<0>(v58, "U");
-    std::string::basic_string[abi:ne200100]<0>(v59, "V");
-    std::string::basic_string[abi:ne200100]<0>(v60, "W");
-    std::string::basic_string[abi:ne200100]<0>(v61, "X");
-    std::string::basic_string[abi:ne200100]<0>(v62, "Y");
-    std::string::basic_string[abi:ne200100]<0>(v63, "Z");
-    std::string::basic_string[abi:ne200100]<0>(v64, "_");
-    std::string::basic_string[abi:ne200100]<0>(v65, "a");
-    std::string::basic_string[abi:ne200100]<0>(v66, "b");
-    std::string::basic_string[abi:ne200100]<0>(v67, "c");
-    std::string::basic_string[abi:ne200100]<0>(v68, "d");
-    std::string::basic_string[abi:ne200100]<0>(v69, "e");
-    std::string::basic_string[abi:ne200100]<0>(v70, "f");
-    std::string::basic_string[abi:ne200100]<0>(v71, "g");
-    std::string::basic_string[abi:ne200100]<0>(v72, "h");
-    std::string::basic_string[abi:ne200100]<0>(v73, "i");
-    std::string::basic_string[abi:ne200100]<0>(v74, "j");
-    std::string::basic_string[abi:ne200100]<0>(v75, "k");
-    std::string::basic_string[abi:ne200100]<0>(v76, "l");
-    std::string::basic_string[abi:ne200100]<0>(v77, "m");
-    std::string::basic_string[abi:ne200100]<0>(v78, "n");
-    std::string::basic_string[abi:ne200100]<0>(v79, "o");
-    std::string::basic_string[abi:ne200100]<0>(v80, "p");
-    std::string::basic_string[abi:ne200100]<0>(v81, "q");
-    std::string::basic_string[abi:ne200100]<0>(v82, "r");
-    std::string::basic_string[abi:ne200100]<0>(v83, "s");
-    std::string::basic_string[abi:ne200100]<0>(v84, "t");
-    std::string::basic_string[abi:ne200100]<0>(v85, "u");
-    std::string::basic_string[abi:ne200100]<0>(v86, "v");
-    std::string::basic_string[abi:ne200100]<0>(v87, "w");
-    std::string::basic_string[abi:ne200100]<0>(v88, "x");
-    std::string::basic_string[abi:ne200100]<0>(v89, "y");
-    std::string::basic_string[abi:ne200100]<0>(v90, "z");
-    memset(&v15, 0, sizeof(v15));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v15, &v16, &v91, 0x4BuLL);
+    std::string::basic_string[abi:ne200100]<0>(&v15, "#");
+    std::string::basic_string[abi:ne200100]<0>(v16, "%");
+    std::string::basic_string[abi:ne200100]<0>(v17, "&");
+    std::string::basic_string[abi:ne200100]<0>(v18, "+");
+    std::string::basic_string[abi:ne200100]<0>(v19, ",");
+    std::string::basic_string[abi:ne200100]<0>(v20, "-");
+    std::string::basic_string[abi:ne200100]<0>(v21, ".");
+    std::string::basic_string[abi:ne200100]<0>(v22, "/");
+    std::string::basic_string[abi:ne200100]<0>(v23, "0");
+    std::string::basic_string[abi:ne200100]<0>(v24, "1");
+    std::string::basic_string[abi:ne200100]<0>(v25, "2");
+    std::string::basic_string[abi:ne200100]<0>(v26, "3");
+    std::string::basic_string[abi:ne200100]<0>(v27, "4");
+    std::string::basic_string[abi:ne200100]<0>(v28, "5");
+    std::string::basic_string[abi:ne200100]<0>(v29, "6");
+    std::string::basic_string[abi:ne200100]<0>(v30, "7");
+    std::string::basic_string[abi:ne200100]<0>(v31, "8");
+    std::string::basic_string[abi:ne200100]<0>(v32, "9");
+    std::string::basic_string[abi:ne200100]<0>(v33, ":");
+    std::string::basic_string[abi:ne200100]<0>(v34, ";");
+    std::string::basic_string[abi:ne200100]<0>(v35, "=");
+    std::string::basic_string[abi:ne200100]<0>(v36, "?");
+    std::string::basic_string[abi:ne200100]<0>(v37, "A");
+    std::string::basic_string[abi:ne200100]<0>(v38, "B");
+    std::string::basic_string[abi:ne200100]<0>(v39, "C");
+    std::string::basic_string[abi:ne200100]<0>(v40, "D");
+    std::string::basic_string[abi:ne200100]<0>(v41, "E");
+    std::string::basic_string[abi:ne200100]<0>(v42, "F");
+    std::string::basic_string[abi:ne200100]<0>(v43, "G");
+    std::string::basic_string[abi:ne200100]<0>(v44, "H");
+    std::string::basic_string[abi:ne200100]<0>(v45, "I");
+    std::string::basic_string[abi:ne200100]<0>(v46, "J");
+    std::string::basic_string[abi:ne200100]<0>(v47, "K");
+    std::string::basic_string[abi:ne200100]<0>(v48, "L");
+    std::string::basic_string[abi:ne200100]<0>(v49, "M");
+    std::string::basic_string[abi:ne200100]<0>(v50, "N");
+    std::string::basic_string[abi:ne200100]<0>(v51, "O");
+    std::string::basic_string[abi:ne200100]<0>(v52, "P");
+    std::string::basic_string[abi:ne200100]<0>(v53, "Q");
+    std::string::basic_string[abi:ne200100]<0>(v54, "R");
+    std::string::basic_string[abi:ne200100]<0>(v55, "S");
+    std::string::basic_string[abi:ne200100]<0>(v56, "T");
+    std::string::basic_string[abi:ne200100]<0>(v57, "U");
+    std::string::basic_string[abi:ne200100]<0>(v58, "V");
+    std::string::basic_string[abi:ne200100]<0>(v59, "W");
+    std::string::basic_string[abi:ne200100]<0>(v60, "X");
+    std::string::basic_string[abi:ne200100]<0>(v61, "Y");
+    std::string::basic_string[abi:ne200100]<0>(v62, "Z");
+    std::string::basic_string[abi:ne200100]<0>(v63, "_");
+    std::string::basic_string[abi:ne200100]<0>(v64, "a");
+    std::string::basic_string[abi:ne200100]<0>(v65, "b");
+    std::string::basic_string[abi:ne200100]<0>(v66, "c");
+    std::string::basic_string[abi:ne200100]<0>(v67, "d");
+    std::string::basic_string[abi:ne200100]<0>(v68, "e");
+    std::string::basic_string[abi:ne200100]<0>(v69, "f");
+    std::string::basic_string[abi:ne200100]<0>(v70, "g");
+    std::string::basic_string[abi:ne200100]<0>(v71, "h");
+    std::string::basic_string[abi:ne200100]<0>(v72, "i");
+    std::string::basic_string[abi:ne200100]<0>(v73, "j");
+    std::string::basic_string[abi:ne200100]<0>(v74, "k");
+    std::string::basic_string[abi:ne200100]<0>(v75, "l");
+    std::string::basic_string[abi:ne200100]<0>(v76, "m");
+    std::string::basic_string[abi:ne200100]<0>(v77, "n");
+    std::string::basic_string[abi:ne200100]<0>(v78, "o");
+    std::string::basic_string[abi:ne200100]<0>(v79, "p");
+    std::string::basic_string[abi:ne200100]<0>(v80, "q");
+    std::string::basic_string[abi:ne200100]<0>(v81, "r");
+    std::string::basic_string[abi:ne200100]<0>(v82, "s");
+    std::string::basic_string[abi:ne200100]<0>(v83, "t");
+    std::string::basic_string[abi:ne200100]<0>(v84, "u");
+    std::string::basic_string[abi:ne200100]<0>(v85, "v");
+    std::string::basic_string[abi:ne200100]<0>(v86, "w");
+    std::string::basic_string[abi:ne200100]<0>(v87, "x");
+    std::string::basic_string[abi:ne200100]<0>(v88, "y");
+    std::string::basic_string[abi:ne200100]<0>(v89, "z");
+    memset(&v14, 0, sizeof(v14));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v14, &v15, &v90, 0x4BuLL);
     v6 = 225;
     do
     {
-      if (*(&v17[v6 - 1] - 1) < 0)
+      if (*(&v16[v6 - 1] - 1) < 0)
       {
-        operator delete(v15.__r_.__value_.__r.__words[v6 + 1]);
+        operator delete(v14.__r_.__value_.__r.__words[v6 + 1]);
       }
 
       v6 -= 3;
     }
 
     while (v6 * 8);
-    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v15, &v16);
-    LODWORD(v13) = 2;
-    std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(&v13, &v16, this + 24, &v14);
-    UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(v14);
-    UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency(v14, &v12);
-    v11 = 2;
-    std::allocate_shared[abi:ne200100]<UC::UCMultiContextHuffmanCoder,std::allocator<UC::UCMultiContextHuffmanCoder>,std::shared_ptr<UC::UCMultiContextSymbolFrequencyTrie>,int,0>(&v12, &v11, &v13);
-    v7 = v13;
-    v13 = 0uLL;
+    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v14, &v15);
+    LODWORD(v12) = 2;
+    std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(&v12, &v15, this + 24, &v13);
+    UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(v13);
+    UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency(&v11, v13);
+    v10 = 2;
+    std::allocate_shared[abi:ne200100]<UC::UCMultiContextHuffmanCoder,std::allocator<UC::UCMultiContextHuffmanCoder>,std::shared_ptr<UC::UCMultiContextSymbolFrequencyTrie>,int,0>(&v11, &v10, &v12);
+    v7 = v12;
+    v12 = 0uLL;
     v8 = *(this + 16);
     *(this + 120) = v7;
     if (v8)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      if (*(&v13 + 1))
+      if (*(&v12 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v13 + 1));
-      }
-    }
-
-    if (*(&v12 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
-    }
-
-    v9 = *(this + 16);
-    *a2 = *(this + 15);
-    a2[1] = v9;
-    if (v9)
-    {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&v14, 0);
-    if (*(&v16 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v16 + 1));
-    }
-
-    *&v16 = &v15;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v16);
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2702EDF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void **a21, std::__shared_weak_count *a22)
-{
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&a16, 0);
-  if (a22)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a22);
-  }
-
-  a21 = &a17;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a21);
-  _Unwind_Resume(a1);
-}
-
-void UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(UC::SUE::UCSegmentedURLCoderProvider *this@<X0>, void *a2@<X8>)
-{
-  *&v87 = *MEMORY[0x277D85DE8];
-  v4 = *(this + 17);
-  if (v4)
-  {
-    v5 = *(this + 18);
-    *a2 = v4;
-    a2[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-  }
-
-  else
-  {
-    std::string::basic_string[abi:ne200100]<0>(&v16, "&");
-    std::string::basic_string[abi:ne200100]<0>(v17, "+");
-    std::string::basic_string[abi:ne200100]<0>(v18, "-");
-    std::string::basic_string[abi:ne200100]<0>(v19, ".");
-    std::string::basic_string[abi:ne200100]<0>(v20, "/");
-    std::string::basic_string[abi:ne200100]<0>(v21, "0");
-    std::string::basic_string[abi:ne200100]<0>(v22, "1");
-    std::string::basic_string[abi:ne200100]<0>(v23, "2");
-    std::string::basic_string[abi:ne200100]<0>(v24, "3");
-    std::string::basic_string[abi:ne200100]<0>(v25, "4");
-    std::string::basic_string[abi:ne200100]<0>(v26, "5");
-    std::string::basic_string[abi:ne200100]<0>(v27, "6");
-    std::string::basic_string[abi:ne200100]<0>(v28, "7");
-    std::string::basic_string[abi:ne200100]<0>(v29, "8");
-    std::string::basic_string[abi:ne200100]<0>(v30, "9");
-    std::string::basic_string[abi:ne200100]<0>(v31, "=");
-    std::string::basic_string[abi:ne200100]<0>(v32, "?");
-    std::string::basic_string[abi:ne200100]<0>(v33, "A");
-    std::string::basic_string[abi:ne200100]<0>(v34, "B");
-    std::string::basic_string[abi:ne200100]<0>(v35, "C");
-    std::string::basic_string[abi:ne200100]<0>(v36, "D");
-    std::string::basic_string[abi:ne200100]<0>(v37, "E");
-    std::string::basic_string[abi:ne200100]<0>(v38, "F");
-    std::string::basic_string[abi:ne200100]<0>(v39, "G");
-    std::string::basic_string[abi:ne200100]<0>(v40, "H");
-    std::string::basic_string[abi:ne200100]<0>(v41, "I");
-    std::string::basic_string[abi:ne200100]<0>(v42, "J");
-    std::string::basic_string[abi:ne200100]<0>(v43, "K");
-    std::string::basic_string[abi:ne200100]<0>(v44, "L");
-    std::string::basic_string[abi:ne200100]<0>(v45, "M");
-    std::string::basic_string[abi:ne200100]<0>(v46, "N");
-    std::string::basic_string[abi:ne200100]<0>(v47, "O");
-    std::string::basic_string[abi:ne200100]<0>(v48, "P");
-    std::string::basic_string[abi:ne200100]<0>(v49, "Q");
-    std::string::basic_string[abi:ne200100]<0>(v50, "R");
-    std::string::basic_string[abi:ne200100]<0>(v51, "S");
-    std::string::basic_string[abi:ne200100]<0>(v52, "T");
-    std::string::basic_string[abi:ne200100]<0>(v53, "U");
-    std::string::basic_string[abi:ne200100]<0>(v54, "V");
-    std::string::basic_string[abi:ne200100]<0>(v55, "W");
-    std::string::basic_string[abi:ne200100]<0>(v56, "X");
-    std::string::basic_string[abi:ne200100]<0>(v57, "Y");
-    std::string::basic_string[abi:ne200100]<0>(v58, "Z");
-    std::string::basic_string[abi:ne200100]<0>(v59, "_");
-    std::string::basic_string[abi:ne200100]<0>(v60, "a");
-    std::string::basic_string[abi:ne200100]<0>(v61, "b");
-    std::string::basic_string[abi:ne200100]<0>(v62, "c");
-    std::string::basic_string[abi:ne200100]<0>(v63, "d");
-    std::string::basic_string[abi:ne200100]<0>(v64, "e");
-    std::string::basic_string[abi:ne200100]<0>(v65, "f");
-    std::string::basic_string[abi:ne200100]<0>(v66, "g");
-    std::string::basic_string[abi:ne200100]<0>(v67, "h");
-    std::string::basic_string[abi:ne200100]<0>(v68, "i");
-    std::string::basic_string[abi:ne200100]<0>(v69, "j");
-    std::string::basic_string[abi:ne200100]<0>(v70, "k");
-    std::string::basic_string[abi:ne200100]<0>(v71, "l");
-    std::string::basic_string[abi:ne200100]<0>(v72, "m");
-    std::string::basic_string[abi:ne200100]<0>(v73, "n");
-    std::string::basic_string[abi:ne200100]<0>(v74, "o");
-    std::string::basic_string[abi:ne200100]<0>(v75, "p");
-    std::string::basic_string[abi:ne200100]<0>(v76, "q");
-    std::string::basic_string[abi:ne200100]<0>(v77, "r");
-    std::string::basic_string[abi:ne200100]<0>(v78, "s");
-    std::string::basic_string[abi:ne200100]<0>(v79, "t");
-    std::string::basic_string[abi:ne200100]<0>(v80, "u");
-    std::string::basic_string[abi:ne200100]<0>(v81, "v");
-    std::string::basic_string[abi:ne200100]<0>(v82, "w");
-    std::string::basic_string[abi:ne200100]<0>(v83, "x");
-    std::string::basic_string[abi:ne200100]<0>(v84, "y");
-    std::string::basic_string[abi:ne200100]<0>(v85, "z");
-    std::string::basic_string[abi:ne200100]<0>(v86, "|");
-    memset(&v15, 0, sizeof(v15));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v15, &v16, &v87, 0x47uLL);
-    v6 = 213;
-    do
-    {
-      if (*(&v17[v6 - 1] - 1) < 0)
-      {
-        operator delete(v15.__r_.__value_.__r.__words[v6 + 1]);
-      }
-
-      v6 -= 3;
-    }
-
-    while (v6 * 8);
-    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v15, &v16);
-    LODWORD(v13) = 2;
-    std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(&v13, &v16, this + 48, &v14);
-    UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(v14);
-    UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency(v14, &v12);
-    v11 = 2;
-    std::allocate_shared[abi:ne200100]<UC::UCMultiContextHuffmanCoder,std::allocator<UC::UCMultiContextHuffmanCoder>,std::shared_ptr<UC::UCMultiContextSymbolFrequencyTrie>,int,0>(&v12, &v11, &v13);
-    v7 = v13;
-    v13 = 0uLL;
-    v8 = *(this + 18);
-    *(this + 136) = v7;
-    if (v8)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      if (*(&v13 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v13 + 1));
-      }
-    }
-
-    if (*(&v12 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
-    }
-
-    v9 = *(this + 18);
-    *a2 = *(this + 17);
-    a2[1] = v9;
-    if (v9)
-    {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&v14, 0);
-    if (*(&v16 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v16 + 1));
-    }
-
-    *&v16 = &v15;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v16);
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2702EE808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void **a21, std::__shared_weak_count *a22)
-{
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&a16, 0);
-  if (a22)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a22);
-  }
-
-  a21 = &a17;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a21);
-  _Unwind_Resume(a1);
-}
-
-void UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(UC::SUE::UCSegmentedURLCoderProvider *this@<X0>, void *a2@<X8>)
-{
-  *(&v170 + 1) = *MEMORY[0x277D85DE8];
-  v4 = *(this + 19);
-  if (v4)
-  {
-    v5 = *(this + 20);
-    *a2 = v4;
-    a2[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-  }
-
-  else
-  {
-    std::string::basic_string[abi:ne200100]<0>(&v14, "about");
-    std::string::basic_string[abi:ne200100]<0>(v15, "access");
-    std::string::basic_string[abi:ne200100]<0>(v16, "account");
-    std::string::basic_string[abi:ne200100]<0>(v17, "add");
-    std::string::basic_string[abi:ne200100]<0>(v18, "app");
-    std::string::basic_string[abi:ne200100]<0>(v19, "archives");
-    std::string::basic_string[abi:ne200100]<0>(v20, "article");
-    std::string::basic_string[abi:ne200100]<0>(v21, "attraction");
-    std::string::basic_string[abi:ne200100]<0>(v22, "author");
-    std::string::basic_string[abi:ne200100]<0>(v23, "bag");
-    std::string::basic_string[abi:ne200100]<0>(v24, "biz");
-    std::string::basic_string[abi:ne200100]<0>(v25, "book");
-    std::string::basic_string[abi:ne200100]<0>(v26, "brand");
-    std::string::basic_string[abi:ne200100]<0>(v27, "brands");
-    std::string::basic_string[abi:ne200100]<0>(v28, "browse");
-    std::string::basic_string[abi:ne200100]<0>(v29, "buy");
-    std::string::basic_string[abi:ne200100]<0>(v30, "cancel");
-    std::string::basic_string[abi:ne200100]<0>(v31, "cart");
-    std::string::basic_string[abi:ne200100]<0>(v32, "cat");
-    std::string::basic_string[abi:ne200100]<0>(v33, "catalog");
-    std::string::basic_string[abi:ne200100]<0>(v34, "category");
-    std::string::basic_string[abi:ne200100]<0>(v35, "categories");
-    std::string::basic_string[abi:ne200100]<0>(v36, "channel");
-    std::string::basic_string[abi:ne200100]<0>(v37, "charts");
-    std::string::basic_string[abi:ne200100]<0>(v38, "checkin");
-    std::string::basic_string[abi:ne200100]<0>(v39, "checkout");
-    std::string::basic_string[abi:ne200100]<0>(v40, "collection");
-    std::string::basic_string[abi:ne200100]<0>(v41, "collections");
-    std::string::basic_string[abi:ne200100]<0>(v42, "company");
-    std::string::basic_string[abi:ne200100]<0>(v43, "compare");
-    std::string::basic_string[abi:ne200100]<0>(v44, "connect");
-    std::string::basic_string[abi:ne200100]<0>(v45, "contact");
-    std::string::basic_string[abi:ne200100]<0>(v46, "content");
-    std::string::basic_string[abi:ne200100]<0>(v47, "contents");
-    std::string::basic_string[abi:ne200100]<0>(v48, "cost");
-    std::string::basic_string[abi:ne200100]<0>(v49, "coupons");
-    std::string::basic_string[abi:ne200100]<0>(v50, "create");
-    std::string::basic_string[abi:ne200100]<0>(v51, "data");
-    std::string::basic_string[abi:ne200100]<0>(v52, "demo");
-    std::string::basic_string[abi:ne200100]<0>(v53, "destinations");
-    std::string::basic_string[abi:ne200100]<0>(v54, "detail");
-    std::string::basic_string[abi:ne200100]<0>(v55, "discover");
-    std::string::basic_string[abi:ne200100]<0>(v56, "download");
-    std::string::basic_string[abi:ne200100]<0>(v57, "entry");
-    std::string::basic_string[abi:ne200100]<0>(v58, "event");
-    std::string::basic_string[abi:ne200100]<0>(v59, "events");
-    std::string::basic_string[abi:ne200100]<0>(v60, "explore");
-    std::string::basic_string[abi:ne200100]<0>(v61, "faq");
-    std::string::basic_string[abi:ne200100]<0>(v62, "fetch");
-    std::string::basic_string[abi:ne200100]<0>(v63, "finance");
-    std::string::basic_string[abi:ne200100]<0>(v64, "find");
-    std::string::basic_string[abi:ne200100]<0>(v65, "food");
-    std::string::basic_string[abi:ne200100]<0>(v66, "fund");
-    std::string::basic_string[abi:ne200100]<0>(v67, "game");
-    std::string::basic_string[abi:ne200100]<0>(v68, "gift");
-    std::string::basic_string[abi:ne200100]<0>(v69, "goods");
-    std::string::basic_string[abi:ne200100]<0>(v70, "guide");
-    std::string::basic_string[abi:ne200100]<0>(v71, "health");
-    std::string::basic_string[abi:ne200100]<0>(v72, "help");
-    std::string::basic_string[abi:ne200100]<0>(v73, "home");
-    std::string::basic_string[abi:ne200100]<0>(v74, "hotel");
-    std::string::basic_string[abi:ne200100]<0>(v75, "hotels");
-    std::string::basic_string[abi:ne200100]<0>(v76, "id");
-    std::string::basic_string[abi:ne200100]<0>(v77, "index");
-    std::string::basic_string[abi:ne200100]<0>(v78, "info");
-    std::string::basic_string[abi:ne200100]<0>(v79, "item");
-    std::string::basic_string[abi:ne200100]<0>(v80, "item_id");
-    std::string::basic_string[abi:ne200100]<0>(v81, "join");
-    std::string::basic_string[abi:ne200100]<0>(v82, "lifestyle");
-    std::string::basic_string[abi:ne200100]<0>(v83, "list");
-    std::string::basic_string[abi:ne200100]<0>(v84, "listen");
-    std::string::basic_string[abi:ne200100]<0>(v85, "live");
-    std::string::basic_string[abi:ne200100]<0>(v86, "local");
-    std::string::basic_string[abi:ne200100]<0>(v87, "location");
-    std::string::basic_string[abi:ne200100]<0>(v88, "locations");
-    std::string::basic_string[abi:ne200100]<0>(v89, "locator");
-    std::string::basic_string[abi:ne200100]<0>(v90, "login");
-    std::string::basic_string[abi:ne200100]<0>(v91, "manage");
-    std::string::basic_string[abi:ne200100]<0>(v92, "menu");
-    std::string::basic_string[abi:ne200100]<0>(v93, "more");
-    std::string::basic_string[abi:ne200100]<0>(v94, "music");
-    std::string::basic_string[abi:ne200100]<0>(v95, "name");
-    std::string::basic_string[abi:ne200100]<0>(v96, "news");
-    std::string::basic_string[abi:ne200100]<0>(v97, "note");
-    std::string::basic_string[abi:ne200100]<0>(v98, "open");
-    std::string::basic_string[abi:ne200100]<0>(v99, "order");
-    std::string::basic_string[abi:ne200100]<0>(v100, "overview");
-    std::string::basic_string[abi:ne200100]<0>(v101, "park");
-    std::string::basic_string[abi:ne200100]<0>(v102, "part");
-    std::string::basic_string[abi:ne200100]<0>(v103, "pay");
-    std::string::basic_string[abi:ne200100]<0>(v104, "payment");
-    std::string::basic_string[abi:ne200100]<0>(v105, "payments");
-    std::string::basic_string[abi:ne200100]<0>(v106, "play");
-    std::string::basic_string[abi:ne200100]<0>(v107, "post");
-    std::string::basic_string[abi:ne200100]<0>(v108, "posts");
-    std::string::basic_string[abi:ne200100]<0>(v109, "preview");
-    std::string::basic_string[abi:ne200100]<0>(v110, "product");
-    std::string::basic_string[abi:ne200100]<0>(v111, "product_id");
-    std::string::basic_string[abi:ne200100]<0>(v112, "products");
-    std::string::basic_string[abi:ne200100]<0>(v113, "profile");
-    std::string::basic_string[abi:ne200100]<0>(v114, "promotion");
-    std::string::basic_string[abi:ne200100]<0>(v115, "purchase");
-    std::string::basic_string[abi:ne200100]<0>(v116, "rate");
-    std::string::basic_string[abi:ne200100]<0>(v117, "recipe");
-    std::string::basic_string[abi:ne200100]<0>(v118, "recipes");
-    std::string::basic_string[abi:ne200100]<0>(v119, "reservation");
-    std::string::basic_string[abi:ne200100]<0>(v120, "reservations");
-    std::string::basic_string[abi:ne200100]<0>(v121, "reserve");
-    std::string::basic_string[abi:ne200100]<0>(v122, "retail");
-    std::string::basic_string[abi:ne200100]<0>(v123, "review");
-    std::string::basic_string[abi:ne200100]<0>(v124, "rewards");
-    std::string::basic_string[abi:ne200100]<0>(v125, "sale");
-    std::string::basic_string[abi:ne200100]<0>(v126, "scan");
-    std::string::basic_string[abi:ne200100]<0>(v127, "schedule");
-    std::string::basic_string[abi:ne200100]<0>(v128, "search");
-    std::string::basic_string[abi:ne200100]<0>(v129, "sell");
-    std::string::basic_string[abi:ne200100]<0>(v130, "send");
-    std::string::basic_string[abi:ne200100]<0>(v131, "service");
-    std::string::basic_string[abi:ne200100]<0>(v132, "share");
-    std::string::basic_string[abi:ne200100]<0>(v133, "shop");
-    std::string::basic_string[abi:ne200100]<0>(v134, "show");
-    std::string::basic_string[abi:ne200100]<0>(v135, "showtime");
-    std::string::basic_string[abi:ne200100]<0>(v136, "site");
-    std::string::basic_string[abi:ne200100]<0>(v137, "song");
-    std::string::basic_string[abi:ne200100]<0>(v138, "special");
-    std::string::basic_string[abi:ne200100]<0>(v139, "stations");
-    std::string::basic_string[abi:ne200100]<0>(v140, "status");
-    std::string::basic_string[abi:ne200100]<0>(v141, "store");
-    std::string::basic_string[abi:ne200100]<0>(v142, "store-locator");
-    std::string::basic_string[abi:ne200100]<0>(v143, "stores");
-    std::string::basic_string[abi:ne200100]<0>(v144, "stories");
-    std::string::basic_string[abi:ne200100]<0>(v145, "story");
-    std::string::basic_string[abi:ne200100]<0>(v146, "tag");
-    std::string::basic_string[abi:ne200100]<0>(v147, "tags");
-    std::string::basic_string[abi:ne200100]<0>(v148, "terms");
-    std::string::basic_string[abi:ne200100]<0>(v149, "tickets");
-    std::string::basic_string[abi:ne200100]<0>(v150, "tips");
-    std::string::basic_string[abi:ne200100]<0>(v151, "title");
-    std::string::basic_string[abi:ne200100]<0>(v152, "today");
-    std::string::basic_string[abi:ne200100]<0>(v153, "top");
-    std::string::basic_string[abi:ne200100]<0>(v154, "topic");
-    std::string::basic_string[abi:ne200100]<0>(v155, "tours");
-    std::string::basic_string[abi:ne200100]<0>(v156, "track");
-    std::string::basic_string[abi:ne200100]<0>(v157, "transaction");
-    std::string::basic_string[abi:ne200100]<0>(v158, "travel");
-    std::string::basic_string[abi:ne200100]<0>(v159, "try");
-    std::string::basic_string[abi:ne200100]<0>(v160, "update");
-    std::string::basic_string[abi:ne200100]<0>(v161, "upload");
-    std::string::basic_string[abi:ne200100]<0>(v162, "use");
-    std::string::basic_string[abi:ne200100]<0>(v163, "user");
-    std::string::basic_string[abi:ne200100]<0>(v164, "vehicles");
-    std::string::basic_string[abi:ne200100]<0>(v165, "video");
-    std::string::basic_string[abi:ne200100]<0>(v166, "view");
-    std::string::basic_string[abi:ne200100]<0>(v167, "visit");
-    std::string::basic_string[abi:ne200100]<0>(v168, "watch");
-    std::string::basic_string[abi:ne200100]<0>(v169, "wiki");
-    memset(&v13, 0, sizeof(v13));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v13, &v14, &v170, 0x9CuLL);
-    v6 = 468;
-    do
-    {
-      if (*(&v15[v6 - 1] - 1) < 0)
-      {
-        operator delete(v13.__r_.__value_.__r.__words[v6 + 1]);
-      }
-
-      v6 -= 3;
-    }
-
-    while (v6 * 8);
-    v12 = 8;
-    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v13, &v11);
-    std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v12, &v11, &v14);
-    v7 = v14;
-    v14 = 0uLL;
-    v8 = *(this + 20);
-    *(this + 152) = v7;
-    if (v8)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      if (*(&v14 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v14 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
       }
     }
 
@@ -933,19 +516,426 @@ void UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(UC::SUE:
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
     }
 
-    v9 = *(this + 20);
-    *a2 = *(this + 19);
-    a2[1] = v9;
+    v9 = *(this + 16);
+    *a1 = *(this + 15);
+    a1[1] = v9;
     if (v9)
     {
       atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *&v14 = &v13;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v14);
+    std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&v13, 0);
+    if (*(&v15 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v15 + 1));
+    }
+
+    *&v15 = &v14;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
+  }
+}
+
+void sub_2702EDF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, std::__shared_weak_count *a23)
+{
+  if (a12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&a16, 0);
+  if (a23)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a23);
+  }
+
+  a22 = &a18;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a22);
+  _Unwind_Resume(a1);
+}
+
+void UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQueryCoder(uint64_t *__return_ptr a1@<X8>, UC::SUE::UCSegmentedURLCoderProvider *this@<X0>)
+{
+  *&v86 = *MEMORY[0x277D85DE8];
+  v4 = *(this + 17);
+  if (v4)
+  {
+    v5 = *(this + 18);
+    *a1 = v4;
+    a1[1] = v5;
+    if (v5)
+    {
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    }
+  }
+
+  else
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v15, "&");
+    std::string::basic_string[abi:ne200100]<0>(v16, "+");
+    std::string::basic_string[abi:ne200100]<0>(v17, "-");
+    std::string::basic_string[abi:ne200100]<0>(v18, ".");
+    std::string::basic_string[abi:ne200100]<0>(v19, "/");
+    std::string::basic_string[abi:ne200100]<0>(v20, "0");
+    std::string::basic_string[abi:ne200100]<0>(v21, "1");
+    std::string::basic_string[abi:ne200100]<0>(v22, "2");
+    std::string::basic_string[abi:ne200100]<0>(v23, "3");
+    std::string::basic_string[abi:ne200100]<0>(v24, "4");
+    std::string::basic_string[abi:ne200100]<0>(v25, "5");
+    std::string::basic_string[abi:ne200100]<0>(v26, "6");
+    std::string::basic_string[abi:ne200100]<0>(v27, "7");
+    std::string::basic_string[abi:ne200100]<0>(v28, "8");
+    std::string::basic_string[abi:ne200100]<0>(v29, "9");
+    std::string::basic_string[abi:ne200100]<0>(v30, "=");
+    std::string::basic_string[abi:ne200100]<0>(v31, "?");
+    std::string::basic_string[abi:ne200100]<0>(v32, "A");
+    std::string::basic_string[abi:ne200100]<0>(v33, "B");
+    std::string::basic_string[abi:ne200100]<0>(v34, "C");
+    std::string::basic_string[abi:ne200100]<0>(v35, "D");
+    std::string::basic_string[abi:ne200100]<0>(v36, "E");
+    std::string::basic_string[abi:ne200100]<0>(v37, "F");
+    std::string::basic_string[abi:ne200100]<0>(v38, "G");
+    std::string::basic_string[abi:ne200100]<0>(v39, "H");
+    std::string::basic_string[abi:ne200100]<0>(v40, "I");
+    std::string::basic_string[abi:ne200100]<0>(v41, "J");
+    std::string::basic_string[abi:ne200100]<0>(v42, "K");
+    std::string::basic_string[abi:ne200100]<0>(v43, "L");
+    std::string::basic_string[abi:ne200100]<0>(v44, "M");
+    std::string::basic_string[abi:ne200100]<0>(v45, "N");
+    std::string::basic_string[abi:ne200100]<0>(v46, "O");
+    std::string::basic_string[abi:ne200100]<0>(v47, "P");
+    std::string::basic_string[abi:ne200100]<0>(v48, "Q");
+    std::string::basic_string[abi:ne200100]<0>(v49, "R");
+    std::string::basic_string[abi:ne200100]<0>(v50, "S");
+    std::string::basic_string[abi:ne200100]<0>(v51, "T");
+    std::string::basic_string[abi:ne200100]<0>(v52, "U");
+    std::string::basic_string[abi:ne200100]<0>(v53, "V");
+    std::string::basic_string[abi:ne200100]<0>(v54, "W");
+    std::string::basic_string[abi:ne200100]<0>(v55, "X");
+    std::string::basic_string[abi:ne200100]<0>(v56, "Y");
+    std::string::basic_string[abi:ne200100]<0>(v57, "Z");
+    std::string::basic_string[abi:ne200100]<0>(v58, "_");
+    std::string::basic_string[abi:ne200100]<0>(v59, "a");
+    std::string::basic_string[abi:ne200100]<0>(v60, "b");
+    std::string::basic_string[abi:ne200100]<0>(v61, "c");
+    std::string::basic_string[abi:ne200100]<0>(v62, "d");
+    std::string::basic_string[abi:ne200100]<0>(v63, "e");
+    std::string::basic_string[abi:ne200100]<0>(v64, "f");
+    std::string::basic_string[abi:ne200100]<0>(v65, "g");
+    std::string::basic_string[abi:ne200100]<0>(v66, "h");
+    std::string::basic_string[abi:ne200100]<0>(v67, "i");
+    std::string::basic_string[abi:ne200100]<0>(v68, "j");
+    std::string::basic_string[abi:ne200100]<0>(v69, "k");
+    std::string::basic_string[abi:ne200100]<0>(v70, "l");
+    std::string::basic_string[abi:ne200100]<0>(v71, "m");
+    std::string::basic_string[abi:ne200100]<0>(v72, "n");
+    std::string::basic_string[abi:ne200100]<0>(v73, "o");
+    std::string::basic_string[abi:ne200100]<0>(v74, "p");
+    std::string::basic_string[abi:ne200100]<0>(v75, "q");
+    std::string::basic_string[abi:ne200100]<0>(v76, "r");
+    std::string::basic_string[abi:ne200100]<0>(v77, "s");
+    std::string::basic_string[abi:ne200100]<0>(v78, "t");
+    std::string::basic_string[abi:ne200100]<0>(v79, "u");
+    std::string::basic_string[abi:ne200100]<0>(v80, "v");
+    std::string::basic_string[abi:ne200100]<0>(v81, "w");
+    std::string::basic_string[abi:ne200100]<0>(v82, "x");
+    std::string::basic_string[abi:ne200100]<0>(v83, "y");
+    std::string::basic_string[abi:ne200100]<0>(v84, "z");
+    std::string::basic_string[abi:ne200100]<0>(v85, "|");
+    memset(&v14, 0, sizeof(v14));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v14, &v15, &v86, 0x47uLL);
+    v6 = 213;
+    do
+    {
+      if (*(&v16[v6 - 1] - 1) < 0)
+      {
+        operator delete(v14.__r_.__value_.__r.__words[v6 + 1]);
+      }
+
+      v6 -= 3;
+    }
+
+    while (v6 * 8);
+    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v14, &v15);
+    LODWORD(v12) = 2;
+    std::make_unique[abi:ne200100]<UC::UCMultiContextHuffmanSymbolFrequencyReader,int,std::shared_ptr<std::vector<std::string>> &,std::string const&,0>(&v12, &v15, this + 48, &v13);
+    UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(v13);
+    UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency(&v11, v13);
+    v10 = 2;
+    std::allocate_shared[abi:ne200100]<UC::UCMultiContextHuffmanCoder,std::allocator<UC::UCMultiContextHuffmanCoder>,std::shared_ptr<UC::UCMultiContextSymbolFrequencyTrie>,int,0>(&v11, &v10, &v12);
+    v7 = v12;
+    v12 = 0uLL;
+    v8 = *(this + 18);
+    *(this + 136) = v7;
+    if (v8)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      if (*(&v12 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
+      }
+    }
+
+    if (*(&v11 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
+    }
+
+    v9 = *(this + 18);
+    *a1 = *(this + 17);
+    a1[1] = v9;
+    if (v9)
+    {
+      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&v13, 0);
+    if (*(&v15 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v15 + 1));
+    }
+
+    *&v15 = &v14;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
+  }
+}
+
+void sub_2702EE808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, std::__shared_weak_count *a23)
+{
+  if (a12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+  }
+
+  std::unique_ptr<UC::UCMultiContextHuffmanSymbolFrequencyReader>::reset[abi:ne200100](&a16, 0);
+  if (a23)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a23);
+  }
+
+  a22 = &a18;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a22);
+  _Unwind_Resume(a1);
+}
+
+void UC::SUE::UCSegmentedURLCoderProvider::getKnownWordFixedLengthCoder(uint64_t *__return_ptr a1@<X8>, UC::SUE::UCSegmentedURLCoderProvider *this@<X0>)
+{
+  *(&v169 + 1) = *MEMORY[0x277D85DE8];
+  v4 = *(this + 19);
+  if (v4)
+  {
+    v5 = *(this + 20);
+    *a1 = v4;
+    a1[1] = v5;
+    if (v5)
+    {
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    }
+  }
+
+  else
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v13, "about");
+    std::string::basic_string[abi:ne200100]<0>(v14, "access");
+    std::string::basic_string[abi:ne200100]<0>(v15, "account");
+    std::string::basic_string[abi:ne200100]<0>(v16, "add");
+    std::string::basic_string[abi:ne200100]<0>(v17, "app");
+    std::string::basic_string[abi:ne200100]<0>(v18, "archives");
+    std::string::basic_string[abi:ne200100]<0>(v19, "article");
+    std::string::basic_string[abi:ne200100]<0>(v20, "attraction");
+    std::string::basic_string[abi:ne200100]<0>(v21, "author");
+    std::string::basic_string[abi:ne200100]<0>(v22, "bag");
+    std::string::basic_string[abi:ne200100]<0>(v23, "biz");
+    std::string::basic_string[abi:ne200100]<0>(v24, "book");
+    std::string::basic_string[abi:ne200100]<0>(v25, "brand");
+    std::string::basic_string[abi:ne200100]<0>(v26, "brands");
+    std::string::basic_string[abi:ne200100]<0>(v27, "browse");
+    std::string::basic_string[abi:ne200100]<0>(v28, "buy");
+    std::string::basic_string[abi:ne200100]<0>(v29, "cancel");
+    std::string::basic_string[abi:ne200100]<0>(v30, "cart");
+    std::string::basic_string[abi:ne200100]<0>(v31, "cat");
+    std::string::basic_string[abi:ne200100]<0>(v32, "catalog");
+    std::string::basic_string[abi:ne200100]<0>(v33, "category");
+    std::string::basic_string[abi:ne200100]<0>(v34, "categories");
+    std::string::basic_string[abi:ne200100]<0>(v35, "channel");
+    std::string::basic_string[abi:ne200100]<0>(v36, "charts");
+    std::string::basic_string[abi:ne200100]<0>(v37, "checkin");
+    std::string::basic_string[abi:ne200100]<0>(v38, "checkout");
+    std::string::basic_string[abi:ne200100]<0>(v39, "collection");
+    std::string::basic_string[abi:ne200100]<0>(v40, "collections");
+    std::string::basic_string[abi:ne200100]<0>(v41, "company");
+    std::string::basic_string[abi:ne200100]<0>(v42, "compare");
+    std::string::basic_string[abi:ne200100]<0>(v43, "connect");
+    std::string::basic_string[abi:ne200100]<0>(v44, "contact");
+    std::string::basic_string[abi:ne200100]<0>(v45, "content");
+    std::string::basic_string[abi:ne200100]<0>(v46, "contents");
+    std::string::basic_string[abi:ne200100]<0>(v47, "cost");
+    std::string::basic_string[abi:ne200100]<0>(v48, "coupons");
+    std::string::basic_string[abi:ne200100]<0>(v49, "create");
+    std::string::basic_string[abi:ne200100]<0>(v50, "data");
+    std::string::basic_string[abi:ne200100]<0>(v51, "demo");
+    std::string::basic_string[abi:ne200100]<0>(v52, "destinations");
+    std::string::basic_string[abi:ne200100]<0>(v53, "detail");
+    std::string::basic_string[abi:ne200100]<0>(v54, "discover");
+    std::string::basic_string[abi:ne200100]<0>(v55, "download");
+    std::string::basic_string[abi:ne200100]<0>(v56, "entry");
+    std::string::basic_string[abi:ne200100]<0>(v57, "event");
+    std::string::basic_string[abi:ne200100]<0>(v58, "events");
+    std::string::basic_string[abi:ne200100]<0>(v59, "explore");
+    std::string::basic_string[abi:ne200100]<0>(v60, "faq");
+    std::string::basic_string[abi:ne200100]<0>(v61, "fetch");
+    std::string::basic_string[abi:ne200100]<0>(v62, "finance");
+    std::string::basic_string[abi:ne200100]<0>(v63, "find");
+    std::string::basic_string[abi:ne200100]<0>(v64, "food");
+    std::string::basic_string[abi:ne200100]<0>(v65, "fund");
+    std::string::basic_string[abi:ne200100]<0>(v66, "game");
+    std::string::basic_string[abi:ne200100]<0>(v67, "gift");
+    std::string::basic_string[abi:ne200100]<0>(v68, "goods");
+    std::string::basic_string[abi:ne200100]<0>(v69, "guide");
+    std::string::basic_string[abi:ne200100]<0>(v70, "health");
+    std::string::basic_string[abi:ne200100]<0>(v71, "help");
+    std::string::basic_string[abi:ne200100]<0>(v72, "home");
+    std::string::basic_string[abi:ne200100]<0>(v73, "hotel");
+    std::string::basic_string[abi:ne200100]<0>(v74, "hotels");
+    std::string::basic_string[abi:ne200100]<0>(v75, "id");
+    std::string::basic_string[abi:ne200100]<0>(v76, "index");
+    std::string::basic_string[abi:ne200100]<0>(v77, "info");
+    std::string::basic_string[abi:ne200100]<0>(v78, "item");
+    std::string::basic_string[abi:ne200100]<0>(v79, "item_id");
+    std::string::basic_string[abi:ne200100]<0>(v80, "join");
+    std::string::basic_string[abi:ne200100]<0>(v81, "lifestyle");
+    std::string::basic_string[abi:ne200100]<0>(v82, "list");
+    std::string::basic_string[abi:ne200100]<0>(v83, "listen");
+    std::string::basic_string[abi:ne200100]<0>(v84, "live");
+    std::string::basic_string[abi:ne200100]<0>(v85, "local");
+    std::string::basic_string[abi:ne200100]<0>(v86, "location");
+    std::string::basic_string[abi:ne200100]<0>(v87, "locations");
+    std::string::basic_string[abi:ne200100]<0>(v88, "locator");
+    std::string::basic_string[abi:ne200100]<0>(v89, "login");
+    std::string::basic_string[abi:ne200100]<0>(v90, "manage");
+    std::string::basic_string[abi:ne200100]<0>(v91, "menu");
+    std::string::basic_string[abi:ne200100]<0>(v92, "more");
+    std::string::basic_string[abi:ne200100]<0>(v93, "music");
+    std::string::basic_string[abi:ne200100]<0>(v94, "name");
+    std::string::basic_string[abi:ne200100]<0>(v95, "news");
+    std::string::basic_string[abi:ne200100]<0>(v96, "note");
+    std::string::basic_string[abi:ne200100]<0>(v97, "open");
+    std::string::basic_string[abi:ne200100]<0>(v98, "order");
+    std::string::basic_string[abi:ne200100]<0>(v99, "overview");
+    std::string::basic_string[abi:ne200100]<0>(v100, "park");
+    std::string::basic_string[abi:ne200100]<0>(v101, "part");
+    std::string::basic_string[abi:ne200100]<0>(v102, "pay");
+    std::string::basic_string[abi:ne200100]<0>(v103, "payment");
+    std::string::basic_string[abi:ne200100]<0>(v104, "payments");
+    std::string::basic_string[abi:ne200100]<0>(v105, "play");
+    std::string::basic_string[abi:ne200100]<0>(v106, "post");
+    std::string::basic_string[abi:ne200100]<0>(v107, "posts");
+    std::string::basic_string[abi:ne200100]<0>(v108, "preview");
+    std::string::basic_string[abi:ne200100]<0>(v109, "product");
+    std::string::basic_string[abi:ne200100]<0>(v110, "product_id");
+    std::string::basic_string[abi:ne200100]<0>(v111, "products");
+    std::string::basic_string[abi:ne200100]<0>(v112, "profile");
+    std::string::basic_string[abi:ne200100]<0>(v113, "promotion");
+    std::string::basic_string[abi:ne200100]<0>(v114, "purchase");
+    std::string::basic_string[abi:ne200100]<0>(v115, "rate");
+    std::string::basic_string[abi:ne200100]<0>(v116, "recipe");
+    std::string::basic_string[abi:ne200100]<0>(v117, "recipes");
+    std::string::basic_string[abi:ne200100]<0>(v118, "reservation");
+    std::string::basic_string[abi:ne200100]<0>(v119, "reservations");
+    std::string::basic_string[abi:ne200100]<0>(v120, "reserve");
+    std::string::basic_string[abi:ne200100]<0>(v121, "retail");
+    std::string::basic_string[abi:ne200100]<0>(v122, "review");
+    std::string::basic_string[abi:ne200100]<0>(v123, "rewards");
+    std::string::basic_string[abi:ne200100]<0>(v124, "sale");
+    std::string::basic_string[abi:ne200100]<0>(v125, "scan");
+    std::string::basic_string[abi:ne200100]<0>(v126, "schedule");
+    std::string::basic_string[abi:ne200100]<0>(v127, "search");
+    std::string::basic_string[abi:ne200100]<0>(v128, "sell");
+    std::string::basic_string[abi:ne200100]<0>(v129, "send");
+    std::string::basic_string[abi:ne200100]<0>(v130, "service");
+    std::string::basic_string[abi:ne200100]<0>(v131, "share");
+    std::string::basic_string[abi:ne200100]<0>(v132, "shop");
+    std::string::basic_string[abi:ne200100]<0>(v133, "show");
+    std::string::basic_string[abi:ne200100]<0>(v134, "showtime");
+    std::string::basic_string[abi:ne200100]<0>(v135, "site");
+    std::string::basic_string[abi:ne200100]<0>(v136, "song");
+    std::string::basic_string[abi:ne200100]<0>(v137, "special");
+    std::string::basic_string[abi:ne200100]<0>(v138, "stations");
+    std::string::basic_string[abi:ne200100]<0>(v139, "status");
+    std::string::basic_string[abi:ne200100]<0>(v140, "store");
+    std::string::basic_string[abi:ne200100]<0>(v141, "store-locator");
+    std::string::basic_string[abi:ne200100]<0>(v142, "stores");
+    std::string::basic_string[abi:ne200100]<0>(v143, "stories");
+    std::string::basic_string[abi:ne200100]<0>(v144, "story");
+    std::string::basic_string[abi:ne200100]<0>(v145, "tag");
+    std::string::basic_string[abi:ne200100]<0>(v146, "tags");
+    std::string::basic_string[abi:ne200100]<0>(v147, "terms");
+    std::string::basic_string[abi:ne200100]<0>(v148, "tickets");
+    std::string::basic_string[abi:ne200100]<0>(v149, "tips");
+    std::string::basic_string[abi:ne200100]<0>(v150, "title");
+    std::string::basic_string[abi:ne200100]<0>(v151, "today");
+    std::string::basic_string[abi:ne200100]<0>(v152, "top");
+    std::string::basic_string[abi:ne200100]<0>(v153, "topic");
+    std::string::basic_string[abi:ne200100]<0>(v154, "tours");
+    std::string::basic_string[abi:ne200100]<0>(v155, "track");
+    std::string::basic_string[abi:ne200100]<0>(v156, "transaction");
+    std::string::basic_string[abi:ne200100]<0>(v157, "travel");
+    std::string::basic_string[abi:ne200100]<0>(v158, "try");
+    std::string::basic_string[abi:ne200100]<0>(v159, "update");
+    std::string::basic_string[abi:ne200100]<0>(v160, "upload");
+    std::string::basic_string[abi:ne200100]<0>(v161, "use");
+    std::string::basic_string[abi:ne200100]<0>(v162, "user");
+    std::string::basic_string[abi:ne200100]<0>(v163, "vehicles");
+    std::string::basic_string[abi:ne200100]<0>(v164, "video");
+    std::string::basic_string[abi:ne200100]<0>(v165, "view");
+    std::string::basic_string[abi:ne200100]<0>(v166, "visit");
+    std::string::basic_string[abi:ne200100]<0>(v167, "watch");
+    std::string::basic_string[abi:ne200100]<0>(v168, "wiki");
+    memset(&v12, 0, sizeof(v12));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v12, &v13, &v169, 0x9CuLL);
+    v6 = 468;
+    do
+    {
+      if (*(&v14[v6 - 1] - 1) < 0)
+      {
+        operator delete(v12.__r_.__value_.__r.__words[v6 + 1]);
+      }
+
+      v6 -= 3;
+    }
+
+    while (v6 * 8);
+    v11 = 8;
+    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v12, &v10);
+    std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v11, &v10, &v13);
+    v7 = v13;
+    v13 = 0uLL;
+    v8 = *(this + 20);
+    *(this + 152) = v7;
+    if (v8)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      if (*(&v13 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v13 + 1));
+      }
+    }
+
+    if (*(&v10 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
+    }
+
+    v9 = *(this + 20);
+    *a1 = *(this + 19);
+    a1[1] = v9;
+    if (v9)
+    {
+      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    *&v13 = &v12;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v13);
+  }
 }
 
 void sub_2702EF77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void **a17)
@@ -960,15 +950,15 @@ void sub_2702EF77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(UC::SUE::UCSegmentedURLCoderProvider *this@<X0>, void *a2@<X8>)
+void UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetCoder(uint64_t *__return_ptr a1@<X8>, UC::SUE::UCSegmentedURLCoderProvider *this@<X0>)
 {
-  *(&v78 + 1) = *MEMORY[0x277D85DE8];
+  *(&v77 + 1) = *MEMORY[0x277D85DE8];
   v4 = *(this + 21);
   if (v4)
   {
     v5 = *(this + 22);
-    *a2 = v4;
-    a2[1] = v5;
+    *a1 = v4;
+    a1[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -977,118 +967,116 @@ void UC::SUE::UCSegmentedURLCoderProvider::getSegmentedPathAndQuery6BitAlphabetC
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v14, ".");
-    std::string::basic_string[abi:ne200100]<0>(v15, "0");
-    std::string::basic_string[abi:ne200100]<0>(v16, "1");
-    std::string::basic_string[abi:ne200100]<0>(v17, "2");
-    std::string::basic_string[abi:ne200100]<0>(v18, "3");
-    std::string::basic_string[abi:ne200100]<0>(v19, "4");
-    std::string::basic_string[abi:ne200100]<0>(v20, "5");
-    std::string::basic_string[abi:ne200100]<0>(v21, "6");
-    std::string::basic_string[abi:ne200100]<0>(v22, "7");
-    std::string::basic_string[abi:ne200100]<0>(v23, "8");
-    std::string::basic_string[abi:ne200100]<0>(v24, "9");
-    std::string::basic_string[abi:ne200100]<0>(v25, "A");
-    std::string::basic_string[abi:ne200100]<0>(v26, "B");
-    std::string::basic_string[abi:ne200100]<0>(v27, "C");
-    std::string::basic_string[abi:ne200100]<0>(v28, "D");
-    std::string::basic_string[abi:ne200100]<0>(v29, "E");
-    std::string::basic_string[abi:ne200100]<0>(v30, "F");
-    std::string::basic_string[abi:ne200100]<0>(v31, "G");
-    std::string::basic_string[abi:ne200100]<0>(v32, "H");
-    std::string::basic_string[abi:ne200100]<0>(v33, "I");
-    std::string::basic_string[abi:ne200100]<0>(v34, "J");
-    std::string::basic_string[abi:ne200100]<0>(v35, "K");
-    std::string::basic_string[abi:ne200100]<0>(v36, "L");
-    std::string::basic_string[abi:ne200100]<0>(v37, "M");
-    std::string::basic_string[abi:ne200100]<0>(v38, "N");
-    std::string::basic_string[abi:ne200100]<0>(v39, "O");
-    std::string::basic_string[abi:ne200100]<0>(v40, "P");
-    std::string::basic_string[abi:ne200100]<0>(v41, "Q");
-    std::string::basic_string[abi:ne200100]<0>(v42, "R");
-    std::string::basic_string[abi:ne200100]<0>(v43, "S");
-    std::string::basic_string[abi:ne200100]<0>(v44, "T");
-    std::string::basic_string[abi:ne200100]<0>(v45, "U");
-    std::string::basic_string[abi:ne200100]<0>(v46, "V");
-    std::string::basic_string[abi:ne200100]<0>(v47, "W");
-    std::string::basic_string[abi:ne200100]<0>(v48, "X");
-    std::string::basic_string[abi:ne200100]<0>(v49, "Y");
-    std::string::basic_string[abi:ne200100]<0>(v50, "Z");
-    std::string::basic_string[abi:ne200100]<0>(v51, "a");
-    std::string::basic_string[abi:ne200100]<0>(v52, "b");
-    std::string::basic_string[abi:ne200100]<0>(v53, "c");
-    std::string::basic_string[abi:ne200100]<0>(v54, "d");
-    std::string::basic_string[abi:ne200100]<0>(v55, "e");
-    std::string::basic_string[abi:ne200100]<0>(v56, "f");
-    std::string::basic_string[abi:ne200100]<0>(v57, "g");
-    std::string::basic_string[abi:ne200100]<0>(v58, "h");
-    std::string::basic_string[abi:ne200100]<0>(v59, "i");
-    std::string::basic_string[abi:ne200100]<0>(v60, "j");
-    std::string::basic_string[abi:ne200100]<0>(v61, "k");
-    std::string::basic_string[abi:ne200100]<0>(v62, "l");
-    std::string::basic_string[abi:ne200100]<0>(v63, "m");
-    std::string::basic_string[abi:ne200100]<0>(v64, "n");
-    std::string::basic_string[abi:ne200100]<0>(v65, "o");
-    std::string::basic_string[abi:ne200100]<0>(v66, "p");
-    std::string::basic_string[abi:ne200100]<0>(v67, "q");
-    std::string::basic_string[abi:ne200100]<0>(v68, "r");
-    std::string::basic_string[abi:ne200100]<0>(v69, "s");
-    std::string::basic_string[abi:ne200100]<0>(v70, "t");
-    std::string::basic_string[abi:ne200100]<0>(v71, "u");
-    std::string::basic_string[abi:ne200100]<0>(v72, "v");
-    std::string::basic_string[abi:ne200100]<0>(v73, "w");
-    std::string::basic_string[abi:ne200100]<0>(v74, "x");
-    std::string::basic_string[abi:ne200100]<0>(v75, "y");
-    std::string::basic_string[abi:ne200100]<0>(v76, "z");
-    std::string::basic_string[abi:ne200100]<0>(v77, "|");
-    memset(&v13, 0, sizeof(v13));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v13, &v14, &v78, 0x40uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v13, ".");
+    std::string::basic_string[abi:ne200100]<0>(v14, "0");
+    std::string::basic_string[abi:ne200100]<0>(v15, "1");
+    std::string::basic_string[abi:ne200100]<0>(v16, "2");
+    std::string::basic_string[abi:ne200100]<0>(v17, "3");
+    std::string::basic_string[abi:ne200100]<0>(v18, "4");
+    std::string::basic_string[abi:ne200100]<0>(v19, "5");
+    std::string::basic_string[abi:ne200100]<0>(v20, "6");
+    std::string::basic_string[abi:ne200100]<0>(v21, "7");
+    std::string::basic_string[abi:ne200100]<0>(v22, "8");
+    std::string::basic_string[abi:ne200100]<0>(v23, "9");
+    std::string::basic_string[abi:ne200100]<0>(v24, "A");
+    std::string::basic_string[abi:ne200100]<0>(v25, "B");
+    std::string::basic_string[abi:ne200100]<0>(v26, "C");
+    std::string::basic_string[abi:ne200100]<0>(v27, "D");
+    std::string::basic_string[abi:ne200100]<0>(v28, "E");
+    std::string::basic_string[abi:ne200100]<0>(v29, "F");
+    std::string::basic_string[abi:ne200100]<0>(v30, "G");
+    std::string::basic_string[abi:ne200100]<0>(v31, "H");
+    std::string::basic_string[abi:ne200100]<0>(v32, "I");
+    std::string::basic_string[abi:ne200100]<0>(v33, "J");
+    std::string::basic_string[abi:ne200100]<0>(v34, "K");
+    std::string::basic_string[abi:ne200100]<0>(v35, "L");
+    std::string::basic_string[abi:ne200100]<0>(v36, "M");
+    std::string::basic_string[abi:ne200100]<0>(v37, "N");
+    std::string::basic_string[abi:ne200100]<0>(v38, "O");
+    std::string::basic_string[abi:ne200100]<0>(v39, "P");
+    std::string::basic_string[abi:ne200100]<0>(v40, "Q");
+    std::string::basic_string[abi:ne200100]<0>(v41, "R");
+    std::string::basic_string[abi:ne200100]<0>(v42, "S");
+    std::string::basic_string[abi:ne200100]<0>(v43, "T");
+    std::string::basic_string[abi:ne200100]<0>(v44, "U");
+    std::string::basic_string[abi:ne200100]<0>(v45, "V");
+    std::string::basic_string[abi:ne200100]<0>(v46, "W");
+    std::string::basic_string[abi:ne200100]<0>(v47, "X");
+    std::string::basic_string[abi:ne200100]<0>(v48, "Y");
+    std::string::basic_string[abi:ne200100]<0>(v49, "Z");
+    std::string::basic_string[abi:ne200100]<0>(v50, "a");
+    std::string::basic_string[abi:ne200100]<0>(v51, "b");
+    std::string::basic_string[abi:ne200100]<0>(v52, "c");
+    std::string::basic_string[abi:ne200100]<0>(v53, "d");
+    std::string::basic_string[abi:ne200100]<0>(v54, "e");
+    std::string::basic_string[abi:ne200100]<0>(v55, "f");
+    std::string::basic_string[abi:ne200100]<0>(v56, "g");
+    std::string::basic_string[abi:ne200100]<0>(v57, "h");
+    std::string::basic_string[abi:ne200100]<0>(v58, "i");
+    std::string::basic_string[abi:ne200100]<0>(v59, "j");
+    std::string::basic_string[abi:ne200100]<0>(v60, "k");
+    std::string::basic_string[abi:ne200100]<0>(v61, "l");
+    std::string::basic_string[abi:ne200100]<0>(v62, "m");
+    std::string::basic_string[abi:ne200100]<0>(v63, "n");
+    std::string::basic_string[abi:ne200100]<0>(v64, "o");
+    std::string::basic_string[abi:ne200100]<0>(v65, "p");
+    std::string::basic_string[abi:ne200100]<0>(v66, "q");
+    std::string::basic_string[abi:ne200100]<0>(v67, "r");
+    std::string::basic_string[abi:ne200100]<0>(v68, "s");
+    std::string::basic_string[abi:ne200100]<0>(v69, "t");
+    std::string::basic_string[abi:ne200100]<0>(v70, "u");
+    std::string::basic_string[abi:ne200100]<0>(v71, "v");
+    std::string::basic_string[abi:ne200100]<0>(v72, "w");
+    std::string::basic_string[abi:ne200100]<0>(v73, "x");
+    std::string::basic_string[abi:ne200100]<0>(v74, "y");
+    std::string::basic_string[abi:ne200100]<0>(v75, "z");
+    std::string::basic_string[abi:ne200100]<0>(v76, "|");
+    memset(&v12, 0, sizeof(v12));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v12, &v13, &v77, 0x40uLL);
     v6 = 192;
     do
     {
-      if (*(&v15[v6 - 1] - 1) < 0)
+      if (*(&v14[v6 - 1] - 1) < 0)
       {
-        operator delete(v13.__r_.__value_.__r.__words[v6 + 1]);
+        operator delete(v12.__r_.__value_.__r.__words[v6 + 1]);
       }
 
       v6 -= 3;
     }
 
     while (v6 * 8);
-    v12 = 6;
-    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v13, &v11);
-    std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v12, &v11, &v14);
-    v7 = v14;
-    v14 = 0uLL;
+    v11 = 6;
+    std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string>&,0>(&v12, &v10);
+    std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v11, &v10, &v13);
+    v7 = v13;
+    v13 = 0uLL;
     v8 = *(this + 22);
     *(this + 168) = v7;
     if (v8)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      if (*(&v14 + 1))
+      if (*(&v13 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v14 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v13 + 1));
       }
     }
 
-    if (*(&v11 + 1))
+    if (*(&v10 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
     }
 
     v9 = *(this + 22);
-    *a2 = *(this + 21);
-    a2[1] = v9;
+    *a1 = *(this + 21);
+    a1[1] = v9;
     if (v9)
     {
       atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *&v14 = &v13;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v14);
+    *&v13 = &v12;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v13);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2702EFED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void **a17)
@@ -1103,7 +1091,7 @@ void sub_2702EFED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unordered_map<std::string,unsigned short>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,unsigned short>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -1124,7 +1112,7 @@ uint64_t std::unordered_map<std::string,unsigned short>::unordered_map(uint64_t 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned short> const&>(uint64_t a1, const void **a2, uint64_t a3)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned short> const&>(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v8 = v7;
@@ -1330,9 +1318,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1437,8 +1425,8 @@ std::string *std::vector<std::string>::__init_with_size[abi:ne200100]<std::strin
   {
     v6 = result;
     std::vector<std::string>::__vallocate[abi:ne200100](result, a4);
-    result = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::string>,std::string*,std::string*,std::string*>(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::string>,std::string*,std::string*,std::string*>(v6, a2, a3, v6->__words[1]);
+    v6->__words[1] = result;
   }
 
   return result;
@@ -1527,8 +1515,7 @@ void std::allocator<UC::UCSymbolFrequencyTable>::construct[abi:ne200100]<UC::UCS
   }
 
   v5 = *a4;
-  *a4 = 0;
-  *(a4 + 1) = 0;
+  *a4 = 0uLL;
   UC::UCSymbolFrequencyTable::UCSymbolFrequencyTable(a2, &v6, &v5);
   if (*(&v5 + 1))
   {
@@ -1572,7 +1559,7 @@ void std::allocator<UC::UCSymbolFrequencyTable>::destroy[abi:ne200100](uint64_t 
   }
 }
 
-void *std::allocate_shared[abi:ne200100]<UC::UCHuffmanCoder,std::allocator<UC::UCHuffmanCoder>,std::shared_ptr<UC::UCSymbolFrequencyTable> &,0>@<X0>(uint64_t *a1@<X1>, void *a2@<X8>)
+void *std::allocate_shared[abi:ne200100]<UC::UCHuffmanCoder,std::allocator<UC::UCHuffmanCoder>,std::shared_ptr<UC::UCSymbolFrequencyTable> &,0>@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
 {
   v4 = operator new(0x30uLL);
   result = std::__shared_ptr_emplace<UC::UCHuffmanCoder>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<UC::UCSymbolFrequencyTable> &,std::allocator<UC::UCHuffmanCoder>,0>(v4, a1);
@@ -1581,12 +1568,12 @@ void *std::allocate_shared[abi:ne200100]<UC::UCHuffmanCoder,std::allocator<UC::U
   return result;
 }
 
-void *std::__shared_ptr_emplace<UC::UCHuffmanCoder>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<UC::UCSymbolFrequencyTable> &,std::allocator<UC::UCHuffmanCoder>,0>(void *a1, uint64_t *a2)
+void *std::__shared_ptr_emplace<UC::UCHuffmanCoder>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<UC::UCSymbolFrequencyTable> &,std::allocator<UC::UCHuffmanCoder>,0>(void *a1, uint64_t a2)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_28803D590;
-  std::allocator<UC::UCHuffmanCoder>::construct[abi:ne200100]<UC::UCHuffmanCoder,std::shared_ptr<UC::UCSymbolFrequencyTable> &>(&v4, (a1 + 3), a2);
+  std::allocator<UC::UCHuffmanCoder>::construct[abi:ne200100]<UC::UCHuffmanCoder,std::shared_ptr<UC::UCSymbolFrequencyTable> &>(&v4, a1 + 3, a2);
   return a1;
 }
 
@@ -1598,9 +1585,9 @@ void std::__shared_ptr_emplace<UC::UCHuffmanCoder>::~__shared_ptr_emplace(std::_
   operator delete(v1);
 }
 
-void std::allocator<UC::UCHuffmanCoder>::construct[abi:ne200100]<UC::UCHuffmanCoder,std::shared_ptr<UC::UCSymbolFrequencyTable> &>(uint64_t a1, uint64_t a2, uint64_t *a3)
+void std::allocator<UC::UCHuffmanCoder>::construct[abi:ne200100]<UC::UCHuffmanCoder,std::shared_ptr<UC::UCSymbolFrequencyTable> &>(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a3[1];
+  v3 = *(a3 + 8);
   v4 = *a3;
   v5 = v3;
   if (v3)
@@ -1655,8 +1642,7 @@ void std::allocator<UC::UCFixedLengthCoder>::construct[abi:ne200100]<UC::UCFixed
 {
   v5 = *a3;
   v6 = *a4;
-  *a4 = 0;
-  *(a4 + 1) = 0;
+  *a4 = 0uLL;
   UC::UCFixedLengthCoder::UCFixedLengthCoder(a2, v5, &v6);
   if (*(&v6 + 1))
   {
@@ -1730,8 +1716,7 @@ void std::__shared_ptr_emplace<UC::UCMultiContextHuffmanCoder>::~__shared_ptr_em
 void std::allocator<UC::UCMultiContextHuffmanCoder>::construct[abi:ne200100]<UC::UCMultiContextHuffmanCoder,std::shared_ptr<UC::UCMultiContextSymbolFrequencyTrie>,int>(uint64_t a1, uint64_t a2, __int128 *a3, int *a4)
 {
   v4 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   UC::UCMultiContextHuffmanCoder::UCMultiContextHuffmanCoder(a2, &v4, *a4);
   if (*(&v4 + 1))
   {
@@ -1791,7 +1776,7 @@ uint64_t **UC::UCMultiContextSymbolFrequencyTrie::UCMultiContextSymbolFrequencyT
 
       v15 = *v8;
       *&v21 = v14 + 24 * v12;
-      *(std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v15, v21, &std::piecewise_construct, &v21) + 40) = v12++;
+      *(std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v15, v21, &std::piecewise_construct, &v21, &v20 + 4) + 40) = v12++;
     }
 
     while (v12 < v13);
@@ -1841,11 +1826,11 @@ void sub_2702F11E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *UC::UCMultiContextSymbolFrequencyTrie::getOrderedSymbols@<X0>(void *this@<X0>, void *a2@<X8>)
+uint64_t *UC::UCMultiContextSymbolFrequencyTrie::getOrderedSymbols@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v2 = this[1];
-  *a2 = *this;
-  a2[1] = v2;
+  *a1 = *this;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -1854,7 +1839,7 @@ void *UC::UCMultiContextSymbolFrequencyTrie::getOrderedSymbols@<X0>(void *this@<
   return this;
 }
 
-UC::UCMultiContextSymbolFrequencyTrie::Node *UC::UCMultiContextSymbolFrequencyTrie::Node::childNodeForSymbol(unsigned __int8 *a1, const void **a2)
+UC::UCMultiContextSymbolFrequencyTrie::Node *UC::UCMultiContextSymbolFrequencyTrie::Node::childNodeForSymbol(unsigned __int8 *a1, uint64_t *a2)
 {
   if (*(*a1 + 40) == a1[8])
   {
@@ -1928,9 +1913,9 @@ UC::UCMultiContextSymbolFrequencyTrie::Node *UC::UCMultiContextSymbolFrequencyTr
   return v2;
 }
 
-void sub_2702F13E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702F13E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1951,7 +1936,7 @@ UC::UCMultiContextSymbolFrequencyTrie::Node *UC::UCMultiContextSymbolFrequencyTr
   return this;
 }
 
-uint64_t UC::UCMultiContextSymbolFrequencyTrie::Node::getFrequencyForSymbol(_DWORD *a1, const void **a2)
+uint64_t UC::UCMultiContextSymbolFrequencyTrie::Node::getFrequencyForSymbol(_DWORD *a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = a1[3];
@@ -1964,7 +1949,7 @@ uint64_t UC::UCMultiContextSymbolFrequencyTrie::Node::getFrequencyForSymbol(_DWO
   return _byteswap_ushort(*(*(v2 + 24) + 2 * (*(v4 + 40) + v3 * *(v2 + 16))));
 }
 
-void std::unique_ptr<std::unordered_map<std::string,unsigned char>>::reset[abi:ne200100](uint64_t *a1, uint64_t a2)
+void std::unique_ptr<std::unordered_map<std::string,unsigned char>>::reset[abi:ne200100](void ***a1, void **a2)
 {
   v3 = *a1;
   *a1 = a2;
@@ -1982,37 +1967,37 @@ void std::__throw_out_of_range[abi:ne200100](const char *a1)
   std::out_of_range::out_of_range[abi:ne200100](exception, a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2, uint64_t a3, __int128 **a4)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v8 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v9 = v8;
-  v10 = *(a1 + 8);
-  if (v10)
+  v9 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v10 = v9;
+  v11 = *(a1 + 8);
+  if (v11)
   {
-    v11 = vcnt_s8(v10);
-    v11.i16[0] = vaddlv_u8(v11);
-    v12 = v11.u32[0];
-    if (v11.u32[0] > 1uLL)
+    v12 = vcnt_s8(v11);
+    v12.i16[0] = vaddlv_u8(v12);
+    v13 = v12.u32[0];
+    if (v12.u32[0] > 1uLL)
     {
-      v4 = v8;
-      if (v8 >= v10)
+      v5 = v9;
+      if (v9 >= v11)
       {
-        v4 = v8 % v10;
+        v5 = v9 % v11;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v8;
+      v5 = (v11 - 1) & v9;
     }
 
-    v13 = *(*a1 + 8 * v4);
-    if (v13)
+    v14 = *(*a1 + 8 * v5);
+    if (v14)
     {
-      for (i = *v13; i; i = *i)
+      for (i = *v14; i; i = *i)
       {
-        v15 = i[1];
-        if (v15 == v9)
+        v16 = i[1];
+        if (v16 == v10)
         {
           if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, a2))
           {
@@ -2022,20 +2007,20 @@ const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>
 
         else
         {
-          if (v12 > 1)
+          if (v13 > 1)
           {
-            if (v15 >= v10)
+            if (v16 >= v11)
             {
-              v15 %= v10;
+              v16 %= v11;
             }
           }
 
           else
           {
-            v15 &= v10 - 1;
+            v16 &= v11 - 1;
           }
 
-          if (v15 != v4)
+          if (v16 != v5)
           {
             break;
           }
@@ -2044,84 +2029,84 @@ const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>
     }
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v9, a4, v27);
-  v16 = (*(a1 + 24) + 1);
-  v17 = *(a1 + 32);
-  if (!v10 || (v17 * v10) < v16)
+  std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v10, a4, v28);
+  v17 = (*(a1 + 24) + 1);
+  v18 = *(a1 + 32);
+  if (!v11 || (v18 * v11) < v17)
   {
-    v18 = 1;
-    if (v10 >= 3)
+    v19 = 1;
+    if (v11 >= 3)
     {
-      v18 = (v10 & (v10 - 1)) != 0;
+      v19 = (v11 & (v11 - 1)) != 0;
     }
 
-    v19 = v18 | (2 * v10);
-    v20 = vcvtps_u32_f32(v16 / v17);
-    if (v19 <= v20)
+    v20 = v19 | (2 * v11);
+    v21 = vcvtps_u32_f32(v17 / v18);
+    if (v20 <= v21)
     {
-      v21 = v20;
+      v22 = v21;
     }
 
     else
     {
-      v21 = v19;
+      v22 = v20;
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, v21);
-    v10 = *(a1 + 8);
-    if ((v10 & (v10 - 1)) != 0)
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, v22);
+    v11 = *(a1 + 8);
+    if ((v11 & (v11 - 1)) != 0)
     {
-      if (v9 >= v10)
+      if (v10 >= v11)
       {
-        v4 = v9 % v10;
+        v5 = v10 % v11;
       }
 
       else
       {
-        v4 = v9;
+        v5 = v10;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v9;
+      v5 = (v11 - 1) & v10;
     }
   }
 
-  v22 = *a1;
-  v23 = *(*a1 + 8 * v4);
-  if (v23)
+  v23 = *a1;
+  v24 = *(*a1 + 8 * v5);
+  if (v24)
   {
-    i = v27[0];
-    *v27[0] = *v23;
-    *v23 = i;
+    i = v28[0];
+    *v28[0] = *v24;
+    *v24 = i;
   }
 
   else
   {
-    v24 = v27[0];
-    *v27[0] = *(a1 + 16);
-    *(a1 + 16) = v24;
-    *(v22 + 8 * v4) = a1 + 16;
-    i = v27[0];
-    if (*v27[0])
+    v25 = v28[0];
+    *v28[0] = *(a1 + 16);
+    *(a1 + 16) = v25;
+    *(v23 + 8 * v5) = a1 + 16;
+    i = v28[0];
+    if (*v28[0])
     {
-      v25 = *(*v27[0] + 8);
-      if ((v10 & (v10 - 1)) != 0)
+      v26 = *(*v28[0] + 8);
+      if ((v11 & (v11 - 1)) != 0)
       {
-        if (v25 >= v10)
+        if (v26 >= v11)
         {
-          v25 %= v10;
+          v26 %= v11;
         }
       }
 
       else
       {
-        v25 &= v10 - 1;
+        v26 &= v11 - 1;
       }
 
-      *(*a1 + 8 * v25) = v27[0];
-      i = v27[0];
+      *(*a1 + 8 * v26) = v28[0];
+      i = v28[0];
     }
   }
 
@@ -2236,7 +2221,7 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned char,std::unique_ptr<
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>>>::__deallocate_node(uint64_t a1, void **a2)
+void std::__hash_table<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>>>::__deallocate_node(uint64_t a1, uint64_t **a2)
 {
   if (a2)
   {
@@ -2272,7 +2257,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::unique_ptr<UC::
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>>>::find<unsigned char>(void *a1, unsigned __int8 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>>>::find<unsigned char>(void *a1, unsigned __int8 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -2339,13 +2324,13 @@ uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::unique_pt
   return result;
 }
 
-void **std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>::~unique_ptr[abi:ne200100](void **a1)
+uint64_t **std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>::~unique_ptr[abi:ne200100](uint64_t **a1)
 {
   v2 = *a1;
   *a1 = 0;
   if (v2)
   {
-    std::unique_ptr<std::unordered_map<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>>::reset[abi:ne200100](v2 + 16, 0);
+    std::unique_ptr<std::unordered_map<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>>::reset[abi:ne200100](v2 + 2, 0);
     operator delete(v2);
   }
 
@@ -2506,9 +2491,9 @@ uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::unique_pt
   return i;
 }
 
-void sub_2702F1EA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702F1EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned char,std::unique_ptr<UC::UCMultiContextSymbolFrequencyTrie::Node>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2593,7 +2578,7 @@ void sub_2702F3128(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2702F3148(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **__p, uint64_t a10, int a11, __int16 a12, char a13, unsigned __int8 a14)
+void sub_2702F3148(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void ***__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   v21 = *(v18 - 176);
   if (v21)
@@ -2617,7 +2602,7 @@ void sub_2702F3148(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
       std::string::basic_string[abi:ne200100]<0>(&__p, "Encountered an internal error while initializing the URL encoder. ");
       v25 = (*(*v24 + 16))(v24);
       std::string::append(&__p, v25);
-      if ((a14 & 0x80u) == 0)
+      if (a14 >= 0)
       {
         p_p = &__p;
       }
@@ -2627,7 +2612,7 @@ void sub_2702F3148(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
         p_p = __p;
       }
 
-      if ((a14 & 0x80u) == 0)
+      if (a14 >= 0)
       {
         v27 = a14;
       }
@@ -2709,21 +2694,21 @@ void UC::UCURLComponents::~UCURLComponents(void **this)
   }
 }
 
-void *std::allocate_shared[abi:ne200100]<UC::SUE::UCSegmentedURLCoderProvider,std::allocator<UC::SUE::UCSegmentedURLCoderProvider>,std::string &,std::string &,std::string &,0>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+std::string *std::allocate_shared[abi:ne200100]<UC::SUE::UCSegmentedURLCoderProvider,std::allocator<UC::SUE::UCSegmentedURLCoderProvider>,std::string &,std::string &,std::string &,0>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
 {
   v8 = operator new(0xD0uLL);
   result = std::__shared_ptr_emplace<UC::SUE::UCSegmentedURLCoderProvider>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string &,std::string &,std::allocator<UC::SUE::UCSegmentedURLCoderProvider>,0>(v8, a1, a2, a3);
-  *a4 = v8 + 3;
+  *a4 = v8 + 1;
   a4[1] = v8;
   return result;
 }
 
-void *std::__shared_ptr_emplace<UC::SUE::UCSegmentedURLCoderProvider>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string &,std::string &,std::allocator<UC::SUE::UCSegmentedURLCoderProvider>,0>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<UC::SUE::UCSegmentedURLCoderProvider>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string &,std::string &,std::allocator<UC::SUE::UCSegmentedURLCoderProvider>,0>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_28803D670;
-  std::allocator<UC::SUE::UCSegmentedURLCoderProvider>::construct[abi:ne200100]<UC::SUE::UCSegmentedURLCoderProvider,std::string &,std::string &,std::string &>(&v6, (a1 + 3), a2, a3, a4);
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = &unk_28803D670;
+  std::allocator<UC::SUE::UCSegmentedURLCoderProvider>::construct[abi:ne200100]<UC::SUE::UCSegmentedURLCoderProvider,std::string &,std::string &,std::string &>(&v6, a1 + 1, a2, a3, a4);
   return a1;
 }
 
@@ -2735,7 +2720,7 @@ void std::__shared_ptr_emplace<UC::SUE::UCSegmentedURLCoderProvider>::~__shared_
   operator delete(v1);
 }
 
-void std::allocator<UC::SUE::UCSegmentedURLCoderProvider>::construct[abi:ne200100]<UC::SUE::UCSegmentedURLCoderProvider,std::string &,std::string &,std::string &>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void std::allocator<UC::SUE::UCSegmentedURLCoderProvider>::construct[abi:ne200100]<UC::SUE::UCSegmentedURLCoderProvider,std::string &,std::string &,std::string &>(uint64_t a1, std::string *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*(a3 + 23) < 0)
   {
@@ -2930,9 +2915,9 @@ void std::allocator<UC::SUE::UCSegmentedURLEncodingResult>::destroy[abi:ne200100
   }
 }
 
-void UCURLComponentsFromNSURL(NSURL *a1@<X0>, std::string *a2@<X8>)
+void UCURLComponentsFromNSURL(std::string *__return_ptr a1@<X8>, NSURL *a2@<X0>)
 {
-  v3 = a1;
+  v3 = a2;
   v4 = [MEMORY[0x277CCACE0] componentsWithURL:v3 resolvingAgainstBaseURL:0];
   memset(&v35, 0, sizeof(v35));
   v5 = [(NSURL *)v3 absoluteString];
@@ -3089,7 +3074,7 @@ void UCURLComponentsFromNSURL(NSURL *a1@<X0>, std::string *a2@<X8>)
     v20 = v28;
   }
 
-  UC::UCURLComponents::UCURLComponents(a2, &v27, &v26, &v25, &v24, &v23, &v22, v17, &v21, &v20);
+  UC::UCURLComponents::UCURLComponents(a1, &v27, &v26, &v25, &v24, &v23, &v22, v17, &v21, &v20);
   if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v20.__r_.__value_.__l.__data_);
@@ -3208,44 +3193,44 @@ void sub_2702F40E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a59);
   }
 
-  if (a71 < 0)
+  if (a66 < 0)
   {
-    operator delete(a66);
+    operator delete(a65);
   }
 
-  if (a73 < 0)
+  if (a68 < 0)
   {
-    operator delete(a72);
+    operator delete(a67);
   }
 
-  if (*(v80 - 217) < 0)
+  if (*(v75 - 217) < 0)
   {
-    operator delete(*(v80 - 240));
+    operator delete(*(v75 - 240));
   }
 
-  if (*(v80 - 193) < 0)
+  if (*(v75 - 193) < 0)
   {
-    operator delete(*(v80 - 216));
+    operator delete(*(v75 - 216));
   }
 
-  if (*(v80 - 169) < 0)
+  if (*(v75 - 169) < 0)
   {
-    operator delete(*(v80 - 192));
+    operator delete(*(v75 - 192));
   }
 
-  if (*(v80 - 145) < 0)
+  if (*(v75 - 145) < 0)
   {
-    operator delete(*(v80 - 168));
+    operator delete(*(v75 - 168));
   }
 
-  if (*(v80 - 121) < 0)
+  if (*(v75 - 121) < 0)
   {
-    operator delete(*(v80 - 144));
+    operator delete(*(v75 - 144));
   }
 
-  if (*(v80 - 97) < 0)
+  if (*(v75 - 97) < 0)
   {
-    operator delete(*(v80 - 120));
+    operator delete(*(v75 - 120));
   }
 
   _Unwind_Resume(a1);
@@ -3291,34 +3276,34 @@ void sub_2702F438C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(std::string *this)
+uint64_t UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(const std::string *this)
 {
-  v12[19] = *MEMORY[0x277D85DE8];
-  std::fstream::basic_fstream(&v11, this + 1, 0xEu);
-  if (*(&v11.__sb_.__st_._mbstateL + 9))
+  v11[19] = *MEMORY[0x277D85DE8];
+  std::fstream::basic_fstream(&v10, this + 1, 0xEu);
+  if (*(&v10.__sb_.__st_._mbstateL + 9))
   {
     std::istream::tellg();
     std::istream::seekg();
-    v2 = operator new[](v10);
-    bzero(v2, v10);
+    v2 = operator new[](v9);
+    bzero(v2, v9);
     __p = v2;
     std::istream::read();
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((&v11 + *(v11.__sb_.__extbuf_ - 3)), *&v11.__sb_.__extbuf_min_[*(v11.__sb_.__extbuf_ - 3) + 8] | 4);
+      std::ios_base::clear((&v10 + *(v10.__sb_.__extbuf_ - 3)), *&v10.__sb_.__extbuf_min_[*(v10.__sb_.__extbuf_ - 3) + 8] | 4);
     }
 
-    std::allocate_shared[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::allocator<UC::UCMultiContextSymbolFrequencyTrie>,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&,0>(&this->__r_.__value_.__l.__size_, &__p, this, &v9);
-    v3 = v9;
-    v9 = 0uLL;
+    std::allocate_shared[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::allocator<UC::UCMultiContextSymbolFrequencyTrie>,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&,0>(&this->__r_.__value_.__l.__size_, &__p, this, &v8);
+    v3 = v8;
+    v8 = 0uLL;
     size = this[2].__r_.__value_.__l.__size_;
     *&this[2].__r_.__value_.__l.__data_ = v3;
     if (size)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](size);
-      if (*(&v9 + 1))
+      if (*(&v8 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v9 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v8 + 1));
       }
     }
 
@@ -3330,11 +3315,9 @@ uint64_t UC::UCMultiContextHuffmanSymbolFrequencyReader::readData(std::string *t
     }
   }
 
-  MEMORY[0x27439D740](v11.__sb_.__extbuf_min_);
+  MEMORY[0x27439D740](v10.__sb_.__extbuf_min_);
   std::iostream::~basic_iostream();
-  result = MEMORY[0x27439D8A0](v12);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x27439D8A0](v11);
 }
 
 void sub_2702F4574(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
@@ -3358,11 +3341,6 @@ std::fstream *__cdecl std::fstream::basic_fstream(std::fstream *this, const std:
   *(&this[1].__sb_.__st_last_._mbstateL + 3) = 0;
   *(&this[1].__sb_.__st_last_._mbstateL + 8) = -1;
   MEMORY[0x27439D730](this->__sb_.__extbuf_min_);
-  if ((__s->__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v5 = __s->__r_.__value_.__r.__words[0];
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((this + *(this->__sb_.__extbuf_ - 3)), *&this->__sb_.__extbuf_min_[*(this->__sb_.__extbuf_ - 3) + 8] | 4);
@@ -3384,11 +3362,11 @@ uint64_t *std::fstream::~fstream(uint64_t *a1)
   return a1;
 }
 
-uint64_t UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *UC::UCMultiContextHuffmanSymbolFrequencyReader::getContextSymbolFrequency@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 56);
-  *a2 = *(this + 48);
-  a2[1] = v2;
+  v2 = this[7];
+  *a1 = this[6];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -3454,7 +3432,7 @@ void std::fstream::~fstream(void (__cdecl ***a1)(std::fstream *__hidden this))
   operator delete(a1);
 }
 
-void *std::allocate_shared[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::allocator<UC::UCMultiContextSymbolFrequencyTrie>,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&,0>@<X0>(uint64_t *a1@<X1>, void **a2@<X2>, void *a3@<X3>, void *a4@<X8>)
+uint64_t **std::allocate_shared[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::allocator<UC::UCMultiContextSymbolFrequencyTrie>,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&,0>@<X0>(uint64_t a1@<X1>, void **a2@<X2>, uint64_t **a3@<X3>, void *a4@<X8>)
 {
   v8 = operator new(0x58uLL);
   result = std::__shared_ptr_emplace<UC::UCMultiContextSymbolFrequencyTrie>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&,std::allocator<UC::UCMultiContextSymbolFrequencyTrie>,0>(v8, a1, a2, a3);
@@ -3463,12 +3441,12 @@ void *std::allocate_shared[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,s
   return result;
 }
 
-void *std::__shared_ptr_emplace<UC::UCMultiContextSymbolFrequencyTrie>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&,std::allocator<UC::UCMultiContextSymbolFrequencyTrie>,0>(void *a1, uint64_t *a2, void **a3, void *a4)
+uint64_t **std::__shared_ptr_emplace<UC::UCMultiContextSymbolFrequencyTrie>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&,std::allocator<UC::UCMultiContextSymbolFrequencyTrie>,0>(uint64_t **a1, uint64_t a2, void **a3, uint64_t **a4)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_28803D8C0;
-  std::allocator<UC::UCMultiContextSymbolFrequencyTrie>::construct[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&>(&v6, (a1 + 3), a2, a3, a4);
+  std::allocator<UC::UCMultiContextSymbolFrequencyTrie>::construct[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&>(&v6, a1 + 3, a2, a3, a4);
   return a1;
 }
 
@@ -3480,23 +3458,23 @@ void std::__shared_ptr_emplace<UC::UCMultiContextSymbolFrequencyTrie>::~__shared
   operator delete(v1);
 }
 
-void std::__shared_ptr_emplace<UC::UCMultiContextSymbolFrequencyTrie>::__on_zero_shared(void *a1)
+void std::__shared_ptr_emplace<UC::UCMultiContextSymbolFrequencyTrie>::__on_zero_shared(uint64_t a1)
 {
-  v2 = a1[10];
+  v2 = *(a1 + 80);
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  std::unique_ptr<std::unordered_map<std::string,unsigned char>>::reset[abi:ne200100](a1 + 7, 0);
-  v3 = a1[6];
-  a1[6] = 0;
+  std::unique_ptr<std::unordered_map<std::string,unsigned char>>::reset[abi:ne200100]((a1 + 56), 0);
+  v3 = *(a1 + 48);
+  *(a1 + 48) = 0;
   if (v3)
   {
     operator delete[](v3);
   }
 
-  v4 = a1[4];
+  v4 = *(a1 + 32);
   if (v4)
   {
 
@@ -3504,9 +3482,9 @@ void std::__shared_ptr_emplace<UC::UCMultiContextSymbolFrequencyTrie>::__on_zero
   }
 }
 
-void std::allocator<UC::UCMultiContextSymbolFrequencyTrie>::construct[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&>(uint64_t a1, uint64_t a2, uint64_t *a3, void **a4, void *a5)
+void std::allocator<UC::UCMultiContextSymbolFrequencyTrie>::construct[abi:ne200100]<UC::UCMultiContextSymbolFrequencyTrie,std::shared_ptr<std::vector<std::string>> &,std::unique_ptr<unsigned char []>,unsigned long const&>(uint64_t a1, uint64_t **a2, uint64_t a3, void **a4, uint64_t **a5)
 {
-  v5 = a3[1];
+  v5 = *(a3 + 8);
   v9 = *a3;
   v10 = v5;
   if (v5)
@@ -3615,7 +3593,7 @@ const void *UC::UCMultiContextHuffmanCoder::_huffmanCoderForContext(uint64_t a1,
   }
 
   RootNode = UC::UCMultiContextSymbolFrequencyTrie::getRootNode(*(a1 + 16));
-  v26 = RootNode;
+  v25 = RootNode;
   v8 = *(a2 + 23);
   v9 = v8;
   if ((v8 & 0x80u) != 0)
@@ -3626,78 +3604,72 @@ const void *UC::UCMultiContextHuffmanCoder::_huffmanCoderForContext(uint64_t a1,
   if (v8)
   {
     v10 = RootNode;
-    v11 = *a2;
     if (v9 >= 0)
     {
-      v12 = a2;
+      v11 = a2;
     }
 
     else
     {
-      v12 = *a2;
+      v11 = *a2;
     }
 
     do
     {
-      memset(&v25, 0, sizeof(v25));
-      std::string::push_back(&v25, *v12);
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      memset(&v24, 0, sizeof(v24));
+      std::string::push_back(&v24, *v11);
+      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v24, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v23, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v24 = v25;
+        v23 = v24;
       }
 
-      v10 = UC::UCMultiContextSymbolFrequencyTrie::Node::childNodeForSymbol(v10, &v24.__r_.__value_.__l.__data_);
-      v26 = v10;
+      v10 = UC::UCMultiContextSymbolFrequencyTrie::Node::childNodeForSymbol(v10, &v23);
+      v25 = v10;
+      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v23.__r_.__value_.__l.__data_);
+      }
+
       if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v24.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      ++v11;
+      v12 = *(a2 + 23);
+      if ((v12 & 0x80u) == 0)
       {
-        operator delete(v25.__r_.__value_.__l.__data_);
-      }
-
-      ++v12;
-      v13 = *(a2 + 23);
-      if ((v13 & 0x80u) == 0)
-      {
-        v14 = a2;
+        v13 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v13 = *a2;
       }
 
-      if ((v13 & 0x80u) != 0)
+      if ((v12 & 0x80u) != 0)
       {
-        v13 = *(a2 + 8);
+        v12 = *(a2 + 8);
       }
     }
 
-    while (v12 != &v14[v13]);
+    while (v11 != (v13 + v12));
   }
 
-  UC::UCMultiContextSymbolFrequencyTrie::getOrderedSymbols(*(a1 + 16), &v22);
-  std::allocate_shared[abi:ne200100]<UC::UCSymbolFrequencyTable,std::allocator<UC::UCSymbolFrequencyTable>,UC::UCMultiContextSymbolFrequencyTrie::Node *&,std::shared_ptr<std::vector<std::string>>,0>(&v26, &v22, &v23);
-  v15 = operator new(0x18uLL);
-  *&v25.__r_.__value_.__l.__data_ = v23;
-  v23 = 0uLL;
-  UC::UCHuffmanCoder::UCHuffmanCoder(v15, &v25);
-  if (v25.__r_.__value_.__l.__size_)
+  UC::UCMultiContextSymbolFrequencyTrie::getOrderedSymbols(&v21, *(a1 + 16));
+  std::allocate_shared[abi:ne200100]<UC::UCSymbolFrequencyTable,std::allocator<UC::UCSymbolFrequencyTable>,UC::UCMultiContextSymbolFrequencyTrie::Node *&,std::shared_ptr<std::vector<std::string>>,0>(&v25, &v21, &v22);
+  v14 = operator new(0x18uLL);
+  *&v24.__r_.__value_.__l.__data_ = v22;
+  v22 = 0uLL;
+  UC::UCHuffmanCoder::UCHuffmanCoder(v14, &v24);
+  if (v24.__r_.__value_.__l.__size_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25.__r_.__value_.__l.__size_);
-  }
-
-  if (*(&v23 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v23 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24.__r_.__value_.__l.__size_);
   }
 
   if (*(&v22 + 1))
@@ -3705,40 +3677,45 @@ const void *UC::UCMultiContextHuffmanCoder::_huffmanCoderForContext(uint64_t a1,
     std::__shared_weak_count::__release_shared[abi:ne200100](*(&v22 + 1));
   }
 
-  v16 = *(a2 + 23);
-  if ((v16 & 0x80u) != 0)
+  if (*(&v21 + 1))
   {
-    v16 = *(a2 + 8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v21 + 1));
   }
 
-  if (v16)
+  v15 = *(a2 + 23);
+  if ((v15 & 0x80u) != 0)
   {
-    v25.__r_.__value_.__r.__words[0] = a2;
-    v17 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 32, a2, &std::piecewise_construct, &v25);
-    v18 = v17[5];
-    v17[5] = v15;
-    if (v18)
+    v15 = *(a2 + 8);
+  }
+
+  if (v15)
+  {
+    v24.__r_.__value_.__r.__words[0] = a2;
+    v16 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 32, a2, &std::piecewise_construct, &v24, &v22);
+    v17 = v16[5];
+    v16[5] = v14;
+    if (v17)
     {
-      (*(*v18 + 8))(v18);
+      (*(*v17 + 8))(v17);
     }
 
-    v25.__r_.__value_.__r.__words[0] = a2;
-    v19 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 32, a2, &std::piecewise_construct, &v25) + 5;
+    v24.__r_.__value_.__r.__words[0] = a2;
+    v18 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 32, a2, &std::piecewise_construct, &v24, &v22) + 5;
   }
 
   else
   {
-    v21 = *(a1 + 72);
-    v19 = (a1 + 72);
-    v20 = v21;
-    *v19 = v15;
-    if (v21)
+    v20 = *(a1 + 72);
+    v18 = (a1 + 72);
+    v19 = v20;
+    *v18 = v14;
+    if (v20)
     {
-      (*(*v20 + 8))(v20);
+      (*(*v19 + 8))(v19);
     }
   }
 
-  return *v19;
+  return *v18;
 }
 
 void UC::UCMultiContextHuffmanCoder::encode(uint64_t a1, uint64_t a2)
@@ -3763,8 +3740,7 @@ void sub_2702F5328(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void UC::UCMultiContextHuffmanCoder::encodeWithStartContext(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
 {
-  a4->__r_.__value_.__r.__words[0] = 0;
-  a4->__r_.__value_.__l.__size_ = 0;
+  *&a4->__r_.__value_.__l.__data_ = 0uLL;
   a4->__r_.__value_.__r.__words[2] = 0;
   v5 = 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3);
   if (v5 >= 1)
@@ -3775,17 +3751,17 @@ void UC::UCMultiContextHuffmanCoder::encodeWithStartContext(uint64_t a1@<X0>, vo
     {
       if (*(a1 + 8) <= v9)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v24, "");
+        std::string::basic_string[abi:ne200100]<0>(&v23, "");
       }
 
       else if (*(a3 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v24, *a3, *(a3 + 8));
+        std::string::__init_copy_ctor_external(&v23, *a3, *(a3 + 8));
       }
 
       else
       {
-        v24 = *a3;
+        v23 = *a3;
       }
 
       v11 = *(a1 + 8);
@@ -3817,7 +3793,7 @@ void UC::UCMultiContextHuffmanCoder::encodeWithStartContext(uint64_t a1@<X0>, vo
             v17 = *(v14 + 8);
           }
 
-          std::string::append(&v24, v16, v17);
+          std::string::append(&v23, v16, v17);
           ++v12;
           v13 += 24;
         }
@@ -3825,38 +3801,37 @@ void UC::UCMultiContextHuffmanCoder::encodeWithStartContext(uint64_t a1@<X0>, vo
         while (v12 < v9);
       }
 
-      v18 = UC::UCMultiContextHuffmanCoder::_huffmanCoderForContext(a1, &v24);
-      v19 = *a2 + 24 * v9;
+      v18 = UC::UCMultiContextHuffmanCoder::_huffmanCoderForContext(a1, &v23);
       (*(*v18 + 32))(__p);
-      if ((v23 & 0x80u) == 0)
+      if ((v22 & 0x80u) == 0)
       {
-        v20 = __p;
+        v19 = __p;
       }
 
       else
       {
-        v20 = __p[0];
+        v19 = __p[0];
       }
 
-      if ((v23 & 0x80u) == 0)
+      if ((v22 & 0x80u) == 0)
       {
-        v21 = v23;
+        v20 = v22;
       }
 
       else
       {
-        v21 = __p[1];
+        v20 = __p[1];
       }
 
-      std::string::append(a4, v20, v21);
-      if (v23 < 0)
+      std::string::append(a4, v19, v20);
+      if (v22 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v24.__r_.__value_.__l.__data_);
+        operator delete(v23.__r_.__value_.__l.__data_);
       }
 
       ++v9;
@@ -4257,8 +4232,7 @@ void std::allocator<UC::UCSymbolFrequencyTable>::construct[abi:ne200100]<UC::UCS
 {
   v5 = *a3;
   v6 = *a4;
-  *a4 = 0;
-  *(a4 + 1) = 0;
+  *a4 = 0uLL;
   UC::UCSymbolFrequencyTable::UCSymbolFrequencyTable(a2, v5, &v6);
   if (*(&v6 + 1))
   {
@@ -4276,37 +4250,37 @@ void sub_2702F5E38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2, uint64_t a3, __int128 **a4)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v8 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v9 = v8;
-  v10 = *(a1 + 8);
-  if (v10)
+  v9 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v10 = v9;
+  v11 = *(a1 + 8);
+  if (v11)
   {
-    v11 = vcnt_s8(v10);
-    v11.i16[0] = vaddlv_u8(v11);
-    v12 = v11.u32[0];
-    if (v11.u32[0] > 1uLL)
+    v12 = vcnt_s8(v11);
+    v12.i16[0] = vaddlv_u8(v12);
+    v13 = v12.u32[0];
+    if (v12.u32[0] > 1uLL)
     {
-      v4 = v8;
-      if (v8 >= v10)
+      v5 = v9;
+      if (v9 >= v11)
       {
-        v4 = v8 % v10;
+        v5 = v9 % v11;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v8;
+      v5 = (v11 - 1) & v9;
     }
 
-    v13 = *(*a1 + 8 * v4);
-    if (v13)
+    v14 = *(*a1 + 8 * v5);
+    if (v14)
     {
-      for (i = *v13; i; i = *i)
+      for (i = *v14; i; i = *i)
       {
-        v15 = i[1];
-        if (v15 == v9)
+        v16 = i[1];
+        if (v16 == v10)
         {
           if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, a2))
           {
@@ -4316,20 +4290,20 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::unique_pt
 
         else
         {
-          if (v12 > 1)
+          if (v13 > 1)
           {
-            if (v15 >= v10)
+            if (v16 >= v11)
             {
-              v15 %= v10;
+              v16 %= v11;
             }
           }
 
           else
           {
-            v15 &= v10 - 1;
+            v16 &= v11 - 1;
           }
 
-          if (v15 != v4)
+          if (v16 != v5)
           {
             break;
           }
@@ -4338,96 +4312,96 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::unique_pt
     }
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v9, a4, v27);
-  v16 = (*(a1 + 24) + 1);
-  v17 = *(a1 + 32);
-  if (!v10 || (v17 * v10) < v16)
+  std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v10, a4, v28);
+  v17 = (*(a1 + 24) + 1);
+  v18 = *(a1 + 32);
+  if (!v11 || (v18 * v11) < v17)
   {
-    v18 = 1;
-    if (v10 >= 3)
+    v19 = 1;
+    if (v11 >= 3)
     {
-      v18 = (v10 & (v10 - 1)) != 0;
+      v19 = (v11 & (v11 - 1)) != 0;
     }
 
-    v19 = v18 | (2 * v10);
-    v20 = vcvtps_u32_f32(v16 / v17);
-    if (v19 <= v20)
+    v20 = v19 | (2 * v11);
+    v21 = vcvtps_u32_f32(v17 / v18);
+    if (v20 <= v21)
     {
-      v21 = v20;
+      v22 = v21;
     }
 
     else
     {
-      v21 = v19;
+      v22 = v20;
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, v21);
-    v10 = *(a1 + 8);
-    if ((v10 & (v10 - 1)) != 0)
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, v22);
+    v11 = *(a1 + 8);
+    if ((v11 & (v11 - 1)) != 0)
     {
-      if (v9 >= v10)
+      if (v10 >= v11)
       {
-        v4 = v9 % v10;
+        v5 = v10 % v11;
       }
 
       else
       {
-        v4 = v9;
+        v5 = v10;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v9;
+      v5 = (v11 - 1) & v10;
     }
   }
 
-  v22 = *a1;
-  v23 = *(*a1 + 8 * v4);
-  if (v23)
+  v23 = *a1;
+  v24 = *(*a1 + 8 * v5);
+  if (v24)
   {
-    i = v27[0];
-    *v27[0] = *v23;
-    *v23 = i;
+    i = v28[0];
+    *v28[0] = *v24;
+    *v24 = i;
   }
 
   else
   {
-    v24 = v27[0];
-    *v27[0] = *(a1 + 16);
-    *(a1 + 16) = v24;
-    *(v22 + 8 * v4) = a1 + 16;
-    i = v27[0];
-    if (*v27[0])
+    v25 = v28[0];
+    *v28[0] = *(a1 + 16);
+    *(a1 + 16) = v25;
+    *(v23 + 8 * v5) = a1 + 16;
+    i = v28[0];
+    if (*v28[0])
     {
-      v25 = *(*v27[0] + 8);
-      if ((v10 & (v10 - 1)) != 0)
+      v26 = *(*v28[0] + 8);
+      if ((v11 & (v11 - 1)) != 0)
       {
-        if (v25 >= v10)
+        if (v26 >= v11)
         {
-          v25 %= v10;
+          v26 %= v11;
         }
       }
 
       else
       {
-        v25 &= v10 - 1;
+        v26 &= v11 - 1;
       }
 
-      *(*a1 + 8 * v25) = v27[0];
-      i = v27[0];
+      *(*a1 + 8 * v26) = v28[0];
+      i = v28[0];
     }
   }
 
-  v27[0] = 0;
+  v28[0] = 0;
   ++*(a1 + 24);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,void *>>>>::~unique_ptr[abi:ne200100](v27);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,void *>>>>::~unique_ptr[abi:ne200100](v28);
   return i;
 }
 
-void sub_2702F60B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702F60B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<UC::UCHuffmanCoder>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4558,7 +4532,7 @@ uint64_t UC::UCSymbolFrequencyTable::getFrequencyForSymbol(uint64_t a1, uint64_t
       __p = *a2;
     }
 
-    FrequencyForSymbol = UC::UCMultiContextSymbolFrequencyTrie::Node::getFrequencyForSymbol(v6, &__p.__r_.__value_.__l.__data_);
+    FrequencyForSymbol = UC::UCMultiContextSymbolFrequencyTrie::Node::getFrequencyForSymbol(v6, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4697,7 +4671,7 @@ UC::SUE::PrefixedURLDecoderImpl *UC::SUE::PrefixedURLDecoderImpl::PrefixedURLDec
     }
   }
 
-  createAllowedPrefixes(a2, &v8);
+  createAllowedPrefixes(&v8, a2);
   v6 = *(this + 3);
   *(this + 1) = v8;
   if (v6)
@@ -4727,48 +4701,47 @@ void sub_2702F71AC(_Unwind_Exception *exception_object)
 
 void createHexDecimalCoder(void *a1@<X8>)
 {
-  *&v22 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(&v6, "0");
-  std::string::basic_string[abi:ne200100]<0>(v7, "1");
-  std::string::basic_string[abi:ne200100]<0>(v8, "2");
-  std::string::basic_string[abi:ne200100]<0>(v9, "3");
-  std::string::basic_string[abi:ne200100]<0>(v10, "4");
-  std::string::basic_string[abi:ne200100]<0>(v11, "5");
-  std::string::basic_string[abi:ne200100]<0>(v12, "6");
-  std::string::basic_string[abi:ne200100]<0>(v13, "7");
-  std::string::basic_string[abi:ne200100]<0>(v14, "8");
-  std::string::basic_string[abi:ne200100]<0>(v15, "9");
-  std::string::basic_string[abi:ne200100]<0>(v16, "a");
-  std::string::basic_string[abi:ne200100]<0>(v17, "b");
-  std::string::basic_string[abi:ne200100]<0>(v18, "c");
-  std::string::basic_string[abi:ne200100]<0>(v19, "d");
-  std::string::basic_string[abi:ne200100]<0>(v20, "e");
-  std::string::basic_string[abi:ne200100]<0>(v21, "f");
-  memset(&v5, 0, sizeof(v5));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v5, &v6, &v22, 0x10uLL);
+  *&v21 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(&v5, "0");
+  std::string::basic_string[abi:ne200100]<0>(v6, "1");
+  std::string::basic_string[abi:ne200100]<0>(v7, "2");
+  std::string::basic_string[abi:ne200100]<0>(v8, "3");
+  std::string::basic_string[abi:ne200100]<0>(v9, "4");
+  std::string::basic_string[abi:ne200100]<0>(v10, "5");
+  std::string::basic_string[abi:ne200100]<0>(v11, "6");
+  std::string::basic_string[abi:ne200100]<0>(v12, "7");
+  std::string::basic_string[abi:ne200100]<0>(v13, "8");
+  std::string::basic_string[abi:ne200100]<0>(v14, "9");
+  std::string::basic_string[abi:ne200100]<0>(v15, "a");
+  std::string::basic_string[abi:ne200100]<0>(v16, "b");
+  std::string::basic_string[abi:ne200100]<0>(v17, "c");
+  std::string::basic_string[abi:ne200100]<0>(v18, "d");
+  std::string::basic_string[abi:ne200100]<0>(v19, "e");
+  std::string::basic_string[abi:ne200100]<0>(v20, "f");
+  memset(&v4, 0, sizeof(v4));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v4, &v5, &v21, 0x10uLL);
   v2 = 48;
   do
   {
-    if (*(&v7[v2 - 1] - 1) < 0)
+    if (*(&v6[v2 - 1] - 1) < 0)
     {
-      operator delete(v5.__r_.__value_.__r.__words[v2 + 1]);
+      operator delete(v4.__r_.__value_.__r.__words[v2 + 1]);
     }
 
     v2 -= 3;
   }
 
   while (v2 * 8);
-  v4 = 4;
-  std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string> const&,0>(&v5, &v6);
-  std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v4, &v6, a1);
-  if (*(&v6 + 1))
+  v3 = 4;
+  std::allocate_shared[abi:ne200100]<std::vector<std::string>,std::allocator<std::vector<std::string>>,std::vector<std::string> const&,0>(&v4, &v5);
+  std::allocate_shared[abi:ne200100]<UC::UCFixedLengthCoder,std::allocator<UC::UCFixedLengthCoder>,int,std::shared_ptr<std::vector<std::string>>,0>(&v3, &v5, a1);
+  if (*(&v5 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v6 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v5 + 1));
   }
 
-  *&v6 = &v5;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v6);
-  v3 = *MEMORY[0x277D85DE8];
+  *&v5 = &v4;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
 void sub_2702F7414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, std::__shared_weak_count *a15)
@@ -4783,7 +4756,7 @@ void sub_2702F7414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void createAllowedPrefixes(uint64_t a1@<X0>, void *a2@<X8>)
+void createAllowedPrefixes(uint64_t *__return_ptr a1@<X8>, uint64_t a2@<X0>)
 {
   v4 = operator new(0x40uLL);
   *(v4 + 1) = 0;
@@ -4793,9 +4766,9 @@ void createAllowedPrefixes(uint64_t a1@<X0>, void *a2@<X8>)
   v5 = (v4 + 24);
   *(v4 + 40) = 0u;
   *(v4 + 14) = 1065353216;
-  *a2 = v4 + 24;
-  a2[1] = v4;
-  switch(a1)
+  *a1 = (v4 + 24);
+  a1[1] = v4;
+  switch(a2)
   {
     case 3:
       v6 = 0;
@@ -4849,13 +4822,13 @@ void sub_2702F7640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void UC::SUE::PrefixedURLDecoderImpl::decodeURL(UC::SUE::PrefixedURLDecoderImpl *this@<X0>, UC::UCBitStream *a2@<X1>, uint64_t a3@<X8>)
+void UC::SUE::PrefixedURLDecoderImpl::decodeURL(uint64_t *__return_ptr a1@<X8>, UC::SUE::PrefixedURLDecoderImpl *this@<X0>, UC::UCBitStream *a3@<X1>)
 {
   v6 = 0;
   v7 = 10;
   do
   {
-    v6 = UC::UCBitStream::readNextBit(a2) & 1 | (2 * v6);
+    v6 = UC::UCBitStream::readNextBit(a3) & 1 | (2 * v6);
     --v7;
   }
 
@@ -4865,27 +4838,27 @@ void UC::SUE::PrefixedURLDecoderImpl::decodeURL(UC::SUE::PrefixedURLDecoderImpl 
   if (!v8)
   {
     exception = __cxa_allocate_exception(0x58uLL);
-    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 29, 7, "", 0, "Unsupported header format in encoded data", 41);
+    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 0x1DuLL, 7, "", 0, "Unsupported header format in encoded data", 0x29uLL);
   }
 
   v9 = v8;
   v10 = 6;
   do
   {
-    UC::UCBitStream::readNextBit(a2);
+    UC::UCBitStream::readNextBit(a3);
     --v10;
   }
 
   while (v10);
   v11 = *this;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  (*(*v11 + 48))(v15, v11, a2, __p);
+  (*(*v11 + 48))(v15, v11, a3, __p);
   if (v14 < 0)
   {
     operator delete(__p[0]);
   }
 
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v9 + 3, v15, a3);
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v9 + 3, v15, a1);
   if (v16 < 0)
   {
     operator delete(v15[0]);
@@ -4910,7 +4883,7 @@ UC::SUE::PrefixedURLEncoderImpl *UC::SUE::PrefixedURLEncoderImpl::PrefixedURLEnc
     }
   }
 
-  createAllowedPrefixes(a2, &v8);
+  createAllowedPrefixes(&v8, a2);
   v6 = *(this + 3);
   *(this + 1) = v8;
   if (v6)
@@ -4938,17 +4911,17 @@ void sub_2702F78B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void UC::SUE::PrefixedURLEncoderImpl::encodeURL(UC::SUE::PrefixedURLEncoderImpl *this@<X0>, const UC::UCURLComponents *a2@<X1>, std::string *a3@<X8>)
+void UC::SUE::PrefixedURLEncoderImpl::encodeURL(std::string *__return_ptr a1@<X8>, UC::SUE::PrefixedURLEncoderImpl *this@<X0>, const UC::UCURLComponents *a3@<X1>)
 {
-  v6 = a2 + 24;
-  v7 = *(a2 + 47);
+  v6 = a3 + 24;
+  v7 = *(a3 + 47);
   if (v7 < 0)
   {
-    if (*(a2 + 4) != 5)
+    if (*(a3 + 4) != 5)
     {
 LABEL_109:
       exception = __cxa_allocate_exception(0x58uLL);
-      UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 29, 1, "", 0, "Only encoding of the scheme https is supported", 46);
+      UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 0x1DuLL, 1, "", 0, "Only encoding of the scheme https is supported", 0x2EuLL);
       goto LABEL_114;
     }
 
@@ -4967,36 +4940,36 @@ LABEL_109:
     goto LABEL_109;
   }
 
-  if (*(a2 + 18))
+  if (*(a3 + 18))
   {
     exception = __cxa_allocate_exception(0x58uLL);
-    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 29, 2, "", 0, "Encoding of URLs with port is not supported", 43);
+    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 0x1DuLL, 2, "", 0, "Encoding of URLs with port is not supported", 0x2BuLL);
     goto LABEL_114;
   }
 
-  v11 = *(a2 + 175);
+  v11 = *(a3 + 175);
   if ((v11 & 0x80u) != 0)
   {
-    v11 = *(a2 + 20);
+    v11 = *(a3 + 20);
   }
 
   if (v11)
   {
     exception = __cxa_allocate_exception(0x58uLL);
-    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 29, 3, "", 0, "Encoding of URLs with user is not supported", 43);
+    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 0x1DuLL, 3, "", 0, "Encoding of URLs with user is not supported", 0x2BuLL);
     goto LABEL_114;
   }
 
-  v12 = *(a2 + 199);
+  v12 = *(a3 + 199);
   if ((v12 & 0x80u) != 0)
   {
-    v12 = *(a2 + 23);
+    v12 = *(a3 + 23);
   }
 
   if (v12)
   {
     exception = __cxa_allocate_exception(0x58uLL);
-    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 29, 4, "", 0, "Encoding of URLs with password is not supported", 47);
+    UC::Exception::CoderError::CoderError(exception, "UCPrefixedURLCoderErrorDomain", 0x1DuLL, 4, "", 0, "Encoding of URLs with password is not supported", 0x2FuLL);
 LABEL_114:
   }
 
@@ -5004,17 +4977,17 @@ LABEL_114:
   v57 = 0;
   v58 = 0;
   v59 = 0;
-  if (*(a2 + 71) < 0)
+  if (*(a3 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v55, *(a2 + 6), *(a2 + 7));
+    std::string::__init_copy_ctor_external(&v55, *(a3 + 6), *(a3 + 7));
   }
 
   else
   {
-    v55 = *(a2 + 2);
+    v55 = *(a3 + 2);
   }
 
-  tokenizeString(a2 + 96, 61, v54);
+  tokenizeString(a3 + 96, 61, v54);
   size = HIBYTE(v55.__r_.__value_.__r.__words[2]);
   if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
@@ -5028,10 +5001,10 @@ LABEL_114:
     goto LABEL_118;
   }
 
-  v14 = *(a2 + 143);
+  v14 = *(a3 + 143);
   if ((v14 & 0x80u) != 0)
   {
-    v14 = *(a2 + 16);
+    v14 = *(a3 + 16);
   }
 
   if (v14)
@@ -5049,25 +5022,25 @@ LABEL_118:
   }
 
   std::operator+<char>();
-  v15 = *(a2 + 95);
+  v15 = *(a3 + 95);
   if (v15 >= 0)
   {
-    v16 = a2 + 72;
+    v16 = a3 + 72;
   }
 
   else
   {
-    v16 = *(a2 + 9);
+    v16 = *(a3 + 9);
   }
 
   if (v15 >= 0)
   {
-    v17 = *(a2 + 95);
+    v17 = *(a3 + 95);
   }
 
   else
   {
-    v17 = *(a2 + 10);
+    v17 = *(a3 + 10);
   }
 
   v18 = std::string::append(&v51, v16, v17);
@@ -5211,10 +5184,10 @@ LABEL_110:
   (*(*v39 + 40))(&v61, v39, &__str);
   v51.__r_.__value_.__r.__words[0] = &__str;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v51);
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  a3[1].__r_.__value_.__r.__words[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1[1].__r_.__value_.__r.__words[2] = 0;
   if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v40 = HIBYTE(v52.__r_.__value_.__r.__words[2]);
@@ -5275,7 +5248,7 @@ LABEL_110:
   v45->__r_.__value_.__l.__size_ = 0;
   v45->__r_.__value_.__r.__words[2] = 0;
   v45->__r_.__value_.__r.__words[0] = 0;
-  UC::SUE::UCSegmentedURLEncodingResult::setEncodingBits(a3, &__str);
+  UC::SUE::UCSegmentedURLEncodingResult::setEncodingBits(a1, &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
@@ -5321,7 +5294,7 @@ LABEL_110:
   }
 }
 
-void tokenizeString(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
+void tokenizeString(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v3 = a2;
   *a3 = 0;
@@ -5430,9 +5403,9 @@ void std::__shared_ptr_emplace<std::unordered_map<int,std::string>>::~__shared_p
   operator delete(v1);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<int,std::string>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::string>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::string>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::string>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<int,std::string>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::string>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::string>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::string>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<int,std::string>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::string>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::string>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::string>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<int,std::string>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::string>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::string>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::string>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5911,8 +5884,7 @@ void sub_2702F958C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *UC::JoinString@<X0>(std::string *result@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v2 = result->__r_.__value_.__r.__words[0];
   size = result->__r_.__value_.__l.__size_;
@@ -5961,7 +5933,7 @@ void sub_2702F9614(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t UC::IsAllDigits(unsigned __int8 *a1, uint64_t a2)
+BOOL UC::IsAllDigits(unsigned __int8 *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -6086,20 +6058,20 @@ void sub_2702F9828(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::unordered_map<std::string,std::string>::insert_or_assign[abi:ne200100]<std::string>(uint64_t a1, const void **a2, __n128 *a3)
+char *std::unordered_map<std::string,std::string>::insert_or_assign[abi:ne200100]<std::string>(uint64_t a1, uint64_t *a2, __n128 *a3)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string>(a1, a2, a2, a3);
   v5 = v4;
   if ((v6 & 1) == 0)
   {
-    if (*(v4 + 63) < 0)
+    if (v4[63] < 0)
     {
-      operator delete(v4[5]);
+      operator delete(*(v4 + 5));
     }
 
     v7 = *a3;
-    v5[7] = a3[1].n128_u64[0];
-    *(v5 + 5) = v7;
+    *(v5 + 7) = a3[1].n128_u64[0];
+    *(v5 + 40) = v7;
     a3[1].n128_u8[7] = 0;
     a3->n128_u8[0] = 0;
   }
@@ -6107,7 +6079,7 @@ const void **std::unordered_map<std::string,std::string>::insert_or_assign[abi:n
   return v5;
 }
 
-void UC::UCFixedLengthCoder::encode(UC::UCFixedLengthCoder *a1@<X0>, const void **a2@<X1>, std::string *a3@<X8>)
+void UC::UCFixedLengthCoder::encode(UC::UCFixedLengthCoder *a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
 {
   UC::UCFixedLengthCoder::_initializeForEncoding(a1);
   v6 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(*(a1 + 4), a2);
@@ -6134,8 +6106,7 @@ void UC::UCFixedLengthCoder::encode(UC::UCFixedLengthCoder *a1@<X0>, const void 
 
 void UC::UCFixedLengthCoder::encode(uint64_t a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   v3 = *a2;
   v4 = a2[1];
@@ -6189,8 +6160,7 @@ void sub_2702F9A1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void UC::UCFixedLengthCoder::decode(UC::UCBitStream *this@<X1>, uint64_t a2@<X0>, const void **a3@<X2>, std::string *a4@<X8>)
 {
-  a4->__r_.__value_.__r.__words[0] = 0;
-  a4->__r_.__value_.__l.__size_ = 0;
+  *&a4->__r_.__value_.__l.__data_ = 0uLL;
   a4->__r_.__value_.__r.__words[2] = 0;
   while (UC::UCBitStream::hasMore(this))
   {
@@ -6297,7 +6267,7 @@ LABEL_7:
   {
 LABEL_13:
     exception = __cxa_allocate_exception(0x38uLL);
-    UC::Exception::InvalidDecodingSymbolInstruction::InvalidDecodingSymbolInstruction(exception, "", 0, "Decoder encountered an invalid symbol instruction. The encoding bit stream is invalid", 85);
+    UC::Exception::InvalidDecodingSymbolInstruction::InvalidDecodingSymbolInstruction(exception, "", 0, "Decoder encountered an invalid symbol instruction. The encoding bit stream is invalid", 0x55uLL);
   }
 
   v9 = (v8 + 24 * v7);
@@ -6368,7 +6338,7 @@ void UC::UCFixedLengthCoder::~UCFixedLengthCoder(UC::UCFixedLengthCoder *this)
   operator delete(this);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string>(uint64_t a1, const void **a2, uint64_t a3, __n128 *a4)
+char *std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string>(uint64_t a1, uint64_t *a2, uint64_t a3, __n128 *a4)
 {
   v9 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v10 = v9;
@@ -6397,7 +6367,7 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,s
     {
       for (i = *v14; i; i = *i)
       {
-        v16 = i[1];
+        v16 = *(i + 1);
         if (v16 == v10)
         {
           if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, a2))
@@ -6517,9 +6487,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,s
   return i;
 }
 
-void sub_2702FA0D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2702FA0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

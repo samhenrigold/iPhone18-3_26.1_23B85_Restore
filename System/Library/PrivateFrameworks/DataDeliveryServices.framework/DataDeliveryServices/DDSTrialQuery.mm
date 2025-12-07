@@ -17,29 +17,28 @@
 
 - (DDSTrialQuery)initWithProjectId:(int)id namespaceId:(unsigned int)namespaceId
 {
-  v17[2] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = DDSTrialQuery;
-  v6 = [(DDSTrialQuery *)&v15 init];
+  v16[2] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = DDSTrialQuery;
+  v6 = [(DDSTrialQuery *)&v14 init];
   v7 = v6;
   if (v6)
   {
     v6->_projectId = id;
     v6->_namespaceId = namespaceId;
-    v16[0] = @"projectId";
+    v15[0] = @"projectId";
     v8 = [MEMORY[0x1E696AD98] numberWithInt:{-[DDSTrialQuery projectId](v6, "projectId")}];
-    v16[1] = @"namespaceId";
-    v17[0] = v8;
+    v15[1] = @"namespaceId";
+    v16[0] = v8;
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[DDSTrialQuery namespaceId](v7, "namespaceId")}];
-    v17[1] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v16[1] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     v11 = [v10 description];
     description = v7->_description;
     v7->_description = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

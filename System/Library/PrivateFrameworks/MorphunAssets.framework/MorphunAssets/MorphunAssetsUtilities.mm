@@ -13,7 +13,7 @@
 
 + (id)embeddedLanguages
 {
-  MorphunLogInitIfNeeded();
+  MorphunLogInitIfNeeded(self, a2);
   if (embeddedLanguages_oncePredicate != -1)
   {
     +[MorphunAssetsUtilities embeddedLanguages];
@@ -53,7 +53,7 @@ void __43__MorphunAssetsUtilities_embeddedLanguages__block_invoke()
 
 + (id)userSiriXLocales
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
   languageCode = [mEMORY[0x277CEF368] languageCode];
 
@@ -61,9 +61,9 @@ void __43__MorphunAssetsUtilities_embeddedLanguages__block_invoke()
   if (os_log_type_enabled(MorphunAssetOSLog, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "+[MorphunAssetsUtilities userSiriXLocales]";
-    v13 = 2114;
-    v14 = languageCode;
+    v11 = "+[MorphunAssetsUtilities userSiriXLocales]";
+    v12 = 2114;
+    v13 = languageCode;
     _os_log_impl(&dword_25AACA000, v4, OS_LOG_TYPE_INFO, "%s AFPreferences returned %{public}@", buf, 0x16u);
   }
 
@@ -73,8 +73,8 @@ void __43__MorphunAssetsUtilities_embeddedLanguages__block_invoke()
     v6 = v5;
     if (v5)
     {
-      v10 = v5;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+      v9 = v5;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     }
 
     else
@@ -87,8 +87,6 @@ void __43__MorphunAssetsUtilities_embeddedLanguages__block_invoke()
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -133,7 +131,7 @@ void __43__MorphunAssetsUtilities_embeddedLanguages__block_invoke()
 
 void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v3 = configurationFromPropertiesFile__configurationStore;
   configurationFromPropertiesFile__configurationStore = v2;
@@ -147,61 +145,61 @@ void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke
   {
     v7 = *(a1 + 40);
     *buf = 136315394;
-    v36 = "+[MorphunAssetsUtilities configurationFromPropertiesFile:]_block_invoke";
-    v37 = 2114;
-    v38 = v7;
+    v35 = "+[MorphunAssetsUtilities configurationFromPropertiesFile:]_block_invoke";
+    v36 = 2114;
+    v37 = v7;
     _os_log_impl(&dword_25AACA000, v6, OS_LOG_TYPE_INFO, "%s Reading configuration file %{public}@", buf, 0x16u);
   }
 
   v8 = *v5;
-  v33 = 0;
-  v9 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v8 encoding:4 error:&v33];
-  v10 = v33;
+  v32 = 0;
+  v9 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v8 encoding:4 error:&v32];
+  v10 = v32;
   if (v10)
   {
     v11 = v10;
     if (os_log_type_enabled(MorphunAssetOSLog, OS_LOG_TYPE_ERROR))
     {
-      __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_1(v5);
+      __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_1();
     }
   }
 
   else
   {
-    v32 = 0;
-    v12 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^[ \t]*(.*?)[ \t]*[=|:][ \t]*(.*?)[ \t]*$" options:16 error:&v32];
-    v11 = v32;
+    v31 = 0;
+    v12 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^[ \t]*(.*?)[ \t]*[=|:][ \t]*(.*?)[ \t]*$" options:16 error:&v31];
+    v11 = v31;
     if (v11)
     {
       if (os_log_type_enabled(MorphunAssetOSLog, OS_LOG_TYPE_ERROR))
       {
-        __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_2(v5);
+        __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_2();
       }
     }
 
     else
     {
-      v27 = v12;
+      v26 = v12;
       v13 = [v12 matchesInString:v9 options:0 range:{0, objc_msgSend(v9, "length")}];
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
-      v14 = [v13 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v27 objects:v33 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v29;
+        v16 = *v28;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v29 != v16)
+            if (*v28 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v28 + 1) + 8 * i);
+            v18 = *(*(&v27 + 1) + 8 * i);
             v19 = [v18 rangeAtIndex:1];
             v21 = [v9 substringWithRange:{v19, v20}];
             v22 = [v18 rangeAtIndex:2];
@@ -210,18 +208,16 @@ void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke
             [v25 setObject:v24 forKeyedSubscript:v21];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v28 objects:v34 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v27 objects:v33 count:16];
         }
 
         while (v15);
       }
 
-      v12 = v27;
+      v12 = v26;
       v11 = 0;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configFileValueForKey:(id)key
@@ -253,7 +249,7 @@ void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke
 
 + (id)libmorphunVersion
 {
-  MorphunLogInitIfNeeded();
+  MorphunLogInitIfNeeded(self, a2);
   if ([libmorphunVersion_version isEqualToString:&stru_286C1C540])
   {
     v2 = [MorphunAssetsUtilities configFileValueForKey:@"library.version"];
@@ -338,61 +334,52 @@ void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke
   return v8;
 }
 
-void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_1(uint64_t *a1)
+void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v2, v3, "%s Failed to read configuration file at %{public}@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Failed to read configuration file at %{public}@", v2, v3, v4, v5, v6);
 }
 
-void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_2(uint64_t *a1)
+void __58__MorphunAssetsUtilities_configurationFromPropertiesFile___block_invoke_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v2, v3, "%s Failed to parse configuration file at %{public}@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Failed to parse configuration file at %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)configFileValueForKey:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Retrieved configuration returned an empty dictionary for %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Retrieved configuration returned an empty dictionary for %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)embeddedLanguages
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Configuration parser returned a nil value for key %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Configuration parser returned a nil value for key %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)libmorphunVersion
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Configuration parser returned a nil value for key %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25AACA000, v0, v1, "%s Configuration parser returned a nil value for key %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)compareVersion:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[MorphunAssetsUtilities libmorphunVersion];
-  v8[0] = 136315650;
+  v7[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
-  v9 = a1;
-  v10 = v5;
-  v11 = v6;
-  _os_log_error_impl(&dword_25AACA000, v3, OS_LOG_TYPE_ERROR, "%s Error parsing version strings:\nInput version: %{public}@\nlibmorphun version:%{public}@", v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = a1;
+  v9 = v5;
+  v10 = v6;
+  _os_log_error_impl(&dword_25AACA000, v3, OS_LOG_TYPE_ERROR, "%s Error parsing version strings:\nInput version: %{public}@\nlibmorphun version:%{public}@", v7, 0x20u);
 }
 
 @end

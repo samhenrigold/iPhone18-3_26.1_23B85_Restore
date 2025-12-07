@@ -155,29 +155,29 @@
 
 - (id)linkTitlesText
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   links = [(WFWebPageDecorator *)self links];
-  v5 = [links countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [links countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(links);
         }
 
-        title = [*(*(&v12 + 1) + 8 * v8) title];
+        title = [*(*(&v11 + 1) + 8 * v8) title];
         if (title)
         {
           [string appendFormat:@"%@\n", title];
@@ -187,13 +187,12 @@
       }
 
       while (v6 != v8);
-      v6 = [links countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [links countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return string;
 }
 

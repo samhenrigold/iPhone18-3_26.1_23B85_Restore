@@ -54,31 +54,31 @@ LABEL_3:
 
   else
   {
-    v15 = OBJC_IVAR___PSListController__specifiers;
-    v5 = +[NSMutableArray array];
-    v6 = 0;
-    v7 = PSEnabledKey;
+    v16 = OBJC_IVAR___PSListController__specifiers;
+    v6 = +[NSMutableArray array];
+    v7 = 0;
+    v8 = PSEnabledKey;
     do
     {
-      v8 = word_1DA7F0[v6];
-      v9 = AXLocalizedNameForMIDIChannel(word_1DA7F0[v6]);
-      v10 = [PSSpecifier preferenceSpecifierNamed:v9 target:self set:0 get:0 detail:0 cell:3 edit:0];
+      v9 = word_1DA7F0[v7];
+      v10 = AXLocalizedNameForMIDIChannel(word_1DA7F0[v7], v5);
+      v11 = [PSSpecifier preferenceSpecifierNamed:v10 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
-      v11 = [NSNumber numberWithUnsignedShort:v8];
-      [v10 setProperty:v11 forKey:@"MIDIChannel"];
+      v12 = [NSNumber numberWithUnsignedShort:v9];
+      [v11 setProperty:v12 forKey:@"MIDIChannel"];
 
-      [v10 setProperty:&__kCFBooleanTrue forKey:v7];
-      [v5 addObject:v10];
+      [v11 setProperty:&__kCFBooleanTrue forKey:v8];
+      [v6 addObject:v11];
 
-      ++v6;
+      ++v7;
     }
 
-    while (v6 != 17);
-    v12 = *&self->AXUISettingsSetupCapableListController_opaque[v15];
-    *&self->AXUISettingsSetupCapableListController_opaque[v15] = v5;
-    v13 = v5;
+    while (v7 != 17);
+    v13 = *&self->AXUISettingsSetupCapableListController_opaque[v16];
+    *&self->AXUISettingsSetupCapableListController_opaque[v16] = v6;
+    v14 = v6;
 
-    v3 = *&self->AXUISettingsSetupCapableListController_opaque[v15];
+    v3 = *&self->AXUISettingsSetupCapableListController_opaque[v16];
   }
 
   return v3;

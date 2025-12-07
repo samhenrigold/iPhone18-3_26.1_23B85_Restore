@@ -17,7 +17,7 @@
 
 + (id)collapseUserDomainConcept:(id)concept with:(id)with profile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v87[3] = *MEMORY[0x277D85DE8];
+  v86[3] = *MEMORY[0x277D85DE8];
   conceptCopy = concept;
   withCopy = with;
   profileCopy = profile;
@@ -60,31 +60,18 @@ LABEL_6:
   v28 = profileCopy;
   v29 = transactionCopy;
   v30 = objc_opt_self();
-  if (![v30 preDeduplicationProcessingForUserDomainConcept:v27 duplicateConcept:v26 transaction:v29 error:error])
+  if (![v30 preDeduplicationProcessingForUserDomainConcept:v27 duplicateConcept:v26 transaction:v29 error:error] || (objc_msgSend(v26, "UUID"), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "UUID"), v32 = objc_claimAutoreleasedReturnValue(), v33 = error, v34 = v32, v82 = v33, v35 = +[HDUserDomainConceptEntity updateLinksTargetingUserDomainConceptUUID:toTargetUserDomainConceptUUID:profile:transaction:error:](HDUserDomainConceptEntity, "updateLinksTargetingUserDomainConceptUUID:toTargetUserDomainConceptUUID:profile:transaction:error:", v31, v32, v28, v29), v34, v31, !v35))
   {
-    goto LABEL_19;
-  }
-
-  uUID = [v26 UUID];
-  uUID2 = [v27 UUID];
-  errorCopy = error;
-  v34 = uUID2;
-  v83 = errorCopy;
-  v35 = [HDUserDomainConceptEntity updateLinksTargetingUserDomainConceptUUID:uUID toTargetUserDomainConceptUUID:uUID2 profile:v28 transaction:v29 error:?];
-
-  if (!v35)
-  {
-LABEL_19:
     v65 = 0;
     goto LABEL_37;
   }
 
-  v81 = v28;
-  v78 = v17;
-  v79 = v16;
+  v80 = v28;
+  v77 = v17;
+  v78 = v16;
   v36 = v27;
   v37 = v26;
-  v80 = v30;
+  v79 = v30;
   objc_opt_self();
   v38 = v36;
   v39 = v37;
@@ -92,12 +79,12 @@ LABEL_19:
   propertyCollection = [v39 propertyCollection];
 
   v41 = [v38 copyUserDomainConceptByMergingInPropertyCollection:propertyCollection];
-  v77 = v38;
+  v76 = v38;
 
-  v76 = v41;
+  v75 = v41;
   v42 = v41;
   v43 = v39;
-  v82 = [objc_opt_self() mergeSubclassDataTo:v42 fromDuplicateConcept:v43];
+  v81 = [objc_opt_self() mergeSubclassDataTo:v42 fromDuplicateConcept:v43];
   codingCollection = [v42 codingCollection];
   codings = [codingCollection codings];
   v46 = [codings mutableCopy];
@@ -107,9 +94,9 @@ LABEL_19:
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __103__HDUserDomainConceptCollapser__migrateLinkAndCodingCollectionsAndSubclassDataFrom_to_outShouldUpdate___block_invoke;
-  v86 = &unk_27861DDA8;
+  v85 = &unk_27861DDA8;
   v49 = v46;
-  v87[0] = v49;
+  v86[0] = v49;
   [v49 hk_addObjectsFromArray:codings2 passingTest:buf];
 
   v50 = [v49 count];
@@ -117,7 +104,7 @@ LABEL_19:
   codings3 = [codingCollection3 codings];
   v53 = [codings3 count];
 
-  v55 = v50 != v53 || v82 != v42;
+  v55 = v50 != v53 || v81 != v42;
   v56 = v43;
   v57 = v42;
   objc_opt_self();
@@ -125,7 +112,7 @@ LABEL_19:
 
   v59 = MEMORY[0x277CCDB08];
   linkCollection2 = [v56 linkCollection];
-  v84 = v56;
+  v83 = v56;
 
   v61 = [v59 collectionByMergingCollection:linkCollection otherCollection:linkCollection2];
 
@@ -138,50 +125,50 @@ LABEL_19:
   if (v55)
   {
 LABEL_21:
-    v63 = v77;
-    v17 = v78;
-    v64 = v82;
+    v63 = v76;
+    v17 = v77;
+    v64 = v81;
     if ([v49 count])
     {
-      [v82 userDomainConceptByReplacingLinks:v61 andCodings:v49];
+      [v81 userDomainConceptByReplacingLinks:v61 andCodings:v49];
     }
 
     else
     {
-      [v82 userDomainConceptByReplacingLinks:v61];
+      [v81 userDomainConceptByReplacingLinks:v61];
     }
     v62 = ;
-    v75 = 1;
+    v74 = 1;
     goto LABEL_25;
   }
 
   v62 = v57;
-  v75 = 0;
-  v63 = v77;
-  v17 = v78;
-  v64 = v82;
+  v74 = 0;
+  v63 = v76;
+  v17 = v77;
+  v64 = v81;
 LABEL_25:
 
   v66 = v62;
-  if (v76 != v63 || v75)
+  if (v75 != v63 || v74)
   {
     _HKInitializeLogging();
     v67 = HKLogHealthOntology();
     if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      *&buf[4] = v80;
+      *&buf[4] = v79;
       *&buf[12] = 2114;
       *&buf[14] = v62;
       *&buf[22] = 2114;
-      v86 = v84;
-      LOWORD(v87[0]) = 2114;
-      *(v87 + 2) = v63;
+      v85 = v83;
+      LOWORD(v86[0]) = 2114;
+      *(v86 + 2) = v63;
       _os_log_impl(&dword_228986000, v67, OS_LOG_TYPE_DEFAULT, "%{public}@: Update UDC %{public}@ during deduplication by merging %{public}@ into %{public}@", buf, 0x2Au);
     }
 
-    userDomainConceptManager = [v81 userDomainConceptManager];
-    v69 = [userDomainConceptManager updateUserDomainConcept:v62 error:v83];
+    userDomainConceptManager = [v80 userDomainConceptManager];
+    v69 = [userDomainConceptManager updateUserDomainConcept:v62 error:v82];
 
     if (!v69)
     {
@@ -189,7 +176,7 @@ LABEL_25:
     }
   }
 
-  if (![v80 shouldDeleteDuplicateConcept])
+  if (![v79 shouldDeleteDuplicateConcept])
   {
     goto LABEL_34;
   }
@@ -199,16 +186,16 @@ LABEL_25:
   if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    *&buf[4] = v80;
+    *&buf[4] = v79;
     *&buf[12] = 2114;
-    *&buf[14] = v84;
+    *&buf[14] = v83;
     *&buf[22] = 2114;
-    v86 = v66;
+    v85 = v66;
     _os_log_impl(&dword_228986000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@: Delete duplicate UDC %{public}@ keeping UDC %{public}@", buf, 0x20u);
   }
 
-  userDomainConceptManager2 = [v81 userDomainConceptManager];
-  v72 = [userDomainConceptManager2 deleteUserDomainConcept:v84 error:v83];
+  userDomainConceptManager2 = [v80 userDomainConceptManager];
+  v72 = [userDomainConceptManager2 deleteUserDomainConcept:v83 error:v82];
 
   if (v72)
   {
@@ -222,12 +209,10 @@ LABEL_35:
     v65 = 0;
   }
 
-  v28 = v81;
+  v28 = v80;
 
-  v16 = v79;
+  v16 = v78;
 LABEL_37:
-
-  v73 = *MEMORY[0x277D85DE8];
 
   return v65;
 }

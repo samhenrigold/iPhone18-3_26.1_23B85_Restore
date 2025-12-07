@@ -21,19 +21,19 @@
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v11 = [defaultManager fileExistsAtPath:v9];
 
-  v12 = pk_General_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = pk_General_log(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (!v11)
   {
-    if (v13)
+    if (v14)
     {
-      v16 = pk_General_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = pk_General_log(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v9;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: couldn't find existing CPBitmap image on disk at %@", buf, 0xCu);
+        v36 = v9;
+        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: couldn't find existing CPBitmap image on disk at %@", buf, 0xCu);
       }
     }
 
@@ -42,17 +42,17 @@ LABEL_12:
     if (!imageRef)
     {
 LABEL_21:
-      v23 = pk_Payment_log();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+      v27 = pk_Payment_log(imageRef);
+      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
 
-      if (v24)
+      if (v28)
       {
-        v25 = pk_Payment_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v30 = pk_Payment_log(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v32 = v9;
-          _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Failed to generate mapped image at:%@", buf, 0xCu);
+          v36 = v9;
+          _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Failed to generate mapped image at:%@", buf, 0xCu);
         }
       }
 
@@ -62,51 +62,53 @@ LABEL_21:
 
     values[0] = imageRef;
     Default = CFAllocatorGetDefault();
-    v19 = CFArrayCreate(Default, values, 1, MEMORY[0x277CBF128]);
-    if (CPBitmapWriteImagesToPath())
+    v21 = CFArrayCreate(Default, values, 1, MEMORY[0x277CBF128]);
+    v22 = CPBitmapWriteImagesToPath();
+    if (v22)
     {
-      v20 = pk_General_log();
-      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      v23 = pk_General_log(v22);
+      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-      if (v21)
+      if (v24)
       {
-        v22 = pk_General_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v26 = pk_General_log(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v32 = v9;
-          _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: Successfully wrote CPBitmap to %@", buf, 0xCu);
+          v36 = v9;
+          _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: Successfully wrote CPBitmap to %@", buf, 0xCu);
         }
       }
 
-      selfCopy = [self _npkMemoryMappedImageWithPath:v9];
-      if (v19)
+      imageRef = [self _npkMemoryMappedImageWithPath:v9];
+      selfCopy = imageRef;
+      if (v21)
       {
 LABEL_19:
-        CFRelease(v19);
+        CFRelease(v21);
       }
     }
 
     else
     {
-      v28 = pk_Payment_log();
-      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+      v32 = pk_Payment_log(0);
+      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
 
-      if (v29)
+      if (v33)
       {
-        v30 = pk_Payment_log();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v34 = pk_Payment_log(imageRef);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v32 = v9;
-          v33 = 2112;
-          v34 = 0;
-          _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Unable to write CPBitmap to %@: %@", buf, 0x16u);
+          v36 = v9;
+          v37 = 2112;
+          v38 = 0;
+          _os_log_impl(&dword_25B300000, v34, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Unable to write CPBitmap to %@: %@", buf, 0x16u);
         }
       }
 
       selfCopy = 0;
-      if (v19)
+      if (v21)
       {
         goto LABEL_19;
       }
@@ -120,14 +122,14 @@ LABEL_19:
     goto LABEL_21;
   }
 
-  if (v13)
+  if (v14)
   {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v9;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: Found existing CPBitmap image on disk at %@", buf, 0xCu);
+      v36 = v9;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: Found existing CPBitmap image on disk at %@", buf, 0xCu);
     }
   }
 
@@ -139,58 +141,57 @@ LABEL_19:
 
 LABEL_26:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)_npkMemoryMappedImageWithPath:()NanoPassKit
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = a3;
   ImagesFromPath = CPBitmapCreateImagesFromPath();
   if (ImagesFromPath)
   {
     v6 = ImagesFromPath;
-    if (CFArrayGetCount(ImagesFromPath) == 1)
+    Count = CFArrayGetCount(ImagesFromPath);
+    if (Count == 1)
     {
-      v7 = pk_General_log();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+      v8 = pk_General_log(1);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-      if (v8)
+      if (v9)
       {
-        v9 = pk_General_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = pk_General_log(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v23 = v4;
-          _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: Successfully read CPBitmap from %@", buf, 0xCu);
+          v26 = v4;
+          _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: ImageMemoryMap: Successfully read CPBitmap from %@", buf, 0xCu);
         }
       }
 
       ValueAtIndex = CFArrayGetValueAtIndex(v6, 0);
-      v11 = objc_alloc(MEMORY[0x277D37F10]);
+      v13 = objc_alloc(MEMORY[0x277D37F10]);
       [self scale];
-      v13 = [v11 initWithCGImage:ValueAtIndex scale:objc_msgSend(self orientation:{"orientation"), v12}];
+      v15 = [v13 initWithCGImage:ValueAtIndex scale:objc_msgSend(self orientation:{"orientation"), v14}];
     }
 
     else
     {
-      v17 = pk_Payment_log();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v20 = pk_Payment_log(Count);
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-      if (v18)
+      if (v21)
       {
-        v19 = pk_Payment_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v23 = pk_Payment_log(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v23 = v4;
-          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Array of bitmaps read from %@ is not of size 1", buf, 0xCu);
+          v26 = v4;
+          _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Array of bitmaps read from %@ is not of size 1", buf, 0xCu);
         }
       }
 
-      v13 = 0;
+      v15 = 0;
     }
 
     CFRelease(v6);
@@ -198,33 +199,31 @@ LABEL_26:
 
   else
   {
-    v14 = pk_Payment_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v16 = pk_Payment_log(0);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v17)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = pk_Payment_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v23 = v4;
-        v24 = 2112;
-        v25 = 0;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Unable to read CPBitmap from %@: %@", buf, 0x16u);
+        v26 = v4;
+        v27 = 2112;
+        v28 = 0;
+        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: ImageMemoryMap: Unable to read CPBitmap from %@: %@", buf, 0x16u);
       }
     }
 
-    v13 = 0;
+    v15 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v15;
 }
 
 - (id)resizedImageWithSize:()NanoPassKit shouldCover:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v9 = objc_autoreleasePoolPush();
   [self size];
   if (a5)
@@ -239,31 +238,31 @@ LABEL_26:
 
   v12 = v10;
   v13 = v11;
-  [self size];
-  if (v12 >= v14 || ([self size], v13 >= v15))
+  v14 = [self size];
+  if (v12 >= v15 || (v14 = [self size], v13 >= v16))
   {
-    v24 = pk_General_log();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+    v26 = pk_General_log(v14);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
 
-    if (v25)
+    if (v27)
     {
-      v26 = pk_General_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v29 = pk_General_log(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         [self size];
-        v28 = v27;
+        v31 = v30;
         [self size];
-        v32 = 138413314;
+        v34 = 138413314;
         selfCopy3 = self;
-        v34 = 2048;
-        v35 = v28;
         v36 = 2048;
-        v37 = v29;
+        v37 = v31;
         v38 = 2048;
-        v39 = a2;
+        v39 = v32;
         v40 = 2048;
-        v41 = a3;
-        _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: Resizing image %@ from %f x %f to fit/cover %f x %f would upscale, ignoring", &v32, 0x34u);
+        v41 = a2;
+        v42 = 2048;
+        v43 = a3;
+        _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: Resizing image %@ from %f x %f to fit/cover %f x %f would upscale, ignoring", &v34, 0x34u);
       }
     }
 
@@ -272,41 +271,40 @@ LABEL_26:
 
   else
   {
-    v16 = [MEMORY[0x277D37F20] constraintsWithMaxSize:{v12, v13}];
-    v17 = pk_General_log();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v17 = [MEMORY[0x277D37F20] constraintsWithMaxSize:{v12, v13}];
+    v18 = pk_General_log(v17);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-    if (v18)
+    if (v19)
     {
-      v19 = pk_General_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = pk_General_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         [self size];
-        v21 = v20;
+        v23 = v22;
         [self size];
-        v32 = 138413826;
+        v34 = 138413826;
         selfCopy3 = self;
-        v34 = 2048;
-        v35 = v21;
         v36 = 2048;
-        v37 = v22;
+        v37 = v23;
         v38 = 2048;
-        v39 = v12;
+        v39 = v24;
         v40 = 2048;
-        v41 = v13;
+        v41 = v12;
         v42 = 2048;
-        v43 = a2;
+        v43 = v13;
         v44 = 2048;
-        v45 = a3;
-        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Resizing image %@ from %f x %f to %f x %f to fit/cover %f x %f", &v32, 0x48u);
+        v45 = a2;
+        v46 = 2048;
+        v47 = a3;
+        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Resizing image %@ from %f x %f to %f x %f to fit/cover %f x %f", &v34, 0x48u);
       }
     }
 
-    selfCopy2 = [v16 resizedImage:self];
+    selfCopy2 = [v17 resizedImage:self];
   }
 
   objc_autoreleasePoolPop(v9);
-  v30 = *MEMORY[0x277D85DE8];
 
   return selfCopy2;
 }

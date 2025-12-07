@@ -13,7 +13,7 @@
   managerCopy = manager;
   conversationCopy = conversation;
   selfCopy = self;
-  RecentsCollectionViewCollator.conversationManager(_:addedActiveConversation:)();
+  RecentsCollectionViewCollator.conversationManager(_:addedActiveConversation:)(selfCopy, v8);
 }
 
 - (void)conversationManager:(id)manager stateChangedForConversation:(id)conversation
@@ -21,7 +21,7 @@
   managerCopy = manager;
   conversationCopy = conversation;
   selfCopy = self;
-  RecentsCollectionViewCollator.conversationManager(_:stateChangedFor:)();
+  RecentsCollectionViewCollator.conversationManager(_:stateChangedFor:)(selfCopy, v8);
 }
 
 - (void)conversationManager:(id)manager removedActiveConversation:(id)conversation
@@ -29,12 +29,12 @@
   managerCopy = manager;
   conversationCopy = conversation;
   selfCopy = self;
-  RecentsCollectionViewCollator.conversationManager(_:removedActiveConversation:)();
+  RecentsCollectionViewCollator.conversationManager(_:removedActiveConversation:)(selfCopy, v8);
 }
 
 - (void)conversationManager:(id)manager didChangeActivatedLinks:(id)links
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversationLink);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversationLink, 0x1E69D8B70);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   managerCopy = manager;
   selfCopy = self;
@@ -46,7 +46,7 @@
   managerCopy = manager;
   conversationCopy = conversation;
   selfCopy = self;
-  RecentsCollectionViewCollator.conversationManager(_:linkChangedFor:)();
+  RecentsCollectionViewCollator.conversationManager(_:linkChangedFor:)(selfCopy);
 }
 
 @end

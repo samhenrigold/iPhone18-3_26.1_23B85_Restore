@@ -44,70 +44,72 @@
 {
   if (level < 21)
   {
-    v26 = 0;
-    NSAppendPrintF();
-    v4 = 0;
+    v31 = 0;
+    NSAppendPrintF(&v31, "-- RPStatusDaemon --\n");
+    v4 = v31;
     v5 = [(NSMutableSet *)self->_xpcConnections count];
     if (v5)
     {
-      v25 = v4;
-      processIdentifier = v5;
-      NSAppendPrintF();
-      v6 = v4;
+      v30 = v4;
+      NSAppendPrintF(&v30, "%d XPC Cnx\n", v5);
+      v6 = v30;
 
       v4 = v6;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = self->_xpcConnections;
-    v7 = [(NSMutableSet *)obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v7 = [(NSMutableSet *)obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v27;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v22 != v9)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
+          v11 = *(*(&v26 + 1) + 8 * i);
+          v25 = v4;
           xpcCnx = [v11 xpcCnx];
-          processIdentifier = [xpcCnx processIdentifier];
-          NSAppendPrintF();
-          v13 = v4;
+          NSAppendPrintF(&v25, "    %#{pid}", [xpcCnx processIdentifier]);
+          v13 = v25;
 
           subscriber = [v11 subscriber];
           if (subscriber)
           {
-            processIdentifier = CUDescriptionWithLevel();
-            NSAppendPrintF();
-            v15 = v13;
+            v24 = v13;
+            v15 = CUDescriptionWithLevel();
+            NSAppendPrintF(&v24, ", %@", v15);
+            v16 = v24;
 
-            v13 = v15;
+            v13 = v16;
           }
 
           provider = [v11 provider];
           if (provider)
           {
-            processIdentifier = CUDescriptionWithLevel();
-            NSAppendPrintF();
-            v17 = v13;
+            v23 = v13;
+            v18 = CUDescriptionWithLevel();
+            NSAppendPrintF(&v23, ", %@", v18);
+            v19 = v23;
 
-            v13 = v17;
+            v13 = v19;
           }
 
-          NSAppendPrintF();
-          v4 = v13;
+          v22 = v13;
+          NSAppendPrintF(&v22, "\n");
+          v4 = v22;
         }
 
-        v8 = [(NSMutableSet *)obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v8 = [(NSMutableSet *)obj countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
       while (v8);
@@ -116,7 +118,7 @@
 
   else
   {
-    v4 = NSPrintF();
+    v4 = NSPrintF("RPPeopleDaemon %{ptr}", a2, self);
   }
 
   return v4;
@@ -135,35 +137,39 @@
 
 - (void)_activate
 {
-  if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4D10 <= 30)
   {
-    sub_10012AFB0();
+    if (dword_1001D4D10 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10012AFB0(self, a2, v2);
+    }
   }
 
-  if (!self->_xpcListener)
+  if (!selfCopy->_xpcListener)
   {
-    v3 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport.StatusUpdates"];
-    xpcListener = self->_xpcListener;
-    self->_xpcListener = v3;
+    v4 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport.StatusUpdates"];
+    xpcListener = selfCopy->_xpcListener;
+    selfCopy->_xpcListener = v4;
 
-    [(NSXPCListener *)self->_xpcListener setDelegate:self];
-    [(NSXPCListener *)self->_xpcListener _setQueue:self->_dispatchQueue];
-    [(NSXPCListener *)self->_xpcListener resume];
+    [(NSXPCListener *)selfCopy->_xpcListener setDelegate:selfCopy];
+    [(NSXPCListener *)selfCopy->_xpcListener _setQueue:selfCopy->_dispatchQueue];
+    [(NSXPCListener *)selfCopy->_xpcListener resume];
   }
 
-  if (!self->_messenger)
+  if (!selfCopy->_messenger)
   {
-    v5 = +[RPCompanionLinkDaemon sharedCompanionLinkDaemon];
-    messenger = self->_messenger;
-    self->_messenger = v5;
+    v6 = +[RPCompanionLinkDaemon sharedCompanionLinkDaemon];
+    messenger = selfCopy->_messenger;
+    selfCopy->_messenger = v6;
 
-    v8 = @"statusFlags";
-    v9 = &off_1001B8050;
-    v7 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-    [(RPMessageable *)self->_messenger registerEventID:@"_statusInfo" options:v7 handler:&stru_1001AF390];
+    v9 = @"statusFlags";
+    v10 = &off_1001B8050;
+    v8 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    [(RPMessageable *)selfCopy->_messenger registerEventID:@"_statusInfo" options:v8 handler:&stru_1001AF390];
   }
 
-  [(RPStatusDaemon *)self prefsChanged];
+  [(RPStatusDaemon *)selfCopy prefsChanged];
 }
 
 - (void)invalidate
@@ -181,19 +187,23 @@
 {
   if (!self->_invalidateCalled)
   {
-    v8 = v2;
+    v9 = v3;
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4D10 <= 30)
     {
-      sub_10012AFCC();
+      if (dword_1001D4D10 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10012AFCC(self, a2, v2);
+      }
     }
 
-    [(RPMessageable *)self->_messenger deregisterEventID:@"_statusInfo", v3, v8, v4];
-    [(NSXPCListener *)self->_xpcListener invalidate];
-    xpcListener = self->_xpcListener;
-    self->_xpcListener = 0;
+    [(RPMessageable *)selfCopy->_messenger deregisterEventID:@"_statusInfo", v4, v9, v5];
+    [(NSXPCListener *)selfCopy->_xpcListener invalidate];
+    xpcListener = selfCopy->_xpcListener;
+    selfCopy->_xpcListener = 0;
 
-    [(RPStatusDaemon *)self _invalidated];
+    [(RPStatusDaemon *)selfCopy _invalidated];
   }
 }
 
@@ -203,9 +213,12 @@
   if (self->_invalidateCalled && !self->_invalidateDone)
   {
     self->_invalidateDone = 1;
-    if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4D10 <= 30)
     {
-      sub_10012AFE8();
+      if (dword_1001D4D10 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_10012AFE8(v3, v4, v5);
+      }
     }
   }
 }

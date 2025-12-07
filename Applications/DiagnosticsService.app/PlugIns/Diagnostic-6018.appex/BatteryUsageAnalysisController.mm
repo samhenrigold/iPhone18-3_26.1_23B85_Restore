@@ -52,11 +52,11 @@
 - (id)collectLogFile
 {
   v30 = 0;
-  v31[0] = &v30;
-  v31[1] = 0x3032000000;
-  v31[2] = sub_100001438;
-  v31[3] = sub_100001448;
-  v32 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_100001438;
+  v34 = sub_100001448;
+  v35 = 0;
   v26 = 0;
   v27 = &v26;
   v28 = 0x2020000000;
@@ -69,8 +69,8 @@
     v5 = v27;
     if (v27[3])
     {
-      v9 = (v31[0] + 40);
-      v25 = *(v31[0] + 40);
+      v9 = (v31 + 5);
+      v25 = v31[5];
       v10 = [v3 addURL:writeCurrentPowerLog prefix:@"PLArchive" error:&v25];
       objc_storeStrong(v9, v25);
       v5 = v27;
@@ -80,10 +80,10 @@
         v11 = DiagnosticLogHandleForCategory();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          sub_1000020A0(v31);
+          sub_1000020A0();
         }
 
-        v12 = [DASharedTestStatusHelper statusCodeForArchiveError:*(v31[0] + 40)];
+        v12 = [DASharedTestStatusHelper statusCodeForArchiveError:v31[5]];
         result = [(BatteryUsageAnalysisController *)self result];
         [result setStatusCode:v12];
 
@@ -124,8 +124,8 @@ LABEL_20:
   }
 
   v6 = DKTemporaryDirectoryURL();
-  v7 = (v31[0] + 40);
-  obj = *(v31[0] + 40);
+  v7 = (v31 + 5);
+  obj = v31[5];
   v8 = [v3 archiveAsTempFileWithTemplate:@"com.apple.behaviorscan.XXXXXXXX" directory:v6 suffix:0 error:&obj];
   objc_storeStrong(v7, obj);
 
@@ -135,10 +135,10 @@ LABEL_20:
     v14 = DiagnosticLogHandleForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10000211C(v31);
+      sub_10000211C();
     }
 
-    v15 = [DASharedTestStatusHelper statusCodeForArchiveError:*(v31[0] + 40)];
+    v15 = [DASharedTestStatusHelper statusCodeForArchiveError:v31[5]];
     result2 = [(BatteryUsageAnalysisController *)self result];
     [result2 setStatusCode:v15];
 

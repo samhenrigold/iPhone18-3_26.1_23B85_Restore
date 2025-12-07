@@ -139,11 +139,9 @@ _BYTE *__47__WBSCoalescedAsynchronousWriter_scheduleWrite__block_invoke(uint64_t
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 120);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1B8447000, v2, OS_LOG_TYPE_ERROR, "WBSCoalescedAsynchronousWriter <%{public}@, %p>: Timer is still valid in dealloc", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B8447000, v0, OS_LOG_TYPE_ERROR, "WBSCoalescedAsynchronousWriter <%{public}@, %p>: Timer is still valid in dealloc", v1, 0x16u);
 }
 
 - (void)_timerFired
@@ -217,28 +215,29 @@ void __48__WBSCoalescedAsynchronousWriter__scheduleTimer__block_invoke(uint64_t 
 
 - (id)_dataForPlistDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   if (dictionaryCopy)
   {
     plistFormat = self->_plistFormat;
-    v13 = 0;
-    v6 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionaryCopy format:plistFormat options:0 error:&v13];
-    v7 = v13;
+    v14 = 0;
+    v6 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionaryCopy format:plistFormat options:0 error:&v14];
+    v7 = v14;
+    v9 = v7;
     if (!v6)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         name = self->_name;
-        safari_privacyPreservingDescription = [v7 safari_privacyPreservingDescription];
+        safari_privacyPreservingDescription = [v9 safari_privacyPreservingDescription];
         *buf = 138543874;
-        v15 = name;
-        v16 = 2048;
+        v16 = name;
+        v17 = 2048;
         selfCopy = self;
-        v18 = 2114;
-        v19 = safari_privacyPreservingDescription;
-        _os_log_error_impl(&dword_1B8447000, v8, OS_LOG_TYPE_ERROR, "WBSCoalescedAsynchronousWriter <%{public}@, %p>: Unable to serialize dictionary to data with error: %{public}@", buf, 0x20u);
+        v19 = 2114;
+        v20 = safari_privacyPreservingDescription;
+        _os_log_error_impl(&dword_1B8447000, v10, OS_LOG_TYPE_ERROR, "WBSCoalescedAsynchronousWriter <%{public}@, %p>: Unable to serialize dictionary to data with error: %{public}@", buf, 0x20u);
       }
     }
   }
@@ -247,8 +246,6 @@ void __48__WBSCoalescedAsynchronousWriter__scheduleTimer__block_invoke(uint64_t 
   {
     v6 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -282,7 +279,7 @@ void __48__WBSCoalescedAsynchronousWriter__scheduleTimer__block_invoke(uint64_t 
 
 - (void)_writeData:(id)data
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
@@ -298,23 +295,25 @@ void __48__WBSCoalescedAsynchronousWriter__scheduleTimer__block_invoke(uint64_t 
       uRLByDeletingLastPathComponent = [(NSURL *)self->_fileURL URLByDeletingLastPathComponent];
       v8 = [defaultManager safari_ensureDirectoryExists:uRLByDeletingLastPathComponent];
 
-      if (([dataCopy writeToURL:self->_fileURL atomically:1] & 1) == 0)
+      v9 = [dataCopy writeToURL:self->_fileURL atomically:1];
+      if ((v9 & 1) == 0)
       {
-        v9 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           lastPathComponent = [(NSURL *)self->_fileURL lastPathComponent];
-          [(WBSCoalescedAsynchronousWriter *)lastPathComponent _writeData:v23, v9];
+          [(WBSCoalescedAsynchronousWriter *)lastPathComponent _writeData:v28, v11];
         }
       }
 
-      if ([(NSString *)self->_name isEqualToString:@"SessionState"])
+      v13 = [(NSString *)self->_name isEqualToString:@"SessionState"];
+      if (v13)
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXPinnedTabRestoration();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v15 = WBS_LOG_CHANNEL_PREFIXPinnedTabRestoration(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_INFO, "Writing LastSession.plist file.", buf, 2u);
+          _os_log_impl(&dword_1B8447000, v15, OS_LOG_TYPE_INFO, "Writing LastSession.plist file.", buf, 2u);
         }
       }
 
@@ -322,17 +321,18 @@ void __48__WBSCoalescedAsynchronousWriter__scheduleTimer__block_invoke(uint64_t 
       {
         fileURL = self->_fileURL;
         fileResourceValues = self->_fileResourceValues;
-        v21 = 0;
-        v14 = [(NSURL *)fileURL setResourceValues:fileResourceValues error:&v21];
-        v15 = v21;
-        if (!v14)
+        v26 = 0;
+        v18 = [(NSURL *)fileURL setResourceValues:fileResourceValues error:&v26];
+        v19 = v26;
+        v21 = v19;
+        if (!v18)
         {
-          v16 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v22 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter(v19, v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             name = self->_name;
-            safari_privacyPreservingDescription = [v15 safari_privacyPreservingDescription];
-            [(WBSCoalescedAsynchronousWriter *)name _writeData:safari_privacyPreservingDescription, buf, v16];
+            safari_privacyPreservingDescription = [v21 safari_privacyPreservingDescription];
+            [(WBSCoalescedAsynchronousWriter *)name _writeData:safari_privacyPreservingDescription, buf, v22];
           }
         }
       }
@@ -344,8 +344,6 @@ void __48__WBSCoalescedAsynchronousWriter__scheduleTimer__block_invoke(uint64_t 
       [WeakRetained coalescedAsynchronousWriter:self didFinishWritingData:dataCopy];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_asynchronouslyWriteData:(id)data orPlistDictionary:(id)dictionary completionHandler:(id)handler
@@ -446,25 +444,23 @@ uint64_t __95__WBSCoalescedAsynchronousWriter__asynchronouslyWriteData_orPlistDi
 
 - (void)_cancelPendingWriteSynchronouslyLeavingSuddenTerminationIntact
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!self->_done)
   {
     self->_done = 1;
     [(WBSCoalescedAsynchronousWriter *)self _waitForWriteCompletion];
-    [(WBSCoalescedAsynchronousWriter *)self _invalidateTimer];
-    v3 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    _invalidateTimer = [(WBSCoalescedAsynchronousWriter *)self _invalidateTimer];
+    v5 = WBS_LOG_CHANNEL_PREFIXCoalescedAsynchronousWriter(_invalidateTimer, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       name = self->_name;
-      v6 = 138543618;
-      v7 = name;
-      v8 = 2048;
+      v7 = 138543618;
+      v8 = name;
+      v9 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_INFO, "WBSCoalescedAsynchronousWriter <%{public}@, %p>: Done with writer", &v6, 0x16u);
+      _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_INFO, "WBSCoalescedAsynchronousWriter <%{public}@, %p>: Done with writer", &v7, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startScheduledWriteNowWithCompletionHandler:(id)handler

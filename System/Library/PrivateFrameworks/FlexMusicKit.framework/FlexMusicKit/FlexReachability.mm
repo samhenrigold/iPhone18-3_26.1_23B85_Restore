@@ -67,34 +67,31 @@
 
 + (id)reachabilityForInternetConnection
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v7[1] = 0;
-  v7[0] = 528;
-  v4 = objc_msgSend_reachabilityWithAddress_(self, a2, v7, v2, v3);
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
+  v6[1] = 0;
+  v6[0] = 528;
+  v4 = objc_msgSend_reachabilityWithAddress_(self, a2, v6, v2, v3);
 
   return v4;
 }
 
 + (id)reachabilityForLocalWiFi
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v7[1] = 0;
-  v7[0] = 0xFEA900000210;
-  v4 = objc_msgSend_reachabilityWithAddress_(self, a2, v7, v2, v3);
+  v6[2] = *MEMORY[0x277D85DE8];
+  v6[1] = 0;
+  v6[0] = 0xFEA900000210;
+  v4 = objc_msgSend_reachabilityWithAddress_(self, a2, v6, v2, v3);
   if (v4)
   {
     v4[9] = 1;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (BOOL)startNotifier
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_isNotifying)
   {
     v3 = FlexLogForCategory(0);
@@ -106,43 +103,38 @@
       p_context = &context;
 LABEL_9:
       _os_log_impl(&dword_24B7E5000, v3, OS_LOG_TYPE_DEFAULT, v4, p_context, 0xCu);
-      goto LABEL_10;
     }
-
-    goto LABEL_10;
   }
 
-  context.version = 0;
-  memset(&context.retain, 0, 24);
-  context.info = self;
-  if (!SCNetworkReachabilitySetCallback(self->reachabilityRef, sub_24B7E7E8C, &context) || !SCNetworkReachabilitySetDispatchQueue(self->reachabilityRef, self->_reachabilityQueue))
+  else
   {
+    context.version = 0;
+    memset(&context.retain, 0, 24);
+    context.info = self;
+    if (SCNetworkReachabilitySetCallback(self->reachabilityRef, sub_24B7E7E8C, &context) && SCNetworkReachabilitySetDispatchQueue(self->reachabilityRef, self->_reachabilityQueue))
+    {
+      result = 1;
+      self->_isNotifying = 1;
+      return result;
+    }
+
     v3 = FlexLogForCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy = self;
       v4 = "ERROR: Could not start notifier for %@";
-      p_context = &v8;
+      p_context = &v7;
       goto LABEL_9;
     }
-
-LABEL_10:
-
-    result = 0;
-    goto LABEL_11;
   }
 
-  result = 1;
-  self->_isNotifying = 1;
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)stopNotifier
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_isNotifying)
   {
     reachabilityRef = self->reachabilityRef;
@@ -160,13 +152,11 @@ LABEL_11:
     v4 = FlexLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
+      v5 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "ERROR: Could not stop notifier for %@", &v6, 0xCu);
+      _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "ERROR: Could not stop notifier for %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

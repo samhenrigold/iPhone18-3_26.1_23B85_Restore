@@ -58,12 +58,12 @@
     participantMarqueeLabel = [(PHAbstractCallParticipantLabelView *)self participantMarqueeLabel];
     [participantMarqueeLabel setText:nameCopy];
 
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = nameCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updated participant label with name %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = nameCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updated participant label with name %@", &v10, 0xCu);
     }
 
     [(PHAbstractCallParticipantLabelView *)self setNeedsLayout];

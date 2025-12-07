@@ -6,7 +6,7 @@
 
 - (id)orderTopicsWithClusteredHeadlines:(id)headlines additionalHeadlines:(id)additionalHeadlines subscribedTagIDs:(id)ds scoresByArticleID:(id)d personalizer:(id)personalizer tagNameProvider:(id)provider personalizationTreatment:(id)treatment translationProvider:(id)self0
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   headlinesCopy = headlines;
   additionalHeadlinesCopy = additionalHeadlines;
   dsCopy = ds;
@@ -18,54 +18,54 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke;
   aBlock[3] = &unk_1E7C38628;
-  v47 = translationProviderCopy;
-  v60 = v47;
+  v46 = translationProviderCopy;
+  v59 = v46;
   v22 = headlinesCopy;
-  v61 = v22;
+  v60 = v22;
   providerCopy = provider;
   v24 = _Block_copy(aBlock);
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke_3;
-  v55[3] = &unk_1E7C38678;
-  v46 = dCopy;
-  v56 = v46;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke_3;
+  v54[3] = &unk_1E7C38678;
+  v45 = dCopy;
+  v55 = v45;
   v25 = v24;
-  v58 = v25;
+  v57 = v25;
   v26 = v22;
-  v57 = v26;
-  v27 = [v26 fc_dictionaryByTransformingValuesWithBlock:v55];
+  v56 = v26;
+  v27 = [v26 fc_dictionaryByTransformingValuesWithBlock:v54];
   v28 = MEMORY[0x1E695DEC8];
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke_280;
-  v52[3] = &unk_1E7C386C8;
-  v45 = additionalHeadlinesCopy;
-  v53 = v45;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke_280;
+  v51[3] = &unk_1E7C386C8;
+  v44 = additionalHeadlinesCopy;
+  v52 = v44;
   v29 = v25;
-  v54 = v29;
-  v30 = [v28 fc_array:v52];
+  v53 = v29;
+  v30 = [v28 fc_array:v51];
   if ((objc_opt_respondsToSelector() & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"WARNING: Bad access to personalization treatment from FCHeadlineClusterOrdering. Please file a radar with a sysdiagnose."];
+    v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"WARNING: Bad access to personalization treatment from FCHeadlineClusterOrdering. Please file a radar with a sysdiagnose."];
     *buf = 136315906;
-    v63 = "[FCHeadlineClusterOrderingPersonalizedTopical orderTopicsWithClusteredHeadlines:additionalHeadlines:subscribedTagIDs:scoresByArticleID:personalizer:tagNameProvider:personalizationTreatment:translationProvider:]";
-    v64 = 2080;
-    v65 = "FCHeadlineClusterOrdering.m";
-    v66 = 1024;
-    v67 = 874;
-    v68 = 2114;
-    v69 = v44;
+    v62 = "[FCHeadlineClusterOrderingPersonalizedTopical orderTopicsWithClusteredHeadlines:additionalHeadlines:subscribedTagIDs:scoresByArticleID:personalizer:tagNameProvider:personalizationTreatment:translationProvider:]";
+    v63 = 2080;
+    v64 = "FCHeadlineClusterOrdering.m";
+    v65 = 1024;
+    v66 = 874;
+    v67 = 2114;
+    v68 = v43;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke_287;
-  v48[3] = &unk_1E7C38718;
-  v49 = personalizerCopy;
-  v50 = dsCopy;
-  v51 = treatmentCopy;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke_287;
+  v47[3] = &unk_1E7C38718;
+  v48 = personalizerCopy;
+  v49 = dsCopy;
+  v50 = treatmentCopy;
   v31 = treatmentCopy;
   v32 = dsCopy;
   v33 = personalizerCopy;
@@ -76,9 +76,7 @@
   [v31 metaGroupingTopicScoreWeight];
   v39 = v38;
   [v31 metaGroupingHighestScoringRelativeScoreMultiplier];
-  v41 = FCTopicallyOrderGroups(v27, v30, v48, providerCopy, v35, v37, v39, v40);
-
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = FCTopicallyOrderGroups(v27, v30, v47, providerCopy, v35, v37, v39, v40);
 
   return v41;
 }
@@ -152,7 +150,7 @@ id __211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredH
 
 FCTopicalNodeElement *__211__FCHeadlineClusterOrderingPersonalizedTopical_orderTopicsWithClusteredHeadlines_additionalHeadlines_subscribedTagIDs_scoresByArticleID_personalizer_tagNameProvider_personalizationTreatment_translationProvider___block_invoke_4(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 identifier];
@@ -160,34 +158,34 @@ FCTopicalNodeElement *__211__FCHeadlineClusterOrderingPersonalizedTopical_orderT
 
   if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"score should not be nil."];
-    *v22 = 136315906;
-    *&v22[4] = "[FCHeadlineClusterOrderingPersonalizedTopical orderTopicsWithClusteredHeadlines:additionalHeadlines:subscribedTagIDs:scoresByArticleID:personalizer:tagNameProvider:personalizationTreatment:translationProvider:]_block_invoke_4";
-    *&v22[12] = 2080;
-    *&v22[14] = "FCHeadlineClusterOrdering.m";
-    v23 = 1024;
-    v24 = 851;
-    v25 = 2114;
-    v26 = v17;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v22, 0x26u);
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"score should not be nil."];
+    *v21 = 136315906;
+    *&v21[4] = "[FCHeadlineClusterOrderingPersonalizedTopical orderTopicsWithClusteredHeadlines:additionalHeadlines:subscribedTagIDs:scoresByArticleID:personalizer:tagNameProvider:personalizationTreatment:translationProvider:]_block_invoke_4";
+    *&v21[12] = 2080;
+    *&v21[14] = "FCHeadlineClusterOrdering.m";
+    v22 = 1024;
+    v23 = 851;
+    v24 = 2114;
+    v25 = v16;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v21, 0x26u);
   }
 
   v7 = (*(*(a1 + 48) + 16))();
   if (![v7 count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v19 = [*(a1 + 40) allKeys];
-    v20 = [v3 topicIDs];
-    v21 = [v18 initWithFormat:@"Expected to find a grouped topic in the topic ids. Group topics are %@ and topicIDs are %@", v19, v20];
-    *v22 = 136315906;
-    *&v22[4] = "[FCHeadlineClusterOrderingPersonalizedTopical orderTopicsWithClusteredHeadlines:additionalHeadlines:subscribedTagIDs:scoresByArticleID:personalizer:tagNameProvider:personalizationTreatment:translationProvider:]_block_invoke";
-    *&v22[12] = 2080;
-    *&v22[14] = "FCHeadlineClusterOrdering.m";
-    v23 = 1024;
-    v24 = 856;
-    v25 = 2114;
-    v26 = v21;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v22, 0x26u);
+    v17 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v18 = [*(a1 + 40) allKeys];
+    v19 = [v3 topicIDs];
+    v20 = [v17 initWithFormat:@"Expected to find a grouped topic in the topic ids. Group topics are %@ and topicIDs are %@", v18, v19];
+    *v21 = 136315906;
+    *&v21[4] = "[FCHeadlineClusterOrderingPersonalizedTopical orderTopicsWithClusteredHeadlines:additionalHeadlines:subscribedTagIDs:scoresByArticleID:personalizer:tagNameProvider:personalizationTreatment:translationProvider:]_block_invoke";
+    *&v21[12] = 2080;
+    *&v21[14] = "FCHeadlineClusterOrdering.m";
+    v22 = 1024;
+    v23 = 856;
+    v24 = 2114;
+    v25 = v20;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v21, 0x26u);
   }
 
   v8 = [FCTopicalNodeElement alloc];
@@ -198,9 +196,9 @@ FCTopicalNodeElement *__211__FCHeadlineClusterOrderingPersonalizedTopical_orderT
   v13 = v7;
   if (v8)
   {
-    *v22 = v8;
-    *&v22[8] = FCTopicalNodeElement;
-    v14 = objc_msgSendSuper2(v22, sel_init);
+    *v21 = v8;
+    *&v21[8] = FCTopicalNodeElement;
+    v14 = objc_msgSendSuper2(v21, sel_init);
     v8 = v14;
     if (v14)
     {
@@ -209,8 +207,6 @@ FCTopicalNodeElement *__211__FCHeadlineClusterOrderingPersonalizedTopical_orderT
       v8->_score = v11;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

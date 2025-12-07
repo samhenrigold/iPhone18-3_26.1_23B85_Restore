@@ -218,7 +218,7 @@ LABEL_7:
           assistantIdentifier = [info assistantIdentifier];
           if (assistantIdentifier)
           {
-            v18 = [mapCopy objectForKey:assistantIdentifier];
+            v18 = objc_msgSend_objectForKey_(mapCopy);
           }
 
           else

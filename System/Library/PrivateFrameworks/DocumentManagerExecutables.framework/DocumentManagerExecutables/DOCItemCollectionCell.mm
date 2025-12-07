@@ -78,7 +78,7 @@
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldReceiveTouch:(id)touch
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
   v7 = MEMORY[0x277D85000];
   v8 = *((*MEMORY[0x277D85000] & self->super.super.super.super.super.super.super.isa) + 0x1E0);
   recognizerCopy = recognizer;
@@ -113,7 +113,7 @@
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRequireFailureOfGestureRecognizer:(id)gestureRecognizer
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
   v7 = *((*MEMORY[0x277D85000] & self->super.super.super.super.super.super.super.isa) + 0x1E0);
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
@@ -123,7 +123,7 @@
 
   if (recognizer)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPanGestureRecognizer);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPanGestureRecognizer, 0x277D757F8);
     isKindOfClass_ = [gestureRecognizerCopy isKindOfClass_];
 
     if (isKindOfClass_)
@@ -141,7 +141,7 @@
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
   v6 = *((*MEMORY[0x277D85000] & self->super.super.super.super.super.super.super.isa) + 0x1E0);
   recognizerCopy = recognizer;
   selfCopy = self;

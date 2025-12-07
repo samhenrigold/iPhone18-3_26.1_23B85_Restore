@@ -54,7 +54,7 @@
 
 - (id)notificationListener:(id)listener didReceiveNotificationWithName:(id)name
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy isEqualToString:@"com.apple.sleepd.NextAlarm"])
   {
@@ -62,12 +62,12 @@
     v6 = HKSPLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 138543618;
-      *&v12[4] = objc_opt_class();
-      *&v12[12] = 2114;
-      *&v12[14] = nameCopy;
-      v7 = *&v12[4];
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v12, 0x16u);
+      *v11 = 138543618;
+      *&v11[4] = objc_opt_class();
+      *&v11[12] = 2114;
+      *&v11[14] = nameCopy;
+      v7 = *&v11[4];
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v11, 0x16u);
     }
 
     delegate = [(HDSPXPCAlarmScheduler *)self delegate];
@@ -75,8 +75,6 @@
   }
 
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }

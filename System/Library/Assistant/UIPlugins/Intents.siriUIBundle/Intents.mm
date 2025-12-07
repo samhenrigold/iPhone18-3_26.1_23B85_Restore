@@ -106,7 +106,7 @@ void sub_2EDC(uint64_t a1, void *a2, void *a3)
     {
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        sub_4150(v7, a1);
+        sub_4150();
       }
     }
 
@@ -147,7 +147,7 @@ void sub_307C(uint64_t a1, double a2, double a3, uint64_t a4, void *a5, void *a6
   {
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      sub_41C8(v10, a1);
+      sub_41C8();
     }
 
     [*(a1 + 40) _finishLoadingViewIfNecessary];
@@ -217,18 +217,16 @@ void sub_4078(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void sub_4150(uint64_t a1, uint64_t a2)
+void sub_4150()
 {
-  v2 = *(a2 + 32);
-  v5 = 136315650;
+  v2 = 136315650;
   sub_4058();
-  sub_4078(&dword_0, v3, v4, "%s Failed to instantiate remote view controller with error: %{public}@ for interaction: %@", v5);
+  sub_4078(&dword_0, v0, v1, "%s Failed to instantiate remote view controller with error: %{public}@ for interaction: %@", v2);
 }
 
-void sub_41C8(uint64_t a1, uint64_t a2)
+void sub_41C8()
 {
-  v2 = *(a2 + 32);
-  v5 = 136315650;
+  v2 = 136315650;
   sub_4058();
-  sub_4078(&dword_0, v3, v4, "%s Failed to configure remote view controller with error: %{public}@ for interaction: %@", v5);
+  sub_4078(&dword_0, v0, v1, "%s Failed to configure remote view controller with error: %{public}@ for interaction: %@", v2);
 }

@@ -92,7 +92,6 @@ void __40___CDUserContextService_regenerateState__block_invoke_2(uint64_t a1, vo
 
 uint64_t __60___CDUserContextService_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   NSSelectorFromString(&cfstr_Doesimplementu.isa);
   result = objc_opt_respondsToSelector();
   listener_shouldAcceptNewConnection__isUnitTests = result & 1;
@@ -101,7 +100,7 @@ uint64_t __60___CDUserContextService_listener_shouldAcceptNewConnection___block_
 
 void __66___CDUserContextService_fetchProxySourceDeviceUUIDFromSubscriber___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E6997908] contextChannel];
@@ -131,9 +130,9 @@ LABEL_10:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = [v8 UUIDString];
-      v13 = 138412290;
-      v14 = v11;
-      _os_log_impl(&dword_1A9611000, v10, OS_LOG_TYPE_INFO, "CDUserContext: received proxy source device uuid: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_impl(&dword_1A9611000, v10, OS_LOG_TYPE_INFO, "CDUserContext: received proxy source device uuid: %@", &v12, 0xCu);
     }
 
     [*(a1 + 32) setProxySourceDeviceUUID:v8 forUserID:{objc_msgSend(*(a1 + 40), "uid")}];
@@ -141,8 +140,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __77___CDUserContextService_requestActivateDevicesFromAllSubscribersWithHandler___block_invoke(void *a1)
@@ -225,48 +222,19 @@ void __74___CDUserContextService_requestActivateDevicesFromSubscriber_withHandle
   }
 }
 
-void __62___CDUserContextService_informClientOfFiredRegistration_info___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "CDUserContext: failed to send event: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __62___CDUserContextService_informClientOfFiredRegistration_info___block_invoke_cold_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1A9611000, v2, v3, "CDUserContext: sent event for registration %@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __66___CDUserContextService_fetchProxySourceDeviceUUIDFromSubscriber___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "CDUserContext: failed to send event to fetch proxy source device uuid: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1A9611000, v2, v3, "CDUserContext: sent event for registration %@.", v4, v5, v6, v7);
 }
 
 void __77___CDUserContextService_requestActivateDevicesFromAllSubscribersWithHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{*(a1 + 64) - objc_msgSend(*(*(*a2 + 8) + 40), "count")}];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A9611000, a3, OS_LOG_TYPE_ERROR, "CDUserContext: Failed to get %@ proxy source device UUIDs", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __74___CDUserContextService_requestActivateDevicesFromSubscriber_withHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "CDUserContext: failed to send event to request activate devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A9611000, a3, OS_LOG_TYPE_ERROR, "CDUserContext: Failed to get %@ proxy source device UUIDs", v5, 0xCu);
 }
 
 @end

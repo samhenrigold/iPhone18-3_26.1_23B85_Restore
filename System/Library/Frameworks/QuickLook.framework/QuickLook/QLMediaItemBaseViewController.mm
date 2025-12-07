@@ -18,8 +18,12 @@
 - (void)hostApplicationDidEnterBackground:(id)background;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
 - (void)previewIsAppearingWithProgress:(double)progress;
 - (void)resetToBeginningAndPlay;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setMediaVolume:(double)volume;
 - (void)stop;
 @end
@@ -43,7 +47,7 @@
 
 void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke(id *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     [MEMORY[0x277CB83F8] primarySession];
@@ -57,9 +61,9 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
   v3 = v2;
   if (v2)
   {
-    v27 = 0;
-    [v2 setParticipatesInNowPlayingAppPolicy:1 error:&v27];
-    v4 = v27;
+    v24 = 0;
+    [v2 setParticipatesInNowPlayingAppPolicy:1 error:&v24];
+    v4 = v24;
     v5 = MEMORY[0x277D43EF8];
     if (v4)
     {
@@ -73,7 +77,7 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v29 = v4;
+        v26 = v4;
         _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_ERROR, "Could not set participatesInNowPlayingAppPolicy: %@ #Media", buf, 0xCu);
       }
     }
@@ -84,9 +88,9 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
     v8 = *MEMORY[0x277CB8030];
     v9 = [a1[4] player];
     v10 = [v9 audioSession];
-    v26 = 0;
-    [v10 setCategory:v8 error:&v26];
-    v11 = v26;
+    v23 = 0;
+    [v10 setCategory:v8 error:&v23];
+    v11 = v23;
 
     if (v11)
     {
@@ -100,9 +104,9 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v29 = v8;
-        v30 = 2112;
-        v31 = v11;
+        v26 = v8;
+        v27 = 2112;
+        v28 = v11;
         _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_ERROR, "Could not set category (%@): %@ #Media", buf, 0x16u);
       }
     }
@@ -112,17 +116,15 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
     v15 = v14;
     if (v14)
     {
-      [v14 duration];
+      objc_msgSend_duration(v14);
     }
 
     [a1[5] isPlayable];
-    v19 = a1[5];
-    v20 = a1[4];
-    v24 = v19;
-    v21 = a1[7];
-    *&v22 = a1[6];
-    *(&v22 + 1) = v21;
-    v25 = v22;
+    v21 = a1[5];
+    v19 = a1[7];
+    *&v20 = a1[6];
+    *(&v20 + 1) = v19;
+    v22 = v20;
     QLRunInMainThread();
   }
 
@@ -146,13 +148,11 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
     v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.mediaItemAggregatedViewController" code:1000 userInfo:0];
     v18[2](v18, v4);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hasProtectedContent];
   *(*(a1 + 40) + 1216) = [*(a1 + 40) _assetIsDecodable:*(a1 + 32)] & (v2 ^ 1);
   v3 = [*(a1 + 40) playable];
@@ -184,12 +184,12 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
     v20 = [v19 currentItem];
     [v16 addObserver:v17 selector:sel_playerItemDidReachEnd_ name:v18 object:v20];
 
-    memset(&v47, 0, sizeof(v47));
+    memset(&v46, 0, sizeof(v46));
     [*(a1 + 40) playerTimeObservationInterval];
-    CMTimeMakeWithSeconds(&v47, v21, 1000000000);
+    CMTimeMakeWithSeconds(&v46, v21, 1000000000);
     v22 = [*(a1 + 40) player];
     v23 = [*(a1 + 40) playbackObserverBlock];
-    buf = v47;
+    buf = v46;
     v24 = [v22 addPeriodicTimeObserverForInterval:&buf queue:0 usingBlock:v23];
     v25 = *(a1 + 40);
     v26 = *(v25 + 1176);
@@ -208,9 +208,9 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
       v30 = [MEMORY[0x277D26E58] sharedAVSystemController];
       v31 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 48), "processIdentifier")}];
       v32 = *MEMORY[0x277D26C40];
-      v45 = 0;
-      [v30 setAttribute:v31 forKey:v32 error:&v45];
-      v33 = v45;
+      v44 = 0;
+      [v30 setAttribute:v31 forKey:v32 error:&v44];
+      v33 = v44;
 
       if (v33)
       {
@@ -252,11 +252,11 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
       {
         v38 = *(a1 + 32);
         v39 = *(a1 + 40);
-        LODWORD(v47.value) = 138412546;
-        *(&v47.value + 4) = v38;
-        LOWORD(v47.flags) = 2112;
-        *(&v47.flags + 2) = v39;
-        _os_log_impl(&dword_23A714000, v37, OS_LOG_TYPE_ERROR, "Can't play AVAsset with protected content: %@. %@ #Media", &v47, 0x16u);
+        LODWORD(v46.value) = 138412546;
+        *(&v46.value + 4) = v38;
+        LOWORD(v46.flags) = 2112;
+        *(&v46.flags + 2) = v39;
+        _os_log_impl(&dword_23A714000, v37, OS_LOG_TYPE_ERROR, "Can't play AVAsset with protected content: %@. %@ #Media", &v46, 0x16u);
       }
     }
 
@@ -271,18 +271,16 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
     {
       v41 = *(a1 + 32);
       v42 = *(a1 + 40);
-      LODWORD(v47.value) = 138412546;
-      *(&v47.value + 4) = v41;
-      LOWORD(v47.flags) = 2112;
-      *(&v47.flags + 2) = v42;
-      _os_log_impl(&dword_23A714000, v40, OS_LOG_TYPE_ERROR, "Asset is not playable: %@. %@ #Media", &v47, 0x16u);
+      LODWORD(v46.value) = 138412546;
+      *(&v46.value + 4) = v41;
+      LOWORD(v46.flags) = 2112;
+      *(&v46.flags + 2) = v42;
+      _os_log_impl(&dword_23A714000, v40, OS_LOG_TYPE_ERROR, "Asset is not playable: %@. %@ #Media", &v46, 0x16u);
     }
 
     v43 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.mediaItemAggregatedViewController" code:1 userInfo:0];
     (*(*(a1 + 56) + 16))();
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (id)setupPlayerViewWithPlayer:(id)player
@@ -320,6 +318,42 @@ void __93__QLMediaItemBaseViewController_loadPreviewControllerWithContents_conte
   }
 
   [(QLMediaItemBaseViewController *)self setMediaVolume:v5];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = QLMediaItemBaseViewController;
+  [(QLScrollableContentItemViewController *)&v6 previewDidAppear:appear];
+  [(QLMediaItemBaseViewController *)self setMediaVolume:1.0];
+  self->_isVisible = 1;
+  appearance = [(QLItemViewController *)self appearance];
+  presentationMode = [appearance presentationMode];
+
+  if (presentationMode == 4)
+  {
+    [(QLMediaItemBaseViewController *)self play];
+  }
+
+  [(QLMediaItemBaseViewController *)self _updateExternalPlayback];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = QLMediaItemBaseViewController;
+  [(QLScrollableContentItemViewController *)&v4 previewDidDisappear:disappear];
+  self->_isVisible = 0;
+  [(QLMediaItemBaseViewController *)self _updateExternalPlayback];
+  [(QLMediaItemBaseViewController *)self pause];
+}
+
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = QLMediaItemBaseViewController;
+  [(QLItemViewController *)&v6 previewBecameFullScreen:screen animated:animated];
+  self->_isFullScreen = screen;
 }
 
 - (void)dealloc
@@ -491,7 +525,7 @@ LABEL_12:
 
 - (id)toolbarButtonsForTraitCollection:(id)collection
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if ([(QLMediaItemBaseViewController *)self shouldDisplayPlayButtonInNavigationBar]&& [(QLMediaItemBaseViewController *)self playable])
   {
     v4 = [objc_alloc(MEMORY[0x277D43FB0]) initWithIdentifier:@"togglePlay"];
@@ -519,16 +553,14 @@ LABEL_12:
 
     [v4 setSystemItem:v6];
     [v4 setAccessibilityIdentifier:*v7];
-    v11[0] = v4;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v4;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v8 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -564,7 +596,7 @@ LABEL_12:
   v4 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -578,7 +610,7 @@ LABEL_12:
   v8 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -624,7 +656,7 @@ void __54__QLMediaItemBaseViewController_playbackObserverBlock__block_invoke(uin
   v11 = v10;
   if (v10)
   {
-    [v10 duration];
+    objc_msgSend_duration(v10);
   }
 
   else
@@ -719,7 +751,7 @@ void __54__QLMediaItemBaseViewController_playbackObserverBlock__block_invoke(uin
     v7 = asset;
     if (asset)
     {
-      [asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else
@@ -798,6 +830,31 @@ void __56__QLMediaItemBaseViewController_resetToBeginningAndPlay__block_invoke(u
   }
 
   self->_mediaWasPausedOnResignActive = 0;
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLItemViewController *)self appearance];
+  v13.receiver = self;
+  v13.super_class = QLMediaItemBaseViewController;
+  [(QLScrollableContentItemViewController *)&v13 setAppearance:appearanceCopy animated:animatedCopy];
+
+  presentationMode = [appearance presentationMode];
+  appearance2 = [(QLItemViewController *)self appearance];
+  presentationMode2 = [appearance2 presentationMode];
+
+  if (presentationMode != presentationMode2)
+  {
+    appearance3 = [(QLItemViewController *)self appearance];
+    presentationMode3 = [appearance3 presentationMode];
+
+    if (presentationMode3 == 4)
+    {
+      [(QLMediaItemBaseViewController *)self resetToBeginningAndPlay];
+    }
+  }
 }
 
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler

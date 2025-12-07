@@ -7,7 +7,7 @@
 
 - (void)handleProbedTransitionalStateEndDate:(id)date withEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   eventCopy = event;
   transitionalStateEndDate = [(HMDHomeActivityTransitionalState *)self transitionalStateEndDate];
@@ -24,11 +24,11 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v17 = 138543618;
-        v18 = v15;
-        v19 = 2112;
-        v20 = eventCopy;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Home activity state is unexpectedly unknown for this state. Event: %@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v15;
+        v18 = 2112;
+        v19 = eventCopy;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Home activity state is unexpectedly unknown for this state. Event: %@", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -41,8 +41,6 @@
       [(HMDHomeActivityState *)self notifyStateChangeToAllConsumers:v11 withHoldInfo:0 transitionalStateEndDate:dateCopy reason:[HMDHomeActivityStateMachine reasonForStateEvent:eventCopy]];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onInitialTransition:(id)transition

@@ -13,8 +13,9 @@
 - (VTSuperResolutionScalerConfiguration)initWithFrameWidth:(int64_t)width frameHeight:(int64_t)height scaleFactor:(int64_t)factor inputType:(int64_t)type usePrecomputedFlow:(BOOL)flow qualityPrioritization:(int64_t)prioritization revision:(int64_t)revision
 {
   flowCopy = flow;
+  selfCopy = self;
   v32[4] = *MEMORY[0x1E69E9840];
-  if (!loadVEFrameworkOnce())
+  if (!loadVEFrameworkOnce(self, a2))
   {
     v16 = 0;
     NSLog(&cfstr_ProcessorUnsup.isa);
@@ -30,32 +31,32 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v26.receiver = self;
+  v26.receiver = selfCopy;
   v26.super_class = VTSuperResolutionScalerConfiguration;
-  self = [(VTSuperResolutionScalerConfiguration *)&v26 init];
-  if (!self)
+  selfCopy = [(VTSuperResolutionScalerConfiguration *)&v26 init];
+  if (!selfCopy)
   {
     NSLog(&cfstr_FailToInitiali.isa);
     goto LABEL_11;
   }
 
   v17 = [objc_alloc(NSClassFromString(&cfstr_Vesuperresolut.isa)) initWithFrameWidth:width frameHeight:height scaleFactor:factor inputType:type usePrecomputedFlow:flowCopy qualityPrioritization:prioritization revision:revision];
-  self->_veConfiguration = v17;
+  selfCopy->_veConfiguration = v17;
   if (!v17)
   {
     NSLog(&cfstr_FailToCreateEf.isa);
     goto LABEL_11;
   }
 
-  self->_frameWidth = width;
-  self->_frameHeight = height;
-  self->_precomputedFlow = flowCopy;
-  self->_qualityPrioritization = prioritization;
-  self->_revision = revision;
-  self->_inputType = type;
-  self->_scaleFactor = factor;
+  selfCopy->_frameWidth = width;
+  selfCopy->_frameHeight = height;
+  selfCopy->_precomputedFlow = flowCopy;
+  selfCopy->_qualityPrioritization = prioritization;
+  selfCopy->_revision = revision;
+  selfCopy->_inputType = type;
+  selfCopy->_scaleFactor = factor;
   v18 = [-[VESuperResolutionConfiguration framePreferredPixelFormats](v17 "framePreferredPixelFormats")];
-  self->_frameSupportedPixelFormats = v18;
+  selfCopy->_frameSupportedPixelFormats = v18;
   v19 = *MEMORY[0x1E6966130];
   v32[0] = v18;
   v20 = *MEMORY[0x1E6966208];
@@ -69,8 +70,8 @@ LABEL_11:
   v23 = v31;
   v32[2] = v22;
   v32[3] = MEMORY[0x1E695E0F8];
-  self->_sourcePixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v29 count:{4), "copy"}];
-  v28[0] = self->_frameSupportedPixelFormats;
+  selfCopy->_sourcePixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v29 count:{4), "copy"}];
+  v28[0] = selfCopy->_frameSupportedPixelFormats;
   v27[0] = v19;
   v27[1] = v20;
   v28[1] = [MEMORY[0x1E696AD98] numberWithInteger:factor * width];
@@ -79,8 +80,8 @@ LABEL_11:
   v27[3] = v23;
   v28[2] = height;
   v28[3] = MEMORY[0x1E695E0F8];
-  self->_destinationPixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:{4), "copy"}];
-  return self;
+  selfCopy->_destinationPixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:{4), "copy"}];
+  return selfCopy;
 }
 
 - (void)dealloc
@@ -136,7 +137,7 @@ uint64_t __88__VTSuperResolutionScalerConfiguration_downloadConfigurationModelWi
 
 + (int64_t)defaultRevision
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     v2 = NSClassFromString(&cfstr_Vesuperresolut.isa);
 
@@ -152,7 +153,7 @@ uint64_t __88__VTSuperResolutionScalerConfiguration_downloadConfigurationModelWi
 
 + (NSIndexSet)supportedRevisions
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     result = [NSClassFromString(&cfstr_Vesuperresolut.isa) supportedRevisions];
     if (result)

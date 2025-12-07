@@ -30,10 +30,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_isDeletable);
   v8 = *(self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_isDeletable);
+  v9 = *(self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_isDeletable + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (id)shareHandler
@@ -76,10 +77,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_shareHandler);
   v8 = *(self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_shareHandler);
+  v9 = *(self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_shareHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (void)setIsShareable:(id)shareable
@@ -100,10 +102,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_isShareable);
   v8 = *(self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_isShareable);
+  v9 = *(self + OBJC_IVAR____TtC4Maps34SearchHomeUserGuidesLayoutProvider_isShareable + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (_TtC4Maps34SearchHomeUserGuidesLayoutProvider)init
@@ -125,11 +128,11 @@
 
 - (id)cellClasses
 {
-  sub_1000CE6B8(&unk_101910E20);
+  sub_1000CE6B8(&unk_101910E20, &qword_1011EF070);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1011E1D30;
-  *(v2 + 32) = sub_100014C84(0, &unk_101909AB0);
-  sub_1000CE6B8(&unk_101910E30);
+  *(v2 + 32) = sub_100014C84(0, &unk_101909AB0, off_1015F61A8);
+  sub_1000CE6B8(&unk_101910E30, &qword_1011EF078);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -158,7 +161,7 @@
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   swift_unknownObjectRetain();
@@ -192,7 +195,7 @@
   themeCopy = theme;
   selfCopy = self;
   v16 = sub_1001D1448(environment, v12, v13, height);
-  sub_1000588AC(v12);
+  sub_1000588AC(v12, v13);
   swift_unknownObjectRelease();
 
   return v16;

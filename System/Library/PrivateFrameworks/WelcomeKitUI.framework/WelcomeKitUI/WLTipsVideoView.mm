@@ -11,11 +11,11 @@
 
 - (WLTipsVideoView)initWithTips:(id)tips
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   tipsCopy = tips;
-  v19.receiver = self;
-  v19.super_class = WLTipsVideoView;
-  v5 = [(WLTipsVideoView *)&v19 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v18.receiver = self;
+  v18.super_class = WLTipsVideoView;
+  v5 = [(WLTipsVideoView *)&v18 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v6 = v5;
   if (v5)
   {
@@ -41,15 +41,14 @@
 
     [(WLTipsVideoView *)v6 setTipsVideo];
     v13 = objc_opt_self();
-    v20[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v15 = [(WLTipsVideoView *)v6 registerForTraitChanges:v14 withAction:sel_userInterfaceStyleDidChange];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v6 selector:sel_applicationWillEnterForeground name:*MEMORY[0x277D76758] object:0];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

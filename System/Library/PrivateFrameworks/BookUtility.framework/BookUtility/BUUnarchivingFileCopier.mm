@@ -10,28 +10,29 @@
 - (BUUnarchivingFileCopier)initWithURL:(id)l options:(unint64_t)options error:(id *)error
 {
   lCopy = l;
-  v20.receiver = self;
-  v20.super_class = BUUnarchivingFileCopier;
-  v10 = [(BUUnarchivingFileCopier *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = BUUnarchivingFileCopier;
+  v10 = [(BUUnarchivingFileCopier *)&v21 init];
   if (v10)
   {
-    v19 = 0;
-    v11 = objc_msgSend_zipArchiveFromURL_options_error_(BUZipFileArchive, v9, lCopy, options, &v19);
-    v12 = v19;
+    v20 = 0;
+    v11 = objc_msgSend_zipArchiveFromURL_options_error_(BUZipFileArchive, v9, lCopy, options, &v20);
+    v12 = v20;
+    v13 = v12;
     if (v12)
     {
-      p_super = BUZipLog();
+      p_super = BUZipLog(v12);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
-        sub_241DD1314(lCopy, v12, p_super);
+        sub_241DD1314(lCopy, v13, p_super);
       }
     }
 
     else
     {
-      v14 = v11;
+      v15 = v11;
       p_super = &v10->_zipArchive->super.super;
-      v10->_zipArchive = v14;
+      v10->_zipArchive = v15;
     }
 
     if (error)
@@ -42,28 +43,28 @@
 
   else
   {
-    v12 = 0;
+    v13 = 0;
     if (error)
     {
 LABEL_9:
-      v15 = v12;
-      *error = v12;
+      v16 = v13;
+      *error = v13;
     }
   }
 
-  if (v12)
+  if (v13)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = v10;
+    v17 = v10;
   }
 
-  v17 = v16;
+  v18 = v17;
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)countTotalFileSize:(unint64_t *)size totalFileCount:(unint64_t *)count

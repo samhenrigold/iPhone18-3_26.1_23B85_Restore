@@ -34,7 +34,7 @@
 
 - (FCForYouQueryResult)initWithChannelDefaultSectionRequests:(id)requests channelOtherSectionsRequests:(id)sectionsRequests topicRequests:(id)topicRequests paidBundleRequests:(id)bundleRequests hiddenFeedRequests:(id)feedRequests sidecarRequests:(id)sidecarRequests feedContextByFeedID:(id)d
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   sectionsRequestsCopy = sectionsRequests;
   topicRequestsCopy = topicRequests;
@@ -44,15 +44,15 @@
   dCopy = d;
   if (!requestsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelDefaultSectionRequests"];
+    v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelDefaultSectionRequests"];
     *buf = 136315906;
-    v48 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
-    v49 = 2080;
-    v50 = "FCForYouQueryUtilities.m";
-    v51 = 1024;
-    v52 = 37;
-    v53 = 2114;
-    v54 = v39;
+    v47 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
+    v48 = 2080;
+    v49 = "FCForYouQueryUtilities.m";
+    v50 = 1024;
+    v51 = 37;
+    v52 = 2114;
+    v53 = v38;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (sectionsRequestsCopy)
@@ -68,30 +68,30 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelOtherSectionsRequests"];
+    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelOtherSectionsRequests"];
     *buf = 136315906;
-    v48 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
-    v49 = 2080;
-    v50 = "FCForYouQueryUtilities.m";
-    v51 = 1024;
-    v52 = 38;
-    v53 = 2114;
-    v54 = v40;
+    v47 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
+    v48 = 2080;
+    v49 = "FCForYouQueryUtilities.m";
+    v50 = 1024;
+    v51 = 38;
+    v52 = 2114;
+    v53 = v39;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!topicRequestsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "topicRequests"];
+    v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "topicRequests"];
     *buf = 136315906;
-    v48 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
-    v49 = 2080;
-    v50 = "FCForYouQueryUtilities.m";
-    v51 = 1024;
-    v52 = 39;
-    v53 = 2114;
-    v54 = v41;
+    v47 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
+    v48 = 2080;
+    v49 = "FCForYouQueryUtilities.m";
+    v50 = 1024;
+    v51 = 39;
+    v52 = 2114;
+    v53 = v40;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (bundleRequestsCopy)
@@ -107,30 +107,30 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "paidBundleRequests"];
+    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "paidBundleRequests"];
     *buf = 136315906;
-    v48 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
-    v49 = 2080;
-    v50 = "FCForYouQueryUtilities.m";
-    v51 = 1024;
-    v52 = 40;
-    v53 = 2114;
-    v54 = v42;
+    v47 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
+    v48 = 2080;
+    v49 = "FCForYouQueryUtilities.m";
+    v50 = 1024;
+    v51 = 40;
+    v52 = 2114;
+    v53 = v41;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_11:
   if (!feedRequestsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "hiddenFeedRequests"];
+    v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "hiddenFeedRequests"];
     *buf = 136315906;
-    v48 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
-    v49 = 2080;
-    v50 = "FCForYouQueryUtilities.m";
-    v51 = 1024;
-    v52 = 41;
-    v53 = 2114;
-    v54 = v43;
+    v47 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
+    v48 = 2080;
+    v49 = "FCForYouQueryUtilities.m";
+    v50 = 1024;
+    v51 = 41;
+    v52 = 2114;
+    v53 = v42;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (sidecarRequestsCopy)
@@ -146,36 +146,36 @@ LABEL_11:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "sidecarRequests"];
+    v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "sidecarRequests"];
     *buf = 136315906;
-    v48 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
-    v49 = 2080;
-    v50 = "FCForYouQueryUtilities.m";
-    v51 = 1024;
-    v52 = 42;
-    v53 = 2114;
-    v54 = v44;
+    v47 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
+    v48 = 2080;
+    v49 = "FCForYouQueryUtilities.m";
+    v50 = 1024;
+    v51 = 42;
+    v52 = 2114;
+    v53 = v43;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_16:
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedContextByFeedID"];
+    v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedContextByFeedID"];
     *buf = 136315906;
-    v48 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
-    v49 = 2080;
-    v50 = "FCForYouQueryUtilities.m";
-    v51 = 1024;
-    v52 = 43;
-    v53 = 2114;
-    v54 = v45;
+    v47 = "[FCForYouQueryResult initWithChannelDefaultSectionRequests:channelOtherSectionsRequests:topicRequests:paidBundleRequests:hiddenFeedRequests:sidecarRequests:feedContextByFeedID:]";
+    v48 = 2080;
+    v49 = "FCForYouQueryUtilities.m";
+    v50 = 1024;
+    v51 = 43;
+    v52 = 2114;
+    v53 = v44;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v46.receiver = self;
-  v46.super_class = FCForYouQueryResult;
-  v22 = [(FCForYouQueryResult *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = FCForYouQueryResult;
+  v22 = [(FCForYouQueryResult *)&v45 init];
   if (v22)
   {
     v23 = [requestsCopy copy];
@@ -207,29 +207,26 @@ LABEL_16:
     v22->_feedContextByFeedID = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (NSArray)allRequests
 {
-  v13[6] = *MEMORY[0x1E69E9840];
+  v12[6] = *MEMORY[0x1E69E9840];
   channelDefaultSectionRequests = [(FCForYouQueryResult *)self channelDefaultSectionRequests];
-  v13[0] = channelDefaultSectionRequests;
+  v12[0] = channelDefaultSectionRequests;
   channelOtherSectionsRequests = [(FCForYouQueryResult *)self channelOtherSectionsRequests];
-  v13[1] = channelOtherSectionsRequests;
+  v12[1] = channelOtherSectionsRequests;
   topicRequests = [(FCForYouQueryResult *)self topicRequests];
-  v13[2] = topicRequests;
+  v12[2] = topicRequests;
   paidBundleRequests = [(FCForYouQueryResult *)self paidBundleRequests];
-  v13[3] = paidBundleRequests;
+  v12[3] = paidBundleRequests;
   hiddenFeedRequests = [(FCForYouQueryResult *)self hiddenFeedRequests];
-  v13[4] = hiddenFeedRequests;
+  v12[4] = hiddenFeedRequests;
   sidecarRequests = [(FCForYouQueryResult *)self sidecarRequests];
-  v13[5] = sidecarRequests;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:6];
+  v12[5] = sidecarRequests;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:6];
   fc_arrayByFlattening = [v9 fc_arrayByFlattening];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return fc_arrayByFlattening;
 }

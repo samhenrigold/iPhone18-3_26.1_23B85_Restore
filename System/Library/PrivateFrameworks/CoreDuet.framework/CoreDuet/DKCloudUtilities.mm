@@ -5,26 +5,25 @@
 
 uint64_t __35___DKCloudUtilities_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
-  v3 = sharedInstance_sharedInstance;
-  sharedInstance_sharedInstance = v2;
+  v1 = objc_opt_new();
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __25___DKCloudUtilities_init__block_invoke(uint64_t a1)
 {
   v2 = [_DKThrottledActivity alloc];
-  v3 = [(_DKCloudUtilities *)*(a1 + 32) keyValueStore];
-  v4 = [(_DKThrottledActivity *)v2 initWithStore:v3 namespace:@"_DKCloudUtilities"];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 16);
-  *(v5 + 16) = v4;
+  v4 = [(_DKCloudUtilities *)*(a1 + 32) keyValueStore];
+  v5 = [(_DKThrottledActivity *)v2 initWithStore:v4 namespace:@"_DKCloudUtilities"];
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 16);
+  *(v6 + 16) = v5;
 
-  v7 = *(a1 + 32);
+  v8 = *(a1 + 32);
 
-  [(_DKCloudUtilities *)v7 _fetchCloudKitConfigurationAndStatus];
+  [(_DKCloudUtilities *)v8 _fetchCloudKitConfigurationAndStatus];
 }
 
 void __57___DKCloudUtilities__fetchCloudKitConfigurationAndStatus__block_invoke(uint64_t a1)
@@ -107,7 +106,7 @@ uint64_t __71___DKCloudUtilities__updateNumberOfSyncedDevicesWithCompletionHandl
 
 void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 recordType];
   v5 = [v4 isEqualToString:@"metadata_device_type"];
@@ -132,16 +131,16 @@ LABEL_7:
       [*(a1 + 32) setArray:v9 forKey:@"_DKCloudSyncDevices"];
       v10 = +[_CDObservationCenter sharedInstance];
       v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count", @"count"}];
-      v17 = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v16 = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
       [v10 postNotificationName:@"_DKCloudDeviceCountChangedNotification" userInfo:v12 sender:*(a1 + 40)];
     }
 
     else
     {
       v13 = *(a1 + 32);
-      v18[0] = v7;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+      v17[0] = v7;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
       [v13 setArray:v14 forKey:@"_DKCloudSyncDevices"];
 
       v9 = +[_CDObservationCenter sharedInstance];
@@ -152,13 +151,11 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_596(uint64_t a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ([a3 isEqualToString:@"metadata_device_type"])
   {
@@ -170,15 +167,13 @@ void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_comp
       [v8 removeObject:v6];
       [*(a1 + 32) setArray:v8 forKey:@"_DKCloudSyncDevices"];
       v9 = +[_CDObservationCenter sharedInstance];
-      v13 = @"count";
+      v12 = @"count";
       v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v8, "count")}];
-      v14[0] = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v13[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       [v9 postNotificationName:@"_DKCloudDeviceCountChangedNotification" userInfo:v11 sender:*(a1 + 40)];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -192,17 +187,17 @@ void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_comp
 
 void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_4;
-    v30[3] = &unk_1E7367440;
-    v31 = *(a1 + 32);
-    [_DKSyncSerializer performSyncBlock:v30];
-    v9 = v31;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_4;
+    v29[3] = &unk_1E7367440;
+    v30 = *(a1 + 32);
+    [_DKSyncSerializer performSyncBlock:v29];
+    v9 = v30;
 LABEL_26:
 
     goto LABEL_27;
@@ -226,25 +221,25 @@ LABEL_26:
       v9 = [v8 objectForKeyedSubscript:*MEMORY[0x1E695B798]];
 
       [v9 allValues];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v10 = v29 = 0u;
-      v11 = [v10 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v10 = v28 = 0u;
+      v11 = [v10 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v27;
+        v13 = *v26;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v27 != v13)
+            if (*v26 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v26 + 1) + 8 * i);
+            v15 = *(*(&v25 + 1) + 8 * i);
             if ([v15 code] == 21)
             {
               v16 = [v15 domain];
@@ -258,7 +253,7 @@ LABEL_26:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v26 objects:v32 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v25 objects:v31 count:16];
           if (v12)
           {
             continue;
@@ -283,8 +278,8 @@ LABEL_21:
       v20 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_191750000, v20, OS_LOG_TYPE_INFO, "Change token expired, may retry fetching number of synced devices", v25, 2u);
+        v24[0] = 0;
+        _os_log_impl(&dword_191750000, v20, OS_LOG_TYPE_INFO, "Change token expired, may retry fetching number of synced devices", v24, 2u);
       }
 
       [*(a1 + 48) removeObjectForKey:@"_DKCloudSyncMetadataChangeToken"];
@@ -314,39 +309,37 @@ LABEL_27:
   }
 
 LABEL_29:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) arrayForKey:@"_DKCloudSyncDevices"];
   if ([v1 count] >= 2)
   {
     v2 = +[_DKSyncPeerStatusTracker sharedInstance];
     v3 = [v2 allPeers];
     v4 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-1728000.0];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           if (([v10 me] & 1) == 0)
           {
             v11 = [v10 lastSeenDate];
@@ -358,14 +351,12 @@ void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_comp
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __71___DKCloudUtilities__updateNumberOfSyncedDevicesWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -379,44 +370,40 @@ void __71___DKCloudUtilities__updateNumberOfSyncedDevicesWithCompletionHandler__
 
 void __48___DKCloudUtilities_deleteRemoteStateWithReply___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = [a1 domain];
   [a1 code];
-  v6 = 138543874;
-  v7 = v4;
+  v5 = 138543874;
+  v6 = v4;
   OUTLINED_FUNCTION_4_3();
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Failed to delete zones: %{public}@:%lld (%@)", &v6, 0x20u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Failed to delete zones: %{public}@:%lld (%@)", &v5, 0x20u);
 }
 
 void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_3_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 40);
   v6 = [a2 domain];
-  v8 = 138413058;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  v12 = 2048;
-  v13 = [a2 code];
-  v14 = 2112;
-  v15 = a2;
-  _os_log_debug_impl(&dword_191750000, a3, OS_LOG_TYPE_DEBUG, "Failed to fetch record zone changes for %@: %{public}@:%lld (%@)", &v8, 0x2Au);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138413058;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  v11 = 2048;
+  v12 = [a2 code];
+  v13 = 2112;
+  v14 = a2;
+  _os_log_debug_impl(&dword_191750000, a3, OS_LOG_TYPE_DEBUG, "Failed to fetch record zone changes for %@: %{public}@:%lld (%@)", &v7, 0x2Au);
 }
 
-uint64_t __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_3_cold_3(NSObject *a1, uint64_t a2, void *a3)
+void __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_3_cold_3(NSObject *a1, uint64_t a2, void *a3)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_INFO))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_191750000, a1, OS_LOG_TYPE_INFO, "Will retry fetching number of synced devices", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_191750000, a1, OS_LOG_TYPE_INFO, "Will retry fetching number of synced devices", v6, 2u);
   }
 
-  return [(_DKCloudUtilities *)*(a2 + 56) _performUpdateNumberOfSyncedDevicesWithAttempt:*(a2 + 72) completionHandler:?];
+  [(_DKCloudUtilities *)*(a2 + 56) _performUpdateNumberOfSyncedDevicesWithAttempt:*(a2 + 72) completionHandler:?];
 }
 
 @end

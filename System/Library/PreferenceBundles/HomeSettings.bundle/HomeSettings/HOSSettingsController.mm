@@ -20,6 +20,7 @@
 - (id)createSpecifierForHome:(id)home;
 - (id)createSpecifierForHomeHub;
 - (id)createSpecifierForHomeKitReset;
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated;
 - (id)homeHubEnabled:(id)enabled;
 - (id)specifierForHome:(id)home;
 - (id)specifiers;
@@ -862,6 +863,17 @@ LABEL_4:
 {
   user = [(HOSSettingsController *)self specifierForHome:home, user];
   [(HOSSettingsController *)self reloadSpecifier:user animated:1];
+}
+
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated
+{
+  v5 = [(HOSSettingsController *)self navigationController:presentation];
+  v6 = [v5 popToViewController:self animated:1];
+
+  [(HOSSettingsController *)self setDetailController:0];
+  [(HOSSettingsController *)self _tearDownActiveAssertion];
+
+  return +[NAFuture futureWithNoResult];
 }
 
 - (void)receivedApplicationDidEnterBackground:(id)background

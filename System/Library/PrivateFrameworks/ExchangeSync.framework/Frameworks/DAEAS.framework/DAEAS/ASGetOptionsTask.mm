@@ -79,7 +79,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   v6 = errorCopy;
@@ -96,8 +96,8 @@
       }
 
       *buf = 138412290;
-      v46 = objc_opt_class();
-      v10 = v46;
+      v45 = objc_opt_class();
+      v10 = v45;
       v11 = "%@ cancelled";
       v12 = v8;
       v13 = v23;
@@ -113,10 +113,10 @@
       }
 
       *buf = 138412546;
-      v46 = objc_opt_class();
-      v47 = 2112;
-      v48 = v6;
-      v10 = v46;
+      v45 = objc_opt_class();
+      v46 = 2112;
+      v47 = v6;
+      v10 = v45;
       v11 = "%@ failed: %@";
       v12 = v8;
       v13 = v9;
@@ -127,13 +127,13 @@
 
 LABEL_14:
     v24 = *MEMORY[0x277CCA7E8];
-    v54[0] = v6;
+    v53[0] = v6;
     v25 = *MEMORY[0x277D038E8];
-    v53[0] = v24;
-    v53[1] = v25;
+    v52[0] = v24;
+    v52[1] = v25;
     v26 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
-    v54[1] = v26;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v53[1] = v26;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
 
     domain = [v6 domain];
     v28 = [domain isEqualToString:*MEMORY[0x277CCA738]];
@@ -168,7 +168,7 @@ LABEL_27:
       {
         code2 = [v6 code];
         *buf = 134217984;
-        v46 = code2;
+        v45 = code2;
         v36 = "Unhandled url error code of %ld";
         goto LABEL_30;
       }
@@ -198,7 +198,7 @@ LABEL_27:
       {
         code3 = [v6 code];
         *buf = 134217984;
-        v46 = code3;
+        v45 = code3;
         v36 = "Unhandled ASHTTP error code of %ld";
 LABEL_30:
         _os_log_impl(&dword_24A0AC000, v33, v34, v36, buf, 0xCu);
@@ -221,12 +221,12 @@ LABEL_30:
       v20 = MEMORY[0x277D03910];
       v21 = v19;
       *buf = 138413058;
-      v46 = v19;
-      v47 = 2112;
-      v48 = commandArray;
-      v49 = 2112;
-      v50 = versionArray;
-      v51 = 1024;
+      v45 = v19;
+      v46 = 2112;
+      v47 = commandArray;
+      v48 = 2112;
+      v49 = versionArray;
+      v50 = 1024;
       ignoreSupportedCommands = [v20 ignoreSupportedCommands];
       _os_log_impl(&dword_24A0AC000, v17, v18, "%@ Parsed response with supportedCommands %@, supportedVersions %@.  IgnoreSupportedCommands = %d", buf, 0x26u);
     }
@@ -243,11 +243,11 @@ LABEL_30:
     if (os_log_type_enabled(v17, v37))
     {
       *buf = 138412802;
-      v46 = commandArray;
-      v47 = 2112;
-      v48 = versionArray;
-      v49 = 1024;
-      LODWORD(v50) = [MEMORY[0x277D03910] ignoreSupportedCommands];
+      v45 = commandArray;
+      v46 = 2112;
+      v47 = versionArray;
+      v48 = 1024;
+      LODWORD(v49) = [MEMORY[0x277D03910] ignoreSupportedCommands];
       _os_log_impl(&dword_24A0AC000, v17, v37, "GetOptions request returned no error, but is missing one or more of supportedCommands (%@) or supportedVersions (%@).  IgnoreSupportedCommands = %d", buf, 0x1Cu);
     }
 
@@ -263,19 +263,17 @@ LABEL_33:
 
   else
   {
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __36__ASGetOptionsTask_finishWithError___block_invoke;
-    v40[3] = &unk_278FC8028;
-    v40[4] = self;
-    v44 = v5;
-    v41 = commandArray;
-    v42 = versionArray;
-    v43 = v22;
-    [(ASTask *)self finishWithError:v6 afterDelegateCallout:v40];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __36__ASGetOptionsTask_finishWithError___block_invoke;
+    v39[3] = &unk_278FC8028;
+    v39[4] = self;
+    v43 = v5;
+    v40 = commandArray;
+    v41 = versionArray;
+    v42 = v22;
+    [(ASTask *)self finishWithError:v6 afterDelegateCallout:v39];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ASGetOptionsTask_finishWithError___block_invoke(void *a1)
@@ -292,7 +290,7 @@ void __36__ASGetOptionsTask_finishWithError___block_invoke(void *a1)
     versionArray = self->_versionArray;
     self->_versionArray = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, versionArray);
   }
 }
 
@@ -304,7 +302,7 @@ void __36__ASGetOptionsTask_finishWithError___block_invoke(void *a1)
     commandArray = self->_commandArray;
     self->_commandArray = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, commandArray);
   }
 }
 

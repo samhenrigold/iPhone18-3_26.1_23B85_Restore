@@ -22,7 +22,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  DOCColumnInfoViewController.actionReporting.setter();
+  DOCColumnInfoViewController.actionReporting.setter(reporting);
 }
 
 - (_TtC26DocumentManagerExecutables27DOCColumnInfoViewController)initWithCoder:(id)coder

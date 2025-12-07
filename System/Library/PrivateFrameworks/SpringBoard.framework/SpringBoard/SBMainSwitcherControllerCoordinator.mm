@@ -357,7 +357,7 @@
     appLayout = [v126[5] firstObject];
   }
 
-  if ([v78 containsObject:appLayout])
+  if (objc_msgSend_containsObject_(v78))
   {
     v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v78, "count")}];
     v105 = 0u;
@@ -436,7 +436,7 @@
 
         v31 = *(*(&v97 + 1) + 8 * j);
         v32 = [v31 containsAnyItemFromSet:self->_liveDisplayItemsBeingTerminated];
-        if ((([v126[5] containsObject:v31] | v32) & 1) == 0 && (v122[3] & 1) == 0 && (objc_msgSend(v84, "containsObject:", v31) & 1) == 0)
+        if (((objc_msgSend_containsObject_(v126[5]) | v32) & 1) == 0 && (v122[3] & 1) == 0 && (objc_msgSend_containsObject_(v84) & 1) == 0)
         {
           v33 = [v83 objectForKey:v31];
           _slideOverDisplayItem = [v33 _slideOverDisplayItem];
@@ -566,7 +566,7 @@
       }
 
       [(NSMutableArray *)self->_servicesRemovedWhileAwayFromSwitcher removeObjectsInArray:v53];
-      if (v82 && ([v126[5] containsObject:v82] & 1) == 0)
+      if (v82 && (objc_msgSend_containsObject_(v126[5]) & 1) == 0)
       {
         [v126[5] insertObject:v82 atIndex:0];
       }
@@ -706,7 +706,7 @@ void __59__SBMainSwitcherControllerCoordinator__buildAppLayoutCache__block_invok
 
 LABEL_19:
 
-  if ([*(*(a1 + 56) + 248) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(*(a1 + 56) + 248)))
   {
 LABEL_20:
     [*(a1 + 40) addIndex:a3];
@@ -1281,7 +1281,7 @@ void __44__SBMainSwitcherControllerCoordinator__init__block_invoke_2(uint64_t a1
   return v2;
 }
 
-uint64_t __59__SBMainSwitcherControllerCoordinator_isAnySwitcherVisible__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__59__SBMainSwitcherControllerCoordinator_isAnySwitcherVisible__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isAnySwitcherVisible];
   if (result)
@@ -1626,7 +1626,7 @@ LABEL_24:
 
         else
         {
-          v28 = SBLogAppSwitcher();
+          v28 = SBLogAppSwitcher(0);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
@@ -1858,7 +1858,7 @@ LABEL_36:
 
                 appLayout3 = [*(*(&v148 + 1) + 8 * k) appLayout];
                 appLayouts2 = [(SBSwitcherModelRemovalResults *)self->_activeTransitionModelRemovalResults appLayouts];
-                v39 = [appLayouts2 containsObject:appLayout3];
+                v39 = objc_msgSend_containsObject_(appLayouts2);
 
                 if (v39)
                 {
@@ -1950,7 +1950,7 @@ LABEL_75:
       }
 
       appLayouts3 = [(SBSwitcherModelRemovalResults *)self->_activeTransitionModelRemovalResults appLayouts];
-      v94 = [appLayouts3 containsObject:appLayout];
+      v94 = objc_msgSend_containsObject_(appLayouts3);
 
       if ((v94 & 1) == 0 && source != 63 && source != 71)
       {
@@ -2261,7 +2261,7 @@ LABEL_109:
 uint64_t __112__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidBeginWithTransitionContext___block_invoke(id *a1, void *a2)
 {
   v3 = a2;
-  if ([a1[4] containsItem:v3] & 1) != 0 || (objc_msgSend(a1[5], "containsObject:", v3))
+  if ([a1[4] containsItem:v3] & 1) != 0 || (objc_msgSend_containsObject_(a1[5]))
   {
     v4 = 0;
   }
@@ -2278,7 +2278,7 @@ uint64_t __112__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordin
 {
   v2 = *(a1 + 32);
   v3 = [a2 identifier];
-  v4 = [v2 containsObject:v3];
+  v4 = objc_msgSend_containsObject_(v2);
 
   return v4;
 }
@@ -2391,12 +2391,13 @@ void __94__SBMainSwitcherControllerCoordinator__presentStoreKitSheetIfNeededWith
   [v2 presentSheetIfNeededForProcessHandle:*(a1 + 32) completion:&__block_literal_global_173];
 }
 
-void __94__SBMainSwitcherControllerCoordinator__presentStoreKitSheetIfNeededWithAppInfo_processHandle___block_invoke_2(uint64_t a1, char a2)
+void __94__SBMainSwitcherControllerCoordinator__presentStoreKitSheetIfNeededWithAppInfo_processHandle___block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = SBLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __94__SBMainSwitcherControllerCoordinator__presentStoreKitSheetIfNeededWithAppInfo_processHandle___block_invoke_2_cold_1(a2, v3);
+    __94__SBMainSwitcherControllerCoordinator__presentStoreKitSheetIfNeededWithAppInfo_processHandle___block_invoke_2_cold_1(v2, v3);
   }
 }
 
@@ -2775,42 +2776,42 @@ LABEL_47:
 
 uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationIfNeededTransitioningFromLayoutState_toLayoutState_windowScene___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 displayItemsInGroup];
-  v4 = [v3 containsObject:*(a1 + 32)];
+  v2 = [a2 displayItemsInGroup];
+  v3 = objc_msgSend_containsObject_(v2);
 
-  return v4;
+  return v3;
 }
 
 - (void)layoutStateTransitionCoordinator:(id)coordinator transitionDidEndWithTransitionContext:(id)context
 {
-  v181 = *MEMORY[0x277D85DE8];
+  v182 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   contextCopy = context;
   isInterrupted = [contextCopy isInterrupted];
-  v121 = contextCopy;
+  v122 = contextCopy;
   toLayoutState = [contextCopy toLayoutState];
-  fromLayoutState = [v121 fromLayoutState];
+  fromLayoutState = [v122 fromLayoutState];
   windowScene = [coordinatorCopy windowScene];
-  v119 = [(SBMainSwitcherControllerCoordinator *)self switcherControllerForWindowScene:windowScene];
-  error = [v121 error];
+  v120 = [(SBMainSwitcherControllerCoordinator *)self switcherControllerForWindowScene:windowScene];
+  error = [v122 error];
 
   if (error)
   {
-    v124 = fromLayoutState;
+    v125 = fromLayoutState;
 
     layoutStateProvider = [windowScene layoutStateProvider];
-    [layoutStateProvider setLayoutState:v124];
+    [layoutStateProvider setLayoutState:v125];
 
     layoutStateProvider2 = [windowScene layoutStateProvider];
-    [layoutStateProvider2 setPreviousLayoutState:v124];
+    [layoutStateProvider2 setPreviousLayoutState:v125];
   }
 
   else
   {
-    v124 = toLayoutState;
+    v125 = toLayoutState;
   }
 
-  applicationTransitionContext = [v121 applicationTransitionContext];
+  applicationTransitionContext = [v122 applicationTransitionContext];
   request = [applicationTransitionContext request];
   source = [request source];
   previousLayoutState = [applicationTransitionContext previousLayoutState];
@@ -2825,63 +2826,63 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationI
   layoutState2 = [applicationTransitionContext layoutState];
   floatingAppLayout2 = [layoutState2 floatingAppLayout];
 
-  v164 = 0u;
   v165 = 0u;
-  v162 = 0u;
+  v166 = 0u;
   v163 = 0u;
+  v164 = 0u;
   allItems = [appLayout allItems];
-  v16 = [allItems countByEnumeratingWithState:&v162 objects:v180 count:16];
+  v16 = [allItems countByEnumeratingWithState:&v163 objects:v181 count:16];
   if (v16)
   {
-    v17 = *v163;
+    v17 = *v164;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v163 != v17)
+        if (*v164 != v17)
         {
           objc_enumerationMutation(allItems);
         }
 
-        v19 = *(*(&v162 + 1) + 8 * i);
-        if (([appLayout2 containsItem:v19] & 1) == 0 && -[NSMutableSet containsObject:](self->_liveDisplayItemsBeingTerminated, "containsObject:", v19))
+        v19 = *(*(&v163 + 1) + 8 * i);
+        if (([appLayout2 containsItem:v19] & 1) == 0 && objc_msgSend_containsObject_(self->_liveDisplayItemsBeingTerminated))
         {
           [(NSMutableSet *)self->_liveDisplayItemsBeingTerminated removeObject:v19];
         }
       }
 
-      v16 = [allItems countByEnumeratingWithState:&v162 objects:v180 count:16];
+      v16 = [allItems countByEnumeratingWithState:&v163 objects:v181 count:16];
     }
 
     while (v16);
   }
 
-  v160 = 0u;
   v161 = 0u;
-  v158 = 0u;
+  v162 = 0u;
   v159 = 0u;
+  v160 = 0u;
   allItems2 = [floatingAppLayout allItems];
-  v21 = [allItems2 countByEnumeratingWithState:&v158 objects:v179 count:16];
+  v21 = [allItems2 countByEnumeratingWithState:&v159 objects:v180 count:16];
   if (v21)
   {
-    v22 = *v159;
+    v22 = *v160;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v159 != v22)
+        if (*v160 != v22)
         {
           objc_enumerationMutation(allItems2);
         }
 
-        v24 = *(*(&v158 + 1) + 8 * j);
-        if (([floatingAppLayout2 containsItem:v24] & 1) == 0 && -[NSMutableSet containsObject:](self->_liveDisplayItemsBeingTerminated, "containsObject:", v24))
+        v24 = *(*(&v159 + 1) + 8 * j);
+        if (([floatingAppLayout2 containsItem:v24] & 1) == 0 && objc_msgSend_containsObject_(self->_liveDisplayItemsBeingTerminated))
         {
           [(NSMutableSet *)self->_liveDisplayItemsBeingTerminated removeObject:v24];
         }
       }
 
-      v21 = [allItems2 countByEnumeratingWithState:&v158 objects:v179 count:16];
+      v21 = [allItems2 countByEnumeratingWithState:&v159 objects:v180 count:16];
     }
 
     while (v21);
@@ -2891,8 +2892,8 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationI
   {
     unlockedEnvironmentMode = [fromLayoutState unlockedEnvironmentMode];
     isFloatingSwitcherVisible = [fromLayoutState isFloatingSwitcherVisible];
-    unlockedEnvironmentMode2 = [v124 unlockedEnvironmentMode];
-    isFloatingSwitcherVisible2 = [v124 isFloatingSwitcherVisible];
+    unlockedEnvironmentMode2 = [v125 unlockedEnvironmentMode];
+    isFloatingSwitcherVisible2 = [v125 isFloatingSwitcherVisible];
     bundleIDShowingAppExpose = [fromLayoutState bundleIDShowingAppExpose];
     if (bundleIDShowingAppExpose)
     {
@@ -2901,13 +2902,13 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationI
 
     else
     {
-      bundleIDShowingAppExpose2 = [v124 bundleIDShowingAppExpose];
+      bundleIDShowingAppExpose2 = [v125 bundleIDShowingAppExpose];
       v30 = bundleIDShowingAppExpose2 != 0;
     }
 
     request2 = [applicationTransitionContext request];
     peekConfiguration = [fromLayoutState peekConfiguration];
-    IsValid = SBPeekConfigurationIsValid([v124 peekConfiguration]);
+    IsValid = SBPeekConfigurationIsValid([v125 peekConfiguration]);
     v34 = IsValid;
     v35 = IsValid && !SBPeekConfigurationIsValid(peekConfiguration);
     if ((unlockedEnvironmentMode2 == 2) | isFloatingSwitcherVisible2 & 1)
@@ -2916,25 +2917,25 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationI
       {
         v36 = [(NSMutableArray *)self->_servicesRemovedWhileAwayFromSwitcher copy];
         [(NSMutableArray *)self->_servicesRemovedWhileAwayFromSwitcher removeAllObjects];
-        v156 = 0u;
         v157 = 0u;
-        v154 = 0u;
+        v158 = 0u;
         v155 = 0u;
+        v156 = 0u;
         defaultCenter2 = v36;
-        v38 = [defaultCenter2 countByEnumeratingWithState:&v154 objects:v178 count:16];
+        v38 = [defaultCenter2 countByEnumeratingWithState:&v155 objects:v179 count:16];
         if (v38)
         {
-          v39 = *v155;
+          v39 = *v156;
           do
           {
             for (k = 0; k != v38; ++k)
             {
-              if (*v155 != v39)
+              if (*v156 != v39)
               {
                 objc_enumerationMutation(defaultCenter2);
               }
 
-              bundleIdentifier = [*(*(&v154 + 1) + 8 * k) bundleIdentifier];
+              bundleIdentifier = [*(*(&v155 + 1) + 8 * k) bundleIdentifier];
               v42 = [SBDisplayItem switcherServiceDisplayItemWithServiceIdentifier:bundleIdentifier];
 
               v43 = [(SBMainSwitcherControllerCoordinator *)self _appLayoutFromPrimaryLayoutItem:v42 sideLayoutElement:0 configuration:1];
@@ -2946,7 +2947,7 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationI
               [(SBMainSwitcherControllerCoordinator *)self _performSceneDestructionForModelRemovalResults:v46];
             }
 
-            v38 = [defaultCenter2 countByEnumeratingWithState:&v154 objects:v178 count:16];
+            v38 = [defaultCenter2 countByEnumeratingWithState:&v155 objects:v179 count:16];
           }
 
           while (v38);
@@ -2965,7 +2966,7 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationI
       if ((!v30 || source != 33 && source != 51) && !v34)
       {
         [(SBMainSwitcherControllerCoordinator *)self _releaseKeyboardFocus];
-        [(SBMainSwitcherControllerCoordinator *)self _focusNewlyAddedApplicationIfNeededTransitioningFromLayoutState:fromLayoutState toLayoutState:v124 windowScene:windowScene];
+        [(SBMainSwitcherControllerCoordinator *)self _focusNewlyAddedApplicationIfNeededTransitioningFromLayoutState:fromLayoutState toLayoutState:v125 windowScene:windowScene];
       }
 
       if (v35)
@@ -2982,16 +2983,16 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__focusNewlyAddedApplicationI
       }
 
       v51 = [(SBMainSwitcherControllerCoordinator *)self switcherControllerForWindowScene:windowScene];
-      [v51 _updateContentViewInterfaceOrientation:{objc_msgSend(v124, "interfaceOrientation")}];
+      [v51 _updateContentViewInterfaceOrientation:{objc_msgSend(v125, "interfaceOrientation")}];
     }
 
     defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter2 postNotificationName:@"SBUIAppSwitcherObscuredNotification" object:0];
 LABEL_52:
 
-    if ([v124 unlockedEnvironmentMode] == 3)
+    if ([v125 unlockedEnvironmentMode] == 3)
     {
-      appLayout3 = [v124 appLayout];
+      appLayout3 = [v125 appLayout];
       switcherController = [windowScene switcherController];
       contentViewController = [switcherController contentViewController];
 
@@ -3002,12 +3003,12 @@ LABEL_52:
           if ([appLayout3 environment] == 1)
           {
             appLayouts = self->_appLayouts;
-            v152[0] = MEMORY[0x277D85DD0];
-            v152[1] = 3221225472;
-            v152[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke;
-            v152[3] = &unk_2783A8CB8;
-            v153 = appLayout3;
-            v56 = [(NSArray *)appLayouts bs_firstObjectPassingTest:v152];
+            v153[0] = MEMORY[0x277D85DD0];
+            v153[1] = 3221225472;
+            v153[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke;
+            v153[3] = &unk_2783A8CB8;
+            v154 = appLayout3;
+            v56 = [(NSArray *)appLayouts bs_firstObjectPassingTest:v153];
           }
 
           else
@@ -3018,33 +3019,34 @@ LABEL_52:
           [(SBMainSwitcherControllerCoordinator *)self _addAppLayoutToFront:appLayout3 removeAppLayout:v56];
         }
 
-        elements = [v124 elements];
+        elements = [v125 elements];
         v58 = [elements count] == 0;
 
         if (!v58)
         {
           [(SBMainSwitcherControllerCoordinator *)self _rebuildAppListCache];
-          if (![(NSArray *)self->_appLayouts containsObject:appLayout3])
+          v59 = objc_msgSend_containsObject_(self->_appLayouts);
+          if ((v59 & 1) == 0)
           {
-            v59 = SBLogAppSwitcher();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            v60 = SBLogAppSwitcher(v59);
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
             {
               succinctDescription = [appLayout3 succinctDescription];
               appLayout4 = [fromLayoutState appLayout];
               succinctDescription2 = [appLayout4 succinctDescription];
               itemsCrossingToOtherDisplay = [applicationTransitionContext itemsCrossingToOtherDisplay];
-              v113 = [(NSPointerArray *)self->_coordinatedSwitcherControllers count];
+              v114 = [(NSPointerArray *)self->_coordinatedSwitcherControllers count];
               *location = 138544386;
               *&location[4] = succinctDescription;
-              v170 = 2114;
-              v171 = succinctDescription2;
-              v172 = 2048;
-              v173 = source;
-              v174 = 2114;
-              v175 = itemsCrossingToOtherDisplay;
-              v176 = 2048;
-              v177 = v113;
-              _os_log_error_impl(&dword_21ED4E000, v59, OS_LOG_TYPE_ERROR, "The appLayouts array doesn't contain %{public}@, was transitioning from %{public}@ with source %lu, items crossing to other displays was %{public}@, number of switchers %lu", location, 0x34u);
+              v171 = 2114;
+              v172 = succinctDescription2;
+              v173 = 2048;
+              v174 = source;
+              v175 = 2114;
+              v176 = itemsCrossingToOtherDisplay;
+              v177 = 2048;
+              v178 = v114;
+              _os_log_error_impl(&dword_21ED4E000, v60, OS_LOG_TYPE_ERROR, "The appLayouts array doesn't contain %{public}@, was transitioning from %{public}@ with source %lu, items crossing to other displays was %{public}@, number of switchers %lu", location, 0x34u);
             }
 
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -3053,108 +3055,108 @@ LABEL_52:
         }
       }
 
-      floatingAppLayout3 = [v124 floatingAppLayout];
-      if (floatingAppLayout3 && ([v124 isFloatingSwitcherVisible] & 1) == 0 && objc_msgSend(contentViewController, "shouldAddAppLayoutToFront:forTransitionWithContext:transitionCompleted:", floatingAppLayout3, applicationTransitionContext, 1))
+      floatingAppLayout3 = [v125 floatingAppLayout];
+      if (floatingAppLayout3 && ([v125 isFloatingSwitcherVisible] & 1) == 0 && objc_msgSend(contentViewController, "shouldAddAppLayoutToFront:forTransitionWithContext:transitionCompleted:", floatingAppLayout3, applicationTransitionContext, 1))
       {
         [(SBMainSwitcherControllerCoordinator *)self _addAppLayoutToFront:floatingAppLayout3];
       }
     }
 
-    v62 = [MEMORY[0x277CBEB58] set];
-    if ([v124 unlockedEnvironmentMode] == 3 || objc_msgSend(v124, "unlockedEnvironmentMode") == 2)
+    v63 = [MEMORY[0x277CBEB58] set];
+    if ([v125 unlockedEnvironmentMode] == 3 || objc_msgSend(v125, "unlockedEnvironmentMode") == 2)
     {
-      appLayout5 = [v124 appLayout];
-      v149[0] = MEMORY[0x277D85DD0];
-      v149[1] = 3221225472;
-      v149[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke_197;
-      v149[3] = &unk_2783AED40;
-      v149[4] = self;
-      v64 = v119;
-      v150 = v64;
-      v65 = v62;
+      appLayout5 = [v125 appLayout];
+      v150[0] = MEMORY[0x277D85DD0];
+      v150[1] = 3221225472;
+      v150[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke_197;
+      v150[3] = &unk_2783AED40;
+      v150[4] = self;
+      v65 = v120;
       v151 = v65;
-      [appLayout5 enumerate:v149];
+      v66 = v63;
+      v152 = v66;
+      [appLayout5 enumerate:v150];
 
-      floatingAppLayout4 = [v124 floatingAppLayout];
-      v146[0] = MEMORY[0x277D85DD0];
-      v146[1] = 3221225472;
-      v146[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke_2;
-      v146[3] = &unk_2783AED40;
-      v146[4] = self;
-      v147 = v64;
+      floatingAppLayout4 = [v125 floatingAppLayout];
+      v147[0] = MEMORY[0x277D85DD0];
+      v147[1] = 3221225472;
+      v147[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke_2;
+      v147[3] = &unk_2783AED40;
+      v147[4] = self;
       v148 = v65;
-      [floatingAppLayout4 enumerate:v146];
+      v149 = v66;
+      [floatingAppLayout4 enumerate:v147];
     }
 
-    v67 = [MEMORY[0x277CBEB58] set];
     v68 = [MEMORY[0x277CBEB58] set];
-    v144 = 0u;
+    v69 = [MEMORY[0x277CBEB58] set];
     v145 = 0u;
-    v142 = 0u;
+    v146 = 0u;
     v143 = 0u;
-    obj = v62;
-    v69 = [obj countByEnumeratingWithState:&v142 objects:v168 count:16];
-    if (v69)
+    v144 = 0u;
+    obj = v63;
+    v70 = [obj countByEnumeratingWithState:&v143 objects:v169 count:16];
+    if (v70)
     {
-      v127 = *v143;
+      v128 = *v144;
       do
       {
-        for (m = 0; m != v69; ++m)
+        for (m = 0; m != v70; ++m)
         {
-          if (*v143 != v127)
+          if (*v144 != v128)
           {
             objc_enumerationMutation(obj);
           }
 
-          v71 = *(*(&v142 + 1) + 8 * m);
-          v138 = 0u;
+          v72 = *(*(&v143 + 1) + 8 * m);
           v139 = 0u;
           v140 = 0u;
           v141 = 0u;
+          v142 = 0u;
           applicationContext = [request2 applicationContext];
           entities = [applicationContext entities];
 
-          v74 = [entities countByEnumeratingWithState:&v138 objects:v167 count:16];
-          if (v74)
+          v75 = [entities countByEnumeratingWithState:&v139 objects:v168 count:16];
+          if (v75)
           {
-            v75 = *v139;
+            v76 = *v140;
             do
             {
-              for (n = 0; n != v74; ++n)
+              for (n = 0; n != v75; ++n)
               {
-                if (*v139 != v75)
+                if (*v140 != v76)
                 {
                   objc_enumerationMutation(entities);
                 }
 
-                v77 = *(*(&v138 + 1) + 8 * n);
-                if ([v77 isAnalogousToEntity:v71])
+                v78 = *(*(&v139 + 1) + 8 * n);
+                if ([v78 isAnalogousToEntity:v72])
                 {
-                  [v67 addObject:v71];
-                  [v68 addObject:v77];
+                  [v68 addObject:v72];
+                  [v69 addObject:v78];
                 }
               }
 
-              v74 = [entities countByEnumeratingWithState:&v138 objects:v167 count:16];
+              v75 = [entities countByEnumeratingWithState:&v139 objects:v168 count:16];
             }
 
-            while (v74);
+            while (v75);
           }
         }
 
-        v69 = [obj countByEnumeratingWithState:&v142 objects:v168 count:16];
+        v70 = [obj countByEnumeratingWithState:&v143 objects:v169 count:16];
       }
 
-      while (v69);
+      while (v70);
     }
 
-    [obj minusSet:v67];
-    [obj unionSet:v68];
+    [obj minusSet:v68];
+    [obj unionSet:v69];
     [(SBSwitcherCaptureApplicationActivationWatchdog *)self->_captureApplicationWatchdog foregroundWorkspaceEntitiesUpdatedTo:obj];
   }
 
   [(SBMainSwitcherControllerCoordinator *)self _evaluateAsynchronousRenderingEnablement];
-  error2 = [v121 error];
+  error2 = [v122 error];
   if (error2)
   {
   }
@@ -3162,42 +3164,42 @@ LABEL_52:
   else
   {
     elements2 = [fromLayoutState elements];
-    elements3 = [v124 elements];
-    v81 = [elements2 isEqualToSet:elements3];
+    elements3 = [v125 elements];
+    v82 = [elements2 isEqualToSet:elements3];
 
-    if ((v81 & 1) == 0)
+    if ((v82 & 1) == 0)
     {
       selfCopy2 = self;
       if (!self->_preventSupplementalSnapshotsAssertion)
       {
         sceneManager = [windowScene sceneManager];
-        v84 = objc_opt_class();
-        v85 = NSStringFromClass(v84);
-        v86 = [sceneManager preventTakingSupplementalSnapshotsForBackgroundingScenesWithReason:v85];
+        v85 = objc_opt_class();
+        v86 = NSStringFromClass(v85);
+        v87 = [sceneManager preventTakingSupplementalSnapshotsForBackgroundingScenesWithReason:v86];
         preventSupplementalSnapshotsAssertion = self->_preventSupplementalSnapshotsAssertion;
-        self->_preventSupplementalSnapshotsAssertion = v86;
+        self->_preventSupplementalSnapshotsAssertion = v87;
 
         selfCopy2 = self;
       }
 
       objc_initWeak(location, selfCopy2);
       [(BSAbsoluteMachTimer *)self->_preventSupplementalSnapshotsInvalidationTimer invalidate];
-      v88 = [objc_alloc(MEMORY[0x277CF0B50]) initWithIdentifier:@"SBMainSwitcherCoordinator.preventSupplementalSnapshotsInvalidationTimer"];
+      v89 = [objc_alloc(MEMORY[0x277CF0B50]) initWithIdentifier:@"SBMainSwitcherCoordinator.preventSupplementalSnapshotsInvalidationTimer"];
       preventSupplementalSnapshotsInvalidationTimer = self->_preventSupplementalSnapshotsInvalidationTimer;
-      self->_preventSupplementalSnapshotsInvalidationTimer = v88;
+      self->_preventSupplementalSnapshotsInvalidationTimer = v89;
 
-      v90 = self->_preventSupplementalSnapshotsInvalidationTimer;
+      v91 = self->_preventSupplementalSnapshotsInvalidationTimer;
       [(SBAppSwitcherSettings *)self->_settings preventMedusaSnapshotsAfterTransitionDuration];
-      v92 = v91;
-      v93 = MEMORY[0x277D85CD0];
-      v136[0] = MEMORY[0x277D85DD0];
-      v136[1] = 3221225472;
-      v136[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke_3;
-      v136[3] = &unk_2783A9918;
-      objc_copyWeak(&v137, location);
-      [(BSAbsoluteMachTimer *)v90 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v136 queue:v92 handler:0.0];
+      v93 = v92;
+      v94 = MEMORY[0x277D85CD0];
+      v137[0] = MEMORY[0x277D85DD0];
+      v137[1] = 3221225472;
+      v137[2] = __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke_3;
+      v137[3] = &unk_2783A9918;
+      objc_copyWeak(&v138, location);
+      [(BSAbsoluteMachTimer *)v91 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v137 queue:v93 handler:0.0];
 
-      objc_destroyWeak(&v137);
+      objc_destroyWeak(&v138);
       objc_destroyWeak(location);
     }
   }
@@ -3206,36 +3208,36 @@ LABEL_52:
   deactivatingScenesResignActiveAssertion = self->_deactivatingScenesResignActiveAssertion;
   self->_deactivatingScenesResignActiveAssertion = 0;
 
-  if ([v124 unlockedEnvironmentMode] == 1 && objc_msgSend(fromLayoutState, "unlockedEnvironmentMode") == 3 && source != 71)
+  if ([v125 unlockedEnvironmentMode] == 1 && objc_msgSend(fromLayoutState, "unlockedEnvironmentMode") == 3 && source != 71)
   {
     appLayout6 = [fromLayoutState appLayout];
     if (appLayout6)
     {
       appLayouts = [(SBSwitcherModelRemovalResults *)self->_activeTransitionModelRemovalResults appLayouts];
-      v97 = [appLayouts containsObject:appLayout6];
+      v98 = objc_msgSend_containsObject_(appLayouts);
 
-      if ((v97 & 1) == 0 && !SBPeekConfigurationIsValid([v124 peekConfiguration]))
+      if ((v98 & 1) == 0 && !SBPeekConfigurationIsValid([v125 peekConfiguration]))
       {
         [appLayout6 allItems];
-        v134 = 0u;
         v135 = 0u;
-        v132 = 0u;
-        v98 = v133 = 0u;
-        v99 = [v98 countByEnumeratingWithState:&v132 objects:v166 count:16];
-        if (v99)
+        v136 = 0u;
+        v133 = 0u;
+        v99 = v134 = 0u;
+        v100 = [v99 countByEnumeratingWithState:&v133 objects:v167 count:16];
+        if (v100)
         {
-          v100 = *v133;
+          v101 = *v134;
           while (2)
           {
-            for (ii = 0; ii != v99; ++ii)
+            for (ii = 0; ii != v100; ++ii)
             {
-              if (*v133 != v100)
+              if (*v134 != v101)
               {
-                objc_enumerationMutation(v98);
+                objc_enumerationMutation(v99);
               }
 
-              v102 = [(SBAppSwitcherModel *)self->_mainSwitcherModel appLayoutContainingDisplayItem:*(*(&v132 + 1) + 8 * ii) includingHiddenAppLayouts:0];
-              preferredDisplayOrdinal = [v102 preferredDisplayOrdinal];
+              v103 = [(SBAppSwitcherModel *)self->_mainSwitcherModel appLayoutContainingDisplayItem:*(*(&v133 + 1) + 8 * ii) includingHiddenAppLayouts:0];
+              preferredDisplayOrdinal = [v103 preferredDisplayOrdinal];
               LODWORD(preferredDisplayOrdinal) = preferredDisplayOrdinal == [appLayout6 preferredDisplayOrdinal];
 
               if (!preferredDisplayOrdinal)
@@ -3245,8 +3247,8 @@ LABEL_52:
               }
             }
 
-            v99 = [v98 countByEnumeratingWithState:&v132 objects:v166 count:16];
-            if (v99)
+            v100 = [v99 countByEnumeratingWithState:&v133 objects:v167 count:16];
+            if (v100)
             {
               continue;
             }
@@ -3264,25 +3266,25 @@ LABEL_111:
     if (floatingAppLayout5)
     {
       appLayouts2 = [(SBSwitcherModelRemovalResults *)self->_activeTransitionModelRemovalResults appLayouts];
-      v106 = [appLayouts2 containsObject:floatingAppLayout5];
+      v107 = objc_msgSend_containsObject_(appLayouts2);
 
-      if ((v106 & 1) == 0)
+      if ((v107 & 1) == 0)
       {
         [(SBMainSwitcherControllerCoordinator *)self _addAppLayoutToFront:floatingAppLayout5];
       }
     }
   }
 
-  windowManagementContext = [v119 windowManagementContext];
-  v108 = [windowManagementContext baseStyle] == 0;
+  windowManagementContext = [v120 windowManagementContext];
+  v109 = [windowManagementContext baseStyle] == 0;
 
-  if (!v108)
+  if (!v109)
   {
     [(SBMainSwitcherControllerCoordinator *)self _rebuildAppListCache];
   }
 
-  [(SBMainSwitcherControllerCoordinator *)self _updateHomeScreenDisplayLayoutElementForLayoutState:v124 switcherController:v119];
-  [(SBMainSwitcherControllerCoordinator *)self _endDisplayLayoutTransitionForSwitcherController:v119];
+  [(SBMainSwitcherControllerCoordinator *)self _updateHomeScreenDisplayLayoutElementForLayoutState:v125 switcherController:v120];
+  [(SBMainSwitcherControllerCoordinator *)self _endDisplayLayoutTransitionForSwitcherController:v120];
 }
 
 uint64_t __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke(uint64_t a1, void *a2)
@@ -3345,7 +3347,7 @@ void __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator
 
 - (void)watchdog:(id)watchdog requestsTerminationOf:(id)of forReason:(id)reason
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   reasonCopy = reason;
   v8 = objc_opt_class();
@@ -3389,35 +3391,36 @@ void __110__SBMainSwitcherControllerCoordinator_layoutStateTransitionCoordinator
       [v20 setReportType:1];
       [v20 setMaximumTerminationResistance:40];
       v21 = [objc_alloc(MEMORY[0x277D47018]) initWithPredicate:v17 context:v20];
-      v22 = SBLogCaptureApplication();
+      v22 = SBLogCaptureApplication(v21);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         bundle = [processHandle bundle];
         identifier = [bundle identifier];
         *buf = 138543618;
-        v32 = identifier;
-        v33 = 2114;
-        v34 = reasonCopy;
+        v33 = identifier;
+        v34 = 2114;
+        v35 = reasonCopy;
         _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Unlocked capture watchdog requesting termination of %{public}@ for reason: %{public}@", buf, 0x16u);
       }
 
-      v30 = 0;
-      v25 = [v21 execute:&v30];
-      v26 = v30;
+      v31 = 0;
+      v25 = [v21 execute:&v31];
+      v26 = v31;
+      v27 = v26;
       if ((v25 & 1) == 0)
       {
-        v27 = SBLogCaptureApplication();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v28 = SBLogCaptureApplication(v26);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v32 = v26;
-          _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Unlocked capture watchdog failed to terminate the process: %@", buf, 0xCu);
+          v33 = v27;
+          _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Unlocked capture watchdog failed to terminate the process: %@", buf, 0xCu);
         }
       }
 
-      v28 = +[SBCaptureApplicationCenter sharedInstance];
+      v29 = +[SBCaptureApplicationCenter sharedInstance];
       name = [processHandle name];
-      [v28 promptLaunchTerminationAlertIfNecessaryForProcess:name afterDelay:reasonCopy reason:1.0];
+      [v29 promptLaunchTerminationAlertIfNecessaryForProcess:name afterDelay:reasonCopy reason:1.0];
     }
   }
 }
@@ -4536,7 +4539,7 @@ LABEL_38:
         v17 = [*(*(&v67 + 1) + 8 * i) workspaceEntity];
         v18 = [v17 applicationSceneEntity];
 
-        if (([a1[5] containsObject:v18] & 1) == 0)
+        if ((objc_msgSend_containsObject_(a1[5]) & 1) == 0)
         {
           [v10 addObject:v18];
         }
@@ -5868,7 +5871,7 @@ void __92__SBMainSwitcherControllerCoordinator__restoreLayoutStateSnapshotForWin
   sceneCopy = scene;
   layoutCopy = layout;
   allValues = [(NSMutableDictionary *)appLayoutToAcquiredTransientOverlayViewController allValues];
-  LOBYTE(appLayoutToAcquiredTransientOverlayViewController) = [allValues containsObject:controllerCopy];
+  LOBYTE(appLayoutToAcquiredTransientOverlayViewController) = objc_msgSend_containsObject_(allValues);
 
   if ((appLayoutToAcquiredTransientOverlayViewController & 1) == 0)
   {
@@ -5955,7 +5958,7 @@ uint64_t __92__SBMainSwitcherControllerCoordinator_isAcquiredTransientOverlayVie
     }
 
     allValues = [(NSMutableDictionary *)self->_appLayoutToAcquiredTransientOverlayViewController allValues];
-    v12 = [allValues containsObject:v9];
+    v12 = objc_msgSend_containsObject_(allValues);
 
     if ((v12 & 1) == 0)
     {
@@ -6586,17 +6589,18 @@ void __101__SBMainSwitcherControllerCoordinator__configureRequest_forSwitcherTra
 
 uint64_t __101__SBMainSwitcherControllerCoordinator__configureRequest_forSwitcherTransitionRequest_withEventLabel___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v7 = a3;
-  if (SBLayoutRoleIsValidForSplitView(a2))
+  v8 = a3;
+  IsValidForSplitView = SBLayoutRoleIsValidForSplitView(a2);
+  if (IsValidForSplitView)
   {
-    v5 = [*(a1 + 32) _entityForDisplayItem:v7 displayIdentity:*(a1 + 40)];
-    if (v5)
+    v6 = [*(a1 + 32) _entityForDisplayItem:v8 displayIdentity:*(a1 + 40)];
+    if (v6)
     {
-      [*(a1 + 48) addObject:v5];
+      [*(a1 + 48) addObject:v6];
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](IsValidForSplitView);
 }
 
 void __101__SBMainSwitcherControllerCoordinator__configureRequest_forSwitcherTransitionRequest_withEventLabel___block_invoke_5(uint64_t a1, uint64_t a2)
@@ -8007,7 +8011,7 @@ uint64_t __91__SBMainSwitcherControllerCoordinator_transitionEventForContext_ide
 
 void __92__SBMainSwitcherControllerCoordinator_switcherContentController_supportsKillingOfAppLayout___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [*(a1 + 32) _deviceApplicationSceneHandleForDisplayItem:?];
+  v6 = [*(a1 + 32) _deviceApplicationSceneHandleForDisplayItem:a3];
   if (v6)
   {
     v8 = v6;
@@ -8085,7 +8089,7 @@ void __92__SBMainSwitcherControllerCoordinator_switcherContentController_support
 
 void __96__SBMainSwitcherControllerCoordinator_switcherContentController_supportsTitleItemsForAppLayout___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [*(a1 + 32) _deviceApplicationSceneHandleForDisplayItem:?];
+  v6 = [*(a1 + 32) _deviceApplicationSceneHandleForDisplayItem:a3];
   if (v6)
   {
     v7 = v6;
@@ -8701,11 +8705,11 @@ void __132__SBMainSwitcherControllerCoordinator__setContainerStatusBarHidden_par
 
   if (disableAsyncRenderingSurfaceRetention)
   {
-    v16 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = SBLogAppSwitcher(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "disableAsyncRenderingSurfaceRetention default is set, not allowing async surface retention.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_INFO, "disableAsyncRenderingSurfaceRetention default is set, not allowing async surface retention.", buf, 2u);
     }
 
     if (!v10)
@@ -8719,23 +8723,23 @@ LABEL_16:
     disableCachingAsynchronousRenderingSurfacesTimer = self->_disableCachingAsynchronousRenderingSurfacesTimer;
     self->_disableCachingAsynchronousRenderingSurfacesTimer = 0;
 
-    v20 = [objc_alloc(MEMORY[0x277CF0B50]) initWithIdentifier:@"SBMainSwitcherCoordinator.disableCachingAsynchronousRenderingSurfacesTimer"];
-    v21 = self->_disableCachingAsynchronousRenderingSurfacesTimer;
-    self->_disableCachingAsynchronousRenderingSurfacesTimer = v20;
+    v22 = [objc_alloc(MEMORY[0x277CF0B50]) initWithIdentifier:@"SBMainSwitcherCoordinator.disableCachingAsynchronousRenderingSurfacesTimer"];
+    v23 = self->_disableCachingAsynchronousRenderingSurfacesTimer;
+    self->_disableCachingAsynchronousRenderingSurfacesTimer = v22;
 
-    v22 = self->_disableCachingAsynchronousRenderingSurfacesTimer;
+    v24 = self->_disableCachingAsynchronousRenderingSurfacesTimer;
     [(SBAppSwitcherSettings *)self->_settings asynchronousRenderingDisableSurfaceCacheDelayDuration];
-    v24 = v23;
-    v25 = MEMORY[0x277D85CD0];
-    v26 = MEMORY[0x277D85CD0];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __103__SBMainSwitcherControllerCoordinator_switcherContentController_setCacheAsynchronousRenderingSurfaces___block_invoke;
-    v27[3] = &unk_2783A9918;
-    objc_copyWeak(&v28, buf);
-    [(BSAbsoluteMachTimer *)v22 scheduleWithFireInterval:v25 leewayInterval:v27 queue:v24 handler:0.0];
+    v26 = v25;
+    v27 = MEMORY[0x277D85CD0];
+    v28 = MEMORY[0x277D85CD0];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __103__SBMainSwitcherControllerCoordinator_switcherContentController_setCacheAsynchronousRenderingSurfaces___block_invoke;
+    v29[3] = &unk_2783A9918;
+    objc_copyWeak(&v30, buf);
+    [(BSAbsoluteMachTimer *)v24 scheduleWithFireInterval:v27 leewayInterval:v29 queue:v26 handler:0.0];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
     goto LABEL_17;
   }
@@ -8751,14 +8755,14 @@ LABEL_16:
   }
 
   [(BSAbsoluteMachTimer *)self->_disableCachingAsynchronousRenderingSurfacesTimer invalidate];
-  v17 = self->_disableCachingAsynchronousRenderingSurfacesTimer;
+  v18 = self->_disableCachingAsynchronousRenderingSurfacesTimer;
   self->_disableCachingAsynchronousRenderingSurfacesTimer = 0;
 
-  v18 = SBLogAppSwitcher();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v20 = SBLogAppSwitcher(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "Enabled caching asynchronous rendering surfaces.", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_INFO, "Enabled caching asynchronous rendering surfaces.", buf, 2u);
   }
 
   CARenderServerSetCacheAsynchronousSurfaces();
@@ -8777,7 +8781,7 @@ void __103__SBMainSwitcherControllerCoordinator_switcherContentController_setCac
 
     if (![v2[41] count])
     {
-      v4 = SBLogAppSwitcher();
+      v4 = SBLogAppSwitcher(0);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         v5[0] = 0;
@@ -9551,7 +9555,7 @@ LABEL_2:
 {
   managerCopy = manager;
   identifierCopy = identifier;
-  if ([(NSMutableSet *)self->_windowDragSceneIdentifiers containsObject:identifierCopy])
+  if (objc_msgSend_containsObject_(self->_windowDragSceneIdentifiers))
   {
     [(SBMainSwitcherControllerCoordinator *)self _rebuildAppListCache];
   }
@@ -9576,7 +9580,7 @@ LABEL_2:
     [SBMainSwitcherControllerCoordinator fluidSwitcherGestureManager:willEndDraggingWindowWithSceneIdentifier:];
   }
 
-  if ([(NSMutableSet *)self->_windowDragSceneIdentifiers containsObject:identifierCopy])
+  if (objc_msgSend_containsObject_(self->_windowDragSceneIdentifiers))
   {
     [(NSMutableSet *)self->_windowDragSceneIdentifiers removeObject:identifierCopy];
     [(SBMainSwitcherControllerCoordinator *)self _rebuildAppListCache];
@@ -9685,7 +9689,7 @@ LABEL_2:
 void __106__SBMainSwitcherControllerCoordinator_switcherDemoFilteringControllerDidChangeHiddenApplicationBundleIDs___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v10 = a2;
-  if (([*(*(*(a1 + 48) + 8) + 40) containsObject:?] & 1) == 0 && objc_msgSend(v10, "containsItemWithBundleIdentifier:", *(a1 + 32)))
+  if ((objc_msgSend_containsObject_(*(*(*(a1 + 48) + 8) + 40)) & 1) == 0 && [v10 containsItemWithBundleIdentifier:*(a1 + 32)])
   {
     v6 = *(*(*(a1 + 48) + 8) + 40);
     if (!v6)
@@ -9739,15 +9743,16 @@ void __106__SBMainSwitcherControllerCoordinator_switcherDemoFilteringControllerD
   v10 = [displayLayoutPublisher transitionAssertionWithReason:reasonCopy];
 
   v11 = [(NSMapTable *)self->_displayLayoutTransitionsBySwitcherController objectForKey:controllerCopy];
+  v12 = v11;
   if (v11)
   {
-    v12 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SBLogAppSwitcher(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(SBMainSwitcherControllerCoordinator *)self _beginDisplayLayoutTransitionForSwitcherController:reasonCopy reason:v12];
+      [(SBMainSwitcherControllerCoordinator *)self _beginDisplayLayoutTransitionForSwitcherController:reasonCopy reason:v13];
     }
 
-    [v11 invalidate];
+    [v12 invalidate];
   }
 
   [(NSMapTable *)self->_displayLayoutTransitionsBySwitcherController setObject:v10 forKey:controllerCopy];
@@ -9928,7 +9933,7 @@ LABEL_12:
 
 LABEL_17:
     layoutCopy = v19;
-    if ([(NSArray *)self->_appLayouts containsObject:frontCopy])
+    if (objc_msgSend_containsObject_(self->_appLayouts))
     {
       goto LABEL_21;
     }
@@ -11629,12 +11634,13 @@ LABEL_12:
 void __86__SBMainSwitcherControllerCoordinator__performSceneDestructionForModelRemovalResults___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogAppSwitcher(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __86__SBMainSwitcherControllerCoordinator__performSceneDestructionForModelRemovalResults___block_invoke_4_cold_1(v3, v4);
+      __86__SBMainSwitcherControllerCoordinator__performSceneDestructionForModelRemovalResults___block_invoke_4_cold_1(v4, v5);
     }
   }
 }
@@ -11882,7 +11888,7 @@ uint64_t __129__SBMainSwitcherControllerCoordinator__resultsForDisplayItemRemova
   v3 = [a2 uniqueIdentifier];
   if (v3)
   {
-    v4 = [*(a1 + 32) containsObject:v3] ^ 1;
+    v4 = objc_msgSend_containsObject_(*(a1 + 32)) ^ 1;
   }
 
   else
@@ -12181,7 +12187,7 @@ void __88__SBMainSwitcherControllerCoordinator__switcherModelRemovalResultsForRe
   [v7 removeLayoutRole:v6 inSpace:v8 mutationBlock:v11 reason:*(a1 + 96)];
 }
 
-uint64_t __88__SBMainSwitcherControllerCoordinator__switcherModelRemovalResultsForRequest_forReason___block_invoke_2(uint64_t a1)
+void *__88__SBMainSwitcherControllerCoordinator__switcherModelRemovalResultsForRequest_forReason___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 176);
@@ -12603,8 +12609,7 @@ void __88__SBMainSwitcherControllerCoordinator_betaLaunchHandle_activateIfNeeded
     asynchronousRenderingAssertions = self->_asynchronousRenderingAssertions;
   }
 
-  [(NSMutableSet *)asynchronousRenderingAssertions addObject:assertionCopy];
-  v8 = SBLogAppSwitcher();
+  v8 = SBLogAppSwitcher([(NSMutableSet *)asynchronousRenderingAssertions addObject:assertionCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     reason = [assertionCopy reason];
@@ -12623,7 +12628,7 @@ void __88__SBMainSwitcherControllerCoordinator_betaLaunchHandle_activateIfNeeded
 {
   v12 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
-  v5 = SBLogAppSwitcher();
+  v5 = SBLogAppSwitcher(assertionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     reason = [assertionCopy reason];
@@ -12642,8 +12647,7 @@ void __88__SBMainSwitcherControllerCoordinator_betaLaunchHandle_activateIfNeeded
 {
   v12 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
-  [(NSMutableSet *)self->_asynchronousRenderingAssertions removeObject:assertionCopy];
-  v5 = SBLogAppSwitcher();
+  v5 = SBLogAppSwitcher([(NSMutableSet *)self->_asynchronousRenderingAssertions removeObject:assertionCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     reason = [assertionCopy reason];

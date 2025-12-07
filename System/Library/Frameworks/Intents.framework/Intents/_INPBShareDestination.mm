@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBShareDestination)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deviceTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDeviceType:(id)type;
 - (unint64_t)hash;
@@ -158,7 +159,6 @@ LABEL_10:
 
   if ([(_INPBShareDestination *)self hasDeviceType])
   {
-    deviceType = self->_deviceType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -229,6 +229,21 @@ LABEL_10:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)deviceTypeAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282958[string];
   }
 
   return v4;

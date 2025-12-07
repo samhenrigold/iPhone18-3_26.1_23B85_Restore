@@ -35,7 +35,7 @@ id _MAClientLog(void *a1)
 
 NSObject *copyPersonID(void *a1, void *a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v3 = a1;
   if (MSUSSOIsAvailable(@"1205"))
   {
@@ -54,9 +54,9 @@ NSObject *copyPersonID(void *a1, void *a2)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v26 = "copyPersonID";
-      v27 = 1024;
-      v28 = v5;
+      v25 = "copyPersonID";
+      v26 = 1024;
+      v27 = v5;
       _os_log_impl(&dword_298222000, v8, OS_LOG_TYPE_DEFAULT, "%s: Attempting to retrieve personID with interactivity level %d", buf, 0x12u);
     }
 
@@ -66,13 +66,13 @@ NSObject *copyPersonID(void *a1, void *a2)
       v9 = @"1";
     }
 
-    v23[0] = @"applicationIdentifier";
-    v23[1] = @"environmentIdentifier";
-    v24[0] = @"1205";
-    v24[1] = @"APPLECONNECT.APPLE.COM";
-    v23[2] = @"interactivity";
-    v24[2] = v9;
-    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+    v22[0] = @"applicationIdentifier";
+    v22[1] = @"environmentIdentifier";
+    v23[0] = @"1205";
+    v23[1] = @"APPLECONNECT.APPLE.COM";
+    v22[2] = @"interactivity";
+    v23[2] = v9;
+    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
     v11 = [[SoftwareUpdateSSO alloc] initWithOptions:v10];
     v12 = [(SoftwareUpdateSSO *)v11 ssoIsSupported];
     v13 = _MAClientLog(@"SSO");
@@ -107,7 +107,7 @@ LABEL_35:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v26 = v14;
+            v25 = v14;
             _os_log_impl(&dword_298222000, v18, OS_LOG_TYPE_ERROR, "SoftwareUpdateSSO was able to read the userinfo(%@) but got unexpected data type for personID", buf, 0xCu);
           }
         }
@@ -168,30 +168,28 @@ LABEL_36:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v26 = "copyPersonID";
+    v25 = "copyPersonID";
     _os_log_impl(&dword_298222000, v6, OS_LOG_TYPE_ERROR, "%s: Not supported in this environment\n", buf, 0xCu);
   }
 
   v7 = 0;
 LABEL_37:
 
-  v21 = *MEMORY[0x29EDCA608];
-
   return v7;
 }
 
 uint64_t MSUSSOIsAvailable(void *a1)
 {
-  v14[3] = *MEMORY[0x29EDCA608];
-  v13[0] = @"applicationIdentifier";
-  v13[1] = @"environmentIdentifier";
-  v14[0] = a1;
-  v14[1] = @"APPLECONNECT.APPLE.COM";
-  v13[2] = @"interactivity";
-  v14[2] = @"0";
+  v13[3] = *MEMORY[0x29EDCA608];
+  v12[0] = @"applicationIdentifier";
+  v12[1] = @"environmentIdentifier";
+  v13[0] = a1;
+  v13[1] = @"APPLECONNECT.APPLE.COM";
+  v12[2] = @"interactivity";
+  v13[2] = @"0";
   v1 = MEMORY[0x29EDB8DC0];
   v2 = a1;
-  v3 = [v1 dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v3 = [v1 dictionaryWithObjects:v13 forKeys:v12 count:3];
   v4 = [SoftwareUpdateSSO alloc];
 
   v5 = [(SoftwareUpdateSSO *)v4 initWithOptions:v3];
@@ -206,18 +204,17 @@ uint64_t MSUSSOIsAvailable(void *a1)
       v8 = @"YES";
     }
 
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&dword_298222000, v7, OS_LOG_TYPE_DEFAULT, "MSUSSOIsAvailable: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_298222000, v7, OS_LOG_TYPE_DEFAULT, "MSUSSOIsAvailable: %@", &v10, 0xCu);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 id copyPersonalizationSSOToken(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v3 = a1;
   if (MSUSSOIsAvailable(@"1205"))
   {
@@ -236,13 +233,13 @@ id copyPersonalizationSSOToken(void *a1, void *a2)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v21) = v5;
+      LODWORD(v20) = v5;
       _os_log_impl(&dword_298222000, v8, OS_LOG_TYPE_DEFAULT, "Calling copyDawTokenAndUsername with interactivity level %d", buf, 8u);
     }
 
-    v17 = 0;
-    v9 = copyDawTokenAndUsername(@"1205", v5, &v17);
-    v10 = v17;
+    v16 = 0;
+    v9 = copyDawTokenAndUsername(@"1205", v5, &v16);
+    v10 = v16;
     v6 = v10;
     if (v9 && v10)
     {
@@ -254,9 +251,9 @@ id copyPersonalizationSSOToken(void *a1, void *a2)
       [v12 setLength:{objc_msgSend(v9, "length") + 1}];
       [v9 getCString:objc_msgSend(v12 maxLength:"mutableBytes") encoding:{objc_msgSend(v12, "length"), 4}];
       [v11 appendBytes:objc_msgSend(v12 length:{"mutableBytes"), objc_msgSend(v12, "length") - 1}];
-      v18 = @"ssodata";
-      v19 = v11;
-      v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v17 = @"ssodata";
+      v18 = v11;
+      v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     }
 
     else
@@ -265,9 +262,9 @@ id copyPersonalizationSSOToken(void *a1, void *a2)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v21 = v9;
-        v22 = 2112;
-        v23 = v6;
+        v20 = v9;
+        v21 = 2112;
+        v22 = v6;
         _os_log_impl(&dword_298222000, v14, OS_LOG_TYPE_DEFAULT, "copyDawTokenAndUsername failed to return with a token (%@) or a username (%@)", buf, 0x16u);
       }
 
@@ -290,21 +287,19 @@ id copyPersonalizationSSOToken(void *a1, void *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "copyPersonalizationSSOToken";
+      v20 = "copyPersonalizationSSOToken";
       _os_log_impl(&dword_298222000, v6, OS_LOG_TYPE_ERROR, "%s: Not supported in this environment", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
-
   return v7;
 }
 
 NSObject *copyDawTokenAndUsername(void *a1, int a2, void *a3)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v5 = a1;
   v6 = v5;
   v7 = @"177666";
@@ -351,17 +346,17 @@ NSObject *copyDawTokenAndUsername(void *a1, int a2, void *a3)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v13;
+      v28 = v13;
       _os_log_impl(&dword_298222000, v14, OS_LOG_TYPE_DEFAULT, "Setting interactivity level to %@", buf, 0xCu);
     }
 
-    v26[0] = @"applicationIdentifier";
-    v26[1] = @"environmentIdentifier";
-    v27[0] = v6;
-    v27[1] = @"APPLECONNECT.APPLE.COM";
-    v26[2] = @"interactivity";
-    v27[2] = v13;
-    v15 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+    v25[0] = @"applicationIdentifier";
+    v25[1] = @"environmentIdentifier";
+    v26[0] = v6;
+    v26[1] = @"APPLECONNECT.APPLE.COM";
+    v25[2] = @"interactivity";
+    v26[2] = v13;
+    v15 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
     v16 = [[SoftwareUpdateSSO alloc] initWithOptions:v15];
     v17 = [(SoftwareUpdateSSO *)v16 ssoIsSupported];
     v18 = _MAClientLog(@"SSO");
@@ -407,7 +402,7 @@ NSObject *copyDawTokenAndUsername(void *a1, int a2, void *a3)
     if (v11)
     {
       *buf = 136315138;
-      v29 = "copyDawTokenAndUsername";
+      v28 = "copyDawTokenAndUsername";
       _os_log_impl(&dword_298222000, v10, OS_LOG_TYPE_DEFAULT, "%s: Not supported in this environment", buf, 0xCu);
     }
 
@@ -415,7 +410,6 @@ NSObject *copyDawTokenAndUsername(void *a1, int a2, void *a3)
   }
 
 LABEL_30:
-  v24 = *MEMORY[0x29EDCA608];
 
   return v22;
 }

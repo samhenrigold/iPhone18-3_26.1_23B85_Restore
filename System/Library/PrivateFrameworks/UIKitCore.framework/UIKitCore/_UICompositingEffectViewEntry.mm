@@ -29,15 +29,15 @@
   {
     filterType = self->_filterType;
     filterType = [effectCopy filterType];
-    v7 = [(NSString *)filterType isEqualToString:filterType];
+    isEqualToString = objc_msgSend_isEqualToString_(filterType);
   }
 
   else
   {
-    v7 = 0;
+    isEqualToString = 0;
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (id)description

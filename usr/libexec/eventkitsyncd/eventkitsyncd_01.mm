@@ -276,9 +276,9 @@ LABEL_20:
 LABEL_21:
 }
 
-void sub_100057F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100057F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -437,9 +437,9 @@ id sub_10005873C(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_100058F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100058F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -504,12 +504,13 @@ void sub_100059500(id *a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
   v9 = a2;
   v10 = a3;
   v11 = objc_autoreleasePoolPush();
+  v13 = v11;
   if (v10)
   {
-    if (((sub_100016740() & 1) != 0 || [a1[4] reminderInWindow:v10]) && sub_10000A6E8(v10) && objc_msgSend(a1[5], "shouldSendReminder:", v10))
+    if (((sub_100016740(v11, v12) & 1) != 0 || [a1[4] reminderInWindow:v10]) && sub_10000A6E8(v10) && objc_msgSend(a1[5], "shouldSendReminder:", v10))
     {
-      v12 = [a1[5] wrapperForChangeType:a4 reminder:v10 oldListIdentifier:0];
-      if (([a1[6] push:v12] & 1) == 0)
+      v14 = [a1[5] wrapperForChangeType:a4 reminder:v10 oldListIdentifier:0];
+      if (([a1[6] push:v14] & 1) == 0)
       {
         *a5 = 1;
       }
@@ -521,7 +522,7 @@ void sub_100059500(id *a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
     sub_100074CBC();
   }
 
-  objc_autoreleasePoolPop(v11);
+  objc_autoreleasePoolPop(v13);
 }
 
 void sub_100059614(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
@@ -529,16 +530,17 @@ void sub_100059614(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
   v9 = a2;
   v10 = a3;
   v11 = objc_autoreleasePoolPush();
+  v13 = v11;
   if (v10)
   {
-    if (((sub_100016740() & 1) != 0 || [*(a1 + 32) reminderInWindow:v10]) && objc_msgSend(*(a1 + 40), "shouldSendReminder:", v10))
+    if (((sub_100016740(v11, v12) & 1) != 0 || [*(a1 + 32) reminderInWindow:v10]) && objc_msgSend(*(a1 + 40), "shouldSendReminder:", v10))
     {
-      v12 = *(a1 + 48);
-      v13 = [v10 objectID];
-      v14 = [v12 objectForKeyedSubscript:v13];
+      v14 = *(a1 + 48);
+      v15 = [v10 objectID];
+      v16 = [v14 objectForKeyedSubscript:v15];
 
-      v15 = [*(a1 + 40) wrapperForChangeType:a4 reminder:v10 oldListIdentifier:v14];
-      if (v15 && ([*(a1 + 56) push:v15] & 1) == 0)
+      v17 = [*(a1 + 40) wrapperForChangeType:a4 reminder:v10 oldListIdentifier:v16];
+      if (v17 && ([*(a1 + 56) push:v17] & 1) == 0)
       {
         *a5 = 1;
       }
@@ -546,14 +548,14 @@ void sub_100059614(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
 
     else if (os_variant_has_internal_diagnostics())
     {
-      v16 = *(qword_1000D18A8 + 8);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = *(qword_1000D18A8 + 8);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = v16;
-        v18 = [v10 eks_debugDesc];
-        v19 = 138412290;
-        v20 = v18;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Decided not to send reminder %@", &v19, 0xCu);
+        v19 = v18;
+        v20 = [v10 eks_debugDesc];
+        v21 = 138412290;
+        v22 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Decided not to send reminder %@", &v21, 0xCu);
       }
     }
   }
@@ -563,7 +565,7 @@ void sub_100059614(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
     sub_100074CBC();
   }
 
-  objc_autoreleasePoolPop(v11);
+  objc_autoreleasePoolPop(v13);
 }
 
 void sub_10005AFE8(uint64_t a1)
@@ -572,9 +574,9 @@ void sub_10005AFE8(uint64_t a1)
   [WeakRetained notifyForDatabaseUpdatesIfNeeded];
 }
 
-void sub_10005C7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10005C7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -637,11 +639,12 @@ LABEL_5:
   }
 }
 
-void sub_10005CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10005CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  objc_destroyWeak((v26 + 72));
-  _Block_object_dispose(&a26, 8);
-  objc_destroyWeak((v27 - 136));
+  va_start(va, a25);
+  objc_destroyWeak((v25 + 72));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v26 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -1694,9 +1697,9 @@ void sub_100063420(uint64_t a1, uint64_t a2, uint64_t a3)
   [v8 setObject:v7 forKeyedSubscript:v9];
 }
 
-void sub_100063DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100063DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1724,12 +1727,13 @@ void sub_100063E18(uint64_t a1, void *a2, _BYTE *a3)
   objc_autoreleasePoolPop(v5);
 }
 
-void sub_1000645E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1000645E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  objc_destroyWeak((v27 + 88));
+  va_start(va, a26);
+  objc_destroyWeak((v26 + 88));
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  objc_destroyWeak((v28 - 96));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v27 - 96));
   _Unwind_Resume(a1);
 }
 
@@ -2188,9 +2192,9 @@ NEKReminderChangeTrackingState *sub_10006656C(uint64_t a1, void *a2)
   return v9;
 }
 
-void sub_100066C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100066C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2881,17 +2885,18 @@ void sub_100069B24(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v3);
 }
 
-void sub_10006A27C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10006A27C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void sub_10006A328(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = sub_10006ABB4();
+  v5 = sub_10006ABB4(v4);
   os_unfair_lock_lock(&unk_1000D1878);
   v19 = v3;
   v18 = [NSString stringWithFormat:@"%@<%p>", v3, v4];
@@ -2963,16 +2968,16 @@ void sub_10006A328(void *a1, void *a2)
   os_unfair_lock_unlock(&unk_1000D1878);
 }
 
-id sub_10006ABB4()
+id sub_10006ABB4(uint64_t a1)
 {
   if (qword_1000D1880 != -1)
   {
     sub_1000762A8();
   }
 
-  v1 = qword_1000D1888;
+  v2 = qword_1000D1888;
 
-  return v1;
+  return v2;
 }
 
 void sub_10006ABF8(id a1)
@@ -3007,14 +3012,14 @@ void start()
   signal(30, 1);
   signal(3, 1);
   signal(15, 1);
-  sub_100004B40(21);
-  sub_100004B60(21);
-  v8 = objc_autoreleasePoolPush();
-  v9 = +[NEKEnvironment instance];
-  v10 = [[NEKDaemon alloc] initWithEnvironment:v9];
-  [v9 setDaemon:v10];
+  sub_100004B40(21, v8);
+  sub_100004B60(21, v9);
+  v10 = objc_autoreleasePoolPush();
+  v11 = +[NEKEnvironment instance];
+  v12 = [[NEKDaemon alloc] initWithEnvironment:v11];
+  [v11 setDaemon:v12];
 
-  objc_autoreleasePoolPop(v8);
+  objc_autoreleasePoolPop(v10);
   dispatch_main();
 }
 
@@ -4040,7 +4045,7 @@ void sub_10006F634(void *a1, void *a2)
   v5 = [a2 phoneOnlyOccurrences];
   [v5 count];
   sub_1000171D8();
-  sub_1000171F0(&_mh_execute_header, v6, v7, "Detected drift, watchOnly = %ld, phoneOnly = %ld", v8, v9, v10, v11, v12);
+  sub_1000171F0(&_mh_execute_header, v6, v7, "Detected drift, watchOnly = %ld, phoneOnly = %ld", v8, v9, v10, v11);
 }
 
 void sub_10006F6F0(void *a1, void *a2)
@@ -4051,7 +4056,7 @@ void sub_10006F6F0(void *a1, void *a2)
   v5 = [a2 duplicatedCalendars];
   [v5 count];
   sub_1000171D8();
-  sub_1000171F0(&_mh_execute_header, v6, v7, "Detected duplication, sources = %ld, calendars = %ld", v8, v9, v10, v11, v12);
+  sub_1000171F0(&_mh_execute_header, v6, v7, "Detected duplication, sources = %ld, calendars = %ld", v8, v9, v10, v11);
 }
 
 void sub_10006F7AC(void *a1, void *a2)
@@ -4130,6 +4135,13 @@ void sub_10006FCC4()
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
+void sub_10006FD68(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  sub_100021FD8(&_mh_execute_header, a2, a3, "Received source wrapper that I'm not sure how to process: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10006FDD8(uint64_t a1)
 {
   LODWORD(v3) = 138543618;
@@ -4183,7 +4195,7 @@ void sub_1000705BC(void *a1)
   v2 = a1;
   v3 = [sub_100022058() objectID];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v4, v5, "Error deleting item: %{public}@", v6, v7, v8, v9, v10);
+  sub_10002200C(&_mh_execute_header, v4, v5, "Error deleting item: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_1000706B4(_DWORD *a1, void *a2, void *a3, void *a4)
@@ -4201,7 +4213,7 @@ void sub_100070860(void *a1)
   v3 = sub_100022058();
   v4 = sub_10002CDF8(v3);
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v5, v6, "Could not create calendar wrapper for entity: %{public}@", v7, v8, v9, v10, v11);
+  sub_10002200C(&_mh_execute_header, v5, v6, "Could not create calendar wrapper for entity: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_1000709C0(void *a1)
@@ -4211,7 +4223,7 @@ void sub_1000709C0(void *a1)
   objc_opt_class();
   sub_100021FCC();
   v4 = v3;
-  sub_10002200C(&_mh_execute_header, v5, v6, "Attempt to create wrapper for unknown type: %{public}@", v7, v8, v9, v10, v11);
+  sub_10002200C(&_mh_execute_header, v5, v6, "Attempt to create wrapper for unknown type: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_100070D2C(void *a1)
@@ -4219,7 +4231,7 @@ void sub_100070D2C(void *a1)
   v2 = a1;
   v3 = [sub_100022058() storeIdentifier];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v4, v5, "Source not found with sourceID: %@", v6, v7, v8, v9, v10);
+  sub_10002200C(&_mh_execute_header, v4, v5, "Source not found with sourceID: %@", v6, v7, v8, v9);
 }
 
 void sub_100070DBC(void *a1, void *a2)
@@ -4262,9 +4274,10 @@ void sub_100070FDC()
 
 void sub_100071018()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_1000710A4()
@@ -4283,7 +4296,7 @@ void sub_100071114(void *a1)
   v5 = [sub_10002A3F0() reminderTitle];
   v6 = sub_10002CDF8(v5);
   sub_10002A370();
-  sub_10002A388(&_mh_execute_header, v7, v8, "Cannot finder reminder '%{public}@:%{public}@'", v9, v10, v11, v12, v13);
+  sub_10002A388(&_mh_execute_header, v7, v8, "Cannot finder reminder '%{public}@:%{public}@'", v9, v10, v11, v12);
 }
 
 void sub_1000711E4(void *a1, void *a2, uint8_t *buf, os_log_t log)
@@ -4297,16 +4310,18 @@ void sub_1000711E4(void *a1, void *a2, uint8_t *buf, os_log_t log)
 
 void sub_100071258()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_1000712E4()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_100071370(void *a1, void *a2)
@@ -4398,6 +4413,27 @@ void sub_1000719F0(void *a1, void *a2)
   _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "Attempting to send source wrapper for CloudKit reminders account %{public}@ with allowsEvents=YES but the other side does not support CloudKit. This is not expected but is handled by sending a source wrapper with allowsEvents=YES and allowsTasks=NO.", &v5, 0xCu);
 }
 
+void sub_100071B8C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100021FD8(&_mh_execute_header, a2, a3, "Sorry. Unable to determine identifier or resolve EKSource object for EKObjectID %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100071BF8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100021FD8(&_mh_execute_header, a2, a3, "Source with ID %{public}@ does not exist. This is unexpected for insert. Skipping.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100071C64(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100021FD8(&_mh_execute_header, a2, a3, "Source with ID %{public}@ does not exist. This is unexpected for update. Skipping.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100071D28(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -4481,14 +4517,18 @@ void sub_1000722C8(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 watchOnlyOccurrences];
-  sub_10003C0EC(&_mh_execute_header, v5, v6, "NEKDriftResults | watchOnlyOccurrences: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10003C0EC(&_mh_execute_header, v5, v6, "NEKDriftResults | watchOnlyOccurrences: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100072360(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 phoneOnlyOccurrences];
-  sub_10003C0EC(&_mh_execute_header, v5, v6, "NEKDriftResults | phoneOnlyOccurrences: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10003C0EC(&_mh_execute_header, v5, v6, "NEKDriftResults | phoneOnlyOccurrences: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_1000723F8(uint64_t a1, int a2, os_log_t log)
@@ -4673,7 +4713,7 @@ void sub_100073040(void *a1)
   v2 = a1;
   v3 = [sub_100022058() identifier];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v4, v5, "[Session: %{public}@] startSendSession: delta sync fired but pipe is truncated, setting needsFullSync", v6, v7, v8, v9, v10);
+  sub_10002200C(&_mh_execute_header, v4, v5, "[Session: %{public}@] startSendSession: delta sync fired but pipe is truncated, setting needsFullSync", v6, v7, v8, v9);
 }
 
 void sub_1000730D0(void *a1, void *a2)
@@ -4697,7 +4737,7 @@ void sub_1000731C8(void *a1)
   v2 = a1;
   v3 = [sub_100022058() identifier];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v4, v5, "[Session: %{public}@] sessionEnded: currentSession failed to start or was canceled", v6, v7, v8, v9, v10);
+  sub_10002200C(&_mh_execute_header, v4, v5, "[Session: %{public}@] sessionEnded: currentSession failed to start or was canceled", v6, v7, v8, v9);
 }
 
 void sub_10007329C(void *a1)
@@ -4705,7 +4745,7 @@ void sub_10007329C(void *a1)
   v2 = a1;
   v3 = [sub_100022058() identifier];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v4, v5, "[Session: %{public}@] sessionEnded: sessionEnd call not balanced, this is a fatal condition", v6, v7, v8, v9, v10);
+  sub_10002200C(&_mh_execute_header, v4, v5, "[Session: %{public}@] sessionEnded: sessionEnd call not balanced, this is a fatal condition", v6, v7, v8, v9);
 }
 
 void sub_10007332C(void *a1, void *a2)
@@ -4775,11 +4815,10 @@ void sub_100073654(void *a1, void *a2)
 
 void sub_1000736F4(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_100022058() identifier];
+  v3 = a2;
+  v4 = [sub_100022058() identifier];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v6, v7, "[Session: %{public}@] sendSessionEnded: error was not caught, retry was not scheduled", v8, v9, v10, v11, v12);
+  sub_10002200C(&_mh_execute_header, v5, v6, "[Session: %{public}@] sendSessionEnded: error was not caught, retry was not scheduled", v7, v8, v9, v10);
 }
 
 void sub_100073784()
@@ -4798,23 +4837,26 @@ void sub_100073784()
 
 void sub_100073894()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_100073920()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_1000739AC()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_100073A38(uint64_t a1, NSObject *a2)
@@ -4956,7 +4998,14 @@ void sub_10007441C(void *a1)
   v2 = a1;
   v3 = [sub_100022058() objectID];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v4, v5, "Reminders: Saving after updating an account (%{public}@) failed", v6, v7, v8, v9, v10);
+  sub_10002200C(&_mh_execute_header, v4, v5, "Reminders: Saving after updating an account (%{public}@) failed", v6, v7, v8, v9);
+}
+
+void sub_1000744AC(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  sub_100021FD8(&_mh_execute_header, a2, a3, "Received source wrapper without corresponding REMAccount: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10007451C()
@@ -5009,7 +5058,7 @@ void sub_100074BC4(void *a1)
   v2 = a1;
   v3 = [sub_100022058() remObjectID];
   sub_100021FCC();
-  sub_10002200C(&_mh_execute_header, v4, v5, "Failed to create source wrapper for CloudKit account %{public}@", v6, v7, v8, v9, v10);
+  sub_10002200C(&_mh_execute_header, v4, v5, "Failed to create source wrapper for CloudKit account %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100074D24()
@@ -5073,34 +5122,66 @@ void sub_1000753B4()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
+void sub_100075448(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"EKEventStore";
+  sub_100021FD8(&_mh_execute_header, a1, a3, "[%{public}@] Unsuccessful in performing changesSinceSequenceToken when checking whether changes affect next 24hrs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000754C0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"EKEventStore";
+  sub_100021FD8(&_mh_execute_header, a1, a3, "[%{public}@] fetchChangesInto: fetching changes took a long time", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100075538(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"EKEventStore";
+  sub_100021FD8(&_mh_execute_header, a1, a3, "[%{public}@] fetchChangesInto: updates are NULL but we've changed a default calendar, this shouldn't happen", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000755B0(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 localizedDescription];
+  v11 = 138543618;
   sub_10005AAEC();
-  sub_1000171F0(&_mh_execute_header, v5, v6, "[%{public}@] lastSequenceToken: failed to unarchive sequence token from data [%{public}@]", v7, v8, v9, v10, 2u);
+  sub_1000171F0(&_mh_execute_header, v5, v6, "[%{public}@] lastSequenceToken: failed to unarchive sequence token from data [%{public}@]", v7, v8, v9, v10, v11);
 }
 
 void sub_100075650(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 localizedDescription];
+  v11 = 138543618;
   sub_10005AAEC();
-  sub_1000171F0(&_mh_execute_header, v5, v6, "[%{public}@] setLastSequenceToken: failed to archive sequence token from object [%{public}@]", v7, v8, v9, v10, 2u);
+  sub_1000171F0(&_mh_execute_header, v5, v6, "[%{public}@] setLastSequenceToken: failed to archive sequence token from object [%{public}@]", v7, v8, v9, v10, v11);
+}
+
+void sub_1000756F0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"EKEventStore";
+  sub_100021FD8(&_mh_execute_header, a1, a3, "[%{public}@] setLastSequenceToken: nil sequence token data after archiving, but no error", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100075868()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_1000758F4()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_100075980(void *a1, void *a2)
@@ -5114,16 +5195,39 @@ void sub_100075980(void *a1, void *a2)
 
 void sub_100075A30()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
 }
 
 void sub_100075ABC()
 {
+  v6 = 136446722;
   sub_10002A3C4();
   sub_10002A3B4();
-  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, 2u);
+  sub_10002A3D4(&_mh_execute_header, v0, v1, "%{public}s:%d %s --mark--", v2, v3, v4, v5, v6);
+}
+
+void sub_100075B48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"REMStore";
+  sub_100021FD8(&_mh_execute_header, a1, a3, "[%{public}@] fetchReminderChangeSet: timed out trying to fetch changes from database", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100075BC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"REMStore";
+  sub_100021FD8(&_mh_execute_header, a1, a3, "[%{public}@] fetchChangesInto: timeout out waiting for database to respond", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100075C38(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"REMStore";
+  sub_100021FD8(&_mh_execute_header, a1, a3, "[%{public}@] fetchChangesInto: updates are NULL but we've changed the default list (calendar), this shouldn't happen", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100075CB0()
@@ -5133,16 +5237,30 @@ void sub_100075CB0()
   _os_log_fault_impl(&_mh_execute_header, v0, OS_LOG_TYPE_FAULT, "Unable to create UUID for %s %{public}@", v1, 0x16u);
 }
 
-void sub_100075E4C(uint64_t a1, void *a2)
+void sub_100075D30(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 24);
-  v3 = a2;
-  v5 = 138543618;
-  v6 = v2;
-  v7 = 2112;
-  v8 = objc_opt_class();
-  v4 = v8;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "[Session: %{public}@] Unable to record change, not an NEKWrapper [%@]", &v5, 0x16u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100021FD8(&_mh_execute_header, a2, a3, "Error deserializing NEKReminderChangeTrackingStateMap archive. (%@)", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100075DE0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100021FD8(&_mh_execute_header, a2, a3, "Error fetching accounts %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100075E4C(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = *(a1 + 24);
+  v4 = a2;
+  v6 = 138543618;
+  v7 = v3;
+  v8 = 2112;
+  v9 = objc_opt_class();
+  v5 = v9;
+  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "[Session: %{public}@] Unable to record change, not an NEKWrapper [%@]", &v6, 0x16u);
 }
 
 void sub_100075F0C(uint64_t a1, NSObject *a2)
@@ -5156,22 +5274,25 @@ void sub_100075F0C(uint64_t a1, NSObject *a2)
 void sub_100076034(void *a1, void *a2)
 {
   v3 = a1;
-  [a2 rowID];
-  sub_10006A27C(&_mh_execute_header, v4, v5, "PURGE: Failure to fetch stale source, rowid: %d", v6, v7, v8, v9, 0);
+  LODWORD(v10) = 67109120;
+  HIDWORD(v10) = [a2 rowID];
+  sub_10006A27C(&_mh_execute_header, v4, v5, "PURGE: Failure to fetch stale source, rowid: %d", v6, v7, v8, v9, v10);
 }
 
 void sub_100076128(void *a1, void *a2)
 {
   v3 = a1;
-  [a2 rowID];
-  sub_10006A27C(&_mh_execute_header, v4, v5, "PURGE: Failure to fetch stale calendar, rowid: %d", v6, v7, v8, v9, 0);
+  LODWORD(v10) = 67109120;
+  HIDWORD(v10) = [a2 rowID];
+  sub_10006A27C(&_mh_execute_header, v4, v5, "PURGE: Failure to fetch stale calendar, rowid: %d", v6, v7, v8, v9, v10);
 }
 
 void sub_10007621C(void *a1, void *a2)
 {
   v3 = a1;
-  [a2 rowID];
-  sub_10006A27C(&_mh_execute_header, v4, v5, "PURGE: Failure to fetch stale event, rowid: %d", v6, v7, v8, v9, 0);
+  LODWORD(v10) = 67109120;
+  HIDWORD(v10) = [a2 rowID];
+  sub_10006A27C(&_mh_execute_header, v4, v5, "PURGE: Failure to fetch stale event, rowid: %d", v6, v7, v8, v9, v10);
 }
 
 void sub_100076304(void *a1, int a2, NSObject *a3)

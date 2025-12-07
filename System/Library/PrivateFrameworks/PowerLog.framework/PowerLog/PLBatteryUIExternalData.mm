@@ -8,7 +8,7 @@
 + (id)getTitleAndTextForType:(int)type
 {
   v3 = 0;
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   if (type <= 1)
   {
     if (type)
@@ -18,28 +18,28 @@
         goto LABEL_14;
       }
 
-      v18[0] = @"Title";
+      v17[0] = @"Title";
       v4 = [PLBatteryUIExternalData getLocalizedStringForKey:@"ENABLE_AUTOLOCK"];
-      v18[1] = @"Text";
-      v19[0] = v4;
+      v17[1] = @"Text";
+      v18[0] = v4;
       v5 = [PLBatteryUIExternalData getLocalizedStringForKey:@"AUTOLOCK_INFO_TEXT"];
-      v19[1] = v5;
+      v18[1] = v5;
       v6 = MEMORY[0x1E695DF20];
-      v7 = v19;
-      v8 = v18;
+      v7 = v18;
+      v8 = v17;
     }
 
     else
     {
-      v20[0] = @"Title";
+      v19[0] = @"Title";
       v4 = [PLBatteryUIExternalData getLocalizedStringForKey:@"AUTOBRIGHTNESS"];
-      v20[1] = @"Text";
-      v21[0] = v4;
+      v19[1] = @"Text";
+      v20[0] = v4;
       v5 = [PLBatteryUIExternalData getLocalizedStringForKey:@"AUTOBRIGHTNESS_INFO_TEXT"];
-      v21[1] = v5;
+      v20[1] = v5;
       v6 = MEMORY[0x1E695DF20];
-      v7 = v21;
-      v8 = v20;
+      v7 = v20;
+      v8 = v19;
     }
 
     goto LABEL_12;
@@ -47,15 +47,15 @@
 
   if (type == 2)
   {
-    v16[0] = @"Title";
+    v15[0] = @"Title";
     v4 = [PLBatteryUIExternalData getLocalizedStringForKey:@"REDUCEBRIGHTNESS"];
-    v16[1] = @"Text";
-    v17[0] = v4;
+    v15[1] = @"Text";
+    v16[0] = v4;
     v5 = [PLBatteryUIExternalData getLocalizedStringForKey:@"REDUCEBRIGHTNESS_INFO_TEXT"];
-    v17[1] = v5;
+    v16[1] = v5;
     v6 = MEMORY[0x1E695DF20];
-    v7 = v17;
-    v8 = v16;
+    v7 = v16;
+    v8 = v15;
 LABEL_12:
     v3 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:2];
     goto LABEL_13;
@@ -74,17 +74,16 @@ LABEL_12:
   }
 
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"INSIGHTS_SUGGESTIONS_SUMMARY_RECENT_USAGE_TEXT_%@", v10];
-  v14[0] = @"Title";
+  v13[0] = @"Title";
   v5 = [PLBatteryUIExternalData getLocalizedStringForKey:@"UPGRADE_TITLE"];
-  v14[1] = @"Text";
-  v15[0] = v5;
+  v13[1] = @"Text";
+  v14[0] = v5;
   v11 = [PLBatteryUIExternalData getLocalizedStringForKey:v4];
-  v15[1] = v11;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v11;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
 LABEL_13:
 LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

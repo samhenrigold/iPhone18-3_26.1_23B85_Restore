@@ -139,7 +139,7 @@ LABEL_29:
       [v13 prioritizeDownloads:v14];
       break;
     case 7:
-      if ([v8 count])
+      if (objc_msgSend_count(v8))
       {
         v18 = a1[6];
         v19 = [v8 objectAtIndex:0];
@@ -328,13 +328,13 @@ LABEL_29:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v20 = [assetsCopy count];
+    v20 = objc_msgSend_count(assetsCopy);
     _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEFAULT, "User did delete %lu shared album assets", buf, 0xCu);
   }
 
   newUserActivityDaemonJob = [self newUserActivityDaemonJob];
   [newUserActivityDaemonJob setActionType:8];
-  v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+  v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(assetsCopy)];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;

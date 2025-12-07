@@ -22,8 +22,8 @@
 - (NSCache)init
 {
   selfCopy = self;
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 0;
   *(&attrs.version + 1) = 0;
   attrs.version = 2;
   attrs.key_hash_cb = __NSCacheKeyHash;
@@ -35,21 +35,20 @@
   attrs.value_make_purgeable_cb = 0;
   attrs.user_data = self;
   attrs.value_retain_cb = __NSCacheValueRetain;
-  if (cache_create("", &attrs, &v5))
+  if (cache_create("", &attrs, &v4))
   {
 
-    selfCopy = 0;
+    return 0;
   }
 
   else
   {
-    selfCopy->_cache = v5;
+    selfCopy->_cache = v4;
     selfCopy->_evictsDiscarded = 1;
     selfCopy->_notificationLock._os_unfair_lock_opaque = 0;
     [(NSCache *)selfCopy setEvictsObjectsWhenApplicationEntersBackground:1];
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -63,7 +62,7 @@
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_notificationLock);
   if (self->_observesNotification)
   {
@@ -84,22 +83,17 @@
   }
 
   self->_cache = 0;
-  v6.receiver = self;
-  v6.super_class = NSCache;
-  [(NSCache *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = NSCache;
+  [(NSCache *)&v5 dealloc];
 }
 
 - (id)allObjects
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = +[(NSArray *)NSMutableArray];
-  cache = self->_cache;
-  v7 = MEMORY[0x1E69E9820];
+  v2 = +[(NSArray *)NSMutableArray];
+  v4 = MEMORY[0x1E69E9820];
   cache_invoke();
-  result = [(NSArray *)v3 copy:v7];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSArray *)v2 copy:v4];
 }
 
 - (void)setName:(NSString *)name
@@ -107,36 +101,33 @@
   maxBufLen[1] = *MEMORY[0x1E69E9840];
   if (name)
   {
-    v4 = name;
+    v3 = name;
   }
 
   else
   {
-    v4 = &stru_1EF068AA8;
+    v3 = &stru_1EF068AA8;
   }
 
   maxBufLen[0] = 0;
-  v9.length = CFStringGetLength(v4);
-  v9.location = 0;
-  CFStringGetBytes(v4, v9, 0x8000100u, 0, 0, 0, 0, maxBufLen);
-  v5 = malloc_type_malloc(maxBufLen[0] + 1, 0x100004077774924uLL);
-  v10.length = CFStringGetLength(v4);
-  v10.location = 0;
-  CFStringGetBytes(v4, v10, 0x8000100u, 0, 0, v5, maxBufLen[0], 0);
-  v5[maxBufLen[0]] = 0;
-  cache = self->_cache;
+  v6.length = CFStringGetLength(v3);
+  v6.location = 0;
+  CFStringGetBytes(v3, v6, 0x8000100u, 0, 0, 0, 0, maxBufLen);
+  v4 = malloc_type_malloc(maxBufLen[0] + 1, 0x100004077774924uLL);
+  v7.length = CFStringGetLength(v3);
+  v7.location = 0;
+  CFStringGetBytes(v3, v7, 0x8000100u, 0, 0, v4, maxBufLen[0], 0);
+  v4[maxBufLen[0]] = 0;
   cache_set_name();
-  free(v5);
-  v7 = *MEMORY[0x1E69E9840];
+  free(v4);
 }
 
 - (NSString)name
 {
-  cache = self->_cache;
   name = cache_get_name();
-  v4 = CFStringCreateWithCString(&__kCFAllocatorSystemDefault, name, 0x8000100u);
+  v3 = CFStringCreateWithCString(&__kCFAllocatorSystemDefault, name, 0x8000100u);
 
-  return _CFAutoreleasePoolAddObject(0, v4);
+  return _CFAutoreleasePoolAddObject(0, v3);
 }
 
 - (void)setDelegate:(id)delegate
@@ -145,7 +136,6 @@
   v4 = [delegate conformsToProtocol:&unk_1EF1C5F20];
   if (v4)
   {
-    cacheDelegate = self->_cacheDelegate;
     LOBYTE(v4) = objc_opt_respondsToSelector();
   }
 
@@ -154,29 +144,27 @@
 
 - (id)objectForKey:(id)key
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x3052000000;
-  v11 = __Block_byref_object_copy__3;
-  v12 = __Block_byref_object_dispose__3;
-  v13 = 0;
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3052000000;
+  v9 = __Block_byref_object_copy__3;
+  v10 = __Block_byref_object_dispose__3;
+  v11 = 0;
   if (key)
   {
-    cache = self->_cache;
     cache_get();
-    v4 = v9[5];
+    v3 = v7[5];
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = v4;
-  _Block_object_dispose(&v8, 8);
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  v4 = v3;
+  _Block_object_dispose(&v6, 8);
+  return v4;
 }
 
 void __24__NSCache_objectForKey___block_invoke(uint64_t a1, id a2, _BYTE *a3)
@@ -185,7 +173,7 @@ void __24__NSCache_objectForKey___block_invoke(uint64_t a1, id a2, _BYTE *a3)
   if ([*(a1 + 32) evictsObjectsWithDiscardedContent])
   {
     v5 = *(*(a1 + 32) + 24);
-    if (v5 == 255 || v5 == 2 && (v6 = *(*(*(a1 + 40) + 8) + 40), (objc_opt_respondsToSelector() & 1) != 0) && (v7 = *(*(*(a1 + 40) + 8) + 40), (objc_opt_respondsToSelector() & 1) != 0) && (v8 = *(*(*(a1 + 40) + 8) + 40), (objc_opt_respondsToSelector() & 1) != 0) && (v9 = *(*(*(a1 + 40) + 8) + 40), (objc_opt_respondsToSelector() & 1) != 0))
+    if (v5 == 255 || v5 == 2 && (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0)
     {
       if ([*(*(*(a1 + 40) + 8) + 40) isContentDiscarded])
       {

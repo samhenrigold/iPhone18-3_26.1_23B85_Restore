@@ -14,7 +14,9 @@
 - (OBPrivacyFlow)initWithBundle:(id)bundle;
 - (OBPrivacyFlow)initWithSplashContent:(id)content;
 - (id)_SKU;
+- (id)_bestStringConsideringCMEChinaForKeyWithPrefix:(id)prefix language:(id)language preferredDeviceType:(unint64_t)type withGenerativeSuffix:(BOOL)suffix;
 - (id)_bestStringConsideringGenerativeForKeyWithPrefix:(id)prefix language:(id)language preferredDeviceType:(unint64_t)type;
+- (id)_bestStringConsideringNetworkForKeyWithPrefix:(id)prefix language:(id)language preferredDeviceType:(unint64_t)type withGenerativeSuffix:(BOOL)suffix withGMEChinaSuffix:(BOOL)chinaSuffix;
 - (id)_bundleImageNamed:(id)named;
 - (id)_deviceClass;
 - (id)_iconSymbolName;
@@ -22,6 +24,7 @@
 - (id)_platformOfPreferredDeviceType:(unint64_t)type;
 - (id)_splashLocalizedStringForKey:(id)key language:(id)language preferredDeviceType:(unint64_t)type;
 - (id)_splashLocalizedStringForKey:(id)key language:(id)language table:(id)table preferredDeviceType:(unint64_t)type;
+- (id)_stringForKeyWithPrefix:(id)prefix language:(id)language preferredDeviceType:(unint64_t)type withGenerativeSuffix:(BOOL)suffix withGMEChinaSuffix:(BOOL)chinaSuffix withNetworkSuffix:(BOOL)networkSuffix;
 - (id)_stringForPlaceholderBundleWithString:(id)string;
 - (id)_stringKeyWithCapabilitiesFromPrefix:(id)prefix withNetwork:(BOOL)network withGenerative:(BOOL)generative withGMEChinaSuffix:(BOOL)suffix;
 - (id)_textForConditionalItem:(id)item language:(id)language preferredDeviceType:(unint64_t)type;
@@ -53,30 +56,30 @@
 
 - (id)replaceeIdentifierSets
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"ReplacementInfo", 0];
   v3 = [v2 objectForKeyedSubscript:@"ReplaceeSets"];
 
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if (!v6)
         {
           v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -86,7 +89,7 @@
         [v6 addObject:v10];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -98,7 +101,6 @@
   }
 
   v11 = [v6 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -139,7 +141,7 @@
   if (!v6)
   {
 LABEL_21:
-    v19 = v7;
+    v20 = v7;
     goto LABEL_22;
   }
 
@@ -154,47 +156,47 @@ LABEL_21:
   if (v7->_splashContentName)
   {
     underlyingBundle2 = [(OBBundle *)v7->_bundle underlyingBundle];
-    v13 = [OBPrivacyFlow _splashPlistFromBundle:underlyingBundle2 forContentName:v7->_splashContentName];
+    v14 = [OBPrivacyFlow _splashPlistFromBundle:underlyingBundle2 forContentName:v7->_splashContentName];
     splashPlist = v7->_splashPlist;
-    v7->_splashPlist = v13;
+    v7->_splashPlist = v14;
 
-    v15 = v7->_splashPlist;
-    if (v15)
+    v16 = v7->_splashPlist;
+    if (v16)
     {
-      v16 = [(NSDictionary *)v15 objectForKeyedSubscript:@"ButtonTitle"];
-      if (v16)
+      v17 = [(NSDictionary *)v16 objectForKeyedSubscript:@"ButtonTitle"];
+      if (v17)
       {
         v7->_splashPListContainsLegacyStringKeys = 1;
       }
 
       else
       {
-        v20 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"ButtonCaption"];
-        if (v20)
+        v21 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"ButtonCaption"];
+        if (v21)
         {
           v7->_splashPListContainsLegacyStringKeys = 1;
         }
 
         else
         {
-          v21 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"Title"];
-          if (v21)
+          v22 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"Title"];
+          if (v22)
           {
             v7->_splashPListContainsLegacyStringKeys = 1;
           }
 
           else
           {
-            v22 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"ShortTitle"];
-            if (v22)
+            v23 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"ShortTitle"];
+            if (v23)
             {
               v7->_splashPListContainsLegacyStringKeys = 1;
             }
 
             else
             {
-              v23 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"Content"];
-              v7->_splashPListContainsLegacyStringKeys = v23 != 0;
+              v24 = [(NSDictionary *)v7->_splashPlist objectForKeyedSubscript:@"Content"];
+              v7->_splashPListContainsLegacyStringKeys = v24 != 0;
             }
           }
         }
@@ -206,21 +208,20 @@ LABEL_21:
 
   else
   {
-    v17 = _OBLoggingFacility();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = _OBLoggingFacility(v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [bundleCopy identifier];
       *buf = 138412290;
       v28 = identifier;
-      _os_log_impl(&dword_1B4FB6000, v17, OS_LOG_TYPE_DEFAULT, "No GDPRSplash for bundle %@", buf, 0xCu);
+      _os_log_impl(&dword_1B4FB6000, v18, OS_LOG_TYPE_DEFAULT, "No GDPRSplash for bundle %@", buf, 0xCu);
     }
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_22:
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v20;
 }
 
 - (OBPrivacyFlow)initWithSplashContent:(id)content
@@ -333,21 +334,19 @@ uint64_t __35__OBPrivacyFlow__supportsPlatform___block_invoke(uint64_t a1, void 
 
 + (id)_splashPlistFromBundle:(id)bundle forContentName:(id)name
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [bundle pathForResource:name ofType:@"plist"];
   v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v4];
   if (!v5)
   {
-    v6 = _OBLoggingFacility();
+    v6 = _OBLoggingFacility(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_1B4FB6000, v6, OS_LOG_TYPE_DEFAULT, "No splash found in bundle at path: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&dword_1B4FB6000, v6, OS_LOG_TYPE_DEFAULT, "No splash found in bundle at path: %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -684,7 +683,8 @@ LABEL_21:
   classCopy = class;
   v5 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"HideFromCombinedList"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     if ([v5 BOOLValue])
     {
@@ -694,73 +694,76 @@ LABEL_21:
 
   else if (v5)
   {
-    v6 = _OBLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _OBLoggingFacility(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B4FB6000, v6, OS_LOG_TYPE_DEFAULT, "HideFromCombinedList must be a BOOLean", buf, 2u);
+      _os_log_impl(&dword_1B4FB6000, v7, OS_LOG_TYPE_DEFAULT, "HideFromCombinedList must be a BOOLean", buf, 2u);
     }
   }
 
-  v7 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"HideFromCombinedListForSKUs"];
+  v8 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"HideFromCombinedListForSKUs"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v9 = objc_opt_isKindOfClass();
+  if (v9)
   {
     _SKU = [(OBPrivacyFlow *)self _SKU];
-    v9 = [v7 containsObject:_SKU];
+    v11 = [v8 containsObject:_SKU];
 
-    if (v9)
+    if (v11)
     {
 LABEL_10:
-      v10 = 0;
+      v12 = 0;
       goto LABEL_24;
     }
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      v11 = _OBLoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _OBLoggingFacility(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_1B4FB6000, v11, OS_LOG_TYPE_DEFAULT, "HideFromCombinedListForSKUs must be an array", v16, 2u);
+        *v19 = 0;
+        _os_log_impl(&dword_1B4FB6000, v13, OS_LOG_TYPE_DEFAULT, "HideFromCombinedListForSKUs must be an array", v19, 2u);
       }
     }
   }
 
-  v12 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"ShowInCombinedListForDeviceClasses"];
+  v14 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"ShowInCombinedListForDeviceClasses"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v15 = objc_opt_isKindOfClass();
+  if (v15)
   {
-    v10 = [v12 containsObject:classCopy];
+    v12 = [v14 containsObject:classCopy];
   }
 
   else
   {
-    if (v12)
+    if (v14)
     {
-      v13 = _OBLoggingFacility();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = _OBLoggingFacility(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 0;
-        _os_log_impl(&dword_1B4FB6000, v13, OS_LOG_TYPE_DEFAULT, "ShowInCombinedListForDeviceClasses must be an array", v15, 2u);
+        *v18 = 0;
+        _os_log_impl(&dword_1B4FB6000, v16, OS_LOG_TYPE_DEFAULT, "ShowInCombinedListForDeviceClasses must be an array", v18, 2u);
       }
     }
 
-    v10 = 1;
+    v12 = 1;
   }
 
 LABEL_24:
-  return v10;
+  return v12;
 }
 
 - (BOOL)enablesGroupingInCombinedList
 {
   v2 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"EnablesGroupingInCombinedList"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     bOOLValue = [v2 BOOLValue];
   }
@@ -769,11 +772,11 @@ LABEL_24:
   {
     if (v2)
     {
-      v4 = _OBLoggingFacility();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = _OBLoggingFacility(isKindOfClass);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v6 = 0;
-        _os_log_impl(&dword_1B4FB6000, v4, OS_LOG_TYPE_DEFAULT, "EnablesGroupingInCombinedList must be a BOOLean", v6, 2u);
+        *v7 = 0;
+        _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "EnablesGroupingInCombinedList must be a BOOLean", v7, 2u);
       }
     }
 
@@ -810,6 +813,49 @@ LABEL_24:
   }
 
   return v12;
+}
+
+- (id)_bestStringConsideringCMEChinaForKeyWithPrefix:(id)prefix language:(id)language preferredDeviceType:(unint64_t)type withGenerativeSuffix:(BOOL)suffix
+{
+  suffixCopy = suffix;
+  prefixCopy = prefix;
+  languageCopy = language;
+  v12 = +[OBCapabilities sharedCapabilities];
+  eligibilityForGreymatterHasCountryPolicyChina = [v12 eligibilityForGreymatterHasCountryPolicyChina];
+
+  if (!eligibilityForGreymatterHasCountryPolicyChina || ([(OBPrivacyFlow *)self _bestStringConsideringNetworkForKeyWithPrefix:prefixCopy language:languageCopy preferredDeviceType:type withGenerativeSuffix:suffixCopy withGMEChinaSuffix:1], (v14 = objc_claimAutoreleasedReturnValue()) == 0))
+  {
+    v14 = [(OBPrivacyFlow *)self _bestStringConsideringNetworkForKeyWithPrefix:prefixCopy language:languageCopy preferredDeviceType:type withGenerativeSuffix:suffixCopy withGMEChinaSuffix:0];
+  }
+
+  return v14;
+}
+
+- (id)_bestStringConsideringNetworkForKeyWithPrefix:(id)prefix language:(id)language preferredDeviceType:(unint64_t)type withGenerativeSuffix:(BOOL)suffix withGMEChinaSuffix:(BOOL)chinaSuffix
+{
+  chinaSuffixCopy = chinaSuffix;
+  suffixCopy = suffix;
+  prefixCopy = prefix;
+  languageCopy = language;
+  v14 = [(OBPrivacyFlow *)self _stringForKeyWithPrefix:prefixCopy language:languageCopy preferredDeviceType:type withGenerativeSuffix:suffixCopy withGMEChinaSuffix:chinaSuffixCopy withNetworkSuffix:1];
+  if (!v14)
+  {
+    v14 = [(OBPrivacyFlow *)self _stringForKeyWithPrefix:prefixCopy language:languageCopy preferredDeviceType:type withGenerativeSuffix:suffixCopy withGMEChinaSuffix:chinaSuffixCopy withNetworkSuffix:0];
+  }
+
+  return v14;
+}
+
+- (id)_stringForKeyWithPrefix:(id)prefix language:(id)language preferredDeviceType:(unint64_t)type withGenerativeSuffix:(BOOL)suffix withGMEChinaSuffix:(BOOL)chinaSuffix withNetworkSuffix:(BOOL)networkSuffix
+{
+  networkSuffixCopy = networkSuffix;
+  chinaSuffixCopy = chinaSuffix;
+  suffixCopy = suffix;
+  languageCopy = language;
+  v15 = [(OBPrivacyFlow *)self _stringKeyWithCapabilitiesFromPrefix:prefix withNetwork:networkSuffixCopy withGenerative:suffixCopy withGMEChinaSuffix:chinaSuffixCopy];
+  v16 = [(OBPrivacyFlow *)self _verifiedSplashLocalizedStringForKey:v15 language:languageCopy preferredDeviceType:type];
+
+  return v16;
 }
 
 - (id)_stringKeyWithCapabilitiesFromPrefix:(id)prefix withNetwork:(BOOL)network withGenerative:(BOOL)generative withGMEChinaSuffix:(BOOL)suffix
@@ -890,7 +936,7 @@ LABEL_5:
 
 - (BOOL)_conformsToRequirements:(id)requirements
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requirementsCopy = requirements;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -903,35 +949,35 @@ LABEL_5:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v6 = requirementsCopy;
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         v8 = v7;
         v5 = 0;
-        v9 = *v15;
+        v9 = *v14;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v15 != v9)
+            if (*v14 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v14 + 1) + 8 * i);
+            v11 = *(*(&v13 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v5 |= [(OBPrivacyFlow *)self _conformsToRequirement:v11, v14];
+              v5 |= [(OBPrivacyFlow *)self _conformsToRequirement:v11, v13];
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v8);
@@ -949,13 +995,12 @@ LABEL_5:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
 - (id)_textForConditionalItem:(id)item language:(id)language preferredDeviceType:(unint64_t)type
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   languageCopy = language;
   objc_opt_class();
@@ -988,29 +1033,29 @@ LABEL_5:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v13 = itemCopy;
-      v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v14)
       {
         v15 = v14;
-        v29 = itemCopy;
+        v28 = itemCopy;
         typeCopy = type;
-        v28 = languageCopy;
-        v16 = *v31;
+        v27 = languageCopy;
+        v16 = *v30;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v31 != v16)
+            if (*v30 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v30 + 1) + 8 * i);
+            v18 = *(*(&v29 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -1024,17 +1069,17 @@ LABEL_5:
 
                 if (v22)
                 {
-                  languageCopy = v28;
-                  v10 = [(OBPrivacyFlow *)self _splashLocalizedStringForKey:v20 language:v28 preferredDeviceType:typeCopy];
+                  languageCopy = v27;
+                  v10 = [(OBPrivacyFlow *)self _splashLocalizedStringForKey:v20 language:v27 preferredDeviceType:typeCopy];
 
-                  itemCopy = v29;
+                  itemCopy = v28;
                   goto LABEL_24;
                 }
               }
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
           if (v15)
           {
             continue;
@@ -1044,8 +1089,8 @@ LABEL_5:
         }
 
         v10 = 0;
-        languageCopy = v28;
-        itemCopy = v29;
+        languageCopy = v27;
+        itemCopy = v28;
       }
 
       else
@@ -1061,8 +1106,6 @@ LABEL_24:
       v10 = 0;
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1258,7 +1301,7 @@ LABEL_13:
 
 - (id)localizedCombinedFooterForLanguage:(id)language preferredDeviceType:(unint64_t)type
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v4 = [(OBPrivacyFlow *)self localizedCombinedFooterComponentsForLanguage:language preferredDeviceType:type];
   text = [v4 text];
 
@@ -1278,10 +1321,10 @@ LABEL_13:
       {
         v11 = objc_alloc(MEMORY[0x1E696AAB0]);
         linkText2 = [v4 linkText];
-        v22 = *MEMORY[0x1E69DB670];
+        v21 = *MEMORY[0x1E69DB670];
         linkURLString2 = [v4 linkURLString];
-        v23[0] = linkURLString2;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v22[0] = linkURLString2;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
         v15 = [v11 initWithString:linkText2 attributes:v14];
 
         text3 = [v4 text];
@@ -1295,8 +1338,6 @@ LABEL_13:
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return text;
 }
@@ -1364,7 +1405,7 @@ LABEL_12:
 
 - (id)localizedContentListForLanguage:(id)language preferredDeviceType:(unint64_t)type
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   if (self->_splashPListContainsLegacyStringKeys)
   {
@@ -1382,28 +1423,28 @@ LABEL_12:
       [v8 addObject:v10];
     }
 
-    v25 = v9;
-    v27 = v8;
+    v24 = v9;
+    v26 = v8;
     v11 = objc_opt_new();
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v12 = [&unk_1F2CF8730 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [&unk_1F2CF8730 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(&unk_1F2CF8730);
           }
 
-          v16 = [*(*(&v28 + 1) + 8 * i) stringByAppendingString:{@"_BULLET", v25}];
+          v16 = [*(*(&v27 + 1) + 8 * i) stringByAppendingString:{@"_BULLET", v24}];
           v17 = [(OBPrivacyFlow *)self _bestStringForKeyWithPrefix:v16 language:languageCopy preferredDeviceType:type];
           if (!v17)
           {
@@ -1417,7 +1458,7 @@ LABEL_12:
           [v11 addObject:v19];
         }
 
-        v13 = [&unk_1F2CF8730 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [&unk_1F2CF8730 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v13)
         {
           continue;
@@ -1428,12 +1469,12 @@ LABEL_12:
     }
 
 LABEL_15:
-    v7 = v27;
+    v7 = v26;
     if ([v11 count])
     {
       v20 = objc_opt_new();
       [v20 setBullets:v11];
-      [v27 addObject:v20];
+      [v26 addObject:v20];
     }
 
     v21 = [(OBPrivacyFlow *)self _bestStringForKeyWithPrefix:@"FOOTER_TEXT" language:languageCopy preferredDeviceType:type];
@@ -1441,209 +1482,210 @@ LABEL_15:
     {
       v22 = objc_opt_new();
       [v22 setText:v21];
-      [v27 addObject:v22];
+      [v26 addObject:v22];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_legacyLocalizedContentListForLanguage:(id)language preferredDeviceType:(unint64_t)type
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   languageCopy = language;
-  v55 = objc_opt_new();
+  v58 = objc_opt_new();
   v5 = [(NSDictionary *)self->_splashPlist objectForKeyedSubscript:@"Content"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v70 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v68 objects:v75 count:16];
-    if (!v7)
+    v72 = 0u;
+    v7 = v5;
+    v8 = [v7 countByEnumeratingWithState:&v71 objects:v78 count:16];
+    if (!v8)
     {
       goto LABEL_57;
     }
 
-    v8 = v7;
-    v51 = v5;
-    v9 = 0x1E695D000uLL;
-    v10 = *v69;
+    v9 = v8;
+    v54 = v5;
+    v10 = 0x1E695D000uLL;
+    v11 = *v72;
     selfCopy = self;
-    v52 = *v69;
-    v53 = v6;
+    v55 = *v72;
+    v56 = v7;
     while (1)
     {
-      v11 = 0;
-      v54 = v8;
+      v12 = 0;
+      v57 = v9;
       do
       {
-        if (*v69 != v10)
+        if (*v72 != v11)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v68 + 1) + 8 * v11);
-        v13 = *(v9 + 3872);
+        v13 = *(*(&v71 + 1) + 8 * v12);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v14 = objc_opt_isKindOfClass();
+        if (v14)
         {
-          v57 = v11;
-          v14 = v12;
-          v15 = [v14 objectForKeyedSubscript:@"Requirements"];
-          v16 = [(OBPrivacyFlow *)self _conformsToRequirements:v15];
+          v60 = v12;
+          v15 = v13;
+          v16 = [v15 objectForKeyedSubscript:@"Requirements"];
+          v17 = [(OBPrivacyFlow *)self _conformsToRequirements:v16];
 
-          if (!v16)
+          if (!v17)
           {
-            v11 = v57;
+            v12 = v60;
             goto LABEL_48;
           }
 
-          v17 = objc_opt_new();
-          v18 = [v14 objectForKeyedSubscript:@"Text"];
+          v18 = objc_opt_new();
+          v19 = [v15 objectForKeyedSubscript:@"Text"];
           objc_opt_class();
-          isKindOfClass = objc_opt_isKindOfClass();
+          v20 = objc_opt_isKindOfClass();
 
-          v56 = v14;
-          if (isKindOfClass)
+          v59 = v15;
+          if (v20)
           {
-            v20 = [v14 objectForKeyedSubscript:@"Text"];
-            v21 = [(OBPrivacyFlow *)self _splashLocalizedStringForKey:v20 language:languageCopy preferredDeviceType:type];
-            [v17 setText:v21];
+            v21 = [v15 objectForKeyedSubscript:@"Text"];
+            v22 = [(OBPrivacyFlow *)self _splashLocalizedStringForKey:v21 language:languageCopy preferredDeviceType:type];
+            [v18 setText:v22];
 
             goto LABEL_41;
           }
 
-          v62 = v17;
-          v22 = [v14 objectForKeyedSubscript:@"Bullets"];
+          v65 = v18;
+          v23 = [v15 objectForKeyedSubscript:@"Bullets"];
           objc_opt_class();
-          v23 = objc_opt_isKindOfClass();
+          v24 = objc_opt_isKindOfClass();
 
-          if (v23)
+          if (v24)
           {
-            v58 = objc_opt_new();
-            v64 = 0u;
-            v65 = 0u;
-            v66 = 0u;
+            v61 = objc_opt_new();
             v67 = 0u;
-            obj = [v14 objectForKeyedSubscript:@"Bullets"];
-            v24 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
-            v25 = v17;
-            if (!v24)
+            v68 = 0u;
+            v69 = 0u;
+            v70 = 0u;
+            obj = [v15 objectForKeyedSubscript:@"Bullets"];
+            v25 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
+            v26 = v18;
+            if (!v25)
             {
               goto LABEL_38;
             }
 
-            v26 = v24;
-            v27 = *v65;
+            v27 = v25;
+            v28 = *v68;
             while (1)
             {
-              for (i = 0; i != v26; ++i)
+              for (i = 0; i != v27; ++i)
               {
-                if (*v65 != v27)
+                if (*v68 != v28)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v29 = *(*(&v64 + 1) + 8 * i);
-                v30 = *(v9 + 3872);
+                v30 = *(*(&v67 + 1) + 8 * i);
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                v31 = objc_opt_isKindOfClass();
+                if (v31)
                 {
-                  v31 = v9;
-                  v32 = objc_opt_new();
-                  v33 = v29;
-                  v34 = [v33 objectForKeyedSubscript:@"Text"];
-                  v35 = [v33 objectForKeyedSubscript:@"IconName"];
+                  v32 = v10;
+                  v33 = objc_opt_new();
+                  v34 = v30;
+                  v35 = [v34 objectForKeyedSubscript:@"Text"];
+                  v36 = [v34 objectForKeyedSubscript:@"IconName"];
                   objc_opt_class();
-                  if (objc_opt_isKindOfClass())
+                  v37 = objc_opt_isKindOfClass();
+                  if (v37)
                   {
-                    v36 = [v33 objectForKeyedSubscript:@"Requirements"];
-                    v37 = [(OBPrivacyFlow *)selfCopy _conformsToRequirements:v36];
+                    v38 = [v34 objectForKeyedSubscript:@"Requirements"];
+                    v39 = [(OBPrivacyFlow *)selfCopy _conformsToRequirements:v38];
 
-                    if (v37)
+                    if (v39)
                     {
-                      v38 = [(OBPrivacyFlow *)selfCopy _splashLocalizedStringForKey:v34 language:languageCopy preferredDeviceType:type];
-                      [v32 setText:v38];
+                      v40 = [(OBPrivacyFlow *)selfCopy _splashLocalizedStringForKey:v35 language:languageCopy preferredDeviceType:type];
+                      [v33 setText:v40];
 
                       objc_opt_class();
-                      if (objc_opt_isKindOfClass())
+                      v41 = objc_opt_isKindOfClass();
+                      if (v41)
                       {
-                        v39 = [(OBPrivacyFlow *)selfCopy _bundleImageNamed:v35];
-                        [v32 setIcon:v39];
+                        v42 = [(OBPrivacyFlow *)selfCopy _bundleImageNamed:v36];
+                        [v33 setIcon:v42];
                         goto LABEL_33;
                       }
 
-                      if (v35)
+                      if (v36)
                       {
-                        v39 = _OBLoggingFacility();
-                        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+                        v42 = _OBLoggingFacility(v41);
+                        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
                         {
-                          v43 = objc_opt_class();
+                          v46 = objc_opt_class();
                           *buf = 138412290;
-                          v73 = v43;
-                          v44 = v43;
-                          _os_log_impl(&dword_1B4FB6000, v39, OS_LOG_TYPE_DEFAULT, "OBBundle: Bullet IconName must be a string, was %@", buf, 0xCu);
+                          v76 = v46;
+                          v47 = v46;
+                          _os_log_impl(&dword_1B4FB6000, v42, OS_LOG_TYPE_DEFAULT, "OBBundle: Bullet IconName must be a string, was %@", buf, 0xCu);
                         }
 
 LABEL_33:
                       }
 
-                      [v58 addObject:v32, v51];
+                      [v61 addObject:v33, v54];
                     }
                   }
 
                   else
                   {
-                    v40 = _OBLoggingFacility();
-                    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+                    v43 = _OBLoggingFacility(v37);
+                    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
                     {
-                      v41 = objc_opt_class();
+                      v44 = objc_opt_class();
                       *buf = 138412290;
-                      v73 = v41;
-                      v42 = v41;
-                      _os_log_impl(&dword_1B4FB6000, v40, OS_LOG_TYPE_DEFAULT, "OBBundle: Bullet Text must be a string, was %@", buf, 0xCu);
+                      v76 = v44;
+                      v45 = v44;
+                      _os_log_impl(&dword_1B4FB6000, v43, OS_LOG_TYPE_DEFAULT, "OBBundle: Bullet Text must be a string, was %@", buf, 0xCu);
                     }
                   }
 
-                  v9 = v31;
-                  v25 = v62;
+                  v10 = v32;
+                  v26 = v65;
                   goto LABEL_36;
                 }
 
-                v32 = _OBLoggingFacility();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                v33 = _OBLoggingFacility(v31);
+                if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1B4FB6000, v32, OS_LOG_TYPE_DEFAULT, "OBBundle: Bullet entries must be dictionaries", buf, 2u);
+                  _os_log_impl(&dword_1B4FB6000, v33, OS_LOG_TYPE_DEFAULT, "OBBundle: Bullet entries must be dictionaries", buf, 2u);
                 }
 
 LABEL_36:
               }
 
-              v26 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
-              if (!v26)
+              v27 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
+              if (!v27)
               {
 LABEL_38:
 
-                v20 = v58;
-                if ([v58 count])
+                v21 = v61;
+                if ([v61 count])
                 {
-                  [v25 setBullets:v58];
+                  [v26 setBullets:v61];
                 }
 
                 self = selfCopy;
-                v17 = v62;
-                v10 = v52;
-                v6 = v53;
-                v8 = v54;
+                v18 = v65;
+                v11 = v55;
+                v7 = v56;
+                v9 = v57;
 LABEL_41:
-                v11 = v57;
+                v12 = v60;
 LABEL_42:
 
                 goto LABEL_43;
@@ -1651,77 +1693,75 @@ LABEL_42:
             }
           }
 
-          v47 = [v14 objectForKeyedSubscript:@"Bullets"];
+          v50 = [v15 objectForKeyedSubscript:@"Bullets"];
 
-          v11 = v57;
-          if (v47)
+          v12 = v60;
+          if (v50)
           {
-            v20 = _OBLoggingFacility();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v21 = _OBLoggingFacility(v51);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1B4FB6000, v20, OS_LOG_TYPE_DEFAULT, "OBPrivacyBundle: Bullets must be an array", buf, 2u);
+              _os_log_impl(&dword_1B4FB6000, v21, OS_LOG_TYPE_DEFAULT, "OBPrivacyBundle: Bullets must be an array", buf, 2u);
             }
 
             goto LABEL_42;
           }
 
 LABEL_43:
-          text = [v17 text];
+          text = [v18 text];
           if (text)
           {
 
-            v14 = v56;
+            v15 = v59;
             goto LABEL_46;
           }
 
-          bullets = [v17 bullets];
+          bullets = [v18 bullets];
 
-          v14 = v56;
+          v15 = v59;
           if (bullets)
           {
 LABEL_46:
-            [v55 addObject:v17];
+            [v58 addObject:v18];
           }
 
           goto LABEL_48;
         }
 
-        v14 = _OBLoggingFacility();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = _OBLoggingFacility(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B4FB6000, v14, OS_LOG_TYPE_DEFAULT, "OBPrivacyBundle: Content entries must be dictionaries", buf, 2u);
+          _os_log_impl(&dword_1B4FB6000, v15, OS_LOG_TYPE_DEFAULT, "OBPrivacyBundle: Content entries must be dictionaries", buf, 2u);
         }
 
 LABEL_48:
 
-        ++v11;
+        ++v12;
       }
 
-      while (v11 != v8);
-      v48 = [v6 countByEnumeratingWithState:&v68 objects:v75 count:16];
-      v8 = v48;
-      if (!v48)
+      while (v12 != v9);
+      v52 = [v7 countByEnumeratingWithState:&v71 objects:v78 count:16];
+      v9 = v52;
+      if (!v52)
       {
-        v5 = v51;
+        v5 = v54;
         goto LABEL_57;
       }
     }
   }
 
-  v6 = _OBLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _OBLoggingFacility(isKindOfClass);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B4FB6000, v6, OS_LOG_TYPE_DEFAULT, "OBPrivacyBundle: Content must be an array", buf, 2u);
+    _os_log_impl(&dword_1B4FB6000, v7, OS_LOG_TYPE_DEFAULT, "OBPrivacyBundle: Content must be an array", buf, 2u);
   }
 
 LABEL_57:
 
-  v49 = *MEMORY[0x1E69E9840];
-
-  return v55;
+  return v58;
 }
 
 @end

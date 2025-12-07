@@ -105,33 +105,33 @@
   aBlock[3] = &unk_1E84F3E78;
   aBlock[4] = self;
   v3 = _Block_copy(aBlock);
-  [(TUAnimationAffineTransformFunction *)self startValue];
-  [(TUAnimationAffineTransformFunction *)self endValue];
+  objc_msgSend_startValue(self);
+  objc_msgSend_endValue(self);
   v4 = v3[2](v3);
   [(TUAnimationAffineTransformFunction *)self setAFunction:v4];
 
-  [(TUAnimationAffineTransformFunction *)self startValue];
-  [(TUAnimationAffineTransformFunction *)self endValue];
+  objc_msgSend_startValue(self);
+  objc_msgSend_endValue(self);
   v5 = v3[2](v3);
   [(TUAnimationAffineTransformFunction *)self setBFunction:v5];
 
-  [(TUAnimationAffineTransformFunction *)self startValue];
-  [(TUAnimationAffineTransformFunction *)self endValue];
+  objc_msgSend_startValue(self);
+  objc_msgSend_endValue(self);
   v6 = v3[2](v3);
   [(TUAnimationAffineTransformFunction *)self setCFunction:v6];
 
-  [(TUAnimationAffineTransformFunction *)self startValue];
-  [(TUAnimationAffineTransformFunction *)self endValue];
+  objc_msgSend_startValue(self);
+  objc_msgSend_endValue(self);
   v7 = v3[2](v3);
   [(TUAnimationAffineTransformFunction *)self setDFunction:v7];
 
-  [(TUAnimationAffineTransformFunction *)self startValue];
-  [(TUAnimationAffineTransformFunction *)self endValue];
+  objc_msgSend_startValue(self);
+  objc_msgSend_endValue(self);
   v8 = v3[2](v3);
   [(TUAnimationAffineTransformFunction *)self setTxFunction:v8];
 
-  [(TUAnimationAffineTransformFunction *)self startValue];
-  [(TUAnimationAffineTransformFunction *)self endValue];
+  objc_msgSend_startValue(self);
+  objc_msgSend_endValue(self);
   v9 = v3[2](v3);
   [(TUAnimationAffineTransformFunction *)self setTyFunction:v9];
 }

@@ -470,7 +470,7 @@
         v18 = v17;
       }
 
-      std::vector<float>::__vallocate[abi:ne200100]((v4 + 120), v18);
+      std::vector<float>::__vallocate[abi:ne200100](v4 + 15, v18);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();

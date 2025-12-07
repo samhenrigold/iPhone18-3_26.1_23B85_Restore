@@ -14,7 +14,7 @@
 - (BOOL)validateOperation
 {
   selfCopy = self;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self && self->_database)
   {
     goto LABEL_5;
@@ -22,16 +22,16 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feed query must have a database"];
-    v11 = 136315906;
-    v12 = "[FCCKMultiFeedQueryOperation validateOperation]";
-    v13 = 2080;
-    v14 = "FCCKMultiFeedQueryOperation.m";
-    v15 = 1024;
-    v16 = 81;
-    v17 = 2114;
-    v18 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feed query must have a database"];
+    v10 = 136315906;
+    v11 = "[FCCKMultiFeedQueryOperation validateOperation]";
+    v12 = 2080;
+    v13 = "FCCKMultiFeedQueryOperation.m";
+    v14 = 1024;
+    v15 = 81;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
 
     if (selfCopy)
     {
@@ -53,42 +53,42 @@ LABEL_5:
 LABEL_6:
   if (![(NSArray *)feedRequests count]&& os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feed query must have at least one feed request"];
-    v11 = 136315906;
-    v12 = "[FCCKMultiFeedQueryOperation validateOperation]";
-    v13 = 2080;
-    v14 = "FCCKMultiFeedQueryOperation.m";
-    v15 = 1024;
-    v16 = 82;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feed query must have at least one feed request"];
+    v10 = 136315906;
+    v11 = "[FCCKMultiFeedQueryOperation validateOperation]";
+    v12 = 2080;
+    v13 = "FCCKMultiFeedQueryOperation.m";
+    v14 = 1024;
+    v15 = 82;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
   }
 
   if (!selfCopy || !selfCopy->_resultsLimit)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feed query must have a non-zero results limit"];
-      v11 = 136315906;
-      v12 = "[FCCKMultiFeedQueryOperation validateOperation]";
-      v13 = 2080;
-      v14 = "FCCKMultiFeedQueryOperation.m";
-      v15 = 1024;
-      v16 = 83;
-      v17 = 2114;
-      v18 = v9;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feed query must have a non-zero results limit"];
+      v10 = 136315906;
+      v11 = "[FCCKMultiFeedQueryOperation validateOperation]";
+      v12 = 2080;
+      v13 = "FCCKMultiFeedQueryOperation.m";
+      v14 = 1024;
+      v15 = 83;
+      v16 = 2114;
+      v17 = v8;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
 
       if (!selfCopy)
       {
-        goto LABEL_19;
+        return selfCopy;
       }
     }
 
     else if (!selfCopy)
     {
-      goto LABEL_19;
+      return selfCopy;
     }
   }
 
@@ -112,15 +112,13 @@ LABEL_6:
     LOBYTE(selfCopy) = 0;
   }
 
-LABEL_19:
-  v6 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)prepareOperation
 {
   selfCopy = self;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = self->_feedRequests;
@@ -128,16 +126,16 @@ LABEL_19:
 
   if ([(FCCKMultiFeedQueryOperation *)self count]>= 0x191 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"exceeded maximum number of feed requests"];
-    v12 = 136315906;
-    v13 = "[FCCKMultiFeedQueryOperation prepareOperation]";
-    v14 = 2080;
-    v15 = "FCCKMultiFeedQueryOperation.m";
-    v16 = 1024;
-    v17 = 91;
-    v18 = 2114;
-    v19 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"exceeded maximum number of feed requests"];
+    v11 = 136315906;
+    v12 = "[FCCKMultiFeedQueryOperation prepareOperation]";
+    v13 = 2080;
+    v14 = "FCCKMultiFeedQueryOperation.m";
+    v15 = 1024;
+    v16 = 91;
+    v17 = 2114;
+    v18 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
 
     if (selfCopy)
     {
@@ -175,20 +173,18 @@ LABEL_7:
     v7 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = v7;
+      v9 = v7;
       shortOperationDescription = [(FCOperation *)selfCopy shortOperationDescription];
-      v12 = 138543362;
-      v13 = shortOperationDescription;
-      _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "%{public}@ dropping feeds because the limit was exeeded", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = shortOperationDescription;
+      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ dropping feeds because the limit was exeeded", &v11, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performOperation
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -288,7 +284,7 @@ LABEL_7:
     *&buf[12] = 2048;
     *&buf[14] = resultsLimit;
     *&buf[22] = 2112;
-    v53 = v21;
+    v52 = v21;
     _os_log_debug_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ issuing query with results limit %lu: %@", buf, 0x20u);
   }
 
@@ -373,34 +369,34 @@ LABEL_32:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v53 = __Block_byref_object_copy__22;
-  v54 = __Block_byref_object_dispose__22;
+  v52 = __Block_byref_object_copy__22;
+  v53 = __Block_byref_object_dispose__22;
   array2 = [MEMORY[0x1E695DF70] array];
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x3032000000;
-  v50[3] = __Block_byref_object_copy__22;
-  v50[4] = __Block_byref_object_dispose__22;
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x3032000000;
+  v49[3] = __Block_byref_object_copy__22;
+  v49[4] = __Block_byref_object_dispose__22;
   array3 = [MEMORY[0x1E695DF70] array];
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x3032000000;
-  v48[3] = __Block_byref_object_copy__22;
-  v48[4] = __Block_byref_object_dispose__22;
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x3032000000;
+  v47[3] = __Block_byref_object_copy__22;
+  v47[4] = __Block_byref_object_dispose__22;
   array4 = [MEMORY[0x1E695DF70] array];
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x3032000000;
-  v46[3] = __Block_byref_object_copy__22;
-  v46[4] = __Block_byref_object_dispose__22;
-  v47 = 0;
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x3032000000;
+  v45[3] = __Block_byref_object_copy__22;
+  v45[4] = __Block_byref_object_dispose__22;
+  v46 = 0;
   newValue[0] = MEMORY[0x1E69E9820];
   newValue[1] = 3221225472;
   newValue[2] = __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke;
   newValue[3] = &unk_1E7C3B3B0;
-  newValue[4] = v46;
-  newValue[5] = v50;
-  newValue[6] = v48;
+  newValue[4] = v45;
+  newValue[5] = v49;
+  newValue[6] = v47;
   newValue[7] = buf;
   if (v24)
   {
@@ -408,32 +404,31 @@ LABEL_32:
   }
 
   objc_initWeak(&location, v24);
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2;
-  v42[3] = &unk_1E7C3B3D8;
-  v42[4] = self;
-  v42[5] = buf;
-  v42[6] = v50;
-  v42[7] = v46;
-  v42[8] = v48;
-  objc_copyWeak(&v43, &location);
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2;
+  v41[3] = &unk_1E7C3B3D8;
+  v41[4] = self;
+  v41[5] = buf;
+  v41[6] = v49;
+  v41[7] = v45;
+  v41[8] = v47;
+  objc_copyWeak(&v42, &location);
   if (v24)
   {
-    objc_setProperty_nonatomic_copy(v24, v40, v42, 424);
+    objc_setProperty_nonatomic_copy(v24, v40, v41, 424);
   }
 
   [(FCOperation *)self associateChildOperation:v24];
   [v24 start];
-  objc_destroyWeak(&v43);
+  objc_destroyWeak(&v42);
   objc_destroyWeak(&location);
-  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(v45, 8);
 
-  _Block_object_dispose(v48, 8);
-  _Block_object_dispose(v50, 8);
+  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(v49, 8);
 
   _Block_object_dispose(buf, 8);
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke(void *a1, void *a2)
@@ -477,9 +472,9 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke(void *a1, 
   }
 }
 
-void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t *a1, void *a2, void *a3)
+void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v190 = *MEMORY[0x1E69E9840];
+  v189 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCOperationLog;
@@ -493,18 +488,18 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
     v115 = [*(*(a1[6] + 8) + 40) count];
     v116 = *(*(a1[7] + 8) + 40);
     *buf = 138544130;
-    v185 = v112;
-    v186 = 2048;
-    v187 = v114;
+    v184 = v112;
+    v185 = 2048;
+    v186 = v114;
     v6 = v113;
-    v188 = 2048;
-    *v189 = v115;
-    *&v189[8] = 2112;
-    *&v189[10] = v116;
+    v187 = 2048;
+    *v188 = v115;
+    *&v188[8] = 2112;
+    *&v188[10] = v116;
     _os_log_debug_impl(&dword_1B63EF000, v111, OS_LOG_TYPE_DEBUG, "%{public}@ received response with %lu FeedItemAndArticleRecords, %lu TagRecords and Results record: %@", buf, 0x2Au);
   }
 
-  v146 = a1;
+  v145 = a1;
   if (v6)
   {
     v8 = FCErrorForCKError(v6);
@@ -520,13 +515,13 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
     {
       v117 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must always have a Results record"];
       *buf = 136315906;
-      v185 = "[FCCKMultiFeedQueryOperation performOperation]_block_invoke";
-      v186 = 2080;
-      v187 = "FCCKMultiFeedQueryOperation.m";
-      v188 = 1024;
-      *v189 = 147;
-      *&v189[4] = 2114;
-      *&v189[6] = v117;
+      v184 = "[FCCKMultiFeedQueryOperation performOperation]_block_invoke";
+      v185 = 2080;
+      v186 = "FCCKMultiFeedQueryOperation.m";
+      v187 = 1024;
+      *v188 = 147;
+      *&v188[4] = 2114;
+      *&v188[6] = v117;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       v9 = *(*(a1[7] + 8) + 40);
@@ -543,35 +538,35 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
   v12 = *(*(a1[6] + 8) + 40);
   v13 = *(*(a1[8] + 8) + 40);
   v14 = v9;
-  v140 = v11;
+  v139 = v11;
   v15 = v11;
-  v141 = v12;
-  v144 = v12;
+  v140 = v12;
+  v143 = v12;
+  v141 = v13;
   v142 = v13;
-  v143 = v13;
-  v151 = v10;
+  v150 = v10;
   if (v10)
   {
-    v145 = [v14 objectForKeyedSubscript:@"droppedFeeds"];
-    if ([v145 unsignedIntegerValue])
+    v144 = [v14 objectForKeyedSubscript:@"droppedFeeds"];
+    if ([v144 unsignedIntegerValue])
     {
       v16 = FCOperationLog;
       if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
       {
         v17 = v16;
-        [v151 shortOperationDescription];
+        [v150 shortOperationDescription];
         v19 = v18 = v14;
-        v20 = [v145 unsignedIntegerValue];
+        v20 = [v144 unsignedIntegerValue];
         v21 = v5;
-        v22 = *(v151 + 376);
+        v22 = *(v150 + 376);
         v23 = [v22 count];
         *buf = 138543874;
-        v185 = v19;
-        v186 = 2048;
-        v187 = v20;
+        v184 = v19;
+        v185 = 2048;
+        v186 = v20;
         v6 = 0;
-        v188 = 2048;
-        *v189 = v23;
+        v187 = 2048;
+        *v188 = v23;
         _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ %lu of %lu feeds were dropped", buf, 0x20u);
 
         v5 = v21;
@@ -579,64 +574,64 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
       }
     }
 
-    v138 = v6;
-    v157 = [MEMORY[0x1E695DF70] array];
+    v137 = v6;
+    v156 = [MEMORY[0x1E695DF70] array];
     v24 = [v14 objectForKeyedSubscript:@"reachedMinOrder"];
-    v150 = [(FCCKMultiFeedQueryOperation *)v151 _feedRelativeDictionaryFromResultsArray:v24];
+    v149 = [(FCCKMultiFeedQueryOperation *)v150 _feedRelativeDictionaryFromResultsArray:v24];
 
     v25 = [v14 objectForKeyedSubscript:@"reachedEnd"];
-    v149 = [(FCCKMultiFeedQueryOperation *)v151 _feedRelativeDictionaryFromResultsArray:v25];
+    v148 = [(FCCKMultiFeedQueryOperation *)v150 _feedRelativeDictionaryFromResultsArray:v25];
 
     v26 = [v14 objectForKeyedSubscript:@"cursor"];
-    v148 = [(FCCKMultiFeedQueryOperation *)v151 _feedRelativeDictionaryFromResultsArray:v26];
+    v147 = [(FCCKMultiFeedQueryOperation *)v150 _feedRelativeDictionaryFromResultsArray:v26];
 
     v27 = [v14 objectForKeyedSubscript:@"topOrder"];
-    v147 = [(FCCKMultiFeedQueryOperation *)v151 _feedRelativeDictionaryFromResultsArray:v27];
+    v146 = [(FCCKMultiFeedQueryOperation *)v150 _feedRelativeDictionaryFromResultsArray:v27];
 
-    v137 = v14;
+    v136 = v14;
     v28 = [v14 objectForKeyedSubscript:@"feedDropped"];
-    v156 = [(FCCKMultiFeedQueryOperation *)v151 _feedRelativeDictionaryFromResultsArray:v28];
+    v155 = [(FCCKMultiFeedQueryOperation *)v150 _feedRelativeDictionaryFromResultsArray:v28];
 
     v29 = [MEMORY[0x1E695DF90] dictionary];
     v30 = [MEMORY[0x1E695DF90] dictionary];
+    v163 = 0u;
     v164 = 0u;
     v165 = 0u;
     v166 = 0u;
-    v167 = 0u;
-    v136 = v15;
+    v135 = v15;
     obj = v15;
-    v31 = [obj countByEnumeratingWithState:&v164 objects:buf count:16];
-    v158 = v30;
-    v139 = v5;
+    v31 = [obj countByEnumeratingWithState:&v163 objects:buf count:16];
+    v157 = v30;
+    v138 = v5;
     if (v31)
     {
       v32 = v31;
       v33 = 0;
-      v154 = *v165;
+      v153 = *v164;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v165 != v154)
+          if (*v164 != v153)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = *(*(&v164 + 1) + 8 * i);
+          v35 = *(*(&v163 + 1) + 8 * i);
           v36 = [v35 objectForKeyedSubscript:@"articleID"];
 
           if (!v36 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feedItemAndArticle must always have an ArticleID, this is a CloudKit issue please file a radar, record: %@", v35];
-            *v176 = 136315906;
-            v177 = "[FCCKMultiFeedQueryOperation _processResultsRecord:feedItemAndArticleRecords:tagRecords:issueRecords:]";
-            v178 = 2080;
-            v179 = "FCCKMultiFeedQueryOperation.m";
-            v180 = 1024;
-            v181 = 289;
-            v182 = 2114;
-            v183 = v49;
-            _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v176, 0x26u);
+            *v175 = 136315906;
+            v176 = "[FCCKMultiFeedQueryOperation _processResultsRecord:feedItemAndArticleRecords:tagRecords:issueRecords:]";
+            v177 = 2080;
+            v178 = "FCCKMultiFeedQueryOperation.m";
+            v179 = 1024;
+            v180 = 289;
+            v181 = 2114;
+            v182 = v49;
+            _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v175, 0x26u);
           }
 
           v37 = [v35 objectForKeyedSubscript:@"tagID"];
@@ -644,15 +639,15 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
           if (!v37 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"feedItemAndArticle must always have a FeedID (currently named TagID), this is a CloudKit issue please file a radar, record: %@", v35];
-            *v176 = 136315906;
-            v177 = "[FCCKMultiFeedQueryOperation _processResultsRecord:feedItemAndArticleRecords:tagRecords:issueRecords:]";
-            v178 = 2080;
-            v179 = "FCCKMultiFeedQueryOperation.m";
-            v180 = 1024;
-            v181 = 290;
-            v182 = 2114;
-            v183 = v50;
-            _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v176, 0x26u);
+            *v175 = 136315906;
+            v176 = "[FCCKMultiFeedQueryOperation _processResultsRecord:feedItemAndArticleRecords:tagRecords:issueRecords:]";
+            v177 = 2080;
+            v178 = "FCCKMultiFeedQueryOperation.m";
+            v179 = 1024;
+            v180 = 290;
+            v181 = 2114;
+            v182 = v50;
+            _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v175, 0x26u);
           }
 
           v38 = [v35 objectForKeyedSubscript:@"tagID"];
@@ -695,10 +690,10 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
             v33 = v42;
           }
 
-          v30 = v158;
+          v30 = v157;
         }
 
-        v32 = [obj countByEnumeratingWithState:&v164 objects:buf count:16];
+        v32 = [obj countByEnumeratingWithState:&v163 objects:buf count:16];
       }
 
       while (v32);
@@ -709,30 +704,30 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
       v33 = 0;
     }
 
-    v162 = 0u;
-    v163 = 0u;
-    v160 = 0u;
     v161 = 0u;
-    v155 = *(v151 + 376);
-    v51 = [v155 countByEnumeratingWithState:&v160 objects:v176 count:16];
+    v162 = 0u;
+    v159 = 0u;
+    v160 = 0u;
+    v154 = *(v150 + 376);
+    v51 = [v154 countByEnumeratingWithState:&v159 objects:v175 count:16];
     if (v51)
     {
       v52 = v51;
-      v53 = *v161;
+      v53 = *v160;
       v54 = off_1E7C34000;
-      v152 = *v161;
+      v151 = *v160;
       do
       {
         v55 = 0;
-        v153 = v52;
+        v152 = v52;
         do
         {
-          if (*v161 != v53)
+          if (*v160 != v53)
           {
-            objc_enumerationMutation(v155);
+            objc_enumerationMutation(v154);
           }
 
-          v56 = *(*(&v160 + 1) + 8 * v55);
+          v56 = *(*(&v159 + 1) + 8 * v55);
           v57 = objc_alloc_init(v54[21]);
           if (v56)
           {
@@ -761,7 +756,7 @@ void __47__FCCKMultiFeedQueryOperation_performOperation__block_invoke_2(uint64_t
           }
 
           v62 = v61;
-          v63 = [v156 objectForKeyedSubscript:v62];
+          v63 = [v155 objectForKeyedSubscript:v62];
           v64 = [v63 BOOLValue];
           if (v57)
           {
@@ -805,20 +800,20 @@ LABEL_50:
           }
 
           v69 = v68;
-          v70 = [v147 objectForKeyedSubscript:v69];
+          v70 = [v146 objectForKeyedSubscript:v69];
 
           if (!v70 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"topOrder should never be nil in 15E or later"];
-            *v168 = 136315906;
-            v169 = "[FCCKMultiFeedQueryOperation _processResultsRecord:feedItemAndArticleRecords:tagRecords:issueRecords:]";
-            v170 = 2080;
-            v171 = "FCCKMultiFeedQueryOperation.m";
-            v172 = 1024;
-            v173 = 317;
-            v174 = 2114;
-            v175 = v97;
-            _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v168, 0x26u);
+            *v167 = 136315906;
+            v168 = "[FCCKMultiFeedQueryOperation _processResultsRecord:feedItemAndArticleRecords:tagRecords:issueRecords:]";
+            v169 = 2080;
+            v170 = "FCCKMultiFeedQueryOperation.m";
+            v171 = 1024;
+            v172 = 317;
+            v173 = 2114;
+            v174 = v97;
+            _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v167, 0x26u);
           }
 
           v71 = [MEMORY[0x1E696AEC0] stringWithFormat:@"@min.%@", @"order"];
@@ -859,7 +854,7 @@ LABEL_50:
           }
 
           v79 = v78;
-          v80 = [v149 objectForKeyedSubscript:v79];
+          v80 = [v148 objectForKeyedSubscript:v79];
           v81 = [v80 BOOLValue];
           if (v57)
           {
@@ -877,7 +872,7 @@ LABEL_50:
           }
 
           v83 = v82;
-          v84 = [v150 objectForKeyedSubscript:v83];
+          v84 = [v149 objectForKeyedSubscript:v83];
           v85 = [v84 BOOLValue];
           if (v57)
           {
@@ -925,7 +920,7 @@ LABEL_72:
           }
 
           v90 = v89;
-          v91 = [v148 objectForKeyedSubscript:v90];
+          v91 = [v147 objectForKeyedSubscript:v90];
           v93 = v91;
           if (v57)
           {
@@ -941,8 +936,8 @@ LABEL_72:
           {
           }
 
-          v53 = v152;
-          if (*(v151 + 400) || !v33)
+          v53 = v151;
+          if (*(v150 + 400) || !v33)
           {
             v96 = [obj count];
             if (v57)
@@ -983,33 +978,33 @@ LABEL_85:
 LABEL_89:
 
           v54 = off_1E7C34000;
-          v52 = v153;
+          v52 = v152;
 LABEL_90:
-          [v157 addObject:v57];
+          [v156 addObject:v57];
 
           ++v55;
         }
 
         while (v52 != v55);
-        v98 = [v155 countByEnumeratingWithState:&v160 objects:v176 count:16];
+        v98 = [v154 countByEnumeratingWithState:&v159 objects:v175 count:16];
         v52 = v98;
       }
 
       while (v98);
     }
 
-    objc_storeStrong((v151 + 440), v140);
-    objc_storeStrong((v151 + 464), v157);
-    objc_storeStrong((v151 + 448), v141);
-    objc_storeStrong((v151 + 456), v142);
+    objc_storeStrong((v150 + 440), v139);
+    objc_storeStrong((v150 + 464), v156);
+    objc_storeStrong((v150 + 448), v140);
+    objc_storeStrong((v150 + 456), v141);
 
-    v6 = v138;
-    v5 = v139;
-    v15 = v136;
-    v14 = v137;
+    v6 = v137;
+    v5 = v138;
+    v15 = v135;
+    v14 = v136;
   }
 
-  a1 = v146;
+  a1 = v145;
 LABEL_109:
   v99 = a1[4];
   if (v99)
@@ -1022,7 +1017,7 @@ LABEL_109:
         v101 = v6;
         v102 = v100;
         v103 = [v99 shortOperationDescription];
-        WeakRetained = objc_loadWeakRetained(v146 + 9);
+        WeakRetained = objc_loadWeakRetained(v145 + 9);
         v105 = WeakRetained;
         v106 = v5;
         if (WeakRetained)
@@ -1038,11 +1033,11 @@ LABEL_109:
         v108 = v107;
         v109 = [v108 firstObject];
         *buf = 138543874;
-        v185 = v103;
-        v186 = 2114;
-        v187 = v101;
-        v188 = 2114;
-        *v189 = v109;
+        v184 = v103;
+        v185 = 2114;
+        v186 = v101;
+        v187 = 2114;
+        *v188 = v109;
         _os_log_error_impl(&dword_1B63EF000, v102, OS_LOG_TYPE_ERROR, "%{public}@ query failed with error: %{public}@, request UUID: %{public}@", buf, 0x20u);
 
         v6 = v101;
@@ -1063,7 +1058,7 @@ LABEL_109:
     v118 = v6;
     v119 = v100;
     v120 = [v99 shortOperationDescription];
-    v121 = objc_loadWeakRetained(v146 + 9);
+    v121 = objc_loadWeakRetained(v145 + 9);
     v122 = v121;
     v123 = v5;
     if (v121)
@@ -1079,9 +1074,9 @@ LABEL_109:
     v125 = v124;
     v126 = [v125 firstObject];
     *buf = 138543618;
-    v185 = v120;
-    v186 = 2114;
-    v187 = v126;
+    v184 = v120;
+    v185 = 2114;
+    v186 = v126;
     _os_log_impl(&dword_1B63EF000, v119, OS_LOG_TYPE_DEFAULT, "%{public}@ query succeeded with request UUID: %{public}@", buf, 0x16u);
 
     v5 = v123;
@@ -1089,7 +1084,7 @@ LABEL_109:
   }
 
 LABEL_121:
-  v127 = objc_loadWeakRetained(v146 + 9);
+  v127 = objc_loadWeakRetained(v145 + 9);
   v128 = v127;
   if (v127)
   {
@@ -1102,13 +1097,13 @@ LABEL_121:
   }
 
   v131 = v129;
-  v132 = v146[4];
+  v132 = v145[4];
   if (v132)
   {
     objc_setProperty_nonatomic_copy(v132, v130, v131, 432);
   }
 
-  v133 = v146[4];
+  v133 = v145[4];
   if (v133)
   {
     v134 = v133[59];
@@ -1120,8 +1115,6 @@ LABEL_121:
   }
 
   [v133 finishedPerformingOperationWithError:v134];
-
-  v135 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setResultError:(uint64_t)error
@@ -1147,7 +1140,7 @@ LABEL_121:
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = FCOperationLog;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1163,13 +1156,13 @@ LABEL_121:
       resultFeedResponses = 0;
     }
 
-    v16 = resultFeedResponses;
-    v17 = [(NSArray *)v16 description];
-    v18 = 138543618;
-    v19 = shortOperationDescription;
-    v20 = 2112;
-    v21 = v17;
-    _os_log_debug_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ finished with feed responses: %@", &v18, 0x16u);
+    v15 = resultFeedResponses;
+    v16 = [(NSArray *)v15 description];
+    v17 = 138543618;
+    v18 = shortOperationDescription;
+    v19 = 2112;
+    v20 = v16;
+    _os_log_debug_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ finished with feed responses: %@", &v17, 0x16u);
   }
 
   if (self)
@@ -1195,39 +1188,37 @@ LABEL_121:
       v7[2](v7, v8, v9, v10, v11, resultError);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_predicateForPerFeedFieldName:(void *)name key:(void *)key defaultValue:
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v24 = a2;
+  v37 = *MEMORY[0x1E69E9840];
+  v23 = a2;
   nameCopy = name;
   keyCopy = key;
   array = [MEMORY[0x1E695DF70] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v10 = *(self + 376);
-  v11 = [v10 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     v14 = MEMORY[0x1E69E9C10];
     do
     {
       v15 = 0;
       do
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = [*(*(&v25 + 1) + 8 * v15) valueForKey:nameCopy];
+        v16 = [*(*(&v24 + 1) + 8 * v15) valueForKey:nameCopy];
         if (v16)
         {
           v17 = array;
@@ -1248,13 +1239,13 @@ LABEL_10:
         {
           v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "defaultValue"];
           *buf = 136315906;
-          v30 = "[FCCKMultiFeedQueryOperation _predicateForPerFeedFieldName:key:defaultValue:]";
-          v31 = 2080;
-          v32 = "FCCKMultiFeedQueryOperation.m";
-          v33 = 1024;
-          v34 = 240;
-          v35 = 2114;
-          v36 = v19;
+          v29 = "[FCCKMultiFeedQueryOperation _predicateForPerFeedFieldName:key:defaultValue:]";
+          v30 = 2080;
+          v31 = "FCCKMultiFeedQueryOperation.m";
+          v32 = 1024;
+          v33 = 240;
+          v34 = 2114;
+          v35 = v19;
           _os_log_error_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -1264,16 +1255,14 @@ LABEL_11:
       }
 
       while (v12 != v15);
-      v20 = [v10 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v20 = [v10 countByEnumeratingWithState:&v24 objects:v36 count:16];
       v12 = v20;
     }
 
     while (v20);
   }
 
-  v21 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%@ CONTAINS %K", array, v24];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%@ CONTAINS %K", array, v23];
 
   return v21;
 }
@@ -1289,22 +1278,22 @@ uint64_t __44__FCCKMultiFeedQueryOperation__requiredKeys__block_invoke_2()
 
 - (id)_feedRelativeDictionaryFromResultsArray:(uint64_t)array
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count])
   {
     v4 = [v3 count];
     if (v4 != [*(array + 376) count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"results don't align with feed IDs"];
+      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"results don't align with feed IDs"];
       *buf = 136315906;
-      v14 = "[FCCKMultiFeedQueryOperation _feedRelativeDictionaryFromResultsArray:]";
-      v15 = 2080;
-      v16 = "FCCKMultiFeedQueryOperation.m";
-      v17 = 1024;
-      v18 = 361;
-      v19 = 2114;
-      v20 = v9;
+      v13 = "[FCCKMultiFeedQueryOperation _feedRelativeDictionaryFromResultsArray:]";
+      v14 = 2080;
+      v15 = "FCCKMultiFeedQueryOperation.m";
+      v16 = 1024;
+      v17 = 361;
+      v18 = 2114;
+      v19 = v8;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
@@ -1313,16 +1302,14 @@ uint64_t __44__FCCKMultiFeedQueryOperation__requiredKeys__block_invoke_2()
   if ([v3 count])
   {
     v6 = *(array + 376);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __71__FCCKMultiFeedQueryOperation__feedRelativeDictionaryFromResultsArray___block_invoke;
-    v10[3] = &unk_1E7C3B400;
-    v11 = v3;
-    v12 = dictionary;
-    [v6 enumerateObjectsUsingBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __71__FCCKMultiFeedQueryOperation__feedRelativeDictionaryFromResultsArray___block_invoke;
+    v9[3] = &unk_1E7C3B400;
+    v10 = v3;
+    v11 = dictionary;
+    [v6 enumerateObjectsUsingBlock:v9];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

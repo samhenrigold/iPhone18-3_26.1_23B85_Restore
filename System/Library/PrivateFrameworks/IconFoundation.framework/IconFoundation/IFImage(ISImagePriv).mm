@@ -13,7 +13,7 @@
     v4 = [IFGraphicsContext presetFromCGImage:[(IFImage *)self CGImage]];
     if (v4 == 8)
     {
-      v5 = IFDefaultLog();
+      v5 = IFDefaultLog(8);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [IFImage(ISImagePriv) data];
@@ -35,7 +35,7 @@
     data = [v11 data];
     if (!data)
     {
-      v17 = IFDefaultLog();
+      v17 = IFDefaultLog(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [(IFImage(ISImagePriv) *)self data];

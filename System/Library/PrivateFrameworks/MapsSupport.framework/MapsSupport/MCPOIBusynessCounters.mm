@@ -63,9 +63,9 @@ LABEL_8:
 
 - (MCPOIBusynessCounters)init
 {
-  v16.receiver = self;
-  v16.super_class = MCPOIBusynessCounters;
-  v2 = [(MCPOIBusynessCounters *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = MCPOIBusynessCounters;
+  v2 = [(MCPOIBusynessCounters *)&v15 init];
   if (v2)
   {
     v3 = geo_dispatch_queue_create_with_qos();
@@ -87,16 +87,15 @@ LABEL_8:
     dispatch_source_set_timer(*(v2 + 3), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
     objc_initWeak(&location, v2);
     v10 = *(v2 + 3);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100008864;
-    v13[3] = &unk_10001D6F8;
-    objc_copyWeak(&v14, &location);
-    dispatch_source_set_event_handler(v10, v13);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100008864;
+    v12[3] = &unk_10001D6F8;
+    objc_copyWeak(&v13, &location);
+    dispatch_source_set_event_handler(v10, v12);
     dispatch_activate(*(v2 + 3));
-    v11 = *(v2 + 2);
     GEORegisterPListStateCaptureLegacy();
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
 
@@ -285,7 +284,7 @@ LABEL_8:
   {
     if (!isDirtyTransaction)
     {
-      v6 = _GEOCreateTransaction();
+      v6 = _GEOCreateTransaction("com.apple.geo.com.apple.Maps.MCPOIBusynessCounters.%p", self);
       v7 = self->_isDirtyTransaction;
       self->_isDirtyTransaction = v6;
     }

@@ -25,35 +25,35 @@
 
 - (id)urlRequest
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = AAiCloudTermsAgreeRequest;
-  urlRequest = [(AARequest *)&v23 urlRequest];
+  v27 = *MEMORY[0x1E69E9840];
+  v24.receiver = self;
+  v24.super_class = AAiCloudTermsAgreeRequest;
+  urlRequest = [(AARequest *)&v24 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"POST"];
   [v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
-  [v4 aa_addAuthTokenOrBasicAuthHeaderWithAccount:self->_account preferUsingPassword:self->_preferPassword];
+  v5 = [v4 aa_addAuthTokenOrBasicAuthHeaderWithAccount:self->_account preferUsingPassword:self->_preferPassword];
   if (self->_account)
   {
     defaultStore = [MEMORY[0x1E6959A48] defaultStore];
     aa_altDSID = [(ACAccount *)self->_account aa_altDSID];
-    v7 = [defaultStore aida_accountForAltDSID:aa_altDSID];
+    v8 = [defaultStore aida_accountForAltDSID:aa_altDSID];
 
     defaultStore2 = [MEMORY[0x1E6959A48] defaultStore];
-    v9 = [defaultStore2 credentialForAccount:v7 serviceID:@"com.apple.gs.icloud.family.auth"];
+    v10 = [defaultStore2 credentialForAccount:v8 serviceID:@"com.apple.gs.icloud.family.auth"];
 
-    token = [v9 token];
-    aida_alternateDSID = [v7 aida_alternateDSID];
+    token = [v10 token];
+    aida_alternateDSID = [v8 aida_alternateDSID];
     [v4 aa_addGrandslamAuthorizationHeaderWithAltDSID:aida_alternateDSID grandslamToken:token];
   }
 
   else
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AALogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [AAiCloudTermsAgreeRequest urlRequest];
+      [(AAiCloudTermsAgreeRequest *)self urlRequest];
     }
   }
 
@@ -62,37 +62,36 @@
   if (additionalHeaders)
   {
     additionalHeaders2 = [(AAiCloudTermsAgreeRequest *)self additionalHeaders];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __39__AAiCloudTermsAgreeRequest_urlRequest__block_invoke;
-    v21[3] = &unk_1E7C9C428;
-    v22 = v4;
-    [additionalHeaders2 enumerateKeysAndObjectsUsingBlock:v21];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __39__AAiCloudTermsAgreeRequest_urlRequest__block_invoke;
+    v22[3] = &unk_1E7C9C428;
+    v23 = v4;
+    [additionalHeaders2 enumerateKeysAndObjectsUsingBlock:v22];
   }
 
-  v14 = objc_opt_new();
-  v15 = v14;
+  v15 = objc_opt_new();
+  v16 = v15;
   serverInfo = self->_serverInfo;
   if (serverInfo)
   {
-    [v14 setObject:serverInfo forKeyedSubscript:@"serverInfo"];
+    [v15 setObject:serverInfo forKeyedSubscript:@"serverInfo"];
   }
 
-  if ([v15 count])
+  v18 = [v16 count];
+  if (v18)
   {
-    [v4 aa_setBodyWithParameters:v15];
+    v18 = [v4 aa_setBodyWithParameters:v16];
   }
 
-  v17 = _AALogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = _AALogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [v4 description];
+    v20 = [v4 description];
     *buf = 138412290;
-    v25 = v18;
-    _os_log_impl(&dword_1B6F6A000, v17, OS_LOG_TYPE_DEFAULT, "Terms Agree Request is: %@", buf, 0xCu);
+    v26 = v20;
+    _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Terms Agree Request is: %@", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -127,24 +126,24 @@ void __55__AAiCloudTermsAgreeRequest_performRequestWithHandler___block_invoke(ui
 
   if (v12)
   {
-    v13 = _AALogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = _AALogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      __55__AAiCloudTermsAgreeRequest_performRequestWithHandler___block_invoke_cold_1(v13);
+      __55__AAiCloudTermsAgreeRequest_performRequestWithHandler___block_invoke_cold_1(v14);
     }
 
-    v14 = [v10 mutableCopy];
-    v15 = [WeakRetained slaVersion];
-    [v14 setObject:v15 forKeyedSubscript:@"SLAVersion"];
+    v15 = [v10 mutableCopy];
+    v16 = [WeakRetained slaVersion];
+    [v15 setObject:v16 forKeyedSubscript:@"SLAVersion"];
 
-    v16 = [v14 copy];
-    v10 = v16;
+    v17 = [v15 copy];
+    v10 = v17;
   }
 
   if ([v8 statusCode] >= 200 && objc_msgSend(v8, "statusCode") <= 299 && v10)
   {
-    v17 = objc_opt_new();
-    [v17 saveTermsAcceptance:v10 forAccount:WeakRetained[8]];
+    v18 = objc_opt_new();
+    [v18 saveTermsAcceptance:v10 forAccount:WeakRetained[8]];
   }
 
   (*(*(a1 + 32) + 16))();
@@ -152,11 +151,10 @@ void __55__AAiCloudTermsAgreeRequest_performRequestWithHandler___block_invoke(ui
 
 - (void)urlRequest
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
 }
 
 @end

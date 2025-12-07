@@ -104,16 +104,16 @@
 
 void __102__NPKExpressPassController_initWithPaymentService_passLibrary_distributedNotificationCenter_delegate___block_invoke(uint64_t a1)
 {
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Got express passes changed notification in express pass controller", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Got express passes changed notification in express pass controller", v7, 2u);
     }
   }
 
@@ -179,7 +179,7 @@ void __102__NPKExpressPassController_initWithPaymentService_passLibrary_distribu
 
 - (void)_transitionToStatus:(unint64_t)status forExpressPass:(id)pass paymentApplicationIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
@@ -193,25 +193,25 @@ void __102__NPKExpressPassController_initWithPaymentService_passLibrary_distribu
   {
     uniqueID = [passCopy uniqueID];
     uniqueID2 = [(PKPass *)self->_currentTransactionPass uniqueID];
-    v14 = [uniqueID isEqualToString:uniqueID2];
+    v15 = [uniqueID isEqualToString:uniqueID2];
 
-    if (!v14)
+    if (!v15)
     {
-      v21 = pk_Payment_log();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+      v23 = pk_Payment_log(v11);
+      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-      if (v22)
+      if (v24)
       {
-        v17 = pk_Payment_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = pk_Payment_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           uniqueID3 = [(PKPass *)self->_currentTransactionPass uniqueID];
           uniqueID4 = [passCopy uniqueID];
-          v34 = 138412546;
+          v36 = 138412546;
           selfCopy = uniqueID3;
-          v36 = 2112;
-          v37 = uniqueID4;
-          _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Warning: Accepting new express status because express transit pass changed from %@ to %@.", &v34, 0x16u);
+          v38 = 2112;
+          v39 = uniqueID4;
+          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: Accepting new express status because express transit pass changed from %@ to %@.", &v36, 0x16u);
         }
 
         goto LABEL_18;
@@ -230,89 +230,88 @@ void __102__NPKExpressPassController_initWithPaymentService_passLibrary_distribu
       goto LABEL_33;
     }
 
-    v19 = pk_Payment_log();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v21 = pk_Payment_log(v11);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-    if (!v20)
+    if (!v22)
     {
       goto LABEL_19;
     }
 
-    v17 = pk_Payment_log();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = pk_Payment_log(v18);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_18;
     }
 
-    LOWORD(v34) = 0;
-    v18 = "Notice: Accepting reset of express status.";
+    LOWORD(v36) = 0;
+    v20 = "Notice: Accepting reset of express status.";
     goto LABEL_14;
   }
 
-  v15 = pk_Payment_log();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = pk_Payment_log(v11);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-  if (v16)
+  if (v17)
   {
-    v17 = pk_Payment_log();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = pk_Payment_log(v18);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_18:
 
       goto LABEL_19;
     }
 
-    LOWORD(v34) = 0;
-    v18 = "Notice: Accepting new express status because it is greater than the previous express status.";
+    LOWORD(v36) = 0;
+    v20 = "Notice: Accepting new express status because it is greater than the previous express status.";
 LABEL_14:
-    _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, v18, &v34, 2u);
+    _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, v20, &v36, 2u);
     goto LABEL_18;
   }
 
 LABEL_19:
-  v25 = pk_General_log();
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+  v27 = pk_General_log(v18);
+  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
 
-  if (v26)
+  if (v28)
   {
-    v27 = pk_General_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v30 = pk_General_log(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = NSStringFromNPKExpressPassControllerStatus(self->_transactionStatus);
-      v29 = NSStringFromNPKExpressPassControllerStatus(status);
-      v34 = 138412802;
+      v31 = NSStringFromNPKExpressPassControllerStatus(self->_transactionStatus);
+      v32 = NSStringFromNPKExpressPassControllerStatus(status);
+      v36 = 138412802;
       selfCopy = self;
-      v36 = 2112;
-      v37 = v28;
       v38 = 2112;
-      v39 = v29;
-      _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: %@ transition from status %@ to %@", &v34, 0x20u);
+      v39 = v31;
+      v40 = 2112;
+      v41 = v32;
+      _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Notice: %@ transition from status %@ to %@", &v36, 0x20u);
     }
   }
 
   self->_transactionStatus = status;
   objc_storeStrong(&self->_currentTransactionPass, pass);
   delegate = [(NPKExpressPassController *)self delegate];
-  v31 = delegate;
+  v34 = delegate;
   if (passCopy && delegate)
   {
-    v32 = [(NPKExpressPassController *)self _queue_siblingExpressPassesForExpressPass:passCopy applicationIdentifier:identifierCopy];
+    v35 = [(NPKExpressPassController *)self _queue_siblingExpressPassesForExpressPass:passCopy applicationIdentifier:identifierCopy];
     switch(status)
     {
       case 4uLL:
-        [v31 expressPassController:self didCompleteTransactionForPass:passCopy];
+        [v34 expressPassController:self didCompleteTransactionForPass:passCopy];
         break;
       case 3uLL:
-        [v31 expressPassController:self didFailTransactionForPass:passCopy];
+        [v34 expressPassController:self didFailTransactionForPass:passCopy];
         break;
       case 2uLL:
-        [v31 expressPassController:self didStartTransactionForPass:passCopy paymentApplicationIdentifier:identifierCopy siblingExpressPasses:v32];
+        [v34 expressPassController:self didStartTransactionForPass:passCopy paymentApplicationIdentifier:identifierCopy siblingExpressPasses:v35];
         break;
     }
   }
 
 LABEL_33:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToStandaloneTransactionEvent:(unint64_t)event forExpressPass:(id)pass
@@ -364,34 +363,34 @@ LABEL_33:
 
 - (BOOL)_canProceedWithTransactionForPass:(id)pass selector:(SEL)selector
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   passCopy = pass;
+  v7 = passCopy;
   transactionStatus = self->_transactionStatus;
   if (transactionStatus)
   {
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(passCopy);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = NSStringFromSelector(selector);
-        v12 = NSStringFromNPKExpressPassControllerStatus(self->_transactionStatus);
-        uniqueID = [passCopy uniqueID];
-        v16 = 138412802;
-        v17 = v11;
-        v18 = 2112;
-        v19 = v12;
-        v20 = 2112;
-        v21 = uniqueID;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: %@: We're in the middle of some other transaction (transactionStatus: %@). Suppressing event for pass %@.", &v16, 0x20u);
+        v13 = NSStringFromSelector(selector);
+        v14 = NSStringFromNPKExpressPassControllerStatus(self->_transactionStatus);
+        uniqueID = [v7 uniqueID];
+        v17 = 138412802;
+        v18 = v13;
+        v19 = 2112;
+        v20 = v14;
+        v21 = 2112;
+        v22 = uniqueID;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: %@: We're in the middle of some other transaction (transactionStatus: %@). Suppressing event for pass %@.", &v17, 0x20u);
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return transactionStatus == 0;
 }
 
@@ -409,19 +408,18 @@ void __66__NPKExpressPassController__startListeningForExpressNotifications__bloc
 {
   v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) distributedNotificationCenter];
-  [v2 removeObserver:*(a1 + 32)];
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log([v2 removeObserver:*(a1 + 32)]);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
+      v7 = *(a1 + 32);
       v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %@ Start listening for express notifications", &v8, 0xCu);
+      v9 = v7;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %@ Start listening for express notifications", &v8, 0xCu);
     }
   }
 
@@ -431,8 +429,6 @@ void __66__NPKExpressPassController__startListeningForExpressNotifications__bloc
   [v2 addObserver:*(a1 + 32) selector:sel__handlePassesLibraryChangedNotification_ name:*MEMORY[0x277D386D0] object:0];
   [v2 addObserver:*(a1 + 32) selector:sel__handlePassesLibraryChangedNotification_ name:*MEMORY[0x277D386F0] object:0];
   [v2 addObserver:*(a1 + 32) selector:sel__handlePassesLibraryChangedNotification_ name:*MEMORY[0x277D386E8] object:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startListeningForGenericNotifications
@@ -523,62 +519,59 @@ void __66__NPKExpressPassController__startListeningForExpressNotifications__bloc
 void __65__NPKExpressPassController__stopListeningForExpressNotifications__block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %@ Stop listening for express notifications", &v8, 0xCu);
+      v9 = v6;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %@ Stop listening for express notifications", &v8, 0xCu);
     }
   }
 
-  v6 = [*(a1 + 32) distributedNotificationCenter];
-  [v6 removeObserver:*(a1 + 32)];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = [*(a1 + 32) distributedNotificationCenter];
+  [v7 removeObserver:*(a1 + 32)];
 }
 
 - (void)_handleEnterNearFieldNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   kdebug_trace();
   object = [notificationCopy object];
 
   v6 = PKPassAutomaticSelectionTechnologyTypeForExpressEnteredObject();
-  v7 = pk_General_log();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = pk_General_log(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-  if (v8)
+  if (v9)
   {
-    v9 = pk_General_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v13 = v6;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Received Enter Near Field Notification for automatic selection technology type %d", buf, 8u);
+      v14 = v6;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Received Enter Near Field Notification for automatic selection technology type %d", buf, 8u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __62__NPKExpressPassController__handleEnterNearFieldNotification___block_invoke;
-  v11[3] = &unk_279945830;
-  v11[4] = self;
-  v11[5] = v6;
-  NPKGuaranteeMainThread(v11);
-  v10 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __62__NPKExpressPassController__handleEnterNearFieldNotification___block_invoke;
+  v12[3] = &unk_279945830;
+  v12[4] = self;
+  v12[5] = v6;
+  NPKGuaranteeMainThread(v12);
 }
 
 void __62__NPKExpressPassController__handleEnterNearFieldNotification___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _expressPassesInformationWithAutomaticSelectionTechnologyType:*(a1 + 40)];
   if ([v2 count] == 1)
   {
@@ -587,96 +580,97 @@ void __62__NPKExpressPassController__handleEnterNearFieldNotification___block_in
     goto LABEL_3;
   }
 
-  v20 = [v2 count];
-  v21 = pk_General_log();
-  v22 = v21;
-  if (v20 < 2)
+  v24 = [v2 count];
+  v25 = pk_General_log(v24);
+  v26 = v25;
+  if (v24 < 2)
   {
-    v27 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+    v32 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
 
-    if (!v27)
+    if (!v32)
     {
       goto LABEL_4;
     }
 
-    v3 = pk_General_log();
+    v3 = pk_General_log(v33);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_3;
     }
 
-    *v29 = 138412290;
-    *&v29[4] = v2;
-    v24 = "Error: Received Enter Near Field Notification, but no express pass information: %@";
-    v25 = v3;
-    v26 = OS_LOG_TYPE_ERROR;
+    *v34 = 138412290;
+    *&v34[4] = v2;
+    v29 = "Error: Received Enter Near Field Notification, but no express pass information: %@";
+    v30 = v3;
+    v31 = OS_LOG_TYPE_ERROR;
     goto LABEL_25;
   }
 
-  v23 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  v27 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
 
-  if (!v23)
+  if (!v27)
   {
     goto LABEL_4;
   }
 
-  v3 = pk_General_log();
+  v3 = pk_General_log(v28);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v29 = 138412290;
-    *&v29[4] = v2;
-    v24 = "Notice: More than one express pass for this technology type: %@";
-    v25 = v3;
-    v26 = OS_LOG_TYPE_DEFAULT;
+    *v34 = 138412290;
+    *&v34[4] = v2;
+    v29 = "Notice: More than one express pass for this technology type: %@";
+    v30 = v3;
+    v31 = OS_LOG_TYPE_DEFAULT;
 LABEL_25:
-    _os_log_impl(&dword_25B300000, v25, v26, v24, v29, 0xCu);
+    _os_log_impl(&dword_25B300000, v30, v31, v29, v34, 0xCu);
   }
 
 LABEL_3:
 
 LABEL_4:
-  if (![*(a1 + 32) _hasNoTransactionStartOrEndNotificationForTechnologyType:{*(a1 + 40), *v29}])
+  v4 = [*(a1 + 32) _hasNoTransactionStartOrEndNotificationForTechnologyType:{*(a1 + 40), *v34, *&v34[8]}];
+  if (!v4)
   {
     goto LABEL_27;
   }
 
-  v4 = pk_Payment_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = pk_Payment_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v8 = [*(a1 + 32) currentTransactionExpressPassInformation];
-      *v29 = 134218242;
-      *&v29[4] = v7;
-      *&v29[12] = 2112;
-      *&v29[14] = v8;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Technology type: %ld detected. Express passes information: %@", v29, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = [*(a1 + 32) currentTransactionExpressPassInformation];
+      *v34 = 134218242;
+      *&v34[4] = v9;
+      *&v34[12] = 2112;
+      *&v34[14] = v10;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Technology type: %ld detected. Express passes information: %@", v34, 0x16u);
     }
   }
 
-  v9 = [*(a1 + 32) currentTransactionExpressPassInformation];
-
-  if (!v9)
-  {
-    goto LABEL_27;
-  }
-
-  v10 = [*(a1 + 32) currentTransactionExpressPassInformation];
-  v11 = [v10 passUniqueIdentifier];
+  v11 = [*(a1 + 32) currentTransactionExpressPassInformation];
 
   if (!v11)
   {
     goto LABEL_27;
   }
 
-  v12 = [*(a1 + 32) expressPasses];
-  v13 = [v12 objectForKey:v11];
+  v12 = [*(a1 + 32) currentTransactionExpressPassInformation];
+  v13 = [v12 passUniqueIdentifier];
 
   if (!v13)
+  {
+    goto LABEL_27;
+  }
+
+  v14 = [*(a1 + 32) expressPasses];
+  v15 = [v14 objectForKey:v13];
+
+  if (!v15)
   {
 
 LABEL_27:
@@ -684,32 +678,32 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v14 = [*(a1 + 32) currentTransactionExpressPassInformation];
-  v15 = [v14 paymentApplicationIdentifiers];
+  v16 = [*(a1 + 32) currentTransactionExpressPassInformation];
+  v17 = [v16 paymentApplicationIdentifiers];
 
-  if ([v15 count] >= 2)
+  v18 = [v17 count];
+  if (v18 >= 2)
   {
-    v16 = pk_Payment_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v19 = pk_Payment_log(v18);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-    if (v17)
+    if (v20)
     {
-      v18 = pk_Payment_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v22 = pk_Payment_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        *v29 = 0;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Warning: More than one express payment application identifier for a transit pass! This isn't supported.", v29, 2u);
+        *v34 = 0;
+        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Warning: More than one express payment application identifier for a transit pass! This isn't supported.", v34, 2u);
       }
     }
   }
 
-  v19 = [v15 firstObject];
-  [*(a1 + 32) setCurrentApplicationIdentifier:v19];
+  v23 = [v17 firstObject];
+  [*(a1 + 32) setCurrentApplicationIdentifier:v23];
   [*(a1 + 32) setCurrentSubCredentialIdentifier:0];
-  [*(a1 + 32) _transitionToStatus:2 forExpressPass:v13 paymentApplicationIdentifier:v19];
+  [*(a1 + 32) _transitionToStatus:2 forExpressPass:v15 paymentApplicationIdentifier:v23];
 
 LABEL_28:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleExpressTransactionStartNotification:(id)notification
@@ -728,34 +722,32 @@ LABEL_28:
 
 void __71__NPKExpressPassController__handleExpressTransactionStartNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) object];
-  v10 = 0;
   v11 = 0;
-  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&v11 outApplicationKeyIdentifier:&v10];
-  v4 = v11;
-  v5 = v10;
+  v12 = 0;
+  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&v12 outApplicationKeyIdentifier:&v11];
+  v4 = v12;
+  v5 = v11;
 
-  v6 = pk_General_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_General_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction Start Notification for application identifier: %@, application key identifier: %@", buf, 0x16u);
+      v14 = v4;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction Start Notification for application identifier: %@, application key identifier: %@", buf, 0x16u);
     }
   }
 
   [*(a1 + 32) _onqueue_transactionStartedWithApplicationIdentifier:v4 applicationKeyIdentifier:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleExpressTransactionTimeOutNotification:(id)notification
@@ -774,86 +766,85 @@ void __71__NPKExpressPassController__handleExpressTransactionStartNotification__
 
 void __73__NPKExpressPassController__handleExpressTransactionTimeOutNotification___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__14;
-  v22 = __Block_byref_object_dispose__14;
-  v23 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__14;
+  v23 = __Block_byref_object_dispose__14;
+  v24 = 0;
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) object];
-  v5 = (v19 + 5);
-  v4 = v19[5];
-  v16 = 0;
+  v5 = (v20 + 5);
+  v4 = v20[5];
+  v17 = 0;
   obj = v4;
-  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&obj outApplicationKeyIdentifier:&v16];
+  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&obj outApplicationKeyIdentifier:&v17];
   objc_storeStrong(v5, obj);
-  v6 = v16;
+  v6 = v17;
 
-  if (!v19[5])
+  if (!v20[5])
   {
-    v7 = [*(a1 + 32) currentTransactionExpressPassInformation];
-    v8 = v7 == 0;
+    v8 = [*(a1 + 32) currentTransactionExpressPassInformation];
+    v9 = v8 == 0;
 
-    if (!v8)
+    if (!v9)
     {
-      v9 = [*(a1 + 32) currentTransactionExpressPassInformation];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __73__NPKExpressPassController__handleExpressTransactionTimeOutNotification___block_invoke_112;
-      v15[3] = &unk_279948760;
-      v15[4] = *(a1 + 32);
-      v15[5] = &v18;
-      [v9 enumerateCriteriaWithHandler:v15];
+      v10 = [*(a1 + 32) currentTransactionExpressPassInformation];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __73__NPKExpressPassController__handleExpressTransactionTimeOutNotification___block_invoke_112;
+      v16[3] = &unk_279948760;
+      v16[4] = *(a1 + 32);
+      v16[5] = &v19;
+      [v10 enumerateCriteriaWithHandler:v16];
     }
   }
 
-  v10 = pk_General_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = pk_General_log(v7);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-  if (v11)
+  if (v12)
   {
-    v12 = pk_General_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_General_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v19[5];
+      v15 = v20[5];
       *buf = 138412290;
-      v25 = v13;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction Time Out Notification for application identifier %@", buf, 0xCu);
+      v26 = v15;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction Time Out Notification for application identifier %@", buf, 0xCu);
     }
   }
 
-  [*(a1 + 32) _onqueue_transactionEndedWithApplicationIdentifier:v19[5] applicationKeyIdentifier:v6];
+  [*(a1 + 32) _onqueue_transactionEndedWithApplicationIdentifier:v20[5] applicationKeyIdentifier:v6];
 
-  _Block_object_dispose(&v18, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 }
 
 void __73__NPKExpressPassController__handleExpressTransactionTimeOutNotification___block_invoke_112(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v8 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v9 = a3;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if ([*(a1 + 32) _hasNoTransactionStartOrEndNotificationForTechnologyType:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "technologyType", v15)}])
+        if ([*(a1 + 32) _hasNoTransactionStartOrEndNotificationForTechnologyType:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "technologyType", v14)}])
         {
           objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
           *a4 = 1;
@@ -861,7 +852,7 @@ void __73__NPKExpressPassController__handleExpressTransactionTimeOutNotification
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v11)
       {
         continue;
@@ -872,8 +863,6 @@ void __73__NPKExpressPassController__handleExpressTransactionTimeOutNotification
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleExpressTransactionEndNotification:(id)notification
@@ -892,32 +881,30 @@ LABEL_11:
 
 void __69__NPKExpressPassController__handleExpressTransactionEndNotification___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) object];
-  v10 = 0;
   v11 = 0;
-  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&v11 outApplicationKeyIdentifier:&v10];
-  v4 = v11;
-  v5 = v10;
+  v12 = 0;
+  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&v12 outApplicationKeyIdentifier:&v11];
+  v4 = v12;
+  v5 = v11;
 
-  v6 = pk_General_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_General_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v4;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction End Notification for application identifier %@", buf, 0xCu);
+      v14 = v4;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction End Notification for application identifier %@", buf, 0xCu);
     }
   }
 
   [*(a1 + 32) _onqueue_transactionEndedWithApplicationIdentifier:v4 applicationKeyIdentifier:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleExpressTransactionFailedNotification:(id)notification
@@ -936,68 +923,65 @@ void __69__NPKExpressPassController__handleExpressTransactionEndNotification___b
 
 void __72__NPKExpressPassController__handleExpressTransactionFailedNotification___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) object];
-  v10 = 0;
   v11 = 0;
-  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&v11 outApplicationKeyIdentifier:&v10];
-  v4 = v11;
-  v5 = v10;
+  v12 = 0;
+  [v2 _parseExpressNotificationObject:v3 outApplicationIdentifier:&v12 outApplicationKeyIdentifier:&v11];
+  v4 = v12;
+  v5 = v11;
 
-  v6 = pk_General_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_General_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v4;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction Failed Notification for application identifier %@", buf, 0xCu);
+      v14 = v4;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Express Transaction Failed Notification for application identifier %@", buf, 0xCu);
     }
   }
 
   [*(a1 + 32) _onqueue_transactionFailedWithApplicationIdentifier:v4 applicationKeyIdentifier:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleExitNearFieldNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   kdebug_trace();
   object = [notificationCopy object];
 
   v6 = PKPassAutomaticSelectionTechnologyTypeForExpressEnteredObject();
-  v7 = pk_General_log();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = pk_General_log(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-  if (v8)
+  if (v9)
   {
-    v9 = pk_General_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v13 = v6;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Received Exit Near Field Notification for automatic selection technology type %d", buf, 8u);
+      v14 = v6;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Received Exit Near Field Notification for automatic selection technology type %d", buf, 8u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __61__NPKExpressPassController__handleExitNearFieldNotification___block_invoke;
-  v11[3] = &unk_279944F98;
-  v11[4] = self;
-  NPKGuaranteeMainThread(v11);
-  v10 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __61__NPKExpressPassController__handleExitNearFieldNotification___block_invoke;
+  v12[3] = &unk_279944F98;
+  v12[4] = self;
+  NPKGuaranteeMainThread(v12);
 }
 
 uint64_t __61__NPKExpressPassController__handleExitNearFieldNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[3] == 2)
   {
@@ -1005,39 +989,37 @@ uint64_t __61__NPKExpressPassController__handleExitNearFieldNotification___block
 
     if (v3)
     {
-      v4 = pk_General_log();
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+      v5 = pk_General_log(v4);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-      if (v5)
+      if (v6)
       {
-        v6 = pk_General_log();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = pk_General_log(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = [*(a1 + 32) currentTransactionPass];
-          v13 = 138412290;
-          v14 = v7;
-          _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received Exit Near Field Notification, but didn't finish transaction with applicationIdentifier:%@ assume it fails.", &v13, 0xCu);
+          v9 = [*(a1 + 32) currentTransactionPass];
+          v14 = 138412290;
+          v15 = v9;
+          _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Received Exit Near Field Notification, but didn't finish transaction with applicationIdentifier:%@ assume it fails.", &v14, 0xCu);
         }
       }
 
-      v8 = *(a1 + 32);
-      v9 = [v8 currentApplicationIdentifier];
-      v10 = [*(a1 + 32) currentSubCredentialIdentifier];
-      [v8 _onqueue_transactionFailedWithApplicationIdentifier:v9 applicationKeyIdentifier:v10];
+      v10 = *(a1 + 32);
+      v11 = [v10 currentApplicationIdentifier];
+      v12 = [*(a1 + 32) currentSubCredentialIdentifier];
+      [v10 _onqueue_transactionFailedWithApplicationIdentifier:v11 applicationKeyIdentifier:v12];
     }
   }
 
   [*(a1 + 32) _transitionToStatus:0 forExpressPass:0 paymentApplicationIdentifier:0];
   [*(a1 + 32) setCurrentTransactionExpressPassInformation:0];
   [*(a1 + 32) setCurrentApplicationIdentifier:0];
-  result = [*(a1 + 32) setCurrentSubCredentialIdentifier:0];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setCurrentSubCredentialIdentifier:0];
 }
 
 - (void)_onqueue_transactionStartedWithApplicationIdentifier:(id)identifier applicationKeyIdentifier:(id)keyIdentifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyIdentifierCopy = keyIdentifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
@@ -1045,30 +1027,28 @@ uint64_t __61__NPKExpressPassController__handleExitNearFieldNotification___block
   [(NPKExpressPassController *)self setCurrentSubCredentialIdentifier:keyIdentifierCopy];
   v8 = [(NPKExpressPassController *)self _queue_expressPassForTransactionApplicationIdentifier:identifierCopy transactionApplicationKeyIdentifier:keyIdentifierCopy];
 
-  [(NPKExpressPassController *)self _transitionToStatus:2 forExpressPass:v8 paymentApplicationIdentifier:identifierCopy];
+  v9 = [(NPKExpressPassController *)self _transitionToStatus:2 forExpressPass:v8 paymentApplicationIdentifier:identifierCopy];
   if (!v8)
   {
-    v9 = pk_General_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    v10 = pk_General_log(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
-    if (v10)
+    if (v11)
     {
-      v11 = pk_General_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = pk_General_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412290;
-        v14 = identifierCopy;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: Received Express Transaction Started Notification for application identifier %@, but no pass.", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = identifierCopy;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: Received Express Transaction Started Notification for application identifier %@, but no pass.", &v14, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_transactionEndedWithApplicationIdentifier:(id)identifier applicationKeyIdentifier:(id)keyIdentifier
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyIdentifierCopy = keyIdentifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
@@ -1110,22 +1090,22 @@ LABEL_15:
   {
     currentSubCredentialIdentifier2 = [(NPKExpressPassController *)self currentSubCredentialIdentifier];
 
-    v16 = pk_General_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v17 = pk_General_log(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-    if (v17)
+    if (v18)
     {
-      v18 = pk_General_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = pk_General_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         currentSubCredentialIdentifier3 = [(NPKExpressPassController *)self currentSubCredentialIdentifier];
-        v25 = 138412802;
-        v26 = currentSubCredentialIdentifier3;
-        v27 = 2112;
-        v28 = v9;
-        v29 = 2112;
-        v30 = currentSubCredentialIdentifier2;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Using the subcredential identifier (%@) from the start transaction event for %@ since the transaction end event didn't include it (%@)", &v25, 0x20u);
+        v28 = 138412802;
+        v29 = currentSubCredentialIdentifier3;
+        v30 = 2112;
+        v31 = v9;
+        v32 = 2112;
+        v33 = currentSubCredentialIdentifier2;
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Using the subcredential identifier (%@) from the start transaction event for %@ since the transaction end event didn't include it (%@)", &v28, 0x20u);
       }
     }
 
@@ -1133,353 +1113,553 @@ LABEL_15:
   }
 
 LABEL_16:
-  v20 = [(NPKExpressPassController *)self _queue_expressPassForTransactionApplicationIdentifier:v9 transactionApplicationKeyIdentifier:keyIdentifierCopy];
-  [(NPKExpressPassController *)self _transitionToStatus:4 forExpressPass:v20 paymentApplicationIdentifier:v9];
-  if (!v20)
+  v22 = [(NPKExpressPassController *)self _queue_expressPassForTransactionApplicationIdentifier:v9 transactionApplicationKeyIdentifier:keyIdentifierCopy];
+  v23 = [(NPKExpressPassController *)self _transitionToStatus:4 forExpressPass:v22 paymentApplicationIdentifier:v9];
+  if (!v22)
   {
-    v21 = pk_General_log();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+    v24 = pk_General_log(v23);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
 
-    if (v22)
+    if (v25)
     {
-      v23 = pk_General_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v27 = pk_General_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v25 = 138412290;
-        v26 = v9;
-        _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_ERROR, "Error: Received Express Transaction Ended Notification for application identifier %@, but no pass.", &v25, 0xCu);
+        v28 = 138412290;
+        v29 = v9;
+        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_ERROR, "Error: Received Express Transaction Ended Notification for application identifier %@, but no pass.", &v28, 0xCu);
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_transactionFailedWithApplicationIdentifier:(id)identifier applicationKeyIdentifier:(id)keyIdentifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyIdentifierCopy = keyIdentifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v8 = [(NPKExpressPassController *)self _queue_expressPassForTransactionApplicationIdentifier:identifierCopy transactionApplicationKeyIdentifier:keyIdentifierCopy];
 
-  [(NPKExpressPassController *)self _transitionToStatus:3 forExpressPass:v8 paymentApplicationIdentifier:identifierCopy];
+  v9 = [(NPKExpressPassController *)self _transitionToStatus:3 forExpressPass:v8 paymentApplicationIdentifier:identifierCopy];
   if (!v8)
   {
-    v9 = pk_General_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    v10 = pk_General_log(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
-    if (v10)
+    if (v11)
     {
-      v11 = pk_General_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = pk_General_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412290;
-        v14 = identifierCopy;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: Received Express Transaction Failed Notification for application identifier %@, but no pass.", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = identifierCopy;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: Received Express Transaction Failed Notification for application identifier %@, but no pass.", &v14, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCarKeyExpressEnteredNotification:(id)notification
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  kdebug_trace();
-  v4 = pk_General_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v4 = kdebug_trace();
+  v5 = pk_General_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = notificationCopy;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Express Entered Notification: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = notificationCopy;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Express Entered Notification: %@", &v9, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCarKeyExpressExitedNotification:(id)notification
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  kdebug_trace();
-  v4 = pk_General_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v4 = kdebug_trace();
+  v5 = pk_General_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = notificationCopy;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Express Exited Notification: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = notificationCopy;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Express Exited Notification: %@", &v9, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCarKeySessionEndedNotification:(id)notification
 {
   v10 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v4 = pk_General_log();
+  v4 = pk_General_log(notificationCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = notificationCopy;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Session Ended Notification: %@", &v8, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Session Ended Notification: %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCarKeySessionEndedWithErrorNotification:(id)notification
 {
   v10 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v4 = pk_General_log();
+  v4 = pk_General_log(notificationCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = notificationCopy;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Session Ended with Error Notification: %@", &v8, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Session Ended with Error Notification: %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCarKeyVehicleConnectedNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
-  v12 = 0;
   v13 = 0;
-  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v13 outApplicationKeyIdentifier:&v12];
-  v6 = v13;
-  v7 = v12;
+  v14 = 0;
+  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v14 outApplicationKeyIdentifier:&v13];
+  v6 = v14;
+  v7 = v13;
 
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v15 = notificationCopy;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Connected Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
+      v16 = notificationCopy;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Connected Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCarKeyVehicleDisconnectedNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
-  v12 = 0;
   v13 = 0;
-  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v13 outApplicationKeyIdentifier:&v12];
-  v6 = v13;
-  v7 = v12;
+  v14 = 0;
+  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v14 outApplicationKeyIdentifier:&v13];
+  v6 = v14;
+  v7 = v13;
 
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v15 = notificationCopy;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Disconnected Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
+      v16 = notificationCopy;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Disconnected Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCarKeyVehicleLockedNotification:(id)notification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   kdebug_trace();
   object = [notificationCopy object];
-  v17 = 0;
   v18 = 0;
-  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v18 outApplicationKeyIdentifier:&v17];
-  v6 = v18;
-  v7 = v17;
+  v19 = 0;
+  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v19 outApplicationKeyIdentifier:&v18];
+  v6 = v19;
+  v7 = v18;
 
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v20 = notificationCopy;
-      v21 = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Locked Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
+      v21 = notificationCopy;
+      v22 = 2112;
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Locked Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
     }
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __67__NPKExpressPassController__handleCarKeyVehicleLockedNotification___block_invoke;
-  v14[3] = &unk_279945880;
-  v14[4] = self;
-  v15 = v6;
-  v16 = v7;
-  v11 = v7;
-  v12 = v6;
-  NPKGuaranteeMainThread(v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __67__NPKExpressPassController__handleCarKeyVehicleLockedNotification___block_invoke;
+  v15[3] = &unk_279945880;
+  v15[4] = self;
+  v16 = v6;
+  v17 = v7;
+  v13 = v7;
+  v14 = v6;
+  NPKGuaranteeMainThread(v15);
 }
 
 - (void)_handleCarKeyVehicleUnlockedNotification:(id)notification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   kdebug_trace();
   object = [notificationCopy object];
-  v17 = 0;
   v18 = 0;
-  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v18 outApplicationKeyIdentifier:&v17];
-  v6 = v18;
-  v7 = v17;
+  v19 = 0;
+  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v19 outApplicationKeyIdentifier:&v18];
+  v6 = v19;
+  v7 = v18;
 
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v20 = notificationCopy;
-      v21 = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Unlocked Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
+      v21 = notificationCopy;
+      v22 = 2112;
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Vehicle Unlocked Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
     }
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __69__NPKExpressPassController__handleCarKeyVehicleUnlockedNotification___block_invoke;
-  v14[3] = &unk_279945880;
-  v14[4] = self;
-  v15 = v6;
-  v16 = v7;
-  v11 = v7;
-  v12 = v6;
-  NPKGuaranteeMainThread(v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __69__NPKExpressPassController__handleCarKeyVehicleUnlockedNotification___block_invoke;
+  v15[3] = &unk_279945880;
+  v15[4] = self;
+  v16 = v6;
+  v17 = v7;
+  v13 = v7;
+  v14 = v6;
+  NPKGuaranteeMainThread(v15);
 }
 
 - (void)_handleStandaloneTransactionDoneNotification:(id)notification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   kdebug_trace();
   object = [notificationCopy object];
-  v17 = 0;
   v18 = 0;
-  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v18 outApplicationKeyIdentifier:&v17];
-  v6 = v18;
-  v7 = v17;
+  v19 = 0;
+  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v19 outApplicationKeyIdentifier:&v18];
+  v6 = v19;
+  v7 = v18;
 
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v20 = notificationCopy;
-      v21 = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Generic Transaction Done Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
+      v21 = notificationCopy;
+      v22 = 2112;
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Generic Transaction Done Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
     }
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __73__NPKExpressPassController__handleStandaloneTransactionDoneNotification___block_invoke;
-  v14[3] = &unk_279945880;
-  v14[4] = self;
-  v15 = v6;
-  v16 = v7;
-  v11 = v7;
-  v12 = v6;
-  NPKGuaranteeMainThread(v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __73__NPKExpressPassController__handleStandaloneTransactionDoneNotification___block_invoke;
+  v15[3] = &unk_279945880;
+  v15[4] = self;
+  v16 = v6;
+  v17 = v7;
+  v13 = v7;
+  v14 = v6;
+  NPKGuaranteeMainThread(v15);
 }
 
 - (void)_handleCarKeyRKEActionCompletedNotification:(id)notification
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   kdebug_trace();
   object = [notificationCopy object];
 
+  v35 = 0;
+  v36 = 0;
+  v33 = 0;
+  v34 = 0;
+  v31 = 0;
+  v32 = 0;
+  [(NPKExpressPassController *)self _parseRKEActionNotificationObject:object outApplicationIdentifier:&v36 outApplicationKeyIdentifier:&v35 outFunctionNumber:&v34 outActionNumber:&v33 outExecutionStatusNumber:&v32 outErrorMessage:&v31];
+  v6 = v36;
+  v7 = v35;
+  v8 = v34;
+  v9 = v33;
+  v10 = v32;
+  v11 = v31;
+
+  v13 = pk_General_log(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+
+  if (v14)
+  {
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138413570;
+      v38 = v6;
+      v39 = 2112;
+      v40 = v7;
+      v41 = 2112;
+      v42 = v8;
+      v43 = 2112;
+      v44 = v9;
+      v45 = 2112;
+      v46 = v10;
+      v47 = 2112;
+      v48 = v11;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key RKE Action Completed Notification for...\nAID: %@\nkey ID: %@\nfunctionNumber: %@\nactionNumber: %@\nexecutionStatusNumber: %@\nerrorMessage: %@", buf, 0x3Eu);
+    }
+  }
+
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __72__NPKExpressPassController__handleCarKeyRKEActionCompletedNotification___block_invoke;
+  v23[3] = &unk_279948788;
+  v24 = v11;
+  v25 = v10;
+  selfCopy = self;
+  v27 = v9;
+  v28 = v8;
+  v29 = v6;
+  v30 = v7;
+  v17 = v7;
+  v18 = v6;
+  v19 = v8;
+  v20 = v9;
+  v21 = v10;
+  v22 = v11;
+  NPKGuaranteeMainThread(v23);
+}
+
+void __72__NPKExpressPassController__handleCarKeyRKEActionCompletedNotification___block_invoke(uint64_t a1)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) length];
+  if (v2)
+  {
+    v3 = pk_General_log(v2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+
+    if (!v4)
+    {
+      return;
+    }
+
+    v6 = pk_General_log(v5);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_13;
+    }
+
+    v7 = *(a1 + 32);
+    v21 = 138412290;
+    v22 = v7;
+    v8 = "Error: RKE action failed with error: %@";
+LABEL_12:
+    _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, v8, &v21, 0xCu);
+LABEL_13:
+
+    return;
+  }
+
+  v9 = *(a1 + 40);
+  v10 = [MEMORY[0x277CCABB0] numberWithInteger:0];
+  LOBYTE(v9) = [v9 isEqualToNumber:v10];
+
+  if ((v9 & 1) == 0)
+  {
+    v17 = pk_General_log(v11);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+
+    if (!v18)
+    {
+      return;
+    }
+
+    v6 = pk_General_log(v19);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_13;
+    }
+
+    v20 = *(a1 + 40);
+    v21 = 138412290;
+    v22 = v20;
+    v8 = "Error: RKE action completed with unexpected execution status number! Received: %@; expected: 0";
+    goto LABEL_12;
+  }
+
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 64);
+  v15 = *(a1 + 72);
+  v16 = *(a1 + 80);
+
+  [v12 _onqueue_transactionCompletedForRKEAction:v13 function:v14 withApplicationIdentifier:v15 applicationKeyIdentifier:v16];
+}
+
+- (void)_handleCarKeyRangingStartedNotification:(id)notification
+{
+  v21 = *MEMORY[0x277D85DE8];
+  notificationCopy = notification;
+  object = [notificationCopy object];
+  v13 = 0;
+  v14 = 0;
+  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v14 outApplicationKeyIdentifier:&v13];
+  v6 = v14;
+  v7 = v13;
+
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+
+  if (v10)
+  {
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v16 = notificationCopy;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Started Ranging Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
+    }
+  }
+}
+
+- (void)_handleCarKeyRangingEndedNotification:(id)notification
+{
+  v21 = *MEMORY[0x277D85DE8];
+  notificationCopy = notification;
+  object = [notificationCopy object];
+  v13 = 0;
+  v14 = 0;
+  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v14 outApplicationKeyIdentifier:&v13];
+  v6 = v14;
+  v7 = v13;
+
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+
+  if (v10)
+  {
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v16 = notificationCopy;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Ended Ranging Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
+    }
+  }
+}
+
+- (void)_handleHomeKeyLockConnectedNotification:(id)notification
+{
+  v3 = pk_General_log(self);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+
+  if (v4)
+  {
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received lock connected notification.", v7, 2u);
+    }
+  }
+}
+
+- (void)_handleHomeKeyLockDisconnectedNotification:(id)notification
+{
+  v3 = pk_General_log(self);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+
+  if (v4)
+  {
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received lock disconnected notification.", v7, 2u);
+    }
+  }
+}
+
+- (void)_handleHomeKeyLockStatusChangedNotification:(id)notification
+{
+  v50 = *MEMORY[0x277D85DE8];
+  notificationCopy = notification;
+  object = [notificationCopy object];
   v34 = 0;
   v35 = 0;
   v32 = 0;
   v33 = 0;
   v30 = 0;
   v31 = 0;
-  [(NPKExpressPassController *)self _parseRKEActionNotificationObject:object outApplicationIdentifier:&v35 outApplicationKeyIdentifier:&v34 outFunctionNumber:&v33 outActionNumber:&v32 outExecutionStatusNumber:&v31 outErrorMessage:&v30];
+  [(NPKExpressPassController *)self _parseHomeKeyUWBExpressNotificationObject:object outApplicationIdentifier:&v35 outApplicationKeyIdentifier:&v34 outReaderIdentifier:&v33 outTimestamp:&v32 outTransactionLockStatus:&v31 outLockOperationSource:&v30];
   v6 = v35;
   v7 = v34;
   v8 = v33;
@@ -1487,285 +1667,55 @@ LABEL_16:
   v10 = v31;
   v11 = v30;
 
-  v12 = pk_General_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = pk_General_log(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v14)
   {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138413570;
-      v37 = v6;
-      v38 = 2112;
-      v39 = v7;
-      v40 = 2112;
-      v41 = v8;
-      v42 = 2112;
-      v43 = v9;
-      v44 = 2112;
-      v45 = v10;
-      v46 = 2112;
-      v47 = v11;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key RKE Action Completed Notification for...\nAID: %@\nkey ID: %@\nfunctionNumber: %@\nactionNumber: %@\nexecutionStatusNumber: %@\nerrorMessage: %@", buf, 0x3Eu);
-    }
-  }
-
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __72__NPKExpressPassController__handleCarKeyRKEActionCompletedNotification___block_invoke;
-  v22[3] = &unk_279948788;
-  v23 = v11;
-  v24 = v10;
-  selfCopy = self;
-  v26 = v9;
-  v27 = v8;
-  v28 = v6;
-  v29 = v7;
-  v15 = v7;
-  v16 = v6;
-  v17 = v8;
-  v18 = v9;
-  v19 = v10;
-  v20 = v11;
-  NPKGuaranteeMainThread(v22);
-
-  v21 = *MEMORY[0x277D85DE8];
-}
-
-void __72__NPKExpressPassController__handleCarKeyRKEActionCompletedNotification___block_invoke(uint64_t a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) length])
-  {
-    v2 = pk_General_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
-
-    if (v3)
-    {
-      v4 = pk_General_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-      {
-        v5 = *(a1 + 32);
-        v19 = 138412290;
-        v20 = v5;
-        v6 = "Error: RKE action failed with error: %@";
-LABEL_12:
-        _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_ERROR, v6, &v19, 0xCu);
-        goto LABEL_13;
-      }
-
-      goto LABEL_13;
-    }
-
-    goto LABEL_14;
-  }
-
-  v7 = *(a1 + 40);
-  v8 = [MEMORY[0x277CCABB0] numberWithInteger:0];
-  LOBYTE(v7) = [v7 isEqualToNumber:v8];
-
-  if ((v7 & 1) == 0)
-  {
-    v15 = pk_General_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-
-    if (v16)
-    {
-      v4 = pk_General_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-      {
-        v17 = *(a1 + 40);
-        v19 = 138412290;
-        v20 = v17;
-        v6 = "Error: RKE action completed with unexpected execution status number! Received: %@; expected: 0";
-        goto LABEL_12;
-      }
-
-LABEL_13:
-    }
-
-LABEL_14:
-    v18 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  v12 = *(a1 + 72);
-  v13 = *(a1 + 80);
-  v14 = *MEMORY[0x277D85DE8];
-
-  [v9 _onqueue_transactionCompletedForRKEAction:v10 function:v11 withApplicationIdentifier:v12 applicationKeyIdentifier:v13];
-}
-
-- (void)_handleCarKeyRangingStartedNotification:(id)notification
-{
-  v20 = *MEMORY[0x277D85DE8];
-  notificationCopy = notification;
-  object = [notificationCopy object];
-  v12 = 0;
-  v13 = 0;
-  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v13 outApplicationKeyIdentifier:&v12];
-  v6 = v13;
-  v7 = v12;
-
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-
-  if (v9)
-  {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412802;
-      v15 = notificationCopy;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Started Ranging Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleCarKeyRangingEndedNotification:(id)notification
-{
-  v20 = *MEMORY[0x277D85DE8];
-  notificationCopy = notification;
-  object = [notificationCopy object];
-  v12 = 0;
-  v13 = 0;
-  [(NPKExpressPassController *)self _parseExpressNotificationObject:object outApplicationIdentifier:&v13 outApplicationKeyIdentifier:&v12];
-  v6 = v13;
-  v7 = v12;
-
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-
-  if (v9)
-  {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412802;
-      v15 = notificationCopy;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received Car Key Ended Ranging Notification: %@ for AID: %@ key ID: %@", buf, 0x20u);
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleHomeKeyLockConnectedNotification:(id)notification
-{
-  v3 = pk_General_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-
-  if (v4)
-  {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Received lock connected notification.", v6, 2u);
-    }
-  }
-}
-
-- (void)_handleHomeKeyLockDisconnectedNotification:(id)notification
-{
-  v3 = pk_General_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-
-  if (v4)
-  {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Received lock disconnected notification.", v6, 2u);
-    }
-  }
-}
-
-- (void)_handleHomeKeyLockStatusChangedNotification:(id)notification
-{
-  v49 = *MEMORY[0x277D85DE8];
-  notificationCopy = notification;
-  object = [notificationCopy object];
-  v33 = 0;
-  v34 = 0;
-  v31 = 0;
-  v32 = 0;
-  v29 = 0;
-  v30 = 0;
-  [(NPKExpressPassController *)self _parseHomeKeyUWBExpressNotificationObject:object outApplicationIdentifier:&v34 outApplicationKeyIdentifier:&v33 outReaderIdentifier:&v32 outTimestamp:&v31 outTransactionLockStatus:&v30 outLockOperationSource:&v29];
-  v6 = v34;
-  v7 = v33;
-  v8 = v32;
-  v9 = v31;
-  v10 = v30;
-  v11 = v29;
-
-  v12 = pk_General_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-
-  if (v13)
-  {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413826;
-      v36 = notificationCopy;
-      v37 = 2112;
-      v38 = v6;
-      v39 = 2112;
-      v40 = v7;
-      v41 = 2112;
-      v42 = v10;
-      v43 = 2112;
-      v44 = v8;
-      v45 = 2112;
-      v46 = v9;
-      v47 = 2112;
-      v48 = v11;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Received home key status changed notification: %@ for AID: %@ key ID: %@ lock status: %@ reader ID: %@ timestamp %@ operation source: %@", buf, 0x48u);
+      v37 = notificationCopy;
+      v38 = 2112;
+      v39 = v6;
+      v40 = 2112;
+      v41 = v7;
+      v42 = 2112;
+      v43 = v10;
+      v44 = 2112;
+      v45 = v8;
+      v46 = 2112;
+      v47 = v9;
+      v48 = 2112;
+      v49 = v11;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Received home key status changed notification: %@ for AID: %@ key ID: %@ lock status: %@ reader ID: %@ timestamp %@ operation source: %@", buf, 0x48u);
     }
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __72__NPKExpressPassController__handleHomeKeyLockStatusChangedNotification___block_invoke;
-  v22[3] = &unk_279948788;
-  v22[4] = self;
-  v23 = v6;
-  v24 = v7;
-  v25 = v8;
-  v26 = v10;
-  v27 = v9;
-  v28 = v11;
-  v15 = v11;
-  v16 = v9;
-  v17 = v10;
-  v18 = v8;
-  v19 = v7;
-  v20 = v6;
-  NPKGuaranteeMainThread(v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __72__NPKExpressPassController__handleHomeKeyLockStatusChangedNotification___block_invoke;
+  v23[3] = &unk_279948788;
+  v23[4] = self;
+  v24 = v6;
+  v25 = v7;
+  v26 = v8;
+  v27 = v10;
+  v28 = v9;
+  v29 = v11;
+  v17 = v11;
+  v18 = v9;
+  v19 = v10;
+  v20 = v8;
+  v21 = v7;
+  v22 = v6;
+  NPKGuaranteeMainThread(v23);
 }
 
 void __72__NPKExpressPassController__handleHomeKeyLockStatusChangedNotification___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _queue_expressPassForTransactionApplicationIdentifier:*(a1 + 40) transactionApplicationKeyIdentifier:*(a1 + 48)];
   v3 = [[NPKExpressUWBTransactionInfo alloc] initWithReaderID:*(a1 + 56) lockStatus:*(a1 + 64) timestamp:*(a1 + 72)];
   v4 = [*(a1 + 32) _transactionEventFromLockStatus:*(a1 + 64)];
@@ -1790,34 +1740,33 @@ void __72__NPKExpressPassController__handleHomeKeyLockStatusChangedNotification_
     }
 
     v9 = v8;
+    v10 = v9;
     if (v7 > 7)
     {
-      v10 = @"SourceUnknown";
+      v11 = @"SourceUnknown";
     }
 
     else
     {
-      v10 = off_2799488E8[v7];
+      v11 = off_2799488E8[v7];
     }
 
-    v11 = pk_General_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = pk_General_log(v9);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v13 = pk_General_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = pk_General_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412546;
-        v16 = v9;
-        v17 = 2112;
-        v18 = v10;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Ignoring UWB event %@ with operation source %@", &v15, 0x16u);
+        v16 = 138412546;
+        v17 = v10;
+        v18 = 2112;
+        v19 = v11;
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Ignoring UWB event %@ with operation source %@", &v16, 0x16u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_transactionCompletedForStandaloneTransactionEvent:(unint64_t)event withApplicationIdentifier:(id)identifier applicationKeyIdentifier:(id)keyIdentifier
@@ -1845,67 +1794,66 @@ void __72__NPKExpressPassController__handleHomeKeyLockStatusChangedNotification_
 - (void)_handlePassesLibraryChangedNotification:(id)notification
 {
   v10 = *MEMORY[0x277D85DE8];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received Library Passes Changed Notification %@", &v8, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Received Library Passes Changed Notification %@", &v8, 0xCu);
     }
   }
 
   [(NPKExpressPassController *)self updateExpressPasses];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_expressPassForTransactionApplicationIdentifier:(id)identifier transactionApplicationKeyIdentifier:(id)keyIdentifier
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyIdentifierCopy = keyIdentifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__14;
-  v38 = __Block_byref_object_dispose__14;
-  v39 = 0;
-  v30 = 0u;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__14;
+  v39 = __Block_byref_object_dispose__14;
+  v40 = 0;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
   selfCopy = self;
   expressPassConfigurations = [(NPKExpressPassController *)self expressPassConfigurations];
-  v7 = [expressPassConfigurations countByEnumeratingWithState:&v30 objects:v44 count:16];
+  v7 = [expressPassConfigurations countByEnumeratingWithState:&v31 objects:v45 count:16];
   if (v7)
   {
-    v8 = *v31;
+    v8 = *v32;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v31 != v8)
+      if (*v32 != v8)
       {
         objc_enumerationMutation(expressPassConfigurations);
       }
 
-      passInformation = [*(*(&v30 + 1) + 8 * v9) passInformation];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __118__NPKExpressPassController__queue_expressPassForTransactionApplicationIdentifier_transactionApplicationKeyIdentifier___block_invoke;
-      v25[3] = &unk_2799487B0;
+      passInformation = [*(*(&v31 + 1) + 8 * v9) passInformation];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __118__NPKExpressPassController__queue_expressPassForTransactionApplicationIdentifier_transactionApplicationKeyIdentifier___block_invoke;
+      v26[3] = &unk_2799487B0;
       v11 = passInformation;
-      v26 = v11;
-      v27 = identifierCopy;
-      v28 = keyIdentifierCopy;
-      v29 = &v34;
-      [v11 enumerateCriteriaWithHandler:v25];
-      v12 = v35[5] == 0;
+      v27 = v11;
+      v28 = identifierCopy;
+      v29 = keyIdentifierCopy;
+      v30 = &v35;
+      [v11 enumerateCriteriaWithHandler:v26];
+      v12 = v36[5] == 0;
 
       if (!v12)
       {
@@ -1914,7 +1862,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [expressPassConfigurations countByEnumeratingWithState:&v30 objects:v44 count:16];
+        v7 = [expressPassConfigurations countByEnumeratingWithState:&v31 objects:v45 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1925,40 +1873,38 @@ LABEL_3:
     }
   }
 
-  if (v35[5])
+  if (v36[5])
   {
     expressPasses = [(NPKExpressPassController *)selfCopy expressPasses];
-    passUniqueIdentifier = [v35[5] passUniqueIdentifier];
-    v15 = [expressPasses objectForKey:passUniqueIdentifier];
+    passUniqueIdentifier = [v36[5] passUniqueIdentifier];
+    v16 = [expressPasses objectForKey:passUniqueIdentifier];
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = pk_Payment_log();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  v17 = pk_Payment_log(v13);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-  if (v17)
+  if (v18)
   {
-    v18 = pk_Payment_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = pk_Payment_log(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      uniqueID = [v15 uniqueID];
+      uniqueID = [v16 uniqueID];
       *buf = 138412546;
-      v41 = identifierCopy;
-      v42 = 2112;
-      v43 = uniqueID;
-      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Transaction application identifier: %@ express pass unique ID %@", buf, 0x16u);
+      v42 = identifierCopy;
+      v43 = 2112;
+      v44 = uniqueID;
+      _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Transaction application identifier: %@ express pass unique ID %@", buf, 0x16u);
     }
   }
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v16;
 }
 
 void __118__NPKExpressPassController__queue_expressPassForTransactionApplicationIdentifier_transactionApplicationKeyIdentifier___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -2004,24 +1950,24 @@ void __118__NPKExpressPassController__queue_expressPassForTransactionApplication
 - (void)_internalQueue_updateExpressPasses
 {
   selfCopy = self;
-  v56 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_internalQueue);
   paymentService = [(NPKExpressPassController *)selfCopy paymentService];
   expressPassConfigurations = [paymentService expressPassConfigurations];
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(expressPassConfigurations);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       expressPassConfigurations2 = [(NPKExpressPassController *)selfCopy expressPassConfigurations];
       *buf = 138412546;
-      v50 = expressPassConfigurations;
-      v51 = 2112;
-      v52 = expressPassConfigurations2;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Updating current express passes with new configurations: %@ (previous: %@)", buf, 0x16u);
+      v53 = expressPassConfigurations;
+      v54 = 2112;
+      v55 = expressPassConfigurations2;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Updating current express passes with new configurations: %@ (previous: %@)", buf, 0x16u);
     }
   }
 
@@ -2036,136 +1982,132 @@ LABEL_29:
 
   [(NPKExpressPassController *)selfCopy _startListeningForExpressNotifications];
   passLibrary = [(NPKExpressPassController *)selfCopy passLibrary];
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v10 = expressPassConfigurations;
-  v11 = [v10 countByEnumeratingWithState:&v45 objects:v55 count:16];
-  if (!v11)
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v11 = expressPassConfigurations;
+  v12 = [v11 countByEnumeratingWithState:&v48 objects:v58 count:16];
+  if (!v12)
   {
 
     goto LABEL_29;
   }
 
-  v12 = v11;
-  v35 = expressPassConfigurations;
-  v36 = selfCopy;
-  v37 = paymentService;
-  v13 = 0;
-  v40 = *v46;
-  obj = v10;
+  v13 = v12;
+  v38 = expressPassConfigurations;
+  v39 = selfCopy;
+  v40 = paymentService;
+  v14 = 0;
+  v43 = *v49;
+  obj = v11;
   do
   {
-    for (i = 0; i != v12; ++i)
+    for (i = 0; i != v13; ++i)
     {
-      if (*v46 != v40)
+      if (*v49 != v43)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v45 + 1) + 8 * i);
-      passUniqueIdentifier = [v15 passUniqueIdentifier];
+      v16 = *(*(&v48 + 1) + 8 * i);
+      passUniqueIdentifier = [v16 passUniqueIdentifier];
       if (passUniqueIdentifier)
       {
-        v17 = passLibrary;
-        v18 = [passLibrary passWithUniqueID:passUniqueIdentifier];
-        v19 = pk_Payment_log();
-        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+        v18 = passLibrary;
+        v19 = [passLibrary passWithUniqueID:passUniqueIdentifier];
+        v20 = pk_Payment_log(v19);
+        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-        if (v20)
+        if (v21)
         {
-          v21 = pk_Payment_log();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v23 = pk_Payment_log(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            uniqueID = [v18 uniqueID];
+            uniqueID = [v19 uniqueID];
             *buf = 138412802;
-            v50 = v18;
-            v51 = 2112;
-            v52 = uniqueID;
-            v53 = 2112;
-            v54 = v15;
-            _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Fetched pass %@ with Unique Identifier %@ for express pass configuration %@", buf, 0x20u);
+            v53 = v19;
+            v54 = 2112;
+            v55 = uniqueID;
+            v56 = 2112;
+            v57 = v16;
+            _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: Fetched pass %@ with Unique Identifier %@ for express pass configuration %@", buf, 0x20u);
           }
         }
 
-        paymentPass = [v18 paymentPass];
-        v24 = [paymentPass cardType] == 3;
+        paymentPass = [v19 paymentPass];
+        v26 = [paymentPass cardType] == 3;
 
-        if (v18)
+        if (v19)
         {
-          [dictionary setObject:v18 forKey:passUniqueIdentifier];
-          passLibrary = v17;
+          [dictionary setObject:v19 forKey:passUniqueIdentifier];
+          passLibrary = v18;
         }
 
         else
         {
-          v25 = pk_Payment_log();
-          v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+          v28 = pk_Payment_log(v27);
+          v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
 
-          passLibrary = v17;
-          if (v26)
+          passLibrary = v18;
+          if (v29)
           {
-            v27 = pk_Payment_log();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v31 = pk_Payment_log(v30);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v50 = v15;
-              _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_ERROR, "Error: Express pass controller could not find pass for express pass configuration: %@", buf, 0xCu);
+              v53 = v16;
+              _os_log_impl(&dword_25B300000, v31, OS_LOG_TYPE_ERROR, "Error: Express pass controller could not find pass for express pass configuration: %@", buf, 0xCu);
             }
           }
         }
 
-        v13 |= v24;
+        v14 |= v26;
       }
     }
 
-    v12 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
+    v13 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
   }
 
-  while (v12);
+  while (v13);
 
-  selfCopy = v36;
-  paymentService = v37;
-  expressPassConfigurations = v35;
-  if ((v13 & 1) == 0)
+  selfCopy = v39;
+  paymentService = v40;
+  expressPassConfigurations = v38;
+  if ((v14 & 1) == 0)
   {
     goto LABEL_29;
   }
 
-  [(NPKExpressPassController *)v36 _internalQueue_startFieldDetector];
+  [(NPKExpressPassController *)v39 _internalQueue_startFieldDetector];
 LABEL_30:
-  v28 = MEMORY[0x277CBEB98];
+  v32 = MEMORY[0x277CBEB98];
   allValues = [dictionary allValues];
-  v30 = [v28 setWithArray:allValues];
+  v34 = [v32 setWithArray:allValues];
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __62__NPKExpressPassController__internalQueue_updateExpressPasses__block_invoke;
-  v41[3] = &unk_279946260;
-  v41[4] = selfCopy;
-  v42 = expressPassConfigurations;
-  v43 = v30;
-  v44 = dictionary;
-  v31 = dictionary;
-  v32 = v30;
-  v33 = expressPassConfigurations;
-  NPKGuaranteeMainThread(v41);
-
-  v34 = *MEMORY[0x277D85DE8];
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __62__NPKExpressPassController__internalQueue_updateExpressPasses__block_invoke;
+  v44[3] = &unk_279946260;
+  v44[4] = selfCopy;
+  v45 = expressPassConfigurations;
+  v46 = v34;
+  v47 = dictionary;
+  v35 = dictionary;
+  v36 = v34;
+  v37 = expressPassConfigurations;
+  NPKGuaranteeMainThread(v44);
 }
 
 void __62__NPKExpressPassController__internalQueue_updateExpressPasses__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) expressPassConfigurations];
-  v3 = *(a1 + 40);
   if (PKEqualObjects())
   {
-    v4 = [*(a1 + 32) expressPasses];
-    v5 = *(a1 + 48);
-    v6 = PKEqualObjects();
+    v3 = [*(a1 + 32) expressPasses];
+    v4 = PKEqualObjects();
 
-    if (v6)
+    if (v4)
     {
       return;
     }
@@ -2176,10 +2118,10 @@ void __62__NPKExpressPassController__internalQueue_updateExpressPasses__block_in
   }
 
   [*(a1 + 32) setExpressPassConfigurations:*(a1 + 40)];
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 32);
+  v5 = *(a1 + 56);
+  v6 = *(a1 + 32);
 
-  [v8 setExpressPasses:v7];
+  [v6 setExpressPasses:v5];
 }
 
 - (id)_expressPassesInformationWithAutomaticSelectionTechnologyType:(int64_t)type
@@ -2223,27 +2165,27 @@ void __90__NPKExpressPassController__expressPassesInformationWithAutomaticSelect
 
 void __90__NPKExpressPassController__expressPassesInformationWithAutomaticSelectionTechnologyType___block_invoke_2(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if ([v11 supportsExpress] && objc_msgSend(v11, "technologyType") == a1[6])
         {
           v12 = a1[4];
@@ -2256,7 +2198,7 @@ void __90__NPKExpressPassController__expressPassesInformationWithAutomaticSelect
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -2267,80 +2209,78 @@ void __90__NPKExpressPassController__expressPassesInformationWithAutomaticSelect
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_siblingExpressPassesForExpressPass:(id)pass applicationIdentifier:(id)identifier
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x3032000000;
-  v82 = __Block_byref_object_copy__14;
-  v83 = __Block_byref_object_dispose__14;
-  v84 = 0;
-  v75 = 0u;
+  v80 = 0;
+  v81 = &v80;
+  v82 = 0x3032000000;
+  v83 = __Block_byref_object_copy__14;
+  v84 = __Block_byref_object_dispose__14;
+  v85 = 0;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
   selfCopy = self;
   expressPassConfigurations = [(NPKExpressPassController *)self expressPassConfigurations];
-  v8 = [expressPassConfigurations countByEnumeratingWithState:&v75 objects:v93 count:16];
+  v8 = [expressPassConfigurations countByEnumeratingWithState:&v76 objects:v94 count:16];
   if (v8)
   {
-    v9 = *v76;
+    v9 = *v77;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v76 != v9)
+        if (*v77 != v9)
         {
           objc_enumerationMutation(expressPassConfigurations);
         }
 
-        passInformation = [*(*(&v75 + 1) + 8 * i) passInformation];
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __92__NPKExpressPassController__queue_siblingExpressPassesForExpressPass_applicationIdentifier___block_invoke;
-        v71[3] = &unk_279948828;
+        passInformation = [*(*(&v76 + 1) + 8 * i) passInformation];
+        v72[0] = MEMORY[0x277D85DD0];
+        v72[1] = 3221225472;
+        v72[2] = __92__NPKExpressPassController__queue_siblingExpressPassesForExpressPass_applicationIdentifier___block_invoke;
+        v72[3] = &unk_279948828;
         v12 = passInformation;
-        v72 = v12;
-        v73 = identifierCopy;
-        v74 = &v79;
-        [v12 enumerateCriteriaWithHandler:v71];
+        v73 = v12;
+        v74 = identifierCopy;
+        v75 = &v80;
+        [v12 enumerateCriteriaWithHandler:v72];
       }
 
-      v8 = [expressPassConfigurations countByEnumeratingWithState:&v75 objects:v93 count:16];
+      v8 = [expressPassConfigurations countByEnumeratingWithState:&v76 objects:v94 count:16];
     }
 
     while (v8);
   }
 
-  v48 = [MEMORY[0x277CBEB58] set];
+  v49 = [MEMORY[0x277CBEB58] set];
   v13 = [MEMORY[0x277CBEB58] set];
-  v69 = 0u;
   v70 = 0u;
-  v67 = 0u;
+  v71 = 0u;
   v68 = 0u;
-  v14 = v80[5];
-  v15 = [v14 countByEnumeratingWithState:&v67 objects:v92 count:16];
+  v69 = 0u;
+  v14 = v81[5];
+  v15 = [v14 countByEnumeratingWithState:&v68 objects:v93 count:16];
   if (v15)
   {
-    v16 = *v68;
+    v16 = *v69;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v68 != v16)
+        if (*v69 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v67 + 1) + 8 * j);
+        v18 = *(*(&v68 + 1) + 8 * j);
         if ([v18 supportsExpress] && objc_msgSend(v18, "supportsInSessionExpress"))
         {
           if ([v18 technologyType] != 4)
@@ -2355,7 +2295,7 @@ LABEL_12:
           if (tCIs)
           {
             tCIs2 = [v18 TCIs];
-            [v48 unionSet:tCIs2];
+            [v49 unionSet:tCIs2];
           }
 
           primaryTCIs = [v18 primaryTCIs];
@@ -2363,7 +2303,7 @@ LABEL_12:
           if (primaryTCIs)
           {
             primaryTCIs2 = [v18 primaryTCIs];
-            [v48 unionSet:primaryTCIs2];
+            [v49 unionSet:primaryTCIs2];
 LABEL_21:
 
             continue;
@@ -2371,33 +2311,33 @@ LABEL_21:
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v67 objects:v92 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v68 objects:v93 count:16];
     }
 
     while (v15);
   }
 
-  v23 = [(NPKExpressPassController *)selfCopy _expressPassesInformationWithTCIs:v48];
+  v23 = [(NPKExpressPassController *)selfCopy _expressPassesInformationWithTCIs:v49];
   v24 = [MEMORY[0x277CBEB58] set];
-  v65 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
+  v65 = 0u;
   obj = v23;
-  v25 = [obj countByEnumeratingWithState:&v63 objects:v91 count:16];
+  v25 = [obj countByEnumeratingWithState:&v64 objects:v92 count:16];
   if (v25)
   {
-    v26 = *v64;
+    v26 = *v65;
     do
     {
       for (k = 0; k != v25; ++k)
       {
-        if (*v64 != v26)
+        if (*v65 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        passUniqueIdentifier = [*(*(&v63 + 1) + 8 * k) passUniqueIdentifier];
+        passUniqueIdentifier = [*(*(&v64 + 1) + 8 * k) passUniqueIdentifier];
         if (passUniqueIdentifier)
         {
           uniqueID = [passCopy uniqueID];
@@ -2414,51 +2354,51 @@ LABEL_21:
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v63 objects:v91 count:16];
+      v25 = [obj countByEnumeratingWithState:&v64 objects:v92 count:16];
     }
 
     while (v25);
   }
 
-  v61 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v47 = v13;
-  v50 = [v47 countByEnumeratingWithState:&v59 objects:v90 count:16];
-  if (v50)
+  v61 = 0u;
+  v48 = v13;
+  v51 = [v48 countByEnumeratingWithState:&v60 objects:v91 count:16];
+  if (v51)
   {
-    v49 = *v60;
+    v50 = *v61;
     do
     {
-      for (m = 0; m != v50; ++m)
+      for (m = 0; m != v51; ++m)
       {
-        if (*v60 != v49)
+        if (*v61 != v50)
         {
-          objc_enumerationMutation(v47);
+          objc_enumerationMutation(v48);
         }
 
-        v32 = *(*(&v59 + 1) + 8 * m);
+        v32 = *(*(&v60 + 1) + 8 * m);
         v33 = -[NPKExpressPassController _expressPassInformationWithTechnologyType:](selfCopy, "_expressPassInformationWithTechnologyType:", [v32 integerValue]);
-        v57 = 0u;
         v58 = 0u;
-        v55 = 0u;
+        v59 = 0u;
         v56 = 0u;
+        v57 = 0u;
         v34 = v33;
-        v35 = [v34 countByEnumeratingWithState:&v55 objects:v89 count:16];
+        v35 = [v34 countByEnumeratingWithState:&v56 objects:v90 count:16];
         if (v35)
         {
-          v36 = *v56;
+          v36 = *v57;
           do
           {
             for (n = 0; n != v35; ++n)
             {
-              if (*v56 != v36)
+              if (*v57 != v36)
               {
                 objc_enumerationMutation(v34);
               }
 
-              passUniqueIdentifier2 = [*(*(&v55 + 1) + 8 * n) passUniqueIdentifier];
+              passUniqueIdentifier2 = [*(*(&v56 + 1) + 8 * n) passUniqueIdentifier];
               if (passUniqueIdentifier2)
               {
                 uniqueID2 = [passCopy uniqueID];
@@ -2466,46 +2406,45 @@ LABEL_21:
 
                 if ((v40 & 1) == 0)
                 {
-                  v41 = pk_General_log();
-                  v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
+                  v42 = pk_General_log(v41);
+                  v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
 
-                  if (v42)
+                  if (v43)
                   {
-                    v43 = pk_General_log();
-                    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                    v45 = pk_General_log(v44);
+                    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412546;
-                      v86 = v32;
-                      v87 = 2112;
-                      v88 = passUniqueIdentifier2;
-                      _os_log_impl(&dword_25B300000, v43, OS_LOG_TYPE_DEFAULT, "Notice: Found technology type %@ sibling express pass %@", buf, 0x16u);
+                      v87 = v32;
+                      v88 = 2112;
+                      v89 = passUniqueIdentifier2;
+                      _os_log_impl(&dword_25B300000, v45, OS_LOG_TYPE_DEFAULT, "Notice: Found technology type %@ sibling express pass %@", buf, 0x16u);
                     }
                   }
 
-                  v44 = [(NSDictionary *)selfCopy->_expressPasses objectForKey:passUniqueIdentifier2];
-                  if (v44)
+                  v46 = [(NSDictionary *)selfCopy->_expressPasses objectForKey:passUniqueIdentifier2];
+                  if (v46)
                   {
-                    [v24 addObject:v44];
+                    [v24 addObject:v46];
                   }
                 }
               }
             }
 
-            v35 = [v34 countByEnumeratingWithState:&v55 objects:v89 count:16];
+            v35 = [v34 countByEnumeratingWithState:&v56 objects:v90 count:16];
           }
 
           while (v35);
         }
       }
 
-      v50 = [v47 countByEnumeratingWithState:&v59 objects:v90 count:16];
+      v51 = [v48 countByEnumeratingWithState:&v60 objects:v91 count:16];
     }
 
-    while (v50);
+    while (v51);
   }
 
-  _Block_object_dispose(&v79, 8);
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v80, 8);
 
   return v24;
 }
@@ -2566,27 +2505,27 @@ void __62__NPKExpressPassController__expressPassesInformationWithTCIs___block_in
 
 void __62__NPKExpressPassController__expressPassesInformationWithTCIs___block_invoke_2(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if ([v11 supportsExpress] && objc_msgSend(v11, "technologyType") == 4)
         {
           v12 = [v11 TCIs];
@@ -2609,7 +2548,7 @@ LABEL_14:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -2620,8 +2559,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_expressPassInformationWithTechnologyType:(int64_t)type
@@ -2664,27 +2601,27 @@ void __70__NPKExpressPassController__expressPassInformationWithTechnologyType___
 
 void __70__NPKExpressPassController__expressPassInformationWithTechnologyType___block_invoke_2(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([v11 supportsExpress] && objc_msgSend(v11, "technologyType") == a1[6])
         {
           [*(*(a1[5] + 8) + 40) addObject:a1[4]];
@@ -2693,7 +2630,7 @@ void __70__NPKExpressPassController__expressPassInformationWithTechnologyType___
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v8)
       {
         continue;
@@ -2704,13 +2641,11 @@ void __70__NPKExpressPassController__expressPassInformationWithTechnologyType___
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_transactionEventFromLockStatus:(id)status
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v4 = [MEMORY[0x277CCABB0] numberWithInt:0];
   if ([statusCopy isEqualToNumber:v4])
@@ -2729,8 +2664,8 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v10 = [MEMORY[0x277CCABB0] numberWithInt:1];
-  if ([statusCopy isEqualToNumber:v10])
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:1];
+  if ([statusCopy isEqualToNumber:v9])
   {
 
 LABEL_9:
@@ -2738,32 +2673,31 @@ LABEL_9:
     goto LABEL_5;
   }
 
-  v11 = [MEMORY[0x277CCABB0] numberWithInt:81];
-  v12 = [statusCopy isEqualToNumber:v11];
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:81];
+  v11 = [statusCopy isEqualToNumber:v10];
 
-  if (v12)
+  if (v11)
   {
     goto LABEL_9;
   }
 
-  v13 = pk_General_log();
+  v13 = pk_General_log(v12);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (v14)
   {
-    v15 = pk_General_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = statusCopy;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Warning: Got lock status changed for unexpected lock status: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = statusCopy;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: Got lock status changed for unexpected lock status: %@", &v17, 0xCu);
     }
   }
 
   v7 = 2;
 LABEL_5:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2780,14 +2714,15 @@ LABEL_5:
 
 - (void)_parseExpressNotificationObject:(id)object outApplicationIdentifier:(id *)identifier outApplicationKeyIdentifier:(id *)keyIdentifier
 {
-  objectCopy = object;
-  if (objectCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = object;
+  v8 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v8 = [objectCopy componentsSeparatedByString:@":"];
-    *identifier = [v8 firstObject];
-    if ([v8 count] == 2)
+    v9 = [v8 componentsSeparatedByString:@":"];
+    *identifier = [v9 firstObject];
+    if ([v9 count] == 2)
     {
-      lastObject = [v8 lastObject];
+      lastObject = [v9 lastObject];
       *keyIdentifier = lastObject;
     }
 
@@ -2799,16 +2734,16 @@ LABEL_5:
 
   else
   {
-    v10 = pk_Payment_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v11 = pk_Payment_log(isKindOfClass);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v12)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_Payment_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Warning: Expected to be provided a notification object, but instead found nil!", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: Expected to be provided a notification object, but instead found nil!", v15, 2u);
       }
     }
   }
@@ -2816,7 +2751,7 @@ LABEL_5:
 
 - (void)_parseHomeKeyUWBExpressNotificationObject:(id)object outApplicationIdentifier:(id *)identifier outApplicationKeyIdentifier:(id *)keyIdentifier outReaderIdentifier:(id *)readerIdentifier outTimestamp:(id *)timestamp outTransactionLockStatus:(id *)status outLockOperationSource:(id *)source
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -2824,36 +2759,37 @@ LABEL_5:
     if (objc_opt_isKindOfClass())
     {
       v15 = [objectCopy componentsSeparatedByString:@":"];
-      v16 = pk_General_log();
+      v16 = pk_General_log(v15);
       v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
       if (v17)
       {
-        v18 = pk_General_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = pk_General_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = 138412290;
-          v27 = v15;
-          _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Will parse notification %@", &v26, 0xCu);
+          v28 = 138412290;
+          v29 = v15;
+          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Will parse notification %@", &v28, 0xCu);
         }
       }
 
-      if ([v15 count] <= 5)
+      v20 = [v15 count];
+      if (v20 <= 5)
       {
-        v23 = pk_General_log();
-        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+        v25 = pk_General_log(v20);
+        v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
 
-        if (!v24)
+        if (!v26)
         {
           goto LABEL_13;
         }
 
-        v19 = pk_General_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v21 = pk_General_log(v27);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = 138412290;
-          v27 = v15;
-          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: Got malformed event from sesd. %@", &v26, 0xCu);
+          v28 = 138412290;
+          v29 = v15;
+          _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Warning: Got malformed event from sesd. %@", &v28, 0xCu);
         }
       }
 
@@ -2861,102 +2797,102 @@ LABEL_5:
       {
         *identifier = [v15 objectAtIndex:0];
         *keyIdentifier = [v15 objectAtIndex:1];
-        v19 = [v15 objectAtIndex:2];
-        *readerIdentifier = [MEMORY[0x277CBEA90] dataWithHexEncodedString:v19];
-        v20 = [v15 objectAtIndex:3];
-        *timestamp = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v20, "integerValue")}];
-        v21 = [v15 objectAtIndex:4];
-        *status = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v21, "integerValue")}];
-        v22 = [v15 objectAtIndex:5];
-        *source = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v22, "integerValue")}];
+        v21 = [v15 objectAtIndex:2];
+        *readerIdentifier = [MEMORY[0x277CBEA90] dataWithHexEncodedString:v21];
+        v22 = [v15 objectAtIndex:3];
+        *timestamp = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v22, "integerValue")}];
+        v23 = [v15 objectAtIndex:4];
+        *status = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v23, "integerValue")}];
+        v24 = [v15 objectAtIndex:5];
+        *source = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v24, "integerValue")}];
       }
 
 LABEL_13:
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseRKEActionNotificationObject:(id)object outApplicationIdentifier:(id *)identifier outApplicationKeyIdentifier:(id *)keyIdentifier outFunctionNumber:(id *)number outActionNumber:(id *)actionNumber outExecutionStatusNumber:(id *)statusNumber outErrorMessage:(id *)message
 {
-  objectCopy = object;
-  if (objectCopy)
+  isKindOfClass = object;
+  v15 = isKindOfClass;
+  if (isKindOfClass)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v15 = [objectCopy componentsSeparatedByString:@":"];
-      *identifier = [v15 firstObject];
-      if ([v15 count]<= 1)
+      v16 = [v15 componentsSeparatedByString:@":"];
+      *identifier = [v16 firstObject];
+      if ([v16 count]<= 1)
       {
         *keyIdentifier = 0;
       }
 
       else
       {
-        v16 = [v15 objectAtIndex:1];
-        *keyIdentifier = v16;
+        v17 = [v16 objectAtIndex:1];
+        *keyIdentifier = v17;
       }
 
-      if ([v15 count]>= 3)
+      if ([v16 count]>= 3)
       {
-        v19 = [v15 objectAtIndex:2];
-        if (v19)
-        {
-          v20 = v19;
-          *number = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v19, "integerValue")}];
-        }
-      }
-
-      if ([v15 count]>= 4)
-      {
-        v21 = [v15 objectAtIndex:3];
+        v21 = [v16 objectAtIndex:2];
         if (v21)
         {
           v22 = v21;
-          *actionNumber = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v21, "integerValue")}];
+          *number = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v21, "integerValue")}];
         }
       }
 
-      if ([v15 count]>= 5)
+      if ([v16 count]>= 4)
       {
-        v23 = [v15 objectAtIndex:4];
+        v23 = [v16 objectAtIndex:3];
         if (v23)
         {
           v24 = v23;
-          *statusNumber = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v23, "integerValue")}];
+          *actionNumber = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v23, "integerValue")}];
         }
       }
 
-      if ([v15 count]< 6)
+      if ([v16 count]>= 5)
       {
-        v25 = 0;
+        v25 = [v16 objectAtIndex:4];
+        if (v25)
+        {
+          v26 = v25;
+          *statusNumber = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v25, "integerValue")}];
+        }
+      }
+
+      if ([v16 count]< 6)
+      {
+        v27 = 0;
       }
 
       else
       {
-        v25 = [v15 objectAtIndex:5];
+        v27 = [v16 objectAtIndex:5];
       }
 
-      v26 = v25;
-      *message = v26;
+      v28 = v27;
+      *message = v28;
 
 LABEL_22:
       goto LABEL_23;
     }
   }
 
-  v17 = pk_Payment_log();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = pk_Payment_log(isKindOfClass);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-  if (v18)
+  if (v19)
   {
-    v15 = pk_Payment_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_Payment_log(v20);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Warning: Expected to be provided a notification object, but instead found nil!", v27, 2u);
+      *v29 = 0;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: Expected to be provided a notification object, but instead found nil!", v29, 2u);
     }
 
     goto LABEL_22;
@@ -2968,24 +2904,24 @@ LABEL_23:
 - (void)_internalQueue_startFieldDetector
 {
   dispatch_assert_queue_V2(self->_internalQueue);
-  v3 = pk_Payment_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v4 = pk_Payment_log(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Starting field detector for terminal-requested auth", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Starting field detector for terminal-requested auth", v10, 2u);
     }
   }
 
   if (!self->_fieldDetector)
   {
-    v6 = objc_alloc_init(MEMORY[0x277D37EE0]);
+    v8 = objc_alloc_init(MEMORY[0x277D37EE0]);
     fieldDetector = self->_fieldDetector;
-    self->_fieldDetector = v6;
+    self->_fieldDetector = v8;
 
     [(PKFieldDetector *)self->_fieldDetector registerObserver:self];
   }
@@ -3027,49 +2963,50 @@ void __70__NPKExpressPassController_fieldDetectorDidEnterField_withProperties___
 
     if ([v9 count])
     {
-      if ([v9 count] >= 2)
+      v10 = [v9 count];
+      if (v10 >= 2)
       {
-        v10 = pk_Payment_log();
-        v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+        v11 = pk_Payment_log(v10);
+        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-        if (v11)
+        if (v12)
         {
-          v12 = pk_Payment_log();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = pk_Payment_log(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Warning: Multiple express passes match TCIs for transient authentication required field detect event", buf, 2u);
+            _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: Multiple express passes match TCIs for transient authentication required field detect event", buf, 2u);
           }
         }
       }
 
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __70__NPKExpressPassController_fieldDetectorDidEnterField_withProperties___block_invoke_126;
-      v18[3] = &unk_2799454E0;
-      v13 = v9;
-      v14 = *(a1 + 40);
-      v19 = v13;
-      v20 = v14;
-      NPKGuaranteeMainThread(v18);
-      v15 = v19;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __70__NPKExpressPassController_fieldDetectorDidEnterField_withProperties___block_invoke_126;
+      v21[3] = &unk_2799454E0;
+      v15 = v9;
+      v16 = *(a1 + 40);
+      v22 = v15;
+      v23 = v16;
+      NPKGuaranteeMainThread(v21);
+      v17 = v22;
     }
 
     else
     {
-      v16 = pk_Payment_log();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      v18 = pk_Payment_log(0);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-      if (!v17)
+      if (!v19)
       {
         goto LABEL_13;
       }
 
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v20);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Warning: No express passes match TCIs for transient authentication required field detect event", buf, 2u);
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Warning: No express passes match TCIs for transient authentication required field detect event", buf, 2u);
       }
     }
 
@@ -3079,7 +3016,7 @@ LABEL_13:
 
 void __70__NPKExpressPassController_fieldDetectorDidEnterField_withProperties___block_invoke_126(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) anyObject];
   v3 = [*(a1 + 40) expressPasses];
   v4 = [v2 passUniqueIdentifier];
@@ -3087,32 +3024,30 @@ void __70__NPKExpressPassController_fieldDetectorDidEnterField_withProperties___
 
   if (v5)
   {
-    v6 = [*(a1 + 40) delegate];
+    v7 = [*(a1 + 40) delegate];
     if (objc_opt_respondsToSelector())
     {
-      [v6 expressPassController:*(a1 + 40) didReceiveAuthenticationRequestForPass:v5];
+      [v7 expressPassController:*(a1 + 40) didReceiveAuthenticationRequestForPass:v5];
     }
   }
 
   else
   {
-    v7 = pk_Payment_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = pk_Payment_log(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_Payment_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [v2 passUniqueIdentifier];
-        v12 = 138412290;
-        v13 = v10;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Got on-device authentication required for unique ID %@, but no express pass!", &v12, 0xCu);
+        v12 = [v2 passUniqueIdentifier];
+        v13 = 138412290;
+        v14 = v12;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: Got on-device authentication required for unique ID %@, but no express pass!", &v13, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NPKExpressPassControllerDelegate)delegate

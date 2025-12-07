@@ -7,11 +7,11 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphSortOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphSortOps.mm", __p);
-  v12 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::SortOp>(table, builder, __p, 0x2Du, nameCopy);
-  if (v18 < 0)
+  mpsFileLoc(&__p, "[MPSGraphSortOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphSortOps.mm");
+  v12 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::SortOp>(table, builder, &__p, 0x2Du, nameCopy);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   if (*(values + 1) - *values != 16 && MTLReportFailureTypeEnabled())

@@ -3,7 +3,7 @@
 
 @implementation AXSAppleTVRemoteUsesSimpleGestures
 
-uint64_t ___AXSAppleTVRemoteUsesSimpleGestures_block_invoke()
+void *___AXSAppleTVRemoteUsesSimpleGestures_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -142,104 +142,104 @@ LABEL_8:
   height = frame.size.height;
   y = frame.origin.y;
   x = frame.origin.x;
-  v165 = *MEMORY[0x277D85DE8];
+  v164 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   strokeCopy = stroke;
   if (!cacheCopy)
   {
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v20, v21.width, v22, "[TSCHChartBarElementsRenderer renderingElementFrameForBarElementFrame:groupIndex:modelCache:stroke:viewScale:contextInfo:returningFillRect:strokeRect:]");
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v30, v31, v32, v33, v24, v29, 128, 0, "invalid nil value for '%{public}s'", "modelCache");
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v19, v20.width, v21, "[TSCHChartBarElementsRenderer renderingElementFrameForBarElementFrame:groupIndex:modelCache:stroke:viewScale:contextInfo:returningFillRect:strokeRect:]");
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v29, v30, v31, v32, v23, v28, 128, 0, "invalid nil value for '%{public}s'", "modelCache");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
   }
 
-  v38 = MEMORY[0x277CBF398];
+  v37 = MEMORY[0x277CBF398];
   if (rect)
   {
-    v21 = *(MEMORY[0x277CBF398] + 16);
+    v20 = *(MEMORY[0x277CBF398] + 16);
     rect->origin = *MEMORY[0x277CBF398];
-    rect->size = v21;
+    rect->size = v20;
   }
 
   if (strokeRect)
   {
-    v21 = *(v38 + 16);
-    strokeRect->origin = *v38;
-    strokeRect->size = v21;
+    v20 = *(v37 + 16);
+    strokeRect->origin = *v37;
+    strokeRect->size = v20;
   }
 
-  objc_msgSend_barElementsRendererValueRangeForModelCache_groupIndex_(TSCHRenderUtilities, v18, 0.0, v21.width, v22, cacheCopy, index);
+  objc_msgSend_barElementsRendererValueRangeForModelCache_groupIndex_(TSCHRenderUtilities, 0.0, v20.width, v21);
   layoutItem = self->super._layoutItem;
   if (!layoutItem)
   {
-    v44 = MEMORY[0x277D81150];
-    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v40, v41, v42, "[TSCHChartBarElementsRenderer renderingElementFrameForBarElementFrame:groupIndex:modelCache:stroke:viewScale:contextInfo:returningFillRect:strokeRect:]");
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v44, v51, v52, v53, v54, v45, v50, 142, 0, "invalid nil value for '%{public}s'", "_layoutItem");
+    v43 = MEMORY[0x277D81150];
+    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v39, v40, v41, "[TSCHChartBarElementsRenderer renderingElementFrameForBarElementFrame:groupIndex:modelCache:stroke:viewScale:contextInfo:returningFillRect:strokeRect:]");
+    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v50, v51, v52, v53, v44, v49, 142, 0, "invalid nil value for '%{public}s'", "_layoutItem");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56, v57, v58);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
     layoutItem = self->super._layoutItem;
   }
 
-  objc_msgSend_rootedLayoutRect(layoutItem, v39, v40, v41, v42);
-  v60 = v59;
-  v62 = v61;
-  v64 = v63;
-  v66 = v65;
-  v68 = objc_msgSend_series(cacheCopy, v67, v59, v61, v63);
-  v73 = objc_msgSend_seriesType(v68, v69, v70, v71, v72);
+  objc_msgSend_rootedLayoutRect(layoutItem, v38, v39, v40, v41);
+  v59 = v58;
+  v61 = v60;
+  v63 = v62;
+  v65 = v64;
+  v67 = objc_msgSend_series(cacheCopy, v66, v58, v60, v62);
+  v72 = objc_msgSend_seriesType(v67, v68, v69, v70, v71);
   objc_opt_class();
-  v78 = objc_msgSend_elementBuilder(v73, v74, v75, v76, v77);
-  v79 = TSUDynamicCast();
+  v77 = objc_msgSend_elementBuilder(v72, v73, v74, v75, v76);
+  v78 = TSUDynamicCast();
 
-  if (!v79)
+  if (!v78)
   {
-    v84 = MEMORY[0x277D81150];
+    v83 = MEMORY[0x277D81150];
     rectCopy = rect;
-    v86 = v73;
+    v85 = v72;
     strokeRectCopy = strokeRect;
-    v88 = strokeCopy;
+    v87 = strokeCopy;
     infoCopy = info;
-    v90 = v68;
-    v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v80, v81, v82, v83, "[TSCHChartBarElementsRenderer renderingElementFrameForBarElementFrame:groupIndex:modelCache:stroke:viewScale:contextInfo:returningFillRect:strokeRect:]");
-    v96 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, v93, v94, v95, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v84, v97, v98, v99, v100, v91, v96, 147, 0, "invalid nil value for '%{public}s'", "elementBuilder");
+    v89 = v67;
+    v90 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v79, v80, v81, v82, "[TSCHChartBarElementsRenderer renderingElementFrameForBarElementFrame:groupIndex:modelCache:stroke:viewScale:contextInfo:returningFillRect:strokeRect:]");
+    v95 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, v92, v93, v94, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v83, v96, v97, v98, v99, v90, v95, 147, 0, "invalid nil value for '%{public}s'", "elementBuilder");
 
-    v68 = v90;
+    v67 = v89;
     info = infoCopy;
-    strokeCopy = v88;
+    strokeCopy = v87;
     strokeRect = strokeRectCopy;
-    v73 = v86;
+    v72 = v85;
     rect = rectCopy;
-    v79 = 0;
+    v78 = 0;
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v101, v102, v103, v104);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v100, v101, v102, v103);
   }
 
-  objc_msgSend_nudgeBarElementFrame_inPlotAreaFrame_usingBarModelCache_unitSpaceValueBegin_unitSpaceValueEnd_withViewScale_(v79, v80, x, y, width, cacheCopy, height, v60, v62, v64, v66, 0, 0, *&scale);
+  objc_msgSend_nudgeBarElementFrame_inPlotAreaFrame_usingBarModelCache_unitSpaceValueBegin_unitSpaceValueEnd_withViewScale_(v78, v79, x, y, width, cacheCopy, height, v59, v61, v63, v65, 0, 0, *&scale);
+  v108 = v105;
   v109 = v106;
   v110 = v107;
-  v111 = v108;
-  v113 = v112;
+  v112 = v111;
   if (!strokeCopy)
   {
-    strokeCopy = objc_msgSend_stroke(cacheCopy, v105, v106, v107, v108);
+    strokeCopy = objc_msgSend_stroke(cacheCopy, v104, v105, v106, v107);
   }
 
-  v118 = 0.0;
-  if (objc_msgSend_shouldRender(strokeCopy, v105, v106, v107, v108))
+  v117 = 0.0;
+  if (objc_msgSend_shouldRender(strokeCopy, v104, v105, v106, v107))
   {
-    objc_msgSend_width(strokeCopy, v114, v115, v116, v117);
-    v118 = v119 + v119;
+    objc_msgSend_width(strokeCopy, v113, v114, v115, v116);
+    v117 = v118 + v118;
   }
 
-  v166.origin.x = v109;
-  v166.origin.y = v110;
-  v166.size.width = v111;
-  v166.size.height = v113;
-  if (!CGRectIsNull(v166))
+  v165.origin.x = v108;
+  v165.origin.y = v109;
+  v165.size.width = v110;
+  v165.size.height = v112;
+  if (!CGRectIsNull(v165))
   {
     if (rect)
     {
@@ -249,99 +249,99 @@ LABEL_8:
       c = info->var0.c;
       d = info->var0.d;
       var1 = info->var1;
-      v163 = *&info->var0.tx;
-      v164 = var1;
-      v161.a = a;
-      v161.b = b;
-      v155 = b;
-      v157 = c;
-      v161.c = c;
-      v161.d = d;
-      v159 = d;
-      v126 = info->var1;
-      *&v161.tx = *&info->var0.tx;
-      v162 = v126;
-      sub_27628C534(&v161, v109, v110, v111, v113, 0.0);
-      v131 = v130;
+      v162 = *&info->var0.tx;
+      v163 = var1;
+      v160.a = a;
+      v160.b = b;
+      v154 = b;
+      v156 = c;
+      v160.c = c;
+      v160.d = d;
+      v158 = d;
+      v125 = info->var1;
+      *&v160.tx = *&info->var0.tx;
+      v161 = v125;
+      sub_27628C534(&v160, v108, v109, v110, v112, 0.0);
+      v130 = v129;
+      v131 = v126;
       v132 = v127;
       v133 = v128;
-      v134 = v129;
       if (vertical)
       {
-        v135 = v128 < 1.0 || v128 == 1.0;
-        if (v135 || fabs(v128 + -1.0) < 0.01)
+        v134 = v127 < 1.0 || v127 == 1.0;
+        if (v134 || fabs(v127 + -1.0) < 0.01)
         {
-          v136 = v113 * v157 + a * v111;
-          if (v136 < 0.95 && fabs(v136 + -0.95) >= 0.00999999978)
+          v135 = v112 * v156 + a * v110;
+          if (v135 < 0.95 && fabs(v135 + -0.95) >= 0.00999999978)
           {
-            v160.a = a;
-            v160.b = v155;
-            v160.c = v157;
-            v160.d = v159;
-            *&v160.tx = v163;
-            v137 = v131;
-            v138 = v127;
-            CGAffineTransformInvert(&v161, &v160);
-            v132 = v138;
+            v159.a = a;
+            v159.b = v154;
+            v159.c = v156;
+            v159.d = v158;
+            *&v159.tx = v162;
+            v136 = v130;
+            v137 = v126;
+            CGAffineTransformInvert(&v160, &v159);
             v131 = v137;
-            v133 = *(MEMORY[0x277D814F0] + 8) * v161.c + v161.a * *MEMORY[0x277D814F0];
+            v130 = v136;
+            v132 = *(MEMORY[0x277D814F0] + 8) * v160.c + v160.a * *MEMORY[0x277D814F0];
           }
         }
       }
 
       else
       {
-        v139 = v129 < 1.0 || v129 == 1.0;
-        if (v139 || fabs(v129 + -1.0) < 0.01)
+        v138 = v128 < 1.0 || v128 == 1.0;
+        if (v138 || fabs(v128 + -1.0) < 0.01)
         {
-          v140 = v113 * v159 + v155 * v111;
-          if (v140 < 0.95 && fabs(v140 + -0.95) >= 0.00999999978)
+          v139 = v112 * v158 + v154 * v110;
+          if (v139 < 0.95 && fabs(v139 + -0.95) >= 0.00999999978)
           {
-            v160.a = a;
-            v160.b = v155;
-            v160.c = v157;
-            v160.d = v159;
-            *&v160.tx = v163;
-            v141 = v131;
-            v142 = v127;
-            CGAffineTransformInvert(&v161, &v160);
-            v132 = v142;
+            v159.a = a;
+            v159.b = v154;
+            v159.c = v156;
+            v159.d = v158;
+            *&v159.tx = v162;
+            v140 = v130;
+            v141 = v126;
+            CGAffineTransformInvert(&v160, &v159);
             v131 = v141;
-            v134 = *(MEMORY[0x277D814F0] + 8) * v161.d + v161.b * *MEMORY[0x277D814F0];
+            v130 = v140;
+            v133 = *(MEMORY[0x277D814F0] + 8) * v160.d + v160.b * *MEMORY[0x277D814F0];
           }
         }
       }
 
-      rect->origin.x = v131;
-      rect->origin.y = v132;
-      rect->size.width = v133;
-      rect->size.height = v134;
+      rect->origin.x = v130;
+      rect->origin.y = v131;
+      rect->size.width = v132;
+      rect->size.height = v133;
     }
 
     if (strokeRect)
     {
-      v143 = *&info->var0.c;
-      *&v161.a = *&info->var0.a;
-      *&v161.c = v143;
-      v144 = info->var1;
-      *&v161.tx = *&info->var0.tx;
-      v162 = v144;
-      sub_27628C534(&v161, v109, v110, v111, v113, v118);
-      strokeRect->origin.x = v145;
-      strokeRect->origin.y = v146;
-      strokeRect->size.width = v147;
-      strokeRect->size.height = v148;
+      v142 = *&info->var0.c;
+      *&v160.a = *&info->var0.a;
+      *&v160.c = v142;
+      v143 = info->var1;
+      *&v160.tx = *&info->var0.tx;
+      v161 = v143;
+      sub_27628C534(&v160, v108, v109, v110, v112, v117);
+      strokeRect->origin.x = v144;
+      strokeRect->origin.y = v145;
+      strokeRect->size.width = v146;
+      strokeRect->size.height = v147;
     }
   }
 
+  v148 = v108;
   v149 = v109;
   v150 = v110;
-  v151 = v111;
-  v152 = v113;
-  result.size.height = v152;
-  result.size.width = v151;
-  result.origin.y = v150;
-  result.origin.x = v149;
+  v151 = v112;
+  result.size.height = v151;
+  result.size.width = v150;
+  result.origin.y = v149;
+  result.origin.x = v148;
   return result;
 }
 

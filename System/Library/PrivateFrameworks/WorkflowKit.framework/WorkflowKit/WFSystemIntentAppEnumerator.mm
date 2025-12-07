@@ -57,57 +57,57 @@ void __101__WFSystemIntentAppEnumerator_supportedIdentifiersForIntentClassName_i
 
 - (void)enumerate
 {
-  v96[1] = *MEMORY[0x1E69E9840];
+  v95[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v2 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = objc_alloc(MEMORY[0x1E6963668]);
-  v49 = [v4 initWithIdentifier:*MEMORY[0x1E696E580] error:0];
-  v96[0] = v49;
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v96 count:1];
+  v48 = [v4 initWithIdentifier:*MEMORY[0x1E696E580] error:0];
+  v95[0] = v48;
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v95 count:1];
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
-  obj = v89 = 0u;
-  v53 = [obj countByEnumeratingWithState:&v86 objects:v95 count:16];
-  if (v53)
+  obj = v88 = 0u;
+  v52 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
+  if (v52)
   {
-    v52 = *v87;
-    v56 = *MEMORY[0x1E696E560];
+    v51 = *v86;
+    v55 = *MEMORY[0x1E696E560];
     do
     {
       v5 = 0;
       do
       {
-        if (*v87 != v52)
+        if (*v86 != v51)
         {
           objc_enumerationMutation(obj);
         }
 
-        v54 = v5;
-        v6 = *(*(&v86 + 1) + 8 * v5);
+        v53 = v5;
+        v6 = *(*(&v85 + 1) + 8 * v5);
+        v81 = 0u;
         v82 = 0u;
         v83 = 0u;
         v84 = 0u;
-        v85 = 0u;
-        v55 = [MEMORY[0x1E69635D0] enumeratorWithExtensionPointRecord:v6 options:0];
-        v60 = [v55 countByEnumeratingWithState:&v82 objects:v94 count:16];
-        if (v60)
+        v54 = [MEMORY[0x1E69635D0] enumeratorWithExtensionPointRecord:v6 options:0];
+        v59 = [v54 countByEnumeratingWithState:&v81 objects:v93 count:16];
+        if (v59)
         {
-          v58 = *v83;
+          v57 = *v82;
           do
           {
-            for (i = 0; i != v60; i = i + 1)
+            for (i = 0; i != v59; i = i + 1)
             {
-              if (*v83 != v58)
+              if (*v82 != v57)
               {
-                objc_enumerationMutation(v55);
+                objc_enumerationMutation(v54);
               }
 
-              v8 = *(*(&v82 + 1) + 8 * i);
+              v8 = *(*(&v81 + 1) + 8 * i);
               v9 = objc_autoreleasePoolPush();
               if_extensionAttributesDictionary = [v8 if_extensionAttributesDictionary];
-              v11 = [if_extensionAttributesDictionary objectForKeyedSubscript:v56];
+              v11 = [if_extensionAttributesDictionary objectForKeyedSubscript:v55];
 
               if (v11)
               {
@@ -151,7 +151,7 @@ LABEL_33:
 
                 bundleIdentifier = [containingBundleRecord bundleIdentifier];
                 v16 = bundleIdentifier;
-                v64 = v9;
+                v63 = v9;
                 if (bundleIdentifier)
                 {
                   bundleIdentifier2 = bundleIdentifier;
@@ -164,39 +164,39 @@ LABEL_33:
 
                 v18 = bundleIdentifier2;
 
-                v80 = 0u;
-                v81 = 0u;
-                v78 = 0u;
                 v79 = 0u;
-                v62 = v13;
+                v80 = 0u;
+                v77 = 0u;
+                v78 = 0u;
+                v61 = v13;
                 v19 = v13;
-                v20 = [v19 countByEnumeratingWithState:&v78 objects:v93 count:16];
+                v20 = [v19 countByEnumeratingWithState:&v77 objects:v92 count:16];
                 if (v20)
                 {
                   v21 = v20;
-                  v22 = *v79;
+                  v22 = *v78;
                   do
                   {
                     for (j = 0; j != v21; ++j)
                     {
-                      if (*v79 != v22)
+                      if (*v78 != v22)
                       {
                         objc_enumerationMutation(v19);
                       }
 
-                      v24 = *(*(&v78 + 1) + 8 * j);
+                      v24 = *(*(&v77 + 1) + 8 * j);
                       WFInsertIdentifierForKey(v2, v24, v18);
                       WFInsertIdentifierForKey(v3, v24, v18);
                     }
 
-                    v21 = [v19 countByEnumeratingWithState:&v78 objects:v93 count:16];
+                    v21 = [v19 countByEnumeratingWithState:&v77 objects:v92 count:16];
                   }
 
                   while (v21);
                 }
 
-                v13 = v62;
-                v9 = v64;
+                v13 = v61;
+                v9 = v63;
                 goto LABEL_33;
               }
 
@@ -205,115 +205,115 @@ LABEL_34:
               objc_autoreleasePoolPop(v9);
             }
 
-            v60 = [v55 countByEnumeratingWithState:&v82 objects:v94 count:16];
+            v59 = [v54 countByEnumeratingWithState:&v81 objects:v93 count:16];
           }
 
-          while (v60);
+          while (v59);
         }
 
-        v5 = v54 + 1;
+        v5 = v53 + 1;
       }
 
-      while (v54 + 1 != v53);
-      v53 = [obj countByEnumeratingWithState:&v86 objects:v95 count:16];
+      while (v53 + 1 != v52);
+      v52 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
     }
 
-    while (v53);
+    while (v52);
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
-  v61 = WFInstalledAppsEnumerator();
-  v25 = [v61 countByEnumeratingWithState:&v74 objects:v92 count:16];
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v60 = WFInstalledAppsEnumerator();
+  v25 = [v60 countByEnumeratingWithState:&v73 objects:v91 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v75;
-    v57 = *v75;
+    v27 = *v74;
+    v56 = *v74;
     do
     {
       v28 = 0;
-      v59 = v26;
+      v58 = v26;
       do
       {
-        if (*v75 != v27)
+        if (*v74 != v27)
         {
-          objc_enumerationMutation(v61);
+          objc_enumerationMutation(v60);
         }
 
-        v29 = *(*(&v74 + 1) + 8 * v28);
+        v29 = *(*(&v73 + 1) + 8 * v28);
         v30 = objc_autoreleasePoolPush();
         supportedIntents = [v29 supportedIntents];
         if_userActivityTypes = [v29 if_userActivityTypes];
         if (([supportedIntents count] || objc_msgSend(if_userActivityTypes, "count")) && objc_msgSend(v29, "wf_isAvailableInContext:", 0))
         {
-          v63 = if_userActivityTypes;
-          v65 = v30;
+          v62 = if_userActivityTypes;
+          v64 = v30;
           bundleIdentifier3 = [v29 bundleIdentifier];
+          v69 = 0u;
           v70 = 0u;
           v71 = 0u;
           v72 = 0u;
-          v73 = 0u;
           v34 = supportedIntents;
-          v35 = [v34 countByEnumeratingWithState:&v70 objects:v91 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v69 objects:v90 count:16];
           if (v35)
           {
             v36 = v35;
-            v37 = *v71;
+            v37 = *v70;
             do
             {
               for (k = 0; k != v36; ++k)
               {
-                if (*v71 != v37)
+                if (*v70 != v37)
                 {
                   objc_enumerationMutation(v34);
                 }
 
-                v39 = *(*(&v70 + 1) + 8 * k);
+                v39 = *(*(&v69 + 1) + 8 * k);
                 WFInsertIdentifierForKey(v2, v39, bundleIdentifier3);
                 WFInsertIdentifierForKey(v3, v39, bundleIdentifier3);
               }
 
-              v36 = [v34 countByEnumeratingWithState:&v70 objects:v91 count:16];
+              v36 = [v34 countByEnumeratingWithState:&v69 objects:v90 count:16];
             }
 
             while (v36);
           }
 
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
           v67 = 0u;
-          if_userActivityTypes = v63;
-          v40 = v63;
-          v41 = [v40 countByEnumeratingWithState:&v66 objects:v90 count:16];
+          v68 = 0u;
+          v65 = 0u;
+          v66 = 0u;
+          if_userActivityTypes = v62;
+          v40 = v62;
+          v41 = [v40 countByEnumeratingWithState:&v65 objects:v89 count:16];
           if (v41)
           {
             v42 = v41;
-            v43 = *v67;
+            v43 = *v66;
             do
             {
               for (m = 0; m != v42; ++m)
               {
-                if (*v67 != v43)
+                if (*v66 != v43)
                 {
                   objc_enumerationMutation(v40);
                 }
 
-                WFInsertIdentifierForKey(v3, *(*(&v66 + 1) + 8 * m), bundleIdentifier3);
+                WFInsertIdentifierForKey(v3, *(*(&v65 + 1) + 8 * m), bundleIdentifier3);
               }
 
-              v42 = [v40 countByEnumeratingWithState:&v66 objects:v90 count:16];
+              v42 = [v40 countByEnumeratingWithState:&v65 objects:v89 count:16];
             }
 
             while (v42);
           }
 
-          v27 = v57;
-          v26 = v59;
-          v30 = v65;
+          v27 = v56;
+          v26 = v58;
+          v30 = v64;
         }
 
         objc_autoreleasePoolPop(v30);
@@ -321,7 +321,7 @@ LABEL_34:
       }
 
       while (v28 != v26);
-      v26 = [v61 countByEnumeratingWithState:&v74 objects:v92 count:16];
+      v26 = [v60 countByEnumeratingWithState:&v73 objects:v91 count:16];
     }
 
     while (v26);
@@ -333,8 +333,6 @@ LABEL_34:
 
   identifiersByUserActivityType = self->_identifiersByUserActivityType;
   self->_identifiersByUserActivityType = v3;
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

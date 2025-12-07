@@ -32,15 +32,10 @@
 
 - (void)dealloc
 {
-  code_low = LODWORD(self->_code);
-  arg1 = self->_arg1;
-  arg2 = self->_arg2;
-  arg3 = self->_arg3;
-  arg4 = self->_arg4;
   kdebug_trace();
-  v8.receiver = self;
-  v8.super_class = CRXUDeferredTrace;
-  [(CRXUDeferredTrace *)&v8 dealloc];
+  v3.receiver = self;
+  v3.super_class = CRXUDeferredTrace;
+  [(CRXUDeferredTrace *)&v3 dealloc];
 }
 
 @end

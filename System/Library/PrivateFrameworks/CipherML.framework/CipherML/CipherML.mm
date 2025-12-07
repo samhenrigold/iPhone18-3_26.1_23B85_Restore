@@ -13,7 +13,7 @@ BOOL _sSo24CMLUseCaseControlOptionsVs10SetAlgebraSCsACP6insertySb8inserted_7Elem
 
 uint64_t sub_224E27EA4(uint64_t a1, uint64_t a2, int *a3)
 {
-  v6 = type metadata accessor for SecretKey();
+  v6 = type metadata accessor for SecretKey(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -61,7 +61,7 @@ LABEL_5:
 
 uint64_t sub_224E28028(uint64_t a1, uint64_t a2, int a3, int *a4)
 {
-  v8 = type metadata accessor for SecretKey();
+  v8 = type metadata accessor for SecretKey(0);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -102,13 +102,6 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance AspireSimilaritySimilarityDb@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = MEMORY[0x277D84F90];
-  v2 = a2 + *(a1 + 20);
-  return UnknownStorage.init()();
-}
-
 uint64_t sub_224E28690(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for UnknownStorage();
@@ -125,7 +118,7 @@ uint64_t sub_224E286FC(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t sub_224E2876C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E2876C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -782,7 +775,7 @@ LABEL_7:
   return v15(v16, a2, a2, v14);
 }
 
-uint64_t sub_224E29F94(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E29F94(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -858,123 +851,88 @@ uint64_t sub_224E2A38C()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML14RequestContextVyAA19StaticPIRParametersVGMd, &_s8CipherML14RequestContextVyAA19StaticPIRParametersVGMR) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 32) & ~v2;
-  v4 = (*(*v1 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v5 = (v4 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v7 = type metadata accessor for RequestsManager.PIRContext();
-  v8 = *(v7 - 1);
-  v56 = (*(v8 + 80) + v6 + 8) & ~*(v8 + 80);
-  v57 = *(v8 + 80);
-  v55 = *(v8 + 64);
-  v9 = *(v0 + 16);
+  v4 = (((((*(*v1 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
+  v5 = type metadata accessor for RequestsManager.PIRContext(0);
+  v6 = *(v5 - 1);
+  v34 = (*(v6 + 80) + v4 + 8) & ~*(v6 + 80);
+  v35 = *(v6 + 80);
+  v33 = *(v6 + 64);
   swift_unknownObjectRelease();
-  v10 = v0 + v3;
+  v7 = (v0 + v3);
 
-  v11 = *(v10 + 56);
-
-  v12 = v10 + v1[10];
+  v8 = v7 + v1[10];
   type metadata accessor for NetworkManagerType(0);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload == 1)
   {
-    v54 = v2;
-    v18 = type metadata accessor for URL();
-    v19 = *(v18 - 8);
-    v53 = *(v19 + 8);
-    v53(v12, v18);
-    v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMd, &_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMR);
-    v21 = *(v20 + 48);
-    if (!(*(v19 + 48))(v12 + v21, 1, v18))
+    v32 = v2;
+    v13 = type metadata accessor for URL();
+    v14 = *(v13 - 8);
+    v31 = *(v14 + 8);
+    v31(v8, v13);
+    v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMd, &_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMR) + 48);
+    if (!(*(v14 + 48))(&v8[v15], 1, v13))
     {
-      v53(v12 + v21, v18);
+      v31(&v8[v15], v13);
     }
 
-    v22 = *(v12 + *(v20 + 64) + 8);
-
-    v2 = v54;
+    v2 = v32;
   }
 
   else if (!EnumCaseMultiPayload)
   {
-    v14 = *(v12 + 8);
 
-    v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMd, &_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMR) + 48);
-    v16 = type metadata accessor for URL();
-    v17 = *(v16 - 8);
-    if (!(*(v17 + 48))(v12 + v15, 1, v16))
+    v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMd, &_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMR) + 48);
+    v11 = type metadata accessor for URL();
+    v12 = *(v11 - 8);
+    if (!(*(v12 + 48))(&v8[v10], 1, v11))
     {
-      (*(v17 + 8))(v12 + v15, v16);
+      (*(v12 + 8))(&v8[v10], v11);
     }
   }
 
-  v23 = *(v12 + *(type metadata accessor for NetworkConfig(0) + 20) + 8);
+  type metadata accessor for NetworkConfig(0);
 
-  v24 = *(v0 + v4 + 8);
+  v16 = v0 + v34 + v5[5];
+  v17 = type metadata accessor for Date();
+  (*(*(v17 - 8) + 8))(v16, v17);
+  v18 = *(type metadata accessor for UserIdentifier(0) + 20);
+  v19 = type metadata accessor for UUID();
+  (*(*(v19 - 8) + 8))(v16 + v18, v19);
 
-  v25 = *(v0 + v5);
+  v20 = v0 + v34 + v5[6];
+  v21 = type metadata accessor for UnknownStorage();
+  v22 = *(*(v21 - 8) + 8);
+  v22(v20, v21);
+  type metadata accessor for AspireApiPIRConfig(0);
 
-  v26 = *(v0 + v6);
-
-  v27 = *(v0 + v56 + 8);
-
-  v28 = v0 + v56 + v7[5];
-  v29 = type metadata accessor for Date();
-  (*(*(v29 - 8) + 8))(v28, v29);
-  v30 = type metadata accessor for UserIdentifier();
-  v31 = *(v30 + 20);
-  v32 = type metadata accessor for UUID();
-  (*(*(v32 - 8) + 8))(v28 + v31, v32);
-  v33 = *(v28 + *(v30 + 24));
-
-  v34 = v0 + v56 + v7[6];
-  v35 = type metadata accessor for UnknownStorage();
-  v36 = *(*(v35 - 8) + 8);
-  v36(v34, v35);
-  v37 = *(v34 + *(type metadata accessor for AspireApiPIRConfig(0) + 20));
-
-  outlined consume of Data._Representation(*(v0 + v56 + v7[7]), *(v0 + v56 + v7[7] + 8));
-  v38 = v7[8];
-  v39 = v38 + *(type metadata accessor for SecretKey() + 20);
-  v40 = type metadata accessor for HE.SerializedSecretKey();
-  (*(*(v40 - 8) + 8))(v0 + v56 + v39, v40);
-  v41 = *(v0 + v56 + v7[9]);
+  outlined consume of Data._Representation(*(v0 + v34 + v5[7]), *(v0 + v34 + v5[7] + 8));
+  v23 = v5[8];
+  v24 = v23 + *(type metadata accessor for SecretKey(0) + 20);
+  v25 = type metadata accessor for HE.SerializedSecretKey();
+  (*(*(v25 - 8) + 8))(v0 + v34 + v24, v25);
   swift_unknownObjectRelease();
-  v42 = (v0 + v56 + v7[10]);
-  v43 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
-  if (!(*(*(v43 - 8) + 48))(v42, 1, v43))
+  v26 = v0 + v34 + v5[10];
+  v27 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
+  if (!(*(*(v27 - 8) + 48))(v26, 1, v27))
   {
-    v44 = *v42;
 
-    v36(v42 + *(v43 + 24), v35);
-    v45 = v42 + *(v43 + 28);
-    v46 = type metadata accessor for AspireHeEncryptionParameters(0);
-    if (!(*(*(v46 - 8) + 48))(v45, 1, v46))
+    v22(v26 + *(v27 + 24), v21);
+    v28 = v26 + *(v27 + 28);
+    v29 = type metadata accessor for AspireHeEncryptionParameters(0);
+    if (!(*(*(v29 - 8) + 48))(v28, 1, v29))
     {
-      v47 = *(v45 + 2);
 
-      v36(&v45[*(v46 + 40)], v35);
+      v22(v28 + *(v29 + 40), v21);
     }
   }
 
-  v48 = (v55 + v56 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v49 = *(v0 + v48);
-
-  v50 = *(v0 + v48 + 8);
-
-  v51 = *(v0 + v48 + 16);
-
-  return MEMORY[0x2821FE8E8](v0, v48 + 24, v2 | v57 | 7);
+  return MEMORY[0x2821FE8E8](v0, ((v33 + v34 + 7) & 0xFFFFFFFFFFFFFFF8) + 24, v2 | v35 | 7);
 }
 
 uint64_t sub_224E2A928()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[4];
-
-  v3 = v0[5];
-
-  v4 = v0[7];
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
@@ -992,7 +950,7 @@ uint64_t sub_224E2A978(uint64_t a1, uint64_t a2, int *a3)
     return (v4 + 1);
   }
 
-  v8 = type metadata accessor for UserIdentifier();
+  v8 = type metadata accessor for UserIdentifier(0);
   if (*(*(v8 - 8) + 84) == a2)
   {
     v9 = v8;
@@ -1013,7 +971,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v13 = type metadata accessor for SecretKey();
+  v13 = type metadata accessor for SecretKey(0);
   if (*(*(v13 - 8) + 84) == a2)
   {
     v9 = v13;
@@ -1038,7 +996,7 @@ uint64_t sub_224E2AB38(uint64_t result, uint64_t a2, int a3, int *a4)
     return result;
   }
 
-  v8 = type metadata accessor for UserIdentifier();
+  v8 = type metadata accessor for UserIdentifier(0);
   if (*(*(v8 - 8) + 84) == a3)
   {
     v9 = v8;
@@ -1059,7 +1017,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v13 = type metadata accessor for SecretKey();
+  v13 = type metadata accessor for SecretKey(0);
   if (*(*(v13 - 8) + 84) == a3)
   {
     v9 = v13;
@@ -1077,24 +1035,21 @@ LABEL_9:
 
 uint64_t sub_224E2ACF8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_224E2AD30()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance NetworkDelegationConfig.NoDelegationCodingKeys@<X0>(_BYTE *a1@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance NetworkDelegationConfig.NoDelegationCodingKeys@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -1109,43 +1064,31 @@ uint64_t sub_224E2AEB4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_224E2AF14()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
 uint64_t sub_224E2AF54()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
 uint64_t sub_224E2AFA4()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_224E2AFE4()
 {
-  v1 = v0[3];
-
-  v2 = v0[4];
-
-  v3 = v0[5];
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
 uint64_t sub_224E2B02C()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
@@ -1230,9 +1173,7 @@ uint64_t sub_224E2B334(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_224E2B3B0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -1243,21 +1184,14 @@ uint64_t sub_224E2B3F8()
   v2 = *(v1 + 80);
   v3 = (v2 + 40) & ~v2;
   v4 = *(v1 + 64);
-  v5 = *(v0 + 16);
 
-  v6 = *(v0 + 32);
-
-  v7 = (v0 + v3);
-  v8 = type metadata accessor for AspireApiConfigResponse(0);
-  if (!(*(*(v8 - 8) + 48))(v0 + v3, 1, v8))
+  v5 = type metadata accessor for AspireApiConfigResponse(0);
+  if (!(*(*(v5 - 8) + 48))(v0 + v3, 1, v5))
   {
-    v9 = *v7;
 
-    v10 = *(v7 + 1);
-
-    v11 = *(v8 + 24);
-    v12 = type metadata accessor for UnknownStorage();
-    (*(*(v12 - 8) + 8))(&v7[v11], v12);
+    v6 = *(v5 + 24);
+    v7 = type metadata accessor for UnknownStorage();
+    (*(*(v7 - 8) + 8))(v0 + v3 + v6, v7);
   }
 
   return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
@@ -1322,7 +1256,7 @@ uint64_t sub_224E2B800(__int128 *a1, uint64_t *a2)
 
 uint64_t sub_224E2B870(uint64_t a1, uint64_t a2, int *a3)
 {
-  v6 = type metadata accessor for SecretKey();
+  v6 = type metadata accessor for SecretKey(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -1378,7 +1312,7 @@ LABEL_5:
 
 uint64_t sub_224E2BA3C(uint64_t a1, uint64_t a2, int a3, int *a4)
 {
-  v8 = type metadata accessor for SecretKey();
+  v8 = type metadata accessor for SecretKey(0);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -1426,21 +1360,12 @@ LABEL_5:
   return v19(v20, a2, a2, v18);
 }
 
-uint64_t sub_224E2BC04@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_224E2BC04@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
   swift_beginAccess();
   result = swift_weakLoadStrong();
   *a2 = result;
   return result;
-}
-
-uint64_t sub_224E2BC50(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  swift_beginAccess();
-  return swift_weakAssign();
 }
 
 uint64_t sub_224E2BC9C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1586,7 +1511,6 @@ uint64_t sub_224E2C0B8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_224E2C17C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -1601,7 +1525,6 @@ uint64_t sub_224E2C1B4@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 
 uint64_t sub_224E2C220()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -1609,7 +1532,6 @@ uint64_t sub_224E2C220()
 uint64_t sub_224E2C25C()
 {
   _Block_release(*(v0 + 24));
-  v1 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -1617,7 +1539,6 @@ uint64_t sub_224E2C25C()
 uint64_t sub_224E2C2A4()
 {
   _Block_release(*(v0 + 32));
-  v1 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -1625,7 +1546,6 @@ uint64_t sub_224E2C2A4()
 uint64_t sub_224E2C2F0()
 {
   _Block_release(*(v0 + 56));
-  v1 = *(v0 + 64);
 
   return MEMORY[0x2821FE8E8](v0, 72, 7);
 }
@@ -1633,7 +1553,6 @@ uint64_t sub_224E2C2F0()
 uint64_t sub_224E2C348()
 {
   _Block_release(*(v0 + 48));
-  v1 = *(v0 + 56);
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
@@ -1641,7 +1560,6 @@ uint64_t sub_224E2C348()
 uint64_t sub_224E2C39C()
 {
   _Block_release(*(v0 + 48));
-  v1 = *(v0 + 56);
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
@@ -1649,7 +1567,6 @@ uint64_t sub_224E2C39C()
 uint64_t sub_224E2C3FC()
 {
   _Block_release(*(v0 + 56));
-  v1 = *(v0 + 64);
 
   return MEMORY[0x2821FE8E8](v0, 72, 7);
 }
@@ -1657,7 +1574,6 @@ uint64_t sub_224E2C3FC()
 uint64_t sub_224E2C45C()
 {
   _Block_release(*(v0 + 40));
-  v1 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -1709,7 +1625,7 @@ uint64_t sub_224E2C71C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_224E2C7E4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E2C7E4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1759,12 +1675,11 @@ uint64_t sub_224E2C934@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_224E2C980(uint64_t *a1, uint64_t a2)
+uint64_t sub_224E2C980(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 144);
+  v2 = *(**a2 + 144);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 __n128 sub_224E2C9E0(__n128 *a1, __n128 *a2)
@@ -1782,12 +1697,11 @@ uint64_t sub_224E2C9F4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_224E2CA40(uint64_t *a1, uint64_t a2)
+uint64_t sub_224E2CA40(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 168);
+  v2 = *(**a2 + 168);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t sub_224E2CAA0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -1797,12 +1711,11 @@ uint64_t sub_224E2CAA0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_224E2CAEC(uint64_t *a1, uint64_t a2)
+uint64_t sub_224E2CAEC(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 144);
+  v2 = *(**a2 + 144);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t sub_224E2CB4C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -1812,12 +1725,11 @@ uint64_t sub_224E2CB4C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_224E2CB98(uint64_t *a1, uint64_t a2)
+uint64_t sub_224E2CB98(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 168);
+  v2 = *(**a2 + 168);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t sub_224E2CBF8@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -1827,12 +1739,11 @@ uint64_t sub_224E2CBF8@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_224E2CC44(uint64_t *a1, uint64_t a2)
+uint64_t sub_224E2CC44(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 192);
+  v2 = *(**a2 + 192);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t sub_224E2CD14()
@@ -1842,13 +1753,10 @@ uint64_t sub_224E2CD14()
   v3 = *(v2 + 80);
   v4 = (v3 + 48) & ~v3;
   v5 = *(v2 + 64);
-  v6 = *(v0 + 2);
   swift_unknownObjectRelease();
-  v7 = *(v0 + 4);
   swift_unknownObjectRelease();
-  v8 = *(v0 + 5);
 
-  (*(v2 + 8))(&v0[v4], v1);
+  (*(v2 + 8))(v0 + v4, v1);
 
   return MEMORY[0x2821FE8E8](v0, v4 + v5, v3 | 7);
 }
@@ -1910,27 +1818,23 @@ uint64_t sub_224E2CF20(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_224E2CFE8()
 {
-  v1 = (type metadata accessor for TokenFetcher(0) - 8);
-  v2 = *(*v1 + 80);
+  v1 = *(type metadata accessor for TokenFetcher(0) - 8);
+  v2 = *(v1 + 80);
   v3 = (v2 + 32) & ~v2;
-  v4 = *(*v1 + 64);
+  v4 = *(v1 + 64);
   v5 = (type metadata accessor for TokenFetcher.TokenFetchContext(0) - 8);
   v6 = *(*v5 + 80);
   v7 = (v3 + v4 + v6) & ~v6;
   v8 = *(*v5 + 64);
   v9 = v2 | v6;
-  v10 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v11 = v0 + v3;
-  v12 = type metadata accessor for URL();
-  v13 = *(*(v12 - 8) + 8);
-  v13(v11, v12);
-  v14 = *(v11 + v1[7] + 8);
+  v10 = v0 + v3;
+  v11 = type metadata accessor for URL();
+  v12 = *(*(v11 - 8) + 8);
+  v12(v10, v11);
 
-  v15 = *(v11 + v1[8]);
-
-  v13(v0 + v7, v12);
-  v16 = *(v0 + v7 + *(type metadata accessor for TokenFetcher.IssuerInfo(0) + 20) + 8);
+  v12(v0 + v7, v11);
+  type metadata accessor for TokenFetcher.IssuerInfo(0);
 
   outlined consume of Data._Representation(*(v0 + v7 + v5[7]), *(v0 + v7 + v5[7] + 8));
 
@@ -1939,10 +1843,10 @@ uint64_t sub_224E2CFE8()
 
 uint64_t sub_224E2D19C()
 {
-  v1 = (type metadata accessor for TokenFetcher(0) - 8);
-  v2 = *(*v1 + 80);
+  v1 = *(type metadata accessor for TokenFetcher(0) - 8);
+  v2 = *(v1 + 80);
   v3 = (v2 + 16) & ~v2;
-  v4 = *(*v1 + 64);
+  v4 = *(v1 + 64);
   v5 = (type metadata accessor for TokenFetcher.TokenFetchContext(0) - 8);
   v6 = *(*v5 + 80);
   v7 = (v3 + v4 + v6) & ~v6;
@@ -1952,12 +1856,9 @@ uint64_t sub_224E2D19C()
   v11 = type metadata accessor for URL();
   v12 = *(*(v11 - 8) + 8);
   v12(v10, v11);
-  v13 = *(v10 + v1[7] + 8);
-
-  v14 = *(v10 + v1[8]);
 
   v12(v0 + v7, v11);
-  v15 = *(v0 + v7 + *(type metadata accessor for TokenFetcher.IssuerInfo(0) + 20) + 8);
+  type metadata accessor for TokenFetcher.IssuerInfo(0);
 
   outlined consume of Data._Representation(*(v0 + v7 + v5[7]), *(v0 + v7 + v5[7] + 8));
 
@@ -1966,37 +1867,31 @@ uint64_t sub_224E2D19C()
 
 uint64_t sub_224E2D348()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_224E2D380()
 {
-  v1 = (type metadata accessor for TokenFetcher(0) - 8);
-  v2 = *(*v1 + 80);
+  v1 = *(type metadata accessor for TokenFetcher(0) - 8);
+  v2 = *(v1 + 80);
   v3 = (v2 + 32) & ~v2;
-  v4 = *(*v1 + 64);
+  v4 = *(v1 + 64);
   v5 = (type metadata accessor for TokenFetcher.TokenFetchContext(0) - 8);
   v6 = *(*v5 + 80);
   v7 = (v3 + v4 + v6) & ~v6;
   v8 = v2 | v6;
   v9 = (*(*v5 + 64) + v7 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v10 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v11 = v0 + v3;
-  v12 = type metadata accessor for URL();
-  v13 = *(*(v12 - 8) + 8);
-  v13(v11, v12);
-  v14 = *(v11 + v1[7] + 8);
+  v10 = v0 + v3;
+  v11 = type metadata accessor for URL();
+  v12 = *(*(v11 - 8) + 8);
+  v12(v10, v11);
 
-  v15 = *(v11 + v1[8]);
-
-  v13(v0 + v7, v12);
-  v16 = *(v0 + v7 + *(type metadata accessor for TokenFetcher.IssuerInfo(0) + 20) + 8);
+  v12(v0 + v7, v11);
+  type metadata accessor for TokenFetcher.IssuerInfo(0);
 
   outlined consume of Data._Representation(*(v0 + v7 + v5[7]), *(v0 + v7 + v5[7] + 8));
-  v17 = *(v0 + v9);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8E8](v0, v9 + 8, v8 | 7);
@@ -2105,83 +2000,75 @@ uint64_t sub_224E2D818(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_224E2D920()
 {
-  v1 = (type metadata accessor for RequestsManager.PECContext() - 8);
-  v88 = *(*v1 + 80);
-  v2 = (v88 + 48) & ~v88;
+  v1 = (type metadata accessor for RequestsManager.PECContext(0) - 8);
+  v70 = *(*v1 + 80);
+  v2 = (v70 + 48) & ~v70;
   v3 = *(*v1 + 64);
-  v89 = type metadata accessor for AspireApiRequest(0);
-  v87 = *(*(v89 - 8) + 80);
-  v4 = (v2 + v3 + v87) & ~v87;
-  v5 = *(*(v89 - 8) + 64);
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML14RequestContextVyAA19StaticPECParametersVGMd, &_s8CipherML14RequestContextVyAA19StaticPECParametersVGMR);
-  v85 = *(*(v84 - 8) + 80);
-  v6 = v5 + v85;
-  v86 = *(*(v84 - 8) + 64);
-  v7 = *(v0 + 16);
+  v71 = type metadata accessor for AspireApiRequest(0);
+  v69 = *(*(v71 - 8) + 80);
+  v4 = (v2 + v3 + v69) & ~v69;
+  v5 = *(*(v71 - 8) + 64);
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML14RequestContextVyAA19StaticPECParametersVGMd, &_s8CipherML14RequestContextVyAA19StaticPECParametersVGMR);
+  v67 = *(*(v66 - 8) + 80);
+  v6 = v5 + v67;
+  v68 = *(*(v66 - 8) + 64);
   swift_unknownObjectRelease();
-  v8 = *(v0 + 40);
 
-  v9 = v0 + v2;
-  v10 = *(v9 + 8);
+  v7 = v0 + v2;
 
-  v11 = v9 + v1[7];
-  v12 = type metadata accessor for Date();
-  (*(*(v12 - 8) + 8))(v11, v12);
-  v13 = type metadata accessor for UserIdentifier();
-  v14 = *(v13 + 20);
-  v15 = type metadata accessor for UUID();
-  (*(*(v15 - 8) + 8))(v11 + v14, v15);
-  v16 = *(v11 + *(v13 + 24));
+  v8 = v7 + v1[7];
+  v9 = type metadata accessor for Date();
+  (*(*(v9 - 8) + 8))(v8, v9);
+  v10 = *(type metadata accessor for UserIdentifier(0) + 20);
+  v11 = type metadata accessor for UUID();
+  (*(*(v11 - 8) + 8))(v8 + v10, v11);
 
-  v17 = v9 + v1[8];
-  v18 = *(type metadata accessor for SecretKey() + 20);
-  v19 = type metadata accessor for HE.SerializedSecretKey();
-  (*(*(v19 - 8) + 8))(v17 + v18, v19);
-  v20 = type metadata accessor for SimilarityClient();
-  v21 = (v17 + v20[5]);
-  outlined consume of Data._Representation(*(v21 + 4), *(v21 + 5));
-  v22 = *(v21 + 6);
+  v12 = v7 + v1[8];
+  v13 = *(type metadata accessor for SecretKey(0) + 20);
+  v14 = type metadata accessor for HE.SerializedSecretKey();
+  (*(*(v14 - 8) + 8))(v12 + v13, v14);
+  v15 = type metadata accessor for SimilarityClient(0);
+  v16 = v12 + v15[5];
+  outlined consume of Data._Representation(*(v16 + 32), *(v16 + 40));
 
-  v23 = type metadata accessor for AspireApiPECConfig(0);
-  v24 = v23[9];
-  v25 = type metadata accessor for UnknownStorage();
-  v90 = *(*(v25 - 8) + 8);
-  v90(&v21[v24], v25);
-  v26 = &v21[v23[10]];
-  v27 = type metadata accessor for AspireHeEncryptionParameters(0);
-  if (!(*(*(v27 - 8) + 48))(v26, 1, v27))
+  v17 = type metadata accessor for AspireApiPECConfig(0);
+  v18 = v17[9];
+  v19 = type metadata accessor for UnknownStorage();
+  v72 = *(*(v19 - 8) + 8);
+  v72(v16 + v18, v19);
+  v20 = v16 + v17[10];
+  v21 = type metadata accessor for AspireHeEncryptionParameters(0);
+  if (!(*(*(v21 - 8) + 48))(v20, 1, v21))
   {
-    v28 = *(v26 + 2);
 
-    v90(&v26[*(v27 + 40)], v25);
+    v72(v20 + *(v21 + 40), v19);
   }
 
-  v29 = v4 + v6;
-  v30 = &v21[v23[11]];
-  v31 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
-  if (!(*(*(v31 - 8) + 48))(v30, 1, v31))
+  v22 = v4 + v6;
+  v23 = v16 + v17[11];
+  v24 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
+  if (!(*(*(v24 - 8) + 48))(v23, 1, v24))
   {
-    v32 = type metadata accessor for AspireSimilarityPlaintextPacking.OneOf_PlaintextPackingType(0);
-    if (!(*(*(v32 - 8) + 48))(v30, 1, v32) && swift_getEnumCaseMultiPayload() <= 2)
+    v25 = type metadata accessor for AspireSimilarityPlaintextPacking.OneOf_PlaintextPackingType(0);
+    if (!(*(*(v25 - 8) + 48))(v23, 1, v25) && swift_getEnumCaseMultiPayload() <= 2)
     {
-      v90(v30, v25);
+      v72(v23, v19);
     }
 
-    v90(&v30[*(v31 + 20)], v25);
+    v72(v23 + *(v24 + 20), v19);
   }
 
-  v83 = v29 & ~v85;
-  outlined consume of Data._Representation(*(v17 + v20[6]), *(v17 + v20[6] + 8));
-  v33 = v20[7];
-  v34 = type metadata accessor for PEC.SimilarityClient();
-  (*(*(v34 - 8) + 8))(v17 + v33, v34);
-  v35 = v0 + v4;
-  v36 = *(v35 + 8);
+  v65 = v22 & ~v67;
+  outlined consume of Data._Representation(*(v12 + v15[6]), *(v12 + v15[6] + 8));
+  v26 = v15[7];
+  v27 = type metadata accessor for PEC.SimilarityClient();
+  (*(*(v27 - 8) + 8))(v12 + v26, v27);
+  v28 = v0 + v4;
 
-  v37 = v89;
-  v38 = (v35 + *(v89 + 20));
-  v39 = type metadata accessor for AspireApiRequest.OneOf_Request(0);
-  if ((*(*(v39 - 8) + 48))(v38, 1, v39))
+  v29 = v71;
+  v30 = v28 + *(v71 + 20);
+  v31 = type metadata accessor for AspireApiRequest.OneOf_Request(0);
+  if ((*(*(v31 - 8) + 48))(v30, 1, v31))
   {
     goto LABEL_9;
   }
@@ -2189,31 +2076,28 @@ uint64_t sub_224E2D920()
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload == 2)
   {
-    outlined consume of Data._Representation(*v38, *(v38 + 1));
-    outlined consume of Data._Representation(*(v38 + 2), *(v38 + 3));
-    v81 = (type metadata accessor for AspireApiOPRFRequest(0) + 24);
+    outlined consume of Data._Representation(*v30, *(v30 + 8));
+    outlined consume of Data._Representation(*(v30 + 16), *(v30 + 24));
+    v63 = (type metadata accessor for AspireApiOPRFRequest(0) + 24);
     goto LABEL_41;
   }
 
   if (EnumCaseMultiPayload == 1)
   {
-    v63 = *v38;
 
-    v64 = *(v38 + 1);
-
-    outlined consume of Data._Representation(*(v38 + 2), *(v38 + 3));
-    v65 = type metadata accessor for AspireApiPECRequest(0);
-    v90(&v38[v65[7]], v25);
-    v66 = &v38[v65[8]];
-    v52 = type metadata accessor for AspireApiEvaluationKeyMetadata(0);
-    v53 = *(*(v52 - 8) + 48);
-    if (!v53(v66, 1, v52))
+    outlined consume of Data._Representation(*(v30 + 16), *(v30 + 24));
+    v49 = type metadata accessor for AspireApiPECRequest(0);
+    v72(v30 + v49[7], v19);
+    v50 = v30 + v49[8];
+    v42 = type metadata accessor for AspireApiEvaluationKeyMetadata(0);
+    v43 = *(*(v42 - 8) + 48);
+    if (!v43(v50, 1, v42))
     {
-      outlined consume of Data._Representation(*(v66 + 8), *(v66 + 16));
-      v90((v66 + *(v52 + 24)), v25);
+      outlined consume of Data._Representation(*(v50 + 8), *(v50 + 16));
+      v72(v50 + *(v42 + 24), v19);
     }
 
-    v55 = v65[9];
+    v44 = v49[9];
   }
 
   else
@@ -2223,80 +2107,75 @@ uint64_t sub_224E2D920()
       goto LABEL_9;
     }
 
-    outlined consume of Data._Representation(*(v38 + 1), *(v38 + 2));
-    v47 = type metadata accessor for AspireApiPIRRequest(0);
-    v90(&v38[v47[6]], v25);
-    v48 = &v38[v47[7]];
-    v49 = type metadata accessor for AspirePirEncryptedIndices(0);
-    if (!(*(*(v49 - 8) + 48))(v48, 1, v49))
+    outlined consume of Data._Representation(*(v30 + 8), *(v30 + 16));
+    v38 = type metadata accessor for AspireApiPIRRequest(0);
+    v72(v30 + v38[6], v19);
+    v39 = v30 + v38[7];
+    v40 = type metadata accessor for AspirePirEncryptedIndices(0);
+    if (!(*(*(v40 - 8) + 48))(v39, 1, v40))
     {
-      v50 = *v48;
 
-      v90(v48 + *(v49 + 24), v25);
+      v72(v39 + *(v40 + 24), v19);
     }
 
-    v51 = &v38[v47[8]];
-    v52 = type metadata accessor for AspireApiEvaluationKeyMetadata(0);
-    v53 = *(*(v52 - 8) + 48);
-    if (!v53(v51, 1, v52))
+    v41 = v30 + v38[8];
+    v42 = type metadata accessor for AspireApiEvaluationKeyMetadata(0);
+    v43 = *(*(v42 - 8) + 48);
+    if (!v43(v41, 1, v42))
     {
-      outlined consume of Data._Representation(*(v51 + 8), *(v51 + 16));
-      v90((v51 + *(v52 + 24)), v25);
+      outlined consume of Data._Representation(*(v41 + 8), *(v41 + 16));
+      v72(v41 + *(v42 + 24), v19);
     }
 
-    v54 = *&v38[v47[9] + 8];
-
-    v55 = v47[10];
+    v44 = v38[10];
   }
 
-  v67 = &v38[v55];
-  v68 = type metadata accessor for AspireApiEvaluationKey(0);
-  v37 = v89;
-  if (!(*(*(v68 - 8) + 48))(v67, 1, v68))
+  v51 = v30 + v44;
+  v52 = type metadata accessor for AspireApiEvaluationKey(0);
+  v29 = v71;
+  if (!(*(*(v52 - 8) + 48))(v51, 1, v52))
   {
-    v90(v67, v25);
-    v69 = &v67[*(v68 + 20)];
-    if (!v53(v69, 1, v52))
+    v72(v51, v19);
+    v53 = v51 + *(v52 + 20);
+    if (!v43(v53, 1, v42))
     {
-      outlined consume of Data._Representation(*(v69 + 1), *(v69 + 2));
-      v90(&v69[*(v52 + 24)], v25);
+      outlined consume of Data._Representation(*(v53 + 8), *(v53 + 16));
+      v72(v53 + *(v42 + 24), v19);
     }
 
-    v70 = &v67[*(v68 + 24)];
-    v71 = type metadata accessor for AspireHeSerializedEvaluationKey(0);
-    v37 = v89;
-    if (!(*(*(v71 - 8) + 48))(v70, 1, v71))
+    v54 = v51 + *(v52 + 24);
+    v55 = type metadata accessor for AspireHeSerializedEvaluationKey(0);
+    v29 = v71;
+    if (!(*(*(v55 - 8) + 48))(v54, 1, v55))
     {
-      v90(v70, v25);
-      v72 = &v70[*(v71 + 20)];
-      v73 = type metadata accessor for AspireHeSerializedGaloisKey(0);
-      if (!(*(*(v73 - 8) + 48))(v72, 1, v73))
+      v72(v54, v19);
+      v56 = v54 + *(v55 + 20);
+      v57 = type metadata accessor for AspireHeSerializedGaloisKey(0);
+      if (!(*(*(v57 - 8) + 48))(v56, 1, v57))
       {
-        v74 = *v72;
 
-        v90(v72 + *(v73 + 20), v25);
+        v72(v56 + *(v57 + 20), v19);
       }
 
-      v75 = &v70[*(v71 + 24)];
-      v76 = type metadata accessor for AspireHeSerializedRelinKey(0);
-      v37 = v89;
-      if (!(*(*(v76 - 8) + 48))(v75, 1, v76))
+      v58 = v54 + *(v55 + 24);
+      v59 = type metadata accessor for AspireHeSerializedRelinKey(0);
+      v29 = v71;
+      if (!(*(*(v59 - 8) + 48))(v58, 1, v59))
       {
-        v90(v75, v25);
-        v77 = &v75[*(v76 + 20)];
-        v78 = type metadata accessor for AspireHeSerializedKeySwitchKey(0);
-        if (!(*(*(v78 - 8) + 48))(v77, 1, v78))
+        v72(v58, v19);
+        v60 = v58 + *(v59 + 20);
+        v61 = type metadata accessor for AspireHeSerializedKeySwitchKey(0);
+        if (!(*(*(v61 - 8) + 48))(v60, 1, v61))
         {
-          v90(v77, v25);
-          v38 = &v77[*(v78 + 20)];
-          v79 = type metadata accessor for AspireHeSerializedCiphertextVec(0);
-          if (!(*(*(v79 - 8) + 48))(v38, 1, v79))
+          v72(v60, v19);
+          v30 = v60 + *(v61 + 20);
+          v62 = type metadata accessor for AspireHeSerializedCiphertextVec(0);
+          if (!(*(*(v62 - 8) + 48))(v30, 1, v62))
           {
-            v80 = *v38;
 
-            v81 = (v79 + 20);
+            v63 = (v62 + 20);
 LABEL_41:
-            v90(&v38[*v81], v25);
+            v72(v30 + *v63, v19);
           }
         }
       }
@@ -2304,43 +2183,39 @@ LABEL_41:
   }
 
 LABEL_9:
-  v90((v35 + *(v37 + 24)), v25);
+  v72(v28 + *(v29 + 24), v19);
 
-  v40 = v0 + v83 + *(v84 + 32);
+  v32 = v0 + v65 + *(v66 + 32);
   type metadata accessor for NetworkManagerType(0);
-  v41 = swift_getEnumCaseMultiPayload();
-  if (v41 == 1)
+  v33 = swift_getEnumCaseMultiPayload();
+  if (v33 == 1)
   {
-    v56 = type metadata accessor for URL();
-    v57 = *(v56 - 8);
-    v58 = *(v57 + 8);
-    v58(v40, v56);
-    v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMd, &_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMR);
-    v60 = *(v59 + 48);
-    if (!(*(v57 + 48))(v40 + v60, 1, v56))
+    v45 = type metadata accessor for URL();
+    v46 = *(v45 - 8);
+    v47 = *(v46 + 8);
+    v47(v32, v45);
+    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMd, &_s10Foundation3URLV8endpoint_ACSg6issuerSSSg19authenticationTokenSb22privacyProxyFailClosedtMR) + 48);
+    if (!(*(v46 + 48))(v32 + v48, 1, v45))
     {
-      v58(v40 + v60, v56);
-    }
-
-    v61 = *(v40 + *(v59 + 64) + 8);
-  }
-
-  else if (!v41)
-  {
-    v42 = *(v40 + 8);
-
-    v43 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMd, &_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMR) + 48);
-    v44 = type metadata accessor for URL();
-    v45 = *(v44 - 8);
-    if (!(*(v45 + 48))(v40 + v43, 1, v44))
-    {
-      (*(v45 + 8))(v40 + v43, v44);
+      v47(v32 + v48, v45);
     }
   }
 
-  v62 = *(v40 + *(type metadata accessor for NetworkConfig(0) + 20) + 8);
+  else if (!v33)
+  {
 
-  return MEMORY[0x2821FE8E8](v0, v83 + v86, v88 | v87 | v85 | 7);
+    v34 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMd, &_sSS9featureId_10Foundation3URLVSg8endpointSbSg22privacyProxyFailClosedtMR) + 48);
+    v35 = type metadata accessor for URL();
+    v36 = *(v35 - 8);
+    if (!(*(v36 + 48))(v32 + v34, 1, v35))
+    {
+      (*(v36 + 8))(v32 + v34, v35);
+    }
+  }
+
+  type metadata accessor for NetworkConfig(0);
+
+  return MEMORY[0x2821FE8E8](v0, v65 + v68, v70 | v69 | v67 | 7);
 }
 
 uint64_t sub_224E2E4E0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2358,7 +2233,7 @@ uint64_t sub_224E2E4E0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = type metadata accessor for UserIdentifier();
+    v8 = type metadata accessor for UserIdentifier(0);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a2)
     {
@@ -2371,7 +2246,7 @@ uint64_t sub_224E2E4E0(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v13 = type metadata accessor for SimilarityClient();
+      v13 = type metadata accessor for SimilarityClient(0);
       v14 = *(*(v13 - 8) + 48);
       v15 = a1 + *(a3 + 24);
 
@@ -2390,7 +2265,7 @@ uint64_t sub_224E2E604(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v8 = type metadata accessor for UserIdentifier();
+    v8 = type metadata accessor for UserIdentifier(0);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a3)
     {
@@ -2403,7 +2278,7 @@ uint64_t sub_224E2E604(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      v13 = type metadata accessor for SimilarityClient();
+      v13 = type metadata accessor for SimilarityClient(0);
       v14 = *(*(v13 - 8) + 56);
       v15 = v5 + *(a4 + 24);
 
@@ -2416,9 +2291,7 @@ uint64_t sub_224E2E604(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_224E2E730()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 64);
 
   return MEMORY[0x2821FE8E8](v0, 72, 7);
 }
@@ -2440,7 +2313,7 @@ __n128 sub_224E2E7CC(__n128 *a1, __n128 *a2)
 
 uint64_t sub_224E2E7E0(uint64_t a1, uint64_t a2, int *a3)
 {
-  v6 = type metadata accessor for SecretKey();
+  v6 = type metadata accessor for SecretKey(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2488,7 +2361,7 @@ LABEL_5:
 
 uint64_t sub_224E2E964(uint64_t a1, uint64_t a2, int a3, int *a4)
 {
-  v8 = type metadata accessor for SecretKey();
+  v8 = type metadata accessor for SecretKey(0);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2531,7 +2404,7 @@ LABEL_5:
 
 uint64_t sub_224E2EAE4(uint64_t a1, uint64_t a2, int *a3)
 {
-  v6 = type metadata accessor for SecretKey();
+  v6 = type metadata accessor for SecretKey(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2581,7 +2454,7 @@ uint64_t sub_224E2EAE4(uint64_t a1, uint64_t a2, int *a3)
 
 uint64_t sub_224E2EC38(uint64_t a1, uint64_t a2, int a3, int *a4)
 {
-  v8 = type metadata accessor for SecretKey();
+  v8 = type metadata accessor for SecretKey(0);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2804,11 +2677,10 @@ uint64_t destructiveInjectEnumTag for AspireSimilaritySimilarityMetric(uint64_t 
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance AspireHeSerializedSeededCiphertext@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance AspireHeSerializedSeededCiphertext@<X0>(_OWORD *a1@<X8>)
 {
-  *a2 = xmmword_225022910;
-  a2[1] = xmmword_225022910;
-  v2 = a2 + *(a1 + 24);
+  *a1 = xmmword_225022910;
+  a1[1] = xmmword_225022910;
   return UnknownStorage.init()();
 }
 
@@ -3300,7 +3172,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_224E30934(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E30934(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -3929,7 +3801,7 @@ uint64_t sub_224E32444(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return v8(a1 + v6, a2, a2, v7);
 }
 
-uint64_t sub_224E324C0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E324C0(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -4024,7 +3896,7 @@ uint64_t sub_224E326E0(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_224E327A0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E327A0(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -4198,13 +4070,6 @@ void *sub_224E32D04(void *result, uint64_t a2, int a3, uint64_t a4)
   }
 
   return result;
-}
-
-uint64_t _s8CipherML31AspireHeSerializedDcrtPlaintextV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
-{
-  *a2 = xmmword_225022910;
-  v2 = a2 + *(a1 + 20);
-  return UnknownStorage.init()();
 }
 
 uint64_t sub_224E32F5C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4401,7 +4266,7 @@ LABEL_5:
   return v17(v18, a2, a2, v16);
 }
 
-uint64_t sub_224E33724(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E33724(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -4521,21 +4386,14 @@ uint64_t sub_224E33AE8()
   v2 = *(v1 + 80);
   v3 = (v2 + 40) & ~v2;
   v4 = *(v1 + 64);
-  v5 = *(v0 + 16);
 
-  v6 = *(v0 + 32);
-
-  v7 = (v0 + v3);
-  v8 = type metadata accessor for AspireApiConfigResponse(0);
-  if (!(*(*(v8 - 8) + 48))(v0 + v3, 1, v8))
+  v5 = type metadata accessor for AspireApiConfigResponse(0);
+  if (!(*(*(v5 - 8) + 48))(v0 + v3, 1, v5))
   {
-    v9 = *v7;
 
-    v10 = *(v7 + 1);
-
-    v11 = *(v8 + 24);
-    v12 = type metadata accessor for UnknownStorage();
-    (*(*(v12 - 8) + 8))(&v7[v11], v12);
+    v6 = *(v5 + 24);
+    v7 = type metadata accessor for UnknownStorage();
+    (*(*(v7 - 8) + 8))(v0 + v3 + v6, v7);
   }
 
   return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
@@ -4550,31 +4408,20 @@ uint64_t sub_224E33C34@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_224E33C94()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
 uint64_t sub_224E33CE4()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[5];
-
-  v3 = v0[6];
-
-  v4 = v0[8];
 
   return MEMORY[0x2821FE8E8](v0, 72, 7);
 }
 
 uint64_t sub_224E33D34()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -4872,7 +4719,7 @@ LABEL_7:
   return v15(v16, a2, a2, v14);
 }
 
-uint64_t sub_224E34CB0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E34CB0(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -4986,7 +4833,7 @@ uint64_t sub_224E34FBC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_224E35060(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_224E35060(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -5071,13 +4918,6 @@ uint64_t sub_224E3526C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t _s8CipherML24EvaluationKeyConfigTableC9SwiftData10ModelActorAadEP13modelExecutorAD0iL0_pvgTW_0()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return swift_unknownObjectRetain();
-}
-
 uint64_t sub_224E3537C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   result = (*(**a1 + 136))();
@@ -5129,26 +4969,26 @@ uint64_t outlined init with take of LocalizedError(__int128 *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-void sub_224E3646C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E3646C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5161,16 +5001,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_224E38088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E38088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5183,92 +5023,92 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_224E384C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E384C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_224E38D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E39244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E38D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E39748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E39244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_224E39C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_224E3AF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
   v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_224E39748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_224E39C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_224E3AF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5281,9 +5121,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_224E3B2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_224E3B2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5312,31 +5152,31 @@ id getAMDClientClass()
   return v1;
 }
 
-void sub_224E3BD9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224E3BD9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getAMDClientClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!AppleMediaDiscoveryLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __AppleMediaDiscoveryLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278541B50;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __AppleMediaDiscoveryLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278541B50;
+    v6 = 0;
     AppleMediaDiscoveryLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppleMediaDiscoveryLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -5344,7 +5184,7 @@ Class __getAMDClientClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5359,23 +5199,19 @@ LABEL_4:
   }
 
   getAMDClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AppleMediaDiscoveryLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleMediaDiscoveryLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_224E3CF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E3CF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5387,23 +5223,23 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_224E3D268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E3D268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E3E644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E3E644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5416,269 +5252,269 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_224E3EA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E3EA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E3F7D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E3F7D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E3FBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E3FBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E4000C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E4000C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E40450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E40450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E408A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E408A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E40D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E40D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E4145C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E4145C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E42324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E42324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_224E42890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E42D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E42890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E43194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E42D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E43614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E43194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E43A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E43614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E43FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E43A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E44868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E43FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E44CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E44868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_224E45108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_224E44CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t type metadata accessor for SimilarityClient()
+void sub_224E45108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t type metadata accessor for SimilarityClient(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SimilarityClient;
   if (!type metadata singleton initialization cache for SimilarityClient)
@@ -5691,26 +5527,26 @@ uint64_t type metadata accessor for SimilarityClient()
 
 uint64_t SimilarityClient.configId.getter()
 {
-  v1 = v0 + *(type metadata accessor for SimilarityClient() + 24);
+  v1 = v0 + *(type metadata accessor for SimilarityClient(0) + 24);
   v2 = *v1;
   outlined copy of Data._Representation(*v1, *(v1 + 8));
   return v2;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
 uint64_t SimilarityClient.client.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for SimilarityClient() + 28);
+  v3 = *(type metadata accessor for SimilarityClient(0) + 28);
   v4 = type metadata accessor for PEC.SimilarityClient();
   v5 = *(*(v4 - 8) + 16);
 
@@ -5719,66 +5555,63 @@ uint64_t SimilarityClient.client.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t SimilarityClient.init(secretKey:config:configId:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v37 = a3;
-  v38 = a4;
-  v39 = a1;
-  v33 = a5;
+  v34 = a3;
+  v35 = a4;
+  v36 = a1;
+  v30 = a5;
   v7 = type metadata accessor for HE.SerializedSecretKey();
-  v34 = *(v7 - 8);
-  v35 = v7;
-  v8 = *(v34 + 64);
+  v31 = *(v7 - 8);
+  v32 = v7;
   MEMORY[0x28223BE20](v7);
-  v10 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for PEC.SimilarityClient();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v36 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for PEC.SimilarityClientConfig();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v31 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v31 - v21;
-  AspireApiPECConfig.cryptokit()(&v31 - v21);
+  v9 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for PEC.SimilarityClient();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v33 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for PEC.SimilarityClientConfig();
+  v14 = *(v13 - 8);
+  MEMORY[0x28223BE20](v13);
+  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17);
+  v19 = &v28 - v18;
+  AspireApiPECConfig.cryptokit()(&v28 - v18);
   if (v5)
   {
-    outlined consume of Data._Representation(v37, v38);
+    outlined consume of Data._Representation(v34, v35);
     outlined destroy of AspireApiPECConfig(a2, type metadata accessor for AspireApiPECConfig);
-    return outlined destroy of AspireApiPECConfig(v39, type metadata accessor for SecretKey);
+    return outlined destroy of AspireApiPECConfig(v36, type metadata accessor for SecretKey);
   }
 
   else
   {
-    v31 = v12;
-    v32 = v11;
-    v24 = v37;
-    (*(v16 + 16))(v20, v22, v15);
-    v25 = type metadata accessor for SecretKey();
-    (*(v34 + 16))(v10, v39 + *(v25 + 20), v35);
-    v26 = v36;
+    v28 = v11;
+    v29 = v10;
+    v21 = v34;
+    (*(v14 + 16))(v16, v19, v13);
+    v22 = type metadata accessor for SecretKey(0);
+    (*(v31 + 16))(v9, v36 + *(v22 + 20), v32);
+    v23 = v33;
     PEC.SimilarityClient.init(config:secretKey:)();
-    (*(v16 + 8))(v22, v15);
-    v27 = v33;
-    outlined init with take of SecretKey(v39, v33, type metadata accessor for SecretKey);
-    v28 = type metadata accessor for SimilarityClient();
-    outlined init with take of SecretKey(a2, v27 + v28[5], type metadata accessor for AspireApiPECConfig);
-    v29 = (v27 + v28[6]);
-    v30 = v38;
-    *v29 = v24;
-    v29[1] = v30;
-    return (*(v31 + 32))(v27 + v28[7], v26, v32);
+    (*(v14 + 8))(v19, v13);
+    v24 = v30;
+    outlined init with take of SecretKey(v36, v30, type metadata accessor for SecretKey);
+    v25 = type metadata accessor for SimilarityClient(0);
+    outlined init with take of SecretKey(a2, v24 + v25[5], type metadata accessor for AspireApiPECConfig);
+    v26 = (v24 + v25[6]);
+    v27 = v35;
+    *v26 = v21;
+    v26[1] = v27;
+    return (*(v28 + 32))(v24 + v25[7], v23, v29);
   }
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -5786,49 +5619,48 @@ uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
 uint64_t SimilarityClient.encryptValues(_:shardIndices:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = v3;
-  v19 = a2;
-  v20 = a3;
+  v17 = a2;
+  v18 = a3;
   v7 = type metadata accessor for PEC.SimilarityClientConfig();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *(a1 + 16);
-  v13 = *(type metadata accessor for SimilarityClient() + 28);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(a1 + 16);
+  type metadata accessor for SimilarityClient(0);
   PEC.SimilarityClient.similarityConfig.getter();
-  v14 = PEC.SimilarityClientConfig.embeddingDimension.getter();
-  (*(v8 + 8))(v11, v7);
-  if (v14 == -1)
+  v12 = PEC.SimilarityClientConfig.embeddingDimension.getter();
+  (*(v8 + 8))(v10, v7);
+  if (v12 == -1)
   {
     goto LABEL_6;
   }
 
-  if (v14)
+  if (v12)
   {
-    v12 %= v14;
+    v11 %= v12;
   }
 
-  if (!v12)
+  if (!v11)
   {
 LABEL_6:
     result = PEC.SimilarityClient.queryCrt(values:)();
     if (!v4)
     {
-      v16 = result;
-      v17 = type metadata accessor for AspireApiPECRequest(0);
-      MEMORY[0x28223BE20](v17);
-      *(&v18 - 4) = v19;
-      *(&v18 - 3) = v16;
-      *(&v18 - 2) = v5;
-      lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type AspireApiPECRequest and conformance AspireApiPECRequest, type metadata accessor for AspireApiPECRequest);
+      v14 = result;
+      v15 = type metadata accessor for AspireApiPECRequest(0);
+      MEMORY[0x28223BE20](v15);
+      *(&v16 - 4) = v17;
+      *(&v16 - 3) = v14;
+      *(&v16 - 2) = v5;
+      lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type AspireApiPECRequest and conformance AspireApiPECRequest, type metadata accessor for AspireApiPECRequest, &protocol conformance descriptor for AspireApiPECRequest);
       static Message.with(_:)();
     }
   }
 
   else
   {
-    type metadata accessor for CipherMLError();
-    lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError);
+    type metadata accessor for CipherMLError(0);
+    lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError, &protocol conformance descriptor for CipherMLError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     return swift_willThrow();
@@ -5837,67 +5669,64 @@ LABEL_6:
   return result;
 }
 
-uint64_t closure #1 in SimilarityClient.encryptValues(_:shardIndices:)(void *a1, uint64_t a2, int64_t a3, void *a4)
+uint64_t closure #1 in SimilarityClient.encryptValues(_:shardIndices:)(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = v4;
-  v53 = a4;
-  v49 = type metadata accessor for PEC.SerializedCiphertextCoeffMatrix();
-  v60 = *(v49 - 8);
-  v9 = *(v60 + 64);
-  MEMORY[0x28223BE20](v49);
-  v59 = &v48 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for AspireSimilaritySerializedCiphertextMatrix(0);
-  v57 = *(v11 - 8);
-  v58 = v11;
-  v12 = *(v57 + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = &v48 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for AspireApiEvaluationKeyMetadata(0);
-  v51 = *(v15 - 8);
-  v52 = v15;
-  v16 = *(v51 + 64);
-  MEMORY[0x28223BE20](v15);
-  v50 = &v48 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = *(a2 + 16);
-  v19 = MEMORY[0x277D84F90];
-  if (v18)
+  v48 = a4;
+  v44 = type metadata accessor for PEC.SerializedCiphertextCoeffMatrix();
+  v55 = *(v44 - 8);
+  MEMORY[0x28223BE20](v44);
+  v54 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for AspireSimilaritySerializedCiphertextMatrix(0);
+  v52 = *(v10 - 8);
+  v53 = v10;
+  MEMORY[0x28223BE20](v10);
+  v12 = &v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for AspireApiEvaluationKeyMetadata(0);
+  v46 = *(v13 - 8);
+  v47 = v13;
+  MEMORY[0x28223BE20](v13);
+  v45 = &v43 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = *(a2 + 16);
+  v16 = MEMORY[0x277D84F90];
+  if (v15)
   {
-    v61 = a3;
-    v20 = v14;
-    v62 = MEMORY[0x277D84F90];
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18, 0);
-    v19 = v62;
-    v22 = (a2 + 32);
+    v56 = a3;
+    v17 = v12;
+    v57 = MEMORY[0x277D84F90];
+    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15, 0);
+    v16 = v57;
+    v19 = (a2 + 32);
     while (1)
     {
-      v24 = *v22++;
-      v23 = v24;
-      if ((v24 & 0x8000000000000000) != 0)
+      v21 = *v19++;
+      v20 = v21;
+      if ((v21 & 0x8000000000000000) != 0)
       {
         break;
       }
 
-      if (HIDWORD(v23))
+      if (HIDWORD(v20))
       {
         goto LABEL_19;
       }
 
-      v62 = v19;
-      v26 = *(v19 + 16);
-      v25 = *(v19 + 24);
-      if (v26 >= v25 >> 1)
+      v57 = v16;
+      v23 = *(v16 + 16);
+      v22 = *(v16 + 24);
+      if (v23 >= v22 >> 1)
       {
-        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1);
-        v19 = v62;
+        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1);
+        v16 = v57;
       }
 
-      *(v19 + 16) = v26 + 1;
-      *(v19 + 4 * v26 + 32) = v23;
-      if (!--v18)
+      *(v16 + 16) = v23 + 1;
+      *(v16 + 4 * v23 + 32) = v20;
+      if (!--v15)
       {
-        v14 = v20;
+        v12 = v17;
         v5 = v4;
-        a3 = v61;
+        a3 = v56;
         goto LABEL_9;
       }
     }
@@ -5910,96 +5739,94 @@ LABEL_19:
   else
   {
 LABEL_9:
-    v27 = *a1;
 
-    *a1 = v19;
-    v28 = *(a3 + 16);
-    v29 = MEMORY[0x277D84F90];
-    if (v28)
+    *a1 = v16;
+    v24 = *(a3 + 16);
+    v25 = MEMORY[0x277D84F90];
+    if (v24)
     {
-      v48 = a1;
-      v62 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v28, 0);
-      v29 = v62;
-      v30 = *(v60 + 16);
-      v31 = a3 + ((*(v60 + 80) + 32) & ~*(v60 + 80));
-      v55 = (v60 + 8);
-      v56 = v30;
-      v60 += 16;
-      v54 = *(v60 + 56);
-      v32 = v49;
+      v43 = a1;
+      v57 = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v24, 0);
+      v25 = v57;
+      v26 = *(v55 + 16);
+      v27 = a3 + ((*(v55 + 80) + 32) & ~*(v55 + 80));
+      v50 = (v55 + 8);
+      v51 = v26;
+      v55 += 16;
+      v49 = *(v55 + 56);
+      v28 = v44;
       while (1)
       {
-        v61 = v28;
-        v33 = v59;
-        v34 = v56(v59, v31, v32);
-        MEMORY[0x28223BE20](v34);
-        *(&v48 - 2) = v33;
-        lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type AspireSimilaritySerializedCiphertextMatrix and conformance AspireSimilaritySerializedCiphertextMatrix, type metadata accessor for AspireSimilaritySerializedCiphertextMatrix);
+        v56 = v24;
+        v29 = v54;
+        v30 = v51(v54, v27, v28);
+        MEMORY[0x28223BE20](v30);
+        *(&v43 - 2) = v29;
+        lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type AspireSimilaritySerializedCiphertextMatrix and conformance AspireSimilaritySerializedCiphertextMatrix, type metadata accessor for AspireSimilaritySerializedCiphertextMatrix, &protocol conformance descriptor for AspireSimilaritySerializedCiphertextMatrix);
         static Message.with(_:)();
         if (v5)
         {
           break;
         }
 
-        (*v55)(v33, v32);
-        v62 = v29;
-        v36 = *(v29 + 16);
-        v35 = *(v29 + 24);
-        if (v36 >= v35 >> 1)
+        (*v50)(v29, v28);
+        v57 = v25;
+        v32 = *(v25 + 16);
+        v31 = *(v25 + 24);
+        if (v32 >= v31 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v35 > 1, v36 + 1, 1);
-          v32 = v49;
-          v29 = v62;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v32 + 1, 1);
+          v28 = v44;
+          v25 = v57;
         }
 
-        *(v29 + 16) = v36 + 1;
-        outlined init with take of SecretKey(v14, v29 + ((*(v57 + 80) + 32) & ~*(v57 + 80)) + *(v57 + 72) * v36, type metadata accessor for AspireSimilaritySerializedCiphertextMatrix);
-        v31 += v54;
-        v28 = v61 - 1;
-        if (v61 == 1)
+        *(v25 + 16) = v32 + 1;
+        outlined init with take of SecretKey(v12, v25 + ((*(v52 + 80) + 32) & ~*(v52 + 80)) + *(v52 + 72) * v32, type metadata accessor for AspireSimilaritySerializedCiphertextMatrix);
+        v27 += v49;
+        v24 = v56 - 1;
+        if (v56 == 1)
         {
-          a1 = v48;
+          a1 = v43;
           goto LABEL_17;
         }
       }
 
-      (*v55)(v33, v32);
+      (*v50)(v29, v28);
     }
 
     else
     {
 LABEL_17:
-      v37 = a1[1];
 
-      a1[1] = v29;
-      MEMORY[0x28223BE20](v38);
-      v39 = v53;
-      *(&v48 - 2) = v53;
-      lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type AspireApiEvaluationKeyMetadata and conformance AspireApiEvaluationKeyMetadata, type metadata accessor for AspireApiEvaluationKeyMetadata);
-      v40 = v50;
-      v41 = v52;
+      a1[1] = v25;
+      MEMORY[0x28223BE20](v33);
+      v34 = v48;
+      *(&v43 - 2) = v48;
+      lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type AspireApiEvaluationKeyMetadata and conformance AspireApiEvaluationKeyMetadata, type metadata accessor for AspireApiEvaluationKeyMetadata, &protocol conformance descriptor for AspireApiEvaluationKeyMetadata);
+      v35 = v45;
+      v36 = v47;
       static Message.with(_:)();
-      v42 = *(type metadata accessor for AspireApiPECRequest(0) + 32);
-      outlined destroy of AspireApiEvaluationKeyMetadata?(a1 + v42);
-      outlined init with take of SecretKey(v40, a1 + v42, type metadata accessor for AspireApiEvaluationKeyMetadata);
-      (*(v51 + 56))(a1 + v42, 0, 1, v41);
-      v43 = (v39 + *(type metadata accessor for SimilarityClient() + 24));
-      v44 = *v43;
-      v45 = v43[1];
-      v46 = a1[2];
-      v47 = a1[3];
-      outlined copy of Data._Representation(*v43, v45);
-      result = outlined consume of Data._Representation(v46, v47);
-      a1[2] = v44;
-      a1[3] = v45;
+      v37 = *(type metadata accessor for AspireApiPECRequest(0) + 32);
+      outlined destroy of AspireApiEvaluationKeyMetadata?(a1 + v37);
+      outlined init with take of SecretKey(v35, a1 + v37, type metadata accessor for AspireApiEvaluationKeyMetadata);
+      (*(v46 + 56))(a1 + v37, 0, 1, v36);
+      v38 = (v34 + *(type metadata accessor for SimilarityClient(0) + 24));
+      v39 = *v38;
+      v40 = v38[1];
+      v41 = a1[2];
+      v42 = a1[3];
+      outlined copy of Data._Representation(*v38, v40);
+      result = outlined consume of Data._Representation(v41, v42);
+      a1[2] = v39;
+      a1[3] = v40;
     }
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6015,45 +5842,97 @@ uint64_t lazy protocol witness table accessor for type CipherMLError and conform
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay8CipherML42AspireSimilaritySerializedCiphertextMatrixVG_16CryptoKitPrivate3PECO0hi5CoeffJ0VsAE_pTg5(void (*a1)(uint64_t, uint64_t *), uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v19 = a1;
-  v20 = a2;
-  v18 = type metadata accessor for PEC.SerializedCiphertextCoeffMatrix();
-  v6 = *(v18 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v18);
-  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(a3 + 16);
-  v11 = MEMORY[0x277D84F90];
-  if (v10)
+  v18 = a1;
+  v19 = a2;
+  v17 = type metadata accessor for PEC.SerializedCiphertextCoeffMatrix();
+  v6 = *(v17 - 8);
+  MEMORY[0x28223BE20](v17);
+  v8 = v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a3 + 16);
+  v10 = MEMORY[0x277D84F90];
+  if (v9)
   {
-    v22 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10, 0);
-    v11 = v22;
-    v12 = *(type metadata accessor for AspireSimilaritySerializedCiphertextMatrix(0) - 8);
-    v13 = a3 + ((*(v12 + 80) + 32) & ~*(v12 + 80));
-    v17[1] = v6 + 32;
-    v17[0] = *(v12 + 72);
+    v21 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v9, 0);
+    v10 = v21;
+    v11 = *(type metadata accessor for AspireSimilaritySerializedCiphertextMatrix(0) - 8);
+    v12 = a3 + ((*(v11 + 80) + 32) & ~*(v11 + 80));
+    v16[1] = v6 + 32;
+    v16[0] = *(v11 + 72);
     while (1)
     {
-      v19(v13, &v21);
+      v18(v12, &v20);
       if (v4)
       {
         break;
       }
 
       v4 = 0;
-      v22 = v11;
-      v15 = *(v11 + 16);
-      v14 = *(v11 + 24);
-      if (v15 >= v14 >> 1)
+      v21 = v10;
+      v14 = *(v10 + 16);
+      v13 = *(v10 + 24);
+      if (v14 >= v13 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v14 > 1, v15 + 1, 1);
-        v11 = v22;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1);
+        v10 = v21;
       }
 
-      *(v11 + 16) = v15 + 1;
-      (*(v6 + 32))(v11 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v15, v9, v18);
-      v13 += v17[0];
+      *(v10 + 16) = v14 + 1;
+      (*(v6 + 32))(v10 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v14, v8, v17);
+      v12 += v16[0];
+      if (!--v9)
+      {
+        return v10;
+      }
+    }
+  }
+
+  return v10;
+}
+
+uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySS4name_Says5UInt8VG16existingConfigIdtG_SS_8CipherML09AspireApiG0VtsAE_pTg5(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v18[0] = a1;
+  v18[1] = a2;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_8CipherML15AspireApiConfigVtMd, &_sSS_8CipherML15AspireApiConfigVtMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6 - 8);
+  v9 = v18 - v8;
+  v10 = *(a3 + 16);
+  v11 = MEMORY[0x277D84F90];
+  if (v10)
+  {
+    v21 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10, 0);
+    v11 = v21;
+    for (i = (a3 + 48); ; i += 3)
+    {
+      v13 = *(i - 1);
+      v14 = *i;
+      v20[0] = *(i - 2);
+      v20[1] = v13;
+      v20[2] = v14;
+
+      (v18[0])(v20, &v19);
+      if (v4)
+      {
+        break;
+      }
+
+      v4 = 0;
+
+      v21 = v11;
+      v16 = *(v11 + 16);
+      v15 = *(v11 + 24);
+      if (v16 >= v15 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
+        v11 = v21;
+      }
+
+      *(v11 + 16) = v16 + 1;
+      outlined init with take of (offset: Int, element: AspireApiPECShardResponse)(v9, v11 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v16, &_sSS_8CipherML15AspireApiConfigVtMd, &_sSS_8CipherML15AspireApiConfigVtMR);
       if (!--v10)
       {
         return v11;
@@ -6064,86 +5943,31 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay8C
   return v11;
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySS4name_Says5UInt8VG16existingConfigIdtG_SS_8CipherML09AspireApiG0VtsAE_pTg5(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v19[0] = a1;
-  v19[1] = a2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_8CipherML15AspireApiConfigVtMd, &_sSS_8CipherML15AspireApiConfigVtMR);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v10 = v19 - v9;
-  v11 = *(a3 + 16);
-  v12 = MEMORY[0x277D84F90];
-  if (v11)
-  {
-    v22 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-    v12 = v22;
-    for (i = (a3 + 48); ; i += 3)
-    {
-      v14 = *(i - 1);
-      v15 = *i;
-      v21[0] = *(i - 2);
-      v21[1] = v14;
-      v21[2] = v15;
-
-      (v19[0])(v21, &v20);
-      if (v4)
-      {
-        break;
-      }
-
-      v4 = 0;
-
-      v22 = v12;
-      v17 = *(v12 + 16);
-      v16 = *(v12 + 24);
-      if (v17 >= v16 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v16 > 1, v17 + 1, 1);
-        v12 = v22;
-      }
-
-      *(v12 + 16) = v17 + 1;
-      outlined init with take of (offset: Int, element: AspireApiPECShardResponse)(v10, v12 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v17, &_sSS_8CipherML15AspireApiConfigVtMd, &_sSS_8CipherML15AspireApiConfigVtMR);
-      if (!--v11)
-      {
-        return v12;
-      }
-    }
-  }
-
-  return v12;
-}
-
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySS4name_Says5UInt8VG16existingConfigIdtG_8CipherML18AspireApiKeyStatusVsAE_pTg5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v19[0] = a1;
-  v19[1] = a2;
+  v18[0] = a1;
+  v18[1] = a2;
   v6 = type metadata accessor for AspireApiKeyStatus(0);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(a3 + 16);
-  v12 = MEMORY[0x277D84F90];
-  if (v11)
+  v9 = v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(a3 + 16);
+  v11 = MEMORY[0x277D84F90];
+  if (v10)
   {
-    v22 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-    v12 = v22;
+    v21 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10, 0);
+    v11 = v21;
     for (i = (a3 + 48); ; i += 3)
     {
-      v14 = *(i - 1);
-      v15 = *i;
-      v21[0] = *(i - 2);
-      v21[1] = v14;
-      v21[2] = v15;
+      v13 = *(i - 1);
+      v14 = *i;
+      v20[0] = *(i - 2);
+      v20[1] = v13;
+      v20[2] = v14;
 
-      (v19[0])(v21, &v20);
+      (v18[0])(v20, &v19);
       if (v4)
       {
         break;
@@ -6151,126 +5975,124 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySS
 
       v4 = 0;
 
-      v22 = v12;
-      v17 = *(v12 + 16);
-      v16 = *(v12 + 24);
-      if (v17 >= v16 >> 1)
+      v21 = v11;
+      v16 = *(v11 + 16);
+      v15 = *(v11 + 24);
+      if (v16 >= v15 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v16 > 1, v17 + 1, 1);
-        v12 = v22;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
+        v11 = v21;
       }
 
-      *(v12 + 16) = v17 + 1;
-      outlined init with take of SecretKey(v10, v12 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v17, type metadata accessor for AspireApiKeyStatus);
-      if (!--v11)
+      *(v11 + 16) = v16 + 1;
+      outlined init with take of SecretKey(v9, v11 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v16, type metadata accessor for AspireApiKeyStatus);
+      if (!--v10)
       {
-        return v12;
+        return v11;
       }
     }
   }
 
-  return v12;
+  return v11;
 }
 
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay10Foundation4DataVG_8CipherML16AspireApiRequestVsAE_pTg5(void (*a1)(__int128 *, uint64_t *), uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v18 = a1;
-  v19 = a2;
+  v17 = a1;
+  v18 = a2;
   v6 = type metadata accessor for AspireApiRequest(0);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(a3 + 16);
-  v12 = MEMORY[0x277D84F90];
-  if (v11)
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(a3 + 16);
+  v11 = MEMORY[0x277D84F90];
+  if (v10)
   {
-    v22 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-    v12 = v22;
+    v21 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10, 0);
+    v11 = v21;
     for (i = (a3 + 32); ; ++i)
     {
-      v21 = *i;
-      outlined copy of Data._Representation(v21, *(&v21 + 1));
-      v18(&v21, &v20);
+      v20 = *i;
+      outlined copy of Data._Representation(v20, *(&v20 + 1));
+      v17(&v20, &v19);
       if (v4)
       {
         break;
       }
 
       v4 = 0;
-      outlined consume of Data._Representation(v21, *(&v21 + 1));
-      v22 = v12;
-      v15 = *(v12 + 16);
-      v14 = *(v12 + 24);
-      if (v15 >= v14 >> 1)
+      outlined consume of Data._Representation(v20, *(&v20 + 1));
+      v21 = v11;
+      v14 = *(v11 + 16);
+      v13 = *(v11 + 24);
+      if (v14 >= v13 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v14 > 1, v15 + 1, 1);
-        v12 = v22;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1);
+        v11 = v21;
       }
 
-      *(v12 + 16) = v15 + 1;
-      outlined init with take of SecretKey(v10, v12 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v15, type metadata accessor for AspireApiRequest);
-      if (!--v11)
+      *(v11 + 16) = v14 + 1;
+      outlined init with take of SecretKey(v9, v11 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v14, type metadata accessor for AspireApiRequest);
+      if (!--v10)
       {
-        return v12;
+        return v11;
       }
     }
 
-    outlined consume of Data._Representation(v21, *(&v21 + 1));
+    outlined consume of Data._Representation(v20, *(&v20 + 1));
   }
 
-  return v12;
+  return v11;
 }
 
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay8CipherML19AspireApiPIRRequestVG_AF0fG7RequestVs5NeverOTg5Tm(void (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
   v6 = v4;
-  v22 = a1;
-  v23 = a2;
+  v21 = a1;
+  v22 = a2;
   v8 = type metadata accessor for AspireApiRequest(0);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *(a3 + 16);
-  v14 = MEMORY[0x277D84F90];
-  if (!v13)
+  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *(a3 + 16);
+  v13 = MEMORY[0x277D84F90];
+  if (!v12)
   {
-    return v14;
+    return v13;
   }
 
-  v24 = MEMORY[0x277D84F90];
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v13, 0);
-  v14 = v24;
-  v15 = *(a4(0) - 8);
-  v16 = a3 + ((*(v15 + 80) + 32) & ~*(v15 + 80));
-  v21 = *(v15 + 72);
+  v23 = MEMORY[0x277D84F90];
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
+  v13 = v23;
+  v14 = *(a4(0) - 8);
+  v15 = a3 + ((*(v14 + 80) + 32) & ~*(v14 + 80));
+  v20 = *(v14 + 72);
   while (1)
   {
-    v22(v16);
+    v21(v15);
     if (v6)
     {
       break;
     }
 
     v6 = 0;
-    v24 = v14;
-    v18 = *(v14 + 16);
-    v17 = *(v14 + 24);
-    if (v18 >= v17 >> 1)
+    v23 = v13;
+    v17 = *(v13 + 16);
+    v16 = *(v13 + 24);
+    if (v17 >= v16 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v17 > 1, v18 + 1, 1);
-      v14 = v24;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
+      v13 = v23;
     }
 
-    *(v14 + 16) = v18 + 1;
-    outlined init with take of SecretKey(v12, v14 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v18, type metadata accessor for AspireApiRequest);
-    v16 += v21;
-    if (!--v13)
+    *(v13 + 16) = v17 + 1;
+    outlined init with take of SecretKey(v11, v13 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v17, type metadata accessor for AspireApiRequest);
+    v15 += v20;
+    if (!--v12)
     {
-      return v14;
+      return v13;
     }
   }
 
@@ -6281,56 +6103,55 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay8C
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay10Foundation4DataVG_16CryptoKitPrivate3PIRO14BlindedKeywordVsAE_pTg5(void (*a1)(__int128 *, uint64_t *), uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v18 = a1;
-  v19 = a2;
-  v17 = type metadata accessor for PIR.BlindedKeyword();
-  v6 = *(v17 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v17);
-  v9 = v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(a3 + 16);
-  v11 = MEMORY[0x277D84F90];
-  if (v10)
+  v17 = a1;
+  v18 = a2;
+  v16 = type metadata accessor for PIR.BlindedKeyword();
+  v6 = *(v16 - 8);
+  MEMORY[0x28223BE20](v16);
+  v8 = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a3 + 16);
+  v10 = MEMORY[0x277D84F90];
+  if (v9)
   {
-    v22 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10, 0);
-    v11 = v22;
-    v12 = (a3 + 32);
-    v16[1] = v6 + 32;
+    v21 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v9, 0);
+    v10 = v21;
+    v11 = (a3 + 32);
+    v15[1] = v6 + 32;
     while (1)
     {
-      v21 = *v12;
-      outlined copy of Data._Representation(v21, *(&v21 + 1));
-      v18(&v21, &v20);
+      v20 = *v11;
+      outlined copy of Data._Representation(v20, *(&v20 + 1));
+      v17(&v20, &v19);
       if (v4)
       {
         break;
       }
 
       v4 = 0;
-      outlined consume of Data._Representation(v21, *(&v21 + 1));
-      v22 = v11;
-      v14 = *(v11 + 16);
-      v13 = *(v11 + 24);
-      if (v14 >= v13 >> 1)
+      outlined consume of Data._Representation(v20, *(&v20 + 1));
+      v21 = v10;
+      v13 = *(v10 + 16);
+      v12 = *(v10 + 24);
+      if (v13 >= v12 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v13 > 1, v14 + 1, 1);
-        v11 = v22;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
+        v10 = v21;
       }
 
-      *(v11 + 16) = v14 + 1;
-      (*(v6 + 32))(v11 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v14, v9, v17);
-      ++v12;
-      if (!--v10)
+      *(v10 + 16) = v13 + 1;
+      (*(v6 + 32))(v10 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v13, v8, v16);
+      ++v11;
+      if (!--v9)
       {
-        return v11;
+        return v10;
       }
     }
 
-    outlined consume of Data._Representation(v21, *(&v21 + 1));
+    outlined consume of Data._Representation(v20, *(&v20 + 1));
   }
 
-  return v11;
+  return v10;
 }
 
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay10Foundation4DataVG_8CipherML19SymmetricPirKeywordVs5NeverOTg5(void (*a1)(__int128 *__return_ptr, __int128 *), uint64_t a2, uint64_t a3)
@@ -6483,7 +6304,7 @@ LABEL_23:
 uint64_t closure #3 in closure #1 in SimilarityClient.encryptValues(_:shardIndices:)(void *a1, void *a2)
 {
   *a1 = *a2;
-  v3 = a2 + *(type metadata accessor for SimilarityClient() + 20);
+  v3 = a2 + *(type metadata accessor for SimilarityClient(0) + 20);
   v4 = *(v3 + 4);
   v5 = *(v3 + 5);
   v6 = a1[1];
@@ -6495,186 +6316,185 @@ uint64_t closure #3 in closure #1 in SimilarityClient.encryptValues(_:shardIndic
   return result;
 }
 
-uint64_t SimilarityClient.decryptSimilarityScores(shard:)(uint64_t *a1)
+uint64_t *SimilarityClient.decryptSimilarityScores(shard:)(uint64_t *a1)
 {
-  v3 = a1;
-  _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay8CipherML42AspireSimilaritySerializedCiphertextMatrixVG_16CryptoKitPrivate3PECO0hi5CoeffJ0VsAE_pTg5(partial apply for closure #1 in SimilarityClient.decryptSimilarityScores(shard:), v51, *a1);
-  if (v2)
+  v2 = a1;
+  _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay8CipherML42AspireSimilaritySerializedCiphertextMatrixVG_16CryptoKitPrivate3PECO0hi5CoeffJ0VsAE_pTg5(partial apply for closure #1 in SimilarityClient.decryptSimilarityScores(shard:), v48, *a1);
+  if (v1)
   {
-    return v3;
+    return v2;
   }
 
-  v5 = v3[1];
-  v4 = v3[2];
-  v6 = v1 + *(type metadata accessor for SimilarityClient() + 28);
-  v7 = PEC.SimilarityClient.decryptCrt(reply:)();
+  v4 = v2[1];
+  v3 = v2[2];
+  type metadata accessor for SimilarityClient(0);
+  v5 = PEC.SimilarityClient.decryptCrt(reply:)();
 
-  v9 = *(v5 + 16);
-  v10 = *(v4 + 16);
-  if (v9)
+  v7 = *(v4 + 16);
+  v8 = *(v3 + 16);
+  if (v7)
   {
-    if (v10)
+    if (v8)
     {
-      v11 = v9 == v10;
+      v9 = v7 == v8;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    if (!v11)
+    if (!v9)
     {
 
-      v52 = 0;
-      v53 = 0xE000000000000000;
+      v49 = 0;
+      v50 = 0xE000000000000000;
       _StringGuts.grow(_:)(47);
 
-      v52 = 0x7364497972746E65;
-      v53 = 0xEF20746E756F632ELL;
-      v54 = v9;
-      v24 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x22AA60A80](v24);
+      v49 = 0x7364497972746E65;
+      v50 = 0xEF20746E756F632ELL;
+      v51 = v7;
+      v22 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x22AA60A80](v22);
 
       MEMORY[0x22AA60A80](0xD00000000000001CLL, 0x8000000225035600);
-      v54 = v10;
-      v25 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x22AA60A80](v25);
+      v51 = v8;
+      v23 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x22AA60A80](v23);
 
-      v26 = v52;
-      v27 = v53;
-      type metadata accessor for CipherMLError();
-      lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError);
-      v3 = swift_allocError();
-      *v28 = v26;
-      v28[1] = v27;
+      v24 = v49;
+      v25 = v50;
+      type metadata accessor for CipherMLError(0);
+      lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError, &protocol conformance descriptor for CipherMLError);
+      v2 = swift_allocError();
+      *v26 = v24;
+      v26[1] = v25;
 LABEL_27:
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
-      return v3;
+      return v2;
     }
 
-    v12 = *(v7 + 16);
-    if (v12 % v9)
+    v10 = *(v5 + 16);
+    if (v10 % v7)
     {
       if (one-time initialization token for daemon != -1)
       {
         swift_once();
       }
 
-      v13 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v13, static Logger.daemon);
+      v11 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v11, static Logger.daemon);
 
-      v14 = Logger.logObject.getter();
-      v15 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v14, v15))
+      v12 = Logger.logObject.getter();
+      v13 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v12, v13))
       {
-        v16 = swift_slowAlloc();
-        *v16 = 134349312;
-        *(v16 + 4) = *(v5 + 16);
+        v14 = swift_slowAlloc();
+        *v14 = 134349312;
+        *(v14 + 4) = *(v4 + 16);
 
-        *(v16 + 12) = 2050;
-        v17 = *(v7 + 16);
+        *(v14 + 12) = 2050;
+        v15 = *(v5 + 16);
 
-        *(v16 + 14) = v17;
+        *(v14 + 14) = v15;
 
-        _os_log_impl(&dword_224E26000, v14, v15, "Wrong entryIds.count %{public}ld.\nMust be 0 or divide scores.count %{public}ld", v16, 0x16u);
-        v18 = v16;
+        _os_log_impl(&dword_224E26000, v12, v13, "Wrong entryIds.count %{public}ld.\nMust be 0 or divide scores.count %{public}ld", v14, 0x16u);
+        v16 = v14;
 LABEL_18:
-        MEMORY[0x22AA61F40](v18, -1, -1);
+        MEMORY[0x22AA61F40](v16, -1, -1);
 
 LABEL_26:
-        type metadata accessor for CipherMLError();
-        lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError);
-        v3 = swift_allocError();
+        type metadata accessor for CipherMLError(0);
+        lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError, &protocol conformance descriptor for CipherMLError);
+        v2 = swift_allocError();
         goto LABEL_27;
       }
 
       goto LABEL_25;
     }
 
-    if (!v10 || !(v12 % v10))
+    if (!v8 || !(v10 % v8))
     {
-      v30 = *(v7 + 16);
-      if (v9 > v30)
+      v28 = *(v5 + 16);
+      if (v7 > v28)
       {
 
         return MEMORY[0x277D84F90];
       }
 
-      v52 = MEMORY[0x277D84F90];
-      v31 = v30 / v9;
-      v32 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v30 / v9, 0);
-      v33 = 0;
-      v3 = v52;
-      v48 = v7 + 32;
-      v49 = v7;
-      v46 = v4;
-      v47 = v10;
-      while (v33 < v31)
+      v49 = MEMORY[0x277D84F90];
+      v29 = v28 / v7;
+      v30 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v28 / v7, 0);
+      v31 = 0;
+      v2 = v49;
+      v45 = v5 + 32;
+      v46 = v5;
+      v43 = v3;
+      v44 = v8;
+      while (v31 < v29)
       {
-        v50 = v33;
-        if (v10)
+        v47 = v31;
+        if (v8)
         {
-          MEMORY[0x28223BE20](v32);
+          MEMORY[0x28223BE20](v30);
 
-          v34 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVys010EnumeratedE0VySays6UInt64VGGSay10Foundation4DataVGG_So18CMLSimilarityScoreCs5NeverOTg506_sSis6g14V10Foundation4i5VSo18jk37CIgyygo_Si6offset_AB7elementt_AEtAGs5L11OIegnrzr_TRSiAkpTIgyygo_Tf1cn_nTf4ng_n(v5, v4, partial apply for closure #2 in closure #2 in SimilarityClient.decryptSimilarityScores(shard:));
+          v32 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVys010EnumeratedE0VySays6UInt64VGGSay10Foundation4DataVGG_So18CMLSimilarityScoreCs5NeverOTg506_sSis6g14V10Foundation4i5VSo18jk37CIgyygo_Si6offset_AB7elementt_AEtAGs5L11OIegnrzr_TRSiAkpTIgyygo_Tf1cn_nTf4ng_n(v4, v3, partial apply for closure #2 in closure #2 in SimilarityClient.decryptSimilarityScores(shard:));
         }
 
         else
         {
-          v35 = *(v5 + 16);
-          if (v35)
+          v33 = *(v4 + 16);
+          if (v33)
           {
-            v54 = MEMORY[0x277D84F90];
+            v51 = MEMORY[0x277D84F90];
             specialized ContiguousArray.reserveCapacity(_:)();
-            v4 = *(v5 + 16);
-            v36 = objc_opt_self();
-            v38 = 0;
-            while (v4 != v38)
+            v3 = *(v4 + 16);
+            v34 = objc_opt_self();
+            v36 = 0;
+            while (v3 != v36)
             {
-              if (v38 >= *(v5 + 16))
+              if (v36 >= *(v4 + 16))
               {
                 goto LABEL_49;
               }
 
-              v39 = v38 * v31;
-              if ((v38 * v31) >> 64 != (v38 * v31) >> 63)
+              v37 = v36 * v29;
+              if ((v36 * v29) >> 64 != (v36 * v29) >> 63)
               {
                 goto LABEL_50;
               }
 
-              v40 = __OFADD__(v39, v50);
-              v41 = v39 + v50;
-              if (v40)
+              v38 = __OFADD__(v37, v47);
+              v39 = v37 + v47;
+              if (v38)
               {
                 goto LABEL_51;
               }
 
-              if ((v41 & 0x8000000000000000) != 0)
+              if ((v39 & 0x8000000000000000) != 0)
               {
                 goto LABEL_52;
               }
 
-              if (v41 >= *(v49 + 16))
+              if (v39 >= *(v46 + 16))
               {
                 goto LABEL_53;
               }
 
-              v7 = v38 + 1;
-              LODWORD(v37) = *(v48 + 4 * v41);
-              v42 = [v36 scoreWithIdentifier:*(v5 + 32 + 8 * v38) score:v37];
+              v5 = v36 + 1;
+              LODWORD(v35) = *(v45 + 4 * v39);
+              v40 = [v34 scoreWithIdentifier:*(v4 + 32 + 8 * v36) score:v35];
               specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-              v43 = *(v54 + 16);
               specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
               specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-              v32 = specialized ContiguousArray._endMutation()();
-              v38 = v7;
-              if (v35 == v7)
+              v30 = specialized ContiguousArray._endMutation()();
+              v36 = v5;
+              if (v33 == v5)
               {
-                v34 = v54;
-                v7 = v49;
-                v4 = v46;
+                v32 = v51;
+                v5 = v46;
+                v3 = v43;
                 goto LABEL_44;
               }
             }
@@ -6693,27 +6513,27 @@ LABEL_53:
             break;
           }
 
-          v34 = MEMORY[0x277D84F90];
+          v32 = MEMORY[0x277D84F90];
         }
 
 LABEL_44:
-        v52 = v3;
-        v45 = v3[2];
-        v44 = v3[3];
-        if (v45 >= v44 >> 1)
+        v49 = v2;
+        v42 = v2[2];
+        v41 = v2[3];
+        if (v42 >= v41 >> 1)
         {
-          v32 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1);
-          v3 = v52;
+          v30 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1);
+          v2 = v49;
         }
 
-        v33 = v50 + 1;
-        v3[2] = v45 + 1;
-        v3[v45 + 4] = v34;
-        v10 = v47;
-        if (v50 + 1 == v31)
+        v31 = v47 + 1;
+        v2[2] = v42 + 1;
+        v2[v42 + 4] = v32;
+        v8 = v44;
+        if (v47 + 1 == v29)
         {
 
-          return v3;
+          return v2;
         }
       }
 
@@ -6721,25 +6541,25 @@ LABEL_44:
 LABEL_55:
       swift_once();
 LABEL_16:
-      v19 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v19, static Logger.daemon);
+      v17 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v17, static Logger.daemon);
 
-      v14 = Logger.logObject.getter();
-      v20 = v4;
-      v21 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v14, v21))
+      v12 = Logger.logObject.getter();
+      v18 = v3;
+      v19 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v12, v19))
       {
-        v22 = swift_slowAlloc();
-        *v22 = 134349312;
-        *(v22 + 4) = *(v20 + 16);
+        v20 = swift_slowAlloc();
+        *v20 = 134349312;
+        *(v20 + 4) = *(v18 + 16);
 
-        *(v22 + 12) = 2050;
-        v23 = *(v7 + 16);
+        *(v20 + 12) = 2050;
+        v21 = *(v5 + 16);
 
-        *(v22 + 14) = v23;
+        *(v20 + 14) = v21;
 
-        _os_log_impl(&dword_224E26000, v14, v21, "Wrong metadatas.count %{public}ld.\nMust be 0 or divide scores.count %{public}ld", v22, 0x16u);
-        v18 = v22;
+        _os_log_impl(&dword_224E26000, v12, v19, "Wrong metadatas.count %{public}ld.\nMust be 0 or divide scores.count %{public}ld", v20, 0x16u);
+        v16 = v20;
         goto LABEL_18;
       }
 
@@ -6758,18 +6578,18 @@ LABEL_15:
     goto LABEL_55;
   }
 
-  if (!v10)
+  if (!v8)
   {
 
-    type metadata accessor for CipherMLError();
-    lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError);
-    v3 = swift_allocError();
-    *v29 = 0xD000000000000030;
-    v29[1] = 0x8000000225035620;
+    type metadata accessor for CipherMLError(0);
+    lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError, &protocol conformance descriptor for CipherMLError);
+    v2 = swift_allocError();
+    *v27 = 0xD000000000000030;
+    v27[1] = 0x8000000225035620;
     goto LABEL_27;
   }
 
-  if (*(v7 + 16) % v10)
+  if (*(v5 + 16) % v8)
   {
     goto LABEL_15;
   }
@@ -6778,29 +6598,27 @@ LABEL_15:
   return result;
 }
 
-uint64_t closure #1 in SimilarityClient.decryptSimilarityScores(shard:)@<X0>(uint64_t a1@<X1>, void *a2@<X2>, uint64_t a3@<X8>)
+uint64_t closure #1 in SimilarityClient.decryptSimilarityScores(shard:)@<X0>(void *a3@<X2>, uint64_t x8_0@<X8>)
 {
-  v19 = a2;
+  v16 = a3;
   v5 = type metadata accessor for HE.EncryptionParams();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for PEC.SimilarityClientConfig();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = a1 + *(type metadata accessor for SimilarityClient() + 28);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for PEC.SimilarityClientConfig();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for SimilarityClient(0);
   PEC.SimilarityClient.similarityConfig.getter();
   PEC.SimilarityClientConfig.encryptionParams.getter();
-  (*(v11 + 8))(v14, v10);
-  v16 = v20;
-  AspireSimilaritySerializedCiphertextMatrix.cryptokit(encryptionParams:)(v9, a3);
-  result = (*(v6 + 8))(v9, v5);
-  if (v16)
+  (*(v10 + 8))(v12, v9);
+  v13 = v17;
+  AspireSimilaritySerializedCiphertextMatrix.cryptokit(encryptionParams:)(v8, x8_0);
+  result = (*(v6 + 8))(v8, v5);
+  if (v13)
   {
-    *v19 = v16;
+    *v16 = v13;
   }
 
   return result;
@@ -6851,112 +6669,111 @@ void SimilarityClient.decryptSimilarityScores(_:)(uint64_t *a1)
 {
   v3 = v2;
   v5 = type metadata accessor for AspireApiPECShardResponse(0);
-  v70 = *(v5 - 8);
-  v6 = *(v70 + 64);
+  v63 = *(v5 - 8);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = (&v66 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMR);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v69 = (&v66 - v12);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v77 = &v66 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17.n128_f64[0] = MEMORY[0x28223BE20](v16);
-  v76 = (&v66 - v18);
-  v19 = 0;
-  v20 = *a1;
-  v21 = *(*a1 + 16);
-  v75 = (v10 + 56);
-  v22 = MEMORY[0x277D84F90];
-  v73 = v20;
-  v74 = (v10 + 48);
-  v72 = v21;
-  v68 = v8;
-  v67 = v1;
-  v66 = v9;
+  v7 = (&v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMR);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v62 = (&v59 - v10);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
+  v70 = &v59 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14.n128_f64[0] = MEMORY[0x28223BE20](v13);
+  v69 = (&v59 - v15);
+  v16 = 0;
+  v17 = *a1;
+  v18 = *(*a1 + 16);
+  v68 = (v9 + 56);
+  v19 = MEMORY[0x277D84F90];
+  v66 = v17;
+  v67 = (v9 + 48);
+  v65 = v18;
+  v61 = v7;
+  v60 = v1;
+  v59 = v8;
   while (1)
   {
-    if (v19 == v21)
+    if (v16 == v18)
     {
-      v23 = 1;
-      v78 = v21;
-      v24 = v77;
+      v20 = 1;
+      v71 = v18;
+      v21 = v70;
     }
 
     else
     {
-      if ((v19 & 0x8000000000000000) != 0)
+      if ((v16 & 0x8000000000000000) != 0)
       {
-        goto LABEL_78;
+        goto LABEL_77;
       }
 
-      if (v19 >= *(v20 + 16))
+      if (v16 >= *(v17 + 16))
       {
-LABEL_79:
+LABEL_78:
         __break(1u);
         return;
       }
 
-      v25 = v19 + 1;
-      v26 = v69;
-      v27 = v20 + ((*(v70 + 80) + 32) & ~*(v70 + 80)) + *(v70 + 72) * v19;
-      v28 = *(v9 + 48);
-      *v69 = v19;
-      outlined init with copy of SecretKey(v27, v26 + v28, type metadata accessor for AspireApiPECShardResponse);
-      v29 = v26;
-      v24 = v77;
-      outlined init with take of (offset: Int, element: AspireApiPECShardResponse)(v29, v77, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMR);
-      v23 = 0;
-      v78 = v25;
+      v22 = v16 + 1;
+      v23 = v62;
+      v24 = v17 + ((*(v63 + 80) + 32) & ~*(v63 + 80)) + *(v63 + 72) * v16;
+      v25 = *(v8 + 48);
+      *v62 = v16;
+      outlined init with copy of SecretKey(v24, v23 + v25, type metadata accessor for AspireApiPECShardResponse);
+      v26 = v23;
+      v21 = v70;
+      outlined init with take of (offset: Int, element: AspireApiPECShardResponse)(v26, v70, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtMR);
+      v20 = 0;
+      v71 = v22;
     }
 
-    (*v75)(v24, v23, 1, v9, v17);
-    v30 = v76;
-    outlined init with take of (offset: Int, element: AspireApiPECShardResponse)(v24, v76, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMR);
-    if ((*v74)(v30, 1, v9) == 1)
+    (*v68)(v21, v20, 1, v8, v14);
+    v27 = v69;
+    outlined init with take of (offset: Int, element: AspireApiPECShardResponse)(v21, v69, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMd, &_sSi6offset_8CipherML25AspireApiPECShardResponseV7elementtSgMR);
+    if ((*v67)(v27, 1, v8) == 1)
     {
       return;
     }
 
-    v31 = v30;
-    v32 = *v30;
-    outlined init with take of SecretKey(v31 + *(v9 + 48), v8, type metadata accessor for AspireApiPECShardResponse);
-    v83 = SimilarityClient.decryptSimilarityScores(shard:)(v8);
+    v28 = v27;
+    v29 = *v27;
+    outlined init with take of SecretKey(v28 + *(v8 + 48), v7, type metadata accessor for AspireApiPECShardResponse);
+    v76 = SimilarityClient.decryptSimilarityScores(shard:)(v7);
     if (v3)
     {
-      outlined destroy of AspireApiPECConfig(v8, type metadata accessor for AspireApiPECShardResponse);
+      outlined destroy of AspireApiPECConfig(v7, type metadata accessor for AspireApiPECShardResponse);
 
       return;
     }
 
-    if (!v32)
+    if (!v29)
     {
-      outlined destroy of AspireApiPECConfig(v8, type metadata accessor for AspireApiPECShardResponse);
+      outlined destroy of AspireApiPECConfig(v7, type metadata accessor for AspireApiPECShardResponse);
 
-      v22 = v83;
+      v19 = v76;
       goto LABEL_3;
     }
 
-    v33 = v22[2];
-    if (v33 != *(v83 + 16))
+    v30 = v19[2];
+    if (v30 != v76[2])
     {
       break;
     }
 
-    v79 = v22[2];
-    if (v33)
+    v72 = v19[2];
+    if (v30)
     {
-      v71 = 0;
-      v34 = 0;
-      v80 = v83 + 32;
-      v35 = v79;
+      v64 = 0;
+      v31 = 0;
+      v73 = v76 + 4;
+      v32 = v72;
       while (1)
       {
-        if (v34 >= *(v83 + 16))
+        if (v31 >= v76[2])
         {
+          __break(1u);
+LABEL_71:
           __break(1u);
 LABEL_72:
           __break(1u);
@@ -6970,169 +6787,158 @@ LABEL_76:
           __break(1u);
 LABEL_77:
           __break(1u);
-LABEL_78:
-          __break(1u);
-          goto LABEL_79;
+          goto LABEL_78;
         }
 
-        v36 = *(v80 + 8 * v34);
+        v33 = v73[v31];
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v22 = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+          v19 = specialized _ArrayBuffer._consumeAndCreateNew()(v19);
         }
 
-        if (v34 >= v22[2])
+        if (v31 >= v19[2])
         {
-          goto LABEL_72;
+          goto LABEL_71;
         }
 
-        v37 = v36 >> 62;
-        if (v36 >> 62)
+        v34 = v33 >> 62;
+        if (v33 >> 62)
         {
-          if (v36 < 0)
+          if (v33 < 0)
           {
-            v63 = v36;
+            v56 = v33;
           }
 
           else
           {
-            v63 = v36 & 0xFFFFFFFFFFFFFF8;
+            v56 = v33 & 0xFFFFFFFFFFFFFF8;
           }
 
-          v38 = MEMORY[0x22AA610B0](v63);
+          v35 = MEMORY[0x22AA610B0](v56);
         }
 
         else
         {
-          v38 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v35 = *((v33 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        v39 = v22 + 4;
-        v40 = v22[v34 + 4];
-        if (v40 >> 62)
+        v36 = v19 + 4;
+        v37 = v19[v31 + 4];
+        if (v37 >> 62)
         {
-          if (v40 < 0)
+          if (v37 < 0)
           {
-            v64 = v22[v34 + 4];
+            v57 = v19[v31 + 4];
           }
 
           else
           {
-            v64 = v40 & 0xFFFFFFFFFFFFFF8;
+            v57 = v37 & 0xFFFFFFFFFFFFFF8;
           }
 
-          v65 = MEMORY[0x22AA610B0](v64);
-          v42 = v65 + v38;
-          if (__OFADD__(v65, v38))
+          v58 = MEMORY[0x22AA610B0](v57);
+          v39 = v58 + v35;
+          if (__OFADD__(v58, v35))
           {
-            goto LABEL_73;
+            goto LABEL_72;
           }
         }
 
         else
         {
-          v41 = *((v40 & 0xFFFFFFFFFFFFFF8) + 0x10);
-          v42 = v41 + v38;
-          if (__OFADD__(v41, v38))
+          v38 = *((v37 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v39 = v38 + v35;
+          if (__OFADD__(v38, v35))
           {
-            goto LABEL_73;
+            goto LABEL_72;
           }
         }
 
-        v43 = v39[v34];
+        v40 = v36[v31];
         isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
-        v39[v34] = v43;
-        v84 = v22 + 4;
+        v36[v31] = v40;
+        v77 = v19 + 4;
         if (isUniquelyReferenced_nonNull_bridgeObject)
         {
-          if (v43 < 0 || (v43 & 0x4000000000000000) != 0)
+          if (v40 < 0 || (v40 & 0x4000000000000000) != 0)
           {
-            goto LABEL_34;
+            goto LABEL_33;
           }
 
-          v45 = v43 & 0xFFFFFFFFFFFFFF8;
-          if (v42 <= *((v43 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          v42 = v40 & 0xFFFFFFFFFFFFFF8;
+          if (v39 <= *((v40 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            goto LABEL_39;
-          }
-        }
-
-        else
-        {
-          if (v43 < 0 || (v43 & 0x4000000000000000) != 0)
-          {
-LABEL_34:
-            if (v43 < 0)
-            {
-              v47 = v43;
-            }
-
-            else
-            {
-              v47 = v43 & 0xFFFFFFFFFFFFFF8;
-            }
-
-            MEMORY[0x22AA610B0](v47);
-            v48 = v39[v34];
             goto LABEL_38;
           }
-
-          v45 = v43 & 0xFFFFFFFFFFFFFF8;
         }
 
-        v46 = *(v45 + 16);
-        v39 = v84;
-LABEL_38:
-
-        v49 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v50 = v39[v34];
-        v39[v34] = v49;
-
-        v45 = v39[v34] & 0xFFFFFFFFFFFFFF8;
-LABEL_39:
-        v86 = v38;
-        v51 = *(v45 + 16);
-        v52 = *(v45 + 24);
-        if (v37)
+        else if (v40 < 0 || (v40 & 0x4000000000000000) != 0)
         {
-          if (v36 < 0)
+LABEL_33:
+          if (v40 < 0)
           {
-            v54 = v36;
+            v43 = v40;
           }
 
           else
           {
-            v54 = v36 & 0xFFFFFFFFFFFFFF8;
+            v43 = v40 & 0xFFFFFFFFFFFFFF8;
           }
 
-          v53 = MEMORY[0x22AA610B0](v54);
-          if (v53)
+          MEMORY[0x22AA610B0](v43);
+          goto LABEL_37;
+        }
+
+        v36 = v77;
+LABEL_37:
+
+        v36[v31] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+
+        v42 = v36[v31] & 0xFFFFFFFFFFFFFF8;
+LABEL_38:
+        v79 = v35;
+        v44 = *(v42 + 16);
+        v45 = *(v42 + 24);
+        if (v34)
+        {
+          if (v33 < 0)
           {
-LABEL_46:
-            if (((v52 >> 1) - v51) < v86)
+            v47 = v33;
+          }
+
+          else
+          {
+            v47 = v33 & 0xFFFFFFFFFFFFFF8;
+          }
+
+          v46 = MEMORY[0x22AA610B0](v47);
+          if (v46)
+          {
+LABEL_45:
+            if (((v45 >> 1) - v44) < v79)
             {
-              goto LABEL_75;
+              goto LABEL_74;
             }
 
-            v81 = v34;
-            v82 = v22;
-            v55 = v45 + 8 * v51 + 32;
-            if (v37)
+            v74 = v31;
+            v75 = v19;
+            v48 = v42 + 8 * v44 + 32;
+            if (v34)
             {
-              if (v53 < 1)
+              if (v46 < 1)
               {
-                goto LABEL_77;
+                goto LABEL_76;
               }
 
               lazy protocol witness table accessor for type [CMLSimilarityScore] and conformance [A]();
-              for (i = 0; i != v53; ++i)
+              for (i = 0; i != v46; ++i)
               {
                 __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo18CMLSimilarityScoreCGMd, &_sSaySo18CMLSimilarityScoreCGMR);
-                v57 = specialized protocol witness for Collection.subscript.read in conformance [A](v85, i, v36);
-                v59 = *v58;
-                (v57)(v85, 0);
-                *(v55 + 8 * i) = v59;
+                v50 = specialized protocol witness for Collection.subscript.read in conformance [A](v78, i, v33);
+                v52 = *v51;
+                (v50)(v78, 0);
+                *(v48 + 8 * i) = v52;
               }
             }
 
@@ -7142,20 +6948,20 @@ LABEL_46:
               swift_arrayInitWithCopy();
             }
 
-            v34 = v81;
-            v22 = v82;
-            v35 = v79;
-            if (v86 > 0)
+            v31 = v74;
+            v19 = v75;
+            v32 = v72;
+            if (v79 > 0)
             {
-              v60 = *((v84[v81] & 0xFFFFFFFFFFFFFF8) + 0x10);
-              v61 = __OFADD__(v60, v86);
-              v62 = v60 + v86;
-              if (v61)
+              v53 = *((v77[v74] & 0xFFFFFFFFFFFFFF8) + 0x10);
+              v54 = __OFADD__(v53, v79);
+              v55 = v53 + v79;
+              if (v54)
               {
-                goto LABEL_76;
+                goto LABEL_75;
               }
 
-              *((v84[v81] & 0xFFFFFFFFFFFFFF8) + 0x10) = v62;
+              *((v77[v74] & 0xFFFFFFFFFFFFFF8) + 0x10) = v55;
             }
 
             goto LABEL_16;
@@ -7164,59 +6970,58 @@ LABEL_46:
 
         else
         {
-          v53 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
-          if (v53)
+          v46 = *((v33 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          if (v46)
           {
-            goto LABEL_46;
+            goto LABEL_45;
           }
         }
 
-        if (v86 > 0)
+        if (v79 > 0)
         {
-          goto LABEL_74;
+          goto LABEL_73;
         }
 
 LABEL_16:
-        if (++v34 == v35)
+        if (++v31 == v32)
         {
 
-          v3 = v71;
-          v8 = v68;
-          v9 = v66;
-          goto LABEL_67;
+          v3 = v64;
+          v7 = v61;
+          v8 = v59;
+          goto LABEL_66;
         }
       }
     }
 
-LABEL_67:
-    outlined destroy of AspireApiPECConfig(v8, type metadata accessor for AspireApiPECShardResponse);
+LABEL_66:
+    outlined destroy of AspireApiPECConfig(v7, type metadata accessor for AspireApiPECShardResponse);
 LABEL_3:
-    v21 = v72;
-    v20 = v73;
-    v19 = v78;
+    v18 = v65;
+    v17 = v66;
+    v16 = v71;
   }
 
-  type metadata accessor for CipherMLError();
-  lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError);
+  type metadata accessor for CipherMLError(0);
+  lazy protocol witness table accessor for type CipherMLError and conformance CipherMLError(&lazy protocol witness table cache variable for type CipherMLError and conformance CipherMLError, type metadata accessor for CipherMLError, &protocol conformance descriptor for CipherMLError);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
-  outlined destroy of AspireApiPECConfig(v8, type metadata accessor for AspireApiPECShardResponse);
+  outlined destroy of AspireApiPECConfig(v7, type metadata accessor for AspireApiPECShardResponse);
 }
 
 uint64_t default argument 2 of AMSNetworking.init(networkDelegationConfig:secondaryIdentifier:baseURL:)@<X0>(uint64_t a1@<X8>)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v9 - v4;
+  v4 = &v8 - v3;
   URL.init(string:)();
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  result = (*(v7 + 48))(v5, 1, v6);
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  result = (*(v6 + 48))(v4, 1, v5);
   if (result != 1)
   {
-    return (*(v7 + 32))(a1, v5, v6);
+    return (*(v6 + 32))(a1, v4, v5);
   }
 
   __break(1u);
@@ -7299,7 +7104,7 @@ void *protocol witness for RawRepresentable.init(rawValue:) in conformance CMLUs
   return result;
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy16CryptoKitPrivate2HEO10RlweParamsOGMd, &_ss23_ContiguousArrayStorageCy16CryptoKitPrivate2HEO10RlweParamsOGMR, MEMORY[0x277D02EC8]);
   *v3 = result;
@@ -7308,6 +7113,12 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
 
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy8CipherML42AspireSimilaritySerializedCiphertextMatrixVGMd, &_ss23_ContiguousArrayStorageCy8CipherML42AspireSimilaritySerializedCiphertextMatrixVGMR, type metadata accessor for AspireSimilaritySerializedCiphertextMatrix);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySo18CMLSimilarityScoreCGGMd, &_ss23_ContiguousArrayStorageCySaySo18CMLSimilarityScoreCGGMR, &_sSaySo18CMLSimilarityScoreCGMd, &_sSaySo18CMLSimilarityScoreCGMR);
   *v3 = result;
   return result;
 }
@@ -7349,6 +7160,12 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
 }
 
 {
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySays5UInt8VGGMd, &_ss23_ContiguousArrayStorageCySays5UInt8VGGMR, &_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
+  *v3 = result;
+  return result;
+}
+
+{
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy8CipherML19AspireApiPIRRequestVGMd, &_ss23_ContiguousArrayStorageCy8CipherML19AspireApiPIRRequestVGMR, type metadata accessor for AspireApiPIRRequest);
   *v3 = result;
   return result;
@@ -7367,7 +7184,25 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
 }
 
 {
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGGMd, &_ss23_ContiguousArrayStorageCySaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGGMR, &_sSaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMd, &_sSaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMd, &_ss23_ContiguousArrayStorageCySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMR, &_sSay16CryptoKitPrivate2HEO20SerializedCiphertextOGMd, &_sSay16CryptoKitPrivate2HEO20SerializedCiphertextOGMR);
+  *v3 = result;
+  return result;
+}
+
+{
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy8CipherML20AspireApiPIRResponseVGMd, &_ss23_ContiguousArrayStorageCy8CipherML20AspireApiPIRResponseVGMR, type metadata accessor for AspireApiPIRResponse);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
@@ -7402,7 +7237,7 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -7435,37 +7270,6 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
 
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCys6UInt64VGMd, &_ss23_ContiguousArrayStorageCys6UInt64VGMR);
-  *v3 = result;
-  return result;
-}
-
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySo18CMLSimilarityScoreCGGMd, &_ss23_ContiguousArrayStorageCySaySo18CMLSimilarityScoreCGGMR, &_sSaySo18CMLSimilarityScoreCGMd, &_sSaySo18CMLSimilarityScoreCGMR);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySays5UInt8VGGMd, &_ss23_ContiguousArrayStorageCySays5UInt8VGGMR, &_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGGMd, &_ss23_ContiguousArrayStorageCySaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGGMR, &_sSaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMd, &_sSaySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMR);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMd, &_ss23_ContiguousArrayStorageCySay16CryptoKitPrivate2HEO20SerializedCiphertextOGGMR, &_sSay16CryptoKitPrivate2HEO20SerializedCiphertextOGMd, &_sSay16CryptoKitPrivate2HEO20SerializedCiphertextOGMR);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
@@ -7783,7 +7587,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -7843,7 +7647,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -7873,6 +7677,83 @@ LABEL_19:
   }
 
   return v13;
+}
+
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = a4[2];
+  if (v7 <= v8)
+  {
+    v9 = a4[2];
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DataVSgGMd, &_ss23_ContiguousArrayStorageCy10Foundation4DataVSgGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v12 = v11 - 32;
+    if (v11 < 32)
+    {
+      v12 = v11 - 17;
+    }
+
+    v10[2] = v8;
+    v10[3] = 2 * (v12 >> 4);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277D84F90];
+  }
+
+  if (v5)
+  {
+    if (v10 != a4 || v10 + 4 >= &a4[2 * v8 + 4])
+    {
+      memmove(v10 + 4, a4 + 4, 16 * v8);
+    }
+
+    a4[2] = 0;
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, &_s10Foundation4DataVSgMR);
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
 }
 
 void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
@@ -7953,85 +7834,7 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v16;
 }
 
-void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
-{
-  v5 = result;
-  if (a3)
-  {
-    v6 = a4[3];
-    v7 = v6 >> 1;
-    if ((v6 >> 1) < a2)
-    {
-      if (v7 + 0x4000000000000000 < 0)
-      {
-        __break(1u);
-        return result;
-      }
-
-      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-      {
-        v7 = a2;
-      }
-    }
-  }
-
-  else
-  {
-    v7 = a2;
-  }
-
-  v8 = a4[2];
-  if (v7 <= v8)
-  {
-    v9 = a4[2];
-  }
-
-  else
-  {
-    v9 = v7;
-  }
-
-  if (v9)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DataVSgGMd, &_ss23_ContiguousArrayStorageCy10Foundation4DataVSgGMR);
-    v10 = swift_allocObject();
-    v11 = _swift_stdlib_malloc_size(v10);
-    v12 = v11 - 32;
-    if (v11 < 32)
-    {
-      v12 = v11 - 17;
-    }
-
-    v10[2] = v8;
-    v10[3] = 2 * (v12 >> 4);
-  }
-
-  else
-  {
-    v10 = MEMORY[0x277D84F90];
-  }
-
-  if (v5)
-  {
-    if (v10 != a4 || v10 + 4 >= &a4[2 * v8 + 4])
-    {
-      memmove(v10 + 4, a4 + 4, 16 * v8);
-    }
-
-    a4[2] = 0;
-  }
-
-  else
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, &_s10Foundation4DataVSgMR);
-    swift_arrayInitWithCopy();
-  }
-
-  return v10;
-}
-
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -8091,7 +7894,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -8202,7 +8005,11 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v12;
 }
 
-size_t specialized _ArrayBuffer._consumeAndCreateNew()(void *a1)
+void *specialized _ArrayBuffer._consumeAndCreateNew()(void *a1)
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
+}
+
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
 }
@@ -8250,9 +8057,9 @@ LABEL_5:
   return result;
 }
 
-uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVys010EnumeratedE0VySays6UInt64VGGSay10Foundation4DataVGG_So18CMLSimilarityScoreCs5NeverOTg506_sSis6g14V10Foundation4i5VSo18jk37CIgyygo_Si6offset_AB7elementt_AEtAGs5L11OIegnrzr_TRSiAkpTIgyygo_Tf1cn_nTf4ng_n(uint64_t a1, uint64_t a2, void (*a3)(unint64_t, uint64_t, uint64_t, unint64_t))
+uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVys010EnumeratedE0VySays6UInt64VGGSay10Foundation4DataVGG_So18CMLSimilarityScoreCs5NeverOTg506_sSis6g14V10Foundation4i5VSo18jk37CIgyygo_Si6offset_AB7elementt_AEtAGs5L11OIegnrzr_TRSiAkpTIgyygo_Tf1cn_nTf4ng_n(uint64_t a1, uint64_t a2, uint64_t (*a3)(unint64_t, uint64_t, uint64_t, unint64_t))
 {
-  v16 = MEMORY[0x277D84F90];
+  v15 = MEMORY[0x277D84F90];
   result = specialized ContiguousArray.reserveCapacity(_:)();
   v6 = *(a1 + 16);
   if (v6)
@@ -8281,7 +8088,6 @@ uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zi
       a3(v7, v11, v12, v13);
       outlined consume of Data._Representation(v12, v13);
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v14 = *(v16 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       result = specialized ContiguousArray._endMutation()();
@@ -8292,7 +8098,7 @@ uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zi
     while (v6 != v7);
   }
 
-  return v16;
+  return v15;
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -8300,7 +8106,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -8353,7 +8158,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -8361,16 +8165,16 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t type metadata completion function for SimilarityClient()
+uint64_t type metadata completion function for SimilarityClient(uint64_t a1)
 {
-  result = type metadata accessor for SecretKey();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for SecretKey(319);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for AspireApiPECConfig(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for PEC.SimilarityClient();
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
         return 0;
@@ -8421,12 +8225,12 @@ uint64_t storeEnumTagSinglePayload for os_unfair_lock_s(uint64_t result, int a2,
   return result;
 }
 
-void type metadata accessor for CMLUseCaseControlOptions(uint64_t a1, unint64_t *a2)
+void type metadata accessor for CMLUseCaseControlOptions(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -8486,17 +8290,17 @@ uint64_t AMDPbHEConfigsReply.init()@<X0>(unint64_t *a1@<X8>)
   v2 = MEMORY[0x277D84F90];
   *a1 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_8CipherML13AMDPbHEConfigVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
   a1[1] = v2;
-  v3 = a1 + *(type metadata accessor for AMDPbHEConfigsReply(0) + 24);
+  type metadata accessor for AMDPbHEConfigsReply(0);
   return UnknownStorage.init()();
 }
 
 uint64_t AMDPbHEConfig.pirConfig.getter@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v15 - v5;
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v2, &v15 - v5, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v2, &v14 - v5, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
   v7 = type metadata accessor for AMDPbHEConfig.OneOf_Config(0);
   if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
@@ -8509,14 +8313,13 @@ LABEL_5:
     *(a1 + 32) = 0;
     *(a1 + 40) = 0xC000000000000000;
     v8 = type metadata accessor for AMDPbPIRConfig(0);
-    v9 = a1 + v8[8];
     UnknownStorage.init()();
-    v10 = v8[9];
-    v11 = type metadata accessor for AspireHeEncryptionParameters(0);
-    (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
-    v12 = v8[10];
-    v13 = type metadata accessor for AspirePirKeywordPirParameters(0);
-    return (*(*(v13 - 8) + 56))(a1 + v12, 1, 1, v13);
+    v9 = *(v8 + 36);
+    v10 = type metadata accessor for AspireHeEncryptionParameters(0);
+    (*(*(v10 - 8) + 56))(a1 + v9, 1, 1, v10);
+    v11 = *(v8 + 40);
+    v12 = type metadata accessor for AspirePirKeywordPirParameters(0);
+    return (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
   }
 
   if (swift_getEnumCaseMultiPayload() == 1)
@@ -8537,19 +8340,18 @@ uint64_t AMDPbPIRConfig.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 32) = 0;
   *(a1 + 40) = 0xC000000000000000;
   v2 = type metadata accessor for AMDPbPIRConfig(0);
-  v3 = a1 + v2[8];
   UnknownStorage.init()();
-  v4 = v2[9];
-  v5 = type metadata accessor for AspireHeEncryptionParameters(0);
-  (*(*(v5 - 8) + 56))(a1 + v4, 1, 1, v5);
-  v6 = v2[10];
-  v7 = type metadata accessor for AspirePirKeywordPirParameters(0);
-  v8 = *(*(v7 - 8) + 56);
+  v3 = *(v2 + 36);
+  v4 = type metadata accessor for AspireHeEncryptionParameters(0);
+  (*(*(v4 - 8) + 56))(a1 + v3, 1, 1, v4);
+  v5 = *(v2 + 40);
+  v6 = type metadata accessor for AspirePirKeywordPirParameters(0);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v8(a1 + v6, 1, 1, v7);
+  return v7(a1 + v5, 1, 1, v6);
 }
 
-void (*AMDPbHEConfig.pirConfig.modify(void *a1))(uint64_t **a1, char a2)
+void (*AMDPbHEConfig.pirConfig.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   v2 = v1;
   v4 = MEMORY[0x277D84FD8];
@@ -8580,7 +8382,7 @@ void (*AMDPbHEConfig.pirConfig.modify(void *a1))(uint64_t **a1, char a2)
   v9 = v8;
   v6[1] = v8;
   v10 = type metadata accessor for AMDPbPIRConfig(0);
-  v11 = *(*(v10 - 1) + 64);
+  v11 = *(*(v10 - 8) + 64);
   if (v4)
   {
     v6[2] = swift_coroFrameAlloc();
@@ -8589,7 +8391,7 @@ void (*AMDPbHEConfig.pirConfig.modify(void *a1))(uint64_t **a1, char a2)
 
   else
   {
-    v6[2] = malloc(*(*(v10 - 1) + 64));
+    v6[2] = malloc(*(*(v10 - 8) + 64));
     v12 = malloc(v11);
   }
 
@@ -8622,24 +8424,23 @@ void (*AMDPbHEConfig.pirConfig.modify(void *a1))(uint64_t **a1, char a2)
   *(v13 + 24) = 0;
   *(v13 + 32) = 0;
   *(v13 + 40) = 0xC000000000000000;
-  v16 = v13 + v10[8];
   UnknownStorage.init()();
-  v17 = v10[9];
-  v18 = type metadata accessor for AspireHeEncryptionParameters(0);
-  (*(*(v18 - 8) + 56))(v13 + v17, 1, 1, v18);
-  v19 = v10[10];
-  v20 = type metadata accessor for AspirePirKeywordPirParameters(0);
-  (*(*(v20 - 8) + 56))(v13 + v19, 1, 1, v20);
+  v16 = *(v10 + 36);
+  v17 = type metadata accessor for AspireHeEncryptionParameters(0);
+  (*(*(v17 - 8) + 56))(v13 + v16, 1, 1, v17);
+  v18 = *(v10 + 40);
+  v19 = type metadata accessor for AspirePirKeywordPirParameters(0);
+  (*(*(v19 - 8) + 56))(v13 + v18, 1, 1, v19);
   return AMDPbHEConfig.pirConfig.modify;
 }
 
 uint64_t AMDPbHEConfig.pecConfig.getter@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v15 - v5;
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v2, &v15 - v5, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v2, &v14 - v5, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
   v7 = type metadata accessor for AMDPbHEConfig.OneOf_Config(0);
   if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
@@ -8662,38 +8463,37 @@ uint64_t AMDPbHEConfig.pecConfig.getter@<X0>(uint64_t a1@<X8>)
   *(a1 + 24) = 1;
   *(a1 + 32) = xmmword_225022910;
   v9 = type metadata accessor for AMDPbPECConfig(0);
-  v10 = a1 + v9[8];
   UnknownStorage.init()();
-  v11 = v9[9];
-  v12 = type metadata accessor for AspireHeEncryptionParameters(0);
-  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
-  v13 = v9[10];
-  v14 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
-  return (*(*(v14 - 8) + 56))(a1 + v13, 1, 1, v14);
+  v10 = *(v9 + 36);
+  v11 = type metadata accessor for AspireHeEncryptionParameters(0);
+  (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
+  v12 = *(v9 + 40);
+  v13 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
+  return (*(*(v13 - 8) + 56))(a1 + v12, 1, 1, v13);
 }
 
-uint64_t key path setter for AMDPbHEConfig.pirConfig : AMDPbHEConfig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void))
+uint64_t key path setter for AMDPbHEConfig.pirConfig : AMDPbHEConfig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void), uint64_t a8)
 {
-  v11 = (*(*(a5(0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v13 = &v16 - v12;
-  outlined init with copy of AMDPbPIRConfig(a1, &v16 - v12, a6);
+  v12 = (a5)(0, a2, a3, a4);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = &v17 - v13;
+  outlined init with copy of AMDPbPIRConfig(a1, &v17 - v13, a6);
   outlined destroy of AMDPbHEConfig.OneOf_Config?(a2, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
-  outlined init with take of AMDPbPIRConfig(v13, a2, a7);
-  v14 = type metadata accessor for AMDPbHEConfig.OneOf_Config(0);
+  outlined init with take of AMDPbPIRConfig(v14, a2, a7);
+  v15 = type metadata accessor for AMDPbHEConfig.OneOf_Config(0);
   swift_storeEnumTagMultiPayload();
-  return (*(*(v14 - 8) + 56))(a2, 0, 1, v14);
+  return (*(*(v15 - 8) + 56))(a2, 0, 1, v15);
 }
 
-uint64_t AMDPbHEConfig.pirConfig.setter(uint64_t a1, uint64_t (*a2)(void))
+uint64_t AMDPbHEConfig.pirConfig.setter(uint64_t a1, uint64_t (*a2)(void), uint64_t a3)
 {
-  outlined destroy of AMDPbHEConfig.OneOf_Config?(v2, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
-  outlined init with take of AMDPbPIRConfig(a1, v2, a2);
-  v5 = type metadata accessor for AMDPbHEConfig.OneOf_Config(0);
+  outlined destroy of AMDPbHEConfig.OneOf_Config?(v3, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMd, &_s8CipherML13AMDPbHEConfigV12OneOf_ConfigOSgMR);
+  outlined init with take of AMDPbPIRConfig(a1, v3, a2);
+  v6 = type metadata accessor for AMDPbHEConfig.OneOf_Config(0);
   swift_storeEnumTagMultiPayload();
-  v6 = *(*(v5 - 8) + 56);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v6(v2, 0, 1, v5);
+  return v7(v3, 0, 1, v6);
 }
 
 uint64_t AMDPbPECConfig.init()@<X0>(uint64_t a1@<X8>)
@@ -8704,19 +8504,18 @@ uint64_t AMDPbPECConfig.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 24) = 1;
   *(a1 + 32) = xmmword_225022910;
   v2 = type metadata accessor for AMDPbPECConfig(0);
-  v3 = a1 + v2[8];
   UnknownStorage.init()();
-  v4 = v2[9];
-  v5 = type metadata accessor for AspireHeEncryptionParameters(0);
-  (*(*(v5 - 8) + 56))(a1 + v4, 1, 1, v5);
-  v6 = v2[10];
-  v7 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
-  v8 = *(*(v7 - 8) + 56);
+  v3 = *(v2 + 36);
+  v4 = type metadata accessor for AspireHeEncryptionParameters(0);
+  (*(*(v4 - 8) + 56))(a1 + v3, 1, 1, v4);
+  v5 = *(v2 + 40);
+  v6 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v8(a1 + v6, 1, 1, v7);
+  return v7(a1 + v5, 1, 1, v6);
 }
 
-void (*AMDPbHEConfig.pecConfig.modify(void *a1))(uint64_t **a1, char a2)
+void (*AMDPbHEConfig.pecConfig.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   v2 = v1;
   v4 = MEMORY[0x277D84FD8];
@@ -8747,7 +8546,7 @@ void (*AMDPbHEConfig.pecConfig.modify(void *a1))(uint64_t **a1, char a2)
   v9 = v8;
   v6[1] = v8;
   v10 = type metadata accessor for AMDPbPECConfig(0);
-  v11 = *(*(v10 - 1) + 64);
+  v11 = *(*(v10 - 8) + 64);
   if (v4)
   {
     v6[2] = swift_coroFrameAlloc();
@@ -8756,7 +8555,7 @@ void (*AMDPbHEConfig.pecConfig.modify(void *a1))(uint64_t **a1, char a2)
 
   else
   {
-    v6[2] = malloc(*(*(v10 - 1) + 64));
+    v6[2] = malloc(*(*(v10 - 8) + 64));
     v12 = malloc(v11);
   }
 
@@ -8776,14 +8575,13 @@ LABEL_15:
     *(v13 + 16) = 0;
     *(v13 + 24) = 1;
     *(v13 + 32) = xmmword_225022910;
-    v16 = v13 + v10[8];
     UnknownStorage.init()();
-    v17 = v10[9];
-    v18 = type metadata accessor for AspireHeEncryptionParameters(0);
-    (*(*(v18 - 8) + 56))(v13 + v17, 1, 1, v18);
-    v19 = v10[10];
-    v20 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
-    (*(*(v20 - 8) + 56))(v13 + v19, 1, 1, v20);
+    v16 = *(v10 + 36);
+    v17 = type metadata accessor for AspireHeEncryptionParameters(0);
+    (*(*(v17 - 8) + 56))(v13 + v16, 1, 1, v17);
+    v18 = *(v10 + 40);
+    v19 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
+    (*(*(v19 - 8) + 56))(v13 + v18, 1, 1, v19);
     return AMDPbHEConfig.pecConfig.modify;
   }
 
@@ -8834,25 +8632,52 @@ void AMDPbHEConfig.pirConfig.modify(uint64_t **a1, char a2, uint64_t (*a3)(void)
 uint64_t AMDPbHEKeyStatus.keyConfig.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for AMDPbHEKeyStatus(0);
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v7 + 28), v6, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
-  v8 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
-  v9 = *(*(v8 - 8) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v12 - v4;
+  v6 = type metadata accessor for AMDPbHEKeyStatus(0);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v6 + 28), v5, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
+  v7 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
+  v8 = *(*(v7 - 8) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of AMDPbPIRConfig(v6, a1, type metadata accessor for AspireHeEvaluationKeyConfig);
+    return outlined init with take of AMDPbPIRConfig(v5, a1, type metadata accessor for AspireHeEvaluationKeyConfig);
   }
 
   *a1 = MEMORY[0x277D84F90];
   *(a1 + 8) = 0;
-  v10 = a1 + *(v8 + 24);
   UnknownStorage.init()();
-  v11 = *(v8 + 28);
-  v12 = type metadata accessor for AspireHeEncryptionParameters(0);
-  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
+  v9 = *(v7 + 28);
+  v10 = type metadata accessor for AspireHeEncryptionParameters(0);
+  (*(*(v10 - 8) + 56))(a1 + v9, 1, 1, v10);
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v5, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path getter for AMDPbHEKeyStatus.keyConfig : AMDPbHEKeyStatus@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v13 - v5;
+  v7 = type metadata accessor for AMDPbHEKeyStatus(0);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(a1 + *(v7 + 28), v6, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
+  v8 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v6, 1, v8) != 1)
+  {
+    return outlined init with take of AMDPbPIRConfig(v6, a2, type metadata accessor for AspireHeEvaluationKeyConfig);
+  }
+
+  *a2 = MEMORY[0x277D84F90];
+  *(a2 + 8) = 0;
+  UnknownStorage.init()();
+  v10 = *(v8 + 28);
+  v11 = type metadata accessor for AspireHeEncryptionParameters(0);
+  (*(*(v11 - 8) + 56))(a2 + v10, 1, 1, v11);
   result = (v9)(v6, 1, v8);
   if (result != 1)
   {
@@ -8862,49 +8687,17 @@ uint64_t AMDPbHEKeyStatus.keyConfig.getter@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t key path getter for AMDPbHEKeyStatus.keyConfig : AMDPbHEKeyStatus@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v15 - v6;
-  v8 = type metadata accessor for AMDPbHEKeyStatus(0);
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(a1 + *(v8 + 28), v7, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
-  v9 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v7, 1, v9) != 1)
-  {
-    return outlined init with take of AMDPbPIRConfig(v7, a2, type metadata accessor for AspireHeEvaluationKeyConfig);
-  }
-
-  *a2 = MEMORY[0x277D84F90];
-  *(a2 + 8) = 0;
-  v11 = a2 + *(v9 + 24);
-  UnknownStorage.init()();
-  v12 = *(v9 + 28);
-  v13 = type metadata accessor for AspireHeEncryptionParameters(0);
-  (*(*(v13 - 8) + 56))(a2 + v12, 1, 1, v13);
-  result = (v10)(v7, 1, v9);
-  if (result != 1)
-  {
-    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v7, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
-  }
-
-  return result;
-}
-
 uint64_t key path setter for AMDPbHEKeyStatus.keyConfig : AMDPbHEKeyStatus(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AMDPbPIRConfig(a1, v8, type metadata accessor for AspireHeEvaluationKeyConfig);
-  v9 = *(type metadata accessor for AMDPbHEKeyStatus(0) + 28);
-  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v9, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
-  outlined init with take of AMDPbPIRConfig(v8, a2 + v9, type metadata accessor for AspireHeEvaluationKeyConfig);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AMDPbPIRConfig(a1, v7, type metadata accessor for AspireHeEvaluationKeyConfig);
+  v8 = *(type metadata accessor for AMDPbHEKeyStatus(0) + 28);
+  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v8, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
+  outlined init with take of AMDPbPIRConfig(v7, a2 + v8, type metadata accessor for AspireHeEvaluationKeyConfig);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t AMDPbHEKeyStatus.keyConfig.setter(uint64_t a1)
@@ -8975,11 +8768,10 @@ void (*AMDPbHEKeyStatus.keyConfig.modify(void *a1))(uint64_t **a1, char a2)
   {
     *v14 = MEMORY[0x277D84F90];
     *(v14 + 8) = 0;
-    v17 = v14 + *(v9 + 24);
     UnknownStorage.init()();
-    v18 = *(v9 + 28);
-    v19 = type metadata accessor for AspireHeEncryptionParameters(0);
-    (*(*(v19 - 8) + 56))(v14 + v18, 1, 1, v19);
+    v17 = *(v9 + 28);
+    v18 = type metadata accessor for AspireHeEncryptionParameters(0);
+    (*(*(v18 - 8) + 56))(v14 + v17, 1, 1, v18);
     if (v16(v8, 1, v9) != 1)
     {
       outlined destroy of AMDPbHEConfig.OneOf_Config?(v8, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMd, &_s8CipherML27AspireHeEvaluationKeyConfigVSgMR);
@@ -9030,14 +8822,12 @@ void AMDPbHEKeyStatus.keyConfig.modify(uint64_t **a1, char a2)
 uint64_t AMDPbHEKeyStatus.group.getter()
 {
   v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
 
   return v1;
 }
 
 uint64_t AMDPbHEKeyStatus.group.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 16);
 
   *(v2 + 8) = a1;
   *(v2 + 16) = a2;
@@ -9068,16 +8858,15 @@ uint64_t AMDPbHEKeyStatus.init()@<X0>(char *a1@<X8>)
   *(a1 + 1) = 0;
   *(a1 + 2) = 0xE000000000000000;
   v2 = type metadata accessor for AMDPbHEKeyStatus(0);
-  v3 = &a1[*(v2 + 24)];
   UnknownStorage.init()();
-  v4 = *(v2 + 28);
-  v5 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
-  v6 = *(*(v5 - 8) + 56);
+  v3 = *(v2 + 28);
+  v4 = type metadata accessor for AspireHeEvaluationKeyConfig(0);
+  v5 = *(*(v4 - 8) + 56);
 
-  return v6(&a1[v4], 1, 1, v5);
+  return v5(&a1[v3], 1, 1, v4);
 }
 
-uint64_t (*AMDPbPIRConfig.encryptionParameters.modify(void *a1))()
+void (*AMDPbPIRConfig.encryptionParameters.modify(void *a1))(uint64_t **a1, char a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -9141,7 +8930,6 @@ uint64_t (*AMDPbPIRConfig.encryptionParameters.modify(void *a1))()
     *(v14 + 48) = 1;
     *(v14 + 56) = 0;
     *(v14 + 64) = 1;
-    v17 = v14 + *(v9 + 40);
     UnknownStorage.init()();
     if (v16(v8, 1, v9) != 1)
     {
@@ -9160,28 +8948,58 @@ uint64_t (*AMDPbPIRConfig.encryptionParameters.modify(void *a1))()
 uint64_t AMDPbPIRConfig.keywordPirParams.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v16 - v5;
-  v7 = type metadata accessor for AMDPbPIRConfig(0);
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v7 + 40), v6, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
-  v8 = type metadata accessor for AspirePirKeywordPirParameters(0);
-  v9 = *(*(v8 - 1) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v14 - v4;
+  v6 = type metadata accessor for AMDPbPIRConfig(0);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v6 + 40), v5, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
+  v7 = type metadata accessor for AspirePirKeywordPirParameters(0);
+  v8 = *(*(v7 - 8) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of AMDPbPIRConfig(v6, a1, type metadata accessor for AspirePirKeywordPirParameters);
+    return outlined init with take of AMDPbPIRConfig(v5, a1, type metadata accessor for AspirePirKeywordPirParameters);
   }
 
   *a1 = 0;
   *(a1 + 8) = 0;
-  v10 = a1 + v8[6];
   UnknownStorage.init()();
-  v11 = v8[7];
-  v12 = type metadata accessor for AspirePirSymmetricPirClientConfig(0);
+  v9 = *(v7 + 28);
+  v10 = type metadata accessor for AspirePirSymmetricPirClientConfig(0);
+  (*(*(v10 - 8) + 56))(a1 + v9, 1, 1, v10);
+  v11 = *(v7 + 32);
+  v12 = type metadata accessor for AspirePirPIRShardingFunction(0);
   (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
-  v13 = v8[8];
-  v14 = type metadata accessor for AspirePirPIRShardingFunction(0);
-  (*(*(v14 - 8) + 56))(a1 + v13, 1, 1, v14);
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v5, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path getter for AMDPbPIRConfig.keywordPirParams : AMDPbPIRConfig@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v15 - v5;
+  v7 = type metadata accessor for AMDPbPIRConfig(0);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(a1 + *(v7 + 40), v6, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
+  v8 = type metadata accessor for AspirePirKeywordPirParameters(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v6, 1, v8) != 1)
+  {
+    return outlined init with take of AMDPbPIRConfig(v6, a2, type metadata accessor for AspirePirKeywordPirParameters);
+  }
+
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  UnknownStorage.init()();
+  v10 = *(v8 + 28);
+  v11 = type metadata accessor for AspirePirSymmetricPirClientConfig(0);
+  (*(*(v11 - 8) + 56))(a2 + v10, 1, 1, v11);
+  v12 = *(v8 + 32);
+  v13 = type metadata accessor for AspirePirPIRShardingFunction(0);
+  (*(*(v13 - 8) + 56))(a2 + v12, 1, 1, v13);
   result = (v9)(v6, 1, v8);
   if (result != 1)
   {
@@ -9191,52 +9009,17 @@ uint64_t AMDPbPIRConfig.keywordPirParams.getter@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t key path getter for AMDPbPIRConfig.keywordPirParams : AMDPbPIRConfig@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v17 - v6;
-  v8 = type metadata accessor for AMDPbPIRConfig(0);
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(a1 + *(v8 + 40), v7, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
-  v9 = type metadata accessor for AspirePirKeywordPirParameters(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v7, 1, v9) != 1)
-  {
-    return outlined init with take of AMDPbPIRConfig(v7, a2, type metadata accessor for AspirePirKeywordPirParameters);
-  }
-
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  v11 = a2 + v9[6];
-  UnknownStorage.init()();
-  v12 = v9[7];
-  v13 = type metadata accessor for AspirePirSymmetricPirClientConfig(0);
-  (*(*(v13 - 8) + 56))(a2 + v12, 1, 1, v13);
-  v14 = v9[8];
-  v15 = type metadata accessor for AspirePirPIRShardingFunction(0);
-  (*(*(v15 - 8) + 56))(a2 + v14, 1, 1, v15);
-  result = (v10)(v7, 1, v9);
-  if (result != 1)
-  {
-    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v7, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
-  }
-
-  return result;
-}
-
 uint64_t key path setter for AMDPbPIRConfig.keywordPirParams : AMDPbPIRConfig(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for AspirePirKeywordPirParameters(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AMDPbPIRConfig(a1, v8, type metadata accessor for AspirePirKeywordPirParameters);
-  v9 = *(type metadata accessor for AMDPbPIRConfig(0) + 40);
-  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v9, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
-  outlined init with take of AMDPbPIRConfig(v8, a2 + v9, type metadata accessor for AspirePirKeywordPirParameters);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AMDPbPIRConfig(a1, v7, type metadata accessor for AspirePirKeywordPirParameters);
+  v8 = *(type metadata accessor for AMDPbPIRConfig(0) + 40);
+  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v8, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
+  outlined init with take of AMDPbPIRConfig(v7, a2 + v8, type metadata accessor for AspirePirKeywordPirParameters);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t AMDPbPIRConfig.keywordPirParams.setter(uint64_t a1)
@@ -9281,7 +9064,7 @@ void (*AMDPbPIRConfig.keywordPirParams.modify(void *a1))(uint64_t **a1, char a2)
   v5[1] = v7;
   v9 = type metadata accessor for AspirePirKeywordPirParameters(0);
   v5[2] = v9;
-  v10 = *(v9 - 1);
+  v10 = *(v9 - 8);
   v11 = v10;
   v5[3] = v10;
   v12 = *(v10 + 64);
@@ -9307,14 +9090,13 @@ void (*AMDPbPIRConfig.keywordPirParams.modify(void *a1))(uint64_t **a1, char a2)
   {
     *v14 = 0;
     *(v14 + 8) = 0;
-    v17 = v14 + v9[6];
     UnknownStorage.init()();
-    v18 = v9[7];
-    v19 = type metadata accessor for AspirePirSymmetricPirClientConfig(0);
-    (*(*(v19 - 8) + 56))(v14 + v18, 1, 1, v19);
-    v20 = v9[8];
-    v21 = type metadata accessor for AspirePirPIRShardingFunction(0);
-    (*(*(v21 - 8) + 56))(v14 + v20, 1, 1, v21);
+    v17 = *(v9 + 28);
+    v18 = type metadata accessor for AspirePirSymmetricPirClientConfig(0);
+    (*(*(v18 - 8) + 56))(v14 + v17, 1, 1, v18);
+    v19 = *(v9 + 32);
+    v20 = type metadata accessor for AspirePirPIRShardingFunction(0);
+    (*(*(v20 - 8) + 56))(v14 + v19, 1, 1, v20);
     if (v16(v8, 1, v9) != 1)
     {
       outlined destroy of AMDPbHEConfig.OneOf_Config?(v8, &_s8CipherML016AspirePirKeywordD10ParametersVSgMd, &_s8CipherML016AspirePirKeywordD10ParametersVSgMR);
@@ -9379,7 +9161,6 @@ uint64_t AMDPbPIRConfig.algorithm.setter(uint64_t result)
 
 uint64_t AMDPbPIRShardConfig.dimensions.setter(uint64_t a1)
 {
-  v3 = *(v1 + 16);
 
   *(v1 + 16) = a1;
   return result;
@@ -9408,22 +9189,22 @@ uint64_t AMDPbPIRShardConfig.init()@<X0>(void *a1@<X8>)
   *a1 = 0;
   a1[1] = 0;
   a1[2] = MEMORY[0x277D84F90];
-  v1 = a1 + *(type metadata accessor for AMDPbPIRShardConfig(0) + 28);
+  type metadata accessor for AMDPbPIRShardConfig(0);
   return UnknownStorage.init()();
 }
 
 uint64_t AMDPbPIRConfig.encryptionParameters.getter@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v7 = &v13 - v6;
-  v8 = a1(0);
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v2 + *(v8 + 36), v7, &_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
-  v9 = type metadata accessor for AspireHeEncryptionParameters(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v7, 1, v9) != 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
+  v6 = MEMORY[0x28223BE20](v5 - 8);
+  v8 = &v13 - v7;
+  v9 = (a1)(0, v6);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v2 + *(v9 + 36), v8, &_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
+  v10 = type metadata accessor for AspireHeEncryptionParameters(0);
+  v11 = *(*(v10 - 8) + 48);
+  if (v11(v8, 1, v10) != 1)
   {
-    return outlined init with take of AMDPbPIRConfig(v7, a2, type metadata accessor for AspireHeEncryptionParameters);
+    return outlined init with take of AMDPbPIRConfig(v8, a2, type metadata accessor for AspireHeEncryptionParameters);
   }
 
   *a2 = 0;
@@ -9435,12 +9216,11 @@ uint64_t AMDPbPIRConfig.encryptionParameters.getter@<X0>(uint64_t (*a1)(void)@<X
   *(a2 + 48) = 1;
   *(a2 + 56) = 0;
   *(a2 + 64) = 1;
-  v11 = a2 + *(v9 + 40);
   UnknownStorage.init()();
-  result = (v10)(v7, 1, v9);
+  result = (v11)(v8, 1, v10);
   if (result != 1)
   {
-    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v7, &_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
+    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v8, &_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
   }
 
   return result;
@@ -9450,14 +9230,13 @@ uint64_t key path setter for AMDPbPIRConfig.encryptionParameters : AMDPbPIRConfi
 {
   v8 = type metadata accessor for AspireHeEncryptionParameters(0);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20]();
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AMDPbPIRConfig(a1, v12, type metadata accessor for AspireHeEncryptionParameters);
-  v13 = *(a5(0) + 36);
-  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v13, &_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
-  outlined init with take of AMDPbPIRConfig(v12, a2 + v13, type metadata accessor for AspireHeEncryptionParameters);
-  return (*(v9 + 56))(a2 + v13, 0, 1, v8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AMDPbPIRConfig(a1, v11, type metadata accessor for AspireHeEncryptionParameters);
+  v12 = *(a5(0) + 36);
+  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v12, &_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
+  outlined init with take of AMDPbPIRConfig(v11, a2 + v12, type metadata accessor for AspireHeEncryptionParameters);
+  return (*(v9 + 56))(a2 + v12, 0, 1, v8);
 }
 
 uint64_t AMDPbPIRConfig.encryptionParameters.setter(uint64_t a1, uint64_t (*a2)(void))
@@ -9535,7 +9314,6 @@ void (*AMDPbPECConfig.encryptionParameters.modify(void *a1))(uint64_t **a1, char
     *(v14 + 48) = 1;
     *(v14 + 56) = 0;
     *(v14 + 64) = 1;
-    v17 = v14 + *(v9 + 40);
     UnknownStorage.init()();
     if (v16(v8, 1, v9) != 1)
     {
@@ -9587,10 +9365,9 @@ void AMDPbPECConfig.encryptionParameters.modify(uint64_t **a1, char a2)
 BOOL AMDPbPIRConfig.hasEncryptionParameters.getter(uint64_t (*a1)(void))
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
+  v4 = MEMORY[0x28223BE20](v3 - 8);
   v6 = &v11 - v5;
-  v7 = a1(0);
+  v7 = (a1)(0, v4);
   outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v7 + 36), v6, &_s8CipherML28AspireHeEncryptionParametersVSgMd, &_s8CipherML28AspireHeEncryptionParametersVSgMR);
   v8 = type metadata accessor for AspireHeEncryptionParameters(0);
   v9 = (*(*(v8 - 8) + 48))(v6, 1, v8) != 1;
@@ -9611,21 +9388,45 @@ uint64_t AMDPbPIRConfig.clearEncryptionParameters()(uint64_t (*a1)(void))
 uint64_t AMDPbPECConfig.plaintextPacking.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - v5;
+  v5 = &v11 - v4;
+  v6 = type metadata accessor for AMDPbPECConfig(0);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v6 + 40), v5, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
+  v7 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
+  v8 = *(*(v7 - 8) + 48);
+  if (v8(v5, 1, v7) != 1)
+  {
+    return outlined init with take of AMDPbPIRConfig(v5, a1, type metadata accessor for AspireSimilarityPlaintextPacking);
+  }
+
+  v9 = type metadata accessor for AspireSimilarityPlaintextPacking.OneOf_PlaintextPackingType(0);
+  (*(*(v9 - 8) + 56))(a1, 1, 1, v9);
+  UnknownStorage.init()();
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v5, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path getter for AMDPbPECConfig.plaintextPacking : AMDPbPECConfig@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v12 - v5;
   v7 = type metadata accessor for AMDPbPECConfig(0);
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v7 + 40), v6, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(a1 + *(v7 + 40), v6, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
   v8 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
   v9 = *(*(v8 - 8) + 48);
   if (v9(v6, 1, v8) != 1)
   {
-    return outlined init with take of AMDPbPIRConfig(v6, a1, type metadata accessor for AspireSimilarityPlaintextPacking);
+    return outlined init with take of AMDPbPIRConfig(v6, a2, type metadata accessor for AspireSimilarityPlaintextPacking);
   }
 
   v10 = type metadata accessor for AspireSimilarityPlaintextPacking.OneOf_PlaintextPackingType(0);
-  (*(*(v10 - 8) + 56))(a1, 1, 1, v10);
-  v11 = a1 + *(v8 + 20);
+  (*(*(v10 - 8) + 56))(a2, 1, 1, v10);
   UnknownStorage.init()();
   result = (v9)(v6, 1, v8);
   if (result != 1)
@@ -9636,46 +9437,17 @@ uint64_t AMDPbPECConfig.plaintextPacking.getter@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t key path getter for AMDPbPECConfig.plaintextPacking : AMDPbPECConfig@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v14 - v6;
-  v8 = type metadata accessor for AMDPbPECConfig(0);
-  outlined init with copy of AMDPbHEConfig.OneOf_Config?(a1 + *(v8 + 40), v7, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
-  v9 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v7, 1, v9) != 1)
-  {
-    return outlined init with take of AMDPbPIRConfig(v7, a2, type metadata accessor for AspireSimilarityPlaintextPacking);
-  }
-
-  v11 = type metadata accessor for AspireSimilarityPlaintextPacking.OneOf_PlaintextPackingType(0);
-  (*(*(v11 - 8) + 56))(a2, 1, 1, v11);
-  v12 = a2 + *(v9 + 20);
-  UnknownStorage.init()();
-  result = (v10)(v7, 1, v9);
-  if (result != 1)
-  {
-    return outlined destroy of AMDPbHEConfig.OneOf_Config?(v7, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
-  }
-
-  return result;
-}
-
 uint64_t key path setter for AMDPbPECConfig.plaintextPacking : AMDPbPECConfig(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for AspireSimilarityPlaintextPacking(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AMDPbPIRConfig(a1, v8, type metadata accessor for AspireSimilarityPlaintextPacking);
-  v9 = *(type metadata accessor for AMDPbPECConfig(0) + 40);
-  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v9, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
-  outlined init with take of AMDPbPIRConfig(v8, a2 + v9, type metadata accessor for AspireSimilarityPlaintextPacking);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AMDPbPIRConfig(a1, v7, type metadata accessor for AspireSimilarityPlaintextPacking);
+  v8 = *(type metadata accessor for AMDPbPECConfig(0) + 40);
+  outlined destroy of AMDPbHEConfig.OneOf_Config?(a2 + v8, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMd, &_s8CipherML32AspireSimilarityPlaintextPackingVSgMR);
+  outlined init with take of AMDPbPIRConfig(v7, a2 + v8, type metadata accessor for AspireSimilarityPlaintextPacking);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t AMDPbPECConfig.plaintextPacking.setter(uint64_t a1)
@@ -9746,7 +9518,6 @@ void (*AMDPbPECConfig.plaintextPacking.modify(void *a1))(uint64_t **a1, char a2)
   {
     v17 = type metadata accessor for AspireSimilarityPlaintextPacking.OneOf_PlaintextPackingType(0);
     (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
-    v18 = v14 + *(v9 + 20);
     UnknownStorage.init()();
     if (v16(v8, 1, v9) != 1)
     {
@@ -9798,10 +9569,9 @@ void AMDPbPECConfig.plaintextPacking.modify(uint64_t **a1, char a2)
 BOOL AMDPbPIRConfig.hasKeywordPirParams.getter(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
   v12 = &v17 - v11;
-  v13 = a3(0);
+  v13 = (a3)(0, v10);
   outlined init with copy of AMDPbHEConfig.OneOf_Config?(v4 + *(v13 + 40), v12, a1, a2);
   v14 = a4(0);
   v15 = (*(*(v14 - 8) + 48))(v12, 1, v14) != 1;
@@ -9839,4 +9609,234 @@ uint64_t AMDPbPECConfig.evaluationKeyConfigHash.getter()
   v1 = *(v0 + 32);
   outlined copy of Data._Representation(v1, *(v0 + 40));
   return v1;
+}
+
+uint64_t AMDPbPECConfig.evaluationKeyConfigHash.setter(uint64_t a1, uint64_t a2)
+{
+  result = outlined consume of Data._Representation(*(v2 + 32), *(v2 + 40));
+  *(v2 + 32) = a1;
+  *(v2 + 40) = a2;
+  return result;
+}
+
+uint64_t AMDPbPIRConfig.unknownFields.getter@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1(0) + 32);
+  v5 = type metadata accessor for UnknownStorage();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t AMDPbPIRConfig.unknownFields.setter(uint64_t a1, uint64_t (*a2)(void))
+{
+  v4 = *(a2(0) + 32);
+  v5 = type metadata accessor for UnknownStorage();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t AMDPbHEConfig.unknownFields.getter@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1(0) + 20);
+  v5 = type metadata accessor for UnknownStorage();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t AMDPbHEConfig.unknownFields.setter(uint64_t a1, uint64_t (*a2)(void))
+{
+  v4 = *(a2(0) + 20);
+  v5 = type metadata accessor for UnknownStorage();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t AMDPbHEQueries.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
+{
+  *a2 = MEMORY[0x277D84F90];
+  a1(0);
+  return UnknownStorage.init()();
+}
+
+uint64_t AMDPbHEQuery.useCase.getter()
+{
+  v1 = *v0;
+
+  return v1;
+}
+
+uint64_t AMDPbHEQuery.useCase.setter(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+  return result;
+}
+
+uint64_t AMDPbHEQuery.pirQuery.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v14 - v4;
+  v6 = type metadata accessor for AMDPbHEQuery(0);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v6 + 20), v5, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+  v7 = type metadata accessor for AMDPbHEQuery.OneOf_Query(0);
+  if ((*(*(v7 - 8) + 48))(v5, 1, v7) == 1)
+  {
+    outlined destroy of AMDPbHEConfig.OneOf_Config?(v5, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+LABEL_5:
+    *a1 = 0;
+    *(a1 + 8) = xmmword_225022910;
+    v8 = type metadata accessor for AMDPbPIRQuery(0);
+    UnknownStorage.init()();
+    v9 = *(v8 + 28);
+    v10 = type metadata accessor for AspirePirEncryptedIndices(0);
+    (*(*(v10 - 8) + 56))(a1 + v9, 1, 1, v10);
+    v11 = *(v8 + 32);
+    v12 = type metadata accessor for AMDPbEvaluationKey(0);
+    return (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
+  }
+
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    outlined destroy of AMDPbHEConfig.OneOf_Config(v5, type metadata accessor for AMDPbHEQuery.OneOf_Query);
+    goto LABEL_5;
+  }
+
+  return outlined init with take of AMDPbPIRConfig(v5, a1, type metadata accessor for AMDPbPIRQuery);
+}
+
+uint64_t AMDPbPIRQuery.init()@<X0>(uint64_t a1@<X8>)
+{
+  *a1 = 0;
+  *(a1 + 8) = xmmword_225022910;
+  v2 = type metadata accessor for AMDPbPIRQuery(0);
+  UnknownStorage.init()();
+  v3 = *(v2 + 28);
+  v4 = type metadata accessor for AspirePirEncryptedIndices(0);
+  (*(*(v4 - 8) + 56))(a1 + v3, 1, 1, v4);
+  v5 = *(v2 + 32);
+  v6 = type metadata accessor for AMDPbEvaluationKey(0);
+  v7 = *(*(v6 - 8) + 56);
+
+  return v7(a1 + v5, 1, 1, v6);
+}
+
+void (*AMDPbHEQuery.pirQuery.modify(void *a1))(uint64_t **a1, uint64_t a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x38uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *v4 = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR) - 8) + 64);
+  if (v3)
+  {
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  v5[1] = v7;
+  v9 = type metadata accessor for AMDPbPIRQuery(0);
+  v10 = *(*(v9 - 8) + 64);
+  if (v3)
+  {
+    v5[2] = swift_coroFrameAlloc();
+    v11 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[2] = malloc(*(*(v9 - 8) + 64));
+    v11 = malloc(v10);
+  }
+
+  v12 = v11;
+  v5[3] = v11;
+  v13 = *(type metadata accessor for AMDPbHEQuery(0) + 20);
+  *(v5 + 12) = v13;
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + v13, v8, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+  v14 = type metadata accessor for AMDPbHEQuery.OneOf_Query(0);
+  v5[4] = v14;
+  v15 = *(v14 - 8);
+  v5[5] = v15;
+  if ((*(v15 + 48))(v8, 1, v14) == 1)
+  {
+    outlined destroy of AMDPbHEConfig.OneOf_Config?(v8, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      outlined init with take of AMDPbPIRConfig(v8, v12, type metadata accessor for AMDPbPIRQuery);
+      return AMDPbHEQuery.pirQuery.modify;
+    }
+
+    outlined destroy of AMDPbHEConfig.OneOf_Config(v8, type metadata accessor for AMDPbHEQuery.OneOf_Query);
+  }
+
+  *v12 = 0;
+  *(v12 + 8) = xmmword_225022910;
+  UnknownStorage.init()();
+  v16 = *(v9 + 28);
+  v17 = type metadata accessor for AspirePirEncryptedIndices(0);
+  (*(*(v17 - 8) + 56))(v12 + v16, 1, 1, v17);
+  v18 = *(v9 + 32);
+  v19 = type metadata accessor for AMDPbEvaluationKey(0);
+  (*(*(v19 - 8) + 56))(v12 + v18, 1, 1, v19);
+  return AMDPbHEQuery.pirQuery.modify;
+}
+
+uint64_t AMDPbHEQuery.pecQuery.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v14 - v4;
+  v6 = type metadata accessor for AMDPbHEQuery(0);
+  outlined init with copy of AMDPbHEConfig.OneOf_Config?(v1 + *(v6 + 20), v5, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+  v7 = type metadata accessor for AMDPbHEQuery.OneOf_Query(0);
+  if ((*(*(v7 - 8) + 48))(v5, 1, v7) == 1)
+  {
+    outlined destroy of AMDPbHEConfig.OneOf_Config?(v5, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMd, &_s8CipherML12AMDPbHEQueryV11OneOf_QueryOSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      return outlined init with take of AMDPbPIRConfig(v5, a1, type metadata accessor for AMDPbPECQuery);
+    }
+
+    outlined destroy of AMDPbHEConfig.OneOf_Config(v5, type metadata accessor for AMDPbHEQuery.OneOf_Query);
+  }
+
+  *a1 = MEMORY[0x277D84F90];
+  *(a1 + 8) = xmmword_225022910;
+  v9 = type metadata accessor for AMDPbPECQuery(0);
+  UnknownStorage.init()();
+  v10 = *(v9 + 28);
+  v11 = type metadata accessor for AspireSimilaritySerializedCiphertextMatrix(0);
+  (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
+  v12 = *(v9 + 32);
+  v13 = type metadata accessor for AMDPbEvaluationKey(0);
+  return (*(*(v13 - 8) + 56))(a1 + v12, 1, 1, v13);
 }

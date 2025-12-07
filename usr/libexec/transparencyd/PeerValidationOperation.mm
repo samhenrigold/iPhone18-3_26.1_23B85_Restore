@@ -10,14 +10,12 @@
 
 - (NSDictionary)result
 {
-  v3 = OBJC_IVAR____TtC13transparencyd23PeerValidationOperation_result;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_10009FDA0(0, &qword_100384BC0, KTVerifierResult_ptr);
 
-  v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setResult:(id)result
@@ -26,7 +24,6 @@
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC13transparencyd23PeerValidationOperation_result;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

@@ -115,78 +115,79 @@
 {
   checkCopy = check;
   typesCopy = types;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_93BE8;
-  v25 = sub_93BF8;
-  v26 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeBookSeries[0]];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_93BE8;
-  v19 = sub_93BF8;
-  v20 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeAudiobookSeries];
-  if ([v16[5] count] || objc_msgSend(v22[5], "count"))
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_93BE8;
+  v26 = sub_93BF8;
+  v27 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeBookSeries[0]];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_93BE8;
+  v20 = sub_93BF8;
+  v21 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeAudiobookSeries];
+  v7 = [v17[5] count];
+  if (v7 || (v7 = [v23[5] count]) != 0)
   {
-    v7 = BCSeriesManagerUpdaterLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = BCSeriesManagerUpdaterLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       if (checkCopy)
       {
-        v8 = @"Force";
+        v9 = @"Force";
       }
 
       else
       {
-        v8 = &stru_2D2930;
+        v9 = &stru_2D2930;
       }
 
-      bu_prettyDescription = [v22[5] bu_prettyDescription];
-      bu_prettyDescription2 = [v16[5] bu_prettyDescription];
+      bu_prettyDescription = [v23[5] bu_prettyDescription];
+      bu_prettyDescription2 = [v17[5] bu_prettyDescription];
       *buf = 134218754;
       selfCopy = self;
-      v31 = 2112;
-      v32 = v8;
-      v33 = 2112;
-      v34 = bu_prettyDescription;
-      v35 = 2112;
-      v36 = bu_prettyDescription2;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "<BKSeriesManagerUpdater: %p> %@ Updating series with adamIDs: books=%@, audiobooks=%@", buf, 0x2Au);
+      v32 = 2112;
+      v33 = v9;
+      v34 = 2112;
+      v35 = bu_prettyDescription;
+      v36 = 2112;
+      v37 = bu_prettyDescription2;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "<BKSeriesManagerUpdater: %p> %@ Updating series with adamIDs: books=%@, audiobooks=%@", buf, 0x2Au);
     }
 
     if (checkCopy)
     {
-      v11 = v22[5];
-      if (!v11)
-      {
-        v11 = &__NSArray0__struct;
-      }
-
-      v27[0] = BKSeriesManagerSeriesTypeBookSeries[0];
-      v27[1] = BKSeriesManagerSeriesTypeAudiobookSeries;
-      v12 = v16[5];
+      v12 = v23[5];
       if (!v12)
       {
         v12 = &__NSArray0__struct;
       }
 
-      v28[0] = v11;
-      v28[1] = v12;
-      v13 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:2];
-      [(BKSeriesManagerUpdater *)self _updateSeriesForSeriesAdamIDsWithFilteredTypes:v13];
+      v28[0] = BKSeriesManagerSeriesTypeBookSeries[0];
+      v28[1] = BKSeriesManagerSeriesTypeAudiobookSeries;
+      v13 = v17[5];
+      if (!v13)
+      {
+        v13 = &__NSArray0__struct;
+      }
+
+      v29[0] = v12;
+      v29[1] = v13;
+      v14 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:2];
+      [(BKSeriesManagerUpdater *)self _updateSeriesForSeriesAdamIDsWithFilteredTypes:v14];
     }
 
     else
     {
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_93C00;
-      v14[3] = &unk_2CBCD0;
-      v14[4] = self;
-      v14[5] = &v21;
-      v14[6] = &v15;
-      [(BKSeriesManagerUpdater *)self _intervalInDaysWithCompletion:v14];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_93C00;
+      v15[3] = &unk_2CBCD0;
+      v15[4] = self;
+      v15[5] = &v22;
+      v15[6] = &v16;
+      [(BKSeriesManagerUpdater *)self _intervalInDaysWithCompletion:v15];
     }
   }
 
@@ -195,9 +196,9 @@
     [(BKSeriesManagerUpdater *)self finish];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 }
 
 - (void)_seriesInfoRequestBatchSizeWithCompletion:(id)completion
@@ -218,42 +219,43 @@
 - (void)_updateSeriesForSeriesAdamIDsWithFilteredTypes:(id)types
 {
   typesCopy = types;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_93BE8;
-  v19 = sub_93BF8;
-  v20 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeBookSeries[0]];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_93BE8;
-  v13 = sub_93BF8;
-  v14 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeAudiobookSeries];
-  if ([v16[5] count] || objc_msgSend(v10[5], "count"))
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_93BE8;
+  v20 = sub_93BF8;
+  v21 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeBookSeries[0]];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_93BE8;
+  v14 = sub_93BF8;
+  v15 = [typesCopy objectForKeyedSubscript:BKSeriesManagerSeriesTypeAudiobookSeries];
+  v5 = [v17[5] count];
+  if (v5 || (v5 = [v11[5] count]) != 0)
   {
-    v5 = BCSeriesManagerUpdaterLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = BCSeriesManagerUpdaterLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = v16[5];
-      v7 = v10[5];
+      v7 = v17[5];
+      v8 = v11[5];
       *buf = 134218498;
       selfCopy = self;
-      v23 = 2112;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v7;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "<BKSeriesManagerUpdater: %p> Fetching series with bookSeriesAdamIds: %@, audiobookSeriesAdamIDs: %@", buf, 0x20u);
+      v24 = 2112;
+      v25 = v7;
+      v26 = 2112;
+      v27 = v8;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "<BKSeriesManagerUpdater: %p> Fetching series with bookSeriesAdamIds: %@, audiobookSeriesAdamIDs: %@", buf, 0x20u);
     }
 
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_94254;
-    v8[3] = &unk_2CBD98;
-    v8[4] = self;
-    v8[5] = &v15;
-    v8[6] = &v9;
-    [(BKSeriesManagerUpdater *)self _seriesInfoRequestBatchSizeWithCompletion:v8];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_94254;
+    v9[3] = &unk_2CBD98;
+    v9[4] = self;
+    v9[5] = &v16;
+    v9[6] = &v10;
+    [(BKSeriesManagerUpdater *)self _seriesInfoRequestBatchSizeWithCompletion:v9];
   }
 
   else
@@ -261,9 +263,9 @@
     [(BKSeriesManagerUpdater *)self finish];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
 - (void)_updateSeriesContainersWithSeriesIDs:(id)ds withResources:(id)resources
@@ -332,27 +334,27 @@
   typesCopy = types;
   v4 = [typesCopy objectForKeyedSubscript:BKSeriesManagerAssetTypeUnknown[0]];
   v5 = +[NSMutableArray array];
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v23;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
+        v11 = *(*(&v22 + 1) + 8 * v10);
         v12 = objc_opt_new();
         v13 = [v12 numberFromString:v11];
 
@@ -365,18 +367,19 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  if ([v5 count])
+  v14 = [v5 count];
+  if (v14)
   {
-    v14 = BCSeriesManagerUpdaterLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = BCSeriesManagerUpdaterLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      sub_1E84BC(v5, v14);
+      sub_1E84BC(v5, v15);
     }
   }
 
@@ -385,9 +388,9 @@
   block[1] = 3221225472;
   block[2] = sub_965A0;
   block[3] = &unk_2C7BE8;
-  v19 = typesCopy;
+  v20 = typesCopy;
   selfCopy = self;
-  v16 = typesCopy;
+  v17 = typesCopy;
   dispatch_async(queue, block);
 }
 

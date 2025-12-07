@@ -402,7 +402,7 @@ uint64_t __40__PLPublishingAgent_showAlertWithError___block_invoke_2(uint64_t a1
 
   else
   {
-    [-[PLPublishingAgent userInfo](self "userInfo")];
+    objc_msgSend_duration([(PLPublishingAgent *)self userInfo]);
     v3 = v4;
   }
 

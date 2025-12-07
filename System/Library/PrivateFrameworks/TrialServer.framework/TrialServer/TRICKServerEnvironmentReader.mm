@@ -9,7 +9,7 @@
 
 + (int64_t)validatedEnvironmentFromNumber:(id)number
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   unsignedIntValue = [numberCopy unsignedIntValue];
   v5 = TRILogCategory_ClientFramework();
@@ -21,8 +21,8 @@
       case 3:
         if (v6)
         {
-          LOWORD(v13) = 0;
-          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: UAT", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: UAT", &v12, 2u);
         }
 
         v7 = 3;
@@ -30,8 +30,8 @@
       case 4:
         if (v6)
         {
-          LOWORD(v13) = 0;
-          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: InternalTesting", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: InternalTesting", &v12, 2u);
         }
 
         v7 = 4;
@@ -39,8 +39,8 @@
       case 5:
         if (v6)
         {
-          LOWORD(v13) = 0;
-          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: SQLiteMock", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: SQLiteMock", &v12, 2u);
         }
 
         v7 = 5;
@@ -56,12 +56,12 @@
     {
       if (v6)
       {
-        LOWORD(v13) = 0;
+        LOWORD(v12) = 0;
         v8 = "Reading currentEnvironment from NSUserDefaults: Unknown";
         v9 = v5;
         v10 = 2;
 LABEL_20:
-        _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, v8, &v13, v10);
+        _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
       }
 
 LABEL_21:
@@ -75,9 +75,9 @@ LABEL_21:
       {
         if (v6)
         {
-          LOWORD(v13) = 0;
+          LOWORD(v12) = 0;
           v7 = 2;
-          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: Development", &v13, 2u);
+          _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: Development", &v12, 2u);
         }
 
         else
@@ -91,8 +91,8 @@ LABEL_21:
 LABEL_18:
       if (v6)
       {
-        v13 = 138412290;
-        v14 = numberCopy;
+        v12 = 138412290;
+        v13 = numberCopy;
         v8 = "Reading currentEnvironment from NSUserDefaults: other (%@), using Unknown";
         v9 = v5;
         v10 = 12;
@@ -104,8 +104,8 @@ LABEL_18:
 
     if (v6)
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: Production", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Reading currentEnvironment from NSUserDefaults: Production", &v12, 2u);
     }
 
     v7 = 1;
@@ -113,7 +113,6 @@ LABEL_18:
 
 LABEL_29:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -146,7 +145,7 @@ LABEL_29:
 
 + (int)validatedPopulationFromNumber:(int64_t)number
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_ClientFramework();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (number > 2)
@@ -156,8 +155,8 @@ LABEL_29:
       case 3:
         if (v5)
         {
-          LOWORD(v10) = 0;
-          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: INTERNAL", &v10, 2u);
+          LOWORD(v9) = 0;
+          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: INTERNAL", &v9, 2u);
         }
 
         v6 = 3;
@@ -165,8 +164,8 @@ LABEL_29:
       case 4:
         if (v5)
         {
-          LOWORD(v10) = 0;
-          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: BETA_PROGRAM", &v10, 2u);
+          LOWORD(v9) = 0;
+          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: BETA_PROGRAM", &v9, 2u);
         }
 
         v6 = 4;
@@ -174,8 +173,8 @@ LABEL_29:
       case 5:
         if (v5)
         {
-          LOWORD(v10) = 0;
-          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: GENERAL_PUBLIC", &v10, 2u);
+          LOWORD(v9) = 0;
+          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: GENERAL_PUBLIC", &v9, 2u);
         }
 
         v6 = 5;
@@ -185,9 +184,9 @@ LABEL_18:
         if (v5)
         {
           v7 = [MEMORY[0x277CCABB0] numberWithInteger:number];
-          v10 = 138412290;
-          v11 = v7;
-          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: other (%@), using POPULATION_UNKNOWN", &v10, 0xCu);
+          v9 = 138412290;
+          v10 = v7;
+          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: other (%@), using POPULATION_UNKNOWN", &v9, 0xCu);
         }
 
 LABEL_20:
@@ -202,8 +201,8 @@ LABEL_20:
     {
       if (v5)
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: POPULATION_UNKNOWN", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: POPULATION_UNKNOWN", &v9, 2u);
       }
 
       goto LABEL_20;
@@ -215,9 +214,9 @@ LABEL_20:
       {
         if (v5)
         {
-          LOWORD(v10) = 0;
+          LOWORD(v9) = 0;
           v6 = 2;
-          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: ORGANIZATION", &v10, 2u);
+          _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: ORGANIZATION", &v9, 2u);
         }
 
         else
@@ -233,8 +232,8 @@ LABEL_20:
 
     if (v5)
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: LIMITED_CARRY", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Reading currentPopulation from NSUserDefaults: LIMITED_CARRY", &v9, 2u);
     }
 
     v6 = 1;
@@ -242,7 +241,6 @@ LABEL_20:
 
 LABEL_28:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

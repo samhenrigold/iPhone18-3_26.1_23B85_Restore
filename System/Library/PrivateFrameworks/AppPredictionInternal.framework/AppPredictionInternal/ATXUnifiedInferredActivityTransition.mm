@@ -138,7 +138,7 @@
 
     else
     {
-      v10 = __atxlog_handle_modes();
+      v10 = __atxlog_handle_modes(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         [ATXUnifiedInferredActivityTransition initWithCoder:];
@@ -170,28 +170,28 @@
 
 - (ATXUnifiedInferredActivityTransition)initWithCoder_v1:(id)coder_v1
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   coder_v1Copy = coder_v1;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_modes();
+  v7 = __atxlog_handle_modes(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"inferredMode" withCoder:coder_v1Copy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.InferredModeSession" errorCode:-1 logHandle:v7];
 
   error = [coder_v1Copy error];
 
   if (!error && v8)
   {
-    v10 = MEMORY[0x277D42620];
-    v11 = objc_opt_class();
-    v12 = __atxlog_handle_modes();
-    v13 = [v10 robustDecodeObjectOfClass:v11 forKey:@"source" withCoder:coder_v1Copy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.InferredModeSession" errorCode:-1 logHandle:v12];
+    v11 = MEMORY[0x277D42620];
+    v12 = objc_opt_class();
+    v13 = __atxlog_handle_modes(v12);
+    v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"source" withCoder:coder_v1Copy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.InferredModeSession" errorCode:-1 logHandle:v13];
 
     error2 = [coder_v1Copy error];
 
-    if (error2 || !v13)
+    if (error2 || !v14)
     {
-      v18 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v21 = __atxlog_handle_modes(v16);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         goto LABEL_11;
       }
@@ -200,23 +200,23 @@
     else
     {
       [coder_v1Copy decodeDoubleForKey:@"transitionTime"];
-      v16 = v15;
+      v18 = v17;
       error3 = [coder_v1Copy error];
 
       if (!error3)
       {
-        v25 = [coder_v1Copy decodeBoolForKey:@"isEntryEvent"];
+        v27 = [coder_v1Copy decodeBoolForKey:@"isEntryEvent"];
         error4 = [coder_v1Copy error];
 
         if (!error4)
         {
-          self = [(ATXUnifiedInferredActivityTransition *)self initFromTransitionTime:v25 isEntryEvent:v13 source:v8 mode:v16];
+          self = [(ATXUnifiedInferredActivityTransition *)self initFromTransitionTime:v27 isEntryEvent:v14 source:v8 mode:v18];
           selfCopy = self;
           goto LABEL_14;
         }
 
-        v18 = __atxlog_handle_modes();
-        if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v21 = __atxlog_handle_modes(v29);
+        if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           goto LABEL_12;
         }
@@ -224,15 +224,15 @@
         goto LABEL_11;
       }
 
-      v18 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v21 = __atxlog_handle_modes(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
 LABEL_11:
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
         *buf = 138412290;
-        v28 = v21;
-        _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_INFO, "Unable to construct class %@ from coder using v1 decoding", buf, 0xCu);
+        v31 = v24;
+        _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_INFO, "Unable to construct class %@ from coder using v1 decoding", buf, 0xCu);
       }
     }
 
@@ -241,14 +241,14 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v13 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = __atxlog_handle_modes(v10);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v19 = objc_opt_class();
-    v18 = NSStringFromClass(v19);
+    v22 = objc_opt_class();
+    v21 = NSStringFromClass(v22);
     *buf = 138412290;
-    v28 = v18;
-    _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, "Unable to construct class %@ from coder using v1 decoding", buf, 0xCu);
+    v31 = v21;
+    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_INFO, "Unable to construct class %@ from coder using v1 decoding", buf, 0xCu);
     goto LABEL_12;
   }
 
@@ -256,7 +256,6 @@ LABEL_13:
   selfCopy = 0;
 LABEL_14:
 
-  v23 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -372,27 +371,28 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v14 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = __atxlog_handle_modes(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [ATXUnifiedInferredActivitySession initWithProto:];
+      [ATXUnifiedInferredActivitySession initWithProto:?];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  [v5 transitionTime];
-  v7 = v6;
-  isActivityStart = [v5 isActivityStart];
-  source = [v5 source];
-  inferredActivity = [v5 inferredActivity];
-  [v5 confidence];
-  v12 = v11;
+  v6 = protoCopy;
+  [v6 transitionTime];
+  v8 = v7;
+  isActivityStart = [v6 isActivityStart];
+  source = [v6 source];
+  inferredActivity = [v6 inferredActivity];
+  [v6 confidence];
+  v13 = v12;
 
-  self = [(ATXUnifiedInferredActivityTransition *)self initFromTransitionTime:isActivityStart isEntryEvent:source source:inferredActivity activityType:v7 confidence:v12];
+  self = [(ATXUnifiedInferredActivityTransition *)self initFromTransitionTime:isActivityStart isEntryEvent:source source:inferredActivity activityType:v8 confidence:v13];
   selfCopy = self;
 LABEL_8:
 
@@ -452,12 +452,11 @@ LABEL_8:
 
 - (void)initWithCoder:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Unable to construct class %@ from coder", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Unable to construct class %@ from coder", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

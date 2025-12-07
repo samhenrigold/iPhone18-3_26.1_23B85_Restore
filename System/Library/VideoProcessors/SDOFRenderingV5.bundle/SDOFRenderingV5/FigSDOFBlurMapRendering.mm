@@ -1,4 +1,5 @@
 @interface FigSDOFBlurMapRendering
+- (BOOL)allocateResourcesForInputImageWidth:(unint64_t)width inputImageHeight:(unint64_t)height shiftMapWidth:(unint64_t)mapWidth shiftMapHeight:(unint64_t)mapHeight enableForegroundBlur:(BOOL)blur;
 - (BOOL)detectFacesOnTele:(__CVBuffer *)tele meta:(id)meta to:(id *)to maxFacesCount:(int)count facesCount:(int *)facesCount;
 - (BOOL)sanityChecksBlurMapWithImage:(__CVBuffer *)image shiftMap:(__CVBuffer *)map segmentationMask:(__CVBuffer *)mask semanticSegmentationHairMask:(__CVBuffer *)hairMask semanticSegmentationGlassesMask:(__CVBuffer *)glassesMask resultFaceAdjBlurMap:(__CVBuffer *)blurMap;
 - (FigSDOFBlurMapRendering)initWithCommandQueue:(id)queue;
@@ -123,13 +124,13 @@ LABEL_7:
   if (v17)
   {
     v21 = v17;
-    v36 = 0;
-    memset(v35, 0, sizeof(v35));
+    v37 = 0;
+    memset(v36, 0, sizeof(v36));
     objc_msgSend_disparityRefinementConfig(v17, v18, v19, v20);
-    isPrewarm = objc_msgSend_setOptions_isPrewarm_(self->_makeBlurMap, v22, v35, 0);
+    isPrewarm = objc_msgSend_setOptions_isPrewarm_(self->_makeBlurMap, v22, v36, 0);
     if (isPrewarm)
     {
-      v31 = isPrewarm;
+      v32 = isPrewarm;
       sub_295EB6870(isPrewarm, v21);
     }
 
@@ -139,18 +140,19 @@ LABEL_7:
 
       if (v26)
       {
-        LODWORD(v34) = 0;
-        objc_msgSend_disparityRefinementConfig(v26, v27, v28, v29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v34);
-        v31 = objc_msgSend_setOptions_isPrewarm_(self->_makeBlurMap, v30, &v33, 0);
+        LODWORD(v35) = 0;
+        objc_msgSend_disparityRefinementConfig(v26, v27, v28, v29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v35);
+        v31 = objc_msgSend_setOptions_isPrewarm_(self->_makeBlurMap, v30, &v34, 0);
+        v32 = v31;
         if (v31)
         {
-          sub_295EB68FC();
+          sub_295EB68FC(v31);
         }
       }
 
       else
       {
-        v31 = 0;
+        v32 = 0;
       }
     }
   }
@@ -158,10 +160,62 @@ LABEL_7:
   else
   {
     sub_295EB6978();
-    v31 = -12780;
+    v32 = -12780;
   }
 
-  return v31;
+  return v32;
+}
+
+- (BOOL)allocateResourcesForInputImageWidth:(unint64_t)width inputImageHeight:(unint64_t)height shiftMapWidth:(unint64_t)mapWidth shiftMapHeight:(unint64_t)mapHeight enableForegroundBlur:(BOOL)blur
+{
+  if (self->_metalContext)
+  {
+    blurCopy = blur;
+    self->_inputImageWidth = width;
+    self->_inputImageHeight = height;
+    self->_inputShiftMapWidth = mapWidth;
+    self->_inputShiftMapHeight = mapHeight;
+    if (self->_makeBlurMap)
+    {
+      v13 = objc_opt_class();
+      objc_msgSend_blurMapSize_(v13, v14, v15, v16, self->_inputImageWidth, self->_inputImageHeight);
+    }
+
+    else
+    {
+      v17 = (width >> 1);
+      v18 = (height >> 1);
+    }
+
+    self->_upsampledShiftMapWidth = v17;
+    self->_upsampledShiftMapHeight = v18;
+    v19 = objc_msgSend_sharedInstance(SDOFResources, a2, width, height);
+    resources = self->_resources;
+    self->_resources = v19;
+
+    if (objc_msgSend_allocateResourcesUsingMetalContext_inputImageWidth_inputImageHeight_shiftMapWidth_shiftMapHeight_enableForegroundBlur_(self->_resources, v21, self->_metalContext, width, height, mapWidth, mapHeight, blurCopy))
+    {
+      sub_295EB69F0();
+    }
+
+    else
+    {
+      if (!objc_msgSend_allocateResourcesForShiftMapWidth_shiftMapHeight_(self->_makeBlurMap, v22, self->_upsampledShiftMapWidth, self->_upsampledShiftMapHeight))
+      {
+        return 1;
+      }
+
+      sub_295EB6A6C();
+    }
+  }
+
+  else
+  {
+    sub_295EB6AE8();
+  }
+
+  objc_msgSend_releaseResources(self, v24, v25, v26);
+  return 0;
 }
 
 - (void)dealloc
@@ -183,7 +237,7 @@ LABEL_7:
 - (BOOL)detectFacesOnTele:(__CVBuffer *)tele meta:(id)meta to:(id *)to maxFacesCount:(int)count facesCount:(int *)facesCount
 {
   metaCopy = meta;
-  v15 = metaCopy;
+  v16 = metaCopy;
   if (!tele)
   {
     sub_295EB6D40();
@@ -208,28 +262,27 @@ LABEL_7:
     goto LABEL_10;
   }
 
-  v18 = 1;
-  v19 = 1;
-  if (!sub_295EB0ED4(metaCopy, &v18, v13, v14) || (sub_295EB0F2C(v18, &v19) & 1) == 0)
+  v20 = 0x100000001;
+  if (!sub_295EB0ED4(metaCopy, &v20, v14, v15) || (sub_295EB0F2C(v20, &v20 + 1) & 1) == 0)
   {
     sub_295EB6B60();
     goto LABEL_10;
   }
 
-  if (!sub_295EB0F50(self->_faceLandmarksArray, v19, count, to, facesCount))
+  if (!sub_295EB0F50(self->_faceLandmarksArray, HIDWORD(v20), count, to, facesCount))
   {
     *facesCount = 0;
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v7, v19, v20, v21, v22, v23, v24);
 LABEL_10:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_11;
   }
 
-  v16 = 1;
+  v17 = 1;
 LABEL_11:
 
-  return v16;
+  return v17;
 }
 
 - (int)computeBlurMapWithImage:(opaqueCMSampleBuffer *)image shiftMap:(__CVBuffer *)map personSegmentationMask:(__CVBuffer *)mask hairSemanticSegmentationMask:(__CVBuffer *)segmentationMask glassesSemanticSegmentationMask:(__CVBuffer *)semanticSegmentationMask resultFaceAdjustedBlurMap:(__CVBuffer *)blurMap
@@ -734,7 +787,7 @@ LABEL_66:
   {
     fig_log_get_emitter();
     sub_295EADC88();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_33;
   }
 

@@ -47,19 +47,19 @@ uint64_t __72__SLInternalComposeServiceVendorContext__extensionAuxiliaryHostProt
 - (void)shouldShowNetworkActivityIndicator:(id)indicator
 {
   indicatorCopy = indicator;
-  _SLLog(v3, 7, @"SLInternalComposeServiceVendorContext shouldShowNetworkActivityIndicator: %@");
+  _SLLog(v3, 7, @"SLInternalComposeServiceVendorContext shouldShowNetworkActivityIndicator: %@", v5, v6, v7, v8, v9, indicatorCopy);
   _auxiliaryConnection = [(SLInternalComposeServiceVendorContext *)self _auxiliaryConnection];
-  v6 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_24];
+  v11 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_24];
 
-  if (v6)
+  if (v11)
   {
-    _SLLog(v3, 7, @"SLInternalComposeServiceVendorContext shouldShowNetworkActivityIndicator: calling host %@");
-    [v6 shouldShowNetworkActivityIndicator:{indicatorCopy, v6}];
+    _SLLog(v3, 7, @"SLInternalComposeServiceVendorContext shouldShowNetworkActivityIndicator: calling host %@", v12, v13, v14, v15, v16, v11);
+    [v11 shouldShowNetworkActivityIndicator:indicatorCopy];
   }
 
   else
   {
-    _SLLog(v3, 3, @"SLInternalComposeServiceVendorContext shouldShowNetworkActivityIndicator: had nil host. bailing.");
+    _SLLog(v3, 3, @"SLInternalComposeServiceVendorContext shouldShowNetworkActivityIndicator: had nil host. bailing.", v12, v13, v14, v15, v16, v17);
   }
 }
 

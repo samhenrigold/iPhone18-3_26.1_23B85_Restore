@@ -24,43 +24,32 @@
 
 - (void)removeAnimationWithBlendOutDuration:(double)duration
 {
-  v20 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_avatar);
   avatarNode = [WeakRetained avatarNode];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = self->_animationKeys;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
+  v6 = self->_animationKeys;
+  v7 = [NSArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:0];
+  if (v7)
   {
-    v10 = v8;
-    v11 = *v16;
-    durationCopy = duration;
+    v8 = v7;
+    v9 = MEMORY[0];
     do
     {
-      v13 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v16 != v11)
+        if (MEMORY[0] != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        *&v9 = durationCopy;
-        [avatarNode removeAnimationForKey:*(*(&v15 + 1) + 8 * v13++) blendOutDuration:{v9, v15}];
+        [avatarNode removeAnimationForKey:? blendOutDuration:?];
       }
 
-      while (v10 != v13);
-      v10 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [NSArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -28,7 +28,7 @@
 
 - (void)submitCloudShareTrustStatusDailyEvent
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDCloudShareTrustManagerMetricsEventDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -39,17 +39,17 @@
     if (v6)
     {
       isCurrentDeviceConfirmedPrimaryResident = [v5 isCurrentDeviceConfirmedPrimaryResident];
-      v24 = 0u;
-      v25 = 0u;
-      *buf = 0u;
       v23 = 0u;
-      [v4 trustStatusCountsForCloudShareTrustManagerMetricsEventDispatcher:self];
+      v24 = 0u;
+      *buf = 0u;
+      v22 = 0u;
+      objc_msgSend_trustStatusCountsForCloudShareTrustManagerMetricsEventDispatcher_(v4);
       v9 = [HMDUserCloudShareOwnerAdoptionDailyEvent alloc];
-      v21[0] = *buf;
-      v21[1] = v23;
-      v21[2] = v24;
-      v21[3] = v25;
-      v10 = [(HMDUserCloudShareOwnerAdoptionDailyEvent *)v9 initWithConfigureState:v7 isPrimaryResident:isCurrentDeviceConfirmedPrimaryResident trustStatusCounts:v21];
+      v20[0] = *buf;
+      v20[1] = v22;
+      v20[2] = v23;
+      v20[3] = v24;
+      v10 = [(HMDUserCloudShareOwnerAdoptionDailyEvent *)v9 initWithConfigureState:v7 isPrimaryResident:isCurrentDeviceConfirmedPrimaryResident trustStatusCounts:v20];
     }
 
     else
@@ -81,8 +81,6 @@
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitFailureEventWithEventErrorCode:(int64_t)code error:(id)error
@@ -101,7 +99,7 @@
 
 - (void)submitTrustActivityEvent:(int64_t)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDCloudShareTrustManagerMetricsEventDispatcher *)self dataSource];
   v6 = dataSource;
   if (dataSource)
@@ -132,15 +130,13 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to submit daily trust status event due to no data source", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to submit daily trust status event due to no data source", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForDailyTrustManagerEvents
@@ -184,10 +180,9 @@
 
 void __62__HMDCloudShareTrustManagerMetricsEventDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3;
-  logCategory__hmf_once_v3 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3;
+  logCategory__hmf_once_v3 = v0;
 }
 
 @end

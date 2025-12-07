@@ -186,7 +186,7 @@ LABEL_36:
 
 - (id)jsonDictionary
 {
-  v43[8] = *MEMORY[0x1E69E9840];
+  v42[8] = *MEMORY[0x1E69E9840];
   if (![(BMLocationVisitLocation *)self hasLatitude]|| ([(BMLocationVisitLocation *)self latitude], fabs(v3) == INFINITY))
   {
     v5 = 0;
@@ -228,7 +228,7 @@ LABEL_36:
 
   if (![(BMLocationVisitLocation *)self hasAltitude]|| ([(BMLocationVisitLocation *)self altitude], fabs(v12) == INFINITY))
   {
-    v41 = 0;
+    v40 = 0;
   }
 
   else
@@ -236,12 +236,12 @@ LABEL_36:
     [(BMLocationVisitLocation *)self altitude];
     v13 = MEMORY[0x1E696AD98];
     [(BMLocationVisitLocation *)self altitude];
-    v41 = [v13 numberWithDouble:?];
+    v40 = [v13 numberWithDouble:?];
   }
 
   if (![(BMLocationVisitLocation *)self hasVerticalUncertainty]|| ([(BMLocationVisitLocation *)self verticalUncertainty], fabs(v14) == INFINITY))
   {
-    v40 = 0;
+    v39 = 0;
   }
 
   else
@@ -249,7 +249,7 @@ LABEL_36:
     [(BMLocationVisitLocation *)self verticalUncertainty];
     v15 = MEMORY[0x1E696AD98];
     [(BMLocationVisitLocation *)self verticalUncertainty];
-    v40 = [v15 numberWithDouble:?];
+    v39 = [v15 numberWithDouble:?];
   }
 
   date = [(BMLocationVisitLocation *)self date];
@@ -271,77 +271,77 @@ LABEL_36:
 
   v21 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMLocationVisitLocation referenceFrame](self, "referenceFrame")}];
   v22 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMLocationVisitLocation sourceAccuracy](self, "sourceAccuracy")}];
-  v42[0] = @"latitude";
+  v41[0] = @"latitude";
   null = v5;
   if (!v5)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = null;
-  v43[0] = null;
-  v42[1] = @"longitude";
+  v36 = null;
+  v42[0] = null;
+  v41[1] = @"longitude";
   null2 = v8;
   if (!v8)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = null2;
-  v43[1] = null2;
-  v42[2] = @"horizontalUncertainty";
+  v35 = null2;
+  v42[1] = null2;
+  v41[2] = @"horizontalUncertainty";
   null3 = v11;
-  v38 = v11;
+  v37 = v11;
   if (!v11)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v35 = null3;
-  v43[2] = null3;
-  v42[3] = @"altitude";
-  null4 = v41;
-  if (!v41)
+  v34 = null3;
+  v42[2] = null3;
+  v41[3] = @"altitude";
+  null4 = v40;
+  if (!v40)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39 = v5;
-  v43[3] = null4;
-  v42[4] = @"verticalUncertainty";
-  null5 = v40;
-  if (!v40)
+  v38 = v5;
+  v42[3] = null4;
+  v41[4] = @"verticalUncertainty";
+  null5 = v39;
+  if (!v39)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
   v28 = v8;
-  v43[4] = null5;
-  v42[5] = @"date";
+  v42[4] = null5;
+  v41[5] = @"date";
   null6 = v20;
   if (!v20)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43[5] = null6;
-  v42[6] = @"referenceFrame";
+  v42[5] = null6;
+  v41[6] = @"referenceFrame";
   null7 = v21;
   if (!v21)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43[6] = null7;
-  v42[7] = @"sourceAccuracy";
+  v42[6] = null7;
+  v41[7] = @"sourceAccuracy";
   null8 = v22;
   if (!v22)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43[7] = null8;
-  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:8];
+  v42[7] = null8;
+  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:8];
   if (v22)
   {
     if (v21)
@@ -373,15 +373,15 @@ LABEL_42:
 LABEL_55:
 
 LABEL_43:
+  if (!v39)
+  {
+  }
+
   if (!v40)
   {
   }
 
-  if (!v41)
-  {
-  }
-
-  if (v38)
+  if (v37)
   {
     if (v28)
     {
@@ -390,7 +390,7 @@ LABEL_43:
 
 LABEL_57:
 
-    if (v39)
+    if (v38)
     {
       goto LABEL_50;
     }
@@ -404,7 +404,7 @@ LABEL_57:
   }
 
 LABEL_49:
-  if (v39)
+  if (v38)
   {
     goto LABEL_50;
   }
@@ -412,17 +412,16 @@ LABEL_49:
 LABEL_58:
 
 LABEL_50:
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 - (BMLocationVisitLocation)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v108[1] = *MEMORY[0x1E69E9840];
+  v107[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"latitude"];
-  v92 = dictionaryCopy;
+  v91 = dictionaryCopy;
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v8 = 0;
@@ -443,10 +442,10 @@ LABEL_4:
         errorCopy = error;
         v33 = objc_alloc(MEMORY[0x1E696ABC0]);
         v34 = *MEMORY[0x1E698F240];
-        v105 = *MEMORY[0x1E696A578];
+        v104 = *MEMORY[0x1E696A578];
         v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"longitude"];
-        v106 = v35;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+        v105 = v35;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
         v36 = [v33 initWithDomain:v34 code:2 userInfo:v11];
         v10 = 0;
         v24 = 0;
@@ -463,7 +462,7 @@ LABEL_4:
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"horizontalUncertainty"];
-    v90 = v10;
+    v89 = v10;
     if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -479,19 +478,19 @@ LABEL_4:
         errorCopy2 = error;
         v38 = objc_alloc(MEMORY[0x1E696ABC0]);
         v39 = *MEMORY[0x1E698F240];
-        v103 = *MEMORY[0x1E696A578];
+        v102 = *MEMORY[0x1E696A578];
         v40 = v8;
         v41 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v77 = objc_opt_class();
+        v76 = objc_opt_class();
         v42 = v41;
         v8 = v40;
-        v91 = [v42 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v77, @"horizontalUncertainty"];
-        v104 = v91;
-        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+        v90 = [v42 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v76, @"horizontalUncertainty"];
+        v103 = v90;
+        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
         v44 = v38;
         v45 = v43;
         v46 = v39;
-        v10 = v90;
+        v10 = v89;
         v35 = 0;
         v24 = 0;
         *errorCopy2 = [v44 initWithDomain:v46 code:2 userInfo:v43];
@@ -504,7 +503,7 @@ LABEL_71:
       selfCopy2 = self;
       v13 = v9;
       v14 = v7;
-      v88 = v11;
+      v87 = v11;
     }
 
     else
@@ -512,11 +511,11 @@ LABEL_71:
       selfCopy2 = self;
       v13 = v9;
       v14 = v7;
-      v88 = 0;
+      v87 = 0;
     }
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"altitude"];
-    v82 = v11;
+    v81 = v11;
     if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -524,9 +523,9 @@ LABEL_71:
       {
         if (!error)
         {
-          v91 = 0;
+          v90 = 0;
           v24 = 0;
-          v35 = v88;
+          v35 = v87;
           v45 = v15;
           v7 = v14;
           v9 = v13;
@@ -537,41 +536,41 @@ LABEL_71:
         errorCopy3 = error;
         v47 = objc_alloc(MEMORY[0x1E696ABC0]);
         v48 = *MEMORY[0x1E698F240];
-        v101 = *MEMORY[0x1E696A578];
-        v87 = v8;
+        v100 = *MEMORY[0x1E696A578];
+        v86 = v8;
         v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"altitude"];
-        v102 = v49;
-        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+        v101 = v49;
+        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
         v51 = v47;
         v45 = v15;
         v52 = v48;
-        v10 = v90;
-        v83 = v50;
-        v91 = 0;
+        v10 = v89;
+        v82 = v50;
+        v90 = 0;
         v24 = 0;
         *errorCopy3 = [v51 initWithDomain:v52 code:2 userInfo:?];
         v7 = v14;
         v9 = v13;
         self = selfCopy2;
         v53 = v49;
-        v8 = v87;
-        v35 = v88;
+        v8 = v86;
+        v35 = v87;
         goto LABEL_69;
       }
 
-      v81 = v15;
-      v91 = v15;
+      v80 = v15;
+      v90 = v15;
     }
 
     else
     {
-      v81 = v15;
-      v91 = 0;
+      v80 = v15;
+      v90 = 0;
     }
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"verticalUncertainty"];
     v7 = v14;
-    v83 = v16;
+    v82 = v16;
     if (v16)
     {
       v17 = v16;
@@ -587,8 +586,8 @@ LABEL_71:
           {
             v53 = 0;
             v24 = 0;
-            v35 = v88;
-            v45 = v81;
+            v35 = v87;
+            v45 = v80;
             goto LABEL_69;
           }
 
@@ -596,27 +595,27 @@ LABEL_71:
           v55 = objc_alloc(MEMORY[0x1E696ABC0]);
           v56 = v8;
           v57 = *MEMORY[0x1E698F240];
-          v99 = *MEMORY[0x1E696A578];
-          v84 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"verticalUncertainty"];
-          v100 = v84;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+          v98 = *MEMORY[0x1E696A578];
+          v83 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"verticalUncertainty"];
+          v99 = v83;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
           v58 = v57;
           v8 = v56;
           v53 = 0;
           v24 = 0;
           *errorCopy4 = [v55 initWithDomain:v58 code:2 userInfo:v18];
-          v11 = v82;
+          v11 = v81;
           goto LABEL_67;
         }
 
-        v80 = v17;
+        v79 = v17;
 LABEL_24:
-        v18 = [v92 objectForKeyedSubscript:@"date"];
+        v18 = [v91 objectForKeyedSubscript:@"date"];
         selfCopy3 = self;
-        v86 = v8;
+        v85 = v8;
         if (!v18 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v84 = 0;
+          v83 = 0;
           goto LABEL_46;
         }
 
@@ -640,10 +639,10 @@ LABEL_24:
           if (objc_opt_isKindOfClass())
           {
             v59 = objc_alloc_init(MEMORY[0x1E696AC80]);
-            v84 = [v59 dateFromString:v18];
+            v83 = [v59 dateFromString:v18];
 
 LABEL_46:
-            v60 = [v92 objectForKeyedSubscript:@"referenceFrame"];
+            v60 = [v91 objectForKeyedSubscript:@"referenceFrame"];
             errorCopy6 = error;
             if (!v60 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
@@ -658,11 +657,11 @@ LABEL_46:
 LABEL_53:
               v62 = v63;
 LABEL_54:
-              v64 = [v92 objectForKeyedSubscript:@"sourceAccuracy"];
+              v64 = [v91 objectForKeyedSubscript:@"sourceAccuracy"];
               if (v64)
               {
                 objc_opt_class();
-                v53 = v80;
+                v53 = v79;
                 if (objc_opt_isKindOfClass())
                 {
                   v65 = 0;
@@ -683,13 +682,13 @@ LABEL_54:
                     {
                       if (errorCopy6)
                       {
-                        v79 = objc_alloc(MEMORY[0x1E696ABC0]);
-                        v78 = *MEMORY[0x1E698F240];
-                        v93 = *MEMORY[0x1E696A578];
-                        v72 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sourceAccuracy"];
-                        v94 = v72;
-                        v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-                        *errorCopy6 = [v79 initWithDomain:v78 code:2 userInfo:v73];
+                        v78 = objc_alloc(MEMORY[0x1E696ABC0]);
+                        v77 = *MEMORY[0x1E698F240];
+                        v92 = *MEMORY[0x1E696A578];
+                        v71 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sourceAccuracy"];
+                        v93 = v71;
+                        v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+                        *errorCopy6 = [v78 initWithDomain:v77 code:2 userInfo:v72];
                       }
 
                       v65 = 0;
@@ -707,24 +706,24 @@ LABEL_54:
               else
               {
                 v65 = 0;
-                v53 = v80;
+                v53 = v79;
               }
 
-              v24 = -[BMLocationVisitLocation initWithLatitude:longitude:horizontalUncertainty:altitude:verticalUncertainty:date:referenceFrame:sourceAccuracy:](selfCopy3, "initWithLatitude:longitude:horizontalUncertainty:altitude:verticalUncertainty:date:referenceFrame:sourceAccuracy:", v86, v90, v88, v91, v53, v84, __PAIR64__([v65 intValue], objc_msgSend(v62, "intValue")));
+              v24 = -[BMLocationVisitLocation initWithLatitude:longitude:horizontalUncertainty:altitude:verticalUncertainty:date:referenceFrame:sourceAccuracy:](selfCopy3, "initWithLatitude:longitude:horizontalUncertainty:altitude:verticalUncertainty:date:referenceFrame:sourceAccuracy:", v85, v89, v87, v90, v53, v83, __PAIR64__([v65 intValue], objc_msgSend(v62, "intValue")));
               selfCopy3 = v24;
 LABEL_64:
-              v11 = v82;
+              v11 = v81;
 LABEL_65:
 
 LABEL_66:
               self = selfCopy3;
-              v8 = v86;
+              v8 = v85;
 LABEL_67:
-              v45 = v81;
+              v45 = v80;
 LABEL_68:
 
-              v10 = v90;
-              v35 = v88;
+              v10 = v89;
+              v35 = v87;
 LABEL_69:
 
               goto LABEL_70;
@@ -739,26 +738,26 @@ LABEL_69:
 
             if (error)
             {
-              v69 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v70 = *MEMORY[0x1E698F240];
-              v95 = *MEMORY[0x1E696A578];
+              v68 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v69 = *MEMORY[0x1E698F240];
+              v94 = *MEMORY[0x1E696A578];
               v65 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"referenceFrame"];
-              v96 = v65;
-              v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-              v71 = [v69 initWithDomain:v70 code:2 userInfo:v64];
+              v95 = v65;
+              v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+              v70 = [v68 initWithDomain:v69 code:2 userInfo:v64];
               v62 = 0;
               v24 = 0;
-              *errorCopy6 = v71;
-              v11 = v82;
-              v53 = v80;
+              *errorCopy6 = v70;
+              v11 = v81;
+              v53 = v79;
               goto LABEL_65;
             }
 
             v62 = 0;
             v24 = 0;
 LABEL_89:
-            v11 = v82;
-            v53 = v80;
+            v11 = v81;
+            v53 = v79;
             goto LABEL_66;
           }
 
@@ -767,39 +766,39 @@ LABEL_89:
           {
             if (!error)
             {
-              v84 = 0;
+              v83 = 0;
               v24 = 0;
-              v53 = v80;
-              v45 = v81;
+              v53 = v79;
+              v45 = v80;
               goto LABEL_68;
             }
 
             errorCopy7 = error;
-            v75 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v76 = *MEMORY[0x1E698F240];
-            v97 = *MEMORY[0x1E696A578];
+            v74 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v75 = *MEMORY[0x1E698F240];
+            v96 = *MEMORY[0x1E696A578];
             v62 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"date"];
-            v98 = v62;
-            v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
-            v84 = 0;
+            v97 = v62;
+            v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+            v83 = 0;
             v24 = 0;
-            *errorCopy7 = [v75 initWithDomain:v76 code:2 userInfo:v60];
+            *errorCopy7 = [v74 initWithDomain:v75 code:2 userInfo:v60];
             goto LABEL_89;
           }
 
           v31 = v18;
         }
 
-        v84 = v31;
+        v83 = v31;
         goto LABEL_46;
       }
 
-      v80 = 0;
+      v79 = 0;
     }
 
     else
     {
-      v80 = 0;
+      v79 = 0;
       v9 = v13;
     }
 
@@ -824,10 +823,10 @@ LABEL_89:
   errorCopy8 = error;
   v20 = objc_alloc(MEMORY[0x1E696ABC0]);
   v21 = *MEMORY[0x1E698F240];
-  v107 = *MEMORY[0x1E696A578];
+  v106 = *MEMORY[0x1E696A578];
   v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"latitude"];
-  v108[0] = v22;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:&v107 count:1];
+  v107[0] = v22;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:&v106 count:1];
   v23 = v21;
   v10 = v22;
   v8 = 0;
@@ -836,7 +835,6 @@ LABEL_89:
 LABEL_72:
 
 LABEL_73:
-  v67 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -854,43 +852,35 @@ LABEL_73:
   toCopy = to;
   if (self->_hasLatitude)
   {
-    latitude = self->_latitude;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasLongitude)
   {
-    longitude = self->_longitude;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasHorizontalUncertainty)
   {
-    horizontalUncertainty = self->_horizontalUncertainty;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasAltitude)
   {
-    altitude = self->_altitude;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasVerticalUncertainty)
   {
-    verticalUncertainty = self->_verticalUncertainty;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasRaw_date)
   {
-    raw_date = self->_raw_date;
     PBDataWriterWriteDoubleField();
   }
 
-  referenceFrame = self->_referenceFrame;
   PBDataWriterWriteUint32Field();
-  sourceAccuracy = self->_sourceAccuracy;
   PBDataWriterWriteUint32Field();
 }
 
@@ -1375,33 +1365,31 @@ LABEL_92:
 
 + (id)protoFields
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"latitude" number:1 type:0 subMessageClass:0];
-  v13[0] = v2;
+  v12[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"longitude" number:2 type:0 subMessageClass:0];
-  v13[1] = v3;
+  v12[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"horizontalUncertainty" number:3 type:0 subMessageClass:0];
-  v13[2] = v4;
+  v12[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"altitude" number:4 type:0 subMessageClass:0];
-  v13[3] = v5;
+  v12[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"verticalUncertainty" number:5 type:0 subMessageClass:0];
-  v13[4] = v6;
+  v12[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"date" number:6 type:0 subMessageClass:0];
-  v13[5] = v7;
+  v12[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"referenceFrame" number:7 type:4 subMessageClass:0];
-  v13[6] = v8;
+  v12[6] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sourceAccuracy" number:8 type:4 subMessageClass:0];
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }
 
 + (id)columns
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"latitude" dataType:1 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"longitude" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"horizontalUncertainty" dataType:1 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:0];
@@ -1410,17 +1398,15 @@ LABEL_92:
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"date" dataType:3 requestOnly:0 fieldNumber:6 protoDataType:0 convertedType:2];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"referenceFrame" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:4 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sourceAccuracy" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:4 convertedType:0];
-  v13[0] = v2;
-  v13[1] = v3;
-  v13[2] = v4;
-  v13[3] = v5;
-  v13[4] = v6;
-  v13[5] = v7;
-  v13[6] = v8;
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[0] = v2;
+  v12[1] = v3;
+  v12[2] = v4;
+  v12[3] = v5;
+  v12[4] = v6;
+  v12[5] = v7;
+  v12[6] = v8;
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }

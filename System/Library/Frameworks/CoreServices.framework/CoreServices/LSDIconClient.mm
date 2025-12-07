@@ -14,13 +14,13 @@ id __58___LSDIconClient_getAlternateIconNameForIdentifier_reply___block_invoke(u
 
 void __78___LSDIconClient_setAlternateIconNameForCurrentApplication_completionHandler___block_invoke(uint64_t a1)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
-  v17 = 0;
+  v18[1] = *MEMORY[0x1E69E9840];
+  v16 = 0;
   v2 = *(a1 + 64);
-  v16[0] = *(a1 + 48);
-  v16[1] = v2;
-  v3 = [LSBundleRecord bundleRecordForAuditToken:v16 error:&v17];
-  v4 = v17;
+  v15[0] = *(a1 + 48);
+  v15[1] = v2;
+  v3 = [LSBundleRecord bundleRecordForAuditToken:v15 error:&v16];
+  v4 = v16;
   if (v3)
   {
     objc_opt_class();
@@ -43,15 +43,13 @@ void __78___LSDIconClient_setAlternateIconNameForCurrentApplication_completionHa
     else
     {
       v14 = *MEMORY[0x1E696A768];
-      v18 = *MEMORY[0x1E696A278];
-      v19[0] = @"calling process is not an application";
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x1E696A278];
+      v18[0] = @"calling process is not an application";
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       _LSMakeNSErrorImpl(v14, -50, v5, "[_LSDIconClient setAlternateIconNameForCurrentApplication:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDIconService.m", 128);
       v4 = v10 = v4;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

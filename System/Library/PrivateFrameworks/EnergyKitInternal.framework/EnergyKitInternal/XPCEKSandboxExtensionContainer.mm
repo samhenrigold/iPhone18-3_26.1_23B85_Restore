@@ -9,9 +9,9 @@
 - (_TtC17EnergyKitInternal30XPCEKSandboxExtensionContainer)initWithCoder:(id)coder
 {
   swift_getObjectType();
-  sub_20DEE02C0(&qword_27C84CB48, v4, type metadata accessor for XPCEKSandboxExtensionContainer);
-  sub_20DEE0220(&qword_27C84CB50, &qword_27C84CB60);
-  sub_20DEE0220(&qword_27C84CB68, &unk_27C84CB70);
+  sub_20DEE02C0(&qword_27C84CB48, v4, type metadata accessor for XPCEKSandboxExtensionContainer, &protocol conformance descriptor for XPCEKSandboxExtensionContainer);
+  sub_20DEE0220(&qword_27C84CB50, &qword_27C84CB60, &protocol conformance descriptor for EKSandboxExtension, MEMORY[0x277D83978]);
+  sub_20DEE0220(&qword_27C84CB68, &unk_27C84CB70, &protocol conformance descriptor for EKSandboxExtension, MEMORY[0x277D83948]);
   coderCopy = coder;
   v6 = sub_20DF47B24();
   swift_deallocPartialClassInstance();
@@ -21,9 +21,9 @@
 - (void)encodeWithCoder:(id)coder
 {
   swift_getObjectType();
-  sub_20DEE02C0(&qword_27C84CB48, v5, type metadata accessor for XPCEKSandboxExtensionContainer);
-  sub_20DEE0220(&qword_27C84CB50, &qword_27C84CB60);
-  sub_20DEE0220(&qword_27C84CB68, &unk_27C84CB70);
+  sub_20DEE02C0(&qword_27C84CB48, v5, type metadata accessor for XPCEKSandboxExtensionContainer, &protocol conformance descriptor for XPCEKSandboxExtensionContainer);
+  sub_20DEE0220(&qword_27C84CB50, &qword_27C84CB60, &protocol conformance descriptor for EKSandboxExtension, MEMORY[0x277D83978]);
+  sub_20DEE0220(&qword_27C84CB68, &unk_27C84CB70, &protocol conformance descriptor for EKSandboxExtension, MEMORY[0x277D83948]);
   coderCopy = coder;
   selfCopy = self;
   sub_20DF47B34();

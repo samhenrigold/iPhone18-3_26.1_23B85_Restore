@@ -7,24 +7,24 @@
 
 - (HMITimeIntervalAverage)initWithMaxCapacity:(int64_t)capacity
 {
-  v8.receiver = self;
-  v8.super_class = HMITimeIntervalAverage;
-  v4 = [(HMITimeIntervalAverage *)&v8 init];
-  if (v4)
+  v7.receiver = self;
+  v7.super_class = HMITimeIntervalAverage;
+  v3 = [(HMITimeIntervalAverage *)&v7 init];
+  if (v3)
   {
-    v5 = [[MovingAverage alloc] initWithWindowSize:capacity];
-    average = v4->_average;
-    v4->_average = v5;
+    v4 = [[MovingAverage alloc] initWithWindowSize:?];
+    average = v3->_average;
+    v3->_average = v4;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)addValue:(double)value
 {
   average = self->_average;
-  v4 = [MEMORY[0x277CCABB0] numberWithDouble:value];
-  [(MovingAverage *)average addNumber:v4];
+  v4 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  [(MovingAverage *)average addNumber:?];
 }
 
 @end

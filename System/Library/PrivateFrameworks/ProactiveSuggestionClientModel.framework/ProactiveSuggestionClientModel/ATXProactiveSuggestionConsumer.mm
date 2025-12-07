@@ -13,7 +13,7 @@
 
 - (void)setupRemoteClientXPCConnection
 {
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -59,7 +59,7 @@
 - (id)suggestionLayoutFromCache
 {
   v14 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x1E698B028] stringForConsumerSubtype:self->_consumer];
@@ -71,25 +71,23 @@
   consumer = self->_consumer;
   p_consumer = &self->_consumer;
   v7 = [*(p_consumer + 1) cachedLayoutForConsumerSubType:consumer expectedClass:objc_opt_class()];
-  if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (v7 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [(ATXProactiveSuggestionConsumer *)p_consumer suggestionLayoutFromCache];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v7;
+    v9 = v7;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
 - (id)layoutForRequest:(id)request
@@ -152,19 +150,19 @@
 void __63__ATXProactiveSuggestionConsumer_remoteSyncBlendingLayerServer__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __63__ATXProactiveSuggestionConsumer_remoteSyncBlendingLayerServer__block_invoke_cold_1(v2, v3);
   }
 }
 
-void __64__ATXProactiveSuggestionConsumer_setupRemoteClientXPCConnection__block_invoke()
+void __64__ATXProactiveSuggestionConsumer_setupRemoteClientXPCConnection__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_blending(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __64__ATXProactiveSuggestionConsumer_setupRemoteClientXPCConnection__block_invoke_cold_1(v0);
+    __64__ATXProactiveSuggestionConsumer_setupRemoteClientXPCConnection__block_invoke_cold_1(v1);
   }
 }
 
@@ -179,7 +177,7 @@ void __64__ATXProactiveSuggestionConsumer_setupRemoteClientXPCConnection__block_
 
   else
   {
-    v7 = __atxlog_handle_blending();
+    v7 = __atxlog_handle_blending(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(ATXProactiveSuggestionConsumer *)type cachedSuggestionsForClientModelType:v7];
@@ -193,31 +191,27 @@ void __64__ATXProactiveSuggestionConsumer_setupRemoteClientXPCConnection__block_
 
 - (void)suggestionLayoutFromCache
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E698B028] stringForConsumerSubtype:*self];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "A suggestion client tried to access cached suggestions for consumerSubType: %@, but the object type wasn't an ATXSuggestionLayout.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "A suggestion client tried to access cached suggestions for consumerSubType: %@, but the object type wasn't an ATXSuggestionLayout.", &v4, 0xCu);
 }
 
 void __63__ATXProactiveSuggestionConsumer_remoteSyncBlendingLayerServer__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: Error while communicating with Suggestion Receiver. Error: %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: Error while communicating with Suggestion Receiver. Error: %@.", &v2, 0xCu);
 }
 
 - (void)cachedSuggestionsForClientModelType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Unrecognized clientModelType provided: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Unrecognized clientModelType provided: %ld", &v2, 0xCu);
 }
 
 @end

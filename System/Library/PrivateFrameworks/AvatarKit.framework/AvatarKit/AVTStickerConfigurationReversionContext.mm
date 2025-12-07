@@ -6,6 +6,7 @@
 - (void)saveExtraCameraNode:(id)node;
 - (void)saveExtraPropsNode:(id)node;
 - (void)saveShaderModifiers:(id)modifiers forMaterial:(id)material;
+- (void)saveShowMemojiBody:(BOOL)body;
 @end
 
 @implementation AVTStickerConfigurationReversionContext
@@ -25,11 +26,11 @@
     morpherOverrides = v2->_morpherOverrides;
     v2->_morpherOverrides = v5;
 
-    v7 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:0 valueOptions:0 capacity:0];
+    v7 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:? valueOptions:? capacity:?];
     shaderModifiers = v2->_shaderModifiers;
     v2->_shaderModifiers = v7;
 
-    v9 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:0 valueOptions:0 capacity:0];
+    v9 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:? valueOptions:? capacity:?];
     customMaterialProperties = v2->_customMaterialProperties;
     v2->_customMaterialProperties = v9;
 
@@ -45,48 +46,53 @@
 {
   avatarCopy = avatar;
   objc_storeStrong(&self->_avatar, avatar);
-  if ([(NSMutableArray *)self->_presetOverrides count])
+  v6 = [(NSMutableArray *)self->_presetOverrides count];
+  if (v6)
   {
-    v6 = avt_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = avt_default_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v6 resetForAvatar:v7, v8, v9, v10, v11, v12, v13];
+      [(AVTStickerConfigurationReversionContext *)v7 resetForAvatar:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
-  if ([(NSMutableArray *)self->_morpherOverrides count])
+  v15 = [(NSMutableArray *)self->_morpherOverrides count];
+  if (v15)
   {
-    v14 = avt_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = avt_default_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v14 resetForAvatar:v15, v16, v17, v18, v19, v20, v21];
+      [(AVTStickerConfigurationReversionContext *)v16 resetForAvatar:v17, v18, v19, v20, v21, v22, v23];
     }
   }
 
-  if ([(NSMapTable *)self->_shaderModifiers count])
+  v24 = [(NSMapTable *)self->_shaderModifiers count];
+  if (v24)
   {
-    v22 = avt_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v25 = avt_default_log(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v22 resetForAvatar:v23, v24, v25, v26, v27, v28, v29];
+      [(AVTStickerConfigurationReversionContext *)v25 resetForAvatar:v26, v27, v28, v29, v30, v31, v32];
     }
   }
 
-  if ([(NSMapTable *)self->_customMaterialProperties count])
+  v33 = [(NSMapTable *)self->_customMaterialProperties count];
+  if (v33)
   {
-    v30 = avt_default_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = avt_default_log(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v30 resetForAvatar:v31, v32, v33, v34, v35, v36, v37];
+      [(AVTStickerConfigurationReversionContext *)v34 resetForAvatar:v35, v36, v37, v38, v39, v40, v41];
     }
   }
 
-  if ([(NSMutableArray *)self->_singleSidedMaterials count])
+  v42 = [(NSMutableArray *)self->_singleSidedMaterials count];
+  if (v42)
   {
-    v38 = avt_default_log();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v43 = avt_default_log(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v38 resetForAvatar:v39, v40, v41, v42, v43, v44, v45];
+      [(AVTStickerConfigurationReversionContext *)v43 resetForAvatar:v44, v45, v46, v47, v48, v49, v50];
     }
   }
 
@@ -94,22 +100,22 @@
   [(NSMutableArray *)self->_morpherOverrides removeAllObjects];
   [(NSMapTable *)self->_shaderModifiers removeAllObjects];
   [(NSMapTable *)self->_customMaterialProperties removeAllObjects];
-  [(NSMutableArray *)self->_singleSidedMaterials removeAllObjects];
+  removeAllObjects = [(NSMutableArray *)self->_singleSidedMaterials removeAllObjects];
   if (self->_extraCameraNode)
   {
-    v46 = avt_default_log();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v52 = avt_default_log(removeAllObjects);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v46 resetForAvatar:v47, v48, v49, v50, v51, v52, v53];
+      [(AVTStickerConfigurationReversionContext *)v52 resetForAvatar:v53, v54, v55, v56, v57, v58, v59];
     }
   }
 
   if (self->_extraPropsNode)
   {
-    v54 = avt_default_log();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v60 = avt_default_log(removeAllObjects);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v54 resetForAvatar:v55, v56, v57, v58, v59, v60, v61];
+      [(AVTStickerConfigurationReversionContext *)v60 resetForAvatar:v61, v62, v63, v64, v65, v66, v67];
     }
   }
 
@@ -147,73 +153,83 @@
 {
   namedCopy = named;
   materialCopy = material;
-  v7 = [(NSMapTable *)self->_customMaterialProperties objectForKey:materialCopy];
+  v7 = [(NSMapTable *)self->_customMaterialProperties objectForKey:?];
   if (!v7)
   {
-    v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
-    [(NSMapTable *)self->_customMaterialProperties setObject:v7 forKey:materialCopy];
+    v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
+    [NSMapTable setObject:"setObject:forKey:" forKey:?];
   }
 
-  v8 = [v7 objectForKeyedSubscript:namedCopy];
+  v8 = [v7 objectForKeyedSubscript:?];
 
   if (!v8)
   {
-    v9 = [materialCopy valueForKey:namedCopy];
+    v9 = [materialCopy valueForKey:?];
     if (v9)
     {
-      [v7 setObject:v9 forKeyedSubscript:namedCopy];
+      [v7 setObject:? forKeyedSubscript:?];
     }
 
     else
     {
       null = [MEMORY[0x1E695DFB0] null];
-      [v7 setObject:null forKeyedSubscript:namedCopy];
+      [v7 setObject:? forKeyedSubscript:?];
     }
   }
+}
+
+- (void)saveShowMemojiBody:(BOOL)body
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:?];
+  showMemojiBody = self->_showMemojiBody;
+  self->_showMemojiBody = v4;
+
+  MEMORY[0x1EEE66BB8](v4, showMemojiBody);
 }
 
 - (void)saveExtraCameraNode:(id)node
 {
   nodeCopy = node;
+  v5 = nodeCopy;
   if (self->_extraCameraNode)
   {
-    v5 = avt_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = avt_default_log(nodeCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v5 saveExtraCameraNode:v6, v7, v8, v9, v10, v11, v12];
+      [(AVTStickerConfigurationReversionContext *)v6 saveExtraCameraNode:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
   extraCameraNode = self->_extraCameraNode;
-  self->_extraCameraNode = nodeCopy;
+  self->_extraCameraNode = v5;
 }
 
 - (void)saveExtraPropsNode:(id)node
 {
   nodeCopy = node;
+  v5 = nodeCopy;
   if (self->_extraPropsNode)
   {
-    v5 = avt_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = avt_default_log(nodeCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfigurationReversionContext *)v5 saveExtraPropsNode:v6, v7, v8, v9, v10, v11, v12];
+      [(AVTStickerConfigurationReversionContext *)v6 saveExtraPropsNode:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
   extraPropsNode = self->_extraPropsNode;
-  self->_extraPropsNode = nodeCopy;
+  self->_extraPropsNode = v5;
 }
 
 - (void)revertChangesWithScope:(unint64_t)scope animationDuration:(double)duration
 {
-  v79 = *MEMORY[0x1E69E9840];
   if (duration > 0.0)
   {
     [MEMORY[0x1E69DF378] begin];
-    [MEMORY[0x1E69DF378] setAnimationDuration:duration];
+    [MEMORY[0x1E69DF378] setAnimationDuration:?];
     v7 = MEMORY[0x1E69DF378];
-    v8 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
-    [v7 setAnimationTimingFunction:v8];
+    v8 = [MEMORY[0x1E69793D0] functionWithName:?];
+    [v7 setAnimationTimingFunction:?];
   }
 
   if (scope != 1)
@@ -245,190 +261,163 @@
     self->_extraCameraNode = 0;
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
-  v71 = 0u;
   v15 = self->_morpherOverrides;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v70 objects:v78 count:16];
+  v16 = [NSMutableArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v16)
   {
     v17 = v16;
-    v18 = *v71;
+    v18 = MEMORY[0];
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v17; i = (i + 1))
       {
-        if (*v71 != v18)
+        if (MEMORY[0] != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v70 + 1) + 8 * i);
-        avatar = self->_avatar;
-        avatarNode = [(AVTAvatar *)avatar avatarNode];
-        [v20 applyToAvatar:avatar inHierarchy:avatarNode reversionContext:0];
+        v20 = *(8 * i);
+        avatarNode = [(AVTAvatar *)self->_avatar avatarNode];
+        [v20 applyToAvatar:? inHierarchy:? reversionContext:?];
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v70 objects:v78 count:16];
+      v17 = [NSMutableArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v17);
   }
 
   [(NSMutableArray *)self->_morpherOverrides removeAllObjects];
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v23 = self->_presetOverrides;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v66 objects:v77 count:16];
-  if (v24)
+  v22 = self->_presetOverrides;
+  v23 = [NSMutableArray countByEnumeratingWithState:v22 objects:"countByEnumeratingWithState:objects:count:" count:?];
+  if (v23)
   {
-    v25 = v24;
-    v26 = *v67;
+    v24 = v23;
+    v25 = MEMORY[0];
     do
     {
-      for (j = 0; j != v25; ++j)
+      for (j = 0; j != v24; j = (j + 1))
       {
-        if (*v67 != v26)
+        if (MEMORY[0] != v25)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v22);
         }
 
-        [*(*(&v66 + 1) + 8 * j) applyToAvatar:self->_avatar reversionContext:0];
+        [*(8 * j) applyToAvatar:? reversionContext:?];
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v66 objects:v77 count:16];
+      v24 = [NSMutableArray countByEnumeratingWithState:v22 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
-    while (v25);
+    while (v24);
   }
 
   [(NSMutableArray *)self->_presetOverrides removeAllObjects];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
   keyEnumerator = [(NSMapTable *)self->_shaderModifiers keyEnumerator];
-  v29 = [keyEnumerator countByEnumeratingWithState:&v62 objects:v76 count:16];
-  if (v29)
+  v28 = [keyEnumerator countByEnumeratingWithState:? objects:? count:?];
+  if (v28)
   {
-    v30 = v29;
-    v31 = *v63;
+    v29 = v28;
+    v30 = MEMORY[0];
     do
     {
-      for (k = 0; k != v30; ++k)
+      for (k = 0; k != v29; k = (k + 1))
       {
-        if (*v63 != v31)
+        if (MEMORY[0] != v30)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v33 = *(*(&v62 + 1) + 8 * k);
-        v34 = [(NSMapTable *)self->_shaderModifiers objectForKey:v33];
+        v32 = *(8 * k);
+        v33 = [(NSMapTable *)self->_shaderModifiers objectForKey:?];
         null = [MEMORY[0x1E695DFB0] null];
-        v36 = [v34 isEqual:null];
+        v35 = [v33 isEqual:?];
 
-        if (v36)
+        if (v35)
         {
 
-          v34 = 0;
+          v33 = 0;
         }
 
-        [v33 setShaderModifiers:v34];
+        [v32 setShaderModifiers:?];
       }
 
-      v30 = [keyEnumerator countByEnumeratingWithState:&v62 objects:v76 count:16];
+      v29 = [keyEnumerator countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v30);
+    while (v29);
   }
 
   [(NSMapTable *)self->_shaderModifiers removeAllObjects];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
   keyEnumerator2 = [(NSMapTable *)self->_customMaterialProperties keyEnumerator];
-  v38 = [keyEnumerator2 countByEnumeratingWithState:&v58 objects:v75 count:16];
-  if (v38)
+  v37 = [keyEnumerator2 countByEnumeratingWithState:? objects:? count:?];
+  if (v37)
   {
-    v39 = v38;
-    v40 = *v59;
+    v38 = v37;
+    v39 = MEMORY[0];
     do
     {
-      for (m = 0; m != v39; ++m)
+      for (m = 0; m != v38; m = (m + 1))
       {
-        if (*v59 != v40)
+        if (MEMORY[0] != v39)
         {
           objc_enumerationMutation(keyEnumerator2);
         }
 
-        v42 = *(*(&v58 + 1) + 8 * m);
-        v43 = [(NSMapTable *)self->_customMaterialProperties objectForKey:v42];
-        v57[0] = MEMORY[0x1E69E9820];
-        v57[1] = 3221225472;
-        v57[2] = __84__AVTStickerConfigurationReversionContext_revertChangesWithScope_animationDuration___block_invoke;
-        v57[3] = &unk_1E7F490D8;
-        v57[4] = v42;
-        [v43 enumerateKeysAndObjectsUsingBlock:v57];
+        v41 = [(NSMapTable *)self->_customMaterialProperties objectForKey:?];
+        [v41 enumerateKeysAndObjectsUsingBlock:?];
       }
 
-      v39 = [keyEnumerator2 countByEnumeratingWithState:&v58 objects:v75 count:16];
+      v38 = [keyEnumerator2 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v39);
+    while (v38);
   }
 
   [(NSMapTable *)self->_customMaterialProperties removeAllObjects];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v44 = self->_singleSidedMaterials;
-  v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v53 objects:v74 count:16];
-  if (v45)
+  v42 = self->_singleSidedMaterials;
+  v43 = [NSMutableArray countByEnumeratingWithState:v42 objects:"countByEnumeratingWithState:objects:count:" count:0];
+  if (v43)
   {
-    v46 = v45;
-    v47 = *v54;
+    v44 = v43;
+    v45 = MEMORY[0];
     do
     {
-      for (n = 0; n != v46; ++n)
+      for (n = 0; n != v44; n = (n + 1))
       {
-        if (*v54 != v47)
+        if (MEMORY[0] != v45)
         {
-          objc_enumerationMutation(v44);
+          objc_enumerationMutation(v42);
         }
 
-        [*(*(&v53 + 1) + 8 * n) setDoubleSided:{0, v53}];
+        [*(8 * n) setDoubleSided:?];
       }
 
-      v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v53 objects:v74 count:16];
+      v44 = [NSMutableArray countByEnumeratingWithState:v42 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
-    while (v46);
+    while (v44);
   }
 
   [(NSMutableArray *)self->_singleSidedMaterials removeAllObjects];
   if (self->_showMemojiBody)
   {
-    v49 = self->_avatar;
+    v47 = self->_avatar;
     if ([(NSNumber *)self->_showMemojiBody BOOLValue])
     {
-      [(AVTAvatar *)v49 setShowsBody:1];
+      [(AVTAvatar *)v47 setShowsBody:?];
     }
 
     else
     {
-      [(AVTAvatar *)v49 setShowsBody:0];
-      [(AVTAvatar *)v49 setBodyPose:0];
+      [(AVTAvatar *)v47 setShowsBody:?];
+      [(AVTAvatar *)v47 setBodyPose:?];
     }
 
     showMemojiBody = self->_showMemojiBody;
     self->_showMemojiBody = 0;
 
-    [(AVTAvatar *)v49 updateWithOptions:0];
+    [(AVTAvatar *)v47 updateWithOptions:?];
   }
 
   [(VFXNode *)self->_extraPropsNode removeFromParentNode];
@@ -440,8 +429,6 @@ LABEL_53:
   {
     [MEMORY[0x1E69DF378] commit];
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 void __84__AVTStickerConfigurationReversionContext_revertChangesWithScope_animationDuration___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -449,7 +436,7 @@ void __84__AVTStickerConfigurationReversionContext_revertChangesWithScope_animat
   v8 = a2;
   v5 = a3;
   v6 = [MEMORY[0x1E695DFB0] null];
-  v7 = [v5 isEqual:v6];
+  v7 = [v5 isEqual:?];
 
   if (v7)
   {
@@ -457,70 +444,70 @@ void __84__AVTStickerConfigurationReversionContext_revertChangesWithScope_animat
     v5 = 0;
   }
 
-  [*(a1 + 32) setValue:v5 forKey:v8];
+  [*(a1 + 32) setValue:? forKey:?];
 }
 
 - (void)resetForAvatar:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_presetOverrides.count == 0";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resetForAvatar:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_morpherOverrides.count == 0";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resetForAvatar:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_shaderModifiers.count == 0";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resetForAvatar:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_customMaterialProperties.count == 0";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resetForAvatar:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_singleSidedMaterials.count == 0";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resetForAvatar:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_extraCameraNode == nil";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resetForAvatar:(uint64_t)a3 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_extraPropsNode == nil";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Reversion context is being reused but hasn't been reverted beforehand", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)saveExtraCameraNode:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Can't save more than one camera", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_extraCameraNode == nil";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Can't save more than one camera", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)saveExtraPropsNode:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Can't save more than one prop container", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_extraPropsNode == nil";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Can't save more than one prop container", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

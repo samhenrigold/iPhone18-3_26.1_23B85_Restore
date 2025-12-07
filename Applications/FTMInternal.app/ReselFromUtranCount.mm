@@ -107,7 +107,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    total = self->_total;
     PBDataWriterWriteUint32Field();
   }
 
@@ -116,15 +115,14 @@
     PBDataWriterPlaceMark();
     if (self->_failureCounts.count)
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        v7 = self->_failureCounts.list[v6];
         PBDataWriterWriteUint32Field();
-        ++v6;
+        ++v5;
       }
 
-      while (v6 < self->_failureCounts.count);
+      while (v5 < self->_failureCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -132,7 +130,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    totalAp = self->_totalAp;
     PBDataWriterWriteUint32Field();
   }
 
@@ -142,15 +139,14 @@
     PBDataWriterPlaceMark();
     if (p_failureCountAps->count)
     {
-      v10 = 0;
+      v7 = 0;
       do
       {
-        v11 = p_failureCountAps->list[v10];
         PBDataWriterWriteUint32Field();
-        ++v10;
+        ++v7;
       }
 
-      while (v10 < p_failureCountAps->count);
+      while (v7 < p_failureCountAps->count);
     }
 
     PBDataWriterRecallMark();
@@ -231,7 +227,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_total != *(equalCopy + 14))
@@ -252,7 +247,6 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v6 = *(equalCopy + 64);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_totalAp != *(equalCopy + 15))

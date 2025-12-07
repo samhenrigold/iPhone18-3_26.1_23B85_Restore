@@ -1,6 +1,6 @@
-void sub_2209A60E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2209A60E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TGIE5AdapterConfiguration>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -15,7 +15,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TGIE5AdapterConfigura
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TGIE5AdapterConfiguration>,TGIE5AdapterConfiguration*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TGIE5AdapterConfiguration>,TGIE5AdapterConfiguration*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   v14 = a4;
   v15 = a4;
@@ -34,24 +34,24 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TG
     do
     {
       v8 = *v7;
-      *(a4 + 16) = *(v7 + 16);
+      *(a4 + 16) = *(v7 + 2);
       *a4 = v8;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      *(v7 + 1) = 0;
+      *(v7 + 2) = 0;
       *v7 = 0;
       v9 = *(v7 + 24);
-      *(a4 + 40) = *(v7 + 40);
+      *(a4 + 40) = *(v7 + 5);
       *(a4 + 24) = v9;
-      *(v7 + 32) = 0;
-      *(v7 + 40) = 0;
-      *(v7 + 24) = 0;
-      v10 = *(v7 + 48);
-      *(a4 + 64) = *(v7 + 64);
+      *(v7 + 4) = 0;
+      *(v7 + 5) = 0;
+      *(v7 + 3) = 0;
+      v10 = v7[3];
+      *(a4 + 64) = *(v7 + 8);
       *(a4 + 48) = v10;
-      *(v7 + 56) = 0;
-      *(v7 + 64) = 0;
-      *(v7 + 48) = 0;
-      v7 += 72;
+      *(v7 + 7) = 0;
+      *(v7 + 8) = 0;
+      *(v7 + 6) = 0;
+      v7 = (v7 + 72);
       a4 += 72;
     }
 
@@ -61,7 +61,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TG
     while (v5 != a3)
     {
       std::allocator_traits<std::allocator<TGIE5AdapterConfiguration>>::destroy[abi:ne200100]<TGIE5AdapterConfiguration,void,0>(a1, v5);
-      v5 += 72;
+      v5 = (v5 + 72);
     }
   }
 
@@ -234,9 +234,9 @@ uint64_t std::vector<TGIE5Function>::__emplace_back_slow_path<TGIE5Function>(uin
   return v16;
 }
 
-void sub_2209A655C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2209A655C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TGIE5Function>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -251,7 +251,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TGIE5Function>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TGIE5Function>,TGIE5Function*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TGIE5Function>,TGIE5Function*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   v15 = a4;
   v16 = a4;
@@ -266,42 +266,42 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TG
   else
   {
     v5 = a2;
-    v7 = a2 + 32;
+    v7 = a2 + 2;
     do
     {
-      v8 = *(v7 - 32);
-      *(a4 + 16) = *(v7 - 16);
+      v8 = *(v7 - 2);
+      *(a4 + 16) = *(v7 - 2);
       *a4 = v8;
-      *(v7 - 24) = 0;
-      *(v7 - 16) = 0;
-      *(v7 - 32) = 0;
-      v9 = *(v7 - 8);
+      *(v7 - 3) = 0;
+      *(v7 - 2) = 0;
+      *(v7 - 4) = 0;
+      v9 = *(v7 - 1);
       *(a4 + 32) = 0;
       *(a4 + 24) = v9;
       *(a4 + 56) = 0;
       if (*(v7 + 24) == 1)
       {
         v10 = *v7;
-        *(a4 + 48) = *(v7 + 16);
+        *(a4 + 48) = *(v7 + 2);
         *(a4 + 32) = v10;
-        *(v7 + 8) = 0;
-        *(v7 + 16) = 0;
+        *(v7 + 1) = 0;
+        *(v7 + 2) = 0;
         *v7 = 0;
         *(a4 + 56) = 1;
       }
 
-      v11 = v7 - 32;
+      v11 = v7 - 2;
       a4 += 64;
-      v7 += 64;
+      v7 += 4;
     }
 
-    while (v11 + 64 != a3);
+    while (v11 + 4 != a3);
     v16 = a4;
     v14 = 1;
     while (v5 != a3)
     {
       std::allocator_traits<std::allocator<TGIE5Function>>::destroy[abi:ne200100]<TGIE5Function,void,0>(a1, v5);
-      v5 += 64;
+      v5 += 4;
     }
   }
 
@@ -392,7 +392,7 @@ void TGIE5Function::~TGIE5Function(TGIE5Function *this)
   }
 }
 
-uint64_t std::vector<TGIE5AdapterConfiguration>::__init_with_size[abi:ne200100]<TGIE5AdapterConfiguration*,TGIE5AdapterConfiguration*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TGIE5AdapterConfiguration>::__init_with_size[abi:ne200100]<TGIE5AdapterConfiguration*,TGIE5AdapterConfiguration*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -409,7 +409,7 @@ void sub_2209A68F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<TGIE5AdapterConfiguration>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TGIE5AdapterConfiguration>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x38E38E38E38E38FLL)
   {
@@ -493,7 +493,7 @@ void sub_2209A6A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<TGIE5Function>::__init_with_size[abi:ne200100]<TGIE5Function*,TGIE5Function*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TGIE5Function>::__init_with_size[abi:ne200100]<TGIE5Function*,TGIE5Function*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -510,7 +510,7 @@ void sub_2209A6B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<TGIE5Function>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TGIE5Function>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -782,7 +782,7 @@ uint64_t storeEnumTagSinglePayload for os_unfair_lock_s(uint64_t result, int a2,
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef(uint64_t a1, uint64_t a2)
 {
   Hasher.init(_seed:)();
   swift_getWitnessTable();
@@ -790,7 +790,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFS
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getWitnessTable();
 
@@ -983,7 +983,7 @@ uint64_t storeEnumTagSinglePayload for BNNSTensor(uint64_t result, int a2, int a
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -996,12 +996,12 @@ uint64_t lazy protocol witness table accessor for type CFStringRef and conforman
   return result;
 }
 
-void type metadata accessor for os_unfair_lock_s(uint64_t a1, unint64_t *a2)
+void type metadata accessor for os_unfair_lock_s(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -1111,7 +1111,7 @@ uint64_t ClassifyingDecoder.classify(stopTokenID:parameters:)(uint64_t a1, uint6
   v3[22] = v6;
   v3[23] = *(v6 - 8);
   v3[24] = swift_task_alloc();
-  v7 = type metadata accessor for LogitIndexSet();
+  v7 = type metadata accessor for LogitIndexSet(0);
   v3[25] = v7;
   v3[26] = *(v7 - 8);
   v3[27] = swift_task_alloc();
@@ -1129,7 +1129,7 @@ uint64_t ClassifyingDecoder.classify(stopTokenID:parameters:)()
   v4 = v3[7];
   __swift_project_boxed_opaque_existential_1(v3 + 3, v5);
   v6 = v3[13];
-  v7 = type metadata accessor for SoftmaxLogitPresampler();
+  v7 = type metadata accessor for SoftmaxLogitPresampler(0);
   v0[10] = v7;
   v0[11] = &protocol witness table for SoftmaxLogitPresampler;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 7);
@@ -1262,7 +1262,7 @@ LABEL_45:
                 v101 = v60;
                 v65 = *v60;
                 __swift_project_boxed_opaque_existential_1((v98 + 64), *(v98 + 88));
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
                 v66 = swift_allocObject();
                 *(v66 + 16) = xmmword_220AE8A20;
                 *(v66 + 32) = v64;
@@ -1313,7 +1313,7 @@ LABEL_45:
                 }
 
                 v105[12] = v1;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
                 lazy protocol witness table accessor for type [String] and conformance [A]();
                 v78 = BidirectionalCollection<>.joined(separator:)();
                 v80 = v79;
@@ -1426,7 +1426,7 @@ LABEL_44:
             v58 = MEMORY[0x277D84F98];
 LABEL_67:
 
-            __swift_destroy_boxed_opaque_existential_1(v1 + 16);
+            __swift_destroy_boxed_opaque_existential_1((v1 + 16));
 
             v93 = *(v1 + 8);
 
@@ -1579,7 +1579,7 @@ LABEL_19:
   swift_willThrow();
   (*(v5 + 8))(v4, v6);
 LABEL_20:
-  __swift_destroy_boxed_opaque_existential_1(v1 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v1 + 16));
 
   v33 = *(v1 + 8);
 
@@ -1594,7 +1594,7 @@ LABEL_20:
   return v1();
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -1608,14 +1608,14 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
 
 uint64_t outlined init with copy of LogitIndexSet(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for LogitIndexSet();
+  v4 = type metadata accessor for LogitIndexSet(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of LogitIndexSet(uint64_t a1)
 {
-  v2 = type metadata accessor for LogitIndexSet();
+  v2 = type metadata accessor for LogitIndexSet(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1638,7 +1638,7 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
   result = lazy protocol witness table cache variable for type [String] and conformance [A];
   if (!lazy protocol witness table cache variable for type [String] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd, &_sSaySSGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String] and conformance [A]);
   }
@@ -1646,7 +1646,7 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -1992,60 +1992,60 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration15ToolDescriptionV_Tt1g5
 {
   v4 = type metadata accessor for ToolDescription();
   v5 = *(v4 - 8);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v24 - v9;
-  v11 = *(a1 + 16);
-  if (v11 != *(a2 + 16))
+  v7 = MEMORY[0x28223BE20](v4, v6);
+  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v26 - v11;
+  v13 = *(a1 + 16);
+  if (v13 != *(a2 + 16))
   {
-    v21 = 0;
-    return v21 & 1;
+    v23 = 0;
+    return v23 & 1;
   }
 
-  if (!v11 || a1 == a2)
+  if (!v13 || a1 == a2)
   {
-    v21 = 1;
-    return v21 & 1;
+    v23 = 1;
+    return v23 & 1;
   }
 
-  v12 = (*(v5 + 80) + 32) & ~*(v5 + 80);
-  v13 = a1 + v12;
-  v14 = a2 + v12;
-  v16 = *(v5 + 16);
-  v15 = v5 + 16;
-  v17 = (v15 - 8);
-  v24 = *(v15 + 56);
-  v25 = v16;
+  v14 = (*(v5 + 80) + 32) & ~*(v5 + 80);
+  v15 = a1 + v14;
+  v16 = a2 + v14;
+  v18 = *(v5 + 16);
+  v17 = v5 + 16;
+  v19 = (v17 - 8);
+  v26 = *(v17 + 56);
+  v27 = v18;
   while (1)
   {
-    v18 = v25;
-    result = (v25)(v10, v13, v4);
-    if (!v11)
+    v20 = v27;
+    result = (v27)(v12, v15, v4);
+    if (!v13)
     {
       break;
     }
 
-    v20 = v15;
-    v18(v8, v14, v4);
+    v22 = v17;
+    v20(v9, v16, v4);
     lazy protocol witness table accessor for type ToolDescription and conformance ToolDescription();
-    v21 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v22 = *v17;
-    (*v17)(v8, v4);
-    v22(v10, v4);
-    if (v21)
+    v23 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v24 = *v19;
+    (*v19)(v9, v4);
+    v24(v12, v4);
+    if (v23)
     {
-      v14 += v24;
-      v13 += v24;
-      v23 = v11-- == 1;
-      v15 = v20;
-      if (!v23)
+      v16 += v26;
+      v15 += v26;
+      v25 = v13-- == 1;
+      v17 = v22;
+      if (!v25)
       {
         continue;
       }
     }
 
-    return v21 & 1;
+    return v23 & 1;
   }
 
   __break(1u);
@@ -2120,7 +2120,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance TokenMa
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance TokenMask()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance TokenMask(uint64_t a1)
 {
   Hasher.init(_seed:)();
   TokenMask.hash(into:)();
@@ -2197,7 +2197,7 @@ void protocol witness for Collection.endIndex.getter in conformance TokenMask(vo
   __break(1u);
 }
 
-void (*protocol witness for Collection.subscript.read in conformance TokenMask(uint64_t *a1, uint64_t *a2))(void *a1)
+uint64_t (*protocol witness for Collection.subscript.read in conformance TokenMask(uint64_t *a1, uint64_t *a2))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2225,7 +2225,7 @@ void protocol witness for Collection.subscript.read in conformance TokenMask(voi
   free(v1);
 }
 
-uint64_t (*TokenMask.subscript.read(uint64_t a1, uint64_t a2))()
+void (*TokenMask.subscript.read(uint64_t a1, uint64_t a2))()
 {
   v3 = *v2;
   if (*v2 > a2)
@@ -2280,7 +2280,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t protocol witness for Collection.subscript.getter in conformance TokenMask@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void protocol witness for Collection.subscript.getter in conformance TokenMask(__int128 *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *v2;
   v4 = *v2;
@@ -2291,43 +2291,43 @@ uint64_t protocol witness for Collection.subscript.getter in conformance TokenMa
     goto LABEL_8;
   }
 
-  v6 = result;
-  result = *(v2 + 2);
-  v7 = *(result + 16);
-  v8 = __OFADD__(v5, v7);
-  v9 = v5 + v7;
-  if (v8)
+  v7 = *(v2 + 2);
+  v8 = *(v7 + 16);
+  v9 = __OFADD__(v5, v8);
+  v10 = v5 + v8;
+  if (v9)
   {
 LABEL_8:
     __break(1u);
     goto LABEL_9;
   }
 
-  if (v9 < 0)
+  if (v10 < 0)
   {
 LABEL_9:
     __break(1u);
     goto LABEL_10;
   }
 
-  v10 = *v6;
-  if ((*v6 & 0x8000000000000000) != 0)
+  v11 = *a1;
+  if ((*a1 & 0x8000000000000000) != 0)
   {
 LABEL_10:
     __break(1u);
     goto LABEL_11;
   }
 
-  if (v9 >= *(&v10 + 1))
+  if (v10 >= *(&v11 + 1))
   {
-    *(a2 + 32) = result;
-    *a2 = v10;
+    *(a2 + 32) = v7;
+    *a2 = v11;
     *(a2 + 16) = v3;
+
+    return;
   }
 
 LABEL_11:
   __break(1u);
-  return result;
 }
 
 void protocol witness for Collection.indices.getter in conformance TokenMask(void *a1@<X8>)
@@ -2525,8 +2525,7 @@ __n128 protocol witness for Sequence.makeIterator() in conformance TokenMask@<Q0
   v2 = v1[1].n128_u64[0];
   result = *v1;
   *a1 = *v1;
-  a1[1].n128_u64[0] = v2;
-  a1[1].n128_u64[1] = 0;
+  a1[1] = v2;
   return result;
 }
 
@@ -2942,12 +2941,12 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<TokenMask> and conformance Slice<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type Slice<TokenMask> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -2955,12 +2954,12 @@ uint64_t lazy protocol witness table accessor for type Slice<TokenMask> and conf
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSnySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSnySiGMd, &_sSnySiGMR);
     lazy protocol witness table accessor for type Int and conformance Int();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -2969,12 +2968,12 @@ uint64_t lazy protocol witness table accessor for type Range<Int> and conformanc
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<TokenMask> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<TokenMask> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy24TokenGenerationInference0B4MaskVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy24TokenGenerationInference0B4MaskVGMd, &_ss5SliceVy24TokenGenerationInference0B4MaskVGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -3111,7 +3110,7 @@ LABEL_7:
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
       v8 = swift_allocObject();
       v9 = _swift_stdlib_malloc_size(v8);
       v10 = v9 - 32;
@@ -3156,7 +3155,7 @@ LABEL_9:
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySbGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySbGMd, &_ss23_ContiguousArrayStorageCySbGMR);
       v8 = swift_allocObject();
       v9 = _swift_stdlib_malloc_size(v8);
       v8[2] = v5;
@@ -3199,7 +3198,7 @@ LABEL_7:
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd, &_ss23_ContiguousArrayStorageCys5Int32VGMR);
       v8 = swift_allocObject();
       v9 = _swift_stdlib_malloc_size(v8);
       v10 = v9 - 32;
@@ -3399,6 +3398,15 @@ LABEL_39:
   return result;
 }
 
+uint64_t specialized Array.append<A>(contentsOf:)(uint64_t a1)
+{
+  return specialized Array.append<A>(contentsOf:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), MEMORY[0x277D71E38]);
+}
+
+{
+  return specialized Array.append<A>(contentsOf:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), MEMORY[0x277D71DA0]);
+}
+
 uint64_t specialized Array.append<A>(contentsOf:)(uint64_t result, uint64_t (*a2)(void), uint64_t (*a3)(void))
 {
   v4 = *(result + 16);
@@ -3467,6 +3475,163 @@ LABEL_11:
 LABEL_15:
   __break(1u);
   return result;
+}
+
+void specialized Array.append<A>(contentsOf:)(uint64_t *a1)
+{
+  v2 = v1;
+  v3 = *a1;
+  v4 = *v1;
+  v5 = *(*v1 + 2);
+  v6 = v5 + *a1;
+  if (__OFADD__(v5, *a1))
+  {
+    __break(1u);
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  if (!isUniquelyReferenced_nonNull_native || (v8 = *(v4 + 3) >> 1, v8 < v6))
+  {
+    if (v5 <= v6)
+    {
+      v9 = v6;
+    }
+
+    else
+    {
+      v9 = v5;
+    }
+
+    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v9, 1, v4);
+    v8 = *(v4 + 3) >> 1;
+  }
+
+  v10 = *(v4 + 2);
+  v11 = v8 - v10;
+  specialized Sequence._copySequenceContents(initializing:)(&v27, &v4[32 * v10 + 32], v8 - v10);
+  if (v12 < v3)
+  {
+    goto LABEL_15;
+  }
+
+  if (v12 >= 1)
+  {
+    v13 = *(v4 + 2);
+    v14 = __OFADD__(v13, v12);
+    v15 = v13 + v12;
+    if (v14)
+    {
+      __break(1u);
+LABEL_34:
+      *(v4 + 2) = v3;
+      goto LABEL_35;
+    }
+
+    *(v4 + 2) = v15;
+  }
+
+  if (v12 != v11)
+  {
+LABEL_13:
+
+    *v2 = v4;
+    return;
+  }
+
+LABEL_16:
+  if (v32 == v27)
+  {
+    goto LABEL_35;
+  }
+
+  if ((v32 & 0x8000000000000000) == 0 && v32 < v27)
+  {
+    v3 = *(v4 + 2);
+    v17 = v30;
+    v16 = v31;
+    v18 = v29;
+    v19 = v28;
+    v25 = v27;
+    v26 = ++v32;
+
+    if (v16)
+    {
+      while (1)
+      {
+        v20 = *(v4 + 3);
+        v21 = v20 >> 1;
+        if ((v20 >> 1) < v3 + 1)
+        {
+          v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v3 + 1, 1, v4);
+          v21 = *(v4 + 3) >> 1;
+        }
+
+        if (v3 < v21)
+        {
+          break;
+        }
+
+        v23 = v26;
+LABEL_31:
+        *(v4 + 2) = v3;
+        v26 = v23;
+        if (!v16)
+        {
+          goto LABEL_35;
+        }
+      }
+
+      v22 = 32 * v3;
+      v23 = v26;
+      while (1)
+      {
+        v24 = &v4[v22];
+        *(v24 + 8) = v19;
+        *(v24 + 5) = v18;
+        *(v24 + 6) = v17;
+        *(v24 + 7) = v16;
+        ++v3;
+        if (v25 == v23)
+        {
+          goto LABEL_34;
+        }
+
+        if (v26 < 0 || v23 >= v25)
+        {
+          __break(1u);
+          goto LABEL_37;
+        }
+
+        v17 = v30;
+        v16 = v31;
+        v18 = v29;
+        ++v23;
+        v19 = v28;
+        v32 = v23;
+
+        if (v16)
+        {
+          v22 += 32;
+          if (v3 < v21)
+          {
+            continue;
+          }
+        }
+
+        goto LABEL_31;
+      }
+    }
+
+LABEL_35:
+
+    goto LABEL_13;
+  }
+
+LABEL_37:
+  __break(1u);
 }
 
 uint64_t specialized Array.append<A>(contentsOf:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
@@ -3559,7 +3724,7 @@ LABEL_21:
   return result;
 }
 
-unint64_t closure #1 in TGICAPIWrapper.makeSession()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void closure #1 in TGICAPIWrapper.makeSession()(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   swift_beginAccess();
   v8 = *(a3 + 200);
@@ -3567,22 +3732,21 @@ unint64_t closure #1 in TGICAPIWrapper.makeSession()@<X0>(uint64_t a1@<X0>, uint
   {
     v11 = *(v8 + 56) + 24 * v9;
     v12 = *v11;
-    v19 = *(v11 + 8);
+    v18 = *(v11 + 8);
     swift_endAccess();
     v13 = type metadata accessor for TGICAPILanguageModel();
     v14 = swift_allocObject();
     *(v14 + 16) = 0;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference20TGICAPILanguageModelC9NodeStateVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference20TGICAPILanguageModelC9NodeStateVGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference20TGICAPILanguageModelC9NodeStateVGMR);
     v15 = swift_allocObject();
     *(v15 + 16) = xmmword_220AE8A30;
     v16 = MEMORY[0x277D84F90];
-    result = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_SiTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-    *(v15 + 32) = result;
+    *(v15 + 32) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_SiTt0g5Tf4g_n(MEMORY[0x277D84F90]);
     *(v15 + 40) = v16;
     *(v15 + 48) = 0;
     *(v14 + 24) = v15;
     *(v14 + 32) = v12;
-    *(v14 + 40) = v19;
+    *(v14 + 40) = v18;
     a4[3] = v13;
     a4[4] = &protocol witness table for TGICAPILanguageModel;
     *a4 = v14;
@@ -3593,12 +3757,10 @@ unint64_t closure #1 in TGICAPIWrapper.makeSession()@<X0>(uint64_t a1@<X0>, uint
     swift_endAccess();
     lazy protocol witness table accessor for type TokenGenerationConfiguration.TokenGenerationConfigurationError and conformance TokenGenerationConfiguration.TokenGenerationConfigurationError();
     swift_allocError();
-    *v18 = a1;
-    v18[1] = a2;
+    *v17 = a1;
+    v17[1] = a2;
     swift_willThrow();
   }
-
-  return result;
 }
 
 uint64_t TGICAPIWrapper.__deallocating_deinit()
@@ -3625,21 +3787,21 @@ uint64_t TGICAPIWrapper.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t TGITokenGeneratorCreate(_:)()
+uint64_t TGITokenGeneratorCreate(_:)(uint64_t a1)
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v15[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v1 = type metadata accessor for String.Encoding();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1, v3);
+  v5 = &v17[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   String.init(cString:)();
   type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   static String.Encoding.utf8.getter();
-  v4 = String.data(using:allowLossyConversion:)();
-  v6 = v5;
-  result = (*(v1 + 8))(v3, v0);
-  if (v6 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  result = (*(v2 + 8))(v5, v1);
+  if (v8 >> 60 == 15)
   {
     __break(1u);
   }
@@ -3649,30 +3811,30 @@ uint64_t TGITokenGeneratorCreate(_:)()
 
     lazy protocol witness table accessor for type TokenGenerationConfiguration and conformance TokenGenerationConfiguration();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    outlined consume of Data?(v4, v6);
+    outlined consume of Data?(v6, v8);
     type metadata accessor for TGICAPIWrapper();
-    v8 = swift_allocObject();
-    v9 = v24;
-    *(v8 + 144) = v23;
-    *(v8 + 160) = v9;
-    *(v8 + 176) = v25;
-    *(v8 + 192) = v26;
-    v10 = v20;
-    *(v8 + 80) = v19;
-    *(v8 + 96) = v10;
-    v11 = v22;
-    *(v8 + 112) = v21;
-    *(v8 + 128) = v11;
-    v12 = v16;
-    *(v8 + 16) = *&v15[24];
-    *(v8 + 32) = v12;
-    v13 = v18;
-    *(v8 + 48) = v17;
-    *(v8 + 64) = v13;
-    v14 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_Si10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+    v10 = swift_allocObject();
+    v11 = v26;
+    *(v10 + 144) = v25;
+    *(v10 + 160) = v11;
+    *(v10 + 176) = v27;
+    *(v10 + 192) = v28;
+    v12 = v22;
+    *(v10 + 80) = v21;
+    *(v10 + 96) = v12;
+    v13 = v24;
+    *(v10 + 112) = v23;
+    *(v10 + 128) = v13;
+    v14 = v18;
+    *(v10 + 16) = *&v17[24];
+    *(v10 + 32) = v14;
+    v15 = v20;
+    *(v10 + 48) = v19;
+    *(v10 + 64) = v15;
+    v16 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_Si10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttTt0g5Tf4g_n(MEMORY[0x277D84F90]);
 
-    result = v8;
-    *(v8 + 200) = v14;
+    result = v10;
+    *(v10 + 200) = v16;
   }
 
   return result;
@@ -3690,23 +3852,23 @@ unint64_t lazy protocol witness table accessor for type TokenGenerationConfigura
   return result;
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -3716,7 +3878,7 @@ uint64_t TGICAPILanguageModel.singleNextTokenLogits(node:presampler:isPrompt:)(u
   v3[6] = a2;
   v3[7] = v2;
   v3[5] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13LogitIndexSetOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13LogitIndexSetOSgMd, &_s24TokenGenerationInference13LogitIndexSetOSgMR);
   v3[8] = swift_task_alloc();
   v3[9] = swift_task_alloc();
 
@@ -3776,7 +3938,7 @@ LABEL_29:
         v31 = v0[8];
         *v31 = 0;
         v31[1] = v25;
-        v32 = type metadata accessor for LogitIndexSet();
+        v32 = type metadata accessor for LogitIndexSet(0);
         swift_storeEnumTagMultiPayload();
         (*(*(v32 - 8) + 56))(v31, 0, 1, v32);
         v33 = *(v27 + 16);
@@ -3810,7 +3972,7 @@ LABEL_29:
 
         v40 = v0[8];
         v41 = v0[5];
-        v41[3] = type metadata accessor for WeightedDenseLogitCollection();
+        v41[3] = type metadata accessor for WeightedDenseLogitCollection(0);
         v41[4] = &protocol witness table for WeightedDenseLogitCollection;
         boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v41);
         WeightedDenseLogitCollection.init(indexSet:logits:)(v40, v34, boxed_opaque_existential_1);
@@ -3835,7 +3997,7 @@ LABEL_30:
   v9 = *(v7 + 16);
   *v8 = 0;
   v8[1] = v9;
-  v10 = type metadata accessor for LogitIndexSet();
+  v10 = type metadata accessor for LogitIndexSet(0);
   swift_storeEnumTagMultiPayload();
   (*(*(v10 - 8) + 56))(v8, 0, 1, v10);
   v11 = MEMORY[0x277D84F90];
@@ -3870,7 +4032,7 @@ LABEL_30:
 
   v21 = v0[9];
   v22 = v0[5];
-  v22[3] = type metadata accessor for WeightedDenseLogitCollection();
+  v22[3] = type metadata accessor for WeightedDenseLogitCollection(0);
   v22[4] = &protocol witness table for WeightedDenseLogitCollection;
   v23 = __swift_allocate_boxed_opaque_existential_1(v22);
   WeightedDenseLogitCollection.init(indexSet:logits:)(v21, v11, v23);
@@ -3929,46 +4091,46 @@ uint64_t TGITokenGeneratorRegisterExternalLanguageModel(_:_:_:_:_:)(uint64_t a1,
 
 uint64_t TGITokenGeneratorGenerate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  MEMORY[0x28223BE20](v7 - 8);
-  v9 = &v17 - v8;
-  v10 = String.init(cString:)();
-  v12 = v11;
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(*(v13 - 8) + 56);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v18 - v9;
+  v11 = String.init(cString:)();
+  v13 = v12;
+  v14 = type metadata accessor for TaskPriority();
+  v15 = *(*(v14 - 8) + 56);
 
-  v14(v9, 1, 1, v13);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = a1;
-  v15[5] = v10;
-  v15[6] = v12;
-  v15[7] = a3;
-  v15[8] = a4;
-  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v9, &async function pointer to partial apply for closure #1 in TGITokenGeneratorGenerate(_:_:_:_:), v15);
+  v15(v10, 1, 1, v14);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = a1;
+  v16[5] = v11;
+  v16[6] = v13;
+  v16[7] = a3;
+  v16[8] = a4;
+  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v10, &async function pointer to partial apply for closure #1 in TGITokenGeneratorGenerate(_:_:_:_:), v16);
 }
 
 uint64_t TGITokenGeneratorGenerate(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  MEMORY[0x28223BE20](v7 - 8);
-  v9 = &v17 - v8;
-  v10 = String.init(cString:)();
-  v12 = v11;
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(*(v13 - 8) + 56);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v18 - v9;
+  v11 = String.init(cString:)();
+  v13 = v12;
+  v14 = type metadata accessor for TaskPriority();
+  v15 = *(*(v14 - 8) + 56);
 
-  v14(v9, 1, 1, v13);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = a1;
-  v15[5] = v10;
-  v15[6] = v12;
-  v15[7] = a3;
-  v15[8] = a4;
-  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v9, &closure #1 in TGITokenGeneratorGenerate(_:_:_:_:)partial apply, v15);
+  v15(v10, 1, 1, v14);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = a1;
+  v16[5] = v11;
+  v16[6] = v13;
+  v16[7] = a3;
+  v16[8] = a4;
+  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v10, &closure #1 in TGITokenGeneratorGenerate(_:_:_:_:)partial apply, v16);
 }
 
 uint64_t closure #1 in TGITokenGeneratorGenerate(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4027,7 +4189,7 @@ uint64_t closure #1 in TGITokenGeneratorGenerate(_:_:_:_:)()
   swift_allocObject();
   outlined init with copy of TokenGenerationConfiguration(v0 + 16, v0 + 200);
 
-  *(v0 + 440) = TokenGenerationSession.init(_:externalLanguageMaker:)(v24, partial apply for closure #1 in TGICAPIWrapper.makeSession());
+  *(v0 + 440) = TokenGenerationSession.init(_:externalLanguageMaker:)(v24, partial apply for closure #1 in TGICAPIWrapper.makeSession(), v1);
   TokenGenerationSession.addPrompt(_:)(*(v0 + 408));
   if (v16)
   {
@@ -4231,81 +4393,81 @@ uint64_t closure #1 in TGITokenGeneratorGenerate(_:_:_:_:)(uint64_t a1)
 
 uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  MEMORY[0x28223BE20](v8 - 8);
-  v10 = v22 - v9;
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(a3, v22 - v9, &_sScPSgMd);
-  v11 = type metadata accessor for TaskPriority();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v10, 1, v11);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v8 - 8, v9);
+  v11 = v23 - v10;
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(a3, v23 - v10, &_sScPSgMd, &_sScPSgMR);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v11, 1, v12);
 
-  if (v13 == 1)
+  if (v14 == 1)
   {
-    outlined destroy of [Int](v10, &_sScPSgMd);
+    outlined destroy of [Int](v11, &_sScPSgMd, &_sScPSgMR);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v12 + 8))(v10, v11);
+    (*(v13 + 8))(v11, v12);
   }
 
-  v14 = *(a5 + 16);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v14)
+  if (v15)
   {
     swift_getObjectType();
-    v15 = dispatch thunk of Actor.unownedExecutor.getter();
-    v17 = v16;
+    v16 = dispatch thunk of Actor.unownedExecutor.getter();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v18 = String.utf8CString.getter() + 32;
+      v19 = String.utf8CString.getter() + 32;
 
-      if (v17 | v15)
+      if (v18 | v16)
       {
-        v23[0] = 0;
-        v23[1] = 0;
-        v19 = v23;
-        v23[2] = v15;
-        v23[3] = v17;
+        v24[0] = 0;
+        v24[1] = 0;
+        v20 = v24;
+        v24[2] = v16;
+        v24[3] = v18;
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0;
       }
 
-      v22[1] = 7;
-      v22[2] = v19;
-      v22[3] = v18;
-      v20 = swift_task_create();
+      v23[1] = 7;
+      v23[2] = v20;
+      v23[3] = v19;
+      v21 = swift_task_create();
 
-      outlined destroy of [Int](a3, &_sScPSgMd);
+      outlined destroy of [Int](a3, &_sScPSgMd, &_sScPSgMR);
 
-      return v20;
+      return v21;
     }
   }
 
   else
   {
-    v15 = 0;
-    v17 = 0;
+    v16 = 0;
+    v18 = 0;
     if (a2)
     {
       goto LABEL_6;
     }
   }
 
-  outlined destroy of [Int](a3, &_sScPSgMd);
-  if (v17 | v15)
+  outlined destroy of [Int](a3, &_sScPSgMd, &_sScPSgMR);
+  if (v18 | v16)
   {
-    v23[4] = 0;
-    v23[5] = 0;
-    v23[6] = v15;
-    v23[7] = v17;
+    v24[4] = 0;
+    v24[5] = 0;
+    v24[6] = v16;
+    v24[7] = v18;
   }
 
   return swift_task_create();
@@ -4313,26 +4475,26 @@ LABEL_6:
 
 uint64_t TGICAPILanguageModelWrapper.__deallocating_deinit()
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
 
   return swift_deallocClassInstance();
 }
 
-uint64_t TGILanguageModelCreate(_:)()
+uint64_t TGILanguageModelCreate(_:)(uint64_t a1)
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = type metadata accessor for String.Encoding();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1, v3);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   String.init(cString:)();
   type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   static String.Encoding.utf8.getter();
-  v4 = String.data(using:allowLossyConversion:)();
-  v6 = v5;
-  result = (*(v1 + 8))(v3, v0);
-  if (v6 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  result = (*(v2 + 8))(v5, v1);
+  if (v8 >> 60 == 15)
   {
     __break(1u);
   }
@@ -4342,17 +4504,17 @@ uint64_t TGILanguageModelCreate(_:)()
 
     lazy protocol witness table accessor for type LanguageModelReference and conformance LanguageModelReference();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    outlined consume of Data?(v4, v6);
-    v8 = v13;
-    v9 = v14;
+    outlined consume of Data?(v6, v8);
     v10 = v15;
+    v11 = v16;
+    v12 = v17;
     type metadata accessor for TGICAPILanguageModelWrapper();
-    v11 = swift_allocObject();
-    LanguageModelReference.makeLanguageModel(externalLanguageMaker:)(0, v8, *(&v8 + 1), v9, v10, &v13);
+    v13 = swift_allocObject();
+    LanguageModelReference.makeLanguageModel(externalLanguageMaker:)(0, v10, *(&v10 + 1), v11, v12, &v15);
 
-    outlined consume of LanguageModelReference(v8, *(&v8 + 1), v9, v10);
-    outlined init with take of RandomNumberGenerator(&v13, v11 + 16);
-    return v11;
+    outlined consume of LanguageModelReference(v10, *(&v10 + 1), v11, v12);
+    outlined init with take of RandomNumberGenerator(&v15, v13 + 16);
+    return v13;
   }
 
   return result;
@@ -4395,7 +4557,7 @@ uint64_t closure #1 in TGILanguageModelComputeLogits(_:_:_:_:_:)()
   v2 = *v1;
   *(v2 + 176) = v0;
 
-  outlined destroy of [Int](v2 + 96, &_s24TokenGenerationInference15LogitPresampler_pSgMd);
+  outlined destroy of [Int](v2 + 96, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
   if (v0)
   {
     v3 = closure #1 in TGILanguageModelComputeLogits(_:_:_:_:_:);
@@ -4418,8 +4580,8 @@ uint64_t closure #1 in TGILanguageModelComputeLogits(_:_:_:_:_:)()
   v5 = (*(v4 + 72))(v3, v4);
   v2(v1, v5 + 32, *(v5 + 16));
 
-  __swift_destroy_boxed_opaque_existential_1((v0 + 7));
-  __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_1(v0 + 7);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   v6 = v0[1];
 
   return v6();
@@ -4427,7 +4589,7 @@ uint64_t closure #1 in TGILanguageModelComputeLogits(_:_:_:_:_:)()
 
 {
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   v1 = *(v0 + 8);
 
   return v1();
@@ -4435,76 +4597,76 @@ uint64_t closure #1 in TGILanguageModelComputeLogits(_:_:_:_:_:)()
 
 void *TGICAPIGuidedGenerationConstraintsWrapper.init(_:)(__int128 *a1)
 {
-  v41 = *v1;
-  v42 = v1;
+  v46 = *v1;
+  v47 = v1;
   v4 = type metadata accessor for GuidedGenerationConstraints();
-  v38 = *(v4 - 8);
-  v39 = v4;
-  MEMORY[0x28223BE20](v4);
-  v37 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for GuidedGenerationVocabularyManager();
-  v36 = *(v6 - 8);
-  v7 = MEMORY[0x28223BE20](v6);
-  v9 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v29 - v10;
-  v12 = type metadata accessor for Grammar();
-  v40 = *(v12 - 8);
-  v13 = MEMORY[0x28223BE20](v12);
-  v15 = &v29 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v29 - v16;
+  v43 = *(v4 - 8);
+  v44 = v4;
+  MEMORY[0x28223BE20](v4, v5);
+  v42 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for GuidedGenerationVocabularyManager();
+  v41 = *(v7 - 8);
+  v9 = MEMORY[0x28223BE20](v7, v8);
+  v11 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9, v12);
+  v14 = &v34 - v13;
+  v15 = type metadata accessor for Grammar();
+  v45 = *(v15 - 8);
+  v17 = MEMORY[0x28223BE20](v15, v16);
+  v19 = &v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17, v20);
+  v22 = &v34 - v21;
 
   Grammar.init(backusNaurForm:prependSpaceToRootRule:)();
   if (v2)
   {
-    v46 = *a1;
-    outlined destroy of String(&v46);
+    v51 = *a1;
+    outlined destroy of String(&v51);
 
-    v47 = *(a1 + 4);
-    outlined destroy of [Int](&v47, &_sSaySiGMd);
-    v20 = v42;
+    v52 = *(a1 + 4);
+    outlined destroy of [Int](&v52, &_sSaySiGMd, &_sSaySiGMR);
+    v25 = v47;
     swift_deallocPartialClassInstance();
   }
 
   else
   {
-    v30 = v15;
-    v31 = v9;
-    v32 = v6;
-    v33 = v11;
-    v34 = v12;
-    v35 = v17;
-    v18 = type metadata accessor for TokenizerRunner();
+    v35 = v19;
+    v36 = v11;
+    v37 = v7;
+    v38 = v14;
+    v39 = v15;
+    v40 = v22;
+    v23 = type metadata accessor for TokenizerRunner();
     swift_allocObject();
 
-    v19 = TokenizerRunner.init(tokenizerPath:)();
-    v44 = v18;
-    v45 = MEMORY[0x277D71E60];
-    v43 = v19;
-    v29 = v19;
+    v24 = TokenizerRunner.init(tokenizerPath:)();
+    v49 = v23;
+    v50 = MEMORY[0x277D71E60];
+    v48 = v24;
+    v34 = v24;
 
-    v22 = v35;
+    v27 = v40;
     Grammar.characterSetsUsedInGrammar.getter();
-    v23 = v33;
+    v28 = v38;
     GuidedGenerationVocabularyManager.init(tokenizer:stopTokenIDs:characterSetsUsedInGrammar:)();
 
-    v24 = v40;
-    v25 = v34;
-    (*(v40 + 16))(v30, v22, v34);
-    v26 = v36;
-    v27 = v32;
-    (*(v36 + 16))(v31, v23, v32);
-    v28 = v37;
+    v29 = v45;
+    v30 = v39;
+    (*(v45 + 16))(v35, v27, v39);
+    v31 = v41;
+    v32 = v37;
+    (*(v41 + 16))(v36, v28, v37);
+    v33 = v42;
     GuidedGenerationConstraints.init(grammar:vocabularyManager:)();
 
-    (*(v26 + 8))(v23, v27);
-    (*(v24 + 8))(v35, v25);
-    v20 = v42;
-    (*(v38 + 32))(v42 + OBJC_IVAR____TtC24TokenGenerationInference41TGICAPIGuidedGenerationConstraintsWrapper_constraints, v28, v39);
+    (*(v31 + 8))(v28, v32);
+    (*(v29 + 8))(v40, v30);
+    v25 = v47;
+    (*(v43 + 32))(v47 + OBJC_IVAR____TtC24TokenGenerationInference41TGICAPIGuidedGenerationConstraintsWrapper_constraints, v33, v44);
   }
 
-  return v20;
+  return v25;
 }
 
 uint64_t TGICAPIGuidedGenerationConstraintsWrapper.__deallocating_deinit()
@@ -4516,21 +4678,21 @@ uint64_t TGICAPIGuidedGenerationConstraintsWrapper.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t TGIGuidedGenerationConstraintsCreate(_:)()
+uint64_t TGIGuidedGenerationConstraintsCreate(_:)(uint64_t a1)
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v9[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v1 = type metadata accessor for String.Encoding();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1, v3);
+  v5 = &v11[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   String.init(cString:)();
   type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   static String.Encoding.utf8.getter();
-  v4 = String.data(using:allowLossyConversion:)();
-  v6 = v5;
-  result = (*(v1 + 8))(v3, v0);
-  if (v6 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  result = (*(v2 + 8))(v5, v1);
+  if (v8 >> 60 == 15)
   {
     __break(1u);
   }
@@ -4540,15 +4702,15 @@ uint64_t TGIGuidedGenerationConstraintsCreate(_:)()
 
     lazy protocol witness table accessor for type GuidedGenerationConfiguration and conformance GuidedGenerationConfiguration();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    outlined consume of Data?(v4, v6);
-    v12[0] = *&v9[24];
-    v12[1] = v10;
-    v13 = v11;
-    type metadata accessor for TGICAPIGuidedGenerationConstraintsWrapper();
-    v8 = swift_allocObject();
-    TGICAPIGuidedGenerationConstraintsWrapper.init(_:)(v12);
+    outlined consume of Data?(v6, v8);
+    v14[0] = *&v11[24];
+    v14[1] = v12;
+    v15 = v13;
+    type metadata accessor for TGICAPIGuidedGenerationConstraintsWrapper(0);
+    v10 = swift_allocObject();
+    TGICAPIGuidedGenerationConstraintsWrapper.init(_:)(v14);
 
-    return v8;
+    return v10;
   }
 
   return result;
@@ -4556,18 +4718,18 @@ uint64_t TGIGuidedGenerationConstraintsCreate(_:)()
 
 uint64_t TGILanguageModelComputeLogits(_:_:_:_:_:)(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v29 = a6;
-  v30 = a4;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  MEMORY[0x28223BE20](v12 - 8);
-  v14 = &v26 - v13;
-  v15 = MEMORY[0x277D84F90];
+  v30 = a6;
+  v31 = a4;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v12 - 8, v13);
+  v15 = &v27 - v14;
+  v16 = MEMORY[0x277D84F90];
   if (a3)
   {
-    v16 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5Int32V_Tt1g5(a3, 0);
-    memcpy(v16 + 4, a2, 4 * a3);
-    v17 = v16[2];
-    if (v17)
+    v17 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5Int32V_Tt1g5(a3, 0);
+    memcpy(v17 + 4, a2, 4 * a3);
+    v18 = v17[2];
+    if (v18)
     {
       goto LABEL_3;
     }
@@ -4577,56 +4739,56 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v16 = MEMORY[0x277D84F90];
-  v17 = *(MEMORY[0x277D84F90] + 16);
-  if (!v17)
+  v17 = MEMORY[0x277D84F90];
+  v18 = *(MEMORY[0x277D84F90] + 16);
+  if (!v18)
   {
     goto LABEL_9;
   }
 
 LABEL_3:
-  v27 = a5;
-  v28 = a7;
-  v31 = v15;
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17, 0);
-  v15 = v31;
-  v18 = *(v31 + 16);
-  v19 = 32;
+  v28 = a5;
+  v29 = a7;
+  v32 = v16;
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18, 0);
+  v16 = v32;
+  v19 = *(v32 + 16);
+  v20 = 32;
   do
   {
-    v20 = *(v16 + v19);
-    v31 = v15;
-    v21 = *(v15 + 24);
-    if (v18 >= v21 >> 1)
+    v21 = *(v17 + v20);
+    v32 = v16;
+    v22 = *(v16 + 24);
+    if (v19 >= v22 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v18 + 1, 1);
-      v15 = v31;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v19 + 1, 1);
+      v16 = v32;
     }
 
-    *(v15 + 16) = v18 + 1;
-    *(v15 + 8 * v18 + 32) = v20;
-    v19 += 4;
-    ++v18;
-    --v17;
+    *(v16 + 16) = v19 + 1;
+    *(v16 + 8 * v19 + 32) = v21;
+    v20 += 4;
+    ++v19;
+    --v18;
   }
 
-  while (v17);
+  while (v18);
 
-  a5 = v27;
-  a7 = v28;
+  a5 = v28;
+  a7 = v29;
 LABEL_10:
-  v22 = type metadata accessor for TaskPriority();
-  v23 = *(*(v22 - 8) + 56);
+  v23 = type metadata accessor for TaskPriority();
+  v24 = *(*(v23 - 8) + 56);
 
-  v23(v14, 1, 1, v22);
-  v24 = swift_allocObject();
-  v24[2] = 0;
-  v24[3] = 0;
-  v24[4] = a1;
-  v24[5] = v15;
-  v24[6] = v30;
-  v24[7] = a5;
-  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v14, a7, v24);
+  v24(v15, 1, 1, v23);
+  v25 = swift_allocObject();
+  v25[2] = 0;
+  v25[3] = 0;
+  v25[4] = a1;
+  v25[5] = v16;
+  v25[6] = v31;
+  v25[7] = a5;
+  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v15, a7, v25);
 }
 
 uint64_t closure #1 in TGIGuidedGenerationConstraintsNextMask(_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -4836,7 +4998,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7Float16VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7Float16VGMd, &_ss23_ContiguousArrayStorageCys7Float16VGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   v4[2] = a1;
@@ -4861,7 +5023,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference0D6RecordVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference0D6RecordVGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference0D6RecordVGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   v6 = v5 - 32;
@@ -4892,7 +5054,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd, &_ss23_ContiguousArrayStorageCys5Int32VGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   v6 = v5 - 32;
@@ -4906,29 +5068,29 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return v4;
 }
 
-void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSb_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3)
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSb_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   if (a2 <= a1)
   {
-    v3 = a1;
+    v4 = a1;
   }
 
   else
   {
-    v3 = a2;
+    v4 = a2;
   }
 
-  if (!v3)
+  if (!v4)
   {
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  v5 = swift_allocObject();
-  v6 = _swift_stdlib_malloc_size(v5);
-  v5[2] = a1;
-  v5[3] = 2 * v6 - 64;
-  return v5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  v6 = swift_allocObject();
+  v7 = _swift_stdlib_malloc_size(v6);
+  v6[2] = a1;
+  v6[3] = 2 * v7 - 64;
+  return v6;
 }
 
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS_Tt1g5(uint64_t a1, uint64_t a2)
@@ -4948,7 +5110,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   v6 = v5 - 32;
@@ -4962,11 +5124,11 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return v4;
 }
 
-uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+void specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   v7 = v6;
   v14 = *v6;
-  result = specialized __RawDictionaryStorage.find<A>(_:)(a4, a5);
+  v15 = specialized __RawDictionaryStorage.find<A>(_:)(a4, a5);
   v17 = v14[2];
   v18 = (v16 & 1) == 0;
   v19 = __OFADD__(v17, v18);
@@ -4983,20 +5145,20 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
   {
     if (v22 >= v20 && (a6 & 1) == 0)
     {
-      v23 = result;
+      v23 = v15;
       specialized _NativeDictionary.copy()();
-      result = v23;
+      v15 = v23;
       goto LABEL_8;
     }
 
     specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v20, a6 & 1);
-    result = specialized __RawDictionaryStorage.find<A>(_:)(a4, a5);
+    v15 = specialized __RawDictionaryStorage.find<A>(_:)(a4, a5);
     if ((v21 & 1) != (v24 & 1))
     {
 LABEL_14:
-      result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
-      return result;
+      return;
     }
   }
 
@@ -5004,7 +5166,7 @@ LABEL_8:
   v25 = *v7;
   if (v21)
   {
-    v26 = (v25[7] + 24 * result);
+    v26 = (v25[7] + 24 * v15);
     *v26 = a1;
     v26[1] = a2;
     v26[2] = a3;
@@ -5012,13 +5174,28 @@ LABEL_8:
 
   else
   {
-    specialized _NativeDictionary._insert(at:key:value:)(result, a4, a5, a1, a2, a3, v25);
+    specialized _NativeDictionary._insert(at:key:value:)(v15, a4, a5, a1, a2, a3, v25);
   }
-
-  return result;
 }
 
-uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  return specialized _NativeDictionary.setValue(_:forKey:isUnique:)(a1, a2, a3, specialized _NativeDictionary.copy(), specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:), MEMORY[0x277D0DF40], specialized _NativeDictionary._insert(at:key:value:));
+}
+
+{
+  return specialized _NativeDictionary.setValue(_:forKey:isUnique:)(a1, a2, a3, specialized _NativeDictionary.copy(), specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:), MEMORY[0x277D0DF20], specialized _NativeDictionary._insert(at:key:value:));
+}
+
+{
+  return specialized _NativeDictionary.setValue(_:forKey:isUnique:)(a1, a2, a3, specialized _NativeDictionary.copy(), specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:), MEMORY[0x277D0DF48], specialized _NativeDictionary._insert(at:key:value:));
+}
+
+{
+  return specialized _NativeDictionary.setValue(_:forKey:isUnique:)(a1, a2, a3, specialized _NativeDictionary.copy(), specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:), MEMORY[0x277D0DF30], specialized _NativeDictionary._insert(at:key:value:));
+}
+
+void specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
   v5 = v4;
   v10 = *v4;
@@ -5043,7 +5220,8 @@ LABEL_7:
 LABEL_8:
       v19 = v18[7];
       v20 = type metadata accessor for AppAssetGarbageCollector.Manifest.Entry(0);
-      return outlined assign with take of AppAssetGarbageCollector.Manifest.Entry(a1, v19 + *(*(v20 - 8) + 72) * v12, type metadata accessor for AppAssetGarbageCollector.Manifest.Entry);
+      outlined assign with take of AppAssetGarbageCollector.Manifest.Entry(a1, v19 + *(*(v20 - 8) + 72) * v12, type metadata accessor for AppAssetGarbageCollector.Manifest.Entry);
+      return;
     }
 
     goto LABEL_11;
@@ -5056,16 +5234,16 @@ LABEL_8:
   }
 
   specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, a4 & 1);
-  v22 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-  if ((v16 & 1) != (v23 & 1))
+  v21 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
+  if ((v16 & 1) != (v22 & 1))
   {
 LABEL_15:
-    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+    KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
     __break(1u);
-    return result;
+    return;
   }
 
-  v12 = v22;
+  v12 = v21;
   v18 = *v5;
   if (v16)
   {
@@ -5079,7 +5257,7 @@ LABEL_11:
 {
   v5 = v4;
   v10 = *v4;
-  result = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
+  v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
   v13 = v10[2];
   v14 = (v12 & 1) == 0;
   v15 = __OFADD__(v13, v14);
@@ -5096,20 +5274,20 @@ LABEL_11:
   {
     if (v18 >= v16 && (a4 & 1) == 0)
     {
-      v19 = result;
+      v19 = v11;
       specialized _NativeDictionary.copy()();
-      result = v19;
+      v11 = v19;
       goto LABEL_8;
     }
 
     specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, a4 & 1);
-    result = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
+    v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
     if ((v17 & 1) != (v20 & 1))
     {
 LABEL_14:
-      result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
-      return result;
+      return;
     }
   }
 
@@ -5117,15 +5295,13 @@ LABEL_8:
   v21 = *v5;
   if (v17)
   {
-    *(v21[7] + 8 * result) = a1;
+    *(v21[7] + 8 * v11) = a1;
   }
 
   else
   {
-    specialized _NativeDictionary._insert(at:key:value:)(result, a2, a3, a1, v21);
+    specialized _NativeDictionary._insert(at:key:value:)(v11, a2, a3, a1, v21);
   }
-
-  return result;
 }
 
 {
@@ -5159,9 +5335,9 @@ LABEL_8:
     if ((v17 & 1) != (v20 & 1))
     {
 LABEL_16:
-      result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
-      return result;
+      return;
     }
   }
 
@@ -5202,10 +5378,10 @@ LABEL_8:
     }
 
     specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, a4 & 1);
-    v26 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-    if ((v16 & 1) == (v27 & 1))
+    v25 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
+    if ((v16 & 1) == (v26 & 1))
     {
-      v12 = v26;
+      v12 = v25;
       v18 = *v5;
       if (v16)
       {
@@ -5216,9 +5392,9 @@ LABEL_8:
     }
 
 LABEL_17:
-    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+    KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
     __break(1u);
-    return result;
+    return;
   }
 
 LABEL_7:
@@ -5233,7 +5409,8 @@ LABEL_8:
     v23 = v20;
     v24 = v19 + *(v21 + 72) * v12;
 
-    return v22(v24, a1, v23);
+    v22(v24, a1, v23);
+    return;
   }
 
 LABEL_13:
@@ -5264,10 +5441,10 @@ LABEL_13:
     }
 
     specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, a4 & 1);
-    v26 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-    if ((v16 & 1) == (v27 & 1))
+    v25 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
+    if ((v16 & 1) == (v26 & 1))
     {
-      v12 = v26;
+      v12 = v25;
       v18 = *v5;
       if (v16)
       {
@@ -5278,9 +5455,9 @@ LABEL_13:
     }
 
 LABEL_17:
-    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+    KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
     __break(1u);
-    return result;
+    return;
   }
 
 LABEL_7:
@@ -5289,13 +5466,14 @@ LABEL_7:
   {
 LABEL_8:
     v19 = v18[7];
-    v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+    v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
     v21 = *(v20 - 8);
     v22 = *(v21 + 40);
     v23 = v20;
     v24 = v19 + *(v21 + 72) * v12;
 
-    return v22(v24, a1, v23);
+    v22(v24, a1, v23);
+    return;
   }
 
 LABEL_13:
@@ -5333,9 +5511,9 @@ LABEL_13:
     if ((v17 & 1) != (v20 & 1))
     {
 LABEL_16:
-      result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
-      return result;
+      return;
     }
   }
 
@@ -5352,52 +5530,52 @@ LABEL_8:
   }
 }
 
-uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, void (*a4)(void), void (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(unint64_t, char *, uint64_t, uint64_t))
+uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, void (*a4)(void), void (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(uint64_t, char *, uint64_t, uint64_t))
 {
-  v36 = a6;
-  v37 = a7;
-  v34 = a4;
-  v35 = a5;
+  v37 = a6;
+  v38 = a7;
+  v35 = a4;
+  v36 = a5;
   v8 = v7;
   v12 = type metadata accessor for UUID();
   v13 = *(v12 - 8);
-  MEMORY[0x28223BE20](v12);
-  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = *v7;
-  v18 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-  v19 = *(v16 + 16);
-  v20 = (v17 & 1) == 0;
-  v21 = v19 + v20;
-  if (__OFADD__(v19, v20))
+  MEMORY[0x28223BE20](v12, v14);
+  v16 = &v35 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = *v7;
+  v19 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
+  v20 = *(v17 + 16);
+  v21 = (v18 & 1) == 0;
+  v22 = v20 + v21;
+  if (__OFADD__(v20, v21))
   {
     __break(1u);
     goto LABEL_15;
   }
 
-  v22 = v17;
-  v23 = *(v16 + 24);
-  if (v23 < v21 || (a3 & 1) == 0)
+  v23 = v18;
+  v24 = *(v17 + 24);
+  if (v24 < v22 || (a3 & 1) == 0)
   {
-    if (v23 >= v21 && (a3 & 1) == 0)
+    if (v24 >= v22 && (a3 & 1) == 0)
     {
-      v34();
+      v35();
       goto LABEL_7;
     }
 
-    v35();
-    v32 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-    if ((v22 & 1) == (v33 & 1))
+    v36();
+    v33 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
+    if ((v23 & 1) == (v34 & 1))
     {
-      v18 = v32;
-      v24 = *v8;
-      if (v22)
+      v19 = v33;
+      v25 = *v8;
+      if (v23)
       {
         goto LABEL_8;
       }
 
 LABEL_13:
-      (*(v13 + 16))(v15, a2, v12);
-      return v37(v18, v15, a1, v24);
+      (*(v13 + 16))(v16, a2, v12);
+      return v38(v19, v16, a1, v25);
     }
 
 LABEL_15:
@@ -5407,24 +5585,24 @@ LABEL_15:
   }
 
 LABEL_7:
-  v24 = *v8;
-  if ((v22 & 1) == 0)
+  v25 = *v8;
+  if ((v23 & 1) == 0)
   {
     goto LABEL_13;
   }
 
 LABEL_8:
-  v25 = *(v24 + 56);
-  v26 = v36(0);
-  v27 = *(v26 - 8);
-  v28 = *(v27 + 40);
-  v29 = v26;
-  v30 = v25 + *(v27 + 72) * v18;
+  v26 = *(v25 + 56);
+  v27 = v37(0);
+  v28 = *(v27 - 8);
+  v29 = *(v28 + 40);
+  v30 = v27;
+  v31 = v26 + *(v28 + 72) * v19;
 
-  return v28(v30, a1, v29);
+  return v29(v31, a1, v30);
 }
 
-uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, char a6)
+void specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, char a6)
 {
   v7 = v6;
   v14 = *v6;
@@ -5456,9 +5634,9 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
     if ((v21 & 1) != (v24 & 1))
     {
 LABEL_16:
-      result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
-      return result;
+      return;
     }
   }
 
@@ -5474,7 +5652,7 @@ LABEL_8:
     *(v26 + 8) = a2;
     *(v26 + 16) = a3 & 1;
 
-    return outlined consume of MetadataSpecialToken(v27, v28, v29);
+    outlined consume of MetadataSpecialToken(v27, v28, v29);
   }
 
   else
@@ -5483,7 +5661,55 @@ LABEL_8:
   }
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -5564,7 +5790,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t specialized TGICAPILanguageModel.node(forPreviousNode:token:isPrompt:)(unint64_t a1, uint64_t a2)
+unint64_t specialized TGICAPILanguageModel.node(forPreviousNode:token:isPrompt:)(unint64_t a1, uint64_t a2)
 {
   v6 = v2;
   swift_beginAccess();
@@ -5599,7 +5825,7 @@ LABEL_14:
     }
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_220AE8A30;
   *(inited + 32) = a2;
@@ -5655,11 +5881,11 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_24TokenGenerationInference
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi24TokenGenerationInference15LogitCollection_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi24TokenGenerationInference15LogitCollection_pGMd, &_ss18_DictionaryStorageCySi24TokenGenerationInference15LogitCollection_pGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     for (i = a1 + 32; ; i += 48)
     {
-      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(i, &v11, &_sSi_24TokenGenerationInference15LogitCollection_ptMd);
+      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(i, &v11, &_sSi_24TokenGenerationInference15LogitCollection_ptMd, &_sSi_24TokenGenerationInference15LogitCollection_ptMR);
       v5 = v11;
       result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
       if (v7)
@@ -5703,7 +5929,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_Si10logitCount_Sbs13Opaque
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSi10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSi10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttGMd, &_ss18_DictionaryStorageCySSSi10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 56); ; i = (i + 40))
@@ -5802,7 +6028,7 @@ unint64_t lazy protocol witness table accessor for type LanguageModelReference a
   return result;
 }
 
-uint64_t outlined consume of LanguageModelReference(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t outlined consume of LanguageModelReference(uint64_t result, uint64_t a2, uint64_t a3, char a4)
 {
   if (a4 == 2 || a4 == 1)
   {
@@ -5812,7 +6038,7 @@ uint64_t outlined consume of LanguageModelReference(uint64_t a1, uint64_t a2, ui
   {
     if (a4)
     {
-      return result;
+      return v5;
     }
   }
 }
@@ -5845,7 +6071,7 @@ unint64_t lazy protocol witness table accessor for type GuidedGenerationConfigur
   return result;
 }
 
-uint64_t type metadata accessor for TGICAPIGuidedGenerationConstraintsWrapper()
+uint64_t type metadata accessor for TGICAPIGuidedGenerationConstraintsWrapper(uint64_t a1)
 {
   result = type metadata singleton initialization cache for TGICAPIGuidedGenerationConstraintsWrapper;
   if (!type metadata singleton initialization cache for TGICAPIGuidedGenerationConstraintsWrapper)
@@ -5879,10 +6105,10 @@ uint64_t partial apply for closure #1 in TGIGuidedGenerationConstraintsNextMask(
   return closure #1 in TGIGuidedGenerationConstraintsNextMask(_:_:_:_:_:)(a1, v4, v5, v6, v7, v9, v8);
 }
 
-uint64_t type metadata completion function for TGICAPIGuidedGenerationConstraintsWrapper()
+uint64_t type metadata completion function for TGICAPIGuidedGenerationConstraintsWrapper(uint64_t a1)
 {
   result = type metadata accessor for GuidedGenerationConstraints();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -5960,7 +6186,7 @@ void *_sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_24TokenGenerationInference25Pr
     return MEMORY[0x277D84F98];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi24TokenGenerationInference25PrefixGuidedLanguageModelV4NodeCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi24TokenGenerationInference25PrefixGuidedLanguageModelV4NodeCGMd, &_ss18_DictionaryStorageCySi24TokenGenerationInference25PrefixGuidedLanguageModelV4NodeCGMR);
   v3 = static _DictionaryStorage.allocate(capacity:)();
   v4 = a1[4];
   v5 = a1[5];
@@ -6018,7 +6244,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_4ODIE7NDArrayCTt0g5Tf4g_n(
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS4ODIE7NDArrayCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS4ODIE7NDArrayCGMd, &_ss18_DictionaryStorageCySS4ODIE7NDArrayCGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 3)
@@ -6072,13 +6298,13 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo11CFStringRefa_ypTt0g5Tf4g_
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo11CFStringRefaypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo11CFStringRefaypGMd, &_ss18_DictionaryStorageCySo11CFStringRefaypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v4, &v11, &_sSo11CFStringRefa_yptMd);
+      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v4, &v11, &_sSo11CFStringRefa_yptMd, &_sSo11CFStringRefa_yptMR);
       v5 = v11;
       result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
       if (v7)
@@ -6121,52 +6347,52 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVtMd, &_sSS_24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVtMR);
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = (&v22 - v4);
-  v6 = *(a1 + 16);
-  if (v6)
+  MEMORY[0x28223BE20](v2, v4);
+  v6 = (&v23 - v5);
+  v7 = *(a1 + 16);
+  if (v7)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVGMd);
-    v7 = static _DictionaryStorage.allocate(capacity:)();
-    v8 = *(v2 + 48);
-    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v10 = *(v3 + 72);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVGMd, &_ss18_DictionaryStorageCySS24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVGMR);
+    v8 = static _DictionaryStorage.allocate(capacity:)();
+    v9 = *(v2 + 48);
+    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v11 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v9, v5, &_sSS_24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVtMd);
-      v11 = *v5;
-      v12 = v5[1];
-      result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v12);
-      if (v14)
+      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v10, v6, &_sSS_24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVtMd, &_sSS_24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVtMR);
+      v12 = *v6;
+      v13 = v6[1];
+      result = specialized __RawDictionaryStorage.find<A>(_:)(*v6, v13);
+      if (v15)
       {
         break;
       }
 
-      v15 = result;
-      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v16 = (v7[6] + 16 * result);
-      *v16 = v11;
-      v16[1] = v12;
-      v17 = v7[7];
-      v18 = type metadata accessor for AppAssetGarbageCollector.Manifest.Entry(0);
-      result = outlined init with take of AppAssetGarbageCollector.Manifest.Entry(v5 + v8, v17 + *(*(v18 - 8) + 72) * v15);
-      v19 = v7[2];
-      v20 = __OFADD__(v19, 1);
-      v21 = v19 + 1;
-      if (v20)
+      v16 = result;
+      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v17 = (v8[6] + 16 * result);
+      *v17 = v12;
+      v17[1] = v13;
+      v18 = v8[7];
+      v19 = type metadata accessor for AppAssetGarbageCollector.Manifest.Entry(0);
+      result = outlined init with take of AppAssetGarbageCollector.Manifest.Entry(v6 + v9, v18 + *(*(v19 - 8) + 72) * v16);
+      v20 = v8[2];
+      v21 = __OFADD__(v20, 1);
+      v22 = v20 + 1;
+      if (v21)
       {
         goto LABEL_10;
       }
 
-      v7[2] = v21;
-      v9 += v10;
-      if (!--v6)
+      v8[2] = v22;
+      v10 += v11;
+      if (!--v7)
       {
 
-        return v7;
+        return v8;
       }
     }
 
@@ -6195,7 +6421,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_24TokenGenerationInference
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference015MetadataSpecialC0OGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference015MetadataSpecialC0OGMd, &_ss18_DictionaryStorageCySS24TokenGenerationInference015MetadataSpecialC0OGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 64); ; i += 40)
@@ -6250,7 +6476,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t outlined copy of MetadataSpecialToken(uint64_t a1, uint64_t a2, char a3)
+double outlined copy of MetadataSpecialToken(uint64_t a1, uint64_t a2, char a3)
 {
   if (a3)
   {
@@ -6273,7 +6499,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SDySS24TokenGenerationInfe
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySS24TokenGenerationInference015MetadataSpecialC0OGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySS24TokenGenerationInference015MetadataSpecialC0OGGMd, &_ss18_DictionaryStorageCySSSDySS24TokenGenerationInference015MetadataSpecialC0OGGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 3)
@@ -6327,7 +6553,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_24TokenGenerationInference
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference10E5FunctionVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference10E5FunctionVGMd, &_ss18_DictionaryStorageCySS24TokenGenerationInference10E5FunctionVGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 8)
@@ -6404,7 +6630,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC24TokenGenerationInference13A
     return MEMORY[0x277D84F98];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy24TokenGenerationInference13AsyncLRUCacheC6KeyRef33_8DC87293709CC156815E18BD803FE0EELLCyAC19ImageEmbeddingCacheC0H033_CFAE1BBD2BB7BB3F3F8CA2528C3DB6E7LLVSay10Foundation4DataVG_GAC10LinkedListAGLLV4NodeCyAE0R4DataAGLLVyAmQ_G_GGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy24TokenGenerationInference13AsyncLRUCacheC6KeyRef33_8DC87293709CC156815E18BD803FE0EELLCyAC19ImageEmbeddingCacheC0H033_CFAE1BBD2BB7BB3F3F8CA2528C3DB6E7LLVSay10Foundation4DataVG_GAC10LinkedListAGLLV4NodeCyAE0R4DataAGLLVyAmQ_G_GGMd, &_ss18_DictionaryStorageCy24TokenGenerationInference13AsyncLRUCacheC6KeyRef33_8DC87293709CC156815E18BD803FE0EELLCyAC19ImageEmbeddingCacheC0H033_CFAE1BBD2BB7BB3F3F8CA2528C3DB6E7LLVSay10Foundation4DataVG_GAC10LinkedListAGLLV4NodeCyAE0R4DataAGLLVyAmQ_G_GGMR);
   v3 = static _DictionaryStorage.allocate(capacity:)();
   v13 = *(a1 + 32);
   result = specialized __RawDictionaryStorage.find<A>(_:)(*(a1 + 32));
@@ -6455,48 +6681,48 @@ LABEL_8:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15TokenGeneration6PromptV07SpecialC0V_ypTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_yptMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_yptMd, &_s15TokenGeneration6PromptV07SpecialA0V_yptMR);
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v19 - v4;
-  v6 = *(a1 + 16);
-  if (v6)
+  MEMORY[0x28223BE20](v2, v4);
+  v6 = &v20 - v5;
+  v7 = *(a1 + 16);
+  if (v7)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VypGMd);
-    v7 = static _DictionaryStorage.allocate(capacity:)();
-    v8 = *(v2 + 48);
-    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v10 = *(v3 + 72);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VypGMd, &_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VypGMR);
+    v8 = static _DictionaryStorage.allocate(capacity:)();
+    v9 = *(v2 + 48);
+    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v11 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v9, v5, &_s15TokenGeneration6PromptV07SpecialA0V_yptMd);
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
-      if (v12)
+      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v10, v6, &_s15TokenGeneration6PromptV07SpecialA0V_yptMd, &_s15TokenGeneration6PromptV07SpecialA0V_yptMR);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v6);
+      if (v13)
       {
         break;
       }
 
-      v13 = result;
-      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v14 = v7[6];
-      v15 = type metadata accessor for Prompt.SpecialToken();
-      (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v5, v15);
-      result = outlined init with take of Any(&v5[v8], (v7[7] + 32 * v13));
-      v16 = v7[2];
-      v17 = __OFADD__(v16, 1);
-      v18 = v16 + 1;
-      if (v17)
+      v14 = result;
+      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v15 = v8[6];
+      v16 = type metadata accessor for Prompt.SpecialToken();
+      (*(*(v16 - 8) + 32))(v15 + *(*(v16 - 8) + 72) * v14, v6, v16);
+      result = outlined init with take of Any(&v6[v9], (v8[7] + 32 * v14));
+      v17 = v8[2];
+      v18 = __OFADD__(v17, 1);
+      v19 = v17 + 1;
+      if (v18)
       {
         goto LABEL_10;
       }
 
-      v7[2] = v18;
-      v9 += v10;
-      if (!--v6)
+      v8[2] = v19;
+      v10 += v11;
+      if (!--v7)
       {
 
-        return v7;
+        return v8;
       }
     }
 
@@ -6515,48 +6741,48 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15TokenGeneration6PromptV07SpecialC0V_SDyS2SGTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_SDyS2SGtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_SDyS2SGtMd, &_s15TokenGeneration6PromptV07SpecialA0V_SDyS2SGtMR);
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v19 - v4;
-  v6 = *(a1 + 16);
-  if (v6)
+  MEMORY[0x28223BE20](v2, v4);
+  v6 = &v20 - v5;
+  v7 = *(a1 + 16);
+  if (v7)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VSDyS2SGGMd);
-    v7 = static _DictionaryStorage.allocate(capacity:)();
-    v8 = *(v2 + 48);
-    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v10 = *(v3 + 72);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VSDyS2SGGMd, &_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VSDyS2SGGMR);
+    v8 = static _DictionaryStorage.allocate(capacity:)();
+    v9 = *(v2 + 48);
+    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v11 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v9, v5, &_s15TokenGeneration6PromptV07SpecialA0V_SDyS2SGtMd);
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
-      if (v12)
+      outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v10, v6, &_s15TokenGeneration6PromptV07SpecialA0V_SDyS2SGtMd, &_s15TokenGeneration6PromptV07SpecialA0V_SDyS2SGtMR);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v6);
+      if (v13)
       {
         break;
       }
 
-      v13 = result;
-      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v14 = v7[6];
-      v15 = type metadata accessor for Prompt.SpecialToken();
-      result = (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v5, v15);
-      *(v7[7] + 8 * v13) = *&v5[v8];
-      v16 = v7[2];
-      v17 = __OFADD__(v16, 1);
-      v18 = v16 + 1;
-      if (v17)
+      v14 = result;
+      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v15 = v8[6];
+      v16 = type metadata accessor for Prompt.SpecialToken();
+      result = (*(*(v16 - 8) + 32))(v15 + *(*(v16 - 8) + 72) * v14, v6, v16);
+      *(v8[7] + 8 * v14) = *&v6[v9];
+      v17 = v8[2];
+      v18 = __OFADD__(v17, 1);
+      v19 = v17 + 1;
+      if (v18)
       {
         goto LABEL_10;
       }
 
-      v7[2] = v18;
-      v9 += v10;
-      if (!--v6)
+      v8[2] = v19;
+      v10 += v11;
+      if (!--v7)
       {
 
-        return v7;
+        return v8;
       }
     }
 
@@ -6586,7 +6812,7 @@ unint64_t lazy protocol witness table accessor for type [TokenTreeNode] and conf
   result = lazy protocol witness table cache variable for type [TokenTreeNode] and conformance [A];
   if (!lazy protocol witness table cache variable for type [TokenTreeNode] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay24TokenGenerationInference0A8TreeNodeCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay24TokenGenerationInference0A8TreeNodeCGMd, &_sSay24TokenGenerationInference0A8TreeNodeCGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [TokenTreeNode] and conformance [A]);
   }
@@ -6979,7 +7205,7 @@ LABEL_25:
   return result;
 }
 
-void LanguageModelReference.makeLanguageModel(externalLanguageMaker:)(void (*a1)(__int128 *__return_ptr, uint64_t, uint64_t)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, char a5@<W5>, uint64_t *a6@<X8>)
+void LanguageModelReference.makeLanguageModel(externalLanguageMaker:)(void (*a1)(__int128 *__return_ptr, uint64_t, uint64_t)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, unint64_t a4@<X4>, char a5@<W5>, uint64_t *a6@<X8>)
 {
   v43 = *MEMORY[0x277D85DE8];
   if (a5)
@@ -7018,7 +7244,7 @@ void LanguageModelReference.makeLanguageModel(externalLanguageMaker:)(void (*a1)
       v41 = 0;
       memset(v40, 0, sizeof(v40));
 
-      outlined destroy of [Int](v40, &_s24TokenGenerationInference34DeterministicLanguageModelProtocol_pSgMd);
+      outlined destroy of [Int](v40, &_s24TokenGenerationInference34DeterministicLanguageModelProtocol_pSgMd, &_s24TokenGenerationInference34DeterministicLanguageModelProtocol_pSgMR);
       lazy protocol witness table accessor for type TokenGenerationConfiguration.TokenGenerationConfigurationError and conformance TokenGenerationConfiguration.TokenGenerationConfigurationError();
       swift_allocError();
       *v38 = a2;
@@ -7050,12 +7276,12 @@ void LanguageModelReference.makeLanguageModel(externalLanguageMaker:)(void (*a1)
 
     v22 = objc_allocWithZone(TGIE5ModelConfigurationObjC);
     v23 = MEMORY[0x223D8E6B0](a2, a3);
-    type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC);
-    lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC);
+    type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
+    lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
     isa = Set._bridgeToObjectiveC()().super.isa;
 
-    type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC);
-    lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5AdapterConfigurationObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC);
+    type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC, off_27844EEB0);
+    lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5AdapterConfigurationObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC, off_27844EEB0);
     v25 = Set._bridgeToObjectiveC()().super.isa;
 
     v26 = [v22 initWithModelType:0 modelBundlePath:v23 e5Functions:isa adapterConfigurations:v25];
@@ -7075,7 +7301,7 @@ void LanguageModelReference.makeLanguageModel(externalLanguageMaker:)(void (*a1)
       v34 = [objc_allocWithZone(MEMORY[0x277CBEA78]) init];
       *(v33 + 16) = v34;
       [v34 setTotalCostLimit_];
-      v35 = type metadata accessor for E5TransformerLanguageModel();
+      v35 = type metadata accessor for E5TransformerLanguageModel(0);
       v36 = swift_allocObject();
       v37 = specialized E5TransformerLanguageModel.init(e5Runner:kvCache:name:)(v31, v33, 1296840005, 0xE400000000000000, v36);
       a6[3] = v35;
@@ -7124,10 +7350,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Langua
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LanguageModelReference.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LanguageModelReference.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized LanguageModelReference.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized LanguageModelReference.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7147,78 +7373,78 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t LanguageModelReference.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v30 = a2;
-  v29 = a5;
-  v23 = a4;
-  v28 = a3;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO18ExternalCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v25 = *(v27 - 8);
-  MEMORY[0x28223BE20](v27);
-  v7 = &v22 - v6;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO16LinearCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v24 = *(v26 - 8);
-  MEMORY[0x28223BE20](v26);
-  v9 = &v22 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO12E5CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v22 = *(v10 - 8);
-  MEMORY[0x28223BE20](v10);
-  v12 = &v22 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v32 = *(v13 - 8);
-  MEMORY[0x28223BE20](v13);
-  v15 = &v22 - v14;
+  v34 = a2;
+  v33 = a5;
+  v27 = a4;
+  v32 = a3;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO18ExternalCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO18ExternalCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v29 = *(v31 - 8);
+  MEMORY[0x28223BE20](v31, v6);
+  v8 = &v26 - v7;
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO16LinearCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO16LinearCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v28 = *(v30 - 8);
+  MEMORY[0x28223BE20](v30, v9);
+  v11 = &v26 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO12E5CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO12E5CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v26 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12, v13);
+  v15 = &v26 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference22LanguageModelReferenceO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v36 = *(v16 - 8);
+  MEMORY[0x28223BE20](v16, v17);
+  v19 = &v26 - v18;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v29)
+  if (v33)
   {
-    if (v29 == 1)
+    if (v33 == 1)
     {
-      LOBYTE(v34) = 1;
+      LOBYTE(v38) = 1;
       lazy protocol witness table accessor for type LanguageModelReference.LinearCodingKeys and conformance LanguageModelReference.LinearCodingKeys();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v34 = v30;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-      lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A]);
-      v16 = v26;
+      v38 = v34;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+      lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], MEMORY[0x277D83B90], MEMORY[0x277D83948]);
+      v20 = v30;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v24 + 8))(v9, v16);
+      (*(v28 + 8))(v11, v20);
     }
 
     else
     {
-      LOBYTE(v34) = 2;
+      LOBYTE(v38) = 2;
       lazy protocol witness table accessor for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v20 = v27;
+      v24 = v31;
       KeyedEncodingContainer.encode(_:forKey:)();
-      (*(v25 + 8))(v7, v20);
+      (*(v29 + 8))(v8, v24);
     }
   }
 
   else
   {
-    v18 = v22;
-    v17 = v23;
-    LOBYTE(v34) = 0;
+    v22 = v26;
+    v21 = v27;
+    LOBYTE(v38) = 0;
     lazy protocol witness table accessor for type LanguageModelReference.E5CodingKeys and conformance LanguageModelReference.E5CodingKeys();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    LOBYTE(v34) = 0;
-    v19 = v31;
+    LOBYTE(v38) = 0;
+    v23 = v35;
     KeyedEncodingContainer.encode(_:forKey:)();
-    if (!v19)
+    if (!v23)
     {
-      v34 = v17;
-      v33 = 1;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd);
-      lazy protocol witness table accessor for type [String : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
+      v38 = v21;
+      v37 = 1;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
+      lazy protocol witness table accessor for type [String : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B], MEMORY[0x277D837D8], MEMORY[0x277D83508]);
       KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
     }
 
-    (*(v18 + 8))(v12, v10);
+    (*(v22 + 8))(v15, v12);
   }
 
-  return (*(v32 + 8))(v15, v13);
+  return (*(v36 + 8))(v19, v16);
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance LanguageModelReference.E5CodingKeys()
@@ -7229,11 +7455,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Languag
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LanguageModelReference.E5CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LanguageModelReference.E5CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x223D8F420](v1);
+  MEMORY[0x223D8F420](v2);
   return Hasher._finalize()();
 }
 
@@ -7364,15 +7590,15 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance LanguageModelReference@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance LanguageModelReference@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  result = specialized LanguageModelReference.init(from:)(a1);
+  result = specialized LanguageModelReference.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
-    *(a2 + 8) = v5;
-    *(a2 + 16) = v6;
-    *(a2 + 24) = v7;
+    *a1 = result;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = v6;
+    *(a1 + 24) = v7;
   }
 
   return result;
@@ -7380,483 +7606,483 @@ uint64_t protocol witness for Decodable.init(from:) in conformance LanguageModel
 
 uint64_t TokenGenerationConfiguration.Sampling.encode(to:)(void *a1, uint64_t a2, int a3)
 {
-  v27 = a3;
-  v26 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO14TopKCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v24 = *(v4 - 8);
-  v25 = v4;
-  MEMORY[0x28223BE20](v4);
-  v23 = &v20 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO07NucleusH10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v21 = *(v6 - 8);
-  v22 = v6;
-  MEMORY[0x28223BE20](v6);
-  v8 = &v20 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO16ArgmaxCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v20 = *(v9 - 8);
-  MEMORY[0x28223BE20](v9);
-  v11 = &v20 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v13 = *(v12 - 8);
-  MEMORY[0x28223BE20](v12);
-  v15 = &v20 - v14;
+  v31 = a3;
+  v30 = a2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO14TopKCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO14TopKCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v28 = *(v4 - 8);
+  v29 = v4;
+  MEMORY[0x28223BE20](v4, v5);
+  v27 = &v24 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO07NucleusH10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO07NucleusH10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v25 = *(v7 - 8);
+  v26 = v7;
+  MEMORY[0x28223BE20](v7, v8);
+  v10 = &v24 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO16ArgmaxCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO16ArgmaxCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v24 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11, v12);
+  v14 = &v24 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV8SamplingO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v16 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15, v17);
+  v19 = &v24 - v18;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type TokenGenerationConfiguration.Sampling.CodingKeys and conformance TokenGenerationConfiguration.Sampling.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (!v27)
+  if (!v31)
   {
-    v29 = 1;
+    v33 = 1;
     lazy protocol witness table accessor for type TokenGenerationConfiguration.Sampling.NucleusSamplingCodingKeys and conformance TokenGenerationConfiguration.Sampling.NucleusSamplingCodingKeys();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v18 = v22;
+    v22 = v26;
     KeyedEncodingContainer.encode(_:forKey:)();
-    (*(v21 + 8))(v8, v18);
-    return (*(v13 + 8))(v15, v12);
+    (*(v25 + 8))(v10, v22);
+    return (*(v16 + 8))(v19, v15);
   }
 
-  if (v27 == 1)
+  if (v31 == 1)
   {
-    v30 = 2;
+    v34 = 2;
     lazy protocol witness table accessor for type TokenGenerationConfiguration.Sampling.TopKCodingKeys and conformance TokenGenerationConfiguration.Sampling.TopKCodingKeys();
-    v16 = v23;
+    v20 = v27;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v17 = v25;
+    v21 = v29;
     KeyedEncodingContainer.encode(_:forKey:)();
-    (*(v24 + 8))(v16, v17);
-    return (*(v13 + 8))(v15, v12);
+    (*(v28 + 8))(v20, v21);
+    return (*(v16 + 8))(v19, v15);
   }
 
-  v28 = 0;
+  v32 = 0;
   lazy protocol witness table accessor for type TokenGenerationConfiguration.Sampling.ArgmaxCodingKeys and conformance TokenGenerationConfiguration.Sampling.ArgmaxCodingKeys();
   KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  (*(v20 + 8))(v11, v9);
-  return (*(v13 + 8))(v15, v12);
+  (*(v24 + 8))(v14, v11);
+  return (*(v16 + 8))(v19, v15);
 }
 
 uint64_t TokenGenerationConfiguration.DecoderType.encode(to:)(void *a1)
 {
   v2 = v1;
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO027TwoStageSpeculativeWithStopD12IdCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v49 = *(v48 - 8);
-  MEMORY[0x28223BE20](v48);
-  v45 = &v44 - v4;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO29TwoStageSpeculativeCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v46 = *(v47 - 8);
-  MEMORY[0x28223BE20](v47);
-  v6 = &v44 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO15BasicCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v44 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v9 = &v44 - v8;
-  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v51 = *(v53 - 8);
-  MEMORY[0x28223BE20](v53);
-  v11 = &v44 - v10;
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO027TwoStageSpeculativeWithStopD12IdCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO027TwoStageSpeculativeWithStopD12IdCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v53 = *(v52 - 8);
+  MEMORY[0x28223BE20](v52, v4);
+  v49 = &v48 - v5;
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO29TwoStageSpeculativeCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO29TwoStageSpeculativeCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v50 = *(v51 - 8);
+  MEMORY[0x28223BE20](v51, v6);
+  v8 = &v48 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO15BasicCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO15BasicCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v48 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9, v10);
+  v12 = &v48 - v11;
+  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v55 = *(v57 - 8);
+  MEMORY[0x28223BE20](v57, v13);
+  v15 = &v48 - v14;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.CodingKeys and conformance TokenGenerationConfiguration.DecoderType.CodingKeys();
-  v52 = v11;
+  v56 = v15;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v12 = *(v2 + 112);
-  v58[6] = *(v2 + 96);
-  v58[7] = v12;
-  v58[8] = *(v2 + 128);
-  v59 = *(v2 + 144);
-  v13 = *(v2 + 48);
-  v58[2] = *(v2 + 32);
-  v58[3] = v13;
-  v14 = *(v2 + 80);
-  v58[4] = *(v2 + 64);
-  v58[5] = v14;
-  v15 = *(v2 + 16);
-  v58[0] = *v2;
-  v58[1] = v15;
-  v16 = _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOg(v58);
-  v17 = destructiveProjectEnumData for TokenGenerationConfiguration.DecoderType(v58);
-  v19 = *v17;
-  v18 = *(v17 + 8);
-  v20 = *(v17 + 16);
-  v21 = *(v17 + 24);
-  if (v16)
+  v16 = *(v2 + 112);
+  v62[6] = *(v2 + 96);
+  v62[7] = v16;
+  v62[8] = *(v2 + 128);
+  v63 = *(v2 + 144);
+  v17 = *(v2 + 48);
+  v62[2] = *(v2 + 32);
+  v62[3] = v17;
+  v18 = *(v2 + 80);
+  v62[4] = *(v2 + 64);
+  v62[5] = v18;
+  v19 = *(v2 + 16);
+  v62[0] = *v2;
+  v62[1] = v19;
+  v20 = _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOg(v62);
+  v21 = destructiveProjectEnumData for TokenGenerationConfiguration.DecoderType(v62);
+  v23 = *v21;
+  v22 = *(v21 + 8);
+  v24 = *(v21 + 16);
+  v25 = *(v21 + 24);
+  if (v20)
   {
-    v22 = v17;
-    if (v16 == 1)
+    v26 = v21;
+    if (v20 == 1)
     {
-      LOBYTE(v54) = 1;
+      LOBYTE(v58) = 1;
       lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys and conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys();
-      v23 = v6;
-      v24 = v53;
-      v25 = v52;
+      v27 = v8;
+      v28 = v57;
+      v29 = v56;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      *&v54 = v19;
-      *(&v54 + 1) = v18;
-      *&v55 = v20;
-      BYTE8(v55) = v21;
-      v60 = 0;
+      *&v58 = v23;
+      *(&v58 + 1) = v22;
+      *&v59 = v24;
+      BYTE8(v59) = v25;
+      v64 = 0;
       lazy protocol witness table accessor for type LanguageModelReference and conformance LanguageModelReference();
-      v26 = v47;
-      v27 = v50;
+      v30 = v51;
+      v31 = v54;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      if (v27)
+      if (v31)
       {
-        (*(v46 + 8))(v23, v26);
-        return (*(v51 + 8))(v25, v24);
+        (*(v50 + 8))(v27, v30);
+        return (*(v55 + 8))(v29, v28);
       }
 
       else
       {
-        v36 = *(v22 + 48);
-        v37 = *(v22 + 56);
-        v54 = *(v22 + 32);
-        *&v55 = v36;
-        BYTE8(v55) = v37;
-        v60 = 1;
+        v40 = *(v26 + 48);
+        v41 = *(v26 + 56);
+        v58 = *(v26 + 32);
+        *&v59 = v40;
+        BYTE8(v59) = v41;
+        v64 = 1;
         KeyedEncodingContainer.encode<A>(_:forKey:)();
-        v38 = *(v22 + 112);
-        v56 = *(v22 + 96);
-        v57[0] = v38;
-        *(v57 + 9) = *(v22 + 121);
-        v39 = *(v22 + 64);
-        v55 = *(v22 + 80);
-        v54 = v39;
-        v60 = 2;
+        v42 = *(v26 + 112);
+        v60 = *(v26 + 96);
+        v61[0] = v42;
+        *(v61 + 9) = *(v26 + 121);
+        v43 = *(v26 + 64);
+        v59 = *(v26 + 80);
+        v58 = v43;
+        v64 = 2;
         lazy protocol witness table accessor for type DraftingBehavior and conformance DraftingBehavior();
         KeyedEncodingContainer.encode<A>(_:forKey:)();
-        (*(v46 + 8))(0, v26);
-        return (*(v51 + 8))(v52, v53);
+        (*(v50 + 8))(0, v30);
+        return (*(v55 + 8))(v56, v57);
       }
     }
 
     else
     {
-      LOBYTE(v54) = 2;
+      LOBYTE(v58) = 2;
       lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys and conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys();
-      v31 = v45;
-      v32 = v53;
-      v33 = v52;
+      v35 = v49;
+      v36 = v57;
+      v37 = v56;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      *&v54 = v19;
-      *(&v54 + 1) = v18;
-      *&v55 = v20;
-      BYTE8(v55) = v21;
-      v60 = 0;
+      *&v58 = v23;
+      *(&v58 + 1) = v22;
+      *&v59 = v24;
+      BYTE8(v59) = v25;
+      v64 = 0;
       lazy protocol witness table accessor for type LanguageModelReference and conformance LanguageModelReference();
-      v34 = v48;
-      v35 = v50;
+      v38 = v52;
+      v39 = v54;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      if (!v35)
+      if (!v39)
       {
-        v40 = *(v22 + 48);
-        v41 = *(v22 + 56);
-        v54 = *(v22 + 32);
-        *&v55 = v40;
-        BYTE8(v55) = v41;
-        v60 = 1;
+        v44 = *(v26 + 48);
+        v45 = *(v26 + 56);
+        v58 = *(v26 + 32);
+        *&v59 = v44;
+        BYTE8(v59) = v45;
+        v64 = 1;
         KeyedEncodingContainer.encode<A>(_:forKey:)();
-        v42 = *(v22 + 112);
-        v56 = *(v22 + 96);
-        v57[0] = v42;
-        *(v57 + 9) = *(v22 + 121);
-        v43 = *(v22 + 64);
-        v55 = *(v22 + 80);
-        v54 = v43;
-        v60 = 2;
+        v46 = *(v26 + 112);
+        v60 = *(v26 + 96);
+        v61[0] = v46;
+        *(v61 + 9) = *(v26 + 121);
+        v47 = *(v26 + 64);
+        v59 = *(v26 + 80);
+        v58 = v47;
+        v64 = 2;
         lazy protocol witness table accessor for type DraftingBehavior and conformance DraftingBehavior();
         KeyedEncodingContainer.encode<A>(_:forKey:)();
-        LOBYTE(v54) = 3;
+        LOBYTE(v58) = 3;
         KeyedEncodingContainer.encode(_:forKey:)();
       }
 
-      (*(v49 + 8))(v31, v34);
-      return (*(v51 + 8))(v33, v32);
+      (*(v53 + 8))(v35, v38);
+      return (*(v55 + 8))(v37, v36);
     }
   }
 
   else
   {
-    LOBYTE(v54) = 0;
+    LOBYTE(v58) = 0;
     lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.BasicCodingKeys and conformance TokenGenerationConfiguration.DecoderType.BasicCodingKeys();
-    v29 = v53;
-    v30 = v52;
+    v33 = v57;
+    v34 = v56;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    *&v54 = v19;
-    *(&v54 + 1) = v18;
-    *&v55 = v20;
-    BYTE8(v55) = v21;
+    *&v58 = v23;
+    *(&v58 + 1) = v22;
+    *&v59 = v24;
+    BYTE8(v59) = v25;
     lazy protocol witness table accessor for type LanguageModelReference and conformance LanguageModelReference();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    (*(v44 + 8))(v9, v7);
-    return (*(v51 + 8))(v30, v29);
+    (*(v48 + 8))(v12, v9);
+    return (*(v55 + 8))(v34, v33);
   }
 }
 
 uint64_t TokenGenerationConfiguration.DecoderType.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v64 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO027TwoStageSpeculativeWithStopD12IdCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v68 = *(v3 - 8);
-  v69 = v3;
-  MEMORY[0x28223BE20](v3);
-  v70 = &v58 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO29TwoStageSpeculativeCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v66 = *(v5 - 8);
-  v67 = v5;
-  MEMORY[0x28223BE20](v5);
-  v7 = &v58 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO15BasicCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v65 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8);
-  v10 = &v58 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v71 = *(v11 - 8);
-  MEMORY[0x28223BE20](v11);
-  v13 = &v58 - v12;
-  v14 = a1[3];
-  v106 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v14);
+  v68 = a2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO027TwoStageSpeculativeWithStopD12IdCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO027TwoStageSpeculativeWithStopD12IdCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v72 = *(v3 - 8);
+  v73 = v3;
+  MEMORY[0x28223BE20](v3, v4);
+  v74 = &v62 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO29TwoStageSpeculativeCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO29TwoStageSpeculativeCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v70 = *(v6 - 8);
+  v71 = v6;
+  MEMORY[0x28223BE20](v6, v7);
+  v9 = &v62 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO15BasicCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO15BasicCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v69 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10, v11);
+  v13 = &v62 - v12;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV11DecoderTypeO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v75 = *(v14 - 8);
+  MEMORY[0x28223BE20](v14, v15);
+  v17 = &v62 - v16;
+  v18 = a1[3];
+  v110 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v18);
   lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.CodingKeys and conformance TokenGenerationConfiguration.DecoderType.CodingKeys();
-  v15 = v72;
+  v19 = v76;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v15)
+  if (!v19)
   {
-    v16 = v8;
-    *&v63[16] = 0;
-    v17 = v70;
-    v72 = v13;
-    v18 = KeyedDecodingContainer.allKeys.getter();
-    v19 = v18;
-    v20 = *(v18 + 16);
-    v21 = v11;
-    if (v20)
+    v20 = v10;
+    *&v67[16] = 0;
+    v21 = v74;
+    v76 = v17;
+    v22 = KeyedDecodingContainer.allKeys.getter();
+    v23 = v22;
+    v24 = *(v22 + 16);
+    v25 = v14;
+    if (v24)
     {
-      v22 = *(v18 + 32);
-      if (v20 == 1 && v22 != 3)
+      v26 = *(v22 + 32);
+      if (v24 == 1 && v26 != 3)
       {
-        if (*(v18 + 32))
+        if (*(v22 + 32))
         {
-          if (v22 == 1)
+          if (v26 == 1)
           {
-            v74.i8[0] = 1;
+            v78.i8[0] = 1;
             lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys and conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys();
-            v29 = v7;
-            v30 = v72;
-            v31 = *&v63[16];
+            v33 = v9;
+            v34 = v76;
+            v35 = *&v67[16];
             KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-            if (v31)
+            if (v35)
             {
-              (*(v71 + 8))(v30, v11);
+              (*(v75 + 8))(v34, v14);
               swift_unknownObjectRelease();
-              return __swift_destroy_boxed_opaque_existential_1(v106);
+              return __swift_destroy_boxed_opaque_existential_1(v110);
             }
 
-            v74.i8[0] = 0;
+            v78.i8[0] = 0;
             lazy protocol witness table accessor for type LanguageModelReference and conformance LanguageModelReference();
-            v36 = v67;
+            v40 = v71;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
-            v40 = v29;
-            v69 = *(&v80 + 1);
-            v41 = v80;
-            v42 = v81;
-            LODWORD(v70) = BYTE8(v81);
-            v74.i8[0] = 1;
+            v44 = v33;
+            v73 = *(&v84 + 1);
+            v45 = v84;
+            v46 = v85;
+            LODWORD(v74) = BYTE8(v85);
+            v78.i8[0] = 1;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
-            v43 = v66;
-            v65 = v41;
-            v68 = v42;
-            *&v63[8] = v93;
-            v51 = v94;
-            LOBYTE(v41) = v95;
-            LOBYTE(v89) = 2;
+            v47 = v70;
+            v69 = v45;
+            v72 = v46;
+            *&v67[8] = v97;
+            v55 = v98;
+            LOBYTE(v45) = v99;
+            LOBYTE(v93) = 2;
             lazy protocol witness table accessor for type DraftingBehavior and conformance DraftingBehavior();
             KeyedDecodingContainer.decode<A>(_:forKey:)();
-            (*(v43 + 8))(v40, v36);
-            (*(v71 + 8))(v72, v11);
+            (*(v47 + 8))(v44, v40);
+            (*(v75 + 8))(v76, v14);
             swift_unknownObjectRelease();
-            v73[4] = *(v88 + 9);
-            *(&v73[3] + 7) = v88[0];
-            *(v73 + 7) = v85;
-            *(&v73[2] + 7) = v87;
-            *(&v73[1] + 7) = v86;
-            *(&v77[4] + 9) = v73[4];
-            *(&v77[1] + 9) = v73[1];
-            *(&v77[2] + 9) = v73[2];
-            *(v77 + 9) = v73[0];
-            v74.i64[0] = v65;
-            v74.i64[1] = v69;
-            *&v75 = v68;
-            BYTE8(v75) = v70;
-            v76 = *&v63[8];
-            *&v77[0] = v51;
-            BYTE8(v77[0]) = v41;
-            *(&v77[3] + 9) = v73[3];
-            _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOi0_(&v74);
-            v102 = v77[3];
-            v103 = v77[4];
-            v104 = v77[5];
-            v105 = v78;
-            v98 = v76;
-            v99 = v77[0];
-            v100 = v77[1];
-            v101 = v77[2];
-            v96 = v74;
-            v97 = v75;
+            v77[4] = *(v92 + 9);
+            *(&v77[3] + 7) = v92[0];
+            *(v77 + 7) = v89;
+            *(&v77[2] + 7) = v91;
+            *(&v77[1] + 7) = v90;
+            *(&v81[4] + 9) = v77[4];
+            *(&v81[1] + 9) = v77[1];
+            *(&v81[2] + 9) = v77[2];
+            *(v81 + 9) = v77[0];
+            v78.i64[0] = v69;
+            v78.i64[1] = v73;
+            *&v79 = v72;
+            BYTE8(v79) = v74;
+            v80 = *&v67[8];
+            *&v81[0] = v55;
+            BYTE8(v81[0]) = v45;
+            *(&v81[3] + 9) = v77[3];
+            _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOi0_(&v78);
+            v106 = v81[3];
+            v107 = v81[4];
+            v108 = v81[5];
+            v109 = v82;
+            v102 = v80;
+            v103 = v81[0];
+            v104 = v81[1];
+            v105 = v81[2];
+            v100 = v78;
+            v101 = v79;
 LABEL_21:
-            v44 = v103;
-            v45 = v64;
-            *(v64 + 96) = v102;
-            *(v45 + 112) = v44;
-            *(v45 + 128) = v104;
-            *(v45 + 144) = v105;
-            v46 = v99;
-            *(v45 + 32) = v98;
-            *(v45 + 48) = v46;
-            v47 = v101;
-            *(v45 + 64) = v100;
-            *(v45 + 80) = v47;
-            v48 = v97;
-            *v45 = v96;
-            *(v45 + 16) = v48;
-            return __swift_destroy_boxed_opaque_existential_1(v106);
+            v48 = v107;
+            v49 = v68;
+            *(v68 + 96) = v106;
+            *(v49 + 112) = v48;
+            *(v49 + 128) = v108;
+            *(v49 + 144) = v109;
+            v50 = v103;
+            *(v49 + 32) = v102;
+            *(v49 + 48) = v50;
+            v51 = v105;
+            *(v49 + 64) = v104;
+            *(v49 + 80) = v51;
+            v52 = v101;
+            *v49 = v100;
+            *(v49 + 16) = v52;
+            return __swift_destroy_boxed_opaque_existential_1(v110);
           }
 
-          v74.i8[0] = 2;
+          v78.i8[0] = 2;
           lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys and conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys();
-          v33 = v72;
-          v35 = *&v63[16];
+          v37 = v76;
+          v39 = *&v67[16];
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          if (!v35)
+          if (!v39)
           {
-            v74.i8[0] = 0;
+            v78.i8[0] = 0;
             lazy protocol witness table accessor for type LanguageModelReference and conformance LanguageModelReference();
-            v39 = v17;
+            v43 = v21;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
-            v67 = v19;
-            v49 = v93;
-            v50 = v94;
-            LODWORD(v66) = v95;
-            v74.i8[0] = 1;
+            v71 = v23;
+            v53 = v97;
+            v54 = v98;
+            LODWORD(v70) = v99;
+            v78.i8[0] = 1;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
-            *v63 = v49;
-            v65 = v50;
-            v52 = v89;
-            v53 = v90;
-            v54 = v91;
-            LODWORD(v50) = v92;
-            v84 = 2;
+            *v67 = v53;
+            v69 = v54;
+            v56 = v93;
+            v57 = v94;
+            v58 = v95;
+            LODWORD(v54) = v96;
+            v88 = 2;
             lazy protocol witness table accessor for type DraftingBehavior and conformance DraftingBehavior();
             KeyedDecodingContainer.decode<A>(_:forKey:)();
-            *&v60 = v52;
-            *(&v60 + 1) = v53;
-            v61 = v54;
-            v62 = v50;
-            v82 = v87;
-            *v83 = v88[0];
-            *&v83[9] = *(v88 + 9);
-            v80 = v85;
-            v81 = v86;
-            v79 = 3;
-            v55 = v69;
-            v59 = KeyedDecodingContainer.decode(_:forKey:)();
-            *&v63[16] = 0;
-            v56 = *&v63[8];
-            v57 = *v63;
-            (*(v68 + 8))(v39, v55);
-            (*(v71 + 8))(v72, v21);
+            *&v64 = v56;
+            *(&v64 + 1) = v57;
+            v65 = v58;
+            v66 = v54;
+            v86 = v91;
+            *v87 = v92[0];
+            *&v87[9] = *(v92 + 9);
+            v84 = v89;
+            v85 = v90;
+            v83 = 3;
+            v59 = v73;
+            v63 = KeyedDecodingContainer.decode(_:forKey:)();
+            *&v67[16] = 0;
+            v60 = *&v67[8];
+            v61 = *v67;
+            (*(v72 + 8))(v43, v59);
+            (*(v75 + 8))(v76, v25);
             swift_unknownObjectRelease();
-            v73[4] = *&v83[9];
-            *(&v73[3] + 7) = *v83;
-            *(v73 + 7) = v80;
-            *(&v73[2] + 7) = v82;
-            *(&v73[1] + 7) = v81;
-            *(&v77[4] + 9) = v73[4];
-            *(&v77[1] + 9) = v73[1];
-            *(&v77[2] + 9) = v73[2];
-            *(v77 + 9) = v73[0];
-            v74.i64[0] = v57;
-            v74.i64[1] = v56;
-            *&v75 = v65;
-            BYTE8(v75) = v66;
-            v76 = v60;
-            *&v77[0] = v61;
-            BYTE8(v77[0]) = v62;
-            *(&v77[3] + 9) = v73[3];
-            v78 = v59;
-            _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOi1_(&v74);
-            v102 = v77[3];
-            v103 = v77[4];
-            v104 = v77[5];
-            v105 = v78;
-            v98 = v76;
-            v99 = v77[0];
-            v100 = v77[1];
-            v101 = v77[2];
-            v96 = v74;
-            v97 = v75;
+            v77[4] = *&v87[9];
+            *(&v77[3] + 7) = *v87;
+            *(v77 + 7) = v84;
+            *(&v77[2] + 7) = v86;
+            *(&v77[1] + 7) = v85;
+            *(&v81[4] + 9) = v77[4];
+            *(&v81[1] + 9) = v77[1];
+            *(&v81[2] + 9) = v77[2];
+            *(v81 + 9) = v77[0];
+            v78.i64[0] = v61;
+            v78.i64[1] = v60;
+            *&v79 = v69;
+            BYTE8(v79) = v70;
+            v80 = v64;
+            *&v81[0] = v65;
+            BYTE8(v81[0]) = v66;
+            *(&v81[3] + 9) = v77[3];
+            v82 = v63;
+            _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOi1_(&v78);
+            v106 = v81[3];
+            v107 = v81[4];
+            v108 = v81[5];
+            v109 = v82;
+            v102 = v80;
+            v103 = v81[0];
+            v104 = v81[1];
+            v105 = v81[2];
+            v100 = v78;
+            v101 = v79;
             goto LABEL_21;
           }
         }
 
         else
         {
-          v74.i8[0] = 0;
+          v78.i8[0] = 0;
           lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType.BasicCodingKeys and conformance TokenGenerationConfiguration.DecoderType.BasicCodingKeys();
-          v32 = v10;
-          v33 = v72;
-          v34 = *&v63[16];
+          v36 = v13;
+          v37 = v76;
+          v38 = *&v67[16];
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          if (!v34)
+          if (!v38)
           {
             lazy protocol witness table accessor for type LanguageModelReference and conformance LanguageModelReference();
-            v37 = v16;
+            v41 = v20;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
-            v38 = v71;
-            (*(v65 + 8))(v32, v37);
-            (*(v38 + 8))(v72, v11);
+            v42 = v75;
+            (*(v69 + 8))(v36, v41);
+            (*(v42 + 8))(v76, v14);
             swift_unknownObjectRelease();
-            v74 = v73[0];
-            *&v75 = *&v73[1];
-            BYTE8(v75) = BYTE8(v73[1]);
-            _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOi_(&v74);
-            v102 = v77[3];
-            v103 = v77[4];
-            v104 = v77[5];
-            v105 = v78;
-            v98 = v76;
-            v99 = v77[0];
-            v100 = v77[1];
-            v101 = v77[2];
-            v96 = v74;
-            v97 = v75;
+            v78 = v77[0];
+            *&v79 = *&v77[1];
+            BYTE8(v79) = BYTE8(v77[1]);
+            _s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeOWOi_(&v78);
+            v106 = v81[3];
+            v107 = v81[4];
+            v108 = v81[5];
+            v109 = v82;
+            v102 = v80;
+            v103 = v81[0];
+            v104 = v81[1];
+            v105 = v81[2];
+            v100 = v78;
+            v101 = v79;
             goto LABEL_21;
           }
         }
 
-        (*(v71 + 8))(v33, v11);
+        (*(v75 + 8))(v37, v14);
         swift_unknownObjectRelease();
-        return __swift_destroy_boxed_opaque_existential_1(v106);
+        return __swift_destroy_boxed_opaque_existential_1(v110);
       }
     }
 
-    v24 = type metadata accessor for DecodingError();
+    v28 = type metadata accessor for DecodingError();
     swift_allocError();
-    v26 = v25;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
-    *v26 = &type metadata for TokenGenerationConfiguration.DecoderType;
-    v27 = v72;
+    v30 = v29;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v30 = &type metadata for TokenGenerationConfiguration.DecoderType;
+    v31 = v76;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v24 - 8) + 104))(v26, *MEMORY[0x277D84160], v24);
+    (*(*(v28 - 8) + 104))(v30, *MEMORY[0x277D84160], v28);
     swift_willThrow();
-    (*(v71 + 8))(v27, v21);
+    (*(v75 + 8))(v31, v25);
     swift_unknownObjectRelease();
   }
 
-  return __swift_destroy_boxed_opaque_existential_1(v106);
+  return __swift_destroy_boxed_opaque_existential_1(v110);
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.Sampling.ArgmaxCodingKeys@<X0>(_BYTE *a1@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.Sampling.ArgmaxCodingKeys@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -7893,10 +8119,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenG
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.Sampling.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.Sampling.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized TokenGenerationConfiguration.Sampling.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized TokenGenerationConfiguration.Sampling.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7980,13 +8206,13 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance TokenGenerationConfiguration.Sampling@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance TokenGenerationConfiguration.Sampling@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  result = specialized TokenGenerationConfiguration.Sampling.init(from:)(a1);
+  result = specialized TokenGenerationConfiguration.Sampling.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
-    *(a2 + 8) = v5;
+    *a1 = result;
+    *(a1 + 8) = v5;
   }
 
   return result;
@@ -8022,7 +8248,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Languag
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LanguageModelReference.ExternalCodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LanguageModelReference.ExternalCodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x223D8F420](0);
@@ -8062,7 +8288,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenGenerationConfiguration.DecoderType.CodingKeys()
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenGenerationConfiguration.DecoderType.CodingKeys()
 {
   v1 = 0xD000000000000013;
   if (*v0 != 1)
@@ -8081,10 +8307,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenG
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.DecoderType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.DecoderType.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized TokenGenerationConfiguration.DecoderType.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized TokenGenerationConfiguration.DecoderType.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8121,10 +8347,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenG
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeCodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8167,10 +8393,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenG
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized TokenGenerationConfiguration.DecoderType.TwoStageSpeculativeWithStopTokenIdCodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8190,94 +8416,94 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t TokenGenerationConfiguration.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference0dE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = v15 - v5;
-  v7 = v1[7];
-  v48 = v1[6];
-  v49 = v7;
-  v50 = v1[8];
-  v8 = *(v1 + 18);
-  v17 = *(v1 + 19);
-  v51 = v8;
-  v9 = v1[3];
-  v44 = v1[2];
-  v45 = v9;
-  v10 = v1[5];
-  v46 = v1[4];
-  v47 = v10;
-  v11 = v1[1];
-  v42 = *v1;
-  v43 = v11;
-  v16 = *(v1 + 160);
-  v12 = *(v1 + 21);
-  v15[1] = *(v1 + 22);
-  v15[2] = v12;
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = v16 - v6;
+  v8 = v1[7];
+  v49 = v1[6];
+  v50 = v8;
+  v51 = v1[8];
+  v9 = *(v1 + 18);
+  v18 = *(v1 + 19);
+  v52 = v9;
+  v10 = v1[3];
+  v45 = v1[2];
+  v46 = v10;
+  v11 = v1[5];
+  v47 = v1[4];
+  v48 = v11;
+  v12 = v1[1];
+  v43 = *v1;
+  v44 = v12;
+  v17 = *(v1 + 160);
+  v13 = *(v1 + 21);
+  v16[1] = *(v1 + 22);
+  v16[2] = v13;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  outlined init with copy of TokenGenerationConfiguration.DecoderType(&v42, &v32);
+  outlined init with copy of TokenGenerationConfiguration.DecoderType(&v43, &v33);
   lazy protocol witness table accessor for type TokenGenerationConfiguration.CodingKeys and conformance TokenGenerationConfiguration.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v38 = v48;
   v39 = v49;
   v40 = v50;
   v41 = v51;
-  v34 = v44;
+  v42 = v52;
   v35 = v45;
   v36 = v46;
   v37 = v47;
-  v32 = v42;
+  v38 = v48;
   v33 = v43;
-  v31 = 0;
+  v34 = v44;
+  v32 = 0;
   lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType and conformance TokenGenerationConfiguration.DecoderType();
-  v13 = v52;
+  v14 = v53;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (v13)
+  if (v14)
   {
-    v28 = v39;
     v29 = v40;
     v30 = v41;
-    v23 = v34;
+    v31 = v42;
     v24 = v35;
     v25 = v36;
     v26 = v37;
     v27 = v38;
-    v21 = v32;
+    v28 = v39;
     v22 = v33;
-    outlined destroy of TokenGenerationConfiguration.DecoderType(&v21);
+    v23 = v34;
+    outlined destroy of TokenGenerationConfiguration.DecoderType(&v22);
   }
 
   else
   {
-    v28 = v39;
     v29 = v40;
     v30 = v41;
-    v23 = v34;
+    v31 = v42;
     v24 = v35;
     v25 = v36;
     v26 = v37;
     v27 = v38;
-    v21 = v32;
+    v28 = v39;
     v22 = v33;
-    outlined destroy of TokenGenerationConfiguration.DecoderType(&v21);
-    v19 = v17;
-    v20 = v16;
-    v18 = 1;
+    v23 = v34;
+    outlined destroy of TokenGenerationConfiguration.DecoderType(&v22);
+    v20 = v18;
+    v21 = v17;
+    v19 = 1;
     lazy protocol witness table accessor for type TokenGenerationConfiguration.Sampling and conformance TokenGenerationConfiguration.Sampling();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    LOBYTE(v19) = 2;
+    LOBYTE(v20) = 2;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  return (*(v4 + 8))(v6, v3);
+  return (*(v4 + 8))(v7, v3);
 }
 
 uint64_t TokenGenerationConfiguration.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v5 = *(v65 - 8);
-  MEMORY[0x28223BE20](v65);
-  v7 = &v23 - v6;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedDecodingContainerVy24TokenGenerationInference0dE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
+  v5 = *(v66 - 8);
+  MEMORY[0x28223BE20](v66, v6);
+  v8 = &v24 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type TokenGenerationConfiguration.CodingKeys and conformance TokenGenerationConfiguration.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -8286,82 +8512,82 @@ uint64_t TokenGenerationConfiguration.init(from:)@<X0>(void *a1@<X0>, uint64_t a
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v8 = v5;
-  v44 = 0;
+  v9 = v5;
+  v45 = 0;
   lazy protocol witness table accessor for type TokenGenerationConfiguration.DecoderType and conformance TokenGenerationConfiguration.DecoderType();
-  v9 = v65;
+  v10 = v66;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v61 = v51;
   v62 = v52;
   v63 = v53;
   v64 = v54;
-  v57 = v47;
+  v65 = v55;
   v58 = v48;
   v59 = v49;
   v60 = v50;
-  v55 = v45;
+  v61 = v51;
   v56 = v46;
-  LOBYTE(v25) = 1;
+  v57 = v47;
+  LOBYTE(v26) = 1;
   lazy protocol witness table accessor for type TokenGenerationConfiguration.Sampling and conformance TokenGenerationConfiguration.Sampling();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v24 = *&v37[0];
-  HIDWORD(v23) = BYTE8(v37[0]);
-  v43 = 2;
-  v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v12 = v11;
-  (*(v8 + 8))(v7, v9);
-  v13 = v61;
-  v31 = v61;
+  v25 = *&v38[0];
+  HIDWORD(v24) = BYTE8(v38[0]);
+  v44 = 2;
+  v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v13 = v12;
+  (*(v9 + 8))(v8, v10);
+  v14 = v62;
   v32 = v62;
   v33 = v63;
-  v14 = v57;
-  v27 = v57;
+  v34 = v64;
+  v15 = v58;
   v28 = v58;
   v29 = v59;
   v30 = v60;
-  v25 = v55;
+  v31 = v61;
   v26 = v56;
-  v15 = v60;
-  v16 = v62;
-  v17 = v58;
-  *(a2 + 64) = v59;
-  *(a2 + 80) = v15;
-  v18 = v24;
-  *&v34 = v64;
-  *(&v34 + 1) = v24;
-  v19 = BYTE4(v23);
-  LOBYTE(v35) = BYTE4(v23);
-  *(&v35 + 1) = v10;
-  v36 = v12;
-  *(a2 + 176) = v12;
-  *(a2 + 96) = v13;
-  *(a2 + 112) = v16;
-  v20 = v26;
-  *a2 = v25;
-  *(a2 + 16) = v20;
-  *(a2 + 32) = v14;
-  *(a2 + 48) = v17;
-  v21 = v34;
-  *(a2 + 128) = v33;
-  *(a2 + 144) = v21;
-  *(a2 + 160) = v35;
-  outlined init with copy of TokenGenerationConfiguration(&v25, v37);
+  v27 = v57;
+  v16 = v61;
+  v17 = v63;
+  v18 = v59;
+  *(a2 + 64) = v60;
+  *(a2 + 80) = v16;
+  v19 = v25;
+  *&v35 = v65;
+  *(&v35 + 1) = v25;
+  v20 = BYTE4(v24);
+  LOBYTE(v36) = BYTE4(v24);
+  *(&v36 + 1) = v11;
+  v37 = v13;
+  *(a2 + 176) = v13;
+  *(a2 + 96) = v14;
+  *(a2 + 112) = v17;
+  v21 = v27;
+  *a2 = v26;
+  *(a2 + 16) = v21;
+  *(a2 + 32) = v15;
+  *(a2 + 48) = v18;
+  v22 = v35;
+  *(a2 + 128) = v34;
+  *(a2 + 144) = v22;
+  *(a2 + 160) = v36;
+  outlined init with copy of TokenGenerationConfiguration(&v26, v38);
   __swift_destroy_boxed_opaque_existential_1(a1);
-  v37[6] = v61;
-  v37[7] = v62;
-  v37[8] = v63;
-  v37[2] = v57;
-  v37[3] = v58;
-  v37[4] = v59;
-  v37[5] = v60;
-  v37[0] = v55;
-  v37[1] = v56;
-  v38 = v64;
-  v39 = v18;
+  v38[6] = v62;
+  v38[7] = v63;
+  v38[8] = v64;
+  v38[2] = v58;
+  v38[3] = v59;
+  v38[4] = v60;
+  v38[5] = v61;
+  v38[0] = v56;
+  v38[1] = v57;
+  v39 = v65;
   v40 = v19;
-  v41 = v10;
-  v42 = v12;
-  return outlined destroy of TokenGenerationConfiguration(v37);
+  v41 = v20;
+  v42 = v11;
+  v43 = v13;
+  return outlined destroy of TokenGenerationConfiguration(v38);
 }
 
 uint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenGenerationConfiguration.CodingKeys()
@@ -8383,10 +8609,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance TokenG
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance TokenGenerationConfiguration.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized TokenGenerationConfiguration.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized TokenGenerationConfiguration.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8404,7 +8630,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t TokenGenerationConfiguration.makeDecoder(externalLanguageMaker:)@<X0>(void (*a1)(__int128 *__return_ptr, uint64_t, uint64_t)@<X0>, uint64_t a2@<X8>)
+void *TokenGenerationConfiguration.makeDecoder(externalLanguageMaker:)@<X0>(void (*a1)(__int128 *__return_ptr, uint64_t, uint64_t)@<X0>, uint64_t a2@<X8>)
 {
   result = TokenGenerationConfiguration.makeSampling()(v55);
   if (!v3)
@@ -8473,7 +8699,7 @@ uint64_t TokenGenerationConfiguration.makeDecoder(externalLanguageMaker:)@<X0>(v
       }
 
       DraftingBehavior.makeDecoder(draftModel:targetModel:outerDraftModel:sampler:stopTokenId:)(v46, v45, &v42, v55, v23, v51);
-      outlined destroy of [Int](&v42, &_s24TokenGenerationInference34DeterministicLanguageModelProtocol_pSgMd);
+      outlined destroy of [Int](&v42, &_s24TokenGenerationInference34DeterministicLanguageModelProtocol_pSgMd, &_s24TokenGenerationInference34DeterministicLanguageModelProtocol_pSgMR);
       __swift_destroy_boxed_opaque_existential_1(v45);
       __swift_destroy_boxed_opaque_existential_1(v46);
       v41 = v52;
@@ -8495,7 +8721,7 @@ uint64_t TokenGenerationConfiguration.makeDecoder(externalLanguageMaker:)@<X0>(v
       v25 = *(&v48 + 1);
       v26 = v49;
       v27 = __swift_mutable_project_boxed_opaque_existential_1(&v47, *(&v48 + 1));
-      MEMORY[0x28223BE20](v27);
+      MEMORY[0x28223BE20](v27, v27);
       v29 = &v41 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
       (*(v30 + 16))(v29);
       v31 = specialized BasicDecoder.__allocating_init(languageModel:sampler:)(v29, v51, v24, v25, v26);
@@ -8568,27 +8794,27 @@ LABEL_7:
 uint64_t GuidedGenerationConfiguration.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference06GuidedE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy24TokenGenerationInference06GuidedE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd, &_ss22KeyedEncodingContainerVy24TokenGenerationInference06GuidedE13ConfigurationV10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMR);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v10[-v7];
+  MEMORY[0x28223BE20](v5, v7);
+  v9 = &v11[-v8];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type GuidedGenerationConfiguration.CodingKeys and conformance GuidedGenerationConfiguration.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v13 = 0;
+  v14 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (!v2)
   {
-    v12 = 1;
+    v13 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v11 = *(v3 + 32);
-    v10[15] = 2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A]);
+    v12 = *(v3 + 32);
+    v11[15] = 2;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], MEMORY[0x277D83B90], MEMORY[0x277D83948]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v8, v5);
+  return (*(v6 + 8))(v9, v5);
 }
 
 uint64_t protocol witness for CodingKey.stringValue.getter in conformance GuidedGenerationConfiguration.CodingKeys()
@@ -8610,10 +8836,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Guided
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance GuidedGenerationConfiguration.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance GuidedGenerationConfiguration.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized GuidedGenerationConfiguration.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized GuidedGenerationConfiguration.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8631,22 +8857,22 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-double protocol witness for Decodable.init(from:) in conformance GuidedGenerationConfiguration@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for Decodable.init(from:) in conformance GuidedGenerationConfiguration@<D0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  specialized GuidedGenerationConfiguration.init(from:)(a1, v6);
+  specialized GuidedGenerationConfiguration.init(from:)(a2, v6);
   if (!v2)
   {
     result = *v6;
     v5 = v6[1];
-    *a2 = v6[0];
-    *(a2 + 16) = v5;
-    *(a2 + 32) = v7;
+    *a1 = v6[0];
+    *(a1 + 16) = v5;
+    *(a1 + 32) = v7;
   }
 
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance GuidedGenerationConfiguration(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance GuidedGenerationConfiguration(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v4 = a1[3];
@@ -8763,7 +8989,7 @@ unint64_t lazy protocol witness table accessor for type TokenGenerationConfigura
 uint64_t specialized E5TransformerLanguageModel.init(e5Runner:kvCache:name:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *(a5 + 32) = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference26E5TransformerLanguageModelC9NodeStateVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference26E5TransformerLanguageModelC9NodeStateVGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference26E5TransformerLanguageModelC9NodeStateVGMR);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_220AE8A30;
   v11 = MEMORY[0x277D84F90];
@@ -8962,7 +9188,7 @@ LABEL_69:
                 v67 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSi_Tt1g5(v62, *(v26 + 32));
 LABEL_110:
                 v81 = v67;
-                outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+                outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
                 if ((v81 & 1) == 0)
                 {
                   goto LABEL_107;
@@ -8992,7 +9218,7 @@ LABEL_111:
             {
               if (v62 == v64 && v63 == v65)
               {
-                outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+                outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
                 goto LABEL_111;
               }
 
@@ -9001,7 +9227,7 @@ LABEL_111:
             }
 
 LABEL_106:
-            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
             goto LABEL_107;
           }
 
@@ -9019,7 +9245,7 @@ LABEL_106:
 
           if (!v68)
           {
-            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
             if (v69)
             {
               goto LABEL_107;
@@ -9034,7 +9260,7 @@ LABEL_106:
           }
 
           v70 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SSTt1g5(v68, v69);
-          outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+          outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
 
           if (v70)
           {
@@ -9156,7 +9382,7 @@ LABEL_87:
 
             if (v71 == v73 && v72 == v74)
             {
-              outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+              outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
               goto LABEL_114;
             }
 
@@ -9164,7 +9390,7 @@ LABEL_87:
           }
 
           v86 = v76;
-          outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+          outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
           if ((v86 & 1) == 0)
           {
             goto LABEL_107;
@@ -9193,7 +9419,7 @@ LABEL_87:
             }
 
             v79 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SSTt1g5(v77, v78);
-            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
 
             if ((v79 & 1) == 0)
             {
@@ -9203,7 +9429,7 @@ LABEL_87:
 
           else
           {
-            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+            outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
             if (v78)
             {
               goto LABEL_107;
@@ -9302,7 +9528,7 @@ LABEL_114:
     outlined init with copy of TokenGenerationConfiguration.DecoderType(v109, &v95);
 
     v59 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SSTt1g5(v35, v58);
-    outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+    outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
 
     if ((v59 & 1) == 0)
     {
@@ -9329,7 +9555,7 @@ LABEL_66:
     v61 = _stringCompareWithSmolCheck(_:_:expecting:)();
     outlined init with copy of TokenGenerationConfiguration.DecoderType(&v118, &v95);
     outlined init with copy of TokenGenerationConfiguration.DecoderType(v109, &v95);
-    outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+    outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
     if ((v61 & 1) == 0)
     {
       goto LABEL_107;
@@ -9369,7 +9595,7 @@ LABEL_66:
 LABEL_64:
   outlined init with copy of TokenGenerationConfiguration.DecoderType(&v118, &v95);
   outlined init with copy of TokenGenerationConfiguration.DecoderType(v109, &v95);
-  outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd);
+  outlined destroy of [Int](v128, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMd, &_s24TokenGenerationInference0aB13ConfigurationV11DecoderTypeO_AEtMR);
   v60 = 1;
   return v60 & 1;
 }
@@ -9609,242 +9835,5 @@ uint64_t specialized static LanguageModelReference.== infix(_:_:)(uint64_t resul
   }
 
   __break(1u);
-  return result;
-}
-
-uint64_t specialized LanguageModelReference.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v3 = a1 == 13669 && a2 == 0xE200000000000000;
-  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x7261656E696CLL && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 1;
-  }
-
-  else if (a1 == 0x6C616E7265747865 && a2 == 0xE800000000000000)
-  {
-
-    return 2;
-  }
-
-  else
-  {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v6)
-    {
-      return 2;
-    }
-
-    else
-    {
-      return 3;
-    }
-  }
-}
-
-uint64_t specialized LanguageModelReference.init(from:)(void *a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference22LanguageModelReferenceO18ExternalCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v3 = *(v2 - 8);
-  v34 = v2;
-  v35 = v3;
-  MEMORY[0x28223BE20](v2);
-  v39 = &v33 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference22LanguageModelReferenceO16LinearCodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v36 = *(v5 - 8);
-  v37 = v5;
-  MEMORY[0x28223BE20](v5);
-  v7 = &v33 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference22LanguageModelReferenceO12E5CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v38 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8);
-  v10 = &v33 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy24TokenGenerationInference22LanguageModelReferenceO10CodingKeys33_C33385C38A0442D1F34E46F63BD16990LLOGMd);
-  v12 = *(v11 - 8);
-  MEMORY[0x28223BE20](v11);
-  v14 = &v33 - v13;
-  v15 = a1[3];
-  v41 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v15);
-  lazy protocol witness table accessor for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys();
-  v16 = v40;
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v16)
-  {
-    v17 = v39;
-    v40 = v12;
-    v18 = KeyedDecodingContainer.allKeys.getter();
-    v19 = *(v18 + 16);
-    if (!v19 || ((v20 = *(v18 + 32), v19 == 1) ? (v21 = v20 == 3) : (v21 = 1), v21))
-    {
-      v22 = v14;
-      v23 = type metadata accessor for DecodingError();
-      swift_allocError();
-      v25 = v24;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
-      *v25 = &type metadata for LanguageModelReference;
-      KeyedDecodingContainer.codingPath.getter();
-      DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-      (*(*(v23 - 8) + 104))(v25, *MEMORY[0x277D84160], v23);
-      swift_willThrow();
-      (*(v40 + 8))(v22, v11);
-      swift_unknownObjectRelease();
-    }
-
-    else if (*(v18 + 32))
-    {
-      if (v20 == 1)
-      {
-        LOBYTE(v43) = 1;
-        lazy protocol witness table accessor for type LanguageModelReference.LinearCodingKeys and conformance LanguageModelReference.LinearCodingKeys();
-        KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        v26 = v40;
-        v33 = v14;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-        lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A]);
-        v29 = v37;
-        KeyedDecodingContainer.decode<A>(_:forKey:)();
-        (*(v36 + 8))(v7, v29);
-        (*(v26 + 8))(v33, v11);
-        swift_unknownObjectRelease();
-        v11 = v43;
-      }
-
-      else
-      {
-        LOBYTE(v43) = 2;
-        lazy protocol witness table accessor for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys();
-        KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        v28 = v40;
-        v33 = v14;
-        v38 = v11;
-        v31 = v34;
-        v11 = KeyedDecodingContainer.decode(_:forKey:)();
-        (*(v35 + 8))(v17, v31);
-        (*(v28 + 8))(v33, v38);
-        swift_unknownObjectRelease();
-      }
-    }
-
-    else
-    {
-      v39 = v18;
-      LOBYTE(v43) = 0;
-      lazy protocol witness table accessor for type LanguageModelReference.E5CodingKeys and conformance LanguageModelReference.E5CodingKeys();
-      v27 = v10;
-      KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      LODWORD(v37) = 0;
-      v30 = v11;
-      LOBYTE(v43) = 0;
-      v11 = KeyedDecodingContainer.decode(_:forKey:)();
-      v33 = v14;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd);
-      v42 = 1;
-      lazy protocol witness table accessor for type [String : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
-      KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-      (*(v38 + 8))(v27, v8);
-      (*(v40 + 8))(v33, v30);
-      swift_unknownObjectRelease();
-    }
-  }
-
-  __swift_destroy_boxed_opaque_existential_1(v41);
-  return v11;
-}
-
-unint64_t lazy protocol witness table accessor for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.CodingKeys and conformance LanguageModelReference.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys;
-  if (!lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LanguageModelReference.ExternalCodingKeys and conformance LanguageModelReference.ExternalCodingKeys);
-  }
-
   return result;
 }

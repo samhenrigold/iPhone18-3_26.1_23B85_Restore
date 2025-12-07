@@ -172,42 +172,41 @@
 
 - (void)_performSynchronizedCommit:(id)commit
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   commitCopy = commit;
   synchronizationDelegate = [(FBSynchronizedTransactionGroup *)self synchronizationDelegate];
   [synchronizationDelegate synchronizedTransaction:self willCommitSynchronizedTransactions:commitCopy];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = commitCopy;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) performSynchronizedCommit];
+        [*(*(&v11 + 1) + 8 * v10++) performSynchronizedCommit];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
   [synchronizationDelegate synchronizedTransaction:self didCommitSynchronizedTransactions:v6];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)synchronizedTransactionReadyToCommit:(id)commit

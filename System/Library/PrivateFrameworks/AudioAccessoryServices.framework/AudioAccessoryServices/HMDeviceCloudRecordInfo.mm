@@ -25,291 +25,321 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v56 = [objc_opt_class() description];
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v114 = 0;
+  v5 = [objc_opt_class() description];
+  NSAppendPrintF_safe(&v114, "%@", v5);
+  v6 = v114;
 
   bluetoothAddress = self->_bluetoothAddress;
   if (bluetoothAddress)
   {
-    v57 = bluetoothAddress;
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v113 = v6;
+    v8 = bluetoothAddress;
+    NSAppendPrintF_safe(&v113, ", Bt Addr %@", v8);
+    v9 = v113;
 
-    v5 = v7;
+    v6 = v9;
   }
 
+  haRegionStatus = self->_haRegionStatus;
   if (self->_haRegionStatus)
   {
-    haRegionStatus = self->_haRegionStatus;
-    NSAppendPrintF_safe();
-    v8 = v5;
+    v112 = v6;
+    NSAppendPrintF_safe(&v112, ", HA rgn St %d", haRegionStatus);
+    v11 = v112;
 
-    v5 = v8;
+    v6 = v11;
   }
 
+  haRegionStatusV2 = self->_haRegionStatusV2;
   if (self->_haRegionStatusV2)
   {
-    haRegionStatusV2 = self->_haRegionStatusV2;
-    NSAppendPrintF_safe();
-    v9 = v5;
+    v111 = v6;
+    NSAppendPrintF_safe(&v111, ", HA v2 rgn St %d", haRegionStatusV2);
+    v13 = v111;
 
-    v5 = v9;
+    v6 = v13;
   }
 
+  hpPPERegionStatus = self->_hpPPERegionStatus;
   if (self->_hpPPERegionStatus)
   {
-    hpPPERegionStatus = self->_hpPPERegionStatus;
-    NSAppendPrintF_safe();
-    v10 = v5;
+    v110 = v6;
+    NSAppendPrintF_safe(&v110, ", HP PPE rgn St %d", hpPPERegionStatus);
+    v15 = v110;
 
-    v5 = v10;
+    v6 = v15;
   }
 
+  hpRegionStatus = self->_hpRegionStatus;
   if (self->_hpRegionStatus)
   {
-    hpRegionStatus = self->_hpRegionStatus;
-    NSAppendPrintF_safe();
-    v11 = v5;
+    v109 = v6;
+    NSAppendPrintF_safe(&v109, ", HP rgn St %d", hpRegionStatus);
+    v17 = v109;
 
-    v5 = v11;
+    v6 = v17;
   }
 
+  mediaAssistEnabled = self->_mediaAssistEnabled;
   if (self->_mediaAssistEnabled)
   {
-    mediaAssistEnabled = self->_mediaAssistEnabled;
-    NSAppendPrintF_safe();
-    v12 = v5;
+    v108 = v6;
+    NSAppendPrintF_safe(&v108, ", MA En  %d", mediaAssistEnabled);
+    v19 = v108;
 
-    v5 = v12;
+    v6 = v19;
   }
 
+  pmeMediaEnabled = self->_pmeMediaEnabled;
   if (self->_pmeMediaEnabled)
   {
-    pmeMediaEnabled = self->_pmeMediaEnabled;
-    NSAppendPrintF_safe();
-    v13 = v5;
+    v107 = v6;
+    NSAppendPrintF_safe(&v107, ", PME-M En %d", pmeMediaEnabled);
+    v21 = v107;
 
-    v5 = v13;
+    v6 = v21;
   }
 
+  pmeVoiceEnabled = self->_pmeVoiceEnabled;
   if (self->_pmeVoiceEnabled)
   {
-    pmeVoiceEnabled = self->_pmeVoiceEnabled;
-    NSAppendPrintF_safe();
-    v14 = v5;
+    v106 = v6;
+    NSAppendPrintF_safe(&v106, ", PME-V En %d", pmeVoiceEnabled);
+    v23 = v106;
 
-    v5 = v14;
+    v6 = v23;
   }
 
+  swipeGainEnabled = self->_swipeGainEnabled;
   if (self->_swipeGainEnabled)
   {
-    swipeGainEnabled = self->_swipeGainEnabled;
-    NSAppendPrintF_safe();
-    v15 = v5;
+    v105 = v6;
+    NSAppendPrintF_safe(&v105, ", Swp Gn En %d", swipeGainEnabled);
+    v25 = v105;
 
-    v5 = v15;
+    v6 = v25;
   }
 
   bottomMicFaultCountLeft = self->_bottomMicFaultCountLeft;
   if (bottomMicFaultCountLeft)
   {
-    v66 = bottomMicFaultCountLeft;
-    NSAppendPrintF_safe();
-    v17 = v5;
+    v104 = v6;
+    v27 = bottomMicFaultCountLeft;
+    NSAppendPrintF_safe(&v104, ", BMi flt L %@", v27);
+    v28 = v104;
 
-    v5 = v17;
+    v6 = v28;
   }
 
   bottomMicFaultCountRight = self->_bottomMicFaultCountRight;
   if (bottomMicFaultCountRight)
   {
-    v67 = bottomMicFaultCountRight;
-    NSAppendPrintF_safe();
-    v19 = v5;
+    v103 = v6;
+    v30 = bottomMicFaultCountRight;
+    NSAppendPrintF_safe(&v103, ", BMi flt R %@", v30);
+    v31 = v103;
 
-    v5 = v19;
+    v6 = v31;
   }
 
   diagnosticMeasurementsCount = self->_diagnosticMeasurementsCount;
   if (diagnosticMeasurementsCount)
   {
-    v68 = diagnosticMeasurementsCount;
-    NSAppendPrintF_safe();
-    v21 = v5;
+    v102 = v6;
+    v33 = diagnosticMeasurementsCount;
+    NSAppendPrintF_safe(&v102, ", Dg Ms Cnt %@", v33);
+    v34 = v102;
 
-    v5 = v21;
+    v6 = v34;
   }
 
   freqAccuracyFaultCountLeft = self->_freqAccuracyFaultCountLeft;
   if (freqAccuracyFaultCountLeft)
   {
-    v69 = freqAccuracyFaultCountLeft;
-    NSAppendPrintF_safe();
-    v23 = v5;
+    v101 = v6;
+    v36 = freqAccuracyFaultCountLeft;
+    NSAppendPrintF_safe(&v101, ", Frq Acc L %@", v36);
+    v37 = v101;
 
-    v5 = v23;
+    v6 = v37;
   }
 
   freqAccuracyFaultCountRight = self->_freqAccuracyFaultCountRight;
   if (freqAccuracyFaultCountRight)
   {
-    v70 = freqAccuracyFaultCountRight;
-    NSAppendPrintF_safe();
-    v25 = v5;
+    v100 = v6;
+    v39 = freqAccuracyFaultCountRight;
+    NSAppendPrintF_safe(&v100, ", Frq Acc R %@", v39);
+    v40 = v100;
 
-    v5 = v25;
+    v6 = v40;
   }
 
   frontVentFaultCountLeft = self->_frontVentFaultCountLeft;
   if (frontVentFaultCountLeft)
   {
-    v71 = frontVentFaultCountLeft;
-    NSAppendPrintF_safe();
-    v27 = v5;
+    v99 = v6;
+    v42 = frontVentFaultCountLeft;
+    NSAppendPrintF_safe(&v99, ", Fvnt flt L %@", v42);
+    v43 = v99;
 
-    v5 = v27;
+    v6 = v43;
   }
 
   frontVentFaultCountRight = self->_frontVentFaultCountRight;
   if (frontVentFaultCountRight)
   {
-    v72 = frontVentFaultCountRight;
-    NSAppendPrintF_safe();
-    v29 = v5;
+    v98 = v6;
+    v45 = frontVentFaultCountRight;
+    NSAppendPrintF_safe(&v98, ", Fvnt flt R %@", v45);
+    v46 = v98;
 
-    v5 = v29;
+    v6 = v46;
   }
 
   innerMicFaultCountLeft = self->_innerMicFaultCountLeft;
   if (innerMicFaultCountLeft)
   {
-    v73 = innerMicFaultCountLeft;
-    NSAppendPrintF_safe();
-    v31 = v5;
+    v97 = v6;
+    v48 = innerMicFaultCountLeft;
+    NSAppendPrintF_safe(&v97, ", IMi flt L %@", v48);
+    v49 = v97;
 
-    v5 = v31;
+    v6 = v49;
   }
 
   innerMicFaultCountRight = self->_innerMicFaultCountRight;
   if (innerMicFaultCountRight)
   {
-    v74 = innerMicFaultCountRight;
-    NSAppendPrintF_safe();
-    v33 = v5;
+    v96 = v6;
+    v51 = innerMicFaultCountRight;
+    NSAppendPrintF_safe(&v96, ", IMi flt R %@", v51);
+    v52 = v96;
 
-    v5 = v33;
+    v6 = v52;
   }
 
   latestDiagnosticTimestampLeft = self->_latestDiagnosticTimestampLeft;
   if (latestDiagnosticTimestampLeft)
   {
-    v75 = latestDiagnosticTimestampLeft;
-    NSAppendPrintF_safe();
-    v35 = v5;
+    v95 = v6;
+    v54 = latestDiagnosticTimestampLeft;
+    NSAppendPrintF_safe(&v95, ", ltst dg T L %@", v54);
+    v55 = v95;
 
-    v5 = v35;
+    v6 = v55;
   }
 
   latestDiagnosticTimestampRight = self->_latestDiagnosticTimestampRight;
   if (latestDiagnosticTimestampRight)
   {
-    v76 = latestDiagnosticTimestampRight;
-    NSAppendPrintF_safe();
-    v37 = v5;
+    v94 = v6;
+    v57 = latestDiagnosticTimestampRight;
+    NSAppendPrintF_safe(&v94, ", ltst dg T R %@", v57);
+    v58 = v94;
 
-    v5 = v37;
+    v6 = v58;
   }
 
   rearVentFaultCountLeft = self->_rearVentFaultCountLeft;
   if (rearVentFaultCountLeft)
   {
-    v77 = rearVentFaultCountLeft;
-    NSAppendPrintF_safe();
-    v39 = v5;
+    v93 = v6;
+    v60 = rearVentFaultCountLeft;
+    NSAppendPrintF_safe(&v93, ", Rvnt flt L %@", v60);
+    v61 = v93;
 
-    v5 = v39;
+    v6 = v61;
   }
 
   rearVentFaultCountRight = self->_rearVentFaultCountRight;
   if (rearVentFaultCountRight)
   {
-    v78 = rearVentFaultCountRight;
-    NSAppendPrintF_safe();
-    v41 = v5;
+    v92 = v6;
+    v63 = rearVentFaultCountRight;
+    NSAppendPrintF_safe(&v92, ", Rvnt flt R %@", v63);
+    v64 = v92;
 
-    v5 = v41;
+    v6 = v64;
   }
 
   speakerFaultCountLeft = self->_speakerFaultCountLeft;
   if (speakerFaultCountLeft)
   {
-    v79 = speakerFaultCountLeft;
-    NSAppendPrintF_safe();
-    v43 = v5;
+    v91 = v6;
+    v66 = speakerFaultCountLeft;
+    NSAppendPrintF_safe(&v91, ", Spk flt L %@", v66);
+    v67 = v91;
 
-    v5 = v43;
+    v6 = v67;
   }
 
   speakerFaultCountRight = self->_speakerFaultCountRight;
   if (speakerFaultCountRight)
   {
-    v80 = speakerFaultCountRight;
-    NSAppendPrintF_safe();
-    v45 = v5;
+    v90 = v6;
+    v69 = speakerFaultCountRight;
+    NSAppendPrintF_safe(&v90, ", Spk flt R %@", v69);
+    v70 = v90;
 
-    v5 = v45;
+    v6 = v70;
   }
 
   topMicFaultCountLeft = self->_topMicFaultCountLeft;
   if (topMicFaultCountLeft)
   {
-    v81 = topMicFaultCountLeft;
-    NSAppendPrintF_safe();
-    v47 = v5;
+    v89 = v6;
+    v72 = topMicFaultCountLeft;
+    NSAppendPrintF_safe(&v89, ", Tmi flt L %@", v72);
+    v73 = v89;
 
-    v5 = v47;
+    v6 = v73;
   }
 
   topMicFaultCountRight = self->_topMicFaultCountRight;
   if (topMicFaultCountRight)
   {
-    v82 = topMicFaultCountRight;
-    NSAppendPrintF_safe();
-    v49 = v5;
+    v88 = v6;
+    v75 = topMicFaultCountRight;
+    NSAppendPrintF_safe(&v88, ", Tmi flt R %@", v75);
+    v76 = v88;
 
-    v5 = v49;
+    v6 = v76;
   }
 
   totalHarmonicDistortionFaultCountLeft = self->_totalHarmonicDistortionFaultCountLeft;
   if (totalHarmonicDistortionFaultCountLeft)
   {
-    v83 = totalHarmonicDistortionFaultCountLeft;
-    NSAppendPrintF_safe();
-    v51 = v5;
+    v87 = v6;
+    v78 = totalHarmonicDistortionFaultCountLeft;
+    NSAppendPrintF_safe(&v87, ", THrm Dst L %@", v78);
+    v79 = v87;
 
-    v5 = v51;
+    v6 = v79;
   }
 
   totalHarmonicDistortionFaultCountRight = self->_totalHarmonicDistortionFaultCountRight;
   if (totalHarmonicDistortionFaultCountRight)
   {
-    v84 = totalHarmonicDistortionFaultCountRight;
-    NSAppendPrintF_safe();
-    v53 = v5;
+    v86 = v6;
+    v81 = totalHarmonicDistortionFaultCountRight;
+    NSAppendPrintF_safe(&v86, ", THrm Dst R %@", v81);
+    v82 = v86;
 
-    v5 = v53;
+    v6 = v82;
   }
 
   if (level < 21)
   {
-    NSAppendPrintF_safe();
-    v54 = v5;
+    v85 = v6;
+    NSAppendPrintF_safe(&v85, "\n");
+    v83 = v85;
 
-    v5 = v54;
+    v6 = v83;
   }
 
-  return v5;
+  return v6;
 }
 
 - (HMDeviceCloudRecordInfo)initWithCoder:(id)coder

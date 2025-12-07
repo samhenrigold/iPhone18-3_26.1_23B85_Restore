@@ -17,7 +17,7 @@
   v9 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else

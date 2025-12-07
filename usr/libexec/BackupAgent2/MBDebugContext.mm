@@ -12,8 +12,10 @@
 - (int64_t)time;
 - (void)dealloc;
 - (void)removeValueForName:(id)name;
+- (void)setBool:(BOOL)bool forName:(id)name;
 - (void)setDelegate:(id)delegate andSelector:(SEL)selector forName:(id)name;
 - (void)setFlag:(id)flag;
+- (void)setInt:(int)int forName:(id)name;
 - (void)setSimulatedDate:(id)date;
 - (void)setValue:(id)value forName:(id)name;
 @end
@@ -128,6 +130,16 @@
   return v6;
 }
 
+- (void)setBool:(BOOL)bool forName:(id)name
+{
+  boolCopy = bool;
+  dictionary = self->_dictionary;
+  objc_sync_enter(dictionary);
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKeyedSubscript:"numberWithBool:" numberWithBool:boolCopy], name];
+
+  objc_sync_exit(dictionary);
+}
+
 - (BOOL)BOOLForName:(id)name
 {
   dictionary = self->_dictionary;
@@ -135,6 +147,13 @@
   LOBYTE(name) = [-[NSMutableDictionary objectForKeyedSubscript:](self->_dictionary objectForKeyedSubscript:{name), "BOOLValue"}];
   objc_sync_exit(dictionary);
   return name;
+}
+
+- (void)setInt:(int)int forName:(id)name
+{
+  v6 = [NSNumber numberWithInt:*&int];
+
+  [(MBDebugContext *)self setValue:v6 forName:name];
 }
 
 - (int)intForName:(id)name
@@ -185,10 +204,9 @@
 {
   dictionary = self->_dictionary;
   objc_sync_enter(dictionary);
-  v4 = self->_dictionary;
-  v5 = MBStringWithDictionary();
+  v3 = MBStringWithDictionary();
   objc_sync_exit(dictionary);
-  return v5;
+  return v3;
 }
 
 @end

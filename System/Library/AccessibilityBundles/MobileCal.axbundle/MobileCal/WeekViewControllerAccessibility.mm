@@ -156,7 +156,7 @@ LABEL_12:
   return v41;
 }
 
-uint64_t __74__WeekViewControllerAccessibility_accessibilityScrollStatusForScrollView___block_invoke(uint64_t a1)
+void *__74__WeekViewControllerAccessibility_accessibilityScrollStatusForScrollView___block_invoke(uint64_t a1)
 {
   result = -[objc_class dayWidthForOrientation:withViewInViewHierarchy:](NSClassFromString(&cfstr_Weekview.isa), "dayWidthForOrientation:withViewInViewHierarchy:", [*(a1 + 32) interfaceOrientation], *(a1 + 40));
   *(*(*(a1 + 48) + 8) + 24) = v3;

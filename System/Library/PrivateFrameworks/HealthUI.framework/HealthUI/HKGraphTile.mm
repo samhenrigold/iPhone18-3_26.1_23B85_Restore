@@ -28,7 +28,7 @@
   if (v8)
   {
     mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-    [mainScreen scale];
+    objc_msgSend_scale(mainScreen);
     v11 = v10;
 
     v12 = objc_alloc_init(MEMORY[0x1E6979398]);
@@ -191,7 +191,7 @@
   }
 
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen scale];
+  objc_msgSend_scale(mainScreen);
   v17 = v16;
 
   v18 = [[_HKGraphTileRenderToImage alloc] initWithSize:1 scale:width invertedYAxis:height, v17];
@@ -232,7 +232,7 @@ LABEL_8:
   }
 }
 
-uint64_t __87__HKGraphTile_renderTileInBackgroundWithRenderer_tileSize_configurationChangedCounter___block_invoke_2(uint64_t a1)
+void *__87__HKGraphTile_renderTileInBackgroundWithRenderer_tileSize_configurationChangedCounter___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) configurationChangedCounter];
   if (result == *(a1 + 40))

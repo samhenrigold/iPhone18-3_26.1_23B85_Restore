@@ -1,110 +1,22 @@
-void PRM::Camera::PearlBufferStream::~PearlBufferStream(PRM::Camera::PearlBufferStream *this)
+void PRM::Camera::PearlBufferStream::initialize(PRM::Camera::PearlBufferStream *this)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  for (i = 96; i != 128; i += 8)
-  {
-    if (*(this + 2) == 1)
-    {
-      (*(**(this + i) + 8))(*(this + i));
-    }
-
-    v3 = *(this + i);
-    if (v3)
-    {
-      (*(*v3 + 24))(v3);
-    }
-
-    *(this + i) = 0;
-  }
-
-  v4 = *(this + 4);
-  if (v4[27] == 1)
-  {
-    v5 = *(this + 17);
-    if (!v5)
-    {
-      v9 = 0;
-      asprintf(&v9, "%s: Assertion failed for %s", "~PearlBufferStream", "m_iosurfaceMetadata");
-      v8 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 136315906;
-        v11 = "~PearlBufferStream";
-        v12 = 1024;
-        v13 = 1611;
-        v14 = 2080;
-        v15 = "~PearlBufferStream";
-        v16 = 2080;
-        v17 = "m_iosurfaceMetadata";
-        _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
-      }
-
-      if (OSLogFlushBuffers())
-      {
-        __PSResourceManagerLogSharedInstance();
-        PRM::Camera::PearlBufferStream::~PearlBufferStream();
-      }
-
-      else
-      {
-        usleep(0x1E8480u);
-      }
-
-      abort_with_reason();
-      __break(1u);
-    }
-
-    (*(*v5 + 8))(v5);
-    v4 = *(this + 4);
-  }
-
-  ps_prm_opts_destroy(v4);
-  *(this + 4) = 0;
-  v6 = *(this + 17);
-  if (v6)
-  {
-    (*(*v6 + 24))(v6);
-  }
-
-  *(this + 17) = 0;
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  PRM::Camera::PearlBufferStream::~PearlBufferStream(this);
-
-  JUMPOUT(0x25F8C7C50);
-}
-
-void sub_25EAA373C(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t PRM::Camera::PearlBufferStream::initialize(PRM::Camera::PearlBufferStream *this)
-{
-  v76 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v1 = *(this + 4);
   if (!v1)
   {
-    PRM::Camera::PearlBufferStream::initialize(v73);
+    PRM::Camera::PearlBufferStream::initialize(v65);
   }
 
   v2 = this;
   if (*(this + 10))
   {
-    PRM::Camera::PearlBufferStream::initialize(v73);
+    PRM::Camera::PearlBufferStream::initialize(v65);
   }
 
   v3 = *(this + 2);
   if ((v3 - 3) <= 0xFFFFFFFD)
   {
-    PRM::Camera::PearlBufferStream::initialize(v73);
+    PRM::Camera::PearlBufferStream::initialize(v65);
   }
 
   v4 = *(v1 + 108);
@@ -112,7 +24,7 @@ uint64_t PRM::Camera::PearlBufferStream::initialize(PRM::Camera::PearlBufferStre
   {
     if (v4 != 1)
     {
-      result = PRM::Camera::PearlBufferStream::initialize(v73);
+      PRM::Camera::PearlBufferStream::initialize(v65);
       goto LABEL_80;
     }
   }
@@ -123,321 +35,313 @@ uint64_t PRM::Camera::PearlBufferStream::initialize(PRM::Camera::PearlBufferStre
   }
 
   *(this + 32) = v4;
-  v70 = this;
+  v62 = this;
   if (v3 != 1)
   {
     goto LABEL_39;
   }
 
-  v6 = *(this + 2);
-  if (!v6)
+  v5 = *(this + 2);
+  if (!v5)
   {
-    PRM::Camera::PearlBufferStream::initialize(v73);
+    PRM::Camera::PearlBufferStream::initialize(v65);
   }
 
-  MEMORY[0x25F8C8900](v6, 8);
+  MEMORY[0x25F8C8900](v5, 8);
   MEMORY[0x25F8C8900](*(v2 + 2), 1);
-  v7 = 4;
+  v6 = 4;
   do
   {
-    v8 = MEMORY[0x25F8C8900](*(v2 + 2), 1);
-    --v7;
+    v7 = MEMORY[0x25F8C8900](*(v2 + 2), 1);
+    --v6;
   }
 
-  while (v7);
-  v63[1] = v63;
-  v9 = *(*(v2 + 4) + 152);
-  MEMORY[0x28223BE20](v8);
-  v10 = (8 * v9 + 15) & 0xFFFFFFFF0;
-  if ((8 * v9) >= 0x200)
+  while (v6);
+  v55[1] = v55;
+  v8 = *(*(v2 + 4) + 152);
+  MEMORY[0x28223BE20](v7);
+  v9 = (8 * v8 + 15) & 0xFFFFFFFF0;
+  if ((8 * v8) >= 0x200)
   {
-    v11 = 512;
+    v10 = 512;
   }
 
   else
   {
-    v11 = 8 * v9;
+    v10 = 8 * v8;
   }
 
-  v69 = v63 - v10;
-  bzero(v63 - v10, v11);
+  v61 = v55 - v9;
+  bzero(v55 - v9, v10);
+  MEMORY[0x28223BE20](v11);
+  v60 = v55 - v9;
+  bzero(v55 - v9, v10);
   MEMORY[0x28223BE20](v12);
-  v68 = v63 - v10;
-  bzero(v63 - v10, v11);
+  v59 = v55 - v9;
+  bzero(v55 - v9, v10);
+  v56 = 8 * v8;
   MEMORY[0x28223BE20](v13);
-  v67 = v63 - v10;
-  bzero(v63 - v10, v11);
-  v64 = 8 * v9;
-  MEMORY[0x28223BE20](v14);
-  v66 = v63 - v10;
-  bzero(v63 - v10, v11);
-  v73[0] = *"dx";
-  v72[0] = *"dy";
-  v74 = *"depth";
-  v75 = *"score";
-  v65 = v9;
-  if (v9)
+  v58 = v55 - v9;
+  bzero(v55 - v9, v10);
+  v65[0] = *"dx";
+  v64[0] = *"dy";
+  v66 = *"depth";
+  v67 = *"score";
+  v57 = v8;
+  if (v8)
   {
-    v15 = 0;
-    v16 = *MEMORY[0x277CBECE8];
-    v17 = *MEMORY[0x277CC4D90];
-    v18 = *MEMORY[0x277CBED28];
-    v19 = 1;
+    v14 = 0;
+    v15 = *MEMORY[0x277CBECE8];
+    v16 = *MEMORY[0x277CC4D90];
+    v17 = *MEMORY[0x277CBED28];
+    v18 = 1;
     do
     {
-      v20 = *(v70 + 4);
-      if (!*(v20[20] + v15))
+      v19 = *(v62 + 4);
+      if (!*(v19[20] + v14))
       {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
-      if (!*(v20[21] + v15))
+      if (!*(v19[21] + v14))
       {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
-      if (!*(v20[22] + v15))
+      if (!*(v19[22] + v14))
       {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
-      if (!*(v20[23] + v15))
+      if (!*(v19[23] + v14))
       {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
-      Mutable = CFDictionaryCreateMutable(v16, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v22 = CFDictionaryCreateMutable(v16, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v23 = CFDictionaryCreateMutable(v16, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v24 = CFDictionaryCreateMutable(v16, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      CFDictionarySetValue(Mutable, v17, v18);
-      CFDictionarySetValue(v22, v17, v18);
-      CFDictionarySetValue(v23, v17, v18);
-      CFDictionarySetValue(v24, v17, v18);
-      v25 = v70 + 32;
-      CVPixelBufferCreateWithIOSurface(v16, *(*(*(v70 + 4) + 160) + v15), Mutable, &v69[v15]);
-      CVPixelBufferCreateWithIOSurface(v16, *(*(*v25 + 168) + v15), v22, &v68[v15]);
-      CVPixelBufferCreateWithIOSurface(v16, *(*(*v25 + 176) + v15), v23, &v67[v15]);
-      CVPixelBufferCreateWithIOSurface(v16, *(*(*v25 + 184) + v15), v24, &v66[v15]);
-      if (!*&v69[v15])
+      Mutable = CFDictionaryCreateMutable(v15, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v21 = CFDictionaryCreateMutable(v15, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v22 = CFDictionaryCreateMutable(v15, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v23 = CFDictionaryCreateMutable(v15, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      CFDictionarySetValue(Mutable, v16, v17);
+      CFDictionarySetValue(v21, v16, v17);
+      CFDictionarySetValue(v22, v16, v17);
+      CFDictionarySetValue(v23, v16, v17);
+      v24 = v62 + 32;
+      CVPixelBufferCreateWithIOSurface(v15, *(*(*(v62 + 4) + 160) + v14), Mutable, &v61[v14]);
+      CVPixelBufferCreateWithIOSurface(v15, *(*(*v24 + 168) + v14), v21, &v60[v14]);
+      CVPixelBufferCreateWithIOSurface(v15, *(*(*v24 + 176) + v14), v22, &v59[v14]);
+      CVPixelBufferCreateWithIOSurface(v15, *(*(*v24 + 184) + v14), v23, &v58[v14]);
+      if (!*&v61[v14])
       {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
       CFRelease(Mutable);
-      if (!*&v68[v15])
+      if (!*&v60[v14])
       {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
+      }
+
+      CFRelease(v21);
+      if (!*&v59[v14])
+      {
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
       CFRelease(v22);
-      if (!*&v67[v15])
+      if (!*&v58[v14])
       {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
       CFRelease(v23);
-      if (!*&v66[v15])
-      {
-        PRM::Camera::PearlBufferStream::initialize(&v71);
-      }
-
-      CFRelease(v24);
-      v26 = v70 + 32;
-      PRM::Camera::setIOSurfaceName(*(*(*(v70 + 4) + 160) + v15), *(*(v70 + 4) + 56), v19, *(*(v70 + 4) + 152), 0, v73, v27);
-      PRM::Camera::setIOSurfaceName(*(*(*v26 + 168) + v15), *(*v26 + 56), v19, *(*v26 + 152), 0, v72, v28);
-      PRM::Camera::setIOSurfaceName(*(*(*v26 + 176) + v15), *(*v26 + 56), v19, *(*v26 + 152), 0, &v75, v29);
-      PRM::Camera::setIOSurfaceName(*(*(*v26 + 184) + v15), *(*v26 + 56), v19, *(*v26 + 152), 0, &v74, v30);
-      v15 += 8;
-      v19 = (v19 + 1);
+      v25 = v62 + 32;
+      PRM::Camera::setIOSurfaceName(*(*(*(v62 + 4) + 160) + v14), *(*(v62 + 4) + 56), v18, *(*(v62 + 4) + 152), 0, v65, v26);
+      PRM::Camera::setIOSurfaceName(*(*(*v25 + 168) + v14), *(*v25 + 56), v18, *(*v25 + 152), 0, v64, v27);
+      PRM::Camera::setIOSurfaceName(*(*(*v25 + 176) + v14), *(*v25 + 56), v18, *(*v25 + 152), 0, &v67, v28);
+      PRM::Camera::setIOSurfaceName(*(*(*v25 + 184) + v14), *(*v25 + 56), v18, *(*v25 + 152), 0, &v66, v29);
+      v14 += 8;
+      v18 = (v18 + 1);
     }
 
-    while (v64 != v15);
+    while (v56 != v14);
   }
 
-  v32 = *(v70 + 2);
-  v31 = (v70 + 16);
   ps_buffer_add_cvpixelbuffer();
-  v33 = *v31;
   ps_buffer_add_cvpixelbuffer();
-  v34 = *v31;
   ps_buffer_add_cvpixelbuffer();
-  v35 = *v31;
   ps_buffer_add_cvpixelbuffer();
-  v36 = 4;
+  v30 = 4;
   do
   {
-    MEMORY[0x25F8C8900](*(v70 + 2), 4);
-    --v36;
+    MEMORY[0x25F8C8900](*(v62 + 2), 4);
+    --v30;
   }
 
-  while (v36);
-  v37 = v70;
-  v38 = *(v70 + 32);
-  if (v38 == 1)
+  while (v30);
+  v31 = v62;
+  v32 = *(v62 + 32);
+  if (v32 == 1)
   {
-    if (v65)
+    if (v57)
     {
-      v40 = 0;
+      v34 = 0;
       do
       {
-        v41 = *(*(*(v70 + 4) + 200) + 8 * v40);
-        if (!v41)
+        v35 = *(*(*(v62 + 4) + 200) + 8 * v34);
+        if (!v35)
         {
-          PRM::Camera::PearlBufferStream::initialize(&v71);
+          PRM::Camera::PearlBufferStream::initialize(v63);
         }
 
-        CFRetain(v41);
-        v42 = *(v70 + 4);
-        v43 = *(*(v42 + 200) + 8 * v40++);
-        PRM::Camera::setIOSurfaceName(v43, *(v42 + 56), v40, v65, 1, 0, v44);
+        CFRetain(v35);
+        v36 = *(v62 + 4);
+        v37 = *(*(v36 + 200) + 8 * v34++);
+        PRM::Camera::setIOSurfaceName(v37, *(v36 + 56), v34, v57, 1, 0, v38);
       }
 
-      while (v65 != v40);
+      while (v57 != v34);
     }
 
-    v45 = *(v70 + 2);
-    v46 = *(*(v70 + 4) + 200);
     ps_buffer_add_iosurface();
-    v39 = 4;
-    v37 = v70;
+    v33 = 4;
+    v31 = v62;
   }
 
   else
   {
-    if (v38 != 2)
+    if (v32 != 2)
     {
-      if (v38)
+      if (v32)
       {
-        result = PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
       else
       {
-        result = PRM::Camera::PearlBufferStream::initialize(&v71);
+        PRM::Camera::PearlBufferStream::initialize(v63);
       }
 
       goto LABEL_80;
     }
 
-    v39 = 90112;
+    v33 = 90112;
   }
 
-  MEMORY[0x25F8C8900](*(v37 + 2), v39);
-  MEMORY[0x25F8C8C70](*(v37 + 2));
-  v2 = v70;
-  v47 = *(v70 + 2);
-  if (v47 == 2)
+  MEMORY[0x25F8C8900](*(v31 + 2), v33);
+  MEMORY[0x25F8C8C70](*(v31 + 2));
+  v2 = v62;
+  v39 = *(v62 + 2);
+  if (v39 == 2)
   {
 LABEL_39:
-    v48 = MEMORY[0x25F8C8E10](*(v2 + 3));
+    v40 = MEMORY[0x25F8C8E10](*(v2 + 3));
   }
 
   else
   {
-    if (v47 != 1)
+    if (v39 != 1)
     {
       goto LABEL_78;
     }
 
-    v48 = MEMORY[0x25F8C8E90](*(v70 + 2));
+    v40 = MEMORY[0x25F8C8E90](*(v62 + 2));
   }
 
-  if (!v48)
+  if (!v40)
   {
 LABEL_78:
-    PRM::Camera::PearlBufferStream::initialize(v73);
+    PRM::Camera::PearlBufferStream::initialize(v65);
   }
 
-  v49 = *v48;
-  v50 = v70;
-  *(v70 + 6) = *v48;
-  if (!v49)
+  v41 = *v40;
+  v42 = v62;
+  *(v62 + 6) = *v40;
+  if (!v41)
   {
-    PRM::Camera::PearlBufferStream::initialize(v73);
+    PRM::Camera::PearlBufferStream::initialize(v65);
   }
 
-  v51 = v48[1];
-  *(v50 + 7) = v51;
-  if (!v51)
+  v43 = v40[1];
+  *(v42 + 7) = v43;
+  if (!v43)
   {
-    PRM::Camera::PearlBufferStream::initialize(v73);
+    PRM::Camera::PearlBufferStream::initialize(v65);
   }
 
-  v52 = (v50 + 64);
+  v44 = (v42 + 64);
   for (i = 2; i != 6; ++i)
   {
-    v54 = v48[i];
-    *v52 = v54;
-    if (!v54)
+    v46 = v40[i];
+    *v44 = v46;
+    if (!v46)
     {
-      PRM::Camera::PearlBufferStream::initialize(v73);
+      PRM::Camera::PearlBufferStream::initialize(v65);
     }
 
-    ++v52;
+    ++v44;
   }
 
-  v55 = 0;
-  memset(v73, 0, sizeof(v73));
-  memset(v72, 0, sizeof(v72));
+  v47 = 0;
+  memset(v65, 0, sizeof(v65));
+  memset(v64, 0, sizeof(v64));
   do
   {
-    v56 = v48[v55 + 6];
-    *(v73 + v55 * 8) = v56;
-    if (!v56)
+    v48 = v40[v47 + 6];
+    *(v65 + v47 * 8) = v48;
+    if (!v48)
     {
-      PRM::Camera::PearlBufferStream::initialize(&v75);
+      PRM::Camera::PearlBufferStream::initialize(&v67);
     }
 
-    ++v55;
+    ++v47;
   }
 
-  while (v55 != 4);
+  while (v47 != 4);
   for (j = 0; j != 4; ++j)
   {
-    v58 = v48[j + 10];
-    *(v72 + j * 8) = v58;
-    if (!v58)
+    v50 = v40[j + 10];
+    *(v64 + j * 8) = v50;
+    if (!v50)
     {
-      PRM::Camera::PearlBufferStream::initialize(&v75);
+      PRM::Camera::PearlBufferStream::initialize(&v67);
     }
   }
 
-  v59 = *(v70 + 4);
-  v60 = *(v59 + 112);
-  if (v60 <= 7)
+  v51 = *(v62 + 4);
+  v52 = *(v51 + 112);
+  if (v52 <= 7)
   {
-    v61 = 1 << v60;
-    if ((v61 & 0x49) != 0)
+    v53 = 1 << v52;
+    if ((v53 & 0x49) != 0)
     {
-      *(v70 + 10) = *(v59 + 68) + *(v59 + 72);
+      *(v62 + 10) = *(v51 + 68) + *(v51 + 72);
       operator new();
     }
 
-    if ((v61 & 0x92) != 0)
+    if ((v53 & 0x92) != 0)
     {
-      v62.i64[0] = *(v59 + 68);
-      v62.i64[1] = *(v59 + 144);
-      *(v70 + 10) = vaddvq_s32(v62);
+      v54.i64[0] = *(v51 + 68);
+      v54.i64[1] = *(v51 + 144);
+      *(v62 + 10) = vaddvq_s32(v54);
       operator new();
     }
   }
 
-  result = PRM::Camera::PearlBufferStream::initialize(&v75);
+  PRM::Camera::PearlBufferStream::initialize(&v67);
 LABEL_80:
   __break(1u);
-  return result;
 }
 
-uint64_t PRM::Camera::PearlBufferStream::read(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+_BYTE *PRM::Camera::PearlBufferStream::read(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 48))
   {
 LABEL_43:
-    PRM::Camera::PearlBufferStream::read(&v34);
+    PRM::Camera::PearlBufferStream::read(&v31);
 LABEL_44:
-    PRM::Camera::PearlBufferStream::read(&v34);
+    PRM::Camera::PearlBufferStream::read(&v31);
     goto LABEL_45;
   }
 
@@ -447,13 +351,13 @@ LABEL_44:
   {
     if (!*(v9 + v8))
     {
-      PRM::Camera::PearlBufferStream::read(&v34);
+      PRM::Camera::PearlBufferStream::read(&v31);
 LABEL_40:
-      PRM::Camera::PearlBufferStream::read(&v34);
+      PRM::Camera::PearlBufferStream::read(&v31);
 LABEL_41:
-      PRM::Camera::PearlBufferStream::read(&v30);
+      PRM::Camera::PearlBufferStream::read(&v27);
 LABEL_42:
-      PRM::Camera::PearlBufferStream::read(&v30);
+      PRM::Camera::PearlBufferStream::read(&v27);
       goto LABEL_43;
     }
 
@@ -471,7 +375,7 @@ LABEL_42:
   {
     do
     {
-      PRM::Camera::PearlBufferStream::read(&v34);
+      PRM::Camera::PearlBufferStream::read(&v31);
 LABEL_9:
       ;
     }
@@ -487,158 +391,153 @@ LABEL_9:
   if (!a3)
   {
 LABEL_45:
-    PRM::Camera::PearlBufferStream::read(&v34);
+    PRM::Camera::PearlBufferStream::read(&v31);
     goto LABEL_46;
   }
 
   if (MEMORY[0x25F8C9190](a2) <= a4)
   {
 LABEL_46:
-    PRM::Camera::PearlBufferStream::read(&v34);
+    PRM::Camera::PearlBufferStream::read(&v31);
     goto LABEL_47;
   }
 
   ps_buffer_get_resource_view_index();
-  v11 = *(a1 + 48);
   buffer = ps_buffer_serial_data_get_buffer();
-  v13 = *(a1 + 56);
-  v14 = ps_buffer_serial_data_get_buffer();
+  v12 = ps_buffer_serial_data_get_buffer();
   if (!buffer)
   {
 LABEL_47:
-    PRM::Camera::PearlBufferStream::read(&v34);
+    PRM::Camera::PearlBufferStream::read(&v31);
     goto LABEL_48;
   }
 
-  v15 = v14;
-  if (!v14)
+  v13 = v12;
+  if (!v12)
   {
 LABEL_48:
-    PRM::Camera::PearlBufferStream::read(&v34);
+    PRM::Camera::PearlBufferStream::read(&v31);
     goto LABEL_49;
   }
 
   for (i = 0; i != 4; ++i)
   {
-    v17 = *(a1 + 64 + 8 * i);
-    v18 = ps_buffer_serial_data_get_buffer();
-    if (!v18)
+    v15 = ps_buffer_serial_data_get_buffer();
+    if (!v15)
     {
       goto LABEL_40;
     }
 
-    v33[i] = *v18;
+    v30[i] = *v15;
   }
 
-  MEMORY[0x25F8C94C0](a2, a4, *v15);
+  MEMORY[0x25F8C94C0](a2, a4, *v13);
   result = MEMORY[0x25F8C9570](a2, a4, *buffer);
-  v20 = 0;
-  v21 = 0;
+  v17 = 0;
+  v18 = 0;
   do
   {
-    while ((v21 & 1) != 0)
+    while ((v18 & 1) != 0)
     {
-      ++v20;
-      v21 = 1;
-      if (v20 == 4)
+      ++v17;
+      v18 = 1;
+      if (v17 == 4)
       {
         goto LABEL_24;
       }
     }
 
-    v21 = v33[v20++];
+    v18 = v30[v17++];
   }
 
-  while (v20 != 4);
-  if ((v21 & 1) == 0)
+  while (v17 != 4);
+  if (v18)
   {
-LABEL_38:
-    v27 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
 LABEL_24:
-  MEMORY[0x25F8C9560](a2, a4, v33[0], v33[1], v33[2], v33[3]);
-  v22 = 0;
-  v34 = 0u;
-  v35 = 0u;
-  do
-  {
-    if (v33[v22] == 1)
+    MEMORY[0x25F8C9560](a2, a4, v30[0], v30[1], v30[2], v30[3]);
+    v19 = 0;
+    v31 = 0u;
+    v32 = 0u;
+    do
     {
-      (*(**(v9 + 8 * v22) + 32))(v31);
-      if (LODWORD(v31[0]) != 2)
+      if (v30[v19] == 1)
       {
-        goto LABEL_41;
+        (*(**(v9 + 8 * v19) + 32))(v28);
+        if (LODWORD(v28[0]) != 2)
+        {
+          goto LABEL_41;
+        }
+
+        if (!v29)
+        {
+          goto LABEL_42;
+        }
+
+        *(&v31 + v19) = v29;
       }
 
-      if (!v32)
+      else
       {
-        goto LABEL_42;
+        *(&v31 + v19) = 0;
       }
 
-      *(&v34 + v22) = v32;
+      ++v19;
+    }
+
+    while (v19 != 4);
+    v20 = *(a1 + 128);
+    if (v20 == 1)
+    {
+      (*(**(a1 + 136) + 32))(v28);
+      if (LODWORD(v28[0]) != 1)
+      {
+        goto LABEL_50;
+      }
+
+      if (!v28[1])
+      {
+LABEL_51:
+        PRM::Camera::PearlBufferStream::read(&v27);
+      }
+
+      return MEMORY[0x25F8C9550](a2, a4, v31, *(&v31 + 1), v32, *(&v32 + 1));
     }
 
     else
     {
-      *(&v34 + v22) = 0;
-    }
-
-    ++v22;
-  }
-
-  while (v22 != 4);
-  v23 = *(a1 + 128);
-  if (v23 == 1)
-  {
-    (*(**(a1 + 136) + 32))(v31);
-    if (LODWORD(v31[0]) != 1)
-    {
-      goto LABEL_50;
-    }
-
-    if (!v31[1])
-    {
-LABEL_51:
-      PRM::Camera::PearlBufferStream::read(&v30);
-    }
-
-    result = MEMORY[0x25F8C9550](a2, a4, v34, *(&v34 + 1), v35, *(&v35 + 1));
-    goto LABEL_38;
-  }
-
-  if (v23 == 2)
-  {
-    v24 = *(a1 + 144);
-    v25 = ps_buffer_serial_data_get_buffer();
-    if (v25)
-    {
-      v26 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], (v25 + 8), *v25, *MEMORY[0x277CBED00]);
-      result = MEMORY[0x25F8C9540](a2, a4, v34, *(&v34 + 1), v35, *(&v35 + 1), v26);
-      goto LABEL_38;
-    }
+      if (v20 == 2)
+      {
+        v21 = ps_buffer_serial_data_get_buffer();
+        if (v21)
+        {
+          v22 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], (v21 + 8), *v21, *MEMORY[0x277CBED00]);
+          return MEMORY[0x25F8C9540](a2, a4, v31, *(&v31 + 1), v32, *(&v32 + 1), v22);
+        }
 
 LABEL_49:
-    PRM::Camera::PearlBufferStream::read(v31);
+        PRM::Camera::PearlBufferStream::read(v28);
 LABEL_50:
-    PRM::Camera::PearlBufferStream::read(&v30);
-    goto LABEL_51;
+        PRM::Camera::PearlBufferStream::read(&v27);
+        goto LABEL_51;
+      }
+
+      v23 = v28;
+      if (!v20)
+      {
+        v23 = PRM::Camera::PearlBufferStream::read(v28);
+      }
+
+      v24 = PRM::Camera::PearlBufferStream::read(v23);
+      return PRM::Camera::PearlBufferStream::write(v24, v25, v26);
+    }
   }
 
-  v28 = v31;
-  if (!v23)
-  {
-    v28 = PRM::Camera::PearlBufferStream::read(v31);
-  }
-
-  v29 = PRM::Camera::PearlBufferStream::read(v28);
-  return PRM::Camera::PearlBufferStream::write(v29);
+  return result;
 }
 
 _BYTE *PRM::Camera::PearlBufferStream::write(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 40))
   {
 LABEL_37:
@@ -714,24 +613,24 @@ LABEL_43:
     {
 LABEL_47:
       PRM::Camera::PearlBufferStream::write(&dxbuffer);
-      goto LABEL_48;
+LABEL_48:
+      PRM::Camera::PearlBufferStream::write(&dxbuffer);
     }
 
     cfdata_metadata = ps_resource_pearlbuffer_get_cfdata_metadata();
-    v13 = *(a1 + 144);
     buffer = ps_buffer_serial_data_get_buffer();
     if (!buffer)
     {
-      goto LABEL_49;
+      PRM::Camera::PearlBufferStream::write(&dxbuffer);
     }
 
-    v15 = buffer;
+    v14 = buffer;
     if (cfdata_metadata)
     {
-      v35.length = CFDataGetLength(cfdata_metadata);
-      *v15 = v35.length;
-      v35.location = 0;
-      CFDataGetBytes(cfdata_metadata, v35, v15 + 8);
+      v30.length = CFDataGetLength(cfdata_metadata);
+      *v14 = v30.length;
+      v30.location = 0;
+      CFDataGetBytes(cfdata_metadata, v30, v14 + 8);
     }
 
     else
@@ -755,10 +654,7 @@ LABEL_47:
     iosurface_metadata = ps_resource_pearlbuffer_get_iosurface_metadata();
     if (!iosurface_metadata)
     {
-LABEL_48:
-      PRM::Camera::PearlBufferStream::write(&dxbuffer);
-LABEL_49:
-      PRM::Camera::PearlBufferStream::write(&dxbuffer);
+      goto LABEL_48;
     }
 
     v11 = *(a1 + 136);
@@ -769,18 +665,16 @@ LABEL_49:
     (*(*v11 + 40))(v11, a3, &dxbuffer);
   }
 
-  v16 = *(a1 + 48);
-  v17 = ps_buffer_serial_data_get_buffer();
-  if (!v17)
+  v15 = ps_buffer_serial_data_get_buffer();
+  if (!v15)
   {
     PRM::Camera::PearlBufferStream::write(&dxbuffer);
     goto LABEL_45;
   }
 
-  v18 = v17;
-  v19 = *(a1 + 56);
-  v20 = ps_buffer_serial_data_get_buffer();
-  if (!v20)
+  v16 = v15;
+  v17 = ps_buffer_serial_data_get_buffer();
+  if (!v17)
   {
 LABEL_45:
     PRM::Camera::PearlBufferStream::write(&dxbuffer);
@@ -789,35 +683,34 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  v21 = v20;
-  v22 = MEMORY[0x25F8C9240](a2, 0);
-  *v18 = ps_util_mct_to_mat(v22);
-  *v21 = MEMORY[0x25F8C9260](a2, 0);
+  v18 = v17;
+  v19 = MEMORY[0x25F8C9240](a2, 0);
+  *v16 = ps_util_mct_to_mat(v19);
+  *v18 = MEMORY[0x25F8C9260](a2, 0);
   dxbuffer = ps_resource_pearlbuffer_get_dxbuffer();
   dybuffer = ps_resource_pearlbuffer_get_dybuffer();
   scorebuffer = ps_resource_pearlbuffer_get_scorebuffer();
-  v23 = 0;
+  v20 = 0;
   depthbuffer = ps_resource_pearlbuffer_get_depthbuffer();
   do
   {
-    v24 = *(v7 - 4);
     result = ps_buffer_serial_data_get_buffer();
     if (!result)
     {
-      PRM::Camera::PearlBufferStream::write(v29);
+      PRM::Camera::PearlBufferStream::write(v24);
       goto LABEL_37;
     }
 
-    v26 = (&dxbuffer)[v23];
-    if (v26)
+    v22 = (&dxbuffer)[v20];
+    if (v22)
     {
       *result = 1;
-      v27 = *v7;
-      LODWORD(v29[0]) = 2;
-      v29[1] = 0;
-      v29[2] = v26;
-      v29[3] = 0;
-      result = (*(*v27 + 40))(v27, a3, v29);
+      v23 = *v7;
+      LODWORD(v24[0]) = 2;
+      v24[1] = 0;
+      v24[2] = v22;
+      v24[3] = 0;
+      result = (*(*v23 + 40))(v23, a3, v24);
     }
 
     else
@@ -826,11 +719,10 @@ LABEL_46:
     }
 
     ++v7;
-    ++v23;
+    ++v20;
   }
 
-  while (v23 != 4);
-  v28 = *MEMORY[0x277D85DE8];
+  while (v20 != 4);
   return result;
 }
 
@@ -937,9 +829,9 @@ BOOL PRM::Camera::PearlBufferStream::inUse(uint64_t a1, uint64_t a2)
   return v3;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::__map_value_compare<std::string,std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,PRM::Camera::ChildSurfaceDescriptor>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::__map_value_compare<std::string,std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,PRM::Camera::ChildSurfaceDescriptor>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::__map_value_compare<std::string,std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::__map_value_compare<std::string,std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::__map_value_compare<std::string,std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,PRM::Camera::ChildSurfaceDescriptor>>>::__construct_node<std::pair<std::string const,PRM::Camera::ChildSurfaceDescriptor>>();
@@ -1181,16 +1073,18 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void OUTLINED_FUNCTION_23(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_23(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_24(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_24(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_FAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_FAULT, a4, va, 0x30u);
 }
 
 void PRM::Camera::StreamReader::init(PRM::Camera::StreamReader *this, PSResourceManager *a2, PSResourceManagerOptions *a3)
@@ -1207,17 +1101,16 @@ void PRM::Camera::StreamReader::init(PRM::Camera::StreamReader *this, PSResource
           *(this + 22) = *(a3 + 10);
           if (!*(this + 10))
           {
-            v7 = *(a3 + 7);
             *(this + 10) = ps_buffer_create_group_reader();
-            v8 = *(a3 + 5);
-            if (v8 > 8)
+            v7 = *(a3 + 5);
+            if (v7 > 8)
             {
-              if (v8 == 9)
+              if (v7 == 9)
               {
                 operator new();
               }
 
-              if (v8 == 11)
+              if (v7 == 11)
               {
                 operator new();
               }
@@ -1225,44 +1118,44 @@ void PRM::Camera::StreamReader::init(PRM::Camera::StreamReader *this, PSResource
 
             else
             {
-              if (v8 == 7)
+              if (v7 == 7)
               {
                 operator new();
               }
 
-              if (v8 == 8)
+              if (v7 == 8)
               {
                 operator new();
               }
             }
 
-            v9 = PRM::Camera::StreamReader::init(&v10);
+            v8 = PRM::Camera::StreamReader::init(&v9);
             MEMORY[0x25F8C7C50](v3, v4);
-            _Unwind_Resume(v9);
+            _Unwind_Resume(v8);
           }
 
-          PRM::Camera::StreamReader::init(&v10);
+          PRM::Camera::StreamReader::init(&v9);
         }
 
-        PRM::Camera::StreamReader::init(&v10);
+        PRM::Camera::StreamReader::init(&v9);
       }
 
-      PRM::Camera::StreamReader::init(&v10);
+      PRM::Camera::StreamReader::init(&v9);
     }
 
-    PRM::Camera::StreamReader::init(&v10);
+    PRM::Camera::StreamReader::init(&v9);
   }
 
-  PRM::Camera::StreamReader::init(&v10);
+  PRM::Camera::StreamReader::init(&v9);
 }
 
-uint64_t PRM::Camera::StreamReader::deinit(PSListenerThread **this)
+uint64_t PRM::Camera::StreamReader::deinit(PSListenerThread **this, uint64_t a2)
 {
-  PRMPBSReader::deinit(this);
-  v2 = this[12];
-  if (v2)
+  PRMPBSReader::deinit(this, a2);
+  v3 = this[12];
+  if (v3)
   {
-    (*(*v2 + 56))(v2);
+    (*(*v3 + 56))(v3);
   }
 
   if (this[10])
@@ -1273,7 +1166,7 @@ uint64_t PRM::Camera::StreamReader::deinit(PSListenerThread **this)
   return PRMReader::setInitialized(this, 0);
 }
 
-void PRM::Camera::StreamReader::createReaderInstance(PRM::Camera::StreamReader *this, PSResourceManager *a2, PSResourceManagerOptions *a3)
+void PRM::Camera::StreamReader::createReaderInstance(PSListenerThread **this, PSResourceManager *a2, PSResourceManagerOptions *a3)
 {
   if (*(a3 + 10))
   {
@@ -1291,7 +1184,6 @@ void PRM::Camera::StreamReader::createReaderInstance(PRM::Camera::StreamReader *
 void PRM::Camera::StreamReader::createReaderInstanceContext(PRM::Camera::StreamReader *this)
 {
   PRMPBSReader::createReaderInstanceContext(this);
-  v2 = *(this + 10);
 
   JUMPOUT(0x25F8C88F0);
 }
@@ -1299,20 +1191,18 @@ void PRM::Camera::StreamReader::createReaderInstanceContext(PRM::Camera::StreamR
 void PRM::Camera::StreamReader::deleteReaderInstanceContext(PRM::Camera::StreamReader *this, void *a2)
 {
   PRMPBSReader::deleteReaderInstanceContext(this, a2);
-  v3 = *(this + 10);
 
   JUMPOUT(0x25F8C8C20);
 }
 
-uint64_t PRM::Camera::StreamReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9)
+uint64_t PRM::Camera::StreamReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11)
 {
   if (a3)
   {
-    v16 = -1;
-    v10 = *(a1 + 80);
+    v17 = -1;
+    v12 = *(a1 + 80);
     if (a7)
     {
-      v11 = *a4;
       buffers_with_frameid_with_reader_context = ps_buffer_get_read_buffers_with_frameid_with_reader_context();
       *a3 = buffers_with_frameid_with_reader_context;
       return buffers_with_frameid_with_reader_context != 0;
@@ -1321,23 +1211,23 @@ uint64_t PRM::Camera::StreamReader::acquirePBSResources(uint64_t a1, uint64_t a2
     if (a9)
     {
       ps_buffer_get_read_buffers_and_sync_tags_since_last();
-      return v16;
+      return v17;
     }
 
-    if (v10)
+    if (v12)
     {
       ps_buffer_get_read_buffers_and_sync_tags_lastn();
-      return v16;
+      return v17;
     }
   }
 
   else
   {
-    PRM::Camera::StreamReader::acquirePBSResources(&v16);
+    PRM::Camera::StreamReader::acquirePBSResources(&v17);
   }
 
-  v14 = PRM::Camera::StreamReader::acquirePBSResources(&v15);
-  return PRM::Camera::StreamReader::relinquishPBSResources(v14);
+  v15 = PRM::Camera::StreamReader::acquirePBSResources(&v16);
+  return PRM::Camera::StreamReader::relinquishPBSResources(v15);
 }
 
 uint64_t PRM::Camera::StreamReader::relinquishPBSResources(uint64_t a1)
@@ -1422,7 +1312,7 @@ LABEL_7:
 
 void PRM::Camera::StreamReaderInstance::StreamReaderInstance(PRM::Camera::StreamReaderInstance *this, PRM::Camera::StreamReader *a2, size_t a3, unint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   PRMPBSReaderInstance::PRMPBSReaderInstance(this, a2, a3);
   *v6 = &unk_2870B9ED0;
   *(v6 + 112) = 0u;
@@ -1434,27 +1324,28 @@ void PRM::Camera::StreamReaderInstance::StreamReaderInstance(PRM::Camera::Stream
     operator new[]();
   }
 
-  v10 = 0;
-  asprintf(&v10, "%s: Assertion failed for %s", "StreamReaderInstance", "m_maxSupportedForwardedBufferCount > maxForwardingCount");
-  v7 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v14 = 0;
+  v7 = asprintf(&v14, "%s: Assertion failed for %s", "StreamReaderInstance", "m_maxSupportedForwardedBufferCount > maxForwardingCount");
+  v9 = __PSResourceManagerLogSharedInstance(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315906;
-    v12 = "StreamReaderInstance";
-    v13 = 1024;
-    v14 = 244;
-    v15 = 2080;
     v16 = "StreamReaderInstance";
-    v17 = 2080;
-    v18 = "m_maxSupportedForwardedBufferCount > maxForwardingCount";
-    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
+    v17 = 1024;
+    v18 = 244;
+    v19 = 2080;
+    v20 = "StreamReaderInstance";
+    v21 = 2080;
+    v22 = "m_maxSupportedForwardedBufferCount > maxForwardingCount";
+    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
   }
 
-  v8 = OSLogFlushBuffers();
-  if (v8)
+  v10 = OSLogFlushBuffers();
+  v12 = v10;
+  if (v10)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    PRM::Camera::StreamReaderInstance::StreamReaderInstance(v9, v8);
+    v13 = __PSResourceManagerLogSharedInstance(v10, v11);
+    PRM::Camera::StreamReaderInstance::StreamReaderInstance(v13, v12);
   }
 
   else
@@ -1466,7 +1357,7 @@ void PRM::Camera::StreamReaderInstance::StreamReaderInstance(PRM::Camera::Stream
   __break(1u);
 }
 
-void PRM::Camera::StreamReaderInstance::acquireResources(PRM::Camera::StreamReaderInstance *this, ps_resource *a2, void *a3, uint64_t a4, _BOOL4 a5, uint64_t a6)
+void PRM::Camera::StreamReaderInstance::acquireResources(PRM::Camera::StreamReaderInstance *this, ps_resource *a2, void *a3, uint64_t a4, _BOOL8 a5, uint64_t a6)
 {
   if (!*(this + 14))
   {
@@ -1497,6 +1388,7 @@ LABEL_19:
     return;
   }
 
+  v9 = a5;
   PRM::Camera::StreamReaderInstance::updateForwardBufferList(this);
   LODWORD(v16) = 0;
   if (PRM::Camera::StreamReaderInstance::getFreeForwardBufferListIndex(this, &v16))
@@ -1516,8 +1408,8 @@ LABEL_19:
   else
   {
     v14 = v16;
-    *(*(this + 15) + 8 * v14) = PRMPBSReader::acquireResources(v7, a2, *(this + 14) + 8 * v16, *(this + 6), *(this + 1), a3, a4, *(this + 8), a5, a6, *(this + 4));
-    if (a5 && *(this + 7) && *(*(this + 14) + 8 * v14))
+    *(*(this + 15) + 8 * v14) = PRMPBSReader::acquireResources(v7, a2, *(this + 14) + 8 * v16, *(this + 6), *(this + 1), a3, a4, *(this + 8), v9, a6, *(this + 4));
+    if (v9 && *(this + 7) && *(*(this + 14) + 8 * v14))
     {
       *(this + 8) = ps_buffer_get_resource_seq_num();
     }
@@ -1526,29 +1418,29 @@ LABEL_19:
   }
 }
 
-void PRM::Camera::StreamReaderInstance::updateForwardBufferList(PRM::Camera::StreamReaderInstance *this)
+void PRM::Camera::StreamReaderInstance::updateForwardBufferList(uint64_t this)
 {
-  if (!*(this + 3))
+  if (!*(this + 24))
   {
     PRM::Camera::StreamReaderInstance::updateForwardBufferList(&v7);
     goto LABEL_13;
   }
 
-  if (!*(this + 14))
+  if (!*(this + 112))
   {
 LABEL_13:
     PRM::Camera::StreamReaderInstance::updateForwardBufferList(&v7);
     goto LABEL_14;
   }
 
-  if (!*(this + 16))
+  if (!*(this + 128))
   {
 LABEL_14:
     PRM::Camera::StreamReaderInstance::updateForwardBufferList(&v7);
     goto LABEL_15;
   }
 
-  if (!*(this + 15))
+  if (!*(this + 120))
   {
 LABEL_15:
     updated = PRM::Camera::StreamReaderInstance::updateForwardBufferList(&v7);
@@ -1556,21 +1448,21 @@ LABEL_15:
     return;
   }
 
-  if (*(this + 35))
+  if (*(this + 140))
   {
     v2 = 0;
     v3 = 0;
     do
     {
-      v4 = *(*(this + 14) + v2);
+      v4 = *(*(this + 112) + v2);
       if (v4)
       {
-        if ((PRM::Camera::StreamReader::isResourceInUse(*(this + 3), v4) & 1) == 0)
+        if ((PRM::Camera::StreamReader::isResourceInUse(*(this + 24), v4) & 1) == 0)
         {
-          PRMPBSReader::relinquishResources(*(this + 3), *(*(this + 16) + v2), *(this + 14) + v2, *(this + 1), *(*(this + 15) + v2), *(this + 4));
-          *(*(this + 14) + v2) = 0;
-          *(*(this + 16) + v2) = 0;
-          *(*(this + 15) + v2) = 0;
+          PRMPBSReader::relinquishResources(*(this + 24), *(*(this + 128) + v2), *(this + 112) + v2, *(this + 8), *(*(this + 120) + v2), *(this + 32));
+          *(*(this + 112) + v2) = 0;
+          *(*(this + 128) + v2) = 0;
+          *(*(this + 120) + v2) = 0;
           PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(this, v3);
         }
       }
@@ -1579,7 +1471,7 @@ LABEL_15:
       v2 += 8;
     }
 
-    while (v3 < *(this + 35));
+    while (v3 < *(this + 140));
   }
 }
 
@@ -1646,7 +1538,7 @@ void PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(PRM::Camer
   {
     PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(&v14);
 LABEL_10:
-    v13 = PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(&v14);
+    PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(&v14);
     PRM::Camera::StreamReader::~StreamReader(v13);
     return;
   }
@@ -1697,9 +1589,9 @@ void PRM::Camera::StreamReaderInstance::~StreamReaderInstance(PRMReaderInstance 
   JUMPOUT(0x25F8C7C50);
 }
 
-uint64_t PRM::Camera::StreamWriterInstance::StreamWriterInstance(PRMWriterInstance *this, PSResourceManagerOptions *a2, char *a3)
+PRM::Camera::StreamWriterInstance *PRM::Camera::StreamWriterInstance::StreamWriterInstance(PRMWriterInstance *this, PSResourceManagerOptions *a2, char *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   PRMWriterInstance::PRMWriterInstance(this, a2, a3, 0);
   *v4 = &unk_2870B9FD8;
   v4[43] = 0;
@@ -1708,25 +1600,26 @@ uint64_t PRM::Camera::StreamWriterInstance::StreamWriterInstance(PRMWriterInstan
     operator new();
   }
 
-  v7 = 0;
-  asprintf(&v7, "%s: Assertion failed for %s", "StreamWriterInstance", "opts");
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v11 = 0;
+  v5 = asprintf(&v11, "%s: Assertion failed for %s", "StreamWriterInstance", "opts");
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315906;
-    v9 = "StreamWriterInstance";
-    v10 = 1024;
-    v11 = 18;
-    v12 = 2080;
     v13 = "StreamWriterInstance";
-    v14 = 2080;
-    v15 = "opts";
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
+    v14 = 1024;
+    v15 = 18;
+    v16 = 2080;
+    v17 = "StreamWriterInstance";
+    v18 = 2080;
+    v19 = "opts";
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
   }
 
-  if (OSLogFlushBuffers())
+  v8 = OSLogFlushBuffers();
+  if (v8)
   {
-    __PSResourceManagerLogSharedInstance();
+    __PSResourceManagerLogSharedInstance(v8, v9);
     PRM::Camera::StreamWriterInstance::StreamWriterInstance();
   }
 
@@ -1740,13 +1633,12 @@ uint64_t PRM::Camera::StreamWriterInstance::StreamWriterInstance(PRMWriterInstan
   return result;
 }
 
-uint64_t PRM::Camera::StreamWriterInstance::acquireResources(PRM::Camera::StreamWriterInstance *this, ps_resource *a2, void *a3)
+void PRM::Camera::StreamWriterInstance::acquireResources(PRM::Camera::StreamWriterInstance *this, ps_resource *a2, void *a3)
 {
-  v5 = *(this + 1);
-  v6 = ps_buffer_get_write_buffers();
-  if (v6)
+  v5 = ps_buffer_get_write_buffers();
+  if (v5)
   {
-    *(this + 4) = v6;
+    *(this + 4) = v5;
     *(this + 5) = a2;
     *(this + 305) = 1;
     *(this + 43) = ps_buffer_get_resource_view_index();
@@ -1754,8 +1646,8 @@ uint64_t PRM::Camera::StreamWriterInstance::acquireResources(PRM::Camera::Stream
     JUMPOUT(0x25F8C94C0);
   }
 
-  v7 = PRM::Camera::StreamWriterInstance::acquireResources(&v9);
-  return PRM::Camera::StreamWriterInstance::relinquishResources(v7);
+  v6 = PRM::Camera::StreamWriterInstance::acquireResources(&v7);
+  PRM::Camera::StreamWriterInstance::relinquishResources(v6);
 }
 
 void PRM::Camera::StreamWriterInstance::relinquishResources(PRM::Camera::StreamWriterInstance *this)
@@ -1763,50 +1655,50 @@ void PRM::Camera::StreamWriterInstance::relinquishResources(PRM::Camera::StreamW
   if (*(this + 305))
   {
     (*(**(this + 43) + 8))(*(this + 43), *(this + 5), *(this + 4));
-    v2 = *(this + 1);
 
     ps_buffer_release_write_buffers();
   }
 
   else
   {
-    v3 = PRM::Camera::StreamWriterInstance::relinquishResources(&v4);
-    PRM::Camera::StreamWriterInstance::~StreamWriterInstance(v3);
+    PRM::Camera::StreamWriterInstance::relinquishResources(&v3);
+    PRM::Camera::StreamWriterInstance::~StreamWriterInstance(v1, v2);
   }
 }
 
-void PRM::Camera::StreamWriterInstance::~StreamWriterInstance(PRM::Camera::StreamWriterInstance *this)
+void PRM::Camera::StreamWriterInstance::~StreamWriterInstance(PRM::Camera::StreamWriterInstance *this, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *this = &unk_2870B9FD8;
-  v2 = *(this + 43);
-  if (v2)
+  v3 = *(this + 43);
+  if (v3)
   {
-    (*(*v2 + 56))(v2);
+    (*(*v3 + 56))(v3, a2);
   }
 
   *(this + 43) = 0;
   if (!*(this + 1))
   {
-    v6 = 0;
-    asprintf(&v6, "%s: Assertion failed for %s", "~StreamWriterInstance", "this->pbs_writer");
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v10 = 0;
+    v5 = asprintf(&v10, "%s: Assertion failed for %s", "~StreamWriterInstance", "this->pbs_writer");
+    v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v8 = "~StreamWriterInstance";
-      v9 = 1024;
-      v10 = 144;
-      v11 = 2080;
       v12 = "~StreamWriterInstance";
-      v13 = 2080;
-      v14 = "this->pbs_writer";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
+      v13 = 1024;
+      v14 = 144;
+      v15 = 2080;
+      v16 = "~StreamWriterInstance";
+      v17 = 2080;
+      v18 = "this->pbs_writer";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
     }
 
-    if (OSLogFlushBuffers())
+    v8 = OSLogFlushBuffers();
+    if (v8)
     {
-      __PSResourceManagerLogSharedInstance();
+      __PSResourceManagerLogSharedInstance(v8, v9);
       PRM::Camera::StreamWriterInstance::~StreamWriterInstance();
     }
 
@@ -1824,20 +1716,18 @@ void PRM::Camera::StreamWriterInstance::~StreamWriterInstance(PRM::Camera::Strea
   PRMWriterInstance::deinitSharedActionTaker(this);
   PSActionTakerManager::flushRemovalRequests(*(this + 39));
   ps_gsm_remove_source(*(this + 2), *(this + 3));
-  v3 = *(this + 39);
-  if (v3)
+  v4 = *(this + 39);
+  if (v4)
   {
-    PSActionTakerManager::~PSActionTakerManager(v3);
+    PSActionTakerManager::~PSActionTakerManager(v4);
     MEMORY[0x25F8C7C50]();
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   PRMWriterInstance::~PRMWriterInstance(this);
 }
 
 {
-  PRM::Camera::StreamWriterInstance::~StreamWriterInstance(this);
+  PRM::Camera::StreamWriterInstance::~StreamWriterInstance(this, a2);
 
   JUMPOUT(0x25F8C7C50);
 }
@@ -1859,9 +1749,9 @@ uint64_t PRMFastPathHIDReader::init(PRMFastPathHIDReader *this, PSResourceManage
   return PRMReader::setInitialized(this, 1);
 }
 
-uint64_t PRMFastPathHIDReader::deinit(PRMFastPathHIDReader *this)
+uint64_t PRMFastPathHIDReader::deinit(PRMFastPathHIDReader *this, uint64_t a2)
 {
-  PRMReader::deinit(this);
+  PRMReader::deinit(this, a2);
 
   return PRMReader::setInitialized(this, 0);
 }
@@ -1901,40 +1791,35 @@ uint64_t PRMFastPathHIDReader::deleteReaderInstance(PRMFastPathHIDReader *this, 
 
 PRMFastPathHIDReader *PRMFastPathHIDReader::createReaderInstanceContext(PRMFastPathHIDReader *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (PRMReader::isInitialized(this))
   {
-    v2 = *MEMORY[0x277D85DE8];
     return this;
+  }
+
+  v10 = 0;
+  Key = PRMReader::getKey(this);
+  v4 = asprintf(&v10, "Cannot create reader instance context for inactive PRMReader for key: %s", Key);
+  v6 = __PSResourceManagerLogSharedInstance(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  {
+    v7 = PRMReader::getKey(this);
+    PRMFastPathHIDReader::createReaderInstanceContext(v7, buf, v6);
+  }
+
+  v8 = OSLogFlushBuffers();
+  if (v8)
+  {
+    PRMFastPathHIDReader::createReaderInstanceContext(v8, v9);
   }
 
   else
   {
-    v8 = 0;
-    Key = PRMReader::getKey(this);
-    asprintf(&v8, "Cannot create reader instance context for inactive PRMReader for key: %s", Key);
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v6 = PRMReader::getKey(this);
-      PRMFastPathHIDReader::createReaderInstanceContext(v6, buf, v5);
-    }
-
-    v7 = OSLogFlushBuffers();
-    if (v7)
-    {
-      PRMFastPathHIDReader::createReaderInstanceContext(v7);
-    }
-
-    else
-    {
-      usleep(0x1E8480u);
-    }
-
-    result = abort_with_reason();
-    __break(1u);
+    usleep(0x1E8480u);
   }
 
+  result = abort_with_reason();
+  __break(1u);
   return result;
 }
 
@@ -1971,77 +1856,77 @@ void IOFastPathHIDReader::~IOFastPathHIDReader(CFTypeRef *this)
   }
 }
 
-void IOFastPathHIDReader::initWithIOService(IOFastPathHIDReader *this, int a2)
+void IOFastPathHIDReader::initWithIOService(IOFastPathHIDReader *this, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    v10 = -536870212;
-    v11 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = -536870212;
+    v12 = __PSResourceManagerLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v15) = 0;
-      v12 = "Invalid io_service";
-      v13 = v11;
-      v14 = 2;
+      LOWORD(v16) = 0;
+      v13 = "Invalid io_service";
+      v14 = v12;
+      v15 = 2;
 LABEL_13:
-      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, v12, &v15, v14);
+      _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, v13, &v16, v15);
       goto LABEL_14;
     }
 
     goto LABEL_14;
   }
 
+  v3 = a2;
   v4 = IOFastPathClientCreateWithType();
   *(this + 4) = v4;
   if (!v4)
   {
-    v10 = -536870212;
-    v11 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = -536870212;
+    v12 = __PSResourceManagerLogSharedInstance(0, v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 67109120;
-      v16 = a2;
-      v12 = "Failed to create IOFastPathClient for io_service: 0x%x";
+      v16 = 67109120;
+      v17 = v3;
+      v13 = "Failed to create IOFastPathClient for io_service: 0x%x";
 LABEL_12:
-      v13 = v11;
-      v14 = 8;
+      v14 = v12;
+      v15 = 8;
       goto LABEL_13;
     }
 
 LABEL_14:
 
-    v8 = 0;
-    v7 = 0;
-    v6 = *(this + 2);
-    *(v6 + 4) = v10;
+    v10 = 0;
+    v9 = 0;
+    v8 = *(this + 2);
+    *(v8 + 4) = v11;
     goto LABEL_5;
   }
 
-  v5 = MEMORY[0x25F8C75D0]();
-  if (v5)
+  v6 = MEMORY[0x25F8C75D0]();
+  if (v6)
   {
-    v10 = v5;
-    v11 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = v6;
+    v12 = __PSResourceManagerLogSharedInstance(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 67109120;
-      v16 = v10;
-      v12 = "Failed to open IOFastPathClient with err: 0x%x";
+      v16 = 67109120;
+      v17 = v11;
+      v13 = "Failed to open IOFastPathClient with err: 0x%x";
       goto LABEL_12;
     }
 
     goto LABEL_14;
   }
 
-  v6 = *(this + 2);
-  *(v6 + 4) = 0;
-  v7 = *(this + 4);
-  v8 = 1;
+  v8 = *(this + 2);
+  *(v8 + 4) = 0;
+  v9 = *(this + 4);
+  v10 = 1;
 LABEL_5:
-  *(v6 + 8) = v7;
-  *(v6 + 1) = v8;
-  v9 = *MEMORY[0x277D85DE8];
+  *(v8 + 8) = v9;
+  *(v8 + 1) = v10;
 }
 
 void IOFastPathHIDReader::initWithReplayClient(uint64_t a1, uint64_t a2)
@@ -2051,7 +1936,7 @@ void IOFastPathHIDReader::initWithReplayClient(uint64_t a1, uint64_t a2)
   if (!a2)
   {
     v8 = -536870212;
-    v9 = __PSResourceManagerLogSharedInstance();
+    v9 = __PSResourceManagerLogSharedInstance(a1, 0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v13[0]) = 0;
@@ -2064,11 +1949,11 @@ LABEL_9:
 
 LABEL_10:
 
+    v7 = 0;
     v6 = 0;
-    v5 = 0;
-    v4 = *(a1 + 16);
-    *(v4 + 4) = v8;
-    *v4 = 7;
+    v5 = *(a1 + 16);
+    *(v5 + 4) = v8;
+    *v5 = 7;
     goto LABEL_4;
   }
 
@@ -2076,7 +1961,7 @@ LABEL_10:
   if (v3)
   {
     v8 = v3;
-    v9 = __PSResourceManagerLogSharedInstance();
+    v9 = __PSResourceManagerLogSharedInstance(v3, v4);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v13[0] = 67109120;
@@ -2090,15 +1975,14 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v4 = *(a1 + 16);
-  *(v4 + 4) = 0;
-  *v4 = 7;
-  v5 = *(a1 + 32);
-  v6 = 1;
+  v5 = *(a1 + 16);
+  *(v5 + 4) = 0;
+  *v5 = 7;
+  v6 = *(a1 + 32);
+  v7 = 1;
 LABEL_4:
-  *(v4 + 8) = v5;
-  *(v4 + 1) = v6;
-  v7 = *MEMORY[0x277D85DE8];
+  *(v5 + 8) = v6;
+  *(v5 + 1) = v7;
 }
 
 void PRMFastPathHIDReaderInstance::PRMFastPathHIDReaderInstance(PRMFastPathHIDReaderInstance *this, PRMReader *a2, PSResourceManager *a3, PSResourceManagerOptions *a4)
@@ -2131,30 +2015,31 @@ void sub_25EAA6FE4(_Unwind_Exception *a1)
 
 void PRMFastPathHIDReaderInstance::~PRMFastPathHIDReaderInstance(PRMReaderInstance *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *this = &unk_2870BA0A8;
   if (*(this + 5))
   {
-    v8 = 0;
+    v11 = 0;
     Key = PRMReaderInstance::getKey(this);
-    asprintf(&v8, "PRM Fast Path Reader is being dealloced before calling relinquish for key %s", Key);
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = asprintf(&v11, "PRM Fast Path Reader is being dealloced before calling relinquish for key %s", Key);
+    v6 = __PSResourceManagerLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v6 = PRMReaderInstance::getKey(this);
+      v7 = PRMReaderInstance::getKey(this);
       *buf = 136315650;
-      v10 = "~PRMFastPathHIDReaderInstance";
-      v11 = 1024;
-      v12 = 117;
-      v13 = 2080;
-      v14 = v6;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d PRM Fast Path Reader is being dealloced before calling relinquish for key %s", buf, 0x1Cu);
+      v13 = "~PRMFastPathHIDReaderInstance";
+      v14 = 1024;
+      v15 = 117;
+      v16 = 2080;
+      v17 = v7;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_FAULT, "%s:%d PRM Fast Path Reader is being dealloced before calling relinquish for key %s", buf, 0x1Cu);
     }
 
-    if (OSLogFlushBuffers())
+    v8 = OSLogFlushBuffers();
+    if (v8)
     {
-      v7 = __PSResourceManagerLogSharedInstance();
-      PRMFastPathHIDReaderInstance::~PRMFastPathHIDReaderInstance(v7);
+      v10 = __PSResourceManagerLogSharedInstance(v8, v9);
+      PRMFastPathHIDReaderInstance::~PRMFastPathHIDReaderInstance(v10);
     }
 
     else
@@ -2172,8 +2057,6 @@ void PRMFastPathHIDReaderInstance::~PRMFastPathHIDReaderInstance(PRMReaderInstan
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   PRMReaderInstance::~PRMReaderInstance(this);
 }
@@ -2196,22 +2079,23 @@ void sub_25EAA71D8(_Unwind_Exception *a1, int a2)
 
 uint64_t PRMFastPathHIDReaderInstance::acquireResources(PRMReaderInstance *this, ps_resource *a2, unint64_t a3, BOOL a4, uint64_t a5, void *a6)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(this + 5))
   {
-    v13 = 0;
+    v16 = 0;
     Key = PRMReaderInstance::getKey(this);
-    asprintf(&v13, "Double acquire! Relinquish before acquiring again %s.", Key);
-    v11 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v10 = asprintf(&v16, "Double acquire! Relinquish before acquiring again %s.", Key);
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v12 = PRMReaderInstance::getKey(this);
-      PRMFastPathHIDReaderInstance::acquireResources(v12, buf, v11);
+      v13 = PRMReaderInstance::getKey(this);
+      PRMFastPathHIDReaderInstance::acquireResources(v13, buf, v12);
     }
 
-    if (OSLogFlushBuffers())
+    v14 = OSLogFlushBuffers();
+    if (v14)
     {
-      PRMFastPathHIDReaderInstance::acquireResources();
+      PRMFastPathHIDReaderInstance::acquireResources(v14, v15);
     }
 
     else
@@ -2232,7 +2116,6 @@ uint64_t PRMFastPathHIDReaderInstance::acquireResources(PRMReaderInstance *this,
     }
 
     *(this + 2) = a2;
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -2433,7 +2316,7 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
 
 uint64_t PRMIOSurfaceSharedEventWaiter::init(void **this, char *a2, PRMPBSAneReader *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(buf, a2);
   if (*(this + 23) < 0)
   {
@@ -2444,27 +2327,27 @@ uint64_t PRMIOSurfaceSharedEventWaiter::init(void **this, char *a2, PRMPBSAneRea
   this[2] = *&buf[16];
   this[3] = a3;
   this[4] = PRMPBSAneReader::getSharedContext(a3);
-  std::string::basic_string[abi:ne200100]<0>(&v26, a2);
-  std::string::append(&v26, "-event");
+  std::string::basic_string[abi:ne200100]<0>(&v34, a2);
+  std::string::append(&v34, "-event");
   v6 = ps_lookup_iosurface_shared_event();
   this[9] = v6;
   if (!v6)
   {
-    v25 = 0;
-    v18 = &v26;
-    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v33 = 0;
+    v18 = &v34;
+    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v18 = v26.__r_.__value_.__r.__words[0];
+      v18 = v34.__r_.__value_.__r.__words[0];
     }
 
-    asprintf(&v25, "Failed to create ioshared_event for %s", v18);
-    v19 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v19 = asprintf(&v33, "Failed to create ioshared_event for %s", v18);
+    v21 = __PSResourceManagerLogSharedInstance(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
-      v20 = &v26;
-      if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v22 = &v34;
+      if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v20 = v26.__r_.__value_.__r.__words[0];
+        v22 = v34.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315650;
@@ -2472,14 +2355,15 @@ uint64_t PRMIOSurfaceSharedEventWaiter::init(void **this, char *a2, PRMPBSAneRea
       *&buf[12] = 1024;
       *&buf[14] = 40;
       *&buf[18] = 2080;
-      *&buf[20] = v20;
-      _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_FAULT, "%s:%d Failed to create ioshared_event for %s", buf, 0x1Cu);
+      *&buf[20] = v22;
+      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_FAULT, "%s:%d Failed to create ioshared_event for %s", buf, 0x1Cu);
     }
 
-    if (OSLogFlushBuffers())
+    v23 = OSLogFlushBuffers();
+    if (v23)
     {
-      v23 = __PSResourceManagerLogSharedInstance();
-      PRMIOSurfaceSharedEventWaiter::init(v23);
+      v31 = __PSResourceManagerLogSharedInstance(v23, v24);
+      PRMIOSurfaceSharedEventWaiter::init(v31);
       goto LABEL_24;
     }
 
@@ -2496,68 +2380,68 @@ LABEL_24:
   this[5] = v8;
   if (!v8)
   {
-    v25 = 0;
-    asprintf(&v25, "Failed to create IOSurfaceSharedEvent for %s mach_port %d", a2, *ports_iosurface_shared_event);
-    v21 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v33 = 0;
+    v25 = asprintf(&v33, "Failed to create IOSurfaceSharedEvent for %s mach_port %d", a2, *ports_iosurface_shared_event);
+    v27 = __PSResourceManagerLogSharedInstance(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
-      v22 = *ports_iosurface_shared_event;
+      v28 = *ports_iosurface_shared_event;
       *buf = 136315906;
       *&buf[4] = "init";
       *&buf[12] = 1024;
       *&buf[14] = 46;
       *&buf[18] = 2080;
       *&buf[20] = a2;
-      v28 = 1024;
-      v29 = v22;
-      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_FAULT, "%s:%d Failed to create IOSurfaceSharedEvent for %s mach_port %d", buf, 0x22u);
+      v36 = 1024;
+      v37 = v28;
+      _os_log_impl(&dword_25EA3A000, v27, OS_LOG_TYPE_FAULT, "%s:%d Failed to create IOSurfaceSharedEvent for %s mach_port %d", buf, 0x22u);
     }
 
-    if (OSLogFlushBuffers())
+    v29 = OSLogFlushBuffers();
+    if (v29)
     {
-      v24 = __PSResourceManagerLogSharedInstance();
-      PRMIOSurfaceSharedEventWaiter::init(v24);
+      v32 = __PSResourceManagerLogSharedInstance(v29, v30);
+      PRMIOSurfaceSharedEventWaiter::init(v32);
       goto LABEL_24;
     }
 
     goto LABEL_21;
   }
 
-  v9 = *(this[4] + 2);
-  this[6] = v9;
-  this[7] = v9;
+  v10 = *(this[4] + 2);
+  this[6] = v10;
+  this[7] = v10;
   *(this + 16) = 0;
   this[10] = -1;
-  v10 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = __PSResourceManagerLogSharedInstance(v8, v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = this[4];
-    v12 = v11[2];
-    v13 = *v11;
-    v14 = *(v11 + 1);
-    v15 = *(v11 + 2);
-    LODWORD(v11) = *(v11 + 6);
+    v12 = this[4];
+    v13 = v12[2];
+    v14 = *v12;
+    v15 = *(v12 + 1);
+    v16 = *(v12 + 2);
+    LODWORD(v12) = *(v12 + 6);
     *buf = 136316418;
     *&buf[4] = a2;
     *&buf[12] = 1024;
-    *&buf[14] = v13;
+    *&buf[14] = v14;
     *&buf[18] = 2048;
-    *&buf[20] = v12;
-    v28 = 1024;
-    v29 = v14;
-    v30 = 1024;
-    v31 = v15;
-    v32 = 1024;
-    v33 = v11;
-    _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_INFO, "PRMIOSurfaceSharedEventWaiter channel:%s, mach_port:%d, start_signal_value:%llu, number_of_surfaces_in_buffer_set:%d, number_of_buffer_set:%d, metadata_surface_index:%d", buf, 0x2Eu);
+    *&buf[20] = v13;
+    v36 = 1024;
+    v37 = v15;
+    v38 = 1024;
+    v39 = v16;
+    v40 = 1024;
+    v41 = v12;
+    _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_INFO, "PRMIOSurfaceSharedEventWaiter channel:%s, mach_port:%d, start_signal_value:%llu, number_of_surfaces_in_buffer_set:%d, number_of_buffer_set:%d, metadata_surface_index:%d", buf, 0x2Eu);
   }
 
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2571,7 +2455,7 @@ void sub_25EAA7D6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PRMIOSurfaceSharedEventWaiter::~PRMIOSurfaceSharedEventWaiter(PRMIOSurfaceSharedEventWaiter *this)
+void PRMIOSurfaceSharedEventWaiter::~PRMIOSurfaceSharedEventWaiter(PRMIOSurfaceSharedEventWaiter *this, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(this + 9))
@@ -2589,32 +2473,30 @@ void PRMIOSurfaceSharedEventWaiter::~PRMIOSurfaceSharedEventWaiter(PRMIOSurfaceS
     *(this + 4) = 0;
   }
 
-  v2 = *(this + 5);
-  if (v2)
+  v3 = *(this + 5);
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
-  v3 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = __PSResourceManagerLogSharedInstance(v3, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = this;
+    v5 = this;
     if (*(this + 23) < 0)
     {
-      v4 = *this;
+      v5 = *this;
     }
 
     v6 = 136315138;
-    v7 = v4;
-    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_INFO, "PRMIOSurfaceSharedEventWaiter delete channel:%s", &v6, 0xCu);
+    v7 = v5;
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_INFO, "PRMIOSurfaceSharedEventWaiter delete channel:%s", &v6, 0xCu);
   }
 
   if (*(this + 23) < 0)
   {
     operator delete(*this);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAA7EB4(_Unwind_Exception *a1, int a2)
@@ -2629,125 +2511,35 @@ void sub_25EAA7EB4(_Unwind_Exception *a1, int a2)
 
 uint64_t PRMIOSurfaceSharedEventWaiter::_waitForNewResourceAndGetFrameID(id *this, unint64_t *a2, uint64_t a3, int a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v8 = this[5];
-  if ([v8 waitUntilSignaledValue:this[7] timeoutMS:a3])
+  v9 = [v8 waitUntilSignaledValue:this[7] timeoutMS:a3];
+  if (v9)
   {
     if (a4)
     {
-      v9 = [v8 signaledValue];
+      v11 = [v8 signaledValue];
     }
 
     else
     {
-      v9 = this[7];
+      v11 = this[7];
     }
 
-    this[6] = v9;
-    this[7] = (v9 + 1);
-    v14 = this[3];
-    v15 = ((v9 - *(this[4] + 2)) % *(this[4] + 2) + *(this[4] + 2)) % *(this[4] + 2);
-    *(this + 16) = v15;
-    FrameIDForResourceIndex = PRMPBSAneReader::getFrameIDForResourceIndex(v14, v15);
-    v13 = 0;
+    this[6] = v11;
+    this[7] = v11 + 1;
+    v16 = this[3];
+    v17 = (&v11[-*(this[4] + 2)] % *(this[4] + 2) + *(this[4] + 2)) % *(this[4] + 2);
+    *(this + 16) = v17;
+    FrameIDForResourceIndex = PRMPBSAneReader::getFrameIDForResourceIndex(v16, v17);
+    v15 = 0;
     *a2 = FrameIDForResourceIndex;
     this[10] = FrameIDForResourceIndex;
   }
 
   else
   {
-    v10 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      v11 = this;
-      if (*(this + 23) < 0)
-      {
-        v11 = *this;
-      }
-
-      v12 = this[7];
-      v19 = 136315394;
-      v20 = v11;
-      v21 = 2048;
-      v22 = v12;
-      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "PRMIOSurfaceSharedEventWaiter channel:%s wait timed out; SignalValue:%llu", &v19, 0x16u);
-    }
-
-    *a2 = -1;
-    v13 = 0xFFFFFFFFLL;
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-  return v13;
-}
-
-uint64_t PRMIOSurfaceSharedEventWaiter::waitForNewResourceWithFrameID(PRMIOSurfaceSharedEventWaiter *this, unint64_t a2, uint64_t a3)
-{
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = *(this + 10);
-  if (v3 == a2)
-  {
-LABEL_2:
-    result = 0;
-    goto LABEL_32;
-  }
-
-  if (v3 > a2 && v3 != -1)
-  {
-    if (*(*(this + 4) + 8))
-    {
-      v16 = 0;
-      while (PRMPBSAneReader::getFrameIDForResourceIndex(*(this + 3), v16) != a2)
-      {
-        if (++v16 >= *(*(this + 4) + 8))
-        {
-          goto LABEL_26;
-        }
-      }
-
-      goto LABEL_2;
-    }
-
-LABEL_26:
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      v17 = this;
-      if (*(this + 23) < 0)
-      {
-        v17 = *this;
-      }
-
-      v18 = *(this + 10);
-      v19 = *(*(this + 4) + 8);
-      *buf = 136315906;
-      v23 = v17;
-      v24 = 2048;
-      v25 = a2;
-      v26 = 2048;
-      v27 = v18;
-      v28 = 1024;
-      v29 = v19;
-      v15 = "PRMIOSurfaceSharedEventWaiter channel:%s error buffers wrapped around; Reader Frame ID = %llu, Writer Last Frame ID %llu, fifo buffer depth %d ";
-LABEL_30:
-      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, v15, buf, 0x26u);
-      goto LABEL_31;
-    }
-
-    goto LABEL_31;
-  }
-
-  v21 = 0;
-  do
-  {
-    result = PRMIOSurfaceSharedEventWaiter::_waitForNewResourceAndGetFrameID(this, &v21, a3, 0);
-    v9 = v21;
-  }
-
-  while (v21 < a2 && result == 0);
-  if (v21 - a2 > *(*(this + 4) + 8) && result == 0)
-  {
-    v12 = __PSResourceManagerLogSharedInstance();
+    v12 = __PSResourceManagerLogSharedInstance(v9, v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = this;
@@ -2756,57 +2548,145 @@ LABEL_30:
         v13 = *this;
       }
 
-      v14 = *(*(this + 4) + 8);
-      *buf = 136315906;
-      v23 = v13;
-      v24 = 2048;
-      v25 = a2;
-      v26 = 2048;
-      v27 = v9;
-      v28 = 1024;
-      v29 = v14;
-      v15 = "PRMIOSurfaceSharedEventWaiter channel:%s error buffers wrapped around; Reader Frame ID = %llu, Writer Frame ID %llu, fifo buffer depth %d ";
-      goto LABEL_30;
+      v14 = this[7];
+      v20 = 136315394;
+      v21 = v13;
+      v22 = 2048;
+      v23 = v14;
+      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, "PRMIOSurfaceSharedEventWaiter channel:%s wait timed out; SignalValue:%llu", &v20, 0x16u);
     }
 
-LABEL_31:
-
-    result = 0xFFFFFFFFLL;
+    *a2 = -1;
+    v15 = 0xFFFFFFFFLL;
   }
 
-LABEL_32:
-  v20 = *MEMORY[0x277D85DE8];
+  return v15;
+}
+
+uint64_t PRMIOSurfaceSharedEventWaiter::waitForNewResourceWithFrameID(PRMIOSurfaceSharedEventWaiter *this, PRMIOSurfaceSharedEventWaiter *a2, uint64_t a3)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v3 = *(this + 10);
+  if (v3 == a2)
+  {
+    return 0;
+  }
+
+  v6 = this;
+  if (v3 > a2 && (v3 + 1) != 0)
+  {
+    if (*(*(this + 4) + 8))
+    {
+      v17 = 0;
+      do
+      {
+        this = PRMPBSAneReader::getFrameIDForResourceIndex(*(v6 + 3), v17);
+        if (this == a2)
+        {
+          return 0;
+        }
+      }
+
+      while (++v17 < *(*(v6 + 4) + 8));
+    }
+
+    v13 = __PSResourceManagerLogSharedInstance(this, a2);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_31;
+    }
+
+    v18 = v6;
+    if (*(v6 + 23) < 0)
+    {
+      v18 = *v6;
+    }
+
+    v19 = *(v6 + 10);
+    v20 = *(*(v6 + 4) + 8);
+    *buf = 136315906;
+    v23 = v18;
+    v24 = 2048;
+    v25 = a2;
+    v26 = 2048;
+    v27 = v19;
+    v28 = 1024;
+    v29 = v20;
+    v16 = "PRMIOSurfaceSharedEventWaiter channel:%s error buffers wrapped around; Reader Frame ID = %llu, Writer Last Frame ID %llu, fifo buffer depth %d ";
+    goto LABEL_30;
+  }
+
+  v21 = 0;
+  do
+  {
+    result = PRMIOSurfaceSharedEventWaiter::_waitForNewResourceAndGetFrameID(v6, &v21, a3, 0);
+    v10 = v21;
+  }
+
+  while (v21 < a2 && result == 0);
+  if (v21 - a2 > *(*(v6 + 4) + 8) && result == 0)
+  {
+    v13 = __PSResourceManagerLogSharedInstance(result, v9);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+LABEL_31:
+
+      return 0xFFFFFFFFLL;
+    }
+
+    v14 = v6;
+    if (*(v6 + 23) < 0)
+    {
+      v14 = *v6;
+    }
+
+    v15 = *(*(v6 + 4) + 8);
+    *buf = 136315906;
+    v23 = v14;
+    v24 = 2048;
+    v25 = a2;
+    v26 = 2048;
+    v27 = v10;
+    v28 = 1024;
+    v29 = v15;
+    v16 = "PRMIOSurfaceSharedEventWaiter channel:%s error buffers wrapped around; Reader Frame ID = %llu, Writer Frame ID %llu, fifo buffer depth %d ";
+LABEL_30:
+    _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, v16, buf, 0x26u);
+    goto LABEL_31;
+  }
+
   return result;
 }
 
 void PRMPBSAneReader::init(PRMPBSAneReader *this, PSResourceManager *a2, PSResourceManagerOptions *a3)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   PRMPBSReader::init(this, a2, a3);
   *(this + 80) = *(a3 + 5) == 10;
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
     Key = PRMReader::getKey(this);
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "Initializing PRMPBSAneReader for %s (first time)", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "Initializing PRMPBSAneReader for %s (first time)", buf, 0xCu);
   }
 
   if ((*(this + 80) & 1) == 0)
   {
-    v50.__r_.__value_.__r.__words[0] = 0;
-    v26 = PRMReader::getKey(this);
-    asprintf(&v50.__r_.__value_.__l.__data_, "PRM ANE Reader (key %s) expects ANE chained stream!", v26);
-    v27 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v80.__r_.__value_.__r.__words[0] = 0;
+    v28 = PRMReader::getKey(this);
+    v29 = asprintf(&v80.__r_.__value_.__l.__data_, "PRM ANE Reader (key %s) expects ANE chained stream!", v28);
+    v31 = __PSResourceManagerLogSharedInstance(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
     {
-      v28 = PRMReader::getKey(this);
-      PRMPBSAneReader::init(v28, buf, v27);
+      v32 = PRMReader::getKey(this);
+      PRMPBSAneReader::init(v32, buf, v31);
     }
 
-    if (OSLogFlushBuffers())
+    v33 = OSLogFlushBuffers();
+    if (v33)
     {
-      PRMPBSAneReader::init();
+      PRMPBSAneReader::init(v33, v34);
     }
 
     else
@@ -2820,42 +2700,43 @@ void PRMPBSAneReader::init(PRMPBSAneReader *this, PSResourceManager *a2, PSResou
 
   *(this + 33) = 0;
   *(this + 128) = 0;
-  v6 = PRMReader::getKey(this);
-  std::string::basic_string[abi:ne200100]<0>(&v50, v6);
-  std::string::append(&v50, "-config");
+  v8 = PRMReader::getKey(this);
+  std::string::basic_string[abi:ne200100]<0>(&v80, v8);
+  std::string::append(&v80, "-config");
   serial_data_reader = ps_buffer_create_serial_data_reader();
   *(this + 11) = serial_data_reader;
   if (!serial_data_reader)
   {
-    v49.__r_.__value_.__r.__words[0] = 0;
-    v29 = &v50;
-    if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v79.__r_.__value_.__r.__words[0] = 0;
+    v35 = &v80;
+    if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v29 = v50.__r_.__value_.__r.__words[0];
+      v35 = v80.__r_.__value_.__r.__words[0];
     }
 
-    asprintf(&v49.__r_.__value_.__l.__data_, "Failed to create serial data reader for %s", v29);
-    v30 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+    v36 = asprintf(&v79.__r_.__value_.__l.__data_, "Failed to create serial data reader for %s", v35);
+    v38 = __PSResourceManagerLogSharedInstance(v36, v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
     {
-      v31 = &v50;
-      if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v39 = &v80;
+      if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v31 = v50.__r_.__value_.__r.__words[0];
+        v39 = v80.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315650;
       Key = "init";
-      v53 = 1024;
-      v54 = 53;
-      v55 = 2080;
-      v56 = v31;
-      _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_FAULT, "%s:%d Failed to create serial data reader for %s", buf, 0x1Cu);
+      v83 = 1024;
+      v84 = 53;
+      v85 = 2080;
+      v86 = v39;
+      _os_log_impl(&dword_25EA3A000, v38, OS_LOG_TYPE_FAULT, "%s:%d Failed to create serial data reader for %s", buf, 0x1Cu);
     }
 
-    if (OSLogFlushBuffers())
+    v40 = OSLogFlushBuffers();
+    if (v40)
     {
-      __PSResourceManagerLogSharedInstance();
+      __PSResourceManagerLogSharedInstance(v40, v41);
       objc_claimAutoreleasedReturnValue();
       PRMPBSAneReader::init();
       goto LABEL_63;
@@ -2872,35 +2753,36 @@ LABEL_63:
   *(this + 14) = buffer;
   if (!buffer)
   {
-    v49.__r_.__value_.__r.__words[0] = 0;
-    v32 = &v50;
-    if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v79.__r_.__value_.__r.__words[0] = 0;
+    v42 = &v80;
+    if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v32 = v50.__r_.__value_.__r.__words[0];
+      v42 = v80.__r_.__value_.__r.__words[0];
     }
 
-    asprintf(&v49.__r_.__value_.__l.__data_, "Failed to get serial data reader buffer for %s", v32);
-    v33 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+    v43 = asprintf(&v79.__r_.__value_.__l.__data_, "Failed to get serial data reader buffer for %s", v42);
+    v45 = __PSResourceManagerLogSharedInstance(v43, v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
     {
-      v34 = &v50;
-      if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v46 = &v80;
+      if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v34 = v50.__r_.__value_.__r.__words[0];
+        v46 = v80.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315650;
       Key = "init";
-      v53 = 1024;
-      v54 = 58;
-      v55 = 2080;
-      v56 = v34;
-      _os_log_impl(&dword_25EA3A000, v33, OS_LOG_TYPE_FAULT, "%s:%d Failed to get serial data reader buffer for %s", buf, 0x1Cu);
+      v83 = 1024;
+      v84 = 58;
+      v85 = 2080;
+      v86 = v46;
+      _os_log_impl(&dword_25EA3A000, v45, OS_LOG_TYPE_FAULT, "%s:%d Failed to get serial data reader buffer for %s", buf, 0x1Cu);
     }
 
-    if (OSLogFlushBuffers())
+    v47 = OSLogFlushBuffers();
+    if (v47)
     {
-      __PSResourceManagerLogSharedInstance();
+      __PSResourceManagerLogSharedInstance(v47, v48);
       objc_claimAutoreleasedReturnValue();
       PRMPBSAneReader::init();
       goto LABEL_63;
@@ -2914,25 +2796,26 @@ LABEL_63:
   *(this + 12) = group_reader;
   if (!group_reader)
   {
-    v49.__r_.__value_.__r.__words[0] = 0;
-    v35 = PRMReader::getKey(this);
-    asprintf(&v49.__r_.__value_.__l.__data_, "Failed to get create group reader for %s", v35);
-    v36 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+    v79.__r_.__value_.__r.__words[0] = 0;
+    v49 = PRMReader::getKey(this);
+    v50 = asprintf(&v79.__r_.__value_.__l.__data_, "Failed to get create group reader for %s", v49);
+    v52 = __PSResourceManagerLogSharedInstance(v50, v51);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
     {
-      v37 = PRMReader::getKey(this);
+      v53 = PRMReader::getKey(this);
       *buf = 136315650;
       Key = "init";
-      v53 = 1024;
-      v54 = 63;
-      v55 = 2080;
-      v56 = v37;
-      _os_log_impl(&dword_25EA3A000, v36, OS_LOG_TYPE_FAULT, "%s:%d Failed to get create group reader for %s", buf, 0x1Cu);
+      v83 = 1024;
+      v84 = 63;
+      v85 = 2080;
+      v86 = v53;
+      _os_log_impl(&dword_25EA3A000, v52, OS_LOG_TYPE_FAULT, "%s:%d Failed to get create group reader for %s", buf, 0x1Cu);
     }
 
-    if (OSLogFlushBuffers())
+    v54 = OSLogFlushBuffers();
+    if (v54)
     {
-      __PSResourceManagerLogSharedInstance();
+      __PSResourceManagerLogSharedInstance(v54, v55);
       objc_claimAutoreleasedReturnValue();
       PRMPBSAneReader::init();
       goto LABEL_63;
@@ -2941,73 +2824,75 @@ LABEL_63:
     goto LABEL_44;
   }
 
-  v10 = MEMORY[0x25F8C8C80]();
-  *(this + 13) = v10;
-  if (!v10)
-  {
-    v49.__r_.__value_.__r.__words[0] = 0;
-    v38 = PRMReader::getKey(this);
-    asprintf(&v49.__r_.__value_.__l.__data_, "Failed to all lines of group reader %s", v38);
-    v39 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
-    {
-      v40 = PRMReader::getKey(this);
-      *buf = 136315650;
-      Key = "init";
-      v53 = 1024;
-      v54 = 68;
-      v55 = 2080;
-      v56 = v40;
-      _os_log_impl(&dword_25EA3A000, v39, OS_LOG_TYPE_FAULT, "%s:%d Failed to all lines of group reader %s", buf, 0x1Cu);
-    }
-
-    if (OSLogFlushBuffers())
-    {
-      __PSResourceManagerLogSharedInstance();
-      objc_claimAutoreleasedReturnValue();
-      PRMPBSAneReader::init();
-      goto LABEL_63;
-    }
-
-    goto LABEL_44;
-  }
-
-  v11 = PRMReader::getKey(this);
-  std::string::basic_string[abi:ne200100]<0>(&v49, v11);
-  std::string::append(&v49, "-event");
-  v12 = ps_lookup_iosurface_shared_event();
-  *(this + 17) = v12;
+  v12 = MEMORY[0x25F8C8C80]();
+  *(this + 13) = v12;
   if (!v12)
   {
-    v48 = 0;
-    v41 = &v49;
-    if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v79.__r_.__value_.__r.__words[0] = 0;
+    v56 = PRMReader::getKey(this);
+    v57 = asprintf(&v79.__r_.__value_.__l.__data_, "Failed to all lines of group reader %s", v56);
+    v59 = __PSResourceManagerLogSharedInstance(v57, v58);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
     {
-      v41 = v49.__r_.__value_.__r.__words[0];
+      v60 = PRMReader::getKey(this);
+      *buf = 136315650;
+      Key = "init";
+      v83 = 1024;
+      v84 = 68;
+      v85 = 2080;
+      v86 = v60;
+      _os_log_impl(&dword_25EA3A000, v59, OS_LOG_TYPE_FAULT, "%s:%d Failed to all lines of group reader %s", buf, 0x1Cu);
     }
 
-    asprintf(&v48, "Failed to create _iosharedEvent for %s", v41);
-    v42 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+    v61 = OSLogFlushBuffers();
+    if (v61)
     {
-      v43 = &v49;
-      if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      __PSResourceManagerLogSharedInstance(v61, v62);
+      objc_claimAutoreleasedReturnValue();
+      PRMPBSAneReader::init();
+      goto LABEL_63;
+    }
+
+    goto LABEL_44;
+  }
+
+  v13 = PRMReader::getKey(this);
+  std::string::basic_string[abi:ne200100]<0>(&v79, v13);
+  std::string::append(&v79, "-event");
+  v14 = ps_lookup_iosurface_shared_event();
+  *(this + 17) = v14;
+  if (!v14)
+  {
+    v78 = 0;
+    v63 = &v79;
+    if ((v79.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v63 = v79.__r_.__value_.__r.__words[0];
+    }
+
+    v64 = asprintf(&v78, "Failed to create _iosharedEvent for %s", v63);
+    v66 = __PSResourceManagerLogSharedInstance(v64, v65);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
+    {
+      v67 = &v79;
+      if ((v79.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v43 = v49.__r_.__value_.__r.__words[0];
+        v67 = v79.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315650;
       Key = "init";
-      v53 = 1024;
-      v54 = 75;
-      v55 = 2080;
-      v56 = v43;
-      _os_log_impl(&dword_25EA3A000, v42, OS_LOG_TYPE_FAULT, "%s:%d Failed to create _iosharedEvent for %s", buf, 0x1Cu);
+      v83 = 1024;
+      v84 = 75;
+      v85 = 2080;
+      v86 = v67;
+      _os_log_impl(&dword_25EA3A000, v66, OS_LOG_TYPE_FAULT, "%s:%d Failed to create _iosharedEvent for %s", buf, 0x1Cu);
     }
 
-    if (OSLogFlushBuffers())
+    v68 = OSLogFlushBuffers();
+    if (v68)
     {
-      __PSResourceManagerLogSharedInstance();
+      __PSResourceManagerLogSharedInstance(v68, v69);
       objc_claimAutoreleasedReturnValue();
       PRMPBSAneReader::init();
       goto LABEL_60;
@@ -3023,32 +2908,33 @@ LABEL_67:
   }
 
   ports_iosurface_shared_event = ps_get_ports_iosurface_shared_event();
-  v14 = [objc_alloc(MEMORY[0x277CD2938]) initWithMachPort:*ports_iosurface_shared_event];
-  *(this + 15) = v14;
-  if (!v14)
+  v16 = [objc_alloc(MEMORY[0x277CD2938]) initWithMachPort:*ports_iosurface_shared_event];
+  *(this + 15) = v16;
+  if (!v16)
   {
-    v48 = 0;
-    v44 = PRMReader::getKey(this);
-    asprintf(&v48, "Failed to create IOSurfaceSharedEvent for %s mach_port %d", v44, *ports_iosurface_shared_event);
-    v45 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+    v78 = 0;
+    v70 = PRMReader::getKey(this);
+    v71 = asprintf(&v78, "Failed to create IOSurfaceSharedEvent for %s mach_port %d", v70, *ports_iosurface_shared_event);
+    v73 = __PSResourceManagerLogSharedInstance(v71, v72);
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
     {
-      v46 = PRMReader::getKey(this);
-      v47 = *ports_iosurface_shared_event;
+      v74 = PRMReader::getKey(this);
+      v75 = *ports_iosurface_shared_event;
       *buf = 136315906;
       Key = "init";
-      v53 = 1024;
-      v54 = 81;
-      v55 = 2080;
-      v56 = v46;
-      v57 = 1024;
-      v58 = v47;
-      _os_log_impl(&dword_25EA3A000, v45, OS_LOG_TYPE_FAULT, "%s:%d Failed to create IOSurfaceSharedEvent for %s mach_port %d", buf, 0x22u);
+      v83 = 1024;
+      v84 = 81;
+      v85 = 2080;
+      v86 = v74;
+      v87 = 1024;
+      v88 = v75;
+      _os_log_impl(&dword_25EA3A000, v73, OS_LOG_TYPE_FAULT, "%s:%d Failed to create IOSurfaceSharedEvent for %s mach_port %d", buf, 0x22u);
     }
 
-    if (OSLogFlushBuffers())
+    v76 = OSLogFlushBuffers();
+    if (v76)
     {
-      __PSResourceManagerLogSharedInstance();
+      __PSResourceManagerLogSharedInstance(v76, v77);
       objc_claimAutoreleasedReturnValue();
       PRMPBSAneReader::init();
       goto LABEL_60;
@@ -3057,47 +2943,45 @@ LABEL_67:
     goto LABEL_52;
   }
 
-  v15 = v14;
-  v16 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = v16;
+  v19 = __PSResourceManagerLogSharedInstance(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = PRMReader::getKey(this);
-    v18 = *(this + 14);
-    v19 = *(v18 + 16);
-    v21 = *v18;
-    v20 = *(v18 + 4);
-    v22 = *(v18 + 8);
-    v23 = *(v18 + 24);
-    v24 = [v15 signaledValue];
+    v20 = PRMReader::getKey(this);
+    v21 = *(this + 14);
+    v22 = *(v21 + 16);
+    v24 = *v21;
+    v23 = *(v21 + 4);
+    v25 = *(v21 + 8);
+    v26 = *(v21 + 24);
+    v27 = [v17 signaledValue];
     *buf = 136316674;
-    Key = v17;
-    v53 = 1024;
-    v54 = v21;
-    v55 = 2048;
-    v56 = v19;
-    v57 = 1024;
-    v58 = v20;
-    v59 = 1024;
-    v60 = v22;
-    v61 = 1024;
-    v62 = v23;
-    v63 = 2048;
-    v64 = v24;
-    _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEFAULT, "PRMPBSAneReader channel:%s, mach_port:%d, start_signal_value:%llu, number_of_surfaces_in_buffer_set:%d, number_of_buffer_set:%d, metadata_surface_index:%d, signaledValue:%llu", buf, 0x38u);
+    Key = v20;
+    v83 = 1024;
+    v84 = v24;
+    v85 = 2048;
+    v86 = v22;
+    v87 = 1024;
+    v88 = v23;
+    v89 = 1024;
+    v90 = v25;
+    v91 = 1024;
+    v92 = v26;
+    v93 = 2048;
+    v94 = v27;
+    _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_DEFAULT, "PRMPBSAneReader channel:%s, mach_port:%d, start_signal_value:%llu, number_of_surfaces_in_buffer_set:%d, number_of_buffer_set:%d, metadata_surface_index:%d, signaledValue:%llu", buf, 0x38u);
   }
 
   PRMReader::setInitialized(this, 1);
-  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v49.__r_.__value_.__l.__data_);
+    operator delete(v79.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v50.__r_.__value_.__l.__data_);
+    operator delete(v80.__r_.__value_.__l.__data_);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAA8B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -3115,10 +2999,10 @@ void sub_25EAA8B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PRMPBSAneReader::deinit(PSListenerThread **this)
+uint64_t PRMPBSAneReader::deinit(PSListenerThread **this, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  PRMPBSReader::deinit(this);
+  v9 = *MEMORY[0x277D85DE8];
+  PRMPBSReader::deinit(this, a2);
   if (*(this + 80) == 1)
   {
     if (this[17])
@@ -3136,24 +3020,22 @@ uint64_t PRMPBSAneReader::deinit(PSListenerThread **this)
       ps_buffer_delete_read_buffer();
     }
 
-    v2 = this[15];
-    if (v2)
+    v4 = this[15];
+    if (v4)
     {
-      CFRelease(v2);
+      CFRelease(v4);
     }
 
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = __PSResourceManagerLogSharedInstance(v4, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315138;
+      v7 = 136315138;
       Key = PRMReader::getKey(this);
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_INFO, "PRMPBSAneReader delete channel:%s", &v6, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_INFO, "PRMPBSAneReader delete channel:%s", &v7, 0xCu);
     }
   }
 
-  result = PRMReader::setInitialized(this, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return PRMReader::setInitialized(this, 0);
 }
 
 unint64_t PRMPBSAneReader::acquirePBSResources(PRMPBSAneReader *a1, int a2, uint64_t *a3, int a4, unint64_t a5, unint64_t a6, int a7)
@@ -3179,114 +3061,111 @@ unint64_t PRMPBSAneReader::acquirePBSResources(PRMPBSAneReader *a1, int a2, uint
 
 uint64_t PRMPBSAneReader::_acquireResourcesWithFrameID(PRMPBSAneReader *this, unint64_t a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v23 = 0;
-  if (PRMPBSAneReader::_mapFrameIDtoResourceIndex(this, a2, &v23))
+  v36 = *MEMORY[0x277D85DE8];
+  v27 = 0;
+  v4 = PRMPBSAneReader::_mapFrameIDtoResourceIndex(this, a2, &v27);
+  if (v4)
   {
-    v4 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = __PSResourceManagerLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       Key = PRMReader::getKey(this);
       *buf = 136315394;
-      v25 = Key;
-      v26 = 2048;
-      *v27 = a2;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s frameId %llu not found; Failed to acquire resource !", buf, 0x16u);
+      v29 = Key;
+      v30 = 2048;
+      *v31 = a2;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s frameId %llu not found; Failed to acquire resource !", buf, 0x16u);
     }
 
     if (*(*(this + 14) + 8))
     {
-      v6 = 0;
+      v8 = 0;
       do
       {
-        FrameIDForResourceIndex = PRMPBSAneReader::getFrameIDForResourceIndex(this, v6);
-        v8 = __PSResourceManagerLogSharedInstance();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        FrameIDForResourceIndex = PRMPBSAneReader::getFrameIDForResourceIndex(this, v8);
+        v11 = __PSResourceManagerLogSharedInstance(FrameIDForResourceIndex, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          v9 = PRMReader::getKey(this);
+          v12 = PRMReader::getKey(this);
           *buf = 136315650;
-          v25 = v9;
-          v26 = 1024;
-          *v27 = v6;
-          *&v27[4] = 2048;
-          *&v27[6] = FrameIDForResourceIndex;
-          _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s :: Dump Buffer :: Buffer[%d] = %llu", buf, 0x1Cu);
+          v29 = v12;
+          v30 = 1024;
+          *v31 = v8;
+          *&v31[4] = 2048;
+          *&v31[6] = FrameIDForResourceIndex;
+          _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s :: Dump Buffer :: Buffer[%d] = %llu", buf, 0x1Cu);
         }
 
-        ++v6;
+        ++v8;
       }
 
-      while (v6 < *(*(this + 14) + 8));
+      while (v8 < *(*(this + 14) + 8));
     }
 
-LABEL_19:
-    v11 = 0;
-    goto LABEL_20;
+    return 0;
   }
 
-  v10 = v23;
-  v11 = *(*(this + 13) + 8 * v23);
-  v12 = PRMPBSAneReader::getFrameIDForResourceIndex(this, v23);
-  if (v12 != a2)
+  v13 = v27;
+  v14 = *(*(this + 13) + 8 * v27);
+  v15 = PRMPBSAneReader::getFrameIDForResourceIndex(this, v27);
+  if (v15 != a2)
   {
-    v13 = v12;
-    v14 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = v15;
+    v18 = __PSResourceManagerLogSharedInstance(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v15 = PRMReader::getKey(this);
-      v16 = *(this + 33);
+      v19 = PRMReader::getKey(this);
+      v20 = *(this + 33);
       *buf = 136316162;
-      v25 = v15;
-      v26 = 2048;
-      *v27 = a2;
-      *&v27[8] = 2048;
-      *&v27[10] = v13;
-      v28 = 1024;
-      v29 = v16;
-      v30 = 1024;
-      v31 = v10;
-      _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s frameId mismatch; Expected %llu --> Received %llu; Did FIFO buffer wrapped around/FrameID Repeated/Skipped ? Mapping Offset = %d, Selected Reource Index = %d", buf, 0x2Cu);
+      v29 = v19;
+      v30 = 2048;
+      *v31 = a2;
+      *&v31[8] = 2048;
+      *&v31[10] = v17;
+      v32 = 1024;
+      v33 = v20;
+      v34 = 1024;
+      v35 = v13;
+      _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s frameId mismatch; Expected %llu --> Received %llu; Did FIFO buffer wrapped around/FrameID Repeated/Skipped ? Mapping Offset = %d, Selected Reource Index = %d", buf, 0x2Cu);
     }
 
     if (*(*(this + 14) + 8))
     {
-      v17 = 0;
+      v21 = 0;
       do
       {
-        v18 = PRMPBSAneReader::getFrameIDForResourceIndex(this, v17);
-        v19 = __PSResourceManagerLogSharedInstance();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = PRMPBSAneReader::getFrameIDForResourceIndex(this, v21);
+        v24 = __PSResourceManagerLogSharedInstance(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v20 = PRMReader::getKey(this);
+          v25 = PRMReader::getKey(this);
           *buf = 136315650;
-          v25 = v20;
-          v26 = 1024;
-          *v27 = v17;
-          *&v27[4] = 2048;
-          *&v27[6] = v18;
-          _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s :: Dump Buffer :: Buffer[%d] = %llu", buf, 0x1Cu);
+          v29 = v25;
+          v30 = 1024;
+          *v31 = v21;
+          *&v31[4] = 2048;
+          *&v31[6] = v22;
+          _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s :: Dump Buffer :: Buffer[%d] = %llu", buf, 0x1Cu);
         }
 
-        ++v17;
+        ++v21;
       }
 
-      while (v17 < *(*(this + 14) + 8));
+      while (v21 < *(*(this + 14) + 8));
     }
 
     *buf = 0;
     if (!PRMPBSAneReader::_searchForFrameID(this, a2, buf))
     {
-      v11 = *(*(this + 13) + 8 * *buf);
+      v14 = *(*(this + 13) + 8 * *buf);
       *(this + 128) = 0;
-      goto LABEL_20;
+      return v14;
     }
 
-    goto LABEL_19;
+    return 0;
   }
 
-LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v14;
 }
 
 unint64_t PRMPBSAneReader::_acquireResources(uint64_t a1, void *a2, unint64_t a3)
@@ -3326,14 +3205,14 @@ unint64_t PRMPBSAneReader::_acquireResources(uint64_t a1, void *a2, unint64_t a3
 
 uint64_t PRMPBSAneReader::_populateClientResTypeAneBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 112);
   v9 = *(v8 + 4);
-  memset(v18, 0, sizeof(v18));
+  memset(v17, 0, sizeof(v17));
   if (v9)
   {
     v10 = (a2 + 8);
-    v11 = v18;
+    v11 = v17;
     v12 = v9;
     do
     {
@@ -3351,9 +3230,7 @@ uint64_t PRMPBSAneReader::_populateClientResTypeAneBuffer(uint64_t a1, uint64_t 
   MEMORY[0x25F8C9570](a3, a4, v14);
   MEMORY[0x25F8C9480](a3, a4, FrameIDForResource);
   MEMORY[0x25F8C94C0](a3, a4, 1);
-  result = MEMORY[0x25F8C93C0](a3, a4, v18, v9);
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x25F8C93C0](a3, a4, v17, v9);
 }
 
 uint64_t PRMPBSAneReader::_getFrameIDForResource(uint64_t a1, uint64_t a2)
@@ -3473,34 +3350,33 @@ LABEL_8:
 
   v11 = IOSurfaceGetBaseAddress(v4);
   v12 = IOSurfaceGetAllocSize(v4);
-  v13 = -1;
-  if (!v11 || v12 < 0x258 || *v11 != 256 || (v13 = v11[1], v13 != a2))
+  v14 = -1;
+  if (!v11 || v12 < 0x258 || *v11 != 256 || (v14 = v11[1], v14 != a2))
   {
-    v14 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __PSResourceManagerLogSharedInstance(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v17 = 136315906;
       Key = PRMReader::getKey(this);
       v19 = 1024;
       v20 = a2;
       v21 = 2048;
-      v22 = v13;
+      v22 = v14;
       v23 = 2048;
       v24 = v7;
-      _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s ouput set id mismatch; Expected %u Received %llu; FrameID %llu", &v17, 0x26u);
+      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s ouput set id mismatch; Expected %u Received %llu; FrameID %llu", &v17, 0x26u);
     }
 
-    v7 = -1;
+    return -1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t PRMPBSAneReader::_mapFrameIDtoResourceIndex(PRMPBSAneReader *this, unint64_t a2, unsigned int *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v16 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v17 = 0;
   if (*(this + 128))
   {
     result = 0;
@@ -3508,85 +3384,80 @@ uint64_t PRMPBSAneReader::_mapFrameIDtoResourceIndex(PRMPBSAneReader *this, unin
     v8 = (a2 % v7 + v7 + *(this + 33)) % v7;
   }
 
-  else if (PRMPBSAneReader::_searchForFrameID(this, a2, &v16))
-  {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      Key = PRMReader::getKey(this);
-      *buf = 136315394;
-      v18 = Key;
-      v19 = 2048;
-      v20 = a2;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s did not find frame ID in FIFO Buffers; Check if ANE produced frame_id %llu", buf, 0x16u);
-    }
-
-    result = 0xFFFFFFFFLL;
-    v8 = v16;
-  }
-
   else
   {
-    v8 = v16;
-    v11 = *(*(this + 14) + 8);
-    *(this + 33) = v16 + a2 / v11 * v11 - a2;
-    *(this + 128) = 1;
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v9 = PRMPBSAneReader::_searchForFrameID(this, a2, &v17);
+    if (v9)
     {
-      v13 = PRMReader::getKey(this);
-      v14 = *(this + 33);
-      *buf = 136315650;
-      v18 = v13;
-      v19 = 2048;
-      v20 = a2;
-      v21 = 1024;
-      v22 = v14;
-      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_INFO, "PRMPBSAneReader channel:%s Establised frame_id %llu to index relation. Mapping Offset = %d", buf, 0x1Cu);
+      v11 = __PSResourceManagerLogSharedInstance(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        Key = PRMReader::getKey(this);
+        *buf = 136315394;
+        v19 = Key;
+        v20 = 2048;
+        v21 = a2;
+        _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, "PRMPBSAneReader channel:%s did not find frame ID in FIFO Buffers; Check if ANE produced frame_id %llu", buf, 0x16u);
+      }
+
+      result = 0xFFFFFFFFLL;
+      v8 = v17;
     }
 
-    result = 0;
+    else
+    {
+      v8 = v17;
+      v13 = *(*(this + 14) + 8);
+      *(this + 33) = v17 + a2 / v13 * v13 - a2;
+      *(this + 128) = 1;
+      v14 = __PSResourceManagerLogSharedInstance(v9, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      {
+        v15 = PRMReader::getKey(this);
+        v16 = *(this + 33);
+        *buf = 136315650;
+        v19 = v15;
+        v20 = 2048;
+        v21 = a2;
+        v22 = 1024;
+        v23 = v16;
+        _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_INFO, "PRMPBSAneReader channel:%s Establised frame_id %llu to index relation. Mapping Offset = %d", buf, 0x1Cu);
+      }
+
+      result = 0;
+    }
   }
 
   *a3 = v8;
-  v15 = *MEMORY[0x277D85DE8];
   return result;
-}
-
-uint64_t PRMPBSAneReader::getIOSurfaceCount(PRMPBSAneReader *this)
-{
-  v1 = *(*(this + 14) + 4);
-  v2 = *(this + 12);
-  return ps_buffer_get_total_read_buffer_count() * v1;
 }
 
 uint64_t PRMPBSAneReader::getIOSurfaces(PRMPBSAneReader *this, __IOSurface **a2)
 {
   v4 = *(*(this + 14) + 4);
-  v5 = *(this + 12);
   buffer_count = ps_buffer_get_total_read_buffer_count();
   result = MEMORY[0x25F8C8C80](*(this + 12));
   if (buffer_count)
   {
-    v8 = 0;
+    v7 = 0;
     for (i = 0; i != buffer_count; ++i)
     {
       if (v4)
       {
-        v10 = v4;
-        v11 = 8;
-        v12 = v8;
+        v9 = v4;
+        v10 = 8;
+        v11 = v7;
         do
         {
-          a2[v12++] = *(*(result + 8 * i) + v11);
-          v11 += 32;
-          --v10;
+          a2[v11++] = *(*(result + 8 * i) + v10);
+          v10 += 32;
+          --v9;
         }
 
-        while (v10);
+        while (v9);
       }
 
-      v8 += v4;
+      v7 += v4;
     }
   }
 
@@ -3602,15 +3473,16 @@ void PRMPBSAneReader::~PRMPBSAneReader(void **this)
 
 uint64_t PRMPBSCameraReader::init(PRMPBSCameraReader *this, PSResourceManager *a2, PSResourceManagerOptions *a3)
 {
-  *&v27[5] = *MEMORY[0x277D85DE8];
+  *&v33[5] = *MEMORY[0x277D85DE8];
   PRMPBSReader::init(this, a2, a3);
   *(this + 80) = *(a3 + 105);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v8)
   {
     *buf = 136315138;
     Key = PRMReader::getKey(this);
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "Initializing PRMReader for %s (first time)", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "Initializing PRMReader for %s (first time)", buf, 0xCu);
   }
 
   if ((*(this + 80) & 1) == 0)
@@ -3619,69 +3491,67 @@ uint64_t PRMPBSCameraReader::init(PRMPBSCameraReader *this, PSResourceManager *a
   }
 
   *(this + 11) = 0;
-  v6 = *(a3 + 20);
-  v7 = *(this + 4);
-  if (!v7)
+  v10 = *(a3 + 20);
+  v11 = *(this + 4);
+  if (!v11)
   {
-    v8 = "cfdata metadata";
+    v12 = "cfdata metadata";
     goto LABEL_8;
   }
 
-  if (v7 == 1)
+  if (v11 == 1)
   {
-    v8 = "iosurface metadata";
+    v12 = "iosurface metadata";
 LABEL_8:
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v13 = __PSResourceManagerLogSharedInstance(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v10 = PRMReader::getKey(this);
+      v14 = PRMReader::getKey(this);
       *buf = 136315650;
-      Key = v10;
-      v24 = 1024;
-      v25 = v6;
-      v26 = 2080;
-      *v27 = v8;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEBUG, "Creating a camera stream reader for key %s with forwardBuffersCount=%d and metadata option: %s", buf, 0x1Cu);
+      Key = v14;
+      v30 = 1024;
+      v31 = v10;
+      v32 = 2080;
+      *v33 = v12;
+      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_DEBUG, "Creating a camera stream reader for key %s with forwardBuffersCount=%d and metadata option: %s", buf, 0x1Cu);
     }
 
     PRMReader::getKey(this);
     *(this + 11) = ps_buffer_create_camera_stream_reader();
-    result = PRMReader::setInitialized(this, 1);
-    v12 = *MEMORY[0x277D85DE8];
-    return result;
+    return PRMReader::setInitialized(this, 1);
   }
 
-  v21 = 0;
-  v13 = PRMReader::getKey(this);
-  asprintf(&v21, "Unsupported metadata type found: %d for key: %s", v7, v13);
-  v14 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v27 = 0;
+  v16 = PRMReader::getKey(this);
+  v17 = asprintf(&v27, "Unsupported metadata type found: %d for key: %s", v11, v16);
+  v19 = __PSResourceManagerLogSharedInstance(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
   {
-    v15 = *(this + 4);
-    v16 = PRMReader::getKey(this);
+    v20 = *(this + 4);
+    v21 = PRMReader::getKey(this);
     *buf = 136315906;
     Key = "init";
-    v24 = 1024;
-    v25 = 48;
-    v26 = 1024;
-    v27[0] = v15;
-    LOWORD(v27[1]) = 2080;
-    *(&v27[1] + 2) = v16;
-    _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for key: %s", buf, 0x22u);
+    v30 = 1024;
+    v31 = 48;
+    v32 = 1024;
+    v33[0] = v20;
+    LOWORD(v33[1]) = 2080;
+    *(&v33[1] + 2) = v21;
+    _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for key: %s", buf, 0x22u);
   }
 
-  v17 = OSLogFlushBuffers();
-  if (v17)
+  v22 = OSLogFlushBuffers();
+  if (v22)
   {
-    v18 = v17;
-    v19 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v24 = v22;
+    v25 = __PSResourceManagerLogSharedInstance(v22, v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       Key = "init";
-      v24 = 1024;
-      v25 = v18;
-      _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v30 = 1024;
+      v31 = v24;
+      _os_log_impl(&dword_25EA3A000, v25, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -3690,13 +3560,13 @@ LABEL_8:
     usleep(0x1E8480u);
   }
 
-  v20 = abort_with_reason();
-  return PRMPBSCameraReader::deinit(v20);
+  v26 = abort_with_reason();
+  return PRMPBSCameraReader::deinit(v26);
 }
 
-uint64_t PRMPBSCameraReader::deinit(PSListenerThread **this)
+uint64_t PRMPBSCameraReader::deinit(PSListenerThread **this, uint64_t a2)
 {
-  PRMPBSReader::deinit(this);
+  PRMPBSReader::deinit(this, a2);
   if (this[11])
   {
     ps_buffer_delete_camera_stream_reader();
@@ -3722,92 +3592,89 @@ uint64_t PRMPBSCameraReader::deleteReaderInstanceContext(PRMPBSCameraReader *thi
   return MEMORY[0x28219F0A0](v4, a2);
 }
 
-uint64_t PRMPBSCameraReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11)
+uint64_t PRMPBSCameraReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11)
 {
-  v16[0] = -1;
-  v16[1] = a6;
+  v15[0] = -1;
+  v15[1] = a6;
   v12 = *(a1 + 88);
   if (a7)
   {
-    v13 = *a4;
     buffers_with_frame_id_with_reader_context = ps_buffer_camera_stream_reader_read_buffers_with_frame_id_with_reader_context();
     *a3 = buffers_with_frame_id_with_reader_context;
-    v16[0] = buffers_with_frame_id_with_reader_context != 0;
+    v15[0] = buffers_with_frame_id_with_reader_context != 0;
   }
 
   else if (a9)
   {
-    MEMORY[0x25F8C89F0](v12, a5, a8, 0, a3, a4, v16, a11);
+    MEMORY[0x25F8C89F0](v12, a5, a8, 0, a3, a4, v15, a11);
   }
 
   else
   {
-    MEMORY[0x25F8C89E0](v12, a5, 0, a3, a4, v16, a11);
+    MEMORY[0x25F8C89E0](v12, a5, 0, a3, a4, v15, a11, a8);
   }
 
-  return v16[0];
+  return v15[0];
 }
 
 uint64_t PRMPBSCameraReader::_populateClientResTypePixelBuffer(PRMReader *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v7 = *(a2 + 8);
+  v39 = *MEMORY[0x277D85DE8];
   valid = ps_buffer_camera_stream_buffer_info_get_valid();
   MEMORY[0x25F8C94C0](a3, a4, valid);
   ps_buffer_camera_stream_buffer_info_get_timestamp();
   pixel_buffer = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
-  v10 = *(a1 + 4);
-  if (v10 == 1)
+  v9 = *(a1 + 4);
+  if (v9 == 1)
   {
     metadata_iosurface_ref = ps_buffer_camera_stream_buffer_info_get_metadata_iosurface_ref();
     MEMORY[0x25F8C9450](a3, a4, pixel_buffer, metadata_iosurface_ref);
 LABEL_5:
-    v15 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8C9570);
   }
 
-  if (!v10)
+  if (!v9)
   {
     metadata_cf_data_bytes = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_bytes();
     metadata_cf_data_size = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_size();
-    v13 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], metadata_cf_data_bytes, metadata_cf_data_size, *MEMORY[0x277CBED00]);
-    MEMORY[0x25F8C9430](a3, a4, pixel_buffer, v13);
+    v12 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], metadata_cf_data_bytes, metadata_cf_data_size, *MEMORY[0x277CBED00]);
+    MEMORY[0x25F8C9430](a3, a4, pixel_buffer, v12);
     goto LABEL_5;
   }
 
-  v26 = 0;
-  v16 = v10;
+  v30 = 0;
+  v14 = v9;
   Key = PRMReader::getKey(a1);
-  asprintf(&v26, "Unsupported metadata type found: %d for key: %s", v16, Key);
-  v18 = __PSResourceManagerLogSharedInstance();
+  v16 = asprintf(&v30, "Unsupported metadata type found: %d for key: %s", v14, Key);
+  v18 = __PSResourceManagerLogSharedInstance(v16, v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
   {
     v19 = *(a1 + 4);
     v20 = PRMReader::getKey(a1);
     *buf = 136315906;
-    v28 = "_populateClientResTypePixelBuffer";
-    v29 = 1024;
-    v30 = 197;
-    v31 = 1024;
-    v32 = v19;
-    v33 = 2080;
-    v34 = v20;
+    v32 = "_populateClientResTypePixelBuffer";
+    v33 = 1024;
+    v34 = 197;
+    v35 = 1024;
+    v36 = v19;
+    v37 = 2080;
+    v38 = v20;
     _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for key: %s", buf, 0x22u);
   }
 
   v21 = OSLogFlushBuffers();
   if (v21)
   {
-    v22 = v21;
-    v23 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v23 = v21;
+    v24 = __PSResourceManagerLogSharedInstance(v21, v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v28 = "_populateClientResTypePixelBuffer";
-      v29 = 1024;
-      v30 = v22;
-      _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v32 = "_populateClientResTypePixelBuffer";
+      v33 = 1024;
+      v34 = v23;
+      _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -3816,70 +3683,68 @@ LABEL_5:
     usleep(0x1E8480u);
   }
 
-  v24 = abort_with_reason();
-  return PRMPBSCameraReader::_populateClientResTypeDataBuffer(v24);
+  v25 = abort_with_reason();
+  return PRMPBSCameraReader::_populateClientResTypeDataBuffer(v25, v26, v27, v28);
 }
 
 uint64_t PRMPBSCameraReader::_populateClientResTypeDataBuffer(PRMReader *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v7 = *(a2 + 8);
+  v39 = *MEMORY[0x277D85DE8];
   valid = ps_buffer_camera_stream_buffer_info_get_valid();
   MEMORY[0x25F8C94C0](a3, a4, valid);
   ps_buffer_camera_stream_buffer_info_get_timestamp();
   data_buffer = ps_buffer_camera_stream_buffer_info_get_data_buffer();
-  v10 = *(a1 + 4);
-  if (v10 == 1)
+  v9 = *(a1 + 4);
+  if (v9 == 1)
   {
     metadata_iosurface_ref = ps_buffer_camera_stream_buffer_info_get_metadata_iosurface_ref();
     MEMORY[0x25F8C9420](a3, a4, data_buffer, metadata_iosurface_ref);
 LABEL_5:
-    v15 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8C9570);
   }
 
-  if (!v10)
+  if (!v9)
   {
     metadata_cf_data_bytes = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_bytes();
     metadata_cf_data_size = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_size();
-    v13 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], metadata_cf_data_bytes, metadata_cf_data_size, *MEMORY[0x277CBED00]);
-    MEMORY[0x25F8C9410](a3, a4, data_buffer, v13);
+    v12 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], metadata_cf_data_bytes, metadata_cf_data_size, *MEMORY[0x277CBED00]);
+    MEMORY[0x25F8C9410](a3, a4, data_buffer, v12);
     goto LABEL_5;
   }
 
-  v26 = 0;
-  v16 = v10;
+  v30 = 0;
+  v14 = v9;
   Key = PRMReader::getKey(a1);
-  asprintf(&v26, "Unsupported metadata type found: %d for key: %s", v16, Key);
-  v18 = __PSResourceManagerLogSharedInstance();
+  v16 = asprintf(&v30, "Unsupported metadata type found: %d for key: %s", v14, Key);
+  v18 = __PSResourceManagerLogSharedInstance(v16, v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
   {
     v19 = *(a1 + 4);
     v20 = PRMReader::getKey(a1);
     *buf = 136315906;
-    v28 = "_populateClientResTypeDataBuffer";
-    v29 = 1024;
-    v30 = 252;
-    v31 = 1024;
-    v32 = v19;
-    v33 = 2080;
-    v34 = v20;
+    v32 = "_populateClientResTypeDataBuffer";
+    v33 = 1024;
+    v34 = 252;
+    v35 = 1024;
+    v36 = v19;
+    v37 = 2080;
+    v38 = v20;
     _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for key: %s", buf, 0x22u);
   }
 
   v21 = OSLogFlushBuffers();
   if (v21)
   {
-    v22 = v21;
-    v23 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v23 = v21;
+    v24 = __PSResourceManagerLogSharedInstance(v21, v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v28 = "_populateClientResTypeDataBuffer";
-      v29 = 1024;
-      v30 = v22;
-      _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v32 = "_populateClientResTypeDataBuffer";
+      v33 = 1024;
+      v34 = v23;
+      _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -3888,50 +3753,48 @@ LABEL_5:
     usleep(0x1E8480u);
   }
 
-  v24 = abort_with_reason();
-  return PRMPBSCameraReader::_populateClientResTypeJasperBuffer(v24);
+  v25 = abort_with_reason();
+  return PRMPBSCameraReader::_populateClientResTypeJasperBuffer(v25, v26, v27, v28);
 }
 
-uint64_t PRMPBSCameraReader::_populateClientResTypeJasperBuffer(PRMReader *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void PRMPBSCameraReader::_populateClientResTypeJasperBuffer(PRMReader *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = 0;
   timestamp = 0;
   v6 = 0;
-  v38 = *MEMORY[0x277D85DE8];
-  v33 = 0;
+  v40 = *MEMORY[0x277D85DE8];
+  v35 = 0;
+  memset(v39, 0, sizeof(v39));
+  memset(v38, 0, sizeof(v38));
   memset(v37, 0, sizeof(v37));
-  memset(v36, 0, sizeof(v36));
-  memset(v35, 0, sizeof(v35));
-  v30 = *MEMORY[0x277CBECE8];
-  v7 = (a2 + 8);
-  v29 = *MEMORY[0x277CBED00];
+  v32 = *MEMORY[0x277CBECE8];
+  v7 = a2 + 8;
+  v31 = *MEMORY[0x277CBED00];
   do
   {
-    *(v36 + v4) = 0;
-    *(v35 + v4) = 0;
-    v8 = *v7;
+    *(v38 + v4) = 0;
+    *(v37 + v4) = 0;
     valid = ps_buffer_camera_stream_buffer_info_get_valid();
     buf[v4 - 4] = valid;
     if (valid)
     {
-      v10 = *v7;
       timestamp = ps_buffer_camera_stream_buffer_info_get_timestamp();
-      v11 = *(a1 + 4);
-      if (v11 == 1)
+      v9 = *(a1 + 4);
+      if (v9 == 1)
       {
-        *(v35 + v4) = ps_buffer_camera_stream_buffer_info_get_metadata_iosurface_ref();
+        *(v37 + v4) = ps_buffer_camera_stream_buffer_info_get_metadata_iosurface_ref();
       }
 
       else
       {
-        if (v11)
+        if (v9)
         {
           PRMPBSCameraReader::_populateClientResTypeJasperBuffer(buf);
         }
 
         metadata_cf_data_bytes = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_bytes();
         metadata_cf_data_size = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_size();
-        *(v36 + v4) = CFDataCreateWithBytesNoCopy(v30, metadata_cf_data_bytes, metadata_cf_data_size, v29);
+        *(v38 + v4) = CFDataCreateWithBytesNoCopy(v32, metadata_cf_data_bytes, metadata_cf_data_size, v31);
       }
 
       data_buffer = ps_buffer_camera_stream_buffer_info_get_data_buffer();
@@ -3940,70 +3803,69 @@ uint64_t PRMPBSCameraReader::_populateClientResTypeJasperBuffer(PRMReader *a1, u
     else
     {
       data_buffer = 0;
-      *(v36 + v4) = 0;
-      *(v35 + v4) = 0;
+      *(v38 + v4) = 0;
+      *(v37 + v4) = 0;
     }
 
     v6 |= valid;
-    *(v37 + v4++) = data_buffer;
-    v7 += 4;
+    *(v39 + v4++) = data_buffer;
+    v7 += 32;
   }
 
   while (v4 != 4);
   MEMORY[0x25F8C94C0](a3, a4, v6 & 1);
-  v15 = *(a1 + 4);
-  if (!v15)
+  v13 = *(a1 + 4);
+  if (!v13)
   {
-    MEMORY[0x25F8C94D0](a3, a4, v37, v36);
+    MEMORY[0x25F8C94D0](a3, a4, v39, v38);
     goto LABEL_14;
   }
 
-  if (v15 == 1)
+  if (v13 == 1)
   {
-    MEMORY[0x25F8C94E0](a3, a4, v37, v35);
+    MEMORY[0x25F8C94E0](a3, a4, v39, v37);
 LABEL_14:
-    *&v16 = -1;
-    *(&v16 + 1) = -1;
-    *buf = v16;
-    *&buf[16] = v16;
+    *&v14 = -1;
+    *(&v14 + 1) = -1;
+    *buf = v14;
+    *&buf[16] = v14;
     MEMORY[0x25F8C94F0](a3, a4, buf);
-    MEMORY[0x25F8C9500](a3, a4, &v33);
-    result = MEMORY[0x25F8C9570](a3, a4, timestamp);
-    v18 = *MEMORY[0x277D85DE8];
-    return result;
+    MEMORY[0x25F8C9500](a3, a4, &v35);
+    MEMORY[0x25F8C9570](a3, a4, timestamp);
+    return;
   }
 
-  v32 = 0;
+  v34 = 0;
   Key = PRMReader::getKey(a1);
-  asprintf(&v32, "Unsupported metadata type found: %d for stream: %s", v15, Key);
-  v20 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+  v16 = asprintf(&v34, "Unsupported metadata type found: %d for stream: %s", v13, Key);
+  v18 = __PSResourceManagerLogSharedInstance(v16, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
   {
-    v21 = *(a1 + 4);
-    v22 = PRMReader::getKey(a1);
+    v19 = *(a1 + 4);
+    v20 = PRMReader::getKey(a1);
     *buf = 136315906;
     *&buf[4] = "_populateClientResTypeJasperBuffer";
     *&buf[12] = 1024;
     *&buf[14] = 336;
     *&buf[18] = 1024;
-    *&buf[20] = v21;
+    *&buf[20] = v19;
     *&buf[24] = 2080;
-    *&buf[26] = v22;
-    _os_log_impl(&dword_25EA3A000, v20, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for stream: %s", buf, 0x22u);
+    *&buf[26] = v20;
+    _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for stream: %s", buf, 0x22u);
   }
 
-  v23 = OSLogFlushBuffers();
-  if (v23)
+  v21 = OSLogFlushBuffers();
+  if (v21)
   {
-    v24 = v23;
-    v25 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v23 = v21;
+    v24 = __PSResourceManagerLogSharedInstance(v21, v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "_populateClientResTypeJasperBuffer";
       *&buf[12] = 1024;
-      *&buf[14] = v24;
-      _os_log_impl(&dword_25EA3A000, v25, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      *&buf[14] = v23;
+      _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -4012,69 +3874,65 @@ LABEL_14:
     usleep(0x1E8480u);
   }
 
-  v26 = abort_with_reason();
-  return PRMPBSCameraReader::_populateClientResTypePearlBuffer(v26);
+  v25 = abort_with_reason();
+  PRMPBSCameraReader::_populateClientResTypePearlBuffer(v25, v26, v27, v28);
 }
 
 void PRMPBSCameraReader::_populateClientResTypePearlBuffer(PRMReader *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v7 = a2[1];
-  v8 = a2[5];
-  v9 = a2[9];
-  v10 = a2[13];
+  v40 = *MEMORY[0x277D85DE8];
   MEMORY[0x25F8C94C0](a3, a4, 1);
   valid = ps_buffer_camera_stream_buffer_info_get_valid();
-  v12 = ps_buffer_camera_stream_buffer_info_get_valid();
-  v13 = ps_buffer_camera_stream_buffer_info_get_valid();
-  v14 = ps_buffer_camera_stream_buffer_info_get_valid();
-  MEMORY[0x25F8C9560](a3, a4, valid, v12, v13, v14);
+  v8 = ps_buffer_camera_stream_buffer_info_get_valid();
+  v9 = ps_buffer_camera_stream_buffer_info_get_valid();
+  v10 = ps_buffer_camera_stream_buffer_info_get_valid();
+  MEMORY[0x25F8C9560](a3, a4, valid, v8, v9, v10);
   pixel_buffer = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
-  v16 = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
-  v17 = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
-  v18 = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
-  v19 = *(a1 + 4);
-  if (v19 == 1)
+  v12 = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
+  v13 = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
+  v14 = ps_buffer_camera_stream_buffer_info_get_pixel_buffer();
+  v15 = *(a1 + 4);
+  if (v15 == 1)
   {
     metadata_iosurface_ref = ps_buffer_camera_stream_buffer_info_get_metadata_iosurface_ref();
-    MEMORY[0x25F8C9550](a3, a4, pixel_buffer, v16, v17, v18, metadata_iosurface_ref);
+    MEMORY[0x25F8C9550](a3, a4, pixel_buffer, v12, v13, v14, metadata_iosurface_ref);
   }
 
   else
   {
-    if (v19)
+    if (v15)
     {
-      v33 = 0;
+      v31 = 0;
       Key = PRMReader::getKey(a1);
-      asprintf(&v33, "Unsupported metadata type found: %d for key: %s", v19, Key);
-      v26 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v21 = asprintf(&v31, "Unsupported metadata type found: %d for key: %s", v15, Key);
+      v23 = __PSResourceManagerLogSharedInstance(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        v27 = *(a1 + 4);
-        v28 = PRMReader::getKey(a1);
+        v24 = *(a1 + 4);
+        v25 = PRMReader::getKey(a1);
         *buf = 136315906;
-        v35 = "_populateClientResTypePearlBuffer";
+        v33 = "_populateClientResTypePearlBuffer";
+        v34 = 1024;
+        v35 = 383;
         v36 = 1024;
-        v37 = 383;
-        v38 = 1024;
-        v39 = v27;
-        v40 = 2080;
-        v41 = v28;
-        _os_log_impl(&dword_25EA3A000, v26, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for key: %s", buf, 0x22u);
+        v37 = v24;
+        v38 = 2080;
+        v39 = v25;
+        _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type found: %d for key: %s", buf, 0x22u);
       }
 
-      v29 = OSLogFlushBuffers();
-      if (v29)
+      v26 = OSLogFlushBuffers();
+      if (v26)
       {
-        v30 = v29;
-        v31 = __PSResourceManagerLogSharedInstance();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v28 = v26;
+        v29 = __PSResourceManagerLogSharedInstance(v26, v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v35 = "_populateClientResTypePearlBuffer";
-          v36 = 1024;
-          v37 = v30;
-          _os_log_impl(&dword_25EA3A000, v31, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+          v33 = "_populateClientResTypePearlBuffer";
+          v34 = 1024;
+          v35 = v28;
+          _os_log_impl(&dword_25EA3A000, v29, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
         }
       }
 
@@ -4083,18 +3941,17 @@ void PRMPBSCameraReader::_populateClientResTypePearlBuffer(PRMReader *a1, void *
         usleep(0x1E8480u);
       }
 
-      v32 = abort_with_reason();
-      PRMPBSCameraReader::getIOSurfaceCount(v32);
+      v30 = abort_with_reason();
+      PRMPBSCameraReader::getIOSurfaceCount(v30);
     }
 
     metadata_cf_data_bytes = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_bytes();
     metadata_cf_data_size = ps_buffer_camera_stream_buffer_info_get_metadata_cf_data_size();
-    v22 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], metadata_cf_data_bytes, metadata_cf_data_size, *MEMORY[0x277CBED00]);
-    MEMORY[0x25F8C9540](a3, a4, pixel_buffer, v16, v17, v18, v22);
+    v18 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], metadata_cf_data_bytes, metadata_cf_data_size, *MEMORY[0x277CBED00]);
+    MEMORY[0x25F8C9540](a3, a4, pixel_buffer, v12, v13, v14, v18);
   }
 
   ps_buffer_camera_stream_buffer_info_get_timestamp();
-  v24 = *MEMORY[0x277D85DE8];
 
   JUMPOUT(0x25F8C9570);
 }
@@ -4106,32 +3963,31 @@ __IOSurface *PRMPBSCameraReader::getIOSurfaces(PRMPBSCameraReader *this, __IOSur
   {
     v5 = result;
     v6 = MEMORY[0x25F8C8990](*(this + 11));
-    v7 = *(this + 11);
-    v8 = v5;
+    v7 = v5;
     if (ps_buffer_camera_stream_is_pixelbuffer())
     {
       do
       {
-        v9 = *v6++;
-        result = CVPixelBufferGetIOSurface(v9);
+        v8 = *v6++;
+        result = CVPixelBufferGetIOSurface(v8);
         *a2++ = result;
-        --v8;
+        --v7;
       }
 
-      while (v8);
+      while (v7);
     }
 
     else
     {
       do
       {
-        v10 = *v6++;
+        ++v6;
         result = CVDataBufferGetIOSurface();
         *a2++ = result;
-        --v8;
+        --v7;
       }
 
-      while (v8);
+      while (v7);
     }
   }
 
@@ -4163,49 +4019,49 @@ void PRMPBSFastPathReplayReader::~PRMPBSFastPathReplayReader(PRMPBSFastPathRepla
   JUMPOUT(0x25F8C7C50);
 }
 
-uint64_t PRMPBSFastPathReplayReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9)
+uint64_t PRMPBSFastPathReplayReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11)
 {
-  v9 = a3;
-  v12 = PRMPBSGenericReader::acquirePBSResources(a1, a2, a3, a4, a5, a6, a7, a8, a9);
-  v13 = v12;
-  v14 = *(a1 + 88);
-  *(v14 + 8) = a2;
-  **(v14 + 16) = 0;
-  *(v14 + 32) = 0;
-  if (v12)
+  v11 = a3;
+  v14 = PRMPBSGenericReader::acquirePBSResources(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+  v15 = v14;
+  v16 = *(a1 + 88);
+  *(v16 + 8) = a2;
+  **(v16 + 16) = 0;
+  *(v16 + 32) = 0;
+  if (v14)
   {
-    v15 = *(a1 + 96);
-    *(v14 + 32) = v12 - 1;
-    if (v15)
+    v17 = *(a1 + 96);
+    *(v16 + 32) = v14 - 1;
+    if (v17)
     {
-      v16 = -1;
-      v17 = v12;
+      v18 = -1;
+      v19 = v14;
       do
       {
-        if (**(*v9 + 40) == v15)
+        if (**(*v11 + 40) == v17)
         {
-          *(v14 + 32) = v16;
+          *(v16 + 32) = v18;
         }
 
-        ++v9;
-        ++v16;
-        --v17;
+        ++v11;
+        ++v18;
+        --v19;
       }
 
-      while (v17);
+      while (v19);
     }
 
     else
     {
-      *(a1 + 96) = **(v9[v12 - 1] + 40);
+      *(a1 + 96) = **(v11[v14 - 1] + 40);
     }
   }
 
   MEMORY[0x25F8C9470](a2);
-  return v13;
+  return v15;
 }
 
-uint64_t PRMPBSFastPathReplayReader::relinquishPBSResources(uint64_t a1, uint64_t a2)
+uint64_t PRMPBSFastPathReplayReader::relinquishPBSResources(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   *(a1 + 96) = MEMORY[0x25F8C9240](a2, 0);
 
@@ -4216,12 +4072,12 @@ uint64_t PRMPBSGenericReader::init(PRMPBSGenericReader *this, PSResourceManager 
 {
   v14 = *MEMORY[0x277D85DE8];
   PRMPBSReader::init(this, a2, a3);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
     *&buf[4] = PRMReader::getKey(this);
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "Initializing PRMPBSGenericReader for %s (first time)", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "Initializing PRMPBSGenericReader for %s (first time)", buf, 0xCu);
   }
 
   if (*(a3 + 15) == 1)
@@ -4229,13 +4085,13 @@ uint64_t PRMPBSGenericReader::init(PRMPBSGenericReader *this, PSResourceManager 
     *(this + 10) = 0;
     *(&v11.__r_.__value_.__s + 23) = 6;
     strcpy(&v11, "local-");
-    v6 = std::string::append(&v11, *(a3 + 7));
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v13 = v6->__r_.__value_.__r.__words[2];
-    *buf = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
+    v8 = std::string::append(&v11, *(a3 + 7));
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v13 = v8->__r_.__value_.__r.__words[2];
+    *buf = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v11.__r_.__value_.__l.__data_);
@@ -4251,13 +4107,10 @@ uint64_t PRMPBSGenericReader::init(PRMPBSGenericReader *this, PSResourceManager 
   else
   {
     *(this + 10) = 0;
-    v8 = *(a3 + 7);
     *(this + 10) = ps_buffer_create_group_reader();
   }
 
-  result = PRMReader::setInitialized(this, 1);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return PRMReader::setInitialized(this, 1);
 }
 
 void sub_25EAAADB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -4270,9 +4123,9 @@ void sub_25EAAADB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PRMPBSGenericReader::deinit(PSListenerThread **this)
+uint64_t PRMPBSGenericReader::deinit(PSListenerThread **this, uint64_t a2)
 {
-  PRMPBSReader::deinit(this);
+  PRMPBSReader::deinit(this, a2);
   if (this[10])
   {
     ps_buffer_delete_read_buffer();
@@ -4285,7 +4138,6 @@ uint64_t PRMPBSGenericReader::deinit(PSListenerThread **this)
 void PRMPBSGenericReader::createReaderInstanceContext(PRMPBSGenericReader *this)
 {
   PRMPBSReader::createReaderInstanceContext(this);
-  v2 = *(this + 10);
 
   JUMPOUT(0x25F8C88F0);
 }
@@ -4293,20 +4145,18 @@ void PRMPBSGenericReader::createReaderInstanceContext(PRMPBSGenericReader *this)
 void PRMPBSGenericReader::deleteReaderInstanceContext(PRMPBSGenericReader *this, void *a2)
 {
   PRMPBSReader::deleteReaderInstanceContext(this, a2);
-  v3 = *(this + 10);
 
   JUMPOUT(0x25F8C8C20);
 }
 
-uint64_t PRMPBSGenericReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9)
+uint64_t PRMPBSGenericReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11)
 {
-  v14 = -1;
-  v10 = *(a1 + 80);
+  v15 = -1;
+  v12 = *(a1 + 80);
   if (a7)
   {
-    if (v10)
+    if (v12)
     {
-      v11 = *a4;
       buffers_with_frameid_with_reader_context = ps_buffer_get_read_buffers_with_frameid_with_reader_context();
       *a3 = buffers_with_frameid_with_reader_context;
       if (buffers_with_frameid_with_reader_context)
@@ -4325,18 +4175,18 @@ uint64_t PRMPBSGenericReader::acquirePBSResources(uint64_t a1, uint64_t a2, uint
 
   if (a9)
   {
-    if (v10)
+    if (v12)
     {
       ps_buffer_get_read_buffers_and_sync_tags_since_last();
     }
   }
 
-  else if (v10)
+  else if (v12)
   {
     ps_buffer_get_read_buffers_and_sync_tags_lastn();
   }
 
-  return v14;
+  return v15;
 }
 
 uint64_t PRMPBSGenericReader::relinquishPBSResources(uint64_t a1)
@@ -4355,7 +4205,7 @@ uint64_t PRMPBSGenericReader::_populateClientResTypePixelBuffer(PRMPBSReader *a1
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
   if (result)
   {
-    v16 = 0;
+    v18 = 0;
     v9 = *(a2 + 40);
     v10 = *(a1 + 4);
     if (v10 == 2)
@@ -4368,25 +4218,24 @@ uint64_t PRMPBSGenericReader::_populateClientResTypePixelBuffer(PRMPBSReader *a1
     if (v10 == 1)
     {
       MEMORY[0x25F8C9450](a3, a4, *(a2 + 40), *(a2 + 8));
-      v12 = **(a2 + 72);
 
       JUMPOUT(0x25F8C9570);
     }
 
     if (v10)
     {
-      v13 = PRMPBSGenericReader::_populateClientResTypePixelBuffer(&v14);
-      return PRMPBSGenericReader::_populateClientResTypeDataBuffer(v13);
+      v12 = PRMPBSGenericReader::_populateClientResTypePixelBuffer(&v16);
+      return PRMPBSGenericReader::_populateClientResTypeDataBuffer(v12, v13, v14, v15);
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
       v11 = *(a2 + 8);
-      v14 = 0;
-      PRMPBSReader::createRCMetadataRef(a1, v11, &v14, &v16, &v15);
-      MEMORY[0x25F8C9430](a3, a4, v9, v14);
-      return MEMORY[0x25F8C9570](a3, a4, v16);
+      v16 = 0;
+      PRMPBSReader::createRCMetadataRef(a1, v11, &v16, &v18, &v17);
+      MEMORY[0x25F8C9430](a3, a4, v9, v16);
+      return MEMORY[0x25F8C9570](a3, a4, v18);
     }
   }
 
@@ -4398,7 +4247,7 @@ uint64_t PRMPBSGenericReader::_populateClientResTypeDataBuffer(PRMPBSReader *a1,
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
   if (result)
   {
-    v16 = 0;
+    v18 = 0;
     v9 = *(a2 + 40);
     v10 = *(a1 + 4);
     if (v10 == 2)
@@ -4411,241 +4260,233 @@ uint64_t PRMPBSGenericReader::_populateClientResTypeDataBuffer(PRMPBSReader *a1,
     if (v10 == 1)
     {
       MEMORY[0x25F8C9420](a3, a4, *(a2 + 40), *(a2 + 8));
-      v12 = **(a2 + 72);
 
       JUMPOUT(0x25F8C9570);
     }
 
     if (v10)
     {
-      v13 = PRMPBSGenericReader::_populateClientResTypeDataBuffer(&v14);
-      return PRMPBSGenericReader::_populateClientResTypeJasperBuffer(v13);
+      v12 = PRMPBSGenericReader::_populateClientResTypeDataBuffer(&v16);
+      return PRMPBSGenericReader::_populateClientResTypeJasperBuffer(v12, v13, v14, v15);
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
       v11 = *(a2 + 8);
-      v14 = 0;
-      PRMPBSReader::createRCMetadataRef(a1, v11, &v14, &v16, &v15);
-      MEMORY[0x25F8C9400](a3, a4, v9, v14);
-      return MEMORY[0x25F8C9570](a3, a4, v16);
+      v16 = 0;
+      PRMPBSReader::createRCMetadataRef(a1, v11, &v16, &v18, &v17);
+      MEMORY[0x25F8C9400](a3, a4, v9, v16);
+      return MEMORY[0x25F8C9570](a3, a4, v18);
     }
   }
 
   return result;
 }
 
-uint64_t PRMPBSGenericReader::_populateClientResTypeJasperBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t PRMPBSGenericReader::_populateClientResTypeJasperBuffer(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
-  if (!result)
+  if (result)
   {
-    goto LABEL_11;
-  }
-
-  memset(v39, 0, sizeof(v39));
-  v9 = *(a1 + 16);
-  if (v9 == 1)
-  {
-    v16 = 0;
-    *v37 = 0uLL;
-    v38 = 0uLL;
-    v17 = a2 + 40;
-    do
+    memset(v44, 0, sizeof(v44));
+    v9 = *(a1 + 16);
+    if (v9 == 1)
     {
-      v37[v16] = *(v17 - 32);
-      *(v39 + v16 * 8) = *v17;
-      *&buf[v16 * 8] = **(v17 + 32);
-      v17 += 96;
-      ++v16;
+      v16 = 0;
+      *v42 = 0uLL;
+      v43 = 0uLL;
+      v17 = a2 + 5;
+      do
+      {
+        v42[v16] = *(v17 - 4);
+        *(v44 + v16 * 8) = *v17;
+        *&buf[v16 * 8] = *v17[4];
+        v17 += 12;
+        ++v16;
+      }
+
+      while (v16 != 4);
+      MEMORY[0x25F8C94E0](a3, a4, v44, v42);
+      v15 = a2[49];
+      goto LABEL_10;
     }
 
-    while (v16 != 4);
-    MEMORY[0x25F8C94E0](a3, a4, v39, v37);
-    v15 = *(a2 + 392);
-    goto LABEL_10;
-  }
-
-  if (!v9)
-  {
-    v10 = 0;
-    v28 = 0;
-    *v37 = 0uLL;
-    v38 = 0uLL;
-    v11 = (a2 + 40);
-    v12 = buf;
-    do
+    if (!v9)
     {
-      v13 = *(v11 - 4);
-      v14 = *v11;
-      v11 += 8;
-      *(v39 + v10 * 8) = v14;
-      PRMPBSReader::createRCMetadataRef(a1, v13, &v37[v10++], v12++, &v28);
-    }
+      v10 = 0;
+      v33 = 0;
+      *v42 = 0uLL;
+      v43 = 0uLL;
+      v11 = a2 + 5;
+      v12 = buf;
+      do
+      {
+        v13 = *(v11 - 4);
+        v14 = *v11;
+        v11 += 8;
+        *(v44 + v10 * 8) = v14;
+        PRMPBSReader::createRCMetadataRef(a1, v13, &v42[v10++], v12++, &v33);
+      }
 
-    while (v10 != 4);
-    MEMORY[0x25F8C94D0](a3, a4, v39, v37);
-    v15 = *(a2 + 264);
+      while (v10 != 4);
+      MEMORY[0x25F8C94D0](a3, a4, v44, v42);
+      v15 = a2[33];
 LABEL_10:
-    v18 = *v15;
-    MEMORY[0x25F8C94F0](a3, a4, buf);
-    result = MEMORY[0x25F8C9570](a3, a4, v18);
-LABEL_11:
-    v19 = *MEMORY[0x277D85DE8];
-    return result;
-  }
+      v18 = *v15;
+      MEMORY[0x25F8C94F0](a3, a4, buf);
+      return MEMORY[0x25F8C9570](a3, a4, v18);
+    }
 
-  v37[0] = 0;
-  v20 = (a1 + 24);
-  v21 = (a1 + 24);
-  if (*(a1 + 47) < 0)
-  {
-    v21 = *v20;
-  }
-
-  asprintf(v37, "Invalid metadata type found: %d for key: %s", v9, v21);
-  v22 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
-  {
-    v23 = *(a1 + 16);
+    v42[0] = 0;
+    v19 = (a1 + 24);
+    v20 = (a1 + 24);
     if (*(a1 + 47) < 0)
     {
-      v20 = *v20;
+      v20 = *v19;
     }
 
-    *buf = 136315906;
-    v30 = "_populateClientResTypeJasperBuffer";
-    v31 = 1024;
-    v32 = 338;
-    v33 = 1024;
-    v34 = v23;
-    v35 = 2080;
-    v36 = v20;
-    _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
-  }
-
-  v24 = OSLogFlushBuffers();
-  if (v24)
-  {
-    v25 = v24;
-    v26 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v21 = asprintf(v42, "Invalid metadata type found: %d for key: %s", v9, v20);
+    v23 = __PSResourceManagerLogSharedInstance(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      *buf = 136315394;
-      v30 = "_populateClientResTypeJasperBuffer";
-      v31 = 1024;
-      v32 = v25;
-      _os_log_impl(&dword_25EA3A000, v26, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v24 = *(a1 + 16);
+      if (*(a1 + 47) < 0)
+      {
+        v19 = *v19;
+      }
+
+      *buf = 136315906;
+      v35 = "_populateClientResTypeJasperBuffer";
+      v36 = 1024;
+      v37 = 338;
+      v38 = 1024;
+      v39 = v24;
+      v40 = 2080;
+      v41 = v19;
+      _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
     }
+
+    v25 = OSLogFlushBuffers();
+    if (v25)
+    {
+      v27 = v25;
+      v28 = __PSResourceManagerLogSharedInstance(v25, v26);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v35 = "_populateClientResTypeJasperBuffer";
+        v36 = 1024;
+        v37 = v27;
+        _os_log_impl(&dword_25EA3A000, v28, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      }
+    }
+
+    else
+    {
+      usleep(0x1E8480u);
+    }
+
+    v29 = abort_with_reason();
+    return PRMPBSGenericReader::_populateClientResTypePearlBuffer(v29, v30, v31, v32);
   }
 
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v27 = abort_with_reason();
-  return PRMPBSGenericReader::_populateClientResTypePearlBuffer(v27);
+  return result;
 }
 
 uint64_t PRMPBSGenericReader::_populateClientResTypePearlBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
-  if (!result)
+  if (result)
   {
-    goto LABEL_9;
-  }
+    v9 = 0;
+    v34 = 0u;
+    v35 = 0u;
+    v10 = (a2 + 40);
+    do
+    {
+      v11 = *v10;
+      v10 += 4;
+      *(&v34 + v9) = v11;
+      v9 += 8;
+    }
 
-  v9 = 0;
-  v32 = 0u;
-  v33 = 0u;
-  v10 = (a2 + 40);
-  do
-  {
-    v11 = *v10;
-    v10 += 4;
-    *(&v32 + v9) = v11;
-    v9 += 8;
-  }
+    while (v9 != 32);
+    v26 = 0;
+    v12 = *(a1 + 16);
+    if (!v12)
+    {
+      LODWORD(v25) = 0;
+      v13 = *(a2 + 8);
+      *buf = 0;
+      PRMPBSReader::createRCMetadataRef(a1, v13, buf, &v26, &v25);
+      MEMORY[0x25F8C9540](a3, a4, v34, *(&v34 + 1), v35, *(&v35 + 1), *buf);
+      return MEMORY[0x25F8C9570](a3, a4);
+    }
 
-  while (v9 != 32);
-  v24 = 0;
-  v12 = *(a1 + 16);
-  if (!v12)
-  {
-    LODWORD(v23) = 0;
-    v13 = *(a2 + 8);
-    *buf = 0;
-    PRMPBSReader::createRCMetadataRef(a1, v13, buf, &v24, &v23);
-    MEMORY[0x25F8C9540](a3, a4, v32, *(&v32 + 1), v33, *(&v33 + 1), *buf);
-    goto LABEL_8;
-  }
+    if (v12 == 1)
+    {
+      MEMORY[0x25F8C9550](a3, a4, v34, *(&v34 + 1), v35, *(&v35 + 1), *(a2 + 8));
+      v26 = **(a2 + 168);
+      return MEMORY[0x25F8C9570](a3, a4);
+    }
 
-  if (v12 == 1)
-  {
-    MEMORY[0x25F8C9550](a3, a4, v32, *(&v32 + 1), v33, *(&v33 + 1), *(a2 + 8));
-    v24 = **(a2 + 168);
-LABEL_8:
-    result = MEMORY[0x25F8C9570](a3, a4);
-LABEL_9:
-    v14 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v23 = 0;
-  v15 = (a1 + 24);
-  v16 = (a1 + 24);
-  if (*(a1 + 47) < 0)
-  {
-    v16 = *v15;
-  }
-
-  asprintf(&v23, "Invalid metadata type found: %d for key: %s", v12, v16);
-  v17 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
-  {
-    v18 = *(a1 + 16);
+    v25 = 0;
+    v14 = (a1 + 24);
+    v15 = (a1 + 24);
     if (*(a1 + 47) < 0)
     {
-      v15 = *v15;
+      v15 = *v14;
     }
 
-    *buf = 136315906;
-    *&buf[4] = "_populateClientResTypePearlBuffer";
-    v26 = 1024;
-    v27 = 403;
-    v28 = 1024;
-    v29 = v18;
-    v30 = 2080;
-    v31 = v15;
-    _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
-  }
-
-  v19 = OSLogFlushBuffers();
-  if (v19)
-  {
-    v20 = v19;
-    v21 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v16 = asprintf(&v25, "Invalid metadata type found: %d for key: %s", v12, v15);
+    v18 = __PSResourceManagerLogSharedInstance(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      *buf = 136315394;
+      v19 = *(a1 + 16);
+      if (*(a1 + 47) < 0)
+      {
+        v14 = *v14;
+      }
+
+      *buf = 136315906;
       *&buf[4] = "_populateClientResTypePearlBuffer";
-      v26 = 1024;
-      v27 = v20;
-      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v28 = 1024;
+      v29 = 403;
+      v30 = 1024;
+      v31 = v19;
+      v32 = 2080;
+      v33 = v14;
+      _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
     }
+
+    v20 = OSLogFlushBuffers();
+    if (v20)
+    {
+      v22 = v20;
+      v23 = __PSResourceManagerLogSharedInstance(v20, v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "_populateClientResTypePearlBuffer";
+        v28 = 1024;
+        v29 = v22;
+        _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      }
+    }
+
+    else
+    {
+      usleep(0x1E8480u);
+    }
+
+    v24 = abort_with_reason();
+    return PRMPBSGenericReader::getIOSurfaceCount(v24);
   }
 
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v22 = abort_with_reason();
-  return PRMPBSGenericReader::getIOSurfaceCount(v22);
+  return result;
 }
 
 uint64_t PRMPBSGenericReader::getIOSurfaceCount(PRMPBSGenericReader *this)
@@ -4660,8 +4501,10 @@ uint64_t PRMPBSGenericReader::getIOSurfaceCount(PRMPBSGenericReader *this)
     return 4294967294;
   }
 
-  v5 = *(this + 10);
-  return ps_buffer_get_total_read_buffer_count();
+  else
+  {
+    return ps_buffer_get_total_read_buffer_count();
+  }
 }
 
 __IOSurface *PRMPBSGenericReader::getIOSurfaces(PRMPBSGenericReader *this, __IOSurface **a2)
@@ -4677,16 +4520,16 @@ __IOSurface *PRMPBSGenericReader::getIOSurfaces(PRMPBSGenericReader *this, __IOS
     {
       if (v7 == 4)
       {
-        v19 = v5;
+        v15 = v5;
         do
         {
-          v20 = *v6;
+          v16 = *v6;
           v6 = (v6 + 8);
-          *a2++ = *(v20 + 8);
-          --v19;
+          *a2++ = *(v16 + 8);
+          --v15;
         }
 
-        while (v19);
+        while (v15);
       }
 
       else if (v7 == 7)
@@ -4694,9 +4537,9 @@ __IOSurface *PRMPBSGenericReader::getIOSurfaces(PRMPBSGenericReader *this, __IOS
         v5 = v5;
         do
         {
-          v12 = *v6;
+          v11 = *v6;
           v6 = (v6 + 8);
-          result = CVPixelBufferGetIOSurface(*(v12 + 40));
+          result = CVPixelBufferGetIOSurface(*(v11 + 40));
           *a2++ = result;
           --v5;
         }
@@ -4713,9 +4556,7 @@ __IOSurface *PRMPBSGenericReader::getIOSurfaces(PRMPBSGenericReader *this, __IOS
           v5 = v5;
           do
           {
-            v13 = *v6;
             v6 = (v6 + 8);
-            v14 = *(v13 + 40);
             result = CVDataBufferGetIOSurface();
             *a2++ = result;
             --v5;
@@ -4724,21 +4565,20 @@ __IOSurface *PRMPBSGenericReader::getIOSurfaces(PRMPBSGenericReader *this, __IOS
           while (v5);
           break;
         case 9:
-          v15 = 0;
+          v12 = 0;
           do
           {
-            v16 = &a2[4 * (v15 & 0x3FFFFFFF)];
+            v13 = &a2[4 * (v12 & 0x3FFFFFFF)];
             for (i = 40; i != 296; i += 64)
             {
-              v18 = *(*(v6 + v15) + i);
               result = CVDataBufferGetIOSurface();
-              *v16++ = result;
+              *v13++ = result;
             }
 
-            ++v15;
+            ++v12;
           }
 
-          while (v15 != v5);
+          while (v12 != v5);
           break;
         case 11:
           v8 = 0;
@@ -4747,7 +4587,6 @@ __IOSurface *PRMPBSGenericReader::getIOSurfaces(PRMPBSGenericReader *this, __IOS
             v9 = &a2[4 * (v8 & 0x3FFFFFFF)];
             for (j = 40; j != 168; j += 32)
             {
-              v11 = *(*(v6 + v8) + j);
               result = CVDataBufferGetIOSurface();
               *v9++ = result;
             }
@@ -4780,7 +4619,7 @@ void PRMPBSReader::init(PRMPBSReader *this, PSResourceManager *a2, PSResourceMan
   v6 = v5 - 1;
   if (v5 - 1 >= 0xC)
   {
-    PRMPBSReader::init(&v11, this);
+    PRMPBSReader::init(&v12, this);
     goto LABEL_12;
   }
 
@@ -4796,8 +4635,8 @@ void PRMPBSReader::init(PRMPBSReader *this, PSResourceManager *a2, PSResourceMan
   if (v5 > 0xB)
   {
 LABEL_12:
-    v10 = PRMPBSReader::init(&v11, this);
-    PRMPBSReader::deinit(v10);
+    v10 = PRMPBSReader::init(&v12, this);
+    PRMPBSReader::deinit(v10, v11);
     return;
   }
 
@@ -4823,15 +4662,15 @@ LABEL_9:
   *(this + 19) = v8 + v9;
 }
 
-uint64_t PRMPBSReader::deinit(PSListenerThread **this)
+PSActionTakerManager *PRMPBSReader::deinit(PSListenerThread **this, uint64_t a2)
 {
-  PRMReader::deinit(this);
+  PRMReader::deinit(this, a2);
   if ((PRMReader::isProducerLocal(this) & 1) == 0)
   {
-    v2 = this[7];
-    if (v2)
+    v3 = this[7];
+    if (v3)
     {
-      PSListenerThread::stop(v2);
+      PSListenerThread::stop(v3);
     }
   }
 
@@ -4856,11 +4695,11 @@ uint64_t PRMPBSReader::deinit(PSListenerThread **this)
   return result;
 }
 
-void PRMPBSReader::createReaderInstance(PRMPBSReader *this, PSResourceManager *a2, PSResourceManagerOptions *a3)
+void PRMPBSReader::createReaderInstance(PSListenerThread **this, PSResourceManager *a2, PSResourceManagerOptions *a3)
 {
   if ((PRMReader::isInitialized(this) & 1) == 0 && !PRMReader::getRefCount(this))
   {
-    (*(*this + 56))(this, a2, a3);
+    (*(*this + 7))(this, a2, a3);
   }
 
   if (*(a3 + 5) == 10)
@@ -4932,113 +4771,111 @@ uint64_t PRMPBSReader::deleteReaderInstanceContext(PRMPBSReader *this, void *a2)
   return result;
 }
 
-PRMReader *PRMPBSReader::_checkBeforeAcquire(PRMReader *this, int a2, uint64_t a3, unint64_t a4, int a5, void *a6)
+PRMReader *PRMPBSReader::_checkBeforeAcquire(PRMReader *this, int a2, uint64_t a3, unint64_t a4, uint64_t a5, void *a6)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (!a2)
+  v31 = *MEMORY[0x277D85DE8];
+  if (a2)
   {
-    goto LABEL_5;
-  }
-
-  v6 = this;
-  if (a3 == 0xFFFFFFFFFFFFLL)
-  {
-    PRMPBSReader::_checkBeforeAcquire(buf, this);
-  }
-
-  else if (a4 < 2)
-  {
-    if (!a5)
+    v6 = this;
+    if (a3 == 0xFFFFFFFFFFFFLL)
     {
-LABEL_5:
-      v7 = *MEMORY[0x277D85DE8];
-      return this;
+      PRMPBSReader::_checkBeforeAcquire(buf, this);
     }
 
-    v13 = PRMPBSReader::_checkBeforeAcquire(buf, this);
-    goto LABEL_12;
-  }
+    else if (a4 < 2)
+    {
+      if (!a5)
+      {
+        return this;
+      }
 
-  v19 = v6;
-  v20 = 0;
-  v8 = a4;
-  Key = PRMReader::getKey(v6);
-  v10 = v8;
-  asprintf(&v20, "Tried to use frameID for resource %s, but supplied a capacity (%llu) > 1.", Key, v8);
-  v11 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
-  {
-    v12 = PRMReader::getKey(v19);
-    *buf = 136315906;
-    v22 = "_checkBeforeAcquire";
-    v23 = 1024;
-    v24 = 235;
-    v25 = 2080;
-    v26 = v12;
-    v27 = 2048;
-    v28 = v10;
-    _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_FAULT, "%s:%d Tried to use frameID for resource %s, but supplied a capacity (%llu) > 1.", buf, 0x26u);
-  }
+      v14 = PRMPBSReader::_checkBeforeAcquire(buf, this);
+      goto LABEL_12;
+    }
 
-  v13 = OSLogFlushBuffers();
-  if (v13)
-  {
+    v21 = v6;
+    v22 = 0;
+    v7 = a4;
+    Key = PRMReader::getKey(v6);
+    v9 = v7;
+    v10 = asprintf(&v22, "Tried to use frameID for resource %s, but supplied a capacity (%llu) > 1.", Key, v7);
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    {
+      v13 = PRMReader::getKey(v21);
+      *buf = 136315906;
+      v24 = "_checkBeforeAcquire";
+      v25 = 1024;
+      v26 = 235;
+      v27 = 2080;
+      v28 = v13;
+      v29 = 2048;
+      v30 = v9;
+      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_FAULT, "%s:%d Tried to use frameID for resource %s, but supplied a capacity (%llu) > 1.", buf, 0x26u);
+    }
+
+    v14 = OSLogFlushBuffers();
+    if (!v14)
+    {
+      usleep(0x1E8480u);
+LABEL_14:
+      v18 = abort_with_reason();
+      return PRMPBSReader::_checkAfterAcquire(v18, v19, v20);
+    }
+
 LABEL_12:
-    v14 = v13;
-    v15 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = v14;
+    v17 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "_checkBeforeAcquire";
-      v23 = 1024;
-      v24 = v14;
-      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v24 = "_checkBeforeAcquire";
+      v25 = 1024;
+      v26 = v16;
+      _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
 
     goto LABEL_14;
   }
 
-  usleep(0x1E8480u);
-LABEL_14:
-  v16 = abort_with_reason();
-  return PRMPBSReader::_checkAfterAcquire(v16, v17, v18);
+  return this;
 }
 
 uint64_t PRMPBSReader::_checkAfterAcquire(PRMPBSReader *this, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2 == -1)
   {
-    v13 = 0;
+    v15 = 0;
     Key = PRMReader::getKey(this);
-    asprintf(&v13, "Reader buffer count not populated for resource %s, capacity %llu", Key, a3);
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = asprintf(&v15, "Reader buffer count not populated for resource %s, capacity %llu", Key, a3);
+    v9 = __PSResourceManagerLogSharedInstance(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v9 = PRMReader::getKey(this);
+      v10 = PRMReader::getKey(this);
       *buf = 136315906;
-      v15 = "_checkAfterAcquire";
-      v16 = 1024;
-      v17 = 246;
-      v18 = 2080;
-      v19 = v9;
-      v20 = 2048;
-      v21 = a3;
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_FAULT, "%s:%d Reader buffer count not populated for resource %s, capacity %llu", buf, 0x26u);
+      v17 = "_checkAfterAcquire";
+      v18 = 1024;
+      v19 = 246;
+      v20 = 2080;
+      v21 = v10;
+      v22 = 2048;
+      v23 = a3;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_FAULT, "%s:%d Reader buffer count not populated for resource %s, capacity %llu", buf, 0x26u);
     }
 
-    v10 = OSLogFlushBuffers();
-    if (v10)
+    v11 = OSLogFlushBuffers();
+    if (v11)
     {
-      v11 = v10;
-      v12 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = v11;
+      v14 = __PSResourceManagerLogSharedInstance(v11, v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v15 = "_checkAfterAcquire";
-        v16 = 1024;
-        v17 = v11;
-        _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v17 = "_checkAfterAcquire";
+        v18 = 1024;
+        v19 = v13;
+        _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -5050,11 +4887,10 @@ uint64_t PRMPBSReader::_checkAfterAcquire(PRMPBSReader *this, uint64_t a2, uint6
     abort_with_reason();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
-uint64_t PRMPBSReader::populateResources(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+PRMReader *PRMPBSReader::populateResources(PRMReader *result, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a5)
   {
@@ -5127,12 +4963,12 @@ LABEL_24:
 
             else if (v20 == 5)
             {
-              result = PRMPBSReader::_populateClientResTypeMTLBuffer(v16, v18, a2, i);
+              result = PRMPBSReader::_populateClientResTypeMTLBuffer(v16, v18, a2, i, v21, v22, v23, v24, v30, v31, v32);
             }
 
             else
             {
-              result = PRMPBSReader::_populateClientResTypeMTLTexture(v16, v18, a2, i, v21, v22, v23, v24, v30, v31[0], v31[1]);
+              result = PRMPBSReader::_populateClientResTypeMTLTexture(v16, v18, a2, i, v21, v22, v23, v24, v30, v31, v32);
             }
 
             continue;
@@ -5146,7 +4982,7 @@ LABEL_24:
           if (v20 != 2 && v20 != 3)
           {
 LABEL_36:
-            v26 = PRMPBSReader::populateResources(v31, v16);
+            v26 = PRMPBSReader::populateResources(&v31, v16);
             return PRMPBSReader::_populateClientResTypeData(v26, v27, v28, v29);
           }
 
@@ -5160,7 +4996,7 @@ LABEL_36:
   {
     for (j = 0; j != a6; ++j)
     {
-      result = MEMORY[0x25F8C94C0](a2, j, 0);
+      result = MEMORY[0x25F8C94C0](a2, j, 0, a4);
     }
   }
 
@@ -5172,10 +5008,7 @@ uint64_t PRMPBSReader::_populateClientResTypeData(uint64_t a1, uint64_t a2, uint
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
   if (result)
   {
-    v8 = *(a2 + 8);
-    v9 = *(a2 + 40);
-    MEMORY[0x25F8C9460](a3, a4, v8, v9[1]);
-    v10 = *v9;
+    MEMORY[0x25F8C9460](a3, a4, *(a2 + 8), *(*(a2 + 40) + 8));
 
     JUMPOUT(0x25F8C9570);
   }
@@ -5188,10 +5021,7 @@ uint64_t PRMPBSReader::_populateClientResTypeObject(uint64_t a1, uint64_t a2, ui
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
   if (result)
   {
-    v8 = *(a2 + 8);
-    v9 = *(a2 + 40);
-    MEMORY[0x25F8C9530](a3, a4, *v8);
-    v10 = *v9;
+    MEMORY[0x25F8C9530](a3, a4, **(a2 + 8));
 
     JUMPOUT(0x25F8C9570);
   }
@@ -5204,10 +5034,7 @@ uint64_t PRMPBSReader::_populateClientResTypeSurface(uint64_t a1, uint64_t a2, u
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
   if (result)
   {
-    v8 = *(a2 + 8);
-    v9 = *(a2 + 40);
-    MEMORY[0x25F8C9490](a3, a4, v8);
-    v10 = *v9;
+    MEMORY[0x25F8C9490](a3, a4, *(a2 + 8));
 
     JUMPOUT(0x25F8C9570);
   }
@@ -5215,13 +5042,13 @@ uint64_t PRMPBSReader::_populateClientResTypeSurface(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-uint64_t PRMPBSReader::_populateClientResTypeMTLBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t PRMPBSReader::_populateClientResTypeMTLBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, BOOL a9, uint64_t a10, uint64_t a11)
 {
   result = PRMPBSReader::populatePBSValidity(a1, a2, a3, a4);
   if (result)
   {
-    v5 = PRMPBSReader::_populateClientResTypeMTLBuffer(&v6);
-    return PRMPBSReader::_populateClientResTypeMTLTexture(v5);
+    v12 = PRMPBSReader::_populateClientResTypeMTLBuffer(&v20);
+    return PRMPBSReader::_populateClientResTypeMTLTexture(v12, v13, v14, v15, v16, v17, v18, v19, a9, a10, a11);
   }
 
   return result;
@@ -5450,31 +5277,31 @@ LABEL_19:
 
 uint64_t PRMPBSReader::_populateClientResTypePixelBuffer()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "PRM PBS Camera / Generic reader needs to implement this");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v0 = asprintf(&v8, "PRM PBS Camera / Generic reader needs to implement this");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "_populateClientResTypePixelBuffer";
-    v9 = 1024;
-    v10 = 616;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera / Generic reader needs to implement this", buf, 0x12u);
+    v10 = "_populateClientResTypePixelBuffer";
+    v11 = 1024;
+    v12 = 616;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera / Generic reader needs to implement this", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "_populateClientResTypePixelBuffer";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v10 = "_populateClientResTypePixelBuffer";
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -5483,37 +5310,37 @@ uint64_t PRMPBSReader::_populateClientResTypePixelBuffer()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMPBSReader::_populateClientResTypeDataBuffer(v4);
+  abort_with_reason();
+  return PRMPBSReader::_populateClientResTypeDataBuffer();
 }
 
 uint64_t PRMPBSReader::_populateClientResTypeDataBuffer()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "PRM PBS Camera / Generic reader needs to implement this");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v0 = asprintf(&v8, "PRM PBS Camera / Generic reader needs to implement this");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "_populateClientResTypeDataBuffer";
-    v9 = 1024;
-    v10 = 649;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera / Generic reader needs to implement this", buf, 0x12u);
+    v10 = "_populateClientResTypeDataBuffer";
+    v11 = 1024;
+    v12 = 649;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera / Generic reader needs to implement this", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "_populateClientResTypeDataBuffer";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v10 = "_populateClientResTypeDataBuffer";
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -5522,37 +5349,37 @@ uint64_t PRMPBSReader::_populateClientResTypeDataBuffer()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMPBSReader::_populateClientResTypePearlBuffer(v4);
+  abort_with_reason();
+  return PRMPBSReader::_populateClientResTypePearlBuffer();
 }
 
 uint64_t PRMPBSReader::_populateClientResTypePearlBuffer()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "PRM PBS Camera Reader needs to implement pearl.");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v0 = asprintf(&v8, "PRM PBS Camera Reader needs to implement pearl.");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "_populateClientResTypePearlBuffer";
-    v9 = 1024;
-    v10 = 657;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera Reader needs to implement pearl.", buf, 0x12u);
+    v10 = "_populateClientResTypePearlBuffer";
+    v11 = 1024;
+    v12 = 657;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera Reader needs to implement pearl.", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "_populateClientResTypePearlBuffer";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v10 = "_populateClientResTypePearlBuffer";
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -5561,37 +5388,37 @@ uint64_t PRMPBSReader::_populateClientResTypePearlBuffer()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMPBSReader::_populateClientResTypeJasperBuffer(v4);
+  abort_with_reason();
+  return PRMPBSReader::_populateClientResTypeJasperBuffer();
 }
 
 uint64_t PRMPBSReader::_populateClientResTypeJasperBuffer()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "PRM PBS Camera Reader needs to implement jasper.");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v0 = asprintf(&v8, "PRM PBS Camera Reader needs to implement jasper.");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "_populateClientResTypeJasperBuffer";
-    v9 = 1024;
-    v10 = 740;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera Reader needs to implement jasper.", buf, 0x12u);
+    v10 = "_populateClientResTypeJasperBuffer";
+    v11 = 1024;
+    v12 = 740;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS Camera Reader needs to implement jasper.", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "_populateClientResTypeJasperBuffer";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v10 = "_populateClientResTypeJasperBuffer";
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -5600,37 +5427,37 @@ uint64_t PRMPBSReader::_populateClientResTypeJasperBuffer()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMPBSReader::_populateClientResTypeAneBuffer(v4);
+  abort_with_reason();
+  return PRMPBSReader::_populateClientResTypeAneBuffer();
 }
 
 const __CFData *PRMPBSReader::_populateClientResTypeAneBuffer()
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  asprintf(&v10, "PRM PBS ANE Reader needs to implement.");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v0 = asprintf(&v13, "PRM PBS ANE Reader needs to implement.");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v12 = "_populateClientResTypeAneBuffer";
-    v13 = 1024;
-    v14 = 748;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS ANE Reader needs to implement.", buf, 0x12u);
+    v15 = "_populateClientResTypeAneBuffer";
+    v16 = 1024;
+    v17 = 748;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d PRM PBS ANE Reader needs to implement.", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "_populateClientResTypeAneBuffer";
-      v13 = 1024;
-      v14 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v15 = "_populateClientResTypeAneBuffer";
+      v16 = 1024;
+      v17 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -5639,8 +5466,8 @@ const __CFData *PRMPBSReader::_populateClientResTypeAneBuffer()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMPBSReader::createRCMetadataRef(v4, v5, v6, v7, v8);
+  v7 = abort_with_reason();
+  return PRMPBSReader::createRCMetadataRef(v7, v8, v9, v10, v11);
 }
 
 const __CFData *PRMPBSReader::createRCMetadataRef(PRMPBSReader *this, char *a2, const __CFData **a3, unint64_t *a4, unsigned int *a5)
@@ -5671,7 +5498,7 @@ uint64_t OUTLINED_FUNCTION_3_5@<X0>(PRMReader *this@<X1>, void *a2@<X0>, uint64_
 
 void PRMPBSReaderInstance::PRMPBSReaderInstance(PRMPBSReaderInstance *this, PRMPBSReader *a2, size_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   PRMReaderInstance::PRMReaderInstance(this, a2, a3);
   *v6 = &unk_2870BA490;
   *(v6 + 56) = 0u;
@@ -5681,19 +5508,20 @@ void PRMPBSReaderInstance::PRMPBSReaderInstance(PRMPBSReaderInstance *this, PRMP
   *(this + 5) = v7;
   if (!v7)
   {
-    v15 = 0;
-    asprintf(&v15, "OOM!");
-    v13 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v22 = 0;
+    v16 = asprintf(&v22, "OOM!");
+    v18 = __PSResourceManagerLogSharedInstance(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v17 = "PRMPBSReaderInstance";
-      v18 = 1024;
-      v19 = 32;
-      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_FAULT, "%s:%d OOM!", buf, 0x12u);
+      v24 = "PRMPBSReaderInstance";
+      v25 = 1024;
+      v26 = 32;
+      _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_FAULT, "%s:%d OOM!", buf, 0x12u);
     }
 
-    if (!OSLogFlushBuffers())
+    v14 = OSLogFlushBuffers();
+    if (!v14)
     {
       goto LABEL_15;
     }
@@ -5705,102 +5533,101 @@ void PRMPBSReaderInstance::PRMPBSReaderInstance(PRMPBSReaderInstance *this, PRMP
   *(this + 6) = v8;
   if (!v8)
   {
-    v15 = 0;
-    asprintf(&v15, "OOM!");
-    v14 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v22 = 0;
+    v19 = asprintf(&v22, "OOM!");
+    v21 = __PSResourceManagerLogSharedInstance(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v17 = "PRMPBSReaderInstance";
-      v18 = 1024;
-      v19 = 39;
-      _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_FAULT, "%s:%d OOM!", buf, 0x12u);
+      v24 = "PRMPBSReaderInstance";
+      v25 = 1024;
+      v26 = 39;
+      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_FAULT, "%s:%d OOM!", buf, 0x12u);
     }
 
-    if (!OSLogFlushBuffers())
+    v14 = OSLogFlushBuffers();
+    if (!v14)
     {
       goto LABEL_15;
     }
 
 LABEL_20:
-    __PSResourceManagerLogSharedInstance();
+    __PSResourceManagerLogSharedInstance(v14, v15);
     PRMPBSReaderInstance::PRMPBSReaderInstance();
     goto LABEL_21;
   }
 
-  if (!a3)
+  if (a3)
   {
-LABEL_7:
-    v11 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v9 = 0;
-  while (1)
-  {
-    v10 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
-    if (!v10)
+    v9 = 0;
+    while (1)
     {
-      break;
+      v10 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
+      if (!v10)
+      {
+        break;
+      }
+
+      atomic_store(0xFFFFFFFFFFFFuLL, v10);
+      *(*(this + 6) + 8 * v9++) = v10;
+      if (a3 == v9)
+      {
+        return;
+      }
     }
 
-    atomic_store(0xFFFFFFFFFFFFuLL, v10);
-    *(*(this + 6) + 8 * v9++) = v10;
-    if (a3 == v9)
+    v22 = 0;
+    v11 = asprintf(&v22, "OOM!");
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_7;
+      *buf = 136315394;
+      v24 = "PRMPBSReaderInstance";
+      v25 = 1024;
+      v26 = 45;
+      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_FAULT, "%s:%d OOM!", buf, 0x12u);
     }
-  }
 
-  v15 = 0;
-  asprintf(&v15, "OOM!");
-  v12 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 136315394;
-    v17 = "PRMPBSReaderInstance";
-    v18 = 1024;
-    v19 = 45;
-    _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_FAULT, "%s:%d OOM!", buf, 0x12u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    goto LABEL_20;
-  }
+    v14 = OSLogFlushBuffers();
+    if (v14)
+    {
+      goto LABEL_20;
+    }
 
 LABEL_15:
-  usleep(0x1E8480u);
+    usleep(0x1E8480u);
 LABEL_21:
-  abort_with_reason();
-  __break(1u);
+    abort_with_reason();
+    __break(1u);
+  }
 }
 
 void PRMPBSReaderInstance::~PRMPBSReaderInstance(PRMReaderInstance *this)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *this = &unk_2870BA490;
   if (*(this + 7))
   {
-    v11 = 0;
+    v14 = 0;
     Key = PRMReaderInstance::getKey(this);
-    asprintf(&v11, "PRMReader is being dealloced while the client is still holding on to a buffer for key %s", Key);
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = asprintf(&v14, "PRMReader is being dealloced while the client is still holding on to a buffer for key %s", Key);
+    v10 = __PSResourceManagerLogSharedInstance(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v10 = PRMReaderInstance::getKey(this);
+      v11 = PRMReaderInstance::getKey(this);
       *buf = 136315650;
-      v13 = "~PRMPBSReaderInstance";
-      v14 = 1024;
-      v15 = 57;
-      v16 = 2080;
-      v17 = v10;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_FAULT, "%s:%d PRMReader is being dealloced while the client is still holding on to a buffer for key %s", buf, 0x1Cu);
+      v16 = "~PRMPBSReaderInstance";
+      v17 = 1024;
+      v18 = 57;
+      v19 = 2080;
+      v20 = v11;
+      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_FAULT, "%s:%d PRMReader is being dealloced while the client is still holding on to a buffer for key %s", buf, 0x1Cu);
     }
 
-    if (OSLogFlushBuffers())
+    v12 = OSLogFlushBuffers();
+    if (v12)
     {
-      __PSResourceManagerLogSharedInstance();
+      __PSResourceManagerLogSharedInstance(v12, v13);
       PRMPBSReaderInstance::~PRMPBSReaderInstance();
     }
 
@@ -5841,8 +5668,6 @@ void PRMPBSReaderInstance::~PRMPBSReaderInstance(PRMReaderInstance *this)
 
     free(v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   PRMReaderInstance::~PRMReaderInstance(this);
 }
@@ -5915,30 +5740,28 @@ uint64_t *PRMPBSReaderInstance::relinquishResources(uint64_t *this)
   return this;
 }
 
-void PRMPBSReaderInstance::rollbackSeqNum(PRMReaderInstance *this)
+void PRMPBSReaderInstance::rollbackSeqNum(PRMReaderInstance *this, uint64_t a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (*(this + 7))
   {
-    v2 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = __PSResourceManagerLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       Key = PRMReaderInstance::getKey(this);
-      v4 = *(this + 8);
-      v5 = *(this + 9);
+      v5 = *(this + 8);
+      v6 = *(this + 9);
       v7 = 136315650;
       v8 = Key;
       v9 = 2048;
-      v10 = v4;
+      v10 = v5;
       v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEBUG, "Rolling back (%s) last_seq_num: %llu -> %llu", &v7, 0x20u);
+      v12 = v6;
+      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEBUG, "Rolling back (%s) last_seq_num: %llu -> %llu", &v7, 0x20u);
     }
 
     *(this + 8) = *(this + 9);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void PRMReader::PRMReader(PRMReader *this)
@@ -5973,7 +5796,7 @@ uint64_t PRMReader::getKey(PRMReader *this)
 
 void PRMReader::init(PRMReader *this, PSResourceManager *a2, PSResourceManagerOptions *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (*(this + 68) == 1)
   {
     PRMReader::init(__dst, this);
@@ -5985,46 +5808,47 @@ LABEL_25:
   v4 = *(this + 16);
   if (v4)
   {
-    v16 = 0;
-    v10 = (this + 24);
-    v11 = this + 24;
+    v19 = 0;
+    v9 = (this + 24);
+    v10 = this + 24;
     if (*(this + 47) < 0)
     {
-      v11 = *v10;
+      v10 = *v9;
     }
 
-    asprintf(&v16, "Tried to init PRMReader for key %s with nonzero (%d) refcount.", v11, v4);
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v11 = asprintf(&v19, "Tried to init PRMReader for key %s with nonzero (%d) refcount.", v10, v4);
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       if (*(this + 47) < 0)
       {
-        v10 = *v10;
+        v9 = *v9;
       }
 
-      v13 = *(this + 16);
+      v14 = *(this + 16);
       *__dst = 136315906;
       *&__dst[4] = "init";
       *&__dst[12] = 1024;
       *&__dst[14] = 54;
       *&__dst[18] = 2080;
-      *&__dst[20] = v10;
-      v18 = 1024;
-      v19 = v13;
-      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_FAULT, "%s:%d Tried to init PRMReader for key %s with nonzero (%d) refcount.", __dst, 0x22u);
+      *&__dst[20] = v9;
+      v21 = 1024;
+      v22 = v14;
+      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_FAULT, "%s:%d Tried to init PRMReader for key %s with nonzero (%d) refcount.", __dst, 0x22u);
     }
 
-    v14 = OSLogFlushBuffers();
-    if (v14)
+    v15 = OSLogFlushBuffers();
+    v17 = v15;
+    if (v15)
     {
-      v15 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = __PSResourceManagerLogSharedInstance(v15, v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *__dst = 136315394;
         *&__dst[4] = "init";
         *&__dst[12] = 1024;
-        *&__dst[14] = v14;
-        _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", __dst, 0x12u);
+        *&__dst[14] = v17;
+        _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", __dst, 0x12u);
       }
     }
 
@@ -6067,10 +5891,9 @@ LABEL_25:
   *(this + 5) = *&__dst[16];
   *(this + 1) = *(a3 + 5);
   *(this + 4) = *(a3 + 27);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void PRMReader::deinit(PRMReader *this)
+void PRMReader::deinit(PRMReader *this, uint64_t a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   if (*(this + 68) != 1 || *(this + 16))
@@ -6078,21 +5901,19 @@ void PRMReader::deinit(PRMReader *this)
     PRMReader::deinit(&v5, this);
   }
 
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = __PSResourceManagerLogSharedInstance(this, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v3 = (this + 24);
+    v4 = (this + 24);
     if (*(this + 47) < 0)
     {
-      v3 = *v3;
+      v4 = *v4;
     }
 
     v5 = 136315138;
-    v6 = v3;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEBUG, "Deinitializing PRMReader for %s (last one out the door)", &v5, 0xCu);
+    v6 = v4;
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEBUG, "Deinitializing PRMReader for %s (last one out the door)", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PRMReader::incrementRefCount(PRMReader *this)
@@ -6118,7 +5939,7 @@ void PRMReaderInstance::PRMReaderInstance(PRMReaderInstance *this, PRMReader *a2
 
 void PRMWriterInstance::PRMWriterInstance(PRMWriterInstance *this, PSResourceManagerOptions *a2, char *a3, int a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   *this = &unk_2870BA5A0;
   *(this + 22) = 0;
   v7 = this + 176;
@@ -6164,7 +5985,6 @@ LABEL_12:
           operator new();
         }
 
-        v14 = *MEMORY[0x277D85DE8];
         return;
       }
 
@@ -6189,25 +6009,26 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  v17 = *(a2 + 7);
-  v18 = 0;
-  asprintf(&v18, "Unable to create GSM source for key %s", v17);
-  v15 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v20 = *(a2 + 7);
+  v21 = 0;
+  v14 = asprintf(&v21, "Unable to create GSM source for key %s", v20);
+  v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
-    v16 = *(a2 + 7);
+    v17 = *(a2 + 7);
     *buf = 136315650;
     *&buf[4] = "PRMWriterInstance";
     *&buf[12] = 1024;
     *&buf[14] = 262;
     *&buf[18] = 2080;
-    *&buf[20] = v16;
-    _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_FAULT, "%s:%d Unable to create GSM source for key %s", buf, 0x1Cu);
+    *&buf[20] = v17;
+    _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_FAULT, "%s:%d Unable to create GSM source for key %s", buf, 0x1Cu);
   }
 
-  if (OSLogFlushBuffers())
+  v18 = OSLogFlushBuffers();
+  if (v18)
   {
-    __PSResourceManagerLogSharedInstance();
+    __PSResourceManagerLogSharedInstance(v18, v19);
     PRMWriterInstance::PRMWriterInstance();
   }
 
@@ -6250,33 +6071,33 @@ uint64_t PRMWriterInstance::initSharedActionTaker(PRMWriterInstance *this)
 
 void PRMWriterInstance::initBuffers(PRMWriterInstance *this, const std::string::value_type **a2, char *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   __p = 0;
-  v36 = 0uLL;
+  v38 = 0uLL;
   if (a2[15] == 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v37, "local-");
-    v5 = std::string::append(v37, a2[7]);
+    std::string::basic_string[abi:ne200100]<0>(v39, "local-");
+    v5 = std::string::append(v39, a2[7]);
     p_p = v5->__r_.__value_.__r.__words[0];
-    *v38 = v5->__r_.__value_.__l.__size_;
-    *&v38[7] = *(&v5->__r_.__value_.__r.__words[1] + 7);
+    *v40 = v5->__r_.__value_.__l.__size_;
+    *&v40[7] = *(&v5->__r_.__value_.__r.__words[1] + 7);
     v7 = HIBYTE(v5->__r_.__value_.__r.__words[2]);
     v5->__r_.__value_.__l.__size_ = 0;
     v5->__r_.__value_.__r.__words[2] = 0;
     v5->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v36) < 0)
+    if (SHIBYTE(v38) < 0)
     {
       operator delete(__p);
     }
 
     __p = p_p;
-    *&v36 = *v38;
-    *(&v36 + 7) = *&v38[7];
-    HIBYTE(v36) = v7;
-    if ((v37[23] & 0x80000000) != 0)
+    *&v38 = *v40;
+    *(&v38 + 7) = *&v40[7];
+    HIBYTE(v38) = v7;
+    if ((v39[23] & 0x80000000) != 0)
     {
-      operator delete(*v37);
-      v7 = HIBYTE(v36);
+      operator delete(*v39);
+      v7 = HIBYTE(v38);
       p_p = __p;
     }
 
@@ -6285,50 +6106,45 @@ void PRMWriterInstance::initBuffers(PRMWriterInstance *this, const std::string::
       p_p = &__p;
     }
 
-    v9 = *(a2 + 17);
-    v8 = *(a2 + 18);
     group_writer_with_options = ps_buffer_create_group_writer_with_options();
   }
 
   else
   {
     p_p = a2[7];
-    v12 = *(a2 + 17);
-    v11 = *(a2 + 18);
-    v13 = a2[7];
     group_writer_with_options = ps_buffer_create_group_writer_with_options();
   }
 
   *(this + 1) = group_writer_with_options;
-  v14 = 3;
+  v9 = 3;
   *(this + 53) = 3;
   if (*(a2 + 27) == 1)
   {
-    v15 = *(this + 25);
-    if (v15 <= 0xC)
+    v10 = *(this + 25);
+    if (v10 <= 0xC)
     {
-      if (((1 << v15) & 0x147E) != 0)
+      if (((1 << v10) & 0x147E) != 0)
       {
-        v14 = 3;
+        v9 = 3;
         goto LABEL_19;
       }
 
-      if (((1 << v15) & 0x980) != 0)
+      if (((1 << v10) & 0x980) != 0)
       {
-        v14 = 4;
+        v9 = 4;
 LABEL_18:
-        *(this + 53) = v14;
+        *(this + 53) = v9;
         goto LABEL_19;
       }
 
-      if (v15 == 9)
+      if (v10 == 9)
       {
-        v14 = 7;
+        v9 = 7;
         goto LABEL_18;
       }
     }
 
-    *v38 = 0;
+    *v40 = 0;
     v32 = (this + 176);
     v33 = this + 176;
     if (*(this + 199) < 0)
@@ -6336,25 +6152,26 @@ LABEL_18:
       v33 = *v32;
     }
 
-    asprintf(v38, "Received an invalid class type for writer %s", v33);
-    v34 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+    v34 = asprintf(v40, "Received an invalid class type for writer %s", v33);
+    v36 = __PSResourceManagerLogSharedInstance(v34, v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
     {
       if (*(this + 199) < 0)
       {
         v32 = *v32;
       }
 
-      *v37 = 136315650;
-      *&v37[4] = "initBuffers";
-      *&v37[12] = 1024;
-      *&v37[14] = 494;
-      *&v37[18] = 2080;
-      *&v37[20] = v32;
-      _os_log_impl(&dword_25EA3A000, v34, OS_LOG_TYPE_FAULT, "%s:%d Received an invalid class type for writer %s", v37, 0x1Cu);
+      *v39 = 136315650;
+      *&v39[4] = "initBuffers";
+      *&v39[12] = 1024;
+      *&v39[14] = 494;
+      *&v39[18] = 2080;
+      *&v39[20] = v32;
+      _os_log_impl(&dword_25EA3A000, v36, OS_LOG_TYPE_FAULT, "%s:%d Received an invalid class type for writer %s", v39, 0x1Cu);
     }
 
-    if (!OSLogFlushBuffers())
+    v25 = OSLogFlushBuffers();
+    if (!v25)
     {
       goto LABEL_91;
     }
@@ -6363,17 +6180,17 @@ LABEL_18:
   }
 
 LABEL_19:
-  v16 = a2[5];
-  if (v16 <= 10)
+  v11 = a2[5];
+  if (v11 <= 10)
   {
-    if (v16 != 1)
+    if (v11 != 1)
     {
-      if (v16 != 9)
+      if (v11 != 9)
       {
         goto LABEL_28;
       }
 
-      v17 = v14 + 7;
+      v12 = v9 + 7;
       goto LABEL_27;
     }
 
@@ -6382,9 +6199,9 @@ LABEL_25:
     goto LABEL_28;
   }
 
-  if (v16 != 11)
+  if (v11 != 11)
   {
-    if (v16 != 12)
+    if (v11 != 12)
     {
       goto LABEL_28;
     }
@@ -6392,48 +6209,48 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v17 = v14 + 3;
+  v12 = v9 + 3;
 LABEL_27:
-  *(this + 53) = v17;
+  *(this + 53) = v12;
 LABEL_28:
-  v18 = MEMORY[0x25F8C8DF0]();
-  if ((v18 & 1) == 0)
+  v13 = MEMORY[0x25F8C8DF0]();
+  if ((v13 & 1) == 0)
   {
-    v20 = a2[5];
-    if (v20 <= 6)
+    v15 = a2[5];
+    if (v15 <= 6)
     {
-      if (v20 <= 3)
+      if (v15 <= 3)
       {
-        if ((v20 - 2) < 2)
+        if ((v15 - 2) < 2)
         {
-          v21 = 8;
+          v16 = 8;
           MEMORY[0x25F8C8900](*(this + 1), 8);
 LABEL_44:
-          MEMORY[0x25F8C8900](*(this + 1), v21);
+          MEMORY[0x25F8C8900](*(this + 1), v16);
           goto LABEL_48;
         }
 
-        if (v20 != 1)
+        if (v15 != 1)
         {
           goto LABEL_68;
         }
 
 LABEL_43:
         MEMORY[0x25F8C8900](*(this + 1), *(this + 62));
-        v21 = 16;
+        v16 = 16;
         goto LABEL_44;
       }
 
-      if (v20 != 4)
+      if (v15 != 4)
       {
-        if (v20 == 5)
+        if (v15 == 5)
         {
-          PRMWriterInstance::installBufferTypeMTLBuffer(v18, v19);
+          PRMWriterInstance::installBufferTypeMTLBuffer(v13, v14);
         }
 
         else
         {
-          PRMWriterInstance::installBufferTypeMTLTexture(v18, v19);
+          PRMWriterInstance::installBufferTypeMTLTexture(v13, v14);
         }
 
         goto LABEL_94;
@@ -6442,9 +6259,9 @@ LABEL_43:
       PRMWriterInstance::installBufferTypeSurface(this, a2);
     }
 
-    else if (v20 <= 8)
+    else if (v15 <= 8)
     {
-      if (v20 == 7)
+      if (v15 == 7)
       {
         PRMWriterInstance::installBufferTypePixelBuffer(this, a2);
       }
@@ -6457,7 +6274,7 @@ LABEL_43:
 
     else
     {
-      switch(v20)
+      switch(v15)
       {
         case 9:
           PRMWriterInstance::installBufferTypeJasperBuffer(this, a2);
@@ -6469,33 +6286,34 @@ LABEL_43:
           goto LABEL_43;
         default:
 LABEL_68:
-          *v38 = 0;
-          v26 = (this + 176);
-          v27 = this + 176;
+          *v40 = 0;
+          v20 = (this + 176);
+          v21 = this + 176;
           if (*(this + 199) < 0)
           {
-            v27 = *v26;
+            v21 = *v20;
           }
 
-          asprintf(v38, "Received an invalid class type for writer %s", v27);
-          v28 = __PSResourceManagerLogSharedInstance();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+          v22 = asprintf(v40, "Received an invalid class type for writer %s", v21);
+          v24 = __PSResourceManagerLogSharedInstance(v22, v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
             if (*(this + 199) < 0)
             {
-              v26 = *v26;
+              v20 = *v20;
             }
 
-            *v37 = 136315650;
-            *&v37[4] = "initBuffers";
-            *&v37[12] = 1024;
-            *&v37[14] = 565;
-            *&v37[18] = 2080;
-            *&v37[20] = v26;
-            _os_log_impl(&dword_25EA3A000, v28, OS_LOG_TYPE_FAULT, "%s:%d Received an invalid class type for writer %s", v37, 0x1Cu);
+            *v39 = 136315650;
+            *&v39[4] = "initBuffers";
+            *&v39[12] = 1024;
+            *&v39[14] = 565;
+            *&v39[18] = 2080;
+            *&v39[20] = v20;
+            _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_FAULT, "%s:%d Received an invalid class type for writer %s", v39, 0x1Cu);
           }
 
-          if (!OSLogFlushBuffers())
+          v25 = OSLogFlushBuffers();
+          if (!v25)
           {
 LABEL_91:
             usleep(0x1E8480u);
@@ -6507,7 +6325,7 @@ LABEL_94:
           }
 
 LABEL_92:
-          __PSResourceManagerLogSharedInstance();
+          __PSResourceManagerLogSharedInstance(v25, v26);
           PRMWriterInstance::initBuffers();
           goto LABEL_93;
       }
@@ -6515,53 +6333,54 @@ LABEL_92:
 
 LABEL_48:
     MEMORY[0x25F8C88E0](*(this + 1), 8, 1, 0);
-    v22 = *(this + 25);
-    if ((v22 - 1) >= 8)
+    v17 = *(this + 25);
+    if ((v17 - 1) >= 8)
     {
-      if (v22 == 9)
+      if (v17 == 9)
       {
-        v25 = 4;
+        v19 = 4;
         do
         {
           MEMORY[0x25F8C8900](*(this + 1), 8);
-          --v25;
+          --v19;
         }
 
-        while (v25);
+        while (v19);
         goto LABEL_50;
       }
 
-      if (v22 != 12)
+      if (v17 != 12)
       {
-        if (v22 != 11)
+        if (v17 != 11)
         {
-          *v38 = 0;
-          v29 = (this + 176);
-          v30 = this + 176;
+          *v40 = 0;
+          v27 = (this + 176);
+          v28 = this + 176;
           if (*(this + 199) < 0)
           {
-            v30 = *v29;
+            v28 = *v27;
           }
 
-          asprintf(v38, "Received an invalid class type for writer %s", v30);
-          v31 = __PSResourceManagerLogSharedInstance();
+          v29 = asprintf(v40, "Received an invalid class type for writer %s", v28);
+          v31 = __PSResourceManagerLogSharedInstance(v29, v30);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
           {
             if (*(this + 199) < 0)
             {
-              v29 = *v29;
+              v27 = *v27;
             }
 
-            *v37 = 136315650;
-            *&v37[4] = "initBuffers";
-            *&v37[12] = 1024;
-            *&v37[14] = 601;
-            *&v37[18] = 2080;
-            *&v37[20] = v29;
-            _os_log_impl(&dword_25EA3A000, v31, OS_LOG_TYPE_FAULT, "%s:%d Received an invalid class type for writer %s", v37, 0x1Cu);
+            *v39 = 136315650;
+            *&v39[4] = "initBuffers";
+            *&v39[12] = 1024;
+            *&v39[14] = 601;
+            *&v39[18] = 2080;
+            *&v39[20] = v27;
+            _os_log_impl(&dword_25EA3A000, v31, OS_LOG_TYPE_FAULT, "%s:%d Received an invalid class type for writer %s", v39, 0x1Cu);
           }
 
-          if (!OSLogFlushBuffers())
+          v25 = OSLogFlushBuffers();
+          if (!v25)
           {
             goto LABEL_91;
           }
@@ -6569,14 +6388,14 @@ LABEL_48:
           goto LABEL_92;
         }
 
-        v24 = 4;
+        v18 = 4;
         do
         {
           MEMORY[0x25F8C8900](*(this + 1), 8);
-          --v24;
+          --v18;
         }
 
-        while (v24);
+        while (v18);
         goto LABEL_50;
       }
     }
@@ -6588,16 +6407,14 @@ LABEL_50:
 
   if ((a2[5] & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
-    PRMWriterInstance::allocateLocalObjects(this, v19);
+    PRMWriterInstance::allocateLocalObjects(this, v14);
   }
 
   PRMWriterInstance::setIOSurfaceNames(this, a2, p_p);
-  if (SHIBYTE(v36) < 0)
+  if (SHIBYTE(v38) < 0)
   {
     operator delete(__p);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAAE7E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -6610,31 +6427,31 @@ void sub_25EAAE7E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-CFMutableDictionaryRef PRMWriterInstance::initWorkingSetDictionaries(PRMWriterInstance *this)
+void PRMWriterInstance::initWorkingSetDictionaries(PRMWriterInstance *this)
 {
-  result = MEMORY[0x25F8C8C90](*(this + 1));
-  v3 = result;
-  v4 = *(this + 25);
-  v5 = 2;
-  if (v4 <= 6)
+  v2 = MEMORY[0x25F8C8C90](*(this + 1));
+  v3 = *(this + 25);
+  v4 = 2;
+  if (v3 <= 6)
   {
-    if ((v4 - 1) < 6)
+    if ((v3 - 1) < 6)
     {
 LABEL_3:
-      *(this + 54) = v5;
+      *(this + 54) = v4;
       goto LABEL_4;
     }
 
 LABEL_24:
-    inited = PRMWriterInstance::initWorkingSetDictionaries(v18, this);
-    return PRMWriterInstance::PRMWriterInstance(inited, v15, v16, v17);
+    inited = PRMWriterInstance::initWorkingSetDictionaries(v17, this);
+    PRMWriterInstance::PRMWriterInstance(inited, v14, v15, v16);
+    return;
   }
 
-  if (v4 > 10)
+  if (v3 > 10)
   {
-    if (v4 != 11)
+    if (v3 != 11)
     {
-      if (v4 == 12)
+      if (v3 == 12)
       {
         goto LABEL_3;
       }
@@ -6642,47 +6459,47 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v13 = *(this + 52);
-    if (!v13)
-    {
-      v5 = 5;
-      goto LABEL_3;
-    }
-
-    if (v13 == 1)
-    {
-      v5 = 6;
-      goto LABEL_3;
-    }
-  }
-
-  else if ((v4 - 7) >= 2)
-  {
-    if (v4 != 9)
-    {
-      goto LABEL_24;
-    }
-
     v12 = *(this + 52);
     if (!v12)
     {
-      v5 = 9;
+      v4 = 5;
       goto LABEL_3;
     }
 
     if (v12 == 1)
     {
-      v5 = 13;
+      v4 = 6;
+      goto LABEL_3;
+    }
+  }
+
+  else if ((v3 - 7) >= 2)
+  {
+    if (v3 != 9)
+    {
+      goto LABEL_24;
+    }
+
+    v11 = *(this + 52);
+    if (!v11)
+    {
+      v4 = 9;
+      goto LABEL_3;
+    }
+
+    if (v11 == 1)
+    {
+      v4 = 13;
       goto LABEL_3;
     }
   }
 
   else
   {
-    v11 = *(this + 52);
-    if (v11 < 3)
+    v10 = *(this + 52);
+    if (v10 < 3)
     {
-      v5 = dword_25EB77764[v11];
+      v4 = dword_25EB77764[v10];
       goto LABEL_3;
     }
   }
@@ -6690,22 +6507,19 @@ LABEL_24:
 LABEL_4:
   if (*(this + 60))
   {
-    v6 = 0;
-    v7 = *MEMORY[0x277CBECE8];
-    v8 = MEMORY[0x277CBF138];
-    v9 = MEMORY[0x277CBF150];
+    v5 = 0;
+    v6 = *MEMORY[0x277CBECE8];
+    v7 = MEMORY[0x277CBF138];
+    v8 = MEMORY[0x277CBF150];
     do
     {
-      v10 = *(*(v3 + v6) + 32 * *(this + 54) + 8);
-      result = CFDictionaryCreateMutable(v7, 0, v8, v9);
-      *v10 = result;
-      ++v6;
+      v9 = *(*(v2 + 8 * v5) + 32 * *(this + 54) + 8);
+      *v9 = CFDictionaryCreateMutable(v6, 0, v7, v8);
+      ++v5;
     }
 
-    while (v6 < *(this + 60));
+    while (v5 < *(this + 60));
   }
-
-  return result;
 }
 
 void PRMWriterInstance::~PRMWriterInstance(PRMWriterInstance *this)
@@ -6726,14 +6540,14 @@ void PRMWriterInstance::~PRMWriterInstance(PRMWriterInstance *this)
   else if (*(this + 168) == 1)
   {
     PRMWriterInstance::deinitWorkingSetDictionaries(this);
-    PRMWriterInstance::deinitBuffers(this);
+    PRMWriterInstance::deinitBuffers(this, v3);
     PRMWriterInstance::deinitSharedActionTaker(this);
     PSActionTakerManager::flushRemovalRequests(*(this + 39));
     ps_gsm_remove_source(*(this + 2), *(this + 3));
-    v3 = *(this + 39);
-    if (v3)
+    v4 = *(this + 39);
+    if (v4)
     {
-      PSActionTakerManager::~PSActionTakerManager(v3);
+      PSActionTakerManager::~PSActionTakerManager(v4);
       MEMORY[0x25F8C7C50]();
     }
   }
@@ -6769,43 +6583,43 @@ void PRMWriterInstance::deinitWorkingSetDictionaries(PRMWriterInstance *this)
   }
 }
 
-uint64_t PRMWriterInstance::deinitBuffers(PRMWriterInstance *this)
+uint64_t PRMWriterInstance::deinitBuffers(PRMWriterInstance *this, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = *(this + 25);
-  if (v2 == 3)
+  v3 = *(this + 25);
+  if (v3 == 3)
   {
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = __PSResourceManagerLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = (this + 176);
+      v7 = (this + 176);
       if (*(this + 199) < 0)
       {
-        v6 = *v6;
+        v7 = *v7;
       }
 
       v9 = 136315138;
-      v10 = v6;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "Deiniting Opaque buffer for key %s", &v9, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "Deiniting Opaque buffer for key %s", &v9, 0xCu);
     }
 
     ps_prm_deallocate_opaque_array(*(this + 29), *(this + 28), *(this + 60));
   }
 
-  else if (v2 == 2)
+  else if (v3 == 2)
   {
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = __PSResourceManagerLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v4 = (this + 176);
+      v5 = (this + 176);
       if (*(this + 199) < 0)
       {
-        v4 = *v4;
+        v5 = *v5;
       }
 
       v9 = 136315138;
-      v10 = v4;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEBUG, "Deiniting NSObject buffers for key %s", &v9, 0xCu);
+      v10 = v5;
+      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Deiniting NSObject buffers for key %s", &v9, 0xCu);
     }
 
     ps_prm_deallocate_retained_nsobject_array(*(this + 29), *(this + 28), *(this + 60));
@@ -6818,7 +6632,6 @@ uint64_t PRMWriterInstance::deinitBuffers(PRMWriterInstance *this)
 
   result = ps_buffer_delete_write_buffer();
   *(this + 1) = 0;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6841,73 +6654,67 @@ void PRMWriterInstance::deinitSharedActionTaker(PRMWriterInstance *this)
   }
 }
 
-void _shared_teardown_callback(void *a1)
+void _shared_teardown_callback(uint64_t a1, uint64_t a2)
 {
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v2 = __PSResourceManagerLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_DEBUG, "Deleting shared action taker", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEBUG, "Deleting shared action taker", v3, 2u);
   }
 }
 
 uint64_t PRMWriterInstance::installBufferTypeSurface(PRMWriterInstance *this, PSResourceManagerOptions *a2)
 {
-  v4 = *(a2 + 16);
-  if (v4 == 1)
+  v3 = *(a2 + 16);
+  if (v3 == 1)
   {
-    v6 = a2 + 144;
-    v5 = _iosurfaceAllocator;
+    v5 = a2 + 144;
+    v4 = _iosurfaceAllocator;
 LABEL_5:
-    MEMORY[0x25F8C8DB0](*(this + 1), v5, v6);
-    if (*(a2 + 184) == 1)
-    {
-      v7 = *(a2 + 48);
-    }
-
-    v8 = *(this + 1);
+    MEMORY[0x25F8C8DB0](*(this + 1), v4, v5);
 
     JUMPOUT(0x25F8C8900);
   }
 
-  if (v4 == 2)
+  if (v3 == 2)
   {
-    v5 = *(a2 + 21);
-    v6 = *(a2 + 22);
+    v4 = *(a2 + 21);
+    v5 = *(a2 + 22);
     goto LABEL_5;
   }
 
-  v9 = PRMWriterInstance::installBufferTypeSurface(&v12, a2);
-  return PRMWriterInstance::installBufferTypeMTLBuffer(v9, v10);
+  v6 = PRMWriterInstance::installBufferTypeSurface(&v9);
+  return PRMWriterInstance::installBufferTypeMTLBuffer(v6, v7);
 }
 
 uint64_t PRMWriterInstance::installBufferTypeMTLBuffer(PRMWriterInstance *this, PSResourceManagerOptions *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  asprintf(&v9, "MTLBuffer type not yet implemented.");
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v2 = asprintf(&v12, "MTLBuffer type not yet implemented.");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v11 = "installBufferTypeMTLBuffer";
-    v12 = 1024;
-    v13 = 915;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d MTLBuffer type not yet implemented.", buf, 0x12u);
+    v14 = "installBufferTypeMTLBuffer";
+    v15 = 1024;
+    v16 = 915;
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d MTLBuffer type not yet implemented.", buf, 0x12u);
   }
 
-  v3 = OSLogFlushBuffers();
-  if (v3)
+  v5 = OSLogFlushBuffers();
+  if (v5)
   {
-    v4 = v3;
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v5;
+    v8 = __PSResourceManagerLogSharedInstance(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "installBufferTypeMTLBuffer";
-      v12 = 1024;
-      v13 = v4;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v14 = "installBufferTypeMTLBuffer";
+      v15 = 1024;
+      v16 = v7;
+      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -6916,37 +6723,37 @@ uint64_t PRMWriterInstance::installBufferTypeMTLBuffer(PRMWriterInstance *this, 
     usleep(0x1E8480u);
   }
 
-  v6 = abort_with_reason();
-  return PRMWriterInstance::installBufferTypeMTLTexture(v6, v7);
+  v9 = abort_with_reason();
+  return PRMWriterInstance::installBufferTypeMTLTexture(v9, v10);
 }
 
 uint64_t PRMWriterInstance::installBufferTypeMTLTexture(PRMWriterInstance *this, PSResourceManagerOptions *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  asprintf(&v9, "MTLTexture type not yet implemented.");
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v2 = asprintf(&v12, "MTLTexture type not yet implemented.");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v11 = "installBufferTypeMTLTexture";
-    v12 = 1024;
-    v13 = 921;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d MTLTexture type not yet implemented.", buf, 0x12u);
+    v14 = "installBufferTypeMTLTexture";
+    v15 = 1024;
+    v16 = 921;
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d MTLTexture type not yet implemented.", buf, 0x12u);
   }
 
-  v3 = OSLogFlushBuffers();
-  if (v3)
+  v5 = OSLogFlushBuffers();
+  if (v5)
   {
-    v4 = v3;
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v5;
+    v8 = __PSResourceManagerLogSharedInstance(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "installBufferTypeMTLTexture";
-      v12 = 1024;
-      v13 = v4;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v14 = "installBufferTypeMTLTexture";
+      v15 = 1024;
+      v16 = v7;
+      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -6955,8 +6762,8 @@ uint64_t PRMWriterInstance::installBufferTypeMTLTexture(PRMWriterInstance *this,
     usleep(0x1E8480u);
   }
 
-  v6 = abort_with_reason();
-  return PRMWriterInstance::installBufferTypePixelBuffer(v6, v7);
+  v9 = abort_with_reason();
+  return PRMWriterInstance::installBufferTypePixelBuffer(v9, v10);
 }
 
 uint64_t PRMWriterInstance::installBufferTypePixelBuffer(PRMWriterInstance *this, PSResourceManagerOptions *a2)
@@ -6972,7 +6779,7 @@ uint64_t PRMWriterInstance::installBufferTypePixelBuffer(PRMWriterInstance *this
   {
     if (v4 != 2)
     {
-      PRMWriterInstance::installBufferTypePixelBuffer(&v14, a2);
+      PRMWriterInstance::installBufferTypePixelBuffer(&v13);
       goto LABEL_19;
     }
 
@@ -7002,8 +6809,8 @@ uint64_t PRMWriterInstance::installBufferTypePixelBuffer(PRMWriterInstance *this
     }
 
 LABEL_19:
-    v12 = PRMWriterInstance::installBufferTypePixelBuffer(&v14, a2);
-    return PRMWriterInstance::installBufferTypeDataBuffer(v12, v13);
+    v11 = PRMWriterInstance::installBufferTypePixelBuffer(&v13);
+    return PRMWriterInstance::installBufferTypeDataBuffer(v11, v12);
   }
 
   v8 = *(this + 1);
@@ -7014,7 +6821,6 @@ LABEL_13:
   result = MEMORY[0x25F8C8DA0](*(this + 1), v6, v5);
   if (*(a2 + 27) == 1)
   {
-    v11 = *(this + 1);
 
     JUMPOUT(0x25F8C8900);
   }
@@ -7035,7 +6841,7 @@ uint64_t PRMWriterInstance::installBufferTypeDataBuffer(PRMWriterInstance *this,
   {
     if (v4 != 2)
     {
-      PRMWriterInstance::installBufferTypeDataBuffer(&v14, a2);
+      PRMWriterInstance::installBufferTypeDataBuffer(&v13);
       goto LABEL_19;
     }
 
@@ -7065,8 +6871,8 @@ uint64_t PRMWriterInstance::installBufferTypeDataBuffer(PRMWriterInstance *this,
     }
 
 LABEL_19:
-    v12 = PRMWriterInstance::installBufferTypeDataBuffer(&v14, a2);
-    return PRMWriterInstance::installBufferTypeJasperBuffer(v12, v13);
+    v11 = PRMWriterInstance::installBufferTypeDataBuffer(&v13);
+    return PRMWriterInstance::installBufferTypeJasperBuffer(v11, v12);
   }
 
   v8 = *(this + 1);
@@ -7077,7 +6883,6 @@ LABEL_13:
   result = MEMORY[0x25F8C8D90](*(this + 1), v6, v5);
   if (*(a2 + 27) == 1)
   {
-    v11 = *(this + 1);
 
     JUMPOUT(0x25F8C8900);
   }
@@ -7088,7 +6893,7 @@ LABEL_13:
 uint64_t PRMWriterInstance::installBufferTypeJasperBuffer(PRMWriterInstance *this, PSResourceManagerOptions *a2)
 {
   v2 = a2;
-  v29 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
   if (v4 == 1)
   {
@@ -7110,28 +6915,28 @@ LABEL_5:
       {
         if (!*(v2 + 20))
         {
-          PRMWriterInstance::installBufferTypeJasperBuffer(buf, v2);
+          PRMWriterInstance::installBufferTypeJasperBuffer(buf);
 LABEL_19:
-          v22 = 0;
-          asprintf(&v22, "Unsupported metadata type submitted for Jasper, type %d", v8);
-          v12 = __PSResourceManagerLogSharedInstance();
+          v26 = 0;
+          v10 = asprintf(&v26, "Unsupported metadata type submitted for Jasper, type %d", v8);
+          v12 = __PSResourceManagerLogSharedInstance(v10, v11);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
             v13 = *(v2 + 27);
             *buf = 136315650;
-            v24 = "installBufferTypeJasperBuffer";
-            v25 = 1024;
-            v26 = 1042;
-            v27 = 1024;
-            v28 = v13;
+            v28 = "installBufferTypeJasperBuffer";
+            v29 = 1024;
+            v30 = 1042;
+            v31 = 1024;
+            v32 = v13;
             _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type submitted for Jasper, type %d", buf, 0x18u);
           }
 
           v14 = OSLogFlushBuffers();
           if (v14)
           {
-            v15 = v14;
-            v2 = __PSResourceManagerLogSharedInstance();
+            v16 = v14;
+            v2 = __PSResourceManagerLogSharedInstance(v14, v15);
             if (!os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_25;
@@ -7167,41 +6972,39 @@ LABEL_19:
         v9 = *(v2 + 27);
         if (v9 < 2)
         {
-          v10 = *(this + 1);
-          v11 = *MEMORY[0x277D85DE8];
 
           JUMPOUT(0x25F8C8900);
         }
 
         while (1)
         {
-          v22 = 0;
-          asprintf(&v22, "Unsupported metadata type submitted for Jasper, type %d", v9);
-          v16 = __PSResourceManagerLogSharedInstance();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v26 = 0;
+          v17 = asprintf(&v26, "Unsupported metadata type submitted for Jasper, type %d", v9);
+          v19 = __PSResourceManagerLogSharedInstance(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
           {
-            v17 = *(v2 + 27);
+            v20 = *(v2 + 27);
             *buf = 136315650;
-            v24 = "installBufferTypeJasperBuffer";
-            v25 = 1024;
-            v26 = 1059;
-            v27 = 1024;
-            v28 = v17;
-            _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type submitted for Jasper, type %d", buf, 0x18u);
+            v28 = "installBufferTypeJasperBuffer";
+            v29 = 1024;
+            v30 = 1059;
+            v31 = 1024;
+            v32 = v20;
+            _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type submitted for Jasper, type %d", buf, 0x18u);
           }
 
-          v18 = OSLogFlushBuffers();
-          if (v18)
+          v21 = OSLogFlushBuffers();
+          if (v21)
           {
-            v15 = v18;
-            v2 = __PSResourceManagerLogSharedInstance();
+            v16 = v21;
+            v2 = __PSResourceManagerLogSharedInstance(v21, v22);
             if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
             {
 LABEL_24:
               *buf = 136315394;
-              v24 = "installBufferTypeJasperBuffer";
-              v25 = 1024;
-              v26 = v15;
+              v28 = "installBufferTypeJasperBuffer";
+              v29 = 1024;
+              v30 = v16;
               _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
             }
           }
@@ -7219,16 +7022,16 @@ LABEL_25:
     }
   }
 
-  v19 = PRMWriterInstance::installBufferTypeJasperBuffer(buf, a2);
-  return PRMWriterInstance::installBufferTypePearlBuffer(v19, v20);
+  v23 = PRMWriterInstance::installBufferTypeJasperBuffer(buf);
+  return PRMWriterInstance::installBufferTypePearlBuffer(v23, v24);
 }
 
 uint64_t PRMWriterInstance::installBufferTypePearlBuffer(PRMWriterInstance *this, PSResourceManagerOptions *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ((*(a2 + 16) - 1) >= 2)
   {
-    PRMWriterInstance::installBufferTypePearlBuffer(buf, a2);
+    PRMWriterInstance::installBufferTypePearlBuffer(buf);
   }
 
   v4 = *(a2 + 27);
@@ -7236,9 +7039,9 @@ uint64_t PRMWriterInstance::installBufferTypePearlBuffer(PRMWriterInstance *this
   {
     if (!*(a2 + 26))
     {
-      PRMWriterInstance::installBufferTypePearlBuffer(buf, a2);
+      PRMWriterInstance::installBufferTypePearlBuffer(buf);
 LABEL_25:
-      v17 = PRMWriterInstance::installBufferTypePearlBuffer(buf, a2);
+      v18 = PRMWriterInstance::installBufferTypePearlBuffer(buf);
       goto LABEL_26;
     }
 
@@ -7249,40 +7052,40 @@ LABEL_25:
   {
     if (v4)
     {
-      v30 = 0;
-      asprintf(&v30, "Unsupported metadata type submitted for Jasper, type %d", v4);
-      v15 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v32 = 0;
+      v14 = asprintf(&v32, "Unsupported metadata type submitted for Jasper, type %d", v4);
+      v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v16 = *(a2 + 27);
+        v17 = *(a2 + 27);
         *buf = 136315650;
-        *v35 = "installBufferTypePearlBuffer";
-        *&v35[8] = 1024;
-        *&v35[10] = 1084;
-        *&v35[14] = 1024;
-        *&v35[16] = v16;
-        _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type submitted for Jasper, type %d", buf, 0x18u);
+        *v37 = "installBufferTypePearlBuffer";
+        *&v37[8] = 1024;
+        *&v37[10] = 1084;
+        *&v37[14] = 1024;
+        *&v37[16] = v17;
+        _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type submitted for Jasper, type %d", buf, 0x18u);
       }
 
-      v17 = OSLogFlushBuffers();
-      if (!v17)
+      v18 = OSLogFlushBuffers();
+      if (!v18)
       {
         usleep(0x1E8480u);
 LABEL_28:
-        v20 = abort_with_reason();
-        return PRMWriterInstance::allocateLocalObjects(v20, v21);
+        v22 = abort_with_reason();
+        return PRMWriterInstance::allocateLocalObjects(v22, v23);
       }
 
 LABEL_26:
-      v18 = v17;
-      v19 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = v18;
+      v21 = __PSResourceManagerLogSharedInstance(v18, v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        *v35 = "installBufferTypePearlBuffer";
-        *&v35[8] = 1024;
-        *&v35[10] = v18;
-        _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        *v37 = "installBufferTypePearlBuffer";
+        *&v37[8] = 1024;
+        *&v37[10] = v20;
+        _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
 
       goto LABEL_28;
@@ -7292,86 +7095,85 @@ LABEL_26:
   }
 
   v5 = *(a2 + 16);
-  if (v5 != 1)
+  if (v5 == 1)
   {
-    if (v5 == 2)
+    if (*(a2 + 192))
     {
-      v6 = 4;
-      do
-      {
-        result = MEMORY[0x25F8C8DA0](*(this + 1), *(a2 + 27), *(a2 + 28));
-        --v6;
-      }
-
-      while (v6);
-      goto LABEL_16;
+      *&v37[4] = 0u;
+      v39 = 0;
+      v38 = 0u;
+      v8 = *(a2 + 41);
+      *buf = *(a2 + 37);
+      *v37 = v8;
+      *&v37[4] = *(a2 + 45);
+      MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, buf);
+      v33 = 0u;
+      v35 = 0;
+      v34 = 0u;
+      v9 = *(a2 + 42);
+      LODWORD(v32) = *(a2 + 38);
+      HIDWORD(v32) = v9;
+      LODWORD(v33) = *(a2 + 46);
+      MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, &v32);
+      v29 = 0u;
+      v31 = 0;
+      v30 = 0u;
+      v10 = *(a2 + 43);
+      v28[0] = *(a2 + 39);
+      v28[1] = v10;
+      LODWORD(v29) = *(a2 + 47);
+      MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, v28);
+      v25 = 0u;
+      v27 = 0;
+      v26 = 0u;
+      v11 = *(a2 + 40);
+      v24[0] = *(a2 + 36);
+      v24[1] = v11;
+      LODWORD(v25) = *(a2 + 44);
+      result = MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, v24);
     }
 
+    else
+    {
+      *&v37[4] = 0u;
+      v39 = 0;
+      v38 = 0u;
+      v12 = *(a2 + 40);
+      *buf = *(a2 + 36);
+      *v37 = v12;
+      *&v37[4] = *(a2 + 44);
+      v13 = 4;
+      do
+      {
+        result = MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, buf);
+        --v13;
+      }
+
+      while (v13);
+    }
+
+    goto LABEL_16;
+  }
+
+  if (v5 != 2)
+  {
     goto LABEL_25;
   }
 
-  if (*(a2 + 192))
+  v6 = 4;
+  do
   {
-    *&v35[4] = 0u;
-    v37 = 0;
-    v36 = 0u;
-    v8 = *(a2 + 41);
-    *buf = *(a2 + 37);
-    *v35 = v8;
-    *&v35[4] = *(a2 + 45);
-    MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, buf);
-    v31 = 0u;
-    v33 = 0;
-    v32 = 0u;
-    v9 = *(a2 + 42);
-    LODWORD(v30) = *(a2 + 38);
-    HIDWORD(v30) = v9;
-    LODWORD(v31) = *(a2 + 46);
-    MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, &v30);
-    v27 = 0u;
-    v29 = 0;
-    v28 = 0u;
-    v10 = *(a2 + 43);
-    v26[0] = *(a2 + 39);
-    v26[1] = v10;
-    LODWORD(v27) = *(a2 + 47);
-    MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, v26);
-    v23 = 0u;
-    v25 = 0;
-    v24 = 0u;
-    v11 = *(a2 + 40);
-    v22[0] = *(a2 + 36);
-    v22[1] = v11;
-    LODWORD(v23) = *(a2 + 44);
-    result = MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, v22);
+    result = MEMORY[0x25F8C8DA0](*(this + 1), *(a2 + 27), *(a2 + 28));
+    --v6;
   }
 
-  else
-  {
-    *&v35[4] = 0u;
-    v37 = 0;
-    v36 = 0u;
-    v12 = *(a2 + 40);
-    *buf = *(a2 + 36);
-    *v35 = v12;
-    *&v35[4] = *(a2 + 44);
-    v13 = 4;
-    do
-    {
-      result = MEMORY[0x25F8C8DA0](*(this + 1), _cvPixelBufferAllocator, buf);
-      --v13;
-    }
-
-    while (v13);
-  }
-
+  while (v6);
 LABEL_16:
   if (*(a2 + 27) == 1)
   {
-    result = MEMORY[0x25F8C8900](*(this + 1), 8);
+    return MEMORY[0x25F8C8900](*(this + 1), 8);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7380,7 +7182,7 @@ uint64_t PRMWriterInstance::allocateLocalObjects(PRMWriterInstance *this, PSReso
   v3 = *(this + 25);
   if (v3 == 3)
   {
-    opaque_array = ps_prm_allocate_opaque_array(*(this + 29), *(this + 60));
+    ps_prm_allocate_opaque_array(*(this + 29), *(this + 60));
   }
 
   else
@@ -7390,10 +7192,10 @@ uint64_t PRMWriterInstance::allocateLocalObjects(PRMWriterInstance *this, PSReso
       goto LABEL_6;
     }
 
-    opaque_array = ps_prm_allocate_retained_nsobject_array(*(this + 29), *(this + 60));
+    retained_nsobject_array = ps_prm_allocate_retained_nsobject_array(*(this + 29), *(this + 60));
   }
 
-  *(this + 28) = opaque_array;
+  *(this + 28) = retained_nsobject_array;
 LABEL_6:
   result = MEMORY[0x25F8C8C90](*(this + 1));
   v6 = *(this + 60);
@@ -7415,7 +7217,7 @@ LABEL_6:
 
 void PRMWriterInstance::setIOSurfaceNames(PRMWriterInstance *this, PSResourceManagerOptions *a2, const char *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = *(this + 25);
   if (v3 <= 8 && ((1 << v3) & 0x190) != 0)
   {
@@ -7423,161 +7225,155 @@ void PRMWriterInstance::setIOSurfaceNames(PRMWriterInstance *this, PSResourceMan
     v9 = (1 << v3) & 0x190;
     if (!v8 && v9 != 0)
     {
-      v11 = *(this + 1);
-      v12 = ps_buffer_get_total_write_buffer_count();
-      if (v12 != -1)
+      v11 = ps_buffer_get_total_write_buffer_count();
+      if (v11 != -1)
       {
-        v37 = &v37;
-        v38 = a2;
-        v13 = v12;
-        MEMORY[0x28223BE20](v12);
-        v15 = &v37 - ((v14 + 15) & 0xFFFFFFFF0);
-        if (v14 >= 0x200)
+        v34 = &v34;
+        v35 = a2;
+        v12 = v11;
+        MEMORY[0x28223BE20](v11);
+        v14 = &v34 - ((v13 + 15) & 0xFFFFFFFF0);
+        if (v13 >= 0x200)
         {
-          v16 = 512;
+          v15 = 512;
         }
 
         else
         {
-          v16 = v14;
+          v15 = v13;
         }
 
-        bzero(&v37 - ((v14 + 15) & 0xFFFFFFFF0), v16);
-        bzero(v15, 8 * v13);
-        PRMWriterInstance::getIOSurfaces(this, v15);
-        if (v13 >= 1)
+        bzero(&v34 - ((v13 + 15) & 0xFFFFFFFF0), v15);
+        bzero(v14, 8 * v12);
+        PRMWriterInstance::getIOSurfaces(this, v14);
+        if (v12 >= 1)
         {
-          v17 = 0;
-          v18 = *MEMORY[0x277CD2A50];
+          v16 = 0;
+          v17 = *MEMORY[0x277CD2A50];
           do
           {
-            v19 = getprogname();
-            v20 = v17 + 1;
-            snprintf(v39, 0xFFuLL, "%s/Polaris ; %s ; %d/%d", v19, a3, v17 + 1, v13);
-            v21 = CFStringCreateWithCString(0, v39, 0x8000100u);
-            if (v21)
+            v18 = getprogname();
+            v19 = v16 + 1;
+            snprintf(v36, 0xFFuLL, "%s/Polaris ; %s ; %d/%d", v18, a3, v16 + 1, v12);
+            v20 = CFStringCreateWithCString(0, v36, 0x8000100u);
+            if (v20)
             {
-              v22 = v21;
-              IOSurfaceSetValue(*&v15[8 * v17], v18, v21);
-              CFRelease(v22);
+              v21 = v20;
+              IOSurfaceSetValue(*&v14[8 * v16], v17, v20);
+              CFRelease(v21);
             }
 
-            ++v17;
+            ++v16;
           }
 
-          while (v13 != v20);
+          while (v12 != v19);
         }
 
-        a2 = v38;
+        a2 = v35;
       }
     }
 
     if (*(a2 + 27) == 1)
     {
-      v23 = *(this + 25);
-      if (v23 <= 9 && ((1 << v23) & 0x390) != 0)
+      v22 = *(this + 25);
+      if (v22 <= 9 && ((1 << v22) & 0x390) != 0)
       {
-        v24 = *(this + 1);
-        v25 = ps_buffer_get_total_write_buffer_count();
-        if (v25 != -1)
+        v23 = ps_buffer_get_total_write_buffer_count();
+        if (v23 != -1)
         {
-          v26 = v25;
-          MEMORY[0x28223BE20](v25);
-          v28 = &v37 - ((v27 + 15) & 0xFFFFFFFF0);
-          v29 = v27 >= 0x200 ? 512 : v27;
-          bzero(&v37 - ((v27 + 15) & 0xFFFFFFFF0), v29);
-          bzero(v28, 8 * v26);
-          PRMWriterInstance::getMetadataIOSurfaces(this, v28);
-          if (v26 >= 1)
+          v24 = v23;
+          MEMORY[0x28223BE20](v23);
+          v26 = &v34 - ((v25 + 15) & 0xFFFFFFFF0);
+          v27 = v25 >= 0x200 ? 512 : v25;
+          bzero(&v34 - ((v25 + 15) & 0xFFFFFFFF0), v27);
+          bzero(v26, 8 * v24);
+          PRMWriterInstance::getMetadataIOSurfaces(this, v26);
+          if (v24 >= 1)
           {
-            v30 = 0;
-            v31 = *MEMORY[0x277CD2A50];
+            v28 = 0;
+            v29 = *MEMORY[0x277CD2A50];
             do
             {
-              v32 = getprogname();
-              v33 = v30 + 1;
-              snprintf(v39, 0xFFuLL, "%s/Polaris ; metadata/%s/ ; %d/%d", v32, a3, v30 + 1, v26);
-              v34 = CFStringCreateWithCString(0, v39, 0x8000100u);
-              if (v34)
+              v30 = getprogname();
+              v31 = v28 + 1;
+              snprintf(v36, 0xFFuLL, "%s/Polaris ; metadata/%s/ ; %d/%d", v30, a3, v28 + 1, v24);
+              v32 = CFStringCreateWithCString(0, v36, 0x8000100u);
+              if (v32)
               {
-                v35 = v34;
-                IOSurfaceSetValue(*&v28[8 * v30], v31, v34);
-                CFRelease(v35);
+                v33 = v32;
+                IOSurfaceSetValue(*&v26[8 * v28], v29, v32);
+                CFRelease(v33);
               }
 
-              ++v30;
+              ++v28;
             }
 
-            while (v26 != v33);
+            while (v24 != v31);
           }
         }
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PRMWriterInstance::acquireResources(PRMWriterInstance *this, ps_resource *a2, void *a3)
 {
   if (*(this + 305) == 1)
   {
-    PRMWriterInstance::acquireResources(v14, this, a3);
+    PRMWriterInstance::acquireResources(v9, this, a3);
     goto LABEL_37;
   }
 
-  v5 = *(this + 1);
-  v6 = ps_buffer_get_write_buffers();
-  if (!v6)
+  v5 = ps_buffer_get_write_buffers();
+  if (!v5)
   {
 LABEL_37:
-    PRMWriterInstance::acquireResources(v14, this);
+    PRMWriterInstance::acquireResources(v9, this);
 LABEL_38:
-    if (v8 == 5)
+    if (v7 == 5)
     {
 LABEL_41:
       PRMWriterInstance::_populateClientResTypeMTLBuffer();
       goto LABEL_42;
     }
 
-    if (v8 == 6)
+    if (v7 == 6)
     {
       PRMWriterInstance::populateClientResTypeMTLTexture();
       goto LABEL_41;
     }
 
 LABEL_42:
-    PRMWriterInstance::acquireResources(v14);
+    PRMWriterInstance::acquireResources(v9, this);
     return PRMWriterInstance::_populateClientResTypeMTLBuffer();
   }
 
-  v7 = v6;
-  *(this + 4) = v6;
+  v6 = v5;
+  *(this + 4) = v5;
   *(this + 5) = a2;
   *(this + 305) = 1;
   *(this + 43) = ps_buffer_get_resource_view_index();
   MEMORY[0x25F8C94C0](a2, 0, 1);
-  v8 = *(this + 25);
-  if (v8 <= 6)
+  v7 = *(this + 25);
+  if (v7 <= 6)
   {
-    if (v8 < 3)
+    if (v7 < 3)
     {
-      if (v8 == 1)
+      if (v7 == 1)
       {
         goto LABEL_24;
       }
 
-      if (v8 != 2)
+      if (v7 != 2)
       {
         goto LABEL_42;
       }
     }
 
-    else if (v8 > 3)
+    else if (v7 > 3)
     {
-      if (v8 == 4)
+      if (v7 == 4)
       {
-        v9 = *(v7 + 8);
 
         JUMPOUT(0x25F8C9490);
       }
@@ -7585,40 +7381,36 @@ LABEL_42:
       goto LABEL_38;
     }
 
-    v11 = **(v7 + 8);
-
     JUMPOUT(0x25F8C9530);
   }
 
-  if (v8 <= 8)
+  if (v7 <= 8)
   {
-    if (v8 == 7)
+    if (v7 == 7)
     {
 
-      return PRMWriterInstance::_populateClientResTypePixelBuffer(this, v7, a2, 0);
+      return PRMWriterInstance::_populateClientResTypePixelBuffer(this, v6, a2, 0);
     }
 
     else
     {
 
-      return PRMWriterInstance::_populateClientResTypeDataBuffer(this, v7, a2, 0);
+      return PRMWriterInstance::_populateClientResTypeDataBuffer(this, v6, a2, 0);
     }
   }
 
   else
   {
-    switch(v8)
+    switch(v7)
     {
       case 9:
 
-        return PRMWriterInstance::_populateClientResTypeJasperBuffer(this, v7, a2, 0);
+        return PRMWriterInstance::_populateClientResTypeJasperBuffer(this, v6, a2, 0);
       case 11:
 
-        return PRMWriterInstance::_populateClientResTypePearlBuffer(this, v7, a2, 0);
+        return PRMWriterInstance::_populateClientResTypePearlBuffer(this, v6, a2, 0);
       case 12:
 LABEL_24:
-        v12 = *(v7 + 8);
-        v13 = *(this + 31);
 
         JUMPOUT(0x25F8C9460);
       default:
@@ -7629,31 +7421,31 @@ LABEL_24:
 
 uint64_t PRMWriterInstance::_populateClientResTypeMTLBuffer()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "MTLBuffer type not yet implemented.");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v0 = asprintf(&v8, "MTLBuffer type not yet implemented.");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "_populateClientResTypeMTLBuffer";
-    v9 = 1024;
-    v10 = 1243;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d MTLBuffer type not yet implemented.", buf, 0x12u);
+    v10 = "_populateClientResTypeMTLBuffer";
+    v11 = 1024;
+    v12 = 1243;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d MTLBuffer type not yet implemented.", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "_populateClientResTypeMTLBuffer";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v10 = "_populateClientResTypeMTLBuffer";
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -7662,37 +7454,37 @@ uint64_t PRMWriterInstance::_populateClientResTypeMTLBuffer()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMWriterInstance::populateClientResTypeMTLTexture(v4);
+  abort_with_reason();
+  return PRMWriterInstance::populateClientResTypeMTLTexture();
 }
 
 uint64_t PRMWriterInstance::populateClientResTypeMTLTexture()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "MTLTexture type not yet implemented.");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v0 = asprintf(&v12, "MTLTexture type not yet implemented.");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "populateClientResTypeMTLTexture";
-    v9 = 1024;
-    v10 = 1249;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d MTLTexture type not yet implemented.", buf, 0x12u);
+    v14 = "populateClientResTypeMTLTexture";
+    v15 = 1024;
+    v16 = 1249;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d MTLTexture type not yet implemented.", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "populateClientResTypeMTLTexture";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v14 = "populateClientResTypeMTLTexture";
+      v15 = 1024;
+      v16 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -7701,73 +7493,70 @@ uint64_t PRMWriterInstance::populateClientResTypeMTLTexture()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMWriterInstance::_populateClientResTypePixelBuffer(v4);
+  v7 = abort_with_reason();
+  return PRMWriterInstance::_populateClientResTypePixelBuffer(v7, v8, v9, v10);
 }
 
 uint64_t PRMWriterInstance::_populateClientResTypePixelBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 40);
   v7 = *(a1 + 208);
   if (v7 == 2)
   {
-    v14 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8C9430);
   }
 
   if (v7 == 1)
   {
-    v12 = *(a2 + 8);
-    v13 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8C9450);
   }
 
   if (v7)
   {
-    v23 = 0;
-    v15 = (a1 + 176);
-    v16 = (a1 + 176);
+    v25 = 0;
+    v11 = (a1 + 176);
+    v12 = (a1 + 176);
     if (*(a1 + 199) < 0)
     {
-      v16 = *v15;
+      v12 = *v11;
     }
 
-    asprintf(&v23, "Invalid metadata type found: %d for key: %s", v7, v16);
-    v17 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v13 = asprintf(&v25, "Invalid metadata type found: %d for key: %s", v7, v12);
+    v15 = __PSResourceManagerLogSharedInstance(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v18 = *(a1 + 208);
+      v16 = *(a1 + 208);
       if (*(a1 + 199) < 0)
       {
-        v15 = *v15;
+        v11 = *v11;
       }
 
       *buf = 136315906;
-      v25 = "_populateClientResTypePixelBuffer";
-      v26 = 1024;
-      v27 = 1294;
+      v27 = "_populateClientResTypePixelBuffer";
       v28 = 1024;
-      v29 = v18;
-      v30 = 2080;
-      v31 = v15;
-      _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
+      v29 = 1294;
+      v30 = 1024;
+      v31 = v16;
+      v32 = 2080;
+      v33 = v11;
+      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
     }
 
-    v19 = OSLogFlushBuffers();
-    if (v19)
+    v17 = OSLogFlushBuffers();
+    if (v17)
     {
-      v20 = v19;
-      v21 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v19 = v17;
+      v20 = __PSResourceManagerLogSharedInstance(v17, v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v25 = "_populateClientResTypePixelBuffer";
-        v26 = 1024;
-        v27 = v20;
-        _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v27 = "_populateClientResTypePixelBuffer";
+        v28 = 1024;
+        v29 = v19;
+        _os_log_impl(&dword_25EA3A000, v20, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -7776,8 +7565,8 @@ uint64_t PRMWriterInstance::_populateClientResTypePixelBuffer(uint64_t a1, uint6
       usleep(0x1E8480u);
     }
 
-    v22 = abort_with_reason();
-    return PRMWriterInstance::_populateClientResTypeDataBuffer(v22);
+    v21 = abort_with_reason();
+    return PRMWriterInstance::_populateClientResTypeDataBuffer(v21, v22, v23, v24);
   }
 
   else
@@ -7785,7 +7574,6 @@ uint64_t PRMWriterInstance::_populateClientResTypePixelBuffer(uint64_t a1, uint6
     Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], 90100);
     result = MEMORY[0x25F8C9430](a3, a4, v6, Mutable);
     *(a1 + 56) = Mutable;
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -7793,67 +7581,64 @@ uint64_t PRMWriterInstance::_populateClientResTypePixelBuffer(uint64_t a1, uint6
 
 uint64_t PRMWriterInstance::_populateClientResTypeDataBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 40);
   v7 = *(a1 + 208);
   if (v7 == 2)
   {
-    v14 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8C9400);
   }
 
   if (v7 == 1)
   {
-    v12 = *(a2 + 8);
-    v13 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8C9420);
   }
 
   if (v7)
   {
-    v23 = 0;
-    v15 = (a1 + 176);
-    v16 = (a1 + 176);
+    v25 = 0;
+    v11 = (a1 + 176);
+    v12 = (a1 + 176);
     if (*(a1 + 199) < 0)
     {
-      v16 = *v15;
+      v12 = *v11;
     }
 
-    asprintf(&v23, "Invalid metadata type found: %d for key: %s", v7, v16);
-    v17 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v13 = asprintf(&v25, "Invalid metadata type found: %d for key: %s", v7, v12);
+    v15 = __PSResourceManagerLogSharedInstance(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v18 = *(a1 + 208);
+      v16 = *(a1 + 208);
       if (*(a1 + 199) < 0)
       {
-        v15 = *v15;
+        v11 = *v11;
       }
 
       *buf = 136315906;
-      v25 = "_populateClientResTypeDataBuffer";
-      v26 = 1024;
-      v27 = 1337;
+      v27 = "_populateClientResTypeDataBuffer";
       v28 = 1024;
-      v29 = v18;
-      v30 = 2080;
-      v31 = v15;
-      _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
+      v29 = 1337;
+      v30 = 1024;
+      v31 = v16;
+      v32 = 2080;
+      v33 = v11;
+      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
     }
 
-    v19 = OSLogFlushBuffers();
-    if (v19)
+    v17 = OSLogFlushBuffers();
+    if (v17)
     {
-      v20 = v19;
-      v21 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v19 = v17;
+      v20 = __PSResourceManagerLogSharedInstance(v17, v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v25 = "_populateClientResTypeDataBuffer";
-        v26 = 1024;
-        v27 = v20;
-        _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v27 = "_populateClientResTypeDataBuffer";
+        v28 = 1024;
+        v29 = v19;
+        _os_log_impl(&dword_25EA3A000, v20, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -7862,8 +7647,8 @@ uint64_t PRMWriterInstance::_populateClientResTypeDataBuffer(uint64_t a1, uint64
       usleep(0x1E8480u);
     }
 
-    v22 = abort_with_reason();
-    return PRMWriterInstance::_populateClientResTypeJasperBuffer(v22);
+    v21 = abort_with_reason();
+    return PRMWriterInstance::_populateClientResTypeJasperBuffer(v21, v22, v23, v24);
   }
 
   else
@@ -7871,7 +7656,6 @@ uint64_t PRMWriterInstance::_populateClientResTypeDataBuffer(uint64_t a1, uint64
     Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], 90100);
     result = MEMORY[0x25F8C9400](a3, a4, v6, Mutable);
     *(a1 + 56) = Mutable;
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -7879,24 +7663,24 @@ uint64_t PRMWriterInstance::_populateClientResTypeDataBuffer(uint64_t a1, uint64
 
 uint64_t PRMWriterInstance::_populateClientResTypeJasperBuffer(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(result + 208);
   if (v4 == 1)
   {
-    v10 = 0;
-    memset(v14, 0, sizeof(v14));
-    v11 = (a2 + 40);
+    v9 = 0;
+    memset(v12, 0, sizeof(v12));
+    v10 = (a2 + 40);
     do
     {
-      *(v14 + v10) = *(v11 - 4);
-      v12 = *v11;
-      v11 += 12;
-      *(result + 96 + v10) = v12;
-      v10 += 8;
+      *(v12 + v9) = *(v10 - 4);
+      v11 = *v10;
+      v10 += 12;
+      *(result + 96 + v9) = v11;
+      v9 += 8;
     }
 
-    while (v10 != 32);
-    result = MEMORY[0x25F8C94E0](a3, a4);
+    while (v9 != 32);
+    return MEMORY[0x25F8C94E0](a3, a4);
   }
 
   else if (!v4)
@@ -7913,85 +7697,77 @@ uint64_t PRMWriterInstance::_populateClientResTypeJasperBuffer(uint64_t result, 
     }
 
     while (v5 != 256);
-    v9 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8C94D0);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PRMWriterInstance::_populateClientResTypePearlBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 208);
   if (v8 == 1)
   {
-    v15 = 0;
-    v16 = *(a2 + 8);
-    v17 = (a2 + 40);
+    v14 = 0;
+    v15 = (a2 + 40);
     do
     {
-      v18 = *v17;
-      v17 += 4;
-      *(a1 + 136 + v15) = v18;
-      v15 += 8;
+      v16 = *v15;
+      v15 += 4;
+      *(a1 + 136 + v14) = v16;
+      v14 += 8;
     }
 
-    while (v15 != 32);
-    v19 = *(a1 + 136);
-    v20 = *(a1 + 144);
-    v21 = *(a1 + 152);
-    v22 = *(a1 + 160);
-    v23 = *MEMORY[0x277D85DE8];
+    while (v14 != 32);
 
     JUMPOUT(0x25F8C9550);
   }
 
   if (v8)
   {
-    v32 = 0;
-    v24 = (a1 + 176);
-    v25 = (a1 + 176);
+    v28 = 0;
+    v17 = (a1 + 176);
+    v18 = (a1 + 176);
     if (*(a1 + 199) < 0)
     {
-      v25 = *v24;
+      v18 = *v17;
     }
 
-    asprintf(&v32, "Invalid metadata type found: %d for key: %s", v8, v25);
-    v26 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v19 = asprintf(&v28, "Invalid metadata type found: %d for key: %s", v8, v18);
+    v21 = __PSResourceManagerLogSharedInstance(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
-      v27 = *(a1 + 208);
+      v22 = *(a1 + 208);
       if (*(a1 + 199) < 0)
       {
-        v24 = *v24;
+        v17 = *v17;
       }
 
       *buf = 136315906;
-      v34 = "_populateClientResTypePearlBuffer";
-      v35 = 1024;
-      v36 = 1429;
-      v37 = 1024;
-      v38 = v27;
-      v39 = 2080;
-      v40 = v24;
-      _os_log_impl(&dword_25EA3A000, v26, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
+      v30 = "_populateClientResTypePearlBuffer";
+      v31 = 1024;
+      v32 = 1429;
+      v33 = 1024;
+      v34 = v22;
+      v35 = 2080;
+      v36 = v17;
+      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
     }
 
-    v28 = OSLogFlushBuffers();
-    if (v28)
+    v23 = OSLogFlushBuffers();
+    if (v23)
     {
-      v29 = v28;
-      v30 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v25 = v23;
+      v26 = __PSResourceManagerLogSharedInstance(v23, v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v34 = "_populateClientResTypePearlBuffer";
-        v35 = 1024;
-        v36 = v29;
-        _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v30 = "_populateClientResTypePearlBuffer";
+        v31 = 1024;
+        v32 = v25;
+        _os_log_impl(&dword_25EA3A000, v26, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -8000,8 +7776,8 @@ uint64_t PRMWriterInstance::_populateClientResTypePearlBuffer(uint64_t a1, uint6
       usleep(0x1E8480u);
     }
 
-    v31 = abort_with_reason();
-    return PRMWriterInstance::relinquishResources(v31);
+    v27 = abort_with_reason();
+    return PRMWriterInstance::relinquishResources(v27);
   }
 
   else
@@ -8021,7 +7797,6 @@ uint64_t PRMWriterInstance::_populateClientResTypePearlBuffer(uint64_t a1, uint6
     while (v10 != 32);
     result = MEMORY[0x25F8C9540](a3, a4, *(a1 + 136), *(a1 + 144), *(a1 + 152), *(a1 + 160), Mutable);
     *(a1 + 56) = *(a1 + 128);
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -8030,7 +7805,7 @@ uint64_t PRMWriterInstance::_populateClientResTypePearlBuffer(uint64_t a1, uint6
 uint64_t PRMWriterInstance::relinquishResources(PRMWriterInstance *this)
 {
   v1 = this;
-  v41[4] = *MEMORY[0x277D85DE8];
+  v42[4] = *MEMORY[0x277D85DE8];
   if ((*(this + 305) & 1) == 0)
   {
     LODWORD(result) = PRMWriterInstance::relinquishResources(buf, this);
@@ -8077,13 +7852,13 @@ LABEL_18:
 
       if (v7 == 9)
       {
-        PRMWriterInstance::finalizeClientWriteTypeJasperBuffer(v1, v2, v3, 0, v41);
+        PRMWriterInstance::finalizeClientWriteTypeJasperBuffer(v1, v2, v3, 0, v42);
         goto LABEL_30;
       }
 
       if (v7 == 11)
       {
-        PRMWriterInstance::finalizeClientWriteTypePearlBuffer(v1, v2, v3, 0, v40);
+        PRMWriterInstance::finalizeClientWriteTypePearlBuffer(v1, v2, v3, 0, v41);
         goto LABEL_30;
       }
 
@@ -8125,38 +7900,38 @@ LABEL_14:
       case 9:
         MEMORY[0x25F8C91A0](v3, 0);
         valid_array = ps_resource_jasperbuffer_get_valid_array();
-        v22 = 0;
-        v23 = *(v1 + 212);
+        v20 = 0;
+        v21 = *(v1 + 212);
         do
         {
-          v24 = *(valid_array + v22);
-          **(v2 + 32 * v23 + 8) = v24;
-          v41[v22++] = v24;
-          ++v23;
+          v22 = *(valid_array + v20);
+          **(v2 + 32 * v21 + 8) = v22;
+          v42[v20++] = v22;
+          ++v21;
         }
 
-        while (v22 != 4);
+        while (v20 != 4);
         v6 = 0;
         break;
       case 11:
         MEMORY[0x25F8C91F0](v3, 0);
-        v13 = *(v2 + 32 * *(v1 + 212) + 8);
+        v11 = *(v2 + 32 * *(v1 + 212) + 8);
         is_dx_valid = ps_resource_pearlbuffer_is_dx_valid();
-        *v13 = is_dx_valid;
-        v40[0] = is_dx_valid;
-        v15 = *(v2 + 32 * (*(v1 + 212) + 1) + 8);
+        *v11 = is_dx_valid;
+        v41[0] = is_dx_valid;
+        v13 = *(v2 + 32 * (*(v1 + 212) + 1) + 8);
         is_dy_valid = ps_resource_pearlbuffer_is_dy_valid();
-        *v15 = is_dy_valid;
-        v40[1] = is_dy_valid;
-        v17 = *(v2 + 32 * (*(v1 + 212) + 2) + 8);
+        *v13 = is_dy_valid;
+        v41[1] = is_dy_valid;
+        v15 = *(v2 + 32 * (*(v1 + 212) + 2) + 8);
         is_score_valid = ps_resource_pearlbuffer_is_score_valid();
-        *v17 = is_score_valid;
-        v40[2] = is_score_valid;
-        v19 = *(v2 + 32 * (*(v1 + 212) + 3) + 8);
+        *v15 = is_score_valid;
+        v41[2] = is_score_valid;
+        v17 = *(v2 + 32 * (*(v1 + 212) + 3) + 8);
         is_depth_valid = ps_resource_pearlbuffer_is_depth_valid();
         v6 = 0;
-        *v19 = is_depth_valid;
-        v40[3] = is_depth_valid;
+        *v17 = is_depth_valid;
+        v41[3] = is_depth_valid;
         break;
       case 12:
         goto LABEL_3;
@@ -8184,56 +7959,54 @@ LABEL_23:
   }
 
 LABEL_30:
-  v10 = *(v1 + 8);
   result = ps_buffer_release_write_buffers();
   if ((result & 0x80000000) == 0)
   {
     *(v1 + 305) = 0;
-    v12 = *MEMORY[0x277D85DE8];
     return result;
   }
 
 LABEL_37:
-  v25 = result;
-  v31 = 0;
-  v26 = (v1 + 176);
-  v27 = (v1 + 176);
+  v23 = result;
+  v32 = 0;
+  v24 = (v1 + 176);
+  v25 = (v1 + 176);
   if (*(v1 + 199) < 0)
   {
-    v27 = *v26;
+    v25 = *v24;
   }
 
-  asprintf(&v31, "ps_buffer_release_write_buffers failed for %s with error %d", v27, result);
-  v28 = __PSResourceManagerLogSharedInstance();
+  v26 = asprintf(&v32, "ps_buffer_release_write_buffers failed for %s with error %d", v25, result);
+  v28 = __PSResourceManagerLogSharedInstance(v26, v27);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
   {
     if (*(v1 + 199) < 0)
     {
-      v26 = *v26;
+      v24 = *v24;
     }
 
     *buf = 136315906;
-    v33 = "relinquishResources";
-    v34 = 1024;
-    v35 = 840;
-    v36 = 2080;
-    v37 = v26;
-    v38 = 1024;
-    v39 = v25;
+    v34 = "relinquishResources";
+    v35 = 1024;
+    v36 = 840;
+    v37 = 2080;
+    v38 = v24;
+    v39 = 1024;
+    v40 = v23;
     _os_log_impl(&dword_25EA3A000, v28, OS_LOG_TYPE_FAULT, "%s:%d ps_buffer_release_write_buffers failed for %s with error %d", buf, 0x22u);
   }
 
   v29 = OSLogFlushBuffers();
   if (v29)
   {
-    v30 = v29;
-    v1 = __PSResourceManagerLogSharedInstance();
+    v31 = v29;
+    v1 = __PSResourceManagerLogSharedInstance(v29, v30);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v33 = "relinquishResources";
-      v34 = 1024;
-      v35 = v30;
+      v34 = "relinquishResources";
+      v35 = 1024;
+      v36 = v31;
       _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
@@ -8253,31 +8026,31 @@ LABEL_49:
 
 uint64_t PRMWriterInstance::finalizeClientWriteTypeMTLBuffer()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "MTLBuffer type not yet implemented.");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v0 = asprintf(&v8, "MTLBuffer type not yet implemented.");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "finalizeClientWriteTypeMTLBuffer";
-    v9 = 1024;
-    v10 = 1531;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d MTLBuffer type not yet implemented.", buf, 0x12u);
+    v10 = "finalizeClientWriteTypeMTLBuffer";
+    v11 = 1024;
+    v12 = 1531;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d MTLBuffer type not yet implemented.", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "finalizeClientWriteTypeMTLBuffer";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v10 = "finalizeClientWriteTypeMTLBuffer";
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -8286,37 +8059,37 @@ uint64_t PRMWriterInstance::finalizeClientWriteTypeMTLBuffer()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMWriterInstance::finalizeClientWriteTypeMTLTexture(v4);
+  abort_with_reason();
+  return PRMWriterInstance::finalizeClientWriteTypeMTLTexture();
 }
 
-uint64_t PRMWriterInstance::finalizeClientWriteTypeMTLTexture()
+void PRMWriterInstance::finalizeClientWriteTypeMTLTexture()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  asprintf(&v6, "MTLTexture type not yet implemented.");
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v0 = asprintf(&v12, "MTLTexture type not yet implemented.");
+  v2 = __PSResourceManagerLogSharedInstance(v0, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v8 = "finalizeClientWriteTypeMTLTexture";
-    v9 = 1024;
-    v10 = 1540;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_FAULT, "%s:%d MTLTexture type not yet implemented.", buf, 0x12u);
+    v14 = "finalizeClientWriteTypeMTLTexture";
+    v15 = 1024;
+    v16 = 1540;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d MTLTexture type not yet implemented.", buf, 0x12u);
   }
 
-  v1 = OSLogFlushBuffers();
-  if (v1)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v2 = v1;
-    v3 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "finalizeClientWriteTypeMTLTexture";
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v14 = "finalizeClientWriteTypeMTLTexture";
+      v15 = 1024;
+      v16 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -8325,13 +8098,13 @@ uint64_t PRMWriterInstance::finalizeClientWriteTypeMTLTexture()
     usleep(0x1E8480u);
   }
 
-  v4 = abort_with_reason();
-  return PRMWriterInstance::finalizeClientWriteTypePixelBuffer(v4);
+  v7 = abort_with_reason();
+  PRMWriterInstance::finalizeClientWriteTypePixelBuffer(v7, v8, v9, v10, v11);
 }
 
 void PRMWriterInstance::finalizeClientWriteTypePixelBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     MEMORY[0x25F8C9210](a3, a4);
@@ -8348,42 +8121,42 @@ void PRMWriterInstance::finalizeClientWriteTypePixelBuffer(uint64_t a1, uint64_t
       {
         if (v10)
         {
-          v29 = 0;
+          v35 = 0;
+          v20 = (a1 + 176);
           v21 = (a1 + 176);
-          v22 = (a1 + 176);
           if (*(a1 + 199) < 0)
           {
-            v22 = *v21;
+            v21 = *v20;
           }
 
-          asprintf(&v29, "Invalid metadata type found: %d for key: %s", v10, v22);
-          v23 = __PSResourceManagerLogSharedInstance();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+          v22 = asprintf(&v35, "Invalid metadata type found: %d for key: %s", v10, v21);
+          v24 = __PSResourceManagerLogSharedInstance(v22, v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
-            v24 = *(a1 + 208);
+            v25 = *(a1 + 208);
             if (*(a1 + 199) < 0)
             {
-              v21 = *v21;
+              v20 = *v20;
             }
 
             *buf = 136315906;
-            v31 = "finalizeClientWriteTypePixelBuffer";
-            v32 = 1024;
-            v33 = 1600;
-            v34 = 1024;
-            v35 = v24;
-            v36 = 2080;
-            v37 = v21;
-            _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
+            v37 = "finalizeClientWriteTypePixelBuffer";
+            v38 = 1024;
+            v39 = 1600;
+            v40 = 1024;
+            v41 = v25;
+            v42 = 2080;
+            v43 = v20;
+            _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
           }
 
-          v25 = OSLogFlushBuffers();
-          if (!v25)
+          v26 = OSLogFlushBuffers();
+          if (!v26)
           {
             usleep(0x1E8480u);
 LABEL_27:
-            v28 = abort_with_reason();
-            PRMWriterInstance::finalizeClientWriteTypeDataBuffer(v28);
+            v30 = abort_with_reason();
+            PRMWriterInstance::finalizeClientWriteTypeDataBuffer(v30, v31, v32, v33, v34);
             return;
           }
         }
@@ -8404,9 +8177,9 @@ LABEL_27:
             *(v14 + 16) = ID;
             if (Length)
             {
-              v39.location = 0;
-              v39.length = Length;
-              CFDataGetBytes(metadata, v39, (v14 + 20));
+              v45.location = 0;
+              v45.length = Length;
+              CFDataGetBytes(metadata, v45, (v14 + 20));
             }
 
             if (metadata != *(a1 + 56))
@@ -8417,18 +8190,18 @@ LABEL_27:
             goto LABEL_13;
           }
 
-          v25 = PRMWriterInstance::finalizeClientWriteTypePixelBuffer(buf, a1);
+          v26 = PRMWriterInstance::finalizeClientWriteTypePixelBuffer(buf, a1);
         }
 
-        v26 = v25;
-        v27 = __PSResourceManagerLogSharedInstance();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v28 = v26;
+        v29 = __PSResourceManagerLogSharedInstance(v26, v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v31 = "finalizeClientWriteTypePixelBuffer";
-          v32 = 1024;
-          v33 = v26;
-          _os_log_impl(&dword_25EA3A000, v27, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+          v37 = "finalizeClientWriteTypePixelBuffer";
+          v38 = 1024;
+          v39 = v28;
+          _os_log_impl(&dword_25EA3A000, v29, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
         }
 
         goto LABEL_27;
@@ -8447,13 +8220,11 @@ LABEL_13:
     CFRelease(*(a1 + 56));
     *(a1 + 56) = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void PRMWriterInstance::finalizeClientWriteTypeDataBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     v9 = *(a1 + 208);
@@ -8468,42 +8239,42 @@ void PRMWriterInstance::finalizeClientWriteTypeDataBuffer(uint64_t a1, uint64_t 
       {
         if (v9)
         {
-          v27 = 0;
+          v33 = 0;
+          v18 = (a1 + 176);
           v19 = (a1 + 176);
-          v20 = (a1 + 176);
           if (*(a1 + 199) < 0)
           {
-            v20 = *v19;
+            v19 = *v18;
           }
 
-          asprintf(&v27, "Invalid metadata type found: %d for key: %s", v9, v20);
-          v21 = __PSResourceManagerLogSharedInstance();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+          v20 = asprintf(&v33, "Invalid metadata type found: %d for key: %s", v9, v19);
+          v22 = __PSResourceManagerLogSharedInstance(v20, v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
           {
-            v22 = *(a1 + 208);
+            v23 = *(a1 + 208);
             if (*(a1 + 199) < 0)
             {
-              v19 = *v19;
+              v18 = *v18;
             }
 
             *buf = 136315906;
-            v29 = "finalizeClientWriteTypeDataBuffer";
-            v30 = 1024;
-            v31 = 1666;
-            v32 = 1024;
-            v33 = v22;
-            v34 = 2080;
-            v35 = v19;
-            _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
+            v35 = "finalizeClientWriteTypeDataBuffer";
+            v36 = 1024;
+            v37 = 1666;
+            v38 = 1024;
+            v39 = v23;
+            v40 = 2080;
+            v41 = v18;
+            _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
           }
 
-          v23 = OSLogFlushBuffers();
-          if (!v23)
+          v24 = OSLogFlushBuffers();
+          if (!v24)
           {
             usleep(0x1E8480u);
 LABEL_27:
-            v26 = abort_with_reason();
-            PRMWriterInstance::finalizeClientWriteTypeJasperBuffer(v26);
+            v28 = abort_with_reason();
+            PRMWriterInstance::finalizeClientWriteTypeJasperBuffer(v28, v29, v30, v31, v32);
             return;
           }
         }
@@ -8525,9 +8296,9 @@ LABEL_27:
             *(v12 + 16) = ID;
             if (Length)
             {
-              v37.location = 0;
-              v37.length = Length;
-              CFDataGetBytes(metadata, v37, (v12 + 20));
+              v43.location = 0;
+              v43.length = Length;
+              CFDataGetBytes(metadata, v43, (v12 + 20));
             }
 
             if (metadata != *(a1 + 56))
@@ -8538,18 +8309,18 @@ LABEL_27:
             goto LABEL_13;
           }
 
-          v23 = PRMWriterInstance::finalizeClientWriteTypeDataBuffer(buf, a1);
+          v24 = PRMWriterInstance::finalizeClientWriteTypeDataBuffer(buf, a1);
         }
 
-        v24 = v23;
-        v25 = __PSResourceManagerLogSharedInstance();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = v24;
+        v27 = __PSResourceManagerLogSharedInstance(v24, v25);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v29 = "finalizeClientWriteTypeDataBuffer";
-          v30 = 1024;
-          v31 = v24;
-          _os_log_impl(&dword_25EA3A000, v25, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+          v35 = "finalizeClientWriteTypeDataBuffer";
+          v36 = 1024;
+          v37 = v26;
+          _os_log_impl(&dword_25EA3A000, v27, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
         }
 
         goto LABEL_27;
@@ -8568,155 +8339,154 @@ LABEL_13:
     CFRelease(*(a1 + 56));
     *(a1 + 56) = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void PRMWriterInstance::finalizeClientWriteTypeJasperBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   MEMORY[0x25F8C91A0](a3, a4);
-  databuffer_array = ps_resource_jasperbuffer_get_databuffer_array();
+  ps_resource_jasperbuffer_get_databuffer_array();
   timestamp_array = ps_resource_jasperbuffer_get_timestamp_array();
-  v12 = timestamp_array;
-  v13 = *(a1 + 208);
-  if (!v13)
+  v11 = timestamp_array;
+  v12 = *(a1 + 208);
+  if (v12)
   {
-    v44 = a3;
-    cfdata_metadata_array = ps_resource_jasperbuffer_get_cfdata_metadata_array();
-    v19 = a2;
-    v20 = 0;
-    v42 = a1;
-    v43 = v19;
-    v21 = a1 + 64;
-    v22 = v19 + 8;
-    do
+    if (v12 == 1)
     {
-      if (*(a5 + v20))
+      v13 = 0;
+      v14 = (a2 + 72);
+      do
       {
-        Length = CFDataGetLength(*(cfdata_metadata_array + v20));
-        if (Length >= 0x15FF5)
+        v15 = *v14;
+        v14 += 12;
+        *v15 = *(timestamp_array + v13);
+        v13 += 8;
+      }
+
+      while (v13 != 32);
+      v16 = *(a2 + 392);
+      *v16 = MEMORY[0x25F8C9240](a3, a4);
+    }
+
+    else
+    {
+      v49 = 0;
+      v30 = (a1 + 176);
+      v31 = a1;
+      v32 = (a1 + 176);
+      if (*(a1 + 199) < 0)
+      {
+        v32 = *v30;
+      }
+
+      v33 = asprintf(&v49, "Invalid metadata type found: %d for key: %s", v12, v32);
+      v35 = __PSResourceManagerLogSharedInstance(v33, v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+      {
+        v36 = *(v31 + 208);
+        if (*(v31 + 199) < 0)
         {
-          PRMWriterInstance::finalizeClientWriteTypeJasperBuffer(buf, v42);
+          v30 = *v30;
         }
 
-        v24 = *(v22 + 8 * v20);
-        v25 = *(databuffer_array + v20);
-        IOSurface = CVDataBufferGetIOSurface();
-        ID = IOSurfaceGetID(IOSurface);
-        v28 = *(cfdata_metadata_array + v20);
-        v29 = *(v12 + v20);
-        *v24 = Length;
-        *(v24 + 8) = v29;
-        *(v24 + 16) = ID;
-        if (Length)
-        {
-          v55.location = 0;
-          v55.length = Length;
-          CFDataGetBytes(v28, v55, (v24 + 20));
-          v28 = *(cfdata_metadata_array + v20);
-        }
+        *buf = 136315906;
+        v51 = "finalizeClientWriteTypeJasperBuffer";
+        v52 = 1024;
+        v53 = 1736;
+        v54 = 1024;
+        v55 = v36;
+        v56 = 2080;
+        v57 = v30;
+        _os_log_impl(&dword_25EA3A000, v35, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
+      }
 
-        if (v28 != *(v21 + v20))
+      v37 = OSLogFlushBuffers();
+      if (v37)
+      {
+        v39 = v37;
+        v40 = __PSResourceManagerLogSharedInstance(v37, v38);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          PRMWriterInstance::finalizeClientWriteTypeJasperBuffer();
+          *buf = 136315394;
+          v51 = "finalizeClientWriteTypeJasperBuffer";
+          v52 = 1024;
+          v53 = v39;
+          _os_log_impl(&dword_25EA3A000, v40, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
         }
       }
 
-      v20 += 8;
-    }
+      else
+      {
+        usleep(0x1E8480u);
+      }
 
-    while (v20 != 32);
-    v30 = *(v43 + 264);
-    v31 = 0;
-    *v30 = MEMORY[0x25F8C9240](v44, a4);
-    do
-    {
-      CFRelease(*(v21 + v31));
-      v31 += 8;
-    }
-
-    while (v31 != 32);
-    goto LABEL_15;
-  }
-
-  if (v13 == 1)
-  {
-    v14 = 0;
-    v15 = (a2 + 72);
-    do
-    {
-      v16 = *v15;
-      v15 += 12;
-      *v16 = *(timestamp_array + v14);
-      v14 += 8;
-    }
-
-    while (v14 != 32);
-    v17 = *(a2 + 392);
-    *v17 = MEMORY[0x25F8C9240](a3, a4);
-LABEL_15:
-    v32 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v45 = 0;
-  v33 = (a1 + 176);
-  v34 = a1;
-  v35 = (a1 + 176);
-  if (*(a1 + 199) < 0)
-  {
-    v35 = *v33;
-  }
-
-  asprintf(&v45, "Invalid metadata type found: %d for key: %s", v13, v35);
-  v36 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
-  {
-    v37 = *(v34 + 208);
-    if (*(v34 + 199) < 0)
-    {
-      v33 = *v33;
-    }
-
-    *buf = 136315906;
-    v47 = "finalizeClientWriteTypeJasperBuffer";
-    v48 = 1024;
-    v49 = 1736;
-    v50 = 1024;
-    v51 = v37;
-    v52 = 2080;
-    v53 = v33;
-    _os_log_impl(&dword_25EA3A000, v36, OS_LOG_TYPE_FAULT, "%s:%d Invalid metadata type found: %d for key: %s", buf, 0x22u);
-  }
-
-  v38 = OSLogFlushBuffers();
-  if (v38)
-  {
-    v39 = v38;
-    v40 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v47 = "finalizeClientWriteTypeJasperBuffer";
-      v48 = 1024;
-      v49 = v39;
-      _os_log_impl(&dword_25EA3A000, v40, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v41 = abort_with_reason();
+      PRMWriterInstance::finalizeClientWriteTypePearlBuffer(v41, v42, v43, v44, v45);
     }
   }
 
   else
   {
-    usleep(0x1E8480u);
-  }
+    v48 = a3;
+    cfdata_metadata_array = ps_resource_jasperbuffer_get_cfdata_metadata_array();
+    v18 = a2;
+    v19 = 0;
+    v46 = a1;
+    v47 = v18;
+    v20 = a1 + 64;
+    v21 = v18 + 8;
+    do
+    {
+      if (*(a5 + v19))
+      {
+        Length = CFDataGetLength(*(cfdata_metadata_array + v19));
+        if (Length >= 0x15FF5)
+        {
+          PRMWriterInstance::finalizeClientWriteTypeJasperBuffer(buf, v46);
+        }
 
-  v41 = abort_with_reason();
-  PRMWriterInstance::finalizeClientWriteTypePearlBuffer(v41);
+        v23 = *(v21 + 8 * v19);
+        IOSurface = CVDataBufferGetIOSurface();
+        ID = IOSurfaceGetID(IOSurface);
+        v26 = *(cfdata_metadata_array + v19);
+        v27 = *(v11 + v19);
+        *v23 = Length;
+        *(v23 + 8) = v27;
+        *(v23 + 16) = ID;
+        if (Length)
+        {
+          v59.location = 0;
+          v59.length = Length;
+          CFDataGetBytes(v26, v59, (v23 + 20));
+          v26 = *(cfdata_metadata_array + v19);
+        }
+
+        if (v26 != *(v20 + v19))
+        {
+          PRMWriterInstance::finalizeClientWriteTypeJasperBuffer();
+        }
+      }
+
+      v19 += 8;
+    }
+
+    while (v19 != 32);
+    v28 = *(v47 + 264);
+    v29 = 0;
+    *v28 = MEMORY[0x25F8C9240](v48, a4);
+    do
+    {
+      CFRelease(*(v20 + v29));
+      v29 += 8;
+    }
+
+    while (v29 != 32);
+  }
 }
 
 void PRMWriterInstance::finalizeClientWriteTypePearlBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  if (*a5 || a5[1] || a5[2] || a5[3])
+  if (*a5 != 0 || a5[2] || a5[3])
   {
     MEMORY[0x25F8C91F0](a3, a4);
     depthbuffer = ps_resource_pearlbuffer_get_depthbuffer();
@@ -8894,66 +8664,64 @@ LABEL_12:
   return pixelBufferOut;
 }
 
-uint64_t _cvDataBufferAllocator(_DWORD *a1)
+uint64_t _cvDataBufferAllocator(_DWORD *a1, uint64_t a2)
 {
   v25 = *MEMORY[0x277D85DE8];
-  v2 = a1[2];
-  v3 = a1[1] * *a1;
-  v4 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v3 = a1[2];
+  v4 = a1[1] * *a1;
+  v5 = __PSResourceManagerLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *a1;
-    v6 = a1[1];
-    v7 = a1[2];
+    v6 = *a1;
+    v7 = a1[1];
+    v8 = a1[2];
     *buf = 136316162;
     v16 = "_cvDataBufferAllocator";
     v17 = 2048;
-    v18 = v5;
+    v18 = v6;
     v19 = 2048;
-    v20 = v6;
+    v20 = v7;
     v21 = 2048;
-    v22 = v3;
+    v22 = v4;
     v23 = 1024;
-    v24 = v7;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "PSCVDataBufferResource in %s width=%lu height=%lu allocSize=%llu pixelFormat=%#x\n", buf, 0x30u);
+    v24 = v8;
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "PSCVDataBufferResource in %s width=%lu height=%lu allocSize=%llu pixelFormat=%#x\n", buf, 0x30u);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  _addCFDictProperty(Mutable, *MEMORY[0x277CD2948], v3);
-  _addCFDictProperty(Mutable, *MEMORY[0x277CD2A70], v2);
-  v9 = IOSurfaceCreate(Mutable);
-  if (!v9)
+  _addCFDictProperty(Mutable, *MEMORY[0x277CD2948], v4);
+  _addCFDictProperty(Mutable, *MEMORY[0x277CD2A70], v3);
+  v10 = IOSurfaceCreate(Mutable);
+  if (!v10)
   {
-    v11 = _cvDataBufferAllocator(buf);
+    _cvDataBufferAllocator(buf);
     goto LABEL_10;
   }
 
-  v10 = v9;
+  v11 = v10;
   CFDictionarySetValue(Mutable, *MEMORY[0x277CC4D90], *MEMORY[0x277CBED28]);
-  v11 = CVDataBufferCreateWithIOSurface();
-  if (v11)
+  v12 = CVDataBufferCreateWithIOSurface();
+  if (v12)
   {
 LABEL_10:
-    v12 = _cvDataBufferAllocator(buf, v11);
+    v13 = _cvDataBufferAllocator(buf, v12);
 LABEL_11:
-    _cvDataBufferAllocator(buf, v12);
+    _cvDataBufferAllocator(buf, v13);
   }
 
-  v12 = CVDataBufferIncrementUseCountForCategory();
-  if (v12)
+  v13 = CVDataBufferIncrementUseCountForCategory();
+  if (v13)
   {
     goto LABEL_11;
   }
 
-  CFRelease(v10);
+  CFRelease(v11);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  result = 0;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t PRMWriterInstance::incrementRefCount(PRMWriterInstance *this)
@@ -8982,8 +8750,10 @@ uint64_t PRMWriterInstance::getIOSurfaceCount(PRMWriterInstance *this)
     return 0xFFFFFFFFLL;
   }
 
-  v5 = *(this + 1);
-  return ps_buffer_get_total_write_buffer_count();
+  else
+  {
+    return ps_buffer_get_total_write_buffer_count();
+  }
 }
 
 PRMWriterInstance *PRMWriterInstance::getIOSurfaces(PRMWriterInstance *this, PRMWriterInstance **a2)
@@ -8994,79 +8764,75 @@ PRMWriterInstance *PRMWriterInstance::getIOSurfaces(PRMWriterInstance *this, PRM
   if (!v3 && v4 != 0)
   {
     v7 = this;
-    v8 = *(this + 1);
     this = ps_buffer_get_total_write_buffer_count();
     if (this >= 1)
     {
-      LODWORD(v9) = this;
+      LODWORD(v8) = this;
       this = MEMORY[0x25F8C8C90](*(v7 + 1));
-      v10 = this;
-      v11 = *(v7 + 25);
-      if (v11 > 7)
+      v9 = this;
+      v10 = *(v7 + 25);
+      if (v10 > 7)
       {
-        if (v11 == 8)
+        if (v10 == 8)
         {
-          v9 = v9;
+          v8 = v8;
           do
           {
-            v19 = *v10;
-            v10 = (v10 + 8);
-            v20 = *(v19 + 40);
+            v9 = (v9 + 8);
             this = CVDataBufferGetIOSurface();
             *a2++ = this;
-            --v9;
+            --v8;
           }
 
-          while (v9);
+          while (v8);
         }
 
-        else if (v11 == 9)
+        else if (v10 == 9)
         {
-          v13 = 0;
+          v12 = 0;
           do
           {
-            v14 = &a2[4 * (v13 & 0x3FFFFFFF)];
+            v13 = &a2[4 * (v12 & 0x3FFFFFFF)];
             for (i = 40; i != 296; i += 64)
             {
-              v16 = *(*(v10 + v13) + i);
               this = CVDataBufferGetIOSurface();
-              *v14++ = this;
+              *v13++ = this;
             }
 
-            ++v13;
+            ++v12;
           }
 
-          while (v13 != v9);
+          while (v12 != v8);
         }
       }
 
-      else if (v11 == 4)
+      else if (v10 == 4)
       {
-        v17 = v9;
+        v15 = v8;
         do
         {
-          v18 = *v10;
-          v10 = (v10 + 8);
-          *a2++ = *(v18 + 8);
-          --v17;
+          v16 = *v9;
+          v9 = (v9 + 8);
+          *a2++ = *(v16 + 8);
+          --v15;
         }
 
-        while (v17);
+        while (v15);
       }
 
-      else if (v11 == 7)
+      else if (v10 == 7)
       {
-        v9 = v9;
+        v8 = v8;
         do
         {
-          v12 = *v10;
-          v10 = (v10 + 8);
-          this = CVPixelBufferGetIOSurface(*(v12 + 40));
+          v11 = *v9;
+          v9 = (v9 + 8);
+          this = CVPixelBufferGetIOSurface(*(v11 + 40));
           *a2++ = this;
-          --v9;
+          --v8;
         }
 
-        while (v9);
+        while (v8);
       }
     }
   }
@@ -9082,54 +8848,53 @@ PRMWriterInstance *PRMWriterInstance::getMetadataIOSurfaces(PRMWriterInstance *t
   if (!v3 && v4 != 0)
   {
     v7 = this;
-    v8 = *(this + 1);
     this = ps_buffer_get_total_write_buffer_count();
     if (this >= 1)
     {
-      v9 = this;
+      v8 = this;
       this = MEMORY[0x25F8C8C90](*(v7 + 1));
-      v10 = *(v7 + 25);
-      switch(v10)
+      v9 = *(v7 + 25);
+      switch(v9)
       {
         case 7:
-          v16 = v9;
+          v15 = v8;
           do
           {
-            v17 = *this;
+            v16 = *this;
             this = (this + 8);
-            *a2++ = *(v17 + 8);
-            --v16;
+            *a2++ = *(v16 + 8);
+            --v15;
           }
 
-          while (v16);
+          while (v15);
           break;
         case 9:
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v8; ++i)
           {
-            v14 = 8;
-            v15 = a2;
+            v13 = 8;
+            v14 = a2;
             do
             {
-              *v15++ = *(*(this + i) + v14);
-              v14 += 64;
+              *v14++ = *(*(this + i) + v13);
+              v13 += 64;
             }
 
-            while (v14 != 264);
+            while (v13 != 264);
             a2 += 4;
           }
 
           break;
         case 8:
-          v11 = v9;
+          v10 = v8;
           do
           {
-            v12 = *this;
+            v11 = *this;
             this = (this + 8);
-            *a2++ = *(v12 + 8);
-            --v11;
+            *a2++ = *(v11 + 8);
+            --v10;
           }
 
-          while (v11);
+          while (v10);
           break;
       }
     }
@@ -9146,18 +8911,10 @@ void _addCFDictProperty(__CFDictionary *a1, const __CFString *a2, int a3)
   CFRelease(v5);
 }
 
-void *OUTLINED_FUNCTION_8_0(void *result, uint64_t a2)
+void *OUTLINED_FUNCTION_19@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
+  *(v2 - 40) = a2;
   *result = 0;
-  v2 = *(a2 + 199);
-  return result;
-}
-
-void *OUTLINED_FUNCTION_19@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 40) = a3;
-  *result = 0;
-  v4 = *(a2 + 56);
   return result;
 }
 
@@ -9175,7 +8932,7 @@ uint64_t PSActionTaker::signalResourceAvailable(PSActionTaker *this)
   {
     v7[1] = v1;
     v7[2] = v2;
-    v6 = PSActionTaker::signalResourceAvailable(v7);
+    PSActionTaker::signalResourceAvailable(v7);
     return PSActionTaker::getActionTakerManager(v6);
   }
 }
@@ -9189,29 +8946,30 @@ void PSActionTakerManager::PSActionTakerManager(PSActionTakerManager *this)
 
 void PSActionTakerManager::~PSActionTakerManager(PSActionTakerManager *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (atomic_load(this + 1))
   {
-    v3 = atomic_load(this + 1);
-    v7 = 0;
-    asprintf(&v7, "Tried to delete action taker which was still in use with active mask 0x%llx", v3);
-    v4 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v2 = atomic_load(this + 1);
+    v10 = 0;
+    v3 = asprintf(&v10, "Tried to delete action taker which was still in use with active mask 0x%llx", v2);
+    v5 = __PSResourceManagerLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315650;
-      v9 = "~PSActionTakerManager";
-      v10 = 1024;
-      v11 = 82;
-      v12 = 2048;
-      v13 = v3;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d Tried to delete action taker which was still in use with active mask 0x%llx", buf, 0x1Cu);
+      v12 = "~PSActionTakerManager";
+      v13 = 1024;
+      v14 = 82;
+      v15 = 2048;
+      v16 = v2;
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d Tried to delete action taker which was still in use with active mask 0x%llx", buf, 0x1Cu);
     }
 
-    v5 = OSLogFlushBuffers();
-    if (v5)
+    v6 = OSLogFlushBuffers();
+    v8 = v6;
+    if (v6)
     {
-      v6 = __PSResourceManagerLogSharedInstance();
-      PSActionTakerManager::~PSActionTakerManager(v6, v5);
+      v9 = __PSResourceManagerLogSharedInstance(v6, v7);
+      PSActionTakerManager::~PSActionTakerManager(v9, v8);
     }
 
     else
@@ -9222,8 +8980,6 @@ void PSActionTakerManager::~PSActionTakerManager(PSActionTakerManager *this)
     abort_with_reason();
     __break(1u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAB242C(_Unwind_Exception *a1, int a2)
@@ -9338,7 +9094,7 @@ uint64_t PSListenerThread::setAriadneID(uint64_t this, uint64_t a2)
   return this;
 }
 
-uint64_t PSListenerThread::start(PRMReader **this, uint64_t (*a2)(uint64_t, void *, PRMReader **, uint64_t (*)(char *a1), PRMReader **), void *a3)
+uint64_t PSListenerThread::start(PRMReader **this, uint64_t (*a2)(uint64_t, void *, PRMReader **, uint64_t (*)(void *), PRMReader **), void *a3)
 {
   if (a2)
   {
@@ -9349,95 +9105,96 @@ uint64_t PSListenerThread::start(PRMReader **this, uint64_t (*a2)(uint64_t, void
 
   else
   {
-    PSListenerThread::start(&v9, this);
-    return _thread_workloop(v7);
+    PSListenerThread::start(&v10, this);
+    return _thread_workloop(v7, v8);
   }
 }
 
-uint64_t _thread_workloop(char *a1)
+uint64_t _thread_workloop(char *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v23 = *MEMORY[0x277D85DE8];
+  v3 = __PSResourceManagerLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     Key = PRMReader::getKey(*(a1 + 2));
     *buf = 136315138;
     *&buf[4] = Key;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "Started listener thread workloop for %s", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "Started listener thread workloop for %s", buf, 0xCu);
   }
 
-  v4 = (a1 + 16);
-  v5 = PRMReader::getKey(*(a1 + 2));
-  v6 = ps_util_pthread_setname(v5);
-  if (v6)
+  v5 = (a1 + 16);
+  v6 = PRMReader::getKey(*(a1 + 2));
+  v7 = ps_util_pthread_setname(v6);
+  if (v7)
   {
-    v7 = v6;
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = v7;
+    v10 = __PSResourceManagerLogSharedInstance(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *&buf[4] = v7;
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "ps_util_pthread_setname failed with return code %d", buf, 8u);
+      *&buf[4] = v9;
+      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "ps_util_pthread_setname failed with return code %d", buf, 8u);
     }
   }
 
   *&buf[8] = 0;
-  v19 = buf;
+  v21 = buf;
   *buf = 0xFFFFFFFFFFFFLL;
-  v16 = 0;
+  v18 = 0;
   while (1)
   {
-    v9 = atomic_load(a1 + 40);
-    if (v9)
+    v11 = atomic_load(a1 + 40);
+    if (v11)
     {
-      break;
+      return 0;
     }
 
-    v10 = (*(**v4 + 48))();
-    (*(**v4 + 48))();
-    if (v10)
+    v12 = (*(**v5 + 48))();
+    (*(**v5 + 48))();
+    if (v12)
     {
-      if (MEMORY[0x25F8C8E70](v10, &v19, &v16))
+      v13 = MEMORY[0x25F8C8E70](v12, &v21, &v18);
+      if (v13)
       {
         goto LABEL_16;
       }
     }
 
-    else if (ps_buffer_camera_stream_reader_wait_for_buffers_with_tag())
+    else
     {
-LABEL_16:
-      v12 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = ps_buffer_camera_stream_reader_wait_for_buffers_with_tag();
+      if (v13)
       {
-        v13 = PRMReader::getKey(*v4);
-        *v17 = 136315138;
-        v18 = v13;
-        _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_DEFAULT, "Writer was torn down for resource %s", v17, 0xCu);
-      }
+LABEL_16:
+        v15 = __PSResourceManagerLogSharedInstance(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = PRMReader::getKey(*v5);
+          *v19 = 136315138;
+          v20 = v16;
+          _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEFAULT, "Writer was torn down for resource %s", v19, 0xCu);
+        }
 
-      break;
+        return 0;
+      }
     }
 
-    if (*v19 == 0xFFFFFFFFFFFFLL)
+    if (*v21 == 0xFFFFFFFFFFFFLL)
     {
-      _thread_workloop(v17, a1 + 2);
+      _thread_workloop(v19, a1 + 2);
     }
 
     if (a1[8] == 1)
     {
-      v11 = (4 * (*a1 & 0x3FFF)) | 0x341C0000u;
       mach_absolute_time();
       kdebug_trace();
     }
 
     PSActionTakerManager::signalResourceAvailable(*(a1 + 3));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
-  return 0;
 }
 
-uint64_t __PSResourceManagerLogSharedInstance()
+uint64_t __PSResourceManagerLogSharedInstance(uint64_t a1, uint64_t a2)
 {
   if (__PSResourceManagerLogSharedInstance_onceToken != -1)
   {
@@ -9469,7 +9226,7 @@ _BYTE *ps_prm_opts_create()
 
   else
   {
-    cold_1 = ps_prm_opts_create_cold_1(v2);
+    cold_1 = ps_prm_opts_create_cold_1();
     return ps_prm_opts_copy(cold_1);
   }
 
@@ -9522,10 +9279,10 @@ void ps_prm_opts_copy(const char **a1)
 
   else
   {
-    ps_prm_opts_copy_cold_2(v18);
+    ps_prm_opts_copy_cold_2();
   }
 
-  v17 = ps_prm_opts_copy_cold_1(v18);
+  v17 = ps_prm_opts_copy_cold_1();
   ps_prm_opts_destroy(v17);
 }
 
@@ -9590,10 +9347,8 @@ uint64_t ps_prm_opts_set_resource_key(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_resource_key_cold_1(v5);
-    return ps_prm_opts_set_graph(v4);
+    v2 = ps_prm_opts_set_resource_key_cold_1();
+    return ps_prm_opts_set_graph(v2, v3);
   }
 
   return result;
@@ -9608,10 +9363,8 @@ uint64_t ps_prm_opts_set_graph(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_graph_cold_1(v5);
-    return ps_prm_opts_get_graph(v4);
+    v2 = ps_prm_opts_set_graph_cold_1();
+    return ps_prm_opts_get_graph(v2);
   }
 
   return result;
@@ -9624,10 +9377,8 @@ uint64_t ps_prm_opts_get_graph(uint64_t a1)
     return *(a1 + 136);
   }
 
-  v7 = v1;
-  v8 = v2;
-  graph_cold_1 = ps_prm_opts_get_graph_cold_1(v6);
-  return ps_prm_opts_set_resource_class(graph_cold_1, v5);
+  graph_cold_1 = ps_prm_opts_get_graph_cold_1();
+  return ps_prm_opts_set_resource_class(graph_cold_1, v3);
 }
 
 uint64_t ps_prm_opts_set_resource_class(uint64_t result, uint64_t a2)
@@ -9639,10 +9390,8 @@ uint64_t ps_prm_opts_set_resource_class(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_resource_class_cold_1(v5);
-    return ps_prm_opts_set_provider_type(v4);
+    v2 = ps_prm_opts_set_resource_class_cold_1();
+    return ps_prm_opts_set_provider_type(v2, v3);
   }
 
   return result;
@@ -9657,10 +9406,8 @@ uint64_t ps_prm_opts_set_provider_type(uint64_t result, int a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_provider_type_cold_1(v5);
-    return ps_prm_opts_set_is_camera_stream(v4);
+    v2 = ps_prm_opts_set_provider_type_cold_1();
+    return ps_prm_opts_set_is_camera_stream(v2, v3);
   }
 
   return result;
@@ -9675,10 +9422,8 @@ uint64_t ps_prm_opts_set_is_camera_stream(uint64_t result, char a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    is_camera_stream_cold_1 = ps_prm_opts_set_is_camera_stream_cold_1(v5);
-    return ps_prm_opts_set_use_prm_camera_reader(is_camera_stream_cold_1);
+    is_camera_stream_cold_1 = ps_prm_opts_set_is_camera_stream_cold_1();
+    return ps_prm_opts_set_use_prm_camera_reader(is_camera_stream_cold_1, v3);
   }
 
   return result;
@@ -9693,29 +9438,25 @@ uint64_t ps_prm_opts_set_use_prm_camera_reader(uint64_t result, char a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_use_prm_camera_reader_cold_1(v5);
-    return ps_prm_opts_set_ariadne_id(v4);
+    v2 = ps_prm_opts_set_use_prm_camera_reader_cold_1();
+    return ps_prm_opts_set_ariadne_id(v2, v3);
   }
 
   return result;
 }
 
-uint64_t ps_prm_opts_set_ariadne_id(uint64_t result, uint64_t a2)
+void *ps_prm_opts_set_ariadne_id(void *result, uint64_t a2)
 {
   if (result)
   {
-    *(result + 96) = a2;
+    result[12] = a2;
     *(result + 104) = 1;
   }
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_ariadne_id_cold_1(v5);
-    return ps_prm_opts_set_resource_available_callback(v4);
+    v2 = ps_prm_opts_set_ariadne_id_cold_1();
+    return ps_prm_opts_set_resource_available_callback(v2, v3, v4);
   }
 
   return result;
@@ -9731,10 +9472,8 @@ void *ps_prm_opts_set_resource_available_callback(void *result, uint64_t a2, uin
 
   else
   {
-    v7 = v3;
-    v8 = v4;
-    v5 = ps_prm_opts_set_resource_available_callback_cold_1(v6);
-    return ps_prm_opts_set_removal_callback(v5);
+    v3 = ps_prm_opts_set_resource_available_callback_cold_1();
+    return ps_prm_opts_set_removal_callback(v3, v4, v5);
   }
 
   return result;
@@ -9750,10 +9489,8 @@ uint64_t ps_prm_opts_set_removal_callback(uint64_t result, uint64_t a2, uint64_t
 
   else
   {
-    v8 = v3;
-    v9 = v4;
-    v5 = ps_prm_opts_set_removal_callback_cold_1(v7);
-    return ps_prm_opts_set_return_capacity(v5, v6);
+    v3 = ps_prm_opts_set_removal_callback_cold_1();
+    return ps_prm_opts_set_return_capacity(v3, v4);
   }
 
   return result;
@@ -9768,10 +9505,8 @@ uint64_t ps_prm_opts_set_return_capacity(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_return_capacity_cold_1(v5);
-    return ps_prm_opts_set_buffer_depth(v4);
+    v2 = ps_prm_opts_set_return_capacity_cold_1();
+    return ps_prm_opts_set_buffer_depth(v2, v3, v4);
   }
 
   return result;
@@ -9787,10 +9522,8 @@ uint64_t ps_prm_opts_set_buffer_depth(uint64_t result, int a2, int a3)
 
   else
   {
-    v7 = v3;
-    v8 = v4;
-    v5 = ps_prm_opts_set_buffer_depth_cold_1(v6);
-    return ps_prm_opts_set_creation_mode(v5);
+    v3 = ps_prm_opts_set_buffer_depth_cold_1();
+    return ps_prm_opts_set_creation_mode(v3, v4);
   }
 
   return result;
@@ -9805,10 +9538,8 @@ uint64_t ps_prm_opts_set_creation_mode(uint64_t result, uint64_t a2)
 
   else
   {
-    v7 = v2;
-    v8 = v3;
-    v4 = ps_prm_opts_set_creation_mode_cold_1(v6);
-    return ps_prm_opts_set_storage_mode(v4, v5);
+    v2 = ps_prm_opts_set_creation_mode_cold_1();
+    return ps_prm_opts_set_storage_mode(v2, v3);
   }
 
   return result;
@@ -9823,10 +9554,251 @@ uint64_t ps_prm_opts_set_storage_mode(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_storage_mode_cold_1(v5);
-    return ps_prm_opts_set_forwarding_count(v4);
+    v2 = ps_prm_opts_set_storage_mode_cold_1();
+    return ps_prm_opts_set_forwarding_count(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_forwarding_count(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 80) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_forwarding_count_cold_1();
+    return ps_prm_opts_set_data_size(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_data_size(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 144) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_data_size_cold_1();
+    return ps_prm_opts_set_iosurface_width(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_iosurface_width(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 144) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_iosurface_width_cold_1();
+    return ps_prm_opts_set_iosurface_height(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_iosurface_height(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 148) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_iosurface_height_cold_1();
+    return ps_prm_opts_set_iosurface_pixelformat(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_iosurface_pixelformat(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 152) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_iosurface_pixelformat_cold_1();
+    return ps_prm_opts_set_iosurface_properties(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_iosurface_properties(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 160) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_iosurface_properties_cold_1();
+    return ps_prm_opts_set_iosurface_allocator(v2, v3, v4);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_iosurface_allocator(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (result)
+  {
+    *(result + 168) = a2;
+    *(result + 176) = a3;
+  }
+
+  else
+  {
+    v3 = ps_prm_opts_set_iosurface_allocator_cold_1();
+    return ps_prm_opts_set_cvpixelbuffer_width(v3, v4);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_width(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 144) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_cvpixelbuffer_width_cold_1();
+    return ps_prm_opts_set_cvpixelbuffer_height(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_height(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 148) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_cvpixelbuffer_height_cold_1();
+    return ps_prm_opts_set_cvpixelbuffer_pixelformat(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_pixelformat(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 152) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_cvpixelbuffer_pixelformat_cold_1();
+    return ps_prm_opts_set_cvpixelbuffer_properties(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_properties(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 160) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_cvpixelbuffer_properties_cold_1();
+    return ps_prm_opts_set_cvpixelbuffer_allocator(v2, v3, v4);
+  }
+
+  return result;
+}
+
+void *ps_prm_opts_set_cvpixelbuffer_allocator(void *result, uint64_t a2, uint64_t a3)
+{
+  if (result)
+  {
+    result[22] = a2;
+    result[23] = a3;
+  }
+
+  else
+  {
+    v3 = ps_prm_opts_set_cvpixelbuffer_allocator_cold_1();
+    return ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties(v3, v4);
+  }
+
+  return result;
+}
+
+CFTypeRef ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties(uint64_t a1, CFTypeRef cf)
+{
+  if (a1)
+  {
+    result = CFRetain(cf);
+    *(a1 + 168) = cf;
+  }
+
+  else
+  {
+    v5 = ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties_cold_1();
+    return ps_prm_opts_set_cvdatabuffer_width(v5, v6);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_cvdatabuffer_width(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 144) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_cvdatabuffer_width_cold_1();
+    return ps_prm_opts_set_cvdatabuffer_height(v2, v3);
+  }
+
+  return result;
+}
+
+uint64_t ps_prm_opts_set_cvdatabuffer_height(uint64_t result, int a2)
+{
+  if (result)
+  {
+    *(result + 148) = a2;
+  }
+
+  else
+  {
+    v2 = ps_prm_opts_set_cvdatabuffer_height_cold_1();
+    return ps_prm_opts_set_cvdatabuffer_pixelformat(v2, v3);
   }
 
   return result;

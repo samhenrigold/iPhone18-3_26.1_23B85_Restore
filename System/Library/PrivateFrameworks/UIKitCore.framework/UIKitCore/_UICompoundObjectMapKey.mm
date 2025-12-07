@@ -1,5 +1,6 @@
 @interface _UICompoundObjectMapKey
 + (id)keyWithObject:(id)object andProperty:(id)property;
+- (BOOL)isEqual:(id)equal;
 - (id)description;
 @end
 
@@ -18,6 +19,19 @@
   v7[2] = propertyCopy;
 
   return v7;
+}
+
+- (BOOL)isEqual:(id)equal
+{
+  if (self->_object == *(equal + 1))
+  {
+    return objc_msgSend_isEqualToString_(self->_property, a2, *(equal + 2));
+  }
+
+  else
+  {
+    return 0;
+  }
 }
 
 - (id)description

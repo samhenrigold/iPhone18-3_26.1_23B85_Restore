@@ -172,7 +172,7 @@
   stateCopy = state;
   action = self->_action;
   action = [stateCopy action];
-  if ([(UIInterfaceAction *)action isEqual:action])
+  if (objc_msgSend_isEqual_(action))
   {
     isHighlighted = self->_isHighlighted;
     if (isHighlighted == [stateCopy isHighlighted])
@@ -189,7 +189,7 @@
             v11 = 48;
             actionViewStateContext = self->_actionViewStateContext;
             actionViewStateContext = [stateCopy actionViewStateContext];
-            if (actionViewStateContext == actionViewStateContext || (v14 = self->_actionViewStateContext, [stateCopy actionViewStateContext], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "isEqual:", v11)))
+            if (actionViewStateContext == actionViewStateContext || (v14 = self->_actionViewStateContext, [stateCopy actionViewStateContext], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend_isEqual_(v14)))
             {
               visualCornerPosition = self->_visualCornerPosition;
               v15 = visualCornerPosition == [stateCopy visualCornerPosition];

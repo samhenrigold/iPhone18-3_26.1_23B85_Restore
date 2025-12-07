@@ -4,6 +4,7 @@
 - (void)dealloc;
 - (void)handleMessage:(id)message;
 - (void)handleProcessRegistration:(id)registration;
+- (void)sendMessageToController:(id)controller forProcess:(int)process;
 @end
 
 @implementation WRM_TestController
@@ -203,6 +204,22 @@ LABEL_18:
     v10 = +[WRM_HandoverManager WRM_HandoverManagerSingleton];
 
     [v10 updateControllerSession:v9 ofId:uint64];
+  }
+}
+
+- (void)sendMessageToController:(id)controller forProcess:(int)process
+{
+  v4 = *&process;
+  v6 = [(WRM_TestController *)self getControllerForProcessId:process];
+  if (v6)
+  {
+
+    [v6 handleMessage:controller];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:0 message:@"Controller not found for Pid %d", v4];
   }
 }
 

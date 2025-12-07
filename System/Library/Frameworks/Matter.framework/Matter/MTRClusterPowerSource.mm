@@ -1,4 +1,5 @@
 @interface MTRClusterPowerSource
+- (MTRClusterPowerSource)initWithDevice:(MTRDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue;
 - (NSDictionary)readAttributeAcceptedCommandListWithParams:(MTRReadParams *)params;
 - (NSDictionary)readAttributeActiveBatChargeFaultsWithParams:(MTRReadParams *)params;
 - (NSDictionary)readAttributeActiveBatFaultsWithParams:(MTRReadParams *)params;
@@ -408,6 +409,17 @@
   v7 = [device readAttributeWithEndpointID:endpointID clusterID:&unk_284C41CC0 attributeID:&unk_284C41738 params:v4];
 
   return v7;
+}
+
+- (MTRClusterPowerSource)initWithDevice:(MTRDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue
+{
+  v6 = endpoint;
+  v8 = device;
+  v9 = queue;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v6];
+  v11 = [(MTRGenericCluster *)self initWithDevice:v8 endpointID:v10 queue:v9];
+
+  return v11;
 }
 
 @end

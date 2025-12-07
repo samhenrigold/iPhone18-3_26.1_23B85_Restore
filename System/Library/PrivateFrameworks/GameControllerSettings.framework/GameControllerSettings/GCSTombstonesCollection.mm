@@ -50,27 +50,27 @@
 
 - (id)tombstoneForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_values;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:identifierCopy];
 
@@ -81,7 +81,7 @@
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -93,14 +93,12 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)updateTombstones:(id)tombstones
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   tombstonesCopy = tombstones;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [(GCSTombstonesCollection *)self storeVersionIsCompatible])
@@ -109,48 +107,47 @@ LABEL_11:
     if (v5)
     {
       v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSObject count](v5, "count")}];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       v5 = v5;
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v19;
+        v9 = *v18;
         do
         {
           v10 = 0;
           do
           {
-            if (*v19 != v9)
+            if (*v18 != v9)
             {
               objc_enumerationMutation(v5);
             }
 
-            v11 = *(*(&v18 + 1) + 8 * v10);
+            v11 = *(*(&v17 + 1) + 8 * v10);
             v12 = [GCSTombstone alloc];
-            v13 = [(GCSTombstone *)v12 initWithJSONObject:v11, v18];
+            v13 = [(GCSTombstone *)v12 initWithJSONObject:v11, v17];
             [v6 addObject:v13];
 
             ++v10;
           }
 
           while (v8 != v10);
-          v8 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v8 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v8);
       }
 
-      [(GCSTombstonesCollection *)self setValues:v6];
-      v14 = getGCSLogger();
+      v14 = getGCSLogger([(GCSTombstonesCollection *)self setValues:v6]);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         values = [(GCSTombstonesCollection *)self values];
         *buf = 138412290;
-        v24 = values;
+        v23 = values;
         _os_log_impl(&dword_24E4FA000, v14, OS_LOG_TYPE_INFO, "GCSTombstones.values = %@", buf, 0xCu);
       }
     }
@@ -158,18 +155,15 @@ LABEL_11:
 
   else
   {
-    [(GCSTombstonesCollection *)self setValues:MEMORY[0x277CBEBF8]];
-    v5 = getGCSLogger();
+    v5 = getGCSLogger([(GCSTombstonesCollection *)self setValues:MEMORY[0x277CBEBF8]]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       values2 = [(GCSTombstonesCollection *)self values];
       *buf = 138412290;
-      v24 = values2;
+      v23 = values2;
       _os_log_impl(&dword_24E4FA000, v5, OS_LOG_TYPE_INFO, "GCSTombstones.values = %@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

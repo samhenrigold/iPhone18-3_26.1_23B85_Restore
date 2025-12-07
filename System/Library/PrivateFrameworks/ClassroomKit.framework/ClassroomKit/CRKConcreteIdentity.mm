@@ -36,27 +36,28 @@
   configurationCopy = configuration;
   v5 = [[CRKIdentityRefFactory alloc] initWithConfiguration:configurationCopy];
 
-  v11 = 0;
-  v6 = [(CRKIdentityRefFactory *)v5 makeIdentityRefWithError:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [(CRKIdentityRefFactory *)v5 makeIdentityRefWithError:&v12];
+  v7 = v12;
+  v8 = v7;
   if (v6)
   {
-    v8 = [[self alloc] initWithIdentity:v6];
+    v9 = [[self alloc] initWithIdentity:v6];
     CFRelease(v6);
   }
 
   else
   {
-    v9 = _CRKLogGeneral_12();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _CRKLogGeneral_12(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(CRKConcreteIdentity *)v7 identityWithConfiguration:v9];
+      [(CRKConcreteIdentity *)v8 identityWithConfiguration:v10];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 + (id)identityWithCertificate:(id)certificate privateKey:(id)key
@@ -76,7 +77,7 @@
 
   else
   {
-    v12 = _CRKLogGeneral_12();
+    v12 = _CRKLogGeneral_12(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CRKConcreteIdentity identityWithCertificate:v12 privateKey:?];

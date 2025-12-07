@@ -21,7 +21,7 @@
   v5[1] = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10ProductKit21PersonalizedVideoView_sceneDriver) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10ProductKit21PersonalizedVideoView_hasSetUpSceneDriver) = 0;
-  result = sub_260E69704();
+  result = sub_260E69704("Fatal error", 11, 2, 0xD000000000000021, 0x8000000260E72480, "ProductKit/PersonalizedVideoView.swift", 38, 2, 126, 0);
   __break(1u);
   return result;
 }
@@ -39,7 +39,7 @@
   v5[1] = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10ProductKit21PersonalizedVideoView_sceneDriver) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10ProductKit21PersonalizedVideoView_hasSetUpSceneDriver) = 0;
-  result = sub_260E69704();
+  result = sub_260E69704("Fatal error", 11, 2, 0xD000000000000025, 0x8000000260E72450, "ProductKit/PersonalizedVideoView.swift", 38, 2, 130, 0);
   __break(1u);
   return result;
 }

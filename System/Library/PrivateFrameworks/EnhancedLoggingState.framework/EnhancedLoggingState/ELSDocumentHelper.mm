@@ -69,13 +69,11 @@ uint64_t __33__ELSDocumentHelper_sharedHelper__block_invoke()
 
 - (void)saveData:(void *)a1 toFilePath:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 absoluteString];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_24A07C000, a2, OS_LOG_TYPE_ERROR, "Cannot write the data to file at path: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_24A07C000, a2, OS_LOG_TYPE_ERROR, "Cannot write the data to file at path: %@", &v4, 0xCu);
 }
 
 @end

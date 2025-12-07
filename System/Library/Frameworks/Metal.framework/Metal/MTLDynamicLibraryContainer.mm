@@ -6,7 +6,7 @@
 - (id)reflectionData;
 - (void)dealloc;
 - (void)initReflectionData;
-- (void)initWithURL:(void *)l device:(unint64_t *)device options:error:;
+- (void)initWithURL:(float *)l device:(unint64_t *)device options:error:;
 - (void)release;
 @end
 
@@ -201,7 +201,7 @@
       v22 = v52;
       cpuType = [v21 cpuType];
       v46 = [v21 cpuSubtype] | (cpuType << 32);
-      v24 = std::unordered_map<unsigned long long,[MTLDynamicLibraryContainer initWithURL:device:options:error:]::archSliceId>::operator[](v22 + 6, &v46);
+      v24 = std::unordered_map<unsigned long long,[MTLDynamicLibraryContainer initWithURL:device:options:error:]::archSliceId>::operator[](v22 + 12, &v46);
       v25 = v24[1];
       v70[3] = *v24;
       v66[3] = v25;
@@ -348,7 +348,7 @@ LABEL_36:
   return container;
 }
 
-uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v15 = a2;
   v8 = HIDWORD(a2);
@@ -383,10 +383,10 @@ uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___blo
   return 1;
 }
 
-- (void)initWithURL:(void *)l device:(unint64_t *)device options:error:
+- (void)initWithURL:(float *)l device:(unint64_t *)device options:error:
 {
   v2 = *device;
-  v3 = l[1];
+  v3 = *(l + 2);
   if (!*&v3)
   {
     goto LABEL_18;
@@ -457,11 +457,11 @@ LABEL_17:
   return v7 + 3;
 }
 
-uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__63__MTLDynamicLibraryContainer_initWithURL_device_options_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 + a2 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + a2;
+    return ([*(a1 + 32) bytes] + a2);
   }
 
   else
@@ -472,8 +472,8 @@ uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___blo
 
 uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v28 = a2;
+  v28 = *MEMORY[0x1E69E9840];
+  v27 = a2;
   if (*(a3 + 96))
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -482,82 +482,80 @@ uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___blo
     *(*(a1 + 32) + 112) = *(a3 + 104);
   }
 
-  if (*(a1 + 72) != v28)
+  if (*(a1 + 72) != v27)
   {
-    goto LABEL_4;
+    return 0;
   }
 
-  v11 = *(a3 + 48);
-  if (*(a3 + 41))
+  v10 = *(a3 + 48);
+  if ((*(a3 + 41) & 1) == 0)
   {
-    if (*(a1 + 80) != v11)
+    if (*(a1 + 64) == v10)
     {
-      goto LABEL_4;
+      goto LABEL_10;
     }
+
+    return 0;
   }
 
-  else if (*(a1 + 64) != v11)
+  if (*(a1 + 80) != v10)
   {
-    goto LABEL_4;
+    return 0;
   }
 
+LABEL_10:
   result = [*(a3 + 56) length];
-  if (!result)
+  if (result)
   {
-    goto LABEL_5;
+    v11 = a5 + a4 + *(*(*(a1 + 56) + 8) + 24);
+    if (v11 <= [*(a1 + 40) length])
+    {
+      v26[0] = *(*(*(a1 + 56) + 8) + 24) + a4;
+      v26[1] = a5;
+      *(*(a1 + 32) + 24) = _MTLNSDataToDispatchData(*(a1 + 40), v26);
+      v12 = *(a1 + 32);
+      v13 = *(v12 + 156);
+      v14 = *(v12 + 140);
+      v15 = *(a3 + 24);
+      *(v12 + 140) = *(a3 + 8);
+      *(v12 + 156) = v15;
+      *(a3 + 8) = v14;
+      *(a3 + 24) = v13;
+      v16 = *(a1 + 32);
+      v17 = *(v16 + 72);
+      *(v16 + 72) = *(a3 + 56);
+      *(a3 + 56) = v17;
+      v18 = *(a1 + 32);
+      v19 = *(v18 + 64);
+      *(v18 + 64) = *(a3 + 64);
+      *(a3 + 64) = v19;
+      v20 = *(a1 + 32);
+      v21 = *(v20 + 56);
+      *(v20 + 56) = *(a3 + 72);
+      *(a3 + 72) = v21;
+      v22 = *(a1 + 32);
+      v23 = *(v22 + 40);
+      *(v22 + 40) = *(a3 + 80);
+      *(a3 + 80) = v23;
+      v24 = *(a1 + 32);
+      v25 = *(v24 + 48);
+      *(v24 + 48) = *(a3 + 88);
+      *(a3 + 88) = v25;
+      return 1;
+    }
+
+    return 0;
   }
 
-  v12 = a5 + a4 + *(*(*(a1 + 56) + 8) + 24);
-  if (v12 <= [*(a1 + 40) length])
-  {
-    v27[0] = *(*(*(a1 + 56) + 8) + 24) + a4;
-    v27[1] = a5;
-    *(*(a1 + 32) + 24) = _MTLNSDataToDispatchData(*(a1 + 40), v27);
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 156);
-    v15 = *(v13 + 140);
-    v16 = *(a3 + 24);
-    *(v13 + 140) = *(a3 + 8);
-    *(v13 + 156) = v16;
-    *(a3 + 8) = v15;
-    *(a3 + 24) = v14;
-    v17 = *(a1 + 32);
-    v18 = *(v17 + 72);
-    *(v17 + 72) = *(a3 + 56);
-    *(a3 + 56) = v18;
-    v19 = *(a1 + 32);
-    v20 = *(v19 + 64);
-    *(v19 + 64) = *(a3 + 64);
-    *(a3 + 64) = v20;
-    v21 = *(a1 + 32);
-    v22 = *(v21 + 56);
-    *(v21 + 56) = *(a3 + 72);
-    *(a3 + 72) = v22;
-    v23 = *(a1 + 32);
-    v24 = *(v23 + 40);
-    *(v23 + 40) = *(a3 + 80);
-    *(a3 + 80) = v24;
-    v25 = *(a1 + 32);
-    v26 = *(v25 + 48);
-    *(v25 + 48) = *(a3 + 88);
-    *(a3 + 88) = v26;
-    result = 1;
-    goto LABEL_5;
-  }
-
-LABEL_4:
-  result = 0;
-LABEL_5:
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __63__MTLDynamicLibraryContainer_initWithURL_device_options_error___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__63__MTLDynamicLibraryContainer_initWithURL_device_options_error___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(*(*(a1 + 40) + 8) + 24) + a2;
   if (v4 + a3 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + v4;
+    return ([*(a1 + 32) bytes] + v4);
   }
 
   else

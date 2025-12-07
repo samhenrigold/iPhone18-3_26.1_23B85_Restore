@@ -1,10 +1,12 @@
 @interface CAFRouteObservable
 - (NSString)description;
+- (void)routeService:(id)service didUpdateApplicationEnabled:(BOOL)enabled;
 - (void)routeService:(id)service didUpdateDestination:(id)destination;
 - (void)routeService:(id)service didUpdateGeodeticSystem:(unsigned __int8)system;
 - (void)routeService:(id)service didUpdateLegs:(id)legs;
 - (void)routeService:(id)service didUpdateOrigin:(id)origin;
 - (void)routeService:(id)service didUpdateRouteState:(unsigned __int8)state;
+- (void)routeService:(id)service didUpdateUserEnabled:(BOOL)enabled;
 - (void)routeService:(id)service didUpdateUserVisibleApplicationName:(id)name;
 - (void)routeService:(id)service didUpdateVehicleEnabled:(BOOL)enabled;
 - (void)serviceDidFinishGroupUpdate:(id)update;
@@ -27,35 +29,60 @@
 
 - (void)routeService:(id)service didUpdateRouteState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFRouteObservable.routeService(_:didUpdateRouteState:)(selfCopy, state);
+  CAFRouteObservable.routeService(_:didUpdateRouteState:)(selfCopy, stateCopy);
 }
 
 - (void)routeService:(id)service didUpdateUserVisibleApplicationName:(id)name
 {
   if (name)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFRouteObservable.routeService(_:didUpdateUserVisibleApplicationName:)();
+  CAFRouteObservable.routeService(_:didUpdateUserVisibleApplicationName:)(selfCopy, v6, v8);
+}
+
+- (void)routeService:(id)service didUpdateApplicationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFRouteObservable.routeService(_:didUpdateApplicationEnabled:)(selfCopy, enabledCopy);
+}
+
+- (void)routeService:(id)service didUpdateUserEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFRouteObservable.routeService(_:didUpdateUserEnabled:)(selfCopy, enabledCopy);
 }
 
 - (void)routeService:(id)service didUpdateVehicleEnabled:(BOOL)enabled
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRouteObservable.routeService(_:didUpdateVehicleEnabled:)();
+  CAFRouteObservable.routeService(_:didUpdateVehicleEnabled:)(selfCopy, enabled);
 }
 
 - (void)routeService:(id)service didUpdateGeodeticSystem:(unsigned __int8)system
 {
+  systemCopy = system;
   serviceCopy = service;
   selfCopy = self;
-  CAFRouteObservable.routeService(_:didUpdateGeodeticSystem:)(selfCopy, system);
+  CAFRouteObservable.routeService(_:didUpdateGeodeticSystem:)(selfCopy, systemCopy);
 }
 
 - (void)routeService:(id)service didUpdateOrigin:(id)origin
@@ -63,7 +90,7 @@
   serviceCopy = service;
   originCopy = origin;
   selfCopy = self;
-  CAFRouteObservable.routeService(_:didUpdateOrigin:)();
+  CAFRouteObservable.routeService(_:didUpdateOrigin:)(selfCopy, origin, v8, v9);
 }
 
 - (void)routeService:(id)service didUpdateDestination:(id)destination
@@ -71,7 +98,7 @@
   serviceCopy = service;
   destinationCopy = destination;
   selfCopy = self;
-  CAFRouteObservable.routeService(_:didUpdateDestination:)();
+  CAFRouteObservable.routeService(_:didUpdateDestination:)(selfCopy, destination, v8, v9);
 }
 
 - (void)routeService:(id)service didUpdateLegs:(id)legs

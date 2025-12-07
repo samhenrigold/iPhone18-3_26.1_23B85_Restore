@@ -25,7 +25,7 @@
 
 - (void)run
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = ISWeakLinkedClassForString(&cfstr_Mcprofileconne.isa, 0x11);
   v4 = ISWeakLinkedStringConstantForString("MCFeatureAccountModificationAllowed", 0x11);
   sharedConnection = [(objc_class *)v3 sharedConnection];
@@ -43,39 +43,43 @@
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
 
     if (v16)
     {
-      v47 = 138543362;
-      v48 = objc_opt_class();
-      v18 = v48;
-      LODWORD(v43) = 12;
-      v19 = _os_log_send_and_compose_impl();
+      v45 = 138543362;
+      v46 = objc_opt_class();
+      v18 = v46;
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%{public}@: Prompting the user to see if they want to create a new account.", &v45, 12);
 
       if (!v19)
       {
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v47, v43}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-LABEL_25:
+LABEL_27:
     v20 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.TestFlight", @"com.apple.iTunesU", 0}];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
@@ -91,16 +95,16 @@ LABEL_25:
     v26 = [MEMORY[0x277CBEA60] arrayWithObject:@"com.apple.itunesstored.lock.createaccount"];
     [v25 setSerializationLockIdentifiers:v26];
 
-    v46 = 0;
-    LODWORD(v26) = [(ISOperation *)self runSubOperation:v25 returningError:&v46];
-    v12 = v46;
+    v44 = 0;
+    LODWORD(v26) = [(ISOperation *)self runSubOperation:v25 returningError:&v44];
+    v12 = v44;
     v13 = 0;
     if (!v26)
     {
-      goto LABEL_62;
+      goto LABEL_67;
     }
 
-    v45 = v20;
+    v43 = v20;
     v27 = [(ISCreateAccountPromptOperation *)self _mapCorrectSelectedButtonWithDialog:v25];
     mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedAccountsConfig];
     mEMORY[0x277D69B38]3 = mEMORY[0x277D69B38]2;
@@ -111,36 +115,40 @@ LABEL_25:
         mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedConfig];
       }
 
-      shouldLog2 = [mEMORY[0x277D69B38]3 shouldLog];
+      LODWORD(v35) = [mEMORY[0x277D69B38]3 shouldLog];
       if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
       {
-        shouldLog2 |= 2u;
+        LODWORD(v35) = v35 | 2;
       }
 
       oSLogObject2 = [mEMORY[0x277D69B38]3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
       {
-        shouldLog2 &= 2u;
+        v35 = v35;
       }
 
-      if (!shouldLog2)
+      else
+      {
+        v35 &= 2u;
+      }
+
+      if (!v35)
       {
         v13 = 3;
-        goto LABEL_60;
+        goto LABEL_65;
       }
 
       v36 = objc_opt_class();
-      v47 = 138543362;
-      v48 = v36;
+      v45 = 138543362;
+      v46 = v36;
       v37 = v36;
-      LODWORD(v44) = 12;
-      v42 = &v47;
-      v34 = _os_log_send_and_compose_impl();
+      LODWORD(v42) = 12;
+      v34 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%{public}@: The user chose to create a new account.", &v45, v42);
 
       v13 = 3;
       if (!v34)
       {
-        goto LABEL_61;
+        goto LABEL_66;
       }
     }
 
@@ -151,41 +159,45 @@ LABEL_25:
         mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedConfig];
       }
 
-      shouldLog3 = [mEMORY[0x277D69B38]3 shouldLog];
+      LODWORD(v38) = [mEMORY[0x277D69B38]3 shouldLog];
       if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
       {
-        shouldLog3 |= 2u;
+        LODWORD(v38) = v38 | 2;
       }
 
       oSLogObject2 = [mEMORY[0x277D69B38]3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog3 &= 2u;
+        v38 = v38;
       }
 
-      if (!shouldLog3)
+      else
+      {
+        v38 &= 2u;
+      }
+
+      if (!v38)
       {
         v13 = 2;
-        goto LABEL_60;
+        goto LABEL_65;
       }
 
       v39 = objc_opt_class();
-      v47 = 138543362;
-      v48 = v39;
+      v45 = 138543362;
+      v46 = v39;
       v40 = v39;
-      LODWORD(v44) = 12;
-      v42 = &v47;
-      v34 = _os_log_send_and_compose_impl();
+      LODWORD(v42) = 12;
+      v34 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_275BC3000, oSLogObject2, 0, "%{public}@: The user canceled the prompt.", &v45, v42);
 
       v13 = 2;
       if (!v34)
       {
-LABEL_61:
+LABEL_66:
 
-        v20 = v45;
-LABEL_62:
+        v20 = v43;
+LABEL_67:
 
-        goto LABEL_63;
+        goto LABEL_68;
       }
     }
 
@@ -196,46 +208,50 @@ LABEL_62:
         mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedConfig];
       }
 
-      shouldLog4 = [mEMORY[0x277D69B38]3 shouldLog];
+      LODWORD(v30) = [mEMORY[0x277D69B38]3 shouldLog];
       if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
       {
-        shouldLog4 |= 2u;
+        LODWORD(v30) = v30 | 2;
       }
 
       oSLogObject2 = [mEMORY[0x277D69B38]3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
       {
-        shouldLog4 &= 2u;
+        v30 = v30;
       }
 
-      if (!shouldLog4)
+      else
+      {
+        v30 &= 2u;
+      }
+
+      if (!v30)
       {
         v13 = 4;
-        goto LABEL_60;
+        goto LABEL_65;
       }
 
       v32 = objc_opt_class();
-      v47 = 138543362;
-      v48 = v32;
+      v45 = 138543362;
+      v46 = v32;
       v33 = v32;
-      LODWORD(v44) = 12;
-      v42 = &v47;
-      v34 = _os_log_send_and_compose_impl();
+      LODWORD(v42) = 12;
+      v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%{public}@: The user chose to use an existing account.", &v45, v42);
 
       v13 = 4;
       if (!v34)
       {
-        goto LABEL_61;
+        goto LABEL_66;
       }
     }
 
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v34 encoding:{4, &v47, v44}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v34 encoding:4];
     free(v34);
-    v42 = oSLogObject2;
+    v41 = oSLogObject2;
     SSFileLog();
-LABEL_60:
+LABEL_65:
 
-    goto LABEL_61;
+    goto LABEL_66;
   }
 
   _newCreateAccountDialog = [MEMORY[0x277D69B38] sharedAccountsConfig];
@@ -244,59 +260,60 @@ LABEL_60:
     _newCreateAccountDialog = [MEMORY[0x277D69B38] sharedConfig];
   }
 
-  shouldLog5 = [_newCreateAccountDialog shouldLog];
+  shouldLog2 = [_newCreateAccountDialog shouldLog];
   if ([_newCreateAccountDialog shouldLogToDisk])
   {
-    v9 = shouldLog5 | 2;
+    LODWORD(v9) = shouldLog2 | 2;
   }
 
   else
   {
-    v9 = shouldLog5;
+    LODWORD(v9) = shouldLog2;
   }
 
   oSLogObject3 = [_newCreateAccountDialog OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  v47 = 138543362;
-  v48 = objc_opt_class();
-  v11 = v48;
-  LODWORD(v43) = 12;
-  v42 = &v47;
-  v12 = _os_log_send_and_compose_impl();
+  v45 = 138543362;
+  v46 = objc_opt_class();
+  v11 = v46;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, oSLogObject3, 16, "%{public}@: Refusing to create a new account. Account creation is restricted.", &v45, 12);
 
   if (v12)
   {
-    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, &v47, v43}];
+    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
     free(v12);
-    v42 = oSLogObject3;
+    v41 = oSLogObject3;
     SSFileLog();
-LABEL_12:
+LABEL_13:
 
     v12 = 0;
   }
 
   v13 = 8;
-LABEL_63:
+LABEL_68:
 
   [(ISOperation *)self setError:v12];
   [(ISCreateAccountPromptOperation *)self setResponseType:v13];
-  [(ISOperation *)self setSuccess:v13 != 0, v42];
-
-  v41 = *MEMORY[0x277D85DE8];
+  [(ISOperation *)self setSuccess:v13 != 0, v41];
 }
 
 - (id)_newCreateAccountDialog
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(ISDialog);
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"USE_EXISTING_ACCOUNT" value:&stru_2884BCFD0 table:0];
@@ -312,18 +329,18 @@ LABEL_63:
 
   if ([(ISCreateAccountPromptOperation *)self _hasActiveICloudAccount])
   {
-    v22[0] = v12;
-    v22[1] = v6;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = v12;
+    v21[1] = v6;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v14 = 0;
   }
 
   else
   {
-    v21[0] = v6;
-    v21[1] = v12;
-    v21[2] = v9;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+    v20[0] = v6;
+    v20[1] = v12;
+    v20[2] = v9;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
     v14 = 1;
   }
 
@@ -347,7 +364,6 @@ LABEL_63:
   v18 = [v17 localizedStringForKey:v16 value:&stru_2884BCFD0 table:0];
   [(ISDialog *)v3 setTitle:v18];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -389,7 +405,7 @@ LABEL_63:
 
 - (BOOL)_hasActiveICloudAccount
 {
-  v2 = objc_alloc_init(getACAccountStoreClass());
+  v2 = objc_alloc_init(getACAccountStoreClass(self, a2));
   aa_primaryAppleAccount = [v2 aa_primaryAppleAccount];
   aa_personID = [aa_primaryAppleAccount aa_personID];
 

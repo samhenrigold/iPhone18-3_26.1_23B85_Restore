@@ -21,22 +21,20 @@
 
 - (void)pushAnalytics
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     eventString = self->_eventString;
-    v7 = 136315394;
-    v8 = "[SSRLoggingAggregator pushAnalytics]";
-    v9 = 2114;
-    v10 = eventString;
-    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Sending Analytics Event - %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SSRLoggingAggregator pushAnalytics]";
+    v8 = 2114;
+    v9 = eventString;
+    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Sending Analytics Event - %{public}@", &v6, 0x16u);
   }
 
   v5 = [(NSMutableDictionary *)self->_eventContext copy];
   AnalyticsSendEvent();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpeakerRecognitionWaitTime:(double)time

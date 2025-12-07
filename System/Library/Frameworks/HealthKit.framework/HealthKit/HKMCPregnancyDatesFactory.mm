@@ -24,74 +24,70 @@
 {
   v3 = sub_191CC6148();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v3, v6);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7, v10);
-  v12 = &v16 - v11;
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v9 = &v13 - v8;
   sub_191CC60F8();
   sub_191CC6098();
-  v13 = *(v4 + 8);
-  v13(v9, v3);
-  v14 = sub_191CC60A8();
-  v13(v12, v3);
+  v10 = *(v4 + 8);
+  v10(v7, v3);
+  v11 = sub_191CC60A8();
+  v10(v9, v3);
 
-  return v14;
+  return v11;
 }
 
 + (id)gestationalAgeInComponentsOnDate:(id)date pregnancyStartDate:(id)startDate startTimeZoneName:(id)name
 {
   v5 = sub_191CC6148();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v5, v8);
-  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v29 - v13;
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v24 - v10;
   sub_191C1C2CC(0, &qword_1EADCADC0, MEMORY[0x1E6968278], MEMORY[0x1E69E6720]);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v15 - 8, v17);
-  v19 = &v29 - v18;
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = &v24 - v13;
   sub_191CC60F8();
   sub_191CC60F8();
-  v20 = sub_191CC67B8();
-  static HKMCPregnancyDatesFactory.gestationalAgeInComponents(on:pregnancyStart:startTimeZoneName:)(v14, v11, v20, v21, v19);
+  v15 = sub_191CC67B8();
+  static HKMCPregnancyDatesFactory.gestationalAgeInComponents(on:pregnancyStart:startTimeZoneName:)(v11, v9, v15, v16, v14);
 
-  v22 = *(v6 + 8);
-  v22(v11, v5);
-  v22(v14, v5);
-  v23 = sub_191CC5DC8();
-  v24 = *(v23 - 8);
-  v25 = (*(v24 + 48))(v19, 1, v23);
-  v26 = 0;
-  if (v25 != 1)
+  v17 = *(v6 + 8);
+  v17(v9, v5);
+  v17(v11, v5);
+  v18 = sub_191CC5DC8();
+  v19 = *(v18 - 8);
+  v20 = (*(v19 + 48))(v14, 1, v18);
+  v21 = 0;
+  if (v20 != 1)
   {
-    v27 = sub_191CC5D48();
-    (*(v24 + 8))(v19, v23);
-    v26 = v27;
+    v22 = sub_191CC5D48();
+    (*(v19 + 8))(v14, v18);
+    v21 = v22;
   }
 
-  return v26;
+  return v21;
 }
 
 + (BOOL)isPregnancyDurationPhysiologicallyPossibleForPregnancyStartDate:(id)date
 {
   v4 = sub_191CC6148();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v4, v7);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v11);
-  v13 = &v18 - v12;
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v15 - v9;
   sub_191CC60F8();
-  v14 = sub_191CC60A8();
+  v11 = sub_191CC60A8();
   sub_191CC6138();
-  v15 = sub_191CC60A8();
-  v16 = *(v5 + 8);
-  v16(v10, v4);
-  LOBYTE(self) = [self isPregnancyDurationPhysiologicallyPossibleForPregnancyStartDate:v14 pregnancyEndDate:v15];
+  v12 = sub_191CC60A8();
+  v13 = *(v5 + 8);
+  v13(v8, v4);
+  LOBYTE(self) = [self isPregnancyDurationPhysiologicallyPossibleForPregnancyStartDate:v11 pregnancyEndDate:v12];
 
-  v16(v13, v4);
+  v13(v10, v4);
   return self;
 }
 
@@ -99,41 +95,39 @@
 {
   v4 = sub_191CC6148();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v4, v7);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v11);
-  v13 = &v17 - v12;
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v14 - v9;
   sub_191CC60F8();
   sub_191CC60F8();
-  v14 = _sSo25HKMCPregnancyDatesFactoryC9HealthKitE42isPregnancyDurationPhysiologicallyPossible03forG5Start12pregnancyEndSb10Foundation4DateV_AItFZ_0(v13, v10);
-  v15 = *(v5 + 8);
-  v15(v10, v4);
-  v15(v13, v4);
-  return v14;
+  v11 = _sSo25HKMCPregnancyDatesFactoryC9HealthKitE42isPregnancyDurationPhysiologicallyPossible03forG5Start12pregnancyEndSb10Foundation4DateV_AItFZ_0(v10, v8);
+  v12 = *(v5 + 8);
+  v12(v8, v4);
+  v12(v10, v4);
+  return v11;
 }
 
 + (id)calculatePhysiologicalWashoutFromPregnancySample:(id)sample
 {
   sub_191C1C2CC(0, &unk_1ED5EFFF0, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8, v6);
-  v8 = &v16 - v7;
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v14 - v5;
   sampleCopy = sample;
-  static HKMCPregnancyDatesFactory.calculatePhysiologicalWashout(fromPregnancySample:)(sampleCopy, v8);
+  static HKMCPregnancyDatesFactory.calculatePhysiologicalWashout(fromPregnancySample:)(sampleCopy, v6);
 
-  v10 = sub_191CC6148();
-  v11 = *(v10 - 8);
-  v12 = (*(v11 + 48))(v8, 1, v10);
-  v13 = 0;
-  if (v12 != 1)
+  v8 = sub_191CC6148();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v6, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v14 = sub_191CC60A8();
-    (*(v11 + 8))(v8, v10);
-    v13 = v14;
+    v12 = sub_191CC60A8();
+    (*(v9 + 8))(v6, v8);
+    v11 = v12;
   }
 
-  return v13;
+  return v11;
 }
 
 - (HKMCPregnancyDatesFactory)init

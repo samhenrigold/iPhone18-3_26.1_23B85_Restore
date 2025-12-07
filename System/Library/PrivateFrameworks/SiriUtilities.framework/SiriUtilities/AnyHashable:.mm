@@ -6,19 +6,18 @@
 
 - (uint64_t)Any
 {
-  v3 = *(self + 32);
-  v2 = *(self + 40);
+  v2 = *(self + 32);
   if (a2)
   {
-    v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v3(v4);
+  v2(v3);
 }
 
 @end

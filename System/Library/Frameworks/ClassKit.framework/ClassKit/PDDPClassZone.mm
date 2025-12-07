@@ -81,39 +81,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_zoneName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_classId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_changeToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    moreDataAvailable = self->_moreDataAvailable;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    isAccessDenied = self->_isAccessDenied;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -238,7 +236,6 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v10 = *(equalCopy + 33);
   if (self->_moreDataAvailable)
   {
     if ((*(equalCopy + 33) & 1) == 0)

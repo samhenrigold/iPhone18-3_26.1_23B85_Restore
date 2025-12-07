@@ -25,7 +25,7 @@
 
 - (BOOL)_parseObjectFromData:(id)data rawData:(id)rawData group:(id)group
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   rawDataCopy = rawData;
   groupCopy = group;
@@ -33,10 +33,10 @@
   v14 = objc_msgSend_initWithData_(v12, v13, dataCopy);
   if (!objc_msgSend_messageClass(self, v15, v16))
   {
-    v51 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v17, v18);
-    v52 = objc_opt_class();
-    v53 = NSStringFromClass(v52);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v51, v54, a2, self, @"CKDProtobufResponseBodyParser.m", 41, @"You can't use %@ without setting a message class", v53);
+    v49 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v17, v18);
+    v50 = objc_opt_class();
+    v51 = NSStringFromClass(v50);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v49, v52, a2, self, @"CKDProtobufResponseBodyParser.m", 41, @"You can't use %@ without setting a message class", v51);
   }
 
   v19 = objc_alloc_init(objc_msgSend_messageClass(self, v17, v18));
@@ -46,7 +46,6 @@
     v24 = objc_msgSend_objectParsedBlock(self, v21, v22);
 
     v25 = *MEMORY[0x277CBC878];
-    v26 = *MEMORY[0x277CBC880];
     if (v24)
     {
       if (*MEMORY[0x277CBC880] != -1)
@@ -54,37 +53,37 @@
         dispatch_once(MEMORY[0x277CBC880], v25);
       }
 
-      v27 = *MEMORY[0x277CBC830];
+      v26 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
-        v46 = v27;
+        v44 = v26;
         *buf = 138412546;
-        v60 = objc_msgSend_messageClass(self, v47, v48);
-        v61 = 2048;
-        v62 = objc_msgSend_length(dataCopy, v49, v50);
-        _os_log_debug_impl(&dword_22506F000, v46, OS_LOG_TYPE_DEBUG, "Successfully parsed message %@ (%tu)", buf, 0x16u);
+        v58 = objc_msgSend_messageClass(self, v45, v46);
+        v59 = 2048;
+        v60 = objc_msgSend_length(dataCopy, v47, v48);
+        _os_log_debug_impl(&dword_22506F000, v44, OS_LOG_TYPE_DEBUG, "Successfully parsed message %@ (%tu)", buf, 0x16u);
       }
 
       dispatch_group_enter(groupCopy);
-      v30 = objc_msgSend_objectParsedBlock(self, v28, v29);
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = sub_2253E7F54;
-      v57[3] = &unk_278545A00;
-      v31 = groupCopy;
-      v58 = v31;
-      (v30)[2](v30, v19, rawDataCopy, v57);
+      v29 = objc_msgSend_objectParsedBlock(self, v27, v28);
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = sub_2253E7F54;
+      v55[3] = &unk_278545A00;
+      v30 = groupCopy;
+      v56 = v30;
+      (v29)[2](v29, v19, rawDataCopy, v55);
 
-      if (*MEMORY[0x277CBC810] == 1 && objc_msgSend_testRepeatedParseResults(self, v32, v33))
+      if (*MEMORY[0x277CBC810] == 1 && objc_msgSend_testRepeatedParseResults(self, v31, v32))
       {
-        dispatch_group_enter(v31);
-        v36 = objc_msgSend_objectParsedBlock(self, v34, v35);
-        v55[0] = MEMORY[0x277D85DD0];
-        v55[1] = 3221225472;
-        v55[2] = sub_2253E7F5C;
-        v55[3] = &unk_278545A00;
-        v56 = v31;
-        (v36)[2](v36, v19, rawDataCopy, v55);
+        dispatch_group_enter(v30);
+        v35 = objc_msgSend_objectParsedBlock(self, v33, v34);
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = sub_2253E7F5C;
+        v53[3] = &unk_278545A00;
+        v54 = v30;
+        (v35)[2](v35, v19, rawDataCopy, v53);
       }
     }
 
@@ -95,11 +94,11 @@
         dispatch_once(MEMORY[0x277CBC880], v25);
       }
 
-      v43 = *MEMORY[0x277CBC830];
+      v42 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_22506F000, v43, OS_LOG_TYPE_ERROR, "If an object is parsed in the woods and no one is there to hear it, was it really parsed? You're leaking objects on the floor. Set up a parser callback block", buf, 2u);
+        _os_log_error_impl(&dword_22506F000, v42, OS_LOG_TYPE_ERROR, "If an object is parsed in the woods and no one is there to hear it, was it really parsed? You're leaking objects on the floor. Set up a parser callback block", buf, 2u);
       }
     }
   }
@@ -111,32 +110,31 @@
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v37 = *MEMORY[0x277CBC830];
+    v36 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v38 = v37;
-      v41 = objc_msgSend_messageClass(self, v39, v40);
-      v42 = NSStringFromClass(v41);
+      v37 = v36;
+      v40 = objc_msgSend_messageClass(self, v38, v39);
+      v41 = NSStringFromClass(v40);
       *buf = 138543875;
-      v60 = v42;
-      v61 = 2112;
-      v62 = dataCopy;
-      v63 = 2113;
-      v64 = rawDataCopy;
-      _os_log_error_impl(&dword_22506F000, v38, OS_LOG_TYPE_ERROR, "Error parsing message of class %{public}@ from data %@. Raw data is %{private}@", buf, 0x20u);
+      v58 = v41;
+      v59 = 2112;
+      v60 = dataCopy;
+      v61 = 2113;
+      v62 = rawDataCopy;
+      _os_log_error_impl(&dword_22506F000, v37, OS_LOG_TYPE_ERROR, "Error parsing message of class %{public}@ from data %@. Raw data is %{private}@", buf, 0x20u);
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)_parseObjects:(BOOL)objects group:(id)group
 {
   objectsCopy = objects;
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   groupCopy = group;
-  v81 = objectsCopy;
+  v80 = objectsCopy;
   if (objectsCopy)
   {
     v8 = 1;
@@ -269,9 +267,9 @@ LABEL_31:
       v12 -= objc_msgSend_length(v46, v48, v49);
       if (v12)
       {
-        v80 = objc_msgSend_parserData(self, v50, v51);
+        v79 = objc_msgSend_parserData(self, v50, v51);
         v54 = objc_msgSend_length(v46, v52, v53);
-        v56 = objc_msgSend_subdataWithRange_(v80, v55, v54, v12);
+        v56 = objc_msgSend_subdataWithRange_(v79, v55, v54, v12);
         objc_msgSend_setParserData_(self, v57, v56);
       }
 
@@ -289,7 +287,7 @@ LABEL_32:
   }
 
   while ((v21 & 1) == 0 && v12 >= v8);
-  if (v81)
+  if (v80)
   {
     if (v12)
     {
@@ -318,12 +316,11 @@ LABEL_32:
       v74 = v73;
       v77 = objc_msgSend_parserError(self, v75, v76);
       *buf = 138412290;
-      v84 = v77;
+      v83 = v77;
       _os_log_impl(&dword_22506F000, v74, OS_LOG_TYPE_INFO, "Warn: Parser encountered an error: %@", buf, 0xCu);
     }
   }
 
-  v78 = *MEMORY[0x277D85DE8];
   return v72 == 0;
 }
 

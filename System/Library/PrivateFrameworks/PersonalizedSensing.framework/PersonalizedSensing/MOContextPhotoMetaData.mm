@@ -16,11 +16,11 @@
 
 - (MOContextPhotoMetaData)initWithPhotoAssetIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v11.receiver = self;
-  v11.super_class = MOContextPhotoMetaData;
-  v6 = [(MOContextPhotoMetaData *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = MOContextPhotoMetaData;
+  v6 = [(MOContextPhotoMetaData *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -29,12 +29,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = identifierCopy;
+      v12 = identifierCopy;
       _os_log_impl(&dword_25E48F000, v8, OS_LOG_TYPE_INFO, "PhotoMetaData photoAssetIdentifier,%@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

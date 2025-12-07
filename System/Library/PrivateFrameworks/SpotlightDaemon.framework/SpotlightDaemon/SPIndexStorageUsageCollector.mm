@@ -67,11 +67,10 @@ void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_in
 void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v115[4] = *MEMORY[0x277D85DE8];
+  v118[4] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) canceled])
   {
     v2 = *(*(v1 + 48) + 16);
-    v3 = *MEMORY[0x277D85DE8];
 
     v2();
     return;
@@ -79,74 +78,75 @@ void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_in
 
   [*(*(v1 + 32) + 16) removeAllObjects];
   [*(*(v1 + 32) + 8) removeAllObjects];
-  v4 = [MEMORY[0x277CCAA00] defaultManager];
-  v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(v1 + 40)];
-  v6 = *MEMORY[0x277CBE808];
-  v92 = *MEMORY[0x277CBE838];
-  v115[0] = *MEMORY[0x277CBE838];
-  v115[1] = v6;
-  v86 = v6;
-  v7 = *MEMORY[0x277CBE8C8];
-  v89 = *MEMORY[0x277CBE898];
-  v115[2] = *MEMORY[0x277CBE898];
-  v115[3] = v7;
-  v91 = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:4];
-  v109[0] = MEMORY[0x277D85DD0];
-  v109[1] = 3221225472;
-  v109[2] = __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_3;
-  v109[3] = &unk_278937690;
-  v109[4] = *(v1 + 32);
-  v84 = v4;
-  v93 = v5;
-  v9 = [v4 enumeratorAtURL:v5 includingPropertiesForKeys:v8 options:0 errorHandler:v109];
+  v3 = [MEMORY[0x277CCAA00] defaultManager];
+  v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(v1 + 40)];
+  v5 = *MEMORY[0x277CBE808];
+  v95 = *MEMORY[0x277CBE838];
+  v118[0] = *MEMORY[0x277CBE838];
+  v118[1] = v5;
+  v89 = v5;
+  v6 = *MEMORY[0x277CBE8C8];
+  v92 = *MEMORY[0x277CBE898];
+  v118[2] = *MEMORY[0x277CBE898];
+  v118[3] = v6;
+  v94 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:4];
+  v112[0] = MEMORY[0x277D85DD0];
+  v112[1] = 3221225472;
+  v112[2] = __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_3;
+  v112[3] = &unk_278937690;
+  v112[4] = *(v1 + 32);
+  v87 = v3;
+  v96 = v4;
+  v8 = [v3 enumeratorAtURL:v4 includingPropertiesForKeys:v7 options:0 errorHandler:v112];
 
-  v107 = 0u;
+  v110 = 0u;
+  v111 = 0u;
   v108 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v10 = v9;
-  v94 = v1;
-  v88 = [v10 countByEnumeratingWithState:&v105 objects:v114 count:16];
-  if (!v88)
+  v109 = 0u;
+  v9 = v8;
+  v97 = v1;
+  v91 = [v9 countByEnumeratingWithState:&v108 objects:v117 count:16];
+  if (!v91)
   {
     goto LABEL_82;
   }
 
-  v90 = *v106;
-  v85 = *MEMORY[0x277CCA1A8];
-  v82 = *MEMORY[0x277CCA1A0];
-  v81 = *MEMORY[0x277CCA198];
-  v80 = *MEMORY[0x277CCA190];
-  obj = v10;
+  v93 = *v109;
+  v88 = *MEMORY[0x277CCA1A8];
+  v85 = *MEMORY[0x277CCA1A0];
+  v84 = *MEMORY[0x277CCA198];
+  v83 = *MEMORY[0x277CCA190];
+  obj = v9;
   do
   {
-    v11 = 0;
+    v10 = 0;
     do
     {
-      if (*v106 != v90)
+      if (*v109 != v93)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v105 + 1) + 8 * v11);
+      v11 = *(*(&v108 + 1) + 8 * v10);
       if ([*(v1 + 32) canceled])
       {
         (*(*(v1 + 48) + 16))();
         goto LABEL_100;
       }
 
-      v13 = objc_autoreleasePoolPush();
-      v103 = 0;
-      v104 = 0;
-      v14 = [v12 getResourceValue:&v104 forKey:v92 error:&v103];
-      v15 = v104;
-      v16 = v103;
-      if ((v14 & 1) == 0)
+      v12 = objc_autoreleasePoolPush();
+      v106 = 0;
+      v107 = 0;
+      v13 = [v11 getResourceValue:&v107 forKey:v95 error:&v106];
+      v14 = v107;
+      v15 = v106;
+      v16 = v15;
+      if ((v13 & 1) == 0)
       {
-        v75 = logForCSLogCategoryIndex();
-        v10 = obj;
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        v79 = logForCSLogCategoryIndex(v15);
+        v9 = obj;
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
         {
           __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_1();
         }
@@ -154,13 +154,13 @@ void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_in
         [*(v1 + 32) setCanceled:1];
         (*(*(v1 + 48) + 16))();
 
-        objc_autoreleasePoolPop(v13);
+        objc_autoreleasePoolPop(v12);
         goto LABEL_101;
       }
 
-      context = v13;
-      v17 = [v12 path];
-      v18 = [v93 path];
+      context = v12;
+      v17 = [v11 path];
+      v18 = [v96 path];
       v19 = [v17 stringByReplacingOccurrencesOfString:v18 withString:&stru_2846BD100];
 
       if ([v19 hasPrefix:@"/private"])
@@ -178,22 +178,14 @@ void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_in
       }
 
       v22 = *(*(v1 + 32) + 16);
-      v96 = v15;
-      v23 = [v15 unsignedLongLongValue];
+      v99 = v14;
+      v23 = [v14 unsignedLongLongValue];
       v24 = v22;
       v25 = v19;
       v26 = [v25 hasPrefix:@"Priority"];
       v27 = @"priority";
-      if (v26)
+      if (v26 & 1) != 0 || (v28 = [v25 hasPrefix:v88], v27 = @"protectionClassCX", (v28) || (v29 = objc_msgSend(v25, "hasPrefix:", v85), v27 = @"protectionClassC", (v29) || (v30 = objc_msgSend(v25, "hasPrefix:", v84), v27 = @"protectionClassB", (v30) || (v31 = objc_msgSend(v25, "hasPrefix:", v83), v27 = @"protectionClassA", v31))
       {
-        goto LABEL_21;
-      }
-
-      v28 = [v25 hasPrefix:v85];
-      v27 = @"protectionClassCX";
-      if (v28 & 1) != 0 || (v29 = [v25 hasPrefix:v82], v27 = @"protectionClassC", (v29) || (v30 = objc_msgSend(v25, "hasPrefix:", v81), v27 = @"protectionClassB", (v30) || (v31 = objc_msgSend(v25, "hasPrefix:", v80), v27 = @"protectionClassA", v31))
-      {
-LABEL_21:
         incrementIndexStorageSize(v24, v27, v23);
       }
 
@@ -235,7 +227,7 @@ LABEL_28:
 LABEL_33:
         v41 = 1;
 LABEL_34:
-        v1 = v94;
+        v1 = v97;
         goto LABEL_35;
       }
 
@@ -246,90 +238,90 @@ LABEL_34:
         goto LABEL_28;
       }
 
-      v1 = v94;
+      v1 = v97;
       if (isEmbedding(v25))
       {
-        v58 = v24;
-        v59 = @"embedding";
+        v61 = v24;
+        v62 = @"embedding";
       }
 
       else
       {
-        v61 = v25;
-        if ([v61 hasSuffix:@".directoryStoreFile"])
+        v64 = v25;
+        if ([v64 hasSuffix:@".directoryStoreFile"])
         {
 
 LABEL_55:
-          v58 = v24;
-          v59 = @"forwardDirStore";
+          v61 = v24;
+          v62 = @"forwardDirStore";
           goto LABEL_60;
         }
 
-        v62 = [v61 hasSuffix:@".directoryStoreFile.shadow"];
+        v65 = [v64 hasSuffix:@".directoryStoreFile.shadow"];
 
-        if (v62)
+        if (v65)
         {
           goto LABEL_55;
         }
 
-        v63 = [v61 lastPathComponent];
-        if (([v63 isEqualToString:@"reverseDirectoryStore"] & 1) != 0 || objc_msgSend(v63, "isEqualToString:", @"reverseDirectoryStore.shadow"))
+        v66 = [v64 lastPathComponent];
+        if (([v66 isEqualToString:@"reverseDirectoryStore"] & 1) != 0 || objc_msgSend(v66, "isEqualToString:", @"reverseDirectoryStore.shadow"))
         {
 
 LABEL_59:
-          v58 = v24;
-          v59 = @"reverseDirStore";
+          v61 = v24;
+          v62 = @"reverseDirStore";
           goto LABEL_60;
         }
 
-        v64 = [v63 isEqualToString:@"reverseStore.updates"];
+        v67 = [v66 isEqualToString:@"reverseStore.updates"];
 
-        if (v64)
+        if (v67)
         {
           goto LABEL_59;
         }
 
-        if ([v61 hasSuffix:@".indexIds"])
+        if ([v64 hasSuffix:@".indexIds"])
         {
-          v58 = v24;
-          v59 = @"indexId";
+          v61 = v24;
+          v62 = @"indexId";
         }
 
-        else if ([v61 hasSuffix:@".indexTermIds"])
+        else if ([v64 hasSuffix:@".indexTermIds"])
         {
-          v58 = v24;
-          v59 = @"indexTermId";
+          v61 = v24;
+          v62 = @"indexTermId";
         }
 
-        else if ([v61 hasSuffix:@".indexPositions"])
+        else if ([v64 hasSuffix:@".indexPositions"])
         {
-          v58 = v24;
-          v59 = @"position";
+          v61 = v24;
+          v62 = @"position";
         }
 
-        else if ([v61 hasSuffix:@".indexPositionTable"])
+        else if ([v64 hasSuffix:@".indexPositionTable"])
         {
-          v58 = v24;
-          v59 = @"positionTable";
+          v61 = v24;
+          v62 = @"positionTable";
         }
 
-        else if ([v61 hasSuffix:@".indexPostings"])
+        else if ([v64 hasSuffix:@".indexPostings"])
         {
-          v58 = v24;
-          v59 = @"posting";
+          v61 = v24;
+          v62 = @"posting";
         }
 
         else
         {
-          if (![v61 hasSuffix:@".indexScores"])
+          if (![v64 hasSuffix:@".indexScores"])
           {
-            if ([v61 hasSuffix:@".indexGroups"])
+            if ([v64 hasSuffix:@".indexGroups"])
             {
               v32 = v24;
               v33 = @"group";
             }
 
-            else if (isTermIndex(v61))
+            else if (isTermIndex(v64))
             {
               v32 = v24;
               v33 = @"termIndex";
@@ -337,7 +329,7 @@ LABEL_59:
 
             else
             {
-              if (!isJournal(v61))
+              if (!isJournal(v64))
               {
                 v41 = 0;
                 goto LABEL_34;
@@ -352,26 +344,26 @@ LABEL_24:
             goto LABEL_33;
           }
 
-          v58 = v24;
-          v59 = @"score";
+          v61 = v24;
+          v62 = @"score";
         }
       }
 
 LABEL_60:
-      incrementIndexStorageSize(v58, v59, v23);
+      incrementIndexStorageSize(v61, v62, v23);
       v41 = 1;
 LABEL_35:
 
-      v101 = 0;
-      v102 = 0;
-      v42 = [v12 getResourceValue:&v102 forKey:v91 error:&v101];
-      v43 = v102;
-      v44 = v101;
+      v104 = 0;
+      v105 = 0;
+      v42 = [v11 getResourceValue:&v105 forKey:v94 error:&v104];
+      v43 = v105;
+      v44 = v104;
 
       if ((v42 & 1) == 0)
       {
-        v76 = logForCSLogCategoryIndex();
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+        v80 = logForCSLogCategoryIndex(v45);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
         {
           __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_2();
         }
@@ -382,22 +374,22 @@ LABEL_35:
 LABEL_99:
         objc_autoreleasePoolPop(context);
 LABEL_100:
-        v10 = obj;
+        v9 = obj;
 LABEL_101:
 
         goto LABEL_106;
       }
 
-      v99 = 0;
-      v100 = 0;
-      v45 = [v12 getResourceValue:&v100 forKey:v89 error:&v99];
-      v46 = v100;
-      v47 = v99;
+      v102 = 0;
+      v103 = 0;
+      v46 = [v11 getResourceValue:&v103 forKey:v92 error:&v102];
+      v47 = v103;
+      v48 = v102;
 
-      if ((v45 & 1) == 0)
+      if ((v46 & 1) == 0)
       {
-        v77 = logForCSLogCategoryIndex();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+        v81 = logForCSLogCategoryIndex(v49);
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
         {
           __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_3();
         }
@@ -410,52 +402,53 @@ LABEL_101:
 
       if ([v43 unsignedLongValue] > 1)
       {
-        v98 = 0;
-        v48 = [v12 getResourceValue:&v98 forKey:v86 error:0];
-        v49 = v98;
-        if (v48)
+        v101 = 0;
+        v50 = [v11 getResourceValue:&v101 forKey:v89 error:0];
+        v51 = v101;
+        v52 = v51;
+        if (v50)
         {
-          v83 = v48;
-          [*(*(v1 + 32) + 8) objectForKeyedSubscript:v49];
-          v51 = v50 = v1;
+          v86 = v50;
+          [*(*(v1 + 32) + 8) objectForKeyedSubscript:v51];
+          v54 = v53 = v1;
 
-          v52 = MEMORY[0x277CCABB0];
-          if (v51)
+          v55 = MEMORY[0x277CCABB0];
+          if (v54)
           {
-            v53 = [*(*(v50 + 32) + 8) objectForKeyedSubscript:v49];
-            v54 = [v52 numberWithUnsignedLong:{objc_msgSend(v53, "unsignedLongValue") - 1}];
-            [*(*(v50 + 32) + 8) setObject:v54 forKeyedSubscript:v49];
+            v56 = [*(*(v53 + 32) + 8) objectForKeyedSubscript:v52];
+            v57 = [v55 numberWithUnsignedLong:{objc_msgSend(v56, "unsignedLongValue") - 1}];
+            [*(*(v53 + 32) + 8) setObject:v57 forKeyedSubscript:v52];
 
-            v55 = [*(*(v50 + 32) + 8) objectForKeyedSubscript:v49];
-            v56 = [v55 unsignedLongValue];
+            v58 = [*(*(v53 + 32) + 8) objectForKeyedSubscript:v52];
+            v59 = [v58 unsignedLongValue];
 
-            v48 = v83;
-            if (!v56)
+            v50 = v86;
+            if (!v59)
             {
-              [*(*(v94 + 32) + 8) removeObjectForKey:v49];
+              [*(*(v97 + 32) + 8) removeObjectForKey:v52];
             }
           }
 
           else
           {
-            v60 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v43, "unsignedLongValue") - 1}];
-            [*(*(v50 + 32) + 8) setObject:v60 forKeyedSubscript:v49];
+            v63 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v43, "unsignedLongValue") - 1}];
+            [*(*(v53 + 32) + 8) setObject:v63 forKeyedSubscript:v52];
 
-            updateStorageUsageIgnoreLinks(*(*(v50 + 32) + 16), v25, [v96 unsignedLongLongValue], objc_msgSend(v46, "BOOLValue"), v41);
-            v48 = v83;
+            updateStorageUsageIgnoreLinks(*(*(v53 + 32) + 16), v25, [v99 unsignedLongLongValue], objc_msgSend(v47, "BOOLValue"), v41);
+            v50 = v86;
           }
         }
 
         else
         {
-          v57 = logForCSLogCategoryIndex();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          v60 = logForCSLogCategoryIndex(v51);
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v111 = v12;
-            v112 = 2112;
-            v113 = v47;
-            _os_log_error_impl(&dword_231A35000, v57, OS_LOG_TYPE_ERROR, "Failed to get resource identifier: %@, %@", buf, 0x16u);
+            v114 = v11;
+            v115 = 2112;
+            v116 = v48;
+            _os_log_error_impl(&dword_231A35000, v60, OS_LOG_TYPE_ERROR, "Failed to get resource identifier: %@, %@", buf, 0x16u);
           }
 
           [*(v1 + 32) setCanceled:1];
@@ -463,8 +456,8 @@ LABEL_101:
         }
 
         objc_autoreleasePoolPop(context);
-        v1 = v94;
-        if (!v48)
+        v1 = v97;
+        if (!v50)
         {
           goto LABEL_100;
         }
@@ -472,21 +465,21 @@ LABEL_101:
 
       else
       {
-        updateStorageUsageIgnoreLinks(*(*(v1 + 32) + 16), v25, [v96 unsignedLongLongValue], objc_msgSend(v46, "BOOLValue"), v41);
+        updateStorageUsageIgnoreLinks(*(*(v1 + 32) + 16), v25, [v99 unsignedLongLongValue], objc_msgSend(v47, "BOOLValue"), v41);
 
         objc_autoreleasePoolPop(context);
       }
 
-      ++v11;
+      ++v10;
     }
 
-    while (v11 != v88);
-    v10 = obj;
-    v65 = [obj countByEnumeratingWithState:&v105 objects:v114 count:16];
-    v88 = v65;
+    while (v10 != v91);
+    v9 = obj;
+    v68 = [obj countByEnumeratingWithState:&v108 objects:v117 count:16];
+    v91 = v68;
   }
 
-  while (v65);
+  while (v68);
 LABEL_82:
 
   if ([*(v1 + 32) canceled])
@@ -496,58 +489,57 @@ LABEL_82:
 
   else
   {
-    v66 = v10;
-    v67 = *(v1 + 40);
-    v97 = 0;
-    v68 = [v84 attributesOfFileSystemForPath:v67 error:&v97];
-    v69 = v97;
-    if (v69)
+    v69 = v9;
+    v70 = *(v1 + 40);
+    v100 = 0;
+    v71 = [v87 attributesOfFileSystemForPath:v70 error:&v100];
+    v72 = v100;
+    v73 = v72;
+    if (v72)
     {
-      v70 = 1;
+      v74 = 1;
     }
 
     else
     {
-      v70 = v68 == 0;
+      v74 = v71 == 0;
     }
 
-    if (v70)
+    if (v74)
     {
-      v78 = logForCSLogCategoryIndex();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+      v82 = logForCSLogCategoryIndex(v72);
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
       {
-        __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_4(v69, v78);
+        __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_4(v73, v82);
       }
     }
 
     else
     {
-      v71 = [v68 objectForKeyedSubscript:*MEMORY[0x277CCA1D8]];
-      v72 = [v71 unsignedLongLongValue];
+      v75 = [v71 objectForKeyedSubscript:*MEMORY[0x277CCA1D8]];
+      v76 = [v75 unsignedLongLongValue];
 
-      v73 = [v68 objectForKeyedSubscript:*MEMORY[0x277CCA1D0]];
-      v74 = [v73 unsignedLongLongValue];
+      v77 = [v71 objectForKeyedSubscript:*MEMORY[0x277CCA1D0]];
+      v78 = [v77 unsignedLongLongValue];
 
-      v1 = v94;
-      incrementIndexStorageSize(*(*(v94 + 32) + 16), @"diskSpace", v72);
-      incrementIndexStorageSize(*(*(v94 + 32) + 16), @"spaceLeft", v74);
+      v1 = v97;
+      incrementIndexStorageSize(*(*(v97 + 32) + 16), @"diskSpace", v76);
+      incrementIndexStorageSize(*(*(v97 + 32) + 16), @"spaceLeft", v78);
     }
 
     (*(*(v1 + 48) + 16))();
 
-    v10 = v66;
+    v9 = v69;
   }
 
 LABEL_106:
-
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = logForCSLogCategoryIndex();
+  v7 = logForCSLogCategoryIndex(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_3_cold_1();
@@ -559,78 +551,83 @@ uint64_t __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___bloc
 
 - (void)sendToCoreAnalyticsWithLiveDocCount:(unint64_t)count deadDocCount:(unint64_t)docCount
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   if (![(SPIndexStorageUsageCollector *)self canceled])
   {
     countCopy = count;
     docCountCopy = docCount;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v7 = self->_storageUsage;
-    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v50 objects:v58 count:16];
+    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v49 objects:v57 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v51;
+      v10 = *v50;
       do
       {
-        for (i = 0; i != v9; ++i)
+        v11 = 0;
+        do
         {
-          if (*v51 != v10)
+          if (*v50 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v50 + 1) + 8 * i);
-          v13 = logForCSLogCategoryIndex();
+          v12 = *(*(&v49 + 1) + 8 * v11);
+          v13 = logForCSLogCategoryIndex(v8);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v14 = [(NSMutableDictionary *)self->_storageUsage objectForKeyedSubscript:v12];
             [v14 unsignedLongLongValue];
-            LOBYTE(v60) = 0;
+            LOBYTE(v59) = 0;
             *buf = 0;
             humanize_number();
             v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:buf];
             *buf = 138412546;
-            v60 = v12;
-            v61 = 2112;
-            v62 = v15;
+            v59 = v12;
+            v60 = 2112;
+            v61 = v15;
             _os_log_impl(&dword_231A35000, v13, OS_LOG_TYPE_DEFAULT, "Index type %@ size %@", buf, 0x16u);
           }
+
+          ++v11;
         }
 
-        v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        while (v9 != v11);
+        v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v9 = v8;
       }
 
-      while (v9);
+      while (v8);
     }
 
     v16 = self->_storageUsage;
     v17 = objc_opt_new();
-    v48 = v16;
+    v47 = v16;
     allKeys = [(NSMutableDictionary *)v16 allKeys];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     obj = allKeys;
-    v19 = [allKeys countByEnumeratingWithState:&v54 objects:buf count:16];
+    v19 = [allKeys countByEnumeratingWithState:&v53 objects:buf count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v55;
+      v21 = *v54;
       do
       {
-        for (j = 0; j != v20; ++j)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v55 != v21)
+          if (*v54 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v54 + 1) + 8 * j);
+          v23 = *(*(&v53 + 1) + 8 * i);
           if ([v23 isEqualToString:@"spaceLeft"])
           {
             v24 = 30;
@@ -647,12 +644,12 @@ uint64_t __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___bloc
           }
 
           v25 = MEMORY[0x277CCABB0];
-          v26 = [(NSMutableDictionary *)v48 objectForKeyedSubscript:v23];
+          v26 = [(NSMutableDictionary *)v47 objectForKeyedSubscript:v23];
           v27 = [v25 numberWithUnsignedLongLong:{objc_msgSend(v26, "unsignedLongLongValue") >> v24}];
           [v17 setObject:v27 forKeyedSubscript:v23];
         }
 
-        v20 = [obj countByEnumeratingWithState:&v54 objects:buf count:16];
+        v20 = [obj countByEnumeratingWithState:&v53 objects:buf count:16];
       }
 
       while (v20);
@@ -683,53 +680,18 @@ uint64_t __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___bloc
     [v17 setObject:stringValue forKeyedSubscript:@"embeddingModelVersion"];
 
     v42 = [v17 copy];
-    v49 = v42;
+    v48 = v42;
     v43 = v42;
     AnalyticsSendEventLazy();
   }
-
-  v44 = *MEMORY[0x277D85DE8];
-}
-
-void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_3(&dword_231A35000, v0, v1, "Failed to get file size: %@, %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_3(&dword_231A35000, v0, v1, "Failed to get link count: %@, %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_3(&dword_231A35000, v0, v1, "Failed to get purgeability: %@, %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_2_cold_4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve file system attributes: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __62__SPIndexStorageUsageCollector_collectAtPath_completionBlock___block_invoke_3_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_3(&dword_231A35000, v0, v1, "Error enumerating file: %@, %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve file system attributes: %@", &v2, 0xCu);
 }
 
 @end

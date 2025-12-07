@@ -17,6 +17,7 @@
 - (void)getServiceConfigurationInfo:(id)info serviceID:(id)d completion:(id)completion;
 - (void)getSupportedThirdPartyMediaServices:(id)services;
 - (void)openConnection;
+- (void)overrideAppleMusicSubscriptionStatus:(BOOL)status homeUserIDS:(id)s completion:(id)completion;
 - (void)removeMediaService:(id)service homeID:(id)d homeUserID:(id)iD completion:(id)completion;
 - (void)requestAuthRenewalForMediaService:(id)service homeUserID:(id)d parentNetworkActivity:(id)activity completion:(id)completion;
 - (void)setVersion:(unint64_t)version completion:(id)completion;
@@ -35,21 +36,21 @@
   v9.receiver = self;
   v9.super_class = MSServerMediator;
   v5 = [(MSServerMediator *)&v9 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = _MSLogingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _MSLogingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v11 = "[MSServerMediator initWithAccountsDelegate:]";
-      _os_log_impl(&dword_23986C000, v6, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      _os_log_impl(&dword_23986C000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
-    objc_storeWeak(&v5->_accountsInterfaceDelegate, delegateCopy);
+    objc_storeWeak(&v6->_accountsInterfaceDelegate, delegateCopy);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 - (void)openConnection
@@ -114,10 +115,10 @@
 
   if (!accountsInterfaceDelegate)
   {
-    v10 = _MSLogingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _MSLogingFacility(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(MSServerMediator *)v10 getMediaServiceChoicesForSharedUser:v11 completion:v12, v13, v14, v15, v16, v17];
+      [(MSServerMediator *)v11 getMediaServiceChoicesForSharedUser:v12 completion:v13, v14, v15, v16, v17, v18];
     }
 
     accountsInterfaceDelegate2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.mediasetup.errorDomain" code:1 userInfo:0];
@@ -140,10 +141,10 @@ LABEL_7:
 
   if (!accountsInterfaceDelegate)
   {
-    v7 = _MSLogingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _MSLogingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(MSServerMediator *)v7 getMediaServiceChoicesForSharedUser:v8 completion:v9, v10, v11, v12, v13, v14];
+      [(MSServerMediator *)v8 getMediaServiceChoicesForSharedUser:v9 completion:v10, v11, v12, v13, v14, v15];
     }
 
     accountsInterfaceDelegate2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.mediasetup.errorDomain" code:1 userInfo:0];
@@ -326,6 +327,20 @@ LABEL_7:
   }
 }
 
+- (void)overrideAppleMusicSubscriptionStatus:(BOOL)status homeUserIDS:(id)s completion:(id)completion
+{
+  statusCopy = status;
+  sCopy = s;
+  completionCopy = completion;
+  accountsInterfaceDelegate = [(MSServerMediator *)self accountsInterfaceDelegate];
+
+  if (accountsInterfaceDelegate)
+  {
+    accountsInterfaceDelegate2 = [(MSServerMediator *)self accountsInterfaceDelegate];
+    [accountsInterfaceDelegate2 overrideAppleMusicSubscriptionStatus:statusCopy homeUserIDS:sCopy completion:completionCopy];
+  }
+}
+
 - (void)getResolvedServiceInfo:(id)info completion:(id)completion
 {
   infoCopy = info;
@@ -374,10 +389,10 @@ LABEL_7:
 
   if (!accountsInterfaceDelegate)
   {
-    v7 = _MSLogingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _MSLogingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(MSServerMediator *)v7 getMediaServiceChoicesForSharedUser:v8 completion:v9, v10, v11, v12, v13, v14];
+      [(MSServerMediator *)v8 getMediaServiceChoicesForSharedUser:v9 completion:v10, v11, v12, v13, v14, v15];
     }
 
     accountsInterfaceDelegate2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.mediasetup.errorDomain" code:1 userInfo:0];

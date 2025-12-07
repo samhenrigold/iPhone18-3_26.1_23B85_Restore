@@ -13,10 +13,10 @@ void __56___PXStoryExportOperation_collectAnalyticsForExportEnd___block_invoke(u
   [PXStoryExportManager collectAnalyticsForExportEndWithConfiguration:v6 analyticsToken:v3 model:v4 withSuccess:v2 error:v5];
 }
 
-uint64_t __61___PXStoryExportOperation_engine_shouldRenderLayout_sprites___block_invoke(uint64_t result, uint64_t a2, unsigned int **a3, _BYTE *a4)
+void __61___PXStoryExportOperation_engine_shouldRenderLayout_sprites___block_invoke(uint64_t a1, uint64_t a2, unsigned int **a3, _BYTE *a4)
 {
   v4 = **a3;
-  v5 = *(*(result + 64) + v4);
+  v5 = *(*(a1 + 64) + v4);
   if (*a3[3] == 1 && v5 != 0)
   {
     PXAssertGetLog();
@@ -26,8 +26,8 @@ uint64_t __61___PXStoryExportOperation_engine_shouldRenderLayout_sprites___block
   {
     if (v5 == 4)
     {
-      *(*(*(result + 56) + 8) + 24) = 1;
-      [*(result + 40) errorForEntity:v4];
+      *(*(*(a1 + 56) + 8) + 24) = 1;
+      [*(a1 + 40) errorForEntity:v4];
       objc_claimAutoreleasedReturnValue();
       v7 = objc_alloc(MEMORY[0x1E696AEC0]);
       v8 = objc_opt_class();
@@ -39,11 +39,9 @@ uint64_t __61___PXStoryExportOperation_engine_shouldRenderLayout_sprites___block
 
   else
   {
-    *(*(*(result + 56) + 8) + 24) = 1;
+    *(*(*(a1 + 56) + 8) + 24) = 1;
     *a4 = 1;
   }
-
-  return result;
 }
 
 void __46___PXStoryExportOperation__initializeProgress__block_invoke(uint64_t a1)
@@ -111,7 +109,7 @@ void __55___PXStoryExportOperation__audibleVideoHilightsInStory__block_invoke_2(
       v52 = *(a5 + 752);
       if (v9 >= 2)
       {
-        v11 = [*(v8 + 32) clipWithIdentifier:*a5];
+        v11 = [*(v8 + 32) clipWithIdentifier:{*a5, a4}];
         v12 = [v11 resource];
         v13 = [v12 px_storyResourceDisplayAsset];
         objc_opt_class();
@@ -169,7 +167,8 @@ void __55___PXStoryExportOperation__audibleVideoHilightsInStory__block_invoke_2(
             start.flags = v26;
             start.epoch = v23;
             *duration = v55;
-            *&duration[8] = __PAIR64__(v15, v56);
+            *&duration[8] = v56;
+            *&duration[12] = v15;
             v20 = v28;
             *&duration[16] = v28;
             CMTimeSubtract(v33, &start, duration);
@@ -252,139 +251,139 @@ intptr_t __84___PXStoryExportOperation__addAudioAssetsForVideoHilightsToAudioCom
   return result;
 }
 
-void __84___PXStoryExportOperation__addAudioAssetsForVideoHilightsToAudioCompositionBuilder___block_invoke_2(uint64_t a1)
+void __84___PXStoryExportOperation__addAudioAssetsForVideoHilightsToAudioCompositionBuilder___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v56 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v57 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (!v3)
   {
-    v15 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x1E6978DF0]];
-    v16 = [*(a1 + 56) asset];
-    v22 = PXStoryErrorCreateWithCodeUnderlyingErrorDebugFormat(10, v15, @"failed to load video for asset %@", v17, v18, v19, v20, v21, v16);
-    [*(a1 + 40) _setError:v22];
+    v16 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x1E6978DF0]];
+    v17 = [*(a1 + 56) asset];
+    v23 = PXStoryErrorCreateWithCodeUnderlyingErrorDebugFormat(10, v16, @"failed to load video for asset %@", v18, v19, v20, v21, v22, v17);
+    [*(a1 + 40) _setError:v23];
 
-    v23 = PLStoryGetLog();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = PLStoryGetLog();
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_22;
     }
 
-    v24 = [*(a1 + 56) asset];
-    v25 = [v24 uuid];
+    v25 = [*(a1 + 56) asset];
+    v26 = [v25 uuid];
     LODWORD(buf[0]) = 138543362;
-    *(buf + 4) = v25;
-    v26 = "failed to load video for asset %{public}@";
-    v27 = v23;
+    *(buf + 4) = v26;
+    v27 = "failed to load video for asset %{public}@";
+    v28 = v24;
     goto LABEL_20;
   }
 
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 64);
-  if (!v3)
+  v4 = *(a1 + 56);
+  v5 = *(a1 + 64);
+  if (!v4)
   {
-    memset(v54, 0, sizeof(v54));
+    memset(v55, 0, sizeof(v55));
     goto LABEL_12;
   }
 
-  [v3 loadedVideoPlaybackStartTime];
-  v5 = *(a1 + 56);
-  if (!v5)
+  objc_msgSend_loadedVideoPlaybackStartTime(v4, a2);
+  v6 = *(a1 + 56);
+  if (!v6)
   {
 LABEL_12:
     memset(buf, 0, sizeof(buf));
     goto LABEL_13;
   }
 
-  [v5 storyPlaybackRange];
-  v6 = *(a1 + 56);
-  if (!v6)
+  objc_msgSend_storyPlaybackRange(v6);
+  v7 = *(a1 + 56);
+  if (!v7)
   {
 LABEL_13:
-    v53 = 0;
-    v51 = 0u;
+    v54 = 0;
     v52 = 0u;
-    v50 = 0u;
-    v8 = 0;
+    v53 = 0u;
+    v51 = 0u;
+    v9 = 0;
     goto LABEL_14;
   }
 
-  [v6 audioInfo];
-  v7 = *(a1 + 56);
-  v8 = v51;
-  if (!v7)
+  objc_msgSend_audioInfo(v7);
+  v8 = *(a1 + 56);
+  v9 = v52;
+  if (!v8)
   {
 LABEL_14:
-    v49 = 0;
-    v47 = 0u;
+    v50 = 0;
     v48 = 0u;
-    v46 = 0u;
-    v9 = 0.0;
+    v49 = 0u;
+    v47 = 0u;
+    v10 = 0.0;
     goto LABEL_15;
   }
 
-  [v7 audioInfo];
-  v9 = *(&v48 + 1);
-  v10 = *(a1 + 56);
-  if (!v10)
+  objc_msgSend_audioInfo(v8);
+  v10 = *(&v49 + 1);
+  v11 = *(a1 + 56);
+  if (!v11)
   {
 LABEL_15:
-    v45 = 0.0;
-    v43 = 0u;
+    v46 = 0.0;
     v44 = 0u;
-    v42 = 0u;
-    v12 = 0.0;
+    v45 = 0u;
+    v43 = 0u;
+    v13 = 0.0;
     goto LABEL_16;
   }
 
-  [v10 audioInfo];
-  v11 = *(a1 + 56);
-  v12 = v45;
-  if (v11)
+  objc_msgSend_audioInfo(v11);
+  v12 = *(a1 + 56);
+  v13 = v46;
+  if (v12)
   {
-    [v11 audioInfo];
-    v14 = v38 == 3;
+    objc_msgSend_audioInfo(v12);
+    v15 = v39 == 3;
     goto LABEL_17;
   }
 
 LABEL_16:
-  v14 = 0;
-  v41 = 0;
-  HIDWORD(v13) = 0;
-  v39 = 0u;
+  v15 = 0;
+  v42 = 0;
+  HIDWORD(v14) = 0;
   v40 = 0u;
-  v38 = 0u;
+  v41 = 0u;
+  v39 = 0u;
 LABEL_17:
-  v37 = 0;
-  LODWORD(v13) = v8;
-  v28 = [v4 addAudioFromVideoHighlightAsset:v2 fromTime:v54 atStoryTimeRange:buf volume:v14 fadeIn:&v37 fadeOut:v13 shouldDuck:v9 error:v12];
-  v23 = v37;
-  if (v28)
+  v38 = 0;
+  LODWORD(v14) = v9;
+  v29 = [v5 addAudioFromVideoHighlightAsset:v3 fromTime:v55 atStoryTimeRange:buf volume:v15 fadeIn:&v38 fadeOut:v14 shouldDuck:v10 error:v13];
+  v24 = v38;
+  if (v29)
   {
     goto LABEL_22;
   }
 
-  v29 = [*(a1 + 56) asset];
-  v24 = [v29 uuid];
+  v30 = [*(a1 + 56) asset];
+  v25 = [v30 uuid];
 
-  v35 = PXStoryErrorCreateWithCodeUnderlyingErrorDebugFormat(10, v23, @"failed to add audio from video %@ for asset %@", v30, v31, v32, v33, v34, *(a1 + 32));
-  [*(a1 + 40) _setError:v35];
+  v36 = PXStoryErrorCreateWithCodeUnderlyingErrorDebugFormat(10, v24, @"failed to add audio from video %@ for asset %@", v31, v32, v33, v34, v35, *(a1 + 32));
+  [*(a1 + 40) _setError:v36];
 
-  v25 = PLStoryGetLog();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v26 = PLStoryGetLog();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     LODWORD(buf[0]) = 138543362;
-    *(buf + 4) = v24;
-    v26 = "failed to add audio from video %{public}@";
-    v27 = v25;
+    *(buf + 4) = v25;
+    v27 = "failed to add audio from video %{public}@";
+    v28 = v26;
 LABEL_20:
-    _os_log_impl(&dword_1A3C1C000, v27, OS_LOG_TYPE_ERROR, v26, buf, 0xCu);
+    _os_log_impl(&dword_1A3C1C000, v28, OS_LOG_TYPE_ERROR, v27, buf, 0xCu);
   }
 
 LABEL_22:
-  v36 = *(*(a1 + 80) + 8);
-  if ((*(v36 + 24) & 1) == 0)
+  v37 = *(*(a1 + 80) + 8);
+  if ((*(v37 + 24) & 1) == 0)
   {
-    *(v36 + 24) = 1;
+    *(v37 + 24) = 1;
     dispatch_semaphore_signal(*(a1 + 72));
   }
 }
@@ -454,13 +453,13 @@ void __66___PXStoryExportOperation__addSongAssetToAudioCompositionBuilder___bloc
   if (objc_opt_isKindOfClass())
   {
     v5 = v4;
-    [v5 targetDuration];
+    objc_msgSend_targetDuration(v5);
     if ((v19 & 1) == 0)
     {
       v6 = *(a1 + 32);
       if (v6)
       {
-        [v6 exportDuration];
+        objc_msgSend_exportDuration(v6);
       }
     }
 
@@ -848,7 +847,7 @@ void __68___PXStoryExportOperation__preloadStoryResourcesAndWaitForBuffering__bl
   v4 = v3;
   if (v3)
   {
-    [v3 timeRange];
+    objc_msgSend_timeRange(v3);
   }
 
   else
@@ -874,7 +873,7 @@ void __68___PXStoryExportOperation__preloadStoryResourcesAndWaitForBuffering__bl
     v13 = v12;
     if (v12)
     {
-      [v12 outroDuration];
+      objc_msgSend_outroDuration(v12);
     }
 
     else

@@ -14,7 +14,7 @@ void sub_630(uint64_t a1, uint64_t a2, void *a3, char *context)
 
   if (a1 == 2)
   {
-    v9 = (context + 16);
+    v9 = context + 16;
     v10 = context + 16;
     while (1)
     {
@@ -24,7 +24,7 @@ void sub_630(uint64_t a1, uint64_t a2, void *a3, char *context)
         break;
       }
 
-      if (v10[1] == a2)
+      if (*(v10 + 1) == a2)
       {
         for (i = *v9; i != v10; i = *i)
         {
@@ -56,21 +56,20 @@ void sub_630(uint64_t a1, uint64_t a2, void *a3, char *context)
 
 void sub_794(uint64_t a1)
 {
-  v4[0] = 0;
-  v4[1] = v4;
-  v4[2] = 0x2000000000;
-  v4[3] = 0;
+  v2[0] = 0;
+  v2[1] = v2;
+  v2[2] = 0x2000000000;
+  v2[3] = 0;
   block[0] = _NSConcreteStackBlock;
   block[1] = 0x40000000;
   block[2] = sub_A84;
   block[3] = &unk_4120;
-  block[4] = v4;
+  block[4] = v2;
   if (qword_4178 != -1)
   {
     dispatch_once(&qword_4178, block);
   }
 
-  v2 = *(a1 + 8);
   xpc_event_provider_get_queue();
 }
 
@@ -156,9 +155,9 @@ void sub_AD8(uint64_t a1)
   v3 = qword_4168;
   if (os_log_type_enabled(qword_4168, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
-    v13 = data;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Got VFS event: %lu", &v12, 0xCu);
+    v10 = 134217984;
+    v11 = data;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Got VFS event: %lu", &v10, 0xCu);
   }
 
   v4 = xpc_dictionary_create(0, 0, 0);
@@ -173,8 +172,6 @@ void sub_AD8(uint64_t a1)
       if ((v6[4] & data) != 0 && ((v6[4] & data) != 4 || (v8 = v6[2]) == 0 || v8 >= 1 && ((v9 = v6[3]) == 0 || v9 + 1000000000 * v8 <= v7)))
       {
         v6[3] = v7;
-        v10 = *(*(a1 + 40) + 8);
-        v11 = v6[1];
         xpc_event_provider_token_fire();
       }
 

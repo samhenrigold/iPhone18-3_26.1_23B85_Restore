@@ -205,47 +205,46 @@
 
 - (id)_existingFileTransfersForMessageGuid:(id)guid
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   guidCopy = guid;
   v4 = +[IMDMessageStore sharedInstance];
   v5 = [v4 messageWithGUID:guidCopy];
   v6 = +[IMDFileTransferCenter sharedInstance];
   fileTransferGUIDs = [v5 fileTransferGUIDs];
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = fileTransferGUIDs;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [v6 transferForGUID:{*(*(&v18 + 1) + 8 * i), v18}];
+        v14 = [v6 transferForGUID:{*(*(&v17 + 1) + 8 * i), v17}];
         if (v14)
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   v15 = [v8 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

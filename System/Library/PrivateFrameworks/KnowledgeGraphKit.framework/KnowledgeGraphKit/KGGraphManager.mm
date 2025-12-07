@@ -91,11 +91,11 @@
 
 void __40__KGGraphManager_submitReadBlock_async___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v18 = 0;
-  v3 = [v2 obtainReadOnlyStore:&v18];
-  v4 = v18;
+  v17 = 0;
+  v3 = [v2 obtainReadOnlyStore:&v17];
+  v4 = v17;
   v5 = v4;
   if (!v3)
   {
@@ -106,9 +106,9 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v17 = v4;
-  v6 = [v3 beginTransactionWithError:&v17];
-  v7 = v17;
+  v16 = v4;
+  v6 = [v3 beginTransactionWithError:&v16];
+  v7 = v16;
 
   if (v6)
   {
@@ -117,9 +117,9 @@ LABEL_12:
 
     if (v9)
     {
-      v16 = v7;
-      v10 = [v3 commitTransactionWithError:&v16];
-      v5 = v16;
+      v15 = v7;
+      v10 = [v3 commitTransactionWithError:&v15];
+      v5 = v15;
 
       if ((v10 & 1) != 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -127,16 +127,16 @@ LABEL_12:
       }
 
       *buf = 138412290;
-      v20 = v5;
+      v19 = v5;
       v11 = MEMORY[0x277D86220];
       v12 = "database commit failed: %@";
     }
 
     else
     {
-      v15 = v7;
-      v13 = [v3 rollbackTransactionWithError:&v15];
-      v5 = v15;
+      v14 = v7;
+      v13 = [v3 rollbackTransactionWithError:&v14];
+      v5 = v14;
 
       if ((v13 & 1) != 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -144,7 +144,7 @@ LABEL_12:
       }
 
       *buf = 138412290;
-      v20 = v5;
+      v19 = v5;
       v11 = MEMORY[0x277D86220];
       v12 = "database rollback failed: %@";
     }
@@ -159,7 +159,6 @@ LABEL_11:
   (*(*(a1 + 48) + 16))();
 
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __40__KGGraphManager_submitReadBlock_async___block_invoke_13(uint64_t a1)
@@ -222,17 +221,17 @@ void __40__KGGraphManager_submitReadBlock_async___block_invoke_13(uint64_t a1)
 
 void __41__KGGraphManager_submitWriteBlock_async___block_invoke(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v19 = 0;
-  v3 = [v2 obtainReadWriteStore:&v19];
-  v4 = v19;
+  v18 = 0;
+  v3 = [v2 obtainReadWriteStore:&v18];
+  v4 = v18;
   v5 = v4;
   if (v3)
   {
-    v18 = v4;
-    v6 = [v3 beginTransactionWithError:&v18];
-    v7 = v18;
+    v17 = v4;
+    v6 = [v3 beginTransactionWithError:&v17];
+    v7 = v17;
 
     if (v6)
     {
@@ -241,9 +240,9 @@ void __41__KGGraphManager_submitWriteBlock_async___block_invoke(void *a1)
 
       if (v9)
       {
-        v17 = v7;
-        v10 = [v3 commitTransactionWithError:&v17];
-        v11 = v17;
+        v16 = v7;
+        v10 = [v3 commitTransactionWithError:&v16];
+        v11 = v16;
 
         if ((v10 & 1) != 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -251,16 +250,16 @@ void __41__KGGraphManager_submitWriteBlock_async___block_invoke(void *a1)
         }
 
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         v12 = MEMORY[0x277D86220];
         v13 = "database commit failed: %@";
       }
 
       else
       {
-        v16 = v7;
-        v14 = [v3 rollbackTransactionWithError:&v16];
-        v11 = v16;
+        v15 = v7;
+        v14 = [v3 rollbackTransactionWithError:&v15];
+        v11 = v15;
 
         if ((v14 & 1) != 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -268,7 +267,7 @@ void __41__KGGraphManager_submitWriteBlock_async___block_invoke(void *a1)
         }
 
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         v12 = MEMORY[0x277D86220];
         v13 = "database rollback failed: %@";
       }
@@ -289,8 +288,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitExclusiveBlock:(id)block async:(BOOL)async
@@ -335,17 +332,17 @@ LABEL_12:
 
 void __45__KGGraphManager_submitExclusiveBlock_async___block_invoke(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v19 = 0;
-  v3 = [v2 obtainReadWriteStore:&v19];
-  v4 = v19;
+  v18 = 0;
+  v3 = [v2 obtainReadWriteStore:&v18];
+  v4 = v18;
   v5 = v4;
   if (v3)
   {
-    v18 = v4;
-    v6 = [v3 beginTransactionWithError:&v18];
-    v7 = v18;
+    v17 = v4;
+    v6 = [v3 beginTransactionWithError:&v17];
+    v7 = v17;
 
     if (v6)
     {
@@ -354,9 +351,9 @@ void __45__KGGraphManager_submitExclusiveBlock_async___block_invoke(void *a1)
 
       if (v9)
       {
-        v17 = v7;
-        v10 = [v3 commitTransactionWithError:&v17];
-        v11 = v17;
+        v16 = v7;
+        v10 = [v3 commitTransactionWithError:&v16];
+        v11 = v16;
 
         if ((v10 & 1) != 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -364,16 +361,16 @@ void __45__KGGraphManager_submitExclusiveBlock_async___block_invoke(void *a1)
         }
 
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         v12 = MEMORY[0x277D86220];
         v13 = "database commit failed: %@";
       }
 
       else
       {
-        v16 = v7;
-        v14 = [v3 rollbackTransactionWithError:&v16];
-        v11 = v16;
+        v15 = v7;
+        v14 = [v3 rollbackTransactionWithError:&v15];
+        v11 = v15;
 
         if ((v14 & 1) != 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -381,7 +378,7 @@ void __45__KGGraphManager_submitExclusiveBlock_async___block_invoke(void *a1)
         }
 
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         v12 = MEMORY[0x277D86220];
         v13 = "database rollback failed: %@";
       }
@@ -402,8 +399,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decrementReadCount
@@ -532,7 +527,7 @@ void __41__KGGraphManager_replaceFromGraph_error___block_invoke(uint64_t a1)
 
 - (void)doClose
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   readWriteStore = self->_readWriteStore;
   if (readWriteStore)
   {
@@ -541,31 +536,31 @@ void __41__KGGraphManager_replaceFromGraph_error___block_invoke(uint64_t a1)
     self->_readWriteStore = 0;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_readOnlyStores;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) close];
+        [*(*(&v11 + 1) + 8 * v9++) close];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -576,7 +571,6 @@ void __41__KGGraphManager_replaceFromGraph_error___block_invoke(uint64_t a1)
 
   *self->_readStoreBooking = 0;
   self->_closed = 1;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)obtainReadWriteStore:(id *)store
@@ -723,9 +717,9 @@ LABEL_16:
 {
   lCopy = l;
   factoryCopy = factory;
-  v27.receiver = self;
-  v27.super_class = KGGraphManager;
-  v9 = [(KGGraphManager *)&v27 init];
+  v24.receiver = self;
+  v24.super_class = KGGraphManager;
+  v9 = [(KGGraphManager *)&v24 init];
   v10 = v9;
   if (v9)
   {
@@ -753,19 +747,16 @@ LABEL_16:
     writeFeederQueue = v10->_writeFeederQueue;
     v10->_writeFeederQueue = v19;
 
-    v21 = v10->_executionQueue;
     dispatch_set_qos_class_fallback();
-    v22 = v10->_readFeederQueue;
     dispatch_set_qos_class_fallback();
-    v23 = v10->_writeFeederQueue;
     dispatch_set_qos_class_fallback();
     dispatch_activate(v10->_executionQueue);
     dispatch_activate(v10->_readFeederQueue);
     dispatch_activate(v10->_writeFeederQueue);
     *v10->_readStoreBooking = 0;
-    v24 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:4];
+    v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:4];
     readOnlyStores = v10->_readOnlyStores;
-    v10->_readOnlyStores = v24;
+    v10->_readOnlyStores = v21;
   }
 
   return v10;

@@ -1,16 +1,42 @@
 @interface UARPPersonalizationRequest
 - (BOOL)executeWithResponse:(id)response;
 - (NSNumber)ecid;
+- (UARPPersonalizationRequest)initWithChipName:(id)name boardID:(id)d chipID:(id)iD securityDomain:(id)domain productionMode:(BOOL)mode securityMode:(BOOL)securityMode nonce:(id)nonce manifestEntries:(id)self0;
 - (id)description;
 - (id)keyForFieldName:(id)name default:(__CFString *)default;
 - (id)personalizationParameterDict;
 - (id)personalizationRequestDict;
 - (id)requestTicketName;
 - (id)responseTicketName;
+- (void)convertManifestEntries:(id)entries productionMode:(BOOL)mode securityMode:(BOOL)securityMode;
 - (void)dealloc;
 @end
 
 @implementation UARPPersonalizationRequest
+
+- (UARPPersonalizationRequest)initWithChipName:(id)name boardID:(id)d chipID:(id)iD securityDomain:(id)domain productionMode:(BOOL)mode securityMode:(BOOL)securityMode nonce:(id)nonce manifestEntries:(id)self0
+{
+  securityModeCopy = securityMode;
+  modeCopy = mode;
+  v18.receiver = self;
+  v18.super_class = UARPPersonalizationRequest;
+  v16 = [(UARPPersonalizationRequest *)&v18 init];
+  if (v16)
+  {
+    v16->_chipName = [name copy];
+    v16->_boardID = d;
+    v16->_chipID = iD;
+    v16->_securityDomain = domain;
+    [(UARPPersonalizationRequest *)v16 setProductionMode:modeCopy];
+    [(UARPPersonalizationRequest *)v16 setSecurityMode:securityModeCopy];
+    [(UARPPersonalizationRequest *)v16 setNonce:nonce];
+    [(UARPPersonalizationRequest *)v16 convertManifestEntries:entries productionMode:modeCopy securityMode:securityModeCopy];
+    v16->_authInstallRef = AMAuthInstallCreate();
+    v16->_serverURL = [[NSURL alloc] initWithString:@"https://gs.apple.com:443"];
+  }
+
+  return v16;
+}
 
 - (void)dealloc
 {
@@ -129,6 +155,47 @@
   }
 }
 
+- (void)convertManifestEntries:(id)entries productionMode:(BOOL)mode securityMode:(BOOL)securityMode
+{
+  securityModeCopy = securityMode;
+  modeCopy = mode;
+  v8 = +[NSMutableArray array];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  obj = entries;
+  v9 = [entries countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v17;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v13 = -[UARPManifestEntry initWithName:digest:trusted:productionMode:securityMode:]([UARPManifestEntry alloc], "initWithName:digest:trusted:productionMode:securityMode:", [*(*(&v16 + 1) + 8 * v12) name], objc_msgSend(*(*(&v16 + 1) + 8 * v12), "digest"), objc_msgSend(*(*(&v16 + 1) + 8 * v12), "trusted"), modeCopy, securityModeCopy);
+        [v8 addObject:v13];
+
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+  }
+
+  self->_manifestEntries = [[NSArray alloc] initWithArray:v8];
+}
+
 - (id)description
 {
   v3 = +[NSMutableString string];
@@ -197,28 +264,11 @@
 
 - (BOOL)executeWithResponse:(id)response
 {
-  authInstallRef = self->_authInstallRef;
-  serverURL = self->_serverURL;
-  if (AMAuthInstallSetSigningServerURL())
+  if (AMAuthInstallSetSigningServerURL() || self->_useSingleSignOn && (AMAuthInstallSsoInitialize() || AMAuthInstallSsoEnable()))
   {
     return 0;
   }
 
-  if (self->_useSingleSignOn)
-  {
-    if (AMAuthInstallSsoInitialize())
-    {
-      return 0;
-    }
-
-    v7 = self->_authInstallRef;
-    if (AMAuthInstallSsoEnable())
-    {
-      return 0;
-    }
-  }
-
-  v8 = self->_authInstallRef;
   [(UARPPersonalizationRequest *)self personalizationParameterDict];
   if (AMAuthInstallApSetParameters())
   {
@@ -226,13 +276,13 @@
   }
 
   global_queue = dispatch_get_global_queue(0, 0);
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10002CF8C;
-  v11[3] = &unk_100081C58;
-  v11[4] = self;
-  v11[5] = response;
-  dispatch_async(global_queue, v11);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10002CF8C;
+  v7[3] = &unk_100081C58;
+  v7[4] = self;
+  v7[5] = response;
+  dispatch_async(global_queue, v7);
   return 1;
 }
 

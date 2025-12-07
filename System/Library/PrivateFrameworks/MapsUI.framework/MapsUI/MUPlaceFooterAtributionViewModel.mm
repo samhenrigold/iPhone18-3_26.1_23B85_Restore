@@ -11,35 +11,35 @@
 
 - (id)attributedText
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_providerNames count])
   {
     formatString = self->_formatString;
-    v24 = *MEMORY[0x1E69DB650];
-    v4 = v24;
+    v23 = *MEMORY[0x1E69DB650];
+    v4 = v23;
     v5 = MEMORY[0x1E69DC888];
     v6 = formatString;
     secondaryLabelColor = [v5 secondaryLabelColor];
-    v26[0] = secondaryLabelColor;
-    v25 = *MEMORY[0x1E69DB648];
-    v8 = v25;
+    v25[0] = secondaryLabelColor;
+    v24 = *MEMORY[0x1E69DB648];
+    v8 = v24;
     v9 = *MEMORY[0x1E69DDD28];
     v10 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD28]];
-    v26[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v24 count:2];
+    v25[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v23 count:2];
 
     v12 = [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:self->_providerNames];
-    v22[0] = v4;
+    v21[0] = v4;
     v13 = +[MUInfoCardStyle tintColor];
     v14 = *MEMORY[0x1E69DB670];
-    v23[0] = v13;
-    v23[1] = &stru_1F44CA030;
-    v22[1] = v14;
-    v22[2] = v8;
+    v22[0] = v13;
+    v22[1] = &stru_1F44CA030;
+    v21[1] = v14;
+    v21[2] = v8;
     v15 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v9];
     v16 = [v15 _mapkit_fontWithWeight:*MEMORY[0x1E69DB980]];
-    v23[2] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v22[2] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
 
     if (self->_interactable)
     {
@@ -58,8 +58,6 @@
   {
     v19 = objc_opt_new();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -120,7 +118,7 @@
 
 + (id)_attributionViewModelForProviderName:(id)name attributionURLs:(id)ls
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   lsCopy = ls;
   if ([nameCopy length])
@@ -137,8 +135,8 @@
     }
     v9 = ;
     v10 = [MUPlaceFooterAtributionViewModel alloc];
-    v14[0] = nameCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = nameCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     v8 = [(MUPlaceFooterAtributionViewModel *)v10 initWithFormatString:v9 providerNames:v11 isInteractable:v7 != 0];
   }
 
@@ -146,8 +144,6 @@
   {
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -15,9 +15,9 @@
   identifierCopy = identifier;
   completionsCopy = completions;
   queryCopy = query;
-  v29.receiver = self;
-  v29.super_class = CompletionGroup;
-  v16 = [(SFResultSection *)&v29 init];
+  v31.receiver = self;
+  v31.super_class = CompletionGroup;
+  v16 = [(SFResultSection *)&v31 init];
   if (v16)
   {
     v17 = [identifierCopy copy];
@@ -42,16 +42,16 @@
 
     if (!sectionBundleIdentifier)
     {
-      v26 = WBS_LOG_CHANNEL_PREFIXParsec();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = WBS_LOG_CHANNEL_PREFIXParsec(v26, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [CompletionGroup initWithTitle:v26 groupIdentifier:? completions:? query:? maximumNumberOfCompletions:?];
+        [CompletionGroup initWithTitle:v28 groupIdentifier:? completions:? query:? maximumNumberOfCompletions:?];
       }
     }
 
     [(SFResultSection *)v16 setBundleIdentifier:sectionBundleIdentifier];
     [(CompletionGroup *)v16 setQuery:queryCopy];
-    v27 = v16;
+    v29 = v16;
   }
 
   return v16;
